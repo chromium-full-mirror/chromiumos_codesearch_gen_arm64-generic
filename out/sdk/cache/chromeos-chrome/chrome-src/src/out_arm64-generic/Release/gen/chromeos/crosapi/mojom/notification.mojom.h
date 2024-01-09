@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/notification.mojom-features.h"
 #include "chromeos/crosapi/mojom/notification.mojom-shared.h"
 #include "chromeos/crosapi/mojom/notification.mojom-forward.h"
 #include "chromeos/crosapi/mojom/bitmap.mojom.h"
@@ -84,17 +85,17 @@ class  NotifierId {
   NotifierId(
       NotifierType type,
       const std::string& id,
-      const absl::optional<::GURL>& url,
-      const absl::optional<::std::u16string>& title,
+      const std::optional<::GURL>& url,
+      const std::optional<::std::u16string>& title,
       const std::string& profile_id);
 
   NotifierId(
       NotifierType type,
       const std::string& id,
-      const absl::optional<::GURL>& url,
-      const absl::optional<::std::u16string>& title,
+      const std::optional<::GURL>& url,
+      const std::optional<::std::u16string>& title,
       const std::string& profile_id,
-      const absl::optional<std::string>& group_key);
+      const std::optional<std::string>& group_key);
 
 
   ~NotifierId();
@@ -176,13 +177,13 @@ class  NotifierId {
   
   std::string id;
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
   
-  absl::optional<::std::u16string> title;
+  std::optional<::std::u16string> title;
   
   std::string profile_id;
   
-  absl::optional<std::string> group_key;
+  std::optional<std::string> group_key;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -391,7 +392,7 @@ class  ButtonInfo {
 
   ButtonInfo(
       const ::std::u16string& title,
-      const absl::optional<::std::u16string>& placeholder);
+      const std::optional<::std::u16string>& placeholder);
 
 
   ~ButtonInfo();
@@ -471,7 +472,7 @@ class  ButtonInfo {
   
   ::std::u16string title;
   
-  absl::optional<::std::u16string> placeholder;
+  std::optional<::std::u16string> placeholder;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -538,7 +539,7 @@ class  Notification {
       const ::std::u16string& title,
       const ::std::u16string& message,
       const ::std::u16string& display_source,
-      const absl::optional<::GURL>& origin_url,
+      const std::optional<::GURL>& origin_url,
       ::crosapi::mojom::BitmapPtr deprecated_icon,
       int32_t priority,
       bool require_interaction,
@@ -561,7 +562,7 @@ class  Notification {
       const ::std::u16string& title,
       const ::std::u16string& message,
       const ::std::u16string& display_source,
-      const absl::optional<::GURL>& origin_url,
+      const std::optional<::GURL>& origin_url,
       ::crosapi::mojom::BitmapPtr deprecated_icon,
       int32_t priority,
       bool require_interaction,
@@ -587,7 +588,7 @@ class  Notification {
       const ::std::u16string& title,
       const ::std::u16string& message,
       const ::std::u16string& display_source,
-      const absl::optional<::GURL>& origin_url,
+      const std::optional<::GURL>& origin_url,
       ::crosapi::mojom::BitmapPtr deprecated_icon,
       int32_t priority,
       bool require_interaction,
@@ -615,7 +616,7 @@ class  Notification {
       const ::std::u16string& title,
       const ::std::u16string& message,
       const ::std::u16string& display_source,
-      const absl::optional<::GURL>& origin_url,
+      const std::optional<::GURL>& origin_url,
       ::crosapi::mojom::BitmapPtr deprecated_icon,
       int32_t priority,
       bool require_interaction,
@@ -636,7 +637,7 @@ class  Notification {
       const ::gfx::ImageSkia& badge,
       bool badge_needs_additional_masking_has_value,
       bool badge_needs_additional_masking,
-      absl::optional<::SkColor> accent_color);
+      std::optional<::SkColor> accent_color);
 
   Notification(
       NotificationType type,
@@ -644,7 +645,7 @@ class  Notification {
       const ::std::u16string& title,
       const ::std::u16string& message,
       const ::std::u16string& display_source,
-      const absl::optional<::GURL>& origin_url,
+      const std::optional<::GURL>& origin_url,
       ::crosapi::mojom::BitmapPtr deprecated_icon,
       int32_t priority,
       bool require_interaction,
@@ -665,7 +666,7 @@ class  Notification {
       const ::gfx::ImageSkia& badge,
       bool badge_needs_additional_masking_has_value,
       bool badge_needs_additional_masking,
-      absl::optional<::SkColor> accent_color,
+      std::optional<::SkColor> accent_color,
       NotifierIdPtr notifier_id);
 
   Notification(
@@ -674,7 +675,7 @@ class  Notification {
       const ::std::u16string& title,
       const ::std::u16string& message,
       const ::std::u16string& display_source,
-      const absl::optional<::GURL>& origin_url,
+      const std::optional<::GURL>& origin_url,
       ::crosapi::mojom::BitmapPtr deprecated_icon,
       int32_t priority,
       bool require_interaction,
@@ -695,9 +696,9 @@ class  Notification {
       const ::gfx::ImageSkia& badge,
       bool badge_needs_additional_masking_has_value,
       bool badge_needs_additional_masking,
-      absl::optional<::SkColor> accent_color,
+      std::optional<::SkColor> accent_color,
       NotifierIdPtr notifier_id,
-      const absl::optional<::base::FilePath>& image_path);
+      const std::optional<::base::FilePath>& image_path);
 
 Notification(const Notification&) = delete;
 Notification& operator=(const Notification&) = delete;
@@ -782,7 +783,7 @@ Notification& operator=(const Notification&) = delete;
   
   ::std::u16string display_source;
   
-  absl::optional<::GURL> origin_url;
+  std::optional<::GURL> origin_url;
   
   ::crosapi::mojom::BitmapPtr deprecated_icon;
   
@@ -824,11 +825,11 @@ Notification& operator=(const Notification&) = delete;
   
   bool badge_needs_additional_masking;
   
-  absl::optional<::SkColor> accent_color;
+  std::optional<::SkColor> accent_color;
   
   NotifierIdPtr notifier_id;
   
-  absl::optional<::base::FilePath> image_path;
+  std::optional<::base::FilePath> image_path;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

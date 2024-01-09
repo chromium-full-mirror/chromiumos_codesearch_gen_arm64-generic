@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import { assert, assertExists } from './assert.js';
 import { AsyncJobQueue } from './async_job_queue.js';
+import { expandPath } from './util.js';
 import { WaitableEvent } from './waitable_event.js';
 const SOUND_FILES = new Map([
     ['recordEnd', 'record_end.ogg'],
@@ -24,7 +25,7 @@ export function preloadSounds() {
     soundInfoMap = new Map();
     for (const [key, filename] of SOUND_FILES.entries()) {
         soundInfoMap.set(key, {
-            element: new Audio(`/sounds/${filename}`),
+            element: new Audio(expandPath(`/sounds/${filename}`)),
             queue: new AsyncJobQueue('keepLatest'),
         });
     }
@@ -57,9 +58,7 @@ export function play(key) {
         const audioStopped = new WaitableEvent();
         const events = ['ended', 'pause'];
         function onAudioStopped() {
-            // TODO(b/223338160): A temporary workaround to avoid shutter sound being
-            // recorded.
-            setTimeout(() => audioStopped.signal(), 200);
+            audioStopped.signal();
             for (const event of events) {
                 el.removeEventListener(event, onAudioStopped);
             }

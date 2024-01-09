@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUComputePipeline>::value,
     "GPUComputePipeline inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUComputePipeline::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUComputePipeline is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUComputePipeline.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePipeline* blink_receiver = V8GPUComputePipeline::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUComputePipeline* blink_receiver = V8GPUComputePipeline::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,9 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUComputePipeline.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePipeline* blink_receiver = V8GPUComputePipeline::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUComputePipeline* blink_receiver = V8GPUComputePipeline::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPUComputePipeline";
@@ -138,7 +133,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePipeline* blink_receiver = V8GPUComputePipeline::ToWrappableUnsafe(v8_receiver);
+GPUComputePipeline* blink_receiver = V8GPUComputePipeline::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

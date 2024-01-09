@@ -60,11 +60,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, OffscreenCanvas>::value,
     "OffscreenCanvas inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&OffscreenCanvas::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OffscreenCanvas is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8OffscreenCanvas::InstallInterfaceTemplateFuncType V8OffscreenCanvas::install_interface_template_func_ = nullptr;

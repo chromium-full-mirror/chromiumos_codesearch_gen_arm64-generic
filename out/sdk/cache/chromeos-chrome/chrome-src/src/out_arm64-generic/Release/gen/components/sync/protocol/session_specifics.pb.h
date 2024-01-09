@@ -1238,30 +1238,30 @@ class TabNavigation final :
     kRedirectTypeFieldNumber = 7,
     kBlockedStateFieldNumber = 18,
   };
-  // repeated .sync_pb.NavigationRedirect navigation_redirect = 23;
-  int navigation_redirect_size() const;
+  // repeated .sync_pb.NavigationRedirect navigation_redirect = 23 [deprecated = true];
+  PROTOBUF_DEPRECATED int navigation_redirect_size() const;
   private:
   int _internal_navigation_redirect_size() const;
   public:
-  void clear_navigation_redirect();
-  ::sync_pb::NavigationRedirect* mutable_navigation_redirect(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::NavigationRedirect >*
+  PROTOBUF_DEPRECATED void clear_navigation_redirect();
+  PROTOBUF_DEPRECATED ::sync_pb::NavigationRedirect* mutable_navigation_redirect(int index);
+  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::NavigationRedirect >*
       mutable_navigation_redirect();
   private:
   const ::sync_pb::NavigationRedirect& _internal_navigation_redirect(int index) const;
   ::sync_pb::NavigationRedirect* _internal_add_navigation_redirect();
   public:
-  const ::sync_pb::NavigationRedirect& navigation_redirect(int index) const;
-  ::sync_pb::NavigationRedirect* add_navigation_redirect();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::NavigationRedirect >&
+  PROTOBUF_DEPRECATED const ::sync_pb::NavigationRedirect& navigation_redirect(int index) const;
+  PROTOBUF_DEPRECATED ::sync_pb::NavigationRedirect* add_navigation_redirect();
+  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::NavigationRedirect >&
       navigation_redirect() const;
 
-  // repeated int64 ancestor_task_id = 28;
-  int ancestor_task_id_size() const;
+  // repeated int64 ancestor_task_id = 28 [deprecated = true];
+  PROTOBUF_DEPRECATED int ancestor_task_id_size() const;
   private:
   int _internal_ancestor_task_id_size() const;
   public:
-  void clear_ancestor_task_id();
+  PROTOBUF_DEPRECATED void clear_ancestor_task_id();
   private:
   int64_t _internal_ancestor_task_id(int index) const;
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
@@ -1270,12 +1270,12 @@ class TabNavigation final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
       _internal_mutable_ancestor_task_id();
   public:
-  int64_t ancestor_task_id(int index) const;
-  void set_ancestor_task_id(int index, int64_t value);
-  void add_ancestor_task_id(int64_t value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+  PROTOBUF_DEPRECATED int64_t ancestor_task_id(int index) const;
+  PROTOBUF_DEPRECATED void set_ancestor_task_id(int index, int64_t value);
+  PROTOBUF_DEPRECATED void add_ancestor_task_id(int64_t value);
+  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
       ancestor_task_id() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
       mutable_ancestor_task_id();
 
   // optional string virtual_url = 2;
@@ -1368,59 +1368,59 @@ class TabNavigation final :
   std::string* _internal_mutable_favicon_url();
   public:
 
-  // optional string last_navigation_redirect_url = 24;
-  bool has_last_navigation_redirect_url() const;
+  // optional string last_navigation_redirect_url = 24 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_last_navigation_redirect_url() const;
   private:
   bool _internal_has_last_navigation_redirect_url() const;
   public:
-  void clear_last_navigation_redirect_url();
-  const std::string& last_navigation_redirect_url() const;
+  PROTOBUF_DEPRECATED void clear_last_navigation_redirect_url();
+  PROTOBUF_DEPRECATED const std::string& last_navigation_redirect_url() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_last_navigation_redirect_url(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_last_navigation_redirect_url();
-  PROTOBUF_NODISCARD std::string* release_last_navigation_redirect_url();
-  void set_allocated_last_navigation_redirect_url(std::string* last_navigation_redirect_url);
+  PROTOBUF_DEPRECATED void set_last_navigation_redirect_url(ArgT0&& arg0, ArgT... args);
+  PROTOBUF_DEPRECATED std::string* mutable_last_navigation_redirect_url();
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_last_navigation_redirect_url();
+  PROTOBUF_DEPRECATED void set_allocated_last_navigation_redirect_url(std::string* last_navigation_redirect_url);
   private:
   const std::string& _internal_last_navigation_redirect_url() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_last_navigation_redirect_url(const std::string& value);
   std::string* _internal_mutable_last_navigation_redirect_url();
   public:
 
-  // optional string page_language = 30;
-  bool has_page_language() const;
+  // optional string page_language = 30 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_page_language() const;
   private:
   bool _internal_has_page_language() const;
   public:
-  void clear_page_language();
-  const std::string& page_language() const;
+  PROTOBUF_DEPRECATED void clear_page_language();
+  PROTOBUF_DEPRECATED const std::string& page_language() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_page_language(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_page_language();
-  PROTOBUF_NODISCARD std::string* release_page_language();
-  void set_allocated_page_language(std::string* page_language);
+  PROTOBUF_DEPRECATED void set_page_language(ArgT0&& arg0, ArgT... args);
+  PROTOBUF_DEPRECATED std::string* mutable_page_language();
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_page_language();
+  PROTOBUF_DEPRECATED void set_allocated_page_language(std::string* page_language);
   private:
   const std::string& _internal_page_language() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_page_language(const std::string& value);
   std::string* _internal_mutable_page_language();
   public:
 
-  // optional .sync_pb.ReplacedNavigation replaced_navigation = 29;
-  bool has_replaced_navigation() const;
+  // optional .sync_pb.ReplacedNavigation replaced_navigation = 29 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_replaced_navigation() const;
   private:
   bool _internal_has_replaced_navigation() const;
   public:
-  void clear_replaced_navigation();
-  const ::sync_pb::ReplacedNavigation& replaced_navigation() const;
-  PROTOBUF_NODISCARD ::sync_pb::ReplacedNavigation* release_replaced_navigation();
-  ::sync_pb::ReplacedNavigation* mutable_replaced_navigation();
-  void set_allocated_replaced_navigation(::sync_pb::ReplacedNavigation* replaced_navigation);
+  PROTOBUF_DEPRECATED void clear_replaced_navigation();
+  PROTOBUF_DEPRECATED const ::sync_pb::ReplacedNavigation& replaced_navigation() const;
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::sync_pb::ReplacedNavigation* release_replaced_navigation();
+  PROTOBUF_DEPRECATED ::sync_pb::ReplacedNavigation* mutable_replaced_navigation();
+  PROTOBUF_DEPRECATED void set_allocated_replaced_navigation(::sync_pb::ReplacedNavigation* replaced_navigation);
   private:
   const ::sync_pb::ReplacedNavigation& _internal_replaced_navigation() const;
   ::sync_pb::ReplacedNavigation* _internal_mutable_replaced_navigation();
   public:
-  void unsafe_arena_set_allocated_replaced_navigation(
+  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_replaced_navigation(
       ::sync_pb::ReplacedNavigation* replaced_navigation);
-  ::sync_pb::ReplacedNavigation* unsafe_arena_release_replaced_navigation();
+  PROTOBUF_DEPRECATED ::sync_pb::ReplacedNavigation* unsafe_arena_release_replaced_navigation();
 
   // optional .sync_pb.SyncEnums.PageTransition page_transition = 6 [default = LINK];
   bool has_page_transition() const;
@@ -1526,14 +1526,14 @@ class TabNavigation final :
   void _internal_set_navigation_chain_end(bool value);
   public:
 
-  // optional bool is_restored = 22;
-  bool has_is_restored() const;
+  // optional bool is_restored = 22 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_is_restored() const;
   private:
   bool _internal_has_is_restored() const;
   public:
-  void clear_is_restored();
-  bool is_restored() const;
-  void set_is_restored(bool value);
+  PROTOBUF_DEPRECATED void clear_is_restored();
+  PROTOBUF_DEPRECATED bool is_restored() const;
+  PROTOBUF_DEPRECATED void set_is_restored(bool value);
   private:
   bool _internal_is_restored() const;
   void _internal_set_is_restored(bool value);
@@ -1578,14 +1578,14 @@ class TabNavigation final :
   void _internal_set_obsolete_referrer_policy(int32_t value);
   public:
 
-  // optional int64 task_id = 27;
-  bool has_task_id() const;
+  // optional int64 task_id = 27 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_task_id() const;
   private:
   bool _internal_has_task_id() const;
   public:
-  void clear_task_id();
-  int64_t task_id() const;
-  void set_task_id(int64_t value);
+  PROTOBUF_DEPRECATED void clear_task_id();
+  PROTOBUF_DEPRECATED int64_t task_id() const;
+  PROTOBUF_DEPRECATED void set_task_id(int64_t value);
   private:
   int64_t _internal_task_id() const;
   void _internal_set_task_id(int64_t value);
@@ -1630,14 +1630,14 @@ class TabNavigation final :
   void _internal_set_redirect_type(::sync_pb::SyncEnums_PageTransitionRedirectType value);
   public:
 
-  // optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED];
-  bool has_blocked_state() const;
+  // optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED, deprecated = true];
+  PROTOBUF_DEPRECATED bool has_blocked_state() const;
   private:
   bool _internal_has_blocked_state() const;
   public:
-  void clear_blocked_state();
-  ::sync_pb::TabNavigation_BlockedState blocked_state() const;
-  void set_blocked_state(::sync_pb::TabNavigation_BlockedState value);
+  PROTOBUF_DEPRECATED void clear_blocked_state();
+  PROTOBUF_DEPRECATED ::sync_pb::TabNavigation_BlockedState blocked_state() const;
+  PROTOBUF_DEPRECATED void set_blocked_state(::sync_pb::TabNavigation_BlockedState value);
   private:
   ::sync_pb::TabNavigation_BlockedState _internal_blocked_state() const;
   void _internal_set_blocked_state(::sync_pb::TabNavigation_BlockedState value);
@@ -2398,35 +2398,6 @@ inline void SessionHeader::set_allocated_client_name(std::string* client_name) {
   // @@protoc_insertion_point(field_set_allocated:sync_pb.SessionHeader.client_name)
 }
 
-// optional .sync_pb.SyncEnums.DeviceType device_type = 4 [deprecated = true];
-inline bool SessionHeader::_internal_has_device_type() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool SessionHeader::has_device_type() const {
-  return _internal_has_device_type();
-}
-inline void SessionHeader::clear_device_type() {
-  device_type_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline ::sync_pb::SyncEnums_DeviceType SessionHeader::_internal_device_type() const {
-  return static_cast< ::sync_pb::SyncEnums_DeviceType >(device_type_);
-}
-inline ::sync_pb::SyncEnums_DeviceType SessionHeader::device_type() const {
-  // @@protoc_insertion_point(field_get:sync_pb.SessionHeader.device_type)
-  return _internal_device_type();
-}
-inline void SessionHeader::_internal_set_device_type(::sync_pb::SyncEnums_DeviceType value) {
-  assert(::sync_pb::SyncEnums_DeviceType_IsValid(value));
-  _has_bits_[0] |= 0x00000002u;
-  device_type_ = value;
-}
-inline void SessionHeader::set_device_type(::sync_pb::SyncEnums_DeviceType value) {
-  _internal_set_device_type(value);
-  // @@protoc_insertion_point(field_set:sync_pb.SessionHeader.device_type)
-}
-
 // optional .sync_pb.SyncEnums.DeviceFormFactor device_form_factor = 5;
 inline bool SessionHeader::_internal_has_device_form_factor() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
@@ -2454,6 +2425,35 @@ inline void SessionHeader::_internal_set_device_form_factor(::sync_pb::SyncEnums
 inline void SessionHeader::set_device_form_factor(::sync_pb::SyncEnums_DeviceFormFactor value) {
   _internal_set_device_form_factor(value);
   // @@protoc_insertion_point(field_set:sync_pb.SessionHeader.device_form_factor)
+}
+
+// optional .sync_pb.SyncEnums.DeviceType device_type = 4 [deprecated = true];
+inline bool SessionHeader::_internal_has_device_type() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool SessionHeader::has_device_type() const {
+  return _internal_has_device_type();
+}
+inline void SessionHeader::clear_device_type() {
+  device_type_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::sync_pb::SyncEnums_DeviceType SessionHeader::_internal_device_type() const {
+  return static_cast< ::sync_pb::SyncEnums_DeviceType >(device_type_);
+}
+inline ::sync_pb::SyncEnums_DeviceType SessionHeader::device_type() const {
+  // @@protoc_insertion_point(field_get:sync_pb.SessionHeader.device_type)
+  return _internal_device_type();
+}
+inline void SessionHeader::_internal_set_device_type(::sync_pb::SyncEnums_DeviceType value) {
+  assert(::sync_pb::SyncEnums_DeviceType_IsValid(value));
+  _has_bits_[0] |= 0x00000002u;
+  device_type_ = value;
+}
+inline void SessionHeader::set_device_type(::sync_pb::SyncEnums_DeviceType value) {
+  _internal_set_device_type(value);
+  // @@protoc_insertion_point(field_set:sync_pb.SessionHeader.device_type)
 }
 
 // -------------------------------------------------------------------
@@ -2844,6 +2844,63 @@ SessionTab::navigation() const {
   return navigation_;
 }
 
+// optional .sync_pb.SyncEnums.BrowserType browser_type = 13;
+inline bool SessionTab::_internal_has_browser_type() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool SessionTab::has_browser_type() const {
+  return _internal_has_browser_type();
+}
+inline void SessionTab::clear_browser_type() {
+  browser_type_ = 0;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline ::sync_pb::SyncEnums_BrowserType SessionTab::_internal_browser_type() const {
+  return static_cast< ::sync_pb::SyncEnums_BrowserType >(browser_type_);
+}
+inline ::sync_pb::SyncEnums_BrowserType SessionTab::browser_type() const {
+  // @@protoc_insertion_point(field_get:sync_pb.SessionTab.browser_type)
+  return _internal_browser_type();
+}
+inline void SessionTab::_internal_set_browser_type(::sync_pb::SyncEnums_BrowserType value) {
+  assert(::sync_pb::SyncEnums_BrowserType_IsValid(value));
+  _has_bits_[0] |= 0x00000040u;
+  browser_type_ = value;
+}
+inline void SessionTab::set_browser_type(::sync_pb::SyncEnums_BrowserType value) {
+  _internal_set_browser_type(value);
+  // @@protoc_insertion_point(field_set:sync_pb.SessionTab.browser_type)
+}
+
+// optional int64 last_active_time_unix_epoch_millis = 14;
+inline bool SessionTab::_internal_has_last_active_time_unix_epoch_millis() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool SessionTab::has_last_active_time_unix_epoch_millis() const {
+  return _internal_has_last_active_time_unix_epoch_millis();
+}
+inline void SessionTab::clear_last_active_time_unix_epoch_millis() {
+  last_active_time_unix_epoch_millis_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline int64_t SessionTab::_internal_last_active_time_unix_epoch_millis() const {
+  return last_active_time_unix_epoch_millis_;
+}
+inline int64_t SessionTab::last_active_time_unix_epoch_millis() const {
+  // @@protoc_insertion_point(field_get:sync_pb.SessionTab.last_active_time_unix_epoch_millis)
+  return _internal_last_active_time_unix_epoch_millis();
+}
+inline void SessionTab::_internal_set_last_active_time_unix_epoch_millis(int64_t value) {
+  _has_bits_[0] |= 0x00000020u;
+  last_active_time_unix_epoch_millis_ = value;
+}
+inline void SessionTab::set_last_active_time_unix_epoch_millis(int64_t value) {
+  _internal_set_last_active_time_unix_epoch_millis(value);
+  // @@protoc_insertion_point(field_set:sync_pb.SessionTab.last_active_time_unix_epoch_millis)
+}
+
 // optional bytes favicon = 8 [deprecated = true];
 inline bool SessionTab::_internal_has_favicon() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
@@ -3054,63 +3111,6 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
 SessionTab::mutable_variation_id() {
   // @@protoc_insertion_point(field_mutable_list:sync_pb.SessionTab.variation_id)
   return _internal_mutable_variation_id();
-}
-
-// optional .sync_pb.SyncEnums.BrowserType browser_type = 13;
-inline bool SessionTab::_internal_has_browser_type() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
-  return value;
-}
-inline bool SessionTab::has_browser_type() const {
-  return _internal_has_browser_type();
-}
-inline void SessionTab::clear_browser_type() {
-  browser_type_ = 0;
-  _has_bits_[0] &= ~0x00000040u;
-}
-inline ::sync_pb::SyncEnums_BrowserType SessionTab::_internal_browser_type() const {
-  return static_cast< ::sync_pb::SyncEnums_BrowserType >(browser_type_);
-}
-inline ::sync_pb::SyncEnums_BrowserType SessionTab::browser_type() const {
-  // @@protoc_insertion_point(field_get:sync_pb.SessionTab.browser_type)
-  return _internal_browser_type();
-}
-inline void SessionTab::_internal_set_browser_type(::sync_pb::SyncEnums_BrowserType value) {
-  assert(::sync_pb::SyncEnums_BrowserType_IsValid(value));
-  _has_bits_[0] |= 0x00000040u;
-  browser_type_ = value;
-}
-inline void SessionTab::set_browser_type(::sync_pb::SyncEnums_BrowserType value) {
-  _internal_set_browser_type(value);
-  // @@protoc_insertion_point(field_set:sync_pb.SessionTab.browser_type)
-}
-
-// optional int64 last_active_time_unix_epoch_millis = 14;
-inline bool SessionTab::_internal_has_last_active_time_unix_epoch_millis() const {
-  bool value = (_has_bits_[0] & 0x00000020u) != 0;
-  return value;
-}
-inline bool SessionTab::has_last_active_time_unix_epoch_millis() const {
-  return _internal_has_last_active_time_unix_epoch_millis();
-}
-inline void SessionTab::clear_last_active_time_unix_epoch_millis() {
-  last_active_time_unix_epoch_millis_ = int64_t{0};
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline int64_t SessionTab::_internal_last_active_time_unix_epoch_millis() const {
-  return last_active_time_unix_epoch_millis_;
-}
-inline int64_t SessionTab::last_active_time_unix_epoch_millis() const {
-  // @@protoc_insertion_point(field_get:sync_pb.SessionTab.last_active_time_unix_epoch_millis)
-  return _internal_last_active_time_unix_epoch_millis();
-}
-inline void SessionTab::_internal_set_last_active_time_unix_epoch_millis(int64_t value) {
-  _has_bits_[0] |= 0x00000020u;
-  last_active_time_unix_epoch_millis_ = value;
-}
-inline void SessionTab::set_last_active_time_unix_epoch_millis(int64_t value) {
-  _internal_set_last_active_time_unix_epoch_millis(value);
-  // @@protoc_insertion_point(field_set:sync_pb.SessionTab.last_active_time_unix_epoch_millis)
 }
 
 // -------------------------------------------------------------------
@@ -3519,62 +3519,6 @@ inline void TabNavigation::set_navigation_home_page(bool value) {
   // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.navigation_home_page)
 }
 
-// optional bool navigation_chain_start = 13 [deprecated = true];
-inline bool TabNavigation::_internal_has_navigation_chain_start() const {
-  bool value = (_has_bits_[0] & 0x00004000u) != 0;
-  return value;
-}
-inline bool TabNavigation::has_navigation_chain_start() const {
-  return _internal_has_navigation_chain_start();
-}
-inline void TabNavigation::clear_navigation_chain_start() {
-  navigation_chain_start_ = false;
-  _has_bits_[0] &= ~0x00004000u;
-}
-inline bool TabNavigation::_internal_navigation_chain_start() const {
-  return navigation_chain_start_;
-}
-inline bool TabNavigation::navigation_chain_start() const {
-  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.navigation_chain_start)
-  return _internal_navigation_chain_start();
-}
-inline void TabNavigation::_internal_set_navigation_chain_start(bool value) {
-  _has_bits_[0] |= 0x00004000u;
-  navigation_chain_start_ = value;
-}
-inline void TabNavigation::set_navigation_chain_start(bool value) {
-  _internal_set_navigation_chain_start(value);
-  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.navigation_chain_start)
-}
-
-// optional bool navigation_chain_end = 14 [deprecated = true];
-inline bool TabNavigation::_internal_has_navigation_chain_end() const {
-  bool value = (_has_bits_[0] & 0x00008000u) != 0;
-  return value;
-}
-inline bool TabNavigation::has_navigation_chain_end() const {
-  return _internal_has_navigation_chain_end();
-}
-inline void TabNavigation::clear_navigation_chain_end() {
-  navigation_chain_end_ = false;
-  _has_bits_[0] &= ~0x00008000u;
-}
-inline bool TabNavigation::_internal_navigation_chain_end() const {
-  return navigation_chain_end_;
-}
-inline bool TabNavigation::navigation_chain_end() const {
-  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.navigation_chain_end)
-  return _internal_navigation_chain_end();
-}
-inline void TabNavigation::_internal_set_navigation_chain_end(bool value) {
-  _has_bits_[0] |= 0x00008000u;
-  navigation_chain_end_ = value;
-}
-inline void TabNavigation::set_navigation_chain_end(bool value) {
-  _internal_set_navigation_chain_end(value);
-  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.navigation_chain_end)
-}
-
 // optional int64 global_id = 15;
 inline bool TabNavigation::_internal_has_global_id() const {
   bool value = (_has_bits_[0] & 0x00020000u) != 0;
@@ -3601,74 +3545,6 @@ inline void TabNavigation::_internal_set_global_id(int64_t value) {
 inline void TabNavigation::set_global_id(int64_t value) {
   _internal_set_global_id(value);
   // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.global_id)
-}
-
-// optional string search_terms = 16 [deprecated = true];
-inline bool TabNavigation::_internal_has_search_terms() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
-  return value;
-}
-inline bool TabNavigation::has_search_terms() const {
-  return _internal_has_search_terms();
-}
-inline void TabNavigation::clear_search_terms() {
-  search_terms_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline const std::string& TabNavigation::search_terms() const {
-  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.search_terms)
-  return _internal_search_terms();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void TabNavigation::set_search_terms(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000008u;
- search_terms_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.search_terms)
-}
-inline std::string* TabNavigation::mutable_search_terms() {
-  std::string* _s = _internal_mutable_search_terms();
-  // @@protoc_insertion_point(field_mutable:sync_pb.TabNavigation.search_terms)
-  return _s;
-}
-inline const std::string& TabNavigation::_internal_search_terms() const {
-  return search_terms_.Get();
-}
-inline void TabNavigation::_internal_set_search_terms(const std::string& value) {
-  _has_bits_[0] |= 0x00000008u;
-  search_terms_.Set(value, GetArenaForAllocation());
-}
-inline std::string* TabNavigation::_internal_mutable_search_terms() {
-  _has_bits_[0] |= 0x00000008u;
-  return search_terms_.Mutable(GetArenaForAllocation());
-}
-inline std::string* TabNavigation::release_search_terms() {
-  // @@protoc_insertion_point(field_release:sync_pb.TabNavigation.search_terms)
-  if (!_internal_has_search_terms()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000008u;
-  auto* p = search_terms_.Release();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (search_terms_.IsDefault()) {
-    search_terms_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  return p;
-}
-inline void TabNavigation::set_allocated_search_terms(std::string* search_terms) {
-  if (search_terms != nullptr) {
-    _has_bits_[0] |= 0x00000008u;
-  } else {
-    _has_bits_[0] &= ~0x00000008u;
-  }
-  search_terms_.SetAllocated(search_terms, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (search_terms_.IsDefault()) {
-    search_terms_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:sync_pb.TabNavigation.search_terms)
 }
 
 // optional string favicon_url = 17;
@@ -3739,35 +3615,6 @@ inline void TabNavigation::set_allocated_favicon_url(std::string* favicon_url) {
   // @@protoc_insertion_point(field_set_allocated:sync_pb.TabNavigation.favicon_url)
 }
 
-// optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED];
-inline bool TabNavigation::_internal_has_blocked_state() const {
-  bool value = (_has_bits_[0] & 0x01000000u) != 0;
-  return value;
-}
-inline bool TabNavigation::has_blocked_state() const {
-  return _internal_has_blocked_state();
-}
-inline void TabNavigation::clear_blocked_state() {
-  blocked_state_ = 1;
-  _has_bits_[0] &= ~0x01000000u;
-}
-inline ::sync_pb::TabNavigation_BlockedState TabNavigation::_internal_blocked_state() const {
-  return static_cast< ::sync_pb::TabNavigation_BlockedState >(blocked_state_);
-}
-inline ::sync_pb::TabNavigation_BlockedState TabNavigation::blocked_state() const {
-  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.blocked_state)
-  return _internal_blocked_state();
-}
-inline void TabNavigation::_internal_set_blocked_state(::sync_pb::TabNavigation_BlockedState value) {
-  assert(::sync_pb::TabNavigation_BlockedState_IsValid(value));
-  _has_bits_[0] |= 0x01000000u;
-  blocked_state_ = value;
-}
-inline void TabNavigation::set_blocked_state(::sync_pb::TabNavigation_BlockedState value) {
-  _internal_set_blocked_state(value);
-  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.blocked_state)
-}
-
 // optional int32 http_status_code = 20;
 inline bool TabNavigation::_internal_has_http_status_code() const {
   bool value = (_has_bits_[0] & 0x00040000u) != 0;
@@ -3794,6 +3641,216 @@ inline void TabNavigation::_internal_set_http_status_code(int32_t value) {
 inline void TabNavigation::set_http_status_code(int32_t value) {
   _internal_set_http_status_code(value);
   // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.http_status_code)
+}
+
+// optional int32 correct_referrer_policy = 25 [default = 1];
+inline bool TabNavigation::_internal_has_correct_referrer_policy() const {
+  bool value = (_has_bits_[0] & 0x00400000u) != 0;
+  return value;
+}
+inline bool TabNavigation::has_correct_referrer_policy() const {
+  return _internal_has_correct_referrer_policy();
+}
+inline void TabNavigation::clear_correct_referrer_policy() {
+  correct_referrer_policy_ = 1;
+  _has_bits_[0] &= ~0x00400000u;
+}
+inline int32_t TabNavigation::_internal_correct_referrer_policy() const {
+  return correct_referrer_policy_;
+}
+inline int32_t TabNavigation::correct_referrer_policy() const {
+  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.correct_referrer_policy)
+  return _internal_correct_referrer_policy();
+}
+inline void TabNavigation::_internal_set_correct_referrer_policy(int32_t value) {
+  _has_bits_[0] |= 0x00400000u;
+  correct_referrer_policy_ = value;
+}
+inline void TabNavigation::set_correct_referrer_policy(int32_t value) {
+  _internal_set_correct_referrer_policy(value);
+  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.correct_referrer_policy)
+}
+
+// optional .sync_pb.SyncEnums.PasswordState password_state = 26;
+inline bool TabNavigation::_internal_has_password_state() const {
+  bool value = (_has_bits_[0] & 0x00200000u) != 0;
+  return value;
+}
+inline bool TabNavigation::has_password_state() const {
+  return _internal_has_password_state();
+}
+inline void TabNavigation::clear_password_state() {
+  password_state_ = 0;
+  _has_bits_[0] &= ~0x00200000u;
+}
+inline ::sync_pb::SyncEnums_PasswordState TabNavigation::_internal_password_state() const {
+  return static_cast< ::sync_pb::SyncEnums_PasswordState >(password_state_);
+}
+inline ::sync_pb::SyncEnums_PasswordState TabNavigation::password_state() const {
+  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.password_state)
+  return _internal_password_state();
+}
+inline void TabNavigation::_internal_set_password_state(::sync_pb::SyncEnums_PasswordState value) {
+  assert(::sync_pb::SyncEnums_PasswordState_IsValid(value));
+  _has_bits_[0] |= 0x00200000u;
+  password_state_ = value;
+}
+inline void TabNavigation::set_password_state(::sync_pb::SyncEnums_PasswordState value) {
+  _internal_set_password_state(value);
+  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.password_state)
+}
+
+// optional bool navigation_chain_start = 13 [deprecated = true];
+inline bool TabNavigation::_internal_has_navigation_chain_start() const {
+  bool value = (_has_bits_[0] & 0x00004000u) != 0;
+  return value;
+}
+inline bool TabNavigation::has_navigation_chain_start() const {
+  return _internal_has_navigation_chain_start();
+}
+inline void TabNavigation::clear_navigation_chain_start() {
+  navigation_chain_start_ = false;
+  _has_bits_[0] &= ~0x00004000u;
+}
+inline bool TabNavigation::_internal_navigation_chain_start() const {
+  return navigation_chain_start_;
+}
+inline bool TabNavigation::navigation_chain_start() const {
+  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.navigation_chain_start)
+  return _internal_navigation_chain_start();
+}
+inline void TabNavigation::_internal_set_navigation_chain_start(bool value) {
+  _has_bits_[0] |= 0x00004000u;
+  navigation_chain_start_ = value;
+}
+inline void TabNavigation::set_navigation_chain_start(bool value) {
+  _internal_set_navigation_chain_start(value);
+  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.navigation_chain_start)
+}
+
+// optional bool navigation_chain_end = 14 [deprecated = true];
+inline bool TabNavigation::_internal_has_navigation_chain_end() const {
+  bool value = (_has_bits_[0] & 0x00008000u) != 0;
+  return value;
+}
+inline bool TabNavigation::has_navigation_chain_end() const {
+  return _internal_has_navigation_chain_end();
+}
+inline void TabNavigation::clear_navigation_chain_end() {
+  navigation_chain_end_ = false;
+  _has_bits_[0] &= ~0x00008000u;
+}
+inline bool TabNavigation::_internal_navigation_chain_end() const {
+  return navigation_chain_end_;
+}
+inline bool TabNavigation::navigation_chain_end() const {
+  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.navigation_chain_end)
+  return _internal_navigation_chain_end();
+}
+inline void TabNavigation::_internal_set_navigation_chain_end(bool value) {
+  _has_bits_[0] |= 0x00008000u;
+  navigation_chain_end_ = value;
+}
+inline void TabNavigation::set_navigation_chain_end(bool value) {
+  _internal_set_navigation_chain_end(value);
+  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.navigation_chain_end)
+}
+
+// optional string search_terms = 16 [deprecated = true];
+inline bool TabNavigation::_internal_has_search_terms() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool TabNavigation::has_search_terms() const {
+  return _internal_has_search_terms();
+}
+inline void TabNavigation::clear_search_terms() {
+  search_terms_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& TabNavigation::search_terms() const {
+  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.search_terms)
+  return _internal_search_terms();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TabNavigation::set_search_terms(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000008u;
+ search_terms_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.search_terms)
+}
+inline std::string* TabNavigation::mutable_search_terms() {
+  std::string* _s = _internal_mutable_search_terms();
+  // @@protoc_insertion_point(field_mutable:sync_pb.TabNavigation.search_terms)
+  return _s;
+}
+inline const std::string& TabNavigation::_internal_search_terms() const {
+  return search_terms_.Get();
+}
+inline void TabNavigation::_internal_set_search_terms(const std::string& value) {
+  _has_bits_[0] |= 0x00000008u;
+  search_terms_.Set(value, GetArenaForAllocation());
+}
+inline std::string* TabNavigation::_internal_mutable_search_terms() {
+  _has_bits_[0] |= 0x00000008u;
+  return search_terms_.Mutable(GetArenaForAllocation());
+}
+inline std::string* TabNavigation::release_search_terms() {
+  // @@protoc_insertion_point(field_release:sync_pb.TabNavigation.search_terms)
+  if (!_internal_has_search_terms()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000008u;
+  auto* p = search_terms_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (search_terms_.IsDefault()) {
+    search_terms_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void TabNavigation::set_allocated_search_terms(std::string* search_terms) {
+  if (search_terms != nullptr) {
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  search_terms_.SetAllocated(search_terms, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (search_terms_.IsDefault()) {
+    search_terms_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.TabNavigation.search_terms)
+}
+
+// optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED, deprecated = true];
+inline bool TabNavigation::_internal_has_blocked_state() const {
+  bool value = (_has_bits_[0] & 0x01000000u) != 0;
+  return value;
+}
+inline bool TabNavigation::has_blocked_state() const {
+  return _internal_has_blocked_state();
+}
+inline void TabNavigation::clear_blocked_state() {
+  blocked_state_ = 1;
+  _has_bits_[0] &= ~0x01000000u;
+}
+inline ::sync_pb::TabNavigation_BlockedState TabNavigation::_internal_blocked_state() const {
+  return static_cast< ::sync_pb::TabNavigation_BlockedState >(blocked_state_);
+}
+inline ::sync_pb::TabNavigation_BlockedState TabNavigation::blocked_state() const {
+  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.blocked_state)
+  return _internal_blocked_state();
+}
+inline void TabNavigation::_internal_set_blocked_state(::sync_pb::TabNavigation_BlockedState value) {
+  assert(::sync_pb::TabNavigation_BlockedState_IsValid(value));
+  _has_bits_[0] |= 0x01000000u;
+  blocked_state_ = value;
+}
+inline void TabNavigation::set_blocked_state(::sync_pb::TabNavigation_BlockedState value) {
+  _internal_set_blocked_state(value);
+  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.blocked_state)
 }
 
 // optional int32 obsolete_referrer_policy = 21 [deprecated = true];
@@ -3824,7 +3881,7 @@ inline void TabNavigation::set_obsolete_referrer_policy(int32_t value) {
   // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.obsolete_referrer_policy)
 }
 
-// optional bool is_restored = 22;
+// optional bool is_restored = 22 [deprecated = true];
 inline bool TabNavigation::_internal_has_is_restored() const {
   bool value = (_has_bits_[0] & 0x00010000u) != 0;
   return value;
@@ -3852,7 +3909,7 @@ inline void TabNavigation::set_is_restored(bool value) {
   // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.is_restored)
 }
 
-// repeated .sync_pb.NavigationRedirect navigation_redirect = 23;
+// repeated .sync_pb.NavigationRedirect navigation_redirect = 23 [deprecated = true];
 inline int TabNavigation::_internal_navigation_redirect_size() const {
   return navigation_redirect_.size();
 }
@@ -3892,7 +3949,7 @@ TabNavigation::navigation_redirect() const {
   return navigation_redirect_;
 }
 
-// optional string last_navigation_redirect_url = 24;
+// optional string last_navigation_redirect_url = 24 [deprecated = true];
 inline bool TabNavigation::_internal_has_last_navigation_redirect_url() const {
   bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
@@ -3960,64 +4017,7 @@ inline void TabNavigation::set_allocated_last_navigation_redirect_url(std::strin
   // @@protoc_insertion_point(field_set_allocated:sync_pb.TabNavigation.last_navigation_redirect_url)
 }
 
-// optional int32 correct_referrer_policy = 25 [default = 1];
-inline bool TabNavigation::_internal_has_correct_referrer_policy() const {
-  bool value = (_has_bits_[0] & 0x00400000u) != 0;
-  return value;
-}
-inline bool TabNavigation::has_correct_referrer_policy() const {
-  return _internal_has_correct_referrer_policy();
-}
-inline void TabNavigation::clear_correct_referrer_policy() {
-  correct_referrer_policy_ = 1;
-  _has_bits_[0] &= ~0x00400000u;
-}
-inline int32_t TabNavigation::_internal_correct_referrer_policy() const {
-  return correct_referrer_policy_;
-}
-inline int32_t TabNavigation::correct_referrer_policy() const {
-  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.correct_referrer_policy)
-  return _internal_correct_referrer_policy();
-}
-inline void TabNavigation::_internal_set_correct_referrer_policy(int32_t value) {
-  _has_bits_[0] |= 0x00400000u;
-  correct_referrer_policy_ = value;
-}
-inline void TabNavigation::set_correct_referrer_policy(int32_t value) {
-  _internal_set_correct_referrer_policy(value);
-  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.correct_referrer_policy)
-}
-
-// optional .sync_pb.SyncEnums.PasswordState password_state = 26;
-inline bool TabNavigation::_internal_has_password_state() const {
-  bool value = (_has_bits_[0] & 0x00200000u) != 0;
-  return value;
-}
-inline bool TabNavigation::has_password_state() const {
-  return _internal_has_password_state();
-}
-inline void TabNavigation::clear_password_state() {
-  password_state_ = 0;
-  _has_bits_[0] &= ~0x00200000u;
-}
-inline ::sync_pb::SyncEnums_PasswordState TabNavigation::_internal_password_state() const {
-  return static_cast< ::sync_pb::SyncEnums_PasswordState >(password_state_);
-}
-inline ::sync_pb::SyncEnums_PasswordState TabNavigation::password_state() const {
-  // @@protoc_insertion_point(field_get:sync_pb.TabNavigation.password_state)
-  return _internal_password_state();
-}
-inline void TabNavigation::_internal_set_password_state(::sync_pb::SyncEnums_PasswordState value) {
-  assert(::sync_pb::SyncEnums_PasswordState_IsValid(value));
-  _has_bits_[0] |= 0x00200000u;
-  password_state_ = value;
-}
-inline void TabNavigation::set_password_state(::sync_pb::SyncEnums_PasswordState value) {
-  _internal_set_password_state(value);
-  // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.password_state)
-}
-
-// optional int64 task_id = 27;
+// optional int64 task_id = 27 [deprecated = true];
 inline bool TabNavigation::_internal_has_task_id() const {
   bool value = (_has_bits_[0] & 0x00100000u) != 0;
   return value;
@@ -4045,7 +4045,7 @@ inline void TabNavigation::set_task_id(int64_t value) {
   // @@protoc_insertion_point(field_set:sync_pb.TabNavigation.task_id)
 }
 
-// repeated int64 ancestor_task_id = 28;
+// repeated int64 ancestor_task_id = 28 [deprecated = true];
 inline int TabNavigation::_internal_ancestor_task_id_size() const {
   return ancestor_task_id_.size();
 }
@@ -4092,7 +4092,7 @@ TabNavigation::mutable_ancestor_task_id() {
   return _internal_mutable_ancestor_task_id();
 }
 
-// optional .sync_pb.ReplacedNavigation replaced_navigation = 29;
+// optional .sync_pb.ReplacedNavigation replaced_navigation = 29 [deprecated = true];
 inline bool TabNavigation::_internal_has_replaced_navigation() const {
   bool value = (_has_bits_[0] & 0x00000080u) != 0;
   PROTOBUF_ASSUME(!value || replaced_navigation_ != nullptr);
@@ -4182,7 +4182,7 @@ inline void TabNavigation::set_allocated_replaced_navigation(::sync_pb::Replaced
   // @@protoc_insertion_point(field_set_allocated:sync_pb.TabNavigation.replaced_navigation)
 }
 
-// optional string page_language = 30;
+// optional string page_language = 30 [deprecated = true];
 inline bool TabNavigation::_internal_has_page_language() const {
   bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;

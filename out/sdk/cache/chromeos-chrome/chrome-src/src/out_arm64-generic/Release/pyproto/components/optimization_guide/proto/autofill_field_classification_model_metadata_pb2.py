@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nVcomponents/optimization_guide/proto/autofill_field_classification_model_metadata.proto\x12\x18optimization_guide.proto\"T\n(AutofillFieldClassificationModelMetadata\x12\x13\n\x0binput_token\x18\x01 \x03(\t\x12\x13\n\x0boutput_type\x18\x02 \x03(\x07\x42^\n0org.chromium.components.optimization_guide.protoB(AutofillFieldClassificationModelMetadataH\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nVcomponents/optimization_guide/proto/autofill_field_classification_model_metadata.proto\x12\x18optimization_guide.proto\"\x90\x01\n(AutofillFieldClassificationModelMetadata\x12\x13\n\x0binput_token\x18\x01 \x03(\t\x12\x13\n\x0boutput_type\x18\x02 \x03(\x07\x12!\n\x14\x63onfidence_threshold\x18\x03 \x01(\x02H\x00\x88\x01\x01\x42\x17\n\x15_confidence_thresholdB^\n0org.chromium.components.optimization_guide.protoB(AutofillFieldClassificationModelMetadataH\x03\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'components.optimization_guide.proto.autofill_field_classification_model_metadata_pb2', globals())
@@ -21,6 +21,6 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n0org.chromium.components.optimization_guide.protoB(AutofillFieldClassificationModelMetadataH\003'
-  _AUTOFILLFIELDCLASSIFICATIONMODELMETADATA._serialized_start=116
-  _AUTOFILLFIELDCLASSIFICATIONMODELMETADATA._serialized_end=200
+  _AUTOFILLFIELDCLASSIFICATIONMODELMETADATA._serialized_start=117
+  _AUTOFILLFIELDCLASSIFICATIONMODELMETADATA._serialized_end=261
 # @@protoc_insertion_point(module_scope)

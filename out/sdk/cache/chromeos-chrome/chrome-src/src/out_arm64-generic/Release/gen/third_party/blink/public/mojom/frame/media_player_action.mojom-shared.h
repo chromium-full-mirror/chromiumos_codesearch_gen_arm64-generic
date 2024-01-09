@@ -62,13 +62,15 @@ enum class MediaPlayerActionType : int32_t {
   
   kControls = 1,
   
-  kCopyVideoFrame = 2,
+  kSaveVideoFrameAs = 2,
   
-  kPictureInPicture = 3,
+  kCopyVideoFrame = 3,
   
-  kDefaultActionType = 3,
+  kPictureInPicture = 4,
+  
+  kDefaultActionType = 4,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 4,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, MediaPlayerActionType value);

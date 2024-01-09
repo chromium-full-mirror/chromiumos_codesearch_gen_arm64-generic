@@ -9,6 +9,7 @@
 #include "search_engine_choice_resources.h"
 
 const webui::ResourcePath kSearchEngineChoiceResources[] = {
+  {"images/arrow_downward.svg", IDR_SEARCH_ENGINE_CHOICE_IMAGES_ARROW_DOWNWARD_SVG},
   {"search_engine_choice.html", IDR_SEARCH_ENGINE_CHOICE_SEARCH_ENGINE_CHOICE_HTML},
   {"app.js", IDR_SEARCH_ENGINE_CHOICE_APP_JS},
   {"browser_proxy.js", IDR_SEARCH_ENGINE_CHOICE_BROWSER_PROXY_JS},

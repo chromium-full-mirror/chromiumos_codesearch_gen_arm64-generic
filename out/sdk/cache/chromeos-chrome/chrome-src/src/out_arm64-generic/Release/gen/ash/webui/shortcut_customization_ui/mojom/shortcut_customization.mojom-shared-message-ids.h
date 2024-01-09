@@ -33,6 +33,8 @@ constexpr uint32_t kAcceleratorConfigurationProvider_RestoreDefault_Name = 13;
 constexpr uint32_t kAcceleratorConfigurationProvider_RestoreAllDefaults_Name = 14;
 constexpr uint32_t kAcceleratorConfigurationProvider_RecordUserAction_Name = 15;
 constexpr uint32_t kAcceleratorConfigurationProvider_RecordMainCategoryNavigation_Name = 16;
+constexpr uint32_t kAcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Name = 17;
+constexpr uint32_t kAcceleratorConfigurationProvider_RecordAddOrEditSubactions_Name = 18;
 
 }  // namespace internal
 

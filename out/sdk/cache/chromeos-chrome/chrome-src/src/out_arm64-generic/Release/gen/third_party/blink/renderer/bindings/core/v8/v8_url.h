@@ -38,9 +38,6 @@ static void InstallInterfaceTemplate(v8::Isolate* isolate, const DOMWrapperWorld
 static void InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   return install_unconditional_props_func_(isolate, world, instance_template, prototype_template, interface_template);
 }
-static void InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
-  return install_context_independent_props_func_(isolate, world, instance_template, prototype_template, interface_template);
-}
 static void InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
   return install_context_dependent_props_func_(context, world, instance_object, prototype_object, interface_object, interface_template, feature_selector);
 }
@@ -53,7 +50,6 @@ static const WrapperTypeInfo wrapper_type_info_;
 // Cross-component trampolines
 static InstallInterfaceTemplateFuncType install_interface_template_func_;
 static InstallUnconditionalPropertiesFuncType install_unconditional_props_func_;
-static InstallContextIndependentPropertiesFuncType install_context_independent_props_func_;
 static InstallContextDependentPropertiesFuncType install_context_dependent_props_func_;
 
 

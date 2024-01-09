@@ -8,6 +8,7 @@
 #define CONTENT_PUBLIC_COMMON_ALTERNATIVE_ERROR_PAGE_OVERRIDE_INFO_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

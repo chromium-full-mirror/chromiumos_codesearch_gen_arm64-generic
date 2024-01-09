@@ -177,13 +177,15 @@ bool WebApk_UpdateReason_IsValid(int value) {
     case 17:
     case 18:
     case 19:
+    case 20:
+    case 21:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> WebApk_UpdateReason_strings[18] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> WebApk_UpdateReason_strings[20] = {};
 
 static const char WebApk_UpdateReason_names[] =
   "BACKGROUND_COLOR_DIFFERS"
@@ -195,6 +197,8 @@ static const char WebApk_UpdateReason_names[] =
   "NONE"
   "OLD_SHELL_APK"
   "ORIENTATION_DIFFERS"
+  "PRIMARY_ICON_CHANGE_BELOW_THRESHOLD"
+  "PRIMARY_ICON_CHANGE_SHELL_UPDATE"
   "PRIMARY_ICON_HASH_DIFFERS"
   "PRIMARY_ICON_MASKABLE_DIFFERS"
   "SCOPE_DIFFERS"
@@ -215,36 +219,40 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry WebApk_UpdateReason_en
   { {WebApk_UpdateReason_names + 127, 4}, 1 },
   { {WebApk_UpdateReason_names + 131, 13}, 2 },
   { {WebApk_UpdateReason_names + 144, 19}, 11 },
-  { {WebApk_UpdateReason_names + 163, 25}, 3 },
-  { {WebApk_UpdateReason_names + 188, 29}, 15 },
-  { {WebApk_UpdateReason_names + 217, 13}, 5 },
-  { {WebApk_UpdateReason_names + 230, 16}, 16 },
-  { {WebApk_UpdateReason_names + 246, 18}, 7 },
-  { {WebApk_UpdateReason_names + 264, 24}, 17 },
-  { {WebApk_UpdateReason_names + 288, 17}, 6 },
-  { {WebApk_UpdateReason_names + 305, 19}, 10 },
-  { {WebApk_UpdateReason_names + 324, 24}, 13 },
+  { {WebApk_UpdateReason_names + 163, 35}, 20 },
+  { {WebApk_UpdateReason_names + 198, 32}, 21 },
+  { {WebApk_UpdateReason_names + 230, 25}, 3 },
+  { {WebApk_UpdateReason_names + 255, 29}, 15 },
+  { {WebApk_UpdateReason_names + 284, 13}, 5 },
+  { {WebApk_UpdateReason_names + 297, 16}, 16 },
+  { {WebApk_UpdateReason_names + 313, 18}, 7 },
+  { {WebApk_UpdateReason_names + 331, 24}, 17 },
+  { {WebApk_UpdateReason_names + 355, 17}, 6 },
+  { {WebApk_UpdateReason_names + 372, 19}, 10 },
+  { {WebApk_UpdateReason_names + 391, 24}, 13 },
 };
 
 static const int WebApk_UpdateReason_entries_by_number[] = {
   6, // 1 -> NONE
   7, // 2 -> OLD_SHELL_APK
-  9, // 3 -> PRIMARY_ICON_HASH_DIFFERS
-  11, // 5 -> SCOPE_DIFFERS
-  15, // 6 -> START_URL_DIFFERS
-  13, // 7 -> SHORT_NAME_DIFFERS
+  11, // 3 -> PRIMARY_ICON_HASH_DIFFERS
+  13, // 5 -> SCOPE_DIFFERS
+  17, // 6 -> START_URL_DIFFERS
+  15, // 7 -> SHORT_NAME_DIFFERS
   5, // 8 -> NAME_DIFFERS
   0, // 9 -> BACKGROUND_COLOR_DIFFERS
-  16, // 10 -> THEME_COLOR_DIFFERS
+  18, // 10 -> THEME_COLOR_DIFFERS
   8, // 11 -> ORIENTATION_DIFFERS
   3, // 12 -> DISPLAY_MODE_DIFFERS
-  17, // 13 -> WEB_SHARE_TARGET_DIFFERS
+  19, // 13 -> WEB_SHARE_TARGET_DIFFERS
   4, // 14 -> MANUALLY_TRIGGERED
-  10, // 15 -> PRIMARY_ICON_MASKABLE_DIFFERS
-  12, // 16 -> SHORTCUTS_DIFFER
-  14, // 17 -> SPLASH_ICON_HASH_DIFFERS
+  12, // 15 -> PRIMARY_ICON_MASKABLE_DIFFERS
+  14, // 16 -> SHORTCUTS_DIFFER
+  16, // 17 -> SPLASH_ICON_HASH_DIFFERS
   1, // 18 -> DARK_BACKGROUND_COLOR_DIFFERS
   2, // 19 -> DARK_THEME_COLOR_DIFFERS
+  9, // 20 -> PRIMARY_ICON_CHANGE_BELOW_THRESHOLD
+  10, // 21 -> PRIMARY_ICON_CHANGE_SHELL_UPDATE
 };
 
 const std::string& WebApk_UpdateReason_Name(
@@ -253,12 +261,12 @@ const std::string& WebApk_UpdateReason_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           WebApk_UpdateReason_entries,
           WebApk_UpdateReason_entries_by_number,
-          18, WebApk_UpdateReason_strings);
+          20, WebApk_UpdateReason_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       WebApk_UpdateReason_entries,
       WebApk_UpdateReason_entries_by_number,
-      18, value);
+      20, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      WebApk_UpdateReason_strings[idx].get();
 }
@@ -266,7 +274,7 @@ bool WebApk_UpdateReason_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, WebApk_UpdateReason* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      WebApk_UpdateReason_entries, 18, name, &int_value);
+      WebApk_UpdateReason_entries, 20, name, &int_value);
   if (success) {
     *value = static_cast<WebApk_UpdateReason>(int_value);
   }
@@ -291,6 +299,8 @@ constexpr WebApk_UpdateReason WebApk::SHORTCUTS_DIFFER;
 constexpr WebApk_UpdateReason WebApk::SPLASH_ICON_HASH_DIFFERS;
 constexpr WebApk_UpdateReason WebApk::DARK_BACKGROUND_COLOR_DIFFERS;
 constexpr WebApk_UpdateReason WebApk::DARK_THEME_COLOR_DIFFERS;
+constexpr WebApk_UpdateReason WebApk::PRIMARY_ICON_CHANGE_BELOW_THRESHOLD;
+constexpr WebApk_UpdateReason WebApk::PRIMARY_ICON_CHANGE_SHELL_UPDATE;
 constexpr WebApk_UpdateReason WebApk::UpdateReason_MIN;
 constexpr WebApk_UpdateReason WebApk::UpdateReason_MAX;
 constexpr int WebApk::UpdateReason_ARRAYSIZE;

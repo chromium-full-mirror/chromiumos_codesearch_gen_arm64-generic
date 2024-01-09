@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -940,15 +941,18 @@ bool GpuServiceProxy::EstablishGpuChannel(
 #else
   TRACE_EVENT0("mojom", "GpuService::EstablishGpuChannel");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       false;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_EstablishGpuChannel_Name, kFlags, 0, 0, nullptr);
@@ -1010,14 +1014,17 @@ void GpuServiceProxy::EstablishGpuChannel(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_EstablishGpuChannel_Name, kFlags, 0, 0, nullptr);
@@ -1054,14 +1061,17 @@ void GpuServiceProxy::SetChannelClientPid(
                         "<value of type ::base::ProcessId>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_SetChannelClientPid_Name, kFlags, 0, 0, nullptr);
@@ -1106,14 +1116,17 @@ void GpuServiceProxy::SetChannelDiskCacheHandle(
                         "<value of type const ::gpu::GpuDiskCacheHandle&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_SetChannelDiskCacheHandle_Name, kFlags, 0, 0, nullptr);
@@ -1153,14 +1166,17 @@ void GpuServiceProxy::OnDiskCacheHandleDestoyed(
                         "<value of type const ::gpu::GpuDiskCacheHandle&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_OnDiskCacheHandleDestoyed_Name, kFlags, 0, 0, nullptr);
@@ -1199,14 +1215,17 @@ void GpuServiceProxy::CloseChannel(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CloseChannel_Name, kFlags, 0, 0, nullptr);
@@ -1237,14 +1256,17 @@ void GpuServiceProxy::CreateArcVideoDecodeAccelerator(
                         "<value of type ::mojo::PendingReceiver<::arc::mojom::VideoDecodeAccelerator>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateArcVideoDecodeAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -1280,14 +1302,17 @@ void GpuServiceProxy::CreateArcVideoDecoder(
                         "<value of type ::mojo::PendingReceiver<::arc::mojom::VideoDecoder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateArcVideoDecoder_Name, kFlags, 0, 0, nullptr);
@@ -1323,14 +1348,17 @@ void GpuServiceProxy::CreateArcVideoEncodeAccelerator(
                         "<value of type ::mojo::PendingReceiver<::arc::mojom::VideoEncodeAccelerator>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateArcVideoEncodeAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -1366,14 +1394,17 @@ void GpuServiceProxy::CreateArcVideoProtectedBufferAllocator(
                         "<value of type ::mojo::PendingReceiver<::arc::mojom::VideoProtectedBufferAllocator>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateArcVideoProtectedBufferAllocator_Name, kFlags, 0, 0, nullptr);
@@ -1409,14 +1440,17 @@ void GpuServiceProxy::CreateArcProtectedBufferManager(
                         "<value of type ::mojo::PendingReceiver<::arc::mojom::ProtectedBufferManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateArcProtectedBufferManager_Name, kFlags, 0, 0, nullptr);
@@ -1452,14 +1486,17 @@ void GpuServiceProxy::CreateJpegDecodeAccelerator(
                         "<value of type ::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateJpegDecodeAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -1495,14 +1532,17 @@ void GpuServiceProxy::CreateJpegEncodeAccelerator(
                         "<value of type ::mojo::PendingReceiver<::chromeos_camera::mojom::JpegEncodeAccelerator>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateJpegEncodeAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -1541,14 +1581,17 @@ void GpuServiceProxy::BindClientGmbInterface(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_BindClientGmbInterface_Name, kFlags, 0, 0, nullptr);
@@ -1585,14 +1628,17 @@ void GpuServiceProxy::CreateVideoEncodeAcceleratorProvider(
                         "<value of type ::mojo::PendingReceiver<::media::mojom::VideoEncodeAcceleratorProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateVideoEncodeAcceleratorProvider_Name, kFlags, 0, 0, nullptr);
@@ -1644,15 +1690,18 @@ bool GpuServiceProxy::CreateGpuMemoryBuffer(
 #else
   TRACE_EVENT0("mojom", "GpuService::CreateGpuMemoryBuffer");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       false;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateGpuMemoryBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1749,14 +1798,17 @@ void GpuServiceProxy::CreateGpuMemoryBuffer(
                         "<value of type ::gpu::SurfaceHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateGpuMemoryBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1828,14 +1880,17 @@ void GpuServiceProxy::DestroyGpuMemoryBuffer(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_DestroyGpuMemoryBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1880,14 +1935,17 @@ void GpuServiceProxy::CopyGpuMemoryBuffer(
                         "<value of type ::base::UnsafeSharedMemoryRegion>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CopyGpuMemoryBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1933,14 +1991,17 @@ void GpuServiceProxy::GetVideoMemoryUsageStats(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::GetVideoMemoryUsageStats");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_GetVideoMemoryUsageStats_Name, kFlags, 0, 0, nullptr);
@@ -1971,14 +2032,17 @@ void GpuServiceProxy::StartPeakMemoryMonitor(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_StartPeakMemoryMonitor_Name, kFlags, 0, 0, nullptr);
@@ -2009,14 +2073,17 @@ void GpuServiceProxy::GetPeakMemoryUsage(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_GetPeakMemoryUsage_Name, kFlags, 0, 0, nullptr);
@@ -2054,14 +2121,17 @@ void GpuServiceProxy::LoadedBlob(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_LoadedBlob_Name, kFlags, 0, 0, nullptr);
@@ -2115,14 +2185,17 @@ void GpuServiceProxy::WakeUpGpu(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::WakeUpGpu");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_WakeUpGpu_Name, kFlags, 0, 0, nullptr);
@@ -2152,14 +2225,17 @@ void GpuServiceProxy::GpuSwitched(
                         "<value of type ::gl::GpuPreference>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_GpuSwitched_Name, kFlags, 0, 0, nullptr);
@@ -2184,14 +2260,17 @@ void GpuServiceProxy::DisplayAdded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::DisplayAdded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_DisplayAdded_Name, kFlags, 0, 0, nullptr);
@@ -2214,14 +2293,17 @@ void GpuServiceProxy::DisplayRemoved(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::DisplayRemoved");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_DisplayRemoved_Name, kFlags, 0, 0, nullptr);
@@ -2244,14 +2326,17 @@ void GpuServiceProxy::DisplayMetricsChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::DisplayMetricsChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_DisplayMetricsChanged_Name, kFlags, 0, 0, nullptr);
@@ -2274,14 +2359,17 @@ void GpuServiceProxy::DestroyAllChannels(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::DestroyAllChannels");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_DestroyAllChannels_Name, kFlags, 0, 0, nullptr);
@@ -2304,14 +2392,17 @@ void GpuServiceProxy::OnBackgroundCleanup(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::OnBackgroundCleanup");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_OnBackgroundCleanup_Name, kFlags, 0, 0, nullptr);
@@ -2334,14 +2425,17 @@ void GpuServiceProxy::OnBackgrounded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::OnBackgrounded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_OnBackgrounded_Name, kFlags, 0, 0, nullptr);
@@ -2364,14 +2458,17 @@ void GpuServiceProxy::OnForegrounded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::OnForegrounded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_OnForegrounded_Name, kFlags, 0, 0, nullptr);
@@ -2401,14 +2498,17 @@ void GpuServiceProxy::OnMemoryPressure(
                         "<value of type ::base::MemoryPressureListener::MemoryPressureLevel>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_OnMemoryPressure_Name, kFlags, 0, 0, nullptr);
@@ -2440,14 +2540,17 @@ void GpuServiceProxy::GetDawnInfo(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_GetDawnInfo_Name, kFlags, 0, 0, nullptr);
@@ -2472,14 +2575,17 @@ void GpuServiceProxy::Crash(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::Crash");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_Crash_Name, kFlags, 0, 0, nullptr);
@@ -2502,14 +2608,17 @@ void GpuServiceProxy::Hang(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::Hang");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_Hang_Name, kFlags, 0, 0, nullptr);
@@ -2532,14 +2641,17 @@ void GpuServiceProxy::ThrowJavaException(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::GpuService::ThrowJavaException");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_ThrowJavaException_Name, kFlags, 0, 0, nullptr);
@@ -2669,7 +2781,8 @@ void GpuService_EstablishGpuChannel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_EstablishGpuChannel_Name, kFlags, 0, 0, nullptr);
@@ -2858,7 +2971,8 @@ void GpuService_CreateGpuMemoryBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CreateGpuMemoryBuffer_Name, kFlags, 0, 0, nullptr);
@@ -3011,7 +3125,8 @@ void GpuService_CopyGpuMemoryBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_CopyGpuMemoryBuffer_Name, kFlags, 0, 0, nullptr);
@@ -3129,7 +3244,8 @@ void GpuService_GetVideoMemoryUsageStats_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_GetVideoMemoryUsageStats_Name, kFlags, 0, 0, nullptr);
@@ -3264,7 +3380,8 @@ void GpuService_GetPeakMemoryUsage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_GetPeakMemoryUsage_Name, kFlags, 0, 0, nullptr);
@@ -3395,7 +3512,8 @@ void GpuService_GetDawnInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuService_GetDawnInfo_Name, kFlags, 0, 0, nullptr);
@@ -4514,78 +4632,78 @@ std::move(p_collect_metrics), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGpuServiceValidationInfo[] = {
-    {&internal::GpuService_EstablishGpuChannel_Params_Data::Validate,
+    { &internal::GpuService_EstablishGpuChannel_Params_Data::Validate,
      &internal::GpuService_EstablishGpuChannel_ResponseParams_Data::Validate},
-    {&internal::GpuService_SetChannelClientPid_Params_Data::Validate,
+    { &internal::GpuService_SetChannelClientPid_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_SetChannelDiskCacheHandle_Params_Data::Validate,
+    { &internal::GpuService_SetChannelDiskCacheHandle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_OnDiskCacheHandleDestoyed_Params_Data::Validate,
+    { &internal::GpuService_OnDiskCacheHandleDestoyed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CloseChannel_Params_Data::Validate,
+    { &internal::GpuService_CloseChannel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CreateArcVideoDecodeAccelerator_Params_Data::Validate,
+    { &internal::GpuService_CreateArcVideoDecodeAccelerator_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CreateArcVideoDecoder_Params_Data::Validate,
+    { &internal::GpuService_CreateArcVideoDecoder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CreateArcVideoEncodeAccelerator_Params_Data::Validate,
+    { &internal::GpuService_CreateArcVideoEncodeAccelerator_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CreateArcVideoProtectedBufferAllocator_Params_Data::Validate,
+    { &internal::GpuService_CreateArcVideoProtectedBufferAllocator_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CreateArcProtectedBufferManager_Params_Data::Validate,
+    { &internal::GpuService_CreateArcProtectedBufferManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CreateJpegDecodeAccelerator_Params_Data::Validate,
+    { &internal::GpuService_CreateJpegDecodeAccelerator_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CreateJpegEncodeAccelerator_Params_Data::Validate,
+    { &internal::GpuService_CreateJpegEncodeAccelerator_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_BindClientGmbInterface_Params_Data::Validate,
+    { &internal::GpuService_BindClientGmbInterface_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CreateVideoEncodeAcceleratorProvider_Params_Data::Validate,
+    { &internal::GpuService_CreateVideoEncodeAcceleratorProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CreateGpuMemoryBuffer_Params_Data::Validate,
+    { &internal::GpuService_CreateGpuMemoryBuffer_Params_Data::Validate,
      &internal::GpuService_CreateGpuMemoryBuffer_ResponseParams_Data::Validate},
-    {&internal::GpuService_DestroyGpuMemoryBuffer_Params_Data::Validate,
+    { &internal::GpuService_DestroyGpuMemoryBuffer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_CopyGpuMemoryBuffer_Params_Data::Validate,
+    { &internal::GpuService_CopyGpuMemoryBuffer_Params_Data::Validate,
      &internal::GpuService_CopyGpuMemoryBuffer_ResponseParams_Data::Validate},
-    {&internal::GpuService_GetVideoMemoryUsageStats_Params_Data::Validate,
+    { &internal::GpuService_GetVideoMemoryUsageStats_Params_Data::Validate,
      &internal::GpuService_GetVideoMemoryUsageStats_ResponseParams_Data::Validate},
-    {&internal::GpuService_StartPeakMemoryMonitor_Params_Data::Validate,
+    { &internal::GpuService_StartPeakMemoryMonitor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_GetPeakMemoryUsage_Params_Data::Validate,
+    { &internal::GpuService_GetPeakMemoryUsage_Params_Data::Validate,
      &internal::GpuService_GetPeakMemoryUsage_ResponseParams_Data::Validate},
-    {&internal::GpuService_LoadedBlob_Params_Data::Validate,
+    { &internal::GpuService_LoadedBlob_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_WakeUpGpu_Params_Data::Validate,
+    { &internal::GpuService_WakeUpGpu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_GpuSwitched_Params_Data::Validate,
+    { &internal::GpuService_GpuSwitched_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_DisplayAdded_Params_Data::Validate,
+    { &internal::GpuService_DisplayAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_DisplayRemoved_Params_Data::Validate,
+    { &internal::GpuService_DisplayRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_DisplayMetricsChanged_Params_Data::Validate,
+    { &internal::GpuService_DisplayMetricsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_DestroyAllChannels_Params_Data::Validate,
+    { &internal::GpuService_DestroyAllChannels_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_OnBackgroundCleanup_Params_Data::Validate,
+    { &internal::GpuService_OnBackgroundCleanup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_OnBackgrounded_Params_Data::Validate,
+    { &internal::GpuService_OnBackgrounded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_OnForegrounded_Params_Data::Validate,
+    { &internal::GpuService_OnForegrounded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_OnMemoryPressure_Params_Data::Validate,
+    { &internal::GpuService_OnMemoryPressure_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_GetDawnInfo_Params_Data::Validate,
+    { &internal::GpuService_GetDawnInfo_Params_Data::Validate,
      &internal::GpuService_GetDawnInfo_ResponseParams_Data::Validate},
-    {&internal::GpuService_Crash_Params_Data::Validate,
+    { &internal::GpuService_Crash_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_Hang_Params_Data::Validate,
+    { &internal::GpuService_Hang_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuService_ThrowJavaException_Params_Data::Validate,
+    { &internal::GpuService_ThrowJavaException_Params_Data::Validate,
      nullptr /* no response */},
 };
 

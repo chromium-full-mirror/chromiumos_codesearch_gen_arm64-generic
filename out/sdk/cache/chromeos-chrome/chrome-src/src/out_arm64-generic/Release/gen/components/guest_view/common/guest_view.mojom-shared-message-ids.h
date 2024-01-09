@@ -16,7 +16,6 @@ namespace internal {
 
 constexpr uint32_t kGuestViewHost_AttachToEmbedderFrame_Name = 0;
 constexpr uint32_t kGuestViewHost_ViewCreated_Name = 1;
-constexpr uint32_t kGuestViewHost_ViewGarbageCollected_Name = 2;
 
 }  // namespace internal
 

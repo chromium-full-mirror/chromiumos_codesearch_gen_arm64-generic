@@ -132,8 +132,6 @@ NOINLINE static const char* FrameOwnerElementTypeToStringHelper(FrameOwnerElemen
       return "kEmbed";
     case FrameOwnerElementType::kFrame:
       return "kFrame";
-    case FrameOwnerElementType::kPortal:
-      return "kPortal";
     case FrameOwnerElementType::kFencedframe:
       return "kFencedframe";
     default:
@@ -151,6 +149,32 @@ std::string FrameOwnerElementTypeToString(FrameOwnerElementType value) {
 
 std::ostream& operator<<(std::ostream& os, FrameOwnerElementType value) {
   return os << FrameOwnerElementTypeToString(value);
+}
+
+NOINLINE static const char* NavigationApiEntryRestoreReasonToStringHelper(NavigationApiEntryRestoreReason value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case NavigationApiEntryRestoreReason::kBFCache:
+      return "kBFCache";
+    case NavigationApiEntryRestoreReason::kPrerenderActivationPush:
+      return "kPrerenderActivationPush";
+    case NavigationApiEntryRestoreReason::kPrerenderActivationReplace:
+      return "kPrerenderActivationReplace";
+    default:
+      return nullptr;
+  }
+}
+
+std::string NavigationApiEntryRestoreReasonToString(NavigationApiEntryRestoreReason value) {
+  const char *str = NavigationApiEntryRestoreReasonToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown NavigationApiEntryRestoreReason value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, NavigationApiEntryRestoreReason value) {
+  return os << NavigationApiEntryRestoreReasonToString(value);
 }
 
 namespace internal {
@@ -502,75 +526,6 @@ bool LocalFrameHost_FullscreenStateChanged_Params_Data::Validate(
 }
 
 LocalFrameHost_FullscreenStateChanged_Params_Data::LocalFrameHost_FullscreenStateChanged_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LocalFrameHost_Maximize_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalFrameHost_Maximize_Params_Data* object =
-      static_cast<const LocalFrameHost_Maximize_Params_Data*>(data);
-
-  return true;
-}
-
-LocalFrameHost_Maximize_Params_Data::LocalFrameHost_Maximize_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LocalFrameHost_Minimize_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalFrameHost_Minimize_Params_Data* object =
-      static_cast<const LocalFrameHost_Minimize_Params_Data*>(data);
-
-  return true;
-}
-
-LocalFrameHost_Minimize_Params_Data::LocalFrameHost_Minimize_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LocalFrameHost_Restore_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalFrameHost_Restore_Params_Data* object =
-      static_cast<const LocalFrameHost_Restore_Params_Data*>(data);
-
-  return true;
-}
-
-LocalFrameHost_Restore_Params_Data::LocalFrameHost_Restore_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2549,7 +2504,7 @@ bool LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -2591,13 +2546,6 @@ bool LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->attribution_reporting_runtime_features, 4, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->attribution_reporting_runtime_features, validation_context))
-    return false;
-
   return true;
 }
 
@@ -2612,7 +2560,7 @@ bool LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data::Valid
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -2626,13 +2574,6 @@ bool LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data::Valid
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->destination_url, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->attribution_reporting_runtime_features, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->attribution_reporting_runtime_features, validation_context))
     return false;
 
   return true;
@@ -2690,7 +2631,7 @@ bool LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data::Va
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -2699,8 +2640,13 @@ bool LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data::Va
   [[maybe_unused]] const LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data* object =
       static_cast<const LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data*>(data);
 
+
+  if (!::blink::mojom::internal::AutomaticBeaconType_Data
+        ::Validate(object->event_type, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->event_data, 1, validation_context)) {
+          object->event_data, 2, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& event_data_validate_params =
@@ -2711,7 +2657,7 @@ bool LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data::Va
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->destinations, 2, validation_context)) {
+          object->destinations, 3, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& destinations_validate_params =
@@ -2720,13 +2666,6 @@ bool LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data::Va
                                          &destinations_validate_params)) {
     return false;
   }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->attribution_reporting_runtime_features, 3, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->attribution_reporting_runtime_features, validation_context))
-    return false;
 
   return true;
 }
@@ -2770,182 +2709,32 @@ LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Params_Data::Lo
 
 
 // static
-bool LocalFrameHost_CreatePortal_Params_Data::Validate(
+bool LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const LocalFrameHost_CreatePortal_Params_Data* object =
-      static_cast<const LocalFrameHost_CreatePortal_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->portal, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->portal,
-                                                 validation_context)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->client, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->client,
-                                                 validation_context)) {
-    return false;
-  }
+  [[maybe_unused]] const LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data* object =
+      static_cast<const LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->remote_frame_interfaces, 3, validation_context)) {
+          object->features, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->remote_frame_interfaces, validation_context))
+  if (!mojo::internal::ValidateStruct(object->features, validation_context))
     return false;
 
   return true;
 }
 
-LocalFrameHost_CreatePortal_Params_Data::LocalFrameHost_CreatePortal_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LocalFrameHost_CreatePortal_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalFrameHost_CreatePortal_ResponseParams_Data* object =
-      static_cast<const LocalFrameHost_CreatePortal_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->initial_replicated_state, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->initial_replicated_state, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->portal_token, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->portal_token, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->frame_token, 3, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->frame_token, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->devtools_frame_token, 4, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->devtools_frame_token, validation_context))
-    return false;
-
-  return true;
-}
-
-LocalFrameHost_CreatePortal_ResponseParams_Data::LocalFrameHost_CreatePortal_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LocalFrameHost_AdoptPortal_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalFrameHost_AdoptPortal_Params_Data* object =
-      static_cast<const LocalFrameHost_AdoptPortal_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->portal_token, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->portal_token, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->remote_frame_interfaces, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->remote_frame_interfaces, validation_context))
-    return false;
-
-  return true;
-}
-
-LocalFrameHost_AdoptPortal_Params_Data::LocalFrameHost_AdoptPortal_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LocalFrameHost_AdoptPortal_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalFrameHost_AdoptPortal_ResponseParams_Data* object =
-      static_cast<const LocalFrameHost_AdoptPortal_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->replicated_state, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->replicated_state, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->frame_token, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->frame_token, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->devtools_frame_token, 3, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->devtools_frame_token, validation_context))
-    return false;
-
-  return true;
-}
-
-LocalFrameHost_AdoptPortal_ResponseParams_Data::LocalFrameHost_AdoptPortal_ResponseParams_Data()
+LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data::LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -3351,36 +3140,6 @@ LocalFrame_AddMessageToConsole_Params_Data::LocalFrame_AddMessageToConsole_Param
 
 
 // static
-bool LocalFrame_AddInspectorIssue_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalFrame_AddInspectorIssue_Params_Data* object =
-      static_cast<const LocalFrame_AddInspectorIssue_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->info, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->info, validation_context))
-    return false;
-
-  return true;
-}
-
-LocalFrame_AddInspectorIssue_Params_Data::LocalFrame_AddInspectorIssue_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool LocalFrame_SwapInImmediately_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -3752,6 +3511,73 @@ bool LocalFrame_MediaPlayerActionAt_Params_Data::Validate(
 }
 
 LocalFrame_MediaPlayerActionAt_Params_Data::LocalFrame_MediaPlayerActionAt_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalFrame_RequestVideoFrameAt_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrame_RequestVideoFrameAt_Params_Data* object =
+      static_cast<const LocalFrame_RequestVideoFrameAt_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->location, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->location, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->max_size, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->max_size, validation_context))
+    return false;
+
+  return true;
+}
+
+LocalFrame_RequestVideoFrameAt_Params_Data::LocalFrame_RequestVideoFrameAt_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalFrame_RequestVideoFrameAt_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrame_RequestVideoFrameAt_ResponseParams_Data* object =
+      static_cast<const LocalFrame_RequestVideoFrameAt_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->image, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->image, validation_context))
+    return false;
+
+  return true;
+}
+
+LocalFrame_RequestVideoFrameAt_ResponseParams_Data::LocalFrame_RequestVideoFrameAt_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -4554,7 +4380,7 @@ bool LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -4568,6 +4394,11 @@ bool LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->entry_arrays, validation_context))
+    return false;
+
+
+  if (!::blink::mojom::internal::NavigationApiEntryRestoreReason_Data
+        ::Validate(object->restore_reason, validation_context))
     return false;
 
   return true;
@@ -4647,6 +4478,43 @@ bool LocalFrame_TraverseCancelled_Params_Data::Validate(
 }
 
 LocalFrame_TraverseCancelled_Params_Data::LocalFrame_TraverseCancelled_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data* object =
+      static_cast<const LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->url, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->url, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->page_state, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->page_state, validation_context))
+    return false;
+
+  return true;
+}
+
+LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data::LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -5176,126 +5044,6 @@ LocalMainFrame_InstallCoopAccessMonitor_Params_Data::LocalMainFrame_InstallCoopA
 
 
 // static
-bool LocalMainFrame_OnPortalActivated_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalMainFrame_OnPortalActivated_Params_Data* object =
-      static_cast<const LocalMainFrame_OnPortalActivated_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->portal_token, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->portal_token, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->portal, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->portal,
-                                                 validation_context)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->portal_client, 3, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->portal_client,
-                                                 validation_context)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->data, 4, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->data, validation_context))
-    return false;
-
-  return true;
-}
-
-LocalMainFrame_OnPortalActivated_Params_Data::LocalMainFrame_OnPortalActivated_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LocalMainFrame_OnPortalActivated_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalMainFrame_OnPortalActivated_ResponseParams_Data* object =
-      static_cast<const LocalMainFrame_OnPortalActivated_ResponseParams_Data*>(data);
-
-
-  if (!::blink::mojom::internal::PortalActivateResult_Data
-        ::Validate(object->result, validation_context))
-    return false;
-
-  return true;
-}
-
-LocalMainFrame_OnPortalActivated_ResponseParams_Data::LocalMainFrame_OnPortalActivated_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool LocalMainFrame_ForwardMessageFromHost_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LocalMainFrame_ForwardMessageFromHost_Params_Data* object =
-      static_cast<const LocalMainFrame_ForwardMessageFromHost_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->message, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->message, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->source_origin, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->source_origin, validation_context))
-    return false;
-
-  return true;
-}
-
-LocalMainFrame_ForwardMessageFromHost_Params_Data::LocalMainFrame_ForwardMessageFromHost_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool LocalMainFrame_UpdateBrowserControlsState_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -5728,6 +5476,75 @@ LocalMainFrameHost_DidAccessInitialMainDocument_Params_Data::LocalMainFrameHost_
 
 
 // static
+bool LocalMainFrameHost_Maximize_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalMainFrameHost_Maximize_Params_Data* object =
+      static_cast<const LocalMainFrameHost_Maximize_Params_Data*>(data);
+
+  return true;
+}
+
+LocalMainFrameHost_Maximize_Params_Data::LocalMainFrameHost_Maximize_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalMainFrameHost_Minimize_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalMainFrameHost_Minimize_Params_Data* object =
+      static_cast<const LocalMainFrameHost_Minimize_Params_Data*>(data);
+
+  return true;
+}
+
+LocalMainFrameHost_Minimize_Params_Data::LocalMainFrameHost_Minimize_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalMainFrameHost_Restore_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalMainFrameHost_Restore_Params_Data* object =
+      static_cast<const LocalMainFrameHost_Restore_Params_Data*>(data);
+
+  return true;
+}
+
+LocalMainFrameHost_Restore_Params_Data::LocalMainFrameHost_Restore_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool LocalMainFrameHost_SetResizable_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -5799,6 +5616,16 @@ namespace perfetto {
 void TraceFormatTraits<::blink::mojom::FrameOwnerElementType>::WriteIntoTrace(
    perfetto::TracedValue context, ::blink::mojom::FrameOwnerElementType value) {
   return std::move(context).WriteString(::blink::mojom::FrameOwnerElementTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::NavigationApiEntryRestoreReason>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::NavigationApiEntryRestoreReason value) {
+  return std::move(context).WriteString(::blink::mojom::NavigationApiEntryRestoreReasonToString(value));
 }
 
 } // namespace perfetto

@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PendingGetBeacon>::value,
     "PendingGetBeacon inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PendingGetBeacon::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PendingGetBeacon is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -162,7 +157,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingGetBeacon* blink_receiver = V8PendingGetBeacon::ToWrappableUnsafe(v8_receiver);
+PendingGetBeacon* blink_receiver = V8PendingGetBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLNullable<IDLUSVString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

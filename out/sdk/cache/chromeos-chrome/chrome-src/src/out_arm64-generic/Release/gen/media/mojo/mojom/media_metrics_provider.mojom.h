@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/media_metrics_provider.mojom-features.h"
 #include "media/mojo/mojom/media_metrics_provider.mojom-shared.h"
 #include "media/mojo/mojom/media_metrics_provider.mojom-forward.h"
 #include "media/learning/mojo/public/mojom/learning_task_controller.mojom-forward.h"
@@ -84,6 +85,7 @@ class MediaMetricsProvider
     kSetTimeToPlayReadyMinVersion = 0,
     kSetRendererTypeMinVersion = 0,
     kSetKeySystemMinVersion = 0,
+    kSetHasWaitingForKeyMinVersion = 0,
     kSetIsHardwareSecureMinVersion = 0,
     kSetContainerNameMinVersion = 0,
     kAcquireWatchTimeRecorderMinVersion = 0,
@@ -130,6 +132,9 @@ class MediaMetricsProvider
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetKeySystem_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetHasWaitingForKey_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetIsHardwareSecure_Sym {
@@ -199,6 +204,9 @@ class MediaMetricsProvider
   virtual void SetKeySystem(const std::string& key_system) = 0;
 
   
+  virtual void SetHasWaitingForKey() = 0;
+
+  
   virtual void SetIsHardwareSecure() = 0;
 
   
@@ -259,6 +267,8 @@ class  MediaMetricsProviderProxy
   void SetRendererType(::media::RendererType renderer_type) final;
   
   void SetKeySystem(const std::string& key_system) final;
+  
+  void SetHasWaitingForKey() final;
   
   void SetIsHardwareSecure() final;
   

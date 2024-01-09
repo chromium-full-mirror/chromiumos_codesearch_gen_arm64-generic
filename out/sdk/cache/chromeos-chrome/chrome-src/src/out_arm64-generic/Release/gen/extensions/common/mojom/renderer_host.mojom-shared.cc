@@ -215,6 +215,131 @@ bool RendererHost_AddDOMActionToActivityLog_Params_Data::Validate(
 RendererHost_AddDOMActionToActivityLog_Params_Data::RendererHost_AddDOMActionToActivityLog_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool RendererHost_WakeEventPage_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RendererHost_WakeEventPage_Params_Data* object =
+      static_cast<const RendererHost_WakeEventPage_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->extension_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& extension_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->extension_id, validation_context,
+                                         &extension_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+RendererHost_WakeEventPage_Params_Data::RendererHost_WakeEventPage_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RendererHost_WakeEventPage_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RendererHost_WakeEventPage_ResponseParams_Data* object =
+      static_cast<const RendererHost_WakeEventPage_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+RendererHost_WakeEventPage_ResponseParams_Data::RendererHost_WakeEventPage_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RendererHost_GetMessageBundle_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RendererHost_GetMessageBundle_Params_Data* object =
+      static_cast<const RendererHost_GetMessageBundle_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->extension_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& extension_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->extension_id, validation_context,
+                                         &extension_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+RendererHost_GetMessageBundle_Params_Data::RendererHost_GetMessageBundle_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RendererHost_GetMessageBundle_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RendererHost_GetMessageBundle_ResponseParams_Data* object =
+      static_cast<const RendererHost_GetMessageBundle_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->message_map, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& message_map_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+  if (!mojo::internal::ValidateContainer(object->message_map, validation_context,
+                                         &message_map_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+RendererHost_GetMessageBundle_ResponseParams_Data::RendererHost_GetMessageBundle_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace extensions

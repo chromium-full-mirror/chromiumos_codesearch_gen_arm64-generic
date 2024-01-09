@@ -22,6 +22,7 @@ class FrameTimelineEvent_ExpectedSurfaceFrameStart;
 class FrameTimelineEvent_ActualDisplayFrameStart;
 class FrameTimelineEvent_ExpectedDisplayFrameStart;
 enum FrameTimelineEvent_JankType : int;
+enum FrameTimelineEvent_JankSeverityType : int;
 enum FrameTimelineEvent_PresentType : int;
 enum FrameTimelineEvent_PredictionType : int;
 }  // namespace perfetto
@@ -48,6 +49,12 @@ enum FrameTimelineEvent_JankType : int {
   FrameTimelineEvent_JankType_JANK_UNKNOWN = 256,
   FrameTimelineEvent_JankType_JANK_SF_STUFFING = 512,
   FrameTimelineEvent_JankType_JANK_DROPPED = 1024,
+};
+enum FrameTimelineEvent_JankSeverityType : int {
+  FrameTimelineEvent_JankSeverityType_SEVERITY_UNKNOWN = 0,
+  FrameTimelineEvent_JankSeverityType_SEVERITY_NONE = 1,
+  FrameTimelineEvent_JankSeverityType_SEVERITY_PARTIAL = 2,
+  FrameTimelineEvent_JankSeverityType_SEVERITY_FULL = 3,
 };
 enum FrameTimelineEvent_PresentType : int {
   FrameTimelineEvent_PresentType_PRESENT_UNSPECIFIED = 0,
@@ -86,6 +93,13 @@ class PERFETTO_EXPORT_COMPONENT FrameTimelineEvent : public ::protozero::CppMess
   static constexpr auto JANK_DROPPED = FrameTimelineEvent_JankType_JANK_DROPPED;
   static constexpr auto JankType_MIN = FrameTimelineEvent_JankType_JANK_UNSPECIFIED;
   static constexpr auto JankType_MAX = FrameTimelineEvent_JankType_JANK_DROPPED;
+  using JankSeverityType = FrameTimelineEvent_JankSeverityType;
+  static constexpr auto SEVERITY_UNKNOWN = FrameTimelineEvent_JankSeverityType_SEVERITY_UNKNOWN;
+  static constexpr auto SEVERITY_NONE = FrameTimelineEvent_JankSeverityType_SEVERITY_NONE;
+  static constexpr auto SEVERITY_PARTIAL = FrameTimelineEvent_JankSeverityType_SEVERITY_PARTIAL;
+  static constexpr auto SEVERITY_FULL = FrameTimelineEvent_JankSeverityType_SEVERITY_FULL;
+  static constexpr auto JankSeverityType_MIN = FrameTimelineEvent_JankSeverityType_SEVERITY_UNKNOWN;
+  static constexpr auto JankSeverityType_MAX = FrameTimelineEvent_JankSeverityType_SEVERITY_FULL;
   using PresentType = FrameTimelineEvent_PresentType;
   static constexpr auto PRESENT_UNSPECIFIED = FrameTimelineEvent_PresentType_PRESENT_UNSPECIFIED;
   static constexpr auto PRESENT_ON_TIME = FrameTimelineEvent_PresentType_PRESENT_ON_TIME;
@@ -208,6 +222,7 @@ class PERFETTO_EXPORT_COMPONENT FrameTimelineEvent_ActualSurfaceFrameStart : pub
     kJankTypeFieldNumber = 9,
     kPredictionTypeFieldNumber = 10,
     kIsBufferFieldNumber = 11,
+    kJankSeverityTypeFieldNumber = 12,
   };
 
   FrameTimelineEvent_ActualSurfaceFrameStart();
@@ -268,6 +283,10 @@ class PERFETTO_EXPORT_COMPONENT FrameTimelineEvent_ActualSurfaceFrameStart : pub
   bool is_buffer() const { return is_buffer_; }
   void set_is_buffer(bool value) { is_buffer_ = value; _has_field_.set(11); }
 
+  bool has_jank_severity_type() const { return _has_field_[12]; }
+  FrameTimelineEvent_JankSeverityType jank_severity_type() const { return jank_severity_type_; }
+  void set_jank_severity_type(FrameTimelineEvent_JankSeverityType value) { jank_severity_type_ = value; _has_field_.set(12); }
+
  private:
   int64_t cookie_{};
   int64_t token_{};
@@ -280,12 +299,13 @@ class PERFETTO_EXPORT_COMPONENT FrameTimelineEvent_ActualSurfaceFrameStart : pub
   int32_t jank_type_{};
   FrameTimelineEvent_PredictionType prediction_type_{};
   bool is_buffer_{};
+  FrameTimelineEvent_JankSeverityType jank_severity_type_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<12> _has_field_{};
+  std::bitset<13> _has_field_{};
 };
 
 
@@ -359,6 +379,7 @@ class PERFETTO_EXPORT_COMPONENT FrameTimelineEvent_ActualDisplayFrameStart : pub
     kGpuCompositionFieldNumber = 6,
     kJankTypeFieldNumber = 7,
     kPredictionTypeFieldNumber = 8,
+    kJankSeverityTypeFieldNumber = 9,
   };
 
   FrameTimelineEvent_ActualDisplayFrameStart();
@@ -407,6 +428,10 @@ class PERFETTO_EXPORT_COMPONENT FrameTimelineEvent_ActualDisplayFrameStart : pub
   FrameTimelineEvent_PredictionType prediction_type() const { return prediction_type_; }
   void set_prediction_type(FrameTimelineEvent_PredictionType value) { prediction_type_ = value; _has_field_.set(8); }
 
+  bool has_jank_severity_type() const { return _has_field_[9]; }
+  FrameTimelineEvent_JankSeverityType jank_severity_type() const { return jank_severity_type_; }
+  void set_jank_severity_type(FrameTimelineEvent_JankSeverityType value) { jank_severity_type_ = value; _has_field_.set(9); }
+
  private:
   int64_t cookie_{};
   int64_t token_{};
@@ -416,12 +441,13 @@ class PERFETTO_EXPORT_COMPONENT FrameTimelineEvent_ActualDisplayFrameStart : pub
   bool gpu_composition_{};
   int32_t jank_type_{};
   FrameTimelineEvent_PredictionType prediction_type_{};
+  FrameTimelineEvent_JankSeverityType jank_severity_type_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<9> _has_field_{};
+  std::bitset<10> _has_field_{};
 };
 
 

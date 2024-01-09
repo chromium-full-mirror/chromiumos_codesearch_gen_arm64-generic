@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGNumberTearOff>::value,
     "SVGNumberTearOff inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGNumberTearOff::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGNumberTearOff is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGNumber.value.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGNumberTearOff* blink_receiver = V8SVGNumber::ToWrappableUnsafe(v8_receiver);
+SVGNumberTearOff* blink_receiver = V8SVGNumber::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->value();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -97,9 +93,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGNumber.value.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGNumberTearOff* blink_receiver = V8SVGNumber::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGNumberTearOff* blink_receiver = V8SVGNumber::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGNumber";

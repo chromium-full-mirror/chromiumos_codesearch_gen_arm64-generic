@@ -138,7 +138,6 @@
     this.trustTokenOperationStatus = trust_tokens$.TrustTokenOperationStatus.kOk;
     this.sslInfo = null;
     this.blockedByResponseReason = null;
-    this.proxyServer = null;
     this.resolveErrorInfo = null;
   };
   URLLoaderCompletionStatus.prototype.initFields_ = function(fields) {
@@ -155,7 +154,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 104}
+      {version: 0, numBytes: 96}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -206,14 +205,8 @@
 
 
 
-    // validate URLLoaderCompletionStatus.proxyServer
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, network_param$.ProxyServer, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate URLLoaderCompletionStatus.resolveErrorInfo
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 88, network_param$.ResolveErrorInfo, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, network_param$.ResolveErrorInfo, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -221,7 +214,7 @@
     return validator.validationError.NONE;
   };
 
-  URLLoaderCompletionStatus.encodedSize = codec.kStructHeaderSize + 96;
+  URLLoaderCompletionStatus.encodedSize = codec.kStructHeaderSize + 88;
 
   URLLoaderCompletionStatus.decode = function(decoder) {
     var packed;
@@ -262,8 +255,6 @@
         decoder.decodeStructPointer(network_param$.SSLInfo);
     val.blockedByResponseReason =
         decoder.decodeStructPointer(BlockedByResponseReasonWrapper);
-    val.proxyServer =
-        decoder.decodeStructPointer(network_param$.ProxyServer);
     val.resolveErrorInfo =
         decoder.decodeStructPointer(network_param$.ResolveErrorInfo);
     return val;
@@ -297,7 +288,6 @@
     encoder.skip(1);
     encoder.encodeStructPointer(network_param$.SSLInfo, val.sslInfo);
     encoder.encodeStructPointer(BlockedByResponseReasonWrapper, val.blockedByResponseReason);
-    encoder.encodeStructPointer(network_param$.ProxyServer, val.proxyServer);
     encoder.encodeStructPointer(network_param$.ResolveErrorInfo, val.resolveErrorInfo);
   };
   exports.BlockedByResponseReasonWrapper = BlockedByResponseReasonWrapper;

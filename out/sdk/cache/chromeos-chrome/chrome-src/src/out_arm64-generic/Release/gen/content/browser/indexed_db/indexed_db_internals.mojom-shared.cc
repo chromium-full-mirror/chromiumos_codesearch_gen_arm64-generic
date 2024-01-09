@@ -166,7 +166,7 @@ bool IdbInternalsHandler_DownloadBucketData_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -226,7 +226,7 @@ bool IdbInternalsHandler_ForceClose_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 

@@ -19,12 +19,6 @@
   var validator = mojo.internal;
 
   var exports = mojo.internal.exposeNamespace('cros.mojom');
-  var cros_sensor_service$ =
-      mojo.internal.exposeNamespace('chromeos.sensors.mojom');
-  if (mojo.config.autoLoadMojomDeps) {
-    mojo.internal.loadMojomIfNecessary(
-        'chromeos/components/sensors/mojom/cros_sensor_service.mojom', '../../../../../chromeos/components/sensors/mojom/cros_sensor_service.mojom.js');
-  }
   var jpeg_encode_accelerator$ =
       mojo.internal.exposeNamespace('chromeosCamera.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -159,381 +153,6 @@
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
 
-  function CameraHalDispatcher_RegisterServer_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalDispatcher_RegisterServer_Params.prototype.initDefaults_ = function() {
-    this.server = new CameraHalServerPtr();
-  };
-  CameraHalDispatcher_RegisterServer_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalDispatcher_RegisterServer_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_RegisterServer_Params.server
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 0, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalDispatcher_RegisterServer_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalDispatcher_RegisterServer_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalDispatcher_RegisterServer_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.server =
-        decoder.decodeStruct(new codec.Interface(CameraHalServerPtr));
-    return val;
-  };
-
-  CameraHalDispatcher_RegisterServer_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalDispatcher_RegisterServer_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(new codec.Interface(CameraHalServerPtr), val.server);
-  };
-  function CameraHalDispatcher_RegisterClient_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalDispatcher_RegisterClient_Params.prototype.initDefaults_ = function() {
-    this.client = new cros_camera_client$.CameraHalClientPtr();
-  };
-  CameraHalDispatcher_RegisterClient_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalDispatcher_RegisterClient_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_RegisterClient_Params.client
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 0, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalDispatcher_RegisterClient_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalDispatcher_RegisterClient_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalDispatcher_RegisterClient_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.client =
-        decoder.decodeStruct(new codec.Interface(cros_camera_client$.CameraHalClientPtr));
-    return val;
-  };
-
-  CameraHalDispatcher_RegisterClient_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalDispatcher_RegisterClient_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(new codec.Interface(cros_camera_client$.CameraHalClientPtr), val.client);
-  };
-  function CameraHalDispatcher_GetMjpegDecodeAccelerator_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalDispatcher_GetMjpegDecodeAccelerator_Params.prototype.initDefaults_ = function() {
-    this.jdaReceiver = new bindings.InterfaceRequest();
-  };
-  CameraHalDispatcher_GetMjpegDecodeAccelerator_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalDispatcher_GetMjpegDecodeAccelerator_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_GetMjpegDecodeAccelerator_Params.jdaReceiver
-    err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 0, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalDispatcher_GetMjpegDecodeAccelerator_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalDispatcher_GetMjpegDecodeAccelerator_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalDispatcher_GetMjpegDecodeAccelerator_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.jdaReceiver =
-        decoder.decodeStruct(codec.InterfaceRequest);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalDispatcher_GetMjpegDecodeAccelerator_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalDispatcher_GetMjpegDecodeAccelerator_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.InterfaceRequest, val.jdaReceiver);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalDispatcher_GetJpegEncodeAccelerator_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalDispatcher_GetJpegEncodeAccelerator_Params.prototype.initDefaults_ = function() {
-    this.jeaReceiver = new bindings.InterfaceRequest();
-  };
-  CameraHalDispatcher_GetJpegEncodeAccelerator_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalDispatcher_GetJpegEncodeAccelerator_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_GetJpegEncodeAccelerator_Params.jeaReceiver
-    err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 0, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalDispatcher_GetJpegEncodeAccelerator_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalDispatcher_GetJpegEncodeAccelerator_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalDispatcher_GetJpegEncodeAccelerator_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.jeaReceiver =
-        decoder.decodeStruct(codec.InterfaceRequest);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalDispatcher_GetJpegEncodeAccelerator_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalDispatcher_GetJpegEncodeAccelerator_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.InterfaceRequest, val.jeaReceiver);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalDispatcher_RegisterServerWithToken_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalDispatcher_RegisterServerWithToken_Params.prototype.initDefaults_ = function() {
-    this.server = new CameraHalServerPtr();
-    this.authToken = null;
-  };
-  CameraHalDispatcher_RegisterServerWithToken_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalDispatcher_RegisterServerWithToken_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 24}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_RegisterServerWithToken_Params.server
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 0, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_RegisterServerWithToken_Params.authToken
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, unguessable_token$.UnguessableToken, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalDispatcher_RegisterServerWithToken_Params.encodedSize = codec.kStructHeaderSize + 16;
-
-  CameraHalDispatcher_RegisterServerWithToken_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalDispatcher_RegisterServerWithToken_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.server =
-        decoder.decodeStruct(new codec.Interface(CameraHalServerPtr));
-    val.authToken =
-        decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
-    return val;
-  };
-
-  CameraHalDispatcher_RegisterServerWithToken_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalDispatcher_RegisterServerWithToken_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(new codec.Interface(CameraHalServerPtr), val.server);
-    encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.authToken);
-  };
-  function CameraHalDispatcher_RegisterServerWithToken_ResponseParams(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalDispatcher_RegisterServerWithToken_ResponseParams.prototype.initDefaults_ = function() {
-    this.result = 0;
-    this.callbacks = new CameraHalServerCallbacksPtr();
-  };
-  CameraHalDispatcher_RegisterServerWithToken_ResponseParams.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalDispatcher_RegisterServerWithToken_ResponseParams.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 24}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-
-    // validate CameraHalDispatcher_RegisterServerWithToken_ResponseParams.callbacks
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 4, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalDispatcher_RegisterServerWithToken_ResponseParams.encodedSize = codec.kStructHeaderSize + 16;
-
-  CameraHalDispatcher_RegisterServerWithToken_ResponseParams.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalDispatcher_RegisterServerWithToken_ResponseParams();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.result =
-        decoder.decodeStruct(codec.Int32);
-    val.callbacks =
-        decoder.decodeStruct(new codec.Interface(CameraHalServerCallbacksPtr));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalDispatcher_RegisterServerWithToken_ResponseParams.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalDispatcher_RegisterServerWithToken_ResponseParams.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.result);
-    encoder.encodeStruct(new codec.Interface(CameraHalServerCallbacksPtr), val.callbacks);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
   function CameraHalDispatcher_RegisterClientWithToken_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -677,837 +296,25 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function CameraHalDispatcher_RegisterSensorClientWithToken_Params(values) {
+  function CrosCameraServiceObserver_CameraDeviceActivityChange_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  CameraHalDispatcher_RegisterSensorClientWithToken_Params.prototype.initDefaults_ = function() {
-    this.client = new cros_sensor_service$.SensorHalClientPtr();
-    this.authToken = null;
-  };
-  CameraHalDispatcher_RegisterSensorClientWithToken_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 24}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_RegisterSensorClientWithToken_Params.client
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 0, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_RegisterSensorClientWithToken_Params.authToken
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, unguessable_token$.UnguessableToken, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_Params.encodedSize = codec.kStructHeaderSize + 16;
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalDispatcher_RegisterSensorClientWithToken_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.client =
-        decoder.decodeStruct(new codec.Interface(cros_sensor_service$.SensorHalClientPtr));
-    val.authToken =
-        decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
-    return val;
-  };
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalDispatcher_RegisterSensorClientWithToken_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(new codec.Interface(cros_sensor_service$.SensorHalClientPtr), val.client);
-    encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.authToken);
-  };
-  function CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams.prototype.initDefaults_ = function() {
-    this.result = 0;
-  };
-  CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.result =
-        decoder.decodeStruct(codec.Int32);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.result);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalDispatcher_BindServiceToMojoServiceManager_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalDispatcher_BindServiceToMojoServiceManager_Params.prototype.initDefaults_ = function() {
-    this.serviceName = null;
-    this.receiver = null;
-  };
-  CameraHalDispatcher_BindServiceToMojoServiceManager_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalDispatcher_BindServiceToMojoServiceManager_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 24}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_BindServiceToMojoServiceManager_Params.serviceName
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalDispatcher_BindServiceToMojoServiceManager_Params.receiver
-    err = messageValidator.validateHandle(offset + codec.kStructHeaderSize + 8, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalDispatcher_BindServiceToMojoServiceManager_Params.encodedSize = codec.kStructHeaderSize + 16;
-
-  CameraHalDispatcher_BindServiceToMojoServiceManager_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalDispatcher_BindServiceToMojoServiceManager_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.serviceName =
-        decoder.decodeStruct(codec.String);
-    val.receiver =
-        decoder.decodeStruct(codec.Handle);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalDispatcher_BindServiceToMojoServiceManager_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalDispatcher_BindServiceToMojoServiceManager_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.String, val.serviceName);
-    encoder.encodeStruct(codec.Handle, val.receiver);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalServer_CreateChannel_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_CreateChannel_Params.prototype.initDefaults_ = function() {
-    this.cameraModuleReceiver = new bindings.InterfaceRequest();
-    this.type = 0;
-  };
-  CameraHalServer_CreateChannel_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_CreateChannel_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16},
-      {version: 4, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalServer_CreateChannel_Params.cameraModuleReceiver
-    err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 0, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-
-    // version check CameraHalServer_CreateChannel_Params.type
-    if (!messageValidator.isFieldInStructVersion(offset, 4))
-      return validator.validationError.NONE;
-    // validate CameraHalServer_CreateChannel_Params.type
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, CameraClientType);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_CreateChannel_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalServer_CreateChannel_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_CreateChannel_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.cameraModuleReceiver =
-        decoder.decodeStruct(codec.InterfaceRequest);
-    if (version >= 4) {
-      val.type =
-          decoder.decodeStruct(new codec.Enum(CameraClientType));
-    } else {
-      val.type = null;
-    }
-    return val;
-  };
-
-  CameraHalServer_CreateChannel_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_CreateChannel_Params.encodedSize);
-    encoder.writeUint32(4);
-    encoder.encodeStruct(codec.InterfaceRequest, val.cameraModuleReceiver);
-    encoder.encodeStruct(codec.Int32, val.type);
-  };
-  function CameraHalServer_SetTracingEnabled_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_SetTracingEnabled_Params.prototype.initDefaults_ = function() {
-    this.enabled = false;
-  };
-  CameraHalServer_SetTracingEnabled_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_SetTracingEnabled_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_SetTracingEnabled_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalServer_SetTracingEnabled_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_SetTracingEnabled_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    packed = decoder.readUint8();
-    val.enabled = (packed >> 0) & 1 ? true : false;
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalServer_SetTracingEnabled_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_SetTracingEnabled_Params.encodedSize);
-    encoder.writeUint32(0);
-    packed = 0;
-    packed |= (val.enabled & 1) << 0
-    encoder.writeUint8(packed);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalServer_SetAutoFramingState_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_SetAutoFramingState_Params.prototype.initDefaults_ = function() {
-    this.state = 0;
-  };
-  CameraHalServer_SetAutoFramingState_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_SetAutoFramingState_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalServer_SetAutoFramingState_Params.state
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraAutoFramingState);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_SetAutoFramingState_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalServer_SetAutoFramingState_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_SetAutoFramingState_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.state =
-        decoder.decodeStruct(new codec.Enum(CameraAutoFramingState));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalServer_SetAutoFramingState_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_SetAutoFramingState_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.state);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalServer_GetCameraSWPrivacySwitchState_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_Params.prototype.initDefaults_ = function() {
-  };
-  CameraHalServer_GetCameraSWPrivacySwitchState_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 8}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_Params.encodedSize = codec.kStructHeaderSize + 0;
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_GetCameraSWPrivacySwitchState_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    return val;
-  };
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_GetCameraSWPrivacySwitchState_Params.encodedSize);
-    encoder.writeUint32(0);
-  };
-  function CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams.prototype.initDefaults_ = function() {
-    this.state = 0;
-  };
-  CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams.state
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraPrivacySwitchState);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.state =
-        decoder.decodeStruct(new codec.Enum(CameraPrivacySwitchState));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.state);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalServer_SetCameraSWPrivacySwitchState_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_SetCameraSWPrivacySwitchState_Params.prototype.initDefaults_ = function() {
-    this.state = 0;
-  };
-  CameraHalServer_SetCameraSWPrivacySwitchState_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_SetCameraSWPrivacySwitchState_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalServer_SetCameraSWPrivacySwitchState_Params.state
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraPrivacySwitchState);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_SetCameraSWPrivacySwitchState_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalServer_SetCameraSWPrivacySwitchState_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_SetCameraSWPrivacySwitchState_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.state =
-        decoder.decodeStruct(new codec.Enum(CameraPrivacySwitchState));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalServer_SetCameraSWPrivacySwitchState_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_SetCameraSWPrivacySwitchState_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.state);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalServer_GetAutoFramingSupported_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_GetAutoFramingSupported_Params.prototype.initDefaults_ = function() {
-  };
-  CameraHalServer_GetAutoFramingSupported_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_GetAutoFramingSupported_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 8}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_GetAutoFramingSupported_Params.encodedSize = codec.kStructHeaderSize + 0;
-
-  CameraHalServer_GetAutoFramingSupported_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_GetAutoFramingSupported_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    return val;
-  };
-
-  CameraHalServer_GetAutoFramingSupported_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_GetAutoFramingSupported_Params.encodedSize);
-    encoder.writeUint32(0);
-  };
-  function CameraHalServer_GetAutoFramingSupported_ResponseParams(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_GetAutoFramingSupported_ResponseParams.prototype.initDefaults_ = function() {
-    this.supported = false;
-  };
-  CameraHalServer_GetAutoFramingSupported_ResponseParams.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_GetAutoFramingSupported_ResponseParams.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_GetAutoFramingSupported_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalServer_GetAutoFramingSupported_ResponseParams.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_GetAutoFramingSupported_ResponseParams();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    packed = decoder.readUint8();
-    val.supported = (packed >> 0) & 1 ? true : false;
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalServer_GetAutoFramingSupported_ResponseParams.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_GetAutoFramingSupported_ResponseParams.encodedSize);
-    encoder.writeUint32(0);
-    packed = 0;
-    packed |= (val.supported & 1) << 0
-    encoder.writeUint8(packed);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalServer_SetCameraEffect_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_SetCameraEffect_Params.prototype.initDefaults_ = function() {
-    this.config = null;
-  };
-  CameraHalServer_SetCameraEffect_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_SetCameraEffect_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalServer_SetCameraEffect_Params.config
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, effects_pipeline$.EffectsConfig, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_SetCameraEffect_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalServer_SetCameraEffect_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_SetCameraEffect_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.config =
-        decoder.decodeStructPointer(effects_pipeline$.EffectsConfig);
-    return val;
-  };
-
-  CameraHalServer_SetCameraEffect_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_SetCameraEffect_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStructPointer(effects_pipeline$.EffectsConfig, val.config);
-  };
-  function CameraHalServer_SetCameraEffect_ResponseParams(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServer_SetCameraEffect_ResponseParams.prototype.initDefaults_ = function() {
-    this.result = 0;
-  };
-  CameraHalServer_SetCameraEffect_ResponseParams.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServer_SetCameraEffect_ResponseParams.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalServer_SetCameraEffect_ResponseParams.result
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, effects_pipeline$.SetEffectResult);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServer_SetCameraEffect_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalServer_SetCameraEffect_ResponseParams.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServer_SetCameraEffect_ResponseParams();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.result =
-        decoder.decodeStruct(new codec.Enum(effects_pipeline$.SetEffectResult));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  CameraHalServer_SetCameraEffect_ResponseParams.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServer_SetCameraEffect_ResponseParams.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.result);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function CameraHalServerCallbacks_CameraDeviceActivityChange_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServerCallbacks_CameraDeviceActivityChange_Params.prototype.initDefaults_ = function() {
+  CrosCameraServiceObserver_CameraDeviceActivityChange_Params.prototype.initDefaults_ = function() {
     this.cameraId = 0;
     this.opened = false;
     this.type = 0;
   };
-  CameraHalServerCallbacks_CameraDeviceActivityChange_Params.prototype.initFields_ = function(fields) {
+  CrosCameraServiceObserver_CameraDeviceActivityChange_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  CameraHalServerCallbacks_CameraDeviceActivityChange_Params.validate = function(messageValidator, offset) {
+  CrosCameraServiceObserver_CameraDeviceActivityChange_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1523,7 +330,7 @@
 
 
 
-    // validate CameraHalServerCallbacks_CameraDeviceActivityChange_Params.type
+    // validate CrosCameraServiceObserver_CameraDeviceActivityChange_Params.type
     err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 8, CameraClientType);
     if (err !== validator.validationError.NONE)
         return err;
@@ -1531,11 +338,11 @@
     return validator.validationError.NONE;
   };
 
-  CameraHalServerCallbacks_CameraDeviceActivityChange_Params.encodedSize = codec.kStructHeaderSize + 16;
+  CrosCameraServiceObserver_CameraDeviceActivityChange_Params.encodedSize = codec.kStructHeaderSize + 16;
 
-  CameraHalServerCallbacks_CameraDeviceActivityChange_Params.decode = function(decoder) {
+  CrosCameraServiceObserver_CameraDeviceActivityChange_Params.decode = function(decoder) {
     var packed;
-    var val = new CameraHalServerCallbacks_CameraDeviceActivityChange_Params();
+    var val = new CrosCameraServiceObserver_CameraDeviceActivityChange_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.cameraId =
@@ -1554,9 +361,9 @@
     return val;
   };
 
-  CameraHalServerCallbacks_CameraDeviceActivityChange_Params.encode = function(encoder, val) {
+  CrosCameraServiceObserver_CameraDeviceActivityChange_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(CameraHalServerCallbacks_CameraDeviceActivityChange_Params.encodedSize);
+    encoder.writeUint32(CrosCameraServiceObserver_CameraDeviceActivityChange_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.Int32, val.cameraId);
     packed = 0;
@@ -1571,89 +378,24 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params(values) {
+  function CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params.prototype.initDefaults_ = function() {
+  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params.prototype.initDefaults_ = function() {
     this.state = 0;
     this.cameraId = 0;
   };
-  CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params.prototype.initFields_ = function(fields) {
+  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16},
-      {version: 9, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params.state
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraPrivacySwitchState);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    return validator.validationError.NONE;
-  };
-
-  CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params.decode = function(decoder) {
-    var packed;
-    var val = new CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.state =
-        decoder.decodeStruct(new codec.Enum(CameraPrivacySwitchState));
-    if (version >= 9) {
-      val.cameraId =
-          decoder.decodeStruct(codec.Int32);
-    } else {
-      val.cameraId = null;
-    }
-    return val;
-  };
-
-  CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params.encodedSize);
-    encoder.writeUint32(9);
-    encoder.encodeStruct(codec.Int32, val.state);
-    encoder.encodeStruct(codec.Int32, val.cameraId);
-  };
-  function CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params.prototype.initDefaults_ = function() {
-    this.state = 0;
-  };
-  CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params.validate = function(messageValidator, offset) {
+  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1667,7 +409,67 @@
         return err;
 
 
-    // validate CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params.state
+    // validate CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params.state
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraPrivacySwitchState);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.state =
+        decoder.decodeStruct(new codec.Enum(CameraPrivacySwitchState));
+    val.cameraId =
+        decoder.decodeStruct(codec.Int32);
+    return val;
+  };
+
+  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.state);
+    encoder.encodeStruct(codec.Int32, val.cameraId);
+  };
+  function CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params.prototype.initDefaults_ = function() {
+    this.state = 0;
+  };
+  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params.state
     err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraPrivacySwitchState);
     if (err !== validator.validationError.NONE)
         return err;
@@ -1675,11 +477,11 @@
     return validator.validationError.NONE;
   };
 
-  CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params.encodedSize = codec.kStructHeaderSize + 8;
+  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params.decode = function(decoder) {
+  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params.decode = function(decoder) {
     var packed;
-    var val = new CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params();
+    var val = new CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.state =
@@ -1691,9 +493,9 @@
     return val;
   };
 
-  CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params.encode = function(encoder, val) {
+  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params.encodedSize);
+    encoder.writeUint32(CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.Int32, val.state);
     encoder.skip(1);
@@ -1701,14 +503,721 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  var kCameraHalDispatcher_RegisterServer_Name = 0;
-  var kCameraHalDispatcher_RegisterClient_Name = 1;
-  var kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name = 2;
-  var kCameraHalDispatcher_GetJpegEncodeAccelerator_Name = 3;
-  var kCameraHalDispatcher_RegisterServerWithToken_Name = 4;
+  function CrosCameraService_GetCameraModule_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_GetCameraModule_Params.prototype.initDefaults_ = function() {
+    this.type = 0;
+  };
+  CrosCameraService_GetCameraModule_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_GetCameraModule_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraService_GetCameraModule_Params.type
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraClientType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_GetCameraModule_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_GetCameraModule_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_GetCameraModule_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.type =
+        decoder.decodeStruct(new codec.Enum(CameraClientType));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  CrosCameraService_GetCameraModule_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_GetCameraModule_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.type);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function CrosCameraService_GetCameraModule_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_GetCameraModule_ResponseParams.prototype.initDefaults_ = function() {
+    this.cameraModuleReceiver = new camera_common$.CameraModulePtr();
+  };
+  CrosCameraService_GetCameraModule_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_GetCameraModule_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraService_GetCameraModule_ResponseParams.cameraModuleReceiver
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 0, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_GetCameraModule_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_GetCameraModule_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_GetCameraModule_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.cameraModuleReceiver =
+        decoder.decodeStruct(new codec.Interface(camera_common$.CameraModulePtr));
+    return val;
+  };
+
+  CrosCameraService_GetCameraModule_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_GetCameraModule_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(new codec.Interface(camera_common$.CameraModulePtr), val.cameraModuleReceiver);
+  };
+  function CrosCameraService_SetTracingEnabled_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_SetTracingEnabled_Params.prototype.initDefaults_ = function() {
+    this.enabled = false;
+  };
+  CrosCameraService_SetTracingEnabled_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_SetTracingEnabled_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_SetTracingEnabled_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_SetTracingEnabled_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_SetTracingEnabled_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.enabled = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  CrosCameraService_SetTracingEnabled_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_SetTracingEnabled_Params.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.enabled & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function CrosCameraService_SetAutoFramingState_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_SetAutoFramingState_Params.prototype.initDefaults_ = function() {
+    this.state = 0;
+  };
+  CrosCameraService_SetAutoFramingState_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_SetAutoFramingState_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraService_SetAutoFramingState_Params.state
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraAutoFramingState);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_SetAutoFramingState_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_SetAutoFramingState_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_SetAutoFramingState_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.state =
+        decoder.decodeStruct(new codec.Enum(CameraAutoFramingState));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  CrosCameraService_SetAutoFramingState_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_SetAutoFramingState_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.state);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function CrosCameraService_GetCameraSWPrivacySwitchState_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_Params.prototype.initDefaults_ = function() {
+  };
+  CrosCameraService_GetCameraSWPrivacySwitchState_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_GetCameraSWPrivacySwitchState_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_GetCameraSWPrivacySwitchState_Params.encodedSize);
+    encoder.writeUint32(0);
+  };
+  function CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams.prototype.initDefaults_ = function() {
+    this.state = 0;
+  };
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams.state
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraPrivacySwitchState);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.state =
+        decoder.decodeStruct(new codec.Enum(CameraPrivacySwitchState));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.state);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function CrosCameraService_SetCameraSWPrivacySwitchState_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_SetCameraSWPrivacySwitchState_Params.prototype.initDefaults_ = function() {
+    this.state = 0;
+  };
+  CrosCameraService_SetCameraSWPrivacySwitchState_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_SetCameraSWPrivacySwitchState_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraService_SetCameraSWPrivacySwitchState_Params.state
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, CameraPrivacySwitchState);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_SetCameraSWPrivacySwitchState_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_SetCameraSWPrivacySwitchState_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_SetCameraSWPrivacySwitchState_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.state =
+        decoder.decodeStruct(new codec.Enum(CameraPrivacySwitchState));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  CrosCameraService_SetCameraSWPrivacySwitchState_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_SetCameraSWPrivacySwitchState_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.state);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function CrosCameraService_GetAutoFramingSupported_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_GetAutoFramingSupported_Params.prototype.initDefaults_ = function() {
+  };
+  CrosCameraService_GetAutoFramingSupported_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_GetAutoFramingSupported_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_GetAutoFramingSupported_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  CrosCameraService_GetAutoFramingSupported_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_GetAutoFramingSupported_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  CrosCameraService_GetAutoFramingSupported_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_GetAutoFramingSupported_Params.encodedSize);
+    encoder.writeUint32(0);
+  };
+  function CrosCameraService_GetAutoFramingSupported_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_GetAutoFramingSupported_ResponseParams.prototype.initDefaults_ = function() {
+    this.supported = false;
+  };
+  CrosCameraService_GetAutoFramingSupported_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_GetAutoFramingSupported_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_GetAutoFramingSupported_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_GetAutoFramingSupported_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_GetAutoFramingSupported_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.supported = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  CrosCameraService_GetAutoFramingSupported_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_GetAutoFramingSupported_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.supported & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function CrosCameraService_SetCameraEffect_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_SetCameraEffect_Params.prototype.initDefaults_ = function() {
+    this.config = null;
+  };
+  CrosCameraService_SetCameraEffect_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_SetCameraEffect_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraService_SetCameraEffect_Params.config
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, effects_pipeline$.EffectsConfig, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_SetCameraEffect_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_SetCameraEffect_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_SetCameraEffect_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.config =
+        decoder.decodeStructPointer(effects_pipeline$.EffectsConfig);
+    return val;
+  };
+
+  CrosCameraService_SetCameraEffect_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_SetCameraEffect_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(effects_pipeline$.EffectsConfig, val.config);
+  };
+  function CrosCameraService_SetCameraEffect_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_SetCameraEffect_ResponseParams.prototype.initDefaults_ = function() {
+    this.result = 0;
+  };
+  CrosCameraService_SetCameraEffect_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_SetCameraEffect_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraService_SetCameraEffect_ResponseParams.result
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, effects_pipeline$.SetEffectResult);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_SetCameraEffect_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_SetCameraEffect_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_SetCameraEffect_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.result =
+        decoder.decodeStruct(new codec.Enum(effects_pipeline$.SetEffectResult));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  CrosCameraService_SetCameraEffect_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_SetCameraEffect_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.result);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function CrosCameraService_AddCrosCameraServiceObserver_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosCameraService_AddCrosCameraServiceObserver_Params.prototype.initDefaults_ = function() {
+    this.observer = new CrosCameraServiceObserverPtr();
+  };
+  CrosCameraService_AddCrosCameraServiceObserver_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosCameraService_AddCrosCameraServiceObserver_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CrosCameraService_AddCrosCameraServiceObserver_Params.observer
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 0, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CrosCameraService_AddCrosCameraServiceObserver_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosCameraService_AddCrosCameraServiceObserver_Params.decode = function(decoder) {
+    var packed;
+    var val = new CrosCameraService_AddCrosCameraServiceObserver_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.observer =
+        decoder.decodeStruct(new codec.Interface(CrosCameraServiceObserverPtr));
+    return val;
+  };
+
+  CrosCameraService_AddCrosCameraServiceObserver_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosCameraService_AddCrosCameraServiceObserver_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(new codec.Interface(CrosCameraServiceObserverPtr), val.observer);
+  };
   var kCameraHalDispatcher_RegisterClientWithToken_Name = 5;
-  var kCameraHalDispatcher_RegisterSensorClientWithToken_Name = 6;
-  var kCameraHalDispatcher_BindServiceToMojoServiceManager_Name = 7;
 
   function CameraHalDispatcherPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(CameraHalDispatcher,
@@ -1728,92 +1237,6 @@
   function CameraHalDispatcherProxy(receiver) {
     this.receiver_ = receiver;
   }
-  CameraHalDispatcherPtr.prototype.registerServer = function() {
-    return CameraHalDispatcherProxy.prototype.registerServer
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalDispatcherProxy.prototype.registerServer = function(server) {
-    var params_ = new CameraHalDispatcher_RegisterServer_Params();
-    params_.server = server;
-    var builder = new codec.MessageV0Builder(
-        kCameraHalDispatcher_RegisterServer_Name,
-        codec.align(CameraHalDispatcher_RegisterServer_Params.encodedSize));
-    builder.encodeStruct(CameraHalDispatcher_RegisterServer_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
-  CameraHalDispatcherPtr.prototype.registerClient = function() {
-    return CameraHalDispatcherProxy.prototype.registerClient
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalDispatcherProxy.prototype.registerClient = function(client) {
-    var params_ = new CameraHalDispatcher_RegisterClient_Params();
-    params_.client = client;
-    var builder = new codec.MessageV0Builder(
-        kCameraHalDispatcher_RegisterClient_Name,
-        codec.align(CameraHalDispatcher_RegisterClient_Params.encodedSize));
-    builder.encodeStruct(CameraHalDispatcher_RegisterClient_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
-  CameraHalDispatcherPtr.prototype.getMjpegDecodeAccelerator = function() {
-    return CameraHalDispatcherProxy.prototype.getMjpegDecodeAccelerator
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalDispatcherProxy.prototype.getMjpegDecodeAccelerator = function(jdaReceiver) {
-    var params_ = new CameraHalDispatcher_GetMjpegDecodeAccelerator_Params();
-    params_.jdaReceiver = jdaReceiver;
-    var builder = new codec.MessageV0Builder(
-        kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name,
-        codec.align(CameraHalDispatcher_GetMjpegDecodeAccelerator_Params.encodedSize));
-    builder.encodeStruct(CameraHalDispatcher_GetMjpegDecodeAccelerator_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
-  CameraHalDispatcherPtr.prototype.getJpegEncodeAccelerator = function() {
-    return CameraHalDispatcherProxy.prototype.getJpegEncodeAccelerator
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalDispatcherProxy.prototype.getJpegEncodeAccelerator = function(jeaReceiver) {
-    var params_ = new CameraHalDispatcher_GetJpegEncodeAccelerator_Params();
-    params_.jeaReceiver = jeaReceiver;
-    var builder = new codec.MessageV0Builder(
-        kCameraHalDispatcher_GetJpegEncodeAccelerator_Name,
-        codec.align(CameraHalDispatcher_GetJpegEncodeAccelerator_Params.encodedSize));
-    builder.encodeStruct(CameraHalDispatcher_GetJpegEncodeAccelerator_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
-  CameraHalDispatcherPtr.prototype.registerServerWithToken = function() {
-    return CameraHalDispatcherProxy.prototype.registerServerWithToken
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalDispatcherProxy.prototype.registerServerWithToken = function(server, authToken) {
-    var params_ = new CameraHalDispatcher_RegisterServerWithToken_Params();
-    params_.server = server;
-    params_.authToken = authToken;
-    return new Promise(function(resolve, reject) {
-      var builder = new codec.MessageV1Builder(
-          kCameraHalDispatcher_RegisterServerWithToken_Name,
-          codec.align(CameraHalDispatcher_RegisterServerWithToken_Params.encodedSize),
-          codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(CameraHalDispatcher_RegisterServerWithToken_Params, params_);
-      var message = builder.finish();
-      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
-        var reader = new codec.MessageReader(message);
-        var responseParams =
-            reader.decodeStruct(CameraHalDispatcher_RegisterServerWithToken_ResponseParams);
-        resolve(responseParams);
-      }).catch(function(result) {
-        reject(Error("Connection error: " + result));
-      });
-    }.bind(this));
-  };
   CameraHalDispatcherPtr.prototype.registerClientWithToken = function() {
     return CameraHalDispatcherProxy.prototype.registerClientWithToken
         .apply(this.ptr.getProxy(), arguments);
@@ -1841,100 +1264,17 @@
       });
     }.bind(this));
   };
-  CameraHalDispatcherPtr.prototype.registerSensorClientWithToken = function() {
-    return CameraHalDispatcherProxy.prototype.registerSensorClientWithToken
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalDispatcherProxy.prototype.registerSensorClientWithToken = function(client, authToken) {
-    var params_ = new CameraHalDispatcher_RegisterSensorClientWithToken_Params();
-    params_.client = client;
-    params_.authToken = authToken;
-    return new Promise(function(resolve, reject) {
-      var builder = new codec.MessageV1Builder(
-          kCameraHalDispatcher_RegisterSensorClientWithToken_Name,
-          codec.align(CameraHalDispatcher_RegisterSensorClientWithToken_Params.encodedSize),
-          codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(CameraHalDispatcher_RegisterSensorClientWithToken_Params, params_);
-      var message = builder.finish();
-      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
-        var reader = new codec.MessageReader(message);
-        var responseParams =
-            reader.decodeStruct(CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams);
-        resolve(responseParams);
-      }).catch(function(result) {
-        reject(Error("Connection error: " + result));
-      });
-    }.bind(this));
-  };
-  CameraHalDispatcherPtr.prototype.bindServiceToMojoServiceManager = function() {
-    return CameraHalDispatcherProxy.prototype.bindServiceToMojoServiceManager
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalDispatcherProxy.prototype.bindServiceToMojoServiceManager = function(serviceName, receiver) {
-    var params_ = new CameraHalDispatcher_BindServiceToMojoServiceManager_Params();
-    params_.serviceName = serviceName;
-    params_.receiver = receiver;
-    var builder = new codec.MessageV0Builder(
-        kCameraHalDispatcher_BindServiceToMojoServiceManager_Name,
-        codec.align(CameraHalDispatcher_BindServiceToMojoServiceManager_Params.encodedSize));
-    builder.encodeStruct(CameraHalDispatcher_BindServiceToMojoServiceManager_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
 
   function CameraHalDispatcherStub(delegate) {
     this.delegate_ = delegate;
   }
-  CameraHalDispatcherStub.prototype.registerServer = function(server) {
-    return this.delegate_ && this.delegate_.registerServer && this.delegate_.registerServer(server);
-  }
-  CameraHalDispatcherStub.prototype.registerClient = function(client) {
-    return this.delegate_ && this.delegate_.registerClient && this.delegate_.registerClient(client);
-  }
-  CameraHalDispatcherStub.prototype.getMjpegDecodeAccelerator = function(jdaReceiver) {
-    return this.delegate_ && this.delegate_.getMjpegDecodeAccelerator && this.delegate_.getMjpegDecodeAccelerator(jdaReceiver);
-  }
-  CameraHalDispatcherStub.prototype.getJpegEncodeAccelerator = function(jeaReceiver) {
-    return this.delegate_ && this.delegate_.getJpegEncodeAccelerator && this.delegate_.getJpegEncodeAccelerator(jeaReceiver);
-  }
-  CameraHalDispatcherStub.prototype.registerServerWithToken = function(server, authToken) {
-    return this.delegate_ && this.delegate_.registerServerWithToken && this.delegate_.registerServerWithToken(server, authToken);
-  }
   CameraHalDispatcherStub.prototype.registerClientWithToken = function(client, type, authToken) {
     return this.delegate_ && this.delegate_.registerClientWithToken && this.delegate_.registerClientWithToken(client, type, authToken);
-  }
-  CameraHalDispatcherStub.prototype.registerSensorClientWithToken = function(client, authToken) {
-    return this.delegate_ && this.delegate_.registerSensorClientWithToken && this.delegate_.registerSensorClientWithToken(client, authToken);
-  }
-  CameraHalDispatcherStub.prototype.bindServiceToMojoServiceManager = function(serviceName, receiver) {
-    return this.delegate_ && this.delegate_.bindServiceToMojoServiceManager && this.delegate_.bindServiceToMojoServiceManager(serviceName, receiver);
   }
 
   CameraHalDispatcherStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
-    case kCameraHalDispatcher_RegisterServer_Name:
-      var params = reader.decodeStruct(CameraHalDispatcher_RegisterServer_Params);
-      this.registerServer(params.server);
-      return true;
-    case kCameraHalDispatcher_RegisterClient_Name:
-      var params = reader.decodeStruct(CameraHalDispatcher_RegisterClient_Params);
-      this.registerClient(params.client);
-      return true;
-    case kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name:
-      var params = reader.decodeStruct(CameraHalDispatcher_GetMjpegDecodeAccelerator_Params);
-      this.getMjpegDecodeAccelerator(params.jdaReceiver);
-      return true;
-    case kCameraHalDispatcher_GetJpegEncodeAccelerator_Name:
-      var params = reader.decodeStruct(CameraHalDispatcher_GetJpegEncodeAccelerator_Params);
-      this.getJpegEncodeAccelerator(params.jeaReceiver);
-      return true;
-    case kCameraHalDispatcher_BindServiceToMojoServiceManager_Name:
-      var params = reader.decodeStruct(CameraHalDispatcher_BindServiceToMojoServiceManager_Params);
-      this.bindServiceToMojoServiceManager(params.serviceName, params.receiver);
-      return true;
     default:
       return false;
     }
@@ -1944,23 +1284,6 @@
       function(message, responder) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
-    case kCameraHalDispatcher_RegisterServerWithToken_Name:
-      var params = reader.decodeStruct(CameraHalDispatcher_RegisterServerWithToken_Params);
-      this.registerServerWithToken(params.server, params.authToken).then(function(response) {
-        var responseParams =
-            new CameraHalDispatcher_RegisterServerWithToken_ResponseParams();
-        responseParams.result = response.result;
-        responseParams.callbacks = response.callbacks;
-        var builder = new codec.MessageV1Builder(
-            kCameraHalDispatcher_RegisterServerWithToken_Name,
-            codec.align(CameraHalDispatcher_RegisterServerWithToken_ResponseParams.encodedSize),
-            codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(CameraHalDispatcher_RegisterServerWithToken_ResponseParams,
-                             responseParams);
-        var message = builder.finish();
-        responder.accept(message);
-      });
-      return true;
     case kCameraHalDispatcher_RegisterClientWithToken_Name:
       var params = reader.decodeStruct(CameraHalDispatcher_RegisterClientWithToken_Params);
       this.registerClientWithToken(params.client, params.type, params.authToken).then(function(response) {
@@ -1977,22 +1300,6 @@
         responder.accept(message);
       });
       return true;
-    case kCameraHalDispatcher_RegisterSensorClientWithToken_Name:
-      var params = reader.decodeStruct(CameraHalDispatcher_RegisterSensorClientWithToken_Params);
-      this.registerSensorClientWithToken(params.client, params.authToken).then(function(response) {
-        var responseParams =
-            new CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams();
-        responseParams.result = response.result;
-        var builder = new codec.MessageV1Builder(
-            kCameraHalDispatcher_RegisterSensorClientWithToken_Name,
-            codec.align(CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams.encodedSize),
-            codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams,
-                             responseParams);
-        var message = builder.finish();
-        responder.accept(message);
-      });
-      return true;
     default:
       return false;
     }
@@ -2002,37 +1309,9 @@
     var message = messageValidator.message;
     var paramsClass = null;
     switch (message.getName()) {
-      case kCameraHalDispatcher_RegisterServer_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalDispatcher_RegisterServer_Params;
-      break;
-      case kCameraHalDispatcher_RegisterClient_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalDispatcher_RegisterClient_Params;
-      break;
-      case kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalDispatcher_GetMjpegDecodeAccelerator_Params;
-      break;
-      case kCameraHalDispatcher_GetJpegEncodeAccelerator_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalDispatcher_GetJpegEncodeAccelerator_Params;
-      break;
-      case kCameraHalDispatcher_RegisterServerWithToken_Name:
-        if (message.expectsResponse())
-          paramsClass = CameraHalDispatcher_RegisterServerWithToken_Params;
-      break;
       case kCameraHalDispatcher_RegisterClientWithToken_Name:
         if (message.expectsResponse())
           paramsClass = CameraHalDispatcher_RegisterClientWithToken_Params;
-      break;
-      case kCameraHalDispatcher_RegisterSensorClientWithToken_Name:
-        if (message.expectsResponse())
-          paramsClass = CameraHalDispatcher_RegisterSensorClientWithToken_Params;
-      break;
-      case kCameraHalDispatcher_BindServiceToMojoServiceManager_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalDispatcher_BindServiceToMojoServiceManager_Params;
       break;
     }
     if (paramsClass === null)
@@ -2044,17 +1323,9 @@
    var message = messageValidator.message;
    var paramsClass = null;
    switch (message.getName()) {
-      case kCameraHalDispatcher_RegisterServerWithToken_Name:
-        if (message.isResponse())
-          paramsClass = CameraHalDispatcher_RegisterServerWithToken_ResponseParams;
-        break;
       case kCameraHalDispatcher_RegisterClientWithToken_Name:
         if (message.isResponse())
           paramsClass = CameraHalDispatcher_RegisterClientWithToken_ResponseParams;
-        break;
-      case kCameraHalDispatcher_RegisterSensorClientWithToken_Name:
-        if (message.isResponse())
-          paramsClass = CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams;
         break;
     }
     if (paramsClass === null)
@@ -2064,7 +1335,7 @@
 
   var CameraHalDispatcher = {
     name: 'cros.mojom.CameraHalDispatcher',
-    kVersion: 10,
+    kVersion: 4,
     ptrClass: CameraHalDispatcherPtr,
     proxyClass: CameraHalDispatcherProxy,
     stubClass: CameraHalDispatcherStub,
@@ -2073,441 +1344,103 @@
   };
   CameraHalDispatcherStub.prototype.validator = validateCameraHalDispatcherRequest;
   CameraHalDispatcherProxy.prototype.validator = validateCameraHalDispatcherResponse;
-  var kCameraHalServer_CreateChannel_Name = 0;
-  var kCameraHalServer_SetTracingEnabled_Name = 1;
-  var kCameraHalServer_SetAutoFramingState_Name = 2;
-  var kCameraHalServer_GetCameraSWPrivacySwitchState_Name = 3;
-  var kCameraHalServer_SetCameraSWPrivacySwitchState_Name = 4;
-  var kCameraHalServer_GetAutoFramingSupported_Name = 5;
-  var kCameraHalServer_SetCameraEffect_Name = 6;
+  var kCrosCameraServiceObserver_CameraDeviceActivityChange_Name = 0;
+  var kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name = 1;
+  var kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name = 2;
 
-  function CameraHalServerPtr(handleOrPtrInfo) {
-    this.ptr = new bindings.InterfacePtrController(CameraHalServer,
+  function CrosCameraServiceObserverPtr(handleOrPtrInfo) {
+    this.ptr = new bindings.InterfacePtrController(CrosCameraServiceObserver,
                                                    handleOrPtrInfo);
   }
 
-  function CameraHalServerAssociatedPtr(associatedInterfacePtrInfo) {
+  function CrosCameraServiceObserverAssociatedPtr(associatedInterfacePtrInfo) {
     this.ptr = new associatedBindings.AssociatedInterfacePtrController(
-        CameraHalServer, associatedInterfacePtrInfo);
+        CrosCameraServiceObserver, associatedInterfacePtrInfo);
   }
 
-  CameraHalServerAssociatedPtr.prototype =
-      Object.create(CameraHalServerPtr.prototype);
-  CameraHalServerAssociatedPtr.prototype.constructor =
-      CameraHalServerAssociatedPtr;
+  CrosCameraServiceObserverAssociatedPtr.prototype =
+      Object.create(CrosCameraServiceObserverPtr.prototype);
+  CrosCameraServiceObserverAssociatedPtr.prototype.constructor =
+      CrosCameraServiceObserverAssociatedPtr;
 
-  function CameraHalServerProxy(receiver) {
+  function CrosCameraServiceObserverProxy(receiver) {
     this.receiver_ = receiver;
   }
-  CameraHalServerPtr.prototype.createChannel = function() {
-    return CameraHalServerProxy.prototype.createChannel
+  CrosCameraServiceObserverPtr.prototype.cameraDeviceActivityChange = function() {
+    return CrosCameraServiceObserverProxy.prototype.cameraDeviceActivityChange
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  CameraHalServerProxy.prototype.createChannel = function(cameraModuleReceiver, type) {
-    var params_ = new CameraHalServer_CreateChannel_Params();
-    params_.cameraModuleReceiver = cameraModuleReceiver;
-    params_.type = type;
-    var builder = new codec.MessageV0Builder(
-        kCameraHalServer_CreateChannel_Name,
-        codec.align(CameraHalServer_CreateChannel_Params.encodedSize));
-    builder.encodeStruct(CameraHalServer_CreateChannel_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
-  CameraHalServerPtr.prototype.setTracingEnabled = function() {
-    return CameraHalServerProxy.prototype.setTracingEnabled
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalServerProxy.prototype.setTracingEnabled = function(enabled) {
-    var params_ = new CameraHalServer_SetTracingEnabled_Params();
-    params_.enabled = enabled;
-    var builder = new codec.MessageV0Builder(
-        kCameraHalServer_SetTracingEnabled_Name,
-        codec.align(CameraHalServer_SetTracingEnabled_Params.encodedSize));
-    builder.encodeStruct(CameraHalServer_SetTracingEnabled_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
-  CameraHalServerPtr.prototype.setAutoFramingState = function() {
-    return CameraHalServerProxy.prototype.setAutoFramingState
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalServerProxy.prototype.setAutoFramingState = function(state) {
-    var params_ = new CameraHalServer_SetAutoFramingState_Params();
-    params_.state = state;
-    var builder = new codec.MessageV0Builder(
-        kCameraHalServer_SetAutoFramingState_Name,
-        codec.align(CameraHalServer_SetAutoFramingState_Params.encodedSize));
-    builder.encodeStruct(CameraHalServer_SetAutoFramingState_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
-  CameraHalServerPtr.prototype.getCameraSWPrivacySwitchState = function() {
-    return CameraHalServerProxy.prototype.getCameraSWPrivacySwitchState
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalServerProxy.prototype.getCameraSWPrivacySwitchState = function() {
-    var params_ = new CameraHalServer_GetCameraSWPrivacySwitchState_Params();
-    return new Promise(function(resolve, reject) {
-      var builder = new codec.MessageV1Builder(
-          kCameraHalServer_GetCameraSWPrivacySwitchState_Name,
-          codec.align(CameraHalServer_GetCameraSWPrivacySwitchState_Params.encodedSize),
-          codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(CameraHalServer_GetCameraSWPrivacySwitchState_Params, params_);
-      var message = builder.finish();
-      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
-        var reader = new codec.MessageReader(message);
-        var responseParams =
-            reader.decodeStruct(CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams);
-        resolve(responseParams);
-      }).catch(function(result) {
-        reject(Error("Connection error: " + result));
-      });
-    }.bind(this));
-  };
-  CameraHalServerPtr.prototype.setCameraSWPrivacySwitchState = function() {
-    return CameraHalServerProxy.prototype.setCameraSWPrivacySwitchState
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalServerProxy.prototype.setCameraSWPrivacySwitchState = function(state) {
-    var params_ = new CameraHalServer_SetCameraSWPrivacySwitchState_Params();
-    params_.state = state;
-    var builder = new codec.MessageV0Builder(
-        kCameraHalServer_SetCameraSWPrivacySwitchState_Name,
-        codec.align(CameraHalServer_SetCameraSWPrivacySwitchState_Params.encodedSize));
-    builder.encodeStruct(CameraHalServer_SetCameraSWPrivacySwitchState_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
-  CameraHalServerPtr.prototype.getAutoFramingSupported = function() {
-    return CameraHalServerProxy.prototype.getAutoFramingSupported
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalServerProxy.prototype.getAutoFramingSupported = function() {
-    var params_ = new CameraHalServer_GetAutoFramingSupported_Params();
-    return new Promise(function(resolve, reject) {
-      var builder = new codec.MessageV1Builder(
-          kCameraHalServer_GetAutoFramingSupported_Name,
-          codec.align(CameraHalServer_GetAutoFramingSupported_Params.encodedSize),
-          codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(CameraHalServer_GetAutoFramingSupported_Params, params_);
-      var message = builder.finish();
-      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
-        var reader = new codec.MessageReader(message);
-        var responseParams =
-            reader.decodeStruct(CameraHalServer_GetAutoFramingSupported_ResponseParams);
-        resolve(responseParams);
-      }).catch(function(result) {
-        reject(Error("Connection error: " + result));
-      });
-    }.bind(this));
-  };
-  CameraHalServerPtr.prototype.setCameraEffect = function() {
-    return CameraHalServerProxy.prototype.setCameraEffect
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalServerProxy.prototype.setCameraEffect = function(config) {
-    var params_ = new CameraHalServer_SetCameraEffect_Params();
-    params_.config = config;
-    return new Promise(function(resolve, reject) {
-      var builder = new codec.MessageV1Builder(
-          kCameraHalServer_SetCameraEffect_Name,
-          codec.align(CameraHalServer_SetCameraEffect_Params.encodedSize),
-          codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(CameraHalServer_SetCameraEffect_Params, params_);
-      var message = builder.finish();
-      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
-        var reader = new codec.MessageReader(message);
-        var responseParams =
-            reader.decodeStruct(CameraHalServer_SetCameraEffect_ResponseParams);
-        resolve(responseParams);
-      }).catch(function(result) {
-        reject(Error("Connection error: " + result));
-      });
-    }.bind(this));
-  };
-
-  function CameraHalServerStub(delegate) {
-    this.delegate_ = delegate;
-  }
-  CameraHalServerStub.prototype.createChannel = function(cameraModuleReceiver, type) {
-    return this.delegate_ && this.delegate_.createChannel && this.delegate_.createChannel(cameraModuleReceiver, type);
-  }
-  CameraHalServerStub.prototype.setTracingEnabled = function(enabled) {
-    return this.delegate_ && this.delegate_.setTracingEnabled && this.delegate_.setTracingEnabled(enabled);
-  }
-  CameraHalServerStub.prototype.setAutoFramingState = function(state) {
-    return this.delegate_ && this.delegate_.setAutoFramingState && this.delegate_.setAutoFramingState(state);
-  }
-  CameraHalServerStub.prototype.getCameraSWPrivacySwitchState = function() {
-    return this.delegate_ && this.delegate_.getCameraSWPrivacySwitchState && this.delegate_.getCameraSWPrivacySwitchState();
-  }
-  CameraHalServerStub.prototype.setCameraSWPrivacySwitchState = function(state) {
-    return this.delegate_ && this.delegate_.setCameraSWPrivacySwitchState && this.delegate_.setCameraSWPrivacySwitchState(state);
-  }
-  CameraHalServerStub.prototype.getAutoFramingSupported = function() {
-    return this.delegate_ && this.delegate_.getAutoFramingSupported && this.delegate_.getAutoFramingSupported();
-  }
-  CameraHalServerStub.prototype.setCameraEffect = function(config) {
-    return this.delegate_ && this.delegate_.setCameraEffect && this.delegate_.setCameraEffect(config);
-  }
-
-  CameraHalServerStub.prototype.accept = function(message) {
-    var reader = new codec.MessageReader(message);
-    switch (reader.messageName) {
-    case kCameraHalServer_CreateChannel_Name:
-      var params = reader.decodeStruct(CameraHalServer_CreateChannel_Params);
-      this.createChannel(params.cameraModuleReceiver, params.type);
-      return true;
-    case kCameraHalServer_SetTracingEnabled_Name:
-      var params = reader.decodeStruct(CameraHalServer_SetTracingEnabled_Params);
-      this.setTracingEnabled(params.enabled);
-      return true;
-    case kCameraHalServer_SetAutoFramingState_Name:
-      var params = reader.decodeStruct(CameraHalServer_SetAutoFramingState_Params);
-      this.setAutoFramingState(params.state);
-      return true;
-    case kCameraHalServer_SetCameraSWPrivacySwitchState_Name:
-      var params = reader.decodeStruct(CameraHalServer_SetCameraSWPrivacySwitchState_Params);
-      this.setCameraSWPrivacySwitchState(params.state);
-      return true;
-    default:
-      return false;
-    }
-  };
-
-  CameraHalServerStub.prototype.acceptWithResponder =
-      function(message, responder) {
-    var reader = new codec.MessageReader(message);
-    switch (reader.messageName) {
-    case kCameraHalServer_GetCameraSWPrivacySwitchState_Name:
-      var params = reader.decodeStruct(CameraHalServer_GetCameraSWPrivacySwitchState_Params);
-      this.getCameraSWPrivacySwitchState().then(function(response) {
-        var responseParams =
-            new CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams();
-        responseParams.state = response.state;
-        var builder = new codec.MessageV1Builder(
-            kCameraHalServer_GetCameraSWPrivacySwitchState_Name,
-            codec.align(CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams.encodedSize),
-            codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams,
-                             responseParams);
-        var message = builder.finish();
-        responder.accept(message);
-      });
-      return true;
-    case kCameraHalServer_GetAutoFramingSupported_Name:
-      var params = reader.decodeStruct(CameraHalServer_GetAutoFramingSupported_Params);
-      this.getAutoFramingSupported().then(function(response) {
-        var responseParams =
-            new CameraHalServer_GetAutoFramingSupported_ResponseParams();
-        responseParams.supported = response.supported;
-        var builder = new codec.MessageV1Builder(
-            kCameraHalServer_GetAutoFramingSupported_Name,
-            codec.align(CameraHalServer_GetAutoFramingSupported_ResponseParams.encodedSize),
-            codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(CameraHalServer_GetAutoFramingSupported_ResponseParams,
-                             responseParams);
-        var message = builder.finish();
-        responder.accept(message);
-      });
-      return true;
-    case kCameraHalServer_SetCameraEffect_Name:
-      var params = reader.decodeStruct(CameraHalServer_SetCameraEffect_Params);
-      this.setCameraEffect(params.config).then(function(response) {
-        var responseParams =
-            new CameraHalServer_SetCameraEffect_ResponseParams();
-        responseParams.result = response.result;
-        var builder = new codec.MessageV1Builder(
-            kCameraHalServer_SetCameraEffect_Name,
-            codec.align(CameraHalServer_SetCameraEffect_ResponseParams.encodedSize),
-            codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(CameraHalServer_SetCameraEffect_ResponseParams,
-                             responseParams);
-        var message = builder.finish();
-        responder.accept(message);
-      });
-      return true;
-    default:
-      return false;
-    }
-  };
-
-  function validateCameraHalServerRequest(messageValidator) {
-    var message = messageValidator.message;
-    var paramsClass = null;
-    switch (message.getName()) {
-      case kCameraHalServer_CreateChannel_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalServer_CreateChannel_Params;
-      break;
-      case kCameraHalServer_SetTracingEnabled_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalServer_SetTracingEnabled_Params;
-      break;
-      case kCameraHalServer_SetAutoFramingState_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalServer_SetAutoFramingState_Params;
-      break;
-      case kCameraHalServer_GetCameraSWPrivacySwitchState_Name:
-        if (message.expectsResponse())
-          paramsClass = CameraHalServer_GetCameraSWPrivacySwitchState_Params;
-      break;
-      case kCameraHalServer_SetCameraSWPrivacySwitchState_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalServer_SetCameraSWPrivacySwitchState_Params;
-      break;
-      case kCameraHalServer_GetAutoFramingSupported_Name:
-        if (message.expectsResponse())
-          paramsClass = CameraHalServer_GetAutoFramingSupported_Params;
-      break;
-      case kCameraHalServer_SetCameraEffect_Name:
-        if (message.expectsResponse())
-          paramsClass = CameraHalServer_SetCameraEffect_Params;
-      break;
-    }
-    if (paramsClass === null)
-      return validator.validationError.NONE;
-    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
-  }
-
-  function validateCameraHalServerResponse(messageValidator) {
-   var message = messageValidator.message;
-   var paramsClass = null;
-   switch (message.getName()) {
-      case kCameraHalServer_GetCameraSWPrivacySwitchState_Name:
-        if (message.isResponse())
-          paramsClass = CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams;
-        break;
-      case kCameraHalServer_GetAutoFramingSupported_Name:
-        if (message.isResponse())
-          paramsClass = CameraHalServer_GetAutoFramingSupported_ResponseParams;
-        break;
-      case kCameraHalServer_SetCameraEffect_Name:
-        if (message.isResponse())
-          paramsClass = CameraHalServer_SetCameraEffect_ResponseParams;
-        break;
-    }
-    if (paramsClass === null)
-      return validator.validationError.NONE;
-    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
-  }
-
-  var CameraHalServer = {
-    name: 'cros.mojom.CameraHalServer',
-    kVersion: 10,
-    ptrClass: CameraHalServerPtr,
-    proxyClass: CameraHalServerProxy,
-    stubClass: CameraHalServerStub,
-    validateRequest: validateCameraHalServerRequest,
-    validateResponse: validateCameraHalServerResponse,
-  };
-  CameraHalServerStub.prototype.validator = validateCameraHalServerRequest;
-  CameraHalServerProxy.prototype.validator = validateCameraHalServerResponse;
-  var kCameraHalServerCallbacks_CameraDeviceActivityChange_Name = 0;
-  var kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name = 1;
-  var kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name = 2;
-
-  function CameraHalServerCallbacksPtr(handleOrPtrInfo) {
-    this.ptr = new bindings.InterfacePtrController(CameraHalServerCallbacks,
-                                                   handleOrPtrInfo);
-  }
-
-  function CameraHalServerCallbacksAssociatedPtr(associatedInterfacePtrInfo) {
-    this.ptr = new associatedBindings.AssociatedInterfacePtrController(
-        CameraHalServerCallbacks, associatedInterfacePtrInfo);
-  }
-
-  CameraHalServerCallbacksAssociatedPtr.prototype =
-      Object.create(CameraHalServerCallbacksPtr.prototype);
-  CameraHalServerCallbacksAssociatedPtr.prototype.constructor =
-      CameraHalServerCallbacksAssociatedPtr;
-
-  function CameraHalServerCallbacksProxy(receiver) {
-    this.receiver_ = receiver;
-  }
-  CameraHalServerCallbacksPtr.prototype.cameraDeviceActivityChange = function() {
-    return CameraHalServerCallbacksProxy.prototype.cameraDeviceActivityChange
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  CameraHalServerCallbacksProxy.prototype.cameraDeviceActivityChange = function(cameraId, opened, type) {
-    var params_ = new CameraHalServerCallbacks_CameraDeviceActivityChange_Params();
+  CrosCameraServiceObserverProxy.prototype.cameraDeviceActivityChange = function(cameraId, opened, type) {
+    var params_ = new CrosCameraServiceObserver_CameraDeviceActivityChange_Params();
     params_.cameraId = cameraId;
     params_.opened = opened;
     params_.type = type;
     var builder = new codec.MessageV0Builder(
-        kCameraHalServerCallbacks_CameraDeviceActivityChange_Name,
-        codec.align(CameraHalServerCallbacks_CameraDeviceActivityChange_Params.encodedSize));
-    builder.encodeStruct(CameraHalServerCallbacks_CameraDeviceActivityChange_Params, params_);
+        kCrosCameraServiceObserver_CameraDeviceActivityChange_Name,
+        codec.align(CrosCameraServiceObserver_CameraDeviceActivityChange_Params.encodedSize));
+    builder.encodeStruct(CrosCameraServiceObserver_CameraDeviceActivityChange_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  CameraHalServerCallbacksPtr.prototype.cameraPrivacySwitchStateChange = function() {
-    return CameraHalServerCallbacksProxy.prototype.cameraPrivacySwitchStateChange
+  CrosCameraServiceObserverPtr.prototype.cameraPrivacySwitchStateChange = function() {
+    return CrosCameraServiceObserverProxy.prototype.cameraPrivacySwitchStateChange
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  CameraHalServerCallbacksProxy.prototype.cameraPrivacySwitchStateChange = function(state, cameraId) {
-    var params_ = new CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params();
+  CrosCameraServiceObserverProxy.prototype.cameraPrivacySwitchStateChange = function(state, cameraId) {
+    var params_ = new CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params();
     params_.state = state;
     params_.cameraId = cameraId;
     var builder = new codec.MessageV0Builder(
-        kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name,
-        codec.align(CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params.encodedSize));
-    builder.encodeStruct(CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params, params_);
+        kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name,
+        codec.align(CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params.encodedSize));
+    builder.encodeStruct(CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  CameraHalServerCallbacksPtr.prototype.cameraSWPrivacySwitchStateChange = function() {
-    return CameraHalServerCallbacksProxy.prototype.cameraSWPrivacySwitchStateChange
+  CrosCameraServiceObserverPtr.prototype.cameraSWPrivacySwitchStateChange = function() {
+    return CrosCameraServiceObserverProxy.prototype.cameraSWPrivacySwitchStateChange
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  CameraHalServerCallbacksProxy.prototype.cameraSWPrivacySwitchStateChange = function(state) {
-    var params_ = new CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params();
+  CrosCameraServiceObserverProxy.prototype.cameraSWPrivacySwitchStateChange = function(state) {
+    var params_ = new CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params();
     params_.state = state;
     var builder = new codec.MessageV0Builder(
-        kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name,
-        codec.align(CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params.encodedSize));
-    builder.encodeStruct(CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params, params_);
+        kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name,
+        codec.align(CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params.encodedSize));
+    builder.encodeStruct(CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
 
-  function CameraHalServerCallbacksStub(delegate) {
+  function CrosCameraServiceObserverStub(delegate) {
     this.delegate_ = delegate;
   }
-  CameraHalServerCallbacksStub.prototype.cameraDeviceActivityChange = function(cameraId, opened, type) {
+  CrosCameraServiceObserverStub.prototype.cameraDeviceActivityChange = function(cameraId, opened, type) {
     return this.delegate_ && this.delegate_.cameraDeviceActivityChange && this.delegate_.cameraDeviceActivityChange(cameraId, opened, type);
   }
-  CameraHalServerCallbacksStub.prototype.cameraPrivacySwitchStateChange = function(state, cameraId) {
+  CrosCameraServiceObserverStub.prototype.cameraPrivacySwitchStateChange = function(state, cameraId) {
     return this.delegate_ && this.delegate_.cameraPrivacySwitchStateChange && this.delegate_.cameraPrivacySwitchStateChange(state, cameraId);
   }
-  CameraHalServerCallbacksStub.prototype.cameraSWPrivacySwitchStateChange = function(state) {
+  CrosCameraServiceObserverStub.prototype.cameraSWPrivacySwitchStateChange = function(state) {
     return this.delegate_ && this.delegate_.cameraSWPrivacySwitchStateChange && this.delegate_.cameraSWPrivacySwitchStateChange(state);
   }
 
-  CameraHalServerCallbacksStub.prototype.accept = function(message) {
+  CrosCameraServiceObserverStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
-    case kCameraHalServerCallbacks_CameraDeviceActivityChange_Name:
-      var params = reader.decodeStruct(CameraHalServerCallbacks_CameraDeviceActivityChange_Params);
+    case kCrosCameraServiceObserver_CameraDeviceActivityChange_Name:
+      var params = reader.decodeStruct(CrosCameraServiceObserver_CameraDeviceActivityChange_Params);
       this.cameraDeviceActivityChange(params.cameraId, params.opened, params.type);
       return true;
-    case kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name:
-      var params = reader.decodeStruct(CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params);
+    case kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name:
+      var params = reader.decodeStruct(CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params);
       this.cameraPrivacySwitchStateChange(params.state, params.cameraId);
       return true;
-    case kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name:
-      var params = reader.decodeStruct(CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params);
+    case kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name:
+      var params = reader.decodeStruct(CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params);
       this.cameraSWPrivacySwitchStateChange(params.state);
       return true;
     default:
@@ -2515,7 +1448,7 @@
     }
   };
 
-  CameraHalServerCallbacksStub.prototype.acceptWithResponder =
+  CrosCameraServiceObserverStub.prototype.acceptWithResponder =
       function(message, responder) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
@@ -2524,21 +1457,21 @@
     }
   };
 
-  function validateCameraHalServerCallbacksRequest(messageValidator) {
+  function validateCrosCameraServiceObserverRequest(messageValidator) {
     var message = messageValidator.message;
     var paramsClass = null;
     switch (message.getName()) {
-      case kCameraHalServerCallbacks_CameraDeviceActivityChange_Name:
+      case kCrosCameraServiceObserver_CameraDeviceActivityChange_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalServerCallbacks_CameraDeviceActivityChange_Params;
+          paramsClass = CrosCameraServiceObserver_CameraDeviceActivityChange_Params;
       break;
-      case kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name:
+      case kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params;
+          paramsClass = CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params;
       break;
-      case kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name:
+      case kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params;
+          paramsClass = CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params;
       break;
     }
     if (paramsClass === null)
@@ -2546,31 +1479,421 @@
     return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
   }
 
-  function validateCameraHalServerCallbacksResponse(messageValidator) {
+  function validateCrosCameraServiceObserverResponse(messageValidator) {
     return validator.validationError.NONE;
   }
 
-  var CameraHalServerCallbacks = {
-    name: 'cros.mojom.CameraHalServerCallbacks',
-    kVersion: 9,
-    ptrClass: CameraHalServerCallbacksPtr,
-    proxyClass: CameraHalServerCallbacksProxy,
-    stubClass: CameraHalServerCallbacksStub,
-    validateRequest: validateCameraHalServerCallbacksRequest,
+  var CrosCameraServiceObserver = {
+    name: 'cros.mojom.CrosCameraServiceObserver',
+    kVersion: 0,
+    ptrClass: CrosCameraServiceObserverPtr,
+    proxyClass: CrosCameraServiceObserverProxy,
+    stubClass: CrosCameraServiceObserverStub,
+    validateRequest: validateCrosCameraServiceObserverRequest,
     validateResponse: null,
   };
-  CameraHalServerCallbacksStub.prototype.validator = validateCameraHalServerCallbacksRequest;
-  CameraHalServerCallbacksProxy.prototype.validator = null;
+  CrosCameraServiceObserverStub.prototype.validator = validateCrosCameraServiceObserverRequest;
+  CrosCameraServiceObserverProxy.prototype.validator = null;
+  var kCrosCameraService_GetCameraModule_Name = 0;
+  var kCrosCameraService_SetTracingEnabled_Name = 1;
+  var kCrosCameraService_SetAutoFramingState_Name = 2;
+  var kCrosCameraService_GetCameraSWPrivacySwitchState_Name = 3;
+  var kCrosCameraService_SetCameraSWPrivacySwitchState_Name = 4;
+  var kCrosCameraService_GetAutoFramingSupported_Name = 5;
+  var kCrosCameraService_SetCameraEffect_Name = 6;
+  var kCrosCameraService_AddCrosCameraServiceObserver_Name = 7;
+
+  function CrosCameraServicePtr(handleOrPtrInfo) {
+    this.ptr = new bindings.InterfacePtrController(CrosCameraService,
+                                                   handleOrPtrInfo);
+  }
+
+  function CrosCameraServiceAssociatedPtr(associatedInterfacePtrInfo) {
+    this.ptr = new associatedBindings.AssociatedInterfacePtrController(
+        CrosCameraService, associatedInterfacePtrInfo);
+  }
+
+  CrosCameraServiceAssociatedPtr.prototype =
+      Object.create(CrosCameraServicePtr.prototype);
+  CrosCameraServiceAssociatedPtr.prototype.constructor =
+      CrosCameraServiceAssociatedPtr;
+
+  function CrosCameraServiceProxy(receiver) {
+    this.receiver_ = receiver;
+  }
+  CrosCameraServicePtr.prototype.getCameraModule = function() {
+    return CrosCameraServiceProxy.prototype.getCameraModule
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CrosCameraServiceProxy.prototype.getCameraModule = function(type) {
+    var params_ = new CrosCameraService_GetCameraModule_Params();
+    params_.type = type;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kCrosCameraService_GetCameraModule_Name,
+          codec.align(CrosCameraService_GetCameraModule_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(CrosCameraService_GetCameraModule_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(CrosCameraService_GetCameraModule_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
+  CrosCameraServicePtr.prototype.setTracingEnabled = function() {
+    return CrosCameraServiceProxy.prototype.setTracingEnabled
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CrosCameraServiceProxy.prototype.setTracingEnabled = function(enabled) {
+    var params_ = new CrosCameraService_SetTracingEnabled_Params();
+    params_.enabled = enabled;
+    var builder = new codec.MessageV0Builder(
+        kCrosCameraService_SetTracingEnabled_Name,
+        codec.align(CrosCameraService_SetTracingEnabled_Params.encodedSize));
+    builder.encodeStruct(CrosCameraService_SetTracingEnabled_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  CrosCameraServicePtr.prototype.setAutoFramingState = function() {
+    return CrosCameraServiceProxy.prototype.setAutoFramingState
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CrosCameraServiceProxy.prototype.setAutoFramingState = function(state) {
+    var params_ = new CrosCameraService_SetAutoFramingState_Params();
+    params_.state = state;
+    var builder = new codec.MessageV0Builder(
+        kCrosCameraService_SetAutoFramingState_Name,
+        codec.align(CrosCameraService_SetAutoFramingState_Params.encodedSize));
+    builder.encodeStruct(CrosCameraService_SetAutoFramingState_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  CrosCameraServicePtr.prototype.getCameraSWPrivacySwitchState = function() {
+    return CrosCameraServiceProxy.prototype.getCameraSWPrivacySwitchState
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CrosCameraServiceProxy.prototype.getCameraSWPrivacySwitchState = function() {
+    var params_ = new CrosCameraService_GetCameraSWPrivacySwitchState_Params();
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kCrosCameraService_GetCameraSWPrivacySwitchState_Name,
+          codec.align(CrosCameraService_GetCameraSWPrivacySwitchState_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(CrosCameraService_GetCameraSWPrivacySwitchState_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
+  CrosCameraServicePtr.prototype.setCameraSWPrivacySwitchState = function() {
+    return CrosCameraServiceProxy.prototype.setCameraSWPrivacySwitchState
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CrosCameraServiceProxy.prototype.setCameraSWPrivacySwitchState = function(state) {
+    var params_ = new CrosCameraService_SetCameraSWPrivacySwitchState_Params();
+    params_.state = state;
+    var builder = new codec.MessageV0Builder(
+        kCrosCameraService_SetCameraSWPrivacySwitchState_Name,
+        codec.align(CrosCameraService_SetCameraSWPrivacySwitchState_Params.encodedSize));
+    builder.encodeStruct(CrosCameraService_SetCameraSWPrivacySwitchState_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  CrosCameraServicePtr.prototype.getAutoFramingSupported = function() {
+    return CrosCameraServiceProxy.prototype.getAutoFramingSupported
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CrosCameraServiceProxy.prototype.getAutoFramingSupported = function() {
+    var params_ = new CrosCameraService_GetAutoFramingSupported_Params();
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kCrosCameraService_GetAutoFramingSupported_Name,
+          codec.align(CrosCameraService_GetAutoFramingSupported_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(CrosCameraService_GetAutoFramingSupported_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(CrosCameraService_GetAutoFramingSupported_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
+  CrosCameraServicePtr.prototype.setCameraEffect = function() {
+    return CrosCameraServiceProxy.prototype.setCameraEffect
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CrosCameraServiceProxy.prototype.setCameraEffect = function(config) {
+    var params_ = new CrosCameraService_SetCameraEffect_Params();
+    params_.config = config;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kCrosCameraService_SetCameraEffect_Name,
+          codec.align(CrosCameraService_SetCameraEffect_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(CrosCameraService_SetCameraEffect_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(CrosCameraService_SetCameraEffect_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
+  CrosCameraServicePtr.prototype.addCrosCameraServiceObserver = function() {
+    return CrosCameraServiceProxy.prototype.addCrosCameraServiceObserver
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CrosCameraServiceProxy.prototype.addCrosCameraServiceObserver = function(observer) {
+    var params_ = new CrosCameraService_AddCrosCameraServiceObserver_Params();
+    params_.observer = observer;
+    var builder = new codec.MessageV0Builder(
+        kCrosCameraService_AddCrosCameraServiceObserver_Name,
+        codec.align(CrosCameraService_AddCrosCameraServiceObserver_Params.encodedSize));
+    builder.encodeStruct(CrosCameraService_AddCrosCameraServiceObserver_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+
+  function CrosCameraServiceStub(delegate) {
+    this.delegate_ = delegate;
+  }
+  CrosCameraServiceStub.prototype.getCameraModule = function(type) {
+    return this.delegate_ && this.delegate_.getCameraModule && this.delegate_.getCameraModule(type);
+  }
+  CrosCameraServiceStub.prototype.setTracingEnabled = function(enabled) {
+    return this.delegate_ && this.delegate_.setTracingEnabled && this.delegate_.setTracingEnabled(enabled);
+  }
+  CrosCameraServiceStub.prototype.setAutoFramingState = function(state) {
+    return this.delegate_ && this.delegate_.setAutoFramingState && this.delegate_.setAutoFramingState(state);
+  }
+  CrosCameraServiceStub.prototype.getCameraSWPrivacySwitchState = function() {
+    return this.delegate_ && this.delegate_.getCameraSWPrivacySwitchState && this.delegate_.getCameraSWPrivacySwitchState();
+  }
+  CrosCameraServiceStub.prototype.setCameraSWPrivacySwitchState = function(state) {
+    return this.delegate_ && this.delegate_.setCameraSWPrivacySwitchState && this.delegate_.setCameraSWPrivacySwitchState(state);
+  }
+  CrosCameraServiceStub.prototype.getAutoFramingSupported = function() {
+    return this.delegate_ && this.delegate_.getAutoFramingSupported && this.delegate_.getAutoFramingSupported();
+  }
+  CrosCameraServiceStub.prototype.setCameraEffect = function(config) {
+    return this.delegate_ && this.delegate_.setCameraEffect && this.delegate_.setCameraEffect(config);
+  }
+  CrosCameraServiceStub.prototype.addCrosCameraServiceObserver = function(observer) {
+    return this.delegate_ && this.delegate_.addCrosCameraServiceObserver && this.delegate_.addCrosCameraServiceObserver(observer);
+  }
+
+  CrosCameraServiceStub.prototype.accept = function(message) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    case kCrosCameraService_SetTracingEnabled_Name:
+      var params = reader.decodeStruct(CrosCameraService_SetTracingEnabled_Params);
+      this.setTracingEnabled(params.enabled);
+      return true;
+    case kCrosCameraService_SetAutoFramingState_Name:
+      var params = reader.decodeStruct(CrosCameraService_SetAutoFramingState_Params);
+      this.setAutoFramingState(params.state);
+      return true;
+    case kCrosCameraService_SetCameraSWPrivacySwitchState_Name:
+      var params = reader.decodeStruct(CrosCameraService_SetCameraSWPrivacySwitchState_Params);
+      this.setCameraSWPrivacySwitchState(params.state);
+      return true;
+    case kCrosCameraService_AddCrosCameraServiceObserver_Name:
+      var params = reader.decodeStruct(CrosCameraService_AddCrosCameraServiceObserver_Params);
+      this.addCrosCameraServiceObserver(params.observer);
+      return true;
+    default:
+      return false;
+    }
+  };
+
+  CrosCameraServiceStub.prototype.acceptWithResponder =
+      function(message, responder) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    case kCrosCameraService_GetCameraModule_Name:
+      var params = reader.decodeStruct(CrosCameraService_GetCameraModule_Params);
+      this.getCameraModule(params.type).then(function(response) {
+        var responseParams =
+            new CrosCameraService_GetCameraModule_ResponseParams();
+        responseParams.cameraModuleReceiver = response.cameraModuleReceiver;
+        var builder = new codec.MessageV1Builder(
+            kCrosCameraService_GetCameraModule_Name,
+            codec.align(CrosCameraService_GetCameraModule_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(CrosCameraService_GetCameraModule_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
+    case kCrosCameraService_GetCameraSWPrivacySwitchState_Name:
+      var params = reader.decodeStruct(CrosCameraService_GetCameraSWPrivacySwitchState_Params);
+      this.getCameraSWPrivacySwitchState().then(function(response) {
+        var responseParams =
+            new CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams();
+        responseParams.state = response.state;
+        var builder = new codec.MessageV1Builder(
+            kCrosCameraService_GetCameraSWPrivacySwitchState_Name,
+            codec.align(CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
+    case kCrosCameraService_GetAutoFramingSupported_Name:
+      var params = reader.decodeStruct(CrosCameraService_GetAutoFramingSupported_Params);
+      this.getAutoFramingSupported().then(function(response) {
+        var responseParams =
+            new CrosCameraService_GetAutoFramingSupported_ResponseParams();
+        responseParams.supported = response.supported;
+        var builder = new codec.MessageV1Builder(
+            kCrosCameraService_GetAutoFramingSupported_Name,
+            codec.align(CrosCameraService_GetAutoFramingSupported_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(CrosCameraService_GetAutoFramingSupported_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
+    case kCrosCameraService_SetCameraEffect_Name:
+      var params = reader.decodeStruct(CrosCameraService_SetCameraEffect_Params);
+      this.setCameraEffect(params.config).then(function(response) {
+        var responseParams =
+            new CrosCameraService_SetCameraEffect_ResponseParams();
+        responseParams.result = response.result;
+        var builder = new codec.MessageV1Builder(
+            kCrosCameraService_SetCameraEffect_Name,
+            codec.align(CrosCameraService_SetCameraEffect_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(CrosCameraService_SetCameraEffect_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
+    default:
+      return false;
+    }
+  };
+
+  function validateCrosCameraServiceRequest(messageValidator) {
+    var message = messageValidator.message;
+    var paramsClass = null;
+    switch (message.getName()) {
+      case kCrosCameraService_GetCameraModule_Name:
+        if (message.expectsResponse())
+          paramsClass = CrosCameraService_GetCameraModule_Params;
+      break;
+      case kCrosCameraService_SetTracingEnabled_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = CrosCameraService_SetTracingEnabled_Params;
+      break;
+      case kCrosCameraService_SetAutoFramingState_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = CrosCameraService_SetAutoFramingState_Params;
+      break;
+      case kCrosCameraService_GetCameraSWPrivacySwitchState_Name:
+        if (message.expectsResponse())
+          paramsClass = CrosCameraService_GetCameraSWPrivacySwitchState_Params;
+      break;
+      case kCrosCameraService_SetCameraSWPrivacySwitchState_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = CrosCameraService_SetCameraSWPrivacySwitchState_Params;
+      break;
+      case kCrosCameraService_GetAutoFramingSupported_Name:
+        if (message.expectsResponse())
+          paramsClass = CrosCameraService_GetAutoFramingSupported_Params;
+      break;
+      case kCrosCameraService_SetCameraEffect_Name:
+        if (message.expectsResponse())
+          paramsClass = CrosCameraService_SetCameraEffect_Params;
+      break;
+      case kCrosCameraService_AddCrosCameraServiceObserver_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = CrosCameraService_AddCrosCameraServiceObserver_Params;
+      break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
+  }
+
+  function validateCrosCameraServiceResponse(messageValidator) {
+   var message = messageValidator.message;
+   var paramsClass = null;
+   switch (message.getName()) {
+      case kCrosCameraService_GetCameraModule_Name:
+        if (message.isResponse())
+          paramsClass = CrosCameraService_GetCameraModule_ResponseParams;
+        break;
+      case kCrosCameraService_GetCameraSWPrivacySwitchState_Name:
+        if (message.isResponse())
+          paramsClass = CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams;
+        break;
+      case kCrosCameraService_GetAutoFramingSupported_Name:
+        if (message.isResponse())
+          paramsClass = CrosCameraService_GetAutoFramingSupported_ResponseParams;
+        break;
+      case kCrosCameraService_SetCameraEffect_Name:
+        if (message.isResponse())
+          paramsClass = CrosCameraService_SetCameraEffect_ResponseParams;
+        break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
+  }
+
+  var CrosCameraService = {
+    name: 'cros.mojom.CrosCameraService',
+    kVersion: 0,
+    ptrClass: CrosCameraServicePtr,
+    proxyClass: CrosCameraServiceProxy,
+    stubClass: CrosCameraServiceStub,
+    validateRequest: validateCrosCameraServiceRequest,
+    validateResponse: validateCrosCameraServiceResponse,
+  };
+  CrosCameraServiceStub.prototype.validator = validateCrosCameraServiceRequest;
+  CrosCameraServiceProxy.prototype.validator = validateCrosCameraServiceResponse;
   exports.CameraClientType = CameraClientType;
   exports.CameraPrivacySwitchState = CameraPrivacySwitchState;
   exports.CameraAutoFramingState = CameraAutoFramingState;
   exports.CameraHalDispatcher = CameraHalDispatcher;
   exports.CameraHalDispatcherPtr = CameraHalDispatcherPtr;
   exports.CameraHalDispatcherAssociatedPtr = CameraHalDispatcherAssociatedPtr;
-  exports.CameraHalServer = CameraHalServer;
-  exports.CameraHalServerPtr = CameraHalServerPtr;
-  exports.CameraHalServerAssociatedPtr = CameraHalServerAssociatedPtr;
-  exports.CameraHalServerCallbacks = CameraHalServerCallbacks;
-  exports.CameraHalServerCallbacksPtr = CameraHalServerCallbacksPtr;
-  exports.CameraHalServerCallbacksAssociatedPtr = CameraHalServerCallbacksAssociatedPtr;
+  exports.CrosCameraServiceObserver = CrosCameraServiceObserver;
+  exports.CrosCameraServiceObserverPtr = CrosCameraServiceObserverPtr;
+  exports.CrosCameraServiceObserverAssociatedPtr = CrosCameraServiceObserverAssociatedPtr;
+  exports.CrosCameraService = CrosCameraService;
+  exports.CrosCameraServicePtr = CrosCameraServicePtr;
+  exports.CrosCameraServiceAssociatedPtr = CrosCameraServiceAssociatedPtr;
 })();

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -272,14 +273,17 @@ void TextFragmentReceiverProxy::Cancel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::TextFragmentReceiver::Cancel");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -302,14 +306,17 @@ void TextFragmentReceiverProxy::RequestSelector(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::TextFragmentReceiver::RequestSelector");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_RequestSelector_Name, kFlags, 0, 0, nullptr);
@@ -333,14 +340,17 @@ void TextFragmentReceiverProxy::RemoveFragments(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::TextFragmentReceiver::RemoveFragments");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_RemoveFragments_Name, kFlags, 0, 0, nullptr);
@@ -363,14 +373,17 @@ void TextFragmentReceiverProxy::ExtractTextFragmentsMatches(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::TextFragmentReceiver::ExtractTextFragmentsMatches");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_ExtractTextFragmentsMatches_Name, kFlags, 0, 0, nullptr);
@@ -394,14 +407,17 @@ void TextFragmentReceiverProxy::GetExistingSelectors(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::TextFragmentReceiver::GetExistingSelectors");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_GetExistingSelectors_Name, kFlags, 0, 0, nullptr);
@@ -425,14 +441,17 @@ void TextFragmentReceiverProxy::ExtractFirstFragmentRect(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::TextFragmentReceiver::ExtractFirstFragmentRect");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_ExtractFirstFragmentRect_Name, kFlags, 0, 0, nullptr);
@@ -556,7 +575,8 @@ void TextFragmentReceiver_RequestSelector_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_RequestSelector_Name, kFlags, 0, 0, nullptr);
@@ -688,7 +708,8 @@ void TextFragmentReceiver_ExtractTextFragmentsMatches_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_ExtractTextFragmentsMatches_Name, kFlags, 0, 0, nullptr);
@@ -818,7 +839,8 @@ void TextFragmentReceiver_GetExistingSelectors_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_GetExistingSelectors_Name, kFlags, 0, 0, nullptr);
@@ -948,7 +970,8 @@ void TextFragmentReceiver_ExtractFirstFragmentRect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextFragmentReceiver_ExtractFirstFragmentRect_Name, kFlags, 0, 0, nullptr);
@@ -1168,20 +1191,20 @@ bool TextFragmentReceiverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTextFragmentReceiverValidationInfo[] = {
-    {&internal::TextFragmentReceiver_Cancel_Params_Data::Validate,
+    { &internal::TextFragmentReceiver_Cancel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextFragmentReceiver_RequestSelector_Params_Data::Validate,
+    { &internal::TextFragmentReceiver_RequestSelector_Params_Data::Validate,
      &internal::TextFragmentReceiver_RequestSelector_ResponseParams_Data::Validate},
-    {&internal::TextFragmentReceiver_RemoveFragments_Params_Data::Validate,
+    { &internal::TextFragmentReceiver_RemoveFragments_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextFragmentReceiver_ExtractTextFragmentsMatches_Params_Data::Validate,
+    { &internal::TextFragmentReceiver_ExtractTextFragmentsMatches_Params_Data::Validate,
      &internal::TextFragmentReceiver_ExtractTextFragmentsMatches_ResponseParams_Data::Validate},
-    {&internal::TextFragmentReceiver_GetExistingSelectors_Params_Data::Validate,
+    { &internal::TextFragmentReceiver_GetExistingSelectors_Params_Data::Validate,
      &internal::TextFragmentReceiver_GetExistingSelectors_ResponseParams_Data::Validate},
-    {&internal::TextFragmentReceiver_ExtractFirstFragmentRect_Params_Data::Validate,
+    { &internal::TextFragmentReceiver_ExtractFirstFragmentRect_Params_Data::Validate,
      &internal::TextFragmentReceiver_ExtractFirstFragmentRect_ResponseParams_Data::Validate},
 };
 

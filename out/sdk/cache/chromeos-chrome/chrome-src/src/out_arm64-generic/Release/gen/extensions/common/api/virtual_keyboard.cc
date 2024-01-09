@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/virtual_keyboard.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ FeatureRestrictions::FeatureRestrictions()
  {}
 
 FeatureRestrictions::~FeatureRestrictions() = default;
-FeatureRestrictions::FeatureRestrictions(FeatureRestrictions&& rhs) = default;
-FeatureRestrictions& FeatureRestrictions::operator=(FeatureRestrictions&& rhs) = default;
+FeatureRestrictions::FeatureRestrictions(FeatureRestrictions&& rhs) noexcept = default;
+FeatureRestrictions& FeatureRestrictions::operator=(FeatureRestrictions&& rhs) noexcept = default;
 FeatureRestrictions FeatureRestrictions::Clone() const {
   FeatureRestrictions out;
   out.auto_complete_enabled = auto_complete_enabled;
@@ -56,7 +57,7 @@ bool FeatureRestrictions::Populate(
     {
       auto temp = (*auto_complete_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.auto_complete_enabled = absl::nullopt;
+        out.auto_complete_enabled = std::nullopt;
         return false;
       }
       out.auto_complete_enabled = *temp;
@@ -68,7 +69,7 @@ bool FeatureRestrictions::Populate(
     {
       auto temp = (*auto_correct_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.auto_correct_enabled = absl::nullopt;
+        out.auto_correct_enabled = std::nullopt;
         return false;
       }
       out.auto_correct_enabled = *temp;
@@ -80,7 +81,7 @@ bool FeatureRestrictions::Populate(
     {
       auto temp = (*handwriting_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.handwriting_enabled = absl::nullopt;
+        out.handwriting_enabled = std::nullopt;
         return false;
       }
       out.handwriting_enabled = *temp;
@@ -92,7 +93,7 @@ bool FeatureRestrictions::Populate(
     {
       auto temp = (*spell_check_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.spell_check_enabled = absl::nullopt;
+        out.spell_check_enabled = std::nullopt;
         return false;
       }
       out.spell_check_enabled = *temp;
@@ -104,7 +105,7 @@ bool FeatureRestrictions::Populate(
     {
       auto temp = (*voice_input_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.voice_input_enabled = absl::nullopt;
+        out.voice_input_enabled = std::nullopt;
         return false;
       }
       out.voice_input_enabled = *temp;
@@ -124,34 +125,21 @@ bool FeatureRestrictions::Populate(
 }
 
 // static
-std::unique_ptr<FeatureRestrictions> FeatureRestrictions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FeatureRestrictions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FeatureRestrictions> FeatureRestrictions::FromValue(const base::Value::Dict& value) {
+  FeatureRestrictions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FeatureRestrictions> FeatureRestrictions::FromValue(const base::Value::Dict& value) {
+std::optional<FeatureRestrictions> FeatureRestrictions::FromValue(const base::Value& value) {
   FeatureRestrictions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FeatureRestrictions> FeatureRestrictions::FromValue(const base::Value& value) {
-  FeatureRestrictions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -193,13 +181,13 @@ namespace RestrictFeatures {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -208,15 +196,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& restrictions_value = args[0];
     {
       if (!restrictions_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!FeatureRestrictions::Populate(restrictions_value.GetDict(), params.restrictions)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

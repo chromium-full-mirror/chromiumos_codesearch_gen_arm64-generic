@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/cross_origin_opener_policy.mojom-features.h"
 #include "services/network/public/mojom/cross_origin_opener_policy.mojom-shared.h"
 #include "services/network/public/mojom/cross_origin_opener_policy.mojom-forward.h"
 #include "services/network/public/mojom/source_location.mojom-forward.h"
@@ -327,9 +328,9 @@ class  CrossOriginOpenerPolicy {
 
   CrossOriginOpenerPolicy(
       CrossOriginOpenerPolicyValue value,
-      const absl::optional<std::string>& reporting_endpoint,
+      const std::optional<std::string>& reporting_endpoint,
       CrossOriginOpenerPolicyValue report_only_value,
-      const absl::optional<std::string>& report_only_reporting_endpoint,
+      const std::optional<std::string>& report_only_reporting_endpoint,
       CrossOriginOpenerPolicyValue soap_by_default_value);
 
 
@@ -410,11 +411,11 @@ class  CrossOriginOpenerPolicy {
   
   CrossOriginOpenerPolicyValue value;
   
-  absl::optional<std::string> reporting_endpoint;
+  std::optional<std::string> reporting_endpoint;
   
   CrossOriginOpenerPolicyValue report_only_value;
   
-  absl::optional<std::string> report_only_reporting_endpoint;
+  std::optional<std::string> report_only_reporting_endpoint;
   
   CrossOriginOpenerPolicyValue soap_by_default_value;
 

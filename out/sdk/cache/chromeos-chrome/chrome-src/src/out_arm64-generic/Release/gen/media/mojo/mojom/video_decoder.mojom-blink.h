@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/video_decoder.mojom-features.h"
 #include "media/mojo/mojom/video_decoder.mojom-shared.h"
 #include "media/mojo/mojom/video_decoder.mojom-blink-forward.h"
 #include "gpu/ipc/common/sync_token.mojom-blink.h"
@@ -92,7 +93,7 @@ class BLINK_PLATFORM_EXPORT VideoFrameHandleReleaser
   virtual ~VideoFrameHandleReleaser() = default;
 
   
-  virtual void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const absl::optional<::gpu::SyncToken>& release_sync_token) = 0;
+  virtual void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const std::optional<::gpu::SyncToken>& release_sync_token) = 0;
 };
 
 class VideoDecoderProxy;
@@ -175,7 +176,7 @@ class BLINK_PLATFORM_EXPORT VideoDecoder
 
   using InitializeCallback = base::OnceCallback<void(::media::mojom::blink::DecoderStatusPtr, bool, int32_t, ::media::mojom::blink::VideoDecoderType)>;
   
-  virtual void Initialize(::media::mojom::blink::VideoDecoderConfigPtr config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) = 0;
+  virtual void Initialize(::media::mojom::blink::VideoDecoderConfigPtr config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) = 0;
 
 
   using DecodeCallback = base::OnceCallback<void(::media::mojom::blink::DecoderStatusPtr)>;
@@ -241,7 +242,7 @@ class BLINK_PLATFORM_EXPORT VideoDecoderClient
   virtual ~VideoDecoderClient() = default;
 
   
-  virtual void OnVideoFrameDecoded(::media::mojom::blink::VideoFramePtr frame, bool can_read_without_stalling, const absl::optional<::base::UnguessableToken>& release_token) = 0;
+  virtual void OnVideoFrameDecoded(::media::mojom::blink::VideoFramePtr frame, bool can_read_without_stalling, const std::optional<::base::UnguessableToken>& release_token) = 0;
 
   
   virtual void OnWaiting(::media::mojom::blink::WaitingReason reason) = 0;
@@ -259,7 +260,7 @@ class BLINK_PLATFORM_EXPORT VideoFrameHandleReleaserProxy
 
   explicit VideoFrameHandleReleaserProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const absl::optional<::gpu::SyncToken>& release_sync_token) final;
+  void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const std::optional<::gpu::SyncToken>& release_sync_token) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -280,7 +281,7 @@ class BLINK_PLATFORM_EXPORT VideoDecoderProxy
   
   void Construct(::mojo::PendingAssociatedRemote<VideoDecoderClient> client, ::mojo::PendingRemote<::media::mojom::blink::MediaLog> media_log, ::mojo::PendingReceiver<VideoFrameHandleReleaser> video_frame_handle_releaser, ::mojo::ScopedDataPipeConsumerHandle decoder_buffer_pipe, CommandBufferIdPtr command_buffer_id, const ::gfx::ColorSpace& target_color_space) final;
   
-  void Initialize(::media::mojom::blink::VideoDecoderConfigPtr config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) final;
+  void Initialize(::media::mojom::blink::VideoDecoderConfigPtr config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) final;
   
   void Decode(::media::mojom::blink::DecoderBufferPtr buffer, DecodeCallback callback) final;
   
@@ -301,7 +302,7 @@ class BLINK_PLATFORM_EXPORT VideoDecoderClientProxy
 
   explicit VideoDecoderClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnVideoFrameDecoded(::media::mojom::blink::VideoFramePtr frame, bool can_read_without_stalling, const absl::optional<::base::UnguessableToken>& release_token) final;
+  void OnVideoFrameDecoded(::media::mojom::blink::VideoFramePtr frame, bool can_read_without_stalling, const std::optional<::base::UnguessableToken>& release_token) final;
   
   void OnWaiting(::media::mojom::blink::WaitingReason reason) final;
   

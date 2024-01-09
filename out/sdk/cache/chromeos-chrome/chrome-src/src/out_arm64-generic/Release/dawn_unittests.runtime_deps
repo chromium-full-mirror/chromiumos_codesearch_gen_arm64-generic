@@ -1,4 +1,9 @@
 ./dawn_unittests
+./libEGL.so
+./libGLESv2.so
+./libvulkan.so.1
+vk_swiftshader_icd.json
+./libvk_swiftshader.so
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/test_env.py
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/xvfb.py
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/scripts/common.py
@@ -41,11 +46,6 @@ test_fonts/Tinos-BoldItalic.ttf
 test_fonts/Tinos-Italic.ttf
 test_fonts/Tinos-Regular.ttf
 etc/fonts/fonts.conf
-./libvk_swiftshader.so
-./libEGL.so
-./libGLESv2.so
-./libvulkan.so.1
-vk_swiftshader_icd.json
 bin/run_dawn_unittests
 ../../../../../../../home/chrome-bot/chrome_root/src/.vpython3
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/location_tags.json

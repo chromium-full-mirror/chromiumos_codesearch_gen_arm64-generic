@@ -8,6 +8,7 @@
 #define SERVICES_ACCESSIBILITY_PUBLIC_MOJOM_SPEECH_RECOGNITION_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -4,71 +4,76 @@
 #include "stack_sampled_metrics_status.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace stack_sampled_metrics_status {
+template <typename>
 PROTOBUF_CONSTEXPR StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse::StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUseDefaultTypeInternal() {}
   union {
     StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUseDefaultTypeInternal _StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUseDefaultTypeInternal _StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR StackSampledMetricsStatus_ThreadCountMap::StackSampledMetricsStatus_ThreadCountMap(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.thread_type_to_success_count_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StackSampledMetricsStatus_ThreadCountMapDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR StackSampledMetricsStatus_ThreadCountMapDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StackSampledMetricsStatus_ThreadCountMapDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StackSampledMetricsStatus_ThreadCountMapDefaultTypeInternal() {}
   union {
     StackSampledMetricsStatus_ThreadCountMap _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StackSampledMetricsStatus_ThreadCountMapDefaultTypeInternal _StackSampledMetricsStatus_ThreadCountMap_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StackSampledMetricsStatus_ThreadCountMapDefaultTypeInternal _StackSampledMetricsStatus_ThreadCountMap_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse::StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUseDefaultTypeInternal() {}
   union {
     StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUseDefaultTypeInternal _StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUseDefaultTypeInternal _StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR StackSampledMetricsStatus::StackSampledMetricsStatus(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.process_type_to_thread_count_map_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StackSampledMetricsStatusDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR StackSampledMetricsStatusDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StackSampledMetricsStatusDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StackSampledMetricsStatusDefaultTypeInternal() {}
   union {
     StackSampledMetricsStatus _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StackSampledMetricsStatusDefaultTypeInternal _StackSampledMetricsStatus_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StackSampledMetricsStatusDefaultTypeInternal _StackSampledMetricsStatus_default_instance_;
 }  // namespace stack_sampled_metrics_status
 namespace stack_sampled_metrics_status {
-
 // ===================================================================
 
 StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse::StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse() {}
@@ -77,17 +82,15 @@ StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse:
 void StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse::MergeFrom(const StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse& other) {
   MergeFromInternal(other);
 }
-
 // ===================================================================
 
 class StackSampledMetricsStatus_ThreadCountMap::_Internal {
  public:
 };
 
-StackSampledMetricsStatus_ThreadCountMap::StackSampledMetricsStatus_ThreadCountMap(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+StackSampledMetricsStatus_ThreadCountMap::StackSampledMetricsStatus_ThreadCountMap(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap)
 }
 StackSampledMetricsStatus_ThreadCountMap::StackSampledMetricsStatus_ThreadCountMap(const StackSampledMetricsStatus_ThreadCountMap& from)
@@ -102,10 +105,8 @@ StackSampledMetricsStatus_ThreadCountMap::StackSampledMetricsStatus_ThreadCountM
   // @@protoc_insertion_point(copy_constructor:stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap)
 }
 
-inline void StackSampledMetricsStatus_ThreadCountMap::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void StackSampledMetricsStatus_ThreadCountMap::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       /*decltype(_impl_.thread_type_to_success_count_)*/{::_pbi::ArenaInitialized(), arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -122,8 +123,7 @@ StackSampledMetricsStatus_ThreadCountMap::~StackSampledMetricsStatus_ThreadCount
 }
 
 inline void StackSampledMetricsStatus_ThreadCountMap::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.thread_type_to_success_count_.Destruct();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.thread_type_to_success_count_.~MapFieldLite();
 }
 
@@ -133,7 +133,7 @@ void StackSampledMetricsStatus_ThreadCountMap::SetCachedSize(int size) const {
 
 void StackSampledMetricsStatus_ThreadCountMap::Clear() {
 // @@protoc_insertion_point(message_clear_start:stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -144,12 +144,12 @@ void StackSampledMetricsStatus_ThreadCountMap::Clear() {
 const char* StackSampledMetricsStatus_ThreadCountMap::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // map<int32, int32> thread_type_to_success_count = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -157,8 +157,9 @@ const char* StackSampledMetricsStatus_ThreadCountMap::_InternalParse(const char*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -183,15 +184,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* StackSampledMetricsStatus_ThreadCountMap::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* StackSampledMetricsStatus_ThreadCountMap::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // map<int32, int32> thread_type_to_success_count = 1;
   if (!this->_internal_thread_type_to_success_count().empty()) {
-    using MapType = ::_pb::Map<int32_t, int32_t>;
+    using MapType = ::_pb::Map<::int32_t, ::int32_t>;
     using WireHelper = StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_thread_type_to_success_count();
 
@@ -214,18 +215,18 @@ uint8_t* StackSampledMetricsStatus_ThreadCountMap::_InternalSerialize(
   return target;
 }
 
-size_t StackSampledMetricsStatus_ThreadCountMap::ByteSizeLong() const {
+::size_t StackSampledMetricsStatus_ThreadCountMap::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // map<int32, int32> thread_type_to_success_count = 1;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_thread_type_to_success_count_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::int32_t >::const_iterator
       it = this->_internal_thread_type_to_success_count().begin();
       it != this->_internal_thread_type_to_success_count().end(); ++it) {
     total_size += StackSampledMetricsStatus_ThreadCountMap_ThreadTypeToSuccessCountEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
@@ -248,8 +249,8 @@ void StackSampledMetricsStatus_ThreadCountMap::CheckTypeAndMergeFrom(
 void StackSampledMetricsStatus_ThreadCountMap::MergeFrom(const StackSampledMetricsStatus_ThreadCountMap& from) {
   StackSampledMetricsStatus_ThreadCountMap* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.thread_type_to_success_count_.MergeFrom(from._impl_.thread_type_to_success_count_);
@@ -277,7 +278,6 @@ std::string StackSampledMetricsStatus_ThreadCountMap::GetTypeName() const {
   return "stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap";
 }
 
-
 // ===================================================================
 
 StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse::StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse() {}
@@ -286,17 +286,15 @@ StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse::StackSample
 void StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse::MergeFrom(const StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse& other) {
   MergeFromInternal(other);
 }
-
 // ===================================================================
 
 class StackSampledMetricsStatus::_Internal {
  public:
 };
 
-StackSampledMetricsStatus::StackSampledMetricsStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+StackSampledMetricsStatus::StackSampledMetricsStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:stack_sampled_metrics_status.StackSampledMetricsStatus)
 }
 StackSampledMetricsStatus::StackSampledMetricsStatus(const StackSampledMetricsStatus& from)
@@ -311,10 +309,8 @@ StackSampledMetricsStatus::StackSampledMetricsStatus(const StackSampledMetricsSt
   // @@protoc_insertion_point(copy_constructor:stack_sampled_metrics_status.StackSampledMetricsStatus)
 }
 
-inline void StackSampledMetricsStatus::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void StackSampledMetricsStatus::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       /*decltype(_impl_.process_type_to_thread_count_map_)*/{::_pbi::ArenaInitialized(), arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -331,8 +327,7 @@ StackSampledMetricsStatus::~StackSampledMetricsStatus() {
 }
 
 inline void StackSampledMetricsStatus::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.process_type_to_thread_count_map_.Destruct();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.process_type_to_thread_count_map_.~MapFieldLite();
 }
 
@@ -342,7 +337,7 @@ void StackSampledMetricsStatus::SetCachedSize(int size) const {
 
 void StackSampledMetricsStatus::Clear() {
 // @@protoc_insertion_point(message_clear_start:stack_sampled_metrics_status.StackSampledMetricsStatus)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -353,12 +348,12 @@ void StackSampledMetricsStatus::Clear() {
 const char* StackSampledMetricsStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // map<int32, .stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap> process_type_to_thread_count_map = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -366,8 +361,9 @@ const char* StackSampledMetricsStatus::_InternalParse(const char* ptr, ::_pbi::P
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -392,15 +388,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* StackSampledMetricsStatus::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* StackSampledMetricsStatus::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:stack_sampled_metrics_status.StackSampledMetricsStatus)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // map<int32, .stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap> process_type_to_thread_count_map = 1;
   if (!this->_internal_process_type_to_thread_count_map().empty()) {
-    using MapType = ::_pb::Map<int32_t, ::stack_sampled_metrics_status::StackSampledMetricsStatus_ThreadCountMap>;
+    using MapType = ::_pb::Map<::int32_t, ::stack_sampled_metrics_status::StackSampledMetricsStatus_ThreadCountMap>;
     using WireHelper = StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_process_type_to_thread_count_map();
 
@@ -423,18 +419,18 @@ uint8_t* StackSampledMetricsStatus::_InternalSerialize(
   return target;
 }
 
-size_t StackSampledMetricsStatus::ByteSizeLong() const {
+::size_t StackSampledMetricsStatus::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:stack_sampled_metrics_status.StackSampledMetricsStatus)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // map<int32, .stack_sampled_metrics_status.StackSampledMetricsStatus.ThreadCountMap> process_type_to_thread_count_map = 1;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_process_type_to_thread_count_map_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::stack_sampled_metrics_status::StackSampledMetricsStatus_ThreadCountMap >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::stack_sampled_metrics_status::StackSampledMetricsStatus_ThreadCountMap >::const_iterator
       it = this->_internal_process_type_to_thread_count_map().begin();
       it != this->_internal_process_type_to_thread_count_map().end(); ++it) {
     total_size += StackSampledMetricsStatus_ProcessTypeToThreadCountMapEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
@@ -457,8 +453,8 @@ void StackSampledMetricsStatus::CheckTypeAndMergeFrom(
 void StackSampledMetricsStatus::MergeFrom(const StackSampledMetricsStatus& from) {
   StackSampledMetricsStatus* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:stack_sampled_metrics_status.StackSampledMetricsStatus)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.process_type_to_thread_count_map_.MergeFrom(from._impl_.process_type_to_thread_count_map_);
@@ -486,7 +482,6 @@ std::string StackSampledMetricsStatus::GetTypeName() const {
   return "stack_sampled_metrics_status.StackSampledMetricsStatus";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace stack_sampled_metrics_status
 PROTOBUF_NAMESPACE_OPEN
@@ -507,6 +502,5 @@ Arena::CreateMaybeMessage< ::stack_sampled_metrics_status::StackSampledMetricsSt
   return Arena::CreateMessageInternal< ::stack_sampled_metrics_status::StackSampledMetricsStatus >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

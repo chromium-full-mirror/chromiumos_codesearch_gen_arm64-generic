@@ -33,7 +33,6 @@
     this.allowImage = false;
     this.allowPopup = false;
     this.allowMixedContent = false;
-    this.allowAutoDark = false;
   };
   RendererContentSettings.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -59,7 +58,6 @@
 
 
 
-
     return validator.validationError.NONE;
   };
 
@@ -75,7 +73,6 @@
     val.allowImage = (packed >> 1) & 1 ? true : false;
     val.allowPopup = (packed >> 2) & 1 ? true : false;
     val.allowMixedContent = (packed >> 3) & 1 ? true : false;
-    val.allowAutoDark = (packed >> 4) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -95,7 +92,6 @@
     packed |= (val.allowImage & 1) << 1
     packed |= (val.allowPopup & 1) << 2
     packed |= (val.allowMixedContent & 1) << 3
-    packed |= (val.allowAutoDark & 1) << 4
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

@@ -13,6 +13,7 @@
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-shared-internal.h"
 #include "skia/public/mojom/skcolor.mojom-shared-internal.h"
+#include "services/network/public/mojom/attribution.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/frame/frame_replication_state.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/frame/remote_frame.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/frame/view_transition_state.mojom-shared-internal.h"
@@ -22,6 +23,7 @@
 #include "third_party/blink/public/mojom/tokens/tokens.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/webpreferences/web_preferences.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom-shared-internal.h"
+#include "ui/color/color_id.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 #include "base/component_export.h"
@@ -39,6 +41,7 @@ namespace blink::mojom {
 namespace internal {
 class PageLifecycleState_Data;
 class PageRestoreParams_Data;
+class ColorProviderColorMaps_Data;
 class PrerenderPageActivationParams_Data;
 
 struct PagehideDispatch_Data {
@@ -172,6 +175,56 @@ struct PageRestoreParams_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     PageRestoreParams_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ColorProviderColorMaps_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data>>> light_colors_map;
+  mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data>>> dark_colors_map;
+  mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data>>> forced_colors_map;
+
+ private:
+  friend class mojo::internal::MessageFragment<ColorProviderColorMaps_Data>;
+
+  ColorProviderColorMaps_Data();
+  ~ColorProviderColorMaps_Data() = delete;
+};
+static_assert(sizeof(ColorProviderColorMaps_Data) == 32,
+              "Bad sizeof(ColorProviderColorMaps_Data)");
+// Used by ColorProviderColorMaps::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ColorProviderColorMaps_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ColorProviderColorMaps_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ColorProviderColorMaps_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ColorProviderColorMaps_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ColorProviderColorMaps_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PrerenderPageActivationParams_Data {
  public:
   static bool Validate(const void* data,

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "device/bluetooth/public/mojom/device.mojom-features.h"
 #include "device/bluetooth/public/mojom/device.mojom-shared.h"
 #include "device/bluetooth/public/mojom/device.mojom-forward.h"
 #include "device/bluetooth/public/mojom/uuid.mojom.h"
@@ -127,12 +128,12 @@ class Device
   virtual void GetServices(GetServicesCallback callback) = 0;
 
 
-  using GetCharacteristicsCallback = base::OnceCallback<void(absl::optional<std::vector<CharacteristicInfoPtr>>)>;
+  using GetCharacteristicsCallback = base::OnceCallback<void(std::optional<std::vector<CharacteristicInfoPtr>>)>;
   
   virtual void GetCharacteristics(const std::string& service_id, GetCharacteristicsCallback callback) = 0;
 
 
-  using ReadValueForCharacteristicCallback = base::OnceCallback<void(GattResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using ReadValueForCharacteristicCallback = base::OnceCallback<void(GattResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void ReadValueForCharacteristic(const std::string& service_id, const std::string& characteristic_id, ReadValueForCharacteristicCallback callback) = 0;
 
@@ -142,12 +143,12 @@ class Device
   virtual void WriteValueForCharacteristic(const std::string& service_id, const std::string& characteristic_id, const std::vector<uint8_t>& value, WriteValueForCharacteristicCallback callback) = 0;
 
 
-  using GetDescriptorsCallback = base::OnceCallback<void(absl::optional<std::vector<DescriptorInfoPtr>>)>;
+  using GetDescriptorsCallback = base::OnceCallback<void(std::optional<std::vector<DescriptorInfoPtr>>)>;
   
   virtual void GetDescriptors(const std::string& service_id, const std::string& characteristic_id, GetDescriptorsCallback callback) = 0;
 
 
-  using ReadValueForDescriptorCallback = base::OnceCallback<void(GattResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using ReadValueForDescriptorCallback = base::OnceCallback<void(GattResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void ReadValueForDescriptor(const std::string& service_id, const std::string& characteristic_id, const std::string& descriptor_id, ReadValueForDescriptorCallback callback) = 0;
 
@@ -416,7 +417,7 @@ class  DeviceInfo {
   DeviceInfo();
 
   DeviceInfo(
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& name,
       const std::string& name_for_display,
       const std::string& address,
       bool is_gatt_connected,
@@ -503,7 +504,7 @@ DeviceInfo& operator=(const DeviceInfo&) = delete;
   }
 
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
   std::string name_for_display;
   

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/power.mojom-features.h"
 #include "ash/components/arc/mojom/power.mojom-shared.h"
 #include "ash/components/arc/mojom/power.mojom-forward.h"
 #include "ash/components/arc/mojom/anr.mojom-forward.h"
@@ -155,7 +156,7 @@ class PowerInstance
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 9;
+  static constexpr uint32_t Version_ = 10;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -169,7 +170,7 @@ class PowerInstance
   using ResponseValidator_ = PowerInstanceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kInitMinVersion = 4,
-    kSetInteractiveMinVersion = 1,
+    kSetInteractiveDeprecatedMinVersion = 1,
     kSuspendMinVersion = 2,
     kResumeMinVersion = 2,
     kUpdateScreenBrightnessSettingsMinVersion = 3,
@@ -177,6 +178,7 @@ class PowerInstance
     kGetWakefulnessModeMinVersion = 6,
     kOnCpuRestrictionChangedMinVersion = 7,
     kOnBatterySaverModeStateChangedMinVersion = 9,
+    kSetIdleStateMinVersion = 10,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -185,7 +187,7 @@ class PowerInstance
   struct Init_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetInteractive_Sym {
+  struct SetInteractiveDeprecated_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct Suspend_Sym {
@@ -209,6 +211,9 @@ class PowerInstance
   struct OnBatterySaverModeStateChanged_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SetIdleState_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~PowerInstance() = default;
 
@@ -218,7 +223,7 @@ class PowerInstance
   virtual void Init(::mojo::PendingRemote<PowerHost> host_remote, InitCallback callback) = 0;
 
   
-  virtual void SetInteractive(bool enabled) = 0;
+  virtual void SetInteractiveDeprecated(bool enabled) = 0;
 
 
   using SuspendCallback = base::OnceCallback<void()>;
@@ -244,6 +249,9 @@ class PowerInstance
 
   
   virtual void OnBatterySaverModeStateChanged(BatterySaverModeStatePtr state) = 0;
+
+  
+  virtual void SetIdleState(IdleState state) = 0;
 };
 
 
@@ -286,7 +294,7 @@ class  PowerInstanceProxy
   
   void Init(::mojo::PendingRemote<PowerHost> host_remote, InitCallback callback) final;
   
-  void SetInteractive(bool enabled) final;
+  void SetInteractiveDeprecated(bool enabled) final;
   
   void Suspend(SuspendCallback callback) final;
   
@@ -301,6 +309,8 @@ class  PowerInstanceProxy
   void OnCpuRestrictionChanged(CpuRestrictionState state) final;
   
   void OnBatterySaverModeStateChanged(BatterySaverModeStatePtr state) final;
+  
+  void SetIdleState(IdleState state) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

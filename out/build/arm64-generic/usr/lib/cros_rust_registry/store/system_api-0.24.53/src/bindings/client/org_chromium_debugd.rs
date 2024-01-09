@@ -5,6 +5,7 @@ use dbus::arg;
 use dbus::blocking;
 
 pub trait OrgChromiumDebugd {
+    fn crosh_shell_start(&self, lifeline_fd: arg::OwnedFd, infd: arg::OwnedFd, outfd: arg::OwnedFd) -> Result<String, dbus::Error>;
     fn ping_start(&self, outfd: arg::OwnedFd, destination: &str, options: arg::PropMap) -> Result<String, dbus::Error>;
     fn ping_stop(&self, handle: &str) -> Result<(), dbus::Error>;
     fn systrace_start(&self, categories: &str) -> Result<(), dbus::Error>;
@@ -80,7 +81,6 @@ pub trait OrgChromiumDebugd {
     fn evaluate_probe_function(&self, probe_statement: &str, log_level: i32) -> Result<(arg::OwnedFd, arg::OwnedFd), dbus::Error>;
     fn set_scheduler_configuration_v2(&self, policy: &str, lock_policy: bool) -> Result<(bool, u32), dbus::Error>;
     fn wifi_fwdump(&self) -> Result<String, dbus::Error>;
-    fn collect_smart_battery_metric(&self, metric_name: &str) -> Result<String, dbus::Error>;
     fn ec_get_inventory(&self) -> Result<String, dbus::Error>;
     fn call_dmesg(&self, options: arg::PropMap) -> Result<String, dbus::Error>;
     fn ec_type_center_mode(&self, port_num: u32, mode: u32) -> Result<String, dbus::Error>;
@@ -139,6 +139,11 @@ impl dbus::message::SignalArgs for OrgChromiumDebugdPacketCaptureStop {
 }
 
 impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiumDebugd for blocking::Proxy<'a, C> {
+
+    fn crosh_shell_start(&self, lifeline_fd: arg::OwnedFd, infd: arg::OwnedFd, outfd: arg::OwnedFd) -> Result<String, dbus::Error> {
+        self.method_call("org.chromium.debugd", "CroshShellStart", (lifeline_fd, infd, outfd, ))
+            .and_then(|r: (String, )| Ok(r.0, ))
+    }
 
     fn ping_start(&self, outfd: arg::OwnedFd, destination: &str, options: arg::PropMap) -> Result<String, dbus::Error> {
         self.method_call("org.chromium.debugd", "PingStart", (outfd, destination, options, ))
@@ -477,11 +482,6 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
 
     fn wifi_fwdump(&self) -> Result<String, dbus::Error> {
         self.method_call("org.chromium.debugd", "WifiFWDump", ())
-            .and_then(|r: (String, )| Ok(r.0, ))
-    }
-
-    fn collect_smart_battery_metric(&self, metric_name: &str) -> Result<String, dbus::Error> {
-        self.method_call("org.chromium.debugd", "CollectSmartBatteryMetric", (metric_name, ))
             .and_then(|r: (String, )| Ok(r.0, ))
     }
 

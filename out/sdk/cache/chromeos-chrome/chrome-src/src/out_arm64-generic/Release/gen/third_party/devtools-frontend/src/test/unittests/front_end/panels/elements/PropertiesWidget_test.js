@@ -1,12 +1,12 @@
 // Copyright 2023 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Elements from '../../../../../front_end/panels/elements/elements.js';
 import * as ObjectUI from '../../../../../front_end/ui/legacy/components/object_ui/object_ui.js';
 import * as UI from '../../../../../front_end/ui/legacy/legacy.js';
 import { createTarget, stubNoopSettings } from '../../helpers/EnvironmentHelpers.js';
-import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 import { describeWithMockConnection, setMockConnectionResponseHandler } from '../../helpers/MockConnection.js';
 const { assert } = chai;
 const NODE_ID = 1;
@@ -32,7 +32,7 @@ describeWithMockConnection('PropertiesWidget', () => {
             getOwnProperties: () => ({}),
         });
         UI.Context.Context.instance().setFlavor(SDK.DOMModel.DOMNode, node);
-        view = Elements.PropertiesWidget.PropertiesWidget.instance({ forceNew: true, throttlingTimeout: 0 });
+        view = new Elements.PropertiesWidget.PropertiesWidget(0);
         view.markAsRoot();
         view.show(document.body);
         await new Promise(resolve => setTimeout(resolve, 0));

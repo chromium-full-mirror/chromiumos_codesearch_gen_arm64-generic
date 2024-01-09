@@ -34,7 +34,5 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/lexmark-fax-pnh/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/lexmark-fax-pnh/all.stamp: stamp ./fax-pnh-filter ./token_replacer_testrunner
+build obj/lexmark-fax-pnh/all.stamp: stamp ./fax-pnh-filter
 subninja obj/lexmark-fax-pnh/fax-pnh-filter.ninja
-subninja obj/lexmark-fax-pnh/token_replacer_testrunner.ninja

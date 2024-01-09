@@ -119,11 +119,6 @@ blink.mojom.PeerConnectionManagerInterface = class {
   /**
    */
 
-  getLegacyStats() {}
-  
-  /**
-   */
-
   getCurrentState() {}
 };
 
@@ -248,22 +243,9 @@ blink.mojom.PeerConnectionManagerRemote = class {
   /**
    */
 
-  getLegacyStats() {
-    this.proxy.sendMessage(
-        6,
-        blink.mojom.PeerConnectionManager_GetLegacyStats_ParamsSpec.$,
-        null,
-        [
-        ]);
-  }
-
-  
-  /**
-   */
-
   getCurrentState() {
     this.proxy.sendMessage(
-        7,
+        6,
         blink.mojom.PeerConnectionManager_GetCurrentState_ParamsSpec.$,
         null,
         [
@@ -325,11 +307,6 @@ blink.mojom.PeerConnectionManagerReceiver = class {
         impl.getStandardStats.bind(impl));
     this.helper_internal_.registerHandler(
         6,
-        blink.mojom.PeerConnectionManager_GetLegacyStats_ParamsSpec.$,
-        null,
-        impl.getLegacyStats.bind(impl));
-    this.helper_internal_.registerHandler(
-        7,
         blink.mojom.PeerConnectionManager_GetCurrentState_ParamsSpec.$,
         null,
         impl.getCurrentState.bind(impl));
@@ -460,24 +437,12 @@ blink.mojom.PeerConnectionManagerCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.getLegacyStats =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        6,
-        blink.mojom.PeerConnectionManager_GetLegacyStats_ParamsSpec.$,
-        null,
-        this.getLegacyStats.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.getCurrentState =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
-        7,
+        6,
         blink.mojom.PeerConnectionManager_GetCurrentState_ParamsSpec.$,
         null,
         this.getCurrentState.createReceiverHandler(false /* expectsResponse */));
@@ -1303,14 +1268,6 @@ goog.provide('blink.mojom.PeerConnectionManager_GetStandardStats_ParamsSpec');
 blink.mojom.PeerConnectionManager_GetStandardStats_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-goog.provide('blink.mojom.PeerConnectionManager_GetLegacyStats_ParamsSpec');
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.PeerConnectionManager_GetLegacyStats_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
 goog.provide('blink.mojom.PeerConnectionManager_GetCurrentState_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -1643,25 +1600,6 @@ goog.provide('blink.mojom.PeerConnectionManager_GetStandardStats_Params');
 
 /** @record */
 blink.mojom.PeerConnectionManager_GetStandardStats_Params = class {
-  constructor() {
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.PeerConnectionManager_GetLegacyStats_ParamsSpec.$,
-    'PeerConnectionManager_GetLegacyStats_Params',
-    [
-    ],
-    [[0, 8],]);
-
-
-
-goog.provide('blink.mojom.PeerConnectionManager_GetLegacyStats_Params');
-
-/** @record */
-blink.mojom.PeerConnectionManager_GetLegacyStats_Params = class {
   constructor() {
   }
 };

@@ -50,6 +50,8 @@ class HostPortPairDataView;
 
 class ProxyServerDataView;
 
+class ProxyChainDataView;
+
 class ResolveErrorInfoDataView;
 
 class SSLCertRequestInfoDataView;
@@ -91,6 +93,13 @@ struct MojomTypeTraits<::network::mojom::HostPortPairDataView> {
 template <>
 struct MojomTypeTraits<::network::mojom::ProxyServerDataView> {
   using Data = ::network::mojom::internal::ProxyServer_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::network::mojom::ProxyChainDataView> {
+  using Data = ::network::mojom::internal::ProxyChain_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -310,6 +319,45 @@ static_assert(
   }
  private:
   internal::ProxyServer_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ProxyChainDataView {
+ public:
+  ProxyChainDataView() = default;
+
+  ProxyChainDataView(
+      internal::ProxyChain_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetProxyServersDataView(
+      mojo::ArrayDataView<ProxyServerDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProxyServers(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::network::mojom::ProxyServerDataView>, UserType>(),
+    "Attempting to read the optional `proxy_servers` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadProxyServers` instead "
+    "of `ReadProxyServers if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->proxy_servers.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::ProxyServerDataView>>(
+        pointer, output, message_);
+  }
+  bool is_for_ip_protection() const {
+    return data_->is_for_ip_protection;
+  }
+ private:
+  internal::ProxyChain_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -654,6 +702,46 @@ struct Serializer<::network::mojom::ProxyServerDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::network::mojom::ProxyChainDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::network::mojom::ProxyChainDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::network::mojom::internal::ProxyChain_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::proxy_servers(input)) in_proxy_servers = Traits::proxy_servers(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->proxy_servers)::BaseType>
+        proxy_servers_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& proxy_servers_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::ProxyServerDataView>>(
+        in_proxy_servers, proxy_servers_fragment, &proxy_servers_validate_params);
+    fragment->proxy_servers.Set(
+        proxy_servers_fragment.is_null() ? nullptr : proxy_servers_fragment.data());
+    fragment->is_for_ip_protection = Traits::is_for_ip_protection(input);
+  }
+
+  static bool Deserialize(::network::mojom::internal::ProxyChain_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::network::mojom::ProxyChainDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::network::mojom::ResolveErrorInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::network::mojom::ResolveErrorInfoDataView, UserType>;
@@ -839,6 +927,13 @@ inline void ProxyServerDataView::GetHostAndPortDataView(
     HostPortPairDataView* output) {
   auto pointer = data_->host_and_port.Get();
   *output = HostPortPairDataView(pointer, message_);
+}
+
+
+inline void ProxyChainDataView::GetProxyServersDataView(
+    mojo::ArrayDataView<ProxyServerDataView>* output) {
+  auto pointer = data_->proxy_servers.Get();
+  *output = mojo::ArrayDataView<ProxyServerDataView>(pointer, message_);
 }
 
 

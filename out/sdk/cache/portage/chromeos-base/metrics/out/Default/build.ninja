@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3727/work/metrics-0.0.1/platform2 -q --regeneration gen .
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3766/work/metrics-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -24,6 +24,7 @@ build install_minijail_conf: phony obj/metrics/install_minijail_conf.stamp
 build libmetrics: phony ./lib/libmetrics.so
 build libmetrics_daemon: phony ./libmetrics_daemon.a
 build libstructuredmetrics: phony ./lib/libstructuredmetrics.so
+build libstructuredmetrics_install_headers: phony obj/metrics/structured/libstructuredmetrics_install_headers.stamp
 build libstructuredmetrics_pkg_config: phony obj/metrics/structured/libstructuredmetrics_pkg_config.stamp
 build libupload_service: phony ./libupload_service.a
 build metrics_proto: phony ./libmetrics_proto.a
@@ -47,6 +48,7 @@ build metrics$:metrics_test_support: phony obj/metrics/metrics_test_support.stam
 build metrics/structured$:_update_reset_counter-install_config: phony obj/metrics/structured/_update_reset_counter-install_config.stamp
 build metrics/structured$:gen_structured_events: phony obj/metrics/structured/gen_structured_events.stamp
 build metrics/structured$:libstructuredmetrics: phony ./lib/libstructuredmetrics.so
+build metrics/structured$:libstructuredmetrics_install_headers: phony obj/metrics/structured/libstructuredmetrics_install_headers.stamp
 build metrics/structured$:libstructuredmetrics_pkg_config: phony obj/metrics/structured/libstructuredmetrics_pkg_config.stamp
 build metrics/structured$:storage: phony ./libstorage.a
 build metrics/structured$:storage_gen: phony obj/metrics/structured/storage_gen.stamp
@@ -68,6 +70,7 @@ build all: phony $
     obj/metrics/structured/_update_reset_counter-install_config.stamp $
     obj/metrics/structured/gen_structured_events.stamp $
     ./lib/libstructuredmetrics.so $
+    obj/metrics/structured/libstructuredmetrics_install_headers.stamp $
     obj/metrics/structured/libstructuredmetrics_pkg_config.stamp $
     ./libstorage.a $
     obj/metrics/structured/storage_gen.stamp $

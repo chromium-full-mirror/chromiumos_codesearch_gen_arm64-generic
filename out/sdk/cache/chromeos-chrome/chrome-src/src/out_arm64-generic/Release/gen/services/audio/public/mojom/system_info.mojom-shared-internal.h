@@ -12,6 +12,7 @@
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "media/mojo/mojom/audio_parameters.mojom-shared-internal.h"
 #include "services/audio/public/mojom/audio_device_description.mojom-shared-internal.h"
+#include "sandbox/policy/mojom/context.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

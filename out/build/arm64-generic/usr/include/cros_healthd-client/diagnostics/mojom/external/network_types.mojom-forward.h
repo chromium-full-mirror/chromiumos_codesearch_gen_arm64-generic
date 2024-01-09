@@ -26,6 +26,8 @@ enum class ConnectionStateType : int32_t;
 
 enum class DeviceStateType : int32_t;
 
+enum class IPConfigType : int32_t;
+
 enum class NetworkType : int32_t;
 
 enum class OncSource : int32_t;

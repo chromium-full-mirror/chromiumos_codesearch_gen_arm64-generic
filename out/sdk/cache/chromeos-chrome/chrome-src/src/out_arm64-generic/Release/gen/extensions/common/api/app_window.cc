@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/app_window.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -39,8 +40,8 @@ ContentBounds::ContentBounds()
  {}
 
 ContentBounds::~ContentBounds() = default;
-ContentBounds::ContentBounds(ContentBounds&& rhs) = default;
-ContentBounds& ContentBounds::operator=(ContentBounds&& rhs) = default;
+ContentBounds::ContentBounds(ContentBounds&& rhs) noexcept = default;
+ContentBounds& ContentBounds::operator=(ContentBounds&& rhs) noexcept = default;
 ContentBounds ContentBounds::Clone() const {
   ContentBounds out;
   out.left = left;
@@ -58,7 +59,7 @@ bool ContentBounds::Populate(
     {
       auto temp = (*left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.left = absl::nullopt;
+        out.left = std::nullopt;
         return false;
       }
       out.left = *temp;
@@ -70,7 +71,7 @@ bool ContentBounds::Populate(
     {
       auto temp = (*top_value).GetIfInt();
       if (!temp.has_value()) {
-        out.top = absl::nullopt;
+        out.top = std::nullopt;
         return false;
       }
       out.top = *temp;
@@ -82,7 +83,7 @@ bool ContentBounds::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -94,7 +95,7 @@ bool ContentBounds::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -114,34 +115,21 @@ bool ContentBounds::Populate(
 }
 
 // static
-std::unique_ptr<ContentBounds> ContentBounds::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ContentBounds>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ContentBounds> ContentBounds::FromValue(const base::Value::Dict& value) {
+  ContentBounds out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ContentBounds> ContentBounds::FromValue(const base::Value::Dict& value) {
+std::optional<ContentBounds> ContentBounds::FromValue(const base::Value& value) {
   ContentBounds out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ContentBounds> ContentBounds::FromValue(const base::Value& value) {
-  ContentBounds out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -174,8 +162,8 @@ BoundsSpecification::BoundsSpecification()
  {}
 
 BoundsSpecification::~BoundsSpecification() = default;
-BoundsSpecification::BoundsSpecification(BoundsSpecification&& rhs) = default;
-BoundsSpecification& BoundsSpecification::operator=(BoundsSpecification&& rhs) = default;
+BoundsSpecification::BoundsSpecification(BoundsSpecification&& rhs) noexcept = default;
+BoundsSpecification& BoundsSpecification::operator=(BoundsSpecification&& rhs) noexcept = default;
 BoundsSpecification BoundsSpecification::Clone() const {
   BoundsSpecification out;
   out.left = left;
@@ -197,7 +185,7 @@ bool BoundsSpecification::Populate(
     {
       auto temp = (*left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.left = absl::nullopt;
+        out.left = std::nullopt;
         return false;
       }
       out.left = *temp;
@@ -209,7 +197,7 @@ bool BoundsSpecification::Populate(
     {
       auto temp = (*top_value).GetIfInt();
       if (!temp.has_value()) {
-        out.top = absl::nullopt;
+        out.top = std::nullopt;
         return false;
       }
       out.top = *temp;
@@ -221,7 +209,7 @@ bool BoundsSpecification::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -233,7 +221,7 @@ bool BoundsSpecification::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -245,7 +233,7 @@ bool BoundsSpecification::Populate(
     {
       auto temp = (*min_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.min_width = absl::nullopt;
+        out.min_width = std::nullopt;
         return false;
       }
       out.min_width = *temp;
@@ -257,7 +245,7 @@ bool BoundsSpecification::Populate(
     {
       auto temp = (*min_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.min_height = absl::nullopt;
+        out.min_height = std::nullopt;
         return false;
       }
       out.min_height = *temp;
@@ -269,7 +257,7 @@ bool BoundsSpecification::Populate(
     {
       auto temp = (*max_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_width = absl::nullopt;
+        out.max_width = std::nullopt;
         return false;
       }
       out.max_width = *temp;
@@ -281,7 +269,7 @@ bool BoundsSpecification::Populate(
     {
       auto temp = (*max_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_height = absl::nullopt;
+        out.max_height = std::nullopt;
         return false;
       }
       out.max_height = *temp;
@@ -301,34 +289,21 @@ bool BoundsSpecification::Populate(
 }
 
 // static
-std::unique_ptr<BoundsSpecification> BoundsSpecification::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<BoundsSpecification>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<BoundsSpecification> BoundsSpecification::FromValue(const base::Value::Dict& value) {
+  BoundsSpecification out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<BoundsSpecification> BoundsSpecification::FromValue(const base::Value::Dict& value) {
+std::optional<BoundsSpecification> BoundsSpecification::FromValue(const base::Value& value) {
   BoundsSpecification out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<BoundsSpecification> BoundsSpecification::FromValue(const base::Value& value) {
-  BoundsSpecification out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -380,8 +355,8 @@ width(0),
 height(0) {}
 
 Bounds::~Bounds() = default;
-Bounds::Bounds(Bounds&& rhs) = default;
-Bounds& Bounds::operator=(Bounds&& rhs) = default;
+Bounds::Bounds(Bounds&& rhs) noexcept = default;
+Bounds& Bounds::operator=(Bounds&& rhs) noexcept = default;
 Bounds Bounds::Clone() const {
   Bounds out;
   out.left = left;
@@ -455,7 +430,7 @@ bool Bounds::Populate(
     {
       auto temp = (*min_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.min_width = absl::nullopt;
+        out.min_width = std::nullopt;
         return false;
       }
       out.min_width = *temp;
@@ -467,7 +442,7 @@ bool Bounds::Populate(
     {
       auto temp = (*min_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.min_height = absl::nullopt;
+        out.min_height = std::nullopt;
         return false;
       }
       out.min_height = *temp;
@@ -479,7 +454,7 @@ bool Bounds::Populate(
     {
       auto temp = (*max_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_width = absl::nullopt;
+        out.max_width = std::nullopt;
         return false;
       }
       out.max_width = *temp;
@@ -491,7 +466,7 @@ bool Bounds::Populate(
     {
       auto temp = (*max_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_height = absl::nullopt;
+        out.max_height = std::nullopt;
         return false;
       }
       out.max_height = *temp;
@@ -531,34 +506,21 @@ bool Bounds::Populate(
 }
 
 // static
-std::unique_ptr<Bounds> Bounds::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Bounds>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Bounds> Bounds::FromValue(const base::Value::Dict& value) {
+  Bounds out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Bounds> Bounds::FromValue(const base::Value::Dict& value) {
+std::optional<Bounds> Bounds::FromValue(const base::Value& value) {
   Bounds out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Bounds> Bounds::FromValue(const base::Value& value) {
-  Bounds out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -607,8 +569,8 @@ FrameOptions::FrameOptions()
  {}
 
 FrameOptions::~FrameOptions() = default;
-FrameOptions::FrameOptions(FrameOptions&& rhs) = default;
-FrameOptions& FrameOptions::operator=(FrameOptions&& rhs) = default;
+FrameOptions::FrameOptions(FrameOptions&& rhs) noexcept = default;
+FrameOptions& FrameOptions::operator=(FrameOptions&& rhs) noexcept = default;
 FrameOptions FrameOptions::Clone() const {
   FrameOptions out;
   out.type = type;
@@ -626,7 +588,7 @@ bool FrameOptions::Populate(
     {
       auto* temp = (*type_value).GetIfString();
       if (!temp) {
-        out.type = absl::nullopt;
+        out.type = std::nullopt;
         return false;
       }
       out.type = *temp;
@@ -638,7 +600,7 @@ bool FrameOptions::Populate(
     {
       auto* temp = (*color_value).GetIfString();
       if (!temp) {
-        out.color = absl::nullopt;
+        out.color = std::nullopt;
         return false;
       }
       out.color = *temp;
@@ -650,7 +612,7 @@ bool FrameOptions::Populate(
     {
       auto* temp = (*active_color_value).GetIfString();
       if (!temp) {
-        out.active_color = absl::nullopt;
+        out.active_color = std::nullopt;
         return false;
       }
       out.active_color = *temp;
@@ -662,7 +624,7 @@ bool FrameOptions::Populate(
     {
       auto* temp = (*inactive_color_value).GetIfString();
       if (!temp) {
-        out.inactive_color = absl::nullopt;
+        out.inactive_color = std::nullopt;
         return false;
       }
       out.inactive_color = *temp;
@@ -682,34 +644,21 @@ bool FrameOptions::Populate(
 }
 
 // static
-std::unique_ptr<FrameOptions> FrameOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FrameOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FrameOptions> FrameOptions::FromValue(const base::Value::Dict& value) {
+  FrameOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FrameOptions> FrameOptions::FromValue(const base::Value::Dict& value) {
+std::optional<FrameOptions> FrameOptions::FromValue(const base::Value& value) {
   FrameOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FrameOptions> FrameOptions::FromValue(const base::Value& value) {
-  FrameOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -802,8 +751,8 @@ CreateWindowOptions::Frame::Frame()
  {}
 
 CreateWindowOptions::Frame::~Frame() = default;
-CreateWindowOptions::Frame::Frame(Frame&& rhs) = default;
-CreateWindowOptions::Frame& CreateWindowOptions::Frame::operator=(Frame&& rhs) = default;
+CreateWindowOptions::Frame::Frame(Frame&& rhs) noexcept = default;
+CreateWindowOptions::Frame& CreateWindowOptions::Frame::operator=(Frame&& rhs) noexcept = default;
 CreateWindowOptions::Frame CreateWindowOptions::Frame::Clone() const {
   Frame out;
   out.as_string = as_string;
@@ -820,7 +769,7 @@ bool CreateWindowOptions::Frame::Populate(
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out.as_string = absl::nullopt;
+        out.as_string = std::nullopt;
         return false;
       }
       out.as_string = *temp;
@@ -845,11 +794,11 @@ bool CreateWindowOptions::Frame::Populate(
 }
 
 // static
-absl::optional<CreateWindowOptions::Frame> CreateWindowOptions::Frame::FromValue(const base::Value& value) {
+std::optional<CreateWindowOptions::Frame> CreateWindowOptions::Frame::FromValue(const base::Value& value) {
   Frame out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -878,8 +827,8 @@ state(),
 lock_screen_action() {}
 
 CreateWindowOptions::~CreateWindowOptions() = default;
-CreateWindowOptions::CreateWindowOptions(CreateWindowOptions&& rhs) = default;
-CreateWindowOptions& CreateWindowOptions::operator=(CreateWindowOptions&& rhs) = default;
+CreateWindowOptions::CreateWindowOptions(CreateWindowOptions&& rhs) noexcept = default;
+CreateWindowOptions& CreateWindowOptions::operator=(CreateWindowOptions&& rhs) noexcept = default;
 CreateWindowOptions CreateWindowOptions::Clone() const {
   CreateWindowOptions out;
   out.id = id;
@@ -934,7 +883,7 @@ bool CreateWindowOptions::Populate(
     {
       auto* temp = (*id_value).GetIfString();
       if (!temp) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -976,7 +925,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*default_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.default_width = absl::nullopt;
+        out.default_width = std::nullopt;
         return false;
       }
       out.default_width = *temp;
@@ -988,7 +937,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*default_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.default_height = absl::nullopt;
+        out.default_height = std::nullopt;
         return false;
       }
       out.default_height = *temp;
@@ -1000,7 +949,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*default_left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.default_left = absl::nullopt;
+        out.default_left = std::nullopt;
         return false;
       }
       out.default_left = *temp;
@@ -1012,7 +961,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*default_top_value).GetIfInt();
       if (!temp.has_value()) {
-        out.default_top = absl::nullopt;
+        out.default_top = std::nullopt;
         return false;
       }
       out.default_top = *temp;
@@ -1024,7 +973,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -1036,7 +985,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -1048,7 +997,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.left = absl::nullopt;
+        out.left = std::nullopt;
         return false;
       }
       out.left = *temp;
@@ -1060,7 +1009,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*top_value).GetIfInt();
       if (!temp.has_value()) {
-        out.top = absl::nullopt;
+        out.top = std::nullopt;
         return false;
       }
       out.top = *temp;
@@ -1072,7 +1021,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*min_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.min_width = absl::nullopt;
+        out.min_width = std::nullopt;
         return false;
       }
       out.min_width = *temp;
@@ -1084,7 +1033,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*min_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.min_height = absl::nullopt;
+        out.min_height = std::nullopt;
         return false;
       }
       out.min_height = *temp;
@@ -1096,7 +1045,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*max_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_width = absl::nullopt;
+        out.max_width = std::nullopt;
         return false;
       }
       out.max_width = *temp;
@@ -1108,7 +1057,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*max_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_height = absl::nullopt;
+        out.max_height = std::nullopt;
         return false;
       }
       out.max_height = *temp;
@@ -1136,7 +1085,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*ime_value).GetIfBool();
       if (!temp.has_value()) {
-        out.ime = absl::nullopt;
+        out.ime = std::nullopt;
         return false;
       }
       out.ime = *temp;
@@ -1148,7 +1097,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*show_in_shelf_value).GetIfBool();
       if (!temp.has_value()) {
-        out.show_in_shelf = absl::nullopt;
+        out.show_in_shelf = std::nullopt;
         return false;
       }
       out.show_in_shelf = *temp;
@@ -1160,7 +1109,7 @@ bool CreateWindowOptions::Populate(
     {
       auto* temp = (*icon_value).GetIfString();
       if (!temp) {
-        out.icon = absl::nullopt;
+        out.icon = std::nullopt;
         return false;
       }
       out.icon = *temp;
@@ -1197,7 +1146,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*alpha_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.alpha_enabled = absl::nullopt;
+        out.alpha_enabled = std::nullopt;
         return false;
       }
       out.alpha_enabled = *temp;
@@ -1225,7 +1174,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*hidden_value).GetIfBool();
       if (!temp.has_value()) {
-        out.hidden = absl::nullopt;
+        out.hidden = std::nullopt;
         return false;
       }
       out.hidden = *temp;
@@ -1237,7 +1186,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*resizable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.resizable = absl::nullopt;
+        out.resizable = std::nullopt;
         return false;
       }
       out.resizable = *temp;
@@ -1249,7 +1198,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*singleton_value).GetIfBool();
       if (!temp.has_value()) {
-        out.singleton = absl::nullopt;
+        out.singleton = std::nullopt;
         return false;
       }
       out.singleton = *temp;
@@ -1261,7 +1210,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*always_on_top_value).GetIfBool();
       if (!temp.has_value()) {
-        out.always_on_top = absl::nullopt;
+        out.always_on_top = std::nullopt;
         return false;
       }
       out.always_on_top = *temp;
@@ -1273,7 +1222,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*focused_value).GetIfBool();
       if (!temp.has_value()) {
-        out.focused = absl::nullopt;
+        out.focused = std::nullopt;
         return false;
       }
       out.focused = *temp;
@@ -1285,7 +1234,7 @@ bool CreateWindowOptions::Populate(
     {
       auto temp = (*visible_on_all_workspaces_value).GetIfBool();
       if (!temp.has_value()) {
-        out.visible_on_all_workspaces = absl::nullopt;
+        out.visible_on_all_workspaces = std::nullopt;
         return false;
       }
       out.visible_on_all_workspaces = *temp;
@@ -1321,34 +1270,21 @@ bool CreateWindowOptions::Populate(
 }
 
 // static
-std::unique_ptr<CreateWindowOptions> CreateWindowOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CreateWindowOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CreateWindowOptions> CreateWindowOptions::FromValue(const base::Value::Dict& value) {
+  CreateWindowOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CreateWindowOptions> CreateWindowOptions::FromValue(const base::Value::Dict& value) {
+std::optional<CreateWindowOptions> CreateWindowOptions::FromValue(const base::Value& value) {
   CreateWindowOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CreateWindowOptions> CreateWindowOptions::FromValue(const base::Value& value) {
-  CreateWindowOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1485,8 +1421,8 @@ AppWindow::ContentWindow::ContentWindow()
  {}
 
 AppWindow::ContentWindow::~ContentWindow() = default;
-AppWindow::ContentWindow::ContentWindow(ContentWindow&& rhs) = default;
-AppWindow::ContentWindow& AppWindow::ContentWindow::operator=(ContentWindow&& rhs) = default;
+AppWindow::ContentWindow::ContentWindow(ContentWindow&& rhs) noexcept = default;
+AppWindow::ContentWindow& AppWindow::ContentWindow::operator=(ContentWindow&& rhs) noexcept = default;
 AppWindow::ContentWindow AppWindow::ContentWindow::Clone() const {
   ContentWindow out;
   return out;
@@ -1509,21 +1445,21 @@ bool AppWindow::ContentWindow::Populate(
 }
 
 // static
-absl::optional<AppWindow::ContentWindow> AppWindow::ContentWindow::FromValue(const base::Value::Dict& value) {
+std::optional<AppWindow::ContentWindow> AppWindow::ContentWindow::FromValue(const base::Value::Dict& value) {
   ContentWindow out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AppWindow::ContentWindow> AppWindow::ContentWindow::FromValue(const base::Value& value) {
+std::optional<AppWindow::ContentWindow> AppWindow::ContentWindow::FromValue(const base::Value& value) {
   ContentWindow out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1544,8 +1480,8 @@ active_frame_color(0),
 inactive_frame_color(0) {}
 
 AppWindow::~AppWindow() = default;
-AppWindow::AppWindow(AppWindow&& rhs) = default;
-AppWindow& AppWindow::operator=(AppWindow&& rhs) = default;
+AppWindow::AppWindow(AppWindow&& rhs) noexcept = default;
+AppWindow& AppWindow::operator=(AppWindow&& rhs) noexcept = default;
 AppWindow AppWindow::Clone() const {
   AppWindow out;
   out.focus = focus.Clone();
@@ -1781,34 +1717,21 @@ bool AppWindow::Populate(
 }
 
 // static
-std::unique_ptr<AppWindow> AppWindow::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AppWindow>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AppWindow> AppWindow::FromValue(const base::Value::Dict& value) {
+  AppWindow out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AppWindow> AppWindow::FromValue(const base::Value::Dict& value) {
+std::optional<AppWindow> AppWindow::FromValue(const base::Value& value) {
   AppWindow out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AppWindow> AppWindow::FromValue(const base::Value& value) {
-  AppWindow out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1884,13 +1807,13 @@ namespace Create {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1900,13 +1823,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1914,12 +1837,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[1];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         CreateWindowOptions temp;
         if (!CreateWindowOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -1933,8 +1856,8 @@ Results::CreatedWindow::CreatedWindow()
  {}
 
 Results::CreatedWindow::~CreatedWindow() = default;
-Results::CreatedWindow::CreatedWindow(CreatedWindow&& rhs) = default;
-Results::CreatedWindow& Results::CreatedWindow::operator=(CreatedWindow&& rhs) = default;
+Results::CreatedWindow::CreatedWindow(CreatedWindow&& rhs) noexcept = default;
+Results::CreatedWindow& Results::CreatedWindow::operator=(CreatedWindow&& rhs) noexcept = default;
 base::Value::Dict Results::CreatedWindow::ToValue() const {
   base::Value::Dict to_value_result;
 

@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { TimeDeltaSpec as mojoBase_mojom_TimeDeltaSpec } from '//resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 export class PageMetricsHostPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -13,6 +14,9 @@ export class PageMetricsHostPendingReceiver {
     }
 }
 export class PageMetricsHostRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageMetricsHostPendingReceiver, handle);
@@ -48,6 +52,9 @@ export class PageMetricsHostRemote {
  * interface.
  */
 export class PageMetricsHostReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageMetricsHostRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -80,6 +87,14 @@ export class PageMetricsHost {
  * receiver can have any number of listeners added to it.
  */
 export class PageMetricsHostCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onPageRemoteCreated;
+    onGetMark;
+    onClearMark;
+    onUmaReportTime;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageMetricsHostRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -107,6 +122,7 @@ export class PageMetricsHostCallbackRouter {
     }
 }
 export class PageMetricsPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -115,6 +131,9 @@ export class PageMetricsPendingReceiver {
     }
 }
 export class PageMetricsRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageMetricsPendingReceiver, handle);
@@ -139,6 +158,9 @@ export class PageMetricsRemote {
  * interface.
  */
 export class PageMetricsReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageMetricsRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -169,6 +191,12 @@ export class PageMetrics {
  * receiver can have any number of listeners added to it.
  */
 export class PageMetricsCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onGetMark;
+    onClearMark;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageMetricsRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

@@ -637,7 +637,8 @@ class  VideoEncodeAcceleratorConfig_Data {
   uint8_t has_storage_type : 1;
   uint8_t require_low_delay : 1;
   uint8_t h264_output_level;
-  uint8_t pad11_[2];
+  uint8_t drop_frame_thresh_percentage;
+  uint8_t pad12_[1];
   uint32_t gop_length;
   int32_t storage_type;
   int32_t content_type;

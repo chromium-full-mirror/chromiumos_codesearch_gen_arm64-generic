@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/system_display.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -41,8 +42,8 @@ width(0),
 height(0) {}
 
 Bounds::~Bounds() = default;
-Bounds::Bounds(Bounds&& rhs) = default;
-Bounds& Bounds::operator=(Bounds&& rhs) = default;
+Bounds::Bounds(Bounds&& rhs) noexcept = default;
+Bounds& Bounds::operator=(Bounds&& rhs) noexcept = default;
 Bounds Bounds::Clone() const {
   Bounds out;
   out.left = left;
@@ -116,34 +117,21 @@ bool Bounds::Populate(
 }
 
 // static
-std::unique_ptr<Bounds> Bounds::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Bounds>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Bounds> Bounds::FromValue(const base::Value::Dict& value) {
+  Bounds out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Bounds> Bounds::FromValue(const base::Value::Dict& value) {
+std::optional<Bounds> Bounds::FromValue(const base::Value& value) {
   Bounds out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Bounds> Bounds::FromValue(const base::Value& value) {
-  Bounds out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -171,8 +159,8 @@ right(0),
 bottom(0) {}
 
 Insets::~Insets() = default;
-Insets::Insets(Insets&& rhs) = default;
-Insets& Insets::operator=(Insets&& rhs) = default;
+Insets::Insets(Insets&& rhs) noexcept = default;
+Insets& Insets::operator=(Insets&& rhs) noexcept = default;
 Insets Insets::Clone() const {
   Insets out;
   out.left = left;
@@ -246,34 +234,21 @@ bool Insets::Populate(
 }
 
 // static
-std::unique_ptr<Insets> Insets::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Insets>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Insets> Insets::FromValue(const base::Value::Dict& value) {
+  Insets out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Insets> Insets::FromValue(const base::Value::Dict& value) {
+std::optional<Insets> Insets::FromValue(const base::Value& value) {
   Insets out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Insets> Insets::FromValue(const base::Value& value) {
-  Insets out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -299,8 +274,8 @@ Point::Point()
 y(0) {}
 
 Point::~Point() = default;
-Point::Point(Point&& rhs) = default;
-Point& Point::operator=(Point&& rhs) = default;
+Point::Point(Point&& rhs) noexcept = default;
+Point& Point::operator=(Point&& rhs) noexcept = default;
 Point Point::Clone() const {
   Point out;
   out.x = x;
@@ -348,34 +323,21 @@ bool Point::Populate(
 }
 
 // static
-std::unique_ptr<Point> Point::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Point>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Point> Point::FromValue(const base::Value::Dict& value) {
+  Point out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Point> Point::FromValue(const base::Value::Dict& value) {
+std::optional<Point> Point::FromValue(const base::Value& value) {
   Point out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Point> Point::FromValue(const base::Value& value) {
-  Point out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -396,8 +358,8 @@ TouchCalibrationPair::TouchCalibrationPair()
  {}
 
 TouchCalibrationPair::~TouchCalibrationPair() = default;
-TouchCalibrationPair::TouchCalibrationPair(TouchCalibrationPair&& rhs) = default;
-TouchCalibrationPair& TouchCalibrationPair::operator=(TouchCalibrationPair&& rhs) = default;
+TouchCalibrationPair::TouchCalibrationPair(TouchCalibrationPair&& rhs) noexcept = default;
+TouchCalibrationPair& TouchCalibrationPair::operator=(TouchCalibrationPair&& rhs) noexcept = default;
 TouchCalibrationPair TouchCalibrationPair::Clone() const {
   TouchCalibrationPair out;
   out.display_point = display_point.Clone();
@@ -447,34 +409,21 @@ bool TouchCalibrationPair::Populate(
 }
 
 // static
-std::unique_ptr<TouchCalibrationPair> TouchCalibrationPair::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TouchCalibrationPair>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TouchCalibrationPair> TouchCalibrationPair::FromValue(const base::Value::Dict& value) {
+  TouchCalibrationPair out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TouchCalibrationPair> TouchCalibrationPair::FromValue(const base::Value::Dict& value) {
+std::optional<TouchCalibrationPair> TouchCalibrationPair::FromValue(const base::Value& value) {
   TouchCalibrationPair out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TouchCalibrationPair> TouchCalibrationPair::FromValue(const base::Value& value) {
-  TouchCalibrationPair out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -495,8 +444,8 @@ TouchCalibrationPairQuad::TouchCalibrationPairQuad()
  {}
 
 TouchCalibrationPairQuad::~TouchCalibrationPairQuad() = default;
-TouchCalibrationPairQuad::TouchCalibrationPairQuad(TouchCalibrationPairQuad&& rhs) = default;
-TouchCalibrationPairQuad& TouchCalibrationPairQuad::operator=(TouchCalibrationPairQuad&& rhs) = default;
+TouchCalibrationPairQuad::TouchCalibrationPairQuad(TouchCalibrationPairQuad&& rhs) noexcept = default;
+TouchCalibrationPairQuad& TouchCalibrationPairQuad::operator=(TouchCalibrationPairQuad&& rhs) noexcept = default;
 TouchCalibrationPairQuad TouchCalibrationPairQuad::Clone() const {
   TouchCalibrationPairQuad out;
   out.pair1 = pair1.Clone();
@@ -574,34 +523,21 @@ bool TouchCalibrationPairQuad::Populate(
 }
 
 // static
-std::unique_ptr<TouchCalibrationPairQuad> TouchCalibrationPairQuad::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TouchCalibrationPairQuad>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TouchCalibrationPairQuad> TouchCalibrationPairQuad::FromValue(const base::Value::Dict& value) {
+  TouchCalibrationPairQuad out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TouchCalibrationPairQuad> TouchCalibrationPairQuad::FromValue(const base::Value::Dict& value) {
+std::optional<TouchCalibrationPairQuad> TouchCalibrationPairQuad::FromValue(const base::Value& value) {
   TouchCalibrationPairQuad out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TouchCalibrationPairQuad> TouchCalibrationPairQuad::FromValue(const base::Value& value) {
-  TouchCalibrationPairQuad out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -633,8 +569,8 @@ is_native(false),
 is_selected(false) {}
 
 DisplayMode::~DisplayMode() = default;
-DisplayMode::DisplayMode(DisplayMode&& rhs) = default;
-DisplayMode& DisplayMode::operator=(DisplayMode&& rhs) = default;
+DisplayMode::DisplayMode(DisplayMode&& rhs) noexcept = default;
+DisplayMode& DisplayMode::operator=(DisplayMode&& rhs) noexcept = default;
 DisplayMode DisplayMode::Clone() const {
   DisplayMode out;
   out.width = width;
@@ -706,7 +642,7 @@ bool DisplayMode::Populate(
     {
       auto temp = (*ui_scale_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.ui_scale = absl::nullopt;
+        out.ui_scale = std::nullopt;
         return false;
       }
       out.ui_scale = *temp;
@@ -766,7 +702,7 @@ bool DisplayMode::Populate(
     {
       auto temp = (*is_interlaced_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_interlaced = absl::nullopt;
+        out.is_interlaced = std::nullopt;
         return false;
       }
       out.is_interlaced = *temp;
@@ -786,34 +722,21 @@ bool DisplayMode::Populate(
 }
 
 // static
-std::unique_ptr<DisplayMode> DisplayMode::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DisplayMode>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DisplayMode> DisplayMode::FromValue(const base::Value::Dict& value) {
+  DisplayMode out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DisplayMode> DisplayMode::FromValue(const base::Value::Dict& value) {
+std::optional<DisplayMode> DisplayMode::FromValue(const base::Value& value) {
   DisplayMode out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DisplayMode> DisplayMode::FromValue(const base::Value& value) {
-  DisplayMode out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -889,8 +812,8 @@ DisplayLayout::DisplayLayout()
 offset(0) {}
 
 DisplayLayout::~DisplayLayout() = default;
-DisplayLayout::DisplayLayout(DisplayLayout&& rhs) = default;
-DisplayLayout& DisplayLayout::operator=(DisplayLayout&& rhs) = default;
+DisplayLayout::DisplayLayout(DisplayLayout&& rhs) noexcept = default;
+DisplayLayout& DisplayLayout::operator=(DisplayLayout&& rhs) noexcept = default;
 DisplayLayout DisplayLayout::Clone() const {
   DisplayLayout out;
   out.id = id;
@@ -967,34 +890,21 @@ bool DisplayLayout::Populate(
 }
 
 // static
-std::unique_ptr<DisplayLayout> DisplayLayout::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DisplayLayout>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DisplayLayout> DisplayLayout::FromValue(const base::Value::Dict& value) {
+  DisplayLayout out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DisplayLayout> DisplayLayout::FromValue(const base::Value::Dict& value) {
+std::optional<DisplayLayout> DisplayLayout::FromValue(const base::Value& value) {
   DisplayLayout out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DisplayLayout> DisplayLayout::FromValue(const base::Value& value) {
-  DisplayLayout out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1019,8 +929,8 @@ Edid::Edid()
 : year_of_manufacture(0) {}
 
 Edid::~Edid() = default;
-Edid::Edid(Edid&& rhs) = default;
-Edid& Edid::operator=(Edid&& rhs) = default;
+Edid::Edid(Edid&& rhs) noexcept = default;
+Edid& Edid::operator=(Edid&& rhs) noexcept = default;
 Edid Edid::Clone() const {
   Edid out;
   out.manufacturer_id = manufacturer_id;
@@ -1081,34 +991,21 @@ bool Edid::Populate(
 }
 
 // static
-std::unique_ptr<Edid> Edid::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Edid>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Edid> Edid::FromValue(const base::Value::Dict& value) {
+  Edid out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Edid> Edid::FromValue(const base::Value::Dict& value) {
+std::optional<Edid> Edid::FromValue(const base::Value& value) {
   Edid out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Edid> Edid::FromValue(const base::Value& value) {
-  Edid out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1167,8 +1064,8 @@ has_accelerometer_support(false),
 display_zoom_factor(0.0) {}
 
 DisplayUnitInfo::~DisplayUnitInfo() = default;
-DisplayUnitInfo::DisplayUnitInfo(DisplayUnitInfo&& rhs) = default;
-DisplayUnitInfo& DisplayUnitInfo::operator=(DisplayUnitInfo&& rhs) = default;
+DisplayUnitInfo::DisplayUnitInfo(DisplayUnitInfo&& rhs) noexcept = default;
+DisplayUnitInfo& DisplayUnitInfo::operator=(DisplayUnitInfo&& rhs) noexcept = default;
 DisplayUnitInfo DisplayUnitInfo::Clone() const {
   DisplayUnitInfo out;
   out.id = id;
@@ -1338,7 +1235,7 @@ bool DisplayUnitInfo::Populate(
     {
       auto temp = (*is_auto_rotation_allowed_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_auto_rotation_allowed = absl::nullopt;
+        out.is_auto_rotation_allowed = std::nullopt;
         return false;
       }
       out.is_auto_rotation_allowed = *temp;
@@ -1499,34 +1396,21 @@ bool DisplayUnitInfo::Populate(
 }
 
 // static
-std::unique_ptr<DisplayUnitInfo> DisplayUnitInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DisplayUnitInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DisplayUnitInfo> DisplayUnitInfo::FromValue(const base::Value::Dict& value) {
+  DisplayUnitInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DisplayUnitInfo> DisplayUnitInfo::FromValue(const base::Value::Dict& value) {
+std::optional<DisplayUnitInfo> DisplayUnitInfo::FromValue(const base::Value& value) {
   DisplayUnitInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DisplayUnitInfo> DisplayUnitInfo::FromValue(const base::Value& value) {
-  DisplayUnitInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1591,8 +1475,8 @@ DisplayProperties::DisplayProperties()
  {}
 
 DisplayProperties::~DisplayProperties() = default;
-DisplayProperties::DisplayProperties(DisplayProperties&& rhs) = default;
-DisplayProperties& DisplayProperties::operator=(DisplayProperties&& rhs) = default;
+DisplayProperties::DisplayProperties(DisplayProperties&& rhs) noexcept = default;
+DisplayProperties& DisplayProperties::operator=(DisplayProperties&& rhs) noexcept = default;
 DisplayProperties DisplayProperties::Clone() const {
   DisplayProperties out;
   out.is_unified = is_unified;
@@ -1619,7 +1503,7 @@ bool DisplayProperties::Populate(
     {
       auto temp = (*is_unified_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_unified = absl::nullopt;
+        out.is_unified = std::nullopt;
         return false;
       }
       out.is_unified = *temp;
@@ -1631,7 +1515,7 @@ bool DisplayProperties::Populate(
     {
       auto* temp = (*mirroring_source_id_value).GetIfString();
       if (!temp) {
-        out.mirroring_source_id = absl::nullopt;
+        out.mirroring_source_id = std::nullopt;
         return false;
       }
       out.mirroring_source_id = *temp;
@@ -1643,7 +1527,7 @@ bool DisplayProperties::Populate(
     {
       auto temp = (*is_primary_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_primary = absl::nullopt;
+        out.is_primary = std::nullopt;
         return false;
       }
       out.is_primary = *temp;
@@ -1670,7 +1554,7 @@ bool DisplayProperties::Populate(
     {
       auto temp = (*rotation_value).GetIfInt();
       if (!temp.has_value()) {
-        out.rotation = absl::nullopt;
+        out.rotation = std::nullopt;
         return false;
       }
       out.rotation = *temp;
@@ -1682,7 +1566,7 @@ bool DisplayProperties::Populate(
     {
       auto temp = (*bounds_origin_x_value).GetIfInt();
       if (!temp.has_value()) {
-        out.bounds_origin_x = absl::nullopt;
+        out.bounds_origin_x = std::nullopt;
         return false;
       }
       out.bounds_origin_x = *temp;
@@ -1694,7 +1578,7 @@ bool DisplayProperties::Populate(
     {
       auto temp = (*bounds_origin_y_value).GetIfInt();
       if (!temp.has_value()) {
-        out.bounds_origin_y = absl::nullopt;
+        out.bounds_origin_y = std::nullopt;
         return false;
       }
       out.bounds_origin_y = *temp;
@@ -1721,7 +1605,7 @@ bool DisplayProperties::Populate(
     {
       auto temp = (*display_zoom_factor_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.display_zoom_factor = absl::nullopt;
+        out.display_zoom_factor = std::nullopt;
         return false;
       }
       out.display_zoom_factor = *temp;
@@ -1741,34 +1625,21 @@ bool DisplayProperties::Populate(
 }
 
 // static
-std::unique_ptr<DisplayProperties> DisplayProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DisplayProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DisplayProperties> DisplayProperties::FromValue(const base::Value::Dict& value) {
+  DisplayProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DisplayProperties> DisplayProperties::FromValue(const base::Value::Dict& value) {
+std::optional<DisplayProperties> DisplayProperties::FromValue(const base::Value& value) {
   DisplayProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DisplayProperties> DisplayProperties::FromValue(const base::Value& value) {
-  DisplayProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1821,8 +1692,8 @@ GetInfoFlags::GetInfoFlags()
  {}
 
 GetInfoFlags::~GetInfoFlags() = default;
-GetInfoFlags::GetInfoFlags(GetInfoFlags&& rhs) = default;
-GetInfoFlags& GetInfoFlags::operator=(GetInfoFlags&& rhs) = default;
+GetInfoFlags::GetInfoFlags(GetInfoFlags&& rhs) noexcept = default;
+GetInfoFlags& GetInfoFlags::operator=(GetInfoFlags&& rhs) noexcept = default;
 GetInfoFlags GetInfoFlags::Clone() const {
   GetInfoFlags out;
   out.single_unified = single_unified;
@@ -1837,7 +1708,7 @@ bool GetInfoFlags::Populate(
     {
       auto temp = (*single_unified_value).GetIfBool();
       if (!temp.has_value()) {
-        out.single_unified = absl::nullopt;
+        out.single_unified = std::nullopt;
         return false;
       }
       out.single_unified = *temp;
@@ -1857,34 +1728,21 @@ bool GetInfoFlags::Populate(
 }
 
 // static
-std::unique_ptr<GetInfoFlags> GetInfoFlags::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetInfoFlags>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetInfoFlags> GetInfoFlags::FromValue(const base::Value::Dict& value) {
+  GetInfoFlags out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetInfoFlags> GetInfoFlags::FromValue(const base::Value::Dict& value) {
+std::optional<GetInfoFlags> GetInfoFlags::FromValue(const base::Value& value) {
   GetInfoFlags out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetInfoFlags> GetInfoFlags::FromValue(const base::Value& value) {
-  GetInfoFlags out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1935,8 +1793,8 @@ MirrorModeInfo::MirrorModeInfo()
 : mode() {}
 
 MirrorModeInfo::~MirrorModeInfo() = default;
-MirrorModeInfo::MirrorModeInfo(MirrorModeInfo&& rhs) = default;
-MirrorModeInfo& MirrorModeInfo::operator=(MirrorModeInfo&& rhs) = default;
+MirrorModeInfo::MirrorModeInfo(MirrorModeInfo&& rhs) noexcept = default;
+MirrorModeInfo& MirrorModeInfo::operator=(MirrorModeInfo&& rhs) noexcept = default;
 MirrorModeInfo MirrorModeInfo::Clone() const {
   MirrorModeInfo out;
   out.mode = mode;
@@ -1968,7 +1826,7 @@ bool MirrorModeInfo::Populate(
     {
       auto* temp = (*mirroring_source_id_value).GetIfString();
       if (!temp) {
-        out.mirroring_source_id = absl::nullopt;
+        out.mirroring_source_id = std::nullopt;
         return false;
       }
       out.mirroring_source_id = *temp;
@@ -2002,34 +1860,21 @@ bool MirrorModeInfo::Populate(
 }
 
 // static
-std::unique_ptr<MirrorModeInfo> MirrorModeInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MirrorModeInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MirrorModeInfo> MirrorModeInfo::FromValue(const base::Value::Dict& value) {
+  MirrorModeInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MirrorModeInfo> MirrorModeInfo::FromValue(const base::Value::Dict& value) {
+std::optional<MirrorModeInfo> MirrorModeInfo::FromValue(const base::Value& value) {
   MirrorModeInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MirrorModeInfo> MirrorModeInfo::FromValue(const base::Value& value) {
-  MirrorModeInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2061,13 +1906,13 @@ namespace GetInfo {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2076,12 +1921,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& flags_value = args[0];
     {
       if (!flags_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         GetInfoFlags temp;
         if (!GetInfoFlags::Populate(flags_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.flags = std::move(temp);
       }
     }
@@ -2115,13 +1960,13 @@ namespace SetDisplayProperties {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2131,13 +1976,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2145,15 +1990,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& info_value = args[1];
     {
       if (!info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DisplayProperties::Populate(info_value.GetDict(), params.info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2171,13 +2016,13 @@ namespace SetDisplayLayout {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2186,17 +2031,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& layouts_value = args[0];
     {
       if (!layouts_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(layouts_value.GetList(), params.layouts)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2214,13 +2059,13 @@ namespace EnableUnifiedDesktop {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2230,13 +2075,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2249,13 +2094,13 @@ namespace OverscanCalibrationStart {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2265,13 +2110,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2284,13 +2129,13 @@ namespace OverscanCalibrationAdjust {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2300,13 +2145,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2314,15 +2159,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& delta_value = args[1];
     {
       if (!delta_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Insets::Populate(delta_value.GetDict(), params.delta)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2335,13 +2180,13 @@ namespace OverscanCalibrationReset {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2351,13 +2196,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2370,13 +2215,13 @@ namespace OverscanCalibrationComplete {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2386,13 +2231,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2405,13 +2250,13 @@ namespace ShowNativeTouchCalibration {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2421,13 +2266,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2447,13 +2292,13 @@ namespace StartCustomTouchCalibration {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2463,13 +2308,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2482,13 +2327,13 @@ namespace CompleteCustomTouchCalibration {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2497,15 +2342,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& pairs_value = args[0];
     {
       if (!pairs_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!TouchCalibrationPairQuad::Populate(pairs_value.GetDict(), params.pairs)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2513,15 +2358,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& bounds_value = args[1];
     {
       if (!bounds_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Bounds::Populate(bounds_value.GetDict(), params.bounds)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2534,13 +2379,13 @@ namespace ClearTouchCalibration {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2550,13 +2395,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2569,13 +2414,13 @@ namespace SetMirrorMode {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2584,15 +2429,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& info_value = args[0];
     {
       if (!info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!MirrorModeInfo::Populate(info_value.GetDict(), params.info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

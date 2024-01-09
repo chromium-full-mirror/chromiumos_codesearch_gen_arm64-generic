@@ -23,7 +23,7 @@ import '../settings_shared.css.js';
 import '../settings_vars.css.js';
 import { CrContainerShadowMixin } from 'chrome://resources/cr_elements/cr_container_shadow_mixin.js';
 import { FindShortcutMixin } from 'chrome://resources/cr_elements/find_shortcut_mixin.js';
-import { listenOnce } from 'chrome://resources/js/util_ts.js';
+import { listenOnce } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { resetGlobalScrollTargetForTesting, setGlobalScrollTarget } from '../global_scroll_target_mixin.js';
 import { loadTimeData } from '../i18n_setup.js';
@@ -98,9 +98,6 @@ export class SettingsUiElement extends SettingsUiElementBase {
     connectedCallback() {
         super.connectedCallback();
         document.documentElement.classList.remove('loading');
-        setTimeout(function () {
-            chrome.send('metricsHandler:recordTime', ['Settings.TimeUntilInteractive', window.performance.now()]);
-        });
         // Preload bold Roboto so it doesn't load and flicker the first time used.
         // https://github.com/microsoft/TypeScript/issues/13569
         document.fonts.load('bold 12px Roboto');

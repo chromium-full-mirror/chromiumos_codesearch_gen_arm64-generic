@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "camera/mojo/camera_common.mojom-features.h"
 #include "camera/mojo/camera_common.mojom-shared.h"
 #include "camera/mojo/camera_common.mojom-forward.h"
 #include "camera/mojo/camera3.mojom-forward.h"
@@ -161,12 +162,12 @@ class VendorTagOps
   virtual void GetAllTags(GetAllTagsCallback callback) = 0;
 
 
-  using GetSectionNameCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetSectionNameCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetSectionName(uint32_t tag, GetSectionNameCallback callback) = 0;
 
 
-  using GetTagNameCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetTagNameCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetTagName(uint32_t tag, GetTagNameCallback callback) = 0;
 
@@ -686,7 +687,7 @@ class  CameraInfo {
       uint32_t device_version,
       ::cros::mojom::CameraMetadataPtr static_camera_characteristics,
       CameraResourceCostPtr resource_cost,
-      absl::optional<std::vector<std::string>> conflicting_devices);
+      std::optional<std::vector<std::string>> conflicting_devices);
 
 CameraInfo(const CameraInfo&) = delete;
 CameraInfo& operator=(const CameraInfo&) = delete;
@@ -776,7 +777,7 @@ CameraInfo& operator=(const CameraInfo&) = delete;
   
   CameraResourceCostPtr resource_cost;
   
-  absl::optional<std::vector<std::string>> conflicting_devices;
+  std::optional<std::vector<std::string>> conflicting_devices;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

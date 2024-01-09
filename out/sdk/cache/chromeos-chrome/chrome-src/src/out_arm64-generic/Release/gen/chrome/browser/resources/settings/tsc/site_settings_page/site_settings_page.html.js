@@ -1,14 +1,17 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">.no-min-height{min-height:0}img{width:100%}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">.no-min-height{min-height:0}img{width:100%}#safetyHubModule{padding:0 var(--cr-section-padding)}</style>
     <picture>
       <source srcset="chrome://settings/images/permissions_banner_dark.svg" media="(prefers-color-scheme: dark)">
       <img id="banner" alt="" src="chrome://settings/images/permissions_banner.svg">
     </picture>
     <template is="dom-if" if="[[showUnusedSitePermissions_]]">
       <template is="dom-if" if="[[enableSafetyHub_]]">
-        <settings-safety-hub-module id="safetyHubModule" header="[[unusedSitePermissionsHeader_]]" subheader="[[unusedSitePermissionsSubheader_]]" header-icon="settings:shield-with-heart">
-          <cr-button id="safetyHubButton" slot="button-container" on-click="onSafetyHubButtonClick_">
+        <div class="cr-row first">
+          <h2>$i18n{safetyHub}</h2>
+        </div>
+        <settings-safety-hub-module id="safetyHubModule" header="[[unusedSitePermissionsHeader_]]" subheader="[[unusedSitePermissionsSubheader_]]" header-icon="cr:security" header-icon-color="blue">
+          <cr-button id="safetyHubButton" slot="button-container" class="action-button" on-click="onSafetyHubButtonClick_">
             $i18n{safetyHubEntryPointButton}
           </cr-button>
         </settings-safety-hub-module>

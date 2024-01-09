@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -56,14 +57,14 @@ KeystorePKCS115Params::KeystorePKCS115Params(
 
 KeystorePKCS115Params::KeystorePKCS115Params(
     uint32_t modulus_length_in,
-    absl::optional<std::vector<uint8_t>> public_exponent_in)
+    std::optional<std::vector<uint8_t>> public_exponent_in)
     : modulus_length(std::move(modulus_length_in)),
       public_exponent(std::move(public_exponent_in)),
       sw_backed() {}
 
 KeystorePKCS115Params::KeystorePKCS115Params(
     uint32_t modulus_length_in,
-    absl::optional<std::vector<uint8_t>> public_exponent_in,
+    std::optional<std::vector<uint8_t>> public_exponent_in,
     bool sw_backed_in)
     : modulus_length(std::move(modulus_length_in)),
       public_exponent(std::move(public_exponent_in)),
@@ -87,7 +88,7 @@ void KeystorePKCS115Params::WriteIntoTrace(
     dict.AddItem(
       "public_exponent"), this->public_exponent,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1658,14 +1659,17 @@ void KeystoreServiceProxy::ChallengeAttestationOnlyKeystore(
                         "<value of type KeystoreSigningAlgorithmName>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_ChallengeAttestationOnlyKeystore_Name, kFlags, 0, 0, nullptr);
@@ -1707,14 +1711,17 @@ void KeystoreServiceProxy::GetKeyStores(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::KeystoreService::GetKeyStores");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GetKeyStores_Name, kFlags, 0, 0, nullptr);
@@ -1745,14 +1752,17 @@ void KeystoreServiceProxy::SelectClientCertificates(
                         "<value of type const std::vector<std::vector<uint8_t>>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_SelectClientCertificates_Name, kFlags, 0, 0, nullptr);
@@ -1796,14 +1806,17 @@ void KeystoreServiceProxy::GetCertificates(
                         "<value of type KeystoreType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GetCertificates_Name, kFlags, 0, 0, nullptr);
@@ -1839,14 +1852,17 @@ void KeystoreServiceProxy::AddCertificate(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_AddCertificate_Name, kFlags, 0, 0, nullptr);
@@ -1895,14 +1911,17 @@ void KeystoreServiceProxy::RemoveCertificate(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_RemoveCertificate_Name, kFlags, 0, 0, nullptr);
@@ -1951,14 +1970,17 @@ void KeystoreServiceProxy::GetPublicKey(
                         "<value of type KeystoreSigningAlgorithmName>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GetPublicKey_Name, kFlags, 0, 0, nullptr);
@@ -2007,14 +2029,17 @@ void KeystoreServiceProxy::GenerateKey(
                         "<value of type KeystoreSigningAlgorithmPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GenerateKey_Name, kFlags, 0, 0, nullptr);
@@ -2059,14 +2084,17 @@ void KeystoreServiceProxy::RemoveKey(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_RemoveKey_Name, kFlags, 0, 0, nullptr);
@@ -2124,14 +2152,17 @@ void KeystoreServiceProxy::Sign(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_Sign_Name, kFlags, 0, 0, nullptr);
@@ -2193,14 +2224,17 @@ void KeystoreServiceProxy::GetKeyTags(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GetKeyTags_Name, kFlags, 0, 0, nullptr);
@@ -2247,14 +2281,17 @@ void KeystoreServiceProxy::AddKeyTags(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_AddKeyTags_Name, kFlags, 0, 0, nullptr);
@@ -2299,14 +2336,17 @@ void KeystoreServiceProxy::CanUserGrantPermissionForKey(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_CanUserGrantPermissionForKey_Name, kFlags, 0, 0, nullptr);
@@ -2339,7 +2379,7 @@ void KeystoreServiceProxy::CanUserGrantPermissionForKey(
 }
 
 void KeystoreServiceProxy::DEPRECATED_ExtensionGenerateKey(
-    KeystoreType in_keystore, KeystoreSigningAlgorithmPtr in_algorithm, const absl::optional<std::string>& in_extension_id, DEPRECATED_ExtensionGenerateKeyCallback callback) {
+    KeystoreType in_keystore, KeystoreSigningAlgorithmPtr in_algorithm, const std::optional<std::string>& in_extension_id, DEPRECATED_ExtensionGenerateKeyCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::KeystoreService::DEPRECATED_ExtensionGenerateKey", "input_parameters",
@@ -2353,17 +2393,20 @@ void KeystoreServiceProxy::DEPRECATED_ExtensionGenerateKey(
                         "<value of type KeystoreSigningAlgorithmPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("extension_id"), in_extension_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_ExtensionGenerateKey_Name, kFlags, 0, 0, nullptr);
@@ -2424,14 +2467,17 @@ void KeystoreServiceProxy::DEPRECATED_ExtensionSign(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_ExtensionSign_Name, kFlags, 0, 0, nullptr);
@@ -2506,14 +2552,17 @@ void KeystoreServiceProxy::DEPRECATED_GetPublicKey(
                         "<value of type KeystoreSigningAlgorithmName>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_GetPublicKey_Name, kFlags, 0, 0, nullptr);
@@ -2552,14 +2601,17 @@ void KeystoreServiceProxy::DEPRECATED_GetKeyStores(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::KeystoreService::DEPRECATED_GetKeyStores");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_GetKeyStores_Name, kFlags, 0, 0, nullptr);
@@ -2590,14 +2642,17 @@ void KeystoreServiceProxy::DEPRECATED_GetCertificates(
                         "<value of type KeystoreType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_GetCertificates_Name, kFlags, 0, 0, nullptr);
@@ -2633,14 +2688,17 @@ void KeystoreServiceProxy::DEPRECATED_AddCertificate(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_AddCertificate_Name, kFlags, 0, 0, nullptr);
@@ -2689,14 +2747,17 @@ void KeystoreServiceProxy::DEPRECATED_RemoveCertificate(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_RemoveCertificate_Name, kFlags, 0, 0, nullptr);
@@ -2748,14 +2809,17 @@ void KeystoreServiceProxy::DEPRECATED_ChallengeAttestationOnlyKeystore(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_Name, kFlags, 0, 0, nullptr);
@@ -2879,7 +2943,8 @@ void KeystoreService_ChallengeAttestationOnlyKeystore_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_ChallengeAttestationOnlyKeystore_Name, kFlags, 0, 0, nullptr);
@@ -3005,7 +3070,8 @@ void KeystoreService_GetKeyStores_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GetKeyStores_Name, kFlags, 0, 0, nullptr);
@@ -3131,7 +3197,8 @@ void KeystoreService_SelectClientCertificates_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_SelectClientCertificates_Name, kFlags, 0, 0, nullptr);
@@ -3257,7 +3324,8 @@ void KeystoreService_GetCertificates_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GetCertificates_Name, kFlags, 0, 0, nullptr);
@@ -3390,7 +3458,8 @@ void KeystoreService_AddCertificate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_AddCertificate_Name, kFlags, 0, 0, nullptr);
@@ -3517,7 +3586,8 @@ void KeystoreService_RemoveCertificate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_RemoveCertificate_Name, kFlags, 0, 0, nullptr);
@@ -3637,7 +3707,8 @@ void KeystoreService_GetPublicKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GetPublicKey_Name, kFlags, 0, 0, nullptr);
@@ -3763,7 +3834,8 @@ void KeystoreService_GenerateKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GenerateKey_Name, kFlags, 0, 0, nullptr);
@@ -3896,7 +3968,8 @@ void KeystoreService_RemoveKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_RemoveKey_Name, kFlags, 0, 0, nullptr);
@@ -4016,7 +4089,8 @@ void KeystoreService_Sign_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_Sign_Name, kFlags, 0, 0, nullptr);
@@ -4142,7 +4216,8 @@ void KeystoreService_GetKeyTags_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_GetKeyTags_Name, kFlags, 0, 0, nullptr);
@@ -4275,7 +4350,8 @@ void KeystoreService_AddKeyTags_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_AddKeyTags_Name, kFlags, 0, 0, nullptr);
@@ -4395,7 +4471,8 @@ void KeystoreService_CanUserGrantPermissionForKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_CanUserGrantPermissionForKey_Name, kFlags, 0, 0, nullptr);
@@ -4513,7 +4590,8 @@ void KeystoreService_DEPRECATED_ExtensionGenerateKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_ExtensionGenerateKey_Name, kFlags, 0, 0, nullptr);
@@ -4639,7 +4717,8 @@ void KeystoreService_DEPRECATED_ExtensionSign_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_ExtensionSign_Name, kFlags, 0, 0, nullptr);
@@ -4765,7 +4844,8 @@ void KeystoreService_DEPRECATED_GetPublicKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_GetPublicKey_Name, kFlags, 0, 0, nullptr);
@@ -4891,7 +4971,8 @@ void KeystoreService_DEPRECATED_GetKeyStores_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_GetKeyStores_Name, kFlags, 0, 0, nullptr);
@@ -5017,7 +5098,8 @@ void KeystoreService_DEPRECATED_GetCertificates_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_GetCertificates_Name, kFlags, 0, 0, nullptr);
@@ -5143,7 +5225,8 @@ void KeystoreService_DEPRECATED_AddCertificate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_AddCertificate_Name, kFlags, 0, 0, nullptr);
@@ -5271,7 +5354,8 @@ void KeystoreService_DEPRECATED_RemoveCertificate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_RemoveCertificate_Name, kFlags, 0, 0, nullptr);
@@ -5399,7 +5483,8 @@ void KeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_ProxyToResponde
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_Name, kFlags, 0, 0, nullptr);
@@ -5950,7 +6035,7 @@ std::move(p_public_key), std::move(callback));
       bool success = true;
       KeystoreType p_keystore{};
       KeystoreSigningAlgorithmPtr p_algorithm{};
-      absl::optional<std::string> p_extension_id{};
+      std::optional<std::string> p_extension_id{};
       KeystoreService_DEPRECATED_ExtensionGenerateKey_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadKeystore(&p_keystore))
@@ -6215,50 +6300,50 @@ std::move(p_migrate), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeystoreServiceValidationInfo[] = {
-    {&internal::KeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_Params_Data::Validate,
+    { &internal::KeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_Params_Data::Validate,
      &internal::KeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_DEPRECATED_GetKeyStores_Params_Data::Validate,
+    { &internal::KeystoreService_DEPRECATED_GetKeyStores_Params_Data::Validate,
      &internal::KeystoreService_DEPRECATED_GetKeyStores_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_DEPRECATED_GetCertificates_Params_Data::Validate,
+    { &internal::KeystoreService_DEPRECATED_GetCertificates_Params_Data::Validate,
      &internal::KeystoreService_DEPRECATED_GetCertificates_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_DEPRECATED_ExtensionGenerateKey_Params_Data::Validate,
+    { &internal::KeystoreService_DEPRECATED_ExtensionGenerateKey_Params_Data::Validate,
      &internal::KeystoreService_DEPRECATED_ExtensionGenerateKey_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_DEPRECATED_AddCertificate_Params_Data::Validate,
+    { &internal::KeystoreService_DEPRECATED_AddCertificate_Params_Data::Validate,
      &internal::KeystoreService_DEPRECATED_AddCertificate_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_DEPRECATED_RemoveCertificate_Params_Data::Validate,
+    { &internal::KeystoreService_DEPRECATED_RemoveCertificate_Params_Data::Validate,
      &internal::KeystoreService_DEPRECATED_RemoveCertificate_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_DEPRECATED_GetPublicKey_Params_Data::Validate,
+    { &internal::KeystoreService_DEPRECATED_GetPublicKey_Params_Data::Validate,
      &internal::KeystoreService_DEPRECATED_GetPublicKey_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_DEPRECATED_ExtensionSign_Params_Data::Validate,
+    { &internal::KeystoreService_DEPRECATED_ExtensionSign_Params_Data::Validate,
      &internal::KeystoreService_DEPRECATED_ExtensionSign_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_GenerateKey_Params_Data::Validate,
+    { &internal::KeystoreService_GenerateKey_Params_Data::Validate,
      &internal::KeystoreService_GenerateKey_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_Sign_Params_Data::Validate,
+    { &internal::KeystoreService_Sign_Params_Data::Validate,
      &internal::KeystoreService_Sign_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_RemoveKey_Params_Data::Validate,
+    { &internal::KeystoreService_RemoveKey_Params_Data::Validate,
      &internal::KeystoreService_RemoveKey_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_SelectClientCertificates_Params_Data::Validate,
+    { &internal::KeystoreService_SelectClientCertificates_Params_Data::Validate,
      &internal::KeystoreService_SelectClientCertificates_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_GetKeyTags_Params_Data::Validate,
+    { &internal::KeystoreService_GetKeyTags_Params_Data::Validate,
      &internal::KeystoreService_GetKeyTags_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_AddKeyTags_Params_Data::Validate,
+    { &internal::KeystoreService_AddKeyTags_Params_Data::Validate,
      &internal::KeystoreService_AddKeyTags_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_CanUserGrantPermissionForKey_Params_Data::Validate,
+    { &internal::KeystoreService_CanUserGrantPermissionForKey_Params_Data::Validate,
      &internal::KeystoreService_CanUserGrantPermissionForKey_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_GetPublicKey_Params_Data::Validate,
+    { &internal::KeystoreService_GetPublicKey_Params_Data::Validate,
      &internal::KeystoreService_GetPublicKey_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_GetKeyStores_Params_Data::Validate,
+    { &internal::KeystoreService_GetKeyStores_Params_Data::Validate,
      &internal::KeystoreService_GetKeyStores_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_GetCertificates_Params_Data::Validate,
+    { &internal::KeystoreService_GetCertificates_Params_Data::Validate,
      &internal::KeystoreService_GetCertificates_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_AddCertificate_Params_Data::Validate,
+    { &internal::KeystoreService_AddCertificate_Params_Data::Validate,
      &internal::KeystoreService_AddCertificate_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_RemoveCertificate_Params_Data::Validate,
+    { &internal::KeystoreService_RemoveCertificate_Params_Data::Validate,
      &internal::KeystoreService_RemoveCertificate_ResponseParams_Data::Validate},
-    {&internal::KeystoreService_ChallengeAttestationOnlyKeystore_Params_Data::Validate,
+    { &internal::KeystoreService_ChallengeAttestationOnlyKeystore_Params_Data::Validate,
      &internal::KeystoreService_ChallengeAttestationOnlyKeystore_ResponseParams_Data::Validate},
 };
 
@@ -6793,7 +6878,7 @@ void KeystoreServiceInterceptorForTesting::AddKeyTags(const std::vector<uint8_t>
 void KeystoreServiceInterceptorForTesting::CanUserGrantPermissionForKey(const std::vector<uint8_t>& public_key, CanUserGrantPermissionForKeyCallback callback) {
   GetForwardingInterface()->CanUserGrantPermissionForKey(std::move(public_key), std::move(callback));
 }
-void KeystoreServiceInterceptorForTesting::DEPRECATED_ExtensionGenerateKey(KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const absl::optional<std::string>& extension_id, DEPRECATED_ExtensionGenerateKeyCallback callback) {
+void KeystoreServiceInterceptorForTesting::DEPRECATED_ExtensionGenerateKey(KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const std::optional<std::string>& extension_id, DEPRECATED_ExtensionGenerateKeyCallback callback) {
   GetForwardingInterface()->DEPRECATED_ExtensionGenerateKey(std::move(keystore), std::move(algorithm), std::move(extension_id), std::move(callback));
 }
 void KeystoreServiceInterceptorForTesting::DEPRECATED_ExtensionSign(KeystoreType keystore, const std::vector<uint8_t>& public_key, KeystoreSigningScheme scheme, const std::vector<uint8_t>& data, const std::string& extension_id, DEPRECATED_ExtensionSignCallback callback) {
@@ -7118,7 +7203,7 @@ bool KeystoreServiceAsyncWaiter::CanUserGrantPermissionForKey(
 }
 
 void KeystoreServiceAsyncWaiter::DEPRECATED_ExtensionGenerateKey(
-    KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const absl::optional<std::string>& extension_id, DEPRECATED_ExtensionKeystoreBinaryResultPtr* out_result) {
+    KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const std::optional<std::string>& extension_id, DEPRECATED_ExtensionKeystoreBinaryResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->DEPRECATED_ExtensionGenerateKey(std::move(keystore),std::move(algorithm),std::move(extension_id),
       base::BindOnce(
@@ -7134,7 +7219,7 @@ void KeystoreServiceAsyncWaiter::DEPRECATED_ExtensionGenerateKey(
 }
 
 DEPRECATED_ExtensionKeystoreBinaryResultPtr KeystoreServiceAsyncWaiter::DEPRECATED_ExtensionGenerateKey(
-    KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const absl::optional<std::string>& extension_id) {
+    KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const std::optional<std::string>& extension_id) {
   DEPRECATED_ExtensionKeystoreBinaryResultPtr async_wait_result;
   DEPRECATED_ExtensionGenerateKey(std::move(keystore),std::move(algorithm),std::move(extension_id),&async_wait_result);
   return async_wait_result;

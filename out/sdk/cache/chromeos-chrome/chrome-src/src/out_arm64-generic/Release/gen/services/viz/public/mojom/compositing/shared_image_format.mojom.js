@@ -59,12 +59,16 @@
   };
   var Subsampling = {};
   Subsampling.k420 = 0;
+  Subsampling.k422 = 1;
+  Subsampling.k444 = 2;
   Subsampling.MIN_VALUE = 0;
-  Subsampling.MAX_VALUE = 0;
+  Subsampling.MAX_VALUE = 2;
 
   Subsampling.isKnownEnumValue = function(value) {
     switch (value) {
     case 0:
+    case 1:
+    case 2:
       return true;
     }
     return false;

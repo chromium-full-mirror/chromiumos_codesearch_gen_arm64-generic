@@ -250,6 +250,29 @@ inline bool IsKnownEnumValue(VideoFacingMode value) {
 }
 
 
+enum class CameraAvailability : int32_t {
+  
+  kAvailable = 0,
+  
+  kUnavailableExclusivelyUsedByOtherApplication = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, CameraAvailability value);
+inline bool IsKnownEnumValue(CameraAvailability value) {
+  return internal::CameraAvailability_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline CameraAvailability ToKnownEnumValue(CameraAvailability value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return CameraAvailability::kDefaultValue;
+}
+
+
 enum class VideoCaptureApi : int32_t {
   
   LINUX_V4L2_SINGLE_PLANE = 0,
@@ -704,6 +727,22 @@ inline bool IsKnownEnumValue(VideoCaptureFrameDropReason value) {
 }
 
 
+enum class SubCaptureTargetType : int32_t {
+  
+  kCropTarget = 0,
+  
+  kRestrictionTarget = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, SubCaptureTargetType value);
+inline bool IsKnownEnumValue(SubCaptureTargetType value) {
+  return internal::SubCaptureTargetType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class ApplySubCaptureTargetResult : int32_t {
   
   kSuccess = 0,
@@ -1038,6 +1077,30 @@ class VideoCaptureDeviceDescriptorDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::media::mojom::VideoCaptureTransportType>(data_->transport_type));
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAvailability(UserType* output) const {
+    if (data_->header_.version < 1) {
+      *output = absl::nullopt;
+      return true;
+    }
+    if (!data_->availability_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::media::mojom::CameraAvailability>(
+        data_->availability_$value, &output->emplace());
+  }
+  std::optional<CameraAvailability> availability() const {
+    if (data_->header_.version < 1) {
+      return absl::nullopt;
+    }
+    if (!data_->availability_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::media::mojom::CameraAvailability>(data_->availability_$value));
+  }
  private:
   internal::VideoCaptureDeviceDescriptor_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1101,6 +1164,10 @@ struct hash<::media::mojom::VideoFacingMode>
     : public mojo::internal::EnumHashImpl<::media::mojom::VideoFacingMode> {};
 
 template <>
+struct hash<::media::mojom::CameraAvailability>
+    : public mojo::internal::EnumHashImpl<::media::mojom::CameraAvailability> {};
+
+template <>
 struct hash<::media::mojom::VideoCaptureApi>
     : public mojo::internal::EnumHashImpl<::media::mojom::VideoCaptureApi> {};
 
@@ -1119,6 +1186,10 @@ struct hash<::media::mojom::VideoCaptureError>
 template <>
 struct hash<::media::mojom::VideoCaptureFrameDropReason>
     : public mojo::internal::EnumHashImpl<::media::mojom::VideoCaptureFrameDropReason> {};
+
+template <>
+struct hash<::media::mojom::SubCaptureTargetType>
+    : public mojo::internal::EnumHashImpl<::media::mojom::SubCaptureTargetType> {};
 
 template <>
 struct hash<::media::mojom::ApplySubCaptureTargetResult>
@@ -1207,6 +1278,26 @@ struct Serializer<::media::mojom::VideoFacingMode, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::media::mojom::VideoFacingMode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::media::mojom::CameraAvailability, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::media::mojom::CameraAvailability, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::media::mojom::CameraAvailability>(input)), output);
   }
 };
 
@@ -1307,6 +1398,26 @@ struct Serializer<::media::mojom::VideoCaptureFrameDropReason, MaybeConstUserTyp
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::media::mojom::VideoCaptureFrameDropReason>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::media::mojom::SubCaptureTargetType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::media::mojom::SubCaptureTargetType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::media::mojom::SubCaptureTargetType>(input)), output);
   }
 };
 
@@ -1633,6 +1744,14 @@ struct Serializer<::media::mojom::VideoCaptureDeviceDescriptorDataView, MaybeCon
         "null control_support in VideoCaptureDeviceDescriptor struct");
     mojo::internal::Serialize<::media::mojom::VideoCaptureTransportType>(
         Traits::transport_type(input), &fragment->transport_type);
+    fragment->availability_$flag = Traits::availability(input).has_value();
+    if (Traits::availability(input).has_value()) {
+      mojo::internal::Serialize<::media::mojom::CameraAvailability>(
+          Traits::availability(input).value(), &fragment->availability_$value);
+    } else {
+      fragment->availability_$value =
+          static_cast<int32_t>(::media::mojom::CameraAvailability::kMinValue);
+    }
   }
 
   static bool Deserialize(::media::mojom::internal::VideoCaptureDeviceDescriptor_Data* input,
@@ -1818,6 +1937,15 @@ struct  TraceFormatTraits<::media::mojom::VideoFacingMode> {
 namespace perfetto {
 
 template <>
+struct  TraceFormatTraits<::media::mojom::CameraAvailability> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::CameraAvailability value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
 struct  TraceFormatTraits<::media::mojom::VideoCaptureApi> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::VideoCaptureApi value);
 };
@@ -1856,6 +1984,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::media::mojom::VideoCaptureFrameDropReason> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::VideoCaptureFrameDropReason value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::media::mojom::SubCaptureTargetType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::SubCaptureTargetType value);
 };
 
 } // namespace perfetto

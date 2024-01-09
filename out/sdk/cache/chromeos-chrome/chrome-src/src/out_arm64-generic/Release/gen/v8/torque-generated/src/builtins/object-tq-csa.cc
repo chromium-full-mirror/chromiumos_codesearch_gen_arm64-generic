@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/object-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -80,7 +81,9 @@
 #include "torque-generated/src/builtins/proxy-is-extensible-tq-csa.h"
 #include "torque-generated/src/builtins/proxy-prevent-extensions-tq-csa.h"
 #include "torque-generated/src/builtins/proxy-set-prototype-of-tq-csa.h"
+#include "torque-generated/src/builtins/torque-internal-tq-csa.h"
 #include "torque-generated/src/objects/contexts-tq-csa.h"
+#include "torque-generated/src/objects/fixed-array-tq-csa.h"
 #include "torque-generated/src/objects/js-objects-tq-csa.h"
 #include "torque-generated/src/objects/js-proxy-tq-csa.h"
 #include "torque-generated/src/objects/map-tq-csa.h"
@@ -143,7 +146,7 @@ TNode<Object> ObjectIsExtensibleImpl_0(compiler::CodeAssemblerState* state_, TNo
   TNode<Object> tmp6;
   if (block8.is_used()) {
     ca_.Bind(&block8);
-    tmp6 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kProxyIsExtensible), p_context, tmp3);
+    tmp6 = ca_.CallBuiltin<Object>(Builtin::kProxyIsExtensible, p_context, tmp3);
     ca_.Goto(&block1, tmp6);
   }
 
@@ -212,7 +215,7 @@ TNode<Object> ObjectPreventExtensionsThrow_0(compiler::CodeAssemblerState* state
   if (block8.is_used()) {
     ca_.Bind(&block8);
     tmp5 = True_0(state_);
-    tmp6 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kProxyPreventExtensions), p_context, tmp2, tmp5);
+    tmp6 = ca_.CallBuiltin<Object>(Builtin::kProxyPreventExtensions, p_context, tmp2, tmp5);
     ca_.Goto(&block1, tmp0);
   }
 
@@ -283,7 +286,7 @@ TNode<Object> ObjectPreventExtensionsDontThrow_0(compiler::CodeAssemblerState* s
   if (block8.is_used()) {
     ca_.Bind(&block8);
     tmp6 = False_0(state_);
-    tmp7 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kProxyPreventExtensions), p_context, tmp3, tmp6);
+    tmp7 = ca_.CallBuiltin<Object>(Builtin::kProxyPreventExtensions, p_context, tmp3, tmp6);
     ca_.Goto(&block1, tmp7);
   }
 
@@ -352,7 +355,7 @@ TNode<Object> JSReceiverGetPrototypeOf_0(compiler::CodeAssemblerState* state_, T
   TNode<Object> tmp3;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp3 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kProxyGetPrototypeOf), p_context, tmp0);
+    tmp3 = ca_.CallBuiltin<Object>(Builtin::kProxyGetPrototypeOf, p_context, tmp0);
     ca_.Goto(&block1, tmp3);
   }
 
@@ -420,7 +423,7 @@ TNode<Object> ObjectSetPrototypeOfThrow_0(compiler::CodeAssemblerState* state_, 
   if (block8.is_used()) {
     ca_.Bind(&block8);
     tmp5 = True_0(state_);
-    tmp6 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kProxySetPrototypeOf), p_context, tmp2, p_proto, tmp5);
+    tmp6 = ca_.CallBuiltin<Object>(Builtin::kProxySetPrototypeOf, p_context, tmp2, p_proto, tmp5);
     ca_.Goto(&block1, tmp0);
   }
 
@@ -491,7 +494,7 @@ TNode<Object> ObjectSetPrototypeOfDontThrow_0(compiler::CodeAssemblerState* stat
   if (block8.is_used()) {
     ca_.Bind(&block8);
     tmp6 = False_0(state_);
-    tmp7 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kProxySetPrototypeOf), p_context, tmp3, p_proto, tmp6);
+    tmp7 = ca_.CallBuiltin<Object>(Builtin::kProxySetPrototypeOf, p_context, tmp3, p_proto, tmp6);
     ca_.Goto(&block1, tmp7);
   }
 
@@ -522,8 +525,10 @@ TF_BUILTIN(CreateObjectWithoutProperties, CodeStubAssembler) {
   compiler::CodeAssemblerParameterizedLabel<> block13(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block18(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block17(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block20(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block19(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block24(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block25(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block29(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block28(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<Map> block12(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<Map, HeapObject> block3(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block2(&ca_, compiler::CodeAssemblerLabel::kDeferred);
@@ -620,14 +625,14 @@ TF_BUILTIN(CreateObjectWithoutProperties, CodeStubAssembler) {
   }
 
   TNode<IntPtrT> tmp24;
-  TNode<MaybeObject> tmp25;
+  TNode<HeapObject> tmp25;
   TNode<Undefined> tmp26;
   if (block13.is_used()) {
     ca_.Bind(&block13);
     tmp24 = FromConstexpr_intptr_constexpr_int31_0(state_, 24);
-    tmp25 = CodeStubAssembler(state_).LoadReference<MaybeObject>(CodeStubAssembler::Reference{tmp22, tmp24});
+    tmp25 = CodeStubAssembler(state_).LoadReference<HeapObject>(CodeStubAssembler::Reference{tmp22, tmp24});
     compiler::CodeAssemblerLabel label27(&ca_);
-    tmp26 = Cast_Undefined_0(state_, TNode<MaybeObject>{tmp25}, &label27);
+    tmp26 = Cast_Undefined_2(state_, TNode<HeapObject>{tmp25}, &label27);
     ca_.Goto(&block17);
     if (label27.is_used()) {
       ca_.Bind(&label27);
@@ -635,16 +640,23 @@ TF_BUILTIN(CreateObjectWithoutProperties, CodeStubAssembler) {
     }
   }
 
-  TNode<Map> tmp28;
+  TNode<Object> tmp28;
+  TNode<IntPtrT> tmp29;
+  TNode<IntPtrT> tmp30;
+  TNode<UintPtrT> tmp31;
+  TNode<IntPtrT> tmp32;
+  TNode<UintPtrT> tmp33;
+  TNode<UintPtrT> tmp34;
+  TNode<BoolT> tmp35;
   if (block18.is_used()) {
     ca_.Bind(&block18);
-    compiler::CodeAssemblerLabel label29(&ca_);
-    tmp28 = WeakToStrong_Map_0(state_, TNode<MaybeObject>{ca_.UncheckedCast<MaybeObject>(tmp25)}, &label29);
-    ca_.Goto(&block19);
-    if (label29.is_used()) {
-      ca_.Bind(&label29);
-      ca_.Goto(&block20);
-    }
+    std::tie(tmp28, tmp29, tmp30) = FieldSliceWeakArrayListObjects_0(state_, TNode<WeakArrayList>{ca_.UncheckedCast<WeakArrayList>(tmp25)}).Flatten();
+    tmp31 = FromConstexpr_uintptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
+    tmp32 = Convert_intptr_uintptr_0(state_, TNode<UintPtrT>{tmp31});
+    tmp33 = Convert_uintptr_intptr_0(state_, TNode<IntPtrT>{tmp32});
+    tmp34 = Convert_uintptr_intptr_0(state_, TNode<IntPtrT>{tmp30});
+    tmp35 = CodeStubAssembler(state_).UintPtrLessThan(TNode<UintPtrT>{tmp33}, TNode<UintPtrT>{tmp34});
+    ca_.Branch(tmp35, &block24, std::vector<compiler::Node*>{}, &block25, std::vector<compiler::Node*>{});
   }
 
   if (block17.is_used()) {
@@ -652,14 +664,42 @@ TF_BUILTIN(CreateObjectWithoutProperties, CodeStubAssembler) {
     ca_.Goto(&block2);
   }
 
-  if (block20.is_used()) {
-    ca_.Bind(&block20);
+  TNode<IntPtrT> tmp36;
+  TNode<IntPtrT> tmp37;
+  TNode<Object> tmp38;
+  TNode<IntPtrT> tmp39;
+  TNode<MaybeObject> tmp40;
+  TNode<HeapObject> tmp41;
+  if (block24.is_used()) {
+    ca_.Bind(&block24);
+    tmp36 = TimesSizeOf_MaybeObject_0(state_, TNode<IntPtrT>{tmp32});
+    tmp37 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{tmp29}, TNode<IntPtrT>{tmp36});
+    std::tie(tmp38, tmp39) = NewReference_MaybeObject_0(state_, TNode<Object>{tmp28}, TNode<IntPtrT>{tmp37}).Flatten();
+    tmp40 = CodeStubAssembler(state_).LoadReference<MaybeObject>(CodeStubAssembler::Reference{tmp38, tmp39});
+    compiler::CodeAssemblerLabel label42(&ca_);
+    tmp41 = MaybeObjectToStrong_0(state_, TNode<MaybeObject>{tmp40}, &label42);
+    ca_.Goto(&block28);
+    if (label42.is_used()) {
+      ca_.Bind(&label42);
+      ca_.Goto(&block29);
+    }
+  }
+
+  if (block25.is_used()) {
+    ca_.Bind(&block25);
+    CodeStubAssembler(state_).Unreachable();
+  }
+
+  if (block29.is_used()) {
+    ca_.Bind(&block29);
     ca_.Goto(&block2);
   }
 
-  if (block19.is_used()) {
-    ca_.Bind(&block19);
-    ca_.Goto(&block12, tmp28);
+  TNode<Map> tmp43;
+  if (block28.is_used()) {
+    ca_.Bind(&block28);
+    tmp43 = UnsafeCast_Map_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp41});
+    ca_.Goto(&block12, tmp43);
   }
 
   TNode<Map> phi_bb12_2;
@@ -670,20 +710,20 @@ TF_BUILTIN(CreateObjectWithoutProperties, CodeStubAssembler) {
 
   TNode<Map> phi_bb3_2;
   TNode<HeapObject> phi_bb3_3;
-  TNode<JSObject> tmp30;
+  TNode<JSObject> tmp44;
   if (block3.is_used()) {
     ca_.Bind(&block3, &phi_bb3_2, &phi_bb3_3);
-    tmp30 = CodeStubAssembler(state_).AllocateJSObjectFromMap(TNode<Map>{phi_bb3_2}, TNode<HeapObject>{phi_bb3_3});
-    CodeStubAssembler(state_).Return(tmp30);
+    tmp44 = CodeStubAssembler(state_).AllocateJSObjectFromMap(TNode<Map>{phi_bb3_2}, TNode<HeapObject>{phi_bb3_3});
+    CodeStubAssembler(state_).Return(tmp44);
   }
 
-  TNode<Undefined> tmp31;
-  TNode<Object> tmp32;
+  TNode<Undefined> tmp45;
+  TNode<Object> tmp46;
   if (block2.is_used()) {
     ca_.Bind(&block2);
-    tmp31 = Undefined_0(state_);
-    tmp32 = CodeStubAssembler(state_).CallRuntime(Runtime::kObjectCreate, parameter0, parameter1, tmp31); 
-    CodeStubAssembler(state_).Return(tmp32);
+    tmp45 = Undefined_0(state_);
+    tmp46 = CodeStubAssembler(state_).CallRuntime(Runtime::kObjectCreate, parameter0, parameter1, tmp45); 
+    CodeStubAssembler(state_).Return(tmp46);
   }
 }
 
@@ -790,7 +830,7 @@ TF_BUILTIN(ObjectPrototypeToString, CodeStubAssembler) {
   TNode<String> tmp0;
   if (block0.is_used()) {
     ca_.Bind(&block0);
-    tmp0 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kObjectToString), parameter0, parameter1);
+    tmp0 = ca_.CallBuiltin<String>(Builtin::kObjectToString, parameter0, parameter1);
     CodeStubAssembler(state_).Return(tmp0);
   }
 }
@@ -874,7 +914,7 @@ TF_BUILTIN(ObjectPrototypeToLocaleString, CodeStubAssembler) {
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=221&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=223&c=1
 TNode<PropertyDescriptorObject> ToPropertyDescriptor_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<JSReceiver> p_object) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1127,7 +1167,7 @@ TNode<PropertyDescriptorObject> ToPropertyDescriptor_0(compiler::CodeAssemblerSt
   if (block6.is_used()) {
     ca_.Bind(&block6);
     tmp86 = FromConstexpr_JSAny_constexpr_string_0(state_, "enumerable");
-    tmp87 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kHasProperty), p_context, p_object, tmp86);
+    tmp87 = ca_.CallBuiltin<Boolean>(Builtin::kHasProperty, p_context, p_object, tmp86);
     tmp88 = True_0(state_);
     tmp89 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp87}, TNode<HeapObject>{tmp88});
     ca_.Branch(tmp89, &block8, std::vector<compiler::Node*>{}, &block9, std::vector<compiler::Node*>{});
@@ -1167,7 +1207,7 @@ TNode<PropertyDescriptorObject> ToPropertyDescriptor_0(compiler::CodeAssemblerSt
   if (block9.is_used()) {
     ca_.Bind(&block9);
     tmp100 = FromConstexpr_JSAny_constexpr_string_0(state_, "configurable");
-    tmp101 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kHasProperty), p_context, p_object, tmp100);
+    tmp101 = ca_.CallBuiltin<Boolean>(Builtin::kHasProperty, p_context, p_object, tmp100);
     tmp102 = True_0(state_);
     tmp103 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp101}, TNode<HeapObject>{tmp102});
     ca_.Branch(tmp103, &block10, std::vector<compiler::Node*>{}, &block11, std::vector<compiler::Node*>{});
@@ -1207,7 +1247,7 @@ TNode<PropertyDescriptorObject> ToPropertyDescriptor_0(compiler::CodeAssemblerSt
   if (block11.is_used()) {
     ca_.Bind(&block11);
     tmp114 = FromConstexpr_JSAny_constexpr_string_0(state_, "value");
-    tmp115 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kHasProperty), p_context, p_object, tmp114);
+    tmp115 = ca_.CallBuiltin<Boolean>(Builtin::kHasProperty, p_context, p_object, tmp114);
     tmp116 = True_0(state_);
     tmp117 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp115}, TNode<HeapObject>{tmp116});
     ca_.Branch(tmp117, &block12, std::vector<compiler::Node*>{}, &block13, std::vector<compiler::Node*>{});
@@ -1241,7 +1281,7 @@ TNode<PropertyDescriptorObject> ToPropertyDescriptor_0(compiler::CodeAssemblerSt
   if (block13.is_used()) {
     ca_.Bind(&block13);
     tmp125 = FromConstexpr_JSAny_constexpr_string_0(state_, "writable");
-    tmp126 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kHasProperty), p_context, p_object, tmp125);
+    tmp126 = ca_.CallBuiltin<Boolean>(Builtin::kHasProperty, p_context, p_object, tmp125);
     tmp127 = True_0(state_);
     tmp128 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp126}, TNode<HeapObject>{tmp127});
     ca_.Branch(tmp128, &block14, std::vector<compiler::Node*>{}, &block15, std::vector<compiler::Node*>{});
@@ -1281,7 +1321,7 @@ TNode<PropertyDescriptorObject> ToPropertyDescriptor_0(compiler::CodeAssemblerSt
   if (block15.is_used()) {
     ca_.Bind(&block15);
     tmp139 = FromConstexpr_JSAny_constexpr_string_0(state_, "get");
-    tmp140 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kHasProperty), p_context, p_object, tmp139);
+    tmp140 = ca_.CallBuiltin<Boolean>(Builtin::kHasProperty, p_context, p_object, tmp139);
     tmp141 = True_0(state_);
     tmp142 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp140}, TNode<HeapObject>{tmp141});
     ca_.Branch(tmp142, &block16, std::vector<compiler::Node*>{}, &block17, std::vector<compiler::Node*>{});
@@ -1369,7 +1409,7 @@ TNode<PropertyDescriptorObject> ToPropertyDescriptor_0(compiler::CodeAssemblerSt
   if (block17.is_used()) {
     ca_.Bind(&block17);
     tmp157 = FromConstexpr_JSAny_constexpr_string_0(state_, "set");
-    tmp158 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kHasProperty), p_context, p_object, tmp157);
+    tmp158 = ca_.CallBuiltin<Boolean>(Builtin::kHasProperty, p_context, p_object, tmp157);
     tmp159 = True_0(state_);
     tmp160 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp158}, TNode<HeapObject>{tmp159});
     ca_.Branch(tmp160, &block27, std::vector<compiler::Node*>{}, &block28, std::vector<compiler::Node*>{});
@@ -1469,7 +1509,7 @@ TNode<PropertyDescriptorObject> ToPropertyDescriptor_0(compiler::CodeAssemblerSt
   return TNode<PropertyDescriptorObject>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=319&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=321&c=1
 TNode<HeapObject> ToPropertyDescriptor_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_object) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1535,7 +1575,7 @@ TNode<HeapObject> ToPropertyDescriptor_1(compiler::CodeAssemblerState* state_, T
   return TNode<HeapObject>{phi_bb1_2};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=339&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=341&c=1
 TNode<Object> FromPropertyDescriptor_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_object) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1615,45 +1655,7 @@ TNode<Null> Cast_Null_1(compiler::CodeAssemblerState* state_, TNode<Context> p_c
   return TNode<Null>{tmp2};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=118&c=21
-TNode<Map> WeakToStrong_Map_0(compiler::CodeAssemblerState* state_, TNode<MaybeObject> p_x, compiler::CodeAssemblerLabel* label_ClearedWeakPointer) {
-  compiler::CodeAssembler ca_(state_);
-  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
-  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block4(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block3(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-    ca_.Goto(&block0);
-
-  TNode<HeapObject> tmp0;
-  if (block0.is_used()) {
-    ca_.Bind(&block0);
-    compiler::CodeAssemblerLabel label1(&ca_);
-    tmp0 = CodeStubAssembler(state_).GetHeapObjectAssumeWeak(TNode<MaybeObject>{p_x}, &label1);
-    ca_.Goto(&block3);
-    if (label1.is_used()) {
-      ca_.Bind(&label1);
-      ca_.Goto(&block4);
-    }
-  }
-
-  if (block4.is_used()) {
-    ca_.Bind(&block4);
-    ca_.Goto(label_ClearedWeakPointer);
-  }
-
-  TNode<Map> tmp2;
-  if (block3.is_used()) {
-    ca_.Bind(&block3);
-    tmp2 = TORQUE_CAST(TNode<HeapObject>{tmp0});
-    ca_.Goto(&block5);
-  }
-
-    ca_.Bind(&block5);
-  return TNode<Map>{tmp2};
-}
-
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=164&c=5
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=166&c=5
 TNode<HeapObject> Cast_JSReceiver_OR_Null_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1714,7 +1716,7 @@ TNode<HeapObject> Cast_JSReceiver_OR_Null_1(compiler::CodeAssemblerState* state_
   return TNode<HeapObject>{tmp2};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=225&c=22
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=227&c=22
 TorqueStructReference_Map_0 NativeContextSlot_Map_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<IntPtrT> p_index) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1736,7 +1738,7 @@ TorqueStructReference_Map_0 NativeContextSlot_Map_1(compiler::CodeAssemblerState
   return TorqueStructReference_Map_0{TNode<Object>{tmp1}, TNode<IntPtrT>{tmp2}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=297&c=12
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=299&c=12
 TNode<BoolT> Is_Undefined_JSAny_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1783,7 +1785,7 @@ TNode<BoolT> Is_Undefined_JSAny_0(compiler::CodeAssemblerState* state_, TNode<Co
   return TNode<BoolT>{phi_bb1_2};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=297&c=38
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/object.tq?l=299&c=38
 TNode<BoolT> Is_FunctionTemplateInfo_JSAny_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

@@ -94,7 +94,8 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
   <sp-empty-state id="topLevelEmptyState" hidden="[[!sectionVisibility_.topLevelEmptyState]]" guest$="[[guestMode_]]" image-path="[[getEmptyImagePath_(hasSomeActiveFilter_)]]" dark-image-path="[[getEmptyImagePathDark_(hasSomeActiveFilter_)]]" heading="[[getEmptyTitle_(hasSomeActiveFilter_)]]" body="[[getEmptyBody_(hasSomeActiveFilter_)]]">
   </sp-empty-state>
   <sp-footer id="footer" hidden="[[!sectionVisibility_.footer]]" pinned="[[hasShownBookmarks_]]">
-    <cr-button class="floating-button" hidden="[[hideAddTabButton_(editing_)]]" on-click="onAddTabClicked_" disabled="[[!canAddCurrentUrl_(activeFolderPath_.*, currentUrl_)]]">
+    <cr-button class="floating-button" hidden="[[hideAddTabButton_(editing_)]]" on-click="onAddTabClicked_" disabled="[[!canAddCurrentUrl_(
+                    activeFolderPath_.*, currentUrl_, hasLoadedData_)]]">
       <iron-icon slot="prefix-icon" icon="bookmarks:add-tab"></iron-icon>
       $i18n{addCurrentTab}
     </cr-button>

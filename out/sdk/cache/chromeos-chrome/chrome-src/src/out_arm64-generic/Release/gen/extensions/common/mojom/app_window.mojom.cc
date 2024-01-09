@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -51,6 +52,9 @@ AppWindow::IPCStableHashFunction AppWindow::MessageToMethodInfo_(mojo::Message& 
     case internal::kAppWindow_SetVisuallyDeemphasized_Name: {
       return &AppWindow::SetVisuallyDeemphasized_Sym::IPCStableHash;
     }
+    case internal::kAppWindow_SetSupportsAppRegion_Name: {
+      return &AppWindow::SetSupportsAppRegion_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -64,11 +68,15 @@ const char* AppWindow::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kAppWindow_SetVisuallyDeemphasized_Name:
             return "Receive extensions::mojom::AppWindow::SetVisuallyDeemphasized";
+      case internal::kAppWindow_SetSupportsAppRegion_Name:
+            return "Receive extensions::mojom::AppWindow::SetSupportsAppRegion";
     }
   } else {
     switch (message.name()) {
       case internal::kAppWindow_SetVisuallyDeemphasized_Name:
             return "Receive reply extensions::mojom::AppWindow::SetVisuallyDeemphasized";
+      case internal::kAppWindow_SetSupportsAppRegion_Name:
+            return "Receive reply extensions::mojom::AppWindow::SetSupportsAppRegion";
     }
   }
   return "Receive unknown mojo message";
@@ -96,6 +104,19 @@ uint32_t AppWindow::SetVisuallyDeemphasized_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AppWindow::SetSupportsAppRegion_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::AppWindow::SetSupportsAppRegion");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 AppWindowProxy::AppWindowProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -114,14 +135,17 @@ void AppWindowProxy::SetVisuallyDeemphasized(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppWindow_SetVisuallyDeemphasized_Name, kFlags, 0, 0, nullptr);
@@ -134,6 +158,47 @@ void AppWindowProxy::SetVisuallyDeemphasized(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AppWindow::Name_);
   message.set_method_name("SetVisuallyDeemphasized");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AppWindowProxy::SetSupportsAppRegion(
+    bool in_supports_app_region) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::AppWindow::SetSupportsAppRegion", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("supports_app_region"), in_supports_app_region,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppWindow_SetSupportsAppRegion_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::AppWindow_SetSupportsAppRegion_Params_Data> params(
+          message);
+  params.Allocate();
+  params->supports_app_region = in_supports_app_region;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppWindow::Name_);
+  message.set_method_name("SetSupportsAppRegion");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -171,6 +236,32 @@ bool AppWindowStubDispatch::Accept(
 std::move(p_deemphasized));
       return true;
     }
+    case internal::kAppWindow_SetSupportsAppRegion_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AppWindow_SetSupportsAppRegion_Params_Data* params =
+          reinterpret_cast<internal::AppWindow_SetSupportsAppRegion_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_supports_app_region{};
+      AppWindow_SetSupportsAppRegion_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_supports_app_region = input_data_view.supports_app_region();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppWindow::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetSupportsAppRegion(
+std::move(p_supports_app_region));
+      return true;
+    }
   }
   return false;
 }
@@ -187,13 +278,18 @@ bool AppWindowStubDispatch::AcceptWithResponder(
     case internal::kAppWindow_SetVisuallyDeemphasized_Name: {
       break;
     }
+    case internal::kAppWindow_SetSupportsAppRegion_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppWindowValidationInfo[] = {
-    {&internal::AppWindow_SetVisuallyDeemphasized_Params_Data::Validate,
+    { &internal::AppWindow_SetVisuallyDeemphasized_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AppWindow_SetSupportsAppRegion_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -221,6 +317,9 @@ namespace extensions::mojom {
 
 void AppWindowInterceptorForTesting::SetVisuallyDeemphasized(bool deemphasized) {
   GetForwardingInterface()->SetVisuallyDeemphasized(std::move(deemphasized));
+}
+void AppWindowInterceptorForTesting::SetSupportsAppRegion(bool supports_app_region) {
+  GetForwardingInterface()->SetSupportsAppRegion(std::move(supports_app_region));
 }
 AppWindowAsyncWaiter::AppWindowAsyncWaiter(
     AppWindow* proxy) : proxy_(proxy) {}

@@ -11,6 +11,16 @@ export class PolicyRowElement extends CustomElement {
     static get template() {
         return getTemplate();
     }
+    policy;
+    unset_;
+    hasErrors_;
+    hasWarnings_;
+    hasInfos_;
+    hasConflicts_;
+    hasSuperseded_;
+    isMergedValue_;
+    deprecated_;
+    future_;
     connectedCallback() {
         const toggle = this.shadowRoot.querySelector('.policy.row .toggle');
         toggle.addEventListener('click', () => this.toggleExpanded());

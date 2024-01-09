@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSNamespaceRule>::value,
     "CSSNamespaceRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSNamespaceRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSNamespaceRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNamespaceRule.namespaceURI.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNamespaceRule* blink_receiver = V8CSSNamespaceRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->namespaceURI();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNamespaceRule* blink_receiver = V8CSSNamespaceRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->namespaceURI();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -100,10 +95,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSNamespaceRule.prefix.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSNamespaceRule* blink_receiver = V8CSSNamespaceRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->prefix();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSNamespaceRule* blink_receiver = V8CSSNamespaceRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->prefix();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

@@ -294,8 +294,8 @@ class  ShimlessRmaServiceAsyncWaiter {
       StateResultPtr* out_state_result);
   StateResultPtr NetworkSelectionComplete();
   void GetCurrentOsVersion(
-      absl::optional<std::string>* out_version);
-  absl::optional<std::string> GetCurrentOsVersion();
+      std::optional<std::string>* out_version);
+  std::optional<std::string> GetCurrentOsVersion();
   void CheckForOsUpdates(
       bool* out_update_available, std::string* out_version);
   
@@ -444,11 +444,11 @@ class  ShimlessRmaServiceAsyncWaiter {
       ::rmad::RmadErrorCode* out_error);
   ::rmad::RmadErrorCode CriticalErrorReboot();
   void Get3pDiagnosticsProvider(
-      absl::optional<std::string>* out_provider);
-  absl::optional<std::string> Get3pDiagnosticsProvider();
+      std::optional<std::string>* out_provider);
+  std::optional<std::string> Get3pDiagnosticsProvider();
   void GetInstallable3pDiagnosticsAppPath(
-      absl::optional<::base::FilePath>* out_app_path);
-  absl::optional<::base::FilePath> GetInstallable3pDiagnosticsAppPath();
+      std::optional<::base::FilePath>* out_app_path);
+  std::optional<::base::FilePath> GetInstallable3pDiagnosticsAppPath();
   void InstallLastFound3pDiagnosticsApp(
       Shimless3pDiagnosticsAppInfoPtr* out_app_info);
   Shimless3pDiagnosticsAppInfoPtr InstallLastFound3pDiagnosticsApp();

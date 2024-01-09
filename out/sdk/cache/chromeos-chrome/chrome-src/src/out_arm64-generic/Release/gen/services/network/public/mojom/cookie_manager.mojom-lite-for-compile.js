@@ -646,6 +646,12 @@ network.mojom.CookieManagerInterface = class {
    */
 
   setMitigationsEnabledFor3pcd(enable) {}
+  
+  /**
+   * @param { !boolean } enable
+   */
+
+  setTrackingProtectionEnabledFor3pcd(enable) {}
 };
 
 /**
@@ -977,6 +983,22 @@ network.mojom.CookieManagerRemote = class {
           enable
         ]);
   }
+
+  
+  /**
+   * @param { !boolean } enable
+   */
+
+  setTrackingProtectionEnabledFor3pcd(
+      enable) {
+    this.proxy.sendMessage(
+        17,
+        network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec.$,
+        null,
+        [
+          enable
+        ]);
+  }
 };
 
 /**
@@ -1086,6 +1108,11 @@ network.mojom.CookieManagerReceiver = class {
         network.mojom.CookieManager_SetMitigationsEnabledFor3pcd_ParamsSpec.$,
         null,
         impl.setMitigationsEnabledFor3pcd.bind(impl));
+    this.helper_internal_.registerHandler(
+        17,
+        network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec.$,
+        null,
+        impl.setTrackingProtectionEnabledFor3pcd.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1342,6 +1369,18 @@ network.mojom.CookieManagerCallbackRouter = class {
         network.mojom.CookieManager_SetMitigationsEnabledFor3pcd_ParamsSpec.$,
         null,
         this.setMitigationsEnabledFor3pcd.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setTrackingProtectionEnabledFor3pcd =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        17,
+        network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec.$,
+        null,
+        this.setTrackingProtectionEnabledFor3pcd.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1677,6 +1716,14 @@ goog.provide('network.mojom.CookieManager_SetMitigationsEnabledFor3pcd_ParamsSpe
 network.mojom.CookieManager_SetMitigationsEnabledFor3pcd_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('network.mojom.CookieOrLineSpec');
 /**
  * @const { {$:!mojo.internal.MojomType} }
@@ -1709,8 +1756,16 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'mitigationsEnabledFor3pcd', 0,
+        'trackingProtectionEnabledFor3pcd', 0,
         2,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'mitigationsEnabledFor3pcd', 0,
+        3,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1750,7 +1805,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'allowFileSchemeCookies', 0,
-        3,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1778,6 +1833,8 @@ network.mojom.CookieManagerParams = class {
     this.blockThirdPartyCookies;
     /** @export { !boolean } */
     this.blockTruncatedCookies;
+    /** @export { !boolean } */
+    this.trackingProtectionEnabledFor3pcd;
     /** @export { !boolean } */
     this.mitigationsEnabledFor3pcd;
     /** @export { !Object<!contentSettings.mojom.ContentSettingsType, !Array<!contentSettings.mojom.ContentSettingPatternSource>> } */
@@ -2073,14 +2130,6 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sameParty', 64,
-        2,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
         'partitionKey', 80,
         0,
         network.mojom.CookiePartitionKeySpec.$,
@@ -2132,8 +2181,6 @@ network.mojom.CanonicalCookie = class {
     this.priority;
     /** @export { !network.mojom.CookieSourceScheme } */
     this.sourceScheme;
-    /** @export { !boolean } */
-    this.sameParty;
     /** @export { (network.mojom.CookiePartitionKey|undefined) } */
     this.partitionKey;
     /** @export { !number } */
@@ -3360,6 +3407,35 @@ goog.provide('network.mojom.CookieManager_SetMitigationsEnabledFor3pcd_Params');
 
 /** @record */
 network.mojom.CookieManager_SetMitigationsEnabledFor3pcd_Params = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.enable;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec.$,
+    'CookieManager_SetTrackingProtectionEnabledFor3pcd_Params',
+    [
+      mojo.internal.StructField(
+        'enable', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_Params');
+
+/** @record */
+network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_Params = class {
   constructor() {
     /** @export { !boolean } */
     this.enable;

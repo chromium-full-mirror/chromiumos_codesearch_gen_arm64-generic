@@ -23,6 +23,7 @@
 namespace cert_verifier::mojom {
 class URLLoaderFactoryConnectorInterfaceBase;
 class CertVerifierServiceInterfaceBase;
+class CertVerifierServiceUpdaterInterfaceBase;
 class CertVerifierServiceClientInterfaceBase;
 class CertVerifierRequestInterfaceBase;
 
@@ -34,17 +35,23 @@ namespace cert_verifier::mojom::blink {
 // Aliases for definition in the parent namespace.
 using URLLoaderFactoryConnectorInterfaceBase = URLLoaderFactoryConnectorInterfaceBase;
 using CertVerifierServiceInterfaceBase = CertVerifierServiceInterfaceBase;
+using CertVerifierServiceUpdaterInterfaceBase = CertVerifierServiceUpdaterInterfaceBase;
 using CertVerifierServiceClientInterfaceBase = CertVerifierServiceClientInterfaceBase;
 using CertVerifierRequestInterfaceBase = CertVerifierRequestInterfaceBase;
 class RequestParams;
 using RequestParamsPtr = mojo::StructPtr<RequestParams>;
 
 class CertVerifierConfig;
-using CertVerifierConfigPtr = mojo::StructPtr<CertVerifierConfig>;
+using CertVerifierConfigPtr = mojo::InlinedStructPtr<CertVerifierConfig>;
+
+class AdditionalCertificates;
+using AdditionalCertificatesPtr = mojo::StructPtr<AdditionalCertificates>;
 
 class URLLoaderFactoryConnector;
 
 class CertVerifierService;
+
+class CertVerifierServiceUpdater;
 
 class CertVerifierServiceClient;
 

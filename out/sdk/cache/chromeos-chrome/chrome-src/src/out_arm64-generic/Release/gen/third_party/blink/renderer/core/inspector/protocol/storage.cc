@@ -264,6 +264,28 @@ CRDTP_BEGIN_SERIALIZER(AttributionReportingFilterDataEntry)
 CRDTP_END_SERIALIZER();
 
 
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingFilterConfig)
+    CRDTP_DESERIALIZE_FIELD("filterValues", m_filterValues),
+    CRDTP_DESERIALIZE_FIELD_OPT("lookbackWindow", m_lookbackWindow),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingFilterConfig)
+    CRDTP_SERIALIZE_FIELD("filterValues", m_filterValues);
+    CRDTP_SERIALIZE_FIELD("lookbackWindow", m_lookbackWindow);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingFilterPair)
+    CRDTP_DESERIALIZE_FIELD("filters", m_filters),
+    CRDTP_DESERIALIZE_FIELD("notFilters", m_notFilters),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingFilterPair)
+    CRDTP_SERIALIZE_FIELD("filters", m_filters);
+    CRDTP_SERIALIZE_FIELD("notFilters", m_notFilters);
+CRDTP_END_SERIALIZER();
+
+
 CRDTP_BEGIN_DESERIALIZER(AttributionReportingAggregationKeysEntry)
     CRDTP_DESERIALIZE_FIELD("key", m_key),
     CRDTP_DESERIALIZE_FIELD("value", m_value),
@@ -286,6 +308,17 @@ CRDTP_BEGIN_SERIALIZER(AttributionReportingEventReportWindows)
 CRDTP_END_SERIALIZER();
 
 
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingTriggerSpec)
+    CRDTP_DESERIALIZE_FIELD("eventReportWindows", m_eventReportWindows),
+    CRDTP_DESERIALIZE_FIELD("triggerData", m_triggerData),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingTriggerSpec)
+    CRDTP_SERIALIZE_FIELD("triggerData", m_triggerData);
+    CRDTP_SERIALIZE_FIELD("eventReportWindows", m_eventReportWindows);
+CRDTP_END_SERIALIZER();
+
+
 namespace AttributionReportingTriggerDataMatchingEnum {
 const char Exact[] = "exact";
 const char Modulus[] = "modulus";
@@ -298,7 +331,6 @@ CRDTP_BEGIN_DESERIALIZER(AttributionReportingSourceRegistration)
     CRDTP_DESERIALIZE_FIELD_OPT("debugKey", m_debugKey),
     CRDTP_DESERIALIZE_FIELD("destinationSites", m_destinationSites),
     CRDTP_DESERIALIZE_FIELD("eventId", m_eventId),
-    CRDTP_DESERIALIZE_FIELD("eventReportWindows", m_eventReportWindows),
     CRDTP_DESERIALIZE_FIELD("expiry", m_expiry),
     CRDTP_DESERIALIZE_FIELD("filterData", m_filterData),
     CRDTP_DESERIALIZE_FIELD("priority", m_priority),
@@ -306,13 +338,14 @@ CRDTP_BEGIN_DESERIALIZER(AttributionReportingSourceRegistration)
     CRDTP_DESERIALIZE_FIELD("sourceOrigin", m_sourceOrigin),
     CRDTP_DESERIALIZE_FIELD("time", m_time),
     CRDTP_DESERIALIZE_FIELD("triggerDataMatching", m_triggerDataMatching),
+    CRDTP_DESERIALIZE_FIELD("triggerSpecs", m_triggerSpecs),
     CRDTP_DESERIALIZE_FIELD("type", m_type),
 CRDTP_END_DESERIALIZER()
 
 CRDTP_BEGIN_SERIALIZER(AttributionReportingSourceRegistration)
     CRDTP_SERIALIZE_FIELD("time", m_time);
     CRDTP_SERIALIZE_FIELD("expiry", m_expiry);
-    CRDTP_SERIALIZE_FIELD("eventReportWindows", m_eventReportWindows);
+    CRDTP_SERIALIZE_FIELD("triggerSpecs", m_triggerSpecs);
     CRDTP_SERIALIZE_FIELD("aggregatableReportWindow", m_aggregatableReportWindow);
     CRDTP_SERIALIZE_FIELD("type", m_type);
     CRDTP_SERIALIZE_FIELD("sourceOrigin", m_sourceOrigin);
@@ -341,6 +374,130 @@ const char DestinationBothLimitsReached[] = "destinationBothLimitsReached";
 const char ReportingOriginsPerSiteLimitReached[] = "reportingOriginsPerSiteLimitReached";
 const char ExceedsMaxChannelCapacity[] = "exceedsMaxChannelCapacity";
 } // namespace AttributionReportingSourceRegistrationResultEnum
+
+
+namespace AttributionReportingSourceRegistrationTimeConfigEnum {
+const char Include[] = "include";
+const char Exclude[] = "exclude";
+} // namespace AttributionReportingSourceRegistrationTimeConfigEnum
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingAggregatableValueEntry)
+    CRDTP_DESERIALIZE_FIELD("key", m_key),
+    CRDTP_DESERIALIZE_FIELD("value", m_value),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingAggregatableValueEntry)
+    CRDTP_SERIALIZE_FIELD("key", m_key);
+    CRDTP_SERIALIZE_FIELD("value", m_value);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingEventTriggerData)
+    CRDTP_DESERIALIZE_FIELD("data", m_data),
+    CRDTP_DESERIALIZE_FIELD_OPT("dedupKey", m_dedupKey),
+    CRDTP_DESERIALIZE_FIELD("filters", m_filters),
+    CRDTP_DESERIALIZE_FIELD("priority", m_priority),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingEventTriggerData)
+    CRDTP_SERIALIZE_FIELD("data", m_data);
+    CRDTP_SERIALIZE_FIELD("priority", m_priority);
+    CRDTP_SERIALIZE_FIELD("dedupKey", m_dedupKey);
+    CRDTP_SERIALIZE_FIELD("filters", m_filters);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingAggregatableTriggerData)
+    CRDTP_DESERIALIZE_FIELD("filters", m_filters),
+    CRDTP_DESERIALIZE_FIELD("keyPiece", m_keyPiece),
+    CRDTP_DESERIALIZE_FIELD("sourceKeys", m_sourceKeys),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingAggregatableTriggerData)
+    CRDTP_SERIALIZE_FIELD("keyPiece", m_keyPiece);
+    CRDTP_SERIALIZE_FIELD("sourceKeys", m_sourceKeys);
+    CRDTP_SERIALIZE_FIELD("filters", m_filters);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingAggregatableDedupKey)
+    CRDTP_DESERIALIZE_FIELD_OPT("dedupKey", m_dedupKey),
+    CRDTP_DESERIALIZE_FIELD("filters", m_filters),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingAggregatableDedupKey)
+    CRDTP_SERIALIZE_FIELD("dedupKey", m_dedupKey);
+    CRDTP_SERIALIZE_FIELD("filters", m_filters);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingTriggerRegistration)
+    CRDTP_DESERIALIZE_FIELD("aggregatableDedupKeys", m_aggregatableDedupKeys),
+    CRDTP_DESERIALIZE_FIELD("aggregatableTriggerData", m_aggregatableTriggerData),
+    CRDTP_DESERIALIZE_FIELD("aggregatableValues", m_aggregatableValues),
+    CRDTP_DESERIALIZE_FIELD_OPT("aggregationCoordinatorOrigin", m_aggregationCoordinatorOrigin),
+    CRDTP_DESERIALIZE_FIELD_OPT("debugKey", m_debugKey),
+    CRDTP_DESERIALIZE_FIELD("debugReporting", m_debugReporting),
+    CRDTP_DESERIALIZE_FIELD("eventTriggerData", m_eventTriggerData),
+    CRDTP_DESERIALIZE_FIELD("filters", m_filters),
+    CRDTP_DESERIALIZE_FIELD("sourceRegistrationTimeConfig", m_sourceRegistrationTimeConfig),
+    CRDTP_DESERIALIZE_FIELD_OPT("triggerContextId", m_triggerContextId),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingTriggerRegistration)
+    CRDTP_SERIALIZE_FIELD("filters", m_filters);
+    CRDTP_SERIALIZE_FIELD("debugKey", m_debugKey);
+    CRDTP_SERIALIZE_FIELD("aggregatableDedupKeys", m_aggregatableDedupKeys);
+    CRDTP_SERIALIZE_FIELD("eventTriggerData", m_eventTriggerData);
+    CRDTP_SERIALIZE_FIELD("aggregatableTriggerData", m_aggregatableTriggerData);
+    CRDTP_SERIALIZE_FIELD("aggregatableValues", m_aggregatableValues);
+    CRDTP_SERIALIZE_FIELD("debugReporting", m_debugReporting);
+    CRDTP_SERIALIZE_FIELD("aggregationCoordinatorOrigin", m_aggregationCoordinatorOrigin);
+    CRDTP_SERIALIZE_FIELD("sourceRegistrationTimeConfig", m_sourceRegistrationTimeConfig);
+    CRDTP_SERIALIZE_FIELD("triggerContextId", m_triggerContextId);
+CRDTP_END_SERIALIZER();
+
+
+namespace AttributionReportingEventLevelResultEnum {
+const char Success[] = "success";
+const char SuccessDroppedLowerPriority[] = "successDroppedLowerPriority";
+const char InternalError[] = "internalError";
+const char NoCapacityForAttributionDestination[] = "noCapacityForAttributionDestination";
+const char NoMatchingSources[] = "noMatchingSources";
+const char Deduplicated[] = "deduplicated";
+const char ExcessiveAttributions[] = "excessiveAttributions";
+const char PriorityTooLow[] = "priorityTooLow";
+const char NeverAttributedSource[] = "neverAttributedSource";
+const char ExcessiveReportingOrigins[] = "excessiveReportingOrigins";
+const char NoMatchingSourceFilterData[] = "noMatchingSourceFilterData";
+const char ProhibitedByBrowserPolicy[] = "prohibitedByBrowserPolicy";
+const char NoMatchingConfigurations[] = "noMatchingConfigurations";
+const char ExcessiveReports[] = "excessiveReports";
+const char FalselyAttributedSource[] = "falselyAttributedSource";
+const char ReportWindowPassed[] = "reportWindowPassed";
+const char NotRegistered[] = "notRegistered";
+const char ReportWindowNotStarted[] = "reportWindowNotStarted";
+const char NoMatchingTriggerData[] = "noMatchingTriggerData";
+} // namespace AttributionReportingEventLevelResultEnum
+
+
+namespace AttributionReportingAggregatableResultEnum {
+const char Success[] = "success";
+const char InternalError[] = "internalError";
+const char NoCapacityForAttributionDestination[] = "noCapacityForAttributionDestination";
+const char NoMatchingSources[] = "noMatchingSources";
+const char ExcessiveAttributions[] = "excessiveAttributions";
+const char ExcessiveReportingOrigins[] = "excessiveReportingOrigins";
+const char NoHistograms[] = "noHistograms";
+const char InsufficientBudget[] = "insufficientBudget";
+const char NoMatchingSourceFilterData[] = "noMatchingSourceFilterData";
+const char NotRegistered[] = "notRegistered";
+const char ProhibitedByBrowserPolicy[] = "prohibitedByBrowserPolicy";
+const char Deduplicated[] = "deduplicated";
+const char ReportWindowPassed[] = "reportWindowPassed";
+const char ExcessiveReports[] = "excessiveReports";
+} // namespace AttributionReportingAggregatableResultEnum
 
 
 // ------------- Enum values from params.
@@ -446,6 +603,17 @@ void Frontend::attributionReportingSourceRegistered(std::unique_ptr<protocol::St
     serializer.AddField(crdtp::MakeSpan("registration"), registration);
     serializer.AddField(crdtp::MakeSpan("result"), result);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.attributionReportingSourceRegistered", serializer.Finish()));
+}
+
+void Frontend::attributionReportingTriggerRegistered(std::unique_ptr<protocol::Storage::AttributionReportingTriggerRegistration> registration, const String& eventLevel, const String& aggregatable)
+{
+    if (!frontend_channel_)
+        return;
+    crdtp::ObjectSerializer serializer;
+    serializer.AddField(crdtp::MakeSpan("registration"), registration);
+    serializer.AddField(crdtp::MakeSpan("eventLevel"), eventLevel);
+    serializer.AddField(crdtp::MakeSpan("aggregatable"), aggregatable);
+    frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.attributionReportingTriggerRegistered", serializer.Finish()));
 }
 
 void Frontend::flush()

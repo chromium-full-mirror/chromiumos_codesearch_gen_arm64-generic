@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PasswordCredential>::value,
     "PasswordCredential inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PasswordCredential::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PasswordCredential is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("PasswordCredential.password.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PasswordCredential* blink_receiver = V8PasswordCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->password();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PasswordCredential* blink_receiver = V8PasswordCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->password();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,10 +100,10 @@ BLINK_BINDINGS_TRACE_EVENT("PasswordCredential.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PasswordCredential* blink_receiver = V8PasswordCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PasswordCredential* blink_receiver = V8PasswordCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -120,10 +115,10 @@ BLINK_BINDINGS_TRACE_EVENT("PasswordCredential.iconURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PasswordCredential* blink_receiver = V8PasswordCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->iconURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PasswordCredential* blink_receiver = V8PasswordCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->iconURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

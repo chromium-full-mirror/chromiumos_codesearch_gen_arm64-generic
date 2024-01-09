@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -47,24 +48,33 @@ namespace network::mojom::blink {
 CookieAccessDetails::CookieAccessDetails()
     : type(),
       url(),
+      top_frame_origin(),
       site_for_cookies(),
       cookie_list(),
       devtools_request_id(),
-      count(1U) {}
+      count(1U),
+      is_ad_tagged(),
+      cookie_setting_overrides() {}
 
 CookieAccessDetails::CookieAccessDetails(
     CookieAccessDetails::Type type_in,
     const ::blink::KURL& url_in,
+    const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin_in,
     const ::net::SiteForCookies& site_for_cookies_in,
     WTF::Vector<::network::mojom::blink::CookieOrLineWithAccessResultPtr> cookie_list_in,
     const WTF::String& devtools_request_id_in,
-    uint32_t count_in)
+    uint32_t count_in,
+    bool is_ad_tagged_in,
+    ::network::mojom::blink::CookieSettingOverridesPtr cookie_setting_overrides_in)
     : type(std::move(type_in)),
       url(std::move(url_in)),
+      top_frame_origin(std::move(top_frame_origin_in)),
       site_for_cookies(std::move(site_for_cookies_in)),
       cookie_list(std::move(cookie_list_in)),
       devtools_request_id(std::move(devtools_request_id_in)),
-      count(std::move(count_in)) {}
+      count(std::move(count_in)),
+      is_ad_tagged(std::move(is_ad_tagged_in)),
+      cookie_setting_overrides(std::move(cookie_setting_overrides_in)) {}
 
 CookieAccessDetails::~CookieAccessDetails() = default;
 
@@ -85,6 +95,15 @@ void CookieAccessDetails::WriteIntoTrace(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::blink::KURL&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "top_frame_origin"), this->top_frame_origin,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::scoped_refptr<const ::blink::SecurityOrigin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -121,6 +140,24 @@ void CookieAccessDetails::WriteIntoTrace(
       "count"), this->count,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_ad_tagged"), this->is_ad_tagged,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "cookie_setting_overrides"), this->cookie_setting_overrides,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::network::mojom::blink::CookieSettingOverridesPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -223,14 +260,17 @@ void CookieAccessObserverProxy::OnCookiesAccessed(
                         "<value of type WTF::Vector<CookieAccessDetailsPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieAccessObserver_OnCookiesAccessed_Name, kFlags, 0, 0, nullptr);
@@ -273,14 +313,17 @@ void CookieAccessObserverProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<CookieAccessObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieAccessObserver_Clone_Name, kFlags, 0, 0, nullptr);
@@ -385,12 +428,12 @@ bool CookieAccessObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCookieAccessObserverValidationInfo[] = {
-    {&internal::CookieAccessObserver_OnCookiesAccessed_Params_Data::Validate,
+    { &internal::CookieAccessObserver_OnCookiesAccessed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CookieAccessObserver_Clone_Params_Data::Validate,
+    { &internal::CookieAccessObserver_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -418,6 +461,8 @@ bool StructTraits<::network::mojom::blink::CookieAccessDetails::DataView, ::netw
         success = false;
       if (success && !input.ReadUrl(&result->url))
         success = false;
+      if (success && !input.ReadTopFrameOrigin(&result->top_frame_origin))
+        success = false;
       if (success && !input.ReadSiteForCookies(&result->site_for_cookies))
         success = false;
       if (success && !input.ReadCookieList(&result->cookie_list))
@@ -426,6 +471,10 @@ bool StructTraits<::network::mojom::blink::CookieAccessDetails::DataView, ::netw
         success = false;
       if (success)
         result->count = input.count();
+      if (success)
+        result->is_ad_tagged = input.is_ad_tagged();
+      if (success && !input.ReadCookieSettingOverrides(&result->cookie_setting_overrides))
+        success = false;
   *output = std::move(result);
   return success;
 }

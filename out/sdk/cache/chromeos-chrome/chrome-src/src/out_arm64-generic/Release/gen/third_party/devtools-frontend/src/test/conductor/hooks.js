@@ -3,7 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDevToolsFrontendHostname = exports.collectCoverageFromPage = exports.postFileTeardown = exports.preFileSetup = exports.reloadDevTools = exports.resetPages = exports.unregisterAllServiceWorkers = void 0;
+exports.getDevToolsFrontendHostname = exports.collectCoverageFromPage = exports.postFileTeardown = exports.preFileSetup = exports.reloadDevTools = exports.resetPages = exports.unregisterAllServiceWorkers = exports.watchForHang = void 0;
 /* eslint-disable no-console */
 // use require here due to
 // https://github.com/evanw/esbuild/issues/587#issuecomment-901397213
@@ -34,6 +34,23 @@ let frontendTab;
 let targetTab;
 const envChromeBinary = (0, test_runner_config_js_1.getTestRunnerConfigSetting)('chrome-binary-path', process.env['CHROME_BIN'] || '');
 const envChromeFeatures = (0, test_runner_config_js_1.getTestRunnerConfigSetting)('chrome-features', process.env['CHROME_FEATURES'] || '');
+async function watchForHang(stepFn) {
+    const stackTrace = new Error().stack;
+    const timeout = setTimeout(() => console.error(`Hung at step ${stepFn.name || stepFn.toString()}\nTrace: ${stackTrace}`), 10000);
+    let isException = true;
+    try {
+        const result = await stepFn();
+        isException = false;
+        return result;
+    }
+    finally {
+        clearTimeout(timeout);
+        if (isException) {
+            console.error(`Exception thrown during step ${stepFn.name || stepFn.toString()}\nTrace: ${stackTrace}`);
+        }
+    }
+}
+exports.watchForHang = watchForHang;
 function launchChrome() {
     // Use port 0 to request any free port.
     const enabledFeatures = [
@@ -57,7 +74,7 @@ function launchChrome() {
     const opts = {
         headless: headless ? 'new' : false,
         executablePath: envChromeBinary,
-        dumpio: !headless,
+        dumpio: !headless || Boolean(process.env['LUCI_CONTEXT']),
         slowMo: envSlowMo,
     };
     // Always set the default viewport because setting only the window size for
@@ -119,17 +136,18 @@ async function unregisterAllServiceWorkers() {
 }
 exports.unregisterAllServiceWorkers = unregisterAllServiceWorkers;
 async function resetPages() {
-    await targetTab.reset();
-    const { frontend } = (0, puppeteer_state_js_1.getBrowserAndPages)();
-    await throttleCPUIfRequired(frontend);
-    await delayPromisesIfRequired(frontend);
-    await frontend.bringToFront();
+    const { frontend, target } = (0, puppeteer_state_js_1.getBrowserAndPages)();
+    await watchForHang(() => target.bringToFront());
+    await watchForHang(() => targetTab.reset());
+    await watchForHang(() => frontend.bringToFront());
+    await watchForHang(() => throttleCPUIfRequired(frontend));
+    await watchForHang(() => delayPromisesIfRequired(frontend));
     if (TEST_SERVER_TYPE === 'hosted-mode') {
-        await frontendTab.reset();
+        await watchForHang(() => frontendTab.reset());
     }
     else if (TEST_SERVER_TYPE === 'component-docs') {
         // Reset the frontend back to an empty page for the component docs server.
-        await (0, frontend_tab_js_1.loadEmptyPageAndWaitForContent)(frontend);
+        await watchForHang(() => (0, frontend_tab_js_1.loadEmptyPageAndWaitForContent)(frontend));
     }
 }
 exports.resetPages = resetPages;

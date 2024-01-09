@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-some-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -179,7 +180,7 @@ TF_BUILTIN(ArraySomeLoopEagerDeoptContinuation, CodeStubAssembler) {
     ca_.Bind(&block15);
     tmp8 = Undefined_0(state_);
     tmp9 = Undefined_0(state_);
-    tmp10 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArraySomeLoopContinuation), parameter0, tmp0, tmp2, parameter3, tmp8, tmp0, tmp4, tmp6, tmp9);
+    tmp10 = ca_.CallBuiltin<Object>(Builtin::kArraySomeLoopContinuation, parameter0, tmp0, tmp2, parameter3, tmp8, tmp0, tmp4, tmp6, tmp9);
     CodeStubAssembler(state_).Return(tmp10);
   }
 }
@@ -306,7 +307,7 @@ TF_BUILTIN(ArraySomeLoopLazyDeoptContinuation, CodeStubAssembler) {
     tmp11 = CodeStubAssembler(state_).NumberAdd(TNode<Number>{tmp4}, TNode<Number>{tmp10});
     tmp12 = Undefined_0(state_);
     tmp13 = Undefined_0(state_);
-    tmp14 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArraySomeLoopContinuation), parameter0, tmp0, tmp2, parameter3, tmp12, tmp0, tmp11, tmp6, tmp13);
+    tmp14 = ca_.CallBuiltin<Object>(Builtin::kArraySomeLoopContinuation, parameter0, tmp0, tmp2, parameter3, tmp12, tmp0, tmp11, tmp6, tmp13);
     CodeStubAssembler(state_).Return(tmp14);
   }
 }
@@ -793,7 +794,7 @@ TF_BUILTIN(ArraySome, CodeStubAssembler) {
     ca_.Bind(&block10);
     tmp14 = Undefined_0(state_);
     tmp15 = Undefined_0(state_);
-    tmp16 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArraySomeLoopContinuation), parameter0, tmp1, tmp7, tmp10, tmp14, tmp1, tmp13.value(), tmp2, tmp15);
+    tmp16 = ca_.CallBuiltin<Object>(Builtin::kArraySomeLoopContinuation, parameter0, tmp1, tmp7, tmp10, tmp14, tmp1, tmp13.value(), tmp2, tmp15);
     arguments.PopAndReturn(tmp16);
   }
 

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,11 +30,11 @@ namespace login_state {
 // Types
 //
 
-enum  ProfileType {
-  PROFILE_TYPE_NONE = 0,
-  PROFILE_TYPE_SIGNIN_PROFILE,
-  PROFILE_TYPE_USER_PROFILE,
-  PROFILE_TYPE_LAST = PROFILE_TYPE_USER_PROFILE,
+enum class ProfileType {
+  kNone = 0,
+  kSigninProfile,
+  kUserProfile,
+  kMaxValue = kUserProfile,
 };
 
 
@@ -41,15 +42,15 @@ const char* ToString(ProfileType as_enum);
 ProfileType ParseProfileType(base::StringPiece as_string);
 std::u16string GetProfileTypeParseError(base::StringPiece as_string);
 
-enum  SessionState {
-  SESSION_STATE_NONE = 0,
-  SESSION_STATE_UNKNOWN,
-  SESSION_STATE_IN_OOBE_SCREEN,
-  SESSION_STATE_IN_LOGIN_SCREEN,
-  SESSION_STATE_IN_SESSION,
-  SESSION_STATE_IN_LOCK_SCREEN,
-  SESSION_STATE_IN_RMA_SCREEN,
-  SESSION_STATE_LAST = SESSION_STATE_IN_RMA_SCREEN,
+enum class SessionState {
+  kNone = 0,
+  kUnknown,
+  kInOobeScreen,
+  kInLoginScreen,
+  kInSession,
+  kInLockScreen,
+  kInRmaScreen,
+  kMaxValue = kInRmaScreen,
 };
 
 

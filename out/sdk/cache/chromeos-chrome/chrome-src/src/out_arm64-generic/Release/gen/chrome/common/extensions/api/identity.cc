@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/identity.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ AccountInfo::AccountInfo()
  {}
 
 AccountInfo::~AccountInfo() = default;
-AccountInfo::AccountInfo(AccountInfo&& rhs) = default;
-AccountInfo& AccountInfo::operator=(AccountInfo&& rhs) = default;
+AccountInfo::AccountInfo(AccountInfo&& rhs) noexcept = default;
+AccountInfo& AccountInfo::operator=(AccountInfo&& rhs) noexcept = default;
 AccountInfo AccountInfo::Clone() const {
   AccountInfo out;
   out.id = id;
@@ -74,34 +75,21 @@ bool AccountInfo::Populate(
 }
 
 // static
-std::unique_ptr<AccountInfo> AccountInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AccountInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AccountInfo> AccountInfo::FromValue(const base::Value::Dict& value) {
+  AccountInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AccountInfo> AccountInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AccountInfo> AccountInfo::FromValue(const base::Value& value) {
   AccountInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AccountInfo> AccountInfo::FromValue(const base::Value& value) {
-  AccountInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -118,11 +106,11 @@ base::Value::Dict AccountInfo::ToValue() const {
 
 const char* ToString(AccountStatus enum_param) {
   switch (enum_param) {
-    case ACCOUNT_STATUS_SYNC:
+    case AccountStatus::kSync:
       return "SYNC";
-    case ACCOUNT_STATUS_ANY:
+    case AccountStatus::kAny:
       return "ANY";
-    case ACCOUNT_STATUS_NONE:
+    case AccountStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -131,10 +119,10 @@ const char* ToString(AccountStatus enum_param) {
 
 AccountStatus ParseAccountStatus(base::StringPiece enum_string) {
   if (enum_string == "SYNC")
-    return ACCOUNT_STATUS_SYNC;
+    return AccountStatus::kSync;
   if (enum_string == "ANY")
-    return ACCOUNT_STATUS_ANY;
-  return ACCOUNT_STATUS_NONE;
+    return AccountStatus::kAny;
+  return AccountStatus::kNone;
 }
 
 std::u16string GetAccountStatusParseError(base::StringPiece enum_string) {
@@ -146,8 +134,8 @@ ProfileDetails::ProfileDetails()
 : account_status() {}
 
 ProfileDetails::~ProfileDetails() = default;
-ProfileDetails::ProfileDetails(ProfileDetails&& rhs) = default;
-ProfileDetails& ProfileDetails::operator=(ProfileDetails&& rhs) = default;
+ProfileDetails::ProfileDetails(ProfileDetails&& rhs) noexcept = default;
+ProfileDetails& ProfileDetails::operator=(ProfileDetails&& rhs) noexcept = default;
 ProfileDetails ProfileDetails::Clone() const {
   ProfileDetails out;
   out.account_status = account_status;
@@ -187,34 +175,21 @@ bool ProfileDetails::Populate(
 }
 
 // static
-std::unique_ptr<ProfileDetails> ProfileDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProfileDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProfileDetails> ProfileDetails::FromValue(const base::Value::Dict& value) {
+  ProfileDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProfileDetails> ProfileDetails::FromValue(const base::Value::Dict& value) {
+std::optional<ProfileDetails> ProfileDetails::FromValue(const base::Value& value) {
   ProfileDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProfileDetails> ProfileDetails::FromValue(const base::Value& value) {
-  ProfileDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -235,8 +210,8 @@ ProfileUserInfo::ProfileUserInfo()
  {}
 
 ProfileUserInfo::~ProfileUserInfo() = default;
-ProfileUserInfo::ProfileUserInfo(ProfileUserInfo&& rhs) = default;
-ProfileUserInfo& ProfileUserInfo::operator=(ProfileUserInfo&& rhs) = default;
+ProfileUserInfo::ProfileUserInfo(ProfileUserInfo&& rhs) noexcept = default;
+ProfileUserInfo& ProfileUserInfo::operator=(ProfileUserInfo&& rhs) noexcept = default;
 ProfileUserInfo ProfileUserInfo::Clone() const {
   ProfileUserInfo out;
   out.email = email;
@@ -284,34 +259,21 @@ bool ProfileUserInfo::Populate(
 }
 
 // static
-std::unique_ptr<ProfileUserInfo> ProfileUserInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProfileUserInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProfileUserInfo> ProfileUserInfo::FromValue(const base::Value::Dict& value) {
+  ProfileUserInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProfileUserInfo> ProfileUserInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ProfileUserInfo> ProfileUserInfo::FromValue(const base::Value& value) {
   ProfileUserInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProfileUserInfo> ProfileUserInfo::FromValue(const base::Value& value) {
-  ProfileUserInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -332,8 +294,8 @@ TokenDetails::TokenDetails()
  {}
 
 TokenDetails::~TokenDetails() = default;
-TokenDetails::TokenDetails(TokenDetails&& rhs) = default;
-TokenDetails& TokenDetails::operator=(TokenDetails&& rhs) = default;
+TokenDetails::TokenDetails(TokenDetails&& rhs) noexcept = default;
+TokenDetails& TokenDetails::operator=(TokenDetails&& rhs) noexcept = default;
 TokenDetails TokenDetails::Clone() const {
   TokenDetails out;
   out.interactive = interactive;
@@ -353,7 +315,7 @@ bool TokenDetails::Populate(
     {
       auto temp = (*interactive_value).GetIfBool();
       if (!temp.has_value()) {
-        out.interactive = absl::nullopt;
+        out.interactive = std::nullopt;
         return false;
       }
       out.interactive = *temp;
@@ -394,7 +356,7 @@ bool TokenDetails::Populate(
     {
       auto temp = (*enable_granular_permissions_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enable_granular_permissions = absl::nullopt;
+        out.enable_granular_permissions = std::nullopt;
         return false;
       }
       out.enable_granular_permissions = *temp;
@@ -414,34 +376,21 @@ bool TokenDetails::Populate(
 }
 
 // static
-std::unique_ptr<TokenDetails> TokenDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TokenDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TokenDetails> TokenDetails::FromValue(const base::Value::Dict& value) {
+  TokenDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TokenDetails> TokenDetails::FromValue(const base::Value::Dict& value) {
+std::optional<TokenDetails> TokenDetails::FromValue(const base::Value& value) {
   TokenDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TokenDetails> TokenDetails::FromValue(const base::Value& value) {
-  TokenDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -474,8 +423,8 @@ InvalidTokenDetails::InvalidTokenDetails()
  {}
 
 InvalidTokenDetails::~InvalidTokenDetails() = default;
-InvalidTokenDetails::InvalidTokenDetails(InvalidTokenDetails&& rhs) = default;
-InvalidTokenDetails& InvalidTokenDetails::operator=(InvalidTokenDetails&& rhs) = default;
+InvalidTokenDetails::InvalidTokenDetails(InvalidTokenDetails&& rhs) noexcept = default;
+InvalidTokenDetails& InvalidTokenDetails::operator=(InvalidTokenDetails&& rhs) noexcept = default;
 InvalidTokenDetails InvalidTokenDetails::Clone() const {
   InvalidTokenDetails out;
   out.token = token;
@@ -510,34 +459,21 @@ bool InvalidTokenDetails::Populate(
 }
 
 // static
-std::unique_ptr<InvalidTokenDetails> InvalidTokenDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InvalidTokenDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InvalidTokenDetails> InvalidTokenDetails::FromValue(const base::Value::Dict& value) {
+  InvalidTokenDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InvalidTokenDetails> InvalidTokenDetails::FromValue(const base::Value::Dict& value) {
+std::optional<InvalidTokenDetails> InvalidTokenDetails::FromValue(const base::Value& value) {
   InvalidTokenDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InvalidTokenDetails> InvalidTokenDetails::FromValue(const base::Value& value) {
-  InvalidTokenDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -556,8 +492,8 @@ WebAuthFlowDetails::WebAuthFlowDetails()
  {}
 
 WebAuthFlowDetails::~WebAuthFlowDetails() = default;
-WebAuthFlowDetails::WebAuthFlowDetails(WebAuthFlowDetails&& rhs) = default;
-WebAuthFlowDetails& WebAuthFlowDetails::operator=(WebAuthFlowDetails&& rhs) = default;
+WebAuthFlowDetails::WebAuthFlowDetails(WebAuthFlowDetails&& rhs) noexcept = default;
+WebAuthFlowDetails& WebAuthFlowDetails::operator=(WebAuthFlowDetails&& rhs) noexcept = default;
 WebAuthFlowDetails WebAuthFlowDetails::Clone() const {
   WebAuthFlowDetails out;
   out.url = url;
@@ -587,7 +523,7 @@ bool WebAuthFlowDetails::Populate(
     {
       auto temp = (*interactive_value).GetIfBool();
       if (!temp.has_value()) {
-        out.interactive = absl::nullopt;
+        out.interactive = std::nullopt;
         return false;
       }
       out.interactive = *temp;
@@ -599,7 +535,7 @@ bool WebAuthFlowDetails::Populate(
     {
       auto temp = (*abort_on_load_for_non_interactive_value).GetIfBool();
       if (!temp.has_value()) {
-        out.abort_on_load_for_non_interactive = absl::nullopt;
+        out.abort_on_load_for_non_interactive = std::nullopt;
         return false;
       }
       out.abort_on_load_for_non_interactive = *temp;
@@ -611,7 +547,7 @@ bool WebAuthFlowDetails::Populate(
     {
       auto temp = (*timeout_ms_for_non_interactive_value).GetIfInt();
       if (!temp.has_value()) {
-        out.timeout_ms_for_non_interactive = absl::nullopt;
+        out.timeout_ms_for_non_interactive = std::nullopt;
         return false;
       }
       out.timeout_ms_for_non_interactive = *temp;
@@ -631,34 +567,21 @@ bool WebAuthFlowDetails::Populate(
 }
 
 // static
-std::unique_ptr<WebAuthFlowDetails> WebAuthFlowDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<WebAuthFlowDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<WebAuthFlowDetails> WebAuthFlowDetails::FromValue(const base::Value::Dict& value) {
+  WebAuthFlowDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<WebAuthFlowDetails> WebAuthFlowDetails::FromValue(const base::Value::Dict& value) {
+std::optional<WebAuthFlowDetails> WebAuthFlowDetails::FromValue(const base::Value& value) {
   WebAuthFlowDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<WebAuthFlowDetails> WebAuthFlowDetails::FromValue(const base::Value& value) {
-  WebAuthFlowDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -689,8 +612,8 @@ GetAuthTokenResult::GetAuthTokenResult()
  {}
 
 GetAuthTokenResult::~GetAuthTokenResult() = default;
-GetAuthTokenResult::GetAuthTokenResult(GetAuthTokenResult&& rhs) = default;
-GetAuthTokenResult& GetAuthTokenResult::operator=(GetAuthTokenResult&& rhs) = default;
+GetAuthTokenResult::GetAuthTokenResult(GetAuthTokenResult&& rhs) noexcept = default;
+GetAuthTokenResult& GetAuthTokenResult::operator=(GetAuthTokenResult&& rhs) noexcept = default;
 GetAuthTokenResult GetAuthTokenResult::Clone() const {
   GetAuthTokenResult out;
   out.token = token;
@@ -706,7 +629,7 @@ bool GetAuthTokenResult::Populate(
     {
       auto* temp = (*token_value).GetIfString();
       if (!temp) {
-        out.token = absl::nullopt;
+        out.token = std::nullopt;
         return false;
       }
       out.token = *temp;
@@ -740,34 +663,21 @@ bool GetAuthTokenResult::Populate(
 }
 
 // static
-std::unique_ptr<GetAuthTokenResult> GetAuthTokenResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetAuthTokenResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetAuthTokenResult> GetAuthTokenResult::FromValue(const base::Value::Dict& value) {
+  GetAuthTokenResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetAuthTokenResult> GetAuthTokenResult::FromValue(const base::Value::Dict& value) {
+std::optional<GetAuthTokenResult> GetAuthTokenResult::FromValue(const base::Value& value) {
   GetAuthTokenResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetAuthTokenResult> GetAuthTokenResult::FromValue(const base::Value& value) {
-  GetAuthTokenResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -808,13 +718,13 @@ namespace GetAuthToken {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -823,12 +733,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         TokenDetails temp;
         if (!TokenDetails::Populate(details_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.details = std::move(temp);
       }
     }
@@ -851,13 +761,13 @@ namespace GetProfileUserInfo {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -866,12 +776,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         ProfileDetails temp;
         if (!ProfileDetails::Populate(details_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.details = std::move(temp);
       }
     }
@@ -894,13 +804,13 @@ namespace RemoveCachedAuthToken {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -909,15 +819,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!InvalidTokenDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -944,13 +854,13 @@ namespace LaunchWebAuthFlow {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -959,15 +869,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!WebAuthFlowDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

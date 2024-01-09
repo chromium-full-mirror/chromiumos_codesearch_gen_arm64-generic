@@ -4,46 +4,44 @@
 #include "login_screen_storage_index.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace login_manager {
+template <typename>
 PROTOBUF_CONSTEXPR LoginScreenStorageIndex::LoginScreenStorageIndex(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.keys_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct LoginScreenStorageIndexDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR LoginScreenStorageIndexDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR LoginScreenStorageIndexDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~LoginScreenStorageIndexDefaultTypeInternal() {}
   union {
     LoginScreenStorageIndex _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoginScreenStorageIndexDefaultTypeInternal _LoginScreenStorageIndex_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoginScreenStorageIndexDefaultTypeInternal _LoginScreenStorageIndex_default_instance_;
 }  // namespace login_manager
 namespace login_manager {
-
 // ===================================================================
 
 class LoginScreenStorageIndex::_Internal {
  public:
 };
 
-LoginScreenStorageIndex::LoginScreenStorageIndex(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+LoginScreenStorageIndex::LoginScreenStorageIndex(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:login_manager.LoginScreenStorageIndex)
 }
 LoginScreenStorageIndex::LoginScreenStorageIndex(const LoginScreenStorageIndex& from)
@@ -57,10 +55,8 @@ LoginScreenStorageIndex::LoginScreenStorageIndex(const LoginScreenStorageIndex& 
   // @@protoc_insertion_point(copy_constructor:login_manager.LoginScreenStorageIndex)
 }
 
-inline void LoginScreenStorageIndex::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void LoginScreenStorageIndex::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.keys_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -77,8 +73,8 @@ LoginScreenStorageIndex::~LoginScreenStorageIndex() {
 }
 
 inline void LoginScreenStorageIndex::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.keys_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_keys()->~RepeatedPtrField();
 }
 
 void LoginScreenStorageIndex::SetCachedSize(int size) const {
@@ -87,23 +83,23 @@ void LoginScreenStorageIndex::SetCachedSize(int size) const {
 
 void LoginScreenStorageIndex::Clear() {
 // @@protoc_insertion_point(message_clear_start:login_manager.LoginScreenStorageIndex)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.keys_.Clear();
+  _internal_mutable_keys()->Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* LoginScreenStorageIndex::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string keys = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -112,8 +108,9 @@ const char* LoginScreenStorageIndex::_InternalParse(const char* ptr, ::_pbi::Par
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -138,14 +135,14 @@ failure:
 #undef CHK_
 }
 
-uint8_t* LoginScreenStorageIndex::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* LoginScreenStorageIndex::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:login_manager.LoginScreenStorageIndex)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated string keys = 1;
-  for (int i = 0, n = this->_internal_keys_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_keys_size(); i < n; ++i) {
     const auto& s = this->_internal_keys(i);
     target = stream->WriteString(1, s, target);
   }
@@ -158,20 +155,19 @@ uint8_t* LoginScreenStorageIndex::_InternalSerialize(
   return target;
 }
 
-size_t LoginScreenStorageIndex::ByteSizeLong() const {
+::size_t LoginScreenStorageIndex::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:login_manager.LoginScreenStorageIndex)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated string keys = 1;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.keys_.size());
-  for (int i = 0, n = _impl_.keys_.size(); i < n; i++) {
+  total_size += 1 * ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_internal_keys().size());
+  for (int i = 0, n = _internal_keys().size(); i < n; ++i) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      _impl_.keys_.Get(i));
+        _internal_keys().Get(i));
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -191,11 +187,11 @@ void LoginScreenStorageIndex::CheckTypeAndMergeFrom(
 void LoginScreenStorageIndex::MergeFrom(const LoginScreenStorageIndex& from) {
   LoginScreenStorageIndex* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:login_manager.LoginScreenStorageIndex)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.keys_.MergeFrom(from._impl_.keys_);
+  _this->_internal_mutable_keys()->MergeFrom(from._internal_keys());
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -213,13 +209,13 @@ bool LoginScreenStorageIndex::IsInitialized() const {
 void LoginScreenStorageIndex::InternalSwap(LoginScreenStorageIndex* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.keys_.InternalSwap(&other->_impl_.keys_);
+  _internal_mutable_keys()->InternalSwap(
+      other->_internal_mutable_keys());
 }
 
 std::string LoginScreenStorageIndex::GetTypeName() const {
   return "login_manager.LoginScreenStorageIndex";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace login_manager
@@ -229,6 +225,5 @@ Arena::CreateMaybeMessage< ::login_manager::LoginScreenStorageIndex >(Arena* are
   return Arena::CreateMessageInternal< ::login_manager::LoginScreenStorageIndex >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

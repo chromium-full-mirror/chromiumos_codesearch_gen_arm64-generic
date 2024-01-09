@@ -4,15 +4,16 @@
 
 import 'chrome://resources/cr_elements/icons.html.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
-import './shimless_rma_shared_css.js';
+import './shimless_rma_shared.css.js';
 import './base_page.js';
-import './icons.js';
+import './icons.html.js';
 
 import {I18nBehavior, I18nBehaviorInterface} from 'chrome://resources/ash/common/i18n_behavior.js';
-import {html, mixinBehaviors, PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import {mixinBehaviors, PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 
 import {getShimlessRmaService} from './mojo_interface_provider.js';
-import {HardwareVerificationStatusObserverInterface, HardwareVerificationStatusObserverReceiver, ShimlessRmaServiceInterface, StateResult} from './shimless_rma_types.js';
+import {getTemplate} from './onboarding_landing_page.html.js';
+import {HardwareVerificationStatusObserverInterface, HardwareVerificationStatusObserverReceiver, ShimlessRmaServiceInterface, StateResult} from './shimless_rma.mojom-webui.js';
 import {enableNextButton, executeThenTransitionState, focusPageTitle} from './shimless_rma_util.js';
 
 /**
@@ -36,103 +37,7 @@ export class OnboardingLandingPage extends OnboardingLandingPageBase {
   }
 
   static get template() {
-    return html`<!--_html_template_start_-->
-<style include="cr-shared-style shimless-rma-shared">
-  #nextButtonCaret {
-    margin-inline-start: 5px;
-  }
-
-  #navigationButtonWrapper {
-    bottom: var(--header-footer-height);
-    position: absolute;
-  }
-
-  #getStartedButton {
-    margin-inline-end: 8px;
-  }
-
-  #unqualifiedComponentsLink {
-    color: var(--cros-link-color);
-  }
-
-  .button-spinner {
-    height: 20px;
-    margin-inline-start: 5px;
-    width: 20px;
-  }
-
-  iron-icon[icon='shimless-icon:warning'] {
-    fill: var(--cros-icon-color-warning);
-  }
-</style>
-
-<base-page>
-  <div slot="left-pane">
-    <h1 tabindex="-1">[[i18n('welcomeTitleText')]]</h1>
-    <div class="instructions">[[i18n('beginRmaWarningText')]]</div>
-    <div id="verificationMessage" class="icon-message">
-      <paper-spinner-lite id="busyIcon" class="small-spinner"
-          hidden$="[[!verificationInProgress_]]" active>
-      </paper-spinner-lite>
-      <iron-icon id="verificationIcon"
-        icon$="[[getVerificationIcon_(isCompliant_)]]"
-        hidden$="[[verificationInProgress_]]" class="small-icon">
-      </iron-icon>
-      <div aria-live="polite">
-        <span hidden$="[[!verificationInProgress_]]" class="instructions">
-          [[i18n('validatingComponentsText')]]
-        </span>
-        <span hidden$="[[verificationInProgress_]]" class="instructions">
-          <span hidden$="[[!isCompliant_]]">
-            [[i18n('validatedComponentsSuccessText')]]
-          </span>
-          <span inner-h-t-m-l="[[verificationFailedMessage_]]"
-              hidden$="[[isCompliant_]]" class="instructions">
-          </span>
-        </span>
-      </div>
-    </div>
-    <div id="navigationButtonWrapper">
-      <cr-button id="getStartedButton" class="action-button"
-          on-click="onGetStartedButtonClicked_"
-          disabled="[[isGetStartedButtonDisabled_(verificationInProgress_,
-          allButtonsDisabled)]]">
-        [[i18n('getStartedButtonLabel')]]
-        <paper-spinner-lite class="button-spinner"
-            hidden$="[[!getStartedButtonClicked]]" active>
-        </paper-spinner-lite>
-      </cr-button>
-      <cr-button id="landingExit" class="pill"
-          on-click="onLandingExitButtonClicked_"
-          disabled="[[allButtonsDisabled]]">
-        <span id="exitButtonLabel">
-          [[i18n('exitButtonLabel')]]
-        </span>
-        <paper-spinner-lite class="button-spinner"
-            hidden$="[[!confirmExitButtonClicked]]" active>
-        </paper-spinner-lite>
-      </cr-button>
-    </div>
-  </div>
-  <div slot="right-pane">
-    <div class="illustration-wrapper" aria-hidden="true">
-      <img class="illustration" src="illustrations/repair_start.svg"
-          alt="[[i18n('repairStartAltText')]]">
-    </div>
-  </div>
-</base-page>
-
-<cr-dialog id="unqualifiedComponentsDialog" on-cancel="closeDialog_"
-    ignore-popstate>
-  <div slot="title">[[i18n('unqualifiedComponentsTitle')]]</div>
-  <div slot="body" id="dialogBody">[[componentsList_]]</div>
-  <div class="dialog-footer" slot="button-container">
-    <cr-button class="action-button" on-click="closeDialog_">
-      [[i18n('okButtonLabel')]]
-    </cr-button>
-  </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
+    return getTemplate();
   }
 
   static get properties() {
@@ -147,22 +52,22 @@ export class OnboardingLandingPage extends OnboardingLandingPageBase {
        * List of unqualified components from rmad service, not i18n.
        * @protected
        */
-      componentsList_: {
+      componentsList: {
         type: String,
         value: '',
       },
 
       /** @protected */
-      verificationInProgress_: {
+      verificationInProgress: {
         type: Boolean,
         value: true,
       },
 
       /**
-       * isCompliant_ is not valid until verificationInProgress_ is false.
+       * isCompliant is not valid until verificationInProgress is false.
        * @protected
        */
-      isCompliant_: {
+      isCompliant: {
         type: Boolean,
         value: false,
       },
@@ -186,7 +91,7 @@ export class OnboardingLandingPage extends OnboardingLandingPageBase {
       },
 
       /** @protected */
-      verificationFailedMessage_: {
+      verificationFailedMessage: {
         type: String,
         value: '',
       },
@@ -196,17 +101,17 @@ export class OnboardingLandingPage extends OnboardingLandingPageBase {
   constructor() {
     super();
     /** @private {ShimlessRmaServiceInterface} */
-    this.shimlessRmaService_ = getShimlessRmaService();
+    this.shimlessRmaService = getShimlessRmaService();
     /** @protected {?HardwareVerificationStatusObserverReceiver} */
-    this.hwVerificationObserverReceiver_ =
+    this.hwVerificationObserverReceiver =
         new HardwareVerificationStatusObserverReceiver(
             /**
              * @type {!HardwareVerificationStatusObserverInterface}
              */
             (this));
 
-    this.shimlessRmaService_.observeHardwareVerificationStatus(
-        this.hwVerificationObserverReceiver_.$.bindNewPipeAndPassRemote());
+    this.shimlessRmaService.observeHardwareVerificationStatus(
+        this.hwVerificationObserverReceiver.$.bindNewPipeAndPassRemote());
   }
 
   /** @override */
@@ -218,22 +123,22 @@ export class OnboardingLandingPage extends OnboardingLandingPageBase {
 
   /** @return {!Promise<{stateResult: !StateResult}>} */
   onNextButtonClick() {
-    if (!this.verificationInProgress_) {
-      return this.shimlessRmaService_.beginFinalization();
+    if (!this.verificationInProgress) {
+      return this.shimlessRmaService.beginFinalization();
     }
 
     return Promise.reject(new Error('Hardware verification is not complete.'));
   }
 
   /** @protected */
-  onGetStartedButtonClicked_(e) {
+  onGetStartedButtonClicked(e) {
     e.preventDefault();
 
     this.getStartedButtonClicked = true;
 
     executeThenTransitionState(this, () => {
-      if (!this.verificationInProgress_) {
-        return this.shimlessRmaService_.beginFinalization();
+      if (!this.verificationInProgress) {
+        return this.shimlessRmaService.beginFinalization();
       }
 
       return Promise.reject(
@@ -244,7 +149,7 @@ export class OnboardingLandingPage extends OnboardingLandingPageBase {
   /**
    * @protected
    */
-  onLandingExitButtonClicked_(e) {
+  onLandingExitButtonClicked(e) {
     e.preventDefault();
 
     this.dispatchEvent(new CustomEvent(
@@ -260,8 +165,8 @@ export class OnboardingLandingPage extends OnboardingLandingPageBase {
    * @return {string}
    * @protected
    */
-  getVerificationIcon_() {
-    return this.isCompliant_ ? 'shimless-icon:check' : 'shimless-icon:warning';
+  getVerificationIcon() {
+    return this.isCompliant ? 'shimless-icon:check' : 'shimless-icon:warning';
   }
 
   /**
@@ -271,18 +176,18 @@ export class OnboardingLandingPage extends OnboardingLandingPageBase {
    * @param {string} errorMessage
    */
   onHardwareVerificationResult(isCompliant, errorMessage) {
-    this.isCompliant_ = isCompliant;
-    this.verificationInProgress_ = false;
+    this.isCompliant = isCompliant;
+    this.verificationInProgress = false;
 
-    if (!this.isCompliant_) {
-      this.componentsList_ = errorMessage;
-      this.setVerificationFailedMessage_();
+    if (!this.isCompliant) {
+      this.componentsList = errorMessage;
+      this.setVerificationFailedMessage();
     }
   }
 
   /** @private */
-  setVerificationFailedMessage_() {
-    this.verificationFailedMessage_ =
+  setVerificationFailedMessage() {
+    this.verificationFailedMessage =
         this.i18nAdvanced('validatedComponentsFailText', {attrs: ['id']});
     const linkElement =
         this.shadowRoot.querySelector('#unqualifiedComponentsLink');
@@ -294,13 +199,13 @@ export class OnboardingLandingPage extends OnboardingLandingPageBase {
   }
 
   /** @private */
-  closeDialog_() {
+  closeDialog() {
     this.shadowRoot.querySelector('#unqualifiedComponentsDialog').close();
   }
 
   /** @protected */
-  isGetStartedButtonDisabled_() {
-    return this.verificationInProgress_ || this.allButtonsDisabled;
+  isGetStartedButtonDisabled() {
+    return this.verificationInProgress || this.allButtonsDisabled;
   }
 }
 

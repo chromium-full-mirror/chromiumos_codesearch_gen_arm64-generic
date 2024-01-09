@@ -171,6 +171,11 @@ typedef int (*cras_hotword_error_cb_t)(struct cras_client* client,
                                        int error,
                                        void* user_data);
 
+// Callback for handling get DSP offload info reply.
+typedef void (*get_dsp_offload_info_cb_t)(struct cras_client* client,
+                                          uint32_t num_infos,
+                                          struct cras_dsp_offload_info* infos);
+
 /*
  * Client handling.
  */
@@ -636,6 +641,9 @@ void cras_client_stream_params_set_client_type(
  * Args:
  *    params - Stream configuration parameters.
  */
+void cras_client_stream_params_set_effects_for_testing(
+    struct cras_stream_params* params,
+    uint32_t effects);
 void cras_client_stream_params_enable_aec(struct cras_stream_params* params);
 void cras_client_stream_params_disable_aec(struct cras_stream_params* params);
 void cras_client_stream_params_enable_ns(struct cras_stream_params* params);
@@ -1256,6 +1264,17 @@ int32_t cras_client_get_floop_dev_idx_by_client_types(
     struct cras_client* client,
     int64_t client_types_mask);
 
+/* Gets the set of DSP offload information.
+ *
+ * Args:
+ *    client - The client from cras_client_create.
+ *    cb - The function to be called when DSP offload information set is ready.
+ * Returns:
+ *    0 on success.
+ */
+int cras_client_get_dsp_offload_info(struct cras_client* client,
+                                     get_dsp_offload_info_cb_t cb);
+
 /* Output volume change callback.
  *
  * Args:
@@ -1274,7 +1293,7 @@ typedef void (*cras_client_output_volume_changed_callback)(void* context,
  *    muted - Non-zero when the audio is muted, zero otherwise.
  *    user_muted - Non-zero when the audio has been muted by the
  *                 user, zero otherwise.
- *    mute_locked - Non-zero when the mute funcion is locked,
+ *    mute_locked - Non-zero when the mute function is locked,
  *                  zero otherwise.
  */
 typedef void (*cras_client_output_mute_changed_callback)(void* context,
@@ -1298,7 +1317,7 @@ typedef void (*cras_client_capture_gain_changed_callback)(void* context,
  *    context - Context pointer set with
  *              cras_client_set_state_change_callback_context().
  *    muted - Non-zero when the audio is muted, zero otherwise.
- *    mute_locked - Non-zero when the mute funcion is locked,
+ *    mute_locked - Non-zero when the mute function is locked,
  *                  zero otherwise.
  */
 typedef void (*cras_client_capture_mute_changed_callback)(void* context,

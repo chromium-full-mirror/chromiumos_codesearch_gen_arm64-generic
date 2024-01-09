@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -312,14 +313,17 @@ void AudioSystemPropertiesObserverProxy::OnPropertiesUpdated(
                         "<value of type AudioSystemPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioSystemPropertiesObserver_OnPropertiesUpdated_Name, kFlags, 0, 0, nullptr);
@@ -398,10 +402,10 @@ bool AudioSystemPropertiesObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioSystemPropertiesObserverValidationInfo[] = {
-    {&internal::AudioSystemPropertiesObserver_OnPropertiesUpdated_Params_Data::Validate,
+    { &internal::AudioSystemPropertiesObserver_OnPropertiesUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -641,14 +645,17 @@ void CrosAudioConfigProxy::ObserveAudioSystemProperties(
                         "<value of type ::mojo::PendingRemote<AudioSystemPropertiesObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosAudioConfig_ObserveAudioSystemProperties_Name, kFlags, 0, 0, nullptr);
@@ -684,14 +691,17 @@ void CrosAudioConfigProxy::SetOutputMuted(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosAudioConfig_SetOutputMuted_Name, kFlags, 0, 0, nullptr);
@@ -722,14 +732,17 @@ void CrosAudioConfigProxy::SetOutputVolumePercent(
                         "<value of type int8_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosAudioConfig_SetOutputVolumePercent_Name, kFlags, 0, 0, nullptr);
@@ -760,14 +773,17 @@ void CrosAudioConfigProxy::SetInputGainPercent(
                         "<value of type uint8_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosAudioConfig_SetInputGainPercent_Name, kFlags, 0, 0, nullptr);
@@ -798,14 +814,17 @@ void CrosAudioConfigProxy::SetActiveDevice(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosAudioConfig_SetActiveDevice_Name, kFlags, 0, 0, nullptr);
@@ -836,14 +855,17 @@ void CrosAudioConfigProxy::SetInputMuted(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosAudioConfig_SetInputMuted_Name, kFlags, 0, 0, nullptr);
@@ -874,14 +896,17 @@ void CrosAudioConfigProxy::SetNoiseCancellationEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosAudioConfig_SetNoiseCancellationEnabled_Name, kFlags, 0, 0, nullptr);
@@ -912,14 +937,17 @@ void CrosAudioConfigProxy::SetForceRespectUiGainsEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosAudioConfig_SetForceRespectUiGainsEnabled_Name, kFlags, 0, 0, nullptr);
@@ -950,14 +978,17 @@ void CrosAudioConfigProxy::SetHfpMicSrEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosAudioConfig_SetHfpMicSrEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1260,26 +1291,26 @@ bool CrosAudioConfigStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosAudioConfigValidationInfo[] = {
-    {&internal::CrosAudioConfig_ObserveAudioSystemProperties_Params_Data::Validate,
+    { &internal::CrosAudioConfig_ObserveAudioSystemProperties_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosAudioConfig_SetOutputMuted_Params_Data::Validate,
+    { &internal::CrosAudioConfig_SetOutputMuted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosAudioConfig_SetOutputVolumePercent_Params_Data::Validate,
+    { &internal::CrosAudioConfig_SetOutputVolumePercent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosAudioConfig_SetInputGainPercent_Params_Data::Validate,
+    { &internal::CrosAudioConfig_SetInputGainPercent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosAudioConfig_SetActiveDevice_Params_Data::Validate,
+    { &internal::CrosAudioConfig_SetActiveDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosAudioConfig_SetInputMuted_Params_Data::Validate,
+    { &internal::CrosAudioConfig_SetInputMuted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosAudioConfig_SetNoiseCancellationEnabled_Params_Data::Validate,
+    { &internal::CrosAudioConfig_SetNoiseCancellationEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosAudioConfig_SetForceRespectUiGainsEnabled_Params_Data::Validate,
+    { &internal::CrosAudioConfig_SetForceRespectUiGainsEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosAudioConfig_SetHfpMicSrEnabled_Params_Data::Validate,
+    { &internal::CrosAudioConfig_SetHfpMicSrEnabled_Params_Data::Validate,
      nullptr /* no response */},
 };
 

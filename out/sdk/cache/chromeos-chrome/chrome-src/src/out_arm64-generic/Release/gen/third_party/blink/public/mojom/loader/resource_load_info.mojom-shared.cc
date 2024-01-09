@@ -154,7 +154,7 @@ bool ResourceLoadInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 112, validation_context)) {
+          data, 120, validation_context)) {
     return false;
   }
 

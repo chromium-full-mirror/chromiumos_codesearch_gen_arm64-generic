@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/enterprise_hardware_platform.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ HardwarePlatformInfo::HardwarePlatformInfo()
  {}
 
 HardwarePlatformInfo::~HardwarePlatformInfo() = default;
-HardwarePlatformInfo::HardwarePlatformInfo(HardwarePlatformInfo&& rhs) = default;
-HardwarePlatformInfo& HardwarePlatformInfo::operator=(HardwarePlatformInfo&& rhs) = default;
+HardwarePlatformInfo::HardwarePlatformInfo(HardwarePlatformInfo&& rhs) noexcept = default;
+HardwarePlatformInfo& HardwarePlatformInfo::operator=(HardwarePlatformInfo&& rhs) noexcept = default;
 HardwarePlatformInfo HardwarePlatformInfo::Clone() const {
   HardwarePlatformInfo out;
   out.model = model;
@@ -85,34 +86,21 @@ bool HardwarePlatformInfo::Populate(
 }
 
 // static
-std::unique_ptr<HardwarePlatformInfo> HardwarePlatformInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HardwarePlatformInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HardwarePlatformInfo> HardwarePlatformInfo::FromValue(const base::Value::Dict& value) {
+  HardwarePlatformInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HardwarePlatformInfo> HardwarePlatformInfo::FromValue(const base::Value::Dict& value) {
+std::optional<HardwarePlatformInfo> HardwarePlatformInfo::FromValue(const base::Value& value) {
   HardwarePlatformInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HardwarePlatformInfo> HardwarePlatformInfo::FromValue(const base::Value& value) {
-  HardwarePlatformInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

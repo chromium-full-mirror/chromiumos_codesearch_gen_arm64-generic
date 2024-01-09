@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 export class ResetPasswordHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -12,6 +13,9 @@ export class ResetPasswordHandlerPendingReceiver {
     }
 }
 export class ResetPasswordHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(ResetPasswordHandlerPendingReceiver, handle);
@@ -29,6 +33,9 @@ export class ResetPasswordHandlerRemote {
  * interface.
  */
 export class ResetPasswordHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ResetPasswordHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -58,6 +65,11 @@ export class ResetPasswordHandler {
  * receiver can have any number of listeners added to it.
  */
 export class ResetPasswordHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    handlePasswordReset;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ResetPasswordHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

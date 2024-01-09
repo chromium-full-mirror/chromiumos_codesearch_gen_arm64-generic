@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/print_common.mojom-features.h"
 #include "ash/components/arc/mojom/print_common.mojom-shared.h"
 #include "ash/components/arc/mojom/print_common.mojom-forward.h"
 #include <string>
@@ -676,7 +677,7 @@ class  PrintAttributes {
 
   PrintAttributes(
       PrintMediaSizePtr media_size,
-      const absl::optional<::gfx::Size>& resolution,
+      const std::optional<::gfx::Size>& resolution,
       PrintMarginsPtr min_margins,
       PrintColorMode color_mode,
       PrintDuplexMode duplex_mode);
@@ -761,7 +762,7 @@ PrintAttributes& operator=(const PrintAttributes&) = delete;
   
   PrintMediaSizePtr media_size;
   
-  absl::optional<::gfx::Size> resolution;
+  std::optional<::gfx::Size> resolution;
   
   PrintMarginsPtr min_margins;
   
@@ -976,7 +977,7 @@ class  PrintJobRequest {
   PrintJobRequest(
       std::vector<int8_t> id,
       const std::string& label,
-      const absl::optional<std::string>& printer_id,
+      const std::optional<std::string>& printer_id,
       int64_t creation_time,
       int32_t copies,
       std::vector<::printing::PageRange> pages,
@@ -1064,7 +1065,7 @@ PrintJobRequest& operator=(const PrintJobRequest&) = delete;
   
   std::string label;
   
-  absl::optional<std::string> printer_id;
+  std::optional<std::string> printer_id;
   
   int64_t creation_time;
   
@@ -1304,9 +1305,9 @@ class  PrinterInfo {
       const std::string& id,
       const std::string& name,
       PrinterStatus status,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& info_intent,
-      const absl::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities);
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& info_intent,
+      const std::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities);
 
 
   ~PrinterInfo();
@@ -1390,11 +1391,11 @@ class  PrinterInfo {
   
   PrinterStatus status;
   
-  absl::optional<std::string> description;
+  std::optional<std::string> description;
   
-  absl::optional<std::string> info_intent;
+  std::optional<std::string> info_intent;
   
-  absl::optional<::printing::PrinterSemanticCapsAndDefaults> capabilities;
+  std::optional<::printing::PrinterSemanticCapsAndDefaults> capabilities;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -44,8 +45,7 @@
 
 namespace network::mojom {
 TrustTokenParams::TrustTokenParams()
-    : version(),
-      operation(),
+    : operation(),
       refresh_policy(TrustTokenRefreshPolicy::kUseCached),
       custom_key_commitment(),
       custom_issuer(),
@@ -56,18 +56,16 @@ TrustTokenParams::TrustTokenParams()
       possibly_unsafe_additional_signing_data() {}
 
 TrustTokenParams::TrustTokenParams(
-    TrustTokenMajorVersion version_in,
     TrustTokenOperationType operation_in,
     TrustTokenRefreshPolicy refresh_policy_in,
-    const absl::optional<std::string>& custom_key_commitment_in,
-    const absl::optional<::url::Origin>& custom_issuer_in,
+    const std::optional<std::string>& custom_key_commitment_in,
+    const std::optional<::url::Origin>& custom_issuer_in,
     TrustTokenSignRequestData sign_request_data_in,
     bool include_timestamp_header_in,
     std::vector<::url::Origin> issuers_in,
     std::vector<std::string> additional_signed_headers_in,
-    const absl::optional<std::string>& possibly_unsafe_additional_signing_data_in)
-    : version(std::move(version_in)),
-      operation(std::move(operation_in)),
+    const std::optional<std::string>& possibly_unsafe_additional_signing_data_in)
+    : operation(std::move(operation_in)),
       refresh_policy(std::move(refresh_policy_in)),
       custom_key_commitment(std::move(custom_key_commitment_in)),
       custom_issuer(std::move(custom_issuer_in)),
@@ -82,15 +80,6 @@ TrustTokenParams::~TrustTokenParams() = default;
 void TrustTokenParams::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "version"), this->version,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type TrustTokenMajorVersion>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "operation"), this->operation,
@@ -113,7 +102,7 @@ void TrustTokenParams::WriteIntoTrace(
     dict.AddItem(
       "custom_key_commitment"), this->custom_key_commitment,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -122,7 +111,7 @@ void TrustTokenParams::WriteIntoTrace(
     dict.AddItem(
       "custom_issuer"), this->custom_issuer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -167,7 +156,7 @@ void TrustTokenParams::WriteIntoTrace(
     dict.AddItem(
       "possibly_unsafe_additional_signing_data"), this->possibly_unsafe_additional_signing_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -310,8 +299,7 @@ bool TrustTokenVerificationKey::Validate(
   return Data_::Validate(data, validation_context);
 }
 TrustTokenKeyCommitmentResult::TrustTokenKeyCommitmentResult()
-    : version(),
-      protocol_version(),
+    : protocol_version(),
       id(),
       batch_size(),
       keys(),
@@ -319,15 +307,13 @@ TrustTokenKeyCommitmentResult::TrustTokenKeyCommitmentResult()
       unavailable_local_operation_fallback() {}
 
 TrustTokenKeyCommitmentResult::TrustTokenKeyCommitmentResult(
-    TrustTokenMajorVersion version_in,
     TrustTokenProtocolVersion protocol_version_in,
     int32_t id_in,
     int32_t batch_size_in,
     std::vector<TrustTokenVerificationKeyPtr> keys_in,
     std::vector<TrustTokenKeyCommitmentResult::Os> request_issuance_locally_on_in,
     TrustTokenKeyCommitmentResult::UnavailableLocalOperationFallback unavailable_local_operation_fallback_in)
-    : version(std::move(version_in)),
-      protocol_version(std::move(protocol_version_in)),
+    : protocol_version(std::move(protocol_version_in)),
       id(std::move(id_in)),
       batch_size(std::move(batch_size_in)),
       keys(std::move(keys_in)),
@@ -339,15 +325,6 @@ TrustTokenKeyCommitmentResult::~TrustTokenKeyCommitmentResult() = default;
 void TrustTokenKeyCommitmentResult::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "version"), this->version,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type TrustTokenMajorVersion>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "protocol_version"), this->protocol_version,
@@ -504,8 +481,8 @@ TrustTokenOperationResult::TrustTokenOperationResult()
 TrustTokenOperationResult::TrustTokenOperationResult(
     TrustTokenOperationType operation_in,
     TrustTokenOperationStatus status_in,
-    const absl::optional<::url::Origin>& issuer_in,
-    const absl::optional<::url::Origin>& top_level_origin_in,
+    const std::optional<::url::Origin>& issuer_in,
+    const std::optional<::url::Origin>& top_level_origin_in,
     int32_t issued_token_count_in)
     : operation(std::move(operation_in)),
       status(std::move(status_in)),
@@ -540,7 +517,7 @@ void TrustTokenOperationResult::WriteIntoTrace(
     dict.AddItem(
       "issuer"), this->issuer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -549,7 +526,7 @@ void TrustTokenOperationResult::WriteIntoTrace(
     dict.AddItem(
       "top_level_origin"), this->top_level_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -733,14 +710,17 @@ void TrustTokenQueryAnswererProxy::HasTrustTokens(
                         "<value of type const ::url::Origin&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustTokenQueryAnswerer_HasTrustTokens_Name, kFlags, 0, 0, nullptr);
@@ -782,14 +762,17 @@ void TrustTokenQueryAnswererProxy::HasRedemptionRecord(
                         "<value of type const ::url::Origin&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustTokenQueryAnswerer_HasRedemptionRecord_Name, kFlags, 0, 0, nullptr);
@@ -910,7 +893,8 @@ void TrustTokenQueryAnswerer_HasTrustTokens_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustTokenQueryAnswerer_HasTrustTokens_Name, kFlags, 0, 0, nullptr);
@@ -1038,7 +1022,8 @@ void TrustTokenQueryAnswerer_HasRedemptionRecord_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustTokenQueryAnswerer_HasRedemptionRecord_Name, kFlags, 0, 0, nullptr);
@@ -1160,12 +1145,12 @@ std::move(p_issuer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTrustTokenQueryAnswererValidationInfo[] = {
-    {&internal::TrustTokenQueryAnswerer_HasTrustTokens_Params_Data::Validate,
+    { &internal::TrustTokenQueryAnswerer_HasTrustTokens_Params_Data::Validate,
      &internal::TrustTokenQueryAnswerer_HasTrustTokens_ResponseParams_Data::Validate},
-    {&internal::TrustTokenQueryAnswerer_HasRedemptionRecord_Params_Data::Validate,
+    { &internal::TrustTokenQueryAnswerer_HasRedemptionRecord_Params_Data::Validate,
      &internal::TrustTokenQueryAnswerer_HasRedemptionRecord_ResponseParams_Data::Validate},
 };
 
@@ -1193,8 +1178,6 @@ bool StructTraits<::network::mojom::TrustTokenParams::DataView, ::network::mojom
   bool success = true;
   ::network::mojom::TrustTokenParamsPtr result(::network::mojom::TrustTokenParams::New());
   
-      if (success && !input.ReadVersion(&result->version))
-        success = false;
       if (success && !input.ReadOperation(&result->operation))
         success = false;
       if (success && !input.ReadRefreshPolicy(&result->refresh_policy))
@@ -1273,8 +1256,6 @@ bool StructTraits<::network::mojom::TrustTokenKeyCommitmentResult::DataView, ::n
   bool success = true;
   ::network::mojom::TrustTokenKeyCommitmentResultPtr result(::network::mojom::TrustTokenKeyCommitmentResult::New());
   
-      if (success && !input.ReadVersion(&result->version))
-        success = false;
       if (success && !input.ReadProtocolVersion(&result->protocol_version))
         success = false;
       if (success)

@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -62,6 +63,7 @@ class  MemoryPressure_Data {
   int32_t level;
   uint8_t pad0_[4];
   uint64_t reclaim_target_kb;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeTicks_Data> signal_origin;
 
  private:
   friend class mojo::internal::MessageFragment<MemoryPressure_Data>;
@@ -69,7 +71,7 @@ class  MemoryPressure_Data {
   MemoryPressure_Data();
   ~MemoryPressure_Data() = delete;
 };
-static_assert(sizeof(MemoryPressure_Data) == 24,
+static_assert(sizeof(MemoryPressure_Data) == 32,
               "Bad sizeof(MemoryPressure_Data)");
 // Used by MemoryPressure::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

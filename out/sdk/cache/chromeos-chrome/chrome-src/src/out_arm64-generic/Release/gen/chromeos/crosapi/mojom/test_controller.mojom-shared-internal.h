@@ -13,9 +13,11 @@
 #include "chromeos/crosapi/mojom/app_service_types.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/extension_keeplist.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/tts.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/values.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
 #include "ui/gfx/range/mojom/range.mojom-shared-internal.h"
+#include "url/mojom/url.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -33,6 +35,8 @@ namespace internal {
 class AppListItemAttributes_Data;
 class KeyEvent_Data;
 class InputMethod_Data;
+class IsolatedWebAppLocation_Data;
+class InstallWebAppResult_Data;
 
 struct ShelfItemState_Data {
  public:
@@ -164,6 +168,110 @@ struct AssistiveTechnologyType_Data {
 };
 
 #pragma pack(push, 1)
+
+
+class  IsolatedWebAppLocation_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  IsolatedWebAppLocation_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~IsolatedWebAppLocation_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<IsolatedWebAppLocation_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class IsolatedWebAppLocation_Tag : uint32_t {
+
+    
+    kProxyOrigin,
+    
+    kBundlePath,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<::url::mojom::internal::Url_Data> f_proxy_origin;
+    mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> f_bundle_path;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  IsolatedWebAppLocation_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(IsolatedWebAppLocation_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(IsolatedWebAppLocation_Data)");
+
+
+class  InstallWebAppResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  InstallWebAppResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~InstallWebAppResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<InstallWebAppResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class InstallWebAppResult_Tag : uint32_t {
+
+    
+    kAppId,
+    
+    kErrorMessage,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<mojo::internal::String_Data> f_app_id;
+    mojo::internal::Pointer<mojo::internal::String_Data> f_error_message;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  InstallWebAppResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(InstallWebAppResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(InstallWebAppResult_Data)");
 class  AppListItemAttributes_Data {
  public:
   static bool Validate(const void* data,

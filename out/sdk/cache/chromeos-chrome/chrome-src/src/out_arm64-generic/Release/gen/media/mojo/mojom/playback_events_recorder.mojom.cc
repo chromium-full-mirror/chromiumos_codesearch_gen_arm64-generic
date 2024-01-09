@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -267,14 +268,17 @@ void PlaybackEventsRecorderProxy::OnPlaying(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::PlaybackEventsRecorder::OnPlaying");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackEventsRecorder_OnPlaying_Name, kFlags, 0, 0, nullptr);
@@ -297,14 +301,17 @@ void PlaybackEventsRecorderProxy::OnPaused(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::PlaybackEventsRecorder::OnPaused");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackEventsRecorder_OnPaused_Name, kFlags, 0, 0, nullptr);
@@ -327,14 +334,17 @@ void PlaybackEventsRecorderProxy::OnSeeking(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::PlaybackEventsRecorder::OnSeeking");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackEventsRecorder_OnSeeking_Name, kFlags, 0, 0, nullptr);
@@ -357,14 +367,17 @@ void PlaybackEventsRecorderProxy::OnEnded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::PlaybackEventsRecorder::OnEnded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackEventsRecorder_OnEnded_Name, kFlags, 0, 0, nullptr);
@@ -394,14 +407,17 @@ void PlaybackEventsRecorderProxy::OnError(
                         "<value of type const ::media::PipelineStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackEventsRecorder_OnError_Name, kFlags, 0, 0, nullptr);
@@ -435,14 +451,17 @@ void PlaybackEventsRecorderProxy::OnBuffering(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::PlaybackEventsRecorder::OnBuffering");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackEventsRecorder_OnBuffering_Name, kFlags, 0, 0, nullptr);
@@ -465,14 +484,17 @@ void PlaybackEventsRecorderProxy::OnBufferingComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::PlaybackEventsRecorder::OnBufferingComplete");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackEventsRecorder_OnBufferingComplete_Name, kFlags, 0, 0, nullptr);
@@ -502,14 +524,17 @@ void PlaybackEventsRecorderProxy::OnNaturalSizeChanged(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackEventsRecorder_OnNaturalSizeChanged_Name, kFlags, 0, 0, nullptr);
@@ -550,14 +575,17 @@ void PlaybackEventsRecorderProxy::OnPipelineStatistics(
                         "<value of type const ::media::PipelineStatistics&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackEventsRecorder_OnPipelineStatistics_Name, kFlags, 0, 0, nullptr);
@@ -844,26 +872,26 @@ bool PlaybackEventsRecorderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPlaybackEventsRecorderValidationInfo[] = {
-    {&internal::PlaybackEventsRecorder_OnPlaying_Params_Data::Validate,
+    { &internal::PlaybackEventsRecorder_OnPlaying_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackEventsRecorder_OnPaused_Params_Data::Validate,
+    { &internal::PlaybackEventsRecorder_OnPaused_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackEventsRecorder_OnSeeking_Params_Data::Validate,
+    { &internal::PlaybackEventsRecorder_OnSeeking_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackEventsRecorder_OnEnded_Params_Data::Validate,
+    { &internal::PlaybackEventsRecorder_OnEnded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackEventsRecorder_OnError_Params_Data::Validate,
+    { &internal::PlaybackEventsRecorder_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackEventsRecorder_OnBuffering_Params_Data::Validate,
+    { &internal::PlaybackEventsRecorder_OnBuffering_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackEventsRecorder_OnBufferingComplete_Params_Data::Validate,
+    { &internal::PlaybackEventsRecorder_OnBufferingComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackEventsRecorder_OnNaturalSizeChanged_Params_Data::Validate,
+    { &internal::PlaybackEventsRecorder_OnNaturalSizeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackEventsRecorder_OnPipelineStatistics_Params_Data::Validate,
+    { &internal::PlaybackEventsRecorder_OnPipelineStatistics_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGFESpotLightElement>::value,
     "SVGFESpotLightElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGFESpotLightElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGFESpotLightElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -133,7 +128,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->z();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -152,7 +147,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pointsAtX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -171,7 +166,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pointsAtY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -190,7 +185,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pointsAtZ();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -209,7 +204,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->specularExponent();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -228,7 +223,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(v8_receiver);
+SVGFESpotLightElement* blink_receiver = V8SVGFESpotLightElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->limitingConeAngle();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/aggregate-error-tq-csa.h"
 #include "torque-generated/src/builtins/aggregate-error-tq-csa.h"
@@ -112,7 +113,7 @@ USE(parameter2);
     tmp4 = TORQUE_CAST(CodeStubAssembler(state_).CallRuntime(Runtime::kConstructAggregateErrorHelper, parameter0, parameter1, parameter2, tmp1, tmp3)); 
     tmp5 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
     tmp6 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp5});
-    tmp7 = ca_.CallStub<JSArray>(Builtins::CallableFor(ca_.isolate(), Builtin::kIterableToListWithSymbolLookup), parameter0, tmp6);
+    tmp7 = ca_.CallBuiltin<JSArray>(Builtin::kIterableToListWithSymbolLookup, parameter0, tmp6);
     tmp8 = CodeStubAssembler(state_).ErrorsStringConstant();
     tmp9 = CodeStubAssembler(state_).SmiConstant(PropertyAttributes::DONT_ENUM);
     CodeStubAssembler(state_).CallRuntime(Runtime::kSetOwnPropertyIgnoreAttributes, parameter0, tmp4, tmp8, tmp7, tmp9);

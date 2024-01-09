@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -119,7 +120,7 @@ EffectsConfig::EffectsConfig(
     bool replace_enabled_in,
     bool relight_enabled_in,
     SegmentationModel segmentation_model_in,
-    const absl::optional<::base::FilePath>& background_filepath_in)
+    const std::optional<::base::FilePath>& background_filepath_in)
     : effect(std::move(effect_in)),
       blur_level(std::move(blur_level_in)),
       segmentation_gpu_api(std::move(segmentation_gpu_api_in)),
@@ -140,8 +141,8 @@ EffectsConfig::EffectsConfig(
     bool replace_enabled_in,
     bool relight_enabled_in,
     SegmentationModel segmentation_model_in,
-    const absl::optional<::base::FilePath>& background_filepath_in,
-    absl::optional<float> light_intensity_in)
+    const std::optional<::base::FilePath>& background_filepath_in,
+    std::optional<float> light_intensity_in)
     : effect(std::move(effect_in)),
       blur_level(std::move(blur_level_in)),
       segmentation_gpu_api(std::move(segmentation_gpu_api_in)),
@@ -234,7 +235,7 @@ void EffectsConfig::WriteIntoTrace(
     dict.AddItem(
       "background_filepath"), this->background_filepath,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -243,7 +244,7 @@ void EffectsConfig::WriteIntoTrace(
     dict.AddItem(
       "light_intensity"), this->light_intensity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<float>>"
+      "<value of type std::optional<float>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

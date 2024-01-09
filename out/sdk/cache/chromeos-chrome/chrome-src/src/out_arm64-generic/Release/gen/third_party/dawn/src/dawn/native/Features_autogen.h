@@ -48,7 +48,6 @@ Float32Filterable,
 DawnInternalUsages,
 DawnMultiPlanarFormats,
 DawnNative,
-ChromiumExperimentalDp4a,
 ChromiumExperimentalTimestampQueryInsidePasses,
 ImplicitDeviceSynchronization,
 SurfaceCapabilities,
@@ -59,7 +58,6 @@ D3D11MultithreadProtected,
 ANGLETextureSharing,
 ChromiumExperimentalSubgroups,
 ChromiumExperimentalSubgroupUniformControlFlow,
-ChromiumExperimentalReadWriteStorageTexture,
 PixelLocalStorageCoherent,
 PixelLocalStorageNonCoherent,
 Norm16TextureFormats,
@@ -67,6 +65,10 @@ MultiPlanarFormatExtendedUsages,
 MultiPlanarFormatP010,
 HostMappedPointer,
 MultiPlanarRenderTargets,
+MultiPlanarFormatNv12a,
+FramebufferFetch,
+BufferMapExtendedUsages,
+AdapterPropertiesMemoryHeaps,
 SharedTextureMemoryVkDedicatedAllocation,
 SharedTextureMemoryAHardwareBuffer,
 SharedTextureMemoryDmaBuf,
@@ -86,7 +88,7 @@ SharedFenceMTLSharedEvent,
 
 template<>
 struct EnumCount<Feature> {
-    static constexpr uint32_t value = 47;
+    static constexpr uint32_t value = 49;
 };
 
 }  // namespace dawn::native

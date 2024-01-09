@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -263,7 +264,7 @@ DeviceSettings::DeviceSettings(
     DeviceSettings::OptionalBool report_device_network_status_in,
     NullableInt64Ptr report_upload_frequency_in,
     NullableInt64Ptr report_device_network_telemetry_collection_rate_ms_in,
-    const absl::optional<std::string>& device_variations_restrict_parameter_in)
+    const std::optional<std::string>& device_variations_restrict_parameter_in)
     : attestation_for_content_protection_enabled(std::move(attestation_for_content_protection_enabled_in)),
       device_system_wide_tracing_enabled(std::move(device_system_wide_tracing_enabled_in)),
       usb_detachable_allow_list(std::move(usb_detachable_allow_list_in)),
@@ -284,8 +285,8 @@ DeviceSettings::DeviceSettings(
     DeviceSettings::OptionalBool report_device_network_status_in,
     NullableInt64Ptr report_upload_frequency_in,
     NullableInt64Ptr report_device_network_telemetry_collection_rate_ms_in,
-    const absl::optional<std::string>& device_variations_restrict_parameter_in,
-    absl::optional<DeviceSettings::OptionalBool> device_guest_mode_enabled_in)
+    const std::optional<std::string>& device_variations_restrict_parameter_in,
+    std::optional<DeviceSettings::OptionalBool> device_guest_mode_enabled_in)
     : attestation_for_content_protection_enabled(std::move(attestation_for_content_protection_enabled_in)),
       device_system_wide_tracing_enabled(std::move(device_system_wide_tracing_enabled_in)),
       usb_detachable_allow_list(std::move(usb_detachable_allow_list_in)),
@@ -378,7 +379,7 @@ void DeviceSettings::WriteIntoTrace(
     dict.AddItem(
       "device_variations_restrict_parameter"), this->device_variations_restrict_parameter,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -387,7 +388,7 @@ void DeviceSettings::WriteIntoTrace(
     dict.AddItem(
       "device_guest_mode_enabled"), this->device_guest_mode_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<DeviceSettings::OptionalBool>>"
+      "<value of type std::optional<DeviceSettings::OptionalBool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -471,14 +472,17 @@ void DeviceSettingsObserverProxy::UpdateDeviceSettings(
                         "<value of type DeviceSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsObserver_UpdateDeviceSettings_Name, kFlags, 0, 0, nullptr);
@@ -557,10 +561,10 @@ bool DeviceSettingsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceSettingsObserverValidationInfo[] = {
-    {&internal::DeviceSettingsObserver_UpdateDeviceSettings_Params_Data::Validate,
+    { &internal::DeviceSettingsObserver_UpdateDeviceSettings_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -785,14 +789,17 @@ void DeviceSettingsServiceProxy::AddDeviceSettingsObserver(
                         "<value of type ::mojo::PendingRemote<DeviceSettingsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsService_AddDeviceSettingsObserver_Name, kFlags, 0, 0, nullptr);
@@ -821,14 +828,17 @@ void DeviceSettingsServiceProxy::GetDevicePolicy(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DeviceSettingsService::GetDevicePolicy");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsService_GetDevicePolicy_Name, kFlags, 0, 0, nullptr);
@@ -852,14 +862,17 @@ void DeviceSettingsServiceProxy::GetDevicePolicyDeprecated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DeviceSettingsService::GetDevicePolicyDeprecated");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsService_GetDevicePolicyDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -883,14 +896,17 @@ void DeviceSettingsServiceProxy::GetDeviceReportSources(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DeviceSettingsService::GetDeviceReportSources");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsService_GetDeviceReportSources_Name, kFlags, 0, 0, nullptr);
@@ -914,14 +930,17 @@ void DeviceSettingsServiceProxy::IsDeviceDeprovisioned(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DeviceSettingsService::IsDeviceDeprovisioned");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsService_IsDeviceDeprovisioned_Name, kFlags, 0, 0, nullptr);
@@ -1038,7 +1057,8 @@ void DeviceSettingsService_GetDevicePolicy_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsService_GetDevicePolicy_Name, kFlags, 0, 0, nullptr);
@@ -1184,7 +1204,8 @@ void DeviceSettingsService_GetDevicePolicyDeprecated_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsService_GetDevicePolicyDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -1326,7 +1347,8 @@ void DeviceSettingsService_GetDeviceReportSources_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsService_GetDeviceReportSources_Name, kFlags, 0, 0, nullptr);
@@ -1455,7 +1477,8 @@ void DeviceSettingsService_IsDeviceDeprovisioned_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsService_IsDeviceDeprovisioned_Name, kFlags, 0, 0, nullptr);
@@ -1646,18 +1669,18 @@ bool DeviceSettingsServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceSettingsServiceValidationInfo[] = {
-    {&internal::DeviceSettingsService_AddDeviceSettingsObserver_Params_Data::Validate,
+    { &internal::DeviceSettingsService_AddDeviceSettingsObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceSettingsService_GetDevicePolicyDeprecated_Params_Data::Validate,
+    { &internal::DeviceSettingsService_GetDevicePolicyDeprecated_Params_Data::Validate,
      &internal::DeviceSettingsService_GetDevicePolicyDeprecated_ResponseParams_Data::Validate},
-    {&internal::DeviceSettingsService_GetDevicePolicy_Params_Data::Validate,
+    { &internal::DeviceSettingsService_GetDevicePolicy_Params_Data::Validate,
      &internal::DeviceSettingsService_GetDevicePolicy_ResponseParams_Data::Validate},
-    {&internal::DeviceSettingsService_GetDeviceReportSources_Params_Data::Validate,
+    { &internal::DeviceSettingsService_GetDeviceReportSources_Params_Data::Validate,
      &internal::DeviceSettingsService_GetDeviceReportSources_ResponseParams_Data::Validate},
-    {&internal::DeviceSettingsService_IsDeviceDeprovisioned_Params_Data::Validate,
+    { &internal::DeviceSettingsService_IsDeviceDeprovisioned_Params_Data::Validate,
      &internal::DeviceSettingsService_IsDeviceDeprovisioned_ResponseParams_Data::Validate},
 };
 

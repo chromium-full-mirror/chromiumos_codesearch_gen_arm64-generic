@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, NavigationDestination>::value,
     "NavigationDestination inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&NavigationDestination::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NavigationDestination is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,10 +79,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationDestination.key.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->key();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->key();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,10 +94,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationDestination.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -114,10 +109,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationDestination.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -129,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationDestination.index.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(v8_receiver);
+NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->index();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -143,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationDestination.sameDocument.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(v8_receiver);
+NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sameDocument();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -161,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationDestination.getState");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(v8_receiver);
+NavigationDestination* blink_receiver = V8NavigationDestination::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

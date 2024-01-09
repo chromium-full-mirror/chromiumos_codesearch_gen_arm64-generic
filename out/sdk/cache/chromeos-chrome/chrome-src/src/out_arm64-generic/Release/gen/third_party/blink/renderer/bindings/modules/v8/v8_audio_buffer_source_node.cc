@@ -78,11 +78,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, AudioBufferSourceNode>::value,
     "AudioBufferSourceNode does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&AudioBufferSourceNode::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioBufferSourceNode is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,8 +90,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBufferSourceNode.buffer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->buffer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -118,7 +114,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<AudioBuffer>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -138,8 +134,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBufferSourceNode.playbackRate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->playbackRate();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -152,8 +149,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBufferSourceNode.detune.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->detune();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -166,8 +164,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBufferSourceNode.loop.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->loop();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -179,9 +178,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBufferSourceNode.loop.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AudioBufferSourceNode";
@@ -202,8 +201,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBufferSourceNode.loopStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->loopStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -215,9 +215,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBufferSourceNode.loopStart.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AudioBufferSourceNode";
@@ -238,8 +238,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBufferSourceNode.loopEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->loopEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -251,9 +252,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioBufferSourceNode.loopEnd.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AudioBufferSourceNode";
@@ -335,7 +336,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(v8_receiver);
+AudioBufferSourceNode* blink_receiver = V8AudioBufferSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_when{0};
 if (!info[0]->IsUndefined()) {
   arg1_when = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);

@@ -8,6 +8,7 @@ import { UsbEnumerationOptionsSpec as device_mojom_UsbEnumerationOptionsSpec } f
 import { UsbDeviceManagerClientRemote as device_mojom_UsbDeviceManagerClientRemote } from './usb_manager_client.mojom-webui.js';
 import { FileSpec as mojoBase_mojom_FileSpec } from '//resources/mojo/mojo/public/mojom/base/file.mojom-webui.js';
 export class UsbDeviceManagerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -16,6 +17,9 @@ export class UsbDeviceManagerPendingReceiver {
     }
 }
 export class UsbDeviceManagerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(UsbDeviceManagerPendingReceiver, handle);
@@ -72,6 +76,9 @@ export class UsbDeviceManagerRemote {
  * interface.
  */
 export class UsbDeviceManagerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(UsbDeviceManagerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -107,6 +114,17 @@ export class UsbDeviceManager {
  * receiver can have any number of listeners added to it.
  */
 export class UsbDeviceManagerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    enumerateDevicesAndSetClient;
+    getDevices;
+    getDevice;
+    getSecurityKeyDevice;
+    checkAccess;
+    openFileDescriptor;
+    setClient;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(UsbDeviceManagerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

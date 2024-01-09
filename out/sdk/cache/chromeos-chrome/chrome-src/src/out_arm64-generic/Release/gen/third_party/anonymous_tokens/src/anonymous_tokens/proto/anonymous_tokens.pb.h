@@ -131,12 +131,13 @@ enum AnonymousTokensUseCase : int {
   PROVABLY_PRIVATE_NETWORK = 3,
   CHROME_IP_BLINDING = 7,
   NOCTOGRAM_PPISSUER = 8,
+  CHROME_IP_BLINDING_DARKLAUNCH = 10,
   AnonymousTokensUseCase_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   AnonymousTokensUseCase_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool AnonymousTokensUseCase_IsValid(int value);
 constexpr AnonymousTokensUseCase AnonymousTokensUseCase_MIN = ANONYMOUS_TOKENS_USE_CASE_UNDEFINED;
-constexpr AnonymousTokensUseCase AnonymousTokensUseCase_MAX = TEST_USE_CASE_6;
+constexpr AnonymousTokensUseCase AnonymousTokensUseCase_MAX = CHROME_IP_BLINDING_DARKLAUNCH;
 constexpr int AnonymousTokensUseCase_ARRAYSIZE = AnonymousTokensUseCase_MAX + 1;
 
 const std::string& AnonymousTokensUseCase_Name(AnonymousTokensUseCase value);

@@ -39,6 +39,8 @@ class PatchPanelInterface {
   virtual patchpanel::TetheredNetworkResponse CreateTetheredNetwork(
       const patchpanel::TetheredNetworkRequest& in_request,
       const base::ScopedFD& in_client_fd) = 0;
+  virtual patchpanel::ConfigureNetworkResponse ConfigureNetwork(
+      const patchpanel::ConfigureNetworkRequest& in_request) = 0;
   virtual patchpanel::GetDevicesResponse GetDevices(
       const patchpanel::GetDevicesRequest& in_request) const = 0;
   virtual patchpanel::GetDownstreamNetworkInfoResponse GetDownstreamNetworkInfo(
@@ -55,6 +57,10 @@ class PatchPanelInterface {
       const patchpanel::BruschettaVmShutdownRequest& in_request) = 0;
   virtual patchpanel::BruschettaVmStartupResponse BruschettaVmStartup(
       const patchpanel::BruschettaVmStartupRequest& in_request) = 0;
+  virtual patchpanel::BorealisVmShutdownResponse BorealisVmShutdown(
+      const patchpanel::BorealisVmShutdownRequest& in_request) = 0;
+  virtual patchpanel::BorealisVmStartupResponse BorealisVmStartup(
+      const patchpanel::BorealisVmStartupRequest& in_request) = 0;
   virtual patchpanel::SetDnsRedirectionRuleResponse SetDnsRedirectionRule(
       const patchpanel::SetDnsRedirectionRuleRequest& in_request,
       const base::ScopedFD& in_client_fd) = 0;
@@ -117,6 +123,10 @@ class PatchPanelAdaptor {
         base::Unretained(interface_),
         &PatchPanelInterface::CreateTetheredNetwork);
     itf->AddSimpleMethodHandler(
+        "ConfigureNetwork",
+        base::Unretained(interface_),
+        &PatchPanelInterface::ConfigureNetwork);
+    itf->AddSimpleMethodHandler(
         "GetDevices",
         base::Unretained(interface_),
         &PatchPanelInterface::GetDevices);
@@ -148,6 +158,14 @@ class PatchPanelAdaptor {
         "BruschettaVmStartup",
         base::Unretained(interface_),
         &PatchPanelInterface::BruschettaVmStartup);
+    itf->AddSimpleMethodHandler(
+        "BorealisVmShutdown",
+        base::Unretained(interface_),
+        &PatchPanelInterface::BorealisVmShutdown);
+    itf->AddSimpleMethodHandler(
+        "BorealisVmStartup",
+        base::Unretained(interface_),
+        &PatchPanelInterface::BorealisVmStartup);
     itf->AddSimpleMethodHandler(
         "SetDnsRedirectionRule",
         base::Unretained(interface_),
@@ -247,6 +265,10 @@ class PatchPanelAdaptor {
         "      <arg name=\"client_fd\" type=\"h\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
+        "    <method name=\"ConfigureNetwork\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
         "    <method name=\"GetDevices\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
@@ -276,6 +298,14 @@ class PatchPanelAdaptor {
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"BruschettaVmStartup\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"BorealisVmShutdown\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"BorealisVmStartup\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

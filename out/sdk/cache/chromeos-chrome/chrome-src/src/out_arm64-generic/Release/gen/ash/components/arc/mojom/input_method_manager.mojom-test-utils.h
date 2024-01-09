@@ -19,7 +19,7 @@ class  InputConnectionInterceptorForTesting : public InputConnection {
   void DeleteSurroundingText(int32_t before, int32_t after) override;
   void FinishComposingText() override;
   void RequestTextInputState(RequestTextInputStateCallback callback) override;
-  void SetComposingText(const ::std::u16string& text, int32_t new_cursor_pos, const absl::optional<::gfx::Range>& new_selection_range) override;
+  void SetComposingText(const ::std::u16string& text, int32_t new_cursor_pos, const std::optional<::gfx::Range>& new_selection_range) override;
   void SetSelection(const ::gfx::Range& new_selection_range) override;
   void SendKeyEvent(::std::unique_ptr<::ui::KeyEvent> key_event_data) override;
   void SetCompositionRange(const ::gfx::Range& new_range) override;

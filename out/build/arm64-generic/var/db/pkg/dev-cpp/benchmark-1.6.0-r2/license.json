@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-cpp", "name": "benchmark", "version": "1.6.0", "revision": 2, "fullname": "dev-cpp/benchmark", "fullnamerev": "dev-cpp/benchmark-1.6.0-r2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/benchmark"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -21,6 +21,80 @@
 namespace side_panel {
 namespace mojom {
 
+NOINLINE static const char* ResourceTypeToStringHelper(ResourceType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ResourceType::kMemory:
+      return "kMemory";
+    case ResourceType::kCPU:
+      return "kCPU";
+    case ResourceType::kNetwork:
+      return "kNetwork";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ResourceTypeToString(ResourceType value) {
+  const char *str = ResourceTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ResourceType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ResourceType value) {
+  return os << ResourceTypeToString(value);
+}
+
+NOINLINE static const char* HealthLevelToStringHelper(HealthLevel value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case HealthLevel::kHealthy:
+      return "kHealthy";
+    case HealthLevel::kMedium:
+      return "kMedium";
+    case HealthLevel::kUnhealthy:
+      return "kUnhealthy";
+    default:
+      return nullptr;
+  }
+}
+
+std::string HealthLevelToString(HealthLevel value) {
+  const char *str = HealthLevelToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown HealthLevel value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, HealthLevel value) {
+  return os << HealthLevelToString(value);
+}
+
+NOINLINE static const char* PerformanceSidePanelNotificationToStringHelper(PerformanceSidePanelNotification value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case PerformanceSidePanelNotification::kMemorySaverRevisitDiscardedTab:
+      return "kMemorySaverRevisitDiscardedTab";
+    default:
+      return nullptr;
+  }
+}
+
+std::string PerformanceSidePanelNotificationToString(PerformanceSidePanelNotification value) {
+  const char *str = PerformanceSidePanelNotificationToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown PerformanceSidePanelNotification value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, PerformanceSidePanelNotification value) {
+  return os << PerformanceSidePanelNotificationToString(value);
+}
+
 namespace internal {
 
 
@@ -87,6 +161,118 @@ bool PerformancePageHandler_ShowUI_Params_Data::Validate(
 PerformancePageHandler_ShowUI_Params_Data::PerformancePageHandler_ShowUI_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data* object =
+      static_cast<const BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->page, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->page,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->handler, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->handler,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data::BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data* object =
+      static_cast<const MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->page, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->page,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->handler, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->handler,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data::MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace side_panel
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::side_panel::mojom::ResourceType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::side_panel::mojom::ResourceType value) {
+  return std::move(context).WriteString(::side_panel::mojom::ResourceTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::side_panel::mojom::HealthLevel>::WriteIntoTrace(
+   perfetto::TracedValue context, ::side_panel::mojom::HealthLevel value) {
+  return std::move(context).WriteString(::side_panel::mojom::HealthLevelToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::side_panel::mojom::PerformanceSidePanelNotification>::WriteIntoTrace(
+   perfetto::TracedValue context, ::side_panel::mojom::PerformanceSidePanelNotification value) {
+  return std::move(context).WriteString(::side_panel::mojom::PerformanceSidePanelNotificationToString(value));
+}
+
+} // namespace perfetto

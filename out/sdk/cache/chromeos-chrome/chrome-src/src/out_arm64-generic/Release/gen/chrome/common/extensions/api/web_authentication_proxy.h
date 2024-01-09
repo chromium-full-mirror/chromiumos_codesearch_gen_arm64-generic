@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct IsUvpaaRequest {
   ~IsUvpaaRequest();
   IsUvpaaRequest(const IsUvpaaRequest&) = delete;
   IsUvpaaRequest& operator=(const IsUvpaaRequest&) = delete;
-  IsUvpaaRequest(IsUvpaaRequest&& rhs);
-  IsUvpaaRequest& operator=(IsUvpaaRequest&& rhs);
+  IsUvpaaRequest(IsUvpaaRequest&& rhs) noexcept;
+  IsUvpaaRequest& operator=(IsUvpaaRequest&& rhs) noexcept;
 
   // Populates a IsUvpaaRequest object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,15 +47,12 @@ struct IsUvpaaRequest {
   // Creates a deep copy of IsUvpaaRequest.
   IsUvpaaRequest Clone() const;
 
-  // Creates a IsUvpaaRequest object from a base::Value, or NULL on failure.
-  static std::unique_ptr<IsUvpaaRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a IsUvpaaRequest object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<IsUvpaaRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<IsUvpaaRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a IsUvpaaRequest object from a base::Value, or nullopt on failure.
-  static absl::optional<IsUvpaaRequest> FromValue(const base::Value& value);
+  static std::optional<IsUvpaaRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIsUvpaaRequest object.
@@ -70,8 +68,8 @@ struct CreateRequest {
   ~CreateRequest();
   CreateRequest(const CreateRequest&) = delete;
   CreateRequest& operator=(const CreateRequest&) = delete;
-  CreateRequest(CreateRequest&& rhs);
-  CreateRequest& operator=(CreateRequest&& rhs);
+  CreateRequest(CreateRequest&& rhs) noexcept;
+  CreateRequest& operator=(CreateRequest&& rhs) noexcept;
 
   // Populates a CreateRequest object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -84,15 +82,12 @@ struct CreateRequest {
   // Creates a deep copy of CreateRequest.
   CreateRequest Clone() const;
 
-  // Creates a CreateRequest object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CreateRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a CreateRequest object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CreateRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<CreateRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a CreateRequest object from a base::Value, or nullopt on failure.
-  static absl::optional<CreateRequest> FromValue(const base::Value& value);
+  static std::optional<CreateRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateRequest object.
@@ -115,8 +110,8 @@ struct GetRequest {
   ~GetRequest();
   GetRequest(const GetRequest&) = delete;
   GetRequest& operator=(const GetRequest&) = delete;
-  GetRequest(GetRequest&& rhs);
-  GetRequest& operator=(GetRequest&& rhs);
+  GetRequest(GetRequest&& rhs) noexcept;
+  GetRequest& operator=(GetRequest&& rhs) noexcept;
 
   // Populates a GetRequest object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -129,15 +124,12 @@ struct GetRequest {
   // Creates a deep copy of GetRequest.
   GetRequest Clone() const;
 
-  // Creates a GetRequest object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetRequest object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<GetRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a GetRequest object from a base::Value, or nullopt on failure.
-  static absl::optional<GetRequest> FromValue(const base::Value& value);
+  static std::optional<GetRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetRequest object.
@@ -160,8 +152,8 @@ struct DOMExceptionDetails {
   ~DOMExceptionDetails();
   DOMExceptionDetails(const DOMExceptionDetails&) = delete;
   DOMExceptionDetails& operator=(const DOMExceptionDetails&) = delete;
-  DOMExceptionDetails(DOMExceptionDetails&& rhs);
-  DOMExceptionDetails& operator=(DOMExceptionDetails&& rhs);
+  DOMExceptionDetails(DOMExceptionDetails&& rhs) noexcept;
+  DOMExceptionDetails& operator=(DOMExceptionDetails&& rhs) noexcept;
 
   // Populates a DOMExceptionDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -174,17 +166,13 @@ struct DOMExceptionDetails {
   // Creates a deep copy of DOMExceptionDetails.
   DOMExceptionDetails Clone() const;
 
-  // Creates a DOMExceptionDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DOMExceptionDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a DOMExceptionDetails object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<DOMExceptionDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<DOMExceptionDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a DOMExceptionDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DOMExceptionDetails> FromValue(const base::Value& value);
+  static std::optional<DOMExceptionDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDOMExceptionDetails object.
@@ -201,8 +189,8 @@ struct CreateResponseDetails {
   ~CreateResponseDetails();
   CreateResponseDetails(const CreateResponseDetails&) = delete;
   CreateResponseDetails& operator=(const CreateResponseDetails&) = delete;
-  CreateResponseDetails(CreateResponseDetails&& rhs);
-  CreateResponseDetails& operator=(CreateResponseDetails&& rhs);
+  CreateResponseDetails(CreateResponseDetails&& rhs) noexcept;
+  CreateResponseDetails& operator=(CreateResponseDetails&& rhs) noexcept;
 
   // Populates a CreateResponseDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -215,17 +203,13 @@ struct CreateResponseDetails {
   // Creates a deep copy of CreateResponseDetails.
   CreateResponseDetails Clone() const;
 
-  // Creates a CreateResponseDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CreateResponseDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a CreateResponseDetails object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<CreateResponseDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<CreateResponseDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a CreateResponseDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CreateResponseDetails> FromValue(const base::Value& value);
+  static std::optional<CreateResponseDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateResponseDetails object.
@@ -235,13 +219,13 @@ struct CreateResponseDetails {
   int request_id;
 
   // The <code>DOMException</code> yielded by the remote request, if any.
-  absl::optional<DOMExceptionDetails> error;
+  std::optional<DOMExceptionDetails> error;
 
   // The <code>PublicKeyCredential</code>, yielded by the remote request, if any,
   // serialized as a JSON string by calling
   // href="https://w3c.github.io/webauthn/#dom-publickeycredential-tojson">
   // <code>PublicKeyCredential.toJSON()</code></a>.
-  absl::optional<std::string> response_json;
+  std::optional<std::string> response_json;
 
 };
 
@@ -250,8 +234,8 @@ struct GetResponseDetails {
   ~GetResponseDetails();
   GetResponseDetails(const GetResponseDetails&) = delete;
   GetResponseDetails& operator=(const GetResponseDetails&) = delete;
-  GetResponseDetails(GetResponseDetails&& rhs);
-  GetResponseDetails& operator=(GetResponseDetails&& rhs);
+  GetResponseDetails(GetResponseDetails&& rhs) noexcept;
+  GetResponseDetails& operator=(GetResponseDetails&& rhs) noexcept;
 
   // Populates a GetResponseDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -264,16 +248,13 @@ struct GetResponseDetails {
   // Creates a deep copy of GetResponseDetails.
   GetResponseDetails Clone() const;
 
-  // Creates a GetResponseDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetResponseDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetResponseDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetResponseDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<GetResponseDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a GetResponseDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetResponseDetails> FromValue(const base::Value& value);
+  static std::optional<GetResponseDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetResponseDetails object.
@@ -283,13 +264,13 @@ struct GetResponseDetails {
   int request_id;
 
   // The <code>DOMException</code> yielded by the remote request, if any.
-  absl::optional<DOMExceptionDetails> error;
+  std::optional<DOMExceptionDetails> error;
 
   // The <code>PublicKeyCredential</code>, yielded by the remote request, if any,
   // serialized as a JSON string by calling
   // href="https://w3c.github.io/webauthn/#dom-publickeycredential-tojson">
   // <code>PublicKeyCredential.toJSON()</code></a>.
-  absl::optional<std::string> response_json;
+  std::optional<std::string> response_json;
 
 };
 
@@ -298,8 +279,8 @@ struct IsUvpaaResponseDetails {
   ~IsUvpaaResponseDetails();
   IsUvpaaResponseDetails(const IsUvpaaResponseDetails&) = delete;
   IsUvpaaResponseDetails& operator=(const IsUvpaaResponseDetails&) = delete;
-  IsUvpaaResponseDetails(IsUvpaaResponseDetails&& rhs);
-  IsUvpaaResponseDetails& operator=(IsUvpaaResponseDetails&& rhs);
+  IsUvpaaResponseDetails(IsUvpaaResponseDetails&& rhs) noexcept;
+  IsUvpaaResponseDetails& operator=(IsUvpaaResponseDetails&& rhs) noexcept;
 
   // Populates a IsUvpaaResponseDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -312,17 +293,13 @@ struct IsUvpaaResponseDetails {
   // Creates a deep copy of IsUvpaaResponseDetails.
   IsUvpaaResponseDetails Clone() const;
 
-  // Creates a IsUvpaaResponseDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<IsUvpaaResponseDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a IsUvpaaResponseDetails object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<IsUvpaaResponseDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<IsUvpaaResponseDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a IsUvpaaResponseDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<IsUvpaaResponseDetails> FromValue(const base::Value& value);
+  static std::optional<IsUvpaaResponseDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIsUvpaaResponseDetails object.
@@ -342,11 +319,11 @@ struct IsUvpaaResponseDetails {
 namespace CompleteCreateRequest {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   CreateResponseDetails details;
@@ -366,11 +343,11 @@ base::Value::List Create();
 namespace CompleteGetRequest {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   GetResponseDetails details;
@@ -390,11 +367,11 @@ base::Value::List Create();
 namespace CompleteIsUvpaaRequest {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   IsUvpaaResponseDetails details;

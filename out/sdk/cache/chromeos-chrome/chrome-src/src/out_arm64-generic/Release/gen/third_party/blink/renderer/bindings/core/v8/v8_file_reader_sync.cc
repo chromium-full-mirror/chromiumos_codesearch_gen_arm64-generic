@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FileReaderSync>::value,
     "FileReaderSync inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FileReaderSync::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FileReaderSync is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -137,7 +132,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-FileReaderSync* blink_receiver = V8FileReaderSync::ToWrappableUnsafe(v8_receiver);
+FileReaderSync* blink_receiver = V8FileReaderSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_blob = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -173,7 +168,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReaderSync* blink_receiver = V8FileReaderSync::ToWrappableUnsafe(v8_receiver);
+FileReaderSync* blink_receiver = V8FileReaderSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_blob = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -206,7 +201,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReaderSync* blink_receiver = V8FileReaderSync::ToWrappableUnsafe(v8_receiver);
+FileReaderSync* blink_receiver = V8FileReaderSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_blob = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -242,7 +237,7 @@ String return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReaderSync* blink_receiver = V8FileReaderSync::ToWrappableUnsafe(v8_receiver);
+FileReaderSync* blink_receiver = V8FileReaderSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_blob = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

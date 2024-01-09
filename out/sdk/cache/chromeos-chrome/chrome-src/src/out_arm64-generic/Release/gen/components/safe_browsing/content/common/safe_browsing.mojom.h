@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/safe_browsing/content/common/safe_browsing.mojom-features.h"
 #include "components/safe_browsing/content/common/safe_browsing.mojom-shared.h"
 #include "components/safe_browsing/content/common/safe_browsing.mojom-forward.h"
 #include "components/safe_browsing/core/common/safe_browsing_url_checker.mojom-forward.h"
@@ -95,7 +96,7 @@ class SafeBrowsing
 
   using CreateCheckerAndCheckCallback = base::OnceCallback<void(::mojo::PendingReceiver<::safe_browsing::mojom::UrlCheckNotifier>, bool, bool)>;
   
-  virtual void CreateCheckerAndCheck(int32_t render_frame_id, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, CreateCheckerAndCheckCallback callback) = 0;
+  virtual void CreateCheckerAndCheck(const std::optional<::blink::LocalFrameToken>& frame_token, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, CreateCheckerAndCheckCallback callback) = 0;
 
   
   virtual void Clone(::mojo::PendingReceiver<SafeBrowsing> receiver) = 0;
@@ -412,7 +413,7 @@ class ExtensionWebRequestReporter
   virtual ~ExtensionWebRequestReporter() = default;
 
   
-  virtual void SendWebRequestData(const std::string& origin_extension_id, const ::GURL& telemetry_url, WebRequestProtocolType protocol_type) = 0;
+  virtual void SendWebRequestData(const std::string& origin_extension_id, const ::GURL& telemetry_url, WebRequestProtocolType protocol_type, WebRequestContactInitiatorType contact_initiator_type) = 0;
 
   
   virtual void Clone(::mojo::PendingReceiver<ExtensionWebRequestReporter> receiver) = 0;
@@ -427,7 +428,7 @@ class  SafeBrowsingProxy
 
   explicit SafeBrowsingProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void CreateCheckerAndCheck(int32_t render_frame_id, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, CreateCheckerAndCheckCallback callback) final;
+  void CreateCheckerAndCheck(const std::optional<::blink::LocalFrameToken>& frame_token, ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> receiver, const ::GURL& url, const std::string& method, const ::net::HttpRequestHeaders& headers, int32_t load_flags, ::network::mojom::RequestDestination request_destination, bool has_user_gesture, bool originated_from_service_worker, CreateCheckerAndCheckCallback callback) final;
   
   void Clone(::mojo::PendingReceiver<SafeBrowsing> receiver) final;
 
@@ -527,7 +528,7 @@ class  ExtensionWebRequestReporterProxy
 
   explicit ExtensionWebRequestReporterProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void SendWebRequestData(const std::string& origin_extension_id, const ::GURL& telemetry_url, WebRequestProtocolType protocol_type) final;
+  void SendWebRequestData(const std::string& origin_extension_id, const ::GURL& telemetry_url, WebRequestProtocolType protocol_type, WebRequestContactInitiatorType contact_initiator_type) final;
   
   void Clone(::mojo::PendingReceiver<ExtensionWebRequestReporter> receiver) final;
 
@@ -1057,7 +1058,7 @@ class  ThreatDOMDetailsNode {
       std::vector<::GURL> children,
       std::vector<int32_t> child_node_ids,
       std::vector<AttributeNameValuePtr> attributes,
-      const absl::optional<::blink::FrameToken>& child_frame_token,
+      const std::optional<::blink::FrameToken>& child_frame_token,
       const std::string& inner_html);
 
 ThreatDOMDetailsNode(const ThreatDOMDetailsNode&) = delete;
@@ -1154,7 +1155,7 @@ ThreatDOMDetailsNode& operator=(const ThreatDOMDetailsNode&) = delete;
   
   std::vector<AttributeNameValuePtr> attributes;
   
-  absl::optional<::blink::FrameToken> child_frame_token;
+  std::optional<::blink::FrameToken> child_frame_token;
   
   std::string inner_html;
 

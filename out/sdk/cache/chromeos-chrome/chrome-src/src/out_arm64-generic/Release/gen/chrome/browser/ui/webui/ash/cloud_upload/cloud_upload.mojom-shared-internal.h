@@ -25,7 +25,13 @@ class ValidationContext;
 namespace ash::cloud_upload::mojom {
 namespace internal {
 class DialogTask_Data;
+class OneDriveSetupDialogArgs_Data;
+class MoveConfirmationOneDriveDialogArgs_Data;
+class MoveConfirmationGoogleDriveDialogArgs_Data;
+class ConnectToOneDriveDialogArgs_Data;
+class FileHandlerDialogArgs_Data;
 class DialogArgs_Data;
+class DialogSpecificArgs_Data;
 
 struct UserAction_Data {
  public:
@@ -138,6 +144,67 @@ struct OperationType_Data {
 };
 
 #pragma pack(push, 1)
+
+
+class  DialogSpecificArgs_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  DialogSpecificArgs_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~DialogSpecificArgs_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<DialogSpecificArgs_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class DialogSpecificArgs_Tag : uint32_t {
+
+    
+    kFileHandlerDialogArgs,
+    
+    kOneDriveSetupDialogArgs,
+    
+    kMoveConfirmationOneDriveDialogArgs,
+    
+    kMoveConfirmationGoogleDriveDialogArgs,
+    
+    kConnectToOneDriveDialogArgs,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::FileHandlerDialogArgs_Data> f_file_handler_dialog_args;
+    mojo::internal::Pointer<internal::OneDriveSetupDialogArgs_Data> f_one_drive_setup_dialog_args;
+    mojo::internal::Pointer<internal::MoveConfirmationOneDriveDialogArgs_Data> f_move_confirmation_one_drive_dialog_args;
+    mojo::internal::Pointer<internal::MoveConfirmationGoogleDriveDialogArgs_Data> f_move_confirmation_google_drive_dialog_args;
+    mojo::internal::Pointer<internal::ConnectToOneDriveDialogArgs_Data> f_connect_to_one_drive_dialog_args;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  DialogSpecificArgs_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(DialogSpecificArgs_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(DialogSpecificArgs_Data)");
 class  DialogTask_Data {
  public:
   static bool Validate(const void* data,
@@ -190,6 +257,251 @@ struct DialogTask_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     DialogTask_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  OneDriveSetupDialogArgs_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t set_office_as_default_handler : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<OneDriveSetupDialogArgs_Data>;
+
+  OneDriveSetupDialogArgs_Data();
+  ~OneDriveSetupDialogArgs_Data() = delete;
+};
+static_assert(sizeof(OneDriveSetupDialogArgs_Data) == 16,
+              "Bad sizeof(OneDriveSetupDialogArgs_Data)");
+// Used by OneDriveSetupDialogArgs::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct OneDriveSetupDialogArgs_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  OneDriveSetupDialogArgs_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~OneDriveSetupDialogArgs_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<OneDriveSetupDialogArgs_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    OneDriveSetupDialogArgs_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  MoveConfirmationOneDriveDialogArgs_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t operation_type;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MoveConfirmationOneDriveDialogArgs_Data>;
+
+  MoveConfirmationOneDriveDialogArgs_Data();
+  ~MoveConfirmationOneDriveDialogArgs_Data() = delete;
+};
+static_assert(sizeof(MoveConfirmationOneDriveDialogArgs_Data) == 16,
+              "Bad sizeof(MoveConfirmationOneDriveDialogArgs_Data)");
+// Used by MoveConfirmationOneDriveDialogArgs::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct MoveConfirmationOneDriveDialogArgs_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  MoveConfirmationOneDriveDialogArgs_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~MoveConfirmationOneDriveDialogArgs_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<MoveConfirmationOneDriveDialogArgs_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    MoveConfirmationOneDriveDialogArgs_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  MoveConfirmationGoogleDriveDialogArgs_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t operation_type;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MoveConfirmationGoogleDriveDialogArgs_Data>;
+
+  MoveConfirmationGoogleDriveDialogArgs_Data();
+  ~MoveConfirmationGoogleDriveDialogArgs_Data() = delete;
+};
+static_assert(sizeof(MoveConfirmationGoogleDriveDialogArgs_Data) == 16,
+              "Bad sizeof(MoveConfirmationGoogleDriveDialogArgs_Data)");
+// Used by MoveConfirmationGoogleDriveDialogArgs::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct MoveConfirmationGoogleDriveDialogArgs_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  MoveConfirmationGoogleDriveDialogArgs_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~MoveConfirmationGoogleDriveDialogArgs_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<MoveConfirmationGoogleDriveDialogArgs_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    MoveConfirmationGoogleDriveDialogArgs_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ConnectToOneDriveDialogArgs_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<ConnectToOneDriveDialogArgs_Data>;
+
+  ConnectToOneDriveDialogArgs_Data();
+  ~ConnectToOneDriveDialogArgs_Data() = delete;
+};
+static_assert(sizeof(ConnectToOneDriveDialogArgs_Data) == 8,
+              "Bad sizeof(ConnectToOneDriveDialogArgs_Data)");
+// Used by ConnectToOneDriveDialogArgs::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ConnectToOneDriveDialogArgs_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ConnectToOneDriveDialogArgs_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ConnectToOneDriveDialogArgs_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ConnectToOneDriveDialogArgs_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ConnectToOneDriveDialogArgs_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FileHandlerDialogArgs_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::DialogTask_Data>>> local_tasks;
+  uint8_t show_google_workspace_task : 1;
+  uint8_t show_microsoft_office_task : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<FileHandlerDialogArgs_Data>;
+
+  FileHandlerDialogArgs_Data();
+  ~FileHandlerDialogArgs_Data() = delete;
+};
+static_assert(sizeof(FileHandlerDialogArgs_Data) == 24,
+              "Bad sizeof(FileHandlerDialogArgs_Data)");
+// Used by FileHandlerDialogArgs::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FileHandlerDialogArgs_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FileHandlerDialogArgs_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FileHandlerDialogArgs_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FileHandlerDialogArgs_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FileHandlerDialogArgs_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  DialogArgs_Data {
  public:
   static bool Validate(const void* data,
@@ -197,12 +509,7 @@ class  DialogArgs_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> file_names;
-  int32_t dialog_page;
-  uint8_t set_office_as_default_handler : 1;
-  uint8_t pad2_[3];
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::DialogTask_Data>>> local_tasks;
-  int32_t operation_type;
-  uint8_t padfinal_[4];
+  internal::DialogSpecificArgs_Data dialog_specific_args;
 
  private:
   friend class mojo::internal::MessageFragment<DialogArgs_Data>;
@@ -210,7 +517,7 @@ class  DialogArgs_Data {
   DialogArgs_Data();
   ~DialogArgs_Data() = delete;
 };
-static_assert(sizeof(DialogArgs_Data) == 40,
+static_assert(sizeof(DialogArgs_Data) == 32,
               "Bad sizeof(DialogArgs_Data)");
 // Used by DialogArgs::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

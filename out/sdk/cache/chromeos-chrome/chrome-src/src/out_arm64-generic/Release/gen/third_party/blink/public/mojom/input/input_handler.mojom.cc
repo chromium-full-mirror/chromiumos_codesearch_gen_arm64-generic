@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -1017,7 +1018,7 @@ GestureData::GestureData(
     ::ui::EventPointerType primary_pointer_type_in,
     int32_t primary_unique_touch_event_id_in,
     int32_t unique_touch_event_id_in,
-    const absl::optional<::gfx::Size>& contact_size_in,
+    const std::optional<::gfx::Size>& contact_size_in,
     ScrollDataPtr scroll_data_in,
     PinchBeginDataPtr pinch_begin_data_in,
     PinchUpdateDataPtr pinch_update_data_in,
@@ -1113,7 +1114,7 @@ void GestureData::WriteIntoTrace(
     dict.AddItem(
       "contact_size"), this->contact_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Size>&>"
+      "<value of type const std::optional<::gfx::Size>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1696,34 +1697,6 @@ bool SelectAroundCaretResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-ScrollResultData::ScrollResultData()
-    : root_scroll_offset() {}
-
-ScrollResultData::ScrollResultData(
-    const absl::optional<::gfx::PointF>& root_scroll_offset_in)
-    : root_scroll_offset(std::move(root_scroll_offset_in)) {}
-
-ScrollResultData::~ScrollResultData() = default;
-
-void ScrollResultData::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "root_scroll_offset"), this->root_scroll_offset,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::PointF>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool ScrollResultData::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 const char WidgetInputHandlerHost::Name_[] = "blink.mojom.WidgetInputHandlerHost";
 
 WidgetInputHandlerHost::IPCStableHashFunction WidgetInputHandlerHost::MessageToMethodInfo_(mojo::Message& message) {
@@ -1749,6 +1722,9 @@ WidgetInputHandlerHost::IPCStableHashFunction WidgetInputHandlerHost::MessageToM
     }
     case internal::kWidgetInputHandlerHost_SetMouseCapture_Name: {
       return &WidgetInputHandlerHost::SetMouseCapture_Sym::IPCStableHash;
+    }
+    case internal::kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name: {
+      return &WidgetInputHandlerHost::SetAutoscrollSelectionActiveInMainFrame_Sym::IPCStableHash;
     }
     case internal::kWidgetInputHandlerHost_RequestMouseLock_Name: {
       return &WidgetInputHandlerHost::RequestMouseLock_Sym::IPCStableHash;
@@ -1778,6 +1754,8 @@ const char* WidgetInputHandlerHost::MessageToMethodName_(mojo::Message& message)
             return "Receive blink::mojom::WidgetInputHandlerHost::ImeCompositionRangeChanged";
       case internal::kWidgetInputHandlerHost_SetMouseCapture_Name:
             return "Receive blink::mojom::WidgetInputHandlerHost::SetMouseCapture";
+      case internal::kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name:
+            return "Receive blink::mojom::WidgetInputHandlerHost::SetAutoscrollSelectionActiveInMainFrame";
       case internal::kWidgetInputHandlerHost_RequestMouseLock_Name:
             return "Receive blink::mojom::WidgetInputHandlerHost::RequestMouseLock";
     }
@@ -1797,6 +1775,8 @@ const char* WidgetInputHandlerHost::MessageToMethodName_(mojo::Message& message)
             return "Receive reply blink::mojom::WidgetInputHandlerHost::ImeCompositionRangeChanged";
       case internal::kWidgetInputHandlerHost_SetMouseCapture_Name:
             return "Receive reply blink::mojom::WidgetInputHandlerHost::SetMouseCapture";
+      case internal::kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name:
+            return "Receive reply blink::mojom::WidgetInputHandlerHost::SetAutoscrollSelectionActiveInMainFrame";
       case internal::kWidgetInputHandlerHost_RequestMouseLock_Name:
             return "Receive reply blink::mojom::WidgetInputHandlerHost::RequestMouseLock";
     }
@@ -1904,6 +1884,19 @@ uint32_t WidgetInputHandlerHost::SetMouseCapture_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t WidgetInputHandlerHost::SetAutoscrollSelectionActiveInMainFrame_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::WidgetInputHandlerHost::SetAutoscrollSelectionActiveInMainFrame");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t WidgetInputHandlerHost::RequestMouseLock_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -1951,14 +1944,17 @@ void WidgetInputHandlerHostProxy::SetTouchActionFromMain(
                         "<value of type ::cc::TouchAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandlerHost_SetTouchActionFromMain_Name, kFlags, 0, 0, nullptr);
@@ -1990,14 +1986,17 @@ void WidgetInputHandlerHostProxy::SetPanAction(
                         "<value of type PanAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandlerHost_SetPanAction_Name, kFlags, 0, 0, nullptr);
@@ -2029,14 +2028,17 @@ void WidgetInputHandlerHostProxy::DidOverscroll(
                         "<value of type DidOverscrollParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandlerHost_DidOverscroll_Name, kFlags, 0, 0, nullptr);
@@ -2070,14 +2072,17 @@ void WidgetInputHandlerHostProxy::DidStartScrollingViewport(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WidgetInputHandlerHost::DidStartScrollingViewport");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandlerHost_DidStartScrollingViewport_Name, kFlags, 0, 0, nullptr);
@@ -2100,14 +2105,17 @@ void WidgetInputHandlerHostProxy::ImeCancelComposition(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WidgetInputHandlerHost::ImeCancelComposition");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandlerHost_ImeCancelComposition_Name, kFlags, 0, 0, nullptr);
@@ -2126,7 +2134,7 @@ void WidgetInputHandlerHostProxy::ImeCancelComposition(
 }
 
 void WidgetInputHandlerHostProxy::ImeCompositionRangeChanged(
-    const ::gfx::Range& in_range, const absl::optional<std::vector<::gfx::Rect>>& in_character_bounds, const absl::optional<std::vector<::gfx::Rect>>& in_line_bounds) {
+    const ::gfx::Range& in_range, const std::optional<std::vector<::gfx::Rect>>& in_character_bounds, const std::optional<std::vector<::gfx::Rect>>& in_line_bounds) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::WidgetInputHandlerHost::ImeCompositionRangeChanged", "input_parameters",
@@ -2137,20 +2145,23 @@ void WidgetInputHandlerHostProxy::ImeCompositionRangeChanged(
                         "<value of type const ::gfx::Range&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("character_bounds"), in_character_bounds,
-                        "<value of type const absl::optional<std::vector<::gfx::Rect>>&>");
+                        "<value of type const std::optional<std::vector<::gfx::Rect>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("line_bounds"), in_line_bounds,
-                        "<value of type const absl::optional<std::vector<::gfx::Rect>>&>");
+                        "<value of type const std::optional<std::vector<::gfx::Rect>>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandlerHost_ImeCompositionRangeChanged_Name, kFlags, 0, 0, nullptr);
@@ -2209,14 +2220,17 @@ void WidgetInputHandlerHostProxy::SetMouseCapture(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandlerHost_SetMouseCapture_Name, kFlags, 0, 0, nullptr);
@@ -2229,6 +2243,47 @@ void WidgetInputHandlerHostProxy::SetMouseCapture(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WidgetInputHandlerHost::Name_);
   message.set_method_name("SetMouseCapture");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void WidgetInputHandlerHostProxy::SetAutoscrollSelectionActiveInMainFrame(
+    bool in_autoscroll_selection) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::WidgetInputHandlerHost::SetAutoscrollSelectionActiveInMainFrame", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("autoscroll_selection"), in_autoscroll_selection,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data> params(
+          message);
+  params.Allocate();
+  params->autoscroll_selection = in_autoscroll_selection;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WidgetInputHandlerHost::Name_);
+  message.set_method_name("SetAutoscrollSelectionActiveInMainFrame");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2250,14 +2305,17 @@ void WidgetInputHandlerHostProxy::RequestMouseLock(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandlerHost_RequestMouseLock_Name, kFlags, 0, 0, nullptr);
@@ -2350,7 +2408,7 @@ bool WidgetInputHandlerHost_RequestMouseLock_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        WidgetInputHandlerHost::Name_, 7, true);
+        WidgetInputHandlerHost::Name_, 8, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2378,7 +2436,8 @@ void WidgetInputHandlerHost_RequestMouseLock_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandlerHost_RequestMouseLock_Name, kFlags, 0, 0, nullptr);
@@ -2544,8 +2603,8 @@ std::move(p_params));
       
       bool success = true;
       ::gfx::Range p_range{};
-      absl::optional<std::vector<::gfx::Rect>> p_character_bounds{};
-      absl::optional<std::vector<::gfx::Rect>> p_line_bounds{};
+      std::optional<std::vector<::gfx::Rect>> p_character_bounds{};
+      std::optional<std::vector<::gfx::Rect>> p_line_bounds{};
       WidgetInputHandlerHost_ImeCompositionRangeChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRange(&p_range))
@@ -2595,6 +2654,32 @@ std::move(p_line_bounds));
 std::move(p_capture));
       return true;
     }
+    case internal::kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data* params =
+          reinterpret_cast<internal::WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_autoscroll_selection{};
+      WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_autoscroll_selection = input_data_view.autoscroll_selection();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WidgetInputHandlerHost::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAutoscrollSelectionActiveInMainFrame(
+std::move(p_autoscroll_selection));
+      return true;
+    }
     case internal::kWidgetInputHandlerHost_RequestMouseLock_Name: {
       break;
     }
@@ -2632,6 +2717,9 @@ bool WidgetInputHandlerHostStubDispatch::AcceptWithResponder(
     case internal::kWidgetInputHandlerHost_SetMouseCapture_Name: {
       break;
     }
+    case internal::kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name: {
+      break;
+    }
     case internal::kWidgetInputHandlerHost_RequestMouseLock_Name: {
 
       internal::WidgetInputHandlerHost_RequestMouseLock_Params_Data* params =
@@ -2652,7 +2740,7 @@ bool WidgetInputHandlerHostStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            WidgetInputHandlerHost::Name_, 7, false);
+            WidgetInputHandlerHost::Name_, 8, false);
         return false;
       }
       WidgetInputHandlerHost::RequestMouseLockCallback callback =
@@ -2668,24 +2756,26 @@ std::move(p_unadjusted_movement), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWidgetInputHandlerHostValidationInfo[] = {
-    {&internal::WidgetInputHandlerHost_SetTouchActionFromMain_Params_Data::Validate,
+    { &internal::WidgetInputHandlerHost_SetTouchActionFromMain_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandlerHost_SetPanAction_Params_Data::Validate,
+    { &internal::WidgetInputHandlerHost_SetPanAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandlerHost_DidOverscroll_Params_Data::Validate,
+    { &internal::WidgetInputHandlerHost_DidOverscroll_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandlerHost_DidStartScrollingViewport_Params_Data::Validate,
+    { &internal::WidgetInputHandlerHost_DidStartScrollingViewport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandlerHost_ImeCancelComposition_Params_Data::Validate,
+    { &internal::WidgetInputHandlerHost_ImeCancelComposition_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandlerHost_ImeCompositionRangeChanged_Params_Data::Validate,
+    { &internal::WidgetInputHandlerHost_ImeCompositionRangeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandlerHost_SetMouseCapture_Params_Data::Validate,
+    { &internal::WidgetInputHandlerHost_SetMouseCapture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandlerHost_RequestMouseLock_Params_Data::Validate,
+    { &internal::WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::WidgetInputHandlerHost_RequestMouseLock_Params_Data::Validate,
      &internal::WidgetInputHandlerHost_RequestMouseLock_ResponseParams_Data::Validate},
 };
 
@@ -3403,14 +3493,17 @@ void FrameWidgetInputHandlerProxy::AddImeTextSpansToExistingText(
                         "<value of type const std::vector<::ui::ImeTextSpan>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_AddImeTextSpansToExistingText_Name, kFlags, 0, 0, nullptr);
@@ -3461,14 +3554,17 @@ void FrameWidgetInputHandlerProxy::ClearImeTextSpansByType(
                         "<value of type ::ui::ImeTextSpan::Type>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_ClearImeTextSpansByType_Name, kFlags, 0, 0, nullptr);
@@ -3508,14 +3604,17 @@ void FrameWidgetInputHandlerProxy::SetCompositionFromExistingText(
                         "<value of type const std::vector<::ui::ImeTextSpan>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_SetCompositionFromExistingText_Name, kFlags, 0, 0, nullptr);
@@ -3563,14 +3662,17 @@ void FrameWidgetInputHandlerProxy::ExtendSelectionAndDelete(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_ExtendSelectionAndDelete_Name, kFlags, 0, 0, nullptr);
@@ -3608,14 +3710,17 @@ void FrameWidgetInputHandlerProxy::ExtendSelectionAndReplace(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_ExtendSelectionAndReplace_Name, kFlags, 0, 0, nullptr);
@@ -3661,14 +3766,17 @@ void FrameWidgetInputHandlerProxy::DeleteSurroundingText(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_DeleteSurroundingText_Name, kFlags, 0, 0, nullptr);
@@ -3703,14 +3811,17 @@ void FrameWidgetInputHandlerProxy::DeleteSurroundingTextInCodePoints(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_DeleteSurroundingTextInCodePoints_Name, kFlags, 0, 0, nullptr);
@@ -3745,14 +3856,17 @@ void FrameWidgetInputHandlerProxy::SetEditableSelectionOffsets(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_SetEditableSelectionOffsets_Name, kFlags, 0, 0, nullptr);
@@ -3784,14 +3898,17 @@ void FrameWidgetInputHandlerProxy::HandleStylusWritingGestureAction(
                         "<value of type ::blink::mojom::StylusWritingGestureDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_HandleStylusWritingGestureAction_Name, kFlags, 0, 0, nullptr);
@@ -3822,7 +3939,7 @@ void FrameWidgetInputHandlerProxy::HandleStylusWritingGestureAction(
 }
 
 void FrameWidgetInputHandlerProxy::ExecuteEditCommand(
-    const std::string& in_command, const absl::optional<::std::u16string>& in_value) {
+    const std::string& in_command, const std::optional<::std::u16string>& in_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::FrameWidgetInputHandler::ExecuteEditCommand", "input_parameters",
@@ -3833,17 +3950,20 @@ void FrameWidgetInputHandlerProxy::ExecuteEditCommand(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type const absl::optional<::std::u16string>&>");
+                        "<value of type const std::optional<::std::u16string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_ExecuteEditCommand_Name, kFlags, 0, 0, nullptr);
@@ -3884,14 +4004,17 @@ void FrameWidgetInputHandlerProxy::Undo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::Undo");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_Undo_Name, kFlags, 0, 0, nullptr);
@@ -3914,14 +4037,17 @@ void FrameWidgetInputHandlerProxy::Redo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::Redo");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_Redo_Name, kFlags, 0, 0, nullptr);
@@ -3944,14 +4070,17 @@ void FrameWidgetInputHandlerProxy::Cut(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::Cut");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_Cut_Name, kFlags, 0, 0, nullptr);
@@ -3974,14 +4103,17 @@ void FrameWidgetInputHandlerProxy::Copy(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::Copy");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_Copy_Name, kFlags, 0, 0, nullptr);
@@ -4004,14 +4136,17 @@ void FrameWidgetInputHandlerProxy::CopyToFindPboard(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::CopyToFindPboard");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_CopyToFindPboard_Name, kFlags, 0, 0, nullptr);
@@ -4034,14 +4169,17 @@ void FrameWidgetInputHandlerProxy::CenterSelection(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::CenterSelection");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_CenterSelection_Name, kFlags, 0, 0, nullptr);
@@ -4064,14 +4202,17 @@ void FrameWidgetInputHandlerProxy::Paste(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::Paste");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_Paste_Name, kFlags, 0, 0, nullptr);
@@ -4094,14 +4235,17 @@ void FrameWidgetInputHandlerProxy::PasteAndMatchStyle(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::PasteAndMatchStyle");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_PasteAndMatchStyle_Name, kFlags, 0, 0, nullptr);
@@ -4124,14 +4268,17 @@ void FrameWidgetInputHandlerProxy::Delete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::Delete");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_Delete_Name, kFlags, 0, 0, nullptr);
@@ -4154,14 +4301,17 @@ void FrameWidgetInputHandlerProxy::SelectAll(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::SelectAll");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_SelectAll_Name, kFlags, 0, 0, nullptr);
@@ -4184,14 +4334,17 @@ void FrameWidgetInputHandlerProxy::CollapseSelection(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::CollapseSelection");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_CollapseSelection_Name, kFlags, 0, 0, nullptr);
@@ -4221,14 +4374,17 @@ void FrameWidgetInputHandlerProxy::Replace(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_Replace_Name, kFlags, 0, 0, nullptr);
@@ -4269,14 +4425,17 @@ void FrameWidgetInputHandlerProxy::ReplaceMisspelling(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_ReplaceMisspelling_Name, kFlags, 0, 0, nullptr);
@@ -4320,14 +4479,17 @@ void FrameWidgetInputHandlerProxy::SelectRange(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_SelectRange_Name, kFlags, 0, 0, nullptr);
@@ -4385,14 +4547,17 @@ void FrameWidgetInputHandlerProxy::AdjustSelectionByCharacterOffset(
                         "<value of type ::blink::mojom::SelectionMenuBehavior>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_AdjustSelectionByCharacterOffset_Name, kFlags, 0, 0, nullptr);
@@ -4432,14 +4597,17 @@ void FrameWidgetInputHandlerProxy::SelectAroundCaret(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_SelectAroundCaret_Name, kFlags, 0, 0, nullptr);
@@ -4474,14 +4642,17 @@ void FrameWidgetInputHandlerProxy::MoveRangeSelectionExtent(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_MoveRangeSelectionExtent_Name, kFlags, 0, 0, nullptr);
@@ -4515,14 +4686,17 @@ void FrameWidgetInputHandlerProxy::ScrollFocusedEditableNodeIntoView(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::ScrollFocusedEditableNodeIntoView");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_ScrollFocusedEditableNodeIntoView_Name, kFlags, 0, 0, nullptr);
@@ -4545,14 +4719,17 @@ void FrameWidgetInputHandlerProxy::WaitForPageScaleAnimationForTesting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetInputHandler::WaitForPageScaleAnimationForTesting");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_Name, kFlags, 0, 0, nullptr);
@@ -4583,14 +4760,17 @@ void FrameWidgetInputHandlerProxy::MoveCaret(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_MoveCaret_Name, kFlags, 0, 0, nullptr);
@@ -4710,7 +4890,8 @@ void FrameWidgetInputHandler_HandleStylusWritingGestureAction_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_HandleStylusWritingGestureAction_Name, kFlags, 0, 0, nullptr);
@@ -4829,7 +5010,8 @@ void FrameWidgetInputHandler_SelectAroundCaret_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_SelectAroundCaret_Name, kFlags, 0, 0, nullptr);
@@ -4942,7 +5124,8 @@ void FrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_ProxyToResponde
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_Name, kFlags, 0, 0, nullptr);
@@ -5241,7 +5424,7 @@ std::move(p_end));
       
       bool success = true;
       std::string p_command{};
-      absl::optional<::std::u16string> p_value{};
+      std::optional<::std::u16string> p_value{};
       FrameWidgetInputHandler_ExecuteEditCommand_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCommand(&p_command))
@@ -5888,68 +6071,68 @@ std::move(p_should_show_context_menu), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameWidgetInputHandlerValidationInfo[] = {
-    {&internal::FrameWidgetInputHandler_AddImeTextSpansToExistingText_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_AddImeTextSpansToExistingText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_ClearImeTextSpansByType_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_ClearImeTextSpansByType_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_SetCompositionFromExistingText_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_SetCompositionFromExistingText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_ExtendSelectionAndDelete_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_ExtendSelectionAndDelete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_ExtendSelectionAndReplace_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_ExtendSelectionAndReplace_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_DeleteSurroundingText_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_DeleteSurroundingText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_DeleteSurroundingTextInCodePoints_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_DeleteSurroundingTextInCodePoints_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_SetEditableSelectionOffsets_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_SetEditableSelectionOffsets_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_HandleStylusWritingGestureAction_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_HandleStylusWritingGestureAction_Params_Data::Validate,
      &internal::FrameWidgetInputHandler_HandleStylusWritingGestureAction_ResponseParams_Data::Validate},
-    {&internal::FrameWidgetInputHandler_ExecuteEditCommand_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_ExecuteEditCommand_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_Undo_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_Undo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_Redo_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_Redo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_Cut_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_Cut_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_Copy_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_Copy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_CopyToFindPboard_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_CopyToFindPboard_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_CenterSelection_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_CenterSelection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_Paste_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_Paste_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_PasteAndMatchStyle_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_PasteAndMatchStyle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_Delete_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_Delete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_SelectAll_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_SelectAll_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_CollapseSelection_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_CollapseSelection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_Replace_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_Replace_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_ReplaceMisspelling_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_ReplaceMisspelling_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_SelectRange_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_SelectRange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_AdjustSelectionByCharacterOffset_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_AdjustSelectionByCharacterOffset_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_SelectAroundCaret_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_SelectAroundCaret_Params_Data::Validate,
      &internal::FrameWidgetInputHandler_SelectAroundCaret_ResponseParams_Data::Validate},
-    {&internal::FrameWidgetInputHandler_MoveRangeSelectionExtent_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_MoveRangeSelectionExtent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_ScrollFocusedEditableNodeIntoView_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_ScrollFocusedEditableNodeIntoView_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_Params_Data::Validate,
      &internal::FrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_ResponseParams_Data::Validate},
-    {&internal::FrameWidgetInputHandler_MoveCaret_Params_Data::Validate,
+    { &internal::FrameWidgetInputHandler_MoveCaret_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6357,14 +6540,17 @@ void WidgetInputHandlerProxy::SetFocus(
                         "<value of type FocusState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_SetFocus_Name, kFlags, 0, 0, nullptr);
@@ -6389,14 +6575,17 @@ void WidgetInputHandlerProxy::MouseCaptureLost(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WidgetInputHandler::MouseCaptureLost");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_MouseCaptureLost_Name, kFlags, 0, 0, nullptr);
@@ -6426,14 +6615,17 @@ void WidgetInputHandlerProxy::SetEditCommandsForNextKeyEvent(
                         "<value of type std::vector<EditCommandPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_SetEditCommandsForNextKeyEvent_Name, kFlags, 0, 0, nullptr);
@@ -6476,14 +6668,17 @@ void WidgetInputHandlerProxy::CursorVisibilityChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_CursorVisibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -6526,14 +6721,17 @@ void WidgetInputHandlerProxy::ImeSetComposition(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_ImeSetComposition_Name, kFlags, 0, 0, nullptr);
@@ -6610,14 +6808,17 @@ void WidgetInputHandlerProxy::ImeCommitText(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_ImeCommitText_Name, kFlags, 0, 0, nullptr);
@@ -6684,14 +6885,17 @@ void WidgetInputHandlerProxy::ImeFinishComposingText(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_ImeFinishComposingText_Name, kFlags, 0, 0, nullptr);
@@ -6715,14 +6919,17 @@ void WidgetInputHandlerProxy::RequestTextInputStateUpdate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WidgetInputHandler::RequestTextInputStateUpdate");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_RequestTextInputStateUpdate_Name, kFlags, 0, 0, nullptr);
@@ -6755,14 +6962,17 @@ void WidgetInputHandlerProxy::RequestCompositionUpdates(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_RequestCompositionUpdates_Name, kFlags, 0, 0, nullptr);
@@ -6794,14 +7004,17 @@ void WidgetInputHandlerProxy::DispatchEvent(
                         "<value of type ::std::unique_ptr<::blink::WebCoalescedInputEvent>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_DispatchEvent_Name, kFlags, 0, 0, nullptr);
@@ -6843,14 +7056,17 @@ void WidgetInputHandlerProxy::DispatchNonBlockingEvent(
                         "<value of type ::std::unique_ptr<::blink::WebCoalescedInputEvent>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_DispatchNonBlockingEvent_Name, kFlags, 0, 0, nullptr);
@@ -6884,14 +7100,17 @@ void WidgetInputHandlerProxy::WaitForInputProcessed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WidgetInputHandler::WaitForInputProcessed");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_WaitForInputProcessed_Name, kFlags, 0, 0, nullptr);
@@ -6922,14 +7141,17 @@ void WidgetInputHandlerProxy::GetFrameWidgetInputHandler(
                         "<value of type ::mojo::PendingAssociatedReceiver<FrameWidgetInputHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_GetFrameWidgetInputHandler_Name, kFlags, 0, 0, nullptr);
@@ -6971,14 +7193,17 @@ void WidgetInputHandlerProxy::UpdateBrowserControlsState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_UpdateBrowserControlsState_Name, kFlags, 0, 0, nullptr);
@@ -7081,7 +7306,8 @@ void WidgetInputHandler_ImeSetComposition_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_ImeSetComposition_Name, kFlags, 0, 0, nullptr);
@@ -7187,7 +7413,8 @@ void WidgetInputHandler_ImeCommitText_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_ImeCommitText_Name, kFlags, 0, 0, nullptr);
@@ -7258,7 +7485,7 @@ class WidgetInputHandler_DispatchEvent_ProxyToResponder : public ::mojo::interna
 #endif
 
   void Run(
-      ::blink::mojom::InputEventResultSource in_source, const ::ui::LatencyInfo& in_updated_latency, ::blink::mojom::InputEventResultState in_state, DidOverscrollParamsPtr in_overscroll, TouchActionOptionalPtr in_touch_action, ScrollResultDataPtr in_scroll_result_data);
+      ::blink::mojom::InputEventResultSource in_source, const ::ui::LatencyInfo& in_updated_latency, ::blink::mojom::InputEventResultState in_state, DidOverscrollParamsPtr in_overscroll, TouchActionOptionalPtr in_touch_action);
 };
 
 bool WidgetInputHandler_DispatchEvent_ForwardToCallback::Accept(
@@ -7276,7 +7503,6 @@ bool WidgetInputHandler_DispatchEvent_ForwardToCallback::Accept(
   ::blink::mojom::InputEventResultState p_state{};
   DidOverscrollParamsPtr p_overscroll{};
   TouchActionOptionalPtr p_touch_action{};
-  ScrollResultDataPtr p_scroll_result_data{};
   WidgetInputHandler_DispatchEvent_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadSource(&p_source))
@@ -7288,8 +7514,6 @@ bool WidgetInputHandler_DispatchEvent_ForwardToCallback::Accept(
   if (success && !input_data_view.ReadOverscroll(&p_overscroll))
     success = false;
   if (success && !input_data_view.ReadTouchAction(&p_touch_action))
-    success = false;
-  if (success && !input_data_view.ReadScrollResultData(&p_scroll_result_data))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -7304,13 +7528,12 @@ std::move(p_source),
 std::move(p_updated_latency), 
 std::move(p_state), 
 std::move(p_overscroll), 
-std::move(p_touch_action), 
-std::move(p_scroll_result_data));
+std::move(p_touch_action));
   return true;
 }
 
 void WidgetInputHandler_DispatchEvent_ProxyToResponder::Run(
-    ::blink::mojom::InputEventResultSource in_source, const ::ui::LatencyInfo& in_updated_latency, ::blink::mojom::InputEventResultState in_state, DidOverscrollParamsPtr in_overscroll, TouchActionOptionalPtr in_touch_action, ScrollResultDataPtr in_scroll_result_data) {
+    ::blink::mojom::InputEventResultSource in_source, const ::ui::LatencyInfo& in_updated_latency, ::blink::mojom::InputEventResultState in_state, DidOverscrollParamsPtr in_overscroll, TouchActionOptionalPtr in_touch_action) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::WidgetInputHandler::DispatchEvent", "async_response_parameters",
@@ -7331,15 +7554,13 @@ void WidgetInputHandler_DispatchEvent_ProxyToResponder::Run(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("touch_action"), in_touch_action,
                         "<value of type TouchActionOptionalPtr>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("scroll_result_data"), in_scroll_result_data,
-                        "<value of type ScrollResultDataPtr>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_DispatchEvent_Name, kFlags, 0, 0, nullptr);
@@ -7376,13 +7597,6 @@ void WidgetInputHandler_DispatchEvent_ProxyToResponder::Run(
       in_touch_action, touch_action_fragment);
   params->touch_action.Set(
       touch_action_fragment.is_null() ? nullptr : touch_action_fragment.data());
-  mojo::internal::MessageFragment<
-      typename decltype(params->scroll_result_data)::BaseType> scroll_result_data_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::ScrollResultDataDataView>(
-      in_scroll_result_data, scroll_result_data_fragment);
-  params->scroll_result_data.Set(
-      scroll_result_data_fragment.is_null() ? nullptr : scroll_result_data_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WidgetInputHandler::Name_);
@@ -7481,7 +7695,8 @@ void WidgetInputHandler_WaitForInputProcessed_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWidgetInputHandler_WaitForInputProcessed_Name, kFlags, 0, 0, nullptr);
@@ -7976,36 +8191,36 @@ std::move(p_event), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWidgetInputHandlerValidationInfo[] = {
-    {&internal::WidgetInputHandler_SetFocus_Params_Data::Validate,
+    { &internal::WidgetInputHandler_SetFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandler_MouseCaptureLost_Params_Data::Validate,
+    { &internal::WidgetInputHandler_MouseCaptureLost_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandler_SetEditCommandsForNextKeyEvent_Params_Data::Validate,
+    { &internal::WidgetInputHandler_SetEditCommandsForNextKeyEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandler_CursorVisibilityChanged_Params_Data::Validate,
+    { &internal::WidgetInputHandler_CursorVisibilityChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandler_ImeSetComposition_Params_Data::Validate,
+    { &internal::WidgetInputHandler_ImeSetComposition_Params_Data::Validate,
      &internal::WidgetInputHandler_ImeSetComposition_ResponseParams_Data::Validate},
-    {&internal::WidgetInputHandler_ImeCommitText_Params_Data::Validate,
+    { &internal::WidgetInputHandler_ImeCommitText_Params_Data::Validate,
      &internal::WidgetInputHandler_ImeCommitText_ResponseParams_Data::Validate},
-    {&internal::WidgetInputHandler_ImeFinishComposingText_Params_Data::Validate,
+    { &internal::WidgetInputHandler_ImeFinishComposingText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandler_RequestTextInputStateUpdate_Params_Data::Validate,
+    { &internal::WidgetInputHandler_RequestTextInputStateUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandler_RequestCompositionUpdates_Params_Data::Validate,
+    { &internal::WidgetInputHandler_RequestCompositionUpdates_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandler_DispatchEvent_Params_Data::Validate,
+    { &internal::WidgetInputHandler_DispatchEvent_Params_Data::Validate,
      &internal::WidgetInputHandler_DispatchEvent_ResponseParams_Data::Validate},
-    {&internal::WidgetInputHandler_DispatchNonBlockingEvent_Params_Data::Validate,
+    { &internal::WidgetInputHandler_DispatchNonBlockingEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandler_WaitForInputProcessed_Params_Data::Validate,
+    { &internal::WidgetInputHandler_WaitForInputProcessed_Params_Data::Validate,
      &internal::WidgetInputHandler_WaitForInputProcessed_ResponseParams_Data::Validate},
-    {&internal::WidgetInputHandler_GetFrameWidgetInputHandler_Params_Data::Validate,
+    { &internal::WidgetInputHandler_GetFrameWidgetInputHandler_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WidgetInputHandler_UpdateBrowserControlsState_Params_Data::Validate,
+    { &internal::WidgetInputHandler_UpdateBrowserControlsState_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -8477,20 +8692,6 @@ bool StructTraits<::blink::mojom::SelectAroundCaretResult::DataView, ::blink::mo
   return success;
 }
 
-
-// static
-bool StructTraits<::blink::mojom::ScrollResultData::DataView, ::blink::mojom::ScrollResultDataPtr>::Read(
-    ::blink::mojom::ScrollResultData::DataView input,
-    ::blink::mojom::ScrollResultDataPtr* output) {
-  bool success = true;
-  ::blink::mojom::ScrollResultDataPtr result(::blink::mojom::ScrollResultData::New());
-  
-      if (success && !input.ReadRootScrollOffset(&result->root_scroll_offset))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
 }  // namespace mojo
 
 
@@ -8516,11 +8717,14 @@ void WidgetInputHandlerHostInterceptorForTesting::DidStartScrollingViewport() {
 void WidgetInputHandlerHostInterceptorForTesting::ImeCancelComposition() {
   GetForwardingInterface()->ImeCancelComposition();
 }
-void WidgetInputHandlerHostInterceptorForTesting::ImeCompositionRangeChanged(const ::gfx::Range& range, const absl::optional<std::vector<::gfx::Rect>>& character_bounds, const absl::optional<std::vector<::gfx::Rect>>& line_bounds) {
+void WidgetInputHandlerHostInterceptorForTesting::ImeCompositionRangeChanged(const ::gfx::Range& range, const std::optional<std::vector<::gfx::Rect>>& character_bounds, const std::optional<std::vector<::gfx::Rect>>& line_bounds) {
   GetForwardingInterface()->ImeCompositionRangeChanged(std::move(range), std::move(character_bounds), std::move(line_bounds));
 }
 void WidgetInputHandlerHostInterceptorForTesting::SetMouseCapture(bool capture) {
   GetForwardingInterface()->SetMouseCapture(std::move(capture));
+}
+void WidgetInputHandlerHostInterceptorForTesting::SetAutoscrollSelectionActiveInMainFrame(bool autoscroll_selection) {
+  GetForwardingInterface()->SetAutoscrollSelectionActiveInMainFrame(std::move(autoscroll_selection));
 }
 void WidgetInputHandlerHostInterceptorForTesting::RequestMouseLock(bool from_user_gesture, bool unadjusted_movement, RequestMouseLockCallback callback) {
   GetForwardingInterface()->RequestMouseLock(std::move(from_user_gesture), std::move(unadjusted_movement), std::move(callback));
@@ -8582,7 +8786,7 @@ void FrameWidgetInputHandlerInterceptorForTesting::SetEditableSelectionOffsets(i
 void FrameWidgetInputHandlerInterceptorForTesting::HandleStylusWritingGestureAction(::blink::mojom::StylusWritingGestureDataPtr gesture_data, HandleStylusWritingGestureActionCallback callback) {
   GetForwardingInterface()->HandleStylusWritingGestureAction(std::move(gesture_data), std::move(callback));
 }
-void FrameWidgetInputHandlerInterceptorForTesting::ExecuteEditCommand(const std::string& command, const absl::optional<::std::u16string>& value) {
+void FrameWidgetInputHandlerInterceptorForTesting::ExecuteEditCommand(const std::string& command, const std::optional<::std::u16string>& value) {
   GetForwardingInterface()->ExecuteEditCommand(std::move(command), std::move(value));
 }
 void FrameWidgetInputHandlerInterceptorForTesting::Undo() {
@@ -8789,7 +8993,7 @@ void WidgetInputHandlerAsyncWaiter::ImeCommitText(
 
 
 void WidgetInputHandlerAsyncWaiter::DispatchEvent(
-    ::std::unique_ptr<::blink::WebCoalescedInputEvent> event, ::blink::mojom::InputEventResultSource* out_source, ::ui::LatencyInfo* out_updated_latency, ::blink::mojom::InputEventResultState* out_state, DidOverscrollParamsPtr* out_overscroll, TouchActionOptionalPtr* out_touch_action, ScrollResultDataPtr* out_scroll_result_data) {
+    ::std::unique_ptr<::blink::WebCoalescedInputEvent> event, ::blink::mojom::InputEventResultSource* out_source, ::ui::LatencyInfo* out_updated_latency, ::blink::mojom::InputEventResultState* out_state, DidOverscrollParamsPtr* out_overscroll, TouchActionOptionalPtr* out_touch_action) {
   base::RunLoop loop;
   proxy_->DispatchEvent(std::move(event),
       base::BindOnce(
@@ -8804,14 +9008,11 @@ void WidgetInputHandlerAsyncWaiter::DispatchEvent(
 ,
              TouchActionOptionalPtr* out_touch_action
 ,
-             ScrollResultDataPtr* out_scroll_result_data
-,
              ::blink::mojom::InputEventResultSource source,
              const ::ui::LatencyInfo& updated_latency,
              ::blink::mojom::InputEventResultState state,
              DidOverscrollParamsPtr overscroll,
-             TouchActionOptionalPtr touch_action,
-             ScrollResultDataPtr scroll_result_data) {*out_source = std::move(source);*out_updated_latency = std::move(updated_latency);*out_state = std::move(state);*out_overscroll = std::move(overscroll);*out_touch_action = std::move(touch_action);*out_scroll_result_data = std::move(scroll_result_data);
+             TouchActionOptionalPtr touch_action) {*out_source = std::move(source);*out_updated_latency = std::move(updated_latency);*out_state = std::move(state);*out_overscroll = std::move(overscroll);*out_touch_action = std::move(touch_action);
             loop->Quit();
           },
           &loop,
@@ -8819,8 +9020,7 @@ void WidgetInputHandlerAsyncWaiter::DispatchEvent(
           out_updated_latency,
           out_state,
           out_overscroll,
-          out_touch_action,
-          out_scroll_result_data));
+          out_touch_action));
   loop.Run();
 }
 

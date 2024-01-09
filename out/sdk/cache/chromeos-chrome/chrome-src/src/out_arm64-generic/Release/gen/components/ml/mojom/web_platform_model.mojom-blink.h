@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/ml/mojom/web_platform_model.mojom-features.h"
 #include "components/ml/mojom/web_platform_model.mojom-shared.h"
 #include "components/ml/mojom/web_platform_model.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom-blink.h"
@@ -38,78 +39,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ml::model_loader::mojom::ModelFormat>
-    : EnumHashTraits<::ml::model_loader::mojom::ModelFormat, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ml::model_loader::mojom::DevicePreference>
-    : EnumHashTraits<::ml::model_loader::mojom::DevicePreference, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ml::model_loader::mojom::DataType>
-    : EnumHashTraits<::ml::model_loader::mojom::DataType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ml::model_loader::mojom::LoadModelResult>
-    : EnumHashTraits<::ml::model_loader::mojom::LoadModelResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ml::model_loader::mojom::CreateModelLoaderResult>
-    : EnumHashTraits<::ml::model_loader::mojom::CreateModelLoaderResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ml::model_loader::mojom::ComputeResult>
-    : EnumHashTraits<::ml::model_loader::mojom::ComputeResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace ml::model_loader::mojom::blink {
@@ -205,7 +134,7 @@ class Model
   virtual ~Model() = default;
 
 
-  using ComputeCallback = base::OnceCallback<void(ComputeResult, const absl::optional<WTF::HashMap<WTF::String, WTF::Vector<uint8_t>>>&)>;
+  using ComputeCallback = base::OnceCallback<void(ComputeResult, const std::optional<WTF::HashMap<WTF::String, WTF::Vector<uint8_t>>>&)>;
   
   virtual void Compute(const WTF::HashMap<WTF::String, WTF::Vector<uint8_t>>& input_tensors, ComputeCallback callback) = 0;
 };

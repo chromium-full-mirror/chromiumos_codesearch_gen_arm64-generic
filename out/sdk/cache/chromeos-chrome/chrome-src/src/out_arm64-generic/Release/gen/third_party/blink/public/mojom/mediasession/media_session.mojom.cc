@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -87,17 +88,20 @@ SpecMediaMetadata::SpecMediaMetadata()
     : title(),
       artist(),
       album(),
-      artwork() {}
+      artwork(),
+      chapterInfo() {}
 
 SpecMediaMetadata::SpecMediaMetadata(
     const ::std::u16string& title_in,
     const ::std::u16string& artist_in,
     const ::std::u16string& album_in,
-    std::vector<::media_session::MediaImage> artwork_in)
+    std::vector<::media_session::MediaImage> artwork_in,
+    std::vector<::media_session::mojom::ChapterInformationPtr> chapterInfo_in)
     : title(std::move(title_in)),
       artist(std::move(artist_in)),
       album(std::move(album_in)),
-      artwork(std::move(artwork_in)) {}
+      artwork(std::move(artwork_in)),
+      chapterInfo(std::move(chapterInfo_in)) {}
 
 SpecMediaMetadata::~SpecMediaMetadata() = default;
 
@@ -136,6 +140,15 @@ void SpecMediaMetadata::WriteIntoTrace(
       "artwork"), this->artwork,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<::media_session::MediaImage>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "chapterInfo"), this->chapterInfo,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<::media_session::mojom::ChapterInformationPtr>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -257,14 +270,17 @@ void MediaSessionClientProxy::DidReceiveAction(
                         "<value of type MediaSessionActionDetailsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaSessionClient_DidReceiveAction_Name, kFlags, 0, 0, nullptr);
@@ -343,10 +359,10 @@ bool MediaSessionClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaSessionClientValidationInfo[] = {
-    {&internal::MediaSessionClient_DidReceiveAction_Params_Data::Validate,
+    { &internal::MediaSessionClient_DidReceiveAction_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -566,14 +582,17 @@ void MediaSessionServiceProxy::SetClient(
                         "<value of type ::mojo::PendingRemote<MediaSessionClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaSessionService_SetClient_Name, kFlags, 0, 0, nullptr);
@@ -609,14 +628,17 @@ void MediaSessionServiceProxy::SetPlaybackState(
                         "<value of type MediaSessionPlaybackState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaSessionService_SetPlaybackState_Name, kFlags, 0, 0, nullptr);
@@ -637,7 +659,7 @@ void MediaSessionServiceProxy::SetPlaybackState(
 }
 
 void MediaSessionServiceProxy::SetPositionState(
-    const absl::optional<::media_session::MediaPosition>& in_position) {
+    const std::optional<::media_session::MediaPosition>& in_position) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::MediaSessionService::SetPositionState", "input_parameters",
@@ -645,17 +667,20 @@ void MediaSessionServiceProxy::SetPositionState(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("position"), in_position,
-                        "<value of type const absl::optional<::media_session::MediaPosition>&>");
+                        "<value of type const std::optional<::media_session::MediaPosition>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaSessionService_SetPositionState_Name, kFlags, 0, 0, nullptr);
@@ -692,14 +717,17 @@ void MediaSessionServiceProxy::SetMetadata(
                         "<value of type SpecMediaMetadataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaSessionService_SetMetadata_Name, kFlags, 0, 0, nullptr);
@@ -736,14 +764,17 @@ void MediaSessionServiceProxy::SetMicrophoneState(
                         "<value of type ::media_session::mojom::MicrophoneState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaSessionService_SetMicrophoneState_Name, kFlags, 0, 0, nullptr);
@@ -775,14 +806,17 @@ void MediaSessionServiceProxy::SetCameraState(
                         "<value of type ::media_session::mojom::CameraState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaSessionService_SetCameraState_Name, kFlags, 0, 0, nullptr);
@@ -814,14 +848,17 @@ void MediaSessionServiceProxy::EnableAction(
                         "<value of type ::media_session::mojom::MediaSessionAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaSessionService_EnableAction_Name, kFlags, 0, 0, nullptr);
@@ -853,14 +890,17 @@ void MediaSessionServiceProxy::DisableAction(
                         "<value of type ::media_session::mojom::MediaSessionAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaSessionService_DisableAction_Name, kFlags, 0, 0, nullptr);
@@ -947,7 +987,7 @@ std::move(p_state));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::media_session::MediaPosition> p_position{};
+      std::optional<::media_session::MediaPosition> p_position{};
       MediaSessionService_SetPositionState_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPosition(&p_position))
@@ -1135,24 +1175,24 @@ bool MediaSessionServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaSessionServiceValidationInfo[] = {
-    {&internal::MediaSessionService_SetClient_Params_Data::Validate,
+    { &internal::MediaSessionService_SetClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaSessionService_SetPlaybackState_Params_Data::Validate,
+    { &internal::MediaSessionService_SetPlaybackState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaSessionService_SetPositionState_Params_Data::Validate,
+    { &internal::MediaSessionService_SetPositionState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaSessionService_SetMetadata_Params_Data::Validate,
+    { &internal::MediaSessionService_SetMetadata_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaSessionService_SetMicrophoneState_Params_Data::Validate,
+    { &internal::MediaSessionService_SetMicrophoneState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaSessionService_SetCameraState_Params_Data::Validate,
+    { &internal::MediaSessionService_SetCameraState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaSessionService_EnableAction_Params_Data::Validate,
+    { &internal::MediaSessionService_EnableAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaSessionService_DisableAction_Params_Data::Validate,
+    { &internal::MediaSessionService_DisableAction_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1199,6 +1239,8 @@ bool StructTraits<::blink::mojom::SpecMediaMetadata::DataView, ::blink::mojom::S
       if (success && !input.ReadAlbum(&result->album))
         success = false;
       if (success && !input.ReadArtwork(&result->artwork))
+        success = false;
+      if (success && !input.ReadChapterInfo(&result->chapterInfo))
         success = false;
   *output = std::move(result);
   return success;
@@ -1255,7 +1297,7 @@ void MediaSessionServiceInterceptorForTesting::SetClient(::mojo::PendingRemote<M
 void MediaSessionServiceInterceptorForTesting::SetPlaybackState(MediaSessionPlaybackState state) {
   GetForwardingInterface()->SetPlaybackState(std::move(state));
 }
-void MediaSessionServiceInterceptorForTesting::SetPositionState(const absl::optional<::media_session::MediaPosition>& position) {
+void MediaSessionServiceInterceptorForTesting::SetPositionState(const std::optional<::media_session::MediaPosition>& position) {
   GetForwardingInterface()->SetPositionState(std::move(position));
 }
 void MediaSessionServiceInterceptorForTesting::SetMetadata(SpecMediaMetadataPtr metadata) {

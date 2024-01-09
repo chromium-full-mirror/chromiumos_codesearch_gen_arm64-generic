@@ -54,10 +54,11 @@ const AtomicString& kTextTrackList = reinterpret_cast<AtomicString*>(&names_stor
 const AtomicString& kTrustedTypePolicyFactory = reinterpret_cast<AtomicString*>(&names_storage)[32];
 const AtomicString& kVideoTrackList = reinterpret_cast<AtomicString*>(&names_storage)[33];
 const AtomicString& kVisualViewport = reinterpret_cast<AtomicString*>(&names_storage)[34];
-const AtomicString& kWindow = reinterpret_cast<AtomicString*>(&names_storage)[35];
-const AtomicString& kWorker = reinterpret_cast<AtomicString*>(&names_storage)[36];
-const AtomicString& kXMLHttpRequest = reinterpret_cast<AtomicString*>(&names_storage)[37];
-const AtomicString& kXMLHttpRequestUpload = reinterpret_cast<AtomicString*>(&names_storage)[38];
+const AtomicString& kWebPrintJob = reinterpret_cast<AtomicString*>(&names_storage)[35];
+const AtomicString& kWindow = reinterpret_cast<AtomicString*>(&names_storage)[36];
+const AtomicString& kWorker = reinterpret_cast<AtomicString*>(&names_storage)[37];
+const AtomicString& kXMLHttpRequest = reinterpret_cast<AtomicString*>(&names_storage)[38];
+const AtomicString& kXMLHttpRequestUpload = reinterpret_cast<AtomicString*>(&names_storage)[39];
 
 void Init() {
   static bool is_loaded = false;
@@ -106,6 +107,7 @@ void Init() {
     { "TrustedTypePolicyFactory", 10032547, 24 },
     { "VideoTrackList", 12436801, 14 },
     { "DOMVisualViewport", 4690116, 17 },
+    { "WebPrintJob", 12471583, 11 },
     { "DOMWindow", 5154002, 9 },
     { "Worker", 14821068, 6 },
     { "XMLHttpRequest", 5139743, 14 },

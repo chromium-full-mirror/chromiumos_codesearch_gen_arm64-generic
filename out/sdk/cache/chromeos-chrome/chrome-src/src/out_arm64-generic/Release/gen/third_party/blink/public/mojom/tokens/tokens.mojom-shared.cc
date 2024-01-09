@@ -850,36 +850,6 @@ ClipboardSequenceNumberToken_Data::ClipboardSequenceNumberToken_Data()
 
 
 // static
-bool PortalToken_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PortalToken_Data* object =
-      static_cast<const PortalToken_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->value, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->value, validation_context))
-    return false;
-
-  return true;
-}
-
-PortalToken_Data::PortalToken_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool V8ContextToken_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MutationRecord>::value,
     "MutationRecord inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MutationRecord::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MutationRecord is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("MutationRecord.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("MutationRecord.target.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(v8_receiver);
+MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->target();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -117,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("MutationRecord.addedNodes.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(v8_receiver);
+MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->addedNodes();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -131,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("MutationRecord.removedNodes.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(v8_receiver);
+MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->removedNodes();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -145,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("MutationRecord.previousSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(v8_receiver);
+MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->previousSibling();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -159,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("MutationRecord.nextSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(v8_receiver);
+MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->nextSibling();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -173,10 +173,10 @@ BLINK_BINDINGS_TRACE_EVENT("MutationRecord.attributeName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->attributeName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->attributeName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -188,10 +188,10 @@ BLINK_BINDINGS_TRACE_EVENT("MutationRecord.attributeNamespace.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->attributeNamespace();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->attributeNamespace();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -203,10 +203,10 @@ BLINK_BINDINGS_TRACE_EVENT("MutationRecord.oldValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oldValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MutationRecord* blink_receiver = V8MutationRecord::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oldValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 

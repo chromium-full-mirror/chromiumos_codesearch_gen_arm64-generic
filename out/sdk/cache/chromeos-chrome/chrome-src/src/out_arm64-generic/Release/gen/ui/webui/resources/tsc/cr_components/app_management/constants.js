@@ -1,7 +1,7 @@
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-export { AppType, InstallReason, InstallSource, OptionalBool, RunOnOsLoginMode, WindowMode } from './app_management.mojom-webui.js';
+export { AppType, InstallReason, InstallSource, RunOnOsLoginMode, WindowMode } from './app_management.mojom-webui.js';
 /**
  * The number of apps displayed in app list in the main view before expanding.
  */
@@ -73,4 +73,5 @@ export var AppManagementUserAction;
     AppManagementUserAction[AppManagementUserAction["FILE_HANDLING_TURNED_ON"] = 29] = "FILE_HANDLING_TURNED_ON";
     AppManagementUserAction[AppManagementUserAction["FILE_HANDLING_TURNED_OFF"] = 30] = "FILE_HANDLING_TURNED_OFF";
     AppManagementUserAction[AppManagementUserAction["FILE_HANDLING_OVERFLOW_SHOWN"] = 31] = "FILE_HANDLING_OVERFLOW_SHOWN";
+    AppManagementUserAction[AppManagementUserAction["APP_STORE_LINK_CLICKED"] = 32] = "APP_STORE_LINK_CLICKED";
 })(AppManagementUserAction || (AppManagementUserAction = {}));

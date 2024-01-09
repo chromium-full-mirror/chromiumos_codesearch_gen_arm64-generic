@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/sensor_provider.mojom-features.h"
 #include "services/device/public/mojom/sensor_provider.mojom-shared.h"
 #include "services/device/public/mojom/sensor_provider.mojom-forward.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
@@ -201,66 +202,68 @@ class  SensorProviderResponseValidator : public mojo::MessageReceiver {
 
 
 
-class  NullableDouble {
+class  VirtualSensorMetadata {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<NullableDouble, T>::value>;
-  using DataView = NullableDoubleDataView;
-  using Data_ = internal::NullableDouble_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<VirtualSensorMetadata, T>::value>;
+  using DataView = VirtualSensorMetadataDataView;
+  using Data_ = internal::VirtualSensorMetadata_Data;
 
   template <typename... Args>
-  static NullableDoublePtr New(Args&&... args) {
-    return NullableDoublePtr(
+  static VirtualSensorMetadataPtr New(Args&&... args) {
+    return VirtualSensorMetadataPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static NullableDoublePtr From(const U& u) {
-    return mojo::TypeConverter<NullableDoublePtr, U>::Convert(u);
+  static VirtualSensorMetadataPtr From(const U& u) {
+    return mojo::TypeConverter<VirtualSensorMetadataPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, NullableDouble>::Convert(*this);
+    return mojo::TypeConverter<U, VirtualSensorMetadata>::Convert(*this);
   }
 
 
-  NullableDouble();
+  VirtualSensorMetadata();
 
-  explicit NullableDouble(
-      double value);
+  VirtualSensorMetadata(
+      bool available,
+      std::optional<double> maximum_frequency,
+      std::optional<double> minimum_frequency,
+      std::optional<::device::mojom::ReportingMode> reporting_mode);
 
 
-  ~NullableDouble();
+  ~VirtualSensorMetadata();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = NullableDoublePtr>
-  NullableDoublePtr Clone() const;
+  template <typename StructPtrType = VirtualSensorMetadataPtr>
+  VirtualSensorMetadataPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, NullableDouble::EnableIfSame<T>* = nullptr>
+  template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, NullableDouble::EnableIfSame<T>* = nullptr>
+  template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, NullableDouble::EnableIfSame<T>* = nullptr>
+  template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        NullableDouble::DataView, std::vector<uint8_t>>(input);
+        VirtualSensorMetadata::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        NullableDouble::DataView>(input);
+        VirtualSensorMetadata::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -270,8 +273,8 @@ class  NullableDouble {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::NullableDouble_UnserializedMessageContext<
-            UserType, NullableDouble::DataView>>(0, 0, std::move(input)),
+        internal::VirtualSensorMetadata_UnserializedMessageContext<
+            UserType, VirtualSensorMetadata::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -280,14 +283,14 @@ class  NullableDouble {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<NullableDouble::DataView>(
+    return mojo::internal::DeserializeImpl<VirtualSensorMetadata::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return NullableDouble::Deserialize(
+    return VirtualSensorMetadata::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -295,19 +298,25 @@ class  NullableDouble {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::NullableDouble_UnserializedMessageContext<
-            UserType, NullableDouble::DataView>>();
+        internal::VirtualSensorMetadata_UnserializedMessageContext<
+            UserType, VirtualSensorMetadata::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<NullableDouble::DataView>(
+    return mojo::internal::DeserializeImpl<VirtualSensorMetadata::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
   
-  double value;
+  bool available;
+  
+  std::optional<double> maximum_frequency;
+  
+  std::optional<double> minimum_frequency;
+  
+  std::optional<::device::mojom::ReportingMode> reporting_mode;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -320,165 +329,23 @@ class  NullableDouble {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, NullableDouble::EnableIfSame<T>* = nullptr>
+template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, NullableDouble::EnableIfSame<T>* = nullptr>
+template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, NullableDouble::EnableIfSame<T>* = nullptr>
+template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, NullableDouble::EnableIfSame<T>* = nullptr>
+template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
-
-
-
-
-
-class  NullableReportingMode {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<NullableReportingMode, T>::value>;
-  using DataView = NullableReportingModeDataView;
-  using Data_ = internal::NullableReportingMode_Data;
-
-  template <typename... Args>
-  static NullableReportingModePtr New(Args&&... args) {
-    return NullableReportingModePtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static NullableReportingModePtr From(const U& u) {
-    return mojo::TypeConverter<NullableReportingModePtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, NullableReportingMode>::Convert(*this);
-  }
-
-
-  NullableReportingMode();
-
-  explicit NullableReportingMode(
-      ::device::mojom::ReportingMode value);
-
-
-  ~NullableReportingMode();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = NullableReportingModePtr>
-  NullableReportingModePtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, NullableReportingMode::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, NullableReportingMode::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, NullableReportingMode::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        NullableReportingMode::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        NullableReportingMode::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::NullableReportingMode_UnserializedMessageContext<
-            UserType, NullableReportingMode::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<NullableReportingMode::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return NullableReportingMode::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::NullableReportingMode_UnserializedMessageContext<
-            UserType, NullableReportingMode::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<NullableReportingMode::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  ::device::mojom::ReportingMode value;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, NullableReportingMode::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, NullableReportingMode::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, NullableReportingMode::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, NullableReportingMode::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
 
 
 
@@ -644,17 +511,17 @@ class  GetVirtualSensorInformationResult {
   // Construct an instance holding |info|.
   static GetVirtualSensorInformationResultPtr
   NewInfo(
-      VirtualSensorInformationPtr info) {
+      VirtualSensorInformationPtr value) {
     auto result = GetVirtualSensorInformationResultPtr(absl::in_place);
-    result->set_info(std::move(info));
+    result->set_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static GetVirtualSensorInformationResultPtr
   NewError(
-      GetVirtualSensorInformationError error) {
+      GetVirtualSensorInformationError value) {
     auto result = GetVirtualSensorInformationResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -916,158 +783,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
-
-
-
-class  VirtualSensorMetadata {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<VirtualSensorMetadata, T>::value>;
-  using DataView = VirtualSensorMetadataDataView;
-  using Data_ = internal::VirtualSensorMetadata_Data;
-
-  template <typename... Args>
-  static VirtualSensorMetadataPtr New(Args&&... args) {
-    return VirtualSensorMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static VirtualSensorMetadataPtr From(const U& u) {
-    return mojo::TypeConverter<VirtualSensorMetadataPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, VirtualSensorMetadata>::Convert(*this);
-  }
-
-
-  VirtualSensorMetadata();
-
-  VirtualSensorMetadata(
-      bool available,
-      NullableDoublePtr maximum_frequency,
-      NullableDoublePtr minimum_frequency,
-      NullableReportingModePtr reporting_mode);
-
-VirtualSensorMetadata(const VirtualSensorMetadata&) = delete;
-VirtualSensorMetadata& operator=(const VirtualSensorMetadata&) = delete;
-
-  ~VirtualSensorMetadata();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = VirtualSensorMetadataPtr>
-  VirtualSensorMetadataPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        VirtualSensorMetadata::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        VirtualSensorMetadata::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::VirtualSensorMetadata_UnserializedMessageContext<
-            UserType, VirtualSensorMetadata::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<VirtualSensorMetadata::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return VirtualSensorMetadata::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::VirtualSensorMetadata_UnserializedMessageContext<
-            UserType, VirtualSensorMetadata::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<VirtualSensorMetadata::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  bool available;
-  
-  NullableDoublePtr maximum_frequency;
-  
-  NullableDoublePtr minimum_frequency;
-  
-  NullableReportingModePtr reporting_mode;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, VirtualSensorMetadata::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
 template <typename UnionPtrType>
 GetVirtualSensorInformationResultPtr GetVirtualSensorInformationResult::Clone() const {
   switch (tag_) {
@@ -1165,50 +880,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.minimum_frequency < rhs.minimum_frequency)
     return true;
   if (rhs.minimum_frequency < lhs.minimum_frequency)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
-NullableDoublePtr NullableDouble::Clone() const {
-  return New(
-      mojo::Clone(value)
-  );
-}
-
-template <typename T, NullableDouble::EnableIfSame<T>*>
-bool NullableDouble::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->value, other_struct.value))
-    return false;
-  return true;
-}
-
-template <typename T, NullableDouble::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.value < rhs.value)
-    return true;
-  if (rhs.value < lhs.value)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
-NullableReportingModePtr NullableReportingMode::Clone() const {
-  return New(
-      mojo::Clone(value)
-  );
-}
-
-template <typename T, NullableReportingMode::EnableIfSame<T>*>
-bool NullableReportingMode::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->value, other_struct.value))
-    return false;
-  return true;
-}
-
-template <typename T, NullableReportingMode::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.value < rhs.value)
-    return true;
-  if (rhs.value < lhs.value)
     return false;
   return false;
 }
@@ -1335,36 +1006,6 @@ struct  StructTraits<::device::mojom::SensorInitParams::DataView,
 
 
 template <>
-struct  StructTraits<::device::mojom::NullableDouble::DataView,
-                                         ::device::mojom::NullableDoublePtr> {
-  static bool IsNull(const ::device::mojom::NullableDoublePtr& input) { return !input; }
-  static void SetToNull(::device::mojom::NullableDoublePtr* output) { output->reset(); }
-
-  static decltype(::device::mojom::NullableDouble::value) value(
-      const ::device::mojom::NullableDoublePtr& input) {
-    return input->value;
-  }
-
-  static bool Read(::device::mojom::NullableDouble::DataView input, ::device::mojom::NullableDoublePtr* output);
-};
-
-
-template <>
-struct  StructTraits<::device::mojom::NullableReportingMode::DataView,
-                                         ::device::mojom::NullableReportingModePtr> {
-  static bool IsNull(const ::device::mojom::NullableReportingModePtr& input) { return !input; }
-  static void SetToNull(::device::mojom::NullableReportingModePtr* output) { output->reset(); }
-
-  static decltype(::device::mojom::NullableReportingMode::value) value(
-      const ::device::mojom::NullableReportingModePtr& input) {
-    return input->value;
-  }
-
-  static bool Read(::device::mojom::NullableReportingMode::DataView input, ::device::mojom::NullableReportingModePtr* output);
-};
-
-
-template <>
 struct  StructTraits<::device::mojom::VirtualSensorMetadata::DataView,
                                          ::device::mojom::VirtualSensorMetadataPtr> {
   static bool IsNull(const ::device::mojom::VirtualSensorMetadataPtr& input) { return !input; }
@@ -1375,17 +1016,17 @@ struct  StructTraits<::device::mojom::VirtualSensorMetadata::DataView,
     return input->available;
   }
 
-  static const decltype(::device::mojom::VirtualSensorMetadata::maximum_frequency)& maximum_frequency(
+  static decltype(::device::mojom::VirtualSensorMetadata::maximum_frequency) maximum_frequency(
       const ::device::mojom::VirtualSensorMetadataPtr& input) {
     return input->maximum_frequency;
   }
 
-  static const decltype(::device::mojom::VirtualSensorMetadata::minimum_frequency)& minimum_frequency(
+  static decltype(::device::mojom::VirtualSensorMetadata::minimum_frequency) minimum_frequency(
       const ::device::mojom::VirtualSensorMetadataPtr& input) {
     return input->minimum_frequency;
   }
 
-  static const decltype(::device::mojom::VirtualSensorMetadata::reporting_mode)& reporting_mode(
+  static decltype(::device::mojom::VirtualSensorMetadata::reporting_mode) reporting_mode(
       const ::device::mojom::VirtualSensorMetadataPtr& input) {
     return input->reporting_mode;
   }

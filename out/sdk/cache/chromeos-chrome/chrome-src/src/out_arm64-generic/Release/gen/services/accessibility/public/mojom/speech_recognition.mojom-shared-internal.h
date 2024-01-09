@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "services/accessibility/public/mojom/assistive_technology_type.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -25,9 +26,11 @@ class ValidationContext;
 namespace ax::mojom {
 namespace internal {
 class SpeechRecognitionResultEvent_Data;
+class SpeechRecognitionErrorEvent_Data;
 class StartOptions_Data;
 class StopOptions_Data;
 class SpeechRecognitionStartInfo_Data;
+class ObserverOrError_Data;
 
 struct SpeechRecognitionType_Data {
  public:
@@ -54,6 +57,58 @@ struct SpeechRecognitionType_Data {
 };
 
 #pragma pack(push, 1)
+
+
+class  ObserverOrError_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  ObserverOrError_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~ObserverOrError_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<ObserverOrError_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class ObserverOrError_Tag : uint32_t {
+
+    
+    kObserver,
+    
+    kError,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Handle_Data f_observer;
+    mojo::internal::Pointer<mojo::internal::String_Data> f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  ObserverOrError_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(ObserverOrError_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(ObserverOrError_Data)");
 class  SpeechRecognitionResultEvent_Data {
  public:
   static bool Validate(const void* data,
@@ -104,17 +159,64 @@ struct SpeechRecognitionResultEvent_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SpeechRecognitionResultEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  SpeechRecognitionErrorEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> message;
+
+ private:
+  friend class mojo::internal::MessageFragment<SpeechRecognitionErrorEvent_Data>;
+
+  SpeechRecognitionErrorEvent_Data();
+  ~SpeechRecognitionErrorEvent_Data() = delete;
+};
+static_assert(sizeof(SpeechRecognitionErrorEvent_Data) == 16,
+              "Bad sizeof(SpeechRecognitionErrorEvent_Data)");
+// Used by SpeechRecognitionErrorEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SpeechRecognitionErrorEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SpeechRecognitionErrorEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SpeechRecognitionErrorEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SpeechRecognitionErrorEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SpeechRecognitionErrorEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  StartOptions_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint8_t client_id_$flag : 1;
+  int32_t type;
   uint8_t interim_results_$flag : 1;
   uint8_t interim_results_$value : 1;
   uint8_t pad2_[3];
-  int32_t client_id_$value;
   mojo::internal::Pointer<mojo::internal::String_Data> locale;
 
  private:
@@ -163,9 +265,8 @@ class  StopOptions_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint8_t client_id_$flag : 1;
-  uint8_t pad0_[3];
-  int32_t client_id_$value;
+  int32_t type;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<StopOptions_Data>;
@@ -214,7 +315,8 @@ class  SpeechRecognitionStartInfo_Data {
 
   mojo::internal::StructHeader header_;
   int32_t type;
-  mojo::internal::Handle_Data observer;
+  uint8_t pad0_[4];
+  internal::ObserverOrError_Data observer_or_error;
 
  private:
   friend class mojo::internal::MessageFragment<SpeechRecognitionStartInfo_Data>;
@@ -222,7 +324,7 @@ class  SpeechRecognitionStartInfo_Data {
   SpeechRecognitionStartInfo_Data();
   ~SpeechRecognitionStartInfo_Data() = delete;
 };
-static_assert(sizeof(SpeechRecognitionStartInfo_Data) == 16,
+static_assert(sizeof(SpeechRecognitionStartInfo_Data) == 32,
               "Bad sizeof(SpeechRecognitionStartInfo_Data)");
 // Used by SpeechRecognitionStartInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

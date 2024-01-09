@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/accessibility/public/mojom/tts.mojom-features.h"
 #include "services/accessibility/public/mojom/tts.mojom-shared.h"
 #include "services/accessibility/public/mojom/tts.mojom-forward.h"
 #include <string>
@@ -341,11 +342,11 @@ class  TtsVoice {
   TtsVoice();
 
   TtsVoice(
-      const absl::optional<std::string>& voice_name,
-      const absl::optional<std::string>& lang,
+      const std::optional<std::string>& voice_name,
+      const std::optional<std::string>& lang,
       bool remote,
-      const absl::optional<std::string>& engine_id,
-      absl::optional<std::vector<TtsEventType>> event_types);
+      const std::optional<std::string>& engine_id,
+      std::optional<std::vector<TtsEventType>> event_types);
 
 
   ~TtsVoice();
@@ -423,15 +424,15 @@ class  TtsVoice {
   }
 
   
-  absl::optional<std::string> voice_name;
+  std::optional<std::string> voice_name;
   
-  absl::optional<std::string> lang;
+  std::optional<std::string> lang;
   
   bool remote;
   
-  absl::optional<std::string> engine_id;
+  std::optional<std::string> engine_id;
   
-  absl::optional<std::vector<TtsEventType>> event_types;
+  std::optional<std::vector<TtsEventType>> event_types;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -497,9 +498,9 @@ class  TtsOptions {
       double rate,
       double volume,
       bool enqueue,
-      const absl::optional<std::string>& voice_name,
-      const absl::optional<std::string>& engine_id,
-      const absl::optional<std::string>& lang,
+      const std::optional<std::string>& voice_name,
+      const std::optional<std::string>& engine_id,
+      const std::optional<std::string>& lang,
       bool on_event);
 
 
@@ -586,11 +587,11 @@ class  TtsOptions {
   
   bool enqueue;
   
-  absl::optional<std::string> voice_name;
+  std::optional<std::string> voice_name;
   
-  absl::optional<std::string> engine_id;
+  std::optional<std::string> engine_id;
   
-  absl::optional<std::string> lang;
+  std::optional<std::string> lang;
   
   bool on_event;
 
@@ -656,7 +657,7 @@ class  TtsEvent {
   TtsEvent(
       TtsEventType type,
       int32_t char_index,
-      const absl::optional<std::string>& error_message,
+      const std::optional<std::string>& error_message,
       int32_t length,
       bool is_final);
 
@@ -740,7 +741,7 @@ class  TtsEvent {
   
   int32_t char_index;
   
-  absl::optional<std::string> error_message;
+  std::optional<std::string> error_message;
   
   int32_t length;
   

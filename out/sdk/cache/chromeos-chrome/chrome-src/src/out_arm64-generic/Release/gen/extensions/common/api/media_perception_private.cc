@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/media_perception_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -160,8 +161,8 @@ NamedTemplateArgument::Value::Value()
  {}
 
 NamedTemplateArgument::Value::~Value() = default;
-NamedTemplateArgument::Value::Value(Value&& rhs) = default;
-NamedTemplateArgument::Value& NamedTemplateArgument::Value::operator=(Value&& rhs) = default;
+NamedTemplateArgument::Value::Value(Value&& rhs) noexcept = default;
+NamedTemplateArgument::Value& NamedTemplateArgument::Value::operator=(Value&& rhs) noexcept = default;
 NamedTemplateArgument::Value NamedTemplateArgument::Value::Clone() const {
   Value out;
   out.as_string = as_string;
@@ -176,7 +177,7 @@ bool NamedTemplateArgument::Value::Populate(
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out.as_string = absl::nullopt;
+        out.as_string = std::nullopt;
         return false;
       }
       out.as_string = *temp;
@@ -187,7 +188,7 @@ bool NamedTemplateArgument::Value::Populate(
     {
       auto temp = value.GetIfDouble();
       if (!temp.has_value()) {
-        out.as_number = absl::nullopt;
+        out.as_number = std::nullopt;
         return false;
       }
       out.as_number = *temp;
@@ -198,11 +199,11 @@ bool NamedTemplateArgument::Value::Populate(
 }
 
 // static
-absl::optional<NamedTemplateArgument::Value> NamedTemplateArgument::Value::FromValue(const base::Value& value) {
+std::optional<NamedTemplateArgument::Value> NamedTemplateArgument::Value::FromValue(const base::Value& value) {
   Value out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -229,8 +230,8 @@ NamedTemplateArgument::NamedTemplateArgument()
  {}
 
 NamedTemplateArgument::~NamedTemplateArgument() = default;
-NamedTemplateArgument::NamedTemplateArgument(NamedTemplateArgument&& rhs) = default;
-NamedTemplateArgument& NamedTemplateArgument::operator=(NamedTemplateArgument&& rhs) = default;
+NamedTemplateArgument::NamedTemplateArgument(NamedTemplateArgument&& rhs) noexcept = default;
+NamedTemplateArgument& NamedTemplateArgument::operator=(NamedTemplateArgument&& rhs) noexcept = default;
 NamedTemplateArgument NamedTemplateArgument::Clone() const {
   NamedTemplateArgument out;
   out.name = name;
@@ -248,7 +249,7 @@ bool NamedTemplateArgument::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -278,34 +279,21 @@ bool NamedTemplateArgument::Populate(
 }
 
 // static
-std::unique_ptr<NamedTemplateArgument> NamedTemplateArgument::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NamedTemplateArgument>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NamedTemplateArgument> NamedTemplateArgument::FromValue(const base::Value::Dict& value) {
+  NamedTemplateArgument out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NamedTemplateArgument> NamedTemplateArgument::FromValue(const base::Value::Dict& value) {
+std::optional<NamedTemplateArgument> NamedTemplateArgument::FromValue(const base::Value& value) {
   NamedTemplateArgument out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NamedTemplateArgument> NamedTemplateArgument::FromValue(const base::Value& value) {
-  NamedTemplateArgument out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -424,8 +412,8 @@ Component::Component()
 : type() {}
 
 Component::~Component() = default;
-Component::Component(Component&& rhs) = default;
-Component& Component::operator=(Component&& rhs) = default;
+Component::Component(Component&& rhs) noexcept = default;
+Component& Component::operator=(Component&& rhs) noexcept = default;
 Component Component::Clone() const {
   Component out;
   out.type = type;
@@ -463,34 +451,21 @@ bool Component::Populate(
 }
 
 // static
-std::unique_ptr<Component> Component::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Component>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Component> Component::FromValue(const base::Value::Dict& value) {
+  Component out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Component> Component::FromValue(const base::Value::Dict& value) {
+std::optional<Component> Component::FromValue(const base::Value& value) {
   Component out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Component> Component::FromValue(const base::Value& value) {
-  Component out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -510,8 +485,8 @@ ComponentState::ComponentState()
 installation_error_code() {}
 
 ComponentState::~ComponentState() = default;
-ComponentState::ComponentState(ComponentState&& rhs) = default;
-ComponentState& ComponentState::operator=(ComponentState&& rhs) = default;
+ComponentState::ComponentState(ComponentState&& rhs) noexcept = default;
+ComponentState& ComponentState::operator=(ComponentState&& rhs) noexcept = default;
 ComponentState ComponentState::Clone() const {
   ComponentState out;
   out.status = status;
@@ -544,7 +519,7 @@ bool ComponentState::Populate(
     {
       auto* temp = (*version_value).GetIfString();
       if (!temp) {
-        out.version = absl::nullopt;
+        out.version = std::nullopt;
         return false;
       }
       out.version = *temp;
@@ -580,34 +555,21 @@ bool ComponentState::Populate(
 }
 
 // static
-std::unique_ptr<ComponentState> ComponentState::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ComponentState>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ComponentState> ComponentState::FromValue(const base::Value::Dict& value) {
+  ComponentState out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ComponentState> ComponentState::FromValue(const base::Value::Dict& value) {
+std::optional<ComponentState> ComponentState::FromValue(const base::Value& value) {
   ComponentState out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ComponentState> ComponentState::FromValue(const base::Value& value) {
-  ComponentState out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -669,8 +631,8 @@ ProcessState::ProcessState()
 service_error() {}
 
 ProcessState::~ProcessState() = default;
-ProcessState::ProcessState(ProcessState&& rhs) = default;
-ProcessState& ProcessState::operator=(ProcessState&& rhs) = default;
+ProcessState::ProcessState(ProcessState&& rhs) noexcept = default;
+ProcessState& ProcessState::operator=(ProcessState&& rhs) noexcept = default;
 ProcessState ProcessState::Clone() const {
   ProcessState out;
   out.status = status;
@@ -728,34 +690,21 @@ bool ProcessState::Populate(
 }
 
 // static
-std::unique_ptr<ProcessState> ProcessState::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProcessState>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProcessState> ProcessState::FromValue(const base::Value::Dict& value) {
+  ProcessState out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProcessState> ProcessState::FromValue(const base::Value::Dict& value) {
+std::optional<ProcessState> ProcessState::FromValue(const base::Value& value) {
   ProcessState out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProcessState> ProcessState::FromValue(const base::Value& value) {
-  ProcessState out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -780,8 +729,8 @@ VideoStreamParam::VideoStreamParam()
  {}
 
 VideoStreamParam::~VideoStreamParam() = default;
-VideoStreamParam::VideoStreamParam(VideoStreamParam&& rhs) = default;
-VideoStreamParam& VideoStreamParam::operator=(VideoStreamParam&& rhs) = default;
+VideoStreamParam::VideoStreamParam(VideoStreamParam&& rhs) noexcept = default;
+VideoStreamParam& VideoStreamParam::operator=(VideoStreamParam&& rhs) noexcept = default;
 VideoStreamParam VideoStreamParam::Clone() const {
   VideoStreamParam out;
   out.id = id;
@@ -799,7 +748,7 @@ bool VideoStreamParam::Populate(
     {
       auto* temp = (*id_value).GetIfString();
       if (!temp) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -811,7 +760,7 @@ bool VideoStreamParam::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -823,7 +772,7 @@ bool VideoStreamParam::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -835,7 +784,7 @@ bool VideoStreamParam::Populate(
     {
       auto temp = (*frame_rate_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frame_rate = absl::nullopt;
+        out.frame_rate = std::nullopt;
         return false;
       }
       out.frame_rate = *temp;
@@ -855,34 +804,21 @@ bool VideoStreamParam::Populate(
 }
 
 // static
-std::unique_ptr<VideoStreamParam> VideoStreamParam::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VideoStreamParam>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VideoStreamParam> VideoStreamParam::FromValue(const base::Value::Dict& value) {
+  VideoStreamParam out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VideoStreamParam> VideoStreamParam::FromValue(const base::Value::Dict& value) {
+std::optional<VideoStreamParam> VideoStreamParam::FromValue(const base::Value& value) {
   VideoStreamParam out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VideoStreamParam> VideoStreamParam::FromValue(const base::Value& value) {
-  VideoStreamParam out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -915,8 +851,8 @@ Point::Point()
  {}
 
 Point::~Point() = default;
-Point::Point(Point&& rhs) = default;
-Point& Point::operator=(Point&& rhs) = default;
+Point::Point(Point&& rhs) noexcept = default;
+Point& Point::operator=(Point&& rhs) noexcept = default;
 Point Point::Clone() const {
   Point out;
   out.x = x;
@@ -932,7 +868,7 @@ bool Point::Populate(
     {
       auto temp = (*x_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.x = absl::nullopt;
+        out.x = std::nullopt;
         return false;
       }
       out.x = *temp;
@@ -944,7 +880,7 @@ bool Point::Populate(
     {
       auto temp = (*y_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.y = absl::nullopt;
+        out.y = std::nullopt;
         return false;
       }
       out.y = *temp;
@@ -964,34 +900,21 @@ bool Point::Populate(
 }
 
 // static
-std::unique_ptr<Point> Point::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Point>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Point> Point::FromValue(const base::Value::Dict& value) {
+  Point out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Point> Point::FromValue(const base::Value::Dict& value) {
+std::optional<Point> Point::FromValue(const base::Value& value) {
   Point out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Point> Point::FromValue(const base::Value& value) {
-  Point out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1016,8 +939,8 @@ Whiteboard::Whiteboard()
  {}
 
 Whiteboard::~Whiteboard() = default;
-Whiteboard::Whiteboard(Whiteboard&& rhs) = default;
-Whiteboard& Whiteboard::operator=(Whiteboard&& rhs) = default;
+Whiteboard::Whiteboard(Whiteboard&& rhs) noexcept = default;
+Whiteboard& Whiteboard::operator=(Whiteboard&& rhs) noexcept = default;
 Whiteboard Whiteboard::Clone() const {
   Whiteboard out;
   if (top_left) {
@@ -1104,7 +1027,7 @@ bool Whiteboard::Populate(
     {
       auto temp = (*aspect_ratio_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.aspect_ratio = absl::nullopt;
+        out.aspect_ratio = std::nullopt;
         return false;
       }
       out.aspect_ratio = *temp;
@@ -1124,34 +1047,21 @@ bool Whiteboard::Populate(
 }
 
 // static
-std::unique_ptr<Whiteboard> Whiteboard::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Whiteboard>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Whiteboard> Whiteboard::FromValue(const base::Value::Dict& value) {
+  Whiteboard out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Whiteboard> Whiteboard::FromValue(const base::Value::Dict& value) {
+std::optional<Whiteboard> Whiteboard::FromValue(const base::Value& value) {
   Whiteboard out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Whiteboard> Whiteboard::FromValue(const base::Value& value) {
-  Whiteboard out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1189,8 +1099,8 @@ State::State()
 service_error() {}
 
 State::~State() = default;
-State::State(State&& rhs) = default;
-State& State::operator=(State&& rhs) = default;
+State::State(State&& rhs) noexcept = default;
+State& State::operator=(State&& rhs) noexcept = default;
 State State::Clone() const {
   State out;
   out.status = status;
@@ -1242,7 +1152,7 @@ bool State::Populate(
     {
       auto* temp = (*device_context_value).GetIfString();
       if (!temp) {
-        out.device_context = absl::nullopt;
+        out.device_context = std::nullopt;
         return false;
       }
       out.device_context = *temp;
@@ -1284,7 +1194,7 @@ bool State::Populate(
     {
       auto* temp = (*configuration_value).GetIfString();
       if (!temp) {
-        out.configuration = absl::nullopt;
+        out.configuration = std::nullopt;
         return false;
       }
       out.configuration = *temp;
@@ -1357,34 +1267,21 @@ bool State::Populate(
 }
 
 // static
-std::unique_ptr<State> State::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<State>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<State> State::FromValue(const base::Value::Dict& value) {
+  State out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<State> State::FromValue(const base::Value::Dict& value) {
+std::optional<State> State::FromValue(const base::Value& value) {
   State out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<State> State::FromValue(const base::Value& value) {
-  State out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1437,8 +1334,8 @@ BoundingBox::BoundingBox()
  {}
 
 BoundingBox::~BoundingBox() = default;
-BoundingBox::BoundingBox(BoundingBox&& rhs) = default;
-BoundingBox& BoundingBox::operator=(BoundingBox&& rhs) = default;
+BoundingBox::BoundingBox(BoundingBox&& rhs) noexcept = default;
+BoundingBox& BoundingBox::operator=(BoundingBox&& rhs) noexcept = default;
 BoundingBox BoundingBox::Clone() const {
   BoundingBox out;
   out.normalized = normalized;
@@ -1459,7 +1356,7 @@ bool BoundingBox::Populate(
     {
       auto temp = (*normalized_value).GetIfBool();
       if (!temp.has_value()) {
-        out.normalized = absl::nullopt;
+        out.normalized = std::nullopt;
         return false;
       }
       out.normalized = *temp;
@@ -1509,34 +1406,21 @@ bool BoundingBox::Populate(
 }
 
 // static
-std::unique_ptr<BoundingBox> BoundingBox::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<BoundingBox>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<BoundingBox> BoundingBox::FromValue(const base::Value::Dict& value) {
+  BoundingBox out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<BoundingBox> BoundingBox::FromValue(const base::Value::Dict& value) {
+std::optional<BoundingBox> BoundingBox::FromValue(const base::Value& value) {
   BoundingBox out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<BoundingBox> BoundingBox::FromValue(const base::Value& value) {
-  BoundingBox out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1595,8 +1479,8 @@ Distance::Distance()
 : units() {}
 
 Distance::~Distance() = default;
-Distance::Distance(Distance&& rhs) = default;
-Distance& Distance::operator=(Distance&& rhs) = default;
+Distance::Distance(Distance&& rhs) noexcept = default;
+Distance& Distance::operator=(Distance&& rhs) noexcept = default;
 Distance Distance::Clone() const {
   Distance out;
   out.units = units;
@@ -1629,7 +1513,7 @@ bool Distance::Populate(
     {
       auto temp = (*magnitude_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.magnitude = absl::nullopt;
+        out.magnitude = std::nullopt;
         return false;
       }
       out.magnitude = *temp;
@@ -1649,34 +1533,21 @@ bool Distance::Populate(
 }
 
 // static
-std::unique_ptr<Distance> Distance::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Distance>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Distance> Distance::FromValue(const base::Value::Dict& value) {
+  Distance out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Distance> Distance::FromValue(const base::Value::Dict& value) {
+std::optional<Distance> Distance::FromValue(const base::Value& value) {
   Distance out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Distance> Distance::FromValue(const base::Value& value) {
-  Distance out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1773,8 +1644,8 @@ Entity::Entity()
 : type() {}
 
 Entity::~Entity() = default;
-Entity::Entity(Entity&& rhs) = default;
-Entity& Entity::operator=(Entity&& rhs) = default;
+Entity::Entity(Entity&& rhs) noexcept = default;
+Entity& Entity::operator=(Entity&& rhs) noexcept = default;
 Entity Entity::Clone() const {
   Entity out;
   out.id = id;
@@ -1799,7 +1670,7 @@ bool Entity::Populate(
     {
       auto temp = (*id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -1827,7 +1698,7 @@ bool Entity::Populate(
     {
       auto* temp = (*entity_label_value).GetIfString();
       if (!temp) {
-        out.entity_label = absl::nullopt;
+        out.entity_label = std::nullopt;
         return false;
       }
       out.entity_label = *temp;
@@ -1854,7 +1725,7 @@ bool Entity::Populate(
     {
       auto temp = (*confidence_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.confidence = absl::nullopt;
+        out.confidence = std::nullopt;
         return false;
       }
       out.confidence = *temp;
@@ -1889,34 +1760,21 @@ bool Entity::Populate(
 }
 
 // static
-std::unique_ptr<Entity> Entity::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Entity>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Entity> Entity::FromValue(const base::Value::Dict& value) {
+  Entity out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Entity> Entity::FromValue(const base::Value::Dict& value) {
+std::optional<Entity> Entity::FromValue(const base::Value& value) {
   Entity out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Entity> Entity::FromValue(const base::Value& value) {
-  Entity out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1957,8 +1815,8 @@ PacketLatency::PacketLatency()
  {}
 
 PacketLatency::~PacketLatency() = default;
-PacketLatency::PacketLatency(PacketLatency&& rhs) = default;
-PacketLatency& PacketLatency::operator=(PacketLatency&& rhs) = default;
+PacketLatency::PacketLatency(PacketLatency&& rhs) noexcept = default;
+PacketLatency& PacketLatency::operator=(PacketLatency&& rhs) noexcept = default;
 PacketLatency PacketLatency::Clone() const {
   PacketLatency out;
   out.packet_label = packet_label;
@@ -1974,7 +1832,7 @@ bool PacketLatency::Populate(
     {
       auto* temp = (*packet_label_value).GetIfString();
       if (!temp) {
-        out.packet_label = absl::nullopt;
+        out.packet_label = std::nullopt;
         return false;
       }
       out.packet_label = *temp;
@@ -1986,7 +1844,7 @@ bool PacketLatency::Populate(
     {
       auto temp = (*latency_usec_value).GetIfInt();
       if (!temp.has_value()) {
-        out.latency_usec = absl::nullopt;
+        out.latency_usec = std::nullopt;
         return false;
       }
       out.latency_usec = *temp;
@@ -2006,34 +1864,21 @@ bool PacketLatency::Populate(
 }
 
 // static
-std::unique_ptr<PacketLatency> PacketLatency::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PacketLatency>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PacketLatency> PacketLatency::FromValue(const base::Value::Dict& value) {
+  PacketLatency out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PacketLatency> PacketLatency::FromValue(const base::Value::Dict& value) {
+std::optional<PacketLatency> PacketLatency::FromValue(const base::Value& value) {
   PacketLatency out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PacketLatency> PacketLatency::FromValue(const base::Value& value) {
-  PacketLatency out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2104,8 +1949,8 @@ VideoHumanPresenceDetection::VideoHumanPresenceDetection()
 : light_condition() {}
 
 VideoHumanPresenceDetection::~VideoHumanPresenceDetection() = default;
-VideoHumanPresenceDetection::VideoHumanPresenceDetection(VideoHumanPresenceDetection&& rhs) = default;
-VideoHumanPresenceDetection& VideoHumanPresenceDetection::operator=(VideoHumanPresenceDetection&& rhs) = default;
+VideoHumanPresenceDetection::VideoHumanPresenceDetection(VideoHumanPresenceDetection&& rhs) noexcept = default;
+VideoHumanPresenceDetection& VideoHumanPresenceDetection::operator=(VideoHumanPresenceDetection&& rhs) noexcept = default;
 VideoHumanPresenceDetection VideoHumanPresenceDetection::Clone() const {
   VideoHumanPresenceDetection out;
   out.human_presence_likelihood = human_presence_likelihood;
@@ -2124,7 +1969,7 @@ bool VideoHumanPresenceDetection::Populate(
     {
       auto temp = (*human_presence_likelihood_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.human_presence_likelihood = absl::nullopt;
+        out.human_presence_likelihood = std::nullopt;
         return false;
       }
       out.human_presence_likelihood = *temp;
@@ -2136,7 +1981,7 @@ bool VideoHumanPresenceDetection::Populate(
     {
       auto temp = (*motion_detected_likelihood_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.motion_detected_likelihood = absl::nullopt;
+        out.motion_detected_likelihood = std::nullopt;
         return false;
       }
       out.motion_detected_likelihood = *temp;
@@ -2164,7 +2009,7 @@ bool VideoHumanPresenceDetection::Populate(
     {
       auto temp = (*light_condition_likelihood_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.light_condition_likelihood = absl::nullopt;
+        out.light_condition_likelihood = std::nullopt;
         return false;
       }
       out.light_condition_likelihood = *temp;
@@ -2184,34 +2029,21 @@ bool VideoHumanPresenceDetection::Populate(
 }
 
 // static
-std::unique_ptr<VideoHumanPresenceDetection> VideoHumanPresenceDetection::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VideoHumanPresenceDetection>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VideoHumanPresenceDetection> VideoHumanPresenceDetection::FromValue(const base::Value::Dict& value) {
+  VideoHumanPresenceDetection out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VideoHumanPresenceDetection> VideoHumanPresenceDetection::FromValue(const base::Value::Dict& value) {
+std::optional<VideoHumanPresenceDetection> VideoHumanPresenceDetection::FromValue(const base::Value& value) {
   VideoHumanPresenceDetection out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VideoHumanPresenceDetection> VideoHumanPresenceDetection::FromValue(const base::Value& value) {
-  VideoHumanPresenceDetection out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2244,8 +2076,8 @@ FramePerception::FramePerception()
  {}
 
 FramePerception::~FramePerception() = default;
-FramePerception::FramePerception(FramePerception&& rhs) = default;
-FramePerception& FramePerception::operator=(FramePerception&& rhs) = default;
+FramePerception::FramePerception(FramePerception&& rhs) noexcept = default;
+FramePerception& FramePerception::operator=(FramePerception&& rhs) noexcept = default;
 FramePerception FramePerception::Clone() const {
   FramePerception out;
   out.frame_id = frame_id;
@@ -2281,7 +2113,7 @@ bool FramePerception::Populate(
     {
       auto temp = (*frame_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frame_id = absl::nullopt;
+        out.frame_id = std::nullopt;
         return false;
       }
       out.frame_id = *temp;
@@ -2293,7 +2125,7 @@ bool FramePerception::Populate(
     {
       auto temp = (*frame_width_in_px_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frame_width_in_px = absl::nullopt;
+        out.frame_width_in_px = std::nullopt;
         return false;
       }
       out.frame_width_in_px = *temp;
@@ -2305,7 +2137,7 @@ bool FramePerception::Populate(
     {
       auto temp = (*frame_height_in_px_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frame_height_in_px = absl::nullopt;
+        out.frame_height_in_px = std::nullopt;
         return false;
       }
       out.frame_height_in_px = *temp;
@@ -2317,7 +2149,7 @@ bool FramePerception::Populate(
     {
       auto temp = (*timestamp_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.timestamp = absl::nullopt;
+        out.timestamp = std::nullopt;
         return false;
       }
       out.timestamp = *temp;
@@ -2404,34 +2236,21 @@ bool FramePerception::Populate(
 }
 
 // static
-std::unique_ptr<FramePerception> FramePerception::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FramePerception>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FramePerception> FramePerception::FromValue(const base::Value::Dict& value) {
+  FramePerception out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FramePerception> FramePerception::FromValue(const base::Value::Dict& value) {
+std::optional<FramePerception> FramePerception::FromValue(const base::Value& value) {
   FramePerception out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FramePerception> FramePerception::FromValue(const base::Value& value) {
-  FramePerception out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2486,8 +2305,8 @@ AudioLocalization::AudioLocalization()
  {}
 
 AudioLocalization::~AudioLocalization() = default;
-AudioLocalization::AudioLocalization(AudioLocalization&& rhs) = default;
-AudioLocalization& AudioLocalization::operator=(AudioLocalization&& rhs) = default;
+AudioLocalization::AudioLocalization(AudioLocalization&& rhs) noexcept = default;
+AudioLocalization& AudioLocalization::operator=(AudioLocalization&& rhs) noexcept = default;
 AudioLocalization AudioLocalization::Clone() const {
   AudioLocalization out;
   out.azimuth_radians = azimuth_radians;
@@ -2503,7 +2322,7 @@ bool AudioLocalization::Populate(
     {
       auto temp = (*azimuth_radians_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.azimuth_radians = absl::nullopt;
+        out.azimuth_radians = std::nullopt;
         return false;
       }
       out.azimuth_radians = *temp;
@@ -2537,34 +2356,21 @@ bool AudioLocalization::Populate(
 }
 
 // static
-std::unique_ptr<AudioLocalization> AudioLocalization::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioLocalization>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioLocalization> AudioLocalization::FromValue(const base::Value::Dict& value) {
+  AudioLocalization out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioLocalization> AudioLocalization::FromValue(const base::Value::Dict& value) {
+std::optional<AudioLocalization> AudioLocalization::FromValue(const base::Value& value) {
   AudioLocalization out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioLocalization> AudioLocalization::FromValue(const base::Value& value) {
-  AudioLocalization out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2589,8 +2395,8 @@ AudioSpectrogram::AudioSpectrogram()
  {}
 
 AudioSpectrogram::~AudioSpectrogram() = default;
-AudioSpectrogram::AudioSpectrogram(AudioSpectrogram&& rhs) = default;
-AudioSpectrogram& AudioSpectrogram::operator=(AudioSpectrogram&& rhs) = default;
+AudioSpectrogram::AudioSpectrogram(AudioSpectrogram&& rhs) noexcept = default;
+AudioSpectrogram& AudioSpectrogram::operator=(AudioSpectrogram&& rhs) noexcept = default;
 AudioSpectrogram AudioSpectrogram::Clone() const {
   AudioSpectrogram out;
   out.values = values;
@@ -2627,34 +2433,21 @@ bool AudioSpectrogram::Populate(
 }
 
 // static
-std::unique_ptr<AudioSpectrogram> AudioSpectrogram::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioSpectrogram>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioSpectrogram> AudioSpectrogram::FromValue(const base::Value::Dict& value) {
+  AudioSpectrogram out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioSpectrogram> AudioSpectrogram::FromValue(const base::Value::Dict& value) {
+std::optional<AudioSpectrogram> AudioSpectrogram::FromValue(const base::Value& value) {
   AudioSpectrogram out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioSpectrogram> AudioSpectrogram::FromValue(const base::Value& value) {
-  AudioSpectrogram out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2675,8 +2468,8 @@ AudioHumanPresenceDetection::AudioHumanPresenceDetection()
  {}
 
 AudioHumanPresenceDetection::~AudioHumanPresenceDetection() = default;
-AudioHumanPresenceDetection::AudioHumanPresenceDetection(AudioHumanPresenceDetection&& rhs) = default;
-AudioHumanPresenceDetection& AudioHumanPresenceDetection::operator=(AudioHumanPresenceDetection&& rhs) = default;
+AudioHumanPresenceDetection::AudioHumanPresenceDetection(AudioHumanPresenceDetection&& rhs) noexcept = default;
+AudioHumanPresenceDetection& AudioHumanPresenceDetection::operator=(AudioHumanPresenceDetection&& rhs) noexcept = default;
 AudioHumanPresenceDetection AudioHumanPresenceDetection::Clone() const {
   AudioHumanPresenceDetection out;
   out.human_presence_likelihood = human_presence_likelihood;
@@ -2697,7 +2490,7 @@ bool AudioHumanPresenceDetection::Populate(
     {
       auto temp = (*human_presence_likelihood_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.human_presence_likelihood = absl::nullopt;
+        out.human_presence_likelihood = std::nullopt;
         return false;
       }
       out.human_presence_likelihood = *temp;
@@ -2747,34 +2540,21 @@ bool AudioHumanPresenceDetection::Populate(
 }
 
 // static
-std::unique_ptr<AudioHumanPresenceDetection> AudioHumanPresenceDetection::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioHumanPresenceDetection>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioHumanPresenceDetection> AudioHumanPresenceDetection::FromValue(const base::Value::Dict& value) {
+  AudioHumanPresenceDetection out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioHumanPresenceDetection> AudioHumanPresenceDetection::FromValue(const base::Value::Dict& value) {
+std::optional<AudioHumanPresenceDetection> AudioHumanPresenceDetection::FromValue(const base::Value& value) {
   AudioHumanPresenceDetection out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioHumanPresenceDetection> AudioHumanPresenceDetection::FromValue(const base::Value& value) {
-  AudioHumanPresenceDetection out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2829,8 +2609,8 @@ Hotword::Hotword()
 : type() {}
 
 Hotword::~Hotword() = default;
-Hotword::Hotword(Hotword&& rhs) = default;
-Hotword& Hotword::operator=(Hotword&& rhs) = default;
+Hotword::Hotword(Hotword&& rhs) noexcept = default;
+Hotword& Hotword::operator=(Hotword&& rhs) noexcept = default;
 Hotword Hotword::Clone() const {
   Hotword out;
   out.id = id;
@@ -2851,7 +2631,7 @@ bool Hotword::Populate(
     {
       auto temp = (*id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -2879,7 +2659,7 @@ bool Hotword::Populate(
     {
       auto temp = (*frame_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frame_id = absl::nullopt;
+        out.frame_id = std::nullopt;
         return false;
       }
       out.frame_id = *temp;
@@ -2891,7 +2671,7 @@ bool Hotword::Populate(
     {
       auto temp = (*start_timestamp_ms_value).GetIfInt();
       if (!temp.has_value()) {
-        out.start_timestamp_ms = absl::nullopt;
+        out.start_timestamp_ms = std::nullopt;
         return false;
       }
       out.start_timestamp_ms = *temp;
@@ -2903,7 +2683,7 @@ bool Hotword::Populate(
     {
       auto temp = (*end_timestamp_ms_value).GetIfInt();
       if (!temp.has_value()) {
-        out.end_timestamp_ms = absl::nullopt;
+        out.end_timestamp_ms = std::nullopt;
         return false;
       }
       out.end_timestamp_ms = *temp;
@@ -2915,7 +2695,7 @@ bool Hotword::Populate(
     {
       auto temp = (*confidence_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.confidence = absl::nullopt;
+        out.confidence = std::nullopt;
         return false;
       }
       out.confidence = *temp;
@@ -2935,34 +2715,21 @@ bool Hotword::Populate(
 }
 
 // static
-std::unique_ptr<Hotword> Hotword::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Hotword>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Hotword> Hotword::FromValue(const base::Value::Dict& value) {
+  Hotword out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Hotword> Hotword::FromValue(const base::Value::Dict& value) {
+std::optional<Hotword> Hotword::FromValue(const base::Value& value) {
   Hotword out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Hotword> Hotword::FromValue(const base::Value& value) {
-  Hotword out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3003,8 +2770,8 @@ HotwordDetection::HotwordDetection()
  {}
 
 HotwordDetection::~HotwordDetection() = default;
-HotwordDetection::HotwordDetection(HotwordDetection&& rhs) = default;
-HotwordDetection& HotwordDetection::operator=(HotwordDetection&& rhs) = default;
+HotwordDetection::HotwordDetection(HotwordDetection&& rhs) noexcept = default;
+HotwordDetection& HotwordDetection::operator=(HotwordDetection&& rhs) noexcept = default;
 HotwordDetection HotwordDetection::Clone() const {
   HotwordDetection out;
   if (hotwords) {
@@ -3047,34 +2814,21 @@ bool HotwordDetection::Populate(
 }
 
 // static
-std::unique_ptr<HotwordDetection> HotwordDetection::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HotwordDetection>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HotwordDetection> HotwordDetection::FromValue(const base::Value::Dict& value) {
+  HotwordDetection out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HotwordDetection> HotwordDetection::FromValue(const base::Value::Dict& value) {
+std::optional<HotwordDetection> HotwordDetection::FromValue(const base::Value& value) {
   HotwordDetection out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HotwordDetection> HotwordDetection::FromValue(const base::Value& value) {
-  HotwordDetection out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3095,8 +2849,8 @@ AudioPerception::AudioPerception()
  {}
 
 AudioPerception::~AudioPerception() = default;
-AudioPerception::AudioPerception(AudioPerception&& rhs) = default;
-AudioPerception& AudioPerception::operator=(AudioPerception&& rhs) = default;
+AudioPerception::AudioPerception(AudioPerception&& rhs) noexcept = default;
+AudioPerception& AudioPerception::operator=(AudioPerception&& rhs) noexcept = default;
 AudioPerception AudioPerception::Clone() const {
   AudioPerception out;
   out.timestamp_us = timestamp_us;
@@ -3120,7 +2874,7 @@ bool AudioPerception::Populate(
     {
       auto temp = (*timestamp_us_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.timestamp_us = absl::nullopt;
+        out.timestamp_us = std::nullopt;
         return false;
       }
       out.timestamp_us = *temp;
@@ -3185,34 +2939,21 @@ bool AudioPerception::Populate(
 }
 
 // static
-std::unique_ptr<AudioPerception> AudioPerception::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioPerception>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioPerception> AudioPerception::FromValue(const base::Value::Dict& value) {
+  AudioPerception out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioPerception> AudioPerception::FromValue(const base::Value::Dict& value) {
+std::optional<AudioPerception> AudioPerception::FromValue(const base::Value& value) {
   AudioPerception out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioPerception> AudioPerception::FromValue(const base::Value& value) {
-  AudioPerception out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3245,8 +2986,8 @@ AudioVisualHumanPresenceDetection::AudioVisualHumanPresenceDetection()
  {}
 
 AudioVisualHumanPresenceDetection::~AudioVisualHumanPresenceDetection() = default;
-AudioVisualHumanPresenceDetection::AudioVisualHumanPresenceDetection(AudioVisualHumanPresenceDetection&& rhs) = default;
-AudioVisualHumanPresenceDetection& AudioVisualHumanPresenceDetection::operator=(AudioVisualHumanPresenceDetection&& rhs) = default;
+AudioVisualHumanPresenceDetection::AudioVisualHumanPresenceDetection(AudioVisualHumanPresenceDetection&& rhs) noexcept = default;
+AudioVisualHumanPresenceDetection& AudioVisualHumanPresenceDetection::operator=(AudioVisualHumanPresenceDetection&& rhs) noexcept = default;
 AudioVisualHumanPresenceDetection AudioVisualHumanPresenceDetection::Clone() const {
   AudioVisualHumanPresenceDetection out;
   out.human_presence_likelihood = human_presence_likelihood;
@@ -3261,7 +3002,7 @@ bool AudioVisualHumanPresenceDetection::Populate(
     {
       auto temp = (*human_presence_likelihood_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.human_presence_likelihood = absl::nullopt;
+        out.human_presence_likelihood = std::nullopt;
         return false;
       }
       out.human_presence_likelihood = *temp;
@@ -3281,34 +3022,21 @@ bool AudioVisualHumanPresenceDetection::Populate(
 }
 
 // static
-std::unique_ptr<AudioVisualHumanPresenceDetection> AudioVisualHumanPresenceDetection::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioVisualHumanPresenceDetection>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioVisualHumanPresenceDetection> AudioVisualHumanPresenceDetection::FromValue(const base::Value::Dict& value) {
+  AudioVisualHumanPresenceDetection out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioVisualHumanPresenceDetection> AudioVisualHumanPresenceDetection::FromValue(const base::Value::Dict& value) {
+std::optional<AudioVisualHumanPresenceDetection> AudioVisualHumanPresenceDetection::FromValue(const base::Value& value) {
   AudioVisualHumanPresenceDetection out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioVisualHumanPresenceDetection> AudioVisualHumanPresenceDetection::FromValue(const base::Value& value) {
-  AudioVisualHumanPresenceDetection out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3329,8 +3057,8 @@ AudioVisualPerception::AudioVisualPerception()
  {}
 
 AudioVisualPerception::~AudioVisualPerception() = default;
-AudioVisualPerception::AudioVisualPerception(AudioVisualPerception&& rhs) = default;
-AudioVisualPerception& AudioVisualPerception::operator=(AudioVisualPerception&& rhs) = default;
+AudioVisualPerception::AudioVisualPerception(AudioVisualPerception&& rhs) noexcept = default;
+AudioVisualPerception& AudioVisualPerception::operator=(AudioVisualPerception&& rhs) noexcept = default;
 AudioVisualPerception AudioVisualPerception::Clone() const {
   AudioVisualPerception out;
   out.timestamp_us = timestamp_us;
@@ -3348,7 +3076,7 @@ bool AudioVisualPerception::Populate(
     {
       auto temp = (*timestamp_us_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.timestamp_us = absl::nullopt;
+        out.timestamp_us = std::nullopt;
         return false;
       }
       out.timestamp_us = *temp;
@@ -3383,34 +3111,21 @@ bool AudioVisualPerception::Populate(
 }
 
 // static
-std::unique_ptr<AudioVisualPerception> AudioVisualPerception::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioVisualPerception>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioVisualPerception> AudioVisualPerception::FromValue(const base::Value::Dict& value) {
+  AudioVisualPerception out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioVisualPerception> AudioVisualPerception::FromValue(const base::Value::Dict& value) {
+std::optional<AudioVisualPerception> AudioVisualPerception::FromValue(const base::Value& value) {
   AudioVisualPerception out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioVisualPerception> AudioVisualPerception::FromValue(const base::Value& value) {
-  AudioVisualPerception out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3435,8 +3150,8 @@ Metadata::Metadata()
  {}
 
 Metadata::~Metadata() = default;
-Metadata::Metadata(Metadata&& rhs) = default;
-Metadata& Metadata::operator=(Metadata&& rhs) = default;
+Metadata::Metadata(Metadata&& rhs) noexcept = default;
+Metadata& Metadata::operator=(Metadata&& rhs) noexcept = default;
 Metadata Metadata::Clone() const {
   Metadata out;
   out.visual_experience_controller_version = visual_experience_controller_version;
@@ -3451,7 +3166,7 @@ bool Metadata::Populate(
     {
       auto* temp = (*visual_experience_controller_version_value).GetIfString();
       if (!temp) {
-        out.visual_experience_controller_version = absl::nullopt;
+        out.visual_experience_controller_version = std::nullopt;
         return false;
       }
       out.visual_experience_controller_version = *temp;
@@ -3471,34 +3186,21 @@ bool Metadata::Populate(
 }
 
 // static
-std::unique_ptr<Metadata> Metadata::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Metadata>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Metadata> Metadata::FromValue(const base::Value::Dict& value) {
+  Metadata out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Metadata> Metadata::FromValue(const base::Value::Dict& value) {
+std::optional<Metadata> Metadata::FromValue(const base::Value& value) {
   Metadata out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Metadata> Metadata::FromValue(const base::Value& value) {
-  Metadata out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3519,8 +3221,8 @@ MediaPerception::MediaPerception()
  {}
 
 MediaPerception::~MediaPerception() = default;
-MediaPerception::MediaPerception(MediaPerception&& rhs) = default;
-MediaPerception& MediaPerception::operator=(MediaPerception&& rhs) = default;
+MediaPerception::MediaPerception(MediaPerception&& rhs) noexcept = default;
+MediaPerception& MediaPerception::operator=(MediaPerception&& rhs) noexcept = default;
 MediaPerception MediaPerception::Clone() const {
   MediaPerception out;
   out.timestamp = timestamp;
@@ -3559,7 +3261,7 @@ bool MediaPerception::Populate(
     {
       auto temp = (*timestamp_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.timestamp = absl::nullopt;
+        out.timestamp = std::nullopt;
         return false;
       }
       out.timestamp = *temp;
@@ -3636,34 +3338,21 @@ bool MediaPerception::Populate(
 }
 
 // static
-std::unique_ptr<MediaPerception> MediaPerception::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MediaPerception>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MediaPerception> MediaPerception::FromValue(const base::Value::Dict& value) {
+  MediaPerception out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaPerception> MediaPerception::FromValue(const base::Value::Dict& value) {
+std::optional<MediaPerception> MediaPerception::FromValue(const base::Value& value) {
   MediaPerception out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MediaPerception> MediaPerception::FromValue(const base::Value& value) {
-  MediaPerception out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3730,8 +3419,8 @@ ImageFrame::ImageFrame()
 : format() {}
 
 ImageFrame::~ImageFrame() = default;
-ImageFrame::ImageFrame(ImageFrame&& rhs) = default;
-ImageFrame& ImageFrame::operator=(ImageFrame&& rhs) = default;
+ImageFrame::ImageFrame(ImageFrame&& rhs) noexcept = default;
+ImageFrame& ImageFrame::operator=(ImageFrame&& rhs) noexcept = default;
 ImageFrame ImageFrame::Clone() const {
   ImageFrame out;
   out.width = width;
@@ -3751,7 +3440,7 @@ bool ImageFrame::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -3763,7 +3452,7 @@ bool ImageFrame::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -3791,7 +3480,7 @@ bool ImageFrame::Populate(
     {
       auto temp = (*data_length_value).GetIfInt();
       if (!temp.has_value()) {
-        out.data_length = absl::nullopt;
+        out.data_length = std::nullopt;
         return false;
       }
       out.data_length = *temp;
@@ -3823,34 +3512,21 @@ bool ImageFrame::Populate(
 }
 
 // static
-std::unique_ptr<ImageFrame> ImageFrame::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ImageFrame>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ImageFrame> ImageFrame::FromValue(const base::Value::Dict& value) {
+  ImageFrame out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ImageFrame> ImageFrame::FromValue(const base::Value::Dict& value) {
+std::optional<ImageFrame> ImageFrame::FromValue(const base::Value& value) {
   ImageFrame out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ImageFrame> ImageFrame::FromValue(const base::Value& value) {
-  ImageFrame out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3887,8 +3563,8 @@ PerceptionSample::PerceptionSample()
  {}
 
 PerceptionSample::~PerceptionSample() = default;
-PerceptionSample::PerceptionSample(PerceptionSample&& rhs) = default;
-PerceptionSample& PerceptionSample::operator=(PerceptionSample&& rhs) = default;
+PerceptionSample::PerceptionSample(PerceptionSample&& rhs) noexcept = default;
+PerceptionSample& PerceptionSample::operator=(PerceptionSample&& rhs) noexcept = default;
 PerceptionSample PerceptionSample::Clone() const {
   PerceptionSample out;
   if (frame_perception) {
@@ -4000,34 +3676,21 @@ bool PerceptionSample::Populate(
 }
 
 // static
-std::unique_ptr<PerceptionSample> PerceptionSample::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PerceptionSample>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PerceptionSample> PerceptionSample::FromValue(const base::Value::Dict& value) {
+  PerceptionSample out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PerceptionSample> PerceptionSample::FromValue(const base::Value::Dict& value) {
+std::optional<PerceptionSample> PerceptionSample::FromValue(const base::Value& value) {
   PerceptionSample out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PerceptionSample> PerceptionSample::FromValue(const base::Value& value) {
-  PerceptionSample out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4064,8 +3727,8 @@ Diagnostics::Diagnostics()
 : service_error() {}
 
 Diagnostics::~Diagnostics() = default;
-Diagnostics::Diagnostics(Diagnostics&& rhs) = default;
-Diagnostics& Diagnostics::operator=(Diagnostics&& rhs) = default;
+Diagnostics::Diagnostics(Diagnostics&& rhs) noexcept = default;
+Diagnostics& Diagnostics::operator=(Diagnostics&& rhs) noexcept = default;
 Diagnostics Diagnostics::Clone() const {
   Diagnostics out;
   out.service_error = service_error;
@@ -4126,34 +3789,21 @@ bool Diagnostics::Populate(
 }
 
 // static
-std::unique_ptr<Diagnostics> Diagnostics::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Diagnostics>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Diagnostics> Diagnostics::FromValue(const base::Value::Dict& value) {
+  Diagnostics out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Diagnostics> Diagnostics::FromValue(const base::Value::Dict& value) {
+std::optional<Diagnostics> Diagnostics::FromValue(const base::Value& value) {
   Diagnostics out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Diagnostics> Diagnostics::FromValue(const base::Value& value) {
-  Diagnostics out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4194,13 +3844,13 @@ namespace SetState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4209,15 +3859,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& state_value = args[0];
     {
       if (!state_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!State::Populate(state_value.GetDict(), params.state)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4248,13 +3898,13 @@ namespace SetAnalyticsComponent {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4263,15 +3913,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& component_value = args[0];
     {
       if (!component_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Component::Populate(component_value.GetDict(), params.component)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4291,13 +3941,13 @@ namespace SetComponentProcessState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4306,15 +3956,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& process_state_value = args[0];
     {
       if (!process_state_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ProcessState::Populate(process_state_value.GetDict(), params.process_state)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

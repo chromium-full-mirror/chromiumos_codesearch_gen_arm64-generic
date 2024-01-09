@@ -1,11 +1,11 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared passwords-shared">.expiration-column,.misc-column{align-items:center;display:flex;flex:1}.misc-column{justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#paymentsIcon{vertical-align:middle}#cardImage{margin-inline-end:16px;vertical-align:middle}.screen-reader-only-substituted-parent{position:relative}.screen-reader-only-visually-hidden{clip-path:inset(100%);height:100%;position:absolute;width:100%}</style>
+    return html `<!--_html_template_start_-->    <style include="settings-shared passwords-shared cr-screen-reader-only">.expiration-column,.misc-column{align-items:center;display:flex;flex:1}.misc-column{justify-content:flex-end}.list-item{margin-bottom:8px;margin-top:8px}.sub-label{color:var(--cr-secondary-text-color)}#paymentsIcon{vertical-align:middle}#cardImage{margin-inline-end:16px;vertical-align:middle}</style>
     <div class="list-item" role="row">
       <div class="type-column" role="cell">
         <img id="cardImage" src="[[creditCard.imageSrc]]" alt="">
-        <div class="summary-column screen-reader-only-substituted-parent">
-          <div class="screen-reader-only-visually-hidden">
+        <div class="summary-column cr-screen-reader-only-host-node">
+          <div class="cr-screen-reader-only">
             [[getSummaryAriaLabel_(creditCard)]],
             [[getSummaryAriaSublabel_(creditCard)]]
           </div>

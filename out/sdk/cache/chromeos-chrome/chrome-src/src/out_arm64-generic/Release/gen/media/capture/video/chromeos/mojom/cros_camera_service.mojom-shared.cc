@@ -111,205 +111,6 @@ namespace internal {
 
 
 // static
-bool CameraHalDispatcher_RegisterServer_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalDispatcher_RegisterServer_Params_Data* object =
-      static_cast<const CameraHalDispatcher_RegisterServer_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->server, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->server,
-                                                 validation_context)) {
-    return false;
-  }
-
-  return true;
-}
-
-CameraHalDispatcher_RegisterServer_Params_Data::CameraHalDispatcher_RegisterServer_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CameraHalDispatcher_RegisterClient_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalDispatcher_RegisterClient_Params_Data* object =
-      static_cast<const CameraHalDispatcher_RegisterClient_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->client, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->client,
-                                                 validation_context)) {
-    return false;
-  }
-
-  return true;
-}
-
-CameraHalDispatcher_RegisterClient_Params_Data::CameraHalDispatcher_RegisterClient_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CameraHalDispatcher_GetMjpegDecodeAccelerator_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalDispatcher_GetMjpegDecodeAccelerator_Params_Data* object =
-      static_cast<const CameraHalDispatcher_GetMjpegDecodeAccelerator_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->jda_receiver, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->jda_receiver,
-                                                 validation_context)) {
-    return false;
-  }
-
-  return true;
-}
-
-CameraHalDispatcher_GetMjpegDecodeAccelerator_Params_Data::CameraHalDispatcher_GetMjpegDecodeAccelerator_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data* object =
-      static_cast<const CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->jea_receiver, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->jea_receiver,
-                                                 validation_context)) {
-    return false;
-  }
-
-  return true;
-}
-
-CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data::CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CameraHalDispatcher_RegisterServerWithToken_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalDispatcher_RegisterServerWithToken_Params_Data* object =
-      static_cast<const CameraHalDispatcher_RegisterServerWithToken_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->server, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->server,
-                                                 validation_context)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->auth_token, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->auth_token, validation_context))
-    return false;
-
-  return true;
-}
-
-CameraHalDispatcher_RegisterServerWithToken_Params_Data::CameraHalDispatcher_RegisterServerWithToken_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data* object =
-      static_cast<const CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->callbacks, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->callbacks,
-                                                 validation_context)) {
-    return false;
-  }
-
-  return true;
-}
-
-CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data::CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool CameraHalDispatcher_RegisterClientWithToken_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -377,7 +178,7 @@ CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data::CameraHalDispat
 
 
 // static
-bool CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data::Validate(
+bool CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -389,128 +190,8 @@ bool CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data* object =
-      static_cast<const CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->client, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->client,
-                                                 validation_context)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->auth_token, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->auth_token, validation_context))
-    return false;
-
-  return true;
-}
-
-CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data::CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data* object =
-      static_cast<const CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data*>(data);
-
-  return true;
-}
-
-CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data::CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data* object =
-      static_cast<const CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->service_name, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& service_name_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->service_name, validation_context,
-                                         &service_name_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->receiver, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
-                                                 validation_context)) {
-    return false;
-  }
-
-  return true;
-}
-
-CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CameraHalServer_CreateChannel_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
-    { 0, 16 },
-    { 4, 16 },
-  };
-  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
-          data, kVersionSizes, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_CreateChannel_Params_Data* object =
-      static_cast<const CameraHalServer_CreateChannel_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->camera_module_receiver, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->camera_module_receiver,
-                                                 validation_context)) {
-    return false;
-  }
-  if (object->header_.version < 4)
-    return true;
+  [[maybe_unused]] const CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data* object =
+      static_cast<const CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data*>(data);
 
 
   if (!::cros::mojom::internal::CameraClientType_Data
@@ -520,35 +201,12 @@ bool CameraHalServer_CreateChannel_Params_Data::Validate(
   return true;
 }
 
-CameraHalServer_CreateChannel_Params_Data::CameraHalServer_CreateChannel_Params_Data()
-    : header_({sizeof(*this), 4}) {}
-
-
-// static
-bool CameraHalServer_SetTracingEnabled_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_SetTracingEnabled_Params_Data* object =
-      static_cast<const CameraHalServer_SetTracingEnabled_Params_Data*>(data);
-
-  return true;
-}
-
-CameraHalServer_SetTracingEnabled_Params_Data::CameraHalServer_SetTracingEnabled_Params_Data()
+CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CameraHalServer_SetAutoFramingState_Params_Data::Validate(
+bool CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -560,8 +218,147 @@ bool CameraHalServer_SetAutoFramingState_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_SetAutoFramingState_Params_Data* object =
-      static_cast<const CameraHalServer_SetAutoFramingState_Params_Data*>(data);
+  [[maybe_unused]] const CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data* object =
+      static_cast<const CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data*>(data);
+
+
+  if (!::cros::mojom::internal::CameraPrivacySwitchState_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data* object =
+      static_cast<const CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data*>(data);
+
+
+  if (!::cros::mojom::internal::CameraPrivacySwitchState_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosCameraService_GetCameraModule_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosCameraService_GetCameraModule_Params_Data* object =
+      static_cast<const CrosCameraService_GetCameraModule_Params_Data*>(data);
+
+
+  if (!::cros::mojom::internal::CameraClientType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosCameraService_GetCameraModule_Params_Data::CrosCameraService_GetCameraModule_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosCameraService_GetCameraModule_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosCameraService_GetCameraModule_ResponseParams_Data* object =
+      static_cast<const CrosCameraService_GetCameraModule_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->camera_module_receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->camera_module_receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+CrosCameraService_GetCameraModule_ResponseParams_Data::CrosCameraService_GetCameraModule_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosCameraService_SetTracingEnabled_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosCameraService_SetTracingEnabled_Params_Data* object =
+      static_cast<const CrosCameraService_SetTracingEnabled_Params_Data*>(data);
+
+  return true;
+}
+
+CrosCameraService_SetTracingEnabled_Params_Data::CrosCameraService_SetTracingEnabled_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosCameraService_SetAutoFramingState_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosCameraService_SetAutoFramingState_Params_Data* object =
+      static_cast<const CrosCameraService_SetAutoFramingState_Params_Data*>(data);
 
 
   if (!::cros::mojom::internal::CameraAutoFramingState_Data
@@ -571,12 +368,12 @@ bool CameraHalServer_SetAutoFramingState_Params_Data::Validate(
   return true;
 }
 
-CameraHalServer_SetAutoFramingState_Params_Data::CameraHalServer_SetAutoFramingState_Params_Data()
+CrosCameraService_SetAutoFramingState_Params_Data::CrosCameraService_SetAutoFramingState_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data::Validate(
+bool CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -588,18 +385,18 @@ bool CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data* object =
-      static_cast<const CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data*>(data);
+  [[maybe_unused]] const CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data* object =
+      static_cast<const CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data*>(data);
 
   return true;
 }
 
-CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data::CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data()
+CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data::Validate(
+bool CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -611,8 +408,8 @@ bool CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data::Validate
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data* object =
-      static_cast<const CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data*>(data);
+  [[maybe_unused]] const CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data* object =
+      static_cast<const CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data*>(data);
 
 
   if (!::cros::mojom::internal::CameraPrivacySwitchState_Data
@@ -622,12 +419,12 @@ bool CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data::Validate
   return true;
 }
 
-CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data::CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data()
+CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data::Validate(
+bool CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -639,8 +436,8 @@ bool CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data* object =
-      static_cast<const CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data*>(data);
+  [[maybe_unused]] const CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data* object =
+      static_cast<const CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data*>(data);
 
 
   if (!::cros::mojom::internal::CameraPrivacySwitchState_Data
@@ -650,12 +447,12 @@ bool CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data::Validate(
   return true;
 }
 
-CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data::CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data()
+CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CameraHalServer_GetAutoFramingSupported_Params_Data::Validate(
+bool CrosCameraService_GetAutoFramingSupported_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -667,18 +464,18 @@ bool CameraHalServer_GetAutoFramingSupported_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_GetAutoFramingSupported_Params_Data* object =
-      static_cast<const CameraHalServer_GetAutoFramingSupported_Params_Data*>(data);
+  [[maybe_unused]] const CrosCameraService_GetAutoFramingSupported_Params_Data* object =
+      static_cast<const CrosCameraService_GetAutoFramingSupported_Params_Data*>(data);
 
   return true;
 }
 
-CameraHalServer_GetAutoFramingSupported_Params_Data::CameraHalServer_GetAutoFramingSupported_Params_Data()
+CrosCameraService_GetAutoFramingSupported_Params_Data::CrosCameraService_GetAutoFramingSupported_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CameraHalServer_GetAutoFramingSupported_ResponseParams_Data::Validate(
+bool CrosCameraService_GetAutoFramingSupported_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -690,18 +487,18 @@ bool CameraHalServer_GetAutoFramingSupported_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_GetAutoFramingSupported_ResponseParams_Data* object =
-      static_cast<const CameraHalServer_GetAutoFramingSupported_ResponseParams_Data*>(data);
+  [[maybe_unused]] const CrosCameraService_GetAutoFramingSupported_ResponseParams_Data* object =
+      static_cast<const CrosCameraService_GetAutoFramingSupported_ResponseParams_Data*>(data);
 
   return true;
 }
 
-CameraHalServer_GetAutoFramingSupported_ResponseParams_Data::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data()
+CrosCameraService_GetAutoFramingSupported_ResponseParams_Data::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CameraHalServer_SetCameraEffect_Params_Data::Validate(
+bool CrosCameraService_SetCameraEffect_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -713,8 +510,8 @@ bool CameraHalServer_SetCameraEffect_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_SetCameraEffect_Params_Data* object =
-      static_cast<const CameraHalServer_SetCameraEffect_Params_Data*>(data);
+  [[maybe_unused]] const CrosCameraService_SetCameraEffect_Params_Data* object =
+      static_cast<const CrosCameraService_SetCameraEffect_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->config, 1, validation_context)) {
@@ -726,12 +523,12 @@ bool CameraHalServer_SetCameraEffect_Params_Data::Validate(
   return true;
 }
 
-CameraHalServer_SetCameraEffect_Params_Data::CameraHalServer_SetCameraEffect_Params_Data()
+CrosCameraService_SetCameraEffect_Params_Data::CrosCameraService_SetCameraEffect_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CameraHalServer_SetCameraEffect_ResponseParams_Data::Validate(
+bool CrosCameraService_SetCameraEffect_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -743,8 +540,8 @@ bool CameraHalServer_SetCameraEffect_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServer_SetCameraEffect_ResponseParams_Data* object =
-      static_cast<const CameraHalServer_SetCameraEffect_ResponseParams_Data*>(data);
+  [[maybe_unused]] const CrosCameraService_SetCameraEffect_ResponseParams_Data* object =
+      static_cast<const CrosCameraService_SetCameraEffect_ResponseParams_Data*>(data);
 
 
   if (!::cros::mojom::internal::SetEffectResult_Data
@@ -754,72 +551,12 @@ bool CameraHalServer_SetCameraEffect_ResponseParams_Data::Validate(
   return true;
 }
 
-CameraHalServer_SetCameraEffect_ResponseParams_Data::CameraHalServer_SetCameraEffect_ResponseParams_Data()
+CrosCameraService_SetCameraEffect_ResponseParams_Data::CrosCameraService_SetCameraEffect_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data* object =
-      static_cast<const CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data*>(data);
-
-
-  if (!::cros::mojom::internal::CameraClientType_Data
-        ::Validate(object->type, validation_context))
-    return false;
-
-  return true;
-}
-
-CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data::CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
-    { 0, 16 },
-    { 9, 16 },
-  };
-  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
-          data, kVersionSizes, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params_Data* object =
-      static_cast<const CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params_Data*>(data);
-
-
-  if (!::cros::mojom::internal::CameraPrivacySwitchState_Data
-        ::Validate(object->state, validation_context))
-    return false;
-
-  return true;
-}
-
-CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params_Data::CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params_Data()
-    : header_({sizeof(*this), 9}) {}
-
-
-// static
-bool CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data::Validate(
+bool CrosCameraService_AddCrosCameraServiceObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -831,18 +568,22 @@ bool CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data::Vali
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data* object =
-      static_cast<const CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data*>(data);
+  [[maybe_unused]] const CrosCameraService_AddCrosCameraServiceObserver_Params_Data* object =
+      static_cast<const CrosCameraService_AddCrosCameraServiceObserver_Params_Data*>(data);
 
-
-  if (!::cros::mojom::internal::CameraPrivacySwitchState_Data
-        ::Validate(object->state, validation_context))
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
     return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
 
   return true;
 }
 
-CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data::CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data()
+CrosCameraService_AddCrosCameraServiceObserver_Params_Data::CrosCameraService_AddCrosCameraServiceObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

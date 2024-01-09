@@ -83,8 +83,9 @@
   SmartCardError.kUnexpected = 28;
   SmartCardError.kShutdown = 29;
   SmartCardError.kUnknown = 30;
+  SmartCardError.kPermissionDenied = 31;
   SmartCardError.MIN_VALUE = 0;
-  SmartCardError.MAX_VALUE = 30;
+  SmartCardError.MAX_VALUE = 31;
 
   SmartCardError.isKnownEnumValue = function(value) {
     switch (value) {
@@ -119,6 +120,7 @@
     case 28:
     case 29:
     case 30:
+    case 31:
       return true;
     }
     return false;

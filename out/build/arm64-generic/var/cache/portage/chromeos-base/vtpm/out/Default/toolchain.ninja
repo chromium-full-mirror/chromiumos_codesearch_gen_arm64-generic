@@ -34,9 +34,8 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/vtpm/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/vtpm/_vtpmd-install_config.stamp: stamp
-build obj/vtpm/all.stamp: stamp obj/vtpm/install_init.stamp obj/vtpm/install_minijail_conf.stamp obj/vtpm/install_policy.stamp obj/vtpm/install_systemd.stamp obj/vtpm/install_tmpfiles_config.stamp ./vtpmd ./vtpm_test
+build obj/vtpm/all.stamp: stamp obj/vtpm/install_init.stamp obj/vtpm/install_minijail_conf.stamp obj/vtpm/install_policy.stamp obj/vtpm/install_systemd.stamp obj/vtpm/install_tmpfiles_config.stamp ./vtpmd
 subninja obj/vtpm/database_proto.ninja
 rule __vtpm_database_proto_gen___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc database.proto --proto_path /mnt/host/source/src/platform2/vtpm/backends --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/vtpm/out/Default/gen/include/vtpm/backends
@@ -70,5 +69,4 @@ build gen/include/vtpm/dbus_adaptors/org.chromium.Vtpm.h: __vtpm_vtpm-adaptors__
 
 build obj/vtpm/vtpm-adaptors.stamp: stamp gen/include/vtpm/dbus_adaptors/org.chromium.Vtpm.h
 subninja obj/vtpm/vtpm_server_library.ninja
-subninja obj/vtpm/vtpm_test.ninja
 subninja obj/vtpm/vtpmd.ninja

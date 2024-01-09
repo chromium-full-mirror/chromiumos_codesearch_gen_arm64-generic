@@ -72,7 +72,6 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/build/android/pylib/utils/__init__.py
 ../../../../../../../home/chrome-bot/chrome_root/src/build/android/pylib/utils/decorators.py
 ../../../../../../../home/chrome-bot/chrome_root/src/build/android/pylib/utils/logdog_helper.py
-../../../../../../../home/chrome-bot/chrome_root/src/build/android/pylib/utils/shared_preference_utils.py
 ../../../../../../../home/chrome-bot/chrome_root/src/components/variations/service/generate_ui_string_overrider.py
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/catapult/common/py_trace_event/py_trace_event/__init__.py
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/catapult/common/py_trace_event/py_trace_event/trace_event.py

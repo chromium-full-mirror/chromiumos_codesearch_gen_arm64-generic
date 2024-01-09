@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -101,16 +102,16 @@ bool DynamicParams::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-const char BoundSessionRequestThrottledListener::Name_[] = "chrome.mojom.BoundSessionRequestThrottledListener";
+const char BoundSessionRequestThrottledHandler::Name_[] = "chrome.mojom.BoundSessionRequestThrottledHandler";
 
-BoundSessionRequestThrottledListener::IPCStableHashFunction BoundSessionRequestThrottledListener::MessageToMethodInfo_(mojo::Message& message) {
+BoundSessionRequestThrottledHandler::IPCStableHashFunction BoundSessionRequestThrottledHandler::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
 }
 
 
-const char* BoundSessionRequestThrottledListener::MessageToMethodName_(mojo::Message& message) {
+const char* BoundSessionRequestThrottledHandler::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   return "Receive unknown mojo message";
 #else
@@ -126,29 +127,29 @@ const char* BoundSessionRequestThrottledListener::MessageToMethodName_(mojo::Mes
 #if !BUILDFLAG(IS_FUCHSIA)
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-BoundSessionRequestThrottledListenerProxy::BoundSessionRequestThrottledListenerProxy(mojo::MessageReceiverWithResponder* receiver)
+BoundSessionRequestThrottledHandlerProxy::BoundSessionRequestThrottledHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
 // static
-bool BoundSessionRequestThrottledListenerStubDispatch::Accept(
-    BoundSessionRequestThrottledListener* impl,
+bool BoundSessionRequestThrottledHandlerStubDispatch::Accept(
+    BoundSessionRequestThrottledHandler* impl,
     mojo::Message* message) {
   return false;
 }
 
 // static
-bool BoundSessionRequestThrottledListenerStubDispatch::AcceptWithResponder(
-    BoundSessionRequestThrottledListener* impl,
+bool BoundSessionRequestThrottledHandlerStubDispatch::AcceptWithResponder(
+    BoundSessionRequestThrottledHandler* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
+namespace {
+}  // namespace
 
-
-
-bool BoundSessionRequestThrottledListenerRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chrome::mojom::BoundSessionRequestThrottledListener::Name_;
+bool BoundSessionRequestThrottledHandlerRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::chrome::mojom::BoundSessionRequestThrottledHandler::Name_;
   return mojo::internal::ValidateRequestGeneric(message, name, {});
 }
 
@@ -216,14 +217,17 @@ void ChromeOSListenerProxy::MergeSessionComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome::mojom::ChromeOSListener::MergeSessionComplete");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeOSListener_MergeSessionComplete_Name, kFlags, 0, 0, nullptr);
@@ -287,10 +291,10 @@ bool ChromeOSListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChromeOSListenerValidationInfo[] = {
-    {&internal::ChromeOSListener_MergeSessionComplete_Params_Data::Validate,
+    { &internal::ChromeOSListener_MergeSessionComplete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -379,7 +383,7 @@ RendererConfigurationProxy::RendererConfigurationProxy(mojo::MessageReceiverWith
 }
 
 void RendererConfigurationProxy::SetInitialConfiguration(
-    bool in_is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> in_chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> in_content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledListener> in_bound_session_request_throttled_listener) {
+    bool in_is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> in_chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> in_content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledHandler> in_bound_session_request_throttled_handler) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chrome::mojom::RendererConfiguration::SetInitialConfiguration", "input_parameters",
@@ -395,18 +399,21 @@ void RendererConfigurationProxy::SetInitialConfiguration(
            dict.AddItem("content_settings_manager"), in_content_settings_manager,
                         "<value of type ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager>>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("bound_session_request_throttled_listener"), in_bound_session_request_throttled_listener,
-                        "<value of type ::mojo::PendingRemote<BoundSessionRequestThrottledListener>>");
+           dict.AddItem("bound_session_request_throttled_handler"), in_bound_session_request_throttled_handler,
+                        "<value of type ::mojo::PendingRemote<BoundSessionRequestThrottledHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererConfiguration_SetInitialConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -419,8 +426,8 @@ void RendererConfigurationProxy::SetInitialConfiguration(
       in_chromeos_listener, &params->chromeos_listener, &params.message());
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::content_settings::mojom::ContentSettingsManagerInterfaceBase>>(
       in_content_settings_manager, &params->content_settings_manager, &params.message());
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chrome::mojom::BoundSessionRequestThrottledListenerInterfaceBase>>(
-      in_bound_session_request_throttled_listener, &params->bound_session_request_throttled_listener, &params.message());
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chrome::mojom::BoundSessionRequestThrottledHandlerInterfaceBase>>(
+      in_bound_session_request_throttled_handler, &params->bound_session_request_throttled_handler, &params.message());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(RendererConfiguration::Name_);
@@ -443,14 +450,17 @@ void RendererConfigurationProxy::SetConfiguration(
                         "<value of type DynamicParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererConfiguration_SetConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -495,7 +505,7 @@ bool RendererConfigurationStubDispatch::Accept(
       bool p_is_incognito_process{};
       ::mojo::PendingReceiver<ChromeOSListener> p_chromeos_listener{};
       ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> p_content_settings_manager{};
-      ::mojo::PendingRemote<BoundSessionRequestThrottledListener> p_bound_session_request_throttled_listener{};
+      ::mojo::PendingRemote<BoundSessionRequestThrottledHandler> p_bound_session_request_throttled_handler{};
       RendererConfiguration_SetInitialConfiguration_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -509,8 +519,8 @@ bool RendererConfigurationStubDispatch::Accept(
             input_data_view.TakeContentSettingsManager<decltype(p_content_settings_manager)>();
       }
       if (success) {
-        p_bound_session_request_throttled_listener =
-            input_data_view.TakeBoundSessionRequestThrottledListener<decltype(p_bound_session_request_throttled_listener)>();
+        p_bound_session_request_throttled_handler =
+            input_data_view.TakeBoundSessionRequestThrottledHandler<decltype(p_bound_session_request_throttled_handler)>();
       }
       if (!success) {
         ReportValidationErrorForMessage(
@@ -525,7 +535,7 @@ bool RendererConfigurationStubDispatch::Accept(
 std::move(p_is_incognito_process), 
 std::move(p_chromeos_listener), 
 std::move(p_content_settings_manager), 
-std::move(p_bound_session_request_throttled_listener));
+std::move(p_bound_session_request_throttled_handler));
       return true;
     }
     case internal::kRendererConfiguration_SetConfiguration_Name: {
@@ -576,12 +586,12 @@ bool RendererConfigurationStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRendererConfigurationValidationInfo[] = {
-    {&internal::RendererConfiguration_SetInitialConfiguration_Params_Data::Validate,
+    { &internal::RendererConfiguration_SetInitialConfiguration_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererConfiguration_SetConfiguration_Params_Data::Validate,
+    { &internal::RendererConfiguration_SetConfiguration_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -625,10 +635,10 @@ bool StructTraits<::chrome::mojom::DynamicParams::DataView, ::chrome::mojom::Dyn
 namespace chrome::mojom {
 
 
-BoundSessionRequestThrottledListenerAsyncWaiter::BoundSessionRequestThrottledListenerAsyncWaiter(
-    BoundSessionRequestThrottledListener* proxy) : proxy_(proxy) {}
+BoundSessionRequestThrottledHandlerAsyncWaiter::BoundSessionRequestThrottledHandlerAsyncWaiter(
+    BoundSessionRequestThrottledHandler* proxy) : proxy_(proxy) {}
 
-BoundSessionRequestThrottledListenerAsyncWaiter::~BoundSessionRequestThrottledListenerAsyncWaiter() = default;
+BoundSessionRequestThrottledHandlerAsyncWaiter::~BoundSessionRequestThrottledHandlerAsyncWaiter() = default;
 
 
 
@@ -644,8 +654,8 @@ ChromeOSListenerAsyncWaiter::~ChromeOSListenerAsyncWaiter() = default;
 
 
 
-void RendererConfigurationInterceptorForTesting::SetInitialConfiguration(bool is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledListener> bound_session_request_throttled_listener) {
-  GetForwardingInterface()->SetInitialConfiguration(std::move(is_incognito_process), std::move(chromeos_listener), std::move(content_settings_manager), std::move(bound_session_request_throttled_listener));
+void RendererConfigurationInterceptorForTesting::SetInitialConfiguration(bool is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledHandler> bound_session_request_throttled_handler) {
+  GetForwardingInterface()->SetInitialConfiguration(std::move(is_incognito_process), std::move(chromeos_listener), std::move(content_settings_manager), std::move(bound_session_request_throttled_handler));
 }
 void RendererConfigurationInterceptorForTesting::SetConfiguration(DynamicParamsPtr params) {
   GetForwardingInterface()->SetConfiguration(std::move(params));

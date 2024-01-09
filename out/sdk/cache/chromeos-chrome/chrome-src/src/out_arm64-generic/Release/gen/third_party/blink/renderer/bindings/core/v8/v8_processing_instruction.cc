@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ProcessingInstruction>::value,
     "ProcessingInstruction inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ProcessingInstruction::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ProcessingInstruction is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("ProcessingInstruction.target.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ProcessingInstruction* blink_receiver = V8ProcessingInstruction::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->target();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ProcessingInstruction* blink_receiver = V8ProcessingInstruction::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->target();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("ProcessingInstruction.sheet.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ProcessingInstruction* blink_receiver = V8ProcessingInstruction::ToWrappableUnsafe(v8_receiver);
+ProcessingInstruction* blink_receiver = V8ProcessingInstruction::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sheet();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

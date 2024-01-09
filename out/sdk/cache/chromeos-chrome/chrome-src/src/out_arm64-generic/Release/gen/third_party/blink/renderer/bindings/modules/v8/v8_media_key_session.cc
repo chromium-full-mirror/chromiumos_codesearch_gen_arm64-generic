@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MediaKeySession>::value,
     "MediaKeySession does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MediaKeySession::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaKeySession is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaKeySession.sessionId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sessionId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sessionId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaKeySession.expiration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->expiration();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -131,7 +127,7 @@ BLINK_BINDINGS_TRACE_EVENT("MediaKeySession.closed.get");
 
 
 
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -147,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaKeySession.keyStatuses.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->keyStatuses();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -161,10 +158,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaKeySession.onkeystatuseschange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onkeystatuseschange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onkeystatuseschange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -177,8 +174,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnkeystatuseschange(event_handler);
 }
 
@@ -189,10 +187,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaKeySession.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -205,8 +203,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -233,7 +232,7 @@ return;
 
 
 
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -271,7 +270,7 @@ return;
 
 
 
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -317,7 +316,7 @@ return;
 
 
 
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -355,7 +354,7 @@ return;
 
 
 
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -393,7 +392,7 @@ return;
 
 
 
-MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(v8_receiver);
+MediaKeySession* blink_receiver = V8MediaKeySession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

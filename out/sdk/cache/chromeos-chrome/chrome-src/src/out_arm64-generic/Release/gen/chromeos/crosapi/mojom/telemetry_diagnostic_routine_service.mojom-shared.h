@@ -25,6 +25,7 @@
 
 #include "chromeos/crosapi/mojom/telemetry_diagnostic_routine_service.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/telemetry_extension_exception.mojom-shared.h"
+#include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -36,6 +37,10 @@
 namespace crosapi::mojom {
 class TelemetryDiagnosticMemoryRoutineArgumentDataView;
 
+class TelemetryDiagnosticVolumeButtonRoutineArgumentDataView;
+
+class TelemetryDiagnosticFanRoutineArgumentDataView;
+
 class TelemetryDiagnosticRoutineStateInitializedDataView;
 
 class TelemetryDiagnosticRoutineStateRunningDataView;
@@ -45,6 +50,10 @@ class TelemetryDiagnosticRoutineStateWaitingDataView;
 class TelemetryDiagnosticMemtesterResultDataView;
 
 class TelemetryDiagnosticMemoryRoutineDetailDataView;
+
+class TelemetryDiagnosticVolumeButtonRoutineDetailDataView;
+
+class TelemetryDiagnosticFanRoutineDetailDataView;
 
 class TelemetryDiagnosticRoutineStateFinishedDataView;
 
@@ -63,6 +72,20 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineArgumentDataView> {
   using Data = ::crosapi::mojom::internal::TelemetryDiagnosticMemoryRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentDataView> {
+  using Data = ::crosapi::mojom::internal::TelemetryDiagnosticVolumeButtonRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentDataView> {
+  using Data = ::crosapi::mojom::internal::TelemetryDiagnosticFanRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -98,6 +121,20 @@ struct MojomTypeTraits<::crosapi::mojom::TelemetryDiagnosticMemtesterResultDataV
 template <>
 struct MojomTypeTraits<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineDetailDataView> {
   using Data = ::crosapi::mojom::internal::TelemetryDiagnosticMemoryRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailDataView> {
+  using Data = ::crosapi::mojom::internal::TelemetryDiagnosticVolumeButtonRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailDataView> {
+  using Data = ::crosapi::mojom::internal::TelemetryDiagnosticFanRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -203,6 +240,58 @@ inline TelemetryDiagnosticMemtesterTestItemEnum ToKnownEnumValue(TelemetryDiagno
 }
 
 
+enum class TelemetryDiagnosticHardwarePresenceStatus : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kMatched = 1,
+  
+  kNotMatched = 2,
+  
+  kNotConfigured = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, TelemetryDiagnosticHardwarePresenceStatus value);
+inline bool IsKnownEnumValue(TelemetryDiagnosticHardwarePresenceStatus value) {
+  return internal::TelemetryDiagnosticHardwarePresenceStatus_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline TelemetryDiagnosticHardwarePresenceStatus ToKnownEnumValue(TelemetryDiagnosticHardwarePresenceStatus value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return TelemetryDiagnosticHardwarePresenceStatus::kDefaultValue;
+}
+
+
+enum class TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kVolumeUp = 1,
+  
+  kVolumeDown = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType value);
+inline bool IsKnownEnumValue(TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType value) {
+  return internal::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType ToKnownEnumValue(TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType::kDefaultValue;
+}
+
+
 enum class TelemetryDiagnosticRoutineStateWaiting_Reason : int32_t {
   
   kUnmappedEnumField = 0,
@@ -269,7 +358,7 @@ class TelemetryDiagnosticMemoryRoutineArgumentDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<uint32_t> max_testing_mem_kib() const {
+  std::optional<uint32_t> max_testing_mem_kib() const {
 
     return data_->max_testing_mem_kib_$flag
         ? absl::make_optional(data_->max_testing_mem_kib_$value)
@@ -277,6 +366,57 @@ class TelemetryDiagnosticMemoryRoutineArgumentDataView {
   }
  private:
   internal::TelemetryDiagnosticMemoryRoutineArgument_Data* data_ = nullptr;
+};
+
+
+class TelemetryDiagnosticVolumeButtonRoutineArgumentDataView {
+ public:
+  TelemetryDiagnosticVolumeButtonRoutineArgumentDataView() = default;
+
+  TelemetryDiagnosticVolumeButtonRoutineArgumentDataView(
+      internal::TelemetryDiagnosticVolumeButtonRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType>(
+        data_value, output);
+  }
+  TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType>(data_->type));
+  }
+  inline void GetTimeoutDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTimeout(UserType* output) {
+    
+    auto* pointer = data_->timeout.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TelemetryDiagnosticVolumeButtonRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class TelemetryDiagnosticFanRoutineArgumentDataView {
+ public:
+  TelemetryDiagnosticFanRoutineArgumentDataView() = default;
+
+  TelemetryDiagnosticFanRoutineArgumentDataView(
+      internal::TelemetryDiagnosticFanRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::TelemetryDiagnosticFanRoutineArgument_Data* data_ = nullptr;
 };
 
 
@@ -411,6 +551,67 @@ class TelemetryDiagnosticMemoryRoutineDetailDataView {
 };
 
 
+class TelemetryDiagnosticVolumeButtonRoutineDetailDataView {
+ public:
+  TelemetryDiagnosticVolumeButtonRoutineDetailDataView() = default;
+
+  TelemetryDiagnosticVolumeButtonRoutineDetailDataView(
+      internal::TelemetryDiagnosticVolumeButtonRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::TelemetryDiagnosticVolumeButtonRoutineDetail_Data* data_ = nullptr;
+};
+
+
+class TelemetryDiagnosticFanRoutineDetailDataView {
+ public:
+  TelemetryDiagnosticFanRoutineDetailDataView() = default;
+
+  TelemetryDiagnosticFanRoutineDetailDataView(
+      internal::TelemetryDiagnosticFanRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPassedFanIdsDataView(
+      mojo::ArrayDataView<uint8_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPassedFanIds(UserType* output) {
+    
+    auto* pointer = data_->passed_fan_ids.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
+        pointer, output, message_);
+  }
+  inline void GetFailedFanIdsDataView(
+      mojo::ArrayDataView<uint8_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFailedFanIds(UserType* output) {
+    
+    auto* pointer = data_->failed_fan_ids.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadFanCountStatus(UserType* output) const {
+    auto data_value = data_->fan_count_status;
+    return mojo::internal::Deserialize<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus>(
+        data_value, output);
+  }
+  TelemetryDiagnosticHardwarePresenceStatus fan_count_status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus>(data_->fan_count_status));
+  }
+ private:
+  internal::TelemetryDiagnosticFanRoutineDetail_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class TelemetryDiagnosticRoutineStateFinishedDataView {
  public:
   TelemetryDiagnosticRoutineStateFinishedDataView() = default;
@@ -513,6 +714,28 @@ class TelemetryDiagnosticRoutineArgumentDataView {
     return mojo::internal::Deserialize<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineArgumentDataView>(
         data_->data.f_memory.Get(), output, message_);
   }
+  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
+  inline void GetVolumeButtonDataView(
+      TelemetryDiagnosticVolumeButtonRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
+    
+    CHECK(is_volume_button());
+    return mojo::internal::Deserialize<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentDataView>(
+        data_->data.f_volume_button.Get(), output, message_);
+  }
+  bool is_fan() const { return data_->tag == Tag::kFan; }
+  inline void GetFanDataView(
+      TelemetryDiagnosticFanRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFan(UserType* output) const {
+    
+    CHECK(is_fan());
+    return mojo::internal::Deserialize<::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentDataView>(
+        data_->data.f_fan.Get(), output, message_);
+  }
 
  private:
   internal::TelemetryDiagnosticRoutineArgument_Data* data_ = nullptr;
@@ -554,6 +777,28 @@ class TelemetryDiagnosticRoutineDetailDataView {
     CHECK(is_memory());
     return mojo::internal::Deserialize<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineDetailDataView>(
         data_->data.f_memory.Get(), output, message_);
+  }
+  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
+  inline void GetVolumeButtonDataView(
+      TelemetryDiagnosticVolumeButtonRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
+    
+    CHECK(is_volume_button());
+    return mojo::internal::Deserialize<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailDataView>(
+        data_->data.f_volume_button.Get(), output, message_);
+  }
+  bool is_fan() const { return data_->tag == Tag::kFan; }
+  inline void GetFanDataView(
+      TelemetryDiagnosticFanRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFan(UserType* output) const {
+    
+    CHECK(is_fan());
+    return mojo::internal::Deserialize<::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailDataView>(
+        data_->data.f_fan.Get(), output, message_);
   }
 
  private:
@@ -647,6 +892,14 @@ struct hash<::crosapi::mojom::TelemetryDiagnosticMemtesterTestItemEnum>
     : public mojo::internal::EnumHashImpl<::crosapi::mojom::TelemetryDiagnosticMemtesterTestItemEnum> {};
 
 template <>
+struct hash<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus>
+    : public mojo::internal::EnumHashImpl<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus> {};
+
+template <>
+struct hash<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType>
+    : public mojo::internal::EnumHashImpl<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType> {};
+
+template <>
 struct hash<::crosapi::mojom::TelemetryDiagnosticRoutineStateWaiting_Reason>
     : public mojo::internal::EnumHashImpl<::crosapi::mojom::TelemetryDiagnosticRoutineStateWaiting_Reason> {};
 
@@ -669,6 +922,46 @@ struct Serializer<::crosapi::mojom::TelemetryDiagnosticMemtesterTestItemEnum, Ma
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::crosapi::mojom::TelemetryDiagnosticMemtesterTestItemEnum>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType>(input)), output);
   }
 };
 
@@ -721,6 +1014,78 @@ struct Serializer<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineArgumentData
       return CallSetToNullIfExists<Traits>(output);
 
     ::crosapi::mojom::TelemetryDiagnosticMemoryRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::TelemetryDiagnosticVolumeButtonRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType>(
+        Traits::type(input), &fragment->type);
+    decltype(Traits::timeout(input)) in_timeout = Traits::timeout(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->timeout)::BaseType> timeout_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+        in_timeout, timeout_fragment);
+    fragment->timeout.Set(
+        timeout_fragment.is_null() ? nullptr : timeout_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->timeout.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null timeout in TelemetryDiagnosticVolumeButtonRoutineArgument struct");
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::TelemetryDiagnosticVolumeButtonRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::TelemetryDiagnosticFanRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::TelemetryDiagnosticFanRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -931,6 +1296,94 @@ struct Serializer<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineDetailDataVi
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::TelemetryDiagnosticVolumeButtonRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::TelemetryDiagnosticVolumeButtonRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::TelemetryDiagnosticFanRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::passed_fan_ids(input)) in_passed_fan_ids = Traits::passed_fan_ids(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->passed_fan_ids)::BaseType>
+        passed_fan_ids_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& passed_fan_ids_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
+        in_passed_fan_ids, passed_fan_ids_fragment, &passed_fan_ids_validate_params);
+    fragment->passed_fan_ids.Set(
+        passed_fan_ids_fragment.is_null() ? nullptr : passed_fan_ids_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->passed_fan_ids.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null passed_fan_ids in TelemetryDiagnosticFanRoutineDetail struct");
+    decltype(Traits::failed_fan_ids(input)) in_failed_fan_ids = Traits::failed_fan_ids(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->failed_fan_ids)::BaseType>
+        failed_fan_ids_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& failed_fan_ids_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
+        in_failed_fan_ids, failed_fan_ids_fragment, &failed_fan_ids_validate_params);
+    fragment->failed_fan_ids.Set(
+        failed_fan_ids_fragment.is_null() ? nullptr : failed_fan_ids_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->failed_fan_ids.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null failed_fan_ids in TelemetryDiagnosticFanRoutineDetail struct");
+    mojo::internal::Serialize<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus>(
+        Traits::fan_count_status(input), &fragment->fan_count_status);
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::TelemetryDiagnosticFanRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::crosapi::mojom::TelemetryDiagnosticRoutineStateFinishedDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::crosapi::mojom::TelemetryDiagnosticRoutineStateFinishedDataView, UserType>;
@@ -1050,6 +1503,38 @@ struct Serializer<::crosapi::mojom::TelemetryDiagnosticRoutineArgumentDataView, 
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::crosapi::mojom::TelemetryDiagnosticRoutineArgumentDataView::Tag::kVolumeButton: {
+        decltype(Traits::volume_button(input))
+            in_volume_button = Traits::volume_button(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_volume_button)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentDataView>(
+            in_volume_button, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null volume_button in TelemetryDiagnosticRoutineArgument union");
+        fragment->data.f_volume_button.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::crosapi::mojom::TelemetryDiagnosticRoutineArgumentDataView::Tag::kFan: {
+        decltype(Traits::fan(input))
+            in_fan = Traits::fan(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_fan)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentDataView>(
+            in_fan, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null fan in TelemetryDiagnosticRoutineArgument union");
+        fragment->data.f_fan.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1110,6 +1595,38 @@ struct Serializer<::crosapi::mojom::TelemetryDiagnosticRoutineDetailDataView, Ma
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null memory in TelemetryDiagnosticRoutineDetail union");
         fragment->data.f_memory.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::crosapi::mojom::TelemetryDiagnosticRoutineDetailDataView::Tag::kVolumeButton: {
+        decltype(Traits::volume_button(input))
+            in_volume_button = Traits::volume_button(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_volume_button)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailDataView>(
+            in_volume_button, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null volume_button in TelemetryDiagnosticRoutineDetail union");
+        fragment->data.f_volume_button.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::crosapi::mojom::TelemetryDiagnosticRoutineDetailDataView::Tag::kFan: {
+        decltype(Traits::fan(input))
+            in_fan = Traits::fan(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_fan)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailDataView>(
+            in_fan, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null fan in TelemetryDiagnosticRoutineDetail union");
+        fragment->data.f_fan.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -1247,6 +1764,15 @@ namespace crosapi::mojom {
 
 
 
+inline void TelemetryDiagnosticVolumeButtonRoutineArgumentDataView::GetTimeoutDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->timeout.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
+
+
 
 
 
@@ -1277,6 +1803,20 @@ inline void TelemetryDiagnosticMemoryRoutineDetailDataView::GetResultDataView(
 }
 
 
+
+
+inline void TelemetryDiagnosticFanRoutineDetailDataView::GetPassedFanIdsDataView(
+    mojo::ArrayDataView<uint8_t>* output) {
+  auto pointer = data_->passed_fan_ids.Get();
+  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
+}
+inline void TelemetryDiagnosticFanRoutineDetailDataView::GetFailedFanIdsDataView(
+    mojo::ArrayDataView<uint8_t>* output) {
+  auto pointer = data_->failed_fan_ids.Get();
+  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
+}
+
+
 inline void TelemetryDiagnosticRoutineStateFinishedDataView::GetDetailDataView(
     TelemetryDiagnosticRoutineDetailDataView* output) {
   auto pointer = &data_->detail;
@@ -1296,11 +1836,31 @@ inline void TelemetryDiagnosticRoutineArgumentDataView::GetMemoryDataView(
   CHECK(is_memory());
   *output = TelemetryDiagnosticMemoryRoutineArgumentDataView(data_->data.f_memory.Get(), message_);
 }
+inline void TelemetryDiagnosticRoutineArgumentDataView::GetVolumeButtonDataView(
+    TelemetryDiagnosticVolumeButtonRoutineArgumentDataView* output) const {
+  CHECK(is_volume_button());
+  *output = TelemetryDiagnosticVolumeButtonRoutineArgumentDataView(data_->data.f_volume_button.Get(), message_);
+}
+inline void TelemetryDiagnosticRoutineArgumentDataView::GetFanDataView(
+    TelemetryDiagnosticFanRoutineArgumentDataView* output) const {
+  CHECK(is_fan());
+  *output = TelemetryDiagnosticFanRoutineArgumentDataView(data_->data.f_fan.Get(), message_);
+}
 
 inline void TelemetryDiagnosticRoutineDetailDataView::GetMemoryDataView(
     TelemetryDiagnosticMemoryRoutineDetailDataView* output) const {
   CHECK(is_memory());
   *output = TelemetryDiagnosticMemoryRoutineDetailDataView(data_->data.f_memory.Get(), message_);
+}
+inline void TelemetryDiagnosticRoutineDetailDataView::GetVolumeButtonDataView(
+    TelemetryDiagnosticVolumeButtonRoutineDetailDataView* output) const {
+  CHECK(is_volume_button());
+  *output = TelemetryDiagnosticVolumeButtonRoutineDetailDataView(data_->data.f_volume_button.Get(), message_);
+}
+inline void TelemetryDiagnosticRoutineDetailDataView::GetFanDataView(
+    TelemetryDiagnosticFanRoutineDetailDataView* output) const {
+  CHECK(is_fan());
+  *output = TelemetryDiagnosticFanRoutineDetailDataView(data_->data.f_fan.Get(), message_);
 }
 
 inline void TelemetryDiagnosticRoutineStateUnionDataView::GetInitializedDataView(
@@ -1335,6 +1895,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::crosapi::mojom::TelemetryDiagnosticMemtesterTestItemEnum> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::TelemetryDiagnosticMemtesterTestItemEnum value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType value);
 };
 
 } // namespace perfetto

@@ -3,260 +3,56 @@
 // found in the LICENSE file.
 import './xf_button.js';
 import './xf_circular_progress.js';
-import { assert } from 'chrome://resources/ash/common/assert.js';
-import { html } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-// @ts-ignore: error TS6133: 'util' is declared but its value is never read.
-import { str } from '../../common/js/util.js';
-import { DisplayPanel } from './xf_display_panel.js';
-/** @type {!HTMLTemplateElement} */
-const htmlTemplate = html `<!--_html_template_start_-->
-<style>
-  .xf-panel-item {
-      align-items: center;
-      background-color: var(--cros-sys-base_elevated);
-      border-radius: 8px;
-      display: flex;
-      flex-direction: row;
-      height: auto;
-      padding: 14px 0px;
-      width: 504px;
-  }
-
-  xf-button {
-    height: 36px;
-  }
-
-  .xf-panel-text {
-      color: var(--cros-sys-on_surface);
-      flex: 1;
-      font: var(--cros-body-2-font);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-  }
-
-  .xf-panel-label-text {
-      outline: none;
-  }
-
-  :host([panel-type='3']) .xf-panel-label-text {
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      display: -webkit-box;
-      overflow: hidden;
-      white-space: normal;
-  }
-
-  .xf-panel-secondary-text {
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      display: -webkit-box;
-      overflow: hidden;
-      white-space: normal;
-  }
-
-  :host([panel-type='3']) .xf-linebreaker {
-      display: none;
-  }
-
-  .xf-panel-label-text {
-      color: var(--cros-sys-on_surface);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-  }
-
-  .xf-panel-secondary-text {
-    color: var(--cros-sys-on_surface_variant);
-  }
-
-  :host(:not([detailed-panel])) .xf-padder-4 {
-      width: 4px;
-  }
-
-  :host(:not([detailed-panel])) .xf-padder-16 {
-      width: 16px;
-  }
-
-  :host(:not([detailed-panel])) .xf-grow-padder {
-      width: 24px;
-  }
-
-  xf-circular-progress {
-      padding: 16px;
-  }
-
-  :host(:not([detailed-summary])) iron-icon {
-      height: 36px;
-      padding: 16px;
-      width: 36px;
-  }
-
-  :host([panel-type='0']) .xf-panel-item {
-      height: var(--progress-height);
-      padding-bottom: var(--progress-padding-bottom);
-      padding-top: var(--progress-padding-top);
-  }
-
-  :host([detailed-panel]:not([detailed-summary])) .xf-panel-text {
-      margin-inline-end: 24px;
-      margin-inline-start: 24px;
-  }
-
-  :host([detailed-panel][panel-type='2']) .xf-panel-secondary-text {
-    color: var(--cros-sys-positive);
-  }
-
-  :host([detailed-panel][panel-type='2'][fade-secondary-text])
-      .xf-panel-secondary-text {
-    color: var(--cros-sys-on_surface_variant);
-  }
-
-
-  :host([detailed-panel]:not([detailed-summary])) xf-button {
-    margin-inline-end: 8px;
-  }
-
-  :host([detailed-panel]:not([detailed-summary])) xf-button:last-of-type {
-    margin-inline-end: 12px;
-  }
-
-  :host([detailed-panel]:not([detailed-summary])) xf-button[data-category='cancel'] {
-    /* This is to make sure the cancel icon button is aligned with the collapse button. */
-    margin-inline-end: 16px;
-  }
-
-  :host([detailed-panel]:not([detailed-summary])) #indicator {
-      display: none;
-  }
-
-  :host([detailed-summary][data-category='collapsed'])
-  .xf-panel-item {
-      width: 236px;
-  }
-
-  :host([detailed-summary]) .xf-panel-text {
-      align-items: center;
-      display: flex;
-      font: var(--cros-button-2-font);
-      height: 48px;
-      max-width: unset;
-      width: 100%;
-  }
-
-  :host([detailed-summary]) #indicator {
-      margin-inline-start: 22px;
-      padding: 0;
-  }
-
-  :host([detailed-summary]) #indicator[icon='files36:success'] {
-    --iron-icon-fill-color: var(--cros-sys-positive);
-  }
-
-  :host([detailed-summary]) #indicator[icon='files36:failure'] {
-    --iron-icon-stroke-color: var(--cros-sys-error);
-  }
-
-  :host([detailed-summary]) #indicator[icon='files36:warning'] {
-    --iron-icon-fill-color: var(--cros-sys-warning);
-  }
-
-  #indicator {
-    height: 32px;
-    margin-inline-end: 18px;
-    width: 32px;
-  }
-
-  :host([detailed-summary]) #primary-action {
-      align-items: center;
-      display: flex;
-      height: 48px;
-      justify-content: center;
-      margin-inline-end: 10px;
-      margin-inline-start: auto;
-      width: 48px;
-  }
-
-  :host([detailed-panel]) .xf-padder-4 {
-      display: none;
-  }
-
-  :host([detailed-panel]) .xf-padder-16 {
-      display: none;
-  }
-
-  :host([detailed-panel]) .xf-grow-padder {
-      display: none;
-  }
-</style>
-<div class='xf-panel-item'>
-    <xf-circular-progress id='indicator'>
-    </xf-circular-progress>
-    <div class='xf-panel-text' role='alert' tabindex='0'>
-        <span class='xf-panel-label-text'>
-        </span>
-        <br class='xf-linebreaker'>
-    </div>
-    <div class='xf-grow-padder'></div>
-    <xf-button id='secondary-action' tabindex='-1'>
-    </xf-button>
-    <div id='button-gap' class='xf-padder-4'></div>
-    <xf-button id='primary-action' tabindex='-1'>
-    </xf-button>
-    <div class='xf-padder-16'></div>
-</div>
-<!--_html_template_end_-->`;
+import { str } from '../../common/js/translations.js';
+import { PanelButton } from './xf_button.js';
+import { CircularProgress } from './xf_circular_progress.js';
+import { getTemplate } from './xf_panel_item.html.js';
+export var PanelType;
+(function (PanelType) {
+    PanelType[PanelType["DEFAULT"] = -1] = "DEFAULT";
+    PanelType[PanelType["PROGRESS"] = 0] = "PROGRESS";
+    PanelType[PanelType["SUMMARY"] = 1] = "SUMMARY";
+    PanelType[PanelType["DONE"] = 2] = "DONE";
+    PanelType[PanelType["ERROR"] = 3] = "ERROR";
+    PanelType[PanelType["INFO"] = 4] = "INFO";
+    PanelType[PanelType["FORMAT_PROGRESS"] = 5] = "FORMAT_PROGRESS";
+    PanelType[PanelType["SYNC_PROGRESS"] = 6] = "SYNC_PROGRESS";
+})(PanelType || (PanelType = {}));
 /**
  * A panel to display the status or progress of a file operation.
- * @extends HTMLElement
  */
 export class PanelItem extends HTMLElement {
     constructor() {
         super();
-        const fragment = htmlTemplate.content.cloneNode(true);
-        this.attachShadow({ mode: 'open' }).appendChild(fragment);
-        /** @private @type {Element} */
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.indicator_ = this.shadowRoot.querySelector('#indicator');
-        /**
-         * TODO(crbug.com/947388) make this a closure enum.
-         * @const
-         */
-        this.panelTypeDefault = -1;
-        this.panelTypeProgress = 0;
-        this.panelTypeSummary = 1;
-        this.panelTypeDone = 2;
-        this.panelTypeError = 3;
-        this.panelTypeInfo = 4;
-        this.panelTypeFormatProgress = 5;
-        this.panelTypeSyncProgress = 6;
-        /** @private @type {number} */
-        this.panelType_ = this.panelTypeDefault;
-        /** @private @type {?function(Event):void} */
-        this.onclick = this.onClicked_.bind(this);
-        /** @public @type {?DisplayPanel} */
-        this.parent = null;
+        this.indicator_ = null;
+        this.panelType_ = PanelType.DEFAULT;
         /**
          * Callback that signals events happening in the panel (e.g. click).
-         * @private @type {!function(*):void}
          */
         this.signal_ = console.log;
+        this.updateSummaryPanel_ = null;
+        this.updateProgress_ = null;
+        this.onClickedBound_ = this.onClicked_.bind(this);
         /**
          * User specific data, used as a reference to persist any custom
          * data that the panel user may want to use in the signal callback.
          * e.g. holding the file name(s) used in a copy operation.
-         * @type {?Object}
          */
         this.userData = null;
+        const template = document.createElement('template');
+        template.innerHTML = getTemplate();
+        const fragment = template.content.cloneNode(true);
+        this.attachShadow({ mode: 'open' }).appendChild(fragment);
+        this.indicator_ =
+            this.shadowRoot.querySelector('#indicator');
+    }
+    static get is() {
+        return 'xf-panel-item';
     }
     /**
      * Remove an element from the panel using it's id.
-     * @return {?HTMLElement}
-     * @private
      */
-    // @ts-ignore: error TS7006: Parameter 'id' implicitly has an 'any' type.
     removePanelElementById_(id) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         const element = this.shadowRoot.querySelector(id);
         if (element) {
             element.remove();
@@ -266,8 +62,7 @@ export class PanelItem extends HTMLElement {
     /**
      * Sets up the different panel types. Panels have per-type configuration
      * templates, but can be further customized using individual attributes.
-     * @param {number} type The enumerated panel type to set up.
-     * @private
+     * @param type The enumerated panel type to set up.
      */
     setPanelType(type) {
         this.setAttribute('detailed-panel', 'detailed-panel');
@@ -278,126 +73,103 @@ export class PanelItem extends HTMLElement {
         this.removePanelElementById_('#indicator');
         let element = this.removePanelElementById_('#primary-action');
         if (element) {
-            element.onclick = null;
+            element.removeEventListener('click', this.onClickedBound_);
         }
         element = this.removePanelElementById_('#secondary-action');
         if (element) {
-            element.onclick = null;
+            element.removeEventListener('click', this.onClickedBound_);
         }
         // Mark the indicator as empty so it recreates on setAttribute.
         this.setAttribute('indicator', 'empty');
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         const buttonSpacer = this.shadowRoot.querySelector('#button-gap');
         // Default the text host to use an alert role.
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        const textHost = assert(this.shadowRoot.querySelector('.xf-panel-text'));
-        // @ts-ignore: error TS18047: 'textHost' is possibly 'null'.
+        const textHost = this.shadowRoot.querySelector('.xf-panel-text');
         textHost.setAttribute('role', 'alert');
         const hasExtraButton = !!this.dataset['extraButtonText'];
         // Setup the panel configuration for the panel type.
         // TOOD(crbug.com/947388) Simplify this switch breaking out common cases.
-        // @ts-ignore: error TS2304: Cannot find name 'XfButton'.
-        /** @type {?XfButton} */
         let primaryButton = null;
-        /** @type {?HTMLElement} */
         let secondaryButton = null;
         switch (type) {
-            case this.panelTypeProgress:
+            case PanelType.PROGRESS:
                 this.setAttribute('indicator', 'progress');
                 secondaryButton = document.createElement('xf-button');
                 secondaryButton.id = 'secondary-action';
-                secondaryButton.onclick = assert(this.onclick);
-                // @ts-ignore: error TS4111: Property 'category' comes from an index
-                // signature, so it must be accessed with ['category'].
-                secondaryButton.dataset.category = 'cancel';
+                secondaryButton.addEventListener('click', this.onClickedBound_);
+                secondaryButton.dataset['category'] = 'cancel';
                 secondaryButton.setAttribute('aria-label', str('CANCEL_LABEL'));
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
                 buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
                 break;
-            case this.panelTypeSummary:
+            case PanelType.SUMMARY:
                 this.setAttribute('indicator', 'largeprogress');
                 primaryButton = document.createElement('xf-button');
                 primaryButton.id = 'primary-action';
-                primaryButton.dataset.category = 'expand';
+                primaryButton.dataset['category'] = 'expand';
                 primaryButton.setAttribute('aria-label', str('FEEDBACK_EXPAND_LABEL'));
                 // Remove the 'alert' role to stop screen readers repeatedly
                 // reading each progress update.
-                // @ts-ignore: error TS18047: 'textHost' is possibly 'null'.
                 textHost.setAttribute('role', '');
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
                 buttonSpacer.insertAdjacentElement('afterend', primaryButton);
                 break;
-            case this.panelTypeDone:
+            case PanelType.DONE:
                 this.setAttribute('indicator', 'status');
                 this.setAttribute('status', 'success');
                 secondaryButton = document.createElement('xf-button');
                 secondaryButton.id =
                     (hasExtraButton) ? 'secondary-action' : 'primary-action';
-                secondaryButton.onclick = assert(this.onclick);
-                // @ts-ignore: error TS4111: Property 'category' comes from an index
-                // signature, so it must be accessed with ['category'].
-                secondaryButton.dataset.category = 'dismiss';
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
+                secondaryButton.addEventListener('click', this.onClickedBound_);
+                secondaryButton.dataset['category'] = 'dismiss';
                 buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
                 if (hasExtraButton) {
                     primaryButton = document.createElement('xf-button');
                     primaryButton.id = 'primary-action';
                     primaryButton.dataset['category'] = 'extra-button';
-                    primaryButton.onclick = assert(this.onclick);
-                    primaryButton.setExtraButtonText(this.dataset['extraButtonText']);
-                    // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
+                    primaryButton.addEventListener('click', this.onClickedBound_);
+                    primaryButton.setExtraButtonText(this.dataset['extraButtonText'] ?? '');
                     buttonSpacer.insertAdjacentElement('afterend', primaryButton);
                 }
                 break;
-            case this.panelTypeError:
+            case PanelType.ERROR:
                 this.setAttribute('indicator', 'status');
                 this.setAttribute('status', 'failure');
                 secondaryButton = document.createElement('xf-button');
                 secondaryButton.id =
                     (hasExtraButton) ? 'secondary-action' : 'primary-action';
-                secondaryButton.onclick = assert(this.onclick);
-                // @ts-ignore: error TS4111: Property 'category' comes from an index
-                // signature, so it must be accessed with ['category'].
-                secondaryButton.dataset.category = 'dismiss';
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
-                buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
-                if (hasExtraButton) {
-                    primaryButton = document.createElement('xf-button');
-                    primaryButton.id = 'primary-action';
-                    primaryButton.dataset.category = 'extra-button';
-                    primaryButton.onclick = assert(this.onclick);
-                    primaryButton.setExtraButtonText(this.dataset['extraButtonText']);
-                    // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
-                    buttonSpacer.insertAdjacentElement('afterend', primaryButton);
-                }
-                break;
-            case this.panelTypeInfo:
-                this.setAttribute('indicator', 'status');
-                this.setAttribute('status', 'warning');
-                secondaryButton = document.createElement('xf-button');
-                secondaryButton.id =
-                    (hasExtraButton) ? 'secondary-action' : 'primary-action';
-                secondaryButton.onclick = assert(this.onclick);
-                // @ts-ignore: error TS4111: Property 'category' comes from an index
-                // signature, so it must be accessed with ['category'].
-                secondaryButton.dataset.category = 'cancel';
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
+                secondaryButton.addEventListener('click', this.onClickedBound_);
+                secondaryButton.dataset['category'] = 'dismiss';
                 buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
                 if (hasExtraButton) {
                     primaryButton = document.createElement('xf-button');
                     primaryButton.id = 'primary-action';
                     primaryButton.dataset['category'] = 'extra-button';
-                    primaryButton.onclick = assert(this.onclick);
-                    primaryButton.setExtraButtonText(this.dataset['extraButtonText']);
-                    // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
+                    primaryButton.addEventListener('click', this.onClickedBound_);
+                    primaryButton.setExtraButtonText(this.dataset['extraButtonText'] ?? '');
                     buttonSpacer.insertAdjacentElement('afterend', primaryButton);
                 }
                 break;
-            case this.panelTypeFormatProgress:
+            case PanelType.INFO:
+                this.setAttribute('indicator', 'status');
+                this.setAttribute('status', 'warning');
+                secondaryButton = document.createElement('xf-button');
+                secondaryButton.id =
+                    (hasExtraButton) ? 'secondary-action' : 'primary-action';
+                secondaryButton.addEventListener('click', this.onClickedBound_);
+                secondaryButton.dataset['category'] = 'cancel';
+                buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
+                if (hasExtraButton) {
+                    primaryButton = document.createElement('xf-button');
+                    primaryButton.id = 'primary-action';
+                    primaryButton.dataset['category'] = 'extra-button';
+                    primaryButton.addEventListener('click', this.onClickedBound_);
+                    primaryButton.setExtraButtonText(this.dataset['extraButtonText'] ?? '');
+                    buttonSpacer.insertAdjacentElement('afterend', primaryButton);
+                }
+                break;
+            case PanelType.FORMAT_PROGRESS:
                 this.setAttribute('indicator', 'status');
                 this.setAttribute('status', 'hard-drive');
                 break;
-            case this.panelTypeSyncProgress:
+            case PanelType.SYNC_PROGRESS:
                 this.setAttribute('indicator', 'progress');
                 break;
         }
@@ -405,10 +177,7 @@ export class PanelItem extends HTMLElement {
     }
     /**
      * Registers this instance to listen to these attribute changes.
-     * @private
      */
-    // @ts-ignore: error TS6133: 'observedAttributes' is declared but its value is
-    // never read.
     static get observedAttributes() {
         return [
             'count',
@@ -423,33 +192,24 @@ export class PanelItem extends HTMLElement {
     }
     /**
      * Callback triggered by the browser when our attribute values change.
-     * @param {string} name Attribute that's changed.
-     * @param {?string} oldValue Old value of the attribute.
-     * @param {?string} newValue New value of the attribute.
-     * @private
      */
-    // @ts-ignore: error TS6133: 'oldValue' is declared but its value is never
-    // read.
-    attributeChangedCallback(name, oldValue, newValue) {
-        /** @type {?HTMLElement} */
+    attributeChangedCallback(name, _, newValue) {
         let indicator = null;
-        /** @type {HTMLElement} */
         let textNode;
         // TODO(adanilo) Chop out each attribute handler into a function.
         switch (name) {
             case 'count':
                 if (this.indicator_) {
-                    this.indicator_.setAttribute('label', newValue || '');
+                    this.indicator_.setAttribute('label', newValue ?? '');
                 }
                 break;
             case 'errormark':
                 if (this.indicator_) {
-                    this.indicator_.setAttribute('errormark', newValue || '');
+                    this.indicator_.setAttribute('errormark', newValue ?? '');
                 }
                 break;
             case 'indicator':
                 // Get rid of any existing indicator
-                // @ts-ignore: error TS2531: Object is possibly 'null'.
                 const oldIndicator = this.shadowRoot.querySelector('#indicator');
                 if (oldIndicator) {
                     oldIndicator.remove();
@@ -466,37 +226,35 @@ export class PanelItem extends HTMLElement {
                         }
                         break;
                     case 'status':
-                        indicator = document.createElement('iron-icon');
+                        indicator =
+                            document.createElement('iron-icon');
                         const status = this.getAttribute('status');
                         if (status) {
                             indicator.setAttribute('icon', `files36:${status}`);
                         }
                         break;
                 }
-                // @ts-ignore: error TS2322: Type 'HTMLElement | null' is not assignable
-                // to type 'Element'.
                 this.indicator_ = indicator;
                 if (indicator) {
-                    // @ts-ignore: error TS2531: Object is possibly 'null'.
                     const itemRoot = this.shadowRoot.querySelector('.xf-panel-item');
                     indicator.setAttribute('id', 'indicator');
-                    // @ts-ignore: error TS18047: 'itemRoot' is possibly 'null'.
                     itemRoot.prepend(indicator);
                 }
                 break;
             case 'panel-type':
-                this.setPanelType(Number(newValue));
-                if (this.parent && this.parent.updateSummaryPanel) {
-                    this.parent.updateSummaryPanel();
+                const panelType = Number(newValue);
+                if (panelType in PanelType) {
+                    this.setPanelType(panelType);
+                }
+                if (this.updateSummaryPanel_) {
+                    this.updateSummaryPanel_();
                 }
                 break;
             case 'progress':
                 if (this.indicator_) {
-                    // @ts-ignore: error TS2339: Property 'progress' does not exist on
-                    // type 'Element'.
-                    this.indicator_.progress = Number(newValue);
-                    if (this.parent && this.parent.updateProgress) {
-                        this.parent.updateProgress();
+                    this.indicator_.progress = newValue ?? '';
+                    if (this.updateProgress_) {
+                        this.updateProgress_();
                     }
                 }
                 break;
@@ -506,19 +264,16 @@ export class PanelItem extends HTMLElement {
                 }
                 break;
             case 'primary-text':
-                // @ts-ignore: error TS2531: Object is possibly 'null'.
                 textNode = this.shadowRoot.querySelector('.xf-panel-label-text');
                 if (textNode) {
                     textNode.textContent = newValue;
                     // Set the aria labels for the activity and cancel button.
-                    this.setAttribute('aria-label', /** @type {string} */ (newValue));
+                    this.setAttribute('aria-label', newValue ?? '');
                 }
                 break;
             case 'secondary-text':
-                // @ts-ignore: error TS2531: Object is possibly 'null'.
                 textNode = this.shadowRoot.querySelector('.xf-panel-secondary-text');
                 if (!textNode) {
-                    // @ts-ignore: error TS2531: Object is possibly 'null'.
                     const parent = this.shadowRoot.querySelector('.xf-panel-text');
                     if (!parent) {
                         return;
@@ -539,85 +294,46 @@ export class PanelItem extends HTMLElement {
     }
     /**
      * DOM connected.
-     * @private
      */
-    // @ts-ignore: error TS6133: 'connectedCallback' is declared but its value is
-    // never read.
     connectedCallback() {
-        this.onclick = this.onClicked_.bind(this);
+        this.addEventListener('click', this.onClickedBound_);
         // Set click event handler references.
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        let button = this.shadowRoot.querySelector('#primary-action');
-        if (button) {
-            // @ts-ignore: error TS2339: Property 'onclick' does not exist on type
-            // 'Element'.
-            button.onclick = this.onclick;
-        }
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        button = this.shadowRoot.querySelector('#secondary-action');
-        if (button) {
-            // @ts-ignore: error TS2339: Property 'onclick' does not exist on type
-            // 'Element'.
-            button.onclick = this.onclick;
-        }
+        this.shadowRoot.querySelector('#primary-action')
+            ?.addEventListener('click', this.onClickedBound_);
+        this.shadowRoot.querySelector('#secondary-action')
+            ?.addEventListener('click', this.onClickedBound_);
     }
     /**
      * DOM disconnected.
-     * @private
      */
-    // @ts-ignore: error TS6133: 'disconnectedCallback' is declared but its value
-    // is never read.
     disconnectedCallback() {
         // Replace references to any signal callback.
         this.signal_ = console.log;
-        // Clear click event handler references.
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        let button = this.shadowRoot.querySelector('#primary-action');
-        if (button) {
-            // @ts-ignore: error TS2339: Property 'onclick' does not exist on type
-            // 'Element'.
-            button.onclick = null;
-        }
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        button = this.shadowRoot.querySelector('#secondary-action');
-        if (button) {
-            // @ts-ignore: error TS2339: Property 'onclick' does not exist on type
-            // 'Element'.
-            button.onclick = null;
-        }
-        this.onclick = null;
     }
     /**
      * Handles 'click' events from our sub-elements and sends
      * signals to the |signal_| callback if needed.
-     * @param {?Event} event
-     * @private
      */
     onClicked_(event) {
-        // @ts-ignore: error TS18047: 'event' is possibly 'null'.
         event.stopImmediatePropagation();
-        // @ts-ignore: error TS18047: 'event' is possibly 'null'.
         event.preventDefault();
         // Ignore clicks on the panel item itself.
-        // @ts-ignore: error TS18047: 'event' is possibly 'null'.
-        if (event.target === this) {
+        if (event.target === this || !event.target) {
             return;
         }
-        // @ts-ignore: error TS2339: Property 'dataset' does not exist on type
-        // 'EventTarget'.
-        const id = assert(event.target.dataset.category);
+        const button = event.target;
+        const id = button.dataset['category'] ?? '';
         this.signal_(id);
     }
     /**
      * Sets the callback that triggers signals from events on the panel.
-     * @param {?function(*):void} signal
      */
     set signalCallback(signal) {
         this.signal_ = signal || console.log;
     }
     /**
      * Set the visibility of the error marker.
-     * @param {string} visibility Visibility value being set.
+     * @param visibility Visibility value being set.
      */
     set errorMarkerVisibility(visibility) {
         this.setAttribute('errormark', visibility);
@@ -628,20 +344,16 @@ export class PanelItem extends HTMLElement {
     get errorMarkerVisibility() {
         // If we have an indicator on the panel, then grab the
         // visibility value from that.
-        if (this.indicator_) {
-            // @ts-ignore: error TS2339: Property 'errorMarkerVisibility' does not
-            // exist on type 'Element'.
+        if (this.indicator_ && 'errorMarkerVisibility' in this.indicator_) {
             return this.indicator_.errorMarkerVisibility;
         }
         // If there's no indicator on the panel just return the
         // value of any attribute as a fallback.
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('errormark');
+        return this.getAttribute('errormark') ?? '';
     }
     /**
      * Setter to set the indicator type.
-     * @param {string} indicator Progress (optionally large) or status.
+     * @param indicator Progress (optionally large) or status.
      */
     set indicator(indicator) {
         this.setAttribute('indicator', indicator);
@@ -650,13 +362,11 @@ export class PanelItem extends HTMLElement {
      *  Getter for the progress indicator.
      */
     get indicator() {
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('indicator');
+        return this.getAttribute('indicator') ?? '';
     }
     /**
      * Setter to set the success/failure indication.
-     * @param {string} status Status value being set.
+     * @param status Status value being set.
      */
     set status(status) {
         this.setAttribute('status', status);
@@ -665,14 +375,10 @@ export class PanelItem extends HTMLElement {
      *  Getter for the success/failure indication.
      */
     get status() {
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('status');
+        return this.getAttribute('status') ?? '';
     }
     /**
      * Setter to set the progress property, sent to any child indicator.
-     * @param {string} progress Progress value being set.
-     * @public
      */
     set progress(progress) {
         this.setAttribute('progress', progress);
@@ -681,51 +387,46 @@ export class PanelItem extends HTMLElement {
      *  Getter for the progress indicator percentage.
      */
     get progress() {
-        // @ts-ignore: error TS2339: Property 'progress' does not exist on type
-        // 'Element'.
-        return this.indicator_.progress || 0;
+        if (!this.indicator_ || !('progress' in this.indicator_)) {
+            return 0;
+        }
+        return parseInt(this.indicator_?.progress, 10) || 0;
     }
     /**
      * Setter to set the primary text on the panel.
-     * @param {string} text Text to be shown.
+     * @param text Text to be shown.
      */
     set primaryText(text) {
         this.setAttribute('primary-text', text);
     }
     /**
      * Getter for the primary text on the panel.
-     * @return {string}
      */
     get primaryText() {
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('primary-text');
+        return this.getAttribute('primary-text') ?? '';
     }
     /**
      * Setter to set the secondary text on the panel.
-     * @param {string} text Text to be shown.
+     * @param text Text to be shown.
      */
     set secondaryText(text) {
         this.setAttribute('secondary-text', text);
     }
     /**
      * Getter for the secondary text on the panel.
-     * @return {string}
      */
     get secondaryText() {
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('secondary-text');
+        return this.getAttribute('secondary-text') ?? '';
     }
     /**
-     * @param {boolean} shouldFade Whether the secondary text should be displayed
+     * @param shouldFade Whether the secondary text should be displayed
      *     with a faded color to avoid drawing too much attention to it.
      */
     set fadeSecondaryText(shouldFade) {
         this.toggleAttribute('fade-secondary-text', shouldFade);
     }
     /**
-     * @return {boolean} Whether the secondary text should be displayed with a
+     * @return Whether the secondary text should be displayed with a
      *     faded color to avoid drawing too much attention to it.
      */
     get fadeSecondaryText() {
@@ -733,16 +434,13 @@ export class PanelItem extends HTMLElement {
     }
     /**
      * Setter to set the panel type.
-     * @param {number} type Enum value for the panel type.
+     * @param type Enum value for the panel type.
      */
     set panelType(type) {
-        // @ts-ignore: error TS2345: Argument of type 'number' is not assignable to
-        // parameter of type 'string'.
-        this.setAttribute('panel-type', type);
+        this.setAttribute('panel-type', String(type));
     }
     /**
      * Getter for the panel type.
-     * TODO(crbug.com/947388) Add closure annotations to getters.
      */
     get panelType() {
         return this.panelType_;
@@ -751,36 +449,35 @@ export class PanelItem extends HTMLElement {
      * Getter for the primary action button.
      */
     get primaryButton() {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         return this.shadowRoot.querySelector('#primary-action');
     }
     /**
      * Getter for the secondary action button.
      */
     get secondaryButton() {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         return this.shadowRoot.querySelector('#secondary-action');
     }
     /**
      * Getter for the panel text div.
      */
     get textDiv() {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         return this.shadowRoot.querySelector('.xf-panel-text');
     }
     /**
      * Setter to replace the default aria-label on any close button.
-     * @param {string} text Text to set for the 'aria-label'.
+     * @param text Text to set for the 'aria-label'.
      */
     set closeButtonAriaLabel(text) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         const action = this.shadowRoot.querySelector('#secondary-action');
-        // @ts-ignore: error TS2339: Property 'dataset' does not exist on type
-        // 'Element'.
-        if (action && action.dataset.category === 'cancel') {
+        if (action && action.dataset['category'] === 'cancel') {
             action.setAttribute('aria-label', text);
         }
     }
+    set updateProgress(callback) {
+        this.updateProgress_ = callback;
+    }
+    set updateSummaryPanel(callback) {
+        this.updateSummaryPanel_ = callback;
+    }
 }
-window.customElements.define('xf-panel-item', PanelItem);
-//# sourceURL=//ui/file_manager/file_manager/foreground/elements/xf_panel_item.js
+customElements.define(PanelItem.is, PanelItem);

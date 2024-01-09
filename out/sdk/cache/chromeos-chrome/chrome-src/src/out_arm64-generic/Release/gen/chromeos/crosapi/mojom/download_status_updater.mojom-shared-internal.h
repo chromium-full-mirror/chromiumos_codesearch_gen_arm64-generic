@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "mojo/public/mojom/base/string16.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
@@ -50,6 +51,7 @@ class  DownloadStatus_Data {
   int64_t total_bytes_$value;
   mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> target_file_path;
   mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> full_path;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> status_text;
 
  private:
   friend class mojo::internal::MessageFragment<DownloadStatus_Data>;
@@ -57,7 +59,7 @@ class  DownloadStatus_Data {
   DownloadStatus_Data();
   ~DownloadStatus_Data() = delete;
 };
-static_assert(sizeof(DownloadStatus_Data) == 56,
+static_assert(sizeof(DownloadStatus_Data) == 64,
               "Bad sizeof(DownloadStatus_Data)");
 // Used by DownloadStatus::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

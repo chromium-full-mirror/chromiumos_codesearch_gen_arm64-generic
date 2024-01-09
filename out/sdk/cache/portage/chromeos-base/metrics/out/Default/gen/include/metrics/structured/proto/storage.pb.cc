@@ -4,85 +4,97 @@
 #include "storage.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace metrics {
 namespace structured {
+template <typename>
 PROTOBUF_CONSTEXPR KeyProto::KeyProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.last_rotation_)*/int64_t{0}
-  , /*decltype(_impl_.rotation_period_)*/int64_t{0}} {}
+  , /*decltype(_impl_.key_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.last_rotation_)*/ ::int64_t{0}
+
+  , /*decltype(_impl_.rotation_period_)*/ ::int64_t{0}
+} {}
 struct KeyProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KeyProtoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyProtoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyProtoDefaultTypeInternal() {}
   union {
     KeyProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyProtoDefaultTypeInternal _KeyProto_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyProtoDefaultTypeInternal _KeyProto_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR KeyDataProto_KeysEntry_DoNotUse::KeyDataProto_KeysEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct KeyDataProto_KeysEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KeyDataProto_KeysEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyDataProto_KeysEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyDataProto_KeysEntry_DoNotUseDefaultTypeInternal() {}
   union {
     KeyDataProto_KeysEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyDataProto_KeysEntry_DoNotUseDefaultTypeInternal _KeyDataProto_KeysEntry_DoNotUse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyDataProto_KeysEntry_DoNotUseDefaultTypeInternal _KeyDataProto_KeysEntry_DoNotUse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR KeyDataProto::KeyDataProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.keys_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct KeyDataProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR KeyDataProtoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyDataProtoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyDataProtoDefaultTypeInternal() {}
   union {
     KeyDataProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyDataProtoDefaultTypeInternal _KeyDataProto_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyDataProtoDefaultTypeInternal _KeyDataProto_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR EventsProto::EventsProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.non_uma_events_)*/{}
   , /*decltype(_impl_.uma_events_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EventsProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR EventsProtoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EventsProtoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~EventsProtoDefaultTypeInternal() {}
   union {
     EventsProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EventsProtoDefaultTypeInternal _EventsProto_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EventsProtoDefaultTypeInternal _EventsProto_default_instance_;
 }  // namespace structured
 }  // namespace metrics
 namespace metrics {
 namespace structured {
-
 // ===================================================================
 
 class KeyProto::_Internal {
  public:
   using HasBits = decltype(std::declval<KeyProto>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(KeyProto, _impl_._has_bits_);
   static void set_has_key(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -94,10 +106,9 @@ class KeyProto::_Internal {
   }
 };
 
-KeyProto::KeyProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+KeyProto::KeyProto(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:metrics.structured.KeyProto)
 }
 KeyProto::KeyProto(const KeyProto& from)
@@ -106,40 +117,43 @@ KeyProto::KeyProto(const KeyProto& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.key_){}
-    , decltype(_impl_.last_rotation_){}
-    , decltype(_impl_.rotation_period_){}};
+    , decltype(_impl_.key_) {}
+
+    , decltype(_impl_.last_rotation_) {}
+
+    , decltype(_impl_.rotation_period_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_key()) {
-    _this->_impl_.key_.Set(from._internal_key(), 
-      _this->GetArenaForAllocation());
+        _impl_.key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.key_.Set(from._internal_key(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.last_rotation_, &from._impl_.last_rotation_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.rotation_period_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.rotation_period_) -
     reinterpret_cast<char*>(&_impl_.last_rotation_)) + sizeof(_impl_.rotation_period_));
   // @@protoc_insertion_point(copy_constructor:metrics.structured.KeyProto)
 }
 
-inline void KeyProto::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void KeyProto::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.key_){}
-    , decltype(_impl_.last_rotation_){int64_t{0}}
-    , decltype(_impl_.rotation_period_){int64_t{0}}
+    , decltype(_impl_.key_) {}
+
+    , decltype(_impl_.last_rotation_) { ::int64_t{0} }
+
+    , decltype(_impl_.rotation_period_) { ::int64_t{0} }
+
   };
   _impl_.key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 KeyProto::~KeyProto() {
@@ -152,7 +166,7 @@ KeyProto::~KeyProto() {
 }
 
 inline void KeyProto::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.key_.Destroy();
 }
 
@@ -162,7 +176,7 @@ void KeyProto::SetCachedSize(int size) const {
 
 void KeyProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:metrics.structured.KeyProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -171,7 +185,7 @@ void KeyProto::Clear() {
     _impl_.key_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.last_rotation_, 0, static_cast<size_t>(
+    ::memset(&_impl_.last_rotation_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.rotation_period_) -
         reinterpret_cast<char*>(&_impl_.last_rotation_)) + sizeof(_impl_.rotation_period_));
   }
@@ -183,35 +197,38 @@ const char* KeyProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string key = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_key();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 last_rotation = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_last_rotation(&has_bits);
           _impl_.last_rotation_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 rotation_period = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_rotation_period(&has_bits);
           _impl_.rotation_period_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -237,29 +254,31 @@ failure:
 #undef CHK_
 }
 
-uint8_t* KeyProto::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* KeyProto::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:metrics.structured.KeyProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string key = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_key(), target);
+    const std::string& _s = this->_internal_key();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional int64 last_rotation = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_last_rotation(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        2, this->_internal_last_rotation(), target);
   }
 
   // optional int64 rotation_period = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_rotation_period(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        3, this->_internal_rotation_period(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -270,11 +289,11 @@ uint8_t* KeyProto::_InternalSerialize(
   return target;
 }
 
-size_t KeyProto::ByteSizeLong() const {
+::size_t KeyProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:metrics.structured.KeyProto)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -282,19 +301,20 @@ size_t KeyProto::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional string key = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_key());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_key());
     }
 
     // optional int64 last_rotation = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_last_rotation());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_last_rotation());
     }
 
     // optional int64 rotation_period = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_rotation_period());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_rotation_period());
     }
 
   }
@@ -315,8 +335,8 @@ void KeyProto::CheckTypeAndMergeFrom(
 void KeyProto::MergeFrom(const KeyProto& from) {
   KeyProto* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:metrics.structured.KeyProto)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -352,10 +372,8 @@ void KeyProto::InternalSwap(KeyProto* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.key_, lhs_arena,
-      &other->_impl_.key_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.key_, lhs_arena,
+                                       &other->_impl_.key_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(KeyProto, _impl_.rotation_period_)
       + sizeof(KeyProto::_impl_.rotation_period_)
@@ -368,7 +386,6 @@ std::string KeyProto::GetTypeName() const {
   return "metrics.structured.KeyProto";
 }
 
-
 // ===================================================================
 
 KeyDataProto_KeysEntry_DoNotUse::KeyDataProto_KeysEntry_DoNotUse() {}
@@ -377,17 +394,15 @@ KeyDataProto_KeysEntry_DoNotUse::KeyDataProto_KeysEntry_DoNotUse(::PROTOBUF_NAME
 void KeyDataProto_KeysEntry_DoNotUse::MergeFrom(const KeyDataProto_KeysEntry_DoNotUse& other) {
   MergeFromInternal(other);
 }
-
 // ===================================================================
 
 class KeyDataProto::_Internal {
  public:
 };
 
-KeyDataProto::KeyDataProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+KeyDataProto::KeyDataProto(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:metrics.structured.KeyDataProto)
 }
 KeyDataProto::KeyDataProto(const KeyDataProto& from)
@@ -402,10 +417,8 @@ KeyDataProto::KeyDataProto(const KeyDataProto& from)
   // @@protoc_insertion_point(copy_constructor:metrics.structured.KeyDataProto)
 }
 
-inline void KeyDataProto::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void KeyDataProto::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       /*decltype(_impl_.keys_)*/{::_pbi::ArenaInitialized(), arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -422,8 +435,7 @@ KeyDataProto::~KeyDataProto() {
 }
 
 inline void KeyDataProto::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.keys_.Destruct();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.keys_.~MapFieldLite();
 }
 
@@ -433,7 +445,7 @@ void KeyDataProto::SetCachedSize(int size) const {
 
 void KeyDataProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:metrics.structured.KeyDataProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -444,12 +456,12 @@ void KeyDataProto::Clear() {
 const char* KeyDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // map<fixed64, .metrics.structured.KeyProto> keys = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -457,8 +469,9 @@ const char* KeyDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -483,15 +496,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* KeyDataProto::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* KeyDataProto::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:metrics.structured.KeyDataProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // map<fixed64, .metrics.structured.KeyProto> keys = 1;
   if (!this->_internal_keys().empty()) {
-    using MapType = ::_pb::Map<uint64_t, ::metrics::structured::KeyProto>;
+    using MapType = ::_pb::Map<::uint64_t, ::metrics::structured::KeyProto>;
     using WireHelper = KeyDataProto_KeysEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_keys();
 
@@ -514,18 +527,18 @@ uint8_t* KeyDataProto::_InternalSerialize(
   return target;
 }
 
-size_t KeyDataProto::ByteSizeLong() const {
+::size_t KeyDataProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:metrics.structured.KeyDataProto)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // map<fixed64, .metrics.structured.KeyProto> keys = 1;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_keys_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< uint64_t, ::metrics::structured::KeyProto >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::uint64_t, ::metrics::structured::KeyProto >::const_iterator
       it = this->_internal_keys().begin();
       it != this->_internal_keys().end(); ++it) {
     total_size += KeyDataProto_KeysEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
@@ -548,8 +561,8 @@ void KeyDataProto::CheckTypeAndMergeFrom(
 void KeyDataProto::MergeFrom(const KeyDataProto& from) {
   KeyDataProto* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:metrics.structured.KeyDataProto)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.keys_.MergeFrom(from._impl_.keys_);
@@ -577,7 +590,6 @@ std::string KeyDataProto::GetTypeName() const {
   return "metrics.structured.KeyDataProto";
 }
 
-
 // ===================================================================
 
 class EventsProto::_Internal {
@@ -585,15 +597,14 @@ class EventsProto::_Internal {
 };
 
 void EventsProto::clear_non_uma_events() {
-  _impl_.non_uma_events_.Clear();
+  _internal_mutable_non_uma_events()->Clear();
 }
 void EventsProto::clear_uma_events() {
-  _impl_.uma_events_.Clear();
+  _internal_mutable_uma_events()->Clear();
 }
-EventsProto::EventsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+EventsProto::EventsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:metrics.structured.EventsProto)
 }
 EventsProto::EventsProto(const EventsProto& from)
@@ -608,10 +619,8 @@ EventsProto::EventsProto(const EventsProto& from)
   // @@protoc_insertion_point(copy_constructor:metrics.structured.EventsProto)
 }
 
-inline void EventsProto::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void EventsProto::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.non_uma_events_){arena}
     , decltype(_impl_.uma_events_){arena}
@@ -629,9 +638,9 @@ EventsProto::~EventsProto() {
 }
 
 inline void EventsProto::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.non_uma_events_.~RepeatedPtrField();
-  _impl_.uma_events_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_non_uma_events()->~RepeatedPtrField();
+  _internal_mutable_uma_events()->~RepeatedPtrField();
 }
 
 void EventsProto::SetCachedSize(int size) const {
@@ -640,24 +649,24 @@ void EventsProto::SetCachedSize(int size) const {
 
 void EventsProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:metrics.structured.EventsProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.non_uma_events_.Clear();
-  _impl_.uma_events_.Clear();
+  _internal_mutable_non_uma_events()->Clear();
+  _internal_mutable_uma_events()->Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* EventsProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .metrics.StructuredEventProto non_uma_events = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -665,12 +674,13 @@ const char* EventsProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .metrics.StructuredEventProto uma_events = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -678,8 +688,9 @@ const char* EventsProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -704,10 +715,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* EventsProto::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* EventsProto::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:metrics.structured.EventsProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .metrics.StructuredEventProto non_uma_events = 1;
@@ -734,24 +745,24 @@ uint8_t* EventsProto::_InternalSerialize(
   return target;
 }
 
-size_t EventsProto::ByteSizeLong() const {
+::size_t EventsProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:metrics.structured.EventsProto)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .metrics.StructuredEventProto non_uma_events = 1;
   total_size += 1UL * this->_internal_non_uma_events_size();
-  for (const auto& msg : this->_impl_.non_uma_events_) {
+  for (const auto& msg : this->_internal_non_uma_events()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .metrics.StructuredEventProto uma_events = 2;
   total_size += 1UL * this->_internal_uma_events_size();
-  for (const auto& msg : this->_impl_.uma_events_) {
+  for (const auto& msg : this->_internal_uma_events()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -773,12 +784,12 @@ void EventsProto::CheckTypeAndMergeFrom(
 void EventsProto::MergeFrom(const EventsProto& from) {
   EventsProto* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:metrics.structured.EventsProto)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.non_uma_events_.MergeFrom(from._impl_.non_uma_events_);
-  _this->_impl_.uma_events_.MergeFrom(from._impl_.uma_events_);
+  _this->_internal_mutable_non_uma_events()->MergeFrom(from._internal_non_uma_events());
+  _this->_internal_mutable_uma_events()->MergeFrom(from._internal_uma_events());
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -796,14 +807,13 @@ bool EventsProto::IsInitialized() const {
 void EventsProto::InternalSwap(EventsProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.non_uma_events_.InternalSwap(&other->_impl_.non_uma_events_);
-  _impl_.uma_events_.InternalSwap(&other->_impl_.uma_events_);
+  _internal_mutable_non_uma_events()->InternalSwap(other->_internal_mutable_non_uma_events());
+  _internal_mutable_uma_events()->InternalSwap(other->_internal_mutable_uma_events());
 }
 
 std::string EventsProto::GetTypeName() const {
   return "metrics.structured.EventsProto";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace structured
@@ -826,6 +836,5 @@ Arena::CreateMaybeMessage< ::metrics::structured::EventsProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::metrics::structured::EventsProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

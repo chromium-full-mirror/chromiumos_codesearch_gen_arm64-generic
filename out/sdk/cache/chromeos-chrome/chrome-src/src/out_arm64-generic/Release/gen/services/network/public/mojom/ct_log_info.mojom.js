@@ -104,7 +104,6 @@
     this.id = null;
     this.publicKey = null;
     this.name = null;
-    this.operatedByGoogle = false;
     this.disqualifiedAt = null;
     this.mmd = null;
     this.currentOperator = null;
@@ -124,7 +123,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 72}
+      {version: 0, numBytes: 64}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -149,34 +148,33 @@
         return err;
 
 
-
     // validate CTLogInfo.disqualifiedAt
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, time$.Time, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, time$.Time, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate CTLogInfo.mmd
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, time$.TimeDelta, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, time$.TimeDelta, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate CTLogInfo.currentOperator
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 48, false)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 40, false)
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate CTLogInfo.previousOperators
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 56, 8, new codec.PointerTo(PreviousOperatorEntry), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 48, 8, new codec.PointerTo(PreviousOperatorEntry), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  CTLogInfo.encodedSize = codec.kStructHeaderSize + 64;
+  CTLogInfo.encodedSize = codec.kStructHeaderSize + 56;
 
   CTLogInfo.decode = function(decoder) {
     var packed;
@@ -189,15 +187,6 @@
         decoder.decodeStruct(codec.String);
     val.name =
         decoder.decodeStruct(codec.String);
-    packed = decoder.readUint8();
-    val.operatedByGoogle = (packed >> 0) & 1 ? true : false;
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
     val.disqualifiedAt =
         decoder.decodeStructPointer(time$.Time);
     val.mmd =
@@ -216,16 +205,6 @@
     encoder.encodeStruct(codec.String, val.id);
     encoder.encodeStruct(codec.String, val.publicKey);
     encoder.encodeStruct(codec.String, val.name);
-    packed = 0;
-    packed |= (val.operatedByGoogle & 1) << 0
-    encoder.writeUint8(packed);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
     encoder.encodeStructPointer(time$.Time, val.disqualifiedAt);
     encoder.encodeStructPointer(time$.TimeDelta, val.mmd);
     encoder.encodeStruct(codec.String, val.currentOperator);

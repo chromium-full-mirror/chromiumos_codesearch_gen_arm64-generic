@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void DriveIntegrationServiceObserverProxy::OnMountPointPathChanged(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveIntegrationServiceObserver_OnMountPointPathChanged_Name, kFlags, 0, 0, nullptr);
@@ -200,10 +204,10 @@ bool DriveIntegrationServiceObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDriveIntegrationServiceObserverValidationInfo[] = {
-    {&internal::DriveIntegrationServiceObserver_OnMountPointPathChanged_Params_Data::Validate,
+    { &internal::DriveIntegrationServiceObserver_OnMountPointPathChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -305,14 +309,17 @@ void DriveFsNativeMessageHostBridgeProxy::ConnectToExtension(
                         "<value of type ::mojo::PendingRemote<::drivefs::mojom::NativeMessagingHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsNativeMessageHostBridge_ConnectToExtension_Name, kFlags, 0, 0, nullptr);
@@ -445,7 +452,8 @@ void DriveFsNativeMessageHostBridge_ConnectToExtension_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsNativeMessageHostBridge_ConnectToExtension_Name, kFlags, 0, 0, nullptr);
@@ -538,10 +546,10 @@ std::move(p_drivefs_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDriveFsNativeMessageHostBridgeValidationInfo[] = {
-    {&internal::DriveFsNativeMessageHostBridge_ConnectToExtension_Params_Data::Validate,
+    { &internal::DriveFsNativeMessageHostBridge_ConnectToExtension_Params_Data::Validate,
      &internal::DriveFsNativeMessageHostBridge_ConnectToExtension_ResponseParams_Data::Validate},
 };
 
@@ -560,8 +568,8 @@ constexpr base::Token DriveIntegrationService::Uuid_;
 DriveIntegrationService::IPCStableHashFunction DriveIntegrationService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kDriveIntegrationService_GetMountPointPath_Name: {
-      return &DriveIntegrationService::GetMountPointPath_Sym::IPCStableHash;
+    case internal::kDriveIntegrationService_DeprecatedGetMountPointPath_Name: {
+      return &DriveIntegrationService::DeprecatedGetMountPointPath_Sym::IPCStableHash;
     }
     case internal::kDriveIntegrationService_AddDriveIntegrationServiceObserver_Name: {
       return &DriveIntegrationService::AddDriveIntegrationServiceObserver_Sym::IPCStableHash;
@@ -583,8 +591,8 @@ const char* DriveIntegrationService::MessageToMethodName_(mojo::Message& message
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kDriveIntegrationService_GetMountPointPath_Name:
-            return "Receive crosapi::mojom::DriveIntegrationService::GetMountPointPath";
+      case internal::kDriveIntegrationService_DeprecatedGetMountPointPath_Name:
+            return "Receive crosapi::mojom::DriveIntegrationService::DeprecatedGetMountPointPath";
       case internal::kDriveIntegrationService_AddDriveIntegrationServiceObserver_Name:
             return "Receive crosapi::mojom::DriveIntegrationService::AddDriveIntegrationServiceObserver";
       case internal::kDriveIntegrationService_CreateNativeHostSession_Name:
@@ -594,8 +602,8 @@ const char* DriveIntegrationService::MessageToMethodName_(mojo::Message& message
     }
   } else {
     switch (message.name()) {
-      case internal::kDriveIntegrationService_GetMountPointPath_Name:
-            return "Receive reply crosapi::mojom::DriveIntegrationService::GetMountPointPath";
+      case internal::kDriveIntegrationService_DeprecatedGetMountPointPath_Name:
+            return "Receive reply crosapi::mojom::DriveIntegrationService::DeprecatedGetMountPointPath";
       case internal::kDriveIntegrationService_AddDriveIntegrationServiceObserver_Name:
             return "Receive reply crosapi::mojom::DriveIntegrationService::AddDriveIntegrationServiceObserver";
       case internal::kDriveIntegrationService_CreateNativeHostSession_Name:
@@ -616,7 +624,7 @@ const char* DriveIntegrationService::MessageToMethodName_(mojo::Message& message
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t DriveIntegrationService::GetMountPointPath_Sym::IPCStableHash() {
+uint32_t DriveIntegrationService::DeprecatedGetMountPointPath_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -624,7 +632,7 @@ uint32_t DriveIntegrationService::GetMountPointPath_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)crosapi::mojom::DriveIntegrationService::GetMountPointPath");
+          "(Impl)crosapi::mojom::DriveIntegrationService::DeprecatedGetMountPointPath");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -670,53 +678,56 @@ uint32_t DriveIntegrationService::RegisterDriveFsNativeMessageHostBridge_Sym::IP
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-class DriveIntegrationService_GetMountPointPath_ForwardToCallback
+class DriveIntegrationService_DeprecatedGetMountPointPath_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  DriveIntegrationService_GetMountPointPath_ForwardToCallback(
-      DriveIntegrationService::GetMountPointPathCallback callback
+  DriveIntegrationService_DeprecatedGetMountPointPath_ForwardToCallback(
+      DriveIntegrationService::DeprecatedGetMountPointPathCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  DriveIntegrationService_GetMountPointPath_ForwardToCallback(const DriveIntegrationService_GetMountPointPath_ForwardToCallback&) = delete;
-  DriveIntegrationService_GetMountPointPath_ForwardToCallback& operator=(const DriveIntegrationService_GetMountPointPath_ForwardToCallback&) = delete;
+  DriveIntegrationService_DeprecatedGetMountPointPath_ForwardToCallback(const DriveIntegrationService_DeprecatedGetMountPointPath_ForwardToCallback&) = delete;
+  DriveIntegrationService_DeprecatedGetMountPointPath_ForwardToCallback& operator=(const DriveIntegrationService_DeprecatedGetMountPointPath_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  DriveIntegrationService::GetMountPointPathCallback callback_;
+  DriveIntegrationService::DeprecatedGetMountPointPathCallback callback_;
 };
 
 DriveIntegrationServiceProxy::DriveIntegrationServiceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
-void DriveIntegrationServiceProxy::GetMountPointPath(
-    GetMountPointPathCallback callback) {
+void DriveIntegrationServiceProxy::DeprecatedGetMountPointPath(
+    DeprecatedGetMountPointPathCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send crosapi::mojom::DriveIntegrationService::GetMountPointPath");
+  TRACE_EVENT0("mojom", "Send crosapi::mojom::DriveIntegrationService::DeprecatedGetMountPointPath");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kDriveIntegrationService_GetMountPointPath_Name, kFlags, 0, 0, nullptr);
+      internal::kDriveIntegrationService_DeprecatedGetMountPointPath_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::crosapi::mojom::internal::DriveIntegrationService_GetMountPointPath_Params_Data> params(
+      ::crosapi::mojom::internal::DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data> params(
           message);
   params.Allocate();
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(DriveIntegrationService::Name_);
-  message.set_method_name("GetMountPointPath");
+  message.set_method_name("DeprecatedGetMountPointPath");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new DriveIntegrationService_GetMountPointPath_ForwardToCallback(
+      new DriveIntegrationService_DeprecatedGetMountPointPath_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -733,14 +744,17 @@ void DriveIntegrationServiceProxy::AddDriveIntegrationServiceObserver(
                         "<value of type ::mojo::PendingRemote<DriveIntegrationServiceObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveIntegrationService_AddDriveIntegrationServiceObserver_Name, kFlags, 0, 0, nullptr);
@@ -782,14 +796,17 @@ void DriveIntegrationServiceProxy::CreateNativeHostSession(
                         "<value of type ::mojo::PendingRemote<::drivefs::mojom::NativeMessagingPort>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveIntegrationService_CreateNativeHostSession_Name, kFlags, 0, 0, nullptr);
@@ -842,14 +859,17 @@ void DriveIntegrationServiceProxy::RegisterDriveFsNativeMessageHostBridge(
                         "<value of type ::mojo::PendingRemote<DriveFsNativeMessageHostBridge>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveIntegrationService_RegisterDriveFsNativeMessageHostBridge_Name, kFlags, 0, 0, nullptr);
@@ -872,19 +892,19 @@ void DriveIntegrationServiceProxy::RegisterDriveFsNativeMessageHostBridge(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
-class DriveIntegrationService_GetMountPointPath_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class DriveIntegrationService_DeprecatedGetMountPointPath_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static DriveIntegrationService::GetMountPointPathCallback CreateCallback(
+  static DriveIntegrationService::DeprecatedGetMountPointPathCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<DriveIntegrationService_GetMountPointPath_ProxyToResponder> proxy(
-        new DriveIntegrationService_GetMountPointPath_ProxyToResponder(
+    std::unique_ptr<DriveIntegrationService_DeprecatedGetMountPointPath_ProxyToResponder> proxy(
+        new DriveIntegrationService_DeprecatedGetMountPointPath_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&DriveIntegrationService_GetMountPointPath_ProxyToResponder::Run,
+    return base::BindOnce(&DriveIntegrationService_DeprecatedGetMountPointPath_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~DriveIntegrationService_GetMountPointPath_ProxyToResponder() {
+  ~DriveIntegrationService_DeprecatedGetMountPointPath_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -901,7 +921,7 @@ class DriveIntegrationService_GetMountPointPath_ProxyToResponder : public ::mojo
   }
 
  private:
-  DriveIntegrationService_GetMountPointPath_ProxyToResponder(
+  DriveIntegrationService_DeprecatedGetMountPointPath_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -910,7 +930,7 @@ class DriveIntegrationService_GetMountPointPath_ProxyToResponder : public ::mojo
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "DriveIntegrationService::GetMountPointPathCallback was destroyed without "
+        << "DriveIntegrationService::DeprecatedGetMountPointPathCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -921,18 +941,18 @@ class DriveIntegrationService_GetMountPointPath_ProxyToResponder : public ::mojo
       const ::base::FilePath& in_drive_path);
 };
 
-bool DriveIntegrationService_GetMountPointPath_ForwardToCallback::Accept(
+bool DriveIntegrationService_DeprecatedGetMountPointPath_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::DriveIntegrationService_GetMountPointPath_ResponseParams_Data* params =
+  internal::DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::DriveIntegrationService_GetMountPointPath_ResponseParams_Data*>(
+          internal::DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   ::base::FilePath p_drive_path{};
-  DriveIntegrationService_GetMountPointPath_ResponseParamsDataView input_data_view(params, message);
+  DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDrivePath(&p_drive_path))
     success = false;
@@ -949,11 +969,11 @@ std::move(p_drive_path));
   return true;
 }
 
-void DriveIntegrationService_GetMountPointPath_ProxyToResponder::Run(
+void DriveIntegrationService_DeprecatedGetMountPointPath_ProxyToResponder::Run(
     const ::base::FilePath& in_drive_path) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply crosapi::mojom::DriveIntegrationService::GetMountPointPath", "async_response_parameters",
+    "mojom", "Send reply crosapi::mojom::DriveIntegrationService::DeprecatedGetMountPointPath", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -964,12 +984,13 @@ void DriveIntegrationService_GetMountPointPath_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kDriveIntegrationService_GetMountPointPath_Name, kFlags, 0, 0, nullptr);
+      internal::kDriveIntegrationService_DeprecatedGetMountPointPath_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::crosapi::mojom::internal::DriveIntegrationService_GetMountPointPath_ResponseParams_Data> params(
+      ::crosapi::mojom::internal::DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -986,7 +1007,7 @@ void DriveIntegrationService_GetMountPointPath_ProxyToResponder::Run(
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(DriveIntegrationService::Name_);
-  message.set_method_name("GetMountPointPath");
+  message.set_method_name("DeprecatedGetMountPointPath");
 #endif
 
   message.set_request_id(request_id_);
@@ -1006,7 +1027,7 @@ bool DriveIntegrationServiceStubDispatch::Accept(
     DriveIntegrationService* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kDriveIntegrationService_GetMountPointPath_Name: {
+    case internal::kDriveIntegrationService_DeprecatedGetMountPointPath_Name: {
       break;
     }
     case internal::kDriveIntegrationService_AddDriveIntegrationServiceObserver_Name: {
@@ -1116,15 +1137,15 @@ bool DriveIntegrationServiceStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kDriveIntegrationService_GetMountPointPath_Name: {
+    case internal::kDriveIntegrationService_DeprecatedGetMountPointPath_Name: {
 
-      internal::DriveIntegrationService_GetMountPointPath_Params_Data* params =
+      internal::DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data* params =
           reinterpret_cast<
-              internal::DriveIntegrationService_GetMountPointPath_Params_Data*>(
+              internal::DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
-      DriveIntegrationService_GetMountPointPath_ParamsDataView input_data_view(params, message);
+      DriveIntegrationService_DeprecatedGetMountPointPath_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1133,12 +1154,12 @@ bool DriveIntegrationServiceStubDispatch::AcceptWithResponder(
             DriveIntegrationService::Name_, 0, false);
         return false;
       }
-      DriveIntegrationService::GetMountPointPathCallback callback =
-          DriveIntegrationService_GetMountPointPath_ProxyToResponder::CreateCallback(
+      DriveIntegrationService::DeprecatedGetMountPointPathCallback callback =
+          DriveIntegrationService_DeprecatedGetMountPointPath_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMountPointPath(std::move(callback));
+      impl->DeprecatedGetMountPointPath(std::move(callback));
       return true;
     }
     case internal::kDriveIntegrationService_AddDriveIntegrationServiceObserver_Name: {
@@ -1153,16 +1174,16 @@ bool DriveIntegrationServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDriveIntegrationServiceValidationInfo[] = {
-    {&internal::DriveIntegrationService_GetMountPointPath_Params_Data::Validate,
-     &internal::DriveIntegrationService_GetMountPointPath_ResponseParams_Data::Validate},
-    {&internal::DriveIntegrationService_AddDriveIntegrationServiceObserver_Params_Data::Validate,
+    { &internal::DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data::Validate,
+     &internal::DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data::Validate},
+    { &internal::DriveIntegrationService_AddDriveIntegrationServiceObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveIntegrationService_CreateNativeHostSession_Params_Data::Validate,
+    { &internal::DriveIntegrationService_CreateNativeHostSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveIntegrationService_RegisterDriveFsNativeMessageHostBridge_Params_Data::Validate,
+    { &internal::DriveIntegrationService_RegisterDriveFsNativeMessageHostBridge_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1237,8 +1258,8 @@ void DriveFsNativeMessageHostBridgeAsyncWaiter::ConnectToExtension(
 
 
 
-void DriveIntegrationServiceInterceptorForTesting::GetMountPointPath(GetMountPointPathCallback callback) {
-  GetForwardingInterface()->GetMountPointPath(std::move(callback));
+void DriveIntegrationServiceInterceptorForTesting::DeprecatedGetMountPointPath(DeprecatedGetMountPointPathCallback callback) {
+  GetForwardingInterface()->DeprecatedGetMountPointPath(std::move(callback));
 }
 void DriveIntegrationServiceInterceptorForTesting::AddDriveIntegrationServiceObserver(::mojo::PendingRemote<DriveIntegrationServiceObserver> observer) {
   GetForwardingInterface()->AddDriveIntegrationServiceObserver(std::move(observer));
@@ -1254,10 +1275,10 @@ DriveIntegrationServiceAsyncWaiter::DriveIntegrationServiceAsyncWaiter(
 
 DriveIntegrationServiceAsyncWaiter::~DriveIntegrationServiceAsyncWaiter() = default;
 
-void DriveIntegrationServiceAsyncWaiter::GetMountPointPath(
+void DriveIntegrationServiceAsyncWaiter::DeprecatedGetMountPointPath(
     ::base::FilePath* out_drive_path) {
   base::RunLoop loop;
-  proxy_->GetMountPointPath(
+  proxy_->DeprecatedGetMountPointPath(
       base::BindOnce(
           [](base::RunLoop* loop,
              ::base::FilePath* out_drive_path
@@ -1270,10 +1291,10 @@ void DriveIntegrationServiceAsyncWaiter::GetMountPointPath(
   loop.Run();
 }
 
-::base::FilePath DriveIntegrationServiceAsyncWaiter::GetMountPointPath(
+::base::FilePath DriveIntegrationServiceAsyncWaiter::DeprecatedGetMountPointPath(
     ) {
   ::base::FilePath async_wait_result;
-  GetMountPointPath(&async_wait_result);
+  DeprecatedGetMountPointPath(&async_wait_result);
   return async_wait_result;
 }
 

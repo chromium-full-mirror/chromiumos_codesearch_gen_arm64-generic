@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -309,14 +310,17 @@ void SensorServiceProxy::GetDeviceIds(
                         "<value of type DeviceType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorService_GetDeviceIds_Name, kFlags, 0, 0, nullptr);
@@ -342,14 +346,17 @@ void SensorServiceProxy::GetAllDeviceIds(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cros::mojom::SensorService::GetAllDeviceIds");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorService_GetAllDeviceIds_Name, kFlags, 0, 0, nullptr);
@@ -383,14 +390,17 @@ void SensorServiceProxy::GetDevice(
                         "<value of type ::mojo::PendingReceiver<SensorDevice>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorService_GetDevice_Name, kFlags, 0, 0, nullptr);
@@ -427,14 +437,17 @@ void SensorServiceProxy::RegisterNewDevicesObserver(
                         "<value of type ::mojo::PendingRemote<SensorServiceNewDevicesObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorService_RegisterNewDevicesObserver_Name, kFlags, 0, 0, nullptr);
@@ -549,7 +562,8 @@ void SensorService_GetDeviceIds_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorService_GetDeviceIds_Name, kFlags, 0, 0, nullptr);
@@ -679,7 +693,8 @@ void SensorService_GetAllDeviceIds_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorService_GetAllDeviceIds_Name, kFlags, 0, 0, nullptr);
@@ -865,16 +880,16 @@ std::move(p_type), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSensorServiceValidationInfo[] = {
-    {&internal::SensorService_GetDeviceIds_Params_Data::Validate,
+    { &internal::SensorService_GetDeviceIds_Params_Data::Validate,
      &internal::SensorService_GetDeviceIds_ResponseParams_Data::Validate},
-    {&internal::SensorService_GetAllDeviceIds_Params_Data::Validate,
+    { &internal::SensorService_GetAllDeviceIds_Params_Data::Validate,
      &internal::SensorService_GetAllDeviceIds_ResponseParams_Data::Validate},
-    {&internal::SensorService_GetDevice_Params_Data::Validate,
+    { &internal::SensorService_GetDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SensorService_RegisterNewDevicesObserver_Params_Data::Validate,
+    { &internal::SensorService_RegisterNewDevicesObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1306,14 +1321,17 @@ void SensorDeviceProxy::SetTimeout(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_SetTimeout_Name, kFlags, 0, 0, nullptr);
@@ -1344,14 +1362,17 @@ void SensorDeviceProxy::GetAttributes(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetAttributes_Name, kFlags, 0, 0, nullptr);
@@ -1395,14 +1416,17 @@ void SensorDeviceProxy::SetFrequency(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_SetFrequency_Name, kFlags, 0, 0, nullptr);
@@ -1434,14 +1458,17 @@ void SensorDeviceProxy::StartReadingSamples(
                         "<value of type ::mojo::PendingRemote<SensorDeviceSamplesObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_StartReadingSamples_Name, kFlags, 0, 0, nullptr);
@@ -1470,14 +1497,17 @@ void SensorDeviceProxy::StopReadingSamples(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cros::mojom::SensorDevice::StopReadingSamples");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_StopReadingSamples_Name, kFlags, 0, 0, nullptr);
@@ -1500,14 +1530,17 @@ void SensorDeviceProxy::GetAllChannelIds(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cros::mojom::SensorDevice::GetAllChannelIds");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetAllChannelIds_Name, kFlags, 0, 0, nullptr);
@@ -1541,14 +1574,17 @@ void SensorDeviceProxy::SetChannelsEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_SetChannelsEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1593,14 +1629,17 @@ void SensorDeviceProxy::GetChannelsEnabled(
                         "<value of type const std::vector<int32_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetChannelsEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1647,14 +1686,17 @@ void SensorDeviceProxy::GetChannelsAttributes(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetChannelsAttributes_Name, kFlags, 0, 0, nullptr);
@@ -1702,14 +1744,17 @@ void SensorDeviceProxy::GetAllEvents(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cros::mojom::SensorDevice::GetAllEvents");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetAllEvents_Name, kFlags, 0, 0, nullptr);
@@ -1743,14 +1788,17 @@ void SensorDeviceProxy::GetEventsAttributes(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetEventsAttributes_Name, kFlags, 0, 0, nullptr);
@@ -1808,14 +1856,17 @@ void SensorDeviceProxy::StartReadingEvents(
                         "<value of type ::mojo::PendingRemote<SensorDeviceEventsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_StartReadingEvents_Name, kFlags, 0, 0, nullptr);
@@ -1897,7 +1948,7 @@ class SensorDevice_GetAttributes_ProxyToResponder : public ::mojo::internal::Pro
 #endif
 
   void Run(
-      const std::vector<absl::optional<std::string>>& in_values);
+      const std::vector<std::optional<std::string>>& in_values);
 };
 
 bool SensorDevice_GetAttributes_ForwardToCallback::Accept(
@@ -1910,7 +1961,7 @@ bool SensorDevice_GetAttributes_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<absl::optional<std::string>> p_values{};
+  std::vector<std::optional<std::string>> p_values{};
   SensorDevice_GetAttributes_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValues(&p_values))
@@ -1929,7 +1980,7 @@ std::move(p_values));
 }
 
 void SensorDevice_GetAttributes_ProxyToResponder::Run(
-    const std::vector<absl::optional<std::string>>& in_values) {
+    const std::vector<std::optional<std::string>>& in_values) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetAttributes", "async_response_parameters",
@@ -1937,13 +1988,14 @@ void SensorDevice_GetAttributes_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("values"), in_values,
-                        "<value of type const std::vector<absl::optional<std::string>>&>");
+                        "<value of type const std::vector<std::optional<std::string>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetAttributes_Name, kFlags, 0, 0, nullptr);
@@ -2073,7 +2125,8 @@ void SensorDevice_SetFrequency_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_SetFrequency_Name, kFlags, 0, 0, nullptr);
@@ -2191,7 +2244,8 @@ void SensorDevice_GetAllChannelIds_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetAllChannelIds_Name, kFlags, 0, 0, nullptr);
@@ -2321,7 +2375,8 @@ void SensorDevice_SetChannelsEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_SetChannelsEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2451,7 +2506,8 @@ void SensorDevice_GetChannelsEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetChannelsEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2535,7 +2591,7 @@ class SensorDevice_GetChannelsAttributes_ProxyToResponder : public ::mojo::inter
 #endif
 
   void Run(
-      const std::vector<absl::optional<std::string>>& in_values);
+      const std::vector<std::optional<std::string>>& in_values);
 };
 
 bool SensorDevice_GetChannelsAttributes_ForwardToCallback::Accept(
@@ -2548,7 +2604,7 @@ bool SensorDevice_GetChannelsAttributes_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<absl::optional<std::string>> p_values{};
+  std::vector<std::optional<std::string>> p_values{};
   SensorDevice_GetChannelsAttributes_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValues(&p_values))
@@ -2567,7 +2623,7 @@ std::move(p_values));
 }
 
 void SensorDevice_GetChannelsAttributes_ProxyToResponder::Run(
-    const std::vector<absl::optional<std::string>>& in_values) {
+    const std::vector<std::optional<std::string>>& in_values) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetChannelsAttributes", "async_response_parameters",
@@ -2575,13 +2631,14 @@ void SensorDevice_GetChannelsAttributes_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("values"), in_values,
-                        "<value of type const std::vector<absl::optional<std::string>>&>");
+                        "<value of type const std::vector<std::optional<std::string>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetChannelsAttributes_Name, kFlags, 0, 0, nullptr);
@@ -2711,7 +2768,8 @@ void SensorDevice_GetAllEvents_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetAllEvents_Name, kFlags, 0, 0, nullptr);
@@ -2795,7 +2853,7 @@ class SensorDevice_GetEventsAttributes_ProxyToResponder : public ::mojo::interna
 #endif
 
   void Run(
-      const std::vector<absl::optional<std::string>>& in_values);
+      const std::vector<std::optional<std::string>>& in_values);
 };
 
 bool SensorDevice_GetEventsAttributes_ForwardToCallback::Accept(
@@ -2808,7 +2866,7 @@ bool SensorDevice_GetEventsAttributes_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<absl::optional<std::string>> p_values{};
+  std::vector<std::optional<std::string>> p_values{};
   SensorDevice_GetEventsAttributes_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValues(&p_values))
@@ -2827,7 +2885,7 @@ std::move(p_values));
 }
 
 void SensorDevice_GetEventsAttributes_ProxyToResponder::Run(
-    const std::vector<absl::optional<std::string>>& in_values) {
+    const std::vector<std::optional<std::string>>& in_values) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetEventsAttributes", "async_response_parameters",
@@ -2835,13 +2893,14 @@ void SensorDevice_GetEventsAttributes_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("values"), in_values,
-                        "<value of type const std::vector<absl::optional<std::string>>&>");
+                        "<value of type const std::vector<std::optional<std::string>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDevice_GetEventsAttributes_Name, kFlags, 0, 0, nullptr);
@@ -3281,36 +3340,36 @@ std::move(p_attr_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSensorDeviceValidationInfo[] = {
-    {&internal::SensorDevice_SetTimeout_Params_Data::Validate,
+    { &internal::SensorDevice_SetTimeout_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SensorDevice_GetAttributes_Params_Data::Validate,
+    { &internal::SensorDevice_GetAttributes_Params_Data::Validate,
      &internal::SensorDevice_GetAttributes_ResponseParams_Data::Validate},
-    {&internal::SensorDevice_SetFrequency_Params_Data::Validate,
+    { &internal::SensorDevice_SetFrequency_Params_Data::Validate,
      &internal::SensorDevice_SetFrequency_ResponseParams_Data::Validate},
-    {&internal::SensorDevice_StartReadingSamples_Params_Data::Validate,
+    { &internal::SensorDevice_StartReadingSamples_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SensorDevice_StopReadingSamples_Params_Data::Validate,
+    { &internal::SensorDevice_StopReadingSamples_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SensorDevice_GetAllChannelIds_Params_Data::Validate,
+    { &internal::SensorDevice_GetAllChannelIds_Params_Data::Validate,
      &internal::SensorDevice_GetAllChannelIds_ResponseParams_Data::Validate},
-    {&internal::SensorDevice_SetChannelsEnabled_Params_Data::Validate,
+    { &internal::SensorDevice_SetChannelsEnabled_Params_Data::Validate,
      &internal::SensorDevice_SetChannelsEnabled_ResponseParams_Data::Validate},
-    {&internal::SensorDevice_GetChannelsEnabled_Params_Data::Validate,
+    { &internal::SensorDevice_GetChannelsEnabled_Params_Data::Validate,
      &internal::SensorDevice_GetChannelsEnabled_ResponseParams_Data::Validate},
-    {&internal::SensorDevice_GetChannelsAttributes_Params_Data::Validate,
+    { &internal::SensorDevice_GetChannelsAttributes_Params_Data::Validate,
      &internal::SensorDevice_GetChannelsAttributes_ResponseParams_Data::Validate},
-    {&internal::SensorDevice_GetAllEvents_Params_Data::Validate,
+    { &internal::SensorDevice_GetAllEvents_Params_Data::Validate,
      &internal::SensorDevice_GetAllEvents_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::SensorDevice_GetEventsAttributes_Params_Data::Validate,
+    { &internal::SensorDevice_GetEventsAttributes_Params_Data::Validate,
      &internal::SensorDevice_GetEventsAttributes_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::SensorDevice_StartReadingEvents_Params_Data::Validate,
+    { &internal::SensorDevice_StartReadingEvents_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3414,14 +3473,17 @@ void SensorDeviceSamplesObserverProxy::OnSampleUpdated(
                         "<value of type const base::flat_map<int32_t, int64_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name, kFlags, 0, 0, nullptr);
@@ -3464,14 +3526,17 @@ void SensorDeviceSamplesObserverProxy::OnErrorOccurred(
                         "<value of type ObserverErrorType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name, kFlags, 0, 0, nullptr);
@@ -3570,12 +3635,12 @@ bool SensorDeviceSamplesObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSensorDeviceSamplesObserverValidationInfo[] = {
-    {&internal::SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data::Validate,
+    { &internal::SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SensorDeviceSamplesObserver_OnErrorOccurred_Params_Data::Validate,
+    { &internal::SensorDeviceSamplesObserver_OnErrorOccurred_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3658,14 +3723,17 @@ void SensorServiceNewDevicesObserverProxy::OnNewDeviceAdded(
                         "<value of type const std::vector<DeviceType>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name, kFlags, 0, 0, nullptr);
@@ -3751,10 +3819,10 @@ bool SensorServiceNewDevicesObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSensorServiceNewDevicesObserverValidationInfo[] = {
-    {&internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data::Validate,
+    { &internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3854,14 +3922,17 @@ void SensorDeviceEventsObserverProxy::OnEventUpdated(
                         "<value of type IioEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDeviceEventsObserver_OnEventUpdated_Name, kFlags, 0, 0, nullptr);
@@ -3902,14 +3973,17 @@ void SensorDeviceEventsObserverProxy::OnErrorOccurred(
                         "<value of type ObserverErrorType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorDeviceEventsObserver_OnErrorOccurred_Name, kFlags, 0, 0, nullptr);
@@ -4008,12 +4082,12 @@ bool SensorDeviceEventsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSensorDeviceEventsObserverValidationInfo[] = {
-    {&internal::SensorDeviceEventsObserver_OnEventUpdated_Params_Data::Validate,
+    { &internal::SensorDeviceEventsObserver_OnEventUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SensorDeviceEventsObserver_OnErrorOccurred_Params_Data::Validate,
+    { &internal::SensorDeviceEventsObserver_OnErrorOccurred_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4169,14 +4243,14 @@ SensorDeviceAsyncWaiter::SensorDeviceAsyncWaiter(
 SensorDeviceAsyncWaiter::~SensorDeviceAsyncWaiter() = default;
 
 void SensorDeviceAsyncWaiter::GetAttributes(
-    const std::vector<std::string>& attr_names, std::vector<absl::optional<std::string>>* out_values) {
+    const std::vector<std::string>& attr_names, std::vector<std::optional<std::string>>* out_values) {
   base::RunLoop loop;
   proxy_->GetAttributes(std::move(attr_names),
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::vector<absl::optional<std::string>>* out_values
+             std::vector<std::optional<std::string>>* out_values
 ,
-             const std::vector<absl::optional<std::string>>& values) {*out_values = std::move(values);
+             const std::vector<std::optional<std::string>>& values) {*out_values = std::move(values);
             loop->Quit();
           },
           &loop,
@@ -4184,9 +4258,9 @@ void SensorDeviceAsyncWaiter::GetAttributes(
   loop.Run();
 }
 
-std::vector<absl::optional<std::string>> SensorDeviceAsyncWaiter::GetAttributes(
+std::vector<std::optional<std::string>> SensorDeviceAsyncWaiter::GetAttributes(
     const std::vector<std::string>& attr_names) {
-  std::vector<absl::optional<std::string>> async_wait_result;
+  std::vector<std::optional<std::string>> async_wait_result;
   GetAttributes(std::move(attr_names),&async_wait_result);
   return async_wait_result;
 }
@@ -4284,14 +4358,14 @@ std::vector<bool> SensorDeviceAsyncWaiter::GetChannelsEnabled(
 }
 
 void SensorDeviceAsyncWaiter::GetChannelsAttributes(
-    const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name, std::vector<absl::optional<std::string>>* out_values) {
+    const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name, std::vector<std::optional<std::string>>* out_values) {
   base::RunLoop loop;
   proxy_->GetChannelsAttributes(std::move(iio_chn_indices),std::move(attr_name),
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::vector<absl::optional<std::string>>* out_values
+             std::vector<std::optional<std::string>>* out_values
 ,
-             const std::vector<absl::optional<std::string>>& values) {*out_values = std::move(values);
+             const std::vector<std::optional<std::string>>& values) {*out_values = std::move(values);
             loop->Quit();
           },
           &loop,
@@ -4299,9 +4373,9 @@ void SensorDeviceAsyncWaiter::GetChannelsAttributes(
   loop.Run();
 }
 
-std::vector<absl::optional<std::string>> SensorDeviceAsyncWaiter::GetChannelsAttributes(
+std::vector<std::optional<std::string>> SensorDeviceAsyncWaiter::GetChannelsAttributes(
     const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name) {
-  std::vector<absl::optional<std::string>> async_wait_result;
+  std::vector<std::optional<std::string>> async_wait_result;
   GetChannelsAttributes(std::move(iio_chn_indices),std::move(attr_name),&async_wait_result);
   return async_wait_result;
 }
@@ -4330,14 +4404,14 @@ std::vector<IioEventPtr> SensorDeviceAsyncWaiter::GetAllEvents(
 }
 
 void SensorDeviceAsyncWaiter::GetEventsAttributes(
-    const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, std::vector<absl::optional<std::string>>* out_values) {
+    const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, std::vector<std::optional<std::string>>* out_values) {
   base::RunLoop loop;
   proxy_->GetEventsAttributes(std::move(iio_event_indices),std::move(attr_name),
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::vector<absl::optional<std::string>>* out_values
+             std::vector<std::optional<std::string>>* out_values
 ,
-             const std::vector<absl::optional<std::string>>& values) {*out_values = std::move(values);
+             const std::vector<std::optional<std::string>>& values) {*out_values = std::move(values);
             loop->Quit();
           },
           &loop,
@@ -4345,9 +4419,9 @@ void SensorDeviceAsyncWaiter::GetEventsAttributes(
   loop.Run();
 }
 
-std::vector<absl::optional<std::string>> SensorDeviceAsyncWaiter::GetEventsAttributes(
+std::vector<std::optional<std::string>> SensorDeviceAsyncWaiter::GetEventsAttributes(
     const std::vector<int32_t>& iio_event_indices, const std::string& attr_name) {
-  std::vector<absl::optional<std::string>> async_wait_result;
+  std::vector<std::optional<std::string>> async_wait_result;
   GetEventsAttributes(std::move(iio_event_indices),std::move(attr_name),&async_wait_result);
   return async_wait_result;
 }

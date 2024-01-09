@@ -20,21 +20,6 @@ import {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
-export const TrustTokenMajorVersionSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- */
-export const TrustTokenMajorVersion = {
-  
-  kPrivateStateTokenV1: 0,
-  MIN_VALUE: 0,
-  MAX_VALUE: 0,
-};
-
-/**
- * @const { {$: !mojo.internal.MojomType} }
- */
 export const TrustTokenProtocolVersionSpec = { $: mojo.internal.Enum() };
 
 /**
@@ -448,15 +433,7 @@ mojo.internal.Struct(
     'TrustTokenParams',
     [
       mojo.internal.StructField(
-        'version', 0,
-        0,
-        TrustTokenMajorVersionSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'operation', 4,
+        'operation', 0,
         0,
         TrustTokenOperationTypeSpec.$,
         0,
@@ -464,7 +441,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'refreshPolicy', 8,
+        'refreshPolicy', 4,
         0,
         TrustTokenRefreshPolicySpec.$,
         TrustTokenRefreshPolicy.kUseCached,
@@ -472,7 +449,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'customKeyCommitment', 16,
+        'customKeyCommitment', 8,
         0,
         mojo.internal.String,
         null,
@@ -480,7 +457,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'customIssuer', 24,
+        'customIssuer', 16,
         0,
         url_mojom_OriginSpec.$,
         null,
@@ -488,7 +465,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'signRequestData', 12,
+        'signRequestData', 24,
         0,
         TrustTokenSignRequestDataSpec.$,
         TrustTokenSignRequestData.kOmit,
@@ -496,7 +473,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'includeTimestampHeader', 32,
+        'includeTimestampHeader', 28,
         0,
         mojo.internal.Bool,
         false,
@@ -504,7 +481,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'issuers', 40,
+        'issuers', 32,
         0,
         mojo.internal.Array(url_mojom_OriginSpec.$, false),
         null,
@@ -512,7 +489,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'additionalSignedHeaders', 48,
+        'additionalSignedHeaders', 40,
         0,
         mojo.internal.Array(mojo.internal.String, false),
         null,
@@ -520,7 +497,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'possiblyUnsafeAdditionalSigningData', 56,
+        'possiblyUnsafeAdditionalSigningData', 48,
         0,
         mojo.internal.String,
         null,
@@ -528,7 +505,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 72],]);
+    [[0, 64],]);
 
 
 
@@ -537,8 +514,6 @@ mojo.internal.Struct(
  */
 export class TrustTokenParams {
   constructor() {
-    /** @type { !TrustTokenMajorVersion } */
-    this.version;
     /** @type { !TrustTokenOperationType } */
     this.operation;
     /** @type { !TrustTokenRefreshPolicy } */
@@ -715,15 +690,7 @@ mojo.internal.Struct(
     'TrustTokenKeyCommitmentResult',
     [
       mojo.internal.StructField(
-        'version', 0,
-        0,
-        TrustTokenMajorVersionSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'protocolVersion', 4,
+        'protocolVersion', 0,
         0,
         TrustTokenProtocolVersionSpec.$,
         0,
@@ -731,7 +698,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'id', 8,
+        'id', 4,
         0,
         mojo.internal.Int32,
         0,
@@ -739,7 +706,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'batchSize', 12,
+        'batchSize', 8,
         0,
         mojo.internal.Int32,
         0,
@@ -763,7 +730,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'unavailableLocalOperationFallback', 32,
+        'unavailableLocalOperationFallback', 12,
         0,
         TrustTokenKeyCommitmentResult_UnavailableLocalOperationFallbackSpec.$,
         0,
@@ -771,7 +738,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 48],]);
+    [[0, 40],]);
 
 
 
@@ -780,8 +747,6 @@ mojo.internal.Struct(
  */
 export class TrustTokenKeyCommitmentResult {
   constructor() {
-    /** @type { !TrustTokenMajorVersion } */
-    this.version;
     /** @type { !TrustTokenProtocolVersion } */
     this.protocolVersion;
     /** @type { !number } */

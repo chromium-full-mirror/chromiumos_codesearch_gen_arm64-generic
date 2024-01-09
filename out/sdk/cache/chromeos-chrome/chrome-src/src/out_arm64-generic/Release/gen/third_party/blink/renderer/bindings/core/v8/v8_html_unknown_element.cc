@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLUnknownElement>::value,
     "HTMLUnknownElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLUnknownElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLUnknownElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 

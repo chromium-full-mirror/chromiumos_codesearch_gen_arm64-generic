@@ -13,6 +13,24 @@
 namespace crosapi::mojom {
 
 
+class  DomMessageObserverInterceptorForTesting : public DomMessageObserver {
+  virtual DomMessageObserver* GetForwardingInterface() = 0;
+  void OnMessage(const std::string& message) override;
+};
+class  DomMessageObserverAsyncWaiter {
+ public:
+  explicit DomMessageObserverAsyncWaiter(DomMessageObserver* proxy);
+
+  DomMessageObserverAsyncWaiter(const DomMessageObserverAsyncWaiter&) = delete;
+  DomMessageObserverAsyncWaiter& operator=(const DomMessageObserverAsyncWaiter&) = delete;
+
+  ~DomMessageObserverAsyncWaiter();
+
+ private:
+  DomMessageObserver* const proxy_;
+};
+
+
 class  StandaloneBrowserTestControllerInterceptorForTesting : public StandaloneBrowserTestController {
   virtual StandaloneBrowserTestController* GetForwardingInterface() = 0;
   void InstallWebApp(const std::string& start_url, ::apps::WindowMode mode, InstallWebAppCallback callback) override;
@@ -20,7 +38,13 @@ class  StandaloneBrowserTestControllerInterceptorForTesting : public StandaloneB
   void GetTtsVoices(GetTtsVoicesCallback callback) override;
   void GetExtensionKeeplist(GetExtensionKeeplistCallback callback) override;
   void TtsSpeak(::crosapi::mojom::TtsUtterancePtr utterance, ::mojo::PendingRemote<::crosapi::mojom::TtsUtteranceClient> utterance_client) override;
-  void InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_start_url, InstallSubAppCallback callback) override;
+  void InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_path, InstallSubAppCallback callback) override;
+  void InstallIsolatedWebApp(IsolatedWebAppLocationPtr location, bool dev_mode, InstallIsolatedWebAppCallback callback) override;
+  void SetWebAppSettingsPref(const std::string& policy, SetWebAppSettingsPrefCallback callback) override;
+  void InstallUnpackedExtension(const std::string& path, InstallUnpackedExtensionCallback callback) override;
+  void RemoveComponentExtension(const std::string& extension_id, RemoveComponentExtensionCallback callback) override;
+  void ObserveDomMessages(::mojo::PendingRemote<DomMessageObserver> observer, ObserveDomMessagesCallback callback) override;
+  void SetWebAppInstallForceListPref(const std::string& policy, SetWebAppInstallForceListPrefCallback callback) override;
 };
 class  StandaloneBrowserTestControllerAsyncWaiter {
  public:
@@ -43,8 +67,26 @@ class  StandaloneBrowserTestControllerAsyncWaiter {
       ::crosapi::mojom::ExtensionKeepListPtr* out_keep_list);
   ::crosapi::mojom::ExtensionKeepListPtr GetExtensionKeeplist();
   void InstallSubApp(
-      const std::string& parent_app_id, const std::string& sub_app_start_url, std::string* out_sub_app_id);
-  std::string InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_start_url);
+      const std::string& parent_app_id, const std::string& sub_app_path, std::string* out_sub_app_id);
+  std::string InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_path);
+  void InstallIsolatedWebApp(
+      IsolatedWebAppLocationPtr location, bool dev_mode, InstallWebAppResultPtr* out_result);
+  InstallWebAppResultPtr InstallIsolatedWebApp(IsolatedWebAppLocationPtr location, bool dev_mode);
+  void SetWebAppSettingsPref(
+      const std::string& policy, bool* out_success);
+  bool SetWebAppSettingsPref(const std::string& policy);
+  void InstallUnpackedExtension(
+      const std::string& path, std::string* out_extension_id);
+  std::string InstallUnpackedExtension(const std::string& path);
+  void RemoveComponentExtension(
+      const std::string& extension_id);
+  
+  void ObserveDomMessages(
+      ::mojo::PendingRemote<DomMessageObserver> observer);
+  
+  void SetWebAppInstallForceListPref(
+      const std::string& policy, bool* out_success);
+  bool SetWebAppInstallForceListPref(const std::string& policy);
 
  private:
   StandaloneBrowserTestController* const proxy_;
@@ -228,6 +270,8 @@ class  TestControllerInterceptorForTesting : public TestController {
   void SetAppListItemAttributes(const std::string& item_id, AppListItemAttributesPtr attributes, SetAppListItemAttributesCallback callback) override;
   void CloseAllAshBrowserWindowsAndConfirm(CloseAllAshBrowserWindowsAndConfirmCallback callback) override;
   void CheckAtLeastOneAshBrowserWindowOpen(CheckAtLeastOneAshBrowserWindowOpenCallback callback) override;
+  void GetAllOpenTabURLs(GetAllOpenTabURLsCallback callback) override;
+  void SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) override;
 };
 class  TestControllerAsyncWaiter {
  public:
@@ -268,8 +312,8 @@ class  TestControllerAsyncWaiter {
       const std::string& window_id, OptionalBoolean* out_value);
   OptionalBoolean GetMinimizeOnBackKeyWindowProperty(const std::string& window_id);
   void GetWindowPositionInScreen(
-      const std::string& window_id, absl::optional<::gfx::Point>* out_position);
-  absl::optional<::gfx::Point> GetWindowPositionInScreen(const std::string& window_id);
+      const std::string& window_id, std::optional<::gfx::Point>* out_position);
+  std::optional<::gfx::Point> GetWindowPositionInScreen(const std::string& window_id);
   void PinOrUnpinItemInShelf(
       const std::string& item_id, bool pin, bool* out_success);
   bool PinOrUnpinItemInShelf(const std::string& item_id, bool pin);
@@ -342,6 +386,12 @@ class  TestControllerAsyncWaiter {
   void CheckAtLeastOneAshBrowserWindowOpen(
       bool* out_has_open_window);
   bool CheckAtLeastOneAshBrowserWindowOpen();
+  void GetAllOpenTabURLs(
+      std::vector<::GURL>* out_urls);
+  std::vector<::GURL> GetAllOpenTabURLs();
+  void SetAlmanacEndpointUrlForTesting(
+      const std::optional<std::string>& override);
+  
 
  private:
   TestController* const proxy_;

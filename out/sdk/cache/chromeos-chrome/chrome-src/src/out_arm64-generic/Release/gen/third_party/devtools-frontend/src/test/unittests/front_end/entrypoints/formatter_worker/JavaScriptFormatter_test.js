@@ -657,7 +657,7 @@ function formatted2() {
 }
 `);
     });
-    it('format class fields correctly', () => {
+    it('formats class fields correctly', () => {
         const formattedCode = formatJavaScript('class Clazz {map=new Map();someMethod(){console.log(42);}map2=new Map();}');
         assert.strictEqual(formattedCode, `class Clazz {
   map = new Map();
@@ -667,6 +667,10 @@ function formatted2() {
   map2 = new Map();
 }
 `);
+    });
+    it('formats template literals correctly', () => {
+        const formattedCode = formatJavaScript('`foo${bar}`');
+        assert.strictEqual(formattedCode, '`foo${bar}`\n');
     });
 });
 //# sourceMappingURL=JavaScriptFormatter_test.js.map

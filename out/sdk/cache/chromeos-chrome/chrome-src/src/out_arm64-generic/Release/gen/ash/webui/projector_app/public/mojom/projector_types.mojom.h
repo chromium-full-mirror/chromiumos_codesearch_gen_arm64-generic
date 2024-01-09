@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/projector_app/public/mojom/projector_types.mojom-features.h"
 #include "ash/webui/projector_app/public/mojom/projector_types.mojom-shared.h"
 #include "ash/webui/projector_app/public/mojom/projector_types.mojom-forward.h"
 #include <string>
@@ -222,7 +223,7 @@ class  XhrResponse {
   XhrResponse(
       const std::string& response,
       XhrResponseCode response_code,
-      absl::optional<JsNetErrorCode> net_error_code);
+      std::optional<JsNetErrorCode> net_error_code);
 
 
   ~XhrResponse();
@@ -304,7 +305,7 @@ class  XhrResponse {
   
   XhrResponseCode response_code;
   
-  absl::optional<JsNetErrorCode> net_error_code;
+  std::optional<JsNetErrorCode> net_error_code;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -646,17 +647,17 @@ class  GetVideoResult {
   // Construct an instance holding |video|.
   static GetVideoResultPtr
   NewVideo(
-      VideoInfoPtr video) {
+      VideoInfoPtr value) {
     auto result = GetVideoResultPtr(absl::in_place);
-    result->set_video(std::move(video));
+    result->set_video(std::move(value));
     return result;
   }
   // Construct an instance holding |error_message|.
   static GetVideoResultPtr
   NewErrorMessage(
-      const std::string& error_message) {
+      const std::string& value) {
     auto result = GetVideoResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
 

@@ -1,13 +1,14 @@
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { boolAttrSetter, decorate, jsSetter } from '../../../common/js/cr_ui.js';
+import { boolAttrSetter, crInjectTypeAndInit, jsSetter } from '../../../common/js/cr_ui.js';
 /** The next id suffix to use when giving each item an unique id. */
 let nextUniqueIdSuffix = 0;
 /** Creates a new list item element. */
 export function createListItem() {
     const el = document.createElement('li');
-    return decorate(el, ListItem);
+    crInjectTypeAndInit(el, ListItem);
+    return el;
 }
 export class ListItem extends HTMLLIElement {
     constructor() {
@@ -50,7 +51,7 @@ export class ListItem extends HTMLLIElement {
         boolAttrSetter(this, 'selected', value);
     }
     /** Called when an element is decorated as a list item. */
-    decorate() {
+    initialize() {
         this.listIndex_ = -1;
         this.setAttribute('role', 'listitem');
         if (!this.id) {

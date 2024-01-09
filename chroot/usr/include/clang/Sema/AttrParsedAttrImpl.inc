@@ -142,7 +142,7 @@ static bool isFunctionPointer(const Decl *D) {
 static constexpr ParsedAttrInfo::Spelling AArch64SVEPcsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "aarch64_sve_pcs"},
   {AttributeCommonInfo::AS_CXX11, "clang::aarch64_sve_pcs"},
-  {AttributeCommonInfo::AS_C2x, "clang::aarch64_sve_pcs"},
+  {AttributeCommonInfo::AS_C23, "clang::aarch64_sve_pcs"},
 };
 struct ParsedAttrInfoAArch64SVEPcs final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoAArch64SVEPcs() : ParsedAttrInfo(
@@ -169,7 +169,7 @@ const ParsedAttrInfoAArch64SVEPcs ParsedAttrInfoAArch64SVEPcs::Instance;
 static constexpr ParsedAttrInfo::Spelling AArch64VectorPcsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "aarch64_vector_pcs"},
   {AttributeCommonInfo::AS_CXX11, "clang::aarch64_vector_pcs"},
-  {AttributeCommonInfo::AS_C2x, "clang::aarch64_vector_pcs"},
+  {AttributeCommonInfo::AS_C23, "clang::aarch64_vector_pcs"},
 };
 struct ParsedAttrInfoAArch64VectorPcs final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoAArch64VectorPcs() : ParsedAttrInfo(
@@ -217,7 +217,7 @@ struct ParsedAttrInfoAMDGPUFlatWorkGroupSize final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "kernel functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "kernel functions";
     return false;
   }
   return true;
@@ -225,7 +225,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -243,7 +243,7 @@ const ParsedAttrInfoAMDGPUFlatWorkGroupSize ParsedAttrInfoAMDGPUFlatWorkGroupSiz
 static constexpr ParsedAttrInfo::Spelling AMDGPUKernelCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "amdgpu_kernel"},
   {AttributeCommonInfo::AS_CXX11, "clang::amdgpu_kernel"},
-  {AttributeCommonInfo::AS_C2x, "clang::amdgpu_kernel"},
+  {AttributeCommonInfo::AS_C23, "clang::amdgpu_kernel"},
 };
 struct ParsedAttrInfoAMDGPUKernelCall final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoAMDGPUKernelCall() : ParsedAttrInfo(
@@ -291,7 +291,7 @@ struct ParsedAttrInfoAMDGPUNumSGPR final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "kernel functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "kernel functions";
     return false;
   }
   return true;
@@ -299,7 +299,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -338,7 +338,7 @@ struct ParsedAttrInfoAMDGPUNumVGPR final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "kernel functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "kernel functions";
     return false;
   }
   return true;
@@ -346,7 +346,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -385,7 +385,7 @@ struct ParsedAttrInfoAMDGPUWavesPerEU final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "kernel functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "kernel functions";
     return false;
   }
   return true;
@@ -393,7 +393,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -411,7 +411,7 @@ const ParsedAttrInfoAMDGPUWavesPerEU ParsedAttrInfoAMDGPUWavesPerEU::Instance;
 static constexpr ParsedAttrInfo::Spelling InterruptSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "interrupt"},
   {AttributeCommonInfo::AS_CXX11, "gnu::interrupt"},
-  {AttributeCommonInfo::AS_C2x, "gnu::interrupt"},
+  {AttributeCommonInfo::AS_C23, "gnu::interrupt"},
 };
 static constexpr const char *InterruptArgNames[] = {
 "Interrupt",};
@@ -445,7 +445,7 @@ const ParsedAttrInfoInterrupt ParsedAttrInfoInterrupt::Instance;
 static constexpr ParsedAttrInfo::Spelling AVRSignalSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "signal"},
   {AttributeCommonInfo::AS_CXX11, "gnu::signal"},
-  {AttributeCommonInfo::AS_C2x, "gnu::signal"},
+  {AttributeCommonInfo::AS_C23, "gnu::signal"},
 };
 struct ParsedAttrInfoAVRSignal final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoAVRSignal() : ParsedAttrInfo(
@@ -465,7 +465,7 @@ struct ParsedAttrInfoAVRSignal final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -473,7 +473,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -517,7 +517,7 @@ struct ParsedAttrInfoAbiTag final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isStruct(D) && !isa<VarDecl>(D) && !isa<FunctionDecl>(D) && !isa<NamespaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "structs, variables, functions, and namespaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, variables, functions, and namespaces";
     return false;
   }
   return true;
@@ -525,7 +525,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -571,7 +571,7 @@ struct ParsedAttrInfoAcquireCapability final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -579,7 +579,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -617,7 +617,7 @@ const ParsedAttrInfoAcquireCapability ParsedAttrInfoAcquireCapability::Instance;
 static constexpr ParsedAttrInfo::Spelling AcquireHandleSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "acquire_handle"},
   {AttributeCommonInfo::AS_CXX11, "clang::acquire_handle"},
-  {AttributeCommonInfo::AS_C2x, "clang::acquire_handle"},
+  {AttributeCommonInfo::AS_C23, "clang::acquire_handle"},
 };
 static constexpr const char *AcquireHandleArgNames[] = {
 "HandleType",};
@@ -639,7 +639,7 @@ struct ParsedAttrInfoAcquireHandle final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<TypedefNameDecl>(D) && !isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions, typedefs, and parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, typedefs, and parameters";
     return false;
   }
   return true;
@@ -647,7 +647,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -687,7 +687,7 @@ struct ParsedAttrInfoAcquiredAfter final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FieldDecl>(D) && !isSharedVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-static data members and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-static data members and global variables";
     return false;
   }
   return true;
@@ -695,7 +695,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -729,7 +729,7 @@ struct ParsedAttrInfoAcquiredBefore final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FieldDecl>(D) && !isSharedVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-static data members and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-static data members and global variables";
     return false;
   }
   return true;
@@ -737,7 +737,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -751,7 +751,7 @@ const ParsedAttrInfoAcquiredBefore ParsedAttrInfoAcquiredBefore::Instance;
 static constexpr ParsedAttrInfo::Spelling AddressSpaceSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "address_space"},
   {AttributeCommonInfo::AS_CXX11, "clang::address_space"},
-  {AttributeCommonInfo::AS_C2x, "clang::address_space"},
+  {AttributeCommonInfo::AS_C23, "clang::address_space"},
 };
 static constexpr const char *AddressSpaceArgNames[] = {
 "AddressSpace",};
@@ -780,7 +780,7 @@ const ParsedAttrInfoAddressSpace ParsedAttrInfoAddressSpace::Instance;
 static constexpr ParsedAttrInfo::Spelling AliasSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "alias"},
   {AttributeCommonInfo::AS_CXX11, "gnu::alias"},
-  {AttributeCommonInfo::AS_C2x, "gnu::alias"},
+  {AttributeCommonInfo::AS_C23, "gnu::alias"},
 };
 static constexpr const char *AliasArgNames[] = {
 "Aliasee",};
@@ -802,7 +802,7 @@ struct ParsedAttrInfoAlias final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and global variables";
     return false;
   }
   return true;
@@ -810,7 +810,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -849,7 +849,7 @@ struct ParsedAttrInfoAlignValue final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D) && !isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables and typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables and typedefs";
     return false;
   }
   return true;
@@ -857,7 +857,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -876,7 +876,7 @@ const ParsedAttrInfoAlignValue ParsedAttrInfoAlignValue::Instance;
 static constexpr ParsedAttrInfo::Spelling AlignedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "aligned"},
   {AttributeCommonInfo::AS_CXX11, "gnu::aligned"},
-  {AttributeCommonInfo::AS_C2x, "gnu::aligned"},
+  {AttributeCommonInfo::AS_C23, "gnu::aligned"},
   {AttributeCommonInfo::AS_Declspec, "align"},
   {AttributeCommonInfo::AS_Keyword, "alignas"},
   {AttributeCommonInfo::AS_Keyword, "_Alignas"},
@@ -902,7 +902,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_aligned = 0,
     CXX11_gnu_aligned = 1,
-    C2x_gnu_aligned = 2,
+    C23_gnu_aligned = 2,
     Declspec_align = 3,
     Keyword_alignas = 4,
     Keyword_Alignas = 5,
@@ -915,7 +915,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_aligned;
     case 1: return CXX11_gnu_aligned;
-    case 2: return C2x_gnu_aligned;
+    case 2: return C23_gnu_aligned;
     case 3: return Declspec_align;
     case 4: return Keyword_alignas;
     case 5: return Keyword_Alignas;
@@ -932,7 +932,7 @@ const ParsedAttrInfoAligned ParsedAttrInfoAligned::Instance;
 static constexpr ParsedAttrInfo::Spelling AllocAlignSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "alloc_align"},
   {AttributeCommonInfo::AS_CXX11, "gnu::alloc_align"},
-  {AttributeCommonInfo::AS_C2x, "gnu::alloc_align"},
+  {AttributeCommonInfo::AS_C23, "gnu::alloc_align"},
 };
 static constexpr const char *AllocAlignArgNames[] = {
 "ParamIndex",};
@@ -954,7 +954,7 @@ struct ParsedAttrInfoAllocAlign final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isHasFunctionProto(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-K&R-style functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-K&R-style functions";
     return false;
   }
   return true;
@@ -962,7 +962,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -976,7 +976,7 @@ const ParsedAttrInfoAllocAlign ParsedAttrInfoAllocAlign::Instance;
 static constexpr ParsedAttrInfo::Spelling AllocSizeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "alloc_size"},
   {AttributeCommonInfo::AS_CXX11, "gnu::alloc_size"},
-  {AttributeCommonInfo::AS_C2x, "gnu::alloc_size"},
+  {AttributeCommonInfo::AS_C23, "gnu::alloc_size"},
 };
 static constexpr const char *AllocSizeArgNames[] = {
 "ElemSizeParam","NumElemsParam",};
@@ -998,7 +998,7 @@ struct ParsedAttrInfoAllocSize final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isHasFunctionProto(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-K&R-style functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-K&R-style functions";
     return false;
   }
   return true;
@@ -1006,7 +1006,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1039,7 +1039,7 @@ struct ParsedAttrInfoAlwaysDestroy final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -1047,7 +1047,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1055,7 +1055,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<NoDestroyAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -1076,9 +1076,9 @@ const ParsedAttrInfoAlwaysDestroy ParsedAttrInfoAlwaysDestroy::Instance;
 static constexpr ParsedAttrInfo::Spelling AlwaysInlineSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "always_inline"},
   {AttributeCommonInfo::AS_CXX11, "gnu::always_inline"},
-  {AttributeCommonInfo::AS_C2x, "gnu::always_inline"},
+  {AttributeCommonInfo::AS_C23, "gnu::always_inline"},
   {AttributeCommonInfo::AS_CXX11, "clang::always_inline"},
-  {AttributeCommonInfo::AS_C2x, "clang::always_inline"},
+  {AttributeCommonInfo::AS_C23, "clang::always_inline"},
   {AttributeCommonInfo::AS_Keyword, "__forceinline"},
 };
 struct ParsedAttrInfoAlwaysInline final : public ParsedAttrInfo {
@@ -1099,7 +1099,7 @@ struct ParsedAttrInfoAlwaysInline final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and statements";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and statements";
     return false;
   }
   return true;
@@ -1108,7 +1108,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &Attr, const Stmt *St) const override {
   if (!isa<Stmt>(St)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and statements";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and statements";
     return false;
   }
   return true;
@@ -1118,7 +1118,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &Attr, const Stmt *St) const
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<NotTailCalledAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -1129,9 +1129,9 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_always_inline = 0,
     CXX11_gnu_always_inline = 1,
-    C2x_gnu_always_inline = 2,
+    C23_gnu_always_inline = 2,
     CXX11_clang_always_inline = 3,
-    C2x_clang_always_inline = 4,
+    C23_clang_always_inline = 4,
     Keyword_forceinline = 5,
   SpellingNotCalculated = 15
 
@@ -1142,9 +1142,9 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_always_inline;
     case 1: return CXX11_gnu_always_inline;
-    case 2: return C2x_gnu_always_inline;
+    case 2: return C23_gnu_always_inline;
     case 3: return CXX11_clang_always_inline;
-    case 4: return C2x_clang_always_inline;
+    case 4: return C23_clang_always_inline;
     case 5: return Keyword_forceinline;
   }
 }
@@ -1188,7 +1188,7 @@ const ParsedAttrInfoAnalyzerNoReturn ParsedAttrInfoAnalyzerNoReturn::Instance;
 static constexpr ParsedAttrInfo::Spelling AnnotateSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "annotate"},
   {AttributeCommonInfo::AS_CXX11, "clang::annotate"},
-  {AttributeCommonInfo::AS_C2x, "clang::annotate"},
+  {AttributeCommonInfo::AS_C23, "clang::annotate"},
 };
 static constexpr const char *AnnotateArgNames[] = {
 "Annotation","Args...",};
@@ -1216,7 +1216,7 @@ static const ParsedAttrInfoAnnotate Instance;
 const ParsedAttrInfoAnnotate ParsedAttrInfoAnnotate::Instance;
 static constexpr ParsedAttrInfo::Spelling AnnotateTypeSpellings[] = {
   {AttributeCommonInfo::AS_CXX11, "clang::annotate_type"},
-  {AttributeCommonInfo::AS_C2x, "clang::annotate_type"},
+  {AttributeCommonInfo::AS_C23, "clang::annotate_type"},
 };
 static constexpr const char *AnnotateTypeArgNames[] = {
 "Annotation","Args...",};
@@ -1245,7 +1245,7 @@ const ParsedAttrInfoAnnotateType ParsedAttrInfoAnnotateType::Instance;
 static constexpr ParsedAttrInfo::Spelling AnyX86NoCallerSavedRegistersSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_caller_saved_registers"},
   {AttributeCommonInfo::AS_CXX11, "gnu::no_caller_saved_registers"},
-  {AttributeCommonInfo::AS_C2x, "gnu::no_caller_saved_registers"},
+  {AttributeCommonInfo::AS_C23, "gnu::no_caller_saved_registers"},
 };
 struct ParsedAttrInfoAnyX86NoCallerSavedRegisters final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoAnyX86NoCallerSavedRegisters() : ParsedAttrInfo(
@@ -1282,7 +1282,7 @@ const ParsedAttrInfoAnyX86NoCallerSavedRegisters ParsedAttrInfoAnyX86NoCallerSav
 static constexpr ParsedAttrInfo::Spelling AnyX86NoCfCheckSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "nocf_check"},
   {AttributeCommonInfo::AS_CXX11, "gnu::nocf_check"},
-  {AttributeCommonInfo::AS_C2x, "gnu::nocf_check"},
+  {AttributeCommonInfo::AS_C23, "gnu::nocf_check"},
 };
 struct ParsedAttrInfoAnyX86NoCfCheck final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoAnyX86NoCfCheck() : ParsedAttrInfo(
@@ -1302,7 +1302,7 @@ struct ParsedAttrInfoAnyX86NoCfCheck final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isFunctionLike(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and function pointers";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and function pointers";
     return false;
   }
   return true;
@@ -1310,7 +1310,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1333,7 +1333,7 @@ const ParsedAttrInfoAnyX86NoCfCheck ParsedAttrInfoAnyX86NoCfCheck::Instance;
 static constexpr ParsedAttrInfo::Spelling ArcWeakrefUnavailableSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_arc_weak_reference_unavailable"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_arc_weak_reference_unavailable"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_arc_weak_reference_unavailable"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_arc_weak_reference_unavailable"},
 };
 struct ParsedAttrInfoArcWeakrefUnavailable final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoArcWeakrefUnavailable() : ParsedAttrInfo(
@@ -1353,7 +1353,7 @@ struct ParsedAttrInfoArcWeakrefUnavailable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces";
     return false;
   }
   return true;
@@ -1361,7 +1361,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1384,10 +1384,10 @@ const ParsedAttrInfoArcWeakrefUnavailable ParsedAttrInfoArcWeakrefUnavailable::I
 static constexpr ParsedAttrInfo::Spelling ArgumentWithTypeTagSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "argument_with_type_tag"},
   {AttributeCommonInfo::AS_CXX11, "clang::argument_with_type_tag"},
-  {AttributeCommonInfo::AS_C2x, "clang::argument_with_type_tag"},
+  {AttributeCommonInfo::AS_C23, "clang::argument_with_type_tag"},
   {AttributeCommonInfo::AS_GNU, "pointer_with_type_tag"},
   {AttributeCommonInfo::AS_CXX11, "clang::pointer_with_type_tag"},
-  {AttributeCommonInfo::AS_C2x, "clang::pointer_with_type_tag"},
+  {AttributeCommonInfo::AS_C23, "clang::pointer_with_type_tag"},
 };
 static constexpr const char *ArgumentWithTypeTagArgNames[] = {
 "ArgumentKind","ArgumentIdx","TypeTagIdx",};
@@ -1409,7 +1409,7 @@ struct ParsedAttrInfoArgumentWithTypeTag final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isHasFunctionProto(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "non-K&R-style functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-K&R-style functions";
     return false;
   }
   return true;
@@ -1417,7 +1417,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1425,10 +1425,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_argument_with_type_tag = 0,
     CXX11_clang_argument_with_type_tag = 1,
-    C2x_clang_argument_with_type_tag = 2,
+    C23_clang_argument_with_type_tag = 2,
     GNU_pointer_with_type_tag = 3,
     CXX11_clang_pointer_with_type_tag = 4,
-    C2x_clang_pointer_with_type_tag = 5,
+    C23_clang_pointer_with_type_tag = 5,
   SpellingNotCalculated = 15
 
   };
@@ -1438,10 +1438,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_argument_with_type_tag;
     case 1: return CXX11_clang_argument_with_type_tag;
-    case 2: return C2x_clang_argument_with_type_tag;
+    case 2: return C23_clang_argument_with_type_tag;
     case 3: return GNU_pointer_with_type_tag;
     case 4: return CXX11_clang_pointer_with_type_tag;
-    case 5: return C2x_clang_pointer_with_type_tag;
+    case 5: return C23_clang_pointer_with_type_tag;
   }
 }
 
@@ -1455,7 +1455,7 @@ const ParsedAttrInfoArgumentWithTypeTag ParsedAttrInfoArgumentWithTypeTag::Insta
 static constexpr ParsedAttrInfo::Spelling ArmBuiltinAliasSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "__clang_arm_builtin_alias"},
   {AttributeCommonInfo::AS_CXX11, "clang::__clang_arm_builtin_alias"},
-  {AttributeCommonInfo::AS_C2x, "clang::__clang_arm_builtin_alias"},
+  {AttributeCommonInfo::AS_C23, "clang::__clang_arm_builtin_alias"},
 };
 static constexpr const char *ArmBuiltinAliasArgNames[] = {
 "BuiltinName",};
@@ -1477,7 +1477,7 @@ struct ParsedAttrInfoArmBuiltinAlias final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -1485,7 +1485,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1505,10 +1505,55 @@ bool isParamExpr(size_t N) const override {
 static const ParsedAttrInfoArmBuiltinAlias Instance;
 };
 const ParsedAttrInfoArmBuiltinAlias ParsedAttrInfoArmBuiltinAlias::Instance;
+static constexpr ParsedAttrInfo::Spelling ArmLocallyStreamingSpellings[] = {
+  {AttributeCommonInfo::AS_Keyword, "__arm_locally_streaming"},
+};
+struct ParsedAttrInfoArmLocallyStreaming final : public ParsedAttrInfo {
+  constexpr ParsedAttrInfoArmLocallyStreaming() : ParsedAttrInfo(
+    /*AttrKind=*/ParsedAttr::AT_ArmLocallyStreaming,
+    /*NumArgs=*/0,
+    /*OptArgs=*/0,
+    /*NumArgMembers=*/0,
+    /*HasCustomParsing=*/0,
+    /*AcceptsExprPack=*/0,
+    /*IsTargetSpecific=*/1,
+    /*IsType=*/0,
+    /*IsStmt=*/0,
+    /*IsKnownToGCC=*/0,
+    /*IsSupportedByPragmaAttribute=*/0,
+    /*Spellings=*/ArmLocallyStreamingSpellings,
+    /*ArgNames=*/{}) {}
+bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
+  if (!isa<FunctionDecl>(D)) {
+    S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
+    return false;
+  }
+  return true;
+}
+
+bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
+  S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
+  return false;
+}
+
+bool existsInTarget(const TargetInfo &Target) const override {
+  const llvm::Triple &T = Target.getTriple(); (void)T;
+  return true && (T.getArch() == llvm::Triple::aarch64);
+}
+
+bool isParamExpr(size_t N) const override {
+  return false;
+}
+
+static const ParsedAttrInfoArmLocallyStreaming Instance;
+};
+const ParsedAttrInfoArmLocallyStreaming ParsedAttrInfoArmLocallyStreaming::Instance;
 static constexpr ParsedAttrInfo::Spelling ArmMveStrictPolymorphismSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "__clang_arm_mve_strict_polymorphism"},
   {AttributeCommonInfo::AS_CXX11, "clang::__clang_arm_mve_strict_polymorphism"},
-  {AttributeCommonInfo::AS_C2x, "clang::__clang_arm_mve_strict_polymorphism"},
+  {AttributeCommonInfo::AS_C23, "clang::__clang_arm_mve_strict_polymorphism"},
 };
 struct ParsedAttrInfoArmMveStrictPolymorphism final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoArmMveStrictPolymorphism() : ParsedAttrInfo(
@@ -1537,6 +1582,247 @@ bool isParamExpr(size_t N) const override {
 static const ParsedAttrInfoArmMveStrictPolymorphism Instance;
 };
 const ParsedAttrInfoArmMveStrictPolymorphism ParsedAttrInfoArmMveStrictPolymorphism::Instance;
+static constexpr ParsedAttrInfo::Spelling ArmNewZASpellings[] = {
+  {AttributeCommonInfo::AS_Keyword, "__arm_new_za"},
+};
+struct ParsedAttrInfoArmNewZA final : public ParsedAttrInfo {
+  constexpr ParsedAttrInfoArmNewZA() : ParsedAttrInfo(
+    /*AttrKind=*/ParsedAttr::AT_ArmNewZA,
+    /*NumArgs=*/0,
+    /*OptArgs=*/0,
+    /*NumArgMembers=*/0,
+    /*HasCustomParsing=*/0,
+    /*AcceptsExprPack=*/0,
+    /*IsTargetSpecific=*/1,
+    /*IsType=*/0,
+    /*IsStmt=*/0,
+    /*IsKnownToGCC=*/0,
+    /*IsSupportedByPragmaAttribute=*/0,
+    /*Spellings=*/ArmNewZASpellings,
+    /*ArgNames=*/{}) {}
+bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
+  if (!isa<FunctionDecl>(D)) {
+    S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
+    return false;
+  }
+  return true;
+}
+
+bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
+  S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
+  return false;
+}
+
+  using ParsedAttrInfo::diagMutualExclusion;
+
+  bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
+    if (const auto *A = D->getAttr<ArmSharedZAAttr>()) {
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
+      S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
+return false;
+    }
+    if (const auto *A = D->getAttr<ArmPreservesZAAttr>()) {
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
+      S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
+return false;
+    }
+    return true;
+  }
+
+bool existsInTarget(const TargetInfo &Target) const override {
+  const llvm::Triple &T = Target.getTriple(); (void)T;
+  return true && (T.getArch() == llvm::Triple::aarch64);
+}
+
+bool isParamExpr(size_t N) const override {
+  return false;
+}
+
+static const ParsedAttrInfoArmNewZA Instance;
+};
+const ParsedAttrInfoArmNewZA ParsedAttrInfoArmNewZA::Instance;
+static constexpr ParsedAttrInfo::Spelling ArmPreservesZASpellings[] = {
+  {AttributeCommonInfo::AS_Keyword, "__arm_preserves_za"},
+};
+struct ParsedAttrInfoArmPreservesZA final : public ParsedAttrInfo {
+  constexpr ParsedAttrInfoArmPreservesZA() : ParsedAttrInfo(
+    /*AttrKind=*/ParsedAttr::AT_ArmPreservesZA,
+    /*NumArgs=*/0,
+    /*OptArgs=*/0,
+    /*NumArgMembers=*/0,
+    /*HasCustomParsing=*/0,
+    /*AcceptsExprPack=*/0,
+    /*IsTargetSpecific=*/1,
+    /*IsType=*/1,
+    /*IsStmt=*/0,
+    /*IsKnownToGCC=*/0,
+    /*IsSupportedByPragmaAttribute=*/0,
+    /*Spellings=*/ArmPreservesZASpellings,
+    /*ArgNames=*/{}) {}
+bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
+  if (!isHasFunctionProto(D)) {
+    S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
+      << Attr << Attr.isRegularKeywordAttribute() << "non-K&R-style functions";
+    return false;
+  }
+  return true;
+}
+
+bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
+  S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
+  return false;
+}
+
+bool existsInTarget(const TargetInfo &Target) const override {
+  const llvm::Triple &T = Target.getTriple(); (void)T;
+  return true && (T.getArch() == llvm::Triple::aarch64);
+}
+
+bool isParamExpr(size_t N) const override {
+  return false;
+}
+
+static const ParsedAttrInfoArmPreservesZA Instance;
+};
+const ParsedAttrInfoArmPreservesZA ParsedAttrInfoArmPreservesZA::Instance;
+static constexpr ParsedAttrInfo::Spelling ArmSharedZASpellings[] = {
+  {AttributeCommonInfo::AS_Keyword, "__arm_shared_za"},
+};
+struct ParsedAttrInfoArmSharedZA final : public ParsedAttrInfo {
+  constexpr ParsedAttrInfoArmSharedZA() : ParsedAttrInfo(
+    /*AttrKind=*/ParsedAttr::AT_ArmSharedZA,
+    /*NumArgs=*/0,
+    /*OptArgs=*/0,
+    /*NumArgMembers=*/0,
+    /*HasCustomParsing=*/0,
+    /*AcceptsExprPack=*/0,
+    /*IsTargetSpecific=*/1,
+    /*IsType=*/1,
+    /*IsStmt=*/0,
+    /*IsKnownToGCC=*/0,
+    /*IsSupportedByPragmaAttribute=*/0,
+    /*Spellings=*/ArmSharedZASpellings,
+    /*ArgNames=*/{}) {}
+bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
+  if (!isHasFunctionProto(D)) {
+    S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
+      << Attr << Attr.isRegularKeywordAttribute() << "non-K&R-style functions";
+    return false;
+  }
+  return true;
+}
+
+bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
+  S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
+  return false;
+}
+
+bool existsInTarget(const TargetInfo &Target) const override {
+  const llvm::Triple &T = Target.getTriple(); (void)T;
+  return true && (T.getArch() == llvm::Triple::aarch64);
+}
+
+bool isParamExpr(size_t N) const override {
+  return false;
+}
+
+static const ParsedAttrInfoArmSharedZA Instance;
+};
+const ParsedAttrInfoArmSharedZA ParsedAttrInfoArmSharedZA::Instance;
+static constexpr ParsedAttrInfo::Spelling ArmStreamingSpellings[] = {
+  {AttributeCommonInfo::AS_Keyword, "__arm_streaming"},
+};
+struct ParsedAttrInfoArmStreaming final : public ParsedAttrInfo {
+  constexpr ParsedAttrInfoArmStreaming() : ParsedAttrInfo(
+    /*AttrKind=*/ParsedAttr::AT_ArmStreaming,
+    /*NumArgs=*/0,
+    /*OptArgs=*/0,
+    /*NumArgMembers=*/0,
+    /*HasCustomParsing=*/0,
+    /*AcceptsExprPack=*/0,
+    /*IsTargetSpecific=*/1,
+    /*IsType=*/1,
+    /*IsStmt=*/0,
+    /*IsKnownToGCC=*/0,
+    /*IsSupportedByPragmaAttribute=*/0,
+    /*Spellings=*/ArmStreamingSpellings,
+    /*ArgNames=*/{}) {}
+bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
+  if (!isHasFunctionProto(D)) {
+    S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
+      << Attr << Attr.isRegularKeywordAttribute() << "non-K&R-style functions";
+    return false;
+  }
+  return true;
+}
+
+bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
+  S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
+  return false;
+}
+
+bool existsInTarget(const TargetInfo &Target) const override {
+  const llvm::Triple &T = Target.getTriple(); (void)T;
+  return true && (T.getArch() == llvm::Triple::aarch64);
+}
+
+bool isParamExpr(size_t N) const override {
+  return false;
+}
+
+static const ParsedAttrInfoArmStreaming Instance;
+};
+const ParsedAttrInfoArmStreaming ParsedAttrInfoArmStreaming::Instance;
+static constexpr ParsedAttrInfo::Spelling ArmStreamingCompatibleSpellings[] = {
+  {AttributeCommonInfo::AS_Keyword, "__arm_streaming_compatible"},
+};
+struct ParsedAttrInfoArmStreamingCompatible final : public ParsedAttrInfo {
+  constexpr ParsedAttrInfoArmStreamingCompatible() : ParsedAttrInfo(
+    /*AttrKind=*/ParsedAttr::AT_ArmStreamingCompatible,
+    /*NumArgs=*/0,
+    /*OptArgs=*/0,
+    /*NumArgMembers=*/0,
+    /*HasCustomParsing=*/0,
+    /*AcceptsExprPack=*/0,
+    /*IsTargetSpecific=*/1,
+    /*IsType=*/1,
+    /*IsStmt=*/0,
+    /*IsKnownToGCC=*/0,
+    /*IsSupportedByPragmaAttribute=*/0,
+    /*Spellings=*/ArmStreamingCompatibleSpellings,
+    /*ArgNames=*/{}) {}
+bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
+  if (!isHasFunctionProto(D)) {
+    S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
+      << Attr << Attr.isRegularKeywordAttribute() << "non-K&R-style functions";
+    return false;
+  }
+  return true;
+}
+
+bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
+  S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
+  return false;
+}
+
+bool existsInTarget(const TargetInfo &Target) const override {
+  const llvm::Triple &T = Target.getTriple(); (void)T;
+  return true && (T.getArch() == llvm::Triple::aarch64);
+}
+
+bool isParamExpr(size_t N) const override {
+  return false;
+}
+
+static const ParsedAttrInfoArmStreamingCompatible Instance;
+};
+const ParsedAttrInfoArmStreamingCompatible ParsedAttrInfoArmStreamingCompatible::Instance;
 static constexpr ParsedAttrInfo::Spelling ArmSveVectorBitsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "arm_sve_vector_bits"},
 };
@@ -1560,7 +1846,7 @@ struct ParsedAttrInfoArmSveVectorBits final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "typedefs";
     return false;
   }
   return true;
@@ -1568,7 +1854,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1582,7 +1868,7 @@ const ParsedAttrInfoArmSveVectorBits ParsedAttrInfoArmSveVectorBits::Instance;
 static constexpr ParsedAttrInfo::Spelling ArtificialSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "artificial"},
   {AttributeCommonInfo::AS_CXX11, "gnu::artificial"},
-  {AttributeCommonInfo::AS_C2x, "gnu::artificial"},
+  {AttributeCommonInfo::AS_C23, "gnu::artificial"},
 };
 struct ParsedAttrInfoArtificial final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoArtificial() : ParsedAttrInfo(
@@ -1602,7 +1888,7 @@ struct ParsedAttrInfoArtificial final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isInlineFunction(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "inline functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "inline functions";
     return false;
   }
   return true;
@@ -1610,7 +1896,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1652,7 +1938,7 @@ struct ParsedAttrInfoAssertCapability final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -1660,7 +1946,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1714,7 +2000,7 @@ struct ParsedAttrInfoAssertExclusiveLock final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -1722,7 +2008,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1756,7 +2042,7 @@ struct ParsedAttrInfoAssertSharedLock final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -1764,7 +2050,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1778,7 +2064,7 @@ const ParsedAttrInfoAssertSharedLock ParsedAttrInfoAssertSharedLock::Instance;
 static constexpr ParsedAttrInfo::Spelling AssumeAlignedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "assume_aligned"},
   {AttributeCommonInfo::AS_CXX11, "gnu::assume_aligned"},
-  {AttributeCommonInfo::AS_C2x, "gnu::assume_aligned"},
+  {AttributeCommonInfo::AS_C23, "gnu::assume_aligned"},
 };
 static constexpr const char *AssumeAlignedArgNames[] = {
 "Alignment","Offset",};
@@ -1800,7 +2086,7 @@ struct ParsedAttrInfoAssumeAligned final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D) && !isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods and functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods and functions";
     return false;
   }
   return true;
@@ -1808,7 +2094,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1827,7 +2113,7 @@ const ParsedAttrInfoAssumeAligned ParsedAttrInfoAssumeAligned::Instance;
 static constexpr ParsedAttrInfo::Spelling AssumptionSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "assume"},
   {AttributeCommonInfo::AS_CXX11, "clang::assume"},
-  {AttributeCommonInfo::AS_C2x, "clang::assume"},
+  {AttributeCommonInfo::AS_C23, "clang::assume"},
 };
 static constexpr const char *AssumptionArgNames[] = {
 "Assumption",};
@@ -1849,7 +2135,7 @@ struct ParsedAttrInfoAssumption final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -1857,7 +2143,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1876,7 +2162,7 @@ const ParsedAttrInfoAssumption ParsedAttrInfoAssumption::Instance;
 static constexpr ParsedAttrInfo::Spelling AvailabilitySpellings[] = {
   {AttributeCommonInfo::AS_GNU, "availability"},
   {AttributeCommonInfo::AS_CXX11, "clang::availability"},
-  {AttributeCommonInfo::AS_C2x, "clang::availability"},
+  {AttributeCommonInfo::AS_C23, "clang::availability"},
 };
 static constexpr const char *AvailabilityArgNames[] = {
 "platform","introduced","deprecated","obsoleted","unavailable","message","strict","replacement","priority",};
@@ -1898,7 +2184,7 @@ struct ParsedAttrInfoAvailability final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<NamedDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "named declarations";
+      << Attr << Attr.isRegularKeywordAttribute() << "named declarations";
     return false;
   }
   return true;
@@ -1906,7 +2192,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1935,10 +2221,56 @@ bool isParamExpr(size_t N) const override {
 static const ParsedAttrInfoAvailability Instance;
 };
 const ParsedAttrInfoAvailability ParsedAttrInfoAvailability::Instance;
+static constexpr ParsedAttrInfo::Spelling AvailableOnlyInDefaultEvalMethodSpellings[] = {
+  {AttributeCommonInfo::AS_GNU, "available_only_in_default_eval_method"},
+  {AttributeCommonInfo::AS_CXX11, "clang::available_only_in_default_eval_method"},
+  {AttributeCommonInfo::AS_C23, "clang::available_only_in_default_eval_method"},
+};
+struct ParsedAttrInfoAvailableOnlyInDefaultEvalMethod final : public ParsedAttrInfo {
+  constexpr ParsedAttrInfoAvailableOnlyInDefaultEvalMethod() : ParsedAttrInfo(
+    /*AttrKind=*/ParsedAttr::AT_AvailableOnlyInDefaultEvalMethod,
+    /*NumArgs=*/0,
+    /*OptArgs=*/0,
+    /*NumArgMembers=*/0,
+    /*HasCustomParsing=*/0,
+    /*AcceptsExprPack=*/0,
+    /*IsTargetSpecific=*/0,
+    /*IsType=*/0,
+    /*IsStmt=*/0,
+    /*IsKnownToGCC=*/0,
+    /*IsSupportedByPragmaAttribute=*/1,
+    /*Spellings=*/AvailableOnlyInDefaultEvalMethodSpellings,
+    /*ArgNames=*/{}) {}
+bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
+  if (!isa<TypedefNameDecl>(D)) {
+    S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
+      << Attr << Attr.isRegularKeywordAttribute() << "typedefs";
+    return false;
+  }
+  return true;
+}
+
+bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
+  S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
+  return false;
+}
+
+void getPragmaAttributeMatchRules(llvm::SmallVectorImpl<std::pair<attr::SubjectMatchRule, bool>> &MatchRules, const LangOptions &LangOpts) const override {
+  MatchRules.push_back(std::make_pair(attr::SubjectMatchRule_type_alias, /*IsSupported=*/true));
+}
+
+bool isParamExpr(size_t N) const override {
+  return false;
+}
+
+static const ParsedAttrInfoAvailableOnlyInDefaultEvalMethod Instance;
+};
+const ParsedAttrInfoAvailableOnlyInDefaultEvalMethod ParsedAttrInfoAvailableOnlyInDefaultEvalMethod::Instance;
 static constexpr ParsedAttrInfo::Spelling BPFPreserveAccessIndexSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "preserve_access_index"},
   {AttributeCommonInfo::AS_CXX11, "clang::preserve_access_index"},
-  {AttributeCommonInfo::AS_C2x, "clang::preserve_access_index"},
+  {AttributeCommonInfo::AS_C23, "clang::preserve_access_index"},
 };
 struct ParsedAttrInfoBPFPreserveAccessIndex final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoBPFPreserveAccessIndex() : ParsedAttrInfo(
@@ -1958,7 +2290,7 @@ struct ParsedAttrInfoBPFPreserveAccessIndex final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -1966,7 +2298,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -1993,7 +2325,7 @@ const ParsedAttrInfoBPFPreserveAccessIndex ParsedAttrInfoBPFPreserveAccessIndex:
 static constexpr ParsedAttrInfo::Spelling BTFDeclTagSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "btf_decl_tag"},
   {AttributeCommonInfo::AS_CXX11, "clang::btf_decl_tag"},
-  {AttributeCommonInfo::AS_C2x, "clang::btf_decl_tag"},
+  {AttributeCommonInfo::AS_C23, "clang::btf_decl_tag"},
 };
 static constexpr const char *BTFDeclTagArgNames[] = {
 "BTFDeclTag",};
@@ -2015,7 +2347,7 @@ struct ParsedAttrInfoBTFDeclTag final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D) && !isa<FunctionDecl>(D) && !isa<RecordDecl>(D) && !isa<FieldDecl>(D) && !isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "variables, functions, structs, unions, classes, non-static data members, and typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables, functions, structs, unions, classes, non-static data members, and typedefs";
     return false;
   }
   return true;
@@ -2023,7 +2355,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2049,7 +2381,7 @@ const ParsedAttrInfoBTFDeclTag ParsedAttrInfoBTFDeclTag::Instance;
 static constexpr ParsedAttrInfo::Spelling BTFTypeTagSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "btf_type_tag"},
   {AttributeCommonInfo::AS_CXX11, "clang::btf_type_tag"},
-  {AttributeCommonInfo::AS_C2x, "clang::btf_type_tag"},
+  {AttributeCommonInfo::AS_C23, "clang::btf_type_tag"},
 };
 static constexpr const char *BTFTypeTagArgNames[] = {
 "BTFTypeTag",};
@@ -2082,7 +2414,7 @@ const ParsedAttrInfoBTFTypeTag ParsedAttrInfoBTFTypeTag::Instance;
 static constexpr ParsedAttrInfo::Spelling BlocksSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "blocks"},
   {AttributeCommonInfo::AS_CXX11, "clang::blocks"},
-  {AttributeCommonInfo::AS_C2x, "clang::blocks"},
+  {AttributeCommonInfo::AS_C23, "clang::blocks"},
 };
 static constexpr const char *BlocksArgNames[] = {
 "Type",};
@@ -2110,7 +2442,7 @@ static const ParsedAttrInfoBlocks Instance;
 const ParsedAttrInfoBlocks ParsedAttrInfoBlocks::Instance;
 static constexpr ParsedAttrInfo::Spelling BuiltinAliasSpellings[] = {
   {AttributeCommonInfo::AS_CXX11, "clang::builtin_alias"},
-  {AttributeCommonInfo::AS_C2x, "clang::builtin_alias"},
+  {AttributeCommonInfo::AS_C23, "clang::builtin_alias"},
   {AttributeCommonInfo::AS_GNU, "clang_builtin_alias"},
 };
 static constexpr const char *BuiltinAliasArgNames[] = {
@@ -2133,7 +2465,7 @@ struct ParsedAttrInfoBuiltinAlias final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -2141,14 +2473,14 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
 unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override {
   enum Spelling {
     CXX11_clang_builtin_alias = 0,
-    C2x_clang_builtin_alias = 1,
+    C23_clang_builtin_alias = 1,
     GNU_clang_builtin_alias = 2,
   SpellingNotCalculated = 15
 
@@ -2158,7 +2490,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   switch (Idx) {
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return CXX11_clang_builtin_alias;
-    case 1: return C2x_clang_builtin_alias;
+    case 1: return C23_clang_builtin_alias;
     case 2: return GNU_clang_builtin_alias;
   }
 }
@@ -2177,7 +2509,7 @@ const ParsedAttrInfoBuiltinAlias ParsedAttrInfoBuiltinAlias::Instance;
 static constexpr ParsedAttrInfo::Spelling CDeclSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cdecl"},
   {AttributeCommonInfo::AS_CXX11, "gnu::cdecl"},
-  {AttributeCommonInfo::AS_C2x, "gnu::cdecl"},
+  {AttributeCommonInfo::AS_C23, "gnu::cdecl"},
   {AttributeCommonInfo::AS_Keyword, "__cdecl"},
   {AttributeCommonInfo::AS_Keyword, "_cdecl"},
 };
@@ -2206,7 +2538,7 @@ const ParsedAttrInfoCDecl ParsedAttrInfoCDecl::Instance;
 static constexpr ParsedAttrInfo::Spelling CFAuditedTransferSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cf_audited_transfer"},
   {AttributeCommonInfo::AS_CXX11, "clang::cf_audited_transfer"},
-  {AttributeCommonInfo::AS_C2x, "clang::cf_audited_transfer"},
+  {AttributeCommonInfo::AS_C23, "clang::cf_audited_transfer"},
 };
 struct ParsedAttrInfoCFAuditedTransfer final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCFAuditedTransfer() : ParsedAttrInfo(
@@ -2226,7 +2558,7 @@ struct ParsedAttrInfoCFAuditedTransfer final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -2234,7 +2566,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2242,7 +2574,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CFUnknownTransferAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -2268,7 +2600,7 @@ const ParsedAttrInfoCFAuditedTransfer ParsedAttrInfoCFAuditedTransfer::Instance;
 static constexpr ParsedAttrInfo::Spelling CFConsumedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cf_consumed"},
   {AttributeCommonInfo::AS_CXX11, "clang::cf_consumed"},
-  {AttributeCommonInfo::AS_C2x, "clang::cf_consumed"},
+  {AttributeCommonInfo::AS_C23, "clang::cf_consumed"},
 };
 struct ParsedAttrInfoCFConsumed final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCFConsumed() : ParsedAttrInfo(
@@ -2288,7 +2620,7 @@ struct ParsedAttrInfoCFConsumed final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -2296,7 +2628,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2315,7 +2647,7 @@ static constexpr ParsedAttrInfo::Spelling CFGuardSpellings[] = {
   {AttributeCommonInfo::AS_Declspec, "guard"},
   {AttributeCommonInfo::AS_GNU, "guard"},
   {AttributeCommonInfo::AS_CXX11, "clang::guard"},
-  {AttributeCommonInfo::AS_C2x, "clang::guard"},
+  {AttributeCommonInfo::AS_C23, "clang::guard"},
 };
 static constexpr const char *CFGuardArgNames[] = {
 "Guard",};
@@ -2337,7 +2669,7 @@ struct ParsedAttrInfoCFGuard final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -2345,7 +2677,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2368,7 +2700,7 @@ const ParsedAttrInfoCFGuard ParsedAttrInfoCFGuard::Instance;
 static constexpr ParsedAttrInfo::Spelling CFICanonicalJumpTableSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cfi_canonical_jump_table"},
   {AttributeCommonInfo::AS_CXX11, "clang::cfi_canonical_jump_table"},
-  {AttributeCommonInfo::AS_C2x, "clang::cfi_canonical_jump_table"},
+  {AttributeCommonInfo::AS_C23, "clang::cfi_canonical_jump_table"},
 };
 struct ParsedAttrInfoCFICanonicalJumpTable final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCFICanonicalJumpTable() : ParsedAttrInfo(
@@ -2388,7 +2720,7 @@ struct ParsedAttrInfoCFICanonicalJumpTable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -2396,7 +2728,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2419,7 +2751,7 @@ const ParsedAttrInfoCFICanonicalJumpTable ParsedAttrInfoCFICanonicalJumpTable::I
 static constexpr ParsedAttrInfo::Spelling CFReturnsNotRetainedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cf_returns_not_retained"},
   {AttributeCommonInfo::AS_CXX11, "clang::cf_returns_not_retained"},
-  {AttributeCommonInfo::AS_C2x, "clang::cf_returns_not_retained"},
+  {AttributeCommonInfo::AS_C23, "clang::cf_returns_not_retained"},
 };
 struct ParsedAttrInfoCFReturnsNotRetained final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCFReturnsNotRetained() : ParsedAttrInfo(
@@ -2446,7 +2778,7 @@ const ParsedAttrInfoCFReturnsNotRetained ParsedAttrInfoCFReturnsNotRetained::Ins
 static constexpr ParsedAttrInfo::Spelling CFReturnsRetainedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cf_returns_retained"},
   {AttributeCommonInfo::AS_CXX11, "clang::cf_returns_retained"},
-  {AttributeCommonInfo::AS_C2x, "clang::cf_returns_retained"},
+  {AttributeCommonInfo::AS_C23, "clang::cf_returns_retained"},
 };
 struct ParsedAttrInfoCFReturnsRetained final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCFReturnsRetained() : ParsedAttrInfo(
@@ -2473,7 +2805,7 @@ const ParsedAttrInfoCFReturnsRetained ParsedAttrInfoCFReturnsRetained::Instance;
 static constexpr ParsedAttrInfo::Spelling CFUnknownTransferSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cf_unknown_transfer"},
   {AttributeCommonInfo::AS_CXX11, "clang::cf_unknown_transfer"},
-  {AttributeCommonInfo::AS_C2x, "clang::cf_unknown_transfer"},
+  {AttributeCommonInfo::AS_C23, "clang::cf_unknown_transfer"},
 };
 struct ParsedAttrInfoCFUnknownTransfer final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCFUnknownTransfer() : ParsedAttrInfo(
@@ -2493,7 +2825,7 @@ struct ParsedAttrInfoCFUnknownTransfer final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -2501,7 +2833,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2509,7 +2841,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CFAuditedTransferAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -2535,7 +2867,7 @@ const ParsedAttrInfoCFUnknownTransfer ParsedAttrInfoCFUnknownTransfer::Instance;
 static constexpr ParsedAttrInfo::Spelling CPUDispatchSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cpu_dispatch"},
   {AttributeCommonInfo::AS_CXX11, "clang::cpu_dispatch"},
-  {AttributeCommonInfo::AS_C2x, "clang::cpu_dispatch"},
+  {AttributeCommonInfo::AS_C23, "clang::cpu_dispatch"},
   {AttributeCommonInfo::AS_Declspec, "cpu_dispatch"},
 };
 static constexpr const char *CPUDispatchArgNames[] = {
@@ -2558,7 +2890,7 @@ struct ParsedAttrInfoCPUDispatch final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -2566,7 +2898,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2574,22 +2906,22 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<TargetClonesAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<TargetVersionAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<TargetAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CPUSpecificAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -2610,7 +2942,7 @@ const ParsedAttrInfoCPUDispatch ParsedAttrInfoCPUDispatch::Instance;
 static constexpr ParsedAttrInfo::Spelling CPUSpecificSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cpu_specific"},
   {AttributeCommonInfo::AS_CXX11, "clang::cpu_specific"},
-  {AttributeCommonInfo::AS_C2x, "clang::cpu_specific"},
+  {AttributeCommonInfo::AS_C23, "clang::cpu_specific"},
   {AttributeCommonInfo::AS_Declspec, "cpu_specific"},
 };
 static constexpr const char *CPUSpecificArgNames[] = {
@@ -2633,7 +2965,7 @@ struct ParsedAttrInfoCPUSpecific final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -2641,7 +2973,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2649,22 +2981,22 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<TargetClonesAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<TargetVersionAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<TargetAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CPUDispatchAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -2704,7 +3036,7 @@ struct ParsedAttrInfoCUDAConstant final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -2712,7 +3044,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2720,12 +3052,12 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CUDASharedAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<HIPManagedAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -2769,7 +3101,7 @@ struct ParsedAttrInfoCUDADevice final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and variables";
     return false;
   }
   return true;
@@ -2777,7 +3109,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2785,7 +3117,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CUDAGlobalAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -2830,7 +3162,7 @@ struct ParsedAttrInfoCUDADeviceBuiltinSurfaceType final : public ParsedAttrInfo 
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -2838,7 +3170,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2846,7 +3178,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CUDADeviceBuiltinTextureTypeAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -2895,7 +3227,7 @@ struct ParsedAttrInfoCUDADeviceBuiltinTextureType final : public ParsedAttrInfo 
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -2903,7 +3235,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2911,7 +3243,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CUDADeviceBuiltinSurfaceTypeAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -2960,7 +3292,7 @@ struct ParsedAttrInfoCUDAGlobal final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -2968,7 +3300,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -2976,12 +3308,12 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CUDADeviceAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CUDAHostAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -3025,7 +3357,7 @@ struct ParsedAttrInfoCUDAHost final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -3033,7 +3365,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3041,7 +3373,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CUDAGlobalAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -3086,7 +3418,7 @@ struct ParsedAttrInfoCUDAInvalidTarget final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -3094,7 +3426,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3133,7 +3465,7 @@ struct ParsedAttrInfoCUDALaunchBounds final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D) && !isFunctionLike(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods, functions, and function pointers";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods, functions, and function pointers";
     return false;
   }
   return true;
@@ -3141,7 +3473,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3183,7 +3515,7 @@ struct ParsedAttrInfoCUDAShared final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -3191,7 +3523,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3199,12 +3531,12 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CUDAConstantAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<HIPManagedAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -3228,8 +3560,8 @@ static const ParsedAttrInfoCUDAShared Instance;
 const ParsedAttrInfoCUDAShared ParsedAttrInfoCUDAShared::Instance;
 static constexpr ParsedAttrInfo::Spelling CXX11NoReturnSpellings[] = {
   {AttributeCommonInfo::AS_CXX11, "noreturn"},
-  {AttributeCommonInfo::AS_C2x, "noreturn"},
-  {AttributeCommonInfo::AS_C2x, "_Noreturn"},
+  {AttributeCommonInfo::AS_C23, "noreturn"},
+  {AttributeCommonInfo::AS_C23, "_Noreturn"},
 };
 struct ParsedAttrInfoCXX11NoReturn final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCXX11NoReturn() : ParsedAttrInfo(
@@ -3249,7 +3581,7 @@ struct ParsedAttrInfoCXX11NoReturn final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -3257,15 +3589,15 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
 unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override {
   enum Spelling {
     CXX11_noreturn = 0,
-    C2x_noreturn = 1,
-    C2x_Noreturn = 2,
+    C23_noreturn = 1,
+    C23_Noreturn = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3274,8 +3606,8 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   switch (Idx) {
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return CXX11_noreturn;
-    case 1: return C2x_noreturn;
-    case 2: return C2x_Noreturn;
+    case 1: return C23_noreturn;
+    case 2: return C23_Noreturn;
   }
 }
 
@@ -3314,7 +3646,7 @@ struct ParsedAttrInfoCallableWhen final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -3322,7 +3654,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3340,7 +3672,7 @@ const ParsedAttrInfoCallableWhen ParsedAttrInfoCallableWhen::Instance;
 static constexpr ParsedAttrInfo::Spelling CallbackSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "callback"},
   {AttributeCommonInfo::AS_CXX11, "clang::callback"},
-  {AttributeCommonInfo::AS_C2x, "clang::callback"},
+  {AttributeCommonInfo::AS_C23, "clang::callback"},
 };
 static constexpr const char *CallbackArgNames[] = {
 "Encoding...",};
@@ -3362,7 +3694,7 @@ struct ParsedAttrInfoCallback final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -3370,7 +3702,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3388,7 +3720,7 @@ const ParsedAttrInfoCallback ParsedAttrInfoCallback::Instance;
 static constexpr ParsedAttrInfo::Spelling CalledOnceSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "called_once"},
   {AttributeCommonInfo::AS_CXX11, "clang::called_once"},
-  {AttributeCommonInfo::AS_C2x, "clang::called_once"},
+  {AttributeCommonInfo::AS_C23, "clang::called_once"},
 };
 struct ParsedAttrInfoCalledOnce final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCalledOnce() : ParsedAttrInfo(
@@ -3408,7 +3740,7 @@ struct ParsedAttrInfoCalledOnce final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -3416,7 +3748,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3461,7 +3793,7 @@ struct ParsedAttrInfoCapability final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D) && !isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, classes, and typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, classes, and typedefs";
     return false;
   }
   return true;
@@ -3469,7 +3801,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3527,7 +3859,7 @@ struct ParsedAttrInfoCarriesDependency final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D) && !isa<ObjCMethodDecl>(D) && !isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "parameters, Objective-C methods, and functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters, Objective-C methods, and functions";
     return false;
   }
   return true;
@@ -3535,7 +3867,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3555,7 +3887,7 @@ const ParsedAttrInfoCarriesDependency ParsedAttrInfoCarriesDependency::Instance;
 static constexpr ParsedAttrInfo::Spelling CleanupSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cleanup"},
   {AttributeCommonInfo::AS_CXX11, "gnu::cleanup"},
-  {AttributeCommonInfo::AS_C2x, "gnu::cleanup"},
+  {AttributeCommonInfo::AS_C23, "gnu::cleanup"},
 };
 static constexpr const char *CleanupArgNames[] = {
 "FunctionDecl",};
@@ -3577,7 +3909,7 @@ struct ParsedAttrInfoCleanup final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isLocalVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "local variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "local variables";
     return false;
   }
   return true;
@@ -3585,7 +3917,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3655,7 +3987,7 @@ struct ParsedAttrInfoCmseNSEntry final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -3663,7 +3995,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3710,7 +4042,7 @@ struct ParsedAttrInfoCodeSeg final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and classes";
     return false;
   }
   return true;
@@ -3718,7 +4050,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3732,7 +4064,7 @@ const ParsedAttrInfoCodeSeg ParsedAttrInfoCodeSeg::Instance;
 static constexpr ParsedAttrInfo::Spelling ColdSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "cold"},
   {AttributeCommonInfo::AS_CXX11, "gnu::cold"},
-  {AttributeCommonInfo::AS_C2x, "gnu::cold"},
+  {AttributeCommonInfo::AS_C23, "gnu::cold"},
 };
 struct ParsedAttrInfoCold final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCold() : ParsedAttrInfo(
@@ -3752,7 +4084,7 @@ struct ParsedAttrInfoCold final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -3760,7 +4092,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3768,7 +4100,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<HotAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -3794,7 +4126,7 @@ const ParsedAttrInfoCold ParsedAttrInfoCold::Instance;
 static constexpr ParsedAttrInfo::Spelling CommonSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "common"},
   {AttributeCommonInfo::AS_CXX11, "gnu::common"},
-  {AttributeCommonInfo::AS_C2x, "gnu::common"},
+  {AttributeCommonInfo::AS_C23, "gnu::common"},
 };
 struct ParsedAttrInfoCommon final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoCommon() : ParsedAttrInfo(
@@ -3814,7 +4146,7 @@ struct ParsedAttrInfoCommon final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -3822,7 +4154,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3830,7 +4162,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<InternalLinkageAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -3851,10 +4183,10 @@ const ParsedAttrInfoCommon ParsedAttrInfoCommon::Instance;
 static constexpr ParsedAttrInfo::Spelling ConstSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "const"},
   {AttributeCommonInfo::AS_CXX11, "gnu::const"},
-  {AttributeCommonInfo::AS_C2x, "gnu::const"},
+  {AttributeCommonInfo::AS_C23, "gnu::const"},
   {AttributeCommonInfo::AS_GNU, "__const"},
   {AttributeCommonInfo::AS_CXX11, "gnu::__const"},
-  {AttributeCommonInfo::AS_C2x, "gnu::__const"},
+  {AttributeCommonInfo::AS_C23, "gnu::__const"},
 };
 struct ParsedAttrInfoConst final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoConst() : ParsedAttrInfo(
@@ -3906,7 +4238,7 @@ struct ParsedAttrInfoConstInit final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "global variables";
     return false;
   }
   return true;
@@ -3914,7 +4246,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -3959,7 +4291,7 @@ const ParsedAttrInfoConstInit ParsedAttrInfoConstInit::Instance;
 static constexpr ParsedAttrInfo::Spelling ConstructorSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "constructor"},
   {AttributeCommonInfo::AS_CXX11, "gnu::constructor"},
-  {AttributeCommonInfo::AS_C2x, "gnu::constructor"},
+  {AttributeCommonInfo::AS_C23, "gnu::constructor"},
 };
 static constexpr const char *ConstructorArgNames[] = {
 "Priority",};
@@ -3981,7 +4313,7 @@ struct ParsedAttrInfoConstructor final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -3989,7 +4321,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4028,7 +4360,7 @@ struct ParsedAttrInfoConsumable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -4036,7 +4368,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4073,7 +4405,7 @@ struct ParsedAttrInfoConsumableAutoCast final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -4081,7 +4413,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4123,7 +4455,7 @@ struct ParsedAttrInfoConsumableSetOnRead final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -4131,7 +4463,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4154,7 +4486,7 @@ const ParsedAttrInfoConsumableSetOnRead ParsedAttrInfoConsumableSetOnRead::Insta
 static constexpr ParsedAttrInfo::Spelling ConvergentSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "convergent"},
   {AttributeCommonInfo::AS_CXX11, "clang::convergent"},
-  {AttributeCommonInfo::AS_C2x, "clang::convergent"},
+  {AttributeCommonInfo::AS_C23, "clang::convergent"},
 };
 struct ParsedAttrInfoConvergent final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoConvergent() : ParsedAttrInfo(
@@ -4174,7 +4506,7 @@ struct ParsedAttrInfoConvergent final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -4182,7 +4514,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4206,7 +4538,7 @@ static constexpr ParsedAttrInfo::Spelling DLLExportSpellings[] = {
   {AttributeCommonInfo::AS_Declspec, "dllexport"},
   {AttributeCommonInfo::AS_GNU, "dllexport"},
   {AttributeCommonInfo::AS_CXX11, "gnu::dllexport"},
-  {AttributeCommonInfo::AS_C2x, "gnu::dllexport"},
+  {AttributeCommonInfo::AS_C23, "gnu::dllexport"},
 };
 struct ParsedAttrInfoDLLExport final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoDLLExport() : ParsedAttrInfo(
@@ -4226,7 +4558,7 @@ struct ParsedAttrInfoDLLExport final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<VarDecl>(D) && !isa<CXXRecordDecl>(D) && !isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions, variables, classes, and Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, variables, classes, and Objective-C interfaces";
     return false;
   }
   return true;
@@ -4234,7 +4566,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4275,7 +4607,7 @@ struct ParsedAttrInfoDLLExportStaticLocal final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -4283,7 +4615,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4303,7 +4635,7 @@ static constexpr ParsedAttrInfo::Spelling DLLImportSpellings[] = {
   {AttributeCommonInfo::AS_Declspec, "dllimport"},
   {AttributeCommonInfo::AS_GNU, "dllimport"},
   {AttributeCommonInfo::AS_CXX11, "gnu::dllimport"},
-  {AttributeCommonInfo::AS_C2x, "gnu::dllimport"},
+  {AttributeCommonInfo::AS_C23, "gnu::dllimport"},
 };
 struct ParsedAttrInfoDLLImport final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoDLLImport() : ParsedAttrInfo(
@@ -4323,7 +4655,7 @@ struct ParsedAttrInfoDLLImport final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<VarDecl>(D) && !isa<CXXRecordDecl>(D) && !isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions, variables, classes, and Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, variables, classes, and Objective-C interfaces";
     return false;
   }
   return true;
@@ -4331,7 +4663,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4372,7 +4704,7 @@ struct ParsedAttrInfoDLLImportStaticLocal final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -4380,7 +4712,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4399,10 +4731,10 @@ const ParsedAttrInfoDLLImportStaticLocal ParsedAttrInfoDLLImportStaticLocal::Ins
 static constexpr ParsedAttrInfo::Spelling DeprecatedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "deprecated"},
   {AttributeCommonInfo::AS_CXX11, "gnu::deprecated"},
-  {AttributeCommonInfo::AS_C2x, "gnu::deprecated"},
+  {AttributeCommonInfo::AS_C23, "gnu::deprecated"},
   {AttributeCommonInfo::AS_Declspec, "deprecated"},
   {AttributeCommonInfo::AS_CXX11, "deprecated"},
-  {AttributeCommonInfo::AS_C2x, "deprecated"},
+  {AttributeCommonInfo::AS_C23, "deprecated"},
 };
 static constexpr const char *DeprecatedArgNames[] = {
 "Message","Replacement",};
@@ -4431,7 +4763,7 @@ const ParsedAttrInfoDeprecated ParsedAttrInfoDeprecated::Instance;
 static constexpr ParsedAttrInfo::Spelling DestructorSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "destructor"},
   {AttributeCommonInfo::AS_CXX11, "gnu::destructor"},
-  {AttributeCommonInfo::AS_C2x, "gnu::destructor"},
+  {AttributeCommonInfo::AS_C23, "gnu::destructor"},
 };
 static constexpr const char *DestructorArgNames[] = {
 "Priority",};
@@ -4453,7 +4785,7 @@ struct ParsedAttrInfoDestructor final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -4461,7 +4793,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4479,7 +4811,7 @@ const ParsedAttrInfoDestructor ParsedAttrInfoDestructor::Instance;
 static constexpr ParsedAttrInfo::Spelling DiagnoseAsBuiltinSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "diagnose_as_builtin"},
   {AttributeCommonInfo::AS_CXX11, "clang::diagnose_as_builtin"},
-  {AttributeCommonInfo::AS_C2x, "clang::diagnose_as_builtin"},
+  {AttributeCommonInfo::AS_C23, "clang::diagnose_as_builtin"},
 };
 static constexpr const char *DiagnoseAsBuiltinArgNames[] = {
 "Function","ArgIndices...",};
@@ -4501,7 +4833,7 @@ struct ParsedAttrInfoDiagnoseAsBuiltin final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -4509,7 +4841,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4547,7 +4879,7 @@ struct ParsedAttrInfoDiagnoseIf final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D) && !isa<ObjCPropertyDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions, Objective-C methods, and Objective-C properties";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, Objective-C methods, and Objective-C properties";
     return false;
   }
   return true;
@@ -4555,7 +4887,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4569,7 +4901,7 @@ const ParsedAttrInfoDiagnoseIf ParsedAttrInfoDiagnoseIf::Instance;
 static constexpr ParsedAttrInfo::Spelling DisableSanitizerInstrumentationSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "disable_sanitizer_instrumentation"},
   {AttributeCommonInfo::AS_CXX11, "clang::disable_sanitizer_instrumentation"},
-  {AttributeCommonInfo::AS_C2x, "clang::disable_sanitizer_instrumentation"},
+  {AttributeCommonInfo::AS_C23, "clang::disable_sanitizer_instrumentation"},
 };
 struct ParsedAttrInfoDisableSanitizerInstrumentation final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoDisableSanitizerInstrumentation() : ParsedAttrInfo(
@@ -4589,7 +4921,7 @@ struct ParsedAttrInfoDisableSanitizerInstrumentation final : public ParsedAttrIn
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D) && !isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions, Objective-C methods, and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, Objective-C methods, and global variables";
     return false;
   }
   return true;
@@ -4597,7 +4929,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4622,7 +4954,7 @@ const ParsedAttrInfoDisableSanitizerInstrumentation ParsedAttrInfoDisableSanitiz
 static constexpr ParsedAttrInfo::Spelling DisableTailCallsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "disable_tail_calls"},
   {AttributeCommonInfo::AS_CXX11, "clang::disable_tail_calls"},
-  {AttributeCommonInfo::AS_C2x, "clang::disable_tail_calls"},
+  {AttributeCommonInfo::AS_C23, "clang::disable_tail_calls"},
 };
 struct ParsedAttrInfoDisableTailCalls final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoDisableTailCalls() : ParsedAttrInfo(
@@ -4642,7 +4974,7 @@ struct ParsedAttrInfoDisableTailCalls final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -4650,7 +4982,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4658,7 +4990,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<NakedAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -4703,7 +5035,7 @@ struct ParsedAttrInfoEmptyBases final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -4711,7 +5043,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4755,7 +5087,7 @@ struct ParsedAttrInfoEnableIf final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -4763,7 +5095,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4781,7 +5113,7 @@ const ParsedAttrInfoEnableIf ParsedAttrInfoEnableIf::Instance;
 static constexpr ParsedAttrInfo::Spelling EnforceTCBSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "enforce_tcb"},
   {AttributeCommonInfo::AS_CXX11, "clang::enforce_tcb"},
-  {AttributeCommonInfo::AS_C2x, "clang::enforce_tcb"},
+  {AttributeCommonInfo::AS_C23, "clang::enforce_tcb"},
 };
 static constexpr const char *EnforceTCBArgNames[] = {
 "TCBName",};
@@ -4803,7 +5135,7 @@ struct ParsedAttrInfoEnforceTCB final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -4811,7 +5143,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4830,7 +5162,7 @@ const ParsedAttrInfoEnforceTCB ParsedAttrInfoEnforceTCB::Instance;
 static constexpr ParsedAttrInfo::Spelling EnforceTCBLeafSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "enforce_tcb_leaf"},
   {AttributeCommonInfo::AS_CXX11, "clang::enforce_tcb_leaf"},
-  {AttributeCommonInfo::AS_C2x, "clang::enforce_tcb_leaf"},
+  {AttributeCommonInfo::AS_C23, "clang::enforce_tcb_leaf"},
 };
 static constexpr const char *EnforceTCBLeafArgNames[] = {
 "TCBName",};
@@ -4852,7 +5184,7 @@ struct ParsedAttrInfoEnforceTCBLeaf final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -4860,7 +5192,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4879,7 +5211,7 @@ const ParsedAttrInfoEnforceTCBLeaf ParsedAttrInfoEnforceTCBLeaf::Instance;
 static constexpr ParsedAttrInfo::Spelling EnumExtensibilitySpellings[] = {
   {AttributeCommonInfo::AS_GNU, "enum_extensibility"},
   {AttributeCommonInfo::AS_CXX11, "clang::enum_extensibility"},
-  {AttributeCommonInfo::AS_C2x, "clang::enum_extensibility"},
+  {AttributeCommonInfo::AS_C23, "clang::enum_extensibility"},
 };
 static constexpr const char *EnumExtensibilityArgNames[] = {
 "Extensibility",};
@@ -4901,7 +5233,7 @@ struct ParsedAttrInfoEnumExtensibility final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<EnumDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "enums";
+      << Attr << Attr.isRegularKeywordAttribute() << "enums";
     return false;
   }
   return true;
@@ -4909,7 +5241,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4927,10 +5259,10 @@ const ParsedAttrInfoEnumExtensibility ParsedAttrInfoEnumExtensibility::Instance;
 static constexpr ParsedAttrInfo::Spelling ErrorSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "error"},
   {AttributeCommonInfo::AS_CXX11, "gnu::error"},
-  {AttributeCommonInfo::AS_C2x, "gnu::error"},
+  {AttributeCommonInfo::AS_C23, "gnu::error"},
   {AttributeCommonInfo::AS_GNU, "warning"},
   {AttributeCommonInfo::AS_CXX11, "gnu::warning"},
-  {AttributeCommonInfo::AS_C2x, "gnu::warning"},
+  {AttributeCommonInfo::AS_C23, "gnu::warning"},
 };
 static constexpr const char *ErrorArgNames[] = {
 "UserDiagnostic",};
@@ -4952,7 +5284,7 @@ struct ParsedAttrInfoError final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -4960,7 +5292,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -4968,10 +5300,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_error = 0,
     CXX11_gnu_error = 1,
-    C2x_gnu_error = 2,
+    C23_gnu_error = 2,
     GNU_warning = 3,
     CXX11_gnu_warning = 4,
-    C2x_gnu_warning = 5,
+    C23_gnu_warning = 5,
   SpellingNotCalculated = 15
 
   };
@@ -4981,10 +5313,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_error;
     case 1: return CXX11_gnu_error;
-    case 2: return C2x_gnu_error;
+    case 2: return C23_gnu_error;
     case 3: return GNU_warning;
     case 4: return CXX11_gnu_warning;
-    case 5: return C2x_gnu_warning;
+    case 5: return C23_gnu_warning;
   }
 }
 
@@ -5002,7 +5334,7 @@ const ParsedAttrInfoError ParsedAttrInfoError::Instance;
 static constexpr ParsedAttrInfo::Spelling ExcludeFromExplicitInstantiationSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "exclude_from_explicit_instantiation"},
   {AttributeCommonInfo::AS_CXX11, "clang::exclude_from_explicit_instantiation"},
-  {AttributeCommonInfo::AS_C2x, "clang::exclude_from_explicit_instantiation"},
+  {AttributeCommonInfo::AS_C23, "clang::exclude_from_explicit_instantiation"},
 };
 struct ParsedAttrInfoExcludeFromExplicitInstantiation final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoExcludeFromExplicitInstantiation() : ParsedAttrInfo(
@@ -5022,7 +5354,7 @@ struct ParsedAttrInfoExcludeFromExplicitInstantiation final : public ParsedAttrI
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D) && !isa<FunctionDecl>(D) && !isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables, functions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables, functions, and classes";
     return false;
   }
   return true;
@@ -5030,7 +5362,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5075,7 +5407,7 @@ struct ParsedAttrInfoExclusiveTrylockFunction final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -5083,7 +5415,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5117,7 +5449,7 @@ struct ParsedAttrInfoExtVectorType final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "typedefs";
     return false;
   }
   return true;
@@ -5125,7 +5457,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5139,7 +5471,7 @@ const ParsedAttrInfoExtVectorType ParsedAttrInfoExtVectorType::Instance;
 static constexpr ParsedAttrInfo::Spelling ExternalSourceSymbolSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "external_source_symbol"},
   {AttributeCommonInfo::AS_CXX11, "clang::external_source_symbol"},
-  {AttributeCommonInfo::AS_C2x, "clang::external_source_symbol"},
+  {AttributeCommonInfo::AS_C23, "clang::external_source_symbol"},
 };
 static constexpr const char *ExternalSourceSymbolArgNames[] = {
 "language","definedIn","generatedDeclaration","USR",};
@@ -5161,7 +5493,7 @@ struct ParsedAttrInfoExternalSourceSymbol final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<NamedDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "named declarations";
+      << Attr << Attr.isRegularKeywordAttribute() << "named declarations";
     return false;
   }
   return true;
@@ -5169,7 +5501,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5200,11 +5532,11 @@ static const ParsedAttrInfoExternalSourceSymbol Instance;
 const ParsedAttrInfoExternalSourceSymbol ParsedAttrInfoExternalSourceSymbol::Instance;
 static constexpr ParsedAttrInfo::Spelling FallThroughSpellings[] = {
   {AttributeCommonInfo::AS_CXX11, "fallthrough"},
-  {AttributeCommonInfo::AS_C2x, "fallthrough"},
+  {AttributeCommonInfo::AS_C23, "fallthrough"},
   {AttributeCommonInfo::AS_CXX11, "clang::fallthrough"},
   {AttributeCommonInfo::AS_GNU, "fallthrough"},
   {AttributeCommonInfo::AS_CXX11, "gnu::fallthrough"},
-  {AttributeCommonInfo::AS_C2x, "gnu::fallthrough"},
+  {AttributeCommonInfo::AS_C23, "gnu::fallthrough"},
 };
 struct ParsedAttrInfoFallThrough final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoFallThrough() : ParsedAttrInfo(
@@ -5223,14 +5555,14 @@ struct ParsedAttrInfoFallThrough final : public ParsedAttrInfo {
     /*ArgNames=*/{}) {}
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
   S.Diag(AL.getLoc(), diag::err_attribute_invalid_on_decl)
-    << AL << D->getLocation();
+    << AL << AL.isRegularKeywordAttribute() << D->getLocation();
   return false;
 }
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &Attr, const Stmt *St) const override {
   if (!isa<NullStmt>(St) && !isa<SwitchCase>(St)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "empty statements";
+      << Attr << Attr.isRegularKeywordAttribute() << "empty statements";
     return false;
   }
   return true;
@@ -5246,7 +5578,7 @@ const ParsedAttrInfoFallThrough ParsedAttrInfoFallThrough::Instance;
 static constexpr ParsedAttrInfo::Spelling FastCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "fastcall"},
   {AttributeCommonInfo::AS_CXX11, "gnu::fastcall"},
-  {AttributeCommonInfo::AS_C2x, "gnu::fastcall"},
+  {AttributeCommonInfo::AS_C23, "gnu::fastcall"},
   {AttributeCommonInfo::AS_Keyword, "__fastcall"},
   {AttributeCommonInfo::AS_Keyword, "_fastcall"},
 };
@@ -5275,7 +5607,7 @@ const ParsedAttrInfoFastCall ParsedAttrInfoFastCall::Instance;
 static constexpr ParsedAttrInfo::Spelling FlagEnumSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "flag_enum"},
   {AttributeCommonInfo::AS_CXX11, "clang::flag_enum"},
-  {AttributeCommonInfo::AS_C2x, "clang::flag_enum"},
+  {AttributeCommonInfo::AS_C23, "clang::flag_enum"},
 };
 struct ParsedAttrInfoFlagEnum final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoFlagEnum() : ParsedAttrInfo(
@@ -5295,7 +5627,7 @@ struct ParsedAttrInfoFlagEnum final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<EnumDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "enums";
+      << Attr << Attr.isRegularKeywordAttribute() << "enums";
     return false;
   }
   return true;
@@ -5303,7 +5635,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5326,7 +5658,7 @@ const ParsedAttrInfoFlagEnum ParsedAttrInfoFlagEnum::Instance;
 static constexpr ParsedAttrInfo::Spelling FlattenSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "flatten"},
   {AttributeCommonInfo::AS_CXX11, "gnu::flatten"},
-  {AttributeCommonInfo::AS_C2x, "gnu::flatten"},
+  {AttributeCommonInfo::AS_C23, "gnu::flatten"},
 };
 struct ParsedAttrInfoFlatten final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoFlatten() : ParsedAttrInfo(
@@ -5346,7 +5678,7 @@ struct ParsedAttrInfoFlatten final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -5354,7 +5686,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5377,7 +5709,7 @@ const ParsedAttrInfoFlatten ParsedAttrInfoFlatten::Instance;
 static constexpr ParsedAttrInfo::Spelling FormatSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "format"},
   {AttributeCommonInfo::AS_CXX11, "gnu::format"},
-  {AttributeCommonInfo::AS_C2x, "gnu::format"},
+  {AttributeCommonInfo::AS_C23, "gnu::format"},
 };
 static constexpr const char *FormatArgNames[] = {
 "Type","FormatIdx","FirstArg",};
@@ -5399,7 +5731,7 @@ struct ParsedAttrInfoFormat final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D) && !isa<BlockDecl>(D) && !isHasFunctionProto(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods, blocks, and non-K&R-style functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods, blocks, and non-K&R-style functions";
     return false;
   }
   return true;
@@ -5407,7 +5739,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5421,7 +5753,7 @@ const ParsedAttrInfoFormat ParsedAttrInfoFormat::Instance;
 static constexpr ParsedAttrInfo::Spelling FormatArgSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "format_arg"},
   {AttributeCommonInfo::AS_CXX11, "gnu::format_arg"},
-  {AttributeCommonInfo::AS_C2x, "gnu::format_arg"},
+  {AttributeCommonInfo::AS_C23, "gnu::format_arg"},
 };
 static constexpr const char *FormatArgArgNames[] = {
 "FormatIdx",};
@@ -5443,7 +5775,7 @@ struct ParsedAttrInfoFormatArg final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D) && !isHasFunctionProto(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods and non-K&R-style functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods and non-K&R-style functions";
     return false;
   }
   return true;
@@ -5451,7 +5783,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5465,7 +5797,7 @@ const ParsedAttrInfoFormatArg ParsedAttrInfoFormatArg::Instance;
 static constexpr ParsedAttrInfo::Spelling FunctionReturnThunksSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "function_return"},
   {AttributeCommonInfo::AS_CXX11, "gnu::function_return"},
-  {AttributeCommonInfo::AS_C2x, "gnu::function_return"},
+  {AttributeCommonInfo::AS_C23, "gnu::function_return"},
 };
 static constexpr const char *FunctionReturnThunksArgNames[] = {
 "ThunkType",};
@@ -5487,7 +5819,7 @@ struct ParsedAttrInfoFunctionReturnThunks final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -5495,7 +5827,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5518,7 +5850,7 @@ const ParsedAttrInfoFunctionReturnThunks ParsedAttrInfoFunctionReturnThunks::Ins
 static constexpr ParsedAttrInfo::Spelling GNUInlineSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "gnu_inline"},
   {AttributeCommonInfo::AS_CXX11, "gnu::gnu_inline"},
-  {AttributeCommonInfo::AS_C2x, "gnu::gnu_inline"},
+  {AttributeCommonInfo::AS_C23, "gnu::gnu_inline"},
 };
 struct ParsedAttrInfoGNUInline final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoGNUInline() : ParsedAttrInfo(
@@ -5538,7 +5870,7 @@ struct ParsedAttrInfoGNUInline final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -5546,7 +5878,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5584,7 +5916,7 @@ struct ParsedAttrInfoGuardedBy final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FieldDecl>(D) && !isSharedVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-static data members and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-static data members and global variables";
     return false;
   }
   return true;
@@ -5592,7 +5924,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5625,7 +5957,7 @@ struct ParsedAttrInfoGuardedVar final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FieldDecl>(D) && !isSharedVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-static data members and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-static data members and global variables";
     return false;
   }
   return true;
@@ -5633,7 +5965,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5671,7 +6003,7 @@ struct ParsedAttrInfoHIPManaged final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -5679,7 +6011,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5687,12 +6019,12 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CUDAConstantAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CUDASharedAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -5735,7 +6067,7 @@ struct ParsedAttrInfoHLSLGroupSharedAddressSpace final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -5743,7 +6075,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5777,7 +6109,7 @@ struct ParsedAttrInfoHLSLNumThreads final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isHLSLEntry(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "global functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "global functions";
     return false;
   }
   return true;
@@ -5785,7 +6117,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5820,7 +6152,7 @@ struct ParsedAttrInfoHLSLResource final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isStruct(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs";
     return false;
   }
   return true;
@@ -5828,7 +6160,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5866,7 +6198,7 @@ struct ParsedAttrInfoHLSLResourceBinding final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isHLSLBufferObj(D) && !isExternalGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "cbuffer/tbuffer and external global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "cbuffer/tbuffer and external global variables";
     return false;
   }
   return true;
@@ -5874,7 +6206,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5910,7 +6242,7 @@ struct ParsedAttrInfoHLSLSV_DispatchThreadID final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D) && !isa<FieldDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters and non-static data members";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters and non-static data members";
     return false;
   }
   return true;
@@ -5918,7 +6250,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -5954,7 +6286,7 @@ struct ParsedAttrInfoHLSLSV_GroupIndex final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D) && !isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters and global variables";
     return false;
   }
   return true;
@@ -5962,7 +6294,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6000,7 +6332,7 @@ struct ParsedAttrInfoHLSLShader final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isHLSLEntry(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "global functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "global functions";
     return false;
   }
   return true;
@@ -6008,7 +6340,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6026,7 +6358,7 @@ const ParsedAttrInfoHLSLShader ParsedAttrInfoHLSLShader::Instance;
 static constexpr ParsedAttrInfo::Spelling HotSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "hot"},
   {AttributeCommonInfo::AS_CXX11, "gnu::hot"},
-  {AttributeCommonInfo::AS_C2x, "gnu::hot"},
+  {AttributeCommonInfo::AS_C23, "gnu::hot"},
 };
 struct ParsedAttrInfoHot final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoHot() : ParsedAttrInfo(
@@ -6046,7 +6378,7 @@ struct ParsedAttrInfoHot final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -6054,7 +6386,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6062,7 +6394,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<ColdAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -6088,7 +6420,7 @@ const ParsedAttrInfoHot ParsedAttrInfoHot::Instance;
 static constexpr ParsedAttrInfo::Spelling IBActionSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ibaction"},
   {AttributeCommonInfo::AS_CXX11, "clang::ibaction"},
-  {AttributeCommonInfo::AS_C2x, "clang::ibaction"},
+  {AttributeCommonInfo::AS_C23, "clang::ibaction"},
 };
 struct ParsedAttrInfoIBAction final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoIBAction() : ParsedAttrInfo(
@@ -6108,7 +6440,7 @@ struct ParsedAttrInfoIBAction final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isObjCInstanceMethod(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C instance methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C instance methods";
     return false;
   }
   return true;
@@ -6116,7 +6448,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6139,7 +6471,7 @@ const ParsedAttrInfoIBAction ParsedAttrInfoIBAction::Instance;
 static constexpr ParsedAttrInfo::Spelling IBOutletSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "iboutlet"},
   {AttributeCommonInfo::AS_CXX11, "clang::iboutlet"},
-  {AttributeCommonInfo::AS_C2x, "clang::iboutlet"},
+  {AttributeCommonInfo::AS_C23, "clang::iboutlet"},
 };
 struct ParsedAttrInfoIBOutlet final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoIBOutlet() : ParsedAttrInfo(
@@ -6166,7 +6498,7 @@ const ParsedAttrInfoIBOutlet ParsedAttrInfoIBOutlet::Instance;
 static constexpr ParsedAttrInfo::Spelling IBOutletCollectionSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "iboutletcollection"},
   {AttributeCommonInfo::AS_CXX11, "clang::iboutletcollection"},
-  {AttributeCommonInfo::AS_C2x, "clang::iboutletcollection"},
+  {AttributeCommonInfo::AS_C23, "clang::iboutletcollection"},
 };
 static constexpr const char *IBOutletCollectionArgNames[] = {
 "Interface",};
@@ -6195,7 +6527,7 @@ const ParsedAttrInfoIBOutletCollection ParsedAttrInfoIBOutletCollection::Instanc
 static constexpr ParsedAttrInfo::Spelling IFuncSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ifunc"},
   {AttributeCommonInfo::AS_CXX11, "gnu::ifunc"},
-  {AttributeCommonInfo::AS_C2x, "gnu::ifunc"},
+  {AttributeCommonInfo::AS_C23, "gnu::ifunc"},
 };
 static constexpr const char *IFuncArgNames[] = {
 "Resolver",};
@@ -6217,7 +6549,7 @@ struct ParsedAttrInfoIFunc final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -6225,7 +6557,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6269,7 +6601,7 @@ struct ParsedAttrInfoInitPriority final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -6277,7 +6609,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6326,7 +6658,7 @@ const ParsedAttrInfoIntelOclBicc ParsedAttrInfoIntelOclBicc::Instance;
 static constexpr ParsedAttrInfo::Spelling InternalLinkageSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "internal_linkage"},
   {AttributeCommonInfo::AS_CXX11, "clang::internal_linkage"},
-  {AttributeCommonInfo::AS_C2x, "clang::internal_linkage"},
+  {AttributeCommonInfo::AS_C23, "clang::internal_linkage"},
 };
 struct ParsedAttrInfoInternalLinkage final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoInternalLinkage() : ParsedAttrInfo(
@@ -6346,7 +6678,7 @@ struct ParsedAttrInfoInternalLinkage final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D) && !isa<FunctionDecl>(D) && !isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables, functions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables, functions, and classes";
     return false;
   }
   return true;
@@ -6354,7 +6686,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6362,7 +6694,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<CommonAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -6385,7 +6717,7 @@ const ParsedAttrInfoInternalLinkage ParsedAttrInfoInternalLinkage::Instance;
 static constexpr ParsedAttrInfo::Spelling LTOVisibilityPublicSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "lto_visibility_public"},
   {AttributeCommonInfo::AS_CXX11, "clang::lto_visibility_public"},
-  {AttributeCommonInfo::AS_C2x, "clang::lto_visibility_public"},
+  {AttributeCommonInfo::AS_C23, "clang::lto_visibility_public"},
 };
 struct ParsedAttrInfoLTOVisibilityPublic final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoLTOVisibilityPublic() : ParsedAttrInfo(
@@ -6405,7 +6737,7 @@ struct ParsedAttrInfoLTOVisibilityPublic final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -6413,7 +6745,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6456,7 +6788,7 @@ struct ParsedAttrInfoLayoutVersion final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -6464,7 +6796,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6483,7 +6815,7 @@ const ParsedAttrInfoLayoutVersion ParsedAttrInfoLayoutVersion::Instance;
 static constexpr ParsedAttrInfo::Spelling LeafSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "leaf"},
   {AttributeCommonInfo::AS_CXX11, "gnu::leaf"},
-  {AttributeCommonInfo::AS_C2x, "gnu::leaf"},
+  {AttributeCommonInfo::AS_C23, "gnu::leaf"},
 };
 struct ParsedAttrInfoLeaf final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoLeaf() : ParsedAttrInfo(
@@ -6503,7 +6835,7 @@ struct ParsedAttrInfoLeaf final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -6511,7 +6843,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6553,7 +6885,7 @@ struct ParsedAttrInfoLifetimeBound final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D) && !isImplicitObjectParameter(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "parameters and implicit object parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters and implicit object parameters";
     return false;
   }
   return true;
@@ -6561,7 +6893,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6583,7 +6915,7 @@ static const ParsedAttrInfoLifetimeBound Instance;
 const ParsedAttrInfoLifetimeBound ParsedAttrInfoLifetimeBound::Instance;
 static constexpr ParsedAttrInfo::Spelling LikelySpellings[] = {
   {AttributeCommonInfo::AS_CXX11, "likely"},
-  {AttributeCommonInfo::AS_C2x, "clang::likely"},
+  {AttributeCommonInfo::AS_C23, "clang::likely"},
 };
 struct ParsedAttrInfoLikely final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoLikely() : ParsedAttrInfo(
@@ -6612,7 +6944,7 @@ const ParsedAttrInfoLikely ParsedAttrInfoLikely::Instance;
 static constexpr ParsedAttrInfo::Spelling LoaderUninitializedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "loader_uninitialized"},
   {AttributeCommonInfo::AS_CXX11, "clang::loader_uninitialized"},
-  {AttributeCommonInfo::AS_C2x, "clang::loader_uninitialized"},
+  {AttributeCommonInfo::AS_C23, "clang::loader_uninitialized"},
 };
 struct ParsedAttrInfoLoaderUninitialized final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoLoaderUninitialized() : ParsedAttrInfo(
@@ -6632,7 +6964,7 @@ struct ParsedAttrInfoLoaderUninitialized final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "global variables";
     return false;
   }
   return true;
@@ -6640,7 +6972,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6683,7 +7015,7 @@ struct ParsedAttrInfoLockReturned final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -6691,7 +7023,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6723,7 +7055,7 @@ struct ParsedAttrInfoLockable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -6731,7 +7063,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6769,7 +7101,7 @@ struct ParsedAttrInfoLocksExcluded final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -6777,7 +7109,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6844,7 +7176,7 @@ const ParsedAttrInfoLoopHint ParsedAttrInfoLoopHint::Instance;
 static constexpr ParsedAttrInfo::Spelling MIGServerRoutineSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "mig_server_routine"},
   {AttributeCommonInfo::AS_CXX11, "clang::mig_server_routine"},
-  {AttributeCommonInfo::AS_C2x, "clang::mig_server_routine"},
+  {AttributeCommonInfo::AS_C23, "clang::mig_server_routine"},
 };
 struct ParsedAttrInfoMIGServerRoutine final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMIGServerRoutine() : ParsedAttrInfo(
@@ -6864,7 +7196,7 @@ struct ParsedAttrInfoMIGServerRoutine final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D) && !isa<BlockDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions, Objective-C methods, and blocks";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, Objective-C methods, and blocks";
     return false;
   }
   return true;
@@ -6872,7 +7204,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -6892,7 +7224,7 @@ const ParsedAttrInfoMIGServerRoutine ParsedAttrInfoMIGServerRoutine::Instance;
 static constexpr ParsedAttrInfo::Spelling MSABISpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ms_abi"},
   {AttributeCommonInfo::AS_CXX11, "gnu::ms_abi"},
-  {AttributeCommonInfo::AS_C2x, "gnu::ms_abi"},
+  {AttributeCommonInfo::AS_C23, "gnu::ms_abi"},
 };
 struct ParsedAttrInfoMSABI final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMSABI() : ParsedAttrInfo(
@@ -6937,7 +7269,7 @@ struct ParsedAttrInfoMSAllocator final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -6945,7 +7277,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7029,7 +7361,7 @@ struct ParsedAttrInfoMSNoVTable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -7037,7 +7369,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7061,7 +7393,7 @@ const ParsedAttrInfoMSNoVTable ParsedAttrInfoMSNoVTable::Instance;
 static constexpr ParsedAttrInfo::Spelling MSStructSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ms_struct"},
   {AttributeCommonInfo::AS_CXX11, "gnu::ms_struct"},
-  {AttributeCommonInfo::AS_C2x, "gnu::ms_struct"},
+  {AttributeCommonInfo::AS_C23, "gnu::ms_struct"},
 };
 struct ParsedAttrInfoMSStruct final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMSStruct() : ParsedAttrInfo(
@@ -7081,7 +7413,7 @@ struct ParsedAttrInfoMSStruct final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -7089,7 +7421,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7112,7 +7444,7 @@ const ParsedAttrInfoMSStruct ParsedAttrInfoMSStruct::Instance;
 static constexpr ParsedAttrInfo::Spelling MatrixTypeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "matrix_type"},
   {AttributeCommonInfo::AS_CXX11, "clang::matrix_type"},
-  {AttributeCommonInfo::AS_C2x, "clang::matrix_type"},
+  {AttributeCommonInfo::AS_C23, "clang::matrix_type"},
 };
 static constexpr const char *MatrixTypeArgNames[] = {
 "NumRows","NumColumns",};
@@ -7134,7 +7466,7 @@ struct ParsedAttrInfoMatrixType final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "typedefs";
     return false;
   }
   return true;
@@ -7142,7 +7474,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7156,7 +7488,7 @@ const ParsedAttrInfoMatrixType ParsedAttrInfoMatrixType::Instance;
 static constexpr ParsedAttrInfo::Spelling MayAliasSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "may_alias"},
   {AttributeCommonInfo::AS_CXX11, "gnu::may_alias"},
-  {AttributeCommonInfo::AS_C2x, "gnu::may_alias"},
+  {AttributeCommonInfo::AS_C23, "gnu::may_alias"},
 };
 struct ParsedAttrInfoMayAlias final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMayAlias() : ParsedAttrInfo(
@@ -7188,7 +7520,7 @@ const ParsedAttrInfoMayAlias ParsedAttrInfoMayAlias::Instance;
 static constexpr ParsedAttrInfo::Spelling MaybeUndefSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "maybe_undef"},
   {AttributeCommonInfo::AS_CXX11, "clang::maybe_undef"},
-  {AttributeCommonInfo::AS_C2x, "clang::maybe_undef"},
+  {AttributeCommonInfo::AS_C23, "clang::maybe_undef"},
 };
 struct ParsedAttrInfoMaybeUndef final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMaybeUndef() : ParsedAttrInfo(
@@ -7208,7 +7540,7 @@ struct ParsedAttrInfoMaybeUndef final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -7216,7 +7548,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7239,7 +7571,7 @@ const ParsedAttrInfoMaybeUndef ParsedAttrInfoMaybeUndef::Instance;
 static constexpr ParsedAttrInfo::Spelling MicroMipsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "micromips"},
   {AttributeCommonInfo::AS_CXX11, "gnu::micromips"},
-  {AttributeCommonInfo::AS_C2x, "gnu::micromips"},
+  {AttributeCommonInfo::AS_C23, "gnu::micromips"},
 };
 struct ParsedAttrInfoMicroMips final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMicroMips() : ParsedAttrInfo(
@@ -7259,7 +7591,7 @@ struct ParsedAttrInfoMicroMips final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -7267,7 +7599,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7275,7 +7607,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<Mips16Attr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -7306,7 +7638,7 @@ const ParsedAttrInfoMicroMips ParsedAttrInfoMicroMips::Instance;
 static constexpr ParsedAttrInfo::Spelling MinSizeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "minsize"},
   {AttributeCommonInfo::AS_CXX11, "clang::minsize"},
-  {AttributeCommonInfo::AS_C2x, "clang::minsize"},
+  {AttributeCommonInfo::AS_C23, "clang::minsize"},
 };
 struct ParsedAttrInfoMinSize final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMinSize() : ParsedAttrInfo(
@@ -7326,7 +7658,7 @@ struct ParsedAttrInfoMinSize final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -7334,7 +7666,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7353,7 +7685,7 @@ const ParsedAttrInfoMinSize ParsedAttrInfoMinSize::Instance;
 static constexpr ParsedAttrInfo::Spelling MinVectorWidthSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "min_vector_width"},
   {AttributeCommonInfo::AS_CXX11, "clang::min_vector_width"},
-  {AttributeCommonInfo::AS_C2x, "clang::min_vector_width"},
+  {AttributeCommonInfo::AS_C23, "clang::min_vector_width"},
 };
 static constexpr const char *MinVectorWidthArgNames[] = {
 "VectorWidth",};
@@ -7375,7 +7707,7 @@ struct ParsedAttrInfoMinVectorWidth final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -7383,7 +7715,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7401,7 +7733,7 @@ const ParsedAttrInfoMinVectorWidth ParsedAttrInfoMinVectorWidth::Instance;
 static constexpr ParsedAttrInfo::Spelling Mips16Spellings[] = {
   {AttributeCommonInfo::AS_GNU, "mips16"},
   {AttributeCommonInfo::AS_CXX11, "gnu::mips16"},
-  {AttributeCommonInfo::AS_C2x, "gnu::mips16"},
+  {AttributeCommonInfo::AS_C23, "gnu::mips16"},
 };
 struct ParsedAttrInfoMips16 final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMips16() : ParsedAttrInfo(
@@ -7421,7 +7753,7 @@ struct ParsedAttrInfoMips16 final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -7429,7 +7761,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7437,12 +7769,12 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<MipsInterruptAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<MicroMipsAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -7473,10 +7805,10 @@ const ParsedAttrInfoMips16 ParsedAttrInfoMips16::Instance;
 static constexpr ParsedAttrInfo::Spelling MipsLongCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "long_call"},
   {AttributeCommonInfo::AS_CXX11, "gnu::long_call"},
-  {AttributeCommonInfo::AS_C2x, "gnu::long_call"},
+  {AttributeCommonInfo::AS_C23, "gnu::long_call"},
   {AttributeCommonInfo::AS_GNU, "far"},
   {AttributeCommonInfo::AS_CXX11, "gnu::far"},
-  {AttributeCommonInfo::AS_C2x, "gnu::far"},
+  {AttributeCommonInfo::AS_C23, "gnu::far"},
 };
 struct ParsedAttrInfoMipsLongCall final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMipsLongCall() : ParsedAttrInfo(
@@ -7496,7 +7828,7 @@ struct ParsedAttrInfoMipsLongCall final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -7504,7 +7836,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7512,7 +7844,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<MipsShortCallAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -7528,10 +7860,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_long_call = 0,
     CXX11_gnu_long_call = 1,
-    C2x_gnu_long_call = 2,
+    C23_gnu_long_call = 2,
     GNU_far = 3,
     CXX11_gnu_far = 4,
-    C2x_gnu_far = 5,
+    C23_gnu_far = 5,
   SpellingNotCalculated = 15
 
   };
@@ -7541,10 +7873,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_long_call;
     case 1: return CXX11_gnu_long_call;
-    case 2: return C2x_gnu_long_call;
+    case 2: return C23_gnu_long_call;
     case 3: return GNU_far;
     case 4: return CXX11_gnu_far;
-    case 5: return C2x_gnu_far;
+    case 5: return C23_gnu_far;
   }
 }
 
@@ -7567,10 +7899,10 @@ const ParsedAttrInfoMipsLongCall ParsedAttrInfoMipsLongCall::Instance;
 static constexpr ParsedAttrInfo::Spelling MipsShortCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "short_call"},
   {AttributeCommonInfo::AS_CXX11, "gnu::short_call"},
-  {AttributeCommonInfo::AS_C2x, "gnu::short_call"},
+  {AttributeCommonInfo::AS_C23, "gnu::short_call"},
   {AttributeCommonInfo::AS_GNU, "near"},
   {AttributeCommonInfo::AS_CXX11, "gnu::near"},
-  {AttributeCommonInfo::AS_C2x, "gnu::near"},
+  {AttributeCommonInfo::AS_C23, "gnu::near"},
 };
 struct ParsedAttrInfoMipsShortCall final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMipsShortCall() : ParsedAttrInfo(
@@ -7590,7 +7922,7 @@ struct ParsedAttrInfoMipsShortCall final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -7598,7 +7930,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7606,7 +7938,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<MipsLongCallAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -7622,10 +7954,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_short_call = 0,
     CXX11_gnu_short_call = 1,
-    C2x_gnu_short_call = 2,
+    C23_gnu_short_call = 2,
     GNU_near = 3,
     CXX11_gnu_near = 4,
-    C2x_gnu_near = 5,
+    C23_gnu_near = 5,
   SpellingNotCalculated = 15
 
   };
@@ -7635,10 +7967,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_short_call;
     case 1: return CXX11_gnu_short_call;
-    case 2: return C2x_gnu_short_call;
+    case 2: return C23_gnu_short_call;
     case 3: return GNU_near;
     case 4: return CXX11_gnu_near;
-    case 5: return C2x_gnu_near;
+    case 5: return C23_gnu_near;
   }
 }
 
@@ -7661,7 +7993,7 @@ const ParsedAttrInfoMipsShortCall ParsedAttrInfoMipsShortCall::Instance;
 static constexpr ParsedAttrInfo::Spelling ModeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "mode"},
   {AttributeCommonInfo::AS_CXX11, "gnu::mode"},
-  {AttributeCommonInfo::AS_C2x, "gnu::mode"},
+  {AttributeCommonInfo::AS_C23, "gnu::mode"},
 };
 static constexpr const char *ModeArgNames[] = {
 "Mode",};
@@ -7683,7 +8015,7 @@ struct ParsedAttrInfoMode final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D) && !isa<EnumDecl>(D) && !isa<TypedefNameDecl>(D) && !isa<FieldDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "variables, enums, typedefs, and non-static data members";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables, enums, typedefs, and non-static data members";
     return false;
   }
   return true;
@@ -7691,7 +8023,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7705,7 +8037,7 @@ const ParsedAttrInfoMode ParsedAttrInfoMode::Instance;
 static constexpr ParsedAttrInfo::Spelling MustTailSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "musttail"},
   {AttributeCommonInfo::AS_CXX11, "clang::musttail"},
-  {AttributeCommonInfo::AS_C2x, "clang::musttail"},
+  {AttributeCommonInfo::AS_C23, "clang::musttail"},
 };
 struct ParsedAttrInfoMustTail final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoMustTail() : ParsedAttrInfo(
@@ -7724,14 +8056,14 @@ struct ParsedAttrInfoMustTail final : public ParsedAttrInfo {
     /*ArgNames=*/{}) {}
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
   S.Diag(AL.getLoc(), diag::err_attribute_invalid_on_decl)
-    << AL << D->getLocation();
+    << AL << AL.isRegularKeywordAttribute() << D->getLocation();
   return false;
 }
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &Attr, const Stmt *St) const override {
   if (!isa<ReturnStmt>(St)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "return statements";
+      << Attr << Attr.isRegularKeywordAttribute() << "return statements";
     return false;
   }
   return true;
@@ -7747,7 +8079,7 @@ const ParsedAttrInfoMustTail ParsedAttrInfoMustTail::Instance;
 static constexpr ParsedAttrInfo::Spelling NSConsumedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ns_consumed"},
   {AttributeCommonInfo::AS_CXX11, "clang::ns_consumed"},
-  {AttributeCommonInfo::AS_C2x, "clang::ns_consumed"},
+  {AttributeCommonInfo::AS_C23, "clang::ns_consumed"},
 };
 struct ParsedAttrInfoNSConsumed final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNSConsumed() : ParsedAttrInfo(
@@ -7767,7 +8099,7 @@ struct ParsedAttrInfoNSConsumed final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -7775,7 +8107,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7793,7 +8125,7 @@ const ParsedAttrInfoNSConsumed ParsedAttrInfoNSConsumed::Instance;
 static constexpr ParsedAttrInfo::Spelling NSConsumesSelfSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ns_consumes_self"},
   {AttributeCommonInfo::AS_CXX11, "clang::ns_consumes_self"},
-  {AttributeCommonInfo::AS_C2x, "clang::ns_consumes_self"},
+  {AttributeCommonInfo::AS_C23, "clang::ns_consumes_self"},
 };
 struct ParsedAttrInfoNSConsumesSelf final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNSConsumesSelf() : ParsedAttrInfo(
@@ -7813,7 +8145,7 @@ struct ParsedAttrInfoNSConsumesSelf final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods";
     return false;
   }
   return true;
@@ -7821,7 +8153,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7864,7 +8196,7 @@ struct ParsedAttrInfoNSErrorDomain final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<EnumDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "enums";
+      << Attr << Attr.isRegularKeywordAttribute() << "enums";
     return false;
   }
   return true;
@@ -7872,7 +8204,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -7890,7 +8222,7 @@ const ParsedAttrInfoNSErrorDomain ParsedAttrInfoNSErrorDomain::Instance;
 static constexpr ParsedAttrInfo::Spelling NSReturnsAutoreleasedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ns_returns_autoreleased"},
   {AttributeCommonInfo::AS_CXX11, "clang::ns_returns_autoreleased"},
-  {AttributeCommonInfo::AS_C2x, "clang::ns_returns_autoreleased"},
+  {AttributeCommonInfo::AS_C23, "clang::ns_returns_autoreleased"},
 };
 struct ParsedAttrInfoNSReturnsAutoreleased final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNSReturnsAutoreleased() : ParsedAttrInfo(
@@ -7917,7 +8249,7 @@ const ParsedAttrInfoNSReturnsAutoreleased ParsedAttrInfoNSReturnsAutoreleased::I
 static constexpr ParsedAttrInfo::Spelling NSReturnsNotRetainedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ns_returns_not_retained"},
   {AttributeCommonInfo::AS_CXX11, "clang::ns_returns_not_retained"},
-  {AttributeCommonInfo::AS_C2x, "clang::ns_returns_not_retained"},
+  {AttributeCommonInfo::AS_C23, "clang::ns_returns_not_retained"},
 };
 struct ParsedAttrInfoNSReturnsNotRetained final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNSReturnsNotRetained() : ParsedAttrInfo(
@@ -7944,7 +8276,7 @@ const ParsedAttrInfoNSReturnsNotRetained ParsedAttrInfoNSReturnsNotRetained::Ins
 static constexpr ParsedAttrInfo::Spelling NSReturnsRetainedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ns_returns_retained"},
   {AttributeCommonInfo::AS_CXX11, "clang::ns_returns_retained"},
-  {AttributeCommonInfo::AS_C2x, "clang::ns_returns_retained"},
+  {AttributeCommonInfo::AS_C23, "clang::ns_returns_retained"},
 };
 struct ParsedAttrInfoNSReturnsRetained final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNSReturnsRetained() : ParsedAttrInfo(
@@ -7971,7 +8303,7 @@ const ParsedAttrInfoNSReturnsRetained ParsedAttrInfoNSReturnsRetained::Instance;
 static constexpr ParsedAttrInfo::Spelling NVPTXKernelSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "nvptx_kernel"},
   {AttributeCommonInfo::AS_CXX11, "clang::nvptx_kernel"},
-  {AttributeCommonInfo::AS_C2x, "clang::nvptx_kernel"},
+  {AttributeCommonInfo::AS_C23, "clang::nvptx_kernel"},
 };
 struct ParsedAttrInfoNVPTXKernel final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNVPTXKernel() : ParsedAttrInfo(
@@ -7991,7 +8323,7 @@ struct ParsedAttrInfoNVPTXKernel final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -7999,7 +8331,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8022,7 +8354,7 @@ const ParsedAttrInfoNVPTXKernel ParsedAttrInfoNVPTXKernel::Instance;
 static constexpr ParsedAttrInfo::Spelling NakedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "naked"},
   {AttributeCommonInfo::AS_CXX11, "gnu::naked"},
-  {AttributeCommonInfo::AS_C2x, "gnu::naked"},
+  {AttributeCommonInfo::AS_C23, "gnu::naked"},
   {AttributeCommonInfo::AS_Declspec, "naked"},
 };
 struct ParsedAttrInfoNaked final : public ParsedAttrInfo {
@@ -8043,7 +8375,7 @@ struct ParsedAttrInfoNaked final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -8051,7 +8383,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8059,7 +8391,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<DisableTailCallsAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -8080,7 +8412,7 @@ const ParsedAttrInfoNaked ParsedAttrInfoNaked::Instance;
 static constexpr ParsedAttrInfo::Spelling NeonPolyVectorTypeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "neon_polyvector_type"},
   {AttributeCommonInfo::AS_CXX11, "clang::neon_polyvector_type"},
-  {AttributeCommonInfo::AS_C2x, "clang::neon_polyvector_type"},
+  {AttributeCommonInfo::AS_C23, "clang::neon_polyvector_type"},
 };
 static constexpr const char *NeonPolyVectorTypeArgNames[] = {
 "NumElements",};
@@ -8109,7 +8441,7 @@ const ParsedAttrInfoNeonPolyVectorType ParsedAttrInfoNeonPolyVectorType::Instanc
 static constexpr ParsedAttrInfo::Spelling NeonVectorTypeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "neon_vector_type"},
   {AttributeCommonInfo::AS_CXX11, "clang::neon_vector_type"},
-  {AttributeCommonInfo::AS_C2x, "clang::neon_vector_type"},
+  {AttributeCommonInfo::AS_C23, "clang::neon_vector_type"},
 };
 static constexpr const char *NeonVectorTypeArgNames[] = {
 "NumElements",};
@@ -8156,7 +8488,7 @@ struct ParsedAttrInfoNoAlias final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -8164,7 +8496,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8183,7 +8515,7 @@ const ParsedAttrInfoNoAlias ParsedAttrInfoNoAlias::Instance;
 static constexpr ParsedAttrInfo::Spelling NoBuiltinSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_builtin"},
   {AttributeCommonInfo::AS_CXX11, "clang::no_builtin"},
-  {AttributeCommonInfo::AS_C2x, "clang::no_builtin"},
+  {AttributeCommonInfo::AS_C23, "clang::no_builtin"},
 };
 static constexpr const char *NoBuiltinArgNames[] = {
 "BuiltinNames...",};
@@ -8205,7 +8537,7 @@ struct ParsedAttrInfoNoBuiltin final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -8213,7 +8545,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8231,7 +8563,7 @@ const ParsedAttrInfoNoBuiltin ParsedAttrInfoNoBuiltin::Instance;
 static constexpr ParsedAttrInfo::Spelling NoCommonSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "nocommon"},
   {AttributeCommonInfo::AS_CXX11, "gnu::nocommon"},
-  {AttributeCommonInfo::AS_C2x, "gnu::nocommon"},
+  {AttributeCommonInfo::AS_C23, "gnu::nocommon"},
 };
 struct ParsedAttrInfoNoCommon final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoCommon() : ParsedAttrInfo(
@@ -8251,7 +8583,7 @@ struct ParsedAttrInfoNoCommon final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -8259,7 +8591,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8282,7 +8614,7 @@ const ParsedAttrInfoNoCommon ParsedAttrInfoNoCommon::Instance;
 static constexpr ParsedAttrInfo::Spelling NoDebugSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "nodebug"},
   {AttributeCommonInfo::AS_CXX11, "gnu::nodebug"},
-  {AttributeCommonInfo::AS_C2x, "gnu::nodebug"},
+  {AttributeCommonInfo::AS_C23, "gnu::nodebug"},
 };
 struct ParsedAttrInfoNoDebug final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoDebug() : ParsedAttrInfo(
@@ -8302,7 +8634,7 @@ struct ParsedAttrInfoNoDebug final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<TypedefNameDecl>(D) && !isFunctionLike(D) && !isa<ObjCMethodDecl>(D) && !isNonParmVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "typedefs, functions, function pointers, Objective-C methods, and variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "typedefs, functions, function pointers, Objective-C methods, and variables";
     return false;
   }
   return true;
@@ -8310,7 +8642,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8331,7 +8663,7 @@ const ParsedAttrInfoNoDebug ParsedAttrInfoNoDebug::Instance;
 static constexpr ParsedAttrInfo::Spelling NoDerefSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "noderef"},
   {AttributeCommonInfo::AS_CXX11, "clang::noderef"},
-  {AttributeCommonInfo::AS_C2x, "clang::noderef"},
+  {AttributeCommonInfo::AS_C23, "clang::noderef"},
 };
 struct ParsedAttrInfoNoDeref final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoDeref() : ParsedAttrInfo(
@@ -8377,7 +8709,7 @@ struct ParsedAttrInfoNoDestroy final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -8385,7 +8717,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8393,7 +8725,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<AlwaysDestroyAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -8414,7 +8746,7 @@ const ParsedAttrInfoNoDestroy ParsedAttrInfoNoDestroy::Instance;
 static constexpr ParsedAttrInfo::Spelling NoDuplicateSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "noduplicate"},
   {AttributeCommonInfo::AS_CXX11, "clang::noduplicate"},
-  {AttributeCommonInfo::AS_C2x, "clang::noduplicate"},
+  {AttributeCommonInfo::AS_C23, "clang::noduplicate"},
 };
 struct ParsedAttrInfoNoDuplicate final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoDuplicate() : ParsedAttrInfo(
@@ -8434,7 +8766,7 @@ struct ParsedAttrInfoNoDuplicate final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -8442,7 +8774,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8465,7 +8797,7 @@ const ParsedAttrInfoNoDuplicate ParsedAttrInfoNoDuplicate::Instance;
 static constexpr ParsedAttrInfo::Spelling NoEscapeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "noescape"},
   {AttributeCommonInfo::AS_CXX11, "clang::noescape"},
-  {AttributeCommonInfo::AS_C2x, "clang::noescape"},
+  {AttributeCommonInfo::AS_C23, "clang::noescape"},
 };
 struct ParsedAttrInfoNoEscape final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoEscape() : ParsedAttrInfo(
@@ -8485,7 +8817,7 @@ struct ParsedAttrInfoNoEscape final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -8493,7 +8825,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8512,9 +8844,9 @@ static constexpr ParsedAttrInfo::Spelling NoInlineSpellings[] = {
   {AttributeCommonInfo::AS_Keyword, "__noinline__"},
   {AttributeCommonInfo::AS_GNU, "noinline"},
   {AttributeCommonInfo::AS_CXX11, "gnu::noinline"},
-  {AttributeCommonInfo::AS_C2x, "gnu::noinline"},
+  {AttributeCommonInfo::AS_C23, "gnu::noinline"},
   {AttributeCommonInfo::AS_CXX11, "clang::noinline"},
-  {AttributeCommonInfo::AS_C2x, "clang::noinline"},
+  {AttributeCommonInfo::AS_C23, "clang::noinline"},
   {AttributeCommonInfo::AS_Declspec, "noinline"},
 };
 struct ParsedAttrInfoNoInline final : public ParsedAttrInfo {
@@ -8535,7 +8867,7 @@ struct ParsedAttrInfoNoInline final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and statements";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and statements";
     return false;
   }
   return true;
@@ -8544,7 +8876,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &Attr, const Stmt *St) const override {
   if (!isa<Stmt>(St)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and statements";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and statements";
     return false;
   }
   return true;
@@ -8569,7 +8901,7 @@ const ParsedAttrInfoNoInline ParsedAttrInfoNoInline::Instance;
 static constexpr ParsedAttrInfo::Spelling NoInstrumentFunctionSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_instrument_function"},
   {AttributeCommonInfo::AS_CXX11, "gnu::no_instrument_function"},
-  {AttributeCommonInfo::AS_C2x, "gnu::no_instrument_function"},
+  {AttributeCommonInfo::AS_C23, "gnu::no_instrument_function"},
 };
 struct ParsedAttrInfoNoInstrumentFunction final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoInstrumentFunction() : ParsedAttrInfo(
@@ -8589,7 +8921,7 @@ struct ParsedAttrInfoNoInstrumentFunction final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -8597,7 +8929,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8621,7 +8953,7 @@ const ParsedAttrInfoNoInstrumentFunction ParsedAttrInfoNoInstrumentFunction::Ins
 static constexpr ParsedAttrInfo::Spelling NoMergeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "nomerge"},
   {AttributeCommonInfo::AS_CXX11, "clang::nomerge"},
-  {AttributeCommonInfo::AS_C2x, "clang::nomerge"},
+  {AttributeCommonInfo::AS_C23, "clang::nomerge"},
 };
 struct ParsedAttrInfoNoMerge final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoMerge() : ParsedAttrInfo(
@@ -8639,9 +8971,9 @@ struct ParsedAttrInfoNoMerge final : public ParsedAttrInfo {
     /*Spellings=*/NoMergeSpellings,
     /*ArgNames=*/{}) {}
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
-  if (!isa<FunctionDecl>(D)) {
+  if (!isa<FunctionDecl>(D) && !isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions and statements";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, statements and variables";
     return false;
   }
   return true;
@@ -8650,7 +8982,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &Attr, const Stmt *St) const override {
   if (!isa<Stmt>(St)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions and statements";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, statements and variables";
     return false;
   }
   return true;
@@ -8658,11 +8990,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &Attr, const Stmt *St) const
 
 void getPragmaAttributeMatchRules(llvm::SmallVectorImpl<std::pair<attr::SubjectMatchRule, bool>> &MatchRules, const LangOptions &LangOpts) const override {
   MatchRules.push_back(std::make_pair(attr::SubjectMatchRule_function, /*IsSupported=*/true));
-}
-
-AttrHandling handleDeclAttribute(Sema &S, Decl *D,const ParsedAttr &Attr) const override {
-  D->addAttr(::new (S.Context) NoMergeAttr(S.Context, Attr));
-  return AttributeApplied;
+  MatchRules.push_back(std::make_pair(attr::SubjectMatchRule_variable, /*IsSupported=*/true));
 }
 
 bool isParamExpr(size_t N) const override {
@@ -8675,7 +9003,7 @@ const ParsedAttrInfoNoMerge ParsedAttrInfoNoMerge::Instance;
 static constexpr ParsedAttrInfo::Spelling NoMicroMipsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "nomicromips"},
   {AttributeCommonInfo::AS_CXX11, "gnu::nomicromips"},
-  {AttributeCommonInfo::AS_C2x, "gnu::nomicromips"},
+  {AttributeCommonInfo::AS_C23, "gnu::nomicromips"},
 };
 struct ParsedAttrInfoNoMicroMips final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoMicroMips() : ParsedAttrInfo(
@@ -8695,7 +9023,7 @@ struct ParsedAttrInfoNoMicroMips final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -8703,7 +9031,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8731,7 +9059,7 @@ const ParsedAttrInfoNoMicroMips ParsedAttrInfoNoMicroMips::Instance;
 static constexpr ParsedAttrInfo::Spelling NoMips16Spellings[] = {
   {AttributeCommonInfo::AS_GNU, "nomips16"},
   {AttributeCommonInfo::AS_CXX11, "gnu::nomips16"},
-  {AttributeCommonInfo::AS_C2x, "gnu::nomips16"},
+  {AttributeCommonInfo::AS_C23, "gnu::nomips16"},
 };
 struct ParsedAttrInfoNoMips16 final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoMips16() : ParsedAttrInfo(
@@ -8751,7 +9079,7 @@ struct ParsedAttrInfoNoMips16 final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -8759,7 +9087,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8787,7 +9115,7 @@ const ParsedAttrInfoNoMips16 ParsedAttrInfoNoMips16::Instance;
 static constexpr ParsedAttrInfo::Spelling NoProfileFunctionSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_profile_instrument_function"},
   {AttributeCommonInfo::AS_CXX11, "gnu::no_profile_instrument_function"},
-  {AttributeCommonInfo::AS_C2x, "gnu::no_profile_instrument_function"},
+  {AttributeCommonInfo::AS_C23, "gnu::no_profile_instrument_function"},
 };
 struct ParsedAttrInfoNoProfileFunction final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoProfileFunction() : ParsedAttrInfo(
@@ -8807,7 +9135,7 @@ struct ParsedAttrInfoNoProfileFunction final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -8815,7 +9143,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8838,7 +9166,7 @@ const ParsedAttrInfoNoProfileFunction ParsedAttrInfoNoProfileFunction::Instance;
 static constexpr ParsedAttrInfo::Spelling NoRandomizeLayoutSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_randomize_layout"},
   {AttributeCommonInfo::AS_CXX11, "gnu::no_randomize_layout"},
-  {AttributeCommonInfo::AS_C2x, "gnu::no_randomize_layout"},
+  {AttributeCommonInfo::AS_C23, "gnu::no_randomize_layout"},
 };
 struct ParsedAttrInfoNoRandomizeLayout final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoRandomizeLayout() : ParsedAttrInfo(
@@ -8858,7 +9186,7 @@ struct ParsedAttrInfoNoRandomizeLayout final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -8866,7 +9194,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8874,7 +9202,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<RandomizeLayoutAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -8899,7 +9227,7 @@ const ParsedAttrInfoNoRandomizeLayout ParsedAttrInfoNoRandomizeLayout::Instance;
 static constexpr ParsedAttrInfo::Spelling NoReturnSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "noreturn"},
   {AttributeCommonInfo::AS_CXX11, "gnu::noreturn"},
-  {AttributeCommonInfo::AS_C2x, "gnu::noreturn"},
+  {AttributeCommonInfo::AS_C23, "gnu::noreturn"},
   {AttributeCommonInfo::AS_Declspec, "noreturn"},
 };
 struct ParsedAttrInfoNoReturn final : public ParsedAttrInfo {
@@ -8927,7 +9255,7 @@ const ParsedAttrInfoNoReturn ParsedAttrInfoNoReturn::Instance;
 static constexpr ParsedAttrInfo::Spelling NoSanitizeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_sanitize"},
   {AttributeCommonInfo::AS_CXX11, "clang::no_sanitize"},
-  {AttributeCommonInfo::AS_C2x, "clang::no_sanitize"},
+  {AttributeCommonInfo::AS_C23, "clang::no_sanitize"},
 };
 static constexpr const char *NoSanitizeArgNames[] = {
 "Sanitizers...",};
@@ -8949,7 +9277,7 @@ struct ParsedAttrInfoNoSanitize final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D) && !isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions, Objective-C methods, and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, Objective-C methods, and global variables";
     return false;
   }
   return true;
@@ -8957,7 +9285,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -8977,16 +9305,16 @@ const ParsedAttrInfoNoSanitize ParsedAttrInfoNoSanitize::Instance;
 static constexpr ParsedAttrInfo::Spelling NoSanitizeSpecificSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_address_safety_analysis"},
   {AttributeCommonInfo::AS_CXX11, "gnu::no_address_safety_analysis"},
-  {AttributeCommonInfo::AS_C2x, "gnu::no_address_safety_analysis"},
+  {AttributeCommonInfo::AS_C23, "gnu::no_address_safety_analysis"},
   {AttributeCommonInfo::AS_GNU, "no_sanitize_address"},
   {AttributeCommonInfo::AS_CXX11, "gnu::no_sanitize_address"},
-  {AttributeCommonInfo::AS_C2x, "gnu::no_sanitize_address"},
+  {AttributeCommonInfo::AS_C23, "gnu::no_sanitize_address"},
   {AttributeCommonInfo::AS_GNU, "no_sanitize_thread"},
   {AttributeCommonInfo::AS_CXX11, "gnu::no_sanitize_thread"},
-  {AttributeCommonInfo::AS_C2x, "gnu::no_sanitize_thread"},
+  {AttributeCommonInfo::AS_C23, "gnu::no_sanitize_thread"},
   {AttributeCommonInfo::AS_GNU, "no_sanitize_memory"},
   {AttributeCommonInfo::AS_CXX11, "clang::no_sanitize_memory"},
-  {AttributeCommonInfo::AS_C2x, "clang::no_sanitize_memory"},
+  {AttributeCommonInfo::AS_C23, "clang::no_sanitize_memory"},
 };
 struct ParsedAttrInfoNoSanitizeSpecific final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoSanitizeSpecific() : ParsedAttrInfo(
@@ -9006,7 +9334,7 @@ struct ParsedAttrInfoNoSanitizeSpecific final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and global variables";
     return false;
   }
   return true;
@@ -9014,7 +9342,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9033,7 +9361,7 @@ const ParsedAttrInfoNoSanitizeSpecific ParsedAttrInfoNoSanitizeSpecific::Instanc
 static constexpr ParsedAttrInfo::Spelling NoSpeculativeLoadHardeningSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_speculative_load_hardening"},
   {AttributeCommonInfo::AS_CXX11, "clang::no_speculative_load_hardening"},
-  {AttributeCommonInfo::AS_C2x, "clang::no_speculative_load_hardening"},
+  {AttributeCommonInfo::AS_C23, "clang::no_speculative_load_hardening"},
 };
 struct ParsedAttrInfoNoSpeculativeLoadHardening final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoSpeculativeLoadHardening() : ParsedAttrInfo(
@@ -9053,7 +9381,7 @@ struct ParsedAttrInfoNoSpeculativeLoadHardening final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -9061,7 +9389,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9069,7 +9397,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<SpeculativeLoadHardeningAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -9096,7 +9424,7 @@ const ParsedAttrInfoNoSpeculativeLoadHardening ParsedAttrInfoNoSpeculativeLoadHa
 static constexpr ParsedAttrInfo::Spelling NoSplitStackSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_split_stack"},
   {AttributeCommonInfo::AS_CXX11, "gnu::no_split_stack"},
-  {AttributeCommonInfo::AS_C2x, "gnu::no_split_stack"},
+  {AttributeCommonInfo::AS_C23, "gnu::no_split_stack"},
 };
 struct ParsedAttrInfoNoSplitStack final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoSplitStack() : ParsedAttrInfo(
@@ -9116,7 +9444,7 @@ struct ParsedAttrInfoNoSplitStack final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -9124,7 +9452,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9147,7 +9475,7 @@ const ParsedAttrInfoNoSplitStack ParsedAttrInfoNoSplitStack::Instance;
 static constexpr ParsedAttrInfo::Spelling NoStackProtectorSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_stack_protector"},
   {AttributeCommonInfo::AS_CXX11, "clang::no_stack_protector"},
-  {AttributeCommonInfo::AS_C2x, "clang::no_stack_protector"},
+  {AttributeCommonInfo::AS_C23, "clang::no_stack_protector"},
   {AttributeCommonInfo::AS_Declspec, "safebuffers"},
 };
 struct ParsedAttrInfoNoStackProtector final : public ParsedAttrInfo {
@@ -9168,7 +9496,7 @@ struct ParsedAttrInfoNoStackProtector final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -9176,7 +9504,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9184,7 +9512,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_no_stack_protector = 0,
     CXX11_clang_no_stack_protector = 1,
-    C2x_clang_no_stack_protector = 2,
+    C23_clang_no_stack_protector = 2,
     Declspec_safebuffers = 3,
   SpellingNotCalculated = 15
 
@@ -9195,7 +9523,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_no_stack_protector;
     case 1: return CXX11_clang_no_stack_protector;
-    case 2: return C2x_clang_no_stack_protector;
+    case 2: return C23_clang_no_stack_protector;
     case 3: return Declspec_safebuffers;
   }
 }
@@ -9219,7 +9547,7 @@ const ParsedAttrInfoNoStackProtector ParsedAttrInfoNoStackProtector::Instance;
 static constexpr ParsedAttrInfo::Spelling NoThreadSafetyAnalysisSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "no_thread_safety_analysis"},
   {AttributeCommonInfo::AS_CXX11, "clang::no_thread_safety_analysis"},
-  {AttributeCommonInfo::AS_C2x, "clang::no_thread_safety_analysis"},
+  {AttributeCommonInfo::AS_C23, "clang::no_thread_safety_analysis"},
 };
 struct ParsedAttrInfoNoThreadSafetyAnalysis final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoThreadSafetyAnalysis() : ParsedAttrInfo(
@@ -9239,7 +9567,7 @@ struct ParsedAttrInfoNoThreadSafetyAnalysis final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -9247,7 +9575,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9270,7 +9598,7 @@ const ParsedAttrInfoNoThreadSafetyAnalysis ParsedAttrInfoNoThreadSafetyAnalysis:
 static constexpr ParsedAttrInfo::Spelling NoThrowSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "nothrow"},
   {AttributeCommonInfo::AS_CXX11, "gnu::nothrow"},
-  {AttributeCommonInfo::AS_C2x, "gnu::nothrow"},
+  {AttributeCommonInfo::AS_C23, "gnu::nothrow"},
   {AttributeCommonInfo::AS_Declspec, "nothrow"},
 };
 struct ParsedAttrInfoNoThrow final : public ParsedAttrInfo {
@@ -9291,7 +9619,7 @@ struct ParsedAttrInfoNoThrow final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isFunctionLike(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and function pointers";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and function pointers";
     return false;
   }
   return true;
@@ -9299,7 +9627,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9335,7 +9663,7 @@ struct ParsedAttrInfoNoUniqueAddress final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isNonBitField(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "non-bit-field non-static data members";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-bit-field non-static data members";
     return false;
   }
   return true;
@@ -9343,7 +9671,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9367,7 +9695,7 @@ const ParsedAttrInfoNoUniqueAddress ParsedAttrInfoNoUniqueAddress::Instance;
 static constexpr ParsedAttrInfo::Spelling NoUwtableSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "nouwtable"},
   {AttributeCommonInfo::AS_CXX11, "clang::nouwtable"},
-  {AttributeCommonInfo::AS_C2x, "clang::nouwtable"},
+  {AttributeCommonInfo::AS_C23, "clang::nouwtable"},
 };
 struct ParsedAttrInfoNoUwtable final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNoUwtable() : ParsedAttrInfo(
@@ -9387,7 +9715,7 @@ struct ParsedAttrInfoNoUwtable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isFunctionLike(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and function pointers";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and function pointers";
     return false;
   }
   return true;
@@ -9395,7 +9723,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9418,7 +9746,7 @@ const ParsedAttrInfoNoUwtable ParsedAttrInfoNoUwtable::Instance;
 static constexpr ParsedAttrInfo::Spelling NonNullSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "nonnull"},
   {AttributeCommonInfo::AS_CXX11, "gnu::nonnull"},
-  {AttributeCommonInfo::AS_C2x, "gnu::nonnull"},
+  {AttributeCommonInfo::AS_C23, "gnu::nonnull"},
 };
 static constexpr const char *NonNullArgNames[] = {
 "Args...",};
@@ -9440,7 +9768,7 @@ struct ParsedAttrInfoNonNull final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D) && !isHasFunctionProto(D) && !isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions, methods, and parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, methods, and parameters";
     return false;
   }
   return true;
@@ -9448,7 +9776,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9462,7 +9790,7 @@ const ParsedAttrInfoNonNull ParsedAttrInfoNonNull::Instance;
 static constexpr ParsedAttrInfo::Spelling NotTailCalledSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "not_tail_called"},
   {AttributeCommonInfo::AS_CXX11, "clang::not_tail_called"},
-  {AttributeCommonInfo::AS_C2x, "clang::not_tail_called"},
+  {AttributeCommonInfo::AS_C23, "clang::not_tail_called"},
 };
 struct ParsedAttrInfoNotTailCalled final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoNotTailCalled() : ParsedAttrInfo(
@@ -9482,7 +9810,7 @@ struct ParsedAttrInfoNotTailCalled final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -9490,7 +9818,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9498,7 +9826,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<AlwaysInlineAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -9524,7 +9852,7 @@ const ParsedAttrInfoNotTailCalled ParsedAttrInfoNotTailCalled::Instance;
 static constexpr ParsedAttrInfo::Spelling OSConsumedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "os_consumed"},
   {AttributeCommonInfo::AS_CXX11, "clang::os_consumed"},
-  {AttributeCommonInfo::AS_C2x, "clang::os_consumed"},
+  {AttributeCommonInfo::AS_C23, "clang::os_consumed"},
 };
 struct ParsedAttrInfoOSConsumed final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOSConsumed() : ParsedAttrInfo(
@@ -9544,7 +9872,7 @@ struct ParsedAttrInfoOSConsumed final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -9552,7 +9880,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9570,7 +9898,7 @@ const ParsedAttrInfoOSConsumed ParsedAttrInfoOSConsumed::Instance;
 static constexpr ParsedAttrInfo::Spelling OSConsumesThisSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "os_consumes_this"},
   {AttributeCommonInfo::AS_CXX11, "clang::os_consumes_this"},
-  {AttributeCommonInfo::AS_C2x, "clang::os_consumes_this"},
+  {AttributeCommonInfo::AS_C23, "clang::os_consumes_this"},
 };
 struct ParsedAttrInfoOSConsumesThis final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOSConsumesThis() : ParsedAttrInfo(
@@ -9590,7 +9918,7 @@ struct ParsedAttrInfoOSConsumesThis final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isNonStaticCXXMethod(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-static member functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-static member functions";
     return false;
   }
   return true;
@@ -9598,7 +9926,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9617,7 +9945,7 @@ const ParsedAttrInfoOSConsumesThis ParsedAttrInfoOSConsumesThis::Instance;
 static constexpr ParsedAttrInfo::Spelling OSReturnsNotRetainedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "os_returns_not_retained"},
   {AttributeCommonInfo::AS_CXX11, "clang::os_returns_not_retained"},
-  {AttributeCommonInfo::AS_C2x, "clang::os_returns_not_retained"},
+  {AttributeCommonInfo::AS_C23, "clang::os_returns_not_retained"},
 };
 struct ParsedAttrInfoOSReturnsNotRetained final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOSReturnsNotRetained() : ParsedAttrInfo(
@@ -9637,7 +9965,7 @@ struct ParsedAttrInfoOSReturnsNotRetained final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D) && !isa<ObjCPropertyDecl>(D) && !isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions, Objective-C methods, Objective-C properties, and parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, Objective-C methods, Objective-C properties, and parameters";
     return false;
   }
   return true;
@@ -9645,7 +9973,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9666,7 +9994,7 @@ const ParsedAttrInfoOSReturnsNotRetained ParsedAttrInfoOSReturnsNotRetained::Ins
 static constexpr ParsedAttrInfo::Spelling OSReturnsRetainedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "os_returns_retained"},
   {AttributeCommonInfo::AS_CXX11, "clang::os_returns_retained"},
-  {AttributeCommonInfo::AS_C2x, "clang::os_returns_retained"},
+  {AttributeCommonInfo::AS_C23, "clang::os_returns_retained"},
 };
 struct ParsedAttrInfoOSReturnsRetained final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOSReturnsRetained() : ParsedAttrInfo(
@@ -9686,7 +10014,7 @@ struct ParsedAttrInfoOSReturnsRetained final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D) && !isa<ObjCPropertyDecl>(D) && !isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions, Objective-C methods, Objective-C properties, and parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, Objective-C methods, Objective-C properties, and parameters";
     return false;
   }
   return true;
@@ -9694,7 +10022,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9715,7 +10043,7 @@ const ParsedAttrInfoOSReturnsRetained ParsedAttrInfoOSReturnsRetained::Instance;
 static constexpr ParsedAttrInfo::Spelling OSReturnsRetainedOnNonZeroSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "os_returns_retained_on_non_zero"},
   {AttributeCommonInfo::AS_CXX11, "clang::os_returns_retained_on_non_zero"},
-  {AttributeCommonInfo::AS_C2x, "clang::os_returns_retained_on_non_zero"},
+  {AttributeCommonInfo::AS_C23, "clang::os_returns_retained_on_non_zero"},
 };
 struct ParsedAttrInfoOSReturnsRetainedOnNonZero final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOSReturnsRetainedOnNonZero() : ParsedAttrInfo(
@@ -9735,7 +10063,7 @@ struct ParsedAttrInfoOSReturnsRetainedOnNonZero final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -9743,7 +10071,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9761,7 +10089,7 @@ const ParsedAttrInfoOSReturnsRetainedOnNonZero ParsedAttrInfoOSReturnsRetainedOn
 static constexpr ParsedAttrInfo::Spelling OSReturnsRetainedOnZeroSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "os_returns_retained_on_zero"},
   {AttributeCommonInfo::AS_CXX11, "clang::os_returns_retained_on_zero"},
-  {AttributeCommonInfo::AS_C2x, "clang::os_returns_retained_on_zero"},
+  {AttributeCommonInfo::AS_C23, "clang::os_returns_retained_on_zero"},
 };
 struct ParsedAttrInfoOSReturnsRetainedOnZero final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOSReturnsRetainedOnZero() : ParsedAttrInfo(
@@ -9781,7 +10109,7 @@ struct ParsedAttrInfoOSReturnsRetainedOnZero final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -9789,7 +10117,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9807,7 +10135,7 @@ const ParsedAttrInfoOSReturnsRetainedOnZero ParsedAttrInfoOSReturnsRetainedOnZer
 static constexpr ParsedAttrInfo::Spelling ObjCBoxableSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_boxable"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_boxable"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_boxable"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_boxable"},
 };
 struct ParsedAttrInfoObjCBoxable final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCBoxable() : ParsedAttrInfo(
@@ -9827,7 +10155,7 @@ struct ParsedAttrInfoObjCBoxable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -9835,7 +10163,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9853,7 +10181,7 @@ const ParsedAttrInfoObjCBoxable ParsedAttrInfoObjCBoxable::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCBridgeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_bridge"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_bridge"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_bridge"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_bridge"},
 };
 static constexpr const char *ObjCBridgeArgNames[] = {
 "BridgedType",};
@@ -9875,7 +10203,7 @@ struct ParsedAttrInfoObjCBridge final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D) && !isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, classes, and typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, classes, and typedefs";
     return false;
   }
   return true;
@@ -9883,7 +10211,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9902,7 +10230,7 @@ const ParsedAttrInfoObjCBridge ParsedAttrInfoObjCBridge::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCBridgeMutableSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_bridge_mutable"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_bridge_mutable"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_bridge_mutable"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_bridge_mutable"},
 };
 static constexpr const char *ObjCBridgeMutableArgNames[] = {
 "BridgedType",};
@@ -9924,7 +10252,7 @@ struct ParsedAttrInfoObjCBridgeMutable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -9932,7 +10260,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9950,7 +10278,7 @@ const ParsedAttrInfoObjCBridgeMutable ParsedAttrInfoObjCBridgeMutable::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCBridgeRelatedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_bridge_related"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_bridge_related"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_bridge_related"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_bridge_related"},
 };
 static constexpr const char *ObjCBridgeRelatedArgNames[] = {
 "RelatedClass","ClassMethod","InstanceMethod",};
@@ -9972,7 +10300,7 @@ struct ParsedAttrInfoObjCBridgeRelated final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -9980,7 +10308,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -9998,7 +10326,7 @@ const ParsedAttrInfoObjCBridgeRelated ParsedAttrInfoObjCBridgeRelated::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCClassStubSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_class_stub"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_class_stub"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_class_stub"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_class_stub"},
 };
 struct ParsedAttrInfoObjCClassStub final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCClassStub() : ParsedAttrInfo(
@@ -10018,7 +10346,7 @@ struct ParsedAttrInfoObjCClassStub final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces";
     return false;
   }
   return true;
@@ -10026,7 +10354,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10053,7 +10381,7 @@ const ParsedAttrInfoObjCClassStub ParsedAttrInfoObjCClassStub::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCDesignatedInitializerSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_designated_initializer"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_designated_initializer"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_designated_initializer"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_designated_initializer"},
 };
 struct ParsedAttrInfoObjCDesignatedInitializer final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCDesignatedInitializer() : ParsedAttrInfo(
@@ -10073,7 +10401,7 @@ struct ParsedAttrInfoObjCDesignatedInitializer final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods";
     return false;
   }
   return true;
@@ -10081,7 +10409,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10099,7 +10427,7 @@ const ParsedAttrInfoObjCDesignatedInitializer ParsedAttrInfoObjCDesignatedInitia
 static constexpr ParsedAttrInfo::Spelling ObjCDirectSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_direct"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_direct"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_direct"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_direct"},
 };
 struct ParsedAttrInfoObjCDirect final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCDirect() : ParsedAttrInfo(
@@ -10119,7 +10447,7 @@ struct ParsedAttrInfoObjCDirect final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods";
     return false;
   }
   return true;
@@ -10127,7 +10455,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10149,7 +10477,7 @@ const ParsedAttrInfoObjCDirect ParsedAttrInfoObjCDirect::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCDirectMembersSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_direct_members"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_direct_members"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_direct_members"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_direct_members"},
 };
 struct ParsedAttrInfoObjCDirectMembers final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCDirectMembers() : ParsedAttrInfo(
@@ -10169,7 +10497,7 @@ struct ParsedAttrInfoObjCDirectMembers final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCImplDecl>(D) && !isa<ObjCInterfaceDecl>(D) && !isa<ObjCCategoryDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C implementation declarations, Objective-C interfaces, and Objective-C containers";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C implementation declarations, Objective-C interfaces, and Objective-C containers";
     return false;
   }
   return true;
@@ -10177,7 +10505,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10201,7 +10529,7 @@ const ParsedAttrInfoObjCDirectMembers ParsedAttrInfoObjCDirectMembers::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCExceptionSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_exception"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_exception"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_exception"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_exception"},
 };
 struct ParsedAttrInfoObjCException final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCException() : ParsedAttrInfo(
@@ -10221,7 +10549,7 @@ struct ParsedAttrInfoObjCException final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces";
     return false;
   }
   return true;
@@ -10229,7 +10557,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10252,7 +10580,7 @@ const ParsedAttrInfoObjCException ParsedAttrInfoObjCException::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCExplicitProtocolImplSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_protocol_requires_explicit_implementation"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_protocol_requires_explicit_implementation"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_protocol_requires_explicit_implementation"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_protocol_requires_explicit_implementation"},
 };
 struct ParsedAttrInfoObjCExplicitProtocolImpl final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCExplicitProtocolImpl() : ParsedAttrInfo(
@@ -10272,7 +10600,7 @@ struct ParsedAttrInfoObjCExplicitProtocolImpl final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCProtocolDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C protocols";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C protocols";
     return false;
   }
   return true;
@@ -10280,7 +10608,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10298,7 +10626,7 @@ const ParsedAttrInfoObjCExplicitProtocolImpl ParsedAttrInfoObjCExplicitProtocolI
 static constexpr ParsedAttrInfo::Spelling ObjCExternallyRetainedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_externally_retained"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_externally_retained"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_externally_retained"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_externally_retained"},
 };
 struct ParsedAttrInfoObjCExternallyRetained final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCExternallyRetained() : ParsedAttrInfo(
@@ -10318,7 +10646,7 @@ struct ParsedAttrInfoObjCExternallyRetained final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isNonParmVar(D) && !isa<FunctionDecl>(D) && !isa<BlockDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables, functions, blocks, and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables, functions, blocks, and Objective-C methods";
     return false;
   }
   return true;
@@ -10326,7 +10654,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10351,7 +10679,7 @@ const ParsedAttrInfoObjCExternallyRetained ParsedAttrInfoObjCExternallyRetained:
 static constexpr ParsedAttrInfo::Spelling ObjCGCSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_gc"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_gc"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_gc"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_gc"},
 };
 static constexpr const char *ObjCGCArgNames[] = {
 "Kind",};
@@ -10380,7 +10708,7 @@ const ParsedAttrInfoObjCGC ParsedAttrInfoObjCGC::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCIndependentClassSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_independent_class"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_independent_class"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_independent_class"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_independent_class"},
 };
 struct ParsedAttrInfoObjCIndependentClass final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCIndependentClass() : ParsedAttrInfo(
@@ -10457,7 +10785,7 @@ const ParsedAttrInfoObjCKindOf ParsedAttrInfoObjCKindOf::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCMethodFamilySpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_method_family"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_method_family"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_method_family"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_method_family"},
 };
 static constexpr const char *ObjCMethodFamilyArgNames[] = {
 "Family",};
@@ -10479,7 +10807,7 @@ struct ParsedAttrInfoObjCMethodFamily final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods";
     return false;
   }
   return true;
@@ -10487,7 +10815,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10505,7 +10833,7 @@ const ParsedAttrInfoObjCMethodFamily ParsedAttrInfoObjCMethodFamily::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCNSObjectSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "NSObject"},
   {AttributeCommonInfo::AS_CXX11, "clang::NSObject"},
-  {AttributeCommonInfo::AS_C2x, "clang::NSObject"},
+  {AttributeCommonInfo::AS_C23, "clang::NSObject"},
 };
 struct ParsedAttrInfoObjCNSObject final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCNSObject() : ParsedAttrInfo(
@@ -10532,7 +10860,7 @@ const ParsedAttrInfoObjCNSObject ParsedAttrInfoObjCNSObject::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCNonLazyClassSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_nonlazy_class"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_nonlazy_class"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_nonlazy_class"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_nonlazy_class"},
 };
 struct ParsedAttrInfoObjCNonLazyClass final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCNonLazyClass() : ParsedAttrInfo(
@@ -10552,7 +10880,7 @@ struct ParsedAttrInfoObjCNonLazyClass final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D) && !isa<ObjCImplDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces and Objective-C implementation declarations";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces and Objective-C implementation declarations";
     return false;
   }
   return true;
@@ -10560,7 +10888,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10588,7 +10916,7 @@ const ParsedAttrInfoObjCNonLazyClass ParsedAttrInfoObjCNonLazyClass::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCNonRuntimeProtocolSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_non_runtime_protocol"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_non_runtime_protocol"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_non_runtime_protocol"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_non_runtime_protocol"},
 };
 struct ParsedAttrInfoObjCNonRuntimeProtocol final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCNonRuntimeProtocol() : ParsedAttrInfo(
@@ -10608,7 +10936,7 @@ struct ParsedAttrInfoObjCNonRuntimeProtocol final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCProtocolDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C protocols";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C protocols";
     return false;
   }
   return true;
@@ -10616,7 +10944,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10643,7 +10971,7 @@ const ParsedAttrInfoObjCNonRuntimeProtocol ParsedAttrInfoObjCNonRuntimeProtocol:
 static constexpr ParsedAttrInfo::Spelling ObjCOwnershipSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_ownership"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_ownership"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_ownership"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_ownership"},
 };
 static constexpr const char *ObjCOwnershipArgNames[] = {
 "Kind",};
@@ -10672,7 +11000,7 @@ const ParsedAttrInfoObjCOwnership ParsedAttrInfoObjCOwnership::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCPreciseLifetimeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_precise_lifetime"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_precise_lifetime"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_precise_lifetime"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_precise_lifetime"},
 };
 struct ParsedAttrInfoObjCPreciseLifetime final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCPreciseLifetime() : ParsedAttrInfo(
@@ -10692,7 +11020,7 @@ struct ParsedAttrInfoObjCPreciseLifetime final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -10700,7 +11028,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10718,7 +11046,7 @@ const ParsedAttrInfoObjCPreciseLifetime ParsedAttrInfoObjCPreciseLifetime::Insta
 static constexpr ParsedAttrInfo::Spelling ObjCRequiresPropertyDefsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_requires_property_definitions"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_requires_property_definitions"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_requires_property_definitions"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_requires_property_definitions"},
 };
 struct ParsedAttrInfoObjCRequiresPropertyDefs final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCRequiresPropertyDefs() : ParsedAttrInfo(
@@ -10738,7 +11066,7 @@ struct ParsedAttrInfoObjCRequiresPropertyDefs final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces";
     return false;
   }
   return true;
@@ -10746,7 +11074,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10769,7 +11097,7 @@ const ParsedAttrInfoObjCRequiresPropertyDefs ParsedAttrInfoObjCRequiresPropertyD
 static constexpr ParsedAttrInfo::Spelling ObjCRequiresSuperSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_requires_super"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_requires_super"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_requires_super"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_requires_super"},
 };
 struct ParsedAttrInfoObjCRequiresSuper final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCRequiresSuper() : ParsedAttrInfo(
@@ -10789,7 +11117,7 @@ struct ParsedAttrInfoObjCRequiresSuper final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods";
     return false;
   }
   return true;
@@ -10797,7 +11125,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10815,7 +11143,7 @@ const ParsedAttrInfoObjCRequiresSuper ParsedAttrInfoObjCRequiresSuper::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCReturnsInnerPointerSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_returns_inner_pointer"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_returns_inner_pointer"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_returns_inner_pointer"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_returns_inner_pointer"},
 };
 struct ParsedAttrInfoObjCReturnsInnerPointer final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCReturnsInnerPointer() : ParsedAttrInfo(
@@ -10835,7 +11163,7 @@ struct ParsedAttrInfoObjCReturnsInnerPointer final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D) && !isa<ObjCPropertyDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods and Objective-C properties";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods and Objective-C properties";
     return false;
   }
   return true;
@@ -10843,7 +11171,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10862,7 +11190,7 @@ const ParsedAttrInfoObjCReturnsInnerPointer ParsedAttrInfoObjCReturnsInnerPointe
 static constexpr ParsedAttrInfo::Spelling ObjCRootClassSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_root_class"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_root_class"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_root_class"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_root_class"},
 };
 struct ParsedAttrInfoObjCRootClass final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCRootClass() : ParsedAttrInfo(
@@ -10882,7 +11210,7 @@ struct ParsedAttrInfoObjCRootClass final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces";
     return false;
   }
   return true;
@@ -10890,7 +11218,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10913,7 +11241,7 @@ const ParsedAttrInfoObjCRootClass ParsedAttrInfoObjCRootClass::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCRuntimeNameSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_runtime_name"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_runtime_name"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_runtime_name"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_runtime_name"},
 };
 static constexpr const char *ObjCRuntimeNameArgNames[] = {
 "MetadataName",};
@@ -10935,7 +11263,7 @@ struct ParsedAttrInfoObjCRuntimeName final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D) && !isa<ObjCProtocolDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces and Objective-C protocols";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces and Objective-C protocols";
     return false;
   }
   return true;
@@ -10943,7 +11271,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -10962,7 +11290,7 @@ const ParsedAttrInfoObjCRuntimeName ParsedAttrInfoObjCRuntimeName::Instance;
 static constexpr ParsedAttrInfo::Spelling ObjCRuntimeVisibleSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_runtime_visible"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_runtime_visible"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_runtime_visible"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_runtime_visible"},
 };
 struct ParsedAttrInfoObjCRuntimeVisible final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCRuntimeVisible() : ParsedAttrInfo(
@@ -10982,7 +11310,7 @@ struct ParsedAttrInfoObjCRuntimeVisible final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces";
     return false;
   }
   return true;
@@ -10990,7 +11318,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11013,7 +11341,7 @@ const ParsedAttrInfoObjCRuntimeVisible ParsedAttrInfoObjCRuntimeVisible::Instanc
 static constexpr ParsedAttrInfo::Spelling ObjCSubclassingRestrictedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "objc_subclassing_restricted"},
   {AttributeCommonInfo::AS_CXX11, "clang::objc_subclassing_restricted"},
-  {AttributeCommonInfo::AS_C2x, "clang::objc_subclassing_restricted"},
+  {AttributeCommonInfo::AS_C23, "clang::objc_subclassing_restricted"},
 };
 struct ParsedAttrInfoObjCSubclassingRestricted final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoObjCSubclassingRestricted() : ParsedAttrInfo(
@@ -11033,7 +11361,7 @@ struct ParsedAttrInfoObjCSubclassingRestricted final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces";
     return false;
   }
   return true;
@@ -11041,7 +11369,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11087,7 +11415,7 @@ struct ParsedAttrInfoOpenCLAccess final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D) && !isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "parameters and typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters and typedefs";
     return false;
   }
   return true;
@@ -11095,7 +11423,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11132,7 +11460,7 @@ static constexpr ParsedAttrInfo::Spelling OpenCLConstantAddressSpaceSpellings[] 
   {AttributeCommonInfo::AS_Keyword, "constant"},
   {AttributeCommonInfo::AS_GNU, "opencl_constant"},
   {AttributeCommonInfo::AS_CXX11, "clang::opencl_constant"},
-  {AttributeCommonInfo::AS_C2x, "clang::opencl_constant"},
+  {AttributeCommonInfo::AS_C23, "clang::opencl_constant"},
 };
 struct ParsedAttrInfoOpenCLConstantAddressSpace final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOpenCLConstantAddressSpace() : ParsedAttrInfo(
@@ -11154,7 +11482,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     Keyword_constant = 0,
     GNU_opencl_constant = 2,
     CXX11_clang_opencl_constant = 3,
-    C2x_clang_opencl_constant = 4,
+    C23_clang_opencl_constant = 4,
   SpellingNotCalculated = 15
 
   };
@@ -11166,7 +11494,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     case 1: return Keyword_constant;
     case 2: return GNU_opencl_constant;
     case 3: return CXX11_clang_opencl_constant;
-    case 4: return C2x_clang_opencl_constant;
+    case 4: return C23_clang_opencl_constant;
   }
 }
 
@@ -11182,7 +11510,7 @@ static constexpr ParsedAttrInfo::Spelling OpenCLGenericAddressSpaceSpellings[] =
   {AttributeCommonInfo::AS_Keyword, "generic"},
   {AttributeCommonInfo::AS_GNU, "opencl_generic"},
   {AttributeCommonInfo::AS_CXX11, "clang::opencl_generic"},
-  {AttributeCommonInfo::AS_C2x, "clang::opencl_generic"},
+  {AttributeCommonInfo::AS_C23, "clang::opencl_generic"},
 };
 struct ParsedAttrInfoOpenCLGenericAddressSpace final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOpenCLGenericAddressSpace() : ParsedAttrInfo(
@@ -11204,7 +11532,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     Keyword_generic = 0,
     GNU_opencl_generic = 2,
     CXX11_clang_opencl_generic = 3,
-    C2x_clang_opencl_generic = 4,
+    C23_clang_opencl_generic = 4,
   SpellingNotCalculated = 15
 
   };
@@ -11216,7 +11544,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     case 1: return Keyword_generic;
     case 2: return GNU_opencl_generic;
     case 3: return CXX11_clang_opencl_generic;
-    case 4: return C2x_clang_opencl_generic;
+    case 4: return C23_clang_opencl_generic;
   }
 }
 
@@ -11232,7 +11560,7 @@ static constexpr ParsedAttrInfo::Spelling OpenCLGlobalAddressSpaceSpellings[] = 
   {AttributeCommonInfo::AS_Keyword, "global"},
   {AttributeCommonInfo::AS_GNU, "opencl_global"},
   {AttributeCommonInfo::AS_CXX11, "clang::opencl_global"},
-  {AttributeCommonInfo::AS_C2x, "clang::opencl_global"},
+  {AttributeCommonInfo::AS_C23, "clang::opencl_global"},
 };
 struct ParsedAttrInfoOpenCLGlobalAddressSpace final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOpenCLGlobalAddressSpace() : ParsedAttrInfo(
@@ -11254,7 +11582,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     Keyword_global = 0,
     GNU_opencl_global = 2,
     CXX11_clang_opencl_global = 3,
-    C2x_clang_opencl_global = 4,
+    C23_clang_opencl_global = 4,
   SpellingNotCalculated = 15
 
   };
@@ -11266,7 +11594,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     case 1: return Keyword_global;
     case 2: return GNU_opencl_global;
     case 3: return CXX11_clang_opencl_global;
-    case 4: return C2x_clang_opencl_global;
+    case 4: return C23_clang_opencl_global;
   }
 }
 
@@ -11280,7 +11608,7 @@ const ParsedAttrInfoOpenCLGlobalAddressSpace ParsedAttrInfoOpenCLGlobalAddressSp
 static constexpr ParsedAttrInfo::Spelling OpenCLGlobalDeviceAddressSpaceSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "opencl_global_device"},
   {AttributeCommonInfo::AS_CXX11, "clang::opencl_global_device"},
-  {AttributeCommonInfo::AS_C2x, "clang::opencl_global_device"},
+  {AttributeCommonInfo::AS_C23, "clang::opencl_global_device"},
 };
 struct ParsedAttrInfoOpenCLGlobalDeviceAddressSpace final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOpenCLGlobalDeviceAddressSpace() : ParsedAttrInfo(
@@ -11307,7 +11635,7 @@ const ParsedAttrInfoOpenCLGlobalDeviceAddressSpace ParsedAttrInfoOpenCLGlobalDev
 static constexpr ParsedAttrInfo::Spelling OpenCLGlobalHostAddressSpaceSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "opencl_global_host"},
   {AttributeCommonInfo::AS_CXX11, "clang::opencl_global_host"},
-  {AttributeCommonInfo::AS_C2x, "clang::opencl_global_host"},
+  {AttributeCommonInfo::AS_C23, "clang::opencl_global_host"},
 };
 struct ParsedAttrInfoOpenCLGlobalHostAddressSpace final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOpenCLGlobalHostAddressSpace() : ParsedAttrInfo(
@@ -11354,7 +11682,7 @@ struct ParsedAttrInfoOpenCLIntelReqdSubGroupSize final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -11362,7 +11690,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11399,7 +11727,7 @@ struct ParsedAttrInfoOpenCLKernel final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -11407,7 +11735,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11428,7 +11756,7 @@ static constexpr ParsedAttrInfo::Spelling OpenCLLocalAddressSpaceSpellings[] = {
   {AttributeCommonInfo::AS_Keyword, "local"},
   {AttributeCommonInfo::AS_GNU, "opencl_local"},
   {AttributeCommonInfo::AS_CXX11, "clang::opencl_local"},
-  {AttributeCommonInfo::AS_C2x, "clang::opencl_local"},
+  {AttributeCommonInfo::AS_C23, "clang::opencl_local"},
 };
 struct ParsedAttrInfoOpenCLLocalAddressSpace final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOpenCLLocalAddressSpace() : ParsedAttrInfo(
@@ -11450,7 +11778,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     Keyword_local = 0,
     GNU_opencl_local = 2,
     CXX11_clang_opencl_local = 3,
-    C2x_clang_opencl_local = 4,
+    C23_clang_opencl_local = 4,
   SpellingNotCalculated = 15
 
   };
@@ -11462,7 +11790,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     case 1: return Keyword_local;
     case 2: return GNU_opencl_local;
     case 3: return CXX11_clang_opencl_local;
-    case 4: return C2x_clang_opencl_local;
+    case 4: return C23_clang_opencl_local;
   }
 }
 
@@ -11494,7 +11822,7 @@ struct ParsedAttrInfoOpenCLNoSVM final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -11502,7 +11830,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11526,7 +11854,7 @@ static constexpr ParsedAttrInfo::Spelling OpenCLPrivateAddressSpaceSpellings[] =
   {AttributeCommonInfo::AS_Keyword, "private"},
   {AttributeCommonInfo::AS_GNU, "opencl_private"},
   {AttributeCommonInfo::AS_CXX11, "clang::opencl_private"},
-  {AttributeCommonInfo::AS_C2x, "clang::opencl_private"},
+  {AttributeCommonInfo::AS_C23, "clang::opencl_private"},
 };
 struct ParsedAttrInfoOpenCLPrivateAddressSpace final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOpenCLPrivateAddressSpace() : ParsedAttrInfo(
@@ -11548,7 +11876,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     Keyword_private = 0,
     GNU_opencl_private = 2,
     CXX11_clang_opencl_private = 3,
-    C2x_clang_opencl_private = 4,
+    C23_clang_opencl_private = 4,
   SpellingNotCalculated = 15
 
   };
@@ -11560,7 +11888,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     case 1: return Keyword_private;
     case 2: return GNU_opencl_private;
     case 3: return CXX11_clang_opencl_private;
-    case 4: return C2x_clang_opencl_private;
+    case 4: return C23_clang_opencl_private;
   }
 }
 
@@ -11593,14 +11921,14 @@ struct ParsedAttrInfoOpenCLUnrollHint final : public ParsedAttrInfo {
     /*ArgNames=*/OpenCLUnrollHintArgNames) {}
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
   S.Diag(AL.getLoc(), diag::err_attribute_invalid_on_decl)
-    << AL << D->getLocation();
+    << AL << AL.isRegularKeywordAttribute() << D->getLocation();
   return false;
 }
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &Attr, const Stmt *St) const override {
   if (!isa<ForStmt>(St) && !isa<CXXForRangeStmt>(St) && !isa<WhileStmt>(St) && !isa<DoStmt>(St)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "'for', 'while', and 'do' statements";
+      << Attr << Attr.isRegularKeywordAttribute() << "'for', 'while', and 'do' statements";
     return false;
   }
   return true;
@@ -11616,7 +11944,7 @@ const ParsedAttrInfoOpenCLUnrollHint ParsedAttrInfoOpenCLUnrollHint::Instance;
 static constexpr ParsedAttrInfo::Spelling OptimizeNoneSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "optnone"},
   {AttributeCommonInfo::AS_CXX11, "clang::optnone"},
-  {AttributeCommonInfo::AS_C2x, "clang::optnone"},
+  {AttributeCommonInfo::AS_C23, "clang::optnone"},
 };
 struct ParsedAttrInfoOptimizeNone final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOptimizeNone() : ParsedAttrInfo(
@@ -11636,7 +11964,7 @@ struct ParsedAttrInfoOptimizeNone final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -11644,7 +11972,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11663,7 +11991,7 @@ const ParsedAttrInfoOptimizeNone ParsedAttrInfoOptimizeNone::Instance;
 static constexpr ParsedAttrInfo::Spelling OverloadableSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "overloadable"},
   {AttributeCommonInfo::AS_CXX11, "clang::overloadable"},
-  {AttributeCommonInfo::AS_C2x, "clang::overloadable"},
+  {AttributeCommonInfo::AS_C23, "clang::overloadable"},
 };
 struct ParsedAttrInfoOverloadable final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoOverloadable() : ParsedAttrInfo(
@@ -11683,7 +12011,7 @@ struct ParsedAttrInfoOverloadable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -11691,7 +12019,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11734,7 +12062,7 @@ struct ParsedAttrInfoOwner final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isStruct(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs";
     return false;
   }
   return true;
@@ -11742,7 +12070,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11750,7 +12078,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<PointerAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -11771,13 +12099,13 @@ const ParsedAttrInfoOwner ParsedAttrInfoOwner::Instance;
 static constexpr ParsedAttrInfo::Spelling OwnershipSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "ownership_holds"},
   {AttributeCommonInfo::AS_CXX11, "clang::ownership_holds"},
-  {AttributeCommonInfo::AS_C2x, "clang::ownership_holds"},
+  {AttributeCommonInfo::AS_C23, "clang::ownership_holds"},
   {AttributeCommonInfo::AS_GNU, "ownership_returns"},
   {AttributeCommonInfo::AS_CXX11, "clang::ownership_returns"},
-  {AttributeCommonInfo::AS_C2x, "clang::ownership_returns"},
+  {AttributeCommonInfo::AS_C23, "clang::ownership_returns"},
   {AttributeCommonInfo::AS_GNU, "ownership_takes"},
   {AttributeCommonInfo::AS_CXX11, "clang::ownership_takes"},
-  {AttributeCommonInfo::AS_C2x, "clang::ownership_takes"},
+  {AttributeCommonInfo::AS_C23, "clang::ownership_takes"},
 };
 static constexpr const char *OwnershipArgNames[] = {
 "Module","Args...",};
@@ -11799,7 +12127,7 @@ struct ParsedAttrInfoOwnership final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isHasFunctionProto(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-K&R-style functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-K&R-style functions";
     return false;
   }
   return true;
@@ -11807,7 +12135,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11815,13 +12143,13 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_ownership_holds = 0,
     CXX11_clang_ownership_holds = 1,
-    C2x_clang_ownership_holds = 2,
+    C23_clang_ownership_holds = 2,
     GNU_ownership_returns = 3,
     CXX11_clang_ownership_returns = 4,
-    C2x_clang_ownership_returns = 5,
+    C23_clang_ownership_returns = 5,
     GNU_ownership_takes = 6,
     CXX11_clang_ownership_takes = 7,
-    C2x_clang_ownership_takes = 8,
+    C23_clang_ownership_takes = 8,
   SpellingNotCalculated = 15
 
   };
@@ -11831,13 +12159,13 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_ownership_holds;
     case 1: return CXX11_clang_ownership_holds;
-    case 2: return C2x_clang_ownership_holds;
+    case 2: return C23_clang_ownership_holds;
     case 3: return GNU_ownership_returns;
     case 4: return CXX11_clang_ownership_returns;
-    case 5: return C2x_clang_ownership_returns;
+    case 5: return C23_clang_ownership_returns;
     case 6: return GNU_ownership_takes;
     case 7: return CXX11_clang_ownership_takes;
-    case 8: return C2x_clang_ownership_takes;
+    case 8: return C23_clang_ownership_takes;
   }
 }
 
@@ -11851,7 +12179,7 @@ const ParsedAttrInfoOwnership ParsedAttrInfoOwnership::Instance;
 static constexpr ParsedAttrInfo::Spelling PackedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "packed"},
   {AttributeCommonInfo::AS_CXX11, "gnu::packed"},
-  {AttributeCommonInfo::AS_C2x, "gnu::packed"},
+  {AttributeCommonInfo::AS_C23, "gnu::packed"},
 };
 struct ParsedAttrInfoPacked final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoPacked() : ParsedAttrInfo(
@@ -11899,7 +12227,7 @@ struct ParsedAttrInfoParamTypestate final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -11907,7 +12235,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11925,7 +12253,7 @@ const ParsedAttrInfoParamTypestate ParsedAttrInfoParamTypestate::Instance;
 static constexpr ParsedAttrInfo::Spelling PascalSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "pascal"},
   {AttributeCommonInfo::AS_CXX11, "clang::pascal"},
-  {AttributeCommonInfo::AS_C2x, "clang::pascal"},
+  {AttributeCommonInfo::AS_C23, "clang::pascal"},
   {AttributeCommonInfo::AS_Keyword, "__pascal"},
   {AttributeCommonInfo::AS_Keyword, "_pascal"},
 };
@@ -11954,10 +12282,10 @@ const ParsedAttrInfoPascal ParsedAttrInfoPascal::Instance;
 static constexpr ParsedAttrInfo::Spelling PassObjectSizeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "pass_object_size"},
   {AttributeCommonInfo::AS_CXX11, "clang::pass_object_size"},
-  {AttributeCommonInfo::AS_C2x, "clang::pass_object_size"},
+  {AttributeCommonInfo::AS_C23, "clang::pass_object_size"},
   {AttributeCommonInfo::AS_GNU, "pass_dynamic_object_size"},
   {AttributeCommonInfo::AS_CXX11, "clang::pass_dynamic_object_size"},
-  {AttributeCommonInfo::AS_C2x, "clang::pass_dynamic_object_size"},
+  {AttributeCommonInfo::AS_C23, "clang::pass_dynamic_object_size"},
 };
 static constexpr const char *PassObjectSizeArgNames[] = {
 "Type",};
@@ -11979,7 +12307,7 @@ struct ParsedAttrInfoPassObjectSize final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -11987,7 +12315,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -11995,10 +12323,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_pass_object_size = 0,
     CXX11_clang_pass_object_size = 1,
-    C2x_clang_pass_object_size = 2,
+    C23_clang_pass_object_size = 2,
     GNU_pass_dynamic_object_size = 3,
     CXX11_clang_pass_dynamic_object_size = 4,
-    C2x_clang_pass_dynamic_object_size = 5,
+    C23_clang_pass_dynamic_object_size = 5,
   SpellingNotCalculated = 15
 
   };
@@ -12008,10 +12336,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_pass_object_size;
     case 1: return CXX11_clang_pass_object_size;
-    case 2: return C2x_clang_pass_object_size;
+    case 2: return C23_clang_pass_object_size;
     case 3: return GNU_pass_dynamic_object_size;
     case 4: return CXX11_clang_pass_dynamic_object_size;
-    case 5: return C2x_clang_pass_dynamic_object_size;
+    case 5: return C23_clang_pass_dynamic_object_size;
   }
 }
 
@@ -12029,7 +12357,7 @@ const ParsedAttrInfoPassObjectSize ParsedAttrInfoPassObjectSize::Instance;
 static constexpr ParsedAttrInfo::Spelling PatchableFunctionEntrySpellings[] = {
   {AttributeCommonInfo::AS_GNU, "patchable_function_entry"},
   {AttributeCommonInfo::AS_CXX11, "gnu::patchable_function_entry"},
-  {AttributeCommonInfo::AS_C2x, "gnu::patchable_function_entry"},
+  {AttributeCommonInfo::AS_C23, "gnu::patchable_function_entry"},
 };
 static constexpr const char *PatchableFunctionEntryArgNames[] = {
 "Count","Offset",};
@@ -12051,7 +12379,7 @@ struct ParsedAttrInfoPatchableFunctionEntry final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -12059,7 +12387,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12083,7 +12411,7 @@ const ParsedAttrInfoPatchableFunctionEntry ParsedAttrInfoPatchableFunctionEntry:
 static constexpr ParsedAttrInfo::Spelling PcsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "pcs"},
   {AttributeCommonInfo::AS_CXX11, "gnu::pcs"},
-  {AttributeCommonInfo::AS_C2x, "gnu::pcs"},
+  {AttributeCommonInfo::AS_C23, "gnu::pcs"},
 };
 static constexpr const char *PcsArgNames[] = {
 "PCS",};
@@ -12132,7 +12460,7 @@ struct ParsedAttrInfoPointer final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isStruct(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs";
     return false;
   }
   return true;
@@ -12140,7 +12468,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12148,7 +12476,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<OwnerAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -12186,7 +12514,7 @@ struct ParsedAttrInfoPragmaClangBSSSection final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "global variables";
     return false;
   }
   return true;
@@ -12194,7 +12522,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12225,7 +12553,7 @@ struct ParsedAttrInfoPragmaClangDataSection final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "global variables";
     return false;
   }
   return true;
@@ -12233,7 +12561,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12264,7 +12592,7 @@ struct ParsedAttrInfoPragmaClangRelroSection final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "global variables";
     return false;
   }
   return true;
@@ -12272,7 +12600,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12303,7 +12631,7 @@ struct ParsedAttrInfoPragmaClangRodataSection final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isGlobalVar(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "global variables";
     return false;
   }
   return true;
@@ -12311,7 +12639,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12342,7 +12670,7 @@ struct ParsedAttrInfoPragmaClangTextSection final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -12350,7 +12678,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12385,7 +12713,7 @@ struct ParsedAttrInfoPreferredName final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isClassTmpl(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "class templates";
+      << Attr << Attr.isRegularKeywordAttribute() << "class templates";
     return false;
   }
   return true;
@@ -12393,7 +12721,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12407,7 +12735,7 @@ const ParsedAttrInfoPreferredName ParsedAttrInfoPreferredName::Instance;
 static constexpr ParsedAttrInfo::Spelling PreserveAllSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "preserve_all"},
   {AttributeCommonInfo::AS_CXX11, "clang::preserve_all"},
-  {AttributeCommonInfo::AS_C2x, "clang::preserve_all"},
+  {AttributeCommonInfo::AS_C23, "clang::preserve_all"},
 };
 struct ParsedAttrInfoPreserveAll final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoPreserveAll() : ParsedAttrInfo(
@@ -12434,7 +12762,7 @@ const ParsedAttrInfoPreserveAll ParsedAttrInfoPreserveAll::Instance;
 static constexpr ParsedAttrInfo::Spelling PreserveMostSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "preserve_most"},
   {AttributeCommonInfo::AS_CXX11, "clang::preserve_most"},
-  {AttributeCommonInfo::AS_C2x, "clang::preserve_most"},
+  {AttributeCommonInfo::AS_C23, "clang::preserve_most"},
 };
 struct ParsedAttrInfoPreserveMost final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoPreserveMost() : ParsedAttrInfo(
@@ -12481,7 +12809,7 @@ struct ParsedAttrInfoPtGuardedBy final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FieldDecl>(D) && !isSharedVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-static data members and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-static data members and global variables";
     return false;
   }
   return true;
@@ -12489,7 +12817,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12522,7 +12850,7 @@ struct ParsedAttrInfoPtGuardedVar final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FieldDecl>(D) && !isSharedVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "non-static data members and global variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-static data members and global variables";
     return false;
   }
   return true;
@@ -12530,7 +12858,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12594,7 +12922,7 @@ const ParsedAttrInfoPtr64 ParsedAttrInfoPtr64::Instance;
 static constexpr ParsedAttrInfo::Spelling PureSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "pure"},
   {AttributeCommonInfo::AS_CXX11, "gnu::pure"},
-  {AttributeCommonInfo::AS_C2x, "gnu::pure"},
+  {AttributeCommonInfo::AS_C23, "gnu::pure"},
 };
 struct ParsedAttrInfoPure final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoPure() : ParsedAttrInfo(
@@ -12646,7 +12974,7 @@ struct ParsedAttrInfoRISCVRVVVectorBits final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "typedefs";
     return false;
   }
   return true;
@@ -12654,7 +12982,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12668,7 +12996,7 @@ const ParsedAttrInfoRISCVRVVVectorBits ParsedAttrInfoRISCVRVVVectorBits::Instanc
 static constexpr ParsedAttrInfo::Spelling RandomizeLayoutSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "randomize_layout"},
   {AttributeCommonInfo::AS_CXX11, "gnu::randomize_layout"},
-  {AttributeCommonInfo::AS_C2x, "gnu::randomize_layout"},
+  {AttributeCommonInfo::AS_C23, "gnu::randomize_layout"},
 };
 struct ParsedAttrInfoRandomizeLayout final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoRandomizeLayout() : ParsedAttrInfo(
@@ -12688,7 +13016,7 @@ struct ParsedAttrInfoRandomizeLayout final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -12696,7 +13024,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12704,7 +13032,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<NoRandomizeLayoutAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -12729,7 +13057,7 @@ const ParsedAttrInfoRandomizeLayout ParsedAttrInfoRandomizeLayout::Instance;
 static constexpr ParsedAttrInfo::Spelling ReadOnlyPlacementSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "enforce_read_only_placement"},
   {AttributeCommonInfo::AS_CXX11, "clang::enforce_read_only_placement"},
-  {AttributeCommonInfo::AS_C2x, "clang::enforce_read_only_placement"},
+  {AttributeCommonInfo::AS_C23, "clang::enforce_read_only_placement"},
 };
 struct ParsedAttrInfoReadOnlyPlacement final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoReadOnlyPlacement() : ParsedAttrInfo(
@@ -12749,7 +13077,7 @@ struct ParsedAttrInfoReadOnlyPlacement final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -12757,7 +13085,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12775,7 +13103,7 @@ const ParsedAttrInfoReadOnlyPlacement ParsedAttrInfoReadOnlyPlacement::Instance;
 static constexpr ParsedAttrInfo::Spelling RegCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "regcall"},
   {AttributeCommonInfo::AS_CXX11, "gnu::regcall"},
-  {AttributeCommonInfo::AS_C2x, "gnu::regcall"},
+  {AttributeCommonInfo::AS_C23, "gnu::regcall"},
   {AttributeCommonInfo::AS_Keyword, "__regcall"},
 };
 struct ParsedAttrInfoRegCall final : public ParsedAttrInfo {
@@ -12803,7 +13131,7 @@ const ParsedAttrInfoRegCall ParsedAttrInfoRegCall::Instance;
 static constexpr ParsedAttrInfo::Spelling RegparmSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "regparm"},
   {AttributeCommonInfo::AS_CXX11, "gnu::regparm"},
-  {AttributeCommonInfo::AS_C2x, "gnu::regparm"},
+  {AttributeCommonInfo::AS_C23, "gnu::regparm"},
 };
 static constexpr const char *RegparmArgNames[] = {
 "NumParams",};
@@ -12851,7 +13179,7 @@ struct ParsedAttrInfoReinitializes final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isNonStaticNonConstCXXMethod(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "non-static non-const member functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "non-static non-const member functions";
     return false;
   }
   return true;
@@ -12859,7 +13187,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12905,7 +13233,7 @@ struct ParsedAttrInfoReleaseCapability final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -12913,7 +13241,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -12955,7 +13283,7 @@ const ParsedAttrInfoReleaseCapability ParsedAttrInfoReleaseCapability::Instance;
 static constexpr ParsedAttrInfo::Spelling ReleaseHandleSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "release_handle"},
   {AttributeCommonInfo::AS_CXX11, "clang::release_handle"},
-  {AttributeCommonInfo::AS_C2x, "clang::release_handle"},
+  {AttributeCommonInfo::AS_C23, "clang::release_handle"},
 };
 static constexpr const char *ReleaseHandleArgNames[] = {
 "HandleType",};
@@ -12977,7 +13305,7 @@ struct ParsedAttrInfoReleaseHandle final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -12985,7 +13313,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13021,7 +13349,7 @@ struct ParsedAttrInfoRenderScriptKernel final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -13029,7 +13357,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13076,7 +13404,7 @@ struct ParsedAttrInfoReqdWorkGroupSize final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -13084,7 +13412,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13129,7 +13457,7 @@ struct ParsedAttrInfoRequiresCapability final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -13137,7 +13465,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13180,7 +13508,7 @@ static constexpr ParsedAttrInfo::Spelling RestrictSpellings[] = {
   {AttributeCommonInfo::AS_Declspec, "restrict"},
   {AttributeCommonInfo::AS_GNU, "malloc"},
   {AttributeCommonInfo::AS_CXX11, "gnu::malloc"},
-  {AttributeCommonInfo::AS_C2x, "gnu::malloc"},
+  {AttributeCommonInfo::AS_C23, "gnu::malloc"},
 };
 struct ParsedAttrInfoRestrict final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoRestrict() : ParsedAttrInfo(
@@ -13200,7 +13528,7 @@ struct ParsedAttrInfoRestrict final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -13208,7 +13536,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13217,7 +13545,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     Declspec_restrict = 0,
     GNU_malloc = 1,
     CXX11_gnu_malloc = 2,
-    C2x_gnu_malloc = 3,
+    C23_gnu_malloc = 3,
   SpellingNotCalculated = 15
 
   };
@@ -13228,7 +13556,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     case 0: return Declspec_restrict;
     case 1: return GNU_malloc;
     case 2: return CXX11_gnu_malloc;
-    case 3: return C2x_gnu_malloc;
+    case 3: return C23_gnu_malloc;
   }
 }
 
@@ -13246,7 +13574,7 @@ const ParsedAttrInfoRestrict ParsedAttrInfoRestrict::Instance;
 static constexpr ParsedAttrInfo::Spelling RetainSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "retain"},
   {AttributeCommonInfo::AS_CXX11, "gnu::retain"},
-  {AttributeCommonInfo::AS_C2x, "gnu::retain"},
+  {AttributeCommonInfo::AS_C23, "gnu::retain"},
 };
 struct ParsedAttrInfoRetain final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoRetain() : ParsedAttrInfo(
@@ -13266,7 +13594,7 @@ struct ParsedAttrInfoRetain final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isNonLocalVar(D) && !isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables with non-local storage, functions, and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables with non-local storage, functions, and Objective-C methods";
     return false;
   }
   return true;
@@ -13274,7 +13602,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13314,7 +13642,7 @@ struct ParsedAttrInfoReturnTypestate final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and parameters";
     return false;
   }
   return true;
@@ -13322,7 +13650,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13341,7 +13669,7 @@ const ParsedAttrInfoReturnTypestate ParsedAttrInfoReturnTypestate::Instance;
 static constexpr ParsedAttrInfo::Spelling ReturnsNonNullSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "returns_nonnull"},
   {AttributeCommonInfo::AS_CXX11, "gnu::returns_nonnull"},
-  {AttributeCommonInfo::AS_C2x, "gnu::returns_nonnull"},
+  {AttributeCommonInfo::AS_C23, "gnu::returns_nonnull"},
 };
 struct ParsedAttrInfoReturnsNonNull final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoReturnsNonNull() : ParsedAttrInfo(
@@ -13361,7 +13689,7 @@ struct ParsedAttrInfoReturnsNonNull final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D) && !isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods and functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods and functions";
     return false;
   }
   return true;
@@ -13369,7 +13697,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13388,7 +13716,7 @@ const ParsedAttrInfoReturnsNonNull ParsedAttrInfoReturnsNonNull::Instance;
 static constexpr ParsedAttrInfo::Spelling ReturnsTwiceSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "returns_twice"},
   {AttributeCommonInfo::AS_CXX11, "gnu::returns_twice"},
-  {AttributeCommonInfo::AS_C2x, "gnu::returns_twice"},
+  {AttributeCommonInfo::AS_C23, "gnu::returns_twice"},
 };
 struct ParsedAttrInfoReturnsTwice final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoReturnsTwice() : ParsedAttrInfo(
@@ -13408,7 +13736,7 @@ struct ParsedAttrInfoReturnsTwice final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -13416,7 +13744,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13464,7 +13792,7 @@ const ParsedAttrInfoSPtr ParsedAttrInfoSPtr::Instance;
 static constexpr ParsedAttrInfo::Spelling SYCLKernelSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "sycl_kernel"},
   {AttributeCommonInfo::AS_CXX11, "clang::sycl_kernel"},
-  {AttributeCommonInfo::AS_C2x, "clang::sycl_kernel"},
+  {AttributeCommonInfo::AS_C23, "clang::sycl_kernel"},
 };
 struct ParsedAttrInfoSYCLKernel final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSYCLKernel() : ParsedAttrInfo(
@@ -13484,7 +13812,7 @@ struct ParsedAttrInfoSYCLKernel final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isFunctionTmpl(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "function templates";
+      << Attr << Attr.isRegularKeywordAttribute() << "function templates";
     return false;
   }
   return true;
@@ -13492,7 +13820,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13510,7 +13838,7 @@ const ParsedAttrInfoSYCLKernel ParsedAttrInfoSYCLKernel::Instance;
 static constexpr ParsedAttrInfo::Spelling SYCLSpecialClassSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "sycl_special_class"},
   {AttributeCommonInfo::AS_CXX11, "clang::sycl_special_class"},
-  {AttributeCommonInfo::AS_C2x, "clang::sycl_special_class"},
+  {AttributeCommonInfo::AS_C23, "clang::sycl_special_class"},
 };
 struct ParsedAttrInfoSYCLSpecialClass final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSYCLSpecialClass() : ParsedAttrInfo(
@@ -13530,7 +13858,7 @@ struct ParsedAttrInfoSYCLSpecialClass final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -13538,7 +13866,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13579,7 +13907,7 @@ struct ParsedAttrInfoScopedLockable final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -13587,7 +13915,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13610,7 +13938,7 @@ const ParsedAttrInfoScopedLockable ParsedAttrInfoScopedLockable::Instance;
 static constexpr ParsedAttrInfo::Spelling SectionSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "section"},
   {AttributeCommonInfo::AS_CXX11, "gnu::section"},
-  {AttributeCommonInfo::AS_C2x, "gnu::section"},
+  {AttributeCommonInfo::AS_C23, "gnu::section"},
   {AttributeCommonInfo::AS_Declspec, "allocate"},
 };
 static constexpr const char *SectionArgNames[] = {
@@ -13633,7 +13961,7 @@ struct ParsedAttrInfoSection final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isGlobalVar(D) && !isa<ObjCMethodDecl>(D) && !isa<ObjCPropertyDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions, global variables, Objective-C methods, and Objective-C properties";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions, global variables, Objective-C methods, and Objective-C properties";
     return false;
   }
   return true;
@@ -13641,7 +13969,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13649,7 +13977,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_section = 0,
     CXX11_gnu_section = 1,
-    C2x_gnu_section = 2,
+    C23_gnu_section = 2,
     Declspec_allocate = 3,
   SpellingNotCalculated = 15
 
@@ -13660,7 +13988,7 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_section;
     case 1: return CXX11_gnu_section;
-    case 2: return C2x_gnu_section;
+    case 2: return C23_gnu_section;
     case 3: return Declspec_allocate;
   }
 }
@@ -13683,7 +14011,7 @@ static constexpr ParsedAttrInfo::Spelling SelectAnySpellings[] = {
   {AttributeCommonInfo::AS_Declspec, "selectany"},
   {AttributeCommonInfo::AS_GNU, "selectany"},
   {AttributeCommonInfo::AS_CXX11, "gnu::selectany"},
-  {AttributeCommonInfo::AS_C2x, "gnu::selectany"},
+  {AttributeCommonInfo::AS_C23, "gnu::selectany"},
 };
 struct ParsedAttrInfoSelectAny final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSelectAny() : ParsedAttrInfo(
@@ -13715,7 +14043,7 @@ const ParsedAttrInfoSelectAny ParsedAttrInfoSelectAny::Instance;
 static constexpr ParsedAttrInfo::Spelling SentinelSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "sentinel"},
   {AttributeCommonInfo::AS_CXX11, "gnu::sentinel"},
-  {AttributeCommonInfo::AS_C2x, "gnu::sentinel"},
+  {AttributeCommonInfo::AS_C23, "gnu::sentinel"},
 };
 static constexpr const char *SentinelArgNames[] = {
 "Sentinel","NullPos",};
@@ -13765,7 +14093,7 @@ struct ParsedAttrInfoSetTypestate final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -13773,7 +14101,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13811,7 +14139,7 @@ struct ParsedAttrInfoSharedTrylockFunction final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -13819,7 +14147,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13833,7 +14161,7 @@ const ParsedAttrInfoSharedTrylockFunction ParsedAttrInfoSharedTrylockFunction::I
 static constexpr ParsedAttrInfo::Spelling SpeculativeLoadHardeningSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "speculative_load_hardening"},
   {AttributeCommonInfo::AS_CXX11, "clang::speculative_load_hardening"},
-  {AttributeCommonInfo::AS_C2x, "clang::speculative_load_hardening"},
+  {AttributeCommonInfo::AS_C23, "clang::speculative_load_hardening"},
 };
 struct ParsedAttrInfoSpeculativeLoadHardening final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSpeculativeLoadHardening() : ParsedAttrInfo(
@@ -13853,7 +14181,7 @@ struct ParsedAttrInfoSpeculativeLoadHardening final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -13861,7 +14189,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13869,7 +14197,7 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<NoSpeculativeLoadHardeningAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -13915,7 +14243,7 @@ struct ParsedAttrInfoStandaloneDebug final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -13923,7 +14251,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -13950,7 +14278,7 @@ const ParsedAttrInfoStandaloneDebug ParsedAttrInfoStandaloneDebug::Instance;
 static constexpr ParsedAttrInfo::Spelling StdCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "stdcall"},
   {AttributeCommonInfo::AS_CXX11, "gnu::stdcall"},
-  {AttributeCommonInfo::AS_C2x, "gnu::stdcall"},
+  {AttributeCommonInfo::AS_C23, "gnu::stdcall"},
   {AttributeCommonInfo::AS_Keyword, "__stdcall"},
   {AttributeCommonInfo::AS_Keyword, "_stdcall"},
 };
@@ -13994,7 +14322,7 @@ struct ParsedAttrInfoStrictFP final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -14002,7 +14330,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14034,7 +14362,7 @@ struct ParsedAttrInfoStrictGuardStackCheck final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -14042,7 +14370,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14088,7 +14416,7 @@ const ParsedAttrInfoSuppress ParsedAttrInfoSuppress::Instance;
 static constexpr ParsedAttrInfo::Spelling SwiftAsyncSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "swift_async"},
   {AttributeCommonInfo::AS_CXX11, "clang::swift_async"},
-  {AttributeCommonInfo::AS_C2x, "clang::swift_async"},
+  {AttributeCommonInfo::AS_C23, "clang::swift_async"},
 };
 static constexpr const char *SwiftAsyncArgNames[] = {
 "Kind","CompletionHandlerIndex",};
@@ -14110,7 +14438,7 @@ struct ParsedAttrInfoSwiftAsync final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -14118,7 +14446,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14137,7 +14465,7 @@ const ParsedAttrInfoSwiftAsync ParsedAttrInfoSwiftAsync::Instance;
 static constexpr ParsedAttrInfo::Spelling SwiftAsyncCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "swiftasynccall"},
   {AttributeCommonInfo::AS_CXX11, "clang::swiftasynccall"},
-  {AttributeCommonInfo::AS_C2x, "clang::swiftasynccall"},
+  {AttributeCommonInfo::AS_C23, "clang::swiftasynccall"},
 };
 struct ParsedAttrInfoSwiftAsyncCall final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSwiftAsyncCall() : ParsedAttrInfo(
@@ -14164,7 +14492,7 @@ const ParsedAttrInfoSwiftAsyncCall ParsedAttrInfoSwiftAsyncCall::Instance;
 static constexpr ParsedAttrInfo::Spelling SwiftAsyncContextSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "swift_async_context"},
   {AttributeCommonInfo::AS_CXX11, "clang::swift_async_context"},
-  {AttributeCommonInfo::AS_C2x, "clang::swift_async_context"},
+  {AttributeCommonInfo::AS_C23, "clang::swift_async_context"},
 };
 struct ParsedAttrInfoSwiftAsyncContext final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSwiftAsyncContext() : ParsedAttrInfo(
@@ -14184,7 +14512,7 @@ struct ParsedAttrInfoSwiftAsyncContext final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -14192,7 +14520,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14210,7 +14538,7 @@ const ParsedAttrInfoSwiftAsyncContext ParsedAttrInfoSwiftAsyncContext::Instance;
 static constexpr ParsedAttrInfo::Spelling SwiftAsyncErrorSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "swift_async_error"},
   {AttributeCommonInfo::AS_CXX11, "clang::swift_async_error"},
-  {AttributeCommonInfo::AS_C2x, "clang::swift_async_error"},
+  {AttributeCommonInfo::AS_C23, "clang::swift_async_error"},
 };
 static constexpr const char *SwiftAsyncErrorArgNames[] = {
 "Convention","HandlerParamIdx",};
@@ -14232,7 +14560,7 @@ struct ParsedAttrInfoSwiftAsyncError final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -14240,7 +14568,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14279,7 +14607,7 @@ struct ParsedAttrInfoSwiftAsyncName final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D) && !isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods and functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods and functions";
     return false;
   }
   return true;
@@ -14287,7 +14615,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14353,7 +14681,7 @@ struct ParsedAttrInfoSwiftBridge final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<TagDecl>(D) && !isa<TypedefNameDecl>(D) && !isa<ObjCInterfaceDecl>(D) && !isa<ObjCProtocolDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "tag types, typedefs, Objective-C interfaces, and Objective-C protocols";
+      << Attr << Attr.isRegularKeywordAttribute() << "tag types, typedefs, Objective-C interfaces, and Objective-C protocols";
     return false;
   }
   return true;
@@ -14361,7 +14689,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14393,7 +14721,7 @@ struct ParsedAttrInfoSwiftBridgedTypedef final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "typedefs";
     return false;
   }
   return true;
@@ -14401,7 +14729,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14424,7 +14752,7 @@ const ParsedAttrInfoSwiftBridgedTypedef ParsedAttrInfoSwiftBridgedTypedef::Insta
 static constexpr ParsedAttrInfo::Spelling SwiftCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "swiftcall"},
   {AttributeCommonInfo::AS_CXX11, "clang::swiftcall"},
-  {AttributeCommonInfo::AS_C2x, "clang::swiftcall"},
+  {AttributeCommonInfo::AS_C23, "clang::swiftcall"},
 };
 struct ParsedAttrInfoSwiftCall final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSwiftCall() : ParsedAttrInfo(
@@ -14451,7 +14779,7 @@ const ParsedAttrInfoSwiftCall ParsedAttrInfoSwiftCall::Instance;
 static constexpr ParsedAttrInfo::Spelling SwiftContextSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "swift_context"},
   {AttributeCommonInfo::AS_CXX11, "clang::swift_context"},
-  {AttributeCommonInfo::AS_C2x, "clang::swift_context"},
+  {AttributeCommonInfo::AS_C23, "clang::swift_context"},
 };
 struct ParsedAttrInfoSwiftContext final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSwiftContext() : ParsedAttrInfo(
@@ -14471,7 +14799,7 @@ struct ParsedAttrInfoSwiftContext final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -14479,7 +14807,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14517,7 +14845,7 @@ struct ParsedAttrInfoSwiftError final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -14525,7 +14853,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14544,7 +14872,7 @@ const ParsedAttrInfoSwiftError ParsedAttrInfoSwiftError::Instance;
 static constexpr ParsedAttrInfo::Spelling SwiftErrorResultSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "swift_error_result"},
   {AttributeCommonInfo::AS_CXX11, "clang::swift_error_result"},
-  {AttributeCommonInfo::AS_C2x, "clang::swift_error_result"},
+  {AttributeCommonInfo::AS_C23, "clang::swift_error_result"},
 };
 struct ParsedAttrInfoSwiftErrorResult final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSwiftErrorResult() : ParsedAttrInfo(
@@ -14564,7 +14892,7 @@ struct ParsedAttrInfoSwiftErrorResult final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -14572,7 +14900,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14590,7 +14918,7 @@ const ParsedAttrInfoSwiftErrorResult ParsedAttrInfoSwiftErrorResult::Instance;
 static constexpr ParsedAttrInfo::Spelling SwiftIndirectResultSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "swift_indirect_result"},
   {AttributeCommonInfo::AS_CXX11, "clang::swift_indirect_result"},
-  {AttributeCommonInfo::AS_C2x, "clang::swift_indirect_result"},
+  {AttributeCommonInfo::AS_C23, "clang::swift_indirect_result"},
 };
 struct ParsedAttrInfoSwiftIndirectResult final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSwiftIndirectResult() : ParsedAttrInfo(
@@ -14610,7 +14938,7 @@ struct ParsedAttrInfoSwiftIndirectResult final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -14618,7 +14946,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14684,7 +15012,7 @@ struct ParsedAttrInfoSwiftNewType final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "typedefs";
     return false;
   }
   return true;
@@ -14692,7 +15020,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14744,7 +15072,7 @@ struct ParsedAttrInfoSwiftObjCMembers final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCInterfaceDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C interfaces";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C interfaces";
     return false;
   }
   return true;
@@ -14752,7 +15080,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14805,7 +15133,7 @@ const ParsedAttrInfoSwiftPrivate ParsedAttrInfoSwiftPrivate::Instance;
 static constexpr ParsedAttrInfo::Spelling SysVABISpellings[] = {
   {AttributeCommonInfo::AS_GNU, "sysv_abi"},
   {AttributeCommonInfo::AS_CXX11, "gnu::sysv_abi"},
-  {AttributeCommonInfo::AS_C2x, "gnu::sysv_abi"},
+  {AttributeCommonInfo::AS_C23, "gnu::sysv_abi"},
 };
 struct ParsedAttrInfoSysVABI final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoSysVABI() : ParsedAttrInfo(
@@ -14832,7 +15160,7 @@ const ParsedAttrInfoSysVABI ParsedAttrInfoSysVABI::Instance;
 static constexpr ParsedAttrInfo::Spelling TLSModelSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "tls_model"},
   {AttributeCommonInfo::AS_CXX11, "gnu::tls_model"},
-  {AttributeCommonInfo::AS_C2x, "gnu::tls_model"},
+  {AttributeCommonInfo::AS_C23, "gnu::tls_model"},
 };
 static constexpr const char *TLSModelArgNames[] = {
 "Model",};
@@ -14854,7 +15182,7 @@ struct ParsedAttrInfoTLSModel final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isTLSVar(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "thread-local variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "thread-local variables";
     return false;
   }
   return true;
@@ -14862,7 +15190,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14880,7 +15208,7 @@ const ParsedAttrInfoTLSModel ParsedAttrInfoTLSModel::Instance;
 static constexpr ParsedAttrInfo::Spelling TargetSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "target"},
   {AttributeCommonInfo::AS_CXX11, "gnu::target"},
-  {AttributeCommonInfo::AS_C2x, "gnu::target"},
+  {AttributeCommonInfo::AS_C23, "gnu::target"},
 };
 static constexpr const char *TargetArgNames[] = {
 "featuresStr",};
@@ -14902,7 +15230,7 @@ struct ParsedAttrInfoTarget final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -14910,7 +15238,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14918,22 +15246,22 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<TargetClonesAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<TargetVersionAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CPUDispatchAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CPUSpecificAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -14954,7 +15282,7 @@ const ParsedAttrInfoTarget ParsedAttrInfoTarget::Instance;
 static constexpr ParsedAttrInfo::Spelling TargetClonesSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "target_clones"},
   {AttributeCommonInfo::AS_CXX11, "gnu::target_clones"},
-  {AttributeCommonInfo::AS_C2x, "gnu::target_clones"},
+  {AttributeCommonInfo::AS_C23, "gnu::target_clones"},
 };
 static constexpr const char *TargetClonesArgNames[] = {
 "featuresStrs...",};
@@ -14976,7 +15304,7 @@ struct ParsedAttrInfoTargetClones final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -14984,7 +15312,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -14992,22 +15320,22 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<TargetVersionAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<TargetAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CPUDispatchAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CPUSpecificAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -15028,7 +15356,7 @@ const ParsedAttrInfoTargetClones ParsedAttrInfoTargetClones::Instance;
 static constexpr ParsedAttrInfo::Spelling TargetVersionSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "target_version"},
   {AttributeCommonInfo::AS_CXX11, "gnu::target_version"},
-  {AttributeCommonInfo::AS_C2x, "gnu::target_version"},
+  {AttributeCommonInfo::AS_C23, "gnu::target_version"},
 };
 static constexpr const char *TargetVersionArgNames[] = {
 "NamesStr",};
@@ -15050,7 +15378,7 @@ struct ParsedAttrInfoTargetVersion final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -15058,7 +15386,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15066,22 +15394,22 @@ bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const o
 
   bool diagMutualExclusion(Sema &S, const ParsedAttr &AL, const Decl *D) const override {
     if (const auto *A = D->getAttr<TargetClonesAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<TargetAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CPUDispatchAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
     if (const auto *A = D->getAttr<CPUSpecificAttr>()) {
-      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A;
+      S.Diag(AL.getLoc(), diag::err_attributes_are_not_compatible) << AL << A << (AL.isRegularKeywordAttribute() || A->isRegularKeywordAttribute());
       S.Diag(A->getLocation(), diag::note_conflicting_attribute);      
 return false;
     }
@@ -15123,7 +15451,7 @@ struct ParsedAttrInfoTestTypestate final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -15131,7 +15459,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15149,7 +15477,7 @@ const ParsedAttrInfoTestTypestate ParsedAttrInfoTestTypestate::Instance;
 static constexpr ParsedAttrInfo::Spelling ThisCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "thiscall"},
   {AttributeCommonInfo::AS_CXX11, "gnu::thiscall"},
-  {AttributeCommonInfo::AS_C2x, "gnu::thiscall"},
+  {AttributeCommonInfo::AS_C23, "gnu::thiscall"},
   {AttributeCommonInfo::AS_Keyword, "__thiscall"},
   {AttributeCommonInfo::AS_Keyword, "_thiscall"},
 };
@@ -15196,7 +15524,7 @@ struct ParsedAttrInfoThread final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables";
     return false;
   }
   return true;
@@ -15204,7 +15532,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15222,7 +15550,7 @@ const ParsedAttrInfoThread ParsedAttrInfoThread::Instance;
 static constexpr ParsedAttrInfo::Spelling TransparentUnionSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "transparent_union"},
   {AttributeCommonInfo::AS_CXX11, "gnu::transparent_union"},
-  {AttributeCommonInfo::AS_C2x, "gnu::transparent_union"},
+  {AttributeCommonInfo::AS_C23, "gnu::transparent_union"},
 };
 struct ParsedAttrInfoTransparentUnion final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoTransparentUnion() : ParsedAttrInfo(
@@ -15272,7 +15600,7 @@ struct ParsedAttrInfoTrivialABI final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -15280,7 +15608,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15330,7 +15658,7 @@ struct ParsedAttrInfoTryAcquireCapability final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -15338,7 +15666,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15472,7 +15800,7 @@ const ParsedAttrInfoTypeNullableResult ParsedAttrInfoTypeNullableResult::Instanc
 static constexpr ParsedAttrInfo::Spelling TypeTagForDatatypeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "type_tag_for_datatype"},
   {AttributeCommonInfo::AS_CXX11, "clang::type_tag_for_datatype"},
-  {AttributeCommonInfo::AS_C2x, "clang::type_tag_for_datatype"},
+  {AttributeCommonInfo::AS_C23, "clang::type_tag_for_datatype"},
 };
 static constexpr const char *TypeTagForDatatypeArgNames[] = {
 "ArgumentKind","MatchingCType","LayoutCompatible","MustBeNull",};
@@ -15501,7 +15829,7 @@ const ParsedAttrInfoTypeTagForDatatype ParsedAttrInfoTypeTagForDatatype::Instanc
 static constexpr ParsedAttrInfo::Spelling TypeVisibilitySpellings[] = {
   {AttributeCommonInfo::AS_GNU, "type_visibility"},
   {AttributeCommonInfo::AS_CXX11, "clang::type_visibility"},
-  {AttributeCommonInfo::AS_C2x, "clang::type_visibility"},
+  {AttributeCommonInfo::AS_C23, "clang::type_visibility"},
 };
 static constexpr const char *TypeVisibilityArgNames[] = {
 "Visibility",};
@@ -15555,7 +15883,7 @@ const ParsedAttrInfoUPtr ParsedAttrInfoUPtr::Instance;
 static constexpr ParsedAttrInfo::Spelling UnavailableSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "unavailable"},
   {AttributeCommonInfo::AS_CXX11, "clang::unavailable"},
-  {AttributeCommonInfo::AS_C2x, "clang::unavailable"},
+  {AttributeCommonInfo::AS_C23, "clang::unavailable"},
 };
 static constexpr const char *UnavailableArgNames[] = {
 "Message",};
@@ -15603,7 +15931,7 @@ struct ParsedAttrInfoUninitialized final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isLocalVar(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "local variables";
+      << Attr << Attr.isRegularKeywordAttribute() << "local variables";
     return false;
   }
   return true;
@@ -15611,7 +15939,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15628,7 +15956,7 @@ static const ParsedAttrInfoUninitialized Instance;
 const ParsedAttrInfoUninitialized ParsedAttrInfoUninitialized::Instance;
 static constexpr ParsedAttrInfo::Spelling UnlikelySpellings[] = {
   {AttributeCommonInfo::AS_CXX11, "unlikely"},
-  {AttributeCommonInfo::AS_C2x, "clang::unlikely"},
+  {AttributeCommonInfo::AS_C23, "clang::unlikely"},
 };
 struct ParsedAttrInfoUnlikely final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoUnlikely() : ParsedAttrInfo(
@@ -15657,7 +15985,7 @@ const ParsedAttrInfoUnlikely ParsedAttrInfoUnlikely::Instance;
 static constexpr ParsedAttrInfo::Spelling UnsafeBufferUsageSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "unsafe_buffer_usage"},
   {AttributeCommonInfo::AS_CXX11, "clang::unsafe_buffer_usage"},
-  {AttributeCommonInfo::AS_C2x, "clang::unsafe_buffer_usage"},
+  {AttributeCommonInfo::AS_C23, "clang::unsafe_buffer_usage"},
 };
 struct ParsedAttrInfoUnsafeBufferUsage final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoUnsafeBufferUsage() : ParsedAttrInfo(
@@ -15677,7 +16005,7 @@ struct ParsedAttrInfoUnsafeBufferUsage final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -15685,7 +16013,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15704,8 +16032,8 @@ static constexpr ParsedAttrInfo::Spelling UnusedSpellings[] = {
   {AttributeCommonInfo::AS_CXX11, "maybe_unused"},
   {AttributeCommonInfo::AS_GNU, "unused"},
   {AttributeCommonInfo::AS_CXX11, "gnu::unused"},
-  {AttributeCommonInfo::AS_C2x, "gnu::unused"},
-  {AttributeCommonInfo::AS_C2x, "maybe_unused"},
+  {AttributeCommonInfo::AS_C23, "gnu::unused"},
+  {AttributeCommonInfo::AS_C23, "maybe_unused"},
 };
 struct ParsedAttrInfoUnused final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoUnused() : ParsedAttrInfo(
@@ -15725,7 +16053,7 @@ struct ParsedAttrInfoUnused final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D) && !isa<ObjCIvarDecl>(D) && !isa<TypeDecl>(D) && !isa<EnumDecl>(D) && !isa<EnumConstantDecl>(D) && !isa<LabelDecl>(D) && !isa<FieldDecl>(D) && !isa<ObjCMethodDecl>(D) && !isFunctionLike(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables, non-static data members, types, enums, enumerators, labels, non-static data members, Objective-C methods, functions, and function pointers";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables, non-static data members, types, enums, enumerators, labels, non-static data members, Objective-C methods, functions, and function pointers";
     return false;
   }
   return true;
@@ -15733,7 +16061,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15742,8 +16070,8 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     CXX11_maybe_unused = 0,
     GNU_unused = 1,
     CXX11_gnu_unused = 2,
-    C2x_gnu_unused = 3,
-    C2x_maybe_unused = 4,
+    C23_gnu_unused = 3,
+    C23_maybe_unused = 4,
   SpellingNotCalculated = 15
 
   };
@@ -15754,8 +16082,8 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     case 0: return CXX11_maybe_unused;
     case 1: return GNU_unused;
     case 2: return CXX11_gnu_unused;
-    case 3: return C2x_gnu_unused;
-    case 4: return C2x_maybe_unused;
+    case 3: return C23_gnu_unused;
+    case 4: return C23_maybe_unused;
   }
 }
 
@@ -15769,7 +16097,7 @@ const ParsedAttrInfoUnused ParsedAttrInfoUnused::Instance;
 static constexpr ParsedAttrInfo::Spelling UseHandleSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "use_handle"},
   {AttributeCommonInfo::AS_CXX11, "clang::use_handle"},
-  {AttributeCommonInfo::AS_C2x, "clang::use_handle"},
+  {AttributeCommonInfo::AS_C23, "clang::use_handle"},
 };
 static constexpr const char *UseHandleArgNames[] = {
 "HandleType",};
@@ -15791,7 +16119,7 @@ struct ParsedAttrInfoUseHandle final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ParmVarDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "parameters";
+      << Attr << Attr.isRegularKeywordAttribute() << "parameters";
     return false;
   }
   return true;
@@ -15799,7 +16127,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15817,7 +16145,7 @@ const ParsedAttrInfoUseHandle ParsedAttrInfoUseHandle::Instance;
 static constexpr ParsedAttrInfo::Spelling UsedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "used"},
   {AttributeCommonInfo::AS_CXX11, "gnu::used"},
-  {AttributeCommonInfo::AS_C2x, "gnu::used"},
+  {AttributeCommonInfo::AS_C23, "gnu::used"},
 };
 struct ParsedAttrInfoUsed final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoUsed() : ParsedAttrInfo(
@@ -15837,7 +16165,7 @@ struct ParsedAttrInfoUsed final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isNonLocalVar(D) && !isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables with non-local storage, functions, and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables with non-local storage, functions, and Objective-C methods";
     return false;
   }
   return true;
@@ -15845,7 +16173,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15883,7 +16211,7 @@ struct ParsedAttrInfoUsingIfExists final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<UsingDecl>(D) && !isa<UnresolvedUsingTypenameDecl>(D) && !isa<UnresolvedUsingValueDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "named declarations, types, and value declarations";
+      << Attr << Attr.isRegularKeywordAttribute() << "named declarations, types, and value declarations";
     return false;
   }
   return true;
@@ -15891,7 +16219,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15926,7 +16254,7 @@ struct ParsedAttrInfoUuid final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D) && !isa<EnumDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, classes, and enums";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, classes, and enums";
     return false;
   }
   return true;
@@ -15934,7 +16262,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -15971,7 +16299,7 @@ struct ParsedAttrInfoVecReturn final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "classes";
     return false;
   }
   return true;
@@ -15979,7 +16307,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16017,7 +16345,7 @@ struct ParsedAttrInfoVecTypeHint final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -16025,7 +16353,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16043,7 +16371,7 @@ const ParsedAttrInfoVecTypeHint ParsedAttrInfoVecTypeHint::Instance;
 static constexpr ParsedAttrInfo::Spelling VectorCallSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "vectorcall"},
   {AttributeCommonInfo::AS_CXX11, "clang::vectorcall"},
-  {AttributeCommonInfo::AS_C2x, "clang::vectorcall"},
+  {AttributeCommonInfo::AS_C23, "clang::vectorcall"},
   {AttributeCommonInfo::AS_Keyword, "__vectorcall"},
   {AttributeCommonInfo::AS_Keyword, "_vectorcall"},
 };
@@ -16072,7 +16400,7 @@ const ParsedAttrInfoVectorCall ParsedAttrInfoVectorCall::Instance;
 static constexpr ParsedAttrInfo::Spelling VectorSizeSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "vector_size"},
   {AttributeCommonInfo::AS_CXX11, "gnu::vector_size"},
-  {AttributeCommonInfo::AS_C2x, "gnu::vector_size"},
+  {AttributeCommonInfo::AS_C23, "gnu::vector_size"},
 };
 static constexpr const char *VectorSizeArgNames[] = {
 "NumBytes",};
@@ -16101,7 +16429,7 @@ const ParsedAttrInfoVectorSize ParsedAttrInfoVectorSize::Instance;
 static constexpr ParsedAttrInfo::Spelling VisibilitySpellings[] = {
   {AttributeCommonInfo::AS_GNU, "visibility"},
   {AttributeCommonInfo::AS_CXX11, "gnu::visibility"},
-  {AttributeCommonInfo::AS_C2x, "gnu::visibility"},
+  {AttributeCommonInfo::AS_C23, "gnu::visibility"},
 };
 static constexpr const char *VisibilityArgNames[] = {
 "Visibility",};
@@ -16130,7 +16458,7 @@ const ParsedAttrInfoVisibility ParsedAttrInfoVisibility::Instance;
 static constexpr ParsedAttrInfo::Spelling WarnUnusedSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "warn_unused"},
   {AttributeCommonInfo::AS_CXX11, "gnu::warn_unused"},
-  {AttributeCommonInfo::AS_C2x, "gnu::warn_unused"},
+  {AttributeCommonInfo::AS_C23, "gnu::warn_unused"},
 };
 struct ParsedAttrInfoWarnUnused final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoWarnUnused() : ParsedAttrInfo(
@@ -16150,7 +16478,7 @@ struct ParsedAttrInfoWarnUnused final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<RecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "structs, unions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "structs, unions, and classes";
     return false;
   }
   return true;
@@ -16158,7 +16486,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16180,11 +16508,11 @@ static const ParsedAttrInfoWarnUnused Instance;
 const ParsedAttrInfoWarnUnused ParsedAttrInfoWarnUnused::Instance;
 static constexpr ParsedAttrInfo::Spelling WarnUnusedResultSpellings[] = {
   {AttributeCommonInfo::AS_CXX11, "nodiscard"},
-  {AttributeCommonInfo::AS_C2x, "nodiscard"},
+  {AttributeCommonInfo::AS_C23, "nodiscard"},
   {AttributeCommonInfo::AS_CXX11, "clang::warn_unused_result"},
   {AttributeCommonInfo::AS_GNU, "warn_unused_result"},
   {AttributeCommonInfo::AS_CXX11, "gnu::warn_unused_result"},
-  {AttributeCommonInfo::AS_C2x, "gnu::warn_unused_result"},
+  {AttributeCommonInfo::AS_C23, "gnu::warn_unused_result"},
 };
 static constexpr const char *WarnUnusedResultArgNames[] = {
 "Message",};
@@ -16206,7 +16534,7 @@ struct ParsedAttrInfoWarnUnusedResult final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<ObjCMethodDecl>(D) && !isa<EnumDecl>(D) && !isa<RecordDecl>(D) && !isFunctionLike(D) && !isa<TypedefNameDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "Objective-C methods, enums, structs, unions, classes, functions, function pointers, and typedefs";
+      << Attr << Attr.isRegularKeywordAttribute() << "Objective-C methods, enums, structs, unions, classes, functions, function pointers, and typedefs";
     return false;
   }
   return true;
@@ -16214,18 +16542,18 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
 unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override {
   enum Spelling {
     CXX11_nodiscard = 0,
-    C2x_nodiscard = 1,
+    C23_nodiscard = 1,
     CXX11_clang_warn_unused_result = 2,
     GNU_warn_unused_result = 3,
     CXX11_gnu_warn_unused_result = 4,
-    C2x_gnu_warn_unused_result = 5,
+    C23_gnu_warn_unused_result = 5,
   SpellingNotCalculated = 15
 
   };
@@ -16234,11 +16562,11 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   switch (Idx) {
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return CXX11_nodiscard;
-    case 1: return C2x_nodiscard;
+    case 1: return C23_nodiscard;
     case 2: return CXX11_clang_warn_unused_result;
     case 3: return GNU_warn_unused_result;
     case 4: return CXX11_gnu_warn_unused_result;
-    case 5: return C2x_gnu_warn_unused_result;
+    case 5: return C23_gnu_warn_unused_result;
   }
 }
 
@@ -16260,7 +16588,7 @@ const ParsedAttrInfoWarnUnusedResult ParsedAttrInfoWarnUnusedResult::Instance;
 static constexpr ParsedAttrInfo::Spelling WeakSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "weak"},
   {AttributeCommonInfo::AS_CXX11, "gnu::weak"},
-  {AttributeCommonInfo::AS_C2x, "gnu::weak"},
+  {AttributeCommonInfo::AS_C23, "gnu::weak"},
 };
 struct ParsedAttrInfoWeak final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoWeak() : ParsedAttrInfo(
@@ -16280,7 +16608,7 @@ struct ParsedAttrInfoWeak final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D) && !isa<FunctionDecl>(D) && !isa<CXXRecordDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "variables, functions, and classes";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables, functions, and classes";
     return false;
   }
   return true;
@@ -16288,7 +16616,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16313,7 +16641,7 @@ const ParsedAttrInfoWeak ParsedAttrInfoWeak::Instance;
 static constexpr ParsedAttrInfo::Spelling WeakImportSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "weak_import"},
   {AttributeCommonInfo::AS_CXX11, "clang::weak_import"},
-  {AttributeCommonInfo::AS_C2x, "clang::weak_import"},
+  {AttributeCommonInfo::AS_C23, "clang::weak_import"},
 };
 struct ParsedAttrInfoWeakImport final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoWeakImport() : ParsedAttrInfo(
@@ -16340,7 +16668,7 @@ const ParsedAttrInfoWeakImport ParsedAttrInfoWeakImport::Instance;
 static constexpr ParsedAttrInfo::Spelling WeakRefSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "weakref"},
   {AttributeCommonInfo::AS_CXX11, "gnu::weakref"},
-  {AttributeCommonInfo::AS_C2x, "gnu::weakref"},
+  {AttributeCommonInfo::AS_C23, "gnu::weakref"},
 };
 static constexpr const char *WeakRefArgNames[] = {
 "Aliasee",};
@@ -16362,7 +16690,7 @@ struct ParsedAttrInfoWeakRef final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<VarDecl>(D) && !isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "variables and functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "variables and functions";
     return false;
   }
   return true;
@@ -16370,7 +16698,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16389,7 +16717,7 @@ const ParsedAttrInfoWeakRef ParsedAttrInfoWeakRef::Instance;
 static constexpr ParsedAttrInfo::Spelling WebAssemblyExportNameSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "export_name"},
   {AttributeCommonInfo::AS_CXX11, "clang::export_name"},
-  {AttributeCommonInfo::AS_C2x, "clang::export_name"},
+  {AttributeCommonInfo::AS_C23, "clang::export_name"},
 };
 static constexpr const char *WebAssemblyExportNameArgNames[] = {
 "ExportName",};
@@ -16411,7 +16739,7 @@ struct ParsedAttrInfoWebAssemblyExportName final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -16419,7 +16747,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16460,7 +16788,7 @@ struct ParsedAttrInfoWebAssemblyFuncref final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isFunctionPointer(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions pointers";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions pointers";
     return false;
   }
   return true;
@@ -16468,7 +16796,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16487,7 +16815,7 @@ const ParsedAttrInfoWebAssemblyFuncref ParsedAttrInfoWebAssemblyFuncref::Instanc
 static constexpr ParsedAttrInfo::Spelling WebAssemblyImportModuleSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "import_module"},
   {AttributeCommonInfo::AS_CXX11, "clang::import_module"},
-  {AttributeCommonInfo::AS_C2x, "clang::import_module"},
+  {AttributeCommonInfo::AS_C23, "clang::import_module"},
 };
 static constexpr const char *WebAssemblyImportModuleArgNames[] = {
 "ImportModule",};
@@ -16509,7 +16837,7 @@ struct ParsedAttrInfoWebAssemblyImportModule final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -16517,7 +16845,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16540,7 +16868,7 @@ const ParsedAttrInfoWebAssemblyImportModule ParsedAttrInfoWebAssemblyImportModul
 static constexpr ParsedAttrInfo::Spelling WebAssemblyImportNameSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "import_name"},
   {AttributeCommonInfo::AS_CXX11, "clang::import_name"},
-  {AttributeCommonInfo::AS_C2x, "clang::import_name"},
+  {AttributeCommonInfo::AS_C23, "clang::import_name"},
 };
 static constexpr const char *WebAssemblyImportNameArgNames[] = {
 "ImportName",};
@@ -16562,7 +16890,7 @@ struct ParsedAttrInfoWebAssemblyImportName final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -16570,7 +16898,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16613,7 +16941,7 @@ struct ParsedAttrInfoWorkGroupSizeHint final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -16621,7 +16949,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16639,7 +16967,7 @@ const ParsedAttrInfoWorkGroupSizeHint ParsedAttrInfoWorkGroupSizeHint::Instance;
 static constexpr ParsedAttrInfo::Spelling X86ForceAlignArgPointerSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "force_align_arg_pointer"},
   {AttributeCommonInfo::AS_CXX11, "gnu::force_align_arg_pointer"},
-  {AttributeCommonInfo::AS_C2x, "gnu::force_align_arg_pointer"},
+  {AttributeCommonInfo::AS_C23, "gnu::force_align_arg_pointer"},
 };
 struct ParsedAttrInfoX86ForceAlignArgPointer final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoX86ForceAlignArgPointer() : ParsedAttrInfo(
@@ -16671,10 +16999,10 @@ const ParsedAttrInfoX86ForceAlignArgPointer ParsedAttrInfoX86ForceAlignArgPointe
 static constexpr ParsedAttrInfo::Spelling XRayInstrumentSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "xray_always_instrument"},
   {AttributeCommonInfo::AS_CXX11, "clang::xray_always_instrument"},
-  {AttributeCommonInfo::AS_C2x, "clang::xray_always_instrument"},
+  {AttributeCommonInfo::AS_C23, "clang::xray_always_instrument"},
   {AttributeCommonInfo::AS_GNU, "xray_never_instrument"},
   {AttributeCommonInfo::AS_CXX11, "clang::xray_never_instrument"},
-  {AttributeCommonInfo::AS_C2x, "clang::xray_never_instrument"},
+  {AttributeCommonInfo::AS_C23, "clang::xray_never_instrument"},
 };
 struct ParsedAttrInfoXRayInstrument final : public ParsedAttrInfo {
   constexpr ParsedAttrInfoXRayInstrument() : ParsedAttrInfo(
@@ -16694,7 +17022,7 @@ struct ParsedAttrInfoXRayInstrument final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -16702,7 +17030,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16710,10 +17038,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
   enum Spelling {
     GNU_xray_always_instrument = 0,
     CXX11_clang_xray_always_instrument = 1,
-    C2x_clang_xray_always_instrument = 2,
+    C23_clang_xray_always_instrument = 2,
     GNU_xray_never_instrument = 3,
     CXX11_clang_xray_never_instrument = 4,
-    C2x_clang_xray_never_instrument = 5,
+    C23_clang_xray_never_instrument = 5,
   SpellingNotCalculated = 15
 
   };
@@ -16723,10 +17051,10 @@ unsigned spellingIndexToSemanticSpelling(const ParsedAttr &Attr) const override 
     default: llvm_unreachable("Unknown spelling list index");
     case 0: return GNU_xray_always_instrument;
     case 1: return CXX11_clang_xray_always_instrument;
-    case 2: return C2x_clang_xray_always_instrument;
+    case 2: return C23_clang_xray_always_instrument;
     case 3: return GNU_xray_never_instrument;
     case 4: return CXX11_clang_xray_never_instrument;
-    case 5: return C2x_clang_xray_never_instrument;
+    case 5: return C23_clang_xray_never_instrument;
   }
 }
 
@@ -16750,7 +17078,7 @@ const ParsedAttrInfoXRayInstrument ParsedAttrInfoXRayInstrument::Instance;
 static constexpr ParsedAttrInfo::Spelling XRayLogArgsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "xray_log_args"},
   {AttributeCommonInfo::AS_CXX11, "clang::xray_log_args"},
-  {AttributeCommonInfo::AS_C2x, "clang::xray_log_args"},
+  {AttributeCommonInfo::AS_C23, "clang::xray_log_args"},
 };
 static constexpr const char *XRayLogArgsArgNames[] = {
 "ArgumentCount",};
@@ -16772,7 +17100,7 @@ struct ParsedAttrInfoXRayLogArgs final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D) && !isa<ObjCMethodDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type_str)
-      << Attr << "functions and Objective-C methods";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions and Objective-C methods";
     return false;
   }
   return true;
@@ -16780,7 +17108,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16799,7 +17127,7 @@ const ParsedAttrInfoXRayLogArgs ParsedAttrInfoXRayLogArgs::Instance;
 static constexpr ParsedAttrInfo::Spelling ZeroCallUsedRegsSpellings[] = {
   {AttributeCommonInfo::AS_GNU, "zero_call_used_regs"},
   {AttributeCommonInfo::AS_CXX11, "gnu::zero_call_used_regs"},
-  {AttributeCommonInfo::AS_C2x, "gnu::zero_call_used_regs"},
+  {AttributeCommonInfo::AS_C23, "gnu::zero_call_used_regs"},
 };
 static constexpr const char *ZeroCallUsedRegsArgNames[] = {
 "ZeroCallUsedRegs",};
@@ -16821,7 +17149,7 @@ struct ParsedAttrInfoZeroCallUsedRegs final : public ParsedAttrInfo {
 bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const override {
   if (!isa<FunctionDecl>(D)) {
     S.Diag(Attr.getLoc(), diag::err_attribute_wrong_decl_type_str)
-      << Attr << "functions";
+      << Attr << Attr.isRegularKeywordAttribute() << "functions";
     return false;
   }
   return true;
@@ -16829,7 +17157,7 @@ bool diagAppertainsToDecl(Sema &S, const ParsedAttr &Attr, const Decl *D) const 
 
 bool diagAppertainsToStmt(Sema &S, const ParsedAttr &AL, const Stmt *St) const override {
   S.Diag(AL.getLoc(), diag::err_decl_attribute_invalid_on_stmt)
-    << AL << St->getBeginLoc();
+    << AL << AL.isRegularKeywordAttribute() << St->getBeginLoc();
   return false;
 }
 
@@ -16875,7 +17203,13 @@ static const ParsedAttrInfo *AttrInfoMap[] = {
 &ParsedAttrInfoArcWeakrefUnavailable::Instance,
 &ParsedAttrInfoArgumentWithTypeTag::Instance,
 &ParsedAttrInfoArmBuiltinAlias::Instance,
+&ParsedAttrInfoArmLocallyStreaming::Instance,
 &ParsedAttrInfoArmMveStrictPolymorphism::Instance,
+&ParsedAttrInfoArmNewZA::Instance,
+&ParsedAttrInfoArmPreservesZA::Instance,
+&ParsedAttrInfoArmSharedZA::Instance,
+&ParsedAttrInfoArmStreaming::Instance,
+&ParsedAttrInfoArmStreamingCompatible::Instance,
 &ParsedAttrInfoArmSveVectorBits::Instance,
 &ParsedAttrInfoArtificial::Instance,
 &ParsedAttrInfoAssertCapability::Instance,
@@ -16884,6 +17218,7 @@ static const ParsedAttrInfo *AttrInfoMap[] = {
 &ParsedAttrInfoAssumeAligned::Instance,
 &ParsedAttrInfoAssumption::Instance,
 &ParsedAttrInfoAvailability::Instance,
+&ParsedAttrInfoAvailableOnlyInDefaultEvalMethod::Instance,
 &ParsedAttrInfoBPFPreserveAccessIndex::Instance,
 &ParsedAttrInfoBTFDeclTag::Instance,
 &ParsedAttrInfoBTFTypeTag::Instance,
@@ -17289,7 +17624,7 @@ return false;
 static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A) {
   if (const auto *Second = dyn_cast<AlwaysDestroyAttr>(A)) {
     if (const auto *First = D->getAttr<NoDestroyAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17297,7 +17632,20 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<AlwaysInlineAttr>(A)) {
     if (const auto *First = D->getAttr<NotTailCalledAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
+      S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
+      return false;
+    }
+    return true;
+  }
+  if (const auto *Second = dyn_cast<ArmNewZAAttr>(A)) {
+    if (const auto *First = D->getAttr<ArmSharedZAAttr>()) {
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
+      S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
+      return false;
+    }
+    if (const auto *First = D->getAttr<ArmPreservesZAAttr>()) {
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17305,7 +17653,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CFAuditedTransferAttr>(A)) {
     if (const auto *First = D->getAttr<CFUnknownTransferAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17313,7 +17661,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CFUnknownTransferAttr>(A)) {
     if (const auto *First = D->getAttr<CFAuditedTransferAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17321,22 +17669,22 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CPUDispatchAttr>(A)) {
     if (const auto *First = D->getAttr<TargetClonesAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<TargetVersionAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<TargetAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CPUSpecificAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17344,22 +17692,22 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CPUSpecificAttr>(A)) {
     if (const auto *First = D->getAttr<TargetClonesAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<TargetVersionAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<TargetAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CPUDispatchAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17367,12 +17715,12 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CUDAConstantAttr>(A)) {
     if (const auto *First = D->getAttr<CUDASharedAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<HIPManagedAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17380,7 +17728,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CUDADeviceAttr>(A)) {
     if (const auto *First = D->getAttr<CUDAGlobalAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17388,7 +17736,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CUDADeviceBuiltinSurfaceTypeAttr>(A)) {
     if (const auto *First = D->getAttr<CUDADeviceBuiltinTextureTypeAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17396,7 +17744,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CUDADeviceBuiltinTextureTypeAttr>(A)) {
     if (const auto *First = D->getAttr<CUDADeviceBuiltinSurfaceTypeAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17404,12 +17752,12 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CUDAGlobalAttr>(A)) {
     if (const auto *First = D->getAttr<CUDADeviceAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CUDAHostAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17417,7 +17765,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CUDAHostAttr>(A)) {
     if (const auto *First = D->getAttr<CUDAGlobalAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17425,12 +17773,12 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CUDASharedAttr>(A)) {
     if (const auto *First = D->getAttr<CUDAConstantAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<HIPManagedAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17438,7 +17786,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<ColdAttr>(A)) {
     if (const auto *First = D->getAttr<HotAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17446,7 +17794,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<CommonAttr>(A)) {
     if (const auto *First = D->getAttr<InternalLinkageAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17454,7 +17802,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<DisableTailCallsAttr>(A)) {
     if (const auto *First = D->getAttr<NakedAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17462,12 +17810,12 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<HIPManagedAttr>(A)) {
     if (const auto *First = D->getAttr<CUDAConstantAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CUDASharedAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17475,7 +17823,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<HotAttr>(A)) {
     if (const auto *First = D->getAttr<ColdAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17483,7 +17831,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<InternalLinkageAttr>(A)) {
     if (const auto *First = D->getAttr<CommonAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17491,7 +17839,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<MicroMipsAttr>(A)) {
     if (const auto *First = D->getAttr<Mips16Attr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17499,12 +17847,12 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<Mips16Attr>(A)) {
     if (const auto *First = D->getAttr<MipsInterruptAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<MicroMipsAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17512,7 +17860,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<MipsLongCallAttr>(A)) {
     if (const auto *First = D->getAttr<MipsShortCallAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17520,7 +17868,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<MipsShortCallAttr>(A)) {
     if (const auto *First = D->getAttr<MipsLongCallAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17528,7 +17876,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<NakedAttr>(A)) {
     if (const auto *First = D->getAttr<DisableTailCallsAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17536,7 +17884,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<NoDestroyAttr>(A)) {
     if (const auto *First = D->getAttr<AlwaysDestroyAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17544,7 +17892,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<NoRandomizeLayoutAttr>(A)) {
     if (const auto *First = D->getAttr<RandomizeLayoutAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17552,7 +17900,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<NoSpeculativeLoadHardeningAttr>(A)) {
     if (const auto *First = D->getAttr<SpeculativeLoadHardeningAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17560,7 +17908,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<NotTailCalledAttr>(A)) {
     if (const auto *First = D->getAttr<AlwaysInlineAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17568,7 +17916,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<OwnerAttr>(A)) {
     if (const auto *First = D->getAttr<PointerAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17576,7 +17924,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<PointerAttr>(A)) {
     if (const auto *First = D->getAttr<OwnerAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17584,7 +17932,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<RandomizeLayoutAttr>(A)) {
     if (const auto *First = D->getAttr<NoRandomizeLayoutAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17592,7 +17940,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<SpeculativeLoadHardeningAttr>(A)) {
     if (const auto *First = D->getAttr<NoSpeculativeLoadHardeningAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17600,22 +17948,22 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<TargetAttr>(A)) {
     if (const auto *First = D->getAttr<TargetClonesAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<TargetVersionAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CPUDispatchAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CPUSpecificAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17623,22 +17971,22 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<TargetClonesAttr>(A)) {
     if (const auto *First = D->getAttr<TargetVersionAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<TargetAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CPUDispatchAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CPUSpecificAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17646,22 +17994,22 @@ static bool DiagnoseMutualExclusions(Sema &S, const NamedDecl *D, const Attr *A)
   }
   if (const auto *Second = dyn_cast<TargetVersionAttr>(A)) {
     if (const auto *First = D->getAttr<TargetClonesAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<TargetAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CPUDispatchAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
     if (const auto *First = D->getAttr<CPUSpecificAttr>()) {
-      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second;
+      S.Diag(First->getLocation(), diag::err_attributes_are_not_compatible) << First << Second << (First->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
       S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
       return false;
     }
@@ -17677,7 +18025,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const SmallVectorImpl<const Attr *
     if (const auto *Second = dyn_cast<AlwaysInlineAttr>(A)) {
       auto Iter = llvm::find_if(C, [](const Attr *Check) { return isa<NotTailCalledAttr>(Check); });
       if (Iter != C.end()) {
-        S.Diag((*Iter)->getLocation(), diag::err_attributes_are_not_compatible) << *Iter << Second;
+        S.Diag((*Iter)->getLocation(), diag::err_attributes_are_not_compatible) << *Iter << Second << ((*Iter)->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
         S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
         return false;
       }
@@ -17685,7 +18033,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const SmallVectorImpl<const Attr *
     if (const auto *Second = dyn_cast<LikelyAttr>(A)) {
       auto Iter = llvm::find_if(C, [](const Attr *Check) { return isa<UnlikelyAttr>(Check); });
       if (Iter != C.end()) {
-        S.Diag((*Iter)->getLocation(), diag::err_attributes_are_not_compatible) << *Iter << Second;
+        S.Diag((*Iter)->getLocation(), diag::err_attributes_are_not_compatible) << *Iter << Second << ((*Iter)->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
         S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
         return false;
       }
@@ -17693,7 +18041,7 @@ static bool DiagnoseMutualExclusions(Sema &S, const SmallVectorImpl<const Attr *
     if (const auto *Second = dyn_cast<UnlikelyAttr>(A)) {
       auto Iter = llvm::find_if(C, [](const Attr *Check) { return isa<LikelyAttr>(Check); });
       if (Iter != C.end()) {
-        S.Diag((*Iter)->getLocation(), diag::err_attributes_are_not_compatible) << *Iter << Second;
+        S.Diag((*Iter)->getLocation(), diag::err_attributes_are_not_compatible) << *Iter << Second << ((*Iter)->isRegularKeywordAttribute() || Second->isRegularKeywordAttribute());
         S.Diag(Second->getLocation(), diag::note_conflicting_attribute);
         return false;
       }

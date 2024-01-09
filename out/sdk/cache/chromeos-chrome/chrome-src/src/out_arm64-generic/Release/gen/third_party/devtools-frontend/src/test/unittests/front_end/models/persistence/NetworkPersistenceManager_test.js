@@ -4,7 +4,6 @@
 const { assert } = chai;
 import * as Common from '../../../../../front_end/core/common/common.js';
 import * as Host from '../../../../../front_end/core/host/host.js';
-import * as Root from '../../../../../front_end/core/root/root.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Persistence from '../../../../../front_end/models/persistence/persistence.js';
 import * as Workspace from '../../../../../front_end/models/workspace/workspace.js';
@@ -55,7 +54,6 @@ describeWithMockConnection('NetworkPersistenceManager', () => {
 describeWithMockConnection('NetworkPersistenceManager', () => {
     it('does not create interception patterns for forbidden URLs', async () => {
         SDK.NetworkManager.MultitargetNetworkManager.dispose();
-        Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.HEADER_OVERRIDES);
         const target = createTarget();
         const networkPersistenceManager = await createWorkspaceProject('file:///path/to/overrides', [
             { name: 'helloWorld.html', path: 'www.example.com/', content: 'Hello World!' },
@@ -84,7 +82,6 @@ describeWithMockConnection('NetworkPersistenceManager', () => {
     let networkPersistenceManager;
     beforeEach(async () => {
         SDK.NetworkManager.MultitargetNetworkManager.dispose();
-        Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.HEADER_OVERRIDES);
         const target = createTarget();
         networkPersistenceManager =
             await createWorkspaceProject('file:///path/to/overrides', [
@@ -636,7 +633,6 @@ describeWithMockConnection('NetworkPersistenceManager', () => {
 describeWithMockConnection('NetworkPersistenceManager', () => {
     beforeEach(() => {
         SDK.NetworkManager.MultitargetNetworkManager.dispose();
-        Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.HEADER_OVERRIDES);
     });
     it('updates active state when target detach and attach', async () => {
         const { networkPersistenceManager } = setUpEnvironment();

@@ -1,0 +1,41 @@
+{
+  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://manage-mirrorsync/*": [
+        "./../../../../../browser/resources/chromeos/manage_mirrorsync/tsc/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/manage_mirrorsync_app_test.ts"
+  ],
+  "references": [
+    {
+      "path": "../../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../browser/resources/chromeos/manage_mirrorsync/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

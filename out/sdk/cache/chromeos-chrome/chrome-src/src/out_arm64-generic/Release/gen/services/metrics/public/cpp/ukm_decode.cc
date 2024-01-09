@@ -275,9 +275,15 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {AdsInterestGroup_AuctionLatency_V2::kLoadInterestGroupPhaseLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kLoadInterestGroupPhaseLatencyInMillisName},
 
+    {AdsInterestGroup_AuctionLatency_V2::kMaxAdditionalBidDecodeLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMaxAdditionalBidDecodeLatencyInMillisName},
+
     {AdsInterestGroup_AuctionLatency_V2::kMaxBidForOneInterestGroupLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMaxBidForOneInterestGroupLatencyInMillisName},
 
     {AdsInterestGroup_AuctionLatency_V2::kMaxComponentAuctionLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMaxComponentAuctionLatencyInMillisName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kMaxConfigPromisesResolvedCriticalPathLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMaxConfigPromisesResolvedCriticalPathLatencyInMillisName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kMaxConfigPromisesResolvedLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMaxConfigPromisesResolvedLatencyInMillisName},
 
     {AdsInterestGroup_AuctionLatency_V2::kMaxGenerateBidCodeReadyLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMaxGenerateBidCodeReadyLatencyInMillisName},
 
@@ -299,9 +305,15 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {AdsInterestGroup_AuctionLatency_V2::kMaxScoreAdTrustedScoringSignalsLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMaxScoreAdTrustedScoringSignalsLatencyInMillisName},
 
+    {AdsInterestGroup_AuctionLatency_V2::kMeanAdditionalBidDecodeLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMeanAdditionalBidDecodeLatencyInMillisName},
+
     {AdsInterestGroup_AuctionLatency_V2::kMeanBidForOneInterestGroupLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMeanBidForOneInterestGroupLatencyInMillisName},
 
     {AdsInterestGroup_AuctionLatency_V2::kMeanComponentAuctionLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMeanComponentAuctionLatencyInMillisName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kMeanConfigPromisesResolvedCriticalPathLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMeanConfigPromisesResolvedCriticalPathLatencyInMillisName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kMeanConfigPromisesResolvedLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMeanConfigPromisesResolvedLatencyInMillisName},
 
     {AdsInterestGroup_AuctionLatency_V2::kMeanGenerateBidCodeReadyCriticalPathLatencyInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMeanGenerateBidCodeReadyCriticalPathLatencyInMillisName},
 
@@ -345,6 +357,26 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {AdsInterestGroup_AuctionLatency_V2::kMeanTimeTopLevelBidsQueuedWaitingForSellerWorkletInMillisNameHash, AdsInterestGroup_AuctionLatency_V2::kMeanTimeTopLevelBidsQueuedWaitingForSellerWorkletInMillisName},
 
+    {AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsNegativeTargetedNameHash, AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsNegativeTargetedName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToBuyerNotAllowedNameHash, AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToBuyerNotAllowedName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToCurrencyMismatchNameHash, AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToCurrencyMismatchName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToDecodeErrorNameHash, AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToDecodeErrorName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToInvalidBase64NameHash, AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToInvalidBase64Name},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToJsonParseErrorNameHash, AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToJsonParseErrorName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToSignedBidDecodeErrorNameHash, AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToSignedBidDecodeErrorName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToSignedBidJsonParseErrorNameHash, AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsRejectedDueToSignedBidJsonParseErrorName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsSentForScoringNameHash, AdsInterestGroup_AuctionLatency_V2::kNumAdditionalBidsSentForScoringName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumAuctionsWithConfigPromisesNameHash, AdsInterestGroup_AuctionLatency_V2::kNumAuctionsWithConfigPromisesName},
+
     {AdsInterestGroup_AuctionLatency_V2::kNumBidderWorkletsNameHash, AdsInterestGroup_AuctionLatency_V2::kNumBidderWorkletsName},
 
     {AdsInterestGroup_AuctionLatency_V2::kNumBidsAbortedByBidderWorkletFatalErrorNameHash, AdsInterestGroup_AuctionLatency_V2::kNumBidsAbortedByBidderWorkletFatalErrorName},
@@ -382,6 +414,12 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {AdsInterestGroup_AuctionLatency_V2::kNumInterestGroupsWithSameBidForKAnonAndNonKAnonNameHash, AdsInterestGroup_AuctionLatency_V2::kNumInterestGroupsWithSameBidForKAnonAndNonKAnonName},
 
     {AdsInterestGroup_AuctionLatency_V2::kNumInterestGroupsWithSeparateBidsForKAnonAndNonKAnonNameHash, AdsInterestGroup_AuctionLatency_V2::kNumInterestGroupsWithSeparateBidsForKAnonAndNonKAnonName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsNameHash, AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsIgnoredDueToInvalidSignatureNameHash, AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsIgnoredDueToInvalidSignatureName},
+
+    {AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatchNameHash, AdsInterestGroup_AuctionLatency_V2::kNumNegativeInterestGroupsIgnoredDueToJoiningOriginMismatchName},
 
     {AdsInterestGroup_AuctionLatency_V2::kNumOwnersWithInterestGroupsNameHash, AdsInterestGroup_AuctionLatency_V2::kNumOwnersWithInterestGroupsName},
 
@@ -1089,11 +1127,13 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {Autofill2_FieldInfo::kAutofillStatusVectorNameHash, Autofill2_FieldInfo::kAutofillStatusVectorName},
 
+    {Autofill2_FieldInfo::kFieldLogEventCountNameHash, Autofill2_FieldInfo::kFieldLogEventCountName},
+
     {Autofill2_FieldInfo::kFieldSessionIdentifierNameHash, Autofill2_FieldInfo::kFieldSessionIdentifierName},
 
     {Autofill2_FieldInfo::kFieldSignatureNameHash, Autofill2_FieldInfo::kFieldSignatureName},
 
-    {Autofill2_FieldInfo::kFormControlTypeNameHash, Autofill2_FieldInfo::kFormControlTypeName},
+    {Autofill2_FieldInfo::kFormControlType2NameHash, Autofill2_FieldInfo::kFormControlType2Name},
 
     {Autofill2_FieldInfo::kFormSessionIdentifierNameHash, Autofill2_FieldInfo::kFormSessionIdentifierName},
 
@@ -1347,6 +1387,14 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {Blink_FedCm::kAutoReauthn_TimeFromEmbargoWhenBlockedNameHash, Blink_FedCm::kAutoReauthn_TimeFromEmbargoWhenBlockedName},
 
+    {Blink_FedCm::kDisconnect_FrameTypeNameHash, Blink_FedCm::kDisconnect_FrameTypeName},
+
+    {Blink_FedCm::kError_ErrorDialogResultNameHash, Blink_FedCm::kError_ErrorDialogResultName},
+
+    {Blink_FedCm::kError_ErrorDialogTypeNameHash, Blink_FedCm::kError_ErrorDialogTypeName},
+
+    {Blink_FedCm::kError_TokenResponseTypeNameHash, Blink_FedCm::kError_TokenResponseTypeName},
+
     {Blink_FedCm::kFedCmSessionIDNameHash, Blink_FedCm::kFedCmSessionIDName},
 
     {Blink_FedCm::kMismatchDialogShownNameHash, Blink_FedCm::kMismatchDialogShownName},
@@ -1355,15 +1403,21 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {Blink_FedCm::kPreventSilentAccessFrameTypeNameHash, Blink_FedCm::kPreventSilentAccessFrameTypeName},
 
+    {Blink_FedCm::kStatus_DisconnectNameHash, Blink_FedCm::kStatus_DisconnectName},
+
     {Blink_FedCm::kStatus_MediationRequirementNameHash, Blink_FedCm::kStatus_MediationRequirementName},
 
     {Blink_FedCm::kStatus_RequestIdTokenNameHash, Blink_FedCm::kStatus_RequestIdTokenName},
+
+    {Blink_FedCm::kStatus_SignInStateMatchNameHash, Blink_FedCm::kStatus_SignInStateMatchName},
 
     {Blink_FedCm::kTiming_AccountsDialogShownDurationNameHash, Blink_FedCm::kTiming_AccountsDialogShownDurationName},
 
     {Blink_FedCm::kTiming_CancelOnDialogNameHash, Blink_FedCm::kTiming_CancelOnDialogName},
 
     {Blink_FedCm::kTiming_ContinueOnDialogNameHash, Blink_FedCm::kTiming_ContinueOnDialogName},
+
+    {Blink_FedCm::kTiming_DisconnectNameHash, Blink_FedCm::kTiming_DisconnectName},
 
     {Blink_FedCm::kTiming_IdTokenResponseNameHash, Blink_FedCm::kTiming_IdTokenResponseName},
 
@@ -1387,9 +1441,21 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {Blink_FedCmIdp::kAccountsRequestSentNameHash, Blink_FedCmIdp::kAccountsRequestSentName},
 
+    {Blink_FedCmIdp::kDisconnect_FrameTypeNameHash, Blink_FedCmIdp::kDisconnect_FrameTypeName},
+
+    {Blink_FedCmIdp::kError_ErrorDialogResultNameHash, Blink_FedCmIdp::kError_ErrorDialogResultName},
+
+    {Blink_FedCmIdp::kError_ErrorDialogTypeNameHash, Blink_FedCmIdp::kError_ErrorDialogTypeName},
+
+    {Blink_FedCmIdp::kError_ErrorUrlTypeNameHash, Blink_FedCmIdp::kError_ErrorUrlTypeName},
+
+    {Blink_FedCmIdp::kError_TokenResponseTypeNameHash, Blink_FedCmIdp::kError_TokenResponseTypeName},
+
     {Blink_FedCmIdp::kFedCmSessionIDNameHash, Blink_FedCmIdp::kFedCmSessionIDName},
 
     {Blink_FedCmIdp::kMismatchDialogShownNameHash, Blink_FedCmIdp::kMismatchDialogShownName},
+
+    {Blink_FedCmIdp::kStatus_DisconnectNameHash, Blink_FedCmIdp::kStatus_DisconnectName},
 
     {Blink_FedCmIdp::kStatus_MediationRequirementNameHash, Blink_FedCmIdp::kStatus_MediationRequirementName},
 
@@ -1402,6 +1468,8 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {Blink_FedCmIdp::kTiming_CancelOnDialogNameHash, Blink_FedCmIdp::kTiming_CancelOnDialogName},
 
     {Blink_FedCmIdp::kTiming_ContinueOnDialogNameHash, Blink_FedCmIdp::kTiming_ContinueOnDialogName},
+
+    {Blink_FedCmIdp::kTiming_DisconnectNameHash, Blink_FedCmIdp::kTiming_DisconnectName},
 
     {Blink_FedCmIdp::kTiming_IdTokenResponseNameHash, Blink_FedCmIdp::kTiming_IdTokenResponseName},
 
@@ -1530,6 +1598,8 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {Blink_PageLoad::kPaintNameHash, Blink_PageLoad::kPaintName},
 
     {Blink_PageLoad::kParseStyleSheetNameHash, Blink_PageLoad::kParseStyleSheetName},
+
+    {Blink_PageLoad::kPossibleSynchronizedScrollCountNameHash, Blink_PageLoad::kPossibleSynchronizedScrollCountName},
 
     {Blink_PageLoad::kPrePaintNameHash, Blink_PageLoad::kPrePaintName},
 
@@ -1668,6 +1738,10 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {Blink_UpdateTime::kParseStyleSheetNameHash, Blink_UpdateTime::kParseStyleSheetName},
 
     {Blink_UpdateTime::kParseStyleSheetBeginMainFrameNameHash, Blink_UpdateTime::kParseStyleSheetBeginMainFrameName},
+
+    {Blink_UpdateTime::kPossibleSynchronizedScrollCountNameHash, Blink_UpdateTime::kPossibleSynchronizedScrollCountName},
+
+    {Blink_UpdateTime::kPossibleSynchronizedScrollCountBeginMainFrameNameHash, Blink_UpdateTime::kPossibleSynchronizedScrollCountBeginMainFrameName},
 
     {Blink_UpdateTime::kPrePaintNameHash, Blink_UpdateTime::kPrePaintName},
 
@@ -2144,6 +2218,24 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(2872551356235666049),
+      {
+        Compose_TextElementUsage::kEntryName,
+        {
+          
+    {Compose_TextElementUsage::kAutofillFormControlTypeNameHash, Compose_TextElementUsage::kAutofillFormControlTypeName},
+
+    {Compose_TextElementUsage::kIsAutofillFieldTypeNameHash, Compose_TextElementUsage::kIsAutofillFieldTypeName},
+
+    {Compose_TextElementUsage::kTypedCharacterCountNameHash, Compose_TextElementUsage::kTypedCharacterCountName},
+
+    {Compose_TextElementUsage::kTypedWordCountNameHash, Compose_TextElementUsage::kTypedWordCountName},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(18003859069234917647),
       {
         Compositor_Rendering::kEntryName,
@@ -2378,6 +2470,18 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(5460112050811125825),
+      {
+        DevTools_Opened::kEntryName,
+        {
+          
+    {DevTools_Opened::kHasOccurredNameHash, DevTools_Opened::kHasOccurredName},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(3655510906906408205),
       {
         DIPS_Deletion::kEntryName,
@@ -2532,6 +2636,28 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {Download_Started::kFileTypeNameHash, Download_Started::kFileTypeName},
 
     {Download_Started::kIsSameHostDownloadNameHash, Download_Started::kIsSameHostDownloadName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(6161051744273924039),
+      {
+        Event_Scroll::kEntryName,
+        {
+          
+    {Event_Scroll::kFrameCountNameHash, Event_Scroll::kFrameCountName},
+
+    {Event_Scroll::kPredictorJankyFrameCountNameHash, Event_Scroll::kPredictorJankyFrameCountName},
+
+    {Event_Scroll::kScrollJank_DelayedFrameCountNameHash, Event_Scroll::kScrollJank_DelayedFrameCountName},
+
+    {Event_Scroll::kScrollJank_MissedVsyncsMaxNameHash, Event_Scroll::kScrollJank_MissedVsyncsMaxName},
+
+    {Event_Scroll::kScrollJank_MissedVsyncsSumNameHash, Event_Scroll::kScrollJank_MissedVsyncsSumName},
+
+    {Event_Scroll::kVsyncCountNameHash, Event_Scroll::kVsyncCountName},
 
         }
       }
@@ -3500,6 +3626,18 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(12440808905277294625),
+      {
+        MainFrameNavigation_ZstdContentEncoding::kEntryName,
+        {
+          
+    {MainFrameNavigation_ZstdContentEncoding::kUsedZstdNameHash, MainFrameNavigation_ZstdContentEncoding::kUsedZstdName},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(15357501003006382777),
       {
         Media_Autoplay_Attempt::kEntryName,
@@ -3900,6 +4038,8 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {Media_WebMediaPlayerState::kContainerNameNameHash, Media_WebMediaPlayerState::kContainerNameName},
 
     {Media_WebMediaPlayerState::kFinalPipelineStatusNameHash, Media_WebMediaPlayerState::kFinalPipelineStatusName},
+
+    {Media_WebMediaPlayerState::kHasWaitingForKeyNameHash, Media_WebMediaPlayerState::kHasWaitingForKeyName},
 
     {Media_WebMediaPlayerState::kIsEMENameHash, Media_WebMediaPlayerState::kIsEMEName},
 
@@ -4663,6 +4803,8 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {OpenerHeuristic_TopLevel::kHasSameSiteIframeNameHash, OpenerHeuristic_TopLevel::kHasSameSiteIframeName},
 
+    {OpenerHeuristic_TopLevel::kIsAdTaggedPopupClickNameHash, OpenerHeuristic_TopLevel::kIsAdTaggedPopupClickName},
+
     {OpenerHeuristic_TopLevel::kPopupIdNameHash, OpenerHeuristic_TopLevel::kPopupIdName},
 
     {OpenerHeuristic_TopLevel::kPopupProviderNameHash, OpenerHeuristic_TopLevel::kPopupProviderName},
@@ -4773,6 +4915,10 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {PageLoad::kInteractiveTiming_FirstScrollTimestampNameHash, PageLoad::kInteractiveTiming_FirstScrollTimestampName},
 
+    {PageLoad::kInteractiveTiming_INPOffsetNameHash, PageLoad::kInteractiveTiming_INPOffsetName},
+
+    {PageLoad::kInteractiveTiming_INPTimeNameHash, PageLoad::kInteractiveTiming_INPTimeName},
+
     {PageLoad::kInteractiveTiming_NumInteractionsNameHash, PageLoad::kInteractiveTiming_NumInteractionsName},
 
     {PageLoad::kInteractiveTiming_UserInteractionLatency_HighPercentile2_MaxEventDurationNameHash, PageLoad::kInteractiveTiming_UserInteractionLatency_HighPercentile2_MaxEventDurationName},
@@ -4780,6 +4926,10 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {PageLoad::kInteractiveTiming_UserInteractionLatencyAtFirstOnHidden_HighPercentile2_MaxEventDurationNameHash, PageLoad::kInteractiveTiming_UserInteractionLatencyAtFirstOnHidden_HighPercentile2_MaxEventDurationName},
 
     {PageLoad::kInteractiveTiming_WorstUserInteractionLatency_MaxEventDurationNameHash, PageLoad::kInteractiveTiming_WorstUserInteractionLatency_MaxEventDurationName},
+
+    {PageLoad::kInteractiveTimingBeforeSoftNavigation_INPOffsetNameHash, PageLoad::kInteractiveTimingBeforeSoftNavigation_INPOffsetName},
+
+    {PageLoad::kInteractiveTimingBeforeSoftNavigation_INPTimeNameHash, PageLoad::kInteractiveTimingBeforeSoftNavigation_INPTimeName},
 
     {PageLoad::kInteractiveTimingBeforeSoftNavigation_NumInteractionsNameHash, PageLoad::kInteractiveTimingBeforeSoftNavigation_NumInteractionsName},
 
@@ -5126,24 +5276,6 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
-      UINT64_C(13449954988418736908),
-      {
-        PasswordManager_PasswordChangeFlowDuration::kEntryName,
-        {
-          
-    {PasswordManager_PasswordChangeFlowDuration::kDurationNameHash, PasswordManager_PasswordChangeFlowDuration::kDurationName},
-
-    {PasswordManager_PasswordChangeFlowDuration::kEndEventNameHash, PasswordManager_PasswordChangeFlowDuration::kEndEventName},
-
-    {PasswordManager_PasswordChangeFlowDuration::kEntryPointNameHash, PasswordManager_PasswordChangeFlowDuration::kEntryPointName},
-
-    {PasswordManager_PasswordChangeFlowDuration::kStartEventNameHash, PasswordManager_PasswordChangeFlowDuration::kStartEventName},
-
-        }
-      }
-    },
-
-    {
       UINT64_C(16550471355748170236),
       {
         PasswordManager_PasswordChangeTriggered::kEntryName,
@@ -5331,6 +5463,8 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
           
     {PerformanceManager_PageResourceUsage2::kBackgroundStateNameHash, PerformanceManager_PageResourceUsage2::kBackgroundStateName},
 
+    {PerformanceManager_PageResourceUsage2::kMeasurementAlgorithmNameHash, PerformanceManager_PageResourceUsage2::kMeasurementAlgorithmName},
+
     {PerformanceManager_PageResourceUsage2::kPrivateFootprintEstimateNameHash, PerformanceManager_PageResourceUsage2::kPrivateFootprintEstimateName},
 
     {PerformanceManager_PageResourceUsage2::kRecentCPUUsageNameHash, PerformanceManager_PageResourceUsage2::kRecentCPUUsageName},
@@ -5338,50 +5472,6 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {PerformanceManager_PageResourceUsage2::kResidentSetSizeEstimateNameHash, PerformanceManager_PageResourceUsage2::kResidentSetSizeEstimateName},
 
     {PerformanceManager_PageResourceUsage2::kTotalRecentCPUUsageAllPagesNameHash, PerformanceManager_PageResourceUsage2::kTotalRecentCPUUsageAllPagesName},
-
-        }
-      }
-    },
-
-    {
-      UINT64_C(10815494830717278009),
-      {
-        PerformanceManager_PageTimelineState::kEntryName,
-        {
-          
-    {PerformanceManager_PageTimelineState::kBatterySaverModeNameHash, PerformanceManager_PageTimelineState::kBatterySaverModeName},
-
-    {PerformanceManager_PageTimelineState::kChangedFaviconOrTitleInBackgroundNameHash, PerformanceManager_PageTimelineState::kChangedFaviconOrTitleInBackgroundName},
-
-    {PerformanceManager_PageTimelineState::kCurrentStateNameHash, PerformanceManager_PageTimelineState::kCurrentStateName},
-
-    {PerformanceManager_PageTimelineState::kHasNotificationPermissionNameHash, PerformanceManager_PageTimelineState::kHasNotificationPermissionName},
-
-    {PerformanceManager_PageTimelineState::kHighEfficiencyModeNameHash, PerformanceManager_PageTimelineState::kHighEfficiencyModeName},
-
-    {PerformanceManager_PageTimelineState::kIsActiveTabNameHash, PerformanceManager_PageTimelineState::kIsActiveTabName},
-
-    {PerformanceManager_PageTimelineState::kIsCapturingMediaNameHash, PerformanceManager_PageTimelineState::kIsCapturingMediaName},
-
-    {PerformanceManager_PageTimelineState::kIsConnectedToDeviceNameHash, PerformanceManager_PageTimelineState::kIsConnectedToDeviceName},
-
-    {PerformanceManager_PageTimelineState::kIsPlayingAudioNameHash, PerformanceManager_PageTimelineState::kIsPlayingAudioName},
-
-    {PerformanceManager_PageTimelineState::kPrivateFootprintNameHash, PerformanceManager_PageTimelineState::kPrivateFootprintName},
-
-    {PerformanceManager_PageTimelineState::kResidentSetSizeNameHash, PerformanceManager_PageTimelineState::kResidentSetSizeName},
-
-    {PerformanceManager_PageTimelineState::kSliceIdNameHash, PerformanceManager_PageTimelineState::kSliceIdName},
-
-    {PerformanceManager_PageTimelineState::kTabIdNameHash, PerformanceManager_PageTimelineState::kTabIdName},
-
-    {PerformanceManager_PageTimelineState::kTimeInCurrentStateNameHash, PerformanceManager_PageTimelineState::kTimeInCurrentStateName},
-
-    {PerformanceManager_PageTimelineState::kTimeSinceCreationNameHash, PerformanceManager_PageTimelineState::kTimeSinceCreationName},
-
-    {PerformanceManager_PageTimelineState::kTimeSinceLastSliceNameHash, PerformanceManager_PageTimelineState::kTimeSinceLastSliceName},
-
-    {PerformanceManager_PageTimelineState::kTotalForegroundTimeNameHash, PerformanceManager_PageTimelineState::kTotalForegroundTimeName},
 
         }
       }
@@ -6736,6 +6826,18 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(9670390910407059784),
+      {
+        Shopping_PDPStateWithLocalInfo::kEntryName,
+        {
+          
+    {Shopping_PDPStateWithLocalInfo::kPDPStateNameHash, Shopping_PDPStateWithLocalInfo::kPDPStateName},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(16734271994830574968),
       {
         Shopping_WillSendRequest::kEntryName,
@@ -6800,6 +6902,18 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {Site_Quality::kHasFetchHandlerNameHash, Site_Quality::kHasFetchHandlerName},
 
     {Site_Quality::kServiceWorkerScriptSizeNameHash, Site_Quality::kServiceWorkerScriptSizeName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(6253142163073541541),
+      {
+        SiteInstance::kEntryName,
+        {
+          
+    {SiteInstance::kNewProcessUsedForNavigationWhenSameSiteProcessExistsNameHash, SiteInstance::kNewProcessUsedForNavigationWhenSameSiteProcessExistsName},
 
         }
       }
@@ -6891,6 +7005,10 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
         SoftNavigation::kEntryName,
         {
           
+    {SoftNavigation::kInteractiveTiming_INPOffsetNameHash, SoftNavigation::kInteractiveTiming_INPOffsetName},
+
+    {SoftNavigation::kInteractiveTiming_INPTimeNameHash, SoftNavigation::kInteractiveTiming_INPTimeName},
+
     {SoftNavigation::kInteractiveTiming_NumInteractionsNameHash, SoftNavigation::kInteractiveTiming_NumInteractionsName},
 
     {SoftNavigation::kInteractiveTiming_UserInteractionLatency_HighPercentile2_MaxEventDurationNameHash, SoftNavigation::kInteractiveTiming_UserInteractionLatency_HighPercentile2_MaxEventDurationName},
@@ -6930,6 +7048,18 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {SubresourceFilter::kDryRunNameHash, SubresourceFilter::kDryRunName},
 
     {SubresourceFilter::kEnforcementRedirectPositionNameHash, SubresourceFilter::kEnforcementRedirectPositionName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(8817849481731339059),
+      {
+        SubresourceLoad_ZstdContentEncoding::kEntryName,
+        {
+          
+    {SubresourceLoad_ZstdContentEncoding::kUsedZstdNameHash, SubresourceLoad_ZstdContentEncoding::kUsedZstdName},
 
         }
       }
@@ -9824,6 +9954,18 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
         {
           
     {VirtualKeyboard_Open::kTextInputTypeNameHash, VirtualKeyboard_Open::kTextInputTypeName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(16867238133244431157),
+      {
+        Wallet_BoardingPassDetect::kEntryName,
+        {
+          
+    {Wallet_BoardingPassDetect::kDetectedNameHash, Wallet_BoardingPassDetect::kDetectedName},
 
         }
       }

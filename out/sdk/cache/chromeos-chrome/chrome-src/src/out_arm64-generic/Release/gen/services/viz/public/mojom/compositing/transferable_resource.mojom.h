@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/transferable_resource.mojom-features.h"
 #include "services/viz/public/mojom/compositing/transferable_resource.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/transferable_resource.mojom-forward.h"
 #include "gpu/ipc/common/mailbox_holder.mojom.h"
@@ -89,9 +90,8 @@ class  TransferableResource {
       bool is_backed_by_surface_texture,
       bool wants_promotion_hint,
       const ::gfx::ColorSpace& color_space,
-      const absl::optional<::gfx::ColorSpace>& color_space_when_sampled,
       const ::gfx::HDRMetadata& hdr_metadata,
-      absl::optional<::gpu::VulkanYCbCrInfo> ycbcr_info);
+      std::optional<::gpu::VulkanYCbCrInfo> ycbcr_info);
 
 
   ~TransferableResource();
@@ -189,11 +189,9 @@ class  TransferableResource {
   
   ::gfx::ColorSpace color_space;
   
-  absl::optional<::gfx::ColorSpace> color_space_when_sampled;
-  
   ::gfx::HDRMetadata hdr_metadata;
   
-  absl::optional<::gpu::VulkanYCbCrInfo> ycbcr_info;
+  std::optional<::gpu::VulkanYCbCrInfo> ycbcr_info;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -237,7 +235,6 @@ TransferableResourcePtr TransferableResource::Clone() const {
       mojo::Clone(is_backed_by_surface_texture),
       mojo::Clone(wants_promotion_hint),
       mojo::Clone(color_space),
-      mojo::Clone(color_space_when_sampled),
       mojo::Clone(hdr_metadata),
       mojo::Clone(ycbcr_info)
   );
@@ -264,8 +261,6 @@ bool TransferableResource::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->wants_promotion_hint, other_struct.wants_promotion_hint))
     return false;
   if (!mojo::Equals(this->color_space, other_struct.color_space))
-    return false;
-  if (!mojo::Equals(this->color_space_when_sampled, other_struct.color_space_when_sampled))
     return false;
   if (!mojo::Equals(this->hdr_metadata, other_struct.hdr_metadata))
     return false;
@@ -315,10 +310,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.color_space < rhs.color_space)
     return true;
   if (rhs.color_space < lhs.color_space)
-    return false;
-  if (lhs.color_space_when_sampled < rhs.color_space_when_sampled)
-    return true;
-  if (rhs.color_space_when_sampled < lhs.color_space_when_sampled)
     return false;
   if (lhs.hdr_metadata < rhs.hdr_metadata)
     return true;
@@ -391,11 +382,6 @@ struct  StructTraits<::viz::mojom::TransferableResource::DataView,
   static const decltype(::viz::mojom::TransferableResource::color_space)& color_space(
       const ::viz::mojom::TransferableResourcePtr& input) {
     return input->color_space;
-  }
-
-  static const decltype(::viz::mojom::TransferableResource::color_space_when_sampled)& color_space_when_sampled(
-      const ::viz::mojom::TransferableResourcePtr& input) {
-    return input->color_space_when_sampled;
   }
 
   static const decltype(::viz::mojom::TransferableResource::hdr_metadata)& hdr_metadata(

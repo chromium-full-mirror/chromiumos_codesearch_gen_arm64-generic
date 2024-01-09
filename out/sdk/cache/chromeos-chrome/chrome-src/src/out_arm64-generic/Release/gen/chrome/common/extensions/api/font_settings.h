@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,8 @@ struct FontName {
   ~FontName();
   FontName(const FontName&) = delete;
   FontName& operator=(const FontName&) = delete;
-  FontName(FontName&& rhs);
-  FontName& operator=(FontName&& rhs);
+  FontName(FontName&& rhs) noexcept;
+  FontName& operator=(FontName&& rhs) noexcept;
 
   // Populates a FontName object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -49,14 +50,11 @@ struct FontName {
   // Creates a deep copy of FontName.
   FontName Clone() const;
 
-  // Creates a FontName object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FontName> FromValueDeprecated(const base::Value& value);
-
   // Creates a FontName object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<FontName> FromValue(const base::Value::Dict& value);
+  static std::optional<FontName> FromValue(const base::Value::Dict& value);
 
   // Creates a FontName object from a base::Value, or nullopt on failure.
-  static absl::optional<FontName> FromValue(const base::Value& value);
+  static std::optional<FontName> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFontName object.
@@ -72,161 +70,161 @@ struct FontName {
 
 // An ISO 15924 script code. The default, or global, script is represented by
 // script code "Zyyy".
-enum  ScriptCode {
-  SCRIPT_CODE_NONE = 0,
-  SCRIPT_CODE_AFAK,
-  SCRIPT_CODE_ARAB,
-  SCRIPT_CODE_ARMI,
-  SCRIPT_CODE_ARMN,
-  SCRIPT_CODE_AVST,
-  SCRIPT_CODE_BALI,
-  SCRIPT_CODE_BAMU,
-  SCRIPT_CODE_BASS,
-  SCRIPT_CODE_BATK,
-  SCRIPT_CODE_BENG,
-  SCRIPT_CODE_BLIS,
-  SCRIPT_CODE_BOPO,
-  SCRIPT_CODE_BRAH,
-  SCRIPT_CODE_BRAI,
-  SCRIPT_CODE_BUGI,
-  SCRIPT_CODE_BUHD,
-  SCRIPT_CODE_CAKM,
-  SCRIPT_CODE_CANS,
-  SCRIPT_CODE_CARI,
-  SCRIPT_CODE_CHAM,
-  SCRIPT_CODE_CHER,
-  SCRIPT_CODE_CIRT,
-  SCRIPT_CODE_COPT,
-  SCRIPT_CODE_CPRT,
-  SCRIPT_CODE_CYRL,
-  SCRIPT_CODE_CYRS,
-  SCRIPT_CODE_DEVA,
-  SCRIPT_CODE_DSRT,
-  SCRIPT_CODE_DUPL,
-  SCRIPT_CODE_EGYD,
-  SCRIPT_CODE_EGYH,
-  SCRIPT_CODE_EGYP,
-  SCRIPT_CODE_ELBA,
-  SCRIPT_CODE_ETHI,
-  SCRIPT_CODE_GEOR,
-  SCRIPT_CODE_GEOK,
-  SCRIPT_CODE_GLAG,
-  SCRIPT_CODE_GOTH,
-  SCRIPT_CODE_GRAN,
-  SCRIPT_CODE_GREK,
-  SCRIPT_CODE_GUJR,
-  SCRIPT_CODE_GURU,
-  SCRIPT_CODE_HANG,
-  SCRIPT_CODE_HANI,
-  SCRIPT_CODE_HANO,
-  SCRIPT_CODE_HANS,
-  SCRIPT_CODE_HANT,
-  SCRIPT_CODE_HEBR,
-  SCRIPT_CODE_HLUW,
-  SCRIPT_CODE_HMNG,
-  SCRIPT_CODE_HUNG,
-  SCRIPT_CODE_INDS,
-  SCRIPT_CODE_ITAL,
-  SCRIPT_CODE_JAVA,
-  SCRIPT_CODE_JPAN,
-  SCRIPT_CODE_JURC,
-  SCRIPT_CODE_KALI,
-  SCRIPT_CODE_KHAR,
-  SCRIPT_CODE_KHMR,
-  SCRIPT_CODE_KHOJ,
-  SCRIPT_CODE_KNDA,
-  SCRIPT_CODE_KPEL,
-  SCRIPT_CODE_KTHI,
-  SCRIPT_CODE_LANA,
-  SCRIPT_CODE_LAOO,
-  SCRIPT_CODE_LATF,
-  SCRIPT_CODE_LATG,
-  SCRIPT_CODE_LATN,
-  SCRIPT_CODE_LEPC,
-  SCRIPT_CODE_LIMB,
-  SCRIPT_CODE_LINA,
-  SCRIPT_CODE_LINB,
-  SCRIPT_CODE_LISU,
-  SCRIPT_CODE_LOMA,
-  SCRIPT_CODE_LYCI,
-  SCRIPT_CODE_LYDI,
-  SCRIPT_CODE_MAND,
-  SCRIPT_CODE_MANI,
-  SCRIPT_CODE_MAYA,
-  SCRIPT_CODE_MEND,
-  SCRIPT_CODE_MERC,
-  SCRIPT_CODE_MERO,
-  SCRIPT_CODE_MLYM,
-  SCRIPT_CODE_MOON,
-  SCRIPT_CODE_MONG,
-  SCRIPT_CODE_MROO,
-  SCRIPT_CODE_MTEI,
-  SCRIPT_CODE_MYMR,
-  SCRIPT_CODE_NARB,
-  SCRIPT_CODE_NBAT,
-  SCRIPT_CODE_NKGB,
-  SCRIPT_CODE_NKOO,
-  SCRIPT_CODE_NSHU,
-  SCRIPT_CODE_OGAM,
-  SCRIPT_CODE_OLCK,
-  SCRIPT_CODE_ORKH,
-  SCRIPT_CODE_ORYA,
-  SCRIPT_CODE_OSMA,
-  SCRIPT_CODE_PALM,
-  SCRIPT_CODE_PERM,
-  SCRIPT_CODE_PHAG,
-  SCRIPT_CODE_PHLI,
-  SCRIPT_CODE_PHLP,
-  SCRIPT_CODE_PHLV,
-  SCRIPT_CODE_PHNX,
-  SCRIPT_CODE_PLRD,
-  SCRIPT_CODE_PRTI,
-  SCRIPT_CODE_RJNG,
-  SCRIPT_CODE_RORO,
-  SCRIPT_CODE_RUNR,
-  SCRIPT_CODE_SAMR,
-  SCRIPT_CODE_SARA,
-  SCRIPT_CODE_SARB,
-  SCRIPT_CODE_SAUR,
-  SCRIPT_CODE_SGNW,
-  SCRIPT_CODE_SHAW,
-  SCRIPT_CODE_SHRD,
-  SCRIPT_CODE_SIND,
-  SCRIPT_CODE_SINH,
-  SCRIPT_CODE_SORA,
-  SCRIPT_CODE_SUND,
-  SCRIPT_CODE_SYLO,
-  SCRIPT_CODE_SYRC,
-  SCRIPT_CODE_SYRE,
-  SCRIPT_CODE_SYRJ,
-  SCRIPT_CODE_SYRN,
-  SCRIPT_CODE_TAGB,
-  SCRIPT_CODE_TAKR,
-  SCRIPT_CODE_TALE,
-  SCRIPT_CODE_TALU,
-  SCRIPT_CODE_TAML,
-  SCRIPT_CODE_TANG,
-  SCRIPT_CODE_TAVT,
-  SCRIPT_CODE_TELU,
-  SCRIPT_CODE_TENG,
-  SCRIPT_CODE_TFNG,
-  SCRIPT_CODE_TGLG,
-  SCRIPT_CODE_THAA,
-  SCRIPT_CODE_THAI,
-  SCRIPT_CODE_TIBT,
-  SCRIPT_CODE_TIRH,
-  SCRIPT_CODE_UGAR,
-  SCRIPT_CODE_VAII,
-  SCRIPT_CODE_VISP,
-  SCRIPT_CODE_WARA,
-  SCRIPT_CODE_WOLE,
-  SCRIPT_CODE_XPEO,
-  SCRIPT_CODE_XSUX,
-  SCRIPT_CODE_YIII,
-  SCRIPT_CODE_ZMTH,
-  SCRIPT_CODE_ZSYM,
-  SCRIPT_CODE_ZYYY,
-  SCRIPT_CODE_LAST = SCRIPT_CODE_ZYYY,
+enum class ScriptCode {
+  kNone = 0,
+  kAfak,
+  kArab,
+  kArmi,
+  kArmn,
+  kAvst,
+  kBali,
+  kBamu,
+  kBass,
+  kBatk,
+  kBeng,
+  kBlis,
+  kBopo,
+  kBrah,
+  kBrai,
+  kBugi,
+  kBuhd,
+  kCakm,
+  kCans,
+  kCari,
+  kCham,
+  kCher,
+  kCirt,
+  kCopt,
+  kCprt,
+  kCyrl,
+  kCyrs,
+  kDeva,
+  kDsrt,
+  kDupl,
+  kEgyd,
+  kEgyh,
+  kEgyp,
+  kElba,
+  kEthi,
+  kGeor,
+  kGeok,
+  kGlag,
+  kGoth,
+  kGran,
+  kGrek,
+  kGujr,
+  kGuru,
+  kHang,
+  kHani,
+  kHano,
+  kHans,
+  kHant,
+  kHebr,
+  kHluw,
+  kHmng,
+  kHung,
+  kInds,
+  kItal,
+  kJava,
+  kJpan,
+  kJurc,
+  kKali,
+  kKhar,
+  kKhmr,
+  kKhoj,
+  kKnda,
+  kKpel,
+  kKthi,
+  kLana,
+  kLaoo,
+  kLatf,
+  kLatg,
+  kLatn,
+  kLepc,
+  kLimb,
+  kLina,
+  kLinb,
+  kLisu,
+  kLoma,
+  kLyci,
+  kLydi,
+  kMand,
+  kMani,
+  kMaya,
+  kMend,
+  kMerc,
+  kMero,
+  kMlym,
+  kMoon,
+  kMong,
+  kMroo,
+  kMtei,
+  kMymr,
+  kNarb,
+  kNbat,
+  kNkgb,
+  kNkoo,
+  kNshu,
+  kOgam,
+  kOlck,
+  kOrkh,
+  kOrya,
+  kOsma,
+  kPalm,
+  kPerm,
+  kPhag,
+  kPhli,
+  kPhlp,
+  kPhlv,
+  kPhnx,
+  kPlrd,
+  kPrti,
+  kRjng,
+  kRoro,
+  kRunr,
+  kSamr,
+  kSara,
+  kSarb,
+  kSaur,
+  kSgnw,
+  kShaw,
+  kShrd,
+  kSind,
+  kSinh,
+  kSora,
+  kSund,
+  kSylo,
+  kSyrc,
+  kSyre,
+  kSyrj,
+  kSyrn,
+  kTagb,
+  kTakr,
+  kTale,
+  kTalu,
+  kTaml,
+  kTang,
+  kTavt,
+  kTelu,
+  kTeng,
+  kTfng,
+  kTglg,
+  kThaa,
+  kThai,
+  kTibt,
+  kTirh,
+  kUgar,
+  kVaii,
+  kVisp,
+  kWara,
+  kWole,
+  kXpeo,
+  kXsux,
+  kYiii,
+  kZmth,
+  kZsym,
+  kZyyy,
+  kMaxValue = kZyyy,
 };
 
 
@@ -235,16 +233,16 @@ ScriptCode ParseScriptCode(base::StringPiece as_string);
 std::u16string GetScriptCodeParseError(base::StringPiece as_string);
 
 // A CSS generic font family.
-enum  GenericFamily {
-  GENERIC_FAMILY_NONE = 0,
-  GENERIC_FAMILY_STANDARD,
-  GENERIC_FAMILY_SANSSERIF,
-  GENERIC_FAMILY_SERIF,
-  GENERIC_FAMILY_FIXED,
-  GENERIC_FAMILY_CURSIVE,
-  GENERIC_FAMILY_FANTASY,
-  GENERIC_FAMILY_MATH,
-  GENERIC_FAMILY_LAST = GENERIC_FAMILY_MATH,
+enum class GenericFamily {
+  kNone = 0,
+  kStandard,
+  kSansserif,
+  kSerif,
+  kFixed,
+  kCursive,
+  kFantasy,
+  kMath,
+  kMaxValue = kMath,
 };
 
 
@@ -258,13 +256,13 @@ std::u16string GetGenericFamilyParseError(base::StringPiece as_string);
 // precedence<br><var>controllable_by_this_extension</var>: can be controlled by
 // this extension<br><var>controlled_by_this_extension</var>: controlled by this
 // extension
-enum  LevelOfControl {
-  LEVEL_OF_CONTROL_NONE = 0,
-  LEVEL_OF_CONTROL_NOT_CONTROLLABLE,
-  LEVEL_OF_CONTROL_CONTROLLED_BY_OTHER_EXTENSIONS,
-  LEVEL_OF_CONTROL_CONTROLLABLE_BY_THIS_EXTENSION,
-  LEVEL_OF_CONTROL_CONTROLLED_BY_THIS_EXTENSION,
-  LEVEL_OF_CONTROL_LAST = LEVEL_OF_CONTROL_CONTROLLED_BY_THIS_EXTENSION,
+enum class LevelOfControl {
+  kNone = 0,
+  kNotControllable,
+  kControlledByOtherExtensions,
+  kControllableByThisExtension,
+  kControlledByThisExtension,
+  kMaxValue = kControlledByThisExtension,
 };
 
 
@@ -280,11 +278,11 @@ std::u16string GetLevelOfControlParseError(base::StringPiece as_string);
 namespace ClearFont {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -292,8 +290,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -307,10 +305,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The script for which the font should be cleared. If omitted, the global
     // script font setting is cleared.
@@ -339,11 +337,11 @@ base::Value::List Create();
 namespace GetFont {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -351,8 +349,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -366,10 +364,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The script for which the font should be retrieved. If omitted, the font
     // setting for the global script (script code "Zyyy") is retrieved.
@@ -395,8 +393,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -423,11 +421,11 @@ base::Value::List Create(const Details& details);
 namespace SetFont {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -435,8 +433,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -450,10 +448,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The script code which the font should be set. If omitted, the font setting
     // for the global script (script code "Zyyy") is set.
@@ -495,11 +493,11 @@ base::Value::List Create(const std::vector<FontName>& results);
 namespace ClearDefaultFontSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This parameter is currently unused.
@@ -508,8 +506,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -523,16 +521,16 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
   };
 
 
   // This parameter is currently unused.
-  absl::optional<Details> details;
+  std::optional<Details> details;
 
 
  private:
@@ -549,11 +547,11 @@ base::Value::List Create();
 namespace GetDefaultFontSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This parameter is currently unused.
@@ -562,8 +560,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -577,16 +575,16 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
   };
 
 
   // This parameter is currently unused.
-  absl::optional<Details> details;
+  std::optional<Details> details;
 
 
  private:
@@ -600,8 +598,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -624,11 +622,11 @@ base::Value::List Create(const Details& details);
 namespace SetDefaultFontSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -636,8 +634,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -651,10 +649,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The font size in pixels.
     int pixel_size;
@@ -679,11 +677,11 @@ base::Value::List Create();
 namespace ClearDefaultFixedFontSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This parameter is currently unused.
@@ -692,8 +690,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -707,16 +705,16 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
   };
 
 
   // This parameter is currently unused.
-  absl::optional<Details> details;
+  std::optional<Details> details;
 
 
  private:
@@ -733,11 +731,11 @@ base::Value::List Create();
 namespace GetDefaultFixedFontSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This parameter is currently unused.
@@ -746,8 +744,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -761,16 +759,16 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
   };
 
 
   // This parameter is currently unused.
-  absl::optional<Details> details;
+  std::optional<Details> details;
 
 
  private:
@@ -784,8 +782,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -808,11 +806,11 @@ base::Value::List Create(const Details& details);
 namespace SetDefaultFixedFontSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -820,8 +818,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -835,10 +833,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The font size in pixels.
     int pixel_size;
@@ -863,11 +861,11 @@ base::Value::List Create();
 namespace ClearMinimumFontSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This parameter is currently unused.
@@ -876,8 +874,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -891,16 +889,16 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
   };
 
 
   // This parameter is currently unused.
-  absl::optional<Details> details;
+  std::optional<Details> details;
 
 
  private:
@@ -917,11 +915,11 @@ base::Value::List Create();
 namespace GetMinimumFontSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This parameter is currently unused.
@@ -930,8 +928,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -945,16 +943,16 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
   };
 
 
   // This parameter is currently unused.
-  absl::optional<Details> details;
+  std::optional<Details> details;
 
 
  private:
@@ -968,8 +966,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -992,11 +990,11 @@ base::Value::List Create(const Details& details);
 namespace SetMinimumFontSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -1004,8 +1002,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1019,10 +1017,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The font size in pixels.
     int pixel_size;
@@ -1057,8 +1055,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -1091,8 +1089,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -1119,8 +1117,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -1147,8 +1145,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.

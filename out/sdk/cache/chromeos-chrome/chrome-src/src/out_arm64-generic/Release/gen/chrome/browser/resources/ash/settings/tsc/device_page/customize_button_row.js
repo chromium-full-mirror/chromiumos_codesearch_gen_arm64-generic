@@ -4,65 +4,19 @@
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/cr_elements/md_select.css.js';
+import './customize_button_select.js';
 import '../settings_shared.css.js';
 import '/shared/settings/controls/settings_dropdown_menu.js';
 import '../os_settings_icons.html.js';
 import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { microTask, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { ButtonPressObserverReceiver } from '../mojom-webui/input_device_settings_provider.mojom-webui.js';
 import { getTemplate } from './customize_button_row.html.js';
 import { setDataTransferOriginIndex } from './drag_and_drop_manager.js';
 import { FakeInputDeviceSettingsProvider } from './fake_input_device_settings_provider.js';
 import { getInputDeviceSettingsProvider } from './input_device_mojo_interface_provider.js';
-import { StaticShortcutAction } from './input_device_settings_types.js';
 import { buttonsAreEqual } from './input_device_settings_utils.js';
-const NO_REMAPPING_OPTION_VALUE = 'none';
-const KEY_COMBINATION_OPTION_VALUE = 'key combination';
-const OPEN_DIALOG_OPTION_VALUE = 'open key combination dialog';
-const ACCELERATOR_ACTION_PREFIX = 'acceleratorAction';
-const STATICS_SHORTCUT_ACTION_PREFIX = 'staticShortcutAction';
-/**
- * Bit mask of modifiers.
- * Ordering is according to UX, but values match EventFlags in
- * ui/events/event_constants.h.
- */
-var Modifier;
-(function (Modifier) {
-    Modifier[Modifier["NONE"] = 0] = "NONE";
-    Modifier[Modifier["CONTROL"] = 4] = "CONTROL";
-    Modifier[Modifier["SHIFT"] = 2] = "SHIFT";
-    Modifier[Modifier["ALT"] = 8] = "ALT";
-    Modifier[Modifier["META"] = 16] = "META";
-})(Modifier || (Modifier = {}));
-/**
- * Map the modifier keys to the bit value. Currently the modifiers only
- * contains the following four.
- */
-const modifierBitMaskToString = new Map([
-    [Modifier.CONTROL, 'ctrl'],
-    [Modifier.SHIFT, 'shift'],
-    [Modifier.ALT, 'alt'],
-    [Modifier.META, 'meta'],
-]);
-function concateKeyString(firstStr, secondStr) {
-    return firstStr.length === 0 ? secondStr : firstStr.concat(` + ${secondStr}`);
-}
-/**
- * Converts a keyEvent to a string representing all the modifiers and the vkey.
- */
-function getKeyCombinationLabel(keyEvent) {
-    let combinationLabel = '';
-    modifierBitMaskToString.forEach((modifierName, bitValue) => {
-        if ((keyEvent.modifiers & bitValue) !== 0) {
-            combinationLabel = concateKeyString(combinationLabel, modifierName);
-        }
-    });
-    if (keyEvent.keyDisplay !== undefined && keyEvent.keyDisplay.length !== 0) {
-        combinationLabel = concateKeyString(combinationLabel, keyEvent.keyDisplay);
-    }
-    return combinationLabel;
-}
 const CustomizeButtonRowElementBase = I18nMixin(PolymerElement);
 export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     constructor() {
@@ -83,39 +37,11 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             buttonRemapping_: {
                 type: Object,
             },
-            buttonMapTargets_: {
-                type: Object,
-            },
             remappingIndex: {
                 type: Number,
             },
-            fakePref_: {
-                type: Object,
-                value() {
-                    return {
-                        key: 'fakeCustomizeKeyPref',
-                        type: chrome.settingsPrivate.PrefType.STRING,
-                        value: NO_REMAPPING_OPTION_VALUE,
-                    };
-                },
-            },
             actionList: {
                 type: Array,
-            },
-            removeTopBorder: {
-                type: Boolean,
-                reflectToAttribute: true,
-            },
-            keyCombinationLabel_: {
-                type: String,
-            },
-            /**
-             * The value of the "Key combination" item in dropdown menu.
-             */
-            keyCombinationOptionValue_: {
-                type: String,
-                value: KEY_COMBINATION_OPTION_VALUE,
-                readOnly: true,
             },
             /**
              * Name of the remapping.
@@ -147,14 +73,14 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     }
     static get observers() {
         return [
-            'onSettingsChanged(fakePref_.*)',
-            'initializeCustomizeKey(buttonRemappingList.*, remappingIndex, ' +
-                'actionList)',
+            'initializeButtonRow_(buttonRemappingList.*, remappingIndex)',
         ];
     }
     connectedCallback() {
         super.connectedCallback();
         this.observeButtonPresses();
+        // Focus dropdown right away as this button was just pressed.
+        this.$.remappingActionDropdown.focus();
     }
     observeButtonPresses() {
         if (this.inputDeviceSettingsProvider_ instanceof
@@ -166,195 +92,17 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
         this.inputDeviceSettingsProvider_.observeButtonPresses(this.buttonPressObserverReceiver.$.bindNewPipeAndPassRemote());
     }
     /**
-     * Initialize dropdown menu.
-     */
-    initializeDropdown_(originalAction, dropdown) {
-        // Initialize fakePref with originalAction.
-        this.set('fakePref_.value', originalAction);
-        // Initialize dropdown menu selection to match the
-        // originalAction.
-        const option = this.buttonMapTargets_.find((dropdownItem) => {
-            return dropdownItem.value === originalAction;
-        });
-        microTask.run(() => {
-            dropdown.value =
-                option === undefined ? NO_REMAPPING_OPTION_VALUE : originalAction;
-            this.prevChoice_ = dropdown.value;
-            dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
-        });
-    }
-    /**
-     * Populate dropdown menu choices.
-     */
-    setUpButtonMapTargets_() {
-        this.buttonMapTargets_ = [];
-        if (!this.actionList) {
-            return;
-        }
-        // Put default action to the top of dropdown menu per UX requirement.
-        this.buttonMapTargets_.push({
-            value: NO_REMAPPING_OPTION_VALUE,
-            name: this.i18n('noRemappingOptionLabel'),
-        });
-        // Fill the dropdown menu with actionList.
-        for (const actionChoice of this.actionList) {
-            const acceleratorAction = actionChoice.actionType.acceleratorAction;
-            const staticShortcutAction = actionChoice.actionType.staticShortcutAction;
-            if (acceleratorAction !== undefined) {
-                // Prepend an acceleratorAction prefix to distinguish it from the
-                // StaticShortcutAction enum.
-                this.buttonMapTargets_.push({
-                    value: ACCELERATOR_ACTION_PREFIX + acceleratorAction.toString(),
-                    name: actionChoice.name,
-                });
-            }
-            else if (staticShortcutAction !== undefined) {
-                // Prepend a staticShortcutAction prefix to distinguish it from the
-                // AcceleratorAction enum.
-                this.buttonMapTargets_.push({
-                    value: STATICS_SHORTCUT_ACTION_PREFIX + staticShortcutAction.toString(),
-                    name: actionChoice.name,
-                });
-            }
-        }
-        // Put 'Key combination' option in the dropdown menu.
-        this.buttonMapTargets_.push({
-            value: OPEN_DIALOG_OPTION_VALUE,
-            name: this.i18n('keyCombinationOptionLabel'),
-        });
-        // Put kDisable action to the end of dropdown menu per UX requirement.
-        this.buttonMapTargets_.push({
-            value: STATICS_SHORTCUT_ACTION_PREFIX + StaticShortcutAction.kDisable,
-            name: this.i18n('disbableOptionLabel'),
-        });
-    }
-    /**
-     * Populate the button remapping action according to the existing settings.
-     */
-    setUpRemappingActions_() {
-        const dropdown = this.$.remappingActionDropdown;
-        // Set the dropdown option label to default 'Key combination'.
-        this.keyCombinationLabel_ = this.i18n('keyCombinationOptionLabel');
-        // For accelerator actions, the remappingAction.acceleratorAction value is
-        // number.
-        const acceleratorAction = this.buttonRemapping_.remappingAction?.acceleratorAction;
-        const keyEvent = this.buttonRemapping_.remappingAction?.keyEvent;
-        // For static shortcut actions, the remappingAction.staticShortcutAction
-        // value is number.
-        const staticShortcutAction = this.buttonRemapping_.remappingAction?.staticShortcutAction;
-        if (acceleratorAction !== undefined && !isNaN(acceleratorAction)) {
-            // Prepend an acceleratorAction prefix to distinguish it from the
-            // staticShortcutAction enum.
-            const originalAcceleratorAction = ACCELERATOR_ACTION_PREFIX + acceleratorAction.toString();
-            this.initializeDropdown_(originalAcceleratorAction, dropdown);
-        }
-        else if (keyEvent) {
-            this.set('fakePref_.value', KEY_COMBINATION_OPTION_VALUE);
-            this.keyCombinationLabel_ = getKeyCombinationLabel(keyEvent) ??
-                this.i18n('keyCombinationOptionLabel');
-            microTask.run(() => {
-                dropdown.value = KEY_COMBINATION_OPTION_VALUE;
-                dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
-                this.prevChoice_ = dropdown.value;
-            });
-        }
-        else if (staticShortcutAction !== undefined && !isNaN(staticShortcutAction)) {
-            // Prepend a staticShortcutAction prefix to distinguish it from
-            // the acceleratorAction enum.
-            const originalStaticShortcutAction = STATICS_SHORTCUT_ACTION_PREFIX + staticShortcutAction.toString();
-            this.initializeDropdown_(originalStaticShortcutAction, dropdown);
-        }
-        else {
-            this.set('fakePref_.value', NO_REMAPPING_OPTION_VALUE);
-            microTask.run(() => {
-                dropdown.value = NO_REMAPPING_OPTION_VALUE;
-                dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
-                this.prevChoice_ = dropdown.value;
-            });
-        }
-    }
-    /**
      * Initialize the button remapping content and set up fake pref.
      */
-    initializeCustomizeKey() {
+    initializeButtonRow_() {
         if (!this.buttonRemappingList ||
             !this.buttonRemappingList[this.remappingIndex]) {
             return;
         }
-        this.isInitialized_ = false;
+        if (this.remappingIndex === 0) {
+            this.$.container.classList.add('first');
+        }
         this.buttonRemapping_ = this.buttonRemappingList[this.remappingIndex];
-        this.setUpButtonMapTargets_();
-        this.setUpRemappingActions_();
-        this.isInitialized_ = true;
-    }
-    /**
-     * This method is called when fakePref_.value is changed to
-     * NO_REMAPPING_OPTION_VALUE or enums of remappingAction.
-     *
-     * @returns Updated button remapping with selected remapping action or
-     * no remapping action.
-     */
-    getUpdatedRemapping() {
-        if (this.fakePref_.value === NO_REMAPPING_OPTION_VALUE) {
-            const updatedRemapping = {
-                name: this.buttonRemapping_.name,
-                button: this.buttonRemapping_.button,
-            };
-            return updatedRemapping;
-        }
-        // Otherwise the button is remapped to a remappingAction.
-        let remappingAction = undefined;
-        if (this.fakePref_.value.startsWith(ACCELERATOR_ACTION_PREFIX)) {
-            // Remove the acceleratorAction prefix to get the real enum value.
-            this.fakePref_.value =
-                this.fakePref_.value.slice(ACCELERATOR_ACTION_PREFIX.length);
-            remappingAction = {
-                acceleratorAction: Number(this.fakePref_.value),
-            };
-        }
-        if (this.fakePref_.value.startsWith(STATICS_SHORTCUT_ACTION_PREFIX)) {
-            // Remove the staticShortcutAction prefix to get the real enum value.
-            this.fakePref_.value =
-                this.fakePref_.value.slice(STATICS_SHORTCUT_ACTION_PREFIX.length);
-            remappingAction = {
-                staticShortcutAction: Number(this.fakePref_.value),
-            };
-        }
-        const updatedRemapping = {
-            ...this.buttonRemapping_,
-            remappingAction,
-        };
-        return updatedRemapping;
-    }
-    /**
-     * Update device settings whenever the pref changes.
-     */
-    onSettingsChanged() {
-        if (!this.isInitialized_) {
-            return;
-        }
-        this.set(`buttonRemappingList.${this.remappingIndex}`, this.getUpdatedRemapping());
-        this.dispatchEvent(new CustomEvent('button-remapping-changed', {
-            bubbles: true,
-            composed: true,
-        }));
-    }
-    onSelectChange_() {
-        const select = this.$.remappingActionDropdown;
-        if (select.value === OPEN_DIALOG_OPTION_VALUE) {
-            this.dispatchEvent(new CustomEvent('show-key-combination-dialog', {
-                bubbles: true,
-                composed: true,
-                detail: { buttonIndex: this.remappingIndex },
-            }));
-            microTask.run(() => {
-                select.value = this.prevChoice_;
-            });
-        }
-        else if (select.value !== this.fakePref_.value) {
-            this.set('fakePref_.value', select.value);
-            this.prevChoice_ = select.value;
-        }
     }
     /**
      * Pops out the dialog to edit button label.
@@ -434,16 +182,6 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     }
     isDropdownDisabled_() {
         return this.isBeingDragged_;
-    }
-    getDropdownAriaLabel_() {
-        const select = this.$.remappingActionDropdown;
-        const optionLabel = select.options[select.selectedIndex] ?
-            select.options[select.selectedIndex].text :
-            this.i18n('noRemappingOptionLabel');
-        if (!this.buttonRemappingName_) {
-            return optionLabel;
-        }
-        return this.i18n('buttonRemappingDropdownAriaLabel', this.buttonRemappingName_, optionLabel);
     }
 }
 customElements.define(CustomizeButtonRowElement.is, CustomizeButtonRowElement);

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/frame/view_transition_state.mojom-features.h"
 #include "third_party/blink/public/mojom/frame/view_transition_state.mojom-shared.h"
 #include "third_party/blink/public/mojom/frame/view_transition_state.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -82,7 +83,7 @@ class BLINK_COMMON_EXPORT ViewTransitionElement {
       const ::gfx::SizeF& border_box_size_in_css_space,
       const ::gfx::Transform& viewport_matrix,
       const ::gfx::RectF& overflow_rect_in_layout_space,
-      const absl::optional<::gfx::RectF>& captured_rect_in_layout_space,
+      const std::optional<::gfx::RectF>& captured_rect_in_layout_space,
       const ::viz::ViewTransitionElementResourceId& snapshot_id,
       int32_t paint_order,
       const base::flat_map<ViewTransitionPropertyId, std::string>& captured_css_properties);
@@ -171,7 +172,7 @@ class BLINK_COMMON_EXPORT ViewTransitionElement {
   
   ::gfx::RectF overflow_rect_in_layout_space;
   
-  absl::optional<::gfx::RectF> captured_rect_in_layout_space;
+  std::optional<::gfx::RectF> captured_rect_in_layout_space;
   
   ::viz::ViewTransitionElementResourceId snapshot_id;
   

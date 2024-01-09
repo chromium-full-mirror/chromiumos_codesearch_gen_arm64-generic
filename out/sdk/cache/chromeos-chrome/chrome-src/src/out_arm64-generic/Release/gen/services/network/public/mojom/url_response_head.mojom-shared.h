@@ -37,6 +37,7 @@
 #include "services/network/public/mojom/network_param.mojom-shared.h"
 #include "services/network/public/mojom/network_types.mojom-shared.h"
 #include "services/network/public/mojom/parsed_headers.mojom-shared.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-shared.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
 
@@ -147,16 +148,6 @@ class URLResponseHeadDataView {
     auto* pointer = data_->charset.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
-  }
-  template <typename UserType>
-  [[nodiscard]] bool ReadCtPolicyCompliance(UserType* output) const {
-    auto data_value = data_->ct_policy_compliance;
-    return mojo::internal::Deserialize<::network::mojom::CTPolicyCompliance>(
-        data_value, output);
-  }
-  ::network::mojom::CTPolicyCompliance ct_policy_compliance() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::network::mojom::CTPolicyCompliance>(data_->ct_policy_compliance));
   }
   int64_t content_length() const {
     return data_->content_length;
@@ -285,14 +276,14 @@ static_assert(
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::network::mojom::NavigationDeliveryType>(data_->navigation_delivery_type));
   }
-  inline void GetProxyServerDataView(
-      ::network::mojom::ProxyServerDataView* output);
+  inline void GetProxyChainDataView(
+      ::network::mojom::ProxyChainDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadProxyServer(UserType* output) {
+  [[nodiscard]] bool ReadProxyChain(UserType* output) {
     
-    auto* pointer = data_->proxy_server.Get();
-    return mojo::internal::Deserialize<::network::mojom::ProxyServerDataView>(
+    auto* pointer = data_->proxy_chain.Get();
+    return mojo::internal::Deserialize<::network::mojom::ProxyChainDataView>(
         pointer, output, message_);
   }
   bool was_fetched_via_service_worker() const {
@@ -316,6 +307,26 @@ static_assert(
     
     auto* pointer = data_->url_list_via_service_worker.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetServiceWorkerRouterInfoDataView(
+      ::network::mojom::ServiceWorkerRouterInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadServiceWorkerRouterInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::network::mojom::ServiceWorkerRouterInfoDataView, UserType>(),
+    "Attempting to read the optional `service_worker_router_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadServiceWorkerRouterInfo` instead "
+    "of `ReadServiceWorkerRouterInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->service_worker_router_info.Get();
+    return mojo::internal::Deserialize<::network::mojom::ServiceWorkerRouterInfoDataView>(
         pointer, output, message_);
   }
   template <typename UserType>
@@ -375,6 +386,9 @@ static_assert(
   }
   bool is_signed_exchange_inner_response() const {
     return data_->is_signed_exchange_inner_response;
+  }
+  bool is_web_bundle_inner_response() const {
+    return data_->is_web_bundle_inner_response;
   }
   bool was_in_prefetch_cache() const {
     return data_->was_in_prefetch_cache;
@@ -481,21 +495,14 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
-  inline void GetWebBundleUrlDataView(
-      ::url::mojom::UrlDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadWebBundleUrl(UserType* output) {
-    
-    auto* pointer = data_->web_bundle_url.Get();
-    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
-        pointer, output, message_);
-  }
   bool has_authorization_covered_by_wildcard_on_preflight() const {
     return data_->has_authorization_covered_by_wildcard_on_preflight;
   }
   bool request_include_credentials() const {
     return data_->request_include_credentials;
+  }
+  bool should_use_source_hash_for_js_code_cache() const {
+    return data_->should_use_source_hash_for_js_code_cache;
   }
   inline void GetTriggerVerificationsDataView(
       mojo::ArrayDataView<::network::mojom::TriggerVerificationDataView>* output);
@@ -632,8 +639,6 @@ struct Serializer<::network::mojom::URLResponseHeadDataView, MaybeConstUserType>
         fragment->charset.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null charset in URLResponseHead struct");
-    mojo::internal::Serialize<::network::mojom::CTPolicyCompliance>(
-        Traits::ct_policy_compliance(input), &fragment->ct_policy_compliance);
     fragment->content_length = Traits::content_length(input);
     fragment->encoded_data_length = Traits::encoded_data_length(input);
     decltype(Traits::encoded_body_length(input)) in_encoded_body_length = Traits::encoded_body_length(input);
@@ -697,18 +702,18 @@ struct Serializer<::network::mojom::URLResponseHeadDataView, MaybeConstUserType>
     fragment->was_fetched_via_cache = Traits::was_fetched_via_cache(input);
     mojo::internal::Serialize<::network::mojom::NavigationDeliveryType>(
         Traits::navigation_delivery_type(input), &fragment->navigation_delivery_type);
-    decltype(Traits::proxy_server(input)) in_proxy_server = Traits::proxy_server(input);
+    decltype(Traits::proxy_chain(input)) in_proxy_chain = Traits::proxy_chain(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->proxy_server)::BaseType> proxy_server_fragment(
+        typename decltype(fragment->proxy_chain)::BaseType> proxy_chain_fragment(
             fragment.message());
-    mojo::internal::Serialize<::network::mojom::ProxyServerDataView>(
-        in_proxy_server, proxy_server_fragment);
-    fragment->proxy_server.Set(
-        proxy_server_fragment.is_null() ? nullptr : proxy_server_fragment.data());
+    mojo::internal::Serialize<::network::mojom::ProxyChainDataView>(
+        in_proxy_chain, proxy_chain_fragment);
+    fragment->proxy_chain.Set(
+        proxy_chain_fragment.is_null() ? nullptr : proxy_chain_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->proxy_server.is_null(),
+        fragment->proxy_chain.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null proxy_server in URLResponseHead struct");
+        "null proxy_chain in URLResponseHead struct");
     fragment->was_fetched_via_service_worker = Traits::was_fetched_via_service_worker(input);
     mojo::internal::Serialize<::network::mojom::FetchResponseSource>(
         Traits::service_worker_response_source(input), &fragment->service_worker_response_source);
@@ -726,6 +731,14 @@ struct Serializer<::network::mojom::URLResponseHeadDataView, MaybeConstUserType>
         fragment->url_list_via_service_worker.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null url_list_via_service_worker in URLResponseHead struct");
+    decltype(Traits::service_worker_router_info(input)) in_service_worker_router_info = Traits::service_worker_router_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->service_worker_router_info)::BaseType> service_worker_router_info_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::network::mojom::ServiceWorkerRouterInfoDataView>(
+        in_service_worker_router_info, service_worker_router_info_fragment);
+    fragment->service_worker_router_info.Set(
+        service_worker_router_info_fragment.is_null() ? nullptr : service_worker_router_info_fragment.data());
     mojo::internal::Serialize<::network::mojom::FetchResponseType>(
         Traits::response_type(input), &fragment->response_type);
     fragment->padding = Traits::padding(input);
@@ -768,6 +781,7 @@ struct Serializer<::network::mojom::URLResponseHeadDataView, MaybeConstUserType>
     fragment->async_revalidation_requested = Traits::async_revalidation_requested(input);
     fragment->did_mime_sniff = Traits::did_mime_sniff(input);
     fragment->is_signed_exchange_inner_response = Traits::is_signed_exchange_inner_response(input);
+    fragment->is_web_bundle_inner_response = Traits::is_web_bundle_inner_response(input);
     fragment->was_in_prefetch_cache = Traits::was_in_prefetch_cache(input);
     fragment->was_cookie_in_request = Traits::was_cookie_in_request(input);
     fragment->intercepted_by_plugin = Traits::intercepted_by_plugin(input);
@@ -835,20 +849,9 @@ struct Serializer<::network::mojom::URLResponseHeadDataView, MaybeConstUserType>
         fragment->dns_aliases.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null dns_aliases in URLResponseHead struct");
-    decltype(Traits::web_bundle_url(input)) in_web_bundle_url = Traits::web_bundle_url(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->web_bundle_url)::BaseType> web_bundle_url_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::url::mojom::UrlDataView>(
-        in_web_bundle_url, web_bundle_url_fragment);
-    fragment->web_bundle_url.Set(
-        web_bundle_url_fragment.is_null() ? nullptr : web_bundle_url_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->web_bundle_url.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null web_bundle_url in URLResponseHead struct");
     fragment->has_authorization_covered_by_wildcard_on_preflight = Traits::has_authorization_covered_by_wildcard_on_preflight(input);
     fragment->request_include_credentials = Traits::request_include_credentials(input);
+    fragment->should_use_source_hash_for_js_code_cache = Traits::should_use_source_hash_for_js_code_cache(input);
     decltype(Traits::trigger_verifications(input)) in_trigger_verifications = Traits::trigger_verifications(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->trigger_verifications)::BaseType>
@@ -931,15 +934,20 @@ inline void URLResponseHeadDataView::GetRemoteEndpointDataView(
   auto pointer = data_->remote_endpoint.Get();
   *output = ::network::mojom::IPEndPointDataView(pointer, message_);
 }
-inline void URLResponseHeadDataView::GetProxyServerDataView(
-    ::network::mojom::ProxyServerDataView* output) {
-  auto pointer = data_->proxy_server.Get();
-  *output = ::network::mojom::ProxyServerDataView(pointer, message_);
+inline void URLResponseHeadDataView::GetProxyChainDataView(
+    ::network::mojom::ProxyChainDataView* output) {
+  auto pointer = data_->proxy_chain.Get();
+  *output = ::network::mojom::ProxyChainDataView(pointer, message_);
 }
 inline void URLResponseHeadDataView::GetUrlListViaServiceWorkerDataView(
     mojo::ArrayDataView<::url::mojom::UrlDataView>* output) {
   auto pointer = data_->url_list_via_service_worker.Get();
   *output = mojo::ArrayDataView<::url::mojom::UrlDataView>(pointer, message_);
+}
+inline void URLResponseHeadDataView::GetServiceWorkerRouterInfoDataView(
+    ::network::mojom::ServiceWorkerRouterInfoDataView* output) {
+  auto pointer = data_->service_worker_router_info.Get();
+  *output = ::network::mojom::ServiceWorkerRouterInfoDataView(pointer, message_);
 }
 inline void URLResponseHeadDataView::GetCacheStorageCacheNameDataView(
     mojo::StringDataView* output) {
@@ -985,11 +993,6 @@ inline void URLResponseHeadDataView::GetDnsAliasesDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->dns_aliases.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
-}
-inline void URLResponseHeadDataView::GetWebBundleUrlDataView(
-    ::url::mojom::UrlDataView* output) {
-  auto pointer = data_->web_bundle_url.Get();
-  *output = ::url::mojom::UrlDataView(pointer, message_);
 }
 inline void URLResponseHeadDataView::GetTriggerVerificationsDataView(
     mojo::ArrayDataView<::network::mojom::TriggerVerificationDataView>* output) {

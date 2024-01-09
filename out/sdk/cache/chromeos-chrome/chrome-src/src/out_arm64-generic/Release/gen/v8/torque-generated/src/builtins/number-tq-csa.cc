@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/number-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -1903,7 +1904,7 @@ TF_BUILTIN(NumberParseFloat, CodeStubAssembler) {
   TNode<String> tmp10;
   if (block18.is_used()) {
     ca_.Bind(&block18);
-    tmp10 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kToString), parameter0, parameter1);
+    tmp10 = ca_.CallBuiltin<String>(Builtin::kToString, parameter0, parameter1);
     ca_.Goto(&block2, tmp10);
   }
 
@@ -2251,7 +2252,7 @@ TF_BUILTIN(NumberParseInt, CodeStubAssembler) {
   TNode<Number> tmp0;
   if (block0.is_used()) {
     ca_.Bind(&block0);
-    tmp0 = ca_.CallStub<Number>(Builtins::CallableFor(ca_.isolate(), Builtin::kParseInt), parameter0, parameter1, parameter2);
+    tmp0 = ca_.CallBuiltin<Number>(Builtin::kParseInt, parameter0, parameter1, parameter2);
     CodeStubAssembler(state_).Return(tmp0);
   }
 }
@@ -2282,14 +2283,14 @@ TNode<Object> ToNumericOrPrimitive_0(compiler::CodeAssemblerState* state_, TNode
   TNode<Numeric> tmp2;
   if (block5.is_used()) {
     ca_.Bind(&block5);
-    tmp2 = ca_.CallStub<Numeric>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumeric), p_context, ca_.UncheckedCast<Object>(p_value));
+    tmp2 = ca_.CallBuiltin<Numeric>(Builtin::kNonNumberToNumeric, p_context, ca_.UncheckedCast<Object>(p_value));
     ca_.Goto(&block1, tmp2);
   }
 
   TNode<Object> tmp3;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp3 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonPrimitiveToPrimitive_Default), p_context, tmp0);
+    tmp3 = ca_.CallBuiltin<Object>(Builtin::kNonPrimitiveToPrimitive_Default, p_context, tmp0);
     ca_.Goto(&block1, tmp3);
   }
 
@@ -2840,7 +2841,7 @@ TF_BUILTIN(Add, CodeStubAssembler) {
   TNode<Numeric> tmp49;
   if (block83.is_used()) {
     ca_.Bind(&block83, &phi_bb83_3, &phi_bb83_4, &phi_bb83_5, &phi_bb83_7);
-    tmp49 = ca_.CallStub<Numeric>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumeric), parameter0, phi_bb83_3);
+    tmp49 = ca_.CallBuiltin<Numeric>(Builtin::kNonNumberToNumeric, parameter0, phi_bb83_3);
     ca_.Goto(&block11, tmp49, phi_bb83_4);
   }
 
@@ -2963,7 +2964,7 @@ void UnaryOp1_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, 
   TNode<Numeric> tmp5;
   if (block13.is_used()) {
     ca_.Bind(&block13, &phi_bb13_2, &phi_bb13_3);
-    tmp5 = ca_.CallStub<Numeric>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumeric), p_context, phi_bb13_2);
+    tmp5 = ca_.CallBuiltin<Numeric>(Builtin::kNonNumberToNumeric, p_context, phi_bb13_2);
     ca_.Goto(&block5, tmp5);
   }
 
@@ -3075,7 +3076,7 @@ void UnaryOp2_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, 
   TNode<Numeric> tmp7;
   if (block18.is_used()) {
     ca_.Bind(&block18, &phi_bb18_2, &phi_bb18_3);
-    tmp7 = ca_.CallStub<Numeric>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumeric), p_context, phi_bb18_2);
+    tmp7 = ca_.CallBuiltin<Numeric>(Builtin::kNonNumberToNumeric, p_context, phi_bb18_2);
     ca_.Goto(&block6, tmp7);
   }
 
@@ -3230,7 +3231,7 @@ void BinaryOp1_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context,
   TNode<Numeric> tmp9;
   if (block23.is_used()) {
     ca_.Bind(&block23, &phi_bb23_3, &phi_bb23_4, &phi_bb23_5);
-    tmp9 = ca_.CallStub<Numeric>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumeric), p_context, phi_bb23_3);
+    tmp9 = ca_.CallBuiltin<Numeric>(Builtin::kNonNumberToNumeric, p_context, phi_bb23_3);
     ca_.Goto(&block6, tmp9, phi_bb23_4);
   }
 
@@ -3274,7 +3275,7 @@ void BinaryOp1_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context,
   TNode<Numeric> tmp12;
   if (block7.is_used()) {
     ca_.Bind(&block7, &phi_bb7_3, &phi_bb7_4);
-    tmp12 = ca_.CallStub<Numeric>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumeric), p_context, phi_bb7_4);
+    tmp12 = ca_.CallBuiltin<Numeric>(Builtin::kNonNumberToNumeric, p_context, phi_bb7_4);
     ca_.Goto(&block6, phi_bb7_3, tmp12);
   }
 
@@ -3586,7 +3587,7 @@ void BinaryOp2_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context,
   TNode<Numeric> tmp25;
   if (block44.is_used()) {
     ca_.Bind(&block44, &phi_bb44_3, &phi_bb44_4, &phi_bb44_5);
-    tmp25 = ca_.CallStub<Numeric>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumeric), p_context, phi_bb44_3);
+    tmp25 = ca_.CallBuiltin<Numeric>(Builtin::kNonNumberToNumeric, p_context, phi_bb44_3);
     ca_.Goto(&block7, tmp25, phi_bb44_4);
   }
 
@@ -3630,7 +3631,7 @@ void BinaryOp2_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context,
   TNode<Numeric> tmp28;
   if (block8.is_used()) {
     ca_.Bind(&block8, &phi_bb8_3, &phi_bb8_4);
-    tmp28 = ca_.CallStub<Numeric>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumeric), p_context, phi_bb8_4);
+    tmp28 = ca_.CallBuiltin<Numeric>(Builtin::kNonNumberToNumeric, p_context, phi_bb8_4);
     ca_.Goto(&block7, phi_bb8_3, tmp28);
   }
 

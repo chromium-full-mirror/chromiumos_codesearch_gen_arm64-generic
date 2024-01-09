@@ -38,13 +38,13 @@ class  MediaRouteProviderAsyncWaiter {
 
   ~MediaRouteProviderAsyncWaiter();
   void CreateRoute(
-      const std::string& media_source, const std::string& sink_id, const std::string& original_presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, absl::optional<::media_router::MediaRoute>* out_route, RoutePresentationConnectionPtr* out_connection, absl::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code);
+      const std::string& media_source, const std::string& sink_id, const std::string& original_presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, std::optional<::media_router::MediaRoute>* out_route, RoutePresentationConnectionPtr* out_connection, std::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code);
   
   void JoinRoute(
-      const std::string& media_source, const std::string& presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, absl::optional<::media_router::MediaRoute>* out_route, RoutePresentationConnectionPtr* out_connection, absl::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code);
+      const std::string& media_source, const std::string& presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, std::optional<::media_router::MediaRoute>* out_route, RoutePresentationConnectionPtr* out_connection, std::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code);
   
   void TerminateRoute(
-      const std::string& route_id, absl::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code);
+      const std::string& route_id, std::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code);
   
   void CreateMediaRouteController(
       const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, bool* out_success);

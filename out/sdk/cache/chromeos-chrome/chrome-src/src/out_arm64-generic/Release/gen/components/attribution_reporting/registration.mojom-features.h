@@ -8,6 +8,7 @@
 #define COMPONENTS_ATTRIBUTION_REPORTING_REGISTRATION_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -31,12 +32,13 @@ namespace printing_metrics {
 //
 
 // The source of the print job.
-enum  PrintJobSource {
-  PRINT_JOB_SOURCE_NONE = 0,
-  PRINT_JOB_SOURCE_PRINT_PREVIEW,
-  PRINT_JOB_SOURCE_ANDROID_APP,
-  PRINT_JOB_SOURCE_EXTENSION,
-  PRINT_JOB_SOURCE_LAST = PRINT_JOB_SOURCE_EXTENSION,
+enum class PrintJobSource {
+  kNone = 0,
+  kPrintPreview,
+  kAndroidApp,
+  kExtension,
+  kIsolatedWebApp,
+  kMaxValue = kIsolatedWebApp,
 };
 
 
@@ -45,12 +47,12 @@ PrintJobSource ParsePrintJobSource(base::StringPiece as_string);
 std::u16string GetPrintJobSourceParseError(base::StringPiece as_string);
 
 // Specifies the final status of the print job.
-enum  PrintJobStatus {
-  PRINT_JOB_STATUS_NONE = 0,
-  PRINT_JOB_STATUS_FAILED,
-  PRINT_JOB_STATUS_CANCELED,
-  PRINT_JOB_STATUS_PRINTED,
-  PRINT_JOB_STATUS_LAST = PRINT_JOB_STATUS_PRINTED,
+enum class PrintJobStatus {
+  kNone = 0,
+  kFailed,
+  kCanceled,
+  kPrinted,
+  kMaxValue = kPrinted,
 };
 
 
@@ -59,11 +61,11 @@ PrintJobStatus ParsePrintJobStatus(base::StringPiece as_string);
 std::u16string GetPrintJobStatusParseError(base::StringPiece as_string);
 
 // The source of the printer.
-enum  PrinterSource {
-  PRINTER_SOURCE_NONE = 0,
-  PRINTER_SOURCE_USER,
-  PRINTER_SOURCE_POLICY,
-  PRINTER_SOURCE_LAST = PRINTER_SOURCE_POLICY,
+enum class PrinterSource {
+  kNone = 0,
+  kUser,
+  kPolicy,
+  kMaxValue = kPolicy,
 };
 
 
@@ -71,11 +73,11 @@ const char* ToString(PrinterSource as_enum);
 PrinterSource ParsePrinterSource(base::StringPiece as_string);
 std::u16string GetPrinterSourceParseError(base::StringPiece as_string);
 
-enum  ColorMode {
-  COLOR_MODE_NONE = 0,
-  COLOR_MODE_BLACK_AND_WHITE,
-  COLOR_MODE_COLOR,
-  COLOR_MODE_LAST = COLOR_MODE_COLOR,
+enum class ColorMode {
+  kNone = 0,
+  kBlackAndWhite,
+  kColor,
+  kMaxValue = kColor,
 };
 
 
@@ -83,12 +85,12 @@ const char* ToString(ColorMode as_enum);
 ColorMode ParseColorMode(base::StringPiece as_string);
 std::u16string GetColorModeParseError(base::StringPiece as_string);
 
-enum  DuplexMode {
-  DUPLEX_MODE_NONE = 0,
-  DUPLEX_MODE_ONE_SIDED,
-  DUPLEX_MODE_TWO_SIDED_LONG_EDGE,
-  DUPLEX_MODE_TWO_SIDED_SHORT_EDGE,
-  DUPLEX_MODE_LAST = DUPLEX_MODE_TWO_SIDED_SHORT_EDGE,
+enum class DuplexMode {
+  kNone = 0,
+  kOneSided,
+  kTwoSidedLongEdge,
+  kTwoSidedShortEdge,
+  kMaxValue = kTwoSidedShortEdge,
 };
 
 
@@ -101,8 +103,8 @@ struct MediaSize {
   ~MediaSize();
   MediaSize(const MediaSize&) = delete;
   MediaSize& operator=(const MediaSize&) = delete;
-  MediaSize(MediaSize&& rhs);
-  MediaSize& operator=(MediaSize&& rhs);
+  MediaSize(MediaSize&& rhs) noexcept;
+  MediaSize& operator=(MediaSize&& rhs) noexcept;
 
   // Populates a MediaSize object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -115,14 +117,11 @@ struct MediaSize {
   // Creates a deep copy of MediaSize.
   MediaSize Clone() const;
 
-  // Creates a MediaSize object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MediaSize> FromValueDeprecated(const base::Value& value);
-
   // Creates a MediaSize object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<MediaSize> FromValue(const base::Value::Dict& value);
+  static std::optional<MediaSize> FromValue(const base::Value::Dict& value);
 
   // Creates a MediaSize object from a base::Value, or nullopt on failure.
-  static absl::optional<MediaSize> FromValue(const base::Value& value);
+  static std::optional<MediaSize> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMediaSize object.
@@ -146,8 +145,8 @@ struct PrintSettings {
   ~PrintSettings();
   PrintSettings(const PrintSettings&) = delete;
   PrintSettings& operator=(const PrintSettings&) = delete;
-  PrintSettings(PrintSettings&& rhs);
-  PrintSettings& operator=(PrintSettings&& rhs);
+  PrintSettings(PrintSettings&& rhs) noexcept;
+  PrintSettings& operator=(PrintSettings&& rhs) noexcept;
 
   // Populates a PrintSettings object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -160,15 +159,12 @@ struct PrintSettings {
   // Creates a deep copy of PrintSettings.
   PrintSettings Clone() const;
 
-  // Creates a PrintSettings object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PrintSettings> FromValueDeprecated(const base::Value& value);
-
   // Creates a PrintSettings object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PrintSettings> FromValue(const base::Value::Dict& value);
+  static std::optional<PrintSettings> FromValue(const base::Value::Dict& value);
 
   // Creates a PrintSettings object from a base::Value, or nullopt on failure.
-  static absl::optional<PrintSettings> FromValue(const base::Value& value);
+  static std::optional<PrintSettings> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrintSettings object.
@@ -193,8 +189,8 @@ struct Printer {
   ~Printer();
   Printer(const Printer&) = delete;
   Printer& operator=(const Printer&) = delete;
-  Printer(Printer&& rhs);
-  Printer& operator=(Printer&& rhs);
+  Printer(Printer&& rhs) noexcept;
+  Printer& operator=(Printer&& rhs) noexcept;
 
   // Populates a Printer object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -207,14 +203,11 @@ struct Printer {
   // Creates a deep copy of Printer.
   Printer Clone() const;
 
-  // Creates a Printer object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Printer> FromValueDeprecated(const base::Value& value);
-
   // Creates a Printer object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Printer> FromValue(const base::Value::Dict& value);
+  static std::optional<Printer> FromValue(const base::Value::Dict& value);
 
   // Creates a Printer object from a base::Value, or nullopt on failure.
-  static absl::optional<Printer> FromValue(const base::Value& value);
+  static std::optional<Printer> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrinter object.
@@ -236,8 +229,8 @@ struct PrintJobInfo {
   ~PrintJobInfo();
   PrintJobInfo(const PrintJobInfo&) = delete;
   PrintJobInfo& operator=(const PrintJobInfo&) = delete;
-  PrintJobInfo(PrintJobInfo&& rhs);
-  PrintJobInfo& operator=(PrintJobInfo&& rhs);
+  PrintJobInfo(PrintJobInfo&& rhs) noexcept;
+  PrintJobInfo& operator=(PrintJobInfo&& rhs) noexcept;
 
   // Populates a PrintJobInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -250,15 +243,12 @@ struct PrintJobInfo {
   // Creates a deep copy of PrintJobInfo.
   PrintJobInfo Clone() const;
 
-  // Creates a PrintJobInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PrintJobInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a PrintJobInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PrintJobInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<PrintJobInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a PrintJobInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<PrintJobInfo> FromValue(const base::Value& value);
+  static std::optional<PrintJobInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrintJobInfo object.
@@ -274,7 +264,7 @@ struct PrintJobInfo {
   PrintJobSource source;
 
   // ID of source. Null if source is PRINT_PREVIEW or ANDROID_APP.
-  absl::optional<std::string> source_id;
+  std::optional<std::string> source_id;
 
   // The final status of the job.
   PrintJobStatus status;

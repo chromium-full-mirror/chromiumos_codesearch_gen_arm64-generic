@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/browser/process_internals/process_internals.mojom-features.h"
 #include "content/browser/process_internals/process_internals.mojom-shared.h"
 #include "content/browser/process_internals/process_internals.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -538,13 +539,13 @@ class  SiteInstanceInfo {
       int32_t site_instance_group_id,
       int32_t browsing_instance_id,
       bool locked,
-      const absl::optional<::GURL>& site_url,
-      const absl::optional<::GURL>& process_lock_url,
+      const std::optional<::GURL>& site_url,
+      const std::optional<::GURL>& process_lock_url,
       bool requires_origin_keyed_process,
       bool is_sandbox_for_iframes,
       bool is_guest,
       bool is_pdf,
-      const absl::optional<std::string>& storage_partition);
+      const std::optional<std::string>& storage_partition);
 
 
   ~SiteInstanceInfo();
@@ -630,9 +631,9 @@ class  SiteInstanceInfo {
   
   bool locked;
   
-  absl::optional<::GURL> site_url;
+  std::optional<::GURL> site_url;
   
-  absl::optional<::GURL> process_lock_url;
+  std::optional<::GURL> process_lock_url;
   
   bool requires_origin_keyed_process;
   
@@ -642,7 +643,7 @@ class  SiteInstanceInfo {
   
   bool is_pdf;
   
-  absl::optional<std::string> storage_partition;
+  std::optional<std::string> storage_partition;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -709,7 +710,7 @@ class  FrameInfo {
       int32_t agent_scheduling_group_id,
       int32_t process_id,
       SiteInstanceInfoPtr site_instance,
-      const absl::optional<::GURL>& last_committed_url,
+      const std::optional<::GURL>& last_committed_url,
       std::vector<FrameInfoPtr> subframes,
       FrameInfo::Type type);
 
@@ -799,7 +800,7 @@ FrameInfo& operator=(const FrameInfo&) = delete;
   
   SiteInstanceInfoPtr site_instance;
   
-  absl::optional<::GURL> last_committed_url;
+  std::optional<::GURL> last_committed_url;
   
   std::vector<FrameInfoPtr> subframes;
   

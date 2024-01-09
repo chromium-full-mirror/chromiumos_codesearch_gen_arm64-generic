@@ -357,13 +357,14 @@ class  FeedbackContext_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> email;
+  uint8_t wifi_debug_logs_allowed : 1;
   uint8_t has_linked_cross_device_phone : 1;
   uint8_t is_internal_account : 1;
   uint8_t from_assistant : 1;
   uint8_t assistant_debug_info_allowed : 1;
   uint8_t from_settings_search : 1;
   uint8_t from_autofill : 1;
-  uint8_t pad6_[3];
+  uint8_t pad7_[3];
   int32_t trace_id;
   mojo::internal::Pointer<mojo::internal::String_Data> autofill_metadata;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> page_url;
@@ -472,6 +473,7 @@ class  Report_Data {
   uint8_t include_screenshot : 1;
   uint8_t contact_user_consent_granted : 1;
   uint8_t send_bluetooth_logs : 1;
+  uint8_t send_wifi_debug_logs : 1;
   uint8_t include_autofill_metadata : 1;
   uint8_t padfinal_[7];
 

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct Parameters {
   ~Parameters();
   Parameters(const Parameters&) = delete;
   Parameters& operator=(const Parameters&) = delete;
-  Parameters(Parameters&& rhs);
-  Parameters& operator=(Parameters&& rhs);
+  Parameters(Parameters&& rhs) noexcept;
+  Parameters& operator=(Parameters&& rhs) noexcept;
 
   // Populates a Parameters object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -48,15 +49,12 @@ struct Parameters {
   // Creates a deep copy of Parameters.
   Parameters Clone() const;
 
-  // Creates a Parameters object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Parameters> FromValueDeprecated(const base::Value& value);
-
   // Creates a Parameters object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+  static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
   // Creates a Parameters object from a base::Value, or nullopt on failure.
-  static absl::optional<Parameters> FromValue(const base::Value& value);
+  static std::optional<Parameters> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisParameters object.
@@ -68,10 +66,10 @@ struct Parameters {
 
   // Broadcast address for the VPN interface. (default: deduced from IP address
   // and mask)
-  absl::optional<std::string> broadcast_address;
+  std::optional<std::string> broadcast_address;
 
   // MTU setting for the VPN interface. (default: 1500 bytes)
-  absl::optional<std::string> mtu;
+  std::optional<std::string> mtu;
 
   // Exclude network traffic to the list of IP blocks in CIDR notation from the
   // tunnel. This can be used to bypass traffic to and from the VPN server. When
@@ -93,7 +91,7 @@ struct Parameters {
   std::vector<std::string> inclusion_list;
 
   // A list of search domains. (default: no search domain)
-  absl::optional<std::vector<std::string>> domain_search;
+  std::optional<std::vector<std::string>> domain_search;
 
   // A list of IPs for the DNS servers.
   std::vector<std::string> dns_servers;
@@ -107,23 +105,23 @@ struct Parameters {
   // property is new in Chrome 51; it will generate an exception in earlier
   // versions. try/catch can be used to conditionally enable the feature based on
   // browser support.</p>
-  absl::optional<std::string> reconnect;
+  std::optional<std::string> reconnect;
 
 };
 
 // The enum is used by the platform to notify the client of the VPN session
 // status.
-enum  PlatformMessage {
-  PLATFORM_MESSAGE_NONE = 0,
-  PLATFORM_MESSAGE_CONNECTED,
-  PLATFORM_MESSAGE_DISCONNECTED,
-  PLATFORM_MESSAGE_ERROR,
-  PLATFORM_MESSAGE_LINKDOWN,
-  PLATFORM_MESSAGE_LINKUP,
-  PLATFORM_MESSAGE_LINKCHANGED,
-  PLATFORM_MESSAGE_SUSPEND,
-  PLATFORM_MESSAGE_RESUME,
-  PLATFORM_MESSAGE_LAST = PLATFORM_MESSAGE_RESUME,
+enum class PlatformMessage {
+  kNone = 0,
+  kConnected,
+  kDisconnected,
+  kError,
+  kLinkDown,
+  kLinkUp,
+  kLinkChanged,
+  kSuspend,
+  kResume,
+  kMaxValue = kResume,
 };
 
 
@@ -133,11 +131,11 @@ std::u16string GetPlatformMessageParseError(base::StringPiece as_string);
 
 // The enum is used by the VPN client to inform the platform of its current
 // state. This helps provide meaningful messages to the user.
-enum  VpnConnectionState {
-  VPN_CONNECTION_STATE_NONE = 0,
-  VPN_CONNECTION_STATE_CONNECTED,
-  VPN_CONNECTION_STATE_FAILURE,
-  VPN_CONNECTION_STATE_LAST = VPN_CONNECTION_STATE_FAILURE,
+enum class VpnConnectionState {
+  kNone = 0,
+  kConnected,
+  kFailure,
+  kMaxValue = kFailure,
 };
 
 
@@ -147,11 +145,11 @@ std::u16string GetVpnConnectionStateParseError(base::StringPiece as_string);
 
 // The enum is used by the platform to indicate the event that triggered
 // <code>onUIEvent</code>.
-enum  UIEvent {
-  UI_EVENT_NONE = 0,
-  UI_EVENT_SHOWADDDIALOG,
-  UI_EVENT_SHOWCONFIGUREDIALOG,
-  UI_EVENT_LAST = UI_EVENT_SHOWCONFIGUREDIALOG,
+enum class UIEvent {
+  kNone = 0,
+  kShowAddDialog,
+  kShowConfigureDialog,
+  kMaxValue = kShowConfigureDialog,
 };
 
 
@@ -167,11 +165,11 @@ std::u16string GetUIEventParseError(base::StringPiece as_string);
 namespace CreateConfig {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The name of the VPN configuration.
@@ -194,11 +192,11 @@ base::Value::List Create(const std::string& id);
 namespace DestroyConfig {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // ID of the VPN configuration to destroy.
@@ -219,11 +217,11 @@ base::Value::List Create();
 namespace SetParameters {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The parameters for the VPN session.
@@ -244,11 +242,11 @@ base::Value::List Create();
 namespace SendPacket {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The IP packet to be sent to the platform.
@@ -269,11 +267,11 @@ base::Value::List Create();
 namespace NotifyConnectionStateChanged {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The VPN session state of the VPN client.
@@ -332,8 +330,8 @@ struct Data {
   ~Data();
   Data(const Data&) = delete;
   Data& operator=(const Data&) = delete;
-  Data(Data&& rhs);
-  Data& operator=(Data&& rhs);
+  Data(Data&& rhs) noexcept;
+  Data& operator=(Data&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisData object.

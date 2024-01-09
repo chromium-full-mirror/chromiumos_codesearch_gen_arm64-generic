@@ -8,6 +8,7 @@
 #define SERVICES_RESOURCE_COORDINATOR_PUBLIC_MOJOM_MEMORY_INSTRUMENTATION_MEMORY_INSTRUMENTATION_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

@@ -51,8 +51,8 @@ class  AudioServiceAsyncWaiter {
 
   ~AudioServiceAsyncWaiter();
   void GetDevices(
-      DeviceFilterPtr filter, absl::optional<std::vector<AudioDeviceInfoPtr>>* out_devices);
-  absl::optional<std::vector<AudioDeviceInfoPtr>> GetDevices(DeviceFilterPtr filter);
+      DeviceFilterPtr filter, std::optional<std::vector<AudioDeviceInfoPtr>>* out_devices);
+  std::optional<std::vector<AudioDeviceInfoPtr>> GetDevices(DeviceFilterPtr filter);
   void GetMute(
       StreamType stream_type, bool* out_success, bool* out_is_muted);
   

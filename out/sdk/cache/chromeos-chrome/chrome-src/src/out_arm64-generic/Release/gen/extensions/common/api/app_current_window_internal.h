@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct Bounds {
   ~Bounds();
   Bounds(const Bounds&) = delete;
   Bounds& operator=(const Bounds&) = delete;
-  Bounds(Bounds&& rhs);
-  Bounds& operator=(Bounds&& rhs);
+  Bounds(Bounds&& rhs) noexcept;
+  Bounds& operator=(Bounds&& rhs) noexcept;
 
   // Populates a Bounds object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -46,26 +47,23 @@ struct Bounds {
   // Creates a deep copy of Bounds.
   Bounds Clone() const;
 
-  // Creates a Bounds object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Bounds> FromValueDeprecated(const base::Value& value);
-
   // Creates a Bounds object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value::Dict& value);
+  static std::optional<Bounds> FromValue(const base::Value::Dict& value);
 
   // Creates a Bounds object from a base::Value, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value& value);
+  static std::optional<Bounds> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBounds object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<int> left;
+  std::optional<int> left;
 
-  absl::optional<int> top;
+  std::optional<int> top;
 
-  absl::optional<int> width;
+  std::optional<int> width;
 
-  absl::optional<int> height;
+  std::optional<int> height;
 
 };
 
@@ -74,8 +72,8 @@ struct SizeConstraints {
   ~SizeConstraints();
   SizeConstraints(const SizeConstraints&) = delete;
   SizeConstraints& operator=(const SizeConstraints&) = delete;
-  SizeConstraints(SizeConstraints&& rhs);
-  SizeConstraints& operator=(SizeConstraints&& rhs);
+  SizeConstraints(SizeConstraints&& rhs) noexcept;
+  SizeConstraints& operator=(SizeConstraints&& rhs) noexcept;
 
   // Populates a SizeConstraints object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -88,27 +86,24 @@ struct SizeConstraints {
   // Creates a deep copy of SizeConstraints.
   SizeConstraints Clone() const;
 
-  // Creates a SizeConstraints object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SizeConstraints> FromValueDeprecated(const base::Value& value);
-
   // Creates a SizeConstraints object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SizeConstraints> FromValue(const base::Value::Dict& value);
+  static std::optional<SizeConstraints> FromValue(const base::Value::Dict& value);
 
   // Creates a SizeConstraints object from a base::Value, or nullopt on failure.
-  static absl::optional<SizeConstraints> FromValue(const base::Value& value);
+  static std::optional<SizeConstraints> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSizeConstraints object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<int> min_width;
+  std::optional<int> min_width;
 
-  absl::optional<int> min_height;
+  std::optional<int> min_height;
 
-  absl::optional<int> max_width;
+  std::optional<int> max_width;
 
-  absl::optional<int> max_height;
+  std::optional<int> max_height;
 
 };
 
@@ -117,8 +112,8 @@ struct RegionRect {
   ~RegionRect();
   RegionRect(const RegionRect&) = delete;
   RegionRect& operator=(const RegionRect&) = delete;
-  RegionRect(RegionRect&& rhs);
-  RegionRect& operator=(RegionRect&& rhs);
+  RegionRect(RegionRect&& rhs) noexcept;
+  RegionRect& operator=(RegionRect&& rhs) noexcept;
 
   // Populates a RegionRect object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -131,15 +126,12 @@ struct RegionRect {
   // Creates a deep copy of RegionRect.
   RegionRect Clone() const;
 
-  // Creates a RegionRect object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RegionRect> FromValueDeprecated(const base::Value& value);
-
   // Creates a RegionRect object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RegionRect> FromValue(const base::Value::Dict& value);
+  static std::optional<RegionRect> FromValue(const base::Value::Dict& value);
 
   // Creates a RegionRect object from a base::Value, or nullopt on failure.
-  static absl::optional<RegionRect> FromValue(const base::Value& value);
+  static std::optional<RegionRect> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRegionRect object.
@@ -160,8 +152,8 @@ struct Region {
   ~Region();
   Region(const Region&) = delete;
   Region& operator=(const Region&) = delete;
-  Region(Region&& rhs);
-  Region& operator=(Region&& rhs);
+  Region(Region&& rhs) noexcept;
+  Region& operator=(Region&& rhs) noexcept;
 
   // Populates a Region object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -174,20 +166,17 @@ struct Region {
   // Creates a deep copy of Region.
   Region Clone() const;
 
-  // Creates a Region object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Region> FromValueDeprecated(const base::Value& value);
-
   // Creates a Region object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Region> FromValue(const base::Value::Dict& value);
+  static std::optional<Region> FromValue(const base::Value::Dict& value);
 
   // Creates a Region object from a base::Value, or nullopt on failure.
-  static absl::optional<Region> FromValue(const base::Value& value);
+  static std::optional<Region> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRegion object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::vector<RegionRect>> rects;
+  std::optional<std::vector<RegionRect>> rects;
 
 };
 
@@ -227,14 +216,14 @@ namespace ClearAttention {
 namespace Show {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<bool> focused;
+  std::optional<bool> focused;
 
 
  private:
@@ -250,11 +239,11 @@ namespace Hide {
 namespace SetBounds {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string bounds_type;
@@ -271,11 +260,11 @@ struct Params {
 namespace SetSizeConstraints {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string bounds_type;
@@ -292,11 +281,11 @@ struct Params {
 namespace SetIcon {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string icon_url;
@@ -311,11 +300,11 @@ struct Params {
 namespace SetShape {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   Region region;
@@ -330,11 +319,11 @@ struct Params {
 namespace SetAlwaysOnTop {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool always_on_top;
@@ -349,11 +338,11 @@ struct Params {
 namespace SetVisibleOnAllWorkspaces {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool always_visible;
@@ -368,11 +357,11 @@ struct Params {
 namespace SetActivateOnPointer {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool activate_on_pointer;

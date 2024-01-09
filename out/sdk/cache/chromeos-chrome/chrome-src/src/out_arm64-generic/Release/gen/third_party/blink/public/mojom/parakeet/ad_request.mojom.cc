@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -190,7 +191,7 @@ AdTargeting::AdTargeting()
       geolocation() {}
 
 AdTargeting::AdTargeting(
-    absl::optional<std::vector<std::string>> interests_in,
+    std::optional<std::vector<std::string>> interests_in,
     AdGeolocationPtr geolocation_in)
     : interests(std::move(interests_in)),
       geolocation(std::move(geolocation_in)) {}
@@ -204,7 +205,7 @@ void AdTargeting::WriteIntoTrace(
     dict.AddItem(
       "interests"), this->interests,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -236,10 +237,10 @@ AdRequestConfig::AdRequestConfig()
 AdRequestConfig::AdRequestConfig(
     const ::GURL& ad_request_url_in,
     std::vector<AdPropertiesPtr> ad_properties_in,
-    const absl::optional<std::string>& publisher_code_in,
+    const std::optional<std::string>& publisher_code_in,
     AdTargetingPtr targeting_in,
-    absl::optional<std::vector<AdSignals>> anonymized_proxied_signals_in,
-    const absl::optional<::GURL>& fallback_source_in)
+    std::optional<std::vector<AdSignals>> anonymized_proxied_signals_in,
+    const std::optional<::GURL>& fallback_source_in)
     : ad_request_url(std::move(ad_request_url_in)),
       ad_properties(std::move(ad_properties_in)),
       publisher_code(std::move(publisher_code_in)),
@@ -274,7 +275,7 @@ void AdRequestConfig::WriteIntoTrace(
     dict.AddItem(
       "publisher_code"), this->publisher_code,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -292,7 +293,7 @@ void AdRequestConfig::WriteIntoTrace(
     dict.AddItem(
       "anonymized_proxied_signals"), this->anonymized_proxied_signals,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<AdSignals>>&>"
+      "<value of type const std::optional<std::vector<AdSignals>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -301,7 +302,7 @@ void AdRequestConfig::WriteIntoTrace(
     dict.AddItem(
       "fallback_source"), this->fallback_source,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

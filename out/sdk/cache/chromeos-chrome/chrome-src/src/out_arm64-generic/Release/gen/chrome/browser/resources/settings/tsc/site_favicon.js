@@ -19,11 +19,17 @@ export class SiteFaviconElement extends PolymerElement {
         return {
             faviconUrl: String,
             url: String,
+            // The icon's local path. We don't need to fetch the icon from the url if
+            // the path is not empty.
+            iconPath: String,
         };
     }
     getBackgroundImage_() {
         let backgroundImage = getFavicon('');
-        if (this.faviconUrl) {
+        if (this.iconPath) {
+            backgroundImage = 'url(' + this.iconPath + ')';
+        }
+        else if (this.faviconUrl) {
             const url = this.ensureUrlHasScheme_(this.faviconUrl);
             backgroundImage = getFavicon(url);
         }

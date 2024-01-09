@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/webnn/public/mojom/webnn_context_provider.mojom-features.h"
 #include "services/webnn/public/mojom/webnn_context_provider.mojom-shared.h"
 #include "services/webnn/public/mojom/webnn_context_provider.mojom-blink-forward.h"
+#include "components/ml/webnn/features.mojom-blink-forward.h"
 #include "services/webnn/public/mojom/webnn_graph.mojom-blink-forward.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
@@ -38,30 +40,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::webnn::mojom::PowerPreference>
-    : EnumHashTraits<::webnn::mojom::PowerPreference, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::webnn::mojom::Error_Code>
-    : EnumHashTraits<::webnn::mojom::Error_Code, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace webnn::mojom::blink {
@@ -83,8 +61,12 @@ class WebNNContext
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
+  static bool RuntimeFeature_IsEnabled_(bool expected);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
+  static inline constexpr uint32_t kSyncMethodOrdinals[] = {
+    0
+  };
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = WebNNContextInterfaceBase;
@@ -108,6 +90,10 @@ class WebNNContext
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WebNNContext() = default;
 
+  // Sync method. This signature is used by the client side; the service side
+  // should implement the signature with callback below.
+  
+  virtual bool CreateGraph(::webnn::mojom::blink::GraphInfoPtr graph_info, CreateGraphResultPtr* out_result);
 
   using CreateGraphCallback = base::OnceCallback<void(CreateGraphResultPtr)>;
   
@@ -131,8 +117,12 @@ class WebNNContextProvider
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
+  static bool RuntimeFeature_IsEnabled_(bool expected);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
+  static inline constexpr uint32_t kSyncMethodOrdinals[] = {
+    0
+  };
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = WebNNContextProviderInterfaceBase;
@@ -156,6 +146,10 @@ class WebNNContextProvider
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WebNNContextProvider() = default;
 
+  // Sync method. This signature is used by the client side; the service side
+  // should implement the signature with callback below.
+  
+  virtual bool CreateWebNNContext(CreateContextOptionsPtr options, CreateContextResultPtr* out_result);
 
   using CreateWebNNContextCallback = base::OnceCallback<void(CreateContextResultPtr)>;
   
@@ -171,6 +165,8 @@ class  WebNNContextProxy
 
   explicit WebNNContextProxy(mojo::MessageReceiverWithResponder* receiver);
   
+  bool CreateGraph(::webnn::mojom::blink::GraphInfoPtr graph_info, CreateGraphResultPtr* out_result) final;
+  
   void CreateGraph(::webnn::mojom::blink::GraphInfoPtr graph_info, CreateGraphCallback callback) final;
 
  private:
@@ -185,6 +181,8 @@ class  WebNNContextProviderProxy
   using InterfaceType = WebNNContextProvider;
 
   explicit WebNNContextProviderProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  bool CreateWebNNContext(CreateContextOptionsPtr options, CreateContextResultPtr* out_result) final;
   
   void CreateWebNNContext(CreateContextOptionsPtr options, CreateWebNNContextCallback callback) final;
 
@@ -599,17 +597,17 @@ class  CreateGraphResult {
   // Construct an instance holding |graph_remote|.
   static CreateGraphResultPtr
   NewGraphRemote(
-      ::mojo::PendingRemote<::webnn::mojom::blink::WebNNGraph> graph_remote) {
+      ::mojo::PendingRemote<::webnn::mojom::blink::WebNNGraph> value) {
     auto result = CreateGraphResultPtr(absl::in_place);
-    result->set_graph_remote(std::move(graph_remote));
+    result->set_graph_remote(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static CreateGraphResultPtr
   NewError(
-      ErrorPtr error) {
+      ErrorPtr value) {
     auto result = CreateGraphResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -729,17 +727,17 @@ class  CreateContextResult {
   // Construct an instance holding |context_remote|.
   static CreateContextResultPtr
   NewContextRemote(
-      ::mojo::PendingRemote<WebNNContext> context_remote) {
+      ::mojo::PendingRemote<WebNNContext> value) {
     auto result = CreateContextResultPtr(absl::in_place);
-    result->set_context_remote(std::move(context_remote));
+    result->set_context_remote(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static CreateContextResultPtr
   NewError(
-      ErrorPtr error) {
+      ErrorPtr value) {
     auto result = CreateContextResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1033,6 +1031,26 @@ struct  UnionTraits<::webnn::mojom::blink::CreateContextResult::DataView,
 
   static bool Read(::webnn::mojom::blink::CreateContextResult::DataView input, ::webnn::mojom::blink::CreateContextResultPtr* output);
 };
+namespace internal {
+template <>
+inline bool GetRuntimeFeature_IsEnabled<::webnn::mojom::blink::WebNNContext>() {
+  return ::webnn::mojom::blink::WebNNContext::RuntimeFeature_IsEnabled_(false);
+}
+template <>
+inline bool GetRuntimeFeature_ExpectEnabled<::webnn::mojom::blink::WebNNContext>() {
+  return ::webnn::mojom::blink::WebNNContext::RuntimeFeature_IsEnabled_(true);
+}template <>
+inline constexpr bool kIsRuntimeFeatureGuarded<::webnn::mojom::blink::WebNNContext> = true;
+template <>
+inline bool GetRuntimeFeature_IsEnabled<::webnn::mojom::blink::WebNNContextProvider>() {
+  return ::webnn::mojom::blink::WebNNContextProvider::RuntimeFeature_IsEnabled_(false);
+}
+template <>
+inline bool GetRuntimeFeature_ExpectEnabled<::webnn::mojom::blink::WebNNContextProvider>() {
+  return ::webnn::mojom::blink::WebNNContextProvider::RuntimeFeature_IsEnabled_(true);
+}template <>
+inline constexpr bool kIsRuntimeFeatureGuarded<::webnn::mojom::blink::WebNNContextProvider> = true;
+}  // namespace internal
 
 }  // namespace mojo
 

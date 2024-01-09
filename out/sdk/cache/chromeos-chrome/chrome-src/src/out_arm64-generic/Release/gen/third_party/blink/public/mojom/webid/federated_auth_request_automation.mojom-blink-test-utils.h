@@ -20,7 +20,7 @@ class PLATFORM_EXPORT FederatedAuthRequestAutomationInterceptorForTesting : publ
   void GetFedCmDialogTitle(GetFedCmDialogTitleCallback callback) override;
   void SelectFedCmAccount(uint32_t account_index, SelectFedCmAccountCallback callback) override;
   void DismissFedCmDialog(DismissFedCmDialogCallback callback) override;
-  void ConfirmIdpLogin(ConfirmIdpLoginCallback callback) override;
+  void ClickFedCmDialogButton(DialogButton dialog_button, ClickFedCmDialogButtonCallback callback) override;
 };
 class PLATFORM_EXPORT FederatedAuthRequestAutomationAsyncWaiter {
  public:
@@ -42,9 +42,9 @@ class PLATFORM_EXPORT FederatedAuthRequestAutomationAsyncWaiter {
   void DismissFedCmDialog(
       bool* out_success);
   bool DismissFedCmDialog();
-  void ConfirmIdpLogin(
-      bool* out_success);
-  bool ConfirmIdpLogin();
+  void ClickFedCmDialogButton(
+      DialogButton dialog_button, bool* out_success);
+  bool ClickFedCmDialogButton(DialogButton dialog_button);
 
  private:
   FederatedAuthRequestAutomation* const proxy_;

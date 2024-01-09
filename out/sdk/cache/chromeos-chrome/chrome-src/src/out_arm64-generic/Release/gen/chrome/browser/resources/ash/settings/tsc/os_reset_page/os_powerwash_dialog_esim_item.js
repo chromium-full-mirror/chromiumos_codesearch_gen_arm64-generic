@@ -8,6 +8,7 @@
  */
 import '../settings_shared.css.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './os_powerwash_dialog_esim_item.html.js';
@@ -46,7 +47,7 @@ class OsSettingsPowerwashDialogEsimItemElement extends OsSettingsPowerwashDialog
             return window.trustedTypes.emptyHTML;
         }
         const profileName = this.getProfileName_(this.profileProperties_);
-        const providerName = this.escapeHtml_(String.fromCharCode(...this.profileProperties_.serviceProvider.data));
+        const providerName = this.escapeHtml_(mojoString16ToString(this.profileProperties_.serviceProvider));
         if (!providerName) {
             return sanitizeInnerHtml(profileName);
         }
@@ -55,9 +56,9 @@ class OsSettingsPowerwashDialogEsimItemElement extends OsSettingsPowerwashDialog
     getProfileName_(profileProperties) {
         if (!profileProperties.nickname.data ||
             !profileProperties.nickname.data.length) {
-            return this.escapeHtml_(String.fromCharCode(...profileProperties.name.data));
+            return this.escapeHtml_(mojoString16ToString(profileProperties.name));
         }
-        return this.escapeHtml_(String.fromCharCode(...profileProperties.nickname.data));
+        return this.escapeHtml_(mojoString16ToString(profileProperties.nickname));
     }
     escapeHtml_(string) {
         return string.replace(/&/g, '&amp;')

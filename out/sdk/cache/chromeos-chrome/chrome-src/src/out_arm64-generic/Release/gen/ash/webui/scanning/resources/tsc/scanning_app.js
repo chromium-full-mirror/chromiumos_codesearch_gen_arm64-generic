@@ -1,11 +1,11 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
-import 'chrome://resources/cr_elements/icons.html.js';
-import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_toast/cr_toast.js';
+import 'chrome://resources/ash/common/cr_elements/icons.html.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_vars.css.js';
 import 'chrome://resources/mojo/mojo/public/mojom/base/big_buffer.mojom-webui.js';
 import 'chrome://resources/mojo/mojo/public/mojom/base/string16.mojom-webui.js';
 import 'chrome://resources/mojo/mojo/public/mojom/base/unguessable_token.mojom-webui.js';
@@ -27,14 +27,14 @@ import './scanning_fonts.css.js';
 import './scanning_shared.css.js';
 import './source_select.js';
 import { assert } from 'chrome://resources/ash/common/assert.js';
+import { CrButtonElement } from 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import { CrContainerShadowMixin } from 'chrome://resources/ash/common/cr_elements/cr_container_shadow_mixin.js';
+import { CrDialogElement } from 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import { CrToastElement } from 'chrome://resources/ash/common/cr_elements/cr_toast/cr_toast.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
 import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
-import { CrButtonElement } from 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import { CrContainerShadowMixin } from 'chrome://resources/cr_elements/cr_container_shadow_mixin.js';
-import { CrDialogElement } from 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import { CrToastElement } from 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getScanService } from './mojo_interface_provider.js';
 import { FileType, ScanJobObserverReceiver, ScanResult, SourceType } from './scanning.mojom-webui.js';
@@ -54,7 +54,7 @@ const INITIAL_PROGRESS_PERCENT = 0;
  * 'scanning-app' is used to interact with connected scanners.
  */
 const ScanningAppElementBase = CrContainerShadowMixin(I18nMixin(PolymerElement));
-class ScanningAppElement extends ScanningAppElementBase {
+export class ScanningAppElement extends ScanningAppElementBase {
     static get is() {
         return 'scanning-app';
     }

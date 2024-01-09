@@ -72,9 +72,15 @@ export class Checkbox extends LitElement {
     }
   `; }
     /** @nocollapse */
+    static { this.shadowRootOptions = {
+        ...LitElement.shadowRootOptions,
+        delegatesFocus: true
+    }; }
+    /** @nocollapse */
     static { this.properties = {
         checked: { type: Boolean, reflect: true },
         disabled: { type: Boolean, reflect: true },
+        ariaLabel: { type: String, reflect: true, attribute: 'aria-label' },
     }; }
     /** @nocollapse */
     static { this.events = {
@@ -100,7 +106,8 @@ export class Checkbox extends LitElement {
           ?disabled=${this.disabled}
           ?checked=${this.checked}
           @change=${this.onChange}
-          touch-target="wrapper">
+          touch-target="wrapper"
+          aria-label=${this.ariaLabel || ''}>
       </md-checkbox>
     `;
     }
@@ -110,6 +117,12 @@ export class Checkbox extends LitElement {
     }
     click() {
         this.mdCheckbox.click();
+    }
+    updated(changedProperties) {
+        if (changedProperties.has('disabled')) {
+            // Work around for b/315384008.
+            this.renderRoot.querySelector('md-checkbox')?.requestUpdate();
+        }
     }
 }
 customElements.define('cros-checkbox', Checkbox);

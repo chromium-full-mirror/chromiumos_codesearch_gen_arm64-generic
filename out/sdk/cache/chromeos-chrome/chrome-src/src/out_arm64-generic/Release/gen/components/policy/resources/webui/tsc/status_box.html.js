@@ -1,6 +1,6 @@
 import { getTrustedHTML } from '//resources/js/static_types.js';
 export function getTemplate() {
-    return getTrustedHTML `<!--_html_template_start_--><style>:host(:not([hidden])){display:block}.status-box-fields{background-color:var(--status-box-background);border:none;border-radius:15px;box-sizing:border-box;height:100%;margin:0;padding:1px 10px 10px 10px}.status-box-heading{font-weight:500}div.status-entry *{white-space:pre-wrap}div.status-entry:not([hidden]){display:flex;justify-content:space-between;margin-bottom:.6em}.status-entry-value{text-align:right}div.status-entry:last-child{margin-bottom:0}a{color:var(--link-color);cursor:pointer;text-decoration:underline}.warning{max-width:312px}</style>
+    return getTrustedHTML `<!--_html_template_start_--><style>:host(:not([hidden])){display:block}.status-box-fields{background-color:var(--status-box-background);border:none;border-radius:var(--element-border-radius);box-sizing:border-box;height:100%;margin:0;padding:1px 10px 10px 10px}.status-box-heading{font-weight:500}div.status-entry *{white-space:pre-wrap}div.status-entry:not([hidden]){display:flex;justify-content:space-between;margin-bottom:.6em}.status-entry-value{text-align:right}div.status-entry:last-child{margin-bottom:0}a{color:var(--link-color);cursor:pointer;text-decoration:underline}.warning{max-width:312px}</style>
 <div class="status-box-fields">
   <p class="status-box-heading"></p>
   <div class="status-entry" hidden>

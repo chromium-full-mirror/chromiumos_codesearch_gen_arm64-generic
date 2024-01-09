@@ -39,8 +39,8 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   void IsIncognitoTextField(IsIncognitoTextFieldCallback callback) override;
   void GetFeatureList(GetFeatureListCallback callback) override;
   void GetCategories(GetCategoriesCallback callback) override;
-  void GetFeaturedGifs(const absl::optional<std::string>& pos, GetFeaturedGifsCallback callback) override;
-  void SearchGifs(const std::string& query, const absl::optional<std::string>& pos, SearchGifsCallback callback) override;
+  void GetFeaturedGifs(const std::optional<std::string>& pos, GetFeaturedGifsCallback callback) override;
+  void SearchGifs(const std::string& query, const std::optional<std::string>& pos, SearchGifsCallback callback) override;
   void GetGifsByIds(const std::vector<std::string>& ids, GetGifsByIdsCallback callback) override;
   void OnUiFullyLoaded() override;
 };
@@ -62,10 +62,10 @@ class  PageHandlerAsyncWaiter {
       Status* out_status, std::vector<std::string>* out_gif_categories);
   
   void GetFeaturedGifs(
-      const absl::optional<std::string>& pos, Status* out_status, TenorGifResponsePtr* out_featured_gifs);
+      const std::optional<std::string>& pos, Status* out_status, TenorGifResponsePtr* out_featured_gifs);
   
   void SearchGifs(
-      const std::string& query, const absl::optional<std::string>& pos, Status* out_status, TenorGifResponsePtr* out_search_gifs);
+      const std::string& query, const std::optional<std::string>& pos, Status* out_status, TenorGifResponsePtr* out_search_gifs);
   
   void GetGifsByIds(
       const std::vector<std::string>& ids, Status* out_status, std::vector<GifResponsePtr>* out_selected_gifs);

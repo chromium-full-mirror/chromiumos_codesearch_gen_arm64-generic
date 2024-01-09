@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DeviceMotionEvent>::value,
     "DeviceMotionEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DeviceMotionEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DeviceMotionEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,8 +89,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceMotionEvent.acceleration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(v8_receiver);
+DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->acceleration();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -108,8 +104,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceMotionEvent.accelerationIncludingGravity.get")
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(v8_receiver);
+DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->accelerationIncludingGravity();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -122,8 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceMotionEvent.rotationRate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(v8_receiver);
+DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rotationRate();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -136,8 +134,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceMotionEvent.interval.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(v8_receiver);
+DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->interval();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -150,8 +149,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceMotionEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(v8_receiver);
+DeviceMotionEvent* blink_receiver = V8DeviceMotionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

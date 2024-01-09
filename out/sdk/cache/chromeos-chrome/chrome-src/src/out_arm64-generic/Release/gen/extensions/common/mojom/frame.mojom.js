@@ -31,6 +31,12 @@
     mojo.internal.loadMojomIfNecessary(
         'extensions/common/mojom/code_injection.mojom', 'code_injection.mojom.js');
   }
+  var context_type$ =
+      mojo.internal.exposeNamespace('extensions.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'extensions/common/mojom/context_type.mojom', 'context_type.mojom.js');
+  }
   var extra_response_data$ =
       mojo.internal.exposeNamespace('extensions.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -48,6 +54,12 @@
   if (mojo.config.autoLoadMojomDeps) {
     mojo.internal.loadMojomIfNecessary(
         'extensions/common/mojom/injection_type.mojom', 'injection_type.mojom.js');
+  }
+  var message_port$ =
+      mojo.internal.exposeNamespace('extensions.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'extensions/common/mojom/message_port.mojom', 'message_port.mojom.js');
   }
   var run_location$ =
       mojo.internal.exposeNamespace('extensions.mojom');
@@ -99,48 +111,6 @@
   }
 
 
-  var ContextType = {};
-  ContextType.kPrivilegedExtension = 0;
-  ContextType.kUnprivilegedExtension = 1;
-  ContextType.kContentScript = 2;
-  ContextType.kWebPage = 3;
-  ContextType.kPrivilegedWebPage = 4;
-  ContextType.kWebUi = 5;
-  ContextType.kUntrustedWebUi = 6;
-  ContextType.kLockscreenExtension = 7;
-  ContextType.kOffscreenExtension = 8;
-  ContextType.kUserScript = 9;
-  ContextType.MIN_VALUE = 0;
-  ContextType.MAX_VALUE = 9;
-
-  ContextType.isKnownEnumValue = function(value) {
-    switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-      return true;
-    }
-    return false;
-  };
-
-  ContextType.toKnownEnumValue = function(value) {
-    return value;
-  };
-
-  ContextType.validate = function(enumValue) {
-    const isExtensible = false;
-    if (isExtensible || this.isKnownEnumValue(enumValue))
-      return validator.validationError.NONE;
-
-    return validator.validationError.UNKNOWN_ENUM_VALUE;
-  };
 
   function ExecuteCodeParams(values) {
     this.initDefaults_();
@@ -309,7 +279,7 @@
 
 
     // validate RequestParams.contextType
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 32, ContextType);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 32, context_type$.ContextType);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -337,7 +307,7 @@
     val.sourceUrl =
         decoder.decodeStructPointer(url$.Url);
     val.contextType =
-        decoder.decodeStruct(new codec.Enum(ContextType));
+        decoder.decodeStruct(new codec.Enum(context_type$.ContextType));
     val.requestId =
         decoder.decodeStruct(codec.Int32);
     packed = decoder.readUint8();
@@ -1124,6 +1094,189 @@
     encoder.writeUint32(LocalFrame_UpdateBrowserWindowId_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.Int32, val.windowId);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function LocalFrame_DispatchOnConnect_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  LocalFrame_DispatchOnConnect_Params.prototype.initDefaults_ = function() {
+    this.portId = null;
+    this.channelType = 0;
+    this.port = new associatedBindings.AssociatedInterfaceRequest();
+    this.channelName = null;
+    this.tabInfo = null;
+    this.externalConnectionInfo = null;
+    this.portHost = new associatedBindings.AssociatedInterfacePtrInfo();
+  };
+  LocalFrame_DispatchOnConnect_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  LocalFrame_DispatchOnConnect_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 56}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrame_DispatchOnConnect_Params.portId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, message_port$.PortId, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrame_DispatchOnConnect_Params.channelType
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 8, message_port$.ChannelType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrame_DispatchOnConnect_Params.channelName
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrame_DispatchOnConnect_Params.tabInfo
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, message_port$.TabConnectionInfo, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrame_DispatchOnConnect_Params.externalConnectionInfo
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, message_port$.ExternalConnectionInfo, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrame_DispatchOnConnect_Params.port
+    err = messageValidator.validateAssociatedInterfaceRequest(offset + codec.kStructHeaderSize + 12, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrame_DispatchOnConnect_Params.portHost
+    err = messageValidator.validateAssociatedInterface(offset + codec.kStructHeaderSize + 40, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  LocalFrame_DispatchOnConnect_Params.encodedSize = codec.kStructHeaderSize + 48;
+
+  LocalFrame_DispatchOnConnect_Params.decode = function(decoder) {
+    var packed;
+    var val = new LocalFrame_DispatchOnConnect_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.portId =
+        decoder.decodeStructPointer(message_port$.PortId);
+    val.channelType =
+        decoder.decodeStruct(new codec.Enum(message_port$.ChannelType));
+    val.port =
+        decoder.decodeStruct(codec.AssociatedInterfaceRequest);
+    val.channelName =
+        decoder.decodeStruct(codec.String);
+    val.tabInfo =
+        decoder.decodeStructPointer(message_port$.TabConnectionInfo);
+    val.externalConnectionInfo =
+        decoder.decodeStructPointer(message_port$.ExternalConnectionInfo);
+    val.portHost =
+        decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
+    return val;
+  };
+
+  LocalFrame_DispatchOnConnect_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(LocalFrame_DispatchOnConnect_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(message_port$.PortId, val.portId);
+    encoder.encodeStruct(codec.Int32, val.channelType);
+    encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.port);
+    encoder.encodeStruct(codec.String, val.channelName);
+    encoder.encodeStructPointer(message_port$.TabConnectionInfo, val.tabInfo);
+    encoder.encodeStructPointer(message_port$.ExternalConnectionInfo, val.externalConnectionInfo);
+    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.portHost);
+  };
+  function LocalFrame_DispatchOnConnect_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  LocalFrame_DispatchOnConnect_ResponseParams.prototype.initDefaults_ = function() {
+    this.success = false;
+  };
+  LocalFrame_DispatchOnConnect_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  LocalFrame_DispatchOnConnect_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  LocalFrame_DispatchOnConnect_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  LocalFrame_DispatchOnConnect_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new LocalFrame_DispatchOnConnect_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.success = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  LocalFrame_DispatchOnConnect_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(LocalFrame_DispatchOnConnect_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.success & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
@@ -2003,6 +2156,322 @@
     encoder.writeUint32(LocalFrameHost_AppWindowReady_Params.encodedSize);
     encoder.writeUint32(0);
   };
+  function LocalFrameHost_OpenChannelToExtension_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  LocalFrameHost_OpenChannelToExtension_Params.prototype.initDefaults_ = function() {
+    this.info = null;
+    this.channelType = 0;
+    this.portHost = new associatedBindings.AssociatedInterfaceRequest();
+    this.channelName = null;
+    this.portId = null;
+    this.port = new associatedBindings.AssociatedInterfacePtrInfo();
+  };
+  LocalFrameHost_OpenChannelToExtension_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  LocalFrameHost_OpenChannelToExtension_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 48}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToExtension_Params.info
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, message_port$.ExternalConnectionInfo, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToExtension_Params.channelType
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 8, message_port$.ChannelType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToExtension_Params.channelName
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToExtension_Params.portId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, message_port$.PortId, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToExtension_Params.port
+    err = messageValidator.validateAssociatedInterface(offset + codec.kStructHeaderSize + 32, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToExtension_Params.portHost
+    err = messageValidator.validateAssociatedInterfaceRequest(offset + codec.kStructHeaderSize + 12, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  LocalFrameHost_OpenChannelToExtension_Params.encodedSize = codec.kStructHeaderSize + 40;
+
+  LocalFrameHost_OpenChannelToExtension_Params.decode = function(decoder) {
+    var packed;
+    var val = new LocalFrameHost_OpenChannelToExtension_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.info =
+        decoder.decodeStructPointer(message_port$.ExternalConnectionInfo);
+    val.channelType =
+        decoder.decodeStruct(new codec.Enum(message_port$.ChannelType));
+    val.portHost =
+        decoder.decodeStruct(codec.AssociatedInterfaceRequest);
+    val.channelName =
+        decoder.decodeStruct(codec.String);
+    val.portId =
+        decoder.decodeStructPointer(message_port$.PortId);
+    val.port =
+        decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
+    return val;
+  };
+
+  LocalFrameHost_OpenChannelToExtension_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(LocalFrameHost_OpenChannelToExtension_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(message_port$.ExternalConnectionInfo, val.info);
+    encoder.encodeStruct(codec.Int32, val.channelType);
+    encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.portHost);
+    encoder.encodeStruct(codec.String, val.channelName);
+    encoder.encodeStructPointer(message_port$.PortId, val.portId);
+    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.port);
+  };
+  function LocalFrameHost_OpenChannelToNativeApp_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  LocalFrameHost_OpenChannelToNativeApp_Params.prototype.initDefaults_ = function() {
+    this.nativeAppName = null;
+    this.portId = null;
+    this.port = new associatedBindings.AssociatedInterfacePtrInfo();
+    this.portHost = new associatedBindings.AssociatedInterfaceRequest();
+  };
+  LocalFrameHost_OpenChannelToNativeApp_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  LocalFrameHost_OpenChannelToNativeApp_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 40}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToNativeApp_Params.nativeAppName
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToNativeApp_Params.portId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, message_port$.PortId, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToNativeApp_Params.port
+    err = messageValidator.validateAssociatedInterface(offset + codec.kStructHeaderSize + 16, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToNativeApp_Params.portHost
+    err = messageValidator.validateAssociatedInterfaceRequest(offset + codec.kStructHeaderSize + 24, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  LocalFrameHost_OpenChannelToNativeApp_Params.encodedSize = codec.kStructHeaderSize + 32;
+
+  LocalFrameHost_OpenChannelToNativeApp_Params.decode = function(decoder) {
+    var packed;
+    var val = new LocalFrameHost_OpenChannelToNativeApp_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.nativeAppName =
+        decoder.decodeStruct(codec.String);
+    val.portId =
+        decoder.decodeStructPointer(message_port$.PortId);
+    val.port =
+        decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
+    val.portHost =
+        decoder.decodeStruct(codec.AssociatedInterfaceRequest);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  LocalFrameHost_OpenChannelToNativeApp_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(LocalFrameHost_OpenChannelToNativeApp_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.nativeAppName);
+    encoder.encodeStructPointer(message_port$.PortId, val.portId);
+    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.port);
+    encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.portHost);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function LocalFrameHost_OpenChannelToTab_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  LocalFrameHost_OpenChannelToTab_Params.prototype.initDefaults_ = function() {
+    this.tabId = 0;
+    this.frameId = 0;
+    this.documentId = null;
+    this.channelType = 0;
+    this.portHost = new associatedBindings.AssociatedInterfaceRequest();
+    this.channelName = null;
+    this.portId = null;
+    this.port = new associatedBindings.AssociatedInterfacePtrInfo();
+  };
+  LocalFrameHost_OpenChannelToTab_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  LocalFrameHost_OpenChannelToTab_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 56}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // validate LocalFrameHost_OpenChannelToTab_Params.documentId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToTab_Params.channelType
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 16, message_port$.ChannelType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToTab_Params.channelName
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToTab_Params.portId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, message_port$.PortId, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToTab_Params.port
+    err = messageValidator.validateAssociatedInterface(offset + codec.kStructHeaderSize + 40, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LocalFrameHost_OpenChannelToTab_Params.portHost
+    err = messageValidator.validateAssociatedInterfaceRequest(offset + codec.kStructHeaderSize + 20, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  LocalFrameHost_OpenChannelToTab_Params.encodedSize = codec.kStructHeaderSize + 48;
+
+  LocalFrameHost_OpenChannelToTab_Params.decode = function(decoder) {
+    var packed;
+    var val = new LocalFrameHost_OpenChannelToTab_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.tabId =
+        decoder.decodeStruct(codec.Int32);
+    val.frameId =
+        decoder.decodeStruct(codec.Int32);
+    val.documentId =
+        decoder.decodeStruct(codec.NullableString);
+    val.channelType =
+        decoder.decodeStruct(new codec.Enum(message_port$.ChannelType));
+    val.portHost =
+        decoder.decodeStruct(codec.AssociatedInterfaceRequest);
+    val.channelName =
+        decoder.decodeStruct(codec.String);
+    val.portId =
+        decoder.decodeStructPointer(message_port$.PortId);
+    val.port =
+        decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
+    return val;
+  };
+
+  LocalFrameHost_OpenChannelToTab_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(LocalFrameHost_OpenChannelToTab_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.tabId);
+    encoder.encodeStruct(codec.Int32, val.frameId);
+    encoder.encodeStruct(codec.NullableString, val.documentId);
+    encoder.encodeStruct(codec.Int32, val.channelType);
+    encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.portHost);
+    encoder.encodeStruct(codec.String, val.channelName);
+    encoder.encodeStructPointer(message_port$.PortId, val.portId);
+    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.port);
+  };
   var kLocalFrame_SetFrameName_Name = 0;
   var kLocalFrame_SetSpatialNavigationEnabled_Name = 1;
   var kLocalFrame_SetTabId_Name = 2;
@@ -2012,6 +2481,7 @@
   var kLocalFrame_ExecuteCode_Name = 6;
   var kLocalFrame_ExecuteDeclarativeScript_Name = 7;
   var kLocalFrame_UpdateBrowserWindowId_Name = 8;
+  var kLocalFrame_DispatchOnConnect_Name = 9;
 
   function LocalFramePtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(LocalFrame,
@@ -2182,6 +2652,37 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  LocalFramePtr.prototype.dispatchOnConnect = function() {
+    return LocalFrameProxy.prototype.dispatchOnConnect
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  LocalFrameProxy.prototype.dispatchOnConnect = function(portId, channelType, channelName, tabInfo, externalConnectionInfo, port, portHost) {
+    var params_ = new LocalFrame_DispatchOnConnect_Params();
+    params_.portId = portId;
+    params_.channelType = channelType;
+    params_.channelName = channelName;
+    params_.tabInfo = tabInfo;
+    params_.externalConnectionInfo = externalConnectionInfo;
+    params_.port = port;
+    params_.portHost = portHost;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV2Builder(
+          kLocalFrame_DispatchOnConnect_Name,
+          codec.align(LocalFrame_DispatchOnConnect_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.setPayload(LocalFrame_DispatchOnConnect_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(LocalFrame_DispatchOnConnect_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
 
   function LocalFrameStub(delegate) {
     this.delegate_ = delegate;
@@ -2212,6 +2713,9 @@
   }
   LocalFrameStub.prototype.updateBrowserWindowId = function(windowId) {
     return this.delegate_ && this.delegate_.updateBrowserWindowId && this.delegate_.updateBrowserWindowId(windowId);
+  }
+  LocalFrameStub.prototype.dispatchOnConnect = function(portId, channelType, channelName, tabInfo, externalConnectionInfo, port, portHost) {
+    return this.delegate_ && this.delegate_.dispatchOnConnect && this.delegate_.dispatchOnConnect(portId, channelType, channelName, tabInfo, externalConnectionInfo, port, portHost);
   }
 
   LocalFrameStub.prototype.accept = function(message) {
@@ -2276,6 +2780,23 @@
         responder.accept(message);
       });
       return true;
+    case kLocalFrame_DispatchOnConnect_Name:
+      var params = reader.decodeStruct(LocalFrame_DispatchOnConnect_Params);
+      this.dispatchOnConnect(params.portId, params.channelType, params.channelName, params.tabInfo, params.externalConnectionInfo, params.port, params.portHost).then(function(response) {
+        var responseParams =
+            new LocalFrame_DispatchOnConnect_ResponseParams();
+        responseParams.success = response.success;
+        var builder = new codec.MessageV2Builder(
+            kLocalFrame_DispatchOnConnect_Name,
+            codec.align(LocalFrame_DispatchOnConnect_ResponseParams
+                .encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.setPayload(LocalFrame_DispatchOnConnect_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -2321,6 +2842,10 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = LocalFrame_UpdateBrowserWindowId_Params;
       break;
+      case kLocalFrame_DispatchOnConnect_Name:
+        if (message.expectsResponse())
+          paramsClass = LocalFrame_DispatchOnConnect_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -2334,6 +2859,10 @@
       case kLocalFrame_ExecuteCode_Name:
         if (message.isResponse())
           paramsClass = LocalFrame_ExecuteCode_ResponseParams;
+        break;
+      case kLocalFrame_DispatchOnConnect_Name:
+        if (message.isResponse())
+          paramsClass = LocalFrame_DispatchOnConnect_ResponseParams;
         break;
     }
     if (paramsClass === null)
@@ -2363,6 +2892,9 @@
   var kLocalFrameHost_DecrementLazyKeepaliveCount_Name = 8;
   var kLocalFrameHost_UpdateDraggableRegions_Name = 9;
   var kLocalFrameHost_AppWindowReady_Name = 10;
+  var kLocalFrameHost_OpenChannelToExtension_Name = 11;
+  var kLocalFrameHost_OpenChannelToNativeApp_Name = 12;
+  var kLocalFrameHost_OpenChannelToTab_Name = 13;
 
   function LocalFrameHostPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(LocalFrameHost,
@@ -2580,6 +3112,66 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  LocalFrameHostPtr.prototype.openChannelToExtension = function() {
+    return LocalFrameHostProxy.prototype.openChannelToExtension
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  LocalFrameHostProxy.prototype.openChannelToExtension = function(info, channelType, channelName, portId, port, portHost) {
+    var params_ = new LocalFrameHost_OpenChannelToExtension_Params();
+    params_.info = info;
+    params_.channelType = channelType;
+    params_.channelName = channelName;
+    params_.portId = portId;
+    params_.port = port;
+    params_.portHost = portHost;
+    var builder = new codec.MessageV2Builder(
+        kLocalFrameHost_OpenChannelToExtension_Name,
+        codec.align(LocalFrameHost_OpenChannelToExtension_Params.encodedSize));
+    builder.setPayload(LocalFrameHost_OpenChannelToExtension_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  LocalFrameHostPtr.prototype.openChannelToNativeApp = function() {
+    return LocalFrameHostProxy.prototype.openChannelToNativeApp
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  LocalFrameHostProxy.prototype.openChannelToNativeApp = function(nativeAppName, portId, port, portHost) {
+    var params_ = new LocalFrameHost_OpenChannelToNativeApp_Params();
+    params_.nativeAppName = nativeAppName;
+    params_.portId = portId;
+    params_.port = port;
+    params_.portHost = portHost;
+    var builder = new codec.MessageV2Builder(
+        kLocalFrameHost_OpenChannelToNativeApp_Name,
+        codec.align(LocalFrameHost_OpenChannelToNativeApp_Params.encodedSize));
+    builder.setPayload(LocalFrameHost_OpenChannelToNativeApp_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  LocalFrameHostPtr.prototype.openChannelToTab = function() {
+    return LocalFrameHostProxy.prototype.openChannelToTab
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  LocalFrameHostProxy.prototype.openChannelToTab = function(tabId, frameId, documentId, channelType, channelName, portId, port, portHost) {
+    var params_ = new LocalFrameHost_OpenChannelToTab_Params();
+    params_.tabId = tabId;
+    params_.frameId = frameId;
+    params_.documentId = documentId;
+    params_.channelType = channelType;
+    params_.channelName = channelName;
+    params_.portId = portId;
+    params_.port = port;
+    params_.portHost = portHost;
+    var builder = new codec.MessageV2Builder(
+        kLocalFrameHost_OpenChannelToTab_Name,
+        codec.align(LocalFrameHost_OpenChannelToTab_Params.encodedSize));
+    builder.setPayload(LocalFrameHost_OpenChannelToTab_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function LocalFrameHostStub(delegate) {
     this.delegate_ = delegate;
@@ -2617,6 +3209,15 @@
   LocalFrameHostStub.prototype.appWindowReady = function() {
     return this.delegate_ && this.delegate_.appWindowReady && this.delegate_.appWindowReady();
   }
+  LocalFrameHostStub.prototype.openChannelToExtension = function(info, channelType, channelName, portId, port, portHost) {
+    return this.delegate_ && this.delegate_.openChannelToExtension && this.delegate_.openChannelToExtension(info, channelType, channelName, portId, port, portHost);
+  }
+  LocalFrameHostStub.prototype.openChannelToNativeApp = function(nativeAppName, portId, port, portHost) {
+    return this.delegate_ && this.delegate_.openChannelToNativeApp && this.delegate_.openChannelToNativeApp(nativeAppName, portId, port, portHost);
+  }
+  LocalFrameHostStub.prototype.openChannelToTab = function(tabId, frameId, documentId, channelType, channelName, portId, port, portHost) {
+    return this.delegate_ && this.delegate_.openChannelToTab && this.delegate_.openChannelToTab(tabId, frameId, documentId, channelType, channelName, portId, port, portHost);
+  }
 
   LocalFrameHostStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
@@ -2652,6 +3253,18 @@
     case kLocalFrameHost_AppWindowReady_Name:
       var params = reader.decodeStruct(LocalFrameHost_AppWindowReady_Params);
       this.appWindowReady();
+      return true;
+    case kLocalFrameHost_OpenChannelToExtension_Name:
+      var params = reader.decodeStruct(LocalFrameHost_OpenChannelToExtension_Params);
+      this.openChannelToExtension(params.info, params.channelType, params.channelName, params.portId, params.port, params.portHost);
+      return true;
+    case kLocalFrameHost_OpenChannelToNativeApp_Name:
+      var params = reader.decodeStruct(LocalFrameHost_OpenChannelToNativeApp_Params);
+      this.openChannelToNativeApp(params.nativeAppName, params.portId, params.port, params.portHost);
+      return true;
+    case kLocalFrameHost_OpenChannelToTab_Name:
+      var params = reader.decodeStruct(LocalFrameHost_OpenChannelToTab_Params);
+      this.openChannelToTab(params.tabId, params.frameId, params.documentId, params.channelType, params.channelName, params.portId, params.port, params.portHost);
       return true;
     default:
       return false;
@@ -2766,6 +3379,18 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = LocalFrameHost_AppWindowReady_Params;
       break;
+      case kLocalFrameHost_OpenChannelToExtension_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = LocalFrameHost_OpenChannelToExtension_Params;
+      break;
+      case kLocalFrameHost_OpenChannelToNativeApp_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = LocalFrameHost_OpenChannelToNativeApp_Params;
+      break;
+      case kLocalFrameHost_OpenChannelToTab_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = LocalFrameHost_OpenChannelToTab_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -2805,7 +3430,6 @@
   };
   LocalFrameHostStub.prototype.validator = validateLocalFrameHostRequest;
   LocalFrameHostProxy.prototype.validator = validateLocalFrameHostResponse;
-  exports.ContextType = ContextType;
   exports.ExecuteCodeParams = ExecuteCodeParams;
   exports.RequestParams = RequestParams;
   exports.DraggableRegion = DraggableRegion;

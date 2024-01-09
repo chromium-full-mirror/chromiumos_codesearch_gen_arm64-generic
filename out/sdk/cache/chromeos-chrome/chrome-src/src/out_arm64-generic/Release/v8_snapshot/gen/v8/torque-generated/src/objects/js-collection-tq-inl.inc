@@ -1,11 +1,11 @@
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=8&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedJSCollection<D, P>::table() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedJSCollection::table(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=8&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedJSCollection<D, P>::table(PtrComprCageBase cage_base) const {
   Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kTableOffset);
@@ -13,7 +13,7 @@ Tagged<Object> TorqueGeneratedJSCollection<D, P>::table(PtrComprCageBase cage_ba
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=8&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=3
 template<class D, class P>
 void TorqueGeneratedJSCollection<D, P>::set_table(Tagged<Object> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsHeapObject(value) || IsSmi(value));
@@ -32,7 +32,7 @@ inline TorqueGeneratedJSCollection<D, P>::TorqueGeneratedJSCollection(Address pt
     : P(ptr) {
   SLOW_DCHECK(IsJSCollection_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=12&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedJSSet<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -43,7 +43,7 @@ inline TorqueGeneratedJSSet<D, P>::TorqueGeneratedJSSet(Address ptr)
     : P(ptr) {
   SLOW_DCHECK(IsJSSet_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=11&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=13&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedJSMap<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -54,14 +54,14 @@ inline TorqueGeneratedJSMap<D, P>::TorqueGeneratedJSMap(Address ptr)
     : P(ptr) {
   SLOW_DCHECK(IsJSMap_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=16&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedJSWeakCollection<D, P>::table() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedJSWeakCollection::table(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=16&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedJSWeakCollection<D, P>::table(PtrComprCageBase cage_base) const {
   Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kTableOffset);
@@ -69,7 +69,7 @@ Tagged<Object> TorqueGeneratedJSWeakCollection<D, P>::table(PtrComprCageBase cag
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=16&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=3
 template<class D, class P>
 void TorqueGeneratedJSWeakCollection<D, P>::set_table(Tagged<Object> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsHeapObject(value) || IsSmi(value));
@@ -77,7 +77,7 @@ void TorqueGeneratedJSWeakCollection<D, P>::set_table(Tagged<Object> value, Writ
   CONDITIONAL_WRITE_BARRIER(*this, kTableOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=13&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=15&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedJSWeakCollection<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -88,7 +88,7 @@ inline TorqueGeneratedJSWeakCollection<D, P>::TorqueGeneratedJSWeakCollection(Ad
     : P(ptr) {
   SLOW_DCHECK(IsJSWeakCollection_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=20&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedJSWeakSet<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -99,7 +99,7 @@ inline TorqueGeneratedJSWeakSet<D, P>::TorqueGeneratedJSWeakSet(Address ptr)
     : P(ptr) {
   SLOW_DCHECK(IsJSWeakSet_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=19&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=21&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedJSWeakMap<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));

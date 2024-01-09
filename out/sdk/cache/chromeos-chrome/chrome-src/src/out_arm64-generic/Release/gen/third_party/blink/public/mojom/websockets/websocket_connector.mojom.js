@@ -57,6 +57,7 @@
     this.requestedProtocols = null;
     this.siteForCookies = null;
     this.userAgent = null;
+    this.hasStorageAccess = false;
     this.handshakeClient = new websocket$.WebSocketHandshakeClientPtr();
     this.throttlingProfileId = null;
   };
@@ -74,7 +75,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 56}
+      {version: 0, numBytes: 64}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -105,21 +106,22 @@
         return err;
 
 
+
     // validate WebSocketConnector_Connect_Params.handshakeClient
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 32, false);
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 36, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate WebSocketConnector_Connect_Params.throttlingProfileId
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, unguessable_token$.UnguessableToken, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, unguessable_token$.UnguessableToken, true);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  WebSocketConnector_Connect_Params.encodedSize = codec.kStructHeaderSize + 48;
+  WebSocketConnector_Connect_Params.encodedSize = codec.kStructHeaderSize + 56;
 
   WebSocketConnector_Connect_Params.decode = function(decoder) {
     var packed;
@@ -134,8 +136,17 @@
         decoder.decodeStructPointer(site_for_cookies$.SiteForCookies);
     val.userAgent =
         decoder.decodeStruct(codec.NullableString);
+    packed = decoder.readUint8();
+    val.hasStorageAccess = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     val.handshakeClient =
         decoder.decodeStruct(new codec.Interface(websocket$.WebSocketHandshakeClientPtr));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     val.throttlingProfileId =
         decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
     return val;
@@ -149,7 +160,17 @@
     encoder.encodeArrayPointer(codec.String, val.requestedProtocols);
     encoder.encodeStructPointer(site_for_cookies$.SiteForCookies, val.siteForCookies);
     encoder.encodeStruct(codec.NullableString, val.userAgent);
+    packed = 0;
+    packed |= (val.hasStorageAccess & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.encodeStruct(new codec.Interface(websocket$.WebSocketHandshakeClientPtr), val.handshakeClient);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.throttlingProfileId);
   };
   var kWebSocketConnector_Connect_Name = 0;
@@ -177,12 +198,13 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  WebSocketConnectorProxy.prototype.connect = function(url, requestedProtocols, siteForCookies, userAgent, handshakeClient, throttlingProfileId) {
+  WebSocketConnectorProxy.prototype.connect = function(url, requestedProtocols, siteForCookies, userAgent, hasStorageAccess, handshakeClient, throttlingProfileId) {
     var params_ = new WebSocketConnector_Connect_Params();
     params_.url = url;
     params_.requestedProtocols = requestedProtocols;
     params_.siteForCookies = siteForCookies;
     params_.userAgent = userAgent;
+    params_.hasStorageAccess = hasStorageAccess;
     params_.handshakeClient = handshakeClient;
     params_.throttlingProfileId = throttlingProfileId;
     var builder = new codec.MessageV0Builder(
@@ -196,8 +218,8 @@
   function WebSocketConnectorStub(delegate) {
     this.delegate_ = delegate;
   }
-  WebSocketConnectorStub.prototype.connect = function(url, requestedProtocols, siteForCookies, userAgent, handshakeClient, throttlingProfileId) {
-    return this.delegate_ && this.delegate_.connect && this.delegate_.connect(url, requestedProtocols, siteForCookies, userAgent, handshakeClient, throttlingProfileId);
+  WebSocketConnectorStub.prototype.connect = function(url, requestedProtocols, siteForCookies, userAgent, hasStorageAccess, handshakeClient, throttlingProfileId) {
+    return this.delegate_ && this.delegate_.connect && this.delegate_.connect(url, requestedProtocols, siteForCookies, userAgent, hasStorageAccess, handshakeClient, throttlingProfileId);
   }
 
   WebSocketConnectorStub.prototype.accept = function(message) {
@@ -205,7 +227,7 @@
     switch (reader.messageName) {
     case kWebSocketConnector_Connect_Name:
       var params = reader.decodeStruct(WebSocketConnector_Connect_Params);
-      this.connect(params.url, params.requestedProtocols, params.siteForCookies, params.userAgent, params.handshakeClient, params.throttlingProfileId);
+      this.connect(params.url, params.requestedProtocols, params.siteForCookies, params.userAgent, params.hasStorageAccess, params.handshakeClient, params.throttlingProfileId);
       return true;
     default:
       return false;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -298,14 +299,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -393,10 +397,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -529,14 +533,17 @@ void PageHandlerProxy::GetServiceStatus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send segmentation_internals::mojom::PageHandler::GetServiceStatus");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetServiceStatus_Name, kFlags, 0, 0, nullptr);
@@ -566,14 +573,17 @@ void PageHandlerProxy::ExecuteModel(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ExecuteModel_Name, kFlags, 0, 0, nullptr);
@@ -607,14 +617,17 @@ void PageHandlerProxy::OverwriteResult(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OverwriteResult_Name, kFlags, 0, 0, nullptr);
@@ -649,14 +662,17 @@ void PageHandlerProxy::SetSelected(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetSelected_Name, kFlags, 0, 0, nullptr);
@@ -827,16 +843,16 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetServiceStatus_Params_Data::Validate,
+    { &internal::PageHandler_GetServiceStatus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ExecuteModel_Params_Data::Validate,
+    { &internal::PageHandler_ExecuteModel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OverwriteResult_Params_Data::Validate,
+    { &internal::PageHandler_OverwriteResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetSelected_Params_Data::Validate,
+    { &internal::PageHandler_SetSelected_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -939,14 +955,17 @@ void PageProxy::OnServiceStatusChanged(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnServiceStatusChanged_Name, kFlags, 0, 0, nullptr);
@@ -978,14 +997,17 @@ void PageProxy::OnClientInfoAvailable(
                         "<value of type std::vector<ClientInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnClientInfoAvailable_Name, kFlags, 0, 0, nullptr);
@@ -1099,12 +1121,12 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_OnServiceStatusChanged_Params_Data::Validate,
+    { &internal::Page_OnServiceStatusChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnClientInfoAvailable_Params_Data::Validate,
+    { &internal::Page_OnClientInfoAvailable_Params_Data::Validate,
      nullptr /* no response */},
 };
 

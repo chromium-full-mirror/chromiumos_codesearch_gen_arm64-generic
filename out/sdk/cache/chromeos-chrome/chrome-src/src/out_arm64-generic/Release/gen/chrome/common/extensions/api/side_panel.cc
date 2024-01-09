@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/side_panel.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -40,8 +41,8 @@ SidePanel::SidePanel()
  {}
 
 SidePanel::~SidePanel() = default;
-SidePanel::SidePanel(SidePanel&& rhs) = default;
-SidePanel& SidePanel::operator=(SidePanel&& rhs) = default;
+SidePanel::SidePanel(SidePanel&& rhs) noexcept = default;
+SidePanel& SidePanel::operator=(SidePanel&& rhs) noexcept = default;
 // static
 constexpr char SidePanel::kDefaultPath[];
 
@@ -79,34 +80,21 @@ bool SidePanel::Populate(
 }
 
 // static
-std::unique_ptr<SidePanel> SidePanel::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SidePanel>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SidePanel> SidePanel::FromValue(const base::Value::Dict& value) {
+  SidePanel out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SidePanel> SidePanel::FromValue(const base::Value::Dict& value) {
+std::optional<SidePanel> SidePanel::FromValue(const base::Value& value) {
   SidePanel out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SidePanel> SidePanel::FromValue(const base::Value& value) {
-  SidePanel out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -141,8 +129,8 @@ PanelOptions::PanelOptions()
  {}
 
 PanelOptions::~PanelOptions() = default;
-PanelOptions::PanelOptions(PanelOptions&& rhs) = default;
-PanelOptions& PanelOptions::operator=(PanelOptions&& rhs) = default;
+PanelOptions::PanelOptions(PanelOptions&& rhs) noexcept = default;
+PanelOptions& PanelOptions::operator=(PanelOptions&& rhs) noexcept = default;
 PanelOptions PanelOptions::Clone() const {
   PanelOptions out;
   out.tab_id = tab_id;
@@ -159,7 +147,7 @@ bool PanelOptions::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -171,7 +159,7 @@ bool PanelOptions::Populate(
     {
       auto* temp = (*path_value).GetIfString();
       if (!temp) {
-        out.path = absl::nullopt;
+        out.path = std::nullopt;
         return false;
       }
       out.path = *temp;
@@ -183,7 +171,7 @@ bool PanelOptions::Populate(
     {
       auto temp = (*enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enabled = absl::nullopt;
+        out.enabled = std::nullopt;
         return false;
       }
       out.enabled = *temp;
@@ -203,34 +191,21 @@ bool PanelOptions::Populate(
 }
 
 // static
-std::unique_ptr<PanelOptions> PanelOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PanelOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PanelOptions> PanelOptions::FromValue(const base::Value::Dict& value) {
+  PanelOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PanelOptions> PanelOptions::FromValue(const base::Value::Dict& value) {
+std::optional<PanelOptions> PanelOptions::FromValue(const base::Value& value) {
   PanelOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PanelOptions> PanelOptions::FromValue(const base::Value& value) {
-  PanelOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -259,8 +234,8 @@ PanelBehavior::PanelBehavior()
  {}
 
 PanelBehavior::~PanelBehavior() = default;
-PanelBehavior::PanelBehavior(PanelBehavior&& rhs) = default;
-PanelBehavior& PanelBehavior::operator=(PanelBehavior&& rhs) = default;
+PanelBehavior::PanelBehavior(PanelBehavior&& rhs) noexcept = default;
+PanelBehavior& PanelBehavior::operator=(PanelBehavior&& rhs) noexcept = default;
 PanelBehavior PanelBehavior::Clone() const {
   PanelBehavior out;
   out.open_panel_on_action_click = open_panel_on_action_click;
@@ -275,7 +250,7 @@ bool PanelBehavior::Populate(
     {
       auto temp = (*open_panel_on_action_click_value).GetIfBool();
       if (!temp.has_value()) {
-        out.open_panel_on_action_click = absl::nullopt;
+        out.open_panel_on_action_click = std::nullopt;
         return false;
       }
       out.open_panel_on_action_click = *temp;
@@ -295,34 +270,21 @@ bool PanelBehavior::Populate(
 }
 
 // static
-std::unique_ptr<PanelBehavior> PanelBehavior::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PanelBehavior>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PanelBehavior> PanelBehavior::FromValue(const base::Value::Dict& value) {
+  PanelBehavior out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PanelBehavior> PanelBehavior::FromValue(const base::Value::Dict& value) {
+std::optional<PanelBehavior> PanelBehavior::FromValue(const base::Value& value) {
   PanelBehavior out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PanelBehavior> PanelBehavior::FromValue(const base::Value& value) {
-  PanelBehavior out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -343,8 +305,8 @@ GetPanelOptions::GetPanelOptions()
  {}
 
 GetPanelOptions::~GetPanelOptions() = default;
-GetPanelOptions::GetPanelOptions(GetPanelOptions&& rhs) = default;
-GetPanelOptions& GetPanelOptions::operator=(GetPanelOptions&& rhs) = default;
+GetPanelOptions::GetPanelOptions(GetPanelOptions&& rhs) noexcept = default;
+GetPanelOptions& GetPanelOptions::operator=(GetPanelOptions&& rhs) noexcept = default;
 GetPanelOptions GetPanelOptions::Clone() const {
   GetPanelOptions out;
   out.tab_id = tab_id;
@@ -359,7 +321,7 @@ bool GetPanelOptions::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -379,34 +341,21 @@ bool GetPanelOptions::Populate(
 }
 
 // static
-std::unique_ptr<GetPanelOptions> GetPanelOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetPanelOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetPanelOptions> GetPanelOptions::FromValue(const base::Value::Dict& value) {
+  GetPanelOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetPanelOptions> GetPanelOptions::FromValue(const base::Value::Dict& value) {
+std::optional<GetPanelOptions> GetPanelOptions::FromValue(const base::Value& value) {
   GetPanelOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetPanelOptions> GetPanelOptions::FromValue(const base::Value& value) {
-  GetPanelOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -427,8 +376,8 @@ OpenOptions::OpenOptions()
  {}
 
 OpenOptions::~OpenOptions() = default;
-OpenOptions::OpenOptions(OpenOptions&& rhs) = default;
-OpenOptions& OpenOptions::operator=(OpenOptions&& rhs) = default;
+OpenOptions::OpenOptions(OpenOptions&& rhs) noexcept = default;
+OpenOptions& OpenOptions::operator=(OpenOptions&& rhs) noexcept = default;
 OpenOptions OpenOptions::Clone() const {
   OpenOptions out;
   out.window_id = window_id;
@@ -444,7 +393,7 @@ bool OpenOptions::Populate(
     {
       auto temp = (*window_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.window_id = absl::nullopt;
+        out.window_id = std::nullopt;
         return false;
       }
       out.window_id = *temp;
@@ -456,7 +405,7 @@ bool OpenOptions::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -476,34 +425,21 @@ bool OpenOptions::Populate(
 }
 
 // static
-std::unique_ptr<OpenOptions> OpenOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OpenOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OpenOptions> OpenOptions::FromValue(const base::Value::Dict& value) {
+  OpenOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OpenOptions> OpenOptions::FromValue(const base::Value::Dict& value) {
+std::optional<OpenOptions> OpenOptions::FromValue(const base::Value& value) {
   OpenOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OpenOptions> OpenOptions::FromValue(const base::Value& value) {
-  OpenOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -533,8 +469,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kSidePanel[];
 
@@ -561,13 +497,13 @@ namespace SetOptions {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -576,15 +512,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!PanelOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -602,13 +538,13 @@ namespace GetOptions {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -617,15 +553,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!GetPanelOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -645,13 +581,13 @@ namespace SetPanelBehavior {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -660,15 +596,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& behavior_value = args[0];
     {
       if (!behavior_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!PanelBehavior::Populate(behavior_value.GetDict(), params.behavior)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -697,13 +633,13 @@ namespace Open {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -712,15 +648,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!OpenOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -49,7 +49,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ResourceLoadInfoNotifie
   mojo::internal::Pointer<::url::mojom::internal::SchemeHostPort_Data> final_response_url;
   mojo::internal::Pointer<::network::mojom::internal::URLResponseHead_Data> head;
   int32_t request_destination;
-  uint8_t padfinal_[4];
+  uint8_t is_ad_resource : 1;
+  uint8_t padfinal_[3];
 
  private:
   friend class mojo::internal::MessageFragment<ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params_Data>;
@@ -209,6 +210,9 @@ class ResourceLoadInfoNotifier_NotifyResourceResponseReceived_ParamsDataView {
   ::network::mojom::RequestDestination request_destination() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::network::mojom::RequestDestination>(data_->request_destination));
+  }
+  bool is_ad_resource() const {
+    return data_->is_ad_resource;
   }
  private:
   internal::ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params_Data* data_ = nullptr;

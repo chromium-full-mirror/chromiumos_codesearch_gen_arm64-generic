@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -60,8 +61,8 @@ SharedQuadState::SharedQuadState(
     const ::gfx::Transform& quad_to_target_transform_in,
     const ::gfx::Rect& quad_layer_rect_in,
     const ::gfx::Rect& visible_quad_layer_rect_in,
-    const absl::optional<::gfx::MaskFilterInfo>& mask_filter_info_in,
-    const absl::optional<::gfx::Rect>& clip_rect_in,
+    const std::optional<::gfx::MaskFilterInfo>& mask_filter_info_in,
+    const std::optional<::gfx::Rect>& clip_rect_in,
     bool are_contents_opaque_in,
     float opacity_in,
     uint32_t blend_mode_in,
@@ -116,7 +117,7 @@ void SharedQuadState::WriteIntoTrace(
     dict.AddItem(
       "mask_filter_info"), this->mask_filter_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::MaskFilterInfo>&>"
+      "<value of type const std::optional<::gfx::MaskFilterInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -125,7 +126,7 @@ void SharedQuadState::WriteIntoTrace(
     dict.AddItem(
       "clip_rect"), this->clip_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

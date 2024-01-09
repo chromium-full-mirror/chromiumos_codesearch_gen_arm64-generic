@@ -250,121 +250,6 @@
     encoder.encodeStruct(codec.Double, val.maximumFrequency);
     encoder.encodeStruct(codec.Double, val.minimumFrequency);
   };
-  function NullableDouble(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  NullableDouble.prototype.initDefaults_ = function() {
-    this.value = 0;
-  };
-  NullableDouble.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  NullableDouble.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    return validator.validationError.NONE;
-  };
-
-  NullableDouble.encodedSize = codec.kStructHeaderSize + 8;
-
-  NullableDouble.decode = function(decoder) {
-    var packed;
-    var val = new NullableDouble();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.value =
-        decoder.decodeStruct(codec.Double);
-    return val;
-  };
-
-  NullableDouble.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(NullableDouble.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Double, val.value);
-  };
-  function NullableReportingMode(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  NullableReportingMode.prototype.initDefaults_ = function() {
-    this.value = 0;
-  };
-  NullableReportingMode.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  NullableReportingMode.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate NullableReportingMode.value
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, sensor$.ReportingMode);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  NullableReportingMode.encodedSize = codec.kStructHeaderSize + 8;
-
-  NullableReportingMode.decode = function(decoder) {
-    var packed;
-    var val = new NullableReportingMode();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.value =
-        decoder.decodeStruct(new codec.Enum(sensor$.ReportingMode));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  NullableReportingMode.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(NullableReportingMode.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.value);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
   function VirtualSensorMetadata(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -373,9 +258,12 @@
 
   VirtualSensorMetadata.prototype.initDefaults_ = function() {
     this.available = true;
-    this.maximumFrequency = null;
-    this.minimumFrequency = null;
-    this.reportingMode = null;
+    this.maximum_frequency_$flag = false;
+    this.minimum_frequency_$flag = false;
+    this.reporting_mode_$flag = false;
+    this.reporting_mode_$value = 0;
+    this.maximum_frequency_$value = 0;
+    this.minimum_frequency_$value = 0;
   };
   VirtualSensorMetadata.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -391,7 +279,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 40}
+      {version: 0, numBytes: 32}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -399,27 +287,20 @@
 
 
 
-    // validate VirtualSensorMetadata.maximumFrequency
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, NullableDouble, true);
-    if (err !== validator.validationError.NONE)
-        return err;
 
 
-    // validate VirtualSensorMetadata.minimumFrequency
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, NullableDouble, true);
-    if (err !== validator.validationError.NONE)
-        return err;
 
 
-    // validate VirtualSensorMetadata.reportingMode
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, NullableReportingMode, true);
+
+    // validate VirtualSensorMetadata.reporting_mode_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, sensor$.ReportingMode);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  VirtualSensorMetadata.encodedSize = codec.kStructHeaderSize + 32;
+  VirtualSensorMetadata.encodedSize = codec.kStructHeaderSize + 24;
 
   VirtualSensorMetadata.decode = function(decoder) {
     var packed;
@@ -428,19 +309,18 @@
     var version = decoder.readUint32();
     packed = decoder.readUint8();
     val.available = (packed >> 0) & 1 ? true : false;
+    val.maximum_frequency_$flag = (packed >> 1) & 1 ? true : false;
+    val.minimum_frequency_$flag = (packed >> 2) & 1 ? true : false;
+    val.reporting_mode_$flag = (packed >> 3) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    val.maximumFrequency =
-        decoder.decodeStructPointer(NullableDouble);
-    val.minimumFrequency =
-        decoder.decodeStructPointer(NullableDouble);
-    val.reportingMode =
-        decoder.decodeStructPointer(NullableReportingMode);
+    val.reporting_mode_$value =
+        decoder.decodeStruct(new codec.Enum(sensor$.ReportingMode));
+    val.maximum_frequency_$value =
+        decoder.decodeStruct(codec.Double);
+    val.minimum_frequency_$value =
+        decoder.decodeStruct(codec.Double);
     return val;
   };
 
@@ -450,17 +330,16 @@
     encoder.writeUint32(0);
     packed = 0;
     packed |= (val.available & 1) << 0
+    packed |= (val.maximum_frequency_$flag & 1) << 1
+    packed |= (val.minimum_frequency_$flag & 1) << 2
+    packed |= (val.reporting_mode_$flag & 1) << 3
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.encodeStructPointer(NullableDouble, val.maximumFrequency);
-    encoder.encodeStructPointer(NullableDouble, val.minimumFrequency);
-    encoder.encodeStructPointer(NullableReportingMode, val.reportingMode);
+    encoder.encodeStruct(codec.Int32, val.reporting_mode_$value);
+    encoder.encodeStruct(codec.Double, val.maximum_frequency_$value);
+    encoder.encodeStruct(codec.Double, val.minimum_frequency_$value);
   };
   function VirtualSensorInformation(values) {
     this.initDefaults_();
@@ -1654,8 +1533,6 @@
   exports.UpdateVirtualSensorResult = UpdateVirtualSensorResult;
   exports.GetVirtualSensorInformationError = GetVirtualSensorInformationError;
   exports.SensorInitParams = SensorInitParams;
-  exports.NullableDouble = NullableDouble;
-  exports.NullableReportingMode = NullableReportingMode;
   exports.VirtualSensorMetadata = VirtualSensorMetadata;
   exports.VirtualSensorInformation = VirtualSensorInformation;
   exports.GetVirtualSensorInformationResult = GetVirtualSensorInformationResult;

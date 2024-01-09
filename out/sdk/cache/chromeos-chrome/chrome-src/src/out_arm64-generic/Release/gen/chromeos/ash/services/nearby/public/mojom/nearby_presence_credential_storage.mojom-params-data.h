@@ -126,6 +126,39 @@ class  NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParams_Data
 };
 static_assert(sizeof(NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParams_Data) == 24,
               "Bad sizeof(NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParams_Data)");
+class  NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::nearby::presence::mojom::internal::LocalCredential_Data> local_credential;
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data>;
+
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data();
+  ~NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data() = delete;
+};
+static_assert(sizeof(NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data) == 16,
+              "Bad sizeof(NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data)");
+class  NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t status;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data>;
+
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data();
+  ~NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data) == 16,
+              "Bad sizeof(NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -332,6 +365,57 @@ static_assert(
   mojo::Message* message_ = nullptr;
 };
 
+
+class NearbyPresenceCredentialStorage_UpdateLocalCredential_ParamsDataView {
+ public:
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ParamsDataView() = default;
+
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ParamsDataView(
+      internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLocalCredentialDataView(
+      ::ash::nearby::presence::mojom::LocalCredentialDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocalCredential(UserType* output) {
+    
+    auto* pointer = data_->local_credential.Get();
+    return mojo::internal::Deserialize<::ash::nearby::presence::mojom::LocalCredentialDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParamsDataView {
+ public:
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParamsDataView() = default;
+
+  NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParamsDataView(
+      internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::mojo_base::mojom::AbslStatusCode>(
+        data_value, output);
+  }
+  ::mojo_base::mojom::AbslStatusCode status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::mojo_base::mojom::AbslStatusCode>(data_->status));
+  }
+ private:
+  internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void NearbyPresenceCredentialStorage_SaveCredentials_ParamsDataView::GetLocalCredentialsDataView(
     mojo::ArrayDataView<::ash::nearby::presence::mojom::LocalCredentialDataView>* output) {
   auto pointer = data_->local_credentials.Get();
@@ -362,6 +446,15 @@ inline void NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParams
   auto pointer = data_->local_credentials.Get();
   *output = mojo::ArrayDataView<::ash::nearby::presence::mojom::LocalCredentialDataView>(pointer, message_);
 }
+
+
+inline void NearbyPresenceCredentialStorage_UpdateLocalCredential_ParamsDataView::GetLocalCredentialDataView(
+    ::ash::nearby::presence::mojom::LocalCredentialDataView* output) {
+  auto pointer = data_->local_credential.Get();
+  *output = ::ash::nearby::presence::mojom::LocalCredentialDataView(pointer, message_);
+}
+
+
 
 
 

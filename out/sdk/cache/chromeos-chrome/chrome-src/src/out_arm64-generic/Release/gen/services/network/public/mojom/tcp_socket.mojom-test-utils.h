@@ -30,7 +30,7 @@ class  TCPBoundSocketAsyncWaiter {
       uint32_t backlog, ::mojo::PendingReceiver<TCPServerSocket> socket, int32_t* out_net_error);
   int32_t Listen(uint32_t backlog, ::mojo::PendingReceiver<TCPServerSocket> socket);
   void Connect(
-      const ::net::AddressList& remote_addr_list, TCPConnectedSocketOptionsPtr tcp_connected_socket_options, ::mojo::PendingReceiver<TCPConnectedSocket> socket, ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
+      const ::net::AddressList& remote_addr_list, TCPConnectedSocketOptionsPtr tcp_connected_socket_options, ::mojo::PendingReceiver<TCPConnectedSocket> socket, ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
   
 
  private:
@@ -55,7 +55,7 @@ class  TCPConnectedSocketAsyncWaiter {
 
   ~TCPConnectedSocketAsyncWaiter();
   void UpgradeToTLS(
-      const ::net::HostPortPair& host_port_pair, ::network::mojom::TLSClientSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TLSClientSocket> receiver, ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream, absl::optional<::net::SSLInfo>* out_ssl_info);
+      const ::net::HostPortPair& host_port_pair, ::network::mojom::TLSClientSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TLSClientSocket> receiver, ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream, std::optional<::net::SSLInfo>* out_ssl_info);
   
   void SetSendBufferSize(
       int32_t send_buffer_size, int32_t* out_net_error);
@@ -107,7 +107,7 @@ class  TCPServerSocketAsyncWaiter {
 
   ~TCPServerSocketAsyncWaiter();
   void Accept(
-      ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, absl::optional<::net::IPEndPoint>* out_remote_addr, ::mojo::PendingRemote<TCPConnectedSocket>* out_connected_socket, ::mojo::ScopedDataPipeConsumerHandle* out_send_stream, ::mojo::ScopedDataPipeProducerHandle* out_receive_stream);
+      ::mojo::PendingRemote<SocketObserver> observer, int32_t* out_net_error, std::optional<::net::IPEndPoint>* out_remote_addr, ::mojo::PendingRemote<TCPConnectedSocket>* out_connected_socket, ::mojo::ScopedDataPipeConsumerHandle* out_send_stream, ::mojo::ScopedDataPipeProducerHandle* out_receive_stream);
   
 
  private:

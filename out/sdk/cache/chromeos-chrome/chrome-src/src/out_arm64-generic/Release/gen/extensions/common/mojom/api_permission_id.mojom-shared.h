@@ -550,8 +550,14 @@ enum class APIPermissionID : int32_t {
   kUserScripts = 253,
   
   kChromeOSBluetoothPeripheralsInfo = 254,
+  
+  kEnterpriseKioskInput = 255,
+  
+  kOdfsConfigPrivate = 256,
+  
+  kChromeOSManagementAudio = 257,
   kMinValue = 0,
-  kMaxValue = 254,
+  kMaxValue = 257,
 };
 
  std::ostream& operator<<(std::ostream& os, APIPermissionID value);

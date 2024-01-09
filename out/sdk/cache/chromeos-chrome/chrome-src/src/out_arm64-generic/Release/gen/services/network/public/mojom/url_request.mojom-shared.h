@@ -588,8 +588,8 @@ static_assert(
   bool ad_auction_headers() const {
     return data_->ad_auction_headers;
   }
-  bool shared_storage_writable() const {
-    return data_->shared_storage_writable;
+  bool shared_storage_writable_eligible() const {
+    return data_->shared_storage_writable_eligible;
   }
   bool has_user_gesture() const {
     return data_->has_user_gesture;
@@ -929,6 +929,9 @@ static_assert(
     auto* pointer = data_->attribution_reporting_src_token.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
         pointer, output, message_);
+  }
+  bool is_ad_tagged() const {
+    return data_->is_ad_tagged;
   }
   bool shared_dictionary_writer_enabled() const {
     return data_->shared_dictionary_writer_enabled;
@@ -1484,7 +1487,7 @@ struct Serializer<::network::mojom::URLRequestDataView, MaybeConstUserType> {
     fragment->keepalive = Traits::keepalive(input);
     fragment->browsing_topics = Traits::browsing_topics(input);
     fragment->ad_auction_headers = Traits::ad_auction_headers(input);
-    fragment->shared_storage_writable = Traits::shared_storage_writable(input);
+    fragment->shared_storage_writable_eligible = Traits::shared_storage_writable_eligible(input);
     fragment->has_user_gesture = Traits::has_user_gesture(input);
     fragment->enable_load_timing = Traits::enable_load_timing(input);
     fragment->enable_upload_progress = Traits::enable_upload_progress(input);
@@ -1618,6 +1621,7 @@ struct Serializer<::network::mojom::URLRequestDataView, MaybeConstUserType> {
         in_attribution_reporting_src_token, attribution_reporting_src_token_fragment);
     fragment->attribution_reporting_src_token.Set(
         attribution_reporting_src_token_fragment.is_null() ? nullptr : attribution_reporting_src_token_fragment.data());
+    fragment->is_ad_tagged = Traits::is_ad_tagged(input);
     fragment->shared_dictionary_writer_enabled = Traits::shared_dictionary_writer_enabled(input);
   }
 

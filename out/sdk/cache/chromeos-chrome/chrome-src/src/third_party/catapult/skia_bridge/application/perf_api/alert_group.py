@@ -16,6 +16,7 @@ blueprint = Blueprint('alert_group', __name__)
 
 ALLOWED_CLIENTS = [
     'ashwinpv@google.com',
+    'eduardoyap@google.com',
     # Chrome (public) skia instance service account
     'perf-chrome-public@skia-infra-public.iam.gserviceaccount.com',
     # Chrome (internal) skia instance service account
@@ -68,7 +69,7 @@ def AlertGroupDetailsPostHandler():
     alert_group = client.GetEntity(datastore_client.EntityType.AlertGroup,
                                     group_key)
     if alert_group:
-      anomaly_ids = [a.id for a in alert_group.get('anomalies')]
+      anomaly_ids = [a.id_or_name for a in alert_group.get('anomalies')]
       anomalies = client.GetEntities(datastore_client.EntityType.Anomaly,
                                       anomaly_ids)
       logging.info('Retrieved %i anomalies for group id %s', len(anomalies),
@@ -76,8 +77,12 @@ def AlertGroupDetailsPostHandler():
       if not internal:
         public_anomalies = []
         for anomaly in anomalies:
-          if anomaly.get('internal_only') == False:
-            public_anomalies.append(anomaly)
+          test_key = anomaly.get('test')
+          if test_key:
+            parent_test = client.GetEntity(datastore_client.EntityType.TestMetadata,
+              test_key.name)
+            if parent_test and parent_test.get('internal_only') == False:
+              public_anomalies.append(anomaly)
 
         anomalies = public_anomalies
 
@@ -92,7 +97,7 @@ def AlertGroupDetailsPostHandler():
           response.anomalies.append(GetAnomalyDetailFromEntity(anomaly))
           if anomaly.get('start_revision') < start_commit:
             start_commit = anomaly.get('start_revision')
-          if anomaly.get('end_revision') < end_commit:
+          if anomaly.get('end_revision') > end_commit:
             end_commit = anomaly.get('end_revision')
 
         response.start_commit = start_commit
@@ -113,6 +118,6 @@ def AlertGroupDetailsPostHandler():
 
 def GetAnomalyDetailFromEntity(anomaly_entity):
   anomaly_detail = AnomalyDetail()
-  anomaly_detail.anomaly_id = anomaly_entity.key.id
+  anomaly_detail.anomaly_id = anomaly_entity.key.id_or_name
   anomaly_detail.test_path = utils.TestPath(anomaly_entity.get('test'))
   return anomaly_detail

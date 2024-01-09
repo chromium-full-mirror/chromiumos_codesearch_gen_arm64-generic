@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TextEncoder>::value,
     "TextEncoder inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TextEncoder::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TextEncoder is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextEncoder.encoding.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextEncoder* blink_receiver = V8TextEncoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->encoding();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextEncoder* blink_receiver = V8TextEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->encoding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -150,7 +145,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-TextEncoder* blink_receiver = V8TextEncoder::ToWrappableUnsafe(v8_receiver);
+TextEncoder* blink_receiver = V8TextEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLUSVString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_input;
 if (info[0]->IsUndefined()) {
   arg1_input = "";
@@ -200,7 +195,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-TextEncoder* blink_receiver = V8TextEncoder::ToWrappableUnsafe(v8_receiver);
+TextEncoder* blink_receiver = V8TextEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_source = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

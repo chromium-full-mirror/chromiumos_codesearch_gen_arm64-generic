@@ -45,10 +45,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoTrack.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -60,10 +60,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoTrack.kind.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->kind();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->kind();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -75,10 +75,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoTrack.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -90,10 +90,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoTrack.language.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->language();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->language();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,8 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoTrack.selected.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(v8_receiver);
+VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->selected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -118,9 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoTrack.selected.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VideoTrack";
@@ -141,8 +142,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoTrack.sourceBuffer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(v8_receiver);
+VideoTrack* blink_receiver = V8VideoTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = SourceBufferTrackBaseSupplement::sourceBuffer(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

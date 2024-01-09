@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/print_tools-0.0.1-r451/work/print_tools-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -20,21 +20,15 @@ subninja toolchain.ninja
 
 build _printer_diag-install_config: phony obj/print_tools/_printer_diag-install_config.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build print_tools$:_printer_diag-install_config: phony obj/print_tools/_printer_diag-install_config.stamp
 build print_tools$:all: phony obj/print_tools/all.stamp
 build print_tools$:printer_diag: phony ./printer_diag
-build print_tools$:printer_diag_test: phony ./printer_diag_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/print_tools/_printer_diag-install_config.stamp $
     obj/print_tools/all.stamp $
-    ./printer_diag $
-    ./printer_diag_test
+    ./printer_diag
 
 default all

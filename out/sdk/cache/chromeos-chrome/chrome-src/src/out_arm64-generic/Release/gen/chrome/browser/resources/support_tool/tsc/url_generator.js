@@ -10,7 +10,6 @@ import 'chrome://resources/cr_elements/cr_checkbox/cr_checkbox.js';
 import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
 import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { BrowserProxyImpl } from './browser_proxy.js';
 import { getTemplate } from './url_generator.html.js';
@@ -51,10 +50,6 @@ export class UrlGeneratorElement extends UrlGeneratorElementBase {
             copiedToastMessage_: {
                 type: String,
                 value: '',
-            },
-            hideTokenButton_: {
-                type: Boolean,
-                value: () => !loadTimeData.getBoolean('enableCopyTokenButton'),
             },
             selectAll_: {
                 type: Boolean,

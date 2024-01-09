@@ -9,10 +9,12 @@ export var ResponseFilter;
     ResponseFilter["ALL"] = "All results";
 })(ResponseFilter || (ResponseFilter = {}));
 export class MlBrowserProxy {
+    callbackRouter = new OmniboxPageCallbackRouter();
+    handler = OmniboxPageHandler.getRemote();
+    onResponseCallbacks = [];
+    version;
+    makeMlRequestCache = {};
     constructor() {
-        this.callbackRouter = new OmniboxPageCallbackRouter();
-        this.handler = OmniboxPageHandler.getRemote();
-        this.onResponseCallbacks = [];
         this.callbackRouter.handleNewAutocompleteResponse.addListener(this.handleNewAutocompleteResponse.bind(this));
         this.callbackRouter.handleNewMlResponse.addListener(this.handleNewMlResponse.bind(this));
         this.handler.setClientPage(this.callbackRouter.$.bindNewPipeAndPassRemote());
@@ -33,6 +35,8 @@ export class MlBrowserProxy {
         return this.version ||= this.handler.getMlModelVersion().then(({ version }) => new MlVersionObj(version));
     }
     makeMlRequest(signals) {
-        return this.handler.startMl(signals).then(({ score }) => score);
+        const cacheKey = String(Object.values(signals));
+        return this.makeMlRequestCache[cacheKey] ||=
+            this.handler.startMl(signals).then(({ score }) => score);
     }
 }

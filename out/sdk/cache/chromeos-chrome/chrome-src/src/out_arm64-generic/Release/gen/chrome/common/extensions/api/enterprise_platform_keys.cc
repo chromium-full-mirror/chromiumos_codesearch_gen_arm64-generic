@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/enterprise_platform_keys.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ Token::Token()
  {}
 
 Token::~Token() = default;
-Token::Token(Token&& rhs) = default;
-Token& Token::operator=(Token&& rhs) = default;
+Token::Token(Token&& rhs) noexcept = default;
+Token& Token::operator=(Token&& rhs) noexcept = default;
 Token Token::Clone() const {
   Token out;
   return out;
@@ -61,34 +62,21 @@ bool Token::Populate(
 }
 
 // static
-std::unique_ptr<Token> Token::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Token>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Token> Token::FromValue(const base::Value::Dict& value) {
+  Token out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Token> Token::FromValue(const base::Value::Dict& value) {
+std::optional<Token> Token::FromValue(const base::Value& value) {
   Token out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Token> Token::FromValue(const base::Value& value) {
-  Token out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -103,11 +91,11 @@ base::Value::Dict Token::ToValue() const {
 
 const char* ToString(Scope enum_param) {
   switch (enum_param) {
-    case SCOPE_USER:
+    case Scope::kUser:
       return "USER";
-    case SCOPE_MACHINE:
+    case Scope::kMachine:
       return "MACHINE";
-    case SCOPE_NONE:
+    case Scope::kNone:
       return "";
   }
   NOTREACHED();
@@ -116,10 +104,10 @@ const char* ToString(Scope enum_param) {
 
 Scope ParseScope(base::StringPiece enum_string) {
   if (enum_string == "USER")
-    return SCOPE_USER;
+    return Scope::kUser;
   if (enum_string == "MACHINE")
-    return SCOPE_MACHINE;
-  return SCOPE_NONE;
+    return Scope::kMachine;
+  return Scope::kNone;
 }
 
 std::u16string GetScopeParseError(base::StringPiece enum_string) {
@@ -129,11 +117,11 @@ std::u16string GetScopeParseError(base::StringPiece enum_string) {
 
 const char* ToString(Algorithm enum_param) {
   switch (enum_param) {
-    case ALGORITHM_RSA:
+    case Algorithm::kRsa:
       return "RSA";
-    case ALGORITHM_ECDSA:
+    case Algorithm::kEcdsa:
       return "ECDSA";
-    case ALGORITHM_NONE:
+    case Algorithm::kNone:
       return "";
   }
   NOTREACHED();
@@ -142,10 +130,10 @@ const char* ToString(Algorithm enum_param) {
 
 Algorithm ParseAlgorithm(base::StringPiece enum_string) {
   if (enum_string == "RSA")
-    return ALGORITHM_RSA;
+    return Algorithm::kRsa;
   if (enum_string == "ECDSA")
-    return ALGORITHM_ECDSA;
-  return ALGORITHM_NONE;
+    return Algorithm::kEcdsa;
+  return Algorithm::kNone;
 }
 
 std::u16string GetAlgorithmParseError(base::StringPiece enum_string) {
@@ -157,8 +145,8 @@ RegisterKeyOptions::RegisterKeyOptions()
 : algorithm() {}
 
 RegisterKeyOptions::~RegisterKeyOptions() = default;
-RegisterKeyOptions::RegisterKeyOptions(RegisterKeyOptions&& rhs) = default;
-RegisterKeyOptions& RegisterKeyOptions::operator=(RegisterKeyOptions&& rhs) = default;
+RegisterKeyOptions::RegisterKeyOptions(RegisterKeyOptions&& rhs) noexcept = default;
+RegisterKeyOptions& RegisterKeyOptions::operator=(RegisterKeyOptions&& rhs) noexcept = default;
 RegisterKeyOptions RegisterKeyOptions::Clone() const {
   RegisterKeyOptions out;
   out.algorithm = algorithm;
@@ -196,34 +184,21 @@ bool RegisterKeyOptions::Populate(
 }
 
 // static
-std::unique_ptr<RegisterKeyOptions> RegisterKeyOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RegisterKeyOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RegisterKeyOptions> RegisterKeyOptions::FromValue(const base::Value::Dict& value) {
+  RegisterKeyOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RegisterKeyOptions> RegisterKeyOptions::FromValue(const base::Value::Dict& value) {
+std::optional<RegisterKeyOptions> RegisterKeyOptions::FromValue(const base::Value& value) {
   RegisterKeyOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RegisterKeyOptions> RegisterKeyOptions::FromValue(const base::Value& value) {
-  RegisterKeyOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -242,8 +217,8 @@ ChallengeKeyOptions::ChallengeKeyOptions()
 : scope() {}
 
 ChallengeKeyOptions::~ChallengeKeyOptions() = default;
-ChallengeKeyOptions::ChallengeKeyOptions(ChallengeKeyOptions&& rhs) = default;
-ChallengeKeyOptions& ChallengeKeyOptions::operator=(ChallengeKeyOptions&& rhs) = default;
+ChallengeKeyOptions::ChallengeKeyOptions(ChallengeKeyOptions&& rhs) noexcept = default;
+ChallengeKeyOptions& ChallengeKeyOptions::operator=(ChallengeKeyOptions&& rhs) noexcept = default;
 ChallengeKeyOptions ChallengeKeyOptions::Clone() const {
   ChallengeKeyOptions out;
   out.challenge = challenge;
@@ -313,34 +288,21 @@ bool ChallengeKeyOptions::Populate(
 }
 
 // static
-std::unique_ptr<ChallengeKeyOptions> ChallengeKeyOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ChallengeKeyOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ChallengeKeyOptions> ChallengeKeyOptions::FromValue(const base::Value::Dict& value) {
+  ChallengeKeyOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ChallengeKeyOptions> ChallengeKeyOptions::FromValue(const base::Value::Dict& value) {
+std::optional<ChallengeKeyOptions> ChallengeKeyOptions::FromValue(const base::Value& value) {
   ChallengeKeyOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ChallengeKeyOptions> ChallengeKeyOptions::FromValue(const base::Value& value) {
-  ChallengeKeyOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -370,13 +332,13 @@ namespace GetCertificates {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -386,13 +348,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = token_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.token_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -412,13 +374,13 @@ namespace ImportCertificate {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -428,13 +390,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = token_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.token_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -442,7 +404,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& certificate_value = args[1];
     {
       if (!certificate_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.certificate = certificate_value.GetBlob();
@@ -450,7 +412,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -468,13 +430,13 @@ namespace RemoveCertificate {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -484,13 +446,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = token_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.token_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -498,7 +460,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& certificate_value = args[1];
     {
       if (!certificate_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.certificate = certificate_value.GetBlob();
@@ -506,7 +468,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -524,13 +486,13 @@ namespace ChallengeKey {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -539,15 +501,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ChallengeKeyOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -567,13 +529,13 @@ namespace ChallengeMachineKey {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -582,7 +544,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& challenge_value = args[0];
     {
       if (!challenge_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.challenge = challenge_value.GetBlob();
@@ -590,7 +552,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -599,8 +561,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = register_key_value.GetIfBool();
       if (!temp.has_value()) {
-        params.register_key = absl::nullopt;
-        return absl::nullopt;
+        params.register_key = std::nullopt;
+        return std::nullopt;
       }
       params.register_key = *temp;
     }
@@ -623,13 +585,13 @@ namespace ChallengeUserKey {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -638,7 +600,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& challenge_value = args[0];
     {
       if (!challenge_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.challenge = challenge_value.GetBlob();
@@ -646,7 +608,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -655,13 +617,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = register_key_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.register_key = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

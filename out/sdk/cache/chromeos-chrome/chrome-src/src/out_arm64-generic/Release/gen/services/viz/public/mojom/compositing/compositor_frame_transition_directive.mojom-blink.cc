@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -96,7 +97,7 @@ CompositorFrameTransitionDirective::CompositorFrameTransitionDirective()
       shared_elements() {}
 
 CompositorFrameTransitionDirective::CompositorFrameTransitionDirective(
-    const absl::optional<::base::UnguessableToken>& navigation_id_in,
+    const std::optional<::base::UnguessableToken>& navigation_id_in,
     uint32_t sequence_id_in,
     CompositorFrameTransitionDirectiveType type_in,
     WTF::Vector<CompositorFrameTransitionDirectiveSharedElementPtr> shared_elements_in)
@@ -114,7 +115,7 @@ void CompositorFrameTransitionDirective::WriteIntoTrace(
     dict.AddItem(
       "navigation_id"), this->navigation_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

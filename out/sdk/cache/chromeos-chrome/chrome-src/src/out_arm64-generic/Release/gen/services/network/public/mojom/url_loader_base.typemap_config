@@ -60,20 +60,6 @@
   },
   {
     "traits_headers": [
-      "services/network/public/cpp/cookie_setting_overrides_mojom_traits.h"
-    ],
-    "traits_public_deps": [
-      "//net"
-    ],
-    "types": [
-      {
-        "cpp": "::net::CookieSettingOverrides",
-        "mojom": "network.mojom.CookieSettingOverrides"
-      }
-    ]
-  },
-  {
-    "traits_headers": [
       "services/network/public/cpp/url_request_param_mojom_traits.h"
     ],
     "traits_public_deps": [

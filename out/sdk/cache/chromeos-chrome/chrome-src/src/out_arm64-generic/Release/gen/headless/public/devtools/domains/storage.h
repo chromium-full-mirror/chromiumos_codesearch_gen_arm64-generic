@@ -48,9 +48,8 @@ class HEADLESS_EXPORT ExperimentalObserver {
   virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) {}
   virtual void OnStorageBucketCreatedOrUpdated(const StorageBucketCreatedOrUpdatedParams& params) {}
   virtual void OnStorageBucketDeleted(const StorageBucketDeletedParams& params) {}
-  // TODO(crbug.com/1458532): Add other Attribution Reporting events, e.g.
-  // trigger registration.
   virtual void OnAttributionReportingSourceRegistered(const AttributionReportingSourceRegisteredParams& params) {}
+  virtual void OnAttributionReportingTriggerRegistered(const AttributionReportingTriggerRegisteredParams& params) {}
 };
 
 class HEADLESS_EXPORT Observer : public ExperimentalObserver {
@@ -71,9 +70,8 @@ class HEADLESS_EXPORT Observer : public ExperimentalObserver {
   virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) final {}
   virtual void OnStorageBucketCreatedOrUpdated(const StorageBucketCreatedOrUpdatedParams& params) final {}
   virtual void OnStorageBucketDeleted(const StorageBucketDeletedParams& params) final {}
-  // Experimental: TODO(crbug.com/1458532): Add other Attribution Reporting events, e.g.
-  // trigger registration.
   virtual void OnAttributionReportingSourceRegistered(const AttributionReportingSourceRegisteredParams& params) final {}
+  virtual void OnAttributionReportingTriggerRegistered(const AttributionReportingTriggerRegisteredParams& params) final {}
 };
 
 class HEADLESS_EXPORT Domain {
@@ -136,6 +134,7 @@ class HEADLESS_EXPORT Domain {
   void DispatchStorageBucketCreatedOrUpdatedEvent(const base::Value& params);
   void DispatchStorageBucketDeletedEvent(const base::Value& params);
   void DispatchAttributionReportingSourceRegisteredEvent(const base::Value& params);
+  void DispatchAttributionReportingTriggerRegisteredEvent(const base::Value& params);
 
   internal::MessageDispatcher* dispatcher_;  // Not owned.
   base::ObserverList<ExperimentalObserver>::Unchecked observers_;

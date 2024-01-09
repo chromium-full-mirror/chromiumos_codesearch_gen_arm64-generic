@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/services/keymaster/public/mojom/cert_store.mojom-features.h"
 #include "chrome/services/keymaster/public/mojom/cert_store.mojom-shared.h"
 #include "chrome/services/keymaster/public/mojom/cert_store.mojom-forward.h"
 #include "chrome/services/keymanagement/public/mojom/cert_store_types.mojom-forward.h"
@@ -326,9 +327,9 @@ class  KeyData {
   // Construct an instance holding |chaps_key_data|.
   static KeyDataPtr
   NewChapsKeyData(
-      ChapsKeyDataPtr chaps_key_data) {
+      ChapsKeyDataPtr value) {
     auto result = KeyDataPtr(absl::in_place);
-    result->set_chaps_key_data(std::move(chaps_key_data));
+    result->set_chaps_key_data(std::move(value));
     return result;
   }
 

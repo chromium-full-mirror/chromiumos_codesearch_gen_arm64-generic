@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -638,11 +639,11 @@ NetworkStateProperties::NetworkStateProperties(
     bool connectable_in,
     bool connect_requested_in,
     ::chromeos::network_config::mojom::ConnectionStateType connection_state_in,
-    const absl::optional<std::string>& error_state_in,
+    const std::optional<std::string>& error_state_in,
     const std::string& guid_in,
     const std::string& name_in,
     ::chromeos::network_config::mojom::PortalState portal_state_in,
-    const absl::optional<::GURL>& portal_probe_url_in,
+    const std::optional<::GURL>& portal_probe_url_in,
     int32_t priority_in,
     ProxyMode proxy_mode_in,
     bool prohibited_by_policy_in,
@@ -700,7 +701,7 @@ void NetworkStateProperties::WriteIntoTrace(
     dict.AddItem(
       "error_state"), this->error_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -736,7 +737,7 @@ void NetworkStateProperties::WriteIntoTrace(
     dict.AddItem(
       "portal_probe_url"), this->portal_probe_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -815,22 +816,24 @@ DeviceStateProperties::DeviceStateProperties()
       device_state(),
       type(),
       managed_network_available(false),
-      serial() {}
+      serial(),
+      is_carrier_locked(false) {}
 
 DeviceStateProperties::DeviceStateProperties(
-    const absl::optional<::net::IPAddress>& ipv4_address_in,
-    const absl::optional<::net::IPAddress>& ipv6_address_in,
-    const absl::optional<std::string>& imei_in,
-    const absl::optional<std::string>& mac_address_in,
+    const std::optional<::net::IPAddress>& ipv4_address_in,
+    const std::optional<::net::IPAddress>& ipv6_address_in,
+    const std::optional<std::string>& imei_in,
+    const std::optional<std::string>& mac_address_in,
     bool scanning_in,
     SIMLockStatusPtr sim_lock_status_in,
-    absl::optional<std::vector<SIMInfoPtr>> sim_infos_in,
+    std::optional<std::vector<SIMInfoPtr>> sim_infos_in,
     InhibitReason inhibit_reason_in,
     bool sim_absent_in,
     ::chromeos::network_config::mojom::DeviceStateType device_state_in,
     ::chromeos::network_config::mojom::NetworkType type_in,
     bool managed_network_available_in,
-    const absl::optional<std::string>& serial_in)
+    const std::optional<std::string>& serial_in,
+    bool is_carrier_locked_in)
     : ipv4_address(std::move(ipv4_address_in)),
       ipv6_address(std::move(ipv6_address_in)),
       imei(std::move(imei_in)),
@@ -843,7 +846,8 @@ DeviceStateProperties::DeviceStateProperties(
       device_state(std::move(device_state_in)),
       type(std::move(type_in)),
       managed_network_available(std::move(managed_network_available_in)),
-      serial(std::move(serial_in)) {}
+      serial(std::move(serial_in)),
+      is_carrier_locked(std::move(is_carrier_locked_in)) {}
 
 DeviceStateProperties::~DeviceStateProperties() = default;
 
@@ -854,7 +858,7 @@ void DeviceStateProperties::WriteIntoTrace(
     dict.AddItem(
       "ipv4_address"), this->ipv4_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::IPAddress>&>"
+      "<value of type const std::optional<::net::IPAddress>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -863,7 +867,7 @@ void DeviceStateProperties::WriteIntoTrace(
     dict.AddItem(
       "ipv6_address"), this->ipv6_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::IPAddress>&>"
+      "<value of type const std::optional<::net::IPAddress>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -872,7 +876,7 @@ void DeviceStateProperties::WriteIntoTrace(
     dict.AddItem(
       "imei"), this->imei,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -881,7 +885,7 @@ void DeviceStateProperties::WriteIntoTrace(
     dict.AddItem(
       "mac_address"), this->mac_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -908,7 +912,7 @@ void DeviceStateProperties::WriteIntoTrace(
     dict.AddItem(
       "sim_infos"), this->sim_infos,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<SIMInfoPtr>>>"
+      "<value of type std::optional<std::vector<SIMInfoPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -962,7 +966,16 @@ void DeviceStateProperties::WriteIntoTrace(
     dict.AddItem(
       "serial"), this->serial,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_carrier_locked"), this->is_carrier_locked,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1048,14 +1061,14 @@ ApnProperties::ApnProperties()
 
 ApnProperties::ApnProperties(
     const std::string& access_point_name_in,
-    const absl::optional<std::string>& id_in,
+    const std::optional<std::string>& id_in,
     ApnAuthenticationType authentication_in,
-    const absl::optional<std::string>& language_in,
-    const absl::optional<std::string>& localized_name_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& password_in,
-    const absl::optional<std::string>& username_in,
-    const absl::optional<std::string>& attach_in,
+    const std::optional<std::string>& language_in,
+    const std::optional<std::string>& localized_name_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& password_in,
+    const std::optional<std::string>& username_in,
+    const std::optional<std::string>& attach_in,
     ApnState state_in,
     ApnIpType ip_type_in,
     std::vector<ApnType> apn_types_in)
@@ -1090,7 +1103,7 @@ void ApnProperties::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1108,7 +1121,7 @@ void ApnProperties::WriteIntoTrace(
     dict.AddItem(
       "language"), this->language,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1117,7 +1130,7 @@ void ApnProperties::WriteIntoTrace(
     dict.AddItem(
       "localized_name"), this->localized_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1126,7 +1139,7 @@ void ApnProperties::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1135,7 +1148,7 @@ void ApnProperties::WriteIntoTrace(
     dict.AddItem(
       "password"), this->password,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1144,7 +1157,7 @@ void ApnProperties::WriteIntoTrace(
     dict.AddItem(
       "username"), this->username,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1153,7 +1166,7 @@ void ApnProperties::WriteIntoTrace(
     dict.AddItem(
       "attach"), this->attach,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1232,7 +1245,7 @@ CellularProviderProperties::CellularProviderProperties()
 CellularProviderProperties::CellularProviderProperties(
     const std::string& name_in,
     const std::string& code_in,
-    const absl::optional<std::string>& country_in)
+    const std::optional<std::string>& country_in)
     : name(std::move(name_in)),
       code(std::move(code_in)),
       country(std::move(country_in)) {}
@@ -1264,7 +1277,7 @@ void CellularProviderProperties::WriteIntoTrace(
     dict.AddItem(
       "country"), this->country,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1287,8 +1300,8 @@ FoundNetworkProperties::FoundNetworkProperties(
     const std::string& status_in,
     const std::string& network_id_in,
     const std::string& technology_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& long_name_in)
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& long_name_in)
     : status(std::move(status_in)),
       network_id(std::move(network_id_in)),
       technology(std::move(technology_in)),
@@ -1331,7 +1344,7 @@ void FoundNetworkProperties::WriteIntoTrace(
     dict.AddItem(
       "short_name"), this->short_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1340,7 +1353,7 @@ void FoundNetworkProperties::WriteIntoTrace(
     dict.AddItem(
       "long_name"), this->long_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1364,15 +1377,15 @@ IPConfigProperties::IPConfigProperties()
       web_proxy_auto_discovery_url() {}
 
 IPConfigProperties::IPConfigProperties(
-    const absl::optional<std::string>& gateway_in,
-    const absl::optional<std::string>& ip_address_in,
-    absl::optional<std::vector<std::string>> excluded_routes_in,
-    absl::optional<std::vector<std::string>> included_routes_in,
-    absl::optional<std::vector<std::string>> name_servers_in,
-    absl::optional<std::vector<std::string>> search_domains_in,
+    const std::optional<std::string>& gateway_in,
+    const std::optional<std::string>& ip_address_in,
+    std::optional<std::vector<std::string>> excluded_routes_in,
+    std::optional<std::vector<std::string>> included_routes_in,
+    std::optional<std::vector<std::string>> name_servers_in,
+    std::optional<std::vector<std::string>> search_domains_in,
     int32_t routing_prefix_in,
     ::chromeos::network_config::mojom::IPConfigType type_in,
-    const absl::optional<std::string>& web_proxy_auto_discovery_url_in)
+    const std::optional<std::string>& web_proxy_auto_discovery_url_in)
     : gateway(std::move(gateway_in)),
       ip_address(std::move(ip_address_in)),
       excluded_routes(std::move(excluded_routes_in)),
@@ -1392,7 +1405,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "gateway"), this->gateway,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1401,7 +1414,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "ip_address"), this->ip_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1410,7 +1423,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "excluded_routes"), this->excluded_routes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1419,7 +1432,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "included_routes"), this->included_routes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1428,7 +1441,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "name_servers"), this->name_servers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1437,7 +1450,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "search_domains"), this->search_domains,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1464,7 +1477,7 @@ void IPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "web_proxy_auto_discovery_url"), this->web_proxy_auto_discovery_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1483,8 +1496,8 @@ PaymentPortalProperties::PaymentPortalProperties()
 
 PaymentPortalProperties::PaymentPortalProperties(
     const std::string& method_in,
-    const absl::optional<std::string>& post_data_in,
-    const absl::optional<std::string>& url_in)
+    const std::optional<std::string>& post_data_in,
+    const std::optional<std::string>& url_in)
     : method(std::move(method_in)),
       post_data(std::move(post_data_in)),
       url(std::move(url_in)) {}
@@ -1507,7 +1520,7 @@ void PaymentPortalProperties::WriteIntoTrace(
     dict.AddItem(
       "post_data"), this->post_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1516,7 +1529,7 @@ void PaymentPortalProperties::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1537,9 +1550,9 @@ WireGuardPeerProperties::WireGuardPeerProperties()
 
 WireGuardPeerProperties::WireGuardPeerProperties(
     const std::string& public_key_in,
-    const absl::optional<std::string>& preshared_key_in,
-    const absl::optional<std::string>& allowed_ips_in,
-    const absl::optional<std::string>& endpoint_in,
+    const std::optional<std::string>& preshared_key_in,
+    const std::optional<std::string>& allowed_ips_in,
+    const std::optional<std::string>& endpoint_in,
     int32_t persistent_keepalive_interval_in)
     : public_key(std::move(public_key_in)),
       preshared_key(std::move(preshared_key_in)),
@@ -1565,7 +1578,7 @@ void WireGuardPeerProperties::WriteIntoTrace(
     dict.AddItem(
       "preshared_key"), this->preshared_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1574,7 +1587,7 @@ void WireGuardPeerProperties::WriteIntoTrace(
     dict.AddItem(
       "allowed_ips"), this->allowed_ips,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1583,7 +1596,7 @@ void WireGuardPeerProperties::WriteIntoTrace(
     dict.AddItem(
       "endpoint"), this->endpoint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1728,7 +1741,7 @@ ManagedString::ManagedString()
 ManagedString::ManagedString(
     const std::string& active_value_in,
     ::chromeos::network_config::mojom::PolicySource policy_source_in,
-    const absl::optional<std::string>& policy_value_in)
+    const std::optional<std::string>& policy_value_in)
     : active_value(std::move(active_value_in)),
       policy_source(std::move(policy_source_in)),
       policy_value(std::move(policy_value_in)) {}
@@ -1760,7 +1773,7 @@ void ManagedString::WriteIntoTrace(
     dict.AddItem(
       "policy_value"), this->policy_value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1780,7 +1793,7 @@ ManagedStringList::ManagedStringList()
 ManagedStringList::ManagedStringList(
     std::vector<std::string> active_value_in,
     ::chromeos::network_config::mojom::PolicySource policy_source_in,
-    absl::optional<std::vector<std::string>> policy_value_in)
+    std::optional<std::vector<std::string>> policy_value_in)
     : active_value(std::move(active_value_in)),
       policy_source(std::move(policy_source_in)),
       policy_value(std::move(policy_value_in)) {}
@@ -1812,7 +1825,7 @@ void ManagedStringList::WriteIntoTrace(
     dict.AddItem(
       "policy_value"), this->policy_value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1944,7 +1957,7 @@ ManagedApnList::ManagedApnList()
 ManagedApnList::ManagedApnList(
     std::vector<ApnPropertiesPtr> active_value_in,
     ::chromeos::network_config::mojom::PolicySource policy_source_in,
-    absl::optional<std::vector<ApnPropertiesPtr>> policy_value_in)
+    std::optional<std::vector<ApnPropertiesPtr>> policy_value_in)
     : active_value(std::move(active_value_in)),
       policy_source(std::move(policy_source_in)),
       policy_value(std::move(policy_value_in)) {}
@@ -1976,7 +1989,7 @@ void ManagedApnList::WriteIntoTrace(
     dict.AddItem(
       "policy_value"), this->policy_value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<ApnPropertiesPtr>>>"
+      "<value of type std::optional<std::vector<ApnPropertiesPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3436,7 +3449,7 @@ ManagedWireGuardPeerList::ManagedWireGuardPeerList()
 ManagedWireGuardPeerList::ManagedWireGuardPeerList(
     std::vector<WireGuardPeerPropertiesPtr> active_value_in,
     ::chromeos::network_config::mojom::PolicySource policy_source_in,
-    absl::optional<std::vector<WireGuardPeerPropertiesPtr>> policy_value_in)
+    std::optional<std::vector<WireGuardPeerPropertiesPtr>> policy_value_in)
     : active_value(std::move(active_value_in)),
       policy_source(std::move(policy_source_in)),
       policy_value(std::move(policy_value_in)) {}
@@ -3468,7 +3481,7 @@ void ManagedWireGuardPeerList::WriteIntoTrace(
     dict.AddItem(
       "policy_value"), this->policy_value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<WireGuardPeerPropertiesPtr>>>"
+      "<value of type std::optional<std::vector<WireGuardPeerPropertiesPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3583,26 +3596,26 @@ ManagedCellularProperties::ManagedCellularProperties(
     ManagedBooleanPtr allow_text_messages_in,
     ManagedApnListPtr apn_list_in,
     ManagedBooleanPtr auto_connect_in,
-    absl::optional<std::vector<ApnPropertiesPtr>> custom_apn_list_in,
-    const absl::optional<std::string>& eid_in,
-    const absl::optional<std::string>& esn_in,
-    const absl::optional<std::string>& family_in,
-    const absl::optional<std::string>& firmware_revision_in,
-    absl::optional<std::vector<FoundNetworkPropertiesPtr>> found_networks_in,
-    const absl::optional<std::string>& hardware_revision_in,
+    std::optional<std::vector<ApnPropertiesPtr>> custom_apn_list_in,
+    const std::optional<std::string>& eid_in,
+    const std::optional<std::string>& esn_in,
+    const std::optional<std::string>& family_in,
+    const std::optional<std::string>& firmware_revision_in,
+    std::optional<std::vector<FoundNetworkPropertiesPtr>> found_networks_in,
+    const std::optional<std::string>& hardware_revision_in,
     CellularProviderPropertiesPtr home_provider_in,
-    const absl::optional<std::string>& iccid_in,
-    const absl::optional<std::string>& imei_in,
+    const std::optional<std::string>& iccid_in,
+    const std::optional<std::string>& imei_in,
     ApnPropertiesPtr last_good_apn_in,
     ApnPropertiesPtr connected_apn_in,
-    const absl::optional<std::string>& manufacturer_in,
-    const absl::optional<std::string>& mdn_in,
-    const absl::optional<std::string>& meid_in,
-    const absl::optional<std::string>& min_in,
-    const absl::optional<std::string>& model_id_in,
-    const absl::optional<std::string>& network_technology_in,
+    const std::optional<std::string>& manufacturer_in,
+    const std::optional<std::string>& mdn_in,
+    const std::optional<std::string>& meid_in,
+    const std::optional<std::string>& min_in,
+    const std::optional<std::string>& model_id_in,
+    const std::optional<std::string>& network_technology_in,
     PaymentPortalPropertiesPtr payment_portal_in,
-    const absl::optional<std::string>& roaming_state_in,
+    const std::optional<std::string>& roaming_state_in,
     ManagedApnPropertiesPtr selected_apn_in,
     CellularProviderPropertiesPtr serving_operator_in,
     int32_t signal_strength_in,
@@ -3701,7 +3714,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "custom_apn_list"), this->custom_apn_list,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<ApnPropertiesPtr>>>"
+      "<value of type std::optional<std::vector<ApnPropertiesPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3710,7 +3723,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "eid"), this->eid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3719,7 +3732,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "esn"), this->esn,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3728,7 +3741,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "family"), this->family,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3737,7 +3750,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "firmware_revision"), this->firmware_revision,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3746,7 +3759,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "found_networks"), this->found_networks,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<FoundNetworkPropertiesPtr>>>"
+      "<value of type std::optional<std::vector<FoundNetworkPropertiesPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3755,7 +3768,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "hardware_revision"), this->hardware_revision,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3773,7 +3786,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "iccid"), this->iccid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3782,7 +3795,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "imei"), this->imei,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3809,7 +3822,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "manufacturer"), this->manufacturer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3818,7 +3831,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "mdn"), this->mdn,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3827,7 +3840,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "meid"), this->meid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3836,7 +3849,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "min"), this->min,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3845,7 +3858,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "model_id"), this->model_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3854,7 +3867,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "network_technology"), this->network_technology,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3872,7 +3885,7 @@ void ManagedCellularProperties::WriteIntoTrace(
     dict.AddItem(
       "roaming_state"), this->roaming_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4105,10 +4118,10 @@ ManagedWiFiProperties::ManagedWiFiProperties()
 ManagedWiFiProperties::ManagedWiFiProperties(
     ManagedBooleanPtr allow_gateway_arp_polling_in,
     ManagedBooleanPtr auto_connect_in,
-    const absl::optional<std::string>& bssid_in,
+    const std::optional<std::string>& bssid_in,
     ManagedEAPPropertiesPtr eap_in,
     int32_t frequency_in,
-    absl::optional<std::vector<int32_t>> frequency_list_in,
+    std::optional<std::vector<int32_t>> frequency_list_in,
     ManagedStringPtr hex_ssid_in,
     ManagedBooleanPtr hidden_ssid_in,
     ManagedStringPtr passphrase_in,
@@ -4117,7 +4130,7 @@ ManagedWiFiProperties::ManagedWiFiProperties(
     int32_t signal_strength_in,
     bool is_syncable_in,
     bool is_configured_by_active_user_in,
-    const absl::optional<std::string>& passpoint_id_in,
+    const std::optional<std::string>& passpoint_id_in,
     MatchType passpoint_match_type_in)
     : allow_gateway_arp_polling(std::move(allow_gateway_arp_polling_in)),
       auto_connect(std::move(auto_connect_in)),
@@ -4163,7 +4176,7 @@ void ManagedWiFiProperties::WriteIntoTrace(
     dict.AddItem(
       "bssid"), this->bssid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4190,7 +4203,7 @@ void ManagedWiFiProperties::WriteIntoTrace(
     dict.AddItem(
       "frequency_list"), this->frequency_list,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<int32_t>>&>"
+      "<value of type const std::optional<std::vector<int32_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4271,7 +4284,7 @@ void ManagedWiFiProperties::WriteIntoTrace(
     dict.AddItem(
       "passpoint_id"), this->passpoint_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4331,8 +4344,8 @@ TrafficCounterProperties::TrafficCounterProperties()
       user_specified_reset_day() {}
 
 TrafficCounterProperties::TrafficCounterProperties(
-    absl::optional<::base::Time> last_reset_time_in,
-    const absl::optional<std::string>& friendly_date_in,
+    std::optional<::base::Time> last_reset_time_in,
+    const std::optional<std::string>& friendly_date_in,
     bool auto_reset_in,
     uint32_t user_specified_reset_day_in)
     : last_reset_time(std::move(last_reset_time_in)),
@@ -4349,7 +4362,7 @@ void TrafficCounterProperties::WriteIntoTrace(
     dict.AddItem(
       "last_reset_time"), this->last_reset_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4358,7 +4371,7 @@ void TrafficCounterProperties::WriteIntoTrace(
     dict.AddItem(
       "friendly_date"), this->friendly_date,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4412,10 +4425,10 @@ ManagedProperties::ManagedProperties(
     ::chromeos::network_config::mojom::ConnectionStateType connection_state_in,
     ::chromeos::network_config::mojom::OncSource source_in,
     bool connectable_in,
-    const absl::optional<std::string>& error_state_in,
+    const std::optional<std::string>& error_state_in,
     const std::string& guid_in,
     ManagedStringPtr ip_address_config_type_in,
-    absl::optional<std::vector<IPConfigPropertiesPtr>> ip_configs_in,
+    std::optional<std::vector<IPConfigPropertiesPtr>> ip_configs_in,
     ManagedBooleanPtr metered_in,
     ManagedStringPtr name_in,
     ManagedStringPtr name_servers_config_type_in,
@@ -4482,7 +4495,7 @@ void ManagedProperties::WriteIntoTrace(
     dict.AddItem(
       "error_state"), this->error_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4509,7 +4522,7 @@ void ManagedProperties::WriteIntoTrace(
     dict.AddItem(
       "ip_configs"), this->ip_configs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<IPConfigPropertiesPtr>>>"
+      "<value of type std::optional<std::vector<IPConfigPropertiesPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4866,8 +4879,8 @@ ProxySettings::ProxySettings()
 ProxySettings::ProxySettings(
     const std::string& type_in,
     ManualProxySettingsPtr manual_in,
-    absl::optional<std::vector<std::string>> exclude_domains_in,
-    const absl::optional<std::string>& pac_in)
+    std::optional<std::vector<std::string>> exclude_domains_in,
+    const std::optional<std::string>& pac_in)
     : type(std::move(type_in)),
       manual(std::move(manual_in)),
       exclude_domains(std::move(exclude_domains_in)),
@@ -4900,7 +4913,7 @@ void ProxySettings::WriteIntoTrace(
     dict.AddItem(
       "exclude_domains"), this->exclude_domains,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4909,7 +4922,7 @@ void ProxySettings::WriteIntoTrace(
     dict.AddItem(
       "pac"), this->pac,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4937,18 +4950,18 @@ EAPConfigProperties::EAPConfigProperties()
       use_system_cas(false) {}
 
 EAPConfigProperties::EAPConfigProperties(
-    const absl::optional<std::string>& anonymous_identity_in,
-    const absl::optional<std::string>& client_cert_pkcs11_id_in,
-    const absl::optional<std::string>& client_cert_type_in,
+    const std::optional<std::string>& anonymous_identity_in,
+    const std::optional<std::string>& client_cert_pkcs11_id_in,
+    const std::optional<std::string>& client_cert_type_in,
     std::vector<std::string> domain_suffix_match_in,
-    const absl::optional<std::string>& identity_in,
-    const absl::optional<std::string>& inner_in,
-    const absl::optional<std::string>& outer_in,
-    const absl::optional<std::string>& password_in,
+    const std::optional<std::string>& identity_in,
+    const std::optional<std::string>& inner_in,
+    const std::optional<std::string>& outer_in,
+    const std::optional<std::string>& password_in,
     bool save_credentials_in,
-    absl::optional<std::vector<std::string>> server_ca_pems_in,
+    std::optional<std::vector<std::string>> server_ca_pems_in,
     std::vector<SubjectAltNamePtr> subject_alt_name_match_in,
-    const absl::optional<std::string>& subject_match_in,
+    const std::optional<std::string>& subject_match_in,
     bool use_system_cas_in)
     : anonymous_identity(std::move(anonymous_identity_in)),
       client_cert_pkcs11_id(std::move(client_cert_pkcs11_id_in)),
@@ -4973,7 +4986,7 @@ void EAPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "anonymous_identity"), this->anonymous_identity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4982,7 +4995,7 @@ void EAPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "client_cert_pkcs11_id"), this->client_cert_pkcs11_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4991,7 +5004,7 @@ void EAPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "client_cert_type"), this->client_cert_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5009,7 +5022,7 @@ void EAPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "identity"), this->identity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5018,7 +5031,7 @@ void EAPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "inner"), this->inner,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5027,7 +5040,7 @@ void EAPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "outer"), this->outer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5036,7 +5049,7 @@ void EAPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "password"), this->password,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5054,7 +5067,7 @@ void EAPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "server_ca_pems"), this->server_ca_pems,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5072,7 +5085,7 @@ void EAPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "subject_match"), this->subject_match,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5154,17 +5167,17 @@ IPSecConfigProperties::IPSecConfigProperties()
 
 IPSecConfigProperties::IPSecConfigProperties(
     const std::string& authentication_type_in,
-    const absl::optional<std::string>& client_cert_pkcs11_id_in,
-    const absl::optional<std::string>& client_cert_type_in,
+    const std::optional<std::string>& client_cert_pkcs11_id_in,
+    const std::optional<std::string>& client_cert_type_in,
     EAPConfigPropertiesPtr eap_in,
-    const absl::optional<std::string>& group_in,
+    const std::optional<std::string>& group_in,
     int32_t ike_version_in,
-    const absl::optional<std::string>& local_identity_in,
-    const absl::optional<std::string>& psk_in,
-    const absl::optional<std::string>& remote_identity_in,
+    const std::optional<std::string>& local_identity_in,
+    const std::optional<std::string>& psk_in,
+    const std::optional<std::string>& remote_identity_in,
     bool save_credentials_in,
-    absl::optional<std::vector<std::string>> server_ca_pems_in,
-    absl::optional<std::vector<std::string>> server_ca_refs_in)
+    std::optional<std::vector<std::string>> server_ca_pems_in,
+    std::optional<std::vector<std::string>> server_ca_refs_in)
     : authentication_type(std::move(authentication_type_in)),
       client_cert_pkcs11_id(std::move(client_cert_pkcs11_id_in)),
       client_cert_type(std::move(client_cert_type_in)),
@@ -5196,7 +5209,7 @@ void IPSecConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "client_cert_pkcs11_id"), this->client_cert_pkcs11_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5205,7 +5218,7 @@ void IPSecConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "client_cert_type"), this->client_cert_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5223,7 +5236,7 @@ void IPSecConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "group"), this->group,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5241,7 +5254,7 @@ void IPSecConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "local_identity"), this->local_identity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5250,7 +5263,7 @@ void IPSecConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "psk"), this->psk,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5259,7 +5272,7 @@ void IPSecConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "remote_identity"), this->remote_identity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5277,7 +5290,7 @@ void IPSecConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "server_ca_pems"), this->server_ca_pems,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5286,7 +5299,7 @@ void IPSecConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "server_ca_refs"), this->server_ca_refs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5306,9 +5319,9 @@ L2TPConfigProperties::L2TPConfigProperties()
 
 L2TPConfigProperties::L2TPConfigProperties(
     bool lcp_echo_disabled_in,
-    const absl::optional<std::string>& password_in,
+    const std::optional<std::string>& password_in,
     bool save_credentials_in,
-    const absl::optional<std::string>& username_in)
+    const std::optional<std::string>& username_in)
     : lcp_echo_disabled(std::move(lcp_echo_disabled_in)),
       password(std::move(password_in)),
       save_credentials(std::move(save_credentials_in)),
@@ -5332,7 +5345,7 @@ void L2TPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "password"), this->password,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5350,7 +5363,7 @@ void L2TPConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "username"), this->username,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5375,16 +5388,16 @@ OpenVPNConfigProperties::OpenVPNConfigProperties()
       user_authentication_type() {}
 
 OpenVPNConfigProperties::OpenVPNConfigProperties(
-    const absl::optional<std::string>& client_cert_pkcs11_id_in,
-    const absl::optional<std::string>& client_cert_type_in,
-    absl::optional<std::vector<std::string>> extra_hosts_in,
-    const absl::optional<std::string>& otp_in,
-    const absl::optional<std::string>& password_in,
+    const std::optional<std::string>& client_cert_pkcs11_id_in,
+    const std::optional<std::string>& client_cert_type_in,
+    std::optional<std::vector<std::string>> extra_hosts_in,
+    const std::optional<std::string>& otp_in,
+    const std::optional<std::string>& password_in,
     bool save_credentials_in,
-    absl::optional<std::vector<std::string>> server_ca_pems_in,
-    absl::optional<std::vector<std::string>> server_ca_refs_in,
-    const absl::optional<std::string>& username_in,
-    const absl::optional<std::string>& user_authentication_type_in)
+    std::optional<std::vector<std::string>> server_ca_pems_in,
+    std::optional<std::vector<std::string>> server_ca_refs_in,
+    const std::optional<std::string>& username_in,
+    const std::optional<std::string>& user_authentication_type_in)
     : client_cert_pkcs11_id(std::move(client_cert_pkcs11_id_in)),
       client_cert_type(std::move(client_cert_type_in)),
       extra_hosts(std::move(extra_hosts_in)),
@@ -5405,7 +5418,7 @@ void OpenVPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "client_cert_pkcs11_id"), this->client_cert_pkcs11_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5414,7 +5427,7 @@ void OpenVPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "client_cert_type"), this->client_cert_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5423,7 +5436,7 @@ void OpenVPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "extra_hosts"), this->extra_hosts,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5432,7 +5445,7 @@ void OpenVPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "otp"), this->otp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5441,7 +5454,7 @@ void OpenVPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "password"), this->password,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5459,7 +5472,7 @@ void OpenVPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "server_ca_pems"), this->server_ca_pems,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5468,7 +5481,7 @@ void OpenVPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "server_ca_refs"), this->server_ca_refs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5477,7 +5490,7 @@ void OpenVPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "username"), this->username,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5486,7 +5499,7 @@ void OpenVPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "user_authentication_type"), this->user_authentication_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5504,9 +5517,9 @@ WireGuardConfigProperties::WireGuardConfigProperties()
       peers() {}
 
 WireGuardConfigProperties::WireGuardConfigProperties(
-    absl::optional<std::vector<std::string>> ip_addresses_in,
-    const absl::optional<std::string>& private_key_in,
-    absl::optional<std::vector<WireGuardPeerPropertiesPtr>> peers_in)
+    std::optional<std::vector<std::string>> ip_addresses_in,
+    const std::optional<std::string>& private_key_in,
+    std::optional<std::vector<WireGuardPeerPropertiesPtr>> peers_in)
     : ip_addresses(std::move(ip_addresses_in)),
       private_key(std::move(private_key_in)),
       peers(std::move(peers_in)) {}
@@ -5520,7 +5533,7 @@ void WireGuardConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "ip_addresses"), this->ip_addresses,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5529,7 +5542,7 @@ void WireGuardConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "private_key"), this->private_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5538,7 +5551,7 @@ void WireGuardConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "peers"), this->peers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<WireGuardPeerPropertiesPtr>>>"
+      "<value of type std::optional<std::vector<WireGuardPeerPropertiesPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5639,7 +5652,7 @@ EthernetConfigProperties::EthernetConfigProperties()
       eap() {}
 
 EthernetConfigProperties::EthernetConfigProperties(
-    const absl::optional<std::string>& authentication_in,
+    const std::optional<std::string>& authentication_in,
     EAPConfigPropertiesPtr eap_in)
     : authentication(std::move(authentication_in)),
       eap(std::move(eap_in)) {}
@@ -5653,7 +5666,7 @@ void EthernetConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "authentication"), this->authentication,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5683,7 +5696,7 @@ VPNConfigProperties::VPNConfigProperties()
       type() {}
 
 VPNConfigProperties::VPNConfigProperties(
-    const absl::optional<std::string>& host_in,
+    const std::optional<std::string>& host_in,
     IPSecConfigPropertiesPtr ip_sec_in,
     L2TPConfigPropertiesPtr l2tp_in,
     OpenVPNConfigPropertiesPtr open_vpn_in,
@@ -5705,7 +5718,7 @@ void VPNConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "host"), this->host,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5771,8 +5784,8 @@ WiFiConfigProperties::WiFiConfigProperties()
 
 WiFiConfigProperties::WiFiConfigProperties(
     EAPConfigPropertiesPtr eap_in,
-    const absl::optional<std::string>& passphrase_in,
-    const absl::optional<std::string>& ssid_in,
+    const std::optional<std::string>& passphrase_in,
+    const std::optional<std::string>& ssid_in,
     SecurityType security_in,
     HiddenSsidMode hidden_ssid_in)
     : eap(std::move(eap_in)),
@@ -5799,7 +5812,7 @@ void WiFiConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "passphrase"), this->passphrase,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5808,7 +5821,7 @@ void WiFiConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "ssid"), this->ssid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5852,11 +5865,11 @@ ConfigProperties::ConfigProperties()
 
 ConfigProperties::ConfigProperties(
     AutoConnectConfigPtr auto_connect_in,
-    const absl::optional<std::string>& guid_in,
-    const absl::optional<std::string>& ip_address_config_type_in,
+    const std::optional<std::string>& guid_in,
+    const std::optional<std::string>& ip_address_config_type_in,
     MeteredConfigPtr metered_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& name_servers_config_type_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& name_servers_config_type_in,
     PriorityConfigPtr priority_in,
     ProxySettingsPtr proxy_settings_in,
     IPConfigPropertiesPtr static_ip_config_in,
@@ -5890,7 +5903,7 @@ void ConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "guid"), this->guid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5899,7 +5912,7 @@ void ConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "ip_address_config_type"), this->ip_address_config_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5917,7 +5930,7 @@ void ConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5926,7 +5939,7 @@ void ConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "name_servers_config_type"), this->name_servers_config_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5981,7 +5994,7 @@ CellularSimState::CellularSimState()
 
 CellularSimState::CellularSimState(
     const std::string& current_pin_or_puk_in,
-    const absl::optional<std::string>& new_pin_in,
+    const std::optional<std::string>& new_pin_in,
     bool require_pin_in)
     : current_pin_or_puk(std::move(current_pin_or_puk_in)),
       new_pin(std::move(new_pin_in)),
@@ -6005,7 +6018,7 @@ void CellularSimState::WriteIntoTrace(
     dict.AddItem(
       "new_pin"), this->new_pin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6037,7 +6050,8 @@ GlobalPolicy::GlobalPolicy()
       report_xdr_events_enabled(false),
       blocked_hex_ssids(),
       recommended_values_are_ephemeral(false),
-      user_created_network_configurations_are_ephemeral(false) {}
+      user_created_network_configurations_are_ephemeral(false),
+      allow_text_messages(SuppressionType::kUnset) {}
 
 GlobalPolicy::GlobalPolicy(
     bool allow_cellular_sim_lock_in,
@@ -6050,7 +6064,8 @@ GlobalPolicy::GlobalPolicy(
     bool report_xdr_events_enabled_in,
     std::vector<std::string> blocked_hex_ssids_in,
     bool recommended_values_are_ephemeral_in,
-    bool user_created_network_configurations_are_ephemeral_in)
+    bool user_created_network_configurations_are_ephemeral_in,
+    SuppressionType allow_text_messages_in)
     : allow_cellular_sim_lock(std::move(allow_cellular_sim_lock_in)),
       allow_cellular_hotspot(std::move(allow_cellular_hotspot_in)),
       allow_only_policy_cellular_networks(std::move(allow_only_policy_cellular_networks_in)),
@@ -6061,7 +6076,8 @@ GlobalPolicy::GlobalPolicy(
       report_xdr_events_enabled(std::move(report_xdr_events_enabled_in)),
       blocked_hex_ssids(std::move(blocked_hex_ssids_in)),
       recommended_values_are_ephemeral(std::move(recommended_values_are_ephemeral_in)),
-      user_created_network_configurations_are_ephemeral(std::move(user_created_network_configurations_are_ephemeral_in)) {}
+      user_created_network_configurations_are_ephemeral(std::move(user_created_network_configurations_are_ephemeral_in)),
+      allow_text_messages(std::move(allow_text_messages_in)) {}
 
 GlobalPolicy::~GlobalPolicy() = default;
 
@@ -6163,6 +6179,15 @@ void GlobalPolicy::WriteIntoTrace(
       "user_created_network_configurations_are_ephemeral"), this->user_created_network_configurations_are_ephemeral,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "allow_text_messages"), this->allow_text_messages,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SuppressionType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7647,6 +7672,22 @@ class CrosNetworkConfig_SetTrafficCountersAutoReset_ForwardToCallback
   CrosNetworkConfig::SetTrafficCountersAutoResetCallback callback_;
 };
 
+class CrosNetworkConfig_CreateCustomApn_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosNetworkConfig_CreateCustomApn_ForwardToCallback(
+      CrosNetworkConfig::CreateCustomApnCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosNetworkConfig_CreateCustomApn_ForwardToCallback(const CrosNetworkConfig_CreateCustomApn_ForwardToCallback&) = delete;
+  CrosNetworkConfig_CreateCustomApn_ForwardToCallback& operator=(const CrosNetworkConfig_CreateCustomApn_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosNetworkConfig::CreateCustomApnCallback callback_;
+};
+
 CrosNetworkConfigProxy::CrosNetworkConfigProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -7663,14 +7704,17 @@ void CrosNetworkConfigProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<CrosNetworkConfigObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -7706,14 +7750,17 @@ void CrosNetworkConfigProxy::GetNetworkState(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetNetworkState_Name, kFlags, 0, 0, nullptr);
@@ -7755,14 +7802,17 @@ void CrosNetworkConfigProxy::GetNetworkStateList(
                         "<value of type NetworkFilterPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetNetworkStateList_Name, kFlags, 0, 0, nullptr);
@@ -7797,14 +7847,17 @@ void CrosNetworkConfigProxy::GetDeviceStateList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfig::GetDeviceStateList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetDeviceStateList_Name, kFlags, 0, 0, nullptr);
@@ -7835,14 +7888,17 @@ void CrosNetworkConfigProxy::GetManagedProperties(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetManagedProperties_Name, kFlags, 0, 0, nullptr);
@@ -7887,14 +7943,17 @@ void CrosNetworkConfigProxy::SetProperties(
                         "<value of type ConfigPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetProperties_Name, kFlags, 0, 0, nullptr);
@@ -7950,14 +8009,17 @@ void CrosNetworkConfigProxy::ConfigureNetwork(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_ConfigureNetwork_Name, kFlags, 0, 0, nullptr);
@@ -8000,14 +8062,17 @@ void CrosNetworkConfigProxy::ForgetNetwork(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_ForgetNetwork_Name, kFlags, 0, 0, nullptr);
@@ -8052,14 +8117,17 @@ void CrosNetworkConfigProxy::SetNetworkTypeEnabledState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetNetworkTypeEnabledState_Name, kFlags, 0, 0, nullptr);
@@ -8093,14 +8161,17 @@ void CrosNetworkConfigProxy::SetCellularSimState(
                         "<value of type CellularSimStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetCellularSimState_Name, kFlags, 0, 0, nullptr);
@@ -8145,14 +8216,17 @@ void CrosNetworkConfigProxy::SelectCellularMobileNetwork(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SelectCellularMobileNetwork_Name, kFlags, 0, 0, nullptr);
@@ -8205,14 +8279,17 @@ void CrosNetworkConfigProxy::RequestNetworkScan(
                         "<value of type ::chromeos::network_config::mojom::NetworkType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_RequestNetworkScan_Name, kFlags, 0, 0, nullptr);
@@ -8237,14 +8314,17 @@ void CrosNetworkConfigProxy::GetGlobalPolicy(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfig::GetGlobalPolicy");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetGlobalPolicy_Name, kFlags, 0, 0, nullptr);
@@ -8275,14 +8355,17 @@ void CrosNetworkConfigProxy::StartConnect(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_StartConnect_Name, kFlags, 0, 0, nullptr);
@@ -8324,14 +8407,17 @@ void CrosNetworkConfigProxy::StartDisconnect(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_StartDisconnect_Name, kFlags, 0, 0, nullptr);
@@ -8373,14 +8459,17 @@ void CrosNetworkConfigProxy::SetVpnProviders(
                         "<value of type std::vector<VpnProviderPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetVpnProviders_Name, kFlags, 0, 0, nullptr);
@@ -8416,14 +8505,17 @@ void CrosNetworkConfigProxy::GetVpnProviders(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfig::GetVpnProviders");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetVpnProviders_Name, kFlags, 0, 0, nullptr);
@@ -8447,14 +8539,17 @@ void CrosNetworkConfigProxy::GetNetworkCertificates(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfig::GetNetworkCertificates");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetNetworkCertificates_Name, kFlags, 0, 0, nullptr);
@@ -8478,14 +8573,17 @@ void CrosNetworkConfigProxy::GetAlwaysOnVpn(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfig::GetAlwaysOnVpn");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetAlwaysOnVpn_Name, kFlags, 0, 0, nullptr);
@@ -8516,14 +8614,17 @@ void CrosNetworkConfigProxy::SetAlwaysOnVpn(
                         "<value of type AlwaysOnVpnPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetAlwaysOnVpn_Name, kFlags, 0, 0, nullptr);
@@ -8557,14 +8658,17 @@ void CrosNetworkConfigProxy::GetSupportedVpnTypes(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfig::GetSupportedVpnTypes");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetSupportedVpnTypes_Name, kFlags, 0, 0, nullptr);
@@ -8595,14 +8699,17 @@ void CrosNetworkConfigProxy::RequestTrafficCounters(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_RequestTrafficCounters_Name, kFlags, 0, 0, nullptr);
@@ -8644,14 +8751,17 @@ void CrosNetworkConfigProxy::ResetTrafficCounters(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_ResetTrafficCounters_Name, kFlags, 0, 0, nullptr);
@@ -8698,14 +8808,17 @@ void CrosNetworkConfigProxy::SetTrafficCountersAutoReset(
                         "<value of type UInt32ValuePtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetTrafficCountersAutoReset_Name, kFlags, 0, 0, nullptr);
@@ -8744,7 +8857,7 @@ void CrosNetworkConfigProxy::SetTrafficCountersAutoReset(
 }
 
 void CrosNetworkConfigProxy::CreateCustomApn(
-    const std::string& in_network_guid, ApnPropertiesPtr in_apn) {
+    const std::string& in_network_guid, ApnPropertiesPtr in_apn, CreateCustomApnCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::network_config::mojom::CrosNetworkConfig::CreateCustomApn", "input_parameters",
@@ -8758,14 +8871,17 @@ void CrosNetworkConfigProxy::CreateCustomApn(
                         "<value of type ApnPropertiesPtr>");
    });
 #endif
-  const bool kExpectsResponse = false;
+
+  const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_CreateCustomApn_Name, kFlags, 0, 0, nullptr);
@@ -8800,9 +8916,10 @@ void CrosNetworkConfigProxy::CreateCustomApn(
   message.set_interface_name(CrosNetworkConfig::Name_);
   message.set_method_name("CreateCustomApn");
 #endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosNetworkConfig_CreateCustomApn_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CrosNetworkConfigProxy::RemoveCustomApn(
@@ -8820,14 +8937,17 @@ void CrosNetworkConfigProxy::RemoveCustomApn(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_RemoveCustomApn_Name, kFlags, 0, 0, nullptr);
@@ -8882,14 +9002,17 @@ void CrosNetworkConfigProxy::ModifyCustomApn(
                         "<value of type ApnPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_ModifyCustomApn_Name, kFlags, 0, 0, nullptr);
@@ -9020,7 +9143,8 @@ void CrosNetworkConfig_GetNetworkState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetNetworkState_Name, kFlags, 0, 0, nullptr);
@@ -9144,7 +9268,8 @@ void CrosNetworkConfig_GetNetworkStateList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetNetworkStateList_Name, kFlags, 0, 0, nullptr);
@@ -9274,7 +9399,8 @@ void CrosNetworkConfig_GetDeviceStateList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetDeviceStateList_Name, kFlags, 0, 0, nullptr);
@@ -9404,7 +9530,8 @@ void CrosNetworkConfig_GetManagedProperties_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetManagedProperties_Name, kFlags, 0, 0, nullptr);
@@ -9535,7 +9662,8 @@ void CrosNetworkConfig_SetProperties_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetProperties_Name, kFlags, 0, 0, nullptr);
@@ -9618,7 +9746,7 @@ class CrosNetworkConfig_ConfigureNetwork_ProxyToResponder : public ::mojo::inter
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_guid, const std::string& in_error_message);
+      const std::optional<std::string>& in_guid, const std::string& in_error_message);
 };
 
 bool CrosNetworkConfig_ConfigureNetwork_ForwardToCallback::Accept(
@@ -9631,7 +9759,7 @@ bool CrosNetworkConfig_ConfigureNetwork_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_guid{};
+  std::optional<std::string> p_guid{};
   std::string p_error_message{};
   CrosNetworkConfig_ConfigureNetwork_ResponseParamsDataView input_data_view(params, message);
   
@@ -9654,7 +9782,7 @@ std::move(p_error_message));
 }
 
 void CrosNetworkConfig_ConfigureNetwork_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_guid, const std::string& in_error_message) {
+    const std::optional<std::string>& in_guid, const std::string& in_error_message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::network_config::mojom::CrosNetworkConfig::ConfigureNetwork", "async_response_parameters",
@@ -9662,7 +9790,7 @@ void CrosNetworkConfig_ConfigureNetwork_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("guid"), in_guid,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_message"), in_error_message,
                         "<value of type const std::string&>");
@@ -9671,7 +9799,8 @@ void CrosNetworkConfig_ConfigureNetwork_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_ConfigureNetwork_Name, kFlags, 0, 0, nullptr);
@@ -9806,7 +9935,8 @@ void CrosNetworkConfig_ForgetNetwork_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_ForgetNetwork_Name, kFlags, 0, 0, nullptr);
@@ -9924,7 +10054,8 @@ void CrosNetworkConfig_SetNetworkTypeEnabledState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetNetworkTypeEnabledState_Name, kFlags, 0, 0, nullptr);
@@ -10042,7 +10173,8 @@ void CrosNetworkConfig_SetCellularSimState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetCellularSimState_Name, kFlags, 0, 0, nullptr);
@@ -10160,7 +10292,8 @@ void CrosNetworkConfig_SelectCellularMobileNetwork_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SelectCellularMobileNetwork_Name, kFlags, 0, 0, nullptr);
@@ -10278,7 +10411,8 @@ void CrosNetworkConfig_GetGlobalPolicy_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetGlobalPolicy_Name, kFlags, 0, 0, nullptr);
@@ -10413,7 +10547,8 @@ void CrosNetworkConfig_StartConnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_StartConnect_Name, kFlags, 0, 0, nullptr);
@@ -10543,7 +10678,8 @@ void CrosNetworkConfig_StartDisconnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_StartDisconnect_Name, kFlags, 0, 0, nullptr);
@@ -10661,7 +10797,8 @@ void CrosNetworkConfig_GetVpnProviders_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetVpnProviders_Name, kFlags, 0, 0, nullptr);
@@ -10798,7 +10935,8 @@ void CrosNetworkConfig_GetNetworkCertificates_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetNetworkCertificates_Name, kFlags, 0, 0, nullptr);
@@ -10941,7 +11079,8 @@ void CrosNetworkConfig_GetAlwaysOnVpn_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetAlwaysOnVpn_Name, kFlags, 0, 0, nullptr);
@@ -11069,7 +11208,8 @@ void CrosNetworkConfig_GetSupportedVpnTypes_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_GetSupportedVpnTypes_Name, kFlags, 0, 0, nullptr);
@@ -11199,7 +11339,8 @@ void CrosNetworkConfig_RequestTrafficCounters_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_RequestTrafficCounters_Name, kFlags, 0, 0, nullptr);
@@ -11329,7 +11470,8 @@ void CrosNetworkConfig_SetTrafficCountersAutoReset_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfig_SetTrafficCountersAutoReset_Name, kFlags, 0, 0, nullptr);
@@ -11342,6 +11484,125 @@ void CrosNetworkConfig_SetTrafficCountersAutoReset_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosNetworkConfig::Name_);
   message.set_method_name("SetTrafficCountersAutoReset");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosNetworkConfig_CreateCustomApn_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosNetworkConfig::CreateCustomApnCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosNetworkConfig_CreateCustomApn_ProxyToResponder> proxy(
+        new CrosNetworkConfig_CreateCustomApn_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosNetworkConfig_CreateCustomApn_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosNetworkConfig_CreateCustomApn_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosNetworkConfig_CreateCustomApn_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosNetworkConfig::CreateCustomApnCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_success);
+};
+
+bool CrosNetworkConfig_CreateCustomApn_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosNetworkConfig_CreateCustomApn_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosNetworkConfig_CreateCustomApn_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_success{};
+  CrosNetworkConfig_CreateCustomApn_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_success = input_data_view.success();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosNetworkConfig::Name_, 24, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_success));
+  return true;
+}
+
+void CrosNetworkConfig_CreateCustomApn_ProxyToResponder::Run(
+    bool in_success) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply chromeos::network_config::mojom::CrosNetworkConfig::CreateCustomApn", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("success"), in_success,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosNetworkConfig_CreateCustomApn_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::network_config::mojom::internal::CrosNetworkConfig_CreateCustomApn_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->success = in_success;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosNetworkConfig::Name_);
+  message.set_method_name("CreateCustomApn");
 #endif
 
   message.set_request_id(request_id_);
@@ -11551,34 +11812,7 @@ std::move(p_guid));
       break;
     }
     case internal::kCrosNetworkConfig_CreateCustomApn_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CrosNetworkConfig_CreateCustomApn_Params_Data* params =
-          reinterpret_cast<internal::CrosNetworkConfig_CreateCustomApn_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      std::string p_network_guid{};
-      ApnPropertiesPtr p_apn{};
-      CrosNetworkConfig_CreateCustomApn_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadNetworkGuid(&p_network_guid))
-        success = false;
-      if (success && !input_data_view.ReadApn(&p_apn))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CrosNetworkConfig::Name_, 24, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->CreateCustomApn(
-std::move(p_network_guid), 
-std::move(p_apn));
-      return true;
+      break;
     }
     case internal::kCrosNetworkConfig_RemoveCustomApn_Name: {
 
@@ -12220,7 +12454,37 @@ std::move(p_day), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_CreateCustomApn_Name: {
-      break;
+
+      internal::CrosNetworkConfig_CreateCustomApn_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosNetworkConfig_CreateCustomApn_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_network_guid{};
+      ApnPropertiesPtr p_apn{};
+      CrosNetworkConfig_CreateCustomApn_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadNetworkGuid(&p_network_guid))
+        success = false;
+      if (success && !input_data_view.ReadApn(&p_apn))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosNetworkConfig::Name_, 24, false);
+        return false;
+      }
+      CrosNetworkConfig::CreateCustomApnCallback callback =
+          CrosNetworkConfig_CreateCustomApn_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->CreateCustomApn(
+std::move(p_network_guid), 
+std::move(p_apn), std::move(callback));
+      return true;
     }
     case internal::kCrosNetworkConfig_RemoveCustomApn_Name: {
       break;
@@ -12231,62 +12495,62 @@ std::move(p_day), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosNetworkConfigValidationInfo[] = {
-    {&internal::CrosNetworkConfig_AddObserver_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfig_GetNetworkState_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_GetNetworkState_Params_Data::Validate,
      &internal::CrosNetworkConfig_GetNetworkState_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_GetNetworkStateList_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_GetNetworkStateList_Params_Data::Validate,
      &internal::CrosNetworkConfig_GetNetworkStateList_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_GetDeviceStateList_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_GetDeviceStateList_Params_Data::Validate,
      &internal::CrosNetworkConfig_GetDeviceStateList_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_GetManagedProperties_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_GetManagedProperties_Params_Data::Validate,
      &internal::CrosNetworkConfig_GetManagedProperties_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_SetProperties_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_SetProperties_Params_Data::Validate,
      &internal::CrosNetworkConfig_SetProperties_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_ConfigureNetwork_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_ConfigureNetwork_Params_Data::Validate,
      &internal::CrosNetworkConfig_ConfigureNetwork_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_ForgetNetwork_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_ForgetNetwork_Params_Data::Validate,
      &internal::CrosNetworkConfig_ForgetNetwork_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_SetNetworkTypeEnabledState_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_SetNetworkTypeEnabledState_Params_Data::Validate,
      &internal::CrosNetworkConfig_SetNetworkTypeEnabledState_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_SetCellularSimState_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_SetCellularSimState_Params_Data::Validate,
      &internal::CrosNetworkConfig_SetCellularSimState_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_SelectCellularMobileNetwork_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_SelectCellularMobileNetwork_Params_Data::Validate,
      &internal::CrosNetworkConfig_SelectCellularMobileNetwork_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_RequestNetworkScan_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_RequestNetworkScan_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfig_GetGlobalPolicy_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_GetGlobalPolicy_Params_Data::Validate,
      &internal::CrosNetworkConfig_GetGlobalPolicy_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_StartConnect_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_StartConnect_Params_Data::Validate,
      &internal::CrosNetworkConfig_StartConnect_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_StartDisconnect_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_StartDisconnect_Params_Data::Validate,
      &internal::CrosNetworkConfig_StartDisconnect_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_SetVpnProviders_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_SetVpnProviders_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfig_GetVpnProviders_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_GetVpnProviders_Params_Data::Validate,
      &internal::CrosNetworkConfig_GetVpnProviders_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_GetNetworkCertificates_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_GetNetworkCertificates_Params_Data::Validate,
      &internal::CrosNetworkConfig_GetNetworkCertificates_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_GetAlwaysOnVpn_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_GetAlwaysOnVpn_Params_Data::Validate,
      &internal::CrosNetworkConfig_GetAlwaysOnVpn_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_SetAlwaysOnVpn_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_SetAlwaysOnVpn_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfig_GetSupportedVpnTypes_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_GetSupportedVpnTypes_Params_Data::Validate,
      &internal::CrosNetworkConfig_GetSupportedVpnTypes_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_RequestTrafficCounters_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_RequestTrafficCounters_Params_Data::Validate,
      &internal::CrosNetworkConfig_RequestTrafficCounters_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_ResetTrafficCounters_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_ResetTrafficCounters_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfig_SetTrafficCountersAutoReset_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_SetTrafficCountersAutoReset_Params_Data::Validate,
      &internal::CrosNetworkConfig_SetTrafficCountersAutoReset_ResponseParams_Data::Validate},
-    {&internal::CrosNetworkConfig_CreateCustomApn_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_CreateCustomApn_Params_Data::Validate,
+     &internal::CrosNetworkConfig_CreateCustomApn_ResponseParams_Data::Validate},
+    { &internal::CrosNetworkConfig_RemoveCustomApn_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfig_RemoveCustomApn_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CrosNetworkConfig_ModifyCustomApn_Params_Data::Validate,
+    { &internal::CrosNetworkConfig_ModifyCustomApn_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -12490,14 +12754,17 @@ void CrosNetworkConfigObserverProxy::OnActiveNetworksChanged(
                         "<value of type std::vector<NetworkStatePropertiesPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfigObserver_OnActiveNetworksChanged_Name, kFlags, 0, 0, nullptr);
@@ -12540,14 +12807,17 @@ void CrosNetworkConfigObserverProxy::OnNetworkStateChanged(
                         "<value of type NetworkStatePropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfigObserver_OnNetworkStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -12581,14 +12851,17 @@ void CrosNetworkConfigObserverProxy::OnNetworkStateListChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfigObserver::OnNetworkStateListChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfigObserver_OnNetworkStateListChanged_Name, kFlags, 0, 0, nullptr);
@@ -12611,14 +12884,17 @@ void CrosNetworkConfigObserverProxy::OnDeviceStateListChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfigObserver::OnDeviceStateListChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfigObserver_OnDeviceStateListChanged_Name, kFlags, 0, 0, nullptr);
@@ -12641,14 +12917,17 @@ void CrosNetworkConfigObserverProxy::OnVpnProvidersChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfigObserver::OnVpnProvidersChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfigObserver_OnVpnProvidersChanged_Name, kFlags, 0, 0, nullptr);
@@ -12671,14 +12950,17 @@ void CrosNetworkConfigObserverProxy::OnNetworkCertificatesChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_config::mojom::CrosNetworkConfigObserver::OnNetworkCertificatesChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfigObserver_OnNetworkCertificatesChanged_Name, kFlags, 0, 0, nullptr);
@@ -12708,14 +12990,17 @@ void CrosNetworkConfigObserverProxy::OnPoliciesApplied(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosNetworkConfigObserver_OnPoliciesApplied_Name, kFlags, 0, 0, nullptr);
@@ -12952,22 +13237,22 @@ bool CrosNetworkConfigObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosNetworkConfigObserverValidationInfo[] = {
-    {&internal::CrosNetworkConfigObserver_OnActiveNetworksChanged_Params_Data::Validate,
+    { &internal::CrosNetworkConfigObserver_OnActiveNetworksChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfigObserver_OnNetworkStateChanged_Params_Data::Validate,
+    { &internal::CrosNetworkConfigObserver_OnNetworkStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfigObserver_OnNetworkStateListChanged_Params_Data::Validate,
+    { &internal::CrosNetworkConfigObserver_OnNetworkStateListChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfigObserver_OnDeviceStateListChanged_Params_Data::Validate,
+    { &internal::CrosNetworkConfigObserver_OnDeviceStateListChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfigObserver_OnVpnProvidersChanged_Params_Data::Validate,
+    { &internal::CrosNetworkConfigObserver_OnVpnProvidersChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfigObserver_OnNetworkCertificatesChanged_Params_Data::Validate,
+    { &internal::CrosNetworkConfigObserver_OnNetworkCertificatesChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosNetworkConfigObserver_OnPoliciesApplied_Params_Data::Validate,
+    { &internal::CrosNetworkConfigObserver_OnPoliciesApplied_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -13209,6 +13494,8 @@ bool StructTraits<::chromeos::network_config::mojom::DeviceStateProperties::Data
         result->managed_network_available = input.managed_network_available();
       if (success && !input.ReadSerial(&result->serial))
         success = false;
+      if (success)
+        result->is_carrier_locked = input.is_carrier_locked();
   *output = std::move(result);
   return success;
 }
@@ -14589,6 +14876,8 @@ bool StructTraits<::chromeos::network_config::mojom::GlobalPolicy::DataView, ::c
         result->recommended_values_are_ephemeral = input.recommended_values_are_ephemeral();
       if (success)
         result->user_created_network_configurations_are_ephemeral = input.user_created_network_configurations_are_ephemeral();
+      if (success && !input.ReadAllowTextMessages(&result->allow_text_messages))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -14930,8 +15219,8 @@ void CrosNetworkConfigInterceptorForTesting::ResetTrafficCounters(const std::str
 void CrosNetworkConfigInterceptorForTesting::SetTrafficCountersAutoReset(const std::string& guid, bool auto_reset, UInt32ValuePtr day, SetTrafficCountersAutoResetCallback callback) {
   GetForwardingInterface()->SetTrafficCountersAutoReset(std::move(guid), std::move(auto_reset), std::move(day), std::move(callback));
 }
-void CrosNetworkConfigInterceptorForTesting::CreateCustomApn(const std::string& network_guid, ApnPropertiesPtr apn) {
-  GetForwardingInterface()->CreateCustomApn(std::move(network_guid), std::move(apn));
+void CrosNetworkConfigInterceptorForTesting::CreateCustomApn(const std::string& network_guid, ApnPropertiesPtr apn, CreateCustomApnCallback callback) {
+  GetForwardingInterface()->CreateCustomApn(std::move(network_guid), std::move(apn), std::move(callback));
 }
 void CrosNetworkConfigInterceptorForTesting::RemoveCustomApn(const std::string& network_guid, const std::string& apn_id) {
   GetForwardingInterface()->RemoveCustomApn(std::move(network_guid), std::move(apn_id));
@@ -15059,16 +15348,16 @@ void CrosNetworkConfigAsyncWaiter::SetProperties(
 
 
 void CrosNetworkConfigAsyncWaiter::ConfigureNetwork(
-    ConfigPropertiesPtr properties, bool shared, absl::optional<std::string>* out_guid, std::string* out_error_message) {
+    ConfigPropertiesPtr properties, bool shared, std::optional<std::string>* out_guid, std::string* out_error_message) {
   base::RunLoop loop;
   proxy_->ConfigureNetwork(std::move(properties),std::move(shared),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_guid
+             std::optional<std::string>* out_guid
 ,
              std::string* out_error_message
 ,
-             const absl::optional<std::string>& guid,
+             const std::optional<std::string>& guid,
              const std::string& error_message) {*out_guid = std::move(guid);*out_error_message = std::move(error_message);
             loop->Quit();
           },
@@ -15374,6 +15663,29 @@ bool CrosNetworkConfigAsyncWaiter::SetTrafficCountersAutoReset(
     const std::string& guid, bool auto_reset, UInt32ValuePtr day) {
   bool async_wait_result;
   SetTrafficCountersAutoReset(std::move(guid),std::move(auto_reset),std::move(day),&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosNetworkConfigAsyncWaiter::CreateCustomApn(
+    const std::string& network_guid, ApnPropertiesPtr apn, bool* out_success) {
+  base::RunLoop loop;
+  proxy_->CreateCustomApn(std::move(network_guid),std::move(apn),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_success
+,
+             bool success) {*out_success = std::move(success);
+            loop->Quit();
+          },
+          &loop,
+          out_success));
+  loop.Run();
+}
+
+bool CrosNetworkConfigAsyncWaiter::CreateCustomApn(
+    const std::string& network_guid, ApnPropertiesPtr apn) {
+  bool async_wait_result;
+  CreateCustomApn(std::move(network_guid),std::move(apn),&async_wait_result);
   return async_wait_result;
 }
 

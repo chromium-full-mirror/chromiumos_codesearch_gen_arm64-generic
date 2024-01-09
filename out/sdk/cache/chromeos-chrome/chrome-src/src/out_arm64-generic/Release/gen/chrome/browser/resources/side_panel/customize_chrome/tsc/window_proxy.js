@@ -13,4 +13,7 @@ export class WindowProxy {
     now() {
         return Date.now();
     }
+    get onLine() {
+        return window.navigator.onLine;
+    }
 }

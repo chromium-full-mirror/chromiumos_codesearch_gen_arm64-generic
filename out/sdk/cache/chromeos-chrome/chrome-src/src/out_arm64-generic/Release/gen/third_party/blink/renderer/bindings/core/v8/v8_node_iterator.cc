@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, NodeIterator>::value,
     "NodeIterator inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&NodeIterator::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NodeIterator is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("NodeIterator.root.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(v8_receiver);
+NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->root();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("NodeIterator.referenceNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(v8_receiver);
+NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->referenceNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("NodeIterator.pointerBeforeReferenceNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(v8_receiver);
+NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pointerBeforeReferenceNode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -131,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("NodeIterator.whatToShow.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(v8_receiver);
+NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->whatToShow();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -150,7 +149,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->filter();
 if (!ToV8Traits<IDLNullable<V8NodeFilter>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -176,7 +176,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNodeIteratorDetach);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(v8_receiver);
+NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->detach();
 
 }
@@ -192,9 +192,9 @@ BLINK_BINDINGS_TRACE_EVENT("NodeIterator.nextNode");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "NodeIterator";
 const char* const property_name = "nextNode";
@@ -217,9 +217,9 @@ BLINK_BINDINGS_TRACE_EVENT("NodeIterator.previousNode");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NodeIterator* blink_receiver = V8NodeIterator::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "NodeIterator";
 const char* const property_name = "previousNode";

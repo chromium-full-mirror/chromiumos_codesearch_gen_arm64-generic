@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { SkColorSpec as skia_mojom_SkColorSpec } from '//resources/mojo/skia/public/mojom/skcolor.mojom-webui.js';
 export class WallpaperColorsObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -13,6 +14,9 @@ export class WallpaperColorsObserverPendingReceiver {
     }
 }
 export class WallpaperColorsObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(WallpaperColorsObserverPendingReceiver, handle);
@@ -32,6 +36,9 @@ export class WallpaperColorsObserverRemote {
  * interface.
  */
 export class WallpaperColorsObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(WallpaperColorsObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -61,6 +68,11 @@ export class WallpaperColorsObserver {
  * receiver can have any number of listeners added to it.
  */
 export class WallpaperColorsObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onWallpaperColorsChanged;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(WallpaperColorsObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -79,6 +91,7 @@ export class WallpaperColorsObserverCallbackRouter {
     }
 }
 export class WallpaperColorsHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -87,6 +100,9 @@ export class WallpaperColorsHandlerPendingReceiver {
     }
 }
 export class WallpaperColorsHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(WallpaperColorsHandlerPendingReceiver, handle);
@@ -106,6 +122,9 @@ export class WallpaperColorsHandlerRemote {
  * interface.
  */
 export class WallpaperColorsHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(WallpaperColorsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -135,6 +154,11 @@ export class WallpaperColorsHandler {
  * receiver can have any number of listeners added to it.
  */
 export class WallpaperColorsHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    setWallpaperColorsObserver;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(WallpaperColorsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/quick_pair/public/mojom/fast_pair_data_parser.mojom-features.h"
 #include "chromeos/ash/services/quick_pair/public/mojom/fast_pair_data_parser.mojom-shared.h"
 #include "chromeos/ash/services/quick_pair/public/mojom/fast_pair_data_parser.mojom-forward.h"
 #include <string>
@@ -98,22 +99,22 @@ class FastPairDataParser
   virtual ~FastPairDataParser() = default;
 
 
-  using GetHexModelIdFromServiceDataCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetHexModelIdFromServiceDataCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetHexModelIdFromServiceData(const std::vector<uint8_t>& service_data, GetHexModelIdFromServiceDataCallback callback) = 0;
 
 
-  using ParseDecryptedResponseCallback = base::OnceCallback<void(const absl::optional<::ash::quick_pair::DecryptedResponse>&)>;
+  using ParseDecryptedResponseCallback = base::OnceCallback<void(const std::optional<::ash::quick_pair::DecryptedResponse>&)>;
   
   virtual void ParseDecryptedResponse(const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_response_bytes, ParseDecryptedResponseCallback callback) = 0;
 
 
-  using ParseDecryptedPasskeyCallback = base::OnceCallback<void(const absl::optional<::ash::quick_pair::DecryptedPasskey>&)>;
+  using ParseDecryptedPasskeyCallback = base::OnceCallback<void(const std::optional<::ash::quick_pair::DecryptedPasskey>&)>;
   
   virtual void ParseDecryptedPasskey(const std::vector<uint8_t>& aes_key, const std::vector<uint8_t>& encrypted_passkey_bytes, ParseDecryptedPasskeyCallback callback) = 0;
 
 
-  using ParseNotDiscoverableAdvertisementCallback = base::OnceCallback<void(const absl::optional<::ash::quick_pair::NotDiscoverableAdvertisement>&)>;
+  using ParseNotDiscoverableAdvertisementCallback = base::OnceCallback<void(const std::optional<::ash::quick_pair::NotDiscoverableAdvertisement>&)>;
   
   virtual void ParseNotDiscoverableAdvertisement(const std::vector<uint8_t>& service_data, const std::string& address, ParseNotDiscoverableAdvertisementCallback callback) = 0;
 
@@ -658,81 +659,81 @@ class  MessageStreamMessage {
   // Construct an instance holding |model_id|.
   static MessageStreamMessagePtr
   NewModelId(
-      const std::string& model_id) {
+      const std::string& value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_model_id(std::move(model_id));
+    result->set_model_id(std::move(value));
     return result;
   }
   // Construct an instance holding |ble_address_update|.
   static MessageStreamMessagePtr
   NewBleAddressUpdate(
-      const std::string& ble_address_update) {
+      const std::string& value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_ble_address_update(std::move(ble_address_update));
+    result->set_ble_address_update(std::move(value));
     return result;
   }
   // Construct an instance holding |battery_update|.
   static MessageStreamMessagePtr
   NewBatteryUpdate(
-      BatteryUpdatePtr battery_update) {
+      BatteryUpdatePtr value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_battery_update(std::move(battery_update));
+    result->set_battery_update(std::move(value));
     return result;
   }
   // Construct an instance holding |remaining_battery_time|.
   static MessageStreamMessagePtr
   NewRemainingBatteryTime(
-      uint16_t remaining_battery_time) {
+      uint16_t value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_remaining_battery_time(std::move(remaining_battery_time));
+    result->set_remaining_battery_time(std::move(value));
     return result;
   }
   // Construct an instance holding |enable_silence_mode|.
   static MessageStreamMessagePtr
   NewEnableSilenceMode(
-      bool enable_silence_mode) {
+      bool value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_enable_silence_mode(std::move(enable_silence_mode));
+    result->set_enable_silence_mode(std::move(value));
     return result;
   }
   // Construct an instance holding |companion_app_log_buffer_full|.
   static MessageStreamMessagePtr
   NewCompanionAppLogBufferFull(
-      bool companion_app_log_buffer_full) {
+      bool value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_companion_app_log_buffer_full(std::move(companion_app_log_buffer_full));
+    result->set_companion_app_log_buffer_full(std::move(value));
     return result;
   }
   // Construct an instance holding |active_components_byte|.
   static MessageStreamMessagePtr
   NewActiveComponentsByte(
-      uint8_t active_components_byte) {
+      uint8_t value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_active_components_byte(std::move(active_components_byte));
+    result->set_active_components_byte(std::move(value));
     return result;
   }
   // Construct an instance holding |ring_device_event|.
   static MessageStreamMessagePtr
   NewRingDeviceEvent(
-      RingDevicePtr ring_device_event) {
+      RingDevicePtr value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_ring_device_event(std::move(ring_device_event));
+    result->set_ring_device_event(std::move(value));
     return result;
   }
   // Construct an instance holding |acknowledgement|.
   static MessageStreamMessagePtr
   NewAcknowledgement(
-      AcknowledgementMessagePtr acknowledgement) {
+      AcknowledgementMessagePtr value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_acknowledgement(std::move(acknowledgement));
+    result->set_acknowledgement(std::move(value));
     return result;
   }
   // Construct an instance holding |sdk_version|.
   static MessageStreamMessagePtr
   NewSdkVersion(
-      int8_t sdk_version) {
+      int8_t value) {
     auto result = MessageStreamMessagePtr(absl::in_place);
-    result->set_sdk_version(std::move(sdk_version));
+    result->set_sdk_version(std::move(value));
     return result;
   }
 

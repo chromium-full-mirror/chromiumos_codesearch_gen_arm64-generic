@@ -18,10 +18,10 @@ class  PrintCompositorInterceptorForTesting : public PrintCompositor {
   void NotifyUnavailableSubframe(uint64_t frame_guid) override;
   void AddSubframeContent(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion serialized_content, const base::flat_map<uint32_t, uint64_t>& subframe_content_info) override;
   void SetAccessibilityTree(const ::ui::AXTreeUpdate& accessibility_tree) override;
-  void CompositePageToPdf(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositePageToPdfCallback callback) override;
-  void CompositeDocumentToPdf(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositeDocumentToPdfCallback callback) override;
-  void PrepareForDocumentToPdf(PrepareForDocumentToPdfCallback callback) override;
-  void CompleteDocumentToPdf(uint32_t pages_count, CompleteDocumentToPdfCallback callback) override;
+  void CompositePage(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, CompositePageCallback callback) override;
+  void CompositeDocument(uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::DocumentType document_type, CompositeDocumentCallback callback) override;
+  void PrepareToCompositeDocument(PrintCompositor::DocumentType document_type, PrepareToCompositeDocumentCallback callback) override;
+  void FinishDocumentComposition(uint32_t pages_count, FinishDocumentCompositionCallback callback) override;
   void SetWebContentsURL(const ::GURL& url) override;
   void SetUserAgent(const std::string& user_agent) override;
 };
@@ -33,17 +33,17 @@ class  PrintCompositorAsyncWaiter {
   PrintCompositorAsyncWaiter& operator=(const PrintCompositorAsyncWaiter&) = delete;
 
   ~PrintCompositorAsyncWaiter();
-  void CompositePageToPdf(
-      uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_pdf_region);
+  void CompositePage(
+      uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_document_region);
   
-  void CompositeDocumentToPdf(
-      uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_pdf_region);
+  void CompositeDocument(
+      uint64_t frame_guid, ::base::ReadOnlySharedMemoryRegion sk_region, const base::flat_map<uint32_t, uint64_t>& subframe_content_info, PrintCompositor::DocumentType document_type, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_document_region);
   
-  void PrepareForDocumentToPdf(
-      PrintCompositor::Status* out_status);
-  PrintCompositor::Status PrepareForDocumentToPdf();
-  void CompleteDocumentToPdf(
-      uint32_t pages_count, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_pdf_region);
+  void PrepareToCompositeDocument(
+      PrintCompositor::DocumentType document_type, PrintCompositor::Status* out_status);
+  PrintCompositor::Status PrepareToCompositeDocument(PrintCompositor::DocumentType document_type);
+  void FinishDocumentComposition(
+      uint32_t pages_count, PrintCompositor::Status* out_status, ::base::ReadOnlySharedMemoryRegion* out_document_region);
   
 
  private:

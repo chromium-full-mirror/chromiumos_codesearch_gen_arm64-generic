@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IDBIndex>::value,
     "IDBIndex inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IDBIndex::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IDBIndex is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,9 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.name.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "IDBIndex";
@@ -129,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.objectStore.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->objectStore();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -144,7 +140,7 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.keyPath.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -178,8 +174,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.multiEntry.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->multiEntry();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -192,8 +189,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.unique.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->unique();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -210,13 +208,13 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.count");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLAny>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_key;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IDBIndex";
 const char* const property_name = "count";
@@ -257,7 +255,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -284,9 +282,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.getAll");
 
 
 IDBRequest* return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IDBIndex";
 const char* const property_name = "getAll";
@@ -333,9 +331,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.getAllKeys");
 
 
 IDBRequest* return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IDBIndex";
 const char* const property_name = "getAllKeys";
@@ -391,7 +389,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -417,13 +415,13 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.openCursor");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLAny>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_range;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IDBIndex";
 const char* const property_name = "openCursor";
@@ -461,13 +459,13 @@ BLINK_BINDINGS_TRACE_EVENT("IDBIndex.openKeyCursor");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(v8_receiver);
+IDBIndex* blink_receiver = V8IDBIndex::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLAny>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_range;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IDBIndex";
 const char* const property_name = "openKeyCursor";

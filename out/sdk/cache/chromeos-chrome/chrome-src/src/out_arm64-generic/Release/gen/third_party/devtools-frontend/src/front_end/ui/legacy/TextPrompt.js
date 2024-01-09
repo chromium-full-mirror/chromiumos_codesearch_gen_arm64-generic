@@ -32,12 +32,13 @@
 import * as Common from '../../core/common/common.js';
 import * as Platform from '../../core/platform/platform.js';
 import * as TextUtils from '../../models/text_utils/text_utils.js';
+import * as VisualLogging from '../visual_logging/visual_logging.js';
 import * as ARIAUtils from './ARIAUtils.js';
-import * as ThemeSupport from './theme_support/theme_support.js';
 import { SuggestBox } from './SuggestBox.js';
+import textPromptStyles from './textPrompt.css.legacy.js';
+import * as ThemeSupport from './theme_support/theme_support.js';
 import { Tooltip } from './Tooltip.js';
 import { ElementFocusRestorer } from './UIUtils.js';
-import textPromptStyles from './textPrompt.css.legacy.js';
 export class TextPrompt extends Common.ObjectWrapper.ObjectWrapper {
     proxyElement;
     proxyElementDisplay;
@@ -65,6 +66,7 @@ export class TextPrompt extends Common.ObjectWrapper.ObjectWrapper {
     oldTabIndex;
     completeTimeout;
     disableDefaultSuggestionForEmptyInputInternal;
+    jslogContext = undefined;
     constructor() {
         super();
         this.proxyElementDisplay = 'inline-block';
@@ -126,6 +128,11 @@ export class TextPrompt extends Common.ObjectWrapper.ObjectWrapper {
             element.parentElement.insertBefore(this.proxyElement, element);
         }
         this.contentElement.appendChild(element);
+        let jslog = VisualLogging.textField().track({ keydown: true });
+        if (this.jslogContext) {
+            jslog = jslog.context(this.jslogContext);
+        }
+        this.elementInternal.setAttribute('jslog', `${jslog}`);
         this.elementInternal.classList.add('text-prompt');
         ARIAUtils.markAsTextBox(this.elementInternal);
         ARIAUtils.setAutocomplete(this.elementInternal, ARIAUtils.AutocompleteInteractionModel.both);

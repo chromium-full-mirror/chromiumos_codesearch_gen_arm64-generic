@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/network_param.mojom-features.h"
 #include "services/network/public/mojom/network_param.mojom-shared.h"
 #include "services/network/public/mojom/network_param.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -42,18 +43,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ProxyScheme>
-    : EnumHashTraits<::network::mojom::ProxyScheme, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -348,6 +337,7 @@ template <typename T, HostPortPair::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -694,7 +684,7 @@ class BLINK_PLATFORM_EXPORT ProxyServer {
 
   ProxyServer(
       ProxyScheme scheme,
-      const absl::optional<::net::HostPortPair>& host_and_port);
+      const std::optional<::net::HostPortPair>& host_and_port);
 
 
   ~ProxyServer();
@@ -774,7 +764,7 @@ class BLINK_PLATFORM_EXPORT ProxyServer {
   
   ProxyScheme scheme;
   
-  absl::optional<::net::HostPortPair> host_and_port;
+  std::optional<::net::HostPortPair> host_and_port;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -801,6 +791,151 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, ProxyServer::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class BLINK_PLATFORM_EXPORT ProxyChain {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ProxyChain, T>::value>;
+  using DataView = ProxyChainDataView;
+  using Data_ = internal::ProxyChain_Data;
+
+  template <typename... Args>
+  static ProxyChainPtr New(Args&&... args) {
+    return ProxyChainPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ProxyChainPtr From(const U& u) {
+    return mojo::TypeConverter<ProxyChainPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ProxyChain>::Convert(*this);
+  }
+
+
+  ProxyChain();
+
+  ProxyChain(
+      std::optional<WTF::Vector<ProxyServerPtr>> proxy_servers,
+      bool is_for_ip_protection);
+
+ProxyChain(const ProxyChain&) = delete;
+ProxyChain& operator=(const ProxyChain&) = delete;
+
+  ~ProxyChain();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ProxyChainPtr>
+  ProxyChainPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ProxyChain::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ProxyChain::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ProxyChain::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ProxyChain::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ProxyChain::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ProxyChain_UnserializedMessageContext<
+            UserType, ProxyChain::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ProxyChain::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return ProxyChain::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ProxyChain_UnserializedMessageContext<
+            UserType, ProxyChain::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ProxyChain::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::optional<WTF::Vector<ProxyServerPtr>> proxy_servers;
+  
+  bool is_for_ip_protection;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ProxyChain::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ProxyChain::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ProxyChain::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ProxyChain::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1248,6 +1383,35 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+ProxyChainPtr ProxyChain::Clone() const {
+  return New(
+      mojo::Clone(proxy_servers),
+      mojo::Clone(is_for_ip_protection)
+  );
+}
+
+template <typename T, ProxyChain::EnableIfSame<T>*>
+bool ProxyChain::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->proxy_servers, other_struct.proxy_servers))
+    return false;
+  if (!mojo::Equals(this->is_for_ip_protection, other_struct.is_for_ip_protection))
+    return false;
+  return true;
+}
+
+template <typename T, ProxyChain::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.proxy_servers < rhs.proxy_servers)
+    return true;
+  if (rhs.proxy_servers < lhs.proxy_servers)
+    return false;
+  if (lhs.is_for_ip_protection < rhs.is_for_ip_protection)
+    return true;
+  if (rhs.is_for_ip_protection < lhs.is_for_ip_protection)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 ResolveErrorInfoPtr ResolveErrorInfo::Clone() const {
   return New(
       mojo::Clone(error),
@@ -1459,6 +1623,26 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::ProxyServer::
   }
 
   static bool Read(::network::mojom::blink::ProxyServer::DataView input, ::network::mojom::blink::ProxyServerPtr* output);
+};
+
+
+template <>
+struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::ProxyChain::DataView,
+                                         ::network::mojom::blink::ProxyChainPtr> {
+  static bool IsNull(const ::network::mojom::blink::ProxyChainPtr& input) { return !input; }
+  static void SetToNull(::network::mojom::blink::ProxyChainPtr* output) { output->reset(); }
+
+  static const decltype(::network::mojom::blink::ProxyChain::proxy_servers)& proxy_servers(
+      const ::network::mojom::blink::ProxyChainPtr& input) {
+    return input->proxy_servers;
+  }
+
+  static decltype(::network::mojom::blink::ProxyChain::is_for_ip_protection) is_for_ip_protection(
+      const ::network::mojom::blink::ProxyChainPtr& input) {
+    return input->is_for_ip_protection;
+  }
+
+  static bool Read(::network::mojom::blink::ProxyChain::DataView input, ::network::mojom::blink::ProxyChainPtr* output);
 };
 
 

@@ -76,7 +76,7 @@ bool DisplaySnapshot_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->color_space, 16, validation_context)) {
+          object->color_space, 15, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->color_space, validation_context))
@@ -86,7 +86,7 @@ bool DisplaySnapshot_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->display_name, 19, validation_context)) {
+          object->display_name, 18, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& display_name_validate_params =
@@ -97,14 +97,14 @@ bool DisplaySnapshot_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->sys_path, 20, validation_context)) {
+          object->sys_path, 19, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->sys_path, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->modes, 21, validation_context)) {
+          object->modes, 20, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& modes_validate_params =
@@ -120,7 +120,7 @@ bool DisplaySnapshot_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->edid, 23, validation_context)) {
+          object->edid, 22, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& edid_validate_params =
@@ -131,7 +131,7 @@ bool DisplaySnapshot_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->maximum_cursor_size, 30, validation_context)) {
+          object->maximum_cursor_size, 29, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->maximum_cursor_size, validation_context))
@@ -143,7 +143,7 @@ bool DisplaySnapshot_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->drm_formats_and_modifiers, 33, validation_context)) {
+          object->drm_formats_and_modifiers, 32, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& drm_formats_and_modifiers_validate_params =

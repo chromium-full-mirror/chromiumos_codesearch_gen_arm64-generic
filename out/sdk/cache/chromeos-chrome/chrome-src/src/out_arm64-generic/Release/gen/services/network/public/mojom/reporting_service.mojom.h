@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/reporting_service.mojom-features.h"
 #include "services/network/public/mojom/reporting_service.mojom-shared.h"
 #include "services/network/public/mojom/reporting_service.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -380,7 +381,7 @@ class  ReportingApiEndpoint {
       const ::url::Origin& origin,
       const std::string& group_name,
       const ::net::NetworkAnonymizationKey& network_anonymization_key,
-      const absl::optional<::base::UnguessableToken>& reporting_source);
+      const std::optional<::base::UnguessableToken>& reporting_source);
 
 
   ~ReportingApiEndpoint();
@@ -478,7 +479,7 @@ class  ReportingApiEndpoint {
   
   ::net::NetworkAnonymizationKey network_anonymization_key;
   
-  absl::optional<::base::UnguessableToken> reporting_source;
+  std::optional<::base::UnguessableToken> reporting_source;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -103,8 +104,8 @@ struct StorageChange {
   ~StorageChange();
   StorageChange(const StorageChange&) = delete;
   StorageChange& operator=(const StorageChange&) = delete;
-  StorageChange(StorageChange&& rhs);
-  StorageChange& operator=(StorageChange&& rhs);
+  StorageChange(StorageChange&& rhs) noexcept;
+  StorageChange& operator=(StorageChange&& rhs) noexcept;
 
   // Populates a StorageChange object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -117,25 +118,22 @@ struct StorageChange {
   // Creates a deep copy of StorageChange.
   StorageChange Clone() const;
 
-  // Creates a StorageChange object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StorageChange> FromValueDeprecated(const base::Value& value);
-
   // Creates a StorageChange object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StorageChange> FromValue(const base::Value::Dict& value);
+  static std::optional<StorageChange> FromValue(const base::Value::Dict& value);
 
   // Creates a StorageChange object from a base::Value, or nullopt on failure.
-  static absl::optional<StorageChange> FromValue(const base::Value& value);
+  static std::optional<StorageChange> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStorageChange object.
   base::Value::Dict ToValue() const;
 
   // The old value of the item, if there was an old value.
-  absl::optional<base::Value> old_value;
+  std::optional<base::Value> old_value;
 
   // The new value of the item, if there is a new value.
-  absl::optional<base::Value> new_value;
+  std::optional<base::Value> new_value;
 
 };
 
@@ -144,11 +142,11 @@ namespace StorageArea {
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A single key to get, list of keys to get, or a dictionary specifying default
@@ -160,8 +158,8 @@ struct Params {
     ~Keys();
     Keys(const Keys&) = delete;
     Keys& operator=(const Keys&) = delete;
-    Keys(Keys&& rhs);
-    Keys& operator=(Keys&& rhs);
+    Keys(Keys&& rhs) noexcept;
+    Keys& operator=(Keys&& rhs) noexcept;
 
     // Populates a Keys object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -171,7 +169,7 @@ struct Params {
     Keys Clone() const;
 
     // Creates a Keys object from a base::Value, or nullopt on failure.
-    static absl::optional<Keys> FromValue(const base::Value& value);
+    static std::optional<Keys> FromValue(const base::Value& value);
     // Storage items to return in the callback, where the values are replaced with
     // those from storage if they exist.
     struct Object {
@@ -179,8 +177,8 @@ struct Params {
       ~Object();
       Object(const Object&) = delete;
       Object& operator=(const Object&) = delete;
-      Object(Object&& rhs);
-      Object& operator=(Object&& rhs);
+      Object(Object&& rhs) noexcept;
+      Object& operator=(Object&& rhs) noexcept;
 
       // Populates a Object object from a base::Value& instance. Returns whether
       // |out| was successfully populated.
@@ -194,19 +192,19 @@ struct Params {
       Object Clone() const;
 
       // Creates a Object object from a base::Value::Dict, or nullopt on failure.
-      static absl::optional<Object> FromValue(const base::Value::Dict& value);
+      static std::optional<Object> FromValue(const base::Value::Dict& value);
 
       // Creates a Object object from a base::Value, or nullopt on failure.
-      static absl::optional<Object> FromValue(const base::Value& value);
+      static std::optional<Object> FromValue(const base::Value& value);
 
       base::Value::Dict additional_properties;
     };
 
 
     // Choices:
-    absl::optional<std::string> as_string;
-    absl::optional<std::vector<std::string>> as_strings;
-    absl::optional<Object> as_object;
+    std::optional<std::string> as_string;
+    std::optional<std::vector<std::string>> as_strings;
+    std::optional<Object> as_object;
   };
 
 
@@ -214,7 +212,7 @@ struct Params {
   // values (see description of the object).  An empty list or object will return
   // an empty result object.  Pass in <code>null</code> to get the entire contents
   // of storage.
-  absl::optional<Keys> keys;
+  std::optional<Keys> keys;
 
 
  private:
@@ -229,8 +227,8 @@ struct Items {
   ~Items();
   Items(const Items&) = delete;
   Items& operator=(const Items&) = delete;
-  Items(Items&& rhs);
-  Items& operator=(Items&& rhs);
+  Items(Items&& rhs) noexcept;
+  Items& operator=(Items&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisItems object.
@@ -249,11 +247,11 @@ base::Value::List Create(const Items& items);
 namespace GetBytesInUse {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A single key or list of keys to get the total usage for. An empty list will
@@ -263,8 +261,8 @@ struct Params {
     ~Keys();
     Keys(const Keys&) = delete;
     Keys& operator=(const Keys&) = delete;
-    Keys(Keys&& rhs);
-    Keys& operator=(Keys&& rhs);
+    Keys(Keys&& rhs) noexcept;
+    Keys& operator=(Keys&& rhs) noexcept;
 
     // Populates a Keys object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -274,16 +272,16 @@ struct Params {
     Keys Clone() const;
 
     // Creates a Keys object from a base::Value, or nullopt on failure.
-    static absl::optional<Keys> FromValue(const base::Value& value);
+    static std::optional<Keys> FromValue(const base::Value& value);
     // Choices:
-    absl::optional<std::string> as_string;
-    absl::optional<std::vector<std::string>> as_strings;
+    std::optional<std::string> as_string;
+    std::optional<std::vector<std::string>> as_strings;
   };
 
 
   // A single key or list of keys to get the total usage for. An empty list will
   // return 0. Pass in <code>null</code> to get the total usage of all of storage.
-  absl::optional<Keys> keys;
+  std::optional<Keys> keys;
 
 
  private:
@@ -301,11 +299,11 @@ base::Value::List Create(double bytes_in_use);
 namespace Set {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // <p>An object which gives each key/value pair to update storage with. Any
@@ -320,8 +318,8 @@ struct Params {
     ~Items();
     Items(const Items&) = delete;
     Items& operator=(const Items&) = delete;
-    Items(Items&& rhs);
-    Items& operator=(Items&& rhs);
+    Items(Items&& rhs) noexcept;
+    Items& operator=(Items&& rhs) noexcept;
 
     // Populates a Items object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -335,10 +333,10 @@ struct Params {
     Items Clone() const;
 
     // Creates a Items object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Items> FromValue(const base::Value::Dict& value);
+    static std::optional<Items> FromValue(const base::Value::Dict& value);
 
     // Creates a Items object from a base::Value, or nullopt on failure.
-    static absl::optional<Items> FromValue(const base::Value& value);
+    static std::optional<Items> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -368,11 +366,11 @@ base::Value::List Create();
 namespace Remove {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A single key or a list of keys for items to remove.
@@ -381,8 +379,8 @@ struct Params {
     ~Keys();
     Keys(const Keys&) = delete;
     Keys& operator=(const Keys&) = delete;
-    Keys(Keys&& rhs);
-    Keys& operator=(Keys&& rhs);
+    Keys(Keys&& rhs) noexcept;
+    Keys& operator=(Keys&& rhs) noexcept;
 
     // Populates a Keys object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -392,10 +390,10 @@ struct Params {
     Keys Clone() const;
 
     // Creates a Keys object from a base::Value, or nullopt on failure.
-    static absl::optional<Keys> FromValue(const base::Value& value);
+    static std::optional<Keys> FromValue(const base::Value& value);
     // Choices:
-    absl::optional<std::string> as_string;
-    absl::optional<std::vector<std::string>> as_strings;
+    std::optional<std::string> as_string;
+    std::optional<std::vector<std::string>> as_strings;
   };
 
 
@@ -426,11 +424,11 @@ base::Value::List Create();
 namespace SetAccessLevel {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct AccessOptions {
@@ -438,8 +436,8 @@ struct Params {
     ~AccessOptions();
     AccessOptions(const AccessOptions&) = delete;
     AccessOptions& operator=(const AccessOptions&) = delete;
-    AccessOptions(AccessOptions&& rhs);
-    AccessOptions& operator=(AccessOptions&& rhs);
+    AccessOptions(AccessOptions&& rhs) noexcept;
+    AccessOptions& operator=(AccessOptions&& rhs) noexcept;
 
     // Populates a AccessOptions object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -454,10 +452,10 @@ struct Params {
 
     // Creates a AccessOptions object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<AccessOptions> FromValue(const base::Value::Dict& value);
+    static std::optional<AccessOptions> FromValue(const base::Value::Dict& value);
 
     // Creates a AccessOptions object from a base::Value, or nullopt on failure.
-    static absl::optional<AccessOptions> FromValue(const base::Value& value);
+    static std::optional<AccessOptions> FromValue(const base::Value& value);
 
     // The access level of the storage area.
     AccessLevel access_level;
@@ -497,8 +495,8 @@ struct Changes {
   ~Changes();
   Changes(const Changes&) = delete;
   Changes& operator=(const Changes&) = delete;
-  Changes(Changes&& rhs);
-  Changes& operator=(Changes&& rhs);
+  Changes(Changes&& rhs) noexcept;
+  Changes& operator=(Changes&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChanges object.

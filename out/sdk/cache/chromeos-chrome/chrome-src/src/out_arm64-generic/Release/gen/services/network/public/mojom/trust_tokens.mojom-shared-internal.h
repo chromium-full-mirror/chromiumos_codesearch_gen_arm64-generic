@@ -36,29 +36,6 @@ class FulfillTrustTokenIssuanceAnswer_Data;
 class TrustTokenOperationResult_Data;
 class StoredTrustTokensForIssuer_Data;
 
-struct TrustTokenMajorVersion_Data {
- public:
-  static bool constexpr kIsExtensible = false;
-
-  static bool IsKnownValue(int32_t value) {
-    switch (value) {
-      case 0:
-        return true;
-    }
-    return false;
-  }
-
-  static bool Validate(int32_t value,
-                       mojo::internal::ValidationContext* validation_context) {
-    if (kIsExtensible || IsKnownValue(value))
-      return true;
-
-    ReportValidationError(validation_context,
-                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
-    return false;
-  }
-};
-
 struct TrustTokenProtocolVersion_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -298,14 +275,13 @@ class  TrustTokenParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t version;
   int32_t operation;
   int32_t refresh_policy;
-  int32_t sign_request_data;
   mojo::internal::Pointer<mojo::internal::String_Data> custom_key_commitment;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> custom_issuer;
+  int32_t sign_request_data;
   uint8_t include_timestamp_header : 1;
-  uint8_t pad6_[7];
+  uint8_t pad5_[3];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Origin_Data>>> issuers;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> additional_signed_headers;
   mojo::internal::Pointer<mojo::internal::String_Data> possibly_unsafe_additional_signing_data;
@@ -316,7 +292,7 @@ class  TrustTokenParams_Data {
   TrustTokenParams_Data();
   ~TrustTokenParams_Data() = delete;
 };
-static_assert(sizeof(TrustTokenParams_Data) == 72,
+static_assert(sizeof(TrustTokenParams_Data) == 64,
               "Bad sizeof(TrustTokenParams_Data)");
 // Used by TrustTokenParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -505,14 +481,12 @@ class  TrustTokenKeyCommitmentResult_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t version;
   int32_t protocol_version;
   int32_t id;
   int32_t batch_size;
+  int32_t unavailable_local_operation_fallback;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::TrustTokenVerificationKey_Data>>> keys;
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> request_issuance_locally_on;
-  int32_t unavailable_local_operation_fallback;
-  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<TrustTokenKeyCommitmentResult_Data>;
@@ -520,7 +494,7 @@ class  TrustTokenKeyCommitmentResult_Data {
   TrustTokenKeyCommitmentResult_Data();
   ~TrustTokenKeyCommitmentResult_Data() = delete;
 };
-static_assert(sizeof(TrustTokenKeyCommitmentResult_Data) == 48,
+static_assert(sizeof(TrustTokenKeyCommitmentResult_Data) == 40,
               "Bad sizeof(TrustTokenKeyCommitmentResult_Data)");
 // Used by TrustTokenKeyCommitmentResult::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

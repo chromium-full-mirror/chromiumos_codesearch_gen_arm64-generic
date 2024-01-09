@@ -12,8 +12,8 @@ sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/dev-util/puffin"
 platform2_root =
-    "/var/tmp/portage/dev-util/puffin-1.0.0-r448/work/puffin-1.0.0/platform2"
-libbase_ver = "1211970"
+    "/var/tmp/portage/dev-util/puffin-1.0.0-r449/work/puffin-1.0.0/platform2"
+libbase_ver = "1241304"
 enable_exceptions = false
 external_cflags = [
   "-O2",
@@ -96,6 +96,7 @@ use = {
   fake_drivefs_launcher = false
   feature_management = false
   feedback = false
+  flex_internal = false
   floss = false
   floss_rootcanal = false
   force_breakpad = false
@@ -125,6 +126,7 @@ use = {
   iwlwifi_dump = false
   jetstream_routing = false
   keymint = false
+  key_eviction = false
   kvm_guest = false
   kvm_host = false
   libglvnd = false
@@ -136,6 +138,7 @@ use = {
   lvm_migration = false
   lvm_stateful_partition = false
   manage_efi_boot_entries = false
+  mesa_reven = false
   metrics_uploader = false
   ml_benchmark_drivers = false
   mojo = false

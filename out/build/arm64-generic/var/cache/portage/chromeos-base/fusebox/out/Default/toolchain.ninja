@@ -34,7 +34,6 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/fusebox/all.stamp
-build obj/fusebox/all.stamp: stamp ./fusebox ./fusebox_test
+build obj/fusebox/all.stamp: stamp ./fusebox
 subninja obj/fusebox/fusebox.ninja
-subninja obj/fusebox/fusebox_test.ninja
 subninja obj/fusebox/libfusebox.ninja

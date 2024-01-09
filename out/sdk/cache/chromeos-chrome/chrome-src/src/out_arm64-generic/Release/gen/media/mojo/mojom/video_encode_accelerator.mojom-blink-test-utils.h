@@ -59,8 +59,8 @@ class BLINK_PLATFORM_EXPORT VideoEncodeAcceleratorInterceptorForTesting : public
   void Initialize(VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::blink::MediaLog> media_log, InitializeCallback callback) override;
   void Encode(::media::mojom::blink::VideoFramePtr frame, VideoEncodeOptionsPtr options, EncodeCallback callback) override;
   void UseOutputBitstreamBuffer(int32_t bitstream_buffer_id, ::base::UnsafeSharedMemoryRegion region) override;
-  void RequestEncodingParametersChangeWithLayers(VideoBitrateAllocationPtr bitrate_allocation, uint32_t framerate) override;
-  void RequestEncodingParametersChangeWithBitrate(BitratePtr bitrate, uint32_t framerate) override;
+  void RequestEncodingParametersChangeWithLayers(VideoBitrateAllocationPtr bitrate_allocation, uint32_t framerate, const std::optional<::gfx::Size>& size) override;
+  void RequestEncodingParametersChangeWithBitrate(BitratePtr bitrate, uint32_t framerate, const std::optional<::gfx::Size>& size) override;
   void IsFlushSupported(IsFlushSupportedCallback callback) override;
   void Flush(FlushCallback callback) override;
 };

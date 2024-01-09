@@ -1,0 +1,66 @@
+{
+  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/ash/common/cr_elements/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
+      "//resources/cros_components/*": [
+        "./../../../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
+      ],
+      "chrome://resources/cros_components/*": [
+        "./../../../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://cloud-upload/*": [
+        "./../../../../../browser/resources/chromeos/cloud_upload/tsc/*"
+      ],
+      "chrome://webui-test/chromeos/*": [
+        "./../tsc/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/cloud_upload_dialog_test.ts",
+    "preprocessed/connect_onedrive_test.ts",
+    "preprocessed/file_handler_page_test.ts",
+    "preprocessed/move_confirmation_page_test.ts",
+    "preprocessed/cloud_upload_test_browser_proxy.ts"
+  ],
+  "references": [
+    {
+      "path": "../../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ash/webui/common/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../browser/resources/chromeos/cloud_upload/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../third_party/cros-components/tsconfig_cros_components_ts.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

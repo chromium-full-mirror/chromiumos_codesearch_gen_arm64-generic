@@ -1,102 +1,69 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { util } from '../../../common/js/util.js';
+import { getFilesAppModalDialogInstance } from '../../../common/js/util.js';
 import { ConfirmDialog } from './dialogs.js';
 /**
  * Confirm dialog.
  */
-// @ts-ignore: error TS2415: Class 'FilesConfirmDialog' incorrectly extends base
-// class 'ConfirmDialog'.
 export class FilesConfirmDialog extends ConfirmDialog {
     /**
-     * @param {!Element} parentElement
      */
     constructor(parentElement) {
         super(parentElement);
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.container.classList.add('files-ng');
         /**
-         * @type {?function():void} showModalElement Optional call to show the
+         * showModalElement Optional call to show the
          * modal <dialog> parent of |this| if needed.
-         * @public
          */
         this.showModalElement = null;
         /**
-         * @type {?function():void} doneCallback Optional callback when |this|
+         * doneCallback Optional callback when |this|
          * is closed confirmed or cancelled via dialog buttons.
-         * @public
          */
         this.doneCallback = null;
         /**
-         * @type {boolean} focusCancelButton Set true if the cancel button
+         * focusCancelButton Set true if the cancel button
          * should be focused when the dialog is first displayed. Otherwise
          * (the default) the dialog will focus the confirm button.
-         * @public
          */
         this.focusCancelButton = false;
+        this.container.classList.add('files-ng');
     }
-    /**
-     * @protected
-     * @override
-     */
     initDom() {
         super.initDom();
-        super.hasModalContainer = true;
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
+        this.hasModalContainer = true;
         this.frame.classList.add('files-confirm-dialog');
     }
-    /**
-     * @override
-     * @suppress {accessControls}
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    show_(...args) {
+    show_(title, onOk, onCancel, onShow) {
         if (!this.showModalElement) {
-            this.parentNode_ = util.getFilesAppModalDialogInstance();
+            this.parentNode_ = getFilesAppModalDialogInstance();
         }
         if (this.focusCancelButton) {
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
             this.frame.classList.add('files-confirm-dialog-cancel-default');
             this.setInitialFocusOnCancel();
         }
-        // @ts-ignore: error TS2556: A spread argument must either have a tuple type
-        // or be passed to a rest parameter.
-        super.show_(...args);
+        super.show_(title, onOk, onCancel, onShow);
         if (!this.showModalElement) {
-            this.parentNode_.showModal();
+            this.parentNodeAsDialogTag.showModal();
         }
     }
-    /**
-     * @override
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    hide(...args) {
+    hide(onHide) {
         if (!this.showModalElement) {
-            this.parentNode_.close();
+            this.parentNodeAsDialogTag.close();
         }
-        super.hide(...args);
+        super.hide(onHide);
     }
-    /**
-     * @override
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    showWithTitle(title, message, ...args) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.frame.classList.toggle('no-title', !title);
-        super.showWithTitle(title, message, ...args);
+    get parentNodeAsDialogTag() {
+        // Before calling this, it's expected that this.parentNode_ was assigned to
+        // a <dialog> element.
+        return this.parentNode_;
     }
-    /**
-     * @override
-     */
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    showHtml(title, message, ...args) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
+    showWithTitle(title, message, onOk, onCancel, onShow) {
         this.frame.classList.toggle('no-title', !title);
-        super.showHtml(title, message, ...args);
+        super.showWithTitle(title, message, onOk, onCancel, onShow);
+    }
+    showHtml(title, message, onOk, onCancel, onShow) {
+        this.frame.classList.toggle('no-title', !title);
+        super.showHtml(title, message, onOk, onCancel, onShow);
     }
 }

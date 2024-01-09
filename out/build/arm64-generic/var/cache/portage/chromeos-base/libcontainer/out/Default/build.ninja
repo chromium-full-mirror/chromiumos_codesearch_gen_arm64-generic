@@ -20,19 +20,13 @@ subninja toolchain.ninja
 
 build libcontainer: phony ./lib/libcontainer.so
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build libcontainer$:all: phony obj/libcontainer/all.stamp
 build libcontainer$:libcontainer: phony ./lib/libcontainer.so
-build libcontainer$:libcontainer_test: phony ./libcontainer_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/libcontainer/all.stamp $
-    ./lib/libcontainer.so $
-    ./libcontainer_test
+    ./lib/libcontainer.so
 
 default all

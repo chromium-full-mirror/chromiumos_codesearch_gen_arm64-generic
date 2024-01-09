@@ -8,33 +8,23 @@ export const AppTypeSpec = { $: mojo.internal.Enum() };
 export var AppType;
 (function (AppType) {
     AppType[AppType["MIN_VALUE"] = 0] = "MIN_VALUE";
-    AppType[AppType["MAX_VALUE"] = 15] = "MAX_VALUE";
+    AppType[AppType["MAX_VALUE"] = 14] = "MAX_VALUE";
     AppType[AppType["kUnknown"] = 0] = "kUnknown";
     AppType[AppType["kArc"] = 1] = "kArc";
     AppType[AppType["kBuiltIn"] = 2] = "kBuiltIn";
     AppType[AppType["kCrostini"] = 3] = "kCrostini";
     AppType[AppType["kChromeApp"] = 4] = "kChromeApp";
     AppType[AppType["kWeb"] = 5] = "kWeb";
-    AppType[AppType["kMacOs"] = 6] = "kMacOs";
-    AppType[AppType["kPluginVm"] = 7] = "kPluginVm";
-    AppType[AppType["kStandaloneBrowser"] = 8] = "kStandaloneBrowser";
-    AppType[AppType["kRemote"] = 9] = "kRemote";
-    AppType[AppType["kBorealis"] = 10] = "kBorealis";
-    AppType[AppType["kSystemWeb"] = 11] = "kSystemWeb";
-    AppType[AppType["kStandaloneBrowserChromeApp"] = 12] = "kStandaloneBrowserChromeApp";
-    AppType[AppType["kExtension"] = 13] = "kExtension";
-    AppType[AppType["kStandaloneBrowserExtension"] = 14] = "kStandaloneBrowserExtension";
-    AppType[AppType["kBruschetta"] = 15] = "kBruschetta";
+    AppType[AppType["kPluginVm"] = 6] = "kPluginVm";
+    AppType[AppType["kStandaloneBrowser"] = 7] = "kStandaloneBrowser";
+    AppType[AppType["kRemote"] = 8] = "kRemote";
+    AppType[AppType["kBorealis"] = 9] = "kBorealis";
+    AppType[AppType["kSystemWeb"] = 10] = "kSystemWeb";
+    AppType[AppType["kStandaloneBrowserChromeApp"] = 11] = "kStandaloneBrowserChromeApp";
+    AppType[AppType["kExtension"] = 12] = "kExtension";
+    AppType[AppType["kStandaloneBrowserExtension"] = 13] = "kStandaloneBrowserExtension";
+    AppType[AppType["kBruschetta"] = 14] = "kBruschetta";
 })(AppType || (AppType = {}));
-export const OptionalBoolSpec = { $: mojo.internal.Enum() };
-export var OptionalBool;
-(function (OptionalBool) {
-    OptionalBool[OptionalBool["MIN_VALUE"] = 0] = "MIN_VALUE";
-    OptionalBool[OptionalBool["MAX_VALUE"] = 2] = "MAX_VALUE";
-    OptionalBool[OptionalBool["kUnknown"] = 0] = "kUnknown";
-    OptionalBool[OptionalBool["kFalse"] = 1] = "kFalse";
-    OptionalBool[OptionalBool["kTrue"] = 2] = "kTrue";
-})(OptionalBool || (OptionalBool = {}));
 export const PermissionTypeSpec = { $: mojo.internal.Enum() };
 export var PermissionType;
 (function (PermissionType) {
@@ -282,6 +272,12 @@ export class PageHandlerRemote {
             appId
         ]);
     }
+    setAppLocale(appId, localeTag) {
+        this.proxy.sendMessage(17, PageHandler_SetAppLocale_ParamsSpec.$, null, [
+            appId,
+            localeTag
+        ]);
+    }
 }
 ;
 /**
@@ -310,6 +306,7 @@ export class PageHandlerReceiver {
         this.helper_internal_.registerHandler(14, PageHandler_SetFileHandlingEnabled_ParamsSpec.$, null, impl.setFileHandlingEnabled.bind(impl));
         this.helper_internal_.registerHandler(15, PageHandler_ShowDefaultAppAssociationsUi_ParamsSpec.$, null, impl.showDefaultAppAssociationsUi.bind(impl));
         this.helper_internal_.registerHandler(16, PageHandler_OpenStorePage_ParamsSpec.$, null, impl.openStorePage.bind(impl));
+        this.helper_internal_.registerHandler(17, PageHandler_SetAppLocale_ParamsSpec.$, null, impl.setAppLocale.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -390,6 +387,9 @@ export class PageHandlerCallbackRouter {
         this.openStorePage =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(16, PageHandler_OpenStorePage_ParamsSpec.$, null, this.openStorePage.createReceiverHandler(false /* expectsResponse */));
+        this.setAppLocale =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(17, PageHandler_SetAppLocale_ParamsSpec.$, null, this.setAppLocale.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -494,6 +494,7 @@ export class PageCallbackRouter {
 }
 export const PermissionSpec = { $: {} };
 export const RunOnOsLoginSpec = { $: {} };
+export const LocaleSpec = { $: {} };
 export const AppSpec = { $: {} };
 export const ExtensionAppPermissionMessageSpec = { $: {} };
 export const FileHandlingStateSpec = { $: {} };
@@ -520,6 +521,7 @@ export const PageHandler_SetRunOnOsLoginMode_ParamsSpec = { $: {} };
 export const PageHandler_SetFileHandlingEnabled_ParamsSpec = { $: {} };
 export const PageHandler_ShowDefaultAppAssociationsUi_ParamsSpec = { $: {} };
 export const PageHandler_OpenStorePage_ParamsSpec = { $: {} };
+export const PageHandler_SetAppLocale_ParamsSpec = { $: {} };
 export const Page_OnAppAdded_ParamsSpec = { $: {} };
 export const Page_OnAppChanged_ParamsSpec = { $: {} };
 export const Page_OnAppRemoved_ParamsSpec = { $: {} };
@@ -534,34 +536,57 @@ mojo.internal.Struct(RunOnOsLoginSpec.$, 'RunOnOsLogin', [
     mojo.internal.StructField('loginMode', 0, 0, RunOnOsLoginModeSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('isManaged', 4, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(LocaleSpec.$, 'Locale', [
+    mojo.internal.StructField('localeTag', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('displayName', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('nativeDisplayName', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 32],]);
 mojo.internal.Struct(AppSpec.$, 'App', [
     mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('type', 8, 0, AppTypeSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('title', 16, 0, mojo.internal.String, null, true /* nullable */, 0),
     mojo.internal.StructField('description', 24, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('isPinned', 12, 0, OptionalBoolSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('isPolicyPinned', 32, 0, OptionalBoolSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('version', 40, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('size', 48, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('permissions', 56, 0, mojo.internal.Map(PermissionTypeSpec.$, PermissionSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('installReason', 36, 0, InstallReasonSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('installSource', 64, 0, InstallSourceSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('hideMoreSettings', 68, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('hidePinToShelf', 68, 1, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('isPreferredApp', 68, 2, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('windowMode', 72, 0, WindowModeSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('hideWindowMode', 68, 3, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('resizeLocked', 68, 4, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('hideResizeLocked', 68, 5, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('supportedLinks', 80, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('runOnOsLogin', 88, 0, RunOnOsLoginSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('fileHandlingState', 96, 0, FileHandlingStateSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('appSize', 104, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('dataSize', 112, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('publisherId', 120, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('formattedOrigin', 128, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('scopeExtensions', 136, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
-], [[0, 152],]);
+    mojo.internal.StructField('is_pinned_$flag', 12, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "is_pinned_$value",
+        originalFieldName: "isPinned",
+    }),
+    mojo.internal.StructField('is_pinned_$value', 12, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "isPinned",
+    }),
+    mojo.internal.StructField('is_policy_pinned_$flag', 12, 2, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "is_policy_pinned_$value",
+        originalFieldName: "isPolicyPinned",
+    }),
+    mojo.internal.StructField('is_policy_pinned_$value', 12, 3, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "isPolicyPinned",
+    }),
+    mojo.internal.StructField('version', 32, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('size', 40, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('permissions', 48, 0, mojo.internal.Map(PermissionTypeSpec.$, PermissionSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('installReason', 56, 0, InstallReasonSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('installSource', 60, 0, InstallSourceSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('hideMoreSettings', 12, 4, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('hidePinToShelf', 12, 5, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('isPreferredApp', 12, 6, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('windowMode', 64, 0, WindowModeSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('hideWindowMode', 12, 7, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('resizeLocked', 13, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('hideResizeLocked', 13, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('supportedLinks', 72, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('runOnOsLogin', 80, 0, RunOnOsLoginSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('fileHandlingState', 88, 0, FileHandlingStateSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('appSize', 96, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('dataSize', 104, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('publisherId', 112, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('formattedOrigin', 120, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('scopeExtensions', 128, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('supportedLocales', 136, 0, mojo.internal.Array(LocaleSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('selectedLocale', 144, 0, LocaleSpec.$, null, true /* nullable */, 0),
+], [[0, 160],]);
 mojo.internal.Struct(ExtensionAppPermissionMessageSpec.$, 'ExtensionAppPermissionMessage', [
     mojo.internal.StructField('message', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('submessages', 8, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
@@ -599,7 +624,7 @@ mojo.internal.Struct(PageHandler_GetExtensionAppPermissionMessages_ResponseParam
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_SetPinned_ParamsSpec.$, 'PageHandler_SetPinned_Params', [
     mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('pinned', 8, 0, OptionalBoolSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('pinned', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 24],]);
 mojo.internal.Struct(PageHandler_SetPermission_ParamsSpec.$, 'PageHandler_SetPermission_Params', [
     mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
@@ -644,6 +669,10 @@ mojo.internal.Struct(PageHandler_ShowDefaultAppAssociationsUi_ParamsSpec.$, 'Pag
 mojo.internal.Struct(PageHandler_OpenStorePage_ParamsSpec.$, 'PageHandler_OpenStorePage_Params', [
     mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(PageHandler_SetAppLocale_ParamsSpec.$, 'PageHandler_SetAppLocale_Params', [
+    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('localeTag', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(Page_OnAppAdded_ParamsSpec.$, 'Page_OnAppAdded_Params', [
     mojo.internal.StructField('app', 0, 0, AppSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);

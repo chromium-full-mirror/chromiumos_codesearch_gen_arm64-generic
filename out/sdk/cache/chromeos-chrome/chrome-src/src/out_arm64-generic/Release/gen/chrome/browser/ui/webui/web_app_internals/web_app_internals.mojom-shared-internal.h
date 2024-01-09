@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
 #include "url/mojom/origin.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
@@ -27,9 +28,62 @@ class ValidationContext;
 namespace mojom {
 namespace internal {
 class InstallIsolatedWebAppResult_Data;
-class IwaDevProxyAppInfo_Data;
+class IwaDevModeAppInfo_Data;
+class IwaDevModeLocation_Data;
 
 #pragma pack(push, 1)
+
+
+class  IwaDevModeLocation_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  IwaDevModeLocation_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~IwaDevModeLocation_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<IwaDevModeLocation_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class IwaDevModeLocation_Tag : uint32_t {
+
+    
+    kProxyOrigin,
+    
+    kBundlePath,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<::url::mojom::internal::Origin_Data> f_proxy_origin;
+    mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> f_bundle_path;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  IwaDevModeLocation_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(IwaDevModeLocation_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(IwaDevModeLocation_Data)");
 class  InstallIsolatedWebAppResult_Data {
  public:
   static bool Validate(const void* data,
@@ -80,7 +134,7 @@ struct InstallIsolatedWebAppResult_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     InstallIsolatedWebAppResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  IwaDevProxyAppInfo_Data {
+class  IwaDevModeAppInfo_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -88,31 +142,31 @@ class  IwaDevProxyAppInfo_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> app_id;
   mojo::internal::Pointer<mojo::internal::String_Data> name;
-  mojo::internal::Pointer<::url::mojom::internal::Origin_Data> proxy_origin;
+  internal::IwaDevModeLocation_Data location;
   mojo::internal::Pointer<mojo::internal::String_Data> installed_version;
 
  private:
-  friend class mojo::internal::MessageFragment<IwaDevProxyAppInfo_Data>;
+  friend class mojo::internal::MessageFragment<IwaDevModeAppInfo_Data>;
 
-  IwaDevProxyAppInfo_Data();
-  ~IwaDevProxyAppInfo_Data() = delete;
+  IwaDevModeAppInfo_Data();
+  ~IwaDevModeAppInfo_Data() = delete;
 };
-static_assert(sizeof(IwaDevProxyAppInfo_Data) == 40,
-              "Bad sizeof(IwaDevProxyAppInfo_Data)");
-// Used by IwaDevProxyAppInfo::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(IwaDevModeAppInfo_Data) == 48,
+              "Bad sizeof(IwaDevModeAppInfo_Data)");
+// Used by IwaDevModeAppInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct IwaDevProxyAppInfo_UnserializedMessageContext
+struct IwaDevModeAppInfo_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  IwaDevProxyAppInfo_UnserializedMessageContext(
+  IwaDevModeAppInfo_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~IwaDevProxyAppInfo_UnserializedMessageContext() override = default;
+  ~IwaDevModeAppInfo_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -121,7 +175,7 @@ struct IwaDevProxyAppInfo_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<IwaDevProxyAppInfo_Data> fragment(message);
+    mojo::internal::MessageFragment<IwaDevModeAppInfo_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -130,7 +184,7 @@ struct IwaDevProxyAppInfo_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    IwaDevProxyAppInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    IwaDevModeAppInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

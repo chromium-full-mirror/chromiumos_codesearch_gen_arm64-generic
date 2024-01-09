@@ -78,11 +78,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLFencedFrameElement>::value,
     "HTMLFencedFrameElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLFencedFrameElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLFencedFrameElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -101,7 +96,7 @@ UseCounter::Count(current_execution_context, WebFeature::kFencedFrameConfigAttri
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->config();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -130,7 +125,7 @@ return;
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<FencedFrameConfig>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -147,10 +142,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFencedFrameElement.width.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -171,10 +166,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFencedFrameElement.height.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHeightAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHeightAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -195,10 +190,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFencedFrameElement.allow.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAllowAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAllowAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -219,8 +214,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFencedFrameElement.sandbox.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLFencedFrameElement* blink_receiver = V8HTMLFencedFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sandbox();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

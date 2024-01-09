@@ -26,6 +26,7 @@ constexpr uint32_t kServiceWorkerHost_NavigateClient_Name = 8;
 constexpr uint32_t kServiceWorkerHost_SkipWaiting_Name = 9;
 constexpr uint32_t kServiceWorkerHost_ClaimClients_Name = 10;
 constexpr uint32_t kServiceWorkerHost_RegisterRouter_Name = 11;
+constexpr uint32_t kServiceWorkerHost_AddRoutes_Name = 12;
 constexpr uint32_t kServiceWorker_InitializeGlobalScope_Name = 0;
 constexpr uint32_t kServiceWorker_DispatchInstallEvent_Name = 1;
 constexpr uint32_t kServiceWorker_DispatchActivateEvent_Name = 2;

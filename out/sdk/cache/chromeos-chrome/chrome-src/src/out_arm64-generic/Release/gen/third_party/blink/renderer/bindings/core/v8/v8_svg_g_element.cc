@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGGElement>::value,
     "SVGGElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGGElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGGElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 

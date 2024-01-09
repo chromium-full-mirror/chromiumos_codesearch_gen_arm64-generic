@@ -104,6 +104,25 @@ blink.mojom.AttributionHostRemote = class {
           attributionSrcToken
         ]);
   }
+
+  
+  /**
+   * @param { !blink.mojom.AttributionSrcToken } attributionSrcToken
+   * @param { !number } expectedRegistrations
+   */
+
+  notifyNavigationWithBackgroundRegistrationsWillStart(
+      attributionSrcToken,
+      expectedRegistrations) {
+    this.proxy.sendMessage(
+        2,
+        blink.mojom.AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec.$,
+        null,
+        [
+          attributionSrcToken,
+          expectedRegistrations
+        ]);
+  }
 };
 
 /**
@@ -138,6 +157,11 @@ blink.mojom.AttributionHostReceiver = class {
         blink.mojom.AttributionHost_RegisterNavigationDataHost_ParamsSpec.$,
         null,
         impl.registerNavigationDataHost.bind(impl));
+    this.helper_internal_.registerHandler(
+        2,
+        blink.mojom.AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec.$,
+        null,
+        impl.notifyNavigationWithBackgroundRegistrationsWillStart.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -214,6 +238,18 @@ blink.mojom.AttributionHostCallbackRouter = class {
         blink.mojom.AttributionHost_RegisterNavigationDataHost_ParamsSpec.$,
         null,
         this.registerNavigationDataHost.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.notifyNavigationWithBackgroundRegistrationsWillStart =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        2,
+        blink.mojom.AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec.$,
+        null,
+        this.notifyNavigationWithBackgroundRegistrationsWillStart.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -251,6 +287,14 @@ blink.mojom.AttributionHost_RegisterDataHost_ParamsSpec =
  * @export
  */
 blink.mojom.AttributionHost_RegisterNavigationDataHost_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -368,6 +412,45 @@ blink.mojom.AttributionHost_RegisterNavigationDataHost_Params = class {
     this.dataHost;
     /** @export { !blink.mojom.AttributionSrcToken } */
     this.attributionSrcToken;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsSpec.$,
+    'AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params',
+    [
+      mojo.internal.StructField(
+        'attributionSrcToken', 0,
+        0,
+        blink.mojom.AttributionSrcTokenSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'expectedRegistrations', 8,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+blink.mojom.AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params = class {
+  constructor() {
+    /** @export { !blink.mojom.AttributionSrcToken } */
+    this.attributionSrcToken;
+    /** @export { !number } */
+    this.expectedRegistrations;
   }
 };
 

@@ -3,31 +3,47 @@
 // found in the LICENSE file.
 import { CategoryEnum } from './types.js';
 const MAX_RECENTS = 10;
-/**
- * @param {string} keyName Keyname of the object stored in storage
- * @return {{history:!Array<EmojiVariants>, preference:Object<string,string>}}
- *     recently used emoji, most recent first.
- */
-function load(keyName) {
-    const stored = window.localStorage.getItem(keyName);
-    if (!stored) {
-        return { history: [], preference: {} };
+class Store {
+    /**
+     * @param storageKey The key to use in local storage.
+     * @param defaultData The initial data for this store. A new copy should
+     *     be passed for each `Store` instance.
+     */
+    constructor(storageKey, defaultData) {
+        this.storageKey = storageKey;
+        this.data = this.load(defaultData);
     }
-    const parsed = /** @type {?} */ (JSON.parse(stored));
-    // Throw out any old data
-    return { history: parsed.history || [], preference: parsed.preference || {} };
-}
-/**
- * @param {{history:!Array<EmojiVariants>, preference:Object<string,string>}}
- *     data recently used emoji, most recent first.
- */
-function save(keyName, data) {
-    window.localStorage.setItem(keyName, JSON.stringify(data));
+    /**
+     * @param defaultData The initial data for this store. A new copy should
+     *     be passed each time this is called.
+     * @return The data from local storage if it exists, otherwise a reference
+     *     to `defaultData`.
+     */
+    load(defaultData) {
+        const stored = window.localStorage.getItem(this.storageKey);
+        if (!stored) {
+            return defaultData;
+        }
+        const parsed = JSON.parse(stored);
+        // Checking for null because values of type 'object' can still be null.
+        if (typeof defaultData !== 'object' || defaultData === null ||
+            typeof parsed !== 'object' || parsed === null) {
+            return parsed;
+        }
+        // Throw out any old data.
+        const filteredEntries = Object.entries(parsed).filter(([key, _]) => key in defaultData);
+        return { ...defaultData, ...Object.fromEntries(filteredEntries) };
+    }
+    /**
+     * Saves the existing data to local storage.
+     */
+    save() {
+        window.localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+    }
 }
 export class RecentlyUsedStore {
     constructor(name) {
-        this.storeName = name;
-        this.data = load(name);
+        this.store = new Store(name, { history: [], preference: {} });
     }
     /**
      * Saves preferences for a base emoji.
@@ -35,103 +51,147 @@ export class RecentlyUsedStore {
      *    otherwise.
      */
     savePreferredVariant(variant, baseEmoji) {
+        // If `baseEmoji == undefined`, then variant itself is a base emoji.
         if (!baseEmoji) {
-            return false;
+            baseEmoji = variant;
         }
+        const preference = this.store.data.preference;
         // Base emoji must not be set as preference. So, store it only
         // if variant and baseEmoji are different and remove it from preference
         // otherwise.
         if (baseEmoji !== variant && variant) {
-            this.data.preference[baseEmoji] = variant;
+            preference[baseEmoji] = variant;
         }
-        else if (baseEmoji in this.data.preference) {
-            delete this.data.preference[baseEmoji];
+        else if (baseEmoji in preference) {
+            delete preference[baseEmoji];
         }
         else {
             return false;
         }
-        save(this.storeName, this.data);
+        this.store.save();
         return true;
     }
+    getHistory() {
+        return this.store.data.history;
+    }
+    isHistoryEmpty() {
+        return this.store.data.history.length === 0;
+    }
     getPreferenceMapping() {
-        return this.data.preference;
+        return this.store.data.preference;
     }
     clearRecents() {
-        this.data.history = [];
-        save(this.storeName, this.data);
+        this.store.data.history = [];
+        this.store.save();
     }
     clearItem(category, item) {
+        const history = this.store.data.history;
         if (category === CategoryEnum.GIF) {
-            this.data.history = this.data.history.filter(x => (x.base.visualContent &&
+            this.store.data.history = history.filter(x => (x.base.visualContent &&
                 x.base.visualContent.id !== item.base.visualContent?.id));
         }
         else {
-            this.data.history = this.data.history.filter(x => (x.base.string && x.base.string !== item.base.string));
+            this.store.data.history = history.filter(x => (x.base.string && x.base.string !== item.base.string));
         }
-        save(this.storeName, this.data);
+        this.store.save();
     }
     /**
      * Moves the given item to the front of the MRU list, inserting it if
      * it did not previously exist.
      */
     bumpItem(category, newItem) {
+        const history = this.store.data.history;
         // Find and remove newItem from array if it previously existed.
         // Note, this explicitly allows for multiple recent item entries for the
         // same "base" emoji just with a different variant.
         let oldIndex;
         if (category === CategoryEnum.GIF) {
-            oldIndex = this.data.history.findIndex(x => (x.base.visualContent &&
+            oldIndex = history.findIndex(x => (x.base.visualContent &&
                 x.base.visualContent.id === newItem.base.visualContent?.id));
         }
         else {
-            oldIndex = this.data.history.findIndex(x => (x.base.string && x.base.string === newItem.base.string));
+            oldIndex = history.findIndex(x => (x.base.string && x.base.string === newItem.base.string));
         }
         if (oldIndex !== -1) {
-            this.data.history.splice(oldIndex, 1);
+            history.splice(oldIndex, 1);
         }
         // insert newItem to the front of the array.
-        this.data.history.unshift(newItem);
+        history.unshift(newItem);
         // slice from end of array if it exceeds MAX_RECENTS.
-        if (this.data.history.length > MAX_RECENTS) {
+        if (history.length > MAX_RECENTS) {
             // setting length is sufficient to truncate an array.
-            this.data.history.length = MAX_RECENTS;
+            history.length = MAX_RECENTS;
         }
-        save(this.storeName, this.data);
+        this.store.save();
+    }
+    /**
+     * Fills any gaps in the variant and grouping information for emojis with the
+     * given name, because existing store data may not have the information.
+     */
+    fillEmojiVariantAttributes(name, alternates, groupedTone = false, groupedGender = false) {
+        const matchingEmojis = this.store.data.history.filter(emoji => emoji.base.name === ' ' + name);
+        if (matchingEmojis.length == 0) {
+            return;
+        }
+        matchingEmojis.forEach(emoji => {
+            emoji.alternates = alternates;
+            emoji.groupedTone = groupedTone;
+            emoji.groupedGender = groupedGender;
+        });
+        this.store.save();
     }
     /**
      * Removes invalid GIFs from history.
      */
     async validate(apiProxy) {
-        if (this.data.history.length === 0) {
+        const history = this.store.data.history;
+        if (history.length === 0) {
             // No GIFs to validate.
             return false;
         }
         // This function is only called on history items with visual content (i.e.
         // GIFs) so we can be confident an id will always exist.
-        const ids = this.data.history.map(x => x.base.visualContent.id);
+        const ids = history.map(x => x.base.visualContent.id);
         const { selectedGifs } = await apiProxy.getGifsByIds(ids);
         const map = new Map();
         selectedGifs.forEach(gif => {
             map.set(gif.id, gif);
         });
-        const validGifHistory = this.data.history.filter(item => map.has(item.base.visualContent.id));
-        const updated = (validGifHistory.length !== this.data.history.length);
+        const validGifHistory = history.filter(item => map.has(item.base.visualContent.id));
+        const updated = (validGifHistory.length !== history.length);
         if (updated) {
-            this.data.history = validGifHistory;
-            save(this.storeName, this.data);
+            this.store.data.history = validGifHistory;
+            this.store.save();
         }
         return updated;
     }
 }
-const GIF_NUDGE_SHOWN_KEY = 'emoji-picker-gif-nudge-shown';
+export class EmojiPreferencesStore {
+    constructor() {
+        this.store = new Store('emoji-preferences', { tone: null, gender: null });
+    }
+    getTone() {
+        return this.store.data.tone;
+    }
+    setTone(tone) {
+        this.store.data.tone = tone;
+        this.store.save();
+    }
+    getGender() {
+        return this.store.data.gender;
+    }
+    setGender(gender) {
+        this.store.data.gender = gender;
+        this.store.save();
+    }
+}
 export class GifNudgeHistoryStore {
-    hasNudgeShown() {
-        return window.localStorage.getItem(GIF_NUDGE_SHOWN_KEY) === true.toString();
+    static { this.store = new Store('emoji-picker-gif-nudge-shown', false); }
+    static hasNudgeShown() {
+        return GifNudgeHistoryStore.store.data;
     }
-    setNudgeShown(value) {
-        window.localStorage.setItem(GIF_NUDGE_SHOWN_KEY, value.toString());
-    }
-    static getInstance() {
-        return new GifNudgeHistoryStore();
+    static setNudgeShown(value) {
+        GifNudgeHistoryStore.store.data = value;
+        GifNudgeHistoryStore.store.save();
     }
 }

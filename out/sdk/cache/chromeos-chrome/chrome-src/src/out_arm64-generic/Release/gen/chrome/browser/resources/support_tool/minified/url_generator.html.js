@@ -28,7 +28,7 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
   <cr-button id="copyURLButton" class="navigation-buttons action-button" on-click="onCopyUrlClick_" disabled="[[buttonDisabled_]]">
       $i18n{copyLinkButtonText}
   </cr-button>
-  <cr-button id="copyTokenButton" class="navigation-buttons action-button" on-click="onCopyTokenClick_" disabled="[[buttonDisabled_]]" hidden="[[hideTokenButton_]]">
+  <cr-button id="copyTokenButton" class="navigation-buttons action-button" on-click="onCopyTokenClick_" disabled="[[buttonDisabled_]]">
       $i18n{copyTokenButtonText}
   </cr-button>
 </div>

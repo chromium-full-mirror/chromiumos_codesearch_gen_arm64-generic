@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -299,7 +300,7 @@ uint32_t CompositorFrameSink::BindLayerContext_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool CompositorFrameSink::SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources) {
+bool CompositorFrameSink::SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources) {
   NOTREACHED();
   return false;
 }
@@ -352,14 +353,17 @@ void CompositorFrameSinkProxy::SetNeedsBeginFrame(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_SetNeedsBeginFrame_Name, kFlags, 0, 0, nullptr);
@@ -383,14 +387,17 @@ void CompositorFrameSinkProxy::SetWantsAnimateOnlyBeginFrames(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::CompositorFrameSink::SetWantsAnimateOnlyBeginFrames");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_SetWantsAnimateOnlyBeginFrames_Name, kFlags, 0, 0, nullptr);
@@ -413,14 +420,17 @@ void CompositorFrameSinkProxy::SetWantsBeginFrameAcks(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::CompositorFrameSink::SetWantsBeginFrameAcks");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_SetWantsBeginFrameAcks_Name, kFlags, 0, 0, nullptr);
@@ -443,14 +453,17 @@ void CompositorFrameSinkProxy::SetAutoNeedsBeginFrame(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::CompositorFrameSink::SetAutoNeedsBeginFrame");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_SetAutoNeedsBeginFrame_Name, kFlags, 0, 0, nullptr);
@@ -469,7 +482,7 @@ void CompositorFrameSinkProxy::SetAutoNeedsBeginFrame(
 }
 
 void CompositorFrameSinkProxy::SubmitCompositorFrame(
-    const ::viz::LocalSurfaceId& in_local_surface_id, ::viz::CompositorFrame in_frame, absl::optional<::viz::HitTestRegionList> in_hit_test_region_list, uint64_t in_submit_time) {
+    const ::viz::LocalSurfaceId& in_local_surface_id, ::viz::CompositorFrame in_frame, std::optional<::viz::HitTestRegionList> in_hit_test_region_list, uint64_t in_submit_time) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send viz::mojom::CompositorFrameSink::SubmitCompositorFrame", "input_parameters",
@@ -483,20 +496,23 @@ void CompositorFrameSinkProxy::SubmitCompositorFrame(
                         "<value of type ::viz::CompositorFrame>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("hit_test_region_list"), in_hit_test_region_list,
-                        "<value of type absl::optional<::viz::HitTestRegionList>>");
+                        "<value of type std::optional<::viz::HitTestRegionList>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("submit_time"), in_submit_time,
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_SubmitCompositorFrame_Name, kFlags, 0, 0,
@@ -545,7 +561,7 @@ void CompositorFrameSinkProxy::SubmitCompositorFrame(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 bool CompositorFrameSinkProxy::SubmitCompositorFrameSync(
-    const ::viz::LocalSurfaceId& param_local_surface_id, ::viz::CompositorFrame param_frame, absl::optional<::viz::HitTestRegionList> param_hit_test_region_list, uint64_t param_submit_time, std::vector<::viz::ReturnedResource>* out_param_resources) {
+    const ::viz::LocalSurfaceId& param_local_surface_id, ::viz::CompositorFrame param_frame, std::optional<::viz::HitTestRegionList> param_hit_test_region_list, uint64_t param_submit_time, std::vector<::viz::ReturnedResource>* out_param_resources) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call viz::mojom::CompositorFrameSink::SubmitCompositorFrameSync (sync)", "input_parameters",
@@ -559,7 +575,7 @@ bool CompositorFrameSinkProxy::SubmitCompositorFrameSync(
                         "<value of type ::viz::CompositorFrame>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("hit_test_region_list"), param_hit_test_region_list,
-                        "<value of type absl::optional<::viz::HitTestRegionList>>");
+                        "<value of type std::optional<::viz::HitTestRegionList>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("submit_time"), param_submit_time,
                         "<value of type uint64_t>");
@@ -567,15 +583,18 @@ bool CompositorFrameSinkProxy::SubmitCompositorFrameSync(
 #else
   TRACE_EVENT0("mojom", "CompositorFrameSink::SubmitCompositorFrameSync");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_SubmitCompositorFrameSync_Name, kFlags, 0, 0, nullptr);
@@ -638,7 +657,7 @@ bool CompositorFrameSinkProxy::SubmitCompositorFrameSync(
 }
 
 void CompositorFrameSinkProxy::SubmitCompositorFrameSync(
-    const ::viz::LocalSurfaceId& in_local_surface_id, ::viz::CompositorFrame in_frame, absl::optional<::viz::HitTestRegionList> in_hit_test_region_list, uint64_t in_submit_time, SubmitCompositorFrameSyncCallback callback) {
+    const ::viz::LocalSurfaceId& in_local_surface_id, ::viz::CompositorFrame in_frame, std::optional<::viz::HitTestRegionList> in_hit_test_region_list, uint64_t in_submit_time, SubmitCompositorFrameSyncCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send viz::mojom::CompositorFrameSink::SubmitCompositorFrameSync", "input_parameters",
@@ -652,20 +671,23 @@ void CompositorFrameSinkProxy::SubmitCompositorFrameSync(
                         "<value of type ::viz::CompositorFrame>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("hit_test_region_list"), in_hit_test_region_list,
-                        "<value of type absl::optional<::viz::HitTestRegionList>>");
+                        "<value of type std::optional<::viz::HitTestRegionList>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("submit_time"), in_submit_time,
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_SubmitCompositorFrameSync_Name, kFlags, 0, 0, nullptr);
@@ -726,14 +748,17 @@ void CompositorFrameSinkProxy::DidNotProduceFrame(
                         "<value of type const ::viz::BeginFrameAck&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_DidNotProduceFrame_Name, kFlags, 0, 0, nullptr);
@@ -777,14 +802,17 @@ void CompositorFrameSinkProxy::DidAllocateSharedBitmap(
                         "<value of type const ::gpu::Mailbox&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_DidAllocateSharedBitmap_Name, kFlags, 0, 0, nullptr);
@@ -836,14 +864,17 @@ void CompositorFrameSinkProxy::DidDeleteSharedBitmap(
                         "<value of type const ::gpu::Mailbox&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_DidDeleteSharedBitmap_Name, kFlags, 0, 0, nullptr);
@@ -884,14 +915,17 @@ void CompositorFrameSinkProxy::InitializeCompositorFrameSinkType(
                         "<value of type CompositorFrameSinkType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_InitializeCompositorFrameSinkType_Name, kFlags, 0, 0, nullptr);
@@ -923,14 +957,17 @@ void CompositorFrameSinkProxy::BindLayerContext(
                         "<value of type ::viz::mojom::PendingLayerContextPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_BindLayerContext_Name, kFlags, 0, 0, nullptr);
@@ -1050,7 +1087,8 @@ void CompositorFrameSink_SubmitCompositorFrameSync_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSink_SubmitCompositorFrameSync_Name, kFlags, 0, 0, nullptr);
@@ -1221,7 +1259,7 @@ std::move(p_needs_begin_frame));
       bool success = true;
       ::viz::LocalSurfaceId p_local_surface_id{};
       ::viz::CompositorFrame p_frame{};
-      absl::optional<::viz::HitTestRegionList> p_hit_test_region_list{};
+      std::optional<::viz::HitTestRegionList> p_hit_test_region_list{};
       uint64_t p_submit_time{};
       CompositorFrameSink_SubmitCompositorFrame_ParamsDataView input_data_view(params, message);
       
@@ -1424,7 +1462,7 @@ bool CompositorFrameSinkStubDispatch::AcceptWithResponder(
       bool success = true;
       ::viz::LocalSurfaceId p_local_surface_id{};
       ::viz::CompositorFrame p_frame{};
-      absl::optional<::viz::HitTestRegionList> p_hit_test_region_list{};
+      std::optional<::viz::HitTestRegionList> p_hit_test_region_list{};
       uint64_t p_submit_time{};
       CompositorFrameSink_SubmitCompositorFrameSync_ParamsDataView input_data_view(params, message);
       
@@ -1473,30 +1511,30 @@ std::move(p_submit_time), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCompositorFrameSinkValidationInfo[] = {
-    {&internal::CompositorFrameSink_SetNeedsBeginFrame_Params_Data::Validate,
+    { &internal::CompositorFrameSink_SetNeedsBeginFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSink_SetWantsAnimateOnlyBeginFrames_Params_Data::Validate,
+    { &internal::CompositorFrameSink_SetWantsAnimateOnlyBeginFrames_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSink_SetWantsBeginFrameAcks_Params_Data::Validate,
+    { &internal::CompositorFrameSink_SetWantsBeginFrameAcks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSink_SetAutoNeedsBeginFrame_Params_Data::Validate,
+    { &internal::CompositorFrameSink_SetAutoNeedsBeginFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSink_SubmitCompositorFrame_Params_Data::Validate,
+    { &internal::CompositorFrameSink_SubmitCompositorFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSink_SubmitCompositorFrameSync_Params_Data::Validate,
+    { &internal::CompositorFrameSink_SubmitCompositorFrameSync_Params_Data::Validate,
      &internal::CompositorFrameSink_SubmitCompositorFrameSync_ResponseParams_Data::Validate},
-    {&internal::CompositorFrameSink_DidNotProduceFrame_Params_Data::Validate,
+    { &internal::CompositorFrameSink_DidNotProduceFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSink_DidAllocateSharedBitmap_Params_Data::Validate,
+    { &internal::CompositorFrameSink_DidAllocateSharedBitmap_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSink_DidDeleteSharedBitmap_Params_Data::Validate,
+    { &internal::CompositorFrameSink_DidDeleteSharedBitmap_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSink_InitializeCompositorFrameSinkType_Params_Data::Validate,
+    { &internal::CompositorFrameSink_InitializeCompositorFrameSinkType_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSink_BindLayerContext_Params_Data::Validate,
+    { &internal::CompositorFrameSink_BindLayerContext_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1529,6 +1567,9 @@ CompositorFrameSinkClient::IPCStableHashFunction CompositorFrameSinkClient::Mess
     case internal::kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name: {
       return &CompositorFrameSinkClient::OnCompositorFrameTransitionDirectiveProcessed_Sym::IPCStableHash;
     }
+    case internal::kCompositorFrameSinkClient_OnSurfaceEvicted_Name: {
+      return &CompositorFrameSinkClient::OnSurfaceEvicted_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1550,6 +1591,8 @@ const char* CompositorFrameSinkClient::MessageToMethodName_(mojo::Message& messa
             return "Receive viz::mojom::CompositorFrameSinkClient::ReclaimResources";
       case internal::kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name:
             return "Receive viz::mojom::CompositorFrameSinkClient::OnCompositorFrameTransitionDirectiveProcessed";
+      case internal::kCompositorFrameSinkClient_OnSurfaceEvicted_Name:
+            return "Receive viz::mojom::CompositorFrameSinkClient::OnSurfaceEvicted";
     }
   } else {
     switch (message.name()) {
@@ -1563,6 +1606,8 @@ const char* CompositorFrameSinkClient::MessageToMethodName_(mojo::Message& messa
             return "Receive reply viz::mojom::CompositorFrameSinkClient::ReclaimResources";
       case internal::kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name:
             return "Receive reply viz::mojom::CompositorFrameSinkClient::OnCompositorFrameTransitionDirectiveProcessed";
+      case internal::kCompositorFrameSinkClient_OnSurfaceEvicted_Name:
+            return "Receive reply viz::mojom::CompositorFrameSinkClient::OnSurfaceEvicted";
     }
   }
   return "Receive unknown mojo message";
@@ -1642,6 +1687,19 @@ uint32_t CompositorFrameSinkClient::OnCompositorFrameTransitionDirectiveProcesse
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t CompositorFrameSinkClient::OnSurfaceEvicted_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)viz::mojom::CompositorFrameSinkClient::OnSurfaceEvicted");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 CompositorFrameSinkClientProxy::CompositorFrameSinkClientProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1660,14 +1718,17 @@ void CompositorFrameSinkClientProxy::DidReceiveCompositorFrameAck(
                         "<value of type std::vector<::viz::ReturnedResource>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSinkClient_DidReceiveCompositorFrameAck_Name, kFlags, 0, 0, nullptr);
@@ -1719,14 +1780,17 @@ void CompositorFrameSinkClientProxy::OnBeginFrame(
                         "<value of type std::vector<::viz::ReturnedResource>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSinkClient_OnBeginFrame_Name, kFlags, 0, 0, nullptr);
@@ -1794,14 +1858,17 @@ void CompositorFrameSinkClientProxy::OnBeginFramePausedChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSinkClient_OnBeginFramePausedChanged_Name, kFlags, 0, 0, nullptr);
@@ -1832,14 +1899,17 @@ void CompositorFrameSinkClientProxy::ReclaimResources(
                         "<value of type std::vector<::viz::ReturnedResource>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSinkClient_ReclaimResources_Name, kFlags, 0, 0, nullptr);
@@ -1882,14 +1952,17 @@ void CompositorFrameSinkClientProxy::OnCompositorFrameTransitionDirectiveProcess
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name, kFlags, 0, 0, nullptr);
@@ -1902,6 +1975,57 @@ void CompositorFrameSinkClientProxy::OnCompositorFrameTransitionDirectiveProcess
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CompositorFrameSinkClient::Name_);
   message.set_method_name("OnCompositorFrameTransitionDirectiveProcessed");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CompositorFrameSinkClientProxy::OnSurfaceEvicted(
+    const ::viz::LocalSurfaceId& in_local_surface_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send viz::mojom::CompositorFrameSinkClient::OnSurfaceEvicted", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("local_surface_id"), in_local_surface_id,
+                        "<value of type const ::viz::LocalSurfaceId&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCompositorFrameSinkClient_OnSurfaceEvicted_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::viz::mojom::internal::CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->local_surface_id)::BaseType> local_surface_id_fragment(
+          params.message());
+  mojo::internal::Serialize<::viz::mojom::LocalSurfaceIdDataView>(
+      in_local_surface_id, local_surface_id_fragment);
+  params->local_surface_id.Set(
+      local_surface_id_fragment.is_null() ? nullptr : local_surface_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->local_surface_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null local_surface_id in CompositorFrameSinkClient.OnSurfaceEvicted request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CompositorFrameSinkClient::Name_);
+  message.set_method_name("OnSurfaceEvicted");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2055,6 +2179,32 @@ std::move(p_resources));
 std::move(p_sequence_id));
       return true;
     }
+    case internal::kCompositorFrameSinkClient_OnSurfaceEvicted_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data* params =
+          reinterpret_cast<internal::CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::viz::LocalSurfaceId p_local_surface_id{};
+      CompositorFrameSinkClient_OnSurfaceEvicted_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadLocalSurfaceId(&p_local_surface_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CompositorFrameSinkClient::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnSurfaceEvicted(
+std::move(p_local_surface_id));
+      return true;
+    }
   }
   return false;
 }
@@ -2083,21 +2233,26 @@ bool CompositorFrameSinkClientStubDispatch::AcceptWithResponder(
     case internal::kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name: {
       break;
     }
+    case internal::kCompositorFrameSinkClient_OnSurfaceEvicted_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCompositorFrameSinkClientValidationInfo[] = {
-    {&internal::CompositorFrameSinkClient_DidReceiveCompositorFrameAck_Params_Data::Validate,
+    { &internal::CompositorFrameSinkClient_DidReceiveCompositorFrameAck_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSinkClient_OnBeginFrame_Params_Data::Validate,
+    { &internal::CompositorFrameSinkClient_OnBeginFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSinkClient_OnBeginFramePausedChanged_Params_Data::Validate,
+    { &internal::CompositorFrameSinkClient_OnBeginFramePausedChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSinkClient_ReclaimResources_Params_Data::Validate,
+    { &internal::CompositorFrameSinkClient_ReclaimResources_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data::Validate,
+    { &internal::CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2135,10 +2290,10 @@ void CompositorFrameSinkInterceptorForTesting::SetWantsBeginFrameAcks() {
 void CompositorFrameSinkInterceptorForTesting::SetAutoNeedsBeginFrame() {
   GetForwardingInterface()->SetAutoNeedsBeginFrame();
 }
-void CompositorFrameSinkInterceptorForTesting::SubmitCompositorFrame(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) {
+void CompositorFrameSinkInterceptorForTesting::SubmitCompositorFrame(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) {
   GetForwardingInterface()->SubmitCompositorFrame(std::move(local_surface_id), std::move(frame), std::move(hit_test_region_list), std::move(submit_time));
 }
-void CompositorFrameSinkInterceptorForTesting::SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, SubmitCompositorFrameSyncCallback callback) {
+void CompositorFrameSinkInterceptorForTesting::SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, SubmitCompositorFrameSyncCallback callback) {
   GetForwardingInterface()->SubmitCompositorFrameSync(std::move(local_surface_id), std::move(frame), std::move(hit_test_region_list), std::move(submit_time), std::move(callback));
 }
 void CompositorFrameSinkInterceptorForTesting::DidNotProduceFrame(const ::viz::BeginFrameAck& ack) {
@@ -2162,7 +2317,7 @@ CompositorFrameSinkAsyncWaiter::CompositorFrameSinkAsyncWaiter(
 CompositorFrameSinkAsyncWaiter::~CompositorFrameSinkAsyncWaiter() = default;
 
 void CompositorFrameSinkAsyncWaiter::SubmitCompositorFrameSync(
-    const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources) {
+    const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources) {
   base::RunLoop loop;
   proxy_->SubmitCompositorFrameSync(std::move(local_surface_id),std::move(frame),std::move(hit_test_region_list),std::move(submit_time),
       base::BindOnce(
@@ -2178,7 +2333,7 @@ void CompositorFrameSinkAsyncWaiter::SubmitCompositorFrameSync(
 }
 
 std::vector<::viz::ReturnedResource> CompositorFrameSinkAsyncWaiter::SubmitCompositorFrameSync(
-    const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) {
+    const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) {
   std::vector<::viz::ReturnedResource> async_wait_result;
   SubmitCompositorFrameSync(std::move(local_surface_id),std::move(frame),std::move(hit_test_region_list),std::move(submit_time),&async_wait_result);
   return async_wait_result;
@@ -2201,6 +2356,9 @@ void CompositorFrameSinkClientInterceptorForTesting::ReclaimResources(std::vecto
 }
 void CompositorFrameSinkClientInterceptorForTesting::OnCompositorFrameTransitionDirectiveProcessed(uint32_t sequence_id) {
   GetForwardingInterface()->OnCompositorFrameTransitionDirectiveProcessed(std::move(sequence_id));
+}
+void CompositorFrameSinkClientInterceptorForTesting::OnSurfaceEvicted(const ::viz::LocalSurfaceId& local_surface_id) {
+  GetForwardingInterface()->OnSurfaceEvicted(std::move(local_surface_id));
 }
 CompositorFrameSinkClientAsyncWaiter::CompositorFrameSinkClientAsyncWaiter(
     CompositorFrameSinkClient* proxy) : proxy_(proxy) {}

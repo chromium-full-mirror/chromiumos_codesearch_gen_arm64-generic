@@ -18,6 +18,10 @@ function getAriaLabel(alertState) {
     switch (alertState) {
         case TabAlertState.kMediaRecording:
             return loadTimeData.getStringF('mediaRecording', '');
+        case TabAlertState.kAudioRecording:
+            return loadTimeData.getStringF('audioRecording', '');
+        case TabAlertState.kVideoRecording:
+            return loadTimeData.getStringF('videoRecording', '');
         case TabAlertState.kTabCapturing:
             return loadTimeData.getStringF('tabCapturing', '');
         case TabAlertState.kAudioPlaying:
@@ -44,6 +48,8 @@ function getAriaLabel(alertState) {
 }
 const ALERT_STATE_MAP = new Map([
     [TabAlertState.kMediaRecording, 'media-recording'],
+    [TabAlertState.kAudioRecording, 'audio-recording'],
+    [TabAlertState.kVideoRecording, 'video-recording'],
     [TabAlertState.kTabCapturing, 'tab-capturing'],
     [TabAlertState.kAudioPlaying, 'audio-playing'],
     [TabAlertState.kAudioMuting, 'audio-muting'],
@@ -65,10 +71,13 @@ export class AlertIndicatorElement extends CustomElement {
     static get template() {
         return getTemplate();
     }
+    alertState_ = null;
+    fadeDurationMs_ = 125;
+    fadeInAnimation_;
+    fadeOutAnimation_;
+    fadeOutAnimationPromise_;
     constructor() {
         super();
-        this.alertState_ = null;
-        this.fadeDurationMs_ = 125;
         /**
          * An animation that is currently in-flight to fade the element in.
          */
@@ -109,6 +118,8 @@ export class AlertIndicatorElement extends CustomElement {
             return;
         }
         if (this.alertState_ === TabAlertState.kMediaRecording ||
+            this.alertState_ === TabAlertState.kAudioRecording ||
+            this.alertState_ === TabAlertState.kVideoRecording ||
             this.alertState_ === TabAlertState.kTabCapturing ||
             this.alertState_ === TabAlertState.kDesktopCapturing) {
             // Fade in and out 2 times and then fade in

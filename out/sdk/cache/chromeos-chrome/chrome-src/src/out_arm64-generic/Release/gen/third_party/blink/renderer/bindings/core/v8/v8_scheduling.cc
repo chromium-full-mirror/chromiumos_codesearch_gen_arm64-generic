@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Scheduling>::value,
     "Scheduling inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Scheduling::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Scheduling is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSchedulingIsInputPendi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Scheduling* blink_receiver = V8Scheduling::ToWrappableUnsafe(v8_receiver);
+Scheduling* blink_receiver = V8Scheduling::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IsInputPendingOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
   arg1_options = IsInputPendingOptions::Create();

@@ -14,6 +14,10 @@ const UIStrings = {
      */
     showConsole: 'Show Console',
     /**
+     *@description Title of an action that toggles the console.
+     */
+    toggleConsole: 'Toggle Console',
+    /**
      *@description Text to clear the console
      */
     clearConsole: 'Clear console',
@@ -161,12 +165,12 @@ UI.ViewManager.registerViewExtension({
     },
 });
 UI.ActionRegistration.registerActionExtension({
-    actionId: 'console.show',
+    actionId: 'console.toggle',
     category: UI.ActionRegistration.ActionCategory.CONSOLE,
-    title: i18nLazyString(UIStrings.showConsole),
+    title: i18nLazyString(UIStrings.toggleConsole),
     async loadActionDelegate() {
         const Console = await loadConsoleModule();
-        return Console.ConsoleView.ActionDelegate.instance();
+        return new Console.ConsoleView.ActionDelegate();
     },
     bindings: [
         {
@@ -185,7 +189,7 @@ UI.ActionRegistration.registerActionExtension({
     iconClass: "clear" /* UI.ActionRegistration.IconClass.CLEAR */,
     async loadActionDelegate() {
         const Console = await loadConsoleModule();
-        return Console.ConsoleView.ActionDelegate.instance();
+        return new Console.ConsoleView.ActionDelegate();
     },
     contextTypes() {
         return maybeRetrieveContextTypes(Console => [Console.ConsoleView.ConsoleView]);
@@ -206,7 +210,7 @@ UI.ActionRegistration.registerActionExtension({
     title: i18nLazyString(UIStrings.clearConsoleHistory),
     async loadActionDelegate() {
         const Console = await loadConsoleModule();
-        return Console.ConsoleView.ActionDelegate.instance();
+        return new Console.ConsoleView.ActionDelegate();
     },
 });
 UI.ActionRegistration.registerActionExtension({
@@ -216,7 +220,7 @@ UI.ActionRegistration.registerActionExtension({
     iconClass: "eye" /* UI.ActionRegistration.IconClass.EYE */,
     async loadActionDelegate() {
         const Console = await loadConsoleModule();
-        return Console.ConsoleView.ActionDelegate.instance();
+        return new Console.ConsoleView.ActionDelegate();
     },
 });
 Common.Settings.registerSettingExtension({
@@ -411,10 +415,10 @@ Common.Revealer.registerRevealer({
             Common.Console.Console,
         ];
     },
+    destination: undefined,
     async loadRevealer() {
         const Console = await loadConsoleModule();
-        return Console.ConsolePanel.ConsoleRevealer.instance();
+        return new Console.ConsolePanel.ConsoleRevealer();
     },
-    destination: undefined,
 });
 //# sourceMappingURL=console-meta.prebundle.js.map

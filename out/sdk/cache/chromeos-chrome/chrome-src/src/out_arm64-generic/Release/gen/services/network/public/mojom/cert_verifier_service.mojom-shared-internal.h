@@ -30,6 +30,7 @@ namespace cert_verifier::mojom {
 namespace internal {
 class RequestParams_Data;
 class CertVerifierConfig_Data;
+class AdditionalCertificates_Data;
 
 #pragma pack(push, 1)
 class  RequestParams_Data {
@@ -95,9 +96,7 @@ class  CertVerifierConfig_Data {
   uint8_t require_rev_checking_local_anchors : 1;
   uint8_t enable_sha1_local_anchors : 1;
   uint8_t disable_symantec_enforcement : 1;
-  uint8_t pad3_[7];
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::X509Certificate_Data>>> additional_trust_anchors;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::X509Certificate_Data>>> additional_untrusted_authorities;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<CertVerifierConfig_Data>;
@@ -105,7 +104,7 @@ class  CertVerifierConfig_Data {
   CertVerifierConfig_Data();
   ~CertVerifierConfig_Data() = delete;
 };
-static_assert(sizeof(CertVerifierConfig_Data) == 32,
+static_assert(sizeof(CertVerifierConfig_Data) == 16,
               "Bad sizeof(CertVerifierConfig_Data)");
 // Used by CertVerifierConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -139,6 +138,56 @@ struct CertVerifierConfig_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     CertVerifierConfig_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  AdditionalCertificates_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::X509Certificate_Data>>> all_certificates;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::X509Certificate_Data>>> trust_anchors;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>>>> distrusted_spkis;
+
+ private:
+  friend class mojo::internal::MessageFragment<AdditionalCertificates_Data>;
+
+  AdditionalCertificates_Data();
+  ~AdditionalCertificates_Data() = delete;
+};
+static_assert(sizeof(AdditionalCertificates_Data) == 32,
+              "Bad sizeof(AdditionalCertificates_Data)");
+// Used by AdditionalCertificates::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AdditionalCertificates_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AdditionalCertificates_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AdditionalCertificates_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AdditionalCertificates_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AdditionalCertificates_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

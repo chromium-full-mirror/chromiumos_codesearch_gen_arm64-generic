@@ -79,11 +79,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUComputePassEncoder>::value,
     "GPUComputePassEncoder inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUComputePassEncoder::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUComputePassEncoder is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,10 +91,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUComputePassEncoder.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -110,9 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUComputePassEncoder.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPUComputePassEncoder";
@@ -163,7 +158,7 @@ blink_receiver->dispatchWorkgroups(arg1_workgroup_count_x, arg2_workgroup_count_
 void DispatchWorkgroupsOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUComputePassEncoder";
 const char* const property_name = "dispatchWorkgroups";
@@ -203,14 +198,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPUComputePassEncoder.dispatchWorkgroups");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUComputePassEncoder";
 const char* const property_name = "dispatchWorkgroups";
@@ -280,7 +275,7 @@ blink_receiver->dispatchWorkgroupsIndirect(arg1_indirect_buffer, arg2_indirect_o
 void DispatchWorkgroupsIndirectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUComputePassEncoder";
 const char* const property_name = "dispatchWorkgroupsIndirect";
@@ -310,14 +305,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPUComputePassEncoder.dispatchWorkgroupsIndirect");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUComputePassEncoder";
 const char* const property_name = "dispatchWorkgroupsIndirect";
@@ -367,7 +362,7 @@ blink_receiver->end();
 void EndOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -385,8 +380,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUComputePassEncoder.end");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -397,8 +393,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 EndOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -435,7 +430,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_marker_label = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -456,7 +451,7 @@ blink_receiver->popDebugGroup();
 void PopDebugGroupOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -474,8 +469,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUComputePassEncoder.popDebugGroup");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -486,8 +482,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 PopDebugGroupOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -524,7 +519,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_group_label = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -552,9 +547,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUComputePassEncoder";
 const char* const property_name = "setBindGroup";
@@ -598,7 +593,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -677,7 +672,7 @@ blink_receiver->setPipeline(arg1_pipeline);
 void SetPipelineOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUComputePassEncoder";
 const char* const property_name = "setPipeline";
@@ -703,14 +698,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPUComputePassEncoder.setPipeline");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUComputePassEncoder";
 const char* const property_name = "setPipeline";
@@ -765,7 +760,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(v8_receiver);
+GPUComputePassEncoder* blink_receiver = V8GPUComputePassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_query_set = NativeValueTraits<GPUQuerySet>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -844,13 +839,13 @@ static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"setPipeline", SetPipelineOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 // Disable compiler warnings for unused functions.
-(void)DispatchWorkgroupsOperationNoAllocDirectCallArg3;
-(void)DispatchWorkgroupsOperationNoAllocDirectCallArg2;
-(void)DispatchWorkgroupsOperationNoAllocDirectCallArg1;
-(void)DispatchWorkgroupsIndirectOperationNoAllocDirectCallArg2;
-(void)EndOperationNoAllocDirectCallArg0;
-(void)PopDebugGroupOperationNoAllocDirectCallArg0;
-(void)SetPipelineOperationNoAllocDirectCallArg1;
+std::ignore = DispatchWorkgroupsOperationNoAllocDirectCallArg3;
+std::ignore = DispatchWorkgroupsOperationNoAllocDirectCallArg2;
+std::ignore = DispatchWorkgroupsOperationNoAllocDirectCallArg1;
+std::ignore = DispatchWorkgroupsIndirectOperationNoAllocDirectCallArg2;
+std::ignore = EndOperationNoAllocDirectCallArg0;
+std::ignore = PopDebugGroupOperationNoAllocDirectCallArg0;
+std::ignore = SetPipelineOperationNoAllocDirectCallArg1;
 #else   // defined(ARCH_CPU_X86)
 static const v8::CFunction kNoAllocDirectCallOverloadsOfDispatchWorkgroups[] = {
 v8::CFunctionBuilder().Fn(DispatchWorkgroupsOperationNoAllocDirectCallArg3).Arg<1, v8::CTypeInfo::Flags::kEnforceRangeBit>().Arg<2, v8::CTypeInfo::Flags::kEnforceRangeBit>().Arg<3, v8::CTypeInfo::Flags::kEnforceRangeBit>().Build(),

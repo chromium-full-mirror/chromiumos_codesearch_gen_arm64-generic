@@ -22,6 +22,7 @@ export class PasswordManagerToolbarElement extends PasswordManagerToolbarElement
     static get properties() {
         return {
             narrow: Boolean,
+            pageName: String,
         };
     }
     currentRouteChanged(newRoute, _oldRoute) {

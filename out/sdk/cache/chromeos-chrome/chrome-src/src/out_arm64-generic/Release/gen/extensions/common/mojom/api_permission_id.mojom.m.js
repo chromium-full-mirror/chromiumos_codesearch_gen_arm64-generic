@@ -272,8 +272,11 @@ export const APIPermissionID = {
   kAccessibilityServicePrivate: 252,
   kUserScripts: 253,
   kChromeOSBluetoothPeripheralsInfo: 254,
+  kEnterpriseKioskInput: 255,
+  kOdfsConfigPrivate: 256,
+  kChromeOSManagementAudio: 257,
   MIN_VALUE: 0,
-  MAX_VALUE: 254,
+  MAX_VALUE: 257,
 };
 
 

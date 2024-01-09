@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/usb_device.mojom-features.h"
 #include "services/device/public/mojom/usb_device.mojom-shared.h"
 #include "services/device/public/mojom/usb_device.mojom-forward.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom.h"
@@ -586,17 +587,17 @@ class  UsbOpenDeviceResult {
   // Construct an instance holding |success|.
   static UsbOpenDeviceResultPtr
   NewSuccess(
-      UsbOpenDeviceSuccess success) {
+      UsbOpenDeviceSuccess value) {
     auto result = UsbOpenDeviceResultPtr(absl::in_place);
-    result->set_success(std::move(success));
+    result->set_success(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static UsbOpenDeviceResultPtr
   NewError(
-      UsbOpenDeviceError error) {
+      UsbOpenDeviceError value) {
     auto result = UsbOpenDeviceResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -888,7 +889,7 @@ class  UsbAlternateInterfaceInfo {
       uint8_t class_code,
       uint8_t subclass_code,
       uint8_t protocol_code,
-      const absl::optional<::std::u16string>& interface_name,
+      const std::optional<::std::u16string>& interface_name,
       std::vector<UsbEndpointInfoPtr> endpoints,
       std::vector<uint8_t> extra_data);
 
@@ -978,7 +979,7 @@ UsbAlternateInterfaceInfo& operator=(const UsbAlternateInterfaceInfo&) = delete;
   
   uint8_t protocol_code;
   
-  absl::optional<::std::u16string> interface_name;
+  std::optional<::std::u16string> interface_name;
   
   std::vector<UsbEndpointInfoPtr> endpoints;
   
@@ -1193,7 +1194,7 @@ class  UsbConfigurationInfo {
 
   UsbConfigurationInfo(
       uint8_t configuration_value,
-      const absl::optional<::std::u16string>& configuration_name,
+      const std::optional<::std::u16string>& configuration_name,
       bool self_powered,
       bool remote_wakeup,
       uint8_t maximum_power,
@@ -1280,7 +1281,7 @@ UsbConfigurationInfo& operator=(const UsbConfigurationInfo&) = delete;
   
   uint8_t configuration_value;
   
-  absl::optional<::std::u16string> configuration_name;
+  std::optional<::std::u16string> configuration_name;
   
   bool self_powered;
   
@@ -1366,10 +1367,10 @@ class  UsbDeviceInfo {
       uint8_t device_version_major,
       uint8_t device_version_minor,
       uint8_t device_version_subminor,
-      const absl::optional<::std::u16string>& manufacturer_name,
-      const absl::optional<::std::u16string>& product_name,
-      const absl::optional<::std::u16string>& serial_number,
-      const absl::optional<::GURL>& webusb_landing_page,
+      const std::optional<::std::u16string>& manufacturer_name,
+      const std::optional<::std::u16string>& product_name,
+      const std::optional<::std::u16string>& serial_number,
+      const std::optional<::GURL>& webusb_landing_page,
       uint8_t active_configuration,
       std::vector<UsbConfigurationInfoPtr> configurations);
 
@@ -1479,13 +1480,13 @@ UsbDeviceInfo& operator=(const UsbDeviceInfo&) = delete;
   
   uint8_t device_version_subminor;
   
-  absl::optional<::std::u16string> manufacturer_name;
+  std::optional<::std::u16string> manufacturer_name;
   
-  absl::optional<::std::u16string> product_name;
+  std::optional<::std::u16string> product_name;
   
-  absl::optional<::std::u16string> serial_number;
+  std::optional<::std::u16string> serial_number;
   
-  absl::optional<::GURL> webusb_landing_page;
+  std::optional<::GURL> webusb_landing_page;
   
   uint8_t active_configuration;
   

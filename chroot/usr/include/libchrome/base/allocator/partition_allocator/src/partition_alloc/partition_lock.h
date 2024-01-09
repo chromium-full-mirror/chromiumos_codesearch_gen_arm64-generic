@@ -8,6 +8,7 @@
 #include <atomic>
 #include <type_traits>
 
+#include "build/build_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/debug/debugging_buildflags.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/immediate_crash.h"
@@ -16,7 +17,6 @@
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_check.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/spinning_mutex.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/thread_isolation/thread_isolation.h"
-#include "build/build_config.h"
 
 namespace partition_alloc::internal {
 

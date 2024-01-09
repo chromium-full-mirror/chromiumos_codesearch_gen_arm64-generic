@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -104,7 +105,7 @@ WebSocketConnectorProxy::WebSocketConnectorProxy(mojo::MessageReceiverWithRespon
 }
 
 void WebSocketConnectorProxy::Connect(
-    const ::blink::KURL& in_url, const WTF::Vector<WTF::String>& in_requested_protocols, const ::net::SiteForCookies& in_site_for_cookies, const WTF::String& in_user_agent, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> in_handshake_client, const absl::optional<::base::UnguessableToken>& in_throttling_profile_id) {
+    const ::blink::KURL& in_url, const WTF::Vector<WTF::String>& in_requested_protocols, const ::net::SiteForCookies& in_site_for_cookies, const WTF::String& in_user_agent, bool in_has_storage_access, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> in_handshake_client, const std::optional<::base::UnguessableToken>& in_throttling_profile_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::WebSocketConnector::Connect", "input_parameters",
@@ -123,21 +124,27 @@ void WebSocketConnectorProxy::Connect(
            dict.AddItem("user_agent"), in_user_agent,
                         "<value of type const WTF::String&>");
       perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("has_storage_access"), in_has_storage_access,
+                        "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("handshake_client"), in_handshake_client,
                         "<value of type ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("throttling_profile_id"), in_throttling_profile_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebSocketConnector_Connect_Name, kFlags, 0, 0, nullptr);
@@ -187,6 +194,7 @@ void WebSocketConnectorProxy::Connect(
       in_user_agent, user_agent_fragment);
   params->user_agent.Set(
       user_agent_fragment.is_null() ? nullptr : user_agent_fragment.data());
+  params->has_storage_access = in_has_storage_access;
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::network::mojom::WebSocketHandshakeClientInterfaceBase>>(
       in_handshake_client, &params->handshake_client, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -227,8 +235,9 @@ bool WebSocketConnectorStubDispatch::Accept(
       WTF::Vector<WTF::String> p_requested_protocols{};
       ::net::SiteForCookies p_site_for_cookies{};
       WTF::String p_user_agent{};
+      bool p_has_storage_access{};
       ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> p_handshake_client{};
-      absl::optional<::base::UnguessableToken> p_throttling_profile_id{};
+      std::optional<::base::UnguessableToken> p_throttling_profile_id{};
       WebSocketConnector_Connect_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadUrl(&p_url))
@@ -239,6 +248,8 @@ bool WebSocketConnectorStubDispatch::Accept(
         success = false;
       if (success && !input_data_view.ReadUserAgent(&p_user_agent))
         success = false;
+      if (success)
+        p_has_storage_access = input_data_view.has_storage_access();
       if (success) {
         p_handshake_client =
             input_data_view.TakeHandshakeClient<decltype(p_handshake_client)>();
@@ -259,6 +270,7 @@ std::move(p_url),
 std::move(p_requested_protocols), 
 std::move(p_site_for_cookies), 
 std::move(p_user_agent), 
+std::move(p_has_storage_access), 
 std::move(p_handshake_client), 
 std::move(p_throttling_profile_id));
       return true;
@@ -282,10 +294,10 @@ bool WebSocketConnectorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebSocketConnectorValidationInfo[] = {
-    {&internal::WebSocketConnector_Connect_Params_Data::Validate,
+    { &internal::WebSocketConnector_Connect_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -311,8 +323,8 @@ namespace mojo {
 namespace blink::mojom::blink {
 
 
-void WebSocketConnectorInterceptorForTesting::Connect(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const WTF::String& user_agent, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, const absl::optional<::base::UnguessableToken>& throttling_profile_id) {
-  GetForwardingInterface()->Connect(std::move(url), std::move(requested_protocols), std::move(site_for_cookies), std::move(user_agent), std::move(handshake_client), std::move(throttling_profile_id));
+void WebSocketConnectorInterceptorForTesting::Connect(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const WTF::String& user_agent, bool has_storage_access, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, const std::optional<::base::UnguessableToken>& throttling_profile_id) {
+  GetForwardingInterface()->Connect(std::move(url), std::move(requested_protocols), std::move(site_for_cookies), std::move(user_agent), std::move(has_storage_access), std::move(handshake_client), std::move(throttling_profile_id));
 }
 WebSocketConnectorAsyncWaiter::WebSocketConnectorAsyncWaiter(
     WebSocketConnector* proxy) : proxy_(proxy) {}

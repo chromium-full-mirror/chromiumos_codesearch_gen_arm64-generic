@@ -69,11 +69,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, IDBOpenDBRequest>::value,
     "IDBOpenDBRequest does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&IDBOpenDBRequest::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IDBOpenDBRequest is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBOpenDBRequest.onblocked.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBOpenDBRequest* blink_receiver = V8IDBOpenDBRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onblocked();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBOpenDBRequest* blink_receiver = V8IDBOpenDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onblocked();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -102,8 +97,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBOpenDBRequest* blink_receiver = V8IDBOpenDBRequest::ToWrappableUnsafe(v8_receiver);
+IDBOpenDBRequest* blink_receiver = V8IDBOpenDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnblocked(event_handler);
 }
 
@@ -114,10 +110,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBOpenDBRequest.onupgradeneeded.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBOpenDBRequest* blink_receiver = V8IDBOpenDBRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onupgradeneeded();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBOpenDBRequest* blink_receiver = V8IDBOpenDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onupgradeneeded();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -130,8 +126,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBOpenDBRequest* blink_receiver = V8IDBOpenDBRequest::ToWrappableUnsafe(v8_receiver);
+IDBOpenDBRequest* blink_receiver = V8IDBOpenDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnupgradeneeded(event_handler);
 }
 

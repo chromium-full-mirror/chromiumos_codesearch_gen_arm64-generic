@@ -706,6 +706,12 @@ export class CompositorFrameSinkClientInterface {
    */
 
   onCompositorFrameTransitionDirectiveProcessed(sequenceId) {}
+  
+  /**
+   * @param { !viz_mojom_LocalSurfaceId } localSurfaceId
+   */
+
+  onSurfaceEvicted(localSurfaceId) {}
 }
 
 /**
@@ -819,6 +825,22 @@ export class CompositorFrameSinkClientRemote {
           sequenceId
         ]);
   }
+
+  
+  /**
+   * @param { !viz_mojom_LocalSurfaceId } localSurfaceId
+   */
+
+  onSurfaceEvicted(
+      localSurfaceId) {
+    this.proxy.sendMessage(
+        5,
+        CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec.$,
+        null,
+        [
+          localSurfaceId
+        ]);
+  }
 }
 
 /**
@@ -866,6 +888,11 @@ export class CompositorFrameSinkClientReceiver {
         CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_ParamsSpec.$,
         null,
         impl.onCompositorFrameTransitionDirectiveProcessed.bind(impl));
+    this.helper_internal_.registerHandler(
+        5,
+        CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec.$,
+        null,
+        impl.onSurfaceEvicted.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -972,6 +999,18 @@ export class CompositorFrameSinkClientCallbackRouter {
         CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_ParamsSpec.$,
         null,
         this.onCompositorFrameTransitionDirectiveProcessed.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onSurfaceEvicted =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        5,
+        CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec.$,
+        null,
+        this.onSurfaceEvicted.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1085,6 +1124,12 @@ export const CompositorFrameSinkClient_ReclaimResources_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1648,6 +1693,35 @@ export class CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProce
   constructor() {
     /** @type { !number } */
     this.sequenceId;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec.$,
+    'CompositorFrameSinkClient_OnSurfaceEvicted_Params',
+    [
+      mojo.internal.StructField(
+        'localSurfaceId', 0,
+        0,
+        viz_mojom_LocalSurfaceIdSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CompositorFrameSinkClient_OnSurfaceEvicted_Params {
+  constructor() {
+    /** @type { !viz_mojom_LocalSurfaceId } */
+    this.localSurfaceId;
   }
 }
 

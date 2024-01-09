@@ -22,7 +22,7 @@ class ValidationContext;
 
 namespace ash::media_app_ui::mojom {
 namespace internal {
-class  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data {
+class  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -33,23 +33,57 @@ class  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data {
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data>;
+  friend class mojo::internal::MessageFragment<UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data>;
 
-  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data();
-  ~UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data() = delete;
+  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data();
+  ~UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data() = delete;
 };
-static_assert(sizeof(UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data) == 24,
-              "Bad sizeof(UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data)");
+static_assert(sizeof(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data) == 24,
+              "Bad sizeof(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data)");
+class  OcrUntrustedPageHandler_ViewportUpdated_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::gfx::mojom::internal::RectF_Data> viewportBox;
+  float scaleFactor;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<OcrUntrustedPageHandler_ViewportUpdated_Params_Data>;
+
+  OcrUntrustedPageHandler_ViewportUpdated_Params_Data();
+  ~OcrUntrustedPageHandler_ViewportUpdated_Params_Data() = delete;
+};
+static_assert(sizeof(OcrUntrustedPageHandler_ViewportUpdated_Params_Data) == 24,
+              "Bad sizeof(OcrUntrustedPageHandler_ViewportUpdated_Params_Data)");
+class  OcrUntrustedPage_SetViewport_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::gfx::mojom::internal::RectF_Data> viewportBox;
+
+ private:
+  friend class mojo::internal::MessageFragment<OcrUntrustedPage_SetViewport_Params_Data>;
+
+  OcrUntrustedPage_SetViewport_Params_Data();
+  ~OcrUntrustedPage_SetViewport_Params_Data() = delete;
+};
+static_assert(sizeof(OcrUntrustedPage_SetViewport_Params_Data) == 16,
+              "Bad sizeof(OcrUntrustedPage_SetViewport_Params_Data)");
 
 }  // namespace internal
 
 
-class UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsDataView {
+class UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsDataView {
  public:
-  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsDataView() = default;
+  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsDataView() = default;
 
-  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsDataView(
-      internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data* data,
+  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsDataView(
+      internal::UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -58,7 +92,7 @@ class UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsDataView {
   UserType TakeReceiver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::media_app_ui::mojom::UntrustedPageHandlerInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::media_app_ui::mojom::OcrUntrustedPageHandlerInterfaceBase>>(
             &data_->receiver, &result, message_);
     DCHECK(ret);
     return result;
@@ -67,16 +101,85 @@ class UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsDataView {
   UserType TakePage() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::media_app_ui::mojom::UntrustedPageInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::media_app_ui::mojom::OcrUntrustedPageInterfaceBase>>(
             &data_->page, &result, message_);
     DCHECK(ret);
     return result;
   }
  private:
-  internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data* data_ = nullptr;
+  internal::UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
+
+class OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView {
+ public:
+  OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView() = default;
+
+  OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView(
+      internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetViewportBoxDataView(
+      ::gfx::mojom::RectFDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadViewportBox(UserType* output) {
+    
+    auto* pointer = data_->viewportBox.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::RectFDataView>(
+        pointer, output, message_);
+  }
+  float scaleFactor() const {
+    return data_->scaleFactor;
+  }
+ private:
+  internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class OcrUntrustedPage_SetViewport_ParamsDataView {
+ public:
+  OcrUntrustedPage_SetViewport_ParamsDataView() = default;
+
+  OcrUntrustedPage_SetViewport_ParamsDataView(
+      internal::OcrUntrustedPage_SetViewport_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetViewportBoxDataView(
+      ::gfx::mojom::RectFDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadViewportBox(UserType* output) {
+    
+    auto* pointer = data_->viewportBox.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::RectFDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::OcrUntrustedPage_SetViewport_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+inline void OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView::GetViewportBoxDataView(
+    ::gfx::mojom::RectFDataView* output) {
+  auto pointer = data_->viewportBox.Get();
+  *output = ::gfx::mojom::RectFDataView(pointer, message_);
+}
+
+
+inline void OcrUntrustedPage_SetViewport_ParamsDataView::GetViewportBoxDataView(
+    ::gfx::mojom::RectFDataView* output) {
+  auto pointer = data_->viewportBox.Get();
+  *output = ::gfx::mojom::RectFDataView(pointer, message_);
+}
 
 
 

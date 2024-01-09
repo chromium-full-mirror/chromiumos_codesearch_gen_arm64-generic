@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -134,14 +135,17 @@ void NetworkChangeManagerClientProxy::OnInitialConnectionType(
                         "<value of type ConnectionType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkChangeManagerClient_OnInitialConnectionType_Name, kFlags, 0, 0, nullptr);
@@ -173,14 +177,17 @@ void NetworkChangeManagerClientProxy::OnNetworkChanged(
                         "<value of type ConnectionType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkChangeManagerClient_OnNetworkChanged_Name, kFlags, 0, 0, nullptr);
@@ -279,12 +286,12 @@ bool NetworkChangeManagerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkChangeManagerClientValidationInfo[] = {
-    {&internal::NetworkChangeManagerClient_OnInitialConnectionType_Params_Data::Validate,
+    { &internal::NetworkChangeManagerClient_OnInitialConnectionType_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkChangeManagerClient_OnNetworkChanged_Params_Data::Validate,
+    { &internal::NetworkChangeManagerClient_OnNetworkChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -384,14 +391,17 @@ void NetworkChangeManagerProxy::RequestNotifications(
                         "<value of type ::mojo::PendingRemote<NetworkChangeManagerClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkChangeManager_RequestNotifications_Name, kFlags, 0, 0, nullptr);
@@ -442,14 +452,17 @@ void NetworkChangeManagerProxy::OnNetworkChanged(
                         "<value of type ConnectionSubtype>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkChangeManager_OnNetworkChanged_Name, kFlags, 0, 0, nullptr);
@@ -576,12 +589,12 @@ bool NetworkChangeManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkChangeManagerValidationInfo[] = {
-    {&internal::NetworkChangeManager_RequestNotifications_Params_Data::Validate,
+    { &internal::NetworkChangeManager_RequestNotifications_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkChangeManager_OnNetworkChanged_Params_Data::Validate,
+    { &internal::NetworkChangeManager_OnNetworkChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 

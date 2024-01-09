@@ -22,5 +22,7 @@
 #include "mojo/public/mojom/base/shared_memory.mojom-blink-import-headers.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink-import-headers.h"
+#include "sandbox/policy/mojom/context.mojom-blink.h"
+#include "sandbox/policy/mojom/context.mojom-blink-import-headers.h"
 
 #endif  // MEDIA_MOJO_MOJOM_AUDIO_STREAM_FACTORY_MOJOM_BLINK_IMPORT_HEADERS_H_

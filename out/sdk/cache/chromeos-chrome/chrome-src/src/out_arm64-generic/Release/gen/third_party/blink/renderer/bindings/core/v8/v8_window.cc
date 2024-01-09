@@ -62,11 +62,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMWindow>::value,
     "DOMWindow inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMWindow::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMWindow is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8Window::InstallInterfaceTemplateFuncType V8Window::install_interface_template_func_ = nullptr;

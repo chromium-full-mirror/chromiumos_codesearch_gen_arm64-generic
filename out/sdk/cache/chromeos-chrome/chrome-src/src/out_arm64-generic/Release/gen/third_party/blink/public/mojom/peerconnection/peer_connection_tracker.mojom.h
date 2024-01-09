@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/peerconnection/peer_connection_tracker.mojom-features.h"
 #include "third_party/blink/public/mojom/peerconnection/peer_connection_tracker.mojom-shared.h"
 #include "third_party/blink/public/mojom/peerconnection/peer_connection_tracker.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -75,7 +76,6 @@ class BLINK_COMMON_EXPORT PeerConnectionManager
     kStartEventLogMinVersion = 0,
     kStopEventLogMinVersion = 0,
     kGetStandardStatsMinVersion = 0,
-    kGetLegacyStatsMinVersion = 0,
     kGetCurrentStateMinVersion = 0,
   };
 
@@ -98,9 +98,6 @@ class BLINK_COMMON_EXPORT PeerConnectionManager
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetStandardStats_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetLegacyStats_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetCurrentState_Sym {
@@ -126,9 +123,6 @@ class BLINK_COMMON_EXPORT PeerConnectionManager
 
   
   virtual void GetStandardStats() = 0;
-
-  
-  virtual void GetLegacyStats() = 0;
 
   
   virtual void GetCurrentState() = 0;
@@ -283,8 +277,6 @@ class BLINK_COMMON_EXPORT PeerConnectionManagerProxy
   void StopEventLog(int32_t peer_connection_local_id) final;
   
   void GetStandardStats() final;
-  
-  void GetLegacyStats() final;
   
   void GetCurrentState() final;
 
@@ -455,7 +447,7 @@ class BLINK_COMMON_EXPORT PeerConnectionInfo {
       int32_t lid,
       const std::string& rtc_configuration,
       const std::string& constraints,
-      const absl::optional<std::string>& url);
+      const std::optional<std::string>& url);
 
 
   ~PeerConnectionInfo();
@@ -539,7 +531,7 @@ class BLINK_COMMON_EXPORT PeerConnectionInfo {
   
   std::string constraints;
   
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

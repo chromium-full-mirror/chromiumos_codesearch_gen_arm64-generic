@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/login.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ SamlUserSessionProperties::SamlUserSessionProperties()
  {}
 
 SamlUserSessionProperties::~SamlUserSessionProperties() = default;
-SamlUserSessionProperties::SamlUserSessionProperties(SamlUserSessionProperties&& rhs) = default;
-SamlUserSessionProperties& SamlUserSessionProperties::operator=(SamlUserSessionProperties&& rhs) = default;
+SamlUserSessionProperties::SamlUserSessionProperties(SamlUserSessionProperties&& rhs) noexcept = default;
+SamlUserSessionProperties& SamlUserSessionProperties::operator=(SamlUserSessionProperties&& rhs) noexcept = default;
 SamlUserSessionProperties SamlUserSessionProperties::Clone() const {
   SamlUserSessionProperties out;
   out.email = email;
@@ -111,34 +112,21 @@ bool SamlUserSessionProperties::Populate(
 }
 
 // static
-std::unique_ptr<SamlUserSessionProperties> SamlUserSessionProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SamlUserSessionProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SamlUserSessionProperties> SamlUserSessionProperties::FromValue(const base::Value::Dict& value) {
+  SamlUserSessionProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SamlUserSessionProperties> SamlUserSessionProperties::FromValue(const base::Value::Dict& value) {
+std::optional<SamlUserSessionProperties> SamlUserSessionProperties::FromValue(const base::Value& value) {
   SamlUserSessionProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SamlUserSessionProperties> SamlUserSessionProperties::FromValue(const base::Value& value) {
-  SamlUserSessionProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -168,13 +156,13 @@ namespace LaunchManagedGuestSession {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -184,8 +172,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = password_value.GetIfString();
       if (!temp) {
-        params.password = absl::nullopt;
-        return absl::nullopt;
+        params.password = std::nullopt;
+        return std::nullopt;
       }
       params.password = *temp;
     }
@@ -206,13 +194,13 @@ namespace ExitCurrentSession {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -222,8 +210,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = data_for_next_login_attempt_value.GetIfString();
       if (!temp) {
-        params.data_for_next_login_attempt = absl::nullopt;
-        return absl::nullopt;
+        params.data_for_next_login_attempt = std::nullopt;
+        return std::nullopt;
       }
       params.data_for_next_login_attempt = *temp;
     }
@@ -273,13 +261,13 @@ namespace UnlockManagedGuestSession {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -289,13 +277,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = password_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.password = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -313,13 +301,13 @@ namespace UnlockCurrentSession {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -329,13 +317,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = password_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.password = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -353,13 +341,13 @@ namespace LaunchSamlUserSession {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -368,15 +356,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[0];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SamlUserSessionProperties::Populate(properties_value.GetDict(), params.properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -394,13 +382,13 @@ namespace LaunchSharedManagedGuestSession {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -410,13 +398,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = password_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.password = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -434,13 +422,13 @@ namespace EnterSharedSession {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -450,13 +438,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = password_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.password = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -474,13 +462,13 @@ namespace UnlockSharedSession {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -490,13 +478,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = password_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.password = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -523,13 +511,13 @@ namespace SetDataForNextLoginAttempt {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -539,13 +527,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = data_for_next_login_attempt_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.data_for_next_login_attempt = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

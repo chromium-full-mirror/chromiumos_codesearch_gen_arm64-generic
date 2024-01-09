@@ -78,11 +78,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, Notification>::value,
     "Notification does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&Notification::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Notification is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -125,10 +120,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.onclick.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclick();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclick();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -141,8 +136,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclick(event_handler);
 }
 
@@ -159,7 +155,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNotificationShowEvent)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onshow();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -179,7 +175,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnshow(event_handler);
 }
 
@@ -190,10 +186,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -206,8 +202,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -224,7 +221,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNotificationCloseEvent
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onclose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -244,7 +241,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclose(event_handler);
 }
 
@@ -255,10 +252,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.title.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->title();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->title();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -270,10 +267,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.dir.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->dir();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->dir();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -285,10 +282,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.lang.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->lang();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->lang();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -300,10 +297,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.body.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->body();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->body();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -315,10 +312,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.tag.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->tag();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->tag();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -330,10 +327,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.image.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->image();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->image();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -345,10 +342,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.icon.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->icon();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->icon();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -360,10 +357,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.badge.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->badge();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->badge();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -396,7 +393,7 @@ v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->vibrate();
 if (!ToV8Traits<IDLArray<IDLUnsignedLong>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -414,8 +411,9 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.timestamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timestamp();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -428,8 +426,9 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.renotify.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->renotify();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -442,8 +441,9 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.silent.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->silent();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -456,8 +456,9 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.requireInteraction.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->requireInteraction();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -487,7 +488,7 @@ auto&& v8_private_save_same_object =
   }
 }
 
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -526,7 +527,7 @@ v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->actions(script_state);
 if (!ToV8Traits<IDLArray<NotificationAction>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -544,8 +545,9 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.showTrigger.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->showTrigger();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -558,10 +560,10 @@ BLINK_BINDINGS_TRACE_EVENT("Notification.scenario.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->scenario();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->scenario();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -633,7 +635,7 @@ UseCounter::Count(current_execution_context, WebFeature::kNotificationClosed);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Notification* blink_receiver = V8Notification::ToWrappableUnsafe(v8_receiver);
+Notification* blink_receiver = V8Notification::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }

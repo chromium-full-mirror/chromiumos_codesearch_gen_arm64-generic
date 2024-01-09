@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -115,14 +116,17 @@ void TimeZoneMonitorProxy::AddClient(
                         "<value of type ::mojo::PendingRemote<TimeZoneMonitorClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTimeZoneMonitor_AddClient_Name, kFlags, 0, 0, nullptr);
@@ -198,10 +202,10 @@ bool TimeZoneMonitorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTimeZoneMonitorValidationInfo[] = {
-    {&internal::TimeZoneMonitor_AddClient_Params_Data::Validate,
+    { &internal::TimeZoneMonitor_AddClient_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -281,14 +285,17 @@ void TimeZoneMonitorClientProxy::OnTimeZoneChange(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTimeZoneMonitorClient_OnTimeZoneChange_Name, kFlags, 0, 0, nullptr);
@@ -367,10 +374,10 @@ bool TimeZoneMonitorClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTimeZoneMonitorClientValidationInfo[] = {
-    {&internal::TimeZoneMonitorClient_OnTimeZoneChange_Params_Data::Validate,
+    { &internal::TimeZoneMonitorClient_OnTimeZoneChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 

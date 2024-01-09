@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/audio.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -149,8 +150,8 @@ is_active(false),
 level(0) {}
 
 AudioDeviceInfo::~AudioDeviceInfo() = default;
-AudioDeviceInfo::AudioDeviceInfo(AudioDeviceInfo&& rhs) = default;
-AudioDeviceInfo& AudioDeviceInfo::operator=(AudioDeviceInfo&& rhs) = default;
+AudioDeviceInfo::AudioDeviceInfo(AudioDeviceInfo&& rhs) noexcept = default;
+AudioDeviceInfo& AudioDeviceInfo::operator=(AudioDeviceInfo&& rhs) noexcept = default;
 AudioDeviceInfo AudioDeviceInfo::Clone() const {
   AudioDeviceInfo out;
   out.id = id;
@@ -262,7 +263,7 @@ bool AudioDeviceInfo::Populate(
     {
       auto* temp = (*stable_device_id_value).GetIfString();
       if (!temp) {
-        out.stable_device_id = absl::nullopt;
+        out.stable_device_id = std::nullopt;
         return false;
       }
       out.stable_device_id = *temp;
@@ -282,34 +283,21 @@ bool AudioDeviceInfo::Populate(
 }
 
 // static
-std::unique_ptr<AudioDeviceInfo> AudioDeviceInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioDeviceInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioDeviceInfo> AudioDeviceInfo::FromValue(const base::Value::Dict& value) {
+  AudioDeviceInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioDeviceInfo> AudioDeviceInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AudioDeviceInfo> AudioDeviceInfo::FromValue(const base::Value& value) {
   AudioDeviceInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioDeviceInfo> AudioDeviceInfo::FromValue(const base::Value& value) {
-  AudioDeviceInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -344,8 +332,8 @@ DeviceFilter::DeviceFilter()
  {}
 
 DeviceFilter::~DeviceFilter() = default;
-DeviceFilter::DeviceFilter(DeviceFilter&& rhs) = default;
-DeviceFilter& DeviceFilter::operator=(DeviceFilter&& rhs) = default;
+DeviceFilter::DeviceFilter(DeviceFilter&& rhs) noexcept = default;
+DeviceFilter& DeviceFilter::operator=(DeviceFilter&& rhs) noexcept = default;
 DeviceFilter DeviceFilter::Clone() const {
   DeviceFilter out;
   out.stream_types = stream_types;
@@ -385,7 +373,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*is_active_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_active = absl::nullopt;
+        out.is_active = std::nullopt;
         return false;
       }
       out.is_active = *temp;
@@ -405,34 +393,21 @@ bool DeviceFilter::Populate(
 }
 
 // static
-std::unique_ptr<DeviceFilter> DeviceFilter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeviceFilter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value::Dict& value) {
+  DeviceFilter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value::Dict& value) {
+std::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value& value) {
   DeviceFilter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value& value) {
-  DeviceFilter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -463,8 +438,8 @@ DeviceProperties::DeviceProperties()
  {}
 
 DeviceProperties::~DeviceProperties() = default;
-DeviceProperties::DeviceProperties(DeviceProperties&& rhs) = default;
-DeviceProperties& DeviceProperties::operator=(DeviceProperties&& rhs) = default;
+DeviceProperties::DeviceProperties(DeviceProperties&& rhs) noexcept = default;
+DeviceProperties& DeviceProperties::operator=(DeviceProperties&& rhs) noexcept = default;
 DeviceProperties DeviceProperties::Clone() const {
   DeviceProperties out;
   out.level = level;
@@ -479,7 +454,7 @@ bool DeviceProperties::Populate(
     {
       auto temp = (*level_value).GetIfInt();
       if (!temp.has_value()) {
-        out.level = absl::nullopt;
+        out.level = std::nullopt;
         return false;
       }
       out.level = *temp;
@@ -499,34 +474,21 @@ bool DeviceProperties::Populate(
 }
 
 // static
-std::unique_ptr<DeviceProperties> DeviceProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeviceProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeviceProperties> DeviceProperties::FromValue(const base::Value::Dict& value) {
+  DeviceProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeviceProperties> DeviceProperties::FromValue(const base::Value::Dict& value) {
+std::optional<DeviceProperties> DeviceProperties::FromValue(const base::Value& value) {
   DeviceProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeviceProperties> DeviceProperties::FromValue(const base::Value& value) {
-  DeviceProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -547,8 +509,8 @@ DeviceIdLists::DeviceIdLists()
  {}
 
 DeviceIdLists::~DeviceIdLists() = default;
-DeviceIdLists::DeviceIdLists(DeviceIdLists&& rhs) = default;
-DeviceIdLists& DeviceIdLists::operator=(DeviceIdLists&& rhs) = default;
+DeviceIdLists::DeviceIdLists(DeviceIdLists&& rhs) noexcept = default;
+DeviceIdLists& DeviceIdLists::operator=(DeviceIdLists&& rhs) noexcept = default;
 DeviceIdLists DeviceIdLists::Clone() const {
   DeviceIdLists out;
   out.input = input;
@@ -600,34 +562,21 @@ bool DeviceIdLists::Populate(
 }
 
 // static
-std::unique_ptr<DeviceIdLists> DeviceIdLists::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeviceIdLists>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeviceIdLists> DeviceIdLists::FromValue(const base::Value::Dict& value) {
+  DeviceIdLists out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeviceIdLists> DeviceIdLists::FromValue(const base::Value::Dict& value) {
+std::optional<DeviceIdLists> DeviceIdLists::FromValue(const base::Value& value) {
   DeviceIdLists out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeviceIdLists> DeviceIdLists::FromValue(const base::Value& value) {
-  DeviceIdLists out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -653,8 +602,8 @@ MuteChangedEvent::MuteChangedEvent()
 is_muted(false) {}
 
 MuteChangedEvent::~MuteChangedEvent() = default;
-MuteChangedEvent::MuteChangedEvent(MuteChangedEvent&& rhs) = default;
-MuteChangedEvent& MuteChangedEvent::operator=(MuteChangedEvent&& rhs) = default;
+MuteChangedEvent::MuteChangedEvent(MuteChangedEvent&& rhs) noexcept = default;
+MuteChangedEvent& MuteChangedEvent::operator=(MuteChangedEvent&& rhs) noexcept = default;
 MuteChangedEvent MuteChangedEvent::Clone() const {
   MuteChangedEvent out;
   out.stream_type = stream_type;
@@ -705,34 +654,21 @@ bool MuteChangedEvent::Populate(
 }
 
 // static
-std::unique_ptr<MuteChangedEvent> MuteChangedEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MuteChangedEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MuteChangedEvent> MuteChangedEvent::FromValue(const base::Value::Dict& value) {
+  MuteChangedEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MuteChangedEvent> MuteChangedEvent::FromValue(const base::Value::Dict& value) {
+std::optional<MuteChangedEvent> MuteChangedEvent::FromValue(const base::Value& value) {
   MuteChangedEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MuteChangedEvent> MuteChangedEvent::FromValue(const base::Value& value) {
-  MuteChangedEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -753,8 +689,8 @@ LevelChangedEvent::LevelChangedEvent()
 : level(0) {}
 
 LevelChangedEvent::~LevelChangedEvent() = default;
-LevelChangedEvent::LevelChangedEvent(LevelChangedEvent&& rhs) = default;
-LevelChangedEvent& LevelChangedEvent::operator=(LevelChangedEvent&& rhs) = default;
+LevelChangedEvent::LevelChangedEvent(LevelChangedEvent&& rhs) noexcept = default;
+LevelChangedEvent& LevelChangedEvent::operator=(LevelChangedEvent&& rhs) noexcept = default;
 LevelChangedEvent LevelChangedEvent::Clone() const {
   LevelChangedEvent out;
   out.device_id = device_id;
@@ -802,34 +738,21 @@ bool LevelChangedEvent::Populate(
 }
 
 // static
-std::unique_ptr<LevelChangedEvent> LevelChangedEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LevelChangedEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LevelChangedEvent> LevelChangedEvent::FromValue(const base::Value::Dict& value) {
+  LevelChangedEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LevelChangedEvent> LevelChangedEvent::FromValue(const base::Value::Dict& value) {
+std::optional<LevelChangedEvent> LevelChangedEvent::FromValue(const base::Value& value) {
   LevelChangedEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LevelChangedEvent> LevelChangedEvent::FromValue(const base::Value& value) {
-  LevelChangedEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -855,13 +778,13 @@ namespace GetDevices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -870,12 +793,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         DeviceFilter temp;
         if (!DeviceFilter::Populate(filter_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -898,13 +821,13 @@ namespace SetActiveDevices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -913,15 +836,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& ids_value = args[0];
     {
       if (!ids_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DeviceIdLists::Populate(ids_value.GetDict(), params.ids)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -939,13 +862,13 @@ namespace SetProperties {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -955,13 +878,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -969,15 +892,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[1];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DeviceProperties::Populate(properties_value.GetDict(), params.properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -995,13 +918,13 @@ namespace GetMute {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1011,16 +934,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* stream_type_as_string = stream_type_value.GetIfString();
       if (!stream_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.stream_type = ParseStreamType(*stream_type_as_string);
       if (params.stream_type == StreamType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1040,13 +963,13 @@ namespace SetMute {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1056,16 +979,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* stream_type_as_string = stream_type_value.GetIfString();
       if (!stream_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.stream_type = ParseStreamType(*stream_type_as_string);
       if (params.stream_type == StreamType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1074,13 +997,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = is_muted_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.is_muted = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

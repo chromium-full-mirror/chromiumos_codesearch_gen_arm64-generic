@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -218,14 +219,17 @@ void ResourceLoadInfoNotifierProxy::NotifyResourceRedirectReceived(
                         "<value of type ::network::mojom::URLResponseHeadPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceLoadInfoNotifier_NotifyResourceRedirectReceived_Name, kFlags, 0, 0, nullptr);
@@ -266,7 +270,7 @@ void ResourceLoadInfoNotifierProxy::NotifyResourceRedirectReceived(
 }
 
 void ResourceLoadInfoNotifierProxy::NotifyResourceResponseReceived(
-    int64_t in_request_id, const ::url::SchemeHostPort& in_final_response_url, ::network::mojom::URLResponseHeadPtr in_head, ::network::mojom::RequestDestination in_request_destination) {
+    int64_t in_request_id, const ::url::SchemeHostPort& in_final_response_url, ::network::mojom::URLResponseHeadPtr in_head, ::network::mojom::RequestDestination in_request_destination, bool in_is_ad_resource) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ResourceLoadInfoNotifier::NotifyResourceResponseReceived", "input_parameters",
@@ -284,16 +288,22 @@ void ResourceLoadInfoNotifierProxy::NotifyResourceResponseReceived(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_destination"), in_request_destination,
                         "<value of type ::network::mojom::RequestDestination>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("is_ad_resource"), in_is_ad_resource,
+                        "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceLoadInfoNotifier_NotifyResourceResponseReceived_Name, kFlags, 0, 0, nullptr);
@@ -326,6 +336,7 @@ void ResourceLoadInfoNotifierProxy::NotifyResourceResponseReceived(
       "null head in ResourceLoadInfoNotifier.NotifyResourceResponseReceived request");
   mojo::internal::Serialize<::network::mojom::RequestDestination>(
       in_request_destination, &params->request_destination);
+  params->is_ad_resource = in_is_ad_resource;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(ResourceLoadInfoNotifier::Name_);
@@ -351,14 +362,17 @@ void ResourceLoadInfoNotifierProxy::NotifyResourceTransferSizeUpdated(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceLoadInfoNotifier_NotifyResourceTransferSizeUpdated_Name, kFlags, 0, 0, nullptr);
@@ -393,14 +407,17 @@ void ResourceLoadInfoNotifierProxy::NotifyResourceLoadCompleted(
                         "<value of type const ::network::URLLoaderCompletionStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceLoadInfoNotifier_NotifyResourceLoadCompleted_Name, kFlags, 0, 0, nullptr);
@@ -452,14 +469,17 @@ void ResourceLoadInfoNotifierProxy::NotifyResourceLoadCanceled(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceLoadInfoNotifier_NotifyResourceLoadCanceled_Name, kFlags, 0, 0, nullptr);
@@ -490,14 +510,17 @@ void ResourceLoadInfoNotifierProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<ResourceLoadInfoNotifier>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceLoadInfoNotifier_Clone_Name, kFlags, 0, 0, nullptr);
@@ -568,6 +591,7 @@ std::move(p_redirect_response));
       ::url::SchemeHostPort p_final_response_url{};
       ::network::mojom::URLResponseHeadPtr p_head{};
       ::network::mojom::RequestDestination p_request_destination{};
+      bool p_is_ad_resource{};
       ResourceLoadInfoNotifier_NotifyResourceResponseReceived_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -578,6 +602,8 @@ std::move(p_redirect_response));
         success = false;
       if (success && !input_data_view.ReadRequestDestination(&p_request_destination))
         success = false;
+      if (success)
+        p_is_ad_resource = input_data_view.is_ad_resource();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -591,7 +617,8 @@ std::move(p_redirect_response));
 std::move(p_request_id), 
 std::move(p_final_response_url), 
 std::move(p_head), 
-std::move(p_request_destination));
+std::move(p_request_destination), 
+std::move(p_is_ad_resource));
       return true;
     }
     case internal::kResourceLoadInfoNotifier_NotifyResourceTransferSizeUpdated_Name: {
@@ -742,20 +769,20 @@ bool ResourceLoadInfoNotifierStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kResourceLoadInfoNotifierValidationInfo[] = {
-    {&internal::ResourceLoadInfoNotifier_NotifyResourceRedirectReceived_Params_Data::Validate,
+    { &internal::ResourceLoadInfoNotifier_NotifyResourceRedirectReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params_Data::Validate,
+    { &internal::ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceLoadInfoNotifier_NotifyResourceTransferSizeUpdated_Params_Data::Validate,
+    { &internal::ResourceLoadInfoNotifier_NotifyResourceTransferSizeUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceLoadInfoNotifier_NotifyResourceLoadCompleted_Params_Data::Validate,
+    { &internal::ResourceLoadInfoNotifier_NotifyResourceLoadCompleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceLoadInfoNotifier_NotifyResourceLoadCanceled_Params_Data::Validate,
+    { &internal::ResourceLoadInfoNotifier_NotifyResourceLoadCanceled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceLoadInfoNotifier_Clone_Params_Data::Validate,
+    { &internal::ResourceLoadInfoNotifier_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -784,8 +811,8 @@ namespace blink::mojom {
 void ResourceLoadInfoNotifierInterceptorForTesting::NotifyResourceRedirectReceived(const ::net::RedirectInfo& redirect_info, ::network::mojom::URLResponseHeadPtr redirect_response) {
   GetForwardingInterface()->NotifyResourceRedirectReceived(std::move(redirect_info), std::move(redirect_response));
 }
-void ResourceLoadInfoNotifierInterceptorForTesting::NotifyResourceResponseReceived(int64_t request_id, const ::url::SchemeHostPort& final_response_url, ::network::mojom::URLResponseHeadPtr head, ::network::mojom::RequestDestination request_destination) {
-  GetForwardingInterface()->NotifyResourceResponseReceived(std::move(request_id), std::move(final_response_url), std::move(head), std::move(request_destination));
+void ResourceLoadInfoNotifierInterceptorForTesting::NotifyResourceResponseReceived(int64_t request_id, const ::url::SchemeHostPort& final_response_url, ::network::mojom::URLResponseHeadPtr head, ::network::mojom::RequestDestination request_destination, bool is_ad_resource) {
+  GetForwardingInterface()->NotifyResourceResponseReceived(std::move(request_id), std::move(final_response_url), std::move(head), std::move(request_destination), std::move(is_ad_resource));
 }
 void ResourceLoadInfoNotifierInterceptorForTesting::NotifyResourceTransferSizeUpdated(int64_t request_id, int32_t transfer_size_diff) {
   GetForwardingInterface()->NotifyResourceTransferSizeUpdated(std::move(request_id), std::move(transfer_size_diff));

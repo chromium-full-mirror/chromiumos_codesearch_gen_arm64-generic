@@ -32,6 +32,8 @@ enum class PhishingDetectorResult : int32_t;
 enum class PhishingImageEmbeddingResult : int32_t;
 
 enum class WebRequestProtocolType : int32_t;
+
+enum class WebRequestContactInitiatorType : int32_t;
 class AttributeNameValue;
 using AttributeNameValuePtr = mojo::InlinedStructPtr<AttributeNameValue>;
 

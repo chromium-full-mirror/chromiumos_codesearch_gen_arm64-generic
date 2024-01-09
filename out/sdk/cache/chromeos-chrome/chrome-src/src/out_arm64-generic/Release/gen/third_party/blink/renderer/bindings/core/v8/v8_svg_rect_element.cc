@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGRectElement>::value,
     "SVGRectElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGRectElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGRectElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(v8_receiver);
+SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(v8_receiver);
+SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -133,7 +128,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(v8_receiver);
+SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -152,7 +147,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(v8_receiver);
+SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -171,7 +166,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(v8_receiver);
+SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rx();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -190,7 +185,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMShape);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(v8_receiver);
+SVGRectElement* blink_receiver = V8SVGRectElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ry();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

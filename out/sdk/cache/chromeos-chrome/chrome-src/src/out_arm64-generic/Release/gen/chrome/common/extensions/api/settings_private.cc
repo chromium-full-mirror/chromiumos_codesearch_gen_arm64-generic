@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/settings_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,19 +37,19 @@ namespace settings_private {
 
 const char* ToString(PrefType enum_param) {
   switch (enum_param) {
-    case PREF_TYPE_BOOLEAN:
+    case PrefType::kBoolean:
       return "BOOLEAN";
-    case PREF_TYPE_NUMBER:
+    case PrefType::kNumber:
       return "NUMBER";
-    case PREF_TYPE_STRING:
+    case PrefType::kString:
       return "STRING";
-    case PREF_TYPE_URL:
+    case PrefType::kUrl:
       return "URL";
-    case PREF_TYPE_LIST:
+    case PrefType::kList:
       return "LIST";
-    case PREF_TYPE_DICTIONARY:
+    case PrefType::kDictionary:
       return "DICTIONARY";
-    case PREF_TYPE_NONE:
+    case PrefType::kNone:
       return "";
   }
   NOTREACHED();
@@ -57,18 +58,18 @@ const char* ToString(PrefType enum_param) {
 
 PrefType ParsePrefType(base::StringPiece enum_string) {
   if (enum_string == "BOOLEAN")
-    return PREF_TYPE_BOOLEAN;
+    return PrefType::kBoolean;
   if (enum_string == "NUMBER")
-    return PREF_TYPE_NUMBER;
+    return PrefType::kNumber;
   if (enum_string == "STRING")
-    return PREF_TYPE_STRING;
+    return PrefType::kString;
   if (enum_string == "URL")
-    return PREF_TYPE_URL;
+    return PrefType::kUrl;
   if (enum_string == "LIST")
-    return PREF_TYPE_LIST;
+    return PrefType::kList;
   if (enum_string == "DICTIONARY")
-    return PREF_TYPE_DICTIONARY;
-  return PREF_TYPE_NONE;
+    return PrefType::kDictionary;
+  return PrefType::kNone;
 }
 
 std::u16string GetPrefTypeParseError(base::StringPiece enum_string) {
@@ -78,21 +79,21 @@ std::u16string GetPrefTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(ControlledBy enum_param) {
   switch (enum_param) {
-    case CONTROLLED_BY_DEVICE_POLICY:
+    case ControlledBy::kDevicePolicy:
       return "DEVICE_POLICY";
-    case CONTROLLED_BY_USER_POLICY:
+    case ControlledBy::kUserPolicy:
       return "USER_POLICY";
-    case CONTROLLED_BY_OWNER:
+    case ControlledBy::kOwner:
       return "OWNER";
-    case CONTROLLED_BY_PRIMARY_USER:
+    case ControlledBy::kPrimaryUser:
       return "PRIMARY_USER";
-    case CONTROLLED_BY_EXTENSION:
+    case ControlledBy::kExtension:
       return "EXTENSION";
-    case CONTROLLED_BY_PARENT:
+    case ControlledBy::kParent:
       return "PARENT";
-    case CONTROLLED_BY_CHILD_RESTRICTION:
+    case ControlledBy::kChildRestriction:
       return "CHILD_RESTRICTION";
-    case CONTROLLED_BY_NONE:
+    case ControlledBy::kNone:
       return "";
   }
   NOTREACHED();
@@ -101,20 +102,20 @@ const char* ToString(ControlledBy enum_param) {
 
 ControlledBy ParseControlledBy(base::StringPiece enum_string) {
   if (enum_string == "DEVICE_POLICY")
-    return CONTROLLED_BY_DEVICE_POLICY;
+    return ControlledBy::kDevicePolicy;
   if (enum_string == "USER_POLICY")
-    return CONTROLLED_BY_USER_POLICY;
+    return ControlledBy::kUserPolicy;
   if (enum_string == "OWNER")
-    return CONTROLLED_BY_OWNER;
+    return ControlledBy::kOwner;
   if (enum_string == "PRIMARY_USER")
-    return CONTROLLED_BY_PRIMARY_USER;
+    return ControlledBy::kPrimaryUser;
   if (enum_string == "EXTENSION")
-    return CONTROLLED_BY_EXTENSION;
+    return ControlledBy::kExtension;
   if (enum_string == "PARENT")
-    return CONTROLLED_BY_PARENT;
+    return ControlledBy::kParent;
   if (enum_string == "CHILD_RESTRICTION")
-    return CONTROLLED_BY_CHILD_RESTRICTION;
-  return CONTROLLED_BY_NONE;
+    return ControlledBy::kChildRestriction;
+  return ControlledBy::kNone;
 }
 
 std::u16string GetControlledByParseError(base::StringPiece enum_string) {
@@ -124,13 +125,13 @@ std::u16string GetControlledByParseError(base::StringPiece enum_string) {
 
 const char* ToString(Enforcement enum_param) {
   switch (enum_param) {
-    case ENFORCEMENT_ENFORCED:
+    case Enforcement::kEnforced:
       return "ENFORCED";
-    case ENFORCEMENT_RECOMMENDED:
+    case Enforcement::kRecommended:
       return "RECOMMENDED";
-    case ENFORCEMENT_PARENT_SUPERVISED:
+    case Enforcement::kParentSupervised:
       return "PARENT_SUPERVISED";
-    case ENFORCEMENT_NONE:
+    case Enforcement::kNone:
       return "";
   }
   NOTREACHED();
@@ -139,12 +140,12 @@ const char* ToString(Enforcement enum_param) {
 
 Enforcement ParseEnforcement(base::StringPiece enum_string) {
   if (enum_string == "ENFORCED")
-    return ENFORCEMENT_ENFORCED;
+    return Enforcement::kEnforced;
   if (enum_string == "RECOMMENDED")
-    return ENFORCEMENT_RECOMMENDED;
+    return Enforcement::kRecommended;
   if (enum_string == "PARENT_SUPERVISED")
-    return ENFORCEMENT_PARENT_SUPERVISED;
-  return ENFORCEMENT_NONE;
+    return Enforcement::kParentSupervised;
+  return Enforcement::kNone;
 }
 
 std::u16string GetEnforcementParseError(base::StringPiece enum_string) {
@@ -158,8 +159,8 @@ controlled_by(),
 enforcement() {}
 
 PrefObject::~PrefObject() = default;
-PrefObject::PrefObject(PrefObject&& rhs) = default;
-PrefObject& PrefObject::operator=(PrefObject&& rhs) = default;
+PrefObject::PrefObject(PrefObject&& rhs) noexcept = default;
+PrefObject& PrefObject::operator=(PrefObject&& rhs) noexcept = default;
 PrefObject PrefObject::Clone() const {
   PrefObject out;
   out.key = key;
@@ -246,7 +247,7 @@ bool PrefObject::Populate(
     {
       auto* temp = (*controlled_by_name_value).GetIfString();
       if (!temp) {
-        out.controlled_by_name = absl::nullopt;
+        out.controlled_by_name = std::nullopt;
         return false;
       }
       out.controlled_by_name = *temp;
@@ -293,7 +294,7 @@ bool PrefObject::Populate(
     {
       auto temp = (*user_control_disabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.user_control_disabled = absl::nullopt;
+        out.user_control_disabled = std::nullopt;
         return false;
       }
       out.user_control_disabled = *temp;
@@ -305,7 +306,7 @@ bool PrefObject::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out.extension_id = absl::nullopt;
+        out.extension_id = std::nullopt;
         return false;
       }
       out.extension_id = *temp;
@@ -317,7 +318,7 @@ bool PrefObject::Populate(
     {
       auto temp = (*extension_can_be_disabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.extension_can_be_disabled = absl::nullopt;
+        out.extension_can_be_disabled = std::nullopt;
         return false;
       }
       out.extension_can_be_disabled = *temp;
@@ -337,34 +338,21 @@ bool PrefObject::Populate(
 }
 
 // static
-std::unique_ptr<PrefObject> PrefObject::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PrefObject>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PrefObject> PrefObject::FromValue(const base::Value::Dict& value) {
+  PrefObject out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PrefObject> PrefObject::FromValue(const base::Value::Dict& value) {
+std::optional<PrefObject> PrefObject::FromValue(const base::Value& value) {
   PrefObject out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PrefObject> PrefObject::FromValue(const base::Value& value) {
-  PrefObject out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -426,13 +414,13 @@ namespace SetPref {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -442,13 +430,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -459,7 +447,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -468,8 +456,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = page_id_value.GetIfString();
       if (!temp) {
-        params.page_id = absl::nullopt;
-        return absl::nullopt;
+        params.page_id = std::nullopt;
+        return std::nullopt;
       }
       params.page_id = *temp;
     }
@@ -503,13 +491,13 @@ namespace GetPref {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -519,13 +507,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -556,13 +544,13 @@ namespace SetDefaultZoom {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -572,13 +560,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = zoom_value.GetIfDouble();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.zoom = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -53,33 +53,35 @@ enum class Sandbox : int32_t {
   
   kNetwork = 5,
   
-  kNoSandbox = 6,
+  kOnDeviceModelExecution = 6,
   
-  kGpu = 7,
+  kNoSandbox = 7,
   
-  kPrintCompositor = 8,
+  kGpu = 8,
   
-  kRenderer = 9,
+  kPrintCompositor = 9,
   
-  kSpeechRecognition = 10,
+  kRenderer = 10,
   
-  kScreenAI = 11,
+  kSpeechRecognition = 11,
   
-  kPpapi = 12,
+  kScreenAI = 12,
   
-  kPrintBackend = 13,
+  kPpapi = 13,
   
-  kHardwareVideoDecoding = 14,
+  kPrintBackend = 14,
   
-  kHardwareVideoEncoding = 15,
+  kHardwareVideoDecoding = 15,
   
-  kIme = 16,
+  kHardwareVideoEncoding = 16,
   
-  kTts = 17,
+  kIme = 17,
   
-  kZygoteIntermediateSandbox = 18,
+  kTts = 18,
+  
+  kZygoteIntermediateSandbox = 19,
   kMinValue = 0,
-  kMaxValue = 18,
+  kMaxValue = 19,
 };
 
  std::ostream& operator<<(std::ostream& os, Sandbox value);

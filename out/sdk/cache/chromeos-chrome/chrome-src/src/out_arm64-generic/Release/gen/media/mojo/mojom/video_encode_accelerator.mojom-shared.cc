@@ -547,7 +547,7 @@ bool VideoEncodeAcceleratorConfig_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->spatial_layers, 15, validation_context)) {
+          object->spatial_layers, 16, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& spatial_layers_validate_params =
@@ -1062,7 +1062,7 @@ bool VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Dat
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -1076,6 +1076,9 @@ bool VideoEncodeAccelerator_RequestEncodingParametersChangeWithLayers_Params_Dat
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->bitrate_allocation, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->size, validation_context))
     return false;
 
   return true;
@@ -1092,7 +1095,7 @@ bool VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Da
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -1106,6 +1109,9 @@ bool VideoEncodeAccelerator_RequestEncodingParametersChangeWithBitrate_Params_Da
     return false;
   }
   if (!mojo::internal::ValidateInlinedUnion(object->bitrate, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->size, validation_context))
     return false;
 
   return true;

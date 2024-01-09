@@ -15,9 +15,9 @@ import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_eleme
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { getTemplate } from './hotspot_subpage.html.js';
 const SettingsHotspotSubpageElementBase = DeepLinkingMixin(RouteObserverMixin(PrefsMixin(I18nMixin(PolymerElement))));
@@ -91,10 +91,14 @@ export class SettingsHotspotSubpageElement extends SettingsHotspotSubpageElement
         if (!this.hotspotInfo) {
             return true;
         }
-        if (this.hotspotInfo.allowStatus !== HotspotAllowStatus.kAllowed) {
+        if (this.hotspotInfo.state === HotspotState.kDisabling) {
             return true;
         }
-        return this.hotspotInfo.state === HotspotState.kDisabling;
+        if (this.hotspotInfo.state === HotspotState.kEnabling ||
+            this.hotspotInfo.state === HotspotState.kEnabled) {
+            return false;
+        }
+        return this.hotspotInfo.allowStatus !== HotspotAllowStatus.kAllowed;
     }
     getOnOffString_() {
         if (!this.hotspotInfo) {

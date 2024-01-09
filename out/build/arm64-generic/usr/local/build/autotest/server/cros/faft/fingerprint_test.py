@@ -25,7 +25,7 @@ class FingerprintTest(test.test):
 
     _UPSTART_DIR = '/etc/init'
     _BIOD_UPSTART_JOB_FILE = 'biod.conf'
-    _STATEFUL_PARTITION_DIR = '/mnt/stateful_partition'
+    _STATEFUL_PARTITION_DIR = '/var/lib/bio_fw_updater'
 
     _GENIMAGES_SCRIPT_NAME = 'gen_test_images.sh'
     _GENIMAGES_OUTPUT_DIR_NAME = 'images'
@@ -64,6 +64,7 @@ class FingerprintTest(test.test):
     # EC board names for FPMCUs
     _FP_BOARD_NAME_BLOONCHIPPER = 'bloonchipper'
     _FP_BOARD_NAME_DARTMONKEY = 'dartmonkey'
+    _FP_BOARD_NAME_HELIPILOT = 'helipilot'
     _FP_BOARD_NAME_NOCTURNE = 'nocturne_fp'
     _FP_BOARD_NAME_NAMI = 'nami_fp'
 
@@ -84,7 +85,10 @@ class FingerprintTest(test.test):
 
         # nami
         '754aea623d69975a22998f7b97315dd53115d723': _KEY_TYPE_PRE_MP,
-        '35486c0090ca390408f1fbbf2a182966084fe2f8': _KEY_TYPE_MP
+        '35486c0090ca390408f1fbbf2a182966084fe2f8': _KEY_TYPE_MP,
+
+        # helipilot
+        'ff60ba1fe2cf13f60d0debfb350f7c321115e59a': _KEY_TYPE_PRE_MP,
 
     }
 
@@ -101,6 +105,7 @@ class FingerprintTest(test.test):
                     'rex': 'bloonchipper_v2.0.5938-197506c1',
             },
             _FP_BOARD_NAME_DARTMONKEY: 'dartmonkey_v2.0.2887-311310808',
+            _FP_BOARD_NAME_HELIPILOT: 'helipilot_v2.0.23333-f354f1b380',
             _FP_BOARD_NAME_NOCTURNE: 'nocturne_fp_v2.2.64-58cf5974e',
             _FP_BOARD_NAME_NAMI: 'nami_fp_v2.2.144-7a08e07eb',
     }
@@ -178,6 +183,19 @@ class FingerprintTest(test.test):
                             'dartmonkey_v2.0.22080-23c953957',
                             _FIRMWARE_VERSION_KEY_ID:
                             '257a0aa3ac9e81aa4bc3aabdb6d3d079117c5799',
+                    },
+            },
+            _FP_BOARD_NAME_HELIPILOT: {
+                    'helipilot_v2.0.23333-f354f1b380-RO_v2.0.23333-f354f1b380-RW.bin':
+                    {
+                            _FIRMWARE_VERSION_SHA256SUM:
+                            'a321f63560eba1e6d6f6b1771a94c7a5e053c5c1eca5fcb5eeaf7996b0fe2d0b',
+                            _FIRMWARE_VERSION_RO_VERSION:
+                            'helipilot_v2.0.23333-f354f1b380',
+                            _FIRMWARE_VERSION_RW_VERSION:
+                            'helipilot_v2.0.23333-f354f1b380',
+                            _FIRMWARE_VERSION_KEY_ID:
+                            'ff60ba1fe2cf13f60d0debfb350f7c321115e59a',
                     },
             },
     }

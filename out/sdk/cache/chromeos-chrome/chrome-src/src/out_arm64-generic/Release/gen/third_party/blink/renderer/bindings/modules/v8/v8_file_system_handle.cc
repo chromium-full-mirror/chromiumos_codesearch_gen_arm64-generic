@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FileSystemHandle>::value,
     "FileSystemHandle inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FileSystemHandle::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FileSystemHandle is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,10 +88,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileSystemHandle.kind.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->kind();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->kind();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -108,10 +103,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileSystemHandle.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -143,7 +138,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemHandle_Get
 
 
 
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -181,7 +176,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemHandle_Get
 
 
 
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -223,7 +218,7 @@ return;
 
 
 
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -262,7 +257,7 @@ return;
 
 
 
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -301,7 +296,7 @@ return;
 
 
 
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -340,7 +335,7 @@ return;
 
 
 
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -424,7 +419,7 @@ return;
 
 
 
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -473,7 +468,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemHandle_Rem
 
 
 
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -516,7 +511,7 @@ return;
 
 
 
-FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemHandle* blink_receiver = V8FileSystemHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

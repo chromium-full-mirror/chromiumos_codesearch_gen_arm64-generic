@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PageRevealEvent>::value,
     "PageRevealEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PageRevealEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PageRevealEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("PageRevealEvent.viewTransition.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PageRevealEvent* blink_receiver = V8PageRevealEvent::ToWrappableUnsafe(v8_receiver);
+PageRevealEvent* blink_receiver = V8PageRevealEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->viewTransition();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("PageRevealEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PageRevealEvent* blink_receiver = V8PageRevealEvent::ToWrappableUnsafe(v8_receiver);
+PageRevealEvent* blink_receiver = V8PageRevealEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

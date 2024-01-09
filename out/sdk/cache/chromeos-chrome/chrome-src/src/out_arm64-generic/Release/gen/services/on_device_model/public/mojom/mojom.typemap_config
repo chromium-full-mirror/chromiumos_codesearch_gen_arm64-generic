@@ -4,11 +4,11 @@
       "services/on_device_model/public/cpp/model_assets_mojom_traits.h"
     ],
     "traits_public_deps": [
-      "//services/on_device_model/public/cpp"
+      "//services/on_device_model/public/cpp:model_assets"
     ],
     "types": [
       {
-        "cpp": "on_device_model::ModelAssets",
+        "cpp": "::on_device_model::ModelAssets",
         "mojom": "on_device_model.mojom.ModelAssets",
         "move_only": true
       }

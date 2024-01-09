@@ -69,17 +69,13 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TouchList>::value,
     "TouchList inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TouchList::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TouchList is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8TouchList::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_TouchList_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(v8_receiver);
+TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -117,13 +113,13 @@ void V8TouchList::IndexedPropertyDeleterCallback(uint32_t index, const v8::Prope
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(v8_receiver);
+TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "TouchList";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -196,9 +192,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8TouchList::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_TouchList_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -223,8 +219,9 @@ BLINK_BINDINGS_TRACE_EVENT("TouchList.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(v8_receiver);
+TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -251,7 +248,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(v8_receiver);
+TouchList* blink_receiver = V8TouchList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

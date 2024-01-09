@@ -69,6 +69,11 @@ constexpr uint32_t kExecutor_ReadBtmonLog_Name = 33;
 constexpr uint32_t kExecutor_RemoveBtmonLog_Name = 34;
 constexpr uint32_t kExecutor_SetFanSpeed_Name = 35;
 constexpr uint32_t kExecutor_SetAllFanAutoControl_Name = 36;
+constexpr uint32_t kExecutor_GetEcThermalSensors_Name = 37;
+constexpr uint32_t kExecutor_GetTouchpadDevices_Name = 38;
+constexpr uint32_t kExecutor_GetSmartBatteryManufactureDate_Name = 39;
+constexpr uint32_t kExecutor_GetSmartBatteryTemperature_Name = 40;
+constexpr uint32_t kExecutor_RunUrandom_Name = 41;
 
 }  // namespace internal
 

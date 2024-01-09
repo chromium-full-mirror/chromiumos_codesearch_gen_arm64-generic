@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/native_theme.mojom-features.h"
 #include "chromeos/crosapi/mojom/native_theme.mojom-shared.h"
 #include "chromeos/crosapi/mojom/native_theme.mojom-forward.h"
 #include "skia/public/mojom/skcolor.mojom.h"
@@ -293,8 +294,8 @@ class  NativeThemeInfo {
 
   NativeThemeInfo(
       bool dark_mode,
-      absl::optional<::SkColor> seed_color,
-      absl::optional<::color::mojom::SchemeVariant> scheme_variant);
+      std::optional<::SkColor> seed_color,
+      std::optional<::color::mojom::SchemeVariant> scheme_variant);
 
 
   ~NativeThemeInfo();
@@ -374,9 +375,9 @@ class  NativeThemeInfo {
   
   bool dark_mode;
   
-  absl::optional<::SkColor> seed_color;
+  std::optional<::SkColor> seed_color;
   
-  absl::optional<::color::mojom::SchemeVariant> scheme_variant;
+  std::optional<::color::mojom::SchemeVariant> scheme_variant;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

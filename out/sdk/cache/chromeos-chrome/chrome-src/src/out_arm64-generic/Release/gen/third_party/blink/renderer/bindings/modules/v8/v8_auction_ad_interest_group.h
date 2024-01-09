@@ -24,6 +24,7 @@ namespace blink {
 class AuctionAd;
 class AuctionAdInterestGroupSize;
 class ExceptionState;
+class ProtectedAudiencePrivateAggregationConfig;
 
 class MODULES_EXPORT AuctionAdInterestGroup : public bindings::DictionaryBase {
   
@@ -86,18 +87,6 @@ HeapVector<Member<AuctionAd>> getAdsOr(const HeapVector<Member<AuctionAd>>& fall
 HeapVector<Member<AuctionAd>> getAdsOr(HeapVector<Member<AuctionAd>>&& fallback_value) const;
 void setAds(const HeapVector<Member<AuctionAd>>& value);
 void setAds(HeapVector<Member<AuctionAd>>&& value);
-
-bool hasAggregationCoordinatorOrigin() const {
-  return has_aggregation_coordinator_origin_;
-}
-const String& aggregationCoordinatorOrigin() const {
-  DCHECK(hasAggregationCoordinatorOrigin());
-return member_aggregation_coordinator_origin_;
-}
-String getAggregationCoordinatorOriginOr(const String& fallback_value) const;
-String getAggregationCoordinatorOriginOr(String&& fallback_value) const;
-void setAggregationCoordinatorOrigin(const String& value);
-void setAggregationCoordinatorOrigin(String&& value);
 
 bool hasAuctionServerRequestFlags() const {
   return has_auction_server_request_flags_;
@@ -279,6 +268,25 @@ Vector<std::pair<String, double>> getPriorityVectorOr(Vector<std::pair<String, d
 void setPriorityVector(const Vector<std::pair<String, double>>& value);
 void setPriorityVector(Vector<std::pair<String, double>>&& value);
 
+bool hasPrivateAggregationConfig() const {
+  return has_private_aggregation_config_;
+}
+ProtectedAudiencePrivateAggregationConfig* privateAggregationConfig() const {
+  DCHECK(hasPrivateAggregationConfig());
+return member_private_aggregation_config_.Get();
+}
+ProtectedAudiencePrivateAggregationConfig* getPrivateAggregationConfigOr(ProtectedAudiencePrivateAggregationConfig* fallback_value) const {
+  if (!hasPrivateAggregationConfig()) {
+  return fallback_value;
+}
+return member_private_aggregation_config_.Get();
+}
+void setPrivateAggregationConfig(ProtectedAudiencePrivateAggregationConfig* value) {
+  member_private_aggregation_config_ = value;
+has_private_aggregation_config_ = true;
+DCHECK(member_private_aggregation_config_);
+}
+
 bool hasSellerCapabilities() const {
   return has_seller_capabilities_;
 }
@@ -314,6 +322,18 @@ Vector<String> getTrustedBiddingSignalsKeysOr(const Vector<String>& fallback_val
 Vector<String> getTrustedBiddingSignalsKeysOr(Vector<String>&& fallback_value) const;
 void setTrustedBiddingSignalsKeys(const Vector<String>& value);
 void setTrustedBiddingSignalsKeys(Vector<String>&& value);
+
+bool hasTrustedBiddingSignalsSlotSizeMode() const {
+  return has_trusted_bidding_signals_slot_size_mode_;
+}
+const String& trustedBiddingSignalsSlotSizeMode() const {
+  DCHECK(hasTrustedBiddingSignalsSlotSizeMode());
+return member_trusted_bidding_signals_slot_size_mode_;
+}
+String getTrustedBiddingSignalsSlotSizeModeOr(const String& fallback_value) const;
+String getTrustedBiddingSignalsSlotSizeModeOr(String&& fallback_value) const;
+void setTrustedBiddingSignalsSlotSizeMode(const String& value);
+void setTrustedBiddingSignalsSlotSizeMode(String&& value);
 
 bool hasTrustedBiddingSignalsURL() const {
   return has_trusted_bidding_signals_url_;
@@ -399,7 +419,6 @@ bool has_ad_components_ = false;
 bool has_ad_sizes_ = false;
 bool has_additional_bid_key_ = false;
 bool has_ads_ = false;
-bool has_aggregation_coordinator_origin_ = false;
 bool has_auction_server_request_flags_ = false;
 bool has_bidding_logic_url_ = false;
 bool has_bidding_logic_url_deprecated_ = false;
@@ -412,9 +431,11 @@ bool has_lifetime_ms_ = false;
 bool has_priority_ = false;
 bool has_priority_signals_overrides_ = false;
 bool has_priority_vector_ = false;
+bool has_private_aggregation_config_ = false;
 bool has_seller_capabilities_ = false;
 bool has_size_groups_ = false;
 bool has_trusted_bidding_signals_keys_ = false;
+bool has_trusted_bidding_signals_slot_size_mode_ = false;
 bool has_trusted_bidding_signals_url_ = false;
 bool has_trusted_bidding_signals_url_deprecated_ = false;
 bool has_update_url_ = false;
@@ -424,7 +445,6 @@ HeapVector<Member<AuctionAd>> member_ad_components_;
 HeapVector<std::pair<String, Member<AuctionAdInterestGroupSize>>> member_ad_sizes_;
 String member_additional_bid_key_;
 HeapVector<Member<AuctionAd>> member_ads_;
-String member_aggregation_coordinator_origin_;
 Vector<String> member_auction_server_request_flags_;
 String member_bidding_logic_url_;
 String member_bidding_logic_url_deprecated_;
@@ -439,9 +459,11 @@ String member_owner_;
 double member_priority_;
 Vector<std::pair<String, double>> member_priority_signals_overrides_;
 Vector<std::pair<String, double>> member_priority_vector_;
+Member<ProtectedAudiencePrivateAggregationConfig> member_private_aggregation_config_;
 Vector<std::pair<String, Vector<String>>> member_seller_capabilities_;
 Vector<std::pair<String, Vector<String>>> member_size_groups_;
 Vector<String> member_trusted_bidding_signals_keys_;
+String member_trusted_bidding_signals_slot_size_mode_;
 String member_trusted_bidding_signals_url_;
 String member_trusted_bidding_signals_url_deprecated_;
 String member_update_url_;

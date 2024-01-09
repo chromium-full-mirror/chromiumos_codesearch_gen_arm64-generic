@@ -17,7 +17,7 @@ namespace blink {
 
 
 constexpr const char* const V8PermissionName::string_table_[] = {
-"geolocation", "notifications", "push", "midi", "camera", "microphone", "background-fetch", "background-sync", "persistent-storage", "ambient-light-sensor", "accelerometer", "gyroscope", "magnetometer", "screen-wake-lock", "nfc", "display-capture", "accessibility-events", "clipboard-read", "clipboard-write", "payment-handler", "idle-detection", "periodic-background-sync", "system-wake-lock", "storage-access", "window-management", "window-placement", "local-fonts", "top-level-storage-access"
+"geolocation", "notifications", "push", "midi", "camera", "microphone", "background-fetch", "background-sync", "persistent-storage", "ambient-light-sensor", "accelerometer", "gyroscope", "magnetometer", "screen-wake-lock", "nfc", "display-capture", "accessibility-events", "clipboard-read", "clipboard-write", "payment-handler", "idle-detection", "periodic-background-sync", "system-wake-lock", "storage-access", "window-management", "window-placement", "local-fonts", "top-level-storage-access", "captured-surface-control"
 };
 
 V8PermissionName V8PermissionName::Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state) {

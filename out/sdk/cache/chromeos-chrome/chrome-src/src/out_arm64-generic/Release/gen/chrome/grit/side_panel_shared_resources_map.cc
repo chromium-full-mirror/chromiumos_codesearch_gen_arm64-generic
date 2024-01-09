@@ -13,7 +13,7 @@ const webui::ResourcePath kSidePanelSharedResources[] = {
   {"shared/sp_footer.js", IDR_SIDE_PANEL_SHARED_SP_FOOTER_JS},
   {"shared/sp_heading.js", IDR_SIDE_PANEL_SHARED_SP_HEADING_JS},
   {"shared/sp_list_item_badge.js", IDR_SIDE_PANEL_SHARED_SP_LIST_ITEM_BADGE_JS},
-  {"shared/commerce/shopping_list_api_proxy.js", IDR_SIDE_PANEL_SHARED_COMMERCE_SHOPPING_LIST_API_PROXY_JS},
+  {"shared/commerce/shopping_service_api_proxy.js", IDR_SIDE_PANEL_SHARED_COMMERCE_SHOPPING_SERVICE_API_PROXY_JS},
   {"shared/sp_empty_state.html.js", IDR_SIDE_PANEL_SHARED_SP_EMPTY_STATE_HTML_JS},
   {"shared/sp_footer.html.js", IDR_SIDE_PANEL_SHARED_SP_FOOTER_HTML_JS},
   {"shared/sp_heading.html.js", IDR_SIDE_PANEL_SHARED_SP_HEADING_HTML_JS},

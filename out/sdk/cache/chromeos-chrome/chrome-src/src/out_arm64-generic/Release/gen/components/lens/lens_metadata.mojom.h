@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/lens/lens_metadata.mojom-features.h"
 #include "components/lens/lens_metadata.mojom-shared.h"
 #include "components/lens/lens_metadata.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -77,7 +78,8 @@ class  LatencyLog {
       const ::gfx::Size& original_size,
       const ::gfx::Size& downscaled_size,
       ImageFormat image_format,
-      ::base::Time time);
+      ::base::Time time,
+      uint32_t encoded_bytes_size);
 
 
   ~LatencyLog();
@@ -164,6 +166,8 @@ class  LatencyLog {
   ImageFormat image_format;
   
   ::base::Time time;
+  
+  uint32_t encoded_bytes_size;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -201,7 +205,8 @@ LatencyLogPtr LatencyLog::Clone() const {
       mojo::Clone(original_size),
       mojo::Clone(downscaled_size),
       mojo::Clone(image_format),
-      mojo::Clone(time)
+      mojo::Clone(time),
+      mojo::Clone(encoded_bytes_size)
   );
 }
 
@@ -216,6 +221,8 @@ bool LatencyLog::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->image_format, other_struct.image_format))
     return false;
   if (!mojo::Equals(this->time, other_struct.time))
+    return false;
+  if (!mojo::Equals(this->encoded_bytes_size, other_struct.encoded_bytes_size))
     return false;
   return true;
 }
@@ -241,6 +248,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.time < rhs.time)
     return true;
   if (rhs.time < lhs.time)
+    return false;
+  if (lhs.encoded_bytes_size < rhs.encoded_bytes_size)
+    return true;
+  if (rhs.encoded_bytes_size < lhs.encoded_bytes_size)
     return false;
   return false;
 }
@@ -280,6 +291,11 @@ struct  StructTraits<::lens::mojom::LatencyLog::DataView,
   static const decltype(::lens::mojom::LatencyLog::time)& time(
       const ::lens::mojom::LatencyLogPtr& input) {
     return input->time;
+  }
+
+  static decltype(::lens::mojom::LatencyLog::encoded_bytes_size) encoded_bytes_size(
+      const ::lens::mojom::LatencyLogPtr& input) {
+    return input->encoded_bytes_size;
   }
 
   static bool Read(::lens::mojom::LatencyLog::DataView input, ::lens::mojom::LatencyLogPtr* output);

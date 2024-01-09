@@ -6,7 +6,7 @@
 namespace v8 {
 namespace internal {
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=41&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/feedback-vector.tq?l=42&c=1
 bool IsFeedbackVector_NonInline(Tagged<HeapObject> o) {
   return IsFeedbackVector(o);
 }

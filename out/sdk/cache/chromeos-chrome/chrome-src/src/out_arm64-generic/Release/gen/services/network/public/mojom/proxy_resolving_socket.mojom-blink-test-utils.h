@@ -48,7 +48,7 @@ class BLINK_PLATFORM_EXPORT ProxyResolvingSocketFactoryAsyncWaiter {
 
   ~ProxyResolvingSocketFactoryAsyncWaiter();
   void CreateProxyResolvingSocket(
-      const ::blink::KURL& url, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, ProxyResolvingSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<ProxyResolvingSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
+      const ::blink::KURL& url, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, ProxyResolvingSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<ProxyResolvingSocket> socket, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream);
   
 
  private:

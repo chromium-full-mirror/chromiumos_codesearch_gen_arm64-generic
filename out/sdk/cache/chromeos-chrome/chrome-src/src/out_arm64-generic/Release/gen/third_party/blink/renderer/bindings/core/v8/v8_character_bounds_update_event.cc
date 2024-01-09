@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CharacterBoundsUpdateEvent>::value,
     "CharacterBoundsUpdateEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CharacterBoundsUpdateEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CharacterBoundsUpdateEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("CharacterBoundsUpdateEvent.rangeStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CharacterBoundsUpdateEvent* blink_receiver = V8CharacterBoundsUpdateEvent::ToWrappableUnsafe(v8_receiver);
+CharacterBoundsUpdateEvent* blink_receiver = V8CharacterBoundsUpdateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rangeStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("CharacterBoundsUpdateEvent.rangeEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CharacterBoundsUpdateEvent* blink_receiver = V8CharacterBoundsUpdateEvent::ToWrappableUnsafe(v8_receiver);
+CharacterBoundsUpdateEvent* blink_receiver = V8CharacterBoundsUpdateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rangeEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -115,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("CharacterBoundsUpdateEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CharacterBoundsUpdateEvent* blink_receiver = V8CharacterBoundsUpdateEvent::ToWrappableUnsafe(v8_receiver);
+CharacterBoundsUpdateEvent* blink_receiver = V8CharacterBoundsUpdateEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

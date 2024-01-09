@@ -22,38 +22,6 @@ class ValidationContext;
 
 namespace content::mojom {
 namespace internal {
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_GenerateRoutingID_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<RenderMessageFilter_GenerateRoutingID_Params_Data>;
-
-  RenderMessageFilter_GenerateRoutingID_Params_Data();
-  ~RenderMessageFilter_GenerateRoutingID_Params_Data() = delete;
-};
-static_assert(sizeof(RenderMessageFilter_GenerateRoutingID_Params_Data) == 8,
-              "Bad sizeof(RenderMessageFilter_GenerateRoutingID_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_GenerateRoutingID_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t routing_id;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<RenderMessageFilter_GenerateRoutingID_ResponseParams_Data>;
-
-  RenderMessageFilter_GenerateRoutingID_ResponseParams_Data();
-  ~RenderMessageFilter_GenerateRoutingID_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(RenderMessageFilter_GenerateRoutingID_ResponseParams_Data) == 16,
-              "Bad sizeof(RenderMessageFilter_GenerateRoutingID_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_GenerateFrameRoutingID_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -123,39 +91,6 @@ static_assert(sizeof(RenderMessageFilter_HasGpuProcess_ResponseParams_Data) == 1
               "Bad sizeof(RenderMessageFilter_HasGpuProcess_ResponseParams_Data)");
 
 }  // namespace internal
-
-
-class RenderMessageFilter_GenerateRoutingID_ParamsDataView {
- public:
-  RenderMessageFilter_GenerateRoutingID_ParamsDataView() = default;
-
-  RenderMessageFilter_GenerateRoutingID_ParamsDataView(
-      internal::RenderMessageFilter_GenerateRoutingID_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::RenderMessageFilter_GenerateRoutingID_Params_Data* data_ = nullptr;
-};
-
-
-class RenderMessageFilter_GenerateRoutingID_ResponseParamsDataView {
- public:
-  RenderMessageFilter_GenerateRoutingID_ResponseParamsDataView() = default;
-
-  RenderMessageFilter_GenerateRoutingID_ResponseParamsDataView(
-      internal::RenderMessageFilter_GenerateRoutingID_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  int32_t routing_id() const {
-    return data_->routing_id;
-  }
- private:
-  internal::RenderMessageFilter_GenerateRoutingID_ResponseParams_Data* data_ = nullptr;
-};
 
 
 class RenderMessageFilter_GenerateFrameRoutingID_ParamsDataView {
@@ -253,10 +188,6 @@ class RenderMessageFilter_HasGpuProcess_ResponseParamsDataView {
  private:
   internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data* data_ = nullptr;
 };
-
-
-
-
 
 
 

@@ -10,9 +10,6 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
-#include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
-#include "mojo/public/mojom/base/read_only_file.mojom-shared-internal.h"
-#include "sandbox/policy/mojom/sandbox.mojom-shared-internal.h"
 #include "skia/public/mojom/bitmap.mojom-shared-internal.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom-shared-internal.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom-shared-internal.h"
@@ -143,7 +140,8 @@ class  WordBox_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> word;
   uint8_t dictionary_word : 1;
-  uint8_t pad1_[7];
+  uint8_t has_space_after : 1;
+  uint8_t pad2_[7];
   mojo::internal::Pointer<mojo::internal::String_Data> language;
 
  private:

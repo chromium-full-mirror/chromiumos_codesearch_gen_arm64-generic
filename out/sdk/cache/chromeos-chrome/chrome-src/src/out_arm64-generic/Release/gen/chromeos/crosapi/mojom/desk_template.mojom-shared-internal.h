@@ -98,6 +98,7 @@ class  DeskTemplateState_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> browser_app_name;
   int64_t restore_window_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::TabGroup_Data>>> groups;
+  uint64_t lacros_profile_id;
 
  private:
   friend class mojo::internal::MessageFragment<DeskTemplateState_Data>;
@@ -105,7 +106,7 @@ class  DeskTemplateState_Data {
   DeskTemplateState_Data();
   ~DeskTemplateState_Data() = delete;
 };
-static_assert(sizeof(DeskTemplateState_Data) == 48,
+static_assert(sizeof(DeskTemplateState_Data) == 56,
               "Bad sizeof(DeskTemplateState_Data)");
 // Used by DeskTemplateState::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

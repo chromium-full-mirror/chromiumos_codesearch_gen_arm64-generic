@@ -32,10 +32,10 @@ import { FilterType, NO_LIMIT, VpnType } from 'chrome://resources/mojo/chromeos/
 import { ConnectionStateType, DeviceStateType, NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { afterNextRender, mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { recordSettingChange } from '../metrics_recorder.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { InternetPageBrowserProxyImpl } from './internet_page_browser_proxy.js';
 import { getTemplate } from './internet_subpage.html.js';

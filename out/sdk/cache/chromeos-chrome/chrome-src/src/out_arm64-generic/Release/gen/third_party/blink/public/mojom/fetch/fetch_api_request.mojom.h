@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/fetch/fetch_api_request.mojom-features.h"
 #include "third_party/blink/public/mojom/fetch/fetch_api_request.mojom-shared.h"
 #include "third_party/blink/public/mojom/fetch/fetch_api_request.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -382,23 +383,23 @@ class BLINK_COMMON_EXPORT FetchAPIRequest {
       ::blink::FetchAPIRequestHeadersMap headers,
       ::blink::mojom::SerializedBlobPtr blob,
       ::scoped_refptr<::network::ResourceRequestBody> body,
-      const absl::optional<::url::Origin>& request_initiator,
+      const std::optional<::url::Origin>& request_initiator,
       std::vector<::GURL> navigation_redirect_chain,
       ::blink::mojom::ReferrerPtr referrer,
       ::network::mojom::CredentialsMode credentials_mode,
       FetchCacheMode cache_mode,
       ::network::mojom::RedirectMode redirect_mode,
-      const absl::optional<std::string>& integrity,
+      const std::optional<std::string>& integrity,
       ::net::RequestPriority priority,
-      const absl::optional<::base::UnguessableToken>& fetch_window_id,
+      const std::optional<::base::UnguessableToken>& fetch_window_id,
       bool keepalive,
       bool is_reload,
       bool is_history_navigation,
-      const absl::optional<std::string>& devtools_stack_id,
+      const std::optional<std::string>& devtools_stack_id,
       ::network::mojom::TrustTokenParamsPtr trust_token_params,
       ::network::mojom::IPAddressSpace target_address_space,
       ::network::mojom::AttributionReportingEligibility attribution_reporting_eligibility,
-      const absl::optional<::base::UnguessableToken>& service_worker_race_network_request_token);
+      const std::optional<::base::UnguessableToken>& service_worker_race_network_request_token);
 
 FetchAPIRequest(const FetchAPIRequest&) = delete;
 FetchAPIRequest& operator=(const FetchAPIRequest&) = delete;
@@ -491,7 +492,7 @@ FetchAPIRequest& operator=(const FetchAPIRequest&) = delete;
   
   ::scoped_refptr<::network::ResourceRequestBody> body;
   
-  absl::optional<::url::Origin> request_initiator;
+  std::optional<::url::Origin> request_initiator;
   
   std::vector<::GURL> navigation_redirect_chain;
   
@@ -503,11 +504,11 @@ FetchAPIRequest& operator=(const FetchAPIRequest&) = delete;
   
   ::network::mojom::RedirectMode redirect_mode;
   
-  absl::optional<std::string> integrity;
+  std::optional<std::string> integrity;
   
   ::net::RequestPriority priority;
   
-  absl::optional<::base::UnguessableToken> fetch_window_id;
+  std::optional<::base::UnguessableToken> fetch_window_id;
   
   bool keepalive;
   
@@ -515,7 +516,7 @@ FetchAPIRequest& operator=(const FetchAPIRequest&) = delete;
   
   bool is_history_navigation;
   
-  absl::optional<std::string> devtools_stack_id;
+  std::optional<std::string> devtools_stack_id;
   
   ::network::mojom::TrustTokenParamsPtr trust_token_params;
   
@@ -523,7 +524,7 @@ FetchAPIRequest& operator=(const FetchAPIRequest&) = delete;
   
   ::network::mojom::AttributionReportingEligibility attribution_reporting_eligibility;
   
-  absl::optional<::base::UnguessableToken> service_worker_race_network_request_token;
+  std::optional<::base::UnguessableToken> service_worker_race_network_request_token;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

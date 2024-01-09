@@ -17,7 +17,7 @@ namespace blink::mojom {
 class BLINK_COMMON_EXPORT ResourceLoadInfoNotifierInterceptorForTesting : public ResourceLoadInfoNotifier {
   virtual ResourceLoadInfoNotifier* GetForwardingInterface() = 0;
   void NotifyResourceRedirectReceived(const ::net::RedirectInfo& redirect_info, ::network::mojom::URLResponseHeadPtr redirect_response) override;
-  void NotifyResourceResponseReceived(int64_t request_id, const ::url::SchemeHostPort& final_response_url, ::network::mojom::URLResponseHeadPtr head, ::network::mojom::RequestDestination request_destination) override;
+  void NotifyResourceResponseReceived(int64_t request_id, const ::url::SchemeHostPort& final_response_url, ::network::mojom::URLResponseHeadPtr head, ::network::mojom::RequestDestination request_destination, bool is_ad_resource) override;
   void NotifyResourceTransferSizeUpdated(int64_t request_id, int32_t transfer_size_diff) override;
   void NotifyResourceLoadCompleted(::blink::mojom::ResourceLoadInfoPtr resource_load_info, const ::network::URLLoaderCompletionStatus& status) override;
   void NotifyResourceLoadCanceled(int64_t request_id) override;

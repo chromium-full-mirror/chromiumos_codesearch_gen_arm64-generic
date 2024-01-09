@@ -24,6 +24,10 @@
 namespace ash::cros_healthd::mojom {
 class MemoryRoutineArgumentDataView;
 
+class VolumeButtonRoutineArgumentDataView;
+
+class FanRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -38,15 +42,29 @@ class MemoryRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
+class VolumeButtonRoutineDetailDataView;
+
+class FanRoutineDetailDataView;
+
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
 class RoutineDetailDataView;
 
 enum class MemtesterTestItemEnum : int32_t;
 
+enum class HardwarePresenceStatus : int32_t;
+
+enum class VolumeButtonRoutineArgument_ButtonType : int32_t;
+
 enum class RoutineStateWaiting_Reason : int32_t;
 class MemoryRoutineArgument;
 using MemoryRoutineArgumentPtr = mojo::InlinedStructPtr<MemoryRoutineArgument>;
+
+class VolumeButtonRoutineArgument;
+using VolumeButtonRoutineArgumentPtr = mojo::StructPtr<VolumeButtonRoutineArgument>;
+
+class FanRoutineArgument;
+using FanRoutineArgumentPtr = mojo::InlinedStructPtr<FanRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -68,6 +86,12 @@ using MemoryRoutineDetailPtr = mojo::StructPtr<MemoryRoutineDetail>;
 
 class MemtesterResult;
 using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;
+
+class VolumeButtonRoutineDetail;
+using VolumeButtonRoutineDetailPtr = mojo::InlinedStructPtr<VolumeButtonRoutineDetail>;
+
+class FanRoutineDetail;
+using FanRoutineDetailPtr = mojo::StructPtr<FanRoutineDetail>;
 
 class RoutineArgument;
 

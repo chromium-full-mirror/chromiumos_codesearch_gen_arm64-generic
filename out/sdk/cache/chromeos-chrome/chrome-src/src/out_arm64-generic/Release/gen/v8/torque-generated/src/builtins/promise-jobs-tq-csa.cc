@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/promise-jobs-tq-csa.h"
 #include "torque-generated/src/builtins/array-from-async-tq-csa.h"
@@ -199,7 +200,7 @@ TF_BUILTIN(PromiseResolveThenableJob, CodeStubAssembler) {
     tmp15 = UnsafeCast_JSPromise_0(state_, TNode<Context>{parameter0}, TNode<Object>{parameter2});
     tmp16 = CodeStubAssembler(state_).UndefinedConstant();
     tmp17 = CodeStubAssembler(state_).UndefinedConstant();
-    tmp18 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kPerformPromiseThen), parameter0, tmp15, tmp16, tmp17, parameter1);
+    tmp18 = ca_.CallBuiltin<Object>(Builtin::kPerformPromiseThen, parameter0, tmp15, tmp16, tmp17, parameter1);
     CodeStubAssembler(state_).Return(tmp18);
   }
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/data_decoder/public/mojom/structured_headers_parser.mojom-features.h"
 #include "services/data_decoder/public/mojom/structured_headers_parser.mojom-shared.h"
 #include "services/data_decoder/public/mojom/structured_headers_parser.mojom-forward.h"
 #include "services/network/public/mojom/structured_headers.mojom.h"
@@ -86,12 +87,12 @@ class StructuredHeadersParser
   virtual ~StructuredHeadersParser() = default;
 
 
-  using ParseItemCallback = base::OnceCallback<void(absl::optional<::net::structured_headers::ParameterizedItem>)>;
+  using ParseItemCallback = base::OnceCallback<void(std::optional<::net::structured_headers::ParameterizedItem>)>;
   
   virtual void ParseItem(const std::string& header, ParseItemCallback callback) = 0;
 
 
-  using ParseListCallback = base::OnceCallback<void(absl::optional<std::vector<::net::structured_headers::ParameterizedMember>>)>;
+  using ParseListCallback = base::OnceCallback<void(std::optional<std::vector<::net::structured_headers::ParameterizedMember>>)>;
   
   virtual void ParseList(const std::string& header, ParseListCallback callback) = 0;
 };

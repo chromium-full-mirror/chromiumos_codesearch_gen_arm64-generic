@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, InternalSettingsGenerated>::value,
     "InternalSettingsGenerated inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&InternalSettingsGenerated::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "InternalSettingsGenerated is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_accelerated_2d_canvas_msaa_sample_count = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -126,7 +121,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_accelerated_compositing_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -156,7 +151,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_accessibility_always_show_focus = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -186,7 +181,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_accessibility_font_scale_factor = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -216,7 +211,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_accessibility_font_weight_adjustment = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -246,7 +241,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_accessibility_include_svg_g_element = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -276,7 +271,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_accessibility_password_values_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -306,7 +301,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_accessibility_text_size_contrast_factor = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -336,7 +331,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_allow_custom_scrollbar_in_main_frame = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -366,7 +361,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_allow_file_access_from_file_urls = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -396,7 +391,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_allow_geolocation_on_insecure_origins = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -426,7 +421,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_allow_non_empty_navigator_plugins = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -456,7 +451,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_allow_running_of_insecure_content = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -486,7 +481,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_allow_scripts_to_close_windows = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -516,7 +511,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_allow_universal_access_from_file_urls = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -546,7 +541,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_always_show_context_menu_on_touch = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -576,7 +571,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_antialiased_2d_canvas_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -606,7 +601,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_antialiased_clips_2d_canvas_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -636,7 +631,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_aria_modal_prunes_ax_tree = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -666,7 +661,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_available_hover_types = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -696,7 +691,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_available_pointer_types = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -726,7 +721,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_barrel_button_for_drag_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -756,7 +751,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_bypass_csp = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -786,7 +781,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_caret_browsing_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -816,7 +811,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_cookie_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -846,7 +841,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_dns_prefetching_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -876,7 +871,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_dom_paste_allowed = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -906,7 +901,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_default_fixed_font_size = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -936,7 +931,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_default_font_size = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -953,9 +948,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setDefaultTextEncodingName
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setDefaultTextEncodingName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -966,13 +961,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_default_text_encoding_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_default_text_encoding_name.Init(info[0].As<v8::String>());
+  arg1_default_text_encoding_name.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setDefaultTextEncodingName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -993,9 +987,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setDefaultVideoPosterURL")
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setDefaultVideoPosterURL";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -1006,13 +1000,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_default_video_poster_url;
 if (LIKELY(info[0]->IsString())) {
-  arg1_default_video_poster_url.Init(info[0].As<v8::String>());
+  arg1_default_video_poster_url.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setDefaultVideoPosterURL";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -1046,7 +1039,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_device_scale_adjustment = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1076,7 +1069,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_disable_reading_from_canvas = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1106,7 +1099,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_disallow_fetch_for_doc_written_scripts_in_main_frame = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1136,7 +1129,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_disallow_fetch_for_doc_written_scripts_in_main_frame_if_effectively_2_g = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1166,7 +1159,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_disallow_fetch_for_doc_written_scripts_in_main_frame_on_slow_connections = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1196,7 +1189,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_do_html_preload_scanning = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1226,7 +1219,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_do_not_update_selection_on_mutating_selection_range = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1256,7 +1249,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_dont_send_key_events_to_javascript = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1286,7 +1279,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_downloadable_binary_fonts_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1316,7 +1309,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_embedded_media_experience_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1346,7 +1339,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_force_android_overlay_scrollbar = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1376,7 +1369,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_force_dark_mode_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1406,7 +1399,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_force_main_world_initialization = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1436,7 +1429,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_force_touch_event_feature_detection_for_inspector = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1466,7 +1459,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_force_zero_layout_height = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1496,7 +1489,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_fullscreen_supported = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1526,7 +1519,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_hide_download_ui = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1556,7 +1549,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_hide_scrollbars = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1586,7 +1579,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_highlight_ads = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1616,7 +1609,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_hyperlink_auditing_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1646,7 +1639,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_ignore_main_frame_overflow_hidden_quirk = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1676,7 +1669,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_images_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1706,7 +1699,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_immersive_mode_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1736,7 +1729,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_inverted_colors = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1766,7 +1759,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_java_script_can_access_clipboard = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1796,7 +1789,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_lazy_frame_loading_distance_threshold_px_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1826,7 +1819,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_lazy_frame_loading_distance_threshold_px_3_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1856,7 +1849,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_lazy_frame_loading_distance_threshold_px_4_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1886,7 +1879,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_lazy_frame_loading_distance_threshold_px_offline = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1916,7 +1909,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_lazy_frame_loading_distance_threshold_px_slow_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1946,192 +1939,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_lazy_frame_loading_distance_threshold_px_unknown = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 blink_receiver->setLazyFrameLoadingDistanceThresholdPxUnknown(arg1_lazy_frame_loading_distance_threshold_px_unknown);
-
-}
-
-void SetLazyImageLoadingDistanceThresholdPx2GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyImageLoadingDistanceThresholdPx2G");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyImageLoadingDistanceThresholdPx2G");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyImageLoadingDistanceThresholdPx2G";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
-auto&& arg1_lazy_image_loading_distance_threshold_px_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyImageLoadingDistanceThresholdPx2G(arg1_lazy_image_loading_distance_threshold_px_2_g);
-
-}
-
-void SetLazyImageLoadingDistanceThresholdPx3GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyImageLoadingDistanceThresholdPx3G");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyImageLoadingDistanceThresholdPx3G");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyImageLoadingDistanceThresholdPx3G";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
-auto&& arg1_lazy_image_loading_distance_threshold_px_3_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyImageLoadingDistanceThresholdPx3G(arg1_lazy_image_loading_distance_threshold_px_3_g);
-
-}
-
-void SetLazyImageLoadingDistanceThresholdPx4GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyImageLoadingDistanceThresholdPx4G");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyImageLoadingDistanceThresholdPx4G");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyImageLoadingDistanceThresholdPx4G";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
-auto&& arg1_lazy_image_loading_distance_threshold_px_4_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyImageLoadingDistanceThresholdPx4G(arg1_lazy_image_loading_distance_threshold_px_4_g);
-
-}
-
-void SetLazyImageLoadingDistanceThresholdPxOfflineOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyImageLoadingDistanceThresholdPxOffline");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyImageLoadingDistanceThresholdPxOffline");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyImageLoadingDistanceThresholdPxOffline";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
-auto&& arg1_lazy_image_loading_distance_threshold_px_offline = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyImageLoadingDistanceThresholdPxOffline(arg1_lazy_image_loading_distance_threshold_px_offline);
-
-}
-
-void SetLazyImageLoadingDistanceThresholdPxSlow2GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyImageLoadingDistanceThresholdPxSlow2G");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyImageLoadingDistanceThresholdPxSlow2G");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyImageLoadingDistanceThresholdPxSlow2G";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
-auto&& arg1_lazy_image_loading_distance_threshold_px_slow_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyImageLoadingDistanceThresholdPxSlow2G(arg1_lazy_image_loading_distance_threshold_px_slow_2_g);
-
-}
-
-void SetLazyImageLoadingDistanceThresholdPxUnknownOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyImageLoadingDistanceThresholdPxUnknown");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyImageLoadingDistanceThresholdPxUnknown");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setLazyImageLoadingDistanceThresholdPxUnknown";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
-auto&& arg1_lazy_image_loading_distance_threshold_px_unknown = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setLazyImageLoadingDistanceThresholdPxUnknown(arg1_lazy_image_loading_distance_threshold_px_unknown);
 
 }
 
@@ -2156,12 +1969,192 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_lazy_load_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 blink_receiver->setLazyLoadEnabled(arg1_lazy_load_enabled);
+
+}
+
+void SetLazyLoadingImageMarginPx2GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingImageMarginPx2G");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingImageMarginPx2G");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingImageMarginPx2G";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_image_margin_px_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingImageMarginPx2G(arg1_lazy_loading_image_margin_px_2_g);
+
+}
+
+void SetLazyLoadingImageMarginPx3GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingImageMarginPx3G");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingImageMarginPx3G");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingImageMarginPx3G";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_image_margin_px_3_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingImageMarginPx3G(arg1_lazy_loading_image_margin_px_3_g);
+
+}
+
+void SetLazyLoadingImageMarginPx4GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingImageMarginPx4G");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingImageMarginPx4G");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingImageMarginPx4G";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_image_margin_px_4_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingImageMarginPx4G(arg1_lazy_loading_image_margin_px_4_g);
+
+}
+
+void SetLazyLoadingImageMarginPxOfflineOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingImageMarginPxOffline");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingImageMarginPxOffline");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingImageMarginPxOffline";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_image_margin_px_offline = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingImageMarginPxOffline(arg1_lazy_loading_image_margin_px_offline);
+
+}
+
+void SetLazyLoadingImageMarginPxSlow2GOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingImageMarginPxSlow2G");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingImageMarginPxSlow2G");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingImageMarginPxSlow2G";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_image_margin_px_slow_2_g = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingImageMarginPxSlow2G(arg1_lazy_loading_image_margin_px_slow_2_g);
+
+}
+
+void SetLazyLoadingImageMarginPxUnknownOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setLazyLoadingImageMarginPxUnknown");
+BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setLazyLoadingImageMarginPxUnknown");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InternalSettingsGenerated";
+const char* const property_name = "setLazyLoadingImageMarginPxUnknown";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_lazy_loading_image_margin_px_unknown = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setLazyLoadingImageMarginPxUnknown(arg1_lazy_loading_image_margin_px_unknown);
 
 }
 
@@ -2186,7 +2179,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_load_with_overview_mode = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2216,7 +2209,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_loads_images_automatically = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2246,7 +2239,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_storage_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2276,7 +2269,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_log_dns_prefetch_and_preconnect = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2306,7 +2299,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_log_preload = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2336,7 +2329,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_main_frame_clips_content = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2366,7 +2359,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_main_frame_resizes_are_orientation_changes = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2396,7 +2389,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_max_touch_points = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2426,7 +2419,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_controls_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2443,9 +2436,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setMediaTypeOverride");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setMediaTypeOverride";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -2456,13 +2449,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_media_type_override;
 if (LIKELY(info[0]->IsString())) {
-  arg1_media_type_override.Init(info[0].As<v8::String>());
+  arg1_media_type_override.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setMediaTypeOverride";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -2496,7 +2488,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_minimum_font_size = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2526,7 +2518,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_minimum_logical_font_size = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2556,7 +2548,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mock_gesture_tap_highlights_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2586,7 +2578,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_modal_context_menu = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2616,7 +2608,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_multi_target_tap_notification_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2646,7 +2638,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_navigate_on_drag_drop = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2663,9 +2655,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setNavigatorPlatformOverri
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setNavigatorPlatformOverride";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -2676,13 +2668,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_navigator_platform_override;
 if (LIKELY(info[0]->IsString())) {
-  arg1_navigator_platform_override.Init(info[0].As<v8::String>());
+  arg1_navigator_platform_override.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setNavigatorPlatformOverride";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -2716,7 +2707,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_network_quiet_timeout = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2746,7 +2737,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_password_echo_duration_in_seconds = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2776,7 +2767,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_password_echo_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2806,7 +2797,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_picture_in_picture_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2836,7 +2827,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_place_rtl_scrollbars_on_left_side_in_main_frame = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2866,7 +2857,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_plugins_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2896,7 +2887,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_prefer_hidden_volume_controls = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2926,7 +2917,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_prefers_reduced_motion = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2956,7 +2947,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_prefers_reduced_transparency = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2986,7 +2977,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_presentation_receiver = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3016,7 +3007,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_presentation_requires_user_gesture = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3046,7 +3037,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_report_screen_size_in_physical_pixels_quirk = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3076,7 +3067,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_require_transient_activation_for_get_display_media = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3106,7 +3097,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_require_transient_activation_for_show_file_or_directory_picker = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3136,7 +3127,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_resizable = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3166,7 +3157,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_rubber_banding_on_compositor_thread = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3196,7 +3187,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_script_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3226,7 +3217,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scroll_animator_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3256,7 +3247,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_select_trailing_whitespace_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3286,7 +3277,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_selection_clipboard_buffer_available = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3316,7 +3307,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_selection_includes_alt_image_text = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3346,7 +3337,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_should_clear_document_background = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3376,7 +3367,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_should_print_backgrounds = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3406,7 +3397,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_should_protect_against_ipc_flooding = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3436,7 +3427,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_should_reuse_global_for_unowned_main_frame = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3466,7 +3457,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_show_context_menu_on_mouse_up = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3496,7 +3487,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_shrinks_viewport_content_to_fit = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3526,7 +3517,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_smart_insert_delete_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3556,7 +3547,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_smooth_scroll_for_find_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3586,7 +3577,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_spatial_navigation_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3616,7 +3607,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_spell_check_enabled_by_default = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3646,7 +3637,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_strict_mixed_content_checking = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3676,7 +3667,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_strict_mixed_content_checking_for_plugin = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3706,7 +3697,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_strict_powerful_feature_restrictions = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3736,7 +3727,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_strictly_block_blockable_mixed_content = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3766,7 +3757,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_supports_multiple_windows = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3796,7 +3787,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sync_xhr_in_documents_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3826,7 +3817,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target_blank_implies_no_opener_enabled_will_be_removed = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3856,7 +3847,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text_areas_are_resizable = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3886,7 +3877,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text_autosizing_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3903,9 +3894,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setTextTrackBackgroundColo
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackBackgroundColor";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3916,13 +3907,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text_track_background_color;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text_track_background_color.Init(info[0].As<v8::String>());
+  arg1_text_track_background_color.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackBackgroundColor";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3943,9 +3933,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setTextTrackFontFamily");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3956,13 +3946,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text_track_font_family;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text_track_font_family.Init(info[0].As<v8::String>());
+  arg1_text_track_font_family.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackFontFamily";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3983,9 +3972,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setTextTrackFontStyle");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackFontStyle";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3996,13 +3985,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text_track_font_style;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text_track_font_style.Init(info[0].As<v8::String>());
+  arg1_text_track_font_style.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackFontStyle";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4023,9 +4011,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setTextTrackFontVariant");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackFontVariant";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4036,13 +4024,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text_track_font_variant;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text_track_font_variant.Init(info[0].As<v8::String>());
+  arg1_text_track_font_variant.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackFontVariant";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4076,7 +4063,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text_track_margin_percentage = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4093,9 +4080,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setTextTrackTextColor");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackTextColor";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4106,13 +4093,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text_track_text_color;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text_track_text_color.Init(info[0].As<v8::String>());
+  arg1_text_track_text_color.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackTextColor";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4133,9 +4119,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setTextTrackTextShadow");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackTextShadow";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4146,13 +4132,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text_track_text_shadow;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text_track_text_shadow.Init(info[0].As<v8::String>());
+  arg1_text_track_text_shadow.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackTextShadow";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4173,9 +4158,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setTextTrackTextSize");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackTextSize";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4186,13 +4171,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text_track_text_size;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text_track_text_size.Init(info[0].As<v8::String>());
+  arg1_text_track_text_size.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackTextSize";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4213,9 +4197,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setTextTrackWindowColor");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackWindowColor";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4226,13 +4210,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text_track_window_color;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text_track_window_color.Init(info[0].As<v8::String>());
+  arg1_text_track_window_color.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackWindowColor";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4253,9 +4236,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setTextTrackWindowRadius")
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackWindowRadius";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4266,13 +4249,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text_track_window_radius;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text_track_window_radius.Init(info[0].As<v8::String>());
+  arg1_text_track_window_radius.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setTextTrackWindowRadius";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4306,7 +4288,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_touch_drag_drop_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4336,7 +4318,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_touch_drag_end_context_menu = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4366,7 +4348,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_touch_editing_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4396,7 +4378,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_use_ax_menu_list = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4426,7 +4408,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_use_legacy_background_size_shorthand_behavior = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4456,7 +4438,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_use_wide_viewport = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4486,7 +4468,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_validation_message_timer_magnification = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4516,7 +4498,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_viewport_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4546,7 +4528,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_viewport_meta_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4576,7 +4558,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_viewport_meta_merge_content_quirk = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4606,7 +4588,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_viewport_meta_zero_values_quirk = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4623,9 +4605,9 @@ BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setWebAppScope");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setWebAppScope";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4636,13 +4618,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_web_app_scope;
 if (LIKELY(info[0]->IsString())) {
-  arg1_web_app_scope.Init(info[0].As<v8::String>());
+  arg1_web_app_scope.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "InternalSettingsGenerated";
 const char* const property_name = "setWebAppScope";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -4676,7 +4657,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_web_gl_1_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4706,7 +4687,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_webgl2_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4736,7 +4717,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_web_gl_errors_to_console_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4766,7 +4747,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_web_security_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4796,7 +4777,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_web_xr_immersive_ar_allowed = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4826,7 +4807,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(v8_receiver);
+InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_wide_viewport_quirk_enabled = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4931,13 +4912,13 @@ void V8InternalSettingsGenerated::InstallUnconditionalProperties(v8::Isolate* is
 {"setLazyFrameLoadingDistanceThresholdPxOffline", SetLazyFrameLoadingDistanceThresholdPxOfflineOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLazyFrameLoadingDistanceThresholdPxSlow2G", SetLazyFrameLoadingDistanceThresholdPxSlow2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLazyFrameLoadingDistanceThresholdPxUnknown", SetLazyFrameLoadingDistanceThresholdPxUnknownOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyImageLoadingDistanceThresholdPx2G", SetLazyImageLoadingDistanceThresholdPx2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyImageLoadingDistanceThresholdPx3G", SetLazyImageLoadingDistanceThresholdPx3GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyImageLoadingDistanceThresholdPx4G", SetLazyImageLoadingDistanceThresholdPx4GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyImageLoadingDistanceThresholdPxOffline", SetLazyImageLoadingDistanceThresholdPxOfflineOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyImageLoadingDistanceThresholdPxSlow2G", SetLazyImageLoadingDistanceThresholdPxSlow2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setLazyImageLoadingDistanceThresholdPxUnknown", SetLazyImageLoadingDistanceThresholdPxUnknownOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLazyLoadEnabled", SetLazyLoadEnabledOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingImageMarginPx2G", SetLazyLoadingImageMarginPx2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingImageMarginPx3G", SetLazyLoadingImageMarginPx3GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingImageMarginPx4G", SetLazyLoadingImageMarginPx4GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingImageMarginPxOffline", SetLazyLoadingImageMarginPxOfflineOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingImageMarginPxSlow2G", SetLazyLoadingImageMarginPxSlow2GOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setLazyLoadingImageMarginPxUnknown", SetLazyLoadingImageMarginPxUnknownOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLoadWithOverviewMode", SetLoadWithOverviewModeOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLoadsImagesAutomatically", SetLoadsImagesAutomaticallyOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setLocalStorageEnabled", SetLocalStorageEnabledOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

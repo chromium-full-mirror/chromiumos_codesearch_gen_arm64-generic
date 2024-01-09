@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,9 +49,6 @@ const char RenderMessageFilter::Name_[] = "content.mojom.RenderMessageFilter";
 RenderMessageFilter::IPCStableHashFunction RenderMessageFilter::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kRenderMessageFilter_GenerateRoutingID_Name: {
-      return &RenderMessageFilter::GenerateRoutingID_Sym::IPCStableHash;
-    }
     case internal::kRenderMessageFilter_GenerateFrameRoutingID_Name: {
       return &RenderMessageFilter::GenerateFrameRoutingID_Sym::IPCStableHash;
     }
@@ -68,8 +66,6 @@ const char* RenderMessageFilter::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kRenderMessageFilter_GenerateRoutingID_Name:
-            return "Receive content::mojom::RenderMessageFilter::GenerateRoutingID";
       case internal::kRenderMessageFilter_GenerateFrameRoutingID_Name:
             return "Receive content::mojom::RenderMessageFilter::GenerateFrameRoutingID";
       case internal::kRenderMessageFilter_HasGpuProcess_Name:
@@ -77,8 +73,6 @@ const char* RenderMessageFilter::MessageToMethodName_(mojo::Message& message) {
     }
   } else {
     switch (message.name()) {
-      case internal::kRenderMessageFilter_GenerateRoutingID_Name:
-            return "Receive reply content::mojom::RenderMessageFilter::GenerateRoutingID";
       case internal::kRenderMessageFilter_GenerateFrameRoutingID_Name:
             return "Receive reply content::mojom::RenderMessageFilter::GenerateFrameRoutingID";
       case internal::kRenderMessageFilter_HasGpuProcess_Name:
@@ -97,19 +91,6 @@ const char* RenderMessageFilter::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t RenderMessageFilter::GenerateRoutingID_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)content::mojom::RenderMessageFilter::GenerateRoutingID");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t RenderMessageFilter::GenerateFrameRoutingID_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -137,10 +118,6 @@ uint32_t RenderMessageFilter::HasGpuProcess_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool RenderMessageFilter::GenerateRoutingID(int32_t* out_routing_id) {
-  NOTREACHED();
-  return false;
-}
 bool RenderMessageFilter::GenerateFrameRoutingID(int32_t* out_routing_id, ::blink::LocalFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token, ::blink::DocumentToken* out_document_token) {
   NOTREACHED();
   return false;
@@ -149,38 +126,6 @@ bool RenderMessageFilter::HasGpuProcess(bool* out_has_gpu_process) {
   NOTREACHED();
   return false;
 }
-class RenderMessageFilter_GenerateRoutingID_HandleSyncResponse
-    : public mojo::MessageReceiver {
- public:
-  RenderMessageFilter_GenerateRoutingID_HandleSyncResponse(
-      bool* result, int32_t* out_routing_id)
-      : result_(result), out_routing_id_(out_routing_id) {
-    DCHECK(!*result_);
-  }
-
-  RenderMessageFilter_GenerateRoutingID_HandleSyncResponse(const RenderMessageFilter_GenerateRoutingID_HandleSyncResponse&) = delete;
-  RenderMessageFilter_GenerateRoutingID_HandleSyncResponse& operator=(const RenderMessageFilter_GenerateRoutingID_HandleSyncResponse&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  bool* result_;
-  int32_t* out_routing_id_;};
-
-class RenderMessageFilter_GenerateRoutingID_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  RenderMessageFilter_GenerateRoutingID_ForwardToCallback(
-      RenderMessageFilter::GenerateRoutingIDCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  RenderMessageFilter_GenerateRoutingID_ForwardToCallback(const RenderMessageFilter_GenerateRoutingID_ForwardToCallback&) = delete;
-  RenderMessageFilter_GenerateRoutingID_ForwardToCallback& operator=(const RenderMessageFilter_GenerateRoutingID_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  RenderMessageFilter::GenerateRoutingIDCallback callback_;
-};
 class RenderMessageFilter_GenerateFrameRoutingID_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
@@ -252,83 +197,6 @@ class RenderMessageFilter_HasGpuProcess_ForwardToCallback
 RenderMessageFilterProxy::RenderMessageFilterProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
-bool RenderMessageFilterProxy::GenerateRoutingID(
-    int32_t* out_param_routing_id) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_BEGIN0("mojom", "Call content::mojom::RenderMessageFilter::GenerateRoutingID (sync)");
-#else
-  TRACE_EVENT0("mojom", "RenderMessageFilter::GenerateRoutingID");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = true;
-  const bool kAllowInterrupt =
-      true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kRenderMessageFilter_GenerateRoutingID_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::content::mojom::internal::RenderMessageFilter_GenerateRoutingID_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(RenderMessageFilter::Name_);
-  message.set_method_name("GenerateRoutingID");
-#endif
-
-  bool result = false;
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new RenderMessageFilter_GenerateRoutingID_HandleSyncResponse(
-          &result, out_param_routing_id));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_END1(
-    "mojom", "RenderMessageFilter::GenerateRoutingID", "sync_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("routing_id"), out_param_routing_id,
-                        "<value of type int32_t>");
-   });
-#endif
-  return result;
-}
-
-void RenderMessageFilterProxy::GenerateRoutingID(
-    GenerateRoutingIDCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send content::mojom::RenderMessageFilter::GenerateRoutingID");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kRenderMessageFilter_GenerateRoutingID_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::content::mojom::internal::RenderMessageFilter_GenerateRoutingID_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(RenderMessageFilter::Name_);
-  message.set_method_name("GenerateRoutingID");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new RenderMessageFilter_GenerateRoutingID_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
 bool RenderMessageFilterProxy::GenerateFrameRoutingID(
     int32_t* out_param_routing_id, ::blink::LocalFrameToken* out_param_frame_token, ::base::UnguessableToken* out_param_devtools_frame_token, ::blink::DocumentToken* out_param_document_token) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -336,15 +204,18 @@ bool RenderMessageFilterProxy::GenerateFrameRoutingID(
 #else
   TRACE_EVENT0("mojom", "RenderMessageFilter::GenerateFrameRoutingID");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderMessageFilter_GenerateFrameRoutingID_Name, kFlags, 0, 0, nullptr);
@@ -390,14 +261,17 @@ void RenderMessageFilterProxy::GenerateFrameRoutingID(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::RenderMessageFilter::GenerateFrameRoutingID");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderMessageFilter_GenerateFrameRoutingID_Name, kFlags, 0, 0, nullptr);
@@ -422,15 +296,18 @@ bool RenderMessageFilterProxy::HasGpuProcess(
 #else
   TRACE_EVENT0("mojom", "RenderMessageFilter::HasGpuProcess");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderMessageFilter_HasGpuProcess_Name, kFlags, 0, 0, nullptr);
@@ -467,14 +344,17 @@ void RenderMessageFilterProxy::HasGpuProcess(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::RenderMessageFilter::HasGpuProcess");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderMessageFilter_HasGpuProcess_Name, kFlags, 0, 0, nullptr);
@@ -491,149 +371,6 @@ void RenderMessageFilterProxy::HasGpuProcess(
       new RenderMessageFilter_HasGpuProcess_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-class RenderMessageFilter_GenerateRoutingID_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static RenderMessageFilter::GenerateRoutingIDCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<RenderMessageFilter_GenerateRoutingID_ProxyToResponder> proxy(
-        new RenderMessageFilter_GenerateRoutingID_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&RenderMessageFilter_GenerateRoutingID_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~RenderMessageFilter_GenerateRoutingID_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  RenderMessageFilter_GenerateRoutingID_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "RenderMessageFilter::GenerateRoutingIDCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      int32_t in_routing_id);
-};
-
-bool RenderMessageFilter_GenerateRoutingID_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::RenderMessageFilter_GenerateRoutingID_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::RenderMessageFilter_GenerateRoutingID_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  int32_t p_routing_id{};
-  RenderMessageFilter_GenerateRoutingID_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_routing_id = input_data_view.routing_id();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        RenderMessageFilter::Name_, 0, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_routing_id));
-  return true;
-}
-
-void RenderMessageFilter_GenerateRoutingID_ProxyToResponder::Run(
-    int32_t in_routing_id) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply content::mojom::RenderMessageFilter::GenerateRoutingID", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("routing_id"), in_routing_id,
-                        "<value of type int32_t>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kRenderMessageFilter_GenerateRoutingID_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::content::mojom::internal::RenderMessageFilter_GenerateRoutingID_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->routing_id = in_routing_id;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(RenderMessageFilter::Name_);
-  message.set_method_name("GenerateRoutingID");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-bool RenderMessageFilter_GenerateRoutingID_HandleSyncResponse::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::RenderMessageFilter_GenerateRoutingID_ResponseParams_Data* params =
-      reinterpret_cast<internal::RenderMessageFilter_GenerateRoutingID_ResponseParams_Data*>(
-          message->mutable_payload());
-  
-  bool success = true;
-  int32_t p_routing_id{};
-  RenderMessageFilter_GenerateRoutingID_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_routing_id = input_data_view.routing_id();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        RenderMessageFilter::Name_, 0, true);
-    return false;
-  }
-  *out_routing_id_ = std::move(p_routing_id);
-  *result_ = true;
-  return true;
 }
 class RenderMessageFilter_GenerateFrameRoutingID_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -712,7 +449,7 @@ bool RenderMessageFilter_GenerateFrameRoutingID_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        RenderMessageFilter::Name_, 1, true);
+        RenderMessageFilter::Name_, 0, true);
     return false;
   }
   if (!callback_.is_null())
@@ -748,7 +485,8 @@ void RenderMessageFilter_GenerateFrameRoutingID_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderMessageFilter_GenerateFrameRoutingID_Name, kFlags, 0, 0, nullptr);
@@ -834,7 +572,7 @@ bool RenderMessageFilter_GenerateFrameRoutingID_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        RenderMessageFilter::Name_, 1, true);
+        RenderMessageFilter::Name_, 0, true);
     return false;
   }
   *out_routing_id_ = std::move(p_routing_id);
@@ -912,7 +650,7 @@ bool RenderMessageFilter_HasGpuProcess_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        RenderMessageFilter::Name_, 2, true);
+        RenderMessageFilter::Name_, 1, true);
     return false;
   }
   if (!callback_.is_null())
@@ -936,7 +674,8 @@ void RenderMessageFilter_HasGpuProcess_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderMessageFilter_HasGpuProcess_Name, kFlags, 0, 0, nullptr);
@@ -980,7 +719,7 @@ bool RenderMessageFilter_HasGpuProcess_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        RenderMessageFilter::Name_, 2, true);
+        RenderMessageFilter::Name_, 1, true);
     return false;
   }
   *out_has_gpu_process_ = std::move(p_has_gpu_process);
@@ -993,9 +732,6 @@ bool RenderMessageFilterStubDispatch::Accept(
     RenderMessageFilter* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kRenderMessageFilter_GenerateRoutingID_Name: {
-      break;
-    }
     case internal::kRenderMessageFilter_GenerateFrameRoutingID_Name: {
       break;
     }
@@ -1015,31 +751,6 @@ bool RenderMessageFilterStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kRenderMessageFilter_GenerateRoutingID_Name: {
-
-      internal::RenderMessageFilter_GenerateRoutingID_Params_Data* params =
-          reinterpret_cast<
-              internal::RenderMessageFilter_GenerateRoutingID_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      RenderMessageFilter_GenerateRoutingID_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            RenderMessageFilter::Name_, 0, false);
-        return false;
-      }
-      RenderMessageFilter::GenerateRoutingIDCallback callback =
-          RenderMessageFilter_GenerateRoutingID_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GenerateRoutingID(std::move(callback));
-      return true;
-    }
     case internal::kRenderMessageFilter_GenerateFrameRoutingID_Name: {
 
       internal::RenderMessageFilter_GenerateFrameRoutingID_Params_Data* params =
@@ -1054,7 +765,7 @@ bool RenderMessageFilterStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            RenderMessageFilter::Name_, 1, false);
+            RenderMessageFilter::Name_, 0, false);
         return false;
       }
       RenderMessageFilter::GenerateFrameRoutingIDCallback callback =
@@ -1079,7 +790,7 @@ bool RenderMessageFilterStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            RenderMessageFilter::Name_, 2, false);
+            RenderMessageFilter::Name_, 1, false);
         return false;
       }
       RenderMessageFilter::HasGpuProcessCallback callback =
@@ -1093,14 +804,12 @@ bool RenderMessageFilterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRenderMessageFilterValidationInfo[] = {
-    {&internal::RenderMessageFilter_GenerateRoutingID_Params_Data::Validate,
-     &internal::RenderMessageFilter_GenerateRoutingID_ResponseParams_Data::Validate},
-    {&internal::RenderMessageFilter_GenerateFrameRoutingID_Params_Data::Validate,
+    { &internal::RenderMessageFilter_GenerateFrameRoutingID_Params_Data::Validate,
      &internal::RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data::Validate},
-    {&internal::RenderMessageFilter_HasGpuProcess_Params_Data::Validate,
+    { &internal::RenderMessageFilter_HasGpuProcess_Params_Data::Validate,
      &internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data::Validate},
 };
 
@@ -1130,9 +839,6 @@ namespace mojo {
 namespace content::mojom {
 
 
-void RenderMessageFilterInterceptorForTesting::GenerateRoutingID(GenerateRoutingIDCallback callback) {
-  GetForwardingInterface()->GenerateRoutingID(std::move(callback));
-}
 void RenderMessageFilterInterceptorForTesting::GenerateFrameRoutingID(GenerateFrameRoutingIDCallback callback) {
   GetForwardingInterface()->GenerateFrameRoutingID(std::move(callback));
 }
@@ -1143,29 +849,6 @@ RenderMessageFilterAsyncWaiter::RenderMessageFilterAsyncWaiter(
     RenderMessageFilter* proxy) : proxy_(proxy) {}
 
 RenderMessageFilterAsyncWaiter::~RenderMessageFilterAsyncWaiter() = default;
-
-void RenderMessageFilterAsyncWaiter::GenerateRoutingID(
-    int32_t* out_routing_id) {
-  base::RunLoop loop;
-  proxy_->GenerateRoutingID(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             int32_t* out_routing_id
-,
-             int32_t routing_id) {*out_routing_id = std::move(routing_id);
-            loop->Quit();
-          },
-          &loop,
-          out_routing_id));
-  loop.Run();
-}
-
-int32_t RenderMessageFilterAsyncWaiter::GenerateRoutingID(
-    ) {
-  int32_t async_wait_result;
-  GenerateRoutingID(&async_wait_result);
-  return async_wait_result;
-}
 
 void RenderMessageFilterAsyncWaiter::GenerateFrameRoutingID(
     int32_t* out_routing_id, ::blink::LocalFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token, ::blink::DocumentToken* out_document_token) {

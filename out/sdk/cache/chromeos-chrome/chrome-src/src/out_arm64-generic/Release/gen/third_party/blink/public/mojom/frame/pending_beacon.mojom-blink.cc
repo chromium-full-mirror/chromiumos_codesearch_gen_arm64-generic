@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -124,14 +125,17 @@ void PendingBeaconHostProxy::CreateBeacon(
                         "<value of type BeaconMethod>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPendingBeaconHost_CreateBeacon_Name, kFlags, 0, 0, nullptr);
@@ -228,10 +232,10 @@ bool PendingBeaconHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPendingBeaconHostValidationInfo[] = {
-    {&internal::PendingBeaconHost_CreateBeacon_Params_Data::Validate,
+    { &internal::PendingBeaconHost_CreateBeacon_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -364,14 +368,17 @@ void PendingBeaconProxy::Deactivate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::PendingBeacon::Deactivate");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPendingBeacon_Deactivate_Name, kFlags, 0, 0, nullptr);
@@ -404,14 +411,17 @@ void PendingBeaconProxy::SetRequestData(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPendingBeacon_SetRequestData_Name, kFlags, 0, 0, nullptr);
@@ -463,14 +473,17 @@ void PendingBeaconProxy::SetRequestURL(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPendingBeacon_SetRequestURL_Name, kFlags, 0, 0, nullptr);
@@ -504,14 +517,17 @@ void PendingBeaconProxy::SendNow(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::PendingBeacon::SendNow");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPendingBeacon_SendNow_Name, kFlags, 0, 0, nullptr);
@@ -662,16 +678,16 @@ bool PendingBeaconStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPendingBeaconValidationInfo[] = {
-    {&internal::PendingBeacon_Deactivate_Params_Data::Validate,
+    { &internal::PendingBeacon_Deactivate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PendingBeacon_SetRequestData_Params_Data::Validate,
+    { &internal::PendingBeacon_SetRequestData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PendingBeacon_SetRequestURL_Params_Data::Validate,
+    { &internal::PendingBeacon_SetRequestURL_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PendingBeacon_SendNow_Params_Data::Validate,
+    { &internal::PendingBeacon_SendNow_Params_Data::Validate,
      nullptr /* no response */},
 };
 

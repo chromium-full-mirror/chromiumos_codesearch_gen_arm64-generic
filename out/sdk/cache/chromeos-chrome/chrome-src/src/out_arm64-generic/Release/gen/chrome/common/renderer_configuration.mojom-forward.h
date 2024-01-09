@@ -27,7 +27,7 @@ class DynamicParamsDataView;
 class DynamicParams;
 using DynamicParamsPtr = mojo::InlinedStructPtr<DynamicParams>;
 
-class BoundSessionRequestThrottledListener;
+class BoundSessionRequestThrottledHandler;
 
 class ChromeOSListener;
 

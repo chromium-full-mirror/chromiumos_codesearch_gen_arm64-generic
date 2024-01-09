@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/intent_common.mojom-features.h"
 #include "ash/components/arc/mojom/intent_common.mojom-shared.h"
 #include "ash/components/arc/mojom/intent_common.mojom-forward.h"
 #include <string>
@@ -69,7 +70,7 @@ class  ActivityName {
 
   ActivityName(
       const std::string& package_name,
-      const absl::optional<std::string>& activity_name);
+      const std::optional<std::string>& activity_name);
 
 
   ~ActivityName();
@@ -149,7 +150,7 @@ class  ActivityName {
   
   std::string package_name;
   
-  absl::optional<std::string> activity_name;
+  std::optional<std::string> activity_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

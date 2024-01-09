@@ -28,6 +28,7 @@
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-shared.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-shared.h"
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
+#include "url/mojom/origin.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"

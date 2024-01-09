@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, History>::value,
     "History inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&History::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "History is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,7 @@ UseCounter::Count(current_execution_context, WebFeature::kHistoryLength);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-History* blink_receiver = V8History::ToWrappableUnsafe(v8_receiver);
+History* blink_receiver = V8History::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "History";
 const char* const property_name = "length";
@@ -124,7 +119,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8History_ScrollRestor
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-History* blink_receiver = V8History::ToWrappableUnsafe(v8_receiver);
+History* blink_receiver = V8History::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "History";
 const char* const property_name = "scrollRestoration";
@@ -149,7 +144,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8History_ScrollRestor
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-History* blink_receiver = V8History::ToWrappableUnsafe(v8_receiver);
+History* blink_receiver = V8History::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "History";
@@ -186,12 +181,12 @@ BLINK_BINDINGS_TRACE_EVENT("History.state.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-History* blink_receiver = V8History::ToWrappableUnsafe(v8_receiver);
+History* blink_receiver = V8History::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "History";
 const char* const property_name = "state";
@@ -215,12 +210,12 @@ BLINK_BINDINGS_TRACE_EVENT("History.back");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-History* blink_receiver = V8History::ToWrappableUnsafe(v8_receiver);
+History* blink_receiver = V8History::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "History";
 const char* const property_name = "back";
@@ -243,12 +238,12 @@ BLINK_BINDINGS_TRACE_EVENT("History.forward");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-History* blink_receiver = V8History::ToWrappableUnsafe(v8_receiver);
+History* blink_receiver = V8History::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "History";
 const char* const property_name = "forward";
@@ -271,13 +266,13 @@ BLINK_BINDINGS_TRACE_EVENT("History.go");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-History* blink_receiver = V8History::ToWrappableUnsafe(v8_receiver);
+History* blink_receiver = V8History::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLLong>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_delta{0};
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "History";
 const char* const property_name = "go";
@@ -320,7 +315,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-History* blink_receiver = V8History::ToWrappableUnsafe(v8_receiver);
+History* blink_receiver = V8History::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -371,7 +366,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-History* blink_receiver = V8History::ToWrappableUnsafe(v8_receiver);
+History* blink_receiver = V8History::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

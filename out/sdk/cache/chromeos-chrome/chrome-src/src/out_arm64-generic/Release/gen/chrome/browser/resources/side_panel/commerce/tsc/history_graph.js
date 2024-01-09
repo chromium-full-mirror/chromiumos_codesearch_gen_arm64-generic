@@ -34,7 +34,8 @@ export class ShoppingInsightsHistoryGraphElement extends PolymerElement {
         this.dateTopMarginPx_ = 8;
         this.priceRightMarginPx_ = 4;
         this.bubbleHorizontalPaddingPx_ = 4;
-        this.bubbleVerticalPaddingPx_ = 4;
+        this.bubbleTopPaddingPx_ = 4;
+        this.bubbleBottomPaddingPx_ = 4;
         this.bubbleCornerRadiusPx_ = 3;
     }
     static get is() {
@@ -56,10 +57,17 @@ export class ShoppingInsightsHistoryGraphElement extends PolymerElement {
             this.dateTopMarginPx_ = 12;
             this.priceRightMarginPx_ = 8;
             this.bubbleHorizontalPaddingPx_ = 6;
-            this.bubbleVerticalPaddingPx_ = 2;
+            this.bubbleTopPaddingPx_ = 3;
+            this.bubbleBottomPaddingPx_ = 2;
         }
         this.points = this.data.map(d => ({ date: this.stringToDate_(d.date), price: d.price }));
         this.drawHistoryGraph_();
+        this.currentWidth_ = this.$.historyGraph.offsetWidth;
+        this.resizeObserver_ = new ResizeObserver(this.onResize_.bind(this));
+        this.resizeObserver_.observe(this.$.historyGraph);
+    }
+    disconnectedCallback() {
+        this.resizeObserver_.disconnect();
     }
     stringToDate_(s) {
         // When compiled, new Date('yyyy-mm-dd') does not return a valid Date
@@ -69,6 +77,13 @@ export class ShoppingInsightsHistoryGraphElement extends PolymerElement {
         const month = parseInt(monthStr, 10);
         const day = parseInt(dayStr, 10);
         return new Date(year, month - 1, day);
+    }
+    onResize_() {
+        if (this.$.historyGraph.offsetWidth !== this.currentWidth_) {
+            this.currentWidth_ = this.$.historyGraph.offsetWidth;
+            this.graphSvg_.remove();
+            this.drawHistoryGraph_();
+        }
     }
     getTooltipText_(i) {
         let formattedDate = d3.timeFormat('%b %-d')(this.points[i].date);
@@ -88,7 +103,7 @@ export class ShoppingInsightsHistoryGraphElement extends PolymerElement {
         const [ticks, formattedTicks] = this.getAxisTicksY_();
         const [maxLabelWidth, labelHeight] = this.getLabelSize_(formattedTicks[formattedTicks.length - 1]);
         const graphMarginTopPx = GRAPH_BUBBLE_BOTTOM_MARGIN_PX +
-            2 * this.bubbleVerticalPaddingPx_ + tooltipHeight;
+            this.bubbleTopPaddingPx_ + this.bubbleBottomPaddingPx_ + tooltipHeight;
         const graphMarginBottomPx = this.dateTopMarginPx_ + labelHeight;
         const graphHeightPx = LINE_AREA_HEIGHT_PX + graphMarginTopPx + graphMarginBottomPx;
         const graphMarginLeftPx = maxLabelWidth + this.priceRightMarginPx_;
@@ -98,6 +113,7 @@ export class ShoppingInsightsHistoryGraphElement extends PolymerElement {
             .attr('width', '100%')
             .attr('height', graphHeightPx)
             .attr('background-color', 'transparent');
+        this.graphSvg_ = svg;
         const node = svg.node();
         assert(node);
         const graphWidthPx = node.getBoundingClientRect().width;
@@ -150,7 +166,8 @@ export class ShoppingInsightsHistoryGraphElement extends PolymerElement {
             .classed(CssClass.PATH, true);
         // Set up bubble and mouse listeners.
         const verticalLine = svg.append('line')
-            .attr('y1', 2 * this.bubbleVerticalPaddingPx_ + tooltipHeight)
+            .attr('y1', this.bubbleTopPaddingPx_ + this.bubbleBottomPaddingPx_ +
+            tooltipHeight)
             .attr('y2', graphHeightPx - graphMarginBottomPx)
             .attr('opacity', 0)
             .classed(CssClass.DASH_LINE, true);
@@ -160,21 +177,26 @@ export class ShoppingInsightsHistoryGraphElement extends PolymerElement {
             .classed(CssClass.CIRCLE, true);
         if (document.documentElement.hasAttribute('chrome-refresh-2023')) {
             this.bubbleCornerRadiusPx_ =
-                this.bubbleVerticalPaddingPx_ + tooltipHeight / 2;
+                (this.bubbleTopPaddingPx_ + this.bubbleBottomPaddingPx_ +
+                    tooltipHeight) /
+                    2;
         }
         const bubble = svg.append('rect')
             .attr('opacity', 0)
             .attr('y', 0)
-            .attr('height', 2 * this.bubbleVerticalPaddingPx_ + tooltipHeight)
+            .attr('height', this.bubbleTopPaddingPx_ +
+            this.bubbleBottomPaddingPx_ + tooltipHeight)
             .attr('rx', this.bubbleCornerRadiusPx_)
             .attr('ry', this.bubbleCornerRadiusPx_)
             .classed(CssClass.BUBBLE, true);
         const tooltip = svg.append('text')
-            .attr('y', this.bubbleVerticalPaddingPx_ + tooltipHeight / 2)
+            .attr('y', this.bubbleTopPaddingPx_ + tooltipHeight / 2)
             .attr('dominant-baseline', 'middle')
             .attr('opacity', 0)
             .attr('aria-hidden', 'true');
-        const initialIndex = this.points.length - 1;
+        const initialIndex = this.currentPricePointIndex_ == null ?
+            this.points.length - 1 :
+            this.currentPricePointIndex_;
         this.showTooltip_(verticalLine, circle, bubble, tooltip, initialIndex, xScale(this.points[initialIndex].date), yScale(this.points[initialIndex].price), graphWidthPx);
         this.$.historyGraph.addEventListener('pointermove', (e) => {
             const mouseX = e.offsetX;

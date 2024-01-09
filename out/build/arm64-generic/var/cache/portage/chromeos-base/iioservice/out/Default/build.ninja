@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/iioservice-9999/work/iioservice-9999/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/iioservice-0.0.1-r756/work/iioservice-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -26,14 +26,10 @@ build install_policy: phony obj/iioservice/daemon/install_policy.stamp
 build install_seccomp_policy: phony obj/iioservice/daemon/install_seccomp_policy.stamp
 build libiioservice: phony ./libiioservice.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build iioservice/daemon$:_iioservice-install_config: phony obj/iioservice/daemon/_iioservice-install_config.stamp
 build iioservice/daemon$:all: phony obj/iioservice/daemon/all.stamp
 build iioservice/daemon$:iioservice: phony ./iioservice
-build iioservice/daemon$:iioservice_testrunner: phony ./iioservice_testrunner
 build iioservice/daemon$:install_dbus_conf: phony obj/iioservice/daemon/install_dbus_conf.stamp
 build iioservice/daemon$:install_init_conf: phony obj/iioservice/daemon/install_init_conf.stamp
 build iioservice/daemon$:install_minijail_conf: phony obj/iioservice/daemon/install_minijail_conf.stamp
@@ -43,11 +39,9 @@ build iioservice/daemon$:libiioservice: phony ./libiioservice.a
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/iioservice/daemon/_iioservice-install_config.stamp $
     obj/iioservice/daemon/all.stamp $
     ./iioservice $
-    ./iioservice_testrunner $
     obj/iioservice/daemon/install_dbus_conf.stamp $
     obj/iioservice/daemon/install_init_conf.stamp $
     obj/iioservice/daemon/install_minijail_conf.stamp $

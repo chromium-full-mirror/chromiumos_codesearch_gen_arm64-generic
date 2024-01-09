@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/indexeddb/indexeddb.mojom-features.h"
 #include "third_party/blink/public/mojom/indexeddb/indexeddb.mojom-shared.h"
 #include "third_party/blink/public/mojom/indexeddb/indexeddb.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
@@ -47,126 +48,6 @@
 #include "third_party/blink/renderer/modules/modules_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBCursorDirection>
-    : EnumHashTraits<::blink::mojom::IDBCursorDirection, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBDataLoss>
-    : EnumHashTraits<::blink::mojom::IDBDataLoss, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBKeyType>
-    : EnumHashTraits<::blink::mojom::IDBKeyType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBTransactionDurability>
-    : EnumHashTraits<::blink::mojom::IDBTransactionDurability, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBKeyPathType>
-    : EnumHashTraits<::blink::mojom::IDBKeyPathType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBOperationType>
-    : EnumHashTraits<::blink::mojom::IDBOperationType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBPutMode>
-    : EnumHashTraits<::blink::mojom::IDBPutMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBTaskType>
-    : EnumHashTraits<::blink::mojom::IDBTaskType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBTransactionMode>
-    : EnumHashTraits<::blink::mojom::IDBTransactionMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::IDBException>
-    : EnumHashTraits<::blink::mojom::IDBException, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -543,7 +424,6 @@ class MODULES_EXPORT IDBDatabase
   enum MethodMinVersions : uint32_t {
     kRenameObjectStoreMinVersion = 0,
     kCreateTransactionMinVersion = 0,
-    kCloseMinVersion = 0,
     kVersionChangeIgnoredMinVersion = 0,
     kGetMinVersion = 0,
     kGetAllMinVersion = 0,
@@ -568,9 +448,6 @@ class MODULES_EXPORT IDBDatabase
     NOINLINE static uint32_t IPCStableHash();
   };
   struct CreateTransaction_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct Close_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct VersionChangeIgnored_Sym {
@@ -626,9 +503,6 @@ class MODULES_EXPORT IDBDatabase
 
   
   virtual void CreateTransaction(::mojo::PendingAssociatedReceiver<IDBTransaction> transaction_receiver, int64_t transaction_id, const WTF::Vector<int64_t>& object_store_ids, IDBTransactionMode mode, IDBTransactionDurability durability) = 0;
-
-  
-  virtual void Close() = 0;
 
   
   virtual void VersionChangeIgnored() = 0;
@@ -869,8 +743,6 @@ class MODULES_EXPORT IDBDatabaseProxy
   void RenameObjectStore(int64_t transaction_id, int64_t object_store_id, const ::WTF::String& new_name) final;
   
   void CreateTransaction(::mojo::PendingAssociatedReceiver<IDBTransaction> transaction_receiver, int64_t transaction_id, const WTF::Vector<int64_t>& object_store_ids, IDBTransactionMode mode, IDBTransactionDurability durability) final;
-  
-  void Close() final;
   
   void VersionChangeIgnored() final;
   
@@ -1293,49 +1165,49 @@ class MODULES_EXPORT IDBKey {
   // Construct an instance holding |key_array|.
   static IDBKeyPtr
   NewKeyArray(
-      WTF::Vector<::std::unique_ptr<::blink::IDBKey>> key_array) {
+      WTF::Vector<::std::unique_ptr<::blink::IDBKey>> value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_key_array(std::move(key_array));
+    result->set_key_array(std::move(value));
     return result;
   }
   // Construct an instance holding |binary|.
   static IDBKeyPtr
   NewBinary(
-      WTF::Vector<uint8_t> binary) {
+      WTF::Vector<uint8_t> value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_binary(std::move(binary));
+    result->set_binary(std::move(value));
     return result;
   }
   // Construct an instance holding |string|.
   static IDBKeyPtr
   NewString(
-      const ::WTF::String& string) {
+      const ::WTF::String& value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_string(std::move(string));
+    result->set_string(std::move(value));
     return result;
   }
   // Construct an instance holding |date|.
   static IDBKeyPtr
   NewDate(
-      double date) {
+      double value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_date(std::move(date));
+    result->set_date(std::move(value));
     return result;
   }
   // Construct an instance holding |number|.
   static IDBKeyPtr
   NewNumber(
-      double number) {
+      double value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_number(std::move(number));
+    result->set_number(std::move(value));
     return result;
   }
   // Construct an instance holding |other_none|.
   static IDBKeyPtr
   NewOtherNone(
-      bool other_none) {
+      bool value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_other_none(std::move(other_none));
+    result->set_other_none(std::move(value));
     return result;
   }
 
@@ -1507,17 +1379,17 @@ class MODULES_EXPORT IDBKeyPathData {
   // Construct an instance holding |string|.
   static IDBKeyPathDataPtr
   NewString(
-      const ::WTF::String& string) {
+      const ::WTF::String& value) {
     auto result = IDBKeyPathDataPtr(absl::in_place);
-    result->set_string(std::move(string));
+    result->set_string(std::move(value));
     return result;
   }
   // Construct an instance holding |string_array|.
   static IDBKeyPathDataPtr
   NewStringArray(
-      WTF::Vector<::WTF::String> string_array) {
+      WTF::Vector<::WTF::String> value) {
     auto result = IDBKeyPathDataPtr(absl::in_place);
-    result->set_string_array(std::move(string_array));
+    result->set_string_array(std::move(value));
     return result;
   }
 
@@ -1637,17 +1509,17 @@ class MODULES_EXPORT IDBExternalObject {
   // Construct an instance holding |blob_or_file|.
   static IDBExternalObjectPtr
   NewBlobOrFile(
-      IDBBlobInfoPtr blob_or_file) {
+      IDBBlobInfoPtr value) {
     auto result = IDBExternalObjectPtr(absl::in_place);
-    result->set_blob_or_file(std::move(blob_or_file));
+    result->set_blob_or_file(std::move(value));
     return result;
   }
   // Construct an instance holding |file_system_access_token|.
   static IDBExternalObjectPtr
   NewFileSystemAccessToken(
-      ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> file_system_access_token) {
+      ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> value) {
     auto result = IDBExternalObjectPtr(absl::in_place);
-    result->set_file_system_access_token(std::move(file_system_access_token));
+    result->set_file_system_access_token(std::move(value));
     return result;
   }
 
@@ -1767,25 +1639,25 @@ class MODULES_EXPORT IDBCursorResult {
   // Construct an instance holding |error_result|.
   static IDBCursorResultPtr
   NewErrorResult(
-      IDBErrorPtr error_result) {
+      IDBErrorPtr value) {
     auto result = IDBCursorResultPtr(absl::in_place);
-    result->set_error_result(std::move(error_result));
+    result->set_error_result(std::move(value));
     return result;
   }
   // Construct an instance holding |empty|.
   static IDBCursorResultPtr
   NewEmpty(
-      bool empty) {
+      bool value) {
     auto result = IDBCursorResultPtr(absl::in_place);
-    result->set_empty(std::move(empty));
+    result->set_empty(std::move(value));
     return result;
   }
   // Construct an instance holding |values|.
   static IDBCursorResultPtr
   NewValues(
-      IDBCursorValuePtr values) {
+      IDBCursorValuePtr value) {
     auto result = IDBCursorResultPtr(absl::in_place);
-    result->set_values(std::move(values));
+    result->set_values(std::move(value));
     return result;
   }
 
@@ -1918,17 +1790,17 @@ class MODULES_EXPORT IDBTransactionPutResult {
   // Construct an instance holding |error_result|.
   static IDBTransactionPutResultPtr
   NewErrorResult(
-      IDBErrorPtr error_result) {
+      IDBErrorPtr value) {
     auto result = IDBTransactionPutResultPtr(absl::in_place);
-    result->set_error_result(std::move(error_result));
+    result->set_error_result(std::move(value));
     return result;
   }
   // Construct an instance holding |key|.
   static IDBTransactionPutResultPtr
   NewKey(
-      ::std::unique_ptr<::blink::IDBKey> key) {
+      ::std::unique_ptr<::blink::IDBKey> value) {
     auto result = IDBTransactionPutResultPtr(absl::in_place);
-    result->set_key(std::move(key));
+    result->set_key(std::move(value));
     return result;
   }
 
@@ -2048,25 +1920,25 @@ class MODULES_EXPORT IDBDatabaseGetResult {
   // Construct an instance holding |error_result|.
   static IDBDatabaseGetResultPtr
   NewErrorResult(
-      IDBErrorPtr error_result) {
+      IDBErrorPtr value) {
     auto result = IDBDatabaseGetResultPtr(absl::in_place);
-    result->set_error_result(std::move(error_result));
+    result->set_error_result(std::move(value));
     return result;
   }
   // Construct an instance holding |empty|.
   static IDBDatabaseGetResultPtr
   NewEmpty(
-      bool empty) {
+      bool value) {
     auto result = IDBDatabaseGetResultPtr(absl::in_place);
-    result->set_empty(std::move(empty));
+    result->set_empty(std::move(value));
     return result;
   }
   // Construct an instance holding |key|.
   static IDBDatabaseGetResultPtr
   NewKey(
-      ::std::unique_ptr<::blink::IDBKey> key) {
+      ::std::unique_ptr<::blink::IDBKey> value) {
     auto result = IDBDatabaseGetResultPtr(absl::in_place);
-    result->set_key(std::move(key));
+    result->set_key(std::move(value));
     return result;
   }
   // Construct an instance holding |value|.
@@ -2220,17 +2092,17 @@ class MODULES_EXPORT IDBDatabaseOpenCursorResult {
   // Construct an instance holding |error_result|.
   static IDBDatabaseOpenCursorResultPtr
   NewErrorResult(
-      IDBErrorPtr error_result) {
+      IDBErrorPtr value) {
     auto result = IDBDatabaseOpenCursorResultPtr(absl::in_place);
-    result->set_error_result(std::move(error_result));
+    result->set_error_result(std::move(value));
     return result;
   }
   // Construct an instance holding |empty|.
   static IDBDatabaseOpenCursorResultPtr
   NewEmpty(
-      bool empty) {
+      bool value) {
     auto result = IDBDatabaseOpenCursorResultPtr(absl::in_place);
-    result->set_empty(std::move(empty));
+    result->set_empty(std::move(value));
     return result;
   }
   // Construct an instance holding |value|.
@@ -4288,7 +4160,7 @@ class MODULES_EXPORT IDBDatabaseOpenCursorValue {
       ::mojo::PendingAssociatedRemote<IDBCursor> cursor,
       ::std::unique_ptr<::blink::IDBKey> key,
       ::std::unique_ptr<::blink::IDBKey> primary_key,
-      absl::optional<::std::unique_ptr<::blink::IDBValue>> value);
+      std::optional<::std::unique_ptr<::blink::IDBValue>> value);
 
 IDBDatabaseOpenCursorValue(const IDBDatabaseOpenCursorValue&) = delete;
 IDBDatabaseOpenCursorValue& operator=(const IDBDatabaseOpenCursorValue&) = delete;
@@ -4369,7 +4241,7 @@ IDBDatabaseOpenCursorValue& operator=(const IDBDatabaseOpenCursorValue&) = delet
   
   ::std::unique_ptr<::blink::IDBKey> primary_key;
   
-  absl::optional<::std::unique_ptr<::blink::IDBValue>> value;
+  std::optional<::std::unique_ptr<::blink::IDBValue>> value;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

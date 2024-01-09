@@ -229,6 +229,10 @@
             "css_variable": "--cros-ref-neutral10"
         },
         {
+            "token_name": "cros.ref.neutral15",
+            "css_variable": "--cros-ref-neutral15"
+        },
+        {
             "token_name": "cros.ref.neutral20",
             "css_variable": "--cros-ref-neutral20"
         },
@@ -595,6 +599,14 @@
             }
         },
         {
+            "token_name": "cros.sys.inverse-on-primary",
+            "css_variable": "--cros-sys-inverse_on_primary",
+            "mode_values": {
+                "light": "cros.ref.primary20",
+                "dark": "cros.ref.primary100"
+            }
+        },
+        {
             "token_name": "cros.sys.primary-container",
             "css_variable": "--cros-sys-primary_container",
             "mode_values": {
@@ -824,6 +836,22 @@
             "mode_values": {
                 "light": "cros.ref.neutral99",
                 "dark": "cros.ref.neutral8"
+            }
+        },
+        {
+            "token_name": "cros.sys.base-highlight",
+            "css_variable": "--cros-sys-base_highlight",
+            "mode_values": {
+                "light": "blend(cros.ref.primary70.rgb @ 24%, cros.ref.neutral100)",
+                "dark": "blend(cros.ref.primary70.rgb @ 28%, cros.ref.neutral15)"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-base-highlight",
+            "css_variable": "--cros-sys-on_base_highlight",
+            "mode_values": {
+                "light": "cros.ref.primary60.rgb @ 30%",
+                "dark": "cros.ref.neutral0.rgb @ 32%"
             }
         },
         {
@@ -1099,6 +1127,14 @@
             }
         },
         {
+            "token_name": "cros.sys.system-warning-inverse",
+            "css_variable": "--cros-sys-system_warning_inverse",
+            "mode_values": {
+                "light": "cros.ref.yellow10",
+                "dark": "cros.ref.yellow80"
+            }
+        },
+        {
             "token_name": "cros.sys.warning",
             "css_variable": "--cros-sys-warning",
             "mode_values": {
@@ -1227,6 +1263,14 @@
             }
         },
         {
+            "token_name": "cros.sys.inverse-hover-on-prominent",
+            "css_variable": "--cros-sys-inverse_hover_on_prominent",
+            "mode_values": {
+                "light": "cros.ref.neutral10.rgb @ 6%",
+                "dark": "cros.ref.neutral99.rgb @ 10%"
+            }
+        },
+        {
             "token_name": "cros.sys.hover-on-subtle",
             "css_variable": "--cros-sys-hover_on_subtle",
             "mode_values": {
@@ -1251,6 +1295,14 @@
             }
         },
         {
+            "token_name": "cros.sys.inverse-ripple-primary",
+            "css_variable": "--cros-sys-inverse_ripple_primary",
+            "mode_values": {
+                "light": "cros.ref.primary60.rgb @ 32%",
+                "dark": "cros.ref.primary70.rgb @ 32%"
+            }
+        },
+        {
             "token_name": "cros.sys.ripple-neutral-on-prominent",
             "css_variable": "--cros-sys-ripple_neutral_on_prominent",
             "mode_values": {
@@ -1264,6 +1316,14 @@
             "mode_values": {
                 "light": "cros.ref.neutral10.rgb @ 12%",
                 "dark": "cros.ref.neutral90.rgb @ 16%"
+            }
+        },
+        {
+            "token_name": "cros.sys.inverse-ripple-neutral-on-subtle",
+            "css_variable": "--cros-sys-inverse_ripple_neutral_on_subtle",
+            "mode_values": {
+                "light": "cros.ref.neutral90.rgb @ 16%",
+                "dark": "cros.ref.neutral10.rgb @ 12%"
             }
         },
         {
@@ -1872,6 +1932,30 @@
             "mode_values": {
                 "light": "cros.sys.illo.secondary",
                 "dark": "cros.sys.illo.secondary"
+            }
+        },
+        {
+            "token_name": "cros.sys.gaming-control-button-default",
+            "css_variable": "--cros-sys-gaming_control_button_default",
+            "mode_values": {
+                "light": "rgba(161, 0, 188, 1)",
+                "dark": "rgba(161, 0, 188, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.gaming-control-button-hover",
+            "css_variable": "--cros-sys-gaming_control_button_hover",
+            "mode_values": {
+                "light": "rgba(201, 0, 235, 1)",
+                "dark": "rgba(201, 0, 235, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.gaming-control-button-border-hover",
+            "css_variable": "--cros-sys-gaming_control_button_border_hover",
+            "mode_values": {
+                "light": "rgba(249, 172, 255, 1)",
+                "dark": "rgba(249, 172, 255, 1)"
             }
         },
         {

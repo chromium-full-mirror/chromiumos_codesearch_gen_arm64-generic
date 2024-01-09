@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,17 +31,17 @@ namespace certificate_provider {
 //
 
 // Types of supported cryptographic signature algorithms.
-enum  Algorithm {
-  ALGORITHM_NONE = 0,
-  ALGORITHM_RSASSA_PKCS1_V1_5_MD5_SHA1,
-  ALGORITHM_RSASSA_PKCS1_V1_5_SHA1,
-  ALGORITHM_RSASSA_PKCS1_V1_5_SHA256,
-  ALGORITHM_RSASSA_PKCS1_V1_5_SHA384,
-  ALGORITHM_RSASSA_PKCS1_V1_5_SHA512,
-  ALGORITHM_RSASSA_PSS_SHA256,
-  ALGORITHM_RSASSA_PSS_SHA384,
-  ALGORITHM_RSASSA_PSS_SHA512,
-  ALGORITHM_LAST = ALGORITHM_RSASSA_PSS_SHA512,
+enum class Algorithm {
+  kNone = 0,
+  kRsassaPkcs1V1_5Md5Sha1,
+  kRsassaPkcs1V1_5Sha1,
+  kRsassaPkcs1V1_5Sha256,
+  kRsassaPkcs1V1_5Sha384,
+  kRsassaPkcs1V1_5Sha512,
+  kRsassaPssSha256,
+  kRsassaPssSha384,
+  kRsassaPssSha512,
+  kMaxValue = kRsassaPssSha512,
 };
 
 
@@ -49,10 +50,10 @@ Algorithm ParseAlgorithm(base::StringPiece as_string);
 std::u16string GetAlgorithmParseError(base::StringPiece as_string);
 
 // Types of errors that the extension can report.
-enum  Error {
-  ERROR_NONE = 0,
-  ERROR_GENERAL_ERROR,
-  ERROR_LAST = ERROR_GENERAL_ERROR,
+enum class Error {
+  kNone = 0,
+  kGeneralError,
+  kMaxValue = kGeneralError,
 };
 
 
@@ -65,8 +66,8 @@ struct ClientCertificateInfo {
   ~ClientCertificateInfo();
   ClientCertificateInfo(const ClientCertificateInfo&) = delete;
   ClientCertificateInfo& operator=(const ClientCertificateInfo&) = delete;
-  ClientCertificateInfo(ClientCertificateInfo&& rhs);
-  ClientCertificateInfo& operator=(ClientCertificateInfo&& rhs);
+  ClientCertificateInfo(ClientCertificateInfo&& rhs) noexcept;
+  ClientCertificateInfo& operator=(ClientCertificateInfo&& rhs) noexcept;
 
   // Populates a ClientCertificateInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -79,17 +80,13 @@ struct ClientCertificateInfo {
   // Creates a deep copy of ClientCertificateInfo.
   ClientCertificateInfo Clone() const;
 
-  // Creates a ClientCertificateInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ClientCertificateInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ClientCertificateInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ClientCertificateInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ClientCertificateInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ClientCertificateInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ClientCertificateInfo> FromValue(const base::Value& value);
+  static std::optional<ClientCertificateInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisClientCertificateInfo object.
@@ -110,8 +107,8 @@ struct SetCertificatesDetails {
   ~SetCertificatesDetails();
   SetCertificatesDetails(const SetCertificatesDetails&) = delete;
   SetCertificatesDetails& operator=(const SetCertificatesDetails&) = delete;
-  SetCertificatesDetails(SetCertificatesDetails&& rhs);
-  SetCertificatesDetails& operator=(SetCertificatesDetails&& rhs);
+  SetCertificatesDetails(SetCertificatesDetails&& rhs) noexcept;
+  SetCertificatesDetails& operator=(SetCertificatesDetails&& rhs) noexcept;
 
   // Populates a SetCertificatesDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -124,17 +121,13 @@ struct SetCertificatesDetails {
   // Creates a deep copy of SetCertificatesDetails.
   SetCertificatesDetails Clone() const;
 
-  // Creates a SetCertificatesDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SetCertificatesDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a SetCertificatesDetails object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SetCertificatesDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<SetCertificatesDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a SetCertificatesDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SetCertificatesDetails> FromValue(const base::Value& value);
+  static std::optional<SetCertificatesDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSetCertificatesDetails object.
@@ -143,7 +136,7 @@ struct SetCertificatesDetails {
   // When called in response to $(ref:onCertificatesUpdateRequested), should
   // contain the received <code>certificatesRequestId</code> value. Otherwise,
   // should be unset.
-  absl::optional<int> certificates_request_id;
+  std::optional<int> certificates_request_id;
 
   // Error that occurred while extracting the certificates, if any. This error
   // will be surfaced to the user when appropriate.
@@ -159,8 +152,8 @@ struct CertificatesUpdateRequest {
   ~CertificatesUpdateRequest();
   CertificatesUpdateRequest(const CertificatesUpdateRequest&) = delete;
   CertificatesUpdateRequest& operator=(const CertificatesUpdateRequest&) = delete;
-  CertificatesUpdateRequest(CertificatesUpdateRequest&& rhs);
-  CertificatesUpdateRequest& operator=(CertificatesUpdateRequest&& rhs);
+  CertificatesUpdateRequest(CertificatesUpdateRequest&& rhs) noexcept;
+  CertificatesUpdateRequest& operator=(CertificatesUpdateRequest&& rhs) noexcept;
 
   // Populates a CertificatesUpdateRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -173,17 +166,13 @@ struct CertificatesUpdateRequest {
   // Creates a deep copy of CertificatesUpdateRequest.
   CertificatesUpdateRequest Clone() const;
 
-  // Creates a CertificatesUpdateRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CertificatesUpdateRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a CertificatesUpdateRequest object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<CertificatesUpdateRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<CertificatesUpdateRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a CertificatesUpdateRequest object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<CertificatesUpdateRequest> FromValue(const base::Value& value);
+  static std::optional<CertificatesUpdateRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCertificatesUpdateRequest object.
@@ -199,8 +188,8 @@ struct SignatureRequest {
   ~SignatureRequest();
   SignatureRequest(const SignatureRequest&) = delete;
   SignatureRequest& operator=(const SignatureRequest&) = delete;
-  SignatureRequest(SignatureRequest&& rhs);
-  SignatureRequest& operator=(SignatureRequest&& rhs);
+  SignatureRequest(SignatureRequest&& rhs) noexcept;
+  SignatureRequest& operator=(SignatureRequest&& rhs) noexcept;
 
   // Populates a SignatureRequest object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -213,16 +202,13 @@ struct SignatureRequest {
   // Creates a deep copy of SignatureRequest.
   SignatureRequest Clone() const;
 
-  // Creates a SignatureRequest object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SignatureRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a SignatureRequest object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SignatureRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<SignatureRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a SignatureRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SignatureRequest> FromValue(const base::Value& value);
+  static std::optional<SignatureRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSignatureRequest object.
@@ -248,8 +234,8 @@ struct ReportSignatureDetails {
   ~ReportSignatureDetails();
   ReportSignatureDetails(const ReportSignatureDetails&) = delete;
   ReportSignatureDetails& operator=(const ReportSignatureDetails&) = delete;
-  ReportSignatureDetails(ReportSignatureDetails&& rhs);
-  ReportSignatureDetails& operator=(ReportSignatureDetails&& rhs);
+  ReportSignatureDetails(ReportSignatureDetails&& rhs) noexcept;
+  ReportSignatureDetails& operator=(ReportSignatureDetails&& rhs) noexcept;
 
   // Populates a ReportSignatureDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -262,17 +248,13 @@ struct ReportSignatureDetails {
   // Creates a deep copy of ReportSignatureDetails.
   ReportSignatureDetails Clone() const;
 
-  // Creates a ReportSignatureDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ReportSignatureDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReportSignatureDetails object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ReportSignatureDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<ReportSignatureDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a ReportSignatureDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ReportSignatureDetails> FromValue(const base::Value& value);
+  static std::optional<ReportSignatureDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReportSignatureDetails object.
@@ -286,19 +268,19 @@ struct ReportSignatureDetails {
   Error error;
 
   // The signature, if successfully generated.
-  absl::optional<std::vector<uint8_t>> signature;
+  std::optional<std::vector<uint8_t>> signature;
 
 };
 
 // Deprecated. Replaced by $(ref:Algorithm).
-enum  Hash {
-  HASH_NONE = 0,
-  HASH_MD5_SHA1,
-  HASH_SHA1,
-  HASH_SHA256,
-  HASH_SHA384,
-  HASH_SHA512,
-  HASH_LAST = HASH_SHA512,
+enum class Hash {
+  kNone = 0,
+  kMd5Sha1,
+  kSha1,
+  kSha256,
+  kSha384,
+  kSha512,
+  kMaxValue = kSha512,
 };
 
 
@@ -307,11 +289,11 @@ Hash ParseHash(base::StringPiece as_string);
 std::u16string GetHashParseError(base::StringPiece as_string);
 
 // The type of code being requested by the extension with requestPin function.
-enum  PinRequestType {
-  PIN_REQUEST_TYPE_NONE = 0,
-  PIN_REQUEST_TYPE_PIN,
-  PIN_REQUEST_TYPE_PUK,
-  PIN_REQUEST_TYPE_LAST = PIN_REQUEST_TYPE_PUK,
+enum class PinRequestType {
+  kNone = 0,
+  kPin,
+  kPuk,
+  kMaxValue = kPuk,
 };
 
 
@@ -321,13 +303,13 @@ std::u16string GetPinRequestTypeParseError(base::StringPiece as_string);
 
 // The types of errors that can be presented to the user through the requestPin
 // function.
-enum  PinRequestErrorType {
-  PIN_REQUEST_ERROR_TYPE_NONE = 0,
-  PIN_REQUEST_ERROR_TYPE_INVALID_PIN,
-  PIN_REQUEST_ERROR_TYPE_INVALID_PUK,
-  PIN_REQUEST_ERROR_TYPE_MAX_ATTEMPTS_EXCEEDED,
-  PIN_REQUEST_ERROR_TYPE_UNKNOWN_ERROR,
-  PIN_REQUEST_ERROR_TYPE_LAST = PIN_REQUEST_ERROR_TYPE_UNKNOWN_ERROR,
+enum class PinRequestErrorType {
+  kNone = 0,
+  kInvalidPin,
+  kInvalidPuk,
+  kMaxAttemptsExceeded,
+  kUnknownError,
+  kMaxValue = kUnknownError,
 };
 
 
@@ -340,8 +322,8 @@ struct CertificateInfo {
   ~CertificateInfo();
   CertificateInfo(const CertificateInfo&) = delete;
   CertificateInfo& operator=(const CertificateInfo&) = delete;
-  CertificateInfo(CertificateInfo&& rhs);
-  CertificateInfo& operator=(CertificateInfo&& rhs);
+  CertificateInfo(CertificateInfo&& rhs) noexcept;
+  CertificateInfo& operator=(CertificateInfo&& rhs) noexcept;
 
   // Populates a CertificateInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -354,15 +336,12 @@ struct CertificateInfo {
   // Creates a deep copy of CertificateInfo.
   CertificateInfo Clone() const;
 
-  // Creates a CertificateInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CertificateInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a CertificateInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CertificateInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<CertificateInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a CertificateInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<CertificateInfo> FromValue(const base::Value& value);
+  static std::optional<CertificateInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCertificateInfo object.
@@ -384,8 +363,8 @@ struct SignRequest {
   ~SignRequest();
   SignRequest(const SignRequest&) = delete;
   SignRequest& operator=(const SignRequest&) = delete;
-  SignRequest(SignRequest&& rhs);
-  SignRequest& operator=(SignRequest&& rhs);
+  SignRequest(SignRequest&& rhs) noexcept;
+  SignRequest& operator=(SignRequest&& rhs) noexcept;
 
   // Populates a SignRequest object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -398,15 +377,12 @@ struct SignRequest {
   // Creates a deep copy of SignRequest.
   SignRequest Clone() const;
 
-  // Creates a SignRequest object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SignRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a SignRequest object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SignRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<SignRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a SignRequest object from a base::Value, or nullopt on failure.
-  static absl::optional<SignRequest> FromValue(const base::Value& value);
+  static std::optional<SignRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSignRequest object.
@@ -433,8 +409,8 @@ struct RequestPinDetails {
   ~RequestPinDetails();
   RequestPinDetails(const RequestPinDetails&) = delete;
   RequestPinDetails& operator=(const RequestPinDetails&) = delete;
-  RequestPinDetails(RequestPinDetails&& rhs);
-  RequestPinDetails& operator=(RequestPinDetails&& rhs);
+  RequestPinDetails(RequestPinDetails&& rhs) noexcept;
+  RequestPinDetails& operator=(RequestPinDetails&& rhs) noexcept;
 
   // Populates a RequestPinDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -447,16 +423,13 @@ struct RequestPinDetails {
   // Creates a deep copy of RequestPinDetails.
   RequestPinDetails Clone() const;
 
-  // Creates a RequestPinDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RequestPinDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a RequestPinDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RequestPinDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<RequestPinDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a RequestPinDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RequestPinDetails> FromValue(const base::Value& value);
+  static std::optional<RequestPinDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequestPinDetails object.
@@ -476,7 +449,7 @@ struct RequestPinDetails {
   // information to the user. Chrome is not expected to enforce this, instead
   // stopPinRequest should be called by the extension with errorType =
   // MAX_ATTEMPTS_EXCEEDED when the number of pin requests is exceeded.
-  absl::optional<int> attempts_left;
+  std::optional<int> attempts_left;
 
 };
 
@@ -485,8 +458,8 @@ struct StopPinRequestDetails {
   ~StopPinRequestDetails();
   StopPinRequestDetails(const StopPinRequestDetails&) = delete;
   StopPinRequestDetails& operator=(const StopPinRequestDetails&) = delete;
-  StopPinRequestDetails(StopPinRequestDetails&& rhs);
-  StopPinRequestDetails& operator=(StopPinRequestDetails&& rhs);
+  StopPinRequestDetails(StopPinRequestDetails&& rhs) noexcept;
+  StopPinRequestDetails& operator=(StopPinRequestDetails&& rhs) noexcept;
 
   // Populates a StopPinRequestDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -499,17 +472,13 @@ struct StopPinRequestDetails {
   // Creates a deep copy of StopPinRequestDetails.
   StopPinRequestDetails Clone() const;
 
-  // Creates a StopPinRequestDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<StopPinRequestDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a StopPinRequestDetails object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<StopPinRequestDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<StopPinRequestDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a StopPinRequestDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<StopPinRequestDetails> FromValue(const base::Value& value);
+  static std::optional<StopPinRequestDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStopPinRequestDetails object.
@@ -530,8 +499,8 @@ struct PinResponseDetails {
   ~PinResponseDetails();
   PinResponseDetails(const PinResponseDetails&) = delete;
   PinResponseDetails& operator=(const PinResponseDetails&) = delete;
-  PinResponseDetails(PinResponseDetails&& rhs);
-  PinResponseDetails& operator=(PinResponseDetails&& rhs);
+  PinResponseDetails(PinResponseDetails&& rhs) noexcept;
+  PinResponseDetails& operator=(PinResponseDetails&& rhs) noexcept;
 
   // Populates a PinResponseDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -544,16 +513,13 @@ struct PinResponseDetails {
   // Creates a deep copy of PinResponseDetails.
   PinResponseDetails Clone() const;
 
-  // Creates a PinResponseDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PinResponseDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a PinResponseDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PinResponseDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<PinResponseDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a PinResponseDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<PinResponseDetails> FromValue(const base::Value& value);
+  static std::optional<PinResponseDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPinResponseDetails object.
@@ -561,7 +527,7 @@ struct PinResponseDetails {
 
   // The code provided by the user. Empty if user closed the dialog or some other
   // error occurred.
-  absl::optional<std::string> user_input;
+  std::optional<std::string> user_input;
 
 };
 
@@ -573,11 +539,11 @@ struct PinResponseDetails {
 namespace RequestPin {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Contains the details about the requested dialog.
@@ -598,11 +564,11 @@ base::Value::List Create(const PinResponseDetails& details);
 namespace StopPinRequest {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Contains the details about the reason for stopping the request flow.
@@ -623,11 +589,11 @@ base::Value::List Create();
 namespace SetCertificates {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The certificates to set. Invalid certificates will be ignored.
@@ -648,11 +614,11 @@ base::Value::List Create();
 namespace ReportSignature {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ReportSignatureDetails details;

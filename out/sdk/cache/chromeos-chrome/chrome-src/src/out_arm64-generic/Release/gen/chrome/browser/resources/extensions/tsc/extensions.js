@@ -13,6 +13,7 @@ export { ActivityLogStreamItemElement, ARG_URL_PLACEHOLDER } from './activity_lo
 export { ExtensionsCodeSectionElement } from './code_section.js';
 export { ExtensionsDetailViewElement } from './detail_view.js';
 export { ExtensionsErrorPageElement } from './error_page.js';
+export { ExtensionsHatsBrowserProxyImpl } from './extension_hats_browser_proxy.js';
 export { ExtensionsHostPermissionsToggleListElement } from './host_permissions_toggle_list.js';
 export { ExtensionsItemElement } from './item.js';
 export { ExtensionsItemListElement } from './item_list.js';

@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 import { PageCallbackRouter, PageHandlerFactory, PageHandlerRemote } from './segmentation_internals.mojom-webui.js';
 export class SegmentationInternalsBrowserProxy {
+    handler;
+    callbackRouter;
     constructor() {
         this.callbackRouter = new PageCallbackRouter();
         this.handler = new PageHandlerRemote();

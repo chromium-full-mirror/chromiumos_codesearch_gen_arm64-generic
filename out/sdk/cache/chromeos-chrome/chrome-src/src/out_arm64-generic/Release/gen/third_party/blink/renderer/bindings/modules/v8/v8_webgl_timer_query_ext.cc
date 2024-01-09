@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLTimerQueryEXT>::value,
     "WebGLTimerQueryEXT inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLTimerQueryEXT::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLTimerQueryEXT is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 

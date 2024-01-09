@@ -535,7 +535,7 @@ bool WebUISource_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 152, validation_context)) {
+          data, 160, validation_context)) {
     return false;
   }
 
@@ -566,22 +566,23 @@ bool WebUISource_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->event_report_windows, 7, validation_context)) {
+          object->trigger_specs_json, 7, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->event_report_windows, validation_context))
+  constexpr const mojo::internal::ContainerValidateParams& trigger_specs_json_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->trigger_specs_json, validation_context,
+                                         &trigger_specs_json_validate_params)) {
     return false;
+  }
 
 
   if (!::attribution_reporting::mojom::internal::SourceType_Data
         ::Validate(object->source_type, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->debug_key, validation_context))
-    return false;
-
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->dedup_keys, 13, validation_context)) {
+          object->dedup_keys, 14, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& dedup_keys_validate_params =
@@ -592,18 +593,14 @@ bool WebUISource_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->filter_data, 14, validation_context)) {
+          object->filter_data, 15, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& filter_data_validate_params =
-      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>()>();
-  if (!mojo::internal::ValidateContainer(object->filter_data, validation_context,
-                                         &filter_data_validate_params)) {
+  if (!mojo::internal::ValidateStruct(object->filter_data, validation_context))
     return false;
-  }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->aggregation_keys, 15, validation_context)) {
+          object->aggregation_keys, 16, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& aggregation_keys_validate_params =
@@ -614,7 +611,7 @@ bool WebUISource_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->aggregatable_dedup_keys, 17, validation_context)) {
+          object->aggregatable_dedup_keys, 18, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& aggregatable_dedup_keys_validate_params =
@@ -624,11 +621,9 @@ bool WebUISource_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->trigger_config, 18, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->trigger_config, validation_context))
+
+  if (!::attribution_reporting::mojom::internal::TriggerDataMatching_Data
+        ::Validate(object->trigger_data_matching, validation_context))
     return false;
 
 
@@ -650,7 +645,7 @@ bool WebUIRegistration_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -683,9 +678,6 @@ bool WebUIRegistration_Data::Validate(
                                          &registration_json_validate_params)) {
     return false;
   }
-
-  if (!mojo::internal::ValidateStruct(object->cleared_debug_key, validation_context))
-    return false;
 
   return true;
 }

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/app_service_types.mojom-features.h"
 #include "chromeos/crosapi/mojom/app_service_types.mojom-shared.h"
 #include "chromeos/crosapi/mojom/app_service_types.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -52,6 +53,7 @@
 #include "components/services/app_service/public/cpp/capability_access.h"
 #include "components/services/app_service/public/cpp/icon_types.h"
 #include "components/services/app_service/public/cpp/preferred_app.h"
+#include "components/services/app_service/public/cpp/shortcut/shortcut.h"
 
 
 
@@ -59,157 +61,6 @@
 namespace crosapi::mojom {
 
 
-
-
-
-
-class  IconKey {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<IconKey, T>::value>;
-  using DataView = IconKeyDataView;
-  using Data_ = internal::IconKey_Data;
-  
-  static constexpr uint64_t kDoesNotChangeOverTime = 0ULL;
-
-  template <typename... Args>
-  static IconKeyPtr New(Args&&... args) {
-    return IconKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static IconKeyPtr From(const U& u) {
-    return mojo::TypeConverter<IconKeyPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, IconKey>::Convert(*this);
-  }
-
-
-  IconKey();
-
-  IconKey(
-      uint64_t timeline,
-      uint32_t icon_effects);
-
-  IconKey(
-      uint64_t timeline,
-      uint32_t icon_effects,
-      bool raw_icon_updated);
-
-
-  ~IconKey();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = IconKeyPtr>
-  IconKeyPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, IconKey::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, IconKey::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, IconKey::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        IconKey::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        IconKey::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::IconKey_UnserializedMessageContext<
-            UserType, IconKey::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<IconKey::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return IconKey::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::IconKey_UnserializedMessageContext<
-            UserType, IconKey::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<IconKey::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  uint64_t timeline;
-  
-  uint32_t icon_effects;
-  
-  bool raw_icon_updated;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, IconKey::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, IconKey::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, IconKey::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, IconKey::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
 
 
 
@@ -517,68 +368,69 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  Shortcut {
+
+class  REMOVED_01 {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<Shortcut, T>::value>;
-  using DataView = ShortcutDataView;
-  using Data_ = internal::Shortcut_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<REMOVED_01, T>::value>;
+  using DataView = REMOVED_01DataView;
+  using Data_ = internal::REMOVED_01_Data;
 
   template <typename... Args>
-  static ShortcutPtr New(Args&&... args) {
-    return ShortcutPtr(
+  static REMOVED_01Ptr New(Args&&... args) {
+    return REMOVED_01Ptr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static ShortcutPtr From(const U& u) {
-    return mojo::TypeConverter<ShortcutPtr, U>::Convert(u);
+  static REMOVED_01Ptr From(const U& u) {
+    return mojo::TypeConverter<REMOVED_01Ptr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, Shortcut>::Convert(*this);
+    return mojo::TypeConverter<U, REMOVED_01>::Convert(*this);
   }
 
 
-  Shortcut();
+  REMOVED_01();
 
-  Shortcut(
+  REMOVED_01(
       const std::string& shortcut_id,
       const std::string& name,
       uint8_t position);
 
 
-  ~Shortcut();
+  ~REMOVED_01();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = ShortcutPtr>
-  ShortcutPtr Clone() const;
+  template <typename StructPtrType = REMOVED_01Ptr>
+  REMOVED_01Ptr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, Shortcut::EnableIfSame<T>* = nullptr>
+  template <typename T, REMOVED_01::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, Shortcut::EnableIfSame<T>* = nullptr>
+  template <typename T, REMOVED_01::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, Shortcut::EnableIfSame<T>* = nullptr>
+  template <typename T, REMOVED_01::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        Shortcut::DataView, std::vector<uint8_t>>(input);
+        REMOVED_01::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        Shortcut::DataView>(input);
+        REMOVED_01::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -588,8 +440,8 @@ class  Shortcut {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::Shortcut_UnserializedMessageContext<
-            UserType, Shortcut::DataView>>(0, 0, std::move(input)),
+        internal::REMOVED_01_UnserializedMessageContext<
+            UserType, REMOVED_01::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -598,14 +450,14 @@ class  Shortcut {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<Shortcut::DataView>(
+    return mojo::internal::DeserializeImpl<REMOVED_01::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return Shortcut::Deserialize(
+    return REMOVED_01::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -613,14 +465,14 @@ class  Shortcut {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::Shortcut_UnserializedMessageContext<
-            UserType, Shortcut::DataView>>();
+        internal::REMOVED_01_UnserializedMessageContext<
+            UserType, REMOVED_01::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<Shortcut::DataView>(
+    return mojo::internal::DeserializeImpl<REMOVED_01::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
@@ -642,25 +494,432 @@ class  Shortcut {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, Shortcut::EnableIfSame<T>* = nullptr>
+template <typename T, REMOVED_01::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, Shortcut::EnableIfSame<T>* = nullptr>
+template <typename T, REMOVED_01::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, Shortcut::EnableIfSame<T>* = nullptr>
+template <typename T, REMOVED_01::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, Shortcut::EnableIfSame<T>* = nullptr>
+template <typename T, REMOVED_01::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
 
+
+
+
+class  InstallAppParams {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<InstallAppParams, T>::value>;
+  using DataView = InstallAppParamsDataView;
+  using Data_ = internal::InstallAppParams_Data;
+  using Surface = InstallAppParams_Surface;
+
+  template <typename... Args>
+  static InstallAppParamsPtr New(Args&&... args) {
+    return InstallAppParamsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static InstallAppParamsPtr From(const U& u) {
+    return mojo::TypeConverter<InstallAppParamsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, InstallAppParams>::Convert(*this);
+  }
+
+
+  InstallAppParams();
+
+  InstallAppParams(
+      InstallAppParams::Surface surface,
+      const std::optional<std::string>& package_id);
+
+
+  ~InstallAppParams();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = InstallAppParamsPtr>
+  InstallAppParamsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, InstallAppParams::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, InstallAppParams::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, InstallAppParams::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        InstallAppParams::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        InstallAppParams::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::InstallAppParams_UnserializedMessageContext<
+            UserType, InstallAppParams::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<InstallAppParams::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return InstallAppParams::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::InstallAppParams_UnserializedMessageContext<
+            UserType, InstallAppParams::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<InstallAppParams::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  InstallAppParams::Surface surface;
+  
+  std::optional<std::string> package_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, InstallAppParams::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, InstallAppParams::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, InstallAppParams::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, InstallAppParams::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  AppInstallResult {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<AppInstallResult, T>::value>;
+  using DataView = AppInstallResultDataView;
+  using Data_ = internal::AppInstallResult_Data;
+
+  template <typename... Args>
+  static AppInstallResultPtr New(Args&&... args) {
+    return AppInstallResultPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static AppInstallResultPtr From(const U& u) {
+    return mojo::TypeConverter<AppInstallResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, AppInstallResult>::Convert(*this);
+  }
+
+
+  AppInstallResult();
+
+
+  ~AppInstallResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = AppInstallResultPtr>
+  AppInstallResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, AppInstallResult::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, AppInstallResult::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, AppInstallResult::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        AppInstallResult::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        AppInstallResult::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::AppInstallResult_UnserializedMessageContext<
+            UserType, AppInstallResult::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<AppInstallResult::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return AppInstallResult::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::AppInstallResult_UnserializedMessageContext<
+            UserType, AppInstallResult::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<AppInstallResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, AppInstallResult::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, AppInstallResult::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, AppInstallResult::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, AppInstallResult::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  IconUpdateVersion {
+ public:
+  using DataView = IconUpdateVersionDataView;
+  using Data_ = internal::IconUpdateVersion_Data;
+  using Tag = Data_::IconUpdateVersion_Tag;
+
+  template <typename... Args>
+  static IconUpdateVersionPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |raw_icon_updated|.
+  static IconUpdateVersionPtr
+  NewRawIconUpdated(
+      bool value) {
+    auto result = IconUpdateVersionPtr(absl::in_place);
+    result->set_raw_icon_updated(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |timeline|.
+  static IconUpdateVersionPtr
+  NewTimeline(
+      int32_t value) {
+    auto result = IconUpdateVersionPtr(absl::in_place);
+    result->set_timeline(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static IconUpdateVersionPtr From(const U& u) {
+    return mojo::TypeConverter<IconUpdateVersionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, IconUpdateVersion>::Convert(*this);
+  }
+
+  IconUpdateVersion();
+  ~IconUpdateVersion();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = IconUpdateVersionPtr>
+  IconUpdateVersionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, IconUpdateVersion>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, IconUpdateVersion>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_raw_icon_updated() const { return tag_ == Tag::kRawIconUpdated; }
+
+  
+  bool get_raw_icon_updated() const {
+    CHECK(tag_ == Tag::kRawIconUpdated);
+    return data_.raw_icon_updated;
+  }
+
+  
+  void set_raw_icon_updated(
+      bool raw_icon_updated);
+  
+  bool is_timeline() const { return tag_ == Tag::kTimeline; }
+
+  
+  int32_t get_timeline() const {
+    CHECK(tag_ == Tag::kTimeline);
+    return data_.timeline;
+  }
+
+  
+  void set_timeline(
+      int32_t timeline);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        IconUpdateVersion::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<IconUpdateVersion::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool raw_icon_updated;
+    int32_t timeline;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
 
 
 
@@ -683,17 +942,17 @@ class  PermissionValue {
   // Construct an instance holding |bool_value|.
   static PermissionValuePtr
   NewBoolValue(
-      bool bool_value) {
+      bool value) {
     auto result = PermissionValuePtr(absl::in_place);
-    result->set_bool_value(std::move(bool_value));
+    result->set_bool_value(std::move(value));
     return result;
   }
   // Construct an instance holding |tristate_value|.
   static PermissionValuePtr
   NewTristateValue(
-      TriState tristate_value) {
+      TriState value) {
     auto result = PermissionValuePtr(absl::in_place);
-    result->set_tristate_value(std::move(tristate_value));
+    result->set_tristate_value(std::move(value));
     return result;
   }
 
@@ -823,15 +1082,15 @@ class  App {
       ::apps::AppType app_type,
       const std::string& app_id,
       Readiness readiness,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& publisher_id,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
       std::vector<std::string> additional_search_terms,
-      absl::optional<::apps::IconKeyPtr> icon_key,
-      absl::optional<::base::Time> last_launch_time,
-      absl::optional<::base::Time> install_time,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
       InstallReason install_reason,
       OptionalBool recommendable,
       OptionalBool searchable,
@@ -847,15 +1106,15 @@ class  App {
       ::apps::AppType app_type,
       const std::string& app_id,
       Readiness readiness,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& publisher_id,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
       std::vector<std::string> additional_search_terms,
-      absl::optional<::apps::IconKeyPtr> icon_key,
-      absl::optional<::base::Time> last_launch_time,
-      absl::optional<::base::Time> install_time,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
       InstallReason install_reason,
       OptionalBool recommendable,
       OptionalBool searchable,
@@ -872,15 +1131,15 @@ class  App {
       ::apps::AppType app_type,
       const std::string& app_id,
       Readiness readiness,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& publisher_id,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
       std::vector<std::string> additional_search_terms,
-      absl::optional<::apps::IconKeyPtr> icon_key,
-      absl::optional<::base::Time> last_launch_time,
-      absl::optional<::base::Time> install_time,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
       InstallReason install_reason,
       OptionalBool recommendable,
       OptionalBool searchable,
@@ -892,21 +1151,21 @@ class  App {
       OptionalBool paused,
       std::vector<IntentFilterPtr> intent_filters,
       ::apps::WindowMode window_mode,
-      const absl::optional<std::string>& deprecated_policy_id);
+      const std::optional<std::string>& deprecated_policy_id);
 
   App(
       ::apps::AppType app_type,
       const std::string& app_id,
       Readiness readiness,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& publisher_id,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
       std::vector<std::string> additional_search_terms,
-      absl::optional<::apps::IconKeyPtr> icon_key,
-      absl::optional<::base::Time> last_launch_time,
-      absl::optional<::base::Time> install_time,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
       InstallReason install_reason,
       OptionalBool recommendable,
       OptionalBool searchable,
@@ -918,22 +1177,22 @@ class  App {
       OptionalBool paused,
       std::vector<IntentFilterPtr> intent_filters,
       ::apps::WindowMode window_mode,
-      const absl::optional<std::string>& deprecated_policy_id,
-      absl::optional<std::vector<::apps::PermissionPtr>> permissions);
+      const std::optional<std::string>& deprecated_policy_id,
+      std::optional<std::vector<::apps::PermissionPtr>> permissions);
 
   App(
       ::apps::AppType app_type,
       const std::string& app_id,
       Readiness readiness,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& publisher_id,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
       std::vector<std::string> additional_search_terms,
-      absl::optional<::apps::IconKeyPtr> icon_key,
-      absl::optional<::base::Time> last_launch_time,
-      absl::optional<::base::Time> install_time,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
       InstallReason install_reason,
       OptionalBool recommendable,
       OptionalBool searchable,
@@ -945,23 +1204,23 @@ class  App {
       OptionalBool paused,
       std::vector<IntentFilterPtr> intent_filters,
       ::apps::WindowMode window_mode,
-      const absl::optional<std::string>& deprecated_policy_id,
-      absl::optional<std::vector<::apps::PermissionPtr>> permissions,
+      const std::optional<std::string>& deprecated_policy_id,
+      std::optional<std::vector<::apps::PermissionPtr>> permissions,
       OptionalBool allow_uninstall);
 
   App(
       ::apps::AppType app_type,
       const std::string& app_id,
       Readiness readiness,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& publisher_id,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
       std::vector<std::string> additional_search_terms,
-      absl::optional<::apps::IconKeyPtr> icon_key,
-      absl::optional<::base::Time> last_launch_time,
-      absl::optional<::base::Time> install_time,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
       InstallReason install_reason,
       OptionalBool recommendable,
       OptionalBool searchable,
@@ -973,8 +1232,8 @@ class  App {
       OptionalBool paused,
       std::vector<IntentFilterPtr> intent_filters,
       ::apps::WindowMode window_mode,
-      const absl::optional<std::string>& deprecated_policy_id,
-      absl::optional<std::vector<::apps::PermissionPtr>> permissions,
+      const std::optional<std::string>& deprecated_policy_id,
+      std::optional<std::vector<::apps::PermissionPtr>> permissions,
       OptionalBool allow_uninstall,
       OptionalBool handles_intents);
 
@@ -982,15 +1241,15 @@ class  App {
       ::apps::AppType app_type,
       const std::string& app_id,
       Readiness readiness,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& publisher_id,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
       std::vector<std::string> additional_search_terms,
-      absl::optional<::apps::IconKeyPtr> icon_key,
-      absl::optional<::base::Time> last_launch_time,
-      absl::optional<::base::Time> install_time,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
       InstallReason install_reason,
       OptionalBool recommendable,
       OptionalBool searchable,
@@ -1002,25 +1261,25 @@ class  App {
       OptionalBool paused,
       std::vector<IntentFilterPtr> intent_filters,
       ::apps::WindowMode window_mode,
-      const absl::optional<std::string>& deprecated_policy_id,
-      absl::optional<std::vector<::apps::PermissionPtr>> permissions,
+      const std::optional<std::string>& deprecated_policy_id,
+      std::optional<std::vector<::apps::PermissionPtr>> permissions,
       OptionalBool allow_uninstall,
       OptionalBool handles_intents,
-      absl::optional<std::vector<ShortcutPtr>> deprecated_shortcuts);
+      std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts);
 
   App(
       ::apps::AppType app_type,
       const std::string& app_id,
       Readiness readiness,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& publisher_id,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
       std::vector<std::string> additional_search_terms,
-      absl::optional<::apps::IconKeyPtr> icon_key,
-      absl::optional<::base::Time> last_launch_time,
-      absl::optional<::base::Time> install_time,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
       InstallReason install_reason,
       OptionalBool recommendable,
       OptionalBool searchable,
@@ -1032,26 +1291,26 @@ class  App {
       OptionalBool paused,
       std::vector<IntentFilterPtr> intent_filters,
       ::apps::WindowMode window_mode,
-      const absl::optional<std::string>& deprecated_policy_id,
-      absl::optional<std::vector<::apps::PermissionPtr>> permissions,
+      const std::optional<std::string>& deprecated_policy_id,
+      std::optional<std::vector<::apps::PermissionPtr>> permissions,
       OptionalBool allow_uninstall,
       OptionalBool handles_intents,
-      absl::optional<std::vector<ShortcutPtr>> deprecated_shortcuts,
+      std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts,
       OptionalBool is_platform_app);
 
   App(
       ::apps::AppType app_type,
       const std::string& app_id,
       Readiness readiness,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& publisher_id,
-      const absl::optional<std::string>& description,
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
       std::vector<std::string> additional_search_terms,
-      absl::optional<::apps::IconKeyPtr> icon_key,
-      absl::optional<::base::Time> last_launch_time,
-      absl::optional<::base::Time> install_time,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
       InstallReason install_reason,
       OptionalBool recommendable,
       OptionalBool searchable,
@@ -1063,13 +1322,82 @@ class  App {
       OptionalBool paused,
       std::vector<IntentFilterPtr> intent_filters,
       ::apps::WindowMode window_mode,
-      const absl::optional<std::string>& deprecated_policy_id,
-      absl::optional<std::vector<::apps::PermissionPtr>> permissions,
+      const std::optional<std::string>& deprecated_policy_id,
+      std::optional<std::vector<::apps::PermissionPtr>> permissions,
       OptionalBool allow_uninstall,
       OptionalBool handles_intents,
-      absl::optional<std::vector<ShortcutPtr>> deprecated_shortcuts,
+      std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts,
       OptionalBool is_platform_app,
-      absl::optional<std::vector<std::string>> policy_ids);
+      std::optional<std::vector<std::string>> policy_ids);
+
+  App(
+      ::apps::AppType app_type,
+      const std::string& app_id,
+      Readiness readiness,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
+      std::vector<std::string> additional_search_terms,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
+      InstallReason install_reason,
+      OptionalBool recommendable,
+      OptionalBool searchable,
+      OptionalBool show_in_launcher,
+      OptionalBool show_in_shelf,
+      OptionalBool show_in_search,
+      OptionalBool show_in_management,
+      OptionalBool has_badge,
+      OptionalBool paused,
+      std::vector<IntentFilterPtr> intent_filters,
+      ::apps::WindowMode window_mode,
+      const std::optional<std::string>& deprecated_policy_id,
+      std::optional<std::vector<::apps::PermissionPtr>> permissions,
+      OptionalBool allow_uninstall,
+      OptionalBool handles_intents,
+      std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts,
+      OptionalBool is_platform_app,
+      std::optional<std::vector<std::string>> policy_ids,
+      std::optional<uint64_t> app_size_in_bytes,
+      std::optional<uint64_t> data_size_in_bytes);
+
+  App(
+      ::apps::AppType app_type,
+      const std::string& app_id,
+      Readiness readiness,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& publisher_id,
+      const std::optional<std::string>& description,
+      const std::optional<std::string>& version,
+      std::vector<std::string> additional_search_terms,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<::base::Time> last_launch_time,
+      std::optional<::base::Time> install_time,
+      InstallReason install_reason,
+      OptionalBool recommendable,
+      OptionalBool searchable,
+      OptionalBool show_in_launcher,
+      OptionalBool show_in_shelf,
+      OptionalBool show_in_search,
+      OptionalBool show_in_management,
+      OptionalBool has_badge,
+      OptionalBool paused,
+      std::vector<IntentFilterPtr> intent_filters,
+      ::apps::WindowMode window_mode,
+      const std::optional<std::string>& deprecated_policy_id,
+      std::optional<std::vector<::apps::PermissionPtr>> permissions,
+      OptionalBool allow_uninstall,
+      OptionalBool handles_intents,
+      std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts,
+      OptionalBool is_platform_app,
+      std::optional<std::vector<std::string>> policy_ids,
+      std::optional<uint64_t> app_size_in_bytes,
+      std::optional<uint64_t> data_size_in_bytes,
+      OptionalBool allow_close);
 
 App(const App&) = delete;
 App& operator=(const App&) = delete;
@@ -1155,23 +1483,23 @@ App& operator=(const App&) = delete;
   
   Readiness readiness;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> short_name;
+  std::optional<std::string> short_name;
   
-  absl::optional<std::string> publisher_id;
+  std::optional<std::string> publisher_id;
   
-  absl::optional<std::string> description;
+  std::optional<std::string> description;
   
-  absl::optional<std::string> version;
+  std::optional<std::string> version;
   
   std::vector<std::string> additional_search_terms;
   
-  absl::optional<::apps::IconKeyPtr> icon_key;
+  std::optional<::apps::IconKeyPtr> icon_key;
   
-  absl::optional<::base::Time> last_launch_time;
+  std::optional<::base::Time> last_launch_time;
   
-  absl::optional<::base::Time> install_time;
+  std::optional<::base::Time> install_time;
   
   InstallReason install_reason;
   
@@ -1195,19 +1523,25 @@ App& operator=(const App&) = delete;
   
   ::apps::WindowMode window_mode;
   
-  absl::optional<std::string> deprecated_policy_id;
+  std::optional<std::string> deprecated_policy_id;
   
-  absl::optional<std::vector<::apps::PermissionPtr>> permissions;
+  std::optional<std::vector<::apps::PermissionPtr>> permissions;
   
   OptionalBool allow_uninstall;
   
   OptionalBool handles_intents;
   
-  absl::optional<std::vector<ShortcutPtr>> deprecated_shortcuts;
+  std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts;
   
   OptionalBool is_platform_app;
   
-  absl::optional<std::vector<std::string>> policy_ids;
+  std::optional<std::vector<std::string>> policy_ids;
+  
+  std::optional<uint64_t> app_size_in_bytes;
+  
+  std::optional<uint64_t> data_size_in_bytes;
+  
+  OptionalBool allow_close;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1238,6 +1572,165 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+class  IconKey {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<IconKey, T>::value>;
+  using DataView = IconKeyDataView;
+  using Data_ = internal::IconKey_Data;
+
+  template <typename... Args>
+  static IconKeyPtr New(Args&&... args) {
+    return IconKeyPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static IconKeyPtr From(const U& u) {
+    return mojo::TypeConverter<IconKeyPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, IconKey>::Convert(*this);
+  }
+
+
+  IconKey();
+
+  IconKey(
+      uint64_t deprecated_timeline,
+      uint32_t icon_effects);
+
+  IconKey(
+      uint64_t deprecated_timeline,
+      uint32_t icon_effects,
+      bool deprecated_raw_icon_updated);
+
+  IconKey(
+      uint64_t deprecated_timeline,
+      uint32_t icon_effects,
+      bool deprecated_raw_icon_updated,
+      IconUpdateVersionPtr update_version);
+
+IconKey(const IconKey&) = delete;
+IconKey& operator=(const IconKey&) = delete;
+
+  ~IconKey();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = IconKeyPtr>
+  IconKeyPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, IconKey::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, IconKey::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, IconKey::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        IconKey::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        IconKey::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::IconKey_UnserializedMessageContext<
+            UserType, IconKey::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<IconKey::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return IconKey::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::IconKey_UnserializedMessageContext<
+            UserType, IconKey::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<IconKey::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t deprecated_timeline;
+  
+  uint32_t icon_effects;
+  
+  bool deprecated_raw_icon_updated;
+  
+  IconUpdateVersionPtr update_version;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, IconKey::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, IconKey::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, IconKey::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, IconKey::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -1417,8 +1910,8 @@ class  IntentFilter {
 
   IntentFilter(
       std::vector<ConditionPtr> conditions,
-      const absl::optional<std::string>& activity_name,
-      const absl::optional<std::string>& activity_label);
+      const std::optional<std::string>& activity_name,
+      const std::optional<std::string>& activity_label);
 
 IntentFilter(const IntentFilter&) = delete;
 IntentFilter& operator=(const IntentFilter&) = delete;
@@ -1500,9 +1993,9 @@ IntentFilter& operator=(const IntentFilter&) = delete;
   
   std::vector<ConditionPtr> conditions;
   
-  absl::optional<std::string> activity_name;
+  std::optional<std::string> activity_name;
   
-  absl::optional<std::string> activity_label;
+  std::optional<std::string> activity_label;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1567,13 +2060,13 @@ class  IconValue {
   IconValue(
       ::apps::IconType icon_type,
       const ::gfx::ImageSkia& uncompressed,
-      absl::optional<std::vector<uint8_t>> compressed,
+      std::optional<std::vector<uint8_t>> compressed,
       bool is_placeholder_icon);
 
   IconValue(
       ::apps::IconType icon_type,
       const ::gfx::ImageSkia& uncompressed,
-      absl::optional<std::vector<uint8_t>> compressed,
+      std::optional<std::vector<uint8_t>> compressed,
       bool is_placeholder_icon,
       bool is_maskable_icon);
 
@@ -1652,7 +2145,7 @@ class  IconValue {
   
   ::gfx::ImageSkia uncompressed;
   
-  absl::optional<std::vector<uint8_t>> compressed;
+  std::optional<std::vector<uint8_t>> compressed;
   
   bool is_placeholder_icon;
   
@@ -1861,7 +2354,7 @@ class  MenuItem {
   MenuItem(
       const std::string& label,
       const ::gfx::ImageSkia& image,
-      const absl::optional<std::string>& id);
+      const std::optional<std::string>& id);
 
 
   ~MenuItem();
@@ -1938,7 +2431,7 @@ class  MenuItem {
   
   ::gfx::ImageSkia image;
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2004,7 +2497,7 @@ class  IntentFile {
 
   IntentFile(
       const ::base::FilePath& file_path,
-      const absl::optional<std::string>& mime_type);
+      const std::optional<std::string>& mime_type);
 
 
   ~IntentFile();
@@ -2084,7 +2577,7 @@ class  IntentFile {
   
   ::base::FilePath file_path;
   
-  absl::optional<std::string> mime_type;
+  std::optional<std::string> mime_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2147,49 +2640,49 @@ class  Intent {
 
   Intent(
       const std::string& action,
-      const absl::optional<::GURL>& url,
-      const absl::optional<std::string>& mime_type,
-      const absl::optional<std::string>& share_text,
-      const absl::optional<std::string>& share_title);
+      const std::optional<::GURL>& url,
+      const std::optional<std::string>& mime_type,
+      const std::optional<std::string>& share_text,
+      const std::optional<std::string>& share_title);
 
   Intent(
       const std::string& action,
-      const absl::optional<::GURL>& url,
-      const absl::optional<std::string>& mime_type,
-      const absl::optional<std::string>& share_text,
-      const absl::optional<std::string>& share_title,
-      absl::optional<std::vector<IntentFilePtr>> files);
+      const std::optional<::GURL>& url,
+      const std::optional<std::string>& mime_type,
+      const std::optional<std::string>& share_text,
+      const std::optional<std::string>& share_title,
+      std::optional<std::vector<IntentFilePtr>> files);
 
   Intent(
       const std::string& action,
-      const absl::optional<::GURL>& url,
-      const absl::optional<std::string>& mime_type,
-      const absl::optional<std::string>& share_text,
-      const absl::optional<std::string>& share_title,
-      absl::optional<std::vector<IntentFilePtr>> files,
-      const absl::optional<std::string>& activity_name);
+      const std::optional<::GURL>& url,
+      const std::optional<std::string>& mime_type,
+      const std::optional<std::string>& share_text,
+      const std::optional<std::string>& share_title,
+      std::optional<std::vector<IntentFilePtr>> files,
+      const std::optional<std::string>& activity_name);
 
   Intent(
       const std::string& action,
-      const absl::optional<::GURL>& url,
-      const absl::optional<std::string>& mime_type,
-      const absl::optional<std::string>& share_text,
-      const absl::optional<std::string>& share_title,
-      absl::optional<std::vector<IntentFilePtr>> files,
-      const absl::optional<std::string>& activity_name,
-      const absl::optional<std::string>& data);
+      const std::optional<::GURL>& url,
+      const std::optional<std::string>& mime_type,
+      const std::optional<std::string>& share_text,
+      const std::optional<std::string>& share_title,
+      std::optional<std::vector<IntentFilePtr>> files,
+      const std::optional<std::string>& activity_name,
+      const std::optional<std::string>& data);
 
   Intent(
       const std::string& action,
-      const absl::optional<::GURL>& url,
-      const absl::optional<std::string>& mime_type,
-      const absl::optional<std::string>& share_text,
-      const absl::optional<std::string>& share_title,
-      absl::optional<std::vector<IntentFilePtr>> files,
-      const absl::optional<std::string>& activity_name,
-      const absl::optional<std::string>& data,
-      absl::optional<bool> ui_bypassed,
-      const absl::optional<base::flat_map<std::string, std::string>>& extras);
+      const std::optional<::GURL>& url,
+      const std::optional<std::string>& mime_type,
+      const std::optional<std::string>& share_text,
+      const std::optional<std::string>& share_title,
+      std::optional<std::vector<IntentFilePtr>> files,
+      const std::optional<std::string>& activity_name,
+      const std::optional<std::string>& data,
+      std::optional<bool> ui_bypassed,
+      const std::optional<base::flat_map<std::string, std::string>>& extras);
 
 Intent(const Intent&) = delete;
 Intent& operator=(const Intent&) = delete;
@@ -2271,23 +2764,23 @@ Intent& operator=(const Intent&) = delete;
   
   std::string action;
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
   
-  absl::optional<std::string> mime_type;
+  std::optional<std::string> mime_type;
   
-  absl::optional<std::string> share_text;
+  std::optional<std::string> share_text;
   
-  absl::optional<std::string> share_title;
+  std::optional<std::string> share_title;
   
-  absl::optional<std::vector<IntentFilePtr>> files;
+  std::optional<std::vector<IntentFilePtr>> files;
   
-  absl::optional<std::string> activity_name;
+  std::optional<std::string> activity_name;
   
-  absl::optional<std::string> data;
+  std::optional<std::string> data;
   
-  absl::optional<bool> ui_bypassed;
+  std::optional<bool> ui_bypassed;
   
-  absl::optional<base::flat_map<std::string, std::string>> extras;
+  std::optional<base::flat_map<std::string, std::string>> extras;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2353,11 +2846,11 @@ class  LaunchResult {
 
   LaunchResult(
       const ::base::UnguessableToken& instance_id,
-      absl::optional<std::vector<::base::UnguessableToken>> instance_ids);
+      std::optional<std::vector<::base::UnguessableToken>> instance_ids);
 
   LaunchResult(
       const ::base::UnguessableToken& instance_id,
-      absl::optional<std::vector<::base::UnguessableToken>> instance_ids,
+      std::optional<std::vector<::base::UnguessableToken>> instance_ids,
       LaunchResultState state);
 
 
@@ -2438,7 +2931,7 @@ class  LaunchResult {
   
   ::base::UnguessableToken instance_id;
   
-  absl::optional<std::vector<::base::UnguessableToken>> instance_ids;
+  std::optional<std::vector<::base::UnguessableToken>> instance_ids;
   
   LaunchResultState state;
 
@@ -3079,6 +3572,197 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
+
+
+class  AppShortcut {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<AppShortcut, T>::value>;
+  using DataView = AppShortcutDataView;
+  using Data_ = internal::AppShortcut_Data;
+
+  template <typename... Args>
+  static AppShortcutPtr New(Args&&... args) {
+    return AppShortcutPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static AppShortcutPtr From(const U& u) {
+    return mojo::TypeConverter<AppShortcutPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, AppShortcut>::Convert(*this);
+  }
+
+
+  AppShortcut();
+
+  AppShortcut(
+      const std::string& host_app_id,
+      const std::string& local_id,
+      const std::optional<std::string>& name,
+      std::optional<::apps::IconKeyPtr> icon_key);
+
+  AppShortcut(
+      const std::string& host_app_id,
+      const std::string& local_id,
+      const std::optional<std::string>& name,
+      std::optional<::apps::IconKeyPtr> icon_key,
+      std::optional<bool> allow_removal);
+
+AppShortcut(const AppShortcut&) = delete;
+AppShortcut& operator=(const AppShortcut&) = delete;
+
+  ~AppShortcut();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = AppShortcutPtr>
+  AppShortcutPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, AppShortcut::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, AppShortcut::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, AppShortcut::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        AppShortcut::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        AppShortcut::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::AppShortcut_UnserializedMessageContext<
+            UserType, AppShortcut::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<AppShortcut::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return AppShortcut::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::AppShortcut_UnserializedMessageContext<
+            UserType, AppShortcut::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<AppShortcut::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string host_app_id;
+  
+  std::string local_id;
+  
+  std::optional<std::string> name;
+  
+  std::optional<::apps::IconKeyPtr> icon_key;
+  
+  std::optional<bool> allow_removal;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, AppShortcut::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, AppShortcut::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, AppShortcut::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, AppShortcut::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+template <typename UnionPtrType>
+IconUpdateVersionPtr IconUpdateVersion::Clone() const {
+  switch (tag_) {
+    case Tag::kRawIconUpdated:
+      return NewRawIconUpdated(
+          mojo::Clone(data_.raw_icon_updated));
+    case Tag::kTimeline:
+      return NewTimeline(
+          mojo::Clone(data_.timeline));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, IconUpdateVersion>::value>::type*>
+bool IconUpdateVersion::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kRawIconUpdated:
+      return mojo::Equals(data_.raw_icon_updated, other.data_.raw_icon_updated);
+    case Tag::kTimeline:
+      return mojo::Equals(data_.timeline, other.data_.timeline);
+  }
+
+  return false;
+}
 template <typename UnionPtrType>
 PermissionValuePtr PermissionValue::Clone() const {
   switch (tag_) {
@@ -3140,7 +3824,10 @@ AppPtr App::Clone() const {
       mojo::Clone(handles_intents),
       mojo::Clone(deprecated_shortcuts),
       mojo::Clone(is_platform_app),
-      mojo::Clone(policy_ids)
+      mojo::Clone(policy_ids),
+      mojo::Clone(app_size_in_bytes),
+      mojo::Clone(data_size_in_bytes),
+      mojo::Clone(allow_close)
   );
 }
 
@@ -3205,6 +3892,12 @@ bool App::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->is_platform_app, other_struct.is_platform_app))
     return false;
   if (!mojo::Equals(this->policy_ids, other_struct.policy_ids))
+    return false;
+  if (!mojo::Equals(this->app_size_in_bytes, other_struct.app_size_in_bytes))
+    return false;
+  if (!mojo::Equals(this->data_size_in_bytes, other_struct.data_size_in_bytes))
+    return false;
+  if (!mojo::Equals(this->allow_close, other_struct.allow_close))
     return false;
   return true;
 }
@@ -3331,41 +4024,60 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.policy_ids < lhs.policy_ids)
     return false;
+  if (lhs.app_size_in_bytes < rhs.app_size_in_bytes)
+    return true;
+  if (rhs.app_size_in_bytes < lhs.app_size_in_bytes)
+    return false;
+  if (lhs.data_size_in_bytes < rhs.data_size_in_bytes)
+    return true;
+  if (rhs.data_size_in_bytes < lhs.data_size_in_bytes)
+    return false;
+  if (lhs.allow_close < rhs.allow_close)
+    return true;
+  if (rhs.allow_close < lhs.allow_close)
+    return false;
   return false;
 }
 template <typename StructPtrType>
 IconKeyPtr IconKey::Clone() const {
   return New(
-      mojo::Clone(timeline),
+      mojo::Clone(deprecated_timeline),
       mojo::Clone(icon_effects),
-      mojo::Clone(raw_icon_updated)
+      mojo::Clone(deprecated_raw_icon_updated),
+      mojo::Clone(update_version)
   );
 }
 
 template <typename T, IconKey::EnableIfSame<T>*>
 bool IconKey::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->timeline, other_struct.timeline))
+  if (!mojo::Equals(this->deprecated_timeline, other_struct.deprecated_timeline))
     return false;
   if (!mojo::Equals(this->icon_effects, other_struct.icon_effects))
     return false;
-  if (!mojo::Equals(this->raw_icon_updated, other_struct.raw_icon_updated))
+  if (!mojo::Equals(this->deprecated_raw_icon_updated, other_struct.deprecated_raw_icon_updated))
+    return false;
+  if (!mojo::Equals(this->update_version, other_struct.update_version))
     return false;
   return true;
 }
 
 template <typename T, IconKey::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.timeline < rhs.timeline)
+  if (lhs.deprecated_timeline < rhs.deprecated_timeline)
     return true;
-  if (rhs.timeline < lhs.timeline)
+  if (rhs.deprecated_timeline < lhs.deprecated_timeline)
     return false;
   if (lhs.icon_effects < rhs.icon_effects)
     return true;
   if (rhs.icon_effects < lhs.icon_effects)
     return false;
-  if (lhs.raw_icon_updated < rhs.raw_icon_updated)
+  if (lhs.deprecated_raw_icon_updated < rhs.deprecated_raw_icon_updated)
     return true;
-  if (rhs.raw_icon_updated < lhs.raw_icon_updated)
+  if (rhs.deprecated_raw_icon_updated < lhs.deprecated_raw_icon_updated)
+    return false;
+  if (lhs.update_version < rhs.update_version)
+    return true;
+  if (rhs.update_version < lhs.update_version)
     return false;
   return false;
 }
@@ -3909,7 +4621,57 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-ShortcutPtr Shortcut::Clone() const {
+AppShortcutPtr AppShortcut::Clone() const {
+  return New(
+      mojo::Clone(host_app_id),
+      mojo::Clone(local_id),
+      mojo::Clone(name),
+      mojo::Clone(icon_key),
+      mojo::Clone(allow_removal)
+  );
+}
+
+template <typename T, AppShortcut::EnableIfSame<T>*>
+bool AppShortcut::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->host_app_id, other_struct.host_app_id))
+    return false;
+  if (!mojo::Equals(this->local_id, other_struct.local_id))
+    return false;
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->icon_key, other_struct.icon_key))
+    return false;
+  if (!mojo::Equals(this->allow_removal, other_struct.allow_removal))
+    return false;
+  return true;
+}
+
+template <typename T, AppShortcut::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.host_app_id < rhs.host_app_id)
+    return true;
+  if (rhs.host_app_id < lhs.host_app_id)
+    return false;
+  if (lhs.local_id < rhs.local_id)
+    return true;
+  if (rhs.local_id < lhs.local_id)
+    return false;
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.icon_key < rhs.icon_key)
+    return true;
+  if (rhs.icon_key < lhs.icon_key)
+    return false;
+  if (lhs.allow_removal < rhs.allow_removal)
+    return true;
+  if (rhs.allow_removal < lhs.allow_removal)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+REMOVED_01Ptr REMOVED_01::Clone() const {
   return New(
       mojo::Clone(shortcut_id),
       mojo::Clone(name),
@@ -3917,8 +4679,8 @@ ShortcutPtr Shortcut::Clone() const {
   );
 }
 
-template <typename T, Shortcut::EnableIfSame<T>*>
-bool Shortcut::Equals(const T& other_struct) const {
+template <typename T, REMOVED_01::EnableIfSame<T>*>
+bool REMOVED_01::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->shortcut_id, other_struct.shortcut_id))
     return false;
   if (!mojo::Equals(this->name, other_struct.name))
@@ -3928,7 +4690,7 @@ bool Shortcut::Equals(const T& other_struct) const {
   return true;
 }
 
-template <typename T, Shortcut::EnableIfSame<T>*>
+template <typename T, REMOVED_01::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.shortcut_id < rhs.shortcut_id)
     return true;
@@ -3942,6 +4704,50 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.position < lhs.position)
     return false;
+  return false;
+}
+template <typename StructPtrType>
+InstallAppParamsPtr InstallAppParams::Clone() const {
+  return New(
+      mojo::Clone(surface),
+      mojo::Clone(package_id)
+  );
+}
+
+template <typename T, InstallAppParams::EnableIfSame<T>*>
+bool InstallAppParams::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->surface, other_struct.surface))
+    return false;
+  if (!mojo::Equals(this->package_id, other_struct.package_id))
+    return false;
+  return true;
+}
+
+template <typename T, InstallAppParams::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.surface < rhs.surface)
+    return true;
+  if (rhs.surface < lhs.surface)
+    return false;
+  if (lhs.package_id < rhs.package_id)
+    return true;
+  if (rhs.package_id < lhs.package_id)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+AppInstallResultPtr AppInstallResult::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, AppInstallResult::EnableIfSame<T>*>
+bool AppInstallResult::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, AppInstallResult::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 
@@ -4107,6 +4913,21 @@ struct  StructTraits<::crosapi::mojom::App::DataView,
     return input->policy_ids;
   }
 
+  static decltype(::crosapi::mojom::App::app_size_in_bytes) app_size_in_bytes(
+      const ::crosapi::mojom::AppPtr& input) {
+    return input->app_size_in_bytes;
+  }
+
+  static decltype(::crosapi::mojom::App::data_size_in_bytes) data_size_in_bytes(
+      const ::crosapi::mojom::AppPtr& input) {
+    return input->data_size_in_bytes;
+  }
+
+  static decltype(::crosapi::mojom::App::allow_close) allow_close(
+      const ::crosapi::mojom::AppPtr& input) {
+    return input->allow_close;
+  }
+
   static bool Read(::crosapi::mojom::App::DataView input, ::crosapi::mojom::AppPtr* output);
 };
 
@@ -4117,9 +4938,9 @@ struct  StructTraits<::crosapi::mojom::IconKey::DataView,
   static bool IsNull(const ::crosapi::mojom::IconKeyPtr& input) { return !input; }
   static void SetToNull(::crosapi::mojom::IconKeyPtr* output) { output->reset(); }
 
-  static decltype(::crosapi::mojom::IconKey::timeline) timeline(
+  static decltype(::crosapi::mojom::IconKey::deprecated_timeline) deprecated_timeline(
       const ::crosapi::mojom::IconKeyPtr& input) {
-    return input->timeline;
+    return input->deprecated_timeline;
   }
 
   static decltype(::crosapi::mojom::IconKey::icon_effects) icon_effects(
@@ -4127,9 +4948,14 @@ struct  StructTraits<::crosapi::mojom::IconKey::DataView,
     return input->icon_effects;
   }
 
-  static decltype(::crosapi::mojom::IconKey::raw_icon_updated) raw_icon_updated(
+  static decltype(::crosapi::mojom::IconKey::deprecated_raw_icon_updated) deprecated_raw_icon_updated(
       const ::crosapi::mojom::IconKeyPtr& input) {
-    return input->raw_icon_updated;
+    return input->deprecated_raw_icon_updated;
+  }
+
+  static const decltype(::crosapi::mojom::IconKey::update_version)& update_version(
+      const ::crosapi::mojom::IconKeyPtr& input) {
+    return input->update_version;
   }
 
   static bool Read(::crosapi::mojom::IconKey::DataView input, ::crosapi::mojom::IconKeyPtr* output);
@@ -4512,27 +5338,114 @@ struct  StructTraits<::crosapi::mojom::PreferredApp::DataView,
 
 
 template <>
-struct  StructTraits<::crosapi::mojom::Shortcut::DataView,
-                                         ::crosapi::mojom::ShortcutPtr> {
-  static bool IsNull(const ::crosapi::mojom::ShortcutPtr& input) { return !input; }
-  static void SetToNull(::crosapi::mojom::ShortcutPtr* output) { output->reset(); }
+struct  StructTraits<::crosapi::mojom::AppShortcut::DataView,
+                                         ::crosapi::mojom::AppShortcutPtr> {
+  static bool IsNull(const ::crosapi::mojom::AppShortcutPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::AppShortcutPtr* output) { output->reset(); }
 
-  static const decltype(::crosapi::mojom::Shortcut::shortcut_id)& shortcut_id(
-      const ::crosapi::mojom::ShortcutPtr& input) {
-    return input->shortcut_id;
+  static const decltype(::crosapi::mojom::AppShortcut::host_app_id)& host_app_id(
+      const ::crosapi::mojom::AppShortcutPtr& input) {
+    return input->host_app_id;
   }
 
-  static const decltype(::crosapi::mojom::Shortcut::name)& name(
-      const ::crosapi::mojom::ShortcutPtr& input) {
+  static const decltype(::crosapi::mojom::AppShortcut::local_id)& local_id(
+      const ::crosapi::mojom::AppShortcutPtr& input) {
+    return input->local_id;
+  }
+
+  static const decltype(::crosapi::mojom::AppShortcut::name)& name(
+      const ::crosapi::mojom::AppShortcutPtr& input) {
     return input->name;
   }
 
-  static decltype(::crosapi::mojom::Shortcut::position) position(
-      const ::crosapi::mojom::ShortcutPtr& input) {
+  static const decltype(::crosapi::mojom::AppShortcut::icon_key)& icon_key(
+      const ::crosapi::mojom::AppShortcutPtr& input) {
+    return input->icon_key;
+  }
+
+  static decltype(::crosapi::mojom::AppShortcut::allow_removal) allow_removal(
+      const ::crosapi::mojom::AppShortcutPtr& input) {
+    return input->allow_removal;
+  }
+
+  static bool Read(::crosapi::mojom::AppShortcut::DataView input, ::crosapi::mojom::AppShortcutPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::REMOVED_01::DataView,
+                                         ::crosapi::mojom::REMOVED_01Ptr> {
+  static bool IsNull(const ::crosapi::mojom::REMOVED_01Ptr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::REMOVED_01Ptr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::REMOVED_01::shortcut_id)& shortcut_id(
+      const ::crosapi::mojom::REMOVED_01Ptr& input) {
+    return input->shortcut_id;
+  }
+
+  static const decltype(::crosapi::mojom::REMOVED_01::name)& name(
+      const ::crosapi::mojom::REMOVED_01Ptr& input) {
+    return input->name;
+  }
+
+  static decltype(::crosapi::mojom::REMOVED_01::position) position(
+      const ::crosapi::mojom::REMOVED_01Ptr& input) {
     return input->position;
   }
 
-  static bool Read(::crosapi::mojom::Shortcut::DataView input, ::crosapi::mojom::ShortcutPtr* output);
+  static bool Read(::crosapi::mojom::REMOVED_01::DataView input, ::crosapi::mojom::REMOVED_01Ptr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::InstallAppParams::DataView,
+                                         ::crosapi::mojom::InstallAppParamsPtr> {
+  static bool IsNull(const ::crosapi::mojom::InstallAppParamsPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::InstallAppParamsPtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::InstallAppParams::surface) surface(
+      const ::crosapi::mojom::InstallAppParamsPtr& input) {
+    return input->surface;
+  }
+
+  static const decltype(::crosapi::mojom::InstallAppParams::package_id)& package_id(
+      const ::crosapi::mojom::InstallAppParamsPtr& input) {
+    return input->package_id;
+  }
+
+  static bool Read(::crosapi::mojom::InstallAppParams::DataView input, ::crosapi::mojom::InstallAppParamsPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::AppInstallResult::DataView,
+                                         ::crosapi::mojom::AppInstallResultPtr> {
+  static bool IsNull(const ::crosapi::mojom::AppInstallResultPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::AppInstallResultPtr* output) { output->reset(); }
+
+  static bool Read(::crosapi::mojom::AppInstallResult::DataView input, ::crosapi::mojom::AppInstallResultPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::crosapi::mojom::IconUpdateVersion::DataView,
+                                        ::crosapi::mojom::IconUpdateVersionPtr> {
+  static bool IsNull(const ::crosapi::mojom::IconUpdateVersionPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::IconUpdateVersionPtr* output) { output->reset(); }
+
+  static ::crosapi::mojom::IconUpdateVersion::Tag GetTag(const ::crosapi::mojom::IconUpdateVersionPtr& input) {
+    return input->which();
+  }
+
+  static  bool raw_icon_updated(const ::crosapi::mojom::IconUpdateVersionPtr& input) {
+    return input->get_raw_icon_updated();
+  }
+
+  static  int32_t timeline(const ::crosapi::mojom::IconUpdateVersionPtr& input) {
+    return input->get_timeline();
+  }
+
+  static bool Read(::crosapi::mojom::IconUpdateVersion::DataView input, ::crosapi::mojom::IconUpdateVersionPtr* output);
 };
 
 

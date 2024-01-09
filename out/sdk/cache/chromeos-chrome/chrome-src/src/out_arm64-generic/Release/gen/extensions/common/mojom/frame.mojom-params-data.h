@@ -196,6 +196,45 @@ class  LocalFrame_UpdateBrowserWindowId_Params_Data {
 };
 static_assert(sizeof(LocalFrame_UpdateBrowserWindowId_Params_Data) == 16,
               "Bad sizeof(LocalFrame_UpdateBrowserWindowId_Params_Data)");
+class  LocalFrame_DispatchOnConnect_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::extensions::mojom::internal::PortId_Data> port_id;
+  int32_t channel_type;
+  mojo::internal::AssociatedEndpointHandle_Data port;
+  mojo::internal::Pointer<mojo::internal::String_Data> channel_name;
+  mojo::internal::Pointer<::extensions::mojom::internal::TabConnectionInfo_Data> tab_info;
+  mojo::internal::Pointer<::extensions::mojom::internal::ExternalConnectionInfo_Data> external_connection_info;
+  mojo::internal::AssociatedInterface_Data port_host;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrame_DispatchOnConnect_Params_Data>;
+
+  LocalFrame_DispatchOnConnect_Params_Data();
+  ~LocalFrame_DispatchOnConnect_Params_Data() = delete;
+};
+static_assert(sizeof(LocalFrame_DispatchOnConnect_Params_Data) == 56,
+              "Bad sizeof(LocalFrame_DispatchOnConnect_Params_Data)");
+class  LocalFrame_DispatchOnConnect_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrame_DispatchOnConnect_ResponseParams_Data>;
+
+  LocalFrame_DispatchOnConnect_ResponseParams_Data();
+  ~LocalFrame_DispatchOnConnect_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(LocalFrame_DispatchOnConnect_ResponseParams_Data) == 16,
+              "Bad sizeof(LocalFrame_DispatchOnConnect_ResponseParams_Data)");
 class  LocalFrameHost_RequestScriptInjectionPermission_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -429,6 +468,70 @@ class  LocalFrameHost_AppWindowReady_Params_Data {
 };
 static_assert(sizeof(LocalFrameHost_AppWindowReady_Params_Data) == 8,
               "Bad sizeof(LocalFrameHost_AppWindowReady_Params_Data)");
+class  LocalFrameHost_OpenChannelToExtension_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::extensions::mojom::internal::ExternalConnectionInfo_Data> info;
+  int32_t channel_type;
+  mojo::internal::AssociatedEndpointHandle_Data port_host;
+  mojo::internal::Pointer<mojo::internal::String_Data> channel_name;
+  mojo::internal::Pointer<::extensions::mojom::internal::PortId_Data> port_id;
+  mojo::internal::AssociatedInterface_Data port;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrameHost_OpenChannelToExtension_Params_Data>;
+
+  LocalFrameHost_OpenChannelToExtension_Params_Data();
+  ~LocalFrameHost_OpenChannelToExtension_Params_Data() = delete;
+};
+static_assert(sizeof(LocalFrameHost_OpenChannelToExtension_Params_Data) == 48,
+              "Bad sizeof(LocalFrameHost_OpenChannelToExtension_Params_Data)");
+class  LocalFrameHost_OpenChannelToNativeApp_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> native_app_name;
+  mojo::internal::Pointer<::extensions::mojom::internal::PortId_Data> port_id;
+  mojo::internal::AssociatedInterface_Data port;
+  mojo::internal::AssociatedEndpointHandle_Data port_host;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrameHost_OpenChannelToNativeApp_Params_Data>;
+
+  LocalFrameHost_OpenChannelToNativeApp_Params_Data();
+  ~LocalFrameHost_OpenChannelToNativeApp_Params_Data() = delete;
+};
+static_assert(sizeof(LocalFrameHost_OpenChannelToNativeApp_Params_Data) == 40,
+              "Bad sizeof(LocalFrameHost_OpenChannelToNativeApp_Params_Data)");
+class  LocalFrameHost_OpenChannelToTab_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t tab_id;
+  int32_t frame_id;
+  mojo::internal::Pointer<mojo::internal::String_Data> document_id;
+  int32_t channel_type;
+  mojo::internal::AssociatedEndpointHandle_Data port_host;
+  mojo::internal::Pointer<mojo::internal::String_Data> channel_name;
+  mojo::internal::Pointer<::extensions::mojom::internal::PortId_Data> port_id;
+  mojo::internal::AssociatedInterface_Data port;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrameHost_OpenChannelToTab_Params_Data>;
+
+  LocalFrameHost_OpenChannelToTab_Params_Data();
+  ~LocalFrameHost_OpenChannelToTab_Params_Data() = delete;
+};
+static_assert(sizeof(LocalFrameHost_OpenChannelToTab_Params_Data) == 56,
+              "Bad sizeof(LocalFrameHost_OpenChannelToTab_Params_Data)");
 
 }  // namespace internal
 
@@ -740,6 +843,108 @@ class LocalFrame_UpdateBrowserWindowId_ParamsDataView {
   }
  private:
   internal::LocalFrame_UpdateBrowserWindowId_Params_Data* data_ = nullptr;
+};
+
+
+class LocalFrame_DispatchOnConnect_ParamsDataView {
+ public:
+  LocalFrame_DispatchOnConnect_ParamsDataView() = default;
+
+  LocalFrame_DispatchOnConnect_ParamsDataView(
+      internal::LocalFrame_DispatchOnConnect_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPortIdDataView(
+      ::extensions::mojom::PortIdDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPortId(UserType* output) {
+    
+    auto* pointer = data_->port_id.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::PortIdDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadChannelType(UserType* output) const {
+    auto data_value = data_->channel_type;
+    return mojo::internal::Deserialize<::extensions::mojom::ChannelType>(
+        data_value, output);
+  }
+  ::extensions::mojom::ChannelType channel_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::extensions::mojom::ChannelType>(data_->channel_type));
+  }
+  inline void GetChannelNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadChannelName(UserType* output) {
+    
+    auto* pointer = data_->channel_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetTabInfoDataView(
+      ::extensions::mojom::TabConnectionInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTabInfo(UserType* output) {
+    
+    auto* pointer = data_->tab_info.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::TabConnectionInfoDataView>(
+        pointer, output, message_);
+  }
+  inline void GetExternalConnectionInfoDataView(
+      ::extensions::mojom::ExternalConnectionInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExternalConnectionInfo(UserType* output) {
+    
+    auto* pointer = data_->external_connection_info.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::ExternalConnectionInfoDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakePort() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortAssociatedRequestDataView>(
+            &data_->port, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakePortHost() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortHostAssociatedPtrInfoDataView>(
+            &data_->port_host, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::LocalFrame_DispatchOnConnect_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class LocalFrame_DispatchOnConnect_ResponseParamsDataView {
+ public:
+  LocalFrame_DispatchOnConnect_ResponseParamsDataView() = default;
+
+  LocalFrame_DispatchOnConnect_ResponseParamsDataView(
+      internal::LocalFrame_DispatchOnConnect_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::LocalFrame_DispatchOnConnect_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -1158,6 +1363,224 @@ class LocalFrameHost_AppWindowReady_ParamsDataView {
   internal::LocalFrameHost_AppWindowReady_Params_Data* data_ = nullptr;
 };
 
+
+class LocalFrameHost_OpenChannelToExtension_ParamsDataView {
+ public:
+  LocalFrameHost_OpenChannelToExtension_ParamsDataView() = default;
+
+  LocalFrameHost_OpenChannelToExtension_ParamsDataView(
+      internal::LocalFrameHost_OpenChannelToExtension_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetInfoDataView(
+      ::extensions::mojom::ExternalConnectionInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInfo(UserType* output) {
+    
+    auto* pointer = data_->info.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::ExternalConnectionInfoDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadChannelType(UserType* output) const {
+    auto data_value = data_->channel_type;
+    return mojo::internal::Deserialize<::extensions::mojom::ChannelType>(
+        data_value, output);
+  }
+  ::extensions::mojom::ChannelType channel_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::extensions::mojom::ChannelType>(data_->channel_type));
+  }
+  inline void GetChannelNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadChannelName(UserType* output) {
+    
+    auto* pointer = data_->channel_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPortIdDataView(
+      ::extensions::mojom::PortIdDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPortId(UserType* output) {
+    
+    auto* pointer = data_->port_id.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::PortIdDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakePort() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortAssociatedPtrInfoDataView>(
+            &data_->port, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakePortHost() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortHostAssociatedRequestDataView>(
+            &data_->port_host, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::LocalFrameHost_OpenChannelToExtension_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class LocalFrameHost_OpenChannelToNativeApp_ParamsDataView {
+ public:
+  LocalFrameHost_OpenChannelToNativeApp_ParamsDataView() = default;
+
+  LocalFrameHost_OpenChannelToNativeApp_ParamsDataView(
+      internal::LocalFrameHost_OpenChannelToNativeApp_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetNativeAppNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadNativeAppName(UserType* output) {
+    
+    auto* pointer = data_->native_app_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPortIdDataView(
+      ::extensions::mojom::PortIdDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPortId(UserType* output) {
+    
+    auto* pointer = data_->port_id.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::PortIdDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakePort() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortAssociatedPtrInfoDataView>(
+            &data_->port, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakePortHost() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortHostAssociatedRequestDataView>(
+            &data_->port_host, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::LocalFrameHost_OpenChannelToNativeApp_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class LocalFrameHost_OpenChannelToTab_ParamsDataView {
+ public:
+  LocalFrameHost_OpenChannelToTab_ParamsDataView() = default;
+
+  LocalFrameHost_OpenChannelToTab_ParamsDataView(
+      internal::LocalFrameHost_OpenChannelToTab_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  int32_t tab_id() const {
+    return data_->tab_id;
+  }
+  int32_t frame_id() const {
+    return data_->frame_id;
+  }
+  inline void GetDocumentIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDocumentId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `document_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadDocumentId` instead "
+    "of `ReadDocumentId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->document_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadChannelType(UserType* output) const {
+    auto data_value = data_->channel_type;
+    return mojo::internal::Deserialize<::extensions::mojom::ChannelType>(
+        data_value, output);
+  }
+  ::extensions::mojom::ChannelType channel_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::extensions::mojom::ChannelType>(data_->channel_type));
+  }
+  inline void GetChannelNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadChannelName(UserType* output) {
+    
+    auto* pointer = data_->channel_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPortIdDataView(
+      ::extensions::mojom::PortIdDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPortId(UserType* output) {
+    
+    auto* pointer = data_->port_id.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::PortIdDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakePort() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortAssociatedPtrInfoDataView>(
+            &data_->port, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakePortHost() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<::extensions::mojom::MessagePortHostAssociatedRequestDataView>(
+            &data_->port_host, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::LocalFrameHost_OpenChannelToTab_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void LocalFrame_SetFrameName_ParamsDataView::GetFrameNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->frame_name.Get();
@@ -1233,6 +1656,30 @@ inline void LocalFrame_ExecuteDeclarativeScript_ParamsDataView::GetUrlDataView(
     ::url::mojom::UrlDataView* output) {
   auto pointer = data_->url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+
+
+
+
+inline void LocalFrame_DispatchOnConnect_ParamsDataView::GetPortIdDataView(
+    ::extensions::mojom::PortIdDataView* output) {
+  auto pointer = data_->port_id.Get();
+  *output = ::extensions::mojom::PortIdDataView(pointer, message_);
+}
+inline void LocalFrame_DispatchOnConnect_ParamsDataView::GetChannelNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->channel_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void LocalFrame_DispatchOnConnect_ParamsDataView::GetTabInfoDataView(
+    ::extensions::mojom::TabConnectionInfoDataView* output) {
+  auto pointer = data_->tab_info.Get();
+  *output = ::extensions::mojom::TabConnectionInfoDataView(pointer, message_);
+}
+inline void LocalFrame_DispatchOnConnect_ParamsDataView::GetExternalConnectionInfoDataView(
+    ::extensions::mojom::ExternalConnectionInfoDataView* output) {
+  auto pointer = data_->external_connection_info.Get();
+  *output = ::extensions::mojom::ExternalConnectionInfoDataView(pointer, message_);
 }
 
 
@@ -1339,6 +1786,52 @@ inline void LocalFrameHost_UpdateDraggableRegions_ParamsDataView::GetRegionsData
 }
 
 
+
+
+inline void LocalFrameHost_OpenChannelToExtension_ParamsDataView::GetInfoDataView(
+    ::extensions::mojom::ExternalConnectionInfoDataView* output) {
+  auto pointer = data_->info.Get();
+  *output = ::extensions::mojom::ExternalConnectionInfoDataView(pointer, message_);
+}
+inline void LocalFrameHost_OpenChannelToExtension_ParamsDataView::GetChannelNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->channel_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void LocalFrameHost_OpenChannelToExtension_ParamsDataView::GetPortIdDataView(
+    ::extensions::mojom::PortIdDataView* output) {
+  auto pointer = data_->port_id.Get();
+  *output = ::extensions::mojom::PortIdDataView(pointer, message_);
+}
+
+
+inline void LocalFrameHost_OpenChannelToNativeApp_ParamsDataView::GetNativeAppNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->native_app_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void LocalFrameHost_OpenChannelToNativeApp_ParamsDataView::GetPortIdDataView(
+    ::extensions::mojom::PortIdDataView* output) {
+  auto pointer = data_->port_id.Get();
+  *output = ::extensions::mojom::PortIdDataView(pointer, message_);
+}
+
+
+inline void LocalFrameHost_OpenChannelToTab_ParamsDataView::GetDocumentIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->document_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void LocalFrameHost_OpenChannelToTab_ParamsDataView::GetChannelNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->channel_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void LocalFrameHost_OpenChannelToTab_ParamsDataView::GetPortIdDataView(
+    ::extensions::mojom::PortIdDataView* output) {
+  auto pointer = data_->port_id.Get();
+  *output = ::extensions::mojom::PortIdDataView(pointer, message_);
+}
 
 
 

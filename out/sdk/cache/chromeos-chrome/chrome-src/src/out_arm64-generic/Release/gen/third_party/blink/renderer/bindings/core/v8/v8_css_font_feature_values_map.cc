@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSFontFeatureValuesMap>::value,
     "CSSFontFeatureValuesMap inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSFontFeatureValuesMap::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSFontFeatureValuesMap is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -100,7 +95,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_feature_value_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -120,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesMap.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -138,12 +134,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesMap.clear");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSFontFeatureValuesMap";
 const char* const property_name = "clear";
@@ -176,7 +172,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -202,12 +198,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesMap.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSFontFeatureValuesMap";
 const char* const property_name = "entries";
@@ -240,7 +236,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -285,7 +281,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -321,7 +317,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -347,12 +343,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesMap.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSFontFeatureValuesMap";
 const char* const property_name = "keys";
@@ -375,12 +371,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesMap.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesMap* blink_receiver = V8CSSFontFeatureValuesMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSFontFeatureValuesMap";
 const char* const property_name = "values";

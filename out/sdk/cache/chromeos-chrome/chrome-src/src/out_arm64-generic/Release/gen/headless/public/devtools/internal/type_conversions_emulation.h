@@ -43,6 +43,19 @@ inline base::Value ToValue(const emulation::DisplayFeature& value) {
 
 
 template <>
+struct FromValue<emulation::DevicePosture> {
+  static std::unique_ptr<emulation::DevicePosture> Parse(const base::Value& value, ErrorReporter* errors) {
+    return emulation::DevicePosture::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const emulation::DevicePosture& value) {
+  return value.Serialize();
+}
+
+
+template <>
 struct FromValue<emulation::MediaFeature> {
   static std::unique_ptr<emulation::MediaFeature> Parse(const base::Value& value, ErrorReporter* errors) {
     return emulation::MediaFeature::Parse(value, errors);
@@ -316,6 +329,33 @@ inline base::Value ToValue(const emulation::DisplayFeatureOrientation& value) {
       return base::Value("vertical");
     case emulation::DisplayFeatureOrientation::HORIZONTAL:
       return base::Value("horizontal");
+  };
+  NOTREACHED();
+  return base::Value();
+}
+template <>
+struct FromValue<emulation::DevicePostureType> {
+  static emulation::DevicePostureType Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return emulation::DevicePostureType::CONTINUOUS;
+    }
+    if (value.GetString() == "continuous")
+      return emulation::DevicePostureType::CONTINUOUS;
+    if (value.GetString() == "folded")
+      return emulation::DevicePostureType::FOLDED;
+    errors->AddError("invalid enum value");
+    return emulation::DevicePostureType::CONTINUOUS;
+  }
+};
+
+template <>
+inline base::Value ToValue(const emulation::DevicePostureType& value) {
+  switch (value) {
+    case emulation::DevicePostureType::CONTINUOUS:
+      return base::Value("continuous");
+    case emulation::DevicePostureType::FOLDED:
+      return base::Value("folded");
   };
   NOTREACHED();
   return base::Value();

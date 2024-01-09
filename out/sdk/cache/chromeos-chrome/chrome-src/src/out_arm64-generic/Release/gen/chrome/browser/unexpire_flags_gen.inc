@@ -1,15 +1,15 @@
 
-    {"temporary-unexpire-flags-m118",
-     "Temporarily unexpire M118 flags.",
-     "Temporarily unexpire flags that expired as of M118. These flags will be"
+    {"temporary-unexpire-flags-m120",
+     "Temporarily unexpire M120 flags.",
+     "Temporarily unexpire flags that expired as of M120. These flags will be"
      " removed soon.",
      kOsAll | flags_ui::kFlagInfrastructure,
-     FEATURE_VALUE_TYPE(flags::kUnexpireFlagsM118)},
+     FEATURE_VALUE_TYPE(flags::kUnexpireFlagsM120)},
 
 
-    {"temporary-unexpire-flags-m119",
-     "Temporarily unexpire M119 flags.",
-     "Temporarily unexpire flags that expired as of M119. These flags will be"
+    {"temporary-unexpire-flags-m121",
+     "Temporarily unexpire M121 flags.",
+     "Temporarily unexpire flags that expired as of M121. These flags will be"
      " removed soon.",
      kOsAll | flags_ui::kFlagInfrastructure,
-     FEATURE_VALUE_TYPE(flags::kUnexpireFlagsM119)},
+     FEATURE_VALUE_TYPE(flags::kUnexpireFlagsM121)},

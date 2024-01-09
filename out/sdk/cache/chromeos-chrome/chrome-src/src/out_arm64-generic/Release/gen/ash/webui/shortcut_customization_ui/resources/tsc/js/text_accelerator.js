@@ -1,13 +1,12 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import './input_key.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
+import { KeyInputState } from 'chrome://resources/ash/common/shortcut_input_ui/shortcut_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { AcceleratorLookupManager } from './accelerator_lookup_manager.js';
-import { KeyInputState } from './input_key.js';
 import { TextAcceleratorPartType } from './shortcut_types.js';
 import { isCustomizationAllowed } from './shortcut_utils.js';
 import { getTemplate } from './text_accelerator.html.js';
@@ -93,11 +92,12 @@ export class TextAcceleratorElement extends PolymerElement {
         const keyState = type === TextAcceleratorPartType.kModifier ?
             KeyInputState.MODIFIER_SELECTED :
             KeyInputState.ALPHANUMERIC_SELECTED;
-        const key = document.createElement('input-key');
+        const key = document.createElement('shortcut-input-key');
         key.key = keyText;
         key.keyState = keyState;
         key.narrow = this.narrow;
         key.highlighted = this.highlighted;
+        key.hasLauncherButton = this.lookupManager.getHasLauncherButton();
         return key;
     }
     getIconForDelimiter() {

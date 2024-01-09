@@ -38,10 +38,10 @@ class BLINK_PLATFORM_EXPORT UDPSocketAsyncWaiter {
 
   ~UDPSocketAsyncWaiter();
   void Bind(
-      const ::net::IPEndPoint& local_addr, UDPSocketOptionsPtr socket_options, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr_out);
+      const ::net::IPEndPoint& local_addr, UDPSocketOptionsPtr socket_options, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr_out);
   
   void Connect(
-      const ::net::IPEndPoint& remote_addr, UDPSocketOptionsPtr socket_options, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr_out);
+      const ::net::IPEndPoint& remote_addr, UDPSocketOptionsPtr socket_options, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr_out);
   
   void SetBroadcast(
       bool broadcast, int32_t* out_result);
@@ -72,7 +72,7 @@ class BLINK_PLATFORM_EXPORT UDPSocketAsyncWaiter {
 
 class BLINK_PLATFORM_EXPORT UDPSocketListenerInterceptorForTesting : public UDPSocketListener {
   virtual UDPSocketListener* GetForwardingInterface() = 0;
-  void OnReceived(int32_t result, const absl::optional<::net::IPEndPoint>& src_addr, absl::optional<::base::span<const ::uint8_t>> data) override;
+  void OnReceived(int32_t result, const std::optional<::net::IPEndPoint>& src_addr, std::optional<::base::span<const ::uint8_t>> data) override;
 };
 class BLINK_PLATFORM_EXPORT UDPSocketListenerAsyncWaiter {
  public:

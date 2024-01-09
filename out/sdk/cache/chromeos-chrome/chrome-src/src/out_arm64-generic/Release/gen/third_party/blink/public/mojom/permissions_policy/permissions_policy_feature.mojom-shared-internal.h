@@ -106,6 +106,11 @@ struct PermissionsPolicyFeature_Data {
       case 110:
       case 111:
       case 112:
+      case 113:
+      case 114:
+      case 115:
+      case 116:
+      case 117:
         return true;
     }
     return false;

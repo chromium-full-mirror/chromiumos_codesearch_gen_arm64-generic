@@ -3,7 +3,7 @@ export function getTemplate() {
   return html`<!--_html_template_start_--><style include="multidevice-setup-shared">
   #user-info-container  {
     align-items: center;
-    color: var(--cros-text-color-secondary);
+    color: var(--cros-sys-on_surface_variant);
     display: flex;
     padding-top: 32px;
   }

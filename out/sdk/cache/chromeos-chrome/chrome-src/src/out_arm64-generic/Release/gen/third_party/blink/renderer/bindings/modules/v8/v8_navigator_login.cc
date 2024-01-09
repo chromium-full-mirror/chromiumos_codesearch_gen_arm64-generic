@@ -33,7 +33,7 @@ namespace blink {
 bool V8NavigatorLogin::IsExposed(ExecutionContext* execution_context) {
   
 const bool is_in_secure_context = execution_context->IsSecureContext();
-return is_in_secure_context && execution_context->IsWindow() && RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled(execution_context);
+return is_in_secure_context && execution_context->IsWindow() && RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, NavigatorLogin>::value,
     "NavigatorLogin inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&NavigatorLogin::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NavigatorLogin is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -112,7 +107,7 @@ return;
 
 
 
-NavigatorLogin* blink_receiver = V8NavigatorLogin::ToWrappableUnsafe(v8_receiver);
+NavigatorLogin* blink_receiver = V8NavigatorLogin::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

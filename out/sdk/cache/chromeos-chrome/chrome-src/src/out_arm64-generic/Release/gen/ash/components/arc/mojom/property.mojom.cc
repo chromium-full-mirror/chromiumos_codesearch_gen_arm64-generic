@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -143,14 +144,17 @@ void PropertyInstanceProxy::GetGcaMigrationProperty(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::PropertyInstance::GetGcaMigrationProperty");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPropertyInstance_GetGcaMigrationProperty_Name, kFlags, 0, 0, nullptr);
@@ -181,14 +185,17 @@ void PropertyInstanceProxy::SetMinimizeOnBackButton(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPropertyInstance_SetMinimizeOnBackButton_Name, kFlags, 0, 0, nullptr);
@@ -252,7 +259,7 @@ class PropertyInstance_GetGcaMigrationProperty_ProxyToResponder : public ::mojo:
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_value);
+      const std::optional<std::string>& in_value);
 };
 
 bool PropertyInstance_GetGcaMigrationProperty_ForwardToCallback::Accept(
@@ -265,7 +272,7 @@ bool PropertyInstance_GetGcaMigrationProperty_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_value{};
+  std::optional<std::string> p_value{};
   PropertyInstance_GetGcaMigrationProperty_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValue(&p_value))
@@ -284,7 +291,7 @@ std::move(p_value));
 }
 
 void PropertyInstance_GetGcaMigrationProperty_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_value) {
+    const std::optional<std::string>& in_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::PropertyInstance::GetGcaMigrationProperty", "async_response_parameters",
@@ -292,13 +299,14 @@ void PropertyInstance_GetGcaMigrationProperty_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPropertyInstance_GetGcaMigrationProperty_Name, kFlags, 0, 0, nullptr);
@@ -409,13 +417,13 @@ bool PropertyInstanceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPropertyInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::PropertyInstance_GetGcaMigrationProperty_Params_Data::Validate,
+    { &internal::PropertyInstance_GetGcaMigrationProperty_Params_Data::Validate,
      &internal::PropertyInstance_GetGcaMigrationProperty_ResponseParams_Data::Validate},
-    {&internal::PropertyInstance_SetMinimizeOnBackButton_Params_Data::Validate,
+    { &internal::PropertyInstance_SetMinimizeOnBackButton_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -457,14 +465,14 @@ PropertyInstanceAsyncWaiter::PropertyInstanceAsyncWaiter(
 PropertyInstanceAsyncWaiter::~PropertyInstanceAsyncWaiter() = default;
 
 void PropertyInstanceAsyncWaiter::GetGcaMigrationProperty(
-    absl::optional<std::string>* out_value) {
+    std::optional<std::string>* out_value) {
   base::RunLoop loop;
   proxy_->GetGcaMigrationProperty(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_value
+             std::optional<std::string>* out_value
 ,
-             const absl::optional<std::string>& value) {*out_value = std::move(value);
+             const std::optional<std::string>& value) {*out_value = std::move(value);
             loop->Quit();
           },
           &loop,
@@ -472,9 +480,9 @@ void PropertyInstanceAsyncWaiter::GetGcaMigrationProperty(
   loop.Run();
 }
 
-absl::optional<std::string> PropertyInstanceAsyncWaiter::GetGcaMigrationProperty(
+std::optional<std::string> PropertyInstanceAsyncWaiter::GetGcaMigrationProperty(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetGcaMigrationProperty(&async_wait_result);
   return async_wait_result;
 }

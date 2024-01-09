@@ -111,5 +111,11 @@ export class Switch extends LitElement {
     click() {
         this.mdSwitch?.click();
     }
+    updated(changedProperties) {
+        if (changedProperties.has('disabled')) {
+            // Work around for b/315384008.
+            this.renderRoot.querySelector('md-switch')?.requestUpdate();
+        }
+    }
 }
 customElements.define('cros-switch', Switch);

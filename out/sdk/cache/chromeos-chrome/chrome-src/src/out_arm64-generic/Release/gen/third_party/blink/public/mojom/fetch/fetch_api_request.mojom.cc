@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -164,23 +165,23 @@ FetchAPIRequest::FetchAPIRequest(
     ::blink::FetchAPIRequestHeadersMap headers_in,
     ::blink::mojom::SerializedBlobPtr blob_in,
     ::scoped_refptr<::network::ResourceRequestBody> body_in,
-    const absl::optional<::url::Origin>& request_initiator_in,
+    const std::optional<::url::Origin>& request_initiator_in,
     std::vector<::GURL> navigation_redirect_chain_in,
     ::blink::mojom::ReferrerPtr referrer_in,
     ::network::mojom::CredentialsMode credentials_mode_in,
     FetchCacheMode cache_mode_in,
     ::network::mojom::RedirectMode redirect_mode_in,
-    const absl::optional<std::string>& integrity_in,
+    const std::optional<std::string>& integrity_in,
     ::net::RequestPriority priority_in,
-    const absl::optional<::base::UnguessableToken>& fetch_window_id_in,
+    const std::optional<::base::UnguessableToken>& fetch_window_id_in,
     bool keepalive_in,
     bool is_reload_in,
     bool is_history_navigation_in,
-    const absl::optional<std::string>& devtools_stack_id_in,
+    const std::optional<std::string>& devtools_stack_id_in,
     ::network::mojom::TrustTokenParamsPtr trust_token_params_in,
     ::network::mojom::IPAddressSpace target_address_space_in,
     ::network::mojom::AttributionReportingEligibility attribution_reporting_eligibility_in,
-    const absl::optional<::base::UnguessableToken>& service_worker_race_network_request_token_in)
+    const std::optional<::base::UnguessableToken>& service_worker_race_network_request_token_in)
     : mode(std::move(mode_in)),
       is_main_resource_load(std::move(is_main_resource_load_in)),
       destination(std::move(destination_in)),
@@ -298,7 +299,7 @@ void FetchAPIRequest::WriteIntoTrace(
     dict.AddItem(
       "request_initiator"), this->request_initiator,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -352,7 +353,7 @@ void FetchAPIRequest::WriteIntoTrace(
     dict.AddItem(
       "integrity"), this->integrity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -370,7 +371,7 @@ void FetchAPIRequest::WriteIntoTrace(
     dict.AddItem(
       "fetch_window_id"), this->fetch_window_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -406,7 +407,7 @@ void FetchAPIRequest::WriteIntoTrace(
     dict.AddItem(
       "devtools_stack_id"), this->devtools_stack_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -442,7 +443,7 @@ void FetchAPIRequest::WriteIntoTrace(
     dict.AddItem(
       "service_worker_race_network_request_token"), this->service_worker_race_network_request_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

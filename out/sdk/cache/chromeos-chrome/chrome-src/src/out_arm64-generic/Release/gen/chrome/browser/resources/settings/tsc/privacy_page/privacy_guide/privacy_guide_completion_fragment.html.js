@@ -24,7 +24,7 @@ export function getTemplate() {
   </privacy-guide-completion-link-row>
 </template>
 <div aria-disabled="true" role="none">
-  <a id="privacySandboxLink" href="privacySandbox" target="_blank" tabindex="-1" aria-disabled="true" role="none"></a>
+  <a id="privacySandboxLink" href="adPrivacy" target="_blank" tabindex="-1" aria-disabled="true" role="none"></a>
 </div>
 <template is="dom-if" if="[[shouldShowWaa_]]">
   <privacy-guide-completion-link-row id="waaRow" label="$i18n{privacyGuideCompletionCardWaaLabel}" sub-label="$i18n{privacyGuideCompletionCardWaaSubLabel}" light-img-src="./images/privacy_guide/waa_graphic.svg" dark-img-src="./images/privacy_guide/waa_graphic_dark.svg" on-click="onWaaClick_">

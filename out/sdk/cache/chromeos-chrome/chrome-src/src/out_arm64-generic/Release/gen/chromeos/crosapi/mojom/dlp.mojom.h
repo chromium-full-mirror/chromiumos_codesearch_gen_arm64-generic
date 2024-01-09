@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,10 +23,12 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/dlp.mojom-features.h"
 #include "chromeos/crosapi/mojom/dlp.mojom-shared.h"
 #include "chromeos/crosapi/mojom/dlp.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
 #include "url/mojom/url.mojom.h"
+#include "mojo/public/mojom/base/file_path.mojom.h"
 #include <string>
 #include <vector>
 
@@ -119,7 +121,7 @@ class Dlp
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 8736677364705218216ULL,
                                       11907949815211621387ULL };
-  static constexpr uint32_t Version_ = 2;
+  static constexpr uint32_t Version_ = 4;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -136,6 +138,7 @@ class Dlp
     kCheckScreenShareRestrictionMinVersion = 1,
     kOnScreenShareStartedMinVersion = 2,
     kOnScreenShareStoppedMinVersion = 2,
+    kShowBlockedFilesMinVersion = 4,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -151,6 +154,9 @@ class Dlp
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnScreenShareStopped_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ShowBlockedFiles_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -169,6 +175,9 @@ class Dlp
 
   
   virtual void OnScreenShareStopped(const std::string& label, ScreenShareAreaPtr area) = 0;
+
+  
+  virtual void ShowBlockedFiles(std::optional<uint64_t> task_id, const std::vector<::base::FilePath>& files, FileAction action) = 0;
 };
 
 
@@ -206,6 +215,8 @@ class  DlpProxy
   void OnScreenShareStarted(const std::string& label, ScreenShareAreaPtr area, const ::std::u16string& application_title, ::mojo::PendingRemote<StateChangeDelegate> delegate) final;
   
   void OnScreenShareStopped(const std::string& label, ScreenShareAreaPtr area) final;
+  
+  void ShowBlockedFiles(std::optional<uint64_t> task_id, const std::vector<::base::FilePath>& files, FileAction action) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -338,10 +349,10 @@ class  ScreenShareArea {
   ScreenShareArea();
 
   explicit ScreenShareArea(
-      const absl::optional<std::string>& window_id);
+      const std::optional<std::string>& window_id);
 
   ScreenShareArea(
-      const absl::optional<std::string>& window_id,
+      const std::optional<std::string>& window_id,
       uint64_t snapshot_source_id);
 
 
@@ -420,7 +431,7 @@ class  ScreenShareArea {
   }
 
   
-  absl::optional<std::string> window_id;
+  std::optional<std::string> window_id;
   
   uint64_t snapshot_source_id;
 

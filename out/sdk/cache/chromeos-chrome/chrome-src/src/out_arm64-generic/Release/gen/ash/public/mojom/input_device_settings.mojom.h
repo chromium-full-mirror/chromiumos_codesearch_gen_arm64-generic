@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/public/mojom/input_device_settings.mojom-features.h"
 #include "ash/public/mojom/input_device_settings.mojom-shared.h"
 #include "ash/public/mojom/input_device_settings.mojom-forward.h"
 #include "ash/public/mojom/accelerator_actions.mojom.h"
@@ -632,154 +633,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  KeyEvent {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<KeyEvent, T>::value>;
-  using DataView = KeyEventDataView;
-  using Data_ = internal::KeyEvent_Data;
-
-  template <typename... Args>
-  static KeyEventPtr New(Args&&... args) {
-    return KeyEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static KeyEventPtr From(const U& u) {
-    return mojo::TypeConverter<KeyEventPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, KeyEvent>::Convert(*this);
-  }
-
-
-  KeyEvent();
-
-  KeyEvent(
-      ::ui::KeyboardCode vkey,
-      uint32_t dom_code,
-      uint32_t dom_key,
-      uint32_t modifiers);
-
-
-  ~KeyEvent();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = KeyEventPtr>
-  KeyEventPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        KeyEvent::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        KeyEvent::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::KeyEvent_UnserializedMessageContext<
-            UserType, KeyEvent::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<KeyEvent::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return KeyEvent::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::KeyEvent_UnserializedMessageContext<
-            UserType, KeyEvent::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<KeyEvent::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  ::ui::KeyboardCode vkey;
-  
-  uint32_t dom_code;
-  
-  uint32_t dom_key;
-  
-  uint32_t modifiers;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
 
 class  RemappingAction {
  public:
@@ -800,25 +653,25 @@ class  RemappingAction {
   // Construct an instance holding |accelerator_action|.
   static RemappingActionPtr
   NewAcceleratorAction(
-      ::ash::AcceleratorAction accelerator_action) {
+      ::ash::AcceleratorAction value) {
     auto result = RemappingActionPtr(absl::in_place);
-    result->set_accelerator_action(std::move(accelerator_action));
+    result->set_accelerator_action(std::move(value));
     return result;
   }
   // Construct an instance holding |key_event|.
   static RemappingActionPtr
   NewKeyEvent(
-      KeyEventPtr key_event) {
+      KeyEventPtr value) {
     auto result = RemappingActionPtr(absl::in_place);
-    result->set_key_event(std::move(key_event));
+    result->set_key_event(std::move(value));
     return result;
   }
   // Construct an instance holding |static_shortcut_action|.
   static RemappingActionPtr
   NewStaticShortcutAction(
-      StaticShortcutAction static_shortcut_action) {
+      StaticShortcutAction value) {
     auto result = RemappingActionPtr(absl::in_place);
-    result->set_static_shortcut_action(std::move(static_shortcut_action));
+    result->set_static_shortcut_action(std::move(value));
     return result;
   }
 
@@ -951,17 +804,17 @@ class  Button {
   // Construct an instance holding |vkey|.
   static ButtonPtr
   NewVkey(
-      ::ui::KeyboardCode vkey) {
+      ::ui::KeyboardCode value) {
     auto result = ButtonPtr(absl::in_place);
-    result->set_vkey(std::move(vkey));
+    result->set_vkey(std::move(value));
     return result;
   }
   // Construct an instance holding |customizable_button|.
   static ButtonPtr
   NewCustomizableButton(
-      CustomizableButton customizable_button) {
+      CustomizableButton value) {
     auto result = ButtonPtr(absl::in_place);
-    result->set_customizable_button(std::move(customizable_button));
+    result->set_customizable_button(std::move(value));
     return result;
   }
 
@@ -1702,8 +1555,8 @@ class  KeyboardSettings {
       bool top_row_are_fkeys,
       bool suppress_meta_fkey_rewrites,
       SixPackKeyInfoPtr six_pack_key_remappings,
-      absl::optional<::ui::mojom::ExtendedFkeysModifier> f11,
-      absl::optional<::ui::mojom::ExtendedFkeysModifier> f12);
+      std::optional<::ui::mojom::ExtendedFkeysModifier> f11,
+      std::optional<::ui::mojom::ExtendedFkeysModifier> f12);
 
 KeyboardSettings(const KeyboardSettings&) = delete;
 KeyboardSettings& operator=(const KeyboardSettings&) = delete;
@@ -1791,9 +1644,9 @@ KeyboardSettings& operator=(const KeyboardSettings&) = delete;
   
   SixPackKeyInfoPtr six_pack_key_remappings;
   
-  absl::optional<::ui::mojom::ExtendedFkeysModifier> f11;
+  std::optional<::ui::mojom::ExtendedFkeysModifier> f11;
   
-  absl::optional<::ui::mojom::ExtendedFkeysModifier> f12;
+  std::optional<::ui::mojom::ExtendedFkeysModifier> f12;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2661,6 +2514,7 @@ class  GraphicsTablet {
       const std::string& name,
       uint32_t id,
       const std::string& device_key,
+      CustomizationRestriction customization_restriction,
       GraphicsTabletSettingsPtr settings);
 
 GraphicsTablet(const GraphicsTablet&) = delete;
@@ -2746,6 +2600,8 @@ GraphicsTablet& operator=(const GraphicsTablet&) = delete;
   uint32_t id;
   
   std::string device_key;
+  
+  CustomizationRestriction customization_restriction;
   
   GraphicsTabletSettingsPtr settings;
 
@@ -3071,6 +2927,157 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+class  KeyEvent {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<KeyEvent, T>::value>;
+  using DataView = KeyEventDataView;
+  using Data_ = internal::KeyEvent_Data;
+
+  template <typename... Args>
+  static KeyEventPtr New(Args&&... args) {
+    return KeyEventPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static KeyEventPtr From(const U& u) {
+    return mojo::TypeConverter<KeyEventPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, KeyEvent>::Convert(*this);
+  }
+
+
+  KeyEvent();
+
+  KeyEvent(
+      ::ui::KeyboardCode vkey,
+      uint32_t dom_code,
+      uint32_t dom_key,
+      uint32_t modifiers,
+      const std::string& key_display);
+
+
+  ~KeyEvent();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = KeyEventPtr>
+  KeyEventPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        KeyEvent::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        KeyEvent::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::KeyEvent_UnserializedMessageContext<
+            UserType, KeyEvent::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<KeyEvent::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return KeyEvent::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::KeyEvent_UnserializedMessageContext<
+            UserType, KeyEvent::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<KeyEvent::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::ui::KeyboardCode vkey;
+  
+  uint32_t dom_code;
+  
+  uint32_t dom_key;
+  
+  uint32_t modifiers;
+  
+  std::string key_display;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, KeyEvent::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 template <typename UnionPtrType>
 RemappingActionPtr RemappingAction::Clone() const {
@@ -3813,6 +3820,7 @@ GraphicsTabletPtr GraphicsTablet::Clone() const {
       mojo::Clone(name),
       mojo::Clone(id),
       mojo::Clone(device_key),
+      mojo::Clone(customization_restriction),
       mojo::Clone(settings)
   );
 }
@@ -3824,6 +3832,8 @@ bool GraphicsTablet::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->id, other_struct.id))
     return false;
   if (!mojo::Equals(this->device_key, other_struct.device_key))
+    return false;
+  if (!mojo::Equals(this->customization_restriction, other_struct.customization_restriction))
     return false;
   if (!mojo::Equals(this->settings, other_struct.settings))
     return false;
@@ -3843,6 +3853,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.device_key < rhs.device_key)
     return true;
   if (rhs.device_key < lhs.device_key)
+    return false;
+  if (lhs.customization_restriction < rhs.customization_restriction)
+    return true;
+  if (rhs.customization_restriction < lhs.customization_restriction)
     return false;
   if (lhs.settings < rhs.settings)
     return true;
@@ -3921,7 +3935,8 @@ KeyEventPtr KeyEvent::Clone() const {
       mojo::Clone(vkey),
       mojo::Clone(dom_code),
       mojo::Clone(dom_key),
-      mojo::Clone(modifiers)
+      mojo::Clone(modifiers),
+      mojo::Clone(key_display)
   );
 }
 
@@ -3934,6 +3949,8 @@ bool KeyEvent::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->dom_key, other_struct.dom_key))
     return false;
   if (!mojo::Equals(this->modifiers, other_struct.modifiers))
+    return false;
+  if (!mojo::Equals(this->key_display, other_struct.key_display))
     return false;
   return true;
 }
@@ -3955,6 +3972,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.modifiers < rhs.modifiers)
     return true;
   if (rhs.modifiers < lhs.modifiers)
+    return false;
+  if (lhs.key_display < rhs.key_display)
+    return true;
+  if (rhs.key_display < lhs.key_display)
     return false;
   return false;
 }
@@ -4456,6 +4477,11 @@ struct  StructTraits<::ash::mojom::GraphicsTablet::DataView,
     return input->device_key;
   }
 
+  static decltype(::ash::mojom::GraphicsTablet::customization_restriction) customization_restriction(
+      const ::ash::mojom::GraphicsTabletPtr& input) {
+    return input->customization_restriction;
+  }
+
   static const decltype(::ash::mojom::GraphicsTablet::settings)& settings(
       const ::ash::mojom::GraphicsTabletPtr& input) {
     return input->settings;
@@ -4534,6 +4560,11 @@ struct  StructTraits<::ash::mojom::KeyEvent::DataView,
   static decltype(::ash::mojom::KeyEvent::modifiers) modifiers(
       const ::ash::mojom::KeyEventPtr& input) {
     return input->modifiers;
+  }
+
+  static const decltype(::ash::mojom::KeyEvent::key_display)& key_display(
+      const ::ash::mojom::KeyEventPtr& input) {
+    return input->key_display;
   }
 
   static bool Read(::ash::mojom::KeyEvent::DataView input, ::ash::mojom::KeyEventPtr* output);

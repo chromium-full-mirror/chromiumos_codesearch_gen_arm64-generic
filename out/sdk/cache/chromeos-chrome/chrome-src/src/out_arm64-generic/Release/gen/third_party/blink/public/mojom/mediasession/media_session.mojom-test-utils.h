@@ -36,7 +36,7 @@ class BLINK_COMMON_EXPORT MediaSessionServiceInterceptorForTesting : public Medi
   virtual MediaSessionService* GetForwardingInterface() = 0;
   void SetClient(::mojo::PendingRemote<MediaSessionClient> client) override;
   void SetPlaybackState(MediaSessionPlaybackState state) override;
-  void SetPositionState(const absl::optional<::media_session::MediaPosition>& position) override;
+  void SetPositionState(const std::optional<::media_session::MediaPosition>& position) override;
   void SetMetadata(SpecMediaMetadataPtr metadata) override;
   void SetMicrophoneState(::media_session::mojom::MicrophoneState microphone_state) override;
   void SetCameraState(::media_session::mojom::CameraState camera_state) override;

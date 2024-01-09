@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/content_settings/core/common/content_settings.mojom-features.h"
 #include "components/content_settings/core/common/content_settings.mojom-shared.h"
 #include "components/content_settings/core/common/content_settings.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -40,30 +41,6 @@
 #include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::content_settings::mojom::ContentSetting>
-    : EnumHashTraits<::content_settings::mojom::ContentSetting, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::content_settings::mojom::SessionModel>
-    : EnumHashTraits<::content_settings::mojom::SessionModel, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace content_settings::mojom::blink {

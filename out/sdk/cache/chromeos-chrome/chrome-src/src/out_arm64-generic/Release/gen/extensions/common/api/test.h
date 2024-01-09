@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -36,8 +37,8 @@ struct TestConfig {
   ~TestConfig();
   TestConfig(const TestConfig&) = delete;
   TestConfig& operator=(const TestConfig&) = delete;
-  TestConfig(TestConfig&& rhs);
-  TestConfig& operator=(TestConfig&& rhs);
+  TestConfig(TestConfig&& rhs) noexcept;
+  TestConfig& operator=(TestConfig&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTestConfig object.
@@ -50,8 +51,8 @@ struct TestConfig {
     ~FtpServer();
     FtpServer(const FtpServer&) = delete;
     FtpServer& operator=(const FtpServer&) = delete;
-    FtpServer(FtpServer&& rhs);
-    FtpServer& operator=(FtpServer&& rhs);
+    FtpServer(FtpServer&& rhs) noexcept;
+    FtpServer& operator=(FtpServer&& rhs) noexcept;
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisFtpServer object.
@@ -69,8 +70,8 @@ struct TestConfig {
     ~TestServer();
     TestServer(const TestServer&) = delete;
     TestServer& operator=(const TestServer&) = delete;
-    TestServer(TestServer&& rhs);
-    TestServer& operator=(TestServer&& rhs);
+    TestServer(TestServer&& rhs) noexcept;
+    TestServer& operator=(TestServer&& rhs) noexcept;
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisTestServer object.
@@ -87,44 +88,44 @@ struct TestConfig {
     ~LoginStatus();
     LoginStatus(const LoginStatus&) = delete;
     LoginStatus& operator=(const LoginStatus&) = delete;
-    LoginStatus(LoginStatus&& rhs);
-    LoginStatus& operator=(LoginStatus&& rhs);
+    LoginStatus(LoginStatus&& rhs) noexcept;
+    LoginStatus& operator=(LoginStatus&& rhs) noexcept;
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisLoginStatus object.
     base::Value::Dict ToValue() const;
 
     // Whether there's a logged-in user.
-    absl::optional<bool> is_logged_in;
+    std::optional<bool> is_logged_in;
 
     // Whether the screen is locked.
-    absl::optional<bool> is_screen_locked;
+    std::optional<bool> is_screen_locked;
 
   };
 
 
   // Additional string argument to pass to test.
-  absl::optional<std::string> custom_arg;
+  std::optional<std::string> custom_arg;
 
   // Details on the FTP server used to mock network responses.  Will be set only
   // if test calls ExtensionApiTest::StartFTPServer().
-  absl::optional<FtpServer> ftp_server;
+  std::optional<FtpServer> ftp_server;
 
   // Details on the test server used to mock network responses.  Will be set only
   // if test calls ExtensionApiTest::StartEmbeddedTestServer().
-  absl::optional<TestServer> test_server;
+  std::optional<TestServer> test_server;
 
   // file:/// URL for the API test data directory.
-  absl::optional<std::string> test_data_directory;
+  std::optional<std::string> test_data_directory;
 
   // The port on which the test WebSocket server is listening.
-  absl::optional<int> test_web_socket_port;
+  std::optional<int> test_web_socket_port;
 
   // The port on which the test WebTransport server is listening.
-  absl::optional<int> test_web_transport_port;
+  std::optional<int> test_web_transport_port;
 
   // Login status.
-  absl::optional<LoginStatus> login_status;
+  std::optional<LoginStatus> login_status;
 
 };
 
@@ -137,11 +138,11 @@ base::Value::List Create(const TestConfig& test_config);
 namespace NotifyFail {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string message;
@@ -156,14 +157,14 @@ struct Params {
 namespace NotifyPass {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<std::string> message;
+  std::optional<std::string> message;
 
 
  private:
@@ -175,11 +176,11 @@ struct Params {
 namespace Log {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string message;
@@ -194,11 +195,11 @@ struct Params {
 namespace OpenFileUrl {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -213,11 +214,11 @@ struct Params {
 namespace PassMessage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string message;
@@ -237,11 +238,11 @@ base::Value::List Create(const std::string& response);
 namespace SendScriptResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   base::Value result;
@@ -261,11 +262,11 @@ base::Value::List Create();
 namespace WaitForRoundTrip {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string message;
@@ -295,8 +296,8 @@ struct Info {
   ~Info();
   Info(const Info&) = delete;
   Info& operator=(const Info&) = delete;
-  Info(Info&& rhs);
-  Info& operator=(Info&& rhs);
+  Info(Info&& rhs) noexcept;
+  Info& operator=(Info&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInfo object.

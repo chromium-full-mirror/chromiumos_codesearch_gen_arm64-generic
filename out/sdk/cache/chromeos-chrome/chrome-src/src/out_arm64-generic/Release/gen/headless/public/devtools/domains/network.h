@@ -272,7 +272,7 @@ class HEADLESS_EXPORT Domain {
 
   // Specifies whether to always send extra HTTP headers with the requests from this page.
   void SetExtraHTTPHeaders(std::unique_ptr<SetExtraHTTPHeadersParams> params, base::OnceCallback<void(std::unique_ptr<SetExtraHTTPHeadersResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetExtraHTTPHeadersResult>)>());
-  void SetExtraHTTPHeaders(absl::optional<base::Value::Dict> headers, base::OnceClosure callback = base::OnceClosure());
+  void SetExtraHTTPHeaders(std::optional<base::Value::Dict> headers, base::OnceClosure callback = base::OnceClosure());
   void SetExtraHTTPHeaders(std::unique_ptr<SetExtraHTTPHeadersParams> params, base::OnceClosure callback);
 
   // Allows overriding user agent with the given string.
@@ -314,6 +314,7 @@ class HEADLESS_EXPORT Domain {
   static void HandleSetAttachDebugStackResponse(base::OnceCallback<void(std::unique_ptr<SetAttachDebugStackResult>)> callback, const base::Value& response);
   static void HandleSetRequestInterceptionResponse(base::OnceCallback<void(std::unique_ptr<SetRequestInterceptionResult>)> callback, const base::Value& response);
   static void HandleSetUserAgentOverrideResponse(base::OnceCallback<void(std::unique_ptr<SetUserAgentOverrideResult>)> callback, const base::Value& response);
+  static void HandleStreamResourceContentResponse(base::OnceCallback<void(std::unique_ptr<StreamResourceContentResult>)> callback, const base::Value& response);
   static void HandleGetSecurityIsolationStatusResponse(base::OnceCallback<void(std::unique_ptr<GetSecurityIsolationStatusResult>)> callback, const base::Value& response);
   static void HandleEnableReportingApiResponse(base::OnceCallback<void(std::unique_ptr<EnableReportingApiResult>)> callback, const base::Value& response);
   static void HandleLoadNetworkResourceResponse(base::OnceCallback<void(std::unique_ptr<LoadNetworkResourceResult>)> callback, const base::Value& response);
@@ -419,6 +420,10 @@ class ExperimentalDomain : public Domain {
   // Sets the requests to intercept that match the provided patterns and optionally resource types.
   // Deprecated, please use Fetch.enable instead.
   void SetRequestInterception(std::unique_ptr<SetRequestInterceptionParams> params, base::OnceCallback<void(std::unique_ptr<SetRequestInterceptionResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetRequestInterceptionResult>)>());
+
+  // Enables streaming of the response for the given requestId.
+  // If enabled, the dataReceived event contains the data that was received during streaming.
+  void StreamResourceContent(std::unique_ptr<StreamResourceContentParams> params, base::OnceCallback<void(std::unique_ptr<StreamResourceContentResult>)> callback = base::OnceCallback<void(std::unique_ptr<StreamResourceContentResult>)>());
 
   // Returns information about the COEP/COOP isolation status.
   void GetSecurityIsolationStatus(std::unique_ptr<GetSecurityIsolationStatusParams> params, base::OnceCallback<void(std::unique_ptr<GetSecurityIsolationStatusResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetSecurityIsolationStatusResult>)>());

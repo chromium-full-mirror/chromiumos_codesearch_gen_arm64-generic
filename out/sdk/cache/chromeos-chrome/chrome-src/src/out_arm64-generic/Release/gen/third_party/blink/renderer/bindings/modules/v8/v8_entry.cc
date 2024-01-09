@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Entry>::value,
     "Entry inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Entry::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Entry is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("Entry.isFile.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isFile();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("Entry.isDirectory.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isDirectory();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -118,10 +115,10 @@ BLINK_BINDINGS_TRACE_EVENT("Entry.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -133,10 +130,10 @@ BLINK_BINDINGS_TRACE_EVENT("Entry.fullPath.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fullPath();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->fullPath();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -148,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("Entry.filesystem.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -180,12 +178,12 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Entry";
 const char* const property_name = "copyTo";
@@ -245,12 +243,12 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Entry";
 const char* const property_name = "getMetadata";
@@ -285,8 +283,9 @@ BLINK_BINDINGS_TRACE_EVENT("Entry.getParent");
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -294,7 +293,6 @@ if (non_undefined_argument_length <= 0) {
   blink_receiver->getParent(script_state);
 break;
 }
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Entry";
 const char* const property_name = "getParent";
@@ -338,12 +336,12 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Entry";
 const char* const property_name = "moveTo";
@@ -403,12 +401,12 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Entry";
 const char* const property_name = "remove";
@@ -441,13 +439,13 @@ BLINK_BINDINGS_TRACE_EVENT("Entry.toURL");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Entry* blink_receiver = V8Entry::ToWrappableUnsafe(v8_receiver);
+Entry* blink_receiver = V8Entry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->toURL(script_state);
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

@@ -334,6 +334,7 @@ enum AUDIO_THREAD_LOG_EVENTS {
   AUDIO_THREAD_DEV_IO_RUN_TIME,
   AUDIO_THREAD_OFFSET_EXCEED_AVAILABLE,
   AUDIO_THREAD_WRITE_STREAM_IS_DRAINING,
+  AUDIO_THREAD_UNREASONABLE_AVAILABLE_FRAMES,
 };
 
 // Important events in main thread.
@@ -343,7 +344,7 @@ enum MAIN_THREAD_LOG_EVENTS {
   MAIN_THREAD_DEV_CLOSE,
   // When an iodev is removed from active dev list.
   MAIN_THREAD_DEV_DISABLE,
-  // When an iodev opens when stream attachs.
+  // When an iodev opens when stream attaches.
   MAIN_THREAD_DEV_INIT,
   // When an iodev reopens for format change.
   MAIN_THREAD_DEV_REOPEN,
@@ -368,6 +369,8 @@ enum MAIN_THREAD_LOG_EVENTS {
   MAIN_THREAD_SUSPEND_DEVS,
   // When NC-blockage related flags are toggled.
   MAIN_THREAD_NC_BLOCK_STATE,
+  // When an iodev enabling/disabling DSP offload is failed/ok.
+  MAIN_THREAD_DEV_DSP_OFFLOAD,
   // stream related
   // When an audio stream is added.
   MAIN_THREAD_STREAM_ADDED,
@@ -454,7 +457,7 @@ struct __attribute__((__packed__)) audio_dev_debug_info {
   uint32_t runtime_nsec;
   uint32_t longest_wake_sec;
   uint32_t longest_wake_nsec;
-  double software_gain_scaler;
+  double internal_gain_scaler;
   uint32_t dev_idx;
 };
 
@@ -548,6 +551,7 @@ enum CRAS_AUDIO_THREAD_EVENT_TYPE {
   AUDIO_THREAD_EVENT_DROP_SAMPLES,
   AUDIO_THREAD_EVENT_DEV_OVERRUN,
   AUDIO_THREAD_EVENT_OFFSET_EXCEED_AVAILABLE,
+  AUDIO_THREAD_EVENT_UNREASONABLE_AVAILABLE_FRAMES,
   AUDIO_THREAD_EVENT_TYPE_COUNT,
 };
 
@@ -650,8 +654,6 @@ struct __attribute__((packed, aligned(4))) cras_server_state {
   // Whether any non-empty audio is being
   // played/captured.
   int32_t non_empty_status;
-  // ring buffer for storing audio thread snapshots.
-  struct cras_audio_thread_snapshot_buffer snapshot_buffer;
   // Whether or not bluetooth wideband speech is enabled.
   int32_t bt_wbs_enabled;
   // Whether or not enabling Bluetooth HFP
@@ -712,12 +714,17 @@ struct __attribute__((packed, aligned(4))) cras_server_state {
   // streams with permission in each client type.
   uint32_t num_input_streams_with_permission[CRAS_NUM_CLIENT_TYPE];
 
-  // Debug structs:
+  // Start of debug structs which may change frequently.
+  // Append new members that are accessed in other environments like ARC++
+  // before this point so that the server state ABI is not broken when debug
+  // structs change.
 
   // ring buffer for storing bluetooth event logs.
   struct cras_bt_debug_info bt_debug_info;
   // ring buffer for storing main thread event logs.
   struct main_thread_debug_info main_thread_debug_info;
+  // ring buffer for storing audio thread snapshots.
+  struct cras_audio_thread_snapshot_buffer snapshot_buffer;
   // Debug data filled in when a client requests it. This
   // isn't protected against concurrent updating, only one client should
   // use it.
@@ -859,7 +866,13 @@ enum CRAS_BT_FLAGS {
   // A2DP is the current profile
   CRAS_BT_FLAG_A2DP = (1 << 2),
   // HFP is the current profile
-  CRAS_BT_FLAG_HFP = (1 << 3)
+  CRAS_BT_FLAG_HFP = (1 << 3),
+  // WBS is the preferred/current codec. This is for the purpose of metrics
+  // and is only attributed to the input HFP node.
+  CRAS_BT_FLAG_WBS = (1 << 4),
+  // SWB is the preferred/current codec. This is for the purpose of metrics
+  // and is only attributed to the input HFP node.
+  CRAS_BT_FLAG_SWB = (1 << 5)
 };
 
 #ifdef __cplusplus

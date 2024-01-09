@@ -103,6 +103,9 @@ extern "C" {
     pub fn minijail_set_enable_default_runtime(j: *mut minijail, enable_default_runtime: bool);
 }
 extern "C" {
+    pub fn minijail_set_enable_new_sessions(j: *mut minijail, enable_new_sessions: bool);
+}
+extern "C" {
     pub fn minijail_get_enable_default_runtime(j: *mut minijail) -> bool;
 }
 extern "C" {

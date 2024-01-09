@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -44,102 +45,192 @@
 
 namespace arc::mojom {
 FeatureFlags::FeatureFlags()
-    : qs_revamp(),
+    : deprecated_qs_revamp(),
       jelly_colors(),
-      trackpad_scroll_touchscreen_emulation(true),
+      deprecated_trackpad_scroll_touchscreen_emulation(false),
       touchscreen_emulation(true),
       rounded_window_compat_strategy(),
       rounded_window_radius(),
       xdg_mode(),
-      enable_pip_double_tap() {}
+      enable_pip_double_tap(),
+      render_arc_notifications_by_chrome(),
+      game_dashboard(),
+      resize_compat() {}
 
 FeatureFlags::FeatureFlags(
-    bool qs_revamp_in,
+    bool deprecated_qs_revamp_in,
     bool jelly_colors_in)
-    : qs_revamp(std::move(qs_revamp_in)),
+    : deprecated_qs_revamp(std::move(deprecated_qs_revamp_in)),
       jelly_colors(std::move(jelly_colors_in)),
-      trackpad_scroll_touchscreen_emulation(true),
+      deprecated_trackpad_scroll_touchscreen_emulation(false),
       touchscreen_emulation(true),
       rounded_window_compat_strategy(),
       rounded_window_radius(),
       xdg_mode(),
-      enable_pip_double_tap() {}
+      enable_pip_double_tap(),
+      render_arc_notifications_by_chrome(),
+      game_dashboard(),
+      resize_compat() {}
 
 FeatureFlags::FeatureFlags(
-    bool qs_revamp_in,
+    bool deprecated_qs_revamp_in,
     bool jelly_colors_in,
-    bool trackpad_scroll_touchscreen_emulation_in,
+    bool deprecated_trackpad_scroll_touchscreen_emulation_in,
     bool touchscreen_emulation_in)
-    : qs_revamp(std::move(qs_revamp_in)),
+    : deprecated_qs_revamp(std::move(deprecated_qs_revamp_in)),
       jelly_colors(std::move(jelly_colors_in)),
-      trackpad_scroll_touchscreen_emulation(std::move(trackpad_scroll_touchscreen_emulation_in)),
+      deprecated_trackpad_scroll_touchscreen_emulation(std::move(deprecated_trackpad_scroll_touchscreen_emulation_in)),
       touchscreen_emulation(std::move(touchscreen_emulation_in)),
       rounded_window_compat_strategy(),
       rounded_window_radius(),
       xdg_mode(),
-      enable_pip_double_tap() {}
+      enable_pip_double_tap(),
+      render_arc_notifications_by_chrome(),
+      game_dashboard(),
+      resize_compat() {}
 
 FeatureFlags::FeatureFlags(
-    bool qs_revamp_in,
+    bool deprecated_qs_revamp_in,
     bool jelly_colors_in,
-    bool trackpad_scroll_touchscreen_emulation_in,
+    bool deprecated_trackpad_scroll_touchscreen_emulation_in,
     bool touchscreen_emulation_in,
     RoundedWindowCompatStrategy rounded_window_compat_strategy_in,
     int32_t rounded_window_radius_in)
-    : qs_revamp(std::move(qs_revamp_in)),
+    : deprecated_qs_revamp(std::move(deprecated_qs_revamp_in)),
       jelly_colors(std::move(jelly_colors_in)),
-      trackpad_scroll_touchscreen_emulation(std::move(trackpad_scroll_touchscreen_emulation_in)),
+      deprecated_trackpad_scroll_touchscreen_emulation(std::move(deprecated_trackpad_scroll_touchscreen_emulation_in)),
       touchscreen_emulation(std::move(touchscreen_emulation_in)),
       rounded_window_compat_strategy(std::move(rounded_window_compat_strategy_in)),
       rounded_window_radius(std::move(rounded_window_radius_in)),
       xdg_mode(),
-      enable_pip_double_tap() {}
+      enable_pip_double_tap(),
+      render_arc_notifications_by_chrome(),
+      game_dashboard(),
+      resize_compat() {}
 
 FeatureFlags::FeatureFlags(
-    bool qs_revamp_in,
+    bool deprecated_qs_revamp_in,
     bool jelly_colors_in,
-    bool trackpad_scroll_touchscreen_emulation_in,
+    bool deprecated_trackpad_scroll_touchscreen_emulation_in,
     bool touchscreen_emulation_in,
     RoundedWindowCompatStrategy rounded_window_compat_strategy_in,
     int32_t rounded_window_radius_in,
     bool xdg_mode_in)
-    : qs_revamp(std::move(qs_revamp_in)),
+    : deprecated_qs_revamp(std::move(deprecated_qs_revamp_in)),
       jelly_colors(std::move(jelly_colors_in)),
-      trackpad_scroll_touchscreen_emulation(std::move(trackpad_scroll_touchscreen_emulation_in)),
+      deprecated_trackpad_scroll_touchscreen_emulation(std::move(deprecated_trackpad_scroll_touchscreen_emulation_in)),
       touchscreen_emulation(std::move(touchscreen_emulation_in)),
       rounded_window_compat_strategy(std::move(rounded_window_compat_strategy_in)),
       rounded_window_radius(std::move(rounded_window_radius_in)),
       xdg_mode(std::move(xdg_mode_in)),
-      enable_pip_double_tap() {}
+      enable_pip_double_tap(),
+      render_arc_notifications_by_chrome(),
+      game_dashboard(),
+      resize_compat() {}
 
 FeatureFlags::FeatureFlags(
-    bool qs_revamp_in,
+    bool deprecated_qs_revamp_in,
     bool jelly_colors_in,
-    bool trackpad_scroll_touchscreen_emulation_in,
+    bool deprecated_trackpad_scroll_touchscreen_emulation_in,
     bool touchscreen_emulation_in,
     RoundedWindowCompatStrategy rounded_window_compat_strategy_in,
     int32_t rounded_window_radius_in,
     bool xdg_mode_in,
     bool enable_pip_double_tap_in)
-    : qs_revamp(std::move(qs_revamp_in)),
+    : deprecated_qs_revamp(std::move(deprecated_qs_revamp_in)),
       jelly_colors(std::move(jelly_colors_in)),
-      trackpad_scroll_touchscreen_emulation(std::move(trackpad_scroll_touchscreen_emulation_in)),
+      deprecated_trackpad_scroll_touchscreen_emulation(std::move(deprecated_trackpad_scroll_touchscreen_emulation_in)),
       touchscreen_emulation(std::move(touchscreen_emulation_in)),
       rounded_window_compat_strategy(std::move(rounded_window_compat_strategy_in)),
       rounded_window_radius(std::move(rounded_window_radius_in)),
       xdg_mode(std::move(xdg_mode_in)),
-      enable_pip_double_tap(std::move(enable_pip_double_tap_in)) {}
+      enable_pip_double_tap(std::move(enable_pip_double_tap_in)),
+      render_arc_notifications_by_chrome(),
+      game_dashboard(),
+      resize_compat() {}
+
+FeatureFlags::FeatureFlags(
+    bool deprecated_qs_revamp_in,
+    bool jelly_colors_in,
+    bool deprecated_trackpad_scroll_touchscreen_emulation_in,
+    bool touchscreen_emulation_in,
+    RoundedWindowCompatStrategy rounded_window_compat_strategy_in,
+    int32_t rounded_window_radius_in,
+    bool xdg_mode_in,
+    bool enable_pip_double_tap_in,
+    bool render_arc_notifications_by_chrome_in)
+    : deprecated_qs_revamp(std::move(deprecated_qs_revamp_in)),
+      jelly_colors(std::move(jelly_colors_in)),
+      deprecated_trackpad_scroll_touchscreen_emulation(std::move(deprecated_trackpad_scroll_touchscreen_emulation_in)),
+      touchscreen_emulation(std::move(touchscreen_emulation_in)),
+      rounded_window_compat_strategy(std::move(rounded_window_compat_strategy_in)),
+      rounded_window_radius(std::move(rounded_window_radius_in)),
+      xdg_mode(std::move(xdg_mode_in)),
+      enable_pip_double_tap(std::move(enable_pip_double_tap_in)),
+      render_arc_notifications_by_chrome(std::move(render_arc_notifications_by_chrome_in)),
+      game_dashboard(),
+      resize_compat() {}
+
+FeatureFlags::FeatureFlags(
+    bool deprecated_qs_revamp_in,
+    bool jelly_colors_in,
+    bool deprecated_trackpad_scroll_touchscreen_emulation_in,
+    bool touchscreen_emulation_in,
+    RoundedWindowCompatStrategy rounded_window_compat_strategy_in,
+    int32_t rounded_window_radius_in,
+    bool xdg_mode_in,
+    bool enable_pip_double_tap_in,
+    bool render_arc_notifications_by_chrome_in,
+    bool game_dashboard_in)
+    : deprecated_qs_revamp(std::move(deprecated_qs_revamp_in)),
+      jelly_colors(std::move(jelly_colors_in)),
+      deprecated_trackpad_scroll_touchscreen_emulation(std::move(deprecated_trackpad_scroll_touchscreen_emulation_in)),
+      touchscreen_emulation(std::move(touchscreen_emulation_in)),
+      rounded_window_compat_strategy(std::move(rounded_window_compat_strategy_in)),
+      rounded_window_radius(std::move(rounded_window_radius_in)),
+      xdg_mode(std::move(xdg_mode_in)),
+      enable_pip_double_tap(std::move(enable_pip_double_tap_in)),
+      render_arc_notifications_by_chrome(std::move(render_arc_notifications_by_chrome_in)),
+      game_dashboard(std::move(game_dashboard_in)),
+      resize_compat() {}
+
+FeatureFlags::FeatureFlags(
+    bool deprecated_qs_revamp_in,
+    bool jelly_colors_in,
+    bool deprecated_trackpad_scroll_touchscreen_emulation_in,
+    bool touchscreen_emulation_in,
+    RoundedWindowCompatStrategy rounded_window_compat_strategy_in,
+    int32_t rounded_window_radius_in,
+    bool xdg_mode_in,
+    bool enable_pip_double_tap_in,
+    bool render_arc_notifications_by_chrome_in,
+    bool game_dashboard_in,
+    bool resize_compat_in)
+    : deprecated_qs_revamp(std::move(deprecated_qs_revamp_in)),
+      jelly_colors(std::move(jelly_colors_in)),
+      deprecated_trackpad_scroll_touchscreen_emulation(std::move(deprecated_trackpad_scroll_touchscreen_emulation_in)),
+      touchscreen_emulation(std::move(touchscreen_emulation_in)),
+      rounded_window_compat_strategy(std::move(rounded_window_compat_strategy_in)),
+      rounded_window_radius(std::move(rounded_window_radius_in)),
+      xdg_mode(std::move(xdg_mode_in)),
+      enable_pip_double_tap(std::move(enable_pip_double_tap_in)),
+      render_arc_notifications_by_chrome(std::move(render_arc_notifications_by_chrome_in)),
+      game_dashboard(std::move(game_dashboard_in)),
+      resize_compat(std::move(resize_compat_in)) {}
 
 FeatureFlags::~FeatureFlags() = default;
 size_t FeatureFlags::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->qs_revamp);
+  seed = mojo::internal::Hash(seed, this->deprecated_qs_revamp);
   seed = mojo::internal::Hash(seed, this->jelly_colors);
-  seed = mojo::internal::Hash(seed, this->trackpad_scroll_touchscreen_emulation);
+  seed = mojo::internal::Hash(seed, this->deprecated_trackpad_scroll_touchscreen_emulation);
   seed = mojo::internal::Hash(seed, this->touchscreen_emulation);
   seed = mojo::internal::Hash(seed, this->rounded_window_compat_strategy);
   seed = mojo::internal::Hash(seed, this->rounded_window_radius);
   seed = mojo::internal::Hash(seed, this->xdg_mode);
   seed = mojo::internal::Hash(seed, this->enable_pip_double_tap);
+  seed = mojo::internal::Hash(seed, this->render_arc_notifications_by_chrome);
+  seed = mojo::internal::Hash(seed, this->game_dashboard);
+  seed = mojo::internal::Hash(seed, this->resize_compat);
   return seed;
 }
 
@@ -148,7 +239,7 @@ void FeatureFlags::WriteIntoTrace(
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "qs_revamp"), this->qs_revamp,
+      "deprecated_qs_revamp"), this->deprecated_qs_revamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -166,7 +257,7 @@ void FeatureFlags::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "trackpad_scroll_touchscreen_emulation"), this->trackpad_scroll_touchscreen_emulation,
+      "deprecated_trackpad_scroll_touchscreen_emulation"), this->deprecated_trackpad_scroll_touchscreen_emulation,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -212,6 +303,33 @@ void FeatureFlags::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "enable_pip_double_tap"), this->enable_pip_double_tap,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "render_arc_notifications_by_chrome"), this->render_arc_notifications_by_chrome,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "game_dashboard"), this->game_dashboard,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "resize_compat"), this->resize_compat,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -296,14 +414,17 @@ void ChromeFeatureFlagsInstanceProxy::NotifyFeatureFlags(
                         "<value of type FeatureFlagsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeFeatureFlagsInstance_NotifyFeatureFlags_Name, kFlags, 0, 0, nullptr);
@@ -382,11 +503,11 @@ bool ChromeFeatureFlagsInstanceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChromeFeatureFlagsInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::ChromeFeatureFlagsInstance_NotifyFeatureFlags_Params_Data::Validate,
+    { &internal::ChromeFeatureFlagsInstance_NotifyFeatureFlags_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -411,11 +532,11 @@ bool StructTraits<::arc::mojom::FeatureFlags::DataView, ::arc::mojom::FeatureFla
   ::arc::mojom::FeatureFlagsPtr result(::arc::mojom::FeatureFlags::New());
   
       if (success)
-        result->qs_revamp = input.qs_revamp();
+        result->deprecated_qs_revamp = input.deprecated_qs_revamp();
       if (success)
         result->jelly_colors = input.jelly_colors();
       if (success)
-        result->trackpad_scroll_touchscreen_emulation = input.trackpad_scroll_touchscreen_emulation();
+        result->deprecated_trackpad_scroll_touchscreen_emulation = input.deprecated_trackpad_scroll_touchscreen_emulation();
       if (success)
         result->touchscreen_emulation = input.touchscreen_emulation();
       if (success && !input.ReadRoundedWindowCompatStrategy(&result->rounded_window_compat_strategy))
@@ -426,6 +547,12 @@ bool StructTraits<::arc::mojom::FeatureFlags::DataView, ::arc::mojom::FeatureFla
         result->xdg_mode = input.xdg_mode();
       if (success)
         result->enable_pip_double_tap = input.enable_pip_double_tap();
+      if (success)
+        result->render_arc_notifications_by_chrome = input.render_arc_notifications_by_chrome();
+      if (success)
+        result->game_dashboard = input.game_dashboard();
+      if (success)
+        result->resize_compat = input.resize_compat();
   *output = std::move(result);
   return success;
 }

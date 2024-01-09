@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/audio_stream_factory.mojom-features.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-shared.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-blink-forward.h"
 #include "media/mojo/mojom/audio_data_pipe.mojom-blink-forward.h"
@@ -33,6 +34,7 @@
 #include "media/mojo/mojom/audio_processing.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/shared_memory.mojom-blink.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
+#include "sandbox/policy/mojom/context.mojom-blink-forward.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
 #include "mojo/public/cpp/bindings/lib/wtf_hash_util.h"
@@ -147,7 +149,7 @@ class BLINK_PLATFORM_EXPORT AudioStreamFactory
   virtual ~AudioStreamFactory() = default;
 
 
-  using CreateInputStreamCallback = base::OnceCallback<void(::media::mojom::blink::ReadOnlyAudioDataPipePtr, bool, const absl::optional<::base::UnguessableToken>&)>;
+  using CreateInputStreamCallback = base::OnceCallback<void(::media::mojom::blink::ReadOnlyAudioDataPipePtr, bool, const std::optional<::base::UnguessableToken>&)>;
   
   virtual void CreateInputStream(::mojo::PendingReceiver<::media::mojom::blink::AudioInputStream> stream, ::mojo::PendingRemote<::media::mojom::blink::AudioInputStreamClient> client, ::mojo::PendingRemote<::media::mojom::blink::AudioInputStreamObserver> observer, ::mojo::PendingRemote<::media::mojom::blink::AudioLog> log, const WTF::String& device_id, const ::media::AudioParameters& params, uint32_t shared_memory_count, bool enable_agc, ::base::ReadOnlySharedMemoryRegion key_press_count_buffer, ::media::mojom::blink::AudioProcessingConfigPtr processing_config, CreateInputStreamCallback callback) = 0;
 

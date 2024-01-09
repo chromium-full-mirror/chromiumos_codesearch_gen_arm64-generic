@@ -23,8 +23,7 @@ PROTOBUF_CONSTEXPR ProcessState_MemoryState_WindowsMemory::ProcessState_MemorySt
   : process_private_usage_(0u)
   , process_peak_workingset_size_(0u)
   , process_peak_pagefile_usage_(0u)
-  , process_allocation_attempt_(0u)
-  , process_handle_count_(0u){}
+  , process_allocation_attempt_(0u){}
 struct ProcessState_MemoryState_WindowsMemoryDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ProcessState_MemoryState_WindowsMemoryDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -48,7 +47,7 @@ struct ProcessState_MemoryStateDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessState_MemoryStateDefaultTypeInternal _ProcessState_MemoryState_default_instance_;
 PROTOBUF_CONSTEXPR ProcessState_FileSystemState_PosixFileSystemState::ProcessState_FileSystemState_PosixFileSystemState(
     ::_pbi::ConstantInitialized)
-  : crashing_open_file_descriptors_(0u){}
+  : open_file_descriptors_(0u){}
 struct ProcessState_FileSystemState_PosixFileSystemStateDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ProcessState_FileSystemState_PosixFileSystemStateDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -58,9 +57,22 @@ struct ProcessState_FileSystemState_PosixFileSystemStateDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessState_FileSystemState_PosixFileSystemStateDefaultTypeInternal _ProcessState_FileSystemState_PosixFileSystemState_default_instance_;
+PROTOBUF_CONSTEXPR ProcessState_FileSystemState_WindowsFileSystemState::ProcessState_FileSystemState_WindowsFileSystemState(
+    ::_pbi::ConstantInitialized)
+  : process_handle_count_(0u){}
+struct ProcessState_FileSystemState_WindowsFileSystemStateDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ProcessState_FileSystemState_WindowsFileSystemStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ProcessState_FileSystemState_WindowsFileSystemStateDefaultTypeInternal() {}
+  union {
+    ProcessState_FileSystemState_WindowsFileSystemState _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessState_FileSystemState_WindowsFileSystemStateDefaultTypeInternal _ProcessState_FileSystemState_WindowsFileSystemState_default_instance_;
 PROTOBUF_CONSTEXPR ProcessState_FileSystemState::ProcessState_FileSystemState(
     ::_pbi::ConstantInitialized)
-  : posix_file_system_state_(nullptr){}
+  : posix_file_system_state_(nullptr)
+  , windows_file_system_state_(nullptr){}
 struct ProcessState_FileSystemStateDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ProcessState_FileSystemStateDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -143,9 +155,6 @@ class ProcessState_MemoryState_WindowsMemory::_Internal {
   static void set_has_process_allocation_attempt(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static void set_has_process_handle_count(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
-  }
 };
 
 ProcessState_MemoryState_WindowsMemory::ProcessState_MemoryState_WindowsMemory(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -159,16 +168,16 @@ ProcessState_MemoryState_WindowsMemory::ProcessState_MemoryState_WindowsMemory(c
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&process_private_usage_, &from.process_private_usage_,
-    static_cast<size_t>(reinterpret_cast<char*>(&process_handle_count_) -
-    reinterpret_cast<char*>(&process_private_usage_)) + sizeof(process_handle_count_));
+    static_cast<size_t>(reinterpret_cast<char*>(&process_allocation_attempt_) -
+    reinterpret_cast<char*>(&process_private_usage_)) + sizeof(process_allocation_attempt_));
   // @@protoc_insertion_point(copy_constructor:stability_report.ProcessState.MemoryState.WindowsMemory)
 }
 
 inline void ProcessState_MemoryState_WindowsMemory::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&process_private_usage_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&process_handle_count_) -
-    reinterpret_cast<char*>(&process_private_usage_)) + sizeof(process_handle_count_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&process_allocation_attempt_) -
+    reinterpret_cast<char*>(&process_private_usage_)) + sizeof(process_allocation_attempt_));
 }
 
 ProcessState_MemoryState_WindowsMemory::~ProcessState_MemoryState_WindowsMemory() {
@@ -195,10 +204,10 @@ void ProcessState_MemoryState_WindowsMemory::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000000fu) {
     ::memset(&process_private_usage_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&process_handle_count_) -
-        reinterpret_cast<char*>(&process_private_usage_)) + sizeof(process_handle_count_));
+        reinterpret_cast<char*>(&process_allocation_attempt_) -
+        reinterpret_cast<char*>(&process_private_usage_)) + sizeof(process_allocation_attempt_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -243,15 +252,6 @@ const char* ProcessState_MemoryState_WindowsMemory::_InternalParse(const char* p
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_process_allocation_attempt(&has_bits);
           process_allocation_attempt_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional uint32 process_handle_count = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          _Internal::set_has_process_handle_count(&has_bits);
-          process_handle_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -311,12 +311,6 @@ uint8_t* ProcessState_MemoryState_WindowsMemory::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_process_allocation_attempt(), target);
   }
 
-  // optional uint32 process_handle_count = 5;
-  if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_process_handle_count(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -334,7 +328,7 @@ size_t ProcessState_MemoryState_WindowsMemory::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional uint32 process_private_usage = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_process_private_usage());
@@ -353,11 +347,6 @@ size_t ProcessState_MemoryState_WindowsMemory::ByteSizeLong() const {
     // optional uint32 process_allocation_attempt = 4;
     if (cached_has_bits & 0x00000008u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_process_allocation_attempt());
-    }
-
-    // optional uint32 process_handle_count = 5;
-    if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_process_handle_count());
     }
 
   }
@@ -382,7 +371,7 @@ void ProcessState_MemoryState_WindowsMemory::MergeFrom(const ProcessState_Memory
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       process_private_usage_ = from.process_private_usage_;
     }
@@ -394,9 +383,6 @@ void ProcessState_MemoryState_WindowsMemory::MergeFrom(const ProcessState_Memory
     }
     if (cached_has_bits & 0x00000008u) {
       process_allocation_attempt_ = from.process_allocation_attempt_;
-    }
-    if (cached_has_bits & 0x00000010u) {
-      process_handle_count_ = from.process_handle_count_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -419,8 +405,8 @@ void ProcessState_MemoryState_WindowsMemory::InternalSwap(ProcessState_MemorySta
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ProcessState_MemoryState_WindowsMemory, process_handle_count_)
-      + sizeof(ProcessState_MemoryState_WindowsMemory::process_handle_count_)
+      PROTOBUF_FIELD_OFFSET(ProcessState_MemoryState_WindowsMemory, process_allocation_attempt_)
+      + sizeof(ProcessState_MemoryState_WindowsMemory::process_allocation_attempt_)
       - PROTOBUF_FIELD_OFFSET(ProcessState_MemoryState_WindowsMemory, process_private_usage_)>(
           reinterpret_cast<char*>(&process_private_usage_),
           reinterpret_cast<char*>(&other->process_private_usage_));
@@ -632,7 +618,7 @@ std::string ProcessState_MemoryState::GetTypeName() const {
 class ProcessState_FileSystemState_PosixFileSystemState::_Internal {
  public:
   using HasBits = decltype(std::declval<ProcessState_FileSystemState_PosixFileSystemState>()._has_bits_);
-  static void set_has_crashing_open_file_descriptors(HasBits* has_bits) {
+  static void set_has_open_file_descriptors(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
@@ -647,12 +633,12 @@ ProcessState_FileSystemState_PosixFileSystemState::ProcessState_FileSystemState_
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  crashing_open_file_descriptors_ = from.crashing_open_file_descriptors_;
+  open_file_descriptors_ = from.open_file_descriptors_;
   // @@protoc_insertion_point(copy_constructor:stability_report.ProcessState.FileSystemState.PosixFileSystemState)
 }
 
 inline void ProcessState_FileSystemState_PosixFileSystemState::SharedCtor() {
-crashing_open_file_descriptors_ = 0u;
+open_file_descriptors_ = 0u;
 }
 
 ProcessState_FileSystemState_PosixFileSystemState::~ProcessState_FileSystemState_PosixFileSystemState() {
@@ -678,7 +664,7 @@ void ProcessState_FileSystemState_PosixFileSystemState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  crashing_open_file_descriptors_ = 0u;
+  open_file_descriptors_ = 0u;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -690,11 +676,11 @@ const char* ProcessState_FileSystemState_PosixFileSystemState::_InternalParse(co
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional uint32 crashing_open_file_descriptors = 1;
+      // optional uint32 open_file_descriptors = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _Internal::set_has_crashing_open_file_descriptors(&has_bits);
-          crashing_open_file_descriptors_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _Internal::set_has_open_file_descriptors(&has_bits);
+          open_file_descriptors_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -730,10 +716,10 @@ uint8_t* ProcessState_FileSystemState_PosixFileSystemState::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional uint32 crashing_open_file_descriptors = 1;
+  // optional uint32 open_file_descriptors = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_crashing_open_file_descriptors(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_open_file_descriptors(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -752,10 +738,10 @@ size_t ProcessState_FileSystemState_PosixFileSystemState::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional uint32 crashing_open_file_descriptors = 1;
+  // optional uint32 open_file_descriptors = 1;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_crashing_open_file_descriptors());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_open_file_descriptors());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -778,8 +764,8 @@ void ProcessState_FileSystemState_PosixFileSystemState::MergeFrom(const ProcessS
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_crashing_open_file_descriptors()) {
-    _internal_set_crashing_open_file_descriptors(from._internal_crashing_open_file_descriptors());
+  if (from._internal_has_open_file_descriptors()) {
+    _internal_set_open_file_descriptors(from._internal_open_file_descriptors());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -799,11 +785,191 @@ void ProcessState_FileSystemState_PosixFileSystemState::InternalSwap(ProcessStat
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(crashing_open_file_descriptors_, other->crashing_open_file_descriptors_);
+  swap(open_file_descriptors_, other->open_file_descriptors_);
 }
 
 std::string ProcessState_FileSystemState_PosixFileSystemState::GetTypeName() const {
   return "stability_report.ProcessState.FileSystemState.PosixFileSystemState";
+}
+
+
+// ===================================================================
+
+class ProcessState_FileSystemState_WindowsFileSystemState::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ProcessState_FileSystemState_WindowsFileSystemState>()._has_bits_);
+  static void set_has_process_handle_count(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ProcessState_FileSystemState_WindowsFileSystemState::ProcessState_FileSystemState_WindowsFileSystemState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+}
+ProcessState_FileSystemState_WindowsFileSystemState::ProcessState_FileSystemState_WindowsFileSystemState(const ProcessState_FileSystemState_WindowsFileSystemState& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  process_handle_count_ = from.process_handle_count_;
+  // @@protoc_insertion_point(copy_constructor:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+}
+
+inline void ProcessState_FileSystemState_WindowsFileSystemState::SharedCtor() {
+process_handle_count_ = 0u;
+}
+
+ProcessState_FileSystemState_WindowsFileSystemState::~ProcessState_FileSystemState_WindowsFileSystemState() {
+  // @@protoc_insertion_point(destructor:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ProcessState_FileSystemState_WindowsFileSystemState::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ProcessState_FileSystemState_WindowsFileSystemState::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ProcessState_FileSystemState_WindowsFileSystemState::Clear() {
+// @@protoc_insertion_point(message_clear_start:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  process_handle_count_ = 0u;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ProcessState_FileSystemState_WindowsFileSystemState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional uint32 process_handle_count = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_process_handle_count(&has_bits);
+          process_handle_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ProcessState_FileSystemState_WindowsFileSystemState::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional uint32 process_handle_count = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_process_handle_count(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+  return target;
+}
+
+size_t ProcessState_FileSystemState_WindowsFileSystemState::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional uint32 process_handle_count = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_process_handle_count());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ProcessState_FileSystemState_WindowsFileSystemState::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ProcessState_FileSystemState_WindowsFileSystemState*>(
+      &from));
+}
+
+void ProcessState_FileSystemState_WindowsFileSystemState::MergeFrom(const ProcessState_FileSystemState_WindowsFileSystemState& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_process_handle_count()) {
+    _internal_set_process_handle_count(from._internal_process_handle_count());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ProcessState_FileSystemState_WindowsFileSystemState::CopyFrom(const ProcessState_FileSystemState_WindowsFileSystemState& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ProcessState_FileSystemState_WindowsFileSystemState::IsInitialized() const {
+  return true;
+}
+
+void ProcessState_FileSystemState_WindowsFileSystemState::InternalSwap(ProcessState_FileSystemState_WindowsFileSystemState* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(process_handle_count_, other->process_handle_count_);
+}
+
+std::string ProcessState_FileSystemState_WindowsFileSystemState::GetTypeName() const {
+  return "stability_report.ProcessState.FileSystemState.WindowsFileSystemState";
 }
 
 
@@ -816,11 +982,19 @@ class ProcessState_FileSystemState::_Internal {
   static void set_has_posix_file_system_state(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static const ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState& windows_file_system_state(const ProcessState_FileSystemState* msg);
+  static void set_has_windows_file_system_state(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 const ::stability_report::ProcessState_FileSystemState_PosixFileSystemState&
 ProcessState_FileSystemState::_Internal::posix_file_system_state(const ProcessState_FileSystemState* msg) {
   return *msg->posix_file_system_state_;
+}
+const ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState&
+ProcessState_FileSystemState::_Internal::windows_file_system_state(const ProcessState_FileSystemState* msg) {
+  return *msg->windows_file_system_state_;
 }
 ProcessState_FileSystemState::ProcessState_FileSystemState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -837,11 +1011,19 @@ ProcessState_FileSystemState::ProcessState_FileSystemState(const ProcessState_Fi
   } else {
     posix_file_system_state_ = nullptr;
   }
+  if (from._internal_has_windows_file_system_state()) {
+    windows_file_system_state_ = new ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState(*from.windows_file_system_state_);
+  } else {
+    windows_file_system_state_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:stability_report.ProcessState.FileSystemState)
 }
 
 inline void ProcessState_FileSystemState::SharedCtor() {
-posix_file_system_state_ = nullptr;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&posix_file_system_state_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&windows_file_system_state_) -
+    reinterpret_cast<char*>(&posix_file_system_state_)) + sizeof(windows_file_system_state_));
 }
 
 ProcessState_FileSystemState::~ProcessState_FileSystemState() {
@@ -856,6 +1038,7 @@ ProcessState_FileSystemState::~ProcessState_FileSystemState() {
 inline void ProcessState_FileSystemState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete posix_file_system_state_;
+  if (this != internal_default_instance()) delete windows_file_system_state_;
 }
 
 void ProcessState_FileSystemState::SetCachedSize(int size) const {
@@ -869,9 +1052,15 @@ void ProcessState_FileSystemState::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(posix_file_system_state_ != nullptr);
-    posix_file_system_state_->Clear();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(posix_file_system_state_ != nullptr);
+      posix_file_system_state_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(windows_file_system_state_ != nullptr);
+      windows_file_system_state_->Clear();
+    }
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -888,6 +1077,14 @@ const char* ProcessState_FileSystemState::_InternalParse(const char* ptr, ::_pbi
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_posix_file_system_state(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .stability_report.ProcessState.FileSystemState.WindowsFileSystemState windows_file_system_state = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_windows_file_system_state(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -930,6 +1127,13 @@ uint8_t* ProcessState_FileSystemState::_InternalSerialize(
         _Internal::posix_file_system_state(this).GetCachedSize(), target, stream);
   }
 
+  // optional .stability_report.ProcessState.FileSystemState.WindowsFileSystemState windows_file_system_state = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::windows_file_system_state(this),
+        _Internal::windows_file_system_state(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -946,14 +1150,23 @@ size_t ProcessState_FileSystemState::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .stability_report.ProcessState.FileSystemState.PosixFileSystemState posix_file_system_state = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *posix_file_system_state_);
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional .stability_report.ProcessState.FileSystemState.PosixFileSystemState posix_file_system_state = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *posix_file_system_state_);
+    }
 
+    // optional .stability_report.ProcessState.FileSystemState.WindowsFileSystemState windows_file_system_state = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *windows_file_system_state_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -974,8 +1187,14 @@ void ProcessState_FileSystemState::MergeFrom(const ProcessState_FileSystemState&
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_posix_file_system_state()) {
-    _internal_mutable_posix_file_system_state()->::stability_report::ProcessState_FileSystemState_PosixFileSystemState::MergeFrom(from._internal_posix_file_system_state());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_mutable_posix_file_system_state()->::stability_report::ProcessState_FileSystemState_PosixFileSystemState::MergeFrom(from._internal_posix_file_system_state());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_mutable_windows_file_system_state()->::stability_report::ProcessState_FileSystemState_WindowsFileSystemState::MergeFrom(from._internal_windows_file_system_state());
+    }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -995,7 +1214,12 @@ void ProcessState_FileSystemState::InternalSwap(ProcessState_FileSystemState* ot
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(posix_file_system_state_, other->posix_file_system_state_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ProcessState_FileSystemState, windows_file_system_state_)
+      + sizeof(ProcessState_FileSystemState::windows_file_system_state_)
+      - PROTOBUF_FIELD_OFFSET(ProcessState_FileSystemState, posix_file_system_state_)>(
+          reinterpret_cast<char*>(&posix_file_system_state_),
+          reinterpret_cast<char*>(&other->posix_file_system_state_));
 }
 
 std::string ProcessState_FileSystemState::GetTypeName() const {
@@ -1978,6 +2202,10 @@ Arena::CreateMaybeMessage< ::stability_report::ProcessState_MemoryState >(Arena*
 template<> PROTOBUF_NOINLINE ::stability_report::ProcessState_FileSystemState_PosixFileSystemState*
 Arena::CreateMaybeMessage< ::stability_report::ProcessState_FileSystemState_PosixFileSystemState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::stability_report::ProcessState_FileSystemState_PosixFileSystemState >(arena);
+}
+template<> PROTOBUF_NOINLINE ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState*
+Arena::CreateMaybeMessage< ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState >(arena);
 }
 template<> PROTOBUF_NOINLINE ::stability_report::ProcessState_FileSystemState*
 Arena::CreateMaybeMessage< ::stability_report::ProcessState_FileSystemState >(Arena* arena) {

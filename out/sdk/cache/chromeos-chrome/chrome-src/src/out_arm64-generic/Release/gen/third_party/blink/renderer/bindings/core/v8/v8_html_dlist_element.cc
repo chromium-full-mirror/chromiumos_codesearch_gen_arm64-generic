@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLDListElement>::value,
     "HTMLDListElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLDListElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLDListElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLDListElement.compact.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLDListElement* blink_receiver = V8HTMLDListElement::ToWrappableUnsafe(v8_receiver);
+HTMLDListElement* blink_receiver = V8HTMLDListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kCompactAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

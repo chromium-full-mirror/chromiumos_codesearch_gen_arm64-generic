@@ -35,10 +35,8 @@ class  IndexedDBObserverAsyncWaiter {
 class  IndexedDBControlInterceptorForTesting : public IndexedDBControl {
   virtual IndexedDBControl* GetForwardingInterface() = 0;
   void BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) override;
-  void GetUsage(GetUsageCallback callback) override;
   void DeleteForStorageKey(const ::blink::StorageKey& storage_key, DeleteForStorageKeyCallback callback) override;
   void ForceClose(::storage::BucketId bucket_id, ForceCloseReason reason, ForceCloseCallback callback) override;
-  void GetConnectionCount(::storage::BucketId bucket_id, GetConnectionCountCallback callback) override;
   void DownloadBucketData(::storage::BucketId bucket_id, DownloadBucketDataCallback callback) override;
   void GetAllBucketsDetails(GetAllBucketsDetailsCallback callback) override;
   void SetForceKeepSessionState() override;
@@ -54,18 +52,12 @@ class  IndexedDBControlAsyncWaiter {
   IndexedDBControlAsyncWaiter& operator=(const IndexedDBControlAsyncWaiter&) = delete;
 
   ~IndexedDBControlAsyncWaiter();
-  void GetUsage(
-      std::vector<::storage::mojom::StorageUsageInfoPtr>* out_info);
-  std::vector<::storage::mojom::StorageUsageInfoPtr> GetUsage();
   void DeleteForStorageKey(
       const ::blink::StorageKey& storage_key, bool* out_success);
   bool DeleteForStorageKey(const ::blink::StorageKey& storage_key);
   void ForceClose(
       ::storage::BucketId bucket_id, ForceCloseReason reason);
   
-  void GetConnectionCount(
-      ::storage::BucketId bucket_id, uint64_t* out_connection_count);
-  uint64_t GetConnectionCount(::storage::BucketId bucket_id);
   void DownloadBucketData(
       ::storage::BucketId bucket_id, bool* out_success, ::base::FilePath* out_temp_path, ::base::FilePath* out_zip_path);
   

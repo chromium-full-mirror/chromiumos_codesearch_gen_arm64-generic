@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/serial.mojom-features.h"
 #include "services/device/public/mojom/serial.mojom-shared.h"
 #include "services/device/public/mojom/serial.mojom-blink-forward.h"
 #include "device/bluetooth/public/mojom/uuid.mojom-blink.h"
@@ -41,90 +42,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::SerialSendError>
-    : EnumHashTraits<::device::mojom::SerialSendError, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::SerialReceiveError>
-    : EnumHashTraits<::device::mojom::SerialReceiveError, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::SerialDataBits>
-    : EnumHashTraits<::device::mojom::SerialDataBits, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::SerialParityBit>
-    : EnumHashTraits<::device::mojom::SerialParityBit, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::SerialStopBits>
-    : EnumHashTraits<::device::mojom::SerialStopBits, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::SerialPortFlushMode>
-    : EnumHashTraits<::device::mojom::SerialPortFlushMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::SerialPortType>
-    : EnumHashTraits<::device::mojom::SerialPortType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device::mojom::blink {

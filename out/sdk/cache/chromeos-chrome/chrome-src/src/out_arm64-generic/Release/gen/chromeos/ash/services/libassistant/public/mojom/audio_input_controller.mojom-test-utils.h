@@ -17,8 +17,8 @@ class  AudioInputControllerInterceptorForTesting : public AudioInputController {
   virtual AudioInputController* GetForwardingInterface() = 0;
   void SetMicOpen(bool mic_open) override;
   void SetHotwordEnabled(bool enable) override;
-  void SetDeviceId(const absl::optional<std::string>& device_id) override;
-  void SetHotwordDeviceId(const absl::optional<std::string>& device_id) override;
+  void SetDeviceId(const std::optional<std::string>& device_id) override;
+  void SetHotwordDeviceId(const std::optional<std::string>& device_id) override;
   void SetLidState(LidState new_state) override;
   void OnConversationTurnStarted() override;
 };

@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DecompressionStream>::value,
     "DecompressionStream inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DecompressionStream::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DecompressionStream is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("DecompressionStream.readable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DecompressionStream* blink_receiver = V8DecompressionStream::ToWrappableUnsafe(v8_receiver);
+DecompressionStream* blink_receiver = V8DecompressionStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->readable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -105,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("DecompressionStream.writable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DecompressionStream* blink_receiver = V8DecompressionStream::ToWrappableUnsafe(v8_receiver);
+DecompressionStream* blink_receiver = V8DecompressionStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->writable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { ColorSpec as tabGroups_mojom_ColorSpec } from './tab_group_types.mojom-webui.js';
 import { TabAlertStateSpec as tabs_mojom_TabAlertStateSpec } from './tabs.mojom-webui.js';
+import { String16Spec as mojoBase_mojom_String16Spec } from '//resources/mojo/mojo/public/mojom/base/string16.mojom-webui.js';
 import { TimeSpec as mojoBase_mojom_TimeSpec, TimeTicksSpec as mojoBase_mojom_TimeTicksSpec } from '//resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 import { TokenSpec as mojoBase_mojom_TokenSpec } from '//resources/mojo/mojo/public/mojom/base/token.mojom-webui.js';
 import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
@@ -27,6 +28,15 @@ export var TabOrganizationError;
     TabOrganizationError[TabOrganizationError["kGrouping"] = 1] = "kGrouping";
     TabOrganizationError[TabOrganizationError["kGeneric"] = 2] = "kGeneric";
 })(TabOrganizationError || (TabOrganizationError = {}));
+export const UserFeedbackSpec = { $: mojo.internal.Enum() };
+export var UserFeedback;
+(function (UserFeedback) {
+    UserFeedback[UserFeedback["MIN_VALUE"] = 0] = "MIN_VALUE";
+    UserFeedback[UserFeedback["MAX_VALUE"] = 2] = "MAX_VALUE";
+    UserFeedback[UserFeedback["kUserFeedBackUnspecified"] = 0] = "kUserFeedBackUnspecified";
+    UserFeedback[UserFeedback["kUserFeedBackPositive"] = 1] = "kUserFeedBackPositive";
+    UserFeedback[UserFeedback["kUserFeedBackNegative"] = 2] = "kUserFeedBackNegative";
+})(UserFeedback || (UserFeedback = {}));
 export class PageHandlerFactoryPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -155,18 +165,55 @@ export class PageHandlerRemote {
     requestTabOrganization() {
         this.proxy.sendMessage(7, PageHandler_RequestTabOrganization_ParamsSpec.$, null, []);
     }
+    removeTabFromOrganization(sessionId, organizationId, tab) {
+        this.proxy.sendMessage(8, PageHandler_RemoveTabFromOrganization_ParamsSpec.$, null, [
+            sessionId,
+            organizationId,
+            tab
+        ]);
+    }
+    resetSession() {
+        this.proxy.sendMessage(9, PageHandler_ResetSession_ParamsSpec.$, null, []);
+    }
     saveRecentlyClosedExpandedPref(expanded) {
-        this.proxy.sendMessage(8, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, [
+        this.proxy.sendMessage(10, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, [
             expanded
         ]);
     }
     setTabIndex(index) {
-        this.proxy.sendMessage(9, PageHandler_SetTabIndex_ParamsSpec.$, null, [
+        this.proxy.sendMessage(11, PageHandler_SetTabIndex_ParamsSpec.$, null, [
             index
         ]);
     }
+    startTabGroupTutorial() {
+        this.proxy.sendMessage(12, PageHandler_StartTabGroupTutorial_ParamsSpec.$, null, []);
+    }
+    triggerFeedback(sessionId) {
+        this.proxy.sendMessage(13, PageHandler_TriggerFeedback_ParamsSpec.$, null, [
+            sessionId
+        ]);
+    }
+    triggerSync() {
+        this.proxy.sendMessage(14, PageHandler_TriggerSync_ParamsSpec.$, null, []);
+    }
+    triggerSignIn() {
+        this.proxy.sendMessage(15, PageHandler_TriggerSignIn_ParamsSpec.$, null, []);
+    }
+    openHelpPage() {
+        this.proxy.sendMessage(16, PageHandler_OpenHelpPage_ParamsSpec.$, null, []);
+    }
+    openSyncSettings() {
+        this.proxy.sendMessage(17, PageHandler_OpenSyncSettings_ParamsSpec.$, null, []);
+    }
+    setUserFeedback(sessionId, organizationId, feedback) {
+        this.proxy.sendMessage(18, PageHandler_SetUserFeedback_ParamsSpec.$, null, [
+            sessionId,
+            organizationId,
+            feedback
+        ]);
+    }
     showUI() {
-        this.proxy.sendMessage(10, PageHandler_ShowUI_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(19, PageHandler_ShowUI_ParamsSpec.$, null, []);
     }
 }
 ;
@@ -187,9 +234,18 @@ export class PageHandlerReceiver {
         this.helper_internal_.registerHandler(5, PageHandler_SwitchToTab_ParamsSpec.$, null, impl.switchToTab.bind(impl));
         this.helper_internal_.registerHandler(6, PageHandler_OpenRecentlyClosedEntry_ParamsSpec.$, null, impl.openRecentlyClosedEntry.bind(impl));
         this.helper_internal_.registerHandler(7, PageHandler_RequestTabOrganization_ParamsSpec.$, null, impl.requestTabOrganization.bind(impl));
-        this.helper_internal_.registerHandler(8, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, impl.saveRecentlyClosedExpandedPref.bind(impl));
-        this.helper_internal_.registerHandler(9, PageHandler_SetTabIndex_ParamsSpec.$, null, impl.setTabIndex.bind(impl));
-        this.helper_internal_.registerHandler(10, PageHandler_ShowUI_ParamsSpec.$, null, impl.showUI.bind(impl));
+        this.helper_internal_.registerHandler(8, PageHandler_RemoveTabFromOrganization_ParamsSpec.$, null, impl.removeTabFromOrganization.bind(impl));
+        this.helper_internal_.registerHandler(9, PageHandler_ResetSession_ParamsSpec.$, null, impl.resetSession.bind(impl));
+        this.helper_internal_.registerHandler(10, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, impl.saveRecentlyClosedExpandedPref.bind(impl));
+        this.helper_internal_.registerHandler(11, PageHandler_SetTabIndex_ParamsSpec.$, null, impl.setTabIndex.bind(impl));
+        this.helper_internal_.registerHandler(12, PageHandler_StartTabGroupTutorial_ParamsSpec.$, null, impl.startTabGroupTutorial.bind(impl));
+        this.helper_internal_.registerHandler(13, PageHandler_TriggerFeedback_ParamsSpec.$, null, impl.triggerFeedback.bind(impl));
+        this.helper_internal_.registerHandler(14, PageHandler_TriggerSync_ParamsSpec.$, null, impl.triggerSync.bind(impl));
+        this.helper_internal_.registerHandler(15, PageHandler_TriggerSignIn_ParamsSpec.$, null, impl.triggerSignIn.bind(impl));
+        this.helper_internal_.registerHandler(16, PageHandler_OpenHelpPage_ParamsSpec.$, null, impl.openHelpPage.bind(impl));
+        this.helper_internal_.registerHandler(17, PageHandler_OpenSyncSettings_ParamsSpec.$, null, impl.openSyncSettings.bind(impl));
+        this.helper_internal_.registerHandler(18, PageHandler_SetUserFeedback_ParamsSpec.$, null, impl.setUserFeedback.bind(impl));
+        this.helper_internal_.registerHandler(19, PageHandler_ShowUI_ParamsSpec.$, null, impl.showUI.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -243,15 +299,42 @@ export class PageHandlerCallbackRouter {
         this.requestTabOrganization =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(7, PageHandler_RequestTabOrganization_ParamsSpec.$, null, this.requestTabOrganization.createReceiverHandler(false /* expectsResponse */));
+        this.removeTabFromOrganization =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(8, PageHandler_RemoveTabFromOrganization_ParamsSpec.$, null, this.removeTabFromOrganization.createReceiverHandler(false /* expectsResponse */));
+        this.resetSession =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(9, PageHandler_ResetSession_ParamsSpec.$, null, this.resetSession.createReceiverHandler(false /* expectsResponse */));
         this.saveRecentlyClosedExpandedPref =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(8, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, this.saveRecentlyClosedExpandedPref.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(10, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, this.saveRecentlyClosedExpandedPref.createReceiverHandler(false /* expectsResponse */));
         this.setTabIndex =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(9, PageHandler_SetTabIndex_ParamsSpec.$, null, this.setTabIndex.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(11, PageHandler_SetTabIndex_ParamsSpec.$, null, this.setTabIndex.createReceiverHandler(false /* expectsResponse */));
+        this.startTabGroupTutorial =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(12, PageHandler_StartTabGroupTutorial_ParamsSpec.$, null, this.startTabGroupTutorial.createReceiverHandler(false /* expectsResponse */));
+        this.triggerFeedback =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(13, PageHandler_TriggerFeedback_ParamsSpec.$, null, this.triggerFeedback.createReceiverHandler(false /* expectsResponse */));
+        this.triggerSync =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(14, PageHandler_TriggerSync_ParamsSpec.$, null, this.triggerSync.createReceiverHandler(false /* expectsResponse */));
+        this.triggerSignIn =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(15, PageHandler_TriggerSignIn_ParamsSpec.$, null, this.triggerSignIn.createReceiverHandler(false /* expectsResponse */));
+        this.openHelpPage =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(16, PageHandler_OpenHelpPage_ParamsSpec.$, null, this.openHelpPage.createReceiverHandler(false /* expectsResponse */));
+        this.openSyncSettings =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(17, PageHandler_OpenSyncSettings_ParamsSpec.$, null, this.openSyncSettings.createReceiverHandler(false /* expectsResponse */));
+        this.setUserFeedback =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(18, PageHandler_SetUserFeedback_ParamsSpec.$, null, this.setUserFeedback.createReceiverHandler(false /* expectsResponse */));
         this.showUI =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(10, PageHandler_ShowUI_ParamsSpec.$, null, this.showUI.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(19, PageHandler_ShowUI_ParamsSpec.$, null, this.showUI.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -385,8 +468,17 @@ export const PageHandler_GetTabOrganizationSession_ResponseParamsSpec = { $: {} 
 export const PageHandler_SwitchToTab_ParamsSpec = { $: {} };
 export const PageHandler_OpenRecentlyClosedEntry_ParamsSpec = { $: {} };
 export const PageHandler_RequestTabOrganization_ParamsSpec = { $: {} };
+export const PageHandler_RemoveTabFromOrganization_ParamsSpec = { $: {} };
+export const PageHandler_ResetSession_ParamsSpec = { $: {} };
 export const PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec = { $: {} };
 export const PageHandler_SetTabIndex_ParamsSpec = { $: {} };
+export const PageHandler_StartTabGroupTutorial_ParamsSpec = { $: {} };
+export const PageHandler_TriggerFeedback_ParamsSpec = { $: {} };
+export const PageHandler_TriggerSync_ParamsSpec = { $: {} };
+export const PageHandler_TriggerSignIn_ParamsSpec = { $: {} };
+export const PageHandler_OpenHelpPage_ParamsSpec = { $: {} };
+export const PageHandler_OpenSyncSettings_ParamsSpec = { $: {} };
+export const PageHandler_SetUserFeedback_ParamsSpec = { $: {} };
 export const PageHandler_ShowUI_ParamsSpec = { $: {} };
 export const Page_TabOrganizationSessionUpdated_ParamsSpec = { $: {} };
 export const Page_TabsChanged_ParamsSpec = { $: {} };
@@ -447,7 +539,7 @@ mojo.internal.Struct(SwitchToTabInfoSpec.$, 'SwitchToTabInfo', [
 mojo.internal.Struct(TabOrganizationSpec.$, 'TabOrganization', [
     mojo.internal.StructField('organizationId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('tabs', 8, 0, mojo.internal.Array(TabSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('name', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('name', 16, 0, mojoBase_mojom_String16Spec.$, null, false /* nullable */, 0),
 ], [[0, 32],]);
 mojo.internal.Struct(TabOrganizationSessionSpec.$, 'TabOrganizationSession', [
     mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
@@ -473,7 +565,7 @@ mojo.internal.Struct(PageHandler_CloseTab_ParamsSpec.$, 'PageHandler_CloseTab_Pa
 mojo.internal.Struct(PageHandler_AcceptTabOrganization_ParamsSpec.$, 'PageHandler_AcceptTabOrganization_Params', [
     mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('name', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('name', 8, 0, mojoBase_mojom_String16Spec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('tabs', 16, 0, mojo.internal.Array(TabSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 32],]);
 mojo.internal.Struct(PageHandler_RejectTabOrganization_ParamsSpec.$, 'PageHandler_RejectTabOrganization_Params', [
@@ -495,12 +587,31 @@ mojo.internal.Struct(PageHandler_OpenRecentlyClosedEntry_ParamsSpec.$, 'PageHand
     mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_RequestTabOrganization_ParamsSpec.$, 'PageHandler_RequestTabOrganization_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_RemoveTabFromOrganization_ParamsSpec.$, 'PageHandler_RemoveTabFromOrganization_Params', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('tab', 8, 0, TabSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(PageHandler_ResetSession_ParamsSpec.$, 'PageHandler_ResetSession_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, 'PageHandler_SaveRecentlyClosedExpandedPref_Params', [
     mojo.internal.StructField('expanded', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_SetTabIndex_ParamsSpec.$, 'PageHandler_SetTabIndex_Params', [
     mojo.internal.StructField('index', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(PageHandler_StartTabGroupTutorial_ParamsSpec.$, 'PageHandler_StartTabGroupTutorial_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_TriggerFeedback_ParamsSpec.$, 'PageHandler_TriggerFeedback_Params', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_TriggerSync_ParamsSpec.$, 'PageHandler_TriggerSync_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_TriggerSignIn_ParamsSpec.$, 'PageHandler_TriggerSignIn_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_OpenHelpPage_ParamsSpec.$, 'PageHandler_OpenHelpPage_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_OpenSyncSettings_ParamsSpec.$, 'PageHandler_OpenSyncSettings_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_SetUserFeedback_ParamsSpec.$, 'PageHandler_SetUserFeedback_Params', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('feedback', 8, 0, UserFeedbackSpec.$, 0, false /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(PageHandler_ShowUI_ParamsSpec.$, 'PageHandler_ShowUI_Params', [], [[0, 8],]);
 mojo.internal.Struct(Page_TabOrganizationSessionUpdated_ParamsSpec.$, 'Page_TabOrganizationSessionUpdated_Params', [
     mojo.internal.StructField('session', 0, 0, TabOrganizationSessionSpec.$, null, false /* nullable */, 0),

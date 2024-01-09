@@ -36,6 +36,7 @@
 #include "protos/perfetto/trace/ftrace/raw_syscalls.gen.h"
 #include "protos/perfetto/trace/ftrace/printk.gen.h"
 #include "protos/perfetto/trace/ftrace/power.gen.h"
+#include "protos/perfetto/trace/ftrace/perf_trace_counters.gen.h"
 #include "protos/perfetto/trace/ftrace/panel.gen.h"
 #include "protos/perfetto/trace/ftrace/oom.gen.h"
 #include "protos/perfetto/trace/ftrace/net.gen.h"

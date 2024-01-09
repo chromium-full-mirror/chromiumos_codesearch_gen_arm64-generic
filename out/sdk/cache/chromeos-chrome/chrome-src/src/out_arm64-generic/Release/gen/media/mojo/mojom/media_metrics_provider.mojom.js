@@ -733,6 +733,52 @@
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.String, val.keySystem);
   };
+  function MediaMetricsProvider_SetHasWaitingForKey_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MediaMetricsProvider_SetHasWaitingForKey_Params.prototype.initDefaults_ = function() {
+  };
+  MediaMetricsProvider_SetHasWaitingForKey_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MediaMetricsProvider_SetHasWaitingForKey_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MediaMetricsProvider_SetHasWaitingForKey_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  MediaMetricsProvider_SetHasWaitingForKey_Params.decode = function(decoder) {
+    var packed;
+    var val = new MediaMetricsProvider_SetHasWaitingForKey_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  MediaMetricsProvider_SetHasWaitingForKey_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MediaMetricsProvider_SetHasWaitingForKey_Params.encodedSize);
+    encoder.writeUint32(0);
+  };
   function MediaMetricsProvider_SetIsHardwareSecure_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1370,16 +1416,17 @@
   var kMediaMetricsProvider_SetTimeToPlayReady_Name = 8;
   var kMediaMetricsProvider_SetRendererType_Name = 9;
   var kMediaMetricsProvider_SetKeySystem_Name = 10;
-  var kMediaMetricsProvider_SetIsHardwareSecure_Name = 11;
-  var kMediaMetricsProvider_SetContainerName_Name = 12;
-  var kMediaMetricsProvider_AcquireWatchTimeRecorder_Name = 13;
-  var kMediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Name = 14;
-  var kMediaMetricsProvider_AcquireLearningTaskController_Name = 15;
-  var kMediaMetricsProvider_AcquirePlaybackEventsRecorder_Name = 16;
-  var kMediaMetricsProvider_SetHasAudio_Name = 17;
-  var kMediaMetricsProvider_SetHasVideo_Name = 18;
-  var kMediaMetricsProvider_SetVideoPipelineInfo_Name = 19;
-  var kMediaMetricsProvider_SetAudioPipelineInfo_Name = 20;
+  var kMediaMetricsProvider_SetHasWaitingForKey_Name = 11;
+  var kMediaMetricsProvider_SetIsHardwareSecure_Name = 12;
+  var kMediaMetricsProvider_SetContainerName_Name = 13;
+  var kMediaMetricsProvider_AcquireWatchTimeRecorder_Name = 14;
+  var kMediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Name = 15;
+  var kMediaMetricsProvider_AcquireLearningTaskController_Name = 16;
+  var kMediaMetricsProvider_AcquirePlaybackEventsRecorder_Name = 17;
+  var kMediaMetricsProvider_SetHasAudio_Name = 18;
+  var kMediaMetricsProvider_SetHasVideo_Name = 19;
+  var kMediaMetricsProvider_SetVideoPipelineInfo_Name = 20;
+  var kMediaMetricsProvider_SetAudioPipelineInfo_Name = 21;
 
   function MediaMetricsProviderPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(MediaMetricsProvider,
@@ -1560,6 +1607,20 @@
         kMediaMetricsProvider_SetKeySystem_Name,
         codec.align(MediaMetricsProvider_SetKeySystem_Params.encodedSize));
     builder.encodeStruct(MediaMetricsProvider_SetKeySystem_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  MediaMetricsProviderPtr.prototype.setHasWaitingForKey = function() {
+    return MediaMetricsProviderProxy.prototype.setHasWaitingForKey
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  MediaMetricsProviderProxy.prototype.setHasWaitingForKey = function() {
+    var params_ = new MediaMetricsProvider_SetHasWaitingForKey_Params();
+    var builder = new codec.MessageV0Builder(
+        kMediaMetricsProvider_SetHasWaitingForKey_Name,
+        codec.align(MediaMetricsProvider_SetHasWaitingForKey_Params.encodedSize));
+    builder.encodeStruct(MediaMetricsProvider_SetHasWaitingForKey_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
@@ -1751,6 +1812,9 @@
   MediaMetricsProviderStub.prototype.setKeySystem = function(keySystem) {
     return this.delegate_ && this.delegate_.setKeySystem && this.delegate_.setKeySystem(keySystem);
   }
+  MediaMetricsProviderStub.prototype.setHasWaitingForKey = function() {
+    return this.delegate_ && this.delegate_.setHasWaitingForKey && this.delegate_.setHasWaitingForKey();
+  }
   MediaMetricsProviderStub.prototype.setIsHardwareSecure = function() {
     return this.delegate_ && this.delegate_.setIsHardwareSecure && this.delegate_.setIsHardwareSecure();
   }
@@ -1828,6 +1892,10 @@
     case kMediaMetricsProvider_SetKeySystem_Name:
       var params = reader.decodeStruct(MediaMetricsProvider_SetKeySystem_Params);
       this.setKeySystem(params.keySystem);
+      return true;
+    case kMediaMetricsProvider_SetHasWaitingForKey_Name:
+      var params = reader.decodeStruct(MediaMetricsProvider_SetHasWaitingForKey_Params);
+      this.setHasWaitingForKey();
       return true;
     case kMediaMetricsProvider_SetIsHardwareSecure_Name:
       var params = reader.decodeStruct(MediaMetricsProvider_SetIsHardwareSecure_Params);
@@ -1930,6 +1998,10 @@
       case kMediaMetricsProvider_SetKeySystem_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = MediaMetricsProvider_SetKeySystem_Params;
+      break;
+      case kMediaMetricsProvider_SetHasWaitingForKey_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = MediaMetricsProvider_SetHasWaitingForKey_Params;
       break;
       case kMediaMetricsProvider_SetIsHardwareSecure_Name:
         if (!message.expectsResponse() && !message.isResponse())

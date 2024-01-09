@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSStyleSheet>::value,
     "CSSStyleSheet inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSStyleSheet::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSStyleSheet is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleSheet.ownerRule.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(v8_receiver);
+CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ownerRule();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -107,9 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleSheet.cssRules.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "CSSStyleSheet";
 const char* const property_name = "cssRules";
@@ -135,7 +131,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCSSStyleSheetRules);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(v8_receiver);
+CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "CSSStyleSheet";
 const char* const property_name = "rules";
@@ -212,7 +208,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(v8_receiver);
+CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_selector;
 if (info[0]->IsUndefined()) {
   arg1_selector = "undefined";
@@ -268,7 +264,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(v8_receiver);
+CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -301,7 +297,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(v8_receiver);
+CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_rule = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -337,7 +333,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCSSStyleSheetRemoveRul
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(v8_receiver);
+CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLUnsignedLong>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_index{0};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSStyleSheet";
@@ -387,7 +383,7 @@ return;
 
 
 
-CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(v8_receiver);
+CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -427,7 +423,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(v8_receiver);
+CSSStyleSheet* blink_receiver = V8CSSStyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

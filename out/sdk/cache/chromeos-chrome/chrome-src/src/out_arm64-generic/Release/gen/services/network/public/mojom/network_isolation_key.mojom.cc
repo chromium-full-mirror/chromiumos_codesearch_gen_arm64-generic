@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -68,7 +69,7 @@ NonEmptyNetworkIsolationKey::NonEmptyNetworkIsolationKey()
 NonEmptyNetworkIsolationKey::NonEmptyNetworkIsolationKey(
     const ::net::SchemefulSite& top_frame_site_in,
     const ::net::SchemefulSite& frame_site_in,
-    const absl::optional<::base::UnguessableToken>& nonce_in)
+    const std::optional<::base::UnguessableToken>& nonce_in)
     : top_frame_site(std::move(top_frame_site_in)),
       frame_site(std::move(frame_site_in)),
       nonce(std::move(nonce_in)) {}
@@ -100,7 +101,7 @@ void NonEmptyNetworkIsolationKey::WriteIntoTrace(
     dict.AddItem(
       "nonce"), this->nonce,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

@@ -31,18 +31,18 @@ import * as Common from '../../core/common/common.js';
 import * as Host from '../../core/host/host.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as Root from '../../core/root/root.js';
+import * as ARIAUtils from './ARIAUtils.js';
 import { Dialog } from './Dialog.js';
 import { DockController } from './DockController.js';
 import { GlassPane } from './GlassPane.js';
 import { Infobar, Type as InfobarType } from './Infobar.js';
+import inspectorViewTabbedPaneStyles from './inspectorViewTabbedPane.css.legacy.js';
 import { KeyboardShortcut } from './KeyboardShortcut.js';
-import { SplitWidget, ShowMode } from './SplitWidget.js';
+import { ShowMode, SplitWidget } from './SplitWidget.js';
 import { Events as TabbedPaneEvents } from './TabbedPane.js';
 import { ToolbarButton } from './Toolbar.js';
 import { ViewManager } from './ViewManager.js';
 import { VBox, WidgetFocusRestorer } from './Widget.js';
-import * as ARIAUtils from './ARIAUtils.js';
-import inspectorViewTabbedPaneStyles from './inspectorViewTabbedPane.css.legacy.js';
 const UIStrings = {
     /**
      *@description Title of more tabs button in inspector view
@@ -484,15 +484,7 @@ function reloadDevTools() {
     }
     Host.InspectorFrontendHost.InspectorFrontendHostInstance.reattach(() => window.location.reload());
 }
-let actionDelegateInstance;
 export class ActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!actionDelegateInstance || forceNew) {
-            actionDelegateInstance = new ActionDelegate();
-        }
-        return actionDelegateInstance;
-    }
     handleAction(context, actionId) {
         switch (actionId) {
             case 'main.toggle-drawer':

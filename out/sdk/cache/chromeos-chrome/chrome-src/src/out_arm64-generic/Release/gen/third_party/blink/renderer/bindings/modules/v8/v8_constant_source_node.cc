@@ -76,11 +76,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ConstantSourceNode>::value,
     "ConstantSourceNode does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ConstantSourceNode::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ConstantSourceNode is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("ConstantSourceNode.offset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ConstantSourceNode* blink_receiver = V8ConstantSourceNode::ToWrappableUnsafe(v8_receiver);
+ConstantSourceNode* blink_receiver = V8ConstantSourceNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->offset();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

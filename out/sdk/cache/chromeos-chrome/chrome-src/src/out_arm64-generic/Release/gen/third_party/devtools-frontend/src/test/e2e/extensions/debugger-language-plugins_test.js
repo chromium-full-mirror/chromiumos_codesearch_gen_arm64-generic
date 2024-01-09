@@ -4,12 +4,12 @@
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
+const events_js_1 = require("../../conductor/events.js");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
-const extension_helpers_js_1 = require("../helpers/extension-helpers.js");
 const console_helpers_js_1 = require("../helpers/console-helpers.js");
+const extension_helpers_js_1 = require("../helpers/extension-helpers.js");
 const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
-const events_js_1 = require("../../conductor/events.js");
 function goToWasmResource(moduleName, options = {}) {
     const queryParams = [`module=${moduleName}`];
     if (!options.autoLoadModule) {
@@ -23,9 +23,6 @@ function goToWasmResource(moduleName, options = {}) {
 // This testcase reaches into DevTools internals to install the extension plugin. At this point, there is no sensible
 // alternative, because loading a real extension is not supported in our test setup.
 (0, mocha_extensions_js_1.describe)('The Debugger Language Plugins', async () => {
-    beforeEach(async () => {
-        await (0, helper_js_1.enableExperiment)('wasmDWARFDebugging');
-    });
     // Load a simple wasm file and verify that the source file shows up in the file tree.
     (0, mocha_extensions_js_1.it)('can show C filenames after loading the module', async () => {
         const { target } = (0, helper_js_1.getBrowserAndPages)();
@@ -606,6 +603,8 @@ function goToWasmResource(moduleName, options = {}) {
     });
     (0, mocha_extensions_js_1.it)('shows sensible error messages.', async () => {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
+        // This test times out on mac-arm64 when watch expressions take some time to calculate.
+        await (0, helper_js_1.disableExperiment)('evaluateExpressionsWithSourceMaps');
         const extension = await (0, extension_helpers_js_1.loadExtension)('TestExtension', `${(0, extension_helpers_js_1.getResourcesPathWithDevToolsHostname)()}/extensions/language_extensions.html`);
         await extension.evaluate(() => {
             class FormattingErrorsPlugin {
@@ -675,7 +674,10 @@ function goToWasmResource(moduleName, options = {}) {
         await frontend.keyboard.press('Enter');
         await (0, helper_js_1.waitForNone)('.watch-expression-editing');
         const watchResults = await (0, helper_js_1.waitForMany)('.watch-expression', 2);
-        const watchTexts = await Promise.all(watchResults.map(async (watch) => await watch.evaluate(e => e.textContent)));
+        const watchTexts = await (0, helper_js_1.waitForFunction)(async () => {
+            const texts = await Promise.all(watchResults.map(async (watch) => await watch.evaluate(e => e.textContent)));
+            return texts.every(t => t?.length) ? texts : null;
+        });
         chai_1.assert.deepStrictEqual(watchTexts, ['foo: 23', 'bar: <not available>']);
         const tooltipText = await watchResults[1].evaluate(e => {
             const errorElement = e.querySelector('.watch-expression-error');

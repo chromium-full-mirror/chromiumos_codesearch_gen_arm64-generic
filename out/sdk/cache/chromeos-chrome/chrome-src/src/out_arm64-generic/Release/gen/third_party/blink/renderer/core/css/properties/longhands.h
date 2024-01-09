@@ -34,7 +34,7 @@ namespace css_longhand {
 // (the cast happens in GetPropertyInternal()).
 class Color final : public Longhand {
  public:
-  constexpr Color() : Longhand(CSSPropertyID::kColor, kInterpolable | kProperty | kInherited | kIdempotent | kValidForFirstLetter | kValidForFirstLine | kValidForCue | kValidForMarker | kValidForFormattedText | kValidForFormattedTextRun | kValidForKeyframe | kHighlightColors | kValidForHighlightLegacy | kValidForHighlight, '\0') { }
+  constexpr Color() : Longhand(CSSPropertyID::kColor, kInterpolable | kProperty | kInherited | kSupportsIncrementalStyle | kIdempotent | kValidForFirstLetter | kValidForFirstLine | kValidForCue | kValidForMarker | kValidForFormattedText | kValidForFormattedTextRun | kValidForKeyframe | kHighlightColors | kValidForHighlightLegacy | kValidForHighlight, '\0') { }
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
@@ -429,6 +429,22 @@ class InternalVisitedColor final : public Longhand {
   CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const blink::Color ColorIncludingFallback(bool, const ComputedStyle&, bool* is_current_color = nullptr) const override;
+  void ApplyInitial(StyleResolverState&) const override;
+  void ApplyInherit(StyleResolverState&) const override;
+  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
+ };
+
+// position
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class Position final : public Longhand {
+ public:
+  constexpr Position() : Longhand(CSSPropertyID::kPosition, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
@@ -1292,7 +1308,6 @@ class BaselineSource final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
@@ -2892,7 +2907,7 @@ class DominantBaseline final : public Longhand {
 // (the cast happens in GetPropertyInternal()).
 class DynamicRangeLimit final : public Longhand {
  public:
-  constexpr DynamicRangeLimit() : Longhand(CSSPropertyID::kDynamicRangeLimit, kProperty | kInherited | kIdempotent | kValidForKeyframe, '\0') { }
+  constexpr DynamicRangeLimit() : Longhand(CSSPropertyID::kDynamicRangeLimit, kInterpolable | kProperty | kInherited | kIdempotent | kValidForKeyframe, '\0') { }
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
@@ -3392,7 +3407,6 @@ class HyphenateLimitChars final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
@@ -3516,6 +3530,24 @@ class InlineSize final : public Longhand {
     NOTREACHED();
     return nullptr;
   }
+ };
+
+// inset-area
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class InsetArea final : public Longhand {
+ public:
+  constexpr InsetArea() : Longhand(CSSPropertyID::kInsetArea, kProperty | kIdempotent | kValidForKeyframe | kValidForPositionFallback, '\0') { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
+  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  void ApplyInitial(StyleResolverState&) const override;
+  void ApplyInherit(StyleResolverState&) const override;
+  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
  };
 
 // inset-block-end
@@ -4659,6 +4691,10 @@ class Mask final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  CSSPropertyID GetAlternative() const override {
+    return CSSPropertyID::kAlternativeMask;
+  }
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
@@ -4679,6 +4715,7 @@ class MaskClip final : public Longhand {
   CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  const CSSValue* InitialValue() const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
@@ -4697,6 +4734,7 @@ class MaskComposite final : public Longhand {
   CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  const CSSValue* InitialValue() const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
@@ -4720,6 +4758,25 @@ class MaskImage final : public Longhand {
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
  };
 
+// mask-mode
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class MaskMode final : public Longhand {
+ public:
+  constexpr MaskMode() : Longhand(CSSPropertyID::kMaskMode, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
+  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  const CSSValue* InitialValue() const override;
+  void ApplyInitial(StyleResolverState&) const override;
+  void ApplyInherit(StyleResolverState&) const override;
+  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
+ };
+
 // mask-origin
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
@@ -4733,6 +4790,7 @@ class MaskOrigin final : public Longhand {
   CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  const CSSValue* InitialValue() const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
@@ -4751,6 +4809,7 @@ class MaskRepeat final : public Longhand {
   CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  const CSSValue* InitialValue() const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
@@ -4769,6 +4828,7 @@ class MaskSize final : public Longhand {
   CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  const CSSValue* InitialValue() const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
@@ -5031,13 +5091,13 @@ class MixBlendMode final : public Longhand {
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
  };
 
-// navigation-trigger
+// navigation
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
 // (the cast happens in GetPropertyInternal()).
-class NavigationTrigger final : public Longhand {
+class Navigation final : public Longhand {
  public:
-  constexpr NavigationTrigger() : Longhand(CSSPropertyID::kNavigationTrigger, kDescriptor | kIdempotent | kValidForKeyframe, '\0') { }
+  constexpr Navigation() : Longhand(CSSPropertyID::kNavigation, kDescriptor | kIdempotent | kValidForKeyframe, '\0') { }
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
@@ -5099,7 +5159,6 @@ class ObjectViewBox final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
@@ -5475,7 +5534,6 @@ class Overlay final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
@@ -5919,22 +5977,6 @@ class PopoverShowDelay final : public Longhand {
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
  };
 
-// position
-// NOTE: Multiple inheritance is not allowed here, since the class must be
-// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
-// (the cast happens in GetPropertyInternal()).
-class Position final : public Longhand {
- public:
-  constexpr Position() : Longhand(CSSPropertyID::kPosition, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
-  const char* GetPropertyName() const override;
-  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
-  const char* GetJSPropertyName() const override;
-  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
-  void ApplyInitial(StyleResolverState&) const override;
-  void ApplyInherit(StyleResolverState&) const override;
-  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
- };
-
 // position-fallback
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
@@ -6075,7 +6117,6 @@ class Rotate final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
@@ -6158,7 +6199,6 @@ class Scale final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
@@ -7629,78 +7669,6 @@ class TimelineScope final : public Longhand {
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
  };
 
-// toggle-group
-// NOTE: Multiple inheritance is not allowed here, since the class must be
-// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
-// (the cast happens in GetPropertyInternal()).
-class ToggleGroup final : public Longhand {
- public:
-  constexpr ToggleGroup() : Longhand(CSSPropertyID::kToggleGroup, kProperty | kSupportsIncrementalStyle | kIdempotent | kValidForKeyframe, ',') { }
-  const char* GetPropertyName() const override;
-  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
-  const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
-  const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
-  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
-  void ApplyInitial(StyleResolverState&) const override;
-  void ApplyInherit(StyleResolverState&) const override;
-  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
- };
-
-// toggle-root
-// NOTE: Multiple inheritance is not allowed here, since the class must be
-// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
-// (the cast happens in GetPropertyInternal()).
-class ToggleRoot final : public Longhand {
- public:
-  constexpr ToggleRoot() : Longhand(CSSPropertyID::kToggleRoot, kProperty | kSupportsIncrementalStyle | kIdempotent | kValidForKeyframe, ',') { }
-  const char* GetPropertyName() const override;
-  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
-  const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
-  const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
-  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
-  void ApplyInitial(StyleResolverState&) const override;
-  void ApplyInherit(StyleResolverState&) const override;
-  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
- };
-
-// toggle-trigger
-// NOTE: Multiple inheritance is not allowed here, since the class must be
-// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
-// (the cast happens in GetPropertyInternal()).
-class ToggleTrigger final : public Longhand {
- public:
-  constexpr ToggleTrigger() : Longhand(CSSPropertyID::kToggleTrigger, kProperty | kSupportsIncrementalStyle | kIdempotent | kValidForKeyframe, ',') { }
-  const char* GetPropertyName() const override;
-  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
-  const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
-  const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
-  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
-  void ApplyInitial(StyleResolverState&) const override;
-  void ApplyInherit(StyleResolverState&) const override;
-  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
- };
-
-// toggle-visibility
-// NOTE: Multiple inheritance is not allowed here, since the class must be
-// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
-// (the cast happens in GetPropertyInternal()).
-class ToggleVisibility final : public Longhand {
- public:
-  constexpr ToggleVisibility() : Longhand(CSSPropertyID::kToggleVisibility, kProperty | kSupportsIncrementalStyle | kIdempotent | kValidForKeyframe, '\0') { }
-  const char* GetPropertyName() const override;
-  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
-  const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
-  const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
-  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
-  void ApplyInitial(StyleResolverState&) const override;
-  void ApplyInherit(StyleResolverState&) const override;
-  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
- };
-
 // top
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
@@ -7909,7 +7877,6 @@ class Translate final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
   bool IsLayoutDependentProperty() const override { return true; }
   bool IsLayoutDependent(const ComputedStyle*, LayoutObject*) const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
@@ -8177,31 +8144,10 @@ class WebkitBoxDecorationBreak final : public Longhand {
 // (the cast happens in GetPropertyInternal()).
 class WebkitBoxDirection final : public Longhand {
  public:
-  constexpr WebkitBoxDirection() : Longhand(CSSPropertyID::kWebkitBoxDirection, kProperty | kInherited | kIdempotent | kValidForKeyframe, '\0') { }
+  constexpr WebkitBoxDirection() : Longhand(CSSPropertyID::kWebkitBoxDirection, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
-  CSSPropertyID GetAlternative() const override {
-    return CSSPropertyID::kWebkitBoxDirectionAlternative;
-  }
-  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
-  void ApplyInitial(StyleResolverState&) const override;
-  void ApplyInherit(StyleResolverState&) const override;
-  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
- };
-
-// -webkit-box-direction-alternative
-// NOTE: Multiple inheritance is not allowed here, since the class must be
-// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
-// (the cast happens in GetPropertyInternal()).
-class WebkitBoxDirectionAlternative final : public Longhand {
- public:
-  constexpr WebkitBoxDirectionAlternative() : Longhand(CSSPropertyID::kWebkitBoxDirectionAlternative, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
-  const char* GetPropertyName() const override;
-  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
-  const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
@@ -8505,6 +8451,7 @@ class WebkitMaskPositionX final : public Longhand {
   const char* GetJSPropertyName() const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  const CSSValue* InitialValue() const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
@@ -8522,6 +8469,7 @@ class WebkitMaskPositionY final : public Longhand {
   const char* GetJSPropertyName() const override;
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  const CSSValue* InitialValue() const override;
   void ApplyInitial(StyleResolverState&) const override;
   void ApplyInherit(StyleResolverState&) const override;
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;

@@ -2378,6 +2378,10 @@ class HEADLESS_EXPORT PlatformFontUsage {
   std::string GetFamilyName() const { return family_name_; }
   void SetFamilyName(const std::string& value) { family_name_ = value; }
 
+  // Font's PostScript name reported by platform.
+  std::string GetPostScriptName() const { return post_script_name_; }
+  void SetPostScriptName(const std::string& value) { post_script_name_ = value; }
+
   // Indicates if the font was downloaded or resolved locally.
   bool GetIsCustomFont() const { return is_custom_font_; }
   void SetIsCustomFont(bool value) { is_custom_font_ = value; }
@@ -2395,15 +2399,22 @@ class HEADLESS_EXPORT PlatformFontUsage {
     enum {
       kNoFieldsSet = 0,
     kFamilyNameSet = 1 << 1,
-    kIsCustomFontSet = 1 << 2,
-    kGlyphCountSet = 1 << 3,
-      kAllRequiredFieldsSet = (kFamilyNameSet | kIsCustomFontSet | kGlyphCountSet | 0)
+    kPostScriptNameSet = 1 << 2,
+    kIsCustomFontSet = 1 << 3,
+    kGlyphCountSet = 1 << 4,
+      kAllRequiredFieldsSet = (kFamilyNameSet | kPostScriptNameSet | kIsCustomFontSet | kGlyphCountSet | 0)
     };
 
     PlatformFontUsageBuilder<STATE | kFamilyNameSet>& SetFamilyName(const std::string& value) {
       static_assert(!(STATE & kFamilyNameSet), "property familyName should not have already been set");
       result_->SetFamilyName(value);
       return CastState<kFamilyNameSet>();
+    }
+
+    PlatformFontUsageBuilder<STATE | kPostScriptNameSet>& SetPostScriptName(const std::string& value) {
+      static_assert(!(STATE & kPostScriptNameSet), "property postScriptName should not have already been set");
+      result_->SetPostScriptName(value);
+      return CastState<kPostScriptNameSet>();
     }
 
     PlatformFontUsageBuilder<STATE | kIsCustomFontSet>& SetIsCustomFont(bool value) {
@@ -2442,6 +2453,7 @@ class HEADLESS_EXPORT PlatformFontUsage {
   PlatformFontUsage() { }
 
   std::string family_name_;
+  std::string post_script_name_;
   bool is_custom_font_;
   double glyph_count_;
 };
@@ -3041,6 +3053,102 @@ class HEADLESS_EXPORT CSSPropertyRegistration {
 };
 
 
+// CSS font-palette-values rule representation.
+class HEADLESS_EXPORT CSSFontPaletteValuesRule {
+ public:
+  static std::unique_ptr<CSSFontPaletteValuesRule> Parse(const base::Value& value, ErrorReporter* errors);
+
+  CSSFontPaletteValuesRule(const CSSFontPaletteValuesRule&) = delete;
+  CSSFontPaletteValuesRule& operator=(const CSSFontPaletteValuesRule&) = delete;
+
+  ~CSSFontPaletteValuesRule() { }
+
+
+  // The css style sheet identifier (absent for user agent stylesheet and user-specified
+  // stylesheet rules) this rule came from.
+  bool HasStyleSheetId() const { return !!style_sheet_id_; }
+  std::string GetStyleSheetId() const { DCHECK(HasStyleSheetId()); return style_sheet_id_.value(); }
+  void SetStyleSheetId(const std::string& value) { style_sheet_id_ = value; }
+
+  // Parent stylesheet's origin.
+  ::headless::css::StyleSheetOrigin GetOrigin() const { return origin_; }
+  void SetOrigin(::headless::css::StyleSheetOrigin value) { origin_ = value; }
+
+  // Associated font palette name.
+  const ::headless::css::Value* GetFontPaletteName() const { return font_palette_name_.get(); }
+  void SetFontPaletteName(std::unique_ptr<::headless::css::Value> value) { font_palette_name_ = std::move(value); }
+
+  // Associated style declaration.
+  const ::headless::css::CSSStyle* GetStyle() const { return style_.get(); }
+  void SetStyle(std::unique_ptr<::headless::css::CSSStyle> value) { style_ = std::move(value); }
+
+  base::Value Serialize() const;
+  std::unique_ptr<CSSFontPaletteValuesRule> Clone() const;
+
+  template<int STATE>
+  class CSSFontPaletteValuesRuleBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kOriginSet = 1 << 1,
+    kFontPaletteNameSet = 1 << 2,
+    kStyleSet = 1 << 3,
+      kAllRequiredFieldsSet = (kOriginSet | kFontPaletteNameSet | kStyleSet | 0)
+    };
+
+    CSSFontPaletteValuesRuleBuilder<STATE>& SetStyleSheetId(const std::string& value) {
+      result_->SetStyleSheetId(value);
+      return *this;
+    }
+
+    CSSFontPaletteValuesRuleBuilder<STATE | kOriginSet>& SetOrigin(::headless::css::StyleSheetOrigin value) {
+      static_assert(!(STATE & kOriginSet), "property origin should not have already been set");
+      result_->SetOrigin(value);
+      return CastState<kOriginSet>();
+    }
+
+    CSSFontPaletteValuesRuleBuilder<STATE | kFontPaletteNameSet>& SetFontPaletteName(std::unique_ptr<::headless::css::Value> value) {
+      static_assert(!(STATE & kFontPaletteNameSet), "property fontPaletteName should not have already been set");
+      result_->SetFontPaletteName(std::move(value));
+      return CastState<kFontPaletteNameSet>();
+    }
+
+    CSSFontPaletteValuesRuleBuilder<STATE | kStyleSet>& SetStyle(std::unique_ptr<::headless::css::CSSStyle> value) {
+      static_assert(!(STATE & kStyleSet), "property style should not have already been set");
+      result_->SetStyle(std::move(value));
+      return CastState<kStyleSet>();
+    }
+
+    std::unique_ptr<CSSFontPaletteValuesRule> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class CSSFontPaletteValuesRule;
+    CSSFontPaletteValuesRuleBuilder() : result_(new CSSFontPaletteValuesRule()) { }
+
+    template<int STEP> CSSFontPaletteValuesRuleBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<CSSFontPaletteValuesRuleBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<CSSFontPaletteValuesRule> result_;
+  };
+
+  static CSSFontPaletteValuesRuleBuilder<0> Builder() {
+    return CSSFontPaletteValuesRuleBuilder<0>();
+  }
+
+ private:
+  CSSFontPaletteValuesRule() { }
+
+  absl::optional<std::string> style_sheet_id_;
+  ::headless::css::StyleSheetOrigin origin_;
+  std::unique_ptr<::headless::css::Value> font_palette_name_;
+  std::unique_ptr<::headless::css::CSSStyle> style_;
+};
+
+
 // CSS property at-rule representation.
 class HEADLESS_EXPORT CSSPropertyRule {
  public:
@@ -3340,6 +3448,13 @@ class HEADLESS_EXPORT AddRuleParams {
   const ::headless::css::SourceRange* GetLocation() const { return location_.get(); }
   void SetLocation(std::unique_ptr<::headless::css::SourceRange> value) { location_ = std::move(value); }
 
+  // NodeId for the DOM node in whose context custom property declarations for registered properties should be
+  // validated. If omitted, declarations in the new rule text can only be validated statically, which may produce
+  // incorrect results if the declaration contains a var() for example.
+  bool HasNodeForPropertySyntaxValidation() const { return !!node_for_property_syntax_validation_; }
+  int GetNodeForPropertySyntaxValidation() const { DCHECK(HasNodeForPropertySyntaxValidation()); return node_for_property_syntax_validation_.value(); }
+  void SetNodeForPropertySyntaxValidation(int value) { node_for_property_syntax_validation_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<AddRuleParams> Clone() const;
 
@@ -3372,6 +3487,11 @@ class HEADLESS_EXPORT AddRuleParams {
       return CastState<kLocationSet>();
     }
 
+    AddRuleParamsBuilder<STATE>& SetNodeForPropertySyntaxValidation(int value) {
+      result_->SetNodeForPropertySyntaxValidation(value);
+      return *this;
+    }
+
     std::unique_ptr<AddRuleParams> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -3398,6 +3518,7 @@ class HEADLESS_EXPORT AddRuleParams {
   std::string style_sheet_id_;
   std::string rule_text_;
   std::unique_ptr<::headless::css::SourceRange> location_;
+  absl::optional<int> node_for_property_syntax_validation_;
 };
 
 
@@ -4526,6 +4647,11 @@ class HEADLESS_EXPORT GetMatchedStylesForNodeResult {
   const std::vector<std::unique_ptr<::headless::css::CSSPropertyRegistration>>* GetCssPropertyRegistrations() const { DCHECK(HasCssPropertyRegistrations()); return &css_property_registrations_.value(); }
   void SetCssPropertyRegistrations(std::vector<std::unique_ptr<::headless::css::CSSPropertyRegistration>> value) { css_property_registrations_ = std::move(value); }
 
+  // A font-palette-values rule matching this node.
+  bool HasCssFontPaletteValuesRule() const { return !!css_font_palette_values_rule_; }
+  const ::headless::css::CSSFontPaletteValuesRule* GetCssFontPaletteValuesRule() const { DCHECK(HasCssFontPaletteValuesRule()); return css_font_palette_values_rule_.value().get(); }
+  void SetCssFontPaletteValuesRule(std::unique_ptr<::headless::css::CSSFontPaletteValuesRule> value) { css_font_palette_values_rule_ = std::move(value); }
+
   // Id of the first parent element that does not have display: contents.
   bool HasParentLayoutNodeId() const { return !!parent_layout_node_id_; }
   int GetParentLayoutNodeId() const { DCHECK(HasParentLayoutNodeId()); return parent_layout_node_id_.value(); }
@@ -4592,6 +4718,11 @@ class HEADLESS_EXPORT GetMatchedStylesForNodeResult {
       return *this;
     }
 
+    GetMatchedStylesForNodeResultBuilder<STATE>& SetCssFontPaletteValuesRule(std::unique_ptr<::headless::css::CSSFontPaletteValuesRule> value) {
+      result_->SetCssFontPaletteValuesRule(std::move(value));
+      return *this;
+    }
+
     GetMatchedStylesForNodeResultBuilder<STATE>& SetParentLayoutNodeId(int value) {
       result_->SetParentLayoutNodeId(value);
       return *this;
@@ -4630,6 +4761,7 @@ class HEADLESS_EXPORT GetMatchedStylesForNodeResult {
   absl::optional<std::vector<std::unique_ptr<::headless::css::CSSPositionFallbackRule>>> css_position_fallback_rules_;
   absl::optional<std::vector<std::unique_ptr<::headless::css::CSSPropertyRule>>> css_property_rules_;
   absl::optional<std::vector<std::unique_ptr<::headless::css::CSSPropertyRegistration>>> css_property_registrations_;
+  absl::optional<std::unique_ptr<::headless::css::CSSFontPaletteValuesRule>> css_font_palette_values_rule_;
   absl::optional<int> parent_layout_node_id_;
 };
 
@@ -6572,6 +6704,13 @@ class HEADLESS_EXPORT SetStyleTextsParams {
   const std::vector<std::unique_ptr<::headless::css::StyleDeclarationEdit>>* GetEdits() const { return &edits_; }
   void SetEdits(std::vector<std::unique_ptr<::headless::css::StyleDeclarationEdit>> value) { edits_ = std::move(value); }
 
+  // NodeId for the DOM node in whose context custom property declarations for registered properties should be
+  // validated. If omitted, declarations in the new rule text can only be validated statically, which may produce
+  // incorrect results if the declaration contains a var() for example.
+  bool HasNodeForPropertySyntaxValidation() const { return !!node_for_property_syntax_validation_; }
+  int GetNodeForPropertySyntaxValidation() const { DCHECK(HasNodeForPropertySyntaxValidation()); return node_for_property_syntax_validation_.value(); }
+  void SetNodeForPropertySyntaxValidation(int value) { node_for_property_syntax_validation_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<SetStyleTextsParams> Clone() const;
 
@@ -6588,6 +6727,11 @@ class HEADLESS_EXPORT SetStyleTextsParams {
       static_assert(!(STATE & kEditsSet), "property edits should not have already been set");
       result_->SetEdits(std::move(value));
       return CastState<kEditsSet>();
+    }
+
+    SetStyleTextsParamsBuilder<STATE>& SetNodeForPropertySyntaxValidation(int value) {
+      result_->SetNodeForPropertySyntaxValidation(value);
+      return *this;
     }
 
     std::unique_ptr<SetStyleTextsParams> Build() {
@@ -6614,6 +6758,7 @@ class HEADLESS_EXPORT SetStyleTextsParams {
   SetStyleTextsParams() { }
 
   std::vector<std::unique_ptr<::headless::css::StyleDeclarationEdit>> edits_;
+  absl::optional<int> node_for_property_syntax_validation_;
 };
 
 

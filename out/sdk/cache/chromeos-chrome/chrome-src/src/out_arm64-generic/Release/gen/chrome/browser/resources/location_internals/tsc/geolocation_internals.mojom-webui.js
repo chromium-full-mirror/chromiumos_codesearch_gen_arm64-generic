@@ -9,6 +9,7 @@ export const INVALID_RADIO_SIGNAL_STRENGTH = -2147483648;
 export const INVALID_CHANNEL = -2147483648;
 export const INVALID_SIGNAL_TO_NOISE = -2147483648;
 export class GeolocationInternalsObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -17,6 +18,9 @@ export class GeolocationInternalsObserverPendingReceiver {
     }
 }
 export class GeolocationInternalsObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(GeolocationInternalsObserverPendingReceiver, handle);
@@ -46,6 +50,9 @@ export class GeolocationInternalsObserverRemote {
  * interface.
  */
 export class GeolocationInternalsObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(GeolocationInternalsObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -77,6 +84,13 @@ export class GeolocationInternalsObserver {
  * receiver can have any number of listeners added to it.
  */
 export class GeolocationInternalsObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onDiagnosticsChanged;
+    onNetworkLocationRequested;
+    onNetworkLocationReceived;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(GeolocationInternalsObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -101,6 +115,7 @@ export class GeolocationInternalsObserverCallbackRouter {
     }
 }
 export class GeolocationInternalsPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -109,6 +124,9 @@ export class GeolocationInternalsPendingReceiver {
     }
 }
 export class GeolocationInternalsRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(GeolocationInternalsPendingReceiver, handle);
@@ -128,6 +146,9 @@ export class GeolocationInternalsRemote {
  * interface.
  */
 export class GeolocationInternalsReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(GeolocationInternalsRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -157,6 +178,11 @@ export class GeolocationInternals {
  * receiver can have any number of listeners added to it.
  */
 export class GeolocationInternalsCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    addInternalsObserver;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(GeolocationInternalsRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

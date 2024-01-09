@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "printing/backend/mojom/print_backend.mojom-features.h"
 #include "printing/backend/mojom/print_backend.mojom-shared.h"
 #include "printing/backend/mojom/print_backend.mojom-forward.h"
 #include "printing/mojom/print.mojom-forward.h"
@@ -527,20 +528,20 @@ class  Paper {
       const std::string& display_name,
       const std::string& vendor_id,
       const ::gfx::Size& size_um,
-      const absl::optional<::gfx::Rect>& printable_area_um);
+      const std::optional<::gfx::Rect>& printable_area_um);
 
   Paper(
       const std::string& display_name,
       const std::string& vendor_id,
       const ::gfx::Size& size_um,
-      const absl::optional<::gfx::Rect>& printable_area_um,
+      const std::optional<::gfx::Rect>& printable_area_um,
       int32_t max_height_um);
 
   Paper(
       const std::string& display_name,
       const std::string& vendor_id,
       const ::gfx::Size& size_um,
-      const absl::optional<::gfx::Rect>& printable_area_um,
+      const std::optional<::gfx::Rect>& printable_area_um,
       int32_t max_height_um,
       bool has_borderless_variant);
 
@@ -626,7 +627,7 @@ class  Paper {
   
   ::gfx::Size size_um;
   
-  absl::optional<::gfx::Rect> printable_area_um;
+  std::optional<::gfx::Rect> printable_area_um;
   
   int32_t max_height_um;
   
@@ -880,7 +881,7 @@ class  PrinterSemanticCapsAndDefaults {
       const ::gfx::Size& default_dpi,
       bool pin_supported,
       std::vector<::printing::AdvancedCapability> advanced_capabilities,
-      absl::optional<std::vector<MediaTypePtr>> media_types,
+      std::optional<std::vector<MediaTypePtr>> media_types,
       MediaTypePtr default_media_type);
 
 PrinterSemanticCapsAndDefaults(const PrinterSemanticCapsAndDefaults&) = delete;
@@ -993,7 +994,7 @@ PrinterSemanticCapsAndDefaults& operator=(const PrinterSemanticCapsAndDefaults&)
   
   std::vector<::printing::AdvancedCapability> advanced_capabilities;
   
-  absl::optional<std::vector<MediaTypePtr>> media_types;
+  std::optional<std::vector<MediaTypePtr>> media_types;
   
   MediaTypePtr default_media_type;
 

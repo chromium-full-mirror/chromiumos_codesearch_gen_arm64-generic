@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import 'chrome://resources/cr_elements/cr_tab_box/cr_tab_box.js';
 import { assert } from 'chrome://resources/js/assert.js';
-import { $, getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { $, getRequiredElement } from 'chrome://resources/js/util.js';
 import { PageHandlerFactory } from './optimization_guide_internals.mojom-webui.js';
 import { OptimizationGuideInternalsBrowserProxy } from './optimization_guide_internals_browser_proxy.js';
 // Contains all the log events received when the internals page is open.
@@ -75,6 +75,9 @@ function getLogSource(logSource) {
     if (logSource == 5) {
         return 'TEXT_CLASSIFIER';
     }
+    if (logSource == 6) {
+        return 'MODEL_EXECUTION';
+    }
     return logSource.toString();
 }
 /**
@@ -117,6 +120,22 @@ async function onModelsPageOpen() {
     }
     catch (err) {
         throw new Error(`Error resolving promise from requestDownloadedModelsInfo, ${err}`);
+    }
+}
+async function onClientIDsPageOpen() {
+    const loggedClientIdsContainer = getRequiredElement('logged-client-ids-container');
+    try {
+        const response = await PageHandlerFactory.getRemote()
+            .requestLoggedModelQualityClientIds();
+        const loggedClientIds = response.loggedClientIds;
+        for (const { clientId } of loggedClientIds) {
+            const clientIdStr = clientId.toString();
+            const loggedClients = loggedClientIdsContainer.insertRow();
+            appendTD(loggedClients, clientIdStr, 'logged-client-ids');
+        }
+    }
+    catch (err) {
+        throw new Error(`Error resolving promise from requestLoggedClientIds, ${err}`);
     }
 }
 /**
@@ -184,6 +203,9 @@ function initialize() {
         tabbox.setAttribute('selected-index', `${index}`);
         if (hash === 'models') {
             onModelsPageOpen();
+        }
+        else if (hash === 'client-ids') {
+            onClientIDsPageOpen();
         }
     };
     window.onhashchange = activateTabByHash;

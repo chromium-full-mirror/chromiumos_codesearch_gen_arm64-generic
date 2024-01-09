@@ -33,10 +33,10 @@ export function getTemplate() {
 
 <div id="grid-variants">
   <div id="fakeFocusTarget" tabindex="-1"></div>
-  <template is="dom-repeat" items="[[variantRows]]" as="row">
+  <template is="dom-repeat" items="[[computeVariantRows(showBaseEmoji, variants)]]" as="row">
     <div class="variant-row">
       <template is="dom-repeat" items="[[row]]" as="emoji">
-        <emoji-button emoji="[[emoji.string]]" variant base="[[baseEmoji]]" all-variants="[[variants]]" tooltip="[[tooltip]]">
+        <emoji-button emoji="[[emoji.string]]" variant tone="[[emoji.tone]]" gender="[[emoji.gender]]" base="[[baseEmoji]]" grouped-tone="[[groupedTone]]" grouped-gender="[[groupedGender]]" all-variants="[[variants]]" tooltip="[[tooltip]]">
         </emoji-button>
       </template>
     </div>

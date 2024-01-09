@@ -7,11 +7,9 @@ import './strings.m.js';
 import { addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 
 const template$3 = html `
-<custom-style>
-  <style>
+<style>
 html{--annotation-background-color:var(--google-green-50);--annotation-text-color:var(--google-green-600);--border-color:var(--google-grey-300);--entity-image-background-color:var(--google-grey-50);--icon-color:var(--google-grey-600);--url-color:var(--google-blue-600);--side-panel-url-color:var(--google-grey-700)}@media (prefers-color-scheme:dark){html{--annotation-background-color:var(--google-green-300);--annotation-text-color:var(--google-grey-900);--border-color:var(--google-grey-700);--entity-image-background-color:var(--google-grey-800);--icon-color:white;--url-color:var(--google-blue-300);--side-panel-url-color:var(--google-grey-500)}}html{--card-max-width:960px;--card-min-width:550px;--card-padding-between:16px;--card-padding-side:24px;--first-card-padding-top:24px;--cluster-max-width:var(--card-max-width);--cluster-min-width:var(--card-min-width);--cluster-padding-horizontal:var(--card-padding-side);--cluster-padding-vertical:var(--card-padding-between);--favicon-margin:16px;--favicon-size:16px;--first-cluster-padding-top:var(--first-card-padding-top);--pill-height:34px;--pill-padding-icon:12px;--pill-padding-text:16px;--top-visit-favicon-size:24px}
-  </style>
-</custom-style>
+</style>
 `;
 document.head.appendChild(template$3.content);
 
@@ -1397,6 +1395,7 @@ var ClientId;
     ClientId[ClientId["Bookmarks"] = 4] = "Bookmarks";
 })(ClientId || (ClientId = {}));
 class PageImageServiceHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -1405,6 +1404,9 @@ class PageImageServiceHandlerPendingReceiver {
     }
 }
 class PageImageServiceHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageImageServiceHandlerPendingReceiver, handle);
@@ -1461,6 +1463,7 @@ mojo.internal.Struct(PageImageServiceHandler_GetPageImageUrl_ResponseParamsSpec.
  * @fileoverview The browser proxy used to access `PageImageService` from WebUI.
  */
 class PageImageServiceBrowserProxy {
+    handler;
     constructor(handler) {
         this.handler = handler;
     }
@@ -2819,7 +2822,7 @@ class HistoryClustersElement extends HistoryClustersElementBase {
 customElements.define(HistoryClustersElement.is, HistoryClustersElement);
 
 function getTemplate$a() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:auto;height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:0;position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
     <template is="dom-repeat" items="[[tabNames]]">
       <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
         <div class="tab-icon" style$="[[getIconStyle_(index)]]">
@@ -2907,8 +2910,9 @@ class CrTabsElement extends PolymerElement {
     }
     onSelectedChanged_(newSelected, oldSelected) {
         const tabs = this.shadowRoot.querySelectorAll('.tab');
-        if (tabs.length === 0 || oldSelected === undefined) {
-            // Tabs are not rendered yet.
+        if (tabs.length === 0 || oldSelected === undefined ||
+            tabs.length <= newSelected || tabs.length <= oldSelected) {
+            // Tabs are not fully rendered yet.
             return;
         }
         const oldTabRect = tabs[oldSelected].getBoundingClientRect();
@@ -4250,8 +4254,103 @@ function searchResultsTitle(numberOfResults, searchTerm) {
     return loadTimeData.getStringF('foundSearchResults', numberOfResults, loadTimeData.getString(resultId), searchTerm);
 }
 
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Base class for Web Components that don't use Polymer.
+ * See the following file for usage:
+ * chrome/test/data/webui/js/custom_element_test.js
+ */
+function emptyHTML() {
+    return window.trustedTypes ? window.trustedTypes.emptyHTML : '';
+}
+class CustomElement extends HTMLElement {
+    static get template() {
+        return emptyHTML();
+    }
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        const template = document.createElement('template');
+        template.innerHTML =
+            this.constructor.template || emptyHTML();
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+    $(query) {
+        return this.shadowRoot.querySelector(query);
+    }
+    $all(query) {
+        return this.shadowRoot.querySelectorAll(query);
+    }
+    getRequiredElement(query) {
+        const el = this.shadowRoot.querySelector(query);
+        assert(el);
+        assert(el instanceof HTMLElement);
+        return el;
+    }
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @return Whether the passed tagged template literal is a valid array.
+ */
+function isValidArray(arr) {
+    if (arr instanceof Array && Object.isFrozen(arr)) {
+        return true;
+    }
+    return false;
+}
+/**
+ * Checks if the passed tagged template literal only contains static string.
+ * And return the string in the literal if so.
+ * Throws an Error if the passed argument is not supported literals.
+ */
+function getStaticString(literal) {
+    const isStaticString = isValidArray(literal) && !!literal.raw &&
+        isValidArray(literal.raw) && literal.length === literal.raw.length &&
+        literal.length === 1;
+    assert(isStaticString, 'static_types.js only allows static strings');
+    return literal.join('');
+}
+function createTypes(_ignore, literal) {
+    return getStaticString(literal);
+}
+/**
+ * Rules used to enforce static literal checks.
+ */
+const rules = {
+    createHTML: createTypes,
+    createScript: createTypes,
+    createScriptURL: createTypes,
+};
+/**
+ * This policy returns Trusted Types if the passed literal is static.
+ */
+let staticPolicy;
+if (window.trustedTypes) {
+    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
+}
+else {
+    staticPolicy = rules;
+}
+/**
+ * Returns TrustedHTML if the passed literal is static.
+ */
+function getTrustedHTML(literal) {
+    return staticPolicy.createHTML('', literal);
+}
+/**
+ * Returns TrustedScriptURL if the passed literal is static.
+ */
+function getTrustedScriptURL(literal) {
+    return staticPolicy.createScriptURL('', literal);
+}
+
 function getTemplate$8() {
-    return html `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
+    return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
 </div>
@@ -4284,7 +4383,7 @@ function getInstance(container = document.body) {
     instances.set(container, instance);
     return instance;
 }
-class CrA11yAnnouncerElement extends PolymerElement {
+class CrA11yAnnouncerElement extends CustomElement {
     constructor() {
         super(...arguments);
         this.currentTimeout_ = null;
@@ -4297,7 +4396,6 @@ class CrA11yAnnouncerElement extends PolymerElement {
         return getTemplate$8();
     }
     disconnectedCallback() {
-        super.disconnectedCallback();
         if (this.currentTimeout_ !== null) {
             clearTimeout(this.currentTimeout_);
             this.currentTimeout_ = null;
@@ -5471,7 +5569,8 @@ const CrSearchFieldMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$6() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
+                var(--cr-hover-background-color)) isolation: isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
               --cr-toolbar-search-field-input-icon-color,
@@ -5481,7 +5580,7 @@ function getTemplate$6() {
               --cr-toolbar-search-field-input-icon-color,
               var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
                 var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){background:0 0;border-radius:100px;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--color-toolbar-search-field-background-hover,var(--cr-hover-background-color));z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
     <div id="background"></div>
     <div id="stateBackground"></div>
     <div id="content">
@@ -6948,15 +7047,15 @@ customElements.define(HistorySideBarElement.is, HistorySideBarElement);
 // found in the LICENSE file.
 /** This is used to identify keyboard shortcuts. */
 class KeyboardShortcut {
+    useKeyCode_ = false;
+    mods_ = {};
+    key_ = null;
+    keyCode_ = null;
     /**
      * @param shortcut The text used to describe the keys for this
      *     keyboard shortcut.
      */
     constructor(shortcut) {
-        this.useKeyCode_ = false;
-        this.mods_ = {};
-        this.key_ = null;
-        this.keyCode_ = null;
         shortcut.split('|').forEach((part) => {
             const partLc = part.toLowerCase();
             switch (partLc) {
@@ -7000,6 +7099,7 @@ class KeyboardShortcut {
 }
 /** A list of keyboard shortcuts which all perform one command. */
 class KeyboardShortcutList {
+    shortcuts_;
     /**
      * @param shortcuts Text-based representation of one or more
      *     keyboard shortcuts, separated by spaces.
@@ -7125,64 +7225,6 @@ const FindShortcutMixin = dedupingMixin((superClass) => {
     }
     return FindShortcutMixin;
 });
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @return Whether the passed tagged template literal is a valid array.
- */
-function isValidArray(arr) {
-    if (arr instanceof Array && Object.isFrozen(arr)) {
-        return true;
-    }
-    return false;
-}
-/**
- * Checks if the passed tagged template literal only contains static string.
- * And return the string in the literal if so.
- * Throws an Error if the passed argument is not supported literals.
- */
-function getStaticString(literal) {
-    const isStaticString = isValidArray(literal) && !!literal.raw &&
-        isValidArray(literal.raw) && literal.length === literal.raw.length &&
-        literal.length === 1;
-    assert(isStaticString, 'static_types.js only allows static strings');
-    return literal.join('');
-}
-function createTypes(_ignore, literal) {
-    return getStaticString(literal);
-}
-/**
- * Rules used to enforce static literal checks.
- */
-const rules = {
-    createHTML: createTypes,
-    createScript: createTypes,
-    createScriptURL: createTypes,
-};
-/**
- * This policy returns Trusted Types if the passed literal is static.
- */
-let staticPolicy;
-if (window.trustedTypes) {
-    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
-}
-else {
-    staticPolicy = rules;
-}
-/**
- * Returns TrustedHTML if the passed literal is static.
- */
-function getTrustedHTML(literal) {
-    return staticPolicy.createHTML('', literal);
-}
-/**
- * Returns TrustedScriptURL if the passed literal is static.
- */
-function getTrustedScriptURL(literal) {
-    return staticPolicy.createScriptURL('', literal);
-}
 
 function getTemplate() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style shared-style">:host{color:var(--cr-primary-text-color);display:block;height:100%;line-height:1.54;overflow:hidden}#main-container{display:flex;height:calc(100% - var(--toolbar-height));position:relative}#content{flex:1;min-width:0}#content,#content>*{height:100%}#tabs-container{--cr-tabs-height:48px;--tabs-margin-top:16px}#tabs{--cr-tabs-icon-margin-end:12px;--cr-tabs-selection-bar-width:3px;--cr-tabs-tab-inline-padding:16px;border-bottom:1px solid var(--separator-color);display:flex;justify-content:start;margin:0 auto;max-width:var(--cluster-max-width)}#tabs-content,#tabs-content>*{height:100%}:host([show-history-clusters_]) #tabs-content{height:calc(100% - var(--cr-tabs-height))}:host([toolbar-shadow_]) #drop-shadow{opacity:var(--cr-container-shadow-max-opacity)}</style>
@@ -7352,7 +7394,7 @@ class HistoryAppElement extends HistoryAppElementBase {
                 value: () => loadTimeData.getBoolean('isHistoryClustersVisible'),
             },
             historyClustersPath_: {
-                type: Boolean,
+                type: String,
                 value: () => loadTimeData.getBoolean('renameJourneys') ? 'grouped' : 'journeys',
             },
             showHistoryClusters_: {
@@ -7382,7 +7424,7 @@ class HistoryAppElement extends HistoryAppElementBase {
     }
     constructor() {
         super();
-        this.browserService_ = null;
+        this.browserService_ = BrowserServiceImpl.getInstance();
         this.eventTracker_ = new EventTracker();
         this.isUserSignedIn_ = loadTimeData.getBoolean('isUserSignedIn');
         this.historyClustersViewStartTime_ = null;
@@ -7400,7 +7442,6 @@ class HistoryAppElement extends HistoryAppElementBase {
         this.addWebUiListener('sign-in-state-changed', (signedIn) => this.onSignInStateChanged_(signedIn));
         this.addWebUiListener('has-other-forms-changed', (hasOtherForms) => this.onHasOtherFormsChanged_(hasOtherForms));
         this.addWebUiListener('foreign-sessions-changed', (sessionList) => this.setForeignSessions_(sessionList));
-        this.browserService_ = BrowserServiceImpl.getInstance();
         this.shadowRoot.querySelector('history-query-manager').initialize();
         this.browserService_.getForeignSessions().then(sessionList => this.setForeignSessions_(sessionList));
     }
@@ -7412,6 +7453,11 @@ class HistoryAppElement extends HistoryAppElementBase {
         this.addEventListener('history-close-drawer', this.closeDrawer_);
         this.addEventListener('history-view-changed', this.historyViewChanged_);
         this.addEventListener('unselect-all', this.unselectAll);
+        // If there are url params, the router updates the selectedTab/Page and
+        // sets queryState params. Setting the tab manually overrides this.
+        if (!window.location.search) {
+            this.selectedTab_ = this.getDefaultSelectedTab_();
+        }
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -7419,6 +7465,16 @@ class HistoryAppElement extends HistoryAppElementBase {
     }
     fire_(eventName, detail) {
         this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
+    }
+    /**
+     * Returns the tab that should be opened based on url params and then
+     * preferences
+     */
+    getDefaultSelectedTab_() {
+        if (window.location.pathname === '/' + this.historyClustersPath_) {
+            return TABBED_PAGES.indexOf(Page.HISTORY_CLUSTERS);
+        }
+        return loadTimeData.getInteger('lastSelectedTab');
     }
     computeShowHistoryClusters_() {
         return this.historyClustersEnabled_ && this.historyClustersVisible_;
@@ -7428,9 +7484,6 @@ class HistoryAppElement extends HistoryAppElementBase {
             this.showHistoryClusters_;
     }
     onFirstRender_() {
-        setTimeout(() => {
-            this.browserService_.recordTime('History.ResultsRenderedTime', window.performance.now());
-        });
         // Focus the search field on load. Done here to ensure the history page
         // is rendered before we try to take focus.
         const searchField = this.$.toolbar.searchField;
@@ -7601,6 +7654,7 @@ class HistoryAppElement extends HistoryAppElementBase {
         // Change in the currently selected tab requires change in the currently
         // selected page.
         this.selectedPage_ = TABBED_PAGES[this.selectedTab_];
+        this.browserService_.setLastSelectedTab(this.selectedTab_);
     }
     maybeUpdateSelectedHistoryTab_() {
         // Change in the currently selected page may require change in the currently

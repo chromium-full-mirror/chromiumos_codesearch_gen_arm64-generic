@@ -31,43 +31,37 @@ const UIStrings = {
      *@description The UI destination when right clicking an item that can be revealed
      */
     sourcesPanel: 'Sources panel',
+    /**
+     *@description The UI destination when right clicking an item that can be revealed
+     */
+    memoryInspectorPanel: 'Memory inspector panel',
 };
 const str_ = i18n.i18n.registerUIStrings('core/common/Revealer.ts', UIStrings);
 const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
-export let reveal = async function (revealable, omitFocus) {
-    if (!revealable) {
-        return Promise.reject(new Error('Can\'t reveal ' + revealable));
+export let reveal = async function reveal(revealable, omitFocus) {
+    const promises = await Promise.all(getApplicableRegisteredRevealers(revealable).map(registration => registration.loadRevealer()));
+    if (!promises.length) {
+        throw new Error('Can\'t reveal ' + revealable);
     }
-    const revealers = await Promise.all(getApplicableRegisteredRevealers(revealable).map(registration => registration.loadRevealer()));
-    if (!revealers.length) {
-        return Promise.reject(new Error('Can\'t reveal ' + revealable));
-    }
-    return reveal(revealers);
-    function reveal(revealers) {
-        const promises = [];
-        for (let i = 0; i < revealers.length; ++i) {
-            promises.push(revealers[i].reveal(revealable, omitFocus));
-        }
-        return Promise.race(promises);
-    }
+    return await Promise.race(promises.map(revealer => revealer.reveal(revealable, omitFocus)));
 };
 export function setRevealForTest(newReveal) {
     reveal = newReveal;
 }
-export const revealDestination = function (revealable) {
-    const extension = revealable ? getApplicableRegisteredRevealers(revealable)[0] : registeredRevealers[0];
-    if (!extension) {
-        return null;
+export function revealDestination(revealable) {
+    for (const { destination } of getApplicableRegisteredRevealers(revealable)) {
+        if (destination) {
+            return destination();
+        }
     }
-    return extension.destination?.() || null;
-};
+    return null;
+}
 const registeredRevealers = [];
 export function registerRevealer(registration) {
     registeredRevealers.push(registration);
 }
 function getApplicableRegisteredRevealers(revealable) {
-    return registeredRevealers.filter(isRevealerApplicableToContextTypes);
-    function isRevealerApplicableToContextTypes(revealerRegistration) {
+    return registeredRevealers.filter(revealerRegistration => {
         if (!revealerRegistration.contextTypes) {
             return true;
         }
@@ -77,7 +71,7 @@ function getApplicableRegisteredRevealers(revealable) {
             }
         }
         return false;
-    }
+    });
 }
 export const RevealerDestination = {
     ELEMENTS_PANEL: i18nLazyString(UIStrings.elementsPanel),
@@ -87,5 +81,6 @@ export const RevealerDestination = {
     NETWORK_PANEL: i18nLazyString(UIStrings.networkPanel),
     APPLICATION_PANEL: i18nLazyString(UIStrings.applicationPanel),
     SOURCES_PANEL: i18nLazyString(UIStrings.sourcesPanel),
+    MEMORY_INSPECTOR_PANEL: i18nLazyString(UIStrings.memoryInspectorPanel),
 };
 //# sourceMappingURL=Revealer.js.map

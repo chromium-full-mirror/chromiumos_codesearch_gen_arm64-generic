@@ -1,8 +1,16 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><cr-input type="text" placeholder="describe" value="{{textValue_}}">
-</cr-input>
-<cr-button id="searchButton" disabled$="[[thumbnailsLoading_]]" on-click="onClickInputQuerySearchButton_">
-  <div class="text">Search</div>
-</cr-button><!--_html_template_end_-->`;
+    return html `<!--_html_template_start_--><style include="wallpaper common cros-button-style">#container{align-items:center;display:flex;flex-direction:column;height:100%}#queryInput{margin-block-start:20px;text-align:center;--cr-input-error-display:none}#buttonContainer{margin-block-start:12px}</style>
+
+<div id="container">
+  <cr-input id="queryInput" maxlength="[[maxTextLength_]]" placeholder="Describe your wallpaper" type="text" value="{{textValue_}}">
+  </cr-input>
+  <div id="buttonContainer">
+    <cr-button id="searchButton" class="action-button" disabled$="[[thumbnailsLoading_]]" on-click="onClickInputQuerySearchButton_">
+      <iron-icon icon$="[[getSearchButtonIcon_(path)]]" slot="prefix-icon"></iron-icon>
+      [[getSearchButtonText_(path)]]
+    </cr-button>
+  </div>
+</div>
+<!--_html_template_end_-->`;
 }

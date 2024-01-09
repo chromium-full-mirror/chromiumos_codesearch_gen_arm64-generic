@@ -50,16 +50,12 @@ export class CSSStyleDeclaration {
         }
         this.#allPropertiesInternal = [];
         if (payload.cssText && this.range) {
-            const cssText = new TextUtils.Text.Text(payload.cssText);
-            let start = { line: this.range.startLine, column: this.range.startColumn };
             const longhands = [];
             for (const cssProperty of payload.cssProperties) {
                 const range = cssProperty.range;
                 if (!range) {
                     continue;
                 }
-                this.#parseUnusedText(cssText, start.line, start.column, range.startLine, range.startColumn);
-                start = { line: range.endLine, column: range.endColumn };
                 const parsedProperty = CSSProperty.parsePayload(this, this.#allPropertiesInternal.length, cssProperty);
                 this.#allPropertiesInternal.push(parsedProperty);
                 for (const longhand of parsedProperty.getLonghandProperties()) {
@@ -70,7 +66,6 @@ export class CSSStyleDeclaration {
                 longhand.index = this.#allPropertiesInternal.length;
                 this.#allPropertiesInternal.push(longhand);
             }
-            this.#parseUnusedText(cssText, start.line, start.column, this.range.endLine, this.range.endColumn);
         }
         else {
             for (const cssProperty of payload.cssProperties) {
@@ -90,74 +85,6 @@ export class CSSStyleDeclaration {
         }
         this.cssText = payload.cssText;
         this.#leadingPropertiesInternal = null;
-    }
-    #parseUnusedText(cssText, startLine, startColumn, endLine, endColumn) {
-        const tr = new TextUtils.TextRange.TextRange(startLine, startColumn, endLine, endColumn);
-        if (!this.range) {
-            return;
-        }
-        const missingText = cssText.extract(tr.relativeTo(this.range.startLine, this.range.startColumn));
-        // Try to fit the malformed css into properties.
-        const lines = missingText.split('\n');
-        const context = {
-            inComment: false,
-            nestedBlocks: 0,
-            validContent: '',
-        };
-        for (let lineNumber = 0; lineNumber < lines.length; lineNumber++) {
-            skipBlocks(lines[lineNumber], context);
-            if (context.nestedBlocks > 0 || !context.validContent) {
-                // We skip the whole line if we have entered a nested block.
-                continue;
-            }
-            let column = 0;
-            for (const property of context.validContent.split(';')) {
-                const trimmedProperty = property.trim();
-                if (trimmedProperty) {
-                    let name;
-                    let value;
-                    const colonIndex = trimmedProperty.indexOf(':');
-                    if (colonIndex === -1) {
-                        name = trimmedProperty;
-                        value = '';
-                    }
-                    else {
-                        name = trimmedProperty.substring(0, colonIndex).trim();
-                        value = trimmedProperty.substring(colonIndex + 1).trim();
-                    }
-                    const range = new TextUtils.TextRange.TextRange(lineNumber, column, lineNumber, column + property.length);
-                    this.#allPropertiesInternal.push(new CSSProperty(this, this.#allPropertiesInternal.length, name, value, false, false, false, false, property, range.relativeFrom(startLine, startColumn)));
-                }
-                column += property.length + 1;
-            }
-        }
-        function skipBlocks(text, context) {
-            context.validContent = '';
-            for (let i = 0; i < text.length; i++) {
-                if (!context.inComment) {
-                    if (text[i] === '{') {
-                        context.nestedBlocks++;
-                        // Since we don't retrospectively parse the block's selector, we treat anything
-                        // between the last `;` and `{` as the block's selector and ignore it.
-                        context.validContent = context.validContent.substring(0, context.validContent.lastIndexOf(';') + 1);
-                    }
-                    else if (text[i] === '}') {
-                        context.nestedBlocks--;
-                    }
-                    else if (text.substring(i, i + 2) === '/*') {
-                        context.inComment = true;
-                        i++;
-                    }
-                    else if (context.nestedBlocks === 0) {
-                        context.validContent += text[i];
-                    }
-                }
-                else if (text.substring(i, i + 2) === '*/') {
-                    context.inComment = false;
-                    i++;
-                }
-            }
-        }
     }
     #generateSyntheticPropertiesIfNeeded() {
         if (this.range) {

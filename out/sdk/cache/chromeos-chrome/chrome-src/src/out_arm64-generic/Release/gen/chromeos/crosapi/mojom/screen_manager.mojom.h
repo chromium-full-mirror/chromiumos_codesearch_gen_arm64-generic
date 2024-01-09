@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/screen_manager.mojom-features.h"
 #include "chromeos/crosapi/mojom/screen_manager.mojom-shared.h"
 #include "chromeos/crosapi/mojom/screen_manager.mojom-forward.h"
 #include "chromeos/crosapi/mojom/bitmap.mojom-forward.h"
@@ -415,12 +416,12 @@ class  SnapshotSource {
   SnapshotSource(
       uint64_t id,
       const std::string& title,
-      const absl::optional<std::string>& window_unique_id);
+      const std::optional<std::string>& window_unique_id);
 
   SnapshotSource(
       uint64_t id,
       const std::string& title,
-      const absl::optional<std::string>& window_unique_id,
+      const std::optional<std::string>& window_unique_id,
       int64_t display_id);
 
 
@@ -503,7 +504,7 @@ class  SnapshotSource {
   
   std::string title;
   
-  absl::optional<std::string> window_unique_id;
+  std::optional<std::string> window_unique_id;
   
   int64_t display_id;
 

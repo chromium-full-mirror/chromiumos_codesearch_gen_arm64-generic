@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/webauthn/authenticator.mojom-features.h"
 #include "third_party/blink/public/mojom/webauthn/authenticator.mojom-shared.h"
 #include "third_party/blink/public/mojom/webauthn/authenticator.mojom-blink-forward.h"
 #include "components/payments/mojom/payment_request_data.mojom-blink.h"
@@ -43,114 +44,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::AuthenticatorStatus>
-    : EnumHashTraits<::blink::mojom::AuthenticatorStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::AuthenticatorTransport>
-    : EnumHashTraits<::blink::mojom::AuthenticatorTransport, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::UserVerificationRequirement>
-    : EnumHashTraits<::blink::mojom::UserVerificationRequirement, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ResidentKeyRequirement>
-    : EnumHashTraits<::blink::mojom::ResidentKeyRequirement, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::AuthenticatorAttachment>
-    : EnumHashTraits<::blink::mojom::AuthenticatorAttachment, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ProtectionPolicy>
-    : EnumHashTraits<::blink::mojom::ProtectionPolicy, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::LargeBlobSupport>
-    : EnumHashTraits<::blink::mojom::LargeBlobSupport, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::AttestationConveyancePreference>
-    : EnumHashTraits<::blink::mojom::AttestationConveyancePreference, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::PublicKeyCredentialType>
-    : EnumHashTraits<::blink::mojom::PublicKeyCredentialType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -1059,66 +952,65 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class PLATFORM_EXPORT DevicePublicKeyResponse {
+class PLATFORM_EXPORT SupplementalPubKeysResponse {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<DevicePublicKeyResponse, T>::value>;
-  using DataView = DevicePublicKeyResponseDataView;
-  using Data_ = internal::DevicePublicKeyResponse_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<SupplementalPubKeysResponse, T>::value>;
+  using DataView = SupplementalPubKeysResponseDataView;
+  using Data_ = internal::SupplementalPubKeysResponse_Data;
 
   template <typename... Args>
-  static DevicePublicKeyResponsePtr New(Args&&... args) {
-    return DevicePublicKeyResponsePtr(
+  static SupplementalPubKeysResponsePtr New(Args&&... args) {
+    return SupplementalPubKeysResponsePtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static DevicePublicKeyResponsePtr From(const U& u) {
-    return mojo::TypeConverter<DevicePublicKeyResponsePtr, U>::Convert(u);
+  static SupplementalPubKeysResponsePtr From(const U& u) {
+    return mojo::TypeConverter<SupplementalPubKeysResponsePtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, DevicePublicKeyResponse>::Convert(*this);
+    return mojo::TypeConverter<U, SupplementalPubKeysResponse>::Convert(*this);
   }
 
 
-  DevicePublicKeyResponse();
+  SupplementalPubKeysResponse();
 
-  DevicePublicKeyResponse(
-      WTF::Vector<uint8_t> authenticator_output,
-      WTF::Vector<uint8_t> signature);
+  explicit SupplementalPubKeysResponse(
+      WTF::Vector<WTF::Vector<uint8_t>> signatures);
 
 
-  ~DevicePublicKeyResponse();
+  ~SupplementalPubKeysResponse();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = DevicePublicKeyResponsePtr>
-  DevicePublicKeyResponsePtr Clone() const;
+  template <typename StructPtrType = SupplementalPubKeysResponsePtr>
+  SupplementalPubKeysResponsePtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, DevicePublicKeyResponse::EnableIfSame<T>* = nullptr>
+  template <typename T, SupplementalPubKeysResponse::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, DevicePublicKeyResponse::EnableIfSame<T>* = nullptr>
+  template <typename T, SupplementalPubKeysResponse::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, DevicePublicKeyResponse::EnableIfSame<T>* = nullptr>
+  template <typename T, SupplementalPubKeysResponse::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static WTF::Vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        DevicePublicKeyResponse::DataView, WTF::Vector<uint8_t>>(input);
+        SupplementalPubKeysResponse::DataView, WTF::Vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        DevicePublicKeyResponse::DataView>(input);
+        SupplementalPubKeysResponse::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -1128,8 +1020,8 @@ class PLATFORM_EXPORT DevicePublicKeyResponse {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::DevicePublicKeyResponse_UnserializedMessageContext<
-            UserType, DevicePublicKeyResponse::DataView>>(0, 0, std::move(input)),
+        internal::SupplementalPubKeysResponse_UnserializedMessageContext<
+            UserType, SupplementalPubKeysResponse::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -1138,14 +1030,14 @@ class PLATFORM_EXPORT DevicePublicKeyResponse {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<DevicePublicKeyResponse::DataView>(
+    return mojo::internal::DeserializeImpl<SupplementalPubKeysResponse::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const WTF::Vector<uint8_t>& input,
                           UserType* output) {
-    return DevicePublicKeyResponse::Deserialize(
+    return SupplementalPubKeysResponse::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -1153,21 +1045,19 @@ class PLATFORM_EXPORT DevicePublicKeyResponse {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::DevicePublicKeyResponse_UnserializedMessageContext<
-            UserType, DevicePublicKeyResponse::DataView>>();
+        internal::SupplementalPubKeysResponse_UnserializedMessageContext<
+            UserType, SupplementalPubKeysResponse::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<DevicePublicKeyResponse::DataView>(
+    return mojo::internal::DeserializeImpl<SupplementalPubKeysResponse::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
   
-  WTF::Vector<uint8_t> authenticator_output;
-  
-  WTF::Vector<uint8_t> signature;
+  WTF::Vector<WTF::Vector<uint8_t>> signatures;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1180,20 +1070,20 @@ class PLATFORM_EXPORT DevicePublicKeyResponse {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, DevicePublicKeyResponse::EnableIfSame<T>* = nullptr>
+template <typename T, SupplementalPubKeysResponse::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, DevicePublicKeyResponse::EnableIfSame<T>* = nullptr>
+template <typename T, SupplementalPubKeysResponse::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, DevicePublicKeyResponse::EnableIfSame<T>* = nullptr>
+template <typename T, SupplementalPubKeysResponse::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, DevicePublicKeyResponse::EnableIfSame<T>* = nullptr>
+template <typename T, SupplementalPubKeysResponse::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1240,14 +1130,14 @@ class PLATFORM_EXPORT MakeCredentialAuthenticatorResponse {
       PRFValuesPtr prf_results,
       bool echo_cred_blob,
       bool cred_blob,
-      absl::optional<WTF::Vector<uint8_t>> public_key_der,
+      std::optional<WTF::Vector<uint8_t>> public_key_der,
       int32_t public_key_algo,
       bool echo_cred_props,
       bool has_cred_props_rk,
       bool cred_props_rk,
       bool echo_large_blob,
       bool supports_large_blob,
-      DevicePublicKeyResponsePtr device_public_key);
+      SupplementalPubKeysResponsePtr supplemental_pub_keys);
 
 MakeCredentialAuthenticatorResponse(const MakeCredentialAuthenticatorResponse&) = delete;
 MakeCredentialAuthenticatorResponse& operator=(const MakeCredentialAuthenticatorResponse&) = delete;
@@ -1349,7 +1239,7 @@ MakeCredentialAuthenticatorResponse& operator=(const MakeCredentialAuthenticator
   
   bool cred_blob;
   
-  absl::optional<WTF::Vector<uint8_t>> public_key_der;
+  std::optional<WTF::Vector<uint8_t>> public_key_der;
   
   int32_t public_key_algo;
   
@@ -1363,7 +1253,7 @@ MakeCredentialAuthenticatorResponse& operator=(const MakeCredentialAuthenticator
   
   bool supports_large_blob;
   
-  DevicePublicKeyResponsePtr device_public_key;
+  SupplementalPubKeysResponsePtr supplemental_pub_keys;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1428,7 +1318,7 @@ class PLATFORM_EXPORT GetAssertionAuthenticatorResponse {
       CommonCredentialInfoPtr info,
       AuthenticatorAttachment authenticator_attachment,
       WTF::Vector<uint8_t> signature,
-      absl::optional<WTF::Vector<uint8_t>> user_handle,
+      std::optional<WTF::Vector<uint8_t>> user_handle,
       AuthenticationExtensionsClientOutputsPtr extensions);
 
 GetAssertionAuthenticatorResponse(const GetAssertionAuthenticatorResponse&) = delete;
@@ -1515,7 +1405,7 @@ GetAssertionAuthenticatorResponse& operator=(const GetAssertionAuthenticatorResp
   
   WTF::Vector<uint8_t> signature;
   
-  absl::optional<WTF::Vector<uint8_t>> user_handle;
+  std::optional<WTF::Vector<uint8_t>> user_handle;
   
   AuthenticationExtensionsClientOutputsPtr extensions;
 
@@ -1585,11 +1475,11 @@ class PLATFORM_EXPORT AuthenticationExtensionsClientOutputs {
       PRFValuesPtr prf_results,
       bool prf_not_evaluated,
       bool echo_large_blob,
-      absl::optional<WTF::Vector<uint8_t>> large_blob,
+      std::optional<WTF::Vector<uint8_t>> large_blob,
       bool echo_large_blob_written,
       bool large_blob_written,
-      absl::optional<WTF::Vector<uint8_t>> get_cred_blob,
-      DevicePublicKeyResponsePtr device_public_key);
+      std::optional<WTF::Vector<uint8_t>> get_cred_blob,
+      SupplementalPubKeysResponsePtr supplemental_pub_keys);
 
 AuthenticationExtensionsClientOutputs(const AuthenticationExtensionsClientOutputs&) = delete;
 AuthenticationExtensionsClientOutputs& operator=(const AuthenticationExtensionsClientOutputs&) = delete;
@@ -1681,15 +1571,15 @@ AuthenticationExtensionsClientOutputs& operator=(const AuthenticationExtensionsC
   
   bool echo_large_blob;
   
-  absl::optional<WTF::Vector<uint8_t>> large_blob;
+  std::optional<WTF::Vector<uint8_t>> large_blob;
   
   bool echo_large_blob_written;
   
   bool large_blob_written;
   
-  absl::optional<WTF::Vector<uint8_t>> get_cred_blob;
+  std::optional<WTF::Vector<uint8_t>> get_cred_blob;
   
-  DevicePublicKeyResponsePtr device_public_key;
+  SupplementalPubKeysResponsePtr supplemental_pub_keys;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1900,11 +1790,11 @@ class PLATFORM_EXPORT CableAuthentication {
 
   CableAuthentication(
       uint8_t version,
-      absl::optional<WTF::Vector<uint8_t>> client_eid,
-      absl::optional<WTF::Vector<uint8_t>> authenticator_eid,
-      absl::optional<WTF::Vector<uint8_t>> session_pre_key,
-      absl::optional<WTF::Vector<uint8_t>> server_link_data,
-      absl::optional<WTF::Vector<uint8_t>> experiments);
+      std::optional<WTF::Vector<uint8_t>> client_eid,
+      std::optional<WTF::Vector<uint8_t>> authenticator_eid,
+      std::optional<WTF::Vector<uint8_t>> session_pre_key,
+      std::optional<WTF::Vector<uint8_t>> server_link_data,
+      std::optional<WTF::Vector<uint8_t>> experiments);
 
 
   ~CableAuthentication();
@@ -1984,15 +1874,15 @@ class PLATFORM_EXPORT CableAuthentication {
   
   uint8_t version;
   
-  absl::optional<WTF::Vector<uint8_t>> client_eid;
+  std::optional<WTF::Vector<uint8_t>> client_eid;
   
-  absl::optional<WTF::Vector<uint8_t>> authenticator_eid;
+  std::optional<WTF::Vector<uint8_t>> authenticator_eid;
   
-  absl::optional<WTF::Vector<uint8_t>> session_pre_key;
+  std::optional<WTF::Vector<uint8_t>> session_pre_key;
   
-  absl::optional<WTF::Vector<uint8_t>> server_link_data;
+  std::optional<WTF::Vector<uint8_t>> server_link_data;
   
-  absl::optional<WTF::Vector<uint8_t>> experiments;
+  std::optional<WTF::Vector<uint8_t>> experiments;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2054,9 +1944,9 @@ class PLATFORM_EXPORT PRFValues {
   PRFValues();
 
   PRFValues(
-      absl::optional<WTF::Vector<uint8_t>> id,
+      std::optional<WTF::Vector<uint8_t>> id,
       WTF::Vector<uint8_t> first,
-      absl::optional<WTF::Vector<uint8_t>> second);
+      std::optional<WTF::Vector<uint8_t>> second);
 
 
   ~PRFValues();
@@ -2134,11 +2024,11 @@ class PLATFORM_EXPORT PRFValues {
   }
 
   
-  absl::optional<WTF::Vector<uint8_t>> id;
+  std::optional<WTF::Vector<uint8_t>> id;
   
   WTF::Vector<uint8_t> first;
   
-  absl::optional<WTF::Vector<uint8_t>> second;
+  std::optional<WTF::Vector<uint8_t>> second;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2613,66 +2503,68 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class PLATFORM_EXPORT DevicePublicKeyRequest {
+class PLATFORM_EXPORT SupplementalPubKeysRequest {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<DevicePublicKeyRequest, T>::value>;
-  using DataView = DevicePublicKeyRequestDataView;
-  using Data_ = internal::DevicePublicKeyRequest_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<SupplementalPubKeysRequest, T>::value>;
+  using DataView = SupplementalPubKeysRequestDataView;
+  using Data_ = internal::SupplementalPubKeysRequest_Data;
 
   template <typename... Args>
-  static DevicePublicKeyRequestPtr New(Args&&... args) {
-    return DevicePublicKeyRequestPtr(
+  static SupplementalPubKeysRequestPtr New(Args&&... args) {
+    return SupplementalPubKeysRequestPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static DevicePublicKeyRequestPtr From(const U& u) {
-    return mojo::TypeConverter<DevicePublicKeyRequestPtr, U>::Convert(u);
+  static SupplementalPubKeysRequestPtr From(const U& u) {
+    return mojo::TypeConverter<SupplementalPubKeysRequestPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, DevicePublicKeyRequest>::Convert(*this);
+    return mojo::TypeConverter<U, SupplementalPubKeysRequest>::Convert(*this);
   }
 
 
-  DevicePublicKeyRequest();
+  SupplementalPubKeysRequest();
 
-  DevicePublicKeyRequest(
+  SupplementalPubKeysRequest(
+      bool device_scope_requested,
+      bool provider_scope_requested,
       AttestationConveyancePreference attestation,
       WTF::Vector<WTF::String> attestation_formats);
 
 
-  ~DevicePublicKeyRequest();
+  ~SupplementalPubKeysRequest();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = DevicePublicKeyRequestPtr>
-  DevicePublicKeyRequestPtr Clone() const;
+  template <typename StructPtrType = SupplementalPubKeysRequestPtr>
+  SupplementalPubKeysRequestPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, DevicePublicKeyRequest::EnableIfSame<T>* = nullptr>
+  template <typename T, SupplementalPubKeysRequest::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, DevicePublicKeyRequest::EnableIfSame<T>* = nullptr>
+  template <typename T, SupplementalPubKeysRequest::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, DevicePublicKeyRequest::EnableIfSame<T>* = nullptr>
+  template <typename T, SupplementalPubKeysRequest::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static WTF::Vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        DevicePublicKeyRequest::DataView, WTF::Vector<uint8_t>>(input);
+        SupplementalPubKeysRequest::DataView, WTF::Vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        DevicePublicKeyRequest::DataView>(input);
+        SupplementalPubKeysRequest::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -2682,8 +2574,8 @@ class PLATFORM_EXPORT DevicePublicKeyRequest {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::DevicePublicKeyRequest_UnserializedMessageContext<
-            UserType, DevicePublicKeyRequest::DataView>>(0, 0, std::move(input)),
+        internal::SupplementalPubKeysRequest_UnserializedMessageContext<
+            UserType, SupplementalPubKeysRequest::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -2692,14 +2584,14 @@ class PLATFORM_EXPORT DevicePublicKeyRequest {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<DevicePublicKeyRequest::DataView>(
+    return mojo::internal::DeserializeImpl<SupplementalPubKeysRequest::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const WTF::Vector<uint8_t>& input,
                           UserType* output) {
-    return DevicePublicKeyRequest::Deserialize(
+    return SupplementalPubKeysRequest::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -2707,17 +2599,21 @@ class PLATFORM_EXPORT DevicePublicKeyRequest {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::DevicePublicKeyRequest_UnserializedMessageContext<
-            UserType, DevicePublicKeyRequest::DataView>>();
+        internal::SupplementalPubKeysRequest_UnserializedMessageContext<
+            UserType, SupplementalPubKeysRequest::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<DevicePublicKeyRequest::DataView>(
+    return mojo::internal::DeserializeImpl<SupplementalPubKeysRequest::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
+  
+  bool device_scope_requested;
+  
+  bool provider_scope_requested;
   
   AttestationConveyancePreference attestation;
   
@@ -2734,20 +2630,20 @@ class PLATFORM_EXPORT DevicePublicKeyRequest {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, DevicePublicKeyRequest::EnableIfSame<T>* = nullptr>
+template <typename T, SupplementalPubKeysRequest::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, DevicePublicKeyRequest::EnableIfSame<T>* = nullptr>
+template <typename T, SupplementalPubKeysRequest::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, DevicePublicKeyRequest::EnableIfSame<T>* = nullptr>
+template <typename T, SupplementalPubKeysRequest::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, DevicePublicKeyRequest::EnableIfSame<T>* = nullptr>
+template <typename T, SupplementalPubKeysRequest::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -2785,9 +2681,10 @@ class PLATFORM_EXPORT PublicKeyCredentialRequestOptions {
   PublicKeyCredentialRequestOptions(
       bool is_conditional,
       WTF::Vector<uint8_t> challenge,
-      absl::optional<::base::TimeDelta> timeout,
+      std::optional<::base::TimeDelta> timeout,
       const WTF::String& relying_party_id,
       WTF::Vector<PublicKeyCredentialDescriptorPtr> allow_credentials,
+      WTF::Vector<Hint> hints,
       UserVerificationRequirement user_verification,
       AuthenticationExtensionsClientInputsPtr extensions);
 
@@ -2873,11 +2770,13 @@ PublicKeyCredentialRequestOptions& operator=(const PublicKeyCredentialRequestOpt
   
   WTF::Vector<uint8_t> challenge;
   
-  absl::optional<::base::TimeDelta> timeout;
+  std::optional<::base::TimeDelta> timeout;
   
   WTF::String relying_party_id;
   
   WTF::Vector<PublicKeyCredentialDescriptorPtr> allow_credentials;
+  
+  WTF::Vector<Hint> hints;
   
   UserVerificationRequirement user_verification;
   
@@ -2949,10 +2848,10 @@ class PLATFORM_EXPORT AuthenticationExtensionsClientInputs {
       WTF::Vector<PRFValuesPtr> prf_inputs,
       bool prf_inputs_hashed,
       bool large_blob_read,
-      absl::optional<WTF::Vector<uint8_t>> large_blob_write,
+      std::optional<WTF::Vector<uint8_t>> large_blob_write,
       bool get_cred_blob,
       RemoteDesktopClientOverridePtr remote_desktop_client_override,
-      DevicePublicKeyRequestPtr device_public_key);
+      SupplementalPubKeysRequestPtr supplemental_pub_keys);
 
 AuthenticationExtensionsClientInputs(const AuthenticationExtensionsClientInputs&) = delete;
 AuthenticationExtensionsClientInputs& operator=(const AuthenticationExtensionsClientInputs&) = delete;
@@ -3044,13 +2943,13 @@ AuthenticationExtensionsClientInputs& operator=(const AuthenticationExtensionsCl
   
   bool large_blob_read;
   
-  absl::optional<WTF::Vector<uint8_t>> large_blob_write;
+  std::optional<WTF::Vector<uint8_t>> large_blob_write;
   
   bool get_cred_blob;
   
   RemoteDesktopClientOverridePtr remote_desktop_client_override;
   
-  DevicePublicKeyRequestPtr device_public_key;
+  SupplementalPubKeysRequestPtr supplemental_pub_keys;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3117,9 +3016,10 @@ class PLATFORM_EXPORT PublicKeyCredentialCreationOptions {
       PublicKeyCredentialUserEntityPtr user,
       WTF::Vector<uint8_t> challenge,
       WTF::Vector<PublicKeyCredentialParametersPtr> public_key_parameters,
-      absl::optional<::base::TimeDelta> timeout,
+      std::optional<::base::TimeDelta> timeout,
       WTF::Vector<PublicKeyCredentialDescriptorPtr> exclude_credentials,
       AuthenticatorSelectionCriteriaPtr authenticator_selection,
+      WTF::Vector<Hint> hints,
       AttestationConveyancePreference attestation,
       bool hmac_create_secret,
       bool prf_enable,
@@ -3130,10 +3030,10 @@ class PLATFORM_EXPORT PublicKeyCredentialCreationOptions {
       bool cred_props,
       LargeBlobSupport large_blob_enable,
       bool is_payment_credential_creation,
-      absl::optional<WTF::Vector<uint8_t>> cred_blob,
+      std::optional<WTF::Vector<uint8_t>> cred_blob,
       bool min_pin_length_requested,
       RemoteDesktopClientOverridePtr remote_desktop_client_override,
-      DevicePublicKeyRequestPtr device_public_key);
+      SupplementalPubKeysRequestPtr supplemental_pub_keys);
 
 PublicKeyCredentialCreationOptions(const PublicKeyCredentialCreationOptions&) = delete;
 PublicKeyCredentialCreationOptions& operator=(const PublicKeyCredentialCreationOptions&) = delete;
@@ -3221,11 +3121,13 @@ PublicKeyCredentialCreationOptions& operator=(const PublicKeyCredentialCreationO
   
   WTF::Vector<PublicKeyCredentialParametersPtr> public_key_parameters;
   
-  absl::optional<::base::TimeDelta> timeout;
+  std::optional<::base::TimeDelta> timeout;
   
   WTF::Vector<PublicKeyCredentialDescriptorPtr> exclude_credentials;
   
   AuthenticatorSelectionCriteriaPtr authenticator_selection;
+  
+  WTF::Vector<Hint> hints;
   
   AttestationConveyancePreference attestation;
   
@@ -3247,13 +3149,13 @@ PublicKeyCredentialCreationOptions& operator=(const PublicKeyCredentialCreationO
   
   bool is_payment_credential_creation;
   
-  absl::optional<WTF::Vector<uint8_t>> cred_blob;
+  std::optional<WTF::Vector<uint8_t>> cred_blob;
   
   bool min_pin_length_requested;
   
   RemoteDesktopClientOverridePtr remote_desktop_client_override;
   
-  DevicePublicKeyRequestPtr device_public_key;
+  SupplementalPubKeysRequestPtr supplemental_pub_keys;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3475,31 +3377,24 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-DevicePublicKeyResponsePtr DevicePublicKeyResponse::Clone() const {
+SupplementalPubKeysResponsePtr SupplementalPubKeysResponse::Clone() const {
   return New(
-      mojo::Clone(authenticator_output),
-      mojo::Clone(signature)
+      mojo::Clone(signatures)
   );
 }
 
-template <typename T, DevicePublicKeyResponse::EnableIfSame<T>*>
-bool DevicePublicKeyResponse::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->authenticator_output, other_struct.authenticator_output))
-    return false;
-  if (!mojo::Equals(this->signature, other_struct.signature))
+template <typename T, SupplementalPubKeysResponse::EnableIfSame<T>*>
+bool SupplementalPubKeysResponse::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->signatures, other_struct.signatures))
     return false;
   return true;
 }
 
-template <typename T, DevicePublicKeyResponse::EnableIfSame<T>*>
+template <typename T, SupplementalPubKeysResponse::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.authenticator_output < rhs.authenticator_output)
+  if (lhs.signatures < rhs.signatures)
     return true;
-  if (rhs.authenticator_output < lhs.authenticator_output)
-    return false;
-  if (lhs.signature < rhs.signature)
-    return true;
-  if (rhs.signature < lhs.signature)
+  if (rhs.signatures < lhs.signatures)
     return false;
   return false;
 }
@@ -3524,7 +3419,7 @@ MakeCredentialAuthenticatorResponsePtr MakeCredentialAuthenticatorResponse::Clon
       mojo::Clone(cred_props_rk),
       mojo::Clone(echo_large_blob),
       mojo::Clone(supports_large_blob),
-      mojo::Clone(device_public_key)
+      mojo::Clone(supplemental_pub_keys)
   );
 }
 
@@ -3566,7 +3461,7 @@ bool MakeCredentialAuthenticatorResponse::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->supports_large_blob, other_struct.supports_large_blob))
     return false;
-  if (!mojo::Equals(this->device_public_key, other_struct.device_public_key))
+  if (!mojo::Equals(this->supplemental_pub_keys, other_struct.supplemental_pub_keys))
     return false;
   return true;
 }
@@ -3645,9 +3540,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.supports_large_blob < lhs.supports_large_blob)
     return false;
-  if (lhs.device_public_key < rhs.device_public_key)
+  if (lhs.supplemental_pub_keys < rhs.supplemental_pub_keys)
     return true;
-  if (rhs.device_public_key < lhs.device_public_key)
+  if (rhs.supplemental_pub_keys < lhs.supplemental_pub_keys)
     return false;
   return false;
 }
@@ -3714,7 +3609,7 @@ AuthenticationExtensionsClientOutputsPtr AuthenticationExtensionsClientOutputs::
       mojo::Clone(echo_large_blob_written),
       mojo::Clone(large_blob_written),
       mojo::Clone(get_cred_blob),
-      mojo::Clone(device_public_key)
+      mojo::Clone(supplemental_pub_keys)
   );
 }
 
@@ -3740,7 +3635,7 @@ bool AuthenticationExtensionsClientOutputs::Equals(const T& other_struct) const 
     return false;
   if (!mojo::Equals(this->get_cred_blob, other_struct.get_cred_blob))
     return false;
-  if (!mojo::Equals(this->device_public_key, other_struct.device_public_key))
+  if (!mojo::Equals(this->supplemental_pub_keys, other_struct.supplemental_pub_keys))
     return false;
   return true;
 }
@@ -3787,9 +3682,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.get_cred_blob < lhs.get_cred_blob)
     return false;
-  if (lhs.device_public_key < rhs.device_public_key)
+  if (lhs.supplemental_pub_keys < rhs.supplemental_pub_keys)
     return true;
-  if (rhs.device_public_key < lhs.device_public_key)
+  if (rhs.supplemental_pub_keys < lhs.supplemental_pub_keys)
     return false;
   return false;
 }
@@ -4089,15 +3984,21 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-DevicePublicKeyRequestPtr DevicePublicKeyRequest::Clone() const {
+SupplementalPubKeysRequestPtr SupplementalPubKeysRequest::Clone() const {
   return New(
+      mojo::Clone(device_scope_requested),
+      mojo::Clone(provider_scope_requested),
       mojo::Clone(attestation),
       mojo::Clone(attestation_formats)
   );
 }
 
-template <typename T, DevicePublicKeyRequest::EnableIfSame<T>*>
-bool DevicePublicKeyRequest::Equals(const T& other_struct) const {
+template <typename T, SupplementalPubKeysRequest::EnableIfSame<T>*>
+bool SupplementalPubKeysRequest::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->device_scope_requested, other_struct.device_scope_requested))
+    return false;
+  if (!mojo::Equals(this->provider_scope_requested, other_struct.provider_scope_requested))
+    return false;
   if (!mojo::Equals(this->attestation, other_struct.attestation))
     return false;
   if (!mojo::Equals(this->attestation_formats, other_struct.attestation_formats))
@@ -4105,8 +4006,16 @@ bool DevicePublicKeyRequest::Equals(const T& other_struct) const {
   return true;
 }
 
-template <typename T, DevicePublicKeyRequest::EnableIfSame<T>*>
+template <typename T, SupplementalPubKeysRequest::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.device_scope_requested < rhs.device_scope_requested)
+    return true;
+  if (rhs.device_scope_requested < lhs.device_scope_requested)
+    return false;
+  if (lhs.provider_scope_requested < rhs.provider_scope_requested)
+    return true;
+  if (rhs.provider_scope_requested < lhs.provider_scope_requested)
+    return false;
   if (lhs.attestation < rhs.attestation)
     return true;
   if (rhs.attestation < lhs.attestation)
@@ -4125,6 +4034,7 @@ PublicKeyCredentialRequestOptionsPtr PublicKeyCredentialRequestOptions::Clone() 
       mojo::Clone(timeout),
       mojo::Clone(relying_party_id),
       mojo::Clone(allow_credentials),
+      mojo::Clone(hints),
       mojo::Clone(user_verification),
       mojo::Clone(extensions)
   );
@@ -4141,6 +4051,8 @@ bool PublicKeyCredentialRequestOptions::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->relying_party_id, other_struct.relying_party_id))
     return false;
   if (!mojo::Equals(this->allow_credentials, other_struct.allow_credentials))
+    return false;
+  if (!mojo::Equals(this->hints, other_struct.hints))
     return false;
   if (!mojo::Equals(this->user_verification, other_struct.user_verification))
     return false;
@@ -4171,6 +4083,10 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.allow_credentials < lhs.allow_credentials)
     return false;
+  if (lhs.hints < rhs.hints)
+    return true;
+  if (rhs.hints < lhs.hints)
+    return false;
   if (lhs.user_verification < rhs.user_verification)
     return true;
   if (rhs.user_verification < lhs.user_verification)
@@ -4193,7 +4109,7 @@ AuthenticationExtensionsClientInputsPtr AuthenticationExtensionsClientInputs::Cl
       mojo::Clone(large_blob_write),
       mojo::Clone(get_cred_blob),
       mojo::Clone(remote_desktop_client_override),
-      mojo::Clone(device_public_key)
+      mojo::Clone(supplemental_pub_keys)
   );
 }
 
@@ -4217,7 +4133,7 @@ bool AuthenticationExtensionsClientInputs::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->remote_desktop_client_override, other_struct.remote_desktop_client_override))
     return false;
-  if (!mojo::Equals(this->device_public_key, other_struct.device_public_key))
+  if (!mojo::Equals(this->supplemental_pub_keys, other_struct.supplemental_pub_keys))
     return false;
   return true;
 }
@@ -4260,9 +4176,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.remote_desktop_client_override < lhs.remote_desktop_client_override)
     return false;
-  if (lhs.device_public_key < rhs.device_public_key)
+  if (lhs.supplemental_pub_keys < rhs.supplemental_pub_keys)
     return true;
-  if (rhs.device_public_key < lhs.device_public_key)
+  if (rhs.supplemental_pub_keys < lhs.supplemental_pub_keys)
     return false;
   return false;
 }
@@ -4312,6 +4228,7 @@ PublicKeyCredentialCreationOptionsPtr PublicKeyCredentialCreationOptions::Clone(
       mojo::Clone(timeout),
       mojo::Clone(exclude_credentials),
       mojo::Clone(authenticator_selection),
+      mojo::Clone(hints),
       mojo::Clone(attestation),
       mojo::Clone(hmac_create_secret),
       mojo::Clone(prf_enable),
@@ -4325,7 +4242,7 @@ PublicKeyCredentialCreationOptionsPtr PublicKeyCredentialCreationOptions::Clone(
       mojo::Clone(cred_blob),
       mojo::Clone(min_pin_length_requested),
       mojo::Clone(remote_desktop_client_override),
-      mojo::Clone(device_public_key)
+      mojo::Clone(supplemental_pub_keys)
   );
 }
 
@@ -4344,6 +4261,8 @@ bool PublicKeyCredentialCreationOptions::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->exclude_credentials, other_struct.exclude_credentials))
     return false;
   if (!mojo::Equals(this->authenticator_selection, other_struct.authenticator_selection))
+    return false;
+  if (!mojo::Equals(this->hints, other_struct.hints))
     return false;
   if (!mojo::Equals(this->attestation, other_struct.attestation))
     return false;
@@ -4371,7 +4290,7 @@ bool PublicKeyCredentialCreationOptions::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->remote_desktop_client_override, other_struct.remote_desktop_client_override))
     return false;
-  if (!mojo::Equals(this->device_public_key, other_struct.device_public_key))
+  if (!mojo::Equals(this->supplemental_pub_keys, other_struct.supplemental_pub_keys))
     return false;
   return true;
 }
@@ -4405,6 +4324,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.authenticator_selection < rhs.authenticator_selection)
     return true;
   if (rhs.authenticator_selection < lhs.authenticator_selection)
+    return false;
+  if (lhs.hints < rhs.hints)
+    return true;
+  if (rhs.hints < lhs.hints)
     return false;
   if (lhs.attestation < rhs.attestation)
     return true;
@@ -4458,9 +4381,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.remote_desktop_client_override < lhs.remote_desktop_client_override)
     return false;
-  if (lhs.device_public_key < rhs.device_public_key)
+  if (lhs.supplemental_pub_keys < rhs.supplemental_pub_keys)
     return true;
-  if (rhs.device_public_key < lhs.device_public_key)
+  if (rhs.supplemental_pub_keys < lhs.supplemental_pub_keys)
     return false;
   return false;
 }
@@ -4567,22 +4490,17 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::CommonCredentialInfo:
 
 
 template <>
-struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::DevicePublicKeyResponse::DataView,
-                                         ::blink::mojom::blink::DevicePublicKeyResponsePtr> {
-  static bool IsNull(const ::blink::mojom::blink::DevicePublicKeyResponsePtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::blink::DevicePublicKeyResponsePtr* output) { output->reset(); }
+struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::SupplementalPubKeysResponse::DataView,
+                                         ::blink::mojom::blink::SupplementalPubKeysResponsePtr> {
+  static bool IsNull(const ::blink::mojom::blink::SupplementalPubKeysResponsePtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::blink::SupplementalPubKeysResponsePtr* output) { output->reset(); }
 
-  static const decltype(::blink::mojom::blink::DevicePublicKeyResponse::authenticator_output)& authenticator_output(
-      const ::blink::mojom::blink::DevicePublicKeyResponsePtr& input) {
-    return input->authenticator_output;
+  static const decltype(::blink::mojom::blink::SupplementalPubKeysResponse::signatures)& signatures(
+      const ::blink::mojom::blink::SupplementalPubKeysResponsePtr& input) {
+    return input->signatures;
   }
 
-  static const decltype(::blink::mojom::blink::DevicePublicKeyResponse::signature)& signature(
-      const ::blink::mojom::blink::DevicePublicKeyResponsePtr& input) {
-    return input->signature;
-  }
-
-  static bool Read(::blink::mojom::blink::DevicePublicKeyResponse::DataView input, ::blink::mojom::blink::DevicePublicKeyResponsePtr* output);
+  static bool Read(::blink::mojom::blink::SupplementalPubKeysResponse::DataView input, ::blink::mojom::blink::SupplementalPubKeysResponsePtr* output);
 };
 
 
@@ -4682,9 +4600,9 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::MakeCredentialAuthent
     return input->supports_large_blob;
   }
 
-  static const decltype(::blink::mojom::blink::MakeCredentialAuthenticatorResponse::device_public_key)& device_public_key(
+  static const decltype(::blink::mojom::blink::MakeCredentialAuthenticatorResponse::supplemental_pub_keys)& supplemental_pub_keys(
       const ::blink::mojom::blink::MakeCredentialAuthenticatorResponsePtr& input) {
-    return input->device_public_key;
+    return input->supplemental_pub_keys;
   }
 
   static bool Read(::blink::mojom::blink::MakeCredentialAuthenticatorResponse::DataView input, ::blink::mojom::blink::MakeCredentialAuthenticatorResponsePtr* output);
@@ -4782,9 +4700,9 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::AuthenticationExtensi
     return input->get_cred_blob;
   }
 
-  static const decltype(::blink::mojom::blink::AuthenticationExtensionsClientOutputs::device_public_key)& device_public_key(
+  static const decltype(::blink::mojom::blink::AuthenticationExtensionsClientOutputs::supplemental_pub_keys)& supplemental_pub_keys(
       const ::blink::mojom::blink::AuthenticationExtensionsClientOutputsPtr& input) {
-    return input->device_public_key;
+    return input->supplemental_pub_keys;
   }
 
   static bool Read(::blink::mojom::blink::AuthenticationExtensionsClientOutputs::DataView input, ::blink::mojom::blink::AuthenticationExtensionsClientOutputsPtr* output);
@@ -4997,22 +4915,32 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::RemoteDesktopClientOv
 
 
 template <>
-struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::DevicePublicKeyRequest::DataView,
-                                         ::blink::mojom::blink::DevicePublicKeyRequestPtr> {
-  static bool IsNull(const ::blink::mojom::blink::DevicePublicKeyRequestPtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::blink::DevicePublicKeyRequestPtr* output) { output->reset(); }
+struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::SupplementalPubKeysRequest::DataView,
+                                         ::blink::mojom::blink::SupplementalPubKeysRequestPtr> {
+  static bool IsNull(const ::blink::mojom::blink::SupplementalPubKeysRequestPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::blink::SupplementalPubKeysRequestPtr* output) { output->reset(); }
 
-  static decltype(::blink::mojom::blink::DevicePublicKeyRequest::attestation) attestation(
-      const ::blink::mojom::blink::DevicePublicKeyRequestPtr& input) {
+  static decltype(::blink::mojom::blink::SupplementalPubKeysRequest::device_scope_requested) device_scope_requested(
+      const ::blink::mojom::blink::SupplementalPubKeysRequestPtr& input) {
+    return input->device_scope_requested;
+  }
+
+  static decltype(::blink::mojom::blink::SupplementalPubKeysRequest::provider_scope_requested) provider_scope_requested(
+      const ::blink::mojom::blink::SupplementalPubKeysRequestPtr& input) {
+    return input->provider_scope_requested;
+  }
+
+  static decltype(::blink::mojom::blink::SupplementalPubKeysRequest::attestation) attestation(
+      const ::blink::mojom::blink::SupplementalPubKeysRequestPtr& input) {
     return input->attestation;
   }
 
-  static const decltype(::blink::mojom::blink::DevicePublicKeyRequest::attestation_formats)& attestation_formats(
-      const ::blink::mojom::blink::DevicePublicKeyRequestPtr& input) {
+  static const decltype(::blink::mojom::blink::SupplementalPubKeysRequest::attestation_formats)& attestation_formats(
+      const ::blink::mojom::blink::SupplementalPubKeysRequestPtr& input) {
     return input->attestation_formats;
   }
 
-  static bool Read(::blink::mojom::blink::DevicePublicKeyRequest::DataView input, ::blink::mojom::blink::DevicePublicKeyRequestPtr* output);
+  static bool Read(::blink::mojom::blink::SupplementalPubKeysRequest::DataView input, ::blink::mojom::blink::SupplementalPubKeysRequestPtr* output);
 };
 
 
@@ -5045,6 +4973,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::PublicKeyCredentialRe
   static const decltype(::blink::mojom::blink::PublicKeyCredentialRequestOptions::allow_credentials)& allow_credentials(
       const ::blink::mojom::blink::PublicKeyCredentialRequestOptionsPtr& input) {
     return input->allow_credentials;
+  }
+
+  static const decltype(::blink::mojom::blink::PublicKeyCredentialRequestOptions::hints)& hints(
+      const ::blink::mojom::blink::PublicKeyCredentialRequestOptionsPtr& input) {
+    return input->hints;
   }
 
   static decltype(::blink::mojom::blink::PublicKeyCredentialRequestOptions::user_verification) user_verification(
@@ -5112,9 +5045,9 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::AuthenticationExtensi
     return input->remote_desktop_client_override;
   }
 
-  static const decltype(::blink::mojom::blink::AuthenticationExtensionsClientInputs::device_public_key)& device_public_key(
+  static const decltype(::blink::mojom::blink::AuthenticationExtensionsClientInputs::supplemental_pub_keys)& supplemental_pub_keys(
       const ::blink::mojom::blink::AuthenticationExtensionsClientInputsPtr& input) {
-    return input->device_public_key;
+    return input->supplemental_pub_keys;
   }
 
   static bool Read(::blink::mojom::blink::AuthenticationExtensionsClientInputs::DataView input, ::blink::mojom::blink::AuthenticationExtensionsClientInputsPtr* output);
@@ -5187,6 +5120,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::PublicKeyCredentialCr
     return input->authenticator_selection;
   }
 
+  static const decltype(::blink::mojom::blink::PublicKeyCredentialCreationOptions::hints)& hints(
+      const ::blink::mojom::blink::PublicKeyCredentialCreationOptionsPtr& input) {
+    return input->hints;
+  }
+
   static decltype(::blink::mojom::blink::PublicKeyCredentialCreationOptions::attestation) attestation(
       const ::blink::mojom::blink::PublicKeyCredentialCreationOptionsPtr& input) {
     return input->attestation;
@@ -5252,9 +5190,9 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::PublicKeyCredentialCr
     return input->remote_desktop_client_override;
   }
 
-  static const decltype(::blink::mojom::blink::PublicKeyCredentialCreationOptions::device_public_key)& device_public_key(
+  static const decltype(::blink::mojom::blink::PublicKeyCredentialCreationOptions::supplemental_pub_keys)& supplemental_pub_keys(
       const ::blink::mojom::blink::PublicKeyCredentialCreationOptionsPtr& input) {
-    return input->device_public_key;
+    return input->supplemental_pub_keys;
   }
 
   static bool Read(::blink::mojom::blink::PublicKeyCredentialCreationOptions::DataView input, ::blink::mojom::blink::PublicKeyCredentialCreationOptionsPtr* output);

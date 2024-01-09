@@ -79,11 +79,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLFieldSetElement>::value,
     "HTMLFieldSetElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLFieldSetElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLFieldSetElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,8 +91,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.disabled.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kDisabledAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -119,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.form.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->formOwner();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -133,10 +130,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -157,10 +154,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -178,7 +175,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLFieldSetElement_
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->elements();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -191,8 +188,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.willValidate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->willValidate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -205,8 +203,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.validity.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->validity();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -219,10 +218,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.validationMessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->validationMessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->validationMessage();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -262,8 +261,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.checkValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->checkValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -279,8 +279,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.reportValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reportValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -293,9 +294,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFieldSetElement.setCustomValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLFieldSetElement";
 const char* const property_name = "setCustomValidity";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -306,13 +307,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFieldSetElement* blink_receiver = V8HTMLFieldSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_error;
 if (LIKELY(info[0]->IsString())) {
-  arg1_error.Init(info[0].As<v8::String>());
+  arg1_error.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLFieldSetElement";
 const char* const property_name = "setCustomValidity";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

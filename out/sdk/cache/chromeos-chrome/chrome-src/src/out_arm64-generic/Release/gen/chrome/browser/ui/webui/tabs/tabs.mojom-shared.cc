@@ -26,6 +26,8 @@ NOINLINE static const char* TabAlertStateToStringHelper(TabAlertState value) {
   switch(value) {
     case TabAlertState::kAudioMuting:
       return "kAudioMuting";
+    case TabAlertState::kAudioRecording:
+      return "kAudioRecording";
     case TabAlertState::kAudioPlaying:
       return "kAudioPlaying";
     case TabAlertState::kBluetoothConnected:
@@ -44,6 +46,8 @@ NOINLINE static const char* TabAlertStateToStringHelper(TabAlertState value) {
       return "kTabCapturing";
     case TabAlertState::kUsbConnected:
       return "kUsbConnected";
+    case TabAlertState::kVideoRecording:
+      return "kVideoRecording";
     case TabAlertState::kVrPresentingInHeadset:
       return "kVrPresentingInHeadset";
     default:

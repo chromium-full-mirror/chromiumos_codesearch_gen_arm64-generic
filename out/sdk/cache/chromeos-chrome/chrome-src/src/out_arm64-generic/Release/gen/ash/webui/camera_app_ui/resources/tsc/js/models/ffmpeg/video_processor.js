@@ -263,7 +263,7 @@ class FFMpegVideoProcessor {
                 // tsconfig.json, so this can be caught at compile time.
                 return '../../../js/lib/ffmpeg.wasm';
             },
-            noFSInit: true,
+            noFSInit: true, // It would be setup in preRun().
             preRun: [() => {
                     // The FS property are injected by emscripten at runtime.
                     /* eslint-disable-next-line

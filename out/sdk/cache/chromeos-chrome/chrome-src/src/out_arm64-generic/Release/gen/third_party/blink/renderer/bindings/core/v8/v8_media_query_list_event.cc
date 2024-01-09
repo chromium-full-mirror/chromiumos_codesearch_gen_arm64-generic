@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MediaQueryListEvent>::value,
     "MediaQueryListEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MediaQueryListEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaQueryListEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaQueryListEvent.media.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaQueryListEvent* blink_receiver = V8MediaQueryListEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->media();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaQueryListEvent* blink_receiver = V8MediaQueryListEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->media();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaQueryListEvent.matches.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaQueryListEvent* blink_receiver = V8MediaQueryListEvent::ToWrappableUnsafe(v8_receiver);
+MediaQueryListEvent* blink_receiver = V8MediaQueryListEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->matches();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -116,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaQueryListEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaQueryListEvent* blink_receiver = V8MediaQueryListEvent::ToWrappableUnsafe(v8_receiver);
+MediaQueryListEvent* blink_receiver = V8MediaQueryListEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

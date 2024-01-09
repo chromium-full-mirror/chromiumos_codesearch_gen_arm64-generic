@@ -34,12 +34,13 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/libhwsec-foundation/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/libhwsec-foundation/_hwsec_status-install_config.stamp: stamp
 build obj/libhwsec-foundation/_libhwsec-foundation-install_config.stamp: stamp
 build obj/libhwsec-foundation/_libhwsec-profiling-install_config.stamp: stamp
+build obj/libhwsec-foundation/_tpm_clear_request-install_config.stamp: stamp
 build obj/libhwsec-foundation/_tpm_version_client-install_config.stamp: stamp
-build obj/libhwsec-foundation/all.stamp: stamp obj/libhwsec-foundation/install_headers.stamp obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp ./lib/libhwsec-foundation.so ./libhwsec-profiling.a ./tpm_version_client ./hwsec-foundation_testrunner obj/libhwsec-foundation/install_test_syscaller_headers.stamp
-subninja obj/libhwsec-foundation/hwsec-foundation_testrunner.ninja
+build obj/libhwsec-foundation/all.stamp: stamp obj/libhwsec-foundation/install_headers.stamp obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp ./lib/libhwsec-foundation.so ./libhwsec-profiling.a ./tpm_clear_request ./tpm_version_client ./hwsec_status
+subninja obj/libhwsec-foundation/hwsec_status.ninja
 build obj/libhwsec-foundation/install_headers.stamp: stamp obj/libhwsec-foundation/install_status_headers.stamp obj/libhwsec-foundation/install_syscaller_headers.stamp obj/libhwsec-foundation/install_tlcl_wrapper_headers.stamp obj/libhwsec-foundation/install_tpm_error_headers.stamp obj/libhwsec-foundation/install_utility_headers.stamp obj/libhwsec-foundation/install_vpd_reader_headers.stamp
 build obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp: stamp
 build obj/libhwsec-foundation/install_no_tpm_checker.stamp: stamp
@@ -54,4 +55,23 @@ build obj/libhwsec-foundation/install_utility_headers.stamp: stamp
 build obj/libhwsec-foundation/install_vpd_reader_headers.stamp: stamp
 subninja obj/libhwsec-foundation/libhwsec-foundation.ninja
 subninja obj/libhwsec-foundation/libhwsec-profiling.ninja
+rule __libhwsec-foundation_print_tool_proto_library___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/utility/proto_print.py --package-dir libhwsec-foundation --subdir tool --output-dir /build/arm64-generic/var/cache/portage/chromeos-base/libhwsec-foundation/out/Default/gen/libhwsec-foundation/tool /mnt/host/source/src/platform2/libhwsec-foundation/tool/hwsec_status.proto
+  description = ACTION //libhwsec-foundation:print_tool_proto_library(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/libhwsec-foundation/tool/print_hwsec_status_proto.cc: __libhwsec-foundation_print_tool_proto_library___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/utility/proto_print.py ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/tool/hwsec_status.proto
+
+build obj/libhwsec-foundation/print_tool_proto_library.stamp: stamp gen/libhwsec-foundation/tool/print_hwsec_status_proto.cc
+subninja obj/libhwsec-foundation/proto_library.ninja
+subninja obj/libhwsec-foundation/tool_proto.ninja
+rule __libhwsec-foundation_tool_proto_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc hwsec_status.proto --proto_path /mnt/host/source/src/platform2/libhwsec-foundation/tool --proto_path /build/arm64-generic/usr/share/proto --proto_path /build/arm64-generic/usr/include/chromeos/dbus/libhwsec-foundation/ --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libhwsec-foundation/out/Default/gen/include/libhwsec-foundation/tool
+  description = ACTION //libhwsec-foundation:tool_proto_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/libhwsec-foundation/tool/hwsec_status.pb.cc gen/include/libhwsec-foundation/tool/hwsec_status.pb.h: __libhwsec-foundation_tool_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/tool/hwsec_status.proto
+
+build obj/libhwsec-foundation/tool_proto_gen.stamp: stamp gen/include/libhwsec-foundation/tool/hwsec_status.pb.cc gen/include/libhwsec-foundation/tool/hwsec_status.pb.h
+subninja obj/libhwsec-foundation/tpm_clear_request.ninja
 subninja obj/libhwsec-foundation/tpm_version_client.ninja

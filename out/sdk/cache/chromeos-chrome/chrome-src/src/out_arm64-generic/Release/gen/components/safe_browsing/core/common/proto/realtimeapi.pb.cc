@@ -67,6 +67,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR RTLookupResponse::RTLookupResponse(
     ::_pbi::ConstantInitialized)
   : threat_info_()
+  , url_categories_()
   , client_side_detection_type_(0)
 {}
 struct RTLookupResponseDefaultTypeInternal {
@@ -78,11 +79,40 @@ struct RTLookupResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RTLookupResponseDefaultTypeInternal _RTLookupResponse_default_instance_;
+PROTOBUF_CONSTEXPR MatchedUrlNavigationRule_CustomRuleMessageSegment::MatchedUrlNavigationRule_CustomRuleMessageSegment(
+    ::_pbi::ConstantInitialized)
+  : text_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , link_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct MatchedUrlNavigationRule_CustomRuleMessageSegmentDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR MatchedUrlNavigationRule_CustomRuleMessageSegmentDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~MatchedUrlNavigationRule_CustomRuleMessageSegmentDefaultTypeInternal() {}
+  union {
+    MatchedUrlNavigationRule_CustomRuleMessageSegment _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MatchedUrlNavigationRule_CustomRuleMessageSegmentDefaultTypeInternal _MatchedUrlNavigationRule_CustomRuleMessageSegment_default_instance_;
+PROTOBUF_CONSTEXPR MatchedUrlNavigationRule_CustomMessage::MatchedUrlNavigationRule_CustomMessage(
+    ::_pbi::ConstantInitialized)
+  : message_segments_()
+  , custom_message_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , learn_more_link_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , custom_message_with_links_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct MatchedUrlNavigationRule_CustomMessageDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR MatchedUrlNavigationRule_CustomMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~MatchedUrlNavigationRule_CustomMessageDefaultTypeInternal() {}
+  union {
+    MatchedUrlNavigationRule_CustomMessage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MatchedUrlNavigationRule_CustomMessageDefaultTypeInternal _MatchedUrlNavigationRule_CustomMessage_default_instance_;
 PROTOBUF_CONSTEXPR MatchedUrlNavigationRule::MatchedUrlNavigationRule(
     ::_pbi::ConstantInitialized)
   : rule_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , rule_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , matched_url_category_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , matched_url_category_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , custom_message_(nullptr){}
 struct MatchedUrlNavigationRuleDefaultTypeInternal {
   PROTOBUF_CONSTEXPR MatchedUrlNavigationRuleDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1600,14 +1630,16 @@ class RTLookupResponse::_Internal {
 RTLookupResponse::RTLookupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  threat_info_(arena) {
+  threat_info_(arena),
+  url_categories_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:safe_browsing.RTLookupResponse)
 }
 RTLookupResponse::RTLookupResponse(const RTLookupResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
-      threat_info_(from.threat_info_) {
+      threat_info_(from.threat_info_),
+      url_categories_(from.url_categories_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   client_side_detection_type_ = from.client_side_detection_type_;
   // @@protoc_insertion_point(copy_constructor:safe_browsing.RTLookupResponse)
@@ -1641,6 +1673,7 @@ void RTLookupResponse::Clear() {
   (void) cached_has_bits;
 
   threat_info_.Clear();
+  url_categories_.Clear();
   client_side_detection_type_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -1676,6 +1709,20 @@ const char* RTLookupResponse::_InternalParse(const char* ptr, ::_pbi::ParseConte
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string url_categories = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_url_categories();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -1725,6 +1772,12 @@ uint8_t* RTLookupResponse::_InternalSerialize(
       2, this->_internal_client_side_detection_type(), target);
   }
 
+  // repeated string url_categories = 3;
+  for (int i = 0, n = this->_internal_url_categories_size(); i < n; i++) {
+    const auto& s = this->_internal_url_categories(i);
+    target = stream->WriteString(3, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1746,6 +1799,14 @@ size_t RTLookupResponse::ByteSizeLong() const {
   for (const auto& msg : this->threat_info_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated string url_categories = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(url_categories_.size());
+  for (int i = 0, n = url_categories_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      url_categories_.Get(i));
   }
 
   // optional .safe_browsing.ClientSideDetectionType client_side_detection_type = 2;
@@ -1776,6 +1837,7 @@ void RTLookupResponse::MergeFrom(const RTLookupResponse& from) {
   (void) cached_has_bits;
 
   threat_info_.MergeFrom(from.threat_info_);
+  url_categories_.MergeFrom(from.url_categories_);
   if (from._internal_has_client_side_detection_type()) {
     _internal_set_client_side_detection_type(from._internal_client_side_detection_type());
   }
@@ -1798,11 +1860,605 @@ void RTLookupResponse::InternalSwap(RTLookupResponse* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   threat_info_.InternalSwap(&other->threat_info_);
+  url_categories_.InternalSwap(&other->url_categories_);
   swap(client_side_detection_type_, other->client_side_detection_type_);
 }
 
 std::string RTLookupResponse::GetTypeName() const {
   return "safe_browsing.RTLookupResponse";
+}
+
+
+// ===================================================================
+
+class MatchedUrlNavigationRule_CustomRuleMessageSegment::_Internal {
+ public:
+  using HasBits = decltype(std::declval<MatchedUrlNavigationRule_CustomRuleMessageSegment>()._has_bits_);
+  static void set_has_text(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_link(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+MatchedUrlNavigationRule_CustomRuleMessageSegment::MatchedUrlNavigationRule_CustomRuleMessageSegment(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment)
+}
+MatchedUrlNavigationRule_CustomRuleMessageSegment::MatchedUrlNavigationRule_CustomRuleMessageSegment(const MatchedUrlNavigationRule_CustomRuleMessageSegment& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  text_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    text_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_text()) {
+    text_.Set(from._internal_text(), 
+      GetArenaForAllocation());
+  }
+  link_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    link_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_link()) {
+    link_.Set(from._internal_link(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment)
+}
+
+inline void MatchedUrlNavigationRule_CustomRuleMessageSegment::SharedCtor() {
+text_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  text_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+link_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  link_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+MatchedUrlNavigationRule_CustomRuleMessageSegment::~MatchedUrlNavigationRule_CustomRuleMessageSegment() {
+  // @@protoc_insertion_point(destructor:safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void MatchedUrlNavigationRule_CustomRuleMessageSegment::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  text_.Destroy();
+  link_.Destroy();
+}
+
+void MatchedUrlNavigationRule_CustomRuleMessageSegment::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void MatchedUrlNavigationRule_CustomRuleMessageSegment::Clear() {
+// @@protoc_insertion_point(message_clear_start:safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      text_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      link_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* MatchedUrlNavigationRule_CustomRuleMessageSegment::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string text = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_text();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string link = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_link();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* MatchedUrlNavigationRule_CustomRuleMessageSegment::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string text = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_text(), target);
+  }
+
+  // optional string link = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_link(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment)
+  return target;
+}
+
+size_t MatchedUrlNavigationRule_CustomRuleMessageSegment::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string text = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_text());
+    }
+
+    // optional string link = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_link());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void MatchedUrlNavigationRule_CustomRuleMessageSegment::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const MatchedUrlNavigationRule_CustomRuleMessageSegment*>(
+      &from));
+}
+
+void MatchedUrlNavigationRule_CustomRuleMessageSegment::MergeFrom(const MatchedUrlNavigationRule_CustomRuleMessageSegment& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_text(from._internal_text());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_link(from._internal_link());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void MatchedUrlNavigationRule_CustomRuleMessageSegment::CopyFrom(const MatchedUrlNavigationRule_CustomRuleMessageSegment& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MatchedUrlNavigationRule_CustomRuleMessageSegment::IsInitialized() const {
+  return true;
+}
+
+void MatchedUrlNavigationRule_CustomRuleMessageSegment::InternalSwap(MatchedUrlNavigationRule_CustomRuleMessageSegment* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &text_, lhs_arena,
+      &other->text_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &link_, lhs_arena,
+      &other->link_, rhs_arena
+  );
+}
+
+std::string MatchedUrlNavigationRule_CustomRuleMessageSegment::GetTypeName() const {
+  return "safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment";
+}
+
+
+// ===================================================================
+
+class MatchedUrlNavigationRule_CustomMessage::_Internal {
+ public:
+  using HasBits = decltype(std::declval<MatchedUrlNavigationRule_CustomMessage>()._has_bits_);
+  static void set_has_custom_message(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_learn_more_link(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_custom_message_with_links(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+};
+
+MatchedUrlNavigationRule_CustomMessage::MatchedUrlNavigationRule_CustomMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  message_segments_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:safe_browsing.MatchedUrlNavigationRule.CustomMessage)
+}
+MatchedUrlNavigationRule_CustomMessage::MatchedUrlNavigationRule_CustomMessage(const MatchedUrlNavigationRule_CustomMessage& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      message_segments_(from.message_segments_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  custom_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    custom_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_custom_message()) {
+    custom_message_.Set(from._internal_custom_message(), 
+      GetArenaForAllocation());
+  }
+  learn_more_link_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    learn_more_link_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_learn_more_link()) {
+    learn_more_link_.Set(from._internal_learn_more_link(), 
+      GetArenaForAllocation());
+  }
+  custom_message_with_links_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    custom_message_with_links_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_custom_message_with_links()) {
+    custom_message_with_links_.Set(from._internal_custom_message_with_links(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:safe_browsing.MatchedUrlNavigationRule.CustomMessage)
+}
+
+inline void MatchedUrlNavigationRule_CustomMessage::SharedCtor() {
+custom_message_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  custom_message_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+learn_more_link_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  learn_more_link_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+custom_message_with_links_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  custom_message_with_links_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+MatchedUrlNavigationRule_CustomMessage::~MatchedUrlNavigationRule_CustomMessage() {
+  // @@protoc_insertion_point(destructor:safe_browsing.MatchedUrlNavigationRule.CustomMessage)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void MatchedUrlNavigationRule_CustomMessage::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  custom_message_.Destroy();
+  learn_more_link_.Destroy();
+  custom_message_with_links_.Destroy();
+}
+
+void MatchedUrlNavigationRule_CustomMessage::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void MatchedUrlNavigationRule_CustomMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:safe_browsing.MatchedUrlNavigationRule.CustomMessage)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  message_segments_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      custom_message_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      learn_more_link_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      custom_message_with_links_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* MatchedUrlNavigationRule_CustomMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string custom_message = 1 [deprecated = true];
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_custom_message();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string learn_more_link = 2 [deprecated = true];
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_learn_more_link();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string custom_message_with_links = 3 [deprecated = true];
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_custom_message_with_links();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment message_segments = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_message_segments(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* MatchedUrlNavigationRule_CustomMessage::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:safe_browsing.MatchedUrlNavigationRule.CustomMessage)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string custom_message = 1 [deprecated = true];
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_custom_message(), target);
+  }
+
+  // optional string learn_more_link = 2 [deprecated = true];
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_learn_more_link(), target);
+  }
+
+  // optional string custom_message_with_links = 3 [deprecated = true];
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_custom_message_with_links(), target);
+  }
+
+  // repeated .safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment message_segments = 4;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_message_segments_size()); i < n; i++) {
+    const auto& repfield = this->_internal_message_segments(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:safe_browsing.MatchedUrlNavigationRule.CustomMessage)
+  return target;
+}
+
+size_t MatchedUrlNavigationRule_CustomMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:safe_browsing.MatchedUrlNavigationRule.CustomMessage)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegment message_segments = 4;
+  total_size += 1UL * this->_internal_message_segments_size();
+  for (const auto& msg : this->message_segments_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string custom_message = 1 [deprecated = true];
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_custom_message());
+    }
+
+    // optional string learn_more_link = 2 [deprecated = true];
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_learn_more_link());
+    }
+
+    // optional string custom_message_with_links = 3 [deprecated = true];
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_custom_message_with_links());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void MatchedUrlNavigationRule_CustomMessage::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const MatchedUrlNavigationRule_CustomMessage*>(
+      &from));
+}
+
+void MatchedUrlNavigationRule_CustomMessage::MergeFrom(const MatchedUrlNavigationRule_CustomMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:safe_browsing.MatchedUrlNavigationRule.CustomMessage)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  message_segments_.MergeFrom(from.message_segments_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_custom_message(from._internal_custom_message());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_learn_more_link(from._internal_learn_more_link());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_custom_message_with_links(from._internal_custom_message_with_links());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void MatchedUrlNavigationRule_CustomMessage::CopyFrom(const MatchedUrlNavigationRule_CustomMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:safe_browsing.MatchedUrlNavigationRule.CustomMessage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MatchedUrlNavigationRule_CustomMessage::IsInitialized() const {
+  return true;
+}
+
+void MatchedUrlNavigationRule_CustomMessage::InternalSwap(MatchedUrlNavigationRule_CustomMessage* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  message_segments_.InternalSwap(&other->message_segments_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &custom_message_, lhs_arena,
+      &other->custom_message_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &learn_more_link_, lhs_arena,
+      &other->learn_more_link_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &custom_message_with_links_, lhs_arena,
+      &other->custom_message_with_links_, rhs_arena
+  );
+}
+
+std::string MatchedUrlNavigationRule_CustomMessage::GetTypeName() const {
+  return "safe_browsing.MatchedUrlNavigationRule.CustomMessage";
 }
 
 
@@ -1820,8 +2476,16 @@ class MatchedUrlNavigationRule::_Internal {
   static void set_has_matched_url_category(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static const ::safe_browsing::MatchedUrlNavigationRule_CustomMessage& custom_message(const MatchedUrlNavigationRule* msg);
+  static void set_has_custom_message(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
 };
 
+const ::safe_browsing::MatchedUrlNavigationRule_CustomMessage&
+MatchedUrlNavigationRule::_Internal::custom_message(const MatchedUrlNavigationRule* msg) {
+  return *msg->custom_message_;
+}
 MatchedUrlNavigationRule::MatchedUrlNavigationRule(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -1856,6 +2520,11 @@ MatchedUrlNavigationRule::MatchedUrlNavigationRule(const MatchedUrlNavigationRul
     matched_url_category_.Set(from._internal_matched_url_category(), 
       GetArenaForAllocation());
   }
+  if (from._internal_has_custom_message()) {
+    custom_message_ = new ::safe_browsing::MatchedUrlNavigationRule_CustomMessage(*from.custom_message_);
+  } else {
+    custom_message_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:safe_browsing.MatchedUrlNavigationRule)
 }
 
@@ -1872,6 +2541,7 @@ matched_url_category_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   matched_url_category_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+custom_message_ = nullptr;
 }
 
 MatchedUrlNavigationRule::~MatchedUrlNavigationRule() {
@@ -1888,6 +2558,7 @@ inline void MatchedUrlNavigationRule::SharedDtor() {
   rule_id_.Destroy();
   rule_name_.Destroy();
   matched_url_category_.Destroy();
+  if (this != internal_default_instance()) delete custom_message_;
 }
 
 void MatchedUrlNavigationRule::SetCachedSize(int size) const {
@@ -1901,7 +2572,7 @@ void MatchedUrlNavigationRule::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       rule_id_.ClearNonDefaultToEmpty();
     }
@@ -1910,6 +2581,10 @@ void MatchedUrlNavigationRule::Clear() {
     }
     if (cached_has_bits & 0x00000004u) {
       matched_url_category_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      GOOGLE_DCHECK(custom_message_ != nullptr);
+      custom_message_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -1946,6 +2621,14 @@ const char* MatchedUrlNavigationRule::_InternalParse(const char* ptr, ::_pbi::Pa
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_matched_url_category();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .safe_browsing.MatchedUrlNavigationRule.CustomMessage custom_message = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_custom_message(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1999,6 +2682,13 @@ uint8_t* MatchedUrlNavigationRule::_InternalSerialize(
         3, this->_internal_matched_url_category(), target);
   }
 
+  // optional .safe_browsing.MatchedUrlNavigationRule.CustomMessage custom_message = 5;
+  if (cached_has_bits & 0x00000008u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::custom_message(this),
+        _Internal::custom_message(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2016,7 +2706,7 @@ size_t MatchedUrlNavigationRule::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string rule_id = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -2036,6 +2726,13 @@ size_t MatchedUrlNavigationRule::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_matched_url_category());
+    }
+
+    // optional .safe_browsing.MatchedUrlNavigationRule.CustomMessage custom_message = 5;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *custom_message_);
     }
 
   }
@@ -2060,7 +2757,7 @@ void MatchedUrlNavigationRule::MergeFrom(const MatchedUrlNavigationRule& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_rule_id(from._internal_rule_id());
     }
@@ -2069,6 +2766,9 @@ void MatchedUrlNavigationRule::MergeFrom(const MatchedUrlNavigationRule& from) {
     }
     if (cached_has_bits & 0x00000004u) {
       _internal_set_matched_url_category(from._internal_matched_url_category());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _internal_mutable_custom_message()->::safe_browsing::MatchedUrlNavigationRule_CustomMessage::MergeFrom(from._internal_custom_message());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -2103,6 +2803,7 @@ void MatchedUrlNavigationRule::InternalSwap(MatchedUrlNavigationRule* other) {
       &matched_url_category_, lhs_arena,
       &other->matched_url_category_, rhs_arena
   );
+  swap(custom_message_, other->custom_message_);
 }
 
 std::string MatchedUrlNavigationRule::GetTypeName() const {
@@ -2124,6 +2825,14 @@ Arena::CreateMaybeMessage< ::safe_browsing::RTLookupResponse_ThreatInfo >(Arena*
 template<> PROTOBUF_NOINLINE ::safe_browsing::RTLookupResponse*
 Arena::CreateMaybeMessage< ::safe_browsing::RTLookupResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::safe_browsing::RTLookupResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::safe_browsing::MatchedUrlNavigationRule_CustomRuleMessageSegment*
+Arena::CreateMaybeMessage< ::safe_browsing::MatchedUrlNavigationRule_CustomRuleMessageSegment >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::safe_browsing::MatchedUrlNavigationRule_CustomRuleMessageSegment >(arena);
+}
+template<> PROTOBUF_NOINLINE ::safe_browsing::MatchedUrlNavigationRule_CustomMessage*
+Arena::CreateMaybeMessage< ::safe_browsing::MatchedUrlNavigationRule_CustomMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::safe_browsing::MatchedUrlNavigationRule_CustomMessage >(arena);
 }
 template<> PROTOBUF_NOINLINE ::safe_browsing::MatchedUrlNavigationRule*
 Arena::CreateMaybeMessage< ::safe_browsing::MatchedUrlNavigationRule >(Arena* arena) {

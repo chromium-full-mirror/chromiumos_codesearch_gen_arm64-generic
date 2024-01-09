@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r556/work/libvda-gpu-tests-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -22,7 +22,6 @@ build libvda: phony ./lib/libvda.so
 build libvda_pc: phony obj/arc/vm/libvda/libvda_pc.stamp
 build libvda_source_set: phony obj/arc/vm/libvda/libvda_source_set.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build video_mojo_bindings: phony ./libvideo_mojo_bindings.a
 build video_mojo_bindings_gen: phony obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
 build video_mojo_bindings_gen_mojo_templates: phony obj/arc/vm/libvda/video_mojo_bindings_gen_mojo_templates.stamp
@@ -31,7 +30,6 @@ build video_mojo_bindings_gen_parse: phony obj/arc/vm/libvda/video_mojo_bindings
 build arc/vm/libvda$:all: phony obj/arc/vm/libvda/all.stamp
 build arc/vm/libvda$:libvda: phony ./lib/libvda.so
 build arc/vm/libvda: phony ./lib/libvda.so
-build arc/vm/libvda$:libvda_fake_unittest: phony ./libvda_fake_unittest
 build arc/vm/libvda$:libvda_gpu_unittest: phony ./libvda_gpu_unittest
 build arc/vm/libvda$:libvda_pc: phony obj/arc/vm/libvda/libvda_pc.stamp
 build arc/vm/libvda$:libvda_source_set: phony obj/arc/vm/libvda/libvda_source_set.stamp
@@ -41,13 +39,10 @@ build arc/vm/libvda$:video_mojo_bindings_gen_mojo_templates: phony obj/arc/vm/li
 build arc/vm/libvda$:video_mojo_bindings_gen_mojo_templates_dir: phony obj/arc/vm/libvda/video_mojo_bindings_gen_mojo_templates_dir.stamp
 build arc/vm/libvda$:video_mojo_bindings_gen_parse: phony obj/arc/vm/libvda/video_mojo_bindings_gen_parse.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 
 build all: phony $
     obj/arc/vm/libvda/all.stamp $
     ./lib/libvda.so $
-    ./libvda_fake_unittest $
     ./libvda_gpu_unittest $
     obj/arc/vm/libvda/libvda_pc.stamp $
     obj/arc/vm/libvda/libvda_source_set.stamp $
@@ -56,7 +51,6 @@ build all: phony $
     obj/arc/vm/libvda/video_mojo_bindings_gen_mojo_templates.stamp $
     obj/arc/vm/libvda/video_mojo_bindings_gen_mojo_templates_dir.stamp $
     obj/arc/vm/libvda/video_mojo_bindings_gen_parse.stamp $
-    obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a
+    obj/common-mk/gn_root/root.stamp
 
 default all

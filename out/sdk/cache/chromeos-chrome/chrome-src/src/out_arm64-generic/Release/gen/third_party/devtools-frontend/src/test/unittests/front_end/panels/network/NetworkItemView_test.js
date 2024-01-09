@@ -5,7 +5,6 @@ import * as Network from '../../../../../front_end/panels/network/network.js';
 import { describeWithMockConnection } from '../../helpers/MockConnection.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import { renderElementIntoDOM } from '../../helpers/DOMHelpers.js';
-import * as Root from '../../../../../front_end/core/root/root.js';
 import { deinitializeGlobalVars, describeWithEnvironment } from '../../helpers/EnvironmentHelpers.js';
 import * as NetworkForward from '../../../../../front_end/panels/network/forward/forward.js';
 import { setUpEnvironment } from '../../helpers/OverridesHelpers.js';
@@ -32,30 +31,12 @@ describeWithMockConnection('NetworkItemView', () => {
     afterEach(async () => {
         await deinitializeGlobalVars();
     });
-    it('reveals header in legacy RequestHeadersView if header overrides experiment is not enabled', async () => {
+    it('reveals header in RequestHeadersView', async () => {
         const networkItemView = renderNetworkItemView();
-        const headersView = networkItemView.getHeadersView();
-        const headersViewSpy = sinon.spy(headersView, 'revealHeader');
         const headersViewComponent = networkItemView.getHeadersViewComponent();
         const headersViewComponentSpy = sinon.spy(headersViewComponent, 'revealHeader');
-        assert.isTrue(headersViewSpy.notCalled);
         assert.isTrue(headersViewComponentSpy.notCalled);
         networkItemView.revealHeader(NetworkForward.UIRequestLocation.UIHeaderSection.Response, 'headerName');
-        assert.isTrue(headersViewSpy.calledWith(NetworkForward.UIRequestLocation.UIHeaderSection.Response, 'headerName'));
-        assert.isTrue(headersViewComponentSpy.notCalled);
-        networkItemView.detach();
-    });
-    it('reveals header in new RequestHeadersView if header overrides experiment is enabled', async () => {
-        Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.HEADER_OVERRIDES);
-        const networkItemView = renderNetworkItemView();
-        const headersView = networkItemView.getHeadersView();
-        const headersViewSpy = sinon.spy(headersView, 'revealHeader');
-        const headersViewComponent = networkItemView.getHeadersViewComponent();
-        const headersViewComponentSpy = sinon.spy(headersViewComponent, 'revealHeader');
-        assert.isTrue(headersViewSpy.notCalled);
-        assert.isTrue(headersViewComponentSpy.notCalled);
-        networkItemView.revealHeader(NetworkForward.UIRequestLocation.UIHeaderSection.Response, 'headerName');
-        assert.isTrue(headersViewSpy.notCalled);
         assert.isTrue(headersViewComponentSpy.calledWith(NetworkForward.UIRequestLocation.UIHeaderSection.Response, 'headerName'));
         networkItemView.detach();
     });
@@ -64,12 +45,8 @@ describeWithEnvironment('NetworkItemView', () => {
     let request;
     const OVERRIDEN_ICON_NAME = 'small-status-dot';
     beforeEach(async () => {
-        Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.HEADER_OVERRIDES);
         request = SDK.NetworkRequest.NetworkRequest.create('requestId', 'https://www.example.com', '', null, null, null);
         request.statusCode = 200;
-    });
-    afterEach(async () => {
-        Root.Runtime.experiments.disableForTest(Root.Runtime.ExperimentName.HEADER_OVERRIDES);
     });
     it('shows indicator for overriden headers and responses', () => {
         request.setWasIntercepted(true);

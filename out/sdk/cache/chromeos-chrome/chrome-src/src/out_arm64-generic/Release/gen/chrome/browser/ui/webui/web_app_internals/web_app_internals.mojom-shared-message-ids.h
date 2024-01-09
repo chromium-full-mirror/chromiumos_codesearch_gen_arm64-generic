@@ -17,9 +17,10 @@ namespace internal {
 constexpr uint32_t kWebAppInternalsHandler_GetDebugInfoAsJsonString_Name = 0;
 constexpr uint32_t kWebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_Name = 1;
 constexpr uint32_t kWebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Name = 2;
-constexpr uint32_t kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name = 3;
-constexpr uint32_t kWebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Name = 4;
-constexpr uint32_t kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name = 5;
+constexpr uint32_t kWebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Name = 3;
+constexpr uint32_t kWebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Name = 4;
+constexpr uint32_t kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name = 5;
+constexpr uint32_t kWebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Name = 6;
 
 }  // namespace internal
 

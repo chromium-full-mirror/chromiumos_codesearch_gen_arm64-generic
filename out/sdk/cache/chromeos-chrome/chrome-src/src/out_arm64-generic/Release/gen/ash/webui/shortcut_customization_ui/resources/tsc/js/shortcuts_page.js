@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import './accelerator_subsection.js';
 import '../css/shortcut_customization_shared.css.js';
-import './shortcut_input.js';
+import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { afterNextRender, microTask, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { AcceleratorLookupManager } from './accelerator_lookup_manager.js';
@@ -165,6 +165,9 @@ export class ShortcutsPageElement extends PolymerElement {
                         }, this.scrollTimeout);
                     }
                 });
+                // Focus on the matching accelerator row.
+                strictQuery('#container', matchingAcceleratorRow.shadowRoot, HTMLTableRowElement)
+                    .focus();
                 // The scroll event did happen, so return true.
                 return true;
             }

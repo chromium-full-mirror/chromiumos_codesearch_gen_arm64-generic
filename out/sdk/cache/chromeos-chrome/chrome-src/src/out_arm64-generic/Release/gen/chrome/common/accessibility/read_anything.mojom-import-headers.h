@@ -16,5 +16,7 @@
 #include "ui/accessibility/mojom/ax_tree_update.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"
 #include "url/mojom/url.mojom-import-headers.h"
+#include "mojo/public/mojom/base/values.mojom.h"
+#include "mojo/public/mojom/base/values.mojom-import-headers.h"
 
 #endif  // CHROME_COMMON_ACCESSIBILITY_READ_ANYTHING_MOJOM_IMPORT_HEADERS_H_

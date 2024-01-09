@@ -6,6 +6,11 @@
 
 import {mojo} from '../../../mojo/public/js/bindings.js';
 
+import {
+  RectF as gfx_mojom_RectF,
+  RectFSpec as gfx_mojom_RectFSpec
+} from '../../../ui/gfx/geometry/mojom/geometry.mojom.m.js';
+
 
 
 
@@ -32,11 +37,11 @@ export class UntrustedPageHandlerFactoryPendingReceiver {
 export class UntrustedPageHandlerFactoryInterface {
   
   /**
-   * @param { !UntrustedPageHandlerPendingReceiver } receiver
-   * @param { !UntrustedPageRemote } page
+   * @param { !OcrUntrustedPageHandlerPendingReceiver } receiver
+   * @param { !OcrUntrustedPageRemote } page
    */
 
-  createUntrustedPageHandler(receiver, page) {}
+  createOcrUntrustedPageHandler(receiver, page) {}
 }
 
 /**
@@ -64,16 +69,16 @@ export class UntrustedPageHandlerFactoryRemote {
 
   
   /**
-   * @param { !UntrustedPageHandlerPendingReceiver } receiver
-   * @param { !UntrustedPageRemote } page
+   * @param { !OcrUntrustedPageHandlerPendingReceiver } receiver
+   * @param { !OcrUntrustedPageRemote } page
    */
 
-  createUntrustedPageHandler(
+  createOcrUntrustedPageHandler(
       receiver,
       page) {
     this.proxy.sendMessage(
         0,
-        UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
+        UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
         null,
         [
           receiver,
@@ -104,9 +109,9 @@ export class UntrustedPageHandlerFactoryReceiver {
 
     this.helper_internal_.registerHandler(
         0,
-        UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
+        UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
         null,
-        impl.createUntrustedPageHandler.bind(impl));
+        impl.createOcrUntrustedPageHandler.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -156,15 +161,15 @@ export class UntrustedPageHandlerFactoryCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.createUntrustedPageHandler =
+    this.createOcrUntrustedPageHandler =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         0,
-        UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
+        UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
         null,
-        this.createUntrustedPageHandler.createReceiverHandler(false /* expectsResponse */));
+        this.createOcrUntrustedPageHandler.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -182,7 +187,7 @@ export class UntrustedPageHandlerFactoryCallbackRouter {
 /**
  * @implements {mojo.internal.interfaceSupport.PendingReceiver}
  */
-export class UntrustedPageHandlerPendingReceiver {
+export class OcrUntrustedPageHandlerPendingReceiver {
   /**
    * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
    */
@@ -194,69 +199,100 @@ export class UntrustedPageHandlerPendingReceiver {
   /** @param {string=} scope */
   bindInBrowser(scope = 'context') {
     mojo.internal.interfaceSupport.bind(
-        this.handle, 'ash.media_app_ui.mojom.UntrustedPageHandler', scope);
+        this.handle, 'ash.media_app_ui.mojom.OcrUntrustedPageHandler', scope);
   }
 }
 
 /** @interface */
-export class UntrustedPageHandlerInterface {
+export class OcrUntrustedPageHandlerInterface {
+  
+  /**
+   * @param { !gfx_mojom_RectF } viewportBox
+   * @param { !number } scaleFactor
+   */
+
+  viewportUpdated(viewportBox, scaleFactor) {}
 }
 
 /**
- * @implements { UntrustedPageHandlerInterface }
+ * @implements { OcrUntrustedPageHandlerInterface }
  */
-export class UntrustedPageHandlerRemote {
+export class OcrUntrustedPageHandlerRemote {
   /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
   constructor(handle = undefined) {
     /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!UntrustedPageHandlerPendingReceiver>}
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!OcrUntrustedPageHandlerPendingReceiver>}
      */
     this.proxy =
         new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          UntrustedPageHandlerPendingReceiver,
+          OcrUntrustedPageHandlerPendingReceiver,
           handle);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!UntrustedPageHandlerPendingReceiver>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!OcrUntrustedPageHandlerPendingReceiver>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
 
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
   }
+
+  
+  /**
+   * @param { !gfx_mojom_RectF } viewportBox
+   * @param { !number } scaleFactor
+   */
+
+  viewportUpdated(
+      viewportBox,
+      scaleFactor) {
+    this.proxy.sendMessage(
+        0,
+        OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+        null,
+        [
+          viewportBox,
+          scaleFactor
+        ]);
+  }
 }
 
 /**
- * An object which receives request messages for the UntrustedPageHandler
+ * An object which receives request messages for the OcrUntrustedPageHandler
  * mojom interface. Must be constructed over an object which implements that
  * interface.
  */
-export class UntrustedPageHandlerReceiver {
+export class OcrUntrustedPageHandlerReceiver {
   /**
-   * @param {!UntrustedPageHandlerInterface } impl
+   * @param {!OcrUntrustedPageHandlerInterface } impl
    */
   constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!UntrustedPageHandlerRemote>} */
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!OcrUntrustedPageHandlerRemote>} */
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        UntrustedPageHandlerRemote);
+        OcrUntrustedPageHandlerRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!UntrustedPageHandlerRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!OcrUntrustedPageHandlerRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
 
+    this.helper_internal_.registerHandler(
+        0,
+        OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+        null,
+        impl.viewportUpdated.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
 }
 
-export class UntrustedPageHandler {
+export class OcrUntrustedPageHandler {
   /**
    * @return {!string}
    */
   static get $interfaceName() {
-    return "ash.media_app_ui.mojom.UntrustedPageHandler";
+    return "ash.media_app_ui.mojom.OcrUntrustedPageHandler";
   }
 
   /**
@@ -264,10 +300,10 @@ export class UntrustedPageHandler {
    * The browser must have an interface request binder registered for this
    * interface and accessible to the calling document's frame.
    *
-   * @return {!UntrustedPageHandlerRemote}
+   * @return {!OcrUntrustedPageHandlerRemote}
    */
   static getRemote() {
-    let remote = new UntrustedPageHandlerRemote;
+    let remote = new OcrUntrustedPageHandlerRemote;
     remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
     return remote;
   }
@@ -275,23 +311,35 @@ export class UntrustedPageHandler {
 
 
 /**
- * An object which receives request messages for the UntrustedPageHandler
+ * An object which receives request messages for the OcrUntrustedPageHandler
  * mojom interface and dispatches them as callbacks. One callback receiver exists
  * on this object for each message defined in the mojom interface, and each
  * receiver can have any number of listeners added to it.
  */
-export class UntrustedPageHandlerCallbackRouter {
+export class OcrUntrustedPageHandlerCallbackRouter {
   constructor() {
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      UntrustedPageHandlerRemote);
+      OcrUntrustedPageHandlerRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!UntrustedPageHandlerRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!OcrUntrustedPageHandlerRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
     this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
 
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.viewportUpdated =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+        null,
+        this.viewportUpdated.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -309,7 +357,7 @@ export class UntrustedPageHandlerCallbackRouter {
 /**
  * @implements {mojo.internal.interfaceSupport.PendingReceiver}
  */
-export class UntrustedPagePendingReceiver {
+export class OcrUntrustedPagePendingReceiver {
   /**
    * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
    */
@@ -321,69 +369,96 @@ export class UntrustedPagePendingReceiver {
   /** @param {string=} scope */
   bindInBrowser(scope = 'context') {
     mojo.internal.interfaceSupport.bind(
-        this.handle, 'ash.media_app_ui.mojom.UntrustedPage', scope);
+        this.handle, 'ash.media_app_ui.mojom.OcrUntrustedPage', scope);
   }
 }
 
 /** @interface */
-export class UntrustedPageInterface {
+export class OcrUntrustedPageInterface {
+  
+  /**
+   * @param { !gfx_mojom_RectF } viewportBox
+   */
+
+  setViewport(viewportBox) {}
 }
 
 /**
- * @implements { UntrustedPageInterface }
+ * @implements { OcrUntrustedPageInterface }
  */
-export class UntrustedPageRemote {
+export class OcrUntrustedPageRemote {
   /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
   constructor(handle = undefined) {
     /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!UntrustedPagePendingReceiver>}
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!OcrUntrustedPagePendingReceiver>}
      */
     this.proxy =
         new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          UntrustedPagePendingReceiver,
+          OcrUntrustedPagePendingReceiver,
           handle);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!UntrustedPagePendingReceiver>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!OcrUntrustedPagePendingReceiver>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
 
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
   }
+
+  
+  /**
+   * @param { !gfx_mojom_RectF } viewportBox
+   */
+
+  setViewport(
+      viewportBox) {
+    this.proxy.sendMessage(
+        0,
+        OcrUntrustedPage_SetViewport_ParamsSpec.$,
+        null,
+        [
+          viewportBox
+        ]);
+  }
 }
 
 /**
- * An object which receives request messages for the UntrustedPage
+ * An object which receives request messages for the OcrUntrustedPage
  * mojom interface. Must be constructed over an object which implements that
  * interface.
  */
-export class UntrustedPageReceiver {
+export class OcrUntrustedPageReceiver {
   /**
-   * @param {!UntrustedPageInterface } impl
+   * @param {!OcrUntrustedPageInterface } impl
    */
   constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!UntrustedPageRemote>} */
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!OcrUntrustedPageRemote>} */
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        UntrustedPageRemote);
+        OcrUntrustedPageRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!UntrustedPageRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!OcrUntrustedPageRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
 
+    this.helper_internal_.registerHandler(
+        0,
+        OcrUntrustedPage_SetViewport_ParamsSpec.$,
+        null,
+        impl.setViewport.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
 }
 
-export class UntrustedPage {
+export class OcrUntrustedPage {
   /**
    * @return {!string}
    */
   static get $interfaceName() {
-    return "ash.media_app_ui.mojom.UntrustedPage";
+    return "ash.media_app_ui.mojom.OcrUntrustedPage";
   }
 
   /**
@@ -391,10 +466,10 @@ export class UntrustedPage {
    * The browser must have an interface request binder registered for this
    * interface and accessible to the calling document's frame.
    *
-   * @return {!UntrustedPageRemote}
+   * @return {!OcrUntrustedPageRemote}
    */
   static getRemote() {
-    let remote = new UntrustedPageRemote;
+    let remote = new OcrUntrustedPageRemote;
     remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
     return remote;
   }
@@ -402,23 +477,35 @@ export class UntrustedPage {
 
 
 /**
- * An object which receives request messages for the UntrustedPage
+ * An object which receives request messages for the OcrUntrustedPage
  * mojom interface and dispatches them as callbacks. One callback receiver exists
  * on this object for each message defined in the mojom interface, and each
  * receiver can have any number of listeners added to it.
  */
-export class UntrustedPageCallbackRouter {
+export class OcrUntrustedPageCallbackRouter {
   constructor() {
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      UntrustedPageRemote);
+      OcrUntrustedPageRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!UntrustedPageRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!OcrUntrustedPageRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
     this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
 
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setViewport =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        OcrUntrustedPage_SetViewport_ParamsSpec.$,
+        null,
+        this.setViewport.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -435,20 +522,32 @@ export class UntrustedPageCallbackRouter {
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec =
+export const UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const OcrUntrustedPage_SetViewport_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
 
 
 mojo.internal.Struct(
-    UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
-    'UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params',
+    UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
+    'UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params',
     [
       mojo.internal.StructField(
         'receiver', 0,
         0,
-        mojo.internal.InterfaceRequest(UntrustedPageHandlerPendingReceiver),
+        mojo.internal.InterfaceRequest(OcrUntrustedPageHandlerPendingReceiver),
         null,
         false /* nullable */,
         0,
@@ -456,7 +555,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'page', 4,
         0,
-        mojo.internal.InterfaceProxy(UntrustedPageRemote),
+        mojo.internal.InterfaceProxy(OcrUntrustedPageRemote),
         null,
         false /* nullable */,
         0,
@@ -469,12 +568,80 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params {
+export class UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params {
   constructor() {
-    /** @type { !UntrustedPageHandlerPendingReceiver } */
+    /** @type { !OcrUntrustedPageHandlerPendingReceiver } */
     this.receiver;
-    /** @type { !UntrustedPageRemote } */
+    /** @type { !OcrUntrustedPageRemote } */
     this.page;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+    'OcrUntrustedPageHandler_ViewportUpdated_Params',
+    [
+      mojo.internal.StructField(
+        'viewportBox', 0,
+        0,
+        gfx_mojom_RectFSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'scaleFactor', 8,
+        0,
+        mojo.internal.Float,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class OcrUntrustedPageHandler_ViewportUpdated_Params {
+  constructor() {
+    /** @type { !gfx_mojom_RectF } */
+    this.viewportBox;
+    /** @type { !number } */
+    this.scaleFactor;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    OcrUntrustedPage_SetViewport_ParamsSpec.$,
+    'OcrUntrustedPage_SetViewport_Params',
+    [
+      mojo.internal.StructField(
+        'viewportBox', 0,
+        0,
+        gfx_mojom_RectFSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class OcrUntrustedPage_SetViewport_Params {
+  constructor() {
+    /** @type { !gfx_mojom_RectF } */
+    this.viewportBox;
   }
 }
 

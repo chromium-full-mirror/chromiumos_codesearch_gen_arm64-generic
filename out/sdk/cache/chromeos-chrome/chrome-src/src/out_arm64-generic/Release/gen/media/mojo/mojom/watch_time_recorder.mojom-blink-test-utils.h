@@ -25,7 +25,6 @@ class BLINK_PLATFORM_EXPORT WatchTimeRecorderInterceptorForTesting : public Watc
   void UpdateVideoDecodeStats(uint32_t frames_decoded, uint32_t frames_dropped) override;
   void UpdateUnderflowCount(int32_t total_count) override;
   void UpdateUnderflowDuration(int32_t total_completed_count, ::base::TimeDelta total_duration) override;
-  void OnCurrentTimestampChanged(::base::TimeDelta last_timestamp) override;
 };
 class BLINK_PLATFORM_EXPORT WatchTimeRecorderAsyncWaiter {
  public:

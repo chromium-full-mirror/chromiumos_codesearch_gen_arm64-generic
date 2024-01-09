@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "remoting/host/mojom/webauthn_proxy.mojom-features.h"
 #include "remoting/host/mojom/webauthn_proxy.mojom-shared.h"
 #include "remoting/host/mojom/webauthn_proxy.mojom-forward.h"
 #include <string>
@@ -451,17 +452,17 @@ class  WebAuthnCreateResponse {
   // Construct an instance holding |error_details|.
   static WebAuthnCreateResponsePtr
   NewErrorDetails(
-      WebAuthnExceptionDetailsPtr error_details) {
+      WebAuthnExceptionDetailsPtr value) {
     auto result = WebAuthnCreateResponsePtr(absl::in_place);
-    result->set_error_details(std::move(error_details));
+    result->set_error_details(std::move(value));
     return result;
   }
   // Construct an instance holding |response_data|.
   static WebAuthnCreateResponsePtr
   NewResponseData(
-      const std::string& response_data) {
+      const std::string& value) {
     auto result = WebAuthnCreateResponsePtr(absl::in_place);
-    result->set_response_data(std::move(response_data));
+    result->set_response_data(std::move(value));
     return result;
   }
 
@@ -582,17 +583,17 @@ class  WebAuthnGetResponse {
   // Construct an instance holding |error_details|.
   static WebAuthnGetResponsePtr
   NewErrorDetails(
-      WebAuthnExceptionDetailsPtr error_details) {
+      WebAuthnExceptionDetailsPtr value) {
     auto result = WebAuthnGetResponsePtr(absl::in_place);
-    result->set_error_details(std::move(error_details));
+    result->set_error_details(std::move(value));
     return result;
   }
   // Construct an instance holding |response_data|.
   static WebAuthnGetResponsePtr
   NewResponseData(
-      const std::string& response_data) {
+      const std::string& value) {
     auto result = WebAuthnGetResponsePtr(absl::in_place);
-    result->set_response_data(std::move(response_data));
+    result->set_response_data(std::move(value));
     return result;
   }
 

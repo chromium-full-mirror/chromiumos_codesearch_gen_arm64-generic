@@ -482,24 +482,27 @@ export class TimelineCategory {
     title;
     visible;
     childColor;
-    color;
+    colorInternal;
     hiddenInternal;
     constructor(name, title, visible, childColor, color) {
         this.name = name;
         this.title = title;
         this.visible = visible;
         this.childColor = childColor;
-        this.color = color;
+        this.colorInternal = color;
         this.hidden = false;
     }
     get hidden() {
         return Boolean(this.hiddenInternal);
     }
-    getCSSValue() {
-        return `var(${this.color})`;
+    get color() {
+        return this.getComputedColorValue();
     }
-    getComputedValue() {
-        return ThemeSupport.ThemeSupport.instance().getComputedValue(this.color);
+    getCSSValue() {
+        return `var(${this.colorInternal})`;
+    }
+    getComputedColorValue() {
+        return ThemeSupport.ThemeSupport.instance().getComputedValue(this.colorInternal);
     }
     set hidden(hidden) {
         this.hiddenInternal = hidden;
@@ -690,7 +693,7 @@ function maybeInitSylesMap() {
             new TimelineRecordStyle(i18nString(UIStrings.xhrLoad), defaultCategoryStyles.Scripting),
         ],
         [
-            "V8.CompileScript" /* TraceEngine.Types.TraceEvents.KnownEventName.CompileScript */,
+            "v8.compile" /* TraceEngine.Types.TraceEvents.KnownEventName.Compile */,
             new TimelineRecordStyle(i18nString(UIStrings.compileScript), defaultCategoryStyles.Scripting),
         ],
         [

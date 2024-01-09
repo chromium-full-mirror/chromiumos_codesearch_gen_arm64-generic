@@ -33,7 +33,7 @@ class  ResolveHostHandleAsyncWaiter {
 
 class  ResolveHostClientInterceptorForTesting : public ResolveHostClient {
   virtual ResolveHostClient* GetForwardingInterface() = 0;
-  void OnComplete(int32_t result, const ::net::ResolveErrorInfo& resolve_error_info, const absl::optional<::net::AddressList>& resolved_addresses, const absl::optional<std::vector<::net::HostResolverEndpointResult>>& endpoint_results_with_metadata) override;
+  void OnComplete(int32_t result, const ::net::ResolveErrorInfo& resolve_error_info, const std::optional<::net::AddressList>& resolved_addresses, const std::optional<std::vector<::net::HostResolverEndpointResult>>& endpoint_results_with_metadata) override;
   void OnTextResults(const std::vector<std::string>& text_results) override;
   void OnHostnameResults(const std::vector<::net::HostPortPair>& hosts) override;
 };

@@ -1124,29 +1124,33 @@ bool PayloadTransferFrame_PacketType_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PayloadTransferFrame_PacketType_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PayloadTransferFrame_PacketType_strings[4] = {};
 
 static const char PayloadTransferFrame_PacketType_names[] =
   "CONTROL"
   "DATA"
+  "PAYLOAD_ACK"
   "UNKNOWN_PACKET_TYPE";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PayloadTransferFrame_PacketType_entries[] = {
   { {PayloadTransferFrame_PacketType_names + 0, 7}, 2 },
   { {PayloadTransferFrame_PacketType_names + 7, 4}, 1 },
-  { {PayloadTransferFrame_PacketType_names + 11, 19}, 0 },
+  { {PayloadTransferFrame_PacketType_names + 11, 11}, 3 },
+  { {PayloadTransferFrame_PacketType_names + 22, 19}, 0 },
 };
 
 static const int PayloadTransferFrame_PacketType_entries_by_number[] = {
-  2, // 0 -> UNKNOWN_PACKET_TYPE
+  3, // 0 -> UNKNOWN_PACKET_TYPE
   1, // 1 -> DATA
   0, // 2 -> CONTROL
+  2, // 3 -> PAYLOAD_ACK
 };
 
 const std::string& PayloadTransferFrame_PacketType_Name(
@@ -1155,12 +1159,12 @@ const std::string& PayloadTransferFrame_PacketType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           PayloadTransferFrame_PacketType_entries,
           PayloadTransferFrame_PacketType_entries_by_number,
-          3, PayloadTransferFrame_PacketType_strings);
+          4, PayloadTransferFrame_PacketType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       PayloadTransferFrame_PacketType_entries,
       PayloadTransferFrame_PacketType_entries_by_number,
-      3, value);
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      PayloadTransferFrame_PacketType_strings[idx].get();
 }
@@ -1168,7 +1172,7 @@ bool PayloadTransferFrame_PacketType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PayloadTransferFrame_PacketType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      PayloadTransferFrame_PacketType_entries, 3, name, &int_value);
+      PayloadTransferFrame_PacketType_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<PayloadTransferFrame_PacketType>(int_value);
   }
@@ -1178,6 +1182,7 @@ bool PayloadTransferFrame_PacketType_Parse(
 constexpr PayloadTransferFrame_PacketType PayloadTransferFrame::UNKNOWN_PACKET_TYPE;
 constexpr PayloadTransferFrame_PacketType PayloadTransferFrame::DATA;
 constexpr PayloadTransferFrame_PacketType PayloadTransferFrame::CONTROL;
+constexpr PayloadTransferFrame_PacketType PayloadTransferFrame::PAYLOAD_ACK;
 constexpr PayloadTransferFrame_PacketType PayloadTransferFrame::PacketType_MIN;
 constexpr PayloadTransferFrame_PacketType PayloadTransferFrame::PacketType_MAX;
 constexpr int PayloadTransferFrame::PacketType_ARRAYSIZE;

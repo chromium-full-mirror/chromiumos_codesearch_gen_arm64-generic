@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -240,7 +241,7 @@ VideoConferenceMediaAppInfo::VideoConferenceMediaAppInfo(
     bool is_capturing_microphone_in,
     bool is_capturing_screen_in,
     const ::std::u16string& title_in,
-    const absl::optional<::GURL>& url_in)
+    const std::optional<::GURL>& url_in)
     : id(std::move(id_in)),
       last_activity_time(std::move(last_activity_time_in)),
       is_capturing_camera(std::move(is_capturing_camera_in)),
@@ -257,7 +258,7 @@ VideoConferenceMediaAppInfo::VideoConferenceMediaAppInfo(
     bool is_capturing_microphone_in,
     bool is_capturing_screen_in,
     const ::std::u16string& title_in,
-    const absl::optional<::GURL>& url_in,
+    const std::optional<::GURL>& url_in,
     VideoConferenceAppType app_type_in)
     : id(std::move(id_in)),
       last_activity_time(std::move(last_activity_time_in)),
@@ -331,7 +332,7 @@ void VideoConferenceMediaAppInfo::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -532,14 +533,17 @@ void VideoConferenceManagerProxy::NotifyMediaUsageUpdate(
                         "<value of type VideoConferenceMediaUsageStatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManager_NotifyMediaUsageUpdate_Name, kFlags, 0, 0, nullptr);
@@ -584,14 +588,17 @@ void VideoConferenceManagerProxy::RegisterMojoClient(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManager_RegisterMojoClient_Name, kFlags, 0, 0, nullptr);
@@ -642,14 +649,17 @@ void VideoConferenceManagerProxy::NotifyDeviceUsedWhileDisabled(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManager_NotifyDeviceUsedWhileDisabled_Name, kFlags, 0, 0, nullptr);
@@ -693,14 +703,17 @@ void VideoConferenceManagerProxy::NotifyClientUpdate(
                         "<value of type VideoConferenceClientUpdatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManager_NotifyClientUpdate_Name, kFlags, 0, 0, nullptr);
@@ -820,7 +833,8 @@ void VideoConferenceManager_NotifyMediaUsageUpdate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManager_NotifyMediaUsageUpdate_Name, kFlags, 0, 0, nullptr);
@@ -938,7 +952,8 @@ void VideoConferenceManager_RegisterMojoClient_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManager_RegisterMojoClient_Name, kFlags, 0, 0, nullptr);
@@ -1056,7 +1071,8 @@ void VideoConferenceManager_NotifyDeviceUsedWhileDisabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManager_NotifyDeviceUsedWhileDisabled_Name, kFlags, 0, 0, nullptr);
@@ -1239,16 +1255,16 @@ std::move(p_app_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoConferenceManagerValidationInfo[] = {
-    {&internal::VideoConferenceManager_NotifyMediaUsageUpdate_Params_Data::Validate,
+    { &internal::VideoConferenceManager_NotifyMediaUsageUpdate_Params_Data::Validate,
      &internal::VideoConferenceManager_NotifyMediaUsageUpdate_ResponseParams_Data::Validate},
-    {&internal::VideoConferenceManager_RegisterMojoClient_Params_Data::Validate,
+    { &internal::VideoConferenceManager_RegisterMojoClient_Params_Data::Validate,
      &internal::VideoConferenceManager_RegisterMojoClient_ResponseParams_Data::Validate},
-    {&internal::VideoConferenceManager_NotifyDeviceUsedWhileDisabled_Params_Data::Validate,
+    { &internal::VideoConferenceManager_NotifyDeviceUsedWhileDisabled_Params_Data::Validate,
      &internal::VideoConferenceManager_NotifyDeviceUsedWhileDisabled_ResponseParams_Data::Validate},
-    {&internal::VideoConferenceManager_NotifyClientUpdate_Params_Data::Validate,
+    { &internal::VideoConferenceManager_NotifyClientUpdate_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1434,14 +1450,17 @@ void VideoConferenceManagerClientProxy::GetMediaApps(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoConferenceManagerClient::GetMediaApps");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManagerClient_GetMediaApps_Name, kFlags, 0, 0, nullptr);
@@ -1472,14 +1491,17 @@ void VideoConferenceManagerClientProxy::ReturnToApp(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManagerClient_ReturnToApp_Name, kFlags, 0, 0, nullptr);
@@ -1524,14 +1546,17 @@ void VideoConferenceManagerClientProxy::SetSystemMediaDeviceStatus(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManagerClient_SetSystemMediaDeviceStatus_Name, kFlags, 0, 0, nullptr);
@@ -1558,14 +1583,17 @@ void VideoConferenceManagerClientProxy::StopAllScreenShare(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VideoConferenceManagerClient::StopAllScreenShare");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManagerClient_StopAllScreenShare_Name, kFlags, 0, 0, nullptr);
@@ -1674,7 +1702,8 @@ void VideoConferenceManagerClient_GetMediaApps_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManagerClient_GetMediaApps_Name, kFlags, 0, 0, nullptr);
@@ -1804,7 +1833,8 @@ void VideoConferenceManagerClient_ReturnToApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManagerClient_ReturnToApp_Name, kFlags, 0, 0, nullptr);
@@ -1922,7 +1952,8 @@ void VideoConferenceManagerClient_SetSystemMediaDeviceStatus_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoConferenceManagerClient_SetSystemMediaDeviceStatus_Name, kFlags, 0, 0, nullptr);
@@ -2091,16 +2122,16 @@ std::move(p_disabled), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoConferenceManagerClientValidationInfo[] = {
-    {&internal::VideoConferenceManagerClient_GetMediaApps_Params_Data::Validate,
+    { &internal::VideoConferenceManagerClient_GetMediaApps_Params_Data::Validate,
      &internal::VideoConferenceManagerClient_GetMediaApps_ResponseParams_Data::Validate},
-    {&internal::VideoConferenceManagerClient_ReturnToApp_Params_Data::Validate,
+    { &internal::VideoConferenceManagerClient_ReturnToApp_Params_Data::Validate,
      &internal::VideoConferenceManagerClient_ReturnToApp_ResponseParams_Data::Validate},
-    {&internal::VideoConferenceManagerClient_SetSystemMediaDeviceStatus_Params_Data::Validate,
+    { &internal::VideoConferenceManagerClient_SetSystemMediaDeviceStatus_Params_Data::Validate,
      &internal::VideoConferenceManagerClient_SetSystemMediaDeviceStatus_ResponseParams_Data::Validate},
-    {&internal::VideoConferenceManagerClient_StopAllScreenShare_Params_Data::Validate,
+    { &internal::VideoConferenceManagerClient_StopAllScreenShare_Params_Data::Validate,
      nullptr /* no response */},
 };
 

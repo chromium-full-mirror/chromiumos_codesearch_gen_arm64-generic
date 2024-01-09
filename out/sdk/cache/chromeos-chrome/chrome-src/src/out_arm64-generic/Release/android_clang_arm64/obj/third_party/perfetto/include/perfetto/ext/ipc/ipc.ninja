@@ -1,9 +1,0 @@
-defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DANDROID -DHAVE_SYS_UIO_H -DANDROID_NDK_VERSION_ROLL=r25c_1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=7b5e31698b06ca88e92629f50814bb08394a8574 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
-include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iandroid_clang_arm64/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++
-label_name = ipc
-root_out_dir = android_clang_arm64
-target_out_dir = android_clang_arm64/obj/third_party/perfetto/include/perfetto/ext/ipc
-target_output_name = ipc
-
-
-build android_clang_arm64/obj/third_party/perfetto/include/perfetto/ext/ipc/ipc.stamp: android_clang_arm64_stamp || android_clang_arm64/obj/third_party/perfetto/include/perfetto/protozero/protozero.stamp android_clang_arm64/obj/third_party/perfetto/include/perfetto/ext/base/base.stamp android_clang_arm64/obj/third_party/perfetto/include/perfetto/base/base.stamp android_clang_arm64/obj/third_party/perfetto/include/perfetto/public/base.stamp android_clang_arm64/obj/third_party/perfetto/include/perfetto/public/abi/base.stamp android_clang_arm64/obj/third_party/perfetto/include/perfetto/public/protozero.stamp

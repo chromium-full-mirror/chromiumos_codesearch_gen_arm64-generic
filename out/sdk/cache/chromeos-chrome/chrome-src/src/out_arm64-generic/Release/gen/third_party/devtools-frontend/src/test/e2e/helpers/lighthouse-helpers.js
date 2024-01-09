@@ -128,10 +128,8 @@ async function getHelpText() {
 exports.getHelpText = getHelpText;
 async function openStorageView() {
     await (0, helper_js_1.click)('#tab-resources');
-    const STORAGE_SELECTOR = '[aria-label="Storage"]';
     await (0, helper_js_1.waitFor)('.storage-group-list-item');
-    await (0, helper_js_1.waitFor)(STORAGE_SELECTOR);
-    await (0, helper_js_1.click)(STORAGE_SELECTOR);
+    await (0, helper_js_1.click)('[aria-label="Storage"]');
 }
 exports.openStorageView = openStorageView;
 async function clearSiteData() {

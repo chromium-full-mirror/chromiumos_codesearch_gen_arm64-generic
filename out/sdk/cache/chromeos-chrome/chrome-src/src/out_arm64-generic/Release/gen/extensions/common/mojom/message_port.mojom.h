@@ -13,32 +13,1413 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
-#include "mojo/public/cpp/bindings/type_converter.h"
+#include <optional>
+#include "mojo/public/cpp/bindings/clone_traits.h"
+#include "mojo/public/cpp/bindings/equals_traits.h"
+#include "mojo/public/cpp/bindings/lib/serialization.h"
+#include "mojo/public/cpp/bindings/struct_ptr.h"
+#include "mojo/public/cpp/bindings/struct_traits.h"
+#include "mojo/public/cpp/bindings/union_traits.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/message_port.mojom-features.h"
 #include "extensions/common/mojom/message_port.mojom-shared.h"
 #include "extensions/common/mojom/message_port.mojom-forward.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom.h"
+#include "mojo/public/mojom/base/values.mojom.h"
+#include "url/mojom/origin.mojom.h"
+#include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
 
+#include "mojo/public/cpp/bindings/lib/control_message_handler.h"
+#include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
-
+#include "extensions/common/mojom/message_port_mojom_traits.h"
 
 
 
 
 namespace extensions::mojom {
 
+class MessagePortProxy;
+
+template <typename ImplRefTraits>
+class MessagePortStub;
+
+class MessagePortRequestValidator;
 
 
+class MessagePort
+    : public MessagePortInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = MessagePortInterfaceBase;
+  using Proxy_ = MessagePortProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = MessagePortStub<ImplRefTraits>;
+
+  using RequestValidator_ = MessagePortRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kDispatchDisconnectMinVersion = 0,
+    kDeliverMessageMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct DispatchDisconnect_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct DeliverMessage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~MessagePort() = default;
+
+  
+  virtual void DispatchDisconnect(const std::string& error) = 0;
+
+  
+  virtual void DeliverMessage(::extensions::Message message) = 0;
+};
+
+class MessagePortHostProxy;
+
+template <typename ImplRefTraits>
+class MessagePortHostStub;
+
+class MessagePortHostRequestValidator;
+
+
+class MessagePortHost
+    : public MessagePortHostInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = MessagePortHostInterfaceBase;
+  using Proxy_ = MessagePortHostProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = MessagePortHostStub<ImplRefTraits>;
+
+  using RequestValidator_ = MessagePortHostRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kClosePortMinVersion = 0,
+    kPostMessageMinVersion = 0,
+    kResponsePendingMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct ClosePort_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct PostMessage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ResponsePending_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~MessagePortHost() = default;
+
+  
+  virtual void ClosePort(bool close_channel) = 0;
+
+  
+  virtual void PostMessage(::extensions::Message message) = 0;
+
+  
+  virtual void ResponsePending() = 0;
+};
+
+
+
+class  MessagePortProxy
+    : public MessagePort {
+ public:
+  using InterfaceType = MessagePort;
+
+  explicit MessagePortProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void DispatchDisconnect(const std::string& error) final;
+  
+  void DeliverMessage(::extensions::Message message) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  MessagePortHostProxy
+    : public MessagePortHost {
+ public:
+  using InterfaceType = MessagePortHost;
+
+  explicit MessagePortHostProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void ClosePort(bool close_channel) final;
+  
+  void PostMessage(::extensions::Message message) final;
+  
+  void ResponsePending() final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+class  MessagePortStubDispatch {
+ public:
+  static bool Accept(MessagePort* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      MessagePort* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<MessagePort>>
+class MessagePortStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  MessagePortStub() = default;
+  ~MessagePortStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MessagePortStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MessagePortStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  MessagePortHostStubDispatch {
+ public:
+  static bool Accept(MessagePortHost* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      MessagePortHost* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<MessagePortHost>>
+class MessagePortHostStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  MessagePortHostStub() = default;
+  ~MessagePortHostStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MessagePortHostStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MessagePortHostStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  MessagePortRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  MessagePortHostRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+
+
+
+
+
+
+class  MessagingEndpoint {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<MessagingEndpoint, T>::value>;
+  using DataView = MessagingEndpointDataView;
+  using Data_ = internal::MessagingEndpoint_Data;
+
+  template <typename... Args>
+  static MessagingEndpointPtr New(Args&&... args) {
+    return MessagingEndpointPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static MessagingEndpointPtr From(const U& u) {
+    return mojo::TypeConverter<MessagingEndpointPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, MessagingEndpoint>::Convert(*this);
+  }
+
+
+  MessagingEndpoint();
+
+  MessagingEndpoint(
+      MessagingEndpointType type,
+      const std::optional<std::string>& extension_id,
+      const std::optional<std::string>& native_app_name);
+
+
+  ~MessagingEndpoint();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = MessagingEndpointPtr>
+  MessagingEndpointPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, MessagingEndpoint::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, MessagingEndpoint::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, MessagingEndpoint::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        MessagingEndpoint::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        MessagingEndpoint::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::MessagingEndpoint_UnserializedMessageContext<
+            UserType, MessagingEndpoint::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<MessagingEndpoint::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return MessagingEndpoint::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::MessagingEndpoint_UnserializedMessageContext<
+            UserType, MessagingEndpoint::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<MessagingEndpoint::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  MessagingEndpointType type;
+  
+  std::optional<std::string> extension_id;
+  
+  std::optional<std::string> native_app_name;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, MessagingEndpoint::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, MessagingEndpoint::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, MessagingEndpoint::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, MessagingEndpoint::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+class  Message {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Message, T>::value>;
+  using DataView = MessageDataView;
+  using Data_ = internal::Message_Data;
+
+  template <typename... Args>
+  static MessagePtr New(Args&&... args) {
+    return MessagePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static MessagePtr From(const U& u) {
+    return mojo::TypeConverter<MessagePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Message>::Convert(*this);
+  }
+
+
+  Message();
+
+  Message(
+      const std::string& data,
+      SerializationFormat format,
+      bool user_gesture,
+      bool from_privileged_context);
+
+
+  ~Message();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = MessagePtr>
+  MessagePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Message::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Message::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Message::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Message::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Message::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Message_UnserializedMessageContext<
+            UserType, Message::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Message::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return Message::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Message_UnserializedMessageContext<
+            UserType, Message::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Message::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string data;
+  
+  SerializationFormat format;
+  
+  bool user_gesture;
+  
+  bool from_privileged_context;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Message::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Message::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Message::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Message::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+class  PortId {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PortId, T>::value>;
+  using DataView = PortIdDataView;
+  using Data_ = internal::PortId_Data;
+
+  template <typename... Args>
+  static PortIdPtr New(Args&&... args) {
+    return PortIdPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PortIdPtr From(const U& u) {
+    return mojo::TypeConverter<PortIdPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PortId>::Convert(*this);
+  }
+
+
+  PortId();
+
+  PortId(
+      const ::base::UnguessableToken& context_id,
+      int32_t port_number,
+      bool is_opener,
+      SerializationFormat serialization_format);
+
+
+  ~PortId();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PortIdPtr>
+  PortIdPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PortId::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PortId::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, PortId::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PortId::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PortId::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PortId_UnserializedMessageContext<
+            UserType, PortId::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PortId::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PortId::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PortId_UnserializedMessageContext<
+            UserType, PortId::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PortId::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::base::UnguessableToken context_id;
+  
+  int32_t port_number;
+  
+  bool is_opener;
+  
+  SerializationFormat serialization_format;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PortId::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PortId::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PortId::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PortId::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  TabConnectionInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TabConnectionInfo, T>::value>;
+  using DataView = TabConnectionInfoDataView;
+  using Data_ = internal::TabConnectionInfo_Data;
+
+  template <typename... Args>
+  static TabConnectionInfoPtr New(Args&&... args) {
+    return TabConnectionInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TabConnectionInfoPtr From(const U& u) {
+    return mojo::TypeConverter<TabConnectionInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TabConnectionInfo>::Convert(*this);
+  }
+
+
+  TabConnectionInfo();
+
+  TabConnectionInfo(
+      ::base::Value::Dict tab,
+      int32_t frame_id,
+      const std::string& document_id,
+      const std::string& document_lifecycle);
+
+TabConnectionInfo(const TabConnectionInfo&) = delete;
+TabConnectionInfo& operator=(const TabConnectionInfo&) = delete;
+
+  ~TabConnectionInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TabConnectionInfoPtr>
+  TabConnectionInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TabConnectionInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TabConnectionInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TabConnectionInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TabConnectionInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TabConnectionInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TabConnectionInfo_UnserializedMessageContext<
+            UserType, TabConnectionInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TabConnectionInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TabConnectionInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TabConnectionInfo_UnserializedMessageContext<
+            UserType, TabConnectionInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TabConnectionInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::base::Value::Dict tab;
+  
+  int32_t frame_id;
+  
+  std::string document_id;
+  
+  std::string document_lifecycle;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TabConnectionInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TabConnectionInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TabConnectionInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TabConnectionInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  ExternalConnectionInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ExternalConnectionInfo, T>::value>;
+  using DataView = ExternalConnectionInfoDataView;
+  using Data_ = internal::ExternalConnectionInfo_Data;
+
+  template <typename... Args>
+  static ExternalConnectionInfoPtr New(Args&&... args) {
+    return ExternalConnectionInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ExternalConnectionInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ExternalConnectionInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ExternalConnectionInfo>::Convert(*this);
+  }
+
+
+  ExternalConnectionInfo();
+
+  ExternalConnectionInfo(
+      const ::extensions::MessagingEndpoint& source_endpoint,
+      const std::string& target_id,
+      const ::GURL& source_url,
+      const std::optional<::url::Origin>& source_origin,
+      int32_t guest_process_id,
+      int32_t guest_render_frame_routing_id);
+
+
+  ~ExternalConnectionInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ExternalConnectionInfoPtr>
+  ExternalConnectionInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ExternalConnectionInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ExternalConnectionInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ExternalConnectionInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ExternalConnectionInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ExternalConnectionInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ExternalConnectionInfo_UnserializedMessageContext<
+            UserType, ExternalConnectionInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ExternalConnectionInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ExternalConnectionInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ExternalConnectionInfo_UnserializedMessageContext<
+            UserType, ExternalConnectionInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ExternalConnectionInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::extensions::MessagingEndpoint source_endpoint;
+  
+  std::string target_id;
+  
+  ::GURL source_url;
+  
+  std::optional<::url::Origin> source_origin;
+  
+  int32_t guest_process_id;
+  
+  int32_t guest_render_frame_routing_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ExternalConnectionInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ExternalConnectionInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ExternalConnectionInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ExternalConnectionInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+template <typename StructPtrType>
+PortIdPtr PortId::Clone() const {
+  return New(
+      mojo::Clone(context_id),
+      mojo::Clone(port_number),
+      mojo::Clone(is_opener),
+      mojo::Clone(serialization_format)
+  );
+}
+
+template <typename T, PortId::EnableIfSame<T>*>
+bool PortId::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->context_id, other_struct.context_id))
+    return false;
+  if (!mojo::Equals(this->port_number, other_struct.port_number))
+    return false;
+  if (!mojo::Equals(this->is_opener, other_struct.is_opener))
+    return false;
+  if (!mojo::Equals(this->serialization_format, other_struct.serialization_format))
+    return false;
+  return true;
+}
+
+template <typename T, PortId::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.context_id < rhs.context_id)
+    return true;
+  if (rhs.context_id < lhs.context_id)
+    return false;
+  if (lhs.port_number < rhs.port_number)
+    return true;
+  if (rhs.port_number < lhs.port_number)
+    return false;
+  if (lhs.is_opener < rhs.is_opener)
+    return true;
+  if (rhs.is_opener < lhs.is_opener)
+    return false;
+  if (lhs.serialization_format < rhs.serialization_format)
+    return true;
+  if (rhs.serialization_format < lhs.serialization_format)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+MessagingEndpointPtr MessagingEndpoint::Clone() const {
+  return New(
+      mojo::Clone(type),
+      mojo::Clone(extension_id),
+      mojo::Clone(native_app_name)
+  );
+}
+
+template <typename T, MessagingEndpoint::EnableIfSame<T>*>
+bool MessagingEndpoint::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->extension_id, other_struct.extension_id))
+    return false;
+  if (!mojo::Equals(this->native_app_name, other_struct.native_app_name))
+    return false;
+  return true;
+}
+
+template <typename T, MessagingEndpoint::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.extension_id < rhs.extension_id)
+    return true;
+  if (rhs.extension_id < lhs.extension_id)
+    return false;
+  if (lhs.native_app_name < rhs.native_app_name)
+    return true;
+  if (rhs.native_app_name < lhs.native_app_name)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+TabConnectionInfoPtr TabConnectionInfo::Clone() const {
+  return New(
+      mojo::Clone(tab),
+      mojo::Clone(frame_id),
+      mojo::Clone(document_id),
+      mojo::Clone(document_lifecycle)
+  );
+}
+
+template <typename T, TabConnectionInfo::EnableIfSame<T>*>
+bool TabConnectionInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->tab, other_struct.tab))
+    return false;
+  if (!mojo::Equals(this->frame_id, other_struct.frame_id))
+    return false;
+  if (!mojo::Equals(this->document_id, other_struct.document_id))
+    return false;
+  if (!mojo::Equals(this->document_lifecycle, other_struct.document_lifecycle))
+    return false;
+  return true;
+}
+
+template <typename T, TabConnectionInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.tab < rhs.tab)
+    return true;
+  if (rhs.tab < lhs.tab)
+    return false;
+  if (lhs.frame_id < rhs.frame_id)
+    return true;
+  if (rhs.frame_id < lhs.frame_id)
+    return false;
+  if (lhs.document_id < rhs.document_id)
+    return true;
+  if (rhs.document_id < lhs.document_id)
+    return false;
+  if (lhs.document_lifecycle < rhs.document_lifecycle)
+    return true;
+  if (rhs.document_lifecycle < lhs.document_lifecycle)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ExternalConnectionInfoPtr ExternalConnectionInfo::Clone() const {
+  return New(
+      mojo::Clone(source_endpoint),
+      mojo::Clone(target_id),
+      mojo::Clone(source_url),
+      mojo::Clone(source_origin),
+      mojo::Clone(guest_process_id),
+      mojo::Clone(guest_render_frame_routing_id)
+  );
+}
+
+template <typename T, ExternalConnectionInfo::EnableIfSame<T>*>
+bool ExternalConnectionInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->source_endpoint, other_struct.source_endpoint))
+    return false;
+  if (!mojo::Equals(this->target_id, other_struct.target_id))
+    return false;
+  if (!mojo::Equals(this->source_url, other_struct.source_url))
+    return false;
+  if (!mojo::Equals(this->source_origin, other_struct.source_origin))
+    return false;
+  if (!mojo::Equals(this->guest_process_id, other_struct.guest_process_id))
+    return false;
+  if (!mojo::Equals(this->guest_render_frame_routing_id, other_struct.guest_render_frame_routing_id))
+    return false;
+  return true;
+}
+
+template <typename T, ExternalConnectionInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.source_endpoint < rhs.source_endpoint)
+    return true;
+  if (rhs.source_endpoint < lhs.source_endpoint)
+    return false;
+  if (lhs.target_id < rhs.target_id)
+    return true;
+  if (rhs.target_id < lhs.target_id)
+    return false;
+  if (lhs.source_url < rhs.source_url)
+    return true;
+  if (rhs.source_url < lhs.source_url)
+    return false;
+  if (lhs.source_origin < rhs.source_origin)
+    return true;
+  if (rhs.source_origin < lhs.source_origin)
+    return false;
+  if (lhs.guest_process_id < rhs.guest_process_id)
+    return true;
+  if (rhs.guest_process_id < lhs.guest_process_id)
+    return false;
+  if (lhs.guest_render_frame_routing_id < rhs.guest_render_frame_routing_id)
+    return true;
+  if (rhs.guest_render_frame_routing_id < lhs.guest_render_frame_routing_id)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+MessagePtr Message::Clone() const {
+  return New(
+      mojo::Clone(data),
+      mojo::Clone(format),
+      mojo::Clone(user_gesture),
+      mojo::Clone(from_privileged_context)
+  );
+}
+
+template <typename T, Message::EnableIfSame<T>*>
+bool Message::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->data, other_struct.data))
+    return false;
+  if (!mojo::Equals(this->format, other_struct.format))
+    return false;
+  if (!mojo::Equals(this->user_gesture, other_struct.user_gesture))
+    return false;
+  if (!mojo::Equals(this->from_privileged_context, other_struct.from_privileged_context))
+    return false;
+  return true;
+}
+
+template <typename T, Message::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.data < rhs.data)
+    return true;
+  if (rhs.data < lhs.data)
+    return false;
+  if (lhs.format < rhs.format)
+    return true;
+  if (rhs.format < lhs.format)
+    return false;
+  if (lhs.user_gesture < rhs.user_gesture)
+    return true;
+  if (rhs.user_gesture < lhs.user_gesture)
+    return false;
+  if (lhs.from_privileged_context < rhs.from_privileged_context)
+    return true;
+  if (rhs.from_privileged_context < lhs.from_privileged_context)
+    return false;
+  return false;
+}
 
 
 }  // extensions::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::extensions::mojom::PortId::DataView,
+                                         ::extensions::mojom::PortIdPtr> {
+  static bool IsNull(const ::extensions::mojom::PortIdPtr& input) { return !input; }
+  static void SetToNull(::extensions::mojom::PortIdPtr* output) { output->reset(); }
+
+  static const decltype(::extensions::mojom::PortId::context_id)& context_id(
+      const ::extensions::mojom::PortIdPtr& input) {
+    return input->context_id;
+  }
+
+  static decltype(::extensions::mojom::PortId::port_number) port_number(
+      const ::extensions::mojom::PortIdPtr& input) {
+    return input->port_number;
+  }
+
+  static decltype(::extensions::mojom::PortId::is_opener) is_opener(
+      const ::extensions::mojom::PortIdPtr& input) {
+    return input->is_opener;
+  }
+
+  static decltype(::extensions::mojom::PortId::serialization_format) serialization_format(
+      const ::extensions::mojom::PortIdPtr& input) {
+    return input->serialization_format;
+  }
+
+  static bool Read(::extensions::mojom::PortId::DataView input, ::extensions::mojom::PortIdPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::extensions::mojom::MessagingEndpoint::DataView,
+                                         ::extensions::mojom::MessagingEndpointPtr> {
+  static bool IsNull(const ::extensions::mojom::MessagingEndpointPtr& input) { return !input; }
+  static void SetToNull(::extensions::mojom::MessagingEndpointPtr* output) { output->reset(); }
+
+  static decltype(::extensions::mojom::MessagingEndpoint::type) type(
+      const ::extensions::mojom::MessagingEndpointPtr& input) {
+    return input->type;
+  }
+
+  static const decltype(::extensions::mojom::MessagingEndpoint::extension_id)& extension_id(
+      const ::extensions::mojom::MessagingEndpointPtr& input) {
+    return input->extension_id;
+  }
+
+  static const decltype(::extensions::mojom::MessagingEndpoint::native_app_name)& native_app_name(
+      const ::extensions::mojom::MessagingEndpointPtr& input) {
+    return input->native_app_name;
+  }
+
+  static bool Read(::extensions::mojom::MessagingEndpoint::DataView input, ::extensions::mojom::MessagingEndpointPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::extensions::mojom::TabConnectionInfo::DataView,
+                                         ::extensions::mojom::TabConnectionInfoPtr> {
+  static bool IsNull(const ::extensions::mojom::TabConnectionInfoPtr& input) { return !input; }
+  static void SetToNull(::extensions::mojom::TabConnectionInfoPtr* output) { output->reset(); }
+
+  static const decltype(::extensions::mojom::TabConnectionInfo::tab)& tab(
+      const ::extensions::mojom::TabConnectionInfoPtr& input) {
+    return input->tab;
+  }
+
+  static decltype(::extensions::mojom::TabConnectionInfo::frame_id) frame_id(
+      const ::extensions::mojom::TabConnectionInfoPtr& input) {
+    return input->frame_id;
+  }
+
+  static const decltype(::extensions::mojom::TabConnectionInfo::document_id)& document_id(
+      const ::extensions::mojom::TabConnectionInfoPtr& input) {
+    return input->document_id;
+  }
+
+  static const decltype(::extensions::mojom::TabConnectionInfo::document_lifecycle)& document_lifecycle(
+      const ::extensions::mojom::TabConnectionInfoPtr& input) {
+    return input->document_lifecycle;
+  }
+
+  static bool Read(::extensions::mojom::TabConnectionInfo::DataView input, ::extensions::mojom::TabConnectionInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::extensions::mojom::ExternalConnectionInfo::DataView,
+                                         ::extensions::mojom::ExternalConnectionInfoPtr> {
+  static bool IsNull(const ::extensions::mojom::ExternalConnectionInfoPtr& input) { return !input; }
+  static void SetToNull(::extensions::mojom::ExternalConnectionInfoPtr* output) { output->reset(); }
+
+  static const decltype(::extensions::mojom::ExternalConnectionInfo::source_endpoint)& source_endpoint(
+      const ::extensions::mojom::ExternalConnectionInfoPtr& input) {
+    return input->source_endpoint;
+  }
+
+  static const decltype(::extensions::mojom::ExternalConnectionInfo::target_id)& target_id(
+      const ::extensions::mojom::ExternalConnectionInfoPtr& input) {
+    return input->target_id;
+  }
+
+  static const decltype(::extensions::mojom::ExternalConnectionInfo::source_url)& source_url(
+      const ::extensions::mojom::ExternalConnectionInfoPtr& input) {
+    return input->source_url;
+  }
+
+  static const decltype(::extensions::mojom::ExternalConnectionInfo::source_origin)& source_origin(
+      const ::extensions::mojom::ExternalConnectionInfoPtr& input) {
+    return input->source_origin;
+  }
+
+  static decltype(::extensions::mojom::ExternalConnectionInfo::guest_process_id) guest_process_id(
+      const ::extensions::mojom::ExternalConnectionInfoPtr& input) {
+    return input->guest_process_id;
+  }
+
+  static decltype(::extensions::mojom::ExternalConnectionInfo::guest_render_frame_routing_id) guest_render_frame_routing_id(
+      const ::extensions::mojom::ExternalConnectionInfoPtr& input) {
+    return input->guest_render_frame_routing_id;
+  }
+
+  static bool Read(::extensions::mojom::ExternalConnectionInfo::DataView input, ::extensions::mojom::ExternalConnectionInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::extensions::mojom::Message::DataView,
+                                         ::extensions::mojom::MessagePtr> {
+  static bool IsNull(const ::extensions::mojom::MessagePtr& input) { return !input; }
+  static void SetToNull(::extensions::mojom::MessagePtr* output) { output->reset(); }
+
+  static const decltype(::extensions::mojom::Message::data)& data(
+      const ::extensions::mojom::MessagePtr& input) {
+    return input->data;
+  }
+
+  static decltype(::extensions::mojom::Message::format) format(
+      const ::extensions::mojom::MessagePtr& input) {
+    return input->format;
+  }
+
+  static decltype(::extensions::mojom::Message::user_gesture) user_gesture(
+      const ::extensions::mojom::MessagePtr& input) {
+    return input->user_gesture;
+  }
+
+  static decltype(::extensions::mojom::Message::from_privileged_context) from_privileged_context(
+      const ::extensions::mojom::MessagePtr& input) {
+    return input->from_privileged_context;
+  }
+
+  static bool Read(::extensions::mojom::Message::DataView input, ::extensions::mojom::MessagePtr* output);
+};
 
 }  // namespace mojo
 

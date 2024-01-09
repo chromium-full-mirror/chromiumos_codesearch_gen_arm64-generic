@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -117,14 +118,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -212,10 +216,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -435,14 +439,17 @@ void PageHandlerProxy::Backup(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Backup_Name, kFlags, 0, 0, nullptr);
@@ -466,14 +473,17 @@ void PageHandlerProxy::StartPrechecks(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::PageHandler::StartPrechecks");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_StartPrechecks_Name, kFlags, 0, 0, nullptr);
@@ -496,14 +506,17 @@ void PageHandlerProxy::Upgrade(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::PageHandler::Upgrade");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Upgrade_Name, kFlags, 0, 0, nullptr);
@@ -526,14 +539,17 @@ void PageHandlerProxy::Cancel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::PageHandler::Cancel");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -556,14 +572,17 @@ void PageHandlerProxy::CancelBeforeStart(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::PageHandler::CancelBeforeStart");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_CancelBeforeStart_Name, kFlags, 0, 0, nullptr);
@@ -586,14 +605,17 @@ void PageHandlerProxy::Restore(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::PageHandler::Restore");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Restore_Name, kFlags, 0, 0, nullptr);
@@ -616,14 +638,17 @@ void PageHandlerProxy::OnPageClosed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::PageHandler::OnPageClosed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnPageClosed_Name, kFlags, 0, 0, nullptr);
@@ -646,14 +671,17 @@ void PageHandlerProxy::Launch(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::PageHandler::Launch");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Launch_Name, kFlags, 0, 0, nullptr);
@@ -896,24 +924,24 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_Backup_Params_Data::Validate,
+    { &internal::PageHandler_Backup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_StartPrechecks_Params_Data::Validate,
+    { &internal::PageHandler_StartPrechecks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Upgrade_Params_Data::Validate,
+    { &internal::PageHandler_Upgrade_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Cancel_Params_Data::Validate,
+    { &internal::PageHandler_Cancel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_CancelBeforeStart_Params_Data::Validate,
+    { &internal::PageHandler_CancelBeforeStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Restore_Params_Data::Validate,
+    { &internal::PageHandler_Restore_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnPageClosed_Params_Data::Validate,
+    { &internal::PageHandler_OnPageClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Launch_Params_Data::Validate,
+    { &internal::PageHandler_Launch_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1233,14 +1261,17 @@ void PageProxy::OnBackupProgress(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnBackupProgress_Name, kFlags, 0, 0, nullptr);
@@ -1271,14 +1302,17 @@ void PageProxy::OnBackupSucceeded(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnBackupSucceeded_Name, kFlags, 0, 0, nullptr);
@@ -1302,14 +1336,17 @@ void PageProxy::OnBackupFailed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::Page::OnBackupFailed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnBackupFailed_Name, kFlags, 0, 0, nullptr);
@@ -1339,14 +1376,17 @@ void PageProxy::PrecheckStatus(
                         "<value of type UpgradePrecheckStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_PrecheckStatus_Name, kFlags, 0, 0, nullptr);
@@ -1378,14 +1418,17 @@ void PageProxy::OnUpgradeProgress(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnUpgradeProgress_Name, kFlags, 0, 0, nullptr);
@@ -1421,14 +1464,17 @@ void PageProxy::OnUpgradeSucceeded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::Page::OnUpgradeSucceeded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnUpgradeSucceeded_Name, kFlags, 0, 0, nullptr);
@@ -1451,14 +1497,17 @@ void PageProxy::OnUpgradeFailed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::Page::OnUpgradeFailed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnUpgradeFailed_Name, kFlags, 0, 0, nullptr);
@@ -1488,14 +1537,17 @@ void PageProxy::OnRestoreProgress(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnRestoreProgress_Name, kFlags, 0, 0, nullptr);
@@ -1519,14 +1571,17 @@ void PageProxy::OnRestoreSucceeded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::Page::OnRestoreSucceeded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnRestoreSucceeded_Name, kFlags, 0, 0, nullptr);
@@ -1549,14 +1604,17 @@ void PageProxy::OnRestoreFailed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::Page::OnRestoreFailed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnRestoreFailed_Name, kFlags, 0, 0, nullptr);
@@ -1579,14 +1637,17 @@ void PageProxy::OnCanceled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::Page::OnCanceled");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnCanceled_Name, kFlags, 0, 0, nullptr);
@@ -1609,14 +1670,17 @@ void PageProxy::RequestClose(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::crostini_upgrader::mojom::Page::RequestClose");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_RequestClose_Name, kFlags, 0, 0, nullptr);
@@ -1646,14 +1710,17 @@ void PageProxy::OnLogFileCreated(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnLogFileCreated_Name, kFlags, 0, 0, nullptr);
@@ -2052,34 +2119,34 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_OnBackupProgress_Params_Data::Validate,
+    { &internal::Page_OnBackupProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnBackupSucceeded_Params_Data::Validate,
+    { &internal::Page_OnBackupSucceeded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnBackupFailed_Params_Data::Validate,
+    { &internal::Page_OnBackupFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_PrecheckStatus_Params_Data::Validate,
+    { &internal::Page_PrecheckStatus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnUpgradeProgress_Params_Data::Validate,
+    { &internal::Page_OnUpgradeProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnUpgradeSucceeded_Params_Data::Validate,
+    { &internal::Page_OnUpgradeSucceeded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnUpgradeFailed_Params_Data::Validate,
+    { &internal::Page_OnUpgradeFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnRestoreProgress_Params_Data::Validate,
+    { &internal::Page_OnRestoreProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnRestoreSucceeded_Params_Data::Validate,
+    { &internal::Page_OnRestoreSucceeded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnRestoreFailed_Params_Data::Validate,
+    { &internal::Page_OnRestoreFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnCanceled_Params_Data::Validate,
+    { &internal::Page_OnCanceled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_RequestClose_Params_Data::Validate,
+    { &internal::Page_RequestClose_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnLogFileCreated_Params_Data::Validate,
+    { &internal::Page_OnLogFileCreated_Params_Data::Validate,
      nullptr /* no response */},
 };
 

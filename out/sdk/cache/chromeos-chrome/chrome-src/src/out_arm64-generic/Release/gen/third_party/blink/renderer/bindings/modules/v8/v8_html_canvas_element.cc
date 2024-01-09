@@ -69,8 +69,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLCanvasElement.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -91,7 +92,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -111,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLCanvasElement.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -133,7 +135,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -190,7 +192,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCanvasCaptureStream);
 
 MediaStream* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLCanvasElement";
 const char* const property_name = "captureStream";
@@ -237,7 +239,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_options = NativeValueTraits<CanvasHighDynamicRangeOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -280,7 +282,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_context_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -333,7 +335,7 @@ return;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_callback = NativeValueTraits<V8BlobCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -389,7 +391,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
 if (info[0]->IsUndefined()) {
   arg1_type = "image/png";
@@ -435,7 +437,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(v8_receiver);
+HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLCanvasElement";
 const char* const property_name = "transferControlToOffscreen";

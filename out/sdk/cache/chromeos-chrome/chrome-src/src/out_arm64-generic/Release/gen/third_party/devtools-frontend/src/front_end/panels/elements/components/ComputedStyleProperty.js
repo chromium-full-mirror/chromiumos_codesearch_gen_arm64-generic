@@ -17,9 +17,9 @@ export class ComputedStyleProperty extends HTMLElement {
     #shadow = this.attachShadow({ mode: 'open' });
     #inherited = false;
     #traceable = false;
-    constructor() {
-        super();
+    connectedCallback() {
         this.#shadow.adoptedStyleSheets = [computedStylePropertyStyles];
+        this.#render();
     }
     set inherited(inherited) {
         if (inherited === this.#inherited) {

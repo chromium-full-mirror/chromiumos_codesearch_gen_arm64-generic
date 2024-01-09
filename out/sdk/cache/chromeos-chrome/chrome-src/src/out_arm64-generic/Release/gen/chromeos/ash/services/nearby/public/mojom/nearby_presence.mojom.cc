@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -264,7 +265,7 @@ PresenceDevice::PresenceDevice()
 PresenceDevice::PresenceDevice(
     const std::string& endpoint_id_in,
     std::vector<ActionType> actions_in,
-    const absl::optional<std::string>& stable_device_id_in,
+    const std::optional<std::string>& stable_device_id_in,
     MetadataPtr metadata_in)
     : endpoint_id(std::move(endpoint_id_in)),
       actions(std::move(actions_in)),
@@ -298,7 +299,7 @@ void PresenceDevice::WriteIntoTrace(
     dict.AddItem(
       "stable_device_id"), this->stable_device_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -622,8 +623,8 @@ bool ScanSessionStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool ScanSessionRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::ash::nearby::presence::mojom::ScanSession::Name_;
@@ -741,14 +742,17 @@ void ScanObserverProxy::OnDeviceFound(
                         "<value of type PresenceDevicePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanObserver_OnDeviceFound_Name, kFlags, 0, 0, nullptr);
@@ -789,14 +793,17 @@ void ScanObserverProxy::OnDeviceChanged(
                         "<value of type PresenceDevicePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanObserver_OnDeviceChanged_Name, kFlags, 0, 0, nullptr);
@@ -837,14 +844,17 @@ void ScanObserverProxy::OnDeviceLost(
                         "<value of type PresenceDevicePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScanObserver_OnDeviceLost_Name, kFlags, 0, 0, nullptr);
@@ -981,14 +991,14 @@ bool ScanObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScanObserverValidationInfo[] = {
-    {&internal::ScanObserver_OnDeviceFound_Params_Data::Validate,
+    { &internal::ScanObserver_OnDeviceFound_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScanObserver_OnDeviceChanged_Params_Data::Validate,
+    { &internal::ScanObserver_OnDeviceChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScanObserver_OnDeviceLost_Params_Data::Validate,
+    { &internal::ScanObserver_OnDeviceLost_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1232,14 +1242,17 @@ void NearbyPresenceProxy::StartScan(
                         "<value of type ScanRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_StartScan_Name, kFlags, 0, 0, nullptr);
@@ -1281,14 +1294,17 @@ void NearbyPresenceProxy::SetScanObserver(
                         "<value of type ::mojo::PendingRemote<ScanObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_SetScanObserver_Name, kFlags, 0, 0, nullptr);
@@ -1324,14 +1340,17 @@ void NearbyPresenceProxy::UpdateLocalDeviceMetadata(
                         "<value of type MetadataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_UpdateLocalDeviceMetadata_Name, kFlags, 0, 0, nullptr);
@@ -1372,14 +1391,17 @@ void NearbyPresenceProxy::UpdateLocalDeviceMetadataAndGenerateCredentials(
                         "<value of type MetadataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_Name, kFlags, 0, 0, nullptr);
@@ -1424,14 +1446,17 @@ void NearbyPresenceProxy::UpdateRemoteSharedCredentials(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_UpdateRemoteSharedCredentials_Name, kFlags, 0, 0, nullptr);
@@ -1486,14 +1511,17 @@ void NearbyPresenceProxy::GetLocalSharedCredentials(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_GetLocalSharedCredentials_Name, kFlags, 0, 0, nullptr);
@@ -1623,7 +1651,8 @@ void NearbyPresence_StartScan_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_StartScan_Name, kFlags, 0, 0, nullptr);
@@ -1751,7 +1780,8 @@ void NearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_ProxyToRespo
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_Name, kFlags, 0, 0, nullptr);
@@ -1883,7 +1913,8 @@ void NearbyPresence_UpdateRemoteSharedCredentials_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_UpdateRemoteSharedCredentials_Name, kFlags, 0, 0, nullptr);
@@ -2009,7 +2040,8 @@ void NearbyPresence_GetLocalSharedCredentials_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyPresence_GetLocalSharedCredentials_Name, kFlags, 0, 0, nullptr);
@@ -2263,20 +2295,20 @@ std::move(p_account_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNearbyPresenceValidationInfo[] = {
-    {&internal::NearbyPresence_StartScan_Params_Data::Validate,
+    { &internal::NearbyPresence_StartScan_Params_Data::Validate,
      &internal::NearbyPresence_StartScan_ResponseParams_Data::Validate},
-    {&internal::NearbyPresence_SetScanObserver_Params_Data::Validate,
+    { &internal::NearbyPresence_SetScanObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyPresence_UpdateLocalDeviceMetadata_Params_Data::Validate,
+    { &internal::NearbyPresence_UpdateLocalDeviceMetadata_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_Params_Data::Validate,
+    { &internal::NearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_Params_Data::Validate,
      &internal::NearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_ResponseParams_Data::Validate},
-    {&internal::NearbyPresence_UpdateRemoteSharedCredentials_Params_Data::Validate,
+    { &internal::NearbyPresence_UpdateRemoteSharedCredentials_Params_Data::Validate,
      &internal::NearbyPresence_UpdateRemoteSharedCredentials_ResponseParams_Data::Validate},
-    {&internal::NearbyPresence_GetLocalSharedCredentials_Params_Data::Validate,
+    { &internal::NearbyPresence_GetLocalSharedCredentials_Params_Data::Validate,
      &internal::NearbyPresence_GetLocalSharedCredentials_ResponseParams_Data::Validate},
 };
 

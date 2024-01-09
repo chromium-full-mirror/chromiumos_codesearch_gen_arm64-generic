@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMMatrixReadOnly>::value,
     "DOMMatrixReadOnly inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMMatrixReadOnly::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMMatrixReadOnly is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.a.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->a();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -106,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.b.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->b();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -120,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.c.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->c();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -134,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.d.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->d();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -148,8 +147,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.e.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->e();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -162,8 +162,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.f.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->f();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -176,8 +177,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m11.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m11();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -190,8 +192,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m12.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m12();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -204,8 +207,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m13.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m13();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -218,8 +222,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m14.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m14();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -232,8 +237,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m21.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m21();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -246,8 +252,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m22.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m22();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -260,8 +267,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m23.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m23();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -274,8 +282,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m24.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m24();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -288,8 +297,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m31.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m31();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -302,8 +312,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m32.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m32();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -316,8 +327,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m33.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m33();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -330,8 +342,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m34.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m34();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -344,8 +357,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m41.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m41();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -358,8 +372,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m42.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m42();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -372,8 +387,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m43.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m43();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -386,8 +402,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.m44.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m44();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -400,8 +417,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.is2D.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->is2D();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -414,8 +432,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.isIdentity.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isIdentity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -475,8 +494,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.flipX");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->flipX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -492,8 +512,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.flipY");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->flipY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -509,8 +530,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.inverse");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inverse();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -526,10 +548,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.multiply");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<DOMMatrixInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_other;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<DOMMatrixInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_other;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "multiply";
@@ -561,12 +583,12 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.rotate");
 
 
 DOMMatrix* return_value;
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_rot_x{0};
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "rotate";
@@ -609,10 +631,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.rotateAxisAngle");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_x{0};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_x{0};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "rotateAxisAngle";
@@ -659,10 +681,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.rotateFromVector");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_x{0};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_x{0};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "rotateFromVector";
@@ -696,12 +718,12 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.scale");
 
 
 DOMMatrix* return_value;
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scale_x{1};
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "scale";
@@ -764,10 +786,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.scale3d");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scale{1};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scale{1};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "scale3d";
@@ -814,10 +836,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.scaleNonUniform");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scale_x{1};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scale_x{1};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "scaleNonUniform";
@@ -850,12 +872,12 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.skewX");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_sx{0};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "skewX";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -879,12 +901,12 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.skewY");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_sy{0};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "skewY";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -913,7 +935,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toFloat32Array();
 if (!ToV8Traits<NotShared<DOMFloat32Array>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -937,7 +960,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toFloat64Array();
 if (!ToV8Traits<NotShared<DOMFloat64Array>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -956,8 +980,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -976,14 +1001,14 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.transformPoint");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<DOMPointInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_point;
 if (info[0]->IsUndefined()) {
   arg1_point = DOMPointInit::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "transformPoint";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -1007,10 +1032,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.translate");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_tx{0};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_tx{0};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "translate";
@@ -1150,9 +1175,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrixReadOnly.toString");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrixReadOnly* blink_receiver = V8DOMMatrixReadOnly::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrixReadOnly";
 const char* const property_name = "toString";

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "gpu/ipc/common/gpu_info.mojom-features.h"
 #include "gpu/ipc/common/gpu_info.mojom-shared.h"
 #include "gpu/ipc/common/gpu_info.mojom-forward.h"
 #include "gpu/ipc/common/dx_diag_node.mojom-forward.h"
@@ -875,7 +876,7 @@ class GPU_EXPORT GpuInfo {
       std::vector<::gpu::ImageDecodeAcceleratorSupportedProfile> image_decode_accelerator_supported_profiles,
       bool subpixel_font_rendering,
       uint32_t visibility_callback_call_count,
-      const absl::optional<::gpu::VulkanInfo>& vulkan_info);
+      const std::optional<::gpu::VulkanInfo>& vulkan_info);
 
 GpuInfo(const GpuInfo&) = delete;
 GpuInfo& operator=(const GpuInfo&) = delete;
@@ -1017,7 +1018,7 @@ GpuInfo& operator=(const GpuInfo&) = delete;
   
   uint32_t visibility_callback_call_count;
   
-  absl::optional<::gpu::VulkanInfo> vulkan_info;
+  std::optional<::gpu::VulkanInfo> vulkan_info;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

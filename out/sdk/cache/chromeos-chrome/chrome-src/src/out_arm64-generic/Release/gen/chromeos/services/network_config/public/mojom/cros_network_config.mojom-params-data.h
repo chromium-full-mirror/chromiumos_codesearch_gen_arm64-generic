@@ -743,6 +743,23 @@ class  CrosNetworkConfig_CreateCustomApn_Params_Data {
 };
 static_assert(sizeof(CrosNetworkConfig_CreateCustomApn_Params_Data) == 24,
               "Bad sizeof(CrosNetworkConfig_CreateCustomApn_Params_Data)");
+class  CrosNetworkConfig_CreateCustomApn_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosNetworkConfig_CreateCustomApn_ResponseParams_Data>;
+
+  CrosNetworkConfig_CreateCustomApn_ResponseParams_Data();
+  ~CrosNetworkConfig_CreateCustomApn_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosNetworkConfig_CreateCustomApn_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosNetworkConfig_CreateCustomApn_ResponseParams_Data)");
 class  CrosNetworkConfig_RemoveCustomApn_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2038,6 +2055,24 @@ class CrosNetworkConfig_CreateCustomApn_ParamsDataView {
 };
 
 
+class CrosNetworkConfig_CreateCustomApn_ResponseParamsDataView {
+ public:
+  CrosNetworkConfig_CreateCustomApn_ResponseParamsDataView() = default;
+
+  CrosNetworkConfig_CreateCustomApn_ResponseParamsDataView(
+      internal::CrosNetworkConfig_CreateCustomApn_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::CrosNetworkConfig_CreateCustomApn_ResponseParams_Data* data_ = nullptr;
+};
+
+
 class CrosNetworkConfig_RemoveCustomApn_ParamsDataView {
  public:
   CrosNetworkConfig_RemoveCustomApn_ParamsDataView() = default;
@@ -2508,6 +2543,8 @@ inline void CrosNetworkConfig_CreateCustomApn_ParamsDataView::GetApnDataView(
   auto pointer = data_->apn.Get();
   *output = ApnPropertiesDataView(pointer, message_);
 }
+
+
 
 
 inline void CrosNetworkConfig_RemoveCustomApn_ParamsDataView::GetNetworkGuidDataView(

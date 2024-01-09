@@ -63,6 +63,28 @@ struct MojomTypeTraits<::cros::mojom::Camera3StreamEffectDataView> {
 namespace cros::mojom {
 
 
+enum class PortraitModeSegResult : int32_t {
+  
+  kSuccess = 0,
+  
+  kFailure = 1,
+  
+  kTimeout = 2,
+  
+  kNoFaces = 3,
+  
+  kUnknown = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+};
+
+ std::ostream& operator<<(std::ostream& os, PortraitModeSegResult value);
+inline bool IsKnownEnumValue(PortraitModeSegResult value) {
+  return internal::PortraitModeSegResult_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 class PortraitModeConfigDataView {
  public:
   PortraitModeConfigDataView() = default;
@@ -127,9 +149,33 @@ class Camera3StreamEffectDataView {
 
 namespace std {
 
+template <>
+struct hash<::cros::mojom::PortraitModeSegResult>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::PortraitModeSegResult> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::PortraitModeSegResult, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::PortraitModeSegResult, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::PortraitModeSegResult>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -242,5 +288,14 @@ inline void Camera3StreamEffectDataView::GetPortraitModeConfigDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::PortraitModeSegResult> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::PortraitModeSegResult value);
+};
+
+} // namespace perfetto
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA_FEATURES_MOJOM_SHARED_H_

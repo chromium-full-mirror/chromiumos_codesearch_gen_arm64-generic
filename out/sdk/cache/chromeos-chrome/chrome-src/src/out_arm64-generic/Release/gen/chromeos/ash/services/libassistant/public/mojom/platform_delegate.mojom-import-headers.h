@@ -14,6 +14,8 @@
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-import-headers.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-import-headers.h"
+#include "sandbox/policy/mojom/context.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-import-headers.h"
 #include "services/device/public/mojom/battery_monitor.mojom.h"
 #include "services/device/public/mojom/battery_monitor.mojom-import-headers.h"
 #include "services/device/public/mojom/wake_lock_provider.mojom.h"

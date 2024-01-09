@@ -29,15 +29,14 @@ namespace blink::mojom {
 namespace internal {
 class ServiceWorkerRouterRunningStatusCondition_Data;
 class ServiceWorkerRouterRequestCondition_Data;
-class ServiceWorkerRouterConditionObject_Data;
 class ServiceWorkerRouterOrCondition_Data;
+class ServiceWorkerRouterCondition_Data;
 class ServiceWorkerRouterNetworkSource_Data;
 class ServiceWorkerRouterRaceSource_Data;
 class ServiceWorkerRouterFetchEventSource_Data;
 class ServiceWorkerRouterCacheSource_Data;
 class ServiceWorkerRouterRule_Data;
 class ServiceWorkerRouterRules_Data;
-class ServiceWorkerRouterCondition_Data;
 class ServiceWorkerRouterSource_Data;
 
 struct ServiceWorkerRouterRunningStatusEnum_Data {
@@ -65,64 +64,6 @@ struct ServiceWorkerRouterRunningStatusEnum_Data {
 };
 
 #pragma pack(push, 1)
-
-
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerRouterCondition_Data {
- public:
-  // Used to identify Mojom Union Data Classes.
-  typedef void MojomUnionDataType;
-
-  ServiceWorkerRouterCondition_Data() = default;
-  // Do nothing in the destructor since it won't be called when it is a
-  // non-inlined union.
-  ~ServiceWorkerRouterCondition_Data() = default;
-
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context,
-                       bool inlined);
-
-  bool is_null() const { return size == 0; }
-
-  void set_null() {
-    size = 0U;
-    tag = static_cast<ServiceWorkerRouterCondition_Tag>(0);
-    data.unknown = 0U;
-  }
-
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
-  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
-  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
-  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
-  enum class ServiceWorkerRouterCondition_Tag : uint32_t {
-
-    
-    kUrlPattern,
-    
-    kRequest,
-    
-    kRunningStatus,
-    
-    kOrCondition,
-  };
-
-  // A note on layout:
-  // "Each non-static data member is allocated as if it were the sole member of
-  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
-  union MOJO_ALIGNAS(8) Union_ {
-    Union_() : unknown(0) {}
-    mojo::internal::Pointer<::blink::mojom::internal::SafeUrlPattern_Data> f_url_pattern;
-    mojo::internal::Pointer<internal::ServiceWorkerRouterRequestCondition_Data> f_request;
-    mojo::internal::Pointer<internal::ServiceWorkerRouterRunningStatusCondition_Data> f_running_status;
-    mojo::internal::Pointer<internal::ServiceWorkerRouterOrCondition_Data> f_or_condition;
-    uint64_t unknown;
-  };
-
-  uint32_t size;
-  ServiceWorkerRouterCondition_Tag tag;
-  Union_ data;
-};
-static_assert(sizeof(ServiceWorkerRouterCondition_Data) == mojo::internal::kUnionDataSize,
-              "Bad sizeof(ServiceWorkerRouterCondition_Data)");
 
 
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerRouterSource_Data {
@@ -284,61 +225,13 @@ struct ServiceWorkerRouterRequestCondition_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ServiceWorkerRouterRequestCondition_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerRouterConditionObject_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<internal::ServiceWorkerRouterCondition_Data>> conditions;
-
- private:
-  friend class mojo::internal::MessageFragment<ServiceWorkerRouterConditionObject_Data>;
-
-  ServiceWorkerRouterConditionObject_Data();
-  ~ServiceWorkerRouterConditionObject_Data() = delete;
-};
-static_assert(sizeof(ServiceWorkerRouterConditionObject_Data) == 16,
-              "Bad sizeof(ServiceWorkerRouterConditionObject_Data)");
-// Used by ServiceWorkerRouterConditionObject::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct ServiceWorkerRouterConditionObject_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  ServiceWorkerRouterConditionObject_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~ServiceWorkerRouterConditionObject_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<ServiceWorkerRouterConditionObject_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    ServiceWorkerRouterConditionObject_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerRouterOrCondition_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ServiceWorkerRouterConditionObject_Data>>> objects;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ServiceWorkerRouterCondition_Data>>> conditions;
 
  private:
   friend class mojo::internal::MessageFragment<ServiceWorkerRouterOrCondition_Data>;
@@ -380,6 +273,57 @@ struct ServiceWorkerRouterOrCondition_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ServiceWorkerRouterOrCondition_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerRouterCondition_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::blink::mojom::internal::SafeUrlPattern_Data> url_pattern;
+  mojo::internal::Pointer<internal::ServiceWorkerRouterRequestCondition_Data> request;
+  mojo::internal::Pointer<internal::ServiceWorkerRouterRunningStatusCondition_Data> running_status;
+  mojo::internal::Pointer<internal::ServiceWorkerRouterOrCondition_Data> or_condition;
+
+ private:
+  friend class mojo::internal::MessageFragment<ServiceWorkerRouterCondition_Data>;
+
+  ServiceWorkerRouterCondition_Data();
+  ~ServiceWorkerRouterCondition_Data() = delete;
+};
+static_assert(sizeof(ServiceWorkerRouterCondition_Data) == 40,
+              "Bad sizeof(ServiceWorkerRouterCondition_Data)");
+// Used by ServiceWorkerRouterCondition::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ServiceWorkerRouterCondition_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ServiceWorkerRouterCondition_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ServiceWorkerRouterCondition_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ServiceWorkerRouterCondition_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ServiceWorkerRouterCondition_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerRouterNetworkSource_Data {
  public:
   static bool Validate(const void* data,
@@ -575,7 +519,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerRouterRule
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<internal::ServiceWorkerRouterCondition_Data>> conditions;
+  mojo::internal::Pointer<internal::ServiceWorkerRouterCondition_Data> condition;
   mojo::internal::Pointer<mojo::internal::Array_Data<internal::ServiceWorkerRouterSource_Data>> sources;
 
  private:

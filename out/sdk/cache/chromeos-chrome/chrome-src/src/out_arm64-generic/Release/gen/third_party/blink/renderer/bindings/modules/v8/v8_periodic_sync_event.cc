@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PeriodicSyncEvent>::value,
     "PeriodicSyncEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PeriodicSyncEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PeriodicSyncEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("PeriodicSyncEvent.tag.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PeriodicSyncEvent* blink_receiver = V8PeriodicSyncEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->tag();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PeriodicSyncEvent* blink_receiver = V8PeriodicSyncEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->tag();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("PeriodicSyncEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PeriodicSyncEvent* blink_receiver = V8PeriodicSyncEvent::ToWrappableUnsafe(v8_receiver);
+PeriodicSyncEvent* blink_receiver = V8PeriodicSyncEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

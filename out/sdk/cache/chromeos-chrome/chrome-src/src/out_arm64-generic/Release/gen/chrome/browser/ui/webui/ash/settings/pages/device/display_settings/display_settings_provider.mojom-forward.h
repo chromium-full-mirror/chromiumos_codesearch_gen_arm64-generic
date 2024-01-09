@@ -7,13 +7,14 @@
 #ifndef CHROME_BROWSER_UI_WEBUI_ASH_SETTINGS_PAGES_DEVICE_DISPLAY_SETTINGS_DISPLAY_SETTINGS_PROVIDER_MOJOM_FORWARD_H_
 #define CHROME_BROWSER_UI_WEBUI_ASH_SETTINGS_PAGES_DEVICE_DISPLAY_SETTINGS_DISPLAY_SETTINGS_PROVIDER_MOJOM_FORWARD_H_
 
+#include <stdint.h>
 
-
-
+#include "mojo/public/cpp/bindings/struct_forward.h"
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
+#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -21,7 +22,16 @@
 
 
 namespace ash::settings::mojom {
+class DisplaySettingsValueDataView;
+
+
+enum class DisplaySettingsType : int32_t;
+class DisplaySettingsValue;
+using DisplaySettingsValuePtr = mojo::InlinedStructPtr<DisplaySettingsValue>;
+
 class TabletModeObserver;
+
+class DisplayConfigurationObserver;
 
 class DisplaySettingsProvider;
 

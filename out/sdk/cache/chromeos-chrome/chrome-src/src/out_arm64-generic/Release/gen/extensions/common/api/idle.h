@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,12 +30,12 @@ namespace idle {
 // Types
 //
 
-enum  IdleState {
-  IDLE_STATE_NONE = 0,
-  IDLE_STATE_ACTIVE,
-  IDLE_STATE_IDLE,
-  IDLE_STATE_LOCKED,
-  IDLE_STATE_LAST = IDLE_STATE_LOCKED,
+enum class IdleState {
+  kNone = 0,
+  kActive,
+  kIdle,
+  kLocked,
+  kMaxValue = kLocked,
 };
 
 
@@ -50,11 +51,11 @@ std::u16string GetIdleStateParseError(base::StringPiece as_string);
 namespace QueryState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The system is considered idle if detectionIntervalInSeconds seconds have
@@ -76,11 +77,11 @@ base::Value::List Create(const IdleState& new_state);
 namespace SetDetectionInterval {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Threshold, in seconds, used to determine when the system is in an idle state.

@@ -19,7 +19,7 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy.js';
-import { isUndoKeyboardEvent } from 'chrome://resources/js/util_ts.js';
+import { isUndoKeyboardEvent } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { MetricsBrowserProxyImpl, SafetyCheckUnusedSitePermissionsModuleInteractions } from '../metrics_browser_proxy.js';
 import { routes } from '../route.js';

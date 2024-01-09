@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/parent_access.mojom-features.h"
 #include "chromeos/crosapi/mojom/parent_access.mojom-shared.h"
 #include "chromeos/crosapi/mojom/parent_access.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -743,41 +744,41 @@ class  ParentAccessResult {
   // Construct an instance holding |approved|.
   static ParentAccessResultPtr
   NewApproved(
-      ParentAccessApprovedResultPtr approved) {
+      ParentAccessApprovedResultPtr value) {
     auto result = ParentAccessResultPtr(absl::in_place);
-    result->set_approved(std::move(approved));
+    result->set_approved(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ParentAccessResultPtr
   NewError(
-      ParentAccessErrorResultPtr error) {
+      ParentAccessErrorResultPtr value) {
     auto result = ParentAccessResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |canceled|.
   static ParentAccessResultPtr
   NewCanceled(
-      ParentAccessCanceledResultPtr canceled) {
+      ParentAccessCanceledResultPtr value) {
     auto result = ParentAccessResultPtr(absl::in_place);
-    result->set_canceled(std::move(canceled));
+    result->set_canceled(std::move(value));
     return result;
   }
   // Construct an instance holding |declined|.
   static ParentAccessResultPtr
   NewDeclined(
-      ParentAccessDeclinedResultPtr declined) {
+      ParentAccessDeclinedResultPtr value) {
     auto result = ParentAccessResultPtr(absl::in_place);
-    result->set_declined(std::move(declined));
+    result->set_declined(std::move(value));
     return result;
   }
   // Construct an instance holding |disabled|.
   static ParentAccessResultPtr
   NewDisabled(
-      ParentAccessDisabledResultPtr disabled) {
+      ParentAccessDisabledResultPtr value) {
     auto result = ParentAccessResultPtr(absl::in_place);
-    result->set_disabled(std::move(disabled));
+    result->set_disabled(std::move(value));
     return result;
   }
 

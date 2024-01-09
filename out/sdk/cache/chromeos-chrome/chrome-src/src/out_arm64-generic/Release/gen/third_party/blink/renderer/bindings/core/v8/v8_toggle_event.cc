@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ToggleEvent>::value,
     "ToggleEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ToggleEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ToggleEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("ToggleEvent.oldState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ToggleEvent* blink_receiver = V8ToggleEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oldState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ToggleEvent* blink_receiver = V8ToggleEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oldState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,10 +97,10 @@ BLINK_BINDINGS_TRACE_EVENT("ToggleEvent.newState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ToggleEvent* blink_receiver = V8ToggleEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->newState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ToggleEvent* blink_receiver = V8ToggleEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->newState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -117,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("ToggleEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ToggleEvent* blink_receiver = V8ToggleEvent::ToWrappableUnsafe(v8_receiver);
+ToggleEvent* blink_receiver = V8ToggleEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

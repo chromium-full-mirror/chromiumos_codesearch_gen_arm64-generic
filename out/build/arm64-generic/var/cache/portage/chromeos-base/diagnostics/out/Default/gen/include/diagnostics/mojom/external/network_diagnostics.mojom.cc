@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -1090,14 +1091,17 @@ void NetworkDiagnosticsRoutinesProxy::GetResult(
                         "<value of type RoutineType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_GetResult_Name, kFlags, 0, 0, nullptr);
@@ -1123,14 +1127,17 @@ void NetworkDiagnosticsRoutinesProxy::GetAllResults(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::GetAllResults");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_GetAllResults_Name, kFlags, 0, 0, nullptr);
@@ -1154,14 +1161,17 @@ void NetworkDiagnosticsRoutinesProxy::RunLanConnectivity(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunLanConnectivity");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name, kFlags, 0, 0, nullptr);
@@ -1185,14 +1195,17 @@ void NetworkDiagnosticsRoutinesProxy::RunSignalStrength(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunSignalStrength");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name, kFlags, 0, 0, nullptr);
@@ -1216,14 +1229,17 @@ void NetworkDiagnosticsRoutinesProxy::RunGatewayCanBePinged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunGatewayCanBePinged");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name, kFlags, 0, 0, nullptr);
@@ -1247,14 +1263,17 @@ void NetworkDiagnosticsRoutinesProxy::RunHasSecureWiFiConnection(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name, kFlags, 0, 0, nullptr);
@@ -1278,14 +1297,17 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolverPresent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolverPresent");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name, kFlags, 0, 0, nullptr);
@@ -1309,14 +1331,17 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsLatency(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsLatency");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name, kFlags, 0, 0, nullptr);
@@ -1340,14 +1365,17 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolution(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolution");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name, kFlags, 0, 0, nullptr);
@@ -1371,14 +1399,17 @@ void NetworkDiagnosticsRoutinesProxy::RunCaptivePortal(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunCaptivePortal");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name, kFlags, 0, 0, nullptr);
@@ -1402,14 +1433,17 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpFirewall(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpFirewall");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name, kFlags, 0, 0, nullptr);
@@ -1433,14 +1467,17 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsFirewall(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsFirewall");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name, kFlags, 0, 0, nullptr);
@@ -1464,14 +1501,17 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsLatency");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name, kFlags, 0, 0, nullptr);
@@ -1491,7 +1531,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
-    const absl::optional<std::string>& in_stun_server_hostname, RunVideoConferencingCallback callback) {
+    const std::optional<std::string>& in_stun_server_hostname, RunVideoConferencingCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunVideoConferencing", "input_parameters",
@@ -1499,17 +1539,20 @@ void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("stun_server_hostname"), in_stun_server_hostname,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name, kFlags, 0, 0, nullptr);
@@ -1540,14 +1583,17 @@ void NetworkDiagnosticsRoutinesProxy::RunArcHttp(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcHttp");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name, kFlags, 0, 0, nullptr);
@@ -1571,14 +1617,17 @@ void NetworkDiagnosticsRoutinesProxy::RunArcPing(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcPing");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunArcPing_Name, kFlags, 0, 0, nullptr);
@@ -1602,14 +1651,17 @@ void NetworkDiagnosticsRoutinesProxy::RunArcDnsResolution(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcDnsResolution");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name, kFlags, 0, 0, nullptr);
@@ -1719,7 +1771,8 @@ void NetworkDiagnosticsRoutines_GetResult_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_GetResult_Name, kFlags, 0, 0, nullptr);
@@ -1843,7 +1896,8 @@ void NetworkDiagnosticsRoutines_GetAllResults_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_GetAllResults_Name, kFlags, 0, 0, nullptr);
@@ -1973,7 +2027,8 @@ void NetworkDiagnosticsRoutines_RunLanConnectivity_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name, kFlags, 0, 0, nullptr);
@@ -2101,7 +2156,8 @@ void NetworkDiagnosticsRoutines_RunSignalStrength_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name, kFlags, 0, 0, nullptr);
@@ -2229,7 +2285,8 @@ void NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name, kFlags, 0, 0, nullptr);
@@ -2357,7 +2414,8 @@ void NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name, kFlags, 0, 0, nullptr);
@@ -2485,7 +2543,8 @@ void NetworkDiagnosticsRoutines_RunDnsResolverPresent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name, kFlags, 0, 0, nullptr);
@@ -2613,7 +2672,8 @@ void NetworkDiagnosticsRoutines_RunDnsLatency_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name, kFlags, 0, 0, nullptr);
@@ -2741,7 +2801,8 @@ void NetworkDiagnosticsRoutines_RunDnsResolution_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name, kFlags, 0, 0, nullptr);
@@ -2869,7 +2930,8 @@ void NetworkDiagnosticsRoutines_RunCaptivePortal_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name, kFlags, 0, 0, nullptr);
@@ -2997,7 +3059,8 @@ void NetworkDiagnosticsRoutines_RunHttpFirewall_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name, kFlags, 0, 0, nullptr);
@@ -3125,7 +3188,8 @@ void NetworkDiagnosticsRoutines_RunHttpsFirewall_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name, kFlags, 0, 0, nullptr);
@@ -3253,7 +3317,8 @@ void NetworkDiagnosticsRoutines_RunHttpsLatency_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name, kFlags, 0, 0, nullptr);
@@ -3381,7 +3446,8 @@ void NetworkDiagnosticsRoutines_RunVideoConferencing_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name, kFlags, 0, 0, nullptr);
@@ -3509,7 +3575,8 @@ void NetworkDiagnosticsRoutines_RunArcHttp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name, kFlags, 0, 0, nullptr);
@@ -3637,7 +3704,8 @@ void NetworkDiagnosticsRoutines_RunArcPing_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunArcPing_Name, kFlags, 0, 0, nullptr);
@@ -3765,7 +3833,8 @@ void NetworkDiagnosticsRoutines_RunArcDnsResolution_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name, kFlags, 0, 0, nullptr);
@@ -4208,7 +4277,7 @@ std::move(p_routine), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_stun_server_hostname{};
+      std::optional<std::string> p_stun_server_hostname{};
       NetworkDiagnosticsRoutines_RunVideoConferencing_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStunServerHostname(&p_stun_server_hostname))
@@ -4307,8 +4376,8 @@ std::move(p_stun_server_hostname), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkDiagnosticsRoutinesValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
@@ -4322,39 +4391,39 @@ static const mojo::internal::GenericValidationInfo kNetworkDiagnosticsRoutinesVa
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunArcPing_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_GetResult_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_GetResult_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_GetResult_ResponseParams_Data::Validate},
-    {&internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data::Validate,
+    { &internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data::Validate,
      &internal::NetworkDiagnosticsRoutines_GetAllResults_ResponseParams_Data::Validate},
 };
 
@@ -4631,7 +4700,7 @@ void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpsFirewall(RunHttpsF
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpsLatency(RunHttpsLatencyCallback callback) {
   GetForwardingInterface()->RunHttpsLatency(std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunVideoConferencing(const absl::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) {
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) {
   GetForwardingInterface()->RunVideoConferencing(std::move(stun_server_hostname), std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcHttp(RunArcHttpCallback callback) {
@@ -4948,7 +5017,7 @@ RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsLatency(
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
-    const absl::optional<std::string>& stun_server_hostname, RoutineResultPtr* out_result) {
+    const std::optional<std::string>& stun_server_hostname, RoutineResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->RunVideoConferencing(std::move(stun_server_hostname),
       base::BindOnce(
@@ -4964,7 +5033,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
-    const absl::optional<std::string>& stun_server_hostname) {
+    const std::optional<std::string>& stun_server_hostname) {
   RoutineResultPtr async_wait_result;
   RunVideoConferencing(std::move(stun_server_hostname),&async_wait_result);
   return async_wait_result;

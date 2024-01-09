@@ -39,6 +39,7 @@
 #include "ui/gfx/mojom/buffer_types.mojom-shared.h"
 #include "ui/gfx/mojom/color_space.mojom-shared.h"
 #include "ui/gfx/mojom/gpu_fence_handle.mojom-shared.h"
+#include "ui/gfx/mojom/native_handle_types.mojom-shared.h"
 #include "ui/gfx/mojom/presentation_feedback.mojom-shared.h"
 #include "ui/gl/mojom/gpu_preference.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
@@ -354,9 +355,6 @@ class ContextCreationAttribsDataView {
   bool enable_oop_rasterization() const {
     return data_->enable_oop_rasterization;
   }
-  bool enable_swap_timestamps_if_supported() const {
-    return data_->enable_swap_timestamps_if_supported;
-  }
   template <typename UserType>
   [[nodiscard]] bool ReadContextType(UserType* output) const {
     auto data_value = data_->context_type;
@@ -366,16 +364,6 @@ class ContextCreationAttribsDataView {
   ContextType context_type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::gpu::mojom::ContextType>(data_->context_type));
-  }
-  template <typename UserType>
-  [[nodiscard]] bool ReadColorSpace(UserType* output) const {
-    auto data_value = data_->color_space;
-    return mojo::internal::Deserialize<::gpu::mojom::ContextColorSpace>(
-        data_value, output);
-  }
-  ContextColorSpace color_space() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::gpu::mojom::ContextColorSpace>(data_->color_space));
   }
  private:
   internal::ContextCreationAttribs_Data* data_ = nullptr;
@@ -392,16 +380,6 @@ class CreateCommandBufferParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetSurfaceHandleDataView(
-      ::gpu::mojom::SurfaceHandleDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadSurfaceHandle(UserType* output) {
-    
-    auto* pointer = data_->surface_handle.Get();
-    return mojo::internal::Deserialize<::gpu::mojom::SurfaceHandleDataView>(
-        pointer, output, message_);
-  }
   int32_t share_group_id() const {
     return data_->share_group_id;
   }
@@ -1501,11 +1479,8 @@ struct Serializer<::gpu::mojom::ContextCreationAttribsDataView, MaybeConstUserTy
     fragment->enable_grcontext = Traits::enable_grcontext(input);
     fragment->enable_raster_interface = Traits::enable_raster_interface(input);
     fragment->enable_oop_rasterization = Traits::enable_oop_rasterization(input);
-    fragment->enable_swap_timestamps_if_supported = Traits::enable_swap_timestamps_if_supported(input);
     mojo::internal::Serialize<::gpu::mojom::ContextType>(
         Traits::context_type(input), &fragment->context_type);
-    mojo::internal::Serialize<::gpu::mojom::ContextColorSpace>(
-        Traits::color_space(input), &fragment->color_space);
   }
 
   static bool Deserialize(::gpu::mojom::internal::ContextCreationAttribs_Data* input,
@@ -1535,18 +1510,6 @@ struct Serializer<::gpu::mojom::CreateCommandBufferParamsDataView, MaybeConstUse
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::surface_handle(input)) in_surface_handle = Traits::surface_handle(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->surface_handle)::BaseType> surface_handle_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::gpu::mojom::SurfaceHandleDataView>(
-        in_surface_handle, surface_handle_fragment);
-    fragment->surface_handle.Set(
-        surface_handle_fragment.is_null() ? nullptr : surface_handle_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->surface_handle.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null surface_handle in CreateCommandBufferParams struct");
     fragment->share_group_id = Traits::share_group_id(input);
     fragment->stream_id = Traits::stream_id(input);
     mojo::internal::Serialize<::gpu::mojom::SchedulingPriority>(
@@ -2703,11 +2666,6 @@ namespace gpu::mojom {
 
 
 
-inline void CreateCommandBufferParamsDataView::GetSurfaceHandleDataView(
-    ::gpu::mojom::SurfaceHandleDataView* output) {
-  auto pointer = data_->surface_handle.Get();
-  *output = ::gpu::mojom::SurfaceHandleDataView(pointer, message_);
-}
 inline void CreateCommandBufferParamsDataView::GetAttribsDataView(
     ContextCreationAttribsDataView* output) {
   auto pointer = data_->attribs.Get();

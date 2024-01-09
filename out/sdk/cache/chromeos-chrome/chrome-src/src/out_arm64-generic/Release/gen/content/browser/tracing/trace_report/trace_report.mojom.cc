@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -229,14 +230,17 @@ void TraceReportHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTraceReportHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -324,10 +328,10 @@ bool TraceReportHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTraceReportHandlerFactoryValidationInfo[] = {
-    {&internal::TraceReportHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::TraceReportHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -560,14 +564,17 @@ void PageHandlerProxy::GetAllTraceReports(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send trace_report::mojom::PageHandler::GetAllTraceReports");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAllTraceReports_Name, kFlags, 0, 0, nullptr);
@@ -598,14 +605,17 @@ void PageHandlerProxy::DeleteSingleTrace(
                         "<value of type const ::base::Token&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DeleteSingleTrace_Name, kFlags, 0, 0, nullptr);
@@ -640,14 +650,17 @@ void PageHandlerProxy::DeleteAllTraces(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send trace_report::mojom::PageHandler::DeleteAllTraces");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DeleteAllTraces_Name, kFlags, 0, 0, nullptr);
@@ -678,14 +691,17 @@ void PageHandlerProxy::UserUploadSingleTrace(
                         "<value of type const ::base::Token&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_UserUploadSingleTrace_Name, kFlags, 0, 0, nullptr);
@@ -727,14 +743,17 @@ void PageHandlerProxy::DownloadTrace(
                         "<value of type const ::base::Token&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DownloadTrace_Name, kFlags, 0, 0, nullptr);
@@ -855,7 +874,8 @@ void PageHandler_GetAllTraceReports_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAllTraceReports_Name, kFlags, 0, 0, nullptr);
@@ -985,7 +1005,8 @@ void PageHandler_DeleteSingleTrace_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DeleteSingleTrace_Name, kFlags, 0, 0, nullptr);
@@ -1103,7 +1124,8 @@ void PageHandler_DeleteAllTraces_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DeleteAllTraces_Name, kFlags, 0, 0, nullptr);
@@ -1221,7 +1243,8 @@ void PageHandler_UserUploadSingleTrace_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_UserUploadSingleTrace_Name, kFlags, 0, 0, nullptr);
@@ -1293,7 +1316,7 @@ class PageHandler_DownloadTrace_ProxyToResponder : public ::mojo::internal::Prox
 #endif
 
   void Run(
-      absl::optional<::mojo_base::BigBuffer> in_trace);
+      std::optional<::mojo_base::BigBuffer> in_trace);
 };
 
 bool PageHandler_DownloadTrace_ForwardToCallback::Accept(
@@ -1306,7 +1329,7 @@ bool PageHandler_DownloadTrace_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::mojo_base::BigBuffer> p_trace{};
+  std::optional<::mojo_base::BigBuffer> p_trace{};
   PageHandler_DownloadTrace_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadTrace(&p_trace))
@@ -1325,7 +1348,7 @@ std::move(p_trace));
 }
 
 void PageHandler_DownloadTrace_ProxyToResponder::Run(
-    absl::optional<::mojo_base::BigBuffer> in_trace) {
+    std::optional<::mojo_base::BigBuffer> in_trace) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply trace_report::mojom::PageHandler::DownloadTrace", "async_response_parameters",
@@ -1333,13 +1356,14 @@ void PageHandler_DownloadTrace_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("trace"), in_trace,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DownloadTrace_Name, kFlags, 0, 0, nullptr);
@@ -1543,18 +1567,18 @@ std::move(p_uuid), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetAllTraceReports_Params_Data::Validate,
+    { &internal::PageHandler_GetAllTraceReports_Params_Data::Validate,
      &internal::PageHandler_GetAllTraceReports_ResponseParams_Data::Validate},
-    {&internal::PageHandler_DeleteSingleTrace_Params_Data::Validate,
+    { &internal::PageHandler_DeleteSingleTrace_Params_Data::Validate,
      &internal::PageHandler_DeleteSingleTrace_ResponseParams_Data::Validate},
-    {&internal::PageHandler_DeleteAllTraces_Params_Data::Validate,
+    { &internal::PageHandler_DeleteAllTraces_Params_Data::Validate,
      &internal::PageHandler_DeleteAllTraces_ResponseParams_Data::Validate},
-    {&internal::PageHandler_UserUploadSingleTrace_Params_Data::Validate,
+    { &internal::PageHandler_UserUploadSingleTrace_Params_Data::Validate,
      &internal::PageHandler_UserUploadSingleTrace_ResponseParams_Data::Validate},
-    {&internal::PageHandler_DownloadTrace_Params_Data::Validate,
+    { &internal::PageHandler_DownloadTrace_Params_Data::Validate,
      &internal::PageHandler_DownloadTrace_ResponseParams_Data::Validate},
 };
 
@@ -1610,8 +1634,8 @@ bool PageStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool PageRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::trace_report::mojom::Page::Name_;
@@ -1787,14 +1811,14 @@ bool PageHandlerAsyncWaiter::UserUploadSingleTrace(
 }
 
 void PageHandlerAsyncWaiter::DownloadTrace(
-    const ::base::Token& uuid, absl::optional<::mojo_base::BigBuffer>* out_trace) {
+    const ::base::Token& uuid, std::optional<::mojo_base::BigBuffer>* out_trace) {
   base::RunLoop loop;
   proxy_->DownloadTrace(std::move(uuid),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::mojo_base::BigBuffer>* out_trace
+             std::optional<::mojo_base::BigBuffer>* out_trace
 ,
-             absl::optional<::mojo_base::BigBuffer> trace) {*out_trace = std::move(trace);
+             std::optional<::mojo_base::BigBuffer> trace) {*out_trace = std::move(trace);
             loop->Quit();
           },
           &loop,
@@ -1802,9 +1826,9 @@ void PageHandlerAsyncWaiter::DownloadTrace(
   loop.Run();
 }
 
-absl::optional<::mojo_base::BigBuffer> PageHandlerAsyncWaiter::DownloadTrace(
+std::optional<::mojo_base::BigBuffer> PageHandlerAsyncWaiter::DownloadTrace(
     const ::base::Token& uuid) {
-  absl::optional<::mojo_base::BigBuffer> async_wait_result;
+  std::optional<::mojo_base::BigBuffer> async_wait_result;
   DownloadTrace(std::move(uuid),&async_wait_result);
   return async_wait_result;
 }

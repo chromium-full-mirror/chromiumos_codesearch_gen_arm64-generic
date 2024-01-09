@@ -210,16 +210,6 @@ static_assert(
   bool should_report_corb_blocking() const {
     return data_->should_report_corb_blocking;
   }
-  inline void GetProxyServerDataView(
-      ::network::mojom::ProxyServerDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadProxyServer(UserType* output) {
-    
-    auto* pointer = data_->proxy_server.Get();
-    return mojo::internal::Deserialize<::network::mojom::ProxyServerDataView>(
-        pointer, output, message_);
-  }
   inline void GetResolveErrorInfoDataView(
       ::network::mojom::ResolveErrorInfoDataView* output);
 
@@ -340,18 +330,6 @@ struct Serializer<::network::mojom::URLLoaderCompletionStatusDataView, MaybeCons
     fragment->blocked_by_response_reason.Set(
         blocked_by_response_reason_fragment.is_null() ? nullptr : blocked_by_response_reason_fragment.data());
     fragment->should_report_corb_blocking = Traits::should_report_corb_blocking(input);
-    decltype(Traits::proxy_server(input)) in_proxy_server = Traits::proxy_server(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->proxy_server)::BaseType> proxy_server_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::network::mojom::ProxyServerDataView>(
-        in_proxy_server, proxy_server_fragment);
-    fragment->proxy_server.Set(
-        proxy_server_fragment.is_null() ? nullptr : proxy_server_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->proxy_server.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null proxy_server in URLLoaderCompletionStatus struct");
     decltype(Traits::resolve_error_info(input)) in_resolve_error_info = Traits::resolve_error_info(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->resolve_error_info)::BaseType> resolve_error_info_fragment(
@@ -406,11 +384,6 @@ inline void URLLoaderCompletionStatusDataView::GetBlockedByResponseReasonDataVie
     BlockedByResponseReasonWrapperDataView* output) {
   auto pointer = data_->blocked_by_response_reason.Get();
   *output = BlockedByResponseReasonWrapperDataView(pointer, message_);
-}
-inline void URLLoaderCompletionStatusDataView::GetProxyServerDataView(
-    ::network::mojom::ProxyServerDataView* output) {
-  auto pointer = data_->proxy_server.Get();
-  *output = ::network::mojom::ProxyServerDataView(pointer, message_);
 }
 inline void URLLoaderCompletionStatusDataView::GetResolveErrorInfoDataView(
     ::network::mojom::ResolveErrorInfoDataView* output) {

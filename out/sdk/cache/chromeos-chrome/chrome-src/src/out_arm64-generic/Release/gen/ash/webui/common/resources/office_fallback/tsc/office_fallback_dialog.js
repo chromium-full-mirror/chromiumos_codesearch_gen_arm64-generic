@@ -21,11 +21,12 @@ window.addEventListener('load', () => {
  * @extends HTMLElement
  */
 export class OfficeFallbackElement extends HTMLElement {
+    titleText = '';
+    reasonMessage = '';
+    instructionsMessage = '';
+    root;
     constructor() {
         super();
-        this.titleText = '';
-        this.reasonMessage = '';
-        this.instructionsMessage = '';
         this.processDialogArgs();
         const template = this.createTemplate();
         const fragment = template.content.cloneNode(true);

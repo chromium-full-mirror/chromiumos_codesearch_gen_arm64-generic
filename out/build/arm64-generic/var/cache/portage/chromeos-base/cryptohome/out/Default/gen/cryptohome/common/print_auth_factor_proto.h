@@ -1,15 +1,16 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5635/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
 // --package-dir cryptohome --subdir common --proto-include
 // cryptohome/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/cryptohome/common
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/auth_factor.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/fido.proto
+// /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/recoverable_key_store.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/key.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/rpc.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/UserDataAuth.proto
@@ -90,6 +91,10 @@ BRILLO_EXPORT std::string GetProtoDebugString(const KioskMetadata& value);
 std::string GetProtoDebugStringWithIndent(const SmartCardMetadata& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const SmartCardMetadata& value);
+std::string GetProtoDebugStringWithIndent(const KnowledgeFactorHashInfo& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const KnowledgeFactorHashInfo& value);
 std::string GetProtoDebugStringWithIndent(const CommonMetadata& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const CommonMetadata& value);

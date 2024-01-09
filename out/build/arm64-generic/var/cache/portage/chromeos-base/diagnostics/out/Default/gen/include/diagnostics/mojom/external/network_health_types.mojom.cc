@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -142,11 +143,11 @@ Network::Network()
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,
     NetworkState state_in,
-    const absl::optional<std::string>& guid_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& mac_address_in,
+    const std::optional<std::string>& guid_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& mac_address_in,
     UInt32ValuePtr signal_strength_in,
-    const absl::optional<std::string>& ipv4_address_in,
+    const std::optional<std::string>& ipv4_address_in,
     std::vector<std::string> ipv6_addresses_in,
     ::chromeos::network_config::mojom::PortalState portal_state_in)
     : type(std::move(type_in)),
@@ -163,11 +164,11 @@ Network::Network(
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,
     NetworkState state_in,
-    const absl::optional<std::string>& guid_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& mac_address_in,
+    const std::optional<std::string>& guid_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& mac_address_in,
     UInt32ValuePtr signal_strength_in,
-    const absl::optional<std::string>& ipv4_address_in,
+    const std::optional<std::string>& ipv4_address_in,
     std::vector<std::string> ipv6_addresses_in,
     ::chromeos::network_config::mojom::PortalState portal_state_in,
     SignalStrengthStatsPtr signal_strength_stats_in)
@@ -209,7 +210,7 @@ void Network::WriteIntoTrace(
     dict.AddItem(
       "guid"), this->guid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -218,7 +219,7 @@ void Network::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -227,7 +228,7 @@ void Network::WriteIntoTrace(
     dict.AddItem(
       "mac_address"), this->mac_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -245,7 +246,7 @@ void Network::WriteIntoTrace(
     dict.AddItem(
       "ipv4_address"), this->ipv4_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

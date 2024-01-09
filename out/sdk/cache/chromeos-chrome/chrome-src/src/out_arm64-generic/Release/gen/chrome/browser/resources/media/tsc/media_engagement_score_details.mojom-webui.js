@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { OriginSpec as url_mojom_OriginSpec } from '//resources/mojo/url/mojom/origin.mojom-webui.js';
 export class MediaEngagementScoreDetailsProviderPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -13,6 +14,9 @@ export class MediaEngagementScoreDetailsProviderPendingReceiver {
     }
 }
 export class MediaEngagementScoreDetailsProviderRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(MediaEngagementScoreDetailsProviderPendingReceiver, handle);
@@ -33,6 +37,9 @@ export class MediaEngagementScoreDetailsProviderRemote {
  * interface.
  */
 export class MediaEngagementScoreDetailsProviderReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(MediaEngagementScoreDetailsProviderRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -63,6 +70,12 @@ export class MediaEngagementScoreDetailsProvider {
  * receiver can have any number of listeners added to it.
  */
 export class MediaEngagementScoreDetailsProviderCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getMediaEngagementScoreDetails;
+    getMediaEngagementConfig;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(MediaEngagementScoreDetailsProviderRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

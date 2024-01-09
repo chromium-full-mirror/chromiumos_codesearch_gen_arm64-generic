@@ -10,9 +10,12 @@
 
 const webui::ResourcePath kEnterpriseReportingResources[] = {
   {"enterprise_reporting.html", IDR_ENTERPRISE_REPORTING_ENTERPRISE_REPORTING_HTML},
+  {"enterprise_reporting.css", IDR_ENTERPRISE_REPORTING_ENTERPRISE_REPORTING_CSS},
   {"reporting_history.js", IDR_ENTERPRISE_REPORTING_REPORTING_HISTORY_JS},
+  {"device_info.js", IDR_ENTERPRISE_REPORTING_DEVICE_INFO_JS},
   {"browser_proxy.js", IDR_ENTERPRISE_REPORTING_BROWSER_PROXY_JS},
   {"reporting_history.html.js", IDR_ENTERPRISE_REPORTING_REPORTING_HISTORY_HTML_JS},
+  {"device_info.html.js", IDR_ENTERPRISE_REPORTING_DEVICE_INFO_HTML_JS},
   {"enterprise_reporting.mojom-webui.js", IDR_ENTERPRISE_REPORTING_ENTERPRISE_REPORTING_MOJOM_WEBUI_JS},
 };
 

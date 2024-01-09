@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
+const events_js_1 = require("../../conductor/events.js");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
 const layers_helpers_js_1 = require("../helpers/layers-helpers.js");
@@ -26,6 +27,9 @@ const settings_helpers_js_1 = require("../helpers/settings-helpers.js");
         });
     });
     (0, mocha_extensions_js_1.it)('should update the layers view when going offline', async () => {
+        // neterror.js started serving sourcemaps and we're requesting it unnecessarily.
+        (0, events_js_1.expectError)('Request Network.loadNetworkResource failed. {"code":-32602,"message":"Unsupported URL scheme"}');
+        (0, events_js_1.expectError)('Fetch API cannot load chrome-error://chromewebdata/neterror.rollup.js.map. URL scheme "chrome-error" is not supported.');
         const { target, frontend } = (0, helper_js_1.getBrowserAndPages)();
         await (0, settings_helpers_js_1.openPanelViaMoreTools)('Layers');
         const targetUrl = 'layers/default.html';

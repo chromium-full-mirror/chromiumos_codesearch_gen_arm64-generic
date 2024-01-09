@@ -13,7 +13,7 @@ namespace llvm {
 namespace Intrinsic {
 enum AARCH64Intrinsics : unsigned {
 // Enum values for intrinsics
-    aarch64_addg = 415,                              // llvm.aarch64.addg
+    aarch64_addg = 432,                              // llvm.aarch64.addg
     aarch64_break,                             // llvm.aarch64.break
     aarch64_clrex,                             // llvm.aarch64.clrex
     aarch64_cls,                               // llvm.aarch64.cls
@@ -639,6 +639,10 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_cntd,                          // llvm.aarch64.sve.cntd
     aarch64_sve_cnth,                          // llvm.aarch64.sve.cnth
     aarch64_sve_cntp,                          // llvm.aarch64.sve.cntp
+    aarch64_sve_cntp_c16,                      // llvm.aarch64.sve.cntp.c16
+    aarch64_sve_cntp_c32,                      // llvm.aarch64.sve.cntp.c32
+    aarch64_sve_cntp_c64,                      // llvm.aarch64.sve.cntp.c64
+    aarch64_sve_cntp_c8,                       // llvm.aarch64.sve.cntp.c8
     aarch64_sve_cntw,                          // llvm.aarch64.sve.cntw
     aarch64_sve_compact,                       // llvm.aarch64.sve.compact
     aarch64_sve_convert_from_svbool,           // llvm.aarch64.sve.convert.from.svbool
@@ -816,6 +820,8 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_ld1_gather_sxtw_index,         // llvm.aarch64.sve.ld1.gather.sxtw.index
     aarch64_sve_ld1_gather_uxtw,               // llvm.aarch64.sve.ld1.gather.uxtw
     aarch64_sve_ld1_gather_uxtw_index,         // llvm.aarch64.sve.ld1.gather.uxtw.index
+    aarch64_sve_ld1_pn_x2,                     // llvm.aarch64.sve.ld1.pn.x2
+    aarch64_sve_ld1_pn_x4,                     // llvm.aarch64.sve.ld1.pn.x4
     aarch64_sve_ld1ro,                         // llvm.aarch64.sve.ld1ro
     aarch64_sve_ld1rq,                         // llvm.aarch64.sve.ld1rq
     aarch64_sve_ld2_sret,                      // llvm.aarch64.sve.ld2.sret
@@ -835,6 +841,8 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_ldnt1_gather_index,            // llvm.aarch64.sve.ldnt1.gather.index
     aarch64_sve_ldnt1_gather_scalar_offset,    // llvm.aarch64.sve.ldnt1.gather.scalar.offset
     aarch64_sve_ldnt1_gather_uxtw,             // llvm.aarch64.sve.ldnt1.gather.uxtw
+    aarch64_sve_ldnt1_pn_x2,                   // llvm.aarch64.sve.ldnt1.pn.x2
+    aarch64_sve_ldnt1_pn_x4,                   // llvm.aarch64.sve.ldnt1.pn.x4
     aarch64_sve_lsl,                           // llvm.aarch64.sve.lsl
     aarch64_sve_lsl_u,                         // llvm.aarch64.sve.lsl.u
     aarch64_sve_lsl_wide,                      // llvm.aarch64.sve.lsl.wide
@@ -845,8 +853,10 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_match,                         // llvm.aarch64.sve.match
     aarch64_sve_mla,                           // llvm.aarch64.sve.mla
     aarch64_sve_mla_lane,                      // llvm.aarch64.sve.mla.lane
+    aarch64_sve_mla_u,                         // llvm.aarch64.sve.mla.u
     aarch64_sve_mls,                           // llvm.aarch64.sve.mls
     aarch64_sve_mls_lane,                      // llvm.aarch64.sve.mls.lane
+    aarch64_sve_mls_u,                         // llvm.aarch64.sve.mls.u
     aarch64_sve_msb,                           // llvm.aarch64.sve.msb
     aarch64_sve_mul,                           // llvm.aarch64.sve.mul
     aarch64_sve_mul_lane,                      // llvm.aarch64.sve.mul.lane
@@ -862,6 +872,8 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_orr_u,                         // llvm.aarch64.sve.orr.u
     aarch64_sve_orr_z,                         // llvm.aarch64.sve.orr.z
     aarch64_sve_orv,                           // llvm.aarch64.sve.orv
+    aarch64_sve_pext,                          // llvm.aarch64.sve.pext
+    aarch64_sve_pext_x2,                       // llvm.aarch64.sve.pext.x2
     aarch64_sve_pfirst,                        // llvm.aarch64.sve.pfirst
     aarch64_sve_pmul,                          // llvm.aarch64.sve.pmul
     aarch64_sve_pmullb_pair,                   // llvm.aarch64.sve.pmullb.pair
@@ -889,6 +901,10 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_ptest_first,                   // llvm.aarch64.sve.ptest.first
     aarch64_sve_ptest_last,                    // llvm.aarch64.sve.ptest.last
     aarch64_sve_ptrue,                         // llvm.aarch64.sve.ptrue
+    aarch64_sve_ptrue_c16,                     // llvm.aarch64.sve.ptrue.c16
+    aarch64_sve_ptrue_c32,                     // llvm.aarch64.sve.ptrue.c32
+    aarch64_sve_ptrue_c64,                     // llvm.aarch64.sve.ptrue.c64
+    aarch64_sve_ptrue_c8,                      // llvm.aarch64.sve.ptrue.c8
     aarch64_sve_punpkhi,                       // llvm.aarch64.sve.punpkhi
     aarch64_sve_punpklo,                       // llvm.aarch64.sve.punpklo
     aarch64_sve_raddhnb,                       // llvm.aarch64.sve.raddhnb
@@ -943,6 +959,8 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_sdot_lane_x2,                  // llvm.aarch64.sve.sdot.lane.x2
     aarch64_sve_sdot_x2,                       // llvm.aarch64.sve.sdot.x2
     aarch64_sve_sel,                           // llvm.aarch64.sve.sel
+    aarch64_sve_sel_x2,                        // llvm.aarch64.sve.sel.x2
+    aarch64_sve_sel_x4,                        // llvm.aarch64.sve.sel.x4
     aarch64_sve_setffr,                        // llvm.aarch64.sve.setffr
     aarch64_sve_shadd,                         // llvm.aarch64.sve.shadd
     aarch64_sve_shrnb,                         // llvm.aarch64.sve.shrnb
@@ -1099,6 +1117,8 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_ssubwb,                        // llvm.aarch64.sve.ssubwb
     aarch64_sve_ssubwt,                        // llvm.aarch64.sve.ssubwt
     aarch64_sve_st1,                           // llvm.aarch64.sve.st1
+    aarch64_sve_st1_pn_x2,                     // llvm.aarch64.sve.st1.pn.x2
+    aarch64_sve_st1_pn_x4,                     // llvm.aarch64.sve.st1.pn.x4
     aarch64_sve_st1_scatter,                   // llvm.aarch64.sve.st1.scatter
     aarch64_sve_st1_scatter_index,             // llvm.aarch64.sve.st1.scatter.index
     aarch64_sve_st1_scatter_scalar_offset,     // llvm.aarch64.sve.st1.scatter.scalar.offset
@@ -1110,6 +1130,8 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_st3,                           // llvm.aarch64.sve.st3
     aarch64_sve_st4,                           // llvm.aarch64.sve.st4
     aarch64_sve_stnt1,                         // llvm.aarch64.sve.stnt1
+    aarch64_sve_stnt1_pn_x2,                   // llvm.aarch64.sve.stnt1.pn.x2
+    aarch64_sve_stnt1_pn_x4,                   // llvm.aarch64.sve.stnt1.pn.x4
     aarch64_sve_stnt1_scatter,                 // llvm.aarch64.sve.stnt1.scatter
     aarch64_sve_stnt1_scatter_index,           // llvm.aarch64.sve.stnt1.scatter.index
     aarch64_sve_stnt1_scatter_scalar_offset,   // llvm.aarch64.sve.stnt1.scatter.scalar.offset
@@ -1298,20 +1320,52 @@ enum AARCH64Intrinsics : unsigned {
     aarch64_sve_uzpq_x2,                       // llvm.aarch64.sve.uzpq.x2
     aarch64_sve_uzpq_x4,                       // llvm.aarch64.sve.uzpq.x4
     aarch64_sve_whilege,                       // llvm.aarch64.sve.whilege
+    aarch64_sve_whilege_c16,                   // llvm.aarch64.sve.whilege.c16
+    aarch64_sve_whilege_c32,                   // llvm.aarch64.sve.whilege.c32
+    aarch64_sve_whilege_c64,                   // llvm.aarch64.sve.whilege.c64
+    aarch64_sve_whilege_c8,                    // llvm.aarch64.sve.whilege.c8
     aarch64_sve_whilege_x2,                    // llvm.aarch64.sve.whilege.x2
     aarch64_sve_whilegt,                       // llvm.aarch64.sve.whilegt
+    aarch64_sve_whilegt_c16,                   // llvm.aarch64.sve.whilegt.c16
+    aarch64_sve_whilegt_c32,                   // llvm.aarch64.sve.whilegt.c32
+    aarch64_sve_whilegt_c64,                   // llvm.aarch64.sve.whilegt.c64
+    aarch64_sve_whilegt_c8,                    // llvm.aarch64.sve.whilegt.c8
     aarch64_sve_whilegt_x2,                    // llvm.aarch64.sve.whilegt.x2
     aarch64_sve_whilehi,                       // llvm.aarch64.sve.whilehi
+    aarch64_sve_whilehi_c16,                   // llvm.aarch64.sve.whilehi.c16
+    aarch64_sve_whilehi_c32,                   // llvm.aarch64.sve.whilehi.c32
+    aarch64_sve_whilehi_c64,                   // llvm.aarch64.sve.whilehi.c64
+    aarch64_sve_whilehi_c8,                    // llvm.aarch64.sve.whilehi.c8
     aarch64_sve_whilehi_x2,                    // llvm.aarch64.sve.whilehi.x2
     aarch64_sve_whilehs,                       // llvm.aarch64.sve.whilehs
+    aarch64_sve_whilehs_c16,                   // llvm.aarch64.sve.whilehs.c16
+    aarch64_sve_whilehs_c32,                   // llvm.aarch64.sve.whilehs.c32
+    aarch64_sve_whilehs_c64,                   // llvm.aarch64.sve.whilehs.c64
+    aarch64_sve_whilehs_c8,                    // llvm.aarch64.sve.whilehs.c8
     aarch64_sve_whilehs_x2,                    // llvm.aarch64.sve.whilehs.x2
     aarch64_sve_whilele,                       // llvm.aarch64.sve.whilele
+    aarch64_sve_whilele_c16,                   // llvm.aarch64.sve.whilele.c16
+    aarch64_sve_whilele_c32,                   // llvm.aarch64.sve.whilele.c32
+    aarch64_sve_whilele_c64,                   // llvm.aarch64.sve.whilele.c64
+    aarch64_sve_whilele_c8,                    // llvm.aarch64.sve.whilele.c8
     aarch64_sve_whilele_x2,                    // llvm.aarch64.sve.whilele.x2
     aarch64_sve_whilelo,                       // llvm.aarch64.sve.whilelo
+    aarch64_sve_whilelo_c16,                   // llvm.aarch64.sve.whilelo.c16
+    aarch64_sve_whilelo_c32,                   // llvm.aarch64.sve.whilelo.c32
+    aarch64_sve_whilelo_c64,                   // llvm.aarch64.sve.whilelo.c64
+    aarch64_sve_whilelo_c8,                    // llvm.aarch64.sve.whilelo.c8
     aarch64_sve_whilelo_x2,                    // llvm.aarch64.sve.whilelo.x2
     aarch64_sve_whilels,                       // llvm.aarch64.sve.whilels
+    aarch64_sve_whilels_c16,                   // llvm.aarch64.sve.whilels.c16
+    aarch64_sve_whilels_c32,                   // llvm.aarch64.sve.whilels.c32
+    aarch64_sve_whilels_c64,                   // llvm.aarch64.sve.whilels.c64
+    aarch64_sve_whilels_c8,                    // llvm.aarch64.sve.whilels.c8
     aarch64_sve_whilels_x2,                    // llvm.aarch64.sve.whilels.x2
     aarch64_sve_whilelt,                       // llvm.aarch64.sve.whilelt
+    aarch64_sve_whilelt_c16,                   // llvm.aarch64.sve.whilelt.c16
+    aarch64_sve_whilelt_c32,                   // llvm.aarch64.sve.whilelt.c32
+    aarch64_sve_whilelt_c64,                   // llvm.aarch64.sve.whilelt.c64
+    aarch64_sve_whilelt_c8,                    // llvm.aarch64.sve.whilelt.c8
     aarch64_sve_whilelt_x2,                    // llvm.aarch64.sve.whilelt.x2
     aarch64_sve_whilerw_b,                     // llvm.aarch64.sve.whilerw.b
     aarch64_sve_whilerw_d,                     // llvm.aarch64.sve.whilerw.d

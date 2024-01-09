@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -69,7 +70,7 @@ CompositorRenderPass::CompositorRenderPass(
     const ::gfx::Transform& transform_to_root_target_in,
     const ::cc::FilterOperations& filters_in,
     const ::cc::FilterOperations& backdrop_filters_in,
-    const absl::optional<::gfx::RRectF>& backdrop_filter_bounds_in,
+    const std::optional<::gfx::RRectF>& backdrop_filter_bounds_in,
     const ::viz::SubtreeCaptureId& subtree_capture_id_in,
     const ::gfx::Size& subtree_size_in,
     const ::viz::ViewTransitionElementResourceId& view_transition_element_resource_id_in,
@@ -161,7 +162,7 @@ void CompositorRenderPass::WriteIntoTrace(
     dict.AddItem(
       "backdrop_filter_bounds"), this->backdrop_filter_bounds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::RRectF>&>"
+      "<value of type const std::optional<::gfx::RRectF>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-features.h"
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-shared.h"
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-blink-forward.h"
 #include "services/network/public/mojom/schemeful_site.mojom-blink.h"
@@ -43,42 +44,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ReportingDestination>
-    : EnumHashTraits<::blink::mojom::ReportingDestination, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::DeprecatedFencedFrameMode>
-    : EnumHashTraits<::blink::mojom::DeprecatedFencedFrameMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::Opaque>
-    : EnumHashTraits<::blink::mojom::Opaque, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -111,17 +76,17 @@ class PLATFORM_EXPORT PotentiallyOpaqueURL {
   // Construct an instance holding |transparent|.
   static PotentiallyOpaqueURLPtr
   NewTransparent(
-      const ::blink::KURL& transparent) {
+      const ::blink::KURL& value) {
     auto result = PotentiallyOpaqueURLPtr(absl::in_place);
-    result->set_transparent(std::move(transparent));
+    result->set_transparent(std::move(value));
     return result;
   }
   // Construct an instance holding |opaque|.
   static PotentiallyOpaqueURLPtr
   NewOpaque(
-      ::blink::FencedFrame::Opaque opaque) {
+      ::blink::FencedFrame::Opaque value) {
     auto result = PotentiallyOpaqueURLPtr(absl::in_place);
-    result->set_opaque(std::move(opaque));
+    result->set_opaque(std::move(value));
     return result;
   }
 
@@ -241,17 +206,17 @@ class PLATFORM_EXPORT PotentiallyOpaqueSize {
   // Construct an instance holding |transparent|.
   static PotentiallyOpaqueSizePtr
   NewTransparent(
-      const ::gfx::Size& transparent) {
+      const ::gfx::Size& value) {
     auto result = PotentiallyOpaqueSizePtr(absl::in_place);
-    result->set_transparent(std::move(transparent));
+    result->set_transparent(std::move(value));
     return result;
   }
   // Construct an instance holding |opaque|.
   static PotentiallyOpaqueSizePtr
   NewOpaque(
-      ::blink::FencedFrame::Opaque opaque) {
+      ::blink::FencedFrame::Opaque value) {
     auto result = PotentiallyOpaqueSizePtr(absl::in_place);
-    result->set_opaque(std::move(opaque));
+    result->set_opaque(std::move(value));
     return result;
   }
 
@@ -371,17 +336,17 @@ class PLATFORM_EXPORT PotentiallyOpaqueBool {
   // Construct an instance holding |transparent|.
   static PotentiallyOpaqueBoolPtr
   NewTransparent(
-      bool transparent) {
+      bool value) {
     auto result = PotentiallyOpaqueBoolPtr(absl::in_place);
-    result->set_transparent(std::move(transparent));
+    result->set_transparent(std::move(value));
     return result;
   }
   // Construct an instance holding |opaque|.
   static PotentiallyOpaqueBoolPtr
   NewOpaque(
-      ::blink::FencedFrame::Opaque opaque) {
+      ::blink::FencedFrame::Opaque value) {
     auto result = PotentiallyOpaqueBoolPtr(absl::in_place);
-    result->set_opaque(std::move(opaque));
+    result->set_opaque(std::move(value));
     return result;
   }
 
@@ -497,17 +462,17 @@ class PLATFORM_EXPORT PotentiallyOpaqueAdAuctionData {
   // Construct an instance holding |transparent|.
   static PotentiallyOpaqueAdAuctionDataPtr
   NewTransparent(
-      const ::blink::FencedFrame::AdAuctionData& transparent) {
+      const ::blink::FencedFrame::AdAuctionData& value) {
     auto result = PotentiallyOpaqueAdAuctionDataPtr(absl::in_place);
-    result->set_transparent(std::move(transparent));
+    result->set_transparent(std::move(value));
     return result;
   }
   // Construct an instance holding |opaque|.
   static PotentiallyOpaqueAdAuctionDataPtr
   NewOpaque(
-      ::blink::FencedFrame::Opaque opaque) {
+      ::blink::FencedFrame::Opaque value) {
     auto result = PotentiallyOpaqueAdAuctionDataPtr(absl::in_place);
-    result->set_opaque(std::move(opaque));
+    result->set_opaque(std::move(value));
     return result;
   }
 
@@ -627,17 +592,17 @@ class PLATFORM_EXPORT PotentiallyOpaqueConfigVector {
   // Construct an instance holding |transparent|.
   static PotentiallyOpaqueConfigVectorPtr
   NewTransparent(
-      WTF::Vector<::blink::FencedFrame::RedactedFencedFrameConfig> transparent) {
+      WTF::Vector<::blink::FencedFrame::RedactedFencedFrameConfig> value) {
     auto result = PotentiallyOpaqueConfigVectorPtr(absl::in_place);
-    result->set_transparent(std::move(transparent));
+    result->set_transparent(std::move(value));
     return result;
   }
   // Construct an instance holding |opaque|.
   static PotentiallyOpaqueConfigVectorPtr
   NewOpaque(
-      ::blink::FencedFrame::Opaque opaque) {
+      ::blink::FencedFrame::Opaque value) {
     auto result = PotentiallyOpaqueConfigVectorPtr(absl::in_place);
-    result->set_opaque(std::move(opaque));
+    result->set_opaque(std::move(value));
     return result;
   }
 
@@ -757,17 +722,17 @@ class PLATFORM_EXPORT PotentiallyOpaqueURNConfigVector {
   // Construct an instance holding |transparent|.
   static PotentiallyOpaqueURNConfigVectorPtr
   NewTransparent(
-      WTF::Vector<URNConfigPairPtr> transparent) {
+      WTF::Vector<URNConfigPairPtr> value) {
     auto result = PotentiallyOpaqueURNConfigVectorPtr(absl::in_place);
-    result->set_transparent(std::move(transparent));
+    result->set_transparent(std::move(value));
     return result;
   }
   // Construct an instance holding |opaque|.
   static PotentiallyOpaqueURNConfigVectorPtr
   NewOpaque(
-      ::blink::FencedFrame::Opaque opaque) {
+      ::blink::FencedFrame::Opaque value) {
     auto result = PotentiallyOpaqueURNConfigVectorPtr(absl::in_place);
-    result->set_opaque(std::move(opaque));
+    result->set_opaque(std::move(value));
     return result;
   }
 
@@ -887,17 +852,17 @@ class PLATFORM_EXPORT PotentiallyOpaqueSharedStorageBudgetMetadata {
   // Construct an instance holding |transparent|.
   static PotentiallyOpaqueSharedStorageBudgetMetadataPtr
   NewTransparent(
-      const ::blink::FencedFrame::SharedStorageBudgetMetadata& transparent) {
+      const ::blink::FencedFrame::SharedStorageBudgetMetadata& value) {
     auto result = PotentiallyOpaqueSharedStorageBudgetMetadataPtr(absl::in_place);
-    result->set_transparent(std::move(transparent));
+    result->set_transparent(std::move(value));
     return result;
   }
   // Construct an instance holding |opaque|.
   static PotentiallyOpaqueSharedStorageBudgetMetadataPtr
   NewOpaque(
-      ::blink::FencedFrame::Opaque opaque) {
+      ::blink::FencedFrame::Opaque value) {
     auto result = PotentiallyOpaqueSharedStorageBudgetMetadataPtr(absl::in_place);
-    result->set_opaque(std::move(opaque));
+    result->set_opaque(std::move(value));
     return result;
   }
 
@@ -1459,13 +1424,13 @@ class PLATFORM_EXPORT FencedFrameConfig {
   FencedFrameConfig();
 
   FencedFrameConfig(
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& container_size,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& content_size,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>& deprecated_should_freeze_initial_size,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>& ad_auction_data,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<std::vector<::blink::FencedFrame::RedactedFencedFrameConfig>>>& nested_configs,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& container_size,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& content_size,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>& deprecated_should_freeze_initial_size,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>& ad_auction_data,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<std::vector<::blink::FencedFrame::RedactedFencedFrameConfig>>>& nested_configs,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata,
       const ::blink::KURL& urn_uuid,
       ::blink::FencedFrame::DeprecatedFencedFrameMode mode,
       WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions);
@@ -1546,19 +1511,19 @@ class PLATFORM_EXPORT FencedFrameConfig {
   }
 
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>> mapped_url;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>> mapped_url;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>> container_size;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>> container_size;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>> content_size;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>> content_size;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>> deprecated_should_freeze_initial_size;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>> deprecated_should_freeze_initial_size;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>> ad_auction_data;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>> ad_auction_data;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<std::vector<::blink::FencedFrame::RedactedFencedFrameConfig>>> nested_configs;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<std::vector<::blink::FencedFrame::RedactedFencedFrameConfig>>> nested_configs;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>> shared_storage_budget_metadata;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>> shared_storage_budget_metadata;
   
   ::blink::KURL urn_uuid;
   
@@ -1626,13 +1591,13 @@ class PLATFORM_EXPORT FencedFrameProperties {
   FencedFrameProperties();
 
   FencedFrameProperties(
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& container_size,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& content_size,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>& deprecated_should_freeze_initial_size,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>& ad_auction_data,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& container_size,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& content_size,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>& deprecated_should_freeze_initial_size,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>& ad_auction_data,
       PotentiallyOpaqueURNConfigVectorPtr nested_urn_config_pairs,
-      const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata,
+      const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata,
       bool has_fenced_frame_reporting,
       ::blink::FencedFrame::DeprecatedFencedFrameMode mode,
       WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions);
@@ -1715,19 +1680,19 @@ FencedFrameProperties& operator=(const FencedFrameProperties&) = delete;
   }
 
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>> mapped_url;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>> mapped_url;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>> container_size;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>> container_size;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>> content_size;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>> content_size;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>> deprecated_should_freeze_initial_size;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>> deprecated_should_freeze_initial_size;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>> ad_auction_data;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>> ad_auction_data;
   
   PotentiallyOpaqueURNConfigVectorPtr nested_urn_config_pairs;
   
-  absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>> shared_storage_budget_metadata;
+  std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>> shared_storage_budget_metadata;
   
   bool has_fenced_frame_reporting;
   

@@ -24,8 +24,19 @@
 namespace ash::cloud_upload::mojom {
 class DialogTaskDataView;
 
+class OneDriveSetupDialogArgsDataView;
+
+class MoveConfirmationOneDriveDialogArgsDataView;
+
+class MoveConfirmationGoogleDriveDialogArgsDataView;
+
+class ConnectToOneDriveDialogArgsDataView;
+
+class FileHandlerDialogArgsDataView;
+
 class DialogArgsDataView;
 
+class DialogSpecificArgsDataView;
 
 enum class UserAction : int32_t;
 
@@ -37,8 +48,27 @@ enum class OperationType : int32_t;
 class DialogTask;
 using DialogTaskPtr = mojo::InlinedStructPtr<DialogTask>;
 
+class OneDriveSetupDialogArgs;
+using OneDriveSetupDialogArgsPtr = mojo::InlinedStructPtr<OneDriveSetupDialogArgs>;
+
+class MoveConfirmationOneDriveDialogArgs;
+using MoveConfirmationOneDriveDialogArgsPtr = mojo::InlinedStructPtr<MoveConfirmationOneDriveDialogArgs>;
+
+class MoveConfirmationGoogleDriveDialogArgs;
+using MoveConfirmationGoogleDriveDialogArgsPtr = mojo::InlinedStructPtr<MoveConfirmationGoogleDriveDialogArgs>;
+
+class ConnectToOneDriveDialogArgs;
+using ConnectToOneDriveDialogArgsPtr = mojo::InlinedStructPtr<ConnectToOneDriveDialogArgs>;
+
+class FileHandlerDialogArgs;
+using FileHandlerDialogArgsPtr = mojo::StructPtr<FileHandlerDialogArgs>;
+
 class DialogArgs;
 using DialogArgsPtr = mojo::StructPtr<DialogArgs>;
+
+class DialogSpecificArgs;
+
+using DialogSpecificArgsPtr = mojo::StructPtr<DialogSpecificArgs>;
 
 class PageHandlerFactory;
 

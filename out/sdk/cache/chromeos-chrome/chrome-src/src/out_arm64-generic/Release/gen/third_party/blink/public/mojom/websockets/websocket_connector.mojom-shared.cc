@@ -31,7 +31,7 @@ bool WebSocketConnector_Connect_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -73,7 +73,7 @@ bool WebSocketConnector_Connect_Params_Data::Validate(
   }
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->handshake_client, 5, validation_context)) {
+          object->handshake_client, 6, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->handshake_client,

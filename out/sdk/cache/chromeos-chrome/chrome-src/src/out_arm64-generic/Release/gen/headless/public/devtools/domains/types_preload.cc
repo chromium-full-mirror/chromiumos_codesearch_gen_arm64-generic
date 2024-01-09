@@ -242,6 +242,61 @@ std::unique_ptr<PreloadingAttemptSource> PreloadingAttemptSource::Clone() const 
 }
 
 
+std::unique_ptr<PrerenderMismatchedHeaders> PrerenderMismatchedHeaders::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("PrerenderMismatchedHeaders");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<PrerenderMismatchedHeaders> result(new PrerenderMismatchedHeaders());
+  errors->Push();
+  errors->SetName("PrerenderMismatchedHeaders");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* header_name_value = dict.Find("headerName");
+  if (header_name_value) {
+    errors->SetName("headerName");
+    result->header_name_ = internal::FromValue<std::string>::Parse(*header_name_value, errors);
+  } else {
+    errors->AddError("required property missing: headerName");
+  }
+  const base::Value* initial_value_value = dict.Find("initialValue");
+  if (initial_value_value) {
+    errors->SetName("initialValue");
+    result->initial_value_ = internal::FromValue<std::string>::Parse(*initial_value_value, errors);
+  }
+  const base::Value* activation_value_value = dict.Find("activationValue");
+  if (activation_value_value) {
+    errors->SetName("activationValue");
+    result->activation_value_ = internal::FromValue<std::string>::Parse(*activation_value_value, errors);
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value PrerenderMismatchedHeaders::Serialize() const {
+  base::Value::Dict result;
+  result.Set("headerName", internal::ToValue(header_name_));
+  if (initial_value_)
+    result.Set("initialValue", internal::ToValue(initial_value_.value()));
+  if (activation_value_)
+    result.Set("activationValue", internal::ToValue(activation_value_.value()));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<PrerenderMismatchedHeaders> PrerenderMismatchedHeaders::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<PrerenderMismatchedHeaders> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
 std::unique_ptr<EnableParams> EnableParams::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("EnableParams");
@@ -643,6 +698,11 @@ std::unique_ptr<PrerenderStatusUpdatedParams> PrerenderStatusUpdatedParams::Pars
     errors->SetName("disallowedMojoInterface");
     result->disallowed_mojo_interface_ = internal::FromValue<std::string>::Parse(*disallowed_mojo_interface_value, errors);
   }
+  const base::Value* mismatched_headers_value = dict.Find("mismatchedHeaders");
+  if (mismatched_headers_value) {
+    errors->SetName("mismatchedHeaders");
+    result->mismatched_headers_ = internal::FromValue<std::vector<std::unique_ptr<::headless::preload::PrerenderMismatchedHeaders>>>::Parse(*mismatched_headers_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -658,6 +718,8 @@ base::Value PrerenderStatusUpdatedParams::Serialize() const {
     result.Set("prerenderStatus", internal::ToValue(prerender_status_.value()));
   if (disallowed_mojo_interface_)
     result.Set("disallowedMojoInterface", internal::ToValue(disallowed_mojo_interface_.value()));
+  if (mismatched_headers_)
+    result.Set("mismatchedHeaders", internal::ToValue(mismatched_headers_.value()));
   return base::Value(std::move(result));
 }
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "mojo/public/interfaces/bindings/native_struct.mojom-features.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 #include <string>
@@ -214,7 +215,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) NativeStruct {
 
   NativeStruct(
       std::vector<uint8_t> data,
-      absl::optional<std::vector<SerializedHandlePtr>> handles);
+      std::optional<std::vector<SerializedHandlePtr>> handles);
 
 NativeStruct(const NativeStruct&) = delete;
 NativeStruct& operator=(const NativeStruct&) = delete;
@@ -291,7 +292,7 @@ NativeStruct& operator=(const NativeStruct&) = delete;
   
   std::vector<uint8_t> data;
   
-  absl::optional<std::vector<SerializedHandlePtr>> handles;
+  std::optional<std::vector<SerializedHandlePtr>> handles;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

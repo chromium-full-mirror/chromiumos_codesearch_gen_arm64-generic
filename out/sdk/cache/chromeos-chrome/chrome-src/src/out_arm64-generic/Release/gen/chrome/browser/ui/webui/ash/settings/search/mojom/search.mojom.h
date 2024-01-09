@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/settings/search/mojom/search.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/settings/search/mojom/search.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/settings/search/mojom/search.mojom-forward.h"
 #include "ash/webui/settings/public/constants/routes.mojom-forward.h"
@@ -292,25 +293,25 @@ class  SearchResultIdentifier {
   // Construct an instance holding |section|.
   static SearchResultIdentifierPtr
   NewSection(
-      ::chromeos::settings::mojom::Section section) {
+      ::chromeos::settings::mojom::Section value) {
     auto result = SearchResultIdentifierPtr(absl::in_place);
-    result->set_section(std::move(section));
+    result->set_section(std::move(value));
     return result;
   }
   // Construct an instance holding |subpage|.
   static SearchResultIdentifierPtr
   NewSubpage(
-      ::chromeos::settings::mojom::Subpage subpage) {
+      ::chromeos::settings::mojom::Subpage value) {
     auto result = SearchResultIdentifierPtr(absl::in_place);
-    result->set_subpage(std::move(subpage));
+    result->set_subpage(std::move(value));
     return result;
   }
   // Construct an instance holding |setting|.
   static SearchResultIdentifierPtr
   NewSetting(
-      ::chromeos::settings::mojom::Setting setting) {
+      ::chromeos::settings::mojom::Setting value) {
     auto result = SearchResultIdentifierPtr(absl::in_place);
-    result->set_setting(std::move(setting));
+    result->set_setting(std::move(value));
     return result;
   }
 

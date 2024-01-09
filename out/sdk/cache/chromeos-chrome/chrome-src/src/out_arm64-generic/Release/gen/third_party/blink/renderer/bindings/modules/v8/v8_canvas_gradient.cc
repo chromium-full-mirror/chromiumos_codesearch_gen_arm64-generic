@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CanvasGradient>::value,
     "CanvasGradient inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CanvasGradient::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CanvasGradient is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,7 +93,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CanvasGradient* blink_receiver = V8CanvasGradient::ToWrappableUnsafe(v8_receiver);
+CanvasGradient* blink_receiver = V8CanvasGradient::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_offset = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

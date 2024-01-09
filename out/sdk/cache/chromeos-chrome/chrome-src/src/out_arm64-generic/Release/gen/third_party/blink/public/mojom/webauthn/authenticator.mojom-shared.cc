@@ -58,6 +58,16 @@ NOINLINE static const char* AuthenticatorStatusToStringHelper(AuthenticatorStatu
       return "INVALID_PROTOCOL";
     case AuthenticatorStatus::BAD_RELYING_PARTY_ID:
       return "BAD_RELYING_PARTY_ID";
+    case AuthenticatorStatus::BAD_RELYING_PARTY_ID_ATTEMPTED_FETCH:
+      return "BAD_RELYING_PARTY_ID_ATTEMPTED_FETCH";
+    case AuthenticatorStatus::BAD_RELYING_PARTY_ID_WRONG_CONTENT_TYPE:
+      return "BAD_RELYING_PARTY_ID_WRONG_CONTENT_TYPE";
+    case AuthenticatorStatus::BAD_RELYING_PARTY_ID_JSON_PARSE_ERROR:
+      return "BAD_RELYING_PARTY_ID_JSON_PARSE_ERROR";
+    case AuthenticatorStatus::BAD_RELYING_PARTY_ID_NO_JSON_MATCH:
+      return "BAD_RELYING_PARTY_ID_NO_JSON_MATCH";
+    case AuthenticatorStatus::BAD_RELYING_PARTY_ID_NO_JSON_MATCH_HIT_LIMITS:
+      return "BAD_RELYING_PARTY_ID_NO_JSON_MATCH_HIT_LIMITS";
     case AuthenticatorStatus::CANNOT_READ_AND_WRITE_LARGE_BLOB:
       return "CANNOT_READ_AND_WRITE_LARGE_BLOB";
     case AuthenticatorStatus::INVALID_ALLOW_CREDENTIALS_FOR_LARGE_BLOB:
@@ -119,6 +129,32 @@ std::string AuthenticatorTransportToString(AuthenticatorTransport value) {
 
 std::ostream& operator<<(std::ostream& os, AuthenticatorTransport value) {
   return os << AuthenticatorTransportToString(value);
+}
+
+NOINLINE static const char* HintToStringHelper(Hint value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Hint::SECURITY_KEY:
+      return "SECURITY_KEY";
+    case Hint::CLIENT_DEVICE:
+      return "CLIENT_DEVICE";
+    case Hint::HYBRID:
+      return "HYBRID";
+    default:
+      return nullptr;
+  }
+}
+
+std::string HintToString(Hint value) {
+  const char *str = HintToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Hint value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Hint value) {
+  return os << HintToString(value);
 }
 
 NOINLINE static const char* UserVerificationRequirementToStringHelper(UserVerificationRequirement value) {
@@ -374,47 +410,36 @@ CommonCredentialInfo_Data::CommonCredentialInfo_Data()
 
 
 // static
-bool DevicePublicKeyResponse_Data::Validate(
+bool SupplementalPubKeysResponse_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const DevicePublicKeyResponse_Data* object =
-      static_cast<const DevicePublicKeyResponse_Data*>(data);
+  [[maybe_unused]] const SupplementalPubKeysResponse_Data* object =
+      static_cast<const SupplementalPubKeysResponse_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->authenticator_output, 1, validation_context)) {
+          object->signatures, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& authenticator_output_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->authenticator_output, validation_context,
-                                         &authenticator_output_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->signature, 2, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& signature_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->signature, validation_context,
-                                         &signature_validate_params)) {
+  constexpr const mojo::internal::ContainerValidateParams& signatures_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->signatures, validation_context,
+                                         &signatures_validate_params)) {
     return false;
   }
 
   return true;
 }
 
-DevicePublicKeyResponse_Data::DevicePublicKeyResponse_Data()
+SupplementalPubKeysResponse_Data::SupplementalPubKeysResponse_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -478,7 +503,7 @@ bool MakeCredentialAuthenticatorResponse_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidateStruct(object->device_public_key, validation_context))
+  if (!mojo::internal::ValidateStruct(object->supplemental_pub_keys, validation_context))
     return false;
 
   return true;
@@ -581,7 +606,7 @@ bool AuthenticationExtensionsClientOutputs_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidateStruct(object->device_public_key, validation_context))
+  if (!mojo::internal::ValidateStruct(object->supplemental_pub_keys, validation_context))
     return false;
 
   return true;
@@ -945,7 +970,7 @@ RemoteDesktopClientOverride_Data::RemoteDesktopClientOverride_Data()
 
 
 // static
-bool DevicePublicKeyRequest_Data::Validate(
+bool SupplementalPubKeysRequest_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -957,8 +982,8 @@ bool DevicePublicKeyRequest_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const DevicePublicKeyRequest_Data* object =
-      static_cast<const DevicePublicKeyRequest_Data*>(data);
+  [[maybe_unused]] const SupplementalPubKeysRequest_Data* object =
+      static_cast<const SupplementalPubKeysRequest_Data*>(data);
 
 
   if (!::blink::mojom::internal::AttestationConveyancePreference_Data
@@ -966,7 +991,7 @@ bool DevicePublicKeyRequest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->attestation_formats, 2, validation_context)) {
+          object->attestation_formats, 4, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& attestation_formats_validate_params =
@@ -979,7 +1004,7 @@ bool DevicePublicKeyRequest_Data::Validate(
   return true;
 }
 
-DevicePublicKeyRequest_Data::DevicePublicKeyRequest_Data()
+SupplementalPubKeysRequest_Data::SupplementalPubKeysRequest_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -990,7 +1015,7 @@ bool PublicKeyCredentialRequestOptions_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -1035,13 +1060,24 @@ bool PublicKeyCredentialRequestOptions_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->hints, 6, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& hints_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::Hint_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->hints, validation_context,
+                                         &hints_validate_params)) {
+    return false;
+  }
+
 
   if (!::blink::mojom::internal::UserVerificationRequirement_Data
         ::Validate(object->user_verification, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->extensions, 7, validation_context)) {
+          object->extensions, 8, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->extensions, validation_context))
@@ -1109,7 +1145,7 @@ bool AuthenticationExtensionsClientInputs_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->remote_desktop_client_override, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->device_public_key, validation_context))
+  if (!mojo::internal::ValidateStruct(object->supplemental_pub_keys, validation_context))
     return false;
 
   return true;
@@ -1164,7 +1200,7 @@ bool PublicKeyCredentialCreationOptions_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 120, validation_context)) {
+          data, 128, validation_context)) {
     return false;
   }
 
@@ -1226,6 +1262,17 @@ bool PublicKeyCredentialCreationOptions_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->authenticator_selection, validation_context))
     return false;
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->hints, 8, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& hints_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::Hint_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->hints, validation_context,
+                                         &hints_validate_params)) {
+    return false;
+  }
+
 
   if (!::blink::mojom::internal::AttestationConveyancePreference_Data
         ::Validate(object->attestation, validation_context))
@@ -1261,7 +1308,7 @@ bool PublicKeyCredentialCreationOptions_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->remote_desktop_client_override, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->device_public_key, validation_context))
+  if (!mojo::internal::ValidateStruct(object->supplemental_pub_keys, validation_context))
     return false;
 
   return true;
@@ -1628,6 +1675,16 @@ namespace perfetto {
 void TraceFormatTraits<::blink::mojom::AuthenticatorTransport>::WriteIntoTrace(
    perfetto::TracedValue context, ::blink::mojom::AuthenticatorTransport value) {
   return std::move(context).WriteString(::blink::mojom::AuthenticatorTransportToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::Hint>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::Hint value) {
+  return std::move(context).WriteString(::blink::mojom::HintToString(value));
 }
 
 } // namespace perfetto

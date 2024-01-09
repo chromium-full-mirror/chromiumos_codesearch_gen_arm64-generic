@@ -468,66 +468,6 @@ Directory_OpenFile_ResponseParams_Data::Directory_OpenFile_ResponseParams_Data()
 
 
 // static
-bool Directory_WriteFileAtomically_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Directory_WriteFileAtomically_Params_Data* object =
-      static_cast<const Directory_WriteFileAtomically_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->path, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->path, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->contents, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->contents, validation_context))
-    return false;
-
-  return true;
-}
-
-Directory_WriteFileAtomically_Params_Data::Directory_WriteFileAtomically_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Directory_WriteFileAtomically_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Directory_WriteFileAtomically_ResponseParams_Data* object =
-      static_cast<const Directory_WriteFileAtomically_ResponseParams_Data*>(data);
-
-  return true;
-}
-
-Directory_WriteFileAtomically_ResponseParams_Data::Directory_WriteFileAtomically_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool Directory_CreateDirectory_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -635,59 +575,6 @@ bool Directory_DeleteFile_ResponseParams_Data::Validate(
 }
 
 Directory_DeleteFile_ResponseParams_Data::Directory_DeleteFile_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Directory_DeletePathRecursively_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Directory_DeletePathRecursively_Params_Data* object =
-      static_cast<const Directory_DeletePathRecursively_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->path, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->path, validation_context))
-    return false;
-
-  return true;
-}
-
-Directory_DeletePathRecursively_Params_Data::Directory_DeletePathRecursively_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Directory_DeletePathRecursively_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Directory_DeletePathRecursively_ResponseParams_Data* object =
-      static_cast<const Directory_DeletePathRecursively_ResponseParams_Data*>(data);
-
-  return true;
-}
-
-Directory_DeletePathRecursively_ResponseParams_Data::Directory_DeletePathRecursively_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -800,59 +687,6 @@ bool Directory_GetPathAccess_ResponseParams_Data::Validate(
 }
 
 Directory_GetPathAccess_ResponseParams_Data::Directory_GetPathAccess_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Directory_GetMaximumPathComponentLength_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Directory_GetMaximumPathComponentLength_Params_Data* object =
-      static_cast<const Directory_GetMaximumPathComponentLength_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->path, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->path, validation_context))
-    return false;
-
-  return true;
-}
-
-Directory_GetMaximumPathComponentLength_Params_Data::Directory_GetMaximumPathComponentLength_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Directory_GetMaximumPathComponentLength_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Directory_GetMaximumPathComponentLength_ResponseParams_Data* object =
-      static_cast<const Directory_GetMaximumPathComponentLength_ResponseParams_Data*>(data);
-
-  return true;
-}
-
-Directory_GetMaximumPathComponentLength_ResponseParams_Data::Directory_GetMaximumPathComponentLength_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

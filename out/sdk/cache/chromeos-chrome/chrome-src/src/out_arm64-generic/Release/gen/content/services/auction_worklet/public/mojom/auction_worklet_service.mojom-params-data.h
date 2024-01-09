@@ -39,6 +39,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) AuctionWorkletService_LoadBi
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> script_source_url;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> wasm_helper_url;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> trusted_bidding_signals_url;
+  mojo::internal::Pointer<mojo::internal::String_Data> trusted_bidding_signals_slot_size_param;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> top_window_origin;
   mojo::internal::Pointer<internal::AuctionWorkletPermissionsPolicyState_Data> permissions_policy_state;
 
@@ -48,7 +49,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) AuctionWorkletService_LoadBi
   AuctionWorkletService_LoadBidderWorklet_Params_Data();
   ~AuctionWorkletService_LoadBidderWorklet_Params_Data() = delete;
 };
-static_assert(sizeof(AuctionWorkletService_LoadBidderWorklet_Params_Data) == 80,
+static_assert(sizeof(AuctionWorkletService_LoadBidderWorklet_Params_Data) == 88,
               "Bad sizeof(AuctionWorkletService_LoadBidderWorklet_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) AuctionWorkletService_LoadSellerWorklet_Params_Data {
  public:
@@ -178,6 +179,16 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->trusted_bidding_signals_url.Get();
     return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+  inline void GetTrustedBiddingSignalsSlotSizeParamDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTrustedBiddingSignalsSlotSizeParam(UserType* output) {
+    
+    auto* pointer = data_->trusted_bidding_signals_slot_size_param.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
   inline void GetTopWindowOriginDataView(
@@ -336,6 +347,11 @@ inline void AuctionWorkletService_LoadBidderWorklet_ParamsDataView::GetTrustedBi
     ::url::mojom::UrlDataView* output) {
   auto pointer = data_->trusted_bidding_signals_url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+inline void AuctionWorkletService_LoadBidderWorklet_ParamsDataView::GetTrustedBiddingSignalsSlotSizeParamDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->trusted_bidding_signals_slot_size_param.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 inline void AuctionWorkletService_LoadBidderWorklet_ParamsDataView::GetTopWindowOriginDataView(
     ::url::mojom::OriginDataView* output) {

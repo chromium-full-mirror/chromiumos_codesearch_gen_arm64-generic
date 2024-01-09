@@ -24,6 +24,8 @@
 namespace media_session::mojom {
 class MediaImageDataView;
 
+class ChapterInformationDataView;
+
 class MediaMetadataDataView;
 
 class MediaImageBitmapDataView;
@@ -58,6 +60,9 @@ enum class MediaSessionInfo_SessionState : int32_t;
 enum class MediaSession_SuspendType : int32_t;
 class MediaImage;
 using MediaImagePtr = mojo::StructPtr<MediaImage>;
+
+class ChapterInformation;
+using ChapterInformationPtr = mojo::StructPtr<ChapterInformation>;
 
 class MediaMetadata;
 using MediaMetadataPtr = mojo::StructPtr<MediaMetadata>;

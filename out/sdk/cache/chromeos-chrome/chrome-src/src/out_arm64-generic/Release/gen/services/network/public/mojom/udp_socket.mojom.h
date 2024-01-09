@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/udp_socket.mojom-features.h"
 #include "services/network/public/mojom/udp_socket.mojom-shared.h"
 #include "services/network/public/mojom/udp_socket.mojom-forward.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom.h"
@@ -130,12 +131,12 @@ class UDPSocket
   virtual ~UDPSocket() = default;
 
 
-  using BindCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&)>;
+  using BindCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&)>;
   
   virtual void Bind(const ::net::IPEndPoint& local_addr, UDPSocketOptionsPtr socket_options, BindCallback callback) = 0;
 
 
-  using ConnectCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&)>;
+  using ConnectCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&)>;
   
   virtual void Connect(const ::net::IPEndPoint& remote_addr, UDPSocketOptionsPtr socket_options, ConnectCallback callback) = 0;
 
@@ -226,7 +227,7 @@ class UDPSocketListener
   virtual ~UDPSocketListener() = default;
 
   
-  virtual void OnReceived(int32_t result, const absl::optional<::net::IPEndPoint>& src_addr, absl::optional<::base::span<const ::uint8_t>> data) = 0;
+  virtual void OnReceived(int32_t result, const std::optional<::net::IPEndPoint>& src_addr, std::optional<::base::span<const ::uint8_t>> data) = 0;
 };
 
 
@@ -275,7 +276,7 @@ class  UDPSocketListenerProxy
 
   explicit UDPSocketListenerProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnReceived(int32_t result, const absl::optional<::net::IPEndPoint>& src_addr, absl::optional<::base::span<const ::uint8_t>> data) final;
+  void OnReceived(int32_t result, const std::optional<::net::IPEndPoint>& src_addr, std::optional<::base::span<const ::uint8_t>> data) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

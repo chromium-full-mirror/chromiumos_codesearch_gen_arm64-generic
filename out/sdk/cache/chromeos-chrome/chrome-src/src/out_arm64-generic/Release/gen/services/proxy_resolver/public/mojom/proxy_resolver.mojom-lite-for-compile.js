@@ -13,7 +13,7 @@ goog.require('mojo.internal');
 goog.require('mojo.internal.interfaceSupport');
 
 goog.require('network.mojom.IPAddress');
-goog.require('network.mojom.ProxyServer');
+goog.require('network.mojom.ProxyChain');
 goog.require('url.mojom.Url');
 goog.require('network.mojom.NetworkAnonymizationKey');
 
@@ -1373,9 +1373,9 @@ mojo.internal.Struct(
     'ProxyInfo',
     [
       mojo.internal.StructField(
-        'proxyServers', 0,
+        'proxyChains', 0,
         0,
-        mojo.internal.Array(network.mojom.ProxyServerSpec.$, false),
+        mojo.internal.Array(network.mojom.ProxyChainSpec.$, false),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -1390,8 +1390,8 @@ goog.provide('proxyResolver.mojom.ProxyInfo');
 /** @record */
 proxyResolver.mojom.ProxyInfo = class {
   constructor() {
-    /** @export { !Array<!network.mojom.ProxyServer> } */
-    this.proxyServers;
+    /** @export { !Array<!network.mojom.ProxyChain> } */
+    this.proxyChains;
   }
 };
 

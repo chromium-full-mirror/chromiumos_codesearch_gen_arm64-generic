@@ -4,12 +4,13 @@
 import { assert } from 'chrome://resources/js/assert.js';
 import { CustomElement } from 'chrome://resources/js/custom_element.js';
 import { AutocompleteControllerType } from '../omnibox.mojom-webui.js';
-import { clearChildren, createEl, signalNames } from '../omnibox_util.js';
+import { clearChildren, createEl, setFormattedClipboardForMl, signalNames } from '../omnibox_util.js';
 import { ResponseFilter } from './ml_browser_proxy.js';
 // @ts-ignore:next-line
 import sheet from './ml_table.css' assert { type: 'css' };
 import { getTemplate } from './ml_table.html.js';
 export class MlTableElement extends CustomElement {
+    mlBrowserProxy_;
     static get template() {
         return getTemplate();
     }
@@ -32,6 +33,7 @@ export class MlTableElement extends CustomElement {
         });
     }
     set mlBrowserProxy(mlBrowserProxy) {
+        this.mlBrowserProxy_ = mlBrowserProxy;
         mlBrowserProxy.addResponseListener((...args) => this.onNewResponse(...args));
     }
     onNewResponse(responseFilter, controllerType, input, matches) {
@@ -52,23 +54,38 @@ export class MlTableElement extends CustomElement {
             this.getRequiredElement('#traditional-response') :
             this.getRequiredElement('#ml-response');
         clearChildren(tbody);
-        result.forEach(result => {
-            const additionalInfo = Object.fromEntries(result.additionalInfo.map(tuple => Object.values(tuple)));
-            const tr = createEl('div', tbody, ['tr']);
-            tr.addEventListener('click', () => {
-                this.$all('.tbody .tr')
-                    .forEach(tr2 => tr2.classList.toggle('selected', tr2 === tr));
-                this.dispatchEvent(new CustomEvent('match-selected', { detail: result.scoringSignals }));
-            });
-            [inputText,
-                result.providerName,
-                result.contents,
-                result.description,
-                result.relevance,
+        const headers = this.getRequiredElement('.thead .tr').children;
+        result.forEach(match => {
+            const additionalInfo = Object.fromEntries(match.additionalInfo.map(tuple => Object.values(tuple)));
+            const matchDetails = [
+                inputText,
+                match.providerName,
+                match.contents,
+                match.description,
+                match.relevance,
                 additionalInfo['ml model output'] || '',
                 additionalInfo['ml legacy relevance'] || '',
-                ...Object.values(result.scoringSignals),
-            ].forEach(value => createEl('div', tr, ['td'], value));
+            ];
+            const signalValues = Object.values(match.scoringSignals).map(value => {
+                if (typeof value === 'number') {
+                    return value.toLocaleString('en-US', {
+                        'roundingPriority': 'morePrecision',
+                    });
+                }
+                else if (typeof value === 'bigint') {
+                    return value.toLocaleString('en-US');
+                }
+                return value;
+            });
+            const tr = createEl('div', tbody, ['tr']);
+            tr.addEventListener('click', async () => {
+                this.$all('.tbody .tr')
+                    .forEach(tr2 => tr2.classList.toggle('selected', tr2 === tr));
+                this.dispatchEvent(new CustomEvent('match-selected', { detail: match.scoringSignals }));
+                const promise = setFormattedClipboardForMl(Object.fromEntries(matchDetails.map((value, i) => [headers[i].textContent, value])), match.scoringSignals, '', await this.mlBrowserProxy_.modelVersion);
+                this.dispatchEvent(new CustomEvent('copied', { detail: promise }));
+            });
+            [...matchDetails, ...signalValues].forEach(value => createEl('div', tr, ['td'], value));
             assert(tr.childElementCount ===
                 this.getRequiredElement('.thead .tr').childElementCount);
         });

@@ -86,12 +86,12 @@ export class AnimationTimeline extends UI.Widget.VBox {
     #grid;
     #playbackRate;
     #allPaused;
+    #screenshotPopovers = [];
     #animationsContainer;
     #playbackRateButtons;
     #previewContainer;
     #timelineScrubber;
     #currentTime;
-    #popoverHelper;
     #clearButton;
     #selectedGroup;
     #renderQueue;
@@ -109,7 +109,6 @@ export class AnimationTimeline extends UI.Widget.VBox {
     #controlState;
     #redrawing;
     #cachedTimelineWidth;
-    #cachedTimelineHeight;
     #scrubberPlayer;
     #gridOffsetLeft;
     #originalScrubberTime;
@@ -139,7 +138,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
         this.#animationsMap = new Map();
         this.#timelineControlsWidth = DEFAULT_TIMELINE_CONTROLS_WIDTH;
         this.element.style.setProperty('--timeline-controls-width', `${this.#timelineControlsWidth}px`);
-        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.DOMModel.DOMModel, SDK.DOMModel.Events.NodeRemoved, this.nodeRemoved, this, { scoped: true });
+        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.DOMModel.DOMModel, SDK.DOMModel.Events.NodeRemoved, ev => this.markNodeAsRemoved(ev.data.node), this, { scoped: true });
         SDK.TargetManager.TargetManager.instance().observeModels(AnimationModel, this, { scoped: true });
         UI.Context.Context.instance().addFlavorChangeListener(SDK.DOMModel.DOMNode, this.nodeChanged, this);
         this.#setupTimelineControlsResizer();
@@ -187,9 +186,6 @@ export class AnimationTimeline extends UI.Widget.VBox {
     willHide() {
         for (const animationModel of SDK.TargetManager.TargetManager.instance().models(AnimationModel, { scoped: true })) {
             this.removeEventListeners(animationModel);
-        }
-        if (this.#popoverHelper) {
-            this.#popoverHelper.hidePopover();
         }
     }
     modelAdded(animationModel) {
@@ -258,9 +254,6 @@ export class AnimationTimeline extends UI.Widget.VBox {
         this.#previewContainer = this.contentElement.createChild('div', 'animation-timeline-buffer');
         UI.ARIAUtils.markAsListBox(this.#previewContainer);
         UI.ARIAUtils.setLabel(this.#previewContainer, i18nString(UIStrings.animationPreviews));
-        this.#popoverHelper = new UI.PopoverHelper.PopoverHelper(this.#previewContainer, this.getPopoverRequest.bind(this));
-        this.#popoverHelper.setDisableOnClick(true);
-        this.#popoverHelper.setTimeout(0);
         const emptyBufferHint = this.contentElement.createChild('div', 'animation-timeline-buffer-hint');
         emptyBufferHint.textContent = i18nString(UIStrings.waitingForAnimations);
         const container = this.contentElement.createChild('div', 'animation-timeline-header');
@@ -273,7 +266,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
         this.#controlButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.controlButtonToggle.bind(this));
         toolbar.appendToolbarItem(this.#controlButton);
         this.#gridHeader = container.createChild('div', 'animation-grid-header');
-        UI.UIUtils.installDragHandle(this.#gridHeader, this.repositionScrubber.bind(this), this.scrubberDragMove.bind(this), this.scrubberDragEnd.bind(this), null);
+        UI.UIUtils.installDragHandle(this.#gridHeader, this.scrubberDragStart.bind(this), this.scrubberDragMove.bind(this), this.scrubberDragEnd.bind(this), null);
         this.#gridWrapper.appendChild(this.createScrubber());
         this.#currentTime.textContent = '';
         return container;
@@ -304,47 +297,6 @@ export class AnimationTimeline extends UI.Widget.VBox {
         if (target) {
             target.tabIndex = -1;
         }
-    }
-    getPopoverRequest(event) {
-        const element = event.target;
-        if (!element || !element.isDescendant(this.#previewContainer)) {
-            return null;
-        }
-        return {
-            box: element.boxInWindow(),
-            show: (popover) => {
-                let animGroup;
-                for (const [group, previewUI] of this.#previewMap) {
-                    if (previewUI.element === element || previewUI.element === element.parentElement) {
-                        animGroup = group;
-                    }
-                }
-                console.assert(typeof animGroup !== 'undefined');
-                if (!animGroup) {
-                    return Promise.resolve(false);
-                }
-                const screenshots = animGroup.screenshots();
-                if (!screenshots.length) {
-                    return Promise.resolve(false);
-                }
-                let fulfill;
-                const promise = new Promise(x => {
-                    fulfill = x;
-                });
-                if (!screenshots[0].complete) {
-                    screenshots[0].onload = onFirstScreenshotLoaded.bind(null, screenshots);
-                }
-                else {
-                    onFirstScreenshotLoaded(screenshots);
-                }
-                return promise;
-                function onFirstScreenshotLoaded(screenshots) {
-                    new AnimationScreenshotPopover(screenshots).show(popover.contentElement);
-                    fulfill(true);
-                }
-            },
-            hide: undefined,
-        };
     }
     togglePauseAll() {
         this.#allPaused = !this.#allPaused;
@@ -397,7 +349,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
         if (!this.#controlButton) {
             return;
         }
-        this.#controlButton.setEnabled(Boolean(this.#selectedGroup));
+        this.#controlButton.setEnabled(Boolean(this.#selectedGroup) && this.hasAnimationGroupActiveNodes());
         if (this.#selectedGroup && this.#selectedGroup.paused()) {
             this.#controlState = "play-outline" /* ControlState.Play */;
             this.#controlButton.setToggled(true);
@@ -435,7 +387,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
         this.updateControlButton();
     }
     replay() {
-        if (!this.#selectedGroup) {
+        if (!this.#selectedGroup || !this.hasAnimationGroupActiveNodes()) {
             return;
         }
         this.#selectedGroup.seekTo(0);
@@ -456,7 +408,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
         this.#animationsContainer.removeChildren();
         this.#durationInternal = this.#defaultDuration;
         this.#timelineScrubber.classList.add('hidden');
-        this.#gridHeader.classList.remove('has-selected-group');
+        this.#gridHeader.classList.remove('scrubber-enabled');
         this.#selectedGroup = null;
         if (this.#scrubberPlayer) {
             this.#scrubberPlayer.cancel();
@@ -472,13 +424,69 @@ export class AnimationTimeline extends UI.Widget.VBox {
             group.release();
         }
         this.#groupBuffer = [];
-        this.#previewMap.clear();
-        this.#previewContainer.removeChildren();
-        this.#popoverHelper.hidePopover();
+        this.clearPreviews();
         this.renderGrid();
     }
     animationGroupStarted({ data }) {
         this.addAnimationGroup(data);
+    }
+    clearPreviews() {
+        this.#previewMap.clear();
+        this.#screenshotPopovers.forEach(popover => {
+            popover.detach();
+        });
+        this.#previewContainer.removeChildren();
+        this.#screenshotPopovers = [];
+    }
+    createPreview(group) {
+        const preview = new AnimationGroupPreviewUI(group);
+        const previewUiContainer = document.createElement('div');
+        previewUiContainer.classList.add('preview-ui-container');
+        previewUiContainer.appendChild(preview.element);
+        const screenshotsContainer = document.createElement('div');
+        screenshotsContainer.classList.add('screenshots-container', 'no-screenshots');
+        screenshotsContainer.appendChild(UI.Icon.Icon.create('mediumicon-arrow-top', 'screenshot-arrow'));
+        // After the view is shown on hover, position it if it is out of bounds.
+        screenshotsContainer.addEventListener('animationend', () => {
+            const { right } = screenshotsContainer.getBoundingClientRect();
+            if (right > window.innerWidth) {
+                screenshotsContainer.classList.add('to-the-left');
+            }
+        });
+        previewUiContainer.appendChild(screenshotsContainer);
+        this.#groupBuffer.push(group);
+        this.#previewMap.set(group, preview);
+        this.#previewContainer.appendChild(previewUiContainer);
+        preview.removeButton().addEventListener('click', this.removeAnimationGroup.bind(this, group));
+        preview.element.addEventListener('click', this.selectAnimationGroup.bind(this, group));
+        preview.element.addEventListener('keydown', this.handleAnimationGroupKeyDown.bind(this, group));
+        preview.element.addEventListener('mouseover', () => {
+            const screenshots = group.screenshots();
+            if (!screenshots.length) {
+                return;
+            }
+            screenshotsContainer.classList.remove('no-screenshots');
+            const createAndShowScreenshotPopover = () => {
+                const screenshotPopover = new AnimationScreenshotPopover(screenshots);
+                // This is needed for clearing out the widgets
+                this.#screenshotPopovers.push(screenshotPopover);
+                screenshotPopover.show(screenshotsContainer);
+            };
+            if (!screenshots[0].complete) {
+                screenshots[0].onload = createAndShowScreenshotPopover;
+            }
+            else {
+                createAndShowScreenshotPopover();
+            }
+        }, { once: true });
+        UI.ARIAUtils.setLabel(preview.element, i18nString(UIStrings.animationPreviewS, { PH1: this.#groupBuffer.indexOf(group) + 1 }));
+        UI.ARIAUtils.markAsOption(preview.element);
+        if (this.#previewMap.size === 1) {
+            const preview = this.#previewMap.get(this.#groupBuffer[0]);
+            if (preview) {
+                preview.element.tabIndex = 0;
+            }
+        }
     }
     addAnimationGroup(group) {
         function startTimeComparator(left, right) {
@@ -514,28 +522,13 @@ export class AnimationTimeline extends UI.Widget.VBox {
             this.#previewMap.delete(g);
             g.release();
         }
-        // Generate preview
-        const preview = new AnimationGroupPreviewUI(group);
-        this.#groupBuffer.push(group);
-        this.#previewMap.set(group, preview);
-        this.#previewContainer.appendChild(preview.element);
-        preview.removeButton().addEventListener('click', this.removeAnimationGroup.bind(this, group));
-        preview.element.addEventListener('click', this.selectAnimationGroup.bind(this, group));
-        preview.element.addEventListener('keydown', this.handleAnimationGroupKeyDown.bind(this, group));
-        UI.ARIAUtils.setLabel(preview.element, i18nString(UIStrings.animationPreviewS, { PH1: this.#groupBuffer.indexOf(group) + 1 }));
-        UI.ARIAUtils.markAsOption(preview.element);
-        if (this.#previewMap.size === 1) {
-            const preview = this.#previewMap.get(this.#groupBuffer[0]);
-            if (preview) {
-                preview.element.tabIndex = 0;
-            }
-        }
+        this.createPreview(group);
     }
     handleAnimationGroupKeyDown(group, event) {
         switch (event.key) {
             case ' ':
             case 'Enter':
-                this.selectAnimationGroup(group);
+                void this.selectAnimationGroup(group);
                 break;
             case 'Backspace':
             case 'Delete':
@@ -592,10 +585,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
             nextGroup.element.focus();
         }
     }
-    selectAnimationGroup(group) {
-        function applySelectionClass(ui, group) {
-            ui.element.classList.toggle('selected', this.#selectedGroup === group);
-        }
+    async selectAnimationGroup(group) {
         if (this.#selectedGroup === group) {
             this.togglePause(false);
             this.replay();
@@ -603,25 +593,25 @@ export class AnimationTimeline extends UI.Widget.VBox {
         }
         this.clearTimeline();
         this.#selectedGroup = group;
-        this.#previewMap.forEach(applySelectionClass, this);
+        this.#previewMap.forEach((previewUI, group) => {
+            previewUI.element.classList.toggle('selected', this.#selectedGroup === group);
+        });
         this.setDuration(Math.max(500, group.finiteDuration() + 100));
-        for (const anim of group.animations()) {
-            this.addAnimation(anim);
-        }
+        // Wait for all animations to be added and nodes to be resolved
+        // until we schedule a redraw.
+        await Promise.all(group.animations().map(anim => this.addAnimation(anim)));
         this.scheduleRedraw();
-        this.#timelineScrubber.classList.remove('hidden');
-        this.#gridHeader.classList.add('has-selected-group');
         this.togglePause(false);
         this.replay();
-    }
-    addAnimation(animation) {
-        function nodeResolved(node) {
-            uiAnimation.setNode(node);
-            if (node && nodeUI) {
-                nodeUI.nodeResolved(node);
-                nodeUIsByNode.set(node, nodeUI);
-            }
+        if (this.hasAnimationGroupActiveNodes()) {
+            this.#timelineScrubber.classList.remove('hidden');
+            this.#gridHeader.classList.add('scrubber-enabled');
         }
+        this.animationGroupSelectedForTest();
+    }
+    animationGroupSelectedForTest() {
+    }
+    async addAnimation(animation) {
         let nodeUI = this.#nodesMap.get(animation.source().backendNodeId());
         if (!nodeUI) {
             nodeUI = new NodeUI(animation.source());
@@ -630,25 +620,48 @@ export class AnimationTimeline extends UI.Widget.VBox {
         }
         const nodeRow = nodeUI.createNewRow();
         const uiAnimation = new AnimationUI(animation, this, nodeRow);
-        animation.source().deferredNode().resolve(nodeResolved.bind(this));
+        const node = await animation.source().deferredNode().resolvePromise();
+        uiAnimation.setNode(node);
+        if (node && nodeUI) {
+            nodeUI.nodeResolved(node);
+            nodeUIsByNode.set(node, nodeUI);
+        }
         this.#uiAnimations.push(uiAnimation);
         this.#animationsMap.set(animation.id(), animation);
     }
-    nodeRemoved(event) {
-        const { node } = event.data;
-        const nodeUI = nodeUIsByNode.get(node);
-        if (nodeUI) {
-            nodeUI.nodeRemoved();
+    markNodeAsRemoved(node) {
+        nodeUIsByNode.get(node)?.nodeRemoved();
+        // Mark nodeUIs of pseudo elements of the node as removed for instance, for view transitions.
+        for (const pseudoElements of node.pseudoElements().values()) {
+            pseudoElements.forEach(pseudoElement => this.markNodeAsRemoved(pseudoElement));
         }
+        // Mark nodeUIs of children as node removed.
+        node.children()?.forEach(child => {
+            this.markNodeAsRemoved(child);
+        });
+        // If the user already has a selected animation group and
+        // some of the nodes are removed, we check whether all the nodes
+        // are removed for the currently selected animation. If that's the case
+        // we remove the scrubber and update control button to be disabled.
+        if (!this.hasAnimationGroupActiveNodes()) {
+            this.#gridHeader.classList.remove('scrubber-enabled');
+            this.#timelineScrubber.classList.add('hidden');
+            this.#scrubberPlayer?.cancel();
+            this.#scrubberPlayer = undefined;
+            this.#currentTime.textContent = '';
+            this.updateControlButton();
+        }
+    }
+    hasAnimationGroupActiveNodes() {
+        for (const nodeUI of this.#nodesMap.values()) {
+            if (nodeUI.hasActiveNode()) {
+                return true;
+            }
+        }
+        return false;
     }
     renderGrid() {
         /** @const */ const gridSize = 250;
-        const gridWidth = (this.width() + 10).toString();
-        const gridHeight = ((this.#cachedTimelineHeight || 0) + 30).toString();
-        this.#gridWrapper.style.width = gridWidth + 'px';
-        this.#gridWrapper.style.height = gridHeight.toString() + 'px';
-        this.#grid.setAttribute('width', gridWidth);
-        this.#grid.setAttribute('height', gridHeight.toString());
         this.#grid.removeChildren();
         let lastDraw = undefined;
         for (let time = 0; time < this.duration(); time += gridSize) {
@@ -697,7 +710,6 @@ export class AnimationTimeline extends UI.Widget.VBox {
     }
     onResize() {
         this.#cachedTimelineWidth = Math.max(0, this.#animationsContainer.offsetWidth - this.#timelineControlsWidth) || 0;
-        this.#cachedTimelineHeight = this.#animationsContainer.offsetHeight;
         this.scheduleRedraw();
         if (this.#scrubberPlayer) {
             this.syncScrubber();
@@ -708,7 +720,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
         return this.#cachedTimelineWidth || 0;
     }
     syncScrubber() {
-        if (!this.#selectedGroup) {
+        if (!this.#selectedGroup || !this.hasAnimationGroupActiveNodes()) {
             return;
         }
         void this.#selectedGroup.currentTimePromise()
@@ -740,8 +752,8 @@ export class AnimationTimeline extends UI.Widget.VBox {
             this.#currentTime.textContent = '';
         }
     }
-    repositionScrubber(event) {
-        if (!this.#selectedGroup) {
+    scrubberDragStart(event) {
+        if (!this.#selectedGroup || !this.hasAnimationGroupActiveNodes()) {
             return false;
         }
         // Seek to current mouse position.
@@ -794,6 +806,7 @@ export class NodeUI {
     element;
     #description;
     #timelineElement;
+    #overlayElement;
     #node;
     constructor(_animationEffect) {
         this.element = document.createElement('div');
@@ -824,7 +837,15 @@ export class NodeUI {
     }
     nodeRemoved() {
         this.element.classList.add('animation-node-removed');
+        if (!this.#overlayElement) {
+            this.#overlayElement = document.createElement('div');
+            this.#overlayElement.classList.add('animation-node-removed-overlay');
+            this.#description.appendChild(this.#overlayElement);
+        }
         this.#node = null;
+    }
+    hasActiveNode() {
+        return Boolean(this.#node);
     }
     nodeChanged() {
         let animationNodeSelected = false;

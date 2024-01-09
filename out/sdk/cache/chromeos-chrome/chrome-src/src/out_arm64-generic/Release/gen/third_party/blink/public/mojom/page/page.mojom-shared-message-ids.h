@@ -17,13 +17,14 @@ namespace internal {
 constexpr uint32_t kPageBroadcast_SetPageLifecycleState_Name = 0;
 constexpr uint32_t kPageBroadcast_AudioStateChanged_Name = 1;
 constexpr uint32_t kPageBroadcast_ActivatePrerenderedPage_Name = 2;
-constexpr uint32_t kPageBroadcast_SetInsidePortal_Name = 3;
-constexpr uint32_t kPageBroadcast_UpdateWebPreferences_Name = 4;
-constexpr uint32_t kPageBroadcast_UpdateRendererPreferences_Name = 5;
-constexpr uint32_t kPageBroadcast_SetHistoryOffsetAndLength_Name = 6;
-constexpr uint32_t kPageBroadcast_SetPageBaseBackgroundColor_Name = 7;
-constexpr uint32_t kPageBroadcast_CreateRemoteMainFrame_Name = 8;
-constexpr uint32_t kPageBroadcast_UpdatePageBrowsingContextGroup_Name = 9;
+constexpr uint32_t kPageBroadcast_UpdateWebPreferences_Name = 3;
+constexpr uint32_t kPageBroadcast_UpdateRendererPreferences_Name = 4;
+constexpr uint32_t kPageBroadcast_SetHistoryOffsetAndLength_Name = 5;
+constexpr uint32_t kPageBroadcast_SetPageBaseBackgroundColor_Name = 6;
+constexpr uint32_t kPageBroadcast_CreateRemoteMainFrame_Name = 7;
+constexpr uint32_t kPageBroadcast_UpdatePageBrowsingContextGroup_Name = 8;
+constexpr uint32_t kPageBroadcast_SetPageAttributionSupport_Name = 9;
+constexpr uint32_t kPageBroadcast_UpdateColorProviders_Name = 10;
 
 }  // namespace internal
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/compositor_render_pass.mojom-features.h"
 #include "services/viz/public/mojom/compositing/compositor_render_pass.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/compositor_render_pass.mojom-forward.h"
 #include "services/viz/public/mojom/compositing/compositor_render_pass_id.mojom.h"
@@ -89,7 +90,7 @@ class  CompositorRenderPass {
       const ::gfx::Transform& transform_to_root_target,
       const ::cc::FilterOperations& filters,
       const ::cc::FilterOperations& backdrop_filters,
-      const absl::optional<::gfx::RRectF>& backdrop_filter_bounds,
+      const std::optional<::gfx::RRectF>& backdrop_filter_bounds,
       const ::viz::SubtreeCaptureId& subtree_capture_id,
       const ::gfx::Size& subtree_size,
       const ::viz::ViewTransitionElementResourceId& view_transition_element_resource_id,
@@ -186,7 +187,7 @@ CompositorRenderPass& operator=(const CompositorRenderPass&) = delete;
   
   ::cc::FilterOperations backdrop_filters;
   
-  absl::optional<::gfx::RRectF> backdrop_filter_bounds;
+  std::optional<::gfx::RRectF> backdrop_filter_bounds;
   
   ::viz::SubtreeCaptureId subtree_capture_id;
   

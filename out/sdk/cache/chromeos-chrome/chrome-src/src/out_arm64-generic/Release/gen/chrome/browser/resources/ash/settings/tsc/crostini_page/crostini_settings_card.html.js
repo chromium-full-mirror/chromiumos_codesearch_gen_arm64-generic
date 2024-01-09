@@ -1,9 +1,13 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">#bruschettaRowIcon,:host-context(body.revamp-wayfinding-enabled) #crostiniRowIcon{margin-inline-end:16px;fill:var(--cros-sys-primary)}</style>
 
 <settings-card header-text="$i18n{crostiniPageTitle}">
   <div id="crostini" class="settings-box two-line first" actionable$="[[prefs.crostini.enabled.value]]" on-click="onSubpageClick_">
+    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+      <iron-icon id="crostiniRowIcon" icon="os-settings:about-linux">
+      </iron-icon>
+    </template>
     <div class="start">
       $i18n{crostiniPageLabel}
       <div class="secondary" id="secondaryText">
@@ -38,6 +42,10 @@ export function getTemplate() {
 
   <template is="dom-if" if="[[showBruschetta_]]">
     <div id="bruschetta" class="settings-box two-line" actionable$="[[prefs.bruschetta.installed.value]]" on-click="onBruschettaSubpageClick_">
+      <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+        <iron-icon id="bruschettaRowIcon" icon="os-settings:about-manage-develop-environment">
+        </iron-icon>
+      </template>
       <div class="start">
         $i18n{bruschettaPageLabel}
         <div class="secondary" id="bruschettaSecondaryText">

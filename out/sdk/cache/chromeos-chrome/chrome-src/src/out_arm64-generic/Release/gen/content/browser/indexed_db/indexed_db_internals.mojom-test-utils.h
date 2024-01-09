@@ -29,14 +29,14 @@ class COMPONENT_EXPORT(INDEXED_DB_INTERFACES) IdbInternalsHandlerAsyncWaiter {
 
   ~IdbInternalsHandlerAsyncWaiter();
   void GetAllBucketsAcrossAllStorageKeys(
-      absl::optional<std::string>* out_error, std::vector<IdbPartitionMetadataPtr>* out_partitions);
+      std::optional<std::string>* out_error, std::vector<IdbPartitionMetadataPtr>* out_partitions);
   
   void DownloadBucketData(
-      ::storage::BucketId bucketId, absl::optional<std::string>* out_error, uint64_t* out_connection_count);
-  
+      ::storage::BucketId bucketId, std::optional<std::string>* out_error);
+  std::optional<std::string> DownloadBucketData(::storage::BucketId bucketId);
   void ForceClose(
-      ::storage::BucketId bucketId, absl::optional<std::string>* out_error, uint64_t* out_connection_count);
-  
+      ::storage::BucketId bucketId, std::optional<std::string>* out_error);
+  std::optional<std::string> ForceClose(::storage::BucketId bucketId);
 
  private:
   IdbInternalsHandler* const proxy_;

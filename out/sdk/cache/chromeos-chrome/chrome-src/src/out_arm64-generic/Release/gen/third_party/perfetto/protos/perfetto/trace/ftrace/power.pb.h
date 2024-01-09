@@ -64,6 +64,9 @@ extern CpuIdleFtraceEventDefaultTypeInternal _CpuIdleFtraceEvent_default_instanc
 class GpuFrequencyFtraceEvent;
 struct GpuFrequencyFtraceEventDefaultTypeInternal;
 extern GpuFrequencyFtraceEventDefaultTypeInternal _GpuFrequencyFtraceEvent_default_instance_;
+class GpuWorkPeriodFtraceEvent;
+struct GpuWorkPeriodFtraceEventDefaultTypeInternal;
+extern GpuWorkPeriodFtraceEventDefaultTypeInternal _GpuWorkPeriodFtraceEvent_default_instance_;
 class SuspendResumeFtraceEvent;
 struct SuspendResumeFtraceEventDefaultTypeInternal;
 extern SuspendResumeFtraceEventDefaultTypeInternal _SuspendResumeFtraceEvent_default_instance_;
@@ -83,6 +86,7 @@ template<> ::perfetto::protos::CpuFrequencyFtraceEvent* Arena::CreateMaybeMessag
 template<> ::perfetto::protos::CpuFrequencyLimitsFtraceEvent* Arena::CreateMaybeMessage<::perfetto::protos::CpuFrequencyLimitsFtraceEvent>(Arena*);
 template<> ::perfetto::protos::CpuIdleFtraceEvent* Arena::CreateMaybeMessage<::perfetto::protos::CpuIdleFtraceEvent>(Arena*);
 template<> ::perfetto::protos::GpuFrequencyFtraceEvent* Arena::CreateMaybeMessage<::perfetto::protos::GpuFrequencyFtraceEvent>(Arena*);
+template<> ::perfetto::protos::GpuWorkPeriodFtraceEvent* Arena::CreateMaybeMessage<::perfetto::protos::GpuWorkPeriodFtraceEvent>(Arena*);
 template<> ::perfetto::protos::SuspendResumeFtraceEvent* Arena::CreateMaybeMessage<::perfetto::protos::SuspendResumeFtraceEvent>(Arena*);
 template<> ::perfetto::protos::WakeupSourceActivateFtraceEvent* Arena::CreateMaybeMessage<::perfetto::protos::WakeupSourceActivateFtraceEvent>(Arena*);
 template<> ::perfetto::protos::WakeupSourceDeactivateFtraceEvent* Arena::CreateMaybeMessage<::perfetto::protos::WakeupSourceDeactivateFtraceEvent>(Arena*);
@@ -1735,6 +1739,205 @@ class WakeupSourceDeactivateFtraceEvent final :
   uint64_t state_;
   friend struct ::TableStruct_protos_2fperfetto_2ftrace_2fftrace_2fpower_2eproto;
 };
+// -------------------------------------------------------------------
+
+class GpuWorkPeriodFtraceEvent final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:perfetto.protos.GpuWorkPeriodFtraceEvent) */ {
+ public:
+  inline GpuWorkPeriodFtraceEvent() : GpuWorkPeriodFtraceEvent(nullptr) {}
+  ~GpuWorkPeriodFtraceEvent() override;
+  explicit PROTOBUF_CONSTEXPR GpuWorkPeriodFtraceEvent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GpuWorkPeriodFtraceEvent(const GpuWorkPeriodFtraceEvent& from);
+  GpuWorkPeriodFtraceEvent(GpuWorkPeriodFtraceEvent&& from) noexcept
+    : GpuWorkPeriodFtraceEvent() {
+    *this = ::std::move(from);
+  }
+
+  inline GpuWorkPeriodFtraceEvent& operator=(const GpuWorkPeriodFtraceEvent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GpuWorkPeriodFtraceEvent& operator=(GpuWorkPeriodFtraceEvent&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const GpuWorkPeriodFtraceEvent& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GpuWorkPeriodFtraceEvent* internal_default_instance() {
+    return reinterpret_cast<const GpuWorkPeriodFtraceEvent*>(
+               &_GpuWorkPeriodFtraceEvent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(GpuWorkPeriodFtraceEvent& a, GpuWorkPeriodFtraceEvent& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GpuWorkPeriodFtraceEvent* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GpuWorkPeriodFtraceEvent* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GpuWorkPeriodFtraceEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GpuWorkPeriodFtraceEvent>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GpuWorkPeriodFtraceEvent& from);
+  void MergeFrom(const GpuWorkPeriodFtraceEvent& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GpuWorkPeriodFtraceEvent* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "perfetto.protos.GpuWorkPeriodFtraceEvent";
+  }
+  protected:
+  explicit GpuWorkPeriodFtraceEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kGpuIdFieldNumber = 1,
+    kUidFieldNumber = 2,
+    kStartTimeNsFieldNumber = 3,
+    kEndTimeNsFieldNumber = 4,
+    kTotalActiveDurationNsFieldNumber = 5,
+  };
+  // optional uint32 gpu_id = 1;
+  bool has_gpu_id() const;
+  private:
+  bool _internal_has_gpu_id() const;
+  public:
+  void clear_gpu_id();
+  uint32_t gpu_id() const;
+  void set_gpu_id(uint32_t value);
+  private:
+  uint32_t _internal_gpu_id() const;
+  void _internal_set_gpu_id(uint32_t value);
+  public:
+
+  // optional uint32 uid = 2;
+  bool has_uid() const;
+  private:
+  bool _internal_has_uid() const;
+  public:
+  void clear_uid();
+  uint32_t uid() const;
+  void set_uid(uint32_t value);
+  private:
+  uint32_t _internal_uid() const;
+  void _internal_set_uid(uint32_t value);
+  public:
+
+  // optional uint64 start_time_ns = 3;
+  bool has_start_time_ns() const;
+  private:
+  bool _internal_has_start_time_ns() const;
+  public:
+  void clear_start_time_ns();
+  uint64_t start_time_ns() const;
+  void set_start_time_ns(uint64_t value);
+  private:
+  uint64_t _internal_start_time_ns() const;
+  void _internal_set_start_time_ns(uint64_t value);
+  public:
+
+  // optional uint64 end_time_ns = 4;
+  bool has_end_time_ns() const;
+  private:
+  bool _internal_has_end_time_ns() const;
+  public:
+  void clear_end_time_ns();
+  uint64_t end_time_ns() const;
+  void set_end_time_ns(uint64_t value);
+  private:
+  uint64_t _internal_end_time_ns() const;
+  void _internal_set_end_time_ns(uint64_t value);
+  public:
+
+  // optional uint64 total_active_duration_ns = 5;
+  bool has_total_active_duration_ns() const;
+  private:
+  bool _internal_has_total_active_duration_ns() const;
+  public:
+  void clear_total_active_duration_ns();
+  uint64_t total_active_duration_ns() const;
+  void set_total_active_duration_ns(uint64_t value);
+  private:
+  uint64_t _internal_total_active_duration_ns() const;
+  void _internal_set_total_active_duration_ns(uint64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:perfetto.protos.GpuWorkPeriodFtraceEvent)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t gpu_id_;
+  uint32_t uid_;
+  uint64_t start_time_ns_;
+  uint64_t end_time_ns_;
+  uint64_t total_active_duration_ns_;
+  friend struct ::TableStruct_protos_2fperfetto_2ftrace_2fftrace_2fpower_2eproto;
+};
 // ===================================================================
 
 
@@ -2722,9 +2925,155 @@ inline void WakeupSourceDeactivateFtraceEvent::set_state(uint64_t value) {
   // @@protoc_insertion_point(field_set:perfetto.protos.WakeupSourceDeactivateFtraceEvent.state)
 }
 
+// -------------------------------------------------------------------
+
+// GpuWorkPeriodFtraceEvent
+
+// optional uint32 gpu_id = 1;
+inline bool GpuWorkPeriodFtraceEvent::_internal_has_gpu_id() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool GpuWorkPeriodFtraceEvent::has_gpu_id() const {
+  return _internal_has_gpu_id();
+}
+inline void GpuWorkPeriodFtraceEvent::clear_gpu_id() {
+  gpu_id_ = 0u;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint32_t GpuWorkPeriodFtraceEvent::_internal_gpu_id() const {
+  return gpu_id_;
+}
+inline uint32_t GpuWorkPeriodFtraceEvent::gpu_id() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.GpuWorkPeriodFtraceEvent.gpu_id)
+  return _internal_gpu_id();
+}
+inline void GpuWorkPeriodFtraceEvent::_internal_set_gpu_id(uint32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  gpu_id_ = value;
+}
+inline void GpuWorkPeriodFtraceEvent::set_gpu_id(uint32_t value) {
+  _internal_set_gpu_id(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.GpuWorkPeriodFtraceEvent.gpu_id)
+}
+
+// optional uint32 uid = 2;
+inline bool GpuWorkPeriodFtraceEvent::_internal_has_uid() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool GpuWorkPeriodFtraceEvent::has_uid() const {
+  return _internal_has_uid();
+}
+inline void GpuWorkPeriodFtraceEvent::clear_uid() {
+  uid_ = 0u;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline uint32_t GpuWorkPeriodFtraceEvent::_internal_uid() const {
+  return uid_;
+}
+inline uint32_t GpuWorkPeriodFtraceEvent::uid() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.GpuWorkPeriodFtraceEvent.uid)
+  return _internal_uid();
+}
+inline void GpuWorkPeriodFtraceEvent::_internal_set_uid(uint32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  uid_ = value;
+}
+inline void GpuWorkPeriodFtraceEvent::set_uid(uint32_t value) {
+  _internal_set_uid(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.GpuWorkPeriodFtraceEvent.uid)
+}
+
+// optional uint64 start_time_ns = 3;
+inline bool GpuWorkPeriodFtraceEvent::_internal_has_start_time_ns() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool GpuWorkPeriodFtraceEvent::has_start_time_ns() const {
+  return _internal_has_start_time_ns();
+}
+inline void GpuWorkPeriodFtraceEvent::clear_start_time_ns() {
+  start_time_ns_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline uint64_t GpuWorkPeriodFtraceEvent::_internal_start_time_ns() const {
+  return start_time_ns_;
+}
+inline uint64_t GpuWorkPeriodFtraceEvent::start_time_ns() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.GpuWorkPeriodFtraceEvent.start_time_ns)
+  return _internal_start_time_ns();
+}
+inline void GpuWorkPeriodFtraceEvent::_internal_set_start_time_ns(uint64_t value) {
+  _has_bits_[0] |= 0x00000004u;
+  start_time_ns_ = value;
+}
+inline void GpuWorkPeriodFtraceEvent::set_start_time_ns(uint64_t value) {
+  _internal_set_start_time_ns(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.GpuWorkPeriodFtraceEvent.start_time_ns)
+}
+
+// optional uint64 end_time_ns = 4;
+inline bool GpuWorkPeriodFtraceEvent::_internal_has_end_time_ns() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool GpuWorkPeriodFtraceEvent::has_end_time_ns() const {
+  return _internal_has_end_time_ns();
+}
+inline void GpuWorkPeriodFtraceEvent::clear_end_time_ns() {
+  end_time_ns_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline uint64_t GpuWorkPeriodFtraceEvent::_internal_end_time_ns() const {
+  return end_time_ns_;
+}
+inline uint64_t GpuWorkPeriodFtraceEvent::end_time_ns() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.GpuWorkPeriodFtraceEvent.end_time_ns)
+  return _internal_end_time_ns();
+}
+inline void GpuWorkPeriodFtraceEvent::_internal_set_end_time_ns(uint64_t value) {
+  _has_bits_[0] |= 0x00000008u;
+  end_time_ns_ = value;
+}
+inline void GpuWorkPeriodFtraceEvent::set_end_time_ns(uint64_t value) {
+  _internal_set_end_time_ns(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.GpuWorkPeriodFtraceEvent.end_time_ns)
+}
+
+// optional uint64 total_active_duration_ns = 5;
+inline bool GpuWorkPeriodFtraceEvent::_internal_has_total_active_duration_ns() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool GpuWorkPeriodFtraceEvent::has_total_active_duration_ns() const {
+  return _internal_has_total_active_duration_ns();
+}
+inline void GpuWorkPeriodFtraceEvent::clear_total_active_duration_ns() {
+  total_active_duration_ns_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline uint64_t GpuWorkPeriodFtraceEvent::_internal_total_active_duration_ns() const {
+  return total_active_duration_ns_;
+}
+inline uint64_t GpuWorkPeriodFtraceEvent::total_active_duration_ns() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.GpuWorkPeriodFtraceEvent.total_active_duration_ns)
+  return _internal_total_active_duration_ns();
+}
+inline void GpuWorkPeriodFtraceEvent::_internal_set_total_active_duration_ns(uint64_t value) {
+  _has_bits_[0] |= 0x00000010u;
+  total_active_duration_ns_ = value;
+}
+inline void GpuWorkPeriodFtraceEvent::set_total_active_duration_ns(uint64_t value) {
+  _internal_set_total_active_duration_ns(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.GpuWorkPeriodFtraceEvent.total_active_duration_ns)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

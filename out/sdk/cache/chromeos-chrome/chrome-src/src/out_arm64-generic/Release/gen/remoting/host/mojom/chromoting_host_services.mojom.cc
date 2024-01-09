@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void ChromotingHostServicesProxy::BindSessionServices(
                         "<value of type ::mojo::PendingReceiver<ChromotingSessionServices>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromotingHostServices_BindSessionServices_Name, kFlags, 0, 0, nullptr);
@@ -197,10 +201,10 @@ bool ChromotingHostServicesStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChromotingHostServicesValidationInfo[] = {
-    {&internal::ChromotingHostServices_BindSessionServices_Params_Data::Validate,
+    { &internal::ChromotingHostServices_BindSessionServices_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -300,14 +304,17 @@ void ChromotingSessionServicesProxy::BindWebAuthnProxy(
                         "<value of type ::mojo::PendingReceiver<::remoting::mojom::WebAuthnProxy>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromotingSessionServices_BindWebAuthnProxy_Name, kFlags, 0, 0, nullptr);
@@ -343,14 +350,17 @@ void ChromotingSessionServicesProxy::BindRemoteUrlOpener(
                         "<value of type ::mojo::PendingReceiver<::remoting::mojom::RemoteUrlOpener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromotingSessionServices_BindRemoteUrlOpener_Name, kFlags, 0, 0, nullptr);
@@ -457,12 +467,12 @@ bool ChromotingSessionServicesStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChromotingSessionServicesValidationInfo[] = {
-    {&internal::ChromotingSessionServices_BindWebAuthnProxy_Params_Data::Validate,
+    { &internal::ChromotingSessionServices_BindWebAuthnProxy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChromotingSessionServices_BindRemoteUrlOpener_Params_Data::Validate,
+    { &internal::ChromotingSessionServices_BindRemoteUrlOpener_Params_Data::Validate,
      nullptr /* no response */},
 };
 

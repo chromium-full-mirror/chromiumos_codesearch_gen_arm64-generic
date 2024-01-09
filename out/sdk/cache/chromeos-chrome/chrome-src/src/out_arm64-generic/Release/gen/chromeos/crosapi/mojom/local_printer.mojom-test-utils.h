@@ -130,8 +130,8 @@ class  LocalPrinterAsyncWaiter {
       PoliciesPtr* out_policies);
   PoliciesPtr GetPolicies();
   void GetUsernamePerPolicy(
-      absl::optional<std::string>* out_username);
-  absl::optional<std::string> GetUsernamePerPolicy();
+      std::optional<std::string>* out_username);
+  std::optional<std::string> GetUsernamePerPolicy();
   void GetPrinterTypeDenyList(
       std::vector<::printing::mojom::PrinterType>* out_deny_list);
   std::vector<::printing::mojom::PrinterType> GetPrinterTypeDenyList();

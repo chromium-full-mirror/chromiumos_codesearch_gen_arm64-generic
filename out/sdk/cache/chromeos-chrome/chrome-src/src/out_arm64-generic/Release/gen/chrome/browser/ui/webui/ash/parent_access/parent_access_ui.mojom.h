@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/parent_access/parent_access_ui.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/parent_access/parent_access_ui.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/parent_access/parent_access_ui.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -375,17 +376,17 @@ class  FlowTypeParams {
   // Construct an instance holding |web_approvals_params|.
   static FlowTypeParamsPtr
   NewWebApprovalsParams(
-      WebApprovalsParamsPtr web_approvals_params) {
+      WebApprovalsParamsPtr value) {
     auto result = FlowTypeParamsPtr(absl::in_place);
-    result->set_web_approvals_params(std::move(web_approvals_params));
+    result->set_web_approvals_params(std::move(value));
     return result;
   }
   // Construct an instance holding |extension_approvals_params|.
   static FlowTypeParamsPtr
   NewExtensionApprovalsParams(
-      ExtensionApprovalsParamsPtr extension_approvals_params) {
+      ExtensionApprovalsParamsPtr value) {
     auto result = FlowTypeParamsPtr(absl::in_place);
-    result->set_extension_approvals_params(std::move(extension_approvals_params));
+    result->set_extension_approvals_params(std::move(value));
     return result;
   }
 

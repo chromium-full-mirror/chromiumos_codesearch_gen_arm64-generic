@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -395,14 +396,17 @@ void PhotosHandlerProxy::GetMemories(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send photos::mojom::PhotosHandler::GetMemories");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_GetMemories_Name, kFlags, 0, 0, nullptr);
@@ -426,14 +430,17 @@ void PhotosHandlerProxy::DismissModule(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send photos::mojom::PhotosHandler::DismissModule");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_DismissModule_Name, kFlags, 0, 0, nullptr);
@@ -456,14 +463,17 @@ void PhotosHandlerProxy::RestoreModule(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send photos::mojom::PhotosHandler::RestoreModule");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_RestoreModule_Name, kFlags, 0, 0, nullptr);
@@ -486,14 +496,17 @@ void PhotosHandlerProxy::ShouldShowOptInScreen(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send photos::mojom::PhotosHandler::ShouldShowOptInScreen");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_ShouldShowOptInScreen_Name, kFlags, 0, 0, nullptr);
@@ -524,14 +537,17 @@ void PhotosHandlerProxy::OnUserOptIn(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_OnUserOptIn_Name, kFlags, 0, 0, nullptr);
@@ -555,14 +571,17 @@ void PhotosHandlerProxy::OnMemoryOpen(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send photos::mojom::PhotosHandler::OnMemoryOpen");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_OnMemoryOpen_Name, kFlags, 0, 0, nullptr);
@@ -585,14 +604,17 @@ void PhotosHandlerProxy::ShouldShowSoftOptOutButton(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send photos::mojom::PhotosHandler::ShouldShowSoftOptOutButton");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_ShouldShowSoftOptOutButton_Name, kFlags, 0, 0, nullptr);
@@ -616,14 +638,17 @@ void PhotosHandlerProxy::SoftOptOut(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send photos::mojom::PhotosHandler::SoftOptOut");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_SoftOptOut_Name, kFlags, 0, 0, nullptr);
@@ -653,14 +678,17 @@ void PhotosHandlerProxy::GetOptInTitleText(
                         "<value of type std::vector<MemoryPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_GetOptInTitleText_Name, kFlags, 0, 0, nullptr);
@@ -783,7 +811,8 @@ void PhotosHandler_GetMemories_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_GetMemories_Name, kFlags, 0, 0, nullptr);
@@ -913,7 +942,8 @@ void PhotosHandler_ShouldShowOptInScreen_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_ShouldShowOptInScreen_Name, kFlags, 0, 0, nullptr);
@@ -1031,7 +1061,8 @@ void PhotosHandler_ShouldShowSoftOptOutButton_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_ShouldShowSoftOptOutButton_Name, kFlags, 0, 0, nullptr);
@@ -1149,7 +1180,8 @@ void PhotosHandler_GetOptInTitleText_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPhotosHandler_GetOptInTitleText_Name, kFlags, 0, 0, nullptr);
@@ -1452,26 +1484,26 @@ std::move(p_memories), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPhotosHandlerValidationInfo[] = {
-    {&internal::PhotosHandler_GetMemories_Params_Data::Validate,
+    { &internal::PhotosHandler_GetMemories_Params_Data::Validate,
      &internal::PhotosHandler_GetMemories_ResponseParams_Data::Validate},
-    {&internal::PhotosHandler_DismissModule_Params_Data::Validate,
+    { &internal::PhotosHandler_DismissModule_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PhotosHandler_RestoreModule_Params_Data::Validate,
+    { &internal::PhotosHandler_RestoreModule_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PhotosHandler_ShouldShowOptInScreen_Params_Data::Validate,
+    { &internal::PhotosHandler_ShouldShowOptInScreen_Params_Data::Validate,
      &internal::PhotosHandler_ShouldShowOptInScreen_ResponseParams_Data::Validate},
-    {&internal::PhotosHandler_OnUserOptIn_Params_Data::Validate,
+    { &internal::PhotosHandler_OnUserOptIn_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PhotosHandler_OnMemoryOpen_Params_Data::Validate,
+    { &internal::PhotosHandler_OnMemoryOpen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PhotosHandler_ShouldShowSoftOptOutButton_Params_Data::Validate,
+    { &internal::PhotosHandler_ShouldShowSoftOptOutButton_Params_Data::Validate,
      &internal::PhotosHandler_ShouldShowSoftOptOutButton_ResponseParams_Data::Validate},
-    {&internal::PhotosHandler_SoftOptOut_Params_Data::Validate,
+    { &internal::PhotosHandler_SoftOptOut_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PhotosHandler_GetOptInTitleText_Params_Data::Validate,
+    { &internal::PhotosHandler_GetOptInTitleText_Params_Data::Validate,
      &internal::PhotosHandler_GetOptInTitleText_ResponseParams_Data::Validate},
 };
 

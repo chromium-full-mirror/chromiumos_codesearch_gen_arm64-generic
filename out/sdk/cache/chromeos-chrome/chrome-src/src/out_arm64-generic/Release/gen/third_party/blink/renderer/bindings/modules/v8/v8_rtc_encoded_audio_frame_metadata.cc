@@ -83,6 +83,33 @@ has_contributing_sources_ = true;
 
 
 
+String RTCEncodedAudioFrameMetadata::getMimeTypeOr(const String& fallback_value) const {
+  if (!hasMimeType()) {
+  return fallback_value;
+}
+return member_mime_type_;
+}
+
+String RTCEncodedAudioFrameMetadata::getMimeTypeOr(String&& fallback_value) const {
+  if (!hasMimeType()) {
+  return std::move(fallback_value);
+}
+return member_mime_type_;
+}
+
+void RTCEncodedAudioFrameMetadata::setMimeType(const String& value) {
+  member_mime_type_ = value;
+has_mime_type_ = true;
+}
+
+void RTCEncodedAudioFrameMetadata::setMimeType(String&& value) {
+  member_mime_type_ = std::move(value);
+has_mime_type_ = true;
+}
+
+
+
+
 
 
 
@@ -114,6 +141,7 @@ has_contributing_sources_ = true;
 void RTCEncodedAudioFrameMetadata::Trace(Visitor* visitor) const {
   TraceIfNeeded<uint64_t>::Trace(visitor, member_abs_capture_time_);
 TraceIfNeeded<Vector<uint32_t>>::Trace(visitor, member_contributing_sources_);
+TraceIfNeeded<String>::Trace(visitor, member_mime_type_);
 TraceIfNeeded<uint8_t>::Trace(visitor, member_payload_type_);
 TraceIfNeeded<uint32_t>::Trace(visitor, member_rtp_timestamp_);
 TraceIfNeeded<absl::optional<uint16_t>>::Trace(visitor, member_sequence_number_);
@@ -145,11 +173,19 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].G
   return false;
 }
 }
+if (hasMimeType()) {
+  if (!ToV8Traits<IDLString>::ToV8(script_state, member_mime_type_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
 if (hasPayloadType()) {
   if (!ToV8Traits<IDLOctet>::ToV8(script_state, member_payload_type_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -159,7 +195,7 @@ if (RuntimeEnabledFeatures::RTCEncodedFrameSetMetadataEnabled(execution_context)
   if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtp_timestamp_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -168,7 +204,7 @@ if (hasSequenceNumber()) {
   if (!ToV8Traits<IDLNullable<IDLUnsignedShort>>::ToV8(script_state, member_sequence_number_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -176,7 +212,7 @@ if (hasSynchronizationSource()) {
   if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_synchronization_source_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -200,23 +236,27 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("contributingSource
 if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLUnsignedLong>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_contributing_sources_, member_contributing_sources_, try_block, exception_state)) {
   return;
 }
+exception_context_scope.ChangePropertyNameAsOptimizationHack("mimeType");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_mime_type_, member_mime_type_, try_block, exception_state)) {
+  return;
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("payloadType");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLOctet, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_payload_type_, member_payload_type_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLOctet, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_payload_type_, member_payload_type_, try_block, exception_state)) {
   return;
 }
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::RTCEncodedFrameSetMetadataEnabled(execution_context)) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("rtpTimestamp");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_rtp_timestamp_, member_rtp_timestamp_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_rtp_timestamp_, member_rtp_timestamp_, try_block, exception_state)) {
   return;
 }
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("sequenceNumber");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<IDLUnsignedShort>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_sequence_number_, member_sequence_number_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<IDLUnsignedShort>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_sequence_number_, member_sequence_number_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("synchronizationSource");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_synchronization_source_, member_synchronization_source_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), has_synchronization_source_, member_synchronization_source_, try_block, exception_state)) {
   return;
 }
 }
@@ -225,6 +265,7 @@ const base::span<const v8::Eternal<v8::Name>> RTCEncodedAudioFrameMetadata::GetV
   static const char* const kOwnMemberNames[] = {
 "absCaptureTime",
 "contributingSources",
+"mimeType",
 "payloadType",
 "rtpTimestamp",
 "sequenceNumber",

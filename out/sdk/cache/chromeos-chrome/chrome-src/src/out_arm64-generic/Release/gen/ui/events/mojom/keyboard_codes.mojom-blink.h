@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/events/mojom/keyboard_codes.mojom-features.h"
 #include "ui/events/mojom/keyboard_codes.mojom-shared.h"
 #include "ui/events/mojom/keyboard_codes.mojom-blink-forward.h"
 
@@ -31,18 +32,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::ui::mojom::KeyboardCode>
-    : EnumHashTraits<::ui::mojom::KeyboardCode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace ui::mojom::blink {

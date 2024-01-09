@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, EncodedVideoChunk>::value,
     "EncodedVideoChunk inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&EncodedVideoChunk::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "EncodedVideoChunk is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("EncodedVideoChunk.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("EncodedVideoChunk.timestamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(v8_receiver);
+EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timestamp();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -117,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("EncodedVideoChunk.duration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(v8_receiver);
+EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->duration();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -131,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("EncodedVideoChunk.byteLength.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(v8_receiver);
+EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->byteLength();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -198,7 +196,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(v8_receiver);
+EncodedVideoChunk* blink_receiver = V8EncodedVideoChunk::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_destination = NativeValueTraits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

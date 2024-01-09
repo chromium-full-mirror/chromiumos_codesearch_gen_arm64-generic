@@ -486,6 +486,19 @@ inline base::Value ToValue(const css::CSSPropertyRegistration& value) {
 
 
 template <>
+struct FromValue<css::CSSFontPaletteValuesRule> {
+  static std::unique_ptr<css::CSSFontPaletteValuesRule> Parse(const base::Value& value, ErrorReporter* errors) {
+    return css::CSSFontPaletteValuesRule::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const css::CSSFontPaletteValuesRule& value) {
+  return value.Serialize();
+}
+
+
+template <>
 struct FromValue<css::CSSPropertyRule> {
   static std::unique_ptr<css::CSSPropertyRule> Parse(const base::Value& value, ErrorReporter* errors) {
     return css::CSSPropertyRule::Parse(value, errors);

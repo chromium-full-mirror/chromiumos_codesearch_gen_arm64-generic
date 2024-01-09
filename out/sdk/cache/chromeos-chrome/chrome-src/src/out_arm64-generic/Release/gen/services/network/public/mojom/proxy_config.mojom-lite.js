@@ -36,6 +36,25 @@ network.mojom.ProxyRulesType = {
 };
 
 
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+network.mojom.IpProtectionProxyBypassPolicySpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+network.mojom.IpProtectionProxyBypassPolicy = {
+  
+  kNone: 0,
+  kFirstPartyToTopLevelFrame: 1,
+  MIN_VALUE: 0,
+  MAX_VALUE: 1,
+};
+
+
 
 
 /**
@@ -108,7 +127,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'proxies', 0,
         0,
-        mojo.internal.Array(mojo.internal.String, false),
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.String, false), false),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -123,7 +142,7 @@ mojo.internal.Struct(
 /** @record */
 network.mojom.ProxyList = class {
   constructor() {
-    /** @export { !Array<!string> } */
+    /** @export { !Array<!Array<!string>> } */
     this.proxies;
   }
 };

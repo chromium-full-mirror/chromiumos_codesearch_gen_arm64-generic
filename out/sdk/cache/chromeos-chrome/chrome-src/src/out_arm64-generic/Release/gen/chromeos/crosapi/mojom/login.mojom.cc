@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -195,14 +196,17 @@ void LacrosCleanupTriggeredObserverProxy::OnLacrosCleanupTriggered(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::LacrosCleanupTriggeredObserver::OnLacrosCleanupTriggered");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_Name, kFlags, 0, 0, nullptr);
@@ -266,7 +270,7 @@ class LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ProxyToResponder :
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ForwardToCallback::Accept(
@@ -279,7 +283,7 @@ bool LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ForwardToCallback::
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -298,7 +302,7 @@ std::move(p_error));
 }
 
 void LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::LacrosCleanupTriggeredObserver::OnLacrosCleanupTriggered", "async_response_parameters",
@@ -306,13 +310,14 @@ void LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ProxyToResponder::R
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_Name, kFlags, 0, 0, nullptr);
@@ -394,10 +399,10 @@ bool LacrosCleanupTriggeredObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLacrosCleanupTriggeredObserverValidationInfo[] = {
-    {&internal::LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_Params_Data::Validate,
+    { &internal::LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_Params_Data::Validate,
      &internal::LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ResponseParams_Data::Validate},
 };
 
@@ -475,14 +480,17 @@ void ExternalLogoutRequestObserverProxy::OnRequestExternalLogout(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ExternalLogoutRequestObserver::OnRequestExternalLogout");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kExternalLogoutRequestObserver_OnRequestExternalLogout_Name, kFlags, 0, 0, nullptr);
@@ -546,10 +554,10 @@ bool ExternalLogoutRequestObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kExternalLogoutRequestObserverValidationInfo[] = {
-    {&internal::ExternalLogoutRequestObserver_OnRequestExternalLogout_Params_Data::Validate,
+    { &internal::ExternalLogoutRequestObserver_OnRequestExternalLogout_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1147,7 +1155,7 @@ LoginProxy::LoginProxy(mojo::MessageReceiverWithResponder* receiver)
 }
 
 void LoginProxy::ExitCurrentSession(
-    const absl::optional<std::string>& in_data_for_next_login_attempt, ExitCurrentSessionCallback callback) {
+    const std::optional<std::string>& in_data_for_next_login_attempt, ExitCurrentSessionCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::Login::ExitCurrentSession", "input_parameters",
@@ -1155,17 +1163,20 @@ void LoginProxy::ExitCurrentSession(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data_for_next_login_attempt"), in_data_for_next_login_attempt,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_ExitCurrentSession_Name, kFlags, 0, 0, nullptr);
@@ -1196,14 +1207,17 @@ void LoginProxy::FetchDataForNextLoginAttempt(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Login::FetchDataForNextLoginAttempt");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_FetchDataForNextLoginAttempt_Name, kFlags, 0, 0, nullptr);
@@ -1227,14 +1241,17 @@ void LoginProxy::LockManagedGuestSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Login::LockManagedGuestSession");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_LockManagedGuestSession_Name, kFlags, 0, 0, nullptr);
@@ -1258,14 +1275,17 @@ void LoginProxy::EndSharedSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Login::EndSharedSession");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_EndSharedSession_Name, kFlags, 0, 0, nullptr);
@@ -1296,14 +1316,17 @@ void LoginProxy::SetDataForNextLoginAttempt(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_SetDataForNextLoginAttempt_Name, kFlags, 0, 0, nullptr);
@@ -1338,14 +1361,17 @@ void LoginProxy::LockCurrentSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Login::LockCurrentSession");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_LockCurrentSession_Name, kFlags, 0, 0, nullptr);
@@ -1376,14 +1402,17 @@ void LoginProxy::AddLacrosCleanupTriggeredObserver(
                         "<value of type ::mojo::PendingRemote<LacrosCleanupTriggeredObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_AddLacrosCleanupTriggeredObserver_Name, kFlags, 0, 0, nullptr);
@@ -1419,14 +1448,17 @@ void LoginProxy::AddExternalLogoutRequestObserver(
                         "<value of type ::mojo::PendingRemote<ExternalLogoutRequestObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_AddExternalLogoutRequestObserver_Name, kFlags, 0, 0, nullptr);
@@ -1455,14 +1487,17 @@ void LoginProxy::NotifyOnExternalLogoutDone(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Login::NotifyOnExternalLogoutDone");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_NotifyOnExternalLogoutDone_Name, kFlags, 0, 0, nullptr);
@@ -1485,14 +1520,17 @@ void LoginProxy::ShowGuestSessionConfirmationDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Login::ShowGuestSessionConfirmationDialog");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_ShowGuestSessionConfirmationDialog_Name, kFlags, 0, 0, nullptr);
@@ -1511,7 +1549,7 @@ void LoginProxy::ShowGuestSessionConfirmationDialog(
 }
 
 void LoginProxy::REMOVED_0(
-    const absl::optional<std::string>& in_password, REMOVED_0Callback callback) {
+    const std::optional<std::string>& in_password, REMOVED_0Callback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::Login::REMOVED_0", "input_parameters",
@@ -1519,17 +1557,20 @@ void LoginProxy::REMOVED_0(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("password"), in_password,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_0_Name, kFlags, 0, 0, nullptr);
@@ -1567,14 +1608,17 @@ void LoginProxy::REMOVED_4(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_4_Name, kFlags, 0, 0, nullptr);
@@ -1616,14 +1660,17 @@ void LoginProxy::REMOVED_5(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_5_Name, kFlags, 0, 0, nullptr);
@@ -1665,14 +1712,17 @@ void LoginProxy::REMOVED_6(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_6_Name, kFlags, 0, 0, nullptr);
@@ -1714,14 +1764,17 @@ void LoginProxy::REMOVED_7(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_7_Name, kFlags, 0, 0, nullptr);
@@ -1763,14 +1816,17 @@ void LoginProxy::REMOVED_10(
                         "<value of type SamlUserSessionPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_10_Name, kFlags, 0, 0, nullptr);
@@ -1812,14 +1868,17 @@ void LoginProxy::REMOVED_12(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_12_Name, kFlags, 0, 0, nullptr);
@@ -1894,7 +1953,7 @@ class Login_ExitCurrentSession_ProxyToResponder : public ::mojo::internal::Proxy
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_ExitCurrentSession_ForwardToCallback::Accept(
@@ -1907,7 +1966,7 @@ bool Login_ExitCurrentSession_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_ExitCurrentSession_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1926,7 +1985,7 @@ std::move(p_error));
 }
 
 void Login_ExitCurrentSession_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::ExitCurrentSession", "async_response_parameters",
@@ -1934,13 +1993,14 @@ void Login_ExitCurrentSession_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_ExitCurrentSession_Name, kFlags, 0, 0, nullptr);
@@ -2064,7 +2124,8 @@ void Login_FetchDataForNextLoginAttempt_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_FetchDataForNextLoginAttempt_Name, kFlags, 0, 0, nullptr);
@@ -2146,7 +2207,7 @@ class Login_LockManagedGuestSession_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_LockManagedGuestSession_ForwardToCallback::Accept(
@@ -2159,7 +2220,7 @@ bool Login_LockManagedGuestSession_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_LockManagedGuestSession_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2178,7 +2239,7 @@ std::move(p_error));
 }
 
 void Login_LockManagedGuestSession_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::LockManagedGuestSession", "async_response_parameters",
@@ -2186,13 +2247,14 @@ void Login_LockManagedGuestSession_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_LockManagedGuestSession_Name, kFlags, 0, 0, nullptr);
@@ -2270,7 +2332,7 @@ class Login_EndSharedSession_ProxyToResponder : public ::mojo::internal::ProxyTo
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_EndSharedSession_ForwardToCallback::Accept(
@@ -2283,7 +2345,7 @@ bool Login_EndSharedSession_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_EndSharedSession_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2302,7 +2364,7 @@ std::move(p_error));
 }
 
 void Login_EndSharedSession_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::EndSharedSession", "async_response_parameters",
@@ -2310,13 +2372,14 @@ void Login_EndSharedSession_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_EndSharedSession_Name, kFlags, 0, 0, nullptr);
@@ -2429,7 +2492,8 @@ void Login_SetDataForNextLoginAttempt_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_SetDataForNextLoginAttempt_Name, kFlags, 0, 0, nullptr);
@@ -2500,7 +2564,7 @@ class Login_LockCurrentSession_ProxyToResponder : public ::mojo::internal::Proxy
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_LockCurrentSession_ForwardToCallback::Accept(
@@ -2513,7 +2577,7 @@ bool Login_LockCurrentSession_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_LockCurrentSession_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2532,7 +2596,7 @@ std::move(p_error));
 }
 
 void Login_LockCurrentSession_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::LockCurrentSession", "async_response_parameters",
@@ -2540,13 +2604,14 @@ void Login_LockCurrentSession_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_LockCurrentSession_Name, kFlags, 0, 0, nullptr);
@@ -2624,7 +2689,7 @@ class Login_REMOVED_0_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_REMOVED_0_ForwardToCallback::Accept(
@@ -2637,7 +2702,7 @@ bool Login_REMOVED_0_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_REMOVED_0_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2656,7 +2721,7 @@ std::move(p_error));
 }
 
 void Login_REMOVED_0_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::REMOVED_0", "async_response_parameters",
@@ -2664,13 +2729,14 @@ void Login_REMOVED_0_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_0_Name, kFlags, 0, 0, nullptr);
@@ -2748,7 +2814,7 @@ class Login_REMOVED_4_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_REMOVED_4_ForwardToCallback::Accept(
@@ -2761,7 +2827,7 @@ bool Login_REMOVED_4_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_REMOVED_4_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2780,7 +2846,7 @@ std::move(p_error));
 }
 
 void Login_REMOVED_4_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::REMOVED_4", "async_response_parameters",
@@ -2788,13 +2854,14 @@ void Login_REMOVED_4_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_4_Name, kFlags, 0, 0, nullptr);
@@ -2872,7 +2939,7 @@ class Login_REMOVED_5_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_REMOVED_5_ForwardToCallback::Accept(
@@ -2885,7 +2952,7 @@ bool Login_REMOVED_5_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_REMOVED_5_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -2904,7 +2971,7 @@ std::move(p_error));
 }
 
 void Login_REMOVED_5_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::REMOVED_5", "async_response_parameters",
@@ -2912,13 +2979,14 @@ void Login_REMOVED_5_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_5_Name, kFlags, 0, 0, nullptr);
@@ -2996,7 +3064,7 @@ class Login_REMOVED_6_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_REMOVED_6_ForwardToCallback::Accept(
@@ -3009,7 +3077,7 @@ bool Login_REMOVED_6_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_REMOVED_6_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -3028,7 +3096,7 @@ std::move(p_error));
 }
 
 void Login_REMOVED_6_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::REMOVED_6", "async_response_parameters",
@@ -3036,13 +3104,14 @@ void Login_REMOVED_6_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_6_Name, kFlags, 0, 0, nullptr);
@@ -3120,7 +3189,7 @@ class Login_REMOVED_7_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_REMOVED_7_ForwardToCallback::Accept(
@@ -3133,7 +3202,7 @@ bool Login_REMOVED_7_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_REMOVED_7_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -3152,7 +3221,7 @@ std::move(p_error));
 }
 
 void Login_REMOVED_7_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::REMOVED_7", "async_response_parameters",
@@ -3160,13 +3229,14 @@ void Login_REMOVED_7_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_7_Name, kFlags, 0, 0, nullptr);
@@ -3244,7 +3314,7 @@ class Login_REMOVED_10_ProxyToResponder : public ::mojo::internal::ProxyToRespon
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_REMOVED_10_ForwardToCallback::Accept(
@@ -3257,7 +3327,7 @@ bool Login_REMOVED_10_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_REMOVED_10_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -3276,7 +3346,7 @@ std::move(p_error));
 }
 
 void Login_REMOVED_10_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::REMOVED_10", "async_response_parameters",
@@ -3284,13 +3354,14 @@ void Login_REMOVED_10_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_10_Name, kFlags, 0, 0, nullptr);
@@ -3368,7 +3439,7 @@ class Login_REMOVED_12_ProxyToResponder : public ::mojo::internal::ProxyToRespon
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool Login_REMOVED_12_ForwardToCallback::Accept(
@@ -3381,7 +3452,7 @@ bool Login_REMOVED_12_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   Login_REMOVED_12_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -3400,7 +3471,7 @@ std::move(p_error));
 }
 
 void Login_REMOVED_12_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::Login::REMOVED_12", "async_response_parameters",
@@ -3408,13 +3479,14 @@ void Login_REMOVED_12_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLogin_REMOVED_12_Name, kFlags, 0, 0, nullptr);
@@ -3612,7 +3684,7 @@ bool LoginStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_data_for_next_login_attempt{};
+      std::optional<std::string> p_data_for_next_login_attempt{};
       Login_ExitCurrentSession_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDataForNextLoginAttempt(&p_data_for_next_login_attempt))
@@ -3782,7 +3854,7 @@ std::move(p_data_for_next_login_attempt), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_password{};
+      std::optional<std::string> p_password{};
       Login_REMOVED_0_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPassword(&p_password))
@@ -3980,43 +4052,43 @@ std::move(p_password), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLoginValidationInfo[] = {
-    {&internal::Login_REMOVED_0_Params_Data::Validate,
+    { &internal::Login_REMOVED_0_Params_Data::Validate,
      &internal::Login_REMOVED_0_ResponseParams_Data::Validate},
-    {&internal::Login_ExitCurrentSession_Params_Data::Validate,
+    { &internal::Login_ExitCurrentSession_Params_Data::Validate,
      &internal::Login_ExitCurrentSession_ResponseParams_Data::Validate},
-    {&internal::Login_FetchDataForNextLoginAttempt_Params_Data::Validate,
+    { &internal::Login_FetchDataForNextLoginAttempt_Params_Data::Validate,
      &internal::Login_FetchDataForNextLoginAttempt_ResponseParams_Data::Validate},
-    {&internal::Login_LockManagedGuestSession_Params_Data::Validate,
+    { &internal::Login_LockManagedGuestSession_Params_Data::Validate,
      &internal::Login_LockManagedGuestSession_ResponseParams_Data::Validate},
-    {&internal::Login_REMOVED_4_Params_Data::Validate,
+    { &internal::Login_REMOVED_4_Params_Data::Validate,
      &internal::Login_REMOVED_4_ResponseParams_Data::Validate},
-    {&internal::Login_REMOVED_5_Params_Data::Validate,
+    { &internal::Login_REMOVED_5_Params_Data::Validate,
      &internal::Login_REMOVED_5_ResponseParams_Data::Validate},
-    {&internal::Login_REMOVED_6_Params_Data::Validate,
+    { &internal::Login_REMOVED_6_Params_Data::Validate,
      &internal::Login_REMOVED_6_ResponseParams_Data::Validate},
-    {&internal::Login_REMOVED_7_Params_Data::Validate,
+    { &internal::Login_REMOVED_7_Params_Data::Validate,
      &internal::Login_REMOVED_7_ResponseParams_Data::Validate},
-    {&internal::Login_EndSharedSession_Params_Data::Validate,
+    { &internal::Login_EndSharedSession_Params_Data::Validate,
      &internal::Login_EndSharedSession_ResponseParams_Data::Validate},
-    {&internal::Login_SetDataForNextLoginAttempt_Params_Data::Validate,
+    { &internal::Login_SetDataForNextLoginAttempt_Params_Data::Validate,
      &internal::Login_SetDataForNextLoginAttempt_ResponseParams_Data::Validate},
-    {&internal::Login_REMOVED_10_Params_Data::Validate,
+    { &internal::Login_REMOVED_10_Params_Data::Validate,
      &internal::Login_REMOVED_10_ResponseParams_Data::Validate},
-    {&internal::Login_LockCurrentSession_Params_Data::Validate,
+    { &internal::Login_LockCurrentSession_Params_Data::Validate,
      &internal::Login_LockCurrentSession_ResponseParams_Data::Validate},
-    {&internal::Login_REMOVED_12_Params_Data::Validate,
+    { &internal::Login_REMOVED_12_Params_Data::Validate,
      &internal::Login_REMOVED_12_ResponseParams_Data::Validate},
-    {&internal::Login_AddLacrosCleanupTriggeredObserver_Params_Data::Validate,
+    { &internal::Login_AddLacrosCleanupTriggeredObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Login_AddExternalLogoutRequestObserver_Params_Data::Validate,
+    { &internal::Login_AddExternalLogoutRequestObserver_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::Login_NotifyOnExternalLogoutDone_Params_Data::Validate,
+    { &internal::Login_NotifyOnExternalLogoutDone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Login_ShowGuestSessionConfirmationDialog_Params_Data::Validate,
+    { &internal::Login_ShowGuestSessionConfirmationDialog_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4075,14 +4147,14 @@ LacrosCleanupTriggeredObserverAsyncWaiter::LacrosCleanupTriggeredObserverAsyncWa
 LacrosCleanupTriggeredObserverAsyncWaiter::~LacrosCleanupTriggeredObserverAsyncWaiter() = default;
 
 void LacrosCleanupTriggeredObserverAsyncWaiter::OnLacrosCleanupTriggered(
-    absl::optional<std::string>* out_error) {
+    std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->OnLacrosCleanupTriggered(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4090,9 +4162,9 @@ void LacrosCleanupTriggeredObserverAsyncWaiter::OnLacrosCleanupTriggered(
   loop.Run();
 }
 
-absl::optional<std::string> LacrosCleanupTriggeredObserverAsyncWaiter::OnLacrosCleanupTriggered(
+std::optional<std::string> LacrosCleanupTriggeredObserverAsyncWaiter::OnLacrosCleanupTriggered(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   OnLacrosCleanupTriggered(&async_wait_result);
   return async_wait_result;
 }
@@ -4111,7 +4183,7 @@ ExternalLogoutRequestObserverAsyncWaiter::~ExternalLogoutRequestObserverAsyncWai
 
 
 
-void LoginInterceptorForTesting::ExitCurrentSession(const absl::optional<std::string>& data_for_next_login_attempt, ExitCurrentSessionCallback callback) {
+void LoginInterceptorForTesting::ExitCurrentSession(const std::optional<std::string>& data_for_next_login_attempt, ExitCurrentSessionCallback callback) {
   GetForwardingInterface()->ExitCurrentSession(std::move(data_for_next_login_attempt), std::move(callback));
 }
 void LoginInterceptorForTesting::FetchDataForNextLoginAttempt(FetchDataForNextLoginAttemptCallback callback) {
@@ -4141,7 +4213,7 @@ void LoginInterceptorForTesting::NotifyOnExternalLogoutDone() {
 void LoginInterceptorForTesting::ShowGuestSessionConfirmationDialog() {
   GetForwardingInterface()->ShowGuestSessionConfirmationDialog();
 }
-void LoginInterceptorForTesting::REMOVED_0(const absl::optional<std::string>& password, REMOVED_0Callback callback) {
+void LoginInterceptorForTesting::REMOVED_0(const std::optional<std::string>& password, REMOVED_0Callback callback) {
   GetForwardingInterface()->REMOVED_0(std::move(password), std::move(callback));
 }
 void LoginInterceptorForTesting::REMOVED_4(const std::string& password, REMOVED_4Callback callback) {
@@ -4168,14 +4240,14 @@ LoginAsyncWaiter::LoginAsyncWaiter(
 LoginAsyncWaiter::~LoginAsyncWaiter() = default;
 
 void LoginAsyncWaiter::ExitCurrentSession(
-    const absl::optional<std::string>& data_for_next_login_attempt, absl::optional<std::string>* out_error) {
+    const std::optional<std::string>& data_for_next_login_attempt, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->ExitCurrentSession(std::move(data_for_next_login_attempt),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4183,9 +4255,9 @@ void LoginAsyncWaiter::ExitCurrentSession(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::ExitCurrentSession(
-    const absl::optional<std::string>& data_for_next_login_attempt) {
-  absl::optional<std::string> async_wait_result;
+std::optional<std::string> LoginAsyncWaiter::ExitCurrentSession(
+    const std::optional<std::string>& data_for_next_login_attempt) {
+  std::optional<std::string> async_wait_result;
   ExitCurrentSession(std::move(data_for_next_login_attempt),&async_wait_result);
   return async_wait_result;
 }
@@ -4214,14 +4286,14 @@ std::string LoginAsyncWaiter::FetchDataForNextLoginAttempt(
 }
 
 void LoginAsyncWaiter::LockManagedGuestSession(
-    absl::optional<std::string>* out_error) {
+    std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->LockManagedGuestSession(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4229,22 +4301,22 @@ void LoginAsyncWaiter::LockManagedGuestSession(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::LockManagedGuestSession(
+std::optional<std::string> LoginAsyncWaiter::LockManagedGuestSession(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   LockManagedGuestSession(&async_wait_result);
   return async_wait_result;
 }
 
 void LoginAsyncWaiter::EndSharedSession(
-    absl::optional<std::string>* out_error) {
+    std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->EndSharedSession(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4252,9 +4324,9 @@ void LoginAsyncWaiter::EndSharedSession(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::EndSharedSession(
+std::optional<std::string> LoginAsyncWaiter::EndSharedSession(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   EndSharedSession(&async_wait_result);
   return async_wait_result;
 }
@@ -4274,14 +4346,14 @@ void LoginAsyncWaiter::SetDataForNextLoginAttempt(
 
 
 void LoginAsyncWaiter::LockCurrentSession(
-    absl::optional<std::string>* out_error) {
+    std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->LockCurrentSession(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4289,22 +4361,22 @@ void LoginAsyncWaiter::LockCurrentSession(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::LockCurrentSession(
+std::optional<std::string> LoginAsyncWaiter::LockCurrentSession(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   LockCurrentSession(&async_wait_result);
   return async_wait_result;
 }
 
 void LoginAsyncWaiter::REMOVED_0(
-    const absl::optional<std::string>& password, absl::optional<std::string>* out_error) {
+    const std::optional<std::string>& password, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->REMOVED_0(std::move(password),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4312,22 +4384,22 @@ void LoginAsyncWaiter::REMOVED_0(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::REMOVED_0(
-    const absl::optional<std::string>& password) {
-  absl::optional<std::string> async_wait_result;
+std::optional<std::string> LoginAsyncWaiter::REMOVED_0(
+    const std::optional<std::string>& password) {
+  std::optional<std::string> async_wait_result;
   REMOVED_0(std::move(password),&async_wait_result);
   return async_wait_result;
 }
 
 void LoginAsyncWaiter::REMOVED_4(
-    const std::string& password, absl::optional<std::string>* out_error) {
+    const std::string& password, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->REMOVED_4(std::move(password),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4335,22 +4407,22 @@ void LoginAsyncWaiter::REMOVED_4(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::REMOVED_4(
+std::optional<std::string> LoginAsyncWaiter::REMOVED_4(
     const std::string& password) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   REMOVED_4(std::move(password),&async_wait_result);
   return async_wait_result;
 }
 
 void LoginAsyncWaiter::REMOVED_5(
-    const std::string& password, absl::optional<std::string>* out_error) {
+    const std::string& password, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->REMOVED_5(std::move(password),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4358,22 +4430,22 @@ void LoginAsyncWaiter::REMOVED_5(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::REMOVED_5(
+std::optional<std::string> LoginAsyncWaiter::REMOVED_5(
     const std::string& password) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   REMOVED_5(std::move(password),&async_wait_result);
   return async_wait_result;
 }
 
 void LoginAsyncWaiter::REMOVED_6(
-    const std::string& password, absl::optional<std::string>* out_error) {
+    const std::string& password, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->REMOVED_6(std::move(password),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4381,22 +4453,22 @@ void LoginAsyncWaiter::REMOVED_6(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::REMOVED_6(
+std::optional<std::string> LoginAsyncWaiter::REMOVED_6(
     const std::string& password) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   REMOVED_6(std::move(password),&async_wait_result);
   return async_wait_result;
 }
 
 void LoginAsyncWaiter::REMOVED_7(
-    const std::string& password, absl::optional<std::string>* out_error) {
+    const std::string& password, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->REMOVED_7(std::move(password),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4404,22 +4476,22 @@ void LoginAsyncWaiter::REMOVED_7(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::REMOVED_7(
+std::optional<std::string> LoginAsyncWaiter::REMOVED_7(
     const std::string& password) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   REMOVED_7(std::move(password),&async_wait_result);
   return async_wait_result;
 }
 
 void LoginAsyncWaiter::REMOVED_10(
-    SamlUserSessionPropertiesPtr properties, absl::optional<std::string>* out_error) {
+    SamlUserSessionPropertiesPtr properties, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->REMOVED_10(std::move(properties),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4427,22 +4499,22 @@ void LoginAsyncWaiter::REMOVED_10(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::REMOVED_10(
+std::optional<std::string> LoginAsyncWaiter::REMOVED_10(
     SamlUserSessionPropertiesPtr properties) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   REMOVED_10(std::move(properties),&async_wait_result);
   return async_wait_result;
 }
 
 void LoginAsyncWaiter::REMOVED_12(
-    const std::string& password, absl::optional<std::string>* out_error) {
+    const std::string& password, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->REMOVED_12(std::move(password),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -4450,9 +4522,9 @@ void LoginAsyncWaiter::REMOVED_12(
   loop.Run();
 }
 
-absl::optional<std::string> LoginAsyncWaiter::REMOVED_12(
+std::optional<std::string> LoginAsyncWaiter::REMOVED_12(
     const std::string& password) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   REMOVED_12(std::move(password),&async_wait_result);
   return async_wait_result;
 }

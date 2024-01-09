@@ -30,6 +30,7 @@
 #include "protos/perfetto/config/gpu/vulkan_memory_config.gen.h"
 #include "protos/perfetto/config/gpu/gpu_counter_config.gen.h"
 #include "protos/perfetto/config/ftrace/ftrace_config.gen.h"
+#include "protos/perfetto/config/etw/etw_config.gen.h"
 #include "protos/perfetto/config/chrome/chrome_config.gen.h"
 #include "protos/perfetto/config/android/surfaceflinger_transactions_config.gen.h"
 #include "protos/perfetto/config/android/surfaceflinger_layers_config.gen.h"

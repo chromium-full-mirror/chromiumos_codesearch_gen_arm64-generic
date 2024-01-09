@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSTransformComponent>::value,
     "CSSTransformComponent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSTransformComponent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSTransformComponent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSTransformComponent.is2D.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSTransformComponent* blink_receiver = V8CSSTransformComponent::ToWrappableUnsafe(v8_receiver);
+CSSTransformComponent* blink_receiver = V8CSSTransformComponent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->is2D();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -99,9 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSTransformComponent.is2D.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSTransformComponent* blink_receiver = V8CSSTransformComponent::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSTransformComponent* blink_receiver = V8CSSTransformComponent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSTransformComponent";
@@ -126,9 +122,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSTransformComponent.toMatrix");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSTransformComponent* blink_receiver = V8CSSTransformComponent::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSTransformComponent* blink_receiver = V8CSSTransformComponent::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSTransformComponent";
 const char* const property_name = "toMatrix";
@@ -151,10 +147,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSTransformComponent.toString");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSTransformComponent* blink_receiver = V8CSSTransformComponent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toString();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSTransformComponent* blink_receiver = V8CSSTransformComponent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

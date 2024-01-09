@@ -36,6 +36,8 @@ NOINLINE static const char* LogSourceToStringHelper(LogSource value) {
       return "HINTS_NOTIFICATIONS";
     case LogSource::TEXT_CLASSIFIER:
       return "TEXT_CLASSIFIER";
+    case LogSource::MODEL_EXECUTION:
+      return "MODEL_EXECUTION";
     default:
       return nullptr;
   }

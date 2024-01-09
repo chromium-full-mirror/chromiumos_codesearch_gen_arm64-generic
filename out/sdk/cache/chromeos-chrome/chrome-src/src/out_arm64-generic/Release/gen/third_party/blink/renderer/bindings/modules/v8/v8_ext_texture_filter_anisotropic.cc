@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, EXTTextureFilterAnisotropic>::value,
     "EXTTextureFilterAnisotropic inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&EXTTextureFilterAnisotropic::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "EXTTextureFilterAnisotropic is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 

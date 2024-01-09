@@ -754,7 +754,7 @@ WIRE_TRY(DoInstanceProcessEvents(cmd.self));
         WIRE_TRY(cmd.Deserialize(deserializeBuffer, &mAllocator, *this));
 
         Known<WGPUInstance> instanceIdHandle;
-        WIRE_TRY(InstanceObjects().Get(cmd.instanceId, &instanceIdHandle));WIRE_TRY(DoInstanceRequestAdapter(instanceIdHandle, cmd.requestSerial, cmd.adapterObjectHandle, cmd.options));
+        WIRE_TRY(InstanceObjects().Get(cmd.instanceId, &instanceIdHandle));WIRE_TRY(DoInstanceRequestAdapter(instanceIdHandle, cmd.future, cmd.adapterObjectHandle, cmd.options));
         return WireResult::Success;
     }
 

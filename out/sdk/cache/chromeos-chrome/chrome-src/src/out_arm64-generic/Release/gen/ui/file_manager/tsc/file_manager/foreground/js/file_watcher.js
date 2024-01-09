@@ -1,13 +1,13 @@
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { assert } from 'chrome://resources/ash/common/assert.js';
-import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { AsyncQueue } from '../../common/js/async_util.js';
 import { isFakeEntry, unwrapEntry } from '../../common/js/entry_utils.js';
+import { FilesEventTarget } from '../../common/js/files_event_target.js';
 import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
 /** Watches for changes in the tracked directory. */
-export class FileWatcher extends EventTarget {
+export class FileWatcher extends FilesEventTarget {
     constructor() {
         super();
         this.queue_ = new AsyncQueue();
@@ -26,19 +26,12 @@ export class FileWatcher extends EventTarget {
     }
     /**
      * Called when a file in the watched directory is changed.
-     * @param {chrome.fileManagerPrivate.FileWatchEvent} event Change event.
-     * @private
+     * @param event Change event.
      */
     onDirectoryChanged_(event) {
-        // @ts-ignore: error TS7006: Parameter 'changedFiles' implicitly has an
-        // 'any' type.
-        const fireWatcherDirectoryChanged = changedFiles => {
-            const e = new Event('watcher-directory-changed');
-            if (changedFiles) {
-                // @ts-ignore: error TS2339: Property 'changedFiles' does not exist on
-                // type 'Event'.
-                e.changedFiles = changedFiles;
-            }
+        const fireWatcherDirectoryChanged = (changedFiles) => {
+            const eventDetails = changedFiles ? { changedFiles } : {};
+            const e = new CustomEvent('watcher-directory-changed', { detail: eventDetails });
             this.dispatchEvent(e);
         };
         if (this.watchedDirectoryEntry_) {
@@ -50,10 +43,8 @@ export class FileWatcher extends EventTarget {
             else if (watchedDirURL.startsWith(eventURL)) {
                 // When watched directory is deleted by the change in parent directory,
                 // notify it as watcher directory changed.
-                this.watchedDirectoryEntry_.getDirectory(
-                // @ts-ignore: error TS2769: No overload matches this call.
-                this.watchedDirectoryEntry_.fullPath, { create: false }, null, () => {
-                    fireWatcherDirectoryChanged(null);
+                this.watchedDirectoryEntry_.getDirectory(this.watchedDirectoryEntry_.fullPath, { create: false }, undefined, () => {
+                    fireWatcherDirectoryChanged(undefined);
                 });
             }
         }
@@ -62,14 +53,12 @@ export class FileWatcher extends EventTarget {
      * Changes the watched directory. In case of a fake entry, the watch is
      * just released, since there is no reason to track a fake directory.
      *
-     * @param {!DirectoryEntry|!FilesAppEntry} entry Directory entry to be
+     * @param entry Directory entry to be
      *     tracked, or the fake entry.
-     * @return {!Promise<void>}
      */
     changeWatchedDirectory(entry) {
         if (!isFakeEntry(entry)) {
-            return this.changeWatchedEntry_(
-            /** @type {!DirectoryEntry} */ (unwrapEntry(entry)));
+            return this.changeWatchedEntry_(unwrapEntry(entry));
         }
         else {
             return this.resetWatchedEntry_();
@@ -77,41 +66,26 @@ export class FileWatcher extends EventTarget {
     }
     /**
      * Resets the watched entry. It's a best effort method.
-     * @return {!Promise<void>}
-     * @private
      */
     resetWatchedEntry_() {
         // Run the tasks in the queue to avoid races.
-        // @ts-ignore: error TS6133: 'reject' is declared but its value is never
-        // read.
-        return new Promise((fulfill, reject) => {
+        return new Promise((fulfill) => {
             this.queue_.run(callback => {
                 // Release the watched directory.
                 if (this.watchedDirectoryEntry_) {
-                    chrome.fileManagerPrivate.removeFileWatch(
-                    // @ts-ignore: error TS6133: 'result' is declared but its value is
-                    // never read.
-                    this.watchedDirectoryEntry_, result => {
+                    chrome.fileManagerPrivate.removeFileWatch(this.watchedDirectoryEntry_, (_result) => {
                         if (chrome.runtime.lastError) {
                             console.warn(`Cannot remove watcher for (redacted): ${chrome.runtime.lastError.message}`);
-                            console.info(`Cannot remove watcher for '${
-                            // @ts-ignore: error TS2531: Object is possibly 'null'.
-                            this.watchedDirectoryEntry_.toURL()}': ${chrome.runtime.lastError.message}`);
+                            console.info(`Cannot remove watcher for '${this.watchedDirectoryEntry_?.toURL()}': ${chrome.runtime.lastError.message}`);
                         }
                         // Even on error reset the watcher locally, so at least the
                         // notifications are discarded.
                         this.watchedDirectoryEntry_ = null;
-                        // @ts-ignore: error TS2810: Expected 1 argument, but got 0.
-                        // 'new Promise()' needs a JSDoc hint to produce a 'resolve'
-                        // that can be called without arguments.
                         fulfill();
                         callback();
                     });
                 }
                 else {
-                    // @ts-ignore: error TS2810: Expected 1 argument, but got 0. 'new
-                    // Promise()' needs a JSDoc hint to produce a 'resolve' that can be
-                    // called without arguments.
                     fulfill();
                     callback();
                 }
@@ -120,35 +94,24 @@ export class FileWatcher extends EventTarget {
     }
     /**
      * Sets the watched entry to the passed directory. It's a best effort method.
-     * @param {!DirectoryEntry} entry Directory to be watched.
-     * @return {!Promise<void>}
-     * @private
+     * @param entry Directory to be watched.
      */
     changeWatchedEntry_(entry) {
-        // @ts-ignore: error TS6133: 'reject' is declared but its value is never
-        // read.
-        return new Promise((fulfill, reject) => {
+        return new Promise((fulfill) => {
             const setEntryClosure = () => {
                 // Run the tasks in the queue to avoid races.
                 this.queue_.run(callback => {
-                    // @ts-ignore: error TS6133: 'result' is declared but its value is
-                    // never read.
-                    chrome.fileManagerPrivate.addFileWatch(entry, result => {
+                    chrome.fileManagerPrivate.addFileWatch(entry, (_result) => {
                         if (chrome.runtime.lastError) {
                             // Most probably setting the watcher is not supported on the
                             // file system type.
                             console.info(`Cannot add watcher for '${entry.toURL()}': ${chrome.runtime.lastError.message}`);
                             this.watchedDirectoryEntry_ = null;
-                            // @ts-ignore: error TS2810: Expected 1 argument, but got 0. 'new
-                            // Promise()' needs a JSDoc hint to produce a 'resolve' that can
-                            // be called without arguments.
                             fulfill();
                         }
                         else {
-                            this.watchedDirectoryEntry_ = assert(entry);
-                            // @ts-ignore: error TS2810: Expected 1 argument, but got 0. 'new
-                            // Promise()' needs a JSDoc hint to produce a 'resolve' that can
-                            // be called without arguments.
+                            assert(entry);
+                            this.watchedDirectoryEntry_ = entry;
                             fulfill();
                         }
                         callback();
@@ -160,7 +123,7 @@ export class FileWatcher extends EventTarget {
         });
     }
     /**
-     * @return {?DirectoryEntry} Current watched directory entry.
+     * @return Current watched directory entry.
      */
     getWatchedDirectoryEntry() {
         return this.watchedDirectoryEntry_;

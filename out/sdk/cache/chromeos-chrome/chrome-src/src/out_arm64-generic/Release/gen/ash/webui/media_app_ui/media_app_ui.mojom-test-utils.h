@@ -49,8 +49,8 @@ class  PageHandlerAsyncWaiter {
 
   ~PageHandlerAsyncWaiter();
   void OpenFeedbackDialog(
-      absl::optional<std::string>* out_error_message);
-  absl::optional<std::string> OpenFeedbackDialog();
+      std::optional<std::string>* out_error_message);
+  std::optional<std::string> OpenFeedbackDialog();
   void ToggleBrowserFullscreenMode(
       );
   

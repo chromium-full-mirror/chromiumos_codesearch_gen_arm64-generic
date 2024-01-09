@@ -95,6 +95,7 @@ export var CameraState;
     CameraState[CameraState["kTurnedOff"] = 2] = "kTurnedOff";
 })(CameraState || (CameraState = {}));
 export class MediaSessionObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -103,6 +104,9 @@ export class MediaSessionObserverPendingReceiver {
     }
 }
 export class MediaSessionObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(MediaSessionObserverPendingReceiver, handle);
@@ -142,6 +146,9 @@ export class MediaSessionObserverRemote {
  * interface.
  */
 export class MediaSessionObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(MediaSessionObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -175,6 +182,15 @@ export class MediaSessionObserver {
  * receiver can have any number of listeners added to it.
  */
 export class MediaSessionObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    mediaSessionInfoChanged;
+    mediaSessionMetadataChanged;
+    mediaSessionActionsChanged;
+    mediaSessionImagesChanged;
+    mediaSessionPositionChanged;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(MediaSessionObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -205,6 +221,7 @@ export class MediaSessionObserverCallbackRouter {
     }
 }
 export class MediaSessionPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -213,6 +230,9 @@ export class MediaSessionPendingReceiver {
     }
 }
 export class MediaSessionRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(MediaSessionPendingReceiver, handle);
@@ -330,6 +350,9 @@ export class MediaSessionRemote {
  * interface.
  */
 export class MediaSessionReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(MediaSessionRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -394,6 +417,37 @@ export var MediaSession_SuspendType;
  * receiver can have any number of listeners added to it.
  */
 export class MediaSessionCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getMediaSessionInfo;
+    getDebugInfo;
+    startDucking;
+    stopDucking;
+    suspend;
+    resume;
+    addObserver;
+    previousTrack;
+    nextTrack;
+    seek;
+    stop;
+    skipAd;
+    getMediaImageBitmap;
+    seekTo;
+    scrubTo;
+    enterPictureInPicture;
+    exitPictureInPicture;
+    setAudioSinkId;
+    toggleMicrophone;
+    toggleCamera;
+    hangUp;
+    raise;
+    setMute;
+    requestMediaRemoting;
+    previousSlide;
+    nextSlide;
+    enterAutoPictureInPicture;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(MediaSessionRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -490,6 +544,7 @@ export class MediaSessionCallbackRouter {
     }
 }
 export const MediaImageSpec = { $: {} };
+export const ChapterInformationSpec = { $: {} };
 export const MediaMetadataSpec = { $: {} };
 export const MediaImageBitmapSpec = { $: {} };
 export const MediaPositionSpec = { $: {} };
@@ -535,6 +590,11 @@ mojo.internal.Struct(MediaImageSpec.$, 'MediaImage', [
     mojo.internal.StructField('src', 0, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('type', 8, 0, mojoBase_mojom_String16Spec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('sizes', 16, 0, mojo.internal.Array(gfx_mojom_SizeSpec.$, false), null, false /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Struct(ChapterInformationSpec.$, 'ChapterInformation', [
+    mojo.internal.StructField('title', 0, 0, mojoBase_mojom_String16Spec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('startTime', 8, 0, mojoBase_mojom_TimeDeltaSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('artwork', 16, 0, mojo.internal.Array(MediaImageSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 32],]);
 mojo.internal.Struct(MediaMetadataSpec.$, 'MediaMetadata', [
     mojo.internal.StructField('title', 0, 0, mojoBase_mojom_String16Spec.$, null, false /* nullable */, 0),

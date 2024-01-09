@@ -53,6 +53,7 @@
 #include "third_party/blink/renderer/core/style/filter_operations.h"
 #include "third_party/blink/renderer/core/style/grid_position.h"
 #include "third_party/blink/renderer/core/style/grid_track_list.h"
+#include "third_party/blink/renderer/core/style/inset_area.h"
 #include "third_party/blink/renderer/core/style/list_style_type_data.h"
 #include "third_party/blink/renderer/core/style/nine_piece_image.h"
 #include "third_party/blink/renderer/core/style/offset_path_operation.h"
@@ -83,9 +84,6 @@
 #include "third_party/blink/renderer/core/style/svg_paint.h"
 #include "third_party/blink/renderer/core/style/text_decoration_thickness.h"
 #include "third_party/blink/renderer/core/style/text_size_adjust.h"
-#include "third_party/blink/renderer/core/style/toggle_group_list.h"
-#include "third_party/blink/renderer/core/style/toggle_root_list.h"
-#include "third_party/blink/renderer/core/style/toggle_trigger_list.h"
 #include "third_party/blink/renderer/core/style/transform_origin.h"
 #include "third_party/blink/renderer/core/style/unzoomed_length.h"
 #include "third_party/blink/renderer/platform/fonts/font.h"
@@ -96,6 +94,7 @@
 #include "third_party/blink/renderer/platform/geometry/length_point.h"
 #include "third_party/blink/renderer/platform/geometry/length_size.h"
 #include "third_party/blink/renderer/platform/graphics/graphics_types.h"
+#include "third_party/blink/renderer/platform/graphics/image_orientation.h"
 #include "third_party/blink/renderer/platform/graphics/touch_action.h"
 #include "third_party/blink/renderer/platform/heap/collection_support/heap_hash_set.h"
 #include "third_party/blink/renderer/platform/heap/member.h"
@@ -128,6 +127,7 @@ class ComputedStyleBuilderBase;
 // Forward declaration of friends:
 namespace css_longhand { class Color; }
 namespace css_longhand { class InternalVisitedColor; }
+namespace css_longhand { class Position; }
 namespace css_longhand { class AccentColor; }
 namespace css_longhand { class Appearance; }
 namespace css_longhand { class BackdropFilter; }
@@ -190,7 +190,6 @@ namespace css_longhand { class PaddingLeft; }
 namespace css_longhand { class PaddingRight; }
 namespace css_longhand { class PaddingTop; }
 namespace css_longhand { class PointerEvents; }
-namespace css_longhand { class Position; }
 namespace css_longhand { class Resize; }
 namespace css_longhand { class Right; }
 namespace css_longhand { class ShapeImageThreshold; }
@@ -202,7 +201,6 @@ namespace css_longhand { class TextEmphasisColor; }
 namespace css_longhand { class Top; }
 namespace css_longhand { class UserSelect; }
 namespace css_longhand { class WebkitBoxDirection; }
-namespace css_longhand { class WebkitBoxDirectionAlternative; }
 namespace css_longhand { class WebkitBoxOrdinalGroup; }
 namespace css_longhand { class WebkitTextFillColor; }
 namespace css_longhand { class WebkitTextStrokeColor; }
@@ -212,7 +210,7 @@ namespace css_longhand { class Width; }
 namespace css_longhand { class ZIndex; }
 
 // The generated portion of ComputedStyle. For more info, see the header comment
-// in ComputedStyle.h.
+// in computed_style.h.
 //
 // ComputedStyleBase is a generated class that stores data members or 'fields'
 // used in ComputedStyle. These fields can represent CSS properties or internal
@@ -226,8 +224,8 @@ namespace css_longhand { class ZIndex; }
 // the root node:
 //
 // ComputedStyleBase (fields: display, vertical-align, ...)
-//  |- StyleSurroundData (fields: padding, border, ...)
-//  |- StyleBoxData (fields: width, height, ...)
+//  |- StyleSurroundData (fields: border-color, left/right/top/bottom, ...)
+//  |- StyleBoxData (fields: width, height, padding, ...)
 //  |- ...
 //  |- StyleRareNonInheritedData (fields: box-shadow, text-overflow, ...)
 //      |- StyleFlexibleBoxData (fields: flex-direction, flex-wrap, ...)
@@ -241,6 +239,9 @@ namespace css_longhand { class ZIndex; }
 // element inherits from its parent, its ComputedStyleBase can simply share all
 // of its subgroups with the parent's.
 //
+// Most of these groupings are done manually, although there have been some
+// adjustments based on statistics.
+//
 // INTERFACE:
 //
 // The functions generated for a field is determined by its 'template'. For
@@ -252,6 +253,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   // Longhand::Apply* functions typically need the "raw" computed value:
   friend class css_longhand::Color;
   friend class css_longhand::InternalVisitedColor;
+  friend class css_longhand::Position;
   friend class css_longhand::AccentColor;
   friend class css_longhand::Appearance;
   friend class css_longhand::BackdropFilter;
@@ -314,7 +316,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   friend class css_longhand::PaddingRight;
   friend class css_longhand::PaddingTop;
   friend class css_longhand::PointerEvents;
-  friend class css_longhand::Position;
   friend class css_longhand::Resize;
   friend class css_longhand::Right;
   friend class css_longhand::ShapeImageThreshold;
@@ -326,7 +327,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   friend class css_longhand::Top;
   friend class css_longhand::UserSelect;
   friend class css_longhand::WebkitBoxDirection;
-  friend class css_longhand::WebkitBoxDirectionAlternative;
   friend class css_longhand::WebkitBoxOrdinalGroup;
   friend class css_longhand::WebkitTextFillColor;
   friend class css_longhand::WebkitTextStrokeColor;
@@ -337,11 +337,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
  public:
 
-  // ComputedStyle sub-objects are heavily inlined, and on relatively hot
-  // codepaths. Disable pointer-compression.
-  template <typename T>
-  using DataMember = subtle::UncompressedMember<T>;
-
   inline bool IndependentInheritedEqual(const ComputedStyleBase& o) const {
     return (
         (inherited_data_.Get() == o.inherited_data_.Get()
@@ -351,7 +346,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && data_.text_transform_ == o.data_.text_transform_
         && data_.visibility_ == o.data_.visibility_
         && data_.border_collapse_ == o.data_.border_collapse_
-        && data_.box_direction_ == o.data_.box_direction_
         && data_.caption_side_ == o.data_.caption_side_
         && data_.empty_cells_ == o.data_.empty_cells_
         && data_.is_inert_ == o.data_.is_inert_
@@ -364,8 +358,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   inline bool NonIndependentInheritedEqual(const ComputedStyleBase& o) const {
     return (
         (inherited_data_.Get() == o.inherited_data_.Get()
-        || (base::ValuesEquivalent(inherited_data_->font_data_, o.inherited_data_->font_data_)
-        && inherited_data_->line_height_ == o.inherited_data_->line_height_
+        || (inherited_data_->line_height_ == o.inherited_data_->line_height_
         && inherited_data_->text_autosizing_multiplier_ == o.inherited_data_->text_autosizing_multiplier_
         && inherited_data_->internal_visited_color_ == o.inherited_data_->internal_visited_color_
         && inherited_data_->horizontal_border_spacing_ == o.inherited_data_->horizontal_border_spacing_
@@ -390,6 +383,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && svg_data_->clip_rule_ == o.svg_data_->clip_rule_
         && svg_data_->fill_rule_ == o.svg_data_->fill_rule_
         ))
+        && base::ValuesEquivalent(font_data_, o.font_data_)
         && data_.cursor_ == o.data_.cursor_
         && data_.text_align_ == o.data_.text_align_
         && data_.inside_link_ == o.data_.inside_link_
@@ -424,32 +418,34 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && base::ValuesEquivalent(svg_data_->geometry_data_, o.svg_data_->geometry_data_)
         && base::ValuesEquivalent(svg_data_->stop_data_, o.svg_data_->stop_data_)
         && base::ValuesEquivalent(svg_data_->masker_resource_, o.svg_data_->masker_resource_)
+        && svg_data_->transform_origin_ == o.svg_data_->transform_origin_
         && svg_data_->alignment_baseline_ == o.svg_data_->alignment_baseline_
         && svg_data_->buffered_rendering_ == o.svg_data_->buffered_rendering_
         && svg_data_->mask_type_ == o.svg_data_->mask_type_
         && svg_data_->vector_effect_ == o.svg_data_->vector_effect_
         ))
-        && base::ValuesEquivalent(box_data_, o.box_data_)
-        && base::ValuesEquivalent(background_data_, o.background_data_)
         && base::ValuesEquivalent(surround_data_, o.surround_data_)
+        && base::ValuesEquivalent(background_data_, o.background_data_)
+        && base::ValuesEquivalent(box_data_, o.box_data_)
         && data_.display_ == o.data_.display_
-        && data_.clear_ == o.data_.clear_
+        && data_.break_inside_ == o.data_.break_inside_
         && data_.break_after_ == o.data_.break_after_
         && data_.break_before_ == o.data_.break_before_
         && data_.scrollbar_gutter_ == o.data_.scrollbar_gutter_
         && data_.vertical_align_ == o.data_.vertical_align_
+        && data_.clear_ == o.data_.clear_
         && data_.floating_ == o.data_.floating_
+        && data_.content_visibility_ == o.data_.content_visibility_
         && data_.overflow_x_ == o.data_.overflow_x_
-        && data_.break_inside_ == o.data_.break_inside_
         && data_.overflow_y_ == o.data_.overflow_y_
         && data_.position_ == o.data_.position_
         && data_.transform_box_ == o.data_.transform_box_
         && data_.unicode_bidi_ == o.data_.unicode_bidi_
-        && data_.content_visibility_ == o.data_.content_visibility_
         && IsStackingContextWithoutContainment() == o.IsStackingContextWithoutContainment()
         && data_.overflow_anchor_ == o.data_.overflow_anchor_
         && data_.viewport_unit_flags_ == o.data_.viewport_unit_flags_
-        && data_.box_direction_alternative_ == o.data_.box_direction_alternative_
+        && data_.box_direction_ == o.data_.box_direction_
+        && data_.box_sizing_ == o.data_.box_sizing_
         && data_.has_author_background_ == o.data_.has_author_background_
         && data_.has_author_border_ == o.data_.has_author_border_
         && data_.has_author_border_radius_ == o.data_.has_author_border_radius_
@@ -466,8 +462,53 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   }
 
   inline bool InheritedDataShared(const ComputedStyleBase& o) const {
-    return (
-        inherited_data_.Get() == o.inherited_data_.Get()
+    if (RuntimeEnabledFeatures::CSSMPCImprovementsEnabled()) {
+      return (
+          base::ValuesEquivalent(inherited_data_.Get(), o.inherited_data_.Get())
+        && base::ValuesEquivalent(rare_inherited_usage_less_than_64_percent_data_.Get(), o.rare_inherited_usage_less_than_64_percent_data_.Get())
+        && (base::ValuesEquivalent(svg_data_.Get(), o.svg_data_.Get())
+        || (base::ValuesEquivalent(svg_data_->fill_data_.Get(), o.svg_data_->fill_data_.Get())
+        && base::ValuesEquivalent(svg_data_->stroke_data_.Get(), o.svg_data_->stroke_data_.Get())
+        && base::ValuesEquivalent(svg_data_->inherited_resources_data_.Get(), o.svg_data_->inherited_resources_data_.Get())
+        && svg_data_->css_dominant_baseline_ == o.svg_data_->css_dominant_baseline_
+        && svg_data_->dominant_baseline_ == o.svg_data_->dominant_baseline_
+        && svg_data_->paint_order_ == o.svg_data_->paint_order_
+        && svg_data_->color_interpolation_ == o.svg_data_->color_interpolation_
+        && svg_data_->color_interpolation_filters_ == o.svg_data_->color_interpolation_filters_
+        && svg_data_->color_rendering_ == o.svg_data_->color_rendering_
+        && svg_data_->shape_rendering_ == o.svg_data_->shape_rendering_
+        && svg_data_->text_anchor_ == o.svg_data_->text_anchor_
+        && svg_data_->clip_rule_ == o.svg_data_->clip_rule_
+        && svg_data_->fill_rule_ == o.svg_data_->fill_rule_
+        ))
+        && base::ValuesEquivalent(font_data_.Get(), o.font_data_.Get())
+        && data_.cursor_ == o.data_.cursor_
+        && data_.pointer_events_ == o.data_.pointer_events_
+        && data_.text_align_ == o.data_.text_align_
+        && data_.text_transform_ == o.data_.text_transform_
+        && data_.inside_link_ == o.data_.inside_link_
+        && data_.text_wrap_ == o.data_.text_wrap_
+        && data_.visibility_ == o.data_.visibility_
+        && data_.white_space_collapse_ == o.data_.white_space_collapse_
+        && data_.writing_mode_ == o.data_.writing_mode_
+        && data_.border_collapse_ == o.data_.border_collapse_
+        && data_.caption_side_ == o.data_.caption_side_
+        && data_.color_scheme_flags_is_normal_ == o.data_.color_scheme_flags_is_normal_
+        && data_.color_scheme_forced_ == o.data_.color_scheme_forced_
+        && data_.dark_color_scheme_ == o.data_.dark_color_scheme_
+        && data_.direction_ == o.data_.direction_
+        && data_.empty_cells_ == o.data_.empty_cells_
+        && data_.is_ensured_outside_flat_tree_ == o.data_.is_ensured_outside_flat_tree_
+        && data_.is_inert_ == o.data_.is_inert_
+        && data_.is_inside_list_element_ == o.data_.is_inside_list_element_
+        && data_.list_style_position_ == o.data_.list_style_position_
+        && data_.print_color_adjust_ == o.data_.print_color_adjust_
+        && data_.rtl_ordering_ == o.data_.rtl_ordering_
+
+      );
+    } else {
+      return (
+          inherited_data_.Get() == o.inherited_data_.Get()
         && rare_inherited_usage_less_than_64_percent_data_.Get() == o.rare_inherited_usage_less_than_64_percent_data_.Get()
         && (svg_data_.Get() == o.svg_data_.Get()
         || (svg_data_->fill_data_.Get() == o.svg_data_->fill_data_.Get()
@@ -484,6 +525,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && svg_data_->clip_rule_ == o.svg_data_->clip_rule_
         && svg_data_->fill_rule_ == o.svg_data_->fill_rule_
         ))
+        && font_data_.Get() == o.font_data_.Get()
         && data_.cursor_ == o.data_.cursor_
         && data_.pointer_events_ == o.data_.pointer_events_
         && data_.text_align_ == o.data_.text_align_
@@ -494,8 +536,8 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && data_.white_space_collapse_ == o.data_.white_space_collapse_
         && data_.writing_mode_ == o.data_.writing_mode_
         && data_.border_collapse_ == o.data_.border_collapse_
-        && data_.box_direction_ == o.data_.box_direction_
         && data_.caption_side_ == o.data_.caption_side_
+        && data_.color_scheme_flags_is_normal_ == o.data_.color_scheme_flags_is_normal_
         && data_.color_scheme_forced_ == o.data_.color_scheme_forced_
         && data_.dark_color_scheme_ == o.data_.dark_color_scheme_
         && data_.direction_ == o.data_.direction_
@@ -507,7 +549,8 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && data_.print_color_adjust_ == o.data_.print_color_adjust_
         && data_.rtl_ordering_ == o.data_.rtl_ordering_
 
-    );
+      );
+    }
   }
 
   inline bool IsSurroundDataSharedWith(const ComputedStyleBase& o) const {
@@ -650,7 +693,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // aspect-ratio
   const StyleAspectRatio& AspectRatio() const {
-    return box_data_->aspect_ratio_;
+    return surround_data_->aspect_ratio_;
   }
 
 
@@ -767,7 +810,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // border-bottom-style
   EBorderStyle BorderBottomStyle() const {
-    return static_cast<EBorderStyle>(surround_data_->border_bottom_style_);
+    return static_cast<EBorderStyle>(box_data_->border_bottom_style_);
   }
 
 
@@ -815,7 +858,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // border-left-style
   EBorderStyle BorderLeftStyle() const {
-    return static_cast<EBorderStyle>(surround_data_->border_left_style_);
+    return static_cast<EBorderStyle>(box_data_->border_left_style_);
   }
 
 
@@ -837,7 +880,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // border-right-style
   EBorderStyle BorderRightStyle() const {
-    return static_cast<EBorderStyle>(surround_data_->border_right_style_);
+    return static_cast<EBorderStyle>(box_data_->border_right_style_);
   }
 
 
@@ -879,7 +922,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // border-top-style
   EBorderStyle BorderTopStyle() const {
-    return static_cast<EBorderStyle>(surround_data_->border_top_style_);
+    return static_cast<EBorderStyle>(box_data_->border_top_style_);
   }
 
 
@@ -912,16 +955,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     return static_cast<EBoxDecorationBreak>(box_data_->box_decoration_break_);
   }
 
-
-
-
-  // -webkit-box-direction
-  
-
-
-
-  // -webkit-box-direction-alternative
-  
 
 
 
@@ -978,7 +1011,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // box-sizing
   EBoxSizing BoxSizing() const {
-    return static_cast<EBoxSizing>(box_data_->box_sizing_);
+    return static_cast<EBoxSizing>(data_.box_sizing_);
   }
 
 
@@ -1155,6 +1188,14 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+  // ColorSchemeFlagsIsNormal
+  bool ColorSchemeFlagsIsNormal() const {
+    return static_cast<bool>(data_.color_scheme_flags_is_normal_);
+  }
+
+
+
+
   // ColorSchemeForced
   bool ColorSchemeForced() const {
     return static_cast<bool>(data_.color_scheme_forced_);
@@ -1245,7 +1286,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // contain-intrinsic-height
   const StyleIntrinsicLength& ContainIntrinsicHeight() const {
-    return box_data_->contain_intrinsic_height_;
+    return surround_data_->contain_intrinsic_height_;
   }
 
 
@@ -1255,7 +1296,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // contain-intrinsic-width
   const StyleIntrinsicLength& ContainIntrinsicWidth() const {
-    return box_data_->contain_intrinsic_width_;
+    return surround_data_->contain_intrinsic_width_;
   }
 
 
@@ -1462,9 +1503,11 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
   // dynamic-range-limit
-  EDynamicRangeLimit DynamicRangeLimit() const {
-    return static_cast<EDynamicRangeLimit>(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_);
+  const DynamicRangeLimit& GetDynamicRangeLimit() const {
+    return rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_;
   }
+
+
 
 
 
@@ -1643,7 +1686,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // font
   const Font& GetFont() const {
-    return inherited_data_->font_data_->font_;
+    return font_data_->font_;
   }
 
 
@@ -2077,6 +2120,14 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+  // image-orientation
+  RespectImageOrientationEnum ImageOrientation() const {
+    return static_cast<RespectImageOrientationEnum>(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->image_orientation_);
+  }
+
+
+
+
   // image-rendering
   EImageRendering ImageRendering() const {
     return static_cast<EImageRendering>(rare_inherited_usage_less_than_64_percent_data_->image_rendering_);
@@ -2124,6 +2175,16 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   bool InlineStyleLostCascade() const {
     return static_cast<bool>(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->inline_style_lost_cascade_);
   }
+
+
+
+
+  // inset-area
+  const InsetArea& GetInsetArea() const {
+    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->inset_area_;
+  }
+
+
 
 
 
@@ -2311,6 +2372,13 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   // IsInBlockifyingDisplay
   bool IsInBlockifyingDisplay() const {
     return static_cast<bool>(data_.is_in_blockifying_display_);
+  }
+
+
+
+  // IsInInlinifyingDisplay
+  bool IsInInlinifyingDisplay() const {
+    return static_cast<bool>(data_.is_in_inlinifying_display_);
   }
 
 
@@ -2560,7 +2628,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // margin-bottom
   const Length& MarginBottom() const {
-    return surround_data_->margin_bottom_;
+    return box_data_->margin_bottom_;
   }
 
 
@@ -2570,7 +2638,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // margin-left
   const Length& MarginLeft() const {
-    return surround_data_->margin_left_;
+    return box_data_->margin_left_;
   }
 
 
@@ -2580,7 +2648,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // margin-right
   const Length& MarginRight() const {
-    return surround_data_->margin_right_;
+    return box_data_->margin_right_;
   }
 
 
@@ -2590,7 +2658,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // margin-top
   const Length& MarginTop() const {
-    return surround_data_->margin_top_;
+    return box_data_->margin_top_;
   }
 
 
@@ -3013,7 +3081,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // padding-bottom
   const Length& PaddingBottom() const {
-    return surround_data_->padding_bottom_;
+    return box_data_->padding_bottom_;
   }
 
 
@@ -3023,7 +3091,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // padding-left
   const Length& PaddingLeft() const {
-    return surround_data_->padding_left_;
+    return box_data_->padding_left_;
   }
 
 
@@ -3033,7 +3101,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // padding-right
   const Length& PaddingRight() const {
-    return surround_data_->padding_right_;
+    return box_data_->padding_right_;
   }
 
 
@@ -3043,7 +3111,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // padding-top
   const Length& PaddingTop() const {
-    return surround_data_->padding_top_;
+    return box_data_->padding_top_;
   }
 
 
@@ -3221,14 +3289,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // resize
   
-
-
-
-  // image-orientation
-  bool RespectImageOrientation() const {
-    return static_cast<bool>(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->respect_image_orientation_);
-  }
-
 
 
 
@@ -3969,37 +4029,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
-  // toggle-group
-  ToggleGroupList* ToggleGroup() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_group_.get();
-  }
-
-
-
-  // toggle-root
-  ToggleRootList* ToggleRoot() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_root_.get();
-  }
-
-
-
-  // toggle-trigger
-  ToggleTriggerList* ToggleTrigger() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_trigger_.get();
-  }
-
-
-
-  // toggle-visibility
-  const AtomicString& ToggleVisibility() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_visibility_;
-  }
-
-
-
-
-
-
   // top
   
 
@@ -4035,7 +4064,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // transform-origin
   const TransformOrigin& GetTransformOrigin() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_;
+    return svg_data_->transform_origin_;
   }
 
 
@@ -4338,8 +4367,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     box_align_,
     box_decoration_break_,
     box_direction_,
-    box_direction_alternative_,
-    box_direction_is_inherited_,
     box_flex_,
     box_ordinal_group_,
     box_orient_,
@@ -4369,6 +4396,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     color_is_inherited_,
     color_rendering_,
     color_scheme_,
+    color_scheme_flags_is_normal_,
     color_scheme_forced_,
     column_count_,
     column_fill_,
@@ -4482,12 +4510,14 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     hyphenate_limit_chars_,
     hyphenation_string_,
     hyphens_,
+    image_orientation_,
     image_rendering_,
     in_forced_colors_mode_,
     inherited_variables_,
     initial_data_,
     initial_letter_,
     inline_style_lost_cascade_,
+    inset_area_,
     inside_link_,
     internal_forced_background_color_,
     internal_forced_border_color_,
@@ -4514,6 +4544,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     is_ensured_outside_flat_tree_,
     is_flex_or_grid_or_custom_item_,
     is_in_blockifying_display_,
+    is_in_inlinifying_display_,
     is_inert_,
     is_inert_is_inherited_,
     is_inside_display_ignoring_floating_children_,
@@ -4624,7 +4655,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     r_,
     requires_accelerated_compositing_for_external_reasons_,
     resize_,
-    respect_image_orientation_,
     right_,
     rotate_,
     row_gap_,
@@ -4712,10 +4742,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     text_underline_position_,
     text_wrap_,
     timeline_scope_,
-    toggle_group_,
-    toggle_root_,
-    toggle_trigger_,
-    toggle_visibility_,
     top_,
     touch_action_,
     transform_,
@@ -4764,6 +4790,20 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   CORE_EXPORT Vector<DebugDiff> DebugDiffFields(const ComputedStyleBase& o) const;
 #endif // DCHECK_IS_ON()
 
+  // Find a list of which subgroups listed have changed between this and the
+  // other ComputedStyle(Base); output a list of the changed groups and their
+  // sizes in bytes. This is meant for more precise memory tracking than just
+  // looking at the Oilpan statistics, or for finding out (empirically)
+  // which groups are affected by setting a specific property. It is used
+  // only in the style perftest, not in the normal rendering engine.
+  //
+  // Note that if you change something deep in a subgroup like e.g. a->b->c,
+  // both a->b and a will also be recorded, as they must be modified to get
+  // the pointer in place. The fixed 4- or 8-byte Oilpan header overhead
+  // is not included.
+  Vector<std::pair<String, size_t>>
+  FindChangedGroups(const ComputedStyleBase &other_style) const;
+
   CORE_EXPORT void Trace(Visitor* visitor) const;
   void TraceAfterDispatch(Visitor* visitor) const {
     visitor->Trace(inherited_data_);
@@ -4771,40 +4811,14 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     visitor->Trace(visual_data_);
     visitor->Trace(rare_non_inherited_usage_less_than_14_percent_data_);
     visitor->Trace(svg_data_);
-    visitor->Trace(box_data_);
-    visitor->Trace(background_data_);
     visitor->Trace(surround_data_);
+    visitor->Trace(background_data_);
+    visitor->Trace(box_data_);
+    visitor->Trace(font_data_);
     visitor->Trace(base_data_);
   }
 
  private:
-  class StyleFontData : public GarbageCollected<StyleFontData> {
-   public:
-    explicit StyleFontData();
-    CORE_EXPORT StyleFontData(const StyleFontData&);
-
-    static StyleFontData* Create() {
-      return MakeGarbageCollected<StyleFontData>();
-    }
-    StyleFontData* Copy() const {
-      return MakeGarbageCollected<StyleFontData>(*this);
-    }
-
-
-    CORE_EXPORT void Trace(Visitor* visitor) const {
-      TraceIfNeeded<Font>::Trace(visitor, font_);
-    }
-
-    bool operator==(const StyleFontData& other) const {
-      return (
-        font_ == other.font_
-      );
-    }
-    bool operator!=(const StyleFontData& other) const { return !(*this == other); }
-
-    Font font_;
-  };
-
   class StyleInheritedData : public GarbageCollected<StyleInheritedData> {
    public:
     explicit StyleInheritedData();
@@ -4819,7 +4833,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
     CORE_EXPORT void Trace(Visitor* visitor) const {
-      visitor->Trace(font_data_);
       TraceIfNeeded<Length>::Trace(visitor, line_height_);
       TraceIfNeeded<float>::Trace(visitor, text_autosizing_multiplier_);
       TraceIfNeeded<StyleColor>::Trace(visitor, color_);
@@ -4830,8 +4843,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
     bool operator==(const StyleInheritedData& other) const {
       return (
-        base::ValuesEquivalent(font_data_, other.font_data_)
-        && base::ValuesEquivalent(inherited_variables_, other.inherited_variables_)
+        base::ValuesEquivalent(inherited_variables_, other.inherited_variables_)
         && line_height_ == other.line_height_
         && text_autosizing_multiplier_ == other.text_autosizing_multiplier_
         && color_ == other.color_
@@ -4845,7 +4857,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     }
     bool operator!=(const StyleInheritedData& other) const { return !(*this == other); }
 
-    DataMember<StyleFontData> font_data_;
     scoped_refptr<StyleInheritedVariables> inherited_variables_;
     Length line_height_;
     float text_autosizing_multiplier_;
@@ -4882,9 +4893,9 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         tap_highlight_color_ == other.tap_highlight_color_
         && accent_color_ == other.accent_color_
         && math_depth_ == other.math_depth_
+        && image_orientation_ == other.image_orientation_
         && math_shift_ == other.math_shift_
         && math_style_ == other.math_style_
-        && respect_image_orientation_ == other.respect_image_orientation_
         && ruby_position_ == other.ruby_position_
       );
     }
@@ -4893,9 +4904,9 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     StyleColor tap_highlight_color_;
     StyleAutoColor accent_color_;
     short math_depth_;
+    unsigned image_orientation_ : 1; // RespectImageOrientationEnum
     unsigned math_shift_ : 1; // EMathShift
     unsigned math_style_ : 1; // EMathStyle
-    unsigned respect_image_orientation_ : 1; // bool
     unsigned ruby_position_ : 1; // RubyPosition
   };
 
@@ -5009,6 +5020,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
       visitor->Trace(inherited_forced_colors_data_);
       visitor->Trace(inherited_visited_data_);
       visitor->Trace(highlight_data_data_);
+      TraceIfNeeded<DynamicRangeLimit>::Trace(visitor, dynamic_range_limit_);
       TraceIfNeeded<AtomicString>::Trace(visitor, text_emphasis_custom_mark_);
       TraceIfNeeded<absl::optional<StyleScrollbarColor>>::Trace(visitor, scrollbar_color_);
       visitor->Trace(cursor_data_);
@@ -5021,6 +5033,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         base::ValuesEquivalent(inherited_forced_colors_data_, other.inherited_forced_colors_data_)
         && base::ValuesEquivalent(inherited_visited_data_, other.inherited_visited_data_)
         && base::ValuesEquivalent(highlight_data_data_, other.highlight_data_data_)
+        && dynamic_range_limit_ == other.dynamic_range_limit_
         && text_emphasis_custom_mark_ == other.text_emphasis_custom_mark_
         && base::ValuesEquivalent(initial_data_, other.initial_data_)
         && scrollbar_color_ == other.scrollbar_color_
@@ -5029,7 +5042,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && hyphenate_limit_chars_ == other.hyphenate_limit_chars_
         && effective_touch_action_ == other.effective_touch_action_
         && text_emphasis_mark_ == other.text_emphasis_mark_
-        && dynamic_range_limit_ == other.dynamic_range_limit_
         && has_line_if_empty_ == other.has_line_if_empty_
         && subtree_is_sticky_ == other.subtree_is_sticky_
         && text_autospace_ == other.text_autospace_
@@ -5038,9 +5050,10 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     }
     bool operator!=(const StyleRareInheritedUsageLessThan64PercentSubData& other) const { return !(*this == other); }
 
-    DataMember<StyleInheritedForcedColorsData> inherited_forced_colors_data_;
-    DataMember<StyleInheritedVisitedData> inherited_visited_data_;
-    DataMember<StyleHighlightDataData> highlight_data_data_;
+    Member<StyleInheritedForcedColorsData> inherited_forced_colors_data_;
+    Member<StyleInheritedVisitedData> inherited_visited_data_;
+    Member<StyleHighlightDataData> highlight_data_data_;
+    DynamicRangeLimit dynamic_range_limit_;
     AtomicString text_emphasis_custom_mark_;
     scoped_refptr<StyleInitialData> initial_data_;
     absl::optional<StyleScrollbarColor> scrollbar_color_;
@@ -5049,7 +5062,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     StyleHyphenateLimitChars hyphenate_limit_chars_;
     unsigned effective_touch_action_ : 8; // TouchAction
     unsigned text_emphasis_mark_ : 3; // TextEmphasisMark
-    unsigned dynamic_range_limit_ : 2; // EDynamicRangeLimit
     unsigned has_line_if_empty_ : 1; // bool
     unsigned subtree_is_sticky_ : 1; // bool
     unsigned text_autospace_ : 1; // ETextAutospace
@@ -5130,8 +5142,8 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     }
     bool operator!=(const StyleRareInheritedUsageLessThan64PercentData& other) const { return !(*this == other); }
 
-    DataMember<StyleRareInheritedUsageLessThan100PercentData> rare_inherited_usage_less_than_100_percent_data_;
-    DataMember<StyleRareInheritedUsageLessThan64PercentSubData> rare_inherited_usage_less_than_64_percent_sub_data_;
+    Member<StyleRareInheritedUsageLessThan100PercentData> rare_inherited_usage_less_than_100_percent_data_;
+    Member<StyleRareInheritedUsageLessThan64PercentSubData> rare_inherited_usage_less_than_64_percent_sub_data_;
     Vector<AtomicString> color_scheme_;
     AtomicString hyphenation_string_;
     scoped_refptr<QuotesData> quotes_;
@@ -5436,7 +5448,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     }
     bool operator!=(const StyleRareNonInheritedUsageLessThan22PercentData& other) const { return !(*this == other); }
 
-    DataMember<StyleRareNonInheritedUsageLessThan100PercentData> rare_non_inherited_usage_less_than_100_percent_data_;
+    Member<StyleRareNonInheritedUsageLessThan100PercentData> rare_non_inherited_usage_less_than_100_percent_data_;
     FilterOperations filter_;
     Length flex_basis_;
     float flex_grow_;
@@ -5780,7 +5792,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
       visitor->Trace(timeline_data_);
       visitor->Trace(will_change_data_);
       visitor->Trace(math_data_);
-      TraceIfNeeded<AtomicString>::Trace(visitor, toggle_visibility_);
       TraceIfNeeded<AtomicString>::Trace(visitor, view_transition_name_);
       TraceIfNeeded<AtomicString>::Trace(visitor, display_layout_custom_name_);
       TraceIfNeeded<AtomicString>::Trace(visitor, display_layout_custom_parent_name_);
@@ -5803,6 +5814,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
       TraceIfNeeded<float>::Trace(visitor, scroll_margin_left_);
       TraceIfNeeded<float>::Trace(visitor, scroll_margin_right_);
       TraceIfNeeded<float>::Trace(visitor, scroll_margin_top_);
+      TraceIfNeeded<InsetArea>::Trace(visitor, inset_area_);
     }
 
     bool operator==(const StyleRareNonInheritedUsageLessThan14PercentSubData& other) const {
@@ -5815,15 +5827,11 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && base::ValuesEquivalent(timeline_data_, other.timeline_data_)
         && base::ValuesEquivalent(will_change_data_, other.will_change_data_)
         && base::ValuesEquivalent(math_data_, other.math_data_)
-        && toggle_visibility_ == other.toggle_visibility_
         && view_transition_name_ == other.view_transition_name_
         && display_layout_custom_name_ == other.display_layout_custom_name_
         && display_layout_custom_parent_name_ == other.display_layout_custom_parent_name_
         && pseudo_argument_ == other.pseudo_argument_
         && base::ValuesEquivalent(object_view_box_, other.object_view_box_)
-        && base::ValuesEquivalent(toggle_group_, other.toggle_group_)
-        && base::ValuesEquivalent(toggle_root_, other.toggle_root_)
-        && base::ValuesEquivalent(toggle_trigger_, other.toggle_trigger_)
         && base::ValuesEquivalent(custom_highlight_names_, other.custom_highlight_names_)
         && base::ValuesEquivalent(counter_directives_, other.counter_directives_)
         && base::ValuesEquivalent(animations_, other.animations_)
@@ -5847,6 +5855,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && scroll_margin_left_ == other.scroll_margin_left_
         && scroll_margin_right_ == other.scroll_margin_right_
         && scroll_margin_top_ == other.scroll_margin_top_
+        && inset_area_ == other.inset_area_
         && effective_appearance_ == other.effective_appearance_
         && container_type_ == other.container_type_
         && overscroll_behavior_x_ == other.overscroll_behavior_x_
@@ -5886,23 +5895,19 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     }
     bool operator!=(const StyleRareNonInheritedUsageLessThan14PercentSubData& other) const { return !(*this == other); }
 
-    DataMember<StyleGridData> grid_data_;
-    DataMember<StyleForcedColorsData> forced_colors_data_;
-    DataMember<StyleVisitedData> visited_data_;
-    DataMember<StyleStartData> start_data_;
-    DataMember<StyleTargetData> target_data_;
-    DataMember<StyleTimelineData> timeline_data_;
-    DataMember<StyleWillChangeData> will_change_data_;
-    DataMember<StyleMathData> math_data_;
-    AtomicString toggle_visibility_;
+    Member<StyleGridData> grid_data_;
+    Member<StyleForcedColorsData> forced_colors_data_;
+    Member<StyleVisitedData> visited_data_;
+    Member<StyleStartData> start_data_;
+    Member<StyleTargetData> target_data_;
+    Member<StyleTimelineData> timeline_data_;
+    Member<StyleWillChangeData> will_change_data_;
+    Member<StyleMathData> math_data_;
     AtomicString view_transition_name_;
     AtomicString display_layout_custom_name_;
     AtomicString display_layout_custom_parent_name_;
     AtomicString pseudo_argument_;
     scoped_refptr<BasicShape> object_view_box_;
-    scoped_refptr<ToggleGroupList> toggle_group_;
-    scoped_refptr<ToggleRootList> toggle_root_;
-    scoped_refptr<ToggleTriggerList> toggle_trigger_;
     std::unique_ptr<HashSet<AtomicString>> custom_highlight_names_;
     std::unique_ptr<CounterDirectiveMap> counter_directives_;
     std::unique_ptr<CSSAnimationData> animations_;
@@ -5927,8 +5932,9 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     float scroll_margin_left_;
     float scroll_margin_right_;
     float scroll_margin_top_;
+    InsetArea inset_area_;
     unsigned effective_appearance_ : 5; // ControlPart
-    unsigned container_type_ : 4; // unsigned
+    unsigned container_type_ : 3; // unsigned
     unsigned overscroll_behavior_x_ : 2; // EOverscrollBehavior
     unsigned overscroll_behavior_y_ : 2; // EOverscrollBehavior
     unsigned page_size_type_ : 2; // PageSizeType
@@ -5995,7 +6001,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
       visitor->Trace(rare_non_inherited_usage_less_than_14_percent_sub_data_);
       TraceIfNeeded<TransformOperations>::Trace(visitor, transform_);
       visitor->Trace(content_);
-      TraceIfNeeded<TransformOrigin>::Trace(visitor, transform_origin_);
       TraceIfNeeded<float>::Trace(visitor, opacity_);
       TraceIfNeeded<StyleSelfAlignmentData>::Trace(visitor, align_items_);
       TraceIfNeeded<StyleContentAlignmentData>::Trace(visitor, justify_content_);
@@ -6008,7 +6013,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && transform_ == other.transform_
         && base::ValuesEquivalent(box_shadow_, other.box_shadow_)
         && base::ValuesEquivalent(content_, other.content_)
-        && transform_origin_ == other.transform_origin_
         && opacity_ == other.opacity_
         && align_items_ == other.align_items_
         && justify_content_ == other.justify_content_
@@ -6020,12 +6024,11 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     }
     bool operator!=(const StyleRareNonInheritedUsageLessThan14PercentData& other) const { return !(*this == other); }
 
-    DataMember<StyleRareNonInheritedUsageLessThan22PercentData> rare_non_inherited_usage_less_than_22_percent_data_;
-    DataMember<StyleRareNonInheritedUsageLessThan14PercentSubData> rare_non_inherited_usage_less_than_14_percent_sub_data_;
+    Member<StyleRareNonInheritedUsageLessThan22PercentData> rare_non_inherited_usage_less_than_22_percent_data_;
+    Member<StyleRareNonInheritedUsageLessThan14PercentSubData> rare_non_inherited_usage_less_than_14_percent_sub_data_;
     TransformOperations transform_;
     scoped_refptr<ShadowList> box_shadow_;
     Member<ContentData> content_;
-    TransformOrigin transform_origin_;
     float opacity_;
     StyleSelfAlignmentData align_items_;
     StyleContentAlignmentData justify_content_;
@@ -6287,6 +6290,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
       , inherited_resources_data_(parent_style.inherited_resources_data_)
       , stop_data_(source_for_noninherited.stop_data_)
       , masker_resource_(source_for_noninherited.masker_resource_)
+      , transform_origin_(source_for_noninherited.transform_origin_)
       , alignment_baseline_(source_for_noninherited.alignment_baseline_)
       , css_dominant_baseline_(parent_style.css_dominant_baseline_)
       , dominant_baseline_(parent_style.dominant_baseline_)
@@ -6311,6 +6315,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
       visitor->Trace(inherited_resources_data_);
       visitor->Trace(stop_data_);
       visitor->Trace(masker_resource_);
+      TraceIfNeeded<TransformOrigin>::Trace(visitor, transform_origin_);
     }
 
     bool operator==(const StyleSVGData& other) const {
@@ -6322,6 +6327,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && base::ValuesEquivalent(inherited_resources_data_, other.inherited_resources_data_)
         && base::ValuesEquivalent(stop_data_, other.stop_data_)
         && base::ValuesEquivalent(masker_resource_, other.masker_resource_)
+        && transform_origin_ == other.transform_origin_
         && alignment_baseline_ == other.alignment_baseline_
         && css_dominant_baseline_ == other.css_dominant_baseline_
         && dominant_baseline_ == other.dominant_baseline_
@@ -6340,13 +6346,14 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     }
     bool operator!=(const StyleSVGData& other) const { return !(*this == other); }
 
-    DataMember<StyleMiscData> misc_data_;
-    DataMember<StyleGeometryData> geometry_data_;
-    DataMember<StyleFillData> fill_data_;
-    DataMember<StyleStrokeData> stroke_data_;
-    DataMember<StyleInheritedResourcesData> inherited_resources_data_;
-    DataMember<StyleStopData> stop_data_;
+    Member<StyleMiscData> misc_data_;
+    Member<StyleGeometryData> geometry_data_;
+    Member<StyleFillData> fill_data_;
+    Member<StyleStrokeData> stroke_data_;
+    Member<StyleInheritedResourcesData> inherited_resources_data_;
+    Member<StyleStopData> stop_data_;
     Member<StyleSVGResource> masker_resource_;
+    TransformOrigin transform_origin_;
     unsigned alignment_baseline_ : 4; // EAlignmentBaseline
     unsigned css_dominant_baseline_ : 4; // EDominantBaseline
     unsigned dominant_baseline_ : 4; // EDominantBaseline
@@ -6363,71 +6370,78 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     unsigned vector_effect_ : 1; // EVectorEffect
   };
 
-  class StyleBoxData : public GarbageCollected<StyleBoxData> {
+  class StyleSurroundData : public GarbageCollected<StyleSurroundData> {
    public:
-    explicit StyleBoxData();
-    CORE_EXPORT StyleBoxData(const StyleBoxData&);
+    explicit StyleSurroundData();
+    CORE_EXPORT StyleSurroundData(const StyleSurroundData&);
 
-    static StyleBoxData* Create() {
-      return MakeGarbageCollected<StyleBoxData>();
+    static StyleSurroundData* Create() {
+      return MakeGarbageCollected<StyleSurroundData>();
     }
-    StyleBoxData* Copy() const {
-      return MakeGarbageCollected<StyleBoxData>(*this);
+    StyleSurroundData* Copy() const {
+      return MakeGarbageCollected<StyleSurroundData>(*this);
     }
 
 
     CORE_EXPORT void Trace(Visitor* visitor) const {
+      TraceIfNeeded<NinePieceImage>::Trace(visitor, border_image_);
       TraceIfNeeded<StyleAspectRatio>::Trace(visitor, aspect_ratio_);
       TraceIfNeeded<StyleIntrinsicLength>::Trace(visitor, contain_intrinsic_height_);
       TraceIfNeeded<StyleIntrinsicLength>::Trace(visitor, contain_intrinsic_width_);
-      TraceIfNeeded<Length>::Trace(visitor, height_);
-      TraceIfNeeded<Length>::Trace(visitor, max_height_);
-      TraceIfNeeded<Length>::Trace(visitor, max_width_);
-      TraceIfNeeded<Length>::Trace(visitor, min_height_);
-      TraceIfNeeded<Length>::Trace(visitor, min_width_);
-      TraceIfNeeded<Length>::Trace(visitor, width_);
-      TraceIfNeeded<Length>::Trace(visitor, vertical_align_length_);
-      TraceIfNeeded<int>::Trace(visitor, z_index_);
+      TraceIfNeeded<LengthSize>::Trace(visitor, border_bottom_left_radius_);
+      TraceIfNeeded<LengthSize>::Trace(visitor, border_bottom_right_radius_);
+      TraceIfNeeded<LengthSize>::Trace(visitor, border_top_left_radius_);
+      TraceIfNeeded<LengthSize>::Trace(visitor, border_top_right_radius_);
+      TraceIfNeeded<Length>::Trace(visitor, bottom_);
+      TraceIfNeeded<Length>::Trace(visitor, left_);
+      TraceIfNeeded<Length>::Trace(visitor, right_);
+      TraceIfNeeded<Length>::Trace(visitor, top_);
+      TraceIfNeeded<StyleColor>::Trace(visitor, border_bottom_color_);
+      TraceIfNeeded<StyleColor>::Trace(visitor, border_left_color_);
+      TraceIfNeeded<StyleColor>::Trace(visitor, border_right_color_);
+      TraceIfNeeded<StyleColor>::Trace(visitor, border_top_color_);
     }
 
-    bool operator==(const StyleBoxData& other) const {
+    bool operator==(const StyleSurroundData& other) const {
       return (
-        aspect_ratio_ == other.aspect_ratio_
+        border_image_ == other.border_image_
+        && aspect_ratio_ == other.aspect_ratio_
         && contain_intrinsic_height_ == other.contain_intrinsic_height_
         && contain_intrinsic_width_ == other.contain_intrinsic_width_
-        && height_ == other.height_
-        && max_height_ == other.max_height_
-        && max_width_ == other.max_width_
-        && min_height_ == other.min_height_
-        && min_width_ == other.min_width_
-        && width_ == other.width_
-        && vertical_align_length_ == other.vertical_align_length_
-        && z_index_ == other.z_index_
-        && baseline_source_ == other.baseline_source_
-        && text_box_trim_ == other.text_box_trim_
-        && box_decoration_break_ == other.box_decoration_break_
-        && box_sizing_ == other.box_sizing_
-        && has_auto_z_index_ == other.has_auto_z_index_
+        && border_bottom_left_radius_ == other.border_bottom_left_radius_
+        && border_bottom_right_radius_ == other.border_bottom_right_radius_
+        && border_top_left_radius_ == other.border_top_left_radius_
+        && border_top_right_radius_ == other.border_top_right_radius_
+        && bottom_ == other.bottom_
+        && left_ == other.left_
+        && right_ == other.right_
+        && top_ == other.top_
+        && border_bottom_color_ == other.border_bottom_color_
+        && border_left_color_ == other.border_left_color_
+        && border_right_color_ == other.border_right_color_
+        && border_top_color_ == other.border_top_color_
       );
     }
-    bool operator!=(const StyleBoxData& other) const { return !(*this == other); }
+    bool operator!=(const StyleSurroundData& other) const { return !(*this == other); }
 
+    NinePieceImage border_image_;
     StyleAspectRatio aspect_ratio_;
     StyleIntrinsicLength contain_intrinsic_height_;
     StyleIntrinsicLength contain_intrinsic_width_;
-    Length height_;
-    Length max_height_;
-    Length max_width_;
-    Length min_height_;
-    Length min_width_;
-    Length width_;
-    Length vertical_align_length_;
-    int z_index_;
-    unsigned baseline_source_ : 2; // EBaselineSource
-    unsigned text_box_trim_ : 2; // ETextBoxTrim
-    unsigned box_decoration_break_ : 1; // EBoxDecorationBreak
-    unsigned box_sizing_ : 1; // EBoxSizing
-    unsigned has_auto_z_index_ : 1; // bool
+    LengthSize border_bottom_left_radius_;
+    LengthSize border_bottom_right_radius_;
+    LengthSize border_top_left_radius_;
+    LengthSize border_top_right_radius_;
+    Length bottom_;
+    Length left_;
+    Length right_;
+    Length top_;
+    StyleColor border_bottom_color_;
+    StyleColor border_left_color_;
+    StyleColor border_right_color_;
+    StyleColor border_top_color_;
+    unsigned may_have_margin_ : 1; // bool
+    unsigned may_have_padding_ : 1; // bool
   };
 
   class StyleBackgroundData : public GarbageCollected<StyleBackgroundData> {
@@ -6460,113 +6474,131 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     StyleColor background_color_;
   };
 
-  class StyleSurroundData : public GarbageCollected<StyleSurroundData> {
+  class StyleBoxData : public GarbageCollected<StyleBoxData> {
    public:
-    explicit StyleSurroundData();
-    CORE_EXPORT StyleSurroundData(const StyleSurroundData&);
+    explicit StyleBoxData();
+    CORE_EXPORT StyleBoxData(const StyleBoxData&);
 
-    static StyleSurroundData* Create() {
-      return MakeGarbageCollected<StyleSurroundData>();
+    static StyleBoxData* Create() {
+      return MakeGarbageCollected<StyleBoxData>();
     }
-    StyleSurroundData* Copy() const {
-      return MakeGarbageCollected<StyleSurroundData>(*this);
+    StyleBoxData* Copy() const {
+      return MakeGarbageCollected<StyleBoxData>(*this);
     }
 
 
     CORE_EXPORT void Trace(Visitor* visitor) const {
-      TraceIfNeeded<NinePieceImage>::Trace(visitor, border_image_);
-      TraceIfNeeded<LengthSize>::Trace(visitor, border_bottom_left_radius_);
-      TraceIfNeeded<LengthSize>::Trace(visitor, border_bottom_right_radius_);
-      TraceIfNeeded<LengthSize>::Trace(visitor, border_top_left_radius_);
-      TraceIfNeeded<LengthSize>::Trace(visitor, border_top_right_radius_);
-      TraceIfNeeded<Length>::Trace(visitor, bottom_);
-      TraceIfNeeded<Length>::Trace(visitor, left_);
+      TraceIfNeeded<Length>::Trace(visitor, height_);
       TraceIfNeeded<Length>::Trace(visitor, margin_bottom_);
       TraceIfNeeded<Length>::Trace(visitor, margin_left_);
       TraceIfNeeded<Length>::Trace(visitor, margin_right_);
       TraceIfNeeded<Length>::Trace(visitor, margin_top_);
+      TraceIfNeeded<Length>::Trace(visitor, max_height_);
+      TraceIfNeeded<Length>::Trace(visitor, max_width_);
+      TraceIfNeeded<Length>::Trace(visitor, min_height_);
+      TraceIfNeeded<Length>::Trace(visitor, min_width_);
       TraceIfNeeded<Length>::Trace(visitor, padding_bottom_);
       TraceIfNeeded<Length>::Trace(visitor, padding_left_);
       TraceIfNeeded<Length>::Trace(visitor, padding_right_);
       TraceIfNeeded<Length>::Trace(visitor, padding_top_);
-      TraceIfNeeded<Length>::Trace(visitor, right_);
-      TraceIfNeeded<Length>::Trace(visitor, top_);
-      TraceIfNeeded<StyleColor>::Trace(visitor, border_bottom_color_);
-      TraceIfNeeded<StyleColor>::Trace(visitor, border_left_color_);
-      TraceIfNeeded<StyleColor>::Trace(visitor, border_right_color_);
-      TraceIfNeeded<StyleColor>::Trace(visitor, border_top_color_);
+      TraceIfNeeded<Length>::Trace(visitor, width_);
+      TraceIfNeeded<Length>::Trace(visitor, vertical_align_length_);
       TraceIfNeeded<LayoutUnit>::Trace(visitor, border_bottom_width_);
       TraceIfNeeded<LayoutUnit>::Trace(visitor, border_left_width_);
       TraceIfNeeded<LayoutUnit>::Trace(visitor, border_right_width_);
       TraceIfNeeded<LayoutUnit>::Trace(visitor, border_top_width_);
+      TraceIfNeeded<int>::Trace(visitor, z_index_);
     }
 
-    bool operator==(const StyleSurroundData& other) const {
+    bool operator==(const StyleBoxData& other) const {
       return (
-        border_image_ == other.border_image_
-        && border_bottom_left_radius_ == other.border_bottom_left_radius_
-        && border_bottom_right_radius_ == other.border_bottom_right_radius_
-        && border_top_left_radius_ == other.border_top_left_radius_
-        && border_top_right_radius_ == other.border_top_right_radius_
-        && bottom_ == other.bottom_
-        && left_ == other.left_
+        height_ == other.height_
         && margin_bottom_ == other.margin_bottom_
         && margin_left_ == other.margin_left_
         && margin_right_ == other.margin_right_
         && margin_top_ == other.margin_top_
+        && max_height_ == other.max_height_
+        && max_width_ == other.max_width_
+        && min_height_ == other.min_height_
+        && min_width_ == other.min_width_
         && padding_bottom_ == other.padding_bottom_
         && padding_left_ == other.padding_left_
         && padding_right_ == other.padding_right_
         && padding_top_ == other.padding_top_
-        && right_ == other.right_
-        && top_ == other.top_
-        && border_bottom_color_ == other.border_bottom_color_
-        && border_left_color_ == other.border_left_color_
-        && border_right_color_ == other.border_right_color_
-        && border_top_color_ == other.border_top_color_
+        && width_ == other.width_
+        && vertical_align_length_ == other.vertical_align_length_
         && border_bottom_width_ == other.border_bottom_width_
         && border_left_width_ == other.border_left_width_
         && border_right_width_ == other.border_right_width_
         && border_top_width_ == other.border_top_width_
+        && z_index_ == other.z_index_
         && border_bottom_style_ == other.border_bottom_style_
         && border_left_style_ == other.border_left_style_
         && border_right_style_ == other.border_right_style_
         && border_top_style_ == other.border_top_style_
+        && baseline_source_ == other.baseline_source_
+        && text_box_trim_ == other.text_box_trim_
+        && box_decoration_break_ == other.box_decoration_break_
+        && has_auto_z_index_ == other.has_auto_z_index_
       );
     }
-    bool operator!=(const StyleSurroundData& other) const { return !(*this == other); }
+    bool operator!=(const StyleBoxData& other) const { return !(*this == other); }
 
-    NinePieceImage border_image_;
-    LengthSize border_bottom_left_radius_;
-    LengthSize border_bottom_right_radius_;
-    LengthSize border_top_left_radius_;
-    LengthSize border_top_right_radius_;
-    Length bottom_;
-    Length left_;
+    Length height_;
     Length margin_bottom_;
     Length margin_left_;
     Length margin_right_;
     Length margin_top_;
+    Length max_height_;
+    Length max_width_;
+    Length min_height_;
+    Length min_width_;
     Length padding_bottom_;
     Length padding_left_;
     Length padding_right_;
     Length padding_top_;
-    Length right_;
-    Length top_;
-    StyleColor border_bottom_color_;
-    StyleColor border_left_color_;
-    StyleColor border_right_color_;
-    StyleColor border_top_color_;
+    Length width_;
+    Length vertical_align_length_;
     LayoutUnit border_bottom_width_;
     LayoutUnit border_left_width_;
     LayoutUnit border_right_width_;
     LayoutUnit border_top_width_;
+    int z_index_;
     unsigned border_bottom_style_ : 4; // EBorderStyle
     unsigned border_left_style_ : 4; // EBorderStyle
     unsigned border_right_style_ : 4; // EBorderStyle
     unsigned border_top_style_ : 4; // EBorderStyle
-    unsigned may_have_margin_ : 1; // bool
-    unsigned may_have_padding_ : 1; // bool
+    unsigned baseline_source_ : 2; // EBaselineSource
+    unsigned text_box_trim_ : 2; // ETextBoxTrim
+    unsigned box_decoration_break_ : 1; // EBoxDecorationBreak
+    unsigned has_auto_z_index_ : 1; // bool
+  };
+
+  class StyleFontData : public GarbageCollected<StyleFontData> {
+   public:
+    explicit StyleFontData();
+    CORE_EXPORT StyleFontData(const StyleFontData&);
+
+    static StyleFontData* Create() {
+      return MakeGarbageCollected<StyleFontData>();
+    }
+    StyleFontData* Copy() const {
+      return MakeGarbageCollected<StyleFontData>(*this);
+    }
+
+
+    CORE_EXPORT void Trace(Visitor* visitor) const {
+      TraceIfNeeded<Font>::Trace(visitor, font_);
+    }
+
+    bool operator==(const StyleFontData& other) const {
+      return (
+        font_ == other.font_
+      );
+    }
+    bool operator!=(const StyleFontData& other) const { return !(*this == other); }
+
+    Font font_;
   };
 
 
@@ -6768,7 +6800,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // border-bottom-width
   const LayoutUnit& BorderBottomWidthInternal() const {
-    return surround_data_->border_bottom_width_;
+    return box_data_->border_bottom_width_;
   }
 
 
@@ -6813,7 +6845,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // border-left-width
   const LayoutUnit& BorderLeftWidthInternal() const {
-    return surround_data_->border_left_width_;
+    return box_data_->border_left_width_;
   }
 
 
@@ -6839,7 +6871,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // border-right-width
   const LayoutUnit& BorderRightWidthInternal() const {
-    return surround_data_->border_right_width_;
+    return box_data_->border_right_width_;
   }
 
 
@@ -6879,7 +6911,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // border-top-width
   const LayoutUnit& BorderTopWidthInternal() const {
-    return surround_data_->border_top_width_;
+    return box_data_->border_top_width_;
   }
 
 
@@ -6912,24 +6944,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   // -webkit-box-direction
   EBoxDirection BoxDirection() const {
     return static_cast<EBoxDirection>(data_.box_direction_);
-  }
-
-
-
-
-
-  // -webkit-box-direction-alternative
-  EBoxDirectionAlternative BoxDirectionAlternative() const {
-    return static_cast<EBoxDirectionAlternative>(data_.box_direction_alternative_);
-  }
-
-
-
-
-
-  // -webkit-box-direction
-  bool BoxDirectionIsInherited() const {
-    return static_cast<bool>(data_.box_direction_is_inherited_);
   }
 
 
@@ -7111,6 +7125,12 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   // color-scheme
   
 
+
+
+
+
+  // ColorSchemeFlagsIsNormal
+  
 
 
 
@@ -7357,6 +7377,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // dynamic-range-limit
   
+
 
 
 
@@ -7780,6 +7801,12 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+  // image-orientation
+  
+
+
+
+
   // image-rendering
   
 
@@ -7816,6 +7843,13 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // InlineStyleLostCascade
   
+
+
+
+
+  // inset-area
+  
+
 
 
 
@@ -8039,6 +8073,9 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   
 
   // IsInBlockifyingDisplay
+  
+
+  // IsInInlinifyingDisplay
   
 
   // IsInert
@@ -8729,12 +8766,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
-  // image-orientation
-  
-
-
-
-
   // right
   const Length& Right() const {
     return surround_data_->right_;
@@ -9283,13 +9314,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
-  // toggle-visibility
-  
-
-
-
-
-
   // top
   const Length& Top() const {
     return surround_data_->top_;
@@ -9527,24 +9551,24 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   struct Data {
     unsigned pseudo_element_styles_ : 12; // unsigned
     unsigned cursor_ : 6; // ECursor
+    unsigned display_ : 6; // EDisplay
     unsigned style_type_ : 6; // PseudoId
-    unsigned display_ : 5; // EDisplay
-    unsigned clear_ : 3; // EClear
+    unsigned break_inside_ : 2; // EBreakInside
     unsigned break_after_ : 4; // EBreakBetween
     unsigned break_before_ : 4; // EBreakBetween
     unsigned pointer_events_ : 4; // EPointerEvents
     unsigned scrollbar_gutter_ : 4; // unsigned
     unsigned text_align_ : 4; // ETextAlign
     unsigned vertical_align_ : 4; // unsigned
+    unsigned clear_ : 3; // EClear
     unsigned floating_ : 3; // EFloat
+    unsigned content_visibility_ : 2; // EContentVisibility
     unsigned overflow_x_ : 3; // EOverflow
-    unsigned break_inside_ : 2; // EBreakInside
     unsigned overflow_y_ : 3; // EOverflow
     unsigned position_ : 3; // EPosition
     unsigned text_transform_ : 3; // ETextTransform
     unsigned transform_box_ : 3; // ETransformBox
     unsigned unicode_bidi_ : 3; // UnicodeBidi
-    unsigned content_visibility_ : 2; // EContentVisibility
     unsigned inside_link_ : 2; // EInsideLink
     mutable unsigned is_stacking_context_without_containment_ : 2; // unsigned
     unsigned overflow_anchor_ : 2; // EOverflowAnchor
@@ -9552,20 +9576,20 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     unsigned viewport_unit_flags_ : 2; // unsigned
     unsigned visibility_ : 2; // EVisibility
     unsigned white_space_collapse_ : 2; // WhiteSpaceCollapse
-    unsigned affected_by_active_ : 1; // bool
     unsigned writing_mode_ : 2; // WritingMode
+    unsigned affected_by_active_ : 1; // bool
     unsigned affected_by_drag_ : 1; // bool
     unsigned affected_by_focus_within_ : 1; // bool
     unsigned affected_by_hover_ : 1; // bool
     unsigned border_collapse_ : 1; // EBorderCollapse
     unsigned border_collapse_is_inherited_ : 1; // bool
     unsigned box_direction_ : 1; // EBoxDirection
-    unsigned box_direction_alternative_ : 1; // EBoxDirectionAlternative
-    unsigned box_direction_is_inherited_ : 1; // bool
+    unsigned box_sizing_ : 1; // EBoxSizing
     unsigned caption_side_ : 1; // ECaptionSide
     unsigned caption_side_is_inherited_ : 1; // bool
     mutable unsigned child_has_explicit_inheritance_ : 1; // bool
     unsigned color_is_inherited_ : 1; // bool
+    unsigned color_scheme_flags_is_normal_ : 1; // bool
     unsigned color_scheme_forced_ : 1; // bool
     unsigned custom_style_callback_depends_on_font_ : 1; // bool
     unsigned dark_color_scheme_ : 1; // bool
@@ -9589,6 +9613,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     unsigned is_ensured_outside_flat_tree_ : 1; // bool
     unsigned is_flex_or_grid_or_custom_item_ : 1; // bool
     unsigned is_in_blockifying_display_ : 1; // bool
+    unsigned is_in_inlinifying_display_ : 1; // bool
     unsigned is_inert_ : 1; // bool
     unsigned is_inert_is_inherited_ : 1; // bool
     unsigned is_inside_display_ignoring_floating_children_ : 1; // bool
@@ -9615,14 +9640,15 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   friend class ComputedStyleBuilderBase;
 
   // Storage.
-  DataMember<StyleInheritedData> inherited_data_;
-  DataMember<StyleRareInheritedUsageLessThan64PercentData> rare_inherited_usage_less_than_64_percent_data_;
-  DataMember<StyleVisualData> visual_data_;
-  DataMember<StyleRareNonInheritedUsageLessThan14PercentData> rare_non_inherited_usage_less_than_14_percent_data_;
-  DataMember<StyleSVGData> svg_data_;
-  DataMember<StyleBoxData> box_data_;
-  DataMember<StyleBackgroundData> background_data_;
-  DataMember<StyleSurroundData> surround_data_;
+  Member<StyleInheritedData> inherited_data_;
+  Member<StyleRareInheritedUsageLessThan64PercentData> rare_inherited_usage_less_than_64_percent_data_;
+  Member<StyleVisualData> visual_data_;
+  Member<StyleRareNonInheritedUsageLessThan14PercentData> rare_non_inherited_usage_less_than_14_percent_data_;
+  Member<StyleSVGData> svg_data_;
+  Member<StyleSurroundData> surround_data_;
+  Member<StyleBackgroundData> background_data_;
+  Member<StyleBoxData> box_data_;
+  Member<StyleFontData> font_data_;
 
   Member<StyleBaseData> base_data_;
 
@@ -9855,21 +9881,21 @@ class ComputedStyleBuilderBase {
 
   // aspect-ratio
   const StyleAspectRatio& AspectRatio() const {
-    return box_data_->aspect_ratio_;
+    return surround_data_->aspect_ratio_;
   }
 
   void SetAspectRatio(const StyleAspectRatio& v) {
-    if (!(box_data_->aspect_ratio_ == v))
-      Access(box_data_, access_.box_data_)->aspect_ratio_ = v;
+    if (!(surround_data_->aspect_ratio_ == v))
+      Access(surround_data_, access_.surround_data_)->aspect_ratio_ = v;
   }
 
   void SetAspectRatio(StyleAspectRatio&& v) {
-    if (!(box_data_->aspect_ratio_ == v))
-      Access(box_data_, access_.box_data_)->aspect_ratio_ = std::move(v);
+    if (!(surround_data_->aspect_ratio_ == v))
+      Access(surround_data_, access_.surround_data_)->aspect_ratio_ = std::move(v);
   }
 
   inline void ResetAspectRatio() {
-    Access(box_data_, access_.box_data_)->aspect_ratio_ = StyleAspectRatio(EAspectRatioType::kAuto, gfx::SizeF());
+    Access(surround_data_, access_.surround_data_)->aspect_ratio_ = StyleAspectRatio(EAspectRatioType::kAuto, gfx::SizeF());
   }
 
 
@@ -10094,33 +10120,33 @@ class ComputedStyleBuilderBase {
 
   // border-bottom-style
   EBorderStyle BorderBottomStyle() const {
-    return static_cast<EBorderStyle>(surround_data_->border_bottom_style_);
+    return static_cast<EBorderStyle>(box_data_->border_bottom_style_);
   }
 
   void SetBorderBottomStyle(EBorderStyle v) {
-    if (!(surround_data_->border_bottom_style_ == static_cast<unsigned>(v)))
-      Access(surround_data_, access_.surround_data_)->border_bottom_style_ = static_cast<unsigned>(v);
+    if (!(box_data_->border_bottom_style_ == static_cast<unsigned>(v)))
+      Access(box_data_, access_.box_data_)->border_bottom_style_ = static_cast<unsigned>(v);
   }
 
   inline void ResetBorderBottomStyle() {
-    Access(surround_data_, access_.surround_data_)->border_bottom_style_ = static_cast<unsigned>(EBorderStyle::kNone);
+    Access(box_data_, access_.box_data_)->border_bottom_style_ = static_cast<unsigned>(EBorderStyle::kNone);
   }
 
 
   // border-bottom-width
   
   void SetBorderBottomWidth(const LayoutUnit& v) {
-    if (!(surround_data_->border_bottom_width_ == v))
-      Access(surround_data_, access_.surround_data_)->border_bottom_width_ = v;
+    if (!(box_data_->border_bottom_width_ == v))
+      Access(box_data_, access_.box_data_)->border_bottom_width_ = v;
   }
 
   void SetBorderBottomWidth(LayoutUnit&& v) {
-    if (!(surround_data_->border_bottom_width_ == v))
-      Access(surround_data_, access_.surround_data_)->border_bottom_width_ = std::move(v);
+    if (!(box_data_->border_bottom_width_ == v))
+      Access(box_data_, access_.box_data_)->border_bottom_width_ = std::move(v);
   }
 
   inline void ResetBorderBottomWidth() {
-    Access(surround_data_, access_.surround_data_)->border_bottom_width_ = LayoutUnit(3);
+    Access(box_data_, access_.box_data_)->border_bottom_width_ = LayoutUnit(3);
   }
 
 
@@ -10194,33 +10220,33 @@ class ComputedStyleBuilderBase {
 
   // border-left-style
   EBorderStyle BorderLeftStyle() const {
-    return static_cast<EBorderStyle>(surround_data_->border_left_style_);
+    return static_cast<EBorderStyle>(box_data_->border_left_style_);
   }
 
   void SetBorderLeftStyle(EBorderStyle v) {
-    if (!(surround_data_->border_left_style_ == static_cast<unsigned>(v)))
-      Access(surround_data_, access_.surround_data_)->border_left_style_ = static_cast<unsigned>(v);
+    if (!(box_data_->border_left_style_ == static_cast<unsigned>(v)))
+      Access(box_data_, access_.box_data_)->border_left_style_ = static_cast<unsigned>(v);
   }
 
   inline void ResetBorderLeftStyle() {
-    Access(surround_data_, access_.surround_data_)->border_left_style_ = static_cast<unsigned>(EBorderStyle::kNone);
+    Access(box_data_, access_.box_data_)->border_left_style_ = static_cast<unsigned>(EBorderStyle::kNone);
   }
 
 
   // border-left-width
   
   void SetBorderLeftWidth(const LayoutUnit& v) {
-    if (!(surround_data_->border_left_width_ == v))
-      Access(surround_data_, access_.surround_data_)->border_left_width_ = v;
+    if (!(box_data_->border_left_width_ == v))
+      Access(box_data_, access_.box_data_)->border_left_width_ = v;
   }
 
   void SetBorderLeftWidth(LayoutUnit&& v) {
-    if (!(surround_data_->border_left_width_ == v))
-      Access(surround_data_, access_.surround_data_)->border_left_width_ = std::move(v);
+    if (!(box_data_->border_left_width_ == v))
+      Access(box_data_, access_.box_data_)->border_left_width_ = std::move(v);
   }
 
   inline void ResetBorderLeftWidth() {
-    Access(surround_data_, access_.surround_data_)->border_left_width_ = LayoutUnit(3);
+    Access(box_data_, access_.box_data_)->border_left_width_ = LayoutUnit(3);
   }
 
 
@@ -10245,33 +10271,33 @@ class ComputedStyleBuilderBase {
 
   // border-right-style
   EBorderStyle BorderRightStyle() const {
-    return static_cast<EBorderStyle>(surround_data_->border_right_style_);
+    return static_cast<EBorderStyle>(box_data_->border_right_style_);
   }
 
   void SetBorderRightStyle(EBorderStyle v) {
-    if (!(surround_data_->border_right_style_ == static_cast<unsigned>(v)))
-      Access(surround_data_, access_.surround_data_)->border_right_style_ = static_cast<unsigned>(v);
+    if (!(box_data_->border_right_style_ == static_cast<unsigned>(v)))
+      Access(box_data_, access_.box_data_)->border_right_style_ = static_cast<unsigned>(v);
   }
 
   inline void ResetBorderRightStyle() {
-    Access(surround_data_, access_.surround_data_)->border_right_style_ = static_cast<unsigned>(EBorderStyle::kNone);
+    Access(box_data_, access_.box_data_)->border_right_style_ = static_cast<unsigned>(EBorderStyle::kNone);
   }
 
 
   // border-right-width
   
   void SetBorderRightWidth(const LayoutUnit& v) {
-    if (!(surround_data_->border_right_width_ == v))
-      Access(surround_data_, access_.surround_data_)->border_right_width_ = v;
+    if (!(box_data_->border_right_width_ == v))
+      Access(box_data_, access_.box_data_)->border_right_width_ = v;
   }
 
   void SetBorderRightWidth(LayoutUnit&& v) {
-    if (!(surround_data_->border_right_width_ == v))
-      Access(surround_data_, access_.surround_data_)->border_right_width_ = std::move(v);
+    if (!(box_data_->border_right_width_ == v))
+      Access(box_data_, access_.box_data_)->border_right_width_ = std::move(v);
   }
 
   inline void ResetBorderRightWidth() {
-    Access(surround_data_, access_.surround_data_)->border_right_width_ = LayoutUnit(3);
+    Access(box_data_, access_.box_data_)->border_right_width_ = LayoutUnit(3);
   }
 
 
@@ -10338,33 +10364,33 @@ class ComputedStyleBuilderBase {
 
   // border-top-style
   EBorderStyle BorderTopStyle() const {
-    return static_cast<EBorderStyle>(surround_data_->border_top_style_);
+    return static_cast<EBorderStyle>(box_data_->border_top_style_);
   }
 
   void SetBorderTopStyle(EBorderStyle v) {
-    if (!(surround_data_->border_top_style_ == static_cast<unsigned>(v)))
-      Access(surround_data_, access_.surround_data_)->border_top_style_ = static_cast<unsigned>(v);
+    if (!(box_data_->border_top_style_ == static_cast<unsigned>(v)))
+      Access(box_data_, access_.box_data_)->border_top_style_ = static_cast<unsigned>(v);
   }
 
   inline void ResetBorderTopStyle() {
-    Access(surround_data_, access_.surround_data_)->border_top_style_ = static_cast<unsigned>(EBorderStyle::kNone);
+    Access(box_data_, access_.box_data_)->border_top_style_ = static_cast<unsigned>(EBorderStyle::kNone);
   }
 
 
   // border-top-width
   
   void SetBorderTopWidth(const LayoutUnit& v) {
-    if (!(surround_data_->border_top_width_ == v))
-      Access(surround_data_, access_.surround_data_)->border_top_width_ = v;
+    if (!(box_data_->border_top_width_ == v))
+      Access(box_data_, access_.box_data_)->border_top_width_ = v;
   }
 
   void SetBorderTopWidth(LayoutUnit&& v) {
-    if (!(surround_data_->border_top_width_ == v))
-      Access(surround_data_, access_.surround_data_)->border_top_width_ = std::move(v);
+    if (!(box_data_->border_top_width_ == v))
+      Access(box_data_, access_.box_data_)->border_top_width_ = std::move(v);
   }
 
   inline void ResetBorderTopWidth() {
-    Access(surround_data_, access_.surround_data_)->border_top_width_ = LayoutUnit(3);
+    Access(box_data_, access_.box_data_)->border_top_width_ = LayoutUnit(3);
   }
 
 
@@ -10425,28 +10451,6 @@ class ComputedStyleBuilderBase {
 
   inline void ResetBoxDirection() {
     data_.box_direction_ = static_cast<unsigned>(EBoxDirection::kNormal);
-  }
-
-
-  // -webkit-box-direction-alternative
-  
-  void SetBoxDirectionAlternative(EBoxDirectionAlternative v) {
-    data_.box_direction_alternative_ = static_cast<unsigned>(v);
-  }
-
-  inline void ResetBoxDirectionAlternative() {
-    data_.box_direction_alternative_ = static_cast<unsigned>(EBoxDirectionAlternative::kNormal);
-  }
-
-
-  // -webkit-box-direction
-  
-  void SetBoxDirectionIsInherited(bool v) {
-    data_.box_direction_is_inherited_ = static_cast<unsigned>(v);
-  }
-
-  inline void ResetBoxDirectionIsInherited() {
-    data_.box_direction_is_inherited_ = static_cast<unsigned>(true);
   }
 
 
@@ -10530,16 +10534,15 @@ class ComputedStyleBuilderBase {
 
   // box-sizing
   EBoxSizing BoxSizing() const {
-    return static_cast<EBoxSizing>(box_data_->box_sizing_);
+    return static_cast<EBoxSizing>(data_.box_sizing_);
   }
 
   void SetBoxSizing(EBoxSizing v) {
-    if (!(box_data_->box_sizing_ == static_cast<unsigned>(v)))
-      Access(box_data_, access_.box_data_)->box_sizing_ = static_cast<unsigned>(v);
+    data_.box_sizing_ = static_cast<unsigned>(v);
   }
 
   inline void ResetBoxSizing() {
-    Access(box_data_, access_.box_data_)->box_sizing_ = static_cast<unsigned>(EBoxSizing::kContentBox);
+    data_.box_sizing_ = static_cast<unsigned>(EBoxSizing::kContentBox);
   }
 
 
@@ -10841,6 +10844,20 @@ class ComputedStyleBuilderBase {
 
 
 
+  // ColorSchemeFlagsIsNormal
+  bool ColorSchemeFlagsIsNormal() const {
+    return static_cast<bool>(data_.color_scheme_flags_is_normal_);
+  }
+
+  void SetColorSchemeFlagsIsNormal(bool v) {
+    data_.color_scheme_flags_is_normal_ = static_cast<unsigned>(v);
+  }
+
+  inline void ResetColorSchemeFlagsIsNormal() {
+    data_.color_scheme_flags_is_normal_ = static_cast<unsigned>(false);
+  }
+
+
   // ColorSchemeForced
   bool ColorSchemeForced() const {
     return static_cast<bool>(data_.color_scheme_forced_);
@@ -11003,42 +11020,42 @@ class ComputedStyleBuilderBase {
 
   // contain-intrinsic-height
   const StyleIntrinsicLength& ContainIntrinsicHeight() const {
-    return box_data_->contain_intrinsic_height_;
+    return surround_data_->contain_intrinsic_height_;
   }
 
   void SetContainIntrinsicHeight(const StyleIntrinsicLength& v) {
-    if (!(box_data_->contain_intrinsic_height_ == v))
-      Access(box_data_, access_.box_data_)->contain_intrinsic_height_ = v;
+    if (!(surround_data_->contain_intrinsic_height_ == v))
+      Access(surround_data_, access_.surround_data_)->contain_intrinsic_height_ = v;
   }
 
   void SetContainIntrinsicHeight(StyleIntrinsicLength&& v) {
-    if (!(box_data_->contain_intrinsic_height_ == v))
-      Access(box_data_, access_.box_data_)->contain_intrinsic_height_ = std::move(v);
+    if (!(surround_data_->contain_intrinsic_height_ == v))
+      Access(surround_data_, access_.surround_data_)->contain_intrinsic_height_ = std::move(v);
   }
 
   inline void ResetContainIntrinsicHeight() {
-    Access(box_data_, access_.box_data_)->contain_intrinsic_height_ = StyleIntrinsicLength();
+    Access(surround_data_, access_.surround_data_)->contain_intrinsic_height_ = StyleIntrinsicLength();
   }
 
 
 
   // contain-intrinsic-width
   const StyleIntrinsicLength& ContainIntrinsicWidth() const {
-    return box_data_->contain_intrinsic_width_;
+    return surround_data_->contain_intrinsic_width_;
   }
 
   void SetContainIntrinsicWidth(const StyleIntrinsicLength& v) {
-    if (!(box_data_->contain_intrinsic_width_ == v))
-      Access(box_data_, access_.box_data_)->contain_intrinsic_width_ = v;
+    if (!(surround_data_->contain_intrinsic_width_ == v))
+      Access(surround_data_, access_.surround_data_)->contain_intrinsic_width_ = v;
   }
 
   void SetContainIntrinsicWidth(StyleIntrinsicLength&& v) {
-    if (!(box_data_->contain_intrinsic_width_ == v))
-      Access(box_data_, access_.box_data_)->contain_intrinsic_width_ = std::move(v);
+    if (!(surround_data_->contain_intrinsic_width_ == v))
+      Access(surround_data_, access_.surround_data_)->contain_intrinsic_width_ = std::move(v);
   }
 
   inline void ResetContainIntrinsicWidth() {
-    Access(box_data_, access_.box_data_)->contain_intrinsic_width_ = StyleIntrinsicLength();
+    Access(surround_data_, access_.surround_data_)->contain_intrinsic_width_ = StyleIntrinsicLength();
   }
 
 
@@ -11406,18 +11423,24 @@ class ComputedStyleBuilderBase {
 
 
   // dynamic-range-limit
-  EDynamicRangeLimit DynamicRangeLimit() const {
-    return static_cast<EDynamicRangeLimit>(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_);
+  const DynamicRangeLimit& GetDynamicRangeLimit() const {
+    return rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_;
   }
 
-  void SetDynamicRangeLimit(EDynamicRangeLimit v) {
-    if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_ == static_cast<unsigned>(v)))
-      Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_64_percent_sub_data_, access_.rare_inherited_usage_less_than_64_percent_sub_data_)->dynamic_range_limit_ = static_cast<unsigned>(v);
+  void SetDynamicRangeLimit(const DynamicRangeLimit& v) {
+    if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_ == v))
+      Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_64_percent_sub_data_, access_.rare_inherited_usage_less_than_64_percent_sub_data_)->dynamic_range_limit_ = v;
+  }
+
+  void SetDynamicRangeLimit(DynamicRangeLimit&& v) {
+    if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_ == v))
+      Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_64_percent_sub_data_, access_.rare_inherited_usage_less_than_64_percent_sub_data_)->dynamic_range_limit_ = std::move(v);
   }
 
   inline void ResetDynamicRangeLimit() {
-    Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_64_percent_sub_data_, access_.rare_inherited_usage_less_than_64_percent_sub_data_)->dynamic_range_limit_ = static_cast<unsigned>(EDynamicRangeLimit::kHigh);
+    Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_64_percent_sub_data_, access_.rare_inherited_usage_less_than_64_percent_sub_data_)->dynamic_range_limit_ = DynamicRangeLimit(cc::PaintFlags::DynamicRangeLimit::kHigh);
   }
+
 
 
   // EffectiveAppearance
@@ -11747,21 +11770,21 @@ class ComputedStyleBuilderBase {
 
   // font
   const Font& GetFont() const {
-    return inherited_data_->font_data_->font_;
+    return font_data_->font_;
   }
 
   void SetFont(const Font& v) {
-    if (!(inherited_data_->font_data_->font_ == v))
-      Access(Access(inherited_data_, access_.inherited_data_)->font_data_, access_.font_data_)->font_ = v;
+    if (!(font_data_->font_ == v))
+      Access(font_data_, access_.font_data_)->font_ = v;
   }
 
   void SetFont(Font&& v) {
-    if (!(inherited_data_->font_data_->font_ == v))
-      Access(Access(inherited_data_, access_.inherited_data_)->font_data_, access_.font_data_)->font_ = std::move(v);
+    if (!(font_data_->font_ == v))
+      Access(font_data_, access_.font_data_)->font_ = std::move(v);
   }
 
   inline void ResetFont() {
-    Access(Access(inherited_data_, access_.inherited_data_)->font_data_, access_.font_data_)->font_ = Font();
+    Access(font_data_, access_.font_data_)->font_ = Font();
   }
 
 
@@ -12532,6 +12555,21 @@ class ComputedStyleBuilderBase {
   }
 
 
+  // image-orientation
+  RespectImageOrientationEnum ImageOrientation() const {
+    return static_cast<RespectImageOrientationEnum>(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->image_orientation_);
+  }
+
+  void SetImageOrientation(RespectImageOrientationEnum v) {
+    if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->image_orientation_ == static_cast<unsigned>(v)))
+      Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_100_percent_data_, access_.rare_inherited_usage_less_than_100_percent_data_)->image_orientation_ = static_cast<unsigned>(v);
+  }
+
+  inline void ResetImageOrientation() {
+    Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_100_percent_data_, access_.rare_inherited_usage_less_than_100_percent_data_)->image_orientation_ = static_cast<unsigned>(kRespectImageOrientation);
+  }
+
+
   // image-rendering
   EImageRendering ImageRendering() const {
     return static_cast<EImageRendering>(rare_inherited_usage_less_than_64_percent_data_->image_rendering_);
@@ -12619,6 +12657,27 @@ class ComputedStyleBuilderBase {
   inline void ResetInlineStyleLostCascade() {
     Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->inline_style_lost_cascade_ = static_cast<unsigned>(false);
   }
+
+
+  // inset-area
+  const InsetArea& GetInsetArea() const {
+    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->inset_area_;
+  }
+
+  void SetInsetArea(const InsetArea& v) {
+    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->inset_area_ == v))
+      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->inset_area_ = v;
+  }
+
+  void SetInsetArea(InsetArea&& v) {
+    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->inset_area_ == v))
+      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->inset_area_ = std::move(v);
+  }
+
+  inline void ResetInsetArea() {
+    Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->inset_area_ = InsetArea();
+  }
+
 
 
   // InsideLink
@@ -13050,6 +13109,16 @@ class ComputedStyleBuilderBase {
 
   void SetIsInBlockifyingDisplay() {
     data_.is_in_blockifying_display_ = static_cast<unsigned>(true);
+  }
+
+
+  // IsInInlinifyingDisplay
+  bool IsInInlinifyingDisplay() const {
+    return static_cast<bool>(data_.is_in_inlinifying_display_);
+  }
+
+  void SetIsInInlinifyingDisplay() {
+    data_.is_in_inlinifying_display_ = static_cast<unsigned>(true);
   }
 
 
@@ -13510,52 +13579,52 @@ class ComputedStyleBuilderBase {
 
   // margin-bottom
   const Length& MarginBottom() const {
-    return surround_data_->margin_bottom_;
+    return box_data_->margin_bottom_;
   }
 
 
 
   inline void ResetMarginBottom() {
-    Access(surround_data_, access_.surround_data_)->margin_bottom_ = Length::Fixed();
+    Access(box_data_, access_.box_data_)->margin_bottom_ = Length::Fixed();
   }
 
 
 
   // margin-left
   const Length& MarginLeft() const {
-    return surround_data_->margin_left_;
+    return box_data_->margin_left_;
   }
 
 
 
   inline void ResetMarginLeft() {
-    Access(surround_data_, access_.surround_data_)->margin_left_ = Length::Fixed();
+    Access(box_data_, access_.box_data_)->margin_left_ = Length::Fixed();
   }
 
 
 
   // margin-right
   const Length& MarginRight() const {
-    return surround_data_->margin_right_;
+    return box_data_->margin_right_;
   }
 
 
 
   inline void ResetMarginRight() {
-    Access(surround_data_, access_.surround_data_)->margin_right_ = Length::Fixed();
+    Access(box_data_, access_.box_data_)->margin_right_ = Length::Fixed();
   }
 
 
 
   // margin-top
   const Length& MarginTop() const {
-    return surround_data_->margin_top_;
+    return box_data_->margin_top_;
   }
 
 
 
   inline void ResetMarginTop() {
-    Access(surround_data_, access_.surround_data_)->margin_top_ = Length::Fixed();
+    Access(box_data_, access_.box_data_)->margin_top_ = Length::Fixed();
   }
 
 
@@ -14361,52 +14430,52 @@ class ComputedStyleBuilderBase {
 
   // padding-bottom
   const Length& PaddingBottom() const {
-    return surround_data_->padding_bottom_;
+    return box_data_->padding_bottom_;
   }
 
 
 
   inline void ResetPaddingBottom() {
-    Access(surround_data_, access_.surround_data_)->padding_bottom_ = Length::Fixed();
+    Access(box_data_, access_.box_data_)->padding_bottom_ = Length::Fixed();
   }
 
 
 
   // padding-left
   const Length& PaddingLeft() const {
-    return surround_data_->padding_left_;
+    return box_data_->padding_left_;
   }
 
 
 
   inline void ResetPaddingLeft() {
-    Access(surround_data_, access_.surround_data_)->padding_left_ = Length::Fixed();
+    Access(box_data_, access_.box_data_)->padding_left_ = Length::Fixed();
   }
 
 
 
   // padding-right
   const Length& PaddingRight() const {
-    return surround_data_->padding_right_;
+    return box_data_->padding_right_;
   }
 
 
 
   inline void ResetPaddingRight() {
-    Access(surround_data_, access_.surround_data_)->padding_right_ = Length::Fixed();
+    Access(box_data_, access_.box_data_)->padding_right_ = Length::Fixed();
   }
 
 
 
   // padding-top
   const Length& PaddingTop() const {
-    return surround_data_->padding_top_;
+    return box_data_->padding_top_;
   }
 
 
 
   inline void ResetPaddingTop() {
-    Access(surround_data_, access_.surround_data_)->padding_top_ = Length::Fixed();
+    Access(box_data_, access_.box_data_)->padding_top_ = Length::Fixed();
   }
 
 
@@ -14751,21 +14820,6 @@ class ComputedStyleBuilderBase {
 
   inline void ResetResize() {
     Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_22_percent_data_, access_.rare_non_inherited_usage_less_than_22_percent_data_)->resize_ = static_cast<unsigned>(EResize::kNone);
-  }
-
-
-  // image-orientation
-  bool RespectImageOrientation() const {
-    return static_cast<bool>(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->respect_image_orientation_);
-  }
-
-  void SetRespectImageOrientation(bool v) {
-    if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->respect_image_orientation_ == static_cast<unsigned>(v)))
-      Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_100_percent_data_, access_.rare_inherited_usage_less_than_100_percent_data_)->respect_image_orientation_ = static_cast<unsigned>(v);
-  }
-
-  inline void ResetRespectImageOrientation() {
-    Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_100_percent_data_, access_.rare_inherited_usage_less_than_100_percent_data_)->respect_image_orientation_ = static_cast<unsigned>(true);
   }
 
 
@@ -16212,60 +16266,6 @@ class ComputedStyleBuilderBase {
 
 
 
-  // toggle-group
-  ToggleGroupList* ToggleGroup() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_group_.get();
-  }
-
-  void SetToggleGroup(scoped_refptr<ToggleGroupList> v) {
-    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_group_ == v))
-      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->toggle_group_ = std::move(v);
-  }
-
-
-  // toggle-root
-  ToggleRootList* ToggleRoot() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_root_.get();
-  }
-
-  void SetToggleRoot(scoped_refptr<ToggleRootList> v) {
-    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_root_ == v))
-      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->toggle_root_ = std::move(v);
-  }
-
-
-  // toggle-trigger
-  ToggleTriggerList* ToggleTrigger() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_trigger_.get();
-  }
-
-  void SetToggleTrigger(scoped_refptr<ToggleTriggerList> v) {
-    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_trigger_ == v))
-      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->toggle_trigger_ = std::move(v);
-  }
-
-
-  // toggle-visibility
-  const AtomicString& ToggleVisibility() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_visibility_;
-  }
-
-  void SetToggleVisibility(const AtomicString& v) {
-    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_visibility_ == v))
-      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->toggle_visibility_ = v;
-  }
-
-  void SetToggleVisibility(AtomicString&& v) {
-    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_visibility_ == v))
-      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->toggle_visibility_ = std::move(v);
-  }
-
-  inline void ResetToggleVisibility() {
-    Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->toggle_visibility_ = g_null_atom;
-  }
-
-
-
   // top
   
   void SetTop(const Length& v) {
@@ -16336,21 +16336,21 @@ class ComputedStyleBuilderBase {
 
   // transform-origin
   const TransformOrigin& GetTransformOrigin() const {
-    return rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_;
+    return svg_data_->transform_origin_;
   }
 
   void SetTransformOrigin(const TransformOrigin& v) {
-    if (!(rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_ == v))
-      Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->transform_origin_ = v;
+    if (!(svg_data_->transform_origin_ == v))
+      Access(svg_data_, access_.svg_data_)->transform_origin_ = v;
   }
 
   void SetTransformOrigin(TransformOrigin&& v) {
-    if (!(rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_ == v))
-      Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->transform_origin_ = std::move(v);
+    if (!(svg_data_->transform_origin_ == v))
+      Access(svg_data_, access_.svg_data_)->transform_origin_ = std::move(v);
   }
 
   inline void ResetTransformOrigin() {
-    Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->transform_origin_ = TransformOrigin(Length::Percent(50.0), Length::Percent(50.0), 0);
+    Access(svg_data_, access_.svg_data_)->transform_origin_ = TransformOrigin(Length::Percent(50.0), Length::Percent(50.0), 0);
   }
 
 
@@ -16948,7 +16948,7 @@ class ComputedStyleBuilderBase {
 
 
   StyleAspectRatio& MutableAspectRatioInternal() {
-    return Access(box_data_, access_.box_data_)->aspect_ratio_;
+    return Access(surround_data_, access_.surround_data_)->aspect_ratio_;
   }
 
 
@@ -17096,20 +17096,20 @@ class ComputedStyleBuilderBase {
 
 
   EBorderStyle MutableBorderBottomStyleInternal() {
-    return static_cast<EBorderStyle>(Access(surround_data_, access_.surround_data_)->border_bottom_style_);
+    return static_cast<EBorderStyle>(Access(box_data_, access_.box_data_)->border_bottom_style_);
   }
 
 
   // border-bottom-width
   const LayoutUnit& BorderBottomWidthInternal() const {
-    return surround_data_->border_bottom_width_;
+    return box_data_->border_bottom_width_;
   }
 
 
 
 
   LayoutUnit& MutableBorderBottomWidthInternal() {
-    return Access(surround_data_, access_.surround_data_)->border_bottom_width_;
+    return Access(box_data_, access_.box_data_)->border_bottom_width_;
   }
 
 
@@ -17159,20 +17159,20 @@ class ComputedStyleBuilderBase {
 
 
   EBorderStyle MutableBorderLeftStyleInternal() {
-    return static_cast<EBorderStyle>(Access(surround_data_, access_.surround_data_)->border_left_style_);
+    return static_cast<EBorderStyle>(Access(box_data_, access_.box_data_)->border_left_style_);
   }
 
 
   // border-left-width
   const LayoutUnit& BorderLeftWidthInternal() const {
-    return surround_data_->border_left_width_;
+    return box_data_->border_left_width_;
   }
 
 
 
 
   LayoutUnit& MutableBorderLeftWidthInternal() {
-    return Access(surround_data_, access_.surround_data_)->border_left_width_;
+    return Access(box_data_, access_.box_data_)->border_left_width_;
   }
 
 
@@ -17194,20 +17194,20 @@ class ComputedStyleBuilderBase {
 
 
   EBorderStyle MutableBorderRightStyleInternal() {
-    return static_cast<EBorderStyle>(Access(surround_data_, access_.surround_data_)->border_right_style_);
+    return static_cast<EBorderStyle>(Access(box_data_, access_.box_data_)->border_right_style_);
   }
 
 
   // border-right-width
   const LayoutUnit& BorderRightWidthInternal() const {
-    return surround_data_->border_right_width_;
+    return box_data_->border_right_width_;
   }
 
 
 
 
   LayoutUnit& MutableBorderRightWidthInternal() {
-    return Access(surround_data_, access_.surround_data_)->border_right_width_;
+    return Access(box_data_, access_.box_data_)->border_right_width_;
   }
 
 
@@ -17249,20 +17249,20 @@ class ComputedStyleBuilderBase {
 
 
   EBorderStyle MutableBorderTopStyleInternal() {
-    return static_cast<EBorderStyle>(Access(surround_data_, access_.surround_data_)->border_top_style_);
+    return static_cast<EBorderStyle>(Access(box_data_, access_.box_data_)->border_top_style_);
   }
 
 
   // border-top-width
   const LayoutUnit& BorderTopWidthInternal() const {
-    return surround_data_->border_top_width_;
+    return box_data_->border_top_width_;
   }
 
 
 
 
   LayoutUnit& MutableBorderTopWidthInternal() {
-    return Access(surround_data_, access_.surround_data_)->border_top_width_;
+    return Access(box_data_, access_.box_data_)->border_top_width_;
   }
 
 
@@ -17306,30 +17306,6 @@ class ComputedStyleBuilderBase {
 
   EBoxDirection MutableBoxDirectionInternal() {
     return static_cast<EBoxDirection>(data_.box_direction_);
-  }
-
-
-  // -webkit-box-direction-alternative
-  EBoxDirectionAlternative BoxDirectionAlternative() const {
-    return static_cast<EBoxDirectionAlternative>(data_.box_direction_alternative_);
-  }
-
-
-
-  EBoxDirectionAlternative MutableBoxDirectionAlternativeInternal() {
-    return static_cast<EBoxDirectionAlternative>(data_.box_direction_alternative_);
-  }
-
-
-  // -webkit-box-direction
-  bool BoxDirectionIsInherited() const {
-    return static_cast<bool>(data_.box_direction_is_inherited_);
-  }
-
-
-
-  bool MutableBoxDirectionIsInheritedInternal() {
-    return static_cast<bool>(data_.box_direction_is_inherited_);
   }
 
 
@@ -17386,7 +17362,7 @@ class ComputedStyleBuilderBase {
 
 
   EBoxSizing MutableBoxSizingInternal() {
-    return static_cast<EBoxSizing>(Access(box_data_, access_.box_data_)->box_sizing_);
+    return static_cast<EBoxSizing>(data_.box_sizing_);
   }
 
 
@@ -17616,6 +17592,15 @@ class ComputedStyleBuilderBase {
   }
 
 
+  // ColorSchemeFlagsIsNormal
+  
+
+
+  bool MutableColorSchemeFlagsIsNormalInternal() {
+    return static_cast<bool>(data_.color_scheme_flags_is_normal_);
+  }
+
+
   // ColorSchemeForced
   
 
@@ -17746,7 +17731,7 @@ class ComputedStyleBuilderBase {
 
 
   StyleIntrinsicLength& MutableContainIntrinsicHeightInternal() {
-    return Access(box_data_, access_.box_data_)->contain_intrinsic_height_;
+    return Access(surround_data_, access_.surround_data_)->contain_intrinsic_height_;
   }
 
 
@@ -17756,7 +17741,7 @@ class ComputedStyleBuilderBase {
 
 
   StyleIntrinsicLength& MutableContainIntrinsicWidthInternal() {
-    return Access(box_data_, access_.box_data_)->contain_intrinsic_width_;
+    return Access(surround_data_, access_.surround_data_)->contain_intrinsic_width_;
   }
 
 
@@ -18001,8 +17986,9 @@ class ComputedStyleBuilderBase {
   
 
 
-  EDynamicRangeLimit MutableDynamicRangeLimitInternal() {
-    return static_cast<EDynamicRangeLimit>(Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_64_percent_sub_data_, access_.rare_inherited_usage_less_than_64_percent_sub_data_)->dynamic_range_limit_);
+
+  DynamicRangeLimit& MutableDynamicRangeLimitInternal() {
+    return Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_64_percent_sub_data_, access_.rare_inherited_usage_less_than_64_percent_sub_data_)->dynamic_range_limit_;
   }
 
 
@@ -18206,7 +18192,7 @@ class ComputedStyleBuilderBase {
 
 
   Font& MutableFontInternal() {
-    return Access(Access(inherited_data_, access_.inherited_data_)->font_data_, access_.font_data_)->font_;
+    return Access(font_data_, access_.font_data_)->font_;
   }
 
 
@@ -18613,6 +18599,15 @@ class ComputedStyleBuilderBase {
   }
 
 
+  // image-orientation
+  
+
+
+  RespectImageOrientationEnum MutableImageOrientationInternal() {
+    return static_cast<RespectImageOrientationEnum>(Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_100_percent_data_, access_.rare_inherited_usage_less_than_100_percent_data_)->image_orientation_);
+  }
+
+
   // image-rendering
   
 
@@ -18676,6 +18671,16 @@ class ComputedStyleBuilderBase {
 
   bool MutableInlineStyleLostCascadeInternal() {
     return static_cast<bool>(Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->inline_style_lost_cascade_);
+  }
+
+
+  // inset-area
+  
+
+
+
+  InsetArea& MutableInsetAreaInternal() {
+    return Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->inset_area_;
   }
 
 
@@ -18966,6 +18971,9 @@ class ComputedStyleBuilderBase {
   // IsInBlockifyingDisplay
   
 
+  // IsInInlinifyingDisplay
+  
+
   // IsInert
   
 
@@ -19213,72 +19221,72 @@ class ComputedStyleBuilderBase {
   // margin-bottom
   
   void SetMarginBottomInternal(const Length& v) {
-    if (!(surround_data_->margin_bottom_ == v))
-      Access(surround_data_, access_.surround_data_)->margin_bottom_ = v;
+    if (!(box_data_->margin_bottom_ == v))
+      Access(box_data_, access_.box_data_)->margin_bottom_ = v;
   }
 
   void SetMarginBottomInternal(Length&& v) {
-    if (!(surround_data_->margin_bottom_ == v))
-      Access(surround_data_, access_.surround_data_)->margin_bottom_ = std::move(v);
+    if (!(box_data_->margin_bottom_ == v))
+      Access(box_data_, access_.box_data_)->margin_bottom_ = std::move(v);
   }
 
 
   Length& MutableMarginBottomInternal() {
-    return Access(surround_data_, access_.surround_data_)->margin_bottom_;
+    return Access(box_data_, access_.box_data_)->margin_bottom_;
   }
 
 
   // margin-left
   
   void SetMarginLeftInternal(const Length& v) {
-    if (!(surround_data_->margin_left_ == v))
-      Access(surround_data_, access_.surround_data_)->margin_left_ = v;
+    if (!(box_data_->margin_left_ == v))
+      Access(box_data_, access_.box_data_)->margin_left_ = v;
   }
 
   void SetMarginLeftInternal(Length&& v) {
-    if (!(surround_data_->margin_left_ == v))
-      Access(surround_data_, access_.surround_data_)->margin_left_ = std::move(v);
+    if (!(box_data_->margin_left_ == v))
+      Access(box_data_, access_.box_data_)->margin_left_ = std::move(v);
   }
 
 
   Length& MutableMarginLeftInternal() {
-    return Access(surround_data_, access_.surround_data_)->margin_left_;
+    return Access(box_data_, access_.box_data_)->margin_left_;
   }
 
 
   // margin-right
   
   void SetMarginRightInternal(const Length& v) {
-    if (!(surround_data_->margin_right_ == v))
-      Access(surround_data_, access_.surround_data_)->margin_right_ = v;
+    if (!(box_data_->margin_right_ == v))
+      Access(box_data_, access_.box_data_)->margin_right_ = v;
   }
 
   void SetMarginRightInternal(Length&& v) {
-    if (!(surround_data_->margin_right_ == v))
-      Access(surround_data_, access_.surround_data_)->margin_right_ = std::move(v);
+    if (!(box_data_->margin_right_ == v))
+      Access(box_data_, access_.box_data_)->margin_right_ = std::move(v);
   }
 
 
   Length& MutableMarginRightInternal() {
-    return Access(surround_data_, access_.surround_data_)->margin_right_;
+    return Access(box_data_, access_.box_data_)->margin_right_;
   }
 
 
   // margin-top
   
   void SetMarginTopInternal(const Length& v) {
-    if (!(surround_data_->margin_top_ == v))
-      Access(surround_data_, access_.surround_data_)->margin_top_ = v;
+    if (!(box_data_->margin_top_ == v))
+      Access(box_data_, access_.box_data_)->margin_top_ = v;
   }
 
   void SetMarginTopInternal(Length&& v) {
-    if (!(surround_data_->margin_top_ == v))
-      Access(surround_data_, access_.surround_data_)->margin_top_ = std::move(v);
+    if (!(box_data_->margin_top_ == v))
+      Access(box_data_, access_.box_data_)->margin_top_ = std::move(v);
   }
 
 
   Length& MutableMarginTopInternal() {
-    return Access(surround_data_, access_.surround_data_)->margin_top_;
+    return Access(box_data_, access_.box_data_)->margin_top_;
   }
 
 
@@ -19771,72 +19779,72 @@ class ComputedStyleBuilderBase {
   // padding-bottom
   
   void SetPaddingBottomInternal(const Length& v) {
-    if (!(surround_data_->padding_bottom_ == v))
-      Access(surround_data_, access_.surround_data_)->padding_bottom_ = v;
+    if (!(box_data_->padding_bottom_ == v))
+      Access(box_data_, access_.box_data_)->padding_bottom_ = v;
   }
 
   void SetPaddingBottomInternal(Length&& v) {
-    if (!(surround_data_->padding_bottom_ == v))
-      Access(surround_data_, access_.surround_data_)->padding_bottom_ = std::move(v);
+    if (!(box_data_->padding_bottom_ == v))
+      Access(box_data_, access_.box_data_)->padding_bottom_ = std::move(v);
   }
 
 
   Length& MutablePaddingBottomInternal() {
-    return Access(surround_data_, access_.surround_data_)->padding_bottom_;
+    return Access(box_data_, access_.box_data_)->padding_bottom_;
   }
 
 
   // padding-left
   
   void SetPaddingLeftInternal(const Length& v) {
-    if (!(surround_data_->padding_left_ == v))
-      Access(surround_data_, access_.surround_data_)->padding_left_ = v;
+    if (!(box_data_->padding_left_ == v))
+      Access(box_data_, access_.box_data_)->padding_left_ = v;
   }
 
   void SetPaddingLeftInternal(Length&& v) {
-    if (!(surround_data_->padding_left_ == v))
-      Access(surround_data_, access_.surround_data_)->padding_left_ = std::move(v);
+    if (!(box_data_->padding_left_ == v))
+      Access(box_data_, access_.box_data_)->padding_left_ = std::move(v);
   }
 
 
   Length& MutablePaddingLeftInternal() {
-    return Access(surround_data_, access_.surround_data_)->padding_left_;
+    return Access(box_data_, access_.box_data_)->padding_left_;
   }
 
 
   // padding-right
   
   void SetPaddingRightInternal(const Length& v) {
-    if (!(surround_data_->padding_right_ == v))
-      Access(surround_data_, access_.surround_data_)->padding_right_ = v;
+    if (!(box_data_->padding_right_ == v))
+      Access(box_data_, access_.box_data_)->padding_right_ = v;
   }
 
   void SetPaddingRightInternal(Length&& v) {
-    if (!(surround_data_->padding_right_ == v))
-      Access(surround_data_, access_.surround_data_)->padding_right_ = std::move(v);
+    if (!(box_data_->padding_right_ == v))
+      Access(box_data_, access_.box_data_)->padding_right_ = std::move(v);
   }
 
 
   Length& MutablePaddingRightInternal() {
-    return Access(surround_data_, access_.surround_data_)->padding_right_;
+    return Access(box_data_, access_.box_data_)->padding_right_;
   }
 
 
   // padding-top
   
   void SetPaddingTopInternal(const Length& v) {
-    if (!(surround_data_->padding_top_ == v))
-      Access(surround_data_, access_.surround_data_)->padding_top_ = v;
+    if (!(box_data_->padding_top_ == v))
+      Access(box_data_, access_.box_data_)->padding_top_ = v;
   }
 
   void SetPaddingTopInternal(Length&& v) {
-    if (!(surround_data_->padding_top_ == v))
-      Access(surround_data_, access_.surround_data_)->padding_top_ = std::move(v);
+    if (!(box_data_->padding_top_ == v))
+      Access(box_data_, access_.box_data_)->padding_top_ = std::move(v);
   }
 
 
   Length& MutablePaddingTopInternal() {
-    return Access(surround_data_, access_.surround_data_)->padding_top_;
+    return Access(box_data_, access_.box_data_)->padding_top_;
   }
 
 
@@ -20057,15 +20065,6 @@ class ComputedStyleBuilderBase {
 
   EResize MutableResizeInternal() {
     return static_cast<EResize>(Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_22_percent_data_, access_.rare_non_inherited_usage_less_than_22_percent_data_)->resize_);
-  }
-
-
-  // image-orientation
-  
-
-
-  bool MutableRespectImageOrientationInternal() {
-    return static_cast<bool>(Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_100_percent_data_, access_.rare_inherited_usage_less_than_100_percent_data_)->respect_image_orientation_);
   }
 
 
@@ -20892,28 +20891,6 @@ class ComputedStyleBuilderBase {
   }
 
 
-  // toggle-group
-  
-
-
-  // toggle-root
-  
-
-
-  // toggle-trigger
-  
-
-
-  // toggle-visibility
-  
-
-
-
-  AtomicString& MutableToggleVisibilityInternal() {
-    return Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->toggle_visibility_;
-  }
-
-
   // top
   const Length& Top() const {
     return surround_data_->top_;
@@ -20961,7 +20938,7 @@ class ComputedStyleBuilderBase {
 
 
   TransformOrigin& MutableTransformOriginInternal() {
-    return Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->transform_origin_;
+    return Access(svg_data_, access_.svg_data_)->transform_origin_;
   }
 
 
@@ -21330,7 +21307,7 @@ class ComputedStyleBuilderBase {
   }
 
   template <typename T>
-  static T* Access(ComputedStyleBase::DataMember<T>& data, bool& access_flag) {
+  static T* Access(Member<T>& data, bool& access_flag) {
     if (!access_flag) {
       access_flag = true;
       data = data->Copy();
@@ -21343,9 +21320,10 @@ class ComputedStyleBuilderBase {
   using StyleVisualData = ComputedStyleBase::StyleVisualData;
   using StyleRareNonInheritedUsageLessThan14PercentData = ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentData;
   using StyleSVGData = ComputedStyleBase::StyleSVGData;
-  using StyleBoxData = ComputedStyleBase::StyleBoxData;
-  using StyleBackgroundData = ComputedStyleBase::StyleBackgroundData;
   using StyleSurroundData = ComputedStyleBase::StyleSurroundData;
+  using StyleBackgroundData = ComputedStyleBase::StyleBackgroundData;
+  using StyleBoxData = ComputedStyleBase::StyleBoxData;
+  using StyleFontData = ComputedStyleBase::StyleFontData;
 
   // Storage.
   StyleInheritedData* inherited_data_;
@@ -21353,9 +21331,10 @@ class ComputedStyleBuilderBase {
   StyleVisualData* visual_data_;
   StyleRareNonInheritedUsageLessThan14PercentData* rare_non_inherited_usage_less_than_14_percent_data_;
   StyleSVGData* svg_data_;
-  StyleBoxData* box_data_;
-  StyleBackgroundData* background_data_;
   StyleSurroundData* surround_data_;
+  StyleBackgroundData* background_data_;
+  StyleBoxData* box_data_;
+  StyleFontData* font_data_;
 
   StyleBaseData* base_data_;
 

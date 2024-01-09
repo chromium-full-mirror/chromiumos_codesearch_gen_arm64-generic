@@ -7,7 +7,7 @@
 #ifndef EXTENSIONS_COMMON_MOJOM_FRAME_MOJOM_FORWARD_H_
 #define EXTENSIONS_COMMON_MOJOM_FRAME_MOJOM_FORWARD_H_
 
-#include <stdint.h>
+
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
@@ -28,8 +28,6 @@ class RequestParamsDataView;
 
 class DraggableRegionDataView;
 
-
-enum class ContextType : int32_t;
 class ExecuteCodeParams;
 using ExecuteCodeParamsPtr = mojo::StructPtr<ExecuteCodeParams>;
 

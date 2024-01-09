@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/settings/pages/privacy/mojom/app_permission_handler.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/settings/pages/privacy/mojom/app_permission_handler.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/settings/pages/privacy/mojom/app_permission_handler.mojom-forward.h"
 #include "ui/webui/resources/cr_components/app_management/app_management.mojom.h"
@@ -71,6 +72,8 @@ class AppPermissionsHandler
   enum MethodMinVersions : uint32_t {
     kAddObserverMinVersion = 0,
     kGetAppsMinVersion = 0,
+    kOpenNativeSettingsMinVersion = 0,
+    kSetPermissionMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -80,6 +83,12 @@ class AppPermissionsHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetApps_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenNativeSettings_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetPermission_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -92,6 +101,12 @@ class AppPermissionsHandler
   using GetAppsCallback = base::OnceCallback<void(std::vector<AppPtr>)>;
   
   virtual void GetApps(GetAppsCallback callback) = 0;
+
+  
+  virtual void OpenNativeSettings(const std::string& app_id) = 0;
+
+  
+  virtual void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) = 0;
 };
 
 class AppPermissionsObserverProxy;
@@ -158,6 +173,10 @@ class  AppPermissionsHandlerProxy
   void AddObserver(::mojo::PendingRemote<AppPermissionsObserver> observer) final;
   
   void GetApps(GetAppsCallback callback) final;
+  
+  void OpenNativeSettings(const std::string& app_id) final;
+  
+  void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -310,6 +329,7 @@ class  App {
   App(
       const std::string& id,
       const std::string& name,
+      ::apps::AppType type,
       base::flat_map<::apps::PermissionType, ::apps::PermissionPtr> permissions);
 
 App(const App&) = delete;
@@ -394,6 +414,8 @@ App& operator=(const App&) = delete;
   
   std::string name;
   
+  ::apps::AppType type;
+  
   base::flat_map<::apps::PermissionType, ::apps::PermissionPtr> permissions;
 
   // Serialise this struct into a trace.
@@ -430,6 +452,7 @@ AppPtr App::Clone() const {
   return New(
       mojo::Clone(id),
       mojo::Clone(name),
+      mojo::Clone(type),
       mojo::Clone(permissions)
   );
 }
@@ -439,6 +462,8 @@ bool App::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->id, other_struct.id))
     return false;
   if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->type, other_struct.type))
     return false;
   if (!mojo::Equals(this->permissions, other_struct.permissions))
     return false;
@@ -454,6 +479,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.name < rhs.name)
     return true;
   if (rhs.name < lhs.name)
+    return false;
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
     return false;
   if (lhs.permissions < rhs.permissions)
     return true;
@@ -482,6 +511,11 @@ struct  StructTraits<::ash::settings::app_permission::mojom::App::DataView,
   static const decltype(::ash::settings::app_permission::mojom::App::name)& name(
       const ::ash::settings::app_permission::mojom::AppPtr& input) {
     return input->name;
+  }
+
+  static decltype(::ash::settings::app_permission::mojom::App::type) type(
+      const ::ash::settings::app_permission::mojom::AppPtr& input) {
+    return input->type;
   }
 
   static const decltype(::ash::settings::app_permission::mojom::App::permissions)& permissions(

@@ -17,6 +17,7 @@ import { recipeTasksDescriptor } from './recipes/module.js';
 import { driveDescriptor as driveV2Descriptor } from './v2/drive/module.js';
 // 
 import { historyClustersDescriptor as historyClustersV2Descriptor } from './v2/history_clusters/module.js';
+import { tabResumptionDescriptor } from './v2/tab_resumption/module.js';
 const modulesRedesignedEnabled = loadTimeData.getBoolean('modulesRedesignedEnabled');
 export const descriptors = [];
 descriptors.push(recipeTasksDescriptor);
@@ -26,6 +27,7 @@ descriptors.push(photosDescriptor);
 descriptors.push(feedDescriptor);
 descriptors.push(modulesRedesignedEnabled ? historyClustersV2Descriptor :
     historyClustersDescriptor);
+descriptors.push(tabResumptionDescriptor);
 // 
 export async function counterfactualLoad() {
     // Instantiate modules even if |modulesEnabled| is false to counterfactually

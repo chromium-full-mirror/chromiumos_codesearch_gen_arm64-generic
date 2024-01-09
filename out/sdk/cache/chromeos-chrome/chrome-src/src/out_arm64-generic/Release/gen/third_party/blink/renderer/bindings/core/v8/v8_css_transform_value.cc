@@ -73,17 +73,13 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSTransformValue>::value,
     "CSSTransformValue inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSTransformValue::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSTransformValue is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8CSSTransformValue::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CSSTransformValue_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(v8_receiver);
+CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -104,9 +100,9 @@ void V8CSSTransformValue::IndexedPropertySetterCallback(uint32_t index, v8::Loca
 if (info.Holder() == info.This()) {
   // step 1.1.1. Invoke the indexed property setter with P and V.
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertySetter;
 const char* const class_like_name = "CSSTransformValue";
 const AtomicString& blink_property_index = AtomicString::Number(index);
@@ -135,13 +131,13 @@ void V8CSSTransformValue::IndexedPropertyDeleterCallback(uint32_t index, const v
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(v8_receiver);
+CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "CSSTransformValue";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -211,9 +207,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8CSSTransformValue::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CSSTransformValue_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -238,8 +234,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSTransformValue.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(v8_receiver);
+CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -252,8 +249,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSTransformValue.is2D.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(v8_receiver);
+CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->is2D();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -306,9 +304,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSTransformValue.toMatrix");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSTransformValue* blink_receiver = V8CSSTransformValue::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSTransformValue";
 const char* const property_name = "toMatrix";

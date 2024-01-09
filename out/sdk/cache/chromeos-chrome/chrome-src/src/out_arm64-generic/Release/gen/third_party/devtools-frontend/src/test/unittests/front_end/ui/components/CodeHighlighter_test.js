@@ -50,6 +50,9 @@ describe('CodeHighlighter', () => {
   [keyword let] [definition z] = [number 3];
   [keyword return] [variable x] + [variable params];
 }`, 'text/javascript')),
+        it('can highlight JavaScript with `import { default as name }` syntax', testHighlight(`
+[keyword import] {[keyword default] [keyword as] [definition name]} [keyword from] [string 'module'];
+`, 'text/javascript')),
         it('can highlight TypeScript', testHighlight(`
 [keyword type] [type X] = {
   [property x]: [type boolean]
@@ -102,6 +105,25 @@ describe('CodeHighlighter', () => {
       ]
     }
   ]
+}
+</[tag script]>`, 'text/html'));
+    it('can highlight HTML with <script type="application/json"> blocks', testHighlight(`
+[meta <!DOCTYPE html>]
+<[tag script] [attribute type]=[attribute-value "application/json"]>
+{
+  [string "one"]: [number 2],
+  [string "two"]: [atom true]
+}
+</[tag script]>`, 'text/html'));
+    it('can highlight HTML with <script type="application/ld+json"> blocks', testHighlight(`
+[meta <!DOCTYPE html>]
+<[tag script] [attribute type]=[attribute-value "application/ld+json"]>
+{
+  [string "@type"]: [string "PostalAddress"],
+  [string "streetAddress"]: [string "Musterstrasse 1"],
+  [string "addressLocality"]: [string "Musterstadt"],
+  [string "postalCode"]: [string "12345"],
+  [string "addressCountry"]: [string "DE"],
 }
 </[tag script]>`, 'text/html'));
     it('can highlight HTML with <script type="text/jsx"> blocks', testHighlight(`
@@ -191,8 +213,8 @@ describe('CodeHighlighter', () => {
 `, 'application/wasm'));
     it('can highlight JSON', testHighlight(`
 {
-  [property "one"]: [number 2],
-  [property "two"]: [atom true]
+  [string "one"]: [number 2],
+  [string "two"]: [atom true]
 }`, 'application/json'));
     it('can highlight Markdown', testHighlight(`
 [heading&meta #][heading  Head]
@@ -235,8 +257,8 @@ Paragraph with [emphasis&meta *][emphasis emphasized][emphasis&meta *] text.
 `, 'text/x-scala'));
     it('can highlight Web app manifests', testHighlight(`
 {
-  [property "name"]: [string "Test"],
-  [property "start_url"]: [string "."]
+  [string "name"]: [string "Test"],
+  [string "start_url"]: [string "."]
 }
   `, 'application/manifest+json'));
     // clang_format on

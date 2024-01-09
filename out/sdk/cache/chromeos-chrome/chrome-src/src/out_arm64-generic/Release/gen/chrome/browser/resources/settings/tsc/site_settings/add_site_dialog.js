@@ -15,7 +15,7 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from '../i18n_setup.js';
 import { getTemplate } from './add_site_dialog.html.js';
-import { ContentSetting, ContentSettingsTypes, CookiesExceptionType, SITE_EXCEPTION_WILDCARD } from './constants.js';
+import { ContentSetting, CookiesExceptionType, SITE_EXCEPTION_WILDCARD } from './constants.js';
 import { SiteSettingsMixin } from './site_settings_mixin.js';
 const AddSiteDialogElementBase = SiteSettingsMixin(PolymerElement);
 export class AddSiteDialogElement extends AddSiteDialogElementBase {
@@ -92,8 +92,7 @@ export class AddSiteDialogElement extends AddSiteDialogElementBase {
         assert(!this.$.add.disabled);
         let primaryPattern = this.site_;
         let secondaryPattern = SITE_EXCEPTION_WILDCARD;
-        if (this.$.thirdParties.checked ||
-            this.cookiesExceptionType === CookiesExceptionType.THIRD_PARTY) {
+        if (this.cookiesExceptionType === CookiesExceptionType.THIRD_PARTY) {
             primaryPattern = SITE_EXCEPTION_WILDCARD;
             secondaryPattern = this.site_;
         }
@@ -108,15 +107,6 @@ export class AddSiteDialogElement extends AddSiteDialogElementBase {
         if (!this.hasIncognito) {
             this.$.incognito.checked = false;
         }
-    }
-    shouldHideThirdPartyCookieCheckbox_() {
-        // TODO(crbug.com/1378703): Remove checkbox support after feature is
-        // launched.
-        if (loadTimeData.getBoolean('isPrivacySandboxSettings4')) {
-            return true;
-        }
-        return this.cookiesExceptionType !== CookiesExceptionType.COMBINED ||
-            this.category !== ContentSettingsTypes.COOKIES;
     }
 }
 customElements.define(AddSiteDialogElement.is, AddSiteDialogElement);

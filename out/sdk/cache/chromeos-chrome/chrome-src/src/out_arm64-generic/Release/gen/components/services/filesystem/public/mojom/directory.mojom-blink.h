@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/filesystem/public/mojom/directory.mojom-features.h"
 #include "components/services/filesystem/public/mojom/directory.mojom-shared.h"
 #include "components/services/filesystem/public/mojom/directory.mojom-blink-forward.h"
 #include "components/services/filesystem/public/mojom/types.mojom-blink-forward.h"
@@ -156,9 +157,9 @@ class Directory
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool Read(::base::File::Error* out_error, absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents);
+  virtual bool Read(::base::File::Error* out_error, std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents);
 
-  using ReadCallback = base::OnceCallback<void(::base::File::Error, absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>)>;
+  using ReadCallback = base::OnceCallback<void(::base::File::Error, std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>)>;
   
   virtual void Read(ReadCallback callback) = 0;
 
@@ -283,7 +284,7 @@ class  DirectoryProxy
 
   explicit DirectoryProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  bool Read(::base::File::Error* out_error, absl::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents) final;
+  bool Read(::base::File::Error* out_error, std::optional<WTF::Vector<::filesystem::mojom::blink::DirectoryEntryPtr>>* out_directory_contents) final;
   
   void Read(ReadCallback callback) final;
   

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct AttachedFile {
   ~AttachedFile();
   AttachedFile(const AttachedFile&) = delete;
   AttachedFile& operator=(const AttachedFile&) = delete;
-  AttachedFile(AttachedFile&& rhs);
-  AttachedFile& operator=(AttachedFile&& rhs);
+  AttachedFile(AttachedFile&& rhs) noexcept;
+  AttachedFile& operator=(AttachedFile&& rhs) noexcept;
 
   // Populates a AttachedFile object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -48,15 +49,12 @@ struct AttachedFile {
   // Creates a deep copy of AttachedFile.
   AttachedFile Clone() const;
 
-  // Creates a AttachedFile object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AttachedFile> FromValueDeprecated(const base::Value& value);
-
   // Creates a AttachedFile object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AttachedFile> FromValue(const base::Value::Dict& value);
+  static std::optional<AttachedFile> FromValue(const base::Value::Dict& value);
 
   // Creates a AttachedFile object from a base::Value, or nullopt on failure.
-  static absl::optional<AttachedFile> FromValue(const base::Value& value);
+  static std::optional<AttachedFile> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAttachedFile object.
@@ -67,8 +65,8 @@ struct AttachedFile {
     ~Data();
     Data(const Data&) = delete;
     Data& operator=(const Data&) = delete;
-    Data(Data&& rhs);
-    Data& operator=(Data&& rhs);
+    Data(Data&& rhs) noexcept;
+    Data& operator=(Data&& rhs) noexcept;
 
     // Populates a Data object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -82,10 +80,10 @@ struct AttachedFile {
     Data Clone() const;
 
     // Creates a Data object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Data> FromValue(const base::Value::Dict& value);
+    static std::optional<Data> FromValue(const base::Value::Dict& value);
 
     // Creates a Data object from a base::Value, or nullopt on failure.
-    static absl::optional<Data> FromValue(const base::Value& value);
+    static std::optional<Data> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisData object.
@@ -97,7 +95,7 @@ struct AttachedFile {
 
   std::string name;
 
-  absl::optional<Data> data;
+  std::optional<Data> data;
 
 };
 
@@ -106,8 +104,8 @@ struct LogsMapEntry {
   ~LogsMapEntry();
   LogsMapEntry(const LogsMapEntry&) = delete;
   LogsMapEntry& operator=(const LogsMapEntry&) = delete;
-  LogsMapEntry(LogsMapEntry&& rhs);
-  LogsMapEntry& operator=(LogsMapEntry&& rhs);
+  LogsMapEntry(LogsMapEntry&& rhs) noexcept;
+  LogsMapEntry& operator=(LogsMapEntry&& rhs) noexcept;
 
   // Populates a LogsMapEntry object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -120,15 +118,12 @@ struct LogsMapEntry {
   // Creates a deep copy of LogsMapEntry.
   LogsMapEntry Clone() const;
 
-  // Creates a LogsMapEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<LogsMapEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a LogsMapEntry object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<LogsMapEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<LogsMapEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a LogsMapEntry object from a base::Value, or nullopt on failure.
-  static absl::optional<LogsMapEntry> FromValue(const base::Value& value);
+  static std::optional<LogsMapEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLogsMapEntry object.
@@ -147,7 +142,8 @@ enum class FeedbackFlow {
   kLogin,
   kSadTabCrash,
   kGoogleInternal,
-  kMaxValue = kGoogleInternal,
+  kAi,
+  kMaxValue = kAi,
 };
 
 
@@ -160,8 +156,8 @@ struct FeedbackInfo {
   ~FeedbackInfo();
   FeedbackInfo(const FeedbackInfo&) = delete;
   FeedbackInfo& operator=(const FeedbackInfo&) = delete;
-  FeedbackInfo(FeedbackInfo&& rhs);
-  FeedbackInfo& operator=(FeedbackInfo&& rhs);
+  FeedbackInfo(FeedbackInfo&& rhs) noexcept;
+  FeedbackInfo& operator=(FeedbackInfo&& rhs) noexcept;
 
   // Populates a FeedbackInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -174,15 +170,12 @@ struct FeedbackInfo {
   // Creates a deep copy of FeedbackInfo.
   FeedbackInfo Clone() const;
 
-  // Creates a FeedbackInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FeedbackInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a FeedbackInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FeedbackInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<FeedbackInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a FeedbackInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<FeedbackInfo> FromValue(const base::Value& value);
+  static std::optional<FeedbackInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFeedbackInfo object.
@@ -194,8 +187,8 @@ struct FeedbackInfo {
     ~Screenshot();
     Screenshot(const Screenshot&) = delete;
     Screenshot& operator=(const Screenshot&) = delete;
-    Screenshot(Screenshot&& rhs);
-    Screenshot& operator=(Screenshot&& rhs);
+    Screenshot(Screenshot&& rhs) noexcept;
+    Screenshot& operator=(Screenshot&& rhs) noexcept;
 
     // Populates a Screenshot object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -210,10 +203,10 @@ struct FeedbackInfo {
 
     // Creates a Screenshot object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Screenshot> FromValue(const base::Value::Dict& value);
+    static std::optional<Screenshot> FromValue(const base::Value::Dict& value);
 
     // Creates a Screenshot object from a base::Value, or nullopt on failure.
-    static absl::optional<Screenshot> FromValue(const base::Value& value);
+    static std::optional<Screenshot> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisScreenshot object.
@@ -224,81 +217,87 @@ struct FeedbackInfo {
 
 
   // File to attach to the feedback report.
-  absl::optional<AttachedFile> attached_file;
+  std::optional<AttachedFile> attached_file;
 
   // An optional tag to label what type this feedback is.
-  absl::optional<std::string> category_tag;
+  std::optional<std::string> category_tag;
 
   // The feedback text describing the user issue.
   std::string description;
 
   // The placeholder text that will be shown in the description field when it's
   // empty.
-  absl::optional<std::string> description_placeholder;
+  std::optional<std::string> description_placeholder;
 
   // The e-mail of the user that initiated this feedback.
-  absl::optional<std::string> email;
+  std::optional<std::string> email;
 
   // The URL of the page that this issue was being experienced on.
-  absl::optional<std::string> page_url;
+  std::optional<std::string> page_url;
 
   // Optional product ID to override the Chrome [OS] product id that is usually
   // passed to the feedback server.
-  absl::optional<int> product_id;
+  std::optional<int> product_id;
 
   // Screenshot to send with this feedback.
-  absl::optional<Screenshot> screenshot;
+  std::optional<Screenshot> screenshot;
 
   // Optional id for performance trace data that can be included in this report.
-  absl::optional<int> trace_id;
+  std::optional<int> trace_id;
 
   // An array of key/value pairs providing system information for this feedback
   // report.
-  absl::optional<std::vector<LogsMapEntry>> system_information;
+  std::optional<std::vector<LogsMapEntry>> system_information;
 
   // True if we have permission to add histograms to this feedback report.
-  absl::optional<bool> send_histograms;
+  std::optional<bool> send_histograms;
 
   // Optional feedback UI flow. Default is the regular user flow.
   FeedbackFlow flow;
 
   // TODO(rkc): Remove these once we have bindings to send blobs to Chrome. Used
   // internally to store the blob uuid after parameter customization.
-  absl::optional<std::string> attached_file_blob_uuid;
+  std::optional<std::string> attached_file_blob_uuid;
 
-  absl::optional<std::string> screenshot_blob_uuid;
+  std::optional<std::string> screenshot_blob_uuid;
 
   // Whether to use the system-provided window frame or custom frame controls.
-  absl::optional<bool> use_system_window_frame;
+  std::optional<bool> use_system_window_frame;
 
   // Whether or not to send bluetooth logs with this report.
-  absl::optional<bool> send_bluetooth_logs;
+  std::optional<bool> send_bluetooth_logs;
 
   // Whether or not to send tab titles with this report.
-  absl::optional<bool> send_tab_titles;
+  std::optional<bool> send_tab_titles;
 
   // Whether or not to send Assistant feedback to Assistant server.
-  absl::optional<bool> assistant_debug_info_allowed;
+  std::optional<bool> assistant_debug_info_allowed;
 
   // Whether or not triggered from Assistant.
-  absl::optional<bool> from_assistant;
+  std::optional<bool> from_assistant;
 
   // Whether or not to include bluetooth logs.
-  absl::optional<bool> include_bluetooth_logs;
+  std::optional<bool> include_bluetooth_logs;
 
   // Whether to show questionnaire in the report description based on detected
   // domain-related keywords (crbug/1241169).
-  absl::optional<bool> show_questionnaire;
+  std::optional<bool> show_questionnaire;
 
   // Whether or not triggered for Autofill.
-  absl::optional<bool> from_autofill;
+  std::optional<bool> from_autofill;
 
   // A JSON formatted string containing autofill metadata for this feedback
   // report.
-  absl::optional<std::string> autofill_metadata;
+  std::optional<std::string> autofill_metadata;
 
   // Whether or not |autofillMetadata| should be included in the feedback report.
-  absl::optional<bool> send_autofill_metadata;
+  std::optional<bool> send_autofill_metadata;
+
+  // Whether or not the content is offensive or unsafe.
+  std::optional<bool> is_offensive_or_unsafe;
+
+  // A JSON formatted string containing ai metadata.
+  std::optional<std::string> ai_metadata;
 
 };
 
@@ -334,8 +333,8 @@ struct SendFeedbackResult {
   ~SendFeedbackResult();
   SendFeedbackResult(const SendFeedbackResult&) = delete;
   SendFeedbackResult& operator=(const SendFeedbackResult&) = delete;
-  SendFeedbackResult(SendFeedbackResult&& rhs);
-  SendFeedbackResult& operator=(SendFeedbackResult&& rhs);
+  SendFeedbackResult(SendFeedbackResult&& rhs) noexcept;
+  SendFeedbackResult& operator=(SendFeedbackResult&& rhs) noexcept;
 
   // Populates a SendFeedbackResult object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -348,16 +347,13 @@ struct SendFeedbackResult {
   // Creates a deep copy of SendFeedbackResult.
   SendFeedbackResult Clone() const;
 
-  // Creates a SendFeedbackResult object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SendFeedbackResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a SendFeedbackResult object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SendFeedbackResult> FromValue(const base::Value::Dict& value);
+  static std::optional<SendFeedbackResult> FromValue(const base::Value::Dict& value);
 
   // Creates a SendFeedbackResult object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SendFeedbackResult> FromValue(const base::Value& value);
+  static std::optional<SendFeedbackResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSendFeedbackResult object.
@@ -413,8 +409,8 @@ struct ReadLogSourceParams {
   ~ReadLogSourceParams();
   ReadLogSourceParams(const ReadLogSourceParams&) = delete;
   ReadLogSourceParams& operator=(const ReadLogSourceParams&) = delete;
-  ReadLogSourceParams(ReadLogSourceParams&& rhs);
-  ReadLogSourceParams& operator=(ReadLogSourceParams&& rhs);
+  ReadLogSourceParams(ReadLogSourceParams&& rhs) noexcept;
+  ReadLogSourceParams& operator=(ReadLogSourceParams&& rhs) noexcept;
 
   // Populates a ReadLogSourceParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -427,17 +423,13 @@ struct ReadLogSourceParams {
   // Creates a deep copy of ReadLogSourceParams.
   ReadLogSourceParams Clone() const;
 
-  // Creates a ReadLogSourceParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ReadLogSourceParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReadLogSourceParams object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ReadLogSourceParams> FromValue(const base::Value::Dict& value);
+  static std::optional<ReadLogSourceParams> FromValue(const base::Value::Dict& value);
 
   // Creates a ReadLogSourceParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ReadLogSourceParams> FromValue(const base::Value& value);
+  static std::optional<ReadLogSourceParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReadLogSourceParams object.
@@ -459,7 +451,7 @@ struct ReadLogSourceParams {
   // the same value of <code>source</code>. If no <code>readerId</code> is
   // provided, $(ref:readLogSource) will attempt to open a new log source reader
   // handle.
-  absl::optional<int> reader_id;
+  std::optional<int> reader_id;
 
 };
 
@@ -468,8 +460,8 @@ struct ReadLogSourceResult {
   ~ReadLogSourceResult();
   ReadLogSourceResult(const ReadLogSourceResult&) = delete;
   ReadLogSourceResult& operator=(const ReadLogSourceResult&) = delete;
-  ReadLogSourceResult(ReadLogSourceResult&& rhs);
-  ReadLogSourceResult& operator=(ReadLogSourceResult&& rhs);
+  ReadLogSourceResult(ReadLogSourceResult&& rhs) noexcept;
+  ReadLogSourceResult& operator=(ReadLogSourceResult&& rhs) noexcept;
 
   // Populates a ReadLogSourceResult object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -482,17 +474,13 @@ struct ReadLogSourceResult {
   // Creates a deep copy of ReadLogSourceResult.
   ReadLogSourceResult Clone() const;
 
-  // Creates a ReadLogSourceResult object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ReadLogSourceResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReadLogSourceResult object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ReadLogSourceResult> FromValue(const base::Value::Dict& value);
+  static std::optional<ReadLogSourceResult> FromValue(const base::Value::Dict& value);
 
   // Creates a ReadLogSourceResult object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ReadLogSourceResult> FromValue(const base::Value& value);
+  static std::optional<ReadLogSourceResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReadLogSourceResult object.
@@ -537,11 +525,11 @@ base::Value::List Create(const std::vector<LogsMapEntry>& system_information);
 namespace OpenFeedback {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   FeedbackSource source;
@@ -556,11 +544,11 @@ struct Params {
 namespace SendFeedback {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   FeedbackInfo feedback;
@@ -568,10 +556,10 @@ struct Params {
   // Optional flag when present and is true, the backend should load system
   // information before sending the report. This is added to reduce user's wait
   // time when sending reports because loading system information is slow.
-  absl::optional<bool> load_system_info;
+  std::optional<bool> load_system_info;
 
   // The epoch time when the feedback form was opened. This is used for metrics.
-  absl::optional<double> form_open_time;
+  std::optional<double> form_open_time;
 
 
  private:
@@ -588,11 +576,11 @@ base::Value::List Create(const SendFeedbackResult& result);
 namespace ReadLogSource {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ReadLogSourceParams params;

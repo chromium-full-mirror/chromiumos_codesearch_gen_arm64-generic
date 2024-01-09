@@ -22,8 +22,6 @@
 
 
 namespace attribution_reporting::mojom {
-class DebugKeyDataView;
-
 class SuitableOriginDataView;
 
 class FilterDataDataView;
@@ -40,11 +38,11 @@ class DestinationSetDataView;
 
 class EventReportWindowsDataView;
 
-class TriggerConfigDataView;
+class TriggerSpecDataView;
+
+class TriggerSpecsDataView;
 
 class SourceRegistrationDataView;
-
-class TriggerDedupKeyDataView;
 
 class EventTriggerDataDataView;
 
@@ -55,9 +53,6 @@ class TriggerRegistrationDataView;
 class OsRegistrationItemDataView;
 
 class OsRegistrationDataView;
-
-class DebugKey;
-using DebugKeyPtr = mojo::InlinedStructPtr<DebugKey>;
 
 class SuitableOrigin;
 using SuitableOriginPtr = mojo::StructPtr<SuitableOrigin>;
@@ -83,14 +78,14 @@ using DestinationSetPtr = mojo::StructPtr<DestinationSet>;
 class EventReportWindows;
 using EventReportWindowsPtr = mojo::StructPtr<EventReportWindows>;
 
-class TriggerConfig;
-using TriggerConfigPtr = mojo::InlinedStructPtr<TriggerConfig>;
+class TriggerSpec;
+using TriggerSpecPtr = mojo::StructPtr<TriggerSpec>;
+
+class TriggerSpecs;
+using TriggerSpecsPtr = mojo::StructPtr<TriggerSpecs>;
 
 class SourceRegistration;
 using SourceRegistrationPtr = mojo::StructPtr<SourceRegistration>;
-
-class TriggerDedupKey;
-using TriggerDedupKeyPtr = mojo::InlinedStructPtr<TriggerDedupKey>;
 
 class EventTriggerData;
 using EventTriggerDataPtr = mojo::StructPtr<EventTriggerData>;

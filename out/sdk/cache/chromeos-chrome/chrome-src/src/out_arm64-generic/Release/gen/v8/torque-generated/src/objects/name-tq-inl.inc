@@ -1,71 +1,39 @@
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=7&c=3
-template<class D, class P>
-uint32_t TorqueGeneratedName<D, P>::raw_hash_field() const {
-  uint32_t value = this->template ReadField<uint32_t>(kRawHashFieldOffset);
-  return value;
-}
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=5&c=1
+template <class D, class P>
+class TorqueGeneratedNameAsserts {
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=8&c=3
+  static constexpr int kRawHashFieldOffset = sizeof(P);
+  static constexpr int kRawHashFieldOffsetEnd = kRawHashFieldOffset + kInt32Size - 1;
+  static constexpr int kStartOfWeakFieldsOffset = kRawHashFieldOffsetEnd + 1;
+  static constexpr int kEndOfWeakFieldsOffset = kRawHashFieldOffsetEnd + 1;
+  static constexpr int kStartOfStrongFieldsOffset = kRawHashFieldOffsetEnd + 1;
+  static constexpr int kEndOfStrongFieldsOffset = kRawHashFieldOffsetEnd + 1;
+  static constexpr int kHeaderSize = kRawHashFieldOffsetEnd + 1;
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=7&c=3
-template<class D, class P>
-void TorqueGeneratedName<D, P>::set_raw_hash_field(uint32_t value) {
-  this->template WriteField<uint32_t>(kRawHashFieldOffset, value);
-}
+  static_assert(kRawHashFieldOffset == offsetof(D, raw_hash_field_),
+                "Value of Name::kRawHashFieldOffset defined in Torque and offset of field Name::raw_hash_field in C++ do not match");
+};
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=5&c=1
-template<class D, class P>
-Tagged<D> TorqueGeneratedName<D, P>::cast(Tagged<Object> object) {
-    return Tagged<D>(D(object.ptr()));
-}
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=30&c=1
+template <class D, class P>
+class TorqueGeneratedSymbolAsserts {
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=32&c=3
+  static constexpr int kFlagsOffset = sizeof(P);
+  static constexpr int kFlagsOffsetEnd = kFlagsOffset + kInt32Size - 1;
+  static constexpr int kStartOfStrongFieldsOffset = kFlagsOffsetEnd + 1;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=33&c=3
+  static constexpr int kDescriptionOffset = kFlagsOffsetEnd + 1;
+  static constexpr int kDescriptionOffsetEnd = kDescriptionOffset + kTaggedSize - 1;
+  static constexpr int kEndOfStrongFieldsOffset = kDescriptionOffsetEnd + 1;
+  static constexpr int kStartOfWeakFieldsOffset = kDescriptionOffsetEnd + 1;
+  static constexpr int kEndOfWeakFieldsOffset = kDescriptionOffsetEnd + 1;
+  static constexpr int kHeaderSize = kDescriptionOffsetEnd + 1;
+  static constexpr int kSize = kDescriptionOffsetEnd + 1;
 
-template<class D, class P>
-inline TorqueGeneratedName<D, P>::TorqueGeneratedName(Address ptr)
-    : P(ptr) {
-  SLOW_DCHECK(IsName_NonInline(*this));
-}
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=30&c=3
-template<class D, class P>
-uint32_t TorqueGeneratedSymbol<D, P>::flags() const {
-  uint32_t value = this->template ReadField<uint32_t>(kFlagsOffset);
-  return value;
-}
+  static_assert(kFlagsOffset == offsetof(D, flags_),
+                "Value of Symbol::kFlagsOffset defined in Torque and offset of field Symbol::flags in C++ do not match");
+  static_assert(kDescriptionOffset == offsetof(D, description_),
+                "Value of Symbol::kDescriptionOffset defined in Torque and offset of field Symbol::description in C++ do not match");
+  static_assert(kSize == sizeof(D));
+};
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=30&c=3
-template<class D, class P>
-void TorqueGeneratedSymbol<D, P>::set_flags(uint32_t value) {
-  this->template WriteField<uint32_t>(kFlagsOffset, value);
-}
-
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=31&c=3
-template<class D, class P>
-Tagged<PrimitiveHeapObject> TorqueGeneratedSymbol<D, P>::description() const {
-  PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
-  return TorqueGeneratedSymbol::description(cage_base);
-}
-
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=31&c=3
-template<class D, class P>
-Tagged<PrimitiveHeapObject> TorqueGeneratedSymbol<D, P>::description(PtrComprCageBase cage_base) const {
-  Tagged<PrimitiveHeapObject> value = TaggedField<Tagged<PrimitiveHeapObject>>::load(cage_base, *this, kDescriptionOffset);
-  DCHECK(IsString(value) || IsUndefined(value));
-  return value;
-}
-
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=31&c=3
-template<class D, class P>
-void TorqueGeneratedSymbol<D, P>::set_description(Tagged<PrimitiveHeapObject> value, WriteBarrierMode mode) {
-  SLOW_DCHECK(IsString(value) || IsUndefined(value));
-  WRITE_FIELD(*this, kDescriptionOffset, value);
-  CONDITIONAL_WRITE_BARRIER(*this, kDescriptionOffset, value, mode);
-}
-
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/name.tq?l=29&c=1
-template<class D, class P>
-Tagged<D> TorqueGeneratedSymbol<D, P>::cast(Tagged<Object> object) {
-    return Tagged<D>(D(object.ptr()));
-}
-
-template<class D, class P>
-inline TorqueGeneratedSymbol<D, P>::TorqueGeneratedSymbol(Address ptr)
-    : P(ptr) {
-  SLOW_DCHECK(IsSymbol_NonInline(*this));
-}

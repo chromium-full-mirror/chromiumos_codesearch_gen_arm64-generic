@@ -15,7 +15,9 @@ namespace internal {
 
 
 constexpr uint32_t kPageHandlerFactory_CreatePageHandler_Name = 0;
-constexpr uint32_t kPageHandler_GetApiKey_Name = 0;
+constexpr uint32_t kPageHandler_OnSurveyLoaded_Name = 0;
+constexpr uint32_t kPageHandler_OnSurveyClosed_Name = 1;
+constexpr uint32_t kPage_RequestSurvey_Name = 0;
 
 }  // namespace internal
 

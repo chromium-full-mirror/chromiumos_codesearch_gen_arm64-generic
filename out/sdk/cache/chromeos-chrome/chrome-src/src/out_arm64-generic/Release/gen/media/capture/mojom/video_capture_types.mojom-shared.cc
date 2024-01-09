@@ -193,6 +193,30 @@ std::ostream& operator<<(std::ostream& os, VideoFacingMode value) {
   return os << VideoFacingModeToString(value);
 }
 
+NOINLINE static const char* CameraAvailabilityToStringHelper(CameraAvailability value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case CameraAvailability::kAvailable:
+      return "kAvailable";
+    case CameraAvailability::kUnavailableExclusivelyUsedByOtherApplication:
+      return "kUnavailableExclusivelyUsedByOtherApplication";
+    default:
+      return nullptr;
+  }
+}
+
+std::string CameraAvailabilityToString(CameraAvailability value) {
+  const char *str = CameraAvailabilityToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown CameraAvailability value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, CameraAvailability value) {
+  return os << CameraAvailabilityToString(value);
+}
+
 NOINLINE static const char* VideoCaptureApiToStringHelper(VideoCaptureApi value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -687,6 +711,30 @@ std::ostream& operator<<(std::ostream& os, VideoCaptureFrameDropReason value) {
   return os << VideoCaptureFrameDropReasonToString(value);
 }
 
+NOINLINE static const char* SubCaptureTargetTypeToStringHelper(SubCaptureTargetType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SubCaptureTargetType::kCropTarget:
+      return "kCropTarget";
+    case SubCaptureTargetType::kRestrictionTarget:
+      return "kRestrictionTarget";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SubCaptureTargetTypeToString(SubCaptureTargetType value) {
+  const char *str = SubCaptureTargetTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SubCaptureTargetType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SubCaptureTargetType value) {
+  return os << SubCaptureTargetTypeToString(value);
+}
+
 NOINLINE static const char* ApplySubCaptureTargetResultToStringHelper(ApplySubCaptureTargetResult value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -932,8 +980,12 @@ bool VideoCaptureDeviceDescriptor_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 56 },
+    { 1, 64 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -996,12 +1048,19 @@ bool VideoCaptureDeviceDescriptor_Data::Validate(
   if (!::media::mojom::internal::VideoCaptureTransportType_Data
         ::Validate(object->transport_type, validation_context))
     return false;
+  if (object->header_.version < 1)
+    return true;
+
+
+  if (!::media::mojom::internal::CameraAvailability_Data
+        ::Validate(object->availability_$value, validation_context))
+    return false;
 
   return true;
 }
 
 VideoCaptureDeviceDescriptor_Data::VideoCaptureDeviceDescriptor_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static
@@ -1091,6 +1150,16 @@ void TraceFormatTraits<::media::mojom::VideoFacingMode>::WriteIntoTrace(
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::media::mojom::CameraAvailability>::WriteIntoTrace(
+   perfetto::TracedValue context, ::media::mojom::CameraAvailability value) {
+  return std::move(context).WriteString(::media::mojom::CameraAvailabilityToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::media::mojom::VideoCaptureApi>::WriteIntoTrace(
    perfetto::TracedValue context, ::media::mojom::VideoCaptureApi value) {
   return std::move(context).WriteString(::media::mojom::VideoCaptureApiToString(value));
@@ -1134,6 +1203,16 @@ namespace perfetto {
 void TraceFormatTraits<::media::mojom::VideoCaptureFrameDropReason>::WriteIntoTrace(
    perfetto::TracedValue context, ::media::mojom::VideoCaptureFrameDropReason value) {
   return std::move(context).WriteString(::media::mojom::VideoCaptureFrameDropReasonToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::media::mojom::SubCaptureTargetType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::media::mojom::SubCaptureTargetType value) {
+  return std::move(context).WriteString(::media::mojom::SubCaptureTargetTypeToString(value));
 }
 
 } // namespace perfetto

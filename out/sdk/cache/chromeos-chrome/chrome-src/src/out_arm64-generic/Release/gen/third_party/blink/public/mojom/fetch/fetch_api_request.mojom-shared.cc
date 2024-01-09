@@ -78,6 +78,8 @@ NOINLINE static const char* RequestContextTypeToStringHelper(RequestContextType 
       return "SERVICE_WORKER";
     case RequestContextType::SHARED_WORKER:
       return "SHARED_WORKER";
+    case RequestContextType::SPECULATION_RULES:
+      return "SPECULATION_RULES";
     case RequestContextType::SUBRESOURCE:
       return "SUBRESOURCE";
     case RequestContextType::SUBRESOURCE_WEBBUNDLE:

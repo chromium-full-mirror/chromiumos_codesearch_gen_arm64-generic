@@ -308,7 +308,7 @@ def parse_opts(tmpcmdline, silent=False):
 	actions = frozenset([
 		"clean", "check-news", "config", "depclean", "help",
 		"info", "list-sets", "metadata", "moo",
-		"prune", "rage-clean", "regen",  "search",
+		"prune", "rage-clean", "rage-install", "regen",  "search",
 		"sync",  "unmerge", "version",
 	])
 
@@ -1167,6 +1167,12 @@ def parse_opts(tmpcmdline, silent=False):
 
 	if myaction is None and myoptions.deselect is True:
 		myaction = 'deselect'
+
+	if myaction == 'rage-install':
+		myoptions.usepkgonly = True
+		myoptions.pretend = True
+		myopts["--usepkgonly"] = True
+		myopts["--pretend"] = True
 
 	myfiles += myargs
 

@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, EXTTextureCompressionBPTC>::value,
     "EXTTextureCompressionBPTC inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&EXTTextureCompressionBPTC::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "EXTTextureCompressionBPTC is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 

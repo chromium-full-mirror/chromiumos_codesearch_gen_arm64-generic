@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-libs", "name": "libmbim", "version": "1.31.2", "revision": 118, "fullname": "net-libs/libmbim", "fullnamerev": "net-libs/libmbim-1.31.2-r118", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://cgit.freedesktop.org/libmbim/"], "skip": false, "tainted": false, "ebuild_path": null}

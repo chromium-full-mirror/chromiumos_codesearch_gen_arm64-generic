@@ -43,23 +43,33 @@ export class SettingsSearchEngineEditDialogElement extends SettingsSearchEngineE
             queryUrl_: String,
             dialogTitle_: String,
             actionButtonText_: String,
+            cancelButtonHidden_: Boolean,
+            readonly_: Boolean,
+            urlIsReadonly_: {
+                type: Boolean,
+                computed: 'computeUrlIsReadonly_(model, readonly_)',
+            },
         };
     }
     ready() {
         super.ready();
         if (this.model) {
-            this.dialogTitle_ =
-                loadTimeData.getString('searchEnginesEditSearchEngine');
-            this.actionButtonText_ = loadTimeData.getString('save');
+            this.dialogTitle_ = loadTimeData.getString(this.model.isManaged ? 'searchEnginesViewSearchEngine' :
+                'searchEnginesEditSearchEngine');
+            this.actionButtonText_ =
+                loadTimeData.getString(this.model.isManaged ? 'done' : 'save');
+            this.cancelButtonHidden_ = this.model.isManaged;
             // If editing an existing search engine, pre-populate the input fields.
             this.searchEngine_ = this.model.name;
             this.keyword_ = this.model.keyword;
             this.queryUrl_ = this.model.url;
+            this.readonly_ = this.model.isManaged;
         }
         else {
             this.dialogTitle_ =
                 loadTimeData.getString('searchEnginesAddSearchEngine');
             this.actionButtonText_ = loadTimeData.getString('add');
+            this.readonly_ = false;
         }
         this.addEventListener('cancel', () => {
             this.browserProxy_.searchEngineEditCancelled();
@@ -117,6 +127,9 @@ export class SettingsSearchEngineEditDialogElement extends SettingsSearchEngineE
             return !inputElement.invalid && inputElement.value.length > 0;
         });
         this.$.actionButton.disabled = !allValid;
+    }
+    computeUrlIsReadonly_() {
+        return this.readonly_ || (!!this.model && this.model.urlLocked);
     }
 }
 customElements.define(SettingsSearchEngineEditDialogElement.is, SettingsSearchEngineEditDialogElement);

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct Size {
   ~Size();
   Size(const Size&) = delete;
   Size& operator=(const Size&) = delete;
-  Size(Size&& rhs);
-  Size& operator=(Size&& rhs);
+  Size(Size&& rhs) noexcept;
+  Size& operator=(Size&& rhs) noexcept;
 
   // Populates a Size object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -46,14 +47,11 @@ struct Size {
   // Creates a deep copy of Size.
   Size Clone() const;
 
-  // Creates a Size object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Size> FromValueDeprecated(const base::Value& value);
-
   // Creates a Size object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Size> FromValue(const base::Value::Dict& value);
+  static std::optional<Size> FromValue(const base::Value::Dict& value);
 
   // Creates a Size object from a base::Value, or nullopt on failure.
-  static absl::optional<Size> FromValue(const base::Value& value);
+  static std::optional<Size> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSize object.
@@ -71,8 +69,8 @@ struct SizeParams {
   ~SizeParams();
   SizeParams(const SizeParams&) = delete;
   SizeParams& operator=(const SizeParams&) = delete;
-  SizeParams(SizeParams&& rhs);
-  SizeParams& operator=(SizeParams&& rhs);
+  SizeParams(SizeParams&& rhs) noexcept;
+  SizeParams& operator=(SizeParams&& rhs) noexcept;
 
   // Populates a SizeParams object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -85,27 +83,24 @@ struct SizeParams {
   // Creates a deep copy of SizeParams.
   SizeParams Clone() const;
 
-  // Creates a SizeParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SizeParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a SizeParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SizeParams> FromValue(const base::Value::Dict& value);
+  static std::optional<SizeParams> FromValue(const base::Value::Dict& value);
 
   // Creates a SizeParams object from a base::Value, or nullopt on failure.
-  static absl::optional<SizeParams> FromValue(const base::Value& value);
+  static std::optional<SizeParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSizeParams object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> enable_auto_size;
+  std::optional<bool> enable_auto_size;
 
-  absl::optional<Size> min;
+  std::optional<Size> min;
 
-  absl::optional<Size> max;
+  std::optional<Size> max;
 
-  absl::optional<Size> normal;
+  std::optional<Size> normal;
 
 };
 
@@ -117,11 +112,11 @@ struct SizeParams {
 namespace CreateGuest {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct CreateParams {
@@ -129,8 +124,8 @@ struct Params {
     ~CreateParams();
     CreateParams(const CreateParams&) = delete;
     CreateParams& operator=(const CreateParams&) = delete;
-    CreateParams(CreateParams&& rhs);
-    CreateParams& operator=(CreateParams&& rhs);
+    CreateParams(CreateParams&& rhs) noexcept;
+    CreateParams& operator=(CreateParams&& rhs) noexcept;
 
     // Populates a CreateParams object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -145,10 +140,10 @@ struct Params {
 
     // Creates a CreateParams object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<CreateParams> FromValue(const base::Value::Dict& value);
+    static std::optional<CreateParams> FromValue(const base::Value::Dict& value);
 
     // Creates a CreateParams object from a base::Value, or nullopt on failure.
-    static absl::optional<CreateParams> FromValue(const base::Value& value);
+    static std::optional<CreateParams> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -156,7 +151,7 @@ struct Params {
 
   std::string view_type;
 
-  int owner_routing_id;
+  std::string owner_frame_token;
 
   CreateParams create_params;
 
@@ -175,11 +170,11 @@ base::Value::List Create(int instance_id);
 namespace DestroyUnattachedGuest {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -194,11 +189,11 @@ struct Params {
 namespace SetSize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest &lt;webview&gt; process. This not exposed to

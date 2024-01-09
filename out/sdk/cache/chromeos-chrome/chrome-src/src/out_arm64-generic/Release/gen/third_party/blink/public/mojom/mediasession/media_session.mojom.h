@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/mediasession/media_session.mojom-features.h"
 #include "third_party/blink/public/mojom/mediasession/media_session.mojom-shared.h"
 #include "third_party/blink/public/mojom/mediasession/media_session.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -163,7 +164,7 @@ class BLINK_COMMON_EXPORT MediaSessionService
   virtual void SetPlaybackState(MediaSessionPlaybackState state) = 0;
 
   
-  virtual void SetPositionState(const absl::optional<::media_session::MediaPosition>& position) = 0;
+  virtual void SetPositionState(const std::optional<::media_session::MediaPosition>& position) = 0;
 
   
   virtual void SetMetadata(SpecMediaMetadataPtr metadata) = 0;
@@ -209,7 +210,7 @@ class BLINK_COMMON_EXPORT MediaSessionServiceProxy
   
   void SetPlaybackState(MediaSessionPlaybackState state) final;
   
-  void SetPositionState(const absl::optional<::media_session::MediaPosition>& position) final;
+  void SetPositionState(const std::optional<::media_session::MediaPosition>& position) final;
   
   void SetMetadata(SpecMediaMetadataPtr metadata) final;
   
@@ -340,9 +341,9 @@ class BLINK_COMMON_EXPORT MediaSessionActionDetails {
   // Construct an instance holding |seek_to|.
   static MediaSessionActionDetailsPtr
   NewSeekTo(
-      MediaSessionSeekToDetailsPtr seek_to) {
+      MediaSessionSeekToDetailsPtr value) {
     auto result = MediaSessionActionDetailsPtr(absl::in_place);
-    result->set_seek_to(std::move(seek_to));
+    result->set_seek_to(std::move(value));
     return result;
   }
 
@@ -605,8 +606,11 @@ class BLINK_COMMON_EXPORT SpecMediaMetadata {
       const ::std::u16string& title,
       const ::std::u16string& artist,
       const ::std::u16string& album,
-      std::vector<::media_session::MediaImage> artwork);
+      std::vector<::media_session::MediaImage> artwork,
+      std::vector<::media_session::mojom::ChapterInformationPtr> chapterInfo);
 
+SpecMediaMetadata(const SpecMediaMetadata&) = delete;
+SpecMediaMetadata& operator=(const SpecMediaMetadata&) = delete;
 
   ~SpecMediaMetadata();
 
@@ -690,6 +694,8 @@ class BLINK_COMMON_EXPORT SpecMediaMetadata {
   ::std::u16string album;
   
   std::vector<::media_session::MediaImage> artwork;
+  
+  std::vector<::media_session::mojom::ChapterInformationPtr> chapterInfo;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -779,7 +785,8 @@ SpecMediaMetadataPtr SpecMediaMetadata::Clone() const {
       mojo::Clone(title),
       mojo::Clone(artist),
       mojo::Clone(album),
-      mojo::Clone(artwork)
+      mojo::Clone(artwork),
+      mojo::Clone(chapterInfo)
   );
 }
 
@@ -792,6 +799,8 @@ bool SpecMediaMetadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->album, other_struct.album))
     return false;
   if (!mojo::Equals(this->artwork, other_struct.artwork))
+    return false;
+  if (!mojo::Equals(this->chapterInfo, other_struct.chapterInfo))
     return false;
   return true;
 }
@@ -813,6 +822,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.artwork < rhs.artwork)
     return true;
   if (rhs.artwork < lhs.artwork)
+    return false;
+  if (lhs.chapterInfo < rhs.chapterInfo)
+    return true;
+  if (rhs.chapterInfo < lhs.chapterInfo)
     return false;
   return false;
 }
@@ -867,6 +880,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::SpecMediaMetadata::DataV
   static const decltype(::blink::mojom::SpecMediaMetadata::artwork)& artwork(
       const ::blink::mojom::SpecMediaMetadataPtr& input) {
     return input->artwork;
+  }
+
+  static const decltype(::blink::mojom::SpecMediaMetadata::chapterInfo)& chapterInfo(
+      const ::blink::mojom::SpecMediaMetadataPtr& input) {
+    return input->chapterInfo;
   }
 
   static bool Read(::blink::mojom::SpecMediaMetadata::DataView input, ::blink::mojom::SpecMediaMetadataPtr* output);

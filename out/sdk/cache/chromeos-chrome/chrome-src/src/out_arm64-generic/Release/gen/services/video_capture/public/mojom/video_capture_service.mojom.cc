@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void AcceleratorFactoryProxy::CreateJpegDecodeAccelerator(
                         "<value of type ::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAcceleratorFactory_CreateJpegDecodeAccelerator_Name, kFlags, 0, 0, nullptr);
@@ -197,10 +201,10 @@ bool AcceleratorFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAcceleratorFactoryValidationInfo[] = {
-    {&internal::AcceleratorFactory_CreateJpegDecodeAccelerator_Params_Data::Validate,
+    { &internal::AcceleratorFactory_CreateJpegDecodeAccelerator_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -360,14 +364,17 @@ void VideoCaptureServiceProxy::InjectGpuDependencies(
                         "<value of type ::mojo::PendingRemote<AcceleratorFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureService_InjectGpuDependencies_Name, kFlags, 0, 0, nullptr);
@@ -403,14 +410,17 @@ void VideoCaptureServiceProxy::ConnectToCameraAppDeviceBridge(
                         "<value of type ::mojo::PendingReceiver<::cros::mojom::CameraAppDeviceBridge>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureService_ConnectToCameraAppDeviceBridge_Name, kFlags, 0, 0, nullptr);
@@ -446,14 +456,17 @@ void VideoCaptureServiceProxy::BindVideoCaptureDeviceFactory(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::VideoCaptureDeviceFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureService_BindVideoCaptureDeviceFactory_Name, kFlags, 0, 0, nullptr);
@@ -489,14 +502,17 @@ void VideoCaptureServiceProxy::ConnectToVideoSourceProvider(
                         "<value of type ::mojo::PendingReceiver<::video_capture::mojom::VideoSourceProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureService_ConnectToVideoSourceProvider_Name, kFlags, 0, 0, nullptr);
@@ -532,14 +548,17 @@ void VideoCaptureServiceProxy::BindControlsForTesting(
                         "<value of type ::mojo::PendingReceiver<::video_capture::mojom::TestingControls>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoCaptureService_BindControlsForTesting_Name, kFlags, 0, 0, nullptr);
@@ -739,18 +758,18 @@ bool VideoCaptureServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoCaptureServiceValidationInfo[] = {
-    {&internal::VideoCaptureService_InjectGpuDependencies_Params_Data::Validate,
+    { &internal::VideoCaptureService_InjectGpuDependencies_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoCaptureService_ConnectToCameraAppDeviceBridge_Params_Data::Validate,
+    { &internal::VideoCaptureService_ConnectToCameraAppDeviceBridge_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoCaptureService_BindVideoCaptureDeviceFactory_Params_Data::Validate,
+    { &internal::VideoCaptureService_BindVideoCaptureDeviceFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoCaptureService_ConnectToVideoSourceProvider_Params_Data::Validate,
+    { &internal::VideoCaptureService_ConnectToVideoSourceProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoCaptureService_BindControlsForTesting_Params_Data::Validate,
+    { &internal::VideoCaptureService_BindControlsForTesting_Params_Data::Validate,
      nullptr /* no response */},
 };
 

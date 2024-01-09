@@ -41,6 +41,24 @@ export var PrivacyElementInteractions;
     PrivacyElementInteractions[PrivacyElementInteractions["MAX_VALUE"] = 24] = "MAX_VALUE";
 })(PrivacyElementInteractions || (PrivacyElementInteractions = {}));
 /**
+ * Contains all Safety Hub card states.
+ *
+ * These values are persisted to logs. Entries should not be renumbered and
+ * numeric values should never be reused.
+ *
+ * Must be kept in sync with SafetyHubCardState in
+ * histograms/enums.xml and CardState in safety_hub/safety_hub_browser_proxy.ts.
+ */
+export var SafetyHubCardState;
+(function (SafetyHubCardState) {
+    SafetyHubCardState[SafetyHubCardState["WARNING"] = 0] = "WARNING";
+    SafetyHubCardState[SafetyHubCardState["WEAK"] = 1] = "WEAK";
+    SafetyHubCardState[SafetyHubCardState["INFO"] = 2] = "INFO";
+    SafetyHubCardState[SafetyHubCardState["SAFE"] = 3] = "SAFE";
+    // Max value should be updated whenever new entries are added.
+    SafetyHubCardState[SafetyHubCardState["MAX_VALUE"] = 4] = "MAX_VALUE";
+})(SafetyHubCardState || (SafetyHubCardState = {}));
+/**
  * Contains all safety check interactions.
  *
  * These values are persisted to logs. Entries should not be renumbered and
@@ -90,8 +108,10 @@ export var SafetyCheckNotificationsModuleInteractions;
     SafetyCheckNotificationsModuleInteractions[SafetyCheckNotificationsModuleInteractions["UNDO_IGNORE"] = 6] = "UNDO_IGNORE";
     SafetyCheckNotificationsModuleInteractions[SafetyCheckNotificationsModuleInteractions["UNDO_RESET"] = 7] = "UNDO_RESET";
     SafetyCheckNotificationsModuleInteractions[SafetyCheckNotificationsModuleInteractions["OPEN_REVIEW_UI"] = 8] = "OPEN_REVIEW_UI";
+    SafetyCheckNotificationsModuleInteractions[SafetyCheckNotificationsModuleInteractions["UNDO_BLOCK_ALL"] = 9] = "UNDO_BLOCK_ALL";
+    SafetyCheckNotificationsModuleInteractions[SafetyCheckNotificationsModuleInteractions["GO_TO_SETTINGS"] = 10] = "GO_TO_SETTINGS";
     // Max value should be updated whenever new entries are added.
-    SafetyCheckNotificationsModuleInteractions[SafetyCheckNotificationsModuleInteractions["MAX_VALUE"] = 9] = "MAX_VALUE";
+    SafetyCheckNotificationsModuleInteractions[SafetyCheckNotificationsModuleInteractions["MAX_VALUE"] = 11] = "MAX_VALUE";
 })(SafetyCheckNotificationsModuleInteractions || (SafetyCheckNotificationsModuleInteractions = {}));
 /**
  * Contains all safety check unused site permissions module interactions.
@@ -100,7 +120,7 @@ export var SafetyCheckNotificationsModuleInteractions;
  * numeric values should never be reused.
  *
  * Must be kept in sync with the
- * SafetyChecUnusedSitePermissionsModuleInteractions enum in
+ * SafetyCheckUnusedSitePermissionsModuleInteractions enum in
  * histograms/enums.xml
  */
 export var SafetyCheckUnusedSitePermissionsModuleInteractions;
@@ -111,9 +131,49 @@ export var SafetyCheckUnusedSitePermissionsModuleInteractions;
     SafetyCheckUnusedSitePermissionsModuleInteractions[SafetyCheckUnusedSitePermissionsModuleInteractions["UNDO_ALLOW_AGAIN"] = 3] = "UNDO_ALLOW_AGAIN";
     SafetyCheckUnusedSitePermissionsModuleInteractions[SafetyCheckUnusedSitePermissionsModuleInteractions["UNDO_ACKNOWLEDGE_ALL"] = 4] = "UNDO_ACKNOWLEDGE_ALL";
     SafetyCheckUnusedSitePermissionsModuleInteractions[SafetyCheckUnusedSitePermissionsModuleInteractions["MINIMIZE"] = 5] = "MINIMIZE";
+    SafetyCheckUnusedSitePermissionsModuleInteractions[SafetyCheckUnusedSitePermissionsModuleInteractions["GO_TO_SETTINGS"] = 6] = "GO_TO_SETTINGS";
     // Max value should be updated whenever new entries are added.
-    SafetyCheckUnusedSitePermissionsModuleInteractions[SafetyCheckUnusedSitePermissionsModuleInteractions["MAX_VALUE"] = 6] = "MAX_VALUE";
+    SafetyCheckUnusedSitePermissionsModuleInteractions[SafetyCheckUnusedSitePermissionsModuleInteractions["MAX_VALUE"] = 7] = "MAX_VALUE";
 })(SafetyCheckUnusedSitePermissionsModuleInteractions || (SafetyCheckUnusedSitePermissionsModuleInteractions = {}));
+/**
+ * Contains all entry points for Safety Hub page.
+ *
+ * These values are persisted to logs. Entries should not be renumbered and
+ * numeric values should never be reused.
+ *
+ * Must be kept in sync with the SafetyHubEntryPoint enum in
+ * histograms/enums.xml and safety_hub/safety_hub_constants.h.
+ */
+export var SafetyHubEntryPoint;
+(function (SafetyHubEntryPoint) {
+    SafetyHubEntryPoint[SafetyHubEntryPoint["PRIVACY_SAFE"] = 0] = "PRIVACY_SAFE";
+    SafetyHubEntryPoint[SafetyHubEntryPoint["PRIVACY_WARNING"] = 1] = "PRIVACY_WARNING";
+    SafetyHubEntryPoint[SafetyHubEntryPoint["SITE_SETTINGS"] = 2] = "SITE_SETTINGS";
+    SafetyHubEntryPoint[SafetyHubEntryPoint["THREE_DOT_MENU"] = 3] = "THREE_DOT_MENU";
+    SafetyHubEntryPoint[SafetyHubEntryPoint["NOTIFICATIONS"] = 4] = "NOTIFICATIONS";
+    // Max value should be updated whenever new entries are added.
+    SafetyHubEntryPoint[SafetyHubEntryPoint["MAX_VALUE"] = 5] = "MAX_VALUE";
+})(SafetyHubEntryPoint || (SafetyHubEntryPoint = {}));
+/**
+ * Contains all Safety Hub modules.
+ *
+ * These values are persisted to logs. Entries should not be renumbered and
+ * numeric values should never be reused.
+ *
+ * Must be kept in sync with the SafetyHubModuleType enum in
+ * histograms/enums.xml and safety_hub/safety_hub_constants.h.
+ */
+export var SafetyHubModuleType;
+(function (SafetyHubModuleType) {
+    SafetyHubModuleType[SafetyHubModuleType["PERMISSIONS"] = 0] = "PERMISSIONS";
+    SafetyHubModuleType[SafetyHubModuleType["NOTIFICATIONS"] = 1] = "NOTIFICATIONS";
+    SafetyHubModuleType[SafetyHubModuleType["SAFE_BROWSING"] = 2] = "SAFE_BROWSING";
+    SafetyHubModuleType[SafetyHubModuleType["EXTENSIONS"] = 3] = "EXTENSIONS";
+    SafetyHubModuleType[SafetyHubModuleType["PASSWORDS"] = 4] = "PASSWORDS";
+    SafetyHubModuleType[SafetyHubModuleType["VERSION"] = 5] = "VERSION";
+    // Max value should be updated whenever new entries are added.
+    SafetyHubModuleType[SafetyHubModuleType["MAX_VALUE"] = 6] = "MAX_VALUE";
+})(SafetyHubModuleType || (SafetyHubModuleType = {}));
 /**
  * Contains all safe browsing interactions.
  *
@@ -205,7 +265,7 @@ export var PrivacyGuideSettingsStates;
  * numeric values should never be reused.
  *
  * Must be kept in sync with SettingsPrivacyGuideStepsEligibleAndReached in
- * emus.xml and PrivacyGuideStepsEligibleAndReached in
+ * enums.xml and PrivacyGuideStepsEligibleAndReached in
  * privacy_guide/privacy_guide.h.
  */
 export var PrivacyGuideStepsEligibleAndReached;
@@ -242,6 +302,30 @@ export var DeleteBrowsingDataAction;
     DeleteBrowsingDataAction[DeleteBrowsingDataAction["PAGE_INFO_RESET_PERMISSIONS"] = 7] = "PAGE_INFO_RESET_PERMISSIONS";
     DeleteBrowsingDataAction[DeleteBrowsingDataAction["MAX_VALUE"] = 8] = "MAX_VALUE";
 })(DeleteBrowsingDataAction || (DeleteBrowsingDataAction = {}));
+/**
+ * This enum contains the different surfaces of Safety Hub that users can
+ * interact with, or on which they can observe a Safety Hub feature.
+ *
+ * Must be kept in sync with the `safety_hub::SafetyHubSurfaces` enum in
+ * chrome/browser/ui/safety_hub/safety_hub_constants.h and `SafetyHubSurfaces`
+ * in enums.xml
+ */
+export var SafetyHubSurfaces;
+(function (SafetyHubSurfaces) {
+    SafetyHubSurfaces[SafetyHubSurfaces["THREE_DOT_MENU"] = 0] = "THREE_DOT_MENU";
+    SafetyHubSurfaces[SafetyHubSurfaces["SAFETY_HUB_PAGE"] = 1] = "SAFETY_HUB_PAGE";
+    SafetyHubSurfaces[SafetyHubSurfaces["MAX_VALUE"] = 2] = "MAX_VALUE";
+})(SafetyHubSurfaces || (SafetyHubSurfaces = {}));
+/**
+ * This enum contains the possible user actions for the bulk CVC deletion
+ * operation on the payments settings page.
+ */
+export var CvcDeletionUserAction;
+(function (CvcDeletionUserAction) {
+    CvcDeletionUserAction["HYPERLINK_CLICKED"] = "BulkCvcDeletionHyperlinkClicked";
+    CvcDeletionUserAction["DIALOG_ACCEPTED"] = "BulkCvcDeletionConfirmationDialogAccepted";
+    CvcDeletionUserAction["DIALOG_CANCELLED"] = "BulkCvcDeletionConfirmationDialogCancelled";
+})(CvcDeletionUserAction || (CvcDeletionUserAction = {}));
 export class MetricsBrowserProxyImpl {
     recordAction(action) {
         chrome.send('metricsHandler:recordAction', [action]);
@@ -291,6 +375,64 @@ export class MetricsBrowserProxyImpl {
         chrome.send('metricsHandler:recordBooleanHistogram', [
             'Settings.SafetyCheck.UnusedSitePermissionsModuleEntryPointShown',
             visible,
+        ]);
+    }
+    recordSafetyHubCardStateClicked(histogramName, state) {
+        chrome.send('metricsHandler:recordInHistogram', [histogramName, state, SafetyHubCardState.MAX_VALUE]);
+    }
+    recordSafetyHubEntryPointShown(page) {
+        chrome.send('metricsHandler:recordInHistogram', [
+            'Settings.SafetyHub.EntryPointImpression',
+            page,
+            SafetyHubEntryPoint.MAX_VALUE,
+        ]);
+    }
+    recordSafetyHubEntryPointClicked(page) {
+        chrome.send('metricsHandler:recordInHistogram', [
+            'Settings.SafetyHub.EntryPointInteraction',
+            page,
+            SafetyHubEntryPoint.MAX_VALUE,
+        ]);
+    }
+    recordSafetyHubModuleWarningImpression(module) {
+        chrome.send('metricsHandler:recordInHistogram', [
+            'Settings.SafetyHub.DashboardWarning',
+            module,
+            SafetyHubModuleType.MAX_VALUE,
+        ]);
+    }
+    recordSafetyHubDashboardAnyWarning(visible) {
+        chrome.send('metricsHandler:recordBooleanHistogram', [
+            'Settings.SafetyHub.HasDashboardShowAnyWarning',
+            visible,
+        ]);
+    }
+    recordSafetyHubNotificationPermissionsModuleInteractionsHistogram(interaction) {
+        chrome.send('metricsHandler:recordInHistogram', [
+            'Settings.SafetyHub.NotificationPermissionsModule.Interactions',
+            interaction,
+            SafetyCheckNotificationsModuleInteractions.MAX_VALUE,
+        ]);
+    }
+    recordSafetyHubNotificationPermissionsModuleListCountHistogram(suggestions) {
+        chrome.send('metricsHandler:recordInHistogram', [
+            'Settings.SafetyHub.NotificationPermissionsModule.ListCount',
+            suggestions,
+            99 /*max value for Notification Permissions suggestions*/,
+        ]);
+    }
+    recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(interaction) {
+        chrome.send('metricsHandler:recordInHistogram', [
+            'Settings.SafetyHub.UnusedSitePermissionsModule.Interactions',
+            interaction,
+            SafetyCheckUnusedSitePermissionsModuleInteractions.MAX_VALUE,
+        ]);
+    }
+    recordSafetyHubUnusedSitePermissionsModuleListCountHistogram(suggestions) {
+        chrome.send('metricsHandler:recordInHistogram', [
+            'Settings.SafetyHub.UnusedSitePermissionsModule.ListCount',
+            suggestions,
+            99 /*max value for Unused Site Permissions suggestions*/,
         ]);
     }
     recordSettingsPageHistogram(interaction) {
@@ -348,6 +490,20 @@ export class MetricsBrowserProxyImpl {
             'Privacy.DeleteBrowsingData.Action',
             action,
             DeleteBrowsingDataAction.MAX_VALUE,
+        ]);
+    }
+    recordSafetyHubImpression(surface) {
+        chrome.send('metricsHandler:recordInHistogram', [
+            'Settings.SafetyHub.Impression',
+            surface,
+            SafetyHubSurfaces.MAX_VALUE,
+        ]);
+    }
+    recordSafetyHubInteraction(surface) {
+        chrome.send('metricsHandler:recordInHistogram', [
+            'Settings.SafetyHub.Interaction',
+            surface,
+            SafetyHubSurfaces.MAX_VALUE,
         ]);
     }
     static getInstance() {

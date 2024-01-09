@@ -52,6 +52,7 @@ test_fonts/Tinos-Regular.ttf
 etc/fonts/fonts.conf
 gen/base/generated_file_for_test.txt
 ./libmalloc_wrapper.so
+./libbase_profiler_test_support_library.so
 bin/run_base_unittests
 ../../../../../../../home/chrome-bot/chrome_root/src/.vpython3
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/location_tags.json

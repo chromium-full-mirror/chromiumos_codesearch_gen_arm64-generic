@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -137,14 +138,17 @@ void EndpointDiscoveryListenerProxy::OnEndpointFound(
                         "<value of type ::nearby::connections::mojom::DiscoveredEndpointInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEndpointDiscoveryListener_OnEndpointFound_Name, kFlags, 0, 0, nullptr);
@@ -196,14 +200,17 @@ void EndpointDiscoveryListenerProxy::OnEndpointLost(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEndpointDiscoveryListener_OnEndpointLost_Name, kFlags, 0, 0, nullptr);
@@ -315,12 +322,12 @@ bool EndpointDiscoveryListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEndpointDiscoveryListenerValidationInfo[] = {
-    {&internal::EndpointDiscoveryListener_OnEndpointFound_Params_Data::Validate,
+    { &internal::EndpointDiscoveryListener_OnEndpointFound_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EndpointDiscoveryListener_OnEndpointLost_Params_Data::Validate,
+    { &internal::EndpointDiscoveryListener_OnEndpointLost_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -483,14 +490,17 @@ void ConnectionLifecycleListenerProxy::OnConnectionInitiated(
                         "<value of type ::nearby::connections::mojom::ConnectionInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectionLifecycleListener_OnConnectionInitiated_Name, kFlags, 0, 0, nullptr);
@@ -542,14 +552,17 @@ void ConnectionLifecycleListenerProxy::OnConnectionAccepted(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectionLifecycleListener_OnConnectionAccepted_Name, kFlags, 0, 0, nullptr);
@@ -593,14 +606,17 @@ void ConnectionLifecycleListenerProxy::OnConnectionRejected(
                         "<value of type ::nearby::connections::mojom::Status>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectionLifecycleListener_OnConnectionRejected_Name, kFlags, 0, 0, nullptr);
@@ -643,14 +659,17 @@ void ConnectionLifecycleListenerProxy::OnDisconnected(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectionLifecycleListener_OnDisconnected_Name, kFlags, 0, 0, nullptr);
@@ -694,14 +713,17 @@ void ConnectionLifecycleListenerProxy::OnBandwidthChanged(
                         "<value of type ::nearby::connections::mojom::Medium>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectionLifecycleListener_OnBandwidthChanged_Name, kFlags, 0, 0, nullptr);
@@ -910,18 +932,18 @@ bool ConnectionLifecycleListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kConnectionLifecycleListenerValidationInfo[] = {
-    {&internal::ConnectionLifecycleListener_OnConnectionInitiated_Params_Data::Validate,
+    { &internal::ConnectionLifecycleListener_OnConnectionInitiated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConnectionLifecycleListener_OnConnectionAccepted_Params_Data::Validate,
+    { &internal::ConnectionLifecycleListener_OnConnectionAccepted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConnectionLifecycleListener_OnConnectionRejected_Params_Data::Validate,
+    { &internal::ConnectionLifecycleListener_OnConnectionRejected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConnectionLifecycleListener_OnDisconnected_Params_Data::Validate,
+    { &internal::ConnectionLifecycleListener_OnDisconnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConnectionLifecycleListener_OnBandwidthChanged_Params_Data::Validate,
+    { &internal::ConnectionLifecycleListener_OnBandwidthChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1024,14 +1046,17 @@ void PayloadListenerProxy::OnPayloadReceived(
                         "<value of type ::nearby::connections::mojom::PayloadPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPayloadListener_OnPayloadReceived_Name, kFlags, 0, 0, nullptr);
@@ -1086,14 +1111,17 @@ void PayloadListenerProxy::OnPayloadTransferUpdate(
                         "<value of type ::nearby::connections::mojom::PayloadTransferUpdatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPayloadListener_OnPayloadTransferUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1220,18 +1248,361 @@ bool PayloadListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPayloadListenerValidationInfo[] = {
-    {&internal::PayloadListener_OnPayloadReceived_Params_Data::Validate,
+    { &internal::PayloadListener_OnPayloadReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PayloadListener_OnPayloadTransferUpdate_Params_Data::Validate,
+    { &internal::PayloadListener_OnPayloadTransferUpdate_Params_Data::Validate,
      nullptr /* no response */},
 };
 
 bool PayloadListenerRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::nearby::connections::mojom::PayloadListener::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kPayloadListenerValidationInfo);
+}
+
+const char ConnectionListenerV3::Name_[] = "nearby.connections.mojom.ConnectionListenerV3";
+
+ConnectionListenerV3::IPCStableHashFunction ConnectionListenerV3::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kConnectionListenerV3_OnConnectionInitiated_Name: {
+      return &ConnectionListenerV3::OnConnectionInitiated_Sym::IPCStableHash;
+    }
+    case internal::kConnectionListenerV3_OnDisconnected_Name: {
+      return &ConnectionListenerV3::OnDisconnected_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* ConnectionListenerV3::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kConnectionListenerV3_OnConnectionInitiated_Name:
+            return "Receive nearby::connections::mojom::ConnectionListenerV3::OnConnectionInitiated";
+      case internal::kConnectionListenerV3_OnDisconnected_Name:
+            return "Receive nearby::connections::mojom::ConnectionListenerV3::OnDisconnected";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kConnectionListenerV3_OnConnectionInitiated_Name:
+            return "Receive reply nearby::connections::mojom::ConnectionListenerV3::OnConnectionInitiated";
+      case internal::kConnectionListenerV3_OnDisconnected_Name:
+            return "Receive reply nearby::connections::mojom::ConnectionListenerV3::OnDisconnected";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t ConnectionListenerV3::OnConnectionInitiated_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)nearby::connections::mojom::ConnectionListenerV3::OnConnectionInitiated");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ConnectionListenerV3::OnDisconnected_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)nearby::connections::mojom::ConnectionListenerV3::OnDisconnected");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+ConnectionListenerV3Proxy::ConnectionListenerV3Proxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void ConnectionListenerV3Proxy::OnConnectionInitiated(
+    ::ash::nearby::presence::mojom::PresenceDevicePtr in_remote_device, ::nearby::connections::mojom::InitialConnectionInfoV3Ptr in_info) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send nearby::connections::mojom::ConnectionListenerV3::OnConnectionInitiated", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("remote_device"), in_remote_device,
+                        "<value of type ::ash::nearby::presence::mojom::PresenceDevicePtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("info"), in_info,
+                        "<value of type ::nearby::connections::mojom::InitialConnectionInfoV3Ptr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kConnectionListenerV3_OnConnectionInitiated_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::ConnectionListenerV3_OnConnectionInitiated_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->remote_device)::BaseType> remote_device_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+      in_remote_device, remote_device_fragment);
+  params->remote_device.Set(
+      remote_device_fragment.is_null() ? nullptr : remote_device_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->remote_device.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null remote_device in ConnectionListenerV3.OnConnectionInitiated request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->info)::BaseType> info_fragment(
+          params.message());
+  mojo::internal::Serialize<::nearby::connections::mojom::InitialConnectionInfoV3DataView>(
+      in_info, info_fragment);
+  params->info.Set(
+      info_fragment.is_null() ? nullptr : info_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null info in ConnectionListenerV3.OnConnectionInitiated request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ConnectionListenerV3::Name_);
+  message.set_method_name("OnConnectionInitiated");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void ConnectionListenerV3Proxy::OnDisconnected(
+    ::ash::nearby::presence::mojom::PresenceDevicePtr in_remote_device) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send nearby::connections::mojom::ConnectionListenerV3::OnDisconnected", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("remote_device"), in_remote_device,
+                        "<value of type ::ash::nearby::presence::mojom::PresenceDevicePtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kConnectionListenerV3_OnDisconnected_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::ConnectionListenerV3_OnDisconnected_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->remote_device)::BaseType> remote_device_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+      in_remote_device, remote_device_fragment);
+  params->remote_device.Set(
+      remote_device_fragment.is_null() ? nullptr : remote_device_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->remote_device.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null remote_device in ConnectionListenerV3.OnDisconnected request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ConnectionListenerV3::Name_);
+  message.set_method_name("OnDisconnected");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool ConnectionListenerV3StubDispatch::Accept(
+    ConnectionListenerV3* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kConnectionListenerV3_OnConnectionInitiated_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ConnectionListenerV3_OnConnectionInitiated_Params_Data* params =
+          reinterpret_cast<internal::ConnectionListenerV3_OnConnectionInitiated_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
+      ::nearby::connections::mojom::InitialConnectionInfoV3Ptr p_info{};
+      ConnectionListenerV3_OnConnectionInitiated_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadRemoteDevice(&p_remote_device))
+        success = false;
+      if (success && !input_data_view.ReadInfo(&p_info))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ConnectionListenerV3::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnConnectionInitiated(
+std::move(p_remote_device), 
+std::move(p_info));
+      return true;
+    }
+    case internal::kConnectionListenerV3_OnDisconnected_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ConnectionListenerV3_OnDisconnected_Params_Data* params =
+          reinterpret_cast<internal::ConnectionListenerV3_OnDisconnected_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
+      ConnectionListenerV3_OnDisconnected_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadRemoteDevice(&p_remote_device))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ConnectionListenerV3::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnDisconnected(
+std::move(p_remote_device));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool ConnectionListenerV3StubDispatch::AcceptWithResponder(
+    ConnectionListenerV3* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kConnectionListenerV3_OnConnectionInitiated_Name: {
+      break;
+    }
+    case internal::kConnectionListenerV3_OnDisconnected_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kConnectionListenerV3ValidationInfo[] = {
+    { &internal::ConnectionListenerV3_OnConnectionInitiated_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::ConnectionListenerV3_OnDisconnected_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool ConnectionListenerV3RequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::nearby::connections::mojom::ConnectionListenerV3::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kConnectionListenerV3ValidationInfo);
+}
+
+const char PayloadListenerV3::Name_[] = "nearby.connections.mojom.PayloadListenerV3";
+
+PayloadListenerV3::IPCStableHashFunction PayloadListenerV3::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* PayloadListenerV3::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+PayloadListenerV3Proxy::PayloadListenerV3Proxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+// static
+bool PayloadListenerV3StubDispatch::Accept(
+    PayloadListenerV3* impl,
+    mojo::Message* message) {
+  return false;
+}
+
+// static
+bool PayloadListenerV3StubDispatch::AcceptWithResponder(
+    PayloadListenerV3* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  return false;
+}
+namespace {
+}  // namespace
+
+bool PayloadListenerV3RequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::nearby::connections::mojom::PayloadListenerV3::Name_;
+  return mojo::internal::ValidateRequestGeneric(message, name, {});
 }
 
 const char NearbyConnections::Name_[] = "nearby.connections.mojom.NearbyConnections";
@@ -1281,6 +1652,18 @@ NearbyConnections::IPCStableHashFunction NearbyConnections::MessageToMethodInfo_
     case internal::kNearbyConnections_RegisterPayloadFile_Name: {
       return &NearbyConnections::RegisterPayloadFile_Sym::IPCStableHash;
     }
+    case internal::kNearbyConnections_RequestConnectionV3_Name: {
+      return &NearbyConnections::RequestConnectionV3_Sym::IPCStableHash;
+    }
+    case internal::kNearbyConnections_AcceptConnectionV3_Name: {
+      return &NearbyConnections::AcceptConnectionV3_Sym::IPCStableHash;
+    }
+    case internal::kNearbyConnections_RejectConnectionV3_Name: {
+      return &NearbyConnections::RejectConnectionV3_Sym::IPCStableHash;
+    }
+    case internal::kNearbyConnections_DisconnectFromDeviceV3_Name: {
+      return &NearbyConnections::DisconnectFromDeviceV3_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1320,6 +1703,14 @@ const char* NearbyConnections::MessageToMethodName_(mojo::Message& message) {
             return "Receive nearby::connections::mojom::NearbyConnections::InitiateBandwidthUpgrade";
       case internal::kNearbyConnections_RegisterPayloadFile_Name:
             return "Receive nearby::connections::mojom::NearbyConnections::RegisterPayloadFile";
+      case internal::kNearbyConnections_RequestConnectionV3_Name:
+            return "Receive nearby::connections::mojom::NearbyConnections::RequestConnectionV3";
+      case internal::kNearbyConnections_AcceptConnectionV3_Name:
+            return "Receive nearby::connections::mojom::NearbyConnections::AcceptConnectionV3";
+      case internal::kNearbyConnections_RejectConnectionV3_Name:
+            return "Receive nearby::connections::mojom::NearbyConnections::RejectConnectionV3";
+      case internal::kNearbyConnections_DisconnectFromDeviceV3_Name:
+            return "Receive nearby::connections::mojom::NearbyConnections::DisconnectFromDeviceV3";
     }
   } else {
     switch (message.name()) {
@@ -1351,6 +1742,14 @@ const char* NearbyConnections::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply nearby::connections::mojom::NearbyConnections::InitiateBandwidthUpgrade";
       case internal::kNearbyConnections_RegisterPayloadFile_Name:
             return "Receive reply nearby::connections::mojom::NearbyConnections::RegisterPayloadFile";
+      case internal::kNearbyConnections_RequestConnectionV3_Name:
+            return "Receive reply nearby::connections::mojom::NearbyConnections::RequestConnectionV3";
+      case internal::kNearbyConnections_AcceptConnectionV3_Name:
+            return "Receive reply nearby::connections::mojom::NearbyConnections::AcceptConnectionV3";
+      case internal::kNearbyConnections_RejectConnectionV3_Name:
+            return "Receive reply nearby::connections::mojom::NearbyConnections::RejectConnectionV3";
+      case internal::kNearbyConnections_DisconnectFromDeviceV3_Name:
+            return "Receive reply nearby::connections::mojom::NearbyConnections::DisconnectFromDeviceV3";
     }
   }
   return "Receive unknown mojo message";
@@ -1543,6 +1942,58 @@ uint32_t NearbyConnections::RegisterPayloadFile_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)nearby::connections::mojom::NearbyConnections::RegisterPayloadFile");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NearbyConnections::RequestConnectionV3_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)nearby::connections::mojom::NearbyConnections::RequestConnectionV3");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NearbyConnections::AcceptConnectionV3_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)nearby::connections::mojom::NearbyConnections::AcceptConnectionV3");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NearbyConnections::RejectConnectionV3_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)nearby::connections::mojom::NearbyConnections::RejectConnectionV3");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NearbyConnections::DisconnectFromDeviceV3_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)nearby::connections::mojom::NearbyConnections::DisconnectFromDeviceV3");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1773,6 +2224,70 @@ class NearbyConnections_RegisterPayloadFile_ForwardToCallback
   NearbyConnections::RegisterPayloadFileCallback callback_;
 };
 
+class NearbyConnections_RequestConnectionV3_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  NearbyConnections_RequestConnectionV3_ForwardToCallback(
+      NearbyConnections::RequestConnectionV3Callback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  NearbyConnections_RequestConnectionV3_ForwardToCallback(const NearbyConnections_RequestConnectionV3_ForwardToCallback&) = delete;
+  NearbyConnections_RequestConnectionV3_ForwardToCallback& operator=(const NearbyConnections_RequestConnectionV3_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  NearbyConnections::RequestConnectionV3Callback callback_;
+};
+
+class NearbyConnections_AcceptConnectionV3_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  NearbyConnections_AcceptConnectionV3_ForwardToCallback(
+      NearbyConnections::AcceptConnectionV3Callback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  NearbyConnections_AcceptConnectionV3_ForwardToCallback(const NearbyConnections_AcceptConnectionV3_ForwardToCallback&) = delete;
+  NearbyConnections_AcceptConnectionV3_ForwardToCallback& operator=(const NearbyConnections_AcceptConnectionV3_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  NearbyConnections::AcceptConnectionV3Callback callback_;
+};
+
+class NearbyConnections_RejectConnectionV3_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  NearbyConnections_RejectConnectionV3_ForwardToCallback(
+      NearbyConnections::RejectConnectionV3Callback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  NearbyConnections_RejectConnectionV3_ForwardToCallback(const NearbyConnections_RejectConnectionV3_ForwardToCallback&) = delete;
+  NearbyConnections_RejectConnectionV3_ForwardToCallback& operator=(const NearbyConnections_RejectConnectionV3_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  NearbyConnections::RejectConnectionV3Callback callback_;
+};
+
+class NearbyConnections_DisconnectFromDeviceV3_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  NearbyConnections_DisconnectFromDeviceV3_ForwardToCallback(
+      NearbyConnections::DisconnectFromDeviceV3Callback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  NearbyConnections_DisconnectFromDeviceV3_ForwardToCallback(const NearbyConnections_DisconnectFromDeviceV3_ForwardToCallback&) = delete;
+  NearbyConnections_DisconnectFromDeviceV3_ForwardToCallback& operator=(const NearbyConnections_DisconnectFromDeviceV3_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  NearbyConnections::DisconnectFromDeviceV3Callback callback_;
+};
+
 NearbyConnectionsProxy::NearbyConnectionsProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -1798,14 +2313,17 @@ void NearbyConnectionsProxy::StartAdvertising(
                         "<value of type ::mojo::PendingRemote<ConnectionLifecycleListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StartAdvertising_Name, kFlags, 0, 0, nullptr);
@@ -1877,14 +2395,17 @@ void NearbyConnectionsProxy::StopAdvertising(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StopAdvertising_Name, kFlags, 0, 0, nullptr);
@@ -1932,14 +2453,17 @@ void NearbyConnectionsProxy::StartDiscovery(
                         "<value of type ::mojo::PendingRemote<EndpointDiscoveryListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StartDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -1998,14 +2522,17 @@ void NearbyConnectionsProxy::StopDiscovery(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StopDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -2056,14 +2583,17 @@ void NearbyConnectionsProxy::InjectBluetoothEndpoint(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_InjectBluetoothEndpoint_Name, kFlags, 0, 0, nullptr);
@@ -2154,14 +2684,17 @@ void NearbyConnectionsProxy::RequestConnection(
                         "<value of type ::mojo::PendingRemote<ConnectionLifecycleListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_RequestConnection_Name, kFlags, 0, 0, nullptr);
@@ -2250,14 +2783,17 @@ void NearbyConnectionsProxy::AcceptConnection(
                         "<value of type ::mojo::PendingRemote<PayloadListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_AcceptConnection_Name, kFlags, 0, 0, nullptr);
@@ -2319,14 +2855,17 @@ void NearbyConnectionsProxy::RejectConnection(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_RejectConnection_Name, kFlags, 0, 0, nullptr);
@@ -2382,14 +2921,17 @@ void NearbyConnectionsProxy::DisconnectFromEndpoint(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_DisconnectFromEndpoint_Name, kFlags, 0, 0, nullptr);
@@ -2448,14 +2990,17 @@ void NearbyConnectionsProxy::SendPayload(
                         "<value of type ::nearby::connections::mojom::PayloadPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_SendPayload_Name, kFlags, 0, 0, nullptr);
@@ -2524,14 +3069,17 @@ void NearbyConnectionsProxy::CancelPayload(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_CancelPayload_Name, kFlags, 0, 0, nullptr);
@@ -2574,14 +3122,17 @@ void NearbyConnectionsProxy::StopAllEndpoints(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StopAllEndpoints_Name, kFlags, 0, 0, nullptr);
@@ -2626,14 +3177,17 @@ void NearbyConnectionsProxy::InitiateBandwidthUpgrade(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_InitiateBandwidthUpgrade_Name, kFlags, 0, 0, nullptr);
@@ -2695,14 +3249,17 @@ void NearbyConnectionsProxy::RegisterPayloadFile(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_RegisterPayloadFile_Name, kFlags, 0, 0, nullptr);
@@ -2751,6 +3308,302 @@ void NearbyConnectionsProxy::RegisterPayloadFile(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NearbyConnections_RegisterPayloadFile_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void NearbyConnectionsProxy::RequestConnectionV3(
+    const std::string& in_service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr in_remote_device, ::nearby::connections::mojom::ConnectionOptionsPtr in_connection_options, ::mojo::PendingRemote<ConnectionListenerV3> in_listener, RequestConnectionV3Callback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send nearby::connections::mojom::NearbyConnections::RequestConnectionV3", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("service_id"), in_service_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("remote_device"), in_remote_device,
+                        "<value of type ::ash::nearby::presence::mojom::PresenceDevicePtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("connection_options"), in_connection_options,
+                        "<value of type ::nearby::connections::mojom::ConnectionOptionsPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("listener"), in_listener,
+                        "<value of type ::mojo::PendingRemote<ConnectionListenerV3>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyConnections_RequestConnectionV3_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::NearbyConnections_RequestConnectionV3_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->service_id)::BaseType> service_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_service_id, service_id_fragment);
+  params->service_id.Set(
+      service_id_fragment.is_null() ? nullptr : service_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->service_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null service_id in NearbyConnections.RequestConnectionV3 request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->remote_device)::BaseType> remote_device_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+      in_remote_device, remote_device_fragment);
+  params->remote_device.Set(
+      remote_device_fragment.is_null() ? nullptr : remote_device_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->remote_device.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null remote_device in NearbyConnections.RequestConnectionV3 request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->connection_options)::BaseType> connection_options_fragment(
+          params.message());
+  mojo::internal::Serialize<::nearby::connections::mojom::ConnectionOptionsDataView>(
+      in_connection_options, connection_options_fragment);
+  params->connection_options.Set(
+      connection_options_fragment.is_null() ? nullptr : connection_options_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->connection_options.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null connection_options in NearbyConnections.RequestConnectionV3 request");
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::nearby::connections::mojom::ConnectionListenerV3InterfaceBase>>(
+      in_listener, &params->listener, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->listener),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid listener in NearbyConnections.RequestConnectionV3 request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyConnections::Name_);
+  message.set_method_name("RequestConnectionV3");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new NearbyConnections_RequestConnectionV3_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void NearbyConnectionsProxy::AcceptConnectionV3(
+    const std::string& in_service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr in_remote_device, ::mojo::PendingRemote<PayloadListenerV3> in_listener, AcceptConnectionV3Callback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send nearby::connections::mojom::NearbyConnections::AcceptConnectionV3", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("service_id"), in_service_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("remote_device"), in_remote_device,
+                        "<value of type ::ash::nearby::presence::mojom::PresenceDevicePtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("listener"), in_listener,
+                        "<value of type ::mojo::PendingRemote<PayloadListenerV3>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyConnections_AcceptConnectionV3_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::NearbyConnections_AcceptConnectionV3_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->service_id)::BaseType> service_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_service_id, service_id_fragment);
+  params->service_id.Set(
+      service_id_fragment.is_null() ? nullptr : service_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->service_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null service_id in NearbyConnections.AcceptConnectionV3 request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->remote_device)::BaseType> remote_device_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+      in_remote_device, remote_device_fragment);
+  params->remote_device.Set(
+      remote_device_fragment.is_null() ? nullptr : remote_device_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->remote_device.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null remote_device in NearbyConnections.AcceptConnectionV3 request");
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::nearby::connections::mojom::PayloadListenerV3InterfaceBase>>(
+      in_listener, &params->listener, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->listener),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid listener in NearbyConnections.AcceptConnectionV3 request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyConnections::Name_);
+  message.set_method_name("AcceptConnectionV3");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new NearbyConnections_AcceptConnectionV3_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void NearbyConnectionsProxy::RejectConnectionV3(
+    const std::string& in_service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr in_remote_device, RejectConnectionV3Callback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send nearby::connections::mojom::NearbyConnections::RejectConnectionV3", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("service_id"), in_service_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("remote_device"), in_remote_device,
+                        "<value of type ::ash::nearby::presence::mojom::PresenceDevicePtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyConnections_RejectConnectionV3_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::NearbyConnections_RejectConnectionV3_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->service_id)::BaseType> service_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_service_id, service_id_fragment);
+  params->service_id.Set(
+      service_id_fragment.is_null() ? nullptr : service_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->service_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null service_id in NearbyConnections.RejectConnectionV3 request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->remote_device)::BaseType> remote_device_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+      in_remote_device, remote_device_fragment);
+  params->remote_device.Set(
+      remote_device_fragment.is_null() ? nullptr : remote_device_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->remote_device.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null remote_device in NearbyConnections.RejectConnectionV3 request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyConnections::Name_);
+  message.set_method_name("RejectConnectionV3");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new NearbyConnections_RejectConnectionV3_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void NearbyConnectionsProxy::DisconnectFromDeviceV3(
+    const std::string& in_service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr in_remote_device, DisconnectFromDeviceV3Callback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send nearby::connections::mojom::NearbyConnections::DisconnectFromDeviceV3", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("service_id"), in_service_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("remote_device"), in_remote_device,
+                        "<value of type ::ash::nearby::presence::mojom::PresenceDevicePtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyConnections_DisconnectFromDeviceV3_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::NearbyConnections_DisconnectFromDeviceV3_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->service_id)::BaseType> service_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_service_id, service_id_fragment);
+  params->service_id.Set(
+      service_id_fragment.is_null() ? nullptr : service_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->service_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null service_id in NearbyConnections.DisconnectFromDeviceV3 request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->remote_device)::BaseType> remote_device_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::nearby::presence::mojom::PresenceDeviceDataView>(
+      in_remote_device, remote_device_fragment);
+  params->remote_device.Set(
+      remote_device_fragment.is_null() ? nullptr : remote_device_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->remote_device.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null remote_device in NearbyConnections.DisconnectFromDeviceV3 request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyConnections::Name_);
+  message.set_method_name("DisconnectFromDeviceV3");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new NearbyConnections_DisconnectFromDeviceV3_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2846,7 +3699,8 @@ void NearbyConnections_StartAdvertising_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StartAdvertising_Name, kFlags, 0, 0, nullptr);
@@ -2965,7 +3819,8 @@ void NearbyConnections_StopAdvertising_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StopAdvertising_Name, kFlags, 0, 0, nullptr);
@@ -3084,7 +3939,8 @@ void NearbyConnections_StartDiscovery_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StartDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -3203,7 +4059,8 @@ void NearbyConnections_StopDiscovery_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StopDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -3322,7 +4179,8 @@ void NearbyConnections_InjectBluetoothEndpoint_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_InjectBluetoothEndpoint_Name, kFlags, 0, 0, nullptr);
@@ -3441,7 +4299,8 @@ void NearbyConnections_RequestConnection_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_RequestConnection_Name, kFlags, 0, 0, nullptr);
@@ -3560,7 +4419,8 @@ void NearbyConnections_AcceptConnection_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_AcceptConnection_Name, kFlags, 0, 0, nullptr);
@@ -3679,7 +4539,8 @@ void NearbyConnections_RejectConnection_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_RejectConnection_Name, kFlags, 0, 0, nullptr);
@@ -3798,7 +4659,8 @@ void NearbyConnections_DisconnectFromEndpoint_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_DisconnectFromEndpoint_Name, kFlags, 0, 0, nullptr);
@@ -3917,7 +4779,8 @@ void NearbyConnections_SendPayload_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_SendPayload_Name, kFlags, 0, 0, nullptr);
@@ -4036,7 +4899,8 @@ void NearbyConnections_CancelPayload_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_CancelPayload_Name, kFlags, 0, 0, nullptr);
@@ -4155,7 +5019,8 @@ void NearbyConnections_StopAllEndpoints_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_StopAllEndpoints_Name, kFlags, 0, 0, nullptr);
@@ -4274,7 +5139,8 @@ void NearbyConnections_InitiateBandwidthUpgrade_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_InitiateBandwidthUpgrade_Name, kFlags, 0, 0, nullptr);
@@ -4393,7 +5259,8 @@ void NearbyConnections_RegisterPayloadFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnections_RegisterPayloadFile_Name, kFlags, 0, 0, nullptr);
@@ -4407,6 +5274,486 @@ void NearbyConnections_RegisterPayloadFile_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NearbyConnections::Name_);
   message.set_method_name("RegisterPayloadFile");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class NearbyConnections_RequestConnectionV3_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static NearbyConnections::RequestConnectionV3Callback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<NearbyConnections_RequestConnectionV3_ProxyToResponder> proxy(
+        new NearbyConnections_RequestConnectionV3_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&NearbyConnections_RequestConnectionV3_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~NearbyConnections_RequestConnectionV3_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  NearbyConnections_RequestConnectionV3_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "NearbyConnections::RequestConnectionV3Callback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::nearby::connections::mojom::Status in_status);
+};
+
+bool NearbyConnections_RequestConnectionV3_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::NearbyConnections_RequestConnectionV3_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::NearbyConnections_RequestConnectionV3_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::nearby::connections::mojom::Status p_status{};
+  NearbyConnections_RequestConnectionV3_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadStatus(&p_status))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        NearbyConnections::Name_, 14, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_status));
+  return true;
+}
+
+void NearbyConnections_RequestConnectionV3_ProxyToResponder::Run(
+    ::nearby::connections::mojom::Status in_status) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply nearby::connections::mojom::NearbyConnections::RequestConnectionV3", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type ::nearby::connections::mojom::Status>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyConnections_RequestConnectionV3_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::NearbyConnections_RequestConnectionV3_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::nearby::connections::mojom::Status>(
+      in_status, &params->status);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyConnections::Name_);
+  message.set_method_name("RequestConnectionV3");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class NearbyConnections_AcceptConnectionV3_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static NearbyConnections::AcceptConnectionV3Callback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<NearbyConnections_AcceptConnectionV3_ProxyToResponder> proxy(
+        new NearbyConnections_AcceptConnectionV3_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&NearbyConnections_AcceptConnectionV3_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~NearbyConnections_AcceptConnectionV3_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  NearbyConnections_AcceptConnectionV3_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "NearbyConnections::AcceptConnectionV3Callback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::nearby::connections::mojom::Status in_status);
+};
+
+bool NearbyConnections_AcceptConnectionV3_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::NearbyConnections_AcceptConnectionV3_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::NearbyConnections_AcceptConnectionV3_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::nearby::connections::mojom::Status p_status{};
+  NearbyConnections_AcceptConnectionV3_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadStatus(&p_status))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        NearbyConnections::Name_, 15, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_status));
+  return true;
+}
+
+void NearbyConnections_AcceptConnectionV3_ProxyToResponder::Run(
+    ::nearby::connections::mojom::Status in_status) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply nearby::connections::mojom::NearbyConnections::AcceptConnectionV3", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type ::nearby::connections::mojom::Status>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyConnections_AcceptConnectionV3_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::NearbyConnections_AcceptConnectionV3_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::nearby::connections::mojom::Status>(
+      in_status, &params->status);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyConnections::Name_);
+  message.set_method_name("AcceptConnectionV3");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class NearbyConnections_RejectConnectionV3_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static NearbyConnections::RejectConnectionV3Callback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<NearbyConnections_RejectConnectionV3_ProxyToResponder> proxy(
+        new NearbyConnections_RejectConnectionV3_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&NearbyConnections_RejectConnectionV3_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~NearbyConnections_RejectConnectionV3_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  NearbyConnections_RejectConnectionV3_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "NearbyConnections::RejectConnectionV3Callback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::nearby::connections::mojom::Status in_status);
+};
+
+bool NearbyConnections_RejectConnectionV3_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::NearbyConnections_RejectConnectionV3_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::NearbyConnections_RejectConnectionV3_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::nearby::connections::mojom::Status p_status{};
+  NearbyConnections_RejectConnectionV3_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadStatus(&p_status))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        NearbyConnections::Name_, 16, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_status));
+  return true;
+}
+
+void NearbyConnections_RejectConnectionV3_ProxyToResponder::Run(
+    ::nearby::connections::mojom::Status in_status) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply nearby::connections::mojom::NearbyConnections::RejectConnectionV3", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type ::nearby::connections::mojom::Status>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyConnections_RejectConnectionV3_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::NearbyConnections_RejectConnectionV3_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::nearby::connections::mojom::Status>(
+      in_status, &params->status);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyConnections::Name_);
+  message.set_method_name("RejectConnectionV3");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class NearbyConnections_DisconnectFromDeviceV3_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static NearbyConnections::DisconnectFromDeviceV3Callback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<NearbyConnections_DisconnectFromDeviceV3_ProxyToResponder> proxy(
+        new NearbyConnections_DisconnectFromDeviceV3_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&NearbyConnections_DisconnectFromDeviceV3_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~NearbyConnections_DisconnectFromDeviceV3_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  NearbyConnections_DisconnectFromDeviceV3_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "NearbyConnections::DisconnectFromDeviceV3Callback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::nearby::connections::mojom::Status in_status);
+};
+
+bool NearbyConnections_DisconnectFromDeviceV3_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::nearby::connections::mojom::Status p_status{};
+  NearbyConnections_DisconnectFromDeviceV3_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadStatus(&p_status))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        NearbyConnections::Name_, 17, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_status));
+  return true;
+}
+
+void NearbyConnections_DisconnectFromDeviceV3_ProxyToResponder::Run(
+    ::nearby::connections::mojom::Status in_status) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply nearby::connections::mojom::NearbyConnections::DisconnectFromDeviceV3", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type ::nearby::connections::mojom::Status>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNearbyConnections_DisconnectFromDeviceV3_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::nearby::connections::mojom::internal::NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::nearby::connections::mojom::Status>(
+      in_status, &params->status);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NearbyConnections::Name_);
+  message.set_method_name("DisconnectFromDeviceV3");
 #endif
 
   message.set_request_id(request_id_);
@@ -4466,6 +5813,18 @@ bool NearbyConnectionsStubDispatch::Accept(
       break;
     }
     case internal::kNearbyConnections_RegisterPayloadFile_Name: {
+      break;
+    }
+    case internal::kNearbyConnections_RequestConnectionV3_Name: {
+      break;
+    }
+    case internal::kNearbyConnections_AcceptConnectionV3_Name: {
+      break;
+    }
+    case internal::kNearbyConnections_RejectConnectionV3_Name: {
+      break;
+    }
+    case internal::kNearbyConnections_DisconnectFromDeviceV3_Name: {
       break;
     }
   }
@@ -4987,40 +6346,196 @@ std::move(p_input_file),
 std::move(p_output_file), std::move(callback));
       return true;
     }
+    case internal::kNearbyConnections_RequestConnectionV3_Name: {
+
+      internal::NearbyConnections_RequestConnectionV3_Params_Data* params =
+          reinterpret_cast<
+              internal::NearbyConnections_RequestConnectionV3_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_service_id{};
+      ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
+      ::nearby::connections::mojom::ConnectionOptionsPtr p_connection_options{};
+      ::mojo::PendingRemote<ConnectionListenerV3> p_listener{};
+      NearbyConnections_RequestConnectionV3_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadServiceId(&p_service_id))
+        success = false;
+      if (success && !input_data_view.ReadRemoteDevice(&p_remote_device))
+        success = false;
+      if (success && !input_data_view.ReadConnectionOptions(&p_connection_options))
+        success = false;
+      if (success) {
+        p_listener =
+            input_data_view.TakeListener<decltype(p_listener)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NearbyConnections::Name_, 14, false);
+        return false;
+      }
+      NearbyConnections::RequestConnectionV3Callback callback =
+          NearbyConnections_RequestConnectionV3_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RequestConnectionV3(
+std::move(p_service_id), 
+std::move(p_remote_device), 
+std::move(p_connection_options), 
+std::move(p_listener), std::move(callback));
+      return true;
+    }
+    case internal::kNearbyConnections_AcceptConnectionV3_Name: {
+
+      internal::NearbyConnections_AcceptConnectionV3_Params_Data* params =
+          reinterpret_cast<
+              internal::NearbyConnections_AcceptConnectionV3_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_service_id{};
+      ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
+      ::mojo::PendingRemote<PayloadListenerV3> p_listener{};
+      NearbyConnections_AcceptConnectionV3_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadServiceId(&p_service_id))
+        success = false;
+      if (success && !input_data_view.ReadRemoteDevice(&p_remote_device))
+        success = false;
+      if (success) {
+        p_listener =
+            input_data_view.TakeListener<decltype(p_listener)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NearbyConnections::Name_, 15, false);
+        return false;
+      }
+      NearbyConnections::AcceptConnectionV3Callback callback =
+          NearbyConnections_AcceptConnectionV3_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->AcceptConnectionV3(
+std::move(p_service_id), 
+std::move(p_remote_device), 
+std::move(p_listener), std::move(callback));
+      return true;
+    }
+    case internal::kNearbyConnections_RejectConnectionV3_Name: {
+
+      internal::NearbyConnections_RejectConnectionV3_Params_Data* params =
+          reinterpret_cast<
+              internal::NearbyConnections_RejectConnectionV3_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_service_id{};
+      ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
+      NearbyConnections_RejectConnectionV3_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadServiceId(&p_service_id))
+        success = false;
+      if (success && !input_data_view.ReadRemoteDevice(&p_remote_device))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NearbyConnections::Name_, 16, false);
+        return false;
+      }
+      NearbyConnections::RejectConnectionV3Callback callback =
+          NearbyConnections_RejectConnectionV3_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RejectConnectionV3(
+std::move(p_service_id), 
+std::move(p_remote_device), std::move(callback));
+      return true;
+    }
+    case internal::kNearbyConnections_DisconnectFromDeviceV3_Name: {
+
+      internal::NearbyConnections_DisconnectFromDeviceV3_Params_Data* params =
+          reinterpret_cast<
+              internal::NearbyConnections_DisconnectFromDeviceV3_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_service_id{};
+      ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
+      NearbyConnections_DisconnectFromDeviceV3_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadServiceId(&p_service_id))
+        success = false;
+      if (success && !input_data_view.ReadRemoteDevice(&p_remote_device))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NearbyConnections::Name_, 17, false);
+        return false;
+      }
+      NearbyConnections::DisconnectFromDeviceV3Callback callback =
+          NearbyConnections_DisconnectFromDeviceV3_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DisconnectFromDeviceV3(
+std::move(p_service_id), 
+std::move(p_remote_device), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNearbyConnectionsValidationInfo[] = {
-    {&internal::NearbyConnections_StartAdvertising_Params_Data::Validate,
+    { &internal::NearbyConnections_StartAdvertising_Params_Data::Validate,
      &internal::NearbyConnections_StartAdvertising_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_StopAdvertising_Params_Data::Validate,
+    { &internal::NearbyConnections_StopAdvertising_Params_Data::Validate,
      &internal::NearbyConnections_StopAdvertising_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_StartDiscovery_Params_Data::Validate,
+    { &internal::NearbyConnections_StartDiscovery_Params_Data::Validate,
      &internal::NearbyConnections_StartDiscovery_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_StopDiscovery_Params_Data::Validate,
+    { &internal::NearbyConnections_StopDiscovery_Params_Data::Validate,
      &internal::NearbyConnections_StopDiscovery_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_InjectBluetoothEndpoint_Params_Data::Validate,
+    { &internal::NearbyConnections_InjectBluetoothEndpoint_Params_Data::Validate,
      &internal::NearbyConnections_InjectBluetoothEndpoint_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_RequestConnection_Params_Data::Validate,
+    { &internal::NearbyConnections_RequestConnection_Params_Data::Validate,
      &internal::NearbyConnections_RequestConnection_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_AcceptConnection_Params_Data::Validate,
+    { &internal::NearbyConnections_AcceptConnection_Params_Data::Validate,
      &internal::NearbyConnections_AcceptConnection_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_RejectConnection_Params_Data::Validate,
+    { &internal::NearbyConnections_RejectConnection_Params_Data::Validate,
      &internal::NearbyConnections_RejectConnection_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_DisconnectFromEndpoint_Params_Data::Validate,
+    { &internal::NearbyConnections_DisconnectFromEndpoint_Params_Data::Validate,
      &internal::NearbyConnections_DisconnectFromEndpoint_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_SendPayload_Params_Data::Validate,
+    { &internal::NearbyConnections_SendPayload_Params_Data::Validate,
      &internal::NearbyConnections_SendPayload_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_CancelPayload_Params_Data::Validate,
+    { &internal::NearbyConnections_CancelPayload_Params_Data::Validate,
      &internal::NearbyConnections_CancelPayload_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_StopAllEndpoints_Params_Data::Validate,
+    { &internal::NearbyConnections_StopAllEndpoints_Params_Data::Validate,
      &internal::NearbyConnections_StopAllEndpoints_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_InitiateBandwidthUpgrade_Params_Data::Validate,
+    { &internal::NearbyConnections_InitiateBandwidthUpgrade_Params_Data::Validate,
      &internal::NearbyConnections_InitiateBandwidthUpgrade_ResponseParams_Data::Validate},
-    {&internal::NearbyConnections_RegisterPayloadFile_Params_Data::Validate,
+    { &internal::NearbyConnections_RegisterPayloadFile_Params_Data::Validate,
      &internal::NearbyConnections_RegisterPayloadFile_ResponseParams_Data::Validate},
+    { &internal::NearbyConnections_RequestConnectionV3_Params_Data::Validate,
+     &internal::NearbyConnections_RequestConnectionV3_ResponseParams_Data::Validate},
+    { &internal::NearbyConnections_AcceptConnectionV3_Params_Data::Validate,
+     &internal::NearbyConnections_AcceptConnectionV3_ResponseParams_Data::Validate},
+    { &internal::NearbyConnections_RejectConnectionV3_Params_Data::Validate,
+     &internal::NearbyConnections_RejectConnectionV3_ResponseParams_Data::Validate},
+    { &internal::NearbyConnections_DisconnectFromDeviceV3_Params_Data::Validate,
+     &internal::NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data::Validate},
 };
 
 bool NearbyConnectionsRequestValidator::Accept(mojo::Message* message) {
@@ -5100,6 +6615,28 @@ PayloadListenerAsyncWaiter::~PayloadListenerAsyncWaiter() = default;
 
 
 
+void ConnectionListenerV3InterceptorForTesting::OnConnectionInitiated(::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::InitialConnectionInfoV3Ptr info) {
+  GetForwardingInterface()->OnConnectionInitiated(std::move(remote_device), std::move(info));
+}
+void ConnectionListenerV3InterceptorForTesting::OnDisconnected(::ash::nearby::presence::mojom::PresenceDevicePtr remote_device) {
+  GetForwardingInterface()->OnDisconnected(std::move(remote_device));
+}
+ConnectionListenerV3AsyncWaiter::ConnectionListenerV3AsyncWaiter(
+    ConnectionListenerV3* proxy) : proxy_(proxy) {}
+
+ConnectionListenerV3AsyncWaiter::~ConnectionListenerV3AsyncWaiter() = default;
+
+
+
+
+PayloadListenerV3AsyncWaiter::PayloadListenerV3AsyncWaiter(
+    PayloadListenerV3* proxy) : proxy_(proxy) {}
+
+PayloadListenerV3AsyncWaiter::~PayloadListenerV3AsyncWaiter() = default;
+
+
+
+
 void NearbyConnectionsInterceptorForTesting::StartAdvertising(const std::string& service_id, const std::vector<uint8_t>& endpoint_info, ::nearby::connections::mojom::AdvertisingOptionsPtr options, ::mojo::PendingRemote<ConnectionLifecycleListener> listener, StartAdvertisingCallback callback) {
   GetForwardingInterface()->StartAdvertising(std::move(service_id), std::move(endpoint_info), std::move(options), std::move(listener), std::move(callback));
 }
@@ -5141,6 +6678,18 @@ void NearbyConnectionsInterceptorForTesting::InitiateBandwidthUpgrade(const std:
 }
 void NearbyConnectionsInterceptorForTesting::RegisterPayloadFile(const std::string& service_id, int64_t payload_id, ::base::File input_file, ::base::File output_file, RegisterPayloadFileCallback callback) {
   GetForwardingInterface()->RegisterPayloadFile(std::move(service_id), std::move(payload_id), std::move(input_file), std::move(output_file), std::move(callback));
+}
+void NearbyConnectionsInterceptorForTesting::RequestConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::ConnectionOptionsPtr connection_options, ::mojo::PendingRemote<ConnectionListenerV3> listener, RequestConnectionV3Callback callback) {
+  GetForwardingInterface()->RequestConnectionV3(std::move(service_id), std::move(remote_device), std::move(connection_options), std::move(listener), std::move(callback));
+}
+void NearbyConnectionsInterceptorForTesting::AcceptConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::mojo::PendingRemote<PayloadListenerV3> listener, AcceptConnectionV3Callback callback) {
+  GetForwardingInterface()->AcceptConnectionV3(std::move(service_id), std::move(remote_device), std::move(listener), std::move(callback));
+}
+void NearbyConnectionsInterceptorForTesting::RejectConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, RejectConnectionV3Callback callback) {
+  GetForwardingInterface()->RejectConnectionV3(std::move(service_id), std::move(remote_device), std::move(callback));
+}
+void NearbyConnectionsInterceptorForTesting::DisconnectFromDeviceV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, DisconnectFromDeviceV3Callback callback) {
+  GetForwardingInterface()->DisconnectFromDeviceV3(std::move(service_id), std::move(remote_device), std::move(callback));
 }
 NearbyConnectionsAsyncWaiter::NearbyConnectionsAsyncWaiter(
     NearbyConnections* proxy) : proxy_(proxy) {}
@@ -5466,6 +7015,98 @@ void NearbyConnectionsAsyncWaiter::RegisterPayloadFile(
     const std::string& service_id, int64_t payload_id, ::base::File input_file, ::base::File output_file) {
   ::nearby::connections::mojom::Status async_wait_result;
   RegisterPayloadFile(std::move(service_id),std::move(payload_id),std::move(input_file),std::move(output_file),&async_wait_result);
+  return async_wait_result;
+}
+
+void NearbyConnectionsAsyncWaiter::RequestConnectionV3(
+    const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::ConnectionOptionsPtr connection_options, ::mojo::PendingRemote<ConnectionListenerV3> listener, ::nearby::connections::mojom::Status* out_status) {
+  base::RunLoop loop;
+  proxy_->RequestConnectionV3(std::move(service_id),std::move(remote_device),std::move(connection_options),std::move(listener),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::nearby::connections::mojom::Status* out_status
+,
+             ::nearby::connections::mojom::Status status) {*out_status = std::move(status);
+            loop->Quit();
+          },
+          &loop,
+          out_status));
+  loop.Run();
+}
+
+::nearby::connections::mojom::Status NearbyConnectionsAsyncWaiter::RequestConnectionV3(
+    const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::ConnectionOptionsPtr connection_options, ::mojo::PendingRemote<ConnectionListenerV3> listener) {
+  ::nearby::connections::mojom::Status async_wait_result;
+  RequestConnectionV3(std::move(service_id),std::move(remote_device),std::move(connection_options),std::move(listener),&async_wait_result);
+  return async_wait_result;
+}
+
+void NearbyConnectionsAsyncWaiter::AcceptConnectionV3(
+    const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::mojo::PendingRemote<PayloadListenerV3> listener, ::nearby::connections::mojom::Status* out_status) {
+  base::RunLoop loop;
+  proxy_->AcceptConnectionV3(std::move(service_id),std::move(remote_device),std::move(listener),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::nearby::connections::mojom::Status* out_status
+,
+             ::nearby::connections::mojom::Status status) {*out_status = std::move(status);
+            loop->Quit();
+          },
+          &loop,
+          out_status));
+  loop.Run();
+}
+
+::nearby::connections::mojom::Status NearbyConnectionsAsyncWaiter::AcceptConnectionV3(
+    const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::mojo::PendingRemote<PayloadListenerV3> listener) {
+  ::nearby::connections::mojom::Status async_wait_result;
+  AcceptConnectionV3(std::move(service_id),std::move(remote_device),std::move(listener),&async_wait_result);
+  return async_wait_result;
+}
+
+void NearbyConnectionsAsyncWaiter::RejectConnectionV3(
+    const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::Status* out_status) {
+  base::RunLoop loop;
+  proxy_->RejectConnectionV3(std::move(service_id),std::move(remote_device),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::nearby::connections::mojom::Status* out_status
+,
+             ::nearby::connections::mojom::Status status) {*out_status = std::move(status);
+            loop->Quit();
+          },
+          &loop,
+          out_status));
+  loop.Run();
+}
+
+::nearby::connections::mojom::Status NearbyConnectionsAsyncWaiter::RejectConnectionV3(
+    const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device) {
+  ::nearby::connections::mojom::Status async_wait_result;
+  RejectConnectionV3(std::move(service_id),std::move(remote_device),&async_wait_result);
+  return async_wait_result;
+}
+
+void NearbyConnectionsAsyncWaiter::DisconnectFromDeviceV3(
+    const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::Status* out_status) {
+  base::RunLoop loop;
+  proxy_->DisconnectFromDeviceV3(std::move(service_id),std::move(remote_device),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::nearby::connections::mojom::Status* out_status
+,
+             ::nearby::connections::mojom::Status status) {*out_status = std::move(status);
+            loop->Quit();
+          },
+          &loop,
+          out_status));
+  loop.Run();
+}
+
+::nearby::connections::mojom::Status NearbyConnectionsAsyncWaiter::DisconnectFromDeviceV3(
+    const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device) {
+  ::nearby::connections::mojom::Status async_wait_result;
+  DisconnectFromDeviceV3(std::move(service_id),std::move(remote_device),&async_wait_result);
   return async_wait_result;
 }
 

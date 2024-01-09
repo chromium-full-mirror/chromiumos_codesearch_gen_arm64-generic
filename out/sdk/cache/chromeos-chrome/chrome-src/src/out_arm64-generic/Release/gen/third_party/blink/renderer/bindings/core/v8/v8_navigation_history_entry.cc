@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, NavigationHistoryEntry>::value,
     "NavigationHistoryEntry inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&NavigationHistoryEntry::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NavigationHistoryEntry is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationHistoryEntry.key.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->key();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->key();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,10 +96,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationHistoryEntry.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -116,10 +111,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationHistoryEntry.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -131,8 +126,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationHistoryEntry.index.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(v8_receiver);
+NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->index();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -145,8 +141,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationHistoryEntry.sameDocument.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(v8_receiver);
+NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sameDocument();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -159,10 +156,10 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationHistoryEntry.ondispose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondispose();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondispose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -175,8 +172,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(v8_receiver);
+NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndispose(event_handler);
 }
 
@@ -191,8 +189,9 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationHistoryEntry.getState");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(v8_receiver);
+NavigationHistoryEntry* blink_receiver = V8NavigationHistoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getState();
 bindings::V8SetReturnValue(info, return_value);
 }

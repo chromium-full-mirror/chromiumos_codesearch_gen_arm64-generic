@@ -96,11 +96,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGSVGElement>::value,
     "SVGSVGElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGSVGElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGSVGElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -119,7 +114,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -138,7 +133,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -157,7 +152,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -176,7 +171,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -189,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGSVGElement.currentScale.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentScale();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -202,9 +198,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGSVGElement.currentScale.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGSVGElement";
@@ -225,8 +221,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGSVGElement.currentTranslate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTranslateFromJavascript();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -245,7 +242,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFitToViewBox);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->viewBox();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -264,7 +261,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFitToViewBox);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->preserveAspectRatio();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -283,7 +280,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMZoomAndPan);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->zoomAndPan();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -301,7 +298,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMZoomAndPan);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGSVGElement";
@@ -338,7 +335,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSMILPausing);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->animationsPaused();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -364,7 +361,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<SVGElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -398,7 +395,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<SVGElement>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -428,7 +425,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGSVGElement_Create
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createSVGAngle();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -450,7 +447,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGSVGElement_Create
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createSVGLength();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -472,7 +469,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGSVGElement_Create
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createSVGMatrix();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -494,7 +491,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGSVGElement_Create
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createSVGNumber();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -516,7 +513,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGSVGElement_Create
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createSVGPoint();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -538,7 +535,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGSVGElement_Create
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createSVGRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -560,7 +557,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGSVGElement_Create
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createSVGTransform();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -590,7 +587,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_matrix = NativeValueTraits<SVGMatrixTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -610,8 +607,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGSVGElement.deselectAll");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->deselectAll();
 
 }
@@ -633,7 +631,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSVGElementForceRedr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->forceRedraw();
 
 }
@@ -655,7 +653,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSMILCurrentTime);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getCurrentTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -685,10 +683,10 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_element_id;
 if (LIKELY(info[0]->IsString())) {
-  arg1_element_id.Init(info[0].As<v8::String>());
+  arg1_element_id.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "SVGSVGElement";
@@ -724,7 +722,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_rect = NativeValueTraits<SVGRectTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -758,7 +756,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_rect = NativeValueTraits<SVGRectTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -788,7 +786,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSMILPausing);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->pauseAnimations();
 
 }
@@ -818,7 +816,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_seconds = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -852,7 +850,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_max_wait_milliseconds = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -878,7 +876,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSMILPausing);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->unpauseAnimations();
 
 }
@@ -908,7 +906,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_suspend_handle_id = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -934,7 +932,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGSVGElementUnsuspend
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(v8_receiver);
+SVGSVGElement* blink_receiver = V8SVGSVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->unsuspendRedrawAll();
 
 }

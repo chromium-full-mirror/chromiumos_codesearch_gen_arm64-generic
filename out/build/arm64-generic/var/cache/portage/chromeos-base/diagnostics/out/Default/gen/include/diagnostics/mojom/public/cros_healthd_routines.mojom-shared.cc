@@ -19,6 +19,7 @@
 
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-params-data.h"
 #include "diagnostics/mojom/external/time_mojom_traits.h"
+#include "diagnostics/mojom/external/uuid_mojom_traits.h"
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
@@ -81,6 +82,32 @@ std::string MemtesterTestItemEnumToString(MemtesterTestItemEnum value) {
 
 std::ostream& operator<<(std::ostream& os, MemtesterTestItemEnum value) {
   return os << MemtesterTestItemEnumToString(value);
+}
+
+NOINLINE static const char* CameraSubtestResultToStringHelper(CameraSubtestResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case CameraSubtestResult::kNotRun:
+      return "kNotRun";
+    case CameraSubtestResult::kPassed:
+      return "kPassed";
+    case CameraSubtestResult::kFailed:
+      return "kFailed";
+    default:
+      return nullptr;
+  }
+}
+
+std::string CameraSubtestResultToString(CameraSubtestResult value) {
+  const char *str = CameraSubtestResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown CameraSubtestResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, CameraSubtestResult value) {
+  return os << CameraSubtestResultToString(value);
 }
 
 NOINLINE static const char* DiskReadTypeEnumToStringHelper(DiskReadTypeEnum value) {
@@ -255,6 +282,94 @@ std::ostream& operator<<(std::ostream& os, RoutineStateWaiting_Reason value) {
   return os << RoutineStateWaiting_ReasonToString(value);
 }
 
+NOINLINE static const char* BluetoothPairingPeripheralInfo_PairErrorToStringHelper(BluetoothPairingPeripheralInfo_PairError value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case BluetoothPairingPeripheralInfo_PairError::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case BluetoothPairingPeripheralInfo_PairError::kNone:
+      return "kNone";
+    case BluetoothPairingPeripheralInfo_PairError::kBondFailed:
+      return "kBondFailed";
+    case BluetoothPairingPeripheralInfo_PairError::kBadStatus:
+      return "kBadStatus";
+    case BluetoothPairingPeripheralInfo_PairError::kSspFailed:
+      return "kSspFailed";
+    case BluetoothPairingPeripheralInfo_PairError::kTimeout:
+      return "kTimeout";
+    default:
+      return nullptr;
+  }
+}
+
+std::string BluetoothPairingPeripheralInfo_PairErrorToString(BluetoothPairingPeripheralInfo_PairError value) {
+  const char *str = BluetoothPairingPeripheralInfo_PairErrorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown BluetoothPairingPeripheralInfo_PairError value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_PairError value) {
+  return os << BluetoothPairingPeripheralInfo_PairErrorToString(value);
+}
+
+NOINLINE static const char* BluetoothPairingPeripheralInfo_ConnectErrorToStringHelper(BluetoothPairingPeripheralInfo_ConnectError value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case BluetoothPairingPeripheralInfo_ConnectError::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case BluetoothPairingPeripheralInfo_ConnectError::kNone:
+      return "kNone";
+    case BluetoothPairingPeripheralInfo_ConnectError::kNoConnectedEvent:
+      return "kNoConnectedEvent";
+    case BluetoothPairingPeripheralInfo_ConnectError::kNotConnected:
+      return "kNotConnected";
+    default:
+      return nullptr;
+  }
+}
+
+std::string BluetoothPairingPeripheralInfo_ConnectErrorToString(BluetoothPairingPeripheralInfo_ConnectError value) {
+  const char *str = BluetoothPairingPeripheralInfo_ConnectErrorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown BluetoothPairingPeripheralInfo_ConnectError value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_ConnectError value) {
+  return os << BluetoothPairingPeripheralInfo_ConnectErrorToString(value);
+}
+
+NOINLINE static const char* BluetoothPairingPeripheralInfo_AddressTypeToStringHelper(BluetoothPairingPeripheralInfo_AddressType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case BluetoothPairingPeripheralInfo_AddressType::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case BluetoothPairingPeripheralInfo_AddressType::kUnknown:
+      return "kUnknown";
+    case BluetoothPairingPeripheralInfo_AddressType::kPublic:
+      return "kPublic";
+    case BluetoothPairingPeripheralInfo_AddressType::kRandom:
+      return "kRandom";
+    default:
+      return nullptr;
+  }
+}
+
+std::string BluetoothPairingPeripheralInfo_AddressTypeToString(BluetoothPairingPeripheralInfo_AddressType value) {
+  const char *str = BluetoothPairingPeripheralInfo_AddressTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown BluetoothPairingPeripheralInfo_AddressType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, BluetoothPairingPeripheralInfo_AddressType value) {
+  return os << BluetoothPairingPeripheralInfo_AddressTypeToString(value);
+}
+
 namespace internal {
 // static
 bool RoutineArgument_Data::Validate(
@@ -307,10 +422,20 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kFan: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_fan, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
+        return false;
+      return true;
+    }
     case RoutineArgument_Tag::kAudioDriver: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_audio_driver, 4, validation_context)) {
+              object->data.f_audio_driver, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
@@ -320,7 +445,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kCpuStress: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_stress, 5, validation_context)) {
+              object->data.f_cpu_stress, 6, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_stress, validation_context))
@@ -330,7 +455,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kUfsLifetime: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_ufs_lifetime, 6, validation_context)) {
+              object->data.f_ufs_lifetime, 7, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
@@ -340,7 +465,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kDiskRead: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_disk_read, 7, validation_context)) {
+              object->data.f_disk_read, 8, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_disk_read, validation_context))
@@ -350,7 +475,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kCpuCache: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_cache, 8, validation_context)) {
+              object->data.f_cpu_cache, 9, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_cache, validation_context))
@@ -360,7 +485,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kPrimeSearch: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_prime_search, 9, validation_context)) {
+              object->data.f_prime_search, 10, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_prime_search, validation_context))
@@ -370,7 +495,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kLedLitUp: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_led_lit_up, 10, validation_context)) {
+              object->data.f_led_lit_up, 11, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_led_lit_up, validation_context))
@@ -380,7 +505,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kFloatingPoint: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_floating_point, 11, validation_context)) {
+              object->data.f_floating_point, 12, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_floating_point, validation_context))
@@ -390,7 +515,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kBluetoothPower: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_bluetooth_power, 12, validation_context)) {
+              object->data.f_bluetooth_power, 13, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_power, validation_context))
@@ -400,20 +525,10 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kBluetoothDiscovery: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_bluetooth_discovery, 13, validation_context)) {
+              object->data.f_bluetooth_discovery, 14, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_discovery, validation_context))
-        return false;
-      return true;
-    }
-    case RoutineArgument_Tag::kFan: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_fan, 14, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
         return false;
       return true;
     }
@@ -424,6 +539,36 @@ bool RoutineArgument_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_scanning, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kBluetoothPairing: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_pairing, 16, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_pairing, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kCameraAvailability: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_camera_availability, 17, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_camera_availability, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kUrandom: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_urandom, 18, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_urandom, validation_context))
         return false;
       return true;
     }
@@ -565,10 +710,20 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kFan: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_fan, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
+        return false;
+      return true;
+    }
     case RoutineDetail_Tag::kAudioDriver: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_audio_driver, 4, validation_context)) {
+              object->data.f_audio_driver, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
@@ -578,7 +733,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kCpuStress: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_stress, 5, validation_context)) {
+              object->data.f_cpu_stress, 6, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_stress, validation_context))
@@ -588,7 +743,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kUfsLifetime: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_ufs_lifetime, 6, validation_context)) {
+              object->data.f_ufs_lifetime, 7, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
@@ -598,7 +753,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kDiskRead: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_disk_read, 7, validation_context)) {
+              object->data.f_disk_read, 8, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_disk_read, validation_context))
@@ -608,7 +763,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kCpuCache: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_cache, 8, validation_context)) {
+              object->data.f_cpu_cache, 9, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_cache, validation_context))
@@ -618,7 +773,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kPrimeSearch: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_prime_search, 9, validation_context)) {
+              object->data.f_prime_search, 10, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_prime_search, validation_context))
@@ -628,7 +783,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kLedLitUp: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_led_lit_up, 10, validation_context)) {
+              object->data.f_led_lit_up, 11, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_led_lit_up, validation_context))
@@ -638,7 +793,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kFloatingPoint: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_floating_point, 11, validation_context)) {
+              object->data.f_floating_point, 12, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_floating_point, validation_context))
@@ -648,7 +803,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kBluetoothPower: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_bluetooth_power, 12, validation_context)) {
+              object->data.f_bluetooth_power, 13, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_power, validation_context))
@@ -658,20 +813,10 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kBluetoothDiscovery: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_bluetooth_discovery, 13, validation_context)) {
+              object->data.f_bluetooth_discovery, 14, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_discovery, validation_context))
-        return false;
-      return true;
-    }
-    case RoutineDetail_Tag::kFan: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_fan, 14, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
         return false;
       return true;
     }
@@ -682,6 +827,36 @@ bool RoutineDetail_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_scanning, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kBluetoothPairing: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_pairing, 16, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_pairing, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kCameraAvailability: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_camera_availability, 17, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_camera_availability, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kUrandom: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_urandom, 18, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_urandom, validation_context))
         return false;
       return true;
     }
@@ -1070,6 +1245,89 @@ bool BluetoothScanningRoutineArgument_Data::Validate(
 }
 
 BluetoothScanningRoutineArgument_Data::BluetoothScanningRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothPairingRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothPairingRoutineArgument_Data* object =
+      static_cast<const BluetoothPairingRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->peripheral_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& peripheral_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->peripheral_id, validation_context,
+                                         &peripheral_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+BluetoothPairingRoutineArgument_Data::BluetoothPairingRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CameraAvailabilityRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAvailabilityRoutineArgument_Data* object =
+      static_cast<const CameraAvailabilityRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+CameraAvailabilityRoutineArgument_Data::CameraAvailabilityRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UrandomRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UrandomRoutineArgument_Data* object =
+      static_cast<const UrandomRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+UrandomRoutineArgument_Data::UrandomRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1683,6 +1941,121 @@ BluetoothScanningRoutineDetail_Data::BluetoothScanningRoutineDetail_Data()
 
 
 // static
+bool BluetoothPairingPeripheralInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothPairingPeripheralInfo_Data* object =
+      static_cast<const BluetoothPairingPeripheralInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::BluetoothPairingPeripheralInfo_PairError_Data
+        ::Validate(object->pair_error, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::BluetoothPairingPeripheralInfo_ConnectError_Data
+        ::Validate(object->connect_error, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->uuids, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->uuids, validation_context,
+                                         &uuids_validate_params)) {
+    return false;
+  }
+
+
+  if (!::ash::cros_healthd::mojom::internal::BluetoothPairingPeripheralInfo_AddressType_Data
+        ::Validate(object->address_type, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& failed_manufacturer_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->failed_manufacturer_id, validation_context,
+                                         &failed_manufacturer_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+BluetoothPairingPeripheralInfo_Data::BluetoothPairingPeripheralInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothPairingRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothPairingRoutineDetail_Data* object =
+      static_cast<const BluetoothPairingRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->pairing_peripheral, validation_context))
+    return false;
+
+  return true;
+}
+
+BluetoothPairingRoutineDetail_Data::BluetoothPairingRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CameraAvailabilityRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAvailabilityRoutineDetail_Data* object =
+      static_cast<const CameraAvailabilityRoutineDetail_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::CameraSubtestResult_Data
+        ::Validate(object->camera_service_available_check, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::CameraSubtestResult_Data
+        ::Validate(object->camera_diagnostic_service_available_check, validation_context))
+    return false;
+
+  return true;
+}
+
+CameraAvailabilityRoutineDetail_Data::CameraAvailabilityRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool FanRoutineDetail_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1729,6 +2102,29 @@ bool FanRoutineDetail_Data::Validate(
 }
 
 FanRoutineDetail_Data::FanRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UrandomRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UrandomRoutineDetail_Data* object =
+      static_cast<const UrandomRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+UrandomRoutineDetail_Data::UrandomRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2005,6 +2401,16 @@ void TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum>::Write
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::ash::cros_healthd::mojom::CameraSubtestResult>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::CameraSubtestResult value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::CameraSubtestResultToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DiskReadTypeEnumToString(value));
@@ -2058,6 +2464,36 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::RoutineStateWaiting_ReasonToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairError value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_PairErrorToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectError value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectErrorToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressTypeToString(value));
 }
 
 } // namespace perfetto

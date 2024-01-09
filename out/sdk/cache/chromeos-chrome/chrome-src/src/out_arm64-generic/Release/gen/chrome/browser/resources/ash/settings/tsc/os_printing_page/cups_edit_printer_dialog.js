@@ -168,7 +168,7 @@ export class SettingsCupsEditPrinterDialogElement extends SettingsCupsEditPrinte
         this.userPPD_ = getBaseName(this.pendingPrinter_.printerPPDPath);
     }
     onActiveNetworksChanged(networks) {
-        this.isOnline_ = networks.some(function (network) {
+        this.isOnline_ = networks.some((network) => {
             return OncMojo.connectionStateIsConnected(network.connectionState);
         });
     }

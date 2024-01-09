@@ -4,166 +4,250 @@
 #include "database.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace attestation {
+template <typename>
 PROTOBUF_CONSTEXPR TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse::TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUseDefaultTypeInternal() {}
   union {
     TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUseDefaultTypeInternal _TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUseDefaultTypeInternal _TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR TPMCredentials::TPMCredentials(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.encrypted_endorsement_credentials_)*/{}
-  , /*decltype(_impl_.legacy_endorsement_public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.endorsement_credential_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.endorsement_public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.default_encrypted_endorsement_credential_)*/nullptr
-  , /*decltype(_impl_.test_encrypted_endorsement_credential_)*/nullptr
-  , /*decltype(_impl_.endorsement_key_type_)*/1} {}
+  , /*decltype(_impl_.endorsement_credential_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.endorsement_public_key_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.endorsement_key_type_)*/ 1
+} {}
 struct TPMCredentialsDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR TPMCredentialsDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TPMCredentialsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~TPMCredentialsDefaultTypeInternal() {}
   union {
     TPMCredentials _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TPMCredentialsDefaultTypeInternal _TPMCredentials_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TPMCredentialsDefaultTypeInternal _TPMCredentials_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR IdentityKey::IdentityKey(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.identity_public_key_der_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.identity_key_blob_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.identity_credential_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.enrollment_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.identity_key_type_)*/1} {}
+  , /*decltype(_impl_.identity_public_key_der_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.identity_key_blob_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.identity_key_type_)*/ 1
+} {}
 struct IdentityKeyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR IdentityKeyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IdentityKeyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IdentityKeyDefaultTypeInternal() {}
   union {
     IdentityKey _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IdentityKeyDefaultTypeInternal _IdentityKey_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IdentityKeyDefaultTypeInternal _IdentityKey_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR IdentityBinding::IdentityBinding(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.identity_binding_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.identity_public_key_der_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.identity_public_key_tpm_format_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.identity_label_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.pca_public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.identity_binding_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.identity_public_key_der_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.identity_public_key_tpm_format_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.identity_label_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.pca_public_key_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct IdentityBindingDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR IdentityBindingDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IdentityBindingDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IdentityBindingDefaultTypeInternal() {}
   union {
     IdentityBinding _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IdentityBindingDefaultTypeInternal _IdentityBinding_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IdentityBindingDefaultTypeInternal _IdentityBinding_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Delegation::Delegation(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.blob_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.secret_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.has_reset_lock_permissions_)*/false} {}
+  , /*decltype(_impl_.blob_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.secret_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.has_reset_lock_permissions_)*/ false
+} {}
 struct DelegationDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DelegationDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DelegationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DelegationDefaultTypeInternal() {}
   union {
     Delegation _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DelegationDefaultTypeInternal _Delegation_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DelegationDefaultTypeInternal _Delegation_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CertifiedKey::CertifiedKey(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.additional_intermediate_ca_cert_)*/{}
-  , /*decltype(_impl_.key_blob_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.certified_key_credential_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.intermediate_ca_cert_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.key_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.payload_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.public_key_tpm_format_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.certified_key_info_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.certified_key_proof_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.key_type_)*/1
-  , /*decltype(_impl_.key_usage_)*/1} {}
+  , /*decltype(_impl_.key_blob_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.public_key_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.certified_key_credential_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.intermediate_ca_cert_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.key_name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.payload_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.public_key_tpm_format_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.certified_key_info_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.certified_key_proof_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.key_type_)*/ 1
+
+  , /*decltype(_impl_.key_usage_)*/ 1
+} {}
 struct CertifiedKeyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CertifiedKeyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CertifiedKeyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CertifiedKeyDefaultTypeInternal() {}
   union {
     CertifiedKey _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CertifiedKeyDefaultTypeInternal _CertifiedKey_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CertifiedKeyDefaultTypeInternal _CertifiedKey_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AttestationDatabase_TemporalIndexRecord::AttestationDatabase_TemporalIndexRecord(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.user_hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.origin_hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.temporal_index_)*/0} {}
+  , /*decltype(_impl_.user_hash_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.origin_hash_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.temporal_index_)*/ 0
+} {}
 struct AttestationDatabase_TemporalIndexRecordDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AttestationDatabase_TemporalIndexRecordDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AttestationDatabase_TemporalIndexRecordDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AttestationDatabase_TemporalIndexRecordDefaultTypeInternal() {}
   union {
     AttestationDatabase_TemporalIndexRecord _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_TemporalIndexRecordDefaultTypeInternal _AttestationDatabase_TemporalIndexRecord_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_TemporalIndexRecordDefaultTypeInternal _AttestationDatabase_TemporalIndexRecord_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse::AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct AttestationDatabase_Identity_PcrQuotesEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AttestationDatabase_Identity_PcrQuotesEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AttestationDatabase_Identity_PcrQuotesEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AttestationDatabase_Identity_PcrQuotesEntry_DoNotUseDefaultTypeInternal() {}
   union {
     AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_Identity_PcrQuotesEntry_DoNotUseDefaultTypeInternal _AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_Identity_PcrQuotesEntry_DoNotUseDefaultTypeInternal _AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse::AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct AttestationDatabase_Identity_NvramQuotesEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AttestationDatabase_Identity_NvramQuotesEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AttestationDatabase_Identity_NvramQuotesEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AttestationDatabase_Identity_NvramQuotesEntry_DoNotUseDefaultTypeInternal() {}
   union {
     AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_Identity_NvramQuotesEntry_DoNotUseDefaultTypeInternal _AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_Identity_NvramQuotesEntry_DoNotUseDefaultTypeInternal _AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AttestationDatabase_Identity::AttestationDatabase_Identity(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -172,43 +256,55 @@ PROTOBUF_CONSTEXPR AttestationDatabase_Identity::AttestationDatabase_Identity(
   , /*decltype(_impl_.nvram_quotes_)*/{}
   , /*decltype(_impl_.identity_binding_)*/nullptr
   , /*decltype(_impl_.identity_key_)*/nullptr
-  , /*decltype(_impl_.features_)*/0} {}
+  , /*decltype(_impl_.features_)*/ 0
+} {}
 struct AttestationDatabase_IdentityDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AttestationDatabase_IdentityDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AttestationDatabase_IdentityDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AttestationDatabase_IdentityDefaultTypeInternal() {}
   union {
     AttestationDatabase_Identity _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_IdentityDefaultTypeInternal _AttestationDatabase_Identity_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_IdentityDefaultTypeInternal _AttestationDatabase_Identity_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AttestationDatabase_IdentityCertificate::AttestationDatabase_IdentityCertificate(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.identity_credential_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.identity_)*/0
-  , /*decltype(_impl_.aca_)*/0} {}
+  , /*decltype(_impl_.identity_credential_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.identity_)*/ 0
+
+  , /*decltype(_impl_.aca_)*/ 0
+} {}
 struct AttestationDatabase_IdentityCertificateDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AttestationDatabase_IdentityCertificateDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AttestationDatabase_IdentityCertificateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AttestationDatabase_IdentityCertificateDefaultTypeInternal() {}
   union {
     AttestationDatabase_IdentityCertificate _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_IdentityCertificateDefaultTypeInternal _AttestationDatabase_IdentityCertificate_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_IdentityCertificateDefaultTypeInternal _AttestationDatabase_IdentityCertificate_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AttestationDatabase_IdentityCertificatesEntry_DoNotUse::AttestationDatabase_IdentityCertificatesEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct AttestationDatabase_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AttestationDatabase_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AttestationDatabase_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AttestationDatabase_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal() {}
   union {
     AttestationDatabase_IdentityCertificatesEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal _AttestationDatabase_IdentityCertificatesEntry_DoNotUse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabase_IdentityCertificatesEntry_DoNotUseDefaultTypeInternal _AttestationDatabase_IdentityCertificatesEntry_DoNotUse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AttestationDatabase::AttestationDatabase(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -217,22 +313,22 @@ PROTOBUF_CONSTEXPR AttestationDatabase::AttestationDatabase(
   , /*decltype(_impl_.temporal_index_record_)*/{}
   , /*decltype(_impl_.identities_)*/{}
   , /*decltype(_impl_.identity_certificates_)*/{}
-  , /*decltype(_impl_.enrollment_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.enrollment_id_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.credentials_)*/nullptr
-  , /*decltype(_impl_.identity_binding_)*/nullptr
-  , /*decltype(_impl_.identity_key_)*/nullptr
-  , /*decltype(_impl_.pcr0_quote_)*/nullptr
-  , /*decltype(_impl_.delegate_)*/nullptr
-  , /*decltype(_impl_.pcr1_quote_)*/nullptr} {}
+  , /*decltype(_impl_.delegate_)*/nullptr} {}
 struct AttestationDatabaseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AttestationDatabaseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AttestationDatabaseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AttestationDatabaseDefaultTypeInternal() {}
   union {
     AttestationDatabase _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabaseDefaultTypeInternal _AttestationDatabase_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttestationDatabaseDefaultTypeInternal _AttestationDatabase_default_instance_;
 }  // namespace attestation
 namespace attestation {
 bool IdentityFeatures_IsValid(int value) {
@@ -244,40 +340,40 @@ bool IdentityFeatures_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    IdentityFeatures_strings[2] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> IdentityFeatures_strings[2] = {};
+static const char IdentityFeatures_names[] = {
+    "IDENTITY_FEATURE_ENTERPRISE_ENROLLMENT_ID"
+    "NO_IDENTITY_FEATURES"
+};
 
-static const char IdentityFeatures_names[] =
-  "IDENTITY_FEATURE_ENTERPRISE_ENROLLMENT_ID"
-  "NO_IDENTITY_FEATURES";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry IdentityFeatures_entries[] = {
-  { {IdentityFeatures_names + 0, 41}, 1 },
-  { {IdentityFeatures_names + 41, 20}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry IdentityFeatures_entries[] =
+    {
+        {{&IdentityFeatures_names[0], 41}, 1},
+        {{&IdentityFeatures_names[41], 20}, 0},
 };
 
 static const int IdentityFeatures_entries_by_number[] = {
-  1, // 0 -> NO_IDENTITY_FEATURES
-  0, // 1 -> IDENTITY_FEATURE_ENTERPRISE_ENROLLMENT_ID
+    1,  // 0 -> NO_IDENTITY_FEATURES
+    0,  // 1 -> IDENTITY_FEATURE_ENTERPRISE_ENROLLMENT_ID
 };
 
-const std::string& IdentityFeatures_Name(
-    IdentityFeatures value) {
-  static const bool dummy =
+const std::string& IdentityFeatures_Name(IdentityFeatures value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          IdentityFeatures_entries,
-          IdentityFeatures_entries_by_number,
+          IdentityFeatures_entries, IdentityFeatures_entries_by_number,
           2, IdentityFeatures_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      IdentityFeatures_entries,
-      IdentityFeatures_entries_by_number,
-      2, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     IdentityFeatures_strings[idx].get();
+      IdentityFeatures_entries, IdentityFeatures_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : IdentityFeatures_strings[idx].get();
 }
-bool IdentityFeatures_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, IdentityFeatures* value) {
+
+bool IdentityFeatures_Parse(absl::string_view name, IdentityFeatures* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       IdentityFeatures_entries, 2, name, &int_value);
@@ -286,7 +382,6 @@ bool IdentityFeatures_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse::TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse() {}
@@ -295,57 +390,30 @@ TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse::TPMCredentials_Enc
 void TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse::MergeFrom(const TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse& other) {
   MergeFromInternal(other);
 }
-
 // ===================================================================
 
 class TPMCredentials::_Internal {
  public:
   using HasBits = decltype(std::declval<TPMCredentials>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(TPMCredentials, _impl_._has_bits_);
   static void set_has_endorsement_key_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
-  }
-  static void set_has_endorsement_public_key(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static void set_has_endorsement_credential(HasBits* has_bits) {
+  static void set_has_endorsement_public_key(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static void set_has_legacy_endorsement_public_key(HasBits* has_bits) {
+  static void set_has_endorsement_credential(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
-  }
-  static const ::attestation::EncryptedData& default_encrypted_endorsement_credential(const TPMCredentials* msg);
-  static void set_has_default_encrypted_endorsement_credential(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-  static const ::attestation::EncryptedData& test_encrypted_endorsement_credential(const TPMCredentials* msg);
-  static void set_has_test_encrypted_endorsement_credential(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
   }
 };
 
-const ::attestation::EncryptedData&
-TPMCredentials::_Internal::default_encrypted_endorsement_credential(const TPMCredentials* msg) {
-  return *msg->_impl_.default_encrypted_endorsement_credential_;
-}
-const ::attestation::EncryptedData&
-TPMCredentials::_Internal::test_encrypted_endorsement_credential(const TPMCredentials* msg) {
-  return *msg->_impl_.test_encrypted_endorsement_credential_;
-}
-void TPMCredentials::clear_default_encrypted_endorsement_credential() {
-  if (_impl_.default_encrypted_endorsement_credential_ != nullptr) _impl_.default_encrypted_endorsement_credential_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000008u;
-}
-void TPMCredentials::clear_test_encrypted_endorsement_credential() {
-  if (_impl_.test_encrypted_endorsement_credential_ != nullptr) _impl_.test_encrypted_endorsement_credential_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000010u;
-}
 void TPMCredentials::clear_encrypted_endorsement_credentials() {
   _impl_.encrypted_endorsement_credentials_.Clear();
 }
-TPMCredentials::TPMCredentials(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+TPMCredentials::TPMCredentials(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:attestation.TPMCredentials)
 }
 TPMCredentials::TPMCredentials(const TPMCredentials& from)
@@ -355,76 +423,54 @@ TPMCredentials::TPMCredentials(const TPMCredentials& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_.encrypted_endorsement_credentials_)*/{}
-    , decltype(_impl_.legacy_endorsement_public_key_){}
-    , decltype(_impl_.endorsement_credential_){}
-    , decltype(_impl_.endorsement_public_key_){}
-    , decltype(_impl_.default_encrypted_endorsement_credential_){nullptr}
-    , decltype(_impl_.test_encrypted_endorsement_credential_){nullptr}
-    , decltype(_impl_.endorsement_key_type_){}};
+    , decltype(_impl_.endorsement_credential_) {}
+
+    , decltype(_impl_.endorsement_public_key_) {}
+
+    , decltype(_impl_.endorsement_key_type_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.encrypted_endorsement_credentials_.MergeFrom(from._impl_.encrypted_endorsement_credentials_);
-  _impl_.legacy_endorsement_public_key_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.legacy_endorsement_public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_legacy_endorsement_public_key()) {
-    _this->_impl_.legacy_endorsement_public_key_.Set(from._internal_legacy_endorsement_public_key(), 
-      _this->GetArenaForAllocation());
-  }
   _impl_.endorsement_credential_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.endorsement_credential_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_endorsement_credential()) {
-    _this->_impl_.endorsement_credential_.Set(from._internal_endorsement_credential(), 
-      _this->GetArenaForAllocation());
+        _impl_.endorsement_credential_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.endorsement_credential_.Set(from._internal_endorsement_credential(), _this->GetArenaForAllocation());
   }
   _impl_.endorsement_public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.endorsement_public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_endorsement_public_key()) {
-    _this->_impl_.endorsement_public_key_.Set(from._internal_endorsement_public_key(), 
-      _this->GetArenaForAllocation());
-  }
-  if (from._internal_has_default_encrypted_endorsement_credential()) {
-    _this->_impl_.default_encrypted_endorsement_credential_ = new ::attestation::EncryptedData(*from._impl_.default_encrypted_endorsement_credential_);
-  }
-  if (from._internal_has_test_encrypted_endorsement_credential()) {
-    _this->_impl_.test_encrypted_endorsement_credential_ = new ::attestation::EncryptedData(*from._impl_.test_encrypted_endorsement_credential_);
+        _impl_.endorsement_public_key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.endorsement_public_key_.Set(from._internal_endorsement_public_key(), _this->GetArenaForAllocation());
   }
   _this->_impl_.endorsement_key_type_ = from._impl_.endorsement_key_type_;
   // @@protoc_insertion_point(copy_constructor:attestation.TPMCredentials)
 }
 
-inline void TPMCredentials::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void TPMCredentials::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_.encrypted_endorsement_credentials_)*/{::_pbi::ArenaInitialized(), arena}
-    , decltype(_impl_.legacy_endorsement_public_key_){}
-    , decltype(_impl_.endorsement_credential_){}
-    , decltype(_impl_.endorsement_public_key_){}
-    , decltype(_impl_.default_encrypted_endorsement_credential_){nullptr}
-    , decltype(_impl_.test_encrypted_endorsement_credential_){nullptr}
-    , decltype(_impl_.endorsement_key_type_){1}
+    , decltype(_impl_.endorsement_credential_) {}
+
+    , decltype(_impl_.endorsement_public_key_) {}
+
+    , decltype(_impl_.endorsement_key_type_) { 1 }
+
   };
-  _impl_.legacy_endorsement_public_key_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.legacy_endorsement_public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.endorsement_credential_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.endorsement_credential_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.endorsement_credential_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.endorsement_public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.endorsement_public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.endorsement_public_key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 TPMCredentials::~TPMCredentials() {
@@ -437,14 +483,10 @@ TPMCredentials::~TPMCredentials() {
 }
 
 inline void TPMCredentials::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.encrypted_endorsement_credentials_.Destruct();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.encrypted_endorsement_credentials_.~MapFieldLite();
-  _impl_.legacy_endorsement_public_key_.Destroy();
   _impl_.endorsement_credential_.Destroy();
   _impl_.endorsement_public_key_.Destroy();
-  if (this != internal_default_instance()) delete _impl_.default_encrypted_endorsement_credential_;
-  if (this != internal_default_instance()) delete _impl_.test_encrypted_endorsement_credential_;
 }
 
 void TPMCredentials::SetCachedSize(int size) const {
@@ -453,29 +495,18 @@ void TPMCredentials::SetCachedSize(int size) const {
 
 void TPMCredentials::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.TPMCredentials)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   _impl_.encrypted_endorsement_credentials_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _impl_.legacy_endorsement_public_key_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000002u) {
       _impl_.endorsement_credential_.ClearNonDefaultToEmpty();
     }
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000002u) {
       _impl_.endorsement_public_key_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(_impl_.default_encrypted_endorsement_credential_ != nullptr);
-      _impl_.default_encrypted_endorsement_credential_->Clear();
-    }
-    if (cached_has_bits & 0x00000010u) {
-      GOOGLE_DCHECK(_impl_.test_encrypted_endorsement_credential_ != nullptr);
-      _impl_.test_encrypted_endorsement_credential_->Clear();
     }
     _impl_.endorsement_key_type_ = 1;
   }
@@ -487,46 +518,22 @@ const char* TPMCredentials::_InternalParse(const char* ptr, ::_pbi::ParseContext
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional bytes legacy_endorsement_public_key = 1 [deprecated = true];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_legacy_endorsement_public_key();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // optional bytes endorsement_credential = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_endorsement_credential();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
-        continue;
-      // optional .attestation.EncryptedData default_encrypted_endorsement_credential = 5 [deprecated = true];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
-          ptr = ctx->ParseMessage(_internal_mutable_default_encrypted_endorsement_credential(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .attestation.EncryptedData test_encrypted_endorsement_credential = 6 [deprecated = true];
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
-          ptr = ctx->ParseMessage(_internal_mutable_test_encrypted_endorsement_credential(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
+        }
         continue;
       // map<int32, .attestation.EncryptedData> encrypted_endorsement_credentials = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 74)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -534,30 +541,33 @@ const char* TPMCredentials::_InternalParse(const char* ptr, ::_pbi::ParseContext
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<74>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .attestation.KeyType endorsement_key_type = 10 [default = KEY_TYPE_RSA];
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyType_IsValid(static_cast<int>(val)))) {
             _internal_set_endorsement_key_type(static_cast<::attestation::KeyType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(10, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes endorsement_public_key = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 90)) {
           auto str = _internal_mutable_endorsement_public_key();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -583,42 +593,22 @@ failure:
 #undef CHK_
 }
 
-uint8_t* TPMCredentials::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* TPMCredentials::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:attestation.TPMCredentials)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // optional bytes legacy_endorsement_public_key = 1 [deprecated = true];
-  if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_legacy_endorsement_public_key(), target);
-  }
-
   // optional bytes endorsement_credential = 2;
-  if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_endorsement_credential(), target);
-  }
-
-  // optional .attestation.EncryptedData default_encrypted_endorsement_credential = 5 [deprecated = true];
-  if (cached_has_bits & 0x00000008u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::default_encrypted_endorsement_credential(this),
-        _Internal::default_encrypted_endorsement_credential(this).GetCachedSize(), target, stream);
-  }
-
-  // optional .attestation.EncryptedData test_encrypted_endorsement_credential = 6 [deprecated = true];
-  if (cached_has_bits & 0x00000010u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, _Internal::test_encrypted_endorsement_credential(this),
-        _Internal::test_encrypted_endorsement_credential(this).GetCachedSize(), target, stream);
+  if (cached_has_bits & 0x00000001u) {
+    const std::string& _s = this->_internal_endorsement_credential();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // map<int32, .attestation.EncryptedData> encrypted_endorsement_credentials = 9;
   if (!this->_internal_encrypted_endorsement_credentials().empty()) {
-    using MapType = ::_pb::Map<int32_t, ::attestation::EncryptedData>;
+    using MapType = ::_pb::Map<::int32_t, ::attestation::EncryptedData>;
     using WireHelper = TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_encrypted_endorsement_credentials();
 
@@ -634,16 +624,16 @@ uint8_t* TPMCredentials::_InternalSerialize(
   }
 
   // optional .attestation.KeyType endorsement_key_type = 10 [default = KEY_TYPE_RSA];
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      10, this->_internal_endorsement_key_type(), target);
+        10, this->_internal_endorsement_key_type(), target);
   }
 
   // optional bytes endorsement_public_key = 11;
-  if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteBytesMaybeAliased(
-        11, this->_internal_endorsement_public_key(), target);
+  if (cached_has_bits & 0x00000002u) {
+    const std::string& _s = this->_internal_endorsement_public_key();
+    target = stream->WriteBytesMaybeAliased(11, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -654,64 +644,41 @@ uint8_t* TPMCredentials::_InternalSerialize(
   return target;
 }
 
-size_t TPMCredentials::ByteSizeLong() const {
+::size_t TPMCredentials::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:attestation.TPMCredentials)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // map<int32, .attestation.EncryptedData> encrypted_endorsement_credentials = 9;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_encrypted_endorsement_credentials_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::attestation::EncryptedData >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::attestation::EncryptedData >::const_iterator
       it = this->_internal_encrypted_endorsement_credentials().begin();
       it != this->_internal_encrypted_endorsement_credentials().end(); ++it) {
     total_size += TPMCredentials_EncryptedEndorsementCredentialsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
-    // optional bytes legacy_endorsement_public_key = 1 [deprecated = true];
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_legacy_endorsement_public_key());
-    }
-
+  if (cached_has_bits & 0x00000007u) {
     // optional bytes endorsement_credential = 2;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_endorsement_credential());
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_endorsement_credential());
     }
 
     // optional bytes endorsement_public_key = 11;
-    if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_endorsement_public_key());
-    }
-
-    // optional .attestation.EncryptedData default_encrypted_endorsement_credential = 5 [deprecated = true];
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.default_encrypted_endorsement_credential_);
-    }
-
-    // optional .attestation.EncryptedData test_encrypted_endorsement_credential = 6 [deprecated = true];
-    if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.test_encrypted_endorsement_credential_);
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_endorsement_public_key());
     }
 
     // optional .attestation.KeyType endorsement_key_type = 10 [default = KEY_TYPE_RSA];
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_endorsement_key_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_endorsement_key_type());
     }
 
   }
@@ -732,31 +699,20 @@ void TPMCredentials::CheckTypeAndMergeFrom(
 void TPMCredentials::MergeFrom(const TPMCredentials& from) {
   TPMCredentials* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:attestation.TPMCredentials)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.encrypted_endorsement_credentials_.MergeFrom(from._impl_.encrypted_endorsement_credentials_);
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_set_legacy_endorsement_public_key(from._internal_legacy_endorsement_public_key());
-    }
-    if (cached_has_bits & 0x00000002u) {
       _this->_internal_set_endorsement_credential(from._internal_endorsement_credential());
     }
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000002u) {
       _this->_internal_set_endorsement_public_key(from._internal_endorsement_public_key());
     }
-    if (cached_has_bits & 0x00000008u) {
-      _this->_internal_mutable_default_encrypted_endorsement_credential()->::attestation::EncryptedData::MergeFrom(
-          from._internal_default_encrypted_endorsement_credential());
-    }
-    if (cached_has_bits & 0x00000010u) {
-      _this->_internal_mutable_test_encrypted_endorsement_credential()->::attestation::EncryptedData::MergeFrom(
-          from._internal_test_encrypted_endorsement_credential());
-    }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000004u) {
       _this->_impl_.endorsement_key_type_ = from._impl_.endorsement_key_type_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
@@ -782,24 +738,10 @@ void TPMCredentials::InternalSwap(TPMCredentials* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.encrypted_endorsement_credentials_.InternalSwap(&other->_impl_.encrypted_endorsement_credentials_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.legacy_endorsement_public_key_, lhs_arena,
-      &other->_impl_.legacy_endorsement_public_key_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.endorsement_credential_, lhs_arena,
-      &other->_impl_.endorsement_credential_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.endorsement_public_key_, lhs_arena,
-      &other->_impl_.endorsement_public_key_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TPMCredentials, _impl_.test_encrypted_endorsement_credential_)
-      + sizeof(TPMCredentials::_impl_.test_encrypted_endorsement_credential_)
-      - PROTOBUF_FIELD_OFFSET(TPMCredentials, _impl_.default_encrypted_endorsement_credential_)>(
-          reinterpret_cast<char*>(&_impl_.default_encrypted_endorsement_credential_),
-          reinterpret_cast<char*>(&other->_impl_.default_encrypted_endorsement_credential_));
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.endorsement_credential_, lhs_arena,
+                                       &other->_impl_.endorsement_credential_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.endorsement_public_key_, lhs_arena,
+                                       &other->_impl_.endorsement_public_key_, rhs_arena);
   swap(_impl_.endorsement_key_type_, other->_impl_.endorsement_key_type_);
 }
 
@@ -807,14 +749,15 @@ std::string TPMCredentials::GetTypeName() const {
   return "attestation.TPMCredentials";
 }
 
-
 // ===================================================================
 
 class IdentityKey::_Internal {
  public:
   using HasBits = decltype(std::declval<IdentityKey>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(IdentityKey, _impl_._has_bits_);
   static void set_has_identity_key_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 4u;
   }
   static void set_has_identity_public_key_der(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -822,18 +765,11 @@ class IdentityKey::_Internal {
   static void set_has_identity_key_blob(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static void set_has_identity_credential(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_enrollment_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
 };
 
-IdentityKey::IdentityKey(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+IdentityKey::IdentityKey(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:attestation.IdentityKey)
 }
 IdentityKey::IdentityKey(const IdentityKey& from)
@@ -842,78 +778,52 @@ IdentityKey::IdentityKey(const IdentityKey& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.identity_public_key_der_){}
-    , decltype(_impl_.identity_key_blob_){}
-    , decltype(_impl_.identity_credential_){}
-    , decltype(_impl_.enrollment_id_){}
-    , decltype(_impl_.identity_key_type_){}};
+    , decltype(_impl_.identity_public_key_der_) {}
+
+    , decltype(_impl_.identity_key_blob_) {}
+
+    , decltype(_impl_.identity_key_type_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.identity_public_key_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_public_key_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_identity_public_key_der()) {
-    _this->_impl_.identity_public_key_der_.Set(from._internal_identity_public_key_der(), 
-      _this->GetArenaForAllocation());
+        _impl_.identity_public_key_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.identity_public_key_der_.Set(from._internal_identity_public_key_der(), _this->GetArenaForAllocation());
   }
   _impl_.identity_key_blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_key_blob_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_identity_key_blob()) {
-    _this->_impl_.identity_key_blob_.Set(from._internal_identity_key_blob(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.identity_credential_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_credential_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_identity_credential()) {
-    _this->_impl_.identity_credential_.Set(from._internal_identity_credential(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.enrollment_id_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.enrollment_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_enrollment_id()) {
-    _this->_impl_.enrollment_id_.Set(from._internal_enrollment_id(), 
-      _this->GetArenaForAllocation());
+        _impl_.identity_key_blob_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.identity_key_blob_.Set(from._internal_identity_key_blob(), _this->GetArenaForAllocation());
   }
   _this->_impl_.identity_key_type_ = from._impl_.identity_key_type_;
   // @@protoc_insertion_point(copy_constructor:attestation.IdentityKey)
 }
 
-inline void IdentityKey::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void IdentityKey::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.identity_public_key_der_){}
-    , decltype(_impl_.identity_key_blob_){}
-    , decltype(_impl_.identity_credential_){}
-    , decltype(_impl_.enrollment_id_){}
-    , decltype(_impl_.identity_key_type_){1}
+    , decltype(_impl_.identity_public_key_der_) {}
+
+    , decltype(_impl_.identity_key_blob_) {}
+
+    , decltype(_impl_.identity_key_type_) { 1 }
+
   };
   _impl_.identity_public_key_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_public_key_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.identity_public_key_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.identity_key_blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_key_blob_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.identity_credential_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_credential_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.enrollment_id_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.enrollment_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.identity_key_blob_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 IdentityKey::~IdentityKey() {
@@ -926,11 +836,9 @@ IdentityKey::~IdentityKey() {
 }
 
 inline void IdentityKey::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.identity_public_key_der_.Destroy();
   _impl_.identity_key_blob_.Destroy();
-  _impl_.identity_credential_.Destroy();
-  _impl_.enrollment_id_.Destroy();
 }
 
 void IdentityKey::SetCachedSize(int size) const {
@@ -939,23 +847,17 @@ void IdentityKey::SetCachedSize(int size) const {
 
 void IdentityKey::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.IdentityKey)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.identity_public_key_der_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       _impl_.identity_key_blob_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000004u) {
-      _impl_.identity_credential_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000008u) {
-      _impl_.enrollment_id_.ClearNonDefaultToEmpty();
     }
     _impl_.identity_key_type_ = 1;
   }
@@ -967,57 +869,42 @@ const char* IdentityKey::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes identity_public_key_der = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_identity_public_key_der();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes identity_key_blob = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_identity_key_blob();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
-        continue;
-      // optional bytes identity_credential = 3 [deprecated = true];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_identity_credential();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional bytes enrollment_id = 4 [deprecated = true];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          auto str = _internal_mutable_enrollment_id();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
+        }
         continue;
       // optional .attestation.KeyType identity_key_type = 5 [default = KEY_TYPE_RSA];
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyType_IsValid(static_cast<int>(val)))) {
             _internal_set_identity_key_type(static_cast<::attestation::KeyType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(5, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1043,42 +930,30 @@ failure:
 #undef CHK_
 }
 
-uint8_t* IdentityKey::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* IdentityKey::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:attestation.IdentityKey)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes identity_public_key_der = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_identity_public_key_der(), target);
+    const std::string& _s = this->_internal_identity_public_key_der();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // optional bytes identity_key_blob = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_identity_key_blob(), target);
-  }
-
-  // optional bytes identity_credential = 3 [deprecated = true];
-  if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_identity_credential(), target);
-  }
-
-  // optional bytes enrollment_id = 4 [deprecated = true];
-  if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteBytesMaybeAliased(
-        4, this->_internal_enrollment_id(), target);
+    const std::string& _s = this->_internal_identity_key_blob();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // optional .attestation.KeyType identity_key_type = 5 [default = KEY_TYPE_RSA];
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      5, this->_internal_identity_key_type(), target);
+        5, this->_internal_identity_key_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1089,48 +964,32 @@ uint8_t* IdentityKey::_InternalSerialize(
   return target;
 }
 
-size_t IdentityKey::ByteSizeLong() const {
+::size_t IdentityKey::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:attestation.IdentityKey)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x00000007u) {
     // optional bytes identity_public_key_der = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_identity_public_key_der());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_identity_public_key_der());
     }
 
     // optional bytes identity_key_blob = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_identity_key_blob());
-    }
-
-    // optional bytes identity_credential = 3 [deprecated = true];
-    if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_identity_credential());
-    }
-
-    // optional bytes enrollment_id = 4 [deprecated = true];
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_enrollment_id());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_identity_key_blob());
     }
 
     // optional .attestation.KeyType identity_key_type = 5 [default = KEY_TYPE_RSA];
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_identity_key_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_identity_key_type());
     }
 
   }
@@ -1151,12 +1010,12 @@ void IdentityKey::CheckTypeAndMergeFrom(
 void IdentityKey::MergeFrom(const IdentityKey& from) {
   IdentityKey* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:attestation.IdentityKey)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_identity_public_key_der(from._internal_identity_public_key_der());
     }
@@ -1164,12 +1023,6 @@ void IdentityKey::MergeFrom(const IdentityKey& from) {
       _this->_internal_set_identity_key_blob(from._internal_identity_key_blob());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_set_identity_credential(from._internal_identity_credential());
-    }
-    if (cached_has_bits & 0x00000008u) {
-      _this->_internal_set_enrollment_id(from._internal_enrollment_id());
-    }
-    if (cached_has_bits & 0x00000010u) {
       _this->_impl_.identity_key_type_ = from._impl_.identity_key_type_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
@@ -1194,22 +1047,10 @@ void IdentityKey::InternalSwap(IdentityKey* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.identity_public_key_der_, lhs_arena,
-      &other->_impl_.identity_public_key_der_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.identity_key_blob_, lhs_arena,
-      &other->_impl_.identity_key_blob_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.identity_credential_, lhs_arena,
-      &other->_impl_.identity_credential_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.enrollment_id_, lhs_arena,
-      &other->_impl_.enrollment_id_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.identity_public_key_der_, lhs_arena,
+                                       &other->_impl_.identity_public_key_der_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.identity_key_blob_, lhs_arena,
+                                       &other->_impl_.identity_key_blob_, rhs_arena);
   swap(_impl_.identity_key_type_, other->_impl_.identity_key_type_);
 }
 
@@ -1217,12 +1058,13 @@ std::string IdentityKey::GetTypeName() const {
   return "attestation.IdentityKey";
 }
 
-
 // ===================================================================
 
 class IdentityBinding::_Internal {
  public:
   using HasBits = decltype(std::declval<IdentityBinding>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(IdentityBinding, _impl_._has_bits_);
   static void set_has_identity_binding(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1240,10 +1082,9 @@ class IdentityBinding::_Internal {
   }
 };
 
-IdentityBinding::IdentityBinding(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+IdentityBinding::IdentityBinding(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:attestation.IdentityBinding)
 }
 IdentityBinding::IdentityBinding(const IdentityBinding& from)
@@ -1252,89 +1093,92 @@ IdentityBinding::IdentityBinding(const IdentityBinding& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.identity_binding_){}
-    , decltype(_impl_.identity_public_key_der_){}
-    , decltype(_impl_.identity_public_key_tpm_format_){}
-    , decltype(_impl_.identity_label_){}
-    , decltype(_impl_.pca_public_key_){}};
+    , decltype(_impl_.identity_binding_) {}
+
+    , decltype(_impl_.identity_public_key_der_) {}
+
+    , decltype(_impl_.identity_public_key_tpm_format_) {}
+
+    , decltype(_impl_.identity_label_) {}
+
+    , decltype(_impl_.pca_public_key_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.identity_binding_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_binding_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_identity_binding()) {
-    _this->_impl_.identity_binding_.Set(from._internal_identity_binding(), 
-      _this->GetArenaForAllocation());
+        _impl_.identity_binding_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.identity_binding_.Set(from._internal_identity_binding(), _this->GetArenaForAllocation());
   }
   _impl_.identity_public_key_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_public_key_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_identity_public_key_der()) {
-    _this->_impl_.identity_public_key_der_.Set(from._internal_identity_public_key_der(), 
-      _this->GetArenaForAllocation());
+        _impl_.identity_public_key_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.identity_public_key_der_.Set(from._internal_identity_public_key_der(), _this->GetArenaForAllocation());
   }
   _impl_.identity_public_key_tpm_format_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_public_key_tpm_format_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_identity_public_key_tpm_format()) {
-    _this->_impl_.identity_public_key_tpm_format_.Set(from._internal_identity_public_key_tpm_format(), 
-      _this->GetArenaForAllocation());
+        _impl_.identity_public_key_tpm_format_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
+    _this->_impl_.identity_public_key_tpm_format_.Set(from._internal_identity_public_key_tpm_format(), _this->GetArenaForAllocation());
   }
   _impl_.identity_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_label_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_identity_label()) {
-    _this->_impl_.identity_label_.Set(from._internal_identity_label(), 
-      _this->GetArenaForAllocation());
+        _impl_.identity_label_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
+    _this->_impl_.identity_label_.Set(from._internal_identity_label(), _this->GetArenaForAllocation());
   }
   _impl_.pca_public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.pca_public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_pca_public_key()) {
-    _this->_impl_.pca_public_key_.Set(from._internal_pca_public_key(), 
-      _this->GetArenaForAllocation());
+        _impl_.pca_public_key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
+    _this->_impl_.pca_public_key_.Set(from._internal_pca_public_key(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:attestation.IdentityBinding)
 }
 
-inline void IdentityBinding::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void IdentityBinding::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.identity_binding_){}
-    , decltype(_impl_.identity_public_key_der_){}
-    , decltype(_impl_.identity_public_key_tpm_format_){}
-    , decltype(_impl_.identity_label_){}
-    , decltype(_impl_.pca_public_key_){}
+    , decltype(_impl_.identity_binding_) {}
+
+    , decltype(_impl_.identity_public_key_der_) {}
+
+    , decltype(_impl_.identity_public_key_tpm_format_) {}
+
+    , decltype(_impl_.identity_label_) {}
+
+    , decltype(_impl_.pca_public_key_) {}
+
   };
   _impl_.identity_binding_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_binding_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.identity_binding_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.identity_public_key_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_public_key_der_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.identity_public_key_der_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.identity_public_key_tpm_format_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_public_key_tpm_format_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.identity_public_key_tpm_format_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.identity_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_label_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.identity_label_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.pca_public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.pca_public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.pca_public_key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 IdentityBinding::~IdentityBinding() {
@@ -1347,7 +1191,7 @@ IdentityBinding::~IdentityBinding() {
 }
 
 inline void IdentityBinding::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.identity_binding_.Destroy();
   _impl_.identity_public_key_der_.Destroy();
   _impl_.identity_public_key_tpm_format_.Destroy();
@@ -1361,7 +1205,7 @@ void IdentityBinding::SetCachedSize(int size) const {
 
 void IdentityBinding::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.IdentityBinding)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1391,53 +1235,58 @@ const char* IdentityBinding::_InternalParse(const char* ptr, ::_pbi::ParseContex
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes identity_binding = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_identity_binding();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes identity_public_key_der = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_identity_public_key_der();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes identity_public_key_tpm_format = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_identity_public_key_tpm_format();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes identity_label = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_identity_label();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes pca_public_key = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_pca_public_key();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1463,41 +1312,41 @@ failure:
 #undef CHK_
 }
 
-uint8_t* IdentityBinding::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* IdentityBinding::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:attestation.IdentityBinding)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes identity_binding = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_identity_binding(), target);
+    const std::string& _s = this->_internal_identity_binding();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // optional bytes identity_public_key_der = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_identity_public_key_der(), target);
+    const std::string& _s = this->_internal_identity_public_key_der();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // optional bytes identity_public_key_tpm_format = 3;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_identity_public_key_tpm_format(), target);
+    const std::string& _s = this->_internal_identity_public_key_tpm_format();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   // optional bytes identity_label = 4;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteBytesMaybeAliased(
-        4, this->_internal_identity_label(), target);
+    const std::string& _s = this->_internal_identity_label();
+    target = stream->WriteBytesMaybeAliased(4, _s, target);
   }
 
   // optional bytes pca_public_key = 5;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->WriteBytesMaybeAliased(
-        5, this->_internal_pca_public_key(), target);
+    const std::string& _s = this->_internal_pca_public_key();
+    target = stream->WriteBytesMaybeAliased(5, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1508,11 +1357,11 @@ uint8_t* IdentityBinding::_InternalSerialize(
   return target;
 }
 
-size_t IdentityBinding::ByteSizeLong() const {
+::size_t IdentityBinding::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:attestation.IdentityBinding)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1520,37 +1369,32 @@ size_t IdentityBinding::ByteSizeLong() const {
   if (cached_has_bits & 0x0000001fu) {
     // optional bytes identity_binding = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_identity_binding());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_identity_binding());
     }
 
     // optional bytes identity_public_key_der = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_identity_public_key_der());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_identity_public_key_der());
     }
 
     // optional bytes identity_public_key_tpm_format = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_identity_public_key_tpm_format());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_identity_public_key_tpm_format());
     }
 
     // optional bytes identity_label = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_identity_label());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_identity_label());
     }
 
     // optional bytes pca_public_key = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_pca_public_key());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_pca_public_key());
     }
 
   }
@@ -1571,8 +1415,8 @@ void IdentityBinding::CheckTypeAndMergeFrom(
 void IdentityBinding::MergeFrom(const IdentityBinding& from) {
   IdentityBinding* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:attestation.IdentityBinding)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1613,38 +1457,29 @@ void IdentityBinding::InternalSwap(IdentityBinding* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.identity_binding_, lhs_arena,
-      &other->_impl_.identity_binding_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.identity_public_key_der_, lhs_arena,
-      &other->_impl_.identity_public_key_der_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.identity_public_key_tpm_format_, lhs_arena,
-      &other->_impl_.identity_public_key_tpm_format_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.identity_label_, lhs_arena,
-      &other->_impl_.identity_label_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.pca_public_key_, lhs_arena,
-      &other->_impl_.pca_public_key_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.identity_binding_, lhs_arena,
+                                       &other->_impl_.identity_binding_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.identity_public_key_der_, lhs_arena,
+                                       &other->_impl_.identity_public_key_der_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.identity_public_key_tpm_format_, lhs_arena,
+                                       &other->_impl_.identity_public_key_tpm_format_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.identity_label_, lhs_arena,
+                                       &other->_impl_.identity_label_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.pca_public_key_, lhs_arena,
+                                       &other->_impl_.pca_public_key_, rhs_arena);
 }
 
 std::string IdentityBinding::GetTypeName() const {
   return "attestation.IdentityBinding";
 }
 
-
 // ===================================================================
 
 class Delegation::_Internal {
  public:
   using HasBits = decltype(std::declval<Delegation>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Delegation, _impl_._has_bits_);
   static void set_has_blob(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1656,10 +1491,9 @@ class Delegation::_Internal {
   }
 };
 
-Delegation::Delegation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Delegation::Delegation(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:attestation.Delegation)
 }
 Delegation::Delegation(const Delegation& from)
@@ -1668,50 +1502,52 @@ Delegation::Delegation(const Delegation& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.blob_){}
-    , decltype(_impl_.secret_){}
-    , decltype(_impl_.has_reset_lock_permissions_){}};
+    , decltype(_impl_.blob_) {}
+
+    , decltype(_impl_.secret_) {}
+
+    , decltype(_impl_.has_reset_lock_permissions_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.blob_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_blob()) {
-    _this->_impl_.blob_.Set(from._internal_blob(), 
-      _this->GetArenaForAllocation());
+        _impl_.blob_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.blob_.Set(from._internal_blob(), _this->GetArenaForAllocation());
   }
   _impl_.secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_secret()) {
-    _this->_impl_.secret_.Set(from._internal_secret(), 
-      _this->GetArenaForAllocation());
+        _impl_.secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.secret_.Set(from._internal_secret(), _this->GetArenaForAllocation());
   }
   _this->_impl_.has_reset_lock_permissions_ = from._impl_.has_reset_lock_permissions_;
   // @@protoc_insertion_point(copy_constructor:attestation.Delegation)
 }
 
-inline void Delegation::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Delegation::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.blob_){}
-    , decltype(_impl_.secret_){}
-    , decltype(_impl_.has_reset_lock_permissions_){false}
+    , decltype(_impl_.blob_) {}
+
+    , decltype(_impl_.secret_) {}
+
+    , decltype(_impl_.has_reset_lock_permissions_) { false }
+
   };
   _impl_.blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.blob_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.blob_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Delegation::~Delegation() {
@@ -1724,7 +1560,7 @@ Delegation::~Delegation() {
 }
 
 inline void Delegation::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.blob_.Destroy();
   _impl_.secret_.Destroy();
 }
@@ -1735,7 +1571,7 @@ void Delegation::SetCachedSize(int size) const {
 
 void Delegation::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.Delegation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1757,35 +1593,38 @@ const char* Delegation::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes blob = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_blob();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes secret = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_secret();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool has_reset_lock_permissions = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_has_reset_lock_permissions(&has_bits);
           _impl_.has_reset_lock_permissions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1811,29 +1650,30 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Delegation::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Delegation::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:attestation.Delegation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes blob = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_blob(), target);
+    const std::string& _s = this->_internal_blob();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // optional bytes secret = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_secret(), target);
+    const std::string& _s = this->_internal_secret();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // optional bool has_reset_lock_permissions = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_has_reset_lock_permissions(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        3, this->_internal_has_reset_lock_permissions(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1844,11 +1684,11 @@ uint8_t* Delegation::_InternalSerialize(
   return target;
 }
 
-size_t Delegation::ByteSizeLong() const {
+::size_t Delegation::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:attestation.Delegation)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1856,21 +1696,19 @@ size_t Delegation::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional bytes blob = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_blob());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_blob());
     }
 
     // optional bytes secret = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_secret());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_secret());
     }
 
     // optional bool has_reset_lock_permissions = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -1891,8 +1729,8 @@ void Delegation::CheckTypeAndMergeFrom(
 void Delegation::MergeFrom(const Delegation& from) {
   Delegation* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:attestation.Delegation)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1928,14 +1766,11 @@ void Delegation::InternalSwap(Delegation* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.blob_, lhs_arena,
-      &other->_impl_.blob_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.secret_, lhs_arena,
-      &other->_impl_.secret_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.blob_, lhs_arena,
+                                       &other->_impl_.blob_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.secret_, lhs_arena,
+                                       &other->_impl_.secret_, rhs_arena);
+
   swap(_impl_.has_reset_lock_permissions_, other->_impl_.has_reset_lock_permissions_);
 }
 
@@ -1943,12 +1778,13 @@ std::string Delegation::GetTypeName() const {
   return "attestation.Delegation";
 }
 
-
 // ===================================================================
 
 class CertifiedKey::_Internal {
  public:
   using HasBits = decltype(std::declval<CertifiedKey>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CertifiedKey, _impl_._has_bits_);
   static void set_has_key_blob(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1984,10 +1820,9 @@ class CertifiedKey::_Internal {
   }
 };
 
-CertifiedKey::CertifiedKey(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CertifiedKey::CertifiedKey(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:attestation.CertifiedKey)
 }
 CertifiedKey::CertifiedKey(const CertifiedKey& from)
@@ -1997,153 +1832,164 @@ CertifiedKey::CertifiedKey(const CertifiedKey& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.additional_intermediate_ca_cert_){from._impl_.additional_intermediate_ca_cert_}
-    , decltype(_impl_.key_blob_){}
-    , decltype(_impl_.public_key_){}
-    , decltype(_impl_.certified_key_credential_){}
-    , decltype(_impl_.intermediate_ca_cert_){}
-    , decltype(_impl_.key_name_){}
-    , decltype(_impl_.payload_){}
-    , decltype(_impl_.public_key_tpm_format_){}
-    , decltype(_impl_.certified_key_info_){}
-    , decltype(_impl_.certified_key_proof_){}
-    , decltype(_impl_.key_type_){}
-    , decltype(_impl_.key_usage_){}};
+    , decltype(_impl_.key_blob_) {}
+
+    , decltype(_impl_.public_key_) {}
+
+    , decltype(_impl_.certified_key_credential_) {}
+
+    , decltype(_impl_.intermediate_ca_cert_) {}
+
+    , decltype(_impl_.key_name_) {}
+
+    , decltype(_impl_.payload_) {}
+
+    , decltype(_impl_.public_key_tpm_format_) {}
+
+    , decltype(_impl_.certified_key_info_) {}
+
+    , decltype(_impl_.certified_key_proof_) {}
+
+    , decltype(_impl_.key_type_) {}
+
+    , decltype(_impl_.key_usage_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.key_blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.key_blob_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_key_blob()) {
-    _this->_impl_.key_blob_.Set(from._internal_key_blob(), 
-      _this->GetArenaForAllocation());
+        _impl_.key_blob_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.key_blob_.Set(from._internal_key_blob(), _this->GetArenaForAllocation());
   }
   _impl_.public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_public_key()) {
-    _this->_impl_.public_key_.Set(from._internal_public_key(), 
-      _this->GetArenaForAllocation());
+        _impl_.public_key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.public_key_.Set(from._internal_public_key(), _this->GetArenaForAllocation());
   }
   _impl_.certified_key_credential_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_certified_key_credential()) {
-    _this->_impl_.certified_key_credential_.Set(from._internal_certified_key_credential(), 
-      _this->GetArenaForAllocation());
+        _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
+    _this->_impl_.certified_key_credential_.Set(from._internal_certified_key_credential(), _this->GetArenaForAllocation());
   }
   _impl_.intermediate_ca_cert_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.intermediate_ca_cert_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_intermediate_ca_cert()) {
-    _this->_impl_.intermediate_ca_cert_.Set(from._internal_intermediate_ca_cert(), 
-      _this->GetArenaForAllocation());
+        _impl_.intermediate_ca_cert_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
+    _this->_impl_.intermediate_ca_cert_.Set(from._internal_intermediate_ca_cert(), _this->GetArenaForAllocation());
   }
   _impl_.key_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.key_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_key_name()) {
-    _this->_impl_.key_name_.Set(from._internal_key_name(), 
-      _this->GetArenaForAllocation());
+        _impl_.key_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
+    _this->_impl_.key_name_.Set(from._internal_key_name(), _this->GetArenaForAllocation());
   }
   _impl_.payload_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.payload_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_payload()) {
-    _this->_impl_.payload_.Set(from._internal_payload(), 
-      _this->GetArenaForAllocation());
+        _impl_.payload_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000020u) != 0) {
+    _this->_impl_.payload_.Set(from._internal_payload(), _this->GetArenaForAllocation());
   }
   _impl_.public_key_tpm_format_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_tpm_format_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_public_key_tpm_format()) {
-    _this->_impl_.public_key_tpm_format_.Set(from._internal_public_key_tpm_format(), 
-      _this->GetArenaForAllocation());
+        _impl_.public_key_tpm_format_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000040u) != 0) {
+    _this->_impl_.public_key_tpm_format_.Set(from._internal_public_key_tpm_format(), _this->GetArenaForAllocation());
   }
   _impl_.certified_key_info_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.certified_key_info_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_certified_key_info()) {
-    _this->_impl_.certified_key_info_.Set(from._internal_certified_key_info(), 
-      _this->GetArenaForAllocation());
+        _impl_.certified_key_info_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000080u) != 0) {
+    _this->_impl_.certified_key_info_.Set(from._internal_certified_key_info(), _this->GetArenaForAllocation());
   }
   _impl_.certified_key_proof_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.certified_key_proof_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_certified_key_proof()) {
-    _this->_impl_.certified_key_proof_.Set(from._internal_certified_key_proof(), 
-      _this->GetArenaForAllocation());
+        _impl_.certified_key_proof_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000100u) != 0) {
+    _this->_impl_.certified_key_proof_.Set(from._internal_certified_key_proof(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.key_type_, &from._impl_.key_type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.key_usage_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.key_usage_) -
     reinterpret_cast<char*>(&_impl_.key_type_)) + sizeof(_impl_.key_usage_));
   // @@protoc_insertion_point(copy_constructor:attestation.CertifiedKey)
 }
 
-inline void CertifiedKey::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CertifiedKey::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.additional_intermediate_ca_cert_){arena}
-    , decltype(_impl_.key_blob_){}
-    , decltype(_impl_.public_key_){}
-    , decltype(_impl_.certified_key_credential_){}
-    , decltype(_impl_.intermediate_ca_cert_){}
-    , decltype(_impl_.key_name_){}
-    , decltype(_impl_.payload_){}
-    , decltype(_impl_.public_key_tpm_format_){}
-    , decltype(_impl_.certified_key_info_){}
-    , decltype(_impl_.certified_key_proof_){}
-    , decltype(_impl_.key_type_){1}
-    , decltype(_impl_.key_usage_){1}
+    , decltype(_impl_.key_blob_) {}
+
+    , decltype(_impl_.public_key_) {}
+
+    , decltype(_impl_.certified_key_credential_) {}
+
+    , decltype(_impl_.intermediate_ca_cert_) {}
+
+    , decltype(_impl_.key_name_) {}
+
+    , decltype(_impl_.payload_) {}
+
+    , decltype(_impl_.public_key_tpm_format_) {}
+
+    , decltype(_impl_.certified_key_info_) {}
+
+    , decltype(_impl_.certified_key_proof_) {}
+
+    , decltype(_impl_.key_type_) { 1 }
+
+    , decltype(_impl_.key_usage_) { 1 }
+
   };
   _impl_.key_blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.key_blob_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.key_blob_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.public_key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.certified_key_credential_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.certified_key_credential_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.intermediate_ca_cert_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.intermediate_ca_cert_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.intermediate_ca_cert_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.key_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.key_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.key_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.payload_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.payload_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.payload_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.public_key_tpm_format_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.public_key_tpm_format_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.public_key_tpm_format_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.certified_key_info_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.certified_key_info_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.certified_key_info_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.certified_key_proof_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.certified_key_proof_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.certified_key_proof_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CertifiedKey::~CertifiedKey() {
@@ -2156,8 +2002,8 @@ CertifiedKey::~CertifiedKey() {
 }
 
 inline void CertifiedKey::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.additional_intermediate_ca_cert_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_additional_intermediate_ca_cert()->~RepeatedPtrField();
   _impl_.key_blob_.Destroy();
   _impl_.public_key_.Destroy();
   _impl_.certified_key_credential_.Destroy();
@@ -2175,11 +2021,11 @@ void CertifiedKey::SetCachedSize(int size) const {
 
 void CertifiedKey::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.CertifiedKey)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.additional_intermediate_ca_cert_.Clear();
+  _internal_mutable_additional_intermediate_ca_cert()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -2222,66 +2068,72 @@ const char* CertifiedKey::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes key_blob = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_key_blob();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes public_key = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_public_key();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes certified_key_credential = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_certified_key_credential();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes intermediate_ca_cert = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_intermediate_ca_cert();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes key_name = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_key_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes payload = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_payload();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated bytes additional_intermediate_ca_cert = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2290,61 +2142,67 @@ const char* CertifiedKey::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes public_key_tpm_format = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           auto str = _internal_mutable_public_key_tpm_format();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes certified_key_info = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 74)) {
           auto str = _internal_mutable_certified_key_info();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes certified_key_proof = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 82)) {
           auto str = _internal_mutable_certified_key_proof();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .attestation.KeyType key_type = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 88)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyType_IsValid(static_cast<int>(val)))) {
             _internal_set_key_type(static_cast<::attestation::KeyType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(11, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .attestation.KeyUsage key_usage = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 96)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyUsage_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyUsage_IsValid(static_cast<int>(val)))) {
             _internal_set_key_usage(static_cast<::attestation::KeyUsage>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(12, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2370,85 +2228,85 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CertifiedKey::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CertifiedKey::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:attestation.CertifiedKey)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes key_blob = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_key_blob(), target);
+    const std::string& _s = this->_internal_key_blob();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // optional bytes public_key = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_public_key(), target);
+    const std::string& _s = this->_internal_public_key();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // optional bytes certified_key_credential = 3;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_certified_key_credential(), target);
+    const std::string& _s = this->_internal_certified_key_credential();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   // optional bytes intermediate_ca_cert = 4;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteBytesMaybeAliased(
-        4, this->_internal_intermediate_ca_cert(), target);
+    const std::string& _s = this->_internal_intermediate_ca_cert();
+    target = stream->WriteBytesMaybeAliased(4, _s, target);
   }
 
   // optional bytes key_name = 5;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->WriteBytesMaybeAliased(
-        5, this->_internal_key_name(), target);
+    const std::string& _s = this->_internal_key_name();
+    target = stream->WriteBytesMaybeAliased(5, _s, target);
   }
 
   // optional bytes payload = 6;
   if (cached_has_bits & 0x00000020u) {
-    target = stream->WriteBytesMaybeAliased(
-        6, this->_internal_payload(), target);
+    const std::string& _s = this->_internal_payload();
+    target = stream->WriteBytesMaybeAliased(6, _s, target);
   }
 
   // repeated bytes additional_intermediate_ca_cert = 7;
-  for (int i = 0, n = this->_internal_additional_intermediate_ca_cert_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_additional_intermediate_ca_cert_size(); i < n; ++i) {
     const auto& s = this->_internal_additional_intermediate_ca_cert(i);
     target = stream->WriteBytes(7, s, target);
   }
 
   // optional bytes public_key_tpm_format = 8;
   if (cached_has_bits & 0x00000040u) {
-    target = stream->WriteBytesMaybeAliased(
-        8, this->_internal_public_key_tpm_format(), target);
+    const std::string& _s = this->_internal_public_key_tpm_format();
+    target = stream->WriteBytesMaybeAliased(8, _s, target);
   }
 
   // optional bytes certified_key_info = 9;
   if (cached_has_bits & 0x00000080u) {
-    target = stream->WriteBytesMaybeAliased(
-        9, this->_internal_certified_key_info(), target);
+    const std::string& _s = this->_internal_certified_key_info();
+    target = stream->WriteBytesMaybeAliased(9, _s, target);
   }
 
   // optional bytes certified_key_proof = 10;
   if (cached_has_bits & 0x00000100u) {
-    target = stream->WriteBytesMaybeAliased(
-        10, this->_internal_certified_key_proof(), target);
+    const std::string& _s = this->_internal_certified_key_proof();
+    target = stream->WriteBytesMaybeAliased(10, _s, target);
   }
 
   // optional .attestation.KeyType key_type = 11;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      11, this->_internal_key_type(), target);
+        11, this->_internal_key_type(), target);
   }
 
   // optional .attestation.KeyUsage key_usage = 12;
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      12, this->_internal_key_usage(), target);
+        12, this->_internal_key_usage(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2459,99 +2317,89 @@ uint8_t* CertifiedKey::_InternalSerialize(
   return target;
 }
 
-size_t CertifiedKey::ByteSizeLong() const {
+::size_t CertifiedKey::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:attestation.CertifiedKey)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated bytes additional_intermediate_ca_cert = 7;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.additional_intermediate_ca_cert_.size());
-  for (int i = 0, n = _impl_.additional_intermediate_ca_cert_.size(); i < n; i++) {
+  total_size += 1 * ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_internal_additional_intermediate_ca_cert().size());
+  for (int i = 0, n = _internal_additional_intermediate_ca_cert().size(); i < n; ++i) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-      _impl_.additional_intermediate_ca_cert_.Get(i));
+        _internal_additional_intermediate_ca_cert().Get(i));
   }
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional bytes key_blob = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_key_blob());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_key_blob());
     }
 
     // optional bytes public_key = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_public_key());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_public_key());
     }
 
     // optional bytes certified_key_credential = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_certified_key_credential());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_certified_key_credential());
     }
 
     // optional bytes intermediate_ca_cert = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_intermediate_ca_cert());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_intermediate_ca_cert());
     }
 
     // optional bytes key_name = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_key_name());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_key_name());
     }
 
     // optional bytes payload = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_payload());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_payload());
     }
 
     // optional bytes public_key_tpm_format = 8;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_public_key_tpm_format());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_public_key_tpm_format());
     }
 
     // optional bytes certified_key_info = 9;
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_certified_key_info());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_certified_key_info());
     }
 
   }
   if (cached_has_bits & 0x00000700u) {
     // optional bytes certified_key_proof = 10;
     if (cached_has_bits & 0x00000100u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_certified_key_proof());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_certified_key_proof());
     }
 
     // optional .attestation.KeyType key_type = 11;
     if (cached_has_bits & 0x00000200u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_key_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_key_type());
     }
 
     // optional .attestation.KeyUsage key_usage = 12;
     if (cached_has_bits & 0x00000400u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_key_usage());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_key_usage());
     }
 
   }
@@ -2572,11 +2420,11 @@ void CertifiedKey::CheckTypeAndMergeFrom(
 void CertifiedKey::MergeFrom(const CertifiedKey& from) {
   CertifiedKey* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:attestation.CertifiedKey)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.additional_intermediate_ca_cert_.MergeFrom(from._impl_.additional_intermediate_ca_cert_);
+  _this->_internal_mutable_additional_intermediate_ca_cert()->MergeFrom(from._internal_additional_intermediate_ca_cert());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -2636,57 +2484,45 @@ void CertifiedKey::InternalSwap(CertifiedKey* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.additional_intermediate_ca_cert_.InternalSwap(&other->_impl_.additional_intermediate_ca_cert_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.key_blob_, lhs_arena,
-      &other->_impl_.key_blob_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.public_key_, lhs_arena,
-      &other->_impl_.public_key_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.certified_key_credential_, lhs_arena,
-      &other->_impl_.certified_key_credential_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.intermediate_ca_cert_, lhs_arena,
-      &other->_impl_.intermediate_ca_cert_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.key_name_, lhs_arena,
-      &other->_impl_.key_name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.payload_, lhs_arena,
-      &other->_impl_.payload_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.public_key_tpm_format_, lhs_arena,
-      &other->_impl_.public_key_tpm_format_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.certified_key_info_, lhs_arena,
-      &other->_impl_.certified_key_info_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.certified_key_proof_, lhs_arena,
-      &other->_impl_.certified_key_proof_, rhs_arena
-  );
-  swap(_impl_.key_type_, other->_impl_.key_type_);
-  swap(_impl_.key_usage_, other->_impl_.key_usage_);
+  _internal_mutable_additional_intermediate_ca_cert()->InternalSwap(
+      other->_internal_mutable_additional_intermediate_ca_cert());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.key_blob_, lhs_arena,
+                                       &other->_impl_.key_blob_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.public_key_, lhs_arena,
+                                       &other->_impl_.public_key_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.certified_key_credential_, lhs_arena,
+                                       &other->_impl_.certified_key_credential_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.intermediate_ca_cert_, lhs_arena,
+                                       &other->_impl_.intermediate_ca_cert_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.key_name_, lhs_arena,
+                                       &other->_impl_.key_name_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.payload_, lhs_arena,
+                                       &other->_impl_.payload_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.public_key_tpm_format_, lhs_arena,
+                                       &other->_impl_.public_key_tpm_format_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.certified_key_info_, lhs_arena,
+                                       &other->_impl_.certified_key_info_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.certified_key_proof_, lhs_arena,
+                                       &other->_impl_.certified_key_proof_, rhs_arena);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CertifiedKey, _impl_.key_usage_)
+      + sizeof(CertifiedKey::_impl_.key_usage_)
+      - PROTOBUF_FIELD_OFFSET(CertifiedKey, _impl_.key_type_)>(
+          reinterpret_cast<char*>(&_impl_.key_type_),
+          reinterpret_cast<char*>(&other->_impl_.key_type_));
 }
 
 std::string CertifiedKey::GetTypeName() const {
   return "attestation.CertifiedKey";
 }
 
-
 // ===================================================================
 
 class AttestationDatabase_TemporalIndexRecord::_Internal {
  public:
   using HasBits = decltype(std::declval<AttestationDatabase_TemporalIndexRecord>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AttestationDatabase_TemporalIndexRecord, _impl_._has_bits_);
   static void set_has_user_hash(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2698,10 +2534,9 @@ class AttestationDatabase_TemporalIndexRecord::_Internal {
   }
 };
 
-AttestationDatabase_TemporalIndexRecord::AttestationDatabase_TemporalIndexRecord(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+AttestationDatabase_TemporalIndexRecord::AttestationDatabase_TemporalIndexRecord(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:attestation.AttestationDatabase.TemporalIndexRecord)
 }
 AttestationDatabase_TemporalIndexRecord::AttestationDatabase_TemporalIndexRecord(const AttestationDatabase_TemporalIndexRecord& from)
@@ -2710,50 +2545,52 @@ AttestationDatabase_TemporalIndexRecord::AttestationDatabase_TemporalIndexRecord
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.user_hash_){}
-    , decltype(_impl_.origin_hash_){}
-    , decltype(_impl_.temporal_index_){}};
+    , decltype(_impl_.user_hash_) {}
+
+    , decltype(_impl_.origin_hash_) {}
+
+    , decltype(_impl_.temporal_index_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.user_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.user_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_user_hash()) {
-    _this->_impl_.user_hash_.Set(from._internal_user_hash(), 
-      _this->GetArenaForAllocation());
+        _impl_.user_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.user_hash_.Set(from._internal_user_hash(), _this->GetArenaForAllocation());
   }
   _impl_.origin_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.origin_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_origin_hash()) {
-    _this->_impl_.origin_hash_.Set(from._internal_origin_hash(), 
-      _this->GetArenaForAllocation());
+        _impl_.origin_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.origin_hash_.Set(from._internal_origin_hash(), _this->GetArenaForAllocation());
   }
   _this->_impl_.temporal_index_ = from._impl_.temporal_index_;
   // @@protoc_insertion_point(copy_constructor:attestation.AttestationDatabase.TemporalIndexRecord)
 }
 
-inline void AttestationDatabase_TemporalIndexRecord::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void AttestationDatabase_TemporalIndexRecord::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.user_hash_){}
-    , decltype(_impl_.origin_hash_){}
-    , decltype(_impl_.temporal_index_){0}
+    , decltype(_impl_.user_hash_) {}
+
+    , decltype(_impl_.origin_hash_) {}
+
+    , decltype(_impl_.temporal_index_) { 0 }
+
   };
   _impl_.user_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.user_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.user_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.origin_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.origin_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.origin_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 AttestationDatabase_TemporalIndexRecord::~AttestationDatabase_TemporalIndexRecord() {
@@ -2766,7 +2603,7 @@ AttestationDatabase_TemporalIndexRecord::~AttestationDatabase_TemporalIndexRecor
 }
 
 inline void AttestationDatabase_TemporalIndexRecord::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.user_hash_.Destroy();
   _impl_.origin_hash_.Destroy();
 }
@@ -2777,7 +2614,7 @@ void AttestationDatabase_TemporalIndexRecord::SetCachedSize(int size) const {
 
 void AttestationDatabase_TemporalIndexRecord::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.AttestationDatabase.TemporalIndexRecord)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2799,35 +2636,38 @@ const char* AttestationDatabase_TemporalIndexRecord::_InternalParse(const char* 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes user_hash = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_user_hash();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes origin_hash = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_origin_hash();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 temporal_index = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_temporal_index(&has_bits);
           _impl_.temporal_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2853,29 +2693,30 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AttestationDatabase_TemporalIndexRecord::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* AttestationDatabase_TemporalIndexRecord::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:attestation.AttestationDatabase.TemporalIndexRecord)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes user_hash = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_user_hash(), target);
+    const std::string& _s = this->_internal_user_hash();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // optional bytes origin_hash = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_origin_hash(), target);
+    const std::string& _s = this->_internal_origin_hash();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // optional int32 temporal_index = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_temporal_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_temporal_index(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2886,11 +2727,11 @@ uint8_t* AttestationDatabase_TemporalIndexRecord::_InternalSerialize(
   return target;
 }
 
-size_t AttestationDatabase_TemporalIndexRecord::ByteSizeLong() const {
+::size_t AttestationDatabase_TemporalIndexRecord::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:attestation.AttestationDatabase.TemporalIndexRecord)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2898,21 +2739,20 @@ size_t AttestationDatabase_TemporalIndexRecord::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional bytes user_hash = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_user_hash());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_user_hash());
     }
 
     // optional bytes origin_hash = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_origin_hash());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_origin_hash());
     }
 
     // optional int32 temporal_index = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_temporal_index());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_temporal_index());
     }
 
   }
@@ -2933,8 +2773,8 @@ void AttestationDatabase_TemporalIndexRecord::CheckTypeAndMergeFrom(
 void AttestationDatabase_TemporalIndexRecord::MergeFrom(const AttestationDatabase_TemporalIndexRecord& from) {
   AttestationDatabase_TemporalIndexRecord* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:attestation.AttestationDatabase.TemporalIndexRecord)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2970,21 +2810,17 @@ void AttestationDatabase_TemporalIndexRecord::InternalSwap(AttestationDatabase_T
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.user_hash_, lhs_arena,
-      &other->_impl_.user_hash_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.origin_hash_, lhs_arena,
-      &other->_impl_.origin_hash_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.user_hash_, lhs_arena,
+                                       &other->_impl_.user_hash_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.origin_hash_, lhs_arena,
+                                       &other->_impl_.origin_hash_, rhs_arena);
+
   swap(_impl_.temporal_index_, other->_impl_.temporal_index_);
 }
 
 std::string AttestationDatabase_TemporalIndexRecord::GetTypeName() const {
   return "attestation.AttestationDatabase.TemporalIndexRecord";
 }
-
 
 // ===================================================================
 
@@ -2994,7 +2830,6 @@ AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse::AttestationDatabase_Identi
 void AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse::MergeFrom(const AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse& other) {
   MergeFromInternal(other);
 }
-
 // ===================================================================
 
 AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse::AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse() {}
@@ -3003,12 +2838,13 @@ AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse::AttestationDatabase_Iden
 void AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse::MergeFrom(const AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse& other) {
   MergeFromInternal(other);
 }
-
 // ===================================================================
 
 class AttestationDatabase_Identity::_Internal {
  public:
   using HasBits = decltype(std::declval<AttestationDatabase_Identity>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AttestationDatabase_Identity, _impl_._has_bits_);
   static void set_has_features(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -3036,10 +2872,9 @@ void AttestationDatabase_Identity::clear_pcr_quotes() {
 void AttestationDatabase_Identity::clear_nvram_quotes() {
   _impl_.nvram_quotes_.Clear();
 }
-AttestationDatabase_Identity::AttestationDatabase_Identity(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+AttestationDatabase_Identity::AttestationDatabase_Identity(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:attestation.AttestationDatabase.Identity)
 }
 AttestationDatabase_Identity::AttestationDatabase_Identity(const AttestationDatabase_Identity& from)
@@ -3052,25 +2887,24 @@ AttestationDatabase_Identity::AttestationDatabase_Identity(const AttestationData
     , /*decltype(_impl_.nvram_quotes_)*/{}
     , decltype(_impl_.identity_binding_){nullptr}
     , decltype(_impl_.identity_key_){nullptr}
-    , decltype(_impl_.features_){}};
+    , decltype(_impl_.features_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.pcr_quotes_.MergeFrom(from._impl_.pcr_quotes_);
   _this->_impl_.nvram_quotes_.MergeFrom(from._impl_.nvram_quotes_);
-  if (from._internal_has_identity_binding()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.identity_binding_ = new ::attestation::IdentityBinding(*from._impl_.identity_binding_);
   }
-  if (from._internal_has_identity_key()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.identity_key_ = new ::attestation::IdentityKey(*from._impl_.identity_key_);
   }
   _this->_impl_.features_ = from._impl_.features_;
   // @@protoc_insertion_point(copy_constructor:attestation.AttestationDatabase.Identity)
 }
 
-inline void AttestationDatabase_Identity::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void AttestationDatabase_Identity::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -3078,7 +2912,8 @@ inline void AttestationDatabase_Identity::SharedCtor(
     , /*decltype(_impl_.nvram_quotes_)*/{::_pbi::ArenaInitialized(), arena}
     , decltype(_impl_.identity_binding_){nullptr}
     , decltype(_impl_.identity_key_){nullptr}
-    , decltype(_impl_.features_){0}
+    , decltype(_impl_.features_) { 0 }
+
   };
 }
 
@@ -3092,10 +2927,8 @@ AttestationDatabase_Identity::~AttestationDatabase_Identity() {
 }
 
 inline void AttestationDatabase_Identity::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.pcr_quotes_.Destruct();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.pcr_quotes_.~MapFieldLite();
-  _impl_.nvram_quotes_.Destruct();
   _impl_.nvram_quotes_.~MapFieldLite();
   if (this != internal_default_instance()) delete _impl_.identity_binding_;
   if (this != internal_default_instance()) delete _impl_.identity_key_;
@@ -3107,7 +2940,7 @@ void AttestationDatabase_Identity::SetCachedSize(int size) const {
 
 void AttestationDatabase_Identity::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.AttestationDatabase.Identity)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3116,11 +2949,11 @@ void AttestationDatabase_Identity::Clear() {
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.identity_binding_ != nullptr);
+      ABSL_DCHECK(_impl_.identity_binding_ != nullptr);
       _impl_.identity_binding_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.identity_key_ != nullptr);
+      ABSL_DCHECK(_impl_.identity_key_ != nullptr);
       _impl_.identity_key_->Clear();
     }
   }
@@ -3133,37 +2966,40 @@ const char* AttestationDatabase_Identity::_InternalParse(const char* ptr, ::_pbi
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int32 features = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_features(&has_bits);
           _impl_.features_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .attestation.IdentityBinding identity_binding = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_identity_binding(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .attestation.IdentityKey identity_key = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_identity_key(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // map<int32, .attestation.Quote> pcr_quotes = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3171,12 +3007,13 @@ const char* AttestationDatabase_Identity::_InternalParse(const char* ptr, ::_pbi
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // map<int32, .attestation.Quote> nvram_quotes = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3184,8 +3021,9 @@ const char* AttestationDatabase_Identity::_InternalParse(const char* ptr, ::_pbi
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3211,17 +3049,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AttestationDatabase_Identity::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* AttestationDatabase_Identity::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:attestation.AttestationDatabase.Identity)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional int32 features = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_features(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_features(), target);
   }
 
   // optional .attestation.IdentityBinding identity_binding = 2;
@@ -3240,7 +3079,7 @@ uint8_t* AttestationDatabase_Identity::_InternalSerialize(
 
   // map<int32, .attestation.Quote> pcr_quotes = 4;
   if (!this->_internal_pcr_quotes().empty()) {
-    using MapType = ::_pb::Map<int32_t, ::attestation::Quote>;
+    using MapType = ::_pb::Map<::int32_t, ::attestation::Quote>;
     using WireHelper = AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_pcr_quotes();
 
@@ -3257,7 +3096,7 @@ uint8_t* AttestationDatabase_Identity::_InternalSerialize(
 
   // map<int32, .attestation.Quote> nvram_quotes = 5;
   if (!this->_internal_nvram_quotes().empty()) {
-    using MapType = ::_pb::Map<int32_t, ::attestation::Quote>;
+    using MapType = ::_pb::Map<::int32_t, ::attestation::Quote>;
     using WireHelper = AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_nvram_quotes();
 
@@ -3280,18 +3119,18 @@ uint8_t* AttestationDatabase_Identity::_InternalSerialize(
   return target;
 }
 
-size_t AttestationDatabase_Identity::ByteSizeLong() const {
+::size_t AttestationDatabase_Identity::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:attestation.AttestationDatabase.Identity)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // map<int32, .attestation.Quote> pcr_quotes = 4;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_pcr_quotes_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::attestation::Quote >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::attestation::Quote >::const_iterator
       it = this->_internal_pcr_quotes().begin();
       it != this->_internal_pcr_quotes().end(); ++it) {
     total_size += AttestationDatabase_Identity_PcrQuotesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
@@ -3300,7 +3139,7 @@ size_t AttestationDatabase_Identity::ByteSizeLong() const {
   // map<int32, .attestation.Quote> nvram_quotes = 5;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_nvram_quotes_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::attestation::Quote >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::attestation::Quote >::const_iterator
       it = this->_internal_nvram_quotes().begin();
       it != this->_internal_nvram_quotes().end(); ++it) {
     total_size += AttestationDatabase_Identity_NvramQuotesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
@@ -3324,7 +3163,8 @@ size_t AttestationDatabase_Identity::ByteSizeLong() const {
 
     // optional int32 features = 1;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_features());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_features());
     }
 
   }
@@ -3345,8 +3185,8 @@ void AttestationDatabase_Identity::CheckTypeAndMergeFrom(
 void AttestationDatabase_Identity::MergeFrom(const AttestationDatabase_Identity& from) {
   AttestationDatabase_Identity* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:attestation.AttestationDatabase.Identity)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.pcr_quotes_.MergeFrom(from._impl_.pcr_quotes_);
@@ -3398,12 +3238,13 @@ std::string AttestationDatabase_Identity::GetTypeName() const {
   return "attestation.AttestationDatabase.Identity";
 }
 
-
 // ===================================================================
 
 class AttestationDatabase_IdentityCertificate::_Internal {
  public:
   using HasBits = decltype(std::declval<AttestationDatabase_IdentityCertificate>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AttestationDatabase_IdentityCertificate, _impl_._has_bits_);
   static void set_has_identity(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -3415,10 +3256,9 @@ class AttestationDatabase_IdentityCertificate::_Internal {
   }
 };
 
-AttestationDatabase_IdentityCertificate::AttestationDatabase_IdentityCertificate(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+AttestationDatabase_IdentityCertificate::AttestationDatabase_IdentityCertificate(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:attestation.AttestationDatabase.IdentityCertificate)
 }
 AttestationDatabase_IdentityCertificate::AttestationDatabase_IdentityCertificate(const AttestationDatabase_IdentityCertificate& from)
@@ -3427,40 +3267,43 @@ AttestationDatabase_IdentityCertificate::AttestationDatabase_IdentityCertificate
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.identity_credential_){}
-    , decltype(_impl_.identity_){}
-    , decltype(_impl_.aca_){}};
+    , decltype(_impl_.identity_credential_) {}
+
+    , decltype(_impl_.identity_) {}
+
+    , decltype(_impl_.aca_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.identity_credential_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_credential_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_identity_credential()) {
-    _this->_impl_.identity_credential_.Set(from._internal_identity_credential(), 
-      _this->GetArenaForAllocation());
+        _impl_.identity_credential_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.identity_credential_.Set(from._internal_identity_credential(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.identity_, &from._impl_.identity_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.aca_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.aca_) -
     reinterpret_cast<char*>(&_impl_.identity_)) + sizeof(_impl_.aca_));
   // @@protoc_insertion_point(copy_constructor:attestation.AttestationDatabase.IdentityCertificate)
 }
 
-inline void AttestationDatabase_IdentityCertificate::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void AttestationDatabase_IdentityCertificate::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.identity_credential_){}
-    , decltype(_impl_.identity_){0}
-    , decltype(_impl_.aca_){0}
+    , decltype(_impl_.identity_credential_) {}
+
+    , decltype(_impl_.identity_) { 0 }
+
+    , decltype(_impl_.aca_) { 0 }
+
   };
   _impl_.identity_credential_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.identity_credential_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.identity_credential_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 AttestationDatabase_IdentityCertificate::~AttestationDatabase_IdentityCertificate() {
@@ -3473,7 +3316,7 @@ AttestationDatabase_IdentityCertificate::~AttestationDatabase_IdentityCertificat
 }
 
 inline void AttestationDatabase_IdentityCertificate::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.identity_credential_.Destroy();
 }
 
@@ -3483,7 +3326,7 @@ void AttestationDatabase_IdentityCertificate::SetCachedSize(int size) const {
 
 void AttestationDatabase_IdentityCertificate::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.AttestationDatabase.IdentityCertificate)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3492,7 +3335,7 @@ void AttestationDatabase_IdentityCertificate::Clear() {
     _impl_.identity_credential_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.identity_, 0, static_cast<size_t>(
+    ::memset(&_impl_.identity_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.aca_) -
         reinterpret_cast<char*>(&_impl_.identity_)) + sizeof(_impl_.aca_));
   }
@@ -3504,35 +3347,38 @@ const char* AttestationDatabase_IdentityCertificate::_InternalParse(const char* 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int32 identity = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_identity(&has_bits);
           _impl_.identity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int32 aca = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_aca(&has_bits);
           _impl_.aca_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes identity_credential = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_identity_credential();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3558,29 +3404,31 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AttestationDatabase_IdentityCertificate::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* AttestationDatabase_IdentityCertificate::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:attestation.AttestationDatabase.IdentityCertificate)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional int32 identity = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_identity(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_identity(), target);
   }
 
   // optional int32 aca = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_aca(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_aca(), target);
   }
 
   // optional bytes identity_credential = 3;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_identity_credential(), target);
+    const std::string& _s = this->_internal_identity_credential();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3591,11 +3439,11 @@ uint8_t* AttestationDatabase_IdentityCertificate::_InternalSerialize(
   return target;
 }
 
-size_t AttestationDatabase_IdentityCertificate::ByteSizeLong() const {
+::size_t AttestationDatabase_IdentityCertificate::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:attestation.AttestationDatabase.IdentityCertificate)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3603,19 +3451,20 @@ size_t AttestationDatabase_IdentityCertificate::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional bytes identity_credential = 3;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_identity_credential());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_identity_credential());
     }
 
     // optional int32 identity = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_identity());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_identity());
     }
 
     // optional int32 aca = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_aca());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_aca());
     }
 
   }
@@ -3636,8 +3485,8 @@ void AttestationDatabase_IdentityCertificate::CheckTypeAndMergeFrom(
 void AttestationDatabase_IdentityCertificate::MergeFrom(const AttestationDatabase_IdentityCertificate& from) {
   AttestationDatabase_IdentityCertificate* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:attestation.AttestationDatabase.IdentityCertificate)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -3673,10 +3522,8 @@ void AttestationDatabase_IdentityCertificate::InternalSwap(AttestationDatabase_I
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.identity_credential_, lhs_arena,
-      &other->_impl_.identity_credential_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.identity_credential_, lhs_arena,
+                                       &other->_impl_.identity_credential_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(AttestationDatabase_IdentityCertificate, _impl_.aca_)
       + sizeof(AttestationDatabase_IdentityCertificate::_impl_.aca_)
@@ -3689,7 +3536,6 @@ std::string AttestationDatabase_IdentityCertificate::GetTypeName() const {
   return "attestation.AttestationDatabase.IdentityCertificate";
 }
 
-
 // ===================================================================
 
 AttestationDatabase_IdentityCertificatesEntry_DoNotUse::AttestationDatabase_IdentityCertificatesEntry_DoNotUse() {}
@@ -3698,35 +3544,20 @@ AttestationDatabase_IdentityCertificatesEntry_DoNotUse::AttestationDatabase_Iden
 void AttestationDatabase_IdentityCertificatesEntry_DoNotUse::MergeFrom(const AttestationDatabase_IdentityCertificatesEntry_DoNotUse& other) {
   MergeFromInternal(other);
 }
-
 // ===================================================================
 
 class AttestationDatabase::_Internal {
  public:
   using HasBits = decltype(std::declval<AttestationDatabase>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AttestationDatabase, _impl_._has_bits_);
   static const ::attestation::TPMCredentials& credentials(const AttestationDatabase* msg);
   static void set_has_credentials(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::attestation::IdentityBinding& identity_binding(const AttestationDatabase* msg);
-  static void set_has_identity_binding(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static const ::attestation::IdentityKey& identity_key(const AttestationDatabase* msg);
-  static void set_has_identity_key(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-  static const ::attestation::Quote& pcr0_quote(const AttestationDatabase* msg);
-  static void set_has_pcr0_quote(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
-  }
-  static const ::attestation::Quote& pcr1_quote(const AttestationDatabase* msg);
-  static void set_has_pcr1_quote(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
-  }
   static const ::attestation::Delegation& delegate(const AttestationDatabase* msg);
   static void set_has_delegate(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
+    (*has_bits)[0] |= 4u;
   }
   static void set_has_enrollment_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -3737,38 +3568,13 @@ const ::attestation::TPMCredentials&
 AttestationDatabase::_Internal::credentials(const AttestationDatabase* msg) {
   return *msg->_impl_.credentials_;
 }
-const ::attestation::IdentityBinding&
-AttestationDatabase::_Internal::identity_binding(const AttestationDatabase* msg) {
-  return *msg->_impl_.identity_binding_;
-}
-const ::attestation::IdentityKey&
-AttestationDatabase::_Internal::identity_key(const AttestationDatabase* msg) {
-  return *msg->_impl_.identity_key_;
-}
-const ::attestation::Quote&
-AttestationDatabase::_Internal::pcr0_quote(const AttestationDatabase* msg) {
-  return *msg->_impl_.pcr0_quote_;
-}
-const ::attestation::Quote&
-AttestationDatabase::_Internal::pcr1_quote(const AttestationDatabase* msg) {
-  return *msg->_impl_.pcr1_quote_;
-}
 const ::attestation::Delegation&
 AttestationDatabase::_Internal::delegate(const AttestationDatabase* msg) {
   return *msg->_impl_.delegate_;
 }
-void AttestationDatabase::clear_pcr0_quote() {
-  if (_impl_.pcr0_quote_ != nullptr) _impl_.pcr0_quote_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000010u;
-}
-void AttestationDatabase::clear_pcr1_quote() {
-  if (_impl_.pcr1_quote_ != nullptr) _impl_.pcr1_quote_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000040u;
-}
-AttestationDatabase::AttestationDatabase(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+AttestationDatabase::AttestationDatabase(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:attestation.AttestationDatabase)
 }
 AttestationDatabase::AttestationDatabase(const AttestationDatabase& from)
@@ -3781,49 +3587,31 @@ AttestationDatabase::AttestationDatabase(const AttestationDatabase& from)
     , decltype(_impl_.temporal_index_record_){from._impl_.temporal_index_record_}
     , decltype(_impl_.identities_){from._impl_.identities_}
     , /*decltype(_impl_.identity_certificates_)*/{}
-    , decltype(_impl_.enrollment_id_){}
+    , decltype(_impl_.enrollment_id_) {}
+
     , decltype(_impl_.credentials_){nullptr}
-    , decltype(_impl_.identity_binding_){nullptr}
-    , decltype(_impl_.identity_key_){nullptr}
-    , decltype(_impl_.pcr0_quote_){nullptr}
-    , decltype(_impl_.delegate_){nullptr}
-    , decltype(_impl_.pcr1_quote_){nullptr}};
+    , decltype(_impl_.delegate_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.identity_certificates_.MergeFrom(from._impl_.identity_certificates_);
   _impl_.enrollment_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.enrollment_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_enrollment_id()) {
-    _this->_impl_.enrollment_id_.Set(from._internal_enrollment_id(), 
-      _this->GetArenaForAllocation());
+        _impl_.enrollment_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.enrollment_id_.Set(from._internal_enrollment_id(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_credentials()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.credentials_ = new ::attestation::TPMCredentials(*from._impl_.credentials_);
   }
-  if (from._internal_has_identity_binding()) {
-    _this->_impl_.identity_binding_ = new ::attestation::IdentityBinding(*from._impl_.identity_binding_);
-  }
-  if (from._internal_has_identity_key()) {
-    _this->_impl_.identity_key_ = new ::attestation::IdentityKey(*from._impl_.identity_key_);
-  }
-  if (from._internal_has_pcr0_quote()) {
-    _this->_impl_.pcr0_quote_ = new ::attestation::Quote(*from._impl_.pcr0_quote_);
-  }
-  if (from._internal_has_delegate()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.delegate_ = new ::attestation::Delegation(*from._impl_.delegate_);
-  }
-  if (from._internal_has_pcr1_quote()) {
-    _this->_impl_.pcr1_quote_ = new ::attestation::Quote(*from._impl_.pcr1_quote_);
   }
   // @@protoc_insertion_point(copy_constructor:attestation.AttestationDatabase)
 }
 
-inline void AttestationDatabase::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void AttestationDatabase::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -3831,18 +3619,15 @@ inline void AttestationDatabase::SharedCtor(
     , decltype(_impl_.temporal_index_record_){arena}
     , decltype(_impl_.identities_){arena}
     , /*decltype(_impl_.identity_certificates_)*/{::_pbi::ArenaInitialized(), arena}
-    , decltype(_impl_.enrollment_id_){}
+    , decltype(_impl_.enrollment_id_) {}
+
     , decltype(_impl_.credentials_){nullptr}
-    , decltype(_impl_.identity_binding_){nullptr}
-    , decltype(_impl_.identity_key_){nullptr}
-    , decltype(_impl_.pcr0_quote_){nullptr}
     , decltype(_impl_.delegate_){nullptr}
-    , decltype(_impl_.pcr1_quote_){nullptr}
   };
   _impl_.enrollment_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.enrollment_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.enrollment_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 AttestationDatabase::~AttestationDatabase() {
@@ -3855,19 +3640,14 @@ AttestationDatabase::~AttestationDatabase() {
 }
 
 inline void AttestationDatabase::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.device_keys_.~RepeatedPtrField();
-  _impl_.temporal_index_record_.~RepeatedPtrField();
-  _impl_.identities_.~RepeatedPtrField();
-  _impl_.identity_certificates_.Destruct();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_device_keys()->~RepeatedPtrField();
+  _internal_mutable_temporal_index_record()->~RepeatedPtrField();
+  _internal_mutable_identities()->~RepeatedPtrField();
   _impl_.identity_certificates_.~MapFieldLite();
   _impl_.enrollment_id_.Destroy();
   if (this != internal_default_instance()) delete _impl_.credentials_;
-  if (this != internal_default_instance()) delete _impl_.identity_binding_;
-  if (this != internal_default_instance()) delete _impl_.identity_key_;
-  if (this != internal_default_instance()) delete _impl_.pcr0_quote_;
   if (this != internal_default_instance()) delete _impl_.delegate_;
-  if (this != internal_default_instance()) delete _impl_.pcr1_quote_;
 }
 
 void AttestationDatabase::SetCachedSize(int size) const {
@@ -3876,42 +3656,26 @@ void AttestationDatabase::SetCachedSize(int size) const {
 
 void AttestationDatabase::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.AttestationDatabase)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.device_keys_.Clear();
-  _impl_.temporal_index_record_.Clear();
-  _impl_.identities_.Clear();
+  _internal_mutable_device_keys()->Clear();
+  _internal_mutable_temporal_index_record()->Clear();
+  _internal_mutable_identities()->Clear();
   _impl_.identity_certificates_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.enrollment_id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.credentials_ != nullptr);
+      ABSL_DCHECK(_impl_.credentials_ != nullptr);
       _impl_.credentials_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.identity_binding_ != nullptr);
-      _impl_.identity_binding_->Clear();
-    }
-    if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(_impl_.identity_key_ != nullptr);
-      _impl_.identity_key_->Clear();
-    }
-    if (cached_has_bits & 0x00000010u) {
-      GOOGLE_DCHECK(_impl_.pcr0_quote_ != nullptr);
-      _impl_.pcr0_quote_->Clear();
-    }
-    if (cached_has_bits & 0x00000020u) {
-      GOOGLE_DCHECK(_impl_.delegate_ != nullptr);
+      ABSL_DCHECK(_impl_.delegate_ != nullptr);
       _impl_.delegate_->Clear();
-    }
-    if (cached_has_bits & 0x00000040u) {
-      GOOGLE_DCHECK(_impl_.pcr1_quote_ != nullptr);
-      _impl_.pcr1_quote_->Clear();
     }
   }
   _impl_._has_bits_.Clear();
@@ -3922,52 +3686,30 @@ const char* AttestationDatabase::_InternalParse(const char* ptr, ::_pbi::ParseCo
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .attestation.TPMCredentials credentials = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_credentials(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
-        continue;
-      // optional .attestation.IdentityBinding identity_binding = 3 [deprecated = true];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_identity_binding(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .attestation.IdentityKey identity_key = 4 [deprecated = true];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_identity_key(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .attestation.Quote pcr0_quote = 5 [deprecated = true];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
-          ptr = ctx->ParseMessage(_internal_mutable_pcr0_quote(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
+        }
         continue;
       // optional .attestation.Delegation delegate = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_delegate(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .attestation.CertifiedKey device_keys = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3975,12 +3717,13 @@ const char* AttestationDatabase::_InternalParse(const char* ptr, ::_pbi::ParseCo
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .attestation.AttestationDatabase.TemporalIndexRecord temporal_index_record = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3988,29 +3731,23 @@ const char* AttestationDatabase::_InternalParse(const char* ptr, ::_pbi::ParseCo
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
-        } else
+        } else {
           goto handle_unusual;
-        continue;
-      // optional .attestation.Quote pcr1_quote = 12 [deprecated = true];
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
-          ptr = ctx->ParseMessage(_internal_mutable_pcr1_quote(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
+        }
         continue;
       // optional bytes enrollment_id = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 114)) {
           auto str = _internal_mutable_enrollment_id();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .attestation.AttestationDatabase.Identity identities = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 122)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -4018,12 +3755,13 @@ const char* AttestationDatabase::_InternalParse(const char* ptr, ::_pbi::ParseCo
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<122>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // map<int32, .attestation.AttestationDatabase.IdentityCertificate> identity_certificates = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 130)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -4031,8 +3769,9 @@ const char* AttestationDatabase::_InternalParse(const char* ptr, ::_pbi::ParseCo
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<130>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -4058,10 +3797,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AttestationDatabase::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* AttestationDatabase::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:attestation.AttestationDatabase)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -4072,29 +3811,8 @@ uint8_t* AttestationDatabase::_InternalSerialize(
         _Internal::credentials(this).GetCachedSize(), target, stream);
   }
 
-  // optional .attestation.IdentityBinding identity_binding = 3 [deprecated = true];
-  if (cached_has_bits & 0x00000004u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::identity_binding(this),
-        _Internal::identity_binding(this).GetCachedSize(), target, stream);
-  }
-
-  // optional .attestation.IdentityKey identity_key = 4 [deprecated = true];
-  if (cached_has_bits & 0x00000008u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::identity_key(this),
-        _Internal::identity_key(this).GetCachedSize(), target, stream);
-  }
-
-  // optional .attestation.Quote pcr0_quote = 5 [deprecated = true];
-  if (cached_has_bits & 0x00000010u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::pcr0_quote(this),
-        _Internal::pcr0_quote(this).GetCachedSize(), target, stream);
-  }
-
   // optional .attestation.Delegation delegate = 6;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(6, _Internal::delegate(this),
         _Internal::delegate(this).GetCachedSize(), target, stream);
@@ -4116,17 +3834,10 @@ uint8_t* AttestationDatabase::_InternalSerialize(
         InternalWriteMessage(8, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // optional .attestation.Quote pcr1_quote = 12 [deprecated = true];
-  if (cached_has_bits & 0x00000040u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(12, _Internal::pcr1_quote(this),
-        _Internal::pcr1_quote(this).GetCachedSize(), target, stream);
-  }
-
   // optional bytes enrollment_id = 14;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        14, this->_internal_enrollment_id(), target);
+    const std::string& _s = this->_internal_enrollment_id();
+    target = stream->WriteBytesMaybeAliased(14, _s, target);
   }
 
   // repeated .attestation.AttestationDatabase.Identity identities = 15;
@@ -4139,7 +3850,7 @@ uint8_t* AttestationDatabase::_InternalSerialize(
 
   // map<int32, .attestation.AttestationDatabase.IdentityCertificate> identity_certificates = 16;
   if (!this->_internal_identity_certificates().empty()) {
-    using MapType = ::_pb::Map<int32_t, ::attestation::AttestationDatabase_IdentityCertificate>;
+    using MapType = ::_pb::Map<::int32_t, ::attestation::AttestationDatabase_IdentityCertificate>;
     using WireHelper = AttestationDatabase_IdentityCertificatesEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_identity_certificates();
 
@@ -4162,31 +3873,31 @@ uint8_t* AttestationDatabase::_InternalSerialize(
   return target;
 }
 
-size_t AttestationDatabase::ByteSizeLong() const {
+::size_t AttestationDatabase::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:attestation.AttestationDatabase)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .attestation.CertifiedKey device_keys = 7;
   total_size += 1UL * this->_internal_device_keys_size();
-  for (const auto& msg : this->_impl_.device_keys_) {
+  for (const auto& msg : this->_internal_device_keys()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .attestation.AttestationDatabase.TemporalIndexRecord temporal_index_record = 8;
   total_size += 1UL * this->_internal_temporal_index_record_size();
-  for (const auto& msg : this->_impl_.temporal_index_record_) {
+  for (const auto& msg : this->_internal_temporal_index_record()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .attestation.AttestationDatabase.Identity identities = 15;
   total_size += 1UL * this->_internal_identities_size();
-  for (const auto& msg : this->_impl_.identities_) {
+  for (const auto& msg : this->_internal_identities()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -4194,19 +3905,18 @@ size_t AttestationDatabase::ByteSizeLong() const {
   // map<int32, .attestation.AttestationDatabase.IdentityCertificate> identity_certificates = 16;
   total_size += 2 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_identity_certificates_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::attestation::AttestationDatabase_IdentityCertificate >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::attestation::AttestationDatabase_IdentityCertificate >::const_iterator
       it = this->_internal_identity_certificates().begin();
       it != this->_internal_identity_certificates().end(); ++it) {
     total_size += AttestationDatabase_IdentityCertificatesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x00000007u) {
     // optional bytes enrollment_id = 14;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_enrollment_id());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_enrollment_id());
     }
 
     // optional .attestation.TPMCredentials credentials = 2;
@@ -4216,39 +3926,11 @@ size_t AttestationDatabase::ByteSizeLong() const {
           *_impl_.credentials_);
     }
 
-    // optional .attestation.IdentityBinding identity_binding = 3 [deprecated = true];
+    // optional .attestation.Delegation delegate = 6;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.identity_binding_);
-    }
-
-    // optional .attestation.IdentityKey identity_key = 4 [deprecated = true];
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.identity_key_);
-    }
-
-    // optional .attestation.Quote pcr0_quote = 5 [deprecated = true];
-    if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.pcr0_quote_);
-    }
-
-    // optional .attestation.Delegation delegate = 6;
-    if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.delegate_);
-    }
-
-    // optional .attestation.Quote pcr1_quote = 12 [deprecated = true];
-    if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.pcr1_quote_);
     }
 
   }
@@ -4269,16 +3951,16 @@ void AttestationDatabase::CheckTypeAndMergeFrom(
 void AttestationDatabase::MergeFrom(const AttestationDatabase& from) {
   AttestationDatabase* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:attestation.AttestationDatabase)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.device_keys_.MergeFrom(from._impl_.device_keys_);
-  _this->_impl_.temporal_index_record_.MergeFrom(from._impl_.temporal_index_record_);
-  _this->_impl_.identities_.MergeFrom(from._impl_.identities_);
+  _this->_internal_mutable_device_keys()->MergeFrom(from._internal_device_keys());
+  _this->_internal_mutable_temporal_index_record()->MergeFrom(from._internal_temporal_index_record());
+  _this->_internal_mutable_identities()->MergeFrom(from._internal_identities());
   _this->_impl_.identity_certificates_.MergeFrom(from._impl_.identity_certificates_);
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_enrollment_id(from._internal_enrollment_id());
     }
@@ -4287,24 +3969,8 @@ void AttestationDatabase::MergeFrom(const AttestationDatabase& from) {
           from._internal_credentials());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_identity_binding()->::attestation::IdentityBinding::MergeFrom(
-          from._internal_identity_binding());
-    }
-    if (cached_has_bits & 0x00000008u) {
-      _this->_internal_mutable_identity_key()->::attestation::IdentityKey::MergeFrom(
-          from._internal_identity_key());
-    }
-    if (cached_has_bits & 0x00000010u) {
-      _this->_internal_mutable_pcr0_quote()->::attestation::Quote::MergeFrom(
-          from._internal_pcr0_quote());
-    }
-    if (cached_has_bits & 0x00000020u) {
       _this->_internal_mutable_delegate()->::attestation::Delegation::MergeFrom(
           from._internal_delegate());
-    }
-    if (cached_has_bits & 0x00000040u) {
-      _this->_internal_mutable_pcr1_quote()->::attestation::Quote::MergeFrom(
-          from._internal_pcr1_quote());
     }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -4327,17 +3993,15 @@ void AttestationDatabase::InternalSwap(AttestationDatabase* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.device_keys_.InternalSwap(&other->_impl_.device_keys_);
-  _impl_.temporal_index_record_.InternalSwap(&other->_impl_.temporal_index_record_);
-  _impl_.identities_.InternalSwap(&other->_impl_.identities_);
+  _internal_mutable_device_keys()->InternalSwap(other->_internal_mutable_device_keys());
+  _internal_mutable_temporal_index_record()->InternalSwap(other->_internal_mutable_temporal_index_record());
+  _internal_mutable_identities()->InternalSwap(other->_internal_mutable_identities());
   _impl_.identity_certificates_.InternalSwap(&other->_impl_.identity_certificates_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.enrollment_id_, lhs_arena,
-      &other->_impl_.enrollment_id_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.enrollment_id_, lhs_arena,
+                                       &other->_impl_.enrollment_id_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AttestationDatabase, _impl_.pcr1_quote_)
-      + sizeof(AttestationDatabase::_impl_.pcr1_quote_)
+      PROTOBUF_FIELD_OFFSET(AttestationDatabase, _impl_.delegate_)
+      + sizeof(AttestationDatabase::_impl_.delegate_)
       - PROTOBUF_FIELD_OFFSET(AttestationDatabase, _impl_.credentials_)>(
           reinterpret_cast<char*>(&_impl_.credentials_),
           reinterpret_cast<char*>(&other->_impl_.credentials_));
@@ -4346,7 +4010,6 @@ void AttestationDatabase::InternalSwap(AttestationDatabase* other) {
 std::string AttestationDatabase::GetTypeName() const {
   return "attestation.AttestationDatabase";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace attestation
@@ -4404,6 +4067,5 @@ Arena::CreateMaybeMessage< ::attestation::AttestationDatabase >(Arena* arena) {
   return Arena::CreateMessageInternal< ::attestation::AttestationDatabase >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

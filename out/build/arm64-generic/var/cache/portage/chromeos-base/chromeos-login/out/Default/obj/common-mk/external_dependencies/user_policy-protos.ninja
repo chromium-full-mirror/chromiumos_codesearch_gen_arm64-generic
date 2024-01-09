@@ -5,12 +5,12 @@ cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -D_F
 root_out_dir = .
 target_output_name = libuser_policy-protos
 
-build obj/common-mk/external_dependencies/user_policy-protos.inputdeps.stamp: stamp obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
+build obj/common-mk/external_dependencies/user_policy-protos.inputdeps.stamp: stamp obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
 build obj/gen/include/bindings/libuser_policy-protos.cloud_policy.pb.o: cxx gen/include/bindings/cloud_policy.pb.cc || obj/common-mk/external_dependencies/user_policy-protos.inputdeps.stamp
   source_file_part = cloud_policy.pb.cc
   source_name_part = cloud_policy.pb
 
-build ./libuser_policy-protos.a: alink obj/gen/include/bindings/libuser_policy-protos.cloud_policy.pb.o || ./libpolicy_common_definitions-protos.a obj/common-mk/external_dependencies/user_policy-protos_gen.stamp obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp
+build ./libuser_policy-protos.a: alink obj/gen/include/bindings/libuser_policy-protos.cloud_policy.pb.o || ./libpolicy_common_definitions-protos.a obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
   arflags = rcsT
   output_extension = .a
   output_dir = 

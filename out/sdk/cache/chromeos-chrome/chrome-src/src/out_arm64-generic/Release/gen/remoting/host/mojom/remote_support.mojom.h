@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "remoting/host/mojom/remote_support.mojom-features.h"
 #include "remoting/host/mojom/remote_support.mojom-shared.h"
 #include "remoting/host/mojom/remote_support.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -135,7 +136,7 @@ class SupportHostObserver
   virtual void OnHostStateConnected(const std::string& remote_username) = 0;
 
   
-  virtual void OnHostStateDisconnected(const absl::optional<std::string>& disconnect_reason) = 0;
+  virtual void OnHostStateDisconnected(const std::optional<std::string>& disconnect_reason) = 0;
 
   
   virtual void OnNatPolicyChanged(NatPolicyStatePtr nat_policy_state) = 0;
@@ -169,7 +170,7 @@ class  SupportHostObserverProxy
   
   void OnHostStateConnected(const std::string& remote_username) final;
   
-  void OnHostStateDisconnected(const absl::optional<std::string>& disconnect_reason) final;
+  void OnHostStateDisconnected(const std::optional<std::string>& disconnect_reason) final;
   
   void OnNatPolicyChanged(NatPolicyStatePtr nat_policy_state) final;
   
@@ -397,17 +398,17 @@ class  StartSupportSessionResponse {
   // Construct an instance holding |observer|.
   static StartSupportSessionResponsePtr
   NewObserver(
-      ::mojo::PendingReceiver<SupportHostObserver> observer) {
+      ::mojo::PendingReceiver<SupportHostObserver> value) {
     auto result = StartSupportSessionResponsePtr(absl::in_place);
-    result->set_observer(std::move(observer));
+    result->set_observer(std::move(value));
     return result;
   }
   // Construct an instance holding |support_session_error|.
   static StartSupportSessionResponsePtr
   NewSupportSessionError(
-      StartSupportSessionError support_session_error) {
+      StartSupportSessionError value) {
     auto result = StartSupportSessionResponsePtr(absl::in_place);
-    result->set_support_session_error(std::move(support_session_error));
+    result->set_support_session_error(std::move(value));
     return result;
   }
 
@@ -701,7 +702,7 @@ class  SupportSessionParams {
       bool suppress_notifications,
       bool terminate_upon_input,
       bool curtain_local_user_session,
-      const absl::optional<std::string>& authorized_helper);
+      const std::optional<std::string>& authorized_helper);
 
 
   ~SupportSessionParams();
@@ -791,7 +792,7 @@ class  SupportSessionParams {
   
   bool curtain_local_user_session;
   
-  absl::optional<std::string> authorized_helper;
+  std::optional<std::string> authorized_helper;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

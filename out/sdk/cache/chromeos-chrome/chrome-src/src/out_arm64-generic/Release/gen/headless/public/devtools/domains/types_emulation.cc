@@ -133,6 +133,47 @@ std::unique_ptr<DisplayFeature> DisplayFeature::Clone() const {
 }
 
 
+std::unique_ptr<DevicePosture> DevicePosture::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("DevicePosture");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<DevicePosture> result(new DevicePosture());
+  errors->Push();
+  errors->SetName("DevicePosture");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* type_value = dict.Find("type");
+  if (type_value) {
+    errors->SetName("type");
+    result->type_ = internal::FromValue<::headless::emulation::DevicePostureType>::Parse(*type_value, errors);
+  } else {
+    errors->AddError("required property missing: type");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value DevicePosture::Serialize() const {
+  base::Value::Dict result;
+  result.Set("type", internal::ToValue(type_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<DevicePosture> DevicePosture::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<DevicePosture> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
 std::unique_ptr<MediaFeature> MediaFeature::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("MediaFeature");
@@ -1251,6 +1292,11 @@ std::unique_ptr<SetDeviceMetricsOverrideParams> SetDeviceMetricsOverrideParams::
     errors->SetName("displayFeature");
     result->display_feature_ = internal::FromValue<::headless::emulation::DisplayFeature>::Parse(*display_feature_value, errors);
   }
+  const base::Value* device_posture_value = dict.Find("devicePosture");
+  if (device_posture_value) {
+    errors->SetName("devicePosture");
+    result->device_posture_ = internal::FromValue<::headless::emulation::DevicePosture>::Parse(*device_posture_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -1282,6 +1328,8 @@ base::Value SetDeviceMetricsOverrideParams::Serialize() const {
     result.Set("viewport", internal::ToValue(*viewport_.value()));
   if (display_feature_)
     result.Set("displayFeature", internal::ToValue(*display_feature_.value()));
+  if (device_posture_)
+    result.Set("devicePosture", internal::ToValue(*device_posture_.value()));
   return base::Value(std::move(result));
 }
 

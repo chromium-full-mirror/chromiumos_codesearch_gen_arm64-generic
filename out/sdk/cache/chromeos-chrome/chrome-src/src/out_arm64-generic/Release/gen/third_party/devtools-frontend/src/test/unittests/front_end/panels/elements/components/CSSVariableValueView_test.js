@@ -7,7 +7,10 @@ import { describeWithEnvironment } from '../../../helpers/EnvironmentHelpers.js'
 const { assert } = chai;
 describeWithEnvironment('CSSVariableValueView', async () => {
     it('renders right tooltip', () => {
-        const popupComponent = new ElementsComponents.CSSVariableValueView.CSSVariableValueView('pink');
+        const popupComponent = new ElementsComponents.CSSVariableValueView.CSSVariableValueView({
+            variableName: '--var-name',
+            value: 'pink',
+        });
         renderElementIntoDOM(popupComponent);
         assertShadowRoot(popupComponent.shadowRoot);
         const shadowRoot = popupComponent.shadowRoot;

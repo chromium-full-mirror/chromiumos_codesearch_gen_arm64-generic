@@ -724,6 +724,40 @@ AppController_SetPermission_Params_Data::AppController_SetPermission_Params_Data
 
 
 // static
+bool AppController_UpdateAppSize_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppController_UpdateAppSize_Params_Data* object =
+      static_cast<const AppController_UpdateAppSize_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->app_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& app_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->app_id, validation_context,
+                                         &app_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+AppController_UpdateAppSize_Params_Data::AppController_UpdateAppSize_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool AppServiceProxy_RegisterAppServiceSubscriber_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1070,6 +1104,66 @@ AppServiceProxy_UninstallSilently_Params_Data::AppServiceProxy_UninstallSilently
 
 
 // static
+bool AppServiceProxy_InstallApp_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppServiceProxy_InstallApp_Params_Data* object =
+      static_cast<const AppServiceProxy_InstallApp_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->params, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->params, validation_context))
+    return false;
+
+  return true;
+}
+
+AppServiceProxy_InstallApp_Params_Data::AppServiceProxy_InstallApp_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppServiceProxy_InstallApp_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppServiceProxy_InstallApp_ResponseParams_Data* object =
+      static_cast<const AppServiceProxy_InstallApp_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+AppServiceProxy_InstallApp_ResponseParams_Data::AppServiceProxy_InstallApp_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool AppServiceSubscriber_OnApps_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1169,6 +1263,401 @@ bool AppServiceSubscriber_InitializePreferredApps_Params_Data::Validate(
 }
 
 AppServiceSubscriber_InitializePreferredApps_Params_Data::AppServiceSubscriber_InitializePreferredApps_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutPublisher_PublishShortcuts_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutPublisher_PublishShortcuts_Params_Data* object =
+      static_cast<const AppShortcutPublisher_PublishShortcuts_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->deltas, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& deltas_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->deltas, validation_context,
+                                         &deltas_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+AppShortcutPublisher_PublishShortcuts_Params_Data::AppShortcutPublisher_PublishShortcuts_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutPublisher_PublishShortcuts_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutPublisher_PublishShortcuts_ResponseParams_Data* object =
+      static_cast<const AppShortcutPublisher_PublishShortcuts_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+AppShortcutPublisher_PublishShortcuts_ResponseParams_Data::AppShortcutPublisher_PublishShortcuts_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutPublisher_RegisterAppShortcutController_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutPublisher_RegisterAppShortcutController_Params_Data* object =
+      static_cast<const AppShortcutPublisher_RegisterAppShortcutController_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->controller, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->controller,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+AppShortcutPublisher_RegisterAppShortcutController_Params_Data::AppShortcutPublisher_RegisterAppShortcutController_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data* object =
+      static_cast<const AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data*>(data);
+
+
+  if (!::crosapi::mojom::internal::ControllerRegistrationResult_Data
+        ::Validate(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data::AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutPublisher_ShortcutRemoved_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutPublisher_ShortcutRemoved_Params_Data* object =
+      static_cast<const AppShortcutPublisher_ShortcutRemoved_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->shortcut_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& shortcut_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->shortcut_id, validation_context,
+                                         &shortcut_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+AppShortcutPublisher_ShortcutRemoved_Params_Data::AppShortcutPublisher_ShortcutRemoved_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data* object =
+      static_cast<const AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data::AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutController_LaunchShortcut_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutController_LaunchShortcut_Params_Data* object =
+      static_cast<const AppShortcutController_LaunchShortcut_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->host_app_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& host_app_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->host_app_id, validation_context,
+                                         &host_app_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->local_shortcut_id, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& local_shortcut_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->local_shortcut_id, validation_context,
+                                         &local_shortcut_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+AppShortcutController_LaunchShortcut_Params_Data::AppShortcutController_LaunchShortcut_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutController_LaunchShortcut_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutController_LaunchShortcut_ResponseParams_Data* object =
+      static_cast<const AppShortcutController_LaunchShortcut_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+AppShortcutController_LaunchShortcut_ResponseParams_Data::AppShortcutController_LaunchShortcut_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutController_GetCompressedIcon_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutController_GetCompressedIcon_Params_Data* object =
+      static_cast<const AppShortcutController_GetCompressedIcon_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->host_app_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& host_app_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->host_app_id, validation_context,
+                                         &host_app_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->local_shortcut_id, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& local_shortcut_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->local_shortcut_id, validation_context,
+                                         &local_shortcut_id_validate_params)) {
+    return false;
+  }
+
+
+  if (!::crosapi::mojom::internal::ResourceScaleFactor_Data
+        ::Validate(object->scale_factor, validation_context))
+    return false;
+
+  return true;
+}
+
+AppShortcutController_GetCompressedIcon_Params_Data::AppShortcutController_GetCompressedIcon_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutController_GetCompressedIcon_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutController_GetCompressedIcon_ResponseParams_Data* object =
+      static_cast<const AppShortcutController_GetCompressedIcon_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->icon_value, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->icon_value, validation_context))
+    return false;
+
+  return true;
+}
+
+AppShortcutController_GetCompressedIcon_ResponseParams_Data::AppShortcutController_GetCompressedIcon_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutController_RemoveShortcut_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutController_RemoveShortcut_Params_Data* object =
+      static_cast<const AppShortcutController_RemoveShortcut_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->host_app_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& host_app_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->host_app_id, validation_context,
+                                         &host_app_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->local_shortcut_id, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& local_shortcut_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->local_shortcut_id, validation_context,
+                                         &local_shortcut_id_validate_params)) {
+    return false;
+  }
+
+
+  if (!::crosapi::mojom::internal::UninstallSource_Data
+        ::Validate(object->uninstall_source, validation_context))
+    return false;
+
+  return true;
+}
+
+AppShortcutController_RemoveShortcut_Params_Data::AppShortcutController_RemoveShortcut_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppShortcutController_RemoveShortcut_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcutController_RemoveShortcut_ResponseParams_Data* object =
+      static_cast<const AppShortcutController_RemoveShortcut_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+AppShortcutController_RemoveShortcut_ResponseParams_Data::AppShortcutController_RemoveShortcut_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

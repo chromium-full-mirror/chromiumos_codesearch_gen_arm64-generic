@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/secure_channel/public/mojom/secure_channel.mojom-features.h"
 #include "chromeos/ash/services/secure_channel/public/mojom/secure_channel.mojom-shared.h"
 #include "chromeos/ash/services/secure_channel/public/mojom/secure_channel.mojom-forward.h"
 #include "chromeos/ash/components/multidevice/mojom/multidevice_types.mojom.h"
@@ -272,7 +273,7 @@ class SecureChannel
   virtual void SetNearbyConnector(::mojo::PendingRemote<::ash::secure_channel::mojom::NearbyConnector> nearby_connector) = 0;
 
 
-  using GetLastSeenTimestampCallback = base::OnceCallback<void(absl::optional<::base::Time>)>;
+  using GetLastSeenTimestampCallback = base::OnceCallback<void(std::optional<::base::Time>)>;
   
   virtual void GetLastSeenTimestamp(const std::string& remote_device_id, GetLastSeenTimestampCallback callback) = 0;
 };

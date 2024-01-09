@@ -41,13 +41,10 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) DirectoryInterceptorFor
   void PathExists(const ::base::FilePath& path, PathExistsCallback callback) override;
   void GetEntries(const ::base::FilePath& path, GetEntriesMode mode, GetEntriesCallback callback) override;
   void OpenFile(const ::base::FilePath& path, FileOpenMode mode, FileReadAccess read_access, FileWriteAccess write_access, OpenFileCallback callback) override;
-  void WriteFileAtomically(const ::base::FilePath& path, const ::std::string& contents, WriteFileAtomicallyCallback callback) override;
   void CreateDirectory(const ::base::FilePath& path, CreateDirectoryCallback callback) override;
   void DeleteFile(const ::base::FilePath& path, DeleteFileCallback callback) override;
-  void DeletePathRecursively(const ::base::FilePath& path, DeletePathRecursivelyCallback callback) override;
   void GetFileInfo(const ::base::FilePath& path, GetFileInfoCallback callback) override;
   void GetPathAccess(const ::base::FilePath& path, GetPathAccessCallback callback) override;
-  void GetMaximumPathComponentLength(const ::base::FilePath& path, GetMaximumPathComponentLengthCallback callback) override;
   void RenameFile(const ::base::FilePath& old_path, const ::base::FilePath& new_path, RenameFileCallback callback) override;
   void LockFile(const ::base::FilePath& path, LockFileCallback callback) override;
   void SetOpenedFileLength(::base::File file, uint64_t size, SetOpenedFileLengthCallback callback) override;
@@ -69,27 +66,18 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) DirectoryAsyncWaiter {
   void OpenFile(
       const ::base::FilePath& path, FileOpenMode mode, FileReadAccess read_access, FileWriteAccess write_access, ::base::File::Error* out_error, ::base::File* out_file);
   
-  void WriteFileAtomically(
-      const ::base::FilePath& path, const ::std::string& contents, bool* out_success);
-  bool WriteFileAtomically(const ::base::FilePath& path, const ::std::string& contents);
   void CreateDirectory(
       const ::base::FilePath& path, ::base::File::Error* out_error);
   ::base::File::Error CreateDirectory(const ::base::FilePath& path);
   void DeleteFile(
       const ::base::FilePath& path, bool* out_success);
   bool DeleteFile(const ::base::FilePath& path);
-  void DeletePathRecursively(
-      const ::base::FilePath& path, bool* out_success);
-  bool DeletePathRecursively(const ::base::FilePath& path);
   void GetFileInfo(
-      const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info);
-  absl::optional<::base::File::Info> GetFileInfo(const ::base::FilePath& path);
+      const ::base::FilePath& path, std::optional<::base::File::Info>* out_info);
+  std::optional<::base::File::Info> GetFileInfo(const ::base::FilePath& path);
   void GetPathAccess(
       const ::base::FilePath& path, PathAccessInfoPtr* out_info);
   PathAccessInfoPtr GetPathAccess(const ::base::FilePath& path);
-  void GetMaximumPathComponentLength(
-      const ::base::FilePath& path, bool* out_success, int32_t* out_length);
-  
   void RenameFile(
       const ::base::FilePath& old_path, const ::base::FilePath& new_path, ::base::File::Error* out_error);
   ::base::File::Error RenameFile(const ::base::FilePath& old_path, const ::base::FilePath& new_path);

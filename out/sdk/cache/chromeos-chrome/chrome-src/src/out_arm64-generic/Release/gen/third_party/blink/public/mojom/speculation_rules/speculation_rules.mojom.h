@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/speculation_rules/speculation_rules.mojom-features.h"
 #include "third_party/blink/public/mojom/speculation_rules/speculation_rules.mojom-shared.h"
 #include "third_party/blink/public/mojom/speculation_rules/speculation_rules.mojom-forward.h"
 #include "services/network/public/mojom/no_vary_search.mojom.h"
@@ -206,7 +207,7 @@ class BLINK_COMMON_EXPORT SpeculationCandidate {
       SpeculationTargetHint target_browsing_context_name_hint,
       SpeculationEagerness eagerness,
       ::network::mojom::NoVarySearchPtr no_vary_search_hint,
-      SpeculationInjectionWorld injection_world);
+      SpeculationInjectionType injection_type);
 
 SpeculationCandidate(const SpeculationCandidate&) = delete;
 SpeculationCandidate& operator=(const SpeculationCandidate&) = delete;
@@ -300,7 +301,7 @@ SpeculationCandidate& operator=(const SpeculationCandidate&) = delete;
   
   ::network::mojom::NoVarySearchPtr no_vary_search_hint;
   
-  SpeculationInjectionWorld injection_world;
+  SpeculationInjectionType injection_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -341,7 +342,7 @@ SpeculationCandidatePtr SpeculationCandidate::Clone() const {
       mojo::Clone(target_browsing_context_name_hint),
       mojo::Clone(eagerness),
       mojo::Clone(no_vary_search_hint),
-      mojo::Clone(injection_world)
+      mojo::Clone(injection_type)
   );
 }
 
@@ -361,7 +362,7 @@ bool SpeculationCandidate::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->no_vary_search_hint, other_struct.no_vary_search_hint))
     return false;
-  if (!mojo::Equals(this->injection_world, other_struct.injection_world))
+  if (!mojo::Equals(this->injection_type, other_struct.injection_type))
     return false;
   return true;
 }
@@ -396,9 +397,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.no_vary_search_hint < lhs.no_vary_search_hint)
     return false;
-  if (lhs.injection_world < rhs.injection_world)
+  if (lhs.injection_type < rhs.injection_type)
     return true;
-  if (rhs.injection_world < lhs.injection_world)
+  if (rhs.injection_type < lhs.injection_type)
     return false;
   return false;
 }
@@ -450,9 +451,9 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::SpeculationCandidate::Da
     return input->no_vary_search_hint;
   }
 
-  static decltype(::blink::mojom::SpeculationCandidate::injection_world) injection_world(
+  static decltype(::blink::mojom::SpeculationCandidate::injection_type) injection_type(
       const ::blink::mojom::SpeculationCandidatePtr& input) {
-    return input->injection_world;
+    return input->injection_type;
   }
 
   static bool Read(::blink::mojom::SpeculationCandidate::DataView input, ::blink::mojom::SpeculationCandidatePtr* output);

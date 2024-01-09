@@ -142,7 +142,7 @@ const deletePropertyByBackspace = async (selector, root) => {
         const subtitles = await (0, elements_helpers_js_1.getStyleSectionSubtitles)();
         chai_1.assert.sameDeepMembers(subtitles, [
             '',
-            'css-module.css:1',
+            'css-module.css:7',
             'constructed stylesheet',
             'stylesheets…ces.html:10',
             'stylesheets…rces.html:7',
@@ -637,18 +637,12 @@ const deletePropertyByBackspace = async (selector, root) => {
         await (0, elements_helpers_js_1.waitForStyleRule)('#inspected4');
         const inspectedRules = await (0, elements_helpers_js_1.getDisplayedCSSDeclarations)();
         chai_1.assert.deepStrictEqual(inspectedRules, [
-            'background: black;',
-            'background-image: initial;',
-            'background-position-x: initial;',
-            'background-position-y: initial;',
-            'background-size: initial;',
-            'background-repeat-x: initial;',
-            'background-repeat-y: initial;',
-            'background-attachment: initial;',
-            'background-origin: initial;',
-            'background-clip: initial;',
-            'background-color: black;',
-            'background-color: yellow;',
+            'margin: 10px;',
+            'margin-top: 10px;',
+            'margin-right: 10px;',
+            'margin-bottom: 10px;',
+            'margin-left: 10px;',
+            'margin-left: 20px;',
             'display: block;',
         ]);
     });

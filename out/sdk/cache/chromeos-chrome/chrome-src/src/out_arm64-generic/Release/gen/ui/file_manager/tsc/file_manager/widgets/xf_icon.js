@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 var XfIcon_1;
-import { util } from '../common/js/util.js';
-import { constants } from '../foreground/js/constants.js';
+import { iconSetToCSSBackgroundImageValue } from '../common/js/util.js';
+import { ICON_TYPES } from '../foreground/js/constants.js';
 import { css, customElement, html, property, styleMap, svg, XfBase } from './xf_base.js';
 let XfIcon = XfIcon_1 = class XfIcon extends XfBase {
     constructor() {
@@ -15,7 +15,7 @@ let XfIcon = XfIcon_1 = class XfIcon extends XfBase {
         this.size = XfIcon_1.sizes.SMALL;
         /**
          * The icon type, different type will render different SVG file
-         * (from `constants.ICON_TYPES`).
+         * (from `ICON_TYPES`).
          */
         this.type = '';
         /**
@@ -34,21 +34,21 @@ let XfIcon = XfIcon_1 = class XfIcon extends XfBase {
     }
     static get multiColor() {
         return {
-            [constants.ICON_TYPES.CANT_PIN]: svg `<use xlink:href="foreground/images/files/ui/cant_pin.svg#cant_pin"></use>`,
-            [constants.ICON_TYPES.CLOUD_DONE]: svg `<use xlink:href="foreground/images/files/ui/cloud_done.svg#cloud_done"></use>`,
-            [constants.ICON_TYPES.CLOUD_ERROR]: svg `<use xlink:href="foreground/images/files/ui/cloud_error.svg#cloud_error"></use>`,
-            [constants.ICON_TYPES.CLOUD_OFFLINE]: svg `<use xlink:href="foreground/images/files/ui/cloud_offline.svg#cloud_offline"></use>`,
-            [constants.ICON_TYPES.CLOUD_PAUSED]: svg `<use xlink:href="foreground/images/files/ui/cloud_paused.svg#cloud_paused"></use>`,
-            [constants.ICON_TYPES.CLOUD_SYNC]: svg `<use xlink:href="foreground/images/files/ui/cloud_sync.svg#cloud_sync"></use>`,
-            [constants.ICON_TYPES.ERROR]: svg `<use xlink:href="foreground/images/files/ui/error.svg#error"></use>`,
-            [constants.ICON_TYPES.OFFLINE]: svg `<use xlink:href="foreground/images/files/ui/offline.svg#offline"></use>`,
+            [ICON_TYPES.CANT_PIN]: svg `<use xlink:href="foreground/images/files/ui/cant_pin.svg#cant_pin"></use>`,
+            [ICON_TYPES.CLOUD_DONE]: svg `<use xlink:href="foreground/images/files/ui/cloud_done.svg#cloud_done"></use>`,
+            [ICON_TYPES.CLOUD_ERROR]: svg `<use xlink:href="foreground/images/files/ui/cloud_error.svg#cloud_error"></use>`,
+            [ICON_TYPES.CLOUD_OFFLINE]: svg `<use xlink:href="foreground/images/files/ui/cloud_offline.svg#cloud_offline"></use>`,
+            [ICON_TYPES.CLOUD_PAUSED]: svg `<use xlink:href="foreground/images/files/ui/cloud_paused.svg#cloud_paused"></use>`,
+            [ICON_TYPES.CLOUD_SYNC]: svg `<use xlink:href="foreground/images/files/ui/cloud_sync.svg#cloud_sync"></use>`,
+            [ICON_TYPES.ERROR]: svg `<use xlink:href="foreground/images/files/ui/error.svg#error"></use>`,
+            [ICON_TYPES.OFFLINE]: svg `<use xlink:href="foreground/images/files/ui/offline.svg#offline"></use>`,
         };
     }
     static get styles() {
         return getCSS();
     }
     render() {
-        if (this.type === constants.ICON_TYPES.BLANK) {
+        if (this.type === ICON_TYPES.BLANK) {
             return html ``;
         }
         if (Object.keys(XfIcon_1.multiColor).includes(this.type)) {
@@ -61,7 +61,7 @@ let XfIcon = XfIcon_1 = class XfIcon extends XfBase {
         }
         if (this.iconSet) {
             const backgroundImageStyle = {
-                'background-image': util.iconSetToCSSBackgroundImageValue(this.iconSet),
+                'background-image': iconSetToCSSBackgroundImageValue(this.iconSet),
             };
             return html `<span class="keep-color" style=${styleMap(backgroundImageStyle)}></span>`;
         }
@@ -83,9 +83,9 @@ let XfIcon = XfIcon_1 = class XfIcon extends XfBase {
             console.warn('Empty type will result in an square being rendered.');
             return;
         }
-        const validTypes = Object.values(constants.ICON_TYPES);
+        const validTypes = Object.values(ICON_TYPES);
         if (!validTypes.find((t) => t === type)) {
-            console.warn(`Type ${type} is not a valid icon type, please check constants.ICON_TYPES.`);
+            console.warn(`Type ${type} is not a valid icon type, please check ICON_TYPES.`);
         }
     }
 };

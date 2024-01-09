@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct AddFolderOptions {
   ~AddFolderOptions();
   AddFolderOptions(const AddFolderOptions&) = delete;
   AddFolderOptions& operator=(const AddFolderOptions&) = delete;
-  AddFolderOptions(AddFolderOptions&& rhs);
-  AddFolderOptions& operator=(AddFolderOptions&& rhs);
+  AddFolderOptions(AddFolderOptions&& rhs) noexcept;
+  AddFolderOptions& operator=(AddFolderOptions&& rhs) noexcept;
 
   // Populates a AddFolderOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -48,16 +49,13 @@ struct AddFolderOptions {
   // Creates a deep copy of AddFolderOptions.
   AddFolderOptions Clone() const;
 
-  // Creates a AddFolderOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AddFolderOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddFolderOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AddFolderOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<AddFolderOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a AddFolderOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AddFolderOptions> FromValue(const base::Value& value);
+  static std::optional<AddFolderOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddFolderOptions object.
@@ -65,7 +63,7 @@ struct AddFolderOptions {
 
   std::string name;
 
-  absl::optional<bool> add_to_front;
+  std::optional<bool> add_to_front;
 
 };
 
@@ -74,8 +72,8 @@ struct AddAppOptions {
   ~AddAppOptions();
   AddAppOptions(const AddAppOptions&) = delete;
   AddAppOptions& operator=(const AddAppOptions&) = delete;
-  AddAppOptions(AddAppOptions&& rhs);
-  AddAppOptions& operator=(AddAppOptions&& rhs);
+  AddAppOptions(AddAppOptions&& rhs) noexcept;
+  AddAppOptions& operator=(AddAppOptions&& rhs) noexcept;
 
   // Populates a AddAppOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -88,15 +86,12 @@ struct AddAppOptions {
   // Creates a deep copy of AddAppOptions.
   AddAppOptions Clone() const;
 
-  // Creates a AddAppOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AddAppOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddAppOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AddAppOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<AddAppOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a AddAppOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<AddAppOptions> FromValue(const base::Value& value);
+  static std::optional<AddAppOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddAppOptions object.
@@ -104,11 +99,11 @@ struct AddAppOptions {
 
   std::string name;
 
-  absl::optional<bool> add_to_front;
+  std::optional<bool> add_to_front;
 
-  absl::optional<std::string> folder_id;
+  std::optional<std::string> folder_id;
 
-  absl::optional<std::string> icon_url;
+  std::optional<std::string> icon_url;
 
 };
 
@@ -129,8 +124,8 @@ struct SortLauncherOptions {
   ~SortLauncherOptions();
   SortLauncherOptions(const SortLauncherOptions&) = delete;
   SortLauncherOptions& operator=(const SortLauncherOptions&) = delete;
-  SortLauncherOptions(SortLauncherOptions&& rhs);
-  SortLauncherOptions& operator=(SortLauncherOptions&& rhs);
+  SortLauncherOptions(SortLauncherOptions&& rhs) noexcept;
+  SortLauncherOptions& operator=(SortLauncherOptions&& rhs) noexcept;
 
   // Populates a SortLauncherOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -143,17 +138,13 @@ struct SortLauncherOptions {
   // Creates a deep copy of SortLauncherOptions.
   SortLauncherOptions Clone() const;
 
-  // Creates a SortLauncherOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SortLauncherOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a SortLauncherOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<SortLauncherOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<SortLauncherOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a SortLauncherOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SortLauncherOptions> FromValue(const base::Value& value);
+  static std::optional<SortLauncherOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSortLauncherOptions object.
@@ -171,11 +162,11 @@ struct SortLauncherOptions {
 namespace AddFolder {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   AddFolderOptions options;
@@ -195,11 +186,11 @@ base::Value::List Create(const std::string& result);
 namespace AddApp {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   AddAppOptions options;
@@ -219,11 +210,11 @@ base::Value::List Create(const std::string& result);
 namespace DeleteApp {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string app_id;
@@ -243,11 +234,11 @@ base::Value::List Create();
 namespace SortLauncher {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   SortLauncherOptions options;
@@ -267,11 +258,11 @@ base::Value::List Create();
 namespace SetPinnedApps {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> app_ids;

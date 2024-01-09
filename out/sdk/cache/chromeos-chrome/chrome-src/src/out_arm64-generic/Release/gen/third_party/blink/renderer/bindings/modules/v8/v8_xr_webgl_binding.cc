@@ -93,11 +93,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRWebGLBinding>::value,
     "XRWebGLBinding inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRWebGLBinding::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRWebGLBinding is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -110,8 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLBinding.nativeProjectionScaleFactor.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(v8_receiver);
+XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->nativeProjectionScaleFactor();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -124,8 +120,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLBinding.usesDepthValues.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(v8_receiver);
+XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->usesDepthValues();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -182,10 +179,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLBinding.createProjectionLayer");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<XRProjectionLayerInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_init;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<XRProjectionLayerInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_init;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRWebGLBinding";
 const char* const property_name = "createProjectionLayer";
@@ -230,7 +227,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(v8_receiver);
+XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_camera = NativeValueTraits<XRCamera>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -267,7 +264,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(v8_receiver);
+XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_view = NativeValueTraits<XRView>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -304,7 +301,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(v8_receiver);
+XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_light_probe = NativeValueTraits<XRLightProbe>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -337,7 +334,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(v8_receiver);
+XRWebGLBinding* blink_receiver = V8XRWebGLBinding::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_layer = NativeValueTraits<XRProjectionLayer>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

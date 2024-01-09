@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/activity_log_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -172,8 +173,8 @@ ExtensionActivity::Other::Other()
 : dom_verb() {}
 
 ExtensionActivity::Other::~Other() = default;
-ExtensionActivity::Other::Other(Other&& rhs) = default;
-ExtensionActivity::Other& ExtensionActivity::Other::operator=(Other&& rhs) = default;
+ExtensionActivity::Other::Other(Other&& rhs) noexcept = default;
+ExtensionActivity::Other& ExtensionActivity::Other::operator=(Other&& rhs) noexcept = default;
 ExtensionActivity::Other ExtensionActivity::Other::Clone() const {
   Other out;
   out.prerender = prerender;
@@ -192,7 +193,7 @@ bool ExtensionActivity::Other::Populate(
     {
       auto temp = (*prerender_value).GetIfBool();
       if (!temp.has_value()) {
-        out.prerender = absl::nullopt;
+        out.prerender = std::nullopt;
         return false;
       }
       out.prerender = *temp;
@@ -220,7 +221,7 @@ bool ExtensionActivity::Other::Populate(
     {
       auto* temp = (*web_request_value).GetIfString();
       if (!temp) {
-        out.web_request = absl::nullopt;
+        out.web_request = std::nullopt;
         return false;
       }
       out.web_request = *temp;
@@ -232,7 +233,7 @@ bool ExtensionActivity::Other::Populate(
     {
       auto* temp = (*extra_value).GetIfString();
       if (!temp) {
-        out.extra = absl::nullopt;
+        out.extra = std::nullopt;
         return false;
       }
       out.extra = *temp;
@@ -252,21 +253,21 @@ bool ExtensionActivity::Other::Populate(
 }
 
 // static
-absl::optional<ExtensionActivity::Other> ExtensionActivity::Other::FromValue(const base::Value::Dict& value) {
+std::optional<ExtensionActivity::Other> ExtensionActivity::Other::FromValue(const base::Value::Dict& value) {
   Other out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExtensionActivity::Other> ExtensionActivity::Other::FromValue(const base::Value& value) {
+std::optional<ExtensionActivity::Other> ExtensionActivity::Other::FromValue(const base::Value& value) {
   Other out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -300,8 +301,8 @@ ExtensionActivity::ExtensionActivity()
 : activity_type() {}
 
 ExtensionActivity::~ExtensionActivity() = default;
-ExtensionActivity::ExtensionActivity(ExtensionActivity&& rhs) = default;
-ExtensionActivity& ExtensionActivity::operator=(ExtensionActivity&& rhs) = default;
+ExtensionActivity::ExtensionActivity(ExtensionActivity&& rhs) noexcept = default;
+ExtensionActivity& ExtensionActivity::operator=(ExtensionActivity&& rhs) noexcept = default;
 ExtensionActivity ExtensionActivity::Clone() const {
   ExtensionActivity out;
   out.activity_id = activity_id;
@@ -328,7 +329,7 @@ bool ExtensionActivity::Populate(
     {
       auto* temp = (*activity_id_value).GetIfString();
       if (!temp) {
-        out.activity_id = absl::nullopt;
+        out.activity_id = std::nullopt;
         return false;
       }
       out.activity_id = *temp;
@@ -340,7 +341,7 @@ bool ExtensionActivity::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out.extension_id = absl::nullopt;
+        out.extension_id = std::nullopt;
         return false;
       }
       out.extension_id = *temp;
@@ -367,7 +368,7 @@ bool ExtensionActivity::Populate(
     {
       auto temp = (*time_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.time = absl::nullopt;
+        out.time = std::nullopt;
         return false;
       }
       out.time = *temp;
@@ -379,7 +380,7 @@ bool ExtensionActivity::Populate(
     {
       auto* temp = (*api_call_value).GetIfString();
       if (!temp) {
-        out.api_call = absl::nullopt;
+        out.api_call = std::nullopt;
         return false;
       }
       out.api_call = *temp;
@@ -391,7 +392,7 @@ bool ExtensionActivity::Populate(
     {
       auto* temp = (*args_value).GetIfString();
       if (!temp) {
-        out.args = absl::nullopt;
+        out.args = std::nullopt;
         return false;
       }
       out.args = *temp;
@@ -403,7 +404,7 @@ bool ExtensionActivity::Populate(
     {
       auto temp = (*count_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.count = absl::nullopt;
+        out.count = std::nullopt;
         return false;
       }
       out.count = *temp;
@@ -415,7 +416,7 @@ bool ExtensionActivity::Populate(
     {
       auto* temp = (*page_url_value).GetIfString();
       if (!temp) {
-        out.page_url = absl::nullopt;
+        out.page_url = std::nullopt;
         return false;
       }
       out.page_url = *temp;
@@ -427,7 +428,7 @@ bool ExtensionActivity::Populate(
     {
       auto* temp = (*page_title_value).GetIfString();
       if (!temp) {
-        out.page_title = absl::nullopt;
+        out.page_title = std::nullopt;
         return false;
       }
       out.page_title = *temp;
@@ -439,7 +440,7 @@ bool ExtensionActivity::Populate(
     {
       auto* temp = (*arg_url_value).GetIfString();
       if (!temp) {
-        out.arg_url = absl::nullopt;
+        out.arg_url = std::nullopt;
         return false;
       }
       out.arg_url = *temp;
@@ -474,34 +475,21 @@ bool ExtensionActivity::Populate(
 }
 
 // static
-std::unique_ptr<ExtensionActivity> ExtensionActivity::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExtensionActivity>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExtensionActivity> ExtensionActivity::FromValue(const base::Value::Dict& value) {
+  ExtensionActivity out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExtensionActivity> ExtensionActivity::FromValue(const base::Value::Dict& value) {
+std::optional<ExtensionActivity> ExtensionActivity::FromValue(const base::Value& value) {
   ExtensionActivity out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExtensionActivity> ExtensionActivity::FromValue(const base::Value& value) {
-  ExtensionActivity out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -560,8 +548,8 @@ Filter::Filter()
 : activity_type() {}
 
 Filter::~Filter() = default;
-Filter::Filter(Filter&& rhs) = default;
-Filter& Filter::operator=(Filter&& rhs) = default;
+Filter::Filter(Filter&& rhs) noexcept = default;
+Filter& Filter::operator=(Filter&& rhs) noexcept = default;
 Filter Filter::Clone() const {
   Filter out;
   out.extension_id = extension_id;
@@ -581,7 +569,7 @@ bool Filter::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out.extension_id = absl::nullopt;
+        out.extension_id = std::nullopt;
         return false;
       }
       out.extension_id = *temp;
@@ -608,7 +596,7 @@ bool Filter::Populate(
     {
       auto* temp = (*api_call_value).GetIfString();
       if (!temp) {
-        out.api_call = absl::nullopt;
+        out.api_call = std::nullopt;
         return false;
       }
       out.api_call = *temp;
@@ -620,7 +608,7 @@ bool Filter::Populate(
     {
       auto* temp = (*page_url_value).GetIfString();
       if (!temp) {
-        out.page_url = absl::nullopt;
+        out.page_url = std::nullopt;
         return false;
       }
       out.page_url = *temp;
@@ -632,7 +620,7 @@ bool Filter::Populate(
     {
       auto* temp = (*arg_url_value).GetIfString();
       if (!temp) {
-        out.arg_url = absl::nullopt;
+        out.arg_url = std::nullopt;
         return false;
       }
       out.arg_url = *temp;
@@ -644,7 +632,7 @@ bool Filter::Populate(
     {
       auto temp = (*days_ago_value).GetIfInt();
       if (!temp.has_value()) {
-        out.days_ago = absl::nullopt;
+        out.days_ago = std::nullopt;
         return false;
       }
       out.days_ago = *temp;
@@ -664,34 +652,21 @@ bool Filter::Populate(
 }
 
 // static
-std::unique_ptr<Filter> Filter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Filter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Filter> Filter::FromValue(const base::Value::Dict& value) {
+  Filter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Filter> Filter::FromValue(const base::Value::Dict& value) {
+std::optional<Filter> Filter::FromValue(const base::Value& value) {
   Filter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Filter> Filter::FromValue(const base::Value& value) {
-  Filter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -730,8 +705,8 @@ ActivityResultSet::ActivityResultSet()
  {}
 
 ActivityResultSet::~ActivityResultSet() = default;
-ActivityResultSet::ActivityResultSet(ActivityResultSet&& rhs) = default;
-ActivityResultSet& ActivityResultSet::operator=(ActivityResultSet&& rhs) = default;
+ActivityResultSet::ActivityResultSet(ActivityResultSet&& rhs) noexcept = default;
+ActivityResultSet& ActivityResultSet::operator=(ActivityResultSet&& rhs) noexcept = default;
 ActivityResultSet ActivityResultSet::Clone() const {
   ActivityResultSet out;
   out.activities.reserve(activities.size());
@@ -772,34 +747,21 @@ bool ActivityResultSet::Populate(
 }
 
 // static
-std::unique_ptr<ActivityResultSet> ActivityResultSet::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ActivityResultSet>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ActivityResultSet> ActivityResultSet::FromValue(const base::Value::Dict& value) {
+  ActivityResultSet out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ActivityResultSet> ActivityResultSet::FromValue(const base::Value::Dict& value) {
+std::optional<ActivityResultSet> ActivityResultSet::FromValue(const base::Value& value) {
   ActivityResultSet out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ActivityResultSet> ActivityResultSet::FromValue(const base::Value& value) {
-  ActivityResultSet out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -823,13 +785,13 @@ namespace GetExtensionActivities {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -838,15 +800,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Filter::Populate(filter_value.GetDict(), params.filter)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -866,13 +828,13 @@ namespace DeleteActivities {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -881,17 +843,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& activity_ids_value = args[0];
     {
       if (!activity_ids_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(activity_ids_value.GetList(), params.activity_ids)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -909,13 +871,13 @@ namespace DeleteActivitiesByExtension {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -925,13 +887,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = extension_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.extension_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -953,13 +915,13 @@ namespace DeleteUrls {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -968,17 +930,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

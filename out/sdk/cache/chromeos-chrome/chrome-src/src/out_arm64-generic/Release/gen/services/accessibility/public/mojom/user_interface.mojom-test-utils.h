@@ -17,6 +17,7 @@ class  UserInterfaceInterceptorForTesting : public UserInterface {
   virtual UserInterface* GetForwardingInterface() = 0;
   void DarkenScreen(bool darken) override;
   void OpenSettingsSubpage(const std::string& subpage) override;
+  void ShowConfirmationDialog(const std::string& title, const std::string& description, const std::optional<std::string>& cancelName, ShowConfirmationDialogCallback callback) override;
   void SetFocusRings(std::vector<FocusRingInfoPtr> focus_rings, ::ax::mojom::AssistiveTechnologyType at_type) override;
   void SetHighlights(const std::vector<::gfx::Rect>& rects, ::SkColor color) override;
   void SetVirtualKeyboardVisible(bool is_visible) override;
@@ -29,6 +30,9 @@ class  UserInterfaceAsyncWaiter {
   UserInterfaceAsyncWaiter& operator=(const UserInterfaceAsyncWaiter&) = delete;
 
   ~UserInterfaceAsyncWaiter();
+  void ShowConfirmationDialog(
+      const std::string& title, const std::string& description, const std::optional<std::string>& cancelName, bool* out_confirmed);
+  bool ShowConfirmationDialog(const std::string& title, const std::string& description, const std::optional<std::string>& cancelName);
 
  private:
   UserInterface* const proxy_;

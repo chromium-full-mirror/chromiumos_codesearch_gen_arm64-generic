@@ -83,8 +83,8 @@ class BLINK_COMMON_EXPORT ManagedConfigurationServiceAsyncWaiter {
 
   ~ManagedConfigurationServiceAsyncWaiter();
   void GetManagedConfiguration(
-      const std::vector<std::string>& keys, absl::optional<base::flat_map<std::string, std::string>>* out_configurations);
-  absl::optional<base::flat_map<std::string, std::string>> GetManagedConfiguration(const std::vector<std::string>& keys);
+      const std::vector<std::string>& keys, std::optional<base::flat_map<std::string, std::string>>* out_configurations);
+  std::optional<base::flat_map<std::string, std::string>> GetManagedConfiguration(const std::vector<std::string>& keys);
 
  private:
   ManagedConfigurationService* const proxy_;

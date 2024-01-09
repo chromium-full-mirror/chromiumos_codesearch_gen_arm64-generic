@@ -1,13 +1,8 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
-import { strf, util } from '../../../../common/js/util.js';
-import { VolumeManagerCommon } from '../../../../common/js/volume_manager_types.js';
+import { bytesToString, strf } from '../../../../common/js/translations.js';
+import { RootType, VolumeType } from '../../../../common/js/volume_manager_types.js';
 import { getTemplate } from './drive_low_individual_space_banner.html.js';
 import { WarningBanner } from './warning_banner.js';
 /**
@@ -35,7 +30,7 @@ export class DriveLowIndividualSpaceBanner extends WarningBanner {
      */
     diskThreshold() {
         return {
-            type: VolumeManagerCommon.VolumeType.DRIVE,
+            type: RootType.DRIVE,
             minRatio: 0.2,
         };
     }
@@ -46,8 +41,8 @@ export class DriveLowIndividualSpaceBanner extends WarningBanner {
      */
     allowedVolumes() {
         return [{
-                type: VolumeManagerCommon.VolumeType.DRIVE,
-                root: VolumeManagerCommon.RootType.DRIVE,
+                type: VolumeType.DRIVE,
+                root: RootType.DRIVE,
             }];
     }
     /**
@@ -61,7 +56,7 @@ export class DriveLowIndividualSpaceBanner extends WarningBanner {
         }
         this.shadowRoot.querySelector('span[slot="text"]').innerText =
             strf('DRIVE_INDIVIDUAL_QUOTA_LOW', Math.ceil((context.totalBytes - context.usedBytes) / context.totalBytes *
-                100), util.bytesToString(context.totalBytes));
+                100), bytesToString(context.totalBytes));
     }
 }
 customElements.define(TAG_NAME, DriveLowIndividualSpaceBanner);

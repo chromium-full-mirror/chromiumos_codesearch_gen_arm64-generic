@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -227,14 +228,17 @@ void AccountStatusChangeDelegateProxy::OnPotentialHostExistsForNewUser(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::AccountStatusChangeDelegate::OnPotentialHostExistsForNewUser");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountStatusChangeDelegate_OnPotentialHostExistsForNewUser_Name, kFlags, 0, 0, nullptr);
@@ -257,14 +261,17 @@ void AccountStatusChangeDelegateProxy::OnNoLongerNewUser(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::AccountStatusChangeDelegate::OnNoLongerNewUser");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountStatusChangeDelegate_OnNoLongerNewUser_Name, kFlags, 0, 0, nullptr);
@@ -294,14 +301,17 @@ void AccountStatusChangeDelegateProxy::OnConnectedHostSwitchedForExistingUser(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountStatusChangeDelegate_OnConnectedHostSwitchedForExistingUser_Name, kFlags, 0, 0, nullptr);
@@ -342,14 +352,17 @@ void AccountStatusChangeDelegateProxy::OnNewChromebookAddedForExistingUser(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountStatusChangeDelegate_OnNewChromebookAddedForExistingUser_Name, kFlags, 0, 0, nullptr);
@@ -383,14 +396,17 @@ void AccountStatusChangeDelegateProxy::OnBecameEligibleForWifiSync(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::AccountStatusChangeDelegate::OnBecameEligibleForWifiSync");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccountStatusChangeDelegate_OnBecameEligibleForWifiSync_Name, kFlags, 0, 0, nullptr);
@@ -562,18 +578,18 @@ bool AccountStatusChangeDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccountStatusChangeDelegateValidationInfo[] = {
-    {&internal::AccountStatusChangeDelegate_OnPotentialHostExistsForNewUser_Params_Data::Validate,
+    { &internal::AccountStatusChangeDelegate_OnPotentialHostExistsForNewUser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccountStatusChangeDelegate_OnNoLongerNewUser_Params_Data::Validate,
+    { &internal::AccountStatusChangeDelegate_OnNoLongerNewUser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccountStatusChangeDelegate_OnConnectedHostSwitchedForExistingUser_Params_Data::Validate,
+    { &internal::AccountStatusChangeDelegate_OnConnectedHostSwitchedForExistingUser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccountStatusChangeDelegate_OnNewChromebookAddedForExistingUser_Params_Data::Validate,
+    { &internal::AccountStatusChangeDelegate_OnNewChromebookAddedForExistingUser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccountStatusChangeDelegate_OnBecameEligibleForWifiSync_Params_Data::Validate,
+    { &internal::AccountStatusChangeDelegate_OnBecameEligibleForWifiSync_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -642,7 +658,7 @@ HostStatusObserverProxy::HostStatusObserverProxy(mojo::MessageReceiverWithRespon
 }
 
 void HostStatusObserverProxy::OnHostStatusChanged(
-    HostStatus in_host_status, const absl::optional<::ash::multidevice::RemoteDevice>& in_host_device) {
+    HostStatus in_host_status, const std::optional<::ash::multidevice::RemoteDevice>& in_host_device) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::multidevice_setup::mojom::HostStatusObserver::OnHostStatusChanged", "input_parameters",
@@ -653,17 +669,20 @@ void HostStatusObserverProxy::OnHostStatusChanged(
                         "<value of type HostStatus>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("host_device"), in_host_device,
-                        "<value of type const absl::optional<::ash::multidevice::RemoteDevice>&>");
+                        "<value of type const std::optional<::ash::multidevice::RemoteDevice>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHostStatusObserver_OnHostStatusChanged_Name, kFlags, 0, 0, nullptr);
@@ -704,7 +723,7 @@ bool HostStatusObserverStubDispatch::Accept(
       
       bool success = true;
       HostStatus p_host_status{};
-      absl::optional<::ash::multidevice::RemoteDevice> p_host_device{};
+      std::optional<::ash::multidevice::RemoteDevice> p_host_device{};
       HostStatusObserver_OnHostStatusChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadHostStatus(&p_host_status))
@@ -744,10 +763,10 @@ bool HostStatusObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHostStatusObserverValidationInfo[] = {
-    {&internal::HostStatusObserver_OnHostStatusChanged_Params_Data::Validate,
+    { &internal::HostStatusObserver_OnHostStatusChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -827,14 +846,17 @@ void FeatureStateObserverProxy::OnFeatureStatesChanged(
                         "<value of type const base::flat_map<Feature, FeatureState>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFeatureStateObserver_OnFeatureStatesChanged_Name, kFlags, 0, 0, nullptr);
@@ -915,10 +937,10 @@ bool FeatureStateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFeatureStateObserverValidationInfo[] = {
-    {&internal::FeatureStateObserver_OnFeatureStatesChanged_Params_Data::Validate,
+    { &internal::FeatureStateObserver_OnFeatureStatesChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1402,14 +1424,17 @@ void MultiDeviceSetupProxy::SetAccountStatusChangeDelegate(
                         "<value of type ::mojo::PendingRemote<AccountStatusChangeDelegate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_SetAccountStatusChangeDelegate_Name, kFlags, 0, 0, nullptr);
@@ -1445,14 +1470,17 @@ void MultiDeviceSetupProxy::AddHostStatusObserver(
                         "<value of type ::mojo::PendingRemote<HostStatusObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_AddHostStatusObserver_Name, kFlags, 0, 0, nullptr);
@@ -1488,14 +1516,17 @@ void MultiDeviceSetupProxy::AddFeatureStateObserver(
                         "<value of type ::mojo::PendingRemote<FeatureStateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_AddFeatureStateObserver_Name, kFlags, 0, 0, nullptr);
@@ -1524,14 +1555,17 @@ void MultiDeviceSetupProxy::GetEligibleHostDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::MultiDeviceSetup::GetEligibleHostDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetEligibleHostDevices_Name, kFlags, 0, 0, nullptr);
@@ -1555,14 +1589,17 @@ void MultiDeviceSetupProxy::GetEligibleActiveHostDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::MultiDeviceSetup::GetEligibleActiveHostDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetEligibleActiveHostDevices_Name, kFlags, 0, 0, nullptr);
@@ -1596,14 +1633,17 @@ void MultiDeviceSetupProxy::SetHostDevice(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_SetHostDevice_Name, kFlags, 0, 0, nullptr);
@@ -1649,14 +1689,17 @@ void MultiDeviceSetupProxy::RemoveHostDevice(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::MultiDeviceSetup::RemoveHostDevice");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_RemoveHostDevice_Name, kFlags, 0, 0, nullptr);
@@ -1679,14 +1722,17 @@ void MultiDeviceSetupProxy::GetHostStatus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::MultiDeviceSetup::GetHostStatus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetHostStatus_Name, kFlags, 0, 0, nullptr);
@@ -1706,7 +1752,7 @@ void MultiDeviceSetupProxy::GetHostStatus(
 }
 
 void MultiDeviceSetupProxy::SetFeatureEnabledState(
-    Feature in_feature, bool in_enabled, const absl::optional<std::string>& in_auth_token, SetFeatureEnabledStateCallback callback) {
+    Feature in_feature, bool in_enabled, const std::optional<std::string>& in_auth_token, SetFeatureEnabledStateCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::multidevice_setup::mojom::MultiDeviceSetup::SetFeatureEnabledState", "input_parameters",
@@ -1720,17 +1766,20 @@ void MultiDeviceSetupProxy::SetFeatureEnabledState(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("auth_token"), in_auth_token,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_SetFeatureEnabledState_Name, kFlags, 0, 0, nullptr);
@@ -1764,14 +1813,17 @@ void MultiDeviceSetupProxy::GetFeatureStates(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::MultiDeviceSetup::GetFeatureStates");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetFeatureStates_Name, kFlags, 0, 0, nullptr);
@@ -1795,14 +1847,17 @@ void MultiDeviceSetupProxy::RetrySetHostNow(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::MultiDeviceSetup::RetrySetHostNow");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_RetrySetHostNow_Name, kFlags, 0, 0, nullptr);
@@ -1833,14 +1888,17 @@ void MultiDeviceSetupProxy::TriggerEventForDebugging(
                         "<value of type EventTypeForDebugging>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_TriggerEventForDebugging_Name, kFlags, 0, 0, nullptr);
@@ -1873,14 +1931,17 @@ void MultiDeviceSetupProxy::SetQuickStartPhoneInstanceID(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_SetQuickStartPhoneInstanceID_Name, kFlags, 0, 0, nullptr);
@@ -1914,14 +1975,17 @@ void MultiDeviceSetupProxy::GetQuickStartPhoneInstanceID(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::multidevice_setup::mojom::MultiDeviceSetup::GetQuickStartPhoneInstanceID");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetQuickStartPhoneInstanceID_Name, kFlags, 0, 0, nullptr);
@@ -2031,7 +2095,8 @@ void MultiDeviceSetup_GetEligibleHostDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetEligibleHostDevices_Name, kFlags, 0, 0, nullptr);
@@ -2161,7 +2226,8 @@ void MultiDeviceSetup_GetEligibleActiveHostDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetEligibleActiveHostDevices_Name, kFlags, 0, 0, nullptr);
@@ -2291,7 +2357,8 @@ void MultiDeviceSetup_SetHostDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_SetHostDevice_Name, kFlags, 0, 0, nullptr);
@@ -2363,7 +2430,7 @@ class MultiDeviceSetup_GetHostStatus_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      HostStatus in_host_status, const absl::optional<::ash::multidevice::RemoteDevice>& in_host_device);
+      HostStatus in_host_status, const std::optional<::ash::multidevice::RemoteDevice>& in_host_device);
 };
 
 bool MultiDeviceSetup_GetHostStatus_ForwardToCallback::Accept(
@@ -2377,7 +2444,7 @@ bool MultiDeviceSetup_GetHostStatus_ForwardToCallback::Accept(
   
   bool success = true;
   HostStatus p_host_status{};
-  absl::optional<::ash::multidevice::RemoteDevice> p_host_device{};
+  std::optional<::ash::multidevice::RemoteDevice> p_host_device{};
   MultiDeviceSetup_GetHostStatus_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadHostStatus(&p_host_status))
@@ -2399,7 +2466,7 @@ std::move(p_host_device));
 }
 
 void MultiDeviceSetup_GetHostStatus_ProxyToResponder::Run(
-    HostStatus in_host_status, const absl::optional<::ash::multidevice::RemoteDevice>& in_host_device) {
+    HostStatus in_host_status, const std::optional<::ash::multidevice::RemoteDevice>& in_host_device) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::multidevice_setup::mojom::MultiDeviceSetup::GetHostStatus", "async_response_parameters",
@@ -2410,13 +2477,14 @@ void MultiDeviceSetup_GetHostStatus_ProxyToResponder::Run(
                         "<value of type HostStatus>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("host_device"), in_host_device,
-                        "<value of type const absl::optional<::ash::multidevice::RemoteDevice>&>");
+                        "<value of type const std::optional<::ash::multidevice::RemoteDevice>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetHostStatus_Name, kFlags, 0, 0, nullptr);
@@ -2542,7 +2610,8 @@ void MultiDeviceSetup_SetFeatureEnabledState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_SetFeatureEnabledState_Name, kFlags, 0, 0, nullptr);
@@ -2660,7 +2729,8 @@ void MultiDeviceSetup_GetFeatureStates_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetFeatureStates_Name, kFlags, 0, 0, nullptr);
@@ -2790,7 +2860,8 @@ void MultiDeviceSetup_RetrySetHostNow_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_RetrySetHostNow_Name, kFlags, 0, 0, nullptr);
@@ -2908,7 +2979,8 @@ void MultiDeviceSetup_TriggerEventForDebugging_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_TriggerEventForDebugging_Name, kFlags, 0, 0, nullptr);
@@ -2980,7 +3052,7 @@ class MultiDeviceSetup_GetQuickStartPhoneInstanceID_ProxyToResponder : public ::
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_qs_phone_instance_id);
+      const std::optional<std::string>& in_qs_phone_instance_id);
 };
 
 bool MultiDeviceSetup_GetQuickStartPhoneInstanceID_ForwardToCallback::Accept(
@@ -2993,7 +3065,7 @@ bool MultiDeviceSetup_GetQuickStartPhoneInstanceID_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_qs_phone_instance_id{};
+  std::optional<std::string> p_qs_phone_instance_id{};
   MultiDeviceSetup_GetQuickStartPhoneInstanceID_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadQsPhoneInstanceId(&p_qs_phone_instance_id))
@@ -3012,7 +3084,7 @@ std::move(p_qs_phone_instance_id));
 }
 
 void MultiDeviceSetup_GetQuickStartPhoneInstanceID_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_qs_phone_instance_id) {
+    const std::optional<std::string>& in_qs_phone_instance_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::multidevice_setup::mojom::MultiDeviceSetup::GetQuickStartPhoneInstanceID", "async_response_parameters",
@@ -3020,13 +3092,14 @@ void MultiDeviceSetup_GetQuickStartPhoneInstanceID_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("qs_phone_instance_id"), in_qs_phone_instance_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMultiDeviceSetup_GetQuickStartPhoneInstanceID_Name, kFlags, 0, 0, nullptr);
@@ -3366,7 +3439,7 @@ std::move(p_auth_token), std::move(callback));
       bool success = true;
       Feature p_feature{};
       bool p_enabled{};
-      absl::optional<std::string> p_auth_token{};
+      std::optional<std::string> p_auth_token{};
       MultiDeviceSetup_SetFeatureEnabledState_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFeature(&p_feature))
@@ -3503,36 +3576,36 @@ std::move(p_type), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMultiDeviceSetupValidationInfo[] = {
-    {&internal::MultiDeviceSetup_SetAccountStatusChangeDelegate_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_SetAccountStatusChangeDelegate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MultiDeviceSetup_AddHostStatusObserver_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_AddHostStatusObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MultiDeviceSetup_AddFeatureStateObserver_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_AddFeatureStateObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MultiDeviceSetup_GetEligibleHostDevices_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_GetEligibleHostDevices_Params_Data::Validate,
      &internal::MultiDeviceSetup_GetEligibleHostDevices_ResponseParams_Data::Validate},
-    {&internal::MultiDeviceSetup_GetEligibleActiveHostDevices_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_GetEligibleActiveHostDevices_Params_Data::Validate,
      &internal::MultiDeviceSetup_GetEligibleActiveHostDevices_ResponseParams_Data::Validate},
-    {&internal::MultiDeviceSetup_SetHostDevice_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_SetHostDevice_Params_Data::Validate,
      &internal::MultiDeviceSetup_SetHostDevice_ResponseParams_Data::Validate},
-    {&internal::MultiDeviceSetup_RemoveHostDevice_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_RemoveHostDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MultiDeviceSetup_GetHostStatus_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_GetHostStatus_Params_Data::Validate,
      &internal::MultiDeviceSetup_GetHostStatus_ResponseParams_Data::Validate},
-    {&internal::MultiDeviceSetup_SetFeatureEnabledState_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_SetFeatureEnabledState_Params_Data::Validate,
      &internal::MultiDeviceSetup_SetFeatureEnabledState_ResponseParams_Data::Validate},
-    {&internal::MultiDeviceSetup_GetFeatureStates_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_GetFeatureStates_Params_Data::Validate,
      &internal::MultiDeviceSetup_GetFeatureStates_ResponseParams_Data::Validate},
-    {&internal::MultiDeviceSetup_RetrySetHostNow_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_RetrySetHostNow_Params_Data::Validate,
      &internal::MultiDeviceSetup_RetrySetHostNow_ResponseParams_Data::Validate},
-    {&internal::MultiDeviceSetup_TriggerEventForDebugging_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_TriggerEventForDebugging_Params_Data::Validate,
      &internal::MultiDeviceSetup_TriggerEventForDebugging_ResponseParams_Data::Validate},
-    {&internal::MultiDeviceSetup_SetQuickStartPhoneInstanceID_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_SetQuickStartPhoneInstanceID_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MultiDeviceSetup_GetQuickStartPhoneInstanceID_Params_Data::Validate,
+    { &internal::MultiDeviceSetup_GetQuickStartPhoneInstanceID_Params_Data::Validate,
      &internal::MultiDeviceSetup_GetQuickStartPhoneInstanceID_ResponseParams_Data::Validate},
 };
 
@@ -3632,14 +3705,17 @@ void PrivilegedHostDeviceSetterProxy::SetHostDevice(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrivilegedHostDeviceSetter_SetHostDevice_Name, kFlags, 0, 0, nullptr);
@@ -3760,7 +3836,8 @@ void PrivilegedHostDeviceSetter_SetHostDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrivilegedHostDeviceSetter_SetHostDevice_Name, kFlags, 0, 0, nullptr);
@@ -3840,10 +3917,10 @@ std::move(p_instance_id_or_legacy_device_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrivilegedHostDeviceSetterValidationInfo[] = {
-    {&internal::PrivilegedHostDeviceSetter_SetHostDevice_Params_Data::Validate,
+    { &internal::PrivilegedHostDeviceSetter_SetHostDevice_Params_Data::Validate,
      &internal::PrivilegedHostDeviceSetter_SetHostDevice_ResponseParams_Data::Validate},
 };
 
@@ -3912,7 +3989,7 @@ AccountStatusChangeDelegateAsyncWaiter::~AccountStatusChangeDelegateAsyncWaiter(
 
 
 
-void HostStatusObserverInterceptorForTesting::OnHostStatusChanged(HostStatus host_status, const absl::optional<::ash::multidevice::RemoteDevice>& host_device) {
+void HostStatusObserverInterceptorForTesting::OnHostStatusChanged(HostStatus host_status, const std::optional<::ash::multidevice::RemoteDevice>& host_device) {
   GetForwardingInterface()->OnHostStatusChanged(std::move(host_status), std::move(host_device));
 }
 HostStatusObserverAsyncWaiter::HostStatusObserverAsyncWaiter(
@@ -3958,7 +4035,7 @@ void MultiDeviceSetupInterceptorForTesting::RemoveHostDevice() {
 void MultiDeviceSetupInterceptorForTesting::GetHostStatus(GetHostStatusCallback callback) {
   GetForwardingInterface()->GetHostStatus(std::move(callback));
 }
-void MultiDeviceSetupInterceptorForTesting::SetFeatureEnabledState(Feature feature, bool enabled, const absl::optional<std::string>& auth_token, SetFeatureEnabledStateCallback callback) {
+void MultiDeviceSetupInterceptorForTesting::SetFeatureEnabledState(Feature feature, bool enabled, const std::optional<std::string>& auth_token, SetFeatureEnabledStateCallback callback) {
   GetForwardingInterface()->SetFeatureEnabledState(std::move(feature), std::move(enabled), std::move(auth_token), std::move(callback));
 }
 void MultiDeviceSetupInterceptorForTesting::GetFeatureStates(GetFeatureStatesCallback callback) {
@@ -4051,17 +4128,17 @@ bool MultiDeviceSetupAsyncWaiter::SetHostDevice(
 }
 
 void MultiDeviceSetupAsyncWaiter::GetHostStatus(
-    HostStatus* out_host_status, absl::optional<::ash::multidevice::RemoteDevice>* out_host_device) {
+    HostStatus* out_host_status, std::optional<::ash::multidevice::RemoteDevice>* out_host_device) {
   base::RunLoop loop;
   proxy_->GetHostStatus(
       base::BindOnce(
           [](base::RunLoop* loop,
              HostStatus* out_host_status
 ,
-             absl::optional<::ash::multidevice::RemoteDevice>* out_host_device
+             std::optional<::ash::multidevice::RemoteDevice>* out_host_device
 ,
              HostStatus host_status,
-             const absl::optional<::ash::multidevice::RemoteDevice>& host_device) {*out_host_status = std::move(host_status);*out_host_device = std::move(host_device);
+             const std::optional<::ash::multidevice::RemoteDevice>& host_device) {*out_host_status = std::move(host_status);*out_host_device = std::move(host_device);
             loop->Quit();
           },
           &loop,
@@ -4073,7 +4150,7 @@ void MultiDeviceSetupAsyncWaiter::GetHostStatus(
 
 
 void MultiDeviceSetupAsyncWaiter::SetFeatureEnabledState(
-    Feature feature, bool enabled, const absl::optional<std::string>& auth_token, bool* out_success) {
+    Feature feature, bool enabled, const std::optional<std::string>& auth_token, bool* out_success) {
   base::RunLoop loop;
   proxy_->SetFeatureEnabledState(std::move(feature),std::move(enabled),std::move(auth_token),
       base::BindOnce(
@@ -4089,7 +4166,7 @@ void MultiDeviceSetupAsyncWaiter::SetFeatureEnabledState(
 }
 
 bool MultiDeviceSetupAsyncWaiter::SetFeatureEnabledState(
-    Feature feature, bool enabled, const absl::optional<std::string>& auth_token) {
+    Feature feature, bool enabled, const std::optional<std::string>& auth_token) {
   bool async_wait_result;
   SetFeatureEnabledState(std::move(feature),std::move(enabled),std::move(auth_token),&async_wait_result);
   return async_wait_result;
@@ -4165,14 +4242,14 @@ bool MultiDeviceSetupAsyncWaiter::TriggerEventForDebugging(
 }
 
 void MultiDeviceSetupAsyncWaiter::GetQuickStartPhoneInstanceID(
-    absl::optional<std::string>* out_qs_phone_instance_id) {
+    std::optional<std::string>* out_qs_phone_instance_id) {
   base::RunLoop loop;
   proxy_->GetQuickStartPhoneInstanceID(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_qs_phone_instance_id
+             std::optional<std::string>* out_qs_phone_instance_id
 ,
-             const absl::optional<std::string>& qs_phone_instance_id) {*out_qs_phone_instance_id = std::move(qs_phone_instance_id);
+             const std::optional<std::string>& qs_phone_instance_id) {*out_qs_phone_instance_id = std::move(qs_phone_instance_id);
             loop->Quit();
           },
           &loop,
@@ -4180,9 +4257,9 @@ void MultiDeviceSetupAsyncWaiter::GetQuickStartPhoneInstanceID(
   loop.Run();
 }
 
-absl::optional<std::string> MultiDeviceSetupAsyncWaiter::GetQuickStartPhoneInstanceID(
+std::optional<std::string> MultiDeviceSetupAsyncWaiter::GetQuickStartPhoneInstanceID(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetQuickStartPhoneInstanceID(&async_wait_result);
   return async_wait_result;
 }

@@ -122,22 +122,6 @@ describe('Button', async () => {
         const innerButton = button.shadowRoot?.querySelector('button');
         assert.isFalse(innerButton.classList.contains('small'));
     });
-    it('sets icon size for round icon button according to passed parameters', async () => {
-        const iconUrl = new URL('../../../../../../front_end/Images/document.svg', import.meta.url).toString();
-        const button = await renderButton({
-            variant: "round" /* Buttons.Button.Variant.ROUND */,
-            size: "SMALL" /* Buttons.Button.Size.SMALL */,
-            iconUrl,
-            iconWidth: '15px',
-            iconHeight: '16px',
-        }, '');
-        const innerButton = button.shadowRoot?.querySelector('button');
-        assert.isTrue(innerButton.classList.contains('explicit-size'));
-        const icon = button.shadowRoot?.querySelector('devtools-icon');
-        const basicIcon = icon.shadowRoot?.querySelector('.icon-basic');
-        assert.strictEqual(basicIcon.style.height, '16px');
-        assert.strictEqual(basicIcon.style.width, '15px');
-    });
     describe('in forms', () => {
         async function renderForm(data = {
             variant: "primary" /* Buttons.Button.Variant.PRIMARY */,

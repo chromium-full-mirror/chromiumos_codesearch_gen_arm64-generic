@@ -20,6 +20,7 @@ namespace protocol {
 namespace Emulation {
 class ScreenOrientation;
 class DisplayFeature;
+class DevicePosture;
 class MediaFeature;
 class UserAgentBrandVersion;
 class UserAgentMetadata;
@@ -227,6 +228,68 @@ private:
     String m_orientation;
     int m_offset;
     int m_maskLength;
+};
+
+
+class CONTENT_EXPORT DevicePosture : public ::crdtp::ProtocolObject<DevicePosture> {
+public:
+    ~DevicePosture() override { }
+
+    struct CONTENT_EXPORT TypeEnum {
+        static const char* Continuous;
+        static const char* Folded;
+    }; // TypeEnum
+
+    String GetType() { return m_type; }
+    void SetType(const String& value) { m_type = value; }
+
+    template<int STATE>
+    class DevicePostureBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            TypeSet = 1 << 1,
+            AllFieldsSet = (TypeSet | 0)};
+
+
+        DevicePostureBuilder<STATE | TypeSet>& SetType(const String& value)
+        {
+            static_assert(!(STATE & TypeSet), "property type should not be set yet");
+            m_result->SetType(value);
+            return castState<TypeSet>();
+        }
+
+        std::unique_ptr<DevicePosture> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class DevicePosture;
+        DevicePostureBuilder() : m_result(new DevicePosture()) { }
+
+        template<int STEP> DevicePostureBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<DevicePostureBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Emulation::DevicePosture> m_result;
+    };
+
+    static DevicePostureBuilder<0> Create()
+    {
+        return DevicePostureBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    DevicePosture()
+    {
+    }
+
+    String m_type;
 };
 
 
@@ -956,7 +1019,7 @@ public:
     virtual DispatchResponse ClearDeviceMetricsOverride() = 0;
     virtual DispatchResponse ClearGeolocationOverride() = 0;
     virtual DispatchResponse SetFocusEmulationEnabled(bool in_enabled) = 0;
-    virtual DispatchResponse SetDeviceMetricsOverride(int in_width, int in_height, double in_deviceScaleFactor, bool in_mobile, Maybe<double> in_scale, Maybe<int> in_screenWidth, Maybe<int> in_screenHeight, Maybe<int> in_positionX, Maybe<int> in_positionY, Maybe<bool> in_dontSetVisibleSize, Maybe<protocol::Emulation::ScreenOrientation> in_screenOrientation, Maybe<protocol::Page::Viewport> in_viewport, Maybe<protocol::Emulation::DisplayFeature> in_displayFeature) = 0;
+    virtual DispatchResponse SetDeviceMetricsOverride(int in_width, int in_height, double in_deviceScaleFactor, bool in_mobile, Maybe<double> in_scale, Maybe<int> in_screenWidth, Maybe<int> in_screenHeight, Maybe<int> in_positionX, Maybe<int> in_positionY, Maybe<bool> in_dontSetVisibleSize, Maybe<protocol::Emulation::ScreenOrientation> in_screenOrientation, Maybe<protocol::Page::Viewport> in_viewport, Maybe<protocol::Emulation::DisplayFeature> in_displayFeature, Maybe<protocol::Emulation::DevicePosture> in_devicePosture) = 0;
     virtual DispatchResponse SetEmitTouchEventsForMouse(bool in_enabled, Maybe<String> in_configuration) = 0;
     virtual DispatchResponse SetEmulatedMedia(Maybe<String> in_media, Maybe<protocol::Array<protocol::Emulation::MediaFeature>> in_features) = 0;
     virtual DispatchResponse SetGeolocationOverride(Maybe<double> in_latitude, Maybe<double> in_longitude, Maybe<double> in_accuracy) = 0;

@@ -76,11 +76,6 @@ class BLINK_COMMON_EXPORT RuntimeFeatureStateReadContext {
     return IsEnabledForThirdParty(
         blink::mojom::RuntimeFeature::kDisableThirdPartyStoragePartitioning, first_party_origin, third_party_origins);
   }
-  bool IsFedCmIdpSigninStatusEnabledForThirdParty(const url::Origin& first_party_origin,
-                                              const base::span<url::Origin>& third_party_origins) const {
-    return IsEnabledForThirdParty(
-        blink::mojom::RuntimeFeature::kFedCmIdpSigninStatus, first_party_origin, third_party_origins);
-  }
 
  protected:
   bool IsEnabled(blink::mojom::RuntimeFeature feature) const {

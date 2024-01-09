@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:54px}#changeChannelCrButton{margin-inline-start:16px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelCrButton{margin-inline-start:16px}</style>
 <div class="settings-box two-line">
   <div class="start">
     <div role="heading" aria-level="2">$i18n{aboutChannelLabel}</div>

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -190,14 +191,17 @@ void PageMetricsHostProxy::OnPageRemoteCreated(
                         "<value of type ::mojo::PendingRemote<PageMetrics>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageMetricsHost_OnPageRemoteCreated_Name, kFlags, 0, 0, nullptr);
@@ -233,14 +237,17 @@ void PageMetricsHostProxy::OnGetMark(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageMetricsHost_OnGetMark_Name, kFlags, 0, 0, nullptr);
@@ -282,14 +289,17 @@ void PageMetricsHostProxy::OnClearMark(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageMetricsHost_OnClearMark_Name, kFlags, 0, 0, nullptr);
@@ -333,14 +343,17 @@ void PageMetricsHostProxy::OnUmaReportTime(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageMetricsHost_OnUmaReportTime_Name, kFlags, 0, 0, nullptr);
@@ -425,7 +438,7 @@ class PageMetricsHost_OnGetMark_ProxyToResponder : public ::mojo::internal::Prox
 #endif
 
   void Run(
-      absl::optional<::base::TimeDelta> in_marked_time);
+      std::optional<::base::TimeDelta> in_marked_time);
 };
 
 bool PageMetricsHost_OnGetMark_ForwardToCallback::Accept(
@@ -438,7 +451,7 @@ bool PageMetricsHost_OnGetMark_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::TimeDelta> p_marked_time{};
+  std::optional<::base::TimeDelta> p_marked_time{};
   PageMetricsHost_OnGetMark_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadMarkedTime(&p_marked_time))
@@ -457,7 +470,7 @@ std::move(p_marked_time));
 }
 
 void PageMetricsHost_OnGetMark_ProxyToResponder::Run(
-    absl::optional<::base::TimeDelta> in_marked_time) {
+    std::optional<::base::TimeDelta> in_marked_time) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply metrics_reporter::mojom::PageMetricsHost::OnGetMark", "async_response_parameters",
@@ -465,13 +478,14 @@ void PageMetricsHost_OnGetMark_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("marked_time"), in_marked_time,
-                        "<value of type absl::optional<::base::TimeDelta>>");
+                        "<value of type std::optional<::base::TimeDelta>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageMetricsHost_OnGetMark_Name, kFlags, 0, 0, nullptr);
@@ -650,16 +664,16 @@ std::move(p_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageMetricsHostValidationInfo[] = {
-    {&internal::PageMetricsHost_OnPageRemoteCreated_Params_Data::Validate,
+    { &internal::PageMetricsHost_OnPageRemoteCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageMetricsHost_OnGetMark_Params_Data::Validate,
+    { &internal::PageMetricsHost_OnGetMark_Params_Data::Validate,
      &internal::PageMetricsHost_OnGetMark_ResponseParams_Data::Validate},
-    {&internal::PageMetricsHost_OnClearMark_Params_Data::Validate,
+    { &internal::PageMetricsHost_OnClearMark_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageMetricsHost_OnUmaReportTime_Params_Data::Validate,
+    { &internal::PageMetricsHost_OnUmaReportTime_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -779,14 +793,17 @@ void PageMetricsProxy::OnGetMark(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageMetrics_OnGetMark_Name, kFlags, 0, 0, nullptr);
@@ -828,14 +845,17 @@ void PageMetricsProxy::OnClearMark(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageMetrics_OnClearMark_Name, kFlags, 0, 0, nullptr);
@@ -909,7 +929,7 @@ class PageMetrics_OnGetMark_ProxyToResponder : public ::mojo::internal::ProxyToR
 #endif
 
   void Run(
-      absl::optional<::base::TimeDelta> in_marked_time);
+      std::optional<::base::TimeDelta> in_marked_time);
 };
 
 bool PageMetrics_OnGetMark_ForwardToCallback::Accept(
@@ -922,7 +942,7 @@ bool PageMetrics_OnGetMark_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::TimeDelta> p_marked_time{};
+  std::optional<::base::TimeDelta> p_marked_time{};
   PageMetrics_OnGetMark_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadMarkedTime(&p_marked_time))
@@ -941,7 +961,7 @@ std::move(p_marked_time));
 }
 
 void PageMetrics_OnGetMark_ProxyToResponder::Run(
-    absl::optional<::base::TimeDelta> in_marked_time) {
+    std::optional<::base::TimeDelta> in_marked_time) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply metrics_reporter::mojom::PageMetrics::OnGetMark", "async_response_parameters",
@@ -949,13 +969,14 @@ void PageMetrics_OnGetMark_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("marked_time"), in_marked_time,
-                        "<value of type absl::optional<::base::TimeDelta>>");
+                        "<value of type std::optional<::base::TimeDelta>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageMetrics_OnGetMark_Name, kFlags, 0, 0, nullptr);
@@ -1070,12 +1091,12 @@ std::move(p_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageMetricsValidationInfo[] = {
-    {&internal::PageMetrics_OnGetMark_Params_Data::Validate,
+    { &internal::PageMetrics_OnGetMark_Params_Data::Validate,
      &internal::PageMetrics_OnGetMark_ResponseParams_Data::Validate},
-    {&internal::PageMetrics_OnClearMark_Params_Data::Validate,
+    { &internal::PageMetrics_OnClearMark_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1123,14 +1144,14 @@ PageMetricsHostAsyncWaiter::PageMetricsHostAsyncWaiter(
 PageMetricsHostAsyncWaiter::~PageMetricsHostAsyncWaiter() = default;
 
 void PageMetricsHostAsyncWaiter::OnGetMark(
-    const std::string& name, absl::optional<::base::TimeDelta>* out_marked_time) {
+    const std::string& name, std::optional<::base::TimeDelta>* out_marked_time) {
   base::RunLoop loop;
   proxy_->OnGetMark(std::move(name),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::TimeDelta>* out_marked_time
+             std::optional<::base::TimeDelta>* out_marked_time
 ,
-             absl::optional<::base::TimeDelta> marked_time) {*out_marked_time = std::move(marked_time);
+             std::optional<::base::TimeDelta> marked_time) {*out_marked_time = std::move(marked_time);
             loop->Quit();
           },
           &loop,
@@ -1138,9 +1159,9 @@ void PageMetricsHostAsyncWaiter::OnGetMark(
   loop.Run();
 }
 
-absl::optional<::base::TimeDelta> PageMetricsHostAsyncWaiter::OnGetMark(
+std::optional<::base::TimeDelta> PageMetricsHostAsyncWaiter::OnGetMark(
     const std::string& name) {
-  absl::optional<::base::TimeDelta> async_wait_result;
+  std::optional<::base::TimeDelta> async_wait_result;
   OnGetMark(std::move(name),&async_wait_result);
   return async_wait_result;
 }
@@ -1160,14 +1181,14 @@ PageMetricsAsyncWaiter::PageMetricsAsyncWaiter(
 PageMetricsAsyncWaiter::~PageMetricsAsyncWaiter() = default;
 
 void PageMetricsAsyncWaiter::OnGetMark(
-    const std::string& name, absl::optional<::base::TimeDelta>* out_marked_time) {
+    const std::string& name, std::optional<::base::TimeDelta>* out_marked_time) {
   base::RunLoop loop;
   proxy_->OnGetMark(std::move(name),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::TimeDelta>* out_marked_time
+             std::optional<::base::TimeDelta>* out_marked_time
 ,
-             absl::optional<::base::TimeDelta> marked_time) {*out_marked_time = std::move(marked_time);
+             std::optional<::base::TimeDelta> marked_time) {*out_marked_time = std::move(marked_time);
             loop->Quit();
           },
           &loop,
@@ -1175,9 +1196,9 @@ void PageMetricsAsyncWaiter::OnGetMark(
   loop.Run();
 }
 
-absl::optional<::base::TimeDelta> PageMetricsAsyncWaiter::OnGetMark(
+std::optional<::base::TimeDelta> PageMetricsAsyncWaiter::OnGetMark(
     const std::string& name) {
-  absl::optional<::base::TimeDelta> async_wait_result;
+  std::optional<::base::TimeDelta> async_wait_result;
   OnGetMark(std::move(name),&async_wait_result);
   return async_wait_result;
 }

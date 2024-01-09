@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,12 +31,12 @@ namespace wallpaper {
 //
 
 // The supported wallpaper layouts.
-enum  WallpaperLayout {
-  WALLPAPER_LAYOUT_NONE = 0,
-  WALLPAPER_LAYOUT_STRETCH,
-  WALLPAPER_LAYOUT_CENTER,
-  WALLPAPER_LAYOUT_CENTER_CROPPED,
-  WALLPAPER_LAYOUT_LAST = WALLPAPER_LAYOUT_CENTER_CROPPED,
+enum class WallpaperLayout {
+  kNone = 0,
+  kStretch,
+  kCenter,
+  kCenterCropped,
+  kMaxValue = kCenterCropped,
 };
 
 
@@ -51,11 +52,11 @@ std::u16string GetWallpaperLayoutParseError(base::StringPiece as_string);
 namespace SetWallpaper {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Details {
@@ -63,8 +64,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -78,16 +79,16 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The jpeg or png encoded wallpaper image as an ArrayBuffer.
-    absl::optional<std::vector<uint8_t>> data;
+    std::optional<std::vector<uint8_t>> data;
 
     // The URL of the wallpaper to be set (can be relative).
-    absl::optional<std::string> url;
+    std::optional<std::string> url;
 
     // The supported wallpaper layouts.
     WallpaperLayout layout;
@@ -97,7 +98,7 @@ struct Params {
 
     // True if a 128x60 thumbnail should be generated. Layout and ratio are not
     // supported yet.
-    absl::optional<bool> thumbnail;
+    std::optional<bool> thumbnail;
 
   };
 

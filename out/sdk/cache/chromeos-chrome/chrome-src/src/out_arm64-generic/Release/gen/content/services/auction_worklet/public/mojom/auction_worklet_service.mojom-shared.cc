@@ -91,7 +91,7 @@ bool AuctionWorkletService_LoadBidderWorklet_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 80, validation_context)) {
+          data, 88, validation_context)) {
     return false;
   }
 
@@ -146,14 +146,25 @@ bool AuctionWorkletService_LoadBidderWorklet_Params_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->top_window_origin, 9, validation_context)) {
+          object->trusted_bidding_signals_slot_size_param, 9, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& trusted_bidding_signals_slot_size_param_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->trusted_bidding_signals_slot_size_param, validation_context,
+                                         &trusted_bidding_signals_slot_size_param_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->top_window_origin, 10, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->top_window_origin, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->permissions_policy_state, 10, validation_context)) {
+          object->permissions_policy_state, 11, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->permissions_policy_state, validation_context))

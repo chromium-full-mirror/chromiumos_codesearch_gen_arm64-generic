@@ -162,26 +162,6 @@ class TransferableResourceDataView {
     return mojo::internal::Deserialize<::gfx::mojom::ColorSpaceDataView>(
         pointer, output, message_);
   }
-  inline void GetColorSpaceWhenSampledDataView(
-      ::gfx::mojom::ColorSpaceDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadColorSpaceWhenSampled(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::gfx::mojom::ColorSpaceDataView, UserType>(),
-    "Attempting to read the optional `color_space_when_sampled` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadColorSpaceWhenSampled` instead "
-    "of `ReadColorSpaceWhenSampled if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->color_space_when_sampled.Get();
-    return mojo::internal::Deserialize<::gfx::mojom::ColorSpaceDataView>(
-        pointer, output, message_);
-  }
   inline void GetHdrMetadataDataView(
       ::gfx::mojom::HDRMetadataDataView* output);
 
@@ -328,14 +308,6 @@ struct Serializer<::viz::mojom::TransferableResourceDataView, MaybeConstUserType
         fragment->color_space.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null color_space in TransferableResource struct");
-    decltype(Traits::color_space_when_sampled(input)) in_color_space_when_sampled = Traits::color_space_when_sampled(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->color_space_when_sampled)::BaseType> color_space_when_sampled_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::gfx::mojom::ColorSpaceDataView>(
-        in_color_space_when_sampled, color_space_when_sampled_fragment);
-    fragment->color_space_when_sampled.Set(
-        color_space_when_sampled_fragment.is_null() ? nullptr : color_space_when_sampled_fragment.data());
     decltype(Traits::hdr_metadata(input)) in_hdr_metadata = Traits::hdr_metadata(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->hdr_metadata)::BaseType> hdr_metadata_fragment(
@@ -399,11 +371,6 @@ inline void TransferableResourceDataView::GetMailboxHolderDataView(
 inline void TransferableResourceDataView::GetColorSpaceDataView(
     ::gfx::mojom::ColorSpaceDataView* output) {
   auto pointer = data_->color_space.Get();
-  *output = ::gfx::mojom::ColorSpaceDataView(pointer, message_);
-}
-inline void TransferableResourceDataView::GetColorSpaceWhenSampledDataView(
-    ::gfx::mojom::ColorSpaceDataView* output) {
-  auto pointer = data_->color_space_when_sampled.Get();
   *output = ::gfx::mojom::ColorSpaceDataView(pointer, message_);
 }
 inline void TransferableResourceDataView::GetHdrMetadataDataView(

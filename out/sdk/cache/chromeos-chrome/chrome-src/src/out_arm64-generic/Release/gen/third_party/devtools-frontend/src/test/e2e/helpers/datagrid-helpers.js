@@ -4,8 +4,8 @@
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.scrollDataGridDown = exports.waitForScrollTopOfDataGrid = exports.assertDataGridNotScrolled = exports.getDataGridScrollTop = exports.getDataGridFillerCellAtColumnIndex = exports.getDataGridCellAtIndex = exports.getInnerTextOfDataGridCells = exports.getDataGridController = exports.getDataGrid = exports.getDataGridRows = void 0;
-const helper_js_1 = require("../../shared/helper.js");
 const chai_1 = require("chai");
+const helper_js_1 = require("../../shared/helper.js");
 async function getDataGridRows(expectedNumberOfRows, root, matchExactNumberOfRows = true) {
     const dataGrid = !root ? await (0, helper_js_1.waitFor)('devtools-data-grid') : root;
     const handlers = await (async () => {
@@ -28,6 +28,11 @@ async function getDataGrid(root) {
     if (!dataGrid) {
         chai_1.assert.fail('Could not find data-grid');
     }
+    await (0, helper_js_1.waitForFunction)(async () => {
+        const height = await dataGrid.evaluate(elem => elem.clientHeight);
+        // Give it a chance to fully render into the page.
+        return height > 20;
+    }, undefined, 'Ensuring the data grid has a minimum height of 20px');
     return dataGrid;
 }
 exports.getDataGrid = getDataGrid;

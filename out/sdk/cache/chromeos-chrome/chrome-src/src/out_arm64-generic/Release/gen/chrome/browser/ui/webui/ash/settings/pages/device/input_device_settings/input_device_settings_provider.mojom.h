@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/settings/pages/device/input_device_settings/input_device_settings_provider.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/settings/pages/device/input_device_settings/input_device_settings_provider.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/settings/pages/device/input_device_settings/input_device_settings_provider.mojom-forward.h"
 #include "ash/public/mojom/input_device_settings.mojom-forward.h"
@@ -370,6 +371,7 @@ class InputDeviceSettingsProvider
     kStopObservingMinVersion = 0,
     kGetActionsForMouseButtonCustomizationMinVersion = 0,
     kGetActionsForGraphicsTabletButtonCustomizationMinVersion = 0,
+    kHasLauncherButtonMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -421,6 +423,9 @@ class InputDeviceSettingsProvider
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetActionsForGraphicsTabletButtonCustomization_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct HasLauncherButton_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -477,6 +482,11 @@ class InputDeviceSettingsProvider
   using GetActionsForGraphicsTabletButtonCustomizationCallback = base::OnceCallback<void(std::vector<ActionChoicePtr>)>;
   
   virtual void GetActionsForGraphicsTabletButtonCustomization(GetActionsForGraphicsTabletButtonCustomizationCallback callback) = 0;
+
+
+  using HasLauncherButtonCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void HasLauncherButton(HasLauncherButtonCallback callback) = 0;
 };
 
 
@@ -613,6 +623,8 @@ class  InputDeviceSettingsProviderProxy
   void GetActionsForMouseButtonCustomization(GetActionsForMouseButtonCustomizationCallback callback) final;
   
   void GetActionsForGraphicsTabletButtonCustomization(GetActionsForGraphicsTabletButtonCustomizationCallback callback) final;
+  
+  void HasLauncherButton(HasLauncherButtonCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -961,17 +973,17 @@ class  ActionType {
   // Construct an instance holding |accelerator_action|.
   static ActionTypePtr
   NewAcceleratorAction(
-      ::ash::AcceleratorAction accelerator_action) {
+      ::ash::AcceleratorAction value) {
     auto result = ActionTypePtr(absl::in_place);
-    result->set_accelerator_action(std::move(accelerator_action));
+    result->set_accelerator_action(std::move(value));
     return result;
   }
   // Construct an instance holding |static_shortcut_action|.
   static ActionTypePtr
   NewStaticShortcutAction(
-      ::ash::mojom::StaticShortcutAction static_shortcut_action) {
+      ::ash::mojom::StaticShortcutAction value) {
     auto result = ActionTypePtr(absl::in_place);
-    result->set_static_shortcut_action(std::move(static_shortcut_action));
+    result->set_static_shortcut_action(std::move(value));
     return result;
   }
 

@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Geoposition>::value,
     "Geoposition inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Geoposition::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Geoposition is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("GeolocationPosition.coords.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Geoposition* blink_receiver = V8GeolocationPosition::ToWrappableUnsafe(v8_receiver);
+Geoposition* blink_receiver = V8GeolocationPosition::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->coords();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -100,8 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("GeolocationPosition.timestamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Geoposition* blink_receiver = V8GeolocationPosition::ToWrappableUnsafe(v8_receiver);
+Geoposition* blink_receiver = V8GeolocationPosition::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timestamp();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }

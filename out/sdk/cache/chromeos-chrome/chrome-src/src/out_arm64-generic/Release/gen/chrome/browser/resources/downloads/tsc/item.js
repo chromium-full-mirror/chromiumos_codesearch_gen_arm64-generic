@@ -22,7 +22,7 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
-import { htmlEscape } from 'chrome://resources/js/util_ts.js';
+import { htmlEscape } from 'chrome://resources/js/util.js';
 import { beforeNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { BrowserProxy } from './browser_proxy.js';
 import { DangerType, SafeBrowsingState, State } from './downloads.mojom-webui.js';
@@ -115,18 +115,12 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
                 type: String,
             },
             showCancel_: {
-                computed: 'computeShowCancel_(data.state, updateDeepScanningUx_)',
+                computed: 'computeShowCancel_(data.state)',
                 type: Boolean,
                 value: false,
             },
             showProgress_: {
-                computed: 'computeShowProgress_(showCancel_, data.percent,' +
-                    'updateDeepScanningUx_)',
-                type: Boolean,
-                value: false,
-            },
-            showOpenNow_: {
-                computed: 'computeShowOpenNow_(data.state, updateDeepScanningUx_)',
+                computed: 'computeShowProgress_(showCancel_, data.percent)',
                 type: Boolean,
                 value: false,
             },
@@ -146,10 +140,6 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
                     'data.hasSafeBrowsingVerdict)',
                 type: DisplayType,
                 value: DisplayType.NORMAL,
-            },
-            updateDeepScanningUx_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('updateDeepScanningUX'),
             },
             improvedDownloadWarningsUx_: {
                 type: Boolean,
@@ -175,7 +165,6 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
         /** Used by FocusRowMixin. */
         this.overrideCustomEquivalent = true;
     }
-    /** @override */
     ready() {
         super.ready();
         this.setAttribute('role', 'row');
@@ -265,8 +254,7 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
         return this.computeDescription_() !== '';
     }
     computeSecondLineVisible_() {
-        return this.updateDeepScanningUx_ && this.data &&
-            this.data.state === State.kAsyncScanning;
+        return this.data && this.data.state === State.kAsyncScanning;
     }
     computeDisplayType_() {
         // Most downloads are normal. If we don't have data, don't assume danger.
@@ -277,7 +265,8 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
             return DisplayType.INSECURE;
         }
         if (this.data.state === State.kAsyncScanning ||
-            this.data.state === State.kPromptForScanning) {
+            this.data.state === State.kPromptForScanning ||
+            this.data.state === State.kPromptForLocalPasswordScanning) {
             return DisplayType.SUSPICIOUS;
         }
         // Enterprise AP verdicts.
@@ -290,11 +279,8 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
             // Mimics logic in download_ui_model.cc for downloads with danger_type
             // DOWNLOAD_DANGER_TYPE_DANGEROUS_FILE.
             case DangerType.kDangerousFile:
-                return this.data.safeBrowsingState ===
-                    SafeBrowsingState.kNoSafeBrowsing ?
-                    DisplayType.UNVERIFIED :
-                    (this.data.hasSafeBrowsingVerdict ? DisplayType.SUSPICIOUS :
-                        DisplayType.UNVERIFIED);
+                return this.data.hasSafeBrowsingVerdict ? DisplayType.SUSPICIOUS :
+                    DisplayType.UNVERIFIED;
             case DangerType.kDangerousUrl:
             case DangerType.kDangerousContent:
             case DangerType.kDangerousHost:
@@ -310,6 +296,15 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
                 return DisplayType.ERROR;
         }
         return DisplayType.NORMAL;
+    }
+    computeDeepScanControlText_() {
+        if (this.data.state === State.kPromptForScanning) {
+            return loadTimeData.getString('controlDeepScan');
+        }
+        else if (this.data.state === State.kPromptForLocalPasswordScanning) {
+            return loadTimeData.getString('controlLocalPasswordScan');
+        }
+        return '';
     }
     computeSaveDangerousLabel_() {
         switch (this.displayType_) {
@@ -333,9 +328,7 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
             case State.kComplete:
                 switch (data.dangerType) {
                     case DangerType.kDeepScannedSafe:
-                        return this.updateDeepScanningUx_ ?
-                            '' :
-                            loadTimeData.getString('deepScannedSafeDesc');
+                        return '';
                     case DangerType.kDeepScannedOpenedDangerous:
                         return loadTimeData.getString('deepScannedOpenedDangerousDesc');
                     case DangerType.kDeepScannedFailed:
@@ -367,6 +360,8 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
                 return loadTimeData.getString('asyncScanningDownloadDesc');
             case State.kPromptForScanning:
                 return loadTimeData.getString('promptForScanningDesc');
+            case State.kPromptForLocalPasswordScanning:
+                return loadTimeData.getString('promptForLocalPasswordScanningDesc');
             case State.kInProgress:
             case State.kPaused: // Fallthrough.
                 return data.progressStatusText;
@@ -445,10 +440,9 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
             if (ERROR_TYPES.includes(dangerType)) {
                 return 'cr:error';
             }
-            if (this.data.state === State.kAsyncScanning) {
-                return this.updateDeepScanningUx_ ? 'cr:warning' : 'cr:info';
-            }
-            if (this.data.state === State.kPromptForScanning) {
+            if (this.data.state === State.kAsyncScanning ||
+                this.data.state === State.kPromptForScanning ||
+                this.data.state === State.kPromptForLocalPasswordScanning) {
                 return 'cr:warning';
             }
         }
@@ -481,10 +475,9 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
             if (WARNING_TYPES.includes(dangerType)) {
                 return 'red';
             }
-            if (this.data.state === State.kAsyncScanning) {
-                return this.updateDeepScanningUx_ ? 'yellow' : 'grey';
-            }
-            if (this.data.state === State.kPromptForScanning) {
+            if (this.data.state === State.kAsyncScanning ||
+                this.data.state === State.kPromptForScanning ||
+                this.data.state === State.kPromptForLocalPasswordScanning) {
                 return 'yellow';
             }
         }
@@ -558,24 +551,19 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
     computeShowCancel_() {
         return !!this.data &&
             (this.data.state === State.kInProgress ||
-                this.data.state === State.kPaused ||
-                (this.data.state === State.kAsyncScanning &&
-                    !this.updateDeepScanningUx_));
+                this.data.state === State.kPaused);
     }
     computeShowProgress_() {
         if (this.data && this.data.state === State.kAsyncScanning) {
             return true;
         }
         return this.showCancel_ && this.data.percent >= -1 &&
-            this.data.state !== State.kPromptForScanning;
-    }
-    computeShowOpenNow_() {
-        const allowOpenNow = loadTimeData.getBoolean('allowOpenNow');
-        return !!this.data && this.data.state === State.kAsyncScanning &&
-            allowOpenNow && !this.updateDeepScanningUx_;
+            this.data.state !== State.kPromptForScanning &&
+            this.data.state !== State.kPromptForLocalPasswordScanning;
     }
     computeShowDeepScan_() {
-        return this.data.state === State.kPromptForScanning;
+        return this.data.state === State.kPromptForScanning ||
+            this.data.state === State.kPromptForLocalPasswordScanning;
     }
     computeShowOpenAnyway_() {
         return this.data.dangerType === DangerType.kDeepScannedFailed;
@@ -636,10 +624,9 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
             if (OVERRIDDEN_ICON_TYPES.includes(this.data.dangerType)) {
                 return false;
             }
-            if (this.data.state === State.kAsyncScanning) {
-                return false;
-            }
-            if (this.data.state === State.kPromptForScanning) {
+            if (this.data.state === State.kAsyncScanning ||
+                this.data.state === State.kPromptForScanning ||
+                this.data.state === State.kPromptForLocalPasswordScanning) {
                 return false;
             }
             return true;
@@ -761,11 +748,34 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
             this.getMoreActionsMenu().close();
         }
     }
+    notifySaveDangerousClick_() {
+        this.dispatchEvent(new CustomEvent('save-dangerous-click', {
+            bubbles: true,
+            composed: true,
+            detail: { id: this.data.id },
+        }));
+    }
     onSaveDangerousClick_() {
-        this.mojoHandler_.saveDangerousRequiringGesture(this.data.id);
-        if (this.improvedDownloadWarningsUx_) {
-            this.getMoreActionsMenu().close();
+        if (!this.improvedDownloadWarningsUx_) {
+            // TODO(chlily): Clean up old paths that show the DownloadDangerPrompt.
+            assert(!!this.mojoHandler_);
+            this.mojoHandler_.saveDangerousRequiringGesture(this.data.id);
+            return;
         }
+        this.getMoreActionsMenu().close();
+        if (this.displayType_ === DisplayType.DANGEROUS) {
+            this.notifySaveDangerousClick_();
+            return;
+        }
+        // "Suspicious" types which show up in grey can be validated directly.
+        const SAVED_FROM_PAGE_TYPES = [
+            DisplayType.SUSPICIOUS,
+            DisplayType.UNVERIFIED,
+            DisplayType.INSECURE,
+        ];
+        assert(SAVED_FROM_PAGE_TYPES.includes(this.displayType_));
+        assert(!!this.mojoHandler_);
+        this.mojoHandler_.saveSuspiciousRequiringGesture(this.data.id);
     }
     onShowClick_() {
         this.mojoHandler_.show(this.data.id);

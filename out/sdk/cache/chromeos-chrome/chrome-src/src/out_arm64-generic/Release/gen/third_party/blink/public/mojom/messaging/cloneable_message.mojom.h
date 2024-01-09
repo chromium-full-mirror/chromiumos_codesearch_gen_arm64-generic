@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-features.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-shared.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -81,7 +82,7 @@ class BLINK_COMMON_EXPORT CloneableMessage {
   CloneableMessage(
       ::mojo_base::BigBuffer encoded_message,
       std::vector<::blink::mojom::SerializedBlobPtr> blobs,
-      const absl::optional<::url::Origin>& sender_origin,
+      const std::optional<::url::Origin>& sender_origin,
       uint64_t stack_trace_id,
       int64_t stack_trace_debugger_id_first,
       int64_t stack_trace_debugger_id_second,
@@ -167,7 +168,7 @@ CloneableMessage& operator=(const CloneableMessage&) = delete;
   
   std::vector<::blink::mojom::SerializedBlobPtr> blobs;
   
-  absl::optional<::url::Origin> sender_origin;
+  std::optional<::url::Origin> sender_origin;
   
   uint64_t stack_trace_id;
   

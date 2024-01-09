@@ -39,6 +39,8 @@
 namespace drivefs::mojom {
 class DriveFsConfigurationDataView;
 
+class AccessTokenDataView;
+
 class DriveErrorDataView;
 
 class DialogReasonDataView;
@@ -96,6 +98,13 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::drivefs::mojom::DriveFsConfigurationDataView> {
   using Data = ::drivefs::mojom::internal::DriveFsConfiguration_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::drivefs::mojom::AccessTokenDataView> {
+  using Data = ::drivefs::mojom::internal::AccessToken_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -273,6 +282,55 @@ struct MojomTypeTraits<::drivefs::mojom::FilePathOrErrorDataView> {
 
 
 namespace drivefs::mojom {
+
+
+enum class DocsOfflineEnableStatus : int32_t {
+  
+  kUnknown = 0,
+  
+  kSuccess = 1,
+  
+  kAlreadyEnabled = 2,
+  
+  kUnknownError = 3,
+  
+  kDisableUnsupported = 4,
+  
+  kOfflineEligible = 5,
+  
+  kOfflineIneligibleUnknown = 6,
+  
+  kOfflineIneligibleOtherUser = 7,
+  
+  kOfflineIneligibleDbInInvalidState = 8,
+  
+  kOfflineIneligiblePolicyDisallow = 9,
+  
+  kOfflineIneligibleNoExtension = 10,
+  
+  kOfflineIneligibleInsufficientDiskSpace = 11,
+  
+  kNativeMessageHostError = 12,
+  
+  kNativeMessageClientError = 13,
+  
+  kSystemError = 14,
+  kMinValue = 0,
+  kMaxValue = 14,
+  kDefaultValue = 0
+};
+
+COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, DocsOfflineEnableStatus value);
+inline bool IsKnownEnumValue(DocsOfflineEnableStatus value) {
+  return internal::DocsOfflineEnableStatus_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline DocsOfflineEnableStatus ToKnownEnumValue(DocsOfflineEnableStatus value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return DocsOfflineEnableStatus::kDefaultValue;
+}
 
 
 enum class CSESupport : int32_t {
@@ -897,6 +955,42 @@ static_assert(
   }
  private:
   internal::DriveFsConfiguration_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class AccessTokenDataView {
+ public:
+  AccessTokenDataView() = default;
+
+  AccessTokenDataView(
+      internal::AccessToken_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTokenDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadToken(UserType* output) {
+    
+    auto* pointer = data_->token.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetExpiryTimeDataView(
+      ::mojo_base::mojom::TimeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExpiryTime(UserType* output) {
+    
+    auto* pointer = data_->expiry_time.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::AccessToken_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -2176,6 +2270,10 @@ class FilePathOrErrorDataView {
 namespace std {
 
 template <>
+struct hash<::drivefs::mojom::DocsOfflineEnableStatus>
+    : public mojo::internal::EnumHashImpl<::drivefs::mojom::DocsOfflineEnableStatus> {};
+
+template <>
 struct hash<::drivefs::mojom::CSESupport>
     : public mojo::internal::EnumHashImpl<::drivefs::mojom::CSESupport> {};
 
@@ -2270,6 +2368,26 @@ struct hash<::drivefs::mojom::DriveFsDelegate_CreateOrDelete>
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::drivefs::mojom::DocsOfflineEnableStatus, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::drivefs::mojom::DocsOfflineEnableStatus, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::drivefs::mojom::DocsOfflineEnableStatus>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -2788,6 +2906,59 @@ struct Serializer<::drivefs::mojom::DriveFsConfigurationDataView, MaybeConstUser
       return CallSetToNullIfExists<Traits>(output);
 
     ::drivefs::mojom::DriveFsConfigurationDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::drivefs::mojom::AccessTokenDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::drivefs::mojom::AccessTokenDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::drivefs::mojom::internal::AccessToken_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::token(input)) in_token = Traits::token(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->token)::BaseType> token_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_token, token_fragment);
+    fragment->token.Set(
+        token_fragment.is_null() ? nullptr : token_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->token.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null token in AccessToken struct");
+    decltype(Traits::expiry_time(input)) in_expiry_time = Traits::expiry_time(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->expiry_time)::BaseType> expiry_time_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
+        in_expiry_time, expiry_time_fragment);
+    fragment->expiry_time.Set(
+        expiry_time_fragment.is_null() ? nullptr : expiry_time_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->expiry_time.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null expiry_time in AccessToken struct");
+  }
+
+  static bool Deserialize(::drivefs::mojom::internal::AccessToken_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::drivefs::mojom::AccessTokenDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -4033,6 +4204,18 @@ inline void DriveFsConfigurationDataView::GetLostAndFoundDirectoryNameDataView(
 }
 
 
+inline void AccessTokenDataView::GetTokenDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->token.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void AccessTokenDataView::GetExpiryTimeDataView(
+    ::mojo_base::mojom::TimeDataView* output) {
+  auto pointer = data_->expiry_time.Get();
+  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
+}
+
+
 inline void DriveErrorDataView::GetPathDataView(
     ::mojo_base::mojom::FilePathDataView* output) {
   auto pointer = data_->path.Get();
@@ -4290,6 +4473,15 @@ inline void FilePathOrErrorDataView::GetPathDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) TraceFormatTraits<::drivefs::mojom::DocsOfflineEnableStatus> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::drivefs::mojom::DocsOfflineEnableStatus value);
+};
+
+} // namespace perfetto
 
 namespace perfetto {
 

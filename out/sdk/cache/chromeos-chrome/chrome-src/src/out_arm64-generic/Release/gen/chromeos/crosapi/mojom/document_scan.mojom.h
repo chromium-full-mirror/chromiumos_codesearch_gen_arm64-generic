@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/document_scan.mojom-features.h"
 #include "chromeos/crosapi/mojom/document_scan.mojom-shared.h"
 #include "chromeos/crosapi/mojom/document_scan.mojom-forward.h"
 #include <string>
@@ -58,7 +59,7 @@ class DocumentScan
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 17349972440549247257ULL,
                                       9374295911706745051ULL };
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 5;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -73,6 +74,14 @@ class DocumentScan
   enum MethodMinVersions : uint32_t {
     kGetScannerNamesMinVersion = 0,
     kScanFirstPageMinVersion = 0,
+    kGetScannerListMinVersion = 1,
+    kOpenScannerMinVersion = 2,
+    kCloseScannerMinVersion = 2,
+    kStartPreparedScanMinVersion = 3,
+    kReadScanDataMinVersion = 3,
+    kSetOptionsMinVersion = 4,
+    kGetOptionGroupsMinVersion = 4,
+    kCancelScanMinVersion = 5,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -84,6 +93,30 @@ class DocumentScan
   struct ScanFirstPage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct GetScannerList_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenScanner_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CloseScanner_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct StartPreparedScan_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ReadScanData_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetOptions_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetOptionGroups_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CancelScan_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~DocumentScan() = default;
 
@@ -93,9 +126,49 @@ class DocumentScan
   virtual void GetScannerNames(GetScannerNamesCallback callback) = 0;
 
 
-  using ScanFirstPageCallback = base::OnceCallback<void(ScanFailureMode, const absl::optional<std::string>&)>;
+  using ScanFirstPageCallback = base::OnceCallback<void(ScanFailureMode, const std::optional<std::string>&)>;
   
   virtual void ScanFirstPage(const std::string& scanner_name, ScanFirstPageCallback callback) = 0;
+
+
+  using GetScannerListCallback = base::OnceCallback<void(GetScannerListResponsePtr)>;
+  
+  virtual void GetScannerList(const std::string& client_id, ScannerEnumFilterPtr filter, GetScannerListCallback callback) = 0;
+
+
+  using OpenScannerCallback = base::OnceCallback<void(OpenScannerResponsePtr)>;
+  
+  virtual void OpenScanner(const std::string& client_id, const std::string& scanner_id, OpenScannerCallback callback) = 0;
+
+
+  using CloseScannerCallback = base::OnceCallback<void(CloseScannerResponsePtr)>;
+  
+  virtual void CloseScanner(const std::string& scanner_handle, CloseScannerCallback callback) = 0;
+
+
+  using StartPreparedScanCallback = base::OnceCallback<void(StartPreparedScanResponsePtr)>;
+  
+  virtual void StartPreparedScan(const std::string& scanner_handle, StartScanOptionsPtr options, StartPreparedScanCallback callback) = 0;
+
+
+  using ReadScanDataCallback = base::OnceCallback<void(ReadScanDataResponsePtr)>;
+  
+  virtual void ReadScanData(const std::string& job_handle, ReadScanDataCallback callback) = 0;
+
+
+  using SetOptionsCallback = base::OnceCallback<void(SetOptionsResponsePtr)>;
+  
+  virtual void SetOptions(const std::string& scanner_handle, std::vector<OptionSettingPtr> options, SetOptionsCallback callback) = 0;
+
+
+  using GetOptionGroupsCallback = base::OnceCallback<void(GetOptionGroupsResponsePtr)>;
+  
+  virtual void GetOptionGroups(const std::string& scanner_handle, GetOptionGroupsCallback callback) = 0;
+
+
+  using CancelScanCallback = base::OnceCallback<void(CancelScanResponsePtr)>;
+  
+  virtual void CancelScan(const std::string& job_handle, CancelScanCallback callback) = 0;
 };
 
 
@@ -110,6 +183,22 @@ class  DocumentScanProxy
   void GetScannerNames(GetScannerNamesCallback callback) final;
   
   void ScanFirstPage(const std::string& scanner_name, ScanFirstPageCallback callback) final;
+  
+  void GetScannerList(const std::string& client_id, ScannerEnumFilterPtr filter, GetScannerListCallback callback) final;
+  
+  void OpenScanner(const std::string& client_id, const std::string& scanner_id, OpenScannerCallback callback) final;
+  
+  void CloseScanner(const std::string& scanner_handle, CloseScannerCallback callback) final;
+  
+  void StartPreparedScan(const std::string& scanner_handle, StartScanOptionsPtr options, StartPreparedScanCallback callback) final;
+  
+  void ReadScanData(const std::string& job_handle, ReadScanDataCallback callback) final;
+  
+  void SetOptions(const std::string& scanner_handle, std::vector<OptionSettingPtr> options, SetOptionsCallback callback) final;
+  
+  void GetOptionGroups(const std::string& scanner_handle, GetOptionGroupsCallback callback) final;
+  
+  void CancelScan(const std::string& job_handle, CancelScanCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -168,9 +257,4482 @@ class  DocumentScanResponseValidator : public mojo::MessageReceiver {
 
 
 
+
+class  ScannerEnumFilter {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ScannerEnumFilter, T>::value>;
+  using DataView = ScannerEnumFilterDataView;
+  using Data_ = internal::ScannerEnumFilter_Data;
+
+  template <typename... Args>
+  static ScannerEnumFilterPtr New(Args&&... args) {
+    return ScannerEnumFilterPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ScannerEnumFilterPtr From(const U& u) {
+    return mojo::TypeConverter<ScannerEnumFilterPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ScannerEnumFilter>::Convert(*this);
+  }
+
+
+  ScannerEnumFilter();
+
+  ScannerEnumFilter(
+      bool local,
+      bool secure);
+
+
+  ~ScannerEnumFilter();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ScannerEnumFilterPtr>
+  ScannerEnumFilterPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ScannerEnumFilter::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ScannerEnumFilter::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ScannerEnumFilter::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ScannerEnumFilter::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ScannerEnumFilter::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ScannerEnumFilter_UnserializedMessageContext<
+            UserType, ScannerEnumFilter::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ScannerEnumFilter::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ScannerEnumFilter::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ScannerEnumFilter_UnserializedMessageContext<
+            UserType, ScannerEnumFilter::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ScannerEnumFilter::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool local;
+  
+  bool secure;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ScannerEnumFilter::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ScannerEnumFilter::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ScannerEnumFilter::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ScannerEnumFilter::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  IntRange {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<IntRange, T>::value>;
+  using DataView = IntRangeDataView;
+  using Data_ = internal::IntRange_Data;
+
+  template <typename... Args>
+  static IntRangePtr New(Args&&... args) {
+    return IntRangePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static IntRangePtr From(const U& u) {
+    return mojo::TypeConverter<IntRangePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, IntRange>::Convert(*this);
+  }
+
+
+  IntRange();
+
+  IntRange(
+      int32_t min,
+      int32_t max,
+      int32_t quant);
+
+
+  ~IntRange();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = IntRangePtr>
+  IntRangePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, IntRange::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, IntRange::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, IntRange::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        IntRange::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        IntRange::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::IntRange_UnserializedMessageContext<
+            UserType, IntRange::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<IntRange::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return IntRange::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::IntRange_UnserializedMessageContext<
+            UserType, IntRange::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<IntRange::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  int32_t min;
+  
+  int32_t max;
+  
+  int32_t quant;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, IntRange::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, IntRange::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, IntRange::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, IntRange::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  FixedRange {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FixedRange, T>::value>;
+  using DataView = FixedRangeDataView;
+  using Data_ = internal::FixedRange_Data;
+
+  template <typename... Args>
+  static FixedRangePtr New(Args&&... args) {
+    return FixedRangePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FixedRangePtr From(const U& u) {
+    return mojo::TypeConverter<FixedRangePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FixedRange>::Convert(*this);
+  }
+
+
+  FixedRange();
+
+  FixedRange(
+      double min,
+      double max,
+      double quant);
+
+
+  ~FixedRange();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FixedRangePtr>
+  FixedRangePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FixedRange::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FixedRange::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FixedRange::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FixedRange::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FixedRange::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FixedRange_UnserializedMessageContext<
+            UserType, FixedRange::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FixedRange::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FixedRange::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FixedRange_UnserializedMessageContext<
+            UserType, FixedRange::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FixedRange::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  double min;
+  
+  double max;
+  
+  double quant;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FixedRange::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FixedRange::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FixedRange::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FixedRange::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+
+
+class  CloseScannerResponse {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CloseScannerResponse, T>::value>;
+  using DataView = CloseScannerResponseDataView;
+  using Data_ = internal::CloseScannerResponse_Data;
+
+  template <typename... Args>
+  static CloseScannerResponsePtr New(Args&&... args) {
+    return CloseScannerResponsePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CloseScannerResponsePtr From(const U& u) {
+    return mojo::TypeConverter<CloseScannerResponsePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CloseScannerResponse>::Convert(*this);
+  }
+
+
+  CloseScannerResponse();
+
+  CloseScannerResponse(
+      const std::string& scanner_handle,
+      ScannerOperationResult result);
+
+
+  ~CloseScannerResponse();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CloseScannerResponsePtr>
+  CloseScannerResponsePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CloseScannerResponse::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CloseScannerResponse::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CloseScannerResponse::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CloseScannerResponse::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CloseScannerResponse::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CloseScannerResponse_UnserializedMessageContext<
+            UserType, CloseScannerResponse::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CloseScannerResponse::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CloseScannerResponse::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CloseScannerResponse_UnserializedMessageContext<
+            UserType, CloseScannerResponse::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CloseScannerResponse::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string scanner_handle;
+  
+  ScannerOperationResult result;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CloseScannerResponse::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CloseScannerResponse::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CloseScannerResponse::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CloseScannerResponse::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  StartScanOptions {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<StartScanOptions, T>::value>;
+  using DataView = StartScanOptionsDataView;
+  using Data_ = internal::StartScanOptions_Data;
+
+  template <typename... Args>
+  static StartScanOptionsPtr New(Args&&... args) {
+    return StartScanOptionsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static StartScanOptionsPtr From(const U& u) {
+    return mojo::TypeConverter<StartScanOptionsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, StartScanOptions>::Convert(*this);
+  }
+
+
+  StartScanOptions();
+
+  explicit StartScanOptions(
+      const std::string& format);
+
+
+  ~StartScanOptions();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = StartScanOptionsPtr>
+  StartScanOptionsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, StartScanOptions::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, StartScanOptions::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, StartScanOptions::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        StartScanOptions::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        StartScanOptions::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::StartScanOptions_UnserializedMessageContext<
+            UserType, StartScanOptions::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<StartScanOptions::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return StartScanOptions::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::StartScanOptions_UnserializedMessageContext<
+            UserType, StartScanOptions::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<StartScanOptions::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string format;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, StartScanOptions::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, StartScanOptions::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, StartScanOptions::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, StartScanOptions::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  StartPreparedScanResponse {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<StartPreparedScanResponse, T>::value>;
+  using DataView = StartPreparedScanResponseDataView;
+  using Data_ = internal::StartPreparedScanResponse_Data;
+
+  template <typename... Args>
+  static StartPreparedScanResponsePtr New(Args&&... args) {
+    return StartPreparedScanResponsePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static StartPreparedScanResponsePtr From(const U& u) {
+    return mojo::TypeConverter<StartPreparedScanResponsePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, StartPreparedScanResponse>::Convert(*this);
+  }
+
+
+  StartPreparedScanResponse();
+
+  StartPreparedScanResponse(
+      const std::string& scanner_handle,
+      ScannerOperationResult result,
+      const std::optional<std::string>& job_handle);
+
+
+  ~StartPreparedScanResponse();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = StartPreparedScanResponsePtr>
+  StartPreparedScanResponsePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, StartPreparedScanResponse::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, StartPreparedScanResponse::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, StartPreparedScanResponse::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        StartPreparedScanResponse::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        StartPreparedScanResponse::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::StartPreparedScanResponse_UnserializedMessageContext<
+            UserType, StartPreparedScanResponse::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<StartPreparedScanResponse::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return StartPreparedScanResponse::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::StartPreparedScanResponse_UnserializedMessageContext<
+            UserType, StartPreparedScanResponse::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<StartPreparedScanResponse::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string scanner_handle;
+  
+  ScannerOperationResult result;
+  
+  std::optional<std::string> job_handle;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, StartPreparedScanResponse::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, StartPreparedScanResponse::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, StartPreparedScanResponse::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, StartPreparedScanResponse::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+
+class  SetOptionResult {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SetOptionResult, T>::value>;
+  using DataView = SetOptionResultDataView;
+  using Data_ = internal::SetOptionResult_Data;
+
+  template <typename... Args>
+  static SetOptionResultPtr New(Args&&... args) {
+    return SetOptionResultPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SetOptionResultPtr From(const U& u) {
+    return mojo::TypeConverter<SetOptionResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SetOptionResult>::Convert(*this);
+  }
+
+
+  SetOptionResult();
+
+  SetOptionResult(
+      const std::string& name,
+      ScannerOperationResult result);
+
+
+  ~SetOptionResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SetOptionResultPtr>
+  SetOptionResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SetOptionResult::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SetOptionResult::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SetOptionResult::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SetOptionResult::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SetOptionResult::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SetOptionResult_UnserializedMessageContext<
+            UserType, SetOptionResult::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SetOptionResult::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SetOptionResult::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SetOptionResult_UnserializedMessageContext<
+            UserType, SetOptionResult::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SetOptionResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string name;
+  
+  ScannerOperationResult result;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SetOptionResult::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SetOptionResult::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SetOptionResult::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SetOptionResult::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+class  CancelScanResponse {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CancelScanResponse, T>::value>;
+  using DataView = CancelScanResponseDataView;
+  using Data_ = internal::CancelScanResponse_Data;
+
+  template <typename... Args>
+  static CancelScanResponsePtr New(Args&&... args) {
+    return CancelScanResponsePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CancelScanResponsePtr From(const U& u) {
+    return mojo::TypeConverter<CancelScanResponsePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CancelScanResponse>::Convert(*this);
+  }
+
+
+  CancelScanResponse();
+
+  CancelScanResponse(
+      const std::string& job_handle,
+      ScannerOperationResult result);
+
+
+  ~CancelScanResponse();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CancelScanResponsePtr>
+  CancelScanResponsePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CancelScanResponse::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CancelScanResponse::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CancelScanResponse::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CancelScanResponse::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CancelScanResponse::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CancelScanResponse_UnserializedMessageContext<
+            UserType, CancelScanResponse::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CancelScanResponse::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CancelScanResponse::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CancelScanResponse_UnserializedMessageContext<
+            UserType, CancelScanResponse::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CancelScanResponse::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string job_handle;
+  
+  ScannerOperationResult result;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CancelScanResponse::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CancelScanResponse::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CancelScanResponse::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CancelScanResponse::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  OptionValue {
+ public:
+  using DataView = OptionValueDataView;
+  using Data_ = internal::OptionValue_Data;
+  using Tag = Data_::OptionValue_Tag;
+
+  template <typename... Args>
+  static OptionValuePtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |bool_value|.
+  static OptionValuePtr
+  NewBoolValue(
+      bool value) {
+    auto result = OptionValuePtr(absl::in_place);
+    result->set_bool_value(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |int_value|.
+  static OptionValuePtr
+  NewIntValue(
+      int32_t value) {
+    auto result = OptionValuePtr(absl::in_place);
+    result->set_int_value(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |int_list|.
+  static OptionValuePtr
+  NewIntList(
+      std::vector<int32_t> value) {
+    auto result = OptionValuePtr(absl::in_place);
+    result->set_int_list(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |fixed_value|.
+  static OptionValuePtr
+  NewFixedValue(
+      double value) {
+    auto result = OptionValuePtr(absl::in_place);
+    result->set_fixed_value(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |fixed_list|.
+  static OptionValuePtr
+  NewFixedList(
+      std::vector<double> value) {
+    auto result = OptionValuePtr(absl::in_place);
+    result->set_fixed_list(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |string_value|.
+  static OptionValuePtr
+  NewStringValue(
+      const std::string& value) {
+    auto result = OptionValuePtr(absl::in_place);
+    result->set_string_value(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static OptionValuePtr From(const U& u) {
+    return mojo::TypeConverter<OptionValuePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, OptionValue>::Convert(*this);
+  }
+
+  OptionValue();
+  ~OptionValue();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  OptionValue(const OptionValue& other) = delete;
+  OptionValue& operator=(const OptionValue& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = OptionValuePtr>
+  OptionValuePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, OptionValue>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, OptionValue>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_bool_value() const { return tag_ == Tag::kBoolValue; }
+
+  
+  bool get_bool_value() const {
+    CHECK(tag_ == Tag::kBoolValue);
+    return data_.bool_value;
+  }
+
+  
+  void set_bool_value(
+      bool bool_value);
+  
+  bool is_int_value() const { return tag_ == Tag::kIntValue; }
+
+  
+  int32_t get_int_value() const {
+    CHECK(tag_ == Tag::kIntValue);
+    return data_.int_value;
+  }
+
+  
+  void set_int_value(
+      int32_t int_value);
+  
+  bool is_int_list() const { return tag_ == Tag::kIntList; }
+
+  
+  std::vector<int32_t>& get_int_list() const {
+    CHECK(tag_ == Tag::kIntList);
+    return *(data_.int_list);
+  }
+
+  
+  void set_int_list(
+      std::vector<int32_t> int_list);
+  
+  bool is_fixed_value() const { return tag_ == Tag::kFixedValue; }
+
+  
+  double get_fixed_value() const {
+    CHECK(tag_ == Tag::kFixedValue);
+    return data_.fixed_value;
+  }
+
+  
+  void set_fixed_value(
+      double fixed_value);
+  
+  bool is_fixed_list() const { return tag_ == Tag::kFixedList; }
+
+  
+  std::vector<double>& get_fixed_list() const {
+    CHECK(tag_ == Tag::kFixedList);
+    return *(data_.fixed_list);
+  }
+
+  
+  void set_fixed_list(
+      std::vector<double> fixed_list);
+  
+  bool is_string_value() const { return tag_ == Tag::kStringValue; }
+
+  
+  std::string& get_string_value() const {
+    CHECK(tag_ == Tag::kStringValue);
+    return *(data_.string_value);
+  }
+
+  
+  void set_string_value(
+      const std::string& string_value);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        OptionValue::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<OptionValue::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool bool_value;
+    int32_t int_value;
+    std::vector<int32_t>* int_list;
+    double fixed_value;
+    std::vector<double>* fixed_list;
+    std::string* string_value;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  OptionConstraintRestriction {
+ public:
+  using DataView = OptionConstraintRestrictionDataView;
+  using Data_ = internal::OptionConstraintRestriction_Data;
+  using Tag = Data_::OptionConstraintRestriction_Tag;
+
+  template <typename... Args>
+  static OptionConstraintRestrictionPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |int_range|.
+  static OptionConstraintRestrictionPtr
+  NewIntRange(
+      IntRangePtr value) {
+    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    result->set_int_range(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |fixed_range|.
+  static OptionConstraintRestrictionPtr
+  NewFixedRange(
+      FixedRangePtr value) {
+    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    result->set_fixed_range(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |valid_int|.
+  static OptionConstraintRestrictionPtr
+  NewValidInt(
+      std::vector<int32_t> value) {
+    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    result->set_valid_int(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |valid_fixed|.
+  static OptionConstraintRestrictionPtr
+  NewValidFixed(
+      std::vector<double> value) {
+    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    result->set_valid_fixed(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |valid_string|.
+  static OptionConstraintRestrictionPtr
+  NewValidString(
+      std::vector<std::string> value) {
+    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    result->set_valid_string(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static OptionConstraintRestrictionPtr From(const U& u) {
+    return mojo::TypeConverter<OptionConstraintRestrictionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, OptionConstraintRestriction>::Convert(*this);
+  }
+
+  OptionConstraintRestriction();
+  ~OptionConstraintRestriction();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  OptionConstraintRestriction(const OptionConstraintRestriction& other) = delete;
+  OptionConstraintRestriction& operator=(const OptionConstraintRestriction& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = OptionConstraintRestrictionPtr>
+  OptionConstraintRestrictionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, OptionConstraintRestriction>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, OptionConstraintRestriction>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_int_range() const { return tag_ == Tag::kIntRange; }
+
+  
+  IntRangePtr& get_int_range() const {
+    CHECK(tag_ == Tag::kIntRange);
+    return *(data_.int_range);
+  }
+
+  
+  void set_int_range(
+      IntRangePtr int_range);
+  
+  bool is_fixed_range() const { return tag_ == Tag::kFixedRange; }
+
+  
+  FixedRangePtr& get_fixed_range() const {
+    CHECK(tag_ == Tag::kFixedRange);
+    return *(data_.fixed_range);
+  }
+
+  
+  void set_fixed_range(
+      FixedRangePtr fixed_range);
+  
+  bool is_valid_int() const { return tag_ == Tag::kValidInt; }
+
+  
+  std::vector<int32_t>& get_valid_int() const {
+    CHECK(tag_ == Tag::kValidInt);
+    return *(data_.valid_int);
+  }
+
+  
+  void set_valid_int(
+      std::vector<int32_t> valid_int);
+  
+  bool is_valid_fixed() const { return tag_ == Tag::kValidFixed; }
+
+  
+  std::vector<double>& get_valid_fixed() const {
+    CHECK(tag_ == Tag::kValidFixed);
+    return *(data_.valid_fixed);
+  }
+
+  
+  void set_valid_fixed(
+      std::vector<double> valid_fixed);
+  
+  bool is_valid_string() const { return tag_ == Tag::kValidString; }
+
+  
+  std::vector<std::string>& get_valid_string() const {
+    CHECK(tag_ == Tag::kValidString);
+    return *(data_.valid_string);
+  }
+
+  
+  void set_valid_string(
+      std::vector<std::string> valid_string);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        OptionConstraintRestriction::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<OptionConstraintRestriction::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    IntRangePtr* int_range;
+    FixedRangePtr* fixed_range;
+    std::vector<int32_t>* valid_int;
+    std::vector<double>* valid_fixed;
+    std::vector<std::string>* valid_string;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+
+
+class  ScannerInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ScannerInfo, T>::value>;
+  using DataView = ScannerInfoDataView;
+  using Data_ = internal::ScannerInfo_Data;
+  using ConnectionType = ScannerInfo_ConnectionType;
+
+  template <typename... Args>
+  static ScannerInfoPtr New(Args&&... args) {
+    return ScannerInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ScannerInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ScannerInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ScannerInfo>::Convert(*this);
+  }
+
+
+  ScannerInfo();
+
+  ScannerInfo(
+      const std::string& id,
+      const std::string& display_name,
+      const std::string& manufacturer,
+      const std::string& model,
+      const std::string& device_uuid,
+      ScannerInfo::ConnectionType connection_type,
+      bool secure,
+      std::vector<std::string> image_formats);
+
+
+  ~ScannerInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ScannerInfoPtr>
+  ScannerInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ScannerInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ScannerInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ScannerInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ScannerInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ScannerInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ScannerInfo_UnserializedMessageContext<
+            UserType, ScannerInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ScannerInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ScannerInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ScannerInfo_UnserializedMessageContext<
+            UserType, ScannerInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ScannerInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string id;
+  
+  std::string display_name;
+  
+  std::string manufacturer;
+  
+  std::string model;
+  
+  std::string device_uuid;
+  
+  ScannerInfo::ConnectionType connection_type;
+  
+  bool secure;
+  
+  std::vector<std::string> image_formats;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ScannerInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ScannerInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ScannerInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ScannerInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+
+class  OptionConstraint {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<OptionConstraint, T>::value>;
+  using DataView = OptionConstraintDataView;
+  using Data_ = internal::OptionConstraint_Data;
+
+  template <typename... Args>
+  static OptionConstraintPtr New(Args&&... args) {
+    return OptionConstraintPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static OptionConstraintPtr From(const U& u) {
+    return mojo::TypeConverter<OptionConstraintPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, OptionConstraint>::Convert(*this);
+  }
+
+
+  OptionConstraint();
+
+  OptionConstraint(
+      OptionConstraintType type,
+      OptionConstraintRestrictionPtr restriction);
+
+OptionConstraint(const OptionConstraint&) = delete;
+OptionConstraint& operator=(const OptionConstraint&) = delete;
+
+  ~OptionConstraint();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = OptionConstraintPtr>
+  OptionConstraintPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, OptionConstraint::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, OptionConstraint::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, OptionConstraint::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        OptionConstraint::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        OptionConstraint::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::OptionConstraint_UnserializedMessageContext<
+            UserType, OptionConstraint::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<OptionConstraint::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return OptionConstraint::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::OptionConstraint_UnserializedMessageContext<
+            UserType, OptionConstraint::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<OptionConstraint::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  OptionConstraintType type;
+  
+  OptionConstraintRestrictionPtr restriction;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, OptionConstraint::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, OptionConstraint::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, OptionConstraint::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, OptionConstraint::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  ScannerOption {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ScannerOption, T>::value>;
+  using DataView = ScannerOptionDataView;
+  using Data_ = internal::ScannerOption_Data;
+
+  template <typename... Args>
+  static ScannerOptionPtr New(Args&&... args) {
+    return ScannerOptionPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ScannerOptionPtr From(const U& u) {
+    return mojo::TypeConverter<ScannerOptionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ScannerOption>::Convert(*this);
+  }
+
+
+  ScannerOption();
+
+  ScannerOption(
+      const std::string& name,
+      const std::string& title,
+      const std::string& description,
+      OptionType type,
+      OptionUnit unit,
+      OptionValuePtr value,
+      OptionConstraintPtr constraint,
+      bool isDetectable,
+      OptionConfigurability configurability,
+      bool isAutoSettable,
+      bool isEmulated,
+      bool isActive,
+      bool isAdvanced,
+      bool isInternal);
+
+ScannerOption(const ScannerOption&) = delete;
+ScannerOption& operator=(const ScannerOption&) = delete;
+
+  ~ScannerOption();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ScannerOptionPtr>
+  ScannerOptionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ScannerOption::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ScannerOption::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ScannerOption::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ScannerOption::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ScannerOption::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ScannerOption_UnserializedMessageContext<
+            UserType, ScannerOption::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ScannerOption::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ScannerOption::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ScannerOption_UnserializedMessageContext<
+            UserType, ScannerOption::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ScannerOption::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string name;
+  
+  std::string title;
+  
+  std::string description;
+  
+  OptionType type;
+  
+  OptionUnit unit;
+  
+  OptionValuePtr value;
+  
+  OptionConstraintPtr constraint;
+  
+  bool isDetectable;
+  
+  OptionConfigurability configurability;
+  
+  bool isAutoSettable;
+  
+  bool isEmulated;
+  
+  bool isActive;
+  
+  bool isAdvanced;
+  
+  bool isInternal;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ScannerOption::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ScannerOption::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ScannerOption::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ScannerOption::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  GetScannerListResponse {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<GetScannerListResponse, T>::value>;
+  using DataView = GetScannerListResponseDataView;
+  using Data_ = internal::GetScannerListResponse_Data;
+
+  template <typename... Args>
+  static GetScannerListResponsePtr New(Args&&... args) {
+    return GetScannerListResponsePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static GetScannerListResponsePtr From(const U& u) {
+    return mojo::TypeConverter<GetScannerListResponsePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, GetScannerListResponse>::Convert(*this);
+  }
+
+
+  GetScannerListResponse();
+
+  GetScannerListResponse(
+      ScannerOperationResult result,
+      std::vector<ScannerInfoPtr> scanners);
+
+GetScannerListResponse(const GetScannerListResponse&) = delete;
+GetScannerListResponse& operator=(const GetScannerListResponse&) = delete;
+
+  ~GetScannerListResponse();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = GetScannerListResponsePtr>
+  GetScannerListResponsePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, GetScannerListResponse::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, GetScannerListResponse::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, GetScannerListResponse::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        GetScannerListResponse::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        GetScannerListResponse::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::GetScannerListResponse_UnserializedMessageContext<
+            UserType, GetScannerListResponse::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<GetScannerListResponse::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return GetScannerListResponse::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::GetScannerListResponse_UnserializedMessageContext<
+            UserType, GetScannerListResponse::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<GetScannerListResponse::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ScannerOperationResult result;
+  
+  std::vector<ScannerInfoPtr> scanners;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, GetScannerListResponse::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, GetScannerListResponse::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, GetScannerListResponse::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, GetScannerListResponse::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  OpenScannerResponse {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<OpenScannerResponse, T>::value>;
+  using DataView = OpenScannerResponseDataView;
+  using Data_ = internal::OpenScannerResponse_Data;
+
+  template <typename... Args>
+  static OpenScannerResponsePtr New(Args&&... args) {
+    return OpenScannerResponsePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static OpenScannerResponsePtr From(const U& u) {
+    return mojo::TypeConverter<OpenScannerResponsePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, OpenScannerResponse>::Convert(*this);
+  }
+
+
+  OpenScannerResponse();
+
+  OpenScannerResponse(
+      const std::string& scanner_id,
+      ScannerOperationResult result,
+      const std::optional<std::string>& scanner_handle,
+      std::optional<base::flat_map<std::string, ScannerOptionPtr>> options);
+
+OpenScannerResponse(const OpenScannerResponse&) = delete;
+OpenScannerResponse& operator=(const OpenScannerResponse&) = delete;
+
+  ~OpenScannerResponse();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = OpenScannerResponsePtr>
+  OpenScannerResponsePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, OpenScannerResponse::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, OpenScannerResponse::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, OpenScannerResponse::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        OpenScannerResponse::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        OpenScannerResponse::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::OpenScannerResponse_UnserializedMessageContext<
+            UserType, OpenScannerResponse::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<OpenScannerResponse::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return OpenScannerResponse::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::OpenScannerResponse_UnserializedMessageContext<
+            UserType, OpenScannerResponse::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<OpenScannerResponse::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string scanner_id;
+  
+  ScannerOperationResult result;
+  
+  std::optional<std::string> scanner_handle;
+  
+  std::optional<base::flat_map<std::string, ScannerOptionPtr>> options;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, OpenScannerResponse::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, OpenScannerResponse::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, OpenScannerResponse::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, OpenScannerResponse::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+
+class  ReadScanDataResponse {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ReadScanDataResponse, T>::value>;
+  using DataView = ReadScanDataResponseDataView;
+  using Data_ = internal::ReadScanDataResponse_Data;
+
+  template <typename... Args>
+  static ReadScanDataResponsePtr New(Args&&... args) {
+    return ReadScanDataResponsePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ReadScanDataResponsePtr From(const U& u) {
+    return mojo::TypeConverter<ReadScanDataResponsePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ReadScanDataResponse>::Convert(*this);
+  }
+
+
+  ReadScanDataResponse();
+
+  ReadScanDataResponse(
+      const std::string& job_handle,
+      ScannerOperationResult result,
+      std::optional<std::vector<int8_t>> data,
+      std::optional<uint32_t> estimated_completion);
+
+
+  ~ReadScanDataResponse();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ReadScanDataResponsePtr>
+  ReadScanDataResponsePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ReadScanDataResponse::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ReadScanDataResponse::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ReadScanDataResponse::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ReadScanDataResponse::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ReadScanDataResponse::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ReadScanDataResponse_UnserializedMessageContext<
+            UserType, ReadScanDataResponse::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ReadScanDataResponse::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ReadScanDataResponse::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ReadScanDataResponse_UnserializedMessageContext<
+            UserType, ReadScanDataResponse::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ReadScanDataResponse::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string job_handle;
+  
+  ScannerOperationResult result;
+  
+  std::optional<std::vector<int8_t>> data;
+  
+  std::optional<uint32_t> estimated_completion;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ReadScanDataResponse::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ReadScanDataResponse::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ReadScanDataResponse::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ReadScanDataResponse::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  OptionSetting {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<OptionSetting, T>::value>;
+  using DataView = OptionSettingDataView;
+  using Data_ = internal::OptionSetting_Data;
+
+  template <typename... Args>
+  static OptionSettingPtr New(Args&&... args) {
+    return OptionSettingPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static OptionSettingPtr From(const U& u) {
+    return mojo::TypeConverter<OptionSettingPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, OptionSetting>::Convert(*this);
+  }
+
+
+  OptionSetting();
+
+  OptionSetting(
+      const std::string& name,
+      OptionType type,
+      OptionValuePtr value);
+
+OptionSetting(const OptionSetting&) = delete;
+OptionSetting& operator=(const OptionSetting&) = delete;
+
+  ~OptionSetting();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = OptionSettingPtr>
+  OptionSettingPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, OptionSetting::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, OptionSetting::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, OptionSetting::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        OptionSetting::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        OptionSetting::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::OptionSetting_UnserializedMessageContext<
+            UserType, OptionSetting::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<OptionSetting::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return OptionSetting::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::OptionSetting_UnserializedMessageContext<
+            UserType, OptionSetting::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<OptionSetting::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string name;
+  
+  OptionType type;
+  
+  OptionValuePtr value;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, OptionSetting::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, OptionSetting::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, OptionSetting::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, OptionSetting::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  OptionGroup {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<OptionGroup, T>::value>;
+  using DataView = OptionGroupDataView;
+  using Data_ = internal::OptionGroup_Data;
+
+  template <typename... Args>
+  static OptionGroupPtr New(Args&&... args) {
+    return OptionGroupPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static OptionGroupPtr From(const U& u) {
+    return mojo::TypeConverter<OptionGroupPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, OptionGroup>::Convert(*this);
+  }
+
+
+  OptionGroup();
+
+  OptionGroup(
+      const std::string& title,
+      std::vector<std::string> members);
+
+
+  ~OptionGroup();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = OptionGroupPtr>
+  OptionGroupPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, OptionGroup::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, OptionGroup::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, OptionGroup::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        OptionGroup::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        OptionGroup::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::OptionGroup_UnserializedMessageContext<
+            UserType, OptionGroup::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<OptionGroup::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return OptionGroup::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::OptionGroup_UnserializedMessageContext<
+            UserType, OptionGroup::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<OptionGroup::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string title;
+  
+  std::vector<std::string> members;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, OptionGroup::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, OptionGroup::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, OptionGroup::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, OptionGroup::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  SetOptionsResponse {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SetOptionsResponse, T>::value>;
+  using DataView = SetOptionsResponseDataView;
+  using Data_ = internal::SetOptionsResponse_Data;
+
+  template <typename... Args>
+  static SetOptionsResponsePtr New(Args&&... args) {
+    return SetOptionsResponsePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SetOptionsResponsePtr From(const U& u) {
+    return mojo::TypeConverter<SetOptionsResponsePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SetOptionsResponse>::Convert(*this);
+  }
+
+
+  SetOptionsResponse();
+
+  SetOptionsResponse(
+      const std::string& scanner_handle,
+      std::vector<SetOptionResultPtr> results,
+      std::optional<base::flat_map<std::string, ScannerOptionPtr>> options);
+
+SetOptionsResponse(const SetOptionsResponse&) = delete;
+SetOptionsResponse& operator=(const SetOptionsResponse&) = delete;
+
+  ~SetOptionsResponse();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SetOptionsResponsePtr>
+  SetOptionsResponsePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SetOptionsResponse::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SetOptionsResponse::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SetOptionsResponse::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SetOptionsResponse::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SetOptionsResponse::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SetOptionsResponse_UnserializedMessageContext<
+            UserType, SetOptionsResponse::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SetOptionsResponse::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SetOptionsResponse::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SetOptionsResponse_UnserializedMessageContext<
+            UserType, SetOptionsResponse::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SetOptionsResponse::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string scanner_handle;
+  
+  std::vector<SetOptionResultPtr> results;
+  
+  std::optional<base::flat_map<std::string, ScannerOptionPtr>> options;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SetOptionsResponse::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SetOptionsResponse::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SetOptionsResponse::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SetOptionsResponse::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  GetOptionGroupsResponse {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<GetOptionGroupsResponse, T>::value>;
+  using DataView = GetOptionGroupsResponseDataView;
+  using Data_ = internal::GetOptionGroupsResponse_Data;
+
+  template <typename... Args>
+  static GetOptionGroupsResponsePtr New(Args&&... args) {
+    return GetOptionGroupsResponsePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static GetOptionGroupsResponsePtr From(const U& u) {
+    return mojo::TypeConverter<GetOptionGroupsResponsePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, GetOptionGroupsResponse>::Convert(*this);
+  }
+
+
+  GetOptionGroupsResponse();
+
+  GetOptionGroupsResponse(
+      const std::string& scanner_handle,
+      ScannerOperationResult result,
+      std::optional<std::vector<OptionGroupPtr>> groups);
+
+GetOptionGroupsResponse(const GetOptionGroupsResponse&) = delete;
+GetOptionGroupsResponse& operator=(const GetOptionGroupsResponse&) = delete;
+
+  ~GetOptionGroupsResponse();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = GetOptionGroupsResponsePtr>
+  GetOptionGroupsResponsePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, GetOptionGroupsResponse::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, GetOptionGroupsResponse::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, GetOptionGroupsResponse::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        GetOptionGroupsResponse::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        GetOptionGroupsResponse::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::GetOptionGroupsResponse_UnserializedMessageContext<
+            UserType, GetOptionGroupsResponse::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<GetOptionGroupsResponse::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return GetOptionGroupsResponse::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::GetOptionGroupsResponse_UnserializedMessageContext<
+            UserType, GetOptionGroupsResponse::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<GetOptionGroupsResponse::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string scanner_handle;
+  
+  ScannerOperationResult result;
+  
+  std::optional<std::vector<OptionGroupPtr>> groups;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, GetOptionGroupsResponse::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, GetOptionGroupsResponse::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, GetOptionGroupsResponse::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, GetOptionGroupsResponse::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+template <typename UnionPtrType>
+OptionValuePtr OptionValue::Clone() const {
+  switch (tag_) {
+    case Tag::kBoolValue:
+      return NewBoolValue(
+          mojo::Clone(data_.bool_value));
+    case Tag::kIntValue:
+      return NewIntValue(
+          mojo::Clone(data_.int_value));
+    case Tag::kIntList:
+      return NewIntList(
+          mojo::Clone(*data_.int_list));
+    case Tag::kFixedValue:
+      return NewFixedValue(
+          mojo::Clone(data_.fixed_value));
+    case Tag::kFixedList:
+      return NewFixedList(
+          mojo::Clone(*data_.fixed_list));
+    case Tag::kStringValue:
+      return NewStringValue(
+          mojo::Clone(*data_.string_value));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, OptionValue>::value>::type*>
+bool OptionValue::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kBoolValue:
+      return mojo::Equals(data_.bool_value, other.data_.bool_value);
+    case Tag::kIntValue:
+      return mojo::Equals(data_.int_value, other.data_.int_value);
+    case Tag::kIntList:
+      return mojo::Equals(*(data_.int_list), *(other.data_.int_list));
+    case Tag::kFixedValue:
+      return mojo::Equals(data_.fixed_value, other.data_.fixed_value);
+    case Tag::kFixedList:
+      return mojo::Equals(*(data_.fixed_list), *(other.data_.fixed_list));
+    case Tag::kStringValue:
+      return mojo::Equals(*(data_.string_value), *(other.data_.string_value));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+OptionConstraintRestrictionPtr OptionConstraintRestriction::Clone() const {
+  switch (tag_) {
+    case Tag::kIntRange:
+      return NewIntRange(
+          mojo::Clone(*data_.int_range));
+    case Tag::kFixedRange:
+      return NewFixedRange(
+          mojo::Clone(*data_.fixed_range));
+    case Tag::kValidInt:
+      return NewValidInt(
+          mojo::Clone(*data_.valid_int));
+    case Tag::kValidFixed:
+      return NewValidFixed(
+          mojo::Clone(*data_.valid_fixed));
+    case Tag::kValidString:
+      return NewValidString(
+          mojo::Clone(*data_.valid_string));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, OptionConstraintRestriction>::value>::type*>
+bool OptionConstraintRestriction::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kIntRange:
+      return mojo::Equals(*(data_.int_range), *(other.data_.int_range));
+    case Tag::kFixedRange:
+      return mojo::Equals(*(data_.fixed_range), *(other.data_.fixed_range));
+    case Tag::kValidInt:
+      return mojo::Equals(*(data_.valid_int), *(other.data_.valid_int));
+    case Tag::kValidFixed:
+      return mojo::Equals(*(data_.valid_fixed), *(other.data_.valid_fixed));
+    case Tag::kValidString:
+      return mojo::Equals(*(data_.valid_string), *(other.data_.valid_string));
+  }
+
+  return false;
+}
+template <typename StructPtrType>
+ScannerInfoPtr ScannerInfo::Clone() const {
+  return New(
+      mojo::Clone(id),
+      mojo::Clone(display_name),
+      mojo::Clone(manufacturer),
+      mojo::Clone(model),
+      mojo::Clone(device_uuid),
+      mojo::Clone(connection_type),
+      mojo::Clone(secure),
+      mojo::Clone(image_formats)
+  );
+}
+
+template <typename T, ScannerInfo::EnableIfSame<T>*>
+bool ScannerInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->id, other_struct.id))
+    return false;
+  if (!mojo::Equals(this->display_name, other_struct.display_name))
+    return false;
+  if (!mojo::Equals(this->manufacturer, other_struct.manufacturer))
+    return false;
+  if (!mojo::Equals(this->model, other_struct.model))
+    return false;
+  if (!mojo::Equals(this->device_uuid, other_struct.device_uuid))
+    return false;
+  if (!mojo::Equals(this->connection_type, other_struct.connection_type))
+    return false;
+  if (!mojo::Equals(this->secure, other_struct.secure))
+    return false;
+  if (!mojo::Equals(this->image_formats, other_struct.image_formats))
+    return false;
+  return true;
+}
+
+template <typename T, ScannerInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.id < rhs.id)
+    return true;
+  if (rhs.id < lhs.id)
+    return false;
+  if (lhs.display_name < rhs.display_name)
+    return true;
+  if (rhs.display_name < lhs.display_name)
+    return false;
+  if (lhs.manufacturer < rhs.manufacturer)
+    return true;
+  if (rhs.manufacturer < lhs.manufacturer)
+    return false;
+  if (lhs.model < rhs.model)
+    return true;
+  if (rhs.model < lhs.model)
+    return false;
+  if (lhs.device_uuid < rhs.device_uuid)
+    return true;
+  if (rhs.device_uuid < lhs.device_uuid)
+    return false;
+  if (lhs.connection_type < rhs.connection_type)
+    return true;
+  if (rhs.connection_type < lhs.connection_type)
+    return false;
+  if (lhs.secure < rhs.secure)
+    return true;
+  if (rhs.secure < lhs.secure)
+    return false;
+  if (lhs.image_formats < rhs.image_formats)
+    return true;
+  if (rhs.image_formats < lhs.image_formats)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ScannerEnumFilterPtr ScannerEnumFilter::Clone() const {
+  return New(
+      mojo::Clone(local),
+      mojo::Clone(secure)
+  );
+}
+
+template <typename T, ScannerEnumFilter::EnableIfSame<T>*>
+bool ScannerEnumFilter::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->local, other_struct.local))
+    return false;
+  if (!mojo::Equals(this->secure, other_struct.secure))
+    return false;
+  return true;
+}
+
+template <typename T, ScannerEnumFilter::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.local < rhs.local)
+    return true;
+  if (rhs.local < lhs.local)
+    return false;
+  if (lhs.secure < rhs.secure)
+    return true;
+  if (rhs.secure < lhs.secure)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+IntRangePtr IntRange::Clone() const {
+  return New(
+      mojo::Clone(min),
+      mojo::Clone(max),
+      mojo::Clone(quant)
+  );
+}
+
+template <typename T, IntRange::EnableIfSame<T>*>
+bool IntRange::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->min, other_struct.min))
+    return false;
+  if (!mojo::Equals(this->max, other_struct.max))
+    return false;
+  if (!mojo::Equals(this->quant, other_struct.quant))
+    return false;
+  return true;
+}
+
+template <typename T, IntRange::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.min < rhs.min)
+    return true;
+  if (rhs.min < lhs.min)
+    return false;
+  if (lhs.max < rhs.max)
+    return true;
+  if (rhs.max < lhs.max)
+    return false;
+  if (lhs.quant < rhs.quant)
+    return true;
+  if (rhs.quant < lhs.quant)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+FixedRangePtr FixedRange::Clone() const {
+  return New(
+      mojo::Clone(min),
+      mojo::Clone(max),
+      mojo::Clone(quant)
+  );
+}
+
+template <typename T, FixedRange::EnableIfSame<T>*>
+bool FixedRange::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->min, other_struct.min))
+    return false;
+  if (!mojo::Equals(this->max, other_struct.max))
+    return false;
+  if (!mojo::Equals(this->quant, other_struct.quant))
+    return false;
+  return true;
+}
+
+template <typename T, FixedRange::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.min < rhs.min)
+    return true;
+  if (rhs.min < lhs.min)
+    return false;
+  if (lhs.max < rhs.max)
+    return true;
+  if (rhs.max < lhs.max)
+    return false;
+  if (lhs.quant < rhs.quant)
+    return true;
+  if (rhs.quant < lhs.quant)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+OptionConstraintPtr OptionConstraint::Clone() const {
+  return New(
+      mojo::Clone(type),
+      mojo::Clone(restriction)
+  );
+}
+
+template <typename T, OptionConstraint::EnableIfSame<T>*>
+bool OptionConstraint::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->restriction, other_struct.restriction))
+    return false;
+  return true;
+}
+
+template <typename T, OptionConstraint::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.restriction < rhs.restriction)
+    return true;
+  if (rhs.restriction < lhs.restriction)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ScannerOptionPtr ScannerOption::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(title),
+      mojo::Clone(description),
+      mojo::Clone(type),
+      mojo::Clone(unit),
+      mojo::Clone(value),
+      mojo::Clone(constraint),
+      mojo::Clone(isDetectable),
+      mojo::Clone(configurability),
+      mojo::Clone(isAutoSettable),
+      mojo::Clone(isEmulated),
+      mojo::Clone(isActive),
+      mojo::Clone(isAdvanced),
+      mojo::Clone(isInternal)
+  );
+}
+
+template <typename T, ScannerOption::EnableIfSame<T>*>
+bool ScannerOption::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->title, other_struct.title))
+    return false;
+  if (!mojo::Equals(this->description, other_struct.description))
+    return false;
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->unit, other_struct.unit))
+    return false;
+  if (!mojo::Equals(this->value, other_struct.value))
+    return false;
+  if (!mojo::Equals(this->constraint, other_struct.constraint))
+    return false;
+  if (!mojo::Equals(this->isDetectable, other_struct.isDetectable))
+    return false;
+  if (!mojo::Equals(this->configurability, other_struct.configurability))
+    return false;
+  if (!mojo::Equals(this->isAutoSettable, other_struct.isAutoSettable))
+    return false;
+  if (!mojo::Equals(this->isEmulated, other_struct.isEmulated))
+    return false;
+  if (!mojo::Equals(this->isActive, other_struct.isActive))
+    return false;
+  if (!mojo::Equals(this->isAdvanced, other_struct.isAdvanced))
+    return false;
+  if (!mojo::Equals(this->isInternal, other_struct.isInternal))
+    return false;
+  return true;
+}
+
+template <typename T, ScannerOption::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.title < rhs.title)
+    return true;
+  if (rhs.title < lhs.title)
+    return false;
+  if (lhs.description < rhs.description)
+    return true;
+  if (rhs.description < lhs.description)
+    return false;
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.unit < rhs.unit)
+    return true;
+  if (rhs.unit < lhs.unit)
+    return false;
+  if (lhs.value < rhs.value)
+    return true;
+  if (rhs.value < lhs.value)
+    return false;
+  if (lhs.constraint < rhs.constraint)
+    return true;
+  if (rhs.constraint < lhs.constraint)
+    return false;
+  if (lhs.isDetectable < rhs.isDetectable)
+    return true;
+  if (rhs.isDetectable < lhs.isDetectable)
+    return false;
+  if (lhs.configurability < rhs.configurability)
+    return true;
+  if (rhs.configurability < lhs.configurability)
+    return false;
+  if (lhs.isAutoSettable < rhs.isAutoSettable)
+    return true;
+  if (rhs.isAutoSettable < lhs.isAutoSettable)
+    return false;
+  if (lhs.isEmulated < rhs.isEmulated)
+    return true;
+  if (rhs.isEmulated < lhs.isEmulated)
+    return false;
+  if (lhs.isActive < rhs.isActive)
+    return true;
+  if (rhs.isActive < lhs.isActive)
+    return false;
+  if (lhs.isAdvanced < rhs.isAdvanced)
+    return true;
+  if (rhs.isAdvanced < lhs.isAdvanced)
+    return false;
+  if (lhs.isInternal < rhs.isInternal)
+    return true;
+  if (rhs.isInternal < lhs.isInternal)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+GetScannerListResponsePtr GetScannerListResponse::Clone() const {
+  return New(
+      mojo::Clone(result),
+      mojo::Clone(scanners)
+  );
+}
+
+template <typename T, GetScannerListResponse::EnableIfSame<T>*>
+bool GetScannerListResponse::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->result, other_struct.result))
+    return false;
+  if (!mojo::Equals(this->scanners, other_struct.scanners))
+    return false;
+  return true;
+}
+
+template <typename T, GetScannerListResponse::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.result < rhs.result)
+    return true;
+  if (rhs.result < lhs.result)
+    return false;
+  if (lhs.scanners < rhs.scanners)
+    return true;
+  if (rhs.scanners < lhs.scanners)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+OpenScannerResponsePtr OpenScannerResponse::Clone() const {
+  return New(
+      mojo::Clone(scanner_id),
+      mojo::Clone(result),
+      mojo::Clone(scanner_handle),
+      mojo::Clone(options)
+  );
+}
+
+template <typename T, OpenScannerResponse::EnableIfSame<T>*>
+bool OpenScannerResponse::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->scanner_id, other_struct.scanner_id))
+    return false;
+  if (!mojo::Equals(this->result, other_struct.result))
+    return false;
+  if (!mojo::Equals(this->scanner_handle, other_struct.scanner_handle))
+    return false;
+  if (!mojo::Equals(this->options, other_struct.options))
+    return false;
+  return true;
+}
+
+template <typename T, OpenScannerResponse::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.scanner_id < rhs.scanner_id)
+    return true;
+  if (rhs.scanner_id < lhs.scanner_id)
+    return false;
+  if (lhs.result < rhs.result)
+    return true;
+  if (rhs.result < lhs.result)
+    return false;
+  if (lhs.scanner_handle < rhs.scanner_handle)
+    return true;
+  if (rhs.scanner_handle < lhs.scanner_handle)
+    return false;
+  if (lhs.options < rhs.options)
+    return true;
+  if (rhs.options < lhs.options)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+CloseScannerResponsePtr CloseScannerResponse::Clone() const {
+  return New(
+      mojo::Clone(scanner_handle),
+      mojo::Clone(result)
+  );
+}
+
+template <typename T, CloseScannerResponse::EnableIfSame<T>*>
+bool CloseScannerResponse::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->scanner_handle, other_struct.scanner_handle))
+    return false;
+  if (!mojo::Equals(this->result, other_struct.result))
+    return false;
+  return true;
+}
+
+template <typename T, CloseScannerResponse::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.scanner_handle < rhs.scanner_handle)
+    return true;
+  if (rhs.scanner_handle < lhs.scanner_handle)
+    return false;
+  if (lhs.result < rhs.result)
+    return true;
+  if (rhs.result < lhs.result)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+StartScanOptionsPtr StartScanOptions::Clone() const {
+  return New(
+      mojo::Clone(format)
+  );
+}
+
+template <typename T, StartScanOptions::EnableIfSame<T>*>
+bool StartScanOptions::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->format, other_struct.format))
+    return false;
+  return true;
+}
+
+template <typename T, StartScanOptions::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.format < rhs.format)
+    return true;
+  if (rhs.format < lhs.format)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+StartPreparedScanResponsePtr StartPreparedScanResponse::Clone() const {
+  return New(
+      mojo::Clone(scanner_handle),
+      mojo::Clone(result),
+      mojo::Clone(job_handle)
+  );
+}
+
+template <typename T, StartPreparedScanResponse::EnableIfSame<T>*>
+bool StartPreparedScanResponse::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->scanner_handle, other_struct.scanner_handle))
+    return false;
+  if (!mojo::Equals(this->result, other_struct.result))
+    return false;
+  if (!mojo::Equals(this->job_handle, other_struct.job_handle))
+    return false;
+  return true;
+}
+
+template <typename T, StartPreparedScanResponse::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.scanner_handle < rhs.scanner_handle)
+    return true;
+  if (rhs.scanner_handle < lhs.scanner_handle)
+    return false;
+  if (lhs.result < rhs.result)
+    return true;
+  if (rhs.result < lhs.result)
+    return false;
+  if (lhs.job_handle < rhs.job_handle)
+    return true;
+  if (rhs.job_handle < lhs.job_handle)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ReadScanDataResponsePtr ReadScanDataResponse::Clone() const {
+  return New(
+      mojo::Clone(job_handle),
+      mojo::Clone(result),
+      mojo::Clone(data),
+      mojo::Clone(estimated_completion)
+  );
+}
+
+template <typename T, ReadScanDataResponse::EnableIfSame<T>*>
+bool ReadScanDataResponse::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->job_handle, other_struct.job_handle))
+    return false;
+  if (!mojo::Equals(this->result, other_struct.result))
+    return false;
+  if (!mojo::Equals(this->data, other_struct.data))
+    return false;
+  if (!mojo::Equals(this->estimated_completion, other_struct.estimated_completion))
+    return false;
+  return true;
+}
+
+template <typename T, ReadScanDataResponse::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.job_handle < rhs.job_handle)
+    return true;
+  if (rhs.job_handle < lhs.job_handle)
+    return false;
+  if (lhs.result < rhs.result)
+    return true;
+  if (rhs.result < lhs.result)
+    return false;
+  if (lhs.data < rhs.data)
+    return true;
+  if (rhs.data < lhs.data)
+    return false;
+  if (lhs.estimated_completion < rhs.estimated_completion)
+    return true;
+  if (rhs.estimated_completion < lhs.estimated_completion)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+OptionSettingPtr OptionSetting::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(type),
+      mojo::Clone(value)
+  );
+}
+
+template <typename T, OptionSetting::EnableIfSame<T>*>
+bool OptionSetting::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->value, other_struct.value))
+    return false;
+  return true;
+}
+
+template <typename T, OptionSetting::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.value < rhs.value)
+    return true;
+  if (rhs.value < lhs.value)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+OptionGroupPtr OptionGroup::Clone() const {
+  return New(
+      mojo::Clone(title),
+      mojo::Clone(members)
+  );
+}
+
+template <typename T, OptionGroup::EnableIfSame<T>*>
+bool OptionGroup::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->title, other_struct.title))
+    return false;
+  if (!mojo::Equals(this->members, other_struct.members))
+    return false;
+  return true;
+}
+
+template <typename T, OptionGroup::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.title < rhs.title)
+    return true;
+  if (rhs.title < lhs.title)
+    return false;
+  if (lhs.members < rhs.members)
+    return true;
+  if (rhs.members < lhs.members)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+SetOptionResultPtr SetOptionResult::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(result)
+  );
+}
+
+template <typename T, SetOptionResult::EnableIfSame<T>*>
+bool SetOptionResult::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->result, other_struct.result))
+    return false;
+  return true;
+}
+
+template <typename T, SetOptionResult::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.result < rhs.result)
+    return true;
+  if (rhs.result < lhs.result)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+SetOptionsResponsePtr SetOptionsResponse::Clone() const {
+  return New(
+      mojo::Clone(scanner_handle),
+      mojo::Clone(results),
+      mojo::Clone(options)
+  );
+}
+
+template <typename T, SetOptionsResponse::EnableIfSame<T>*>
+bool SetOptionsResponse::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->scanner_handle, other_struct.scanner_handle))
+    return false;
+  if (!mojo::Equals(this->results, other_struct.results))
+    return false;
+  if (!mojo::Equals(this->options, other_struct.options))
+    return false;
+  return true;
+}
+
+template <typename T, SetOptionsResponse::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.scanner_handle < rhs.scanner_handle)
+    return true;
+  if (rhs.scanner_handle < lhs.scanner_handle)
+    return false;
+  if (lhs.results < rhs.results)
+    return true;
+  if (rhs.results < lhs.results)
+    return false;
+  if (lhs.options < rhs.options)
+    return true;
+  if (rhs.options < lhs.options)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+GetOptionGroupsResponsePtr GetOptionGroupsResponse::Clone() const {
+  return New(
+      mojo::Clone(scanner_handle),
+      mojo::Clone(result),
+      mojo::Clone(groups)
+  );
+}
+
+template <typename T, GetOptionGroupsResponse::EnableIfSame<T>*>
+bool GetOptionGroupsResponse::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->scanner_handle, other_struct.scanner_handle))
+    return false;
+  if (!mojo::Equals(this->result, other_struct.result))
+    return false;
+  if (!mojo::Equals(this->groups, other_struct.groups))
+    return false;
+  return true;
+}
+
+template <typename T, GetOptionGroupsResponse::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.scanner_handle < rhs.scanner_handle)
+    return true;
+  if (rhs.scanner_handle < lhs.scanner_handle)
+    return false;
+  if (lhs.result < rhs.result)
+    return true;
+  if (rhs.result < lhs.result)
+    return false;
+  if (lhs.groups < rhs.groups)
+    return true;
+  if (rhs.groups < lhs.groups)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+CancelScanResponsePtr CancelScanResponse::Clone() const {
+  return New(
+      mojo::Clone(job_handle),
+      mojo::Clone(result)
+  );
+}
+
+template <typename T, CancelScanResponse::EnableIfSame<T>*>
+bool CancelScanResponse::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->job_handle, other_struct.job_handle))
+    return false;
+  if (!mojo::Equals(this->result, other_struct.result))
+    return false;
+  return true;
+}
+
+template <typename T, CancelScanResponse::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.job_handle < rhs.job_handle)
+    return true;
+  if (rhs.job_handle < lhs.job_handle)
+    return false;
+  if (lhs.result < rhs.result)
+    return true;
+  if (rhs.result < lhs.result)
+    return false;
+  return false;
+}
+
+
 }  // crosapi::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::ScannerInfo::DataView,
+                                         ::crosapi::mojom::ScannerInfoPtr> {
+  static bool IsNull(const ::crosapi::mojom::ScannerInfoPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::ScannerInfoPtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::ScannerInfo::id)& id(
+      const ::crosapi::mojom::ScannerInfoPtr& input) {
+    return input->id;
+  }
+
+  static const decltype(::crosapi::mojom::ScannerInfo::display_name)& display_name(
+      const ::crosapi::mojom::ScannerInfoPtr& input) {
+    return input->display_name;
+  }
+
+  static const decltype(::crosapi::mojom::ScannerInfo::manufacturer)& manufacturer(
+      const ::crosapi::mojom::ScannerInfoPtr& input) {
+    return input->manufacturer;
+  }
+
+  static const decltype(::crosapi::mojom::ScannerInfo::model)& model(
+      const ::crosapi::mojom::ScannerInfoPtr& input) {
+    return input->model;
+  }
+
+  static const decltype(::crosapi::mojom::ScannerInfo::device_uuid)& device_uuid(
+      const ::crosapi::mojom::ScannerInfoPtr& input) {
+    return input->device_uuid;
+  }
+
+  static decltype(::crosapi::mojom::ScannerInfo::connection_type) connection_type(
+      const ::crosapi::mojom::ScannerInfoPtr& input) {
+    return input->connection_type;
+  }
+
+  static decltype(::crosapi::mojom::ScannerInfo::secure) secure(
+      const ::crosapi::mojom::ScannerInfoPtr& input) {
+    return input->secure;
+  }
+
+  static const decltype(::crosapi::mojom::ScannerInfo::image_formats)& image_formats(
+      const ::crosapi::mojom::ScannerInfoPtr& input) {
+    return input->image_formats;
+  }
+
+  static bool Read(::crosapi::mojom::ScannerInfo::DataView input, ::crosapi::mojom::ScannerInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::ScannerEnumFilter::DataView,
+                                         ::crosapi::mojom::ScannerEnumFilterPtr> {
+  static bool IsNull(const ::crosapi::mojom::ScannerEnumFilterPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::ScannerEnumFilterPtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::ScannerEnumFilter::local) local(
+      const ::crosapi::mojom::ScannerEnumFilterPtr& input) {
+    return input->local;
+  }
+
+  static decltype(::crosapi::mojom::ScannerEnumFilter::secure) secure(
+      const ::crosapi::mojom::ScannerEnumFilterPtr& input) {
+    return input->secure;
+  }
+
+  static bool Read(::crosapi::mojom::ScannerEnumFilter::DataView input, ::crosapi::mojom::ScannerEnumFilterPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::IntRange::DataView,
+                                         ::crosapi::mojom::IntRangePtr> {
+  static bool IsNull(const ::crosapi::mojom::IntRangePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::IntRangePtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::IntRange::min) min(
+      const ::crosapi::mojom::IntRangePtr& input) {
+    return input->min;
+  }
+
+  static decltype(::crosapi::mojom::IntRange::max) max(
+      const ::crosapi::mojom::IntRangePtr& input) {
+    return input->max;
+  }
+
+  static decltype(::crosapi::mojom::IntRange::quant) quant(
+      const ::crosapi::mojom::IntRangePtr& input) {
+    return input->quant;
+  }
+
+  static bool Read(::crosapi::mojom::IntRange::DataView input, ::crosapi::mojom::IntRangePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::FixedRange::DataView,
+                                         ::crosapi::mojom::FixedRangePtr> {
+  static bool IsNull(const ::crosapi::mojom::FixedRangePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::FixedRangePtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::FixedRange::min) min(
+      const ::crosapi::mojom::FixedRangePtr& input) {
+    return input->min;
+  }
+
+  static decltype(::crosapi::mojom::FixedRange::max) max(
+      const ::crosapi::mojom::FixedRangePtr& input) {
+    return input->max;
+  }
+
+  static decltype(::crosapi::mojom::FixedRange::quant) quant(
+      const ::crosapi::mojom::FixedRangePtr& input) {
+    return input->quant;
+  }
+
+  static bool Read(::crosapi::mojom::FixedRange::DataView input, ::crosapi::mojom::FixedRangePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::OptionConstraint::DataView,
+                                         ::crosapi::mojom::OptionConstraintPtr> {
+  static bool IsNull(const ::crosapi::mojom::OptionConstraintPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::OptionConstraintPtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::OptionConstraint::type) type(
+      const ::crosapi::mojom::OptionConstraintPtr& input) {
+    return input->type;
+  }
+
+  static const decltype(::crosapi::mojom::OptionConstraint::restriction)& restriction(
+      const ::crosapi::mojom::OptionConstraintPtr& input) {
+    return input->restriction;
+  }
+
+  static bool Read(::crosapi::mojom::OptionConstraint::DataView input, ::crosapi::mojom::OptionConstraintPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::ScannerOption::DataView,
+                                         ::crosapi::mojom::ScannerOptionPtr> {
+  static bool IsNull(const ::crosapi::mojom::ScannerOptionPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::ScannerOptionPtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::ScannerOption::name)& name(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->name;
+  }
+
+  static const decltype(::crosapi::mojom::ScannerOption::title)& title(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->title;
+  }
+
+  static const decltype(::crosapi::mojom::ScannerOption::description)& description(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->description;
+  }
+
+  static decltype(::crosapi::mojom::ScannerOption::type) type(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->type;
+  }
+
+  static decltype(::crosapi::mojom::ScannerOption::unit) unit(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->unit;
+  }
+
+  static const decltype(::crosapi::mojom::ScannerOption::value)& value(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->value;
+  }
+
+  static const decltype(::crosapi::mojom::ScannerOption::constraint)& constraint(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->constraint;
+  }
+
+  static decltype(::crosapi::mojom::ScannerOption::isDetectable) isDetectable(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->isDetectable;
+  }
+
+  static decltype(::crosapi::mojom::ScannerOption::configurability) configurability(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->configurability;
+  }
+
+  static decltype(::crosapi::mojom::ScannerOption::isAutoSettable) isAutoSettable(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->isAutoSettable;
+  }
+
+  static decltype(::crosapi::mojom::ScannerOption::isEmulated) isEmulated(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->isEmulated;
+  }
+
+  static decltype(::crosapi::mojom::ScannerOption::isActive) isActive(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->isActive;
+  }
+
+  static decltype(::crosapi::mojom::ScannerOption::isAdvanced) isAdvanced(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->isAdvanced;
+  }
+
+  static decltype(::crosapi::mojom::ScannerOption::isInternal) isInternal(
+      const ::crosapi::mojom::ScannerOptionPtr& input) {
+    return input->isInternal;
+  }
+
+  static bool Read(::crosapi::mojom::ScannerOption::DataView input, ::crosapi::mojom::ScannerOptionPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::GetScannerListResponse::DataView,
+                                         ::crosapi::mojom::GetScannerListResponsePtr> {
+  static bool IsNull(const ::crosapi::mojom::GetScannerListResponsePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::GetScannerListResponsePtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::GetScannerListResponse::result) result(
+      const ::crosapi::mojom::GetScannerListResponsePtr& input) {
+    return input->result;
+  }
+
+  static const decltype(::crosapi::mojom::GetScannerListResponse::scanners)& scanners(
+      const ::crosapi::mojom::GetScannerListResponsePtr& input) {
+    return input->scanners;
+  }
+
+  static bool Read(::crosapi::mojom::GetScannerListResponse::DataView input, ::crosapi::mojom::GetScannerListResponsePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::OpenScannerResponse::DataView,
+                                         ::crosapi::mojom::OpenScannerResponsePtr> {
+  static bool IsNull(const ::crosapi::mojom::OpenScannerResponsePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::OpenScannerResponsePtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::OpenScannerResponse::scanner_id)& scanner_id(
+      const ::crosapi::mojom::OpenScannerResponsePtr& input) {
+    return input->scanner_id;
+  }
+
+  static decltype(::crosapi::mojom::OpenScannerResponse::result) result(
+      const ::crosapi::mojom::OpenScannerResponsePtr& input) {
+    return input->result;
+  }
+
+  static const decltype(::crosapi::mojom::OpenScannerResponse::scanner_handle)& scanner_handle(
+      const ::crosapi::mojom::OpenScannerResponsePtr& input) {
+    return input->scanner_handle;
+  }
+
+  static const decltype(::crosapi::mojom::OpenScannerResponse::options)& options(
+      const ::crosapi::mojom::OpenScannerResponsePtr& input) {
+    return input->options;
+  }
+
+  static bool Read(::crosapi::mojom::OpenScannerResponse::DataView input, ::crosapi::mojom::OpenScannerResponsePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::CloseScannerResponse::DataView,
+                                         ::crosapi::mojom::CloseScannerResponsePtr> {
+  static bool IsNull(const ::crosapi::mojom::CloseScannerResponsePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::CloseScannerResponsePtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::CloseScannerResponse::scanner_handle)& scanner_handle(
+      const ::crosapi::mojom::CloseScannerResponsePtr& input) {
+    return input->scanner_handle;
+  }
+
+  static decltype(::crosapi::mojom::CloseScannerResponse::result) result(
+      const ::crosapi::mojom::CloseScannerResponsePtr& input) {
+    return input->result;
+  }
+
+  static bool Read(::crosapi::mojom::CloseScannerResponse::DataView input, ::crosapi::mojom::CloseScannerResponsePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::StartScanOptions::DataView,
+                                         ::crosapi::mojom::StartScanOptionsPtr> {
+  static bool IsNull(const ::crosapi::mojom::StartScanOptionsPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::StartScanOptionsPtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::StartScanOptions::format)& format(
+      const ::crosapi::mojom::StartScanOptionsPtr& input) {
+    return input->format;
+  }
+
+  static bool Read(::crosapi::mojom::StartScanOptions::DataView input, ::crosapi::mojom::StartScanOptionsPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::StartPreparedScanResponse::DataView,
+                                         ::crosapi::mojom::StartPreparedScanResponsePtr> {
+  static bool IsNull(const ::crosapi::mojom::StartPreparedScanResponsePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::StartPreparedScanResponsePtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::StartPreparedScanResponse::scanner_handle)& scanner_handle(
+      const ::crosapi::mojom::StartPreparedScanResponsePtr& input) {
+    return input->scanner_handle;
+  }
+
+  static decltype(::crosapi::mojom::StartPreparedScanResponse::result) result(
+      const ::crosapi::mojom::StartPreparedScanResponsePtr& input) {
+    return input->result;
+  }
+
+  static const decltype(::crosapi::mojom::StartPreparedScanResponse::job_handle)& job_handle(
+      const ::crosapi::mojom::StartPreparedScanResponsePtr& input) {
+    return input->job_handle;
+  }
+
+  static bool Read(::crosapi::mojom::StartPreparedScanResponse::DataView input, ::crosapi::mojom::StartPreparedScanResponsePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::ReadScanDataResponse::DataView,
+                                         ::crosapi::mojom::ReadScanDataResponsePtr> {
+  static bool IsNull(const ::crosapi::mojom::ReadScanDataResponsePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::ReadScanDataResponsePtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::ReadScanDataResponse::job_handle)& job_handle(
+      const ::crosapi::mojom::ReadScanDataResponsePtr& input) {
+    return input->job_handle;
+  }
+
+  static decltype(::crosapi::mojom::ReadScanDataResponse::result) result(
+      const ::crosapi::mojom::ReadScanDataResponsePtr& input) {
+    return input->result;
+  }
+
+  static const decltype(::crosapi::mojom::ReadScanDataResponse::data)& data(
+      const ::crosapi::mojom::ReadScanDataResponsePtr& input) {
+    return input->data;
+  }
+
+  static decltype(::crosapi::mojom::ReadScanDataResponse::estimated_completion) estimated_completion(
+      const ::crosapi::mojom::ReadScanDataResponsePtr& input) {
+    return input->estimated_completion;
+  }
+
+  static bool Read(::crosapi::mojom::ReadScanDataResponse::DataView input, ::crosapi::mojom::ReadScanDataResponsePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::OptionSetting::DataView,
+                                         ::crosapi::mojom::OptionSettingPtr> {
+  static bool IsNull(const ::crosapi::mojom::OptionSettingPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::OptionSettingPtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::OptionSetting::name)& name(
+      const ::crosapi::mojom::OptionSettingPtr& input) {
+    return input->name;
+  }
+
+  static decltype(::crosapi::mojom::OptionSetting::type) type(
+      const ::crosapi::mojom::OptionSettingPtr& input) {
+    return input->type;
+  }
+
+  static const decltype(::crosapi::mojom::OptionSetting::value)& value(
+      const ::crosapi::mojom::OptionSettingPtr& input) {
+    return input->value;
+  }
+
+  static bool Read(::crosapi::mojom::OptionSetting::DataView input, ::crosapi::mojom::OptionSettingPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::OptionGroup::DataView,
+                                         ::crosapi::mojom::OptionGroupPtr> {
+  static bool IsNull(const ::crosapi::mojom::OptionGroupPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::OptionGroupPtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::OptionGroup::title)& title(
+      const ::crosapi::mojom::OptionGroupPtr& input) {
+    return input->title;
+  }
+
+  static const decltype(::crosapi::mojom::OptionGroup::members)& members(
+      const ::crosapi::mojom::OptionGroupPtr& input) {
+    return input->members;
+  }
+
+  static bool Read(::crosapi::mojom::OptionGroup::DataView input, ::crosapi::mojom::OptionGroupPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::SetOptionResult::DataView,
+                                         ::crosapi::mojom::SetOptionResultPtr> {
+  static bool IsNull(const ::crosapi::mojom::SetOptionResultPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::SetOptionResultPtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::SetOptionResult::name)& name(
+      const ::crosapi::mojom::SetOptionResultPtr& input) {
+    return input->name;
+  }
+
+  static decltype(::crosapi::mojom::SetOptionResult::result) result(
+      const ::crosapi::mojom::SetOptionResultPtr& input) {
+    return input->result;
+  }
+
+  static bool Read(::crosapi::mojom::SetOptionResult::DataView input, ::crosapi::mojom::SetOptionResultPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::SetOptionsResponse::DataView,
+                                         ::crosapi::mojom::SetOptionsResponsePtr> {
+  static bool IsNull(const ::crosapi::mojom::SetOptionsResponsePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::SetOptionsResponsePtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::SetOptionsResponse::scanner_handle)& scanner_handle(
+      const ::crosapi::mojom::SetOptionsResponsePtr& input) {
+    return input->scanner_handle;
+  }
+
+  static const decltype(::crosapi::mojom::SetOptionsResponse::results)& results(
+      const ::crosapi::mojom::SetOptionsResponsePtr& input) {
+    return input->results;
+  }
+
+  static const decltype(::crosapi::mojom::SetOptionsResponse::options)& options(
+      const ::crosapi::mojom::SetOptionsResponsePtr& input) {
+    return input->options;
+  }
+
+  static bool Read(::crosapi::mojom::SetOptionsResponse::DataView input, ::crosapi::mojom::SetOptionsResponsePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::GetOptionGroupsResponse::DataView,
+                                         ::crosapi::mojom::GetOptionGroupsResponsePtr> {
+  static bool IsNull(const ::crosapi::mojom::GetOptionGroupsResponsePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::GetOptionGroupsResponsePtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::GetOptionGroupsResponse::scanner_handle)& scanner_handle(
+      const ::crosapi::mojom::GetOptionGroupsResponsePtr& input) {
+    return input->scanner_handle;
+  }
+
+  static decltype(::crosapi::mojom::GetOptionGroupsResponse::result) result(
+      const ::crosapi::mojom::GetOptionGroupsResponsePtr& input) {
+    return input->result;
+  }
+
+  static const decltype(::crosapi::mojom::GetOptionGroupsResponse::groups)& groups(
+      const ::crosapi::mojom::GetOptionGroupsResponsePtr& input) {
+    return input->groups;
+  }
+
+  static bool Read(::crosapi::mojom::GetOptionGroupsResponse::DataView input, ::crosapi::mojom::GetOptionGroupsResponsePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::CancelScanResponse::DataView,
+                                         ::crosapi::mojom::CancelScanResponsePtr> {
+  static bool IsNull(const ::crosapi::mojom::CancelScanResponsePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::CancelScanResponsePtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::CancelScanResponse::job_handle)& job_handle(
+      const ::crosapi::mojom::CancelScanResponsePtr& input) {
+    return input->job_handle;
+  }
+
+  static decltype(::crosapi::mojom::CancelScanResponse::result) result(
+      const ::crosapi::mojom::CancelScanResponsePtr& input) {
+    return input->result;
+  }
+
+  static bool Read(::crosapi::mojom::CancelScanResponse::DataView input, ::crosapi::mojom::CancelScanResponsePtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::crosapi::mojom::OptionValue::DataView,
+                                        ::crosapi::mojom::OptionValuePtr> {
+  static bool IsNull(const ::crosapi::mojom::OptionValuePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::OptionValuePtr* output) { output->reset(); }
+
+  static ::crosapi::mojom::OptionValue::Tag GetTag(const ::crosapi::mojom::OptionValuePtr& input) {
+    return input->which();
+  }
+
+  static  bool bool_value(const ::crosapi::mojom::OptionValuePtr& input) {
+    return input->get_bool_value();
+  }
+
+  static  int32_t int_value(const ::crosapi::mojom::OptionValuePtr& input) {
+    return input->get_int_value();
+  }
+
+  static const std::vector<int32_t>& int_list(const ::crosapi::mojom::OptionValuePtr& input) {
+    return input->get_int_list();
+  }
+
+  static  double fixed_value(const ::crosapi::mojom::OptionValuePtr& input) {
+    return input->get_fixed_value();
+  }
+
+  static const std::vector<double>& fixed_list(const ::crosapi::mojom::OptionValuePtr& input) {
+    return input->get_fixed_list();
+  }
+
+  static const std::string& string_value(const ::crosapi::mojom::OptionValuePtr& input) {
+    return input->get_string_value();
+  }
+
+  static bool Read(::crosapi::mojom::OptionValue::DataView input, ::crosapi::mojom::OptionValuePtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::crosapi::mojom::OptionConstraintRestriction::DataView,
+                                        ::crosapi::mojom::OptionConstraintRestrictionPtr> {
+  static bool IsNull(const ::crosapi::mojom::OptionConstraintRestrictionPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::OptionConstraintRestrictionPtr* output) { output->reset(); }
+
+  static ::crosapi::mojom::OptionConstraintRestriction::Tag GetTag(const ::crosapi::mojom::OptionConstraintRestrictionPtr& input) {
+    return input->which();
+  }
+
+  static const ::crosapi::mojom::IntRangePtr& int_range(const ::crosapi::mojom::OptionConstraintRestrictionPtr& input) {
+    return input->get_int_range();
+  }
+
+  static const ::crosapi::mojom::FixedRangePtr& fixed_range(const ::crosapi::mojom::OptionConstraintRestrictionPtr& input) {
+    return input->get_fixed_range();
+  }
+
+  static const std::vector<int32_t>& valid_int(const ::crosapi::mojom::OptionConstraintRestrictionPtr& input) {
+    return input->get_valid_int();
+  }
+
+  static const std::vector<double>& valid_fixed(const ::crosapi::mojom::OptionConstraintRestrictionPtr& input) {
+    return input->get_valid_fixed();
+  }
+
+  static const std::vector<std::string>& valid_string(const ::crosapi::mojom::OptionConstraintRestrictionPtr& input) {
+    return input->get_valid_string();
+  }
+
+  static bool Read(::crosapi::mojom::OptionConstraintRestriction::DataView input, ::crosapi::mojom::OptionConstraintRestrictionPtr* output);
+};
 
 }  // namespace mojo
 

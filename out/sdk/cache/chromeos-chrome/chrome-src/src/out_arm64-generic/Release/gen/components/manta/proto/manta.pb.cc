@@ -19,11 +19,27 @@ namespace _pbi = _pb::internal;
 
 namespace manta {
 namespace proto {
+PROTOBUF_CONSTEXPR ImageDimensions::ImageDimensions(
+    ::_pbi::ConstantInitialized)
+  : width_(0u)
+  , height_(0u){}
+struct ImageDimensionsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ImageDimensionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ImageDimensionsDefaultTypeInternal() {}
+  union {
+    ImageDimensions _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ImageDimensionsDefaultTypeInternal _ImageDimensions_default_instance_;
 PROTOBUF_CONSTEXPR RequestConfig::RequestConfig(
     ::_pbi::ConstantInitialized)
-  : generation_seed_(0u)
+  : image_dimensions_(nullptr)
+  , generation_seed_(0u)
   , num_outputs_(0u)
   , tone_(0)
+
+  , aspect_ratio_(0)
 
   , image_resolution_(1)
 {}
@@ -53,7 +69,7 @@ PROTOBUF_CONSTEXPR Request::Request(
     ::_pbi::ConstantInitialized)
   : input_data_()
   , request_config_(nullptr)
-  , feature_name_(5)
+  , feature_name_(300)
 {}
 struct RequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RequestDefaultTypeInternal()
@@ -78,7 +94,8 @@ struct ImageDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ImageDefaultTypeInternal _Image_default_instance_;
 PROTOBUF_CONSTEXPR OutputData::OutputData(
     ::_pbi::ConstantInitialized)
-  : _oneof_case_{}{}
+  : generation_seed_(0u)
+  , _oneof_case_{}{}
 struct OutputDataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR OutputDataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -194,7 +211,8 @@ constexpr int RequestConfig::Tone_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool FeatureName_IsValid(int value) {
   switch (value) {
-    case 5:
+    case 300:
+    case 301:
     case 302:
       return true;
     default:
@@ -202,20 +220,23 @@ bool FeatureName_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FeatureName_strings[2] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FeatureName_strings[3] = {};
 
 static const char FeatureName_names[] =
-  "IMAGE_TEST"
+  "CHROMEOS_VC_BACKGROUNDS"
+  "CHROMEOS_WALLPAPER"
   "TEXT_TEST";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FeatureName_entries[] = {
-  { {FeatureName_names + 0, 10}, 5 },
-  { {FeatureName_names + 10, 9}, 302 },
+  { {FeatureName_names + 0, 23}, 300 },
+  { {FeatureName_names + 23, 18}, 301 },
+  { {FeatureName_names + 41, 9}, 302 },
 };
 
 static const int FeatureName_entries_by_number[] = {
-  0, // 5 -> IMAGE_TEST
-  1, // 302 -> TEXT_TEST
+  0, // 300 -> CHROMEOS_VC_BACKGROUNDS
+  1, // 301 -> CHROMEOS_WALLPAPER
+  2, // 302 -> TEXT_TEST
 };
 
 const std::string& FeatureName_Name(
@@ -224,12 +245,12 @@ const std::string& FeatureName_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           FeatureName_entries,
           FeatureName_entries_by_number,
-          2, FeatureName_strings);
+          3, FeatureName_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       FeatureName_entries,
       FeatureName_entries_by_number,
-      2, value);
+      3, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      FeatureName_strings[idx].get();
 }
@@ -237,7 +258,7 @@ bool FeatureName_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FeatureName* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      FeatureName_entries, 2, name, &int_value);
+      FeatureName_entries, 3, name, &int_value);
   if (success) {
     *value = static_cast<FeatureName>(int_value);
   }
@@ -248,29 +269,33 @@ bool ImageResolution_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 12:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ImageResolution_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ImageResolution_strings[4] = {};
 
 static const char ImageResolution_names[] =
   "RESOLUTION_1024"
   "RESOLUTION_256"
-  "RESOLUTION_64";
+  "RESOLUTION_64"
+  "RESOLUTION_LARGE";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ImageResolution_entries[] = {
   { {ImageResolution_names + 0, 15}, 3 },
   { {ImageResolution_names + 15, 14}, 2 },
   { {ImageResolution_names + 29, 13}, 1 },
+  { {ImageResolution_names + 42, 16}, 12 },
 };
 
 static const int ImageResolution_entries_by_number[] = {
   2, // 1 -> RESOLUTION_64
   1, // 2 -> RESOLUTION_256
   0, // 3 -> RESOLUTION_1024
+  3, // 12 -> RESOLUTION_LARGE
 };
 
 const std::string& ImageResolution_Name(
@@ -279,12 +304,12 @@ const std::string& ImageResolution_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ImageResolution_entries,
           ImageResolution_entries_by_number,
-          3, ImageResolution_strings);
+          4, ImageResolution_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ImageResolution_entries,
       ImageResolution_entries_by_number,
-      3, value);
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ImageResolution_strings[idx].get();
 }
@@ -292,12 +317,298 @@ bool ImageResolution_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ImageResolution* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ImageResolution_entries, 3, name, &int_value);
+      ImageResolution_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<ImageResolution>(int_value);
   }
   return success;
 }
+bool AspectRatio_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AspectRatio_strings[4] = {};
+
+static const char AspectRatio_names[] =
+  "ASPECT_RATIO_16_10"
+  "ASPECT_RATIO_16_9"
+  "ASPECT_RATIO_4_3"
+  "ASPECT_RATIO_UNSPECIFIED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AspectRatio_entries[] = {
+  { {AspectRatio_names + 0, 18}, 2 },
+  { {AspectRatio_names + 18, 17}, 1 },
+  { {AspectRatio_names + 35, 16}, 3 },
+  { {AspectRatio_names + 51, 24}, 0 },
+};
+
+static const int AspectRatio_entries_by_number[] = {
+  3, // 0 -> ASPECT_RATIO_UNSPECIFIED
+  1, // 1 -> ASPECT_RATIO_16_9
+  0, // 2 -> ASPECT_RATIO_16_10
+  2, // 3 -> ASPECT_RATIO_4_3
+};
+
+const std::string& AspectRatio_Name(
+    AspectRatio value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          AspectRatio_entries,
+          AspectRatio_entries_by_number,
+          4, AspectRatio_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      AspectRatio_entries,
+      AspectRatio_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     AspectRatio_strings[idx].get();
+}
+bool AspectRatio_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AspectRatio* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      AspectRatio_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<AspectRatio>(int_value);
+  }
+  return success;
+}
+
+// ===================================================================
+
+class ImageDimensions::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ImageDimensions>()._has_bits_);
+  static void set_has_width(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_height(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+ImageDimensions::ImageDimensions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:manta.proto.ImageDimensions)
+}
+ImageDimensions::ImageDimensions(const ImageDimensions& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&width_, &from.width_,
+    static_cast<size_t>(reinterpret_cast<char*>(&height_) -
+    reinterpret_cast<char*>(&width_)) + sizeof(height_));
+  // @@protoc_insertion_point(copy_constructor:manta.proto.ImageDimensions)
+}
+
+inline void ImageDimensions::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&width_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&height_) -
+    reinterpret_cast<char*>(&width_)) + sizeof(height_));
+}
+
+ImageDimensions::~ImageDimensions() {
+  // @@protoc_insertion_point(destructor:manta.proto.ImageDimensions)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ImageDimensions::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ImageDimensions::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ImageDimensions::Clear() {
+// @@protoc_insertion_point(message_clear_start:manta.proto.ImageDimensions)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&width_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&height_) -
+        reinterpret_cast<char*>(&width_)) + sizeof(height_));
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ImageDimensions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional uint32 width = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_width(&has_bits);
+          width_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint32 height = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_height(&has_bits);
+          height_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ImageDimensions::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:manta.proto.ImageDimensions)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional uint32 width = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_width(), target);
+  }
+
+  // optional uint32 height = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_height(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:manta.proto.ImageDimensions)
+  return target;
+}
+
+size_t ImageDimensions::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:manta.proto.ImageDimensions)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional uint32 width = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_width());
+    }
+
+    // optional uint32 height = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_height());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ImageDimensions::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ImageDimensions*>(
+      &from));
+}
+
+void ImageDimensions::MergeFrom(const ImageDimensions& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:manta.proto.ImageDimensions)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      width_ = from.width_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      height_ = from.height_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ImageDimensions::CopyFrom(const ImageDimensions& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:manta.proto.ImageDimensions)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ImageDimensions::IsInitialized() const {
+  return true;
+}
+
+void ImageDimensions::InternalSwap(ImageDimensions* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ImageDimensions, height_)
+      + sizeof(ImageDimensions::height_)
+      - PROTOBUF_FIELD_OFFSET(ImageDimensions, width_)>(
+          reinterpret_cast<char*>(&width_),
+          reinterpret_cast<char*>(&other->width_));
+}
+
+std::string ImageDimensions::GetTypeName() const {
+  return "manta.proto.ImageDimensions";
+}
+
 
 // ===================================================================
 
@@ -305,19 +616,30 @@ class RequestConfig::_Internal {
  public:
   using HasBits = decltype(std::declval<RequestConfig>()._has_bits_);
   static void set_has_generation_seed(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_image_resolution(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-  static void set_has_num_outputs(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static void set_has_tone(HasBits* has_bits) {
+  static void set_has_image_resolution(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_num_outputs(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
+  }
+  static void set_has_tone(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static const ::manta::proto::ImageDimensions& image_dimensions(const RequestConfig* msg);
+  static void set_has_image_dimensions(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_aspect_ratio(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
   }
 };
 
+const ::manta::proto::ImageDimensions&
+RequestConfig::_Internal::image_dimensions(const RequestConfig* msg) {
+  return *msg->image_dimensions_;
+}
 RequestConfig::RequestConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -328,6 +650,11 @@ RequestConfig::RequestConfig(const RequestConfig& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_image_dimensions()) {
+    image_dimensions_ = new ::manta::proto::ImageDimensions(*from.image_dimensions_);
+  } else {
+    image_dimensions_ = nullptr;
+  }
   ::memcpy(&generation_seed_, &from.generation_seed_,
     static_cast<size_t>(reinterpret_cast<char*>(&image_resolution_) -
     reinterpret_cast<char*>(&generation_seed_)) + sizeof(image_resolution_));
@@ -336,9 +663,9 @@ RequestConfig::RequestConfig(const RequestConfig& from)
 
 inline void RequestConfig::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&generation_seed_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&tone_) -
-    reinterpret_cast<char*>(&generation_seed_)) + sizeof(tone_));
+    reinterpret_cast<char*>(&image_dimensions_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&aspect_ratio_) -
+    reinterpret_cast<char*>(&image_dimensions_)) + sizeof(aspect_ratio_));
 image_resolution_ = 1;
 }
 
@@ -353,6 +680,7 @@ RequestConfig::~RequestConfig() {
 
 inline void RequestConfig::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete image_dimensions_;
 }
 
 void RequestConfig::SetCachedSize(int size) const {
@@ -366,10 +694,14 @@ void RequestConfig::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(image_dimensions_ != nullptr);
+    image_dimensions_->Clear();
+  }
+  if (cached_has_bits & 0x0000003eu) {
     ::memset(&generation_seed_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&tone_) -
-        reinterpret_cast<char*>(&generation_seed_)) + sizeof(tone_));
+        reinterpret_cast<char*>(&aspect_ratio_) -
+        reinterpret_cast<char*>(&generation_seed_)) + sizeof(aspect_ratio_));
     image_resolution_ = 1;
   }
   _has_bits_.Clear();
@@ -427,6 +759,27 @@ const char* RequestConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
+      // optional .manta.proto.ImageDimensions image_dimensions = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_image_dimensions(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .manta.proto.AspectRatio aspect_ratio = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::manta::proto::AspectRatio_IsValid(val))) {
+            _internal_set_aspect_ratio(static_cast<::manta::proto::AspectRatio>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(8, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -459,29 +812,43 @@ uint8_t* RequestConfig::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional uint32 generation_seed = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_generation_seed(), target);
   }
 
   // optional .manta.proto.ImageResolution image_resolution = 2;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_image_resolution(), target);
   }
 
   // optional uint32 num_outputs = 3;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_num_outputs(), target);
   }
 
   // optional .manta.proto.RequestConfig.Tone tone = 5;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       5, this->_internal_tone(), target);
+  }
+
+  // optional .manta.proto.ImageDimensions image_dimensions = 7;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(7, _Internal::image_dimensions(this),
+        _Internal::image_dimensions(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .manta.proto.AspectRatio aspect_ratio = 8;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      8, this->_internal_aspect_ratio(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -501,25 +868,38 @@ size_t RequestConfig::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
-    // optional uint32 generation_seed = 1;
+  if (cached_has_bits & 0x0000003fu) {
+    // optional .manta.proto.ImageDimensions image_dimensions = 7;
     if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *image_dimensions_);
+    }
+
+    // optional uint32 generation_seed = 1;
+    if (cached_has_bits & 0x00000002u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_generation_seed());
     }
 
     // optional uint32 num_outputs = 3;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_num_outputs());
     }
 
     // optional .manta.proto.RequestConfig.Tone tone = 5;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_tone());
     }
 
+    // optional .manta.proto.AspectRatio aspect_ratio = 8;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_aspect_ratio());
+    }
+
     // optional .manta.proto.ImageResolution image_resolution = 2;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_image_resolution());
     }
@@ -546,17 +926,23 @@ void RequestConfig::MergeFrom(const RequestConfig& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      generation_seed_ = from.generation_seed_;
+      _internal_mutable_image_dimensions()->::manta::proto::ImageDimensions::MergeFrom(from._internal_image_dimensions());
     }
     if (cached_has_bits & 0x00000002u) {
-      num_outputs_ = from.num_outputs_;
+      generation_seed_ = from.generation_seed_;
     }
     if (cached_has_bits & 0x00000004u) {
-      tone_ = from.tone_;
+      num_outputs_ = from.num_outputs_;
     }
     if (cached_has_bits & 0x00000008u) {
+      tone_ = from.tone_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      aspect_ratio_ = from.aspect_ratio_;
+    }
+    if (cached_has_bits & 0x00000020u) {
       image_resolution_ = from.image_resolution_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -580,11 +966,11 @@ void RequestConfig::InternalSwap(RequestConfig* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RequestConfig, tone_)
-      + sizeof(RequestConfig::tone_)
-      - PROTOBUF_FIELD_OFFSET(RequestConfig, generation_seed_)>(
-          reinterpret_cast<char*>(&generation_seed_),
-          reinterpret_cast<char*>(&other->generation_seed_));
+      PROTOBUF_FIELD_OFFSET(RequestConfig, aspect_ratio_)
+      + sizeof(RequestConfig::aspect_ratio_)
+      - PROTOBUF_FIELD_OFFSET(RequestConfig, image_dimensions_)>(
+          reinterpret_cast<char*>(&image_dimensions_),
+          reinterpret_cast<char*>(&other->image_dimensions_));
   swap(image_resolution_, other->image_resolution_);
 }
 
@@ -603,9 +989,6 @@ class InputData::_Internal {
   }
   static void set_has_tag(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
   }
 };
 
@@ -694,7 +1077,7 @@ const char* InputData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required string text = 1;
+      // optional string text = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_text();
@@ -743,7 +1126,7 @@ uint8_t* InputData::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required string text = 1;
+  // optional string text = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_text(), target);
@@ -767,24 +1150,27 @@ size_t InputData::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:manta.proto.InputData)
   size_t total_size = 0;
 
-  // required string text = 1;
-  if (_internal_has_text()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_text());
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional string tag = 4;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000002u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_tag());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional string text = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_text());
+    }
 
+    // optional string tag = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_tag());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -825,7 +1211,6 @@ void InputData::CopyFrom(const InputData& from) {
 }
 
 bool InputData::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -891,7 +1276,7 @@ Request::Request(const Request& from)
 
 inline void Request::SharedCtor() {
 request_config_ = nullptr;
-feature_name_ = 5;
+feature_name_ = 300;
 }
 
 Request::~Request() {
@@ -925,7 +1310,7 @@ void Request::Clear() {
       GOOGLE_DCHECK(request_config_ != nullptr);
       request_config_->Clear();
     }
-    feature_name_ = 5;
+    feature_name_ = 300;
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -1106,8 +1491,6 @@ void Request::CopyFrom(const Request& from) {
 }
 
 bool Request::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(input_data_))
-    return false;
   return true;
 }
 
@@ -1330,7 +1713,11 @@ std::string Image::GetTypeName() const {
 
 class OutputData::_Internal {
  public:
+  using HasBits = decltype(std::declval<OutputData>()._has_bits_);
   static const ::manta::proto::Image& image(const OutputData* msg);
+  static void set_has_generation_seed(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::manta::proto::Image&
@@ -1359,8 +1746,10 @@ OutputData::OutputData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:manta.proto.OutputData)
 }
 OutputData::OutputData(const OutputData& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  generation_seed_ = from.generation_seed_;
   clear_has_output_data();
   switch (from.output_data_case()) {
     case kText: {
@@ -1379,6 +1768,7 @@ OutputData::OutputData(const OutputData& from)
 }
 
 inline void OutputData::SharedCtor() {
+generation_seed_ = 0u;
 clear_has_output_data();
 }
 
@@ -1429,12 +1819,15 @@ void OutputData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  generation_seed_ = 0u;
   clear_output_data();
+  _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* OutputData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
@@ -1456,6 +1849,15 @@ const char* OutputData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
         } else
           goto handle_unusual;
         continue;
+      // optional uint32 generation_seed = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _Internal::set_has_generation_seed(&has_bits);
+          generation_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1472,6 +1874,7 @@ const char* OutputData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1499,6 +1902,13 @@ uint8_t* OutputData::_InternalSerialize(
     }
     default: ;
   }
+  cached_has_bits = _has_bits_[0];
+  // optional uint32 generation_seed = 6;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(6, this->_internal_generation_seed(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1514,6 +1924,12 @@ size_t OutputData::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // optional uint32 generation_seed = 6;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_generation_seed());
+  }
 
   switch (output_data_case()) {
     // string text = 1;
@@ -1554,6 +1970,9 @@ void OutputData::MergeFrom(const OutputData& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from._internal_has_generation_seed()) {
+    _internal_set_generation_seed(from._internal_generation_seed());
+  }
   switch (from.output_data_case()) {
     case kText: {
       _internal_set_text(from._internal_text());
@@ -1584,6 +2003,8 @@ bool OutputData::IsInitialized() const {
 void OutputData::InternalSwap(OutputData* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(generation_seed_, other->generation_seed_);
   swap(output_data_, other->output_data_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
@@ -1772,6 +2193,10 @@ std::string Response::GetTypeName() const {
 }  // namespace proto
 }  // namespace manta
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::manta::proto::ImageDimensions*
+Arena::CreateMaybeMessage< ::manta::proto::ImageDimensions >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::manta::proto::ImageDimensions >(arena);
+}
 template<> PROTOBUF_NOINLINE ::manta::proto::RequestConfig*
 Arena::CreateMaybeMessage< ::manta::proto::RequestConfig >(Arena* arena) {
   return Arena::CreateMessageInternal< ::manta::proto::RequestConfig >(arena);

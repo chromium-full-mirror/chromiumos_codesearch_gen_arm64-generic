@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -198,14 +199,17 @@ void TtsServiceProxy::BindGoogleTtsStream(
                         "<value of type ::mojo::PendingRemote<::media::mojom::AudioStreamFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsService_BindGoogleTtsStream_Name, kFlags, 0, 0, nullptr);
@@ -253,14 +257,17 @@ void TtsServiceProxy::BindPlaybackTtsStream(
                         "<value of type AudioParametersPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsService_BindPlaybackTtsStream_Name, kFlags, 0, 0, nullptr);
@@ -389,7 +396,8 @@ void TtsService_BindPlaybackTtsStream_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsService_BindPlaybackTtsStream_Name, kFlags, 0, 0, nullptr);
@@ -528,12 +536,12 @@ std::move(p_desired_audio_parameters), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTtsServiceValidationInfo[] = {
-    {&internal::TtsService_BindGoogleTtsStream_Params_Data::Validate,
+    { &internal::TtsService_BindGoogleTtsStream_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsService_BindPlaybackTtsStream_Params_Data::Validate,
+    { &internal::TtsService_BindPlaybackTtsStream_Params_Data::Validate,
      &internal::TtsService_BindPlaybackTtsStream_ResponseParams_Data::Validate},
 };
 
@@ -788,14 +796,17 @@ void GoogleTtsStreamProxy::InstallVoice(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_InstallVoice_Name, kFlags, 0, 0, nullptr);
@@ -850,14 +861,17 @@ void GoogleTtsStreamProxy::SelectVoice(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_SelectVoice_Name, kFlags, 0, 0, nullptr);
@@ -902,14 +916,17 @@ void GoogleTtsStreamProxy::Speak(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_Speak_Name, kFlags, 0, 0, nullptr);
@@ -959,14 +976,17 @@ void GoogleTtsStreamProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::GoogleTtsStream::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_Stop_Name, kFlags, 0, 0, nullptr);
@@ -996,14 +1016,17 @@ void GoogleTtsStreamProxy::SetVolume(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_SetVolume_Name, kFlags, 0, 0, nullptr);
@@ -1027,14 +1050,17 @@ void GoogleTtsStreamProxy::Pause(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::GoogleTtsStream::Pause");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_Pause_Name, kFlags, 0, 0, nullptr);
@@ -1057,14 +1083,17 @@ void GoogleTtsStreamProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::GoogleTtsStream::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_Resume_Name, kFlags, 0, 0, nullptr);
@@ -1173,7 +1202,8 @@ void GoogleTtsStream_InstallVoice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_InstallVoice_Name, kFlags, 0, 0, nullptr);
@@ -1291,7 +1321,8 @@ void GoogleTtsStream_SelectVoice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_SelectVoice_Name, kFlags, 0, 0, nullptr);
@@ -1411,7 +1442,8 @@ void GoogleTtsStream_Speak_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGoogleTtsStream_Speak_Name, kFlags, 0, 0, nullptr);
@@ -1672,22 +1704,22 @@ std::move(p_speaker_params_jspb), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGoogleTtsStreamValidationInfo[] = {
-    {&internal::GoogleTtsStream_InstallVoice_Params_Data::Validate,
+    { &internal::GoogleTtsStream_InstallVoice_Params_Data::Validate,
      &internal::GoogleTtsStream_InstallVoice_ResponseParams_Data::Validate},
-    {&internal::GoogleTtsStream_SelectVoice_Params_Data::Validate,
+    { &internal::GoogleTtsStream_SelectVoice_Params_Data::Validate,
      &internal::GoogleTtsStream_SelectVoice_ResponseParams_Data::Validate},
-    {&internal::GoogleTtsStream_Speak_Params_Data::Validate,
+    { &internal::GoogleTtsStream_Speak_Params_Data::Validate,
      &internal::GoogleTtsStream_Speak_ResponseParams_Data::Validate},
-    {&internal::GoogleTtsStream_Stop_Params_Data::Validate,
+    { &internal::GoogleTtsStream_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GoogleTtsStream_SetVolume_Params_Data::Validate,
+    { &internal::GoogleTtsStream_SetVolume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GoogleTtsStream_Pause_Params_Data::Validate,
+    { &internal::GoogleTtsStream_Pause_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GoogleTtsStream_Resume_Params_Data::Validate,
+    { &internal::GoogleTtsStream_Resume_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1880,14 +1912,17 @@ void PlaybackTtsStreamProxy::Play(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::PlaybackTtsStream::Play");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackTtsStream_Play_Name, kFlags, 0, 0, nullptr);
@@ -1924,14 +1959,17 @@ void PlaybackTtsStreamProxy::SendAudioBuffer(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackTtsStream_SendAudioBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1969,14 +2007,17 @@ void PlaybackTtsStreamProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::PlaybackTtsStream::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackTtsStream_Stop_Name, kFlags, 0, 0, nullptr);
@@ -2006,14 +2047,17 @@ void PlaybackTtsStreamProxy::SetVolume(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackTtsStream_SetVolume_Name, kFlags, 0, 0, nullptr);
@@ -2037,14 +2081,17 @@ void PlaybackTtsStreamProxy::Pause(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::PlaybackTtsStream::Pause");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackTtsStream_Pause_Name, kFlags, 0, 0, nullptr);
@@ -2067,14 +2114,17 @@ void PlaybackTtsStreamProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::PlaybackTtsStream::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackTtsStream_Resume_Name, kFlags, 0, 0, nullptr);
@@ -2185,7 +2235,8 @@ void PlaybackTtsStream_Play_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPlaybackTtsStream_Play_Name, kFlags, 0, 0, nullptr);
@@ -2407,20 +2458,20 @@ bool PlaybackTtsStreamStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPlaybackTtsStreamValidationInfo[] = {
-    {&internal::PlaybackTtsStream_Play_Params_Data::Validate,
+    { &internal::PlaybackTtsStream_Play_Params_Data::Validate,
      &internal::PlaybackTtsStream_Play_ResponseParams_Data::Validate},
-    {&internal::PlaybackTtsStream_SendAudioBuffer_Params_Data::Validate,
+    { &internal::PlaybackTtsStream_SendAudioBuffer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackTtsStream_Stop_Params_Data::Validate,
+    { &internal::PlaybackTtsStream_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackTtsStream_SetVolume_Params_Data::Validate,
+    { &internal::PlaybackTtsStream_SetVolume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackTtsStream_Pause_Params_Data::Validate,
+    { &internal::PlaybackTtsStream_Pause_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PlaybackTtsStream_Resume_Params_Data::Validate,
+    { &internal::PlaybackTtsStream_Resume_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2557,14 +2608,17 @@ void TtsEventObserverProxy::OnStart(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::TtsEventObserver::OnStart");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsEventObserver_OnStart_Name, kFlags, 0, 0, nullptr);
@@ -2594,14 +2648,17 @@ void TtsEventObserverProxy::OnTimepoint(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsEventObserver_OnTimepoint_Name, kFlags, 0, 0, nullptr);
@@ -2625,14 +2682,17 @@ void TtsEventObserverProxy::OnEnd(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::TtsEventObserver::OnEnd");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsEventObserver_OnEnd_Name, kFlags, 0, 0, nullptr);
@@ -2655,14 +2715,17 @@ void TtsEventObserverProxy::OnError(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::tts::mojom::TtsEventObserver::OnError");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsEventObserver_OnError_Name, kFlags, 0, 0, nullptr);
@@ -2805,16 +2868,16 @@ bool TtsEventObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTtsEventObserverValidationInfo[] = {
-    {&internal::TtsEventObserver_OnStart_Params_Data::Validate,
+    { &internal::TtsEventObserver_OnStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsEventObserver_OnTimepoint_Params_Data::Validate,
+    { &internal::TtsEventObserver_OnTimepoint_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsEventObserver_OnEnd_Params_Data::Validate,
+    { &internal::TtsEventObserver_OnEnd_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsEventObserver_OnError_Params_Data::Validate,
+    { &internal::TtsEventObserver_OnError_Params_Data::Validate,
      nullptr /* no response */},
 };
 

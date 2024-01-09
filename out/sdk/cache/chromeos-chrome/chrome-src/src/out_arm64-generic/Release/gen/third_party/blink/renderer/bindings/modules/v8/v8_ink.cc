@@ -30,7 +30,7 @@ namespace blink {
 
 bool V8Ink::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::DelegatedInkTrailsEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Ink>::value,
     "Ink inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Ink::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Ink is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -101,7 +96,7 @@ return;
 
 
 
-Ink* blink_receiver = V8Ink::ToWrappableUnsafe(v8_receiver);
+Ink* blink_receiver = V8Ink::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

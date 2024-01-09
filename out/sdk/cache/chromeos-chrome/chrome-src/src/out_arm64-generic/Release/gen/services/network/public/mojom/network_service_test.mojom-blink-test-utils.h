@@ -131,7 +131,7 @@ class BLINK_PLATFORM_EXPORT NetworkServiceTestInterceptorForTesting : public Net
   void GetEnvironmentVariableValue(const WTF::String& name, GetEnvironmentVariableValueCallback callback) override;
   void Log(const WTF::String& message, LogCallback callback) override;
   void ActivateFieldTrial(const WTF::String& field_trial_name) override;
-  void SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) override;
+  void SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) override;
   void OpenFile(const ::base::FilePath& path, OpenFileCallback callback) override;
   void EnumerateFiles(const ::base::FilePath& path, ::mojo::PendingRemote<::network::mojom::blink::HttpCacheBackendFileOperationsFactory> factory, EnumerateFilesCallback callback) override;
   void CreateSimpleCache(::mojo::PendingRemote<::network::mojom::blink::HttpCacheBackendFileOperationsFactory> factory, const ::base::FilePath& path, bool reset, CreateSimpleCacheCallback callback) override;
@@ -194,7 +194,7 @@ class BLINK_PLATFORM_EXPORT NetworkServiceTestAsyncWaiter {
       const WTF::String& message);
   
   void SetSCTAuditingRetryDelay(
-      absl::optional<::base::TimeDelta> delay);
+      std::optional<::base::TimeDelta> delay);
   
   void OpenFile(
       const ::base::FilePath& path, bool* out_result);

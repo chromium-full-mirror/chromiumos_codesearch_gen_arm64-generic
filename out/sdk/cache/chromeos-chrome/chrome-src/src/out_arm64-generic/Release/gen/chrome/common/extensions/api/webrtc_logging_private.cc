@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/webrtc_logging_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ MetaDataEntry::MetaDataEntry()
  {}
 
 MetaDataEntry::~MetaDataEntry() = default;
-MetaDataEntry::MetaDataEntry(MetaDataEntry&& rhs) = default;
-MetaDataEntry& MetaDataEntry::operator=(MetaDataEntry&& rhs) = default;
+MetaDataEntry::MetaDataEntry(MetaDataEntry&& rhs) noexcept = default;
+MetaDataEntry& MetaDataEntry::operator=(MetaDataEntry&& rhs) noexcept = default;
 MetaDataEntry MetaDataEntry::Clone() const {
   MetaDataEntry out;
   out.key = key;
@@ -85,34 +86,21 @@ bool MetaDataEntry::Populate(
 }
 
 // static
-std::unique_ptr<MetaDataEntry> MetaDataEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MetaDataEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MetaDataEntry> MetaDataEntry::FromValue(const base::Value::Dict& value) {
+  MetaDataEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MetaDataEntry> MetaDataEntry::FromValue(const base::Value::Dict& value) {
+std::optional<MetaDataEntry> MetaDataEntry::FromValue(const base::Value& value) {
   MetaDataEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MetaDataEntry> MetaDataEntry::FromValue(const base::Value& value) {
-  MetaDataEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -133,8 +121,8 @@ UploadResult::UploadResult()
  {}
 
 UploadResult::~UploadResult() = default;
-UploadResult::UploadResult(UploadResult&& rhs) = default;
-UploadResult& UploadResult::operator=(UploadResult&& rhs) = default;
+UploadResult::UploadResult(UploadResult&& rhs) noexcept = default;
+UploadResult& UploadResult::operator=(UploadResult&& rhs) noexcept = default;
 UploadResult UploadResult::Clone() const {
   UploadResult out;
   out.report_id = report_id;
@@ -169,34 +157,21 @@ bool UploadResult::Populate(
 }
 
 // static
-std::unique_ptr<UploadResult> UploadResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UploadResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UploadResult> UploadResult::FromValue(const base::Value::Dict& value) {
+  UploadResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UploadResult> UploadResult::FromValue(const base::Value::Dict& value) {
+std::optional<UploadResult> UploadResult::FromValue(const base::Value& value) {
   UploadResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UploadResult> UploadResult::FromValue(const base::Value& value) {
-  UploadResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -215,8 +190,8 @@ RequestInfo::RequestInfo()
  {}
 
 RequestInfo::~RequestInfo() = default;
-RequestInfo::RequestInfo(RequestInfo&& rhs) = default;
-RequestInfo& RequestInfo::operator=(RequestInfo&& rhs) = default;
+RequestInfo::RequestInfo(RequestInfo&& rhs) noexcept = default;
+RequestInfo& RequestInfo::operator=(RequestInfo&& rhs) noexcept = default;
 RequestInfo RequestInfo::Clone() const {
   RequestInfo out;
   out.tab_id = tab_id;
@@ -233,7 +208,7 @@ bool RequestInfo::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -245,7 +220,7 @@ bool RequestInfo::Populate(
     {
       auto temp = (*guest_process_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.guest_process_id = absl::nullopt;
+        out.guest_process_id = std::nullopt;
         return false;
       }
       out.guest_process_id = *temp;
@@ -257,7 +232,7 @@ bool RequestInfo::Populate(
     {
       auto temp = (*target_webview_value).GetIfBool();
       if (!temp.has_value()) {
-        out.target_webview = absl::nullopt;
+        out.target_webview = std::nullopt;
         return false;
       }
       out.target_webview = *temp;
@@ -277,34 +252,21 @@ bool RequestInfo::Populate(
 }
 
 // static
-std::unique_ptr<RequestInfo> RequestInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RequestInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RequestInfo> RequestInfo::FromValue(const base::Value::Dict& value) {
+  RequestInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RequestInfo> RequestInfo::FromValue(const base::Value::Dict& value) {
+std::optional<RequestInfo> RequestInfo::FromValue(const base::Value& value) {
   RequestInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RequestInfo> RequestInfo::FromValue(const base::Value& value) {
-  RequestInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -334,8 +296,8 @@ RecordingInfo::RecordingInfo()
 did_manual_stop(false) {}
 
 RecordingInfo::~RecordingInfo() = default;
-RecordingInfo::RecordingInfo(RecordingInfo&& rhs) = default;
-RecordingInfo& RecordingInfo::operator=(RecordingInfo&& rhs) = default;
+RecordingInfo::RecordingInfo(RecordingInfo&& rhs) noexcept = default;
+RecordingInfo& RecordingInfo::operator=(RecordingInfo&& rhs) noexcept = default;
 RecordingInfo RecordingInfo::Clone() const {
   RecordingInfo out;
   out.prefix_path = prefix_path;
@@ -396,34 +358,21 @@ bool RecordingInfo::Populate(
 }
 
 // static
-std::unique_ptr<RecordingInfo> RecordingInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RecordingInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RecordingInfo> RecordingInfo::FromValue(const base::Value::Dict& value) {
+  RecordingInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RecordingInfo> RecordingInfo::FromValue(const base::Value::Dict& value) {
+std::optional<RecordingInfo> RecordingInfo::FromValue(const base::Value& value) {
   RecordingInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RecordingInfo> RecordingInfo::FromValue(const base::Value& value) {
-  RecordingInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -446,8 +395,8 @@ StartEventLoggingResult::StartEventLoggingResult()
  {}
 
 StartEventLoggingResult::~StartEventLoggingResult() = default;
-StartEventLoggingResult::StartEventLoggingResult(StartEventLoggingResult&& rhs) = default;
-StartEventLoggingResult& StartEventLoggingResult::operator=(StartEventLoggingResult&& rhs) = default;
+StartEventLoggingResult::StartEventLoggingResult(StartEventLoggingResult&& rhs) noexcept = default;
+StartEventLoggingResult& StartEventLoggingResult::operator=(StartEventLoggingResult&& rhs) noexcept = default;
 StartEventLoggingResult StartEventLoggingResult::Clone() const {
   StartEventLoggingResult out;
   out.log_id = log_id;
@@ -482,34 +431,21 @@ bool StartEventLoggingResult::Populate(
 }
 
 // static
-std::unique_ptr<StartEventLoggingResult> StartEventLoggingResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StartEventLoggingResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StartEventLoggingResult> StartEventLoggingResult::FromValue(const base::Value::Dict& value) {
+  StartEventLoggingResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StartEventLoggingResult> StartEventLoggingResult::FromValue(const base::Value::Dict& value) {
+std::optional<StartEventLoggingResult> StartEventLoggingResult::FromValue(const base::Value& value) {
   StartEventLoggingResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StartEventLoggingResult> StartEventLoggingResult::FromValue(const base::Value& value) {
-  StartEventLoggingResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -533,13 +469,13 @@ namespace SetMetaData {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -548,15 +484,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -565,13 +501,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -579,17 +515,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& meta_data_value = args[2];
     {
       if (!meta_data_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(meta_data_value.GetList(), params.meta_data)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -607,13 +543,13 @@ namespace Start {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -622,15 +558,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -639,13 +575,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -663,13 +599,13 @@ namespace SetUploadOnRenderClose {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -678,15 +614,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -695,13 +631,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -710,13 +646,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = should_upload_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.should_upload = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -729,13 +665,13 @@ namespace Stop {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -744,15 +680,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -761,13 +697,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -785,13 +721,13 @@ namespace Store {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -800,15 +736,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -817,13 +753,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -832,13 +768,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = log_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.log_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -856,13 +792,13 @@ namespace UploadStored {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -871,15 +807,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -888,13 +824,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -903,13 +839,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = log_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.log_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -929,13 +865,13 @@ namespace Upload {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -944,15 +880,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -961,13 +897,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -987,13 +923,13 @@ namespace Discard {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1002,15 +938,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1019,13 +955,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1043,13 +979,13 @@ namespace StartRtpDump {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 4) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1058,15 +994,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1075,13 +1011,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1090,13 +1026,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = incoming_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.incoming = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (3 < args.size() &&
@@ -1105,13 +1041,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = outgoing_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.outgoing = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1129,13 +1065,13 @@ namespace StopRtpDump {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 4) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1144,15 +1080,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1161,13 +1097,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1176,13 +1112,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = incoming_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.incoming = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (3 < args.size() &&
@@ -1191,13 +1127,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = outgoing_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.outgoing = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1215,13 +1151,13 @@ namespace StartAudioDebugRecordings {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1230,15 +1166,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1247,13 +1183,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1262,13 +1198,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = seconds_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.seconds = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1288,13 +1224,13 @@ namespace StopAudioDebugRecordings {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1303,15 +1239,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1320,13 +1256,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1346,13 +1282,13 @@ namespace StartEventLogging {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 6) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1361,15 +1297,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1378,13 +1314,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = security_origin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.security_origin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1393,13 +1329,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = session_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.session_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (3 < args.size() &&
@@ -1408,13 +1344,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = max_log_size_bytes_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.max_log_size_bytes = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (4 < args.size() &&
@@ -1423,13 +1359,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = output_period_ms_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.output_period_ms = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (5 < args.size() &&
@@ -1438,13 +1374,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = web_app_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.web_app_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1466,8 +1402,8 @@ Results::Entry::Entry()
  {}
 
 Results::Entry::~Entry() = default;
-Results::Entry::Entry(Entry&& rhs) = default;
-Results::Entry& Results::Entry::operator=(Entry&& rhs) = default;
+Results::Entry::Entry(Entry&& rhs) noexcept = default;
+Results::Entry& Results::Entry::operator=(Entry&& rhs) noexcept = default;
 base::Value::Dict Results::Entry::ToValue() const {
   base::Value::Dict to_value_result;
 

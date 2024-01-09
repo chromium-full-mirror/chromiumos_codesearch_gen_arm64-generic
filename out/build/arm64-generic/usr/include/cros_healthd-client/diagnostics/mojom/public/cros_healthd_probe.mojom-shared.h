@@ -158,11 +158,17 @@ class InputInfoDataView;
 
 class TouchscreenDeviceDataView;
 
+class TouchpadDeviceDataView;
+
 class InputDeviceDataView;
 
 class SensorInfoDataView;
 
 class SensorDataView;
+
+class ThermalInfoDataView;
+
+class ThermalSensorInfoDataView;
 
 class TelemetryInfoDataView;
 
@@ -196,6 +202,7 @@ class GraphicsResultDataView;
 class DisplayResultDataView;
 class InputResultDataView;
 class SensorResultDataView;
+class ThermalResultDataView;
 
 
 }  // ash::cros_healthd::mojom
@@ -638,6 +645,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchscreenDeviceDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadDeviceDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchpadDevice_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::InputDeviceDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::InputDevice_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -654,6 +668,20 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorInfoDataView> {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::Sensor_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ThermalInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ThermalInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ThermalSensorInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ThermalSensorInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -875,6 +903,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorResultDataView> {
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ThermalResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ThermalResult_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
@@ -954,8 +989,10 @@ enum class ProbeCategoryEnum : int32_t {
   kAudioHardware = 20,
   
   kSensor = 21,
+  
+  kThermal = 22,
   kMinValue = 0,
-  kMaxValue = 21,
+  kMaxValue = 22,
   kDefaultValue = 16
 };
 
@@ -1670,6 +1707,31 @@ inline Sensor_Location ToKnownEnumValue(Sensor_Location value) {
     return value;
   }
   return Sensor_Location::kDefaultValue;
+}
+
+
+enum class ThermalSensorInfo_ThermalSensorSource : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kEc = 1,
+  
+  kSysFs = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, ThermalSensorInfo_ThermalSensorSource value);
+inline bool IsKnownEnumValue(ThermalSensorInfo_ThermalSensorSource value) {
+  return internal::ThermalSensorInfo_ThermalSensorSource_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline ThermalSensorInfo_ThermalSensorSource ToKnownEnumValue(ThermalSensorInfo_ThermalSensorSource value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ThermalSensorInfo_ThermalSensorSource::kDefaultValue;
 }
 
 
@@ -3165,23 +3227,23 @@ static_assert(
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableInt16DataView>(
         pointer, output, message_);
   }
-  inline void GetMtuDataView(
+  inline void GetDeprecatedMtuDataView(
       ::ash::cros_healthd::mojom::NullableUint16DataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadMtu(UserType* output) {
+  [[nodiscard]] bool ReadDeprecatedMtu(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
         ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
-    "Attempting to read the optional `mtu` field into a type which "
+    "Attempting to read the optional `deprecated_mtu` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadMtu` instead "
-    "of `ReadMtu if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadDeprecatedMtu` instead "
+    "of `ReadDeprecatedMtu if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->mtu.Get();
+    auto* pointer = data_->deprecated_mtu.Get();
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
   }
@@ -4486,7 +4548,7 @@ static_assert(
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableDoubleDataView>(
         pointer, output, message_);
   }
-  absl::optional<double> power_on_to_kernel_seconds() const {
+  std::optional<double> power_on_to_kernel_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -4495,7 +4557,7 @@ static_assert(
         ? absl::make_optional(data_->power_on_to_kernel_seconds_$value)
         : absl::nullopt;
   }
-  absl::optional<double> kernel_to_pre_startup_seconds() const {
+  std::optional<double> kernel_to_pre_startup_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -4504,7 +4566,7 @@ static_assert(
         ? absl::make_optional(data_->kernel_to_pre_startup_seconds_$value)
         : absl::nullopt;
   }
-  absl::optional<double> kernel_to_post_startup_seconds() const {
+  std::optional<double> kernel_to_post_startup_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -4513,7 +4575,7 @@ static_assert(
         ? absl::make_optional(data_->kernel_to_post_startup_seconds_$value)
         : absl::nullopt;
   }
-  absl::optional<double> startup_to_chrome_exec_seconds() const {
+  std::optional<double> startup_to_chrome_exec_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -4522,7 +4584,7 @@ static_assert(
         ? absl::make_optional(data_->startup_to_chrome_exec_seconds_$value)
         : absl::nullopt;
   }
-  absl::optional<double> chrome_exec_to_login_seconds() const {
+  std::optional<double> chrome_exec_to_login_seconds() const {
     if (data_->header_.version < 2) {
       return absl::nullopt;
     }
@@ -6013,6 +6075,27 @@ class InputInfoDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchscreenDeviceDataView>>(
         pointer, output, message_);
   }
+  inline void GetTouchpadDevicesDataView(
+      mojo::ArrayDataView<TouchpadDeviceDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchpadDevices(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchpadDeviceDataView>, UserType>(),
+    "Attempting to read the optional `touchpad_devices` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTouchpadDevices` instead "
+    "of `ReadTouchpadDevices if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->touchpad_devices.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchpadDeviceDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::InputInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -6050,6 +6133,42 @@ class TouchscreenDeviceDataView {
   }
  private:
   internal::TouchscreenDevice_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class TouchpadDeviceDataView {
+ public:
+  TouchpadDeviceDataView() = default;
+
+  TouchpadDeviceDataView(
+      internal::TouchpadDevice_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetInputDeviceDataView(
+      InputDeviceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInputDevice(UserType* output) {
+    
+    auto* pointer = data_->input_device.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::InputDeviceDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDriverNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDriverName(UserType* output) {
+    
+    auto* pointer = data_->driver_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchpadDevice_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -6215,6 +6334,71 @@ static_assert(
   }
  private:
   internal::Sensor_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ThermalInfoDataView {
+ public:
+  ThermalInfoDataView() = default;
+
+  ThermalInfoDataView(
+      internal::ThermalInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetThermalSensorsDataView(
+      mojo::ArrayDataView<ThermalSensorInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThermalSensors(UserType* output) {
+    
+    auto* pointer = data_->thermal_sensors.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ThermalSensorInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ThermalInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ThermalSensorInfoDataView {
+ public:
+  ThermalSensorInfoDataView() = default;
+
+  ThermalSensorInfoDataView(
+      internal::ThermalSensorInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) {
+    
+    auto* pointer = data_->name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  double temperature_celsius() const {
+    return data_->temperature_celsius;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    auto data_value = data_->source;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource>(
+        data_value, output);
+  }
+  ThermalSensorInfo_ThermalSensorSource source() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource>(data_->source));
+  }
+ private:
+  internal::ThermalSensorInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -6672,6 +6856,27 @@ static_assert(
     auto* pointer = data_->header_.version >= 5 && !data_->sensor_result.is_null()
                     ? &data_->sensor_result : nullptr;
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensorResultDataView>(
+        pointer, output, message_);
+  }
+  inline void GetThermalResultDataView(
+      ThermalResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThermalResult(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::ThermalResultDataView, UserType>(),
+    "Attempting to read the optional `thermal_result` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadThermalResult` instead "
+    "of `ReadThermalResult if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 6 && !data_->thermal_result.is_null()
+                    ? &data_->thermal_result : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ThermalResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -8138,6 +8343,54 @@ class SensorResultDataView {
 
 
 
+class ThermalResultDataView {
+ public:
+  using Tag = internal::ThermalResult_Data::ThermalResult_Tag;
+
+  ThermalResultDataView() = default;
+
+  ThermalResultDataView(
+      internal::ThermalResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_thermal_info() const { return data_->tag == Tag::kThermalInfo; }
+  inline void GetThermalInfoDataView(
+      ThermalInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThermalInfo(UserType* output) const {
+    
+    CHECK(is_thermal_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ThermalInfoDataView>(
+        data_->data.f_thermal_info.Get(), output, message_);
+  }
+  bool is_error() const { return data_->tag == Tag::kError; }
+  inline void GetErrorDataView(
+      ProbeErrorDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    
+    CHECK(is_error());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
+        data_->data.f_error.Get(), output, message_);
+  }
+
+ private:
+  internal::ThermalResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 }  // ash::cros_healthd::mojom
 
 namespace std {
@@ -8241,6 +8494,10 @@ struct hash<::ash::cros_healthd::mojom::Sensor_Type>
 template <>
 struct hash<::ash::cros_healthd::mojom::Sensor_Location>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Sensor_Location> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource> {};
 
 }  // namespace std
 
@@ -8741,6 +8998,26 @@ struct Serializer<::ash::cros_healthd::mojom::Sensor_Location, MaybeConstUserTyp
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::Sensor_Location>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource>(input)), output);
   }
 };
 
@@ -10105,14 +10382,14 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, Maybe
         in_rssi, rssi_fragment);
     fragment->rssi.Set(
         rssi_fragment.is_null() ? nullptr : rssi_fragment.data());
-    decltype(Traits::mtu(input)) in_mtu = Traits::mtu(input);
+    decltype(Traits::deprecated_mtu(input)) in_deprecated_mtu = Traits::deprecated_mtu(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->mtu)::BaseType> mtu_fragment(
+        typename decltype(fragment->deprecated_mtu)::BaseType> deprecated_mtu_fragment(
             fragment.message());
     mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
-        in_mtu, mtu_fragment);
-    fragment->mtu.Set(
-        mtu_fragment.is_null() ? nullptr : mtu_fragment.data());
+        in_deprecated_mtu, deprecated_mtu_fragment);
+    fragment->deprecated_mtu.Set(
+        deprecated_mtu_fragment.is_null() ? nullptr : deprecated_mtu_fragment.data());
     decltype(Traits::uuids(input)) in_uuids = Traits::uuids(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->uuids)::BaseType>
@@ -12475,6 +12752,16 @@ struct Serializer<::ash::cros_healthd::mojom::InputInfoDataView, MaybeConstUserT
         fragment->touchscreen_devices.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null touchscreen_devices in InputInfo struct");
+    decltype(Traits::touchpad_devices(input)) in_touchpad_devices = Traits::touchpad_devices(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->touchpad_devices)::BaseType>
+        touchpad_devices_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& touchpad_devices_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchpadDeviceDataView>>(
+        in_touchpad_devices, touchpad_devices_fragment, &touchpad_devices_validate_params);
+    fragment->touchpad_devices.Set(
+        touchpad_devices_fragment.is_null() ? nullptr : touchpad_devices_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::InputInfo_Data* input,
@@ -12528,6 +12815,59 @@ struct Serializer<::ash::cros_healthd::mojom::TouchscreenDeviceDataView, MaybeCo
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::TouchscreenDeviceDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::TouchpadDeviceDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TouchpadDeviceDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TouchpadDevice_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::input_device(input)) in_input_device = Traits::input_device(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->input_device)::BaseType> input_device_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::InputDeviceDataView>(
+        in_input_device, input_device_fragment);
+    fragment->input_device.Set(
+        input_device_fragment.is_null() ? nullptr : input_device_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->input_device.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null input_device in TouchpadDevice struct");
+    decltype(Traits::driver_name(input)) in_driver_name = Traits::driver_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->driver_name)::BaseType> driver_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_driver_name, driver_name_fragment);
+    fragment->driver_name.Set(
+        driver_name_fragment.is_null() ? nullptr : driver_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->driver_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null driver_name in TouchpadDevice struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchpadDevice_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::TouchpadDeviceDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12683,6 +13023,93 @@ struct Serializer<::ash::cros_healthd::mojom::SensorDataView, MaybeConstUserType
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::ThermalInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ThermalInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ThermalInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::thermal_sensors(input)) in_thermal_sensors = Traits::thermal_sensors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->thermal_sensors)::BaseType>
+        thermal_sensors_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& thermal_sensors_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ThermalSensorInfoDataView>>(
+        in_thermal_sensors, thermal_sensors_fragment, &thermal_sensors_validate_params);
+    fragment->thermal_sensors.Set(
+        thermal_sensors_fragment.is_null() ? nullptr : thermal_sensors_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->thermal_sensors.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null thermal_sensors in ThermalInfo struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ThermalInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::ThermalInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::ThermalSensorInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ThermalSensorInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ThermalSensorInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::name(input)) in_name = Traits::name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->name)::BaseType> name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_name, name_fragment);
+    fragment->name.Set(
+        name_fragment.is_null() ? nullptr : name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null name in ThermalSensorInfo struct");
+    fragment->temperature_celsius = Traits::temperature_celsius(input);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource>(
+        Traits::source(input), &fragment->source);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ThermalSensorInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::ThermalSensorInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::TelemetryInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::TelemetryInfoDataView, UserType>;
@@ -12825,6 +13252,12 @@ struct Serializer<::ash::cros_healthd::mojom::TelemetryInfoDataView, MaybeConstU
     sensor_result_fragment.Claim(&fragment->sensor_result);
     mojo::internal::Serialize<::ash::cros_healthd::mojom::SensorResultDataView>(
         in_sensor_result, sensor_result_fragment, true);
+    decltype(Traits::thermal_result(input)) in_thermal_result = Traits::thermal_result(input);
+    mojo::internal::MessageFragment<decltype(fragment->thermal_result)>
+        thermal_result_fragment(fragment.message());
+    thermal_result_fragment.Claim(&fragment->thermal_result);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::ThermalResultDataView>(
+        in_thermal_result, thermal_result_fragment, true);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::TelemetryInfo_Data* input,
@@ -15030,6 +15463,79 @@ struct Serializer<::ash::cros_healthd::mojom::SensorResultDataView, MaybeConstUs
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::ThermalResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::ThermalResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::ThermalResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::ThermalResultDataView::Tag::kThermalInfo: {
+        decltype(Traits::thermal_info(input))
+            in_thermal_info = Traits::thermal_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_thermal_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ThermalInfoDataView>(
+            in_thermal_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null thermal_info in ThermalResult union");
+        fragment->data.f_thermal_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::ThermalResultDataView::Tag::kError: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_error)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
+            in_error, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null error in ThermalResult union");
+        fragment->data.f_error.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ThermalResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::ThermalResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -15361,9 +15867,9 @@ inline void BluetoothDeviceInfoDataView::GetRssiDataView(
   auto pointer = data_->rssi.Get();
   *output = ::ash::cros_healthd::mojom::NullableInt16DataView(pointer, message_);
 }
-inline void BluetoothDeviceInfoDataView::GetMtuDataView(
+inline void BluetoothDeviceInfoDataView::GetDeprecatedMtuDataView(
     ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
-  auto pointer = data_->mtu.Get();
+  auto pointer = data_->deprecated_mtu.Get();
   *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 inline void BluetoothDeviceInfoDataView::GetUuidsDataView(
@@ -16070,12 +16576,30 @@ inline void InputInfoDataView::GetTouchscreenDevicesDataView(
   auto pointer = data_->touchscreen_devices.Get();
   *output = mojo::ArrayDataView<TouchscreenDeviceDataView>(pointer, message_);
 }
+inline void InputInfoDataView::GetTouchpadDevicesDataView(
+    mojo::ArrayDataView<TouchpadDeviceDataView>* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->touchpad_devices.Get() : nullptr;
+  *output = mojo::ArrayDataView<TouchpadDeviceDataView>(pointer, message_);
+}
 
 
 inline void TouchscreenDeviceDataView::GetInputDeviceDataView(
     InputDeviceDataView* output) {
   auto pointer = data_->input_device.Get();
   *output = InputDeviceDataView(pointer, message_);
+}
+
+
+inline void TouchpadDeviceDataView::GetInputDeviceDataView(
+    InputDeviceDataView* output) {
+  auto pointer = data_->input_device.Get();
+  *output = InputDeviceDataView(pointer, message_);
+}
+inline void TouchpadDeviceDataView::GetDriverNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->driver_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 
@@ -16105,6 +16629,20 @@ inline void SensorInfoDataView::GetSensorsDataView(
 
 
 inline void SensorDataView::GetNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void ThermalInfoDataView::GetThermalSensorsDataView(
+    mojo::ArrayDataView<ThermalSensorInfoDataView>* output) {
+  auto pointer = data_->thermal_sensors.Get();
+  *output = mojo::ArrayDataView<ThermalSensorInfoDataView>(pointer, message_);
+}
+
+
+inline void ThermalSensorInfoDataView::GetNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->name.Get();
   *output = mojo::StringDataView(pointer, message_);
@@ -16225,6 +16763,12 @@ inline void TelemetryInfoDataView::GetSensorResultDataView(
   auto pointer = data_->header_.version >= 5
                  ? &data_->sensor_result : nullptr;
   *output = SensorResultDataView(pointer, message_);
+}
+inline void TelemetryInfoDataView::GetThermalResultDataView(
+    ThermalResultDataView* output) {
+  auto pointer = data_->header_.version >= 6
+                 ? &data_->thermal_result : nullptr;
+  *output = ThermalResultDataView(pointer, message_);
 }
 
 
@@ -16518,6 +17062,17 @@ inline void SensorResultDataView::GetErrorDataView(
   *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
 }
 
+inline void ThermalResultDataView::GetThermalInfoDataView(
+    ThermalInfoDataView* output) const {
+  CHECK(is_thermal_info());
+  *output = ThermalInfoDataView(data_->data.f_thermal_info.Get(), message_);
+}
+inline void ThermalResultDataView::GetErrorDataView(
+    ProbeErrorDataView* output) const {
+  CHECK(is_error());
+  *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
+}
+
 
 }  // ash::cros_healthd::mojom
 
@@ -16745,6 +17300,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Location> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Location value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::ThermalSensorInfo_ThermalSensorSource value);
 };
 
 } // namespace perfetto

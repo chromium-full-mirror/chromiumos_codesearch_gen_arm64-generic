@@ -64,8 +64,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvas.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -77,9 +78,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvas.width.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvas";
@@ -100,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvas.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -113,9 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvas.height.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvas";
@@ -136,10 +138,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvas.oncontextlost.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontextlost();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontextlost();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -152,8 +154,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontextlost(event_handler);
 }
 
@@ -164,10 +167,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvas.oncontextrestored.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontextrestored();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontextrestored();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -180,8 +183,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontextrestored(event_handler);
 }
 
@@ -257,7 +261,7 @@ UseCounter::Count(current_execution_context, WebFeature::kOffscreenCanvasConvert
 
 
 
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -302,7 +306,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_context_type = NativeValueTraits<V8OffscreenRenderingContextType>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -345,7 +349,7 @@ UseCounter::Count(current_execution_context, WebFeature::kOffscreenCanvasTransfe
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvas* blink_receiver = V8OffscreenCanvas::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

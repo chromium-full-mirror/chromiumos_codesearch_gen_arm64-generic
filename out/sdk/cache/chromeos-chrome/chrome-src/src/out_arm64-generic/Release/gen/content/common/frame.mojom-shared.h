@@ -35,6 +35,7 @@
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-shared.h"
 #include "skia/public/mojom/skcolor.mojom-shared.h"
+#include "services/network/public/mojom/attribution.mojom-shared.h"
 #include "services/network/public/mojom/content_security_policy.mojom-shared.h"
 #include "services/network/public/mojom/url_loader.mojom-shared.h"
 #include "services/network/public/mojom/url_loader_completion_status.mojom-shared.h"
@@ -71,7 +72,6 @@
 #include "third_party/blink/public/mojom/picture_in_picture_window_options/picture_in_picture_window_options.mojom-shared.h"
 #include "third_party/blink/public/mojom/widget/platform_widget.mojom-shared.h"
 #include "third_party/blink/public/mojom/page/widget.mojom-shared.h"
-#include "third_party/blink/public/mojom/portal/portal.mojom-shared.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom-shared.h"
 #include "third_party/blink/public/mojom/service_worker/controller_service_worker.mojom-shared.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker_container.mojom-shared.h"
@@ -196,11 +196,9 @@ enum class ViewWidgetType : int32_t {
   
   kGuestView = 1,
   
-  kPortal = 2,
-  
-  kFencedFrame = 3,
+  kFencedFrame = 2,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 2,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) std::ostream& operator<<(std::ostream& os, ViewWidgetType value);
@@ -490,6 +488,16 @@ static_assert(
     return mojo::internal::Deserialize<::skia::mojom::SkColorDataView>(
         pointer, output, message_);
   }
+  inline void GetColorProviderColorsDataView(
+      ::blink::mojom::ColorProviderColorMapsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadColorProviderColors(UserType* output) {
+    
+    auto* pointer = data_->color_provider_colors.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ColorProviderColorMapsDataView>(
+        pointer, output, message_);
+  }
   inline void GetBrowsingContextGroupInfoDataView(
       ::blink::mojom::BrowsingContextGroupInfoDataView* output);
 
@@ -499,6 +507,16 @@ static_assert(
     auto* pointer = data_->browsing_context_group_info.Get();
     return mojo::internal::Deserialize<::blink::mojom::BrowsingContextGroupInfoDataView>(
         pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAttributionSupport(UserType* output) const {
+    auto data_value = data_->attribution_support;
+    return mojo::internal::Deserialize<::network::mojom::AttributionSupport>(
+        data_value, output);
+  }
+  ::network::mojom::AttributionSupport attribution_support() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::network::mojom::AttributionSupport>(data_->attribution_support));
   }
  private:
   internal::CreateViewParams_Data* data_ = nullptr;
@@ -989,6 +1007,9 @@ static_assert(
     DCHECK(ret);
     return result;
   }
+  bool is_for_nested_main_frame() const {
+    return data_->is_for_nested_main_frame;
+  }
  private:
   internal::CreateFrameParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1344,6 +1365,16 @@ class CreateNewWindowReplyDataView {
     return mojo::internal::Deserialize<::blink::mojom::BrowsingContextGroupInfoDataView>(
         pointer, output, message_);
   }
+  inline void GetColorProviderColorsDataView(
+      ::blink::mojom::ColorProviderColorMapsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadColorProviderColors(UserType* output) {
+    
+    auto* pointer = data_->color_provider_colors.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ColorProviderColorMapsDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::CreateNewWindowReply_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1623,6 +1654,18 @@ struct Serializer<::content::mojom::CreateViewParamsDataView, MaybeConstUserType
         in_base_background_color, base_background_color_fragment);
     fragment->base_background_color.Set(
         base_background_color_fragment.is_null() ? nullptr : base_background_color_fragment.data());
+    decltype(Traits::color_provider_colors(input)) in_color_provider_colors = Traits::color_provider_colors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->color_provider_colors)::BaseType> color_provider_colors_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::ColorProviderColorMapsDataView>(
+        in_color_provider_colors, color_provider_colors_fragment);
+    fragment->color_provider_colors.Set(
+        color_provider_colors_fragment.is_null() ? nullptr : color_provider_colors_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->color_provider_colors.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null color_provider_colors in CreateViewParams struct");
     decltype(Traits::browsing_context_group_info(input)) in_browsing_context_group_info = Traits::browsing_context_group_info(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->browsing_context_group_info)::BaseType> browsing_context_group_info_fragment(
@@ -1635,6 +1678,8 @@ struct Serializer<::content::mojom::CreateViewParamsDataView, MaybeConstUserType
         fragment->browsing_context_group_info.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null browsing_context_group_info in CreateViewParams struct");
+    mojo::internal::Serialize<::network::mojom::AttributionSupport>(
+        Traits::attribution_support(input), &fragment->attribution_support);
   }
 
   static bool Deserialize(::content::mojom::internal::CreateViewParams_Data* input,
@@ -2044,6 +2089,7 @@ struct Serializer<::content::mojom::CreateFrameParamsDataView, MaybeConstUserTyp
         !mojo::internal::IsHandleOrInterfaceValid(fragment->associated_interface_provider_remote),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
         "invalid associated_interface_provider_remote in CreateFrameParams struct");
+    fragment->is_for_nested_main_frame = Traits::is_for_nested_main_frame(input);
   }
 
   static bool Deserialize(::content::mojom::internal::CreateFrameParams_Data* input,
@@ -2388,6 +2434,18 @@ struct Serializer<::content::mojom::CreateNewWindowReplyDataView, MaybeConstUser
         fragment->browsing_context_group_info.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null browsing_context_group_info in CreateNewWindowReply struct");
+    decltype(Traits::color_provider_colors(input)) in_color_provider_colors = Traits::color_provider_colors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->color_provider_colors)::BaseType> color_provider_colors_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::ColorProviderColorMapsDataView>(
+        in_color_provider_colors, color_provider_colors_fragment);
+    fragment->color_provider_colors.Set(
+        color_provider_colors_fragment.is_null() ? nullptr : color_provider_colors_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->color_provider_colors.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null color_provider_colors in CreateNewWindowReply struct");
   }
 
   static bool Deserialize(::content::mojom::internal::CreateNewWindowReply_Data* input,
@@ -2525,6 +2583,11 @@ inline void CreateViewParamsDataView::GetBaseBackgroundColorDataView(
     ::skia::mojom::SkColorDataView* output) {
   auto pointer = data_->base_background_color.Get();
   *output = ::skia::mojom::SkColorDataView(pointer, message_);
+}
+inline void CreateViewParamsDataView::GetColorProviderColorsDataView(
+    ::blink::mojom::ColorProviderColorMapsDataView* output) {
+  auto pointer = data_->color_provider_colors.Get();
+  *output = ::blink::mojom::ColorProviderColorMapsDataView(pointer, message_);
 }
 inline void CreateViewParamsDataView::GetBrowsingContextGroupInfoDataView(
     ::blink::mojom::BrowsingContextGroupInfoDataView* output) {
@@ -2749,6 +2812,11 @@ inline void CreateNewWindowReplyDataView::GetBrowsingContextGroupInfoDataView(
     ::blink::mojom::BrowsingContextGroupInfoDataView* output) {
   auto pointer = data_->browsing_context_group_info.Get();
   *output = ::blink::mojom::BrowsingContextGroupInfoDataView(pointer, message_);
+}
+inline void CreateNewWindowReplyDataView::GetColorProviderColorsDataView(
+    ::blink::mojom::ColorProviderColorMapsDataView* output) {
+  auto pointer = data_->color_provider_colors.Get();
+  *output = ::blink::mojom::ColorProviderColorMapsDataView(pointer, message_);
 }
 
 

@@ -13,6 +13,7 @@
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
 #include "third_party/blink/renderer/bindings/core/v8/binding_security.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
+#include "third_party/blink/renderer/bindings/core/v8/local_window_proxy.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_document.h"
@@ -78,11 +79,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, HTMLEmbedElement>::value,
     "HTMLEmbedElement does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&HTMLEmbedElement::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLEmbedElement is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 void V8HTMLEmbedElement::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLEmbedElement_NamedPropertyGetter");
@@ -91,9 +87,10 @@ void V8HTMLEmbedElement::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_prop
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // "If the result of running the named property visibility
 //  algorithm with property name P and object O is true, then:"
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 auto&& return_value = blink_receiver->AnonymousNamedGetter(blink_property_name);
 if (return_value.IsEmpty()) {
   // "Return OrdinaryGetOwnProperty(O, P)."
@@ -117,10 +114,10 @@ void V8HTMLEmbedElement::NamedPropertySetterCallback(v8::Local<v8::Name> v8_prop
 if (info.Holder() == info.This()) {
   // step 1.2.1. Invoke the named property setter with P and V.
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "HTMLEmbedElement";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -261,10 +258,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLEmbedElement.src.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -284,7 +281,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_value = NativeValueTraits<IDLUSVStringStringContextTrustedScriptURL>::NativeValue(isolate, v8_property_value, exception_state, execution_context_of_document_tree);
@@ -305,10 +302,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLEmbedElement.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTypeAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTypeAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -329,10 +326,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLEmbedElement.width.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -353,10 +350,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLEmbedElement.height.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHeightAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHeightAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -377,10 +374,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLEmbedElement.align.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -401,10 +398,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLEmbedElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -457,7 +454,7 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLEmbedElement.getSVGDocument");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(v8_receiver);
+HTMLEmbedElement* blink_receiver = V8HTMLEmbedElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLEmbedElement";
 const char* const property_name = "getSVGDocument";
@@ -476,14 +473,17 @@ return;
   // [CheckSecurity=ReturnValue]
 Frame* blink_frame = blink_receiver->contentWindow()->GetFrame();
 DCHECK(IsA<LocalFrame>(blink_frame));
-if (UNLIKELY(!blink_frame->IsAttached())) {
-  bindings::V8SetReturnValue(info, nullptr);
-return;
-}
-v8::Local<v8::Value> v8_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
+if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowProxyMaybeUninitialized(script_state->World())->ContextIfInitialized().IsEmpty())) {
+  // Don't wrap the return value if its frame is in the process of detaching and
+// has already invalidated its v8::Context, as it is not safe to
+// re-initialize the v8::Context in that state. Return null instead.
+bindings::V8SetReturnValue(info, nullptr);
+return;
+}
+v8::Local<v8::Value> v8_value;
 if (!ToV8Traits<IDLNullable<Document>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value).ToLocal(&v8_value)) {
   return;
 }

@@ -82,6 +82,23 @@ export const Opaque = {
   MAX_VALUE: 0,
 };
 
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const AutomaticBeaconTypeSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const AutomaticBeaconType = {
+  
+  kDeprecatedTopNavigation: 0,
+  kTopNavigationStart: 1,
+  kTopNavigationCommit: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
 
 /**
  * @const { {$:!mojo.internal.MojomType}}

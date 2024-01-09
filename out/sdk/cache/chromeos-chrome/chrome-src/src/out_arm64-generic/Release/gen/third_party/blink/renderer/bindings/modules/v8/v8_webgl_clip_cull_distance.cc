@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLClipCullDistance>::value,
     "WebGLClipCullDistance inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLClipCullDistance::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLClipCullDistance is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 

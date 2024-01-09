@@ -59,11 +59,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DataTransferItem>::value,
     "DataTransferItem inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DataTransferItem::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DataTransferItem is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8DataTransferItem::InstallInterfaceTemplateFuncType V8DataTransferItem::install_interface_template_func_ = nullptr;

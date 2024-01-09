@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,9 +23,11 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/lcp_critical_path_predictor/lcp_critical_path_predictor.mojom-features.h"
 #include "third_party/blink/public/mojom/lcp_critical_path_predictor/lcp_critical_path_predictor.mojom-shared.h"
 #include "third_party/blink/public/mojom/lcp_critical_path_predictor/lcp_critical_path_predictor.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/byte_string.mojom-blink.h"
+#include "mojo/public/mojom/base/time.mojom-blink.h"
 #include "url/mojom/url.mojom-blink.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
@@ -76,6 +78,7 @@ class PLATFORM_EXPORT LCPCriticalPathPredictorHost
     kSetLcpElementLocatorMinVersion = 0,
     kSetLcpInfluencerScriptUrlsMinVersion = 0,
     kNotifyFetchedFontMinVersion = 0,
+    kNotifyFetchedSubresourceMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -90,17 +93,23 @@ class PLATFORM_EXPORT LCPCriticalPathPredictorHost
   struct NotifyFetchedFont_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct NotifyFetchedSubresource_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~LCPCriticalPathPredictorHost() = default;
 
   
-  virtual void SetLcpElementLocator(const std::string& lcp_element_locator) = 0;
+  virtual void SetLcpElementLocator(const std::string& lcp_element_locator, std::optional<uint32_t> predicted_lcp_index) = 0;
 
   
   virtual void SetLcpInfluencerScriptUrls(const WTF::Vector<::blink::KURL>& lcp_influencer_scripts) = 0;
 
   
   virtual void NotifyFetchedFont(const ::blink::KURL& font_url) = 0;
+
+  
+  virtual void NotifyFetchedSubresource(const ::blink::KURL& subresource_url, ::base::TimeDelta subresource_load_start) = 0;
 };
 
 
@@ -112,11 +121,13 @@ class PLATFORM_EXPORT LCPCriticalPathPredictorHostProxy
 
   explicit LCPCriticalPathPredictorHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void SetLcpElementLocator(const std::string& lcp_element_locator) final;
+  void SetLcpElementLocator(const std::string& lcp_element_locator, std::optional<uint32_t> predicted_lcp_index) final;
   
   void SetLcpInfluencerScriptUrls(const WTF::Vector<::blink::KURL>& lcp_influencer_scripts) final;
   
   void NotifyFetchedFont(const ::blink::KURL& font_url) final;
+  
+  void NotifyFetchedSubresource(const ::blink::KURL& subresource_url, ::base::TimeDelta subresource_load_start) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

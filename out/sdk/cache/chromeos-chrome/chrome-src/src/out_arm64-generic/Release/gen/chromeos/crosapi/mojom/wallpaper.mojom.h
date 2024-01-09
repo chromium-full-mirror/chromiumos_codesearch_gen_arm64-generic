@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/wallpaper.mojom-features.h"
 #include "chromeos/crosapi/mojom/wallpaper.mojom-shared.h"
 #include "chromeos/crosapi/mojom/wallpaper.mojom-forward.h"
 #include <string>
@@ -188,17 +189,17 @@ class  SetWallpaperResult {
   // Construct an instance holding |thumbnail_data|.
   static SetWallpaperResultPtr
   NewThumbnailData(
-      std::vector<uint8_t> thumbnail_data) {
+      std::vector<uint8_t> value) {
     auto result = SetWallpaperResultPtr(absl::in_place);
-    result->set_thumbnail_data(std::move(thumbnail_data));
+    result->set_thumbnail_data(std::move(value));
     return result;
   }
   // Construct an instance holding |error_message|.
   static SetWallpaperResultPtr
   NewErrorMessage(
-      const std::string& error_message) {
+      const std::string& value) {
     auto result = SetWallpaperResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
 

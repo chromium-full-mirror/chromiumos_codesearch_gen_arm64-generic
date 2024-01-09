@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -614,14 +615,17 @@ void FileSystemAccessFileHandleProxy::GetPermissionStatus(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_GetPermissionStatus_Name, kFlags, 0, 0, nullptr);
@@ -653,14 +657,17 @@ void FileSystemAccessFileHandleProxy::RequestPermission(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_RequestPermission_Name, kFlags, 0, 0, nullptr);
@@ -685,14 +692,17 @@ void FileSystemAccessFileHandleProxy::AsBlob(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FileSystemAccessFileHandle::AsBlob");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_AsBlob_Name, kFlags, 0, 0, nullptr);
@@ -729,14 +739,17 @@ void FileSystemAccessFileHandleProxy::CreateFileWriter(
                         "<value of type FileSystemAccessWritableFileStreamLockMode>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_CreateFileWriter_Name, kFlags, 0, 0, nullptr);
@@ -771,14 +784,17 @@ void FileSystemAccessFileHandleProxy::Rename(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_Rename_Name, kFlags, 0, 0, nullptr);
@@ -823,14 +839,17 @@ void FileSystemAccessFileHandleProxy::Move(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_Move_Name, kFlags, 0, 0, nullptr);
@@ -871,14 +890,17 @@ void FileSystemAccessFileHandleProxy::Remove(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FileSystemAccessFileHandle::Remove");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_Remove_Name, kFlags, 0, 0, nullptr);
@@ -909,14 +931,17 @@ void FileSystemAccessFileHandleProxy::OpenAccessHandle(
                         "<value of type FileSystemAccessAccessHandleLockMode>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_OpenAccessHandle_Name, kFlags, 0, 0, nullptr);
@@ -949,14 +974,17 @@ void FileSystemAccessFileHandleProxy::IsSameEntry(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_IsSameEntry_Name, kFlags, 0, 0, nullptr);
@@ -993,14 +1021,17 @@ void FileSystemAccessFileHandleProxy::Transfer(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::blink::FileSystemAccessTransferToken>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_Transfer_Name, kFlags, 0, 0, nullptr);
@@ -1029,14 +1060,17 @@ void FileSystemAccessFileHandleProxy::GetUniqueId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FileSystemAccessFileHandle::GetUniqueId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_GetUniqueId_Name, kFlags, 0, 0, nullptr);
@@ -1060,14 +1094,17 @@ void FileSystemAccessFileHandleProxy::GetCloudIdentifiers(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FileSystemAccessFileHandle::GetCloudIdentifiers");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_GetCloudIdentifiers_Name, kFlags, 0, 0, nullptr);
@@ -1177,7 +1214,8 @@ void FileSystemAccessFileHandle_GetPermissionStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_GetPermissionStatus_Name, kFlags, 0, 0, nullptr);
@@ -1303,7 +1341,8 @@ void FileSystemAccessFileHandle_RequestPermission_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_RequestPermission_Name, kFlags, 0, 0, nullptr);
@@ -1447,7 +1486,8 @@ void FileSystemAccessFileHandle_AsBlob_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_AsBlob_Name, kFlags, 0, 0, nullptr);
@@ -1602,7 +1642,8 @@ void FileSystemAccessFileHandle_CreateFileWriter_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_CreateFileWriter_Name, kFlags, 0, 0, nullptr);
@@ -1732,7 +1773,8 @@ void FileSystemAccessFileHandle_Rename_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_Rename_Name, kFlags, 0, 0, nullptr);
@@ -1860,7 +1902,8 @@ void FileSystemAccessFileHandle_Move_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_Move_Name, kFlags, 0, 0, nullptr);
@@ -1988,7 +2031,8 @@ void FileSystemAccessFileHandle_Remove_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_Remove_Name, kFlags, 0, 0, nullptr);
@@ -2132,7 +2176,8 @@ void FileSystemAccessFileHandle_OpenAccessHandle_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_OpenAccessHandle_Name, kFlags, 0, 0, nullptr);
@@ -2274,7 +2319,8 @@ void FileSystemAccessFileHandle_IsSameEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_IsSameEntry_Name, kFlags, 0, 0, nullptr);
@@ -2410,7 +2456,8 @@ void FileSystemAccessFileHandle_GetUniqueId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_GetUniqueId_Name, kFlags, 0, 0, nullptr);
@@ -2556,7 +2603,8 @@ void FileSystemAccessFileHandle_GetCloudIdentifiers_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileHandle_GetCloudIdentifiers_Name, kFlags, 0, 0, nullptr);
@@ -3010,32 +3058,32 @@ std::move(p_other), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileSystemAccessFileHandleValidationInfo[] = {
-    {&internal::FileSystemAccessFileHandle_GetPermissionStatus_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_GetPermissionStatus_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_GetPermissionStatus_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_RequestPermission_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_RequestPermission_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_RequestPermission_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_AsBlob_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_AsBlob_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_AsBlob_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_CreateFileWriter_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_CreateFileWriter_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_CreateFileWriter_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_Rename_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_Rename_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_Rename_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_Move_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_Move_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_Move_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_Remove_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_Remove_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_Remove_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_OpenAccessHandle_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_OpenAccessHandle_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_OpenAccessHandle_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_IsSameEntry_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_IsSameEntry_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_IsSameEntry_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_Transfer_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_Transfer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemAccessFileHandle_GetUniqueId_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_GetUniqueId_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_GetUniqueId_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileHandle_GetCloudIdentifiers_Params_Data::Validate,
+    { &internal::FileSystemAccessFileHandle_GetCloudIdentifiers_Params_Data::Validate,
      &internal::FileSystemAccessFileHandle_GetCloudIdentifiers_ResponseParams_Data::Validate},
 };
 

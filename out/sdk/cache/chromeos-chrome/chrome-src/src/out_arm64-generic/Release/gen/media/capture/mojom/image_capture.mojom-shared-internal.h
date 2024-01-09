@@ -54,6 +54,31 @@ struct BackgroundBlurMode_Data {
   }
 };
 
+struct EyeGazeCorrectionMode_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct MeteringMode_Data {
  public:
   static bool constexpr kIsExtensible = true;
@@ -218,7 +243,8 @@ class  PhotoState_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> supported_background_blur_modes;
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> supported_face_framing_modes;
   int32_t current_face_framing_mode;
-  uint8_t padfinal_[4];
+  int32_t current_eye_gaze_correction_mode;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> supported_eye_gaze_correction_modes;
 
  private:
   friend class mojo::internal::MessageFragment<PhotoState_Data>;
@@ -226,7 +252,7 @@ class  PhotoState_Data {
   PhotoState_Data();
   ~PhotoState_Data() = delete;
 };
-static_assert(sizeof(PhotoState_Data) == 208,
+static_assert(sizeof(PhotoState_Data) == 216,
               "Bad sizeof(PhotoState_Data)");
 // Used by PhotoState::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -339,7 +365,7 @@ class  PhotoSettings_Data {
   uint8_t red_eye_reduction : 1;
   uint8_t has_background_blur_mode : 1;
   uint8_t has_face_framing_mode : 1;
-  uint8_t pad23_[1];
+  uint8_t eye_gaze_correction_mode_$flag : 1;
   int32_t white_balance_mode;
   int32_t exposure_mode;
   int32_t focus_mode;
@@ -361,7 +387,7 @@ class  PhotoSettings_Data {
   double width;
   double height;
   int32_t face_framing_mode;
-  uint8_t padfinal_[4];
+  int32_t eye_gaze_correction_mode_$value;
 
  private:
   friend class mojo::internal::MessageFragment<PhotoSettings_Data>;

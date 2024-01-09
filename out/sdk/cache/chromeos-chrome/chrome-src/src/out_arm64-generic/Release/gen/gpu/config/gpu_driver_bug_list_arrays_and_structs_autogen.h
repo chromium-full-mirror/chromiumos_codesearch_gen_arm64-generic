@@ -158,32 +158,6 @@ GpuControlList::kDontCare,  // hardware_overlay
 GpuControlList::kDontCare,  // subpixel_font_rendering
 };
 
-const int kFeatureListForWorkaroundsEntry56[1] = {
-COUNT_ALL_IN_VARYINGS_PACKING,
-};
-
-const uint32_t kCrBugsForWorkaroundsEntry56[1] = {
-333885,
-};
-
-const GpuControlList::DriverInfo kDriverInfoForWorkaroundsEntry56 = {
-"Mesa",  // driver_vendor
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // driver_version
-};
-
-const GpuControlList::More kMoreForEntry56_619971032 = {
-GpuControlList::kGLTypeNone,  // gl_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
-false,  // in_process_gpu
-0,  // gl_reset_notification_strategy
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // direct_rendering_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
-GpuControlList::kDontCare,  // hardware_overlay
-0,  // test_group
-GpuControlList::kDontCare,  // subpixel_font_rendering
-};
-
 const int kFeatureListForWorkaroundsEntry132[1] = {
 MSAA_IS_SLOW,
 };
@@ -275,40 +249,6 @@ GpuControlList::kDontCare,  // hardware_overlay
 GpuControlList::kDontCare,  // subpixel_font_rendering
 };
 
-const int kFeatureListForWorkaroundsEntry192[1] = {
-DECODE_ENCODE_SRGB_FOR_GENERATEMIPMAP,
-};
-
-const uint32_t kCrBugsForWorkaroundsEntry192[1] = {
-634519,
-};
-
-const GpuControlList::More kMoreForEntry192_619971032 = {
-GpuControlList::kGLTypeGL,  // gl_type
-{GpuControlList::kLT, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, "4.4", nullptr},  // gl_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
-false,  // in_process_gpu
-0,  // gl_reset_notification_strategy
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // direct_rendering_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
-GpuControlList::kDontCare,  // hardware_overlay
-0,  // test_group
-GpuControlList::kDontCare,  // subpixel_font_rendering
-};
-
-const GpuControlList::More kMoreForEntry192_619971032Exception0 = {
-GpuControlList::kGLTypeNone,  // gl_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
-false,  // in_process_gpu
-0,  // gl_reset_notification_strategy
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // direct_rendering_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
-GpuControlList::kDontCare,  // hardware_overlay
-0,  // test_group
-GpuControlList::kDontCare,  // subpixel_font_rendering
-};
-
 const char* const kDisabledExtensionsForEntry206[2] = {
 "GL_KHR_blend_equation_advanced",
 "GL_KHR_blend_equation_advanced_coherent",
@@ -319,27 +259,6 @@ const uint32_t kCrBugsForWorkaroundsEntry206[1] = {
 };
 
 const GpuControlList::More kMoreForEntry206_619971032 = {
-GpuControlList::kGLTypeNone,  // gl_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
-false,  // in_process_gpu
-0,  // gl_reset_notification_strategy
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // direct_rendering_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
-GpuControlList::kDontCare,  // hardware_overlay
-0,  // test_group
-GpuControlList::kDontCare,  // subpixel_font_rendering
-};
-
-const int kFeatureListForWorkaroundsEntry209[1] = {
-DECODE_ENCODE_SRGB_FOR_GENERATEMIPMAP,
-};
-
-const uint32_t kCrBugsForWorkaroundsEntry209[1] = {
-634519,
-};
-
-const GpuControlList::More kMoreForEntry209_619971032 = {
 GpuControlList::kGLTypeNone,  // gl_type
 {GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
 {GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
@@ -557,34 +476,6 @@ false,  // in_process_gpu
 {GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
 GpuControlList::kDontCare,  // hardware_overlay
 3,  // test_group
-GpuControlList::kDontCare,  // subpixel_font_rendering
-};
-
-const int kFeatureListForWorkaroundsEntry307[1] = {
-FORCE_GL_FLUSH_ON_SWAP_BUFFERS,
-};
-
-const uint32_t kCrBugsForWorkaroundsEntry307[1] = {
-833975,
-};
-
-const GpuControlList::GLStrings kGLStringsForWorkaroundsEntry307 = {
-"NVIDIA.*",
-nullptr,
-nullptr,
-nullptr,
-};
-
-const GpuControlList::More kMoreForEntry307_619971032 = {
-GpuControlList::kGLTypeNone,  // gl_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
-false,  // in_process_gpu
-0,  // gl_reset_notification_strategy
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // direct_rendering_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
-GpuControlList::kDontCare,  // hardware_overlay
-0,  // test_group
 GpuControlList::kDontCare,  // subpixel_font_rendering
 };
 
@@ -1078,6 +969,49 @@ const GpuControlList::Device kDevicesForWorkaroundsEntry421[2] = {
 };
 
 const GpuControlList::More kMoreForEntry421_619971032 = {
+GpuControlList::kGLTypeNone,  // gl_type
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
+false,  // in_process_gpu
+0,  // gl_reset_notification_strategy
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // direct_rendering_version
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
+GpuControlList::kDontCare,  // hardware_overlay
+0,  // test_group
+GpuControlList::kDontCare,  // subpixel_font_rendering
+};
+
+const int kFeatureListForWorkaroundsEntry422[2] = {
+DISABLE_ACCELERATED_VP8_ENCODE,
+DISABLE_ACCELERATED_H264_ENCODE,
+};
+
+const GpuControlList::Device kDevicesForWorkaroundsEntry422[1] = {
+{0x22b1, 0x0},
+};
+
+const GpuControlList::More kMoreForEntry422_619971032 = {
+GpuControlList::kGLTypeNone,  // gl_type
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
+false,  // in_process_gpu
+0,  // gl_reset_notification_strategy
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // direct_rendering_version
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
+GpuControlList::kDontCare,  // hardware_overlay
+0,  // test_group
+GpuControlList::kDontCare,  // subpixel_font_rendering
+};
+
+const int kFeatureListForWorkaroundsEntry423[1] = {
+DISABLE_WEBGPU_SHARED_IMAGES,
+};
+
+const GpuControlList::Device kDevicesForWorkaroundsEntry423[1] = {
+{0x9802, 0x0},
+};
+
+const GpuControlList::More kMoreForEntry423_619971032 = {
 GpuControlList::kGLTypeNone,  // gl_type
 {GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
 {GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version

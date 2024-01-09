@@ -21,8 +21,9 @@ class PLATFORM_EXPORT WidgetInputHandlerHostInterceptorForTesting : public Widge
   void DidOverscroll(DidOverscrollParamsPtr params) override;
   void DidStartScrollingViewport() override;
   void ImeCancelComposition() override;
-  void ImeCompositionRangeChanged(const ::gfx::Range& range, const absl::optional<WTF::Vector<::gfx::Rect>>& character_bounds, const absl::optional<WTF::Vector<::gfx::Rect>>& line_bounds) override;
+  void ImeCompositionRangeChanged(const ::gfx::Range& range, const std::optional<WTF::Vector<::gfx::Rect>>& character_bounds, const std::optional<WTF::Vector<::gfx::Rect>>& line_bounds) override;
   void SetMouseCapture(bool capture) override;
+  void SetAutoscrollSelectionActiveInMainFrame(bool autoscroll_selection) override;
   void RequestMouseLock(bool from_user_gesture, bool unadjusted_movement, RequestMouseLockCallback callback) override;
 };
 class PLATFORM_EXPORT WidgetInputHandlerHostAsyncWaiter {
@@ -130,7 +131,7 @@ class PLATFORM_EXPORT WidgetInputHandlerAsyncWaiter {
       const ::WTF::String& text, const WTF::Vector<::ui::ImeTextSpan>& ime_text_spans, const ::gfx::Range& range, int32_t relative_cursor_position);
   
   void DispatchEvent(
-      ::std::unique_ptr<::blink::WebCoalescedInputEvent> event, ::blink::mojom::blink::InputEventResultSource* out_source, ::ui::LatencyInfo* out_updated_latency, ::blink::mojom::blink::InputEventResultState* out_state, DidOverscrollParamsPtr* out_overscroll, TouchActionOptionalPtr* out_touch_action, ScrollResultDataPtr* out_scroll_result_data);
+      ::std::unique_ptr<::blink::WebCoalescedInputEvent> event, ::blink::mojom::blink::InputEventResultSource* out_source, ::ui::LatencyInfo* out_updated_latency, ::blink::mojom::blink::InputEventResultState* out_state, DidOverscrollParamsPtr* out_overscroll, TouchActionOptionalPtr* out_touch_action);
   
   void WaitForInputProcessed(
       );

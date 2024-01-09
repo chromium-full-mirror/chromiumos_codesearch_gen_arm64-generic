@@ -52,8 +52,10 @@ enum class LogSource : int32_t {
   HINTS_NOTIFICATIONS = 4,
   
   TEXT_CLASSIFIER = 5,
+  
+  MODEL_EXECUTION = 6,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 6,
 };
 
  std::ostream& operator<<(std::ostream& os, LogSource value);

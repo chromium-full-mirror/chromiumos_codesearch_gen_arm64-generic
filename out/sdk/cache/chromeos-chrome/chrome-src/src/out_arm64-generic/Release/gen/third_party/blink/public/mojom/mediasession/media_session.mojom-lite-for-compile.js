@@ -15,6 +15,7 @@ goog.require('mojo.internal.interfaceSupport');
 goog.require('mediaSession.mojom.CameraState');
 goog.require('mediaSession.mojom.MediaSessionAction');
 goog.require('mediaSession.mojom.MicrophoneState');
+goog.require('mediaSession.mojom.ChapterInformation');
 goog.require('mediaSession.mojom.MediaImage');
 goog.require('mediaSession.mojom.MediaPosition');
 goog.require('mojoBase.mojom.String16');
@@ -871,8 +872,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'chapterInfo', 32,
+        0,
+        mojo.internal.Array(mediaSession.mojom.ChapterInformationSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -889,6 +898,8 @@ blink.mojom.SpecMediaMetadata = class {
     this.album;
     /** @export { !Array<!mediaSession.mojom.MediaImage> } */
     this.artwork;
+    /** @export { !Array<!mediaSession.mojom.ChapterInformation> } */
+    this.chapterInfo;
   }
 };
 

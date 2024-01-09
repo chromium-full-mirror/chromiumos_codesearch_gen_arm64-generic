@@ -16,8 +16,8 @@ namespace blink::mojom::blink {
 
 class MODULES_EXPORT SharedStorageWorkletHostInterceptorForTesting : public SharedStorageWorkletHost {
   virtual SharedStorageWorkletHost* GetForwardingInterface() = 0;
-  void SelectURL(const WTF::String& name, WTF::Vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, SelectURLCallback callback) override;
-  void Run(const WTF::String& name, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, RunCallback callback) override;
+  void SelectURL(const WTF::String& name, WTF::Vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin, SelectURLCallback callback) override;
+  void Run(const WTF::String& name, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin, RunCallback callback) override;
 };
 class MODULES_EXPORT SharedStorageWorkletHostAsyncWaiter {
  public:
@@ -28,10 +28,10 @@ class MODULES_EXPORT SharedStorageWorkletHostAsyncWaiter {
 
   ~SharedStorageWorkletHostAsyncWaiter();
   void SelectURL(
-      const WTF::String& name, WTF::Vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, bool* out_success, WTF::String* out_error_message, absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config);
+      const WTF::String& name, WTF::Vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin, bool* out_success, WTF::String* out_error_message, std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config);
   
   void Run(
-      const WTF::String& name, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, bool* out_success, WTF::String* out_error_message);
+      const WTF::String& name, ::blink::BlinkCloneableMessage serialized_data, bool keep_alive_after_operation, const WTF::String& context_id, const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin, bool* out_success, WTF::String* out_error_message);
   
 
  private:

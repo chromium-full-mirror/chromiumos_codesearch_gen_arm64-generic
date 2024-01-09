@@ -26,6 +26,7 @@
 #include "content/browser/attribution_reporting/attribution_internals.mojom-shared-internal.h"
 #include "components/attribution_reporting/registration.mojom-shared.h"
 #include "components/attribution_reporting/source_type.mojom-shared.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-shared.h"
 #include "content/browser/attribution_reporting/aggregatable_result.mojom-shared.h"
 #include "content/browser/attribution_reporting/attribution_reporting.mojom-shared.h"
 #include "content/browser/attribution_reporting/event_level_result.mojom-shared.h"
@@ -551,14 +552,14 @@ class WebUISourceDataView {
   double expiry_time() const {
     return data_->expiry_time;
   }
-  inline void GetEventReportWindowsDataView(
-      ::attribution_reporting::mojom::EventReportWindowsDataView* output);
+  inline void GetTriggerSpecsJsonDataView(
+      mojo::StringDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadEventReportWindows(UserType* output) {
+  [[nodiscard]] bool ReadTriggerSpecsJson(UserType* output) {
     
-    auto* pointer = data_->event_report_windows.Get();
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::EventReportWindowsDataView>(
+    auto* pointer = data_->trigger_specs_json.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
   double aggregatable_report_window_time() const {
@@ -580,25 +581,11 @@ class WebUISourceDataView {
   int64_t priority() const {
     return data_->priority;
   }
-  inline void GetDebugKeyDataView(
-      ::attribution_reporting::mojom::DebugKeyDataView* output);
+  std::optional<uint64_t> debug_key() const {
 
-  template <typename UserType>
-  [[nodiscard]] bool ReadDebugKey(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::attribution_reporting::mojom::DebugKeyDataView, UserType>(),
-    "Attempting to read the optional `debug_key` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDebugKey` instead "
-    "of `ReadDebugKey if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->debug_key.Get();
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::DebugKeyDataView>(
-        pointer, output, message_);
+    return data_->debug_key_$flag
+        ? absl::make_optional(data_->debug_key_$value)
+        : absl::nullopt;
   }
   inline void GetDedupKeysDataView(
       mojo::ArrayDataView<uint64_t>* output);
@@ -611,13 +598,13 @@ static_assert(
         pointer, output, message_);
   }
   inline void GetFilterDataDataView(
-      mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<mojo::StringDataView>>* output);
+      ::attribution_reporting::mojom::FilterDataDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadFilterData(UserType* output) {
     
     auto* pointer = data_->filter_data.Get();
-    return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<mojo::StringDataView>>>(
+    return mojo::internal::Deserialize<::attribution_reporting::mojom::FilterDataDataView>(
         pointer, output, message_);
   }
   inline void GetAggregationKeysDataView(
@@ -643,15 +630,21 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint64_t>>(
         pointer, output, message_);
   }
-  inline void GetTriggerConfigDataView(
-      ::attribution_reporting::mojom::TriggerConfigDataView* output);
-
   template <typename UserType>
-  [[nodiscard]] bool ReadTriggerConfig(UserType* output) {
-    
-    auto* pointer = data_->trigger_config.Get();
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerConfigDataView>(
-        pointer, output, message_);
+  [[nodiscard]] bool ReadTriggerDataMatching(UserType* output) const {
+    auto data_value = data_->trigger_data_matching;
+    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerDataMatching>(
+        data_value, output);
+  }
+  ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::attribution_reporting::mojom::TriggerDataMatching>(data_->trigger_data_matching));
+  }
+  double event_level_epsilon() const {
+    return data_->event_level_epsilon;
+  }
+  bool debug_cookie_set() const {
+    return data_->debug_cookie_set;
   }
   template <typename UserType>
   [[nodiscard]] bool ReadAttributability(UserType* output) const {
@@ -712,25 +705,11 @@ class WebUIRegistrationDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  inline void GetClearedDebugKeyDataView(
-      ::attribution_reporting::mojom::DebugKeyDataView* output);
+  std::optional<uint64_t> cleared_debug_key() const {
 
-  template <typename UserType>
-  [[nodiscard]] bool ReadClearedDebugKey(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::attribution_reporting::mojom::DebugKeyDataView, UserType>(),
-    "Attempting to read the optional `cleared_debug_key` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadClearedDebugKey` instead "
-    "of `ReadClearedDebugKey if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->cleared_debug_key.Get();
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::DebugKeyDataView>(
-        pointer, output, message_);
+    return data_->cleared_debug_key_$flag
+        ? absl::make_optional(data_->cleared_debug_key_$value)
+        : absl::nullopt;
   }
  private:
   internal::WebUIRegistration_Data* data_ = nullptr;
@@ -1513,31 +1492,27 @@ struct Serializer<::attribution_internals::mojom::WebUISourceDataView, MaybeCons
         "null reporting_origin in WebUISource struct");
     fragment->source_time = Traits::source_time(input);
     fragment->expiry_time = Traits::expiry_time(input);
-    decltype(Traits::event_report_windows(input)) in_event_report_windows = Traits::event_report_windows(input);
+    decltype(Traits::trigger_specs_json(input)) in_trigger_specs_json = Traits::trigger_specs_json(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->event_report_windows)::BaseType> event_report_windows_fragment(
+        typename decltype(fragment->trigger_specs_json)::BaseType> trigger_specs_json_fragment(
             fragment.message());
-    mojo::internal::Serialize<::attribution_reporting::mojom::EventReportWindowsDataView>(
-        in_event_report_windows, event_report_windows_fragment);
-    fragment->event_report_windows.Set(
-        event_report_windows_fragment.is_null() ? nullptr : event_report_windows_fragment.data());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_trigger_specs_json, trigger_specs_json_fragment);
+    fragment->trigger_specs_json.Set(
+        trigger_specs_json_fragment.is_null() ? nullptr : trigger_specs_json_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->event_report_windows.is_null(),
+        fragment->trigger_specs_json.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null event_report_windows in WebUISource struct");
+        "null trigger_specs_json in WebUISource struct");
     fragment->aggregatable_report_window_time = Traits::aggregatable_report_window_time(input);
     fragment->max_event_level_reports = Traits::max_event_level_reports(input);
     mojo::internal::Serialize<::attribution_reporting::mojom::SourceType>(
         Traits::source_type(input), &fragment->source_type);
     fragment->priority = Traits::priority(input);
-    decltype(Traits::debug_key(input)) in_debug_key = Traits::debug_key(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->debug_key)::BaseType> debug_key_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::attribution_reporting::mojom::DebugKeyDataView>(
-        in_debug_key, debug_key_fragment);
-    fragment->debug_key.Set(
-        debug_key_fragment.is_null() ? nullptr : debug_key_fragment.data());
+    fragment->debug_key_$flag = Traits::debug_key(input).has_value();
+    if (Traits::debug_key(input).has_value()) {
+      fragment->debug_key_$value = Traits::debug_key(input).value();
+    }
     decltype(Traits::dedup_keys(input)) in_dedup_keys = Traits::dedup_keys(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->dedup_keys)::BaseType>
@@ -1554,12 +1529,10 @@ struct Serializer<::attribution_internals::mojom::WebUISourceDataView, MaybeCons
         "null dedup_keys in WebUISource struct");
     decltype(Traits::filter_data(input)) in_filter_data = Traits::filter_data(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->filter_data)::BaseType>
-        filter_data_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& filter_data_validate_params =
-        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>()>();
-    mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<mojo::StringDataView>>>(
-        in_filter_data, filter_data_fragment, &filter_data_validate_params);
+        typename decltype(fragment->filter_data)::BaseType> filter_data_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::attribution_reporting::mojom::FilterDataDataView>(
+        in_filter_data, filter_data_fragment);
     fragment->filter_data.Set(
         filter_data_fragment.is_null() ? nullptr : filter_data_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1595,18 +1568,10 @@ struct Serializer<::attribution_internals::mojom::WebUISourceDataView, MaybeCons
         fragment->aggregatable_dedup_keys.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null aggregatable_dedup_keys in WebUISource struct");
-    decltype(Traits::trigger_config(input)) in_trigger_config = Traits::trigger_config(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->trigger_config)::BaseType> trigger_config_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerConfigDataView>(
-        in_trigger_config, trigger_config_fragment);
-    fragment->trigger_config.Set(
-        trigger_config_fragment.is_null() ? nullptr : trigger_config_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->trigger_config.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null trigger_config in WebUISource struct");
+    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerDataMatching>(
+        Traits::trigger_data_matching(input), &fragment->trigger_data_matching);
+    fragment->event_level_epsilon = Traits::event_level_epsilon(input);
+    fragment->debug_cookie_set = Traits::debug_cookie_set(input);
     mojo::internal::Serialize<::attribution_internals::mojom::WebUISource_Attributability>(
         Traits::attributability(input), &fragment->attributability);
   }
@@ -1675,14 +1640,10 @@ struct Serializer<::attribution_internals::mojom::WebUIRegistrationDataView, May
         fragment->registration_json.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null registration_json in WebUIRegistration struct");
-    decltype(Traits::cleared_debug_key(input)) in_cleared_debug_key = Traits::cleared_debug_key(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->cleared_debug_key)::BaseType> cleared_debug_key_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::attribution_reporting::mojom::DebugKeyDataView>(
-        in_cleared_debug_key, cleared_debug_key_fragment);
-    fragment->cleared_debug_key.Set(
-        cleared_debug_key_fragment.is_null() ? nullptr : cleared_debug_key_fragment.data());
+    fragment->cleared_debug_key_$flag = Traits::cleared_debug_key(input).has_value();
+    if (Traits::cleared_debug_key(input).has_value()) {
+      fragment->cleared_debug_key_$value = Traits::cleared_debug_key(input).value();
+    }
   }
 
   static bool Deserialize(::attribution_internals::mojom::internal::WebUIRegistration_Data* input,
@@ -2219,15 +2180,10 @@ inline void WebUISourceDataView::GetReportingOriginDataView(
   auto pointer = data_->reporting_origin.Get();
   *output = ::url::mojom::OriginDataView(pointer, message_);
 }
-inline void WebUISourceDataView::GetEventReportWindowsDataView(
-    ::attribution_reporting::mojom::EventReportWindowsDataView* output) {
-  auto pointer = data_->event_report_windows.Get();
-  *output = ::attribution_reporting::mojom::EventReportWindowsDataView(pointer, message_);
-}
-inline void WebUISourceDataView::GetDebugKeyDataView(
-    ::attribution_reporting::mojom::DebugKeyDataView* output) {
-  auto pointer = data_->debug_key.Get();
-  *output = ::attribution_reporting::mojom::DebugKeyDataView(pointer, message_);
+inline void WebUISourceDataView::GetTriggerSpecsJsonDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->trigger_specs_json.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 inline void WebUISourceDataView::GetDedupKeysDataView(
     mojo::ArrayDataView<uint64_t>* output) {
@@ -2235,9 +2191,9 @@ inline void WebUISourceDataView::GetDedupKeysDataView(
   *output = mojo::ArrayDataView<uint64_t>(pointer, message_);
 }
 inline void WebUISourceDataView::GetFilterDataDataView(
-    mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<mojo::StringDataView>>* output) {
+    ::attribution_reporting::mojom::FilterDataDataView* output) {
   auto pointer = data_->filter_data.Get();
-  *output = mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<mojo::StringDataView>>(pointer, message_);
+  *output = ::attribution_reporting::mojom::FilterDataDataView(pointer, message_);
 }
 inline void WebUISourceDataView::GetAggregationKeysDataView(
     mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output) {
@@ -2248,11 +2204,6 @@ inline void WebUISourceDataView::GetAggregatableDedupKeysDataView(
     mojo::ArrayDataView<uint64_t>* output) {
   auto pointer = data_->aggregatable_dedup_keys.Get();
   *output = mojo::ArrayDataView<uint64_t>(pointer, message_);
-}
-inline void WebUISourceDataView::GetTriggerConfigDataView(
-    ::attribution_reporting::mojom::TriggerConfigDataView* output) {
-  auto pointer = data_->trigger_config.Get();
-  *output = ::attribution_reporting::mojom::TriggerConfigDataView(pointer, message_);
 }
 
 
@@ -2270,11 +2221,6 @@ inline void WebUIRegistrationDataView::GetRegistrationJsonDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->registration_json.Get();
   *output = mojo::StringDataView(pointer, message_);
-}
-inline void WebUIRegistrationDataView::GetClearedDebugKeyDataView(
-    ::attribution_reporting::mojom::DebugKeyDataView* output) {
-  auto pointer = data_->cleared_debug_key.Get();
-  *output = ::attribution_reporting::mojom::DebugKeyDataView(pointer, message_);
 }
 
 

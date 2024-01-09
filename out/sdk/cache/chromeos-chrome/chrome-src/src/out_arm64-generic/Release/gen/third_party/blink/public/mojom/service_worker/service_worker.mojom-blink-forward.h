@@ -23,6 +23,8 @@
 
 namespace blink::mojom {
 
+enum class RouterRegistrationMethod : int32_t;
+
 enum class FetchHandlerExistence : int32_t;
 class ServiceWorkerHostInterfaceBase;
 class ServiceWorkerInterfaceBase;
@@ -33,6 +35,7 @@ class ServiceWorkerInterfaceBase;
 
 namespace blink::mojom::blink {
 // Aliases for definition in the parent namespace.
+using RouterRegistrationMethod = RouterRegistrationMethod;
 using FetchHandlerExistence = FetchHandlerExistence;
 using ServiceWorkerHostInterfaceBase = ServiceWorkerHostInterfaceBase;
 using ServiceWorkerInterfaceBase = ServiceWorkerInterfaceBase;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/file_system_access/file_system_access_manager.mojom-features.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_manager.mojom-shared.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_manager.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
@@ -45,18 +46,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::WellKnownDirectory>
-    : EnumHashTraits<::blink::mojom::WellKnownDirectory, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -391,25 +380,25 @@ class PLATFORM_EXPORT TypeSpecificFilePickerOptionsUnion {
   // Construct an instance holding |open_file_picker_options|.
   static TypeSpecificFilePickerOptionsUnionPtr
   NewOpenFilePickerOptions(
-      OpenFilePickerOptionsPtr open_file_picker_options) {
+      OpenFilePickerOptionsPtr value) {
     auto result = TypeSpecificFilePickerOptionsUnionPtr(absl::in_place);
-    result->set_open_file_picker_options(std::move(open_file_picker_options));
+    result->set_open_file_picker_options(std::move(value));
     return result;
   }
   // Construct an instance holding |save_file_picker_options|.
   static TypeSpecificFilePickerOptionsUnionPtr
   NewSaveFilePickerOptions(
-      SaveFilePickerOptionsPtr save_file_picker_options) {
+      SaveFilePickerOptionsPtr value) {
     auto result = TypeSpecificFilePickerOptionsUnionPtr(absl::in_place);
-    result->set_save_file_picker_options(std::move(save_file_picker_options));
+    result->set_save_file_picker_options(std::move(value));
     return result;
   }
   // Construct an instance holding |directory_picker_options|.
   static TypeSpecificFilePickerOptionsUnionPtr
   NewDirectoryPickerOptions(
-      DirectoryPickerOptionsPtr directory_picker_options) {
+      DirectoryPickerOptionsPtr value) {
     auto result = TypeSpecificFilePickerOptionsUnionPtr(absl::in_place);
-    result->set_directory_picker_options(std::move(directory_picker_options));
+    result->set_directory_picker_options(std::move(value));
     return result;
   }
 
@@ -542,17 +531,17 @@ class PLATFORM_EXPORT FilePickerStartInOptionsUnion {
   // Construct an instance holding |well_known_directory|.
   static FilePickerStartInOptionsUnionPtr
   NewWellKnownDirectory(
-      WellKnownDirectory well_known_directory) {
+      WellKnownDirectory value) {
     auto result = FilePickerStartInOptionsUnionPtr(absl::in_place);
-    result->set_well_known_directory(std::move(well_known_directory));
+    result->set_well_known_directory(std::move(value));
     return result;
   }
   // Construct an instance holding |directory_token|.
   static FilePickerStartInOptionsUnionPtr
   NewDirectoryToken(
-      ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> directory_token) {
+      ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> value) {
     auto result = FilePickerStartInOptionsUnionPtr(absl::in_place);
-    result->set_directory_token(std::move(directory_token));
+    result->set_directory_token(std::move(value));
     return result;
   }
 

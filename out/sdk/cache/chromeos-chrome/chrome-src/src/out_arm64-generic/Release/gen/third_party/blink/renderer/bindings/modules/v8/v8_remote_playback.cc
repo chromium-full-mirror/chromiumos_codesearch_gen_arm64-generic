@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, RemotePlayback>::value,
     "RemotePlayback does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&RemotePlayback::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RemotePlayback is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("RemotePlayback.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,10 +100,10 @@ BLINK_BINDINGS_TRACE_EVENT("RemotePlayback.onconnecting.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onconnecting();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onconnecting();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -121,8 +116,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnconnecting(event_handler);
 }
 
@@ -133,10 +129,10 @@ BLINK_BINDINGS_TRACE_EVENT("RemotePlayback.onconnect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onconnect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onconnect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -149,8 +145,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnconnect(event_handler);
 }
 
@@ -161,10 +158,10 @@ BLINK_BINDINGS_TRACE_EVENT("RemotePlayback.ondisconnect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondisconnect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondisconnect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -177,8 +174,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndisconnect(event_handler);
 }
 
@@ -208,7 +206,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -255,7 +253,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RemotePlayback_Promp
 
 
 
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -297,7 +295,7 @@ return;
 
 
 
-RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(v8_receiver);
+RemotePlayback* blink_receiver = V8RemotePlayback::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

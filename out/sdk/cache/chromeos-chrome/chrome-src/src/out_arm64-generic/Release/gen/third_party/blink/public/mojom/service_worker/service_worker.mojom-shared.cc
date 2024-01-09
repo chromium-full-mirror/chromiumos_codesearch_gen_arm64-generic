@@ -21,6 +21,32 @@
 namespace blink {
 namespace mojom {
 
+NOINLINE static const char* RouterRegistrationMethodToStringHelper(RouterRegistrationMethod value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case RouterRegistrationMethod::Uninitialized:
+      return "Uninitialized";
+    case RouterRegistrationMethod::RegisterRouter:
+      return "RegisterRouter";
+    case RouterRegistrationMethod::AddRoutes:
+      return "AddRoutes";
+    default:
+      return nullptr;
+  }
+}
+
+std::string RouterRegistrationMethodToString(RouterRegistrationMethod value) {
+  const char *str = RouterRegistrationMethodToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown RouterRegistrationMethod value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, RouterRegistrationMethod value) {
+  return os << RouterRegistrationMethodToString(value);
+}
+
 NOINLINE static const char* FetchHandlerExistenceToStringHelper(FetchHandlerExistence value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -739,6 +765,59 @@ bool ServiceWorkerHost_RegisterRouter_ResponseParams_Data::Validate(
 }
 
 ServiceWorkerHost_RegisterRouter_ResponseParams_Data::ServiceWorkerHost_RegisterRouter_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ServiceWorkerHost_AddRoutes_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ServiceWorkerHost_AddRoutes_Params_Data* object =
+      static_cast<const ServiceWorkerHost_AddRoutes_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->rules, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->rules, validation_context))
+    return false;
+
+  return true;
+}
+
+ServiceWorkerHost_AddRoutes_Params_Data::ServiceWorkerHost_AddRoutes_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ServiceWorkerHost_AddRoutes_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ServiceWorkerHost_AddRoutes_ResponseParams_Data* object =
+      static_cast<const ServiceWorkerHost_AddRoutes_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+ServiceWorkerHost_AddRoutes_ResponseParams_Data::ServiceWorkerHost_AddRoutes_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2225,6 +2304,16 @@ ServiceWorker_ExecuteScriptForTest_ResponseParams_Data::ServiceWorker_ExecuteScr
 }  // namespace internal
 }  // namespace mojom
 }  // namespace blink
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::RouterRegistrationMethod>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::RouterRegistrationMethod value) {
+  return std::move(context).WriteString(::blink::mojom::RouterRegistrationMethodToString(value));
+}
+
+} // namespace perfetto
 
 namespace perfetto {
 

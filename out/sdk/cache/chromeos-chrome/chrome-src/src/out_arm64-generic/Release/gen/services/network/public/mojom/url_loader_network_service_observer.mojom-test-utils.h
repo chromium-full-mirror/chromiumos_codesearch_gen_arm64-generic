@@ -56,7 +56,7 @@ class  SSLPrivateKeyAsyncWaiter {
 
 class  AuthChallengeResponderInterceptorForTesting : public AuthChallengeResponder {
   virtual AuthChallengeResponder* GetForwardingInterface() = 0;
-  void OnAuthCredentials(const absl::optional<::net::AuthCredentials>& credentials) override;
+  void OnAuthCredentials(const std::optional<::net::AuthCredentials>& credentials) override;
 };
 class  AuthChallengeResponderAsyncWaiter {
  public:
@@ -75,10 +75,10 @@ class  AuthChallengeResponderAsyncWaiter {
 class  URLLoaderNetworkServiceObserverInterceptorForTesting : public URLLoaderNetworkServiceObserver {
   virtual URLLoaderNetworkServiceObserver* GetForwardingInterface() = 0;
   void OnSSLCertificateError(const ::GURL& url, int32_t net_error, const ::net::SSLInfo& ssl_info, bool fatal, OnSSLCertificateErrorCallback callback) override;
-  void OnCertificateRequested(const absl::optional<::base::UnguessableToken>& window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) override;
-  void OnAuthRequired(const absl::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::GURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) override;
-  void OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const absl::optional<std::string>& private_network_device_id, const absl::optional<std::string>& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) override;
-  void OnClearSiteData(const ::GURL& url, const std::string& header_value, int32_t load_flags, const absl::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only, OnClearSiteDataCallback callback) override;
+  void OnCertificateRequested(const std::optional<::base::UnguessableToken>& window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) override;
+  void OnAuthRequired(const std::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::GURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) override;
+  void OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const std::optional<std::string>& private_network_device_id, const std::optional<std::string>& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) override;
+  void OnClearSiteData(const ::GURL& url, const std::string& header_value, int32_t load_flags, const std::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only, OnClearSiteDataCallback callback) override;
   void OnLoadingStateUpdate(LoadInfoPtr info, OnLoadingStateUpdateCallback callback) override;
   void OnDataUseUpdate(int32_t network_traffic_annotation_id_hash, int64_t recv_bytes, int64_t sent_bytes) override;
   void OnSharedStorageHeaderReceived(const ::url::Origin& request_origin, std::vector<SharedStorageOperationPtr> operations, OnSharedStorageHeaderReceivedCallback callback) override;
@@ -96,10 +96,10 @@ class  URLLoaderNetworkServiceObserverAsyncWaiter {
       const ::GURL& url, int32_t net_error, const ::net::SSLInfo& ssl_info, bool fatal, int32_t* out_net_error);
   int32_t OnSSLCertificateError(const ::GURL& url, int32_t net_error, const ::net::SSLInfo& ssl_info, bool fatal);
   void OnPrivateNetworkAccessPermissionRequired(
-      const ::GURL& url, const ::net::IPAddress& ip_address, const absl::optional<std::string>& private_network_device_id, const absl::optional<std::string>& private_network_device_name, bool* out_permission_granted);
-  bool OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const absl::optional<std::string>& private_network_device_id, const absl::optional<std::string>& private_network_device_name);
+      const ::GURL& url, const ::net::IPAddress& ip_address, const std::optional<std::string>& private_network_device_id, const std::optional<std::string>& private_network_device_name, bool* out_permission_granted);
+  bool OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const std::optional<std::string>& private_network_device_id, const std::optional<std::string>& private_network_device_name);
   void OnClearSiteData(
-      const ::GURL& url, const std::string& header_value, int32_t load_flags, const absl::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only);
+      const ::GURL& url, const std::string& header_value, int32_t load_flags, const std::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only);
   
   void OnLoadingStateUpdate(
       LoadInfoPtr info);

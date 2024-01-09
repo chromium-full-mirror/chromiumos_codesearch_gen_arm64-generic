@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/page/widget.mojom-features.h"
 #include "third_party/blink/public/mojom/page/widget.mojom-shared.h"
 #include "third_party/blink/public/mojom/page/widget.mojom-blink-forward.h"
 #include "cc/mojom/touch_action.mojom-blink.h"
@@ -198,7 +199,7 @@ class CORE_EXPORT FrameWidget
   virtual void DragSourceSystemDragEnded() = 0;
 
 
-  using OnStartStylusWritingCallback = base::OnceCallback<void(const absl::optional<::gfx::Rect>&, const absl::optional<::gfx::Rect>&)>;
+  using OnStartStylusWritingCallback = base::OnceCallback<void(const std::optional<::gfx::Rect>&, const std::optional<::gfx::Rect>&)>;
   
   virtual void OnStartStylusWriting(OnStartStylusWritingCallback callback) = 0;
 
@@ -236,7 +237,7 @@ class CORE_EXPORT FrameWidget
   virtual void BindInputTargetClient(::mojo::PendingReceiver<::viz::mojom::blink::InputTargetClient> host) = 0;
 
   
-  virtual void SetViewportIntersection(::blink::mojom::blink::ViewportIntersectionStatePtr intersection_state, const absl::optional<::blink::VisualProperties>& visual_properties) = 0;
+  virtual void SetViewportIntersection(::blink::mojom::blink::ViewportIntersectionStatePtr intersection_state, const std::optional<::blink::VisualProperties>& visual_properties) = 0;
 };
 
 class FrameWidgetHostProxy;
@@ -435,7 +436,7 @@ class CORE_EXPORT FrameWidgetProxy
   
   void BindInputTargetClient(::mojo::PendingReceiver<::viz::mojom::blink::InputTargetClient> host) final;
   
-  void SetViewportIntersection(::blink::mojom::blink::ViewportIntersectionStatePtr intersection_state, const absl::optional<::blink::VisualProperties>& visual_properties) final;
+  void SetViewportIntersection(::blink::mojom::blink::ViewportIntersectionStatePtr intersection_state, const std::optional<::blink::VisualProperties>& visual_properties) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

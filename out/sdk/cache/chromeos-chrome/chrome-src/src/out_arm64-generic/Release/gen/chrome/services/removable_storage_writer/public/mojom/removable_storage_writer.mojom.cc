@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -141,14 +142,17 @@ void RemovableStorageWriterProxy::Write(
                         "<value of type ::mojo::PendingRemote<RemovableStorageWriterClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemovableStorageWriter_Write_Name, kFlags, 0, 0, nullptr);
@@ -212,14 +216,17 @@ void RemovableStorageWriterProxy::Verify(
                         "<value of type ::mojo::PendingRemote<RemovableStorageWriterClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemovableStorageWriter_Verify_Name, kFlags, 0, 0, nullptr);
@@ -364,12 +371,12 @@ bool RemovableStorageWriterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemovableStorageWriterValidationInfo[] = {
-    {&internal::RemovableStorageWriter_Write_Params_Data::Validate,
+    { &internal::RemovableStorageWriter_Write_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemovableStorageWriter_Verify_Params_Data::Validate,
+    { &internal::RemovableStorageWriter_Verify_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -469,14 +476,17 @@ void RemovableStorageWriterClientProxy::Progress(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemovableStorageWriterClient_Progress_Name, kFlags, 0, 0, nullptr);
@@ -496,7 +506,7 @@ void RemovableStorageWriterClientProxy::Progress(
 }
 
 void RemovableStorageWriterClientProxy::Complete(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chrome::mojom::RemovableStorageWriterClient::Complete", "input_parameters",
@@ -504,17 +514,20 @@ void RemovableStorageWriterClientProxy::Complete(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemovableStorageWriterClient_Complete_Name, kFlags, 0, 0, nullptr);
@@ -578,7 +591,7 @@ std::move(p_progress));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_error{};
+      std::optional<std::string> p_error{};
       RemovableStorageWriterClient_Complete_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadError(&p_error))
@@ -618,12 +631,12 @@ bool RemovableStorageWriterClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemovableStorageWriterClientValidationInfo[] = {
-    {&internal::RemovableStorageWriterClient_Progress_Params_Data::Validate,
+    { &internal::RemovableStorageWriterClient_Progress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemovableStorageWriterClient_Complete_Params_Data::Validate,
+    { &internal::RemovableStorageWriterClient_Complete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -666,7 +679,7 @@ RemovableStorageWriterAsyncWaiter::~RemovableStorageWriterAsyncWaiter() = defaul
 void RemovableStorageWriterClientInterceptorForTesting::Progress(int64_t progress) {
   GetForwardingInterface()->Progress(std::move(progress));
 }
-void RemovableStorageWriterClientInterceptorForTesting::Complete(const absl::optional<std::string>& error) {
+void RemovableStorageWriterClientInterceptorForTesting::Complete(const std::optional<std::string>& error) {
   GetForwardingInterface()->Complete(std::move(error));
 }
 RemovableStorageWriterClientAsyncWaiter::RemovableStorageWriterClientAsyncWaiter(

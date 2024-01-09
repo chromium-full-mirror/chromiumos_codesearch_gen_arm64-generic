@@ -18,7 +18,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerFetchResponseCallbackInterceptorForTestin
   virtual ServiceWorkerFetchResponseCallback* GetForwardingInterface() = 0;
   void OnResponse(::blink::mojom::FetchAPIResponsePtr response, ServiceWorkerFetchEventTimingPtr timing) override;
   void OnResponseStream(::blink::mojom::FetchAPIResponsePtr response, ::blink::mojom::ServiceWorkerStreamHandlePtr body_as_stream, ServiceWorkerFetchEventTimingPtr timing) override;
-  void OnFallback(absl::optional<::network::DataElementChunkedDataPipe> request_body, ServiceWorkerFetchEventTimingPtr timing) override;
+  void OnFallback(std::optional<::network::DataElementChunkedDataPipe> request_body, ServiceWorkerFetchEventTimingPtr timing) override;
 };
 class BLINK_COMMON_EXPORT ServiceWorkerFetchResponseCallbackAsyncWaiter {
  public:

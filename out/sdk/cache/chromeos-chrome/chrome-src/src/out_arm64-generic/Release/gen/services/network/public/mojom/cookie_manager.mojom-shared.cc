@@ -452,7 +452,7 @@ bool CookieManagerParams_Data::Validate(
       static_cast<const CookieManagerParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->content_settings, 4, validation_context)) {
+          object->content_settings, 5, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& content_settings_validate_params =
@@ -463,7 +463,7 @@ bool CookieManagerParams_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->secure_origin_cookies_allowed_schemes, 5, validation_context)) {
+          object->secure_origin_cookies_allowed_schemes, 6, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& secure_origin_cookies_allowed_schemes_validate_params =
@@ -474,7 +474,7 @@ bool CookieManagerParams_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->matching_scheme_cookies_allowed_schemes, 6, validation_context)) {
+          object->matching_scheme_cookies_allowed_schemes, 7, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& matching_scheme_cookies_allowed_schemes_validate_params =
@@ -485,7 +485,7 @@ bool CookieManagerParams_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->third_party_cookies_allowed_schemes, 7, validation_context)) {
+          object->third_party_cookies_allowed_schemes, 8, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& third_party_cookies_allowed_schemes_validate_params =
@@ -1849,6 +1849,29 @@ bool CookieManager_SetMitigationsEnabledFor3pcd_Params_Data::Validate(
 }
 
 CookieManager_SetMitigationsEnabledFor3pcd_Params_Data::CookieManager_SetMitigationsEnabledFor3pcd_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data* object =
+      static_cast<const CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data*>(data);
+
+  return true;
+}
+
+CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

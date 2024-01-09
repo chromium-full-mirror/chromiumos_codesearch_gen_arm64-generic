@@ -2115,10 +2115,10 @@ class StartVmRequest final :
   void _internal_set_writable_rootfs(bool value);
   public:
 
-  // bool enable_vulkan = 18;
-  void clear_enable_vulkan();
-  bool enable_vulkan() const;
-  void set_enable_vulkan(bool value);
+  // bool enable_vulkan = 18 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_enable_vulkan();
+  PROTOBUF_DEPRECATED bool enable_vulkan() const;
+  PROTOBUF_DEPRECATED void set_enable_vulkan(bool value);
   private:
   bool _internal_enable_vulkan() const;
   void _internal_set_enable_vulkan(bool value);
@@ -2707,7 +2707,6 @@ class StartArcVmRequest final :
     kEnableBroadcastAnrPrenotifyFieldNumber = 25,
     kLogdConfigSizeFieldNumber = 26,
     kVmMemoryPsiPeriodFieldNumber = 28,
-    kGuestZramSizeFieldNumber = 32,
     kGuestSwappinessFieldNumber = 33,
     kMglruReclaimIntervalFieldNumber = 35,
     kMglruReclaimSwappinessFieldNumber = 36,
@@ -2721,6 +2720,7 @@ class StartArcVmRequest final :
     kGuestZramMibFieldNumber = 44,
     kEnableVmmSwapFieldNumber = 43,
     kRootfsODirectFieldNumber = 45,
+    kEnableS2IdleFieldNumber = 46,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -2944,15 +2944,6 @@ class StartArcVmRequest final :
   void _internal_set_vm_memory_psi_period(int32_t value);
   public:
 
-  // int32 guest_zram_size = 32 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_guest_zram_size();
-  PROTOBUF_DEPRECATED int32_t guest_zram_size() const;
-  PROTOBUF_DEPRECATED void set_guest_zram_size(int32_t value);
-  private:
-  int32_t _internal_guest_zram_size() const;
-  void _internal_set_guest_zram_size(int32_t value);
-  public:
-
   // int32 guest_swappiness = 33;
   void clear_guest_swappiness();
   int32_t guest_swappiness() const;
@@ -3070,6 +3061,15 @@ class StartArcVmRequest final :
   void _internal_set_rootfs_o_direct(bool value);
   public:
 
+  // bool enable_s2idle = 46;
+  void clear_enable_s2idle();
+  bool enable_s2idle() const;
+  void set_enable_s2idle(bool value);
+  private:
+  bool _internal_enable_s2idle() const;
+  void _internal_set_enable_s2idle(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
  private:
   class _Internal;
@@ -3097,7 +3097,6 @@ class StartArcVmRequest final :
   bool enable_broadcast_anr_prenotify_;
   int32_t logd_config_size_;
   int32_t vm_memory_psi_period_;
-  int32_t guest_zram_size_;
   int32_t guest_swappiness_;
   int32_t mglru_reclaim_interval_;
   int32_t mglru_reclaim_swappiness_;
@@ -3111,6 +3110,7 @@ class StartArcVmRequest final :
   uint32_t guest_zram_mib_;
   bool enable_vmm_swap_;
   bool rootfs_o_direct_;
+  bool enable_s2idle_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -16033,7 +16033,7 @@ StartVmRequest::mutable_kernel_params() {
   return &kernel_params_;
 }
 
-// bool enable_vulkan = 18;
+// bool enable_vulkan = 18 [deprecated = true];
 inline void StartVmRequest::clear_enable_vulkan() {
   enable_vulkan_ = false;
 }
@@ -17324,26 +17324,6 @@ inline void StartArcVmRequest::set_vm_memory_psi_period(int32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.vm_memory_psi_period)
 }
 
-// int32 guest_zram_size = 32 [deprecated = true];
-inline void StartArcVmRequest::clear_guest_zram_size() {
-  guest_zram_size_ = 0;
-}
-inline int32_t StartArcVmRequest::_internal_guest_zram_size() const {
-  return guest_zram_size_;
-}
-inline int32_t StartArcVmRequest::guest_zram_size() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.guest_zram_size)
-  return _internal_guest_zram_size();
-}
-inline void StartArcVmRequest::_internal_set_guest_zram_size(int32_t value) {
-  
-  guest_zram_size_ = value;
-}
-inline void StartArcVmRequest::set_guest_zram_size(int32_t value) {
-  _internal_set_guest_zram_size(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.guest_zram_size)
-}
-
 // int32 guest_swappiness = 33;
 inline void StartArcVmRequest::clear_guest_swappiness() {
   guest_swappiness_ = 0;
@@ -17667,6 +17647,26 @@ inline void StartArcVmRequest::_internal_set_rootfs_o_direct(bool value) {
 inline void StartArcVmRequest::set_rootfs_o_direct(bool value) {
   _internal_set_rootfs_o_direct(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.rootfs_o_direct)
+}
+
+// bool enable_s2idle = 46;
+inline void StartArcVmRequest::clear_enable_s2idle() {
+  enable_s2idle_ = false;
+}
+inline bool StartArcVmRequest::_internal_enable_s2idle() const {
+  return enable_s2idle_;
+}
+inline bool StartArcVmRequest::enable_s2idle() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_s2idle)
+  return _internal_enable_s2idle();
+}
+inline void StartArcVmRequest::_internal_set_enable_s2idle(bool value) {
+  
+  enable_s2idle_ = value;
+}
+inline void StartArcVmRequest::set_enable_s2idle(bool value) {
+  _internal_set_enable_s2idle(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_s2idle)
 }
 
 // -------------------------------------------------------------------

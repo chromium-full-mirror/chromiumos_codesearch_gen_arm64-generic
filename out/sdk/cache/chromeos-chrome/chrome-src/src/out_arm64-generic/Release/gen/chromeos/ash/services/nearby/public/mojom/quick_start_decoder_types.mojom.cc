@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -44,15 +45,23 @@
 
 namespace ash::quick_start::mojom {
 BootstrapConfigurations::BootstrapConfigurations()
-    : instance_id() {}
+    : instance_id(),
+      is_supervised_account(),
+      email() {}
 
 BootstrapConfigurations::BootstrapConfigurations(
-    const std::string& instance_id_in)
-    : instance_id(std::move(instance_id_in)) {}
+    const std::string& instance_id_in,
+    bool is_supervised_account_in,
+    const std::string& email_in)
+    : instance_id(std::move(instance_id_in)),
+      is_supervised_account(std::move(is_supervised_account_in)),
+      email(std::move(email_in)) {}
 
 BootstrapConfigurations::~BootstrapConfigurations() = default;
 size_t BootstrapConfigurations::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->instance_id);
+  seed = mojo::internal::Hash(seed, this->is_supervised_account);
+  seed = mojo::internal::Hash(seed, this->email);
   return seed;
 }
 
@@ -62,6 +71,24 @@ void BootstrapConfigurations::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "instance_id"), this->instance_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_supervised_account"), this->is_supervised_account,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "email"), this->email,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
 #else
@@ -194,7 +221,7 @@ WifiCredentials::WifiCredentials(
     const std::string& ssid_in,
     WifiSecurityType security_type_in,
     bool is_hidden_in,
-    const absl::optional<std::string>& password_in)
+    const std::optional<std::string>& password_in)
     : ssid(std::move(ssid_in)),
       security_type(std::move(security_type_in)),
       is_hidden(std::move(is_hidden_in)),
@@ -236,7 +263,7 @@ void WifiCredentials::WriteIntoTrace(
     dict.AddItem(
       "password"), this->password,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -486,6 +513,10 @@ bool StructTraits<::ash::quick_start::mojom::BootstrapConfigurations::DataView, 
   ::ash::quick_start::mojom::BootstrapConfigurationsPtr result(::ash::quick_start::mojom::BootstrapConfigurations::New());
   
       if (success && !input.ReadInstanceId(&result->instance_id))
+        success = false;
+      if (success)
+        result->is_supervised_account = input.is_supervised_account();
+      if (success && !input.ReadEmail(&result->email))
         success = false;
   *output = std::move(result);
   return success;

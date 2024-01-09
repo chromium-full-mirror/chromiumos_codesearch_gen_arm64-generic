@@ -30,6 +30,8 @@ enum class PowerLineFrequency : int32_t;
 
 enum class VideoFacingMode : int32_t;
 
+enum class CameraAvailability : int32_t;
+
 enum class VideoCaptureApi : int32_t;
 
 enum class VideoCaptureTransportType : int32_t;
@@ -39,6 +41,8 @@ enum class VideoCaptureBufferType : int32_t;
 enum class VideoCaptureError : int32_t;
 
 enum class VideoCaptureFrameDropReason : int32_t;
+
+enum class SubCaptureTargetType : int32_t;
 
 enum class ApplySubCaptureTargetResult : int32_t;
 
@@ -53,11 +57,13 @@ using VideoCapturePixelFormat = VideoCapturePixelFormat;
 using ResolutionChangePolicy = ResolutionChangePolicy;
 using PowerLineFrequency = PowerLineFrequency;
 using VideoFacingMode = VideoFacingMode;
+using CameraAvailability = CameraAvailability;
 using VideoCaptureApi = VideoCaptureApi;
 using VideoCaptureTransportType = VideoCaptureTransportType;
 using VideoCaptureBufferType = VideoCaptureBufferType;
 using VideoCaptureError = VideoCaptureError;
 using VideoCaptureFrameDropReason = VideoCaptureFrameDropReason;
+using SubCaptureTargetType = SubCaptureTargetType;
 using ApplySubCaptureTargetResult = ApplySubCaptureTargetResult;
 using DeviceEnumerationResult = DeviceEnumerationResult;
 class VideoCaptureControlSupport;

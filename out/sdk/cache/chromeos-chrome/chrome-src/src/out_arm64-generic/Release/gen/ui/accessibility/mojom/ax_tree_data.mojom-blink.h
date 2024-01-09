@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/accessibility/mojom/ax_tree_data.mojom-features.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom-blink-forward.h"
 #include "ui/accessibility/ax_enums.mojom-blink-forward.h"
@@ -114,7 +115,7 @@ class  AXTreeData {
       int32_t sel_focus_offset,
       ::ax::mojom::blink::TextAffinity sel_focus_affinity,
       int32_t root_scroller_id,
-      absl::optional<WTF::Vector<WTF::String>> metadata);
+      std::optional<WTF::Vector<WTF::String>> metadata);
 
 AXTreeData(const AXTreeData&) = delete;
 AXTreeData& operator=(const AXTreeData&) = delete;
@@ -230,7 +231,7 @@ AXTreeData& operator=(const AXTreeData&) = delete;
   
   int32_t root_scroller_id;
   
-  absl::optional<WTF::Vector<WTF::String>> metadata;
+  std::optional<WTF::Vector<WTF::String>> metadata;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

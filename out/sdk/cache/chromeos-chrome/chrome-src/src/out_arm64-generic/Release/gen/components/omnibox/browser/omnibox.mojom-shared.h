@@ -427,6 +427,12 @@ static_assert(
     return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
         pointer, output, message_);
   }
+  std::optional<bool> is_weather_answer_suggestion() const {
+
+    return data_->is_weather_answer_suggestion_$flag
+        ? absl::make_optional(!!data_->is_weather_answer_suggestion_$value)
+        : absl::nullopt;
+  }
   inline void GetIconUrlDataView(
       mojo::StringDataView* output);
 
@@ -1032,6 +1038,10 @@ struct Serializer<::omnibox::mojom::AutocompleteMatchDataView, MaybeConstUserTyp
         fragment->fill_into_edit.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null fill_into_edit in AutocompleteMatch struct");
+    fragment->is_weather_answer_suggestion_$flag = Traits::is_weather_answer_suggestion(input).has_value();
+    if (Traits::is_weather_answer_suggestion(input).has_value()) {
+      fragment->is_weather_answer_suggestion_$value = Traits::is_weather_answer_suggestion(input).value();
+    }
     decltype(Traits::icon_url(input)) in_icon_url = Traits::icon_url(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->icon_url)::BaseType> icon_url_fragment(

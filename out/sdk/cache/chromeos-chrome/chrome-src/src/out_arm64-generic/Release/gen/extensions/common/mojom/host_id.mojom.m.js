@@ -28,8 +28,9 @@ export const HostID_HostType = {
   
   kExtensions: 0,
   kWebUi: 1,
+  kControlledFrameEmbedder: 2,
   MIN_VALUE: 0,
-  MAX_VALUE: 1,
+  MAX_VALUE: 2,
 };
 
 

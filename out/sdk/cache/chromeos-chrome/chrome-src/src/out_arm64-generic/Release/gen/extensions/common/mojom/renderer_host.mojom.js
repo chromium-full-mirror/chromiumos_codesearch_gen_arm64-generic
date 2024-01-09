@@ -321,9 +321,246 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function RendererHost_WakeEventPage_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  RendererHost_WakeEventPage_Params.prototype.initDefaults_ = function() {
+    this.extensionId = null;
+  };
+  RendererHost_WakeEventPage_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  RendererHost_WakeEventPage_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate RendererHost_WakeEventPage_Params.extensionId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  RendererHost_WakeEventPage_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  RendererHost_WakeEventPage_Params.decode = function(decoder) {
+    var packed;
+    var val = new RendererHost_WakeEventPage_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.extensionId =
+        decoder.decodeStruct(codec.String);
+    return val;
+  };
+
+  RendererHost_WakeEventPage_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(RendererHost_WakeEventPage_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.extensionId);
+  };
+  function RendererHost_WakeEventPage_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  RendererHost_WakeEventPage_ResponseParams.prototype.initDefaults_ = function() {
+    this.success = false;
+  };
+  RendererHost_WakeEventPage_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  RendererHost_WakeEventPage_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  RendererHost_WakeEventPage_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  RendererHost_WakeEventPage_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new RendererHost_WakeEventPage_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.success = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  RendererHost_WakeEventPage_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(RendererHost_WakeEventPage_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.success & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function RendererHost_GetMessageBundle_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  RendererHost_GetMessageBundle_Params.prototype.initDefaults_ = function() {
+    this.extensionId = null;
+  };
+  RendererHost_GetMessageBundle_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  RendererHost_GetMessageBundle_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate RendererHost_GetMessageBundle_Params.extensionId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  RendererHost_GetMessageBundle_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  RendererHost_GetMessageBundle_Params.decode = function(decoder) {
+    var packed;
+    var val = new RendererHost_GetMessageBundle_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.extensionId =
+        decoder.decodeStruct(codec.String);
+    return val;
+  };
+
+  RendererHost_GetMessageBundle_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(RendererHost_GetMessageBundle_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.extensionId);
+  };
+  function RendererHost_GetMessageBundle_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  RendererHost_GetMessageBundle_ResponseParams.prototype.initDefaults_ = function() {
+    this.messageMap = null;
+  };
+  RendererHost_GetMessageBundle_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  RendererHost_GetMessageBundle_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate RendererHost_GetMessageBundle_ResponseParams.messageMap
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 0, false, codec.String, codec.String, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  RendererHost_GetMessageBundle_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  RendererHost_GetMessageBundle_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new RendererHost_GetMessageBundle_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.messageMap =
+        decoder.decodeMapPointer(codec.String, codec.String);
+    return val;
+  };
+
+  RendererHost_GetMessageBundle_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(RendererHost_GetMessageBundle_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeMapPointer(codec.String, codec.String, val.messageMap);
+  };
   var kRendererHost_AddAPIActionToActivityLog_Name = 0;
   var kRendererHost_AddEventToActivityLog_Name = 1;
   var kRendererHost_AddDOMActionToActivityLog_Name = 2;
+  var kRendererHost_WakeEventPage_Name = 3;
+  var kRendererHost_GetMessageBundle_Name = 4;
 
   function RendererHostPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(RendererHost,
@@ -399,6 +636,56 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  RendererHostPtr.prototype.wakeEventPage = function() {
+    return RendererHostProxy.prototype.wakeEventPage
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  RendererHostProxy.prototype.wakeEventPage = function(extensionId) {
+    var params_ = new RendererHost_WakeEventPage_Params();
+    params_.extensionId = extensionId;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kRendererHost_WakeEventPage_Name,
+          codec.align(RendererHost_WakeEventPage_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(RendererHost_WakeEventPage_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(RendererHost_WakeEventPage_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
+  RendererHostPtr.prototype.getMessageBundle = function() {
+    return RendererHostProxy.prototype.getMessageBundle
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  RendererHostProxy.prototype.getMessageBundle = function(extensionId) {
+    var params_ = new RendererHost_GetMessageBundle_Params();
+    params_.extensionId = extensionId;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kRendererHost_GetMessageBundle_Name,
+          codec.align(RendererHost_GetMessageBundle_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(RendererHost_GetMessageBundle_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(RendererHost_GetMessageBundle_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
 
   function RendererHostStub(delegate) {
     this.delegate_ = delegate;
@@ -411,6 +698,12 @@
   }
   RendererHostStub.prototype.addDOMActionToActivityLog = function(extensionId, callName, args, url, urlTitle, callType) {
     return this.delegate_ && this.delegate_.addDOMActionToActivityLog && this.delegate_.addDOMActionToActivityLog(extensionId, callName, args, url, urlTitle, callType);
+  }
+  RendererHostStub.prototype.wakeEventPage = function(extensionId) {
+    return this.delegate_ && this.delegate_.wakeEventPage && this.delegate_.wakeEventPage(extensionId);
+  }
+  RendererHostStub.prototype.getMessageBundle = function(extensionId) {
+    return this.delegate_ && this.delegate_.getMessageBundle && this.delegate_.getMessageBundle(extensionId);
   }
 
   RendererHostStub.prototype.accept = function(message) {
@@ -437,6 +730,38 @@
       function(message, responder) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
+    case kRendererHost_WakeEventPage_Name:
+      var params = reader.decodeStruct(RendererHost_WakeEventPage_Params);
+      this.wakeEventPage(params.extensionId).then(function(response) {
+        var responseParams =
+            new RendererHost_WakeEventPage_ResponseParams();
+        responseParams.success = response.success;
+        var builder = new codec.MessageV1Builder(
+            kRendererHost_WakeEventPage_Name,
+            codec.align(RendererHost_WakeEventPage_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(RendererHost_WakeEventPage_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
+    case kRendererHost_GetMessageBundle_Name:
+      var params = reader.decodeStruct(RendererHost_GetMessageBundle_Params);
+      this.getMessageBundle(params.extensionId).then(function(response) {
+        var responseParams =
+            new RendererHost_GetMessageBundle_ResponseParams();
+        responseParams.messageMap = response.messageMap;
+        var builder = new codec.MessageV1Builder(
+            kRendererHost_GetMessageBundle_Name,
+            codec.align(RendererHost_GetMessageBundle_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(RendererHost_GetMessageBundle_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -458,6 +783,14 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = RendererHost_AddDOMActionToActivityLog_Params;
       break;
+      case kRendererHost_WakeEventPage_Name:
+        if (message.expectsResponse())
+          paramsClass = RendererHost_WakeEventPage_Params;
+      break;
+      case kRendererHost_GetMessageBundle_Name:
+        if (message.expectsResponse())
+          paramsClass = RendererHost_GetMessageBundle_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -465,7 +798,21 @@
   }
 
   function validateRendererHostResponse(messageValidator) {
-    return validator.validationError.NONE;
+   var message = messageValidator.message;
+   var paramsClass = null;
+   switch (message.getName()) {
+      case kRendererHost_WakeEventPage_Name:
+        if (message.isResponse())
+          paramsClass = RendererHost_WakeEventPage_ResponseParams;
+        break;
+      case kRendererHost_GetMessageBundle_Name:
+        if (message.isResponse())
+          paramsClass = RendererHost_GetMessageBundle_ResponseParams;
+        break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
   }
 
   var RendererHost = {
@@ -475,10 +822,10 @@
     proxyClass: RendererHostProxy,
     stubClass: RendererHostStub,
     validateRequest: validateRendererHostRequest,
-    validateResponse: null,
+    validateResponse: validateRendererHostResponse,
   };
   RendererHostStub.prototype.validator = validateRendererHostRequest;
-  RendererHostProxy.prototype.validator = null;
+  RendererHostProxy.prototype.validator = validateRendererHostResponse;
   exports.RendererHost = RendererHost;
   exports.RendererHostPtr = RendererHostPtr;
   exports.RendererHostAssociatedPtr = RendererHostAssociatedPtr;

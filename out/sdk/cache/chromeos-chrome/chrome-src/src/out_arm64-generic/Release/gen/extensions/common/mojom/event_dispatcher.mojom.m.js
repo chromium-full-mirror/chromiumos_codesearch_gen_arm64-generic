@@ -44,6 +44,9 @@ export class EventDispatcherInterface {
   /**
    * @param { !DispatchEventParams } params
    * @param { !mojoBase_mojom_ListValue } eventArgs
+   * @return {!Promise<{
+        eventWillRunInLazyBackgroundPageScript: !boolean,
+   *  }>}
    */
 
   dispatchEvent(params, eventArgs) {}
@@ -76,15 +79,18 @@ export class EventDispatcherRemote {
   /**
    * @param { !DispatchEventParams } params
    * @param { !mojoBase_mojom_ListValue } eventArgs
+   * @return {!Promise<{
+        eventWillRunInLazyBackgroundPageScript: !boolean,
+   *  }>}
    */
 
   dispatchEvent(
       params,
       eventArgs) {
-    this.proxy.sendMessage(
+    return this.proxy.sendMessage(
         0,
         EventDispatcher_DispatchEvent_ParamsSpec.$,
-        null,
+        EventDispatcher_DispatchEvent_ResponseParamsSpec.$,
         [
           params,
           eventArgs
@@ -115,7 +121,7 @@ export class EventDispatcherReceiver {
     this.helper_internal_.registerHandler(
         0,
         EventDispatcher_DispatchEvent_ParamsSpec.$,
-        null,
+        EventDispatcher_DispatchEvent_ResponseParamsSpec.$,
         impl.dispatchEvent.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
@@ -173,8 +179,8 @@ export class EventDispatcherCallbackRouter {
     this.helper_internal_.registerHandler(
         0,
         EventDispatcher_DispatchEvent_ParamsSpec.$,
-        null,
-        this.dispatchEvent.createReceiverHandler(false /* expectsResponse */));
+        EventDispatcher_DispatchEvent_ResponseParamsSpec.$,
+        this.dispatchEvent.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -204,6 +210,12 @@ export const DispatchEventParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const EventDispatcher_DispatchEvent_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const EventDispatcher_DispatchEvent_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -411,6 +423,35 @@ export class EventDispatcher_DispatchEvent_Params {
     this.params;
     /** @type { !mojoBase_mojom_ListValue } */
     this.eventArgs;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    EventDispatcher_DispatchEvent_ResponseParamsSpec.$,
+    'EventDispatcher_DispatchEvent_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'eventWillRunInLazyBackgroundPageScript', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class EventDispatcher_DispatchEvent_ResponseParams {
+  constructor() {
+    /** @type { !boolean } */
+    this.eventWillRunInLazyBackgroundPageScript;
   }
 }
 

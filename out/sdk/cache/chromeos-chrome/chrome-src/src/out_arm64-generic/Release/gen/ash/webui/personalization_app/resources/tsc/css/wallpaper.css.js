@@ -4,7 +4,7 @@ const styleMod = document.createElement('dom-module');
 styleMod.appendChild(html `
   <template>
     <style>
-main{height:100%;width:100%}main:focus,main:focus-visible,main:focus-within{outline:0}
+main{height:100%;width:100%}main:focus,main:focus-visible,main:focus-within{outline:0}h2.wallpaper-collections-heading{color:var(--cros-sys-secondary);font:var(--cros-button-2-font);height:20px;margin-block-start:0;margin-block-end:0;padding:6px 10px 6px}
     </style>
   </template>
 `.content);

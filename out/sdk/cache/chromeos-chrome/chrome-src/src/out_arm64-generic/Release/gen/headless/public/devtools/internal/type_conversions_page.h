@@ -226,6 +226,8 @@ struct FromValue<page::PermissionsPolicyFeature> {
       return page::PermissionsPolicyFeature::BROWSING_TOPICS;
     if (value.GetString() == "camera")
       return page::PermissionsPolicyFeature::CAMERA;
+    if (value.GetString() == "captured-surface-control")
+      return page::PermissionsPolicyFeature::CAPTURED_SURFACE_CONTROL;
     if (value.GetString() == "ch-dpr")
       return page::PermissionsPolicyFeature::CH_DPR;
     if (value.GetString() == "ch-device-memory")
@@ -336,6 +338,8 @@ struct FromValue<page::PermissionsPolicyFeature> {
       return page::PermissionsPolicyFeature::PRIVATE_STATE_TOKEN_ISSUANCE;
     if (value.GetString() == "private-state-token-redemption")
       return page::PermissionsPolicyFeature::PRIVATE_STATE_TOKEN_REDEMPTION;
+    if (value.GetString() == "publickey-credentials-create")
+      return page::PermissionsPolicyFeature::PUBLICKEY_CREDENTIALS_CREATE;
     if (value.GetString() == "publickey-credentials-get")
       return page::PermissionsPolicyFeature::PUBLICKEY_CREDENTIALS_GET;
     if (value.GetString() == "run-ad-auction")
@@ -354,14 +358,20 @@ struct FromValue<page::PermissionsPolicyFeature> {
       return page::PermissionsPolicyFeature::SMART_CARD;
     if (value.GetString() == "storage-access")
       return page::PermissionsPolicyFeature::STORAGE_ACCESS;
+    if (value.GetString() == "sub-apps")
+      return page::PermissionsPolicyFeature::SUB_APPS;
     if (value.GetString() == "sync-xhr")
       return page::PermissionsPolicyFeature::SYNC_XHR;
     if (value.GetString() == "unload")
       return page::PermissionsPolicyFeature::UNLOAD;
     if (value.GetString() == "usb")
       return page::PermissionsPolicyFeature::USB;
+    if (value.GetString() == "usb-unrestricted")
+      return page::PermissionsPolicyFeature::USB_UNRESTRICTED;
     if (value.GetString() == "vertical-scroll")
       return page::PermissionsPolicyFeature::VERTICAL_SCROLL;
+    if (value.GetString() == "web-printing")
+      return page::PermissionsPolicyFeature::WEB_PRINTING;
     if (value.GetString() == "web-share")
       return page::PermissionsPolicyFeature::WEB_SHARE;
     if (value.GetString() == "window-management")
@@ -392,6 +402,8 @@ inline base::Value ToValue(const page::PermissionsPolicyFeature& value) {
       return base::Value("browsing-topics");
     case page::PermissionsPolicyFeature::CAMERA:
       return base::Value("camera");
+    case page::PermissionsPolicyFeature::CAPTURED_SURFACE_CONTROL:
+      return base::Value("captured-surface-control");
     case page::PermissionsPolicyFeature::CH_DPR:
       return base::Value("ch-dpr");
     case page::PermissionsPolicyFeature::CH_DEVICE_MEMORY:
@@ -502,6 +514,8 @@ inline base::Value ToValue(const page::PermissionsPolicyFeature& value) {
       return base::Value("private-state-token-issuance");
     case page::PermissionsPolicyFeature::PRIVATE_STATE_TOKEN_REDEMPTION:
       return base::Value("private-state-token-redemption");
+    case page::PermissionsPolicyFeature::PUBLICKEY_CREDENTIALS_CREATE:
+      return base::Value("publickey-credentials-create");
     case page::PermissionsPolicyFeature::PUBLICKEY_CREDENTIALS_GET:
       return base::Value("publickey-credentials-get");
     case page::PermissionsPolicyFeature::RUN_AD_AUCTION:
@@ -520,14 +534,20 @@ inline base::Value ToValue(const page::PermissionsPolicyFeature& value) {
       return base::Value("smart-card");
     case page::PermissionsPolicyFeature::STORAGE_ACCESS:
       return base::Value("storage-access");
+    case page::PermissionsPolicyFeature::SUB_APPS:
+      return base::Value("sub-apps");
     case page::PermissionsPolicyFeature::SYNC_XHR:
       return base::Value("sync-xhr");
     case page::PermissionsPolicyFeature::UNLOAD:
       return base::Value("unload");
     case page::PermissionsPolicyFeature::USB:
       return base::Value("usb");
+    case page::PermissionsPolicyFeature::USB_UNRESTRICTED:
+      return base::Value("usb-unrestricted");
     case page::PermissionsPolicyFeature::VERTICAL_SCROLL:
       return base::Value("vertical-scroll");
+    case page::PermissionsPolicyFeature::WEB_PRINTING:
+      return base::Value("web-printing");
     case page::PermissionsPolicyFeature::WEB_SHARE:
       return base::Value("web-share");
     case page::PermissionsPolicyFeature::WINDOW_MANAGEMENT:
@@ -1509,6 +1529,10 @@ struct FromValue<page::BackForwardCacheNotRestoredReason> {
       return page::BackForwardCacheNotRestoredReason::WEB_TRANSPORT_STICKY;
     if (value.GetString() == "WebSocketSticky")
       return page::BackForwardCacheNotRestoredReason::WEB_SOCKET_STICKY;
+    if (value.GetString() == "SmartCard")
+      return page::BackForwardCacheNotRestoredReason::SMART_CARD;
+    if (value.GetString() == "LiveMediaStreamTrack")
+      return page::BackForwardCacheNotRestoredReason::LIVE_MEDIA_STREAM_TRACK;
     if (value.GetString() == "ContentSecurityHandler")
       return page::BackForwardCacheNotRestoredReason::CONTENT_SECURITY_HANDLER;
     if (value.GetString() == "ContentWebAuthenticationAPI")
@@ -1773,6 +1797,10 @@ inline base::Value ToValue(const page::BackForwardCacheNotRestoredReason& value)
       return base::Value("WebTransportSticky");
     case page::BackForwardCacheNotRestoredReason::WEB_SOCKET_STICKY:
       return base::Value("WebSocketSticky");
+    case page::BackForwardCacheNotRestoredReason::SMART_CARD:
+      return base::Value("SmartCard");
+    case page::BackForwardCacheNotRestoredReason::LIVE_MEDIA_STREAM_TRACK:
+      return base::Value("LiveMediaStreamTrack");
     case page::BackForwardCacheNotRestoredReason::CONTENT_SECURITY_HANDLER:
       return base::Value("ContentSecurityHandler");
     case page::BackForwardCacheNotRestoredReason::CONTENT_WEB_AUTHENTICATIONAPI:
@@ -2390,32 +2418,6 @@ struct FromValue<page::GetAdScriptIdResult> {
 
 template <>
 inline base::Value ToValue(const page::GetAdScriptIdResult& value) {
-  return value.Serialize();
-}
-
-
-template <>
-struct FromValue<page::GetCookiesParams> {
-  static std::unique_ptr<page::GetCookiesParams> Parse(const base::Value& value, ErrorReporter* errors) {
-    return page::GetCookiesParams::Parse(value, errors);
-  }
-};
-
-template <>
-inline base::Value ToValue(const page::GetCookiesParams& value) {
-  return value.Serialize();
-}
-
-
-template <>
-struct FromValue<page::GetCookiesResult> {
-  static std::unique_ptr<page::GetCookiesResult> Parse(const base::Value& value, ErrorReporter* errors) {
-    return page::GetCookiesResult::Parse(value, errors);
-  }
-};
-
-template <>
-inline base::Value ToValue(const page::GetCookiesResult& value) {
   return value.Serialize();
 }
 

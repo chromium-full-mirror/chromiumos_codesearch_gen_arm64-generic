@@ -15,7 +15,7 @@ namespace network::mojom {
 
 class  SystemDnsResolverInterceptorForTesting : public SystemDnsResolver {
   virtual SystemDnsResolver* GetForwardingInterface() = 0;
-  void Resolve(const absl::optional<std::string>& hostname, ::net::AddressFamily addr_family, int32_t flags, uint64_t network, ResolveCallback callback) override;
+  void Resolve(const std::optional<std::string>& hostname, ::net::AddressFamily addr_family, int32_t flags, uint64_t network, ResolveCallback callback) override;
 };
 class  SystemDnsResolverAsyncWaiter {
  public:
@@ -26,7 +26,7 @@ class  SystemDnsResolverAsyncWaiter {
 
   ~SystemDnsResolverAsyncWaiter();
   void Resolve(
-      const absl::optional<std::string>& hostname, ::net::AddressFamily addr_family, int32_t flags, uint64_t network, ::net::AddressList* out_addr_list, int32_t* out_os_error, int32_t* out_net_error);
+      const std::optional<std::string>& hostname, ::net::AddressFamily addr_family, int32_t flags, uint64_t network, ::net::AddressList* out_addr_list, int32_t* out_os_error, int32_t* out_net_error);
   
 
  private:

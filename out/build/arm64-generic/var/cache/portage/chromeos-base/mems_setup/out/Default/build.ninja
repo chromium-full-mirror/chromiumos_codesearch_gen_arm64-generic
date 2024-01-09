@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/mems_setup-0.0.1-r917/work/mems_setup-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -22,27 +22,21 @@ build _mems_remove-install_config: phony obj/mems_setup/_mems_remove-install_con
 build _mems_setup-install_config: phony obj/mems_setup/_mems_setup-install_config.stamp
 build libmems_setup: phony ./libmems_setup.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build mems_setup$:_mems_remove-install_config: phony obj/mems_setup/_mems_remove-install_config.stamp
 build mems_setup$:_mems_setup-install_config: phony obj/mems_setup/_mems_setup-install_config.stamp
 build mems_setup$:all: phony obj/mems_setup/all.stamp
 build mems_setup$:libmems_setup: phony ./libmems_setup.a
 build mems_setup$:mems_remove: phony ./mems_remove
 build mems_setup$:mems_setup: phony ./mems_setup
-build mems_setup$:mems_setup_testrunner: phony ./mems_setup_testrunner
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/mems_setup/_mems_remove-install_config.stamp $
     obj/mems_setup/_mems_setup-install_config.stamp $
     obj/mems_setup/all.stamp $
     ./libmems_setup.a $
     ./mems_remove $
-    ./mems_setup $
-    ./mems_setup_testrunner
+    ./mems_setup
 
 default all

@@ -1,17 +1,16 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // Copyright 2023 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-Object.defineProperty(exports, "__esModule", { value: true });
+const chai_1 = require("chai");
 const helper_js_1 = require("../../../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../../../shared/mocha-extensions.js");
 const screenshots_js_1 = require("../../../../shared/screenshots.js");
 const shared_js_1 = require("../../../helpers/shared.js");
 (0, mocha_extensions_js_1.describe)('Performance panel overview/minimap', function () {
-    // TODO(crbug.com/1492405): Improve perf panel trace load speed to
-    // prevent timeout bump.
-    this.timeout(20_000);
     (0, shared_js_1.preloadForCodeCoverage)('performance_panel/overview.html');
+    (0, shared_js_1.preloadForCodeCoverage)('performance_panel/basic.html');
     (0, mocha_extensions_js_1.itScreenshot)('renders the overview', async () => {
         await (0, shared_js_1.loadComponentDocExample)('performance_panel/overview.html?trace=web-dev');
         const pane = await (0, helper_js_1.waitFor)('.container #timeline-overview-pane');
@@ -37,10 +36,19 @@ const shared_js_1 = require("../../../helpers/shared.js");
         const pane = await (0, helper_js_1.waitFor)('.container-with-memory #timeline-overview-pane');
         await (0, screenshots_js_1.assertElementScreenshotUnchanged)(pane, 'performance/timeline-overview-memory.png', 3);
     });
-    (0, mocha_extensions_js_1.itScreenshot)('supports being drawn from the new engine trace data', async () => {
-        await (0, shared_js_1.loadComponentDocExample)('performance_panel/overview.html?trace=web-dev');
-        const pane = await (0, helper_js_1.waitFor)('.container-new-engine #timeline-overview-pane');
-        await (0, screenshots_js_1.assertElementScreenshotUnchanged)(pane, 'performance/timeline-overview-new-engine.png', 3);
+    it('renders markers in the minimap correctly', async () => {
+        await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=web-dev');
+        const minimapMarkers = await (0, helper_js_1.waitForMany)('.resources-event-divider', 4);
+        const promises = minimapMarkers.map(handle => {
+            return handle.evaluate(marker => {
+                const markerElement = marker;
+                return markerElement.style.left;
+            });
+        });
+        const offsets = await Promise.all(promises);
+        offsets.forEach(offset => {
+            chai_1.assert.isTrue(Boolean(offset));
+        });
     });
 });
 //# sourceMappingURL=overview_test.js.map

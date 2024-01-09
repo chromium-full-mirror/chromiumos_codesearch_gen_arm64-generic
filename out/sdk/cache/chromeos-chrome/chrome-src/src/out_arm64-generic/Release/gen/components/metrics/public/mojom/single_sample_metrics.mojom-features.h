@@ -8,6 +8,7 @@
 #define COMPONENTS_METRICS_PUBLIC_MOJOM_SINGLE_SAMPLE_METRICS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

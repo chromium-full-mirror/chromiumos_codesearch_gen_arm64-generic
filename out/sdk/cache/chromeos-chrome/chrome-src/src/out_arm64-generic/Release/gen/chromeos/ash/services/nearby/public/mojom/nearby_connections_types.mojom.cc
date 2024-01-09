@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -327,7 +328,7 @@ DiscoveryOptions::DiscoveryOptions()
 DiscoveryOptions::DiscoveryOptions(
     Strategy strategy_in,
     MediumSelectionPtr allowed_mediums_in,
-    const absl::optional<::device::BluetoothUUID>& fast_advertisement_service_uuid_in,
+    const std::optional<::device::BluetoothUUID>& fast_advertisement_service_uuid_in,
     bool is_out_of_band_connection_in)
     : strategy(std::move(strategy_in)),
       allowed_mediums(std::move(allowed_mediums_in)),
@@ -361,7 +362,7 @@ void DiscoveryOptions::WriteIntoTrace(
     dict.AddItem(
       "fast_advertisement_service_uuid"), this->fast_advertisement_service_uuid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::device::BluetoothUUID>&>"
+      "<value of type const std::optional<::device::BluetoothUUID>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -390,9 +391,9 @@ ConnectionOptions::ConnectionOptions()
 
 ConnectionOptions::ConnectionOptions(
     MediumSelectionPtr allowed_mediums_in,
-    absl::optional<std::vector<uint8_t>> remote_bluetooth_mac_address_in,
-    absl::optional<::base::TimeDelta> keep_alive_interval_in,
-    absl::optional<::base::TimeDelta> keep_alive_timeout_in)
+    std::optional<std::vector<uint8_t>> remote_bluetooth_mac_address_in,
+    std::optional<::base::TimeDelta> keep_alive_interval_in,
+    std::optional<::base::TimeDelta> keep_alive_timeout_in)
     : allowed_mediums(std::move(allowed_mediums_in)),
       remote_bluetooth_mac_address(std::move(remote_bluetooth_mac_address_in)),
       keep_alive_interval(std::move(keep_alive_interval_in)),
@@ -416,7 +417,7 @@ void ConnectionOptions::WriteIntoTrace(
     dict.AddItem(
       "remote_bluetooth_mac_address"), this->remote_bluetooth_mac_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -425,7 +426,7 @@ void ConnectionOptions::WriteIntoTrace(
     dict.AddItem(
       "keep_alive_interval"), this->keep_alive_interval,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -434,7 +435,7 @@ void ConnectionOptions::WriteIntoTrace(
     dict.AddItem(
       "keep_alive_timeout"), this->keep_alive_timeout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -609,6 +610,122 @@ void PayloadTransferUpdate::WriteIntoTrace(
 }
 
 bool PayloadTransferUpdate::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+InitialConnectionInfoV3::InitialConnectionInfoV3()
+    : authentication_digits(),
+      raw_authentication_token(),
+      is_incoming_connection(false),
+      authentication_status() {}
+
+InitialConnectionInfoV3::InitialConnectionInfoV3(
+    const std::string& authentication_digits_in,
+    const std::string& raw_authentication_token_in,
+    bool is_incoming_connection_in,
+    AuthenticationStatus authentication_status_in)
+    : authentication_digits(std::move(authentication_digits_in)),
+      raw_authentication_token(std::move(raw_authentication_token_in)),
+      is_incoming_connection(std::move(is_incoming_connection_in)),
+      authentication_status(std::move(authentication_status_in)) {}
+
+InitialConnectionInfoV3::~InitialConnectionInfoV3() = default;
+size_t InitialConnectionInfoV3::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->authentication_digits);
+  seed = mojo::internal::Hash(seed, this->raw_authentication_token);
+  seed = mojo::internal::Hash(seed, this->is_incoming_connection);
+  seed = mojo::internal::Hash(seed, this->authentication_status);
+  return seed;
+}
+
+void InitialConnectionInfoV3::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "authentication_digits"), this->authentication_digits,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "raw_authentication_token"), this->raw_authentication_token,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_incoming_connection"), this->is_incoming_connection,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "authentication_status"), this->authentication_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type AuthenticationStatus>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool InitialConnectionInfoV3::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BandwidthInfo::BandwidthInfo()
+    : quality(),
+      medium() {}
+
+BandwidthInfo::BandwidthInfo(
+    BandwidthQuality quality_in,
+    Medium medium_in)
+    : quality(std::move(quality_in)),
+      medium(std::move(medium_in)) {}
+
+BandwidthInfo::~BandwidthInfo() = default;
+size_t BandwidthInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->quality);
+  seed = mojo::internal::Hash(seed, this->medium);
+  return seed;
+}
+
+void BandwidthInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "quality"), this->quality,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BandwidthQuality>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "medium"), this->medium,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type Medium>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BandwidthInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -853,6 +970,42 @@ bool StructTraits<::nearby::connections::mojom::PayloadTransferUpdate::DataView,
         result->total_bytes = input.total_bytes();
       if (success)
         result->bytes_transferred = input.bytes_transferred();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::nearby::connections::mojom::InitialConnectionInfoV3::DataView, ::nearby::connections::mojom::InitialConnectionInfoV3Ptr>::Read(
+    ::nearby::connections::mojom::InitialConnectionInfoV3::DataView input,
+    ::nearby::connections::mojom::InitialConnectionInfoV3Ptr* output) {
+  bool success = true;
+  ::nearby::connections::mojom::InitialConnectionInfoV3Ptr result(::nearby::connections::mojom::InitialConnectionInfoV3::New());
+  
+      if (success && !input.ReadAuthenticationDigits(&result->authentication_digits))
+        success = false;
+      if (success && !input.ReadRawAuthenticationToken(&result->raw_authentication_token))
+        success = false;
+      if (success)
+        result->is_incoming_connection = input.is_incoming_connection();
+      if (success && !input.ReadAuthenticationStatus(&result->authentication_status))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::nearby::connections::mojom::BandwidthInfo::DataView, ::nearby::connections::mojom::BandwidthInfoPtr>::Read(
+    ::nearby::connections::mojom::BandwidthInfo::DataView input,
+    ::nearby::connections::mojom::BandwidthInfoPtr* output) {
+  bool success = true;
+  ::nearby::connections::mojom::BandwidthInfoPtr result(::nearby::connections::mojom::BandwidthInfo::New());
+  
+      if (success && !input.ReadQuality(&result->quality))
+        success = false;
+      if (success && !input.ReadMedium(&result->medium))
+        success = false;
   *output = std::move(result);
   return success;
 }

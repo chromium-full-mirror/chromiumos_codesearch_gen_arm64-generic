@@ -260,7 +260,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'startUrl', 32,
+        'hasCustomId', 32,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'startUrl', 40,
         0,
         url.mojom.UrlSpec.$,
         null,
@@ -268,7 +276,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'display', 40,
+        'display', 36,
         0,
         blink.mojom.DisplayModeSpec.$,
         0,
@@ -284,7 +292,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'orientation', 44,
+        'orientation', 56,
         0,
         device.mojom.ScreenOrientationLockTypeSpec.$,
         0,
@@ -292,7 +300,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'icons', 56,
+        'icons', 64,
         0,
         mojo.internal.Array(blink.mojom.ManifestImageResourceSpec.$, false),
         null,
@@ -300,7 +308,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'screenshots', 64,
+        'screenshots', 72,
         0,
         mojo.internal.Array(blink.mojom.ManifestScreenshotSpec.$, false),
         null,
@@ -308,7 +316,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'shortcuts', 72,
+        'shortcuts', 80,
         0,
         mojo.internal.Array(blink.mojom.ManifestShortcutItemSpec.$, false),
         null,
@@ -316,7 +324,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'shareTarget', 80,
+        'shareTarget', 88,
         0,
         blink.mojom.ManifestShareTargetSpec.$,
         null,
@@ -324,7 +332,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'fileHandlers', 88,
+        'fileHandlers', 96,
         0,
         mojo.internal.Array(blink.mojom.ManifestFileHandlerSpec.$, false),
         null,
@@ -332,7 +340,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'protocolHandlers', 96,
+        'protocolHandlers', 104,
         0,
         mojo.internal.Array(blink.mojom.ManifestProtocolHandlerSpec.$, false),
         null,
@@ -340,7 +348,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'urlHandlers', 104,
+        'urlHandlers', 112,
         0,
         mojo.internal.Array(blink.mojom.ManifestUrlHandlerSpec.$, false),
         null,
@@ -348,7 +356,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'scopeExtensions', 112,
+        'scopeExtensions', 120,
         0,
         mojo.internal.Array(blink.mojom.ManifestScopeExtensionSpec.$, false),
         null,
@@ -356,7 +364,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'lockScreen', 120,
+        'lockScreen', 128,
         0,
         blink.mojom.ManifestLockScreenSpec.$,
         null,
@@ -364,7 +372,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'noteTaking', 128,
+        'noteTaking', 136,
         0,
         blink.mojom.ManifestNoteTakingSpec.$,
         null,
@@ -372,7 +380,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'relatedApplications', 136,
+        'relatedApplications', 144,
         0,
         mojo.internal.Array(blink.mojom.ManifestRelatedApplicationSpec.$, false),
         null,
@@ -380,15 +388,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'preferRelatedApplications', 144,
-        0,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'hasThemeColor', 144,
+        'preferRelatedApplications', 32,
         1,
         mojo.internal.Bool,
         false,
@@ -396,7 +396,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'themeColor', 148,
+        'hasThemeColor', 32,
+        2,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'themeColor', 60,
         0,
         mojo.internal.Uint32,
         0,
@@ -404,8 +412,8 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hasBackgroundColor', 144,
-        2,
+        'hasBackgroundColor', 32,
+        3,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -476,8 +484,8 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hasDarkThemeColor', 144,
-        3,
+        'hasDarkThemeColor', 32,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -492,8 +500,8 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hasDarkBackgroundColor', 144,
-        4,
+        'hasDarkBackgroundColor', 32,
+        5,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -541,6 +549,8 @@ blink.mojom.Manifest = class {
     this.description;
     /** @export { !url.mojom.Url } */
     this.id;
+    /** @export { !boolean } */
+    this.hasCustomId;
     /** @export { !url.mojom.Url } */
     this.startUrl;
     /** @export { !blink.mojom.DisplayMode } */

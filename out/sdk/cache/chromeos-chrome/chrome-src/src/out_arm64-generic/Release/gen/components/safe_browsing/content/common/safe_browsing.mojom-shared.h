@@ -84,8 +84,20 @@ enum class PhishingDetectorResult : int32_t {
   FORWARD_BACK_TRANSITION = 3,
   
   INVALID_SCORE = 4,
+  
+  INVALID_URL_FORMAT_REQUEST = 5,
+  
+  INVALID_DOCUMENT_LOADER = 6,
+  
+  URL_FEATURE_EXTRACTION_FAILED = 7,
+  
+  DOM_EXTRACTION_FAILED = 8,
+  
+  TERM_EXTRACTION_FAILED = 9,
+  
+  VISUAL_EXTRACTION_FAILED = 10,
   kMinValue = 0,
-  kMaxValue = 4,
+  kMaxValue = 10,
 };
 
  std::ostream& operator<<(std::ostream& os, PhishingDetectorResult value);
@@ -129,6 +141,22 @@ enum class WebRequestProtocolType : int32_t {
  std::ostream& operator<<(std::ostream& os, WebRequestProtocolType value);
 inline bool IsKnownEnumValue(WebRequestProtocolType value) {
   return internal::WebRequestProtocolType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class WebRequestContactInitiatorType : int32_t {
+  
+  kExtension = 0,
+  
+  kContentScript = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, WebRequestContactInitiatorType value);
+inline bool IsKnownEnumValue(WebRequestContactInitiatorType value) {
+  return internal::WebRequestContactInitiatorType_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
@@ -368,6 +396,10 @@ template <>
 struct hash<::safe_browsing::mojom::WebRequestProtocolType>
     : public mojo::internal::EnumHashImpl<::safe_browsing::mojom::WebRequestProtocolType> {};
 
+template <>
+struct hash<::safe_browsing::mojom::WebRequestContactInitiatorType>
+    : public mojo::internal::EnumHashImpl<::safe_browsing::mojom::WebRequestContactInitiatorType> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -427,6 +459,26 @@ struct Serializer<::safe_browsing::mojom::WebRequestProtocolType, MaybeConstUser
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::safe_browsing::mojom::WebRequestProtocolType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::safe_browsing::mojom::WebRequestContactInitiatorType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::safe_browsing::mojom::WebRequestContactInitiatorType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::safe_browsing::mojom::WebRequestContactInitiatorType>(input)), output);
   }
 };
 
@@ -700,6 +752,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::safe_browsing::mojom::WebRequestProtocolType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::safe_browsing::mojom::WebRequestProtocolType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::safe_browsing::mojom::WebRequestContactInitiatorType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::safe_browsing::mojom::WebRequestContactInitiatorType value);
 };
 
 } // namespace perfetto

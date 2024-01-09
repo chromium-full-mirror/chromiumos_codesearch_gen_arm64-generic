@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -363,7 +364,7 @@ AutofillDriverProxy::AutofillDriverProxy(mojo::MessageReceiverWithResponder* rec
 }
 
 void AutofillDriverProxy::SetFormToBeProbablySubmitted(
-    const absl::optional<::autofill::FormData>& in_form) {
+    const std::optional<::autofill::FormData>& in_form) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send autofill::mojom::AutofillDriver::SetFormToBeProbablySubmitted", "input_parameters",
@@ -371,17 +372,20 @@ void AutofillDriverProxy::SetFormToBeProbablySubmitted(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("form"), in_form,
-                        "<value of type const absl::optional<::autofill::FormData>&>");
+                        "<value of type const std::optional<::autofill::FormData>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_SetFormToBeProbablySubmitted_Name, kFlags, 0, 0, nullptr);
@@ -421,14 +425,17 @@ void AutofillDriverProxy::FormsSeen(
                         "<value of type const std::vector<::autofill::FormRendererId>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_FormsSeen_Name, kFlags, 0, 0, nullptr);
@@ -490,14 +497,17 @@ void AutofillDriverProxy::FormSubmitted(
                         "<value of type ::autofill::mojom::SubmissionSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_FormSubmitted_Name, kFlags, 0, 0, nullptr);
@@ -550,14 +560,17 @@ void AutofillDriverProxy::TextFieldDidChange(
                         "<value of type ::base::TimeTicks>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_TextFieldDidChange_Name, kFlags, 0, 0, nullptr);
@@ -637,14 +650,17 @@ void AutofillDriverProxy::TextFieldDidScroll(
                         "<value of type const ::gfx::RectF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_TextFieldDidScroll_Name, kFlags, 0, 0, nullptr);
@@ -713,14 +729,17 @@ void AutofillDriverProxy::SelectControlDidChange(
                         "<value of type const ::gfx::RectF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_SelectControlDidChange_Name, kFlags, 0, 0, nullptr);
@@ -783,14 +802,17 @@ void AutofillDriverProxy::SelectOrSelectListFieldOptionsDidChange(
                         "<value of type const ::autofill::FormData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_SelectOrSelectListFieldOptionsDidChange_Name, kFlags, 0, 0, nullptr);
@@ -840,14 +862,17 @@ void AutofillDriverProxy::AskForValuesToFill(
                         "<value of type ::autofill::mojom::AutofillSuggestionTriggerSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_AskForValuesToFill_Name, kFlags, 0, 0, nullptr);
@@ -905,14 +930,17 @@ void AutofillDriverProxy::HidePopup(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::AutofillDriver::HidePopup");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_HidePopup_Name, kFlags, 0, 0, nullptr);
@@ -942,14 +970,17 @@ void AutofillDriverProxy::FocusNoLongerOnForm(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_FocusNoLongerOnForm_Name, kFlags, 0, 0, nullptr);
@@ -986,14 +1017,17 @@ void AutofillDriverProxy::FocusOnFormField(
                         "<value of type const ::gfx::RectF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_FocusOnFormField_Name, kFlags, 0, 0, nullptr);
@@ -1059,14 +1093,17 @@ void AutofillDriverProxy::DidFillAutofillFormData(
                         "<value of type ::base::TimeTicks>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_DidFillAutofillFormData_Name, kFlags, 0, 0, nullptr);
@@ -1111,14 +1148,17 @@ void AutofillDriverProxy::DidEndTextFieldEditing(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::AutofillDriver::DidEndTextFieldEditing");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_DidEndTextFieldEditing_Name, kFlags, 0, 0, nullptr);
@@ -1154,14 +1194,17 @@ void AutofillDriverProxy::JavaScriptChangedAutofilledValue(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillDriver_JavaScriptChangedAutofilledValue_Name, kFlags, 0, 0, nullptr);
@@ -1225,7 +1268,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::autofill::FormData> p_form{};
+      std::optional<::autofill::FormData> p_form{};
       AutofillDriver_SetFormToBeProbablySubmitted_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadForm(&p_form))
@@ -1703,36 +1746,36 @@ bool AutofillDriverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAutofillDriverValidationInfo[] = {
-    {&internal::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data::Validate,
+    { &internal::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_FormsSeen_Params_Data::Validate,
+    { &internal::AutofillDriver_FormsSeen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_FormSubmitted_Params_Data::Validate,
+    { &internal::AutofillDriver_FormSubmitted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_TextFieldDidChange_Params_Data::Validate,
+    { &internal::AutofillDriver_TextFieldDidChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_TextFieldDidScroll_Params_Data::Validate,
+    { &internal::AutofillDriver_TextFieldDidScroll_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_SelectControlDidChange_Params_Data::Validate,
+    { &internal::AutofillDriver_SelectControlDidChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_SelectOrSelectListFieldOptionsDidChange_Params_Data::Validate,
+    { &internal::AutofillDriver_SelectOrSelectListFieldOptionsDidChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_AskForValuesToFill_Params_Data::Validate,
+    { &internal::AutofillDriver_AskForValuesToFill_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_HidePopup_Params_Data::Validate,
+    { &internal::AutofillDriver_HidePopup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_FocusNoLongerOnForm_Params_Data::Validate,
+    { &internal::AutofillDriver_FocusNoLongerOnForm_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_FocusOnFormField_Params_Data::Validate,
+    { &internal::AutofillDriver_FocusOnFormField_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_DidFillAutofillFormData_Params_Data::Validate,
+    { &internal::AutofillDriver_DidFillAutofillFormData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_DidEndTextFieldEditing_Params_Data::Validate,
+    { &internal::AutofillDriver_DidEndTextFieldEditing_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillDriver_JavaScriptChangedAutofilledValue_Params_Data::Validate,
+    { &internal::AutofillDriver_JavaScriptChangedAutofilledValue_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2052,14 +2095,17 @@ void PasswordManagerDriverProxy::PasswordFormsParsed(
                         "<value of type const std::vector<::autofill::FormData>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_PasswordFormsParsed_Name, kFlags, 0, 0, nullptr);
@@ -2102,14 +2148,17 @@ void PasswordManagerDriverProxy::PasswordFormsRendered(
                         "<value of type const std::vector<::autofill::FormData>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_PasswordFormsRendered_Name, kFlags, 0, 0, nullptr);
@@ -2152,14 +2201,17 @@ void PasswordManagerDriverProxy::PasswordFormSubmitted(
                         "<value of type const ::autofill::FormData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_PasswordFormSubmitted_Name, kFlags, 0, 0, nullptr);
@@ -2200,14 +2252,17 @@ void PasswordManagerDriverProxy::InformAboutUserInput(
                         "<value of type const ::autofill::FormData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_InformAboutUserInput_Name, kFlags, 0, 0, nullptr);
@@ -2248,14 +2303,17 @@ void PasswordManagerDriverProxy::DynamicFormSubmission(
                         "<value of type ::autofill::mojom::SubmissionIndicatorEvent>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_DynamicFormSubmission_Name, kFlags, 0, 0, nullptr);
@@ -2287,14 +2345,17 @@ void PasswordManagerDriverProxy::PasswordFormCleared(
                         "<value of type const ::autofill::FormData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_PasswordFormCleared_Name, kFlags, 0, 0, nullptr);
@@ -2335,14 +2396,17 @@ void PasswordManagerDriverProxy::RecordSavePasswordProgress(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_RecordSavePasswordProgress_Name, kFlags, 0, 0, nullptr);
@@ -2376,14 +2440,17 @@ void PasswordManagerDriverProxy::UserModifiedPasswordField(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::PasswordManagerDriver::UserModifiedPasswordField");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_UserModifiedPasswordField_Name, kFlags, 0, 0, nullptr);
@@ -2422,14 +2489,17 @@ void PasswordManagerDriverProxy::UserModifiedNonPasswordField(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_UserModifiedNonPasswordField_Name, kFlags, 0, 0, nullptr);
@@ -2504,14 +2574,17 @@ void PasswordManagerDriverProxy::ShowPasswordSuggestions(
                         "<value of type const ::gfx::RectF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_ShowPasswordSuggestions_Name, kFlags, 0, 0, nullptr);
@@ -2593,14 +2666,17 @@ void PasswordManagerDriverProxy::CheckSafeBrowsingReputation(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_CheckSafeBrowsingReputation_Name, kFlags, 0, 0, nullptr);
@@ -2655,14 +2731,17 @@ void PasswordManagerDriverProxy::FocusedInputChanged(
                         "<value of type ::autofill::mojom::FocusedFieldType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_FocusedInputChanged_Name, kFlags, 0, 0, nullptr);
@@ -2708,14 +2787,17 @@ void PasswordManagerDriverProxy::LogFirstFillingResult(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordManagerDriver_LogFirstFillingResult_Name, kFlags, 0, 0, nullptr);
@@ -3191,34 +3273,34 @@ bool PasswordManagerDriverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPasswordManagerDriverValidationInfo[] = {
-    {&internal::PasswordManagerDriver_PasswordFormsParsed_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_PasswordFormsParsed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_PasswordFormsRendered_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_PasswordFormsRendered_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_PasswordFormSubmitted_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_PasswordFormSubmitted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_InformAboutUserInput_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_InformAboutUserInput_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_DynamicFormSubmission_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_DynamicFormSubmission_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_PasswordFormCleared_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_PasswordFormCleared_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_RecordSavePasswordProgress_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_RecordSavePasswordProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_UserModifiedPasswordField_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_UserModifiedPasswordField_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_UserModifiedNonPasswordField_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_UserModifiedNonPasswordField_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_ShowPasswordSuggestions_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_ShowPasswordSuggestions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_CheckSafeBrowsingReputation_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_CheckSafeBrowsingReputation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_FocusedInputChanged_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_FocusedInputChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordManagerDriver_LogFirstFillingResult_Params_Data::Validate,
+    { &internal::PasswordManagerDriver_LogFirstFillingResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3418,14 +3500,17 @@ void PasswordGenerationDriverProxy::AutomaticGenerationAvailable(
                         "<value of type const ::autofill::password_generation::PasswordGenerationUIData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationDriver_AutomaticGenerationAvailable_Name, kFlags, 0, 0, nullptr);
@@ -3475,14 +3560,17 @@ void PasswordGenerationDriverProxy::ShowPasswordEditingPopup(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationDriver_ShowPasswordEditingPopup_Name, kFlags, 0, 0, nullptr);
@@ -3549,14 +3637,17 @@ void PasswordGenerationDriverProxy::PasswordGenerationRejectedByTyping(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::PasswordGenerationDriver::PasswordGenerationRejectedByTyping");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationDriver_PasswordGenerationRejectedByTyping_Name, kFlags, 0, 0, nullptr);
@@ -3589,14 +3680,17 @@ void PasswordGenerationDriverProxy::PresaveGeneratedPassword(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationDriver_PresaveGeneratedPassword_Name, kFlags, 0, 0, nullptr);
@@ -3648,14 +3742,17 @@ void PasswordGenerationDriverProxy::PasswordNoLongerGenerated(
                         "<value of type const ::autofill::FormData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationDriver_PasswordNoLongerGenerated_Name, kFlags, 0, 0, nullptr);
@@ -3689,14 +3786,17 @@ void PasswordGenerationDriverProxy::FrameWasScrolled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::PasswordGenerationDriver::FrameWasScrolled");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationDriver_FrameWasScrolled_Name, kFlags, 0, 0, nullptr);
@@ -3719,14 +3819,17 @@ void PasswordGenerationDriverProxy::GenerationElementLostFocus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::PasswordGenerationDriver::GenerationElementLostFocus");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationDriver_GenerationElementLostFocus_Name, kFlags, 0, 0, nullptr);
@@ -3972,22 +4075,22 @@ bool PasswordGenerationDriverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPasswordGenerationDriverValidationInfo[] = {
-    {&internal::PasswordGenerationDriver_AutomaticGenerationAvailable_Params_Data::Validate,
+    { &internal::PasswordGenerationDriver_AutomaticGenerationAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordGenerationDriver_ShowPasswordEditingPopup_Params_Data::Validate,
+    { &internal::PasswordGenerationDriver_ShowPasswordEditingPopup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordGenerationDriver_PasswordGenerationRejectedByTyping_Params_Data::Validate,
+    { &internal::PasswordGenerationDriver_PasswordGenerationRejectedByTyping_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordGenerationDriver_PresaveGeneratedPassword_Params_Data::Validate,
+    { &internal::PasswordGenerationDriver_PresaveGeneratedPassword_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordGenerationDriver_PasswordNoLongerGenerated_Params_Data::Validate,
+    { &internal::PasswordGenerationDriver_PasswordNoLongerGenerated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordGenerationDriver_FrameWasScrolled_Params_Data::Validate,
+    { &internal::PasswordGenerationDriver_FrameWasScrolled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordGenerationDriver_GenerationElementLostFocus_Params_Data::Validate,
+    { &internal::PasswordGenerationDriver_GenerationElementLostFocus_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4013,7 +4116,7 @@ namespace mojo {
 namespace autofill::mojom {
 
 
-void AutofillDriverInterceptorForTesting::SetFormToBeProbablySubmitted(const absl::optional<::autofill::FormData>& form) {
+void AutofillDriverInterceptorForTesting::SetFormToBeProbablySubmitted(const std::optional<::autofill::FormData>& form) {
   GetForwardingInterface()->SetFormToBeProbablySubmitted(std::move(form));
 }
 void AutofillDriverInterceptorForTesting::FormsSeen(const std::vector<::autofill::FormData>& updated_forms, const std::vector<::autofill::FormRendererId>& removed_forms) {

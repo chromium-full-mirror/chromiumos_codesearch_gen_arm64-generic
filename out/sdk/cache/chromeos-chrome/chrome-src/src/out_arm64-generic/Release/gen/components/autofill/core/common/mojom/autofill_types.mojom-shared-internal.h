@@ -196,10 +196,9 @@ struct SubmissionIndicatorEvent_Data {
       case 2:
       case 3:
       case 4:
-      case 6:
-      case 7:
       case 10:
       case 11:
+      case 12:
         return true;
     }
     return false;
@@ -336,7 +335,7 @@ struct SubmissionReadinessState_Data {
   }
 };
 
-struct AutofillState_Data {
+struct AutofillSuggestionAvailability_Data {
  public:
   static bool constexpr kIsExtensible = false;
 
@@ -386,6 +385,30 @@ struct ActionPersistence_Data {
 };
 
 struct ActionType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct TextReplacement_Data {
  public:
   static bool constexpr kIsExtensible = false;
 
@@ -1040,8 +1063,7 @@ class  FormFieldData_Data {
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> id_attribute;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> name_attribute;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> value;
-  uint32_t selection_start;
-  uint32_t selection_end;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> selected_text;
   int32_t form_control_type;
   uint32_t properties_mask;
   mojo::internal::Pointer<mojo::internal::String_Data> autocomplete_attribute;
@@ -1053,6 +1075,7 @@ class  FormFieldData_Data {
   mojo::internal::Pointer<internal::FieldRendererId_Data> unique_renderer_id;
   mojo::internal::Pointer<internal::FormRendererId_Data> host_form_id;
   int32_t form_control_ax_id;
+  uint8_t is_user_edited : 1;
   uint8_t is_autofilled : 1;
   uint8_t is_focusable : 1;
   uint8_t is_visible : 1;
@@ -1233,6 +1256,7 @@ class  FormFieldDataPredictions_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> signature;
   mojo::internal::Pointer<mojo::internal::String_Data> heuristic_type;
   mojo::internal::Pointer<mojo::internal::String_Data> server_type;
+  mojo::internal::Pointer<mojo::internal::String_Data> html_type;
   mojo::internal::Pointer<mojo::internal::String_Data> overall_type;
   mojo::internal::Pointer<mojo::internal::String_Data> parseable_name;
   mojo::internal::Pointer<mojo::internal::String_Data> section;
@@ -1247,7 +1271,7 @@ class  FormFieldDataPredictions_Data {
   FormFieldDataPredictions_Data();
   ~FormFieldDataPredictions_Data() = delete;
 };
-static_assert(sizeof(FormFieldDataPredictions_Data) == 80,
+static_assert(sizeof(FormFieldDataPredictions_Data) == 88,
               "Bad sizeof(FormFieldDataPredictions_Data)");
 // Used by FormFieldDataPredictions::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -1498,11 +1522,12 @@ class  PasswordGenerationUIData_Data {
   mojo::internal::Pointer<::gfx::mojom::internal::RectF_Data> bounds;
   int32_t max_length;
   uint8_t is_generation_element_password_type : 1;
-  uint8_t pad2_[3];
+  uint8_t input_field_empty : 1;
+  uint8_t pad3_[3];
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> generation_element;
   mojo::internal::Pointer<internal::FieldRendererId_Data> generation_element_id;
   int32_t text_direction;
-  uint8_t pad5_[4];
+  uint8_t pad6_[4];
   mojo::internal::Pointer<internal::FormData_Data> form_data;
 
  private:

@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/string-match-search-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
@@ -197,7 +198,7 @@ TNode<Object> StringMatchSearch_StringMatchFunctor_0(compiler::CodeAssemblerStat
   if (block9.is_used()) {
     ca_.Bind(&block9);
     tmp7 = UnsafeCast_FastJSRegExp_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp3});
-    tmp8 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRegExpMatchFast), p_context, tmp7, tmp1);
+    tmp8 = ca_.CallBuiltin<Object>(Builtin::kRegExpMatchFast, p_context, tmp7, tmp1);
     ca_.Goto(&block1, tmp8);
   }
 
@@ -364,7 +365,7 @@ TNode<Object> StringMatchSearch_StringSearchFunctor_0(compiler::CodeAssemblerSta
   if (block9.is_used()) {
     ca_.Bind(&block9);
     tmp7 = UnsafeCast_FastJSRegExp_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp3});
-    tmp8 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRegExpSearchFast), p_context, tmp7, tmp1);
+    tmp8 = ca_.CallBuiltin<Object>(Builtin::kRegExpSearchFast, p_context, tmp7, tmp1);
     ca_.Goto(&block1, tmp8);
   }
 

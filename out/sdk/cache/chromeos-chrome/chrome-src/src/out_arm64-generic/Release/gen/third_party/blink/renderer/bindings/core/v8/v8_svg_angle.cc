@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGAngleTearOff>::value,
     "SVGAngleTearOff inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGAngleTearOff::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGAngleTearOff is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAngle.unitType.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(v8_receiver);
+SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->unitType();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAngle.value.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(v8_receiver);
+SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->value();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -111,9 +108,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAngle.value.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGAngle";
@@ -137,8 +134,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAngle.valueInSpecifiedUnits.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(v8_receiver);
+SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->valueInSpecifiedUnits();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -150,9 +148,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAngle.valueInSpecifiedUnits.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGAngle";
@@ -176,10 +174,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAngle.valueAsString.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->valueAsString();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->valueAsString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -190,9 +188,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAngle.valueAsString.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGAngle";
@@ -235,7 +233,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(v8_receiver);
+SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_unit_type = NativeValueTraits<IDLUnsignedShort>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -268,7 +266,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(v8_receiver);
+SVGAngleTearOff* blink_receiver = V8SVGAngle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_unit_type = NativeValueTraits<IDLUnsignedShort>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/choosers/popup_menu.mojom-features.h"
 #include "third_party/blink/public/mojom/choosers/popup_menu.mojom-shared.h"
 #include "third_party/blink/public/mojom/choosers/popup_menu.mojom-forward.h"
 #include "mojo/public/mojom/base/text_direction.mojom.h"
@@ -189,8 +190,8 @@ class BLINK_COMMON_EXPORT MenuItem {
   MenuItem();
 
   MenuItem(
-      const absl::optional<std::string>& label,
-      const absl::optional<std::string>& tool_tip,
+      const std::optional<std::string>& label,
+      const std::optional<std::string>& tool_tip,
       MenuItem::Type type,
       uint32_t action,
       ::base::i18n::TextDirection text_direction,
@@ -274,9 +275,9 @@ class BLINK_COMMON_EXPORT MenuItem {
   }
 
   
-  absl::optional<std::string> label;
+  std::optional<std::string> label;
   
-  absl::optional<std::string> tool_tip;
+  std::optional<std::string> tool_tip;
   
   MenuItem::Type type;
   

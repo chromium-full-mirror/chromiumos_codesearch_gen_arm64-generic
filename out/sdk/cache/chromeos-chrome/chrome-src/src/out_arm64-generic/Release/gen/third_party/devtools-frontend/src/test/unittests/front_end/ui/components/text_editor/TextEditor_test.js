@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 import * as Common from '../../../../../../front_end/core/common/common.js';
 import { assertNotNullOrUndefined } from '../../../../../../front_end/core/platform/platform.js';
-import * as Root from '../../../../../../front_end/core/root/root.js';
 import * as SDK from '../../../../../../front_end/core/sdk/sdk.js';
 import * as Bindings from '../../../../../../front_end/models/bindings/bindings.js';
 import * as Workspace from '../../../../../../front_end/models/workspace/workspace.js';
@@ -59,7 +58,6 @@ describeWithEnvironment('TextEditor', () => {
         });
         it('should restore scroll to the same position after reconnecting to DOM when it is scrollable', async () => {
             let resolveEventPromise;
-            const dispatchSpy = sinon.spy(CodeMirror.EditorView.prototype, 'dispatch');
             const editor = new TextEditor.TextEditor.TextEditor(makeState('line1\nline2\nline3\nline4\nline5\nline6andthisisalonglinesothatwehaveenoughspacetoscrollhorizontally', [CodeMirror.EditorView.theme({ '&.cm-editor': { height: '50px', width: '50px' }, '.cm-scroller': { overflow: 'auto' } })]));
             const waitForFirstScrollPromise = new Promise(r => {
                 resolveEventPromise = r;
@@ -78,54 +76,21 @@ describeWithEnvironment('TextEditor', () => {
                 }),
             });
             await waitForFirstScrollPromise;
+            const scrollTopBeforeRemove = editor.editor.scrollDOM.scrollTop;
+            const scrollLeftBeforeRemove = editor.editor.scrollDOM.scrollLeft;
             const waitForSecondScrollPromise = new Promise(r => {
                 resolveEventPromise = r;
             });
             editor.remove();
-            dispatchSpy.resetHistory();
             renderElementIntoDOM(editor);
             await waitForSecondScrollPromise;
-            assert.strictEqual(dispatchSpy.calledWith({
-                effects: CodeMirror.EditorView.scrollIntoView(0, {
-                    x: 'start',
-                    xMargin: -20,
-                    y: 'start',
-                    yMargin: -20,
-                }),
-            }), true, 'Scroll is not initiated in TextEditor');
-        });
-        it('shouldn\'t restore scroll when code editor is not scrollable', async () => {
-            const dispatchSpy = sinon.spy(CodeMirror.EditorView.prototype, 'dispatch');
-            const editor = new TextEditor.TextEditor.TextEditor(makeState('line1\nline2\nline3\nline4\nline5\line6', [CodeMirror.EditorView.theme({ '&.cm-editor': { height: '50px', width: '50px' }, '.cm-scroller': { overflow: 'hidden' } })]));
-            const scrollHandledForTestSpy = sinon.spy(editor, 'scrollEventHandledToSaveScrollPositionForTest');
-            renderElementIntoDOM(editor);
-            editor.editor.dispatch({
-                effects: CodeMirror.EditorView.scrollIntoView(0, {
-                    x: 'start',
-                    xMargin: -20,
-                    y: 'start',
-                    yMargin: -20,
-                }),
-            });
-            editor.remove();
-            dispatchSpy.resetHistory();
-            renderElementIntoDOM(editor);
-            assert.strictEqual(dispatchSpy.calledWith({
-                effects: CodeMirror.EditorView.scrollIntoView(0, {
-                    x: 'start',
-                    xMargin: -20,
-                    y: 'start',
-                    yMargin: -20,
-                }),
-            }), false, 'Scroll is initiated in TextEditor whereas it shouldn\'t have been');
-            assert.strictEqual(scrollHandledForTestSpy.notCalled, true, 'Scroll event for restoring scroll position is handled whereas it shouldn\'t have been');
+            const scrollTopAfterReconnect = editor.editor.scrollDOM.scrollTop;
+            const scrollLeftAfterReconnect = editor.editor.scrollDOM.scrollLeft;
+            assert.strictEqual(scrollTopBeforeRemove, scrollTopAfterReconnect);
+            assert.strictEqual(scrollLeftBeforeRemove, scrollLeftAfterReconnect);
         });
     });
     describe('configuration', () => {
-        it('can guess indentation', () => {
-            assert.strictEqual(TextEditor.Config.guessIndent(CodeMirror.Text.of(['hello():', '    world();', '    return;'])), '    ');
-            assert.strictEqual(TextEditor.Config.guessIndent(CodeMirror.Text.of(['hello():', '\tworld();', '\treturn;'])), '\t');
-        });
         it('can detect line separators', () => {
             assert.strictEqual(makeState('one\r\ntwo\r\nthree').lineBreak, '\r\n');
             assert.strictEqual(makeState('one\ntwo\nthree').lineBreak, '\n');
@@ -229,11 +194,7 @@ describeWithMockConnection('TextEditor autocompletion', () => {
         const workspace = Workspace.Workspace.WorkspaceImpl.instance();
         const targetManager = SDK.TargetManager.TargetManager.instance();
         const resourceMapping = new Bindings.ResourceMapping.ResourceMapping(targetManager, workspace);
-        Root.Runtime.experiments.setEnabled('wasmDWARFDebugging', true);
-        const pluginManager = Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding
-            .instance({ forceNew: true, targetManager, resourceMapping })
-            .initPluginManagerForTest();
-        assertNotNullOrUndefined(pluginManager);
+        const { pluginManager } = Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance({ forceNew: true, targetManager, resourceMapping });
         const testScript = debuggerModel.parsedScriptSource('1', 'script://1', 0, 0, 0, 0, executionContext.id, '', undefined, false, undefined, false, false, 0, null, null, null, null, null, null);
         const payload = {
             callFrameId: '0',

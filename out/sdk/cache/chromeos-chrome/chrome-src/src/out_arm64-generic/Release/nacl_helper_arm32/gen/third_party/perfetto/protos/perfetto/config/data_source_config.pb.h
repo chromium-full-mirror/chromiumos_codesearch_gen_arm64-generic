@@ -39,6 +39,7 @@
 #include "protos/perfetto/config/android/surfaceflinger_layers_config.pb.h"
 #include "protos/perfetto/config/android/surfaceflinger_transactions_config.pb.h"
 #include "protos/perfetto/config/chrome/chrome_config.pb.h"
+#include "protos/perfetto/config/etw/etw_config.pb.h"
 #include "protos/perfetto/config/ftrace/ftrace_config.pb.h"
 #include "protos/perfetto/config/gpu/gpu_counter_config.pb.h"
 #include "protos/perfetto/config/gpu/vulkan_memory_config.pb.h"
@@ -263,6 +264,7 @@ class DataSourceConfig final :
     kSurfaceflingerLayersConfigFieldNumber = 121,
     kSurfaceflingerTransactionsConfigFieldNumber = 123,
     kAndroidSdkSyspropGuardConfigFieldNumber = 124,
+    kEtwConfigFieldNumber = 125,
     kForTestingFieldNumber = 1001,
     kTargetBufferFieldNumber = 2,
     kTraceDurationMsFieldNumber = 3,
@@ -740,6 +742,24 @@ class DataSourceConfig final :
       ::perfetto::protos::AndroidSdkSyspropGuardConfig* android_sdk_sysprop_guard_config);
   ::perfetto::protos::AndroidSdkSyspropGuardConfig* unsafe_arena_release_android_sdk_sysprop_guard_config();
 
+  // optional .perfetto.protos.EtwConfig etw_config = 125 [lazy = true];
+  bool has_etw_config() const;
+  private:
+  bool _internal_has_etw_config() const;
+  public:
+  void clear_etw_config();
+  const ::perfetto::protos::EtwConfig& etw_config() const;
+  PROTOBUF_NODISCARD ::perfetto::protos::EtwConfig* release_etw_config();
+  ::perfetto::protos::EtwConfig* mutable_etw_config();
+  void set_allocated_etw_config(::perfetto::protos::EtwConfig* etw_config);
+  private:
+  const ::perfetto::protos::EtwConfig& _internal_etw_config() const;
+  ::perfetto::protos::EtwConfig* _internal_mutable_etw_config();
+  public:
+  void unsafe_arena_set_allocated_etw_config(
+      ::perfetto::protos::EtwConfig* etw_config);
+  ::perfetto::protos::EtwConfig* unsafe_arena_release_etw_config();
+
   // optional .perfetto.protos.TestConfig for_testing = 1001;
   bool has_for_testing() const;
   private:
@@ -884,6 +904,7 @@ class DataSourceConfig final :
   ::perfetto::protos::SurfaceFlingerLayersConfig* surfaceflinger_layers_config_;
   ::perfetto::protos::SurfaceFlingerTransactionsConfig* surfaceflinger_transactions_config_;
   ::perfetto::protos::AndroidSdkSyspropGuardConfig* android_sdk_sysprop_guard_config_;
+  ::perfetto::protos::EtwConfig* etw_config_;
   ::perfetto::protos::TestConfig* for_testing_;
   uint32_t target_buffer_;
   uint32_t trace_duration_ms_;
@@ -975,7 +996,7 @@ inline void DataSourceConfig::set_allocated_name(std::string* name) {
 
 // optional uint32 target_buffer = 2;
 inline bool DataSourceConfig::_internal_has_target_buffer() const {
-  bool value = (_has_bits_[0] & 0x08000000u) != 0;
+  bool value = (_has_bits_[0] & 0x10000000u) != 0;
   return value;
 }
 inline bool DataSourceConfig::has_target_buffer() const {
@@ -983,7 +1004,7 @@ inline bool DataSourceConfig::has_target_buffer() const {
 }
 inline void DataSourceConfig::clear_target_buffer() {
   target_buffer_ = 0u;
-  _has_bits_[0] &= ~0x08000000u;
+  _has_bits_[0] &= ~0x10000000u;
 }
 inline uint32_t DataSourceConfig::_internal_target_buffer() const {
   return target_buffer_;
@@ -993,7 +1014,7 @@ inline uint32_t DataSourceConfig::target_buffer() const {
   return _internal_target_buffer();
 }
 inline void DataSourceConfig::_internal_set_target_buffer(uint32_t value) {
-  _has_bits_[0] |= 0x08000000u;
+  _has_bits_[0] |= 0x10000000u;
   target_buffer_ = value;
 }
 inline void DataSourceConfig::set_target_buffer(uint32_t value) {
@@ -1003,7 +1024,7 @@ inline void DataSourceConfig::set_target_buffer(uint32_t value) {
 
 // optional uint32 trace_duration_ms = 3;
 inline bool DataSourceConfig::_internal_has_trace_duration_ms() const {
-  bool value = (_has_bits_[0] & 0x10000000u) != 0;
+  bool value = (_has_bits_[0] & 0x20000000u) != 0;
   return value;
 }
 inline bool DataSourceConfig::has_trace_duration_ms() const {
@@ -1011,7 +1032,7 @@ inline bool DataSourceConfig::has_trace_duration_ms() const {
 }
 inline void DataSourceConfig::clear_trace_duration_ms() {
   trace_duration_ms_ = 0u;
-  _has_bits_[0] &= ~0x10000000u;
+  _has_bits_[0] &= ~0x20000000u;
 }
 inline uint32_t DataSourceConfig::_internal_trace_duration_ms() const {
   return trace_duration_ms_;
@@ -1021,7 +1042,7 @@ inline uint32_t DataSourceConfig::trace_duration_ms() const {
   return _internal_trace_duration_ms();
 }
 inline void DataSourceConfig::_internal_set_trace_duration_ms(uint32_t value) {
-  _has_bits_[0] |= 0x10000000u;
+  _has_bits_[0] |= 0x20000000u;
   trace_duration_ms_ = value;
 }
 inline void DataSourceConfig::set_trace_duration_ms(uint32_t value) {
@@ -1031,7 +1052,7 @@ inline void DataSourceConfig::set_trace_duration_ms(uint32_t value) {
 
 // optional bool prefer_suspend_clock_for_duration = 122;
 inline bool DataSourceConfig::_internal_has_prefer_suspend_clock_for_duration() const {
-  bool value = (_has_bits_[1] & 0x00000001u) != 0;
+  bool value = (_has_bits_[1] & 0x00000002u) != 0;
   return value;
 }
 inline bool DataSourceConfig::has_prefer_suspend_clock_for_duration() const {
@@ -1039,7 +1060,7 @@ inline bool DataSourceConfig::has_prefer_suspend_clock_for_duration() const {
 }
 inline void DataSourceConfig::clear_prefer_suspend_clock_for_duration() {
   prefer_suspend_clock_for_duration_ = false;
-  _has_bits_[1] &= ~0x00000001u;
+  _has_bits_[1] &= ~0x00000002u;
 }
 inline bool DataSourceConfig::_internal_prefer_suspend_clock_for_duration() const {
   return prefer_suspend_clock_for_duration_;
@@ -1049,7 +1070,7 @@ inline bool DataSourceConfig::prefer_suspend_clock_for_duration() const {
   return _internal_prefer_suspend_clock_for_duration();
 }
 inline void DataSourceConfig::_internal_set_prefer_suspend_clock_for_duration(bool value) {
-  _has_bits_[1] |= 0x00000001u;
+  _has_bits_[1] |= 0x00000002u;
   prefer_suspend_clock_for_duration_ = value;
 }
 inline void DataSourceConfig::set_prefer_suspend_clock_for_duration(bool value) {
@@ -1059,7 +1080,7 @@ inline void DataSourceConfig::set_prefer_suspend_clock_for_duration(bool value) 
 
 // optional uint32 stop_timeout_ms = 7;
 inline bool DataSourceConfig::_internal_has_stop_timeout_ms() const {
-  bool value = (_has_bits_[0] & 0x40000000u) != 0;
+  bool value = (_has_bits_[0] & 0x80000000u) != 0;
   return value;
 }
 inline bool DataSourceConfig::has_stop_timeout_ms() const {
@@ -1067,7 +1088,7 @@ inline bool DataSourceConfig::has_stop_timeout_ms() const {
 }
 inline void DataSourceConfig::clear_stop_timeout_ms() {
   stop_timeout_ms_ = 0u;
-  _has_bits_[0] &= ~0x40000000u;
+  _has_bits_[0] &= ~0x80000000u;
 }
 inline uint32_t DataSourceConfig::_internal_stop_timeout_ms() const {
   return stop_timeout_ms_;
@@ -1077,7 +1098,7 @@ inline uint32_t DataSourceConfig::stop_timeout_ms() const {
   return _internal_stop_timeout_ms();
 }
 inline void DataSourceConfig::_internal_set_stop_timeout_ms(uint32_t value) {
-  _has_bits_[0] |= 0x40000000u;
+  _has_bits_[0] |= 0x80000000u;
   stop_timeout_ms_ = value;
 }
 inline void DataSourceConfig::set_stop_timeout_ms(uint32_t value) {
@@ -1087,7 +1108,7 @@ inline void DataSourceConfig::set_stop_timeout_ms(uint32_t value) {
 
 // optional bool enable_extra_guardrails = 6;
 inline bool DataSourceConfig::_internal_has_enable_extra_guardrails() const {
-  bool value = (_has_bits_[1] & 0x00000002u) != 0;
+  bool value = (_has_bits_[1] & 0x00000004u) != 0;
   return value;
 }
 inline bool DataSourceConfig::has_enable_extra_guardrails() const {
@@ -1095,7 +1116,7 @@ inline bool DataSourceConfig::has_enable_extra_guardrails() const {
 }
 inline void DataSourceConfig::clear_enable_extra_guardrails() {
   enable_extra_guardrails_ = false;
-  _has_bits_[1] &= ~0x00000002u;
+  _has_bits_[1] &= ~0x00000004u;
 }
 inline bool DataSourceConfig::_internal_enable_extra_guardrails() const {
   return enable_extra_guardrails_;
@@ -1105,7 +1126,7 @@ inline bool DataSourceConfig::enable_extra_guardrails() const {
   return _internal_enable_extra_guardrails();
 }
 inline void DataSourceConfig::_internal_set_enable_extra_guardrails(bool value) {
-  _has_bits_[1] |= 0x00000002u;
+  _has_bits_[1] |= 0x00000004u;
   enable_extra_guardrails_ = value;
 }
 inline void DataSourceConfig::set_enable_extra_guardrails(bool value) {
@@ -1115,7 +1136,7 @@ inline void DataSourceConfig::set_enable_extra_guardrails(bool value) {
 
 // optional .perfetto.protos.DataSourceConfig.SessionInitiator session_initiator = 8;
 inline bool DataSourceConfig::_internal_has_session_initiator() const {
-  bool value = (_has_bits_[0] & 0x80000000u) != 0;
+  bool value = (_has_bits_[1] & 0x00000001u) != 0;
   return value;
 }
 inline bool DataSourceConfig::has_session_initiator() const {
@@ -1123,7 +1144,7 @@ inline bool DataSourceConfig::has_session_initiator() const {
 }
 inline void DataSourceConfig::clear_session_initiator() {
   session_initiator_ = 0;
-  _has_bits_[0] &= ~0x80000000u;
+  _has_bits_[1] &= ~0x00000001u;
 }
 inline ::perfetto::protos::DataSourceConfig_SessionInitiator DataSourceConfig::_internal_session_initiator() const {
   return static_cast< ::perfetto::protos::DataSourceConfig_SessionInitiator >(session_initiator_);
@@ -1134,7 +1155,7 @@ inline ::perfetto::protos::DataSourceConfig_SessionInitiator DataSourceConfig::s
 }
 inline void DataSourceConfig::_internal_set_session_initiator(::perfetto::protos::DataSourceConfig_SessionInitiator value) {
   assert(::perfetto::protos::DataSourceConfig_SessionInitiator_IsValid(value));
-  _has_bits_[0] |= 0x80000000u;
+  _has_bits_[1] |= 0x00000001u;
   session_initiator_ = value;
 }
 inline void DataSourceConfig::set_session_initiator(::perfetto::protos::DataSourceConfig_SessionInitiator value) {
@@ -1144,7 +1165,7 @@ inline void DataSourceConfig::set_session_initiator(::perfetto::protos::DataSour
 
 // optional uint64 tracing_session_id = 4;
 inline bool DataSourceConfig::_internal_has_tracing_session_id() const {
-  bool value = (_has_bits_[0] & 0x20000000u) != 0;
+  bool value = (_has_bits_[0] & 0x40000000u) != 0;
   return value;
 }
 inline bool DataSourceConfig::has_tracing_session_id() const {
@@ -1152,7 +1173,7 @@ inline bool DataSourceConfig::has_tracing_session_id() const {
 }
 inline void DataSourceConfig::clear_tracing_session_id() {
   tracing_session_id_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x20000000u;
+  _has_bits_[0] &= ~0x40000000u;
 }
 inline uint64_t DataSourceConfig::_internal_tracing_session_id() const {
   return tracing_session_id_;
@@ -1162,7 +1183,7 @@ inline uint64_t DataSourceConfig::tracing_session_id() const {
   return _internal_tracing_session_id();
 }
 inline void DataSourceConfig::_internal_set_tracing_session_id(uint64_t value) {
-  _has_bits_[0] |= 0x20000000u;
+  _has_bits_[0] |= 0x40000000u;
   tracing_session_id_ = value;
 }
 inline void DataSourceConfig::set_tracing_session_id(uint64_t value) {
@@ -3258,6 +3279,93 @@ inline void DataSourceConfig::set_allocated_android_sdk_sysprop_guard_config(::p
   // @@protoc_insertion_point(field_set_allocated:perfetto.protos.DataSourceConfig.android_sdk_sysprop_guard_config)
 }
 
+// optional .perfetto.protos.EtwConfig etw_config = 125 [lazy = true];
+inline bool DataSourceConfig::_internal_has_etw_config() const {
+  bool value = (_has_bits_[0] & 0x04000000u) != 0;
+  PROTOBUF_ASSUME(!value || etw_config_ != nullptr);
+  return value;
+}
+inline bool DataSourceConfig::has_etw_config() const {
+  return _internal_has_etw_config();
+}
+inline const ::perfetto::protos::EtwConfig& DataSourceConfig::_internal_etw_config() const {
+  const ::perfetto::protos::EtwConfig* p = etw_config_;
+  return p != nullptr ? *p : reinterpret_cast<const ::perfetto::protos::EtwConfig&>(
+      ::perfetto::protos::_EtwConfig_default_instance_);
+}
+inline const ::perfetto::protos::EtwConfig& DataSourceConfig::etw_config() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.DataSourceConfig.etw_config)
+  return _internal_etw_config();
+}
+inline void DataSourceConfig::unsafe_arena_set_allocated_etw_config(
+    ::perfetto::protos::EtwConfig* etw_config) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(etw_config_);
+  }
+  etw_config_ = etw_config;
+  if (etw_config) {
+    _has_bits_[0] |= 0x04000000u;
+  } else {
+    _has_bits_[0] &= ~0x04000000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:perfetto.protos.DataSourceConfig.etw_config)
+}
+inline ::perfetto::protos::EtwConfig* DataSourceConfig::release_etw_config() {
+  _has_bits_[0] &= ~0x04000000u;
+  ::perfetto::protos::EtwConfig* temp = etw_config_;
+  etw_config_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::perfetto::protos::EtwConfig* DataSourceConfig::unsafe_arena_release_etw_config() {
+  // @@protoc_insertion_point(field_release:perfetto.protos.DataSourceConfig.etw_config)
+  _has_bits_[0] &= ~0x04000000u;
+  ::perfetto::protos::EtwConfig* temp = etw_config_;
+  etw_config_ = nullptr;
+  return temp;
+}
+inline ::perfetto::protos::EtwConfig* DataSourceConfig::_internal_mutable_etw_config() {
+  _has_bits_[0] |= 0x04000000u;
+  if (etw_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::perfetto::protos::EtwConfig>(GetArenaForAllocation());
+    etw_config_ = p;
+  }
+  return etw_config_;
+}
+inline ::perfetto::protos::EtwConfig* DataSourceConfig::mutable_etw_config() {
+  ::perfetto::protos::EtwConfig* _msg = _internal_mutable_etw_config();
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.DataSourceConfig.etw_config)
+  return _msg;
+}
+inline void DataSourceConfig::set_allocated_etw_config(::perfetto::protos::EtwConfig* etw_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(etw_config_);
+  }
+  if (etw_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(etw_config));
+    if (message_arena != submessage_arena) {
+      etw_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, etw_config, submessage_arena);
+    }
+    _has_bits_[0] |= 0x04000000u;
+  } else {
+    _has_bits_[0] &= ~0x04000000u;
+  }
+  etw_config_ = etw_config;
+  // @@protoc_insertion_point(field_set_allocated:perfetto.protos.DataSourceConfig.etw_config)
+}
+
 // optional string legacy_config = 1000;
 inline bool DataSourceConfig::_internal_has_legacy_config() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
@@ -3328,7 +3436,7 @@ inline void DataSourceConfig::set_allocated_legacy_config(std::string* legacy_co
 
 // optional .perfetto.protos.TestConfig for_testing = 1001;
 inline bool DataSourceConfig::_internal_has_for_testing() const {
-  bool value = (_has_bits_[0] & 0x04000000u) != 0;
+  bool value = (_has_bits_[0] & 0x08000000u) != 0;
   PROTOBUF_ASSUME(!value || for_testing_ != nullptr);
   return value;
 }
@@ -3351,14 +3459,14 @@ inline void DataSourceConfig::unsafe_arena_set_allocated_for_testing(
   }
   for_testing_ = for_testing;
   if (for_testing) {
-    _has_bits_[0] |= 0x04000000u;
+    _has_bits_[0] |= 0x08000000u;
   } else {
-    _has_bits_[0] &= ~0x04000000u;
+    _has_bits_[0] &= ~0x08000000u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:perfetto.protos.DataSourceConfig.for_testing)
 }
 inline ::perfetto::protos::TestConfig* DataSourceConfig::release_for_testing() {
-  _has_bits_[0] &= ~0x04000000u;
+  _has_bits_[0] &= ~0x08000000u;
   ::perfetto::protos::TestConfig* temp = for_testing_;
   for_testing_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -3374,13 +3482,13 @@ inline ::perfetto::protos::TestConfig* DataSourceConfig::release_for_testing() {
 }
 inline ::perfetto::protos::TestConfig* DataSourceConfig::unsafe_arena_release_for_testing() {
   // @@protoc_insertion_point(field_release:perfetto.protos.DataSourceConfig.for_testing)
-  _has_bits_[0] &= ~0x04000000u;
+  _has_bits_[0] &= ~0x08000000u;
   ::perfetto::protos::TestConfig* temp = for_testing_;
   for_testing_ = nullptr;
   return temp;
 }
 inline ::perfetto::protos::TestConfig* DataSourceConfig::_internal_mutable_for_testing() {
-  _has_bits_[0] |= 0x04000000u;
+  _has_bits_[0] |= 0x08000000u;
   if (for_testing_ == nullptr) {
     auto* p = CreateMaybeMessage<::perfetto::protos::TestConfig>(GetArenaForAllocation());
     for_testing_ = p;
@@ -3405,9 +3513,9 @@ inline void DataSourceConfig::set_allocated_for_testing(::perfetto::protos::Test
       for_testing = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, for_testing, submessage_arena);
     }
-    _has_bits_[0] |= 0x04000000u;
+    _has_bits_[0] |= 0x08000000u;
   } else {
-    _has_bits_[0] &= ~0x04000000u;
+    _has_bits_[0] &= ~0x08000000u;
   }
   for_testing_ = for_testing;
   // @@protoc_insertion_point(field_set_allocated:perfetto.protos.DataSourceConfig.for_testing)

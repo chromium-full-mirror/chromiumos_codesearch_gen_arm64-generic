@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -94,7 +95,7 @@ CompositorFrameMetadata::CompositorFrameMetadata(
     bool top_controls_visible_height_set_in,
     float top_controls_visible_height_in,
     float min_page_scale_factor_in,
-    absl::optional<::base::TimeDelta> preferred_frame_interval_in,
+    std::optional<::base::TimeDelta> preferred_frame_interval_in,
     ::gfx::mojom::blink::OverlayTransform display_transform_hint_in,
     ::std::unique_ptr<::gfx::DelegatedInkMetadata> delegated_ink_metadata_in,
     WTF::Vector<::viz::mojom::blink::CompositorFrameTransitionDirectivePtr> transition_directives_in,
@@ -316,7 +317,7 @@ void CompositorFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "preferred_frame_interval"), this->preferred_frame_interval,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

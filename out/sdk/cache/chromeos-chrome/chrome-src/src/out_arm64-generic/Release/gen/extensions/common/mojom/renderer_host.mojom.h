@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/renderer_host.mojom-features.h"
 #include "extensions/common/mojom/renderer_host.mojom-shared.h"
 #include "extensions/common/mojom/renderer_host.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -47,6 +48,7 @@ template <typename ImplRefTraits>
 class RendererHostStub;
 
 class RendererHostRequestValidator;
+class RendererHostResponseValidator;
 
 
 class RendererHost
@@ -59,6 +61,9 @@ class RendererHost
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
+  static inline constexpr uint32_t kSyncMethodOrdinals[] = {
+    4
+  };
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = RendererHostInterfaceBase;
@@ -68,11 +73,13 @@ class RendererHost
   using Stub_ = RendererHostStub<ImplRefTraits>;
 
   using RequestValidator_ = RendererHostRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = RendererHostResponseValidator;
   enum MethodMinVersions : uint32_t {
     kAddAPIActionToActivityLogMinVersion = 0,
     kAddEventToActivityLogMinVersion = 0,
     kAddDOMActionToActivityLogMinVersion = 0,
+    kWakeEventPageMinVersion = 0,
+    kGetMessageBundleMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -87,6 +94,12 @@ class RendererHost
   struct AddDOMActionToActivityLog_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct WakeEventPage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetMessageBundle_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~RendererHost() = default;
 
@@ -98,6 +111,20 @@ class RendererHost
 
   
   virtual void AddDOMActionToActivityLog(const std::string& extension_id, const std::string& call_name, ::base::Value::List args, const ::GURL& url, const ::std::u16string& url_title, int32_t call_type) = 0;
+
+
+  using WakeEventPageCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void WakeEventPage(const std::string& extension_id, WakeEventPageCallback callback) = 0;
+
+  // Sync method. This signature is used by the client side; the service side
+  // should implement the signature with callback below.
+  
+  virtual bool GetMessageBundle(const std::string& extension_id, base::flat_map<std::string, std::string>* out_message_map);
+
+  using GetMessageBundleCallback = base::OnceCallback<void(const base::flat_map<std::string, std::string>&)>;
+  
+  virtual void GetMessageBundle(const std::string& extension_id, GetMessageBundleCallback callback) = 0;
 };
 
 
@@ -114,6 +141,12 @@ class  RendererHostProxy
   void AddEventToActivityLog(const std::string& extension_id, const std::string& call_name, ::base::Value::List args, const std::string& extra) final;
   
   void AddDOMActionToActivityLog(const std::string& extension_id, const std::string& call_name, ::base::Value::List args, const ::GURL& url, const ::std::u16string& url_title, int32_t call_type) final;
+  
+  void WakeEventPage(const std::string& extension_id, WakeEventPageCallback callback) final;
+  
+  bool GetMessageBundle(const std::string& extension_id, base::flat_map<std::string, std::string>* out_message_map) final;
+  
+  void GetMessageBundle(const std::string& extension_id, GetMessageBundleCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -160,6 +193,10 @@ class RendererHostStub
   ImplPointerType sink_;
 };
 class  RendererHostRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  RendererHostResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

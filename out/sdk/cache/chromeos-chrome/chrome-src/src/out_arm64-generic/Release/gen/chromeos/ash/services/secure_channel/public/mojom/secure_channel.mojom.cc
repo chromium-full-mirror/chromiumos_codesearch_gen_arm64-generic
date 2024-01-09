@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -287,14 +288,17 @@ void ChannelProxy::SendMessage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChannel_SendMessage_Name, kFlags, 0, 0, nullptr);
@@ -342,14 +346,17 @@ void ChannelProxy::RegisterPayloadFile(
                         "<value of type ::mojo::PendingRemote<::ash::secure_channel::mojom::FilePayloadListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChannel_RegisterPayloadFile_Name, kFlags, 0, 0, nullptr);
@@ -391,14 +398,17 @@ void ChannelProxy::GetConnectionMetadata(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::secure_channel::mojom::Channel::GetConnectionMetadata");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChannel_GetConnectionMetadata_Name, kFlags, 0, 0, nullptr);
@@ -497,7 +507,8 @@ void Channel_SendMessage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChannel_SendMessage_Name, kFlags, 0, 0, nullptr);
@@ -614,7 +625,8 @@ void Channel_RegisterPayloadFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChannel_RegisterPayloadFile_Name, kFlags, 0, 0, nullptr);
@@ -732,7 +744,8 @@ void Channel_GetConnectionMetadata_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChannel_GetConnectionMetadata_Name, kFlags, 0, 0, nullptr);
@@ -892,14 +905,14 @@ std::move(p_listener), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChannelValidationInfo[] = {
-    {&internal::Channel_SendMessage_Params_Data::Validate,
+    { &internal::Channel_SendMessage_Params_Data::Validate,
      &internal::Channel_SendMessage_ResponseParams_Data::Validate},
-    {&internal::Channel_RegisterPayloadFile_Params_Data::Validate,
+    { &internal::Channel_RegisterPayloadFile_Params_Data::Validate,
      &internal::Channel_RegisterPayloadFile_ResponseParams_Data::Validate},
-    {&internal::Channel_GetConnectionMetadata_Params_Data::Validate,
+    { &internal::Channel_GetConnectionMetadata_Params_Data::Validate,
      &internal::Channel_GetConnectionMetadata_ResponseParams_Data::Validate},
 };
 
@@ -983,14 +996,17 @@ void MessageReceiverProxy::OnMessageReceived(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMessageReceiver_OnMessageReceived_Name, kFlags, 0, 0, nullptr);
@@ -1069,10 +1085,10 @@ bool MessageReceiverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMessageReceiverValidationInfo[] = {
-    {&internal::MessageReceiver_OnMessageReceived_Params_Data::Validate,
+    { &internal::MessageReceiver_OnMessageReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1172,14 +1188,17 @@ void ConnectionDelegateProxy::OnConnectionAttemptFailure(
                         "<value of type ConnectionAttemptFailureReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectionDelegate_OnConnectionAttemptFailure_Name, kFlags, 0, 0, nullptr);
@@ -1214,14 +1233,17 @@ void ConnectionDelegateProxy::OnConnection(
                         "<value of type ::mojo::PendingReceiver<MessageReceiver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectionDelegate_OnConnection_Name, kFlags, 0, 0, nullptr);
@@ -1338,12 +1360,12 @@ bool ConnectionDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kConnectionDelegateValidationInfo[] = {
-    {&internal::ConnectionDelegate_OnConnectionAttemptFailure_Params_Data::Validate,
+    { &internal::ConnectionDelegate_OnConnectionAttemptFailure_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConnectionDelegate_OnConnection_Params_Data::Validate,
+    { &internal::ConnectionDelegate_OnConnection_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1514,14 +1536,17 @@ void SecureChannelProxy::ListenForConnectionFromDevice(
                         "<value of type ::mojo::PendingRemote<ConnectionDelegate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSecureChannel_ListenForConnectionFromDevice_Name, kFlags, 0, 0, nullptr);
@@ -1609,14 +1634,17 @@ void SecureChannelProxy::InitiateConnectionToDevice(
                         "<value of type ::mojo::PendingRemote<ConnectionDelegate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSecureChannel_InitiateConnectionToDevice_Name, kFlags, 0, 0, nullptr);
@@ -1689,14 +1717,17 @@ void SecureChannelProxy::SetNearbyConnector(
                         "<value of type ::mojo::PendingRemote<::ash::secure_channel::mojom::NearbyConnector>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSecureChannel_SetNearbyConnector_Name, kFlags, 0, 0, nullptr);
@@ -1732,14 +1763,17 @@ void SecureChannelProxy::GetLastSeenTimestamp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSecureChannel_GetLastSeenTimestamp_Name, kFlags, 0, 0, nullptr);
@@ -1814,7 +1848,7 @@ class SecureChannel_GetLastSeenTimestamp_ProxyToResponder : public ::mojo::inter
 #endif
 
   void Run(
-      absl::optional<::base::Time> in_time);
+      std::optional<::base::Time> in_time);
 };
 
 bool SecureChannel_GetLastSeenTimestamp_ForwardToCallback::Accept(
@@ -1827,7 +1861,7 @@ bool SecureChannel_GetLastSeenTimestamp_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::Time> p_time{};
+  std::optional<::base::Time> p_time{};
   SecureChannel_GetLastSeenTimestamp_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadTime(&p_time))
@@ -1846,7 +1880,7 @@ std::move(p_time));
 }
 
 void SecureChannel_GetLastSeenTimestamp_ProxyToResponder::Run(
-    absl::optional<::base::Time> in_time) {
+    std::optional<::base::Time> in_time) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::secure_channel::mojom::SecureChannel::GetLastSeenTimestamp", "async_response_parameters",
@@ -1854,13 +1888,14 @@ void SecureChannel_GetLastSeenTimestamp_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("time"), in_time,
-                        "<value of type absl::optional<::base::Time>>");
+                        "<value of type std::optional<::base::Time>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSecureChannel_GetLastSeenTimestamp_Name, kFlags, 0, 0, nullptr);
@@ -2079,16 +2114,16 @@ std::move(p_remote_device_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSecureChannelValidationInfo[] = {
-    {&internal::SecureChannel_ListenForConnectionFromDevice_Params_Data::Validate,
+    { &internal::SecureChannel_ListenForConnectionFromDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SecureChannel_InitiateConnectionToDevice_Params_Data::Validate,
+    { &internal::SecureChannel_InitiateConnectionToDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SecureChannel_SetNearbyConnector_Params_Data::Validate,
+    { &internal::SecureChannel_SetNearbyConnector_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SecureChannel_GetLastSeenTimestamp_Params_Data::Validate,
+    { &internal::SecureChannel_GetLastSeenTimestamp_Params_Data::Validate,
      &internal::SecureChannel_GetLastSeenTimestamp_ResponseParams_Data::Validate},
 };
 
@@ -2270,14 +2305,14 @@ SecureChannelAsyncWaiter::SecureChannelAsyncWaiter(
 SecureChannelAsyncWaiter::~SecureChannelAsyncWaiter() = default;
 
 void SecureChannelAsyncWaiter::GetLastSeenTimestamp(
-    const std::string& remote_device_id, absl::optional<::base::Time>* out_time) {
+    const std::string& remote_device_id, std::optional<::base::Time>* out_time) {
   base::RunLoop loop;
   proxy_->GetLastSeenTimestamp(std::move(remote_device_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::Time>* out_time
+             std::optional<::base::Time>* out_time
 ,
-             absl::optional<::base::Time> time) {*out_time = std::move(time);
+             std::optional<::base::Time> time) {*out_time = std::move(time);
             loop->Quit();
           },
           &loop,
@@ -2285,9 +2320,9 @@ void SecureChannelAsyncWaiter::GetLastSeenTimestamp(
   loop.Run();
 }
 
-absl::optional<::base::Time> SecureChannelAsyncWaiter::GetLastSeenTimestamp(
+std::optional<::base::Time> SecureChannelAsyncWaiter::GetLastSeenTimestamp(
     const std::string& remote_device_id) {
-  absl::optional<::base::Time> async_wait_result;
+  std::optional<::base::Time> async_wait_result;
   GetLastSeenTimestamp(std::move(remote_device_id),&async_wait_result);
   return async_wait_result;
 }

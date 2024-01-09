@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -120,8 +121,8 @@ struct Device {
   ~Device();
   Device(const Device&) = delete;
   Device& operator=(const Device&) = delete;
-  Device(Device&& rhs);
-  Device& operator=(Device&& rhs);
+  Device(Device&& rhs) noexcept;
+  Device& operator=(Device&& rhs) noexcept;
 
   // Populates a Device object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -134,14 +135,11 @@ struct Device {
   // Creates a deep copy of Device.
   Device Clone() const;
 
-  // Creates a Device object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Device> FromValueDeprecated(const base::Value& value);
-
   // Creates a Device object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Device> FromValue(const base::Value::Dict& value);
+  static std::optional<Device> FromValue(const base::Value::Dict& value);
 
   // Creates a Device object from a base::Value, or nullopt on failure.
-  static absl::optional<Device> FromValue(const base::Value& value);
+  static std::optional<Device> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDevice object.
@@ -176,8 +174,8 @@ struct ConnectionHandle {
   ~ConnectionHandle();
   ConnectionHandle(const ConnectionHandle&) = delete;
   ConnectionHandle& operator=(const ConnectionHandle&) = delete;
-  ConnectionHandle(ConnectionHandle&& rhs);
-  ConnectionHandle& operator=(ConnectionHandle&& rhs);
+  ConnectionHandle(ConnectionHandle&& rhs) noexcept;
+  ConnectionHandle& operator=(ConnectionHandle&& rhs) noexcept;
 
   // Populates a ConnectionHandle object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -190,16 +188,13 @@ struct ConnectionHandle {
   // Creates a deep copy of ConnectionHandle.
   ConnectionHandle Clone() const;
 
-  // Creates a ConnectionHandle object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ConnectionHandle> FromValueDeprecated(const base::Value& value);
-
   // Creates a ConnectionHandle object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ConnectionHandle> FromValue(const base::Value::Dict& value);
+  static std::optional<ConnectionHandle> FromValue(const base::Value::Dict& value);
 
   // Creates a ConnectionHandle object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ConnectionHandle> FromValue(const base::Value& value);
+  static std::optional<ConnectionHandle> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisConnectionHandle object.
@@ -224,8 +219,8 @@ struct EndpointDescriptor {
   ~EndpointDescriptor();
   EndpointDescriptor(const EndpointDescriptor&) = delete;
   EndpointDescriptor& operator=(const EndpointDescriptor&) = delete;
-  EndpointDescriptor(EndpointDescriptor&& rhs);
-  EndpointDescriptor& operator=(EndpointDescriptor&& rhs);
+  EndpointDescriptor(EndpointDescriptor&& rhs) noexcept;
+  EndpointDescriptor& operator=(EndpointDescriptor&& rhs) noexcept;
 
   // Populates a EndpointDescriptor object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -238,16 +233,13 @@ struct EndpointDescriptor {
   // Creates a deep copy of EndpointDescriptor.
   EndpointDescriptor Clone() const;
 
-  // Creates a EndpointDescriptor object from a base::Value, or NULL on failure.
-  static std::unique_ptr<EndpointDescriptor> FromValueDeprecated(const base::Value& value);
-
   // Creates a EndpointDescriptor object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<EndpointDescriptor> FromValue(const base::Value::Dict& value);
+  static std::optional<EndpointDescriptor> FromValue(const base::Value::Dict& value);
 
   // Creates a EndpointDescriptor object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<EndpointDescriptor> FromValue(const base::Value& value);
+  static std::optional<EndpointDescriptor> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEndpointDescriptor object.
@@ -272,7 +264,7 @@ struct EndpointDescriptor {
   UsageType usage;
 
   // Polling interval (interrupt and isochronous only).
-  absl::optional<int> polling_interval;
+  std::optional<int> polling_interval;
 
   // Extra descriptor data associated with this endpoint.
   std::vector<uint8_t> extra_data;
@@ -284,8 +276,8 @@ struct InterfaceDescriptor {
   ~InterfaceDescriptor();
   InterfaceDescriptor(const InterfaceDescriptor&) = delete;
   InterfaceDescriptor& operator=(const InterfaceDescriptor&) = delete;
-  InterfaceDescriptor(InterfaceDescriptor&& rhs);
-  InterfaceDescriptor& operator=(InterfaceDescriptor&& rhs);
+  InterfaceDescriptor(InterfaceDescriptor&& rhs) noexcept;
+  InterfaceDescriptor& operator=(InterfaceDescriptor&& rhs) noexcept;
 
   // Populates a InterfaceDescriptor object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -298,17 +290,13 @@ struct InterfaceDescriptor {
   // Creates a deep copy of InterfaceDescriptor.
   InterfaceDescriptor Clone() const;
 
-  // Creates a InterfaceDescriptor object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<InterfaceDescriptor> FromValueDeprecated(const base::Value& value);
-
   // Creates a InterfaceDescriptor object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<InterfaceDescriptor> FromValue(const base::Value::Dict& value);
+  static std::optional<InterfaceDescriptor> FromValue(const base::Value::Dict& value);
 
   // Creates a InterfaceDescriptor object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<InterfaceDescriptor> FromValue(const base::Value& value);
+  static std::optional<InterfaceDescriptor> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInterfaceDescriptor object.
@@ -330,7 +318,7 @@ struct InterfaceDescriptor {
   int interface_protocol;
 
   // Description of the interface.
-  absl::optional<std::string> description;
+  std::optional<std::string> description;
 
   // Available endpoints.
   std::vector<EndpointDescriptor> endpoints;
@@ -345,8 +333,8 @@ struct ConfigDescriptor {
   ~ConfigDescriptor();
   ConfigDescriptor(const ConfigDescriptor&) = delete;
   ConfigDescriptor& operator=(const ConfigDescriptor&) = delete;
-  ConfigDescriptor(ConfigDescriptor&& rhs);
-  ConfigDescriptor& operator=(ConfigDescriptor&& rhs);
+  ConfigDescriptor(ConfigDescriptor&& rhs) noexcept;
+  ConfigDescriptor& operator=(ConfigDescriptor&& rhs) noexcept;
 
   // Populates a ConfigDescriptor object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -359,16 +347,13 @@ struct ConfigDescriptor {
   // Creates a deep copy of ConfigDescriptor.
   ConfigDescriptor Clone() const;
 
-  // Creates a ConfigDescriptor object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ConfigDescriptor> FromValueDeprecated(const base::Value& value);
-
   // Creates a ConfigDescriptor object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ConfigDescriptor> FromValue(const base::Value::Dict& value);
+  static std::optional<ConfigDescriptor> FromValue(const base::Value::Dict& value);
 
   // Creates a ConfigDescriptor object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ConfigDescriptor> FromValue(const base::Value& value);
+  static std::optional<ConfigDescriptor> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisConfigDescriptor object.
@@ -381,7 +366,7 @@ struct ConfigDescriptor {
   int configuration_value;
 
   // Description of the configuration.
-  absl::optional<std::string> description;
+  std::optional<std::string> description;
 
   // The device is self-powered.
   bool self_powered;
@@ -405,8 +390,8 @@ struct ControlTransferInfo {
   ~ControlTransferInfo();
   ControlTransferInfo(const ControlTransferInfo&) = delete;
   ControlTransferInfo& operator=(const ControlTransferInfo&) = delete;
-  ControlTransferInfo(ControlTransferInfo&& rhs);
-  ControlTransferInfo& operator=(ControlTransferInfo&& rhs);
+  ControlTransferInfo(ControlTransferInfo&& rhs) noexcept;
+  ControlTransferInfo& operator=(ControlTransferInfo&& rhs) noexcept;
 
   // Populates a ControlTransferInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -419,17 +404,13 @@ struct ControlTransferInfo {
   // Creates a deep copy of ControlTransferInfo.
   ControlTransferInfo Clone() const;
 
-  // Creates a ControlTransferInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ControlTransferInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ControlTransferInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ControlTransferInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ControlTransferInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ControlTransferInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ControlTransferInfo> FromValue(const base::Value& value);
+  static std::optional<ControlTransferInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisControlTransferInfo object.
@@ -456,14 +437,14 @@ struct ControlTransferInfo {
   int index;
 
   // The maximum number of bytes to receive (required only by input transfers).
-  absl::optional<int> length;
+  std::optional<int> length;
 
   // The data to transmit (required only by output transfers).
-  absl::optional<std::vector<uint8_t>> data;
+  std::optional<std::vector<uint8_t>> data;
 
   // Request timeout (in milliseconds). The default value <code>0</code> indicates
   // no timeout.
-  absl::optional<int> timeout;
+  std::optional<int> timeout;
 
 };
 
@@ -472,8 +453,8 @@ struct GenericTransferInfo {
   ~GenericTransferInfo();
   GenericTransferInfo(const GenericTransferInfo&) = delete;
   GenericTransferInfo& operator=(const GenericTransferInfo&) = delete;
-  GenericTransferInfo(GenericTransferInfo&& rhs);
-  GenericTransferInfo& operator=(GenericTransferInfo&& rhs);
+  GenericTransferInfo(GenericTransferInfo&& rhs) noexcept;
+  GenericTransferInfo& operator=(GenericTransferInfo&& rhs) noexcept;
 
   // Populates a GenericTransferInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -486,17 +467,13 @@ struct GenericTransferInfo {
   // Creates a deep copy of GenericTransferInfo.
   GenericTransferInfo Clone() const;
 
-  // Creates a GenericTransferInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GenericTransferInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a GenericTransferInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<GenericTransferInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<GenericTransferInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a GenericTransferInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GenericTransferInfo> FromValue(const base::Value& value);
+  static std::optional<GenericTransferInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGenericTransferInfo object.
@@ -510,14 +487,14 @@ struct GenericTransferInfo {
   int endpoint;
 
   // The maximum number of bytes to receive (required only by input transfers).
-  absl::optional<int> length;
+  std::optional<int> length;
 
   // The data to transmit (required only by output transfers).
-  absl::optional<std::vector<uint8_t>> data;
+  std::optional<std::vector<uint8_t>> data;
 
   // Request timeout (in milliseconds). The default value <code>0</code> indicates
   // no timeout.
-  absl::optional<int> timeout;
+  std::optional<int> timeout;
 
 };
 
@@ -526,8 +503,8 @@ struct IsochronousTransferInfo {
   ~IsochronousTransferInfo();
   IsochronousTransferInfo(const IsochronousTransferInfo&) = delete;
   IsochronousTransferInfo& operator=(const IsochronousTransferInfo&) = delete;
-  IsochronousTransferInfo(IsochronousTransferInfo&& rhs);
-  IsochronousTransferInfo& operator=(IsochronousTransferInfo&& rhs);
+  IsochronousTransferInfo(IsochronousTransferInfo&& rhs) noexcept;
+  IsochronousTransferInfo& operator=(IsochronousTransferInfo&& rhs) noexcept;
 
   // Populates a IsochronousTransferInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -540,17 +517,13 @@ struct IsochronousTransferInfo {
   // Creates a deep copy of IsochronousTransferInfo.
   IsochronousTransferInfo Clone() const;
 
-  // Creates a IsochronousTransferInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<IsochronousTransferInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a IsochronousTransferInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<IsochronousTransferInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<IsochronousTransferInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a IsochronousTransferInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<IsochronousTransferInfo> FromValue(const base::Value& value);
+  static std::optional<IsochronousTransferInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIsochronousTransferInfo object.
@@ -574,8 +547,8 @@ struct TransferResultInfo {
   ~TransferResultInfo();
   TransferResultInfo(const TransferResultInfo&) = delete;
   TransferResultInfo& operator=(const TransferResultInfo&) = delete;
-  TransferResultInfo(TransferResultInfo&& rhs);
-  TransferResultInfo& operator=(TransferResultInfo&& rhs);
+  TransferResultInfo(TransferResultInfo&& rhs) noexcept;
+  TransferResultInfo& operator=(TransferResultInfo&& rhs) noexcept;
 
   // Populates a TransferResultInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -588,16 +561,13 @@ struct TransferResultInfo {
   // Creates a deep copy of TransferResultInfo.
   TransferResultInfo Clone() const;
 
-  // Creates a TransferResultInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TransferResultInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TransferResultInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<TransferResultInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TransferResultInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TransferResultInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<TransferResultInfo> FromValue(const base::Value& value);
+  static std::optional<TransferResultInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTransferResultInfo object.
@@ -605,11 +575,11 @@ struct TransferResultInfo {
 
   // A value of <code>0</code> indicates that the transfer was a success. Other
   // values indicate failure.
-  absl::optional<int> result_code;
+  std::optional<int> result_code;
 
   // The data returned by an input transfer. <code>undefined</code> for output
   // transfers.
-  absl::optional<std::vector<uint8_t>> data;
+  std::optional<std::vector<uint8_t>> data;
 
 };
 
@@ -618,8 +588,8 @@ struct DeviceFilter {
   ~DeviceFilter();
   DeviceFilter(const DeviceFilter&) = delete;
   DeviceFilter& operator=(const DeviceFilter&) = delete;
-  DeviceFilter(DeviceFilter&& rhs);
-  DeviceFilter& operator=(DeviceFilter&& rhs);
+  DeviceFilter(DeviceFilter&& rhs) noexcept;
+  DeviceFilter& operator=(DeviceFilter&& rhs) noexcept;
 
   // Populates a DeviceFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -632,34 +602,31 @@ struct DeviceFilter {
   // Creates a deep copy of DeviceFilter.
   DeviceFilter Clone() const;
 
-  // Creates a DeviceFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DeviceFilter> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceFilter object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DeviceFilter> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceFilter> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceFilter object from a base::Value, or nullopt on failure.
-  static absl::optional<DeviceFilter> FromValue(const base::Value& value);
+  static std::optional<DeviceFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceFilter object.
   base::Value::Dict ToValue() const;
 
   // Device vendor ID.
-  absl::optional<int> vendor_id;
+  std::optional<int> vendor_id;
 
   // Device product ID, checked only if the vendor ID matches.
-  absl::optional<int> product_id;
+  std::optional<int> product_id;
 
   // USB interface class, matches any interface on the device.
-  absl::optional<int> interface_class;
+  std::optional<int> interface_class;
 
   // USB interface sub-class, checked only if the interface class matches.
-  absl::optional<int> interface_subclass;
+  std::optional<int> interface_subclass;
 
   // USB interface protocol, checked only if the interface sub-class matches.
-  absl::optional<int> interface_protocol;
+  std::optional<int> interface_protocol;
 
 };
 
@@ -668,8 +635,8 @@ struct EnumerateDevicesOptions {
   ~EnumerateDevicesOptions();
   EnumerateDevicesOptions(const EnumerateDevicesOptions&) = delete;
   EnumerateDevicesOptions& operator=(const EnumerateDevicesOptions&) = delete;
-  EnumerateDevicesOptions(EnumerateDevicesOptions&& rhs);
-  EnumerateDevicesOptions& operator=(EnumerateDevicesOptions&& rhs);
+  EnumerateDevicesOptions(EnumerateDevicesOptions&& rhs) noexcept;
+  EnumerateDevicesOptions& operator=(EnumerateDevicesOptions&& rhs) noexcept;
 
   // Populates a EnumerateDevicesOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -682,29 +649,25 @@ struct EnumerateDevicesOptions {
   // Creates a deep copy of EnumerateDevicesOptions.
   EnumerateDevicesOptions Clone() const;
 
-  // Creates a EnumerateDevicesOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<EnumerateDevicesOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a EnumerateDevicesOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<EnumerateDevicesOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<EnumerateDevicesOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a EnumerateDevicesOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<EnumerateDevicesOptions> FromValue(const base::Value& value);
+  static std::optional<EnumerateDevicesOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEnumerateDevicesOptions object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<int> vendor_id;
+  std::optional<int> vendor_id;
 
-  absl::optional<int> product_id;
+  std::optional<int> product_id;
 
   // A device matching any given filter will be returned. An empty filter list
   // will return all devices the app has permission for.
-  absl::optional<std::vector<DeviceFilter>> filters;
+  std::optional<std::vector<DeviceFilter>> filters;
 
 };
 
@@ -713,8 +676,8 @@ struct EnumerateDevicesAndRequestAccessOptions {
   ~EnumerateDevicesAndRequestAccessOptions();
   EnumerateDevicesAndRequestAccessOptions(const EnumerateDevicesAndRequestAccessOptions&) = delete;
   EnumerateDevicesAndRequestAccessOptions& operator=(const EnumerateDevicesAndRequestAccessOptions&) = delete;
-  EnumerateDevicesAndRequestAccessOptions(EnumerateDevicesAndRequestAccessOptions&& rhs);
-  EnumerateDevicesAndRequestAccessOptions& operator=(EnumerateDevicesAndRequestAccessOptions&& rhs);
+  EnumerateDevicesAndRequestAccessOptions(EnumerateDevicesAndRequestAccessOptions&& rhs) noexcept;
+  EnumerateDevicesAndRequestAccessOptions& operator=(EnumerateDevicesAndRequestAccessOptions&& rhs) noexcept;
 
   // Populates a EnumerateDevicesAndRequestAccessOptions object from a
   // base::Value& instance. Returns whether |out| was successfully populated.
@@ -728,16 +691,12 @@ struct EnumerateDevicesAndRequestAccessOptions {
   EnumerateDevicesAndRequestAccessOptions Clone() const;
 
   // Creates a EnumerateDevicesAndRequestAccessOptions object from a
-  // base::Value, or NULL on failure.
-  static std::unique_ptr<EnumerateDevicesAndRequestAccessOptions> FromValueDeprecated(const base::Value& value);
-
-  // Creates a EnumerateDevicesAndRequestAccessOptions object from a
   // base::Value::Dict, or nullopt on failure.
-  static absl::optional<EnumerateDevicesAndRequestAccessOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<EnumerateDevicesAndRequestAccessOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a EnumerateDevicesAndRequestAccessOptions object from a
   // base::Value, or nullopt on failure.
-  static absl::optional<EnumerateDevicesAndRequestAccessOptions> FromValue(const base::Value& value);
+  static std::optional<EnumerateDevicesAndRequestAccessOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEnumerateDevicesAndRequestAccessOptions object.
@@ -751,7 +710,7 @@ struct EnumerateDevicesAndRequestAccessOptions {
 
   // The interface ID to request access to. Only available on Chrome OS. It has no
   // effect on other platforms.
-  absl::optional<int> interface_id;
+  std::optional<int> interface_id;
 
 };
 
@@ -760,8 +719,8 @@ struct DevicePromptOptions {
   ~DevicePromptOptions();
   DevicePromptOptions(const DevicePromptOptions&) = delete;
   DevicePromptOptions& operator=(const DevicePromptOptions&) = delete;
-  DevicePromptOptions(DevicePromptOptions&& rhs);
-  DevicePromptOptions& operator=(DevicePromptOptions&& rhs);
+  DevicePromptOptions(DevicePromptOptions&& rhs) noexcept;
+  DevicePromptOptions& operator=(DevicePromptOptions&& rhs) noexcept;
 
   // Populates a DevicePromptOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -774,28 +733,24 @@ struct DevicePromptOptions {
   // Creates a deep copy of DevicePromptOptions.
   DevicePromptOptions Clone() const;
 
-  // Creates a DevicePromptOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DevicePromptOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a DevicePromptOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<DevicePromptOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<DevicePromptOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a DevicePromptOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DevicePromptOptions> FromValue(const base::Value& value);
+  static std::optional<DevicePromptOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDevicePromptOptions object.
   base::Value::Dict ToValue() const;
 
   // Allow the user to select multiple devices.
-  absl::optional<bool> multiple;
+  std::optional<bool> multiple;
 
   // Filter the list of devices presented to the user. If multiple filters are
   // provided devices matching any filter will be displayed.
-  absl::optional<std::vector<DeviceFilter>> filters;
+  std::optional<std::vector<DeviceFilter>> filters;
 
 };
 
@@ -807,11 +762,11 @@ struct DevicePromptOptions {
 namespace GetDevices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The properties to search for on target devices.
@@ -832,11 +787,11 @@ base::Value::List Create(const std::vector<Device>& devices);
 namespace GetUserSelectedDevices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Configuration of the device picker dialog box.
@@ -857,11 +812,11 @@ base::Value::List Create(const std::vector<Device>& devices);
 namespace GetConfigurations {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The $(ref:Device) to fetch descriptors from.
@@ -882,11 +837,11 @@ base::Value::List Create(const std::vector<ConfigDescriptor>& configs);
 namespace RequestAccess {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The $(ref:Device) to request access to.
@@ -910,11 +865,11 @@ base::Value::List Create(bool success);
 namespace OpenDevice {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The $(ref:Device) to open.
@@ -935,11 +890,11 @@ base::Value::List Create(const ConnectionHandle& handle);
 namespace FindDevices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The properties to search for on target devices.
@@ -960,11 +915,11 @@ base::Value::List Create(const std::vector<ConnectionHandle>& handles);
 namespace CloseDevice {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The $(ref:ConnectionHandle) to close.
@@ -985,11 +940,11 @@ base::Value::List Create();
 namespace SetConfiguration {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device.
@@ -1012,11 +967,11 @@ base::Value::List Create();
 namespace GetConfiguration {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device.
@@ -1037,11 +992,11 @@ base::Value::List Create(const ConfigDescriptor& config);
 namespace ListInterfaces {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device.
@@ -1062,11 +1017,11 @@ base::Value::List Create(const std::vector<InterfaceDescriptor>& descriptors);
 namespace ClaimInterface {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device.
@@ -1090,11 +1045,11 @@ base::Value::List Create();
 namespace ReleaseInterface {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device.
@@ -1118,11 +1073,11 @@ base::Value::List Create();
 namespace SetInterfaceAlternateSetting {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device where this interface has been     claimed.
@@ -1149,11 +1104,11 @@ base::Value::List Create();
 namespace ControlTransfer {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device.
@@ -1176,11 +1131,11 @@ base::Value::List Create(const TransferResultInfo& info);
 namespace BulkTransfer {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device.
@@ -1204,11 +1159,11 @@ base::Value::List Create(const TransferResultInfo& info);
 namespace InterruptTransfer {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device.
@@ -1232,11 +1187,11 @@ base::Value::List Create(const TransferResultInfo& info);
 namespace IsochronousTransfer {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An open connection to the device.
@@ -1259,11 +1214,11 @@ base::Value::List Create(const TransferResultInfo& info);
 namespace ResetDevice {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A connection handle to reset.

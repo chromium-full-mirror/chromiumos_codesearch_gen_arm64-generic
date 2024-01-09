@@ -6,6 +6,8 @@
 
 #ifndef DEVICE_VR_PUBLIC_MOJOM_BROWSER_TEST_INTERFACES_MOJOM_BLINK_IMPORT_HEADERS_H_
 #define DEVICE_VR_PUBLIC_MOJOM_BROWSER_TEST_INTERFACES_MOJOM_BLINK_IMPORT_HEADERS_H_
+#include "device/vr/public/mojom/openxr_interaction_profile_type.mojom-blink.h"
+#include "device/vr/public/mojom/openxr_interaction_profile_type.mojom-blink-import-headers.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink-import-headers.h"
 #include "ui/gfx/mojom/transform.mojom-blink.h"

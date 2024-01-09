@@ -15,8 +15,9 @@ namespace cert_verifier::mojom {
 
 class  CertVerifierServiceFactoryInterceptorForTesting : public CertVerifierServiceFactory {
   virtual CertVerifierServiceFactory* GetForwardingInterface() = 0;
-  void GetNewCertVerifier(::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> receiver, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> client, CertVerifierCreationParamsPtr creation_params) override;
+  void GetNewCertVerifier(::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> receiver, ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierServiceUpdater> updater, ::mojo::PendingRemote<::cert_verifier::mojom::CertVerifierServiceClient> client, CertVerifierCreationParamsPtr creation_params) override;
   void UpdateCRLSet(::mojo_base::BigBuffer crl_set, UpdateCRLSetCallback callback) override;
+  void UpdateCtLogList(std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time, UpdateCtLogListCallback callback) override;
   void UpdateChromeRootStore(ChromeRootStorePtr new_root_store, UpdateChromeRootStoreCallback callback) override;
   void GetChromeRootStoreInfo(GetChromeRootStoreInfoCallback callback) override;
 };
@@ -30,6 +31,9 @@ class  CertVerifierServiceFactoryAsyncWaiter {
   ~CertVerifierServiceFactoryAsyncWaiter();
   void UpdateCRLSet(
       ::mojo_base::BigBuffer crl_set);
+  
+  void UpdateCtLogList(
+      std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time);
   
   void UpdateChromeRootStore(
       ChromeRootStorePtr new_root_store);

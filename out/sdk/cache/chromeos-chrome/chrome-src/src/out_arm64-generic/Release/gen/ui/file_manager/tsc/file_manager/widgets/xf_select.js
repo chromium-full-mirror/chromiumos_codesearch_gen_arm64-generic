@@ -4,11 +4,9 @@
 var XfSelect_1;
 /**
  * @fileoverview xf-select element which is ChromeOS <select>..</select>.
- * Disable type checking for closure, as it is done by the typescript compiler.
- * @suppress{missingProperties}
  */
-import { AnchorAlignment } from 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import { AnchorAlignment, CrActionMenuElement } from 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
+import { CrButtonElement } from 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import { getCrActionMenuTop } from '../common/js/dom_utils.js';
 import { css, customElement, html, property, query, XfBase } from './xf_base.js';
 /**

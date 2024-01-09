@@ -30,14 +30,14 @@ export const editorTheme = CM.EditorView.theme({
     '.cm-cursor-secondary': {
         borderLeft: '1px solid var(--sys-color-neutral-outline)',
     },
-    '.cm-selectionBackground': {
+    '&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground': {
         background: 'var(--sys-color-tonal-container)',
     },
-    '&.cm-focused .cm-selectionBackground': {
-        background: 'var(--sys-color-state-focus-select)',
+    '.cm-selectionBackground': {
+        background: 'var(--sys-color-neutral-container)',
     },
     '.cm-gutters': {
-        borderRight: '1px solid var(--sys-color-divider)',
+        borderRight: 'none',
         whiteSpace: 'nowrap',
         backgroundColor: 'var(--sys-color-cdt-base-container)',
     },

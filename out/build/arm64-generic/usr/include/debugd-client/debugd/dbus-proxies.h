@@ -31,6 +31,24 @@ class debugdProxyInterface {
  public:
   virtual ~debugdProxyInterface() = default;
 
+  // Starts a crosh shell instance.
+  virtual bool CroshShellStart(
+      const base::ScopedFD& in_lifeline_fd,
+      const base::ScopedFD& in_infd,
+      const base::ScopedFD& in_outfd,
+      std::string* out_handle,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Starts a crosh shell instance.
+  virtual void CroshShellStartAsync(
+      const base::ScopedFD& in_lifeline_fd,
+      const base::ScopedFD& in_infd,
+      const base::ScopedFD& in_outfd,
+      base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Starts pinging the specified hostname with the specified options, with
   // output directed to the given output file descriptor. The returned opaque
   // string functions as a handle for this particular ping. Multiple pings
@@ -1249,24 +1267,6 @@ class debugdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  // Runs the ectool i2cread command with pre-defined
-  // sandbox options in rootfs and retrieves the
-  // requested smart battery metric used by cros_healthd.
-  virtual bool CollectSmartBatteryMetric(
-      const std::string& in_metric_name,
-      std::string* out_output,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  // Runs the ectool i2cread command with pre-defined
-  // sandbox options in rootfs and retrieves the
-  // requested smart battery metric used by cros_healthd.
-  virtual void CollectSmartBatteryMetricAsync(
-      const std::string& in_metric_name,
-      base::OnceCallback<void(const std::string& /*output*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   // Runs the 'ectool inventory' command with pre-defined
   // sandbox options in rootfs and returns the output.
   virtual bool EcGetInventory(
@@ -1539,6 +1539,47 @@ class debugdProxy final : public debugdProxyInterface {
 
   dbus::ObjectProxy* GetObjectProxy() const override {
     return dbus_object_proxy_;
+  }
+
+  // Starts a crosh shell instance.
+  bool CroshShellStart(
+      const base::ScopedFD& in_lifeline_fd,
+      const base::ScopedFD& in_infd,
+      const base::ScopedFD& in_outfd,
+      std::string* out_handle,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "CroshShellStart",
+        error,
+        in_lifeline_fd,
+        in_infd,
+        in_outfd);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_handle);
+  }
+
+  // Starts a crosh shell instance.
+  void CroshShellStartAsync(
+      const base::ScopedFD& in_lifeline_fd,
+      const base::ScopedFD& in_infd,
+      const base::ScopedFD& in_outfd,
+      base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "CroshShellStart",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_lifeline_fd,
+        in_infd,
+        in_outfd);
   }
 
   // Starts pinging the specified hostname with the specified options, with
@@ -4214,43 +4255,6 @@ class debugdProxy final : public debugdProxyInterface {
         "WifiFWDump",
         std::move(success_callback),
         std::move(error_callback));
-  }
-
-  // Runs the ectool i2cread command with pre-defined
-  // sandbox options in rootfs and retrieves the
-  // requested smart battery metric used by cros_healthd.
-  bool CollectSmartBatteryMetric(
-      const std::string& in_metric_name,
-      std::string* out_output,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.debugd",
-        "CollectSmartBatteryMetric",
-        error,
-        in_metric_name);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_output);
-  }
-
-  // Runs the ectool i2cread command with pre-defined
-  // sandbox options in rootfs and retrieves the
-  // requested smart battery metric used by cros_healthd.
-  void CollectSmartBatteryMetricAsync(
-      const std::string& in_metric_name,
-      base::OnceCallback<void(const std::string& /*output*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.debugd",
-        "CollectSmartBatteryMetric",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_metric_name);
   }
 
   // Runs the 'ectool inventory' command with pre-defined

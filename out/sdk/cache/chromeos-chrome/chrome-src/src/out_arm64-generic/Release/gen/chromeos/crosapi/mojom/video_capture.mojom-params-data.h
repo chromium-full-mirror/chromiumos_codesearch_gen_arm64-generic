@@ -55,7 +55,7 @@ class  VideoFrameHandler_OnNewBuffer_Params_Data {
 };
 static_assert(sizeof(VideoFrameHandler_OnNewBuffer_Params_Data) == 32,
               "Bad sizeof(VideoFrameHandler_OnNewBuffer_Params_Data)");
-class  VideoFrameHandler_OnFrameReadyInBuffer_Params_Data {
+class  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -65,12 +65,28 @@ class  VideoFrameHandler_OnFrameReadyInBuffer_Params_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ReadyFrameInBuffer_Data>>> scaled_buffers;
 
  private:
+  friend class mojo::internal::MessageFragment<VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data>;
+
+  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data();
+  ~VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data() = delete;
+};
+static_assert(sizeof(VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data) == 24,
+              "Bad sizeof(VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data)");
+class  VideoFrameHandler_OnFrameReadyInBuffer_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ReadyFrameInBuffer_Data> buffer;
+
+ private:
   friend class mojo::internal::MessageFragment<VideoFrameHandler_OnFrameReadyInBuffer_Params_Data>;
 
   VideoFrameHandler_OnFrameReadyInBuffer_Params_Data();
   ~VideoFrameHandler_OnFrameReadyInBuffer_Params_Data() = delete;
 };
-static_assert(sizeof(VideoFrameHandler_OnFrameReadyInBuffer_Params_Data) == 24,
+static_assert(sizeof(VideoFrameHandler_OnFrameReadyInBuffer_Params_Data) == 16,
               "Bad sizeof(VideoFrameHandler_OnFrameReadyInBuffer_Params_Data)");
 class  VideoFrameHandler_OnBufferRetired_Params_Data {
  public:
@@ -520,12 +536,12 @@ class VideoFrameHandler_OnNewBuffer_ParamsDataView {
 };
 
 
-class VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView {
+class VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsDataView {
  public:
-  VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView() = default;
+  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsDataView() = default;
 
-  VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView(
-      internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data* data,
+  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsDataView(
+      internal::VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -548,6 +564,32 @@ class VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView {
     
     auto* pointer = data_->scaled_buffers.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::crosapi::mojom::ReadyFrameInBufferDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView {
+ public:
+  VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView() = default;
+
+  VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView(
+      internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetBufferDataView(
+      ReadyFrameInBufferDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBuffer(UserType* output) {
+    
+    auto* pointer = data_->buffer.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::ReadyFrameInBufferDataView>(
         pointer, output, message_);
   }
  private:
@@ -1107,15 +1149,22 @@ inline void VideoFrameHandler_OnNewBuffer_ParamsDataView::GetBufferHandleDataVie
 }
 
 
-inline void VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView::GetBufferDataView(
+inline void VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsDataView::GetBufferDataView(
     ReadyFrameInBufferDataView* output) {
   auto pointer = data_->buffer.Get();
   *output = ReadyFrameInBufferDataView(pointer, message_);
 }
-inline void VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView::GetScaledBuffersDataView(
+inline void VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsDataView::GetScaledBuffersDataView(
     mojo::ArrayDataView<ReadyFrameInBufferDataView>* output) {
   auto pointer = data_->scaled_buffers.Get();
   *output = mojo::ArrayDataView<ReadyFrameInBufferDataView>(pointer, message_);
+}
+
+
+inline void VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView::GetBufferDataView(
+    ReadyFrameInBufferDataView* output) {
+  auto pointer = data_->buffer.Get();
+  *output = ReadyFrameInBufferDataView(pointer, message_);
 }
 
 

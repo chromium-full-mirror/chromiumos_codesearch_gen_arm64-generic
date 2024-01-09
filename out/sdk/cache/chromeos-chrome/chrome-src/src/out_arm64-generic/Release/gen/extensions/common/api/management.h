@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,8 @@ struct IconInfo {
   ~IconInfo();
   IconInfo(const IconInfo&) = delete;
   IconInfo& operator=(const IconInfo&) = delete;
-  IconInfo(IconInfo&& rhs);
-  IconInfo& operator=(IconInfo&& rhs);
+  IconInfo(IconInfo&& rhs) noexcept;
+  IconInfo& operator=(IconInfo&& rhs) noexcept;
 
   // Populates a IconInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -49,14 +50,11 @@ struct IconInfo {
   // Creates a deep copy of IconInfo.
   IconInfo Clone() const;
 
-  // Creates a IconInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<IconInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a IconInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<IconInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<IconInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a IconInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<IconInfo> FromValue(const base::Value& value);
+  static std::optional<IconInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIconInfo object.
@@ -145,8 +143,8 @@ struct ExtensionInfo {
   ~ExtensionInfo();
   ExtensionInfo(const ExtensionInfo&) = delete;
   ExtensionInfo& operator=(const ExtensionInfo&) = delete;
-  ExtensionInfo(ExtensionInfo&& rhs);
-  ExtensionInfo& operator=(ExtensionInfo&& rhs);
+  ExtensionInfo(ExtensionInfo&& rhs) noexcept;
+  ExtensionInfo& operator=(ExtensionInfo&& rhs) noexcept;
 
   // Populates a ExtensionInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -159,15 +157,12 @@ struct ExtensionInfo {
   // Creates a deep copy of ExtensionInfo.
   ExtensionInfo Clone() const;
 
-  // Creates a ExtensionInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ExtensionInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ExtensionInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ExtensionInfo> FromValue(const base::Value& value);
+  static std::optional<ExtensionInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionInfo object.
@@ -190,14 +185,14 @@ struct ExtensionInfo {
 
   // The <a href='manifest/version#version_name'>version name</a> of this
   // extension, app, or theme if the manifest specified one.
-  absl::optional<std::string> version_name;
+  std::optional<std::string> version_name;
 
   // Whether this extension can be disabled or uninstalled by the user.
   bool may_disable;
 
   // Whether this extension can be enabled by the user. This is only returned for
   // extensions which are not enabled.
-  absl::optional<bool> may_enable;
+  std::optional<bool> may_enable;
 
   // Whether it is currently enabled or disabled.
   bool enabled;
@@ -212,13 +207,13 @@ struct ExtensionInfo {
   ExtensionType type;
 
   // The launch url (only present for apps).
-  absl::optional<std::string> app_launch_url;
+  std::optional<std::string> app_launch_url;
 
   // The URL of the homepage of this extension, app, or theme.
-  absl::optional<std::string> homepage_url;
+  std::optional<std::string> homepage_url;
 
   // The update URL of this extension, app, or theme.
-  absl::optional<std::string> update_url;
+  std::optional<std::string> update_url;
 
   // Whether the extension, app, or theme declares that it supports offline.
   bool offline_enabled;
@@ -231,7 +226,7 @@ struct ExtensionInfo {
   // what was declared, so you might consider using explicit width and height
   // attributes on img tags referencing these images. See the <a
   // href='manifest/icons'>manifest documentation on icons</a> for more details.
-  absl::optional<std::vector<IconInfo>> icons;
+  std::optional<std::vector<IconInfo>> icons;
 
   // Returns a list of API based permissions.
   std::vector<std::string> permissions;
@@ -246,7 +241,7 @@ struct ExtensionInfo {
   LaunchType launch_type;
 
   // The currently available launch types (only present for apps).
-  absl::optional<std::vector<LaunchType>> available_launch_types;
+  std::optional<std::vector<LaunchType>> available_launch_types;
 
 };
 
@@ -256,8 +251,8 @@ struct UninstallOptions {
   ~UninstallOptions();
   UninstallOptions(const UninstallOptions&) = delete;
   UninstallOptions& operator=(const UninstallOptions&) = delete;
-  UninstallOptions(UninstallOptions&& rhs);
-  UninstallOptions& operator=(UninstallOptions&& rhs);
+  UninstallOptions(UninstallOptions&& rhs) noexcept;
+  UninstallOptions& operator=(UninstallOptions&& rhs) noexcept;
 
   // Populates a UninstallOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -270,16 +265,13 @@ struct UninstallOptions {
   // Creates a deep copy of UninstallOptions.
   UninstallOptions Clone() const;
 
-  // Creates a UninstallOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UninstallOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a UninstallOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UninstallOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<UninstallOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a UninstallOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<UninstallOptions> FromValue(const base::Value& value);
+  static std::optional<UninstallOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUninstallOptions object.
@@ -288,7 +280,7 @@ struct UninstallOptions {
   // Whether or not a confirm-uninstall dialog should prompt the user. Defaults to
   // false for self uninstalls. If an extension uninstalls another extension, this
   // parameter is ignored and the dialog is always shown.
-  absl::optional<bool> show_confirm_dialog;
+  std::optional<bool> show_confirm_dialog;
 
 };
 
@@ -309,11 +301,11 @@ base::Value::List Create(const std::vector<ExtensionInfo>& result);
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID from an item of $(ref:management.ExtensionInfo).
@@ -343,11 +335,11 @@ base::Value::List Create(const ExtensionInfo& result);
 namespace GetPermissionWarningsById {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of an already installed extension.
@@ -368,11 +360,11 @@ base::Value::List Create(const std::vector<std::string>& permission_warnings);
 namespace GetPermissionWarningsByManifest {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Extension manifest JSON string.
@@ -393,11 +385,11 @@ base::Value::List Create(const std::vector<std::string>& permission_warnings);
 namespace SetEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This should be the id from an item of $(ref:management.ExtensionInfo).
@@ -421,17 +413,17 @@ base::Value::List Create();
 namespace Uninstall {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This should be the id from an item of $(ref:management.ExtensionInfo).
   std::string id;
 
-  absl::optional<UninstallOptions> options;
+  std::optional<UninstallOptions> options;
 
 
  private:
@@ -448,14 +440,14 @@ base::Value::List Create();
 namespace UninstallSelf {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<UninstallOptions> options;
+  std::optional<UninstallOptions> options;
 
 
  private:
@@ -472,11 +464,11 @@ base::Value::List Create();
 namespace LaunchApp {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The extension id of the application.
@@ -497,11 +489,11 @@ base::Value::List Create();
 namespace CreateAppShortcut {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This should be the id from an app item of $(ref:management.ExtensionInfo).
@@ -522,11 +514,11 @@ base::Value::List Create();
 namespace SetLaunchType {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // This should be the id from an app item of $(ref:management.ExtensionInfo).
@@ -552,11 +544,11 @@ base::Value::List Create();
 namespace GenerateAppForLink {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The URL of a web page. The scheme of the URL can only be "http" or "https".

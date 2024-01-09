@@ -9,9 +9,9 @@ export function getTemplate() {
   }
 
   #container {
-    background-color: var(--cr-card-background-color);
+    background-color: var(--cros-sys-app_base);
     box-sizing: border-box;
-    color: var(--cros-text-color-secondary);
+    color: var(--cros-sys-on_surface_variant);
     display: flex;
     flex-direction: column;
     font-size: 13px;

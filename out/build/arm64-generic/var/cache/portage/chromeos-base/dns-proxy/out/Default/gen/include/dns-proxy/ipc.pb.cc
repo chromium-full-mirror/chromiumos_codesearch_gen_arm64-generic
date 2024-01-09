@@ -4,35 +4,36 @@
 #include "ipc.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace dns_proxy {
+template <typename>
 PROTOBUF_CONSTEXPR ProxyAddrMessage::ProxyAddrMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.addrs_)*/{}
-  , /*decltype(_impl_.type_)*/0} {}
+  , /*decltype(_impl_.type_)*/ 0
+} {}
 struct ProxyAddrMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ProxyAddrMessageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ProxyAddrMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ProxyAddrMessageDefaultTypeInternal() {}
   union {
     ProxyAddrMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProxyAddrMessageDefaultTypeInternal _ProxyAddrMessage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProxyAddrMessageDefaultTypeInternal _ProxyAddrMessage_default_instance_;
 }  // namespace dns_proxy
 namespace dns_proxy {
 bool ProxyAddrMessage_MessageType_IsValid(int value) {
@@ -45,43 +46,43 @@ bool ProxyAddrMessage_MessageType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    ProxyAddrMessage_MessageType_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ProxyAddrMessage_MessageType_strings[3] = {};
+static const char ProxyAddrMessage_MessageType_names[] = {
+    "CLEAR_ADDRS"
+    "SET_ADDRS"
+    "UNKNOWN_MESSAGE"
+};
 
-static const char ProxyAddrMessage_MessageType_names[] =
-  "CLEAR_ADDRS"
-  "SET_ADDRS"
-  "UNKNOWN_MESSAGE";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ProxyAddrMessage_MessageType_entries[] = {
-  { {ProxyAddrMessage_MessageType_names + 0, 11}, 2 },
-  { {ProxyAddrMessage_MessageType_names + 11, 9}, 1 },
-  { {ProxyAddrMessage_MessageType_names + 20, 15}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ProxyAddrMessage_MessageType_entries[] =
+    {
+        {{&ProxyAddrMessage_MessageType_names[0], 11}, 2},
+        {{&ProxyAddrMessage_MessageType_names[11], 9}, 1},
+        {{&ProxyAddrMessage_MessageType_names[20], 15}, 0},
 };
 
 static const int ProxyAddrMessage_MessageType_entries_by_number[] = {
-  2, // 0 -> UNKNOWN_MESSAGE
-  1, // 1 -> SET_ADDRS
-  0, // 2 -> CLEAR_ADDRS
+    2,  // 0 -> UNKNOWN_MESSAGE
+    1,  // 1 -> SET_ADDRS
+    0,  // 2 -> CLEAR_ADDRS
 };
 
-const std::string& ProxyAddrMessage_MessageType_Name(
-    ProxyAddrMessage_MessageType value) {
-  static const bool dummy =
+const std::string& ProxyAddrMessage_MessageType_Name(ProxyAddrMessage_MessageType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          ProxyAddrMessage_MessageType_entries,
-          ProxyAddrMessage_MessageType_entries_by_number,
+          ProxyAddrMessage_MessageType_entries, ProxyAddrMessage_MessageType_entries_by_number,
           3, ProxyAddrMessage_MessageType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      ProxyAddrMessage_MessageType_entries,
-      ProxyAddrMessage_MessageType_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     ProxyAddrMessage_MessageType_strings[idx].get();
+      ProxyAddrMessage_MessageType_entries, ProxyAddrMessage_MessageType_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : ProxyAddrMessage_MessageType_strings[idx].get();
 }
-bool ProxyAddrMessage_MessageType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ProxyAddrMessage_MessageType* value) {
+
+bool ProxyAddrMessage_MessageType_Parse(absl::string_view name, ProxyAddrMessage_MessageType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       ProxyAddrMessage_MessageType_entries, 3, name, &int_value);
@@ -90,20 +91,25 @@ bool ProxyAddrMessage_MessageType_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr ProxyAddrMessage_MessageType ProxyAddrMessage::UNKNOWN_MESSAGE;
 constexpr ProxyAddrMessage_MessageType ProxyAddrMessage::SET_ADDRS;
 constexpr ProxyAddrMessage_MessageType ProxyAddrMessage::CLEAR_ADDRS;
 constexpr ProxyAddrMessage_MessageType ProxyAddrMessage::MessageType_MIN;
 constexpr ProxyAddrMessage_MessageType ProxyAddrMessage::MessageType_MAX;
 constexpr int ProxyAddrMessage::MessageType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class ProxyAddrMessage::_Internal {
  public:
   using HasBits = decltype(std::declval<ProxyAddrMessage>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ProxyAddrMessage, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -112,10 +118,9 @@ class ProxyAddrMessage::_Internal {
   }
 };
 
-ProxyAddrMessage::ProxyAddrMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ProxyAddrMessage::ProxyAddrMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:dns_proxy.ProxyAddrMessage)
 }
 ProxyAddrMessage::ProxyAddrMessage(const ProxyAddrMessage& from)
@@ -125,22 +130,22 @@ ProxyAddrMessage::ProxyAddrMessage(const ProxyAddrMessage& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.addrs_){from._impl_.addrs_}
-    , decltype(_impl_.type_){}};
+    , decltype(_impl_.type_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:dns_proxy.ProxyAddrMessage)
 }
 
-inline void ProxyAddrMessage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ProxyAddrMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.addrs_){arena}
-    , decltype(_impl_.type_){0}
+    , decltype(_impl_.type_) { 0 }
+
   };
 }
 
@@ -154,8 +159,8 @@ ProxyAddrMessage::~ProxyAddrMessage() {
 }
 
 inline void ProxyAddrMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.addrs_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_addrs()->~RepeatedPtrField();
 }
 
 void ProxyAddrMessage::SetCachedSize(int size) const {
@@ -164,11 +169,11 @@ void ProxyAddrMessage::SetCachedSize(int size) const {
 
 void ProxyAddrMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:dns_proxy.ProxyAddrMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.addrs_.Clear();
+  _internal_mutable_addrs()->Clear();
   _impl_.type_ = 0;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -178,12 +183,12 @@ const char* ProxyAddrMessage::_InternalParse(const char* ptr, ::_pbi::ParseConte
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string addrs = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -192,21 +197,23 @@ const char* ProxyAddrMessage::_InternalParse(const char* ptr, ::_pbi::ParseConte
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // required .dns_proxy.ProxyAddrMessage.MessageType type = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::dns_proxy::ProxyAddrMessage_MessageType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::dns_proxy::ProxyAddrMessage_MessageType_IsValid(static_cast<int>(val)))) {
             _internal_set_type(static_cast<::dns_proxy::ProxyAddrMessage_MessageType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -232,14 +239,14 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ProxyAddrMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ProxyAddrMessage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:dns_proxy.ProxyAddrMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated string addrs = 1;
-  for (int i = 0, n = this->_internal_addrs_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_addrs_size(); i < n; ++i) {
     const auto& s = this->_internal_addrs(i);
     target = stream->WriteString(1, s, target);
   }
@@ -249,7 +256,7 @@ uint8_t* ProxyAddrMessage::_InternalSerialize(
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_type(), target);
+        2, this->_internal_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -260,25 +267,24 @@ uint8_t* ProxyAddrMessage::_InternalSerialize(
   return target;
 }
 
-size_t ProxyAddrMessage::ByteSizeLong() const {
+::size_t ProxyAddrMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:dns_proxy.ProxyAddrMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   // required .dns_proxy.ProxyAddrMessage.MessageType type = 2;
-  if (_internal_has_type()) {
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated string addrs = 1;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.addrs_.size());
-  for (int i = 0, n = _impl_.addrs_.size(); i < n; i++) {
+  total_size += 1 * ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_internal_addrs().size());
+  for (int i = 0, n = _internal_addrs().size(); i < n; ++i) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      _impl_.addrs_.Get(i));
+        _internal_addrs().Get(i));
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -298,12 +304,12 @@ void ProxyAddrMessage::CheckTypeAndMergeFrom(
 void ProxyAddrMessage::MergeFrom(const ProxyAddrMessage& from) {
   ProxyAddrMessage* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:dns_proxy.ProxyAddrMessage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.addrs_.MergeFrom(from._impl_.addrs_);
-  if (from._internal_has_type()) {
+  _this->_internal_mutable_addrs()->MergeFrom(from._internal_addrs());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_type(from._internal_type());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -325,14 +331,14 @@ void ProxyAddrMessage::InternalSwap(ProxyAddrMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.addrs_.InternalSwap(&other->_impl_.addrs_);
+  _internal_mutable_addrs()->InternalSwap(
+      other->_internal_mutable_addrs());
   swap(_impl_.type_, other->_impl_.type_);
 }
 
 std::string ProxyAddrMessage::GetTypeName() const {
   return "dns_proxy.ProxyAddrMessage";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace dns_proxy
@@ -342,6 +348,5 @@ Arena::CreateMaybeMessage< ::dns_proxy::ProxyAddrMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dns_proxy::ProxyAddrMessage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

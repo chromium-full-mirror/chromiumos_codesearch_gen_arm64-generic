@@ -37,6 +37,8 @@
 namespace optimization_guide_internals::mojom {
 class DownloadedModelInfoDataView;
 
+class LoggedClientIdsDataView;
+
 
 
 }  // optimization_guide_internals::mojom
@@ -47,6 +49,13 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::optimization_guide_internals::mojom::DownloadedModelInfoDataView> {
   using Data = ::optimization_guide_internals::mojom::internal::DownloadedModelInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::optimization_guide_internals::mojom::LoggedClientIdsDataView> {
+  using Data = ::optimization_guide_internals::mojom::internal::LoggedClientIds_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -118,6 +127,24 @@ class DownloadedModelInfoDataView {
 };
 
 
+class LoggedClientIdsDataView {
+ public:
+  LoggedClientIdsDataView() = default;
+
+  LoggedClientIdsDataView(
+      internal::LoggedClientIds_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int64_t client_id() const {
+    return data_->client_id;
+  }
+ private:
+  internal::LoggedClientIds_Data* data_ = nullptr;
+};
+
+
 }  // optimization_guide_internals::mojom
 
 namespace std {
@@ -180,6 +207,36 @@ struct Serializer<::optimization_guide_internals::mojom::DownloadedModelInfoData
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::optimization_guide_internals::mojom::LoggedClientIdsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::optimization_guide_internals::mojom::LoggedClientIdsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::optimization_guide_internals::mojom::internal::LoggedClientIds_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->client_id = Traits::client_id(input);
+  }
+
+  static bool Deserialize(::optimization_guide_internals::mojom::internal::LoggedClientIds_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::optimization_guide_internals::mojom::LoggedClientIdsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -195,6 +252,8 @@ inline void DownloadedModelInfoDataView::GetFilePathDataView(
   auto pointer = data_->file_path.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 
 

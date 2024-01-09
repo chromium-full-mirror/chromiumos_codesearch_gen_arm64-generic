@@ -15,10 +15,11 @@
  *  resolver.resolve({hello: 'world'});
  */
 export class PromiseResolver {
+    resolve_ = () => { };
+    reject_ = () => { };
+    isFulfilled_ = false;
+    promise_;
     constructor() {
-        this.resolve_ = () => { };
-        this.reject_ = () => { };
-        this.isFulfilled_ = false;
         this.promise_ = new Promise((resolve, reject) => {
             this.resolve_ = (resolution) => {
                 resolve(resolution);

@@ -4,66 +4,59 @@
 #include "crash_sender.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace crash {
+template <typename>
 PROTOBUF_CONSTEXPR SendRecord::SendRecord(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.size_)*/0
+    /*decltype(_impl_.size_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SendRecordDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SendRecordDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SendRecordDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SendRecordDefaultTypeInternal() {}
   union {
     SendRecord _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendRecordDefaultTypeInternal _SendRecord_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendRecordDefaultTypeInternal _SendRecord_default_instance_;
 }  // namespace crash
 namespace crash {
-
 // ===================================================================
 
 class SendRecord::_Internal {
  public:
 };
 
-SendRecord::SendRecord(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SendRecord::SendRecord(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:crash.SendRecord)
 }
 SendRecord::SendRecord(const SendRecord& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  SendRecord* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.size_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.size_ = from._impl_.size_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:crash.SendRecord)
 }
 
-inline void SendRecord::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SendRecord::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.size_){0}
+      decltype(_impl_.size_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -78,7 +71,7 @@ SendRecord::~SendRecord() {
 }
 
 inline void SendRecord::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void SendRecord::SetCachedSize(int size) const {
@@ -87,7 +80,7 @@ void SendRecord::SetCachedSize(int size) const {
 
 void SendRecord::Clear() {
 // @@protoc_insertion_point(message_clear_start:crash.SendRecord)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -98,16 +91,17 @@ void SendRecord::Clear() {
 const char* SendRecord::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 size = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -132,16 +126,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SendRecord::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SendRecord::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:crash.SendRecord)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 size = 1;
   if (this->_internal_size() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_size(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_size(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -152,17 +147,18 @@ uint8_t* SendRecord::_InternalSerialize(
   return target;
 }
 
-size_t SendRecord::ByteSizeLong() const {
+::size_t SendRecord::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:crash.SendRecord)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 size = 1;
   if (this->_internal_size() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_size());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_size());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -182,8 +178,8 @@ void SendRecord::CheckTypeAndMergeFrom(
 void SendRecord::MergeFrom(const SendRecord& from) {
   SendRecord* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:crash.SendRecord)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_size() != 0) {
@@ -206,13 +202,13 @@ bool SendRecord::IsInitialized() const {
 void SendRecord::InternalSwap(SendRecord* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+
   swap(_impl_.size_, other->_impl_.size_);
 }
 
 std::string SendRecord::GetTypeName() const {
   return "crash.SendRecord";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace crash
@@ -222,6 +218,5 @@ Arena::CreateMaybeMessage< ::crash::SendRecord >(Arena* arena) {
   return Arena::CreateMessageInternal< ::crash::SendRecord >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

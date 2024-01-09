@@ -124,7 +124,7 @@ class ButtonRemapping;
 using ButtonRemappingPtr = mojo::StructPtr<ButtonRemapping>;
 
 class KeyEvent;
-using KeyEventPtr = mojo::InlinedStructPtr<KeyEvent>;
+using KeyEventPtr = mojo::StructPtr<KeyEvent>;
 
 class RemappingAction;
 

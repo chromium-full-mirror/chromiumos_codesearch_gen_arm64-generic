@@ -33,11 +33,11 @@ class  SystemInfoAsyncWaiter {
 
   ~SystemInfoAsyncWaiter();
   void GetInputStreamParameters(
-      const std::string& device_id, absl::optional<::media::AudioParameters>* out_params);
-  absl::optional<::media::AudioParameters> GetInputStreamParameters(const std::string& device_id);
+      const std::string& device_id, std::optional<::media::AudioParameters>* out_params);
+  std::optional<::media::AudioParameters> GetInputStreamParameters(const std::string& device_id);
   void GetOutputStreamParameters(
-      const std::string& device_id, absl::optional<::media::AudioParameters>* out_params);
-  absl::optional<::media::AudioParameters> GetOutputStreamParameters(const std::string& device_id);
+      const std::string& device_id, std::optional<::media::AudioParameters>* out_params);
+  std::optional<::media::AudioParameters> GetOutputStreamParameters(const std::string& device_id);
   void HasInputDevices(
       bool* out_has_input_devices);
   bool HasInputDevices();
@@ -51,10 +51,10 @@ class  SystemInfoAsyncWaiter {
       std::vector<::media::AudioDeviceDescription>* out_device_descriptions);
   std::vector<::media::AudioDeviceDescription> GetOutputDeviceDescriptions();
   void GetAssociatedOutputDeviceID(
-      const std::string& input_device_id, absl::optional<std::string>* out_associated_output_device_id);
-  absl::optional<std::string> GetAssociatedOutputDeviceID(const std::string& input_device_id);
+      const std::string& input_device_id, std::optional<std::string>* out_associated_output_device_id);
+  std::optional<std::string> GetAssociatedOutputDeviceID(const std::string& input_device_id);
   void GetInputDeviceInfo(
-      const std::string& input_device_id, absl::optional<::media::AudioParameters>* out_input_params, absl::optional<std::string>* out_associated_output_device_id);
+      const std::string& input_device_id, std::optional<::media::AudioParameters>* out_input_params, std::optional<std::string>* out_associated_output_device_id);
   
 
  private:

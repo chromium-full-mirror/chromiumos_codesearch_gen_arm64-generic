@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/input_method_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,13 +37,13 @@ namespace input_method_private {
 
 const char* ToString(MenuItemStyle enum_param) {
   switch (enum_param) {
-    case MENU_ITEM_STYLE_CHECK:
+    case MenuItemStyle::kCheck:
       return "check";
-    case MENU_ITEM_STYLE_RADIO:
+    case MenuItemStyle::kRadio:
       return "radio";
-    case MENU_ITEM_STYLE_SEPARATOR:
+    case MenuItemStyle::kSeparator:
       return "separator";
-    case MENU_ITEM_STYLE_NONE:
+    case MenuItemStyle::kNone:
       return "";
   }
   NOTREACHED();
@@ -51,12 +52,12 @@ const char* ToString(MenuItemStyle enum_param) {
 
 MenuItemStyle ParseMenuItemStyle(base::StringPiece enum_string) {
   if (enum_string == "check")
-    return MENU_ITEM_STYLE_CHECK;
+    return MenuItemStyle::kCheck;
   if (enum_string == "radio")
-    return MENU_ITEM_STYLE_RADIO;
+    return MenuItemStyle::kRadio;
   if (enum_string == "separator")
-    return MENU_ITEM_STYLE_SEPARATOR;
-  return MENU_ITEM_STYLE_NONE;
+    return MenuItemStyle::kSeparator;
+  return MenuItemStyle::kNone;
 }
 
 std::u16string GetMenuItemStyleParseError(base::StringPiece enum_string) {
@@ -68,8 +69,8 @@ MenuItem::MenuItem()
 : style() {}
 
 MenuItem::~MenuItem() = default;
-MenuItem::MenuItem(MenuItem&& rhs) = default;
-MenuItem& MenuItem::operator=(MenuItem&& rhs) = default;
+MenuItem::MenuItem(MenuItem&& rhs) noexcept = default;
+MenuItem& MenuItem::operator=(MenuItem&& rhs) noexcept = default;
 MenuItem MenuItem::Clone() const {
   MenuItem out;
   out.id = id;
@@ -102,7 +103,7 @@ bool MenuItem::Populate(
     {
       auto* temp = (*label_value).GetIfString();
       if (!temp) {
-        out.label = absl::nullopt;
+        out.label = std::nullopt;
         return false;
       }
       out.label = *temp;
@@ -130,7 +131,7 @@ bool MenuItem::Populate(
     {
       auto temp = (*visible_value).GetIfBool();
       if (!temp.has_value()) {
-        out.visible = absl::nullopt;
+        out.visible = std::nullopt;
         return false;
       }
       out.visible = *temp;
@@ -142,7 +143,7 @@ bool MenuItem::Populate(
     {
       auto temp = (*checked_value).GetIfBool();
       if (!temp.has_value()) {
-        out.checked = absl::nullopt;
+        out.checked = std::nullopt;
         return false;
       }
       out.checked = *temp;
@@ -154,7 +155,7 @@ bool MenuItem::Populate(
     {
       auto temp = (*enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enabled = absl::nullopt;
+        out.enabled = std::nullopt;
         return false;
       }
       out.enabled = *temp;
@@ -174,34 +175,21 @@ bool MenuItem::Populate(
 }
 
 // static
-std::unique_ptr<MenuItem> MenuItem::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MenuItem>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MenuItem> MenuItem::FromValue(const base::Value::Dict& value) {
+  MenuItem out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MenuItem> MenuItem::FromValue(const base::Value::Dict& value) {
+std::optional<MenuItem> MenuItem::FromValue(const base::Value& value) {
   MenuItem out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MenuItem> MenuItem::FromValue(const base::Value& value) {
-  MenuItem out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -238,13 +226,13 @@ base::Value::Dict MenuItem::ToValue() const {
 
 const char* ToString(UnderlineStyle enum_param) {
   switch (enum_param) {
-    case UNDERLINE_STYLE_UNDERLINE:
+    case UnderlineStyle::kUnderline:
       return "underline";
-    case UNDERLINE_STYLE_DOUBLEUNDERLINE:
+    case UnderlineStyle::kDoubleUnderline:
       return "doubleUnderline";
-    case UNDERLINE_STYLE_NOUNDERLINE:
+    case UnderlineStyle::kNoUnderline:
       return "noUnderline";
-    case UNDERLINE_STYLE_NONE:
+    case UnderlineStyle::kNone:
       return "";
   }
   NOTREACHED();
@@ -253,12 +241,12 @@ const char* ToString(UnderlineStyle enum_param) {
 
 UnderlineStyle ParseUnderlineStyle(base::StringPiece enum_string) {
   if (enum_string == "underline")
-    return UNDERLINE_STYLE_UNDERLINE;
+    return UnderlineStyle::kUnderline;
   if (enum_string == "doubleUnderline")
-    return UNDERLINE_STYLE_DOUBLEUNDERLINE;
+    return UnderlineStyle::kDoubleUnderline;
   if (enum_string == "noUnderline")
-    return UNDERLINE_STYLE_NOUNDERLINE;
-  return UNDERLINE_STYLE_NONE;
+    return UnderlineStyle::kNoUnderline;
+  return UnderlineStyle::kNone;
 }
 
 std::u16string GetUnderlineStyleParseError(base::StringPiece enum_string) {
@@ -268,15 +256,15 @@ std::u16string GetUnderlineStyleParseError(base::StringPiece enum_string) {
 
 const char* ToString(FocusReason enum_param) {
   switch (enum_param) {
-    case FOCUS_REASON_MOUSE:
+    case FocusReason::kMouse:
       return "mouse";
-    case FOCUS_REASON_TOUCH:
+    case FocusReason::kTouch:
       return "touch";
-    case FOCUS_REASON_PEN:
+    case FocusReason::kPen:
       return "pen";
-    case FOCUS_REASON_OTHER:
+    case FocusReason::kOther:
       return "other";
-    case FOCUS_REASON_NONE:
+    case FocusReason::kNone:
       return "";
   }
   NOTREACHED();
@@ -285,14 +273,14 @@ const char* ToString(FocusReason enum_param) {
 
 FocusReason ParseFocusReason(base::StringPiece enum_string) {
   if (enum_string == "mouse")
-    return FOCUS_REASON_MOUSE;
+    return FocusReason::kMouse;
   if (enum_string == "touch")
-    return FOCUS_REASON_TOUCH;
+    return FocusReason::kTouch;
   if (enum_string == "pen")
-    return FOCUS_REASON_PEN;
+    return FocusReason::kPen;
   if (enum_string == "other")
-    return FOCUS_REASON_OTHER;
-  return FOCUS_REASON_NONE;
+    return FocusReason::kOther;
+  return FocusReason::kNone;
 }
 
 std::u16string GetFocusReasonParseError(base::StringPiece enum_string) {
@@ -302,23 +290,23 @@ std::u16string GetFocusReasonParseError(base::StringPiece enum_string) {
 
 const char* ToString(InputModeType enum_param) {
   switch (enum_param) {
-    case INPUT_MODE_TYPE_NOKEYBOARD:
+    case InputModeType::kNoKeyboard:
       return "noKeyboard";
-    case INPUT_MODE_TYPE_TEXT:
+    case InputModeType::kText:
       return "text";
-    case INPUT_MODE_TYPE_TEL:
+    case InputModeType::kTel:
       return "tel";
-    case INPUT_MODE_TYPE_URL:
+    case InputModeType::kUrl:
       return "url";
-    case INPUT_MODE_TYPE_EMAIL:
+    case InputModeType::kEmail:
       return "email";
-    case INPUT_MODE_TYPE_NUMERIC:
+    case InputModeType::kNumeric:
       return "numeric";
-    case INPUT_MODE_TYPE_DECIMAL:
+    case InputModeType::kDecimal:
       return "decimal";
-    case INPUT_MODE_TYPE_SEARCH:
+    case InputModeType::kSearch:
       return "search";
-    case INPUT_MODE_TYPE_NONE:
+    case InputModeType::kNone:
       return "";
   }
   NOTREACHED();
@@ -327,22 +315,22 @@ const char* ToString(InputModeType enum_param) {
 
 InputModeType ParseInputModeType(base::StringPiece enum_string) {
   if (enum_string == "noKeyboard")
-    return INPUT_MODE_TYPE_NOKEYBOARD;
+    return InputModeType::kNoKeyboard;
   if (enum_string == "text")
-    return INPUT_MODE_TYPE_TEXT;
+    return InputModeType::kText;
   if (enum_string == "tel")
-    return INPUT_MODE_TYPE_TEL;
+    return InputModeType::kTel;
   if (enum_string == "url")
-    return INPUT_MODE_TYPE_URL;
+    return InputModeType::kUrl;
   if (enum_string == "email")
-    return INPUT_MODE_TYPE_EMAIL;
+    return InputModeType::kEmail;
   if (enum_string == "numeric")
-    return INPUT_MODE_TYPE_NUMERIC;
+    return InputModeType::kNumeric;
   if (enum_string == "decimal")
-    return INPUT_MODE_TYPE_DECIMAL;
+    return InputModeType::kDecimal;
   if (enum_string == "search")
-    return INPUT_MODE_TYPE_SEARCH;
-  return INPUT_MODE_TYPE_NONE;
+    return InputModeType::kSearch;
+  return InputModeType::kNone;
 }
 
 std::u16string GetInputModeTypeParseError(base::StringPiece enum_string) {
@@ -352,23 +340,23 @@ std::u16string GetInputModeTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(InputContextType enum_param) {
   switch (enum_param) {
-    case INPUT_CONTEXT_TYPE_TEXT:
+    case InputContextType::kText:
       return "text";
-    case INPUT_CONTEXT_TYPE_SEARCH:
+    case InputContextType::kSearch:
       return "search";
-    case INPUT_CONTEXT_TYPE_TEL:
+    case InputContextType::kTel:
       return "tel";
-    case INPUT_CONTEXT_TYPE_URL:
+    case InputContextType::kUrl:
       return "url";
-    case INPUT_CONTEXT_TYPE_EMAIL:
+    case InputContextType::kEmail:
       return "email";
-    case INPUT_CONTEXT_TYPE_NUMBER:
+    case InputContextType::kNumber:
       return "number";
-    case INPUT_CONTEXT_TYPE_PASSWORD:
+    case InputContextType::kPassword:
       return "password";
-    case INPUT_CONTEXT_TYPE_NULL:
+    case InputContextType::kNull:
       return "null";
-    case INPUT_CONTEXT_TYPE_NONE:
+    case InputContextType::kNone:
       return "";
   }
   NOTREACHED();
@@ -377,22 +365,22 @@ const char* ToString(InputContextType enum_param) {
 
 InputContextType ParseInputContextType(base::StringPiece enum_string) {
   if (enum_string == "text")
-    return INPUT_CONTEXT_TYPE_TEXT;
+    return InputContextType::kText;
   if (enum_string == "search")
-    return INPUT_CONTEXT_TYPE_SEARCH;
+    return InputContextType::kSearch;
   if (enum_string == "tel")
-    return INPUT_CONTEXT_TYPE_TEL;
+    return InputContextType::kTel;
   if (enum_string == "url")
-    return INPUT_CONTEXT_TYPE_URL;
+    return InputContextType::kUrl;
   if (enum_string == "email")
-    return INPUT_CONTEXT_TYPE_EMAIL;
+    return InputContextType::kEmail;
   if (enum_string == "number")
-    return INPUT_CONTEXT_TYPE_NUMBER;
+    return InputContextType::kNumber;
   if (enum_string == "password")
-    return INPUT_CONTEXT_TYPE_PASSWORD;
+    return InputContextType::kPassword;
   if (enum_string == "null")
-    return INPUT_CONTEXT_TYPE_NULL;
-  return INPUT_CONTEXT_TYPE_NONE;
+    return InputContextType::kNull;
+  return InputContextType::kNone;
 }
 
 std::u16string GetInputContextTypeParseError(base::StringPiece enum_string) {
@@ -402,15 +390,15 @@ std::u16string GetInputContextTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(AutoCapitalizeType enum_param) {
   switch (enum_param) {
-    case AUTO_CAPITALIZE_TYPE_OFF:
+    case AutoCapitalizeType::kOff:
       return "off";
-    case AUTO_CAPITALIZE_TYPE_CHARACTERS:
+    case AutoCapitalizeType::kCharacters:
       return "characters";
-    case AUTO_CAPITALIZE_TYPE_WORDS:
+    case AutoCapitalizeType::kWords:
       return "words";
-    case AUTO_CAPITALIZE_TYPE_SENTENCES:
+    case AutoCapitalizeType::kSentences:
       return "sentences";
-    case AUTO_CAPITALIZE_TYPE_NONE:
+    case AutoCapitalizeType::kNone:
       return "";
   }
   NOTREACHED();
@@ -419,14 +407,14 @@ const char* ToString(AutoCapitalizeType enum_param) {
 
 AutoCapitalizeType ParseAutoCapitalizeType(base::StringPiece enum_string) {
   if (enum_string == "off")
-    return AUTO_CAPITALIZE_TYPE_OFF;
+    return AutoCapitalizeType::kOff;
   if (enum_string == "characters")
-    return AUTO_CAPITALIZE_TYPE_CHARACTERS;
+    return AutoCapitalizeType::kCharacters;
   if (enum_string == "words")
-    return AUTO_CAPITALIZE_TYPE_WORDS;
+    return AutoCapitalizeType::kWords;
   if (enum_string == "sentences")
-    return AUTO_CAPITALIZE_TYPE_SENTENCES;
-  return AUTO_CAPITALIZE_TYPE_NONE;
+    return AutoCapitalizeType::kSentences;
+  return AutoCapitalizeType::kNone;
 }
 
 std::u16string GetAutoCapitalizeTypeParseError(base::StringPiece enum_string) {
@@ -436,19 +424,19 @@ std::u16string GetAutoCapitalizeTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(LanguagePackStatus enum_param) {
   switch (enum_param) {
-    case LANGUAGE_PACK_STATUS_UNKNOWN:
+    case LanguagePackStatus::kUnknown:
       return "unknown";
-    case LANGUAGE_PACK_STATUS_NOTINSTALLED:
+    case LanguagePackStatus::kNotInstalled:
       return "notInstalled";
-    case LANGUAGE_PACK_STATUS_INPROGRESS:
+    case LanguagePackStatus::kInProgress:
       return "inProgress";
-    case LANGUAGE_PACK_STATUS_INSTALLED:
+    case LanguagePackStatus::kInstalled:
       return "installed";
-    case LANGUAGE_PACK_STATUS_ERROROTHER:
+    case LanguagePackStatus::kErrorOther:
       return "errorOther";
-    case LANGUAGE_PACK_STATUS_ERRORNEEDSREBOOT:
+    case LanguagePackStatus::kErrorNeedsReboot:
       return "errorNeedsReboot";
-    case LANGUAGE_PACK_STATUS_NONE:
+    case LanguagePackStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -457,18 +445,18 @@ const char* ToString(LanguagePackStatus enum_param) {
 
 LanguagePackStatus ParseLanguagePackStatus(base::StringPiece enum_string) {
   if (enum_string == "unknown")
-    return LANGUAGE_PACK_STATUS_UNKNOWN;
+    return LanguagePackStatus::kUnknown;
   if (enum_string == "notInstalled")
-    return LANGUAGE_PACK_STATUS_NOTINSTALLED;
+    return LanguagePackStatus::kNotInstalled;
   if (enum_string == "inProgress")
-    return LANGUAGE_PACK_STATUS_INPROGRESS;
+    return LanguagePackStatus::kInProgress;
   if (enum_string == "installed")
-    return LANGUAGE_PACK_STATUS_INSTALLED;
+    return LanguagePackStatus::kInstalled;
   if (enum_string == "errorOther")
-    return LANGUAGE_PACK_STATUS_ERROROTHER;
+    return LanguagePackStatus::kErrorOther;
   if (enum_string == "errorNeedsReboot")
-    return LANGUAGE_PACK_STATUS_ERRORNEEDSREBOOT;
-  return LANGUAGE_PACK_STATUS_NONE;
+    return LanguagePackStatus::kErrorNeedsReboot;
+  return LanguagePackStatus::kNone;
 }
 
 std::u16string GetLanguagePackStatusParseError(base::StringPiece enum_string) {
@@ -480,8 +468,8 @@ LanguagePackStatusChange::LanguagePackStatusChange()
 : status() {}
 
 LanguagePackStatusChange::~LanguagePackStatusChange() = default;
-LanguagePackStatusChange::LanguagePackStatusChange(LanguagePackStatusChange&& rhs) = default;
-LanguagePackStatusChange& LanguagePackStatusChange::operator=(LanguagePackStatusChange&& rhs) = default;
+LanguagePackStatusChange::LanguagePackStatusChange(LanguagePackStatusChange&& rhs) noexcept = default;
+LanguagePackStatusChange& LanguagePackStatusChange::operator=(LanguagePackStatusChange&& rhs) noexcept = default;
 LanguagePackStatusChange LanguagePackStatusChange::Clone() const {
   LanguagePackStatusChange out;
   out.engine_ids = engine_ids;
@@ -535,34 +523,21 @@ bool LanguagePackStatusChange::Populate(
 }
 
 // static
-std::unique_ptr<LanguagePackStatusChange> LanguagePackStatusChange::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LanguagePackStatusChange>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LanguagePackStatusChange> LanguagePackStatusChange::FromValue(const base::Value::Dict& value) {
+  LanguagePackStatusChange out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LanguagePackStatusChange> LanguagePackStatusChange::FromValue(const base::Value::Dict& value) {
+std::optional<LanguagePackStatusChange> LanguagePackStatusChange::FromValue(const base::Value& value) {
   LanguagePackStatusChange out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LanguagePackStatusChange> LanguagePackStatusChange::FromValue(const base::Value& value) {
-  LanguagePackStatusChange out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -591,8 +566,8 @@ should_do_learning(false),
 focus_reason() {}
 
 InputContext::~InputContext() = default;
-InputContext::InputContext(InputContext&& rhs) = default;
-InputContext& InputContext::operator=(InputContext&& rhs) = default;
+InputContext::InputContext(InputContext&& rhs) noexcept = default;
+InputContext& InputContext::operator=(InputContext&& rhs) noexcept = default;
 InputContext InputContext::Clone() const {
   InputContext out;
   out.context_id = context_id;
@@ -736,7 +711,7 @@ bool InputContext::Populate(
     {
       auto* temp = (*app_key_value).GetIfString();
       if (!temp) {
-        out.app_key = absl::nullopt;
+        out.app_key = std::nullopt;
         return false;
       }
       out.app_key = *temp;
@@ -756,34 +731,21 @@ bool InputContext::Populate(
 }
 
 // static
-std::unique_ptr<InputContext> InputContext::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InputContext>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InputContext> InputContext::FromValue(const base::Value::Dict& value) {
+  InputContext out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InputContext> InputContext::FromValue(const base::Value::Dict& value) {
+std::optional<InputContext> InputContext::FromValue(const base::Value& value) {
   InputContext out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InputContext> InputContext::FromValue(const base::Value& value) {
-  InputContext out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -822,8 +784,8 @@ InputMethodSettings::PinyinFuzzyConfig::PinyinFuzzyConfig()
  {}
 
 InputMethodSettings::PinyinFuzzyConfig::~PinyinFuzzyConfig() = default;
-InputMethodSettings::PinyinFuzzyConfig::PinyinFuzzyConfig(PinyinFuzzyConfig&& rhs) = default;
-InputMethodSettings::PinyinFuzzyConfig& InputMethodSettings::PinyinFuzzyConfig::operator=(PinyinFuzzyConfig&& rhs) = default;
+InputMethodSettings::PinyinFuzzyConfig::PinyinFuzzyConfig(PinyinFuzzyConfig&& rhs) noexcept = default;
+InputMethodSettings::PinyinFuzzyConfig& InputMethodSettings::PinyinFuzzyConfig::operator=(PinyinFuzzyConfig&& rhs) noexcept = default;
 InputMethodSettings::PinyinFuzzyConfig InputMethodSettings::PinyinFuzzyConfig::Clone() const {
   PinyinFuzzyConfig out;
   out.an_ang = an_ang;
@@ -849,7 +811,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*an_ang_value).GetIfBool();
       if (!temp.has_value()) {
-        out.an_ang = absl::nullopt;
+        out.an_ang = std::nullopt;
         return false;
       }
       out.an_ang = *temp;
@@ -861,7 +823,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*c_ch_value).GetIfBool();
       if (!temp.has_value()) {
-        out.c_ch = absl::nullopt;
+        out.c_ch = std::nullopt;
         return false;
       }
       out.c_ch = *temp;
@@ -873,7 +835,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*en_eng_value).GetIfBool();
       if (!temp.has_value()) {
-        out.en_eng = absl::nullopt;
+        out.en_eng = std::nullopt;
         return false;
       }
       out.en_eng = *temp;
@@ -885,7 +847,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*f_h_value).GetIfBool();
       if (!temp.has_value()) {
-        out.f_h = absl::nullopt;
+        out.f_h = std::nullopt;
         return false;
       }
       out.f_h = *temp;
@@ -897,7 +859,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*ian_iang_value).GetIfBool();
       if (!temp.has_value()) {
-        out.ian_iang = absl::nullopt;
+        out.ian_iang = std::nullopt;
         return false;
       }
       out.ian_iang = *temp;
@@ -909,7 +871,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*in_ing_value).GetIfBool();
       if (!temp.has_value()) {
-        out.in_ing = absl::nullopt;
+        out.in_ing = std::nullopt;
         return false;
       }
       out.in_ing = *temp;
@@ -921,7 +883,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*k_g_value).GetIfBool();
       if (!temp.has_value()) {
-        out.k_g = absl::nullopt;
+        out.k_g = std::nullopt;
         return false;
       }
       out.k_g = *temp;
@@ -933,7 +895,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*l_n_value).GetIfBool();
       if (!temp.has_value()) {
-        out.l_n = absl::nullopt;
+        out.l_n = std::nullopt;
         return false;
       }
       out.l_n = *temp;
@@ -945,7 +907,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*r_l_value).GetIfBool();
       if (!temp.has_value()) {
-        out.r_l = absl::nullopt;
+        out.r_l = std::nullopt;
         return false;
       }
       out.r_l = *temp;
@@ -957,7 +919,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*s_sh_value).GetIfBool();
       if (!temp.has_value()) {
-        out.s_sh = absl::nullopt;
+        out.s_sh = std::nullopt;
         return false;
       }
       out.s_sh = *temp;
@@ -969,7 +931,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*uan_uang_value).GetIfBool();
       if (!temp.has_value()) {
-        out.uan_uang = absl::nullopt;
+        out.uan_uang = std::nullopt;
         return false;
       }
       out.uan_uang = *temp;
@@ -981,7 +943,7 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
     {
       auto temp = (*z_zh_value).GetIfBool();
       if (!temp.has_value()) {
-        out.z_zh = absl::nullopt;
+        out.z_zh = std::nullopt;
         return false;
       }
       out.z_zh = *temp;
@@ -1001,21 +963,21 @@ bool InputMethodSettings::PinyinFuzzyConfig::Populate(
 }
 
 // static
-absl::optional<InputMethodSettings::PinyinFuzzyConfig> InputMethodSettings::PinyinFuzzyConfig::FromValue(const base::Value::Dict& value) {
+std::optional<InputMethodSettings::PinyinFuzzyConfig> InputMethodSettings::PinyinFuzzyConfig::FromValue(const base::Value::Dict& value) {
   PinyinFuzzyConfig out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InputMethodSettings::PinyinFuzzyConfig> InputMethodSettings::PinyinFuzzyConfig::FromValue(const base::Value& value) {
+std::optional<InputMethodSettings::PinyinFuzzyConfig> InputMethodSettings::PinyinFuzzyConfig::FromValue(const base::Value& value) {
   PinyinFuzzyConfig out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1081,8 +1043,8 @@ InputMethodSettings::InputMethodSettings()
  {}
 
 InputMethodSettings::~InputMethodSettings() = default;
-InputMethodSettings::InputMethodSettings(InputMethodSettings&& rhs) = default;
-InputMethodSettings& InputMethodSettings::operator=(InputMethodSettings&& rhs) = default;
+InputMethodSettings::InputMethodSettings(InputMethodSettings&& rhs) noexcept = default;
+InputMethodSettings& InputMethodSettings::operator=(InputMethodSettings&& rhs) noexcept = default;
 InputMethodSettings InputMethodSettings::Clone() const {
   InputMethodSettings out;
   out.enable_completion = enable_completion;
@@ -1133,7 +1095,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*enable_completion_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enable_completion = absl::nullopt;
+        out.enable_completion = std::nullopt;
         return false;
       }
       out.enable_completion = *temp;
@@ -1145,7 +1107,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*enable_double_space_period_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enable_double_space_period = absl::nullopt;
+        out.enable_double_space_period = std::nullopt;
         return false;
       }
       out.enable_double_space_period = *temp;
@@ -1157,7 +1119,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*enable_gesture_typing_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enable_gesture_typing = absl::nullopt;
+        out.enable_gesture_typing = std::nullopt;
         return false;
       }
       out.enable_gesture_typing = *temp;
@@ -1169,7 +1131,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*enable_prediction_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enable_prediction = absl::nullopt;
+        out.enable_prediction = std::nullopt;
         return false;
       }
       out.enable_prediction = *temp;
@@ -1181,7 +1143,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*enable_sound_on_keypress_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enable_sound_on_keypress = absl::nullopt;
+        out.enable_sound_on_keypress = std::nullopt;
         return false;
       }
       out.enable_sound_on_keypress = *temp;
@@ -1193,7 +1155,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*physical_keyboard_auto_correction_enabled_by_default_value).GetIfBool();
       if (!temp.has_value()) {
-        out.physical_keyboard_auto_correction_enabled_by_default = absl::nullopt;
+        out.physical_keyboard_auto_correction_enabled_by_default = std::nullopt;
         return false;
       }
       out.physical_keyboard_auto_correction_enabled_by_default = *temp;
@@ -1205,7 +1167,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*physical_keyboard_auto_correction_level_value).GetIfInt();
       if (!temp.has_value()) {
-        out.physical_keyboard_auto_correction_level = absl::nullopt;
+        out.physical_keyboard_auto_correction_level = std::nullopt;
         return false;
       }
       out.physical_keyboard_auto_correction_level = *temp;
@@ -1217,7 +1179,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*physical_keyboard_enable_capitalization_value).GetIfBool();
       if (!temp.has_value()) {
-        out.physical_keyboard_enable_capitalization = absl::nullopt;
+        out.physical_keyboard_enable_capitalization = std::nullopt;
         return false;
       }
       out.physical_keyboard_enable_capitalization = *temp;
@@ -1229,7 +1191,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*physical_keyboard_enable_diacritics_on_longpress_value).GetIfBool();
       if (!temp.has_value()) {
-        out.physical_keyboard_enable_diacritics_on_longpress = absl::nullopt;
+        out.physical_keyboard_enable_diacritics_on_longpress = std::nullopt;
         return false;
       }
       out.physical_keyboard_enable_diacritics_on_longpress = *temp;
@@ -1241,7 +1203,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*physical_keyboard_enable_predictive_writing_value).GetIfBool();
       if (!temp.has_value()) {
-        out.physical_keyboard_enable_predictive_writing = absl::nullopt;
+        out.physical_keyboard_enable_predictive_writing = std::nullopt;
         return false;
       }
       out.physical_keyboard_enable_predictive_writing = *temp;
@@ -1253,7 +1215,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*virtual_keyboard_auto_correction_level_value).GetIfInt();
       if (!temp.has_value()) {
-        out.virtual_keyboard_auto_correction_level = absl::nullopt;
+        out.virtual_keyboard_auto_correction_level = std::nullopt;
         return false;
       }
       out.virtual_keyboard_auto_correction_level = *temp;
@@ -1265,7 +1227,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*virtual_keyboard_enable_capitalization_value).GetIfBool();
       if (!temp.has_value()) {
-        out.virtual_keyboard_enable_capitalization = absl::nullopt;
+        out.virtual_keyboard_enable_capitalization = std::nullopt;
         return false;
       }
       out.virtual_keyboard_enable_capitalization = *temp;
@@ -1277,7 +1239,7 @@ bool InputMethodSettings::Populate(
     {
       auto* temp = (*xkb_layout_value).GetIfString();
       if (!temp) {
-        out.xkb_layout = absl::nullopt;
+        out.xkb_layout = std::nullopt;
         return false;
       }
       out.xkb_layout = *temp;
@@ -1289,7 +1251,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*korean_enable_syllable_input_value).GetIfBool();
       if (!temp.has_value()) {
-        out.korean_enable_syllable_input = absl::nullopt;
+        out.korean_enable_syllable_input = std::nullopt;
         return false;
       }
       out.korean_enable_syllable_input = *temp;
@@ -1301,7 +1263,7 @@ bool InputMethodSettings::Populate(
     {
       auto* temp = (*korean_keyboard_layout_value).GetIfString();
       if (!temp) {
-        out.korean_keyboard_layout = absl::nullopt;
+        out.korean_keyboard_layout = std::nullopt;
         return false;
       }
       out.korean_keyboard_layout = *temp;
@@ -1313,7 +1275,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*korean_show_hangul_candidate_value).GetIfBool();
       if (!temp.has_value()) {
-        out.korean_show_hangul_candidate = absl::nullopt;
+        out.korean_show_hangul_candidate = std::nullopt;
         return false;
       }
       out.korean_show_hangul_candidate = *temp;
@@ -1325,7 +1287,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*pinyin_chinese_punctuation_value).GetIfBool();
       if (!temp.has_value()) {
-        out.pinyin_chinese_punctuation = absl::nullopt;
+        out.pinyin_chinese_punctuation = std::nullopt;
         return false;
       }
       out.pinyin_chinese_punctuation = *temp;
@@ -1337,7 +1299,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*pinyin_default_chinese_value).GetIfBool();
       if (!temp.has_value()) {
-        out.pinyin_default_chinese = absl::nullopt;
+        out.pinyin_default_chinese = std::nullopt;
         return false;
       }
       out.pinyin_default_chinese = *temp;
@@ -1349,7 +1311,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*pinyin_enable_fuzzy_value).GetIfBool();
       if (!temp.has_value()) {
-        out.pinyin_enable_fuzzy = absl::nullopt;
+        out.pinyin_enable_fuzzy = std::nullopt;
         return false;
       }
       out.pinyin_enable_fuzzy = *temp;
@@ -1361,7 +1323,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*pinyin_enable_lower_paging_value).GetIfBool();
       if (!temp.has_value()) {
-        out.pinyin_enable_lower_paging = absl::nullopt;
+        out.pinyin_enable_lower_paging = std::nullopt;
         return false;
       }
       out.pinyin_enable_lower_paging = *temp;
@@ -1373,7 +1335,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*pinyin_enable_upper_paging_value).GetIfBool();
       if (!temp.has_value()) {
-        out.pinyin_enable_upper_paging = absl::nullopt;
+        out.pinyin_enable_upper_paging = std::nullopt;
         return false;
       }
       out.pinyin_enable_upper_paging = *temp;
@@ -1385,7 +1347,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*pinyin_full_width_character_value).GetIfBool();
       if (!temp.has_value()) {
-        out.pinyin_full_width_character = absl::nullopt;
+        out.pinyin_full_width_character = std::nullopt;
         return false;
       }
       out.pinyin_full_width_character = *temp;
@@ -1412,7 +1374,7 @@ bool InputMethodSettings::Populate(
     {
       auto* temp = (*zhuyin_keyboard_layout_value).GetIfString();
       if (!temp) {
-        out.zhuyin_keyboard_layout = absl::nullopt;
+        out.zhuyin_keyboard_layout = std::nullopt;
         return false;
       }
       out.zhuyin_keyboard_layout = *temp;
@@ -1424,7 +1386,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*zhuyin_page_size_value).GetIfInt();
       if (!temp.has_value()) {
-        out.zhuyin_page_size = absl::nullopt;
+        out.zhuyin_page_size = std::nullopt;
         return false;
       }
       out.zhuyin_page_size = *temp;
@@ -1436,7 +1398,7 @@ bool InputMethodSettings::Populate(
     {
       auto* temp = (*zhuyin_select_keys_value).GetIfString();
       if (!temp) {
-        out.zhuyin_select_keys = absl::nullopt;
+        out.zhuyin_select_keys = std::nullopt;
         return false;
       }
       out.zhuyin_select_keys = *temp;
@@ -1448,7 +1410,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*vietnamese_vni_allow_flexible_diacritics_value).GetIfBool();
       if (!temp.has_value()) {
-        out.vietnamese_vni_allow_flexible_diacritics = absl::nullopt;
+        out.vietnamese_vni_allow_flexible_diacritics = std::nullopt;
         return false;
       }
       out.vietnamese_vni_allow_flexible_diacritics = *temp;
@@ -1460,7 +1422,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*vietnamese_vni_new_style_tone_mark_placement_value).GetIfBool();
       if (!temp.has_value()) {
-        out.vietnamese_vni_new_style_tone_mark_placement = absl::nullopt;
+        out.vietnamese_vni_new_style_tone_mark_placement = std::nullopt;
         return false;
       }
       out.vietnamese_vni_new_style_tone_mark_placement = *temp;
@@ -1472,7 +1434,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*vietnamese_vni_insert_double_horn_on_uo_value).GetIfBool();
       if (!temp.has_value()) {
-        out.vietnamese_vni_insert_double_horn_on_uo = absl::nullopt;
+        out.vietnamese_vni_insert_double_horn_on_uo = std::nullopt;
         return false;
       }
       out.vietnamese_vni_insert_double_horn_on_uo = *temp;
@@ -1484,7 +1446,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*vietnamese_vni_show_underline_value).GetIfBool();
       if (!temp.has_value()) {
-        out.vietnamese_vni_show_underline = absl::nullopt;
+        out.vietnamese_vni_show_underline = std::nullopt;
         return false;
       }
       out.vietnamese_vni_show_underline = *temp;
@@ -1496,7 +1458,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*vietnamese_telex_allow_flexible_diacritics_value).GetIfBool();
       if (!temp.has_value()) {
-        out.vietnamese_telex_allow_flexible_diacritics = absl::nullopt;
+        out.vietnamese_telex_allow_flexible_diacritics = std::nullopt;
         return false;
       }
       out.vietnamese_telex_allow_flexible_diacritics = *temp;
@@ -1508,7 +1470,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*vietnamese_telex_new_style_tone_mark_placement_value).GetIfBool();
       if (!temp.has_value()) {
-        out.vietnamese_telex_new_style_tone_mark_placement = absl::nullopt;
+        out.vietnamese_telex_new_style_tone_mark_placement = std::nullopt;
         return false;
       }
       out.vietnamese_telex_new_style_tone_mark_placement = *temp;
@@ -1520,7 +1482,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*vietnamese_telex_insert_double_horn_on_uo_value).GetIfBool();
       if (!temp.has_value()) {
-        out.vietnamese_telex_insert_double_horn_on_uo = absl::nullopt;
+        out.vietnamese_telex_insert_double_horn_on_uo = std::nullopt;
         return false;
       }
       out.vietnamese_telex_insert_double_horn_on_uo = *temp;
@@ -1532,7 +1494,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*vietnamese_telex_insert_u_horn_on_w_value).GetIfBool();
       if (!temp.has_value()) {
-        out.vietnamese_telex_insert_u_horn_on_w = absl::nullopt;
+        out.vietnamese_telex_insert_u_horn_on_w = std::nullopt;
         return false;
       }
       out.vietnamese_telex_insert_u_horn_on_w = *temp;
@@ -1544,7 +1506,7 @@ bool InputMethodSettings::Populate(
     {
       auto temp = (*vietnamese_telex_show_underline_value).GetIfBool();
       if (!temp.has_value()) {
-        out.vietnamese_telex_show_underline = absl::nullopt;
+        out.vietnamese_telex_show_underline = std::nullopt;
         return false;
       }
       out.vietnamese_telex_show_underline = *temp;
@@ -1564,34 +1526,21 @@ bool InputMethodSettings::Populate(
 }
 
 // static
-std::unique_ptr<InputMethodSettings> InputMethodSettings::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InputMethodSettings>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InputMethodSettings> InputMethodSettings::FromValue(const base::Value::Dict& value) {
+  InputMethodSettings out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InputMethodSettings> InputMethodSettings::FromValue(const base::Value::Dict& value) {
+std::optional<InputMethodSettings> InputMethodSettings::FromValue(const base::Value& value) {
   InputMethodSettings out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InputMethodSettings> InputMethodSettings::FromValue(const base::Value& value) {
-  InputMethodSettings out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1756,8 +1705,8 @@ Results::Config::Config()
 is_ime_menu_activated(false) {}
 
 Results::Config::~Config() = default;
-Results::Config::Config(Config&& rhs) = default;
-Results::Config& Results::Config::operator=(Config&& rhs) = default;
+Results::Config::Config(Config&& rhs) noexcept = default;
+Results::Config& Results::Config::operator=(Config&& rhs) noexcept = default;
 base::Value::Dict Results::Config::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1785,8 +1734,8 @@ Results::InputMethodsType::InputMethodsType()
  {}
 
 Results::InputMethodsType::~InputMethodsType() = default;
-Results::InputMethodsType::InputMethodsType(InputMethodsType&& rhs) = default;
-Results::InputMethodsType& Results::InputMethodsType::operator=(InputMethodsType&& rhs) = default;
+Results::InputMethodsType::InputMethodsType(InputMethodsType&& rhs) noexcept = default;
+Results::InputMethodsType& Results::InputMethodsType::operator=(InputMethodsType&& rhs) noexcept = default;
 base::Value::Dict Results::InputMethodsType::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1826,13 +1775,13 @@ namespace SetCurrentInputMethod {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1842,13 +1791,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = input_method_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.input_method_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1886,13 +1835,13 @@ namespace AddWordToDictionary {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1902,13 +1851,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = word_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.word = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1926,13 +1875,13 @@ namespace SetXkbLayout {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1942,13 +1891,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = xkb_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.xkb_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1968,8 +1917,8 @@ Params::Parameters::Parameters()
 : context_id(0) {}
 
 Params::Parameters::~Parameters() = default;
-Params::Parameters::Parameters(Parameters&& rhs) = default;
-Params::Parameters& Params::Parameters::operator=(Parameters&& rhs) = default;
+Params::Parameters::Parameters(Parameters&& rhs) noexcept = default;
+Params::Parameters& Params::Parameters::operator=(Parameters&& rhs) noexcept = default;
 Params::Parameters Params::Parameters::Clone() const {
   Parameters out;
   out.context_id = context_id;
@@ -2004,21 +1953,21 @@ bool Params::Parameters::Populate(
 }
 
 // static
-absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value::Dict& value) {
   Parameters out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value& value) {
+std::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value& value) {
   Parameters out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2026,13 +1975,13 @@ absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Val
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2041,15 +1990,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& parameters_value = args[0];
     {
       if (!parameters_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Parameters::Populate(parameters_value.GetDict(), params.parameters)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2085,13 +2034,13 @@ namespace OpenOptionsPage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2101,13 +2050,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = input_method_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.input_method_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2120,13 +2069,13 @@ namespace GetSurroundingText {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2136,13 +2085,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = before_length_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.before_length = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2151,13 +2100,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = after_length_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.after_length = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2168,8 +2117,8 @@ Results::SurroundingInfo::SurroundingInfo()
  {}
 
 Results::SurroundingInfo::~SurroundingInfo() = default;
-Results::SurroundingInfo::SurroundingInfo(SurroundingInfo&& rhs) = default;
-Results::SurroundingInfo& Results::SurroundingInfo::operator=(SurroundingInfo&& rhs) = default;
+Results::SurroundingInfo::SurroundingInfo(SurroundingInfo&& rhs) noexcept = default;
+Results::SurroundingInfo& Results::SurroundingInfo::operator=(SurroundingInfo&& rhs) noexcept = default;
 base::Value::Dict Results::SurroundingInfo::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -2197,13 +2146,13 @@ namespace GetSettings {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2213,13 +2162,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = engine_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.engine_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2239,13 +2188,13 @@ namespace SetSettings {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2255,13 +2204,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = engine_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.engine_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2269,15 +2218,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& settings_value = args[1];
     {
       if (!settings_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!InputMethodSettings::Populate(settings_value.GetDict(), params.settings)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2299,8 +2248,8 @@ end(0),
 style() {}
 
 Params::Parameters::SegmentsType::~SegmentsType() = default;
-Params::Parameters::SegmentsType::SegmentsType(SegmentsType&& rhs) = default;
-Params::Parameters::SegmentsType& Params::Parameters::SegmentsType::operator=(SegmentsType&& rhs) = default;
+Params::Parameters::SegmentsType::SegmentsType(SegmentsType&& rhs) noexcept = default;
+Params::Parameters::SegmentsType& Params::Parameters::SegmentsType::operator=(SegmentsType&& rhs) noexcept = default;
 Params::Parameters::SegmentsType Params::Parameters::SegmentsType::Clone() const {
   SegmentsType out;
   out.start = start;
@@ -2364,21 +2313,21 @@ bool Params::Parameters::SegmentsType::Populate(
 }
 
 // static
-absl::optional<Params::Parameters::SegmentsType> Params::Parameters::SegmentsType::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Parameters::SegmentsType> Params::Parameters::SegmentsType::FromValue(const base::Value::Dict& value) {
   SegmentsType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Parameters::SegmentsType> Params::Parameters::SegmentsType::FromValue(const base::Value& value) {
+std::optional<Params::Parameters::SegmentsType> Params::Parameters::SegmentsType::FromValue(const base::Value& value) {
   SegmentsType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2392,8 +2341,8 @@ selection_before(0),
 selection_after(0) {}
 
 Params::Parameters::~Parameters() = default;
-Params::Parameters::Parameters(Parameters&& rhs) = default;
-Params::Parameters& Params::Parameters::operator=(Parameters&& rhs) = default;
+Params::Parameters::Parameters(Parameters&& rhs) noexcept = default;
+Params::Parameters& Params::Parameters::operator=(Parameters&& rhs) noexcept = default;
 Params::Parameters Params::Parameters::Clone() const {
   Parameters out;
   out.context_id = context_id;
@@ -2475,21 +2424,21 @@ bool Params::Parameters::Populate(
 }
 
 // static
-absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value::Dict& value) {
   Parameters out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value& value) {
+std::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value& value) {
   Parameters out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2497,13 +2446,13 @@ absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Val
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2512,15 +2461,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& parameters_value = args[0];
     {
       if (!parameters_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Parameters::Populate(parameters_value.GetDict(), params.parameters)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2547,8 +2496,8 @@ Params::Parameters::Parameters()
 start_index(0) {}
 
 Params::Parameters::~Parameters() = default;
-Params::Parameters::Parameters(Parameters&& rhs) = default;
-Params::Parameters& Params::Parameters::operator=(Parameters&& rhs) = default;
+Params::Parameters::Parameters(Parameters&& rhs) noexcept = default;
+Params::Parameters& Params::Parameters::operator=(Parameters&& rhs) noexcept = default;
 Params::Parameters Params::Parameters::Clone() const {
   Parameters out;
   out.context_id = context_id;
@@ -2622,21 +2571,21 @@ bool Params::Parameters::Populate(
 }
 
 // static
-absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value::Dict& value) {
   Parameters out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value& value) {
+std::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value& value) {
   Parameters out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2644,13 +2593,13 @@ absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Val
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2659,15 +2608,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& parameters_value = args[0];
     {
       if (!parameters_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Parameters::Populate(parameters_value.GetDict(), params.parameters)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2675,134 +2624,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 
 
 }  // namespace OnAutocorrect
-
-namespace GetTextFieldBounds {
-
-Params::Parameters::Parameters()
-: context_id(0) {}
-
-Params::Parameters::~Parameters() = default;
-Params::Parameters::Parameters(Parameters&& rhs) = default;
-Params::Parameters& Params::Parameters::operator=(Parameters&& rhs) = default;
-Params::Parameters Params::Parameters::Clone() const {
-  Parameters out;
-  out.context_id = context_id;
-  return out;
-}
-
-// static
-bool Params::Parameters::Populate(
-    const base::Value::Dict& dict, Parameters& out) {
-  const base::Value* context_id_value = dict.Find("contextID");
-  if (!context_id_value) {
-    return false;
-  }
-  {
-    auto temp = (*context_id_value).GetIfInt();
-    if (!temp.has_value()) {
-      return false;
-    }
-    out.context_id = *temp;
-  }
-
-  return true;
-}
-
-// static
-bool Params::Parameters::Populate(
-    const base::Value& value, Parameters& out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  return Populate(value.GetDict(), out);
-}
-
-// static
-absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value::Dict& value) {
-  Parameters out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Params::Parameters> Params::Parameters::FromValue(const base::Value& value) {
-  Parameters out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-
-Params::Params() = default;
-Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
-
-// static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return absl::nullopt;
-  }
-  Params params;
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& parameters_value = args[0];
-    {
-      if (!parameters_value.is_dict()) {
-        return absl::nullopt;
-      }
-      if (!Parameters::Populate(parameters_value.GetDict(), params.parameters)) {
-        return absl::nullopt;
-      }
-    }
-  }
-  else {
-    return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-Results::TextFieldBounds::TextFieldBounds()
-: x(0),
-y(0),
-width(0),
-height(0) {}
-
-Results::TextFieldBounds::~TextFieldBounds() = default;
-Results::TextFieldBounds::TextFieldBounds(TextFieldBounds&& rhs) = default;
-Results::TextFieldBounds& Results::TextFieldBounds::operator=(TextFieldBounds&& rhs) = default;
-base::Value::Dict Results::TextFieldBounds::ToValue() const {
-  base::Value::Dict to_value_result;
-
-  to_value_result.Set("x", this->x);
-
-  to_value_result.Set("y", this->y);
-
-  to_value_result.Set("width", this->width);
-
-  to_value_result.Set("height", this->height);
-
-
-  return to_value_result;
-}
-
-
-base::Value::List Results::Create(const TextFieldBounds& text_field_bounds) {
-  base::Value::List create_results;
-  create_results.reserve(1);
-  create_results.Append((text_field_bounds).ToValue());
-
-  return create_results;
-}
-}  // namespace GetTextFieldBounds
 
 namespace NotifyInputMethodReadyForTesting {
 
@@ -2812,13 +2633,13 @@ namespace GetLanguagePackStatus {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2828,13 +2649,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = input_method_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.input_method_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2865,8 +2686,8 @@ w(0),
 h(0) {}
 
 CaretBounds::~CaretBounds() = default;
-CaretBounds::CaretBounds(CaretBounds&& rhs) = default;
-CaretBounds& CaretBounds::operator=(CaretBounds&& rhs) = default;
+CaretBounds::CaretBounds(CaretBounds&& rhs) noexcept = default;
+CaretBounds& CaretBounds::operator=(CaretBounds&& rhs) noexcept = default;
 base::Value::Dict CaretBounds::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -2990,20 +2811,6 @@ base::Value::List Create(const InputContext& context) {
 }
 
 }  // namespace OnFocus
-
-namespace OnTouch {
-
-const char kEventName[] = "inputMethodPrivate.onTouch";
-
-base::Value::List Create(const FocusReason& pointer_type) {
-  base::Value::List create_results;
-  create_results.reserve(1);
-  create_results.Append(input_method_private::ToString(pointer_type));
-
-  return create_results;
-}
-
-}  // namespace OnTouch
 
 namespace OnSettingsChanged {
 

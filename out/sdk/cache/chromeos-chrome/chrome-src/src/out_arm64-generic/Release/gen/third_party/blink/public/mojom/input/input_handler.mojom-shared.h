@@ -98,8 +98,6 @@ class EditCommandDataView;
 
 class SelectAroundCaretResultDataView;
 
-class ScrollResultDataDataView;
-
 
 
 }  // blink::mojom
@@ -243,13 +241,6 @@ struct MojomTypeTraits<::blink::mojom::EditCommandDataView> {
 template <>
 struct MojomTypeTraits<::blink::mojom::SelectAroundCaretResultDataView> {
   using Data = ::blink::mojom::internal::SelectAroundCaretResult_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::blink::mojom::ScrollResultDataDataView> {
-  using Data = ::blink::mojom::internal::ScrollResultData_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -1432,42 +1423,6 @@ class SelectAroundCaretResultDataView {
 };
 
 
-class ScrollResultDataDataView {
- public:
-  ScrollResultDataDataView() = default;
-
-  ScrollResultDataDataView(
-      internal::ScrollResultData_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetRootScrollOffsetDataView(
-      ::gfx::mojom::PointFDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadRootScrollOffset(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::gfx::mojom::PointFDataView, UserType>(),
-    "Attempting to read the optional `root_scroll_offset` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadRootScrollOffset` instead "
-    "of `ReadRootScrollOffset if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->root_scroll_offset.Get();
-    return mojo::internal::Deserialize<::gfx::mojom::PointFDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::ScrollResultData_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 }  // blink::mojom
 
 namespace std {
@@ -2550,43 +2505,6 @@ struct Serializer<::blink::mojom::SelectAroundCaretResultDataView, MaybeConstUse
 
 }  // namespace internal
 
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::ScrollResultDataDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::ScrollResultDataDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::ScrollResultData_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    decltype(Traits::root_scroll_offset(input)) in_root_scroll_offset = Traits::root_scroll_offset(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->root_scroll_offset)::BaseType> root_scroll_offset_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::gfx::mojom::PointFDataView>(
-        in_root_scroll_offset, root_scroll_offset_fragment);
-    fragment->root_scroll_offset.Set(
-        root_scroll_offset_fragment.is_null() ? nullptr : root_scroll_offset_fragment.data());
-  }
-
-  static bool Deserialize(::blink::mojom::internal::ScrollResultData_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::blink::mojom::ScrollResultDataDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
 }  // namespace mojo
 
 
@@ -2795,13 +2713,6 @@ inline void EditCommandDataView::GetValueDataView(
 }
 
 
-
-
-inline void ScrollResultDataDataView::GetRootScrollOffsetDataView(
-    ::gfx::mojom::PointFDataView* output) {
-  auto pointer = data_->root_scroll_offset.Get();
-  *output = ::gfx::mojom::PointFDataView(pointer, message_);
-}
 
 
 

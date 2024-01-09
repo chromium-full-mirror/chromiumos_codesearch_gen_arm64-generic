@@ -82,6 +82,10 @@ NOINLINE static const char* Operand_DataTypeToStringHelper(Operand_DataType valu
       return "kInt32";
     case Operand_DataType::kUint32:
       return "kUint32";
+    case Operand_DataType::kInt64:
+      return "kInt64";
+    case Operand_DataType::kUint64:
+      return "kUint64";
     case Operand_DataType::kInt8:
       return "kInt8";
     case Operand_DataType::kUint8:
@@ -129,6 +133,54 @@ std::ostream& operator<<(std::ostream& os, Operand_Kind value) {
   return os << Operand_KindToString(value);
 }
 
+NOINLINE static const char* ArgMinMax_KindToStringHelper(ArgMinMax_Kind value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ArgMinMax_Kind::kMin:
+      return "kMin";
+    case ArgMinMax_Kind::kMax:
+      return "kMax";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ArgMinMax_KindToString(ArgMinMax_Kind value) {
+  const char *str = ArgMinMax_KindToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ArgMinMax_Kind value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ArgMinMax_Kind value) {
+  return os << ArgMinMax_KindToString(value);
+}
+
+NOINLINE static const char* Conv2d_TypeToStringHelper(Conv2d_Type value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Conv2d_Type::kDirect:
+      return "kDirect";
+    case Conv2d_Type::kTransposed:
+      return "kTransposed";
+    default:
+      return nullptr;
+  }
+}
+
+std::string Conv2d_TypeToString(Conv2d_Type value) {
+  const char *str = Conv2d_TypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Conv2d_Type value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Conv2d_Type value) {
+  return os << Conv2d_TypeToString(value);
+}
+
 NOINLINE static const char* ElementWiseBinary_KindToStringHelper(ElementWiseBinary_Kind value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -146,6 +198,16 @@ NOINLINE static const char* ElementWiseBinary_KindToStringHelper(ElementWiseBina
       return "kMin";
     case ElementWiseBinary_Kind::kPow:
       return "kPow";
+    case ElementWiseBinary_Kind::kEqual:
+      return "kEqual";
+    case ElementWiseBinary_Kind::kGreater:
+      return "kGreater";
+    case ElementWiseBinary_Kind::kGreaterOrEqual:
+      return "kGreaterOrEqual";
+    case ElementWiseBinary_Kind::kLesser:
+      return "kLesser";
+    case ElementWiseBinary_Kind::kLesserOrEqual:
+      return "kLesserOrEqual";
     default:
       return nullptr;
   }
@@ -161,6 +223,96 @@ std::string ElementWiseBinary_KindToString(ElementWiseBinary_Kind value) {
 
 std::ostream& operator<<(std::ostream& os, ElementWiseBinary_Kind value) {
   return os << ElementWiseBinary_KindToString(value);
+}
+
+NOINLINE static const char* ElementWiseUnary_KindToStringHelper(ElementWiseUnary_Kind value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ElementWiseUnary_Kind::kAbs:
+      return "kAbs";
+    case ElementWiseUnary_Kind::kCeil:
+      return "kCeil";
+    case ElementWiseUnary_Kind::kCos:
+      return "kCos";
+    case ElementWiseUnary_Kind::kExp:
+      return "kExp";
+    case ElementWiseUnary_Kind::kFloor:
+      return "kFloor";
+    case ElementWiseUnary_Kind::kLog:
+      return "kLog";
+    case ElementWiseUnary_Kind::kNeg:
+      return "kNeg";
+    case ElementWiseUnary_Kind::kSin:
+      return "kSin";
+    case ElementWiseUnary_Kind::kTan:
+      return "kTan";
+    case ElementWiseUnary_Kind::kLogicalNot:
+      return "kLogicalNot";
+    case ElementWiseUnary_Kind::kIdentity:
+      return "kIdentity";
+    case ElementWiseUnary_Kind::kSqrt:
+      return "kSqrt";
+    case ElementWiseUnary_Kind::kErf:
+      return "kErf";
+    case ElementWiseUnary_Kind::kReciprocal:
+      return "kReciprocal";
+    case ElementWiseUnary_Kind::kCast:
+      return "kCast";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ElementWiseUnary_KindToString(ElementWiseUnary_Kind value) {
+  const char *str = ElementWiseUnary_KindToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ElementWiseUnary_Kind value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ElementWiseUnary_Kind value) {
+  return os << ElementWiseUnary_KindToString(value);
+}
+
+NOINLINE static const char* Reduce_KindToStringHelper(Reduce_Kind value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Reduce_Kind::kL1:
+      return "kL1";
+    case Reduce_Kind::kL2:
+      return "kL2";
+    case Reduce_Kind::kLogSum:
+      return "kLogSum";
+    case Reduce_Kind::kLogSumExp:
+      return "kLogSumExp";
+    case Reduce_Kind::kMax:
+      return "kMax";
+    case Reduce_Kind::kMean:
+      return "kMean";
+    case Reduce_Kind::kMin:
+      return "kMin";
+    case Reduce_Kind::kProduct:
+      return "kProduct";
+    case Reduce_Kind::kSum:
+      return "kSum";
+    case Reduce_Kind::kSumSquare:
+      return "kSumSquare";
+    default:
+      return nullptr;
+  }
+}
+
+std::string Reduce_KindToString(Reduce_Kind value) {
+  const char *str = Reduce_KindToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Reduce_Kind value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Reduce_Kind value) {
+  return os << Reduce_KindToString(value);
 }
 
 NOINLINE static const char* Pool2d_KindToStringHelper(Pool2d_Kind value) {
@@ -326,10 +478,40 @@ bool Activation_Data::Validate(
         return false;
       return true;
     }
+    case Activation_Tag::kElu: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_elu, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_elu, validation_context))
+        return false;
+      return true;
+    }
+    case Activation_Tag::kLeakyRelu: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_leaky_relu, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_leaky_relu, validation_context))
+        return false;
+      return true;
+    }
+    case Activation_Tag::kLinear: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_linear, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_linear, validation_context))
+        return false;
+      return true;
+    }
     case Activation_Tag::kRelu: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_relu, 2, validation_context)) {
+              object->data.f_relu, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_relu, validation_context))
@@ -339,7 +521,7 @@ bool Activation_Data::Validate(
     case Activation_Tag::kSigmoid: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_sigmoid, 3, validation_context)) {
+              object->data.f_sigmoid, 6, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_sigmoid, validation_context))
@@ -349,17 +531,27 @@ bool Activation_Data::Validate(
     case Activation_Tag::kSoftmax: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_softmax, 4, validation_context)) {
+              object->data.f_softmax, 7, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_softmax, validation_context))
         return false;
       return true;
     }
+    case Activation_Tag::kSoftplus: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_softplus, 8, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_softplus, validation_context))
+        return false;
+      return true;
+    }
     case Activation_Tag::kTanh: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_tanh, 5, validation_context)) {
+              object->data.f_tanh, 9, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_tanh, validation_context))
@@ -403,10 +595,30 @@ bool Operation_Data::Validate(
 
   switch (object->tag) {
 
+    case Operation_Tag::kArgMinMax: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_arg_min_max, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_arg_min_max, validation_context))
+        return false;
+      return true;
+    }
+    case Operation_Tag::kBatchNormalization: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_batch_normalization, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_batch_normalization, validation_context))
+        return false;
+      return true;
+    }
     case Operation_Tag::kClamp: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_clamp, 1, validation_context)) {
+              object->data.f_clamp, 3, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_clamp, validation_context))
@@ -416,7 +628,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kConcat: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_concat, 2, validation_context)) {
+              object->data.f_concat, 4, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_concat, validation_context))
@@ -426,7 +638,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kConv2d: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_conv2d, 3, validation_context)) {
+              object->data.f_conv2d, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_conv2d, validation_context))
@@ -436,27 +648,117 @@ bool Operation_Data::Validate(
     case Operation_Tag::kElementWiseBinary: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_element_wise_binary, 4, validation_context)) {
+              object->data.f_element_wise_binary, 6, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_element_wise_binary, validation_context))
         return false;
       return true;
     }
+    case Operation_Tag::kElu: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_elu, 7, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_elu, validation_context))
+        return false;
+      return true;
+    }
+    case Operation_Tag::kElementWiseUnary: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_element_wise_unary, 8, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_element_wise_unary, validation_context))
+        return false;
+      return true;
+    }
+    case Operation_Tag::kExpand: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_expand, 9, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_expand, validation_context))
+        return false;
+      return true;
+    }
+    case Operation_Tag::kGather: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_gather, 10, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_gather, validation_context))
+        return false;
+      return true;
+    }
     case Operation_Tag::kGemm: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_gemm, 5, validation_context)) {
+              object->data.f_gemm, 11, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_gemm, validation_context))
         return false;
       return true;
     }
+    case Operation_Tag::kLayerNormalization: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_layer_normalization, 12, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_layer_normalization, validation_context))
+        return false;
+      return true;
+    }
+    case Operation_Tag::kInstanceNormalization: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_instance_normalization, 13, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_instance_normalization, validation_context))
+        return false;
+      return true;
+    }
+    case Operation_Tag::kLeakyRelu: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_leaky_relu, 14, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_leaky_relu, validation_context))
+        return false;
+      return true;
+    }
+    case Operation_Tag::kLinear: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_linear, 15, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_linear, validation_context))
+        return false;
+      return true;
+    }
+    case Operation_Tag::kMatmul: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_matmul, 16, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_matmul, validation_context))
+        return false;
+      return true;
+    }
     case Operation_Tag::kPad: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_pad, 6, validation_context)) {
+              object->data.f_pad, 17, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_pad, validation_context))
@@ -466,7 +768,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kPool2d: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_pool2d, 7, validation_context)) {
+              object->data.f_pool2d, 18, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_pool2d, validation_context))
@@ -476,17 +778,27 @@ bool Operation_Data::Validate(
     case Operation_Tag::kPrelu: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_prelu, 8, validation_context)) {
+              object->data.f_prelu, 19, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_prelu, validation_context))
         return false;
       return true;
     }
+    case Operation_Tag::kReduce: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_reduce, 20, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_reduce, validation_context))
+        return false;
+      return true;
+    }
     case Operation_Tag::kRelu: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_relu, 9, validation_context)) {
+              object->data.f_relu, 21, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_relu, validation_context))
@@ -496,7 +808,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kResample2d: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_resample2d, 10, validation_context)) {
+              object->data.f_resample2d, 22, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_resample2d, validation_context))
@@ -506,7 +818,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kReshape: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_reshape, 11, validation_context)) {
+              object->data.f_reshape, 23, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_reshape, validation_context))
@@ -516,7 +828,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSigmoid: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_sigmoid, 12, validation_context)) {
+              object->data.f_sigmoid, 24, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_sigmoid, validation_context))
@@ -526,7 +838,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSlice: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_slice, 13, validation_context)) {
+              object->data.f_slice, 25, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_slice, validation_context))
@@ -536,17 +848,27 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSoftmax: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_softmax, 14, validation_context)) {
+              object->data.f_softmax, 26, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_softmax, validation_context))
         return false;
       return true;
     }
+    case Operation_Tag::kSoftplus: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_softplus, 27, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_softplus, validation_context))
+        return false;
+      return true;
+    }
     case Operation_Tag::kSplit: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_split, 15, validation_context)) {
+              object->data.f_split, 28, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_split, validation_context))
@@ -556,7 +878,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kTanh: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_tanh, 16, validation_context)) {
+              object->data.f_tanh, 29, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_tanh, validation_context))
@@ -566,10 +888,20 @@ bool Operation_Data::Validate(
     case Operation_Tag::kTranspose: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_transpose, 17, validation_context)) {
+              object->data.f_transpose, 30, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_transpose, validation_context))
+        return false;
+      return true;
+    }
+    case Operation_Tag::kWhere: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_where, 31, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_where, validation_context))
         return false;
       return true;
     }
@@ -633,6 +965,71 @@ bool Operand_Data::Validate(
 }
 
 Operand_Data::Operand_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ArgMinMax_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ArgMinMax_Data* object =
+      static_cast<const ArgMinMax_Data*>(data);
+
+
+  if (!::webnn::mojom::internal::ArgMinMax_Kind_Data
+        ::Validate(object->kind, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->axes, 4, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& axes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->axes, validation_context,
+                                         &axes_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+ArgMinMax_Data::ArgMinMax_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BatchNormalization_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 88, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BatchNormalization_Data* object =
+      static_cast<const BatchNormalization_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnion(object->activation, validation_context))
+    return false;
+
+  return true;
+}
+
+BatchNormalization_Data::BatchNormalization_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -769,22 +1166,27 @@ bool Conv2d_Data::Validate(
   [[maybe_unused]] const Conv2d_Data* object =
       static_cast<const Conv2d_Data*>(data);
 
+
+  if (!::webnn::mojom::internal::Conv2d_Type_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->padding, 4, validation_context)) {
+          object->padding, 5, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->padding, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->strides, 5, validation_context)) {
+          object->strides, 6, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->strides, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->dilations, 6, validation_context)) {
+          object->dilations, 7, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->dilations, validation_context))
@@ -830,6 +1232,57 @@ bool ElementWiseBinary_Data::Validate(
 }
 
 ElementWiseBinary_Data::ElementWiseBinary_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ElementWiseUnary_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ElementWiseUnary_Data* object =
+      static_cast<const ElementWiseUnary_Data*>(data);
+
+
+  if (!::webnn::mojom::internal::ElementWiseUnary_Kind_Data
+        ::Validate(object->kind, validation_context))
+    return false;
+
+  return true;
+}
+
+ElementWiseUnary_Data::ElementWiseUnary_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Expand_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Expand_Data* object =
+      static_cast<const Expand_Data*>(data);
+
+  return true;
+}
+
+Expand_Data::Expand_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -926,6 +1379,57 @@ SymmetricPadding_Data::SymmetricPadding_Data()
 
 
 // static
+bool InstanceNormalization_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 56, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const InstanceNormalization_Data* object =
+      static_cast<const InstanceNormalization_Data*>(data);
+
+
+  if (!::webnn::mojom::internal::InputOperandLayout_Data
+        ::Validate(object->layout, validation_context))
+    return false;
+
+  return true;
+}
+
+InstanceNormalization_Data::InstanceNormalization_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Matmul_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Matmul_Data* object =
+      static_cast<const Matmul_Data*>(data);
+
+  return true;
+}
+
+Matmul_Data::Matmul_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Pad_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -974,6 +1478,45 @@ bool Pad_Data::Validate(
 }
 
 Pad_Data::Pad_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Reduce_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Reduce_Data* object =
+      static_cast<const Reduce_Data*>(data);
+
+
+  if (!::webnn::mojom::internal::Reduce_Kind_Data
+        ::Validate(object->kind, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->axes, 4, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& axes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->axes, validation_context,
+                                         &axes_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Reduce_Data::Reduce_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1096,6 +1639,52 @@ Slice_Data::Slice_Data()
 
 
 // static
+bool Elu_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Elu_Data* object =
+      static_cast<const Elu_Data*>(data);
+
+  return true;
+}
+
+Elu_Data::Elu_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Gather_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Gather_Data* object =
+      static_cast<const Gather_Data*>(data);
+
+  return true;
+}
+
+Gather_Data::Gather_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Gemm_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1115,6 +1704,86 @@ bool Gemm_Data::Validate(
 }
 
 Gemm_Data::Gemm_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LayerNormalization_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 56, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LayerNormalization_Data* object =
+      static_cast<const LayerNormalization_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->axes, 7, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& axes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->axes, validation_context,
+                                         &axes_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+LayerNormalization_Data::LayerNormalization_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LeakyRelu_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LeakyRelu_Data* object =
+      static_cast<const LeakyRelu_Data*>(data);
+
+  return true;
+}
+
+LeakyRelu_Data::LeakyRelu_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Linear_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Linear_Data* object =
+      static_cast<const Linear_Data*>(data);
+
+  return true;
+}
+
+Linear_Data::Linear_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1234,6 +1903,29 @@ Softmax_Data::Softmax_Data()
 
 
 // static
+bool Softplus_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Softplus_Data* object =
+      static_cast<const Softplus_Data*>(data);
+
+  return true;
+}
+
+Softplus_Data::Softplus_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Split_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1331,7 +2023,7 @@ bool Resample2d_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -1345,10 +2037,51 @@ bool Resample2d_Data::Validate(
         ::Validate(object->mode, validation_context))
     return false;
 
+  constexpr const mojo::internal::ContainerValidateParams& scales_validate_params =
+      mojo::internal::GetArrayValidator<2, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->scales, validation_context,
+                                         &scales_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->axes, 5, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& axes_validate_params =
+      mojo::internal::GetArrayValidator<2, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->axes, validation_context,
+                                         &axes_validate_params)) {
+    return false;
+  }
+
   return true;
 }
 
 Resample2d_Data::Resample2d_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Where_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Where_Data* object =
+      static_cast<const Where_Data*>(data);
+
+  return true;
+}
+
+Where_Data::Where_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1545,9 +2278,49 @@ void TraceFormatTraits<::webnn::mojom::Operand_Kind>::WriteIntoTrace(
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::webnn::mojom::ArgMinMax_Kind>::WriteIntoTrace(
+   perfetto::TracedValue context, ::webnn::mojom::ArgMinMax_Kind value) {
+  return std::move(context).WriteString(::webnn::mojom::ArgMinMax_KindToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::webnn::mojom::Conv2d_Type>::WriteIntoTrace(
+   perfetto::TracedValue context, ::webnn::mojom::Conv2d_Type value) {
+  return std::move(context).WriteString(::webnn::mojom::Conv2d_TypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::webnn::mojom::ElementWiseBinary_Kind>::WriteIntoTrace(
    perfetto::TracedValue context, ::webnn::mojom::ElementWiseBinary_Kind value) {
   return std::move(context).WriteString(::webnn::mojom::ElementWiseBinary_KindToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::webnn::mojom::ElementWiseUnary_Kind>::WriteIntoTrace(
+   perfetto::TracedValue context, ::webnn::mojom::ElementWiseUnary_Kind value) {
+  return std::move(context).WriteString(::webnn::mojom::ElementWiseUnary_KindToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::webnn::mojom::Reduce_Kind>::WriteIntoTrace(
+   perfetto::TracedValue context, ::webnn::mojom::Reduce_Kind value) {
+  return std::move(context).WriteString(::webnn::mojom::Reduce_KindToString(value));
 }
 
 } // namespace perfetto

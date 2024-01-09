@@ -91,7 +91,7 @@ class PLATFORM_EXPORT FileSystemManagerInterceptorForTesting : public FileSystem
   void TruncateSync(const ::blink::KURL& file_path, int64_t length, TruncateSyncCallback callback) override;
   void CreateSnapshotFile(const ::blink::KURL& file_path, CreateSnapshotFileCallback callback) override;
   void GetPlatformPath(const ::blink::KURL& file_path, GetPlatformPathCallback callback) override;
-  void RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) override;
+  void RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, RegisterBlobCallback callback) override;
 };
 class PLATFORM_EXPORT FileSystemManagerAsyncWaiter {
  public:
@@ -144,8 +144,8 @@ class PLATFORM_EXPORT FileSystemManagerAsyncWaiter {
       const ::blink::KURL& file_path, ::base::FilePath* out_platform_path);
   ::base::FilePath GetPlatformPath(const ::blink::KURL& file_path);
   void RegisterBlob(
-      const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time, ::scoped_refptr<::blink::BlobDataHandle>* out_blob);
-  ::scoped_refptr<::blink::BlobDataHandle> RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, absl::optional<::base::Time> expected_modification_time);
+      const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time, ::scoped_refptr<::blink::BlobDataHandle>* out_blob);
+  ::scoped_refptr<::blink::BlobDataHandle> RegisterBlob(const WTF::String& content_type, const ::blink::KURL& url, uint64_t length, std::optional<::base::Time> expected_modification_time);
 
  private:
   FileSystemManager* const proxy_;

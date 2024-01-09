@@ -34,14 +34,6 @@ class CollectionImageDataView;
 
 class ModuleSettingsDataView;
 
-class DescriptorADataView;
-
-class DescriptorBDataView;
-
-class DescriptorsDataView;
-
-class WallpaperSearchResultDataView;
-
 
 enum class CustomizeChromeSection : int32_t;
 class BackgroundImage;
@@ -61,18 +53,6 @@ using CollectionImagePtr = mojo::StructPtr<CollectionImage>;
 
 class ModuleSettings;
 using ModuleSettingsPtr = mojo::InlinedStructPtr<ModuleSettings>;
-
-class DescriptorA;
-using DescriptorAPtr = mojo::StructPtr<DescriptorA>;
-
-class DescriptorB;
-using DescriptorBPtr = mojo::InlinedStructPtr<DescriptorB>;
-
-class Descriptors;
-using DescriptorsPtr = mojo::StructPtr<Descriptors>;
-
-class WallpaperSearchResult;
-using WallpaperSearchResultPtr = mojo::StructPtr<WallpaperSearchResult>;
 
 class CustomizeChromePageHandlerFactory;
 

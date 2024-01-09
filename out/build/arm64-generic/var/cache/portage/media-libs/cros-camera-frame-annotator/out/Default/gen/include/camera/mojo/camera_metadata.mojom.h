@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "camera/mojo/camera_metadata.mojom-features.h"
 #include "camera/mojo/camera_metadata.mojom-shared.h"
 #include "camera/mojo/camera_metadata.mojom-forward.h"
 #include "camera/mojo/camera_metadata_tags.mojom-forward.h"
@@ -230,7 +231,7 @@ class  CameraMetadata {
       uint32_t entry_capacity,
       uint32_t data_count,
       uint32_t data_capacity,
-      absl::optional<std::vector<CameraMetadataEntryPtr>> entries);
+      std::optional<std::vector<CameraMetadataEntryPtr>> entries);
 
 CameraMetadata(const CameraMetadata&) = delete;
 CameraMetadata& operator=(const CameraMetadata&) = delete;
@@ -320,7 +321,7 @@ CameraMetadata& operator=(const CameraMetadata&) = delete;
   
   uint32_t data_capacity;
   
-  absl::optional<std::vector<CameraMetadataEntryPtr>> entries;
+  std::optional<std::vector<CameraMetadataEntryPtr>> entries;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

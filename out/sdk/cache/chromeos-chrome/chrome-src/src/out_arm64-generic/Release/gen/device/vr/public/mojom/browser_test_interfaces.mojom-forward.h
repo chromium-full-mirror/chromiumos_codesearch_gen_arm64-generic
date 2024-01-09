@@ -46,8 +46,6 @@ enum class TrackedDeviceClass : int32_t;
 enum class ControllerRole : int32_t;
 
 enum class EventType : int32_t;
-
-enum class InteractionProfileType : int32_t;
 class Color;
 using ColorPtr = mojo::InlinedStructPtr<Color>;
 

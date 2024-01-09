@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SubmitEvent>::value,
     "SubmitEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SubmitEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SubmitEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("SubmitEvent.submitter.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SubmitEvent* blink_receiver = V8SubmitEvent::ToWrappableUnsafe(v8_receiver);
+SubmitEvent* blink_receiver = V8SubmitEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->submitter();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("SubmitEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SubmitEvent* blink_receiver = V8SubmitEvent::ToWrappableUnsafe(v8_receiver);
+SubmitEvent* blink_receiver = V8SubmitEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

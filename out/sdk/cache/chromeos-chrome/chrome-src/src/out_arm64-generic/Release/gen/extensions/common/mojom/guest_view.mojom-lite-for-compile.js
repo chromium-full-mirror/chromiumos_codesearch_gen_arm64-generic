@@ -54,21 +54,19 @@ extensions.mojom.GuestViewPendingReceiver = class {
 extensions.mojom.GuestViewInterface = class {
   
   /**
-   * @param { !number } routingId
    * @param { !boolean } success
    */
 
-  readyToCreateMimeHandlerView(routingId, success) {}
+  readyToCreateMimeHandlerView(success) {}
   
   /**
-   * @param { !number } routingId
    * @param { !string } scriptId
    * @return {!Promise<{
         allowed: !boolean,
    *  }>}
    */
 
-  canExecuteContentScript(routingId, scriptId) {}
+  canExecuteContentScript(scriptId) {}
 };
 
 /**
@@ -97,26 +95,22 @@ extensions.mojom.GuestViewRemote = class {
 
   
   /**
-   * @param { !number } routingId
    * @param { !boolean } success
    */
 
   readyToCreateMimeHandlerView(
-      routingId,
       success) {
     this.proxy.sendMessage(
         0,
         extensions.mojom.GuestView_ReadyToCreateMimeHandlerView_ParamsSpec.$,
         null,
         [
-          routingId,
           success
         ]);
   }
 
   
   /**
-   * @param { !number } routingId
    * @param { !string } scriptId
    * @return {!Promise<{
         allowed: !boolean,
@@ -124,14 +118,12 @@ extensions.mojom.GuestViewRemote = class {
    */
 
   canExecuteContentScript(
-      routingId,
       scriptId) {
     return this.proxy.sendMessage(
         1,
         extensions.mojom.GuestView_CanExecuteContentScript_ParamsSpec.$,
         extensions.mojom.GuestView_CanExecuteContentScript_ResponseParamsSpec.$,
         [
-          routingId,
           scriptId
         ]);
   }
@@ -642,15 +634,7 @@ mojo.internal.Struct(
     'GuestView_ReadyToCreateMimeHandlerView_Params',
     [
       mojo.internal.StructField(
-        'routingId', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'success', 4,
+        'success', 0,
         0,
         mojo.internal.Bool,
         false,
@@ -667,8 +651,6 @@ goog.provide('extensions.mojom.GuestView_ReadyToCreateMimeHandlerView_Params');
 /** @record */
 extensions.mojom.GuestView_ReadyToCreateMimeHandlerView_Params = class {
   constructor() {
-    /** @export { !number } */
-    this.routingId;
     /** @export { !boolean } */
     this.success;
   }
@@ -681,15 +663,7 @@ mojo.internal.Struct(
     'GuestView_CanExecuteContentScript_Params',
     [
       mojo.internal.StructField(
-        'routingId', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'scriptId', 8,
+        'scriptId', 0,
         0,
         mojo.internal.String,
         null,
@@ -697,7 +671,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 24],]);
+    [[0, 16],]);
 
 
 
@@ -706,8 +680,6 @@ goog.provide('extensions.mojom.GuestView_CanExecuteContentScript_Params');
 /** @record */
 extensions.mojom.GuestView_CanExecuteContentScript_Params = class {
   constructor() {
-    /** @export { !number } */
-    this.routingId;
     /** @export { !string } */
     this.scriptId;
   }

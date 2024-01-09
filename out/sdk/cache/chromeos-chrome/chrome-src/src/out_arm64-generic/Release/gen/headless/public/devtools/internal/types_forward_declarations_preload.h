@@ -15,6 +15,7 @@ namespace preload {
 class RuleSet;
 class PreloadingAttemptKey;
 class PreloadingAttemptSource;
+class PrerenderMismatchedHeaders;
 class EnableParams;
 class EnableResult;
 class DisableParams;
@@ -126,7 +127,8 @@ enum class PrefetchStatus {
   PREFETCH_FAILED_NET_ERROR,
   PREFETCH_FAILED_NON2XX,
   PREFETCH_FAILED_PER_PAGE_LIMIT_EXCEEDED,
-  PREFETCH_EVICTED,
+  PREFETCH_EVICTED_AFTER_CANDIDATE_REMOVED,
+  PREFETCH_EVICTED_FOR_NEWER_PREFETCH,
   PREFETCH_HELDBACK,
   PREFETCH_INELIGIBLE_RETRY_AFTER,
   PREFETCH_IS_PRIVACY_DECOY,

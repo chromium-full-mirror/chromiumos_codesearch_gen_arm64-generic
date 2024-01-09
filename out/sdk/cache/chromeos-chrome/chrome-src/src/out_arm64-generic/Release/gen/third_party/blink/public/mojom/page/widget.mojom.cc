@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -566,14 +567,17 @@ void FrameWidgetProxy::DragTargetDragEnter(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragTargetDragEnter_Name, kFlags, 0, 0, nullptr);
@@ -658,14 +662,17 @@ void FrameWidgetProxy::DragTargetDragOver(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragTargetDragOver_Name, kFlags, 0, 0, nullptr);
@@ -733,14 +740,17 @@ void FrameWidgetProxy::DragTargetDragLeave(
                         "<value of type const ::gfx::PointF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragTargetDragLeave_Name, kFlags, 0, 0, nullptr);
@@ -801,14 +811,17 @@ void FrameWidgetProxy::DragTargetDrop(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragTargetDrop_Name, kFlags, 0, 0, nullptr);
@@ -879,14 +892,17 @@ void FrameWidgetProxy::DragSourceEndedAt(
                         "<value of type ::ui::mojom::DragOperation>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragSourceEndedAt_Name, kFlags, 0, 0, nullptr);
@@ -934,14 +950,17 @@ void FrameWidgetProxy::DragSourceSystemDragEnded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidget::DragSourceSystemDragEnded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragSourceSystemDragEnded_Name, kFlags, 0, 0, nullptr);
@@ -964,14 +983,17 @@ void FrameWidgetProxy::OnStartStylusWriting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidget::OnStartStylusWriting");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_OnStartStylusWriting_Name, kFlags, 0, 0, nullptr);
@@ -1002,14 +1024,17 @@ void FrameWidgetProxy::SetBackgroundOpaque(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_SetBackgroundOpaque_Name, kFlags, 0, 0, nullptr);
@@ -1040,14 +1065,17 @@ void FrameWidgetProxy::SetTextDirection(
                         "<value of type ::base::i18n::TextDirection>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_SetTextDirection_Name, kFlags, 0, 0, nullptr);
@@ -1079,14 +1107,17 @@ void FrameWidgetProxy::SetActive(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_SetActive_Name, kFlags, 0, 0, nullptr);
@@ -1117,14 +1148,17 @@ void FrameWidgetProxy::SetInheritedEffectiveTouchActionForSubFrame(
                         "<value of type ::cc::TouchAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_SetInheritedEffectiveTouchActionForSubFrame_Name, kFlags, 0, 0, nullptr);
@@ -1162,14 +1196,17 @@ void FrameWidgetProxy::UpdateRenderThrottlingStatusForSubFrame(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_UpdateRenderThrottlingStatusForSubFrame_Name, kFlags, 0, 0, nullptr);
@@ -1202,14 +1239,17 @@ void FrameWidgetProxy::SetIsInertForSubFrame(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_SetIsInertForSubFrame_Name, kFlags, 0, 0, nullptr);
@@ -1243,14 +1283,17 @@ void FrameWidgetProxy::ShowContextMenu(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_ShowContextMenu_Name, kFlags, 0, 0, nullptr);
@@ -1293,14 +1336,17 @@ void FrameWidgetProxy::EnableDeviceEmulation(
                         "<value of type const ::blink::DeviceEmulationParams&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_EnableDeviceEmulation_Name, kFlags, 0, 0, nullptr);
@@ -1334,14 +1380,17 @@ void FrameWidgetProxy::DisableDeviceEmulation(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidget::DisableDeviceEmulation");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DisableDeviceEmulation_Name, kFlags, 0, 0, nullptr);
@@ -1371,14 +1420,17 @@ void FrameWidgetProxy::BindWidgetCompositor(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::WidgetCompositor>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_BindWidgetCompositor_Name, kFlags, 0, 0, nullptr);
@@ -1414,14 +1466,17 @@ void FrameWidgetProxy::BindInputTargetClient(
                         "<value of type ::mojo::PendingReceiver<::viz::mojom::InputTargetClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_BindInputTargetClient_Name, kFlags, 0, 0, nullptr);
@@ -1446,7 +1501,7 @@ void FrameWidgetProxy::BindInputTargetClient(
 }
 
 void FrameWidgetProxy::SetViewportIntersection(
-    ::blink::mojom::ViewportIntersectionStatePtr in_intersection_state, const absl::optional<::blink::VisualProperties>& in_visual_properties) {
+    ::blink::mojom::ViewportIntersectionStatePtr in_intersection_state, const std::optional<::blink::VisualProperties>& in_visual_properties) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::FrameWidget::SetViewportIntersection", "input_parameters",
@@ -1457,17 +1512,20 @@ void FrameWidgetProxy::SetViewportIntersection(
                         "<value of type ::blink::mojom::ViewportIntersectionStatePtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("visual_properties"), in_visual_properties,
-                        "<value of type const absl::optional<::blink::VisualProperties>&>");
+                        "<value of type const std::optional<::blink::VisualProperties>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_SetViewportIntersection_Name, kFlags, 0, 0, nullptr);
@@ -1601,7 +1659,8 @@ void FrameWidget_DragTargetDragEnter_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragTargetDragEnter_Name, kFlags, 0, 0, nullptr);
@@ -1728,7 +1787,8 @@ void FrameWidget_DragTargetDragOver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragTargetDragOver_Name, kFlags, 0, 0, nullptr);
@@ -1837,7 +1897,8 @@ void FrameWidget_DragTargetDrop_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragTargetDrop_Name, kFlags, 0, 0, nullptr);
@@ -1943,7 +2004,8 @@ void FrameWidget_DragSourceEndedAt_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_DragSourceEndedAt_Name, kFlags, 0, 0, nullptr);
@@ -2014,7 +2076,7 @@ class FrameWidget_OnStartStylusWriting_ProxyToResponder : public ::mojo::interna
 #endif
 
   void Run(
-      const absl::optional<::gfx::Rect>& in_focused_edit_bounds, const absl::optional<::gfx::Rect>& in_caret_bounds);
+      const std::optional<::gfx::Rect>& in_focused_edit_bounds, const std::optional<::gfx::Rect>& in_caret_bounds);
 };
 
 bool FrameWidget_OnStartStylusWriting_ForwardToCallback::Accept(
@@ -2027,8 +2089,8 @@ bool FrameWidget_OnStartStylusWriting_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::gfx::Rect> p_focused_edit_bounds{};
-  absl::optional<::gfx::Rect> p_caret_bounds{};
+  std::optional<::gfx::Rect> p_focused_edit_bounds{};
+  std::optional<::gfx::Rect> p_caret_bounds{};
   FrameWidget_OnStartStylusWriting_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadFocusedEditBounds(&p_focused_edit_bounds))
@@ -2050,7 +2112,7 @@ std::move(p_caret_bounds));
 }
 
 void FrameWidget_OnStartStylusWriting_ProxyToResponder::Run(
-    const absl::optional<::gfx::Rect>& in_focused_edit_bounds, const absl::optional<::gfx::Rect>& in_caret_bounds) {
+    const std::optional<::gfx::Rect>& in_focused_edit_bounds, const std::optional<::gfx::Rect>& in_caret_bounds) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::FrameWidget::OnStartStylusWriting", "async_response_parameters",
@@ -2058,16 +2120,17 @@ void FrameWidget_OnStartStylusWriting_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("focused_edit_bounds"), in_focused_edit_bounds,
-                        "<value of type const absl::optional<::gfx::Rect>&>");
+                        "<value of type const std::optional<::gfx::Rect>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("caret_bounds"), in_caret_bounds,
-                        "<value of type const absl::optional<::gfx::Rect>&>");
+                        "<value of type const std::optional<::gfx::Rect>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidget_OnStartStylusWriting_Name, kFlags, 0, 0, nullptr);
@@ -2486,7 +2549,7 @@ std::move(p_host));
       
       bool success = true;
       ::blink::mojom::ViewportIntersectionStatePtr p_intersection_state{};
-      absl::optional<::blink::VisualProperties> p_visual_properties{};
+      std::optional<::blink::VisualProperties> p_visual_properties{};
       FrameWidget_SetViewportIntersection_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIntersectionState(&p_intersection_state))
@@ -2754,46 +2817,46 @@ std::move(p_drag_operation), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameWidgetValidationInfo[] = {
-    {&internal::FrameWidget_DragTargetDragEnter_Params_Data::Validate,
+    { &internal::FrameWidget_DragTargetDragEnter_Params_Data::Validate,
      &internal::FrameWidget_DragTargetDragEnter_ResponseParams_Data::Validate},
-    {&internal::FrameWidget_DragTargetDragOver_Params_Data::Validate,
+    { &internal::FrameWidget_DragTargetDragOver_Params_Data::Validate,
      &internal::FrameWidget_DragTargetDragOver_ResponseParams_Data::Validate},
-    {&internal::FrameWidget_DragTargetDragLeave_Params_Data::Validate,
+    { &internal::FrameWidget_DragTargetDragLeave_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_DragTargetDrop_Params_Data::Validate,
+    { &internal::FrameWidget_DragTargetDrop_Params_Data::Validate,
      &internal::FrameWidget_DragTargetDrop_ResponseParams_Data::Validate},
-    {&internal::FrameWidget_DragSourceEndedAt_Params_Data::Validate,
+    { &internal::FrameWidget_DragSourceEndedAt_Params_Data::Validate,
      &internal::FrameWidget_DragSourceEndedAt_ResponseParams_Data::Validate},
-    {&internal::FrameWidget_DragSourceSystemDragEnded_Params_Data::Validate,
+    { &internal::FrameWidget_DragSourceSystemDragEnded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_OnStartStylusWriting_Params_Data::Validate,
+    { &internal::FrameWidget_OnStartStylusWriting_Params_Data::Validate,
      &internal::FrameWidget_OnStartStylusWriting_ResponseParams_Data::Validate},
-    {&internal::FrameWidget_SetBackgroundOpaque_Params_Data::Validate,
+    { &internal::FrameWidget_SetBackgroundOpaque_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_SetTextDirection_Params_Data::Validate,
+    { &internal::FrameWidget_SetTextDirection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_SetActive_Params_Data::Validate,
+    { &internal::FrameWidget_SetActive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_SetInheritedEffectiveTouchActionForSubFrame_Params_Data::Validate,
+    { &internal::FrameWidget_SetInheritedEffectiveTouchActionForSubFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_UpdateRenderThrottlingStatusForSubFrame_Params_Data::Validate,
+    { &internal::FrameWidget_UpdateRenderThrottlingStatusForSubFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_SetIsInertForSubFrame_Params_Data::Validate,
+    { &internal::FrameWidget_SetIsInertForSubFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_ShowContextMenu_Params_Data::Validate,
+    { &internal::FrameWidget_ShowContextMenu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_EnableDeviceEmulation_Params_Data::Validate,
+    { &internal::FrameWidget_EnableDeviceEmulation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_DisableDeviceEmulation_Params_Data::Validate,
+    { &internal::FrameWidget_DisableDeviceEmulation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_BindWidgetCompositor_Params_Data::Validate,
+    { &internal::FrameWidget_BindWidgetCompositor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_BindInputTargetClient_Params_Data::Validate,
+    { &internal::FrameWidget_BindInputTargetClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidget_SetViewportIntersection_Params_Data::Validate,
+    { &internal::FrameWidget_SetViewportIntersection_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3000,14 +3063,17 @@ void FrameWidgetHostProxy::AnimateDoubleTapZoomInMainFrame(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetHost_AnimateDoubleTapZoomInMainFrame_Name, kFlags, 0, 0, nullptr);
@@ -3059,14 +3125,17 @@ void FrameWidgetHostProxy::ZoomToFindInPageRectInMainFrame(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetHost_ZoomToFindInPageRectInMainFrame_Name, kFlags, 0, 0, nullptr);
@@ -3107,14 +3176,17 @@ void FrameWidgetHostProxy::SetHasTouchEventConsumers(
                         "<value of type ::blink::mojom::TouchEventConsumersPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetHost_SetHasTouchEventConsumers_Name, kFlags, 0, 0, nullptr);
@@ -3155,14 +3227,17 @@ void FrameWidgetHostProxy::IntrinsicSizingInfoChanged(
                         "<value of type ::blink::mojom::IntrinsicSizingInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetHost_IntrinsicSizingInfoChanged_Name, kFlags, 0, 0, nullptr);
@@ -3203,14 +3278,17 @@ void FrameWidgetHostProxy::AutoscrollStart(
                         "<value of type const ::gfx::PointF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetHost_AutoscrollStart_Name, kFlags, 0, 0, nullptr);
@@ -3251,14 +3329,17 @@ void FrameWidgetHostProxy::AutoscrollFling(
                         "<value of type const ::gfx::Vector2dF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetHost_AutoscrollFling_Name, kFlags, 0, 0, nullptr);
@@ -3292,14 +3373,17 @@ void FrameWidgetHostProxy::AutoscrollEnd(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FrameWidgetHost::AutoscrollEnd");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameWidgetHost_AutoscrollEnd_Name, kFlags, 0, 0, nullptr);
@@ -3541,22 +3625,22 @@ bool FrameWidgetHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameWidgetHostValidationInfo[] = {
-    {&internal::FrameWidgetHost_AnimateDoubleTapZoomInMainFrame_Params_Data::Validate,
+    { &internal::FrameWidgetHost_AnimateDoubleTapZoomInMainFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetHost_ZoomToFindInPageRectInMainFrame_Params_Data::Validate,
+    { &internal::FrameWidgetHost_ZoomToFindInPageRectInMainFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetHost_SetHasTouchEventConsumers_Params_Data::Validate,
+    { &internal::FrameWidgetHost_SetHasTouchEventConsumers_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetHost_IntrinsicSizingInfoChanged_Params_Data::Validate,
+    { &internal::FrameWidgetHost_IntrinsicSizingInfoChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetHost_AutoscrollStart_Params_Data::Validate,
+    { &internal::FrameWidgetHost_AutoscrollStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetHost_AutoscrollFling_Params_Data::Validate,
+    { &internal::FrameWidgetHost_AutoscrollFling_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameWidgetHost_AutoscrollEnd_Params_Data::Validate,
+    { &internal::FrameWidgetHost_AutoscrollEnd_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3701,14 +3785,17 @@ void PopupWidgetHostProxy::RequestClosePopup(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::PopupWidgetHost::RequestClosePopup");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPopupWidgetHost_RequestClosePopup_Name, kFlags, 0, 0, nullptr);
@@ -3741,14 +3828,17 @@ void PopupWidgetHostProxy::ShowPopup(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPopupWidgetHost_ShowPopup_Name, kFlags, 0, 0, nullptr);
@@ -3801,14 +3891,17 @@ void PopupWidgetHostProxy::SetPopupBounds(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPopupWidgetHost_SetPopupBounds_Name, kFlags, 0, 0, nullptr);
@@ -3918,7 +4011,8 @@ void PopupWidgetHost_ShowPopup_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPopupWidgetHost_ShowPopup_Name, kFlags, 0, 0, nullptr);
@@ -4024,7 +4118,8 @@ void PopupWidgetHost_SetPopupBounds_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPopupWidgetHost_SetPopupBounds_Name, kFlags, 0, 0, nullptr);
@@ -4164,14 +4259,14 @@ std::move(p_bounds), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPopupWidgetHostValidationInfo[] = {
-    {&internal::PopupWidgetHost_RequestClosePopup_Params_Data::Validate,
+    { &internal::PopupWidgetHost_RequestClosePopup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PopupWidgetHost_ShowPopup_Params_Data::Validate,
+    { &internal::PopupWidgetHost_ShowPopup_Params_Data::Validate,
      &internal::PopupWidgetHost_ShowPopup_ResponseParams_Data::Validate},
-    {&internal::PopupWidgetHost_SetPopupBounds_Params_Data::Validate,
+    { &internal::PopupWidgetHost_SetPopupBounds_Params_Data::Validate,
      &internal::PopupWidgetHost_SetPopupBounds_ResponseParams_Data::Validate},
 };
 
@@ -4255,7 +4350,7 @@ void FrameWidgetInterceptorForTesting::BindWidgetCompositor(::mojo::PendingRecei
 void FrameWidgetInterceptorForTesting::BindInputTargetClient(::mojo::PendingReceiver<::viz::mojom::InputTargetClient> host) {
   GetForwardingInterface()->BindInputTargetClient(std::move(host));
 }
-void FrameWidgetInterceptorForTesting::SetViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const absl::optional<::blink::VisualProperties>& visual_properties) {
+void FrameWidgetInterceptorForTesting::SetViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const std::optional<::blink::VisualProperties>& visual_properties) {
   GetForwardingInterface()->SetViewportIntersection(std::move(intersection_state), std::move(visual_properties));
 }
 FrameWidgetAsyncWaiter::FrameWidgetAsyncWaiter(
@@ -4336,17 +4431,17 @@ void FrameWidgetAsyncWaiter::DragSourceEndedAt(
 
 
 void FrameWidgetAsyncWaiter::OnStartStylusWriting(
-    absl::optional<::gfx::Rect>* out_focused_edit_bounds, absl::optional<::gfx::Rect>* out_caret_bounds) {
+    std::optional<::gfx::Rect>* out_focused_edit_bounds, std::optional<::gfx::Rect>* out_caret_bounds) {
   base::RunLoop loop;
   proxy_->OnStartStylusWriting(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::gfx::Rect>* out_focused_edit_bounds
+             std::optional<::gfx::Rect>* out_focused_edit_bounds
 ,
-             absl::optional<::gfx::Rect>* out_caret_bounds
+             std::optional<::gfx::Rect>* out_caret_bounds
 ,
-             const absl::optional<::gfx::Rect>& focused_edit_bounds,
-             const absl::optional<::gfx::Rect>& caret_bounds) {*out_focused_edit_bounds = std::move(focused_edit_bounds);*out_caret_bounds = std::move(caret_bounds);
+             const std::optional<::gfx::Rect>& focused_edit_bounds,
+             const std::optional<::gfx::Rect>& caret_bounds) {*out_focused_edit_bounds = std::move(focused_edit_bounds);*out_caret_bounds = std::move(caret_bounds);
             loop->Quit();
           },
           &loop,

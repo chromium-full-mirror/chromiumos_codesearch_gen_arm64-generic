@@ -3197,7 +3197,7 @@ class CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<uint32_t> max_testing_mem_kib() const {
+  std::optional<uint32_t> max_testing_mem_kib() const {
     if (data_->header_.version < 10) {
       return absl::nullopt;
     }

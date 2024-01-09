@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/tab_groups.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -42,25 +43,25 @@ const int TAB_GROUP_ID_NONE = -1;
 
 const char* ToString(Color enum_param) {
   switch (enum_param) {
-    case COLOR_GREY:
+    case Color::kGrey:
       return "grey";
-    case COLOR_BLUE:
+    case Color::kBlue:
       return "blue";
-    case COLOR_RED:
+    case Color::kRed:
       return "red";
-    case COLOR_YELLOW:
+    case Color::kYellow:
       return "yellow";
-    case COLOR_GREEN:
+    case Color::kGreen:
       return "green";
-    case COLOR_PINK:
+    case Color::kPink:
       return "pink";
-    case COLOR_PURPLE:
+    case Color::kPurple:
       return "purple";
-    case COLOR_CYAN:
+    case Color::kCyan:
       return "cyan";
-    case COLOR_ORANGE:
+    case Color::kOrange:
       return "orange";
-    case COLOR_NONE:
+    case Color::kNone:
       return "";
   }
   NOTREACHED();
@@ -69,24 +70,24 @@ const char* ToString(Color enum_param) {
 
 Color ParseColor(base::StringPiece enum_string) {
   if (enum_string == "grey")
-    return COLOR_GREY;
+    return Color::kGrey;
   if (enum_string == "blue")
-    return COLOR_BLUE;
+    return Color::kBlue;
   if (enum_string == "red")
-    return COLOR_RED;
+    return Color::kRed;
   if (enum_string == "yellow")
-    return COLOR_YELLOW;
+    return Color::kYellow;
   if (enum_string == "green")
-    return COLOR_GREEN;
+    return Color::kGreen;
   if (enum_string == "pink")
-    return COLOR_PINK;
+    return Color::kPink;
   if (enum_string == "purple")
-    return COLOR_PURPLE;
+    return Color::kPurple;
   if (enum_string == "cyan")
-    return COLOR_CYAN;
+    return Color::kCyan;
   if (enum_string == "orange")
-    return COLOR_ORANGE;
-  return COLOR_NONE;
+    return Color::kOrange;
+  return Color::kNone;
 }
 
 std::u16string GetColorParseError(base::StringPiece enum_string) {
@@ -101,8 +102,8 @@ color(),
 window_id(0) {}
 
 TabGroup::~TabGroup() = default;
-TabGroup::TabGroup(TabGroup&& rhs) = default;
-TabGroup& TabGroup::operator=(TabGroup&& rhs) = default;
+TabGroup::TabGroup(TabGroup&& rhs) noexcept = default;
+TabGroup& TabGroup::operator=(TabGroup&& rhs) noexcept = default;
 TabGroup TabGroup::Clone() const {
   TabGroup out;
   out.id = id;
@@ -160,7 +161,7 @@ bool TabGroup::Populate(
     {
       auto* temp = (*title_value).GetIfString();
       if (!temp) {
-        out.title = absl::nullopt;
+        out.title = std::nullopt;
         return false;
       }
       out.title = *temp;
@@ -192,34 +193,21 @@ bool TabGroup::Populate(
 }
 
 // static
-std::unique_ptr<TabGroup> TabGroup::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TabGroup>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TabGroup> TabGroup::FromValue(const base::Value::Dict& value) {
+  TabGroup out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TabGroup> TabGroup::FromValue(const base::Value::Dict& value) {
+std::optional<TabGroup> TabGroup::FromValue(const base::Value& value) {
   TabGroup out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TabGroup> TabGroup::FromValue(const base::Value& value) {
-  TabGroup out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -253,13 +241,13 @@ namespace Get {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -269,13 +257,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = group_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.group_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -297,8 +285,8 @@ Params::QueryInfo::QueryInfo()
 : color() {}
 
 Params::QueryInfo::~QueryInfo() = default;
-Params::QueryInfo::QueryInfo(QueryInfo&& rhs) = default;
-Params::QueryInfo& Params::QueryInfo::operator=(QueryInfo&& rhs) = default;
+Params::QueryInfo::QueryInfo(QueryInfo&& rhs) noexcept = default;
+Params::QueryInfo& Params::QueryInfo::operator=(QueryInfo&& rhs) noexcept = default;
 Params::QueryInfo Params::QueryInfo::Clone() const {
   QueryInfo out;
   out.collapsed = collapsed;
@@ -317,7 +305,7 @@ bool Params::QueryInfo::Populate(
     {
       auto temp = (*collapsed_value).GetIfBool();
       if (!temp.has_value()) {
-        out.collapsed = absl::nullopt;
+        out.collapsed = std::nullopt;
         return false;
       }
       out.collapsed = *temp;
@@ -345,7 +333,7 @@ bool Params::QueryInfo::Populate(
     {
       auto* temp = (*title_value).GetIfString();
       if (!temp) {
-        out.title = absl::nullopt;
+        out.title = std::nullopt;
         return false;
       }
       out.title = *temp;
@@ -357,7 +345,7 @@ bool Params::QueryInfo::Populate(
     {
       auto temp = (*window_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.window_id = absl::nullopt;
+        out.window_id = std::nullopt;
         return false;
       }
       out.window_id = *temp;
@@ -377,21 +365,21 @@ bool Params::QueryInfo::Populate(
 }
 
 // static
-absl::optional<Params::QueryInfo> Params::QueryInfo::FromValue(const base::Value::Dict& value) {
+std::optional<Params::QueryInfo> Params::QueryInfo::FromValue(const base::Value::Dict& value) {
   QueryInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::QueryInfo> Params::QueryInfo::FromValue(const base::Value& value) {
+std::optional<Params::QueryInfo> Params::QueryInfo::FromValue(const base::Value& value) {
   QueryInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -399,13 +387,13 @@ absl::optional<Params::QueryInfo> Params::QueryInfo::FromValue(const base::Value
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -414,15 +402,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& query_info_value = args[0];
     {
       if (!query_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!QueryInfo::Populate(query_info_value.GetDict(), params.query_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -444,8 +432,8 @@ Params::UpdateProperties::UpdateProperties()
 : color() {}
 
 Params::UpdateProperties::~UpdateProperties() = default;
-Params::UpdateProperties::UpdateProperties(UpdateProperties&& rhs) = default;
-Params::UpdateProperties& Params::UpdateProperties::operator=(UpdateProperties&& rhs) = default;
+Params::UpdateProperties::UpdateProperties(UpdateProperties&& rhs) noexcept = default;
+Params::UpdateProperties& Params::UpdateProperties::operator=(UpdateProperties&& rhs) noexcept = default;
 Params::UpdateProperties Params::UpdateProperties::Clone() const {
   UpdateProperties out;
   out.collapsed = collapsed;
@@ -463,7 +451,7 @@ bool Params::UpdateProperties::Populate(
     {
       auto temp = (*collapsed_value).GetIfBool();
       if (!temp.has_value()) {
-        out.collapsed = absl::nullopt;
+        out.collapsed = std::nullopt;
         return false;
       }
       out.collapsed = *temp;
@@ -491,7 +479,7 @@ bool Params::UpdateProperties::Populate(
     {
       auto* temp = (*title_value).GetIfString();
       if (!temp) {
-        out.title = absl::nullopt;
+        out.title = std::nullopt;
         return false;
       }
       out.title = *temp;
@@ -511,21 +499,21 @@ bool Params::UpdateProperties::Populate(
 }
 
 // static
-absl::optional<Params::UpdateProperties> Params::UpdateProperties::FromValue(const base::Value::Dict& value) {
+std::optional<Params::UpdateProperties> Params::UpdateProperties::FromValue(const base::Value::Dict& value) {
   UpdateProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::UpdateProperties> Params::UpdateProperties::FromValue(const base::Value& value) {
+std::optional<Params::UpdateProperties> Params::UpdateProperties::FromValue(const base::Value& value) {
   UpdateProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -533,13 +521,13 @@ absl::optional<Params::UpdateProperties> Params::UpdateProperties::FromValue(con
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -549,13 +537,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = group_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.group_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -563,15 +551,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& update_properties_value = args[1];
     {
       if (!update_properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UpdateProperties::Populate(update_properties_value.GetDict(), params.update_properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -593,8 +581,8 @@ Params::MoveProperties::MoveProperties()
 : index(0) {}
 
 Params::MoveProperties::~MoveProperties() = default;
-Params::MoveProperties::MoveProperties(MoveProperties&& rhs) = default;
-Params::MoveProperties& Params::MoveProperties::operator=(MoveProperties&& rhs) = default;
+Params::MoveProperties::MoveProperties(MoveProperties&& rhs) noexcept = default;
+Params::MoveProperties& Params::MoveProperties::operator=(MoveProperties&& rhs) noexcept = default;
 Params::MoveProperties Params::MoveProperties::Clone() const {
   MoveProperties out;
   out.window_id = window_id;
@@ -610,7 +598,7 @@ bool Params::MoveProperties::Populate(
     {
       auto temp = (*window_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.window_id = absl::nullopt;
+        out.window_id = std::nullopt;
         return false;
       }
       out.window_id = *temp;
@@ -642,21 +630,21 @@ bool Params::MoveProperties::Populate(
 }
 
 // static
-absl::optional<Params::MoveProperties> Params::MoveProperties::FromValue(const base::Value::Dict& value) {
+std::optional<Params::MoveProperties> Params::MoveProperties::FromValue(const base::Value::Dict& value) {
   MoveProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::MoveProperties> Params::MoveProperties::FromValue(const base::Value& value) {
+std::optional<Params::MoveProperties> Params::MoveProperties::FromValue(const base::Value& value) {
   MoveProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -664,13 +652,13 @@ absl::optional<Params::MoveProperties> Params::MoveProperties::FromValue(const b
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -680,13 +668,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = group_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.group_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -694,15 +682,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& move_properties_value = args[1];
     {
       if (!move_properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!MoveProperties::Populate(move_properties_value.GetDict(), params.move_properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -16,6 +16,28 @@ mojo.internal.exportModule('cros.mojom');
 
 
 
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+cros.mojom.PortraitModeSegResultSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+cros.mojom.PortraitModeSegResult = {
+  
+  kSuccess: 0,
+  kFailure: 1,
+  kTimeout: 2,
+  kNoFaces: 3,
+  kUnknown: 4,
+  MIN_VALUE: 0,
+  MAX_VALUE: 4,
+};
+
+
 
 
 /**

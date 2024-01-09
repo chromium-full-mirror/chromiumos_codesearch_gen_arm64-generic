@@ -1,4 +1,4 @@
-import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="common">.after-screen-content{color:var(--cros-color-primary)}.subtitle{font-family:var(--cros-font-family-google-sans);font-size:24px;font-weight:500;margin-top:32px}.details{align-items:center;display:flex;font-size:14px;margin-top:26px}.favicon{height:28px;margin:0 16px;width:28px}</style>
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style>.after-screen-content{color:var(--cros-color-primary)}.subtitle{font-family:var(--cros-font-family-google-sans);font-size:24px;font-weight:500;margin-top:32px}.details{align-items:center;display:flex;font-size:14px;margin-top:26px}.favicon{height:28px;margin:0 16px;width:28px}</style>
 
 <div class="after-screen-content">
   <h2 class="subtitle">

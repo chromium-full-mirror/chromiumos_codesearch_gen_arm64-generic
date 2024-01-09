@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Report>::value,
     "Report inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Report::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Report is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,10 +79,10 @@ BLINK_BINDINGS_TRACE_EVENT("Report.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Report* blink_receiver = V8Report::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Report* blink_receiver = V8Report::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,10 +94,10 @@ BLINK_BINDINGS_TRACE_EVENT("Report.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Report* blink_receiver = V8Report::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Report* blink_receiver = V8Report::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -114,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("Report.body.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Report* blink_receiver = V8Report::ToWrappableUnsafe(v8_receiver);
+Report* blink_receiver = V8Report::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->body();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -132,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("Report.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Report* blink_receiver = V8Report::ToWrappableUnsafe(v8_receiver);
+Report* blink_receiver = V8Report::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, USBEndpoint>::value,
     "USBEndpoint inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&USBEndpoint::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "USBEndpoint is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBEndpoint.endpointNumber.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBEndpoint* blink_receiver = V8USBEndpoint::ToWrappableUnsafe(v8_receiver);
+USBEndpoint* blink_receiver = V8USBEndpoint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->endpointNumber();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -104,10 +100,10 @@ BLINK_BINDINGS_TRACE_EVENT("USBEndpoint.direction.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-USBEndpoint* blink_receiver = V8USBEndpoint::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->direction();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+USBEndpoint* blink_receiver = V8USBEndpoint::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->direction();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -119,10 +115,10 @@ BLINK_BINDINGS_TRACE_EVENT("USBEndpoint.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-USBEndpoint* blink_receiver = V8USBEndpoint::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+USBEndpoint* blink_receiver = V8USBEndpoint::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -134,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBEndpoint.packetSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBEndpoint* blink_receiver = V8USBEndpoint::ToWrappableUnsafe(v8_receiver);
+USBEndpoint* blink_receiver = V8USBEndpoint::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->packetSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }

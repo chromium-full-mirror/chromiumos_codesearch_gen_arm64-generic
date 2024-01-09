@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/contacts/contacts_manager.mojom-features.h"
 #include "third_party/blink/public/mojom/contacts/contacts_manager.mojom-shared.h"
 #include "third_party/blink/public/mojom/contacts/contacts_manager.mojom-blink-forward.h"
 #include "components/payments/mojom/payment_request_data.mojom-blink.h"
@@ -86,7 +87,7 @@ class PLATFORM_EXPORT ContactsManager
   virtual ~ContactsManager() = default;
 
 
-  using SelectCallback = base::OnceCallback<void(absl::optional<WTF::Vector<ContactInfoPtr>>)>;
+  using SelectCallback = base::OnceCallback<void(std::optional<WTF::Vector<ContactInfoPtr>>)>;
   
   virtual void Select(bool multiple, bool include_names, bool include_emails, bool include_tel, bool include_addresses, bool include_icons, SelectCallback callback) = 0;
 };
@@ -333,11 +334,11 @@ class PLATFORM_EXPORT ContactInfo {
   ContactInfo();
 
   ContactInfo(
-      absl::optional<WTF::Vector<WTF::String>> name,
-      absl::optional<WTF::Vector<WTF::String>> email,
-      absl::optional<WTF::Vector<WTF::String>> tel,
-      absl::optional<WTF::Vector<::payments::mojom::blink::PaymentAddressPtr>> address,
-      absl::optional<WTF::Vector<ContactIconBlobPtr>> icon);
+      std::optional<WTF::Vector<WTF::String>> name,
+      std::optional<WTF::Vector<WTF::String>> email,
+      std::optional<WTF::Vector<WTF::String>> tel,
+      std::optional<WTF::Vector<::payments::mojom::blink::PaymentAddressPtr>> address,
+      std::optional<WTF::Vector<ContactIconBlobPtr>> icon);
 
 ContactInfo(const ContactInfo&) = delete;
 ContactInfo& operator=(const ContactInfo&) = delete;
@@ -417,15 +418,15 @@ ContactInfo& operator=(const ContactInfo&) = delete;
   }
 
   
-  absl::optional<WTF::Vector<WTF::String>> name;
+  std::optional<WTF::Vector<WTF::String>> name;
   
-  absl::optional<WTF::Vector<WTF::String>> email;
+  std::optional<WTF::Vector<WTF::String>> email;
   
-  absl::optional<WTF::Vector<WTF::String>> tel;
+  std::optional<WTF::Vector<WTF::String>> tel;
   
-  absl::optional<WTF::Vector<::payments::mojom::blink::PaymentAddressPtr>> address;
+  std::optional<WTF::Vector<::payments::mojom::blink::PaymentAddressPtr>> address;
   
-  absl::optional<WTF::Vector<ContactIconBlobPtr>> icon;
+  std::optional<WTF::Vector<ContactIconBlobPtr>> icon;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

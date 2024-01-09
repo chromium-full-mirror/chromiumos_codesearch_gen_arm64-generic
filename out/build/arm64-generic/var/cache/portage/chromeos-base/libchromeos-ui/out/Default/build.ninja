@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/libchromeos-ui-9999/work/libchromeos-ui-9999/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/libchromeos-ui-0.0.1-r2125/work/libchromeos-ui-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -21,21 +21,15 @@ subninja toolchain.ninja
 build libchromeos-ui: phony ./lib/libchromeos-ui.so
 build libchromeos-ui_source_set: phony obj/libchromeos-ui/libchromeos-ui_source_set.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build libchromeos-ui$:all: phony obj/libchromeos-ui/all.stamp
 build libchromeos-ui$:libchromeos-ui: phony ./lib/libchromeos-ui.so
-build libchromeos-ui$:libchromeos-ui-test: phony ./libchromeos-ui-test
 build libchromeos-ui$:libchromeos-ui_source_set: phony obj/libchromeos-ui/libchromeos-ui_source_set.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/libchromeos-ui/all.stamp $
     ./lib/libchromeos-ui.so $
-    ./libchromeos-ui-test $
     obj/libchromeos-ui/libchromeos-ui_source_set.stamp
 
 default all

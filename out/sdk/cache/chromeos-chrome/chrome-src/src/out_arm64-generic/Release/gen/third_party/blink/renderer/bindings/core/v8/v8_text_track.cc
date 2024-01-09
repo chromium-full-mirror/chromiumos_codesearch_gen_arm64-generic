@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TextTrack>::value,
     "TextTrack inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TextTrack::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TextTrack is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,10 +87,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrack.kind.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->kind();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->kind();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -107,10 +102,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrack.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -122,10 +117,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrack.language.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->language();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->language();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -137,10 +132,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrack.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -152,10 +147,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrack.mode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->mode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->mode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -166,9 +161,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrack.mode.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TextTrack";
@@ -202,8 +197,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrack.cues.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cues();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -216,8 +212,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrack.activeCues.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->activeCues();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -230,10 +227,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrack.oncuechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncuechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncuechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -246,8 +243,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncuechange(event_handler);
 }
 
@@ -272,7 +270,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_cue = NativeValueTraits<TextTrackCue>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -302,7 +300,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(v8_receiver);
+TextTrack* blink_receiver = V8TextTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_cue = NativeValueTraits<TextTrackCue>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

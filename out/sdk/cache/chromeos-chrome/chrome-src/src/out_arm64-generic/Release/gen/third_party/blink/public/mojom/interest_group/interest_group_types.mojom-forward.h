@@ -57,6 +57,8 @@ class AuctionAdConfigMaybePromiseDirectFromSellerSignalsDataView;
 
 enum class InterestGroup_ExecutionMode : int32_t;
 
+enum class InterestGroup_TrustedBiddingSignalsSlotSizeMode : int32_t;
+
 enum class AuctionAdConfigNonSharedParams_BuyerReportType : int32_t;
 
 constexpr uint32_t kMaxInterestGroupSize = 1048576U;

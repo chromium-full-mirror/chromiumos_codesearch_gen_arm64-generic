@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/schema_org/common/metadata.mojom-features.h"
 #include "components/schema_org/common/metadata.mojom-shared.h"
 #include "components/schema_org/common/metadata.mojom-forward.h"
 #include <string>
@@ -62,33 +63,33 @@ class  Values {
   // Construct an instance holding |bool_values|.
   static ValuesPtr
   NewBoolValues(
-      std::vector<bool> bool_values) {
+      std::vector<bool> value) {
     auto result = ValuesPtr(absl::in_place);
-    result->set_bool_values(std::move(bool_values));
+    result->set_bool_values(std::move(value));
     return result;
   }
   // Construct an instance holding |long_values|.
   static ValuesPtr
   NewLongValues(
-      std::vector<int64_t> long_values) {
+      std::vector<int64_t> value) {
     auto result = ValuesPtr(absl::in_place);
-    result->set_long_values(std::move(long_values));
+    result->set_long_values(std::move(value));
     return result;
   }
   // Construct an instance holding |string_values|.
   static ValuesPtr
   NewStringValues(
-      std::vector<std::string> string_values) {
+      std::vector<std::string> value) {
     auto result = ValuesPtr(absl::in_place);
-    result->set_string_values(std::move(string_values));
+    result->set_string_values(std::move(value));
     return result;
   }
   // Construct an instance holding |entity_values|.
   static ValuesPtr
   NewEntityValues(
-      std::vector<EntityPtr> entity_values) {
+      std::vector<EntityPtr> value) {
     auto result = ValuesPtr(absl::in_place);
-    result->set_entity_values(std::move(entity_values));
+    result->set_entity_values(std::move(value));
     return result;
   }
 

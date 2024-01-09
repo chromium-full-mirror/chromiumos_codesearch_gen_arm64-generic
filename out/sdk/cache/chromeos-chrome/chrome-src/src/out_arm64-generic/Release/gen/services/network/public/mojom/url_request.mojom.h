@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/url_request.mojom-features.h"
 #include "services/network/public/mojom/url_request.mojom-shared.h"
 #include "services/network/public/mojom/url_request.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -103,33 +104,33 @@ class  DataElement {
   // Construct an instance holding |bytes|.
   static DataElementPtr
   NewBytes(
-      ::network::DataElementBytes bytes) {
+      ::network::DataElementBytes value) {
     auto result = DataElementPtr(absl::in_place);
-    result->set_bytes(std::move(bytes));
+    result->set_bytes(std::move(value));
     return result;
   }
   // Construct an instance holding |file|.
   static DataElementPtr
   NewFile(
-      ::network::DataElementFile file) {
+      ::network::DataElementFile value) {
     auto result = DataElementPtr(absl::in_place);
-    result->set_file(std::move(file));
+    result->set_file(std::move(value));
     return result;
   }
   // Construct an instance holding |data_pipe|.
   static DataElementPtr
   NewDataPipe(
-      ::network::DataElementDataPipe data_pipe) {
+      ::network::DataElementDataPipe value) {
     auto result = DataElementPtr(absl::in_place);
-    result->set_data_pipe(std::move(data_pipe));
+    result->set_data_pipe(std::move(value));
     return result;
   }
   // Construct an instance holding |chunked_data_pipe|.
   static DataElementPtr
   NewChunkedDataPipe(
-      ::network::DataElementChunkedDataPipe chunked_data_pipe) {
+      ::network::DataElementChunkedDataPipe value) {
     auto result = DataElementPtr(absl::in_place);
-    result->set_chunked_data_pipe(std::move(chunked_data_pipe));
+    result->set_chunked_data_pipe(std::move(value));
     return result;
   }
 
@@ -602,9 +603,9 @@ class  URLRequest {
       const ::GURL& url,
       const ::net::SiteForCookies& site_for_cookies,
       bool update_first_party_url_on_redirect,
-      const absl::optional<::url::Origin>& request_initiator,
+      const std::optional<::url::Origin>& request_initiator,
       std::vector<::GURL> navigation_redirect_chain,
-      const absl::optional<::url::Origin>& isolated_world_origin,
+      const std::optional<::url::Origin>& isolated_world_origin,
       const ::GURL& referrer,
       ::net::ReferrerPolicy referrer_policy,
       const ::net::HttpRequestHeaders& headers,
@@ -626,7 +627,7 @@ class  URLRequest {
       bool keepalive,
       bool browsing_topics,
       bool ad_auction_headers,
-      bool shared_storage_writable,
+      bool shared_storage_writable_eligible,
       bool has_user_gesture,
       bool enable_load_timing,
       bool enable_upload_progress,
@@ -636,28 +637,29 @@ class  URLRequest {
       int32_t previews_state,
       bool upgrade_if_insecure,
       bool is_revalidating,
-      const absl::optional<::base::UnguessableToken>& throttling_profile_id,
-      const absl::optional<::base::UnguessableToken>& fetch_window_id,
-      const absl::optional<std::string>& devtools_request_id,
-      const absl::optional<std::string>& devtools_stack_id,
+      const std::optional<::base::UnguessableToken>& throttling_profile_id,
+      const std::optional<::base::UnguessableToken>& fetch_window_id,
+      const std::optional<std::string>& devtools_request_id,
+      const std::optional<std::string>& devtools_stack_id,
       bool is_fetch_like_api,
       bool is_fetch_later_api,
       bool is_favicon,
       ::network::mojom::RequestDestination original_destination,
-      const absl::optional<::network::ResourceRequest::TrustedParams>& trusted_params,
-      const absl::optional<::base::UnguessableToken>& recursive_prefetch_token,
+      const std::optional<::network::ResourceRequest::TrustedParams>& trusted_params,
+      const std::optional<::base::UnguessableToken>& recursive_prefetch_token,
       ::network::mojom::TrustTokenParamsPtr trust_token_params,
-      const absl::optional<::network::ResourceRequest::WebBundleTokenParams>& web_bundle_token_params,
-      absl::optional<std::vector<::net::SourceStream::SourceType>> devtools_accepted_stream_types,
-      const absl::optional<::net::NetLogSource>& net_log_create_info,
-      const absl::optional<::net::NetLogSource>& net_log_reference_info,
+      const std::optional<::network::ResourceRequest::WebBundleTokenParams>& web_bundle_token_params,
+      std::optional<std::vector<::net::SourceStream::SourceType>> devtools_accepted_stream_types,
+      const std::optional<::net::NetLogSource>& net_log_create_info,
+      const std::optional<::net::NetLogSource>& net_log_reference_info,
       ::network::mojom::IPAddressSpace target_ip_address_space,
       ::network::mojom::IPAddressSpace required_ip_address_space,
       bool has_storage_access,
       ::network::mojom::AttributionSupport attribution_reporting_support,
       ::network::mojom::AttributionReportingEligibility attribution_reporting_eligibility,
       ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features,
-      const absl::optional<::base::UnguessableToken>& attribution_reporting_src_token,
+      const std::optional<::base::UnguessableToken>& attribution_reporting_src_token,
+      bool is_ad_tagged,
       bool shared_dictionary_writer_enabled);
 
 URLRequest(const URLRequest&) = delete;
@@ -741,11 +743,11 @@ URLRequest& operator=(const URLRequest&) = delete;
   
   bool update_first_party_url_on_redirect;
   
-  absl::optional<::url::Origin> request_initiator;
+  std::optional<::url::Origin> request_initiator;
   
   std::vector<::GURL> navigation_redirect_chain;
   
-  absl::optional<::url::Origin> isolated_world_origin;
+  std::optional<::url::Origin> isolated_world_origin;
   
   ::GURL referrer;
   
@@ -789,7 +791,7 @@ URLRequest& operator=(const URLRequest&) = delete;
   
   bool ad_auction_headers;
   
-  bool shared_storage_writable;
+  bool shared_storage_writable_eligible;
   
   bool has_user_gesture;
   
@@ -809,13 +811,13 @@ URLRequest& operator=(const URLRequest&) = delete;
   
   bool is_revalidating;
   
-  absl::optional<::base::UnguessableToken> throttling_profile_id;
+  std::optional<::base::UnguessableToken> throttling_profile_id;
   
-  absl::optional<::base::UnguessableToken> fetch_window_id;
+  std::optional<::base::UnguessableToken> fetch_window_id;
   
-  absl::optional<std::string> devtools_request_id;
+  std::optional<std::string> devtools_request_id;
   
-  absl::optional<std::string> devtools_stack_id;
+  std::optional<std::string> devtools_stack_id;
   
   bool is_fetch_like_api;
   
@@ -825,19 +827,19 @@ URLRequest& operator=(const URLRequest&) = delete;
   
   ::network::mojom::RequestDestination original_destination;
   
-  absl::optional<::network::ResourceRequest::TrustedParams> trusted_params;
+  std::optional<::network::ResourceRequest::TrustedParams> trusted_params;
   
-  absl::optional<::base::UnguessableToken> recursive_prefetch_token;
+  std::optional<::base::UnguessableToken> recursive_prefetch_token;
   
   ::network::mojom::TrustTokenParamsPtr trust_token_params;
   
-  absl::optional<::network::ResourceRequest::WebBundleTokenParams> web_bundle_token_params;
+  std::optional<::network::ResourceRequest::WebBundleTokenParams> web_bundle_token_params;
   
-  absl::optional<std::vector<::net::SourceStream::SourceType>> devtools_accepted_stream_types;
+  std::optional<std::vector<::net::SourceStream::SourceType>> devtools_accepted_stream_types;
   
-  absl::optional<::net::NetLogSource> net_log_create_info;
+  std::optional<::net::NetLogSource> net_log_create_info;
   
-  absl::optional<::net::NetLogSource> net_log_reference_info;
+  std::optional<::net::NetLogSource> net_log_reference_info;
   
   ::network::mojom::IPAddressSpace target_ip_address_space;
   
@@ -851,7 +853,9 @@ URLRequest& operator=(const URLRequest&) = delete;
   
   ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features;
   
-  absl::optional<::base::UnguessableToken> attribution_reporting_src_token;
+  std::optional<::base::UnguessableToken> attribution_reporting_src_token;
+  
+  bool is_ad_tagged;
   
   bool shared_dictionary_writer_enabled;
 
@@ -1798,7 +1802,7 @@ URLRequestPtr URLRequest::Clone() const {
       mojo::Clone(keepalive),
       mojo::Clone(browsing_topics),
       mojo::Clone(ad_auction_headers),
-      mojo::Clone(shared_storage_writable),
+      mojo::Clone(shared_storage_writable_eligible),
       mojo::Clone(has_user_gesture),
       mojo::Clone(enable_load_timing),
       mojo::Clone(enable_upload_progress),
@@ -1830,6 +1834,7 @@ URLRequestPtr URLRequest::Clone() const {
       mojo::Clone(attribution_reporting_eligibility),
       mojo::Clone(attribution_reporting_runtime_features),
       mojo::Clone(attribution_reporting_src_token),
+      mojo::Clone(is_ad_tagged),
       mojo::Clone(shared_dictionary_writer_enabled)
   );
 }
@@ -1892,7 +1897,7 @@ bool URLRequest::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->ad_auction_headers, other_struct.ad_auction_headers))
     return false;
-  if (!mojo::Equals(this->shared_storage_writable, other_struct.shared_storage_writable))
+  if (!mojo::Equals(this->shared_storage_writable_eligible, other_struct.shared_storage_writable_eligible))
     return false;
   if (!mojo::Equals(this->has_user_gesture, other_struct.has_user_gesture))
     return false;
@@ -1955,6 +1960,8 @@ bool URLRequest::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->attribution_reporting_runtime_features, other_struct.attribution_reporting_runtime_features))
     return false;
   if (!mojo::Equals(this->attribution_reporting_src_token, other_struct.attribution_reporting_src_token))
+    return false;
+  if (!mojo::Equals(this->is_ad_tagged, other_struct.is_ad_tagged))
     return false;
   if (!mojo::Equals(this->shared_dictionary_writer_enabled, other_struct.shared_dictionary_writer_enabled))
     return false;
@@ -2075,9 +2082,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.ad_auction_headers < lhs.ad_auction_headers)
     return false;
-  if (lhs.shared_storage_writable < rhs.shared_storage_writable)
+  if (lhs.shared_storage_writable_eligible < rhs.shared_storage_writable_eligible)
     return true;
-  if (rhs.shared_storage_writable < lhs.shared_storage_writable)
+  if (rhs.shared_storage_writable_eligible < lhs.shared_storage_writable_eligible)
     return false;
   if (lhs.has_user_gesture < rhs.has_user_gesture)
     return true;
@@ -2202,6 +2209,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.attribution_reporting_src_token < rhs.attribution_reporting_src_token)
     return true;
   if (rhs.attribution_reporting_src_token < lhs.attribution_reporting_src_token)
+    return false;
+  if (lhs.is_ad_tagged < rhs.is_ad_tagged)
+    return true;
+  if (rhs.is_ad_tagged < lhs.is_ad_tagged)
     return false;
   if (lhs.shared_dictionary_writer_enabled < rhs.shared_dictionary_writer_enabled)
     return true;
@@ -2616,9 +2627,9 @@ struct  StructTraits<::network::mojom::URLRequest::DataView,
     return input->ad_auction_headers;
   }
 
-  static decltype(::network::mojom::URLRequest::shared_storage_writable) shared_storage_writable(
+  static decltype(::network::mojom::URLRequest::shared_storage_writable_eligible) shared_storage_writable_eligible(
       const ::network::mojom::URLRequestPtr& input) {
-    return input->shared_storage_writable;
+    return input->shared_storage_writable_eligible;
   }
 
   static decltype(::network::mojom::URLRequest::has_user_gesture) has_user_gesture(
@@ -2774,6 +2785,11 @@ struct  StructTraits<::network::mojom::URLRequest::DataView,
   static const decltype(::network::mojom::URLRequest::attribution_reporting_src_token)& attribution_reporting_src_token(
       const ::network::mojom::URLRequestPtr& input) {
     return input->attribution_reporting_src_token;
+  }
+
+  static decltype(::network::mojom::URLRequest::is_ad_tagged) is_ad_tagged(
+      const ::network::mojom::URLRequestPtr& input) {
+    return input->is_ad_tagged;
   }
 
   static decltype(::network::mojom::URLRequest::shared_dictionary_writer_enabled) shared_dictionary_writer_enabled(

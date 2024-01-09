@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HashChangeEvent>::value,
     "HashChangeEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HashChangeEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HashChangeEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("HashChangeEvent.oldURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HashChangeEvent* blink_receiver = V8HashChangeEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oldURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HashChangeEvent* blink_receiver = V8HashChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oldURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,10 +97,10 @@ BLINK_BINDINGS_TRACE_EVENT("HashChangeEvent.newURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HashChangeEvent* blink_receiver = V8HashChangeEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->newURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HashChangeEvent* blink_receiver = V8HashChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->newURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -117,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("HashChangeEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HashChangeEvent* blink_receiver = V8HashChangeEvent::ToWrappableUnsafe(v8_receiver);
+HashChangeEvent* blink_receiver = V8HashChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

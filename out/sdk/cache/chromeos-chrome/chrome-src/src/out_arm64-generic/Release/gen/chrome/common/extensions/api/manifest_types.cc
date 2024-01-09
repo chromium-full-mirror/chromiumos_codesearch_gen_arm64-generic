@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/manifest_types.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -39,8 +40,8 @@ ChromeSettingsOverrides::SearchProvider::SearchProvider()
 : is_default(false) {}
 
 ChromeSettingsOverrides::SearchProvider::~SearchProvider() = default;
-ChromeSettingsOverrides::SearchProvider::SearchProvider(SearchProvider&& rhs) = default;
-ChromeSettingsOverrides::SearchProvider& ChromeSettingsOverrides::SearchProvider::operator=(SearchProvider&& rhs) = default;
+ChromeSettingsOverrides::SearchProvider::SearchProvider(SearchProvider&& rhs) noexcept = default;
+ChromeSettingsOverrides::SearchProvider& ChromeSettingsOverrides::SearchProvider::operator=(SearchProvider&& rhs) noexcept = default;
 ChromeSettingsOverrides::SearchProvider ChromeSettingsOverrides::SearchProvider::Clone() const {
   SearchProvider out;
   out.name = name;
@@ -69,7 +70,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'name': expected name, got " + UTF8ToUTF16(base::Value::GetTypeName((*name_value).type()));
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -83,7 +84,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'keyword': expected keyword, got " + UTF8ToUTF16(base::Value::GetTypeName((*keyword_value).type()));
-        out.keyword = absl::nullopt;
+        out.keyword = std::nullopt;
         return false;
       }
       out.keyword = *temp;
@@ -97,7 +98,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'favicon_url': expected favicon_url, got " + UTF8ToUTF16(base::Value::GetTypeName((*favicon_url_value).type()));
-        out.favicon_url = absl::nullopt;
+        out.favicon_url = std::nullopt;
         return false;
       }
       out.favicon_url = *temp;
@@ -127,7 +128,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'encoding': expected encoding, got " + UTF8ToUTF16(base::Value::GetTypeName((*encoding_value).type()));
-        out.encoding = absl::nullopt;
+        out.encoding = std::nullopt;
         return false;
       }
       out.encoding = *temp;
@@ -141,7 +142,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'suggest_url': expected suggest_url, got " + UTF8ToUTF16(base::Value::GetTypeName((*suggest_url_value).type()));
-        out.suggest_url = absl::nullopt;
+        out.suggest_url = std::nullopt;
         return false;
       }
       out.suggest_url = *temp;
@@ -155,7 +156,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'image_url': expected image_url, got " + UTF8ToUTF16(base::Value::GetTypeName((*image_url_value).type()));
-        out.image_url = absl::nullopt;
+        out.image_url = std::nullopt;
         return false;
       }
       out.image_url = *temp;
@@ -169,7 +170,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'search_url_post_params': expected search_url_post_params, got " + UTF8ToUTF16(base::Value::GetTypeName((*search_url_post_params_value).type()));
-        out.search_url_post_params = absl::nullopt;
+        out.search_url_post_params = std::nullopt;
         return false;
       }
       out.search_url_post_params = *temp;
@@ -183,7 +184,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'suggest_url_post_params': expected suggest_url_post_params, got " + UTF8ToUTF16(base::Value::GetTypeName((*suggest_url_post_params_value).type()));
-        out.suggest_url_post_params = absl::nullopt;
+        out.suggest_url_post_params = std::nullopt;
         return false;
       }
       out.suggest_url_post_params = *temp;
@@ -197,7 +198,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'image_url_post_params': expected image_url_post_params, got " + UTF8ToUTF16(base::Value::GetTypeName((*image_url_post_params_value).type()));
-        out.image_url_post_params = absl::nullopt;
+        out.image_url_post_params = std::nullopt;
         return false;
       }
       out.image_url_post_params = *temp;
@@ -231,7 +232,7 @@ bool ChromeSettingsOverrides::SearchProvider::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'prepopulated_id': expected prepopulated_id, got " + UTF8ToUTF16(base::Value::GetTypeName((*prepopulated_id_value).type()));
-        out.prepopulated_id = absl::nullopt;
+        out.prepopulated_id = std::nullopt;
         return false;
       }
       out.prepopulated_id = *temp;
@@ -353,8 +354,8 @@ ChromeSettingsOverrides::ChromeSettingsOverrides()
  {}
 
 ChromeSettingsOverrides::~ChromeSettingsOverrides() = default;
-ChromeSettingsOverrides::ChromeSettingsOverrides(ChromeSettingsOverrides&& rhs) = default;
-ChromeSettingsOverrides& ChromeSettingsOverrides::operator=(ChromeSettingsOverrides&& rhs) = default;
+ChromeSettingsOverrides::ChromeSettingsOverrides(ChromeSettingsOverrides&& rhs) noexcept = default;
+ChromeSettingsOverrides& ChromeSettingsOverrides::operator=(ChromeSettingsOverrides&& rhs) noexcept = default;
 ChromeSettingsOverrides ChromeSettingsOverrides::Clone() const {
   ChromeSettingsOverrides out;
   out.homepage = homepage;
@@ -375,7 +376,7 @@ bool ChromeSettingsOverrides::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'homepage': expected homepage, got " + UTF8ToUTF16(base::Value::GetTypeName((*homepage_value).type()));
-        out.homepage = absl::nullopt;
+        out.homepage = std::nullopt;
         return false;
       }
       out.homepage = *temp;
@@ -434,24 +435,6 @@ bool ChromeSettingsOverrides::Populate(
 }
 
 // static
-std::unique_ptr<ChromeSettingsOverrides> ChromeSettingsOverrides::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<ChromeSettingsOverrides>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<ChromeSettingsOverrides, std::u16string> ChromeSettingsOverrides::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   ChromeSettingsOverrides out;
@@ -497,13 +480,13 @@ base::Value::Dict ChromeSettingsOverrides::ToValue() const {
 
 const char* ToString(FileSystemProviderSource enum_param) {
   switch (enum_param) {
-    case FILE_SYSTEM_PROVIDER_SOURCE_FILE:
+    case FileSystemProviderSource::kFile:
       return "file";
-    case FILE_SYSTEM_PROVIDER_SOURCE_DEVICE:
+    case FileSystemProviderSource::kDevice:
       return "device";
-    case FILE_SYSTEM_PROVIDER_SOURCE_NETWORK:
+    case FileSystemProviderSource::kNetwork:
       return "network";
-    case FILE_SYSTEM_PROVIDER_SOURCE_NONE:
+    case FileSystemProviderSource::kNone:
       return "";
   }
   NOTREACHED();
@@ -512,12 +495,12 @@ const char* ToString(FileSystemProviderSource enum_param) {
 
 FileSystemProviderSource ParseFileSystemProviderSource(base::StringPiece enum_string) {
   if (enum_string == "file")
-    return FILE_SYSTEM_PROVIDER_SOURCE_FILE;
+    return FileSystemProviderSource::kFile;
   if (enum_string == "device")
-    return FILE_SYSTEM_PROVIDER_SOURCE_DEVICE;
+    return FileSystemProviderSource::kDevice;
   if (enum_string == "network")
-    return FILE_SYSTEM_PROVIDER_SOURCE_NETWORK;
-  return FILE_SYSTEM_PROVIDER_SOURCE_NONE;
+    return FileSystemProviderSource::kNetwork;
+  return FileSystemProviderSource::kNone;
 }
 
 std::u16string GetFileSystemProviderSourceParseError(base::StringPiece enum_string) {
@@ -529,8 +512,8 @@ FileSystemProviderCapabilities::FileSystemProviderCapabilities()
 : source() {}
 
 FileSystemProviderCapabilities::~FileSystemProviderCapabilities() = default;
-FileSystemProviderCapabilities::FileSystemProviderCapabilities(FileSystemProviderCapabilities&& rhs) = default;
-FileSystemProviderCapabilities& FileSystemProviderCapabilities::operator=(FileSystemProviderCapabilities&& rhs) = default;
+FileSystemProviderCapabilities::FileSystemProviderCapabilities(FileSystemProviderCapabilities&& rhs) noexcept = default;
+FileSystemProviderCapabilities& FileSystemProviderCapabilities::operator=(FileSystemProviderCapabilities&& rhs) noexcept = default;
 FileSystemProviderCapabilities FileSystemProviderCapabilities::Clone() const {
   FileSystemProviderCapabilities out;
   out.configurable = configurable;
@@ -550,7 +533,7 @@ bool FileSystemProviderCapabilities::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'configurable': expected configurable, got " + UTF8ToUTF16(base::Value::GetTypeName((*configurable_value).type()));
-        out.configurable = absl::nullopt;
+        out.configurable = std::nullopt;
         return false;
       }
       out.configurable = *temp;
@@ -564,7 +547,7 @@ bool FileSystemProviderCapabilities::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'multiple_mounts': expected multiple_mounts, got " + UTF8ToUTF16(base::Value::GetTypeName((*multiple_mounts_value).type()));
-        out.multiple_mounts = absl::nullopt;
+        out.multiple_mounts = std::nullopt;
         return false;
       }
       out.multiple_mounts = *temp;
@@ -578,7 +561,7 @@ bool FileSystemProviderCapabilities::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'watchable': expected watchable, got " + UTF8ToUTF16(base::Value::GetTypeName((*watchable_value).type()));
-        out.watchable = absl::nullopt;
+        out.watchable = std::nullopt;
         return false;
       }
       out.watchable = *temp;
@@ -618,24 +601,6 @@ bool FileSystemProviderCapabilities::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<FileSystemProviderCapabilities> FileSystemProviderCapabilities::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<FileSystemProviderCapabilities>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static

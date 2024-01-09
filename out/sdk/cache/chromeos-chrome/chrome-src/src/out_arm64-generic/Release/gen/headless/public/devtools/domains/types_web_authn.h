@@ -94,6 +94,20 @@ class HEADLESS_EXPORT VirtualAuthenticatorOptions {
   bool GetIsUserVerified() const { DCHECK(HasIsUserVerified()); return is_user_verified_.value(); }
   void SetIsUserVerified(bool value) { is_user_verified_ = value; }
 
+  // Credentials created by this authenticator will have the backup
+  // eligibility (BE) flag set to this value. Defaults to false.
+  // https://w3c.github.io/webauthn/#sctn-credential-backup
+  bool HasDefaultBackupEligibility() const { return !!default_backup_eligibility_; }
+  bool GetDefaultBackupEligibility() const { DCHECK(HasDefaultBackupEligibility()); return default_backup_eligibility_.value(); }
+  void SetDefaultBackupEligibility(bool value) { default_backup_eligibility_ = value; }
+
+  // Credentials created by this authenticator will have the backup state
+  // (BS) flag set to this value. Defaults to false.
+  // https://w3c.github.io/webauthn/#sctn-credential-backup
+  bool HasDefaultBackupState() const { return !!default_backup_state_; }
+  bool GetDefaultBackupState() const { DCHECK(HasDefaultBackupState()); return default_backup_state_.value(); }
+  void SetDefaultBackupState(bool value) { default_backup_state_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<VirtualAuthenticatorOptions> Clone() const;
 
@@ -164,6 +178,16 @@ class HEADLESS_EXPORT VirtualAuthenticatorOptions {
       return *this;
     }
 
+    VirtualAuthenticatorOptionsBuilder<STATE>& SetDefaultBackupEligibility(bool value) {
+      result_->SetDefaultBackupEligibility(value);
+      return *this;
+    }
+
+    VirtualAuthenticatorOptionsBuilder<STATE>& SetDefaultBackupState(bool value) {
+      result_->SetDefaultBackupState(value);
+      return *this;
+    }
+
     std::unique_ptr<VirtualAuthenticatorOptions> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -198,6 +222,8 @@ class HEADLESS_EXPORT VirtualAuthenticatorOptions {
   absl::optional<bool> has_prf_;
   absl::optional<bool> automatic_presence_simulation_;
   absl::optional<bool> is_user_verified_;
+  absl::optional<bool> default_backup_eligibility_;
+  absl::optional<bool> default_backup_state_;
 };
 
 

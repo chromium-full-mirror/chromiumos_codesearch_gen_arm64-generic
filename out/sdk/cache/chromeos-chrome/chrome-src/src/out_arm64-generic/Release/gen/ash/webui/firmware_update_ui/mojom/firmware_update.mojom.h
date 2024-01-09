@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/firmware_update_ui/mojom/firmware_update.mojom-features.h"
 #include "ash/webui/firmware_update_ui/mojom/firmware_update.mojom-shared.h"
 #include "ash/webui/firmware_update_ui/mojom/firmware_update.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -83,6 +84,51 @@ class UpdateObserver
 
   
   virtual void OnUpdateListChanged(std::vector<FirmwareUpdatePtr> firmware_updates) = 0;
+};
+
+class DeviceRequestObserverProxy;
+
+template <typename ImplRefTraits>
+class DeviceRequestObserverStub;
+
+class DeviceRequestObserverRequestValidator;
+
+
+class DeviceRequestObserver
+    : public DeviceRequestObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = DeviceRequestObserverInterfaceBase;
+  using Proxy_ = DeviceRequestObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = DeviceRequestObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = DeviceRequestObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnDeviceRequestMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnDeviceRequest_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~DeviceRequestObserver() = default;
+
+  
+  virtual void OnDeviceRequest(DeviceRequestPtr request) = 0;
 };
 
 class UpdateProgressObserverProxy;
@@ -224,7 +270,8 @@ class InstallController
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kBeginUpdateMinVersion = 0,
-    kAddObserverMinVersion = 0,
+    kAddDeviceRequestObserverMinVersion = 0,
+    kAddUpdateProgressObserverMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -233,7 +280,10 @@ class InstallController
   struct BeginUpdate_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct AddObserver_Sym {
+  struct AddDeviceRequestObserver_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct AddUpdateProgressObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -243,7 +293,10 @@ class InstallController
   virtual void BeginUpdate(const std::string& device_id, const ::base::FilePath& filepath) = 0;
 
   
-  virtual void AddObserver(::mojo::PendingRemote<UpdateProgressObserver> observer) = 0;
+  virtual void AddDeviceRequestObserver(::mojo::PendingRemote<DeviceRequestObserver> observer) = 0;
+
+  
+  virtual void AddUpdateProgressObserver(::mojo::PendingRemote<UpdateProgressObserver> observer) = 0;
 };
 
 
@@ -256,6 +309,21 @@ class  UpdateObserverProxy
   explicit UpdateObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void OnUpdateListChanged(std::vector<FirmwareUpdatePtr> firmware_updates) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  DeviceRequestObserverProxy
+    : public DeviceRequestObserver {
+ public:
+  using InterfaceType = DeviceRequestObserver;
+
+  explicit DeviceRequestObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnDeviceRequest(DeviceRequestPtr request) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -306,7 +374,9 @@ class  InstallControllerProxy
   
   void BeginUpdate(const std::string& device_id, const ::base::FilePath& filepath) final;
   
-  void AddObserver(::mojo::PendingRemote<UpdateProgressObserver> observer) final;
+  void AddDeviceRequestObserver(::mojo::PendingRemote<DeviceRequestObserver> observer) final;
+  
+  void AddUpdateProgressObserver(::mojo::PendingRemote<UpdateProgressObserver> observer) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -346,6 +416,47 @@ class UpdateObserverStub
     if (ImplRefTraits::IsNull(sink_))
       return false;
     return UpdateObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  DeviceRequestObserverStubDispatch {
+ public:
+  static bool Accept(DeviceRequestObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      DeviceRequestObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<DeviceRequestObserver>>
+class DeviceRequestObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  DeviceRequestObserverStub() = default;
+  ~DeviceRequestObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return DeviceRequestObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return DeviceRequestObserverStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -476,6 +587,10 @@ class InstallControllerStub
   ImplPointerType sink_;
 };
 class  UpdateObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  DeviceRequestObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -645,6 +760,150 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  DeviceRequest {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<DeviceRequest, T>::value>;
+  using DataView = DeviceRequestDataView;
+  using Data_ = internal::DeviceRequest_Data;
+
+  template <typename... Args>
+  static DeviceRequestPtr New(Args&&... args) {
+    return DeviceRequestPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static DeviceRequestPtr From(const U& u) {
+    return mojo::TypeConverter<DeviceRequestPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DeviceRequest>::Convert(*this);
+  }
+
+
+  DeviceRequest();
+
+  DeviceRequest(
+      DeviceRequestId id,
+      DeviceRequestKind kind);
+
+
+  ~DeviceRequest();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = DeviceRequestPtr>
+  DeviceRequestPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, DeviceRequest::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, DeviceRequest::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, DeviceRequest::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        DeviceRequest::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DeviceRequest::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::DeviceRequest_UnserializedMessageContext<
+            UserType, DeviceRequest::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<DeviceRequest::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return DeviceRequest::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::DeviceRequest_UnserializedMessageContext<
+            UserType, DeviceRequest::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<DeviceRequest::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  DeviceRequestId id;
+  
+  DeviceRequestKind kind;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, DeviceRequest::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, DeviceRequest::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, DeviceRequest::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, DeviceRequest::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 
 class  FirmwareUpdate {
@@ -802,6 +1061,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
 template <typename StructPtrType>
 FirmwareUpdatePtr FirmwareUpdate::Clone() const {
   return New(
@@ -895,6 +1155,35 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+DeviceRequestPtr DeviceRequest::Clone() const {
+  return New(
+      mojo::Clone(id),
+      mojo::Clone(kind)
+  );
+}
+
+template <typename T, DeviceRequest::EnableIfSame<T>*>
+bool DeviceRequest::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->id, other_struct.id))
+    return false;
+  if (!mojo::Equals(this->kind, other_struct.kind))
+    return false;
+  return true;
+}
+
+template <typename T, DeviceRequest::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.id < rhs.id)
+    return true;
+  if (rhs.id < lhs.id)
+    return false;
+  if (lhs.kind < rhs.kind)
+    return true;
+  if (rhs.kind < lhs.kind)
+    return false;
+  return false;
+}
 
 
 }  // ash::firmware_update::mojom
@@ -964,6 +1253,26 @@ struct  StructTraits<::ash::firmware_update::mojom::InstallationProgress::DataVi
   }
 
   static bool Read(::ash::firmware_update::mojom::InstallationProgress::DataView input, ::ash::firmware_update::mojom::InstallationProgressPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::firmware_update::mojom::DeviceRequest::DataView,
+                                         ::ash::firmware_update::mojom::DeviceRequestPtr> {
+  static bool IsNull(const ::ash::firmware_update::mojom::DeviceRequestPtr& input) { return !input; }
+  static void SetToNull(::ash::firmware_update::mojom::DeviceRequestPtr* output) { output->reset(); }
+
+  static decltype(::ash::firmware_update::mojom::DeviceRequest::id) id(
+      const ::ash::firmware_update::mojom::DeviceRequestPtr& input) {
+    return input->id;
+  }
+
+  static decltype(::ash::firmware_update::mojom::DeviceRequest::kind) kind(
+      const ::ash::firmware_update::mojom::DeviceRequestPtr& input) {
+    return input->kind;
+  }
+
+  static bool Read(::ash::firmware_update::mojom::DeviceRequest::DataView input, ::ash::firmware_update::mojom::DeviceRequestPtr* output);
 };
 
 }  // namespace mojo

@@ -13,7 +13,7 @@
 
 G_BEGIN_DECLS
 
-/* enumerations from "../libmbim-1.29.900/src/libmbim-glib/mbim-cid.h" */
+/* enumerations from "../libmbim-1.31.2/src/libmbim-glib/mbim-cid.h" */
 GType mbim_cid_basic_connect_get_type (void) G_GNUC_CONST;
 #define MBIM_TYPE_CID_BASIC_CONNECT (mbim_cid_basic_connect_get_type ())
 
@@ -405,8 +405,25 @@ GType mbim_cid_google_get_type (void) G_GNUC_CONST;
  * Since: 1.30
  */
 const gchar *mbim_cid_google_get_string (MbimCidGoogle val);
+GType mbim_cid_fibocom_get_type (void) G_GNUC_CONST;
+#define MBIM_TYPE_CID_FIBOCOM (mbim_cid_fibocom_get_type ())
 
-/* enumerations from "../libmbim-1.29.900/src/libmbim-glib/mbim-enums.h" */
+/* Define type-specific symbols */
+#define __MBIM_CID_FIBOCOM_IS_ENUM__
+
+/**
+ * mbim_cid_fibocom_get_string:
+ * @val: a MbimCidFibocom.
+ *
+ * Gets the nickname string for the #MbimCidFibocom specified at @val.
+ *
+ * Returns: (transfer none): a string with the nickname, or %NULL if not found. Do not free the returned value.
+ *
+ * Since: 1.32
+ */
+const gchar *mbim_cid_fibocom_get_string (MbimCidFibocom val);
+
+/* enumerations from "../libmbim-1.31.2/src/libmbim-glib/mbim-enums.h" */
 GType mbim_device_type_get_type (void) G_GNUC_CONST;
 #define MBIM_TYPE_DEVICE_TYPE (mbim_device_type_get_type ())
 
@@ -1853,7 +1870,7 @@ GType mbim_carrier_lock_cause_get_type (void) G_GNUC_CONST;
  */
 const gchar *mbim_carrier_lock_cause_get_string (MbimCarrierLockCause val);
 
-/* enumerations from "../libmbim-1.29.900/src/libmbim-glib/mbim-message.h" */
+/* enumerations from "../libmbim-1.31.2/src/libmbim-glib/mbim-message.h" */
 GType mbim_message_type_get_type (void) G_GNUC_CONST;
 #define MBIM_TYPE_MESSAGE_TYPE (mbim_message_type_get_type ())
 
@@ -1889,7 +1906,7 @@ GType mbim_message_command_type_get_type (void) G_GNUC_CONST;
  */
 const gchar *mbim_message_command_type_get_string (MbimMessageCommandType val);
 
-/* enumerations from "../libmbim-1.29.900/src/libmbim-glib/mbim-tlv.h" */
+/* enumerations from "../libmbim-1.31.2/src/libmbim-glib/mbim-tlv.h" */
 GType mbim_tlv_type_get_type (void) G_GNUC_CONST;
 #define MBIM_TYPE_TLV_TYPE (mbim_tlv_type_get_type ())
 
@@ -1908,7 +1925,7 @@ GType mbim_tlv_type_get_type (void) G_GNUC_CONST;
  */
 const gchar *mbim_tlv_type_get_string (MbimTlvType val);
 
-/* enumerations from "../libmbim-1.29.900/src/libmbim-glib/mbim-uuid.h" */
+/* enumerations from "../libmbim-1.31.2/src/libmbim-glib/mbim-uuid.h" */
 GType mbim_service_get_type (void) G_GNUC_CONST;
 #define MBIM_TYPE_SERVICE (mbim_service_get_type ())
 

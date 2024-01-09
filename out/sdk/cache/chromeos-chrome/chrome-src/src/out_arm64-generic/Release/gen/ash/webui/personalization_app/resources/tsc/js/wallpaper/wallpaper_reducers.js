@@ -1,10 +1,12 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { isImageDataUrl, isNonEmptyArray, isNonEmptyFilePath } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
-import { isImageDataUrl, isNonEmptyArray } from '../utils.js';
 import { kDefaultImageSymbol } from './constants.js';
-import { findAlbumById, isDefaultImage, isFilePath, isImageEqualToSelected } from './utils.js';
+import { SeaPenActionName } from './sea_pen/sea_pen_actions.js';
+import { seaPenReducer } from './sea_pen/sea_pen_reducer.js';
+import { findAlbumById, isDefaultImage, isImageEqualToSelected } from './utils.js';
 import { WallpaperActionName } from './wallpaper_actions.js';
 import { DailyRefreshType } from './wallpaper_state.js';
 function backdropReducer(state, action, _) {
@@ -99,7 +101,7 @@ function loadingReducer(state, action, globalState) {
                 ...state,
                 local: {
                     data: imagesToKeep.reduce((result, next) => {
-                        const path = isFilePath(next) ? next.path : next;
+                        const path = isNonEmptyFilePath(next) ? next.path : next;
                         if (state.local.data.hasOwnProperty(path)) {
                             result[path] = state.local.data[path];
                         }
@@ -242,7 +244,7 @@ function localReducer(state, action, _) {
                 return {
                     images: [
                         kDefaultImageSymbol,
-                        ...(state.images || []).filter(img => isFilePath(img)),
+                        ...(state.images || []).filter(img => isNonEmptyFilePath(img)),
                     ],
                     data: {
                         ...state.data,
@@ -252,7 +254,7 @@ function localReducer(state, action, _) {
             }
             return {
                 images: Array.isArray(state.images) ?
-                    state.images.filter(img => isFilePath(img)) :
+                    state.images.filter(img => isNonEmptyFilePath(img)) :
                     null,
                 data: { ...state.data, [kDefaultImageSymbol]: { url: '' } },
             };
@@ -274,7 +276,7 @@ function localReducer(state, action, _) {
                 images: newImages,
                 // Only keep image thumbnails if the image is still in |images|.
                 data: newImages.reduce((result, next) => {
-                    const key = isFilePath(next) ? next.path : next;
+                    const key = isNonEmptyFilePath(next) ? next.path : next;
                     if (state.data.hasOwnProperty(key)) {
                         result[key] = state.data[key];
                     }
@@ -379,6 +381,14 @@ function fullscreenReducer(state, action, _) {
     switch (action.name) {
         case WallpaperActionName.SET_FULLSCREEN_ENABLED:
             return action.enabled;
+        default:
+            return state;
+    }
+}
+function shouldShowTimeOfDayWallpaperDialogReducer(state, action, _) {
+    switch (action.name) {
+        case WallpaperActionName.SET_SHOULD_SHOW_TIME_OF_DAY_WALLPAPER_DIALOG:
+            return action.shouldShowDialog;
         default:
             return state;
     }
@@ -565,26 +575,15 @@ function googlePhotosReducer(state, action, _) {
             return state;
     }
 }
-function seaPenReducer(state, action, _) {
-    switch (action.name) {
-        case WallpaperActionName.BEGIN_SEARCH_IMAGE_THUMBNAILS:
-            return {
-                thumbnailsLoading: true,
-                query: action.query,
-                thumbnails: state.thumbnails,
-            };
-        case WallpaperActionName.SET_IMAGE_THUMBNAILS:
-            console.log('seaPenReducer, text: ', action.query);
-            assert(!!action.query, 'input text is empty.');
-            console.log('seapenReducer, thumbnails: ', action.images);
-            return {
-                thumbnailsLoading: false,
-                query: action.query,
-                thumbnails: action.images,
-            };
-        default:
-            return state;
+const allSeaPenActionNames = new Set(Object.values(SeaPenActionName));
+function actionIsSeaPenAction(action) {
+    return allSeaPenActionNames.has(action.name);
+}
+function seaPenReducerAdapter(state, action, _) {
+    if (actionIsSeaPenAction(action)) {
+        return seaPenReducer(state, action);
     }
+    return state;
 }
 export const wallpaperReducers = {
     backdrop: backdropReducer,
@@ -595,6 +594,7 @@ export const wallpaperReducers = {
     pendingSelected: pendingSelectedReducer,
     dailyRefresh: dailyRefreshReducer,
     fullscreen: fullscreenReducer,
+    shouldShowTimeOfDayWallpaperDialog: shouldShowTimeOfDayWallpaperDialogReducer,
     googlePhotos: googlePhotosReducer,
-    seaPen: seaPenReducer,
+    seaPen: seaPenReducerAdapter,
 };

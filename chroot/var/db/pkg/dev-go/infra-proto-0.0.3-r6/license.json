@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "infra-proto", "version": "0.0.3", "revision": 6, "fullname": "dev-go/infra-proto", "fullnamerev": "dev-go/infra-proto-0.0.3-r6", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["chromium.googlesource.com/chromiumos/infra/proto"], "skip": false, "tainted": false, "ebuild_path": null}

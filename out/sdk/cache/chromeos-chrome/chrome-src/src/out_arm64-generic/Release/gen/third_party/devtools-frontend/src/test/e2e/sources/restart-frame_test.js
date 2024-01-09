@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
+const context_menu_helpers_js_1 = require("../helpers/context-menu-helpers.js");
 const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
 (0, mocha_extensions_js_1.describe)('Sources Tab', () => {
     (0, mocha_extensions_js_1.it)('can restart a call stack frame', async () => {
@@ -20,7 +21,7 @@ const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
             chai_1.assert.deepStrictEqual(callFrameNames.slice(0, 3), ['baz', 'bar', 'foo']);
         });
         await (0, helper_js_1.step)('restart frame "bar"', async () => {
-            await (0, sources_helpers_js_1.clickOnContextMenu)('.call-frame-item[aria-posinset="2"]', 'Restart frame'); // Aria indices are 1-based.
+            await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)('.call-frame-item[aria-posinset="2"]', 'Restart frame'); // Aria indices are 1-based.
         });
         await (0, helper_js_1.step)('wait for the page to stop in "bar"', async () => {
             await (0, helper_js_1.waitForFunction)(async () => {

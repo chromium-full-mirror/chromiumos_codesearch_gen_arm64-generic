@@ -4,65 +4,76 @@
 #include "resource_manager.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace resource_manager {
+template <typename>
 PROTOBUF_CONSTEXPR ReportBackgroundProcesses::ReportBackgroundProcesses(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.pids_)*/{}
-  , /*decltype(_impl_._pids_cached_byte_size_)*/{0}
-  , /*decltype(_impl_.component_)*/0
+    /*decltype(_impl_.pids_)*/ {}
+  ,/* _impl_._pids_cached_byte_size_ = */ { 0 }
+
+  , /*decltype(_impl_.component_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ReportBackgroundProcessesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ReportBackgroundProcessesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ReportBackgroundProcessesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ReportBackgroundProcessesDefaultTypeInternal() {}
   union {
     ReportBackgroundProcesses _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReportBackgroundProcessesDefaultTypeInternal _ReportBackgroundProcesses_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReportBackgroundProcessesDefaultTypeInternal _ReportBackgroundProcesses_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ReportBrowserProcesses_Process::ReportBrowserProcesses_Process(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.pid_)*/0
-  , /*decltype(_impl_.protected__)*/false
-  , /*decltype(_impl_.visible_)*/false
-  , /*decltype(_impl_.focused_)*/false
+    /*decltype(_impl_.pid_)*/ 0
+
+  , /*decltype(_impl_.protected__)*/ false
+
+  , /*decltype(_impl_.visible_)*/ false
+
+  , /*decltype(_impl_.focused_)*/ false
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ReportBrowserProcesses_ProcessDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ReportBrowserProcesses_ProcessDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ReportBrowserProcesses_ProcessDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ReportBrowserProcesses_ProcessDefaultTypeInternal() {}
   union {
     ReportBrowserProcesses_Process _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReportBrowserProcesses_ProcessDefaultTypeInternal _ReportBrowserProcesses_Process_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReportBrowserProcesses_ProcessDefaultTypeInternal _ReportBrowserProcesses_Process_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ReportBrowserProcesses::ReportBrowserProcesses(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.processes_)*/{}
-  , /*decltype(_impl_.browser_type_)*/0
+  , /*decltype(_impl_.browser_type_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ReportBrowserProcessesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ReportBrowserProcessesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ReportBrowserProcessesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ReportBrowserProcessesDefaultTypeInternal() {}
   union {
     ReportBrowserProcesses _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReportBrowserProcessesDefaultTypeInternal _ReportBrowserProcesses_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReportBrowserProcessesDefaultTypeInternal _ReportBrowserProcesses_default_instance_;
 }  // namespace resource_manager
 namespace resource_manager {
 bool ReportBackgroundProcesses_Component_IsValid(int value) {
@@ -74,40 +85,40 @@ bool ReportBackgroundProcesses_Component_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    ReportBackgroundProcesses_Component_strings[2] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ReportBackgroundProcesses_Component_strings[2] = {};
+static const char ReportBackgroundProcesses_Component_names[] = {
+    "ASH"
+    "LACROS"
+};
 
-static const char ReportBackgroundProcesses_Component_names[] =
-  "ASH"
-  "LACROS";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ReportBackgroundProcesses_Component_entries[] = {
-  { {ReportBackgroundProcesses_Component_names + 0, 3}, 0 },
-  { {ReportBackgroundProcesses_Component_names + 3, 6}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ReportBackgroundProcesses_Component_entries[] =
+    {
+        {{&ReportBackgroundProcesses_Component_names[0], 3}, 0},
+        {{&ReportBackgroundProcesses_Component_names[3], 6}, 1},
 };
 
 static const int ReportBackgroundProcesses_Component_entries_by_number[] = {
-  0, // 0 -> ASH
-  1, // 1 -> LACROS
+    0,  // 0 -> ASH
+    1,  // 1 -> LACROS
 };
 
-const std::string& ReportBackgroundProcesses_Component_Name(
-    ReportBackgroundProcesses_Component value) {
-  static const bool dummy =
+const std::string& ReportBackgroundProcesses_Component_Name(ReportBackgroundProcesses_Component value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          ReportBackgroundProcesses_Component_entries,
-          ReportBackgroundProcesses_Component_entries_by_number,
+          ReportBackgroundProcesses_Component_entries, ReportBackgroundProcesses_Component_entries_by_number,
           2, ReportBackgroundProcesses_Component_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      ReportBackgroundProcesses_Component_entries,
-      ReportBackgroundProcesses_Component_entries_by_number,
-      2, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     ReportBackgroundProcesses_Component_strings[idx].get();
+      ReportBackgroundProcesses_Component_entries, ReportBackgroundProcesses_Component_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : ReportBackgroundProcesses_Component_strings[idx].get();
 }
-bool ReportBackgroundProcesses_Component_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ReportBackgroundProcesses_Component* value) {
+
+bool ReportBackgroundProcesses_Component_Parse(absl::string_view name, ReportBackgroundProcesses_Component* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       ReportBackgroundProcesses_Component_entries, 2, name, &int_value);
@@ -116,13 +127,17 @@ bool ReportBackgroundProcesses_Component_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr ReportBackgroundProcesses_Component ReportBackgroundProcesses::ASH;
 constexpr ReportBackgroundProcesses_Component ReportBackgroundProcesses::LACROS;
 constexpr ReportBackgroundProcesses_Component ReportBackgroundProcesses::Component_MIN;
 constexpr ReportBackgroundProcesses_Component ReportBackgroundProcesses::Component_MAX;
 constexpr int ReportBackgroundProcesses::Component_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool BrowserType_IsValid(int value) {
   switch (value) {
     case 0:
@@ -132,40 +147,40 @@ bool BrowserType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    BrowserType_strings[2] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> BrowserType_strings[2] = {};
+static const char BrowserType_names[] = {
+    "ASH"
+    "LACROS"
+};
 
-static const char BrowserType_names[] =
-  "ASH"
-  "LACROS";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry BrowserType_entries[] = {
-  { {BrowserType_names + 0, 3}, 0 },
-  { {BrowserType_names + 3, 6}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry BrowserType_entries[] =
+    {
+        {{&BrowserType_names[0], 3}, 0},
+        {{&BrowserType_names[3], 6}, 1},
 };
 
 static const int BrowserType_entries_by_number[] = {
-  0, // 0 -> ASH
-  1, // 1 -> LACROS
+    0,  // 0 -> ASH
+    1,  // 1 -> LACROS
 };
 
-const std::string& BrowserType_Name(
-    BrowserType value) {
-  static const bool dummy =
+const std::string& BrowserType_Name(BrowserType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          BrowserType_entries,
-          BrowserType_entries_by_number,
+          BrowserType_entries, BrowserType_entries_by_number,
           2, BrowserType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      BrowserType_entries,
-      BrowserType_entries_by_number,
-      2, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     BrowserType_strings[idx].get();
+      BrowserType_entries, BrowserType_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : BrowserType_strings[idx].get();
 }
-bool BrowserType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BrowserType* value) {
+
+bool BrowserType_Parse(absl::string_view name, BrowserType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       BrowserType_entries, 2, name, &int_value);
@@ -174,26 +189,26 @@ bool BrowserType_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class ReportBackgroundProcesses::_Internal {
  public:
 };
 
-ReportBackgroundProcesses::ReportBackgroundProcesses(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ReportBackgroundProcesses::ReportBackgroundProcesses(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:resource_manager.ReportBackgroundProcesses)
 }
 ReportBackgroundProcesses::ReportBackgroundProcesses(const ReportBackgroundProcesses& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   ReportBackgroundProcesses* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.pids_){from._impl_.pids_}
-    , /*decltype(_impl_._pids_cached_byte_size_)*/{0}
-    , decltype(_impl_.component_){}
+      decltype(_impl_.pids_) { from._impl_.pids_ }
+    ,/* _impl_._pids_cached_byte_size_ = */ { 0 }
+
+    , decltype(_impl_.component_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -201,14 +216,14 @@ ReportBackgroundProcesses::ReportBackgroundProcesses(const ReportBackgroundProce
   // @@protoc_insertion_point(copy_constructor:resource_manager.ReportBackgroundProcesses)
 }
 
-inline void ReportBackgroundProcesses::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ReportBackgroundProcesses::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.pids_){arena}
-    , /*decltype(_impl_._pids_cached_byte_size_)*/{0}
-    , decltype(_impl_.component_){0}
+      decltype(_impl_.pids_) { arena }
+    ,/* _impl_._pids_cached_byte_size_ = */ { 0 }
+
+    , decltype(_impl_.component_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -223,7 +238,7 @@ ReportBackgroundProcesses::~ReportBackgroundProcesses() {
 }
 
 inline void ReportBackgroundProcesses::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.pids_.~RepeatedField();
 }
 
@@ -233,11 +248,11 @@ void ReportBackgroundProcesses::SetCachedSize(int size) const {
 
 void ReportBackgroundProcesses::Clear() {
 // @@protoc_insertion_point(message_clear_start:resource_manager.ReportBackgroundProcesses)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.pids_.Clear();
+  _internal_mutable_pids()->Clear();
   _impl_.component_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
@@ -245,28 +260,30 @@ void ReportBackgroundProcesses::Clear() {
 const char* ReportBackgroundProcesses::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .resource_manager.ReportBackgroundProcesses.Component component = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_component(static_cast<::resource_manager::ReportBackgroundProcesses_Component>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated int32 pids = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt32Parser(_internal_mutable_pids(), ptr, ctx);
           CHK_(ptr);
-        } else if (static_cast<uint8_t>(tag) == 16) {
+        } else if (static_cast<::uint8_t>(tag) == 16) {
           _internal_add_pids(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -291,25 +308,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ReportBackgroundProcesses::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ReportBackgroundProcesses::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:resource_manager.ReportBackgroundProcesses)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .resource_manager.ReportBackgroundProcesses.Component component = 1;
   if (this->_internal_component() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_component(), target);
+        1, this->_internal_component(), target);
   }
 
   // repeated int32 pids = 2;
   {
-    int byte_size = _impl_._pids_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._pids_cached_byte_size_.Get();
     if (byte_size > 0) {
-      target = stream->WriteInt32Packed(
-          2, _internal_pids(), byte_size, target);
+      target = stream->WriteInt32Packed(2, _internal_pids(),
+                                                 byte_size, target);
     }
   }
 
@@ -321,32 +338,32 @@ uint8_t* ReportBackgroundProcesses::_InternalSerialize(
   return target;
 }
 
-size_t ReportBackgroundProcesses::ByteSizeLong() const {
+::size_t ReportBackgroundProcesses::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:resource_manager.ReportBackgroundProcesses)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated int32 pids = 2;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      Int32Size(this->_impl_.pids_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
-    }
-    int cached_size = ::_pbi::ToCachedSize(data_size);
-    _impl_._pids_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_pids())
+    ;
+    _impl_._pids_cached_byte_size_.Set(::_pbi::ToCachedSize(data_size));
+    std::size_t tag_size = data_size == 0
+        ? 0
+        : 1 + ::_pbi::WireFormatLite::Int32Size(
+                            static_cast<int32_t>(data_size))
+    ;
+    total_size += tag_size + data_size;
   }
 
   // .resource_manager.ReportBackgroundProcesses.Component component = 1;
   if (this->_internal_component() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_component());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_component());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -366,8 +383,8 @@ void ReportBackgroundProcesses::CheckTypeAndMergeFrom(
 void ReportBackgroundProcesses::MergeFrom(const ReportBackgroundProcesses& from) {
   ReportBackgroundProcesses* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:resource_manager.ReportBackgroundProcesses)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.pids_.MergeFrom(from._impl_.pids_);
@@ -399,45 +416,35 @@ std::string ReportBackgroundProcesses::GetTypeName() const {
   return "resource_manager.ReportBackgroundProcesses";
 }
 
-
 // ===================================================================
 
 class ReportBrowserProcesses_Process::_Internal {
  public:
 };
 
-ReportBrowserProcesses_Process::ReportBrowserProcesses_Process(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ReportBrowserProcesses_Process::ReportBrowserProcesses_Process(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:resource_manager.ReportBrowserProcesses.Process)
 }
 ReportBrowserProcesses_Process::ReportBrowserProcesses_Process(const ReportBrowserProcesses_Process& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  ReportBrowserProcesses_Process* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.pid_){}
-    , decltype(_impl_.protected__){}
-    , decltype(_impl_.visible_){}
-    , decltype(_impl_.focused_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.focused_) -
-    reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.focused_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:resource_manager.ReportBrowserProcesses.Process)
 }
 
-inline void ReportBrowserProcesses_Process::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ReportBrowserProcesses_Process::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.pid_){0}
-    , decltype(_impl_.protected__){false}
-    , decltype(_impl_.visible_){false}
-    , decltype(_impl_.focused_){false}
+      decltype(_impl_.pid_) { 0 }
+
+    , decltype(_impl_.protected__) { false }
+
+    , decltype(_impl_.visible_) { false }
+
+    , decltype(_impl_.focused_) { false }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -452,7 +459,7 @@ ReportBrowserProcesses_Process::~ReportBrowserProcesses_Process() {
 }
 
 inline void ReportBrowserProcesses_Process::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void ReportBrowserProcesses_Process::SetCachedSize(int size) const {
@@ -461,11 +468,11 @@ void ReportBrowserProcesses_Process::SetCachedSize(int size) const {
 
 void ReportBrowserProcesses_Process::Clear() {
 // @@protoc_insertion_point(message_clear_start:resource_manager.ReportBrowserProcesses.Process)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.pid_, 0, static_cast<size_t>(
+  ::memset(&_impl_.pid_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.focused_) -
       reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.focused_));
   _internal_metadata_.Clear<std::string>();
@@ -474,40 +481,44 @@ void ReportBrowserProcesses_Process::Clear() {
 const char* ReportBrowserProcesses_Process::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 pid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bool protected = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.protected__ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bool visible = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.visible_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bool focused = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.focused_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -532,34 +543,38 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ReportBrowserProcesses_Process::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ReportBrowserProcesses_Process::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:resource_manager.ReportBrowserProcesses.Process)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 pid = 1;
   if (this->_internal_pid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_pid(), target);
   }
 
   // bool protected = 2;
   if (this->_internal_protected_() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_protected_(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_protected_(), target);
   }
 
   // bool visible = 3;
   if (this->_internal_visible() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_visible(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        3, this->_internal_visible(), target);
   }
 
   // bool focused = 4;
   if (this->_internal_focused() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_focused(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_focused(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -570,32 +585,33 @@ uint8_t* ReportBrowserProcesses_Process::_InternalSerialize(
   return target;
 }
 
-size_t ReportBrowserProcesses_Process::ByteSizeLong() const {
+::size_t ReportBrowserProcesses_Process::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:resource_manager.ReportBrowserProcesses.Process)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 pid = 1;
   if (this->_internal_pid() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_pid());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_pid());
   }
 
   // bool protected = 2;
   if (this->_internal_protected_() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   // bool visible = 3;
   if (this->_internal_visible() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   // bool focused = 4;
   if (this->_internal_focused() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -615,8 +631,8 @@ void ReportBrowserProcesses_Process::CheckTypeAndMergeFrom(
 void ReportBrowserProcesses_Process::MergeFrom(const ReportBrowserProcesses_Process& from) {
   ReportBrowserProcesses_Process* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:resource_manager.ReportBrowserProcesses.Process)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_pid() != 0) {
@@ -660,17 +676,15 @@ std::string ReportBrowserProcesses_Process::GetTypeName() const {
   return "resource_manager.ReportBrowserProcesses.Process";
 }
 
-
 // ===================================================================
 
 class ReportBrowserProcesses::_Internal {
  public:
 };
 
-ReportBrowserProcesses::ReportBrowserProcesses(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ReportBrowserProcesses::ReportBrowserProcesses(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:resource_manager.ReportBrowserProcesses)
 }
 ReportBrowserProcesses::ReportBrowserProcesses(const ReportBrowserProcesses& from)
@@ -678,7 +692,8 @@ ReportBrowserProcesses::ReportBrowserProcesses(const ReportBrowserProcesses& fro
   ReportBrowserProcesses* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.processes_){from._impl_.processes_}
-    , decltype(_impl_.browser_type_){}
+    , decltype(_impl_.browser_type_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -686,13 +701,12 @@ ReportBrowserProcesses::ReportBrowserProcesses(const ReportBrowserProcesses& fro
   // @@protoc_insertion_point(copy_constructor:resource_manager.ReportBrowserProcesses)
 }
 
-inline void ReportBrowserProcesses::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ReportBrowserProcesses::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.processes_){arena}
-    , decltype(_impl_.browser_type_){0}
+    , decltype(_impl_.browser_type_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -707,8 +721,8 @@ ReportBrowserProcesses::~ReportBrowserProcesses() {
 }
 
 inline void ReportBrowserProcesses::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.processes_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_processes()->~RepeatedPtrField();
 }
 
 void ReportBrowserProcesses::SetCachedSize(int size) const {
@@ -717,11 +731,11 @@ void ReportBrowserProcesses::SetCachedSize(int size) const {
 
 void ReportBrowserProcesses::Clear() {
 // @@protoc_insertion_point(message_clear_start:resource_manager.ReportBrowserProcesses)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.processes_.Clear();
+  _internal_mutable_processes()->Clear();
   _impl_.browser_type_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
@@ -729,21 +743,22 @@ void ReportBrowserProcesses::Clear() {
 const char* ReportBrowserProcesses::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .resource_manager.BrowserType browser_type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_browser_type(static_cast<::resource_manager::BrowserType>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .resource_manager.ReportBrowserProcesses.Process processes = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -751,8 +766,9 @@ const char* ReportBrowserProcesses::_InternalParse(const char* ptr, ::_pbi::Pars
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -777,17 +793,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ReportBrowserProcesses::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ReportBrowserProcesses::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:resource_manager.ReportBrowserProcesses)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .resource_manager.BrowserType browser_type = 1;
   if (this->_internal_browser_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_browser_type(), target);
+        1, this->_internal_browser_type(), target);
   }
 
   // repeated .resource_manager.ReportBrowserProcesses.Process processes = 2;
@@ -806,17 +822,17 @@ uint8_t* ReportBrowserProcesses::_InternalSerialize(
   return target;
 }
 
-size_t ReportBrowserProcesses::ByteSizeLong() const {
+::size_t ReportBrowserProcesses::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:resource_manager.ReportBrowserProcesses)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .resource_manager.ReportBrowserProcesses.Process processes = 2;
   total_size += 1UL * this->_internal_processes_size();
-  for (const auto& msg : this->_impl_.processes_) {
+  for (const auto& msg : this->_internal_processes()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -824,7 +840,7 @@ size_t ReportBrowserProcesses::ByteSizeLong() const {
   // .resource_manager.BrowserType browser_type = 1;
   if (this->_internal_browser_type() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_browser_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_browser_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -844,11 +860,11 @@ void ReportBrowserProcesses::CheckTypeAndMergeFrom(
 void ReportBrowserProcesses::MergeFrom(const ReportBrowserProcesses& from) {
   ReportBrowserProcesses* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:resource_manager.ReportBrowserProcesses)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.processes_.MergeFrom(from._impl_.processes_);
+  _this->_internal_mutable_processes()->MergeFrom(from._internal_processes());
   if (from._internal_browser_type() != 0) {
     _this->_internal_set_browser_type(from._internal_browser_type());
   }
@@ -869,14 +885,13 @@ bool ReportBrowserProcesses::IsInitialized() const {
 void ReportBrowserProcesses::InternalSwap(ReportBrowserProcesses* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.processes_.InternalSwap(&other->_impl_.processes_);
+  _internal_mutable_processes()->InternalSwap(other->_internal_mutable_processes());
   swap(_impl_.browser_type_, other->_impl_.browser_type_);
 }
 
 std::string ReportBrowserProcesses::GetTypeName() const {
   return "resource_manager.ReportBrowserProcesses";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace resource_manager
@@ -894,6 +909,5 @@ Arena::CreateMaybeMessage< ::resource_manager::ReportBrowserProcesses >(Arena* a
   return Arena::CreateMessageInternal< ::resource_manager::ReportBrowserProcesses >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

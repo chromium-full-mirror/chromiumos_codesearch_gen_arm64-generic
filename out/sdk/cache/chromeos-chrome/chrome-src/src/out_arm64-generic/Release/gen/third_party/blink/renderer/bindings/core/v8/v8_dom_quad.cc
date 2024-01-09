@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMQuad>::value,
     "DOMQuad inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMQuad::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMQuad is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMQuad.p1.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(v8_receiver);
+DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->p1();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -106,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMQuad.p2.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(v8_receiver);
+DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->p2();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -120,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMQuad.p3.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(v8_receiver);
+DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->p3();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -134,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMQuad.p4.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(v8_receiver);
+DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->p4();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -214,8 +213,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMQuad.getBounds");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(v8_receiver);
+DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getBounds();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -231,8 +231,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMQuad.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(v8_receiver);
+DOMQuad* blink_receiver = V8DOMQuad::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

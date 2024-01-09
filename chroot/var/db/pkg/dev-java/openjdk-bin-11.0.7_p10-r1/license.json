@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-java", "name": "openjdk-bin", "version": "11.0.7_p10", "revision": 1, "fullname": "dev-java/openjdk-bin", "fullnamerev": "dev-java/openjdk-bin-11.0.7_p10-r1", "license_names": ["GPL-2-with-classpath-exception"], "license_text_scanned": [], "homepages": ["https://adoptopenjdk.net"], "skip": false, "tainted": false, "ebuild_path": null}

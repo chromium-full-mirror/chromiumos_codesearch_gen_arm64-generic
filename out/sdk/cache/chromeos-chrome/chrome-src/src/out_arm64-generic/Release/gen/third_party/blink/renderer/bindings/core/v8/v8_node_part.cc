@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, NodePart>::value,
     "NodePart inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&NodePart::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NodePart is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,8 +89,9 @@ BLINK_BINDINGS_TRACE_EVENT("NodePart.node.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NodePart* blink_receiver = V8NodePart::ToWrappableUnsafe(v8_receiver);
+NodePart* blink_receiver = V8NodePart::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->node();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

@@ -65,6 +65,7 @@ export var GaMetricDimension;
     GaMetricDimension[GaMetricDimension["IS_TEST_IMAGE"] = 38] = "IS_TEST_IMAGE";
     GaMetricDimension[GaMetricDimension["DEVICE_PIXEL_RATIO"] = 39] = "DEVICE_PIXEL_RATIO";
     GaMetricDimension[GaMetricDimension["CAMERA_MODULE_ID"] = 40] = "CAMERA_MODULE_ID";
+    GaMetricDimension[GaMetricDimension["WIFI_SECURITY_TYPE"] = 41] = "WIFI_SECURITY_TYPE";
 })(GaMetricDimension || (GaMetricDimension = {}));
 export var Ga4MetricDimension;
 (function (Ga4MetricDimension) {
@@ -114,6 +115,7 @@ export var Ga4MetricDimension;
     Ga4MetricDimension["TALL_ORIENTATION"] = "tall_orientation";
     Ga4MetricDimension["TIME_LAPSE_SPEED"] = "time_lapse_speed";
     Ga4MetricDimension["TIMER"] = "timer";
+    Ga4MetricDimension["WIFI_SECURITY_TYPE"] = "wifi_security_type";
 })(Ga4MetricDimension || (Ga4MetricDimension = {}));
 let gaBaseDimensions = null;
 /**
@@ -277,7 +279,6 @@ function sendGaEvent({ baseEvent, dimensions }) {
         ...gaBaseDimensions,
         ...dimensions,
         [GaMetricDimension.DEVICE_PIXEL_RATIO, getDevicePixelRatio()],
-        [GaMetricDimension.OS_VERSION, getOsVersion()],
         [GaMetricDimension.SCHEMA_VERSION, SCHEMA_VERSION],
     ];
     for (const [key, value] of mergedDimensions) {
@@ -304,7 +305,6 @@ function sendGa4Event({ name, eventParams, beacon = false, }) {
         ...eventParams,
         [Ga4MetricDimension.DEVICE_PIXEL_RATIO]: getDevicePixelRatio(),
         [Ga4MetricDimension.LANGUAGE]: navigator.language,
-        [Ga4MetricDimension.OS_VERSION]: getOsVersion(),
         [Ga4MetricDimension.SCHEMA_VERSION]: SCHEMA_VERSION,
         [Ga4MetricDimension.SCREEN_RESOLUTION]: getScreenResolution(),
         // Set '1' here as it's enough for GA4 to generate the metrics for n-day
@@ -349,9 +349,6 @@ function setGa4Enabled(enabled) {
 }
 function getDevicePixelRatio() {
     return window.devicePixelRatio.toFixed(2);
-}
-function getOsVersion() {
-    return navigator.appVersion.match(/CrOS\s+\S+\s+([\d.]+)/)?.[1] ?? '';
 }
 function getScreenResolution() {
     const { width, height } = window.screen;

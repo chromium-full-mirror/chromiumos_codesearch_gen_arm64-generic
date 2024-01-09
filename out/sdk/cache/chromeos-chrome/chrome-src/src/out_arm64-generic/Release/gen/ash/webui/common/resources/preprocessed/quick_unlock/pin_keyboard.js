@@ -58,19 +58,19 @@ const INITIAL_BACKSPACE_DELAY_MS = 500;
  * @const
  */
 const PIN_INPUT_ALLOWED_NON_NUMBER_KEY_CODES = new Set([
-    8,
-    9,
-    37,
-    39,
+    8, // backspace
+    9, // tab
+    37, // left
+    39, // right
     // We don't allow back or forward.
-    183,
-    182,
-    216,
-    217,
-    179,
-    173,
-    174,
-    175,
+    183, // ZoomToggle, aka fullscreen
+    182, // LaunchApplication1, aka overview mode
+    216, // BrightnessDown
+    217, // BrightnessUp
+    179, // MediaPlayPause
+    173, // AudioVolumeMute
+    174, // AudioVolumeDown
+    175, // AudioVolumeUp
     154, // LaunchControlPanel, aka system tray menu
 ]);
 function receivedEventFromKeyboard(event) {

@@ -48,7 +48,7 @@ enum TraceProcessorMethod : int32_t;
 using TraceProcessorRpc_TraceProcessorMethod = perfetto_pbzero_enum_TraceProcessorRpc::TraceProcessorMethod;
 
 enum TraceProcessorApiVersion : int32_t {
-  TRACE_PROCESSOR_CURRENT_API_VERSION = 9,
+  TRACE_PROCESSOR_CURRENT_API_VERSION = 10,
 };
 
 constexpr TraceProcessorApiVersion TraceProcessorApiVersion_MIN = TraceProcessorApiVersion::TRACE_PROCESSOR_CURRENT_API_VERSION;

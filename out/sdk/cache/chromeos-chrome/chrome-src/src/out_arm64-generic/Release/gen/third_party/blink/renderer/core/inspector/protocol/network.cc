@@ -385,6 +385,15 @@ const char UnspecifiedReason[] = "unspecifiedReason";
 } // namespace AlternateProtocolUsageEnum
 
 
+CRDTP_BEGIN_DESERIALIZER(ServiceWorkerRouterInfo)
+    CRDTP_DESERIALIZE_FIELD("ruleIdMatched", m_ruleIdMatched),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(ServiceWorkerRouterInfo)
+    CRDTP_SERIALIZE_FIELD("ruleIdMatched", m_ruleIdMatched);
+CRDTP_END_SERIALIZER();
+
+
 CRDTP_BEGIN_DESERIALIZER(Response)
     CRDTP_DESERIALIZE_FIELD_OPT("alternateProtocolUsage", m_alternateProtocolUsage),
     CRDTP_DESERIALIZE_FIELD_OPT("cacheStorageCacheName", m_cacheStorageCacheName),
@@ -406,6 +415,7 @@ CRDTP_BEGIN_DESERIALIZER(Response)
     CRDTP_DESERIALIZE_FIELD_OPT("securityDetails", m_securityDetails),
     CRDTP_DESERIALIZE_FIELD("securityState", m_securityState),
     CRDTP_DESERIALIZE_FIELD_OPT("serviceWorkerResponseSource", m_serviceWorkerResponseSource),
+    CRDTP_DESERIALIZE_FIELD_OPT("serviceWorkerRouterInfo", m_serviceWorkerRouterInfo),
     CRDTP_DESERIALIZE_FIELD("status", m_status),
     CRDTP_DESERIALIZE_FIELD("statusText", m_statusText),
     CRDTP_DESERIALIZE_FIELD_OPT("timing", m_timing),
@@ -428,6 +438,7 @@ CRDTP_BEGIN_SERIALIZER(Response)
     CRDTP_SERIALIZE_FIELD("fromDiskCache", m_fromDiskCache);
     CRDTP_SERIALIZE_FIELD("fromServiceWorker", m_fromServiceWorker);
     CRDTP_SERIALIZE_FIELD("fromPrefetchCache", m_fromPrefetchCache);
+    CRDTP_SERIALIZE_FIELD("serviceWorkerRouterInfo", m_serviceWorkerRouterInfo);
     CRDTP_SERIALIZE_FIELD("encodedDataLength", m_encodedDataLength);
     CRDTP_SERIALIZE_FIELD("timing", m_timing);
     CRDTP_SERIALIZE_FIELD("serviceWorkerResponseSource", m_serviceWorkerResponseSource);
@@ -863,7 +874,7 @@ const char* FulfilledLocally = "FulfilledLocally";
 
 // ------------- Frontend notifications.
 
-void Frontend::dataReceived(const String& requestId, double timestamp, int dataLength, int encodedDataLength)
+void Frontend::dataReceived(const String& requestId, double timestamp, int dataLength, int encodedDataLength, Maybe<Binary> data)
 {
     if (!frontend_channel_)
         return;
@@ -872,6 +883,7 @@ void Frontend::dataReceived(const String& requestId, double timestamp, int dataL
     serializer.AddField(crdtp::MakeSpan("timestamp"), timestamp);
     serializer.AddField(crdtp::MakeSpan("dataLength"), dataLength);
     serializer.AddField(crdtp::MakeSpan("encodedDataLength"), encodedDataLength);
+    serializer.AddField(crdtp::MakeSpan("data"), data);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.dataReceived", serializer.Finish()));
 }
 
@@ -1263,6 +1275,7 @@ public:
     void setCacheDisabled(const crdtp::Dispatchable& dispatchable);
     void setExtraHTTPHeaders(const crdtp::Dispatchable& dispatchable);
     void setAttachDebugStack(const crdtp::Dispatchable& dispatchable);
+    void streamResourceContent(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
 };
@@ -1342,6 +1355,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("setExtraHTTPHeaders"),
           &DomainDispatcherImpl::setExtraHTTPHeaders
+    },
+    {
+          crdtp::SpanFrom("streamResourceContent"),
+          &DomainDispatcherImpl::streamResourceContent
     },
     };
     return commands;
@@ -1976,6 +1993,51 @@ void DomainDispatcherImpl::setAttachDebugStack(const crdtp::Dispatchable& dispat
     }
     if (weak->get())
         weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
+}
+
+namespace {
+
+struct streamResourceContentParams : public crdtp::DeserializableProtocolObject<streamResourceContentParams> {
+    String requestId;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(streamResourceContentParams)
+    CRDTP_DESERIALIZE_FIELD("requestId", requestId),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::streamResourceContent(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    streamResourceContentParams params;
+    if (!streamResourceContentParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+    // Declare output parameters.
+    Binary out_bufferedData;
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->streamResourceContent(params.requestId, &out_bufferedData);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Network.streamResourceContent"), dispatchable.Serialized());
+        return;
+    }
+      if (weak->get()) {
+        std::unique_ptr<crdtp::Serializable> result;
+        if (response.IsSuccess()) {
+          crdtp::ObjectSerializer serializer;
+          serializer.AddField(crdtp::MakeSpan("bufferedData"), out_bufferedData);
+          result = serializer.Finish();
+        } else {
+          result = Serializable::From({});
+        }
+        weak->get()->sendResponse(dispatchable.CallId(), response, std::move(result));
+      }
     return;
 }
 

@@ -16,11 +16,11 @@ namespace network::mojom::blink {
 
 class BLINK_PLATFORM_EXPORT RestrictedCookieManagerInterceptorForTesting : public RestrictedCookieManager {
   virtual RestrictedCookieManager* GetForwardingInterface() = 0;
-  void GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, GetAllForUrlCallback callback) override;
+  void GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged, GetAllForUrlCallback callback) override;
   void SetCanonicalCookie(const ::net::CanonicalCookie& cookie, const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, ::net::CookieInclusionStatus status, SetCanonicalCookieCallback callback) override;
   void AddChangeListener(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, ::mojo::PendingRemote<::network::mojom::blink::CookieChangeListener> listener, AddChangeListenerCallback callback) override;
   void SetCookieFromString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, const WTF::String& cookie, SetCookieFromStringCallback callback) override;
-  void GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, GetCookiesStringCallback callback) override;
+  void GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, GetCookiesStringCallback callback) override;
   void CookiesEnabledFor(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookiesEnabledForCallback callback) override;
 };
 class BLINK_PLATFORM_EXPORT RestrictedCookieManagerAsyncWaiter {
@@ -32,8 +32,8 @@ class BLINK_PLATFORM_EXPORT RestrictedCookieManagerAsyncWaiter {
 
   ~RestrictedCookieManagerAsyncWaiter();
   void GetAllForUrl(
-      const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr>* out_cookies);
-  WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr> GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options);
+      const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged, WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr>* out_cookies);
+  WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr> GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged);
   void SetCanonicalCookie(
       const ::net::CanonicalCookie& cookie, const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, ::net::CookieInclusionStatus status, bool* out_success);
   bool SetCanonicalCookie(const ::net::CanonicalCookie& cookie, const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, ::net::CookieInclusionStatus status);
@@ -44,7 +44,7 @@ class BLINK_PLATFORM_EXPORT RestrictedCookieManagerAsyncWaiter {
       const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, const WTF::String& cookie);
   
   void GetCookiesString(
-      const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies);
+      const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies);
   
   void CookiesEnabledFor(
       const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool* out_cookies_enabled);

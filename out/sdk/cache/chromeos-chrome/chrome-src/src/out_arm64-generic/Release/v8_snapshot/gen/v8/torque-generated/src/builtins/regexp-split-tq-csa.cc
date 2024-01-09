@@ -66,9 +66,10 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/regexp-split-tq-csa.h"
-#include "torque-generated/src/builtins/array-slice-tq-csa.h"
+#include "torque-generated/src/builtins/array-flat-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
 #include "torque-generated/src/builtins/boolean-tq-csa.h"
 #include "torque-generated/src/builtins/cast-tq-csa.h"
@@ -215,7 +216,7 @@ TF_BUILTIN(RegExpPrototypeSplit, CodeStubAssembler) {
   TNode<Object> tmp9;
   if (block3.is_used()) {
     ca_.Bind(&block3);
-    tmp9 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRegExpSplit), parameter0, tmp6, tmp3, tmp5);
+    tmp9 = ca_.CallBuiltin<Object>(Builtin::kRegExpSplit, parameter0, tmp6, tmp3, tmp5);
     arguments.PopAndReturn(tmp9);
   }
 }

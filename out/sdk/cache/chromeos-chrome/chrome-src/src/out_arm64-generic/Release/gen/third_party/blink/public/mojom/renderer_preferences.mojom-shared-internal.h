@@ -49,7 +49,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) RendererPreferences_Dat
   uint8_t allow_cross_origin_auth_prompt : 1;
   uint8_t enable_do_not_track : 1;
   uint8_t enable_encrypted_media : 1;
-  uint8_t webrtc_allow_legacy_tls_protocols : 1;
   uint8_t send_subresource_notification : 1;
   uint8_t plugin_fullscreen_allowed : 1;
   uint8_t caret_browsing_enabled : 1;
@@ -65,7 +64,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) RendererPreferences_Dat
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> caret_blink_interval;
   mojo::internal::Pointer<mojo::internal::String_Data> webrtc_ip_handling_policy;
   uint16_t webrtc_udp_max_port;
-  uint8_t pad26_[6];
+  uint8_t pad25_[6];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> webrtc_local_ips_allowed_urls;
   mojo::internal::Pointer<::blink::mojom::internal::UserAgentOverride_Data> user_agent_override;
   mojo::internal::Pointer<mojo::internal::String_Data> accept_languages;

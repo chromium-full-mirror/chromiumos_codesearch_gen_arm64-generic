@@ -34,17 +34,15 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/hwsec-test-utils/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/hwsec-test-utils/_attestation-injected-keys-install_config.stamp: stamp
 build obj/hwsec-test-utils/_fake_pca_agentd-install_config.stamp: stamp
 build obj/hwsec-test-utils/_hwsec-ownership-id-install_config.stamp: stamp
 build obj/hwsec-test-utils/_hwsec-test-va-install_config.stamp: stamp
-build obj/hwsec-test-utils/all.stamp: stamp ./attestation-injected-keys ./fake_pca_agentd ./hwsec-ownership-id ./hwsec-test-va ./hwsec-test-utils_testrunner
+build obj/hwsec-test-utils/all.stamp: stamp ./attestation-injected-keys ./fake_pca_agentd ./hwsec-ownership-id ./hwsec-test-va
 subninja obj/hwsec-test-utils/attestation-injected-keys.ninja
 subninja obj/hwsec-test-utils/common_library.ninja
 subninja obj/hwsec-test-utils/fake_pca_agent_library.ninja
 subninja obj/hwsec-test-utils/fake_pca_agentd.ninja
 subninja obj/hwsec-test-utils/hwsec-ownership-id.ninja
-subninja obj/hwsec-test-utils/hwsec-test-utils_testrunner.ninja
 subninja obj/hwsec-test-utils/hwsec-test-va.ninja
 subninja obj/hwsec-test-utils/verified_access_library.ninja

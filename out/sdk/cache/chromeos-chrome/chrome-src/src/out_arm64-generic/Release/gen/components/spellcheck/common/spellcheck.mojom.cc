@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -244,14 +245,17 @@ void SpellCheckerProxy::Initialize(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpellChecker_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -311,14 +315,17 @@ void SpellCheckerProxy::CustomDictionaryChanged(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpellChecker_CustomDictionaryChanged_Name, kFlags, 0, 0, nullptr);
@@ -453,12 +460,12 @@ bool SpellCheckerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpellCheckerValidationInfo[] = {
-    {&internal::SpellChecker_Initialize_Params_Data::Validate,
+    { &internal::SpellChecker_Initialize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpellChecker_CustomDictionaryChanged_Params_Data::Validate,
+    { &internal::SpellChecker_CustomDictionaryChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -467,14 +474,161 @@ bool SpellCheckerRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kSpellCheckerValidationInfo);
 }
 
+const char SpellCheckInitializationHost::Name_[] = "spellcheck.mojom.SpellCheckInitializationHost";
+
+SpellCheckInitializationHost::IPCStableHashFunction SpellCheckInitializationHost::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kSpellCheckInitializationHost_RequestDictionary_Name: {
+      return &SpellCheckInitializationHost::RequestDictionary_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* SpellCheckInitializationHost::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSpellCheckInitializationHost_RequestDictionary_Name:
+            return "Receive spellcheck::mojom::SpellCheckInitializationHost::RequestDictionary";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSpellCheckInitializationHost_RequestDictionary_Name:
+            return "Receive reply spellcheck::mojom::SpellCheckInitializationHost::RequestDictionary";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SpellCheckInitializationHost::RequestDictionary_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)spellcheck::mojom::SpellCheckInitializationHost::RequestDictionary");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+SpellCheckInitializationHostProxy::SpellCheckInitializationHostProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void SpellCheckInitializationHostProxy::RequestDictionary(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send spellcheck::mojom::SpellCheckInitializationHost::RequestDictionary");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSpellCheckInitializationHost_RequestDictionary_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::spellcheck::mojom::internal::SpellCheckInitializationHost_RequestDictionary_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SpellCheckInitializationHost::Name_);
+  message.set_method_name("RequestDictionary");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool SpellCheckInitializationHostStubDispatch::Accept(
+    SpellCheckInitializationHost* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kSpellCheckInitializationHost_RequestDictionary_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::SpellCheckInitializationHost_RequestDictionary_Params_Data* params =
+          reinterpret_cast<internal::SpellCheckInitializationHost_RequestDictionary_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      SpellCheckInitializationHost_RequestDictionary_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            SpellCheckInitializationHost::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RequestDictionary();
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool SpellCheckInitializationHostStubDispatch::AcceptWithResponder(
+    SpellCheckInitializationHost* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kSpellCheckInitializationHost_RequestDictionary_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kSpellCheckInitializationHostValidationInfo[] = {
+    { &internal::SpellCheckInitializationHost_RequestDictionary_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool SpellCheckInitializationHostRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::spellcheck::mojom::SpellCheckInitializationHost::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kSpellCheckInitializationHostValidationInfo);
+}
+
 const char SpellCheckHost::Name_[] = "spellcheck.mojom.SpellCheckHost";
 
 SpellCheckHost::IPCStableHashFunction SpellCheckHost::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kSpellCheckHost_RequestDictionary_Name: {
-      return &SpellCheckHost::RequestDictionary_Sym::IPCStableHash;
-    }
     case internal::kSpellCheckHost_NotifyChecked_Name: {
       return &SpellCheckHost::NotifyChecked_Sym::IPCStableHash;
     }
@@ -492,8 +646,6 @@ const char* SpellCheckHost::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kSpellCheckHost_RequestDictionary_Name:
-            return "Receive spellcheck::mojom::SpellCheckHost::RequestDictionary";
       case internal::kSpellCheckHost_NotifyChecked_Name:
             return "Receive spellcheck::mojom::SpellCheckHost::NotifyChecked";
       case internal::kSpellCheckHost_CallSpellingService_Name:
@@ -501,8 +653,6 @@ const char* SpellCheckHost::MessageToMethodName_(mojo::Message& message) {
     }
   } else {
     switch (message.name()) {
-      case internal::kSpellCheckHost_RequestDictionary_Name:
-            return "Receive reply spellcheck::mojom::SpellCheckHost::RequestDictionary";
       case internal::kSpellCheckHost_NotifyChecked_Name:
             return "Receive reply spellcheck::mojom::SpellCheckHost::NotifyChecked";
       case internal::kSpellCheckHost_CallSpellingService_Name:
@@ -521,19 +671,6 @@ const char* SpellCheckHost::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t SpellCheckHost::RequestDictionary_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)spellcheck::mojom::SpellCheckHost::RequestDictionary");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t SpellCheckHost::NotifyChecked_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -582,36 +719,6 @@ SpellCheckHostProxy::SpellCheckHostProxy(mojo::MessageReceiverWithResponder* rec
     : receiver_(receiver) {
 }
 
-void SpellCheckHostProxy::RequestDictionary(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send spellcheck::mojom::SpellCheckHost::RequestDictionary");
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kSpellCheckHost_RequestDictionary_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::spellcheck::mojom::internal::SpellCheckHost_RequestDictionary_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(SpellCheckHost::Name_);
-  message.set_method_name("RequestDictionary");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void SpellCheckHostProxy::NotifyChecked(
     const ::std::u16string& in_word, bool in_misspelled) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -627,14 +734,17 @@ void SpellCheckHostProxy::NotifyChecked(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpellCheckHost_NotifyChecked_Name, kFlags, 0, 0, nullptr);
@@ -676,14 +786,17 @@ void SpellCheckHostProxy::CallSpellingService(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpellCheckHost_CallSpellingService_Name, kFlags, 0, 0, nullptr);
@@ -783,7 +896,7 @@ bool SpellCheckHost_CallSpellingService_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        SpellCheckHost::Name_, 2, true);
+        SpellCheckHost::Name_, 1, true);
     return false;
   }
   if (!callback_.is_null())
@@ -811,7 +924,8 @@ void SpellCheckHost_CallSpellingService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpellCheckHost_CallSpellingService_Name, kFlags, 0, 0, nullptr);
@@ -856,28 +970,6 @@ bool SpellCheckHostStubDispatch::Accept(
     SpellCheckHost* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kSpellCheckHost_RequestDictionary_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::SpellCheckHost_RequestDictionary_Params_Data* params =
-          reinterpret_cast<internal::SpellCheckHost_RequestDictionary_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      SpellCheckHost_RequestDictionary_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            SpellCheckHost::Name_, 0, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->RequestDictionary();
-      return true;
-    }
     case internal::kSpellCheckHost_NotifyChecked_Name: {
 
       DCHECK(message->is_serialized());
@@ -898,7 +990,7 @@ bool SpellCheckHostStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            SpellCheckHost::Name_, 1, false);
+            SpellCheckHost::Name_, 0, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -924,9 +1016,6 @@ bool SpellCheckHostStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kSpellCheckHost_RequestDictionary_Name: {
-      break;
-    }
     case internal::kSpellCheckHost_NotifyChecked_Name: {
       break;
     }
@@ -947,7 +1036,7 @@ bool SpellCheckHostStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            SpellCheckHost::Name_, 2, false);
+            SpellCheckHost::Name_, 1, false);
         return false;
       }
       SpellCheckHost::CallSpellingServiceCallback callback =
@@ -962,14 +1051,12 @@ std::move(p_text), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpellCheckHostValidationInfo[] = {
-    {&internal::SpellCheckHost_RequestDictionary_Params_Data::Validate,
+    { &internal::SpellCheckHost_NotifyChecked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpellCheckHost_NotifyChecked_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::SpellCheckHost_CallSpellingService_Params_Data::Validate,
+    { &internal::SpellCheckHost_CallSpellingService_Params_Data::Validate,
      &internal::SpellCheckHost_CallSpellingService_ResponseParams_Data::Validate},
 };
 
@@ -1049,9 +1136,17 @@ SpellCheckerAsyncWaiter::~SpellCheckerAsyncWaiter() = default;
 
 
 
-void SpellCheckHostInterceptorForTesting::RequestDictionary() {
+void SpellCheckInitializationHostInterceptorForTesting::RequestDictionary() {
   GetForwardingInterface()->RequestDictionary();
 }
+SpellCheckInitializationHostAsyncWaiter::SpellCheckInitializationHostAsyncWaiter(
+    SpellCheckInitializationHost* proxy) : proxy_(proxy) {}
+
+SpellCheckInitializationHostAsyncWaiter::~SpellCheckInitializationHostAsyncWaiter() = default;
+
+
+
+
 void SpellCheckHostInterceptorForTesting::NotifyChecked(const ::std::u16string& word, bool misspelled) {
   GetForwardingInterface()->NotifyChecked(std::move(word), std::move(misspelled));
 }

@@ -16,8 +16,8 @@ namespace ash::orca::mojom {
 class  EditorClientInterceptorForTesting : public EditorClient {
   virtual EditorClient* GetForwardingInterface() = 0;
   void GetPresetTextQueries(GetPresetTextQueriesCallback callback) override;
-  void RequestPresetRewrite(const std::string& text_query_id, const absl::optional<std::string>& text_override, RequestPresetRewriteCallback callback) override;
-  void RequestFreeformRewrite(const std::string& input, const absl::optional<std::string>& text_override, RequestFreeformRewriteCallback callback) override;
+  void RequestPresetRewrite(const std::string& text_query_id, const std::optional<std::string>& text_override, RequestPresetRewriteCallback callback) override;
+  void RequestFreeformRewrite(const std::string& input, const std::optional<std::string>& text_override, RequestFreeformRewriteCallback callback) override;
   void RequestFreeformWrite(const std::string& input, RequestFreeformWriteCallback callback) override;
   void InsertText(const std::string& text) override;
   void ApproveConsent() override;
@@ -42,11 +42,11 @@ class  EditorClientAsyncWaiter {
       std::vector<PresetTextQueryPtr>* out_text_queries);
   std::vector<PresetTextQueryPtr> GetPresetTextQueries();
   void RequestPresetRewrite(
-      const std::string& text_query_id, const absl::optional<std::string>& text_override, TextQueryResponsePtr* out_response);
-  TextQueryResponsePtr RequestPresetRewrite(const std::string& text_query_id, const absl::optional<std::string>& text_override);
+      const std::string& text_query_id, const std::optional<std::string>& text_override, TextQueryResponsePtr* out_response);
+  TextQueryResponsePtr RequestPresetRewrite(const std::string& text_query_id, const std::optional<std::string>& text_override);
   void RequestFreeformRewrite(
-      const std::string& input, const absl::optional<std::string>& text_override, TextQueryResponsePtr* out_response);
-  TextQueryResponsePtr RequestFreeformRewrite(const std::string& input, const absl::optional<std::string>& text_override);
+      const std::string& input, const std::optional<std::string>& text_override, TextQueryResponsePtr* out_response);
+  TextQueryResponsePtr RequestFreeformRewrite(const std::string& input, const std::optional<std::string>& text_override);
   void RequestFreeformWrite(
       const std::string& input, TextQueryResponsePtr* out_response);
   TextQueryResponsePtr RequestFreeformWrite(const std::string& input);

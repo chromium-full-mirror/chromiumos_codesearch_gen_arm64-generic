@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/nearby_connections_types.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections_types.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections_types.mojom-forward.h"
 #include "device/bluetooth/public/mojom/uuid.mojom.h"
@@ -354,6 +355,300 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  InitialConnectionInfoV3 {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<InitialConnectionInfoV3, T>::value>;
+  using DataView = InitialConnectionInfoV3DataView;
+  using Data_ = internal::InitialConnectionInfoV3_Data;
+
+  template <typename... Args>
+  static InitialConnectionInfoV3Ptr New(Args&&... args) {
+    return InitialConnectionInfoV3Ptr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static InitialConnectionInfoV3Ptr From(const U& u) {
+    return mojo::TypeConverter<InitialConnectionInfoV3Ptr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, InitialConnectionInfoV3>::Convert(*this);
+  }
+
+
+  InitialConnectionInfoV3();
+
+  InitialConnectionInfoV3(
+      const std::string& authentication_digits,
+      const std::string& raw_authentication_token,
+      bool is_incoming_connection,
+      AuthenticationStatus authentication_status);
+
+
+  ~InitialConnectionInfoV3();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = InitialConnectionInfoV3Ptr>
+  InitialConnectionInfoV3Ptr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, InitialConnectionInfoV3::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, InitialConnectionInfoV3::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, InitialConnectionInfoV3::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        InitialConnectionInfoV3::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        InitialConnectionInfoV3::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::InitialConnectionInfoV3_UnserializedMessageContext<
+            UserType, InitialConnectionInfoV3::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<InitialConnectionInfoV3::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return InitialConnectionInfoV3::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::InitialConnectionInfoV3_UnserializedMessageContext<
+            UserType, InitialConnectionInfoV3::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<InitialConnectionInfoV3::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string authentication_digits;
+  
+  std::string raw_authentication_token;
+  
+  bool is_incoming_connection;
+  
+  AuthenticationStatus authentication_status;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, InitialConnectionInfoV3::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, InitialConnectionInfoV3::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, InitialConnectionInfoV3::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, InitialConnectionInfoV3::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  BandwidthInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<BandwidthInfo, T>::value>;
+  using DataView = BandwidthInfoDataView;
+  using Data_ = internal::BandwidthInfo_Data;
+
+  template <typename... Args>
+  static BandwidthInfoPtr New(Args&&... args) {
+    return BandwidthInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static BandwidthInfoPtr From(const U& u) {
+    return mojo::TypeConverter<BandwidthInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, BandwidthInfo>::Convert(*this);
+  }
+
+
+  BandwidthInfo();
+
+  BandwidthInfo(
+      BandwidthQuality quality,
+      Medium medium);
+
+
+  ~BandwidthInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = BandwidthInfoPtr>
+  BandwidthInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, BandwidthInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, BandwidthInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, BandwidthInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        BandwidthInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        BandwidthInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::BandwidthInfo_UnserializedMessageContext<
+            UserType, BandwidthInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<BandwidthInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return BandwidthInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::BandwidthInfo_UnserializedMessageContext<
+            UserType, BandwidthInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<BandwidthInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  BandwidthQuality quality;
+  
+  Medium medium;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, BandwidthInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, BandwidthInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, BandwidthInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, BandwidthInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  PayloadContent {
  public:
   using DataView = PayloadContentDataView;
@@ -373,17 +668,17 @@ class  PayloadContent {
   // Construct an instance holding |bytes|.
   static PayloadContentPtr
   NewBytes(
-      BytesPayloadPtr bytes) {
+      BytesPayloadPtr value) {
     auto result = PayloadContentPtr(absl::in_place);
-    result->set_bytes(std::move(bytes));
+    result->set_bytes(std::move(value));
     return result;
   }
   // Construct an instance holding |file|.
   static PayloadContentPtr
   NewFile(
-      FilePayloadPtr file) {
+      FilePayloadPtr value) {
     auto result = PayloadContentPtr(absl::in_place);
-    result->set_file(std::move(file));
+    result->set_file(std::move(value));
     return result;
   }
 
@@ -968,7 +1263,7 @@ class  DiscoveryOptions {
   DiscoveryOptions(
       Strategy strategy,
       MediumSelectionPtr allowed_mediums,
-      const absl::optional<::device::BluetoothUUID>& fast_advertisement_service_uuid,
+      const std::optional<::device::BluetoothUUID>& fast_advertisement_service_uuid,
       bool is_out_of_band_connection);
 
 DiscoveryOptions(const DiscoveryOptions&) = delete;
@@ -1053,7 +1348,7 @@ DiscoveryOptions& operator=(const DiscoveryOptions&) = delete;
   
   MediumSelectionPtr allowed_mediums;
   
-  absl::optional<::device::BluetoothUUID> fast_advertisement_service_uuid;
+  std::optional<::device::BluetoothUUID> fast_advertisement_service_uuid;
   
   bool is_out_of_band_connection;
 
@@ -1118,9 +1413,9 @@ class  ConnectionOptions {
 
   ConnectionOptions(
       MediumSelectionPtr allowed_mediums,
-      absl::optional<std::vector<uint8_t>> remote_bluetooth_mac_address,
-      absl::optional<::base::TimeDelta> keep_alive_interval,
-      absl::optional<::base::TimeDelta> keep_alive_timeout);
+      std::optional<std::vector<uint8_t>> remote_bluetooth_mac_address,
+      std::optional<::base::TimeDelta> keep_alive_interval,
+      std::optional<::base::TimeDelta> keep_alive_timeout);
 
 ConnectionOptions(const ConnectionOptions&) = delete;
 ConnectionOptions& operator=(const ConnectionOptions&) = delete;
@@ -1202,11 +1497,11 @@ ConnectionOptions& operator=(const ConnectionOptions&) = delete;
   
   MediumSelectionPtr allowed_mediums;
   
-  absl::optional<std::vector<uint8_t>> remote_bluetooth_mac_address;
+  std::optional<std::vector<uint8_t>> remote_bluetooth_mac_address;
   
-  absl::optional<::base::TimeDelta> keep_alive_interval;
+  std::optional<::base::TimeDelta> keep_alive_interval;
   
-  absl::optional<::base::TimeDelta> keep_alive_timeout;
+  std::optional<::base::TimeDelta> keep_alive_timeout;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1655,6 +1950,8 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
+
 template <typename UnionPtrType>
 PayloadContentPtr PayloadContent::Clone() const {
   switch (tag_) {
@@ -2065,6 +2362,78 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+InitialConnectionInfoV3Ptr InitialConnectionInfoV3::Clone() const {
+  return New(
+      mojo::Clone(authentication_digits),
+      mojo::Clone(raw_authentication_token),
+      mojo::Clone(is_incoming_connection),
+      mojo::Clone(authentication_status)
+  );
+}
+
+template <typename T, InitialConnectionInfoV3::EnableIfSame<T>*>
+bool InitialConnectionInfoV3::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->authentication_digits, other_struct.authentication_digits))
+    return false;
+  if (!mojo::Equals(this->raw_authentication_token, other_struct.raw_authentication_token))
+    return false;
+  if (!mojo::Equals(this->is_incoming_connection, other_struct.is_incoming_connection))
+    return false;
+  if (!mojo::Equals(this->authentication_status, other_struct.authentication_status))
+    return false;
+  return true;
+}
+
+template <typename T, InitialConnectionInfoV3::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.authentication_digits < rhs.authentication_digits)
+    return true;
+  if (rhs.authentication_digits < lhs.authentication_digits)
+    return false;
+  if (lhs.raw_authentication_token < rhs.raw_authentication_token)
+    return true;
+  if (rhs.raw_authentication_token < lhs.raw_authentication_token)
+    return false;
+  if (lhs.is_incoming_connection < rhs.is_incoming_connection)
+    return true;
+  if (rhs.is_incoming_connection < lhs.is_incoming_connection)
+    return false;
+  if (lhs.authentication_status < rhs.authentication_status)
+    return true;
+  if (rhs.authentication_status < lhs.authentication_status)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+BandwidthInfoPtr BandwidthInfo::Clone() const {
+  return New(
+      mojo::Clone(quality),
+      mojo::Clone(medium)
+  );
+}
+
+template <typename T, BandwidthInfo::EnableIfSame<T>*>
+bool BandwidthInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->quality, other_struct.quality))
+    return false;
+  if (!mojo::Equals(this->medium, other_struct.medium))
+    return false;
+  return true;
+}
+
+template <typename T, BandwidthInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.quality < rhs.quality)
+    return true;
+  if (rhs.quality < lhs.quality)
+    return false;
+  if (lhs.medium < rhs.medium)
+    return true;
+  if (rhs.medium < lhs.medium)
+    return false;
+  return false;
+}
 
 
 }  // nearby::connections::mojom
@@ -2334,6 +2703,56 @@ struct  StructTraits<::nearby::connections::mojom::PayloadTransferUpdate::DataVi
   }
 
   static bool Read(::nearby::connections::mojom::PayloadTransferUpdate::DataView input, ::nearby::connections::mojom::PayloadTransferUpdatePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::nearby::connections::mojom::InitialConnectionInfoV3::DataView,
+                                         ::nearby::connections::mojom::InitialConnectionInfoV3Ptr> {
+  static bool IsNull(const ::nearby::connections::mojom::InitialConnectionInfoV3Ptr& input) { return !input; }
+  static void SetToNull(::nearby::connections::mojom::InitialConnectionInfoV3Ptr* output) { output->reset(); }
+
+  static const decltype(::nearby::connections::mojom::InitialConnectionInfoV3::authentication_digits)& authentication_digits(
+      const ::nearby::connections::mojom::InitialConnectionInfoV3Ptr& input) {
+    return input->authentication_digits;
+  }
+
+  static const decltype(::nearby::connections::mojom::InitialConnectionInfoV3::raw_authentication_token)& raw_authentication_token(
+      const ::nearby::connections::mojom::InitialConnectionInfoV3Ptr& input) {
+    return input->raw_authentication_token;
+  }
+
+  static decltype(::nearby::connections::mojom::InitialConnectionInfoV3::is_incoming_connection) is_incoming_connection(
+      const ::nearby::connections::mojom::InitialConnectionInfoV3Ptr& input) {
+    return input->is_incoming_connection;
+  }
+
+  static decltype(::nearby::connections::mojom::InitialConnectionInfoV3::authentication_status) authentication_status(
+      const ::nearby::connections::mojom::InitialConnectionInfoV3Ptr& input) {
+    return input->authentication_status;
+  }
+
+  static bool Read(::nearby::connections::mojom::InitialConnectionInfoV3::DataView input, ::nearby::connections::mojom::InitialConnectionInfoV3Ptr* output);
+};
+
+
+template <>
+struct  StructTraits<::nearby::connections::mojom::BandwidthInfo::DataView,
+                                         ::nearby::connections::mojom::BandwidthInfoPtr> {
+  static bool IsNull(const ::nearby::connections::mojom::BandwidthInfoPtr& input) { return !input; }
+  static void SetToNull(::nearby::connections::mojom::BandwidthInfoPtr* output) { output->reset(); }
+
+  static decltype(::nearby::connections::mojom::BandwidthInfo::quality) quality(
+      const ::nearby::connections::mojom::BandwidthInfoPtr& input) {
+    return input->quality;
+  }
+
+  static decltype(::nearby::connections::mojom::BandwidthInfo::medium) medium(
+      const ::nearby::connections::mojom::BandwidthInfoPtr& input) {
+    return input->medium;
+  }
+
+  static bool Read(::nearby::connections::mojom::BandwidthInfo::DataView input, ::nearby::connections::mojom::BandwidthInfoPtr* output);
 };
 
 

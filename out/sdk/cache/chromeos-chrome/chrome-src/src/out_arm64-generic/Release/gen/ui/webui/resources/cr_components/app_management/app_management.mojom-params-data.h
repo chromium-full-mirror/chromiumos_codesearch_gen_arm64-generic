@@ -173,8 +173,8 @@ class  PageHandler_SetPinned_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> app_id;
-  int32_t pinned;
-  uint8_t padfinal_[4];
+  uint8_t pinned : 1;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<PageHandler_SetPinned_Params_Data>;
@@ -402,6 +402,23 @@ class  PageHandler_OpenStorePage_Params_Data {
 };
 static_assert(sizeof(PageHandler_OpenStorePage_Params_Data) == 16,
               "Bad sizeof(PageHandler_OpenStorePage_Params_Data)");
+class  PageHandler_SetAppLocale_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> app_id;
+  mojo::internal::Pointer<mojo::internal::String_Data> locale_tag;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_SetAppLocale_Params_Data>;
+
+  PageHandler_SetAppLocale_Params_Data();
+  ~PageHandler_SetAppLocale_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_SetAppLocale_Params_Data) == 24,
+              "Bad sizeof(PageHandler_SetAppLocale_Params_Data)");
 class  Page_OnAppAdded_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -704,15 +721,8 @@ class PageHandler_SetPinned_ParamsDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  template <typename UserType>
-  [[nodiscard]] bool ReadPinned(UserType* output) const {
-    auto data_value = data_->pinned;
-    return mojo::internal::Deserialize<::app_management::mojom::OptionalBool>(
-        data_value, output);
-  }
-  OptionalBool pinned() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::app_management::mojom::OptionalBool>(data_->pinned));
+  bool pinned() const {
+    return data_->pinned;
   }
  private:
   internal::PageHandler_SetPinned_Params_Data* data_ = nullptr;
@@ -1086,6 +1096,42 @@ class PageHandler_OpenStorePage_ParamsDataView {
 };
 
 
+class PageHandler_SetAppLocale_ParamsDataView {
+ public:
+  PageHandler_SetAppLocale_ParamsDataView() = default;
+
+  PageHandler_SetAppLocale_ParamsDataView(
+      internal::PageHandler_SetAppLocale_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAppIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAppId(UserType* output) {
+    
+    auto* pointer = data_->app_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLocaleTagDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocaleTag(UserType* output) {
+    
+    auto* pointer = data_->locale_tag.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_SetAppLocale_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class Page_OnAppAdded_ParamsDataView {
  public:
   Page_OnAppAdded_ParamsDataView() = default;
@@ -1305,6 +1351,18 @@ inline void PageHandler_SetFileHandlingEnabled_ParamsDataView::GetAppIdDataView(
 inline void PageHandler_OpenStorePage_ParamsDataView::GetAppIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->app_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void PageHandler_SetAppLocale_ParamsDataView::GetAppIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->app_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void PageHandler_SetAppLocale_ParamsDataView::GetLocaleTagDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->locale_tag.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

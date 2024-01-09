@@ -82,25 +82,26 @@ blink.mojom.SpeculationEagerness = {
   MAX_VALUE: 2,
 };
 
-goog.provide('blink.mojom.SpeculationInjectionWorld');
-goog.provide('blink.mojom.SpeculationInjectionWorldSpec');
+goog.provide('blink.mojom.SpeculationInjectionType');
+goog.provide('blink.mojom.SpeculationInjectionTypeSpec');
 /**
  * @const { {$: !mojo.internal.MojomType} }
  * @export
  */
-blink.mojom.SpeculationInjectionWorldSpec = { $: mojo.internal.Enum() };
+blink.mojom.SpeculationInjectionTypeSpec = { $: mojo.internal.Enum() };
 
 /**
  * @enum {number}
  * @export
  */
-blink.mojom.SpeculationInjectionWorld = {
+blink.mojom.SpeculationInjectionType = {
   
   kNone: 0,
-  kMain: 1,
-  kIsolated: 2,
+  kMainWorldScript: 1,
+  kIsolatedWorldScript: 2,
+  kAutoSpeculationRules: 3,
   MIN_VALUE: 0,
-  MAX_VALUE: 2,
+  MAX_VALUE: 3,
 };
 
 
@@ -462,10 +463,10 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'injectionWorld', 40,
+        'injectionType', 40,
         0,
-        blink.mojom.SpeculationInjectionWorldSpec.$,
-        blink.mojom.SpeculationInjectionWorld.kNone,
+        blink.mojom.SpeculationInjectionTypeSpec.$,
+        blink.mojom.SpeculationInjectionType.kNone,
         false, /* nullable */
         0 /* minVersion */,
       ),
@@ -493,8 +494,8 @@ blink.mojom.SpeculationCandidate = class {
     this.eagerness;
     /** @export { (network.mojom.NoVarySearch|undefined) } */
     this.noVarySearchHint;
-    /** @export { !blink.mojom.SpeculationInjectionWorld } */
-    this.injectionWorld;
+    /** @export { !blink.mojom.SpeculationInjectionType } */
+    this.injectionType;
   }
 };
 

@@ -95,7 +95,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) VirtualAuthenticatorOpt
   uint8_t has_cred_blob : 1;
   uint8_t has_min_pin_length : 1;
   uint8_t has_prf : 1;
-  uint8_t padfinal_[7];
+  uint8_t default_backup_eligibility : 1;
+  uint8_t default_backup_state : 1;
+  uint8_t padfinal_[6];
 
  private:
   friend class mojo::internal::MessageFragment<VirtualAuthenticatorOptions_Data>;

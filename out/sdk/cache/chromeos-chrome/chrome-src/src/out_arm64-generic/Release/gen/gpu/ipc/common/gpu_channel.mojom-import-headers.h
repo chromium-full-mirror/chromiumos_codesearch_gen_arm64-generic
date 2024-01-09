@@ -36,6 +36,8 @@
 #include "ui/gfx/mojom/color_space.mojom-import-headers.h"
 #include "ui/gfx/mojom/gpu_fence_handle.mojom.h"
 #include "ui/gfx/mojom/gpu_fence_handle.mojom-import-headers.h"
+#include "ui/gfx/mojom/native_handle_types.mojom.h"
+#include "ui/gfx/mojom/native_handle_types.mojom-import-headers.h"
 #include "ui/gfx/mojom/presentation_feedback.mojom.h"
 #include "ui/gfx/mojom/presentation_feedback.mojom-import-headers.h"
 #include "ui/gl/mojom/gpu_preference.mojom.h"

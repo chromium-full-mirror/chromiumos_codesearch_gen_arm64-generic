@@ -63,6 +63,7 @@ constexpr uint32_t kAppInstance_GetRecentAndSuggestedAppsFromPlayStore_Name = 16
 constexpr uint32_t kAppInstance_RequestAssistStructure_Name = 29;
 constexpr uint32_t kAppInstance_IsInstallable_Name = 34;
 constexpr uint32_t kAppInstance_GetAppCategory_Name = 41;
+constexpr uint32_t kAppInstance_SetAppLocale_Name = 43;
 
 }  // namespace internal
 

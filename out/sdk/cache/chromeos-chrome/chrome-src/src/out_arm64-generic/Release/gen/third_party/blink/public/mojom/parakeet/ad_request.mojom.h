@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/parakeet/ad_request.mojom-features.h"
 #include "third_party/blink/public/mojom/parakeet/ad_request.mojom-shared.h"
 #include "third_party/blink/public/mojom/parakeet/ad_request.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -376,7 +377,7 @@ class BLINK_COMMON_EXPORT AdTargeting {
   AdTargeting();
 
   AdTargeting(
-      absl::optional<std::vector<std::string>> interests,
+      std::optional<std::vector<std::string>> interests,
       AdGeolocationPtr geolocation);
 
 AdTargeting(const AdTargeting&) = delete;
@@ -457,7 +458,7 @@ AdTargeting& operator=(const AdTargeting&) = delete;
   }
 
   
-  absl::optional<std::vector<std::string>> interests;
+  std::optional<std::vector<std::string>> interests;
   
   AdGeolocationPtr geolocation;
 
@@ -523,10 +524,10 @@ class BLINK_COMMON_EXPORT AdRequestConfig {
   AdRequestConfig(
       const ::GURL& ad_request_url,
       std::vector<AdPropertiesPtr> ad_properties,
-      const absl::optional<std::string>& publisher_code,
+      const std::optional<std::string>& publisher_code,
       AdTargetingPtr targeting,
-      absl::optional<std::vector<AdSignals>> anonymized_proxied_signals,
-      const absl::optional<::GURL>& fallback_source);
+      std::optional<std::vector<AdSignals>> anonymized_proxied_signals,
+      const std::optional<::GURL>& fallback_source);
 
 AdRequestConfig(const AdRequestConfig&) = delete;
 AdRequestConfig& operator=(const AdRequestConfig&) = delete;
@@ -610,13 +611,13 @@ AdRequestConfig& operator=(const AdRequestConfig&) = delete;
   
   std::vector<AdPropertiesPtr> ad_properties;
   
-  absl::optional<std::string> publisher_code;
+  std::optional<std::string> publisher_code;
   
   AdTargetingPtr targeting;
   
-  absl::optional<std::vector<AdSignals>> anonymized_proxied_signals;
+  std::optional<std::vector<AdSignals>> anonymized_proxied_signals;
   
-  absl::optional<::GURL> fallback_source;
+  std::optional<::GURL> fallback_source;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

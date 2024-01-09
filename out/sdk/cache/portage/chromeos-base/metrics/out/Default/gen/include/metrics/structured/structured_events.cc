@@ -518,6 +518,135 @@ int64_t BluetoothA2dpAudioOverrun::GetDroppedBytesForTest() const {
   return GetIntMetricForTest(kDroppedBytesNameHash);
 }
 
+BluetoothA2dpSession::BluetoothA2dpSession() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+BluetoothA2dpSession::~BluetoothA2dpSession() = default;
+BluetoothA2dpSession& BluetoothA2dpSession::SetBootId(const std::string& value) {
+  AddHmacMetric(kBootIdNameHash, value);
+  return *this;
+}
+
+std::string BluetoothA2dpSession::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetSystemTime(const int64_t value) {
+  AddIntMetric(kSystemTimeNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetDeviceId(const std::string& value) {
+  AddHmacMetric(kDeviceIdNameHash, value);
+  return *this;
+}
+
+std::string BluetoothA2dpSession::GetDeviceIdForTest() const {
+  return GetHmacMetricForTest(kDeviceIdNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetAudioDuration(const int64_t value) {
+  AddIntMetric(kAudioDurationNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetAudioDurationForTest() const {
+  return GetIntMetricForTest(kAudioDurationNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetMediaTimerMin(const int64_t value) {
+  AddIntMetric(kMediaTimerMinNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetMediaTimerMinForTest() const {
+  return GetIntMetricForTest(kMediaTimerMinNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetMediaTimerMax(const int64_t value) {
+  AddIntMetric(kMediaTimerMaxNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetMediaTimerMaxForTest() const {
+  return GetIntMetricForTest(kMediaTimerMaxNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetMediaTimerAvg(const int64_t value) {
+  AddIntMetric(kMediaTimerAvgNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetMediaTimerAvgForTest() const {
+  return GetIntMetricForTest(kMediaTimerAvgNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetTotalSchedulingCount(const int64_t value) {
+  AddIntMetric(kTotalSchedulingCountNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetTotalSchedulingCountForTest() const {
+  return GetIntMetricForTest(kTotalSchedulingCountNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetBufferOverrunsMaxCount(const int64_t value) {
+  AddIntMetric(kBufferOverrunsMaxCountNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetBufferOverrunsMaxCountForTest() const {
+  return GetIntMetricForTest(kBufferOverrunsMaxCountNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetBufferOverrunsTotal(const int64_t value) {
+  AddIntMetric(kBufferOverrunsTotalNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetBufferOverrunsTotalForTest() const {
+  return GetIntMetricForTest(kBufferOverrunsTotalNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetBufferUnderrunsAvg(const double value) {
+  AddDoubleMetric(kBufferUnderrunsAvgNameHash, value);
+  return *this;
+}
+
+double BluetoothA2dpSession::GetBufferUnderrunsAvgForTest() const {
+  return GetDoubleMetricForTest(kBufferUnderrunsAvgNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetBufferUnderrunsCount(const int64_t value) {
+  AddIntMetric(kBufferUnderrunsCountNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetBufferUnderrunsCountForTest() const {
+  return GetIntMetricForTest(kBufferUnderrunsCountNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetCodecIndex(const int64_t value) {
+  AddIntMetric(kCodecIndexNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetCodecIndexForTest() const {
+  return GetIntMetricForTest(kCodecIndexNameHash);
+}
+
+BluetoothA2dpSession& BluetoothA2dpSession::SetIsA2dpOffload(const int64_t value) {
+  AddIntMetric(kIsA2dpOffloadNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpSession::GetIsA2dpOffloadForTest() const {
+  return GetIntMetricForTest(kIsA2dpOffloadNameHash);
+}
+
 BluetoothHfpPacketLoss::BluetoothHfpPacketLoss() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 BluetoothHfpPacketLoss::~BluetoothHfpPacketLoss() = default;
@@ -1086,6 +1215,24 @@ int64_t CellularConnectionAttempt::Getconnection_apn_typesForTest() const {
   return GetIntMetricForTest(kconnection_apn_typesNameHash);
 }
 
+CellularConnectionAttempt& CellularConnectionAttempt::Setlast_connected(const int64_t value) {
+  AddIntMetric(klast_connectedNameHash, value);
+  return *this;
+}
+
+int64_t CellularConnectionAttempt::Getlast_connectedForTest() const {
+  return GetIntMetricForTest(klast_connectedNameHash);
+}
+
+CellularConnectionAttempt& CellularConnectionAttempt::Setlast_online(const int64_t value) {
+  AddIntMetric(klast_onlineNameHash, value);
+  return *this;
+}
+
+int64_t CellularConnectionAttempt::Getlast_onlineForTest() const {
+  return GetIntMetricForTest(klast_onlineNameHash);
+}
+
 ModemFwdFwInstallResult::ModemFwdFwInstallResult() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 ModemFwdFwInstallResult::~ModemFwdFwInstallResult() = default;
@@ -1167,7 +1314,179 @@ int64_t PowerOptimization::Getsince_last_online_hoursForTest() const {
   return GetIntMetricForTest(ksince_last_online_hoursNameHash);
 }
 
+CellularNetworkValidationAttempt::CellularNetworkValidationAttempt() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+CellularNetworkValidationAttempt::~CellularNetworkValidationAttempt() = default;
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Setapn_id(const int64_t value) {
+  AddIntMetric(kapn_idNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Getapn_idForTest() const {
+  return GetIntMetricForTest(kapn_idNameHash);
+}
+
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Setportal_detection_result(const int64_t value) {
+  AddIntMetric(kportal_detection_resultNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Getportal_detection_resultForTest() const {
+  return GetIntMetricForTest(kportal_detection_resultNameHash);
+}
+
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Setinitial_result(const int64_t value) {
+  AddIntMetric(kinitial_resultNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Getinitial_resultForTest() const {
+  return GetIntMetricForTest(kinitial_resultNameHash);
+}
+
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Setipv4_config_method(const int64_t value) {
+  AddIntMetric(kipv4_config_methodNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Getipv4_config_methodForTest() const {
+  return GetIntMetricForTest(kipv4_config_methodNameHash);
+}
+
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Setipv6_config_method(const int64_t value) {
+  AddIntMetric(kipv6_config_methodNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Getipv6_config_methodForTest() const {
+  return GetIntMetricForTest(kipv6_config_methodNameHash);
+}
+
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Sethome_mccmnc(const int64_t value) {
+  AddIntMetric(khome_mccmncNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Gethome_mccmncForTest() const {
+  return GetIntMetricForTest(khome_mccmncNameHash);
+}
+
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Setserving_mccmnc(const int64_t value) {
+  AddIntMetric(kserving_mccmncNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Getserving_mccmncForTest() const {
+  return GetIntMetricForTest(kserving_mccmncNameHash);
+}
+
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Setroaming_state(const int64_t value) {
+  AddIntMetric(kroaming_stateNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Getroaming_stateForTest() const {
+  return GetIntMetricForTest(kroaming_stateNameHash);
+}
+
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Settech_used(const int64_t value) {
+  AddIntMetric(ktech_usedNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Gettech_usedForTest() const {
+  return GetIntMetricForTest(ktech_usedNameHash);
+}
+
+CellularNetworkValidationAttempt& CellularNetworkValidationAttempt::Setsim_type(const int64_t value) {
+  AddIntMetric(ksim_typeNameHash, value);
+  return *this;
+}
+
+int64_t CellularNetworkValidationAttempt::Getsim_typeForTest() const {
+  return GetIntMetricForTest(ksim_typeNameHash);
+}
+
 }  // namespace cellular
+
+namespace guest_usb_device {
+
+UsbDeviceInfo::UsbDeviceInfo() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+UsbDeviceInfo::~UsbDeviceInfo() = default;
+UsbDeviceInfo& UsbDeviceInfo::SetVendorId(const int64_t value) {
+  AddIntMetric(kVendorIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbDeviceInfo::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetVendorName(const std::string& value) {
+  AddRawStringMetric(kVendorNameNameHash, value);
+  return *this;
+}
+
+std::string UsbDeviceInfo::GetVendorNameForTest() const {
+  return GetRawStringMetricForTest(kVendorNameNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetProductId(const int64_t value) {
+  AddIntMetric(kProductIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbDeviceInfo::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetProductName(const std::string& value) {
+  AddRawStringMetric(kProductNameNameHash, value);
+  return *this;
+}
+
+std::string UsbDeviceInfo::GetProductNameForTest() const {
+  return GetRawStringMetricForTest(kProductNameNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetDeviceClass(const int64_t value) {
+  AddIntMetric(kDeviceClassNameHash, value);
+  return *this;
+}
+
+int64_t UsbDeviceInfo::GetDeviceClassForTest() const {
+  return GetIntMetricForTest(kDeviceClassNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetCrostiniConnectionSuccess(const int64_t value) {
+  AddIntMetric(kCrostiniConnectionSuccessNameHash, value);
+  return *this;
+}
+
+int64_t UsbDeviceInfo::GetCrostiniConnectionSuccessForTest() const {
+  return GetIntMetricForTest(kCrostiniConnectionSuccessNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetGuestType(const int64_t value) {
+  AddIntMetric(kGuestTypeNameHash, value);
+  return *this;
+}
+
+int64_t UsbDeviceInfo::GetGuestTypeForTest() const {
+  return GetIntMetricForTest(kGuestTypeNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetInterfaceClass(const std::vector<int64_t>& value) {
+  AddIntArrayMetric(kInterfaceClassNameHash, value, UsbDeviceInfo::GetInterfaceClassMaxLength());
+  return *this;
+}
+
+std::vector<int64_t> UsbDeviceInfo::GetInterfaceClassForTest() const {
+  return GetIntArrayMetricForTest(kInterfaceClassNameHash);
+}
+
+}  // namespace guest_usb_device
 
 namespace rollback_enterprise {
 
@@ -1444,6 +1763,90 @@ int64_t RollbackUpdateFailure::Gettarget_chromeos_version_patchForTest() const {
   return GetIntMetricForTest(ktarget_chromeos_version_patchNameHash);
 }
 
+RollbackCompleted::RollbackCompleted() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+RollbackCompleted::~RollbackCompleted() = default;
+RollbackCompleted& RollbackCompleted::Setorigin_chromeos_version_major(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackCompleted::Getorigin_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_majorNameHash);
+}
+
+RollbackCompleted& RollbackCompleted::Setorigin_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackCompleted::Getorigin_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_minorNameHash);
+}
+
+RollbackCompleted& RollbackCompleted::Setorigin_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackCompleted::Getorigin_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_patchNameHash);
+}
+
+RollbackCompleted& RollbackCompleted::Settarget_chromeos_version_major(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackCompleted::Gettarget_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_majorNameHash);
+}
+
+RollbackCompleted& RollbackCompleted::Settarget_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackCompleted::Gettarget_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_minorNameHash);
+}
+
+RollbackCompleted& RollbackCompleted::Settarget_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackCompleted::Gettarget_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_patchNameHash);
+}
+
+RollbackCompleted& RollbackCompleted::Setresult_chromeos_version_major(const int64_t value) {
+  AddIntMetric(kresult_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackCompleted::Getresult_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(kresult_chromeos_version_majorNameHash);
+}
+
+RollbackCompleted& RollbackCompleted::Setresult_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(kresult_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackCompleted::Getresult_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(kresult_chromeos_version_minorNameHash);
+}
+
+RollbackCompleted& RollbackCompleted::Setresult_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(kresult_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackCompleted::Getresult_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(kresult_chromeos_version_patchNameHash);
+}
+
 }  // namespace rollback_enterprise
 
 namespace rmad {
@@ -1608,6 +2011,58 @@ int64_t ShimlessRmaStateReport::GetSaveLogCountForTest() const {
 }
 
 }  // namespace rmad
+
+namespace usb_camera_module {
+
+UsbCameraModuleInfo::UsbCameraModuleInfo() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+UsbCameraModuleInfo::~UsbCameraModuleInfo() = default;
+UsbCameraModuleInfo& UsbCameraModuleInfo::SetVendorId(const int64_t value) {
+  AddIntMetric(kVendorIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbCameraModuleInfo::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
+UsbCameraModuleInfo& UsbCameraModuleInfo::SetVendorName(const std::string& value) {
+  AddRawStringMetric(kVendorNameNameHash, value);
+  return *this;
+}
+
+std::string UsbCameraModuleInfo::GetVendorNameForTest() const {
+  return GetRawStringMetricForTest(kVendorNameNameHash);
+}
+
+UsbCameraModuleInfo& UsbCameraModuleInfo::SetProductId(const int64_t value) {
+  AddIntMetric(kProductIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbCameraModuleInfo::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
+UsbCameraModuleInfo& UsbCameraModuleInfo::SetProductName(const std::string& value) {
+  AddRawStringMetric(kProductNameNameHash, value);
+  return *this;
+}
+
+std::string UsbCameraModuleInfo::GetProductNameForTest() const {
+  return GetRawStringMetricForTest(kProductNameNameHash);
+}
+
+UsbCameraModuleInfo& UsbCameraModuleInfo::SetBcdDevice(const int64_t value) {
+  AddIntMetric(kBcdDeviceNameHash, value);
+  return *this;
+}
+
+int64_t UsbCameraModuleInfo::GetBcdDeviceForTest() const {
+  return GetIntMetricForTest(kBcdDeviceNameHash);
+}
+
+}  // namespace usb_camera_module
 
 namespace usb_device {
 

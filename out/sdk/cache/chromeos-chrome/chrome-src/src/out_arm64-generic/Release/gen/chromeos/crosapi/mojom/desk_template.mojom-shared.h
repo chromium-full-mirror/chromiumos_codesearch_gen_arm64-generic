@@ -211,6 +211,11 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<::crosapi::mojom::TabGroupDataView>>(
         pointer, output, message_);
   }
+  uint64_t lacros_profile_id() const {
+    if (data_->header_.version < 5)
+      return uint64_t{};
+    return data_->lacros_profile_id;
+  }
  private:
   internal::DeskTemplateState_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -320,6 +325,7 @@ struct Serializer<::crosapi::mojom::DeskTemplateStateDataView, MaybeConstUserTyp
         in_groups, groups_fragment, &groups_validate_params);
     fragment->groups.Set(
         groups_fragment.is_null() ? nullptr : groups_fragment.data());
+    fragment->lacros_profile_id = Traits::lacros_profile_id(input);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::DeskTemplateState_Data* input,

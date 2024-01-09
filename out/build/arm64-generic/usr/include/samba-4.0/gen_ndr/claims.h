@@ -10,6 +10,7 @@
 #ifndef _HEADER_claims
 #define _HEADER_claims
 
+#define CLAIM_MINIMUM_BYTES_TO_COMPRESS	( 384 )
 enum CLAIM_TYPE
 #ifndef USE_UINT_ENUMS
  {
@@ -77,7 +78,7 @@ union CLAIM_ENTRY_VALUES {
 	struct CLAIM_UINT64 claim_uint64;/* [case(CLAIM_TYPE_UINT64)] */
 	struct CLAIM_STRING claim_string;/* [case(CLAIM_TYPE_STRING)] */
 	struct CLAIM_UINT64 claim_boolean;/* [case(CLAIM_TYPE_BOOLEAN)] */
-}/* [flag(LIBNDR_FLAG_ALIGN8),nodiscriminant,switch_type(CLAIM_TYPE)] */;
+}/* [flag(LIBNDR_FLAG_ALIGN8),switch_type(CLAIM_TYPE)] */;
 
 struct CLAIM_ENTRY {
 	const char *id;/* [charset(UTF16),unique] */
@@ -109,17 +110,17 @@ struct CLAIMS_SET {
 
 struct CLAIMS_SET_NDR {
 	struct CLAIMS_SET_CTR claims;/* [subcontext(0xFFFFFC01)] */
-}/* [public] */;
+}/* [gensize,public] */;
 
 struct CLAIMS_SET_METADATA_NDR {
 	struct CLAIMS_SET_METADATA_CTR claims;/* [subcontext(0xFFFFFC01)] */
 }/* [public] */;
 
 struct CLAIMS_SET_METADATA {
-	uint32_t claims_set_size;
-	uint8_t *claims_set;/* [size_is(claims_set_size),unique] */
-	enum CLAIMS_COMPRESSION_FORMAT compression_format;
-	uint32_t uncompressed_claims_set_size;
+	uint32_t claims_set_size;/* [value(ndr_claims_compressed_size(claims_set,r->compression_format,ndr->flags))] */
+	struct CLAIMS_SET_NDR *claims_set;/* [compression(ndr_claims_compression_alg(compression_format),claims_set_size,uncompressed_claims_set_size),subcontext(4),unique] */
+	enum CLAIMS_COMPRESSION_FORMAT compression_format;/* [value(ndr_claims_actual_wire_compression_alg(r->compression_format,ndr_size_CLAIMS_SET_NDR(claims_set,ndr->flags)))] */
+	uint32_t uncompressed_claims_set_size;/* [value(ndr_size_CLAIMS_SET_NDR(claims_set,ndr->flags))] */
 	uint16_t reserved_type;
 	uint32_t reserved_field_size;
 	uint8_t *reserved_field;/* [size_is(reserved_field_size),unique] */

@@ -182,15 +182,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'proxyServer', 80,
-        0,
-        network.mojom.ProxyServerSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'resolveErrorInfo', 88,
+        'resolveErrorInfo', 80,
         0,
         network.mojom.ResolveErrorInfoSpec.$,
         null,
@@ -206,7 +198,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 104],]);
+    [[0, 96],]);
 
 
 
@@ -243,8 +235,6 @@ network.mojom.URLLoaderCompletionStatus = class {
     this.blockedByResponseReason;
     /** @export { !boolean } */
     this.shouldReportCorbBlocking;
-    /** @export { !network.mojom.ProxyServer } */
-    this.proxyServer;
     /** @export { !network.mojom.ResolveErrorInfo } */
     this.resolveErrorInfo;
     /** @export { !boolean } */

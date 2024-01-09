@@ -6,21 +6,16 @@
  */
 import { AutomationPredicate } from './automation_predicate.js';
 import { constants } from './constants.js';
-import { AutomationTreeWalker, AutomationTreeWalkerRestriction } from './tree_walker.js';
-const AutomationNode = chrome.automation.AutomationNode;
+import { AutomationTreeWalker } from './tree_walker.js';
 const HasPopup = chrome.automation.HasPopup;
 const RoleType = chrome.automation.RoleType;
-const StateType = chrome.automation.StateType;
 export class AutomationUtil {
     /**
      * Find a node in subtree of |cur| satisfying |pred| using pre-order
      * traversal.
-     * @param {AutomationNode} cur Node to begin the search
-     *     from.
-     * @param {constants.Dir} dir
-     * @param {AutomationPredicate.Unary} pred A predicate to apply
-     *     to a candidate node.
-     * @return {AutomationNode}
+     * @param cur Node to begin the search from.
+     * @param pred A predicate to apply to a candidate node.
+     * @return the node found, or null if none was found.
      */
     static findNodePre(cur, dir, pred) {
         if (!cur) {
@@ -45,9 +40,7 @@ export class AutomationUtil {
      * represents something 'truthy', e.g.: for checked:
      * 'true'|'mixed' -> true
      * 'false'|undefined -> false
-     * @param {AutomationNode} node
-     * @param {string} attrib
-     * @return {boolean}
+     * @return True if the value represents something 'truthy'.
      */
     static isTruthy(node, attrib) {
         if (!node) {
@@ -60,10 +53,12 @@ export class AutomationUtil {
                 return Boolean(node.hasPopup) && node.hasPopup !== HasPopup.FALSE;
             // Chrome automatically calculates these attributes.
             case 'posInSet':
+                // TODO(b/314203187): node.htmlAttributes may be undefined.
                 return Boolean(node.htmlAttributes['aria-posinset']) ||
                     (node.root.role !== RoleType.ROOT_WEB_AREA &&
                         Boolean(node.posInSet));
             case 'setSize':
+                // TODO(b/314203187): node.htmlAttributes may be undefined.
                 return Boolean(node.htmlAttributes['aria-setsize']) ||
                     Boolean(node.setSize);
             // These attributes default to false for empty strings.
@@ -74,16 +69,16 @@ export class AutomationUtil {
             case 'selected':
                 return node.selected === true;
             default:
-                return node[attrib] !== undefined ||
-                    Boolean(node.state[ /** @type {StateType} */(attrib)]);
+                // @ts-ignore: TODO(b/267329383): expression of type 'string' can't be
+                // used to index type 'AutomationNode'.
+                return node[attrib] !== undefined || Boolean(node.state[(attrib)]);
         }
     }
     /**
+     * For a given automation property, return true if the value
      * represents something 'falsey', e.g.: for selected:
      * node.selected === false
-     * @param {AutomationNode} node
-     * @param {string} attrib
-     * @return {boolean}
+     * @return If it represents something 'falsey'.
      */
     static isFalsey(node, attrib) {
         if (!node) {
@@ -99,12 +94,10 @@ export class AutomationUtil {
     /**
      * Find a node in subtree of |cur| satisfying |pred| using post-order
      * traversal.
-     * @param {AutomationNode} cur Node to begin the search
-     *     from.
-     * @param {constants.Dir} dir
-     * @param {AutomationPredicate.Unary} pred A predicate to apply
+     * @param cur Node to begin the search from.
+     * @param pred A predicate to apply
      *     to a candidate node.
-     * @return {AutomationNode}
+     * @return The node found or null
      */
     static findNodePost(cur, dir, pred) {
         if (!cur) {
@@ -133,12 +126,9 @@ export class AutomationUtil {
      * The restrictions option will further filter F. For example,
      * |skipInitialSubtree| will remove any |pred| matches in the subtree of |cur|
      * from F.
-     * @param {!AutomationNode} cur Node to begin the search
-     *     from.
-     * @param {constants.Dir} dir
-     * @param {AutomationPredicate.Unary} pred A predicate to apply
-     *     to a candidate node.
-     * @param {AutomationTreeWalkerRestriction=} opt_restrictions |leaf|, |root|,
+     * @param cur Node to begin the search from.
+     * @param pred A predicate to apply to a candidate node.
+     * @param optRestrictions |leaf|, |root|,
      *     |skipInitialAncestry|, and |skipInitialSubtree| are valid restrictions
      *     used when finding the next node.
      *     By default:
@@ -147,10 +137,10 @@ export class AutomationUtil {
      *        |pred|. This alleviates the caller from syncing forwards.
      *        Leaves are nodes matched by |pred| which are not also containers.
      *        This takes care of syncing backwards.
-     * @return {AutomationNode}
+     * @return The next node found
      */
-    static findNextNode(cur, dir, pred, opt_restrictions) {
-        const walker = createWalker(cur, dir, pred, opt_restrictions);
+    static findNextNode(cur, dir, pred, optRestrictions) {
+        const walker = createWalker(cur, dir, pred, optRestrictions);
         return walker.next().node;
     }
     /**
@@ -162,12 +152,9 @@ export class AutomationUtil {
      * The restrictions option will further filter F. For example,
      * |skipInitialSubtree| will remove any |pred| matches in the subtree of |cur|
      * from F.
-     * @param {!AutomationNode} cur Node to begin the search
-     *     from.
-     * @param {constants.Dir} dir
-     * @param {AutomationPredicate.Unary} pred A predicate to apply
-     *     to a candidate node.
-     * @param {AutomationTreeWalkerRestriction=} opt_restrictions |leaf|, |root|,
+     * @param cur Node to begin the search from.
+     * @param pred A predicate to apply to a candidate node.
+     * @param optRestrictions |leaf|, |root|,
      *     |skipInitialAncestry|, and |skipInitialSubtree| are valid restrictions
      *     used when finding the next node.
      *     By default:
@@ -176,10 +163,10 @@ export class AutomationUtil {
      *        |pred|. This alleviates the caller from syncing forwards.
      *        Leaves are nodes matched by |pred| which are not also containers.
      *        This takes care of syncing backwards.
-     * @return {!Array<!AutomationNode>}
+     * @return All the nodes found.
      */
-    static findAllNodes(cur, dir, pred, opt_restrictions) {
-        const walker = createWalker(cur, dir, pred, opt_restrictions);
+    static findAllNodes(cur, dir, pred, optRestrictions) {
+        const walker = createWalker(cur, dir, pred, optRestrictions);
         const nodes = [];
         let currentNode = walker.next().node;
         while (currentNode) {
@@ -191,15 +178,12 @@ export class AutomationUtil {
     /**
      * Given nodes a_1, ..., a_n starting at |cur| in pre order traversal, apply
      * |pred| to a_i and a_(i - 1) until |pred| is satisfied.  Returns a_(i - 1)
-     * or a_i (depending on opt_before) or null if no match was found.
-     * @param {!AutomationNode} cur
-     * @param {constants.Dir} dir
-     * @param {AutomationPredicate.Binary} pred
-     * @param {boolean=} opt_before True to return a_(i - 1); a_i otherwise.
-     *                              Defaults to false.
-     * @return {AutomationNode}
+     * or a_i (depending on optBefore) or null if no match was found.
+     * @param optBefore True to return a_(i - 1); a_i otherwise.
+     *                  Defaults to false.
+     * @return The node found.
      */
-    static findNodeUntil(cur, dir, pred, opt_before) {
+    static findNodeUntil(cur, dir, pred, optBefore) {
         let before = cur;
         let after = before;
         do {
@@ -207,13 +191,12 @@ export class AutomationUtil {
             after =
                 AutomationUtil.findNextNode(before, dir, AutomationPredicate.leaf);
         } while (after && !pred(before, after));
-        return opt_before ? before : after;
+        return optBefore ? before : after;
     }
     /**
      * Returns an array containing ancestors of node starting at root down to
      * node.
-     * @param {!AutomationNode} node
-     * @return {!Array<AutomationNode>}
+     * @return The array of ancestors found.
      */
     static getAncestors(node) {
         const ret = [];
@@ -226,8 +209,7 @@ export class AutomationUtil {
     }
     /**
      * Finds the lowest ancestor with a given role.
-     * @param {!AutomationNode} node
-     * @param {!RoleType} role
+     * @return The ancestor found.
      */
     static getFirstAncestorWithRole(node, role) {
         if (!node.parent) {
@@ -241,9 +223,7 @@ export class AutomationUtil {
     /**
      * Gets the first index where the two input arrays differ. Returns -1 if they
      * do not.
-     * @param {!Array<AutomationNode>} ancestorsA
-     * @param {!Array<AutomationNode>} ancestorsB
-     * @return {number}
+     * @return The index or -1.
      */
     static getDivergence(ancestorsA, ancestorsB) {
         for (let i = 0; i < ancestorsA.length; i++) {
@@ -258,9 +238,7 @@ export class AutomationUtil {
     }
     /**
      * Returns ancestors of |node| that are not also ancestors of |prevNode|.
-     * @param {!AutomationNode} prevNode
-     * @param {!AutomationNode} node
-     * @return {!Array<!AutomationNode>}
+     * @return The ancestors found.
      */
     static getUniqueAncestors(prevNode, node) {
         const prevAncestors = AutomationUtil.getAncestors(prevNode);
@@ -271,9 +249,7 @@ export class AutomationUtil {
     /**
      * Given |nodeA| and |nodeB| in that order, determines their ordering in the
      * document.
-     * @param {!AutomationNode} nodeA
-     * @param {!AutomationNode} nodeB
-     * @return {constants.Dir}
+     * @return The direction representing the ordering.
      */
     static getDirection(nodeA, nodeB) {
         const ancestorsA = AutomationUtil.getAncestors(nodeA);
@@ -300,14 +276,12 @@ export class AutomationUtil {
         if (divB.parent === nodeA) {
             return constants.Dir.FORWARD;
         }
+        // TODO(b/267329383): indexInParent may be undefined.
         return divA.indexInParent <= divB.indexInParent ? constants.Dir.FORWARD :
             constants.Dir.BACKWARD;
     }
     /**
      * Determines whether the two given nodes come from the same tree source.
-     * @param {AutomationNode} a
-     * @param {AutomationNode} b
-     * @return {boolean}
      */
     static isInSameTree(a, b) {
         if (!a || !b) {
@@ -315,13 +289,13 @@ export class AutomationUtil {
         }
         // Given two non-desktop roots, consider them in the "same" tree.
         return a.root === b.root ||
-            (a.root.role === b.root.role && a.root.role === RoleType.ROOT_WEB_AREA);
+            // TODO(b/267329383): a.root and b.root may be undefined.
+            (a.root.role === b.root.role &&
+                a.root.role === RoleType.ROOT_WEB_AREA);
     }
     /**
      * Determines whether or not a node is or is the descendant of another node.
-     * @param {!AutomationNode} node
-     * @param {!AutomationNode} ancestor
-     * @return {boolean}
+     * @return Whether the node is a descendant of the other node.
      */
     static isDescendantOf(node, ancestor) {
         let testNode = node;
@@ -331,13 +305,12 @@ export class AutomationUtil {
         return testNode === ancestor;
     }
     /**
-     * Finds the deepest node containing point. Since the automation tree does not
-     * maintain a containment invariant when considering child node bounding rects
-     * with respect to their parents, the hit test considers all children before
-     * their parents when looking for a matching node.
-     * @param {AutomationNode} node Subtree to search.
-     * @param {constants.Point} point
-     * @return {AutomationNode}
+     * Finds the deepest node containing the point. Since the automation tree does
+     * not maintain a containment invariant when considering child node bounding
+     * rects with respect to their parents, the hit test considers all children
+     * before their parents when looking for a matching node.
+     * @param node Subtree to search.
+     * @return The deepest node containing the point.
      */
     static hitTest(node, point) {
         let child = node.firstChild;
@@ -350,6 +323,7 @@ export class AutomationUtil {
         }
         const loc = node.unclippedLocation;
         // When |node| is partially or fully offscreen, try to find a better match.
+        // TODO(b/267329383): loc may be undefined.
         if (loc.left < 0 || loc.top < 0) {
             return null;
         }
@@ -361,8 +335,7 @@ export class AutomationUtil {
     }
     /**
      * Gets a top level root.
-     * @param {!AutomationNode} node
-     * @return {AutomationNode}
+     * @return The top level root.
      */
     static getTopLevelRoot(node) {
         let root = node.root;
@@ -376,9 +349,7 @@ export class AutomationUtil {
         return root;
     }
     /**
-     * @param {!AutomationNode} prevNode
-     * @param {!AutomationNode} node
-     * @return {AutomationNode}
+     * @return The least common ancestor of the two nodes.
      */
     static getLeastCommonAncestor(prevNode, node) {
         if (prevNode === node) {
@@ -392,8 +363,7 @@ export class AutomationUtil {
     /**
      * Gets the accessible text for this node based on its role.
      * This text is suitable for caret navigation and selection in the node.
-     * @param {AutomationNode} node
-     * @return {string}
+     * @return The accessible text.
      */
     static getText(node) {
         if (!node) {
@@ -406,14 +376,14 @@ export class AutomationUtil {
     }
     /**
      * Gets the root of editable node.
-     * @param {!AutomationNode} node
-     * @return {!AutomationNode|undefined}
+     * @return The root if it is editable and focused.
      */
     static getEditableRoot(node) {
         let testNode = node;
         let rootEditable;
         do {
-            if (testNode.state.editable && testNode.state.focused) {
+            // TODO(b/267329383): testNode.state may be undefined.
+            if (testNode.state['editable'] && testNode.state['focused']) {
                 rootEditable = testNode;
             }
             testNode = testNode.parent;
@@ -434,9 +404,9 @@ export class AutomationUtil {
      * predicate in a successfully matched node's ancestry chain.
      * Note that container nodes should only be considered if there are no current
      * matches.
-     * @param {!AutomationNode} root Tree to search.
-     * @param {AutomationPredicate.Unary} pred A predicate to apply
-     * @return {AutomationNode}
+     * @param root Tree to search.
+     * @param pred A predicate to apply
+     * @return The node found.
      */
     static findLastNode(root, pred) {
         let node = root;
@@ -468,32 +438,25 @@ export class AutomationUtil {
     }
 }
 /**
- * @param {!AutomationNode} cur Node to begin the search
- *     from.
- * @param {constants.Dir} dir
- * @param {AutomationPredicate.Unary} pred A predicate to apply
- *     to a candidate node.
- * @param {AutomationTreeWalkerRestriction=} opt_restrictions |leaf|, |root|,
+ * @param cur Node to begin the search from.
+ * @param pred A predicate to apply to a candidate node.
+ * @param optRestrictions |leaf|, |root|,
  *     |skipInitialAncestry|, and |skipInitialSubtree| are valid restrictions
  *     used when finding the next node.
- * @return {!AutomationTreeWalker} Instance of tree walker initialized with
- *    given parameters.
+ * @return Instance of tree walker initialized with given parameters.
  */
-function createWalker(cur, dir, pred, opt_restrictions) {
+function createWalker(cur, dir, pred, optRestrictions) {
     const restrictions = {};
-    opt_restrictions = opt_restrictions || {
-        leaf: undefined,
-        root: undefined,
-        visit: undefined,
+    optRestrictions = optRestrictions || {
         skipInitialSubtree: !AutomationPredicate.container(cur) && pred(cur),
     };
-    restrictions.root = opt_restrictions.root || AutomationPredicate.root;
-    restrictions.leaf = opt_restrictions.leaf || function (node) {
+    restrictions.root = optRestrictions.root || AutomationPredicate.root;
+    restrictions.leaf = optRestrictions.leaf || function (node) {
         // Treat nodes matched by |pred| as leaves except for containers.
         return !AutomationPredicate.container(node) && pred(node);
     };
-    restrictions.skipInitialSubtree = opt_restrictions.skipInitialSubtree;
-    restrictions.skipInitialAncestry = opt_restrictions.skipInitialAncestry;
+    restrictions.skipInitialSubtree = optRestrictions.skipInitialSubtree;
+    restrictions.skipInitialAncestry = optRestrictions.skipInitialAncestry;
     restrictions.visit = function (node) {
         return pred(node) && !AutomationPredicate.shouldIgnoreNode(node);
     };

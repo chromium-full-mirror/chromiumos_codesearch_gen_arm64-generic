@@ -31,10 +31,6 @@ enum class CameraAutoFramingState : int32_t;
 enum class SetEffectResult : int32_t;
 class CameraHalDispatcher;
 
-class CameraHalServer;
-
-class CameraHalServerCallbacks;
-
 class CameraHalClient;
 
 class CrosCameraServiceObserver;

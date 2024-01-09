@@ -296,6 +296,8 @@ struct FromValue<audits::MixedContentResourceType> {
       return audits::MixedContentResourceType::SERVICE_WORKER;
     if (value.GetString() == "SharedWorker")
       return audits::MixedContentResourceType::SHARED_WORKER;
+    if (value.GetString() == "SpeculationRules")
+      return audits::MixedContentResourceType::SPECULATION_RULES;
     if (value.GetString() == "Stylesheet")
       return audits::MixedContentResourceType::STYLESHEET;
     if (value.GetString() == "Track")
@@ -358,6 +360,8 @@ inline base::Value ToValue(const audits::MixedContentResourceType& value) {
       return base::Value("ServiceWorker");
     case audits::MixedContentResourceType::SHARED_WORKER:
       return base::Value("SharedWorker");
+    case audits::MixedContentResourceType::SPECULATION_RULES:
+      return base::Value("SpeculationRules");
     case audits::MixedContentResourceType::STYLESHEET:
       return base::Value("Stylesheet");
     case audits::MixedContentResourceType::TRACK:
@@ -985,6 +989,10 @@ struct FromValue<audits::FederatedAuthRequestIssueReason> {
       return audits::FederatedAuthRequestIssueReason::ID_TOKEN_NO_RESPONSE;
     if (value.GetString() == "IdTokenInvalidResponse")
       return audits::FederatedAuthRequestIssueReason::ID_TOKEN_INVALID_RESPONSE;
+    if (value.GetString() == "IdTokenIdpErrorResponse")
+      return audits::FederatedAuthRequestIssueReason::ID_TOKEN_IDP_ERROR_RESPONSE;
+    if (value.GetString() == "IdTokenCrossSiteIdpErrorResponse")
+      return audits::FederatedAuthRequestIssueReason::ID_TOKEN_CROSS_SITE_IDP_ERROR_RESPONSE;
     if (value.GetString() == "IdTokenInvalidRequest")
       return audits::FederatedAuthRequestIssueReason::ID_TOKEN_INVALID_REQUEST;
     if (value.GetString() == "IdTokenInvalidContentType")
@@ -1065,6 +1073,10 @@ inline base::Value ToValue(const audits::FederatedAuthRequestIssueReason& value)
       return base::Value("IdTokenNoResponse");
     case audits::FederatedAuthRequestIssueReason::ID_TOKEN_INVALID_RESPONSE:
       return base::Value("IdTokenInvalidResponse");
+    case audits::FederatedAuthRequestIssueReason::ID_TOKEN_IDP_ERROR_RESPONSE:
+      return base::Value("IdTokenIdpErrorResponse");
+    case audits::FederatedAuthRequestIssueReason::ID_TOKEN_CROSS_SITE_IDP_ERROR_RESPONSE:
+      return base::Value("IdTokenCrossSiteIdpErrorResponse");
     case audits::FederatedAuthRequestIssueReason::ID_TOKEN_INVALID_REQUEST:
       return base::Value("IdTokenInvalidRequest");
     case audits::FederatedAuthRequestIssueReason::ID_TOKEN_INVALID_CONTENT_TYPE:

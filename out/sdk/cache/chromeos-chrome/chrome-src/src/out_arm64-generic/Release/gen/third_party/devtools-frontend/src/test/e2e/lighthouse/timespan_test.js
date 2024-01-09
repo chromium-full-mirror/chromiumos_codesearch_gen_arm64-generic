@@ -59,7 +59,7 @@ const lighthouse_helpers_js_1 = require("../helpers/lighthouse-helpers.js");
         chai_1.assert.strictEqual(innerWidth, 1280);
         chai_1.assert.strictEqual(devicePixelRatio, 1);
         const { auditResults, erroredAudits, failedAudits } = (0, lighthouse_helpers_js_1.getAuditsBreakdown)(lhr);
-        chai_1.assert.strictEqual(auditResults.length, 45);
+        chai_1.assert.strictEqual(auditResults.length, 47);
         chai_1.assert.deepStrictEqual(erroredAudits, []);
         chai_1.assert.deepStrictEqual(failedAudits.map(audit => audit.id), []);
         // Ensure the timespan captured the user interaction.

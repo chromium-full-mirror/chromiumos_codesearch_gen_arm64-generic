@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, File>::value,
     "File inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&File::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "File is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("File.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-File* blink_receiver = V8File::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+File* blink_receiver = V8File::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -106,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("File.lastModified.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-File* blink_receiver = V8File::ToWrappableUnsafe(v8_receiver);
+File* blink_receiver = V8File::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastModified();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -126,7 +122,7 @@ UseCounter::Count(current_execution_context, WebFeature::kFileGetLastModifiedDat
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-File* blink_receiver = V8File::ToWrappableUnsafe(v8_receiver);
+File* blink_receiver = V8File::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -148,7 +144,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedFileRelativePa
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-File* blink_receiver = V8File::ToWrappableUnsafe(v8_receiver);
+File* blink_receiver = V8File::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->webkitRelativePath();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }

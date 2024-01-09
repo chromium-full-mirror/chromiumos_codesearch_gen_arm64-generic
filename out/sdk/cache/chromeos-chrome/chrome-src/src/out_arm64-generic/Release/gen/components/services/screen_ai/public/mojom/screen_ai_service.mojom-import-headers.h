@@ -6,12 +6,6 @@
 
 #ifndef COMPONENTS_SERVICES_SCREEN_AI_PUBLIC_MOJOM_SCREEN_AI_SERVICE_MOJOM_IMPORT_HEADERS_H_
 #define COMPONENTS_SERVICES_SCREEN_AI_PUBLIC_MOJOM_SCREEN_AI_SERVICE_MOJOM_IMPORT_HEADERS_H_
-#include "mojo/public/mojom/base/file_path.mojom.h"
-#include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
-#include "mojo/public/mojom/base/read_only_file.mojom.h"
-#include "mojo/public/mojom/base/read_only_file.mojom-import-headers.h"
-#include "sandbox/policy/mojom/sandbox.mojom.h"
-#include "sandbox/policy/mojom/sandbox.mojom-import-headers.h"
 #include "skia/public/mojom/bitmap.mojom.h"
 #include "skia/public/mojom/bitmap.mojom-import-headers.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom.h"

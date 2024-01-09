@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { getTrustedHTML } from 'chrome://resources/js/static_types.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { CommerceInternalsApiProxy } from './commerce_internals_api_proxy.js';
 function getProxy() {
     return CommerceInternalsApiProxy.getInstance();
@@ -37,7 +37,6 @@ function seeEligibleDetails() {
         ul.appendChild(createLiElement('IsSignedIn', detail.isSignedIn));
         ul.appendChild(createLiElement('IsSyncingBookmarks', detail.isSyncingBookmarks));
         ul.appendChild(createLiElement('IsAnonymizedUrlDataCollectionEnabled', detail.isAnonymizedUrlDataCollectionEnabled));
-        ul.appendChild(createLiElement('IsWebAndAppActivityEnabled', detail.isWebAndAppActivityEnabled));
         ul.appendChild(createLiElement('IsSubjectToParentalControls', detail.isSubjectToParentalControls));
         element.appendChild(ul);
     });

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/device_signals/core/common/mojom/system_signals.mojom-features.h"
 #include "components/device_signals/core/common/mojom/system_signals.mojom-shared.h"
 #include "components/device_signals/core/common/mojom/system_signals.mojom-forward.h"
 #include "sandbox/policy/mojom/context.mojom-forward.h"
@@ -193,11 +194,11 @@ class  ExecutableMetadata {
 
   ExecutableMetadata(
       bool is_running,
-      absl::optional<std::vector<std::string>> public_keys_hashes,
-      const absl::optional<std::string>& product_name,
-      const absl::optional<std::string>& version,
+      std::optional<std::vector<std::string>> public_keys_hashes,
+      const std::optional<std::string>& product_name,
+      const std::optional<std::string>& version,
       bool is_os_verified,
-      const absl::optional<std::string>& subject_name);
+      const std::optional<std::string>& subject_name);
 
 
   ~ExecutableMetadata();
@@ -277,15 +278,15 @@ class  ExecutableMetadata {
   
   bool is_running;
   
-  absl::optional<std::vector<std::string>> public_keys_hashes;
+  std::optional<std::vector<std::string>> public_keys_hashes;
   
-  absl::optional<std::string> product_name;
+  std::optional<std::string> product_name;
   
-  absl::optional<std::string> version;
+  std::optional<std::string> version;
   
   bool is_os_verified;
   
-  absl::optional<std::string> subject_name;
+  std::optional<std::string> subject_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -349,8 +350,8 @@ class  FileSystemItem {
   FileSystemItem(
       const ::base::FilePath& file_path,
       ::device_signals::PresenceValue presence,
-      const absl::optional<std::string>& sha256_hash,
-      const absl::optional<::device_signals::ExecutableMetadata>& executable_metadata);
+      const std::optional<std::string>& sha256_hash,
+      const std::optional<::device_signals::ExecutableMetadata>& executable_metadata);
 
 
   ~FileSystemItem();
@@ -432,9 +433,9 @@ class  FileSystemItem {
   
   ::device_signals::PresenceValue presence;
   
-  absl::optional<std::string> sha256_hash;
+  std::optional<std::string> sha256_hash;
   
-  absl::optional<::device_signals::ExecutableMetadata> executable_metadata;
+  std::optional<::device_signals::ExecutableMetadata> executable_metadata;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

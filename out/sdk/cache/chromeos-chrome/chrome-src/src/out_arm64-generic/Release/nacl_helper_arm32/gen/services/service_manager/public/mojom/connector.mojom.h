@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/service_manager/public/mojom/connector.mojom-features.h"
 #include "services/service_manager/public/mojom/connector.mojom-shared.h"
 #include "services/service_manager/public/mojom/connector.mojom-forward.h"
 #include "mojo/public/mojom/base/process_id.mojom.h"
@@ -149,7 +150,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) Connector
   virtual ~Connector() = default;
 
 
-  using BindInterfaceCallback = base::OnceCallback<void(ConnectResult, const absl::optional<::service_manager::Identity>&)>;
+  using BindInterfaceCallback = base::OnceCallback<void(ConnectResult, const std::optional<::service_manager::Identity>&)>;
   
   virtual void BindInterface(const ::service_manager::ServiceFilter& filter, const std::string& interface_name, ::mojo::ScopedMessagePipeHandle interface_pipe, BindInterfacePriority priority, BindInterfaceCallback callback) = 0;
 
@@ -159,7 +160,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) Connector
   virtual void QueryService(const std::string& service_name, QueryServiceCallback callback) = 0;
 
 
-  using WarmServiceCallback = base::OnceCallback<void(ConnectResult, const absl::optional<::service_manager::Identity>&)>;
+  using WarmServiceCallback = base::OnceCallback<void(ConnectResult, const std::optional<::service_manager::Identity>&)>;
   
   virtual void WarmService(const ::service_manager::ServiceFilter& filter, WarmServiceCallback callback) = 0;
 

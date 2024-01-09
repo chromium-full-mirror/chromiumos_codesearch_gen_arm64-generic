@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/url_loader.mojom-features.h"
 #include "services/network/public/mojom/url_loader.mojom-shared.h"
 #include "services/network/public/mojom/url_loader.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -104,7 +105,7 @@ class URLLoader
   virtual ~URLLoader() = default;
 
   
-  virtual void FollowRedirect(const std::vector<std::string>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const absl::optional<::GURL>& new_url) = 0;
+  virtual void FollowRedirect(const std::vector<std::string>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const std::optional<::GURL>& new_url) = 0;
 
   
   virtual void SetPriority(::net::RequestPriority priority, int32_t intra_priority_value) = 0;
@@ -182,7 +183,7 @@ class URLLoaderClient
   virtual void OnReceiveEarlyHints(::network::mojom::EarlyHintsPtr early_hints) = 0;
 
   
-  virtual void OnReceiveResponse(::network::mojom::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, absl::optional<::mojo_base::BigBuffer> cached_metadata) = 0;
+  virtual void OnReceiveResponse(::network::mojom::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, std::optional<::mojo_base::BigBuffer> cached_metadata) = 0;
 
   
   virtual void OnReceiveRedirect(const ::net::RedirectInfo& redirect_info, ::network::mojom::URLResponseHeadPtr head) = 0;
@@ -208,7 +209,7 @@ class  URLLoaderProxy
 
   explicit URLLoaderProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void FollowRedirect(const std::vector<std::string>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const absl::optional<::GURL>& new_url) final;
+  void FollowRedirect(const std::vector<std::string>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const std::optional<::GURL>& new_url) final;
   
   void SetPriority(::net::RequestPriority priority, int32_t intra_priority_value) final;
   
@@ -231,7 +232,7 @@ class  URLLoaderClientProxy
   
   void OnReceiveEarlyHints(::network::mojom::EarlyHintsPtr early_hints) final;
   
-  void OnReceiveResponse(::network::mojom::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, absl::optional<::mojo_base::BigBuffer> cached_metadata) final;
+  void OnReceiveResponse(::network::mojom::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, std::optional<::mojo_base::BigBuffer> cached_metadata) final;
   
   void OnReceiveRedirect(const ::net::RedirectInfo& redirect_info, ::network::mojom::URLResponseHeadPtr head) final;
   

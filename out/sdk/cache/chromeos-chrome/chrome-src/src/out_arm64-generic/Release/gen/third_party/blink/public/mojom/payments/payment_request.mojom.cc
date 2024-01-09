@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -56,7 +57,7 @@ PaymentResponse::PaymentResponse(
     const std::string& method_name_in,
     const std::string& stringified_details_in,
     ::payments::mojom::PaymentAddressPtr shipping_address_in,
-    const absl::optional<std::string>& shipping_option_in,
+    const std::optional<std::string>& shipping_option_in,
     PayerDetailPtr payer_in,
     SecurePaymentConfirmationResponsePtr secure_payment_confirmation_in,
     ::blink::mojom::GetAssertionAuthenticatorResponsePtr get_assertion_authenticator_response_in)
@@ -104,7 +105,7 @@ void PaymentResponse::WriteIntoTrace(
     dict.AddItem(
       "shipping_option"), this->shipping_option,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -153,7 +154,7 @@ SecurePaymentConfirmationResponse::SecurePaymentConfirmationResponse(
     ::blink::mojom::CommonCredentialInfoPtr credential_info_in,
     std::vector<uint8_t> signature_in,
     ::device::AuthenticatorAttachment authenticator_attachment_in,
-    absl::optional<std::vector<uint8_t>> user_handle_in)
+    std::optional<std::vector<uint8_t>> user_handle_in)
     : credential_info(std::move(credential_info_in)),
       signature(std::move(signature_in)),
       authenticator_attachment(std::move(authenticator_attachment_in)),
@@ -195,7 +196,7 @@ void SecurePaymentConfirmationResponse::WriteIntoTrace(
     dict.AddItem(
       "user_handle"), this->user_handle,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -213,9 +214,9 @@ PayerDetail::PayerDetail()
       phone() {}
 
 PayerDetail::PayerDetail(
-    const absl::optional<std::string>& email_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& phone_in)
+    const std::optional<std::string>& email_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& phone_in)
     : email(std::move(email_in)),
       name(std::move(name_in)),
       phone(std::move(phone_in)) {}
@@ -229,7 +230,7 @@ void PayerDetail::WriteIntoTrace(
     dict.AddItem(
       "email"), this->email,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -238,7 +239,7 @@ void PayerDetail::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -247,7 +248,7 @@ void PayerDetail::WriteIntoTrace(
     dict.AddItem(
       "phone"), this->phone,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -403,9 +404,9 @@ SecurePaymentConfirmationRequest::SecurePaymentConfirmationRequest(
     std::vector<std::vector<uint8_t>> credential_ids_in,
     std::vector<uint8_t> challenge_in,
     ::blink::mojom::PaymentCredentialInstrumentPtr instrument_in,
-    absl::optional<::base::TimeDelta> timeout_in,
-    const absl::optional<::url::Origin>& payee_origin_in,
-    const absl::optional<std::string>& payee_name_in,
+    std::optional<::base::TimeDelta> timeout_in,
+    const std::optional<::url::Origin>& payee_origin_in,
+    const std::optional<std::string>& payee_name_in,
     const std::string& rp_id_in,
     ::blink::mojom::AuthenticationExtensionsClientInputsPtr extensions_in,
     bool show_opt_out_in)
@@ -455,7 +456,7 @@ void SecurePaymentConfirmationRequest::WriteIntoTrace(
     dict.AddItem(
       "timeout"), this->timeout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -464,7 +465,7 @@ void SecurePaymentConfirmationRequest::WriteIntoTrace(
     dict.AddItem(
       "payee_origin"), this->payee_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -473,7 +474,7 @@ void SecurePaymentConfirmationRequest::WriteIntoTrace(
     dict.AddItem(
       "payee_name"), this->payee_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -677,13 +678,13 @@ PaymentDetails::PaymentDetails()
 
 PaymentDetails::PaymentDetails(
     PaymentItemPtr total_in,
-    absl::optional<std::vector<PaymentItemPtr>> display_items_in,
-    absl::optional<std::vector<PaymentShippingOptionPtr>> shipping_options_in,
-    absl::optional<std::vector<PaymentDetailsModifierPtr>> modifiers_in,
+    std::optional<std::vector<PaymentItemPtr>> display_items_in,
+    std::optional<std::vector<PaymentShippingOptionPtr>> shipping_options_in,
+    std::optional<std::vector<PaymentDetailsModifierPtr>> modifiers_in,
     const std::string& error_in,
     ::payments::mojom::AddressErrorsPtr shipping_address_errors_in,
-    const absl::optional<std::string>& id_in,
-    const absl::optional<std::string>& stringified_payment_method_errors_in,
+    const std::optional<std::string>& id_in,
+    const std::optional<std::string>& stringified_payment_method_errors_in,
     bool payment_handler_minimal_header_ux_enabled_in)
     : total(std::move(total_in)),
       display_items(std::move(display_items_in)),
@@ -713,7 +714,7 @@ void PaymentDetails::WriteIntoTrace(
     dict.AddItem(
       "display_items"), this->display_items,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<PaymentItemPtr>>>"
+      "<value of type std::optional<std::vector<PaymentItemPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -722,7 +723,7 @@ void PaymentDetails::WriteIntoTrace(
     dict.AddItem(
       "shipping_options"), this->shipping_options,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<PaymentShippingOptionPtr>>>"
+      "<value of type std::optional<std::vector<PaymentShippingOptionPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -731,7 +732,7 @@ void PaymentDetails::WriteIntoTrace(
     dict.AddItem(
       "modifiers"), this->modifiers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<PaymentDetailsModifierPtr>>>"
+      "<value of type std::optional<std::vector<PaymentDetailsModifierPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -758,7 +759,7 @@ void PaymentDetails::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -767,7 +768,7 @@ void PaymentDetails::WriteIntoTrace(
     dict.AddItem(
       "stringified_payment_method_errors"), this->stringified_payment_method_errors,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1182,14 +1183,17 @@ void PaymentRequestClientProxy::OnPaymentMethodChange(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnPaymentMethodChange_Name, kFlags, 0, 0, nullptr);
@@ -1241,14 +1245,17 @@ void PaymentRequestClientProxy::OnShippingAddressChange(
                         "<value of type ::payments::mojom::PaymentAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnShippingAddressChange_Name, kFlags, 0, 0, nullptr);
@@ -1289,14 +1296,17 @@ void PaymentRequestClientProxy::OnShippingOptionChange(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnShippingOptionChange_Name, kFlags, 0, 0, nullptr);
@@ -1337,14 +1347,17 @@ void PaymentRequestClientProxy::OnPayerDetailChange(
                         "<value of type PayerDetailPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnPayerDetailChange_Name, kFlags, 0, 0, nullptr);
@@ -1385,14 +1398,17 @@ void PaymentRequestClientProxy::OnPaymentResponse(
                         "<value of type PaymentResponsePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnPaymentResponse_Name, kFlags, 0, 0, nullptr);
@@ -1436,14 +1452,17 @@ void PaymentRequestClientProxy::OnError(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnError_Name, kFlags, 0, 0, nullptr);
@@ -1479,14 +1498,17 @@ void PaymentRequestClientProxy::OnComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send payments::mojom::PaymentRequestClient::OnComplete");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnComplete_Name, kFlags, 0, 0, nullptr);
@@ -1516,14 +1538,17 @@ void PaymentRequestClientProxy::OnAbort(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnAbort_Name, kFlags, 0, 0, nullptr);
@@ -1554,14 +1579,17 @@ void PaymentRequestClientProxy::OnCanMakePayment(
                         "<value of type CanMakePaymentQueryResult>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnCanMakePayment_Name, kFlags, 0, 0, nullptr);
@@ -1593,14 +1621,17 @@ void PaymentRequestClientProxy::OnHasEnrolledInstrument(
                         "<value of type HasEnrolledInstrumentQueryResult>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_OnHasEnrolledInstrument_Name, kFlags, 0, 0, nullptr);
@@ -1625,14 +1656,17 @@ void PaymentRequestClientProxy::WarnNoFavicon(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send payments::mojom::PaymentRequestClient::WarnNoFavicon");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_WarnNoFavicon_Name, kFlags, 0, 0, nullptr);
@@ -1668,14 +1702,17 @@ void PaymentRequestClientProxy::AllowConnectToSource(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_AllowConnectToSource_Name, kFlags, 0, 0, nullptr);
@@ -1808,7 +1845,8 @@ void PaymentRequestClient_AllowConnectToSource_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequestClient_AllowConnectToSource_Name, kFlags, 0, 0, nullptr);
@@ -2215,32 +2253,32 @@ std::move(p_did_follow_redirect), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPaymentRequestClientValidationInfo[] = {
-    {&internal::PaymentRequestClient_OnPaymentMethodChange_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnPaymentMethodChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_OnShippingAddressChange_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnShippingAddressChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_OnShippingOptionChange_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnShippingOptionChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_OnPayerDetailChange_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnPayerDetailChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_OnPaymentResponse_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnPaymentResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_OnError_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_OnComplete_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_OnAbort_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnAbort_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_OnCanMakePayment_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnCanMakePayment_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_OnHasEnrolledInstrument_Params_Data::Validate,
+    { &internal::PaymentRequestClient_OnHasEnrolledInstrument_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_WarnNoFavicon_Params_Data::Validate,
+    { &internal::PaymentRequestClient_WarnNoFavicon_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequestClient_AllowConnectToSource_Params_Data::Validate,
+    { &internal::PaymentRequestClient_AllowConnectToSource_Params_Data::Validate,
      &internal::PaymentRequestClient_AllowConnectToSource_ResponseParams_Data::Validate},
 };
 
@@ -2493,14 +2531,17 @@ void PaymentRequestProxy::Init(
                         "<value of type PaymentOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequest_Init_Name, kFlags, 0, 0, nullptr);
@@ -2574,14 +2615,17 @@ void PaymentRequestProxy::Show(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequest_Show_Name, kFlags, 0, 0, nullptr);
@@ -2613,14 +2657,17 @@ void PaymentRequestProxy::UpdateWith(
                         "<value of type PaymentDetailsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequest_UpdateWith_Name, kFlags, 0, 0, nullptr);
@@ -2654,14 +2701,17 @@ void PaymentRequestProxy::OnPaymentDetailsNotUpdated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send payments::mojom::PaymentRequest::OnPaymentDetailsNotUpdated");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequest_OnPaymentDetailsNotUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2684,14 +2734,17 @@ void PaymentRequestProxy::Abort(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send payments::mojom::PaymentRequest::Abort");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequest_Abort_Name, kFlags, 0, 0, nullptr);
@@ -2721,14 +2774,17 @@ void PaymentRequestProxy::Complete(
                         "<value of type PaymentComplete>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequest_Complete_Name, kFlags, 0, 0, nullptr);
@@ -2760,14 +2816,17 @@ void PaymentRequestProxy::Retry(
                         "<value of type ::payments::mojom::PaymentValidationErrorsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequest_Retry_Name, kFlags, 0, 0, nullptr);
@@ -2801,14 +2860,17 @@ void PaymentRequestProxy::CanMakePayment(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send payments::mojom::PaymentRequest::CanMakePayment");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequest_CanMakePayment_Name, kFlags, 0, 0, nullptr);
@@ -2831,14 +2893,17 @@ void PaymentRequestProxy::HasEnrolledInstrument(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send payments::mojom::PaymentRequest::HasEnrolledInstrument");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentRequest_HasEnrolledInstrument_Name, kFlags, 0, 0, nullptr);
@@ -3140,26 +3205,26 @@ bool PaymentRequestStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPaymentRequestValidationInfo[] = {
-    {&internal::PaymentRequest_Init_Params_Data::Validate,
+    { &internal::PaymentRequest_Init_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequest_Show_Params_Data::Validate,
+    { &internal::PaymentRequest_Show_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequest_UpdateWith_Params_Data::Validate,
+    { &internal::PaymentRequest_UpdateWith_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequest_OnPaymentDetailsNotUpdated_Params_Data::Validate,
+    { &internal::PaymentRequest_OnPaymentDetailsNotUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequest_Abort_Params_Data::Validate,
+    { &internal::PaymentRequest_Abort_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequest_Complete_Params_Data::Validate,
+    { &internal::PaymentRequest_Complete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequest_Retry_Params_Data::Validate,
+    { &internal::PaymentRequest_Retry_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequest_CanMakePayment_Params_Data::Validate,
+    { &internal::PaymentRequest_CanMakePayment_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PaymentRequest_HasEnrolledInstrument_Params_Data::Validate,
+    { &internal::PaymentRequest_HasEnrolledInstrument_Params_Data::Validate,
      nullptr /* no response */},
 };
 

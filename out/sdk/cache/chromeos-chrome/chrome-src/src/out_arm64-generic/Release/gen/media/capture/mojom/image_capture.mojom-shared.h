@@ -115,6 +115,31 @@ inline BackgroundBlurMode ToKnownEnumValue(BackgroundBlurMode value) {
 }
 
 
+enum class EyeGazeCorrectionMode : int32_t {
+  
+  OFF = 0,
+  
+  ON = 1,
+  
+  STARE = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, EyeGazeCorrectionMode value);
+inline bool IsKnownEnumValue(EyeGazeCorrectionMode value) {
+  return internal::EyeGazeCorrectionMode_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline EyeGazeCorrectionMode ToKnownEnumValue(EyeGazeCorrectionMode value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return EyeGazeCorrectionMode::kDefaultValue;
+}
+
+
 enum class MeteringMode : int32_t {
   
   NONE = 0,
@@ -523,6 +548,40 @@ static_assert(
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::media::mojom::MeteringMode>(data_->current_face_framing_mode));
   }
+  inline void GetSupportedEyeGazeCorrectionModesDataView(
+      mojo::ArrayDataView<EyeGazeCorrectionMode>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSupportedEyeGazeCorrectionModes(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::media::mojom::EyeGazeCorrectionMode>, UserType>(),
+    "Attempting to read the optional `supported_eye_gaze_correction_modes` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSupportedEyeGazeCorrectionModes` instead "
+    "of `ReadSupportedEyeGazeCorrectionModes if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 3
+                    ? data_->supported_eye_gaze_correction_modes.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::media::mojom::EyeGazeCorrectionMode>>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCurrentEyeGazeCorrectionMode(UserType* output) const {
+    auto data_value = data_->header_.version >= 3
+                      ? data_->current_eye_gaze_correction_mode : 0;
+    return mojo::internal::Deserialize<::media::mojom::EyeGazeCorrectionMode>(
+        data_value, output);
+  }
+  EyeGazeCorrectionMode current_eye_gaze_correction_mode() const {
+    if (data_->header_.version < 3)
+      return EyeGazeCorrectionMode{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::media::mojom::EyeGazeCorrectionMode>(data_->current_eye_gaze_correction_mode));
+  }
  private:
   internal::PhotoState_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -754,6 +813,30 @@ class PhotoSettingsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::media::mojom::MeteringMode>(data_->face_framing_mode));
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadEyeGazeCorrectionMode(UserType* output) const {
+    if (data_->header_.version < 3) {
+      *output = absl::nullopt;
+      return true;
+    }
+    if (!data_->eye_gaze_correction_mode_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::media::mojom::EyeGazeCorrectionMode>(
+        data_->eye_gaze_correction_mode_$value, &output->emplace());
+  }
+  std::optional<EyeGazeCorrectionMode> eye_gaze_correction_mode() const {
+    if (data_->header_.version < 3) {
+      return absl::nullopt;
+    }
+    if (!data_->eye_gaze_correction_mode_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::media::mojom::EyeGazeCorrectionMode>(data_->eye_gaze_correction_mode_$value));
+  }
  private:
   internal::PhotoSettings_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -805,6 +888,10 @@ struct hash<::media::mojom::BackgroundBlurMode>
     : public mojo::internal::EnumHashImpl<::media::mojom::BackgroundBlurMode> {};
 
 template <>
+struct hash<::media::mojom::EyeGazeCorrectionMode>
+    : public mojo::internal::EnumHashImpl<::media::mojom::EyeGazeCorrectionMode> {};
+
+template <>
 struct hash<::media::mojom::MeteringMode>
     : public mojo::internal::EnumHashImpl<::media::mojom::MeteringMode> {};
 
@@ -835,6 +922,26 @@ struct Serializer<::media::mojom::BackgroundBlurMode, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::media::mojom::BackgroundBlurMode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::media::mojom::EyeGazeCorrectionMode, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::media::mojom::EyeGazeCorrectionMode, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::media::mojom::EyeGazeCorrectionMode>(input)), output);
   }
 };
 
@@ -1219,6 +1326,18 @@ struct Serializer<::media::mojom::PhotoStateDataView, MaybeConstUserType> {
         supported_face_framing_modes_fragment.is_null() ? nullptr : supported_face_framing_modes_fragment.data());
     mojo::internal::Serialize<::media::mojom::MeteringMode>(
         Traits::current_face_framing_mode(input), &fragment->current_face_framing_mode);
+    decltype(Traits::supported_eye_gaze_correction_modes(input)) in_supported_eye_gaze_correction_modes = Traits::supported_eye_gaze_correction_modes(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->supported_eye_gaze_correction_modes)::BaseType>
+        supported_eye_gaze_correction_modes_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& supported_eye_gaze_correction_modes_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::EyeGazeCorrectionMode_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::media::mojom::EyeGazeCorrectionMode>>(
+        in_supported_eye_gaze_correction_modes, supported_eye_gaze_correction_modes_fragment, &supported_eye_gaze_correction_modes_validate_params);
+    fragment->supported_eye_gaze_correction_modes.Set(
+        supported_eye_gaze_correction_modes_fragment.is_null() ? nullptr : supported_eye_gaze_correction_modes_fragment.data());
+    mojo::internal::Serialize<::media::mojom::EyeGazeCorrectionMode>(
+        Traits::current_eye_gaze_correction_mode(input), &fragment->current_eye_gaze_correction_mode);
   }
 
   static bool Deserialize(::media::mojom::internal::PhotoState_Data* input,
@@ -1343,6 +1462,14 @@ struct Serializer<::media::mojom::PhotoSettingsDataView, MaybeConstUserType> {
     fragment->has_face_framing_mode = Traits::has_face_framing_mode(input);
     mojo::internal::Serialize<::media::mojom::MeteringMode>(
         Traits::face_framing_mode(input), &fragment->face_framing_mode);
+    fragment->eye_gaze_correction_mode_$flag = Traits::eye_gaze_correction_mode(input).has_value();
+    if (Traits::eye_gaze_correction_mode(input).has_value()) {
+      mojo::internal::Serialize<::media::mojom::EyeGazeCorrectionMode>(
+          Traits::eye_gaze_correction_mode(input).value(), &fragment->eye_gaze_correction_mode_$value);
+    } else {
+      fragment->eye_gaze_correction_mode_$value =
+          static_cast<int32_t>(::media::mojom::EyeGazeCorrectionMode::kMinValue);
+    }
   }
 
   static bool Deserialize(::media::mojom::internal::PhotoSettings_Data* input,
@@ -1527,6 +1654,12 @@ inline void PhotoStateDataView::GetSupportedFaceFramingModesDataView(
                  ? data_->supported_face_framing_modes.Get() : nullptr;
   *output = mojo::ArrayDataView<MeteringMode>(pointer, message_);
 }
+inline void PhotoStateDataView::GetSupportedEyeGazeCorrectionModesDataView(
+    mojo::ArrayDataView<EyeGazeCorrectionMode>* output) {
+  auto pointer = data_->header_.version >= 3
+                 ? data_->supported_eye_gaze_correction_modes.Get() : nullptr;
+  *output = mojo::ArrayDataView<EyeGazeCorrectionMode>(pointer, message_);
+}
 
 
 
@@ -1561,6 +1694,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::media::mojom::BackgroundBlurMode> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::BackgroundBlurMode value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::media::mojom::EyeGazeCorrectionMode> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::EyeGazeCorrectionMode value);
 };
 
 } // namespace perfetto

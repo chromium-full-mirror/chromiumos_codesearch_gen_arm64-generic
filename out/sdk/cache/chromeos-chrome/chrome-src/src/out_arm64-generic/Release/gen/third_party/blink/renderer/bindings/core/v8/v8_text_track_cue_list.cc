@@ -69,17 +69,13 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TextTrackCueList>::value,
     "TextTrackCueList inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TextTrackCueList::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TextTrackCueList is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8TextTrackCueList::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_TextTrackCueList_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(v8_receiver);
+TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -117,13 +113,13 @@ void V8TextTrackCueList::IndexedPropertyDeleterCallback(uint32_t index, const v8
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(v8_receiver);
+TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "TextTrackCueList";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -196,9 +192,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8TextTrackCueList::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_TextTrackCueList_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -223,8 +219,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrackCueList.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(v8_receiver);
+TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -238,9 +235,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextTrackCueList.getCueById");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TextTrackCueList";
 const char* const property_name = "getCueById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -251,13 +248,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(v8_receiver);
+TextTrackCueList* blink_receiver = V8TextTrackCueList::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_id;
 if (LIKELY(info[0]->IsString())) {
-  arg1_id.Init(info[0].As<v8::String>());
+  arg1_id.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TextTrackCueList";
 const char* const property_name = "getCueById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

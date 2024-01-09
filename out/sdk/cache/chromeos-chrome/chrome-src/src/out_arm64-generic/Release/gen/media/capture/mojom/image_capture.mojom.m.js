@@ -26,6 +26,23 @@ export const BackgroundBlurMode = {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
+export const EyeGazeCorrectionModeSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const EyeGazeCorrectionMode = {
+  
+  OFF: 0,
+  ON: 1,
+  STARE: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
 export const MeteringModeSpec = { $: mojo.internal.Enum() };
 
 /**
@@ -706,8 +723,24 @@ mojo.internal.Struct(
         false /* nullable */,
         2,
       ),
+      mojo.internal.StructField(
+        'supportedEyeGazeCorrectionModes', 200,
+        0,
+        mojo.internal.Array(EyeGazeCorrectionModeSpec.$, false),
+        null,
+        true /* nullable */,
+        3,
+      ),
+      mojo.internal.StructField(
+        'currentEyeGazeCorrectionMode', 196,
+        0,
+        EyeGazeCorrectionModeSpec.$,
+        0,
+        false /* nullable */,
+        3,
+      ),
     ],
-    [[0, 184],[1, 192],[2, 208],]);
+    [[0, 184],[1, 192],[2, 208],[3, 216],]);
 
 
 
@@ -774,6 +807,10 @@ export class PhotoState {
     this.supportedFaceFramingModes;
     /** @type { !MeteringMode } */
     this.currentFaceFramingMode;
+    /** @type { (Array<!EyeGazeCorrectionMode>|undefined) } */
+    this.supportedEyeGazeCorrectionModes;
+    /** @type { !EyeGazeCorrectionMode } */
+    this.currentEyeGazeCorrectionMode;
   }
 }
 
@@ -1182,8 +1219,33 @@ mojo.internal.Struct(
         false /* nullable */,
         2,
       ),
+      mojo.internal.StructField(
+        'eye_gaze_correction_mode_$flag', 3,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        3,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "eye_gaze_correction_mode_$value",
+          originalFieldName: "eyeGazeCorrectionMode",
+        }
+      ),
+      mojo.internal.StructField(
+        'eye_gaze_correction_mode_$value', 148,
+        0,
+        EyeGazeCorrectionModeSpec.$,
+        0,
+        false /* nullable */,
+        3,
+        {
+          isPrimary: false,
+          originalFieldName: "eyeGazeCorrectionMode",
+        }
+      ),
     ],
-    [[0, 152],[1, 152],[2, 160],]);
+    [[0, 152],[1, 152],[2, 160],[3, 160],]);
 
 
 
@@ -1282,6 +1344,8 @@ export class PhotoSettings {
     this.hasFaceFramingMode;
     /** @type { !MeteringMode } */
     this.faceFramingMode;
+    /** @type { (EyeGazeCorrectionMode|undefined) } */
+    this.eyeGazeCorrectionMode;
   }
 }
 

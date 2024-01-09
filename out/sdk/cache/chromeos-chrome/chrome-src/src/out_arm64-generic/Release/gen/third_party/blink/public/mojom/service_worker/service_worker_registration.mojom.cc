@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -444,14 +445,17 @@ void ServiceWorkerRegistrationObjectHostProxy::Update(
                         "<value of type ::blink::mojom::FetchClientSettingsObjectPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_Update_Name, kFlags, 0, 0, nullptr);
@@ -486,14 +490,17 @@ void ServiceWorkerRegistrationObjectHostProxy::Unregister(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerRegistrationObjectHost::Unregister");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_Unregister_Name, kFlags, 0, 0, nullptr);
@@ -524,14 +531,17 @@ void ServiceWorkerRegistrationObjectHostProxy::EnableNavigationPreload(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_EnableNavigationPreload_Name, kFlags, 0, 0, nullptr);
@@ -556,14 +566,17 @@ void ServiceWorkerRegistrationObjectHostProxy::GetNavigationPreloadState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerRegistrationObjectHost::GetNavigationPreloadState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Name, kFlags, 0, 0, nullptr);
@@ -594,14 +607,17 @@ void ServiceWorkerRegistrationObjectHostProxy::SetNavigationPreloadHeader(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_Name, kFlags, 0, 0, nullptr);
@@ -676,7 +692,7 @@ class ServiceWorkerRegistrationObjectHost_Update_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg);
+      ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg);
 };
 
 bool ServiceWorkerRegistrationObjectHost_Update_ForwardToCallback::Accept(
@@ -690,7 +706,7 @@ bool ServiceWorkerRegistrationObjectHost_Update_ForwardToCallback::Accept(
   
   bool success = true;
   ::blink::mojom::ServiceWorkerErrorType p_error{};
-  absl::optional<std::string> p_error_msg{};
+  std::optional<std::string> p_error_msg{};
   ServiceWorkerRegistrationObjectHost_Update_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -712,7 +728,7 @@ std::move(p_error_msg));
 }
 
 void ServiceWorkerRegistrationObjectHost_Update_ProxyToResponder::Run(
-    ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg) {
+    ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerRegistrationObjectHost::Update", "async_response_parameters",
@@ -723,13 +739,14 @@ void ServiceWorkerRegistrationObjectHost_Update_ProxyToResponder::Run(
                         "<value of type ::blink::mojom::ServiceWorkerErrorType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_msg"), in_error_msg,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_Update_Name, kFlags, 0, 0, nullptr);
@@ -809,7 +826,7 @@ class ServiceWorkerRegistrationObjectHost_Unregister_ProxyToResponder : public :
 #endif
 
   void Run(
-      ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg);
+      ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg);
 };
 
 bool ServiceWorkerRegistrationObjectHost_Unregister_ForwardToCallback::Accept(
@@ -823,7 +840,7 @@ bool ServiceWorkerRegistrationObjectHost_Unregister_ForwardToCallback::Accept(
   
   bool success = true;
   ::blink::mojom::ServiceWorkerErrorType p_error{};
-  absl::optional<std::string> p_error_msg{};
+  std::optional<std::string> p_error_msg{};
   ServiceWorkerRegistrationObjectHost_Unregister_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -845,7 +862,7 @@ std::move(p_error_msg));
 }
 
 void ServiceWorkerRegistrationObjectHost_Unregister_ProxyToResponder::Run(
-    ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg) {
+    ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerRegistrationObjectHost::Unregister", "async_response_parameters",
@@ -856,13 +873,14 @@ void ServiceWorkerRegistrationObjectHost_Unregister_ProxyToResponder::Run(
                         "<value of type ::blink::mojom::ServiceWorkerErrorType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_msg"), in_error_msg,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_Unregister_Name, kFlags, 0, 0, nullptr);
@@ -942,7 +960,7 @@ class ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ProxyToRespond
 #endif
 
   void Run(
-      ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg);
+      ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg);
 };
 
 bool ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ForwardToCallback::Accept(
@@ -956,7 +974,7 @@ bool ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ForwardToCallba
   
   bool success = true;
   ::blink::mojom::ServiceWorkerErrorType p_error{};
-  absl::optional<std::string> p_error_msg{};
+  std::optional<std::string> p_error_msg{};
   ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -978,7 +996,7 @@ std::move(p_error_msg));
 }
 
 void ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ProxyToResponder::Run(
-    ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg) {
+    ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerRegistrationObjectHost::EnableNavigationPreload", "async_response_parameters",
@@ -989,13 +1007,14 @@ void ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ProxyToResponde
                         "<value of type ::blink::mojom::ServiceWorkerErrorType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_msg"), in_error_msg,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_EnableNavigationPreload_Name, kFlags, 0, 0, nullptr);
@@ -1075,7 +1094,7 @@ class ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ProxyToRespo
 #endif
 
   void Run(
-      ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg, ::blink::mojom::NavigationPreloadStatePtr in_state);
+      ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg, ::blink::mojom::NavigationPreloadStatePtr in_state);
 };
 
 bool ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ForwardToCallback::Accept(
@@ -1089,7 +1108,7 @@ bool ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ForwardToCall
   
   bool success = true;
   ::blink::mojom::ServiceWorkerErrorType p_error{};
-  absl::optional<std::string> p_error_msg{};
+  std::optional<std::string> p_error_msg{};
   ::blink::mojom::NavigationPreloadStatePtr p_state{};
   ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ResponseParamsDataView input_data_view(params, message);
   
@@ -1115,7 +1134,7 @@ std::move(p_state));
 }
 
 void ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ProxyToResponder::Run(
-    ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg, ::blink::mojom::NavigationPreloadStatePtr in_state) {
+    ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg, ::blink::mojom::NavigationPreloadStatePtr in_state) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerRegistrationObjectHost::GetNavigationPreloadState", "async_response_parameters",
@@ -1126,7 +1145,7 @@ void ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ProxyToRespon
                         "<value of type ::blink::mojom::ServiceWorkerErrorType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_msg"), in_error_msg,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type ::blink::mojom::NavigationPreloadStatePtr>");
@@ -1135,7 +1154,8 @@ void ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ProxyToRespon
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Name, kFlags, 0, 0, nullptr);
@@ -1222,7 +1242,7 @@ class ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ProxyToResp
 #endif
 
   void Run(
-      ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg);
+      ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg);
 };
 
 bool ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ForwardToCallback::Accept(
@@ -1236,7 +1256,7 @@ bool ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ForwardToCal
   
   bool success = true;
   ::blink::mojom::ServiceWorkerErrorType p_error{};
-  absl::optional<std::string> p_error_msg{};
+  std::optional<std::string> p_error_msg{};
   ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1258,7 +1278,7 @@ std::move(p_error_msg));
 }
 
 void ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ProxyToResponder::Run(
-    ::blink::mojom::ServiceWorkerErrorType in_error, const absl::optional<std::string>& in_error_msg) {
+    ::blink::mojom::ServiceWorkerErrorType in_error, const std::optional<std::string>& in_error_msg) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ServiceWorkerRegistrationObjectHost::SetNavigationPreloadHeader", "async_response_parameters",
@@ -1269,13 +1289,14 @@ void ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ProxyToRespo
                         "<value of type ::blink::mojom::ServiceWorkerErrorType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_msg"), in_error_msg,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_Name, kFlags, 0, 0, nullptr);
@@ -1483,18 +1504,18 @@ std::move(p_value), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerRegistrationObjectHostValidationInfo[] = {
-    {&internal::ServiceWorkerRegistrationObjectHost_Update_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_Update_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_Update_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerRegistrationObjectHost_Unregister_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_Unregister_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_Unregister_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ResponseParams_Data::Validate},
 };
 
@@ -1627,14 +1648,17 @@ void ServiceWorkerRegistrationObjectProxy::SetServiceWorkerObjects(
                         "<value of type ::blink::mojom::ServiceWorkerObjectInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObject_SetServiceWorkerObjects_Name, kFlags, 0, 0, nullptr);
@@ -1696,14 +1720,17 @@ void ServiceWorkerRegistrationObjectProxy::SetUpdateViaCache(
                         "<value of type ::blink::mojom::ServiceWorkerUpdateViaCache>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObject_SetUpdateViaCache_Name, kFlags, 0, 0, nullptr);
@@ -1728,14 +1755,17 @@ void ServiceWorkerRegistrationObjectProxy::UpdateFound(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerRegistrationObject::UpdateFound");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObject_UpdateFound_Name, kFlags, 0, 0, nullptr);
@@ -1869,14 +1899,14 @@ bool ServiceWorkerRegistrationObjectStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerRegistrationObjectValidationInfo[] = {
-    {&internal::ServiceWorkerRegistrationObject_SetServiceWorkerObjects_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObject_SetServiceWorkerObjects_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerRegistrationObject_SetUpdateViaCache_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObject_SetUpdateViaCache_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerRegistrationObject_UpdateFound_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObject_UpdateFound_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1973,17 +2003,17 @@ ServiceWorkerRegistrationObjectHostAsyncWaiter::ServiceWorkerRegistrationObjectH
 ServiceWorkerRegistrationObjectHostAsyncWaiter::~ServiceWorkerRegistrationObjectHostAsyncWaiter() = default;
 
 void ServiceWorkerRegistrationObjectHostAsyncWaiter::Update(
-    ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object, ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg) {
+    ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object, ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg) {
   base::RunLoop loop;
   proxy_->Update(std::move(outside_fetch_client_settings_object),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::blink::mojom::ServiceWorkerErrorType* out_error
 ,
-             absl::optional<std::string>* out_error_msg
+             std::optional<std::string>* out_error_msg
 ,
              ::blink::mojom::ServiceWorkerErrorType error,
-             const absl::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
+             const std::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
             loop->Quit();
           },
           &loop,
@@ -1995,17 +2025,17 @@ void ServiceWorkerRegistrationObjectHostAsyncWaiter::Update(
 
 
 void ServiceWorkerRegistrationObjectHostAsyncWaiter::Unregister(
-    ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg) {
+    ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg) {
   base::RunLoop loop;
   proxy_->Unregister(
       base::BindOnce(
           [](base::RunLoop* loop,
              ::blink::mojom::ServiceWorkerErrorType* out_error
 ,
-             absl::optional<std::string>* out_error_msg
+             std::optional<std::string>* out_error_msg
 ,
              ::blink::mojom::ServiceWorkerErrorType error,
-             const absl::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
+             const std::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
             loop->Quit();
           },
           &loop,
@@ -2017,17 +2047,17 @@ void ServiceWorkerRegistrationObjectHostAsyncWaiter::Unregister(
 
 
 void ServiceWorkerRegistrationObjectHostAsyncWaiter::EnableNavigationPreload(
-    bool enable, ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg) {
+    bool enable, ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg) {
   base::RunLoop loop;
   proxy_->EnableNavigationPreload(std::move(enable),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::blink::mojom::ServiceWorkerErrorType* out_error
 ,
-             absl::optional<std::string>* out_error_msg
+             std::optional<std::string>* out_error_msg
 ,
              ::blink::mojom::ServiceWorkerErrorType error,
-             const absl::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
+             const std::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
             loop->Quit();
           },
           &loop,
@@ -2039,19 +2069,19 @@ void ServiceWorkerRegistrationObjectHostAsyncWaiter::EnableNavigationPreload(
 
 
 void ServiceWorkerRegistrationObjectHostAsyncWaiter::GetNavigationPreloadState(
-    ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg, ::blink::mojom::NavigationPreloadStatePtr* out_state) {
+    ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg, ::blink::mojom::NavigationPreloadStatePtr* out_state) {
   base::RunLoop loop;
   proxy_->GetNavigationPreloadState(
       base::BindOnce(
           [](base::RunLoop* loop,
              ::blink::mojom::ServiceWorkerErrorType* out_error
 ,
-             absl::optional<std::string>* out_error_msg
+             std::optional<std::string>* out_error_msg
 ,
              ::blink::mojom::NavigationPreloadStatePtr* out_state
 ,
              ::blink::mojom::ServiceWorkerErrorType error,
-             const absl::optional<std::string>& error_msg,
+             const std::optional<std::string>& error_msg,
              ::blink::mojom::NavigationPreloadStatePtr state) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);*out_state = std::move(state);
             loop->Quit();
           },
@@ -2065,17 +2095,17 @@ void ServiceWorkerRegistrationObjectHostAsyncWaiter::GetNavigationPreloadState(
 
 
 void ServiceWorkerRegistrationObjectHostAsyncWaiter::SetNavigationPreloadHeader(
-    const std::string& value, ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg) {
+    const std::string& value, ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg) {
   base::RunLoop loop;
   proxy_->SetNavigationPreloadHeader(std::move(value),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::blink::mojom::ServiceWorkerErrorType* out_error
 ,
-             absl::optional<std::string>* out_error_msg
+             std::optional<std::string>* out_error_msg
 ,
              ::blink::mojom::ServiceWorkerErrorType error,
-             const absl::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
+             const std::optional<std::string>& error_msg) {*out_error = std::move(error);*out_error_msg = std::move(error_msg);
             loop->Quit();
           },
           &loop,

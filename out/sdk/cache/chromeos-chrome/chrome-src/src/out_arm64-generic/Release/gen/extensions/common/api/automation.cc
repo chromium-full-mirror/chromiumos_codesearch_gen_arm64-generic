@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/automation.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -606,6 +607,8 @@ const char* ToString(RoleType enum_param) {
       return "directory";
     case RoleType::kDisclosureTriangle:
       return "disclosureTriangle";
+    case RoleType::kDisclosureTriangleGrouped:
+      return "disclosureTriangleGrouped";
     case RoleType::kDocAbstract:
       return "docAbstract";
     case RoleType::kDocAcknowledgments:
@@ -1032,6 +1035,8 @@ RoleType ParseRoleType(base::StringPiece enum_string) {
     return RoleType::kDirectory;
   if (enum_string == "disclosureTriangle")
     return RoleType::kDisclosureTriangle;
+  if (enum_string == "disclosureTriangleGrouped")
+    return RoleType::kDisclosureTriangleGrouped;
   if (enum_string == "docAbstract")
     return RoleType::kDocAbstract;
   if (enum_string == "docAcknowledgments")
@@ -1378,7 +1383,7 @@ RoleType ParseRoleType(base::StringPiece enum_string) {
 }
 
 std::u16string GetRoleTypeParseError(base::StringPiece enum_string) {
-  return u"expected \"abbr\" or \"alert\" or \"alertDialog\" or \"application\" or \"article\" or \"audio\" or \"banner\" or \"blockquote\" or \"button\" or \"canvas\" or \"caption\" or \"caret\" or \"cell\" or \"checkBox\" or \"client\" or \"code\" or \"colorWell\" or \"column\" or \"columnHeader\" or \"comboBoxGrouping\" or \"comboBoxMenuButton\" or \"comboBoxSelect\" or \"comment\" or \"complementary\" or \"contentDeletion\" or \"contentInsertion\" or \"contentInfo\" or \"date\" or \"dateTime\" or \"definition\" or \"descriptionList\" or \"descriptionListDetail\" or \"descriptionListTerm\" or \"desktop\" or \"details\" or \"dialog\" or \"directory\" or \"disclosureTriangle\" or \"docAbstract\" or \"docAcknowledgments\" or \"docAfterword\" or \"docAppendix\" or \"docBackLink\" or \"docBiblioEntry\" or \"docBibliography\" or \"docBiblioRef\" or \"docChapter\" or \"docColophon\" or \"docConclusion\" or \"docCover\" or \"docCredit\" or \"docCredits\" or \"docDedication\" or \"docEndnote\" or \"docEndnotes\" or \"docEpigraph\" or \"docEpilogue\" or \"docErrata\" or \"docExample\" or \"docFootnote\" or \"docForeword\" or \"docGlossary\" or \"docGlossRef\" or \"docIndex\" or \"docIntroduction\" or \"docNoteRef\" or \"docNotice\" or \"docPageBreak\" or \"docPageFooter\" or \"docPageHeader\" or \"docPageList\" or \"docPart\" or \"docPreface\" or \"docPrologue\" or \"docPullquote\" or \"docQna\" or \"docSubtitle\" or \"docTip\" or \"docToc\" or \"document\" or \"embeddedObject\" or \"emphasis\" or \"feed\" or \"figcaption\" or \"figure\" or \"footer\" or \"footerAsNonLandmark\" or \"form\" or \"genericContainer\" or \"graphicsDocument\" or \"graphicsObject\" or \"graphicsSymbol\" or \"grid\" or \"group\" or \"header\" or \"headerAsNonLandmark\" or \"heading\" or \"iframe\" or \"iframePresentational\" or \"image\" or \"imeCandidate\" or \"inlineTextBox\" or \"inputTime\" or \"keyboard\" or \"labelText\" or \"layoutTable\" or \"layoutTableCell\" or \"layoutTableRow\" or \"legend\" or \"lineBreak\" or \"link\" or \"list\" or \"listBox\" or \"listBoxOption\" or \"listGrid\" or \"listItem\" or \"listMarker\" or \"log\" or \"main\" or \"mark\" or \"marquee\" or \"math\" or \"mathMLFraction\" or \"mathMLIdentifier\" or \"mathMLMath\" or \"mathMLMultiscripts\" or \"mathMLNoneScript\" or \"mathMLNumber\" or \"mathMLOperator\" or \"mathMLOver\" or \"mathMLPrescriptDelimiter\" or \"mathMLRoot\" or \"mathMLRow\" or \"mathMLSquareRoot\" or \"mathMLStringLiteral\" or \"mathMLSub\" or \"mathMLSubSup\" or \"mathMLSup\" or \"mathMLTable\" or \"mathMLTableCell\" or \"mathMLTableRow\" or \"mathMLText\" or \"mathMLUnder\" or \"mathMLUnderOver\" or \"menu\" or \"menuBar\" or \"menuItem\" or \"menuItemCheckBox\" or \"menuItemRadio\" or \"menuListOption\" or \"menuListPopup\" or \"meter\" or \"navigation\" or \"note\" or \"pane\" or \"paragraph\" or \"pdfActionableHighlight\" or \"pdfRoot\" or \"pluginObject\" or \"popUpButton\" or \"portal\" or \"preDeprecated\" or \"progressIndicator\" or \"radioButton\" or \"radioGroup\" or \"region\" or \"rootWebArea\" or \"row\" or \"rowGroup\" or \"rowHeader\" or \"ruby\" or \"rubyAnnotation\" or \"scrollBar\" or \"scrollView\" or \"search\" or \"searchBox\" or \"section\" or \"slider\" or \"spinButton\" or \"splitter\" or \"staticText\" or \"status\" or \"strong\" or \"subscript\" or \"suggestion\" or \"superscript\" or \"svgRoot\" or \"switch\" or \"tab\" or \"tabList\" or \"tabPanel\" or \"table\" or \"tableHeaderContainer\" or \"term\" or \"textField\" or \"textFieldWithComboBox\" or \"time\" or \"timer\" or \"titleBar\" or \"toggleButton\" or \"toolbar\" or \"tooltip\" or \"tree\" or \"treeGrid\" or \"treeItem\" or \"unknown\" or \"video\" or \"webView\" or \"window\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+  return u"expected \"abbr\" or \"alert\" or \"alertDialog\" or \"application\" or \"article\" or \"audio\" or \"banner\" or \"blockquote\" or \"button\" or \"canvas\" or \"caption\" or \"caret\" or \"cell\" or \"checkBox\" or \"client\" or \"code\" or \"colorWell\" or \"column\" or \"columnHeader\" or \"comboBoxGrouping\" or \"comboBoxMenuButton\" or \"comboBoxSelect\" or \"comment\" or \"complementary\" or \"contentDeletion\" or \"contentInsertion\" or \"contentInfo\" or \"date\" or \"dateTime\" or \"definition\" or \"descriptionList\" or \"descriptionListDetail\" or \"descriptionListTerm\" or \"desktop\" or \"details\" or \"dialog\" or \"directory\" or \"disclosureTriangle\" or \"disclosureTriangleGrouped\" or \"docAbstract\" or \"docAcknowledgments\" or \"docAfterword\" or \"docAppendix\" or \"docBackLink\" or \"docBiblioEntry\" or \"docBibliography\" or \"docBiblioRef\" or \"docChapter\" or \"docColophon\" or \"docConclusion\" or \"docCover\" or \"docCredit\" or \"docCredits\" or \"docDedication\" or \"docEndnote\" or \"docEndnotes\" or \"docEpigraph\" or \"docEpilogue\" or \"docErrata\" or \"docExample\" or \"docFootnote\" or \"docForeword\" or \"docGlossary\" or \"docGlossRef\" or \"docIndex\" or \"docIntroduction\" or \"docNoteRef\" or \"docNotice\" or \"docPageBreak\" or \"docPageFooter\" or \"docPageHeader\" or \"docPageList\" or \"docPart\" or \"docPreface\" or \"docPrologue\" or \"docPullquote\" or \"docQna\" or \"docSubtitle\" or \"docTip\" or \"docToc\" or \"document\" or \"embeddedObject\" or \"emphasis\" or \"feed\" or \"figcaption\" or \"figure\" or \"footer\" or \"footerAsNonLandmark\" or \"form\" or \"genericContainer\" or \"graphicsDocument\" or \"graphicsObject\" or \"graphicsSymbol\" or \"grid\" or \"group\" or \"header\" or \"headerAsNonLandmark\" or \"heading\" or \"iframe\" or \"iframePresentational\" or \"image\" or \"imeCandidate\" or \"inlineTextBox\" or \"inputTime\" or \"keyboard\" or \"labelText\" or \"layoutTable\" or \"layoutTableCell\" or \"layoutTableRow\" or \"legend\" or \"lineBreak\" or \"link\" or \"list\" or \"listBox\" or \"listBoxOption\" or \"listGrid\" or \"listItem\" or \"listMarker\" or \"log\" or \"main\" or \"mark\" or \"marquee\" or \"math\" or \"mathMLFraction\" or \"mathMLIdentifier\" or \"mathMLMath\" or \"mathMLMultiscripts\" or \"mathMLNoneScript\" or \"mathMLNumber\" or \"mathMLOperator\" or \"mathMLOver\" or \"mathMLPrescriptDelimiter\" or \"mathMLRoot\" or \"mathMLRow\" or \"mathMLSquareRoot\" or \"mathMLStringLiteral\" or \"mathMLSub\" or \"mathMLSubSup\" or \"mathMLSup\" or \"mathMLTable\" or \"mathMLTableCell\" or \"mathMLTableRow\" or \"mathMLText\" or \"mathMLUnder\" or \"mathMLUnderOver\" or \"menu\" or \"menuBar\" or \"menuItem\" or \"menuItemCheckBox\" or \"menuItemRadio\" or \"menuListOption\" or \"menuListPopup\" or \"meter\" or \"navigation\" or \"note\" or \"pane\" or \"paragraph\" or \"pdfActionableHighlight\" or \"pdfRoot\" or \"pluginObject\" or \"popUpButton\" or \"portal\" or \"preDeprecated\" or \"progressIndicator\" or \"radioButton\" or \"radioGroup\" or \"region\" or \"rootWebArea\" or \"row\" or \"rowGroup\" or \"rowHeader\" or \"ruby\" or \"rubyAnnotation\" or \"scrollBar\" or \"scrollView\" or \"search\" or \"searchBox\" or \"section\" or \"slider\" or \"spinButton\" or \"splitter\" or \"staticText\" or \"status\" or \"strong\" or \"subscript\" or \"suggestion\" or \"superscript\" or \"svgRoot\" or \"switch\" or \"tab\" or \"tabList\" or \"tabPanel\" or \"table\" or \"tableHeaderContainer\" or \"term\" or \"textField\" or \"textFieldWithComboBox\" or \"time\" or \"timer\" or \"titleBar\" or \"toggleButton\" or \"toolbar\" or \"tooltip\" or \"tree\" or \"treeGrid\" or \"treeItem\" or \"unknown\" or \"video\" or \"webView\" or \"window\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
@@ -2483,8 +2488,8 @@ width(0),
 height(0) {}
 
 Rect::~Rect() = default;
-Rect::Rect(Rect&& rhs) = default;
-Rect& Rect::operator=(Rect&& rhs) = default;
+Rect::Rect(Rect&& rhs) noexcept = default;
+Rect& Rect::operator=(Rect&& rhs) noexcept = default;
 Rect Rect::Clone() const {
   Rect out;
   out.left = left;
@@ -2558,34 +2563,21 @@ bool Rect::Populate(
 }
 
 // static
-std::unique_ptr<Rect> Rect::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Rect>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Rect> Rect::FromValue(const base::Value::Dict& value) {
+  Rect out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Rect> Rect::FromValue(const base::Value::Dict& value) {
+std::optional<Rect> Rect::FromValue(const base::Value& value) {
   Rect out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Rect> Rect::FromValue(const base::Value& value) {
-  Rect out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2610,8 +2602,8 @@ FindParams::FindParams()
  {}
 
 FindParams::~FindParams() = default;
-FindParams::FindParams(FindParams&& rhs) = default;
-FindParams& FindParams::operator=(FindParams&& rhs) = default;
+FindParams::FindParams(FindParams&& rhs) noexcept = default;
+FindParams& FindParams::operator=(FindParams&& rhs) noexcept = default;
 FindParams FindParams::Clone() const {
   FindParams out;
   return out;
@@ -2633,34 +2625,21 @@ bool FindParams::Populate(
 }
 
 // static
-std::unique_ptr<FindParams> FindParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FindParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FindParams> FindParams::FromValue(const base::Value::Dict& value) {
+  FindParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FindParams> FindParams::FromValue(const base::Value::Dict& value) {
+std::optional<FindParams> FindParams::FromValue(const base::Value& value) {
   FindParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FindParams> FindParams::FromValue(const base::Value& value) {
-  FindParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2677,8 +2656,8 @@ SetDocumentSelectionParams::SetDocumentSelectionParams()
  {}
 
 SetDocumentSelectionParams::~SetDocumentSelectionParams() = default;
-SetDocumentSelectionParams::SetDocumentSelectionParams(SetDocumentSelectionParams&& rhs) = default;
-SetDocumentSelectionParams& SetDocumentSelectionParams::operator=(SetDocumentSelectionParams&& rhs) = default;
+SetDocumentSelectionParams::SetDocumentSelectionParams(SetDocumentSelectionParams&& rhs) noexcept = default;
+SetDocumentSelectionParams& SetDocumentSelectionParams::operator=(SetDocumentSelectionParams&& rhs) noexcept = default;
 SetDocumentSelectionParams SetDocumentSelectionParams::Clone() const {
   SetDocumentSelectionParams out;
   return out;
@@ -2700,34 +2679,21 @@ bool SetDocumentSelectionParams::Populate(
 }
 
 // static
-std::unique_ptr<SetDocumentSelectionParams> SetDocumentSelectionParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SetDocumentSelectionParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SetDocumentSelectionParams> SetDocumentSelectionParams::FromValue(const base::Value::Dict& value) {
+  SetDocumentSelectionParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SetDocumentSelectionParams> SetDocumentSelectionParams::FromValue(const base::Value::Dict& value) {
+std::optional<SetDocumentSelectionParams> SetDocumentSelectionParams::FromValue(const base::Value& value) {
   SetDocumentSelectionParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SetDocumentSelectionParams> SetDocumentSelectionParams::FromValue(const base::Value& value) {
-  SetDocumentSelectionParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2744,8 +2710,8 @@ AutomationIntent::AutomationIntent()
  {}
 
 AutomationIntent::~AutomationIntent() = default;
-AutomationIntent::AutomationIntent(AutomationIntent&& rhs) = default;
-AutomationIntent& AutomationIntent::operator=(AutomationIntent&& rhs) = default;
+AutomationIntent::AutomationIntent(AutomationIntent&& rhs) noexcept = default;
+AutomationIntent& AutomationIntent::operator=(AutomationIntent&& rhs) noexcept = default;
 AutomationIntent AutomationIntent::Clone() const {
   AutomationIntent out;
   return out;
@@ -2767,34 +2733,21 @@ bool AutomationIntent::Populate(
 }
 
 // static
-std::unique_ptr<AutomationIntent> AutomationIntent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AutomationIntent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AutomationIntent> AutomationIntent::FromValue(const base::Value::Dict& value) {
+  AutomationIntent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AutomationIntent> AutomationIntent::FromValue(const base::Value::Dict& value) {
+std::optional<AutomationIntent> AutomationIntent::FromValue(const base::Value& value) {
   AutomationIntent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AutomationIntent> AutomationIntent::FromValue(const base::Value& value) {
-  AutomationIntent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2811,8 +2764,8 @@ AutomationEvent::AutomationEvent()
  {}
 
 AutomationEvent::~AutomationEvent() = default;
-AutomationEvent::AutomationEvent(AutomationEvent&& rhs) = default;
-AutomationEvent& AutomationEvent::operator=(AutomationEvent&& rhs) = default;
+AutomationEvent::AutomationEvent(AutomationEvent&& rhs) noexcept = default;
+AutomationEvent& AutomationEvent::operator=(AutomationEvent&& rhs) noexcept = default;
 AutomationEvent AutomationEvent::Clone() const {
   AutomationEvent out;
   return out;
@@ -2834,34 +2787,21 @@ bool AutomationEvent::Populate(
 }
 
 // static
-std::unique_ptr<AutomationEvent> AutomationEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AutomationEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AutomationEvent> AutomationEvent::FromValue(const base::Value::Dict& value) {
+  AutomationEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AutomationEvent> AutomationEvent::FromValue(const base::Value::Dict& value) {
+std::optional<AutomationEvent> AutomationEvent::FromValue(const base::Value& value) {
   AutomationEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AutomationEvent> AutomationEvent::FromValue(const base::Value& value) {
-  AutomationEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2878,8 +2818,8 @@ TreeChange::TreeChange()
  {}
 
 TreeChange::~TreeChange() = default;
-TreeChange::TreeChange(TreeChange&& rhs) = default;
-TreeChange& TreeChange::operator=(TreeChange&& rhs) = default;
+TreeChange::TreeChange(TreeChange&& rhs) noexcept = default;
+TreeChange& TreeChange::operator=(TreeChange&& rhs) noexcept = default;
 TreeChange TreeChange::Clone() const {
   TreeChange out;
   return out;
@@ -2901,34 +2841,21 @@ bool TreeChange::Populate(
 }
 
 // static
-std::unique_ptr<TreeChange> TreeChange::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TreeChange>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TreeChange> TreeChange::FromValue(const base::Value::Dict& value) {
+  TreeChange out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TreeChange> TreeChange::FromValue(const base::Value::Dict& value) {
+std::optional<TreeChange> TreeChange::FromValue(const base::Value& value) {
   TreeChange out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TreeChange> TreeChange::FromValue(const base::Value& value) {
-  TreeChange out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2979,8 +2906,8 @@ CustomAction::CustomAction()
  {}
 
 CustomAction::~CustomAction() = default;
-CustomAction::CustomAction(CustomAction&& rhs) = default;
-CustomAction& CustomAction::operator=(CustomAction&& rhs) = default;
+CustomAction::CustomAction(CustomAction&& rhs) noexcept = default;
+CustomAction& CustomAction::operator=(CustomAction&& rhs) noexcept = default;
 CustomAction CustomAction::Clone() const {
   CustomAction out;
   return out;
@@ -3002,34 +2929,21 @@ bool CustomAction::Populate(
 }
 
 // static
-std::unique_ptr<CustomAction> CustomAction::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CustomAction>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CustomAction> CustomAction::FromValue(const base::Value::Dict& value) {
+  CustomAction out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CustomAction> CustomAction::FromValue(const base::Value::Dict& value) {
+std::optional<CustomAction> CustomAction::FromValue(const base::Value& value) {
   CustomAction out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CustomAction> CustomAction::FromValue(const base::Value& value) {
-  CustomAction out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3046,8 +2960,8 @@ Marker::Marker()
  {}
 
 Marker::~Marker() = default;
-Marker::Marker(Marker&& rhs) = default;
-Marker& Marker::operator=(Marker&& rhs) = default;
+Marker::Marker(Marker&& rhs) noexcept = default;
+Marker& Marker::operator=(Marker&& rhs) noexcept = default;
 Marker Marker::Clone() const {
   Marker out;
   return out;
@@ -3069,34 +2983,21 @@ bool Marker::Populate(
 }
 
 // static
-std::unique_ptr<Marker> Marker::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Marker>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Marker> Marker::FromValue(const base::Value::Dict& value) {
+  Marker out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Marker> Marker::FromValue(const base::Value::Dict& value) {
+std::optional<Marker> Marker::FromValue(const base::Value& value) {
   Marker out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Marker> Marker::FromValue(const base::Value& value) {
-  Marker out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3113,8 +3014,8 @@ AutomationPosition::AutomationPosition()
  {}
 
 AutomationPosition::~AutomationPosition() = default;
-AutomationPosition::AutomationPosition(AutomationPosition&& rhs) = default;
-AutomationPosition& AutomationPosition::operator=(AutomationPosition&& rhs) = default;
+AutomationPosition::AutomationPosition(AutomationPosition&& rhs) noexcept = default;
+AutomationPosition& AutomationPosition::operator=(AutomationPosition&& rhs) noexcept = default;
 AutomationPosition AutomationPosition::Clone() const {
   AutomationPosition out;
   return out;
@@ -3136,34 +3037,21 @@ bool AutomationPosition::Populate(
 }
 
 // static
-std::unique_ptr<AutomationPosition> AutomationPosition::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AutomationPosition>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AutomationPosition> AutomationPosition::FromValue(const base::Value::Dict& value) {
+  AutomationPosition out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AutomationPosition> AutomationPosition::FromValue(const base::Value::Dict& value) {
+std::optional<AutomationPosition> AutomationPosition::FromValue(const base::Value& value) {
   AutomationPosition out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AutomationPosition> AutomationPosition::FromValue(const base::Value& value) {
-  AutomationPosition out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3180,8 +3068,8 @@ AutomationNode::AutomationNode()
  {}
 
 AutomationNode::~AutomationNode() = default;
-AutomationNode::AutomationNode(AutomationNode&& rhs) = default;
-AutomationNode& AutomationNode::operator=(AutomationNode&& rhs) = default;
+AutomationNode::AutomationNode(AutomationNode&& rhs) noexcept = default;
+AutomationNode& AutomationNode::operator=(AutomationNode&& rhs) noexcept = default;
 AutomationNode AutomationNode::Clone() const {
   AutomationNode out;
   return out;
@@ -3203,34 +3091,21 @@ bool AutomationNode::Populate(
 }
 
 // static
-std::unique_ptr<AutomationNode> AutomationNode::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AutomationNode>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AutomationNode> AutomationNode::FromValue(const base::Value::Dict& value) {
+  AutomationNode out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AutomationNode> AutomationNode::FromValue(const base::Value::Dict& value) {
+std::optional<AutomationNode> AutomationNode::FromValue(const base::Value& value) {
   AutomationNode out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AutomationNode> AutomationNode::FromValue(const base::Value& value) {
-  AutomationNode out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

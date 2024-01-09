@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -52,12 +53,12 @@ extern const int TAB_ID_NONE;
 //
 
 // The tab's loading status.
-enum  TabStatus {
-  TAB_STATUS_NONE = 0,
-  TAB_STATUS_UNLOADED,
-  TAB_STATUS_LOADING,
-  TAB_STATUS_COMPLETE,
-  TAB_STATUS_LAST = TAB_STATUS_COMPLETE,
+enum class TabStatus {
+  kNone = 0,
+  kUnloaded,
+  kLoading,
+  kComplete,
+  kMaxValue = kComplete,
 };
 
 
@@ -66,12 +67,12 @@ TabStatus ParseTabStatus(base::StringPiece as_string);
 std::u16string GetTabStatusParseError(base::StringPiece as_string);
 
 // An event that caused a muted state change.
-enum  MutedInfoReason {
-  MUTED_INFO_REASON_NONE = 0,
-  MUTED_INFO_REASON_USER,
-  MUTED_INFO_REASON_CAPTURE,
-  MUTED_INFO_REASON_EXTENSION,
-  MUTED_INFO_REASON_LAST = MUTED_INFO_REASON_EXTENSION,
+enum class MutedInfoReason {
+  kNone = 0,
+  kUser,
+  kCapture,
+  kExtension,
+  kMaxValue = kExtension,
 };
 
 
@@ -85,8 +86,8 @@ struct MutedInfo {
   ~MutedInfo();
   MutedInfo(const MutedInfo&) = delete;
   MutedInfo& operator=(const MutedInfo&) = delete;
-  MutedInfo(MutedInfo&& rhs);
-  MutedInfo& operator=(MutedInfo&& rhs);
+  MutedInfo(MutedInfo&& rhs) noexcept;
+  MutedInfo& operator=(MutedInfo&& rhs) noexcept;
 
   // Populates a MutedInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -99,14 +100,11 @@ struct MutedInfo {
   // Creates a deep copy of MutedInfo.
   MutedInfo Clone() const;
 
-  // Creates a MutedInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MutedInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a MutedInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<MutedInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<MutedInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a MutedInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<MutedInfo> FromValue(const base::Value& value);
+  static std::optional<MutedInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMutedInfo object.
@@ -123,7 +121,7 @@ struct MutedInfo {
 
   // The ID of the extension that changed the muted state. Not set if an extension
   // was not the reason the muted state last changed.
-  absl::optional<std::string> extension_id;
+  std::optional<std::string> extension_id;
 
 };
 
@@ -132,8 +130,8 @@ struct Tab {
   ~Tab();
   Tab(const Tab&) = delete;
   Tab& operator=(const Tab&) = delete;
-  Tab(Tab&& rhs);
-  Tab& operator=(Tab&& rhs);
+  Tab(Tab&& rhs) noexcept;
+  Tab& operator=(Tab&& rhs) noexcept;
 
   // Populates a Tab object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -146,14 +144,11 @@ struct Tab {
   // Creates a deep copy of Tab.
   Tab Clone() const;
 
-  // Creates a Tab object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Tab> FromValueDeprecated(const base::Value& value);
-
   // Creates a Tab object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Tab> FromValue(const base::Value::Dict& value);
+  static std::optional<Tab> FromValue(const base::Value::Dict& value);
 
   // Creates a Tab object from a base::Value, or nullopt on failure.
-  static absl::optional<Tab> FromValue(const base::Value& value);
+  static std::optional<Tab> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of thisTab
   // object.
@@ -164,7 +159,7 @@ struct Tab {
   // foreign tabs using the $(ref:sessions) API, in which case a session ID may be
   // present. Tab ID can also be set to <code>chrome.tabs.TAB_ID_NONE</code> for
   // apps and devtools windows.
-  absl::optional<int> id;
+  std::optional<int> id;
 
   // The zero-based index of the tab within its window.
   int index;
@@ -177,10 +172,13 @@ struct Tab {
 
   // The ID of the tab that opened this tab, if any. This property is only present
   // if the opener tab still exists.
-  absl::optional<int> opener_tab_id;
+  std::optional<int> opener_tab_id;
 
   // Whether the tab is selected.
   bool selected;
+
+  // The last time the tab was accessed as the number of milliseconds since epoch.
+  std::optional<double> last_accessed;
 
   // Whether the tab is highlighted.
   bool highlighted;
@@ -195,7 +193,7 @@ struct Tab {
   // Whether the tab has produced sound over the past couple of seconds (but it
   // might not be heard if also muted). Equivalent to whether the 'speaker audio'
   // indicator is showing.
-  absl::optional<bool> audible;
+  std::optional<bool> audible;
 
   // Whether the tab is discarded. A discarded tab is one whose content has been
   // unloaded from memory, but is still visible in the tab strip. Its content is
@@ -207,27 +205,27 @@ struct Tab {
   bool auto_discardable;
 
   // The tab's muted state and the reason for the last state change.
-  absl::optional<MutedInfo> muted_info;
+  std::optional<MutedInfo> muted_info;
 
   // The last committed URL of the main frame of the tab. This property is only
   // present if the extension's manifest includes the <code>"tabs"</code>
   // permission and may be an empty string if the tab has not yet committed. See
   // also $(ref:Tab.pendingUrl).
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // The URL the tab is navigating to, before it has committed. This property is
   // only present if the extension's manifest includes the <code>"tabs"</code>
   // permission and there is a pending navigation.
-  absl::optional<std::string> pending_url;
+  std::optional<std::string> pending_url;
 
   // The title of the tab. This property is only present if the extension's
   // manifest includes the <code>"tabs"</code> permission.
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
   // The URL of the tab's favicon. This property is only present if the
   // extension's manifest includes the <code>"tabs"</code> permission. It may also
   // be an empty string if the tab is loading.
-  absl::optional<std::string> fav_icon_url;
+  std::optional<std::string> fav_icon_url;
 
   // The tab's loading status.
   TabStatus status;
@@ -236,25 +234,25 @@ struct Tab {
   bool incognito;
 
   // The width of the tab in pixels.
-  absl::optional<int> width;
+  std::optional<int> width;
 
   // The height of the tab in pixels.
-  absl::optional<int> height;
+  std::optional<int> height;
 
   // The session ID used to uniquely identify a tab obtained from the
   // $(ref:sessions) API.
-  absl::optional<std::string> session_id;
+  std::optional<std::string> session_id;
 
 };
 
 // Defines how zoom changes are handled, i.e., which entity is responsible for
 // the actual scaling of the page; defaults to <code>automatic</code>.
-enum  ZoomSettingsMode {
-  ZOOM_SETTINGS_MODE_NONE = 0,
-  ZOOM_SETTINGS_MODE_AUTOMATIC,
-  ZOOM_SETTINGS_MODE_MANUAL,
-  ZOOM_SETTINGS_MODE_DISABLED,
-  ZOOM_SETTINGS_MODE_LAST = ZOOM_SETTINGS_MODE_DISABLED,
+enum class ZoomSettingsMode {
+  kNone = 0,
+  kAutomatic,
+  kManual,
+  kDisabled,
+  kMaxValue = kDisabled,
 };
 
 
@@ -265,11 +263,11 @@ std::u16string GetZoomSettingsModeParseError(base::StringPiece as_string);
 // Defines whether zoom changes persist for the page's origin, or only take
 // effect in this tab; defaults to <code>per-origin</code> when in
 // <code>automatic</code> mode, and <code>per-tab</code> otherwise.
-enum  ZoomSettingsScope {
-  ZOOM_SETTINGS_SCOPE_NONE = 0,
-  ZOOM_SETTINGS_SCOPE_PER_ORIGIN,
-  ZOOM_SETTINGS_SCOPE_PER_TAB,
-  ZOOM_SETTINGS_SCOPE_LAST = ZOOM_SETTINGS_SCOPE_PER_TAB,
+enum class ZoomSettingsScope {
+  kNone = 0,
+  kPerOrigin,
+  kPerTab,
+  kMaxValue = kPerTab,
 };
 
 
@@ -283,8 +281,8 @@ struct ZoomSettings {
   ~ZoomSettings();
   ZoomSettings(const ZoomSettings&) = delete;
   ZoomSettings& operator=(const ZoomSettings&) = delete;
-  ZoomSettings(ZoomSettings&& rhs);
-  ZoomSettings& operator=(ZoomSettings&& rhs);
+  ZoomSettings(ZoomSettings&& rhs) noexcept;
+  ZoomSettings& operator=(ZoomSettings&& rhs) noexcept;
 
   // Populates a ZoomSettings object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -297,15 +295,12 @@ struct ZoomSettings {
   // Creates a deep copy of ZoomSettings.
   ZoomSettings Clone() const;
 
-  // Creates a ZoomSettings object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ZoomSettings> FromValueDeprecated(const base::Value& value);
-
   // Creates a ZoomSettings object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ZoomSettings> FromValue(const base::Value::Dict& value);
+  static std::optional<ZoomSettings> FromValue(const base::Value::Dict& value);
 
   // Creates a ZoomSettings object from a base::Value, or nullopt on failure.
-  static absl::optional<ZoomSettings> FromValue(const base::Value& value);
+  static std::optional<ZoomSettings> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisZoomSettings object.
@@ -322,19 +317,19 @@ struct ZoomSettings {
 
   // Used to return the default zoom level for the current tab in calls to
   // tabs.getZoomSettings.
-  absl::optional<double> default_zoom_factor;
+  std::optional<double> default_zoom_factor;
 
 };
 
 // The type of window.
-enum  WindowType {
-  WINDOW_TYPE_NONE = 0,
-  WINDOW_TYPE_NORMAL,
-  WINDOW_TYPE_POPUP,
-  WINDOW_TYPE_PANEL,
-  WINDOW_TYPE_APP,
-  WINDOW_TYPE_DEVTOOLS,
-  WINDOW_TYPE_LAST = WINDOW_TYPE_DEVTOOLS,
+enum class WindowType {
+  kNone = 0,
+  kNormal,
+  kPopup,
+  kPanel,
+  kApp,
+  kDevtools,
+  kMaxValue = kDevtools,
 };
 
 
@@ -350,11 +345,11 @@ std::u16string GetWindowTypeParseError(base::StringPiece as_string);
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int tab_id;
@@ -383,15 +378,15 @@ base::Value::List Create(const Tab& tab);
 namespace GetSelected {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Defaults to the <a href='windows#current-window'>current window</a>.
-  absl::optional<int> window_id;
+  std::optional<int> window_id;
 
 
  private:
@@ -408,15 +403,15 @@ base::Value::List Create(const Tab& tab);
 namespace GetAllInWindow {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Defaults to the <a href='windows#current-window'>current window</a>.
-  absl::optional<int> window_id;
+  std::optional<int> window_id;
 
 
  private:
@@ -433,11 +428,11 @@ base::Value::List Create(const std::vector<Tab>& tabs);
 namespace Create {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct CreateProperties {
@@ -445,8 +440,8 @@ struct Params {
     ~CreateProperties();
     CreateProperties(const CreateProperties&) = delete;
     CreateProperties& operator=(const CreateProperties&) = delete;
-    CreateProperties(CreateProperties&& rhs);
-    CreateProperties& operator=(CreateProperties&& rhs);
+    CreateProperties(CreateProperties&& rhs) noexcept;
+    CreateProperties& operator=(CreateProperties&& rhs) noexcept;
 
     // Populates a CreateProperties object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -461,41 +456,41 @@ struct Params {
 
     // Creates a CreateProperties object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<CreateProperties> FromValue(const base::Value::Dict& value);
+    static std::optional<CreateProperties> FromValue(const base::Value::Dict& value);
 
     // Creates a CreateProperties object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<CreateProperties> FromValue(const base::Value& value);
+    static std::optional<CreateProperties> FromValue(const base::Value& value);
 
     // The window in which to create the new tab. Defaults to the <a
     // href='windows#current-window'>current window</a>.
-    absl::optional<int> window_id;
+    std::optional<int> window_id;
 
     // The position the tab should take in the window. The provided value is clamped
     // to between zero and the number of tabs in the window.
-    absl::optional<int> index;
+    std::optional<int> index;
 
     // The URL to initially navigate the tab to. Fully-qualified URLs must include a
     // scheme (i.e., 'http://www.google.com', not 'www.google.com'). Relative URLs
     // are relative to the current page within the extension. Defaults to the New
     // Tab Page.
-    absl::optional<std::string> url;
+    std::optional<std::string> url;
 
     // Whether the tab should become the active tab in the window. Does not affect
     // whether the window is focused (see $(ref:windows.update)). Defaults to
     // <var>true</var>.
-    absl::optional<bool> active;
+    std::optional<bool> active;
 
     // Whether the tab should become the selected tab in the window. Defaults to
     // <var>true</var>
-    absl::optional<bool> selected;
+    std::optional<bool> selected;
 
     // Whether the tab should be pinned. Defaults to <var>false</var>
-    absl::optional<bool> pinned;
+    std::optional<bool> pinned;
 
     // The ID of the tab that opened this tab. If specified, the opener tab must be
     // in the same window as the newly created tab.
-    absl::optional<int> opener_tab_id;
+    std::optional<int> opener_tab_id;
 
   };
 
@@ -518,11 +513,11 @@ base::Value::List Create(const Tab& tab);
 namespace Duplicate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab to duplicate.
@@ -547,11 +542,11 @@ base::Value::List Create(const Tab& tab);
 namespace Query {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct QueryInfo {
@@ -559,8 +554,8 @@ struct Params {
     ~QueryInfo();
     QueryInfo(const QueryInfo&) = delete;
     QueryInfo& operator=(const QueryInfo&) = delete;
-    QueryInfo(QueryInfo&& rhs);
-    QueryInfo& operator=(QueryInfo&& rhs);
+    QueryInfo(QueryInfo&& rhs) noexcept;
+    QueryInfo& operator=(QueryInfo&& rhs) noexcept;
 
     // Populates a QueryInfo object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -574,10 +569,10 @@ struct Params {
     QueryInfo Clone() const;
 
     // Creates a QueryInfo object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<QueryInfo> FromValue(const base::Value::Dict& value);
+    static std::optional<QueryInfo> FromValue(const base::Value::Dict& value);
 
     // Creates a QueryInfo object from a base::Value, or nullopt on failure.
-    static absl::optional<QueryInfo> FromValue(const base::Value& value);
+    static std::optional<QueryInfo> FromValue(const base::Value& value);
 
     // Match tabs against one or more <a href='match_patterns'>URL patterns</a>.
     // Fragment identifiers are not matched. This property is ignored if the
@@ -587,8 +582,8 @@ struct Params {
       ~Url();
       Url(const Url&) = delete;
       Url& operator=(const Url&) = delete;
-      Url(Url&& rhs);
-      Url& operator=(Url&& rhs);
+      Url(Url&& rhs) noexcept;
+      Url& operator=(Url&& rhs) noexcept;
 
       // Populates a Url object from a base::Value& instance. Returns whether |out|
       // was successfully populated.
@@ -598,69 +593,69 @@ struct Params {
       Url Clone() const;
 
       // Creates a Url object from a base::Value, or nullopt on failure.
-      static absl::optional<Url> FromValue(const base::Value& value);
+      static std::optional<Url> FromValue(const base::Value& value);
       // Choices:
-      absl::optional<std::string> as_string;
-      absl::optional<std::vector<std::string>> as_strings;
+      std::optional<std::string> as_string;
+      std::optional<std::vector<std::string>> as_strings;
     };
 
 
     // Whether the tabs are active in their windows.
-    absl::optional<bool> active;
+    std::optional<bool> active;
 
     // Whether the tabs are pinned.
-    absl::optional<bool> pinned;
+    std::optional<bool> pinned;
 
     // Whether the tabs are audible.
-    absl::optional<bool> audible;
+    std::optional<bool> audible;
 
     // Whether the tabs are muted.
-    absl::optional<bool> muted;
+    std::optional<bool> muted;
 
     // Whether the tabs are highlighted.
-    absl::optional<bool> highlighted;
+    std::optional<bool> highlighted;
 
     // Whether the tabs are discarded. A discarded tab is one whose content has been
     // unloaded from memory, but is still visible in the tab strip. Its content is
     // reloaded the next time it is activated.
-    absl::optional<bool> discarded;
+    std::optional<bool> discarded;
 
     // Whether the tabs can be discarded automatically by the browser when resources
     // are low.
-    absl::optional<bool> auto_discardable;
+    std::optional<bool> auto_discardable;
 
     // Whether the tabs are in the <a href='windows#current-window'>current
     // window</a>.
-    absl::optional<bool> current_window;
+    std::optional<bool> current_window;
 
     // Whether the tabs are in the last focused window.
-    absl::optional<bool> last_focused_window;
+    std::optional<bool> last_focused_window;
 
     // The tab loading status.
     TabStatus status;
 
     // Match page titles against a pattern. This property is ignored if the
     // extension does not have the <code>"tabs"</code> permission.
-    absl::optional<std::string> title;
+    std::optional<std::string> title;
 
     // Match tabs against one or more <a href='match_patterns'>URL patterns</a>.
     // Fragment identifiers are not matched. This property is ignored if the
     // extension does not have the <code>"tabs"</code> permission.
-    absl::optional<Url> url;
+    std::optional<Url> url;
 
     // The ID of the group that the tabs are in, or
     // $(ref:tabGroups.TAB_GROUP_ID_NONE) for ungrouped tabs.
-    absl::optional<int> group_id;
+    std::optional<int> group_id;
 
     // The ID of the parent window, or $(ref:windows.WINDOW_ID_CURRENT) for the <a
     // href='windows#current-window'>current window</a>.
-    absl::optional<int> window_id;
+    std::optional<int> window_id;
 
     // The type of window the tabs are in.
     WindowType window_type;
 
     // The position of the tabs within their windows.
-    absl::optional<int> index;
+    std::optional<int> index;
 
   };
 
@@ -682,11 +677,11 @@ base::Value::List Create(const std::vector<Tab>& result);
 namespace Highlight {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct HighlightInfo {
@@ -694,8 +689,8 @@ struct Params {
     ~HighlightInfo();
     HighlightInfo(const HighlightInfo&) = delete;
     HighlightInfo& operator=(const HighlightInfo&) = delete;
-    HighlightInfo(HighlightInfo&& rhs);
-    HighlightInfo& operator=(HighlightInfo&& rhs);
+    HighlightInfo(HighlightInfo&& rhs) noexcept;
+    HighlightInfo& operator=(HighlightInfo&& rhs) noexcept;
 
     // Populates a HighlightInfo object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -710,10 +705,10 @@ struct Params {
 
     // Creates a HighlightInfo object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<HighlightInfo> FromValue(const base::Value::Dict& value);
+    static std::optional<HighlightInfo> FromValue(const base::Value::Dict& value);
 
     // Creates a HighlightInfo object from a base::Value, or nullopt on failure.
-    static absl::optional<HighlightInfo> FromValue(const base::Value& value);
+    static std::optional<HighlightInfo> FromValue(const base::Value& value);
 
     // One or more tab indices to highlight.
     struct Tabs {
@@ -721,8 +716,8 @@ struct Params {
       ~Tabs();
       Tabs(const Tabs&) = delete;
       Tabs& operator=(const Tabs&) = delete;
-      Tabs(Tabs&& rhs);
-      Tabs& operator=(Tabs&& rhs);
+      Tabs(Tabs&& rhs) noexcept;
+      Tabs& operator=(Tabs&& rhs) noexcept;
 
       // Populates a Tabs object from a base::Value& instance. Returns whether |out|
       // was successfully populated.
@@ -732,15 +727,15 @@ struct Params {
       Tabs Clone() const;
 
       // Creates a Tabs object from a base::Value, or nullopt on failure.
-      static absl::optional<Tabs> FromValue(const base::Value& value);
+      static std::optional<Tabs> FromValue(const base::Value& value);
       // Choices:
-      absl::optional<std::vector<int>> as_integers;
-      absl::optional<int> as_integer;
+      std::optional<std::vector<int>> as_integers;
+      std::optional<int> as_integer;
     };
 
 
     // The window that contains the tabs.
-    absl::optional<int> window_id;
+    std::optional<int> window_id;
 
     // One or more tab indices to highlight.
     Tabs tabs;
@@ -766,11 +761,11 @@ base::Value::List Create(const extensions::api::windows::Window& window);
 namespace Update {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct UpdateProperties {
@@ -778,8 +773,8 @@ struct Params {
     ~UpdateProperties();
     UpdateProperties(const UpdateProperties&) = delete;
     UpdateProperties& operator=(const UpdateProperties&) = delete;
-    UpdateProperties(UpdateProperties&& rhs);
-    UpdateProperties& operator=(UpdateProperties&& rhs);
+    UpdateProperties(UpdateProperties&& rhs) noexcept;
+    UpdateProperties& operator=(UpdateProperties&& rhs) noexcept;
 
     // Populates a UpdateProperties object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -794,46 +789,46 @@ struct Params {
 
     // Creates a UpdateProperties object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<UpdateProperties> FromValue(const base::Value::Dict& value);
+    static std::optional<UpdateProperties> FromValue(const base::Value::Dict& value);
 
     // Creates a UpdateProperties object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<UpdateProperties> FromValue(const base::Value& value);
+    static std::optional<UpdateProperties> FromValue(const base::Value& value);
 
     // A URL to navigate the tab to. JavaScript URLs are not supported; use
     // $(ref:scripting.executeScript) instead.
-    absl::optional<std::string> url;
+    std::optional<std::string> url;
 
     // Whether the tab should be active. Does not affect whether the window is
     // focused (see $(ref:windows.update)).
-    absl::optional<bool> active;
+    std::optional<bool> active;
 
     // Adds or removes the tab from the current selection.
-    absl::optional<bool> highlighted;
+    std::optional<bool> highlighted;
 
     // Whether the tab should be selected.
-    absl::optional<bool> selected;
+    std::optional<bool> selected;
 
     // Whether the tab should be pinned.
-    absl::optional<bool> pinned;
+    std::optional<bool> pinned;
 
     // Whether the tab should be muted.
-    absl::optional<bool> muted;
+    std::optional<bool> muted;
 
     // The ID of the tab that opened this tab. If specified, the opener tab must be
     // in the same window as this tab.
-    absl::optional<int> opener_tab_id;
+    std::optional<int> opener_tab_id;
 
     // Whether the tab should be discarded automatically by the browser when
     // resources are low.
-    absl::optional<bool> auto_discardable;
+    std::optional<bool> auto_discardable;
 
   };
 
 
   // Defaults to the selected tab of the <a href='windows#current-window'>current
   // window</a>.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   UpdateProperties update_properties;
 
@@ -856,11 +851,11 @@ base::Value::List Create(const Tab& tab);
 namespace Move {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The tab ID or list of tab IDs to move.
@@ -869,8 +864,8 @@ struct Params {
     ~TabIds();
     TabIds(const TabIds&) = delete;
     TabIds& operator=(const TabIds&) = delete;
-    TabIds(TabIds&& rhs);
-    TabIds& operator=(TabIds&& rhs);
+    TabIds(TabIds&& rhs) noexcept;
+    TabIds& operator=(TabIds&& rhs) noexcept;
 
     // Populates a TabIds object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -880,10 +875,10 @@ struct Params {
     TabIds Clone() const;
 
     // Creates a TabIds object from a base::Value, or nullopt on failure.
-    static absl::optional<TabIds> FromValue(const base::Value& value);
+    static std::optional<TabIds> FromValue(const base::Value& value);
     // Choices:
-    absl::optional<int> as_integer;
-    absl::optional<std::vector<int>> as_integers;
+    std::optional<int> as_integer;
+    std::optional<std::vector<int>> as_integers;
   };
 
   struct MoveProperties {
@@ -891,8 +886,8 @@ struct Params {
     ~MoveProperties();
     MoveProperties(const MoveProperties&) = delete;
     MoveProperties& operator=(const MoveProperties&) = delete;
-    MoveProperties(MoveProperties&& rhs);
-    MoveProperties& operator=(MoveProperties&& rhs);
+    MoveProperties(MoveProperties&& rhs) noexcept;
+    MoveProperties& operator=(MoveProperties&& rhs) noexcept;
 
     // Populates a MoveProperties object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -907,13 +902,13 @@ struct Params {
 
     // Creates a MoveProperties object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<MoveProperties> FromValue(const base::Value::Dict& value);
+    static std::optional<MoveProperties> FromValue(const base::Value::Dict& value);
 
     // Creates a MoveProperties object from a base::Value, or nullopt on failure.
-    static absl::optional<MoveProperties> FromValue(const base::Value& value);
+    static std::optional<MoveProperties> FromValue(const base::Value& value);
 
     // Defaults to the window the tab is currently in.
-    absl::optional<int> window_id;
+    std::optional<int> window_id;
 
     // The position to move the window to. Use <code>-1</code> to place the tab at
     // the end of the window.
@@ -940,15 +935,15 @@ struct Tabs {
   ~Tabs();
   Tabs(const Tabs&) = delete;
   Tabs& operator=(const Tabs&) = delete;
-  Tabs(Tabs&& rhs);
-  Tabs& operator=(Tabs&& rhs);
+  Tabs(Tabs&& rhs) noexcept;
+  Tabs& operator=(Tabs&& rhs) noexcept;
 
   // Returns a new base::Value representing the serialized form of thisTabs
   // object.
   base::Value ToValue() const;
   // Choices:
-  absl::optional<Tab> as_tab;
-  absl::optional<std::vector<Tab>> as_tabs;
+  std::optional<Tab> as_tab;
+  std::optional<std::vector<Tab>> as_tabs;
 };
 
 
@@ -961,11 +956,11 @@ base::Value::List Create(const Tabs& tabs);
 namespace Reload {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct ReloadProperties {
@@ -973,8 +968,8 @@ struct Params {
     ~ReloadProperties();
     ReloadProperties(const ReloadProperties&) = delete;
     ReloadProperties& operator=(const ReloadProperties&) = delete;
-    ReloadProperties(ReloadProperties&& rhs);
-    ReloadProperties& operator=(ReloadProperties&& rhs);
+    ReloadProperties(ReloadProperties&& rhs) noexcept;
+    ReloadProperties& operator=(ReloadProperties&& rhs) noexcept;
 
     // Populates a ReloadProperties object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -989,23 +984,23 @@ struct Params {
 
     // Creates a ReloadProperties object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<ReloadProperties> FromValue(const base::Value::Dict& value);
+    static std::optional<ReloadProperties> FromValue(const base::Value::Dict& value);
 
     // Creates a ReloadProperties object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<ReloadProperties> FromValue(const base::Value& value);
+    static std::optional<ReloadProperties> FromValue(const base::Value& value);
 
     // Whether to bypass local caching. Defaults to <code>false</code>.
-    absl::optional<bool> bypass_cache;
+    std::optional<bool> bypass_cache;
 
   };
 
 
   // The ID of the tab to reload; defaults to the selected tab of the current
   // window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
-  absl::optional<ReloadProperties> reload_properties;
+  std::optional<ReloadProperties> reload_properties;
 
 
  private:
@@ -1022,11 +1017,11 @@ base::Value::List Create();
 namespace Remove {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The tab ID or list of tab IDs to close.
@@ -1035,8 +1030,8 @@ struct Params {
     ~TabIds();
     TabIds(const TabIds&) = delete;
     TabIds& operator=(const TabIds&) = delete;
-    TabIds(TabIds&& rhs);
-    TabIds& operator=(TabIds&& rhs);
+    TabIds(TabIds&& rhs) noexcept;
+    TabIds& operator=(TabIds&& rhs) noexcept;
 
     // Populates a TabIds object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1046,10 +1041,10 @@ struct Params {
     TabIds Clone() const;
 
     // Creates a TabIds object from a base::Value, or nullopt on failure.
-    static absl::optional<TabIds> FromValue(const base::Value& value);
+    static std::optional<TabIds> FromValue(const base::Value& value);
     // Choices:
-    absl::optional<int> as_integer;
-    absl::optional<std::vector<int>> as_integers;
+    std::optional<int> as_integer;
+    std::optional<std::vector<int>> as_integers;
   };
 
 
@@ -1071,11 +1066,11 @@ base::Value::List Create();
 namespace Group {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Options {
@@ -1083,8 +1078,8 @@ struct Params {
     ~Options();
     Options(const Options&) = delete;
     Options& operator=(const Options&) = delete;
-    Options(Options&& rhs);
-    Options& operator=(Options&& rhs);
+    Options(Options&& rhs) noexcept;
+    Options& operator=(Options&& rhs) noexcept;
 
     // Populates a Options object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1098,10 +1093,10 @@ struct Params {
     Options Clone() const;
 
     // Creates a Options object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Options> FromValue(const base::Value::Dict& value);
+    static std::optional<Options> FromValue(const base::Value::Dict& value);
 
     // Creates a Options object from a base::Value, or nullopt on failure.
-    static absl::optional<Options> FromValue(const base::Value& value);
+    static std::optional<Options> FromValue(const base::Value& value);
 
     // The tab ID or list of tab IDs to add to the specified group.
     struct TabIds {
@@ -1109,8 +1104,8 @@ struct Params {
       ~TabIds();
       TabIds(const TabIds&) = delete;
       TabIds& operator=(const TabIds&) = delete;
-      TabIds(TabIds&& rhs);
-      TabIds& operator=(TabIds&& rhs);
+      TabIds(TabIds&& rhs) noexcept;
+      TabIds& operator=(TabIds&& rhs) noexcept;
 
       // Populates a TabIds object from a base::Value& instance. Returns whether
       // |out| was successfully populated.
@@ -1120,10 +1115,10 @@ struct Params {
       TabIds Clone() const;
 
       // Creates a TabIds object from a base::Value, or nullopt on failure.
-      static absl::optional<TabIds> FromValue(const base::Value& value);
+      static std::optional<TabIds> FromValue(const base::Value& value);
       // Choices:
-      absl::optional<int> as_integer;
-      absl::optional<std::vector<int>> as_integers;
+      std::optional<int> as_integer;
+      std::optional<std::vector<int>> as_integers;
     };
 
     // Configurations for creating a group. Cannot be used if groupId is already
@@ -1133,8 +1128,8 @@ struct Params {
       ~CreateProperties();
       CreateProperties(const CreateProperties&) = delete;
       CreateProperties& operator=(const CreateProperties&) = delete;
-      CreateProperties(CreateProperties&& rhs);
-      CreateProperties& operator=(CreateProperties&& rhs);
+      CreateProperties(CreateProperties&& rhs) noexcept;
+      CreateProperties& operator=(CreateProperties&& rhs) noexcept;
 
       // Populates a CreateProperties object from a base::Value& instance. Returns
       // whether |out| was successfully populated.
@@ -1149,14 +1144,14 @@ struct Params {
 
       // Creates a CreateProperties object from a base::Value::Dict, or nullopt on
       // failure.
-      static absl::optional<CreateProperties> FromValue(const base::Value::Dict& value);
+      static std::optional<CreateProperties> FromValue(const base::Value::Dict& value);
 
       // Creates a CreateProperties object from a base::Value, or nullopt on
       // failure.
-      static absl::optional<CreateProperties> FromValue(const base::Value& value);
+      static std::optional<CreateProperties> FromValue(const base::Value& value);
 
       // The window of the new group. Defaults to the current window.
-      absl::optional<int> window_id;
+      std::optional<int> window_id;
 
     };
 
@@ -1166,11 +1161,11 @@ struct Params {
 
     // The ID of the group to add the tabs to. If not specified, a new group will be
     // created.
-    absl::optional<int> group_id;
+    std::optional<int> group_id;
 
     // Configurations for creating a group. Cannot be used if groupId is already
     // specified.
-    absl::optional<CreateProperties> create_properties;
+    std::optional<CreateProperties> create_properties;
 
   };
 
@@ -1193,11 +1188,11 @@ base::Value::List Create(int group_id);
 namespace Ungroup {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The tab ID or list of tab IDs to remove from their respective groups.
@@ -1206,8 +1201,8 @@ struct Params {
     ~TabIds();
     TabIds(const TabIds&) = delete;
     TabIds& operator=(const TabIds&) = delete;
-    TabIds(TabIds&& rhs);
-    TabIds& operator=(TabIds&& rhs);
+    TabIds(TabIds&& rhs) noexcept;
+    TabIds& operator=(TabIds&& rhs) noexcept;
 
     // Populates a TabIds object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1217,10 +1212,10 @@ struct Params {
     TabIds Clone() const;
 
     // Creates a TabIds object from a base::Value, or nullopt on failure.
-    static absl::optional<TabIds> FromValue(const base::Value& value);
+    static std::optional<TabIds> FromValue(const base::Value& value);
     // Choices:
-    absl::optional<int> as_integer;
-    absl::optional<std::vector<int>> as_integers;
+    std::optional<int> as_integer;
+    std::optional<std::vector<int>> as_integers;
   };
 
 
@@ -1242,16 +1237,16 @@ base::Value::List Create();
 namespace DetectLanguage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Defaults to the active tab of the <a href='windows#current-window'>current
   // window</a>.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 
  private:
@@ -1271,18 +1266,18 @@ base::Value::List Create(const std::string& language);
 namespace CaptureVisibleTab {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The target window. Defaults to the <a href='windows#current-window'>current
   // window</a>.
-  absl::optional<int> window_id;
+  std::optional<int> window_id;
 
-  absl::optional<extensions::api::extension_types::ImageDetails> options;
+  std::optional<extensions::api::extension_types::ImageDetails> options;
 
 
  private:
@@ -1302,16 +1297,16 @@ base::Value::List Create(const std::string& data_url);
 namespace ExecuteScript {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab in which to run the script; defaults to the active tab of
   // the current window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // Details of the script to run. Either the code or the file property must be
   // set, but both may not be set at the same time.
@@ -1333,16 +1328,16 @@ base::Value::List Create(const base::Value::List& result);
 namespace InsertCSS {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab in which to insert the CSS; defaults to the active tab of
   // the current window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // Details of the CSS text to insert. Either the code or the file property must
   // be set, but both may not be set at the same time.
@@ -1363,16 +1358,16 @@ base::Value::List Create();
 namespace RemoveCSS {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab from which to remove the CSS; defaults to the active tab of
   // the current window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // Details of the CSS text to remove. Either the code or the file property must
   // be set, but both may not be set at the same time.
@@ -1393,15 +1388,15 @@ base::Value::List Create();
 namespace SetZoom {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab to zoom; defaults to the active tab of the current window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // The new zoom factor. A value of <code>0</code> sets the tab to its current
   // default zoom factor. Values greater than <code>0</code> specify a (possibly
@@ -1423,16 +1418,16 @@ base::Value::List Create();
 namespace GetZoom {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab to get the current zoom factor from; defaults to the active
   // tab of the current window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 
  private:
@@ -1450,16 +1445,16 @@ base::Value::List Create(double zoom_factor);
 namespace SetZoomSettings {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab to change the zoom settings for; defaults to the active tab
   // of the current window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // Defines how zoom changes are handled and at what scope.
   ZoomSettings zoom_settings;
@@ -1479,16 +1474,16 @@ base::Value::List Create();
 namespace GetZoomSettings {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab to get the current zoom settings from; defaults to the
   // active tab of the current window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 
  private:
@@ -1506,17 +1501,17 @@ base::Value::List Create(const ZoomSettings& zoom_settings);
 namespace Discard {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab to be discarded. If specified, the tab is discarded unless
   // it is active or already discarded. If omitted, the browser discards the least
   // important tab. This can fail if no discardable tabs exist.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 
  private:
@@ -1534,16 +1529,16 @@ base::Value::List Create(const Tab& tab);
 namespace GoForward {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab to navigate forward; defaults to the selected tab of the
   // current window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 
  private:
@@ -1560,16 +1555,16 @@ base::Value::List Create();
 namespace GoBack {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the tab to navigate back; defaults to the selected tab of the
   // current window.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 
  private:
@@ -1605,8 +1600,8 @@ struct ChangeInfo {
   ~ChangeInfo();
   ChangeInfo(const ChangeInfo&) = delete;
   ChangeInfo& operator=(const ChangeInfo&) = delete;
-  ChangeInfo(ChangeInfo&& rhs);
-  ChangeInfo& operator=(ChangeInfo&& rhs);
+  ChangeInfo(ChangeInfo&& rhs) noexcept;
+  ChangeInfo& operator=(ChangeInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChangeInfo object.
@@ -1616,31 +1611,31 @@ struct ChangeInfo {
   TabStatus status;
 
   // The tab's URL if it has changed.
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // The tab's new group.
-  absl::optional<int> group_id;
+  std::optional<int> group_id;
 
   // The tab's new pinned state.
-  absl::optional<bool> pinned;
+  std::optional<bool> pinned;
 
   // The tab's new audible state.
-  absl::optional<bool> audible;
+  std::optional<bool> audible;
 
   // The tab's new discarded state.
-  absl::optional<bool> discarded;
+  std::optional<bool> discarded;
 
   // The tab's new auto-discardable state.
-  absl::optional<bool> auto_discardable;
+  std::optional<bool> auto_discardable;
 
   // The tab's new muted state and the reason for the change.
-  absl::optional<MutedInfo> muted_info;
+  std::optional<MutedInfo> muted_info;
 
   // The tab's new favicon URL.
-  absl::optional<std::string> fav_icon_url;
+  std::optional<std::string> fav_icon_url;
 
   // The tab's new title.
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
 };
 
@@ -1659,8 +1654,8 @@ struct MoveInfo {
   ~MoveInfo();
   MoveInfo(const MoveInfo&) = delete;
   MoveInfo& operator=(const MoveInfo&) = delete;
-  MoveInfo(MoveInfo&& rhs);
-  MoveInfo& operator=(MoveInfo&& rhs);
+  MoveInfo(MoveInfo&& rhs) noexcept;
+  MoveInfo& operator=(MoveInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMoveInfo object.
@@ -1687,8 +1682,8 @@ struct SelectInfo {
   ~SelectInfo();
   SelectInfo(const SelectInfo&) = delete;
   SelectInfo& operator=(const SelectInfo&) = delete;
-  SelectInfo(SelectInfo&& rhs);
-  SelectInfo& operator=(SelectInfo&& rhs);
+  SelectInfo(SelectInfo&& rhs) noexcept;
+  SelectInfo& operator=(SelectInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSelectInfo object.
@@ -1713,8 +1708,8 @@ struct SelectInfo {
   ~SelectInfo();
   SelectInfo(const SelectInfo&) = delete;
   SelectInfo& operator=(const SelectInfo&) = delete;
-  SelectInfo(SelectInfo&& rhs);
-  SelectInfo& operator=(SelectInfo&& rhs);
+  SelectInfo(SelectInfo&& rhs) noexcept;
+  SelectInfo& operator=(SelectInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSelectInfo object.
@@ -1739,8 +1734,8 @@ struct ActiveInfo {
   ~ActiveInfo();
   ActiveInfo(const ActiveInfo&) = delete;
   ActiveInfo& operator=(const ActiveInfo&) = delete;
-  ActiveInfo(ActiveInfo&& rhs);
-  ActiveInfo& operator=(ActiveInfo&& rhs);
+  ActiveInfo(ActiveInfo&& rhs) noexcept;
+  ActiveInfo& operator=(ActiveInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisActiveInfo object.
@@ -1767,8 +1762,8 @@ struct SelectInfo {
   ~SelectInfo();
   SelectInfo(const SelectInfo&) = delete;
   SelectInfo& operator=(const SelectInfo&) = delete;
-  SelectInfo(SelectInfo&& rhs);
-  SelectInfo& operator=(SelectInfo&& rhs);
+  SelectInfo(SelectInfo&& rhs) noexcept;
+  SelectInfo& operator=(SelectInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSelectInfo object.
@@ -1795,8 +1790,8 @@ struct HighlightInfo {
   ~HighlightInfo();
   HighlightInfo(const HighlightInfo&) = delete;
   HighlightInfo& operator=(const HighlightInfo&) = delete;
-  HighlightInfo(HighlightInfo&& rhs);
-  HighlightInfo& operator=(HighlightInfo&& rhs);
+  HighlightInfo(HighlightInfo&& rhs) noexcept;
+  HighlightInfo& operator=(HighlightInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHighlightInfo object.
@@ -1823,8 +1818,8 @@ struct DetachInfo {
   ~DetachInfo();
   DetachInfo(const DetachInfo&) = delete;
   DetachInfo& operator=(const DetachInfo&) = delete;
-  DetachInfo(DetachInfo&& rhs);
-  DetachInfo& operator=(DetachInfo&& rhs);
+  DetachInfo(DetachInfo&& rhs) noexcept;
+  DetachInfo& operator=(DetachInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetachInfo object.
@@ -1849,8 +1844,8 @@ struct AttachInfo {
   ~AttachInfo();
   AttachInfo(const AttachInfo&) = delete;
   AttachInfo& operator=(const AttachInfo&) = delete;
-  AttachInfo(AttachInfo&& rhs);
-  AttachInfo& operator=(AttachInfo&& rhs);
+  AttachInfo(AttachInfo&& rhs) noexcept;
+  AttachInfo& operator=(AttachInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAttachInfo object.
@@ -1875,8 +1870,8 @@ struct RemoveInfo {
   ~RemoveInfo();
   RemoveInfo(const RemoveInfo&) = delete;
   RemoveInfo& operator=(const RemoveInfo&) = delete;
-  RemoveInfo(RemoveInfo&& rhs);
-  RemoveInfo& operator=(RemoveInfo&& rhs);
+  RemoveInfo(RemoveInfo&& rhs) noexcept;
+  RemoveInfo& operator=(RemoveInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRemoveInfo object.
@@ -1910,8 +1905,8 @@ struct ZoomChangeInfo {
   ~ZoomChangeInfo();
   ZoomChangeInfo(const ZoomChangeInfo&) = delete;
   ZoomChangeInfo& operator=(const ZoomChangeInfo&) = delete;
-  ZoomChangeInfo(ZoomChangeInfo&& rhs);
-  ZoomChangeInfo& operator=(ZoomChangeInfo&& rhs);
+  ZoomChangeInfo(ZoomChangeInfo&& rhs) noexcept;
+  ZoomChangeInfo& operator=(ZoomChangeInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisZoomChangeInfo object.

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom-features.h"
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom-shared.h"
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom-forward.h"
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy_feature.mojom-forward.h"
@@ -231,10 +232,10 @@ class BLINK_COMMON_EXPORT ParsedPermissionsPolicyDeclaration {
   ParsedPermissionsPolicyDeclaration(
       ::blink::mojom::PermissionsPolicyFeature feature,
       std::vector<::blink::OriginWithPossibleWildcards> allowed_origins,
-      const absl::optional<::url::Origin>& self_if_matches,
+      const std::optional<::url::Origin>& self_if_matches,
       bool matches_all_origins,
       bool matches_opaque_src,
-      const absl::optional<std::string>& reporting_endpoint);
+      const std::optional<std::string>& reporting_endpoint);
 
 
   ~ParsedPermissionsPolicyDeclaration();
@@ -316,13 +317,13 @@ class BLINK_COMMON_EXPORT ParsedPermissionsPolicyDeclaration {
   
   std::vector<::blink::OriginWithPossibleWildcards> allowed_origins;
   
-  absl::optional<::url::Origin> self_if_matches;
+  std::optional<::url::Origin> self_if_matches;
   
   bool matches_all_origins;
   
   bool matches_opaque_src;
   
-  absl::optional<std::string> reporting_endpoint;
+  std::optional<std::string> reporting_endpoint;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -472,14 +473,17 @@ void WebAppProviderBridgeProxy::WebAppInstalledInArc(
                         "<value of type ::crosapi::mojom::ArcWebAppInstallInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_WebAppInstalledInArc_Name, kFlags, 0, 0, nullptr);
@@ -521,14 +525,17 @@ void WebAppProviderBridgeProxy::WebAppUninstalledInArc(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_WebAppUninstalledInArc_Name, kFlags, 0, 0, nullptr);
@@ -570,14 +577,17 @@ void WebAppProviderBridgeProxy::GetWebApkCreationParams(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_GetWebApkCreationParams_Name, kFlags, 0, 0, nullptr);
@@ -612,14 +622,17 @@ void WebAppProviderBridgeProxy::InstallMicrosoft365(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::WebAppProviderBridge::InstallMicrosoft365");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_InstallMicrosoft365_Name, kFlags, 0, 0, nullptr);
@@ -650,14 +663,17 @@ void WebAppProviderBridgeProxy::GetSubAppIds(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_GetSubAppIds_Name, kFlags, 0, 0, nullptr);
@@ -705,14 +721,17 @@ void WebAppProviderBridgeProxy::ScheduleNavigateAndTriggerInstallDialog(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_ScheduleNavigateAndTriggerInstallDialog_Name, kFlags, 0, 0, nullptr);
@@ -758,14 +777,17 @@ void WebAppProviderBridgeProxy::GetSubAppToParentMap(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::WebAppProviderBridge::GetSubAppToParentMap");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_GetSubAppToParentMap_Name, kFlags, 0, 0, nullptr);
@@ -796,14 +818,17 @@ void WebAppProviderBridgeProxy::InstallPreloadWebApp(
                         "<value of type ::crosapi::mojom::PreloadWebAppInstallInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_InstallPreloadWebApp_Name, kFlags, 0, 0, nullptr);
@@ -845,14 +870,17 @@ void WebAppProviderBridgeProxy::LaunchIsolatedWebAppInstaller(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_LaunchIsolatedWebAppInstaller_Name, kFlags, 0, 0, nullptr);
@@ -979,7 +1007,8 @@ void WebAppProviderBridge_WebAppInstalledInArc_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_WebAppInstalledInArc_Name, kFlags, 0, 0, nullptr);
@@ -1109,7 +1138,8 @@ void WebAppProviderBridge_WebAppUninstalledInArc_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_WebAppUninstalledInArc_Name, kFlags, 0, 0, nullptr);
@@ -1228,7 +1258,8 @@ void WebAppProviderBridge_GetWebApkCreationParams_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_GetWebApkCreationParams_Name, kFlags, 0, 0, nullptr);
@@ -1356,7 +1387,8 @@ void WebAppProviderBridge_InstallMicrosoft365_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_InstallMicrosoft365_Name, kFlags, 0, 0, nullptr);
@@ -1475,7 +1507,8 @@ void WebAppProviderBridge_GetSubAppIds_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_GetSubAppIds_Name, kFlags, 0, 0, nullptr);
@@ -1605,7 +1638,8 @@ void WebAppProviderBridge_GetSubAppToParentMap_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_GetSubAppToParentMap_Name, kFlags, 0, 0, nullptr);
@@ -1742,7 +1776,8 @@ void WebAppProviderBridge_InstallPreloadWebApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppProviderBridge_InstallPreloadWebApp_Name, kFlags, 0, 0, nullptr);
@@ -2084,26 +2119,26 @@ std::move(p_preload_install_info), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebAppProviderBridgeValidationInfo[] = {
-    {&internal::WebAppProviderBridge_WebAppInstalledInArc_Params_Data::Validate,
+    { &internal::WebAppProviderBridge_WebAppInstalledInArc_Params_Data::Validate,
      &internal::WebAppProviderBridge_WebAppInstalledInArc_ResponseParams_Data::Validate},
-    {&internal::WebAppProviderBridge_WebAppUninstalledInArc_Params_Data::Validate,
+    { &internal::WebAppProviderBridge_WebAppUninstalledInArc_Params_Data::Validate,
      &internal::WebAppProviderBridge_WebAppUninstalledInArc_ResponseParams_Data::Validate},
-    {&internal::WebAppProviderBridge_GetWebApkCreationParams_Params_Data::Validate,
+    { &internal::WebAppProviderBridge_GetWebApkCreationParams_Params_Data::Validate,
      &internal::WebAppProviderBridge_GetWebApkCreationParams_ResponseParams_Data::Validate},
-    {&internal::WebAppProviderBridge_InstallMicrosoft365_Params_Data::Validate,
+    { &internal::WebAppProviderBridge_InstallMicrosoft365_Params_Data::Validate,
      &internal::WebAppProviderBridge_InstallMicrosoft365_ResponseParams_Data::Validate},
-    {&internal::WebAppProviderBridge_GetSubAppIds_Params_Data::Validate,
+    { &internal::WebAppProviderBridge_GetSubAppIds_Params_Data::Validate,
      &internal::WebAppProviderBridge_GetSubAppIds_ResponseParams_Data::Validate},
-    {&internal::WebAppProviderBridge_ScheduleNavigateAndTriggerInstallDialog_Params_Data::Validate,
+    { &internal::WebAppProviderBridge_ScheduleNavigateAndTriggerInstallDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebAppProviderBridge_GetSubAppToParentMap_Params_Data::Validate,
+    { &internal::WebAppProviderBridge_GetSubAppToParentMap_Params_Data::Validate,
      &internal::WebAppProviderBridge_GetSubAppToParentMap_ResponseParams_Data::Validate},
-    {&internal::WebAppProviderBridge_InstallPreloadWebApp_Params_Data::Validate,
+    { &internal::WebAppProviderBridge_InstallPreloadWebApp_Params_Data::Validate,
      &internal::WebAppProviderBridge_InstallPreloadWebApp_ResponseParams_Data::Validate},
-    {&internal::WebAppProviderBridge_LaunchIsolatedWebAppInstaller_Params_Data::Validate,
+    { &internal::WebAppProviderBridge_LaunchIsolatedWebAppInstaller_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2260,14 +2295,17 @@ void WebAppServiceProxy::RegisterWebAppProviderBridge(
                         "<value of type ::mojo::PendingRemote<WebAppProviderBridge>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppService_RegisterWebAppProviderBridge_Name, kFlags, 0, 0, nullptr);
@@ -2303,14 +2341,17 @@ void WebAppServiceProxy::GetAssociatedAndroidPackage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppService_GetAssociatedAndroidPackage_Name, kFlags, 0, 0, nullptr);
@@ -2355,14 +2396,17 @@ void WebAppServiceProxy::MigrateLauncherState(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppService_MigrateLauncherState_Name, kFlags, 0, 0, nullptr);
@@ -2494,7 +2538,8 @@ void WebAppService_GetAssociatedAndroidPackage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppService_GetAssociatedAndroidPackage_Name, kFlags, 0, 0, nullptr);
@@ -2607,7 +2652,8 @@ void WebAppService_MigrateLauncherState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAppService_MigrateLauncherState_Name, kFlags, 0, 0, nullptr);
@@ -2753,14 +2799,14 @@ std::move(p_to_app_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebAppServiceValidationInfo[] = {
-    {&internal::WebAppService_RegisterWebAppProviderBridge_Params_Data::Validate,
+    { &internal::WebAppService_RegisterWebAppProviderBridge_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebAppService_GetAssociatedAndroidPackage_Params_Data::Validate,
+    { &internal::WebAppService_GetAssociatedAndroidPackage_Params_Data::Validate,
      &internal::WebAppService_GetAssociatedAndroidPackage_ResponseParams_Data::Validate},
-    {&internal::WebAppService_MigrateLauncherState_Params_Data::Validate,
+    { &internal::WebAppService_MigrateLauncherState_Params_Data::Validate,
      &internal::WebAppService_MigrateLauncherState_ResponseParams_Data::Validate},
 };
 

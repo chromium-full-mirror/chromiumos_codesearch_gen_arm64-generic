@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, NDEFReadingEvent>::value,
     "NDEFReadingEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&NDEFReadingEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "NDEFReadingEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("NDEFReadingEvent.serialNumber.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-NDEFReadingEvent* blink_receiver = V8NDEFReadingEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->serialNumber();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+NDEFReadingEvent* blink_receiver = V8NDEFReadingEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->serialNumber();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("NDEFReadingEvent.message.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NDEFReadingEvent* blink_receiver = V8NDEFReadingEvent::ToWrappableUnsafe(v8_receiver);
+NDEFReadingEvent* blink_receiver = V8NDEFReadingEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->message();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -119,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("NDEFReadingEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-NDEFReadingEvent* blink_receiver = V8NDEFReadingEvent::ToWrappableUnsafe(v8_receiver);
+NDEFReadingEvent* blink_receiver = V8NDEFReadingEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

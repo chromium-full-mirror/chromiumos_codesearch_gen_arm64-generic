@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -399,14 +400,17 @@ void NearbyShareSettingsObserverProxy::OnEnabledChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettingsObserver_OnEnabledChanged_Name, kFlags, 0, 0, nullptr);
@@ -437,14 +441,17 @@ void NearbyShareSettingsObserverProxy::OnFastInitiationNotificationStateChanged(
                         "<value of type FastInitiationNotificationState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettingsObserver_OnFastInitiationNotificationStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -476,14 +483,17 @@ void NearbyShareSettingsObserverProxy::OnIsFastInitiationHardwareSupportedChange
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettingsObserver_OnIsFastInitiationHardwareSupportedChanged_Name, kFlags, 0, 0, nullptr);
@@ -514,14 +524,17 @@ void NearbyShareSettingsObserverProxy::OnDeviceNameChanged(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettingsObserver_OnDeviceNameChanged_Name, kFlags, 0, 0, nullptr);
@@ -562,14 +575,17 @@ void NearbyShareSettingsObserverProxy::OnDataUsageChanged(
                         "<value of type DataUsage>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettingsObserver_OnDataUsageChanged_Name, kFlags, 0, 0, nullptr);
@@ -601,14 +617,17 @@ void NearbyShareSettingsObserverProxy::OnVisibilityChanged(
                         "<value of type Visibility>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettingsObserver_OnVisibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -640,14 +659,17 @@ void NearbyShareSettingsObserverProxy::OnAllowedContactsChanged(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettingsObserver_OnAllowedContactsChanged_Name, kFlags, 0, 0, nullptr);
@@ -690,14 +712,17 @@ void NearbyShareSettingsObserverProxy::OnIsOnboardingCompleteChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettingsObserver_OnIsOnboardingCompleteChanged_Name, kFlags, 0, 0, nullptr);
@@ -969,24 +994,24 @@ bool NearbyShareSettingsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNearbyShareSettingsObserverValidationInfo[] = {
-    {&internal::NearbyShareSettingsObserver_OnEnabledChanged_Params_Data::Validate,
+    { &internal::NearbyShareSettingsObserver_OnEnabledChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettingsObserver_OnFastInitiationNotificationStateChanged_Params_Data::Validate,
+    { &internal::NearbyShareSettingsObserver_OnFastInitiationNotificationStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettingsObserver_OnIsFastInitiationHardwareSupportedChanged_Params_Data::Validate,
+    { &internal::NearbyShareSettingsObserver_OnIsFastInitiationHardwareSupportedChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettingsObserver_OnDeviceNameChanged_Params_Data::Validate,
+    { &internal::NearbyShareSettingsObserver_OnDeviceNameChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettingsObserver_OnDataUsageChanged_Params_Data::Validate,
+    { &internal::NearbyShareSettingsObserver_OnDataUsageChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettingsObserver_OnVisibilityChanged_Params_Data::Validate,
+    { &internal::NearbyShareSettingsObserver_OnVisibilityChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettingsObserver_OnAllowedContactsChanged_Params_Data::Validate,
+    { &internal::NearbyShareSettingsObserver_OnAllowedContactsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettingsObserver_OnIsOnboardingCompleteChanged_Params_Data::Validate,
+    { &internal::NearbyShareSettingsObserver_OnIsOnboardingCompleteChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1546,14 +1571,17 @@ void NearbyShareSettingsProxy::AddSettingsObserver(
                         "<value of type ::mojo::PendingRemote<NearbyShareSettingsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_AddSettingsObserver_Name, kFlags, 0, 0, nullptr);
@@ -1582,14 +1610,17 @@ void NearbyShareSettingsProxy::GetEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::NearbyShareSettings::GetEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1620,14 +1651,17 @@ void NearbyShareSettingsProxy::SetEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_SetEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1651,14 +1685,17 @@ void NearbyShareSettingsProxy::IsOnboardingComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::NearbyShareSettings::IsOnboardingComplete");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_IsOnboardingComplete_Name, kFlags, 0, 0, nullptr);
@@ -1689,14 +1726,17 @@ void NearbyShareSettingsProxy::SetIsOnboardingComplete(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_SetIsOnboardingComplete_Name, kFlags, 0, 0, nullptr);
@@ -1720,14 +1760,17 @@ void NearbyShareSettingsProxy::GetFastInitiationNotificationState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::NearbyShareSettings::GetFastInitiationNotificationState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetFastInitiationNotificationState_Name, kFlags, 0, 0, nullptr);
@@ -1758,14 +1801,17 @@ void NearbyShareSettingsProxy::SetFastInitiationNotificationState(
                         "<value of type FastInitiationNotificationState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_SetFastInitiationNotificationState_Name, kFlags, 0, 0, nullptr);
@@ -1790,14 +1836,17 @@ void NearbyShareSettingsProxy::GetIsFastInitiationHardwareSupported(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::NearbyShareSettings::GetIsFastInitiationHardwareSupported");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetIsFastInitiationHardwareSupported_Name, kFlags, 0, 0, nullptr);
@@ -1821,14 +1870,17 @@ void NearbyShareSettingsProxy::GetDeviceName(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::NearbyShareSettings::GetDeviceName");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -1859,14 +1911,17 @@ void NearbyShareSettingsProxy::ValidateDeviceName(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_ValidateDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -1908,14 +1963,17 @@ void NearbyShareSettingsProxy::SetDeviceName(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_SetDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -1950,14 +2008,17 @@ void NearbyShareSettingsProxy::GetDataUsage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::NearbyShareSettings::GetDataUsage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetDataUsage_Name, kFlags, 0, 0, nullptr);
@@ -1988,14 +2049,17 @@ void NearbyShareSettingsProxy::SetDataUsage(
                         "<value of type DataUsage>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_SetDataUsage_Name, kFlags, 0, 0, nullptr);
@@ -2020,14 +2084,17 @@ void NearbyShareSettingsProxy::GetVisibility(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::NearbyShareSettings::GetVisibility");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetVisibility_Name, kFlags, 0, 0, nullptr);
@@ -2058,14 +2125,17 @@ void NearbyShareSettingsProxy::SetVisibility(
                         "<value of type Visibility>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_SetVisibility_Name, kFlags, 0, 0, nullptr);
@@ -2090,14 +2160,17 @@ void NearbyShareSettingsProxy::GetAllowedContacts(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::NearbyShareSettings::GetAllowedContacts");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetAllowedContacts_Name, kFlags, 0, 0, nullptr);
@@ -2128,14 +2201,17 @@ void NearbyShareSettingsProxy::SetAllowedContacts(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_SetAllowedContacts_Name, kFlags, 0, 0, nullptr);
@@ -2257,7 +2333,8 @@ void NearbyShareSettings_GetEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2375,7 +2452,8 @@ void NearbyShareSettings_IsOnboardingComplete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_IsOnboardingComplete_Name, kFlags, 0, 0, nullptr);
@@ -2493,7 +2571,8 @@ void NearbyShareSettings_GetFastInitiationNotificationState_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetFastInitiationNotificationState_Name, kFlags, 0, 0, nullptr);
@@ -2612,7 +2691,8 @@ void NearbyShareSettings_GetIsFastInitiationHardwareSupported_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetIsFastInitiationHardwareSupported_Name, kFlags, 0, 0, nullptr);
@@ -2730,7 +2810,8 @@ void NearbyShareSettings_GetDeviceName_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -2858,7 +2939,8 @@ void NearbyShareSettings_ValidateDeviceName_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_ValidateDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -2977,7 +3059,8 @@ void NearbyShareSettings_SetDeviceName_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_SetDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -3096,7 +3179,8 @@ void NearbyShareSettings_GetDataUsage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetDataUsage_Name, kFlags, 0, 0, nullptr);
@@ -3215,7 +3299,8 @@ void NearbyShareSettings_GetVisibility_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetVisibility_Name, kFlags, 0, 0, nullptr);
@@ -3334,7 +3419,8 @@ void NearbyShareSettings_GetAllowedContacts_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyShareSettings_GetAllowedContacts_Name, kFlags, 0, 0, nullptr);
@@ -3887,42 +3973,42 @@ std::move(p_device_name), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNearbyShareSettingsValidationInfo[] = {
-    {&internal::NearbyShareSettings_AddSettingsObserver_Params_Data::Validate,
+    { &internal::NearbyShareSettings_AddSettingsObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettings_GetEnabled_Params_Data::Validate,
+    { &internal::NearbyShareSettings_GetEnabled_Params_Data::Validate,
      &internal::NearbyShareSettings_GetEnabled_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_SetEnabled_Params_Data::Validate,
+    { &internal::NearbyShareSettings_SetEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettings_IsOnboardingComplete_Params_Data::Validate,
+    { &internal::NearbyShareSettings_IsOnboardingComplete_Params_Data::Validate,
      &internal::NearbyShareSettings_IsOnboardingComplete_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_SetIsOnboardingComplete_Params_Data::Validate,
+    { &internal::NearbyShareSettings_SetIsOnboardingComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettings_GetFastInitiationNotificationState_Params_Data::Validate,
+    { &internal::NearbyShareSettings_GetFastInitiationNotificationState_Params_Data::Validate,
      &internal::NearbyShareSettings_GetFastInitiationNotificationState_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_SetFastInitiationNotificationState_Params_Data::Validate,
+    { &internal::NearbyShareSettings_SetFastInitiationNotificationState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettings_GetIsFastInitiationHardwareSupported_Params_Data::Validate,
+    { &internal::NearbyShareSettings_GetIsFastInitiationHardwareSupported_Params_Data::Validate,
      &internal::NearbyShareSettings_GetIsFastInitiationHardwareSupported_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_GetDeviceName_Params_Data::Validate,
+    { &internal::NearbyShareSettings_GetDeviceName_Params_Data::Validate,
      &internal::NearbyShareSettings_GetDeviceName_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_ValidateDeviceName_Params_Data::Validate,
+    { &internal::NearbyShareSettings_ValidateDeviceName_Params_Data::Validate,
      &internal::NearbyShareSettings_ValidateDeviceName_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_SetDeviceName_Params_Data::Validate,
+    { &internal::NearbyShareSettings_SetDeviceName_Params_Data::Validate,
      &internal::NearbyShareSettings_SetDeviceName_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_GetDataUsage_Params_Data::Validate,
+    { &internal::NearbyShareSettings_GetDataUsage_Params_Data::Validate,
      &internal::NearbyShareSettings_GetDataUsage_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_SetDataUsage_Params_Data::Validate,
+    { &internal::NearbyShareSettings_SetDataUsage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettings_GetVisibility_Params_Data::Validate,
+    { &internal::NearbyShareSettings_GetVisibility_Params_Data::Validate,
      &internal::NearbyShareSettings_GetVisibility_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_SetVisibility_Params_Data::Validate,
+    { &internal::NearbyShareSettings_SetVisibility_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NearbyShareSettings_GetAllowedContacts_Params_Data::Validate,
+    { &internal::NearbyShareSettings_GetAllowedContacts_Params_Data::Validate,
      &internal::NearbyShareSettings_GetAllowedContacts_ResponseParams_Data::Validate},
-    {&internal::NearbyShareSettings_SetAllowedContacts_Params_Data::Validate,
+    { &internal::NearbyShareSettings_SetAllowedContacts_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4032,14 +4118,17 @@ void DownloadContactsObserverProxy::OnContactsDownloaded(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadContactsObserver_OnContactsDownloaded_Name, kFlags, 0, 0, nullptr);
@@ -4089,14 +4178,17 @@ void DownloadContactsObserverProxy::OnContactsDownloadFailed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::DownloadContactsObserver::OnContactsDownloadFailed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadContactsObserver_OnContactsDownloadFailed_Name, kFlags, 0, 0, nullptr);
@@ -4197,12 +4289,12 @@ bool DownloadContactsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDownloadContactsObserverValidationInfo[] = {
-    {&internal::DownloadContactsObserver_OnContactsDownloaded_Params_Data::Validate,
+    { &internal::DownloadContactsObserver_OnContactsDownloaded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DownloadContactsObserver_OnContactsDownloadFailed_Params_Data::Validate,
+    { &internal::DownloadContactsObserver_OnContactsDownloadFailed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4322,14 +4414,17 @@ void ContactManagerProxy::AddDownloadContactsObserver(
                         "<value of type ::mojo::PendingRemote<DownloadContactsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContactManager_AddDownloadContactsObserver_Name, kFlags, 0, 0, nullptr);
@@ -4358,14 +4453,17 @@ void ContactManagerProxy::DownloadContacts(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::ContactManager::DownloadContacts");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContactManager_DownloadContacts_Name, kFlags, 0, 0, nullptr);
@@ -4395,14 +4493,17 @@ void ContactManagerProxy::SetAllowedContacts(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContactManager_SetAllowedContacts_Name, kFlags, 0, 0, nullptr);
@@ -4539,14 +4640,14 @@ bool ContactManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContactManagerValidationInfo[] = {
-    {&internal::ContactManager_AddDownloadContactsObserver_Params_Data::Validate,
+    { &internal::ContactManager_AddDownloadContactsObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContactManager_DownloadContacts_Params_Data::Validate,
+    { &internal::ContactManager_DownloadContacts_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContactManager_SetAllowedContacts_Params_Data::Validate,
+    { &internal::ContactManager_SetAllowedContacts_Params_Data::Validate,
      nullptr /* no response */},
 };
 

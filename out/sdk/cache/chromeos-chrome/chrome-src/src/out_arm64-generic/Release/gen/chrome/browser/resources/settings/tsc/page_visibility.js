@@ -12,6 +12,7 @@ if (loadTimeData.getBoolean('isGuest')) {
     // 
     // 
     pageVisibility = {
+        ai: false,
         autofill: false,
         people: false,
         onStartup: false,

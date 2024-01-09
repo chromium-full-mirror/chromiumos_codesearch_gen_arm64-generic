@@ -34,10 +34,8 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/libipp/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/libipp/_libipp-install_config.stamp: stamp
-build obj/libipp/all.stamp: stamp obj/libipp/install_headers.stamp obj/libipp/install_pkgconfig.stamp ./lib/libipp.so ./libipp_test
+build obj/libipp/all.stamp: stamp obj/libipp/install_headers.stamp obj/libipp/install_pkgconfig.stamp ./lib/libipp.so
 build obj/libipp/install_headers.stamp: stamp
 build obj/libipp/install_pkgconfig.stamp: stamp
 subninja obj/libipp/libipp.ninja
-subninja obj/libipp/libipp_test.ninja

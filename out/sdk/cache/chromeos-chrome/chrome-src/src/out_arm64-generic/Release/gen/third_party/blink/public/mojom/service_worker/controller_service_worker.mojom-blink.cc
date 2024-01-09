@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -136,7 +137,7 @@ ControllerServiceWorkerInfo::ControllerServiceWorkerInfo(
     ServiceWorkerRouterDataPtr router_data_in,
     ::mojo::PendingRemote<ControllerServiceWorker> remote_controller_in,
     const WTF::String& client_id_in,
-    const absl::optional<::base::UnguessableToken>& fetch_request_window_id_in,
+    const std::optional<::base::UnguessableToken>& fetch_request_window_id_in,
     ::blink::mojom::blink::ServiceWorkerObjectInfoPtr object_info_in,
     WTF::Vector<::blink::mojom::blink::WebFeature> used_features_in)
     : mode(std::move(mode_in)),
@@ -232,7 +233,7 @@ void ControllerServiceWorkerInfo::WriteIntoTrace(
     dict.AddItem(
       "fetch_request_window_id"), this->fetch_request_window_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -372,14 +373,17 @@ void ControllerServiceWorkerProxy::DispatchFetchEventForSubresource(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::blink::ServiceWorkerFetchResponseCallback>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kControllerServiceWorker_DispatchFetchEventForSubresource_Name, kFlags, 0, 0, nullptr);
@@ -433,14 +437,17 @@ void ControllerServiceWorkerProxy::Clone(
                         "<value of type ::mojo::PendingRemote<::network::mojom::blink::CrossOriginEmbedderPolicyReporter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kControllerServiceWorker_Clone_Name, kFlags, 0, 0, nullptr);
@@ -568,7 +575,8 @@ void ControllerServiceWorker_DispatchFetchEventForSubresource_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kControllerServiceWorker_DispatchFetchEventForSubresource_Name, kFlags, 0, 0, nullptr);
@@ -696,12 +704,12 @@ std::move(p_response_callback), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kControllerServiceWorkerValidationInfo[] = {
-    {&internal::ControllerServiceWorker_DispatchFetchEventForSubresource_Params_Data::Validate,
+    { &internal::ControllerServiceWorker_DispatchFetchEventForSubresource_Params_Data::Validate,
      &internal::ControllerServiceWorker_DispatchFetchEventForSubresource_ResponseParams_Data::Validate},
-    {&internal::ControllerServiceWorker_Clone_Params_Data::Validate,
+    { &internal::ControllerServiceWorker_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -785,14 +793,17 @@ void ControllerServiceWorkerConnectorProxy::UpdateController(
                         "<value of type ::mojo::PendingRemote<ControllerServiceWorker>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kControllerServiceWorkerConnector_UpdateController_Name, kFlags, 0, 0, nullptr);
@@ -864,10 +875,10 @@ bool ControllerServiceWorkerConnectorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kControllerServiceWorkerConnectorValidationInfo[] = {
-    {&internal::ControllerServiceWorkerConnector_UpdateController_Params_Data::Validate,
+    { &internal::ControllerServiceWorkerConnector_UpdateController_Params_Data::Validate,
      nullptr /* no response */},
 };
 

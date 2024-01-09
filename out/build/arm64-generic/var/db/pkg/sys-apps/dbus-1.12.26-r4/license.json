@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "dbus", "version": "1.12.26", "revision": 4, "fullname": "sys-apps/dbus", "fullnamerev": "sys-apps/dbus-1.12.26-r4", "license_names": ["AFL-2.1"], "license_text_scanned": [], "homepages": ["https://dbus.freedesktop.org/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,12 +49,6 @@ const char FilePatcher::Name_[] = "patch.mojom.FilePatcher";
 FilePatcher::IPCStableHashFunction FilePatcher::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kFilePatcher_PatchFileBsdiff_Name: {
-      return &FilePatcher::PatchFileBsdiff_Sym::IPCStableHash;
-    }
-    case internal::kFilePatcher_PatchFileCourgette_Name: {
-      return &FilePatcher::PatchFileCourgette_Sym::IPCStableHash;
-    }
     case internal::kFilePatcher_PatchFilePuffPatch_Name: {
       return &FilePatcher::PatchFilePuffPatch_Sym::IPCStableHash;
     }
@@ -68,19 +63,11 @@ const char* FilePatcher::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kFilePatcher_PatchFileBsdiff_Name:
-            return "Receive patch::mojom::FilePatcher::PatchFileBsdiff";
-      case internal::kFilePatcher_PatchFileCourgette_Name:
-            return "Receive patch::mojom::FilePatcher::PatchFileCourgette";
       case internal::kFilePatcher_PatchFilePuffPatch_Name:
             return "Receive patch::mojom::FilePatcher::PatchFilePuffPatch";
     }
   } else {
     switch (message.name()) {
-      case internal::kFilePatcher_PatchFileBsdiff_Name:
-            return "Receive reply patch::mojom::FilePatcher::PatchFileBsdiff";
-      case internal::kFilePatcher_PatchFileCourgette_Name:
-            return "Receive reply patch::mojom::FilePatcher::PatchFileCourgette";
       case internal::kFilePatcher_PatchFilePuffPatch_Name:
             return "Receive reply patch::mojom::FilePatcher::PatchFilePuffPatch";
     }
@@ -97,32 +84,6 @@ const char* FilePatcher::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t FilePatcher::PatchFileBsdiff_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)patch::mojom::FilePatcher::PatchFileBsdiff");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t FilePatcher::PatchFileCourgette_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)patch::mojom::FilePatcher::PatchFileCourgette");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t FilePatcher::PatchFilePuffPatch_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -137,38 +98,6 @@ uint32_t FilePatcher::PatchFilePuffPatch_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-
-class FilePatcher_PatchFileBsdiff_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  FilePatcher_PatchFileBsdiff_ForwardToCallback(
-      FilePatcher::PatchFileBsdiffCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  FilePatcher_PatchFileBsdiff_ForwardToCallback(const FilePatcher_PatchFileBsdiff_ForwardToCallback&) = delete;
-  FilePatcher_PatchFileBsdiff_ForwardToCallback& operator=(const FilePatcher_PatchFileBsdiff_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  FilePatcher::PatchFileBsdiffCallback callback_;
-};
-
-class FilePatcher_PatchFileCourgette_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  FilePatcher_PatchFileCourgette_ForwardToCallback(
-      FilePatcher::PatchFileCourgetteCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  FilePatcher_PatchFileCourgette_ForwardToCallback(const FilePatcher_PatchFileCourgette_ForwardToCallback&) = delete;
-  FilePatcher_PatchFileCourgette_ForwardToCallback& operator=(const FilePatcher_PatchFileCourgette_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  FilePatcher::PatchFileCourgetteCallback callback_;
-};
 
 class FilePatcher_PatchFilePuffPatch_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -190,160 +119,6 @@ FilePatcherProxy::FilePatcherProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
-void FilePatcherProxy::PatchFileBsdiff(
-    ::base::File in_input_file, ::base::File in_patch_file, ::base::File in_output_file, PatchFileBsdiffCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send patch::mojom::FilePatcher::PatchFileBsdiff", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("input_file"), in_input_file,
-                        "<value of type ::base::File>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("patch_file"), in_patch_file,
-                        "<value of type ::base::File>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("output_file"), in_output_file,
-                        "<value of type ::base::File>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kFilePatcher_PatchFileBsdiff_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::patch::mojom::internal::FilePatcher_PatchFileBsdiff_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->input_file)::BaseType> input_file_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::ReadOnlyFileDataView>(
-      in_input_file, input_file_fragment);
-  params->input_file.Set(
-      input_file_fragment.is_null() ? nullptr : input_file_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->input_file.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null input_file in FilePatcher.PatchFileBsdiff request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->patch_file)::BaseType> patch_file_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::ReadOnlyFileDataView>(
-      in_patch_file, patch_file_fragment);
-  params->patch_file.Set(
-      patch_file_fragment.is_null() ? nullptr : patch_file_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->patch_file.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null patch_file in FilePatcher.PatchFileBsdiff request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->output_file)::BaseType> output_file_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::FileDataView>(
-      in_output_file, output_file_fragment);
-  params->output_file.Set(
-      output_file_fragment.is_null() ? nullptr : output_file_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->output_file.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null output_file in FilePatcher.PatchFileBsdiff request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(FilePatcher::Name_);
-  message.set_method_name("PatchFileBsdiff");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new FilePatcher_PatchFileBsdiff_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void FilePatcherProxy::PatchFileCourgette(
-    ::base::File in_input_file, ::base::File in_patch_file, ::base::File in_output_file, PatchFileCourgetteCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send patch::mojom::FilePatcher::PatchFileCourgette", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("input_file"), in_input_file,
-                        "<value of type ::base::File>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("patch_file"), in_patch_file,
-                        "<value of type ::base::File>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("output_file"), in_output_file,
-                        "<value of type ::base::File>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kFilePatcher_PatchFileCourgette_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::patch::mojom::internal::FilePatcher_PatchFileCourgette_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->input_file)::BaseType> input_file_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::ReadOnlyFileDataView>(
-      in_input_file, input_file_fragment);
-  params->input_file.Set(
-      input_file_fragment.is_null() ? nullptr : input_file_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->input_file.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null input_file in FilePatcher.PatchFileCourgette request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->patch_file)::BaseType> patch_file_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::ReadOnlyFileDataView>(
-      in_patch_file, patch_file_fragment);
-  params->patch_file.Set(
-      patch_file_fragment.is_null() ? nullptr : patch_file_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->patch_file.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null patch_file in FilePatcher.PatchFileCourgette request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->output_file)::BaseType> output_file_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::FileDataView>(
-      in_output_file, output_file_fragment);
-  params->output_file.Set(
-      output_file_fragment.is_null() ? nullptr : output_file_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->output_file.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null output_file in FilePatcher.PatchFileCourgette request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(FilePatcher::Name_);
-  message.set_method_name("PatchFileCourgette");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new FilePatcher_PatchFileCourgette_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
 void FilePatcherProxy::PatchFilePuffPatch(
     ::base::File in_input_file, ::base::File in_patch_file, ::base::File in_output_file, PatchFilePuffPatchCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -362,14 +137,17 @@ void FilePatcherProxy::PatchFilePuffPatch(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFilePatcher_PatchFilePuffPatch_Name, kFlags, 0, 0, nullptr);
@@ -419,242 +197,6 @@ void FilePatcherProxy::PatchFilePuffPatch(
       new FilePatcher_PatchFilePuffPatch_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-class FilePatcher_PatchFileBsdiff_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static FilePatcher::PatchFileBsdiffCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<FilePatcher_PatchFileBsdiff_ProxyToResponder> proxy(
-        new FilePatcher_PatchFileBsdiff_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&FilePatcher_PatchFileBsdiff_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~FilePatcher_PatchFileBsdiff_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  FilePatcher_PatchFileBsdiff_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "FilePatcher::PatchFileBsdiffCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      int32_t in_result);
-};
-
-bool FilePatcher_PatchFileBsdiff_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::FilePatcher_PatchFileBsdiff_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::FilePatcher_PatchFileBsdiff_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  int32_t p_result{};
-  FilePatcher_PatchFileBsdiff_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_result = input_data_view.result();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        FilePatcher::Name_, 0, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_result));
-  return true;
-}
-
-void FilePatcher_PatchFileBsdiff_ProxyToResponder::Run(
-    int32_t in_result) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply patch::mojom::FilePatcher::PatchFileBsdiff", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type int32_t>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kFilePatcher_PatchFileBsdiff_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::patch::mojom::internal::FilePatcher_PatchFileBsdiff_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->result = in_result;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(FilePatcher::Name_);
-  message.set_method_name("PatchFileBsdiff");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class FilePatcher_PatchFileCourgette_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static FilePatcher::PatchFileCourgetteCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<FilePatcher_PatchFileCourgette_ProxyToResponder> proxy(
-        new FilePatcher_PatchFileCourgette_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&FilePatcher_PatchFileCourgette_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~FilePatcher_PatchFileCourgette_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  FilePatcher_PatchFileCourgette_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "FilePatcher::PatchFileCourgetteCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      int32_t in_result);
-};
-
-bool FilePatcher_PatchFileCourgette_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::FilePatcher_PatchFileCourgette_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::FilePatcher_PatchFileCourgette_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  int32_t p_result{};
-  FilePatcher_PatchFileCourgette_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_result = input_data_view.result();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        FilePatcher::Name_, 1, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_result));
-  return true;
-}
-
-void FilePatcher_PatchFileCourgette_ProxyToResponder::Run(
-    int32_t in_result) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply patch::mojom::FilePatcher::PatchFileCourgette", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type int32_t>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kFilePatcher_PatchFileCourgette_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::patch::mojom::internal::FilePatcher_PatchFileCourgette_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->result = in_result;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(FilePatcher::Name_);
-  message.set_method_name("PatchFileCourgette");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
 }
 class FilePatcher_PatchFilePuffPatch_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -724,7 +266,7 @@ bool FilePatcher_PatchFilePuffPatch_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        FilePatcher::Name_, 2, true);
+        FilePatcher::Name_, 0, true);
     return false;
   }
   if (!callback_.is_null())
@@ -748,7 +290,8 @@ void FilePatcher_PatchFilePuffPatch_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFilePatcher_PatchFilePuffPatch_Name, kFlags, 0, 0, nullptr);
@@ -780,12 +323,6 @@ bool FilePatcherStubDispatch::Accept(
     FilePatcher* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kFilePatcher_PatchFileBsdiff_Name: {
-      break;
-    }
-    case internal::kFilePatcher_PatchFileCourgette_Name: {
-      break;
-    }
     case internal::kFilePatcher_PatchFilePuffPatch_Name: {
       break;
     }
@@ -802,80 +339,6 @@ bool FilePatcherStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kFilePatcher_PatchFileBsdiff_Name: {
-
-      internal::FilePatcher_PatchFileBsdiff_Params_Data* params =
-          reinterpret_cast<
-              internal::FilePatcher_PatchFileBsdiff_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::base::File p_input_file{};
-      ::base::File p_patch_file{};
-      ::base::File p_output_file{};
-      FilePatcher_PatchFileBsdiff_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadInputFile(&p_input_file))
-        success = false;
-      if (success && !input_data_view.ReadPatchFile(&p_patch_file))
-        success = false;
-      if (success && !input_data_view.ReadOutputFile(&p_output_file))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FilePatcher::Name_, 0, false);
-        return false;
-      }
-      FilePatcher::PatchFileBsdiffCallback callback =
-          FilePatcher_PatchFileBsdiff_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->PatchFileBsdiff(
-std::move(p_input_file), 
-std::move(p_patch_file), 
-std::move(p_output_file), std::move(callback));
-      return true;
-    }
-    case internal::kFilePatcher_PatchFileCourgette_Name: {
-
-      internal::FilePatcher_PatchFileCourgette_Params_Data* params =
-          reinterpret_cast<
-              internal::FilePatcher_PatchFileCourgette_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::base::File p_input_file{};
-      ::base::File p_patch_file{};
-      ::base::File p_output_file{};
-      FilePatcher_PatchFileCourgette_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadInputFile(&p_input_file))
-        success = false;
-      if (success && !input_data_view.ReadPatchFile(&p_patch_file))
-        success = false;
-      if (success && !input_data_view.ReadOutputFile(&p_output_file))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FilePatcher::Name_, 1, false);
-        return false;
-      }
-      FilePatcher::PatchFileCourgetteCallback callback =
-          FilePatcher_PatchFileCourgette_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->PatchFileCourgette(
-std::move(p_input_file), 
-std::move(p_patch_file), 
-std::move(p_output_file), std::move(callback));
-      return true;
-    }
     case internal::kFilePatcher_PatchFilePuffPatch_Name: {
 
       internal::FilePatcher_PatchFilePuffPatch_Params_Data* params =
@@ -899,7 +362,7 @@ std::move(p_output_file), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FilePatcher::Name_, 2, false);
+            FilePatcher::Name_, 0, false);
         return false;
       }
       FilePatcher::PatchFilePuffPatchCallback callback =
@@ -916,14 +379,10 @@ std::move(p_output_file), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFilePatcherValidationInfo[] = {
-    {&internal::FilePatcher_PatchFileBsdiff_Params_Data::Validate,
-     &internal::FilePatcher_PatchFileBsdiff_ResponseParams_Data::Validate},
-    {&internal::FilePatcher_PatchFileCourgette_Params_Data::Validate,
-     &internal::FilePatcher_PatchFileCourgette_ResponseParams_Data::Validate},
-    {&internal::FilePatcher_PatchFilePuffPatch_Params_Data::Validate,
+    { &internal::FilePatcher_PatchFilePuffPatch_Params_Data::Validate,
      &internal::FilePatcher_PatchFilePuffPatch_ResponseParams_Data::Validate},
 };
 
@@ -953,12 +412,6 @@ namespace mojo {
 namespace patch::mojom {
 
 
-void FilePatcherInterceptorForTesting::PatchFileBsdiff(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFileBsdiffCallback callback) {
-  GetForwardingInterface()->PatchFileBsdiff(std::move(input_file), std::move(patch_file), std::move(output_file), std::move(callback));
-}
-void FilePatcherInterceptorForTesting::PatchFileCourgette(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFileCourgetteCallback callback) {
-  GetForwardingInterface()->PatchFileCourgette(std::move(input_file), std::move(patch_file), std::move(output_file), std::move(callback));
-}
 void FilePatcherInterceptorForTesting::PatchFilePuffPatch(::base::File input_file, ::base::File patch_file, ::base::File output_file, PatchFilePuffPatchCallback callback) {
   GetForwardingInterface()->PatchFilePuffPatch(std::move(input_file), std::move(patch_file), std::move(output_file), std::move(callback));
 }
@@ -966,52 +419,6 @@ FilePatcherAsyncWaiter::FilePatcherAsyncWaiter(
     FilePatcher* proxy) : proxy_(proxy) {}
 
 FilePatcherAsyncWaiter::~FilePatcherAsyncWaiter() = default;
-
-void FilePatcherAsyncWaiter::PatchFileBsdiff(
-    ::base::File input_file, ::base::File patch_file, ::base::File output_file, int32_t* out_result) {
-  base::RunLoop loop;
-  proxy_->PatchFileBsdiff(std::move(input_file),std::move(patch_file),std::move(output_file),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             int32_t* out_result
-,
-             int32_t result) {*out_result = std::move(result);
-            loop->Quit();
-          },
-          &loop,
-          out_result));
-  loop.Run();
-}
-
-int32_t FilePatcherAsyncWaiter::PatchFileBsdiff(
-    ::base::File input_file, ::base::File patch_file, ::base::File output_file) {
-  int32_t async_wait_result;
-  PatchFileBsdiff(std::move(input_file),std::move(patch_file),std::move(output_file),&async_wait_result);
-  return async_wait_result;
-}
-
-void FilePatcherAsyncWaiter::PatchFileCourgette(
-    ::base::File input_file, ::base::File patch_file, ::base::File output_file, int32_t* out_result) {
-  base::RunLoop loop;
-  proxy_->PatchFileCourgette(std::move(input_file),std::move(patch_file),std::move(output_file),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             int32_t* out_result
-,
-             int32_t result) {*out_result = std::move(result);
-            loop->Quit();
-          },
-          &loop,
-          out_result));
-  loop.Run();
-}
-
-int32_t FilePatcherAsyncWaiter::PatchFileCourgette(
-    ::base::File input_file, ::base::File patch_file, ::base::File output_file) {
-  int32_t async_wait_result;
-  PatchFileCourgette(std::move(input_file),std::move(patch_file),std::move(output_file),&async_wait_result);
-  return async_wait_result;
-}
 
 void FilePatcherAsyncWaiter::PatchFilePuffPatch(
     ::base::File input_file, ::base::File patch_file, ::base::File output_file, int32_t* out_result) {

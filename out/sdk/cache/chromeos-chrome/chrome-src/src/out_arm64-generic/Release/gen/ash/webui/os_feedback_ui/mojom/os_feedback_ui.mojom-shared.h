@@ -394,6 +394,9 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  bool wifi_debug_logs_allowed() const {
+    return data_->wifi_debug_logs_allowed;
+  }
   bool has_linked_cross_device_phone() const {
     return data_->has_linked_cross_device_phone;
   }
@@ -598,6 +601,9 @@ static_assert(
   }
   bool send_bluetooth_logs() const {
     return data_->send_bluetooth_logs;
+  }
+  bool send_wifi_debug_logs() const {
+    return data_->send_wifi_debug_logs;
   }
   bool include_autofill_metadata() const {
     return data_->include_autofill_metadata;
@@ -923,6 +929,7 @@ struct Serializer<::ash::os_feedback_ui::mojom::FeedbackContextDataView, MaybeCo
         in_email, email_fragment);
     fragment->email.Set(
         email_fragment.is_null() ? nullptr : email_fragment.data());
+    fragment->wifi_debug_logs_allowed = Traits::wifi_debug_logs_allowed(input);
     fragment->has_linked_cross_device_phone = Traits::has_linked_cross_device_phone(input);
     fragment->is_internal_account = Traits::is_internal_account(input);
     fragment->from_assistant = Traits::from_assistant(input);
@@ -1078,6 +1085,7 @@ struct Serializer<::ash::os_feedback_ui::mojom::ReportDataView, MaybeConstUserTy
     fragment->include_screenshot = Traits::include_screenshot(input);
     fragment->contact_user_consent_granted = Traits::contact_user_consent_granted(input);
     fragment->send_bluetooth_logs = Traits::send_bluetooth_logs(input);
+    fragment->send_wifi_debug_logs = Traits::send_wifi_debug_logs(input);
     fragment->include_autofill_metadata = Traits::include_autofill_metadata(input);
   }
 

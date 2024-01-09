@@ -143,39 +143,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequest_Re
 };
 static_assert(sizeof(FederatedAuthRequest_ResolveTokenRequest_ResponseParams_Data) == 16,
               "Bad sizeof(FederatedAuthRequest_ResolveTokenRequest_ResponseParams_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequest_LogoutRps_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::LogoutRpsRequest_Data>>> rp_logout_requests;
-
- private:
-  friend class mojo::internal::MessageFragment<FederatedAuthRequest_LogoutRps_Params_Data>;
-
-  FederatedAuthRequest_LogoutRps_Params_Data();
-  ~FederatedAuthRequest_LogoutRps_Params_Data() = delete;
-};
-static_assert(sizeof(FederatedAuthRequest_LogoutRps_Params_Data) == 16,
-              "Bad sizeof(FederatedAuthRequest_LogoutRps_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequest_LogoutRps_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t status;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<FederatedAuthRequest_LogoutRps_ResponseParams_Data>;
-
-  FederatedAuthRequest_LogoutRps_ResponseParams_Data();
-  ~FederatedAuthRequest_LogoutRps_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(FederatedAuthRequest_LogoutRps_ResponseParams_Data) == 16,
-              "Bad sizeof(FederatedAuthRequest_LogoutRps_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequest_SetIdpSigninStatus_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -305,6 +272,39 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequest_Pr
 };
 static_assert(sizeof(FederatedAuthRequest_PreventSilentAccess_ResponseParams_Data) == 8,
               "Bad sizeof(FederatedAuthRequest_PreventSilentAccess_ResponseParams_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequest_Disconnect_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::IdentityCredentialDisconnectOptions_Data> options;
+
+ private:
+  friend class mojo::internal::MessageFragment<FederatedAuthRequest_Disconnect_Params_Data>;
+
+  FederatedAuthRequest_Disconnect_Params_Data();
+  ~FederatedAuthRequest_Disconnect_Params_Data() = delete;
+};
+static_assert(sizeof(FederatedAuthRequest_Disconnect_Params_Data) == 16,
+              "Bad sizeof(FederatedAuthRequest_Disconnect_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequest_Disconnect_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t status;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<FederatedAuthRequest_Disconnect_ResponseParams_Data>;
+
+  FederatedAuthRequest_Disconnect_ResponseParams_Data();
+  ~FederatedAuthRequest_Disconnect_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(FederatedAuthRequest_Disconnect_ResponseParams_Data) == 16,
+              "Bad sizeof(FederatedAuthRequest_Disconnect_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -565,57 +565,6 @@ class FederatedAuthRequest_ResolveTokenRequest_ResponseParamsDataView {
 };
 
 
-class FederatedAuthRequest_LogoutRps_ParamsDataView {
- public:
-  FederatedAuthRequest_LogoutRps_ParamsDataView() = default;
-
-  FederatedAuthRequest_LogoutRps_ParamsDataView(
-      internal::FederatedAuthRequest_LogoutRps_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetRpLogoutRequestsDataView(
-      mojo::ArrayDataView<LogoutRpsRequestDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadRpLogoutRequests(UserType* output) {
-    
-    auto* pointer = data_->rp_logout_requests.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::LogoutRpsRequestDataView>>(
-        pointer, output, message_);
-  }
- private:
-  internal::FederatedAuthRequest_LogoutRps_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class FederatedAuthRequest_LogoutRps_ResponseParamsDataView {
- public:
-  FederatedAuthRequest_LogoutRps_ResponseParamsDataView() = default;
-
-  FederatedAuthRequest_LogoutRps_ResponseParamsDataView(
-      internal::FederatedAuthRequest_LogoutRps_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadStatus(UserType* output) const {
-    auto data_value = data_->status;
-    return mojo::internal::Deserialize<::blink::mojom::LogoutRpsStatus>(
-        data_value, output);
-  }
-  LogoutRpsStatus status() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::blink::mojom::LogoutRpsStatus>(data_->status));
-  }
- private:
-  internal::FederatedAuthRequest_LogoutRps_ResponseParams_Data* data_ = nullptr;
-};
-
-
 class FederatedAuthRequest_SetIdpSigninStatus_ParamsDataView {
  public:
   FederatedAuthRequest_SetIdpSigninStatus_ParamsDataView() = default;
@@ -784,6 +733,57 @@ class FederatedAuthRequest_PreventSilentAccess_ResponseParamsDataView {
   internal::FederatedAuthRequest_PreventSilentAccess_ResponseParams_Data* data_ = nullptr;
 };
 
+
+class FederatedAuthRequest_Disconnect_ParamsDataView {
+ public:
+  FederatedAuthRequest_Disconnect_ParamsDataView() = default;
+
+  FederatedAuthRequest_Disconnect_ParamsDataView(
+      internal::FederatedAuthRequest_Disconnect_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetOptionsDataView(
+      IdentityCredentialDisconnectOptionsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOptions(UserType* output) {
+    
+    auto* pointer = data_->options.Get();
+    return mojo::internal::Deserialize<::blink::mojom::IdentityCredentialDisconnectOptionsDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::FederatedAuthRequest_Disconnect_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class FederatedAuthRequest_Disconnect_ResponseParamsDataView {
+ public:
+  FederatedAuthRequest_Disconnect_ResponseParamsDataView() = default;
+
+  FederatedAuthRequest_Disconnect_ResponseParamsDataView(
+      internal::FederatedAuthRequest_Disconnect_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::blink::mojom::DisconnectStatus>(
+        data_value, output);
+  }
+  DisconnectStatus status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::DisconnectStatus>(data_->status));
+  }
+ private:
+  internal::FederatedAuthRequest_Disconnect_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void FederatedAuthRequest_RequestToken_ParamsDataView::GetIdpGetParamsDataView(
     mojo::ArrayDataView<IdentityProviderGetParametersDataView>* output) {
   auto pointer = data_->idp_get_params.Get();
@@ -833,15 +833,6 @@ inline void FederatedAuthRequest_ResolveTokenRequest_ParamsDataView::GetTokenDat
 
 
 
-inline void FederatedAuthRequest_LogoutRps_ParamsDataView::GetRpLogoutRequestsDataView(
-    mojo::ArrayDataView<LogoutRpsRequestDataView>* output) {
-  auto pointer = data_->rp_logout_requests.Get();
-  *output = mojo::ArrayDataView<LogoutRpsRequestDataView>(pointer, message_);
-}
-
-
-
-
 inline void FederatedAuthRequest_SetIdpSigninStatus_ParamsDataView::GetOriginDataView(
     ::url::mojom::OriginDataView* output) {
   auto pointer = data_->origin.Get();
@@ -869,6 +860,15 @@ inline void FederatedAuthRequest_UnregisterIdP_ParamsDataView::GetUrlDataView(
 
 
 
+
+
+
+
+inline void FederatedAuthRequest_Disconnect_ParamsDataView::GetOptionsDataView(
+    IdentityCredentialDisconnectOptionsDataView* output) {
+  auto pointer = data_->options.Get();
+  *output = IdentityCredentialDisconnectOptionsDataView(pointer, message_);
+}
 
 
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/webauthn/virtual_authenticator.mojom-features.h"
 #include "third_party/blink/public/mojom/webauthn/virtual_authenticator.mojom-shared.h"
 #include "third_party/blink/public/mojom/webauthn/virtual_authenticator.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/webauthn/authenticator.mojom-blink-forward.h"
@@ -39,30 +40,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::test::mojom::ClientToAuthenticatorProtocol>
-    : EnumHashTraits<::blink::test::mojom::ClientToAuthenticatorProtocol, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::test::mojom::Ctap2Version>
-    : EnumHashTraits<::blink::test::mojom::Ctap2Version, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::test::mojom::blink {
@@ -163,7 +140,7 @@ class PLATFORM_EXPORT VirtualAuthenticator
   virtual void ClearRegistrations(ClearRegistrationsCallback callback) = 0;
 
 
-  using GetLargeBlobCallback = base::OnceCallback<void(const absl::optional<WTF::Vector<uint8_t>>&)>;
+  using GetLargeBlobCallback = base::OnceCallback<void(const std::optional<WTF::Vector<uint8_t>>&)>;
   
   virtual void GetLargeBlob(const WTF::Vector<uint8_t>& key_handle, GetLargeBlobCallback callback) = 0;
 
@@ -446,7 +423,9 @@ class PLATFORM_EXPORT VirtualAuthenticatorOptions {
       bool has_large_blob,
       bool has_cred_blob,
       bool has_min_pin_length,
-      bool has_prf);
+      bool has_prf,
+      bool default_backup_eligibility,
+      bool default_backup_state);
 
 
   ~VirtualAuthenticatorOptions();
@@ -546,6 +525,10 @@ class PLATFORM_EXPORT VirtualAuthenticatorOptions {
   bool has_min_pin_length;
   
   bool has_prf;
+  
+  bool default_backup_eligibility;
+  
+  bool default_backup_state;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -738,7 +721,9 @@ VirtualAuthenticatorOptionsPtr VirtualAuthenticatorOptions::Clone() const {
       mojo::Clone(has_large_blob),
       mojo::Clone(has_cred_blob),
       mojo::Clone(has_min_pin_length),
-      mojo::Clone(has_prf)
+      mojo::Clone(has_prf),
+      mojo::Clone(default_backup_eligibility),
+      mojo::Clone(default_backup_state)
   );
 }
 
@@ -765,6 +750,10 @@ bool VirtualAuthenticatorOptions::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->has_min_pin_length, other_struct.has_min_pin_length))
     return false;
   if (!mojo::Equals(this->has_prf, other_struct.has_prf))
+    return false;
+  if (!mojo::Equals(this->default_backup_eligibility, other_struct.default_backup_eligibility))
+    return false;
+  if (!mojo::Equals(this->default_backup_state, other_struct.default_backup_state))
     return false;
   return true;
 }
@@ -814,6 +803,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.has_prf < rhs.has_prf)
     return true;
   if (rhs.has_prf < lhs.has_prf)
+    return false;
+  if (lhs.default_backup_eligibility < rhs.default_backup_eligibility)
+    return true;
+  if (rhs.default_backup_eligibility < lhs.default_backup_eligibility)
+    return false;
+  if (lhs.default_backup_state < rhs.default_backup_state)
+    return true;
+  if (rhs.default_backup_state < lhs.default_backup_state)
     return false;
   return false;
 }
@@ -926,6 +923,16 @@ struct PLATFORM_EXPORT StructTraits<::blink::test::mojom::blink::VirtualAuthenti
   static decltype(::blink::test::mojom::blink::VirtualAuthenticatorOptions::has_prf) has_prf(
       const ::blink::test::mojom::blink::VirtualAuthenticatorOptionsPtr& input) {
     return input->has_prf;
+  }
+
+  static decltype(::blink::test::mojom::blink::VirtualAuthenticatorOptions::default_backup_eligibility) default_backup_eligibility(
+      const ::blink::test::mojom::blink::VirtualAuthenticatorOptionsPtr& input) {
+    return input->default_backup_eligibility;
+  }
+
+  static decltype(::blink::test::mojom::blink::VirtualAuthenticatorOptions::default_backup_state) default_backup_state(
+      const ::blink::test::mojom::blink::VirtualAuthenticatorOptionsPtr& input) {
+    return input->default_backup_state;
   }
 
   static bool Read(::blink::test::mojom::blink::VirtualAuthenticatorOptions::DataView input, ::blink::test::mojom::blink::VirtualAuthenticatorOptionsPtr* output);

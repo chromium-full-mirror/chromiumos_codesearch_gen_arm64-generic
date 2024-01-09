@@ -8,9 +8,6 @@ const mocha_extensions_js_1 = require("../../../../shared/mocha-extensions.js");
 const screenshots_js_1 = require("../../../../shared/screenshots.js");
 const shared_js_1 = require("../../../helpers/shared.js");
 (0, mocha_extensions_js_1.describe)('Perf Panel Main Thread', function () {
-    // TODO(crbug.com/1492405): Improve perf panel trace load speed to
-    // prevent timeout bump.
-    this.timeout(20_000);
     (0, shared_js_1.preloadForCodeCoverage)('performance_panel/flamechart.html');
     (0, mocha_extensions_js_1.itScreenshot)('renders some events onto the timeline', async () => {
         await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=one-second-interaction');
@@ -40,7 +37,7 @@ const shared_js_1 = require("../../../helpers/shared.js");
         await (0, screenshots_js_1.assertElementScreenshotUnchanged)(flameChart, 'performance/iframe-main-thread-long-task-candy-stripe.png');
     });
 });
-(0, mocha_extensions_js_1.describe)('Rasterizer', () => {
+(0, mocha_extensions_js_1.describe)('Rasterizer', function () {
     (0, shared_js_1.preloadForCodeCoverage)('performance_panel/track_example.html');
     (0, mocha_extensions_js_1.itScreenshot)('correctly renders the Raster track', async () => {
         const urlForTest = 'performance_panel/track_example.html?track=Thread&fileName=web-dev&trackFilter=Raster&windowStart=1020034891.352&windowEnd=1020035181.509';
@@ -49,7 +46,10 @@ const shared_js_1 = require("../../../helpers/shared.js");
         await (0, screenshots_js_1.assertElementScreenshotUnchanged)(flameChart, 'performance/rasterizer-track.png');
     });
 });
-(0, mocha_extensions_js_1.describe)('Workers', () => {
+(0, mocha_extensions_js_1.describe)('Workers', function () {
+    // TODO(crbug.com/1472155): Improve perf panel trace load speed to
+    // prevent timeout bump.
+    this.timeout(20_000);
     (0, shared_js_1.preloadForCodeCoverage)('performance_panel/track_example.html');
     (0, mocha_extensions_js_1.itScreenshot)('correctly renders the Worker track', async () => {
         const urlForTest = 'performance_panel/track_example.html?track=Thread&fileName=two-workers&trackFilter=Worker&windowStart=107351290.697&windowEnd=107351401.004';
@@ -60,10 +60,19 @@ const shared_js_1 = require("../../../helpers/shared.js");
         });
     });
 });
+(0, mocha_extensions_js_1.describe)('ThreadPool', () => {
+    (0, shared_js_1.preloadForCodeCoverage)('performance_panel/track_example.html');
+    (0, mocha_extensions_js_1.itScreenshot)('correctly renders the threadpool track', async () => {
+        const urlForTest = 'performance_panel/track_example.html?track=Thread&fileName=web-dev&trackFilter=Thread&windowStart=1020034891.352&windowEnd=1020035181.509';
+        await (0, shared_js_1.loadComponentDocExample)(`${urlForTest}&expanded=true`);
+        const flameChart = await (0, helper_js_1.waitFor)('.flame-chart-main-pane');
+        await (0, screenshots_js_1.assertElementScreenshotUnchanged)(flameChart, 'performance/threadpool-track.png');
+    });
+});
 (0, mocha_extensions_js_1.describe)('Other', () => {
     (0, shared_js_1.preloadForCodeCoverage)('performance_panel/track_example.html');
     (0, mocha_extensions_js_1.itScreenshot)('correctly renders tracks for generic threads with no specific type', async () => {
-        const urlForTest = 'performance_panel/track_example.html?track=Thread&fileName=web-dev&trackFilter=ForegroundWorker&windowStart=1020035010.258&windowEnd=1020035076.320';
+        const urlForTest = 'performance_panel/track_example.html?track=Thread&fileName=web-dev&trackFilter=IOThread&windowStart=1020035010.258&windowEnd=1020035076.320';
         await (0, shared_js_1.loadComponentDocExample)(`${urlForTest}&expanded=true`);
         const flameChart = await (0, helper_js_1.waitFor)('.flame-chart-main-pane');
         await (0, screenshots_js_1.assertElementScreenshotUnchanged)(flameChart, 'performance/other-thread.png');

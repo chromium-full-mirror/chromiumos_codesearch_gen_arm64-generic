@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRRigidTransform>::value,
     "XRRigidTransform inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRRigidTransform::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRRigidTransform is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRRigidTransform.position.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRRigidTransform* blink_receiver = V8XRRigidTransform::ToWrappableUnsafe(v8_receiver);
+XRRigidTransform* blink_receiver = V8XRRigidTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->position();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRRigidTransform.orientation.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRRigidTransform* blink_receiver = V8XRRigidTransform::ToWrappableUnsafe(v8_receiver);
+XRRigidTransform* blink_receiver = V8XRRigidTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->orientation();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -122,7 +119,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRRigidTransform* blink_receiver = V8XRRigidTransform::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+XRRigidTransform* blink_receiver = V8XRRigidTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->matrix();
 if (!ToV8Traits<NotShared<DOMFloat32Array>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -138,8 +136,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRRigidTransform.inverse.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRRigidTransform* blink_receiver = V8XRRigidTransform::ToWrappableUnsafe(v8_receiver);
+XRRigidTransform* blink_receiver = V8XRRigidTransform::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inverse();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

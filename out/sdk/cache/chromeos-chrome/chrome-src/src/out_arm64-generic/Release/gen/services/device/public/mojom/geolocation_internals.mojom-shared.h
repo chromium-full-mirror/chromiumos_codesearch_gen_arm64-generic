@@ -305,7 +305,7 @@ static_assert(
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
         pointer, output, message_);
   }
-  absl::optional<double> hit_rate() const {
+  std::optional<double> hit_rate() const {
 
     return data_->hit_rate_$flag
         ? absl::make_optional(data_->hit_rate_$value)
@@ -535,7 +535,7 @@ class NetworkLocationResponseDataView {
   double longitude() const {
     return data_->longitude;
   }
-  absl::optional<double> accuracy() const {
+  std::optional<double> accuracy() const {
 
     return data_->accuracy_$flag
         ? absl::make_optional(data_->accuracy_$value)

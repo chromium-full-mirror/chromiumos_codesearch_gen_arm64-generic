@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/runtime_probe-0.0.1-r1355/work/runtime_probe-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -41,11 +41,8 @@ build lib: phony obj/runtime_probe/lib.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build sandbox: phony obj/runtime_probe/sandbox/sandbox.stamp
 build system_base: phony obj/runtime_probe/system/system_base.stamp
-build testrunner: phony ./libtestrunner.a
 build utils: phony obj/runtime_probe/utils/utils.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build runtime_probe$:_runtime_probe-install_config: phony obj/runtime_probe/_runtime_probe-install_config.stamp
 build runtime_probe$:all: phony obj/runtime_probe/all.stamp
 build runtime_probe$:daemon: phony obj/runtime_probe/daemon.stamp
@@ -53,17 +50,14 @@ build runtime_probe$:dbus-adaptors: phony obj/runtime_probe/dbus-adaptors.stamp
 build runtime_probe$:install_minijail_conf: phony obj/runtime_probe/install_minijail_conf.stamp
 build runtime_probe$:lib: phony obj/runtime_probe/lib.stamp
 build runtime_probe$:runtime_probe: phony ./runtime_probe
-build runtime_probe$:unittest_runner: phony ./unittest_runner
 build runtime_probe/dbus$:dbus: phony obj/runtime_probe/dbus/dbus.stamp
 build runtime_probe/dbus: phony obj/runtime_probe/dbus/dbus.stamp
 build runtime_probe/dbus$:install_dbus_config: phony obj/runtime_probe/dbus/install_dbus_config.stamp
 build runtime_probe/dbus$:install_dbus_service_activation_config: phony obj/runtime_probe/dbus/install_dbus_service_activation_config.stamp
 build runtime_probe/function_templates$:function_templates: phony obj/runtime_probe/function_templates/function_templates.stamp
 build runtime_probe/function_templates: phony obj/runtime_probe/function_templates/function_templates.stamp
-build runtime_probe/function_templates$:test: phony obj/runtime_probe/function_templates/test.stamp
 build runtime_probe/functions$:functions: phony obj/runtime_probe/functions/functions.stamp
 build runtime_probe/functions: phony obj/runtime_probe/functions/functions.stamp
-build runtime_probe/functions$:test: phony obj/runtime_probe/functions/test.stamp
 build runtime_probe/init$:_install_seccomp-check_seccomp: phony obj/runtime_probe/init/_install_seccomp-check_seccomp.stamp
 build runtime_probe/init$:init: phony obj/runtime_probe/init/init.stamp
 build runtime_probe/init: phony obj/runtime_probe/init/init.stamp
@@ -78,15 +72,11 @@ build runtime_probe/system$:context_factory: phony obj/runtime_probe/system/cont
 build runtime_probe/system$:context_production: phony obj/runtime_probe/system/context_production.stamp
 build runtime_probe/system$:helper_invoker_direct: phony obj/runtime_probe/system/helper_invoker_direct.stamp
 build runtime_probe/system$:system_base: phony obj/runtime_probe/system/system_base.stamp
-build runtime_probe/system$:test_utils: phony obj/runtime_probe/system/test_utils.stamp
-build runtime_probe/utils$:test: phony obj/runtime_probe/utils/test.stamp
-build runtime_probe/utils$:test_utils: phony obj/runtime_probe/utils/test_utils.stamp
 build runtime_probe/utils$:utils: phony obj/runtime_probe/utils/utils.stamp
 build runtime_probe/utils: phony obj/runtime_probe/utils/utils.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/runtime_probe/_runtime_probe-install_config.stamp $
     obj/runtime_probe/all.stamp $
     obj/runtime_probe/daemon.stamp $
@@ -94,14 +84,11 @@ build all: phony $
     obj/runtime_probe/install_minijail_conf.stamp $
     obj/runtime_probe/lib.stamp $
     ./runtime_probe $
-    ./unittest_runner $
     obj/runtime_probe/dbus/dbus.stamp $
     obj/runtime_probe/dbus/install_dbus_config.stamp $
     obj/runtime_probe/dbus/install_dbus_service_activation_config.stamp $
     obj/runtime_probe/function_templates/function_templates.stamp $
-    obj/runtime_probe/function_templates/test.stamp $
     obj/runtime_probe/functions/functions.stamp $
-    obj/runtime_probe/functions/test.stamp $
     obj/runtime_probe/init/_install_seccomp-check_seccomp.stamp $
     obj/runtime_probe/init/init.stamp $
     obj/runtime_probe/init/install_init_config.stamp $
@@ -114,9 +101,6 @@ build all: phony $
     obj/runtime_probe/system/context_production.stamp $
     obj/runtime_probe/system/helper_invoker_direct.stamp $
     obj/runtime_probe/system/system_base.stamp $
-    obj/runtime_probe/system/test_utils.stamp $
-    obj/runtime_probe/utils/test.stamp $
-    obj/runtime_probe/utils/test_utils.stamp $
     obj/runtime_probe/utils/utils.stamp
 
 default all

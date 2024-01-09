@@ -618,11 +618,11 @@ class SessionHeader::_Internal {
   static void set_has_client_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static void set_has_device_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
   static void set_has_device_form_factor(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
+  }
+  static void set_has_device_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
   }
 };
 
@@ -1246,6 +1246,12 @@ class SessionTab::_Internal {
   static void set_has_extension_app_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_browser_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
+  static void set_has_last_active_time_unix_epoch_millis(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
   static void set_has_favicon(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -1254,12 +1260,6 @@ class SessionTab::_Internal {
   }
   static void set_has_favicon_source(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
-  }
-  static void set_has_browser_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
-  }
-  static void set_has_last_active_time_unix_epoch_millis(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
   }
 };
 
@@ -1889,26 +1889,32 @@ class TabNavigation::_Internal {
   static void set_has_navigation_home_page(HasBits* has_bits) {
     (*has_bits)[0] |= 8192u;
   }
+  static void set_has_global_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 131072u;
+  }
+  static void set_has_favicon_url(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_http_status_code(HasBits* has_bits) {
+    (*has_bits)[0] |= 262144u;
+  }
+  static void set_has_correct_referrer_policy(HasBits* has_bits) {
+    (*has_bits)[0] |= 4194304u;
+  }
+  static void set_has_password_state(HasBits* has_bits) {
+    (*has_bits)[0] |= 2097152u;
+  }
   static void set_has_navigation_chain_start(HasBits* has_bits) {
     (*has_bits)[0] |= 16384u;
   }
   static void set_has_navigation_chain_end(HasBits* has_bits) {
     (*has_bits)[0] |= 32768u;
   }
-  static void set_has_global_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 131072u;
-  }
   static void set_has_search_terms(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static void set_has_favicon_url(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
-  }
   static void set_has_blocked_state(HasBits* has_bits) {
     (*has_bits)[0] |= 16777216u;
-  }
-  static void set_has_http_status_code(HasBits* has_bits) {
-    (*has_bits)[0] |= 262144u;
   }
   static void set_has_obsolete_referrer_policy(HasBits* has_bits) {
     (*has_bits)[0] |= 524288u;
@@ -1918,12 +1924,6 @@ class TabNavigation::_Internal {
   }
   static void set_has_last_navigation_redirect_url(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
-  }
-  static void set_has_correct_referrer_policy(HasBits* has_bits) {
-    (*has_bits)[0] |= 4194304u;
-  }
-  static void set_has_password_state(HasBits* has_bits) {
-    (*has_bits)[0] |= 2097152u;
   }
   static void set_has_task_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1048576u;
@@ -2288,7 +2288,7 @@ const char* TabNavigation::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED];
+      // optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED, deprecated = true];
       case 18:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -2319,7 +2319,7 @@ const char* TabNavigation::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // optional bool is_restored = 22;
+      // optional bool is_restored = 22 [deprecated = true];
       case 22:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
           _Internal::set_has_is_restored(&has_bits);
@@ -2328,7 +2328,7 @@ const char* TabNavigation::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // repeated .sync_pb.NavigationRedirect navigation_redirect = 23;
+      // repeated .sync_pb.NavigationRedirect navigation_redirect = 23 [deprecated = true];
       case 23:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
           ptr -= 2;
@@ -2341,7 +2341,7 @@ const char* TabNavigation::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // optional string last_navigation_redirect_url = 24;
+      // optional string last_navigation_redirect_url = 24 [deprecated = true];
       case 24:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 194)) {
           auto str = _internal_mutable_last_navigation_redirect_url();
@@ -2372,7 +2372,7 @@ const char* TabNavigation::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // optional int64 task_id = 27;
+      // optional int64 task_id = 27 [deprecated = true];
       case 27:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 216)) {
           _Internal::set_has_task_id(&has_bits);
@@ -2381,7 +2381,7 @@ const char* TabNavigation::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // repeated int64 ancestor_task_id = 28;
+      // repeated int64 ancestor_task_id = 28 [deprecated = true];
       case 28:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
           ptr -= 2;
@@ -2397,7 +2397,7 @@ const char* TabNavigation::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // optional .sync_pb.ReplacedNavigation replaced_navigation = 29;
+      // optional .sync_pb.ReplacedNavigation replaced_navigation = 29 [deprecated = true];
       case 29:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 234)) {
           ptr = ctx->ParseMessage(_internal_mutable_replaced_navigation(), ptr);
@@ -2405,7 +2405,7 @@ const char* TabNavigation::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // optional string page_language = 30;
+      // optional string page_language = 30 [deprecated = true];
       case 30:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 242)) {
           auto str = _internal_mutable_page_language();
@@ -2537,7 +2537,7 @@ uint8_t* TabNavigation::_InternalSerialize(
         17, this->_internal_favicon_url(), target);
   }
 
-  // optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED];
+  // optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED, deprecated = true];
   if (cached_has_bits & 0x01000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
@@ -2556,13 +2556,13 @@ uint8_t* TabNavigation::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(21, this->_internal_obsolete_referrer_policy(), target);
   }
 
-  // optional bool is_restored = 22;
+  // optional bool is_restored = 22 [deprecated = true];
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(22, this->_internal_is_restored(), target);
   }
 
-  // repeated .sync_pb.NavigationRedirect navigation_redirect = 23;
+  // repeated .sync_pb.NavigationRedirect navigation_redirect = 23 [deprecated = true];
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_navigation_redirect_size()); i < n; i++) {
     const auto& repfield = this->_internal_navigation_redirect(i);
@@ -2570,7 +2570,7 @@ uint8_t* TabNavigation::_InternalSerialize(
         InternalWriteMessage(23, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // optional string last_navigation_redirect_url = 24;
+  // optional string last_navigation_redirect_url = 24 [deprecated = true];
   if (cached_has_bits & 0x00000020u) {
     target = stream->WriteStringMaybeAliased(
         24, this->_internal_last_navigation_redirect_url(), target);
@@ -2589,26 +2589,26 @@ uint8_t* TabNavigation::_InternalSerialize(
       26, this->_internal_password_state(), target);
   }
 
-  // optional int64 task_id = 27;
+  // optional int64 task_id = 27 [deprecated = true];
   if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(27, this->_internal_task_id(), target);
   }
 
-  // repeated int64 ancestor_task_id = 28;
+  // repeated int64 ancestor_task_id = 28 [deprecated = true];
   for (int i = 0, n = this->_internal_ancestor_task_id_size(); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(28, this->_internal_ancestor_task_id(i), target);
   }
 
-  // optional .sync_pb.ReplacedNavigation replaced_navigation = 29;
+  // optional .sync_pb.ReplacedNavigation replaced_navigation = 29 [deprecated = true];
   if (cached_has_bits & 0x00000080u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(29, _Internal::replaced_navigation(this),
         _Internal::replaced_navigation(this).GetCachedSize(), target, stream);
   }
 
-  // optional string page_language = 30;
+  // optional string page_language = 30 [deprecated = true];
   if (cached_has_bits & 0x00000040u) {
     target = stream->WriteStringMaybeAliased(
         30, this->_internal_page_language(), target);
@@ -2630,14 +2630,14 @@ size_t TabNavigation::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .sync_pb.NavigationRedirect navigation_redirect = 23;
+  // repeated .sync_pb.NavigationRedirect navigation_redirect = 23 [deprecated = true];
   total_size += 2UL * this->_internal_navigation_redirect_size();
   for (const auto& msg : this->navigation_redirect_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated int64 ancestor_task_id = 28;
+  // repeated int64 ancestor_task_id = 28 [deprecated = true];
   {
     size_t data_size = ::_pbi::WireFormatLite::
       Int64Size(this->ancestor_task_id_);
@@ -2683,21 +2683,21 @@ size_t TabNavigation::ByteSizeLong() const {
           this->_internal_favicon_url());
     }
 
-    // optional string last_navigation_redirect_url = 24;
+    // optional string last_navigation_redirect_url = 24 [deprecated = true];
     if (cached_has_bits & 0x00000020u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_last_navigation_redirect_url());
     }
 
-    // optional string page_language = 30;
+    // optional string page_language = 30 [deprecated = true];
     if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_page_language());
     }
 
-    // optional .sync_pb.ReplacedNavigation replaced_navigation = 29;
+    // optional .sync_pb.ReplacedNavigation replaced_navigation = 29 [deprecated = true];
     if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -2749,7 +2749,7 @@ size_t TabNavigation::ByteSizeLong() const {
 
   }
   if (cached_has_bits & 0x00ff0000u) {
-    // optional bool is_restored = 22;
+    // optional bool is_restored = 22 [deprecated = true];
     if (cached_has_bits & 0x00010000u) {
       total_size += 2 + 1;
     }
@@ -2773,7 +2773,7 @@ size_t TabNavigation::ByteSizeLong() const {
           this->_internal_obsolete_referrer_policy());
     }
 
-    // optional int64 task_id = 27;
+    // optional int64 task_id = 27 [deprecated = true];
     if (cached_has_bits & 0x00100000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
@@ -2800,7 +2800,7 @@ size_t TabNavigation::ByteSizeLong() const {
     }
 
   }
-  // optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED];
+  // optional .sync_pb.TabNavigation.BlockedState blocked_state = 18 [default = STATE_ALLOWED, deprecated = true];
   if (cached_has_bits & 0x01000000u) {
     total_size += 2 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_blocked_state());

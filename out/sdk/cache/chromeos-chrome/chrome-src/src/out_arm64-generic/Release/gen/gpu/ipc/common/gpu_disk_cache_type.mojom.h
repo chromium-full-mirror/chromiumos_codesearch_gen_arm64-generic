@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "gpu/ipc/common/gpu_disk_cache_type.mojom-features.h"
 #include "gpu/ipc/common/gpu_disk_cache_type.mojom-shared.h"
 #include "gpu/ipc/common/gpu_disk_cache_type.mojom-forward.h"
 #include <string>
@@ -342,17 +343,17 @@ class GPU_EXPORT GpuDiskCacheHandle {
   // Construct an instance holding |gl_shader_handle|.
   static GpuDiskCacheHandlePtr
   NewGlShaderHandle(
-      const ::gpu::GpuDiskCacheGlShaderHandle& gl_shader_handle) {
+      const ::gpu::GpuDiskCacheGlShaderHandle& value) {
     auto result = GpuDiskCacheHandlePtr(absl::in_place);
-    result->set_gl_shader_handle(std::move(gl_shader_handle));
+    result->set_gl_shader_handle(std::move(value));
     return result;
   }
   // Construct an instance holding |dawn_webgpu_handle|.
   static GpuDiskCacheHandlePtr
   NewDawnWebgpuHandle(
-      const ::gpu::GpuDiskCacheDawnWebGPUHandle& dawn_webgpu_handle) {
+      const ::gpu::GpuDiskCacheDawnWebGPUHandle& value) {
     auto result = GpuDiskCacheHandlePtr(absl::in_place);
-    result->set_dawn_webgpu_handle(std::move(dawn_webgpu_handle));
+    result->set_dawn_webgpu_handle(std::move(value));
     return result;
   }
 

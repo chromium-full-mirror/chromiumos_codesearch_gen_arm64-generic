@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/audio_decoder.mojom-features.h"
 #include "media/mojo/mojom/audio_decoder.mojom-shared.h"
 #include "media/mojo/mojom/audio_decoder.mojom-forward.h"
 #include "media/mojo/mojom/media_log.mojom-forward.h"
@@ -105,7 +106,7 @@ class AudioDecoder
 
   using InitializeCallback = base::OnceCallback<void(const ::media::DecoderStatus&, bool, ::media::AudioDecoderType)>;
   
-  virtual void Initialize(const ::media::AudioDecoderConfig& config, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) = 0;
+  virtual void Initialize(const ::media::AudioDecoderConfig& config, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) = 0;
 
   
   virtual void SetDataSource(::mojo::ScopedDataPipeConsumerHandle receive_pipe) = 0;
@@ -184,7 +185,7 @@ class  AudioDecoderProxy
   
   void Construct(::mojo::PendingAssociatedRemote<AudioDecoderClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log) final;
   
-  void Initialize(const ::media::AudioDecoderConfig& config, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) final;
+  void Initialize(const ::media::AudioDecoderConfig& config, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) final;
   
   void SetDataSource(::mojo::ScopedDataPipeConsumerHandle receive_pipe) final;
   

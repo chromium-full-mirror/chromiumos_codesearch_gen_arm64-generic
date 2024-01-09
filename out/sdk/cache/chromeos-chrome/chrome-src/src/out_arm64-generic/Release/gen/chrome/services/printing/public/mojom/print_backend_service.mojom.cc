@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -402,14 +403,17 @@ void UnsandboxedPrintBackendHostProxy::BindBackend(
                         "<value of type ::mojo::PendingReceiver<PrintBackendService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUnsandboxedPrintBackendHost_BindBackend_Name, kFlags, 0, 0, nullptr);
@@ -485,10 +489,10 @@ bool UnsandboxedPrintBackendHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUnsandboxedPrintBackendHostValidationInfo[] = {
-    {&internal::UnsandboxedPrintBackendHost_BindBackend_Params_Data::Validate,
+    { &internal::UnsandboxedPrintBackendHost_BindBackend_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -568,14 +572,17 @@ void SandboxedPrintBackendHostProxy::BindBackend(
                         "<value of type ::mojo::PendingReceiver<PrintBackendService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSandboxedPrintBackendHost_BindBackend_Name, kFlags, 0, 0, nullptr);
@@ -651,10 +658,10 @@ bool SandboxedPrintBackendHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSandboxedPrintBackendHostValidationInfo[] = {
-    {&internal::SandboxedPrintBackendHost_BindBackend_Params_Data::Validate,
+    { &internal::SandboxedPrintBackendHost_BindBackend_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1134,14 +1141,17 @@ void PrintBackendServiceProxy::Init(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_Init_Name, kFlags, 0, 0, nullptr);
@@ -1175,14 +1185,17 @@ void PrintBackendServiceProxy::Poke(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintBackendService::Poke");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_Poke_Name, kFlags, 0, 0, nullptr);
@@ -1205,14 +1218,17 @@ void PrintBackendServiceProxy::EnumeratePrinters(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintBackendService::EnumeratePrinters");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_EnumeratePrinters_Name, kFlags, 0, 0, nullptr);
@@ -1236,14 +1252,17 @@ void PrintBackendServiceProxy::GetDefaultPrinterName(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send printing::mojom::PrintBackendService::GetDefaultPrinterName");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_GetDefaultPrinterName_Name, kFlags, 0, 0, nullptr);
@@ -1274,14 +1293,17 @@ void PrintBackendServiceProxy::GetPrinterSemanticCapsAndDefaults(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_GetPrinterSemanticCapsAndDefaults_Name, kFlags, 0, 0, nullptr);
@@ -1323,14 +1345,17 @@ void PrintBackendServiceProxy::FetchCapabilities(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_FetchCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -1372,14 +1397,17 @@ void PrintBackendServiceProxy::EstablishPrintingContext(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_EstablishPrintingContext_Name, kFlags, 0, 0, nullptr);
@@ -1410,14 +1438,17 @@ void PrintBackendServiceProxy::UseDefaultSettings(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_UseDefaultSettings_Name, kFlags, 0, 0, nullptr);
@@ -1452,14 +1483,17 @@ void PrintBackendServiceProxy::UpdatePrintSettings(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_UpdatePrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -1491,7 +1525,7 @@ void PrintBackendServiceProxy::UpdatePrintSettings(
 }
 
 void PrintBackendServiceProxy::StartPrinting(
-    uint32_t in_context_id, int32_t in_document_cookie, const ::std::u16string& in_document_name, const absl::optional<::printing::PrintSettings>& in_settings, StartPrintingCallback callback) {
+    uint32_t in_context_id, int32_t in_document_cookie, const ::std::u16string& in_document_name, const std::optional<::printing::PrintSettings>& in_settings, StartPrintingCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send printing::mojom::PrintBackendService::StartPrinting", "input_parameters",
@@ -1508,17 +1542,20 @@ void PrintBackendServiceProxy::StartPrinting(
                         "<value of type const ::std::u16string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("settings"), in_settings,
-                        "<value of type const absl::optional<::printing::PrintSettings>&>");
+                        "<value of type const std::optional<::printing::PrintSettings>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_StartPrinting_Name, kFlags, 0, 0, nullptr);
@@ -1578,14 +1615,17 @@ void PrintBackendServiceProxy::RenderPrintedDocument(
                         "<value of type ::base::ReadOnlySharedMemoryRegion>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_RenderPrintedDocument_Name, kFlags, 0, 0, nullptr);
@@ -1631,14 +1671,17 @@ void PrintBackendServiceProxy::DocumentDone(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_DocumentDone_Name, kFlags, 0, 0, nullptr);
@@ -1670,14 +1713,17 @@ void PrintBackendServiceProxy::Cancel(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -1788,7 +1834,8 @@ void PrintBackendService_EnumeratePrinters_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_EnumeratePrinters_Name, kFlags, 0, 0, nullptr);
@@ -1914,7 +1961,8 @@ void PrintBackendService_GetDefaultPrinterName_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_GetDefaultPrinterName_Name, kFlags, 0, 0, nullptr);
@@ -2040,7 +2088,8 @@ void PrintBackendService_GetPrinterSemanticCapsAndDefaults_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_GetPrinterSemanticCapsAndDefaults_Name, kFlags, 0, 0, nullptr);
@@ -2166,7 +2215,8 @@ void PrintBackendService_FetchCapabilities_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_FetchCapabilities_Name, kFlags, 0, 0, nullptr);
@@ -2292,7 +2342,8 @@ void PrintBackendService_UseDefaultSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_UseDefaultSettings_Name, kFlags, 0, 0, nullptr);
@@ -2418,7 +2469,8 @@ void PrintBackendService_UpdatePrintSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_UpdatePrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -2544,7 +2596,8 @@ void PrintBackendService_StartPrinting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_StartPrinting_Name, kFlags, 0, 0, nullptr);
@@ -2663,7 +2716,8 @@ void PrintBackendService_RenderPrintedDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_RenderPrintedDocument_Name, kFlags, 0, 0, nullptr);
@@ -2782,7 +2836,8 @@ void PrintBackendService_DocumentDone_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_DocumentDone_Name, kFlags, 0, 0, nullptr);
@@ -2890,7 +2945,8 @@ void PrintBackendService_Cancel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintBackendService_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -3228,7 +3284,7 @@ std::move(p_job_settings), std::move(callback));
       uint32_t p_context_id{};
       int32_t p_document_cookie{};
       ::std::u16string p_document_name{};
-      absl::optional<::printing::PrintSettings> p_settings{};
+      std::optional<::printing::PrintSettings> p_settings{};
       PrintBackendService_StartPrinting_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3360,34 +3416,34 @@ std::move(p_document_cookie), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrintBackendServiceValidationInfo[] = {
-    {&internal::PrintBackendService_Init_Params_Data::Validate,
+    { &internal::PrintBackendService_Init_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintBackendService_Poke_Params_Data::Validate,
+    { &internal::PrintBackendService_Poke_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintBackendService_EnumeratePrinters_Params_Data::Validate,
+    { &internal::PrintBackendService_EnumeratePrinters_Params_Data::Validate,
      &internal::PrintBackendService_EnumeratePrinters_ResponseParams_Data::Validate},
-    {&internal::PrintBackendService_GetDefaultPrinterName_Params_Data::Validate,
+    { &internal::PrintBackendService_GetDefaultPrinterName_Params_Data::Validate,
      &internal::PrintBackendService_GetDefaultPrinterName_ResponseParams_Data::Validate},
-    {&internal::PrintBackendService_GetPrinterSemanticCapsAndDefaults_Params_Data::Validate,
+    { &internal::PrintBackendService_GetPrinterSemanticCapsAndDefaults_Params_Data::Validate,
      &internal::PrintBackendService_GetPrinterSemanticCapsAndDefaults_ResponseParams_Data::Validate},
-    {&internal::PrintBackendService_FetchCapabilities_Params_Data::Validate,
+    { &internal::PrintBackendService_FetchCapabilities_Params_Data::Validate,
      &internal::PrintBackendService_FetchCapabilities_ResponseParams_Data::Validate},
-    {&internal::PrintBackendService_EstablishPrintingContext_Params_Data::Validate,
+    { &internal::PrintBackendService_EstablishPrintingContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintBackendService_UseDefaultSettings_Params_Data::Validate,
+    { &internal::PrintBackendService_UseDefaultSettings_Params_Data::Validate,
      &internal::PrintBackendService_UseDefaultSettings_ResponseParams_Data::Validate},
-    {&internal::PrintBackendService_UpdatePrintSettings_Params_Data::Validate,
+    { &internal::PrintBackendService_UpdatePrintSettings_Params_Data::Validate,
      &internal::PrintBackendService_UpdatePrintSettings_ResponseParams_Data::Validate},
-    {&internal::PrintBackendService_StartPrinting_Params_Data::Validate,
+    { &internal::PrintBackendService_StartPrinting_Params_Data::Validate,
      &internal::PrintBackendService_StartPrinting_ResponseParams_Data::Validate},
-    {&internal::PrintBackendService_RenderPrintedDocument_Params_Data::Validate,
+    { &internal::PrintBackendService_RenderPrintedDocument_Params_Data::Validate,
      &internal::PrintBackendService_RenderPrintedDocument_ResponseParams_Data::Validate},
-    {&internal::PrintBackendService_DocumentDone_Params_Data::Validate,
+    { &internal::PrintBackendService_DocumentDone_Params_Data::Validate,
      &internal::PrintBackendService_DocumentDone_ResponseParams_Data::Validate},
-    {&internal::PrintBackendService_Cancel_Params_Data::Validate,
+    { &internal::PrintBackendService_Cancel_Params_Data::Validate,
      &internal::PrintBackendService_Cancel_ResponseParams_Data::Validate},
 };
 
@@ -3642,7 +3698,7 @@ void PrintBackendServiceInterceptorForTesting::UseDefaultSettings(uint32_t conte
 void PrintBackendServiceInterceptorForTesting::UpdatePrintSettings(uint32_t context_id, ::base::Value::Dict job_settings, UpdatePrintSettingsCallback callback) {
   GetForwardingInterface()->UpdatePrintSettings(std::move(context_id), std::move(job_settings), std::move(callback));
 }
-void PrintBackendServiceInterceptorForTesting::StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const absl::optional<::printing::PrintSettings>& settings, StartPrintingCallback callback) {
+void PrintBackendServiceInterceptorForTesting::StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, StartPrintingCallback callback) {
   GetForwardingInterface()->StartPrinting(std::move(context_id), std::move(document_cookie), std::move(document_name), std::move(settings), std::move(callback));
 }
 void PrintBackendServiceInterceptorForTesting::RenderPrintedDocument(int32_t document_cookie, uint32_t page_count, ::printing::mojom::MetafileDataType data_type, ::base::ReadOnlySharedMemoryRegion serialized_doc, RenderPrintedDocumentCallback callback) {
@@ -3798,7 +3854,7 @@ PrintSettingsResultPtr PrintBackendServiceAsyncWaiter::UpdatePrintSettings(
 }
 
 void PrintBackendServiceAsyncWaiter::StartPrinting(
-    uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const absl::optional<::printing::PrintSettings>& settings, ::printing::mojom::ResultCode* out_result_code) {
+    uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, ::printing::mojom::ResultCode* out_result_code) {
   base::RunLoop loop;
   proxy_->StartPrinting(std::move(context_id),std::move(document_cookie),std::move(document_name),std::move(settings),
       base::BindOnce(
@@ -3814,7 +3870,7 @@ void PrintBackendServiceAsyncWaiter::StartPrinting(
 }
 
 ::printing::mojom::ResultCode PrintBackendServiceAsyncWaiter::StartPrinting(
-    uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const absl::optional<::printing::PrintSettings>& settings) {
+    uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings) {
   ::printing::mojom::ResultCode async_wait_result;
   StartPrinting(std::move(context_id),std::move(document_cookie),std::move(document_name),std::move(settings),&async_wait_result);
   return async_wait_result;

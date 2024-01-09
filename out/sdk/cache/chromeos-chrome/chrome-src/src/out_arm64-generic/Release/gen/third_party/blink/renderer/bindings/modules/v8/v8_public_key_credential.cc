@@ -19,6 +19,8 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_authentication_response_js_on.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_authenticator_response.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_credential.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_public_key_credential_creation_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_public_key_credential_creation_options_js_on.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_registration_response_js_on.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_union_authenticationresponsejson_registrationresponsejson.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
@@ -75,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PublicKeyCredential>::value,
     "PublicKeyCredential inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PublicKeyCredential::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PublicKeyCredential is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +94,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rawId();
 if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -113,8 +111,9 @@ BLINK_BINDINGS_TRACE_EVENT("PublicKeyCredential.response.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(v8_receiver);
+PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->response();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -127,10 +126,10 @@ BLINK_BINDINGS_TRACE_EVENT("PublicKeyCredential.authenticatorAttachment.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->authenticatorAttachment();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->authenticatorAttachment();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -151,7 +150,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getClientExtensionResults();
 if (!ToV8Traits<AuthenticationExtensionsClientOutputs>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -175,7 +175,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toJSON(script_state);
 if (!ToV8Traits<V8UnionAuthenticationResponseJSONOrRegistrationResponseJSON>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -219,6 +220,44 @@ ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 auto&& return_value = PublicKeyCredential::isUserVerifyingPlatformAuthenticatorAvailable(script_state);
 bindings::V8SetReturnValue(info, return_value);
+}
+
+void ParseCreationOptionsFromJSONStaticOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PublicKeyCredential_parseCreationOptionsFromJSON");
+BLINK_BINDINGS_TRACE_EVENT("PublicKeyCredential.parseCreationOptionsFromJSON");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "PublicKeyCredential";
+const char* const property_name = "parseCreationOptionsFromJSON";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Value> v8_return_value;
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ScriptState* script_state = current_script_state;
+auto&& arg1_options = NativeValueTraits<PublicKeyCredentialCreationOptionsJSON>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = PublicKeyCredential::parseCreationOptionsFromJSON(script_state, arg1_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+if (!ToV8Traits<PublicKeyCredentialCreationOptions>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
+  return;
+}
+bindings::V8SetReturnValue(info, v8_return_value);
 }
 
 
@@ -288,6 +327,7 @@ void V8PublicKeyCredential::InstallContextIndependentProperties(v8::Isolate* iso
 if (RuntimeEnabledFeatures::WebAuthenticationJSONSerializationEnabled()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"toJSON", ToJSONOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"parseCreationOptionsFromJSON", ParseCreationOptionsFromJSONStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

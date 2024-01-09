@@ -30,5 +30,22 @@ const settings_helpers_js_1 = require("../helpers/settings-helpers.js");
         ].join('');
         chai_1.assert.deepEqual(actual, expected);
     });
+    (0, mocha_extensions_js_1.it)('unavailable location', async () => {
+        const { browser, target } = (0, helper_js_1.getBrowserAndPages)();
+        await (0, helper_js_1.goToResource)('sensors/geolocation.html');
+        // Grant geolocation permissions.
+        await browser.defaultBrowserContext().overridePermissions(`https://localhost:${(0, helper_js_1.getTestServerPort)()}`, ['geolocation']);
+        await target.bringToFront();
+        // Select "Unavailable location" and test the geolocation API.
+        const select = await (0, helper_js_1.waitFor)('.geo-fields select');
+        await select.select('unavailable');
+        const unavailableResult = await target.evaluate('testGeolocationAPI()');
+        chai_1.assert.strictEqual(unavailableResult, 'fail');
+        // Select "Other" and test the geolocation API.
+        await select.select('custom');
+        const customResult = await target.evaluate('testGeolocationAPI()');
+        chai_1.assert.strictEqual(customResult, 'success');
+        await select.select('noOverride');
+    });
 });
 //# sourceMappingURL=location_test.js.map

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-features.h"
 #include "chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-shared.h"
 #include "chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -1571,7 +1572,7 @@ class  DeviceImageInfo {
   DeviceImageInfo();
 
   DeviceImageInfo(
-      const absl::optional<::GURL>& default_image_url,
+      const std::optional<::GURL>& default_image_url,
       TrueWirelessImageInfoPtr true_wireless_images);
 
 DeviceImageInfo(const DeviceImageInfo&) = delete;
@@ -1652,7 +1653,7 @@ DeviceImageInfo& operator=(const DeviceImageInfo&) = delete;
   }
 
   
-  absl::optional<::GURL> default_image_url;
+  std::optional<::GURL> default_image_url;
   
   TrueWirelessImageInfoPtr true_wireless_images;
 
@@ -1883,8 +1884,8 @@ class  PairedBluetoothDeviceProperties {
 
   PairedBluetoothDeviceProperties(
       BluetoothDevicePropertiesPtr device_properties,
-      const absl::optional<std::string>& nickname,
-      absl::optional<FastPairableDevicePairingState> fast_pairable_device_pairing_state);
+      const std::optional<std::string>& nickname,
+      std::optional<FastPairableDevicePairingState> fast_pairable_device_pairing_state);
 
 PairedBluetoothDeviceProperties(const PairedBluetoothDeviceProperties&) = delete;
 PairedBluetoothDeviceProperties& operator=(const PairedBluetoothDeviceProperties&) = delete;
@@ -1966,9 +1967,9 @@ PairedBluetoothDeviceProperties& operator=(const PairedBluetoothDeviceProperties
   
   BluetoothDevicePropertiesPtr device_properties;
   
-  absl::optional<std::string> nickname;
+  std::optional<std::string> nickname;
   
-  absl::optional<FastPairableDevicePairingState> fast_pairable_device_pairing_state;
+  std::optional<FastPairableDevicePairingState> fast_pairable_device_pairing_state;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

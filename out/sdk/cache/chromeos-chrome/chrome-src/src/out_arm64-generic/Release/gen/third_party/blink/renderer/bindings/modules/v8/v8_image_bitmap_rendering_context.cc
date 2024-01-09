@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ImageBitmapRenderingContext>::value,
     "ImageBitmapRenderingContext does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ImageBitmapRenderingContext::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ImageBitmapRenderingContext is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ImageBitmapRenderingContext* blink_receiver = V8ImageBitmapRenderingContext::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ImageBitmapRenderingContext* blink_receiver = V8ImageBitmapRenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getHTMLOrOffscreenCanvas();
 if (!ToV8Traits<V8UnionHTMLCanvasElementOrOffscreenCanvas>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -126,7 +122,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageBitmapRenderingContext* blink_receiver = V8ImageBitmapRenderingContext::ToWrappableUnsafe(v8_receiver);
+ImageBitmapRenderingContext* blink_receiver = V8ImageBitmapRenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_bitmap = NativeValueTraits<IDLNullable<ImageBitmap>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

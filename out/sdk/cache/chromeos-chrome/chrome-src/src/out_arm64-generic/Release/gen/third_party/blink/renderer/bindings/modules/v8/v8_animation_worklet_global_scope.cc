@@ -86,11 +86,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, AnimationWorkletGlobalScope>::value,
     "AnimationWorkletGlobalScope does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&AnimationWorkletGlobalScope::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AnimationWorkletGlobalScope is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -240,7 +235,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AnimationWorkletGlobalScope* blink_receiver = V8AnimationWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+AnimationWorkletGlobalScope* blink_receiver = V8AnimationWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

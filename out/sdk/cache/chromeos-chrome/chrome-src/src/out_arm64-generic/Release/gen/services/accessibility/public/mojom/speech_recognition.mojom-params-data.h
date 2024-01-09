@@ -53,6 +53,22 @@ class  SpeechRecognitionEventObserver_OnResult_Params_Data {
 };
 static_assert(sizeof(SpeechRecognitionEventObserver_OnResult_Params_Data) == 16,
               "Bad sizeof(SpeechRecognitionEventObserver_OnResult_Params_Data)");
+class  SpeechRecognitionEventObserver_OnError_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::SpeechRecognitionErrorEvent_Data> event;
+
+ private:
+  friend class mojo::internal::MessageFragment<SpeechRecognitionEventObserver_OnError_Params_Data>;
+
+  SpeechRecognitionEventObserver_OnError_Params_Data();
+  ~SpeechRecognitionEventObserver_OnError_Params_Data() = delete;
+};
+static_assert(sizeof(SpeechRecognitionEventObserver_OnError_Params_Data) == 16,
+              "Bad sizeof(SpeechRecognitionEventObserver_OnError_Params_Data)");
 class  SpeechRecognition_Start_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -107,6 +123,7 @@ class  SpeechRecognition_Stop_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> error;
 
  private:
   friend class mojo::internal::MessageFragment<SpeechRecognition_Stop_ResponseParams_Data>;
@@ -114,7 +131,7 @@ class  SpeechRecognition_Stop_ResponseParams_Data {
   SpeechRecognition_Stop_ResponseParams_Data();
   ~SpeechRecognition_Stop_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(SpeechRecognition_Stop_ResponseParams_Data) == 8,
+static_assert(sizeof(SpeechRecognition_Stop_ResponseParams_Data) == 16,
               "Bad sizeof(SpeechRecognition_Stop_ResponseParams_Data)");
 
 }  // namespace internal
@@ -157,6 +174,32 @@ class SpeechRecognitionEventObserver_OnResult_ParamsDataView {
   }
  private:
   internal::SpeechRecognitionEventObserver_OnResult_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class SpeechRecognitionEventObserver_OnError_ParamsDataView {
+ public:
+  SpeechRecognitionEventObserver_OnError_ParamsDataView() = default;
+
+  SpeechRecognitionEventObserver_OnError_ParamsDataView(
+      internal::SpeechRecognitionEventObserver_OnError_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetEventDataView(
+      SpeechRecognitionErrorEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEvent(UserType* output) {
+    
+    auto* pointer = data_->event.Get();
+    return mojo::internal::Deserialize<::ax::mojom::SpeechRecognitionErrorEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SpeechRecognitionEventObserver_OnError_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -246,11 +289,32 @@ class SpeechRecognition_Stop_ResponseParamsDataView {
   SpeechRecognition_Stop_ResponseParamsDataView(
       internal::SpeechRecognition_Stop_ResponseParams_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetErrorDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `error` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadError` instead "
+    "of `ReadError if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->error.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::SpeechRecognition_Stop_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -259,6 +323,13 @@ inline void SpeechRecognitionEventObserver_OnResult_ParamsDataView::GetEventData
     SpeechRecognitionResultEventDataView* output) {
   auto pointer = data_->event.Get();
   *output = SpeechRecognitionResultEventDataView(pointer, message_);
+}
+
+
+inline void SpeechRecognitionEventObserver_OnError_ParamsDataView::GetEventDataView(
+    SpeechRecognitionErrorEventDataView* output) {
+  auto pointer = data_->event.Get();
+  *output = SpeechRecognitionErrorEventDataView(pointer, message_);
 }
 
 
@@ -283,6 +354,11 @@ inline void SpeechRecognition_Stop_ParamsDataView::GetOptionsDataView(
 }
 
 
+inline void SpeechRecognition_Stop_ResponseParamsDataView::GetErrorDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->error.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 

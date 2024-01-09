@@ -4,7 +4,7 @@ export function getTemplate() {
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
     <settings-card header-text="$i18n{personalizationPageTitle}">
-      <cr-link-row id="personalizationHubButton" label="$i18n{personalizationHubTitle}" sub-label="[[getSublabel_()]]" on-click="openPersonalizationHub_" external>
+      <cr-link-row id="personalizationHubButton" start-icon="[[getPersonalizationRowIcon_()]]" label="$i18n{personalizationHubTitle}" sub-label="$i18n{personalizationHubSubtitle}" on-click="openPersonalizationHub_" external>
       </cr-link-row>
     </settings-card>
   </div>

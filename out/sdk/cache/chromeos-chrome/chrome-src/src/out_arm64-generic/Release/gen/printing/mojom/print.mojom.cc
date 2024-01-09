@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -190,9 +191,9 @@ IppClientInfo::IppClientInfo()
 IppClientInfo::IppClientInfo(
     IppClientInfo::ClientType client_type_in,
     const std::string& client_name_in,
-    const absl::optional<std::string>& client_patches_in,
+    const std::optional<std::string>& client_patches_in,
     const std::string& client_string_version_in,
-    const absl::optional<std::string>& client_version_in)
+    const std::optional<std::string>& client_version_in)
     : client_type(std::move(client_type_in)),
       client_name(std::move(client_name_in)),
       client_patches(std::move(client_patches_in)),
@@ -226,7 +227,7 @@ void IppClientInfo::WriteIntoTrace(
     dict.AddItem(
       "client_patches"), this->client_patches,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -244,7 +245,7 @@ void IppClientInfo::WriteIntoTrace(
     dict.AddItem(
       "client_version"), this->client_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

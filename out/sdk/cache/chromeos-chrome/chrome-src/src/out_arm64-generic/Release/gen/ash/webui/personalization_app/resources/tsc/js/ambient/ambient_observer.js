@@ -1,12 +1,13 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { isNonEmptyArray } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { AmbientObserverReceiver, TopicSource } from '../../personalization_app.mojom-webui.js';
 import { isAmbientModeAllowed, isPersonalizationJellyEnabled } from '../load_time_booleans.js';
 import { logGooglePhotosPreviewsLoadTime } from '../personalization_metrics_logger.js';
 import { Paths } from '../personalization_router_element.js';
 import { PersonalizationStore } from '../personalization_store.js';
-import { isNonEmptyArray, isRecentHighlightsAlbum } from '../utils.js';
+import { isRecentHighlightsAlbum } from '../utils.js';
 import { setAlbumsAction, setAmbientModeEnabledAction, setAmbientThemeAction, setAmbientUiVisibilityAction, setPreviewsAction, setScreenSaverDurationAction, setTemperatureUnitAction, setTopicSourceAction } from './ambient_actions.js';
 import { getAmbientProvider } from './ambient_interface_provider.js';
 /** @fileoverview listens for updates on ambient mode changes. */

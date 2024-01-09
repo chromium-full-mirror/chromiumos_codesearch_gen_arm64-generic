@@ -82,6 +82,60 @@ std::ostream& operator<<(std::ostream& os, MemtesterTestItemEnum value) {
   return os << MemtesterTestItemEnumToString(value);
 }
 
+NOINLINE static const char* HardwarePresenceStatusToStringHelper(HardwarePresenceStatus value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case HardwarePresenceStatus::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case HardwarePresenceStatus::kMatched:
+      return "kMatched";
+    case HardwarePresenceStatus::kNotMatched:
+      return "kNotMatched";
+    case HardwarePresenceStatus::kNotConfigured:
+      return "kNotConfigured";
+    default:
+      return nullptr;
+  }
+}
+
+std::string HardwarePresenceStatusToString(HardwarePresenceStatus value) {
+  const char *str = HardwarePresenceStatusToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown HardwarePresenceStatus value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, HardwarePresenceStatus value) {
+  return os << HardwarePresenceStatusToString(value);
+}
+
+NOINLINE static const char* VolumeButtonRoutineArgument_ButtonTypeToStringHelper(VolumeButtonRoutineArgument_ButtonType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case VolumeButtonRoutineArgument_ButtonType::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case VolumeButtonRoutineArgument_ButtonType::kVolumeUp:
+      return "kVolumeUp";
+    case VolumeButtonRoutineArgument_ButtonType::kVolumeDown:
+      return "kVolumeDown";
+    default:
+      return nullptr;
+  }
+}
+
+std::string VolumeButtonRoutineArgument_ButtonTypeToString(VolumeButtonRoutineArgument_ButtonType value) {
+  const char *str = VolumeButtonRoutineArgument_ButtonTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown VolumeButtonRoutineArgument_ButtonType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, VolumeButtonRoutineArgument_ButtonType value) {
+  return os << VolumeButtonRoutineArgument_ButtonTypeToString(value);
+}
+
 NOINLINE static const char* RoutineStateWaiting_ReasonToStringHelper(RoutineStateWaiting_Reason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -147,6 +201,26 @@ bool RoutineArgument_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_memory, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kVolumeButton: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_volume_button, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kFan: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_fan, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
         return false;
       return true;
     }
@@ -278,13 +352,29 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kVolumeButton: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_volume_button, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kFan: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_fan, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
-      ReportValidationError(
-          validation_context,
-          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in RoutineDetail");
-      return false;
+      return true;
     }
   }
 }
@@ -310,6 +400,64 @@ bool MemoryRoutineArgument_Data::Validate(
 }
 
 MemoryRoutineArgument_Data::MemoryRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool VolumeButtonRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const VolumeButtonRoutineArgument_Data* object =
+      static_cast<const VolumeButtonRoutineArgument_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::VolumeButtonRoutineArgument_ButtonType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->timeout, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->timeout, validation_context))
+    return false;
+
+  return true;
+}
+
+VolumeButtonRoutineArgument_Data::VolumeButtonRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool FanRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FanRoutineArgument_Data* object =
+      static_cast<const FanRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+FanRoutineArgument_Data::FanRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -526,6 +674,79 @@ bool MemtesterResult_Data::Validate(
 }
 
 MemtesterResult_Data::MemtesterResult_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool VolumeButtonRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const VolumeButtonRoutineDetail_Data* object =
+      static_cast<const VolumeButtonRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+VolumeButtonRoutineDetail_Data::VolumeButtonRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool FanRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FanRoutineDetail_Data* object =
+      static_cast<const FanRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->passed_fan_ids, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& passed_fan_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->passed_fan_ids, validation_context,
+                                         &passed_fan_ids_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->failed_fan_ids, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& failed_fan_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->failed_fan_ids, validation_context,
+                                         &failed_fan_ids_validate_params)) {
+    return false;
+  }
+
+
+  if (!::ash::cros_healthd::mojom::internal::HardwarePresenceStatus_Data
+        ::Validate(object->fan_count_status, validation_context))
+    return false;
+
+  return true;
+}
+
+FanRoutineDetail_Data::FanRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -749,6 +970,26 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::MemtesterTestItemEnumToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::HardwarePresenceStatus>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::HardwarePresenceStatus value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::HardwarePresenceStatusToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonTypeToString(value));
 }
 
 } // namespace perfetto

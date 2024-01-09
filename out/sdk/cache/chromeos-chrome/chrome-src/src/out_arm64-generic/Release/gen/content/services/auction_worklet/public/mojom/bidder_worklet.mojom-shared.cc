@@ -211,7 +211,7 @@ bool BidderWorkletNonSharedParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 80, validation_context)) {
+          data, 88, validation_context)) {
     return false;
   }
 
@@ -230,6 +230,11 @@ bool BidderWorkletNonSharedParams_Data::Validate(
                                          &name_validate_params)) {
     return false;
   }
+
+
+  if (!::blink::mojom::internal::InterestGroup_TrustedBiddingSignalsSlotSizeMode_Data
+        ::Validate(object->trusted_bidding_signals_slot_size_mode, validation_context))
+    return false;
 
   constexpr const mojo::internal::ContainerValidateParams& priority_vector_validate_params =
       mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
@@ -275,7 +280,7 @@ bool BidderWorkletNonSharedParams_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->kanon_keys, 10, validation_context)) {
+          object->kanon_keys, 11, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& kanon_keys_validate_params =
@@ -299,7 +304,7 @@ bool BiddingBrowserSignals_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 

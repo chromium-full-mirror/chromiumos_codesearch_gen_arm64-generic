@@ -25,7 +25,7 @@ export var NearbyShareOnboardingFinalState;
  * These values are persisted to logs. Entries should not be renumbered and
  * numeric values should never be reused.
  */
-var NearbyShareOnboardingEntryPoint;
+export var NearbyShareOnboardingEntryPoint;
 (function (NearbyShareOnboardingEntryPoint) {
     NearbyShareOnboardingEntryPoint[NearbyShareOnboardingEntryPoint["SETTINGS"] = 0] = "SETTINGS";
     NearbyShareOnboardingEntryPoint[NearbyShareOnboardingEntryPoint["TRAY"] = 1] = "TRAY";
@@ -57,17 +57,44 @@ const NearbyShareOnboardingResultHistogramName = 'Nearby.Share.Onboarding.Result
 const NearbyShareOnboardingEntryPointHistogramName = 'Nearby.Share.Onboarding.EntryPoint';
 const NearbyShareOnboardingDurationHistogramName = 'Nearby.Share.Onboarding.Duration';
 const NearbyShareOnboardingFlowEventHistogramName = 'Nearby.Share.Onboarding.FlowEvent';
+const NearbyShareOnboardingEntryPointResultPrefix = 'Nearby.Share.Onboarding.';
+const NearbyShareOnboardingEntryPointResultSuffix = '.Result';
 /**
  * Tracks time that onboarding is started. Gets set to null after onboarding is
  * complete as a way to track if onboarding is in progress.
  */
 let onboardingInitiatedTimestamp;
 /**
- * Records the onboarding flow entrypoint and stores the time at which
- * onboarding was initiated. The url param is used to infer the entrypoint.
+ * Determines which histogram to log to based on entry point.
  */
-export function processOnboardingInitiatedMetrics(url) {
-    let nearbyShareOnboardingEntryPoint = null;
+function processOnboardingEntryPointResultMetrics(nearbyShareOnboardingEntryPoint, nearbyShareOnboardingFinalState) {
+    let entryPointString;
+    switch (nearbyShareOnboardingEntryPoint) {
+        case NearbyShareOnboardingEntryPoint.SETTINGS:
+            entryPointString = 'Settings';
+            break;
+        case NearbyShareOnboardingEntryPoint.TRAY:
+            entryPointString = 'Tray';
+            break;
+        case NearbyShareOnboardingEntryPoint.SHARE_SHEET:
+            entryPointString = 'ShareSheet';
+            break;
+        case NearbyShareOnboardingEntryPoint
+            .NEARBY_DEVICE_TRYING_TO_SHARE_NOTIFICATION:
+            entryPointString = 'NearbyDeviceTryingToShareNotification';
+            break;
+        default:
+            assertNotReached('Invalid nearbyShareOnboardingEntryPoint');
+    }
+    chrome.send('metricsHandler:recordInHistogram', [
+        NearbyShareOnboardingEntryPointResultPrefix + entryPointString +
+            NearbyShareOnboardingEntryPointResultSuffix,
+        nearbyShareOnboardingFinalState,
+        NearbyShareOnboardingFinalState.MAX,
+    ]);
+}
+export function getOnboardingEntryPoint(url) {
+    let nearbyShareOnboardingEntryPoint = NearbyShareOnboardingEntryPoint.MAX;
     if (url.hostname === 'nearby') {
         nearbyShareOnboardingEntryPoint =
             NearbyShareOnboardingEntryPoint.SHARE_SHEET;
@@ -80,6 +107,13 @@ export function processOnboardingInitiatedMetrics(url) {
     else {
         assertNotReached('Invalid nearbyShareOnboardingEntryPoint');
     }
+    return nearbyShareOnboardingEntryPoint;
+}
+/**
+ * Records the onboarding flow entrypoint and stores the time at which
+ * onboarding was initiated. The url param is used to infer the entrypoint.
+ */
+export function processOnboardingInitiatedMetrics(nearbyShareOnboardingEntryPoint) {
     chrome.send('metricsHandler:recordInHistogram', [
         NearbyShareOnboardingEntryPointHistogramName,
         nearbyShareOnboardingEntryPoint,
@@ -93,20 +127,7 @@ export function processOnboardingInitiatedMetrics(url) {
  * one-page onboarding was initiated. The url param is used to infer the
  * entrypoint.
  */
-export function processOnePageOnboardingInitiatedMetrics(url) {
-    let nearbyShareOnboardingEntryPoint = null;
-    if (url.hostname === 'nearby') {
-        nearbyShareOnboardingEntryPoint =
-            NearbyShareOnboardingEntryPoint.SHARE_SHEET;
-    }
-    else if (url.hostname === 'os-settings') {
-        const urlParams = new URLSearchParams(url.search);
-        nearbyShareOnboardingEntryPoint =
-            getOnboardingEntrypointFromQueryParam(urlParams.get('entrypoint'));
-    }
-    else {
-        assertNotReached('Invalid nearbyShareOnboardingEntryPoint');
-    }
+export function processOnePageOnboardingInitiatedMetrics(nearbyShareOnboardingEntryPoint) {
     chrome.send('metricsHandler:recordInHistogram', [
         NearbyShareOnboardingEntryPointHistogramName,
         nearbyShareOnboardingEntryPoint,
@@ -134,7 +155,7 @@ function getOnboardingEntrypointFromQueryParam(queryParam) {
  * If onboarding was cancelled this function is invoked to record during which
  * step the cancellation occurred.
  */
-export function processOnboardingCancelledMetrics(nearbyShareOnboardingFinalState) {
+export function processOnboardingCancelledMetrics(nearbyShareOnboardingEntryPointState, nearbyShareOnboardingFinalState) {
     if (!onboardingInitiatedTimestamp) {
         return;
     }
@@ -143,13 +164,14 @@ export function processOnboardingCancelledMetrics(nearbyShareOnboardingFinalStat
         nearbyShareOnboardingFinalState,
         NearbyShareOnboardingFinalState.MAX,
     ]);
+    processOnboardingEntryPointResultMetrics(nearbyShareOnboardingEntryPointState, nearbyShareOnboardingFinalState);
     onboardingInitiatedTimestamp = null;
 }
 /**
  * If one-page onboarding was cancelled this function is invoked to record
  * during which step the cancellation occurred.
  */
-export function processOnePageOnboardingCancelledMetrics(nearbyShareOnboardingFinalState) {
+export function processOnePageOnboardingCancelledMetrics(nearbyShareOnboardingEntryPointState, nearbyShareOnboardingFinalState) {
     if (!onboardingInitiatedTimestamp) {
         return;
     }
@@ -162,6 +184,7 @@ export function processOnePageOnboardingCancelledMetrics(nearbyShareOnboardingFi
         NearbyShareOnboardingFlowEventHistogramName,
         getOnboardingCancelledFlowEvent(nearbyShareOnboardingFinalState),
     ]);
+    processOnboardingEntryPointResultMetrics(nearbyShareOnboardingEntryPointState, nearbyShareOnboardingFinalState);
     onboardingInitiatedTimestamp = null;
 }
 function getOnboardingCancelledFlowEvent(nearbyShareOnboardingFinalState) {
@@ -178,7 +201,7 @@ function getOnboardingCancelledFlowEvent(nearbyShareOnboardingFinalState) {
  * Records a metric for successful onboarding flow completion and the time it
  * took to complete.
  */
-export function processOnboardingCompleteMetrics() {
+export function processOnboardingCompleteMetrics(nearbyShareOnboardingEntryPointState) {
     if (!onboardingInitiatedTimestamp) {
         return;
     }
@@ -191,13 +214,14 @@ export function processOnboardingCompleteMetrics() {
         NearbyShareOnboardingDurationHistogramName,
         window.performance.now() - onboardingInitiatedTimestamp,
     ]);
+    processOnboardingEntryPointResultMetrics(nearbyShareOnboardingEntryPointState, NearbyShareOnboardingFinalState.COMPLETE);
     onboardingInitiatedTimestamp = null;
 }
 /**
  * Records a metric for successful one-page onboarding flow completion and the
  * time it took to complete.
  */
-export function processOnePageOnboardingCompleteMetrics(nearbyShareOnboardingFinalState, visibility) {
+export function processOnePageOnboardingCompleteMetrics(nearbyShareOnboardingEntryPointState, nearbyShareOnboardingFinalState, visibility) {
     if (!onboardingInitiatedTimestamp) {
         return;
     }
@@ -214,6 +238,7 @@ export function processOnePageOnboardingCompleteMetrics(nearbyShareOnboardingFin
         NearbyShareOnboardingDurationHistogramName,
         window.performance.now() - onboardingInitiatedTimestamp,
     ]);
+    processOnboardingEntryPointResultMetrics(nearbyShareOnboardingEntryPointState, NearbyShareOnboardingFinalState.COMPLETE);
     onboardingInitiatedTimestamp = null;
 }
 /**

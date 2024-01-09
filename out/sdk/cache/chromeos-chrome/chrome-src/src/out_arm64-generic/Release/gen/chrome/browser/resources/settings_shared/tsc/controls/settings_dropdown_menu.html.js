@@ -6,7 +6,9 @@ export function getTemplate() {
 </template>
 <select class="md-select" id="dropdownMenu" on-change="onChange_" aria-label$="[[label]]" disabled="[[shouldDisableMenu_(disabled, menuOptions.*, pref.*)]]">
   <template is="dom-repeat" items="[[menuOptions]]">
-    <option value="[[item.value]]">[[item.name]]</option>
+    <option value="[[item.value]]" hidden="[[item.hidden]]">
+      [[item.name]]
+    </option>
   </template>
   <option value="[[notFoundValue]]" disabled="[[!showNotFoundValue_(menuOptions, pref.value)]]">
     $i18n{custom}

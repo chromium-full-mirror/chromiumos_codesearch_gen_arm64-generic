@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "skia/public/mojom/image_info.mojom-features.h"
 #include "skia/public/mojom/image_info.mojom-shared.h"
 #include "skia/public/mojom/image_info.mojom-forward.h"
 #include <string>
@@ -77,8 +78,8 @@ class  ImageInfo {
       ::SkAlphaType alpha_type,
       uint32_t width,
       uint32_t height,
-      absl::optional<std::vector<float>> color_transfer_function,
-      absl::optional<std::vector<float>> color_to_xyz_matrix);
+      std::optional<std::vector<float>> color_transfer_function,
+      std::optional<std::vector<float>> color_to_xyz_matrix);
 
 
   ~ImageInfo();
@@ -164,9 +165,9 @@ class  ImageInfo {
   
   uint32_t height;
   
-  absl::optional<std::vector<float>> color_transfer_function;
+  std::optional<std::vector<float>> color_transfer_function;
   
-  absl::optional<std::vector<float>> color_to_xyz_matrix;
+  std::optional<std::vector<float>> color_to_xyz_matrix;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -231,8 +232,8 @@ class  BitmapN32ImageInfo {
       ::SkAlphaType alpha_type,
       uint32_t width,
       uint32_t height,
-      absl::optional<std::vector<float>> color_transfer_function,
-      absl::optional<std::vector<float>> color_to_xyz_matrix);
+      std::optional<std::vector<float>> color_transfer_function,
+      std::optional<std::vector<float>> color_to_xyz_matrix);
 
 
   ~BitmapN32ImageInfo();
@@ -316,9 +317,9 @@ class  BitmapN32ImageInfo {
   
   uint32_t height;
   
-  absl::optional<std::vector<float>> color_transfer_function;
+  std::optional<std::vector<float>> color_transfer_function;
   
-  absl::optional<std::vector<float>> color_to_xyz_matrix;
+  std::optional<std::vector<float>> color_to_xyz_matrix;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

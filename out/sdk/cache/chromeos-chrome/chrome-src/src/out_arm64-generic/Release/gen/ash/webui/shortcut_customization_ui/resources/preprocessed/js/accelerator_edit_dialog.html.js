@@ -30,8 +30,8 @@ export function getTemplate() {
     padding-top: 16px;
   }
 
-  #pendingAccelerator {
-    padding-top: 8px;
+  #emptyStateContainer {
+    padding-block-start: 8px;
   }
 
   [slot='button-container'] {
@@ -55,20 +55,35 @@ export function getTemplate() {
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    min-height: 296px;
     justify-content: space-between;
     margin-left: 32px;
     margin-right: 32px;
+    min-height: 280px;
+    overflow: auto;
     padding: 0 8px 8px 8px;
   }
 
   #dialogTitle {
-    --cr-dialog-title-slot-padding-bottom: 32px;
+    --cr-dialog-title-slot-padding-bottom: 16px;
     --cr-dialog-title-slot-padding-end: 32px;
     --cr-dialog-title-slot-padding-start: 32px;
     --cr-dialog-title-slot-padding-top: 32px;
+  }
+
+  #shortcutEditTitle {
     color: var(--cros-text-color-primary);
     font: var(--cros-display-7-font);
+    padding-block-end: 8px;
+  }
+
+  #shortcutDescription, #noShortcutAssigned {
+    font: var(--cros-body-2-font);
+    color: var(--cros-text-color-secondary);
+  }
+
+  #noShortcutAssigned {
+    padding-block: 16px;
+    padding-inline-start: 8px;
   }
 
   [slot='button-container'] {
@@ -84,7 +99,12 @@ export function getTemplate() {
 
 <cr-dialog id="editDialog" on-close="onDialogClose">
   <div id="dialogTitle" slot="title">
-    [[description]]
+    <div id="shortcutEditTitle">
+      [[i18n('editShortcut')]]
+    </div>
+    <div id="shortcutDescription">
+      [[description]]
+    </div>
   </div>
   <div slot="body">
     <div id="acceleratorViewList">
@@ -93,17 +113,32 @@ export function getTemplate() {
         <accelerator-edit-view class="acceleratorItem"
             accelerator-info=[[item]]
             action="[[action]]"
-            source="[[source]]">
+            source="[[source]]"
+            on-edit-action-completed="onEditActionCompleted">
         </accelerator-edit-view>
       </template>
+      <!-- Using 'restamp' ensures the correct display of the separator line,
+           as it can remove 'pendingAccelerator' from the DOM rather than just
+           hiding it, preventing it from affecting the separator line
+           placement. -->
       <template id="newAccelerator" is="dom-if"
-          if="[[showNewAccelerator(pendingNewAcceleratorState, acceleratorInfos)]]"
-          restamp>
+          if="[[showNewAccelerator(pendingNewAcceleratorState,
+                                   acceleratorInfos)]]" restamp>
         <accelerator-edit-view id="pendingAccelerator"
             view-state="{{pendingNewAcceleratorState}}"
             action="[[action]]"
-            source="[[source]]">
+            source="[[source]]"
+            on-edit-action-completed="onEditActionCompleted">
         </accelerator-edit-view>
+      </template>
+      <template id="emptyState" is="dom-if"
+          if="[[isEmptyState(pendingNewAcceleratorState, acceleratorInfos)]]"
+          restamp>
+        <div id="emptyStateContainer">
+          <div id="noShortcutAssigned">
+            [[i18n('noShortcutAssigned')]]
+          </div>
+        </div>
       </template>
     </div>
     <div id="addAcceleratorContainer"

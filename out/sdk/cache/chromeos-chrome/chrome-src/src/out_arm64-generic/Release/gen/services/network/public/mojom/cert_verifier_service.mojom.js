@@ -156,8 +156,6 @@
     this.requireRevCheckingLocalAnchors = false;
     this.enableSha1LocalAnchors = false;
     this.disableSymantecEnforcement = false;
-    this.additionalTrustAnchors = null;
-    this.additionalUntrustedAuthorities = null;
   };
   CertVerifierConfig.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -173,7 +171,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 32}
+      {version: 0, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -183,22 +181,10 @@
 
 
 
-
-    // validate CertVerifierConfig.additionalTrustAnchors
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, new codec.PointerTo(network_param$.X509Certificate), false, [0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate CertVerifierConfig.additionalUntrustedAuthorities
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 8, new codec.PointerTo(network_param$.X509Certificate), false, [0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
     return validator.validationError.NONE;
   };
 
-  CertVerifierConfig.encodedSize = codec.kStructHeaderSize + 24;
+  CertVerifierConfig.encodedSize = codec.kStructHeaderSize + 8;
 
   CertVerifierConfig.decode = function(decoder) {
     var packed;
@@ -217,10 +203,6 @@
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
-    val.additionalTrustAnchors =
-        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate));
-    val.additionalUntrustedAuthorities =
-        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate));
     return val;
   };
 
@@ -241,8 +223,82 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
-    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate), val.additionalTrustAnchors);
-    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate), val.additionalUntrustedAuthorities);
+  };
+  function AdditionalCertificates(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  AdditionalCertificates.prototype.initDefaults_ = function() {
+    this.allCertificates = null;
+    this.trustAnchors = null;
+    this.distrustedSpkis = null;
+  };
+  AdditionalCertificates.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  AdditionalCertificates.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 32}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate AdditionalCertificates.allCertificates
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(network_param$.X509Certificate), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate AdditionalCertificates.trustAnchors
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, new codec.PointerTo(network_param$.X509Certificate), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate AdditionalCertificates.distrustedSpkis
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 8, new codec.ArrayOf(codec.Uint8), false, [0, 0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  AdditionalCertificates.encodedSize = codec.kStructHeaderSize + 24;
+
+  AdditionalCertificates.decode = function(decoder) {
+    var packed;
+    var val = new AdditionalCertificates();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.allCertificates =
+        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate));
+    val.trustAnchors =
+        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate));
+    val.distrustedSpkis =
+        decoder.decodeArrayPointer(new codec.ArrayOf(codec.Uint8));
+    return val;
+  };
+
+  AdditionalCertificates.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(AdditionalCertificates.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate), val.allCertificates);
+    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate), val.trustAnchors);
+    encoder.encodeArrayPointer(new codec.ArrayOf(codec.Uint8), val.distrustedSpkis);
   };
   function URLLoaderFactoryConnector_CreateURLLoaderFactory_Params(values) {
     this.initDefaults_();
@@ -505,6 +561,62 @@
     encoder.writeUint32(CertVerifierService_SetConfig_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStructPointer(CertVerifierConfig, val.config);
+  };
+  function CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params.prototype.initDefaults_ = function() {
+    this.certificates = null;
+  };
+  CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params.certificates
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, AdditionalCertificates, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params.decode = function(decoder) {
+    var packed;
+    var val = new CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.certificates =
+        decoder.decodeStructPointer(AdditionalCertificates);
+    return val;
+  };
+
+  CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(AdditionalCertificates, val.certificates);
   };
   function CertVerifierServiceClient_OnCertVerifierChanged_Params(values) {
     this.initDefaults_();
@@ -864,6 +976,99 @@
   };
   CertVerifierServiceStub.prototype.validator = validateCertVerifierServiceRequest;
   CertVerifierServiceProxy.prototype.validator = null;
+  var kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name = 0;
+
+  function CertVerifierServiceUpdaterPtr(handleOrPtrInfo) {
+    this.ptr = new bindings.InterfacePtrController(CertVerifierServiceUpdater,
+                                                   handleOrPtrInfo);
+  }
+
+  function CertVerifierServiceUpdaterAssociatedPtr(associatedInterfacePtrInfo) {
+    this.ptr = new associatedBindings.AssociatedInterfacePtrController(
+        CertVerifierServiceUpdater, associatedInterfacePtrInfo);
+  }
+
+  CertVerifierServiceUpdaterAssociatedPtr.prototype =
+      Object.create(CertVerifierServiceUpdaterPtr.prototype);
+  CertVerifierServiceUpdaterAssociatedPtr.prototype.constructor =
+      CertVerifierServiceUpdaterAssociatedPtr;
+
+  function CertVerifierServiceUpdaterProxy(receiver) {
+    this.receiver_ = receiver;
+  }
+  CertVerifierServiceUpdaterPtr.prototype.updateAdditionalCertificates = function() {
+    return CertVerifierServiceUpdaterProxy.prototype.updateAdditionalCertificates
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CertVerifierServiceUpdaterProxy.prototype.updateAdditionalCertificates = function(certificates) {
+    var params_ = new CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params();
+    params_.certificates = certificates;
+    var builder = new codec.MessageV0Builder(
+        kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name,
+        codec.align(CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params.encodedSize));
+    builder.encodeStruct(CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+
+  function CertVerifierServiceUpdaterStub(delegate) {
+    this.delegate_ = delegate;
+  }
+  CertVerifierServiceUpdaterStub.prototype.updateAdditionalCertificates = function(certificates) {
+    return this.delegate_ && this.delegate_.updateAdditionalCertificates && this.delegate_.updateAdditionalCertificates(certificates);
+  }
+
+  CertVerifierServiceUpdaterStub.prototype.accept = function(message) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    case kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name:
+      var params = reader.decodeStruct(CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params);
+      this.updateAdditionalCertificates(params.certificates);
+      return true;
+    default:
+      return false;
+    }
+  };
+
+  CertVerifierServiceUpdaterStub.prototype.acceptWithResponder =
+      function(message, responder) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    default:
+      return false;
+    }
+  };
+
+  function validateCertVerifierServiceUpdaterRequest(messageValidator) {
+    var message = messageValidator.message;
+    var paramsClass = null;
+    switch (message.getName()) {
+      case kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params;
+      break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
+  }
+
+  function validateCertVerifierServiceUpdaterResponse(messageValidator) {
+    return validator.validationError.NONE;
+  }
+
+  var CertVerifierServiceUpdater = {
+    name: 'cert_verifier.mojom.CertVerifierServiceUpdater',
+    kVersion: 0,
+    ptrClass: CertVerifierServiceUpdaterPtr,
+    proxyClass: CertVerifierServiceUpdaterProxy,
+    stubClass: CertVerifierServiceUpdaterStub,
+    validateRequest: validateCertVerifierServiceUpdaterRequest,
+    validateResponse: null,
+  };
+  CertVerifierServiceUpdaterStub.prototype.validator = validateCertVerifierServiceUpdaterRequest;
+  CertVerifierServiceUpdaterProxy.prototype.validator = null;
   var kCertVerifierServiceClient_OnCertVerifierChanged_Name = 0;
 
   function CertVerifierServiceClientPtr(handleOrPtrInfo) {
@@ -1052,12 +1257,16 @@
   CertVerifierRequestProxy.prototype.validator = null;
   exports.RequestParams = RequestParams;
   exports.CertVerifierConfig = CertVerifierConfig;
+  exports.AdditionalCertificates = AdditionalCertificates;
   exports.URLLoaderFactoryConnector = URLLoaderFactoryConnector;
   exports.URLLoaderFactoryConnectorPtr = URLLoaderFactoryConnectorPtr;
   exports.URLLoaderFactoryConnectorAssociatedPtr = URLLoaderFactoryConnectorAssociatedPtr;
   exports.CertVerifierService = CertVerifierService;
   exports.CertVerifierServicePtr = CertVerifierServicePtr;
   exports.CertVerifierServiceAssociatedPtr = CertVerifierServiceAssociatedPtr;
+  exports.CertVerifierServiceUpdater = CertVerifierServiceUpdater;
+  exports.CertVerifierServiceUpdaterPtr = CertVerifierServiceUpdaterPtr;
+  exports.CertVerifierServiceUpdaterAssociatedPtr = CertVerifierServiceUpdaterAssociatedPtr;
   exports.CertVerifierServiceClient = CertVerifierServiceClient;
   exports.CertVerifierServiceClientPtr = CertVerifierServiceClientPtr;
   exports.CertVerifierServiceClientAssociatedPtr = CertVerifierServiceClientAssociatedPtr;

@@ -23,39 +23,46 @@ class FlowTable : public macros_internal::MacroTable {
     static constexpr uint32_t type = 1;
     static constexpr uint32_t slice_out = 2;
     static constexpr uint32_t slice_in = 3;
-    static constexpr uint32_t arg_set_id = 4;
+    static constexpr uint32_t trace_id = 4;
+    static constexpr uint32_t arg_set_id = 5;
   };
   struct ColumnType {
     using id = IdColumn<FlowTable::Id>;
     using type = TypedColumn<StringPool::Id>;
     using slice_out = TypedColumn<SliceTable::Id>;
     using slice_in = TypedColumn<SliceTable::Id>;
+    using trace_id = TypedColumn<std::optional<int64_t>>;
     using arg_set_id = TypedColumn<uint32_t>;
   };
   struct Row : public macros_internal::RootParentTable::Row {
     Row(SliceTable::Id in_slice_out = {},
         SliceTable::Id in_slice_in = {},
+        std::optional<int64_t> in_trace_id = {},
         uint32_t in_arg_set_id = {},
         std::nullptr_t = nullptr)
         : macros_internal::RootParentTable::Row(),
           slice_out(std::move(in_slice_out)),
           slice_in(std::move(in_slice_in)),
+          trace_id(std::move(in_trace_id)),
           arg_set_id(std::move(in_arg_set_id)) {
       type_ = "flow";
     }
     SliceTable::Id slice_out;
     SliceTable::Id slice_in;
+    std::optional<int64_t> trace_id;
     uint32_t arg_set_id;
 
     bool operator==(const FlowTable::Row& other) const {
       return type() == other.type() && ColumnType::slice_out::Equals(slice_out, other.slice_out) &&
        ColumnType::slice_in::Equals(slice_in, other.slice_in) &&
+       ColumnType::trace_id::Equals(trace_id, other.trace_id) &&
        ColumnType::arg_set_id::Equals(arg_set_id, other.arg_set_id);
     }
   };
   struct ColumnFlag {
     static constexpr uint32_t slice_out = ColumnType::slice_out::default_flags();
     static constexpr uint32_t slice_in = ColumnType::slice_in::default_flags();
+    static constexpr uint32_t trace_id = ColumnType::trace_id::default_flags();
     static constexpr uint32_t arg_set_id = ColumnType::arg_set_id::default_flags();
   };
 
@@ -90,6 +97,9 @@ class FlowTable : public macros_internal::MacroTable {
     ColumnType::slice_in::type slice_in() const {
       return table_->slice_in()[row_number_];
     }
+    ColumnType::trace_id::type trace_id() const {
+      return table_->trace_id()[row_number_];
+    }
     ColumnType::arg_set_id::type arg_set_id() const {
       return table_->arg_set_id()[row_number_];
     }
@@ -108,6 +118,10 @@ class FlowTable : public macros_internal::MacroTable {
     void set_slice_in(
         ColumnType::slice_in::non_optional_type v) {
       return mutable_table()->mutable_slice_in()->Set(row_number_, v);
+    }
+    void set_trace_id(
+        ColumnType::trace_id::non_optional_type v) {
+      return mutable_table()->mutable_trace_id()->Set(row_number_, v);
     }
     void set_arg_set_id(
         ColumnType::arg_set_id::non_optional_type v) {
@@ -142,6 +156,10 @@ class FlowTable : public macros_internal::MacroTable {
       const auto& col = table_->slice_in();
       return col.GetAtIdx(its_[col.overlay_index()].index());
     }
+    ColumnType::trace_id::type trace_id() const {
+      const auto& col = table_->trace_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
     ColumnType::arg_set_id::type arg_set_id() const {
       const auto& col = table_->arg_set_id();
       return col.GetAtIdx(its_[col.overlay_index()].index());
@@ -169,6 +187,10 @@ class FlowTable : public macros_internal::MacroTable {
       }
       void set_slice_in(ColumnType::slice_in::non_optional_type v) {
         auto* col = mutable_table_->mutable_slice_in();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_trace_id(ColumnType::trace_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_trace_id();
         col->SetAtIdx(its_[col->overlay_index()].index(), v);
       }
       void set_arg_set_id(ColumnType::arg_set_id::non_optional_type v) {
@@ -202,6 +224,7 @@ class FlowTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, nullptr),
         slice_out_(ColumnStorage<ColumnType::slice_out::stored_type>::Create<false>()),
         slice_in_(ColumnStorage<ColumnType::slice_in::stored_type>::Create<false>()),
+        trace_id_(ColumnStorage<ColumnType::trace_id::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
         Column::IsFlagsAndTypeValid<ColumnType::slice_out::stored_type>(
@@ -212,6 +235,10 @@ class FlowTable : public macros_internal::MacroTable {
           ColumnFlag::slice_in),
         "Column type and flag combination is not valid");
       static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::trace_id::stored_type>(
+          ColumnFlag::trace_id),
+        "Column type and flag combination is not valid");
+      static_assert(
         Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
@@ -220,6 +247,9 @@ class FlowTable : public macros_internal::MacroTable {
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
     columns_.emplace_back("slice_in", &slice_in_, ColumnFlag::slice_in,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("trace_id", &trace_id_, ColumnFlag::trace_id,
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
     columns_.emplace_back("arg_set_id", &arg_set_id_, ColumnFlag::arg_set_id,
@@ -243,6 +273,11 @@ class FlowTable : public macros_internal::MacroTable {
         false});
     schema.columns.emplace_back(Table::Schema::Column{
         "slice_in", ColumnType::slice_in::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "trace_id", ColumnType::trace_id::SqlValueType(), false,
         false,
         false,
         false});
@@ -276,6 +311,7 @@ class FlowTable : public macros_internal::MacroTable {
     type_.ShrinkToFit();
     slice_out_.ShrinkToFit();
     slice_in_.ShrinkToFit();
+    trace_id_.ShrinkToFit();
     arg_set_id_.ShrinkToFit();
   }
 
@@ -296,6 +332,7 @@ class FlowTable : public macros_internal::MacroTable {
     type_.Append(string_pool_->InternString(row.type()));
     mutable_slice_out()->Append(std::move(row.slice_out));
     mutable_slice_in()->Append(std::move(row.slice_in));
+    mutable_trace_id()->Append(std::move(row.trace_id));
     mutable_arg_set_id()->Append(std::move(row.arg_set_id));
     UpdateSelfOverlayAfterInsert();
     return IdAndRow{std::move(id), row_number, RowReference(this, row_number),
@@ -316,6 +353,9 @@ class FlowTable : public macros_internal::MacroTable {
   const TypedColumn<SliceTable::Id>& slice_in() const {
     return static_cast<const ColumnType::slice_in&>(columns_[ColumnIndex::slice_in]);
   }
+  const TypedColumn<std::optional<int64_t>>& trace_id() const {
+    return static_cast<const ColumnType::trace_id&>(columns_[ColumnIndex::trace_id]);
+  }
   const TypedColumn<uint32_t>& arg_set_id() const {
     return static_cast<const ColumnType::arg_set_id&>(columns_[ColumnIndex::arg_set_id]);
   }
@@ -328,6 +368,10 @@ class FlowTable : public macros_internal::MacroTable {
     return static_cast<ColumnType::slice_in*>(
         &columns_[ColumnIndex::slice_in]);
   }
+  TypedColumn<std::optional<int64_t>>* mutable_trace_id() {
+    return static_cast<ColumnType::trace_id*>(
+        &columns_[ColumnIndex::trace_id]);
+  }
   TypedColumn<uint32_t>* mutable_arg_set_id() {
     return static_cast<ColumnType::arg_set_id*>(
         &columns_[ColumnIndex::arg_set_id]);
@@ -338,6 +382,7 @@ class FlowTable : public macros_internal::MacroTable {
   
   ColumnStorage<ColumnType::slice_out::stored_type> slice_out_;
   ColumnStorage<ColumnType::slice_in::stored_type> slice_in_;
+  ColumnStorage<ColumnType::trace_id::stored_type> trace_id_;
   ColumnStorage<ColumnType::arg_set_id::stored_type> arg_set_id_;
 };
 

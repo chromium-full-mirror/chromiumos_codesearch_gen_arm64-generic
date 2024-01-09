@@ -226,6 +226,23 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) Renderer_SetProcessState_Par
 };
 static_assert(sizeof(Renderer_SetProcessState_Params_Data) == 16,
               "Bad sizeof(Renderer_SetProcessState_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) Renderer_SetBatterySaverMode_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t battery_saver_mode_enabled : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<Renderer_SetBatterySaverMode_Params_Data>;
+
+  Renderer_SetBatterySaverMode_Params_Data();
+  ~Renderer_SetBatterySaverMode_Params_Data() = delete;
+};
+static_assert(sizeof(Renderer_SetBatterySaverMode_Params_Data) == 16,
+              "Bad sizeof(Renderer_SetBatterySaverMode_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) Renderer_SetIsLockedToSite_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -301,8 +318,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) Renderer_InitializeRenderer_
   mojo::internal::Pointer<mojo::internal::String_Data> user_agent;
   mojo::internal::Pointer<::blink::mojom::internal::UserAgentMetadata_Data> metadata;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> cors_exempt_header_list;
-  int32_t attribution_support;
-  uint8_t pad3_[4];
   mojo::internal::Pointer<::blink::mojom::internal::OriginTrialsSettings_Data> origin_trials_settings;
 
  private:
@@ -311,25 +326,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) Renderer_InitializeRenderer_
   Renderer_InitializeRenderer_Params_Data();
   ~Renderer_InitializeRenderer_Params_Data() = delete;
 };
-static_assert(sizeof(Renderer_InitializeRenderer_Params_Data) == 48,
+static_assert(sizeof(Renderer_InitializeRenderer_Params_Data) == 40,
               "Bad sizeof(Renderer_InitializeRenderer_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) Renderer_SetAttributionReportingSupport_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t attribution_support;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<Renderer_SetAttributionReportingSupport_Params_Data>;
-
-  Renderer_SetAttributionReportingSupport_Params_Data();
-  ~Renderer_SetAttributionReportingSupport_Params_Data() = delete;
-};
-static_assert(sizeof(Renderer_SetAttributionReportingSupport_Params_Data) == 16,
-              "Bad sizeof(Renderer_SetAttributionReportingSupport_Params_Data)");
 
 }  // namespace internal
 
@@ -650,6 +648,24 @@ class Renderer_SetProcessState_ParamsDataView {
 };
 
 
+class Renderer_SetBatterySaverMode_ParamsDataView {
+ public:
+  Renderer_SetBatterySaverMode_ParamsDataView() = default;
+
+  Renderer_SetBatterySaverMode_ParamsDataView(
+      internal::Renderer_SetBatterySaverMode_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool battery_saver_mode_enabled() const {
+    return data_->battery_saver_mode_enabled;
+  }
+ private:
+  internal::Renderer_SetBatterySaverMode_Params_Data* data_ = nullptr;
+};
+
+
 class Renderer_SetIsLockedToSite_ParamsDataView {
  public:
   Renderer_SetIsLockedToSite_ParamsDataView() = default;
@@ -759,16 +775,6 @@ class Renderer_InitializeRenderer_ParamsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
-  template <typename UserType>
-  [[nodiscard]] bool ReadAttributionSupport(UserType* output) const {
-    auto data_value = data_->attribution_support;
-    return mojo::internal::Deserialize<::network::mojom::AttributionSupport>(
-        data_value, output);
-  }
-  ::network::mojom::AttributionSupport attribution_support() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::network::mojom::AttributionSupport>(data_->attribution_support));
-  }
   inline void GetOriginTrialsSettingsDataView(
       ::blink::mojom::OriginTrialsSettingsDataView* output);
 
@@ -792,31 +798,6 @@ static_assert(
  private:
   internal::Renderer_InitializeRenderer_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-class Renderer_SetAttributionReportingSupport_ParamsDataView {
- public:
-  Renderer_SetAttributionReportingSupport_ParamsDataView() = default;
-
-  Renderer_SetAttributionReportingSupport_ParamsDataView(
-      internal::Renderer_SetAttributionReportingSupport_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadAttributionSupport(UserType* output) const {
-    auto data_value = data_->attribution_support;
-    return mojo::internal::Deserialize<::network::mojom::AttributionSupport>(
-        data_value, output);
-  }
-  ::network::mojom::AttributionSupport attribution_support() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::network::mojom::AttributionSupport>(data_->attribution_support));
-  }
- private:
-  internal::Renderer_SetAttributionReportingSupport_Params_Data* data_ = nullptr;
 };
 
 
@@ -871,6 +852,8 @@ inline void Renderer_UpdateSystemColorInfo_ParamsDataView::GetParamsDataView(
 
 
 
+
+
 inline void Renderer_InitializeRenderer_ParamsDataView::GetUserAgentDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->user_agent.Get();
@@ -891,8 +874,6 @@ inline void Renderer_InitializeRenderer_ParamsDataView::GetOriginTrialsSettingsD
   auto pointer = data_->origin_trials_settings.Get();
   *output = ::blink::mojom::OriginTrialsSettingsDataView(pointer, message_);
 }
-
-
 
 
 

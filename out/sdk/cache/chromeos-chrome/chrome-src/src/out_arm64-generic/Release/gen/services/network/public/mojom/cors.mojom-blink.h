@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/cors.mojom-features.h"
 #include "services/network/public/mojom/cors.mojom-shared.h"
 #include "services/network/public/mojom/cors.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -39,42 +40,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CorsPreflightPolicy>
-    : EnumHashTraits<::network::mojom::CorsPreflightPolicy, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CorsError>
-    : EnumHashTraits<::network::mojom::CorsError, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::PrivateNetworkAccessPreflightResult>
-    : EnumHashTraits<::network::mojom::PrivateNetworkAccessPreflightResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {

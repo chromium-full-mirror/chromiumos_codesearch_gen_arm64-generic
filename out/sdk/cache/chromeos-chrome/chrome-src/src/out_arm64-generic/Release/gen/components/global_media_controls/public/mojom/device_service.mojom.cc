@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -186,14 +187,17 @@ void DeviceListHostProxy::SelectDevice(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceListHost_SelectDevice_Name, kFlags, 0, 0, nullptr);
@@ -272,10 +276,10 @@ bool DeviceListHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceListHostValidationInfo[] = {
-    {&internal::DeviceListHost_SelectDevice_Params_Data::Validate,
+    { &internal::DeviceListHost_SelectDevice_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -356,14 +360,17 @@ void DeviceListClientProxy::OnDevicesUpdated(
                         "<value of type std::vector<DevicePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceListClient_OnDevicesUpdated_Name, kFlags, 0, 0, nullptr);
@@ -444,10 +451,10 @@ bool DeviceListClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceListClientValidationInfo[] = {
-    {&internal::DeviceListClient_OnDevicesUpdated_Params_Data::Validate,
+    { &internal::DeviceListClient_OnDevicesUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -574,14 +581,17 @@ void DeviceServiceProxy::GetDeviceListHostForSession(
                         "<value of type ::mojo::PendingRemote<DeviceListClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_GetDeviceListHostForSession_Name, kFlags, 0, 0, nullptr);
@@ -637,14 +647,17 @@ void DeviceServiceProxy::GetDeviceListHostForPresentation(
                         "<value of type ::mojo::PendingRemote<DeviceListClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_GetDeviceListHostForPresentation_Name, kFlags, 0, 0, nullptr);
@@ -686,14 +699,17 @@ void DeviceServiceProxy::SetDevicePickerProvider(
                         "<value of type ::mojo::PendingRemote<DevicePickerProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_SetDevicePickerProvider_Name, kFlags, 0, 0, nullptr);
@@ -847,14 +863,14 @@ bool DeviceServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceServiceValidationInfo[] = {
-    {&internal::DeviceService_GetDeviceListHostForSession_Params_Data::Validate,
+    { &internal::DeviceService_GetDeviceListHostForSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_GetDeviceListHostForPresentation_Params_Data::Validate,
+    { &internal::DeviceService_GetDeviceListHostForPresentation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_SetDevicePickerProvider_Params_Data::Validate,
+    { &internal::DeviceService_SetDevicePickerProvider_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1095,14 +1111,17 @@ void DevicePickerProviderProxy::CreateItem(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerProvider_CreateItem_Name, kFlags, 0, 0, nullptr);
@@ -1136,14 +1155,17 @@ void DevicePickerProviderProxy::DeleteItem(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send global_media_controls::mojom::DevicePickerProvider::DeleteItem");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerProvider_DeleteItem_Name, kFlags, 0, 0, nullptr);
@@ -1166,14 +1188,17 @@ void DevicePickerProviderProxy::ShowItem(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send global_media_controls::mojom::DevicePickerProvider::ShowItem");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerProvider_ShowItem_Name, kFlags, 0, 0, nullptr);
@@ -1196,14 +1221,17 @@ void DevicePickerProviderProxy::HideItem(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send global_media_controls::mojom::DevicePickerProvider::HideItem");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerProvider_HideItem_Name, kFlags, 0, 0, nullptr);
@@ -1233,14 +1261,17 @@ void DevicePickerProviderProxy::OnMetadataChanged(
                         "<value of type const ::media_session::MediaMetadata&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerProvider_OnMetadataChanged_Name, kFlags, 0, 0, nullptr);
@@ -1281,14 +1312,17 @@ void DevicePickerProviderProxy::OnArtworkImageChanged(
                         "<value of type const ::gfx::ImageSkia&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerProvider_OnArtworkImageChanged_Name, kFlags, 0, 0, nullptr);
@@ -1325,14 +1359,17 @@ void DevicePickerProviderProxy::OnFaviconImageChanged(
                         "<value of type const ::gfx::ImageSkia&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerProvider_OnFaviconImageChanged_Name, kFlags, 0, 0, nullptr);
@@ -1369,14 +1406,17 @@ void DevicePickerProviderProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<DevicePickerObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerProvider_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1405,14 +1445,17 @@ void DevicePickerProviderProxy::HideMediaUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send global_media_controls::mojom::DevicePickerProvider::HideMediaUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerProvider_HideMediaUI_Name, kFlags, 0, 0, nullptr);
@@ -1698,26 +1741,26 @@ bool DevicePickerProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevicePickerProviderValidationInfo[] = {
-    {&internal::DevicePickerProvider_CreateItem_Params_Data::Validate,
+    { &internal::DevicePickerProvider_CreateItem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerProvider_DeleteItem_Params_Data::Validate,
+    { &internal::DevicePickerProvider_DeleteItem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerProvider_ShowItem_Params_Data::Validate,
+    { &internal::DevicePickerProvider_ShowItem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerProvider_HideItem_Params_Data::Validate,
+    { &internal::DevicePickerProvider_HideItem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerProvider_OnMetadataChanged_Params_Data::Validate,
+    { &internal::DevicePickerProvider_OnMetadataChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerProvider_OnArtworkImageChanged_Params_Data::Validate,
+    { &internal::DevicePickerProvider_OnArtworkImageChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerProvider_OnFaviconImageChanged_Params_Data::Validate,
+    { &internal::DevicePickerProvider_OnFaviconImageChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerProvider_AddObserver_Params_Data::Validate,
+    { &internal::DevicePickerProvider_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerProvider_HideMediaUI_Params_Data::Validate,
+    { &internal::DevicePickerProvider_HideMediaUI_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1851,14 +1894,17 @@ void DevicePickerObserverProxy::OnMediaUIOpened(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send global_media_controls::mojom::DevicePickerObserver::OnMediaUIOpened");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerObserver_OnMediaUIOpened_Name, kFlags, 0, 0, nullptr);
@@ -1881,14 +1927,17 @@ void DevicePickerObserverProxy::OnMediaUIClosed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send global_media_controls::mojom::DevicePickerObserver::OnMediaUIClosed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerObserver_OnMediaUIClosed_Name, kFlags, 0, 0, nullptr);
@@ -1911,14 +1960,17 @@ void DevicePickerObserverProxy::OnMediaUIUpdated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send global_media_controls::mojom::DevicePickerObserver::OnMediaUIUpdated");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerObserver_OnMediaUIUpdated_Name, kFlags, 0, 0, nullptr);
@@ -1941,14 +1993,17 @@ void DevicePickerObserverProxy::OnPickerDismissed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send global_media_controls::mojom::DevicePickerObserver::OnPickerDismissed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevicePickerObserver_OnPickerDismissed_Name, kFlags, 0, 0, nullptr);
@@ -2087,16 +2142,16 @@ bool DevicePickerObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevicePickerObserverValidationInfo[] = {
-    {&internal::DevicePickerObserver_OnMediaUIOpened_Params_Data::Validate,
+    { &internal::DevicePickerObserver_OnMediaUIOpened_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerObserver_OnMediaUIClosed_Params_Data::Validate,
+    { &internal::DevicePickerObserver_OnMediaUIClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerObserver_OnMediaUIUpdated_Params_Data::Validate,
+    { &internal::DevicePickerObserver_OnMediaUIUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevicePickerObserver_OnPickerDismissed_Params_Data::Validate,
+    { &internal::DevicePickerObserver_OnPickerDismissed_Params_Data::Validate,
      nullptr /* no response */},
 };
 

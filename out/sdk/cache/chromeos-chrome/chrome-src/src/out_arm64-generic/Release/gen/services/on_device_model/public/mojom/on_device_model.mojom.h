@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,10 +23,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/on_device_model/public/mojom/on_device_model.mojom-features.h"
 #include "services/on_device_model/public/mojom/on_device_model.mojom-shared.h"
 #include "services/on_device_model/public/mojom/on_device_model.mojom-forward.h"
-#include "mojo/public/mojom/base/file.mojom.h"
-#include "sandbox/policy/mojom/sandbox.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -34,7 +33,6 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
-#include "services/on_device_model/public/cpp/model_assets_mojom_traits.h"
 
 
 
@@ -90,7 +88,104 @@ class StreamingResponder
   virtual void OnResponse(const std::string& text) = 0;
 
   
-  virtual void OnComplete() = 0;
+  virtual void OnComplete(ResponseStatus status) = 0;
+};
+
+class ContextClientProxy;
+
+template <typename ImplRefTraits>
+class ContextClientStub;
+
+class ContextClientRequestValidator;
+
+
+class ContextClient
+    : public ContextClientInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = ContextClientInterfaceBase;
+  using Proxy_ = ContextClientProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = ContextClientStub<ImplRefTraits>;
+
+  using RequestValidator_ = ContextClientRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnCompleteMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnComplete_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~ContextClient() = default;
+
+  
+  virtual void OnComplete(uint32_t tokens_processed) = 0;
+};
+
+class SessionProxy;
+
+template <typename ImplRefTraits>
+class SessionStub;
+
+class SessionRequestValidator;
+
+
+class Session
+    : public SessionInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = SessionInterfaceBase;
+  using Proxy_ = SessionProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = SessionStub<ImplRefTraits>;
+
+  using RequestValidator_ = SessionRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kAddContextMinVersion = 0,
+    kExecuteMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct AddContext_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Execute_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~Session() = default;
+
+  
+  virtual void AddContext(InputOptionsPtr input, ::mojo::PendingRemote<ContextClient> client) = 0;
+
+  
+  virtual void Execute(InputOptionsPtr input, ::mojo::PendingRemote<StreamingResponder> response) = 0;
 };
 
 class OnDeviceModelProxy;
@@ -122,78 +217,20 @@ class OnDeviceModel
   using RequestValidator_ = OnDeviceModelRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
-    kExecuteMinVersion = 0,
+    kStartSessionMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct Execute_Sym {
+  struct StartSession_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~OnDeviceModel() = default;
 
   
-  virtual void Execute(const std::string& input, ::mojo::PendingRemote<StreamingResponder> response) = 0;
-};
-
-class OnDeviceModelServiceProxy;
-
-template <typename ImplRefTraits>
-class OnDeviceModelServiceStub;
-
-class OnDeviceModelServiceRequestValidator;
-class OnDeviceModelServiceResponseValidator;
-
-
-class OnDeviceModelService
-    : public OnDeviceModelServiceInterfaceBase {
- public:
-  using IPCStableHashFunction = uint32_t(*)();
-
-  static const char Name_[];
-  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
-  static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr auto kServiceSandbox = sandbox::mojom::Sandbox::kNoSandbox;
-  static constexpr uint32_t Version_ = 0;
-  static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasUninterruptableMethods_ = false;
-
-  using Base_ = OnDeviceModelServiceInterfaceBase;
-  using Proxy_ = OnDeviceModelServiceProxy;
-
-  template <typename ImplRefTraits>
-  using Stub_ = OnDeviceModelServiceStub<ImplRefTraits>;
-
-  using RequestValidator_ = OnDeviceModelServiceRequestValidator;
-  using ResponseValidator_ = OnDeviceModelServiceResponseValidator;
-  enum MethodMinVersions : uint32_t {
-    kLoadModelMinVersion = 0,
-    kGetEstimatedPerformanceClassMinVersion = 0,
-  };
-
-// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
-// with not having this data in traces there.
-#if !BUILDFLAG(IS_FUCHSIA)
-  struct LoadModel_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetEstimatedPerformanceClass_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-#endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~OnDeviceModelService() = default;
-
-
-  using LoadModelCallback = base::OnceCallback<void(LoadModelResultPtr)>;
-  
-  virtual void LoadModel(on_device_model::ModelAssets assets, LoadModelCallback callback) = 0;
-
-
-  using GetEstimatedPerformanceClassCallback = base::OnceCallback<void(PerformanceClass)>;
-  
-  virtual void GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) = 0;
+  virtual void StartSession(::mojo::PendingReceiver<Session> session) = 0;
 };
 
 
@@ -207,7 +244,39 @@ class  StreamingResponderProxy
   
   void OnResponse(const std::string& text) final;
   
-  void OnComplete() final;
+  void OnComplete(ResponseStatus status) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  ContextClientProxy
+    : public ContextClient {
+ public:
+  using InterfaceType = ContextClient;
+
+  explicit ContextClientProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnComplete(uint32_t tokens_processed) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  SessionProxy
+    : public Session {
+ public:
+  using InterfaceType = Session;
+
+  explicit SessionProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void AddContext(InputOptionsPtr input, ::mojo::PendingRemote<ContextClient> client) final;
+  
+  void Execute(InputOptionsPtr input, ::mojo::PendingRemote<StreamingResponder> response) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -222,24 +291,7 @@ class  OnDeviceModelProxy
 
   explicit OnDeviceModelProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void Execute(const std::string& input, ::mojo::PendingRemote<StreamingResponder> response) final;
-
- private:
-  mojo::MessageReceiverWithResponder* receiver_;
-};
-
-
-
-class  OnDeviceModelServiceProxy
-    : public OnDeviceModelService {
- public:
-  using InterfaceType = OnDeviceModelService;
-
-  explicit OnDeviceModelServiceProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  void LoadModel(on_device_model::ModelAssets assets, LoadModelCallback callback) final;
-  
-  void GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) final;
+  void StartSession(::mojo::PendingReceiver<Session> session) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -279,6 +331,88 @@ class StreamingResponderStub
     if (ImplRefTraits::IsNull(sink_))
       return false;
     return StreamingResponderStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  ContextClientStubDispatch {
+ public:
+  static bool Accept(ContextClient* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      ContextClient* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<ContextClient>>
+class ContextClientStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  ContextClientStub() = default;
+  ~ContextClientStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ContextClientStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ContextClientStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  SessionStubDispatch {
+ public:
+  static bool Accept(Session* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      Session* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<Session>>
+class SessionStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  SessionStub() = default;
+  ~SessionStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return SessionStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return SessionStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -326,48 +460,15 @@ class OnDeviceModelStub
  private:
   ImplPointerType sink_;
 };
-class  OnDeviceModelServiceStubDispatch {
- public:
-  static bool Accept(OnDeviceModelService* impl, mojo::Message* message);
-  static bool AcceptWithResponder(
-      OnDeviceModelService* impl,
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
-};
-
-template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<OnDeviceModelService>>
-class OnDeviceModelServiceStub
-    : public mojo::MessageReceiverWithResponderStatus {
- public:
-  using ImplPointerType = typename ImplRefTraits::PointerType;
-
-  OnDeviceModelServiceStub() = default;
-  ~OnDeviceModelServiceStub() override = default;
-
-  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
-  ImplPointerType& sink() { return sink_; }
-
-  bool Accept(mojo::Message* message) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return OnDeviceModelServiceStubDispatch::Accept(
-        ImplRefTraits::GetRawPointer(&sink_), message);
-  }
-
-  bool AcceptWithResponder(
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return OnDeviceModelServiceStubDispatch::AcceptWithResponder(
-        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
-  }
-
- private:
-  ImplPointerType sink_;
-};
 class  StreamingResponderRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  ContextClientRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  SessionRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -375,210 +476,77 @@ class  OnDeviceModelRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  OnDeviceModelServiceRequestValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
-class  OnDeviceModelServiceResponseValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
 
 
 
 
 
 
-class  LoadModelResult {
- public:
-  using DataView = LoadModelResultDataView;
-  using Data_ = internal::LoadModelResult_Data;
-  using Tag = Data_::LoadModelResult_Tag;
-
-  template <typename... Args>
-  static LoadModelResultPtr New(Args&&... args) {
-    static_assert(
-        sizeof...(args) < 0,
-        "Do not use Union::New(); to create a union of a given subtype, use "
-        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
-        "an empty union, mark the field or parameter as nullable in the mojom "
-        "definition.");
-    return nullptr;
-  }
-  // Construct an instance holding |model|.
-  static LoadModelResultPtr
-  NewModel(
-      ::mojo::PendingRemote<OnDeviceModel> model) {
-    auto result = LoadModelResultPtr(absl::in_place);
-    result->set_model(std::move(model));
-    return result;
-  }
-  // Construct an instance holding |error|.
-  static LoadModelResultPtr
-  NewError(
-      const std::string& error) {
-    auto result = LoadModelResultPtr(absl::in_place);
-    result->set_error(std::move(error));
-    return result;
-  }
-
-  template <typename U>
-  static LoadModelResultPtr From(const U& u) {
-    return mojo::TypeConverter<LoadModelResultPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, LoadModelResult>::Convert(*this);
-  }
-
-  LoadModelResult();
-  ~LoadModelResult();
-  // Delete the copy constructor and copy assignment operators because `data_`
-  // contains raw pointers that must not be copied.
-  LoadModelResult(const LoadModelResult& other) = delete;
-  LoadModelResult& operator=(const LoadModelResult& other) = delete;
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename UnionPtrType = LoadModelResultPtr>
-  LoadModelResultPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T,
-            typename std::enable_if<std::is_same<
-                T, LoadModelResult>::value>::type* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T,
-            typename std::enable_if<std::is_same<
-                T, LoadModelResult>::value>::type* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  Tag which() const {
-    return tag_;
-  }
 
 
-  
-  bool is_model() const { return tag_ == Tag::kModel; }
-
-  
-  ::mojo::PendingRemote<OnDeviceModel>& get_model() const {
-    CHECK(tag_ == Tag::kModel);
-    return *(data_.model);
-  }
-
-  
-  void set_model(
-      ::mojo::PendingRemote<OnDeviceModel> model);
-  
-  bool is_error() const { return tag_ == Tag::kError; }
-
-  
-  std::string& get_error() const {
-    CHECK(tag_ == Tag::kError);
-    return *(data_.error);
-  }
-
-  
-  void set_error(
-      const std::string& error);
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        LoadModelResult::DataView>(input);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    return mojo::internal::DeserializeImpl<LoadModelResult::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
- private:
-  union Union_ {
-    Union_() = default;
-    ~Union_() = default;
-    ::mojo::PendingRemote<OnDeviceModel>* model;
-    std::string* error;
-  };
-
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  void DestroyActive();
-  Tag tag_;
-  Union_ data_;
-};
-
-
-
-
-
-class  ModelAssets {
+class  InputOptions {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<ModelAssets, T>::value>;
-  using DataView = ModelAssetsDataView;
-  using Data_ = internal::ModelAssets_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<InputOptions, T>::value>;
+  using DataView = InputOptionsDataView;
+  using Data_ = internal::InputOptions_Data;
 
   template <typename... Args>
-  static ModelAssetsPtr New(Args&&... args) {
-    return ModelAssetsPtr(
+  static InputOptionsPtr New(Args&&... args) {
+    return InputOptionsPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static ModelAssetsPtr From(const U& u) {
-    return mojo::TypeConverter<ModelAssetsPtr, U>::Convert(u);
+  static InputOptionsPtr From(const U& u) {
+    return mojo::TypeConverter<InputOptionsPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, ModelAssets>::Convert(*this);
+    return mojo::TypeConverter<U, InputOptions>::Convert(*this);
   }
 
 
-  ModelAssets();
+  InputOptions();
 
-  ModelAssets(
-      ::base::File sp_model,
-      ::base::File model,
-      ::base::File weights);
+  InputOptions(
+      const std::string& text,
+      std::optional<uint32_t> max_tokens,
+      std::optional<uint32_t> token_offset,
+      bool ignore_context,
+      std::optional<uint32_t> max_output_tokens);
 
-ModelAssets(const ModelAssets&) = delete;
-ModelAssets& operator=(const ModelAssets&) = delete;
 
-  ~ModelAssets();
+  ~InputOptions();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = ModelAssetsPtr>
-  ModelAssetsPtr Clone() const;
+  template <typename StructPtrType = InputOptionsPtr>
+  InputOptionsPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
+  template <typename T, InputOptions::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
+  template <typename T, InputOptions::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
+  template <typename T, InputOptions::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        InputOptions::DataView, std::vector<uint8_t>>(input);
+  }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        ModelAssets::DataView>(input);
+        InputOptions::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -588,8 +556,8 @@ ModelAssets& operator=(const ModelAssets&) = delete;
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::ModelAssets_UnserializedMessageContext<
-            UserType, ModelAssets::DataView>>(0, 0, std::move(input)),
+        internal::InputOptions_UnserializedMessageContext<
+            UserType, InputOptions::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -598,14 +566,14 @@ ModelAssets& operator=(const ModelAssets&) = delete;
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<ModelAssets::DataView>(
+    return mojo::internal::DeserializeImpl<InputOptions::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return ModelAssets::Deserialize(
+    return InputOptions::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -613,23 +581,27 @@ ModelAssets& operator=(const ModelAssets&) = delete;
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::ModelAssets_UnserializedMessageContext<
-            UserType, ModelAssets::DataView>>();
+        internal::InputOptions_UnserializedMessageContext<
+            UserType, InputOptions::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<ModelAssets::DataView>(
+    return mojo::internal::DeserializeImpl<InputOptions::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
   
-  ::base::File sp_model;
+  std::string text;
   
-  ::base::File model;
+  std::optional<uint32_t> max_tokens;
   
-  ::base::File weights;
+  std::optional<uint32_t> token_offset;
+  
+  bool ignore_context;
+  
+  std::optional<uint32_t> max_output_tokens;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -642,86 +614,71 @@ ModelAssets& operator=(const ModelAssets&) = delete;
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
+template <typename T, InputOptions::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
+template <typename T, InputOptions::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
+template <typename T, InputOptions::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
+template <typename T, InputOptions::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
-template <typename UnionPtrType>
-LoadModelResultPtr LoadModelResult::Clone() const {
-  switch (tag_) {
-    case Tag::kModel:
-      return NewModel(
-          mojo::Clone(*data_.model));
-    case Tag::kError:
-      return NewError(
-          mojo::Clone(*data_.error));
-  }
-  return nullptr;
-}
-
-template <typename T,
-          typename std::enable_if<std::is_same<
-              T, LoadModelResult>::value>::type*>
-bool LoadModelResult::Equals(const T& other) const {
-  if (tag_ != other.which())
-    return false;
-
-  switch (tag_) {
-    case Tag::kModel:
-      return mojo::Equals(*(data_.model), *(other.data_.model));
-    case Tag::kError:
-      return mojo::Equals(*(data_.error), *(other.data_.error));
-  }
-
-  return false;
-}
 template <typename StructPtrType>
-ModelAssetsPtr ModelAssets::Clone() const {
+InputOptionsPtr InputOptions::Clone() const {
   return New(
-      mojo::Clone(sp_model),
-      mojo::Clone(model),
-      mojo::Clone(weights)
+      mojo::Clone(text),
+      mojo::Clone(max_tokens),
+      mojo::Clone(token_offset),
+      mojo::Clone(ignore_context),
+      mojo::Clone(max_output_tokens)
   );
 }
 
-template <typename T, ModelAssets::EnableIfSame<T>*>
-bool ModelAssets::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->sp_model, other_struct.sp_model))
+template <typename T, InputOptions::EnableIfSame<T>*>
+bool InputOptions::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->text, other_struct.text))
     return false;
-  if (!mojo::Equals(this->model, other_struct.model))
+  if (!mojo::Equals(this->max_tokens, other_struct.max_tokens))
     return false;
-  if (!mojo::Equals(this->weights, other_struct.weights))
+  if (!mojo::Equals(this->token_offset, other_struct.token_offset))
+    return false;
+  if (!mojo::Equals(this->ignore_context, other_struct.ignore_context))
+    return false;
+  if (!mojo::Equals(this->max_output_tokens, other_struct.max_output_tokens))
     return false;
   return true;
 }
 
-template <typename T, ModelAssets::EnableIfSame<T>*>
+template <typename T, InputOptions::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.sp_model < rhs.sp_model)
+  if (lhs.text < rhs.text)
     return true;
-  if (rhs.sp_model < lhs.sp_model)
+  if (rhs.text < lhs.text)
     return false;
-  if (lhs.model < rhs.model)
+  if (lhs.max_tokens < rhs.max_tokens)
     return true;
-  if (rhs.model < lhs.model)
+  if (rhs.max_tokens < lhs.max_tokens)
     return false;
-  if (lhs.weights < rhs.weights)
+  if (lhs.token_offset < rhs.token_offset)
     return true;
-  if (rhs.weights < lhs.weights)
+  if (rhs.token_offset < lhs.token_offset)
+    return false;
+  if (lhs.ignore_context < rhs.ignore_context)
+    return true;
+  if (rhs.ignore_context < lhs.ignore_context)
+    return false;
+  if (lhs.max_output_tokens < rhs.max_output_tokens)
+    return true;
+  if (rhs.max_output_tokens < lhs.max_output_tokens)
     return false;
   return false;
 }
@@ -733,49 +690,37 @@ namespace mojo {
 
 
 template <>
-struct  StructTraits<::on_device_model::mojom::ModelAssets::DataView,
-                                         ::on_device_model::mojom::ModelAssetsPtr> {
-  static bool IsNull(const ::on_device_model::mojom::ModelAssetsPtr& input) { return !input; }
-  static void SetToNull(::on_device_model::mojom::ModelAssetsPtr* output) { output->reset(); }
+struct  StructTraits<::on_device_model::mojom::InputOptions::DataView,
+                                         ::on_device_model::mojom::InputOptionsPtr> {
+  static bool IsNull(const ::on_device_model::mojom::InputOptionsPtr& input) { return !input; }
+  static void SetToNull(::on_device_model::mojom::InputOptionsPtr* output) { output->reset(); }
 
-  static  decltype(::on_device_model::mojom::ModelAssets::sp_model)& sp_model(
-       ::on_device_model::mojom::ModelAssetsPtr& input) {
-    return input->sp_model;
+  static const decltype(::on_device_model::mojom::InputOptions::text)& text(
+      const ::on_device_model::mojom::InputOptionsPtr& input) {
+    return input->text;
   }
 
-  static  decltype(::on_device_model::mojom::ModelAssets::model)& model(
-       ::on_device_model::mojom::ModelAssetsPtr& input) {
-    return input->model;
+  static decltype(::on_device_model::mojom::InputOptions::max_tokens) max_tokens(
+      const ::on_device_model::mojom::InputOptionsPtr& input) {
+    return input->max_tokens;
   }
 
-  static  decltype(::on_device_model::mojom::ModelAssets::weights)& weights(
-       ::on_device_model::mojom::ModelAssetsPtr& input) {
-    return input->weights;
+  static decltype(::on_device_model::mojom::InputOptions::token_offset) token_offset(
+      const ::on_device_model::mojom::InputOptionsPtr& input) {
+    return input->token_offset;
   }
 
-  static bool Read(::on_device_model::mojom::ModelAssets::DataView input, ::on_device_model::mojom::ModelAssetsPtr* output);
-};
-
-
-template <>
-struct  UnionTraits<::on_device_model::mojom::LoadModelResult::DataView,
-                                        ::on_device_model::mojom::LoadModelResultPtr> {
-  static bool IsNull(const ::on_device_model::mojom::LoadModelResultPtr& input) { return !input; }
-  static void SetToNull(::on_device_model::mojom::LoadModelResultPtr* output) { output->reset(); }
-
-  static ::on_device_model::mojom::LoadModelResult::Tag GetTag(const ::on_device_model::mojom::LoadModelResultPtr& input) {
-    return input->which();
+  static decltype(::on_device_model::mojom::InputOptions::ignore_context) ignore_context(
+      const ::on_device_model::mojom::InputOptionsPtr& input) {
+    return input->ignore_context;
   }
 
-  static  ::mojo::PendingRemote<::on_device_model::mojom::OnDeviceModel>& model( ::on_device_model::mojom::LoadModelResultPtr& input) {
-    return input->get_model();
+  static decltype(::on_device_model::mojom::InputOptions::max_output_tokens) max_output_tokens(
+      const ::on_device_model::mojom::InputOptionsPtr& input) {
+    return input->max_output_tokens;
   }
 
-  static const std::string& error(const ::on_device_model::mojom::LoadModelResultPtr& input) {
-    return input->get_error();
-  }
-
-  static bool Read(::on_device_model::mojom::LoadModelResult::DataView input, ::on_device_model::mojom::LoadModelResultPtr* output);
+  static bool Read(::on_device_model::mojom::InputOptions::DataView input, ::on_device_model::mojom::InputOptionsPtr* output);
 };
 
 }  // namespace mojo

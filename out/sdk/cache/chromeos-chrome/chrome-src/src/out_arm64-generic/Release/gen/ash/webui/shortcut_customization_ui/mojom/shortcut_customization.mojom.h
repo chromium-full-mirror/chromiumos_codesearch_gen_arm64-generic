@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-features.h"
 #include "ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-shared.h"
 #include "ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-forward.h"
 #include "ash/public/mojom/accelerator_configuration.mojom-forward.h"
@@ -181,6 +182,8 @@ class AcceleratorConfigurationProvider
     kRestoreAllDefaultsMinVersion = 0,
     kRecordUserActionMinVersion = 0,
     kRecordMainCategoryNavigationMinVersion = 0,
+    kRecordEditDialogCompletedActionsMinVersion = 0,
+    kRecordAddOrEditSubactionsMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -235,6 +238,12 @@ class AcceleratorConfigurationProvider
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RecordMainCategoryNavigation_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RecordEditDialogCompletedActions_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RecordAddOrEditSubactions_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -316,6 +325,12 @@ class AcceleratorConfigurationProvider
 
   
   virtual void RecordMainCategoryNavigation(::ash::mojom::AcceleratorCategory category) = 0;
+
+  
+  virtual void RecordEditDialogCompletedActions(EditDialogCompletedActions completed_actions) = 0;
+
+  
+  virtual void RecordAddOrEditSubactions(bool is_add, Subactions subactions) = 0;
 };
 
 
@@ -390,6 +405,10 @@ class  AcceleratorConfigurationProviderProxy
   void RecordUserAction(UserAction user_action) final;
   
   void RecordMainCategoryNavigation(::ash::mojom::AcceleratorCategory category) final;
+  
+  void RecordEditDialogCompletedActions(EditDialogCompletedActions completed_actions) final;
+  
+  void RecordAddOrEditSubactions(bool is_add, Subactions subactions) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -714,7 +733,7 @@ class  AcceleratorResultData {
   AcceleratorResultData();
 
   AcceleratorResultData(
-      const absl::optional<::std::u16string>& shortcut_name,
+      const std::optional<::std::u16string>& shortcut_name,
       ::ash::mojom::AcceleratorConfigResult result);
 
 
@@ -793,7 +812,7 @@ class  AcceleratorResultData {
   }
 
   
-  absl::optional<::std::u16string> shortcut_name;
+  std::optional<::std::u16string> shortcut_name;
   
   ::ash::mojom::AcceleratorConfigResult result;
 

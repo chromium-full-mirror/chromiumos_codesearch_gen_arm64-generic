@@ -15,11 +15,11 @@ namespace network::mojom {
 
 class  RestrictedCookieManagerInterceptorForTesting : public RestrictedCookieManager {
   virtual RestrictedCookieManager* GetForwardingInterface() = 0;
-  void GetAllForUrl(const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, GetAllForUrlCallback callback) override;
+  void GetAllForUrl(const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged, GetAllForUrlCallback callback) override;
   void SetCanonicalCookie(const ::net::CanonicalCookie& cookie, const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, ::net::CookieInclusionStatus status, SetCanonicalCookieCallback callback) override;
   void AddChangeListener(const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, ::mojo::PendingRemote<::network::mojom::CookieChangeListener> listener, AddChangeListenerCallback callback) override;
   void SetCookieFromString(const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, const std::string& cookie, SetCookieFromStringCallback callback) override;
-  void GetCookiesString(const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, GetCookiesStringCallback callback) override;
+  void GetCookiesString(const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, GetCookiesStringCallback callback) override;
   void CookiesEnabledFor(const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, CookiesEnabledForCallback callback) override;
 };
 class  RestrictedCookieManagerAsyncWaiter {
@@ -31,8 +31,8 @@ class  RestrictedCookieManagerAsyncWaiter {
 
   ~RestrictedCookieManagerAsyncWaiter();
   void GetAllForUrl(
-      const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, std::vector<::net::CookieWithAccessResult>* out_cookies);
-  std::vector<::net::CookieWithAccessResult> GetAllForUrl(const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options);
+      const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged, std::vector<::net::CookieWithAccessResult>* out_cookies);
+  std::vector<::net::CookieWithAccessResult> GetAllForUrl(const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged);
   void SetCanonicalCookie(
       const ::net::CanonicalCookie& cookie, const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, ::net::CookieInclusionStatus status, bool* out_success);
   bool SetCanonicalCookie(const ::net::CanonicalCookie& cookie, const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, ::net::CookieInclusionStatus status);
@@ -43,7 +43,7 @@ class  RestrictedCookieManagerAsyncWaiter {
       const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, const std::string& cookie);
   
   void GetCookiesString(
-      const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, std::string* out_cookies);
+      const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, std::string* out_cookies);
   
   void CookiesEnabledFor(
       const ::GURL& url, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool has_storage_access, bool* out_cookies_enabled);

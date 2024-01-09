@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/dom_storage/storage_area.mojom-features.h"
 #include "third_party/blink/public/mojom/dom_storage/storage_area.mojom-shared.h"
 #include "third_party/blink/public/mojom/dom_storage/storage_area.mojom-forward.h"
 #include <string>
@@ -97,13 +98,13 @@ class BLINK_COMMON_EXPORT StorageAreaObserver
   virtual ~StorageAreaObserver() = default;
 
   
-  virtual void KeyChanged(const std::vector<uint8_t>& key, const std::vector<uint8_t>& new_value, const absl::optional<std::vector<uint8_t>>& old_value, const std::string& source) = 0;
+  virtual void KeyChanged(const std::vector<uint8_t>& key, const std::vector<uint8_t>& new_value, const std::optional<std::vector<uint8_t>>& old_value, const std::string& source) = 0;
 
   
   virtual void KeyChangeFailed(const std::vector<uint8_t>& key, const std::string& source) = 0;
 
   
-  virtual void KeyDeleted(const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& old_value, const std::string& source) = 0;
+  virtual void KeyDeleted(const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& old_value, const std::string& source) = 0;
 
   
   virtual void AllDeleted(bool was_nonempty, const std::string& source) = 0;
@@ -187,12 +188,12 @@ class BLINK_COMMON_EXPORT StorageArea
 
   using PutCallback = base::OnceCallback<void(bool)>;
   
-  virtual void Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, PutCallback callback) = 0;
+  virtual void Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, PutCallback callback) = 0;
 
 
   using DeleteCallback = base::OnceCallback<void(bool)>;
   
-  virtual void Delete(const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, DeleteCallback callback) = 0;
+  virtual void Delete(const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, DeleteCallback callback) = 0;
 
 
   using DeleteAllCallback = base::OnceCallback<void(bool)>;
@@ -223,11 +224,11 @@ class BLINK_COMMON_EXPORT StorageAreaObserverProxy
 
   explicit StorageAreaObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void KeyChanged(const std::vector<uint8_t>& key, const std::vector<uint8_t>& new_value, const absl::optional<std::vector<uint8_t>>& old_value, const std::string& source) final;
+  void KeyChanged(const std::vector<uint8_t>& key, const std::vector<uint8_t>& new_value, const std::optional<std::vector<uint8_t>>& old_value, const std::string& source) final;
   
   void KeyChangeFailed(const std::vector<uint8_t>& key, const std::string& source) final;
   
-  void KeyDeleted(const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& old_value, const std::string& source) final;
+  void KeyDeleted(const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& old_value, const std::string& source) final;
   
   void AllDeleted(bool was_nonempty, const std::string& source) final;
   
@@ -248,9 +249,9 @@ class BLINK_COMMON_EXPORT StorageAreaProxy
   
   void AddObserver(::mojo::PendingRemote<StorageAreaObserver> observer) final;
   
-  void Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, PutCallback callback) final;
+  void Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, PutCallback callback) final;
   
-  void Delete(const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, DeleteCallback callback) final;
+  void Delete(const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, DeleteCallback callback) final;
   
   void DeleteAll(const std::string& source, ::mojo::PendingRemote<StorageAreaObserver> new_observer, DeleteAllCallback callback) final;
   

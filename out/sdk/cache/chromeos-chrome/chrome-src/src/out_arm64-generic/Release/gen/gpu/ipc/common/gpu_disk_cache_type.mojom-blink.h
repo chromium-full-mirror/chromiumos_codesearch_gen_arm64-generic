@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "gpu/ipc/common/gpu_disk_cache_type.mojom-features.h"
 #include "gpu/ipc/common/gpu_disk_cache_type.mojom-shared.h"
 #include "gpu/ipc/common/gpu_disk_cache_type.mojom-blink-forward.h"
 
@@ -37,18 +38,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gpu::mojom::GpuDiskCacheType>
-    : EnumHashTraits<::gpu::mojom::GpuDiskCacheType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace gpu::mojom::blink {
@@ -358,17 +347,17 @@ class BLINK_PLATFORM_EXPORT GpuDiskCacheHandle {
   // Construct an instance holding |gl_shader_handle|.
   static GpuDiskCacheHandlePtr
   NewGlShaderHandle(
-      GpuDiskCacheGlShaderHandlePtr gl_shader_handle) {
+      GpuDiskCacheGlShaderHandlePtr value) {
     auto result = GpuDiskCacheHandlePtr(absl::in_place);
-    result->set_gl_shader_handle(std::move(gl_shader_handle));
+    result->set_gl_shader_handle(std::move(value));
     return result;
   }
   // Construct an instance holding |dawn_webgpu_handle|.
   static GpuDiskCacheHandlePtr
   NewDawnWebgpuHandle(
-      GpuDiskCacheDawnWebGPUHandlePtr dawn_webgpu_handle) {
+      GpuDiskCacheDawnWebGPUHandlePtr value) {
     auto result = GpuDiskCacheHandlePtr(absl::in_place);
-    result->set_dawn_webgpu_handle(std::move(dawn_webgpu_handle));
+    result->set_dawn_webgpu_handle(std::move(value));
     return result;
   }
 

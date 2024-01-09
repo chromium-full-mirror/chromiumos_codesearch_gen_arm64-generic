@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/services/printing/public/mojom/print_backend_service.mojom-features.h"
 #include "chrome/services/printing/public/mojom/print_backend_service.mojom-shared.h"
 #include "chrome/services/printing/public/mojom/print_backend_service.mojom-forward.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
@@ -270,7 +271,7 @@ class PrintBackendService
 
   using StartPrintingCallback = base::OnceCallback<void(::printing::mojom::ResultCode)>;
   
-  virtual void StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const absl::optional<::printing::PrintSettings>& settings, StartPrintingCallback callback) = 0;
+  virtual void StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, StartPrintingCallback callback) = 0;
 
 
   using RenderPrintedDocumentCallback = base::OnceCallback<void(::printing::mojom::ResultCode)>;
@@ -345,7 +346,7 @@ class  PrintBackendServiceProxy
   
   void UpdatePrintSettings(uint32_t context_id, ::base::Value::Dict job_settings, UpdatePrintSettingsCallback callback) final;
   
-  void StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const absl::optional<::printing::PrintSettings>& settings, StartPrintingCallback callback) final;
+  void StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, StartPrintingCallback callback) final;
   
   void RenderPrintedDocument(int32_t document_cookie, uint32_t page_count, ::printing::mojom::MetafileDataType data_type, ::base::ReadOnlySharedMemoryRegion serialized_doc, RenderPrintedDocumentCallback callback) final;
   
@@ -520,17 +521,17 @@ class  DefaultPrinterNameResult {
   // Construct an instance holding |default_printer_name|.
   static DefaultPrinterNameResultPtr
   NewDefaultPrinterName(
-      const std::string& default_printer_name) {
+      const std::string& value) {
     auto result = DefaultPrinterNameResultPtr(absl::in_place);
-    result->set_default_printer_name(std::move(default_printer_name));
+    result->set_default_printer_name(std::move(value));
     return result;
   }
   // Construct an instance holding |result_code|.
   static DefaultPrinterNameResultPtr
   NewResultCode(
-      ::printing::mojom::ResultCode result_code) {
+      ::printing::mojom::ResultCode value) {
     auto result = DefaultPrinterNameResultPtr(absl::in_place);
-    result->set_result_code(std::move(result_code));
+    result->set_result_code(std::move(value));
     return result;
   }
 
@@ -651,17 +652,17 @@ class  PrinterListResult {
   // Construct an instance holding |printer_list|.
   static PrinterListResultPtr
   NewPrinterList(
-      std::vector<::printing::PrinterBasicInfo> printer_list) {
+      std::vector<::printing::PrinterBasicInfo> value) {
     auto result = PrinterListResultPtr(absl::in_place);
-    result->set_printer_list(std::move(printer_list));
+    result->set_printer_list(std::move(value));
     return result;
   }
   // Construct an instance holding |result_code|.
   static PrinterListResultPtr
   NewResultCode(
-      ::printing::mojom::ResultCode result_code) {
+      ::printing::mojom::ResultCode value) {
     auto result = PrinterListResultPtr(absl::in_place);
-    result->set_result_code(std::move(result_code));
+    result->set_result_code(std::move(value));
     return result;
   }
 
@@ -781,17 +782,17 @@ class  PrinterSemanticCapsAndDefaultsResult {
   // Construct an instance holding |printer_caps|.
   static PrinterSemanticCapsAndDefaultsResultPtr
   NewPrinterCaps(
-      const ::printing::PrinterSemanticCapsAndDefaults& printer_caps) {
+      const ::printing::PrinterSemanticCapsAndDefaults& value) {
     auto result = PrinterSemanticCapsAndDefaultsResultPtr(absl::in_place);
-    result->set_printer_caps(std::move(printer_caps));
+    result->set_printer_caps(std::move(value));
     return result;
   }
   // Construct an instance holding |result_code|.
   static PrinterSemanticCapsAndDefaultsResultPtr
   NewResultCode(
-      ::printing::mojom::ResultCode result_code) {
+      ::printing::mojom::ResultCode value) {
     auto result = PrinterSemanticCapsAndDefaultsResultPtr(absl::in_place);
-    result->set_result_code(std::move(result_code));
+    result->set_result_code(std::move(value));
     return result;
   }
 
@@ -911,17 +912,17 @@ class  PrinterCapsAndInfoResult {
   // Construct an instance holding |printer_caps_and_info|.
   static PrinterCapsAndInfoResultPtr
   NewPrinterCapsAndInfo(
-      PrinterCapsAndInfoPtr printer_caps_and_info) {
+      PrinterCapsAndInfoPtr value) {
     auto result = PrinterCapsAndInfoResultPtr(absl::in_place);
-    result->set_printer_caps_and_info(std::move(printer_caps_and_info));
+    result->set_printer_caps_and_info(std::move(value));
     return result;
   }
   // Construct an instance holding |result_code|.
   static PrinterCapsAndInfoResultPtr
   NewResultCode(
-      ::printing::mojom::ResultCode result_code) {
+      ::printing::mojom::ResultCode value) {
     auto result = PrinterCapsAndInfoResultPtr(absl::in_place);
-    result->set_result_code(std::move(result_code));
+    result->set_result_code(std::move(value));
     return result;
   }
 
@@ -1041,17 +1042,17 @@ class  PrintSettingsResult {
   // Construct an instance holding |settings|.
   static PrintSettingsResultPtr
   NewSettings(
-      const ::printing::PrintSettings& settings) {
+      const ::printing::PrintSettings& value) {
     auto result = PrintSettingsResultPtr(absl::in_place);
-    result->set_settings(std::move(settings));
+    result->set_settings(std::move(value));
     return result;
   }
   // Construct an instance holding |result_code|.
   static PrintSettingsResultPtr
   NewResultCode(
-      ::printing::mojom::ResultCode result_code) {
+      ::printing::mojom::ResultCode value) {
     auto result = PrintSettingsResultPtr(absl::in_place);
-    result->set_result_code(std::move(result_code));
+    result->set_result_code(std::move(value));
     return result;
   }
 

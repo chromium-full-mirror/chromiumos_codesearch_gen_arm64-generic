@@ -14,6 +14,11 @@ namespace extensions::mojom {
 namespace internal {
 
 
+constexpr uint32_t kMessagePort_DispatchDisconnect_Name = 0;
+constexpr uint32_t kMessagePort_DeliverMessage_Name = 1;
+constexpr uint32_t kMessagePortHost_ClosePort_Name = 0;
+constexpr uint32_t kMessagePortHost_PostMessage_Name = 1;
+constexpr uint32_t kMessagePortHost_ResponsePending_Name = 2;
 
 }  // namespace internal
 

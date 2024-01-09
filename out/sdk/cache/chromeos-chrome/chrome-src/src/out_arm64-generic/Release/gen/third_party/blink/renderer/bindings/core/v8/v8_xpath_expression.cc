@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XPathExpression>::value,
     "XPathExpression inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XPathExpression::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XPathExpression is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XPathExpression* blink_receiver = V8XPathExpression::ToWrappableUnsafe(v8_receiver);
+XPathExpression* blink_receiver = V8XPathExpression::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;

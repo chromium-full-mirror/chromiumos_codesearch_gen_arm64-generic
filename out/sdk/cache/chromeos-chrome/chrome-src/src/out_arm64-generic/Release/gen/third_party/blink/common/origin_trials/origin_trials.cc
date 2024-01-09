@@ -27,7 +27,7 @@ namespace blink {
 
 namespace {
 
-static constexpr size_t kMaxFeaturesPerTrial = 9;
+static constexpr size_t kMaxFeaturesPerTrial = 8;
 static constexpr struct TrialToFeature {
   const char* trial_name;
   unsigned feature_count;
@@ -35,13 +35,12 @@ static constexpr struct TrialToFeature {
 } kTrialToFeaturesMap[] = {
     { "AddIdentityInCanMakePaymentEvent", 1, {mojom::OriginTrialFeature::kAddIdentityInCanMakePaymentEvent, } },
     { "AdInterestGroupAPI", 1, {mojom::OriginTrialFeature::kAdInterestGroupAPI, } },
-    { "PrivacySandboxAdsAPIs", 9, {mojom::OriginTrialFeature::kAttributionReporting,mojom::OriginTrialFeature::kFencedFrames,mojom::OriginTrialFeature::kFencedFramesAPIChanges,mojom::OriginTrialFeature::kFledge,mojom::OriginTrialFeature::kPrivacySandboxAdsAPIs,mojom::OriginTrialFeature::kSharedStorageAPI,mojom::OriginTrialFeature::kTopicsAPI,mojom::OriginTrialFeature::kTopicsDocumentAPI,mojom::OriginTrialFeature::kTopicsXHR, } },
+    { "PrivacySandboxAdsAPIs", 8, {mojom::OriginTrialFeature::kAttributionReporting,mojom::OriginTrialFeature::kFencedFrames,mojom::OriginTrialFeature::kFencedFramesAPIChanges,mojom::OriginTrialFeature::kFledge,mojom::OriginTrialFeature::kPrivacySandboxAdsAPIs,mojom::OriginTrialFeature::kSharedStorageAPI,mojom::OriginTrialFeature::kTopicsAPI,mojom::OriginTrialFeature::kTopicsDocumentAPI, } },
     { "AttributionReportingCrossAppWeb", 1, {mojom::OriginTrialFeature::kAttributionReportingCrossAppWeb, } },
     { "AttributionReportingInterface", 1, {mojom::OriginTrialFeature::kAttributionReportingInterface, } },
     { "AutoDarkMode", 1, {mojom::OriginTrialFeature::kAutoDarkMode, } },
     { "BackForwardCacheExperimentHTTPHeader", 1, {mojom::OriginTrialFeature::kBackForwardCacheExperimentHTTPHeader, } },
     { "BackForwardCacheNotRestoredReasons", 1, {mojom::OriginTrialFeature::kBackForwardCacheNotRestoredReasons, } },
-    { "BeforeMatchEvent", 1, {mojom::OriginTrialFeature::kBeforeMatchEvent, } },
     { "CacheStorageCodeCacheHint", 1, {mojom::OriginTrialFeature::kCacheStorageCodeCacheHint, } },
     { "CompressionDictionaryTransport", 1, {mojom::OriginTrialFeature::kCompressionDictionaryTransport, } },
     { "ComputePressure_v2", 1, {mojom::OriginTrialFeature::kComputePressure, } },
@@ -53,15 +52,14 @@ static constexpr struct TrialToFeature {
     { "DisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning", 1, {mojom::OriginTrialFeature::kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning, } },
     { "DisableThirdPartyStoragePartitioning", 1, {mojom::OriginTrialFeature::kDisableThirdPartyStoragePartitioning, } },
     { "DocumentPolicyNegotiation", 1, {mojom::OriginTrialFeature::kDocumentPolicyNegotiation, } },
-    { "EarlyHintsPreloadForNavigation", 1, {mojom::OriginTrialFeature::kEarlyHintsPreloadForNavigationOptIn, } },
     { "EditContext", 1, {mojom::OriginTrialFeature::kEditContext, } },
-    { "FedCmIdpSigninStatus", 1, {mojom::OriginTrialFeature::kFedCmIdpSigninStatus, } },
+    { "ElementCapture", 1, {mojom::OriginTrialFeature::kElementCapture, } },
+    { "FetchLaterAPI", 1, {mojom::OriginTrialFeature::kFetchLaterAPI, } },
     { "FledgeBiddingAndAuctionServer", 1, {mojom::OriginTrialFeature::kFledgeBiddingAndAuctionServerAPI, } },
     { "Focusgroup", 1, {mojom::OriginTrialFeature::kFocusgroup, } },
     { "FullscreenPopupWindows", 1, {mojom::OriginTrialFeature::kFullscreenPopupWindows, } },
     { "GetAllScreensMedia", 1, {mojom::OriginTrialFeature::kGetAllScreensMedia, } },
     { "HrefTranslate", 1, {mojom::OriginTrialFeature::kHrefTranslate, } },
-    { "HTMLPopupAttribute", 1, {mojom::OriginTrialFeature::kHTMLPopoverAttribute, } },
     { "JavaScriptCompileHintsMagic", 1, {mojom::OriginTrialFeature::kJavaScriptCompileHintsMagicRuntime, } },
     { "LongAnimationFrameTiming", 2, {mojom::OriginTrialFeature::kLongAnimationFrameMonitoring,mojom::OriginTrialFeature::kLongAnimationFrameTiming, } },
     { "MediaCaptureBackgroundBlur", 2, {mojom::OriginTrialFeature::kMediaCaptureBackgroundBlur,mojom::OriginTrialFeature::kMediaCaptureConfigurationChange, } },
@@ -90,8 +88,8 @@ static constexpr struct TrialToFeature {
     { "PendingBeaconAPI", 1, {mojom::OriginTrialFeature::kPendingBeaconAPI, } },
     { "PerMethodCanMakePaymentQuota", 1, {mojom::OriginTrialFeature::kPerMethodCanMakePaymentQuota, } },
     { "PNaCl", 1, {mojom::OriginTrialFeature::kPNaCl, } },
-    { "Portals", 1, {mojom::OriginTrialFeature::kPortals, } },
     { "PrivateNetworkAccessNonSecureContextsAllowed", 1, {mojom::OriginTrialFeature::kPrivateNetworkAccessNonSecureContextsAllowed, } },
+    { "PrivateNetworkAccessPermissionPrompt", 1, {mojom::OriginTrialFeature::kPrivateNetworkAccessPermissionPrompt, } },
     { "TrustTokens", 1, {mojom::OriginTrialFeature::kPrivateStateTokens, } },
     { "ReduceAcceptLanguage", 1, {mojom::OriginTrialFeature::kReduceAcceptLanguage, } },
     { "RtcAudioJitterBufferMaxPackets", 1, {mojom::OriginTrialFeature::kRtcAudioJitterBufferMaxPackets, } },
@@ -104,23 +102,23 @@ static constexpr struct TrialToFeature {
     { "ServiceWorkerBypassFetchHandlerWithRaceNetworkRequest", 1, {mojom::OriginTrialFeature::kServiceWorkerRaceNetworkRequest, } },
     { "ServiceWorkerStaticRouter", 1, {mojom::OriginTrialFeature::kServiceWorkerStaticRouter, } },
     { "SignatureBasedIntegrity", 1, {mojom::OriginTrialFeature::kSignatureBasedIntegrity, } },
-    { "SpeculationRules__DONOTUSE", 1, {mojom::OriginTrialFeature::kSpeculationRules, } },
     { "SpeculationRulesPrefetchFuture", 6, {mojom::OriginTrialFeature::kSpeculationRulesDocumentRules,mojom::OriginTrialFeature::kSpeculationRulesDocumentRulesSelectorMatches,mojom::OriginTrialFeature::kSpeculationRulesEagerness,mojom::OriginTrialFeature::kSpeculationRulesFetchFromHeader,mojom::OriginTrialFeature::kSpeculationRulesPrefetchFuture,mojom::OriginTrialFeature::kSpeculationRulesRelativeToDocument, } },
-    { "SpeculationRulesPrefetch", 1, {mojom::OriginTrialFeature::kSpeculationRulesPrefetchProxy, } },
+    { "StorageAccessAPIBeyondCookies", 1, {mojom::OriginTrialFeature::kStorageAccessAPIBeyondCookies, } },
     { "StorageBuckets", 1, {mojom::OriginTrialFeature::kStorageBuckets, } },
     { "TextFragmentIdentifiers", 1, {mojom::OriginTrialFeature::kTextFragmentIdentifiers, } },
     { "ForceTouchEventFeatureDetectionForInspector", 1, {mojom::OriginTrialFeature::kTouchEventFeatureDetection, } },
     { "Tpcd", 1, {mojom::OriginTrialFeature::kTpcd, } },
+    { "Tpcd1p", 1, {mojom::OriginTrialFeature::kTpcd1p, } },
     { "UnrestrictedSharedArrayBuffer", 1, {mojom::OriginTrialFeature::kUnrestrictedSharedArrayBuffer, } },
     { "WebAppDarkModeV2", 1, {mojom::OriginTrialFeature::kWebAppDarkMode, } },
     { "Launch Handler", 1, {mojom::OriginTrialFeature::kWebAppLaunchHandler, } },
     { "WebAppLaunchQueue", 1, {mojom::OriginTrialFeature::kWebAppLaunchQueue, } },
+    { "WebAppScopeExtensions", 1, {mojom::OriginTrialFeature::kWebAppScopeExtensions, } },
     { "WebAppTabStrip", 2, {mojom::OriginTrialFeature::kWebAppTabStrip,mojom::OriginTrialFeature::kWebAppTabStripCustomizations, } },
     { "WebAppUrlHandling", 1, {mojom::OriginTrialFeature::kWebAppUrlHandling, } },
     { "WebAppWindowControlsOverlay", 1, {mojom::OriginTrialFeature::kWebAppWindowControlsOverlay, } },
     { "WebAssemblyGC", 1, {mojom::OriginTrialFeature::kWebAssemblyGC, } },
     { "WebAssemblyJSStringBuiltins", 1, {mojom::OriginTrialFeature::kWebAssemblyJSStringBuiltins, } },
-    { "WebEnvironmentIntegrity", 1, {mojom::OriginTrialFeature::kWebEnvironmentIntegrity, } },
     { "WebTransportCustomCertificates", 1, {mojom::OriginTrialFeature::kWebTransportCustomCertificates, } },
     { "WebViewXRequestedWithDeprecation", 1, {mojom::OriginTrialFeature::kWebViewXRequestedWithDeprecation, } },
     { "WebXRImageTracking", 1, {mojom::OriginTrialFeature::kWebXRImageTracking, } },
@@ -155,9 +153,10 @@ bool origin_trials::IsTrialEnabledForThirdPartyOrigins(base::StringPiece trial_n
       "AttributionReportingCrossAppWeb",
       "AttributionReportingInterface",
       "CompressionDictionaryTransport",
+      "ComputePressure_v2",
       "WebSQL",
       "DisableThirdPartyStoragePartitioning",
-      "FedCmIdpSigninStatus",
+      "FetchLaterAPI",
       "FledgeBiddingAndAuctionServer",
       "LongAnimationFrameTiming",
       "FrobulateExpiryGracePeriodThirdParty",
@@ -168,11 +167,11 @@ bool origin_trials::IsTrialEnabledForThirdPartyOrigins(base::StringPiece trial_n
       "PaymentHandlerMinimalHeaderUX",
       "PendingBeaconAPI",
       "TrustTokens",
+      "SchedulerYield",
       "SecurePaymentConfirmationOptOut",
       "SoftNavigationHeuristics",
       "SpeculationRulesPrefetchFuture",
       "Tpcd",
-      "WebEnvironmentIntegrity",
       "WebViewXRequestedWithDeprecation",
   };
   return base::Contains(kEnabledForThirdPartyOrigins, trial_name);
@@ -184,7 +183,6 @@ bool origin_trials::IsTrialEnabledForBrowserProcessReadAccess(base::StringPiece 
   // features contains the  `trial_name` provided.
   static const char* const kEnabledForBrowserProcessReadWriteAccess[] = {
       "DisableThirdPartyStoragePartitioning",
-      "FedCmIdpSigninStatus",
       "FrobulateBrowserReadWrite",
   };
   return base::Contains(kEnabledForBrowserProcessReadWriteAccess, trial_name);
@@ -216,6 +214,8 @@ OriginTrialType origin_trials::GetTrialType(mojom::OriginTrialFeature feature) {
     case mojom::OriginTrialFeature::kPrivateNetworkAccessNonSecureContextsAllowed:
       return OriginTrialType::kDeprecation;
     case mojom::OriginTrialFeature::kTpcd:
+      return OriginTrialType::kDeprecation;
+    case mojom::OriginTrialFeature::kTpcd1p:
       return OriginTrialType::kDeprecation;
     case mojom::OriginTrialFeature::kWebViewXRequestedWithDeprecation:
       return OriginTrialType::kDeprecation;
@@ -267,28 +267,8 @@ base::span<const mojom::OriginTrialFeature> origin_trials::GetImpliedFeatures(
     static constexpr mojom::OriginTrialFeature implied_features[] = {mojom::OriginTrialFeature::kOriginTrialsSampleAPIImplied,};
     return implied_features;
   }
-  if (feature == mojom::OriginTrialFeature::kSpeculationRulesPrefetchProxy) {
-    static constexpr mojom::OriginTrialFeature implied_features[] = {mojom::OriginTrialFeature::kSpeculationRules,};
-    return implied_features;
-  }
-  if (feature == mojom::OriginTrialFeature::kSpeculationRulesDocumentRules) {
-    static constexpr mojom::OriginTrialFeature implied_features[] = {mojom::OriginTrialFeature::kSpeculationRules,};
-    return implied_features;
-  }
-  if (feature == mojom::OriginTrialFeature::kSpeculationRulesRelativeToDocument) {
-    static constexpr mojom::OriginTrialFeature implied_features[] = {mojom::OriginTrialFeature::kSpeculationRules,};
-    return implied_features;
-  }
   if (feature == mojom::OriginTrialFeature::kSpeculationRulesNoVarySearchHint) {
     static constexpr mojom::OriginTrialFeature implied_features[] = {mojom::OriginTrialFeature::kSpeculationRulesEagerness,};
-    return implied_features;
-  }
-  if (feature == mojom::OriginTrialFeature::kSpeculationRulesPrefetchFuture) {
-    static constexpr mojom::OriginTrialFeature implied_features[] = {mojom::OriginTrialFeature::kSpeculationRulesPrefetchProxy,};
-    return implied_features;
-  }
-  if (feature == mojom::OriginTrialFeature::kNoVarySearchPrefetch) {
-    static constexpr mojom::OriginTrialFeature implied_features[] = {mojom::OriginTrialFeature::kSpeculationRulesPrefetchProxy,};
     return implied_features;
   }
   if (feature == mojom::OriginTrialFeature::kWebAppLaunchHandler) {
@@ -316,8 +296,6 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kBackForwardCacheNotRestoredReasons:
       return true;
-    case mojom::OriginTrialFeature::kBeforeMatchEvent:
-      return true;
     case mojom::OriginTrialFeature::kCacheStorageCodeCacheHint:
       return true;
     case mojom::OriginTrialFeature::kCompressionDictionaryTransport:
@@ -344,15 +322,15 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kDocumentPolicyNegotiation:
       return true;
-    case mojom::OriginTrialFeature::kEarlyHintsPreloadForNavigationOptIn:
-      return true;
     case mojom::OriginTrialFeature::kEditContext:
       return true;
-    case mojom::OriginTrialFeature::kFedCmIdpSigninStatus:
+    case mojom::OriginTrialFeature::kElementCapture:
       return true;
     case mojom::OriginTrialFeature::kFencedFrames:
       return true;
     case mojom::OriginTrialFeature::kFencedFramesAPIChanges:
+      return true;
+    case mojom::OriginTrialFeature::kFetchLaterAPI:
       return true;
     case mojom::OriginTrialFeature::kFledge:
       return true;
@@ -373,8 +351,6 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return false;
 #endif
     case mojom::OriginTrialFeature::kHrefTranslate:
-      return true;
-    case mojom::OriginTrialFeature::kHTMLPopoverAttribute:
       return true;
     case mojom::OriginTrialFeature::kJavaScriptCompileHintsMagicRuntime:
       return true;
@@ -448,16 +424,16 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kPNaCl:
       return true;
-    case mojom::OriginTrialFeature::kPortals:
-#if BUILDFLAG(IS_ANDROID)
-      return true;
-#else
-      return false;
-#endif
     case mojom::OriginTrialFeature::kPrivacySandboxAdsAPIs:
       return true;
     case mojom::OriginTrialFeature::kPrivateNetworkAccessNonSecureContextsAllowed:
       return true;
+    case mojom::OriginTrialFeature::kPrivateNetworkAccessPermissionPrompt:
+#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_FUCHSIA) || BUILDFLAG(IS_CHROMEOS)
+      return true;
+#else
+      return false;
+#endif
     case mojom::OriginTrialFeature::kPrivateStateTokens:
       return true;
     case mojom::OriginTrialFeature::kReduceAcceptLanguage:
@@ -486,8 +462,6 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kSoftNavigationHeuristics:
       return true;
-    case mojom::OriginTrialFeature::kSpeculationRules:
-      return true;
     case mojom::OriginTrialFeature::kSpeculationRulesDocumentRules:
       return true;
     case mojom::OriginTrialFeature::kSpeculationRulesDocumentRulesSelectorMatches:
@@ -500,9 +474,9 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kSpeculationRulesPrefetchFuture:
       return true;
-    case mojom::OriginTrialFeature::kSpeculationRulesPrefetchProxy:
-      return true;
     case mojom::OriginTrialFeature::kSpeculationRulesRelativeToDocument:
+      return true;
+    case mojom::OriginTrialFeature::kStorageAccessAPIBeyondCookies:
       return true;
     case mojom::OriginTrialFeature::kStorageBuckets:
       return true;
@@ -512,11 +486,11 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kTopicsDocumentAPI:
       return true;
-    case mojom::OriginTrialFeature::kTopicsXHR:
-      return true;
     case mojom::OriginTrialFeature::kTouchEventFeatureDetection:
       return true;
     case mojom::OriginTrialFeature::kTpcd:
+      return true;
+    case mojom::OriginTrialFeature::kTpcd1p:
       return true;
     case mojom::OriginTrialFeature::kUnrestrictedSharedArrayBuffer:
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_FUCHSIA) || BUILDFLAG(IS_CHROMEOS)
@@ -530,6 +504,12 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kWebAppLaunchQueue:
       return true;
+    case mojom::OriginTrialFeature::kWebAppScopeExtensions:
+#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
+      return true;
+#else
+      return false;
+#endif
     case mojom::OriginTrialFeature::kWebAppTabStrip:
 #if BUILDFLAG(IS_CHROMEOS)
       return true;
@@ -557,8 +537,6 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
     case mojom::OriginTrialFeature::kWebAssemblyGC:
       return true;
     case mojom::OriginTrialFeature::kWebAssemblyJSStringBuiltins:
-      return true;
-    case mojom::OriginTrialFeature::kWebEnvironmentIntegrity:
       return true;
     case mojom::OriginTrialFeature::kWebTransportCustomCertificates:
       return true;

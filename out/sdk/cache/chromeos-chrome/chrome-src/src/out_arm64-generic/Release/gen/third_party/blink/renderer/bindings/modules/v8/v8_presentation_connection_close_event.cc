@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PresentationConnectionCloseEvent>::value,
     "PresentationConnectionCloseEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PresentationConnectionCloseEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PresentationConnectionCloseEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnectionCloseEvent.reason.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnectionCloseEvent* blink_receiver = V8PresentationConnectionCloseEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->reason();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnectionCloseEvent* blink_receiver = V8PresentationConnectionCloseEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->reason();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -104,10 +99,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnectionCloseEvent.message.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnectionCloseEvent* blink_receiver = V8PresentationConnectionCloseEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->message();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnectionCloseEvent* blink_receiver = V8PresentationConnectionCloseEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->message();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -119,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnectionCloseEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnectionCloseEvent* blink_receiver = V8PresentationConnectionCloseEvent::ToWrappableUnsafe(v8_receiver);
+PresentationConnectionCloseEvent* blink_receiver = V8PresentationConnectionCloseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

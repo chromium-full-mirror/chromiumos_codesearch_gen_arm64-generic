@@ -70,17 +70,13 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRInputSourceArray>::value,
     "XRInputSourceArray inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRInputSourceArray::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRInputSourceArray is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8XRInputSourceArray::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_XRInputSourceArray_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-XRInputSourceArray* blink_receiver = V8XRInputSourceArray::ToWrappableUnsafe(v8_receiver);
+XRInputSourceArray* blink_receiver = V8XRInputSourceArray::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -118,13 +114,13 @@ void V8XRInputSourceArray::IndexedPropertyDeleterCallback(uint32_t index, const 
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-XRInputSourceArray* blink_receiver = V8XRInputSourceArray::ToWrappableUnsafe(v8_receiver);
+XRInputSourceArray* blink_receiver = V8XRInputSourceArray::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "XRInputSourceArray";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -197,9 +193,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8XRInputSourceArray::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_XRInputSourceArray_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-XRInputSourceArray* blink_receiver = V8XRInputSourceArray::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+XRInputSourceArray* blink_receiver = V8XRInputSourceArray::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -224,8 +220,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRInputSourceArray.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRInputSourceArray* blink_receiver = V8XRInputSourceArray::ToWrappableUnsafe(v8_receiver);
+XRInputSourceArray* blink_receiver = V8XRInputSourceArray::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }

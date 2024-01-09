@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, FileWriter>::value,
     "FileWriter does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&FileWriter::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FileWriter is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.readyState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getReadyState();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -105,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.error.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->error();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -119,8 +116,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.position.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->position();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -133,8 +131,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -147,10 +146,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.onwritestart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwritestart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwritestart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -163,8 +162,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwritestart(event_handler);
 }
 
@@ -175,10 +175,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.onprogress.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onprogress();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onprogress();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -191,8 +191,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnprogress(event_handler);
 }
 
@@ -203,10 +204,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.onwrite.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwrite();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwrite();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -219,8 +220,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwrite(event_handler);
 }
 
@@ -231,10 +233,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.onabort.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onabort();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onabort();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -247,8 +249,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnabort(event_handler);
 }
 
@@ -259,10 +262,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -275,8 +278,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -287,10 +291,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.onwriteend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwriteend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwriteend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -303,8 +307,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwriteend(event_handler);
 }
 
@@ -322,9 +327,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriter.abort");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FileWriter";
 const char* const property_name = "abort";
@@ -357,7 +362,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_position = NativeValueTraits<IDLLongLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -394,7 +399,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_size = NativeValueTraits<IDLLongLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -431,7 +436,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(v8_receiver);
+FileWriter* blink_receiver = V8FileWriter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

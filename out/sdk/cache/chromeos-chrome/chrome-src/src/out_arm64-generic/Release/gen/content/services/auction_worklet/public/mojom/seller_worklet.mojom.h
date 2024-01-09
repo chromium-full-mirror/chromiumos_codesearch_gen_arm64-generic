@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/services/auction_worklet/public/mojom/seller_worklet.mojom-features.h"
 #include "content/services/auction_worklet/public/mojom/seller_worklet.mojom-shared.h"
 #include "content/services/auction_worklet/public/mojom/seller_worklet.mojom-forward.h"
 #include "content/services/auction_worklet/public/mojom/private_aggregation_request.mojom-forward.h"
@@ -89,7 +90,7 @@ class CONTENT_EXPORT ScoreAdClient
   virtual ~ScoreAdClient() = default;
 
   
-  virtual void OnScoreAdComplete(double score, ::auction_worklet::mojom::RejectReason reject_reason, ComponentAuctionModifiedBidParamsPtr component_auction_modified_bid_params, absl::optional<double> bid_in_seller_currency, absl::optional<uint32_t> scoring_signals_data_version, const absl::optional<::GURL>& debug_loss_report_url, const absl::optional<::GURL>& debug_win_report_url, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, ::base::TimeDelta scoring_latency, ScoreAdDependencyLatenciesPtr score_ad_dependency_latencies, const std::vector<std::string>& errors) = 0;
+  virtual void OnScoreAdComplete(double score, ::auction_worklet::mojom::RejectReason reject_reason, ComponentAuctionModifiedBidParamsPtr component_auction_modified_bid_params, std::optional<double> bid_in_seller_currency, std::optional<uint32_t> scoring_signals_data_version, const std::optional<::GURL>& debug_loss_report_url, const std::optional<::GURL>& debug_win_report_url, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, ::base::TimeDelta scoring_latency, ScoreAdDependencyLatenciesPtr score_ad_dependency_latencies, const std::vector<std::string>& errors) = 0;
 };
 
 class SellerWorkletProxy;
@@ -147,15 +148,15 @@ class CONTENT_EXPORT SellerWorklet
   virtual ~SellerWorklet() = default;
 
   
-  virtual void ScoreAd(const std::string& ad_metadata_json, double bid, const absl::optional<::blink::AdCurrency>& bid_currency, const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const absl::optional<::GURL>& direct_from_seller_seller_signals, const absl::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const absl::optional<::GURL>& direct_from_seller_auction_signals, const absl::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const absl::optional<::blink::AdCurrency>& component_expect_bid_currency, const ::url::Origin& browser_signal_interest_group_owner, const ::GURL& browser_signal_render_url, const std::vector<::GURL>& browser_signal_ad_component_render_urls, uint32_t browser_signal_bidding_duration_msecs, absl::optional<::base::TimeDelta> seller_timeout, uint64_t trace_id, ::mojo::PendingRemote<ScoreAdClient> score_ad_client) = 0;
+  virtual void ScoreAd(const std::string& ad_metadata_json, double bid, const std::optional<::blink::AdCurrency>& bid_currency, const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const std::optional<::blink::AdCurrency>& component_expect_bid_currency, const ::url::Origin& browser_signal_interest_group_owner, const ::GURL& browser_signal_render_url, const std::vector<::GURL>& browser_signal_ad_component_render_urls, uint32_t browser_signal_bidding_duration_msecs, bool browser_signal_for_debugging_only_in_cooldown_or_lockout, std::optional<::base::TimeDelta> seller_timeout, uint64_t trace_id, ::mojo::PendingRemote<ScoreAdClient> score_ad_client) = 0;
 
   
   virtual void SendPendingSignalsRequests() = 0;
 
 
-  using ReportResultCallback = base::OnceCallback<void(const absl::optional<std::string>&, const absl::optional<::GURL>&, const base::flat_map<std::string, ::GURL>&, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr>, ::base::TimeDelta, const std::vector<std::string>&)>;
+  using ReportResultCallback = base::OnceCallback<void(const std::optional<std::string>&, const std::optional<::GURL>&, const base::flat_map<std::string, ::GURL>&, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr>, ::base::TimeDelta, const std::vector<std::string>&)>;
   
-  virtual void ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const absl::optional<::GURL>& direct_from_seller_seller_signals, const absl::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const absl::optional<::GURL>& direct_from_seller_auction_signals, const absl::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const absl::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const absl::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const absl::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, uint32_t scoring_signals_data_version, bool has_scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) = 0;
+  virtual void ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, uint32_t scoring_signals_data_version, bool has_scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) = 0;
 
   
   virtual void ConnectDevToolsAgent(::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> agent) = 0;
@@ -170,7 +171,7 @@ class CONTENT_EXPORT ScoreAdClientProxy
 
   explicit ScoreAdClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnScoreAdComplete(double score, ::auction_worklet::mojom::RejectReason reject_reason, ComponentAuctionModifiedBidParamsPtr component_auction_modified_bid_params, absl::optional<double> bid_in_seller_currency, absl::optional<uint32_t> scoring_signals_data_version, const absl::optional<::GURL>& debug_loss_report_url, const absl::optional<::GURL>& debug_win_report_url, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, ::base::TimeDelta scoring_latency, ScoreAdDependencyLatenciesPtr score_ad_dependency_latencies, const std::vector<std::string>& errors) final;
+  void OnScoreAdComplete(double score, ::auction_worklet::mojom::RejectReason reject_reason, ComponentAuctionModifiedBidParamsPtr component_auction_modified_bid_params, std::optional<double> bid_in_seller_currency, std::optional<uint32_t> scoring_signals_data_version, const std::optional<::GURL>& debug_loss_report_url, const std::optional<::GURL>& debug_win_report_url, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, ::base::TimeDelta scoring_latency, ScoreAdDependencyLatenciesPtr score_ad_dependency_latencies, const std::vector<std::string>& errors) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -185,11 +186,11 @@ class CONTENT_EXPORT SellerWorkletProxy
 
   explicit SellerWorkletProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void ScoreAd(const std::string& ad_metadata_json, double bid, const absl::optional<::blink::AdCurrency>& bid_currency, const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const absl::optional<::GURL>& direct_from_seller_seller_signals, const absl::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const absl::optional<::GURL>& direct_from_seller_auction_signals, const absl::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const absl::optional<::blink::AdCurrency>& component_expect_bid_currency, const ::url::Origin& browser_signal_interest_group_owner, const ::GURL& browser_signal_render_url, const std::vector<::GURL>& browser_signal_ad_component_render_urls, uint32_t browser_signal_bidding_duration_msecs, absl::optional<::base::TimeDelta> seller_timeout, uint64_t trace_id, ::mojo::PendingRemote<ScoreAdClient> score_ad_client) final;
+  void ScoreAd(const std::string& ad_metadata_json, double bid, const std::optional<::blink::AdCurrency>& bid_currency, const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const std::optional<::blink::AdCurrency>& component_expect_bid_currency, const ::url::Origin& browser_signal_interest_group_owner, const ::GURL& browser_signal_render_url, const std::vector<::GURL>& browser_signal_ad_component_render_urls, uint32_t browser_signal_bidding_duration_msecs, bool browser_signal_for_debugging_only_in_cooldown_or_lockout, std::optional<::base::TimeDelta> seller_timeout, uint64_t trace_id, ::mojo::PendingRemote<ScoreAdClient> score_ad_client) final;
   
   void SendPendingSignalsRequests() final;
   
-  void ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const absl::optional<::GURL>& direct_from_seller_seller_signals, const absl::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const absl::optional<::GURL>& direct_from_seller_auction_signals, const absl::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const absl::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const absl::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const absl::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, uint32_t scoring_signals_data_version, bool has_scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) final;
+  void ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, uint32_t scoring_signals_data_version, bool has_scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) final;
   
   void ConnectDevToolsAgent(::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> agent) final;
 
@@ -463,17 +464,17 @@ class CONTENT_EXPORT ComponentAuctionOtherSeller {
   // Construct an instance holding |top_level_seller|.
   static ComponentAuctionOtherSellerPtr
   NewTopLevelSeller(
-      const ::url::Origin& top_level_seller) {
+      const ::url::Origin& value) {
     auto result = ComponentAuctionOtherSellerPtr(absl::in_place);
-    result->set_top_level_seller(std::move(top_level_seller));
+    result->set_top_level_seller(std::move(value));
     return result;
   }
   // Construct an instance holding |component_seller|.
   static ComponentAuctionOtherSellerPtr
   NewComponentSeller(
-      const ::url::Origin& component_seller) {
+      const ::url::Origin& value) {
     auto result = ComponentAuctionOtherSellerPtr(absl::in_place);
-    result->set_component_seller(std::move(component_seller));
+    result->set_component_seller(std::move(value));
     return result;
   }
 
@@ -605,7 +606,7 @@ class CONTENT_EXPORT ComponentAuctionModifiedBidParams {
   ComponentAuctionModifiedBidParams(
       const std::string& ad,
       double bid,
-      const absl::optional<::blink::AdCurrency>& bid_currency,
+      const std::optional<::blink::AdCurrency>& bid_currency,
       bool has_bid);
 
 
@@ -688,7 +689,7 @@ class CONTENT_EXPORT ComponentAuctionModifiedBidParams {
   
   double bid;
   
-  absl::optional<::blink::AdCurrency> bid_currency;
+  std::optional<::blink::AdCurrency> bid_currency;
   
   bool has_bid;
 
@@ -753,9 +754,9 @@ class CONTENT_EXPORT ScoreAdDependencyLatencies {
   ScoreAdDependencyLatencies();
 
   ScoreAdDependencyLatencies(
-      absl::optional<::base::TimeDelta> code_ready_latency,
-      absl::optional<::base::TimeDelta> direct_from_seller_signals_latency,
-      absl::optional<::base::TimeDelta> trusted_scoring_signals_latency);
+      std::optional<::base::TimeDelta> code_ready_latency,
+      std::optional<::base::TimeDelta> direct_from_seller_signals_latency,
+      std::optional<::base::TimeDelta> trusted_scoring_signals_latency);
 
 
   ~ScoreAdDependencyLatencies();
@@ -833,11 +834,11 @@ class CONTENT_EXPORT ScoreAdDependencyLatencies {
   }
 
   
-  absl::optional<::base::TimeDelta> code_ready_latency;
+  std::optional<::base::TimeDelta> code_ready_latency;
   
-  absl::optional<::base::TimeDelta> direct_from_seller_signals_latency;
+  std::optional<::base::TimeDelta> direct_from_seller_signals_latency;
   
-  absl::optional<::base::TimeDelta> trusted_scoring_signals_latency;
+  std::optional<::base::TimeDelta> trusted_scoring_signals_latency;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

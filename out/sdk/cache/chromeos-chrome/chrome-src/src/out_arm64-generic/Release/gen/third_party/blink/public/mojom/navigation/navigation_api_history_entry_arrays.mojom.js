@@ -133,6 +133,7 @@
   NavigationApiHistoryEntryArrays.prototype.initDefaults_ = function() {
     this.backEntries = null;
     this.forwardEntries = null;
+    this.previousEntry = null;
   };
   NavigationApiHistoryEntryArrays.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -148,7 +149,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 32}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -166,10 +167,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate NavigationApiHistoryEntryArrays.previousEntry
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, NavigationApiHistoryEntry, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  NavigationApiHistoryEntryArrays.encodedSize = codec.kStructHeaderSize + 16;
+  NavigationApiHistoryEntryArrays.encodedSize = codec.kStructHeaderSize + 24;
 
   NavigationApiHistoryEntryArrays.decode = function(decoder) {
     var packed;
@@ -180,6 +187,8 @@
         decoder.decodeArrayPointer(new codec.PointerTo(NavigationApiHistoryEntry));
     val.forwardEntries =
         decoder.decodeArrayPointer(new codec.PointerTo(NavigationApiHistoryEntry));
+    val.previousEntry =
+        decoder.decodeStructPointer(NavigationApiHistoryEntry);
     return val;
   };
 
@@ -189,6 +198,7 @@
     encoder.writeUint32(0);
     encoder.encodeArrayPointer(new codec.PointerTo(NavigationApiHistoryEntry), val.backEntries);
     encoder.encodeArrayPointer(new codec.PointerTo(NavigationApiHistoryEntry), val.forwardEntries);
+    encoder.encodeStructPointer(NavigationApiHistoryEntry, val.previousEntry);
   };
   exports.NavigationApiHistoryEntry = NavigationApiHistoryEntry;
   exports.NavigationApiHistoryEntryArrays = NavigationApiHistoryEntryArrays;

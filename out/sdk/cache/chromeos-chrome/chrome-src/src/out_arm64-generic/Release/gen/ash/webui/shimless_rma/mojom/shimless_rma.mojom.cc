@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -257,7 +258,7 @@ Shimless3pDiagnosticsAppInfo::Shimless3pDiagnosticsAppInfo()
 
 Shimless3pDiagnosticsAppInfo::Shimless3pDiagnosticsAppInfo(
     const std::string& name_in,
-    const absl::optional<std::string>& permission_message_in)
+    const std::optional<std::string>& permission_message_in)
     : name(std::move(name_in)),
       permission_message(std::move(permission_message_in)) {}
 
@@ -279,7 +280,7 @@ void Shimless3pDiagnosticsAppInfo::WriteIntoTrace(
     dict.AddItem(
       "permission_message"), this->permission_message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -362,14 +363,17 @@ void ErrorObserverProxy::OnError(
                         "<value of type ::rmad::RmadErrorCode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kErrorObserver_OnError_Name, kFlags, 0, 0, nullptr);
@@ -439,10 +443,10 @@ bool ErrorObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kErrorObserverValidationInfo[] = {
-    {&internal::ErrorObserver_OnError_Params_Data::Validate,
+    { &internal::ErrorObserver_OnError_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -528,14 +532,17 @@ void OsUpdateObserverProxy::OnOsUpdateProgressUpdated(
                         "<value of type ::update_engine::ErrorCode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOsUpdateObserver_OnOsUpdateProgressUpdated_Name, kFlags, 0, 0, nullptr);
@@ -616,10 +623,10 @@ bool OsUpdateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOsUpdateObserverValidationInfo[] = {
-    {&internal::OsUpdateObserver_OnOsUpdateProgressUpdated_Params_Data::Validate,
+    { &internal::OsUpdateObserver_OnOsUpdateProgressUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -719,14 +726,17 @@ void CalibrationObserverProxy::OnCalibrationUpdated(
                         "<value of type const ::rmad::CalibrationComponentStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCalibrationObserver_OnCalibrationUpdated_Name, kFlags, 0, 0, nullptr);
@@ -767,14 +777,17 @@ void CalibrationObserverProxy::OnCalibrationStepComplete(
                         "<value of type ::rmad::CalibrationOverallStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCalibrationObserver_OnCalibrationStepComplete_Name, kFlags, 0, 0, nullptr);
@@ -873,12 +886,12 @@ bool CalibrationObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCalibrationObserverValidationInfo[] = {
-    {&internal::CalibrationObserver_OnCalibrationUpdated_Params_Data::Validate,
+    { &internal::CalibrationObserver_OnCalibrationUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CalibrationObserver_OnCalibrationStepComplete_Params_Data::Validate,
+    { &internal::CalibrationObserver_OnCalibrationStepComplete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -964,14 +977,17 @@ void ProvisioningObserverProxy::OnProvisioningUpdated(
                         "<value of type ::rmad::ProvisionStatus_Error>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProvisioningObserver_OnProvisioningUpdated_Name, kFlags, 0, 0, nullptr);
@@ -1052,10 +1068,10 @@ bool ProvisioningObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProvisioningObserverValidationInfo[] = {
-    {&internal::ProvisioningObserver_OnProvisioningUpdated_Params_Data::Validate,
+    { &internal::ProvisioningObserver_OnProvisioningUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1135,14 +1151,17 @@ void HardwareWriteProtectionStateObserverProxy::OnHardwareWriteProtectionStateCh
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHardwareWriteProtectionStateObserver_OnHardwareWriteProtectionStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -1211,10 +1230,10 @@ bool HardwareWriteProtectionStateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHardwareWriteProtectionStateObserverValidationInfo[] = {
-    {&internal::HardwareWriteProtectionStateObserver_OnHardwareWriteProtectionStateChanged_Params_Data::Validate,
+    { &internal::HardwareWriteProtectionStateObserver_OnHardwareWriteProtectionStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1294,14 +1313,17 @@ void PowerCableStateObserverProxy::OnPowerCableStateChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPowerCableStateObserver_OnPowerCableStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -1370,10 +1392,10 @@ bool PowerCableStateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPowerCableStateObserverValidationInfo[] = {
-    {&internal::PowerCableStateObserver_OnPowerCableStateChanged_Params_Data::Validate,
+    { &internal::PowerCableStateObserver_OnPowerCableStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1453,14 +1475,17 @@ void ExternalDiskStateObserverProxy::OnExternalDiskStateChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kExternalDiskStateObserver_OnExternalDiskStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -1529,10 +1554,10 @@ bool ExternalDiskStateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kExternalDiskStateObserverValidationInfo[] = {
-    {&internal::ExternalDiskStateObserver_OnExternalDiskStateChanged_Params_Data::Validate,
+    { &internal::ExternalDiskStateObserver_OnExternalDiskStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1615,14 +1640,17 @@ void HardwareVerificationStatusObserverProxy::OnHardwareVerificationResult(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHardwareVerificationStatusObserver_OnHardwareVerificationResult_Name, kFlags, 0, 0, nullptr);
@@ -1706,10 +1734,10 @@ bool HardwareVerificationStatusObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHardwareVerificationStatusObserverValidationInfo[] = {
-    {&internal::HardwareVerificationStatusObserver_OnHardwareVerificationResult_Params_Data::Validate,
+    { &internal::HardwareVerificationStatusObserver_OnHardwareVerificationResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1795,14 +1823,17 @@ void FinalizationObserverProxy::OnFinalizationUpdated(
                         "<value of type ::rmad::FinalizeStatus_Error>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFinalizationObserver_OnFinalizationUpdated_Name, kFlags, 0, 0, nullptr);
@@ -1883,10 +1914,10 @@ bool FinalizationObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFinalizationObserverValidationInfo[] = {
-    {&internal::FinalizationObserver_OnFinalizationUpdated_Params_Data::Validate,
+    { &internal::FinalizationObserver_OnFinalizationUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1966,14 +1997,17 @@ void UpdateRoFirmwareObserverProxy::OnUpdateRoFirmwareStatusChanged(
                         "<value of type ::rmad::UpdateRoFirmwareStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUpdateRoFirmwareObserver_OnUpdateRoFirmwareStatusChanged_Name, kFlags, 0, 0, nullptr);
@@ -2043,10 +2077,10 @@ bool UpdateRoFirmwareObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUpdateRoFirmwareObserverValidationInfo[] = {
-    {&internal::UpdateRoFirmwareObserver_OnUpdateRoFirmwareStatusChanged_Params_Data::Validate,
+    { &internal::UpdateRoFirmwareObserver_OnUpdateRoFirmwareStatusChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4519,14 +4553,17 @@ void ShimlessRmaServiceProxy::GetCurrentState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetCurrentState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCurrentState_Name, kFlags, 0, 0, nullptr);
@@ -4550,14 +4587,17 @@ void ShimlessRmaServiceProxy::TransitionPreviousState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::TransitionPreviousState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_TransitionPreviousState_Name, kFlags, 0, 0, nullptr);
@@ -4581,14 +4621,17 @@ void ShimlessRmaServiceProxy::AbortRma(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::AbortRma");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_AbortRma_Name, kFlags, 0, 0, nullptr);
@@ -4612,14 +4655,17 @@ void ShimlessRmaServiceProxy::BeginFinalization(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::BeginFinalization");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_BeginFinalization_Name, kFlags, 0, 0, nullptr);
@@ -4643,14 +4689,17 @@ void ShimlessRmaServiceProxy::TrackConfiguredNetworks(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::TrackConfiguredNetworks");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_TrackConfiguredNetworks_Name, kFlags, 0, 0, nullptr);
@@ -4673,14 +4722,17 @@ void ShimlessRmaServiceProxy::NetworkSelectionComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::NetworkSelectionComplete");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_NetworkSelectionComplete_Name, kFlags, 0, 0, nullptr);
@@ -4704,14 +4756,17 @@ void ShimlessRmaServiceProxy::GetCurrentOsVersion(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetCurrentOsVersion");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCurrentOsVersion_Name, kFlags, 0, 0, nullptr);
@@ -4735,14 +4790,17 @@ void ShimlessRmaServiceProxy::CheckForOsUpdates(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::CheckForOsUpdates");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CheckForOsUpdates_Name, kFlags, 0, 0, nullptr);
@@ -4766,14 +4824,17 @@ void ShimlessRmaServiceProxy::UpdateOs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::UpdateOs");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_UpdateOs_Name, kFlags, 0, 0, nullptr);
@@ -4797,14 +4858,17 @@ void ShimlessRmaServiceProxy::UpdateOsSkipped(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::UpdateOsSkipped");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_UpdateOsSkipped_Name, kFlags, 0, 0, nullptr);
@@ -4828,14 +4892,17 @@ void ShimlessRmaServiceProxy::SetSameOwner(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::SetSameOwner");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetSameOwner_Name, kFlags, 0, 0, nullptr);
@@ -4859,14 +4926,17 @@ void ShimlessRmaServiceProxy::SetDifferentOwner(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::SetDifferentOwner");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetDifferentOwner_Name, kFlags, 0, 0, nullptr);
@@ -4897,14 +4967,17 @@ void ShimlessRmaServiceProxy::SetWipeDevice(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetWipeDevice_Name, kFlags, 0, 0, nullptr);
@@ -4929,14 +5002,17 @@ void ShimlessRmaServiceProxy::ChooseManuallyDisableWriteProtect(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::ChooseManuallyDisableWriteProtect");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ChooseManuallyDisableWriteProtect_Name, kFlags, 0, 0, nullptr);
@@ -4960,14 +5036,17 @@ void ShimlessRmaServiceProxy::ChooseRsuDisableWriteProtect(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::ChooseRsuDisableWriteProtect");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ChooseRsuDisableWriteProtect_Name, kFlags, 0, 0, nullptr);
@@ -4991,14 +5070,17 @@ void ShimlessRmaServiceProxy::GetRsuDisableWriteProtectChallenge(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetRsuDisableWriteProtectChallenge");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetRsuDisableWriteProtectChallenge_Name, kFlags, 0, 0, nullptr);
@@ -5022,14 +5104,17 @@ void ShimlessRmaServiceProxy::GetRsuDisableWriteProtectHwid(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetRsuDisableWriteProtectHwid");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetRsuDisableWriteProtectHwid_Name, kFlags, 0, 0, nullptr);
@@ -5053,14 +5138,17 @@ void ShimlessRmaServiceProxy::GetRsuDisableWriteProtectChallengeQrCode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetRsuDisableWriteProtectChallengeQrCode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_Name, kFlags, 0, 0, nullptr);
@@ -5091,14 +5179,17 @@ void ShimlessRmaServiceProxy::SetRsuDisableWriteProtectCode(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetRsuDisableWriteProtectCode_Name, kFlags, 0, 0, nullptr);
@@ -5133,14 +5224,17 @@ void ShimlessRmaServiceProxy::WriteProtectManuallyDisabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::WriteProtectManuallyDisabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_WriteProtectManuallyDisabled_Name, kFlags, 0, 0, nullptr);
@@ -5164,14 +5258,17 @@ void ShimlessRmaServiceProxy::GetWriteProtectDisableCompleteAction(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetWriteProtectDisableCompleteAction");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetWriteProtectDisableCompleteAction_Name, kFlags, 0, 0, nullptr);
@@ -5195,14 +5292,17 @@ void ShimlessRmaServiceProxy::ConfirmManualWpDisableComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::ConfirmManualWpDisableComplete");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ConfirmManualWpDisableComplete_Name, kFlags, 0, 0, nullptr);
@@ -5226,14 +5326,17 @@ void ShimlessRmaServiceProxy::GetComponentList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetComponentList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetComponentList_Name, kFlags, 0, 0, nullptr);
@@ -5264,14 +5367,17 @@ void ShimlessRmaServiceProxy::SetComponentList(
                         "<value of type const std::vector<::rmad::ComponentsRepairState_ComponentRepairStatus>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetComponentList_Name, kFlags, 0, 0, nullptr);
@@ -5308,14 +5414,17 @@ void ShimlessRmaServiceProxy::ReworkMainboard(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::ReworkMainboard");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ReworkMainboard_Name, kFlags, 0, 0, nullptr);
@@ -5339,14 +5448,17 @@ void ShimlessRmaServiceProxy::RoFirmwareUpdateComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::RoFirmwareUpdateComplete");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_RoFirmwareUpdateComplete_Name, kFlags, 0, 0, nullptr);
@@ -5370,14 +5482,17 @@ void ShimlessRmaServiceProxy::ShutdownForRestock(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::ShutdownForRestock");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ShutdownForRestock_Name, kFlags, 0, 0, nullptr);
@@ -5401,14 +5516,17 @@ void ShimlessRmaServiceProxy::ContinueFinalizationAfterRestock(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::ContinueFinalizationAfterRestock");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ContinueFinalizationAfterRestock_Name, kFlags, 0, 0, nullptr);
@@ -5432,14 +5550,17 @@ void ShimlessRmaServiceProxy::GetRegionList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetRegionList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetRegionList_Name, kFlags, 0, 0, nullptr);
@@ -5463,14 +5584,17 @@ void ShimlessRmaServiceProxy::GetSkuList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetSkuList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetSkuList_Name, kFlags, 0, 0, nullptr);
@@ -5494,14 +5618,17 @@ void ShimlessRmaServiceProxy::GetCustomLabelList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetCustomLabelList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCustomLabelList_Name, kFlags, 0, 0, nullptr);
@@ -5525,14 +5652,17 @@ void ShimlessRmaServiceProxy::GetSkuDescriptionList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetSkuDescriptionList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetSkuDescriptionList_Name, kFlags, 0, 0, nullptr);
@@ -5556,14 +5686,17 @@ void ShimlessRmaServiceProxy::GetOriginalSerialNumber(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetOriginalSerialNumber");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalSerialNumber_Name, kFlags, 0, 0, nullptr);
@@ -5587,14 +5720,17 @@ void ShimlessRmaServiceProxy::GetOriginalRegion(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetOriginalRegion");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalRegion_Name, kFlags, 0, 0, nullptr);
@@ -5618,14 +5754,17 @@ void ShimlessRmaServiceProxy::GetOriginalSku(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetOriginalSku");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalSku_Name, kFlags, 0, 0, nullptr);
@@ -5649,14 +5788,17 @@ void ShimlessRmaServiceProxy::GetOriginalCustomLabel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetOriginalCustomLabel");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalCustomLabel_Name, kFlags, 0, 0, nullptr);
@@ -5680,14 +5822,17 @@ void ShimlessRmaServiceProxy::GetOriginalDramPartNumber(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetOriginalDramPartNumber");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalDramPartNumber_Name, kFlags, 0, 0, nullptr);
@@ -5711,14 +5856,17 @@ void ShimlessRmaServiceProxy::GetOriginalFeatureLevel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetOriginalFeatureLevel");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalFeatureLevel_Name, kFlags, 0, 0, nullptr);
@@ -5767,14 +5915,17 @@ void ShimlessRmaServiceProxy::SetDeviceInformation(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetDeviceInformation_Name, kFlags, 0, 0, nullptr);
@@ -5825,14 +5976,17 @@ void ShimlessRmaServiceProxy::GetCalibrationComponentList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetCalibrationComponentList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCalibrationComponentList_Name, kFlags, 0, 0, nullptr);
@@ -5856,14 +6010,17 @@ void ShimlessRmaServiceProxy::GetCalibrationSetupInstructions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetCalibrationSetupInstructions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCalibrationSetupInstructions_Name, kFlags, 0, 0, nullptr);
@@ -5894,14 +6051,17 @@ void ShimlessRmaServiceProxy::StartCalibration(
                         "<value of type const std::vector<::rmad::CalibrationComponentStatus>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_StartCalibration_Name, kFlags, 0, 0, nullptr);
@@ -5938,14 +6098,17 @@ void ShimlessRmaServiceProxy::RunCalibrationStep(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::RunCalibrationStep");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_RunCalibrationStep_Name, kFlags, 0, 0, nullptr);
@@ -5969,14 +6132,17 @@ void ShimlessRmaServiceProxy::ContinueCalibration(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::ContinueCalibration");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ContinueCalibration_Name, kFlags, 0, 0, nullptr);
@@ -6000,14 +6166,17 @@ void ShimlessRmaServiceProxy::CalibrationComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::CalibrationComplete");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CalibrationComplete_Name, kFlags, 0, 0, nullptr);
@@ -6031,14 +6200,17 @@ void ShimlessRmaServiceProxy::RetryProvisioning(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::RetryProvisioning");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_RetryProvisioning_Name, kFlags, 0, 0, nullptr);
@@ -6062,14 +6234,17 @@ void ShimlessRmaServiceProxy::ProvisioningComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::ProvisioningComplete");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ProvisioningComplete_Name, kFlags, 0, 0, nullptr);
@@ -6093,14 +6268,17 @@ void ShimlessRmaServiceProxy::RetryFinalization(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::RetryFinalization");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_RetryFinalization_Name, kFlags, 0, 0, nullptr);
@@ -6124,14 +6302,17 @@ void ShimlessRmaServiceProxy::FinalizationComplete(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::FinalizationComplete");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_FinalizationComplete_Name, kFlags, 0, 0, nullptr);
@@ -6155,14 +6336,17 @@ void ShimlessRmaServiceProxy::WriteProtectManuallyEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::WriteProtectManuallyEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_WriteProtectManuallyEnabled_Name, kFlags, 0, 0, nullptr);
@@ -6186,14 +6370,17 @@ void ShimlessRmaServiceProxy::GetLog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetLog");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetLog_Name, kFlags, 0, 0, nullptr);
@@ -6217,14 +6404,17 @@ void ShimlessRmaServiceProxy::SaveLog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::SaveLog");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SaveLog_Name, kFlags, 0, 0, nullptr);
@@ -6248,14 +6438,17 @@ void ShimlessRmaServiceProxy::GetPowerwashRequired(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetPowerwashRequired");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetPowerwashRequired_Name, kFlags, 0, 0, nullptr);
@@ -6279,14 +6472,17 @@ void ShimlessRmaServiceProxy::LaunchDiagnostics(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::LaunchDiagnostics");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_LaunchDiagnostics_Name, kFlags, 0, 0, nullptr);
@@ -6316,14 +6512,17 @@ void ShimlessRmaServiceProxy::EndRma(
                         "<value of type ::rmad::RepairCompleteState_ShutdownMethod>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_EndRma_Name, kFlags, 0, 0, nullptr);
@@ -6349,14 +6548,17 @@ void ShimlessRmaServiceProxy::ShutDownAfterHardwareError(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::ShutDownAfterHardwareError");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ShutDownAfterHardwareError_Name, kFlags, 0, 0, nullptr);
@@ -6379,14 +6581,17 @@ void ShimlessRmaServiceProxy::CriticalErrorExitToLogin(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::CriticalErrorExitToLogin");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CriticalErrorExitToLogin_Name, kFlags, 0, 0, nullptr);
@@ -6410,14 +6615,17 @@ void ShimlessRmaServiceProxy::CriticalErrorReboot(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::CriticalErrorReboot");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CriticalErrorReboot_Name, kFlags, 0, 0, nullptr);
@@ -6441,14 +6649,17 @@ void ShimlessRmaServiceProxy::Get3pDiagnosticsProvider(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::Get3pDiagnosticsProvider");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_Get3pDiagnosticsProvider_Name, kFlags, 0, 0, nullptr);
@@ -6472,14 +6683,17 @@ void ShimlessRmaServiceProxy::GetInstallable3pDiagnosticsAppPath(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::GetInstallable3pDiagnosticsAppPath");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetInstallable3pDiagnosticsAppPath_Name, kFlags, 0, 0, nullptr);
@@ -6503,14 +6717,17 @@ void ShimlessRmaServiceProxy::InstallLastFound3pDiagnosticsApp(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::InstallLastFound3pDiagnosticsApp");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_InstallLastFound3pDiagnosticsApp_Name, kFlags, 0, 0, nullptr);
@@ -6541,14 +6758,17 @@ void ShimlessRmaServiceProxy::CompleteLast3pDiagnosticsInstallation(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CompleteLast3pDiagnosticsInstallation_Name, kFlags, 0, 0, nullptr);
@@ -6573,14 +6793,17 @@ void ShimlessRmaServiceProxy::Show3pDiagnosticsApp(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::shimless_rma::mojom::ShimlessRmaService::Show3pDiagnosticsApp");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_Show3pDiagnosticsApp_Name, kFlags, 0, 0, nullptr);
@@ -6611,14 +6834,17 @@ void ShimlessRmaServiceProxy::ObserveError(
                         "<value of type ::mojo::PendingRemote<ErrorObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObserveError_Name, kFlags, 0, 0, nullptr);
@@ -6654,14 +6880,17 @@ void ShimlessRmaServiceProxy::ObserveOsUpdateProgress(
                         "<value of type ::mojo::PendingRemote<OsUpdateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObserveOsUpdateProgress_Name, kFlags, 0, 0, nullptr);
@@ -6697,14 +6926,17 @@ void ShimlessRmaServiceProxy::ObserveCalibrationProgress(
                         "<value of type ::mojo::PendingRemote<CalibrationObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObserveCalibrationProgress_Name, kFlags, 0, 0, nullptr);
@@ -6740,14 +6972,17 @@ void ShimlessRmaServiceProxy::ObserveProvisioningProgress(
                         "<value of type ::mojo::PendingRemote<ProvisioningObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObserveProvisioningProgress_Name, kFlags, 0, 0, nullptr);
@@ -6783,14 +7018,17 @@ void ShimlessRmaServiceProxy::ObserveHardwareWriteProtectionState(
                         "<value of type ::mojo::PendingRemote<HardwareWriteProtectionStateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObserveHardwareWriteProtectionState_Name, kFlags, 0, 0, nullptr);
@@ -6826,14 +7064,17 @@ void ShimlessRmaServiceProxy::ObservePowerCableState(
                         "<value of type ::mojo::PendingRemote<PowerCableStateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObservePowerCableState_Name, kFlags, 0, 0, nullptr);
@@ -6869,14 +7110,17 @@ void ShimlessRmaServiceProxy::ObserveExternalDiskState(
                         "<value of type ::mojo::PendingRemote<ExternalDiskStateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObserveExternalDiskState_Name, kFlags, 0, 0, nullptr);
@@ -6912,14 +7156,17 @@ void ShimlessRmaServiceProxy::ObserveHardwareVerificationStatus(
                         "<value of type ::mojo::PendingRemote<HardwareVerificationStatusObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObserveHardwareVerificationStatus_Name, kFlags, 0, 0, nullptr);
@@ -6955,14 +7202,17 @@ void ShimlessRmaServiceProxy::ObserveFinalizationStatus(
                         "<value of type ::mojo::PendingRemote<FinalizationObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObserveFinalizationStatus_Name, kFlags, 0, 0, nullptr);
@@ -6998,14 +7248,17 @@ void ShimlessRmaServiceProxy::ObserveRoFirmwareUpdateProgress(
                         "<value of type ::mojo::PendingRemote<UpdateRoFirmwareObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ObserveRoFirmwareUpdateProgress_Name, kFlags, 0, 0, nullptr);
@@ -7120,7 +7373,8 @@ void ShimlessRmaService_GetCurrentState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCurrentState_Name, kFlags, 0, 0, nullptr);
@@ -7248,7 +7502,8 @@ void ShimlessRmaService_TransitionPreviousState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_TransitionPreviousState_Name, kFlags, 0, 0, nullptr);
@@ -7376,7 +7631,8 @@ void ShimlessRmaService_AbortRma_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_AbortRma_Name, kFlags, 0, 0, nullptr);
@@ -7495,7 +7751,8 @@ void ShimlessRmaService_BeginFinalization_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_BeginFinalization_Name, kFlags, 0, 0, nullptr);
@@ -7623,7 +7880,8 @@ void ShimlessRmaService_NetworkSelectionComplete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_NetworkSelectionComplete_Name, kFlags, 0, 0, nullptr);
@@ -7705,7 +7963,7 @@ class ShimlessRmaService_GetCurrentOsVersion_ProxyToResponder : public ::mojo::i
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_version);
+      const std::optional<std::string>& in_version);
 };
 
 bool ShimlessRmaService_GetCurrentOsVersion_ForwardToCallback::Accept(
@@ -7718,7 +7976,7 @@ bool ShimlessRmaService_GetCurrentOsVersion_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_version{};
+  std::optional<std::string> p_version{};
   ShimlessRmaService_GetCurrentOsVersion_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadVersion(&p_version))
@@ -7737,7 +7995,7 @@ std::move(p_version));
 }
 
 void ShimlessRmaService_GetCurrentOsVersion_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_version) {
+    const std::optional<std::string>& in_version) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::shimless_rma::mojom::ShimlessRmaService::GetCurrentOsVersion", "async_response_parameters",
@@ -7745,13 +8003,14 @@ void ShimlessRmaService_GetCurrentOsVersion_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("version"), in_version,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCurrentOsVersion_Name, kFlags, 0, 0, nullptr);
@@ -7882,7 +8141,8 @@ void ShimlessRmaService_CheckForOsUpdates_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CheckForOsUpdates_Name, kFlags, 0, 0, nullptr);
@@ -8011,7 +8271,8 @@ void ShimlessRmaService_UpdateOs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_UpdateOs_Name, kFlags, 0, 0, nullptr);
@@ -8129,7 +8390,8 @@ void ShimlessRmaService_UpdateOsSkipped_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_UpdateOsSkipped_Name, kFlags, 0, 0, nullptr);
@@ -8257,7 +8519,8 @@ void ShimlessRmaService_SetSameOwner_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetSameOwner_Name, kFlags, 0, 0, nullptr);
@@ -8385,7 +8648,8 @@ void ShimlessRmaService_SetDifferentOwner_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetDifferentOwner_Name, kFlags, 0, 0, nullptr);
@@ -8513,7 +8777,8 @@ void ShimlessRmaService_SetWipeDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetWipeDevice_Name, kFlags, 0, 0, nullptr);
@@ -8641,7 +8906,8 @@ void ShimlessRmaService_ChooseManuallyDisableWriteProtect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ChooseManuallyDisableWriteProtect_Name, kFlags, 0, 0, nullptr);
@@ -8769,7 +9035,8 @@ void ShimlessRmaService_ChooseRsuDisableWriteProtect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ChooseRsuDisableWriteProtect_Name, kFlags, 0, 0, nullptr);
@@ -8897,7 +9164,8 @@ void ShimlessRmaService_GetRsuDisableWriteProtectChallenge_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetRsuDisableWriteProtectChallenge_Name, kFlags, 0, 0, nullptr);
@@ -9025,7 +9293,8 @@ void ShimlessRmaService_GetRsuDisableWriteProtectHwid_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetRsuDisableWriteProtectHwid_Name, kFlags, 0, 0, nullptr);
@@ -9153,7 +9422,8 @@ void ShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_ProxyToResponde
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_Name, kFlags, 0, 0, nullptr);
@@ -9283,7 +9553,8 @@ void ShimlessRmaService_SetRsuDisableWriteProtectCode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetRsuDisableWriteProtectCode_Name, kFlags, 0, 0, nullptr);
@@ -9411,7 +9682,8 @@ void ShimlessRmaService_WriteProtectManuallyDisabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_WriteProtectManuallyDisabled_Name, kFlags, 0, 0, nullptr);
@@ -9539,7 +9811,8 @@ void ShimlessRmaService_GetWriteProtectDisableCompleteAction_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetWriteProtectDisableCompleteAction_Name, kFlags, 0, 0, nullptr);
@@ -9658,7 +9931,8 @@ void ShimlessRmaService_ConfirmManualWpDisableComplete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ConfirmManualWpDisableComplete_Name, kFlags, 0, 0, nullptr);
@@ -9786,7 +10060,8 @@ void ShimlessRmaService_GetComponentList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetComponentList_Name, kFlags, 0, 0, nullptr);
@@ -9916,7 +10191,8 @@ void ShimlessRmaService_SetComponentList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetComponentList_Name, kFlags, 0, 0, nullptr);
@@ -10044,7 +10320,8 @@ void ShimlessRmaService_ReworkMainboard_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ReworkMainboard_Name, kFlags, 0, 0, nullptr);
@@ -10172,7 +10449,8 @@ void ShimlessRmaService_RoFirmwareUpdateComplete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_RoFirmwareUpdateComplete_Name, kFlags, 0, 0, nullptr);
@@ -10300,7 +10578,8 @@ void ShimlessRmaService_ShutdownForRestock_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ShutdownForRestock_Name, kFlags, 0, 0, nullptr);
@@ -10428,7 +10707,8 @@ void ShimlessRmaService_ContinueFinalizationAfterRestock_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ContinueFinalizationAfterRestock_Name, kFlags, 0, 0, nullptr);
@@ -10556,7 +10836,8 @@ void ShimlessRmaService_GetRegionList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetRegionList_Name, kFlags, 0, 0, nullptr);
@@ -10686,7 +10967,8 @@ void ShimlessRmaService_GetSkuList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetSkuList_Name, kFlags, 0, 0, nullptr);
@@ -10816,7 +11098,8 @@ void ShimlessRmaService_GetCustomLabelList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCustomLabelList_Name, kFlags, 0, 0, nullptr);
@@ -10946,7 +11229,8 @@ void ShimlessRmaService_GetSkuDescriptionList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetSkuDescriptionList_Name, kFlags, 0, 0, nullptr);
@@ -11076,7 +11360,8 @@ void ShimlessRmaService_GetOriginalSerialNumber_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalSerialNumber_Name, kFlags, 0, 0, nullptr);
@@ -11204,7 +11489,8 @@ void ShimlessRmaService_GetOriginalRegion_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalRegion_Name, kFlags, 0, 0, nullptr);
@@ -11322,7 +11608,8 @@ void ShimlessRmaService_GetOriginalSku_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalSku_Name, kFlags, 0, 0, nullptr);
@@ -11440,7 +11727,8 @@ void ShimlessRmaService_GetOriginalCustomLabel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalCustomLabel_Name, kFlags, 0, 0, nullptr);
@@ -11558,7 +11846,8 @@ void ShimlessRmaService_GetOriginalDramPartNumber_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalDramPartNumber_Name, kFlags, 0, 0, nullptr);
@@ -11686,7 +11975,8 @@ void ShimlessRmaService_GetOriginalFeatureLevel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetOriginalFeatureLevel_Name, kFlags, 0, 0, nullptr);
@@ -11805,7 +12095,8 @@ void ShimlessRmaService_SetDeviceInformation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SetDeviceInformation_Name, kFlags, 0, 0, nullptr);
@@ -11933,7 +12224,8 @@ void ShimlessRmaService_GetCalibrationComponentList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCalibrationComponentList_Name, kFlags, 0, 0, nullptr);
@@ -12063,7 +12355,8 @@ void ShimlessRmaService_GetCalibrationSetupInstructions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetCalibrationSetupInstructions_Name, kFlags, 0, 0, nullptr);
@@ -12182,7 +12475,8 @@ void ShimlessRmaService_StartCalibration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_StartCalibration_Name, kFlags, 0, 0, nullptr);
@@ -12310,7 +12604,8 @@ void ShimlessRmaService_RunCalibrationStep_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_RunCalibrationStep_Name, kFlags, 0, 0, nullptr);
@@ -12438,7 +12733,8 @@ void ShimlessRmaService_ContinueCalibration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ContinueCalibration_Name, kFlags, 0, 0, nullptr);
@@ -12566,7 +12862,8 @@ void ShimlessRmaService_CalibrationComplete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CalibrationComplete_Name, kFlags, 0, 0, nullptr);
@@ -12694,7 +12991,8 @@ void ShimlessRmaService_RetryProvisioning_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_RetryProvisioning_Name, kFlags, 0, 0, nullptr);
@@ -12822,7 +13120,8 @@ void ShimlessRmaService_ProvisioningComplete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_ProvisioningComplete_Name, kFlags, 0, 0, nullptr);
@@ -12950,7 +13249,8 @@ void ShimlessRmaService_RetryFinalization_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_RetryFinalization_Name, kFlags, 0, 0, nullptr);
@@ -13078,7 +13378,8 @@ void ShimlessRmaService_FinalizationComplete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_FinalizationComplete_Name, kFlags, 0, 0, nullptr);
@@ -13206,7 +13507,8 @@ void ShimlessRmaService_WriteProtectManuallyEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_WriteProtectManuallyEnabled_Name, kFlags, 0, 0, nullptr);
@@ -13341,7 +13643,8 @@ void ShimlessRmaService_GetLog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetLog_Name, kFlags, 0, 0, nullptr);
@@ -13478,7 +13781,8 @@ void ShimlessRmaService_SaveLog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_SaveLog_Name, kFlags, 0, 0, nullptr);
@@ -13608,7 +13912,8 @@ void ShimlessRmaService_GetPowerwashRequired_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetPowerwashRequired_Name, kFlags, 0, 0, nullptr);
@@ -13726,7 +14031,8 @@ void ShimlessRmaService_EndRma_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_EndRma_Name, kFlags, 0, 0, nullptr);
@@ -13854,7 +14160,8 @@ void ShimlessRmaService_CriticalErrorExitToLogin_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CriticalErrorExitToLogin_Name, kFlags, 0, 0, nullptr);
@@ -13973,7 +14280,8 @@ void ShimlessRmaService_CriticalErrorReboot_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CriticalErrorReboot_Name, kFlags, 0, 0, nullptr);
@@ -14046,7 +14354,7 @@ class ShimlessRmaService_Get3pDiagnosticsProvider_ProxyToResponder : public ::mo
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_provider);
+      const std::optional<std::string>& in_provider);
 };
 
 bool ShimlessRmaService_Get3pDiagnosticsProvider_ForwardToCallback::Accept(
@@ -14059,7 +14367,7 @@ bool ShimlessRmaService_Get3pDiagnosticsProvider_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_provider{};
+  std::optional<std::string> p_provider{};
   ShimlessRmaService_Get3pDiagnosticsProvider_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadProvider(&p_provider))
@@ -14078,7 +14386,7 @@ std::move(p_provider));
 }
 
 void ShimlessRmaService_Get3pDiagnosticsProvider_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_provider) {
+    const std::optional<std::string>& in_provider) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::shimless_rma::mojom::ShimlessRmaService::Get3pDiagnosticsProvider", "async_response_parameters",
@@ -14086,13 +14394,14 @@ void ShimlessRmaService_Get3pDiagnosticsProvider_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("provider"), in_provider,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_Get3pDiagnosticsProvider_Name, kFlags, 0, 0, nullptr);
@@ -14170,7 +14479,7 @@ class ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ProxyToResponder : p
 #endif
 
   void Run(
-      const absl::optional<::base::FilePath>& in_app_path);
+      const std::optional<::base::FilePath>& in_app_path);
 };
 
 bool ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ForwardToCallback::Accept(
@@ -14183,7 +14492,7 @@ bool ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::FilePath> p_app_path{};
+  std::optional<::base::FilePath> p_app_path{};
   ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadAppPath(&p_app_path))
@@ -14202,7 +14511,7 @@ std::move(p_app_path));
 }
 
 void ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ProxyToResponder::Run(
-    const absl::optional<::base::FilePath>& in_app_path) {
+    const std::optional<::base::FilePath>& in_app_path) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::shimless_rma::mojom::ShimlessRmaService::GetInstallable3pDiagnosticsAppPath", "async_response_parameters",
@@ -14210,13 +14519,14 @@ void ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ProxyToResponder::Run
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("app_path"), in_app_path,
-                        "<value of type const absl::optional<::base::FilePath>&>");
+                        "<value of type const std::optional<::base::FilePath>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_GetInstallable3pDiagnosticsAppPath_Name, kFlags, 0, 0, nullptr);
@@ -14340,7 +14650,8 @@ void ShimlessRmaService_InstallLastFound3pDiagnosticsApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_InstallLastFound3pDiagnosticsApp_Name, kFlags, 0, 0, nullptr);
@@ -14453,7 +14764,8 @@ void ShimlessRmaService_CompleteLast3pDiagnosticsInstallation_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_CompleteLast3pDiagnosticsInstallation_Name, kFlags, 0, 0, nullptr);
@@ -14570,7 +14882,8 @@ void ShimlessRmaService_Show3pDiagnosticsApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShimlessRmaService_Show3pDiagnosticsApp_Name, kFlags, 0, 0, nullptr);
@@ -16736,154 +17049,154 @@ std::move(p_is_approved), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kShimlessRmaServiceValidationInfo[] = {
-    {&internal::ShimlessRmaService_GetCurrentState_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetCurrentState_Params_Data::Validate,
      &internal::ShimlessRmaService_GetCurrentState_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_TransitionPreviousState_Params_Data::Validate,
+    { &internal::ShimlessRmaService_TransitionPreviousState_Params_Data::Validate,
      &internal::ShimlessRmaService_TransitionPreviousState_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_AbortRma_Params_Data::Validate,
+    { &internal::ShimlessRmaService_AbortRma_Params_Data::Validate,
      &internal::ShimlessRmaService_AbortRma_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_BeginFinalization_Params_Data::Validate,
+    { &internal::ShimlessRmaService_BeginFinalization_Params_Data::Validate,
      &internal::ShimlessRmaService_BeginFinalization_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_TrackConfiguredNetworks_Params_Data::Validate,
+    { &internal::ShimlessRmaService_TrackConfiguredNetworks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_NetworkSelectionComplete_Params_Data::Validate,
+    { &internal::ShimlessRmaService_NetworkSelectionComplete_Params_Data::Validate,
      &internal::ShimlessRmaService_NetworkSelectionComplete_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetCurrentOsVersion_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetCurrentOsVersion_Params_Data::Validate,
      &internal::ShimlessRmaService_GetCurrentOsVersion_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_CheckForOsUpdates_Params_Data::Validate,
+    { &internal::ShimlessRmaService_CheckForOsUpdates_Params_Data::Validate,
      &internal::ShimlessRmaService_CheckForOsUpdates_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_UpdateOs_Params_Data::Validate,
+    { &internal::ShimlessRmaService_UpdateOs_Params_Data::Validate,
      &internal::ShimlessRmaService_UpdateOs_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_UpdateOsSkipped_Params_Data::Validate,
+    { &internal::ShimlessRmaService_UpdateOsSkipped_Params_Data::Validate,
      &internal::ShimlessRmaService_UpdateOsSkipped_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_SetSameOwner_Params_Data::Validate,
+    { &internal::ShimlessRmaService_SetSameOwner_Params_Data::Validate,
      &internal::ShimlessRmaService_SetSameOwner_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_SetDifferentOwner_Params_Data::Validate,
+    { &internal::ShimlessRmaService_SetDifferentOwner_Params_Data::Validate,
      &internal::ShimlessRmaService_SetDifferentOwner_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_SetWipeDevice_Params_Data::Validate,
+    { &internal::ShimlessRmaService_SetWipeDevice_Params_Data::Validate,
      &internal::ShimlessRmaService_SetWipeDevice_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ChooseManuallyDisableWriteProtect_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ChooseManuallyDisableWriteProtect_Params_Data::Validate,
      &internal::ShimlessRmaService_ChooseManuallyDisableWriteProtect_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ChooseRsuDisableWriteProtect_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ChooseRsuDisableWriteProtect_Params_Data::Validate,
      &internal::ShimlessRmaService_ChooseRsuDisableWriteProtect_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetRsuDisableWriteProtectChallenge_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetRsuDisableWriteProtectChallenge_Params_Data::Validate,
      &internal::ShimlessRmaService_GetRsuDisableWriteProtectChallenge_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetRsuDisableWriteProtectHwid_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetRsuDisableWriteProtectHwid_Params_Data::Validate,
      &internal::ShimlessRmaService_GetRsuDisableWriteProtectHwid_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_Params_Data::Validate,
      &internal::ShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_SetRsuDisableWriteProtectCode_Params_Data::Validate,
+    { &internal::ShimlessRmaService_SetRsuDisableWriteProtectCode_Params_Data::Validate,
      &internal::ShimlessRmaService_SetRsuDisableWriteProtectCode_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_WriteProtectManuallyDisabled_Params_Data::Validate,
+    { &internal::ShimlessRmaService_WriteProtectManuallyDisabled_Params_Data::Validate,
      &internal::ShimlessRmaService_WriteProtectManuallyDisabled_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetWriteProtectDisableCompleteAction_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetWriteProtectDisableCompleteAction_Params_Data::Validate,
      &internal::ShimlessRmaService_GetWriteProtectDisableCompleteAction_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ConfirmManualWpDisableComplete_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ConfirmManualWpDisableComplete_Params_Data::Validate,
      &internal::ShimlessRmaService_ConfirmManualWpDisableComplete_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetComponentList_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetComponentList_Params_Data::Validate,
      &internal::ShimlessRmaService_GetComponentList_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_SetComponentList_Params_Data::Validate,
+    { &internal::ShimlessRmaService_SetComponentList_Params_Data::Validate,
      &internal::ShimlessRmaService_SetComponentList_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ReworkMainboard_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ReworkMainboard_Params_Data::Validate,
      &internal::ShimlessRmaService_ReworkMainboard_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_RoFirmwareUpdateComplete_Params_Data::Validate,
+    { &internal::ShimlessRmaService_RoFirmwareUpdateComplete_Params_Data::Validate,
      &internal::ShimlessRmaService_RoFirmwareUpdateComplete_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ShutdownForRestock_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ShutdownForRestock_Params_Data::Validate,
      &internal::ShimlessRmaService_ShutdownForRestock_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ContinueFinalizationAfterRestock_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ContinueFinalizationAfterRestock_Params_Data::Validate,
      &internal::ShimlessRmaService_ContinueFinalizationAfterRestock_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetRegionList_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetRegionList_Params_Data::Validate,
      &internal::ShimlessRmaService_GetRegionList_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetSkuList_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetSkuList_Params_Data::Validate,
      &internal::ShimlessRmaService_GetSkuList_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetCustomLabelList_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetCustomLabelList_Params_Data::Validate,
      &internal::ShimlessRmaService_GetCustomLabelList_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetSkuDescriptionList_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetSkuDescriptionList_Params_Data::Validate,
      &internal::ShimlessRmaService_GetSkuDescriptionList_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetOriginalSerialNumber_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetOriginalSerialNumber_Params_Data::Validate,
      &internal::ShimlessRmaService_GetOriginalSerialNumber_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetOriginalRegion_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetOriginalRegion_Params_Data::Validate,
      &internal::ShimlessRmaService_GetOriginalRegion_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetOriginalSku_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetOriginalSku_Params_Data::Validate,
      &internal::ShimlessRmaService_GetOriginalSku_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetOriginalCustomLabel_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetOriginalCustomLabel_Params_Data::Validate,
      &internal::ShimlessRmaService_GetOriginalCustomLabel_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetOriginalDramPartNumber_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetOriginalDramPartNumber_Params_Data::Validate,
      &internal::ShimlessRmaService_GetOriginalDramPartNumber_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetOriginalFeatureLevel_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetOriginalFeatureLevel_Params_Data::Validate,
      &internal::ShimlessRmaService_GetOriginalFeatureLevel_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_SetDeviceInformation_Params_Data::Validate,
+    { &internal::ShimlessRmaService_SetDeviceInformation_Params_Data::Validate,
      &internal::ShimlessRmaService_SetDeviceInformation_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetCalibrationComponentList_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetCalibrationComponentList_Params_Data::Validate,
      &internal::ShimlessRmaService_GetCalibrationComponentList_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetCalibrationSetupInstructions_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetCalibrationSetupInstructions_Params_Data::Validate,
      &internal::ShimlessRmaService_GetCalibrationSetupInstructions_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_StartCalibration_Params_Data::Validate,
+    { &internal::ShimlessRmaService_StartCalibration_Params_Data::Validate,
      &internal::ShimlessRmaService_StartCalibration_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_RunCalibrationStep_Params_Data::Validate,
+    { &internal::ShimlessRmaService_RunCalibrationStep_Params_Data::Validate,
      &internal::ShimlessRmaService_RunCalibrationStep_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ContinueCalibration_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ContinueCalibration_Params_Data::Validate,
      &internal::ShimlessRmaService_ContinueCalibration_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_CalibrationComplete_Params_Data::Validate,
+    { &internal::ShimlessRmaService_CalibrationComplete_Params_Data::Validate,
      &internal::ShimlessRmaService_CalibrationComplete_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_RetryProvisioning_Params_Data::Validate,
+    { &internal::ShimlessRmaService_RetryProvisioning_Params_Data::Validate,
      &internal::ShimlessRmaService_RetryProvisioning_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ProvisioningComplete_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ProvisioningComplete_Params_Data::Validate,
      &internal::ShimlessRmaService_ProvisioningComplete_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_RetryFinalization_Params_Data::Validate,
+    { &internal::ShimlessRmaService_RetryFinalization_Params_Data::Validate,
      &internal::ShimlessRmaService_RetryFinalization_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_FinalizationComplete_Params_Data::Validate,
+    { &internal::ShimlessRmaService_FinalizationComplete_Params_Data::Validate,
      &internal::ShimlessRmaService_FinalizationComplete_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_WriteProtectManuallyEnabled_Params_Data::Validate,
+    { &internal::ShimlessRmaService_WriteProtectManuallyEnabled_Params_Data::Validate,
      &internal::ShimlessRmaService_WriteProtectManuallyEnabled_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetLog_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetLog_Params_Data::Validate,
      &internal::ShimlessRmaService_GetLog_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_SaveLog_Params_Data::Validate,
+    { &internal::ShimlessRmaService_SaveLog_Params_Data::Validate,
      &internal::ShimlessRmaService_SaveLog_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetPowerwashRequired_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetPowerwashRequired_Params_Data::Validate,
      &internal::ShimlessRmaService_GetPowerwashRequired_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_LaunchDiagnostics_Params_Data::Validate,
+    { &internal::ShimlessRmaService_LaunchDiagnostics_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_EndRma_Params_Data::Validate,
+    { &internal::ShimlessRmaService_EndRma_Params_Data::Validate,
      &internal::ShimlessRmaService_EndRma_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ShutDownAfterHardwareError_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ShutDownAfterHardwareError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_CriticalErrorExitToLogin_Params_Data::Validate,
+    { &internal::ShimlessRmaService_CriticalErrorExitToLogin_Params_Data::Validate,
      &internal::ShimlessRmaService_CriticalErrorExitToLogin_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_CriticalErrorReboot_Params_Data::Validate,
+    { &internal::ShimlessRmaService_CriticalErrorReboot_Params_Data::Validate,
      &internal::ShimlessRmaService_CriticalErrorReboot_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_Get3pDiagnosticsProvider_Params_Data::Validate,
+    { &internal::ShimlessRmaService_Get3pDiagnosticsProvider_Params_Data::Validate,
      &internal::ShimlessRmaService_Get3pDiagnosticsProvider_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_Params_Data::Validate,
+    { &internal::ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_Params_Data::Validate,
      &internal::ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_InstallLastFound3pDiagnosticsApp_Params_Data::Validate,
+    { &internal::ShimlessRmaService_InstallLastFound3pDiagnosticsApp_Params_Data::Validate,
      &internal::ShimlessRmaService_InstallLastFound3pDiagnosticsApp_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_CompleteLast3pDiagnosticsInstallation_Params_Data::Validate,
+    { &internal::ShimlessRmaService_CompleteLast3pDiagnosticsInstallation_Params_Data::Validate,
      &internal::ShimlessRmaService_CompleteLast3pDiagnosticsInstallation_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_Show3pDiagnosticsApp_Params_Data::Validate,
+    { &internal::ShimlessRmaService_Show3pDiagnosticsApp_Params_Data::Validate,
      &internal::ShimlessRmaService_Show3pDiagnosticsApp_ResponseParams_Data::Validate},
-    {&internal::ShimlessRmaService_ObserveError_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObserveError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_ObserveOsUpdateProgress_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObserveOsUpdateProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_ObserveCalibrationProgress_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObserveCalibrationProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_ObserveProvisioningProgress_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObserveProvisioningProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_ObserveHardwareWriteProtectionState_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObserveHardwareWriteProtectionState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_ObservePowerCableState_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObservePowerCableState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_ObserveExternalDiskState_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObserveExternalDiskState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_ObserveHardwareVerificationStatus_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObserveHardwareVerificationStatus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_ObserveFinalizationStatus_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObserveFinalizationStatus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShimlessRmaService_ObserveRoFirmwareUpdateProgress_Params_Data::Validate,
+    { &internal::ShimlessRmaService_ObserveRoFirmwareUpdateProgress_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -17454,14 +17767,14 @@ StateResultPtr ShimlessRmaServiceAsyncWaiter::NetworkSelectionComplete(
 }
 
 void ShimlessRmaServiceAsyncWaiter::GetCurrentOsVersion(
-    absl::optional<std::string>* out_version) {
+    std::optional<std::string>* out_version) {
   base::RunLoop loop;
   proxy_->GetCurrentOsVersion(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_version
+             std::optional<std::string>* out_version
 ,
-             const absl::optional<std::string>& version) {*out_version = std::move(version);
+             const std::optional<std::string>& version) {*out_version = std::move(version);
             loop->Quit();
           },
           &loop,
@@ -17469,9 +17782,9 @@ void ShimlessRmaServiceAsyncWaiter::GetCurrentOsVersion(
   loop.Run();
 }
 
-absl::optional<std::string> ShimlessRmaServiceAsyncWaiter::GetCurrentOsVersion(
+std::optional<std::string> ShimlessRmaServiceAsyncWaiter::GetCurrentOsVersion(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetCurrentOsVersion(&async_wait_result);
   return async_wait_result;
 }
@@ -18601,14 +18914,14 @@ void ShimlessRmaServiceAsyncWaiter::CriticalErrorReboot(
 }
 
 void ShimlessRmaServiceAsyncWaiter::Get3pDiagnosticsProvider(
-    absl::optional<std::string>* out_provider) {
+    std::optional<std::string>* out_provider) {
   base::RunLoop loop;
   proxy_->Get3pDiagnosticsProvider(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_provider
+             std::optional<std::string>* out_provider
 ,
-             const absl::optional<std::string>& provider) {*out_provider = std::move(provider);
+             const std::optional<std::string>& provider) {*out_provider = std::move(provider);
             loop->Quit();
           },
           &loop,
@@ -18616,22 +18929,22 @@ void ShimlessRmaServiceAsyncWaiter::Get3pDiagnosticsProvider(
   loop.Run();
 }
 
-absl::optional<std::string> ShimlessRmaServiceAsyncWaiter::Get3pDiagnosticsProvider(
+std::optional<std::string> ShimlessRmaServiceAsyncWaiter::Get3pDiagnosticsProvider(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   Get3pDiagnosticsProvider(&async_wait_result);
   return async_wait_result;
 }
 
 void ShimlessRmaServiceAsyncWaiter::GetInstallable3pDiagnosticsAppPath(
-    absl::optional<::base::FilePath>* out_app_path) {
+    std::optional<::base::FilePath>* out_app_path) {
   base::RunLoop loop;
   proxy_->GetInstallable3pDiagnosticsAppPath(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::FilePath>* out_app_path
+             std::optional<::base::FilePath>* out_app_path
 ,
-             const absl::optional<::base::FilePath>& app_path) {*out_app_path = std::move(app_path);
+             const std::optional<::base::FilePath>& app_path) {*out_app_path = std::move(app_path);
             loop->Quit();
           },
           &loop,
@@ -18639,9 +18952,9 @@ void ShimlessRmaServiceAsyncWaiter::GetInstallable3pDiagnosticsAppPath(
   loop.Run();
 }
 
-absl::optional<::base::FilePath> ShimlessRmaServiceAsyncWaiter::GetInstallable3pDiagnosticsAppPath(
+std::optional<::base::FilePath> ShimlessRmaServiceAsyncWaiter::GetInstallable3pDiagnosticsAppPath(
     ) {
-  absl::optional<::base::FilePath> async_wait_result;
+  std::optional<::base::FilePath> async_wait_result;
   GetInstallable3pDiagnosticsAppPath(&async_wait_result);
   return async_wait_result;
 }

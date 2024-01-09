@@ -34,20 +34,18 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/u2fd/client/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/u2fd/client/_libu2fd-client-install_config.stamp: stamp
 build obj/u2fd/client/_u2fd-client-install_config.stamp: stamp
-build obj/u2fd/client/all.stamp: stamp ./lib/libu2fd-client.so obj/u2fd/client/u2fd-client.stamp ./u2fd_client_test_runner
+build obj/u2fd/client/all.stamp: stamp ./lib/libu2fd-client.so obj/u2fd/client/u2fd-client.stamp
 subninja obj/u2fd/client/libu2fd-client.ninja
 rule __u2fd_client_u2fd-client___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/u2fd-client/out/Default/obj/u2fd/client/libu2fd-client.pc --name=libu2fd-client --description=U2F\$ client\$ shared\$ library --version=9999 --libs=-lu2fd-client --cflags=-I/usr/include/u2f/client
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/u2fd-client/out/Default/obj/u2fd/client/libu2fd-client.pc --name=libu2fd-client --description=U2F\$ client\$ shared\$ library --version=0.0.1 --libs=-lu2fd-client --cflags=-I/usr/include/u2f/client
   description = ACTION //u2fd/client:u2fd-client(//common-mk/toolchain:toolchain)
   restat = 1
 
 build obj/u2fd/client/libu2fd-client.pc: __u2fd_client_u2fd-client___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/u2fd/client/_u2fd-client-install_config.stamp
 
 build obj/u2fd/client/u2fd-client.stamp: stamp obj/u2fd/client/libu2fd-client.pc
-subninja obj/u2fd/client/u2fd_client_test_runner.ninja
 subninja obj/u2fd/client/user_state_proto.ninja
 rule __u2fd_client_user_state_proto_gen___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc user_state.proto --proto_path /mnt/host/source/src/platform2/u2fd/client --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/u2fd-client/out/Default/gen/include/u2fd/client

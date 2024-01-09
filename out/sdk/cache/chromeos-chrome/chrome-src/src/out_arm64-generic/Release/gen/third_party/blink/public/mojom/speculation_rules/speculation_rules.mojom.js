@@ -123,28 +123,30 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
-  var SpeculationInjectionWorld = {};
-  SpeculationInjectionWorld.kNone = 0;
-  SpeculationInjectionWorld.kMain = 1;
-  SpeculationInjectionWorld.kIsolated = 2;
-  SpeculationInjectionWorld.MIN_VALUE = 0;
-  SpeculationInjectionWorld.MAX_VALUE = 2;
+  var SpeculationInjectionType = {};
+  SpeculationInjectionType.kNone = 0;
+  SpeculationInjectionType.kMainWorldScript = 1;
+  SpeculationInjectionType.kIsolatedWorldScript = 2;
+  SpeculationInjectionType.kAutoSpeculationRules = 3;
+  SpeculationInjectionType.MIN_VALUE = 0;
+  SpeculationInjectionType.MAX_VALUE = 3;
 
-  SpeculationInjectionWorld.isKnownEnumValue = function(value) {
+  SpeculationInjectionType.isKnownEnumValue = function(value) {
     switch (value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     }
     return false;
   };
 
-  SpeculationInjectionWorld.toKnownEnumValue = function(value) {
+  SpeculationInjectionType.toKnownEnumValue = function(value) {
     return value;
   };
 
-  SpeculationInjectionWorld.validate = function(enumValue) {
+  SpeculationInjectionType.validate = function(enumValue) {
     const isExtensible = false;
     if (isExtensible || this.isKnownEnumValue(enumValue))
       return validator.validationError.NONE;
@@ -166,7 +168,7 @@
     this.targetBrowsingContextNameHint = SpeculationTargetHint.kNoHint;
     this.eagerness = SpeculationEagerness.kConservative;
     this.noVarySearchHint = null;
-    this.injectionWorld = SpeculationInjectionWorld.kNone;
+    this.injectionType = SpeculationInjectionType.kNone;
   };
   SpeculationCandidate.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -226,8 +228,8 @@
         return err;
 
 
-    // validate SpeculationCandidate.injectionWorld
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 40, SpeculationInjectionWorld);
+    // validate SpeculationCandidate.injectionType
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 40, SpeculationInjectionType);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -258,8 +260,8 @@
         decoder.decodeStruct(new codec.Enum(SpeculationEagerness));
     val.noVarySearchHint =
         decoder.decodeStructPointer(no_vary_search$.NoVarySearch);
-    val.injectionWorld =
-        decoder.decodeStruct(new codec.Enum(SpeculationInjectionWorld));
+    val.injectionType =
+        decoder.decodeStruct(new codec.Enum(SpeculationInjectionType));
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -283,7 +285,7 @@
     encoder.encodeStruct(codec.Int32, val.targetBrowsingContextNameHint);
     encoder.encodeStruct(codec.Int32, val.eagerness);
     encoder.encodeStructPointer(no_vary_search$.NoVarySearch, val.noVarySearchHint);
-    encoder.encodeStruct(codec.Int32, val.injectionWorld);
+    encoder.encodeStruct(codec.Int32, val.injectionType);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
@@ -596,7 +598,7 @@
   exports.SpeculationAction = SpeculationAction;
   exports.SpeculationTargetHint = SpeculationTargetHint;
   exports.SpeculationEagerness = SpeculationEagerness;
-  exports.SpeculationInjectionWorld = SpeculationInjectionWorld;
+  exports.SpeculationInjectionType = SpeculationInjectionType;
   exports.SpeculationCandidate = SpeculationCandidate;
   exports.SpeculationHost = SpeculationHost;
   exports.SpeculationHostPtr = SpeculationHostPtr;

@@ -104,6 +104,8 @@ NOINLINE static const char* RequestDestinationToStringHelper(RequestDestination 
       return "kWebIdentity";
     case RequestDestination::kDictionary:
       return "kDictionary";
+    case RequestDestination::kSpeculationRules:
+      return "kSpeculationRules";
     default:
       return nullptr;
   }

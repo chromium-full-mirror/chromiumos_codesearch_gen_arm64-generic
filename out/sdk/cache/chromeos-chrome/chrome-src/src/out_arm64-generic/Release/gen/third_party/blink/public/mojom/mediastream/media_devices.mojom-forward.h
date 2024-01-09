@@ -33,11 +33,9 @@ class AudioInputDeviceCapabilitiesDataView;
 
 enum class MediaDeviceType : int32_t;
 
-enum class SubCaptureTargetType : int32_t;
-
 enum class FacingMode : int32_t;
 class MediaDeviceInfo;
-using MediaDeviceInfoPtr = mojo::InlinedStructPtr<MediaDeviceInfo>;
+using MediaDeviceInfoPtr = mojo::StructPtr<MediaDeviceInfo>;
 
 class VideoInputDeviceCapabilities;
 using VideoInputDeviceCapabilitiesPtr = mojo::StructPtr<VideoInputDeviceCapabilities>;

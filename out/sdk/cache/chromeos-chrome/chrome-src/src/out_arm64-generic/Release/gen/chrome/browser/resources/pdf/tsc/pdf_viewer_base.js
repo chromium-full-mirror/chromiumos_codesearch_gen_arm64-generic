@@ -38,6 +38,7 @@ export class PdfViewerBaseElement extends PolymerElement {
         this.lastViewportPosition = null;
         this.originalUrl = '';
         this.paramsParser = null;
+        this.pdfOopifEnabled = false;
         this.tracker = new EventTracker();
         this.viewportScroller = null;
         this.delayedScriptingMessages_ = [];
@@ -91,15 +92,19 @@ export class PdfViewerBaseElement extends PolymerElement {
         if (this.isNewUiEnabled()) {
             plugin.toggleAttribute('pdf-viewer-update-enabled', true);
         }
-        // PDF viewer only, as Print Preview doesn't use
-        // `chrome.mimeHandlerPrivate`.
-        if (chrome.mimeHandlerPrivate) {
-            // Pass the attributes for loading PDF plugin through the
-            // `mimeHandlerPrivate` API.
-            const attributesForLoading = {
-                backgroundColor: this.getBackgroundColor(),
-                allowJavascript: javascript === 'allow',
-            };
+        // Pass the attributes for loading PDF plugin through the `pdfViewerPrivate`
+        // API if OOPIF PDF is enabled, or the `mimeHandlerPrivate` API.
+        const attributesForLoading = {
+            backgroundColor: this.getBackgroundColor(),
+            allowJavascript: javascript === 'allow',
+        };
+        // PDF viewer only, as Print Preview doesn't set PDF plugin attributes.
+        if (this.pdfOopifEnabled) {
+            if (chrome.pdfViewerPrivate) {
+                chrome.pdfViewerPrivate.setPdfPluginAttributes(attributesForLoading);
+            }
+        }
+        else if (chrome.mimeHandlerPrivate) {
             chrome.mimeHandlerPrivate.setPdfPluginAttributes(attributesForLoading);
         }
         return plugin;
@@ -114,6 +119,8 @@ export class PdfViewerBaseElement extends PolymerElement {
     initInternal(browserApi, scroller, sizer, content) {
         this.browserApi = browserApi;
         this.originalUrl = this.browserApi.getStreamInfo().originalUrl;
+        this.pdfOopifEnabled =
+            document.documentElement.hasAttribute('pdfOopifEnabled');
         record(UserAction.DOCUMENT_OPENED);
         // Create the viewport.
         const defaultZoom = this.browserApi.getZoomBehavior() === ZoomBehavior.MANAGE ?

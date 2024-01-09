@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/notifications/notification.mojom-features.h"
 #include "third_party/blink/public/mojom/notifications/notification.mojom-shared.h"
 #include "third_party/blink/public/mojom/notifications/notification.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
@@ -42,42 +43,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::NotificationDirection>
-    : EnumHashTraits<::blink::mojom::NotificationDirection, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::NotificationActionType>
-    : EnumHashTraits<::blink::mojom::NotificationActionType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::NotificationScenario>
-    : EnumHashTraits<::blink::mojom::NotificationScenario, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -280,14 +245,14 @@ class PLATFORM_EXPORT NotificationData {
       const ::blink::KURL& image,
       const ::blink::KURL& icon,
       const ::blink::KURL& badge,
-      absl::optional<WTF::Vector<int32_t>> vibration_pattern,
+      std::optional<WTF::Vector<int32_t>> vibration_pattern,
       double timestamp,
       bool renotify,
       bool silent,
       bool require_interaction,
-      absl::optional<WTF::Vector<uint8_t>> data,
-      absl::optional<WTF::Vector<NotificationActionPtr>> actions,
-      absl::optional<::base::Time> show_trigger_timestamp,
+      std::optional<WTF::Vector<uint8_t>> data,
+      std::optional<WTF::Vector<NotificationActionPtr>> actions,
+      std::optional<::base::Time> show_trigger_timestamp,
       NotificationScenario scenario);
 
 NotificationData(const NotificationData&) = delete;
@@ -384,7 +349,7 @@ NotificationData& operator=(const NotificationData&) = delete;
   
   ::blink::KURL badge;
   
-  absl::optional<WTF::Vector<int32_t>> vibration_pattern;
+  std::optional<WTF::Vector<int32_t>> vibration_pattern;
   
   double timestamp;
   
@@ -394,11 +359,11 @@ NotificationData& operator=(const NotificationData&) = delete;
   
   bool require_interaction;
   
-  absl::optional<WTF::Vector<uint8_t>> data;
+  std::optional<WTF::Vector<uint8_t>> data;
   
-  absl::optional<WTF::Vector<NotificationActionPtr>> actions;
+  std::optional<WTF::Vector<NotificationActionPtr>> actions;
   
-  absl::optional<::base::Time> show_trigger_timestamp;
+  std::optional<::base::Time> show_trigger_timestamp;
   
   NotificationScenario scenario;
 
@@ -465,7 +430,7 @@ class PLATFORM_EXPORT NotificationResources {
       const ::SkBitmap& image,
       const ::SkBitmap& icon,
       const ::SkBitmap& badge,
-      absl::optional<WTF::Vector<::SkBitmap>> action_icons);
+      std::optional<WTF::Vector<::SkBitmap>> action_icons);
 
 
   ~NotificationResources();
@@ -544,7 +509,7 @@ class PLATFORM_EXPORT NotificationResources {
   
   ::SkBitmap badge;
   
-  absl::optional<WTF::Vector<::SkBitmap>> action_icons;
+  std::optional<WTF::Vector<::SkBitmap>> action_icons;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

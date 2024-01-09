@@ -1,0 +1,57 @@
+{
+  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/cros_components/*": [
+        "./../../../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
+      ],
+      "chrome://resources/cros_components/*": [
+        "./../../../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://borealis-installer/*": [
+        "./../../../../../browser/resources/chromeos/borealis_installer/tsc/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/borealis_installer_app_test.ts",
+    "preprocessed/borealis_installer_error_dialog_test.ts"
+  ],
+  "references": [
+    {
+      "path": "../../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../browser/resources/chromeos/borealis_installer/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../third_party/cros-components/tsconfig_cros_components_ts.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

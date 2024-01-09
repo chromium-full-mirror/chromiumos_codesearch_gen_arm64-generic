@@ -60,8 +60,8 @@ class  PageHandlerAsyncWaiter {
       const ::base::Token& uuid, bool* out_success);
   bool UserUploadSingleTrace(const ::base::Token& uuid);
   void DownloadTrace(
-      const ::base::Token& uuid, absl::optional<::mojo_base::BigBuffer>* out_trace);
-  absl::optional<::mojo_base::BigBuffer> DownloadTrace(const ::base::Token& uuid);
+      const ::base::Token& uuid, std::optional<::mojo_base::BigBuffer>* out_trace);
+  std::optional<::mojo_base::BigBuffer> DownloadTrace(const ::base::Token& uuid);
 
  private:
   PageHandler* const proxy_;

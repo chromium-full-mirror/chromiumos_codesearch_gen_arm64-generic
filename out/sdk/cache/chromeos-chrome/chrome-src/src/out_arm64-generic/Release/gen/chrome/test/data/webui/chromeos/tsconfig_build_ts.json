@@ -1,0 +1,148 @@
+{
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos",
+    "outDir": "tsc",
+    "allowJs": true,
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/ash/common/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://chrome-signin/arc_account_picker/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/arc_account_picker/*"
+      ],
+      "chrome://internet-detail-dialog/*": [
+        "./../../../../browser/resources/chromeos/internet_detail_dialog/tsc/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/bluetooth_pairing_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/chai_assert.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/cr_focus_row_behavior_test.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/crostini_installer_app_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/crostini_upgrader_app_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/fake_network_config_mojom.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/fake_passpoint_service_mojom.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/internet_config_dialog_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/internet_detail_dialog_test.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/mock_controller.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/mock_controller.m.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/mojo_webui_test_support.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/test_browser_proxy.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/test_util.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/account_manager/account_migration_welcome_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/account_manager/test_account_manager_browser_proxy.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/arc_account_picker/arc_account_picker_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/arc_account_picker/test_util.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/gaia_action_buttons/gaia_action_buttons_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/set_time_dialog/set_time_dialog_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/set_time_dialog/test_set_time_browser_proxy.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/all_inputs_disabled_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/critical_error_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/fake_shimless_rma_service_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/hardware_error_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_choose_destination_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_choose_wipe_device_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_choose_wp_disable_method_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_enter_rsu_wp_disable_code_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_landing_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_network_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_select_components_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_update_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_wait_for_manual_wp_disable_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/onboarding_wp_disable_complete_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/reboot_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/reimaging_calibration_failed_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/reimaging_calibration_run_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/reimaging_calibration_setup_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/reimaging_device_information_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/reimaging_firmware_update_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/reimaging_provisioning_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/repair_component_chip_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/shimless_3p_diag_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/shimless_rma_app_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/wrapup_finalize_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/wrapup_repair_complete_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/wrapup_restock_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/shimless_rma/wrapup_wait_for_manual_wp_enable_page_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/all_tests.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/api_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/line_chart/data_series_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/line_chart/line_chart_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/line_chart/menu_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/line_chart/scrollbar_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/line_chart/sub_chart_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/line_chart/unit_label_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/page_drawer_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/page_infopage_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/page_switch_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/page_unit_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/sys_internals/test_util.js"
+  ],
+  "references": [
+    {
+      "path": "../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../browser/resources/chromeos/internet_detail_dialog/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

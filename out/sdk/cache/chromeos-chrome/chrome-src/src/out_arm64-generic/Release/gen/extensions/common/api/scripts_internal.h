@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -36,7 +37,8 @@ enum class Source {
   kNone = 0,
   kDynamicContentScript,
   kDynamicUserScript,
-  kMaxValue = kDynamicUserScript,
+  kManifestContentScript,
+  kMaxValue = kManifestContentScript,
 };
 
 
@@ -49,8 +51,8 @@ struct ScriptSource {
   ~ScriptSource();
   ScriptSource(const ScriptSource&) = delete;
   ScriptSource& operator=(const ScriptSource&) = delete;
-  ScriptSource(ScriptSource&& rhs);
-  ScriptSource& operator=(ScriptSource&& rhs);
+  ScriptSource(ScriptSource&& rhs) noexcept;
+  ScriptSource& operator=(ScriptSource&& rhs) noexcept;
 
   // Populates a ScriptSource object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -63,15 +65,12 @@ struct ScriptSource {
   // Creates a deep copy of ScriptSource.
   ScriptSource Clone() const;
 
-  // Creates a ScriptSource object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ScriptSource> FromValueDeprecated(const base::Value& value);
-
   // Creates a ScriptSource object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ScriptSource> FromValue(const base::Value::Dict& value);
+  static std::optional<ScriptSource> FromValue(const base::Value::Dict& value);
 
   // Creates a ScriptSource object from a base::Value, or nullopt on failure.
-  static absl::optional<ScriptSource> FromValue(const base::Value& value);
+  static std::optional<ScriptSource> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisScriptSource object.
@@ -79,12 +78,12 @@ struct ScriptSource {
 
   // A string containing the JavaScript code to inject. Exactly one of
   // <code>file</code> or <code>code</code> must be specified.
-  absl::optional<std::string> code;
+  std::optional<std::string> code;
 
   // The path of the JavaScript file to inject relative to the extension's root
   // directory. Exactly one of <code>file</code> or <code>code</code> must be
   // specified.
-  absl::optional<std::string> file;
+  std::optional<std::string> file;
 
 };
 
@@ -93,8 +92,8 @@ struct SerializedUserScript {
   ~SerializedUserScript();
   SerializedUserScript(const SerializedUserScript&) = delete;
   SerializedUserScript& operator=(const SerializedUserScript&) = delete;
-  SerializedUserScript(SerializedUserScript&& rhs);
-  SerializedUserScript& operator=(SerializedUserScript&& rhs);
+  SerializedUserScript(SerializedUserScript&& rhs) noexcept;
+  SerializedUserScript& operator=(SerializedUserScript&& rhs) noexcept;
 
   // Populates a SerializedUserScript object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -107,17 +106,13 @@ struct SerializedUserScript {
   // Creates a deep copy of SerializedUserScript.
   SerializedUserScript Clone() const;
 
-  // Creates a SerializedUserScript object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SerializedUserScript> FromValueDeprecated(const base::Value& value);
-
   // Creates a SerializedUserScript object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<SerializedUserScript> FromValue(const base::Value::Dict& value);
+  static std::optional<SerializedUserScript> FromValue(const base::Value::Dict& value);
 
   // Creates a SerializedUserScript object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SerializedUserScript> FromValue(const base::Value& value);
+  static std::optional<SerializedUserScript> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSerializedUserScript object.
@@ -125,28 +120,28 @@ struct SerializedUserScript {
 
   // Whether the script will inject into all frames, regardless if it is not the
   // top-most frame in the tab.
-  absl::optional<bool> all_frames;
+  std::optional<bool> all_frames;
 
   // The list of CSS files to be injected into matching pages. Note that, today,
   // we only expect these to contain files. It is represented as a ScriptSource
   // for compatibility and consistency with `js`.
-  absl::optional<std::vector<ScriptSource>> css;
+  std::optional<std::vector<ScriptSource>> css;
 
   // Excludes pages that this user script would otherwise be injected into.
-  absl::optional<std::vector<std::string>> exclude_matches;
+  std::optional<std::vector<std::string>> exclude_matches;
 
   // Specifies wildcard patterns for pages this user script will NOT be injected
   // into.
-  absl::optional<std::vector<std::string>> exclude_globs;
+  std::optional<std::vector<std::string>> exclude_globs;
 
   // The ID of the script.
   std::string id;
 
   // Specifies wildcard patterns for pages this user script will be injected into.
-  absl::optional<std::vector<std::string>> include_globs;
+  std::optional<std::vector<std::string>> include_globs;
 
   // The list of sources of javascript to be injected into matching pages.
-  absl::optional<std::vector<ScriptSource>> js;
+  std::optional<std::vector<ScriptSource>> js;
 
   // Specifies which pages this user script will be injected into.
   std::vector<std::string> matches;
@@ -154,7 +149,7 @@ struct SerializedUserScript {
   // Whether the script should inject into any frames where the URL belongs to a
   // scheme that would never match a specified Match Pattern, including about:,
   // data:, blob:, and filesystem: schemes.
-  absl::optional<bool> match_origin_as_fallback;
+  std::optional<bool> match_origin_as_fallback;
 
   // Specifies when JavaScript files are injected into the web page.
   extensions::api::extension_types::RunAt run_at;

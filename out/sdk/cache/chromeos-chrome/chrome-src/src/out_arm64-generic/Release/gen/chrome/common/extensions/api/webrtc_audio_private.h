@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct SinkInfo {
   ~SinkInfo();
   SinkInfo(const SinkInfo&) = delete;
   SinkInfo& operator=(const SinkInfo&) = delete;
-  SinkInfo(SinkInfo&& rhs);
-  SinkInfo& operator=(SinkInfo&& rhs);
+  SinkInfo(SinkInfo&& rhs) noexcept;
+  SinkInfo& operator=(SinkInfo&& rhs) noexcept;
 
   // Populates a SinkInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -46,14 +47,11 @@ struct SinkInfo {
   // Creates a deep copy of SinkInfo.
   SinkInfo Clone() const;
 
-  // Creates a SinkInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SinkInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a SinkInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<SinkInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<SinkInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a SinkInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<SinkInfo> FromValue(const base::Value& value);
+  static std::optional<SinkInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSinkInfo object.
@@ -97,11 +95,11 @@ base::Value::List Create(const std::vector<SinkInfo>& sink_info);
 namespace GetAssociatedSink {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string security_origin;

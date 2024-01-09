@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/desk_template.mojom-features.h"
 #include "chromeos/crosapi/mojom/desk_template.mojom-shared.h"
 #include "chromeos/crosapi/mojom/desk_template.mojom-forward.h"
 #include "components/tab_groups/public/mojom/tab_group_types.mojom.h"
@@ -53,6 +54,7 @@
 #include "components/services/app_service/public/cpp/capability_access.h"
 #include "components/services/app_service/public/cpp/icon_types.h"
 #include "components/services/app_service/public/cpp/preferred_app.h"
+#include "components/services/app_service/public/cpp/shortcut/shortcut.h"
 
 
 
@@ -491,21 +493,30 @@ class  DeskTemplateState {
   DeskTemplateState(
       std::vector<::GURL> urls,
       uint32_t active_index,
-      const absl::optional<std::string>& browser_app_name);
+      const std::optional<std::string>& browser_app_name);
 
   DeskTemplateState(
       std::vector<::GURL> urls,
       uint32_t active_index,
-      const absl::optional<std::string>& browser_app_name,
+      const std::optional<std::string>& browser_app_name,
       int64_t restore_window_id);
 
   DeskTemplateState(
       std::vector<::GURL> urls,
       uint32_t active_index,
-      const absl::optional<std::string>& browser_app_name,
+      const std::optional<std::string>& browser_app_name,
       int64_t restore_window_id,
       uint32_t first_non_pinned_index,
-      absl::optional<std::vector<::tab_groups::TabGroupInfo>> groups);
+      std::optional<std::vector<::tab_groups::TabGroupInfo>> groups);
+
+  DeskTemplateState(
+      std::vector<::GURL> urls,
+      uint32_t active_index,
+      const std::optional<std::string>& browser_app_name,
+      int64_t restore_window_id,
+      uint32_t first_non_pinned_index,
+      std::optional<std::vector<::tab_groups::TabGroupInfo>> groups,
+      uint64_t lacros_profile_id);
 
 
   ~DeskTemplateState();
@@ -587,13 +598,15 @@ class  DeskTemplateState {
   
   uint32_t active_index;
   
-  absl::optional<std::string> browser_app_name;
+  std::optional<std::string> browser_app_name;
   
   int64_t restore_window_id;
   
   uint32_t first_non_pinned_index;
   
-  absl::optional<std::vector<::tab_groups::TabGroupInfo>> groups;
+  std::optional<std::vector<::tab_groups::TabGroupInfo>> groups;
+  
+  uint64_t lacros_profile_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -682,7 +695,8 @@ DeskTemplateStatePtr DeskTemplateState::Clone() const {
       mojo::Clone(browser_app_name),
       mojo::Clone(restore_window_id),
       mojo::Clone(first_non_pinned_index),
-      mojo::Clone(groups)
+      mojo::Clone(groups),
+      mojo::Clone(lacros_profile_id)
   );
 }
 
@@ -699,6 +713,8 @@ bool DeskTemplateState::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->first_non_pinned_index, other_struct.first_non_pinned_index))
     return false;
   if (!mojo::Equals(this->groups, other_struct.groups))
+    return false;
+  if (!mojo::Equals(this->lacros_profile_id, other_struct.lacros_profile_id))
     return false;
   return true;
 }
@@ -728,6 +744,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.groups < rhs.groups)
     return true;
   if (rhs.groups < lhs.groups)
+    return false;
+  if (lhs.lacros_profile_id < rhs.lacros_profile_id)
+    return true;
+  if (rhs.lacros_profile_id < lhs.lacros_profile_id)
     return false;
   return false;
 }
@@ -807,6 +827,11 @@ struct  StructTraits<::crosapi::mojom::DeskTemplateState::DataView,
   static const decltype(::crosapi::mojom::DeskTemplateState::groups)& groups(
       const ::crosapi::mojom::DeskTemplateStatePtr& input) {
     return input->groups;
+  }
+
+  static decltype(::crosapi::mojom::DeskTemplateState::lacros_profile_id) lacros_profile_id(
+      const ::crosapi::mojom::DeskTemplateStatePtr& input) {
+    return input->lacros_profile_id;
   }
 
   static bool Read(::crosapi::mojom::DeskTemplateState::DataView input, ::crosapi::mojom::DeskTemplateStatePtr* output);

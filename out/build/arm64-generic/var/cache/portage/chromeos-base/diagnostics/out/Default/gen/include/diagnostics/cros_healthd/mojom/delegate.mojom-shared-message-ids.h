@@ -36,6 +36,11 @@ constexpr uint32_t kDelegate_RunFloatingPoint_Name = 18;
 constexpr uint32_t kDelegate_GetAllFanSpeed_Name = 19;
 constexpr uint32_t kDelegate_SetFanSpeed_Name = 20;
 constexpr uint32_t kDelegate_SetAllFanAutoControl_Name = 21;
+constexpr uint32_t kDelegate_GetEcThermalSensors_Name = 22;
+constexpr uint32_t kDelegate_GetTouchpadDevices_Name = 23;
+constexpr uint32_t kDelegate_GetSmartBatteryManufactureDate_Name = 24;
+constexpr uint32_t kDelegate_GetSmartBatteryTemperature_Name = 25;
+constexpr uint32_t kDelegate_RunUrandom_Name = 26;
 
 }  // namespace internal
 

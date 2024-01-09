@@ -6,8 +6,10 @@ import { assert } from 'chrome://resources/js/assert.js';
  * TODO(beccahughes): Description
  */
 export class MediaDataTable {
+    table_;
+    data_ = [];
+    delegate_;
     constructor(table, delegate) {
-        this.data_ = [];
         this.table_ = table;
         this.delegate_ = delegate;
         // Set table header sort handlers.

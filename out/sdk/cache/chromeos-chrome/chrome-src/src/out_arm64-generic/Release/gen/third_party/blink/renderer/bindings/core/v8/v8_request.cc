@@ -63,7 +63,7 @@ return execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()
 const WrapperTypeInfo V8Request::wrapper_type_info_{
     gin::kEmbedderBlink,
     V8Request::InstallInterfaceTemplate,
-    nullptr,
+    V8Request::InstallContextDependentProperties,
     "Request",
     nullptr,
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
@@ -85,11 +85,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Request>::value,
     "Request inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Request::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Request is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,10 +97,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.method.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->method();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->method();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -117,10 +112,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -132,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("Request.headers.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getHeaders();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -146,10 +142,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.destination.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->destination();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->destination();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -161,10 +157,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.referrer.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->referrer();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->referrer();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -176,10 +172,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.referrerPolicy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->getReferrerPolicy();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->getReferrerPolicy();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -191,10 +187,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.mode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->mode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->mode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -206,10 +202,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.credentials.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->credentials();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->credentials();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -221,10 +217,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.cache.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->cache();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->cache();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -236,10 +232,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.redirect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->redirect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->redirect();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -251,10 +247,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.integrity.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->integrity();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->integrity();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -266,8 +262,9 @@ BLINK_BINDINGS_TRACE_EVENT("Request.keepalive.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->keepalive();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -280,8 +277,9 @@ BLINK_BINDINGS_TRACE_EVENT("Request.signal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->signal();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -294,10 +292,10 @@ BLINK_BINDINGS_TRACE_EVENT("Request.targetAddressSpace.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->targetAddressSpace();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->targetAddressSpace();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -315,7 +313,7 @@ UseCounter::Count(current_execution_context, WebFeature::kRequestIsHistoryNaviga
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isHistoryNavigation();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -328,8 +326,9 @@ BLINK_BINDINGS_TRACE_EVENT("Request.body.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->body();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -342,8 +341,9 @@ BLINK_BINDINGS_TRACE_EVENT("Request.bodyUsed.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bodyUsed();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -420,7 +420,7 @@ return;
 
 
 
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -454,7 +454,7 @@ return;
 
 
 
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -476,12 +476,12 @@ BLINK_BINDINGS_TRACE_EVENT("Request.clone");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Request";
 const char* const property_name = "clone";
@@ -516,7 +516,7 @@ return;
 
 
 
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -550,7 +550,7 @@ return;
 
 
 
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -584,7 +584,7 @@ return;
 
 
 
-Request* blink_receiver = V8Request::ToWrappableUnsafe(v8_receiver);
+Request* blink_receiver = V8Request::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -673,14 +673,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 void V8Request::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
-if (RuntimeEnabledFeatures::PrivateNetworkAccessPermissionPromptEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"targetAddressSpace", TargetAddressSpaceAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
 if (RuntimeEnabledFeatures::FetchUploadStreamingEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"body", BodyAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -697,6 +689,27 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 
 }
 
+void V8Request::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
+  using bindings::IDLMemberInstaller;
+
+ScriptState* script_state = ScriptState::From(context);
+ExecutionContext* execution_context = ExecutionContext::From(script_state);
+if ((feature_selector.IsAll() && RuntimeEnabledFeatures::PrivateNetworkAccessPermissionPromptEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kPrivateNetworkAccessPermissionPrompt)) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"targetAddressSpace", TargetAddressSpaceAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
+}
+
+
+
+
+
+
+}
 
 
 }  // namespace blink

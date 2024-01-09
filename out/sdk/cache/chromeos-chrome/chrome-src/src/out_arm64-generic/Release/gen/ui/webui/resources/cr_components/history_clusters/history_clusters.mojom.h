@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/webui/resources/cr_components/history_clusters/history_clusters.mojom-features.h"
 #include "ui/webui/resources/cr_components/history_clusters/history_clusters.mojom-shared.h"
 #include "ui/webui/resources/cr_components/history_clusters/history_clusters.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom-forward.h"
@@ -178,7 +179,7 @@ class PageHandler
   virtual void RemoveVisits(std::vector<::history_clusters::mojom::URLVisitPtr> visits, RemoveVisitsCallback callback) = 0;
 
   
-  virtual void OpenVisitUrlsInTabGroup(std::vector<::history_clusters::mojom::URLVisitPtr> visits, const absl::optional<std::string>& tab_group_name) = 0;
+  virtual void OpenVisitUrlsInTabGroup(std::vector<::history_clusters::mojom::URLVisitPtr> visits, const std::optional<std::string>& tab_group_name) = 0;
 
   
   virtual void RecordVisitAction(VisitAction visit_action, uint32_t visit_index, VisitType visit_type) = 0;
@@ -302,7 +303,7 @@ class  PageHandlerProxy
   
   void RemoveVisits(std::vector<::history_clusters::mojom::URLVisitPtr> visits, RemoveVisitsCallback callback) final;
   
-  void OpenVisitUrlsInTabGroup(std::vector<::history_clusters::mojom::URLVisitPtr> visits, const absl::optional<std::string>& tab_group_name) final;
+  void OpenVisitUrlsInTabGroup(std::vector<::history_clusters::mojom::URLVisitPtr> visits, const std::optional<std::string>& tab_group_name) final;
   
   void RecordVisitAction(VisitAction visit_action, uint32_t visit_index, VisitType visit_type) final;
   

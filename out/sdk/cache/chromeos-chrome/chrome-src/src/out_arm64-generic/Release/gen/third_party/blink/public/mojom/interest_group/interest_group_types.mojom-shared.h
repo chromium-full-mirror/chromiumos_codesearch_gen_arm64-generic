@@ -236,6 +236,31 @@ inline InterestGroup_ExecutionMode ToKnownEnumValue(InterestGroup_ExecutionMode 
 }
 
 
+enum class InterestGroup_TrustedBiddingSignalsSlotSizeMode : int32_t {
+  
+  kNone = 0,
+  
+  kSlotSize = 1,
+  
+  kAllSlotsRequestedSizes = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, InterestGroup_TrustedBiddingSignalsSlotSizeMode value);
+inline bool IsKnownEnumValue(InterestGroup_TrustedBiddingSignalsSlotSizeMode value) {
+  return internal::InterestGroup_TrustedBiddingSignalsSlotSizeMode_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline InterestGroup_TrustedBiddingSignalsSlotSizeMode ToKnownEnumValue(InterestGroup_TrustedBiddingSignalsSlotSizeMode value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return InterestGroup_TrustedBiddingSignalsSlotSizeMode::kDefaultValue;
+}
+
+
 enum class AuctionAdConfigNonSharedParams_BuyerReportType : int32_t {
   
   kInterestGroupCount = 0,
@@ -267,13 +292,13 @@ class InterestGroupAdDataView {
 
   bool is_null() const { return !data_; }
   inline void GetRenderUrlDataView(
-      ::url::mojom::UrlDataView* output);
+      mojo::StringDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadRenderUrl(UserType* output) {
     
     auto* pointer = data_->render_url.Get();
-    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+    return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
   inline void GetSizeGroupDataView(
@@ -569,6 +594,16 @@ static_assert(
   InterestGroup_ExecutionMode execution_mode() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::InterestGroup_ExecutionMode>(data_->execution_mode));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadTrustedBiddingSignalsSlotSizeMode(UserType* output) const {
+    auto data_value = data_->trusted_bidding_signals_slot_size_mode;
+    return mojo::internal::Deserialize<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode>(
+        data_value, output);
+  }
+  InterestGroup_TrustedBiddingSignalsSlotSizeMode trusted_bidding_signals_slot_size_mode() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode>(data_->trusted_bidding_signals_slot_size_mode));
   }
   inline void GetBiddingUrlDataView(
       ::url::mojom::UrlDataView* output);
@@ -1384,6 +1419,26 @@ static_assert(
     return mojo::internal::Deserialize<::blink::mojom::AdSizeDataView>(
         pointer, output, message_);
   }
+  inline void GetAllSlotsRequestedSizesDataView(
+      mojo::ArrayDataView<::blink::mojom::AdSizeDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAllSlotsRequestedSizes(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::blink::mojom::AdSizeDataView>, UserType>(),
+    "Attempting to read the optional `all_slots_requested_sizes` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadAllSlotsRequestedSizes` instead "
+    "of `ReadAllSlotsRequestedSizes if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->all_slots_requested_sizes.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::AdSizeDataView>>(
+        pointer, output, message_);
+  }
   inline void GetAuctionNonceDataView(
       ::mojo_base::mojom::UuidDataView* output);
 
@@ -1823,6 +1878,10 @@ struct hash<::blink::mojom::InterestGroup_ExecutionMode>
     : public mojo::internal::EnumHashImpl<::blink::mojom::InterestGroup_ExecutionMode> {};
 
 template <>
+struct hash<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode> {};
+
+template <>
 struct hash<::blink::mojom::AuctionAdConfigNonSharedParams_BuyerReportType>
     : public mojo::internal::EnumHashImpl<::blink::mojom::AuctionAdConfigNonSharedParams_BuyerReportType> {};
 
@@ -1845,6 +1904,26 @@ struct Serializer<::blink::mojom::InterestGroup_ExecutionMode, MaybeConstUserTyp
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::blink::mojom::InterestGroup_ExecutionMode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode>(input)), output);
   }
 };
 
@@ -1888,7 +1967,7 @@ struct Serializer<::blink::mojom::InterestGroupAdDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->render_url)::BaseType> render_url_fragment(
             fragment.message());
-    mojo::internal::Serialize<::url::mojom::UrlDataView>(
+    mojo::internal::Serialize<mojo::StringDataView>(
         in_render_url, render_url_fragment);
     fragment->render_url.Set(
         render_url_fragment.is_null() ? nullptr : render_url_fragment.data());
@@ -2119,6 +2198,8 @@ struct Serializer<::blink::mojom::InterestGroupDataView, MaybeConstUserType> {
         "null all_sellers_capabilities in InterestGroup struct");
     mojo::internal::Serialize<::blink::mojom::InterestGroup_ExecutionMode>(
         Traits::execution_mode(input), &fragment->execution_mode);
+    mojo::internal::Serialize<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode>(
+        Traits::trusted_bidding_signals_slot_size_mode(input), &fragment->trusted_bidding_signals_slot_size_mode);
     decltype(Traits::bidding_url(input)) in_bidding_url = Traits::bidding_url(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->bidding_url)::BaseType> bidding_url_fragment(
@@ -2771,6 +2852,16 @@ struct Serializer<::blink::mojom::AuctionAdConfigNonSharedParamsDataView, MaybeC
         in_requested_size, requested_size_fragment);
     fragment->requested_size.Set(
         requested_size_fragment.is_null() ? nullptr : requested_size_fragment.data());
+    decltype(Traits::all_slots_requested_sizes(input)) in_all_slots_requested_sizes = Traits::all_slots_requested_sizes(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->all_slots_requested_sizes)::BaseType>
+        all_slots_requested_sizes_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& all_slots_requested_sizes_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::AdSizeDataView>>(
+        in_all_slots_requested_sizes, all_slots_requested_sizes_fragment, &all_slots_requested_sizes_validate_params);
+    fragment->all_slots_requested_sizes.Set(
+        all_slots_requested_sizes_fragment.is_null() ? nullptr : all_slots_requested_sizes_fragment.data());
     decltype(Traits::auction_nonce(input)) in_auction_nonce = Traits::auction_nonce(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->auction_nonce)::BaseType> auction_nonce_fragment(
@@ -3234,9 +3325,9 @@ struct Serializer<::blink::mojom::AuctionAdConfigMaybePromiseDirectFromSellerSig
 namespace blink::mojom {
 
 inline void InterestGroupAdDataView::GetRenderUrlDataView(
-    ::url::mojom::UrlDataView* output) {
+    mojo::StringDataView* output) {
   auto pointer = data_->render_url.Get();
-  *output = ::url::mojom::UrlDataView(pointer, message_);
+  *output = mojo::StringDataView(pointer, message_);
 }
 inline void InterestGroupAdDataView::GetSizeGroupDataView(
     mojo::StringDataView* output) {
@@ -3535,6 +3626,11 @@ inline void AuctionAdConfigNonSharedParamsDataView::GetRequestedSizeDataView(
   auto pointer = data_->requested_size.Get();
   *output = ::blink::mojom::AdSizeDataView(pointer, message_);
 }
+inline void AuctionAdConfigNonSharedParamsDataView::GetAllSlotsRequestedSizesDataView(
+    mojo::ArrayDataView<::blink::mojom::AdSizeDataView>* output) {
+  auto pointer = data_->all_slots_requested_sizes.Get();
+  *output = mojo::ArrayDataView<::blink::mojom::AdSizeDataView>(pointer, message_);
+}
 inline void AuctionAdConfigNonSharedParamsDataView::GetAuctionNonceDataView(
     ::mojo_base::mojom::UuidDataView* output) {
   auto pointer = data_->auction_nonce.Get();
@@ -3630,6 +3726,15 @@ namespace perfetto {
 template <>
 struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::InterestGroup_ExecutionMode> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::InterestGroup_ExecutionMode value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode value);
 };
 
 } // namespace perfetto

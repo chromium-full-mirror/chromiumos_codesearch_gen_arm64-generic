@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -218,7 +219,7 @@ ProxyServer::ProxyServer()
 
 ProxyServer::ProxyServer(
     ::net::ProxyServer::Scheme scheme_in,
-    const absl::optional<::net::HostPortPair>& host_and_port_in)
+    const std::optional<::net::HostPortPair>& host_and_port_in)
     : scheme(std::move(scheme_in)),
       host_and_port(std::move(host_and_port_in)) {}
 
@@ -240,7 +241,7 @@ void ProxyServer::WriteIntoTrace(
     dict.AddItem(
       "host_and_port"), this->host_and_port,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::HostPortPair>&>"
+      "<value of type const std::optional<::net::HostPortPair>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -248,6 +249,46 @@ void ProxyServer::WriteIntoTrace(
 }
 
 bool ProxyServer::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ProxyChain::ProxyChain()
+    : proxy_servers(),
+      is_for_ip_protection() {}
+
+ProxyChain::ProxyChain(
+    std::optional<std::vector<::net::ProxyServer>> proxy_servers_in,
+    bool is_for_ip_protection_in)
+    : proxy_servers(std::move(proxy_servers_in)),
+      is_for_ip_protection(std::move(is_for_ip_protection_in)) {}
+
+ProxyChain::~ProxyChain() = default;
+
+void ProxyChain::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "proxy_servers"), this->proxy_servers,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::vector<::net::ProxyServer>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_for_ip_protection"), this->is_for_ip_protection,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ProxyChain::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -483,6 +524,22 @@ bool StructTraits<::network::mojom::ProxyServer::DataView, ::network::mojom::Pro
         success = false;
       if (success && !input.ReadHostAndPort(&result->host_and_port))
         success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::network::mojom::ProxyChain::DataView, ::network::mojom::ProxyChainPtr>::Read(
+    ::network::mojom::ProxyChain::DataView input,
+    ::network::mojom::ProxyChainPtr* output) {
+  bool success = true;
+  ::network::mojom::ProxyChainPtr result(::network::mojom::ProxyChain::New());
+  
+      if (success && !input.ReadProxyServers(&result->proxy_servers))
+        success = false;
+      if (success)
+        result->is_for_ip_protection = input.is_for_ip_protection();
   *output = std::move(result);
   return success;
 }

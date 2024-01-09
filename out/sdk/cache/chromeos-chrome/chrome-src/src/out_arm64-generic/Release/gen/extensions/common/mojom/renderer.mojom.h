@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/renderer.mojom-features.h"
 #include "extensions/common/mojom/renderer.mojom-shared.h"
 #include "extensions/common/mojom/renderer.mojom-forward.h"
 #include "extensions/common/mojom/api_permission_id.mojom-forward.h"
@@ -378,7 +379,7 @@ class  UserScriptWorldInfo {
 
   UserScriptWorldInfo(
       const std::string& extension_id,
-      const absl::optional<std::string>& csp,
+      const std::optional<std::string>& csp,
       bool enable_messaging);
 
 
@@ -459,7 +460,7 @@ class  UserScriptWorldInfo {
   
   std::string extension_id;
   
-  absl::optional<std::string> csp;
+  std::optional<std::string> csp;
   
   bool enable_messaging;
 
@@ -535,7 +536,7 @@ class  ExtensionLoadedParams {
       ::extensions::URLPatternSet policy_allowed_hosts,
       bool uses_default_policy_blocked_allowed_hosts,
       const std::string& id,
-      const absl::optional<::base::UnguessableToken>& worker_activation_token,
+      const std::optional<::base::UnguessableToken>& worker_activation_token,
       int32_t creation_flags,
       const std::string& guid);
 
@@ -637,7 +638,7 @@ ExtensionLoadedParams& operator=(const ExtensionLoadedParams&) = delete;
   
   std::string id;
   
-  absl::optional<::base::UnguessableToken> worker_activation_token;
+  std::optional<::base::UnguessableToken> worker_activation_token;
   
   int32_t creation_flags;
   

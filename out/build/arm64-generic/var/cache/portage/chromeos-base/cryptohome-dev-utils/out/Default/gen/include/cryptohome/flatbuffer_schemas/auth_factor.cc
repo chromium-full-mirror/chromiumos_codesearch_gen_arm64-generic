@@ -1,4 +1,4 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -46,11 +46,9 @@ namespace {
 
 namespace cryptohome {
 
-__attribute__((visibility("default"))) std::optional<brillo::SecureBlob>
+__attribute__((visibility("default"))) std::optional<brillo::Blob>
 SerializedAuthFactor::Serialize() const {
-  hwsec_foundation::FlatbufferSecureAllocatorBridge allocator;
-  flatbuffers::FlatBufferBuilder builder(kFlatbufferAllocatorInitialSize,
-                                         &allocator);
+  flatbuffers::FlatBufferBuilder builder;
   auto buffer =
       hwsec_foundation::ToFlatBuffer<::cryptohome::SerializedAuthFactor>()(
           &builder, *this);
@@ -61,7 +59,7 @@ SerializedAuthFactor::Serialize() const {
   builder.Finish(buffer);
   uint8_t* buf = builder.GetBufferPointer();
   int size = builder.GetSize();
-  return brillo::SecureBlob(buf, buf + size);
+  return brillo::Blob(buf, buf + size);
 }
 
 }  // namespace cryptohome
@@ -71,7 +69,7 @@ namespace cryptohome {
 // static
 __attribute__((visibility("default")))
 std::optional<::cryptohome::SerializedAuthFactor>
-SerializedAuthFactor::Deserialize(const brillo::SecureBlob& blob) {
+SerializedAuthFactor::Deserialize(const brillo::Blob& blob) {
   flatbuffers::Verifier verifier(blob.data(), blob.size());
   if (!::cryptohome::_serialized_::VerifySerializedAuthFactorBuffer(verifier)) {
     LOG(ERROR) << "SerializedAuthFactor cannot be deserialized.";

@@ -92,6 +92,16 @@ using SpellCheckerAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<SpellCheckerInterfaceBase>;
 using SpellCheckerAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<SpellCheckerInterfaceBase>;
+class SpellCheckInitializationHostInterfaceBase {};
+
+using SpellCheckInitializationHostPtrDataView =
+    mojo::InterfacePtrDataView<SpellCheckInitializationHostInterfaceBase>;
+using SpellCheckInitializationHostRequestDataView =
+    mojo::InterfaceRequestDataView<SpellCheckInitializationHostInterfaceBase>;
+using SpellCheckInitializationHostAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<SpellCheckInitializationHostInterfaceBase>;
+using SpellCheckInitializationHostAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<SpellCheckInitializationHostInterfaceBase>;
 class SpellCheckHostInterfaceBase {};
 
 using SpellCheckHostPtrDataView =

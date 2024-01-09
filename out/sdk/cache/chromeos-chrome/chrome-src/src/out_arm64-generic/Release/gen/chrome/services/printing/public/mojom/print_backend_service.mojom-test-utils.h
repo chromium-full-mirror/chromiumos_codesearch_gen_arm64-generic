@@ -60,7 +60,7 @@ class  PrintBackendServiceInterceptorForTesting : public PrintBackendService {
   void EstablishPrintingContext(uint32_t context_id) override;
   void UseDefaultSettings(uint32_t context_id, UseDefaultSettingsCallback callback) override;
   void UpdatePrintSettings(uint32_t context_id, ::base::Value::Dict job_settings, UpdatePrintSettingsCallback callback) override;
-  void StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const absl::optional<::printing::PrintSettings>& settings, StartPrintingCallback callback) override;
+  void StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, StartPrintingCallback callback) override;
   void RenderPrintedDocument(int32_t document_cookie, uint32_t page_count, ::printing::mojom::MetafileDataType data_type, ::base::ReadOnlySharedMemoryRegion serialized_doc, RenderPrintedDocumentCallback callback) override;
   void DocumentDone(int32_t document_cookie, DocumentDoneCallback callback) override;
   void Cancel(int32_t document_cookie, CancelCallback callback) override;
@@ -92,8 +92,8 @@ class  PrintBackendServiceAsyncWaiter {
       uint32_t context_id, ::base::Value::Dict job_settings, PrintSettingsResultPtr* out_settings);
   PrintSettingsResultPtr UpdatePrintSettings(uint32_t context_id, ::base::Value::Dict job_settings);
   void StartPrinting(
-      uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const absl::optional<::printing::PrintSettings>& settings, ::printing::mojom::ResultCode* out_result_code);
-  ::printing::mojom::ResultCode StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const absl::optional<::printing::PrintSettings>& settings);
+      uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, ::printing::mojom::ResultCode* out_result_code);
+  ::printing::mojom::ResultCode StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings);
   void RenderPrintedDocument(
       int32_t document_cookie, uint32_t page_count, ::printing::mojom::MetafileDataType data_type, ::base::ReadOnlySharedMemoryRegion serialized_doc, ::printing::mojom::ResultCode* out_result_code);
   ::printing::mojom::ResultCode RenderPrintedDocument(int32_t document_cookie, uint32_t page_count, ::printing::mojom::MetafileDataType data_type, ::base::ReadOnlySharedMemoryRegion serialized_doc);

@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TextEvent>::value,
     "TextEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TextEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TextEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8TextEvent_Data_Attri
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TextEvent* blink_receiver = V8TextEvent::ToWrappableUnsafe(v8_receiver);
+TextEvent* blink_receiver = V8TextEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->data();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -108,8 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextEvent* blink_receiver = V8TextEvent::ToWrappableUnsafe(v8_receiver);
+TextEvent* blink_receiver = V8TextEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -132,7 +128,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8TextEvent_InitTextEv
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TextEvent* blink_receiver = V8TextEvent::ToWrappableUnsafe(v8_receiver);
+TextEvent* blink_receiver = V8TextEvent::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TextEvent";

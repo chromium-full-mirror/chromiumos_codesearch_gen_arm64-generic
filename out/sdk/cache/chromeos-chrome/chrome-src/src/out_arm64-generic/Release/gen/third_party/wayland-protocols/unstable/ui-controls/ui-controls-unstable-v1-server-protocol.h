@@ -243,6 +243,70 @@ struct zcr_ui_controls_v1_interface {
 			   int32_t y,
 			   struct wl_resource *surface,
 			   uint32_t id);
+	/**
+	 * set display ID for pending display
+	 *
+	 * Set the display id to be added. This is double buffered and
+	 * the display will be created upon `display_info_done` request.
+	 * @since 3
+	 */
+	void (*set_display_info_id)(struct wl_client *client,
+				    struct wl_resource *resource,
+				    uint32_t display_id_hi,
+				    uint32_t display_id_low);
+	/**
+	 * set display size for pending display
+	 *
+	 * Set the display size to be added. The display will be created
+	 * upon `display_info_done` request.
+	 * @param width display width
+	 * @param height display height
+	 * @since 3
+	 */
+	void (*set_display_info_size)(struct wl_client *client,
+				      struct wl_resource *resource,
+				      uint32_t width,
+				      uint32_t height);
+	/**
+	 * set scale factor for pending display
+	 *
+	 * Set the display device scale factor to be added. The display
+	 * will be created upon `display_info_done` request.
+	 *
+	 * The client has a 32-bit float scale factor that is associated
+	 * with each display. This scale factor must be propagated exactly
+	 * to exo. To do so we reinterpret_cast into a 32-bit uint and
+	 * later cast back into a float. This is because wayland does not
+	 * support native transport of floats. As different CPU
+	 * architectures may use different endian representations for IEEE
+	 * 754 floats, this protocol implicitly assumes that the caller and
+	 * receiver are the same machine.
+	 * @param device_scale_factor_as_uint device scale factor, in float format
+	 * @since 3
+	 */
+	void (*set_display_info_device_scale_factor)(struct wl_client *client,
+						     struct wl_resource *resource,
+						     uint32_t device_scale_factor_as_uint);
+	/**
+	 * signal display info are done
+	 *
+	 * Add pending display to pending display list. The value of
+	 * display properties will use default value if they're not set by
+	 * request.
+	 * @since 3
+	 */
+	void (*display_info_done)(struct wl_client *client,
+				  struct wl_resource *resource);
+	/**
+	 * Signal the end of display info
+	 *
+	 * Flush the display information to ash and update the displays.
+	 * @param id will be echoed back in the matching sent event
+	 * @since 3
+	 */
+	void (*display_info_list_done)(struct wl_client *client,
+				       struct wl_resource *resource,
+				       uint32_t id);
 };
 
 #define ZCR_UI_CONTROLS_V1_REQUEST_PROCESSED 0
@@ -268,6 +332,26 @@ struct zcr_ui_controls_v1_interface {
  * @ingroup iface_zcr_ui_controls_v1
  */
 #define ZCR_UI_CONTROLS_V1_SEND_TOUCH_SINCE_VERSION 1
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_ID_SINCE_VERSION 3
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_SIZE_SINCE_VERSION 3
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_SET_DISPLAY_INFO_DEVICE_SCALE_FACTOR_SINCE_VERSION 3
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_DISPLAY_INFO_DONE_SINCE_VERSION 3
+/**
+ * @ingroup iface_zcr_ui_controls_v1
+ */
+#define ZCR_UI_CONTROLS_V1_DISPLAY_INFO_LIST_DONE_SINCE_VERSION 3
 
 /**
  * @ingroup iface_zcr_ui_controls_v1

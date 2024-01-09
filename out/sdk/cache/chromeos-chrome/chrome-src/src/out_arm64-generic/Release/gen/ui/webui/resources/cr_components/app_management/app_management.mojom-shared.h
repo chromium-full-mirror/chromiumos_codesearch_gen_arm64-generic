@@ -38,6 +38,8 @@ class PermissionDataView;
 
 class RunOnOsLoginDataView;
 
+class LocaleDataView;
+
 class AppDataView;
 
 class ExtensionAppPermissionMessageDataView;
@@ -62,6 +64,13 @@ struct MojomTypeTraits<::app_management::mojom::PermissionDataView> {
 template <>
 struct MojomTypeTraits<::app_management::mojom::RunOnOsLoginDataView> {
   using Data = ::app_management::mojom::internal::RunOnOsLogin_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::app_management::mojom::LocaleDataView> {
+  using Data = ::app_management::mojom::internal::Locale_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -115,50 +124,30 @@ enum class AppType : int32_t {
   
   kWeb = 5,
   
-  kMacOs = 6,
+  kPluginVm = 6,
   
-  kPluginVm = 7,
+  kStandaloneBrowser = 7,
   
-  kStandaloneBrowser = 8,
+  kRemote = 8,
   
-  kRemote = 9,
+  kBorealis = 9,
   
-  kBorealis = 10,
+  kSystemWeb = 10,
   
-  kSystemWeb = 11,
+  kStandaloneBrowserChromeApp = 11,
   
-  kStandaloneBrowserChromeApp = 12,
+  kExtension = 12,
   
-  kExtension = 13,
+  kStandaloneBrowserExtension = 13,
   
-  kStandaloneBrowserExtension = 14,
-  
-  kBruschetta = 15,
+  kBruschetta = 14,
   kMinValue = 0,
-  kMaxValue = 15,
+  kMaxValue = 14,
 };
 
  std::ostream& operator<<(std::ostream& os, AppType value);
 inline bool IsKnownEnumValue(AppType value) {
   return internal::AppType_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
-enum class OptionalBool : int32_t {
-  
-  kUnknown = 0,
-  
-  kFalse = 1,
-  
-  kTrue = 2,
-  kMinValue = 0,
-  kMaxValue = 2,
-};
-
- std::ostream& operator<<(std::ostream& os, OptionalBool value);
-inline bool IsKnownEnumValue(OptionalBool value) {
-  return internal::OptionalBool_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -423,6 +412,52 @@ class RunOnOsLoginDataView {
 };
 
 
+class LocaleDataView {
+ public:
+  LocaleDataView() = default;
+
+  LocaleDataView(
+      internal::Locale_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLocaleTagDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocaleTag(UserType* output) {
+    
+    auto* pointer = data_->locale_tag.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDisplayNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDisplayName(UserType* output) {
+    
+    auto* pointer = data_->display_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetNativeDisplayNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadNativeDisplayName(UserType* output) {
+    
+    auto* pointer = data_->native_display_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Locale_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class AppDataView {
  public:
   AppDataView() = default;
@@ -493,25 +528,17 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  template <typename UserType>
-  [[nodiscard]] bool ReadIsPinned(UserType* output) const {
-    auto data_value = data_->is_pinned;
-    return mojo::internal::Deserialize<::app_management::mojom::OptionalBool>(
-        data_value, output);
+  std::optional<bool> is_pinned() const {
+
+    return data_->is_pinned_$flag
+        ? absl::make_optional(!!data_->is_pinned_$value)
+        : absl::nullopt;
   }
-  OptionalBool is_pinned() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::app_management::mojom::OptionalBool>(data_->is_pinned));
-  }
-  template <typename UserType>
-  [[nodiscard]] bool ReadIsPolicyPinned(UserType* output) const {
-    auto data_value = data_->is_policy_pinned;
-    return mojo::internal::Deserialize<::app_management::mojom::OptionalBool>(
-        data_value, output);
-  }
-  OptionalBool is_policy_pinned() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::app_management::mojom::OptionalBool>(data_->is_policy_pinned));
+  std::optional<bool> is_policy_pinned() const {
+
+    return data_->is_policy_pinned_$flag
+        ? absl::make_optional(!!data_->is_policy_pinned_$value)
+        : absl::nullopt;
   }
   inline void GetVersionDataView(
       mojo::StringDataView* output);
@@ -741,6 +768,36 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
+  inline void GetSupportedLocalesDataView(
+      mojo::ArrayDataView<LocaleDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSupportedLocales(UserType* output) {
+    
+    auto* pointer = data_->supported_locales.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::app_management::mojom::LocaleDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetSelectedLocaleDataView(
+      LocaleDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSelectedLocale(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::app_management::mojom::LocaleDataView, UserType>(),
+    "Attempting to read the optional `selected_locale` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSelectedLocale` instead "
+    "of `ReadSelectedLocale if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->selected_locale.Get();
+    return mojo::internal::Deserialize<::app_management::mojom::LocaleDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::App_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -897,10 +954,6 @@ struct hash<::app_management::mojom::AppType>
     : public mojo::internal::EnumHashImpl<::app_management::mojom::AppType> {};
 
 template <>
-struct hash<::app_management::mojom::OptionalBool>
-    : public mojo::internal::EnumHashImpl<::app_management::mojom::OptionalBool> {};
-
-template <>
 struct hash<::app_management::mojom::PermissionType>
     : public mojo::internal::EnumHashImpl<::app_management::mojom::PermissionType> {};
 
@@ -943,26 +996,6 @@ struct Serializer<::app_management::mojom::AppType, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::app_management::mojom::AppType>(input)), output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::app_management::mojom::OptionalBool, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::app_management::mojom::OptionalBool, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::app_management::mojom::OptionalBool>(input)), output);
   }
 };
 
@@ -1174,6 +1207,71 @@ struct Serializer<::app_management::mojom::RunOnOsLoginDataView, MaybeConstUserT
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::app_management::mojom::LocaleDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::app_management::mojom::LocaleDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::app_management::mojom::internal::Locale_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::locale_tag(input)) in_locale_tag = Traits::locale_tag(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->locale_tag)::BaseType> locale_tag_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_locale_tag, locale_tag_fragment);
+    fragment->locale_tag.Set(
+        locale_tag_fragment.is_null() ? nullptr : locale_tag_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->locale_tag.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null locale_tag in Locale struct");
+    decltype(Traits::display_name(input)) in_display_name = Traits::display_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->display_name)::BaseType> display_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_display_name, display_name_fragment);
+    fragment->display_name.Set(
+        display_name_fragment.is_null() ? nullptr : display_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->display_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null display_name in Locale struct");
+    decltype(Traits::native_display_name(input)) in_native_display_name = Traits::native_display_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->native_display_name)::BaseType> native_display_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_native_display_name, native_display_name_fragment);
+    fragment->native_display_name.Set(
+        native_display_name_fragment.is_null() ? nullptr : native_display_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->native_display_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null native_display_name in Locale struct");
+  }
+
+  static bool Deserialize(::app_management::mojom::internal::Locale_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::app_management::mojom::LocaleDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::app_management::mojom::AppDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::app_management::mojom::AppDataView, UserType>;
@@ -1214,10 +1312,14 @@ struct Serializer<::app_management::mojom::AppDataView, MaybeConstUserType> {
         in_description, description_fragment);
     fragment->description.Set(
         description_fragment.is_null() ? nullptr : description_fragment.data());
-    mojo::internal::Serialize<::app_management::mojom::OptionalBool>(
-        Traits::is_pinned(input), &fragment->is_pinned);
-    mojo::internal::Serialize<::app_management::mojom::OptionalBool>(
-        Traits::is_policy_pinned(input), &fragment->is_policy_pinned);
+    fragment->is_pinned_$flag = Traits::is_pinned(input).has_value();
+    if (Traits::is_pinned(input).has_value()) {
+      fragment->is_pinned_$value = Traits::is_pinned(input).value();
+    }
+    fragment->is_policy_pinned_$flag = Traits::is_policy_pinned(input).has_value();
+    if (Traits::is_policy_pinned(input).has_value()) {
+      fragment->is_policy_pinned_$value = Traits::is_policy_pinned(input).value();
+    }
     decltype(Traits::version(input)) in_version = Traits::version(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->version)::BaseType> version_fragment(
@@ -1340,6 +1442,28 @@ struct Serializer<::app_management::mojom::AppDataView, MaybeConstUserType> {
         fragment->scope_extensions.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null scope_extensions in App struct");
+    decltype(Traits::supported_locales(input)) in_supported_locales = Traits::supported_locales(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->supported_locales)::BaseType>
+        supported_locales_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& supported_locales_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::app_management::mojom::LocaleDataView>>(
+        in_supported_locales, supported_locales_fragment, &supported_locales_validate_params);
+    fragment->supported_locales.Set(
+        supported_locales_fragment.is_null() ? nullptr : supported_locales_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->supported_locales.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null supported_locales in App struct");
+    decltype(Traits::selected_locale(input)) in_selected_locale = Traits::selected_locale(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->selected_locale)::BaseType> selected_locale_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::app_management::mojom::LocaleDataView>(
+        in_selected_locale, selected_locale_fragment);
+    fragment->selected_locale.Set(
+        selected_locale_fragment.is_null() ? nullptr : selected_locale_fragment.data());
   }
 
   static bool Deserialize(::app_management::mojom::internal::App_Data* input,
@@ -1546,6 +1670,23 @@ inline void PermissionDataView::GetDetailsDataView(
 
 
 
+inline void LocaleDataView::GetLocaleTagDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->locale_tag.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void LocaleDataView::GetDisplayNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->display_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void LocaleDataView::GetNativeDisplayNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->native_display_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 inline void AppDataView::GetIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->id.Get();
@@ -1616,6 +1757,16 @@ inline void AppDataView::GetScopeExtensionsDataView(
   auto pointer = data_->scope_extensions.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
+inline void AppDataView::GetSupportedLocalesDataView(
+    mojo::ArrayDataView<LocaleDataView>* output) {
+  auto pointer = data_->supported_locales.Get();
+  *output = mojo::ArrayDataView<LocaleDataView>(pointer, message_);
+}
+inline void AppDataView::GetSelectedLocaleDataView(
+    LocaleDataView* output) {
+  auto pointer = data_->selected_locale.Get();
+  *output = LocaleDataView(pointer, message_);
+}
 
 
 inline void ExtensionAppPermissionMessageDataView::GetMessageDataView(
@@ -1659,15 +1810,6 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::app_management::mojom::AppType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::app_management::mojom::AppType value);
-};
-
-} // namespace perfetto
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::app_management::mojom::OptionalBool> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::app_management::mojom::OptionalBool value);
 };
 
 } // namespace perfetto

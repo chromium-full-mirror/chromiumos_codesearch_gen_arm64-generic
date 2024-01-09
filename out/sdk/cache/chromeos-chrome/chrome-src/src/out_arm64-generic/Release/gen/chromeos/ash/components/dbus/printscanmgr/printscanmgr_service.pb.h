@@ -252,6 +252,7 @@ class CupsAddAutoConfiguredPrinterRequest final :
   enum : int {
     kNameFieldNumber = 1,
     kUriFieldNumber = 2,
+    kLanguageFieldNumber = 3,
   };
   // string name = 1;
   void clear_name();
@@ -281,6 +282,20 @@ class CupsAddAutoConfiguredPrinterRequest final :
   std::string* _internal_mutable_uri();
   public:
 
+  // string language = 3;
+  void clear_language();
+  const std::string& language() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_language(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_language();
+  PROTOBUF_NODISCARD std::string* release_language();
+  void set_allocated_language(std::string* language);
+  private:
+  const std::string& _internal_language() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_language(const std::string& value);
+  std::string* _internal_mutable_language();
+  public:
+
   // @@protoc_insertion_point(class_scope:printscanmgr.CupsAddAutoConfiguredPrinterRequest)
  private:
   class _Internal;
@@ -290,6 +305,7 @@ class CupsAddAutoConfiguredPrinterRequest final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr uri_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr language_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_printscanmgr_5fservice_2eproto;
 };
@@ -528,6 +544,7 @@ class CupsAddManuallyConfiguredPrinterRequest final :
     kNameFieldNumber = 1,
     kUriFieldNumber = 2,
     kPpdContentsFieldNumber = 3,
+    kLanguageFieldNumber = 4,
   };
   // string name = 1;
   void clear_name();
@@ -571,6 +588,20 @@ class CupsAddManuallyConfiguredPrinterRequest final :
   std::string* _internal_mutable_ppd_contents();
   public:
 
+  // string language = 4;
+  void clear_language();
+  const std::string& language() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_language(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_language();
+  PROTOBUF_NODISCARD std::string* release_language();
+  void set_allocated_language(std::string* language);
+  private:
+  const std::string& _internal_language() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_language(const std::string& value);
+  std::string* _internal_mutable_language();
+  public:
+
   // @@protoc_insertion_point(class_scope:printscanmgr.CupsAddManuallyConfiguredPrinterRequest)
  private:
   class _Internal;
@@ -581,6 +612,7 @@ class CupsAddManuallyConfiguredPrinterRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr uri_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ppd_contents_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr language_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_printscanmgr_5fservice_2eproto;
 };
@@ -1647,6 +1679,56 @@ inline void CupsAddAutoConfiguredPrinterRequest::set_allocated_uri(std::string* 
   // @@protoc_insertion_point(field_set_allocated:printscanmgr.CupsAddAutoConfiguredPrinterRequest.uri)
 }
 
+// string language = 3;
+inline void CupsAddAutoConfiguredPrinterRequest::clear_language() {
+  language_.ClearToEmpty();
+}
+inline const std::string& CupsAddAutoConfiguredPrinterRequest::language() const {
+  // @@protoc_insertion_point(field_get:printscanmgr.CupsAddAutoConfiguredPrinterRequest.language)
+  return _internal_language();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CupsAddAutoConfiguredPrinterRequest::set_language(ArgT0&& arg0, ArgT... args) {
+ 
+ language_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:printscanmgr.CupsAddAutoConfiguredPrinterRequest.language)
+}
+inline std::string* CupsAddAutoConfiguredPrinterRequest::mutable_language() {
+  std::string* _s = _internal_mutable_language();
+  // @@protoc_insertion_point(field_mutable:printscanmgr.CupsAddAutoConfiguredPrinterRequest.language)
+  return _s;
+}
+inline const std::string& CupsAddAutoConfiguredPrinterRequest::_internal_language() const {
+  return language_.Get();
+}
+inline void CupsAddAutoConfiguredPrinterRequest::_internal_set_language(const std::string& value) {
+  
+  language_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CupsAddAutoConfiguredPrinterRequest::_internal_mutable_language() {
+  
+  return language_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CupsAddAutoConfiguredPrinterRequest::release_language() {
+  // @@protoc_insertion_point(field_release:printscanmgr.CupsAddAutoConfiguredPrinterRequest.language)
+  return language_.Release();
+}
+inline void CupsAddAutoConfiguredPrinterRequest::set_allocated_language(std::string* language) {
+  if (language != nullptr) {
+    
+  } else {
+    
+  }
+  language_.SetAllocated(language, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (language_.IsDefault()) {
+    language_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:printscanmgr.CupsAddAutoConfiguredPrinterRequest.language)
+}
+
 // -------------------------------------------------------------------
 
 // CupsAddAutoConfiguredPrinterResponse
@@ -1823,6 +1905,56 @@ inline void CupsAddManuallyConfiguredPrinterRequest::set_allocated_ppd_contents(
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:printscanmgr.CupsAddManuallyConfiguredPrinterRequest.ppd_contents)
+}
+
+// string language = 4;
+inline void CupsAddManuallyConfiguredPrinterRequest::clear_language() {
+  language_.ClearToEmpty();
+}
+inline const std::string& CupsAddManuallyConfiguredPrinterRequest::language() const {
+  // @@protoc_insertion_point(field_get:printscanmgr.CupsAddManuallyConfiguredPrinterRequest.language)
+  return _internal_language();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CupsAddManuallyConfiguredPrinterRequest::set_language(ArgT0&& arg0, ArgT... args) {
+ 
+ language_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:printscanmgr.CupsAddManuallyConfiguredPrinterRequest.language)
+}
+inline std::string* CupsAddManuallyConfiguredPrinterRequest::mutable_language() {
+  std::string* _s = _internal_mutable_language();
+  // @@protoc_insertion_point(field_mutable:printscanmgr.CupsAddManuallyConfiguredPrinterRequest.language)
+  return _s;
+}
+inline const std::string& CupsAddManuallyConfiguredPrinterRequest::_internal_language() const {
+  return language_.Get();
+}
+inline void CupsAddManuallyConfiguredPrinterRequest::_internal_set_language(const std::string& value) {
+  
+  language_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CupsAddManuallyConfiguredPrinterRequest::_internal_mutable_language() {
+  
+  return language_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CupsAddManuallyConfiguredPrinterRequest::release_language() {
+  // @@protoc_insertion_point(field_release:printscanmgr.CupsAddManuallyConfiguredPrinterRequest.language)
+  return language_.Release();
+}
+inline void CupsAddManuallyConfiguredPrinterRequest::set_allocated_language(std::string* language) {
+  if (language != nullptr) {
+    
+  } else {
+    
+  }
+  language_.SetAllocated(language, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (language_.IsDefault()) {
+    language_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:printscanmgr.CupsAddManuallyConfiguredPrinterRequest.language)
 }
 
 // -------------------------------------------------------------------

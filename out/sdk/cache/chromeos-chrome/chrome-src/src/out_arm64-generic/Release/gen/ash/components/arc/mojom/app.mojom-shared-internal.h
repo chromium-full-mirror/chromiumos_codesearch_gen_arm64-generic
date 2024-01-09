@@ -254,6 +254,7 @@ class  InstallationResult_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> package_name;
   uint8_t success : 1;
+  uint8_t is_launchable_app : 1;
   uint8_t padfinal_[7];
 
  private:
@@ -572,7 +573,8 @@ class  ArcPackageInfo_Data {
   uint8_t deprecated_system : 1;
   uint8_t vpn_provider : 1;
   uint8_t preinstalled : 1;
-  uint8_t pad5_[3];
+  uint8_t game_controls_opt_out : 1;
+  uint8_t pad6_[3];
   int64_t last_backup_android_id;
   int64_t last_backup_time;
   mojo::internal::Pointer<internal::WebAppInfo_Data> web_app_info;
@@ -580,7 +582,7 @@ class  ArcPackageInfo_Data {
   mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<::arc::mojom::internal::PermissionState_Data>>> permission_states;
   mojo::internal::Pointer<mojo::internal::String_Data> version_name;
   int32_t priority;
-  uint8_t pad12_[4];
+  uint8_t pad13_[4];
   mojo::internal::Pointer<internal::PackageLocaleInfo_Data> locale_info;
 
  private:

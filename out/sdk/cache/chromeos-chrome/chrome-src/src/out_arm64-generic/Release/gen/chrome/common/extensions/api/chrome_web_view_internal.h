@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,8 @@ struct ContextMenuItem {
   ~ContextMenuItem();
   ContextMenuItem(const ContextMenuItem&) = delete;
   ContextMenuItem& operator=(const ContextMenuItem&) = delete;
-  ContextMenuItem(ContextMenuItem&& rhs);
-  ContextMenuItem& operator=(ContextMenuItem&& rhs);
+  ContextMenuItem(ContextMenuItem&& rhs) noexcept;
+  ContextMenuItem& operator=(ContextMenuItem&& rhs) noexcept;
 
   // Populates a ContextMenuItem object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -49,22 +50,19 @@ struct ContextMenuItem {
   // Creates a deep copy of ContextMenuItem.
   ContextMenuItem Clone() const;
 
-  // Creates a ContextMenuItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ContextMenuItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a ContextMenuItem object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ContextMenuItem> FromValue(const base::Value::Dict& value);
+  static std::optional<ContextMenuItem> FromValue(const base::Value::Dict& value);
 
   // Creates a ContextMenuItem object from a base::Value, or nullopt on failure.
-  static absl::optional<ContextMenuItem> FromValue(const base::Value& value);
+  static std::optional<ContextMenuItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisContextMenuItem object.
   base::Value::Dict ToValue() const;
 
   // label of the item
-  absl::optional<std::string> label;
+  std::optional<std::string> label;
 
   // id of the input item
   int command_id;
@@ -79,11 +77,11 @@ struct ContextMenuItem {
 namespace ContextMenusCreate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct CreateProperties {
@@ -91,8 +89,8 @@ struct Params {
     ~CreateProperties();
     CreateProperties(const CreateProperties&) = delete;
     CreateProperties& operator=(const CreateProperties&) = delete;
-    CreateProperties(CreateProperties&& rhs);
-    CreateProperties& operator=(CreateProperties&& rhs);
+    CreateProperties(CreateProperties&& rhs) noexcept;
+    CreateProperties& operator=(CreateProperties&& rhs) noexcept;
 
     // Populates a CreateProperties object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -107,11 +105,11 @@ struct Params {
 
     // Creates a CreateProperties object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<CreateProperties> FromValue(const base::Value::Dict& value);
+    static std::optional<CreateProperties> FromValue(const base::Value::Dict& value);
 
     // Creates a CreateProperties object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<CreateProperties> FromValue(const base::Value& value);
+    static std::optional<CreateProperties> FromValue(const base::Value& value);
 
     // The ID of a parent menu item; this makes the item a child of a previously
     // added item.
@@ -120,8 +118,8 @@ struct Params {
       ~ParentId();
       ParentId(const ParentId&) = delete;
       ParentId& operator=(const ParentId&) = delete;
-      ParentId(ParentId&& rhs);
-      ParentId& operator=(ParentId&& rhs);
+      ParentId(ParentId&& rhs) noexcept;
+      ParentId& operator=(ParentId&& rhs) noexcept;
 
       // Populates a ParentId object from a base::Value& instance. Returns whether
       // |out| was successfully populated.
@@ -131,10 +129,10 @@ struct Params {
       ParentId Clone() const;
 
       // Creates a ParentId object from a base::Value, or nullopt on failure.
-      static absl::optional<ParentId> FromValue(const base::Value& value);
+      static std::optional<ParentId> FromValue(const base::Value& value);
       // Choices:
-      absl::optional<int> as_integer;
-      absl::optional<std::string> as_string;
+      std::optional<int> as_integer;
+      std::optional<std::string> as_string;
     };
 
 
@@ -143,7 +141,7 @@ struct Params {
 
     // The unique ID to assign to this item. Cannot be the same as another ID for
     // this webview.
-    absl::optional<std::string> id;
+    std::optional<std::string> id;
 
     // The text to be displayed in the item; this is <em>required</em> unless
     // <em>type</em> is 'separator'. When the context is 'selection', you can use
@@ -151,38 +149,38 @@ struct Params {
     // this parameter's value is "Translate '%s' to Pig Latin" and the user selects
     // the word "cool", the context menu item for the selection is "Translate 'cool'
     // to Pig Latin".
-    absl::optional<std::string> title;
+    std::optional<std::string> title;
 
     // The initial state of a checkbox or radio item: true for selected and false
     // for unselected. Only one radio item can be selected at a time in a given
     // group of radio items.
-    absl::optional<bool> checked;
+    std::optional<bool> checked;
 
     // List of contexts this menu item will appear in. Defaults to ['page'] if not
     // specified.
-    absl::optional<std::vector<extensions::api::context_menus::ContextType>> contexts;
+    std::optional<std::vector<extensions::api::context_menus::ContextType>> contexts;
 
     // Whether the item is visible in the menu.
-    absl::optional<bool> visible;
+    std::optional<bool> visible;
 
     // A function that will be called back when the menu item is clicked.
-    absl::optional<base::Value::Dict> onclick;
+    std::optional<base::Value::Dict> onclick;
 
     // The ID of a parent menu item; this makes the item a child of a previously
     // added item.
-    absl::optional<ParentId> parent_id;
+    std::optional<ParentId> parent_id;
 
     // Lets you restrict the item to apply only to documents whose URL matches one
     // of the given patterns. (This applies to frames as well.) For details on the
     // format of a pattern, see <a href='match_patterns'>Match Patterns</a>.
-    absl::optional<std::vector<std::string>> document_url_patterns;
+    std::optional<std::vector<std::string>> document_url_patterns;
 
     // Similar to documentUrlPatterns, but lets you filter based on the src
     // attribute of img/audio/video tags and the href of anchor tags.
-    absl::optional<std::vector<std::string>> target_url_patterns;
+    std::optional<std::vector<std::string>> target_url_patterns;
 
     // Whether this context menu item is enabled or disabled. Defaults to true.
-    absl::optional<bool> enabled;
+    std::optional<bool> enabled;
 
   };
 
@@ -206,11 +204,11 @@ base::Value::List Create();
 namespace ContextMenusUpdate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the item to update.
@@ -219,8 +217,8 @@ struct Params {
     ~Id();
     Id(const Id&) = delete;
     Id& operator=(const Id&) = delete;
-    Id(Id&& rhs);
-    Id& operator=(Id&& rhs);
+    Id(Id&& rhs) noexcept;
+    Id& operator=(Id&& rhs) noexcept;
 
     // Populates a Id object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -230,10 +228,10 @@ struct Params {
     Id Clone() const;
 
     // Creates a Id object from a base::Value, or nullopt on failure.
-    static absl::optional<Id> FromValue(const base::Value& value);
+    static std::optional<Id> FromValue(const base::Value& value);
     // Choices:
-    absl::optional<int> as_integer;
-    absl::optional<std::string> as_string;
+    std::optional<int> as_integer;
+    std::optional<std::string> as_string;
   };
 
   // The properties to update. Accepts the same values as the create function.
@@ -242,8 +240,8 @@ struct Params {
     ~UpdateProperties();
     UpdateProperties(const UpdateProperties&) = delete;
     UpdateProperties& operator=(const UpdateProperties&) = delete;
-    UpdateProperties(UpdateProperties&& rhs);
-    UpdateProperties& operator=(UpdateProperties&& rhs);
+    UpdateProperties(UpdateProperties&& rhs) noexcept;
+    UpdateProperties& operator=(UpdateProperties&& rhs) noexcept;
 
     // Populates a UpdateProperties object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -258,11 +256,11 @@ struct Params {
 
     // Creates a UpdateProperties object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<UpdateProperties> FromValue(const base::Value::Dict& value);
+    static std::optional<UpdateProperties> FromValue(const base::Value::Dict& value);
 
     // Creates a UpdateProperties object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<UpdateProperties> FromValue(const base::Value& value);
+    static std::optional<UpdateProperties> FromValue(const base::Value& value);
 
     // Note: You cannot change an item to be a child of one of its own descendants.
     struct ParentId {
@@ -270,8 +268,8 @@ struct Params {
       ~ParentId();
       ParentId(const ParentId&) = delete;
       ParentId& operator=(const ParentId&) = delete;
-      ParentId(ParentId&& rhs);
-      ParentId& operator=(ParentId&& rhs);
+      ParentId(ParentId&& rhs) noexcept;
+      ParentId& operator=(ParentId&& rhs) noexcept;
 
       // Populates a ParentId object from a base::Value& instance. Returns whether
       // |out| was successfully populated.
@@ -281,36 +279,36 @@ struct Params {
       ParentId Clone() const;
 
       // Creates a ParentId object from a base::Value, or nullopt on failure.
-      static absl::optional<ParentId> FromValue(const base::Value& value);
+      static std::optional<ParentId> FromValue(const base::Value& value);
       // Choices:
-      absl::optional<int> as_integer;
-      absl::optional<std::string> as_string;
+      std::optional<int> as_integer;
+      std::optional<std::string> as_string;
     };
 
 
     extensions::api::context_menus::ItemType type;
 
-    absl::optional<std::string> title;
+    std::optional<std::string> title;
 
-    absl::optional<bool> checked;
+    std::optional<bool> checked;
 
     // List of contexts this menu item will appear in. Defaults to ['page'] if not
     // specified.
-    absl::optional<std::vector<extensions::api::context_menus::ContextType>> contexts;
+    std::optional<std::vector<extensions::api::context_menus::ContextType>> contexts;
 
     // Whether the item is visible in the menu.
-    absl::optional<bool> visible;
+    std::optional<bool> visible;
 
-    absl::optional<base::Value::Dict> onclick;
+    std::optional<base::Value::Dict> onclick;
 
     // Note: You cannot change an item to be a child of one of its own descendants.
-    absl::optional<ParentId> parent_id;
+    std::optional<ParentId> parent_id;
 
-    absl::optional<std::vector<std::string>> document_url_patterns;
+    std::optional<std::vector<std::string>> document_url_patterns;
 
-    absl::optional<std::vector<std::string>> target_url_patterns;
+    std::optional<std::vector<std::string>> target_url_patterns;
 
-    absl::optional<bool> enabled;
+    std::optional<bool> enabled;
 
   };
 
@@ -338,11 +336,11 @@ base::Value::List Create();
 namespace ContextMenusRemove {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the context menu item to remove.
@@ -351,8 +349,8 @@ struct Params {
     ~MenuItemId();
     MenuItemId(const MenuItemId&) = delete;
     MenuItemId& operator=(const MenuItemId&) = delete;
-    MenuItemId(MenuItemId&& rhs);
-    MenuItemId& operator=(MenuItemId&& rhs);
+    MenuItemId(MenuItemId&& rhs) noexcept;
+    MenuItemId& operator=(MenuItemId&& rhs) noexcept;
 
     // Populates a MenuItemId object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -362,10 +360,10 @@ struct Params {
     MenuItemId Clone() const;
 
     // Creates a MenuItemId object from a base::Value, or nullopt on failure.
-    static absl::optional<MenuItemId> FromValue(const base::Value& value);
+    static std::optional<MenuItemId> FromValue(const base::Value& value);
     // Choices:
-    absl::optional<int> as_integer;
-    absl::optional<std::string> as_string;
+    std::optional<int> as_integer;
+    std::optional<std::string> as_string;
   };
 
 
@@ -389,11 +387,11 @@ base::Value::List Create();
 namespace ContextMenusRemoveAll {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -413,11 +411,11 @@ base::Value::List Create();
 namespace ShowContextMenu {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest &lt;webview&gt; process. This not exposed to
@@ -430,7 +428,7 @@ struct Params {
 
   // Items to be shown in the context menu. These are top level items as opposed
   // to children items.
-  absl::optional<std::vector<ContextMenuItem>> items_to_show;
+  std::optional<std::vector<ContextMenuItem>> items_to_show;
 
 
  private:
@@ -459,8 +457,8 @@ struct Event {
   ~Event();
   Event(const Event&) = delete;
   Event& operator=(const Event&) = delete;
-  Event(Event&& rhs);
-  Event& operator=(Event&& rhs);
+  Event(Event&& rhs) noexcept;
+  Event& operator=(Event&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEvent object.

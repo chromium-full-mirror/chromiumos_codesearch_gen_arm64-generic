@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/restricted_cookie_manager.mojom-features.h"
 #include "services/network/public/mojom/restricted_cookie_manager.mojom-shared.h"
 #include "services/network/public/mojom/restricted_cookie_manager.mojom-blink-forward.h"
 #include "services/network/public/mojom/cookie_manager.mojom-blink.h"
@@ -43,30 +44,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookieMatchType>
-    : EnumHashTraits<::network::mojom::CookieMatchType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::RestrictedCookieManagerRole>
-    : EnumHashTraits<::network::mojom::RestrictedCookieManagerRole, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -141,7 +118,7 @@ class BLINK_PLATFORM_EXPORT RestrictedCookieManager
 
   using GetAllForUrlCallback = base::OnceCallback<void(WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr>)>;
   
-  virtual void GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, GetAllForUrlCallback callback) = 0;
+  virtual void GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged, GetAllForUrlCallback callback) = 0;
 
 
   using SetCanonicalCookieCallback = base::OnceCallback<void(bool)>;
@@ -165,11 +142,11 @@ class BLINK_PLATFORM_EXPORT RestrictedCookieManager
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies);
+  virtual bool GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies);
 
   using GetCookiesStringCallback = base::OnceCallback<void(uint64_t, ::base::ReadOnlySharedMemoryRegion, const WTF::String&)>;
   
-  virtual void GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, GetCookiesStringCallback callback) = 0;
+  virtual void GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, GetCookiesStringCallback callback) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
@@ -190,7 +167,7 @@ class BLINK_PLATFORM_EXPORT RestrictedCookieManagerProxy
 
   explicit RestrictedCookieManagerProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, GetAllForUrlCallback callback) final;
+  void GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged, GetAllForUrlCallback callback) final;
   
   void SetCanonicalCookie(const ::net::CanonicalCookie& cookie, const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, ::net::CookieInclusionStatus status, SetCanonicalCookieCallback callback) final;
   
@@ -200,9 +177,9 @@ class BLINK_PLATFORM_EXPORT RestrictedCookieManagerProxy
   
   void SetCookieFromString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, const WTF::String& cookie, SetCookieFromStringCallback callback) final;
   
-  bool GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies) final;
+  bool GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies) final;
   
-  void GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, GetCookiesStringCallback callback) final;
+  void GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, GetCookiesStringCallback callback) final;
   
   bool CookiesEnabledFor(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool* out_cookies_enabled) final;
   

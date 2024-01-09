@@ -43,7 +43,7 @@ import*as t from"../../../core/platform/platform.js";import*as e from"../../../s
       <${a.Button.Button.litTagName}
         @click=${this.#x}
         on-render=${o.Directives.nodeRenderedCallback((t=>{this.#N=t}))}
-        .data=${{variant:"toolbar",iconName:"help",title:B($.showShortcutTitle),iconWidth:"16px"}}
+        .data=${{variant:"toolbar",iconName:"help",title:B($.showShortcutTitle)}}
       ></${a.Button.Button.litTagName}>
       <${u.litTagName}
         @clickoutsidedialog=${this.#f}

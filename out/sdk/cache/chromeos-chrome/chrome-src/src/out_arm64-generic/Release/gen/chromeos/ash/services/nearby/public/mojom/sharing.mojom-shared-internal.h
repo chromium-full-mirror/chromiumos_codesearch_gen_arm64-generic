@@ -19,6 +19,7 @@
 #include "chromeos/ash/services/nearby/public/mojom/webrtc.mojom-shared-internal.h"
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-shared-internal.h"
 #include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder.mojom-shared-internal.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence_credential_storage.mojom-shared-internal.h"
 #include "device/bluetooth/public/mojom/adapter.mojom-shared-internal.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
@@ -98,6 +99,7 @@ class  NearbyDependencies_Data {
   mojo::internal::Interface_Data bluetooth_adapter;
   mojo::internal::Pointer<::sharing::mojom::internal::WebRtcDependencies_Data> webrtc_dependencies;
   mojo::internal::Pointer<internal::WifiLanDependencies_Data> wifilan_dependencies;
+  mojo::internal::Interface_Data nearby_presence_credential_storage;
   int32_t min_log_severity;
   uint8_t padfinal_[4];
 
@@ -107,7 +109,7 @@ class  NearbyDependencies_Data {
   NearbyDependencies_Data();
   ~NearbyDependencies_Data() = delete;
 };
-static_assert(sizeof(NearbyDependencies_Data) == 40,
+static_assert(sizeof(NearbyDependencies_Data) == 48,
               "Bad sizeof(NearbyDependencies_Data)");
 // Used by NearbyDependencies::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

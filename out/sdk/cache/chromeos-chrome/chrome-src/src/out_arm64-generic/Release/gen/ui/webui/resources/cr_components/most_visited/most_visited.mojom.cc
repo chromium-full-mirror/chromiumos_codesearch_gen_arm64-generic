@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -309,14 +310,17 @@ void MostVisitedPageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<MostVisitedPageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -404,10 +408,10 @@ bool MostVisitedPageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMostVisitedPageHandlerFactoryValidationInfo[] = {
-    {&internal::MostVisitedPageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::MostVisitedPageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -722,14 +726,17 @@ void MostVisitedPageHandlerProxy::AddMostVisitedTile(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_AddMostVisitedTile_Name, kFlags, 0, 0, nullptr);
@@ -782,14 +789,17 @@ void MostVisitedPageHandlerProxy::DeleteMostVisitedTile(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_DeleteMostVisitedTile_Name, kFlags, 0, 0, nullptr);
@@ -833,14 +843,17 @@ void MostVisitedPageHandlerProxy::ReorderMostVisitedTile(
                         "<value of type uint8_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_ReorderMostVisitedTile_Name, kFlags, 0, 0, nullptr);
@@ -875,14 +888,17 @@ void MostVisitedPageHandlerProxy::RestoreMostVisitedDefaults(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send most_visited::mojom::MostVisitedPageHandler::RestoreMostVisitedDefaults");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_RestoreMostVisitedDefaults_Name, kFlags, 0, 0, nullptr);
@@ -905,14 +921,17 @@ void MostVisitedPageHandlerProxy::UndoMostVisitedTileAction(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send most_visited::mojom::MostVisitedPageHandler::UndoMostVisitedTileAction");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_UndoMostVisitedTileAction_Name, kFlags, 0, 0, nullptr);
@@ -935,14 +954,17 @@ void MostVisitedPageHandlerProxy::UpdateMostVisitedInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send most_visited::mojom::MostVisitedPageHandler::UpdateMostVisitedInfo");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_UpdateMostVisitedInfo_Name, kFlags, 0, 0, nullptr);
@@ -978,14 +1000,17 @@ void MostVisitedPageHandlerProxy::UpdateMostVisitedTile(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_UpdateMostVisitedTile_Name, kFlags, 0, 0, nullptr);
@@ -1052,14 +1077,17 @@ void MostVisitedPageHandlerProxy::PrerenderMostVisitedTile(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_PrerenderMostVisitedTile_Name, kFlags, 0, 0, nullptr);
@@ -1094,14 +1122,17 @@ void MostVisitedPageHandlerProxy::CancelPrerender(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send most_visited::mojom::MostVisitedPageHandler::CancelPrerender");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_CancelPrerender_Name, kFlags, 0, 0, nullptr);
@@ -1134,14 +1165,17 @@ void MostVisitedPageHandlerProxy::OnMostVisitedTilesRendered(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_OnMostVisitedTilesRendered_Name, kFlags, 0, 0, nullptr);
@@ -1203,14 +1237,17 @@ void MostVisitedPageHandlerProxy::OnMostVisitedTileNavigation(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_OnMostVisitedTileNavigation_Name, kFlags, 0, 0, nullptr);
@@ -1336,7 +1373,8 @@ void MostVisitedPageHandler_AddMostVisitedTile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_AddMostVisitedTile_Name, kFlags, 0, 0, nullptr);
@@ -1454,7 +1492,8 @@ void MostVisitedPageHandler_UpdateMostVisitedTile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPageHandler_UpdateMostVisitedTile_Name, kFlags, 0, 0, nullptr);
@@ -1859,30 +1898,30 @@ std::move(p_new_title), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMostVisitedPageHandlerValidationInfo[] = {
-    {&internal::MostVisitedPageHandler_AddMostVisitedTile_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_AddMostVisitedTile_Params_Data::Validate,
      &internal::MostVisitedPageHandler_AddMostVisitedTile_ResponseParams_Data::Validate},
-    {&internal::MostVisitedPageHandler_DeleteMostVisitedTile_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_DeleteMostVisitedTile_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MostVisitedPageHandler_ReorderMostVisitedTile_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_ReorderMostVisitedTile_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MostVisitedPageHandler_RestoreMostVisitedDefaults_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_RestoreMostVisitedDefaults_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MostVisitedPageHandler_UndoMostVisitedTileAction_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_UndoMostVisitedTileAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MostVisitedPageHandler_UpdateMostVisitedInfo_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_UpdateMostVisitedInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MostVisitedPageHandler_UpdateMostVisitedTile_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_UpdateMostVisitedTile_Params_Data::Validate,
      &internal::MostVisitedPageHandler_UpdateMostVisitedTile_ResponseParams_Data::Validate},
-    {&internal::MostVisitedPageHandler_PrerenderMostVisitedTile_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_PrerenderMostVisitedTile_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MostVisitedPageHandler_CancelPrerender_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_CancelPrerender_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MostVisitedPageHandler_OnMostVisitedTilesRendered_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_OnMostVisitedTilesRendered_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MostVisitedPageHandler_OnMostVisitedTileNavigation_Params_Data::Validate,
+    { &internal::MostVisitedPageHandler_OnMostVisitedTileNavigation_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1966,14 +2005,17 @@ void MostVisitedPageProxy::SetMostVisitedInfo(
                         "<value of type MostVisitedInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMostVisitedPage_SetMostVisitedInfo_Name, kFlags, 0, 0, nullptr);
@@ -2052,10 +2094,10 @@ bool MostVisitedPageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMostVisitedPageValidationInfo[] = {
-    {&internal::MostVisitedPage_SetMostVisitedInfo_Params_Data::Validate,
+    { &internal::MostVisitedPage_SetMostVisitedInfo_Params_Data::Validate,
      nullptr /* no response */},
 };
 

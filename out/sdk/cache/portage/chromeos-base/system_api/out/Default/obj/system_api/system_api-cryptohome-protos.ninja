@@ -1,5 +1,5 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include/cryptohome/proto_bindings -Igen/include -I../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5507/work/system_api-0.0.1 -Igen
+include_dirs = -Igen/include/cryptohome/proto_bindings -Igen/include -I../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5596/work/system_api-0.0.1 -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIC -fvisibility=default
 cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
@@ -17,11 +17,14 @@ build obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.
 build obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.key.pb.o: cxx gen/include/cryptohome/proto_bindings/key.pb.cc || obj/system_api/system_api-cryptohome-protos_gen.stamp
   source_file_part = key.pb.cc
   source_name_part = key.pb
+build obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.recoverable_key_store.pb.o: cxx gen/include/cryptohome/proto_bindings/recoverable_key_store.pb.cc || obj/system_api/system_api-cryptohome-protos_gen.stamp
+  source_file_part = recoverable_key_store.pb.cc
+  source_name_part = recoverable_key_store.pb
 build obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.rpc.pb.o: cxx gen/include/cryptohome/proto_bindings/rpc.pb.cc || obj/system_api/system_api-cryptohome-protos_gen.stamp
   source_file_part = rpc.pb.cc
   source_name_part = rpc.pb
 
-build ./libsystem_api-cryptohome-protos.a: alink obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.UserDataAuth.pb.o obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.auth_factor.pb.o obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.fido.pb.o obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.key.pb.o obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.rpc.pb.o || obj/system_api/system_api-cryptohome-protos_gen.stamp
+build ./libsystem_api-cryptohome-protos.a: alink obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.UserDataAuth.pb.o obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.auth_factor.pb.o obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.fido.pb.o obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.key.pb.o obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.recoverable_key_store.pb.o obj/gen/include/cryptohome/proto_bindings/libsystem_api-cryptohome-protos.rpc.pb.o || obj/system_api/system_api-cryptohome-protos_gen.stamp
   arflags = rcs
   output_extension = .a
   output_dir = 

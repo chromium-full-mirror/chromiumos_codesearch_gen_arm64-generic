@@ -53,34 +53,37 @@ const DISABLED_STATE_OVERRIDES = css `
  * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?node-id=2978%3A19626
  */
 export class Slider extends LitElement {
-    // TODO: b/285172083 - check disabled styling.
     /** @nocollapse */
     static { this.styles = [
         css `
     :host {
       display: inline-block;
+      min-inline-size: 200px;
     }
     md-slider {
       display: block;
-      --active-disabled: var(--cros-ref-neutral10);
-      --inactive-disabled: var(--cros-ref-neutral10);
+      min-inline-size: inherit;
+      --active-disabled: var(--cros-sys-on_surface);
+      --inactive-disabled: var(--cros-sys-on_surface);
       --disabled-color: var(--inactive-disabled);
       --md-focus-ring-duration: 0s;
       --md-slider-active-track-color: var(--cros-sys-primary);
       --md-slider-disabled-active-track-color: var(--disabled-color);
-      --md-slider-disabled-active-track-opacity: var(--cros-sys-opacity-disabled);
+      --md-slider-disabled-active-track-opacity: var(--cros-disabled-opacity);
       --md-slider-disabled-handle-color: var(--disabled-color);
       --md-slider-disabled-inactive-track-color: var(--disabled-color);
-      --md-slider-disabled-inactive-track-opacity: var(--cros-sys-opacity-disabled);
+      --md-slider-disabled-inactive-track-opacity: var(--cros-disabled-opacity);
       --md-slider-focus-handle-color: var(--cros-sys-primary);
       --md-slider-handle-color: var(--cros-sys-primary);
       --md-slider-handle-height: 12px;
       --md-slider-handle-width: 12px;
       --md-slider-hover-handle-color: var(--cros-sys-primary);
-      --md-slider-hover-state-layer-opacity: 0;
-      --md-slider-inactive-track-color: var(--cros-sys-primary_container);
+      --md-slider-hover-state-layer-color: var(--cros-sys-hover_on_subtle);
+      --md-slider-hover-state-layer-opacity: 1;
+      --md-slider-inactive-track-color: var(--cros-sys-highlight_shape);
       --md-slider-label-container-color: var(--cros-sys-primary);
       --md-slider-label-container-height: 18px;
+      --md-slider-label-text-color: var(--cros-sys-on_primary);
       --md-slider-label-text-font: var(--cros-label-1-font-family);
       --md-slider-label-text-size: var(--cros-label-1-font-size);
       --md-slider-label-text-line-height: var(--cros-label-1-line-height);
@@ -93,26 +96,41 @@ export class Slider extends LitElement {
       --md-slider-with-tick-marks-disabled-container-color: var(--disabled-color);
       --md-slider-with-tick-marks-inactive-container-color: var(--cros-sys-primary);
     }
+
     md-slider::part(focus-ring) {
+      background: var(--cros-sys-ripple_primary);
+      height: 28px;
+      inset: unset;
+      width: 28px;
+      --md-focus-ring-active-width: 2px;
       --md-focus-ring-color: var(--cros-sys-primary);
+      --md-focus-ring-width: 2px;
     }
   `,
         DISABLED_STATE_OVERRIDES
     ]; }
     /** @nocollapse */
     static { this.properties = {
-        value: { type: Number },
+        ariaLabel: { type: String, reflect: true, attribute: 'aria-label' },
+        value: { type: Number, reflect: true },
         disabled: { type: Boolean },
         withTickMarks: { type: Boolean },
         withLabel: { type: Boolean },
         valueLabel: { type: String, state: true },
+        min: { type: Number },
+        max: { type: Number },
+        step: { type: Number },
     }; }
     constructor() {
         super();
+        this.ariaLabel = '';
         this.value = 0;
         this.disabled = false;
         this.withTickMarks = false;
         this.withLabel = false;
+        this.min = 0;
+        this.max = 10;
+        this.step = 1;
     }
     render() {
         // Using unicode non-breaking space U-00A0, charCode 160. This is to add
@@ -127,10 +145,38 @@ export class Slider extends LitElement {
       ` :
             nothing;
         return html `
-      <md-slider @input=${this.handleInput} .valueLabel=${valueLabel} .disabled=${this.disabled} .value=${this.value} max=10 .ticks=${this.withTickMarks} .labeled=${this.withLabel}>${disabledTemplate}</md-slider>`;
+      <md-slider
+        @change=${this.handleChange}
+        @input=${this.handleInput}
+        ?disabled=${this.disabled}
+        aria-label=${this.ariaLabel || ''}
+        .labeled=${this.withLabel}
+        .min=${this.min}
+        .max=${this.max}
+        .step=${this.step}
+        .ticks=${this.withTickMarks}
+        .value=${this.value}
+        .valueLabel=${valueLabel}>
+        ${disabledTemplate}
+      </md-slider>`;
+    }
+    updated(changedProperties) {
+        if (changedProperties.has('disabled')) {
+            // Work around for b/315384008.
+            this.renderRoot.querySelector('md-slider')?.requestUpdate();
+        }
+    }
+    handleChange() {
+        // Md-slider's change event won't exit our shadow DOM, redispatch it to
+        // ensure clients can listen to it.
+        this.dispatchEvent(new Event('change', { bubbles: true }));
     }
     handleInput(e) {
-        this.valueLabel = String(e.target.value);
+        const sliderValue = e.target.value;
+        if (sliderValue !== undefined) {
+            this.value = sliderValue;
+        }
+        this.valueLabel = String(sliderValue);
     }
 }
 customElements.define('cros-slider', Slider);

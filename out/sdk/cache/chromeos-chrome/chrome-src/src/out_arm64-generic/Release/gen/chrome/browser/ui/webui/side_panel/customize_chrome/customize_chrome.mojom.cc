@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -47,6 +48,7 @@ BackgroundImage::BackgroundImage()
     : url(),
       snapshot_url(),
       is_uploaded_image(),
+      local_background_id(),
       title(),
       collection_id(),
       daily_refresh_enabled() {}
@@ -55,12 +57,14 @@ BackgroundImage::BackgroundImage(
     const ::GURL& url_in,
     const ::GURL& snapshot_url_in,
     bool is_uploaded_image_in,
+    const std::optional<::base::Token>& local_background_id_in,
     const std::string& title_in,
     const std::string& collection_id_in,
     bool daily_refresh_enabled_in)
     : url(std::move(url_in)),
       snapshot_url(std::move(snapshot_url_in)),
       is_uploaded_image(std::move(is_uploaded_image_in)),
+      local_background_id(std::move(local_background_id_in)),
       title(std::move(title_in)),
       collection_id(std::move(collection_id_in)),
       daily_refresh_enabled(std::move(daily_refresh_enabled_in)) {}
@@ -93,6 +97,15 @@ void BackgroundImage::WriteIntoTrace(
       "is_uploaded_image"), this->is_uploaded_image,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "local_background_id"), this->local_background_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<::base::Token>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -188,7 +201,7 @@ Theme::Theme(
     BackgroundImagePtr background_image_in,
     ThirdPartyThemeInfoPtr third_party_theme_info_in,
     ::SkColor background_color_in,
-    absl::optional<::SkColor> foreground_color_in,
+    std::optional<::SkColor> foreground_color_in,
     bool background_managed_by_policy_in,
     bool follow_device_theme_in)
     : background_image(std::move(background_image_in)),
@@ -234,7 +247,7 @@ void Theme::WriteIntoTrace(
     dict.AddItem(
       "foreground_color"), this->foreground_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -462,183 +475,6 @@ bool ModuleSettings::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-DescriptorA::DescriptorA()
-    : category(),
-      labels() {}
-
-DescriptorA::DescriptorA(
-    const std::string& category_in,
-    std::vector<std::string> labels_in)
-    : category(std::move(category_in)),
-      labels(std::move(labels_in)) {}
-
-DescriptorA::~DescriptorA() = default;
-
-void DescriptorA::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "category"), this->category,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "labels"), this->labels,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool DescriptorA::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-DescriptorB::DescriptorB()
-    : label(),
-      image_path() {}
-
-DescriptorB::DescriptorB(
-    const std::string& label_in,
-    const std::string& image_path_in)
-    : label(std::move(label_in)),
-      image_path(std::move(image_path_in)) {}
-
-DescriptorB::~DescriptorB() = default;
-size_t DescriptorB::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->label);
-  seed = mojo::internal::Hash(seed, this->image_path);
-  return seed;
-}
-
-void DescriptorB::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "label"), this->label,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "image_path"), this->image_path,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool DescriptorB::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-Descriptors::Descriptors()
-    : descriptor_a(),
-      descriptor_b(),
-      descriptor_c() {}
-
-Descriptors::Descriptors(
-    std::vector<DescriptorAPtr> descriptor_a_in,
-    std::vector<DescriptorBPtr> descriptor_b_in,
-    std::vector<std::string> descriptor_c_in)
-    : descriptor_a(std::move(descriptor_a_in)),
-      descriptor_b(std::move(descriptor_b_in)),
-      descriptor_c(std::move(descriptor_c_in)) {}
-
-Descriptors::~Descriptors() = default;
-
-void Descriptors::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "descriptor_a"), this->descriptor_a,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<DescriptorAPtr>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "descriptor_b"), this->descriptor_b,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<DescriptorBPtr>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "descriptor_c"), this->descriptor_c,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool Descriptors::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-WallpaperSearchResult::WallpaperSearchResult()
-    : id(),
-      image() {}
-
-WallpaperSearchResult::WallpaperSearchResult(
-    const ::base::Token& id_in,
-    const std::string& image_in)
-    : id(std::move(id_in)),
-      image(std::move(image_in)) {}
-
-WallpaperSearchResult::~WallpaperSearchResult() = default;
-
-void WallpaperSearchResult::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "id"), this->id,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::base::Token&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "image"), this->image,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool WallpaperSearchResult::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 const char CustomizeChromePageHandlerFactory::Name_[] = "side_panel.mojom.CustomizeChromePageHandlerFactory";
 
 CustomizeChromePageHandlerFactory::IPCStableHashFunction CustomizeChromePageHandlerFactory::MessageToMethodInfo_(mojo::Message& message) {
@@ -713,14 +549,17 @@ void CustomizeChromePageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<CustomizeChromePageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -808,10 +647,10 @@ bool CustomizeChromePageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCustomizeChromePageHandlerFactoryValidationInfo[] = {
-    {&internal::CustomizeChromePageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -876,15 +715,6 @@ CustomizeChromePageHandler::IPCStableHashFunction CustomizeChromePageHandler::Me
     case internal::kCustomizeChromePageHandler_UpdateScrollToSection_Name: {
       return &CustomizeChromePageHandler::UpdateScrollToSection_Sym::IPCStableHash;
     }
-    case internal::kCustomizeChromePageHandler_GetDescriptors_Name: {
-      return &CustomizeChromePageHandler::GetDescriptors_Sym::IPCStableHash;
-    }
-    case internal::kCustomizeChromePageHandler_GetWallpaperSearchResults_Name: {
-      return &CustomizeChromePageHandler::GetWallpaperSearchResults_Sym::IPCStableHash;
-    }
-    case internal::kCustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Name: {
-      return &CustomizeChromePageHandler::SetBackgroundToWallpaperSearchResult_Sym::IPCStableHash;
-    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -930,12 +760,6 @@ const char* CustomizeChromePageHandler::MessageToMethodName_(mojo::Message& mess
             return "Receive side_panel::mojom::CustomizeChromePageHandler::SetModuleDisabled";
       case internal::kCustomizeChromePageHandler_UpdateScrollToSection_Name:
             return "Receive side_panel::mojom::CustomizeChromePageHandler::UpdateScrollToSection";
-      case internal::kCustomizeChromePageHandler_GetDescriptors_Name:
-            return "Receive side_panel::mojom::CustomizeChromePageHandler::GetDescriptors";
-      case internal::kCustomizeChromePageHandler_GetWallpaperSearchResults_Name:
-            return "Receive side_panel::mojom::CustomizeChromePageHandler::GetWallpaperSearchResults";
-      case internal::kCustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Name:
-            return "Receive side_panel::mojom::CustomizeChromePageHandler::SetBackgroundToWallpaperSearchResult";
     }
   } else {
     switch (message.name()) {
@@ -973,12 +797,6 @@ const char* CustomizeChromePageHandler::MessageToMethodName_(mojo::Message& mess
             return "Receive reply side_panel::mojom::CustomizeChromePageHandler::SetModuleDisabled";
       case internal::kCustomizeChromePageHandler_UpdateScrollToSection_Name:
             return "Receive reply side_panel::mojom::CustomizeChromePageHandler::UpdateScrollToSection";
-      case internal::kCustomizeChromePageHandler_GetDescriptors_Name:
-            return "Receive reply side_panel::mojom::CustomizeChromePageHandler::GetDescriptors";
-      case internal::kCustomizeChromePageHandler_GetWallpaperSearchResults_Name:
-            return "Receive reply side_panel::mojom::CustomizeChromePageHandler::GetWallpaperSearchResults";
-      case internal::kCustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Name:
-            return "Receive reply side_panel::mojom::CustomizeChromePageHandler::SetBackgroundToWallpaperSearchResult";
     }
   }
   return "Receive unknown mojo message";
@@ -1214,45 +1032,6 @@ uint32_t CustomizeChromePageHandler::UpdateScrollToSection_Sym::IPCStableHash() 
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CustomizeChromePageHandler::GetDescriptors_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)side_panel::mojom::CustomizeChromePageHandler::GetDescriptors");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CustomizeChromePageHandler::GetWallpaperSearchResults_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)side_panel::mojom::CustomizeChromePageHandler::GetWallpaperSearchResults");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CustomizeChromePageHandler::SetBackgroundToWallpaperSearchResult_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)side_panel::mojom::CustomizeChromePageHandler::SetBackgroundToWallpaperSearchResult");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CustomizeChromePageHandler_GetBackgroundCollections_ForwardToCallback
@@ -1303,38 +1082,6 @@ class CustomizeChromePageHandler_ChooseLocalCustomBackground_ForwardToCallback
   CustomizeChromePageHandler::ChooseLocalCustomBackgroundCallback callback_;
 };
 
-class CustomizeChromePageHandler_GetDescriptors_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  CustomizeChromePageHandler_GetDescriptors_ForwardToCallback(
-      CustomizeChromePageHandler::GetDescriptorsCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  CustomizeChromePageHandler_GetDescriptors_ForwardToCallback(const CustomizeChromePageHandler_GetDescriptors_ForwardToCallback&) = delete;
-  CustomizeChromePageHandler_GetDescriptors_ForwardToCallback& operator=(const CustomizeChromePageHandler_GetDescriptors_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  CustomizeChromePageHandler::GetDescriptorsCallback callback_;
-};
-
-class CustomizeChromePageHandler_GetWallpaperSearchResults_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  CustomizeChromePageHandler_GetWallpaperSearchResults_ForwardToCallback(
-      CustomizeChromePageHandler::GetWallpaperSearchResultsCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  CustomizeChromePageHandler_GetWallpaperSearchResults_ForwardToCallback(const CustomizeChromePageHandler_GetWallpaperSearchResults_ForwardToCallback&) = delete;
-  CustomizeChromePageHandler_GetWallpaperSearchResults_ForwardToCallback& operator=(const CustomizeChromePageHandler_GetWallpaperSearchResults_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  CustomizeChromePageHandler::GetWallpaperSearchResultsCallback callback_;
-};
-
 CustomizeChromePageHandlerProxy::CustomizeChromePageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -1354,14 +1101,17 @@ void CustomizeChromePageHandlerProxy::SetMostVisitedSettings(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_SetMostVisitedSettings_Name, kFlags, 0, 0, nullptr);
@@ -1386,14 +1136,17 @@ void CustomizeChromePageHandlerProxy::UpdateMostVisitedSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::UpdateMostVisitedSettings");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_UpdateMostVisitedSettings_Name, kFlags, 0, 0, nullptr);
@@ -1416,14 +1169,17 @@ void CustomizeChromePageHandlerProxy::GetBackgroundCollections(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::GetBackgroundCollections");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_GetBackgroundCollections_Name, kFlags, 0, 0, nullptr);
@@ -1454,14 +1210,17 @@ void CustomizeChromePageHandlerProxy::GetBackgroundImages(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_GetBackgroundImages_Name, kFlags, 0, 0, nullptr);
@@ -1496,14 +1255,17 @@ void CustomizeChromePageHandlerProxy::UpdateModulesSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::UpdateModulesSettings");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_UpdateModulesSettings_Name, kFlags, 0, 0, nullptr);
@@ -1526,14 +1288,17 @@ void CustomizeChromePageHandlerProxy::UpdateTheme(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::UpdateTheme");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_UpdateTheme_Name, kFlags, 0, 0, nullptr);
@@ -1556,14 +1321,17 @@ void CustomizeChromePageHandlerProxy::SetDefaultColor(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::SetDefaultColor");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_SetDefaultColor_Name, kFlags, 0, 0, nullptr);
@@ -1593,14 +1361,17 @@ void CustomizeChromePageHandlerProxy::SetFollowDeviceTheme(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_SetFollowDeviceTheme_Name, kFlags, 0, 0, nullptr);
@@ -1624,14 +1395,17 @@ void CustomizeChromePageHandlerProxy::RemoveBackgroundImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::RemoveBackgroundImage");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_RemoveBackgroundImage_Name, kFlags, 0, 0, nullptr);
@@ -1654,14 +1428,17 @@ void CustomizeChromePageHandlerProxy::ChooseLocalCustomBackground(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::ChooseLocalCustomBackground");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_ChooseLocalCustomBackground_Name, kFlags, 0, 0, nullptr);
@@ -1707,14 +1484,17 @@ void CustomizeChromePageHandlerProxy::SetBackgroundImage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_SetBackgroundImage_Name, kFlags, 0, 0, nullptr);
@@ -1810,14 +1590,17 @@ void CustomizeChromePageHandlerProxy::SetDailyRefreshCollectionId(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_SetDailyRefreshCollectionId_Name, kFlags, 0, 0, nullptr);
@@ -1851,14 +1634,17 @@ void CustomizeChromePageHandlerProxy::OpenChromeWebStore(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::OpenChromeWebStore");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_OpenChromeWebStore_Name, kFlags, 0, 0, nullptr);
@@ -1888,14 +1674,17 @@ void CustomizeChromePageHandlerProxy::OpenThirdPartyThemePage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_OpenThirdPartyThemePage_Name, kFlags, 0, 0, nullptr);
@@ -1936,14 +1725,17 @@ void CustomizeChromePageHandlerProxy::SetModulesVisible(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_SetModulesVisible_Name, kFlags, 0, 0, nullptr);
@@ -1977,14 +1769,17 @@ void CustomizeChromePageHandlerProxy::SetModuleDisabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_SetModuleDisabled_Name, kFlags, 0, 0, nullptr);
@@ -2019,14 +1814,17 @@ void CustomizeChromePageHandlerProxy::UpdateScrollToSection(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::UpdateScrollToSection");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_UpdateScrollToSection_Name, kFlags, 0, 0, nullptr);
@@ -2038,164 +1836,6 @@ void CustomizeChromePageHandlerProxy::UpdateScrollToSection(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CustomizeChromePageHandler::Name_);
   message.set_method_name("UpdateScrollToSection");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void CustomizeChromePageHandlerProxy::GetDescriptors(
-    GetDescriptorsCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send side_panel::mojom::CustomizeChromePageHandler::GetDescriptors");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCustomizeChromePageHandler_GetDescriptors_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::side_panel::mojom::internal::CustomizeChromePageHandler_GetDescriptors_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CustomizeChromePageHandler::Name_);
-  message.set_method_name("GetDescriptors");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new CustomizeChromePageHandler_GetDescriptors_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void CustomizeChromePageHandlerProxy::GetWallpaperSearchResults(
-    const std::string& in_descriptor_a, const absl::optional<std::string>& in_descriptor_b, const absl::optional<std::string>& in_descriptor_c, const absl::optional<std::string>& in_descriptor_d, GetWallpaperSearchResultsCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send side_panel::mojom::CustomizeChromePageHandler::GetWallpaperSearchResults", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("descriptor_a"), in_descriptor_a,
-                        "<value of type const std::string&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("descriptor_b"), in_descriptor_b,
-                        "<value of type const absl::optional<std::string>&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("descriptor_c"), in_descriptor_c,
-                        "<value of type const absl::optional<std::string>&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("descriptor_d"), in_descriptor_d,
-                        "<value of type const absl::optional<std::string>&>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCustomizeChromePageHandler_GetWallpaperSearchResults_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::side_panel::mojom::internal::CustomizeChromePageHandler_GetWallpaperSearchResults_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->descriptor_a)::BaseType> descriptor_a_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_descriptor_a, descriptor_a_fragment);
-  params->descriptor_a.Set(
-      descriptor_a_fragment.is_null() ? nullptr : descriptor_a_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->descriptor_a.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null descriptor_a in CustomizeChromePageHandler.GetWallpaperSearchResults request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->descriptor_b)::BaseType> descriptor_b_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_descriptor_b, descriptor_b_fragment);
-  params->descriptor_b.Set(
-      descriptor_b_fragment.is_null() ? nullptr : descriptor_b_fragment.data());
-  mojo::internal::MessageFragment<
-      typename decltype(params->descriptor_c)::BaseType> descriptor_c_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_descriptor_c, descriptor_c_fragment);
-  params->descriptor_c.Set(
-      descriptor_c_fragment.is_null() ? nullptr : descriptor_c_fragment.data());
-  mojo::internal::MessageFragment<
-      typename decltype(params->descriptor_d)::BaseType> descriptor_d_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_descriptor_d, descriptor_d_fragment);
-  params->descriptor_d.Set(
-      descriptor_d_fragment.is_null() ? nullptr : descriptor_d_fragment.data());
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CustomizeChromePageHandler::Name_);
-  message.set_method_name("GetWallpaperSearchResults");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new CustomizeChromePageHandler_GetWallpaperSearchResults_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void CustomizeChromePageHandlerProxy::SetBackgroundToWallpaperSearchResult(
-    const ::base::Token& in_result_id) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send side_panel::mojom::CustomizeChromePageHandler::SetBackgroundToWallpaperSearchResult", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result_id"), in_result_id,
-                        "<value of type const ::base::Token&>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::side_panel::mojom::internal::CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->result_id)::BaseType> result_id_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::TokenDataView>(
-      in_result_id, result_id_fragment);
-  params->result_id.Set(
-      result_id_fragment.is_null() ? nullptr : result_id_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->result_id.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null result_id in CustomizeChromePageHandler.SetBackgroundToWallpaperSearchResult request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CustomizeChromePageHandler::Name_);
-  message.set_method_name("SetBackgroundToWallpaperSearchResult");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2293,7 +1933,8 @@ void CustomizeChromePageHandler_GetBackgroundCollections_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_GetBackgroundCollections_Name, kFlags, 0, 0, nullptr);
@@ -2423,7 +2064,8 @@ void CustomizeChromePageHandler_GetBackgroundImages_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_GetBackgroundImages_Name, kFlags, 0, 0, nullptr);
@@ -2553,7 +2195,8 @@ void CustomizeChromePageHandler_ChooseLocalCustomBackground_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePageHandler_ChooseLocalCustomBackground_Name, kFlags, 0, 0, nullptr);
@@ -2566,260 +2209,6 @@ void CustomizeChromePageHandler_ChooseLocalCustomBackground_ProxyToResponder::Ru
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CustomizeChromePageHandler::Name_);
   message.set_method_name("ChooseLocalCustomBackground");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class CustomizeChromePageHandler_GetDescriptors_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static CustomizeChromePageHandler::GetDescriptorsCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CustomizeChromePageHandler_GetDescriptors_ProxyToResponder> proxy(
-        new CustomizeChromePageHandler_GetDescriptors_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&CustomizeChromePageHandler_GetDescriptors_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~CustomizeChromePageHandler_GetDescriptors_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  CustomizeChromePageHandler_GetDescriptors_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "CustomizeChromePageHandler::GetDescriptorsCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      DescriptorsPtr in_descriptors);
-};
-
-bool CustomizeChromePageHandler_GetDescriptors_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::CustomizeChromePageHandler_GetDescriptors_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::CustomizeChromePageHandler_GetDescriptors_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  DescriptorsPtr p_descriptors{};
-  CustomizeChromePageHandler_GetDescriptors_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadDescriptors(&p_descriptors))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CustomizeChromePageHandler::Name_, 17, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_descriptors));
-  return true;
-}
-
-void CustomizeChromePageHandler_GetDescriptors_ProxyToResponder::Run(
-    DescriptorsPtr in_descriptors) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply side_panel::mojom::CustomizeChromePageHandler::GetDescriptors", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("descriptors"), in_descriptors,
-                        "<value of type DescriptorsPtr>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCustomizeChromePageHandler_GetDescriptors_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::side_panel::mojom::internal::CustomizeChromePageHandler_GetDescriptors_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->descriptors)::BaseType> descriptors_fragment(
-          params.message());
-  mojo::internal::Serialize<::side_panel::mojom::DescriptorsDataView>(
-      in_descriptors, descriptors_fragment);
-  params->descriptors.Set(
-      descriptors_fragment.is_null() ? nullptr : descriptors_fragment.data());
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CustomizeChromePageHandler::Name_);
-  message.set_method_name("GetDescriptors");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class CustomizeChromePageHandler_GetWallpaperSearchResults_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static CustomizeChromePageHandler::GetWallpaperSearchResultsCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CustomizeChromePageHandler_GetWallpaperSearchResults_ProxyToResponder> proxy(
-        new CustomizeChromePageHandler_GetWallpaperSearchResults_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&CustomizeChromePageHandler_GetWallpaperSearchResults_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~CustomizeChromePageHandler_GetWallpaperSearchResults_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  CustomizeChromePageHandler_GetWallpaperSearchResults_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "CustomizeChromePageHandler::GetWallpaperSearchResultsCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      std::vector<WallpaperSearchResultPtr> in_results);
-};
-
-bool CustomizeChromePageHandler_GetWallpaperSearchResults_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  std::vector<WallpaperSearchResultPtr> p_results{};
-  CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadResults(&p_results))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CustomizeChromePageHandler::Name_, 18, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_results));
-  return true;
-}
-
-void CustomizeChromePageHandler_GetWallpaperSearchResults_ProxyToResponder::Run(
-    std::vector<WallpaperSearchResultPtr> in_results) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply side_panel::mojom::CustomizeChromePageHandler::GetWallpaperSearchResults", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("results"), in_results,
-                        "<value of type std::vector<WallpaperSearchResultPtr>>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCustomizeChromePageHandler_GetWallpaperSearchResults_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::side_panel::mojom::internal::CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->results)::BaseType>
-      results_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& results_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::side_panel::mojom::WallpaperSearchResultDataView>>(
-      in_results, results_fragment, &results_validate_params);
-  params->results.Set(
-      results_fragment.is_null() ? nullptr : results_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->results.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null results in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CustomizeChromePageHandler::Name_);
-  message.set_method_name("GetWallpaperSearchResults");
 #endif
 
   message.set_request_id(request_id_);
@@ -3212,38 +2601,6 @@ std::move(p_disabled));
       impl->UpdateScrollToSection();
       return true;
     }
-    case internal::kCustomizeChromePageHandler_GetDescriptors_Name: {
-      break;
-    }
-    case internal::kCustomizeChromePageHandler_GetWallpaperSearchResults_Name: {
-      break;
-    }
-    case internal::kCustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params_Data* params =
-          reinterpret_cast<internal::CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::base::Token p_result_id{};
-      CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadResultId(&p_result_id))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CustomizeChromePageHandler::Name_, 19, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetBackgroundToWallpaperSearchResult(
-std::move(p_result_id));
-      return true;
-    }
   }
   return false;
 }
@@ -3378,120 +2735,45 @@ std::move(p_collection_id), std::move(callback));
     case internal::kCustomizeChromePageHandler_UpdateScrollToSection_Name: {
       break;
     }
-    case internal::kCustomizeChromePageHandler_GetDescriptors_Name: {
-
-      internal::CustomizeChromePageHandler_GetDescriptors_Params_Data* params =
-          reinterpret_cast<
-              internal::CustomizeChromePageHandler_GetDescriptors_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      CustomizeChromePageHandler_GetDescriptors_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CustomizeChromePageHandler::Name_, 17, false);
-        return false;
-      }
-      CustomizeChromePageHandler::GetDescriptorsCallback callback =
-          CustomizeChromePageHandler_GetDescriptors_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetDescriptors(std::move(callback));
-      return true;
-    }
-    case internal::kCustomizeChromePageHandler_GetWallpaperSearchResults_Name: {
-
-      internal::CustomizeChromePageHandler_GetWallpaperSearchResults_Params_Data* params =
-          reinterpret_cast<
-              internal::CustomizeChromePageHandler_GetWallpaperSearchResults_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      std::string p_descriptor_a{};
-      absl::optional<std::string> p_descriptor_b{};
-      absl::optional<std::string> p_descriptor_c{};
-      absl::optional<std::string> p_descriptor_d{};
-      CustomizeChromePageHandler_GetWallpaperSearchResults_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadDescriptorA(&p_descriptor_a))
-        success = false;
-      if (success && !input_data_view.ReadDescriptorB(&p_descriptor_b))
-        success = false;
-      if (success && !input_data_view.ReadDescriptorC(&p_descriptor_c))
-        success = false;
-      if (success && !input_data_view.ReadDescriptorD(&p_descriptor_d))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CustomizeChromePageHandler::Name_, 18, false);
-        return false;
-      }
-      CustomizeChromePageHandler::GetWallpaperSearchResultsCallback callback =
-          CustomizeChromePageHandler_GetWallpaperSearchResults_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetWallpaperSearchResults(
-std::move(p_descriptor_a), 
-std::move(p_descriptor_b), 
-std::move(p_descriptor_c), 
-std::move(p_descriptor_d), std::move(callback));
-      return true;
-    }
-    case internal::kCustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Name: {
-      break;
-    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCustomizeChromePageHandlerValidationInfo[] = {
-    {&internal::CustomizeChromePageHandler_SetMostVisitedSettings_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_SetMostVisitedSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_UpdateMostVisitedSettings_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_UpdateMostVisitedSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_GetBackgroundCollections_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_GetBackgroundCollections_Params_Data::Validate,
      &internal::CustomizeChromePageHandler_GetBackgroundCollections_ResponseParams_Data::Validate},
-    {&internal::CustomizeChromePageHandler_GetBackgroundImages_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_GetBackgroundImages_Params_Data::Validate,
      &internal::CustomizeChromePageHandler_GetBackgroundImages_ResponseParams_Data::Validate},
-    {&internal::CustomizeChromePageHandler_UpdateModulesSettings_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_UpdateModulesSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_UpdateTheme_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_UpdateTheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_SetDefaultColor_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_SetDefaultColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_SetFollowDeviceTheme_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_SetFollowDeviceTheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_RemoveBackgroundImage_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_RemoveBackgroundImage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_ChooseLocalCustomBackground_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_ChooseLocalCustomBackground_Params_Data::Validate,
      &internal::CustomizeChromePageHandler_ChooseLocalCustomBackground_ResponseParams_Data::Validate},
-    {&internal::CustomizeChromePageHandler_SetBackgroundImage_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_SetBackgroundImage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_SetDailyRefreshCollectionId_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_SetDailyRefreshCollectionId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_OpenChromeWebStore_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_OpenChromeWebStore_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_OpenThirdPartyThemePage_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_OpenThirdPartyThemePage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_SetModulesVisible_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_SetModulesVisible_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_SetModuleDisabled_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_SetModuleDisabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_UpdateScrollToSection_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CustomizeChromePageHandler_GetDescriptors_Params_Data::Validate,
-     &internal::CustomizeChromePageHandler_GetDescriptors_ResponseParams_Data::Validate},
-    {&internal::CustomizeChromePageHandler_GetWallpaperSearchResults_Params_Data::Validate,
-     &internal::CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams_Data::Validate},
-    {&internal::CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params_Data::Validate,
+    { &internal::CustomizeChromePageHandler_UpdateScrollToSection_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3641,14 +2923,17 @@ void CustomizeChromePageProxy::SetModulesSettings(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePage_SetModulesSettings_Name, kFlags, 0, 0, nullptr);
@@ -3696,14 +2981,17 @@ void CustomizeChromePageProxy::SetMostVisitedSettings(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePage_SetMostVisitedSettings_Name, kFlags, 0, 0, nullptr);
@@ -3735,14 +3023,17 @@ void CustomizeChromePageProxy::SetTheme(
                         "<value of type ThemePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePage_SetTheme_Name, kFlags, 0, 0, nullptr);
@@ -3783,14 +3074,17 @@ void CustomizeChromePageProxy::ScrollToSection(
                         "<value of type CustomizeChromeSection>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCustomizeChromePage_ScrollToSection_Name, kFlags, 0, 0, nullptr);
@@ -3959,16 +3253,16 @@ bool CustomizeChromePageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCustomizeChromePageValidationInfo[] = {
-    {&internal::CustomizeChromePage_SetModulesSettings_Params_Data::Validate,
+    { &internal::CustomizeChromePage_SetModulesSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePage_SetMostVisitedSettings_Params_Data::Validate,
+    { &internal::CustomizeChromePage_SetMostVisitedSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePage_SetTheme_Params_Data::Validate,
+    { &internal::CustomizeChromePage_SetTheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CustomizeChromePage_ScrollToSection_Params_Data::Validate,
+    { &internal::CustomizeChromePage_ScrollToSection_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3998,6 +3292,8 @@ bool StructTraits<::side_panel::mojom::BackgroundImage::DataView, ::side_panel::
         success = false;
       if (success)
         result->is_uploaded_image = input.is_uploaded_image();
+      if (success && !input.ReadLocalBackgroundId(&result->local_background_id))
+        success = false;
       if (success && !input.ReadTitle(&result->title))
         success = false;
       if (success && !input.ReadCollectionId(&result->collection_id))
@@ -4108,72 +3404,6 @@ bool StructTraits<::side_panel::mojom::ModuleSettings::DataView, ::side_panel::m
   return success;
 }
 
-
-// static
-bool StructTraits<::side_panel::mojom::DescriptorA::DataView, ::side_panel::mojom::DescriptorAPtr>::Read(
-    ::side_panel::mojom::DescriptorA::DataView input,
-    ::side_panel::mojom::DescriptorAPtr* output) {
-  bool success = true;
-  ::side_panel::mojom::DescriptorAPtr result(::side_panel::mojom::DescriptorA::New());
-  
-      if (success && !input.ReadCategory(&result->category))
-        success = false;
-      if (success && !input.ReadLabels(&result->labels))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::side_panel::mojom::DescriptorB::DataView, ::side_panel::mojom::DescriptorBPtr>::Read(
-    ::side_panel::mojom::DescriptorB::DataView input,
-    ::side_panel::mojom::DescriptorBPtr* output) {
-  bool success = true;
-  ::side_panel::mojom::DescriptorBPtr result(::side_panel::mojom::DescriptorB::New());
-  
-      if (success && !input.ReadLabel(&result->label))
-        success = false;
-      if (success && !input.ReadImagePath(&result->image_path))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::side_panel::mojom::Descriptors::DataView, ::side_panel::mojom::DescriptorsPtr>::Read(
-    ::side_panel::mojom::Descriptors::DataView input,
-    ::side_panel::mojom::DescriptorsPtr* output) {
-  bool success = true;
-  ::side_panel::mojom::DescriptorsPtr result(::side_panel::mojom::Descriptors::New());
-  
-      if (success && !input.ReadDescriptorA(&result->descriptor_a))
-        success = false;
-      if (success && !input.ReadDescriptorB(&result->descriptor_b))
-        success = false;
-      if (success && !input.ReadDescriptorC(&result->descriptor_c))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::side_panel::mojom::WallpaperSearchResult::DataView, ::side_panel::mojom::WallpaperSearchResultPtr>::Read(
-    ::side_panel::mojom::WallpaperSearchResult::DataView input,
-    ::side_panel::mojom::WallpaperSearchResultPtr* output) {
-  bool success = true;
-  ::side_panel::mojom::WallpaperSearchResultPtr result(::side_panel::mojom::WallpaperSearchResult::New());
-  
-      if (success && !input.ReadId(&result->id))
-        success = false;
-      if (success && !input.ReadImage(&result->image))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
 }  // namespace mojo
 
 
@@ -4246,15 +3476,6 @@ void CustomizeChromePageHandlerInterceptorForTesting::SetModuleDisabled(const st
 void CustomizeChromePageHandlerInterceptorForTesting::UpdateScrollToSection() {
   GetForwardingInterface()->UpdateScrollToSection();
 }
-void CustomizeChromePageHandlerInterceptorForTesting::GetDescriptors(GetDescriptorsCallback callback) {
-  GetForwardingInterface()->GetDescriptors(std::move(callback));
-}
-void CustomizeChromePageHandlerInterceptorForTesting::GetWallpaperSearchResults(const std::string& descriptor_a, const absl::optional<std::string>& descriptor_b, const absl::optional<std::string>& descriptor_c, const absl::optional<std::string>& descriptor_d, GetWallpaperSearchResultsCallback callback) {
-  GetForwardingInterface()->GetWallpaperSearchResults(std::move(descriptor_a), std::move(descriptor_b), std::move(descriptor_c), std::move(descriptor_d), std::move(callback));
-}
-void CustomizeChromePageHandlerInterceptorForTesting::SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id) {
-  GetForwardingInterface()->SetBackgroundToWallpaperSearchResult(std::move(result_id));
-}
 CustomizeChromePageHandlerAsyncWaiter::CustomizeChromePageHandlerAsyncWaiter(
     CustomizeChromePageHandler* proxy) : proxy_(proxy) {}
 
@@ -4326,52 +3547,6 @@ bool CustomizeChromePageHandlerAsyncWaiter::ChooseLocalCustomBackground(
     ) {
   bool async_wait_result;
   ChooseLocalCustomBackground(&async_wait_result);
-  return async_wait_result;
-}
-
-void CustomizeChromePageHandlerAsyncWaiter::GetDescriptors(
-    DescriptorsPtr* out_descriptors) {
-  base::RunLoop loop;
-  proxy_->GetDescriptors(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             DescriptorsPtr* out_descriptors
-,
-             DescriptorsPtr descriptors) {*out_descriptors = std::move(descriptors);
-            loop->Quit();
-          },
-          &loop,
-          out_descriptors));
-  loop.Run();
-}
-
-DescriptorsPtr CustomizeChromePageHandlerAsyncWaiter::GetDescriptors(
-    ) {
-  DescriptorsPtr async_wait_result;
-  GetDescriptors(&async_wait_result);
-  return async_wait_result;
-}
-
-void CustomizeChromePageHandlerAsyncWaiter::GetWallpaperSearchResults(
-    const std::string& descriptor_a, const absl::optional<std::string>& descriptor_b, const absl::optional<std::string>& descriptor_c, const absl::optional<std::string>& descriptor_d, std::vector<WallpaperSearchResultPtr>* out_results) {
-  base::RunLoop loop;
-  proxy_->GetWallpaperSearchResults(std::move(descriptor_a),std::move(descriptor_b),std::move(descriptor_c),std::move(descriptor_d),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             std::vector<WallpaperSearchResultPtr>* out_results
-,
-             std::vector<WallpaperSearchResultPtr> results) {*out_results = std::move(results);
-            loop->Quit();
-          },
-          &loop,
-          out_results));
-  loop.Run();
-}
-
-std::vector<WallpaperSearchResultPtr> CustomizeChromePageHandlerAsyncWaiter::GetWallpaperSearchResults(
-    const std::string& descriptor_a, const absl::optional<std::string>& descriptor_b, const absl::optional<std::string>& descriptor_c, const absl::optional<std::string>& descriptor_d) {
-  std::vector<WallpaperSearchResultPtr> async_wait_result;
-  GetWallpaperSearchResults(std::move(descriptor_a),std::move(descriptor_b),std::move(descriptor_c),std::move(descriptor_d),&async_wait_result);
   return async_wait_result;
 }
 

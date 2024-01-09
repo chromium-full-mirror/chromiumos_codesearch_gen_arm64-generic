@@ -12,14 +12,14 @@ const CONTRAST_ISSUE_IN_GRID_SELECTOR = '.contrast-container-in-grid';
 const OVERVIEW_SUMMARY_SIDEBAR_ITEM_SELECTOR = 'div[data-id="summary"]';
 const COLORS_SIDEBAR_ITEM_SELECTOR = 'div[data-id="colors"]';
 const FONT_INFO_SIDEBAR_ITEM_SELECTOR = 'div[data-id="font-info"]';
-(0, mocha_extensions_js_1.describe)('CSS Overview experiment', async () => {
+(0, mocha_extensions_js_1.describe)('CSS overview experiment', async () => {
     (0, mocha_extensions_js_1.it)('can display low contrast issues', async () => {
         await (0, helper_js_1.goToResource)('elements/low-contrast.html');
         await (0, css_overview_helpers_js_1.navigateToCssOverviewTab)();
         await (0, css_overview_helpers_js_1.startCaptureCSSOverview)();
         await (0, helper_js_1.waitFor)(CONTRAST_BUTTON_SELECTOR);
         const contrastButtons = await (0, helper_js_1.$$)(CONTRAST_BUTTON_SELECTOR);
-        chai_1.assert.strictEqual(2, contrastButtons.length, 'Wrong number of contrast issues found in CSS Overview');
+        chai_1.assert.strictEqual(2, contrastButtons.length, 'Wrong number of contrast issues found in CSS overview');
         const firstIssue = contrastButtons[0];
         await firstIssue.click();
         const gridContainer = await (0, helper_js_1.waitFor)(CONTRAST_ISSUE_IN_GRID_SELECTOR);

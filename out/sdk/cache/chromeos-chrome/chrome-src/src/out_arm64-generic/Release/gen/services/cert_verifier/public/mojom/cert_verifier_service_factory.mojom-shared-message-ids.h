@@ -16,8 +16,9 @@ namespace internal {
 
 constexpr uint32_t kCertVerifierServiceFactory_GetNewCertVerifier_Name = 0;
 constexpr uint32_t kCertVerifierServiceFactory_UpdateCRLSet_Name = 1;
-constexpr uint32_t kCertVerifierServiceFactory_UpdateChromeRootStore_Name = 2;
-constexpr uint32_t kCertVerifierServiceFactory_GetChromeRootStoreInfo_Name = 3;
+constexpr uint32_t kCertVerifierServiceFactory_UpdateCtLogList_Name = 2;
+constexpr uint32_t kCertVerifierServiceFactory_UpdateChromeRootStore_Name = 3;
+constexpr uint32_t kCertVerifierServiceFactory_GetChromeRootStoreInfo_Name = 4;
 
 }  // namespace internal
 

@@ -46,7 +46,7 @@ GPU_FEATURE_TYPE_ACCELERATED_2D_CANVAS,
 GPU_FEATURE_TYPE_ACCELERATED_WEBGL,
 GPU_FEATURE_TYPE_ACCELERATED_VIDEO_DECODE,
 GPU_FEATURE_TYPE_ACCELERATED_VIDEO_ENCODE,
-GPU_FEATURE_TYPE_GPU_RASTERIZATION,
+GPU_FEATURE_TYPE_GPU_TILE_RASTERIZATION,
 GPU_FEATURE_TYPE_ACCELERATED_WEBGL2,
 GPU_FEATURE_TYPE_ANDROID_SURFACE_CONTROL,
 GPU_FEATURE_TYPE_ACCELERATED_GL,
@@ -78,7 +78,7 @@ GpuControlList::kDontCare,  // subpixel_font_rendering
 };
 
 const int kFeatureListForSoftwareEntry137[1] = {
-GPU_FEATURE_TYPE_GPU_RASTERIZATION,
+GPU_FEATURE_TYPE_GPU_TILE_RASTERIZATION,
 };
 
 const uint32_t kCrBugsForSoftwareEntry137[3] = {
@@ -210,7 +210,7 @@ const int kFeatureListForSoftwareEntry152[10] = {
 GPU_FEATURE_TYPE_ACCELERATED_2D_CANVAS,
 GPU_FEATURE_TYPE_ACCELERATED_VIDEO_DECODE,
 GPU_FEATURE_TYPE_ACCELERATED_VIDEO_ENCODE,
-GPU_FEATURE_TYPE_GPU_RASTERIZATION,
+GPU_FEATURE_TYPE_GPU_TILE_RASTERIZATION,
 GPU_FEATURE_TYPE_ACCELERATED_WEBGL2,
 GPU_FEATURE_TYPE_ANDROID_SURFACE_CONTROL,
 GPU_FEATURE_TYPE_VULKAN,
@@ -291,27 +291,6 @@ nullptr,
 };
 
 const GpuControlList::More kMoreForEntry178_1043157500 = {
-GpuControlList::kGLTypeNone,  // gl_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
-false,  // in_process_gpu
-0,  // gl_reset_notification_strategy
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // direct_rendering_version
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
-GpuControlList::kDontCare,  // hardware_overlay
-0,  // test_group
-GpuControlList::kDontCare,  // subpixel_font_rendering
-};
-
-const int kFeatureListForSoftwareEntry179[1] = {
-GPU_FEATURE_TYPE_ACCELERATED_2D_CANVAS,
-};
-
-const GpuControlList::Device kDevicesForSoftwareEntry179[1] = {
-{0x22b1, 0x0},
-};
-
-const GpuControlList::More kMoreForEntry179_1043157500 = {
 GpuControlList::kGLTypeNone,  // gl_type
 {GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
 {GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version

@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ViewTimeline>::value,
     "ViewTimeline inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ViewTimeline::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ViewTimeline is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("ViewTimeline.subject.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ViewTimeline* blink_receiver = V8ViewTimeline::ToWrappableUnsafe(v8_receiver);
+ViewTimeline* blink_receiver = V8ViewTimeline::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->subject();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -107,8 +103,9 @@ BLINK_BINDINGS_TRACE_EVENT("ViewTimeline.startOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ViewTimeline* blink_receiver = V8ViewTimeline::ToWrappableUnsafe(v8_receiver);
+ViewTimeline* blink_receiver = V8ViewTimeline::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->startOffset();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -121,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("ViewTimeline.endOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ViewTimeline* blink_receiver = V8ViewTimeline::ToWrappableUnsafe(v8_receiver);
+ViewTimeline* blink_receiver = V8ViewTimeline::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->endOffset();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

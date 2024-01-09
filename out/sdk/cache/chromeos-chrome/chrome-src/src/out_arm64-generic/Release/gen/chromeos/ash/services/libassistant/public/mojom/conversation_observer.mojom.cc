@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -402,14 +403,17 @@ void ConversationObserverProxy::OnInteractionStarted(
                         "<value of type const ::ash::assistant::AssistantInteractionMetadata&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConversationObserver_OnInteractionStarted_Name, kFlags, 0, 0, nullptr);
@@ -450,14 +454,17 @@ void ConversationObserverProxy::OnInteractionFinished(
                         "<value of type ::ash::assistant::AssistantInteractionResolution>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConversationObserver_OnInteractionFinished_Name, kFlags, 0, 0, nullptr);
@@ -489,14 +496,17 @@ void ConversationObserverProxy::OnTtsStarted(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConversationObserver_OnTtsStarted_Name, kFlags, 0, 0, nullptr);
@@ -530,14 +540,17 @@ void ConversationObserverProxy::OnHtmlResponse(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConversationObserver_OnHtmlResponse_Name, kFlags, 0, 0, nullptr);
@@ -589,14 +602,17 @@ void ConversationObserverProxy::OnTextResponse(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConversationObserver_OnTextResponse_Name, kFlags, 0, 0, nullptr);
@@ -637,14 +653,17 @@ void ConversationObserverProxy::OnSuggestionsResponse(
                         "<value of type const std::vector<::ash::assistant::AssistantSuggestion>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConversationObserver_OnSuggestionsResponse_Name, kFlags, 0, 0, nullptr);
@@ -690,14 +709,17 @@ void ConversationObserverProxy::OnOpenUrlResponse(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConversationObserver_OnOpenUrlResponse_Name, kFlags, 0, 0, nullptr);
@@ -739,14 +761,17 @@ void ConversationObserverProxy::OnOpenAppResponse(
                         "<value of type const ::ash::assistant::AndroidAppInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConversationObserver_OnOpenAppResponse_Name, kFlags, 0, 0, nullptr);
@@ -780,14 +805,17 @@ void ConversationObserverProxy::OnWaitStarted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::ConversationObserver::OnWaitStarted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConversationObserver_OnWaitStarted_Name, kFlags, 0, 0, nullptr);
@@ -1091,26 +1119,26 @@ bool ConversationObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kConversationObserverValidationInfo[] = {
-    {&internal::ConversationObserver_OnInteractionStarted_Params_Data::Validate,
+    { &internal::ConversationObserver_OnInteractionStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConversationObserver_OnInteractionFinished_Params_Data::Validate,
+    { &internal::ConversationObserver_OnInteractionFinished_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConversationObserver_OnTtsStarted_Params_Data::Validate,
+    { &internal::ConversationObserver_OnTtsStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConversationObserver_OnHtmlResponse_Params_Data::Validate,
+    { &internal::ConversationObserver_OnHtmlResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConversationObserver_OnTextResponse_Params_Data::Validate,
+    { &internal::ConversationObserver_OnTextResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConversationObserver_OnSuggestionsResponse_Params_Data::Validate,
+    { &internal::ConversationObserver_OnSuggestionsResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConversationObserver_OnOpenUrlResponse_Params_Data::Validate,
+    { &internal::ConversationObserver_OnOpenUrlResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConversationObserver_OnOpenAppResponse_Params_Data::Validate,
+    { &internal::ConversationObserver_OnOpenAppResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConversationObserver_OnWaitStarted_Params_Data::Validate,
+    { &internal::ConversationObserver_OnWaitStarted_Params_Data::Validate,
      nullptr /* no response */},
 };
 

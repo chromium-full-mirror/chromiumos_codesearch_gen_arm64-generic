@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/search.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,13 +37,13 @@ namespace search {
 
 const char* ToString(Disposition enum_param) {
   switch (enum_param) {
-    case DISPOSITION_CURRENT_TAB:
+    case Disposition::kCurrentTab:
       return "CURRENT_TAB";
-    case DISPOSITION_NEW_TAB:
+    case Disposition::kNewTab:
       return "NEW_TAB";
-    case DISPOSITION_NEW_WINDOW:
+    case Disposition::kNewWindow:
       return "NEW_WINDOW";
-    case DISPOSITION_NONE:
+    case Disposition::kNone:
       return "";
   }
   NOTREACHED();
@@ -51,12 +52,12 @@ const char* ToString(Disposition enum_param) {
 
 Disposition ParseDisposition(base::StringPiece enum_string) {
   if (enum_string == "CURRENT_TAB")
-    return DISPOSITION_CURRENT_TAB;
+    return Disposition::kCurrentTab;
   if (enum_string == "NEW_TAB")
-    return DISPOSITION_NEW_TAB;
+    return Disposition::kNewTab;
   if (enum_string == "NEW_WINDOW")
-    return DISPOSITION_NEW_WINDOW;
-  return DISPOSITION_NONE;
+    return Disposition::kNewWindow;
+  return Disposition::kNone;
 }
 
 std::u16string GetDispositionParseError(base::StringPiece enum_string) {
@@ -68,8 +69,8 @@ QueryInfo::QueryInfo()
 : disposition() {}
 
 QueryInfo::~QueryInfo() = default;
-QueryInfo::QueryInfo(QueryInfo&& rhs) = default;
-QueryInfo& QueryInfo::operator=(QueryInfo&& rhs) = default;
+QueryInfo::QueryInfo(QueryInfo&& rhs) noexcept = default;
+QueryInfo& QueryInfo::operator=(QueryInfo&& rhs) noexcept = default;
 QueryInfo QueryInfo::Clone() const {
   QueryInfo out;
   out.text = text;
@@ -115,7 +116,7 @@ bool QueryInfo::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -135,34 +136,21 @@ bool QueryInfo::Populate(
 }
 
 // static
-std::unique_ptr<QueryInfo> QueryInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<QueryInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<QueryInfo> QueryInfo::FromValue(const base::Value::Dict& value) {
+  QueryInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<QueryInfo> QueryInfo::FromValue(const base::Value::Dict& value) {
+std::optional<QueryInfo> QueryInfo::FromValue(const base::Value& value) {
   QueryInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<QueryInfo> QueryInfo::FromValue(const base::Value& value) {
-  QueryInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -194,13 +182,13 @@ namespace Query {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -209,15 +197,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& query_info_value = args[0];
     {
       if (!query_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!QueryInfo::Populate(query_info_value.GetDict(), params.query_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

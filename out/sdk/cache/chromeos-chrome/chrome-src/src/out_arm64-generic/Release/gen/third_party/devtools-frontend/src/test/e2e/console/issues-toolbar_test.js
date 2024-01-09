@@ -15,7 +15,7 @@ const console_helpers_js_1 = require("../helpers/console-helpers.js");
     });
     (0, mocha_extensions_js_1.it)('shows the toolbar button for one issue correctly', async () => {
         // Navigate to page which causes a single issue.
-        await (0, helper_js_1.goToResource)('issues/cross-origin-portal-post.html');
+        await (0, helper_js_1.goToResource)('elements/quirks-mode.html');
         await (0, console_helpers_js_1.navigateToConsoleTab)();
         await (0, console_helpers_js_1.waitForIssueButtonLabel)('1 Issue:');
     });

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/apps/platform_apps/api/browser.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ OpenTabOptions::OpenTabOptions()
  {}
 
 OpenTabOptions::~OpenTabOptions() = default;
-OpenTabOptions::OpenTabOptions(OpenTabOptions&& rhs) = default;
-OpenTabOptions& OpenTabOptions::operator=(OpenTabOptions&& rhs) = default;
+OpenTabOptions::OpenTabOptions(OpenTabOptions&& rhs) noexcept = default;
+OpenTabOptions& OpenTabOptions::operator=(OpenTabOptions&& rhs) noexcept = default;
 OpenTabOptions OpenTabOptions::Clone() const {
   OpenTabOptions out;
   out.url = url;
@@ -72,34 +73,21 @@ bool OpenTabOptions::Populate(
 }
 
 // static
-std::unique_ptr<OpenTabOptions> OpenTabOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OpenTabOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OpenTabOptions> OpenTabOptions::FromValue(const base::Value::Dict& value) {
+  OpenTabOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OpenTabOptions> OpenTabOptions::FromValue(const base::Value::Dict& value) {
+std::optional<OpenTabOptions> OpenTabOptions::FromValue(const base::Value& value) {
   OpenTabOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OpenTabOptions> OpenTabOptions::FromValue(const base::Value& value) {
-  OpenTabOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -123,13 +111,13 @@ namespace OpenTab {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -138,15 +126,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!OpenTabOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

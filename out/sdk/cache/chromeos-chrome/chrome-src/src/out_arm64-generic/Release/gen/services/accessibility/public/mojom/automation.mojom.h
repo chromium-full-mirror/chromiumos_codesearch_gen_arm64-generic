@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/accessibility/public/mojom/automation.mojom-features.h"
 #include "services/accessibility/public/mojom/automation.mojom-shared.h"
 #include "services/accessibility/public/mojom/automation.mojom-forward.h"
 #include "ui/accessibility/mojom/ax_action_data.mojom.h"
@@ -114,45 +115,7 @@ class Automation
   virtual void DispatchAccessibilityLocationChange(const ::ui::AXTreeID& tree_id, int32_t node_id, const ::ui::AXRelativeBounds& bounds) = 0;
 
   
-  virtual void DispatchGetTextLocationResult(const ::ui::AXActionData& data, const absl::optional<::gfx::Rect>& rect) = 0;
-};
-
-class AutomationClientProxy;
-
-template <typename ImplRefTraits>
-class AutomationClientStub;
-
-class AutomationClientRequestValidator;
-
-
-class AutomationClient
-    : public AutomationClientInterfaceBase {
- public:
-  using IPCStableHashFunction = uint32_t(*)();
-
-  static const char Name_[];
-  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
-  static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
-  static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasUninterruptableMethods_ = false;
-
-  using Base_ = AutomationClientInterfaceBase;
-  using Proxy_ = AutomationClientProxy;
-
-  template <typename ImplRefTraits>
-  using Stub_ = AutomationClientStub<ImplRefTraits>;
-
-  using RequestValidator_ = AutomationClientRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
-  enum MethodMinVersions : uint32_t {
-  };
-
-// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
-// with not having this data in traces there.
-#if !BUILDFLAG(IS_FUCHSIA)
-#endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~AutomationClient() = default;
+  virtual void DispatchGetTextLocationResult(const ::ui::AXActionData& data, const std::optional<::gfx::Rect>& rect) = 0;
 };
 
 
@@ -172,20 +135,7 @@ class  AutomationProxy
   
   void DispatchAccessibilityLocationChange(const ::ui::AXTreeID& tree_id, int32_t node_id, const ::ui::AXRelativeBounds& bounds) final;
   
-  void DispatchGetTextLocationResult(const ::ui::AXActionData& data, const absl::optional<::gfx::Rect>& rect) final;
-
- private:
-  mojo::MessageReceiverWithResponder* receiver_;
-};
-
-
-
-class  AutomationClientProxy
-    : public AutomationClient {
- public:
-  using InterfaceType = AutomationClient;
-
-  explicit AutomationClientProxy(mojo::MessageReceiverWithResponder* receiver);
+  void DispatchGetTextLocationResult(const ::ui::AXActionData& data, const std::optional<::gfx::Rect>& rect) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -231,52 +181,7 @@ class AutomationStub
  private:
   ImplPointerType sink_;
 };
-class  AutomationClientStubDispatch {
- public:
-  static bool Accept(AutomationClient* impl, mojo::Message* message);
-  static bool AcceptWithResponder(
-      AutomationClient* impl,
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
-};
-
-template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<AutomationClient>>
-class AutomationClientStub
-    : public mojo::MessageReceiverWithResponderStatus {
- public:
-  using ImplPointerType = typename ImplRefTraits::PointerType;
-
-  AutomationClientStub() = default;
-  ~AutomationClientStub() override = default;
-
-  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
-  ImplPointerType& sink() { return sink_; }
-
-  bool Accept(mojo::Message* message) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return AutomationClientStubDispatch::Accept(
-        ImplRefTraits::GetRawPointer(&sink_), message);
-  }
-
-  bool AcceptWithResponder(
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return AutomationClientStubDispatch::AcceptWithResponder(
-        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
-  }
-
- private:
-  ImplPointerType sink_;
-};
 class  AutomationRequestValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
-class  AutomationClientRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

@@ -12,6 +12,11 @@ import {
 } from '../../../../../mojo/public/mojom/base/byte_string.mojom.m.js';
 
 import {
+  TimeDelta as mojoBase_mojom_TimeDelta,
+  TimeDeltaSpec as mojoBase_mojom_TimeDeltaSpec
+} from '../../../../../mojo/public/mojom/base/time.mojom.m.js';
+
+import {
   Url as url_mojom_Url,
   UrlSpec as url_mojom_UrlSpec
 } from '../../../../../url/mojom/url.mojom.m.js';
@@ -43,9 +48,10 @@ export class LCPCriticalPathPredictorHostInterface {
   
   /**
    * @param { !mojoBase_mojom_ByteString } lcpElementLocator
+   * @param { ?number } predictedLcpIndex
    */
 
-  setLcpElementLocator(lcpElementLocator) {}
+  setLcpElementLocator(lcpElementLocator, predictedLcpIndex) {}
   
   /**
    * @param { !Array<!url_mojom_Url> } lcpInfluencerScripts
@@ -58,6 +64,13 @@ export class LCPCriticalPathPredictorHostInterface {
    */
 
   notifyFetchedFont(fontUrl) {}
+  
+  /**
+   * @param { !url_mojom_Url } subresourceUrl
+   * @param { !mojoBase_mojom_TimeDelta } subresourceLoadStart
+   */
+
+  notifyFetchedSubresource(subresourceUrl, subresourceLoadStart) {}
 }
 
 /**
@@ -86,16 +99,19 @@ export class LCPCriticalPathPredictorHostRemote {
   
   /**
    * @param { !mojoBase_mojom_ByteString } lcpElementLocator
+   * @param { ?number } predictedLcpIndex
    */
 
   setLcpElementLocator(
-      lcpElementLocator) {
+      lcpElementLocator,
+      predictedLcpIndex) {
     this.proxy.sendMessage(
         0,
         LCPCriticalPathPredictorHost_SetLcpElementLocator_ParamsSpec.$,
         null,
         [
-          lcpElementLocator
+          lcpElementLocator,
+          predictedLcpIndex
         ]);
   }
 
@@ -128,6 +144,25 @@ export class LCPCriticalPathPredictorHostRemote {
         null,
         [
           fontUrl
+        ]);
+  }
+
+  
+  /**
+   * @param { !url_mojom_Url } subresourceUrl
+   * @param { !mojoBase_mojom_TimeDelta } subresourceLoadStart
+   */
+
+  notifyFetchedSubresource(
+      subresourceUrl,
+      subresourceLoadStart) {
+    this.proxy.sendMessage(
+        3,
+        LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
+        null,
+        [
+          subresourceUrl,
+          subresourceLoadStart
         ]);
   }
 }
@@ -167,6 +202,11 @@ export class LCPCriticalPathPredictorHostReceiver {
         LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         impl.notifyFetchedFont.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
+        LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
+        null,
+        impl.notifyFetchedSubresource.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -249,6 +289,18 @@ export class LCPCriticalPathPredictorHostCallbackRouter {
         LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         this.notifyFetchedFont.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.notifyFetchedSubresource =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
+        LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
+        null,
+        this.notifyFetchedSubresource.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -284,6 +336,12 @@ export const LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_ParamsSpec 
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -350,8 +408,33 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'predicted_lcp_index_$flag', 8,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "predicted_lcp_index_$value",
+          originalFieldName: "predictedLcpIndex",
+        }
+      ),
+      mojo.internal.StructField(
+        'predicted_lcp_index_$value', 12,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "predictedLcpIndex",
+        }
+      ),
     ],
-    [[0, 16],]);
+    [[0, 24],]);
 
 
 
@@ -362,6 +445,8 @@ export class LCPCriticalPathPredictorHost_SetLcpElementLocator_Params {
   constructor() {
     /** @type { !mojoBase_mojom_ByteString } */
     this.lcpElementLocator;
+    /** @type { (number|undefined) } */
+    this.predictedLcpIndex;
   }
 }
 
@@ -420,6 +505,45 @@ export class LCPCriticalPathPredictorHost_NotifyFetchedFont_Params {
   constructor() {
     /** @type { !url_mojom_Url } */
     this.fontUrl;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
+    'LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params',
+    [
+      mojo.internal.StructField(
+        'subresourceUrl', 0,
+        0,
+        url_mojom_UrlSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'subresourceLoadStart', 8,
+        0,
+        mojoBase_mojom_TimeDeltaSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params {
+  constructor() {
+    /** @type { !url_mojom_Url } */
+    this.subresourceUrl;
+    /** @type { !mojoBase_mojom_TimeDelta } */
+    this.subresourceLoadStart;
   }
 }
 

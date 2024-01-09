@@ -15,6 +15,7 @@ namespace device::mojom {
 
 class  DeviceServiceInterceptorForTesting : public DeviceService {
   virtual DeviceService* GetForwardingInterface() = 0;
+  void BindDevicePostureProvider(::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> receiver) override;
   void BindFingerprint(::mojo::PendingReceiver<::device::mojom::Fingerprint> receiver) override;
   void BindGeolocationConfig(::mojo::PendingReceiver<::device::mojom::GeolocationConfig> receiver) override;
   void BindGeolocationContext(::mojo::PendingReceiver<::device::mojom::GeolocationContext> receiver) override;

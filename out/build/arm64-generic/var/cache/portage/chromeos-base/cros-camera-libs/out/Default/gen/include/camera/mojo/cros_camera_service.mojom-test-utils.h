@@ -15,14 +15,7 @@ namespace cros::mojom {
 
 class  CameraHalDispatcherInterceptorForTesting : public CameraHalDispatcher {
   virtual CameraHalDispatcher* GetForwardingInterface() = 0;
-  void RegisterServer(::mojo::PendingRemote<CameraHalServer> server) override;
-  void RegisterClient(::mojo::PendingRemote<CameraHalClient> client) override;
-  void GetMjpegDecodeAccelerator(::mojo::PendingReceiver<::cros::mojom::MjpegDecodeAccelerator> jda_receiver) override;
-  void GetJpegEncodeAccelerator(::mojo::PendingReceiver<::cros::mojom::JpegEncodeAccelerator> jea_receiver) override;
-  void RegisterServerWithToken(::mojo::PendingRemote<CameraHalServer> server, ::mojo_base::mojom::UnguessableTokenPtr auth_token, RegisterServerWithTokenCallback callback) override;
   void RegisterClientWithToken(::mojo::PendingRemote<CameraHalClient> client, CameraClientType type, ::mojo_base::mojom::UnguessableTokenPtr auth_token, RegisterClientWithTokenCallback callback) override;
-  void RegisterSensorClientWithToken(::mojo::PendingRemote<::cros::mojom::SensorHalClient> client, ::mojo_base::mojom::UnguessableTokenPtr auth_token, RegisterSensorClientWithTokenCallback callback) override;
-  void BindServiceToMojoServiceManager(const std::string& service_name, ::mojo::ScopedMessagePipeHandle receiver) override;
 };
 class  CameraHalDispatcherAsyncWaiter {
  public:
@@ -32,71 +25,12 @@ class  CameraHalDispatcherAsyncWaiter {
   CameraHalDispatcherAsyncWaiter& operator=(const CameraHalDispatcherAsyncWaiter&) = delete;
 
   ~CameraHalDispatcherAsyncWaiter();
-  void RegisterServerWithToken(
-      ::mojo::PendingRemote<CameraHalServer> server, ::mojo_base::mojom::UnguessableTokenPtr auth_token, int32_t* out_result, ::mojo::PendingRemote<CameraHalServerCallbacks>* out_callbacks);
-  
   void RegisterClientWithToken(
       ::mojo::PendingRemote<CameraHalClient> client, CameraClientType type, ::mojo_base::mojom::UnguessableTokenPtr auth_token, int32_t* out_result);
   int32_t RegisterClientWithToken(::mojo::PendingRemote<CameraHalClient> client, CameraClientType type, ::mojo_base::mojom::UnguessableTokenPtr auth_token);
-  void RegisterSensorClientWithToken(
-      ::mojo::PendingRemote<::cros::mojom::SensorHalClient> client, ::mojo_base::mojom::UnguessableTokenPtr auth_token, int32_t* out_result);
-  int32_t RegisterSensorClientWithToken(::mojo::PendingRemote<::cros::mojom::SensorHalClient> client, ::mojo_base::mojom::UnguessableTokenPtr auth_token);
 
  private:
   CameraHalDispatcher* const proxy_;
-};
-
-
-class  CameraHalServerInterceptorForTesting : public CameraHalServer {
-  virtual CameraHalServer* GetForwardingInterface() = 0;
-  void CreateChannel(::mojo::PendingReceiver<::cros::mojom::CameraModule> camera_module_receiver, CameraClientType type) override;
-  void SetTracingEnabled(bool enabled) override;
-  void SetAutoFramingState(CameraAutoFramingState state) override;
-  void GetCameraSWPrivacySwitchState(GetCameraSWPrivacySwitchStateCallback callback) override;
-  void SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) override;
-  void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) override;
-  void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) override;
-};
-class  CameraHalServerAsyncWaiter {
- public:
-  explicit CameraHalServerAsyncWaiter(CameraHalServer* proxy);
-
-  CameraHalServerAsyncWaiter(const CameraHalServerAsyncWaiter&) = delete;
-  CameraHalServerAsyncWaiter& operator=(const CameraHalServerAsyncWaiter&) = delete;
-
-  ~CameraHalServerAsyncWaiter();
-  void GetCameraSWPrivacySwitchState(
-      CameraPrivacySwitchState* out_state);
-  CameraPrivacySwitchState GetCameraSWPrivacySwitchState();
-  void GetAutoFramingSupported(
-      bool* out_supported);
-  bool GetAutoFramingSupported();
-  void SetCameraEffect(
-      ::cros::mojom::EffectsConfigPtr config, SetEffectResult* out_result);
-  SetEffectResult SetCameraEffect(::cros::mojom::EffectsConfigPtr config);
-
- private:
-  CameraHalServer* const proxy_;
-};
-
-
-class  CameraHalServerCallbacksInterceptorForTesting : public CameraHalServerCallbacks {
-  virtual CameraHalServerCallbacks* GetForwardingInterface() = 0;
-  void CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) override;
-  void CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) override;
-  void CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) override;
-};
-class  CameraHalServerCallbacksAsyncWaiter {
- public:
-  explicit CameraHalServerCallbacksAsyncWaiter(CameraHalServerCallbacks* proxy);
-
-  CameraHalServerCallbacksAsyncWaiter(const CameraHalServerCallbacksAsyncWaiter&) = delete;
-  CameraHalServerCallbacksAsyncWaiter& operator=(const CameraHalServerCallbacksAsyncWaiter&) = delete;
-
-  ~CameraHalServerCallbacksAsyncWaiter();
-
- private:
-  CameraHalServerCallbacks* const proxy_;
 };
 
 

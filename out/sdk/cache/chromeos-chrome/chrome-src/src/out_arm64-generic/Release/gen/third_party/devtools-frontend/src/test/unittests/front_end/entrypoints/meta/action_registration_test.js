@@ -45,12 +45,22 @@ describeWithEnvironment('Action registration', () => {
         UI.ShortcutRegistry.ShortcutRegistry.removeInstance();
         UI.Context.Context.instance().setFlavor(MockContextType, null);
     });
-    it('retrieves a registered action', () => {
-        const preRegisteredAction = UI.ActionRegistry.ActionRegistry.instance().action(actionId);
-        assert.isNotNull(preRegisteredAction, 'Failed to find action registration');
-        if (preRegisteredAction) {
+    describe('hasAction', () => {
+        it('yields true for a registered action', () => {
+            assert.isTrue(UI.ActionRegistry.ActionRegistry.instance().hasAction(actionId));
+        });
+        it('yields false for an unknown action', () => {
+            assert.isFalse(UI.ActionRegistry.ActionRegistry.instance().hasAction('foo'));
+        });
+    });
+    describe('getAction', () => {
+        it('retrieves a registered action', () => {
+            const preRegisteredAction = UI.ActionRegistry.ActionRegistry.instance().getAction(actionId);
             assert.strictEqual(preRegisteredAction.title(), actionTitle, 'Action title is not returned correctly');
-        }
+        });
+        it('throws for unknown actions', () => {
+            assert.throws(() => UI.ActionRegistry.ActionRegistry.instance().getAction('foo'));
+        });
     });
     it('finds a pre registered action as available when its context types are in the current context flavors', () => {
         const availableActions = UI.ActionRegistry.ActionRegistry.instance().availableActions().map(action => action.id());
@@ -58,11 +68,9 @@ describeWithEnvironment('Action registration', () => {
     });
     it('executes a pre registered action', async () => {
         actionExecuted = false;
-        const preRegisteredAction = UI.ActionRegistry.ActionRegistry.instance().action(actionId);
-        if (preRegisteredAction) {
-            await preRegisteredAction.execute();
-            assert.isTrue(actionExecuted, 'Action was not executed');
-        }
+        const preRegisteredAction = UI.ActionRegistry.ActionRegistry.instance().getAction(actionId);
+        await preRegisteredAction.execute();
+        assert.isTrue(actionExecuted, 'Action was not executed');
     });
     it('executes a pre registered from the command menu', async () => {
         actionExecuted = false;

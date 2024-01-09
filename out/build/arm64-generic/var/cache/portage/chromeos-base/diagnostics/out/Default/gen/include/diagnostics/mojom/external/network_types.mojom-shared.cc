@@ -86,6 +86,30 @@ std::ostream& operator<<(std::ostream& os, DeviceStateType value) {
   return os << DeviceStateTypeToString(value);
 }
 
+NOINLINE static const char* IPConfigTypeToStringHelper(IPConfigType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case IPConfigType::kIPv4:
+      return "kIPv4";
+    case IPConfigType::kIPv6:
+      return "kIPv6";
+    default:
+      return nullptr;
+  }
+}
+
+std::string IPConfigTypeToString(IPConfigType value) {
+  const char *str = IPConfigTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown IPConfigType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, IPConfigType value) {
+  return os << IPConfigTypeToString(value);
+}
+
 NOINLINE static const char* NetworkTypeToStringHelper(NetworkType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -239,6 +263,16 @@ namespace perfetto {
 void TraceFormatTraits<::chromeos::network_config::mojom::DeviceStateType>::WriteIntoTrace(
    perfetto::TracedValue context, ::chromeos::network_config::mojom::DeviceStateType value) {
   return std::move(context).WriteString(::chromeos::network_config::mojom::DeviceStateTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::chromeos::network_config::mojom::IPConfigType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::chromeos::network_config::mojom::IPConfigType value) {
+  return std::move(context).WriteString(::chromeos::network_config::mojom::IPConfigTypeToString(value));
 }
 
 } // namespace perfetto

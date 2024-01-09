@@ -187,6 +187,23 @@ class  ChromeRenderFrame_LoadBlockedPlugins_Params_Data {
 };
 static_assert(sizeof(ChromeRenderFrame_LoadBlockedPlugins_Params_Data) == 16,
               "Bad sizeof(ChromeRenderFrame_LoadBlockedPlugins_Params_Data)");
+class  ChromeRenderFrame_SetSupportsAppRegion_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t supports_app_region : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<ChromeRenderFrame_SetSupportsAppRegion_Params_Data>;
+
+  ChromeRenderFrame_SetSupportsAppRegion_Params_Data();
+  ~ChromeRenderFrame_SetSupportsAppRegion_Params_Data() = delete;
+};
+static_assert(sizeof(ChromeRenderFrame_SetSupportsAppRegion_Params_Data) == 16,
+              "Bad sizeof(ChromeRenderFrame_SetSupportsAppRegion_Params_Data)");
 
 }  // namespace internal
 
@@ -493,6 +510,24 @@ class ChromeRenderFrame_LoadBlockedPlugins_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class ChromeRenderFrame_SetSupportsAppRegion_ParamsDataView {
+ public:
+  ChromeRenderFrame_SetSupportsAppRegion_ParamsDataView() = default;
+
+  ChromeRenderFrame_SetSupportsAppRegion_ParamsDataView(
+      internal::ChromeRenderFrame_SetSupportsAppRegion_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool supports_app_region() const {
+    return data_->supports_app_region;
+  }
+ private:
+  internal::ChromeRenderFrame_SetSupportsAppRegion_Params_Data* data_ = nullptr;
+};
+
 inline void ChromeRenderFrame_SetWindowFeatures_ParamsDataView::GetWindowFeaturesDataView(
     ::blink::mojom::WindowFeaturesDataView* output) {
   auto pointer = data_->window_features.Get();
@@ -566,6 +601,8 @@ inline void ChromeRenderFrame_LoadBlockedPlugins_ParamsDataView::GetIdentifierDa
   auto pointer = data_->identifier.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 
 

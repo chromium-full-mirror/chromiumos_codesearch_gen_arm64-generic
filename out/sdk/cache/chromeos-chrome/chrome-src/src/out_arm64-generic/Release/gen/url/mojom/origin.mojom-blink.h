@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "url/mojom/origin.mojom-features.h"
 #include "url/mojom/origin.mojom-shared.h"
 #include "url/mojom/origin.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -79,7 +80,7 @@ class  Origin {
       const WTF::String& scheme,
       const WTF::String& host,
       uint16_t port,
-      const absl::optional<::base::UnguessableToken>& nonce_if_opaque);
+      const std::optional<::base::UnguessableToken>& nonce_if_opaque);
 
 
   ~Origin();
@@ -163,7 +164,7 @@ class  Origin {
   
   uint16_t port;
   
-  absl::optional<::base::UnguessableToken> nonce_if_opaque;
+  std::optional<::base::UnguessableToken> nonce_if_opaque;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

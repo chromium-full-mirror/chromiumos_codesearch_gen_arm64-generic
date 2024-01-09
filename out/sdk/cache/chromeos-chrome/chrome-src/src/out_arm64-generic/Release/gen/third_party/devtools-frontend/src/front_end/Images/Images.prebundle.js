@@ -1,5 +1,5 @@
 
-// Copyright 2023 The Chromium Authors. All rights reserved.
+// Copyright 2024 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 const sheet = new CSSStyleSheet();
@@ -100,6 +100,7 @@ style.setProperty('--image-file-dock-left', 'url(\"' + new URL('./src/dock-left.
 style.setProperty('--image-file-dock-right', 'url(\"' + new URL('./src/dock-right.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-dock-window', 'url(\"' + new URL('./src/dock-window.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-document', 'url(\"' + new URL('./src/document.svg', import.meta.url).toString() + '\")');
+style.setProperty('--image-file-dog-paw', 'url(\"' + new URL('./src/dog-paw.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-dots-horizontal', 'url(\"' + new URL('./src/dots-horizontal.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-dots-vertical', 'url(\"' + new URL('./src/dots-vertical.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-download', 'url(\"' + new URL('./src/download.svg', import.meta.url).toString() + '\")');
@@ -109,6 +110,7 @@ style.setProperty('--image-file-errorWave', 'url(\"' + new URL('./src/errorWave.
 style.setProperty('--image-file-exclamation', 'url(\"' + new URL('./src/exclamation.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-experiment-check', 'url(\"' + new URL('./src/experiment-check.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-experiment', 'url(\"' + new URL('./src/experiment.svg', import.meta.url).toString() + '\")');
+style.setProperty('--image-file-extension', 'url(\"' + new URL('./src/extension.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-eye', 'url(\"' + new URL('./src/eye.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-file-document', 'url(\"' + new URL('./src/file-document.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-file-fetch-xhr', 'url(\"' + new URL('./src/file-fetch-xhr.svg', import.meta.url).toString() + '\")');
@@ -169,10 +171,12 @@ style.setProperty('--image-file-left-panel-close', 'url(\"' + new URL('./src/lef
 style.setProperty('--image-file-left-panel-open', 'url(\"' + new URL('./src/left-panel-open.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-lighthouse_logo', 'url(\"' + new URL('./src/lighthouse_logo.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-list', 'url(\"' + new URL('./src/list.svg', import.meta.url).toString() + '\")');
+style.setProperty('--image-file-match-whole-word', 'url(\"' + new URL('./src/match-whole-word.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-mediumIcons', 'url(\"' + new URL('./src/mediumIcons.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-memory', 'url(\"' + new URL('./src/memory.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-minus', 'url(\"' + new URL('./src/minus.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-minus_icon', 'url(\"' + new URL('./src/minus_icon.svg', import.meta.url).toString() + '\")');
+style.setProperty('--image-file-mop', 'url(\"' + new URL('./src/mop.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-mouse', 'url(\"' + new URL('./src/mouse.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-network-settings', 'url(\"' + new URL('./src/network-settings.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-node_search_icon', 'url(\"' + new URL('./src/node_search_icon.svg', import.meta.url).toString() + '\")');
@@ -208,6 +212,8 @@ style.setProperty('--image-file-shadow', 'url(\"' + new URL('./src/shadow.svg', 
 style.setProperty('--image-file-small-status-dot', 'url(\"' + new URL('./src/small-status-dot.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-smallIcons', 'url(\"' + new URL('./src/smallIcons.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-snippet', 'url(\"' + new URL('./src/snippet.svg', import.meta.url).toString() + '\")');
+style.setProperty('--image-file-spark-info', 'url(\"' + new URL('./src/spark-info.svg', import.meta.url).toString() + '\")');
+style.setProperty('--image-file-spark', 'url(\"' + new URL('./src/spark.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-star', 'url(\"' + new URL('./src/star.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-step-into', 'url(\"' + new URL('./src/step-into.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-step-out', 'url(\"' + new URL('./src/step-out.svg', import.meta.url).toString() + '\")');
@@ -230,7 +236,6 @@ style.setProperty('--image-file-triangle-up', 'url(\"' + new URL('./src/triangle
 style.setProperty('--image-file-undo', 'url(\"' + new URL('./src/undo.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-warning-filled', 'url(\"' + new URL('./src/warning-filled.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-warning', 'url(\"' + new URL('./src/warning.svg', import.meta.url).toString() + '\")');
-style.setProperty('--image-file-warning_icon', 'url(\"' + new URL('./src/warning_icon.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-watch', 'url(\"' + new URL('./src/watch.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-width', 'url(\"' + new URL('./src/width.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-zoom-in', 'url(\"' + new URL('./src/zoom-in.svg', import.meta.url).toString() + '\")');

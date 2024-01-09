@@ -99,30 +99,32 @@ std::ostream& operator<<(std::ostream& os, SpeculationEagerness value) {
   return os << SpeculationEagernessToString(value);
 }
 
-NOINLINE static const char* SpeculationInjectionWorldToStringHelper(SpeculationInjectionWorld value) {
+NOINLINE static const char* SpeculationInjectionTypeToStringHelper(SpeculationInjectionType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case SpeculationInjectionWorld::kNone:
+    case SpeculationInjectionType::kNone:
       return "kNone";
-    case SpeculationInjectionWorld::kMain:
-      return "kMain";
-    case SpeculationInjectionWorld::kIsolated:
-      return "kIsolated";
+    case SpeculationInjectionType::kMainWorldScript:
+      return "kMainWorldScript";
+    case SpeculationInjectionType::kIsolatedWorldScript:
+      return "kIsolatedWorldScript";
+    case SpeculationInjectionType::kAutoSpeculationRules:
+      return "kAutoSpeculationRules";
     default:
       return nullptr;
   }
 }
 
-std::string SpeculationInjectionWorldToString(SpeculationInjectionWorld value) {
-  const char *str = SpeculationInjectionWorldToStringHelper(value);
+std::string SpeculationInjectionTypeToString(SpeculationInjectionType value) {
+  const char *str = SpeculationInjectionTypeToStringHelper(value);
   if (!str) {
-    return base::StringPrintf("Unknown SpeculationInjectionWorld value: %i", static_cast<int32_t>(value));
+    return base::StringPrintf("Unknown SpeculationInjectionType value: %i", static_cast<int32_t>(value));
   }
   return str;
 }
 
-std::ostream& operator<<(std::ostream& os, SpeculationInjectionWorld value) {
-  return os << SpeculationInjectionWorldToString(value);
+std::ostream& operator<<(std::ostream& os, SpeculationInjectionType value) {
+  return os << SpeculationInjectionTypeToString(value);
 }
 
 namespace internal {
@@ -177,8 +179,8 @@ bool SpeculationCandidate_Data::Validate(
     return false;
 
 
-  if (!::blink::mojom::internal::SpeculationInjectionWorld_Data
-        ::Validate(object->injection_world, validation_context))
+  if (!::blink::mojom::internal::SpeculationInjectionType_Data
+        ::Validate(object->injection_type, validation_context))
     return false;
 
   return true;
@@ -311,9 +313,9 @@ void TraceFormatTraits<::blink::mojom::SpeculationEagerness>::WriteIntoTrace(
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::blink::mojom::SpeculationInjectionWorld>::WriteIntoTrace(
-   perfetto::TracedValue context, ::blink::mojom::SpeculationInjectionWorld value) {
-  return std::move(context).WriteString(::blink::mojom::SpeculationInjectionWorldToString(value));
+void TraceFormatTraits<::blink::mojom::SpeculationInjectionType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::SpeculationInjectionType value) {
+  return std::move(context).WriteString(::blink::mojom::SpeculationInjectionTypeToString(value));
 }
 
 } // namespace perfetto

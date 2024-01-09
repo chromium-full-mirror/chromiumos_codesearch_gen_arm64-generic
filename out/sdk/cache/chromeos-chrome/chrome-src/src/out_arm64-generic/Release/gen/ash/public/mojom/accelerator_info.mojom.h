@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/public/mojom/accelerator_info.mojom-features.h"
 #include "ash/public/mojom/accelerator_info.mojom-shared.h"
 #include "ash/public/mojom/accelerator_info.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -67,17 +68,17 @@ class  LayoutStyleProperties {
   // Construct an instance holding |standard_accelerator|.
   static LayoutStylePropertiesPtr
   NewStandardAccelerator(
-      StandardAcceleratorPropertiesPtr standard_accelerator) {
+      StandardAcceleratorPropertiesPtr value) {
     auto result = LayoutStylePropertiesPtr(absl::in_place);
-    result->set_standard_accelerator(std::move(standard_accelerator));
+    result->set_standard_accelerator(std::move(value));
     return result;
   }
   // Construct an instance holding |text_accelerator|.
   static LayoutStylePropertiesPtr
   NewTextAccelerator(
-      TextAcceleratorPropertiesPtr text_accelerator) {
+      TextAcceleratorPropertiesPtr value) {
     auto result = LayoutStylePropertiesPtr(absl::in_place);
-    result->set_text_accelerator(std::move(text_accelerator));
+    result->set_text_accelerator(std::move(value));
     return result;
   }
 
@@ -494,7 +495,7 @@ class  StandardAcceleratorProperties {
   StandardAcceleratorProperties(
       const ::ui::Accelerator& accelerator,
       const ::std::u16string& key_display,
-      const absl::optional<::ui::Accelerator>& original_accelerator);
+      const std::optional<::ui::Accelerator>& original_accelerator);
 
 
   ~StandardAcceleratorProperties();
@@ -576,7 +577,7 @@ class  StandardAcceleratorProperties {
   
   ::std::u16string key_display;
   
-  absl::optional<::ui::Accelerator> original_accelerator;
+  std::optional<::ui::Accelerator> original_accelerator;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 export class FeedSidePanelHandlerFactoryPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -12,6 +13,9 @@ export class FeedSidePanelHandlerFactoryPendingReceiver {
     }
 }
 export class FeedSidePanelHandlerFactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(FeedSidePanelHandlerFactoryPendingReceiver, handle);
@@ -32,6 +36,9 @@ export class FeedSidePanelHandlerFactoryRemote {
  * interface.
  */
 export class FeedSidePanelHandlerFactoryReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FeedSidePanelHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -61,6 +68,11 @@ export class FeedSidePanelHandlerFactory {
  * receiver can have any number of listeners added to it.
  */
 export class FeedSidePanelHandlerFactoryCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    createFeedSidePanelHandler;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FeedSidePanelHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -79,6 +91,7 @@ export class FeedSidePanelHandlerFactoryCallbackRouter {
     }
 }
 export class FeedSidePanelHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -87,6 +100,9 @@ export class FeedSidePanelHandlerPendingReceiver {
     }
 }
 export class FeedSidePanelHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(FeedSidePanelHandlerPendingReceiver, handle);
@@ -104,6 +120,9 @@ export class FeedSidePanelHandlerRemote {
  * interface.
  */
 export class FeedSidePanelHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FeedSidePanelHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -133,6 +152,11 @@ export class FeedSidePanelHandler {
  * receiver can have any number of listeners added to it.
  */
 export class FeedSidePanelHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    doSomething;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FeedSidePanelHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -151,6 +175,7 @@ export class FeedSidePanelHandlerCallbackRouter {
     }
 }
 export class FeedSidePanelPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -159,6 +184,9 @@ export class FeedSidePanelPendingReceiver {
     }
 }
 export class FeedSidePanelRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(FeedSidePanelPendingReceiver, handle);
@@ -178,6 +206,9 @@ export class FeedSidePanelRemote {
  * interface.
  */
 export class FeedSidePanelReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FeedSidePanelRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -207,6 +238,11 @@ export class FeedSidePanel {
  * receiver can have any number of listeners added to it.
  */
 export class FeedSidePanelCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onEventOccurred;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(FeedSidePanelRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

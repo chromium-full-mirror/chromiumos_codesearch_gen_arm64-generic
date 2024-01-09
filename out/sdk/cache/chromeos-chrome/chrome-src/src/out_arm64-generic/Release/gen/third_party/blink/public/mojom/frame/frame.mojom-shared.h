@@ -25,6 +25,7 @@
 
 #include "third_party/blink/public/mojom/frame/frame.mojom-shared-internal.h"
 #include "cc/mojom/browser_controls_state.mojom-shared.h"
+#include "mojo/public/mojom/base/byte_string.mojom-shared.h"
 #include "mojo/public/mojom/base/shared_memory.mojom-shared.h"
 #include "mojo/public/mojom/base/string16.mojom-shared.h"
 #include "mojo/public/mojom/base/text_direction.mojom-shared.h"
@@ -80,7 +81,6 @@
 #include "third_party/blink/public/mojom/navigation/navigation_api_history_entry_arrays.mojom-shared.h"
 #include "third_party/blink/public/mojom/opengraph/metadata.mojom-shared.h"
 #include "third_party/blink/public/mojom/page/widget.mojom-shared.h"
-#include "third_party/blink/public/mojom/portal/portal.mojom-shared.h"
 #include "third_party/blink/public/mojom/scroll/scroll_into_view_params.mojom-shared.h"
 #include "third_party/blink/public/mojom/security_context/insecure_request_policy.mojom-shared.h"
 #include "third_party/blink/public/mojom/timing/resource_timing.mojom-shared.h"
@@ -92,6 +92,7 @@
 #include "ui/base/mojom/window_open_disposition.mojom-shared.h"
 #include "ui/events/mojom/scroll_granularity.mojom-shared.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
+#include "ui/gfx/image/mojom/image.mojom-shared.h"
 #include "ui/gfx/range/mojom/range.mojom-shared.h"
 #include "url/mojom/origin.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
@@ -251,16 +252,32 @@ enum class FrameOwnerElementType : int32_t {
   
   kFrame = 4,
   
-  kPortal = 5,
-  
-  kFencedframe = 6,
+  kFencedframe = 5,
   kMinValue = 0,
-  kMaxValue = 6,
+  kMaxValue = 5,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, FrameOwnerElementType value);
 inline bool IsKnownEnumValue(FrameOwnerElementType value) {
   return internal::FrameOwnerElementType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class NavigationApiEntryRestoreReason : int32_t {
+  
+  kBFCache = 0,
+  
+  kPrerenderActivationPush = 1,
+  
+  kPrerenderActivationReplace = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, NavigationApiEntryRestoreReason value);
+inline bool IsKnownEnumValue(NavigationApiEntryRestoreReason value) {
+  return internal::NavigationApiEntryRestoreReason_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
@@ -597,8 +614,11 @@ static_assert(
   bool browsing_topics() const {
     return data_->browsing_topics;
   }
-  bool shared_storage_writable() const {
-    return data_->shared_storage_writable;
+  bool ad_auction_headers() const {
+    return data_->ad_auction_headers;
+  }
+  bool shared_storage_writable_opted_in() const {
+    return data_->shared_storage_writable_opted_in;
   }
   inline void GetIdDataView(
       mojo::StringDataView* output);
@@ -722,6 +742,10 @@ template <>
 struct hash<::blink::mojom::FrameOwnerElementType>
     : public mojo::internal::EnumHashImpl<::blink::mojom::FrameOwnerElementType> {};
 
+template <>
+struct hash<::blink::mojom::NavigationApiEntryRestoreReason>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::NavigationApiEntryRestoreReason> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -821,6 +845,26 @@ struct Serializer<::blink::mojom::FrameOwnerElementType, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::blink::mojom::FrameOwnerElementType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::NavigationApiEntryRestoreReason, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::NavigationApiEntryRestoreReason, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::NavigationApiEntryRestoreReason>(input)), output);
   }
 };
 
@@ -1080,7 +1124,8 @@ struct Serializer<::blink::mojom::IframeAttributesDataView, MaybeConstUserType> 
         parsed_csp_attribute_fragment.is_null() ? nullptr : parsed_csp_attribute_fragment.data());
     fragment->credentialless = Traits::credentialless(input);
     fragment->browsing_topics = Traits::browsing_topics(input);
-    fragment->shared_storage_writable = Traits::shared_storage_writable(input);
+    fragment->ad_auction_headers = Traits::ad_auction_headers(input);
+    fragment->shared_storage_writable_opted_in = Traits::shared_storage_writable_opted_in(input);
     decltype(Traits::id(input)) in_id = Traits::id(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->id)::BaseType> id_fragment(
@@ -1297,6 +1342,15 @@ namespace perfetto {
 template <>
 struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::FrameOwnerElementType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::FrameOwnerElementType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::NavigationApiEntryRestoreReason> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::NavigationApiEntryRestoreReason value);
 };
 
 } // namespace perfetto

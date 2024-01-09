@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/proxy_resolving_socket.mojom-features.h"
 #include "services/network/public/mojom/proxy_resolving_socket.mojom-shared.h"
 #include "services/network/public/mojom/proxy_resolving_socket.mojom-forward.h"
 #include "services/network/public/mojom/ip_endpoint.mojom.h"
@@ -137,7 +138,7 @@ class ProxyResolvingSocketFactory
   virtual ~ProxyResolvingSocketFactory() = default;
 
 
-  using CreateProxyResolvingSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&, const absl::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
+  using CreateProxyResolvingSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&, const std::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
   
   virtual void CreateProxyResolvingSocket(const ::GURL& url, const ::net::NetworkAnonymizationKey& network_anonymization_key, ProxyResolvingSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<ProxyResolvingSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, CreateProxyResolvingSocketCallback callback) = 0;
 };

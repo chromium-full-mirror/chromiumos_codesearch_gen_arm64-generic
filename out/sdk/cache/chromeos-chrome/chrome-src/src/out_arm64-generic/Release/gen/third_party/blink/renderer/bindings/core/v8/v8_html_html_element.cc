@@ -14,11 +14,9 @@
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_dom_token_list.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_constructor.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
-#include "third_party/blink/renderer/core/dom/dom_token_list.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/core/html/html_html_element.h"
 #include "third_party/blink/renderer/core/html_names.h"
@@ -73,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLHtmlElement>::value,
     "HTMLHtmlElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLHtmlElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLHtmlElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLHtmlElement.version.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLHtmlElement* blink_receiver = V8HTMLHtmlElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kVersionAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLHtmlElement* blink_receiver = V8HTMLHtmlElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kVersionAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,55 +98,6 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLHtmlElement.version.set");
 const char* const class_like_name = "HTMLHtmlElement";
 const char* const property_name = "version";
 bindings::PerformAttributeSetCEReactionsReflectTypeString(info, html_names::kVersionAttr, class_like_name, property_name);
-}
-
-void BlockingAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLHtmlElement_blocking_Getter");
-BLINK_BINDINGS_TRACE_EVENT("HTMLHtmlElement.blocking.get");
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLHtmlElement* blink_receiver = V8HTMLHtmlElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->blocking();
-bindings::V8SetReturnValue(info, return_value, blink_receiver);
-}
-
-void BlockingAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLHtmlElement_blocking_Setter");
-BLINK_BINDINGS_TRACE_EVENT("HTMLHtmlElement.blocking.set");
-
-v8::Isolate* isolate = info.GetIsolate();
-const char* const property_name = "blocking";
-if (UNLIKELY(info.Length() < 1)) {
-  const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
-const char* const class_like_name = "HTMLHtmlElement";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-// [PutForwards]
-v8::Local<v8::Value> target;
-v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-if (!v8_receiver->Get(current_context, V8AtomicString(isolate, property_name)).ToLocal(&target)) {
-  return;
-}
-if (!target->IsObject()) {
-  const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
-const char* const class_like_name = "HTMLHtmlElement";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-exception_state.ThrowTypeError("The attribute value is not an object");
-return;
-}
-bool did_set;
-v8::Local<v8::Value> v8_property_value = info[0];
-if (!target.As<v8::Object>()->Set(current_context, V8AtomicString(isolate, "value"), v8_property_value).To(&did_set)) {{
-  return;
-}}
 }
 
 void ConstructorCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -206,7 +150,6 @@ interface_function_template->SetLength(0);
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
-InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8HTMLHtmlElement::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -229,24 +172,6 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 
 }
 
-void V8HTMLHtmlElement::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
-  using bindings::IDLMemberInstaller;
-
-if (RuntimeEnabledFeatures::DocumentRenderBlockingEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"blocking", BlockingAttributeGetCallback, BlockingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
-
-
-
-
-
-
-}
 
 
 

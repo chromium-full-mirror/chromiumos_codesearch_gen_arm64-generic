@@ -77,8 +77,16 @@ return dictionary;
 
 
 
+
+
+
+
+
+
+
 void GPURenderPassColorAttachment::Trace(Visitor* visitor) const {
   TraceIfNeeded<Member<V8UnionDoubleSequenceOrGPUColorDict>>::Trace(visitor, member_clear_value_);
+TraceIfNeeded<uint32_t>::Trace(visitor, member_depth_slice_);
 TraceIfNeeded<V8GPULoadOp>::Trace(visitor, member_load_op_);
 TraceIfNeeded<Member<GPUTextureView>>::Trace(visitor, member_resolve_target_);
 TraceIfNeeded<V8GPUStoreOp>::Trace(visitor, member_store_op_);
@@ -100,11 +108,19 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].G
   return false;
 }
 }
+if (hasDepthSlice()) {
+  if (!ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_depth_slice_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
 if (hasLoadOp()) {
   if (!ToV8Traits<V8GPULoadOp>::ToV8(script_state, member_load_op_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -112,7 +128,7 @@ if (hasResolveTarget()) {
   if (!ToV8Traits<GPUTextureView>::ToV8(script_state, member_resolve_target_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -120,7 +136,7 @@ if (hasStoreOp()) {
   if (!ToV8Traits<V8GPUStoreOp>::ToV8(script_state, member_store_op_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -128,7 +144,7 @@ if (hasView()) {
   if (!ToV8Traits<GPUTextureView>::ToV8(script_state, member_view_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -146,22 +162,26 @@ v8::TryCatch try_block(isolate);
 if (!bindings::GetDictionaryMemberFromV8Object<V8UnionDoubleSequenceOrGPUColorDict, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_clear_value_, member_clear_value_, try_block, exception_state)) {
   return;
 }
+exception_context_scope.ChangePropertyNameAsOptimizationHack("depthSlice");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLongEnforceRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_depth_slice_, member_depth_slice_, try_block, exception_state)) {
+  return;
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("loadOp");
 constexpr bool is_required = true;
 bool fallback_presence_var;
-if (!bindings::GetDictionaryMemberFromV8Object<V8GPULoadOp, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_load_op_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8GPULoadOp, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_load_op_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("resolveTarget");
-if (!bindings::GetDictionaryMemberFromV8Object<GPUTextureView, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_resolve_target_, member_resolve_target_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<GPUTextureView, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_resolve_target_, member_resolve_target_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("storeOp");
-if (!bindings::GetDictionaryMemberFromV8Object<V8GPUStoreOp, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_store_op_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8GPUStoreOp, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), fallback_presence_var, member_store_op_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("view");
-if (!bindings::GetDictionaryMemberFromV8Object<GPUTextureView, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), fallback_presence_var, member_view_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<GPUTextureView, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), fallback_presence_var, member_view_, try_block, exception_state)) {
   return;
 }
 }
@@ -169,6 +189,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<GPUTextureView, is_required>(isol
 const base::span<const v8::Eternal<v8::Name>> GPURenderPassColorAttachment::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
 "clearValue",
+"depthSlice",
 "loadOp",
 "resolveTarget",
 "storeOp",

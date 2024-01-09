@@ -1736,6 +1736,14 @@ goog.provide('mediaSession.mojom.MediaImageSpec');
 mediaSession.mojom.MediaImageSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('mediaSession.mojom.ChapterInformationSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+mediaSession.mojom.ChapterInformationSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('mediaSession.mojom.MediaMetadataSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -2111,6 +2119,55 @@ mediaSession.mojom.MediaImage = class {
     this.type;
     /** @export { !Array<!gfx.mojom.Size> } */
     this.sizes;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    mediaSession.mojom.ChapterInformationSpec.$,
+    'ChapterInformation',
+    [
+      mojo.internal.StructField(
+        'title', 0,
+        0,
+        mojoBase.mojom.String16Spec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'startTime', 8,
+        0,
+        mojoBase.mojom.TimeDeltaSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'artwork', 16,
+        0,
+        mojo.internal.Array(mediaSession.mojom.MediaImageSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+goog.provide('mediaSession.mojom.ChapterInformation');
+
+/** @record */
+mediaSession.mojom.ChapterInformation = class {
+  constructor() {
+    /** @export { !mojoBase.mojom.String16 } */
+    this.title;
+    /** @export { !mojoBase.mojom.TimeDelta } */
+    this.startTime;
+    /** @export { !Array<!mediaSession.mojom.MediaImage> } */
+    this.artwork;
   }
 };
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -319,14 +320,17 @@ void CompanionPageHandlerFactoryProxy::CreateCompanionPageHandler(
                         "<value of type ::mojo::PendingRemote<CompanionPage>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandlerFactory_CreateCompanionPageHandler_Name, kFlags, 0, 0, nullptr);
@@ -414,10 +418,10 @@ bool CompanionPageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCompanionPageHandlerFactoryValidationInfo[] = {
-    {&internal::CompanionPageHandlerFactory_CreateCompanionPageHandler_Params_Data::Validate,
+    { &internal::CompanionPageHandlerFactory_CreateCompanionPageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -470,6 +474,9 @@ CompanionPageHandler::IPCStableHashFunction CompanionPageHandler::MessageToMetho
     case internal::kCompanionPageHandler_RefreshCompanionPage_Name: {
       return &CompanionPageHandler::RefreshCompanionPage_Sym::IPCStableHash;
     }
+    case internal::kCompanionPageHandler_OnServerSideUrlFilterEvent_Name: {
+      return &CompanionPageHandler::OnServerSideUrlFilterEvent_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -507,6 +514,8 @@ const char* CompanionPageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive side_panel::mojom::CompanionPageHandler::OnLoadingState";
       case internal::kCompanionPageHandler_RefreshCompanionPage_Name:
             return "Receive side_panel::mojom::CompanionPageHandler::RefreshCompanionPage";
+      case internal::kCompanionPageHandler_OnServerSideUrlFilterEvent_Name:
+            return "Receive side_panel::mojom::CompanionPageHandler::OnServerSideUrlFilterEvent";
     }
   } else {
     switch (message.name()) {
@@ -536,6 +545,8 @@ const char* CompanionPageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply side_panel::mojom::CompanionPageHandler::OnLoadingState";
       case internal::kCompanionPageHandler_RefreshCompanionPage_Name:
             return "Receive reply side_panel::mojom::CompanionPageHandler::RefreshCompanionPage";
+      case internal::kCompanionPageHandler_OnServerSideUrlFilterEvent_Name:
+            return "Receive reply side_panel::mojom::CompanionPageHandler::OnServerSideUrlFilterEvent";
     }
   }
   return "Receive unknown mojo message";
@@ -719,6 +730,19 @@ uint32_t CompanionPageHandler::RefreshCompanionPage_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t CompanionPageHandler::OnServerSideUrlFilterEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)side_panel::mojom::CompanionPageHandler::OnServerSideUrlFilterEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 CompanionPageHandlerProxy::CompanionPageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -730,14 +754,17 @@ void CompanionPageHandlerProxy::ShowUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CompanionPageHandler::ShowUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_ShowUI_Name, kFlags, 0, 0, nullptr);
@@ -770,14 +797,17 @@ void CompanionPageHandlerProxy::OnPromoAction(
                         "<value of type PromoAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_OnPromoAction_Name, kFlags, 0, 0, nullptr);
@@ -804,14 +834,17 @@ void CompanionPageHandlerProxy::OnRegionSearchClicked(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CompanionPageHandler::OnRegionSearchClicked");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_OnRegionSearchClicked_Name, kFlags, 0, 0, nullptr);
@@ -841,14 +874,17 @@ void CompanionPageHandlerProxy::OnExpsOptInStatusAvailable(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_OnExpsOptInStatusAvailable_Name, kFlags, 0, 0, nullptr);
@@ -879,14 +915,17 @@ void CompanionPageHandlerProxy::OnOpenInNewTabButtonURLChanged(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_OnOpenInNewTabButtonURLChanged_Name, kFlags, 0, 0, nullptr);
@@ -936,14 +975,17 @@ void CompanionPageHandlerProxy::RecordUiSurfaceShown(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_RecordUiSurfaceShown_Name, kFlags, 0, 0, nullptr);
@@ -981,14 +1023,17 @@ void CompanionPageHandlerProxy::RecordUiSurfaceClicked(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_RecordUiSurfaceClicked_Name, kFlags, 0, 0, nullptr);
@@ -1021,14 +1066,17 @@ void CompanionPageHandlerProxy::OnCqCandidatesAvailable(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_OnCqCandidatesAvailable_Name, kFlags, 0, 0, nullptr);
@@ -1071,14 +1119,17 @@ void CompanionPageHandlerProxy::OnPhFeedback(
                         "<value of type PhFeedback>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_OnPhFeedback_Name, kFlags, 0, 0, nullptr);
@@ -1110,14 +1161,17 @@ void CompanionPageHandlerProxy::OnCqJumptagClicked(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_OnCqJumptagClicked_Name, kFlags, 0, 0, nullptr);
@@ -1147,7 +1201,7 @@ void CompanionPageHandlerProxy::OnCqJumptagClicked(
 }
 
 void CompanionPageHandlerProxy::OpenUrlInBrowser(
-    const absl::optional<::GURL>& in_url_to_open, bool in_use_new_tab) {
+    const std::optional<::GURL>& in_url_to_open, bool in_use_new_tab) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send side_panel::mojom::CompanionPageHandler::OpenUrlInBrowser", "input_parameters",
@@ -1155,20 +1209,23 @@ void CompanionPageHandlerProxy::OpenUrlInBrowser(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("url_to_open"), in_url_to_open,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("use_new_tab"), in_use_new_tab,
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_OpenUrlInBrowser_Name, kFlags, 0, 0, nullptr);
@@ -1206,14 +1263,17 @@ void CompanionPageHandlerProxy::OnLoadingState(
                         "<value of type LoadingState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_OnLoadingState_Name, kFlags, 0, 0, nullptr);
@@ -1238,14 +1298,17 @@ void CompanionPageHandlerProxy::RefreshCompanionPage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CompanionPageHandler::RefreshCompanionPage");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPageHandler_RefreshCompanionPage_Name, kFlags, 0, 0, nullptr);
@@ -1257,6 +1320,39 @@ void CompanionPageHandlerProxy::RefreshCompanionPage(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CompanionPageHandler::Name_);
   message.set_method_name("RefreshCompanionPage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CompanionPageHandlerProxy::OnServerSideUrlFilterEvent(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send side_panel::mojom::CompanionPageHandler::OnServerSideUrlFilterEvent");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCompanionPageHandler_OnServerSideUrlFilterEvent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::side_panel::mojom::internal::CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CompanionPageHandler::Name_);
+  message.set_method_name("OnServerSideUrlFilterEvent");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1548,7 +1644,7 @@ std::move(p_text_directive));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::GURL> p_url_to_open{};
+      std::optional<::GURL> p_url_to_open{};
       bool p_use_new_tab{};
       CompanionPageHandler_OpenUrlInBrowser_ParamsDataView input_data_view(params, message);
       
@@ -1618,6 +1714,28 @@ std::move(p_state));
       impl->RefreshCompanionPage();
       return true;
     }
+    case internal::kCompanionPageHandler_OnServerSideUrlFilterEvent_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data* params =
+          reinterpret_cast<internal::CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CompanionPageHandler::Name_, 13, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnServerSideUrlFilterEvent();
+      return true;
+    }
   }
   return false;
 }
@@ -1670,37 +1788,42 @@ bool CompanionPageHandlerStubDispatch::AcceptWithResponder(
     case internal::kCompanionPageHandler_RefreshCompanionPage_Name: {
       break;
     }
+    case internal::kCompanionPageHandler_OnServerSideUrlFilterEvent_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCompanionPageHandlerValidationInfo[] = {
-    {&internal::CompanionPageHandler_ShowUI_Params_Data::Validate,
+    { &internal::CompanionPageHandler_ShowUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_OnPromoAction_Params_Data::Validate,
+    { &internal::CompanionPageHandler_OnPromoAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_OnRegionSearchClicked_Params_Data::Validate,
+    { &internal::CompanionPageHandler_OnRegionSearchClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_OnExpsOptInStatusAvailable_Params_Data::Validate,
+    { &internal::CompanionPageHandler_OnExpsOptInStatusAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_OnOpenInNewTabButtonURLChanged_Params_Data::Validate,
+    { &internal::CompanionPageHandler_OnOpenInNewTabButtonURLChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_RecordUiSurfaceShown_Params_Data::Validate,
+    { &internal::CompanionPageHandler_RecordUiSurfaceShown_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_RecordUiSurfaceClicked_Params_Data::Validate,
+    { &internal::CompanionPageHandler_RecordUiSurfaceClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_OnCqCandidatesAvailable_Params_Data::Validate,
+    { &internal::CompanionPageHandler_OnCqCandidatesAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_OnPhFeedback_Params_Data::Validate,
+    { &internal::CompanionPageHandler_OnPhFeedback_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_OnCqJumptagClicked_Params_Data::Validate,
+    { &internal::CompanionPageHandler_OnCqJumptagClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_OpenUrlInBrowser_Params_Data::Validate,
+    { &internal::CompanionPageHandler_OpenUrlInBrowser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_OnLoadingState_Params_Data::Validate,
+    { &internal::CompanionPageHandler_OnLoadingState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPageHandler_RefreshCompanionPage_Params_Data::Validate,
+    { &internal::CompanionPageHandler_RefreshCompanionPage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1735,6 +1858,9 @@ CompanionPage::IPCStableHashFunction CompanionPage::MessageToMethodInfo_(mojo::M
     case internal::kCompanionPage_NotifyLinkOpen_Name: {
       return &CompanionPage::NotifyLinkOpen_Sym::IPCStableHash;
     }
+    case internal::kCompanionPage_UpdatePageContent_Name: {
+      return &CompanionPage::UpdatePageContent_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1760,6 +1886,8 @@ const char* CompanionPage::MessageToMethodName_(mojo::Message& message) {
             return "Receive side_panel::mojom::CompanionPage::OnNavigationError";
       case internal::kCompanionPage_NotifyLinkOpen_Name:
             return "Receive side_panel::mojom::CompanionPage::NotifyLinkOpen";
+      case internal::kCompanionPage_UpdatePageContent_Name:
+            return "Receive side_panel::mojom::CompanionPage::UpdatePageContent";
     }
   } else {
     switch (message.name()) {
@@ -1777,6 +1905,8 @@ const char* CompanionPage::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply side_panel::mojom::CompanionPage::OnNavigationError";
       case internal::kCompanionPage_NotifyLinkOpen_Name:
             return "Receive reply side_panel::mojom::CompanionPage::NotifyLinkOpen";
+      case internal::kCompanionPage_UpdatePageContent_Name:
+            return "Receive reply side_panel::mojom::CompanionPage::UpdatePageContent";
     }
   }
   return "Receive unknown mojo message";
@@ -1882,6 +2012,19 @@ uint32_t CompanionPage::NotifyLinkOpen_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t CompanionPage::UpdatePageContent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)side_panel::mojom::CompanionPage::UpdatePageContent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 CompanionPageProxy::CompanionPageProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1900,14 +2043,17 @@ void CompanionPageProxy::LoadCompanionPage(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPage_LoadCompanionPage_Name, kFlags, 0, 0, nullptr);
@@ -1948,14 +2094,17 @@ void CompanionPageProxy::UpdateCompanionPage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPage_UpdateCompanionPage_Name, kFlags, 0, 0, nullptr);
@@ -1996,14 +2145,17 @@ void CompanionPageProxy::OnImageQuery(
                         "<value of type ImageQueryPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPage_OnImageQuery_Name, kFlags, 0, 0, nullptr);
@@ -2047,14 +2199,17 @@ void CompanionPageProxy::OnCqFindTextResultsAvailable(
                         "<value of type const std::vector<bool>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPage_OnCqFindTextResultsAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2110,14 +2265,17 @@ void CompanionPageProxy::OnDeviceVisualClassificationResult(
                         "<value of type std::vector<VisualSearchResultPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPage_OnDeviceVisualClassificationResult_Name, kFlags, 0, 0, nullptr);
@@ -2153,14 +2311,17 @@ void CompanionPageProxy::OnNavigationError(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send side_panel::mojom::CompanionPage::OnNavigationError");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPage_OnNavigationError_Name, kFlags, 0, 0, nullptr);
@@ -2193,14 +2354,17 @@ void CompanionPageProxy::NotifyLinkOpen(
                         "<value of type LinkOpenMetadataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompanionPage_NotifyLinkOpen_Name, kFlags, 0, 0, nullptr);
@@ -2234,6 +2398,71 @@ void CompanionPageProxy::NotifyLinkOpen(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CompanionPage::Name_);
   message.set_method_name("NotifyLinkOpen");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CompanionPageProxy::UpdatePageContent(
+    const std::string& in_page_title, const std::string& in_inner_html) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send side_panel::mojom::CompanionPage::UpdatePageContent", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("page_title"), in_page_title,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("inner_html"), in_inner_html,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCompanionPage_UpdatePageContent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::side_panel::mojom::internal::CompanionPage_UpdatePageContent_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->page_title)::BaseType> page_title_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_page_title, page_title_fragment);
+  params->page_title.Set(
+      page_title_fragment.is_null() ? nullptr : page_title_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->page_title.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null page_title in CompanionPage.UpdatePageContent request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->inner_html)::BaseType> inner_html_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_inner_html, inner_html_fragment);
+  params->inner_html.Set(
+      inner_html_fragment.is_null() ? nullptr : inner_html_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->inner_html.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null inner_html in CompanionPage.UpdatePageContent request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CompanionPage::Name_);
+  message.set_method_name("UpdatePageContent");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2431,6 +2660,36 @@ std::move(p_opened_url),
 std::move(p_metadata));
       return true;
     }
+    case internal::kCompanionPage_UpdatePageContent_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CompanionPage_UpdatePageContent_Params_Data* params =
+          reinterpret_cast<internal::CompanionPage_UpdatePageContent_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_page_title{};
+      std::string p_inner_html{};
+      CompanionPage_UpdatePageContent_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPageTitle(&p_page_title))
+        success = false;
+      if (success && !input_data_view.ReadInnerHtml(&p_inner_html))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CompanionPage::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->UpdatePageContent(
+std::move(p_page_title), 
+std::move(p_inner_html));
+      return true;
+    }
   }
   return false;
 }
@@ -2465,25 +2724,30 @@ bool CompanionPageStubDispatch::AcceptWithResponder(
     case internal::kCompanionPage_NotifyLinkOpen_Name: {
       break;
     }
+    case internal::kCompanionPage_UpdatePageContent_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCompanionPageValidationInfo[] = {
-    {&internal::CompanionPage_LoadCompanionPage_Params_Data::Validate,
+    { &internal::CompanionPage_LoadCompanionPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPage_UpdateCompanionPage_Params_Data::Validate,
+    { &internal::CompanionPage_UpdateCompanionPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPage_OnImageQuery_Params_Data::Validate,
+    { &internal::CompanionPage_OnImageQuery_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPage_OnCqFindTextResultsAvailable_Params_Data::Validate,
+    { &internal::CompanionPage_OnCqFindTextResultsAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPage_OnDeviceVisualClassificationResult_Params_Data::Validate,
+    { &internal::CompanionPage_OnDeviceVisualClassificationResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPage_OnNavigationError_Params_Data::Validate,
+    { &internal::CompanionPage_OnNavigationError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompanionPage_NotifyLinkOpen_Params_Data::Validate,
+    { &internal::CompanionPage_NotifyLinkOpen_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CompanionPage_UpdatePageContent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2610,7 +2874,7 @@ void CompanionPageHandlerInterceptorForTesting::OnPhFeedback(PhFeedback ph_feedb
 void CompanionPageHandlerInterceptorForTesting::OnCqJumptagClicked(const std::string& text_directive) {
   GetForwardingInterface()->OnCqJumptagClicked(std::move(text_directive));
 }
-void CompanionPageHandlerInterceptorForTesting::OpenUrlInBrowser(const absl::optional<::GURL>& url_to_open, bool use_new_tab) {
+void CompanionPageHandlerInterceptorForTesting::OpenUrlInBrowser(const std::optional<::GURL>& url_to_open, bool use_new_tab) {
   GetForwardingInterface()->OpenUrlInBrowser(std::move(url_to_open), std::move(use_new_tab));
 }
 void CompanionPageHandlerInterceptorForTesting::OnLoadingState(LoadingState state) {
@@ -2618,6 +2882,9 @@ void CompanionPageHandlerInterceptorForTesting::OnLoadingState(LoadingState stat
 }
 void CompanionPageHandlerInterceptorForTesting::RefreshCompanionPage() {
   GetForwardingInterface()->RefreshCompanionPage();
+}
+void CompanionPageHandlerInterceptorForTesting::OnServerSideUrlFilterEvent() {
+  GetForwardingInterface()->OnServerSideUrlFilterEvent();
 }
 CompanionPageHandlerAsyncWaiter::CompanionPageHandlerAsyncWaiter(
     CompanionPageHandler* proxy) : proxy_(proxy) {}
@@ -2647,6 +2914,9 @@ void CompanionPageInterceptorForTesting::OnNavigationError() {
 }
 void CompanionPageInterceptorForTesting::NotifyLinkOpen(const ::GURL& opened_url, LinkOpenMetadataPtr metadata) {
   GetForwardingInterface()->NotifyLinkOpen(std::move(opened_url), std::move(metadata));
+}
+void CompanionPageInterceptorForTesting::UpdatePageContent(const std::string& page_title, const std::string& inner_html) {
+  GetForwardingInterface()->UpdatePageContent(std::move(page_title), std::move(inner_html));
 }
 CompanionPageAsyncWaiter::CompanionPageAsyncWaiter(
     CompanionPage* proxy) : proxy_(proxy) {}

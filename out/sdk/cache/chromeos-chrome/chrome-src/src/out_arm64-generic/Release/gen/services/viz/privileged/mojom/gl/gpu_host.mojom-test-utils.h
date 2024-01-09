@@ -15,14 +15,14 @@ namespace viz::mojom {
 
 class  GpuHostInterceptorForTesting : public GpuHost {
   virtual GpuHost* GetForwardingInterface() = 0;
-  void DidInitialize(const ::gpu::GPUInfo& gpu_info, const ::gpu::GpuFeatureInfo& gpu_feature_info, const absl::optional<::gpu::GPUInfo>& gpu_info_for_hardware_gpu, const absl::optional<::gpu::GpuFeatureInfo>& gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& gpu_extra_info) override;
+  void DidInitialize(const ::gpu::GPUInfo& gpu_info, const ::gpu::GpuFeatureInfo& gpu_feature_info, const std::optional<::gpu::GPUInfo>& gpu_info_for_hardware_gpu, const std::optional<::gpu::GpuFeatureInfo>& gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& gpu_extra_info) override;
   void DidFailInitialize() override;
   void DidCreateContextSuccessfully() override;
   void DidCreateOffscreenContext(const ::GURL& url) override;
   void DidDestroyOffscreenContext(const ::GURL& url) override;
   void DidDestroyChannel(int32_t client_id) override;
   void DidDestroyAllChannels() override;
-  void DidLoseContext(bool offscreen, ::gpu::error::ContextLostReason reason, const ::GURL& active_url) override;
+  void DidLoseContext(::gpu::error::ContextLostReason reason, const ::GURL& active_url) override;
   void DidUpdateGPUInfo(const ::gpu::GPUInfo& gpu_info) override;
   void DisableGpuCompositing() override;
   void GetIsolationKey(int32_t client_id, const ::blink::WebGPUExecutionContextToken& wgpu_context_token, GetIsolationKeyCallback callback) override;

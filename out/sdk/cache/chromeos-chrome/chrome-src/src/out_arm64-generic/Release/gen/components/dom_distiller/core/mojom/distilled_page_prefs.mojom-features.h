@@ -8,6 +8,7 @@
 #define COMPONENTS_DOM_DISTILLER_CORE_MOJOM_DISTILLED_PAGE_PREFS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

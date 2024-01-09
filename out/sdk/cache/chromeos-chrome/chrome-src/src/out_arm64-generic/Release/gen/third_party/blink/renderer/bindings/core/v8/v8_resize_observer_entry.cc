@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ResizeObserverEntry>::value,
     "ResizeObserverEntry inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ResizeObserverEntry::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ResizeObserverEntry is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("ResizeObserverEntry.target.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(v8_receiver);
+ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->target();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("ResizeObserverEntry.contentRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(v8_receiver);
+ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->contentRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -123,7 +120,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->contentBoxSize();
 if (!ToV8Traits<IDLArray<ResizeObserverSize>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -144,7 +142,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->borderBoxSize();
 if (!ToV8Traits<IDLArray<ResizeObserverSize>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -165,7 +164,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ResizeObserverEntry* blink_receiver = V8ResizeObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->devicePixelContentBoxSize();
 if (!ToV8Traits<IDLArray<ResizeObserverSize>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

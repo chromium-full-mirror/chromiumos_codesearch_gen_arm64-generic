@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IntersectionObserverEntry>::value,
     "IntersectionObserverEntry inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IntersectionObserverEntry::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IntersectionObserverEntry is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserverEntry.time.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(v8_receiver);
+IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->time();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserverEntry.rootBounds.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(v8_receiver);
+IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rootBounds();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserverEntry.boundingClientRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(v8_receiver);
+IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->boundingClientRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -130,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserverEntry.intersectionRect.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(v8_receiver);
+IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->intersectionRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -144,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserverEntry.isIntersecting.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(v8_receiver);
+IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isIntersecting();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -158,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserverEntry.isVisible.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(v8_receiver);
+IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isVisible();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -172,8 +173,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserverEntry.intersectionRatio.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(v8_receiver);
+IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->intersectionRatio();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -186,8 +188,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserverEntry.target.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(v8_receiver);
+IntersectionObserverEntry* blink_receiver = V8IntersectionObserverEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->target();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

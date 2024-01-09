@@ -34,6 +34,8 @@
 #include "services/network/public/mojom/referrer_policy.mojom-import-headers.h"
 #include "services/network/public/mojom/request_priority.mojom.h"
 #include "services/network/public/mojom/request_priority.mojom-import-headers.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-import-headers.h"
 #include "services/network/public/mojom/trust_tokens.mojom.h"
 #include "services/network/public/mojom/trust_tokens.mojom-import-headers.h"
 #include "services/network/public/mojom/ip_endpoint.mojom.h"

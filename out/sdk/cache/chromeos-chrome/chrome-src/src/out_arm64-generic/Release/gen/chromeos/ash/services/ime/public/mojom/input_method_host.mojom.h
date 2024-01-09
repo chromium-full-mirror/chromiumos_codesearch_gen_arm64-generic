@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/ime/public/mojom/input_method_host.mojom-features.h"
 #include "chromeos/ash/services/ime/public/mojom/input_method_host.mojom-shared.h"
 #include "chromeos/ash/services/ime/public/mojom/input_method_host.mojom-forward.h"
 #include "chromeos/ash/services/ime/public/mojom/input_method.mojom.h"
@@ -172,7 +173,7 @@ class InputMethodHost
   virtual void HandleAutocorrect(AutocorrectSpanPtr autocorrect_span) = 0;
 
   
-  virtual void DisplaySuggestions(const std::vector<::ash::ime::AssistiveSuggestion>& suggestions, const absl::optional<::ash::ime::SuggestionsTextContext>& context) = 0;
+  virtual void DisplaySuggestions(const std::vector<::ash::ime::AssistiveSuggestion>& suggestions, const std::optional<::ash::ime::SuggestionsTextContext>& context) = 0;
 
   
   virtual void UpdateCandidatesWindow(CandidatesWindowPtr window) = 0;
@@ -226,7 +227,7 @@ class  InputMethodHostProxy
   
   void HandleAutocorrect(AutocorrectSpanPtr autocorrect_span) final;
   
-  void DisplaySuggestions(const std::vector<::ash::ime::AssistiveSuggestion>& suggestions, const absl::optional<::ash::ime::SuggestionsTextContext>& context) final;
+  void DisplaySuggestions(const std::vector<::ash::ime::AssistiveSuggestion>& suggestions, const std::optional<::ash::ime::SuggestionsTextContext>& context) final;
   
   void UpdateCandidatesWindow(CandidatesWindowPtr window) final;
   
@@ -1049,8 +1050,8 @@ class  Candidate {
 
   Candidate(
       const std::string& text,
-      const absl::optional<std::string>& label,
-      const absl::optional<std::string>& annotation);
+      const std::optional<std::string>& label,
+      const std::optional<std::string>& annotation);
 
 
   ~Candidate();
@@ -1130,9 +1131,9 @@ class  Candidate {
   
   std::string text;
   
-  absl::optional<std::string> label;
+  std::optional<std::string> label;
   
-  absl::optional<std::string> annotation;
+  std::optional<std::string> annotation;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1329,9 +1330,9 @@ class  UkmEntry {
   // Construct an instance holding |non_compliant_api|.
   static UkmEntryPtr
   NewNonCompliantApi(
-      NonCompliantApiMetricPtr non_compliant_api) {
+      NonCompliantApiMetricPtr value) {
     auto result = UkmEntryPtr(absl::in_place);
-    result->set_non_compliant_api(std::move(non_compliant_api));
+    result->set_non_compliant_api(std::move(value));
     return result;
   }
 
@@ -1894,12 +1895,12 @@ class  CandidatesWindow {
   CandidatesWindow(
       std::vector<CandidatePtr> candidates,
       uint32_t DEPRECATED_highlighted_candidate,
-      const absl::optional<std::string>& auxiliary_text);
+      const std::optional<std::string>& auxiliary_text);
 
   CandidatesWindow(
       std::vector<CandidatePtr> candidates,
       uint32_t DEPRECATED_highlighted_candidate,
-      const absl::optional<std::string>& auxiliary_text,
+      const std::optional<std::string>& auxiliary_text,
       HighlightedCandidatePtr highlighted_candidate);
 
 CandidatesWindow(const CandidatesWindow&) = delete;
@@ -1984,7 +1985,7 @@ CandidatesWindow& operator=(const CandidatesWindow&) = delete;
   
   uint32_t DEPRECATED_highlighted_candidate;
   
-  absl::optional<std::string> auxiliary_text;
+  std::optional<std::string> auxiliary_text;
   
   HighlightedCandidatePtr highlighted_candidate;
 

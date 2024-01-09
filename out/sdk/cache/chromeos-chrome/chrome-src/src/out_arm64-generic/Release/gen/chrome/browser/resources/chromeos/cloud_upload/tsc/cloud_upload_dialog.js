@@ -15,27 +15,40 @@ import { WelcomePageElement } from './welcome_page.js';
  * individual setup pages and determines which one to show.
  */
 export class CloudUploadElement extends HTMLElement {
+    proxy = CloudUploadBrowserProxy.getInstance();
+    /** Resolved once the element's shadow DOM has finished initializing. */
+    initPromise;
+    /** List of pages to show. */
+    pages = [];
+    /** The current page index into `pages`. */
+    currentPageIdx = 0;
+    /** The modal dialog shown to confirm if the user wants to cancel setup. */
+    cancelDialog;
+    // Save reference to listener so it can be removed from the document in
+    // disconnectedCallback().
+    boundKeyDownListener_;
+    /**
+      True if the setup flow should end with setting Microsoft 365 as default
+      handler. Note: This is usually done if no default file handlers have been
+      set for Office files, which means that the setup flow is being completed for
+      the first time.
+    */
+    setOfficeAsDefaultHandler = true;
+    /** The names of the files to upload. */
+    fileNames = [];
     constructor() {
         super();
-        this.proxy = CloudUploadBrowserProxy.getInstance();
-        /** List of pages to show. */
-        this.pages = [];
-        /** The current page index into `pages`. */
-        this.currentPageIdx = 0;
-        /**
-          True if the setup flow should end with setting Microsoft 365 as default
-          handler. Note: This is usually done if no default file handlers have been
-          set for Office files, which means that the setup flow is being completed for
-          the first time.
-        */
-        this.setOfficeAsDefaultHandler = true;
-        /** The names of the files to upload. */
-        this.fileNames = [];
         const shadow = this.attachShadow({ mode: 'open' });
         this.cancelDialog = document.createElement('setup-cancel-dialog');
         shadow.appendChild(this.cancelDialog);
-        document.addEventListener('keydown', this.onKeyDown.bind(this));
+        this.boundKeyDownListener_ = this.onKeyDown.bind(this);
         this.initPromise = this.init();
+    }
+    connectedCallback() {
+        document.addEventListener('keydown', this.boundKeyDownListener_);
+    }
+    disconnectedCallback() {
+        document.removeEventListener('keydown', this.boundKeyDownListener_);
     }
     async init() {
         const [, { installed: isOfficeWebAppInstalled }, { mounted: isOdfsMounted }] = await Promise.all([
@@ -59,12 +72,10 @@ export class CloudUploadElement extends HTMLElement {
         const officeSetupCompletePage = new OfficeSetupCompletePageElement();
         officeSetupCompletePage.setDefaultHandlerOnPageShown(this.setOfficeAsDefaultHandler);
         this.pages.push(officeSetupCompletePage);
-        this.pages.forEach((page, index) => {
-            page.setAttribute('total-pages', String(this.pages.length));
-            page.setAttribute('page-number', String(index));
+        for (const page of this.pages) {
             page.addEventListener(NEXT_PAGE_EVENT, () => this.goNextPage());
             page.addEventListener(CANCEL_SETUP_EVENT, () => this.cancelSetup());
-        });
+        }
         this.switchPage(0);
     }
     $(query) {
@@ -92,8 +103,10 @@ export class CloudUploadElement extends HTMLElement {
         try {
             const dialogArgs = await this.proxy.handler.getDialogArgs();
             assert(dialogArgs.args);
+            assert(dialogArgs.args.dialogSpecificArgs.oneDriveSetupDialogArgs);
             this.setOfficeAsDefaultHandler =
-                dialogArgs.args.setOfficeAsDefaultHandler;
+                dialogArgs.args.dialogSpecificArgs.oneDriveSetupDialogArgs
+                    .setOfficeAsDefaultHandler;
             this.fileNames = dialogArgs.args.fileNames;
         }
         catch (e) {

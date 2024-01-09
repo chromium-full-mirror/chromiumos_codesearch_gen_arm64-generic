@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/speculation_rules/speculation_rules.mojom-features.h"
 #include "third_party/blink/public/mojom/speculation_rules/speculation_rules.mojom-shared.h"
 #include "third_party/blink/public/mojom/speculation_rules/speculation_rules.mojom-blink-forward.h"
 #include "services/network/public/mojom/no_vary_search.mojom-blink.h"
@@ -41,54 +42,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::SpeculationAction>
-    : EnumHashTraits<::blink::mojom::SpeculationAction, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::SpeculationTargetHint>
-    : EnumHashTraits<::blink::mojom::SpeculationTargetHint, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::SpeculationEagerness>
-    : EnumHashTraits<::blink::mojom::SpeculationEagerness, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::SpeculationInjectionWorld>
-    : EnumHashTraits<::blink::mojom::SpeculationInjectionWorld, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -257,7 +210,7 @@ class PLATFORM_EXPORT SpeculationCandidate {
       SpeculationTargetHint target_browsing_context_name_hint,
       SpeculationEagerness eagerness,
       ::network::mojom::blink::NoVarySearchPtr no_vary_search_hint,
-      SpeculationInjectionWorld injection_world);
+      SpeculationInjectionType injection_type);
 
 SpeculationCandidate(const SpeculationCandidate&) = delete;
 SpeculationCandidate& operator=(const SpeculationCandidate&) = delete;
@@ -351,7 +304,7 @@ SpeculationCandidate& operator=(const SpeculationCandidate&) = delete;
   
   ::network::mojom::blink::NoVarySearchPtr no_vary_search_hint;
   
-  SpeculationInjectionWorld injection_world;
+  SpeculationInjectionType injection_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -392,7 +345,7 @@ SpeculationCandidatePtr SpeculationCandidate::Clone() const {
       mojo::Clone(target_browsing_context_name_hint),
       mojo::Clone(eagerness),
       mojo::Clone(no_vary_search_hint),
-      mojo::Clone(injection_world)
+      mojo::Clone(injection_type)
   );
 }
 
@@ -412,7 +365,7 @@ bool SpeculationCandidate::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->no_vary_search_hint, other_struct.no_vary_search_hint))
     return false;
-  if (!mojo::Equals(this->injection_world, other_struct.injection_world))
+  if (!mojo::Equals(this->injection_type, other_struct.injection_type))
     return false;
   return true;
 }
@@ -447,9 +400,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.no_vary_search_hint < lhs.no_vary_search_hint)
     return false;
-  if (lhs.injection_world < rhs.injection_world)
+  if (lhs.injection_type < rhs.injection_type)
     return true;
-  if (rhs.injection_world < lhs.injection_world)
+  if (rhs.injection_type < lhs.injection_type)
     return false;
   return false;
 }
@@ -501,9 +454,9 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::SpeculationCandidate:
     return input->no_vary_search_hint;
   }
 
-  static decltype(::blink::mojom::blink::SpeculationCandidate::injection_world) injection_world(
+  static decltype(::blink::mojom::blink::SpeculationCandidate::injection_type) injection_type(
       const ::blink::mojom::blink::SpeculationCandidatePtr& input) {
-    return input->injection_world;
+    return input->injection_type;
   }
 
   static bool Read(::blink::mojom::blink::SpeculationCandidate::DataView input, ::blink::mojom::blink::SpeculationCandidatePtr* output);

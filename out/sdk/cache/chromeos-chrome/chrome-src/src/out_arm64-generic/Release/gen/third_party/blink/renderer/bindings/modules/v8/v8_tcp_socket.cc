@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, TCPSocket>::value,
     "TCPSocket does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&TCPSocket::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TCPSocket is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ BLINK_BINDINGS_TRACE_EVENT("TCPSocket.opened.get");
 
 
 
-TCPSocket* blink_receiver = V8TCPSocket::ToWrappableUnsafe(v8_receiver);
+TCPSocket* blink_receiver = V8TCPSocket::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -130,7 +125,7 @@ BLINK_BINDINGS_TRACE_EVENT("TCPSocket.closed.get");
 
 
 
-TCPSocket* blink_receiver = V8TCPSocket::ToWrappableUnsafe(v8_receiver);
+TCPSocket* blink_receiver = V8TCPSocket::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -218,7 +213,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8TCPSocket_Close_Meth
 
 
 
-TCPSocket* blink_receiver = V8TCPSocket::ToWrappableUnsafe(v8_receiver);
+TCPSocket* blink_receiver = V8TCPSocket::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

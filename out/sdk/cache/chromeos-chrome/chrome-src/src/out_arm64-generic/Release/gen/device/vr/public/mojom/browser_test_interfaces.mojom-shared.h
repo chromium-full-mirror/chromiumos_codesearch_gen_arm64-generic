@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "device/vr/public/mojom/browser_test_interfaces.mojom-shared-internal.h"
+#include "device/vr/public/mojom/openxr_interaction_profile_type.mojom-shared.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
 #include "ui/gfx/mojom/transform.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -202,38 +203,6 @@ enum class EventType : int32_t {
 COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS_SHARED) std::ostream& operator<<(std::ostream& os, EventType value);
 inline bool IsKnownEnumValue(EventType value) {
   return internal::EventType_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
-enum class InteractionProfileType : int32_t {
-  
-  kWMRMotion = 0,
-  
-  kKHRSimple = 1,
-  
-  kOculusTouch = 2,
-  
-  kValveIndex = 3,
-  
-  kHTCVive = 4,
-  
-  kSamsungOdyssey = 5,
-  
-  kHPReverbG2 = 6,
-  
-  kHandSelectGrasp = 7,
-  
-  kViveCosmos = 8,
-  
-  kInvalid = 9,
-  kMinValue = 0,
-  kMaxValue = 9,
-};
-
-COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS_SHARED) std::ostream& operator<<(std::ostream& os, InteractionProfileType value);
-inline bool IsKnownEnumValue(InteractionProfileType value) {
-  return internal::InteractionProfileType_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
@@ -542,12 +511,12 @@ class EventDataDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadInteractionProfile(UserType* output) const {
     auto data_value = data_->interaction_profile;
-    return mojo::internal::Deserialize<::device_test::mojom::InteractionProfileType>(
+    return mojo::internal::Deserialize<::device::mojom::OpenXrInteractionProfileType>(
         data_value, output);
   }
-  InteractionProfileType interaction_profile() const {
+  ::device::mojom::OpenXrInteractionProfileType interaction_profile() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::device_test::mojom::InteractionProfileType>(data_->interaction_profile));
+          static_cast<::device::mojom::OpenXrInteractionProfileType>(data_->interaction_profile));
   }
  private:
   internal::EventData_Data* data_ = nullptr;
@@ -573,10 +542,6 @@ struct hash<::device_test::mojom::ControllerRole>
 template <>
 struct hash<::device_test::mojom::EventType>
     : public mojo::internal::EnumHashImpl<::device_test::mojom::EventType> {};
-
-template <>
-struct hash<::device_test::mojom::InteractionProfileType>
-    : public mojo::internal::EnumHashImpl<::device_test::mojom::InteractionProfileType> {};
 
 }  // namespace std
 
@@ -657,26 +622,6 @@ struct Serializer<::device_test::mojom::EventType, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::device_test::mojom::EventType>(input)), output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::device_test::mojom::InteractionProfileType, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::device_test::mojom::InteractionProfileType, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::device_test::mojom::InteractionProfileType>(input)), output);
   }
 };
 
@@ -1004,7 +949,7 @@ struct Serializer<::device_test::mojom::EventDataDataView, MaybeConstUserType> {
     fragment.Allocate();
     mojo::internal::Serialize<::device_test::mojom::EventType>(
         Traits::type(input), &fragment->type);
-    mojo::internal::Serialize<::device_test::mojom::InteractionProfileType>(
+    mojo::internal::Serialize<::device::mojom::OpenXrInteractionProfileType>(
         Traits::interaction_profile(input), &fragment->interaction_profile);
   }
 
@@ -1115,15 +1060,6 @@ namespace perfetto {
 template <>
 struct COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS_SHARED) TraceFormatTraits<::device_test::mojom::EventType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::device_test::mojom::EventType value);
-};
-
-} // namespace perfetto
-
-namespace perfetto {
-
-template <>
-struct COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS_SHARED) TraceFormatTraits<::device_test::mojom::InteractionProfileType> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::device_test::mojom::InteractionProfileType value);
 };
 
 } // namespace perfetto

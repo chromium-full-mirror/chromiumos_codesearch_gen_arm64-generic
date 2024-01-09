@@ -1,7 +1,6 @@
 {
   "deps": [
     "../../../../../media/mojo/mojom/mojom.build_metadata",
-    "../../../../../sandbox/policy/mojom/mojom.build_metadata",
     "../../../../../ui/accessibility/mojom/mojom.build_metadata"
   ],
   "sources": [

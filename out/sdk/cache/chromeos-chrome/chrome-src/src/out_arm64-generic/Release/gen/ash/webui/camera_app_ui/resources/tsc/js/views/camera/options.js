@@ -22,7 +22,7 @@ export class Options {
         this.openGridPanel = dom.get('#open-grid-panel', HTMLButtonElement);
         this.openTimerPanel = dom.get('#open-timer-panel', HTMLButtonElement);
         this.openPTZPanel = dom.get('#open-ptz-panel', HTMLButtonElement);
-        this.switchDeviceButton = dom.get('#switch-device', HTMLButtonElement);
+        this.switchDeviceButton = dom.get('switch-device-button', HTMLElement);
         /**
          * CameraConfig of the camera device currently used or selected.
          */
@@ -42,7 +42,7 @@ export class Options {
             }
             const switching = this.cameraManager.switchCamera();
             if (switching !== null) {
-                animate.play(dom.get('#switch-device', HTMLElement));
+                animate.play(this.switchDeviceButton);
             }
         });
         dom.get('#open-settings', HTMLButtonElement)

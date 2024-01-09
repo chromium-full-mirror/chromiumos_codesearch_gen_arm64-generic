@@ -40,8 +40,8 @@ namespace reporting {
 //   // Create configuration.
 //   auto config_result = reporting::ReportQueueConfiguration::Create(...);
 //   // Bail out if configuration failed to create.
-//   if (!config_result.ok()) {
-//     std::move(done_cb).Run(config_result.status());
+//   if (!config_result.has_value()) {
+//     std::move(done_cb).Run(config_result.error());
 //     return;
 //   }
 //   // Asynchronously create ReportingQueue.
@@ -61,18 +61,18 @@ namespace reporting {
 //                            reporting::ReportQueue>>
 //                            report_queue_result) {
 //                       // Bail out if queue failed to create.
-//                       if (!report_queue_result.ok()) {
-//                         std::move(done_cb).Run(report_queue_result.status());
+//                       if (!report_queue_result.has_value()) {
+//                         std::move(done_cb).Run(report_queue_result.error());
 //                         return;
 //                       }
 //                       // Queue created successfully, enqueue the message.
-//                       report_queue_result.ValueOrDie()->Enqueue(
+//                       report_queue_result.value()->Enqueue(
 //                           important_message, std::move(done_cb));
 //                     },
 //                     important_message, std::move(done_cb)));
 //           },
 //           important_message, std::move(done_cb),
-//           std::move(config_result.ValueOrDie())))
+//           std::move(config_result.value())))
 // }
 class ReportQueueProvider {
  public:

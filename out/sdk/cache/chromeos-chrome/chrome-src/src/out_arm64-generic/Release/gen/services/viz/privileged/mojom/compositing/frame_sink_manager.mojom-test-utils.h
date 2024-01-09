@@ -20,7 +20,7 @@ class  FrameSinkManagerInterceptorForTesting : public FrameSinkManager {
   void SetFrameSinkDebugLabel(const ::viz::FrameSinkId& frame_sink_id, const std::string& debug_label) override;
   void CreateRootCompositorFrameSink(RootCompositorFrameSinkParamsPtr params) override;
   void CreateFrameSinkBundle(const ::viz::FrameSinkBundleId& bundle_id, ::mojo::PendingReceiver<::viz::mojom::FrameSinkBundle> receiver, ::mojo::PendingRemote<::viz::mojom::FrameSinkBundleClient> client) override;
-  void CreateCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, const absl::optional<::viz::FrameSinkBundleId>& bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> compositor_frame_sink_client) override;
+  void CreateCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, const std::optional<::viz::FrameSinkBundleId>& bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> compositor_frame_sink_client) override;
   void DestroyCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, DestroyCompositorFrameSinkCallback callback) override;
   void RegisterFrameSinkHierarchy(const ::viz::FrameSinkId& parent_frame_sink_id, const ::viz::FrameSinkId& child_frame_sink_id) override;
   void UnregisterFrameSinkHierarchy(const ::viz::FrameSinkId& parent_frame_sink_id, const ::viz::FrameSinkId& child_frame_sink_id) override;

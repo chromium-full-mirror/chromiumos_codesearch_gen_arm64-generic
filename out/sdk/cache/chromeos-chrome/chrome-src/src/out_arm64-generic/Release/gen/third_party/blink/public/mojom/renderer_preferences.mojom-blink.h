@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/renderer_preferences.mojom-features.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom-shared.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink-forward.h"
@@ -93,7 +94,7 @@ class PLATFORM_EXPORT RendererPreferences {
       uint32_t inactive_selection_bg_color,
       uint32_t inactive_selection_fg_color,
       bool browser_handles_all_top_level_requests,
-      absl::optional<::base::TimeDelta> caret_blink_interval,
+      std::optional<::base::TimeDelta> caret_blink_interval,
       bool use_custom_colors,
       bool enable_referrers,
       bool allow_cross_origin_auth_prompt,
@@ -103,7 +104,6 @@ class PLATFORM_EXPORT RendererPreferences {
       uint16_t webrtc_udp_min_port,
       uint16_t webrtc_udp_max_port,
       WTF::Vector<WTF::String> webrtc_local_ips_allowed_urls,
-      bool webrtc_allow_legacy_tls_protocols,
       ::blink::mojom::blink::UserAgentOverridePtr user_agent_override,
       const WTF::String& accept_languages,
       bool send_subresource_notification,
@@ -217,7 +217,7 @@ RendererPreferences& operator=(const RendererPreferences&) = delete;
   
   bool browser_handles_all_top_level_requests;
   
-  absl::optional<::base::TimeDelta> caret_blink_interval;
+  std::optional<::base::TimeDelta> caret_blink_interval;
   
   bool use_custom_colors;
   
@@ -236,8 +236,6 @@ RendererPreferences& operator=(const RendererPreferences&) = delete;
   uint16_t webrtc_udp_max_port;
   
   WTF::Vector<WTF::String> webrtc_local_ips_allowed_urls;
-  
-  bool webrtc_allow_legacy_tls_protocols;
   
   ::blink::mojom::blink::UserAgentOverridePtr user_agent_override;
   
@@ -310,7 +308,6 @@ RendererPreferencesPtr RendererPreferences::Clone() const {
       mojo::Clone(webrtc_udp_min_port),
       mojo::Clone(webrtc_udp_max_port),
       mojo::Clone(webrtc_local_ips_allowed_urls),
-      mojo::Clone(webrtc_allow_legacy_tls_protocols),
       mojo::Clone(user_agent_override),
       mojo::Clone(accept_languages),
       mojo::Clone(send_subresource_notification),
@@ -369,8 +366,6 @@ bool RendererPreferences::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->webrtc_udp_max_port, other_struct.webrtc_udp_max_port))
     return false;
   if (!mojo::Equals(this->webrtc_local_ips_allowed_urls, other_struct.webrtc_local_ips_allowed_urls))
-    return false;
-  if (!mojo::Equals(this->webrtc_allow_legacy_tls_protocols, other_struct.webrtc_allow_legacy_tls_protocols))
     return false;
   if (!mojo::Equals(this->user_agent_override, other_struct.user_agent_override))
     return false;
@@ -484,10 +479,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.webrtc_local_ips_allowed_urls < rhs.webrtc_local_ips_allowed_urls)
     return true;
   if (rhs.webrtc_local_ips_allowed_urls < lhs.webrtc_local_ips_allowed_urls)
-    return false;
-  if (lhs.webrtc_allow_legacy_tls_protocols < rhs.webrtc_allow_legacy_tls_protocols)
-    return true;
-  if (rhs.webrtc_allow_legacy_tls_protocols < lhs.webrtc_allow_legacy_tls_protocols)
     return false;
   if (lhs.user_agent_override < rhs.user_agent_override)
     return true;
@@ -649,11 +640,6 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::RendererPreferences::
   static const decltype(::blink::mojom::blink::RendererPreferences::webrtc_local_ips_allowed_urls)& webrtc_local_ips_allowed_urls(
       const ::blink::mojom::blink::RendererPreferencesPtr& input) {
     return input->webrtc_local_ips_allowed_urls;
-  }
-
-  static decltype(::blink::mojom::blink::RendererPreferences::webrtc_allow_legacy_tls_protocols) webrtc_allow_legacy_tls_protocols(
-      const ::blink::mojom::blink::RendererPreferencesPtr& input) {
-    return input->webrtc_allow_legacy_tls_protocols;
   }
 
   static const decltype(::blink::mojom::blink::RendererPreferences::user_agent_override)& user_agent_override(

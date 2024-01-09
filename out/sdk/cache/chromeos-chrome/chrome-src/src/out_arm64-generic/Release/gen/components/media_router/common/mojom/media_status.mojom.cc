@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ MediaImage::MediaImage()
 
 MediaImage::MediaImage(
     const ::GURL& url_in,
-    const absl::optional<::gfx::Size>& size_in)
+    const std::optional<::gfx::Size>& size_in)
     : url(std::move(url_in)),
       size(std::move(size_in)) {}
 
@@ -71,7 +72,7 @@ void MediaImage::WriteIntoTrace(
     dict.AddItem(
       "size"), this->size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Size>&>"
+      "<value of type const std::optional<::gfx::Size>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -338,14 +339,17 @@ void MediaStatusObserverProxy::OnMediaStatusUpdated(
                         "<value of type MediaStatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaStatusObserver_OnMediaStatusUpdated_Name, kFlags, 0, 0, nullptr);
@@ -424,10 +428,10 @@ bool MediaStatusObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaStatusObserverValidationInfo[] = {
-    {&internal::MediaStatusObserver_OnMediaStatusUpdated_Params_Data::Validate,
+    { &internal::MediaStatusObserver_OnMediaStatusUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 

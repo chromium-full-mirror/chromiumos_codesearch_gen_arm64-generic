@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMSelection>::value,
     "DOMSelection inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMSelection::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMSelection is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionAnchorNode);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->anchorNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,7 +111,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionAnchorOffset)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->anchorOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -135,7 +130,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionFocusNode);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->focusNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -154,7 +149,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionFocusOffset);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->focusOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -173,7 +168,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionIsCollapsed);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isCollapsed();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -192,7 +187,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionRangeCount);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rangeCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -211,7 +206,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionType);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -230,7 +225,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionBaseNode);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->baseNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -249,7 +244,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionBaseOffset);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->baseOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -268,7 +263,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionExtentNode);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->extentNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -287,7 +282,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionExtentOffset)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->extentOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -318,7 +313,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_range = NativeValueTraits<Range>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -352,7 +347,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<IDLNullable<Node>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -388,7 +383,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionCollapseToEnd
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Selection";
 const char* const property_name = "collapseToEnd";
@@ -417,7 +412,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionCollapseToSta
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Selection";
 const char* const property_name = "collapseToStart";
@@ -454,7 +449,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -490,7 +485,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->deleteFromDocument();
 
 }
@@ -512,7 +507,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionEmpty);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->empty();
 
 }
@@ -542,7 +537,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -586,7 +581,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -615,10 +610,10 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionModify);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_alter;
 if (LIKELY(info[0]->IsString())) {
-  arg1_alter.Init(info[0].As<v8::String>());
+  arg1_alter.Init(isolate, info[0].As<v8::String>());
 } else {
   if (info[0]->IsUndefined()) {
   arg1_alter = "";
@@ -635,7 +630,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_direction;
 if (LIKELY(info[1]->IsString())) {
-  arg2_direction.Init(info[1].As<v8::String>());
+  arg2_direction.Init(isolate, info[1].As<v8::String>());
 } else {
   if (info[1]->IsUndefined()) {
   arg2_direction = "";
@@ -652,7 +647,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg3_granularity;
 if (LIKELY(info[2]->IsString())) {
-  arg3_granularity.Init(info[2].As<v8::String>());
+  arg3_granularity.Init(isolate, info[2].As<v8::String>());
 } else {
   if (info[2]->IsUndefined()) {
   arg3_granularity = "";
@@ -688,7 +683,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionRemoveAllRang
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->removeAllRanges();
 
 }
@@ -714,7 +709,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_range = NativeValueTraits<Range>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -748,7 +743,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -785,7 +780,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_base_node = NativeValueTraits<IDLNullable<Node>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -834,7 +829,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<IDLNullable<Node>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -870,7 +865,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSelectionDOMString);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(v8_receiver);
+DOMSelection* blink_receiver = V8Selection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }

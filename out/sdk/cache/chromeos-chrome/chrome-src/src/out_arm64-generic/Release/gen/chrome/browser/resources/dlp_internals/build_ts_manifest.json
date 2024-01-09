@@ -1,1 +1,1 @@
-{"base_dir": "gen/chrome/browser/resources/dlp_internals/tsc", "files": ["app.js", "dlp_clipboard_tab.js", "dlp_tabs.js", "app.html.js", "dlp_clipboard_tab.html.js", "dlp_tabs.html.js", "dlp_internals.mojom-webui.js"]}
+{"base_dir": "gen/chrome/browser/resources/dlp_internals/tsc", "files": ["dlp_internals_ui.js", "dlp_utils.js", "dlp_internals_ui.html.js", "dlp_internals.mojom-webui.js"]}

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.056" timestamp="2023-10-27T00:17:56.311" name="AllTests">
-  <testsuite name="MessageBuilder" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.043" timestamp="2023-10-27T00:17:56.323">
-    <testcase name="BuildAndPrintAll" file="cras/testing/dbus/message_builder_test.cc" line="13" status="run" result="completed" time="0.04" timestamp="2023-10-27T00:17:56.324" classname="MessageBuilder" />
-  </testsuite>
-</testsuites>

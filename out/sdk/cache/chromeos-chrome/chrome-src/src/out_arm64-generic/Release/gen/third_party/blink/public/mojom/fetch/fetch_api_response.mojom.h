@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/fetch/fetch_api_response.mojom-features.h"
 #include "third_party/blink/public/mojom/fetch/fetch_api_response.mojom-shared.h"
 #include "third_party/blink/public/mojom/fetch/fetch_api_response.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -90,21 +91,21 @@ class BLINK_COMMON_EXPORT FetchAPIResponse {
       int64_t padding,
       ::network::mojom::FetchResponseSource response_source,
       const base::flat_map<std::string, std::string>& headers,
-      const absl::optional<std::string>& mime_type,
-      const absl::optional<std::string>& request_method,
+      const std::optional<std::string>& mime_type,
+      const std::optional<std::string>& request_method,
       ::blink::mojom::SerializedBlobPtr blob,
       ::blink::mojom::ServiceWorkerResponseError error,
       ::base::Time response_time,
-      const absl::optional<std::string>& cache_storage_cache_name,
+      const std::optional<std::string>& cache_storage_cache_name,
       std::vector<std::string> cors_exposed_header_names,
       ::blink::mojom::SerializedBlobPtr side_data_blob,
       ::blink::mojom::SerializedBlobPtr side_data_blob_for_cache_put,
       ::network::mojom::ParsedHeadersPtr parsed_headers,
-      ::net::HttpResponseInfo::ConnectionInfo connection_info,
+      ::net::HttpConnectionInfo connection_info,
       const std::string& alpn_negotiated_protocol,
       bool was_fetched_via_spdy,
       bool has_range_requested,
-      const absl::optional<::net::AuthChallengeInfo>& auth_challenge_info,
+      const std::optional<::net::AuthChallengeInfo>& auth_challenge_info,
       bool request_include_credentials);
 
 FetchAPIResponse(const FetchAPIResponse&) = delete;
@@ -194,9 +195,9 @@ FetchAPIResponse& operator=(const FetchAPIResponse&) = delete;
   
   base::flat_map<std::string, std::string> headers;
   
-  absl::optional<std::string> mime_type;
+  std::optional<std::string> mime_type;
   
-  absl::optional<std::string> request_method;
+  std::optional<std::string> request_method;
   
   ::blink::mojom::SerializedBlobPtr blob;
   
@@ -204,7 +205,7 @@ FetchAPIResponse& operator=(const FetchAPIResponse&) = delete;
   
   ::base::Time response_time;
   
-  absl::optional<std::string> cache_storage_cache_name;
+  std::optional<std::string> cache_storage_cache_name;
   
   std::vector<std::string> cors_exposed_header_names;
   
@@ -214,7 +215,7 @@ FetchAPIResponse& operator=(const FetchAPIResponse&) = delete;
   
   ::network::mojom::ParsedHeadersPtr parsed_headers;
   
-  ::net::HttpResponseInfo::ConnectionInfo connection_info;
+  ::net::HttpConnectionInfo connection_info;
   
   std::string alpn_negotiated_protocol;
   
@@ -222,7 +223,7 @@ FetchAPIResponse& operator=(const FetchAPIResponse&) = delete;
   
   bool has_range_requested;
   
-  absl::optional<::net::AuthChallengeInfo> auth_challenge_info;
+  std::optional<::net::AuthChallengeInfo> auth_challenge_info;
   
   bool request_include_credentials;
 

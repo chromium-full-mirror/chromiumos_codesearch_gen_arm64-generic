@@ -8,6 +8,7 @@
 #define COMPONENTS_ML_MOJOM_WEB_PLATFORM_MODEL_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

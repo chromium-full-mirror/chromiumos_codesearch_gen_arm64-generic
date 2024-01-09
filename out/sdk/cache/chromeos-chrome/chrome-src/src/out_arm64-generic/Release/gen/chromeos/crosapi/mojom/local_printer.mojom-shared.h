@@ -201,8 +201,10 @@ enum class PrintJobSource : int32_t {
   kAny = 0,
   
   kExtension = 1,
+  
+  kIsolatedWebApp = 2,
   kMinValue = 0,
-  kMaxValue = 1,
+  kMaxValue = 2,
   kDefaultValue = 0
 };
 
@@ -335,8 +337,10 @@ enum class PrintJob_Source : int32_t {
   kExtension = 2,
   
   kPrintPreviewIncognito = 3,
+  
+  kIsolatedWebApp = 4,
   kMinValue = -1,
-  kMaxValue = 3,
+  kMaxValue = 4,
   kDefaultValue = -1
 };
 

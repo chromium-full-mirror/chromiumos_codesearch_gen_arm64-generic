@@ -24,7 +24,7 @@ const processes = new Map();
 // show the user the rasterization thread(s) on the main frame as tracks.
 const compositorTileWorkers = Array();
 const entryToNode = new Map();
-const allRendererEvents = [];
+let allTraceEntries = [];
 const completeEventStack = [];
 let handlerState = 1 /* HandlerState.UNINITIALIZED */;
 let config = Types.Configuration.DEFAULT;
@@ -49,7 +49,7 @@ export function handleUserConfig(userConfig) {
 export function reset() {
     processes.clear();
     entryToNode.clear();
-    allRendererEvents.length = 0;
+    allTraceEntries.length = 0;
     completeEventStack.length = 0;
     compositorTileWorkers.length = 0;
     handlerState = 1 /* HandlerState.UNINITIALIZED */;
@@ -78,14 +78,14 @@ export function handleEvent(event) {
             return;
         }
         thread.entries.push(completeEvent);
-        allRendererEvents.push(completeEvent);
+        allTraceEntries.push(completeEvent);
         return;
     }
     if (Types.TraceEvents.isTraceEventInstant(event) || Types.TraceEvents.isTraceEventComplete(event)) {
         const process = getOrCreateRendererProcess(processes, event.pid);
         const thread = getOrCreateRendererThread(process, event.tid);
         thread.entries.push(event);
-        allRendererEvents.push(event);
+        allTraceEntries.push(event);
     }
 }
 export async function finalize() {
@@ -97,6 +97,7 @@ export async function finalize() {
     sanitizeProcesses(processes);
     buildHierarchy(processes);
     sanitizeThreads(processes);
+    Helpers.Trace.sortTraceEventsInPlace(allTraceEntries);
     handlerState = 3 /* HandlerState.FINALIZED */;
 }
 export function data() {
@@ -107,7 +108,7 @@ export function data() {
         processes: new Map(processes),
         compositorTileWorkers: new Map(gatherCompositorThreads()),
         entryToNode: new Map(entryToNode),
-        allRendererEvents: [...allRendererEvents],
+        allTraceEntries: [...allTraceEntries],
     };
 }
 function gatherCompositorThreads() {
@@ -184,13 +185,10 @@ export function assignIsMainFrame(processes, mainFrameId, rendererProcessesByFra
  * @see assignMeta
  */
 export function assignThreadName(processes, rendererProcessesByFrame, threadsInProcess) {
-    for (const [, renderProcessesByPid] of rendererProcessesByFrame) {
-        for (const [pid] of renderProcessesByPid) {
-            const process = getOrCreateRendererProcess(processes, pid);
-            for (const [tid, threadInfo] of threadsInProcess.get(pid) ?? []) {
-                const thread = getOrCreateRendererThread(process, tid);
-                thread.name = threadInfo?.args.name ?? `${tid}`;
-            }
+    for (const [pid, process] of processes) {
+        for (const [tid, threadInfo] of threadsInProcess.get(pid) ?? []) {
+            const thread = getOrCreateRendererThread(process, tid);
+            thread.name = threadInfo?.args.name ?? `${tid}`;
         }
     }
 }
@@ -201,6 +199,10 @@ export function assignThreadName(processes, rendererProcessesByFrame, threadsInP
  */
 export function sanitizeProcesses(processes) {
     const auctionWorklets = auctionWorkletsData().worklets;
+    const metaData = metaHandlerData();
+    if (metaData.traceIsGeneric) {
+        return;
+    }
     for (const [pid, process] of processes) {
         // If the process had no url, or if it had a malformed url that could not be
         // parsed for some reason, or if it's an "about:" origin, delete it.
@@ -221,10 +223,6 @@ export function sanitizeProcesses(processes) {
                 processes.delete(pid);
             }
             continue;
-        }
-        const asUrl = new URL(process.url);
-        if (asUrl.protocol === 'about:') {
-            processes.delete(pid);
         }
     }
 }
@@ -280,6 +278,7 @@ export function buildHierarchy(processes, options) {
             const samplesIntegrator = cpuProfile && new Helpers.SamplesIntegrator.SamplesIntegrator(cpuProfile, pid, tid, config);
             const profileCalls = samplesIntegrator?.buildProfileCalls(thread.entries);
             if (profileCalls) {
+                allTraceEntries = [...allTraceEntries, ...profileCalls];
                 thread.entries = Helpers.Trace.mergeEventsInOrder(thread.entries, profileCalls);
             }
             // Step 3. Build the tree.

@@ -117,6 +117,62 @@ PageRestoreParams_Data::PageRestoreParams_Data()
 
 
 // static
+bool ColorProviderColorMaps_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ColorProviderColorMaps_Data* object =
+      static_cast<const ColorProviderColorMaps_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->light_colors_map, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& light_colors_map_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayOfEnumsValidator<0, ::color::mojom::internal::RendererColorId_Data::Validate>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->light_colors_map, validation_context,
+                                         &light_colors_map_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->dark_colors_map, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& dark_colors_map_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayOfEnumsValidator<0, ::color::mojom::internal::RendererColorId_Data::Validate>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->dark_colors_map, validation_context,
+                                         &dark_colors_map_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->forced_colors_map, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& forced_colors_map_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayOfEnumsValidator<0, ::color::mojom::internal::RendererColorId_Data::Validate>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->forced_colors_map, validation_context,
+                                         &forced_colors_map_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+ColorProviderColorMaps_Data::ColorProviderColorMaps_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool PrerenderPageActivationParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -283,29 +339,6 @@ bool PageBroadcast_ActivatePrerenderedPage_ResponseParams_Data::Validate(
 }
 
 PageBroadcast_ActivatePrerenderedPage_ResponseParams_Data::PageBroadcast_ActivatePrerenderedPage_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PageBroadcast_SetInsidePortal_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PageBroadcast_SetInsidePortal_Params_Data* object =
-      static_cast<const PageBroadcast_SetInsidePortal_Params_Data*>(data);
-
-  return true;
-}
-
-PageBroadcast_SetInsidePortal_Params_Data::PageBroadcast_SetInsidePortal_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -506,6 +539,64 @@ bool PageBroadcast_UpdatePageBrowsingContextGroup_Params_Data::Validate(
 }
 
 PageBroadcast_UpdatePageBrowsingContextGroup_Params_Data::PageBroadcast_UpdatePageBrowsingContextGroup_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageBroadcast_SetPageAttributionSupport_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageBroadcast_SetPageAttributionSupport_Params_Data* object =
+      static_cast<const PageBroadcast_SetPageAttributionSupport_Params_Data*>(data);
+
+
+  if (!::network::mojom::internal::AttributionSupport_Data
+        ::Validate(object->support, validation_context))
+    return false;
+
+  return true;
+}
+
+PageBroadcast_SetPageAttributionSupport_Params_Data::PageBroadcast_SetPageAttributionSupport_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageBroadcast_UpdateColorProviders_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageBroadcast_UpdateColorProviders_Params_Data* object =
+      static_cast<const PageBroadcast_UpdateColorProviders_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->color_provider_colors, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->color_provider_colors, validation_context))
+    return false;
+
+  return true;
+}
+
+PageBroadcast_UpdateColorProviders_Params_Data::PageBroadcast_UpdateColorProviders_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

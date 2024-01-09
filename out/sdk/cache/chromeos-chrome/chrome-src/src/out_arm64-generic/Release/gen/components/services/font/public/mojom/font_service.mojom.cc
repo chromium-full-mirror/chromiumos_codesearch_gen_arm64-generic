@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -533,14 +534,17 @@ void FontServiceProxy::MatchFamilyName(
                         "<value of type TypefaceStylePtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_MatchFamilyName_Name, kFlags, 0, 0, nullptr);
@@ -593,14 +597,17 @@ void FontServiceProxy::OpenStream(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_OpenStream_Name, kFlags, 0, 0, nullptr);
@@ -635,14 +642,17 @@ void FontServiceProxy::FallbackFontForCharacter(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_FallbackFontForCharacter_Name, kFlags, 0, 0, nullptr);
@@ -697,14 +707,17 @@ void FontServiceProxy::FontRenderStyleForStrike(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_FontRenderStyleForStrike_Name, kFlags, 0, 0, nullptr);
@@ -750,14 +763,17 @@ void FontServiceProxy::MatchFontByPostscriptNameOrFullFontName(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_MatchFontByPostscriptNameOrFullFontName_Name, kFlags, 0, 0, nullptr);
@@ -811,14 +827,17 @@ void FontServiceProxy::MatchFontWithFallback(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_MatchFontWithFallback_Name, kFlags, 0, 0, nullptr);
@@ -957,7 +976,8 @@ void FontService_MatchFamilyName_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_MatchFamilyName_Name, kFlags, 0, 0, nullptr);
@@ -1103,7 +1123,8 @@ void FontService_OpenStream_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_OpenStream_Name, kFlags, 0, 0, nullptr);
@@ -1248,7 +1269,8 @@ void FontService_FallbackFontForCharacter_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_FallbackFontForCharacter_Name, kFlags, 0, 0, nullptr);
@@ -1385,7 +1407,8 @@ void FontService_FontRenderStyleForStrike_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_FontRenderStyleForStrike_Name, kFlags, 0, 0, nullptr);
@@ -1509,7 +1532,8 @@ void FontService_MatchFontByPostscriptNameOrFullFontName_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_MatchFontByPostscriptNameOrFullFontName_Name, kFlags, 0, 0, nullptr);
@@ -1633,7 +1657,8 @@ void FontService_MatchFontWithFallback_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFontService_MatchFontWithFallback_Name, kFlags, 0, 0, nullptr);
@@ -1919,20 +1944,20 @@ std::move(p_fallback_family_type), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFontServiceValidationInfo[] = {
-    {&internal::FontService_MatchFamilyName_Params_Data::Validate,
+    { &internal::FontService_MatchFamilyName_Params_Data::Validate,
      &internal::FontService_MatchFamilyName_ResponseParams_Data::Validate},
-    {&internal::FontService_OpenStream_Params_Data::Validate,
+    { &internal::FontService_OpenStream_Params_Data::Validate,
      &internal::FontService_OpenStream_ResponseParams_Data::Validate},
-    {&internal::FontService_FallbackFontForCharacter_Params_Data::Validate,
+    { &internal::FontService_FallbackFontForCharacter_Params_Data::Validate,
      &internal::FontService_FallbackFontForCharacter_ResponseParams_Data::Validate},
-    {&internal::FontService_FontRenderStyleForStrike_Params_Data::Validate,
+    { &internal::FontService_FontRenderStyleForStrike_Params_Data::Validate,
      &internal::FontService_FontRenderStyleForStrike_ResponseParams_Data::Validate},
-    {&internal::FontService_MatchFontByPostscriptNameOrFullFontName_Params_Data::Validate,
+    { &internal::FontService_MatchFontByPostscriptNameOrFullFontName_Params_Data::Validate,
      &internal::FontService_MatchFontByPostscriptNameOrFullFontName_ResponseParams_Data::Validate},
-    {&internal::FontService_MatchFontWithFallback_Params_Data::Validate,
+    { &internal::FontService_MatchFontWithFallback_Params_Data::Validate,
      &internal::FontService_MatchFontWithFallback_ResponseParams_Data::Validate},
 };
 

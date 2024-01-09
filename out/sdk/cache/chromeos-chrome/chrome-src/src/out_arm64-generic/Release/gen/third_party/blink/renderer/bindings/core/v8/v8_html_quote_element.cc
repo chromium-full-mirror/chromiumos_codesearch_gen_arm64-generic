@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLQuoteElement>::value,
     "HTMLQuoteElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLQuoteElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLQuoteElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLQuoteElement.cite.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLQuoteElement* blink_receiver = V8HTMLQuoteElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kCiteAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLQuoteElement* blink_receiver = V8HTMLQuoteElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kCiteAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

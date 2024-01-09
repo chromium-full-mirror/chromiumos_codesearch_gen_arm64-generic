@@ -17,6 +17,7 @@ import '../controls/settings_checkbox.js';
 import '../icons.html.js';
 import '../settings_shared.css.js';
 import { StatusAction, SyncBrowserProxyImpl } from '/shared/settings/people_page/sync_browser_proxy.js';
+import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
@@ -43,7 +44,29 @@ function closeDialog(dialog, isLast) {
     }
     dialog.close();
 }
-const SettingsClearBrowsingDataDialogElementBase = RouteObserverMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));
+export var TimePeriod;
+(function (TimePeriod) {
+    TimePeriod[TimePeriod["LAST_HOUR"] = 0] = "LAST_HOUR";
+    TimePeriod[TimePeriod["LAST_DAY"] = 1] = "LAST_DAY";
+    TimePeriod[TimePeriod["LAST_WEEK"] = 2] = "LAST_WEEK";
+    TimePeriod[TimePeriod["FOUR_WEEKS"] = 3] = "FOUR_WEEKS";
+    TimePeriod[TimePeriod["ALL_TIME"] = 4] = "ALL_TIME";
+    TimePeriod[TimePeriod["TIME_PERIOD_LAST"] = 4] = "TIME_PERIOD_LAST";
+})(TimePeriod || (TimePeriod = {}));
+// TODO(crbug.com/1487530): Remove this after CbdTimeframeRequired finishes.
+export var TimePeriodExperiment;
+(function (TimePeriodExperiment) {
+    TimePeriodExperiment[TimePeriodExperiment["NOT_SELECTED"] = -1] = "NOT_SELECTED";
+    TimePeriodExperiment[TimePeriodExperiment["LAST_HOUR"] = 0] = "LAST_HOUR";
+    TimePeriodExperiment[TimePeriodExperiment["LAST_DAY"] = 1] = "LAST_DAY";
+    TimePeriodExperiment[TimePeriodExperiment["LAST_WEEK"] = 2] = "LAST_WEEK";
+    TimePeriodExperiment[TimePeriodExperiment["FOUR_WEEKS"] = 3] = "FOUR_WEEKS";
+    TimePeriodExperiment[TimePeriodExperiment["ALL_TIME"] = 4] = "ALL_TIME";
+    TimePeriodExperiment[TimePeriodExperiment["OLDER_THAN_30_DAYS"] = 5] = "OLDER_THAN_30_DAYS";
+    TimePeriodExperiment[TimePeriodExperiment["LAST_15_MINUTES"] = 6] = "LAST_15_MINUTES";
+    TimePeriodExperiment[TimePeriodExperiment["TIME_PERIOD_LAST"] = 6] = "TIME_PERIOD_LAST";
+})(TimePeriodExperiment || (TimePeriodExperiment = {}));
+const SettingsClearBrowsingDataDialogElementBase = RouteObserverMixin(WebUiListenerMixin(PrefsMixin(I18nMixin(PolymerElement))));
 export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDialogElementBase {
     constructor() {
         super(...arguments);
@@ -88,11 +111,26 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
                 readOnly: true,
                 type: Array,
                 value: [
-                    { value: 0, name: loadTimeData.getString('clearPeriodHour') },
-                    { value: 1, name: loadTimeData.getString('clearPeriod24Hours') },
-                    { value: 2, name: loadTimeData.getString('clearPeriod7Days') },
-                    { value: 3, name: loadTimeData.getString('clearPeriod4Weeks') },
-                    { value: 4, name: loadTimeData.getString('clearPeriodEverything') },
+                    {
+                        value: TimePeriod.LAST_HOUR,
+                        name: loadTimeData.getString('clearPeriodHour'),
+                    },
+                    {
+                        value: TimePeriod.LAST_DAY,
+                        name: loadTimeData.getString('clearPeriod24Hours'),
+                    },
+                    {
+                        value: TimePeriod.LAST_WEEK,
+                        name: loadTimeData.getString('clearPeriod7Days'),
+                    },
+                    {
+                        value: TimePeriod.FOUR_WEEKS,
+                        name: loadTimeData.getString('clearPeriod4Weeks'),
+                    },
+                    {
+                        value: TimePeriod.ALL_TIME,
+                        name: loadTimeData.getString('clearPeriodEverything'),
+                    },
                 ],
             },
             enableCbdTimeframeRequired_: {
@@ -101,24 +139,60 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
                     return loadTimeData.getBoolean('enableCbdTimeframeRequired');
                 },
             },
+            unoDesktopEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('unoDesktopEnabled');
+                },
+            },
             /**
              * When CBDTimeframeRequired feature/flag is on, this will be the list
              * of options for the dropdown menu. V2 additionally contains the "Last 15
-             * minutes" option.
+             * minutes" and the "Select a time range" options with "Select a time
+             * range" being always hidden in the menuOptions list in which users can
+             * chose the time range.
              */
             clearFromOptionsV2_: {
                 readOnly: true,
                 type: Array,
                 value: [
+                    // The pref is initialized to TimePeriodExperiment.NOT_SELECTED, which
+                    // is shown in the dropdown as the selected option until the user
+                    // selects a different value. The menuList of options should not
+                    // contain the option for TimePeriodExperiment.NOT_SELECTED, as it
+                    // doesn't make sense for users to choose it.
+                    {
+                        value: TimePeriodExperiment.NOT_SELECTED,
+                        name: loadTimeData.getString('clearPeriodNotSelected'),
+                        hidden: true,
+                    },
                     // The value of 15min is 6 to match the value written in the backend,
                     // Also, it comes first in the list to keep the list in ascending
                     // order.
-                    { value: 6, name: loadTimeData.getString('clearPeriod15Minutes') },
-                    { value: 0, name: loadTimeData.getString('clearPeriodHour') },
-                    { value: 1, name: loadTimeData.getString('clearPeriod24Hours') },
-                    { value: 2, name: loadTimeData.getString('clearPeriod7Days') },
-                    { value: 3, name: loadTimeData.getString('clearPeriod4Weeks') },
-                    { value: 4, name: loadTimeData.getString('clearPeriodEverything') },
+                    {
+                        value: TimePeriodExperiment.LAST_15_MINUTES,
+                        name: loadTimeData.getString('clearPeriod15Minutes'),
+                    },
+                    {
+                        value: TimePeriodExperiment.LAST_HOUR,
+                        name: loadTimeData.getString('clearPeriodHour'),
+                    },
+                    {
+                        value: TimePeriodExperiment.LAST_DAY,
+                        name: loadTimeData.getString('clearPeriod24Hours'),
+                    },
+                    {
+                        value: TimePeriodExperiment.LAST_WEEK,
+                        name: loadTimeData.getString('clearPeriod7Days'),
+                    },
+                    {
+                        value: TimePeriodExperiment.FOUR_WEEKS,
+                        name: loadTimeData.getString('clearPeriod4Weeks'),
+                    },
+                    {
+                        value: TimePeriodExperiment.ALL_TIME,
+                        name: loadTimeData.getString('clearPeriodEverything'),
+                    },
                 ],
             },
             clearingInProgress_: {
@@ -192,6 +266,14 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
             },
             nonGoogleSearchHistoryString_: String,
         };
+    }
+    static get observers() {
+        return [
+            `onTimePeriodAdvancedPrefUpdated_(
+          prefs.browser.clear_data.time_period.value)`,
+            `onTimePeriodBasicPrefUpdated_(
+          prefs.browser.clear_data.time_period_basic.value)`,
+        ];
     }
     ready() {
         super.ready();
@@ -271,25 +353,32 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
     }
     /**
      * Choose a label for the cookie checkbox
+     * @param isSignedIn boolean whether the user is signed in or not.
      * @param shouldShowCookieException boolean whether the exception about not
-     *  being signed out of your Google account should be shown when user is
+     * being signed out of your Google account should be shown when user is
      * sync.
      * @param cookiesSummary string explaining that deleting cookies and site data
-     * will sign the user out of most websites
-     * @param cookiesSummarySignedIn string explaining that deleting cookies and
-     * site data will sign the user out of most websites but Google sign in will
-     * stay.
+     * will sign the user out of most websites.
+     * @param clearCookiesSummarySignedIn string explaining that deleting cookies
+     * and site data will sign the user out of most websites but Google sign in
+     * will stay.
+     * @param clearCookiesSummarySyncing string explaining that deleting cookies
+     * and site data will sign the user out of most websites but Google sign in
+     * will stay when user is syncing.
      * @param clearCookiesSummarySignedInSupervisedProfile string used for a
      * supervised user. Gives information about family link controls and that they
      * will not be signed out on clearing cookies
      */
-    cookiesCheckboxLabel_(shouldShowCookieException, cookiesSummary, cookiesSummarySignedIn, clearCookiesSummarySignedInSupervisedProfile) {
+    cookiesCheckboxLabel_(isSignedIn, shouldShowCookieException, cookiesSummary, clearCookiesSummarySignedIn, clearCookiesSummarySyncing, clearCookiesSummarySignedInSupervisedProfile) {
         if (loadTimeData.getBoolean('isChildAccount') &&
             loadTimeData.getBoolean('clearingCookiesKeepsSupervisedUsersSignedIn')) {
             return clearCookiesSummarySignedInSupervisedProfile;
         }
+        if (this.unoDesktopEnabled_ && isSignedIn) {
+            return clearCookiesSummarySignedIn;
+        }
         if (shouldShowCookieException) {
-            return cookiesSummarySignedIn;
+            return clearCookiesSummarySyncing;
         }
         // 
         return cookiesSummary;
@@ -410,6 +499,35 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
         let showFooter = false;
         // 
         return showFooter;
+    }
+    /**
+     * @return Whether the signed info description should be shown in the footer.
+     */
+    showSigninInfo_() {
+        return this.unoDesktopEnabled_ && this.isSignedIn_ &&
+            (!this.syncStatus || !this.syncStatus.signedIn);
+    }
+    /**
+     * @return Whether the synced info description should be shown in the footer.
+     */
+    showSyncInfo_() {
+        return !this.showSigninInfo_() && !!this.syncStatus &&
+            !this.syncStatus.hasError;
+    }
+    onTimePeriodAdvancedPrefUpdated_() {
+        this.onTimePeriodPrefUpdated_(false);
+    }
+    onTimePeriodBasicPrefUpdated_() {
+        this.onTimePeriodPrefUpdated_(true);
+    }
+    onTimePeriodPrefUpdated_(basic) {
+        const timePeriodPref = basic ? 'browser.clear_data.time_period_basic' :
+            'browser.clear_data.time_period';
+        const timePeriodValue = this.getPref(timePeriodPref).value;
+        if (!(timePeriodValue in TimePeriod)) {
+            // If the synced time period is not supported, default to "Last hour".
+            this.setPrefValue(timePeriodPref, TimePeriod.LAST_HOUR);
+        }
     }
 }
 customElements.define(SettingsClearBrowsingDataDialogElement.is, SettingsClearBrowsingDataDialogElement);

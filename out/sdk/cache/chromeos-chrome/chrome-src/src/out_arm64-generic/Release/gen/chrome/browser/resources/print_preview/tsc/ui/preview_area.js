@@ -13,7 +13,7 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 // 
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 // 
-import { hasKeyModifiers } from 'chrome://resources/js/util_ts.js';
+import { hasKeyModifiers } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { DarkModeMixin } from '../dark_mode_mixin.js';
 import { Coordinate2d } from '../data/coordinate2d.js';

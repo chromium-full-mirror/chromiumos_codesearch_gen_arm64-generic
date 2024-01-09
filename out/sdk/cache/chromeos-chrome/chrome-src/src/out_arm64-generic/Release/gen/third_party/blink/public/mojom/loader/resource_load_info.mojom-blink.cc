@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -52,7 +53,7 @@ CommonNetworkInfo::CommonNetworkInfo()
 CommonNetworkInfo::CommonNetworkInfo(
     bool network_accessed_in,
     bool always_access_network_in,
-    const absl::optional<::net::IPEndPoint>& remote_endpoint_in)
+    const std::optional<::net::IPEndPoint>& remote_endpoint_in)
     : network_accessed(std::move(network_accessed_in)),
       always_access_network(std::move(always_access_network_in)),
       remote_endpoint(std::move(remote_endpoint_in)) {}
@@ -84,7 +85,7 @@ void CommonNetworkInfo::WriteIntoTrace(
     dict.AddItem(
       "remote_endpoint"), this->remote_endpoint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::IPEndPoint>&>"
+      "<value of type const std::optional<::net::IPEndPoint>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -152,7 +153,8 @@ ResourceLoadInfo::ResourceLoadInfo()
       load_timing_info(),
       raw_body_bytes(),
       total_received_bytes(),
-      redirect_info_chain() {}
+      redirect_info_chain(),
+      http_status_code() {}
 
 ResourceLoadInfo::ResourceLoadInfo(
     int64_t request_id_in,
@@ -170,7 +172,8 @@ ResourceLoadInfo::ResourceLoadInfo(
     ::network::mojom::blink::LoadTimingInfoPtr load_timing_info_in,
     int64_t raw_body_bytes_in,
     int64_t total_received_bytes_in,
-    WTF::Vector<RedirectInfoPtr> redirect_info_chain_in)
+    WTF::Vector<RedirectInfoPtr> redirect_info_chain_in,
+    int32_t http_status_code_in)
     : request_id(std::move(request_id_in)),
       final_url(std::move(final_url_in)),
       referrer(std::move(referrer_in)),
@@ -186,7 +189,8 @@ ResourceLoadInfo::ResourceLoadInfo(
       load_timing_info(std::move(load_timing_info_in)),
       raw_body_bytes(std::move(raw_body_bytes_in)),
       total_received_bytes(std::move(total_received_bytes_in)),
-      redirect_info_chain(std::move(redirect_info_chain_in)) {}
+      redirect_info_chain(std::move(redirect_info_chain_in)),
+      http_status_code(std::move(http_status_code_in)) {}
 
 ResourceLoadInfo::~ResourceLoadInfo() = default;
 
@@ -337,6 +341,15 @@ void ResourceLoadInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "http_status_code"), this->http_status_code,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool ResourceLoadInfo::Validate(
@@ -425,6 +438,8 @@ bool StructTraits<::blink::mojom::blink::ResourceLoadInfo::DataView, ::blink::mo
         result->total_received_bytes = input.total_received_bytes();
       if (success && !input.ReadRedirectInfoChain(&result->redirect_info_chain))
         success = false;
+      if (success)
+        result->http_status_code = input.http_status_code();
   *output = std::move(result);
   return success;
 }

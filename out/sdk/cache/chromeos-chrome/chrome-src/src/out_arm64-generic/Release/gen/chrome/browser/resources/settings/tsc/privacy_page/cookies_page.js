@@ -25,7 +25,6 @@ import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from '../i18n_setup.js';
 import { MetricsBrowserProxyImpl, PrivacyElementInteractions } from '../metrics_browser_proxy.js';
-import { NetworkPredictionOptions } from '../performance_page/constants.js';
 import { routes } from '../route.js';
 import { RouteObserverMixin, Router } from '../router.js';
 import { ContentSetting, ContentSettingsTypes, CookieControlsMode } from '../site_settings/constants.js';
@@ -98,14 +97,6 @@ export class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('firstPartySetsUIEnabled'),
             },
-            isPrivacySandboxSettings4_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('isPrivacySandboxSettings4'),
-            },
-            showPreloadingSubpage_: {
-                type: Boolean,
-                value: () => !loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageEnabled'),
-            },
             is3pcdRedesignEnabled_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled'),
@@ -134,14 +125,6 @@ export class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
         else {
             this.focusConfig.set(`${routes.SITE_SETTINGS_ALL.path}_${routes.COOKIES.path}`, selectSiteDataLinkRow);
         }
-        if (this.showPreloadingSubpage_) {
-            const selectPreloadingLinkRow = () => {
-                const toFocus = this.shadowRoot.querySelector('#preloadingLinkRow');
-                assert(toFocus);
-                focusWithoutInk(toFocus);
-            };
-            this.focusConfig.set(`${routes.PRELOADING.path}_${routes.COOKIES.path}`, selectPreloadingLinkRow);
-        }
     }
     currentRouteChanged(route) {
         if (this.is3pcdRedesignEnabled_) {
@@ -163,39 +146,16 @@ export class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
             'cookiePageBlockThirdIncognitoBulTwoFps' :
             'cookiePageBlockThirdIncognitoBulTwo');
     }
-    // 
     onSiteDataClick_() {
         Router.getInstance().navigateTo(routes.SITE_SETTINGS_ALL);
     }
     onGeneratedPrefsUpdated_() {
-        if (this.isPrivacySandboxSettings4_) {
-            // If the default cookie content setting is managed, the exception lists
-            // should be disabled. `profile.cookie_controls_mode` doesn't control the
-            // ability to create exceptions but the content setting does.
-            const defaultContentSettingPref = this.getPref('generated.cookie_default_content_setting');
-            this.exceptionListsReadOnly_ = defaultContentSettingPref.enforcement ===
-                chrome.settingsPrivate.Enforcement.ENFORCED;
-            return;
-        }
-        // TODO(crbug.com/1378703): Clean up after the feature is launched and these
-        // generated preferences are deprecated. New page won't have 'session only'
-        // controls.
-        const sessionOnlyPref = this.getPref('generated.cookie_session_only');
-        // If the clear on exit toggle is managed this implies a content setting
-        // policy is present and the exception lists should be disabled.
-        this.exceptionListsReadOnly_ = sessionOnlyPref.enforcement ===
+        // If the default cookie content setting is managed, the exception lists
+        // should be disabled. `profile.cookie_controls_mode` doesn't control the
+        // ability to create exceptions but the content setting does.
+        const defaultContentSettingPref = this.getPref('generated.cookie_default_content_setting');
+        this.exceptionListsReadOnly_ = defaultContentSettingPref.enforcement ===
             chrome.settingsPrivate.Enforcement.ENFORCED;
-        // It is not currently possible to represent multiple management
-        // sources for a single a preference. In all management scenarios,
-        // the blockAll setting shares the same controlledBy as the
-        // cookie_session_only pref. To support this, the controlledBy
-        // fields for the |cookie_primary_setting| pref provided to the
-        // blockAll control are overwritten with values from the session_only
-        // preference.
-        this.set('blockAllPref_', Object.assign(this.getPref('generated.cookie_primary_setting'), {
-            controlledBy: sessionOnlyPref.controlledBy,
-            controlledByName: sessionOnlyPref.controlledByName,
-        }));
     }
     onBlockAll3pcToggleChanged_(event) {
         this.metricsBrowserProxy_.recordSettingsPageHistogram(PrivacyElementInteractions.BLOCK_ALL_THIRD_PARTY_COOKIES);
@@ -225,7 +185,7 @@ export class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
         const currentCookieControlsMode = this.getPref('profile.cookie_controls_mode').value;
         const areAnyPrivacySandboxApisEnabled = this.getPref('privacy_sandbox.m1.topics_enabled').value ||
             this.getPref('privacy_sandbox.m1.fledge_enabled').value ||
-            this.getPref('privacy_sandbox.m1.fledge_enabled').value;
+            this.getPref('privacy_sandbox.m1.ad_measurement_enabled').value;
         const areThirdPartyCookiesAllowed = currentCookieControlsMode === CookieControlsMode.OFF ||
             currentCookieControlsMode === CookieControlsMode.INCOGNITO_ONLY;
         if (areAnyPrivacySandboxApisEnabled && areThirdPartyCookiesAllowed &&
@@ -283,42 +243,15 @@ export class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
     onClearOnExitChange_() {
         this.metricsBrowserProxy_.recordSettingsPageHistogram(PrivacyElementInteractions.COOKIES_SESSION);
     }
-    onPreloadingClick_() {
-        this.metricsBrowserProxy_.recordSettingsPageHistogram(PrivacyElementInteractions.NETWORK_PREDICTION);
-        Router.getInstance().navigateTo(routes.PRELOADING);
-    }
-    getNetworkPredictionsOptionsLabel_(networkPredictionOption) {
-        if (networkPredictionOption === NetworkPredictionOptions.DISABLED) {
-            return this.i18n('preloadingPageNoPreloadingTitle');
-        }
-        if (networkPredictionOption === NetworkPredictionOptions.EXTENDED) {
-            return this.i18n('preloadingPageExtendedPreloadingTitle');
-        }
-        // NetworkPredictionOptions.WIFI_ONLY_DEPRECATED is treated the same as
-        // NetworkPredictionOptions.STANDARD.
-        // See chrome/browser/preloading/preloading_prefs.h.
-        return this.i18n('preloadingPageStandardPreloadingTitle');
-    }
     onPrivacySandboxClick_() {
         this.metricsBrowserProxy_.recordAction('Settings.PrivacySandbox.OpenedFromCookiesPageToast');
         this.$.toast.hide();
-        // TODO(crbug.com/1378703): Open new privacy sandbox settings page.
         // TODO(crbug/1159942): Replace this with an ordinary OpenWindowProxy call.
         this.shadowRoot.querySelector('#privacySandboxLink').click();
     }
     firstPartySetsToggleDisabled_() {
-        if (this.isPrivacySandboxSettings4_) {
-            return this.getPref('profile.cookie_controls_mode').value !==
-                CookieControlsMode.BLOCK_THIRD_PARTY;
-        }
-        return this.getPref('generated.cookie_primary_setting').value !==
-            CookiePrimarySetting.BLOCK_THIRD_PARTY;
-    }
-    isPrivacySandboxSettings4CookieSettingsEnabled_() {
-        return this.isPrivacySandboxSettings4_ && !this.is3pcdRedesignEnabled_;
-    }
-    isPrivacySandboxSettings3CookieSettingsEnabled_() {
-        return !this.isPrivacySandboxSettings4_ && !this.is3pcdRedesignEnabled_;
+        return this.getPref('profile.cookie_controls_mode').value !==
+            CookieControlsMode.BLOCK_THIRD_PARTY;
     }
 }
 customElements.define(SettingsCookiesPageElement.is, SettingsCookiesPageElement);

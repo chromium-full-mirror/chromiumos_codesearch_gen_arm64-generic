@@ -2809,14 +2809,17 @@ def parse_amd_pmc_s0ix_residency_info():
     @raises error.TestNAError if the debugfs file not found.
     """
     s = []
-    with open('/sys/kernel/debug/amd_pmc/s0ix_stats',"r") as f:
+    try:
+        f = open('/sys/kernel/debug/amd_pmc/s0ix_stats', 'r', encoding="utf-8")
+    except OSError as e:
+        raise error.TestNAError('AMD S0ix residency not supported') from e
+    with f:
         for line in f:
             if ':' in line:
                 val = line.split(": ")
                 s.append(int(val[1]))
         stat = S0ixAmdStats(entry=s[0], exit=s[1], residency=s[2])
         return stat
-    raise error.TestNAError('AMD S0ix residency not supported')
 
 def parse_pmc_s0ix_residency_info():
     """
@@ -3250,7 +3253,7 @@ class PCHPowergatingStats(object):
         # Example pattern to match:
         # PCH IP: 0  - PMC                                State: On
         # PCH IP: 1  - SATA                               State: Off
-        pattern = r'PCH IP:\s+(?P<id>\d+)\s+' \
+        pattern = r'(PMC\d+:)?PCH IP:\s+(?P<id>\d+)\s+' \
                   r'- (?P<name>.*\w)\s+'      \
                   r'State: (?P<state>Off|On)'
         matcher = re.compile(pattern)

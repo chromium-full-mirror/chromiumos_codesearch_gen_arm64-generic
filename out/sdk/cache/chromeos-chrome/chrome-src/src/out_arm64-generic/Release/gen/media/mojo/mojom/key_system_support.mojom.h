@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/key_system_support.mojom-features.h"
 #include "media/mojo/mojom/key_system_support.mojom-shared.h"
 #include "media/mojo/mojom/key_system_support.mojom-forward.h"
 #include "media/mojo/mojom/content_decryption_module.mojom.h"
@@ -583,8 +584,8 @@ class  KeySystemCapability {
   KeySystemCapability();
 
   KeySystemCapability(
-      const absl::optional<::media::CdmCapability>& sw_secure_capability,
-      const absl::optional<::media::CdmCapability>& hw_secure_capability);
+      const std::optional<::media::CdmCapability>& sw_secure_capability,
+      const std::optional<::media::CdmCapability>& hw_secure_capability);
 
 
   ~KeySystemCapability();
@@ -662,9 +663,9 @@ class  KeySystemCapability {
   }
 
   
-  absl::optional<::media::CdmCapability> sw_secure_capability;
+  std::optional<::media::CdmCapability> sw_secure_capability;
   
-  absl::optional<::media::CdmCapability> hw_secure_capability;
+  std::optional<::media::CdmCapability> hw_secure_capability;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -924,6 +924,8 @@ class AttributionReadOnlySourceData final :
     kMaxEventLevelReportsFieldNumber = 1,
     kTriggerDataMatchingFieldNumber = 5,
     kRandomizedResponseRateFieldNumber = 4,
+    kEventLevelEpsilonFieldNumber = 7,
+    kDebugCookieSetFieldNumber = 6,
   };
   // repeated int64 event_level_report_window_end_times = 3;
   int event_level_report_window_end_times_size() const;
@@ -999,6 +1001,32 @@ class AttributionReadOnlySourceData final :
   void _internal_set_randomized_response_rate(double value);
   public:
 
+  // optional double event_level_epsilon = 7;
+  bool has_event_level_epsilon() const;
+  private:
+  bool _internal_has_event_level_epsilon() const;
+  public:
+  void clear_event_level_epsilon();
+  double event_level_epsilon() const;
+  void set_event_level_epsilon(double value);
+  private:
+  double _internal_event_level_epsilon() const;
+  void _internal_set_event_level_epsilon(double value);
+  public:
+
+  // optional bool debug_cookie_set = 6;
+  bool has_debug_cookie_set() const;
+  private:
+  bool _internal_has_debug_cookie_set() const;
+  public:
+  void clear_debug_cookie_set();
+  bool debug_cookie_set() const;
+  void set_debug_cookie_set(bool value);
+  private:
+  bool _internal_debug_cookie_set() const;
+  void _internal_set_debug_cookie_set(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:content.proto.AttributionReadOnlySourceData)
  private:
   class _Internal;
@@ -1013,6 +1041,8 @@ class AttributionReadOnlySourceData final :
   int32_t max_event_level_reports_;
   int trigger_data_matching_;
   double randomized_response_rate_;
+  double event_level_epsilon_;
+  bool debug_cookie_set_;
   friend struct ::TableStruct_attribution_5freporting_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1127,22 +1157,9 @@ class AttributionEventLevelMetadata final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kTriggerDataFieldNumber = 1,
     kPriorityFieldNumber = 2,
+    kTriggerDataFieldNumber = 1,
   };
-  // optional uint64 trigger_data = 1;
-  bool has_trigger_data() const;
-  private:
-  bool _internal_has_trigger_data() const;
-  public:
-  void clear_trigger_data();
-  uint64_t trigger_data() const;
-  void set_trigger_data(uint64_t value);
-  private:
-  uint64_t _internal_trigger_data() const;
-  void _internal_set_trigger_data(uint64_t value);
-  public:
-
   // optional int64 priority = 2;
   bool has_priority() const;
   private:
@@ -1156,6 +1173,19 @@ class AttributionEventLevelMetadata final :
   void _internal_set_priority(int64_t value);
   public:
 
+  // optional uint32 trigger_data = 1;
+  bool has_trigger_data() const;
+  private:
+  bool _internal_has_trigger_data() const;
+  public:
+  void clear_trigger_data();
+  uint32_t trigger_data() const;
+  void set_trigger_data(uint32_t value);
+  private:
+  uint32_t _internal_trigger_data() const;
+  void _internal_set_trigger_data(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:content.proto.AttributionEventLevelMetadata)
  private:
   class _Internal;
@@ -1165,8 +1195,8 @@ class AttributionEventLevelMetadata final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  uint64_t trigger_data_;
   int64_t priority_;
+  uint32_t trigger_data_;
   friend struct ::TableStruct_attribution_5freporting_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1309,6 +1339,7 @@ class AttributionCommonAggregatableMetadata final :
   enum : int {
     kVerificationTokenFieldNumber = 2,
     kCoordinatorOriginFieldNumber = 4,
+    kTriggerContextIdFieldNumber = 5,
     kSourceRegistrationTimeConfigFieldNumber = 3,
   };
   // optional string verification_token = 2;
@@ -1347,6 +1378,24 @@ class AttributionCommonAggregatableMetadata final :
   std::string* _internal_mutable_coordinator_origin();
   public:
 
+  // optional string trigger_context_id = 5;
+  bool has_trigger_context_id() const;
+  private:
+  bool _internal_has_trigger_context_id() const;
+  public:
+  void clear_trigger_context_id();
+  const std::string& trigger_context_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_trigger_context_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_trigger_context_id();
+  PROTOBUF_NODISCARD std::string* release_trigger_context_id();
+  void set_allocated_trigger_context_id(std::string* trigger_context_id);
+  private:
+  const std::string& _internal_trigger_context_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_trigger_context_id(const std::string& value);
+  std::string* _internal_mutable_trigger_context_id();
+  public:
+
   // optional .content.proto.AttributionCommonAggregatableMetadata.SourceRegistrationTimeConfig source_registration_time_config = 3;
   bool has_source_registration_time_config() const;
   private:
@@ -1371,6 +1420,7 @@ class AttributionCommonAggregatableMetadata final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr verification_token_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr coordinator_origin_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr trigger_context_id_;
   int source_registration_time_config_;
   friend struct ::TableStruct_attribution_5freporting_2eproto;
 };
@@ -2238,41 +2288,97 @@ inline void AttributionReadOnlySourceData::set_trigger_data_matching(::content::
   // @@protoc_insertion_point(field_set:content.proto.AttributionReadOnlySourceData.trigger_data_matching)
 }
 
+// optional bool debug_cookie_set = 6;
+inline bool AttributionReadOnlySourceData::_internal_has_debug_cookie_set() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool AttributionReadOnlySourceData::has_debug_cookie_set() const {
+  return _internal_has_debug_cookie_set();
+}
+inline void AttributionReadOnlySourceData::clear_debug_cookie_set() {
+  debug_cookie_set_ = false;
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline bool AttributionReadOnlySourceData::_internal_debug_cookie_set() const {
+  return debug_cookie_set_;
+}
+inline bool AttributionReadOnlySourceData::debug_cookie_set() const {
+  // @@protoc_insertion_point(field_get:content.proto.AttributionReadOnlySourceData.debug_cookie_set)
+  return _internal_debug_cookie_set();
+}
+inline void AttributionReadOnlySourceData::_internal_set_debug_cookie_set(bool value) {
+  _has_bits_[0] |= 0x00000020u;
+  debug_cookie_set_ = value;
+}
+inline void AttributionReadOnlySourceData::set_debug_cookie_set(bool value) {
+  _internal_set_debug_cookie_set(value);
+  // @@protoc_insertion_point(field_set:content.proto.AttributionReadOnlySourceData.debug_cookie_set)
+}
+
+// optional double event_level_epsilon = 7;
+inline bool AttributionReadOnlySourceData::_internal_has_event_level_epsilon() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool AttributionReadOnlySourceData::has_event_level_epsilon() const {
+  return _internal_has_event_level_epsilon();
+}
+inline void AttributionReadOnlySourceData::clear_event_level_epsilon() {
+  event_level_epsilon_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline double AttributionReadOnlySourceData::_internal_event_level_epsilon() const {
+  return event_level_epsilon_;
+}
+inline double AttributionReadOnlySourceData::event_level_epsilon() const {
+  // @@protoc_insertion_point(field_get:content.proto.AttributionReadOnlySourceData.event_level_epsilon)
+  return _internal_event_level_epsilon();
+}
+inline void AttributionReadOnlySourceData::_internal_set_event_level_epsilon(double value) {
+  _has_bits_[0] |= 0x00000010u;
+  event_level_epsilon_ = value;
+}
+inline void AttributionReadOnlySourceData::set_event_level_epsilon(double value) {
+  _internal_set_event_level_epsilon(value);
+  // @@protoc_insertion_point(field_set:content.proto.AttributionReadOnlySourceData.event_level_epsilon)
+}
+
 // -------------------------------------------------------------------
 
 // AttributionEventLevelMetadata
 
-// optional uint64 trigger_data = 1;
+// optional uint32 trigger_data = 1;
 inline bool AttributionEventLevelMetadata::_internal_has_trigger_data() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool AttributionEventLevelMetadata::has_trigger_data() const {
   return _internal_has_trigger_data();
 }
 inline void AttributionEventLevelMetadata::clear_trigger_data() {
-  trigger_data_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x00000001u;
+  trigger_data_ = 0u;
+  _has_bits_[0] &= ~0x00000002u;
 }
-inline uint64_t AttributionEventLevelMetadata::_internal_trigger_data() const {
+inline uint32_t AttributionEventLevelMetadata::_internal_trigger_data() const {
   return trigger_data_;
 }
-inline uint64_t AttributionEventLevelMetadata::trigger_data() const {
+inline uint32_t AttributionEventLevelMetadata::trigger_data() const {
   // @@protoc_insertion_point(field_get:content.proto.AttributionEventLevelMetadata.trigger_data)
   return _internal_trigger_data();
 }
-inline void AttributionEventLevelMetadata::_internal_set_trigger_data(uint64_t value) {
-  _has_bits_[0] |= 0x00000001u;
+inline void AttributionEventLevelMetadata::_internal_set_trigger_data(uint32_t value) {
+  _has_bits_[0] |= 0x00000002u;
   trigger_data_ = value;
 }
-inline void AttributionEventLevelMetadata::set_trigger_data(uint64_t value) {
+inline void AttributionEventLevelMetadata::set_trigger_data(uint32_t value) {
   _internal_set_trigger_data(value);
   // @@protoc_insertion_point(field_set:content.proto.AttributionEventLevelMetadata.trigger_data)
 }
 
 // optional int64 priority = 2;
 inline bool AttributionEventLevelMetadata::_internal_has_priority() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
 inline bool AttributionEventLevelMetadata::has_priority() const {
@@ -2280,7 +2386,7 @@ inline bool AttributionEventLevelMetadata::has_priority() const {
 }
 inline void AttributionEventLevelMetadata::clear_priority() {
   priority_ = int64_t{0};
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline int64_t AttributionEventLevelMetadata::_internal_priority() const {
   return priority_;
@@ -2290,7 +2396,7 @@ inline int64_t AttributionEventLevelMetadata::priority() const {
   return _internal_priority();
 }
 inline void AttributionEventLevelMetadata::_internal_set_priority(int64_t value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000001u;
   priority_ = value;
 }
 inline void AttributionEventLevelMetadata::set_priority(int64_t value) {
@@ -2372,7 +2478,7 @@ inline void AttributionCommonAggregatableMetadata::set_allocated_verification_to
 
 // optional .content.proto.AttributionCommonAggregatableMetadata.SourceRegistrationTimeConfig source_registration_time_config = 3;
 inline bool AttributionCommonAggregatableMetadata::_internal_has_source_registration_time_config() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool AttributionCommonAggregatableMetadata::has_source_registration_time_config() const {
@@ -2380,7 +2486,7 @@ inline bool AttributionCommonAggregatableMetadata::has_source_registration_time_
 }
 inline void AttributionCommonAggregatableMetadata::clear_source_registration_time_config() {
   source_registration_time_config_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::content::proto::AttributionCommonAggregatableMetadata_SourceRegistrationTimeConfig AttributionCommonAggregatableMetadata::_internal_source_registration_time_config() const {
   return static_cast< ::content::proto::AttributionCommonAggregatableMetadata_SourceRegistrationTimeConfig >(source_registration_time_config_);
@@ -2391,7 +2497,7 @@ inline ::content::proto::AttributionCommonAggregatableMetadata_SourceRegistratio
 }
 inline void AttributionCommonAggregatableMetadata::_internal_set_source_registration_time_config(::content::proto::AttributionCommonAggregatableMetadata_SourceRegistrationTimeConfig value) {
   assert(::content::proto::AttributionCommonAggregatableMetadata_SourceRegistrationTimeConfig_IsValid(value));
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   source_registration_time_config_ = value;
 }
 inline void AttributionCommonAggregatableMetadata::set_source_registration_time_config(::content::proto::AttributionCommonAggregatableMetadata_SourceRegistrationTimeConfig value) {
@@ -2465,6 +2571,74 @@ inline void AttributionCommonAggregatableMetadata::set_allocated_coordinator_ori
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:content.proto.AttributionCommonAggregatableMetadata.coordinator_origin)
+}
+
+// optional string trigger_context_id = 5;
+inline bool AttributionCommonAggregatableMetadata::_internal_has_trigger_context_id() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool AttributionCommonAggregatableMetadata::has_trigger_context_id() const {
+  return _internal_has_trigger_context_id();
+}
+inline void AttributionCommonAggregatableMetadata::clear_trigger_context_id() {
+  trigger_context_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& AttributionCommonAggregatableMetadata::trigger_context_id() const {
+  // @@protoc_insertion_point(field_get:content.proto.AttributionCommonAggregatableMetadata.trigger_context_id)
+  return _internal_trigger_context_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttributionCommonAggregatableMetadata::set_trigger_context_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000004u;
+ trigger_context_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:content.proto.AttributionCommonAggregatableMetadata.trigger_context_id)
+}
+inline std::string* AttributionCommonAggregatableMetadata::mutable_trigger_context_id() {
+  std::string* _s = _internal_mutable_trigger_context_id();
+  // @@protoc_insertion_point(field_mutable:content.proto.AttributionCommonAggregatableMetadata.trigger_context_id)
+  return _s;
+}
+inline const std::string& AttributionCommonAggregatableMetadata::_internal_trigger_context_id() const {
+  return trigger_context_id_.Get();
+}
+inline void AttributionCommonAggregatableMetadata::_internal_set_trigger_context_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  trigger_context_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AttributionCommonAggregatableMetadata::_internal_mutable_trigger_context_id() {
+  _has_bits_[0] |= 0x00000004u;
+  return trigger_context_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AttributionCommonAggregatableMetadata::release_trigger_context_id() {
+  // @@protoc_insertion_point(field_release:content.proto.AttributionCommonAggregatableMetadata.trigger_context_id)
+  if (!_internal_has_trigger_context_id()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  auto* p = trigger_context_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (trigger_context_id_.IsDefault()) {
+    trigger_context_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void AttributionCommonAggregatableMetadata::set_allocated_trigger_context_id(std::string* trigger_context_id) {
+  if (trigger_context_id != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  trigger_context_id_.SetAllocated(trigger_context_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (trigger_context_id_.IsDefault()) {
+    trigger_context_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:content.proto.AttributionCommonAggregatableMetadata.trigger_context_id)
 }
 
 // -------------------------------------------------------------------

@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUDeviceLostInfo>::value,
     "GPUDeviceLostInfo inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUDeviceLostInfo::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUDeviceLostInfo is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDeviceLostInfo.reason.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUDeviceLostInfo* blink_receiver = V8GPUDeviceLostInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->reason();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUDeviceLostInfo* blink_receiver = V8GPUDeviceLostInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->reason();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,10 +96,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDeviceLostInfo.message.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUDeviceLostInfo* blink_receiver = V8GPUDeviceLostInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->message();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUDeviceLostInfo* blink_receiver = V8GPUDeviceLostInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->message();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

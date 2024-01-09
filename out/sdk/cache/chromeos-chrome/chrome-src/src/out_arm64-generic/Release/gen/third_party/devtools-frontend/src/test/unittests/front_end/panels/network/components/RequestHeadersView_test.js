@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 import * as Common from '../../../../../../front_end/core/common/common.js';
 import * as Host from '../../../../../../front_end/core/host/host.js';
-import * as Root from '../../../../../../front_end/core/root/root.js';
 import * as SDK from '../../../../../../front_end/core/sdk/sdk.js';
 import * as Persistence from '../../../../../../front_end/models/persistence/persistence.js';
 import * as NetworkComponents from '../../../../../../front_end/panels/network/components/components.js';
@@ -84,7 +83,6 @@ const getRowHighlightStatus = (container) => {
 describeWithMockConnection('RequestHeadersView', () => {
     let component = null;
     beforeEach(() => {
-        Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.HEADER_OVERRIDES);
         setUpEnvironment();
         resetRecordedMetrics();
     });
@@ -152,6 +150,7 @@ describeWithMockConnection('RequestHeadersView', () => {
         assertElement(responseHeadersCategory, HTMLElement);
         // Switch to viewing source view
         responseHeadersCategory.dispatchEvent(new NetworkComponents.RequestHeadersView.ToggleRawHeadersEvent());
+        await coordinator.done();
         const rawHeadersDiv = responseHeadersCategory.querySelector('.raw-headers');
         assertElement(rawHeadersDiv, HTMLDivElement);
         const rawTextContent = rawHeadersDiv.textContent?.replace(/ {2,}/g, '');
@@ -176,6 +175,7 @@ describeWithMockConnection('RequestHeadersView', () => {
         assertElement(responseHeadersCategory, HTMLElement);
         // Switch to viewing source view
         responseHeadersCategory.dispatchEvent(new NetworkComponents.RequestHeadersView.ToggleRawHeadersEvent());
+        await coordinator.done();
         const rawHeadersDiv = responseHeadersCategory.querySelector('.raw-headers');
         assertElement(rawHeadersDiv, HTMLDivElement);
         const shortenedRawTextContent = rawHeadersDiv.textContent?.replace(/ {2,}/g, '');
@@ -184,6 +184,7 @@ describeWithMockConnection('RequestHeadersView', () => {
         assertElement(showMoreButton, HTMLElement);
         assert.strictEqual(showMoreButton.textContent, 'Show more');
         showMoreButton.click();
+        await coordinator.done();
         const noMoreShowMoreButton = responseHeadersCategory.querySelector('devtools-button');
         assert.isNull(noMoreShowMoreButton);
         const fullRawTextContent = rawHeadersDiv.textContent?.replace(/ {2,}/g, '');

@@ -8,5 +8,7 @@
 #define CHROMEOS_CROSAPI_MOJOM_TELEMETRY_DIAGNOSTIC_ROUTINE_SERVICE_MOJOM_IMPORT_HEADERS_H_
 #include "chromeos/crosapi/mojom/telemetry_extension_exception.mojom.h"
 #include "chromeos/crosapi/mojom/telemetry_extension_exception.mojom-import-headers.h"
+#include "mojo/public/mojom/base/time.mojom.h"
+#include "mojo/public/mojom/base/time.mojom-import-headers.h"
 
 #endif  // CHROMEOS_CROSAPI_MOJOM_TELEMETRY_DIAGNOSTIC_ROUTINE_SERVICE_MOJOM_IMPORT_HEADERS_H_

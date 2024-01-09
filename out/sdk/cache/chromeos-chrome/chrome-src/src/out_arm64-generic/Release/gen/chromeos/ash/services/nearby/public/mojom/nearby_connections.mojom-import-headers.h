@@ -8,6 +8,8 @@
 #define CHROMEOS_ASH_SERVICES_NEARBY_PUBLIC_MOJOM_NEARBY_CONNECTIONS_MOJOM_IMPORT_HEADERS_H_
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections_types.mojom.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections_types.mojom-import-headers.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom-import-headers.h"
 #include "mojo/public/mojom/base/file.mojom.h"
 #include "mojo/public/mojom/base/file.mojom-import-headers.h"
 #include "mojo/public/mojom/base/read_only_file.mojom.h"

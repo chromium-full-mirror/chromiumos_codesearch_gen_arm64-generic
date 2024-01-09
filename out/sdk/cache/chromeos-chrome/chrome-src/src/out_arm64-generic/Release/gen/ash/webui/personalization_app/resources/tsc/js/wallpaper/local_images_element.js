@@ -12,14 +12,14 @@ import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '../../css/wallpaper.css.js';
 import '../../common/icons.html.js';
 import '../../css/common.css.js';
+import { isImageDataUrl, isNonEmptyFilePath } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { afterNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { WallpaperType } from '../../personalization_app.mojom-webui.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
-import { isImageDataUrl } from '../utils.js';
 import { kDefaultImageSymbol } from './constants.js';
 import { getTemplate } from './local_images_element.html.js';
-import { getPathOrSymbol, isDefaultImage, isFilePath } from './utils.js';
+import { getPathOrSymbol, isDefaultImage } from './utils.js';
 import { selectWallpaper } from './wallpaper_controller.js';
 import { getWallpaperProvider } from './wallpaper_interface_provider.js';
 export class LocalImagesElement extends WithPersonalizationStore {
@@ -108,7 +108,8 @@ export class LocalImagesElement extends WithPersonalizationStore {
                 (!pendingSelected && !!currentSelected &&
                     currentSelected.type === WallpaperType.kDefault));
         }
-        return (isFilePath(pendingSelected) && image.path === pendingSelected.path ||
+        return (isNonEmptyFilePath(pendingSelected) &&
+            image.path === pendingSelected.path ||
             !!currentSelected && image.path === currentSelected.key &&
                 !pendingSelected);
     }
@@ -119,7 +120,7 @@ export class LocalImagesElement extends WithPersonalizationStore {
         if (isDefaultImage(image)) {
             return this.i18n('defaultWallpaper');
         }
-        if (!isFilePath(image)) {
+        if (!isNonEmptyFilePath(image)) {
             return '';
         }
         const path = image.path;
@@ -150,11 +151,11 @@ export class LocalImagesElement extends WithPersonalizationStore {
         if (!image) {
             return '';
         }
-        return isFilePath(image) ? image.path : image.toString();
+        return isNonEmptyFilePath(image) ? image.path : image.toString();
     }
     onImageSelected_(event) {
         assert(event.model.item === kDefaultImageSymbol ||
-            isFilePath(event.model.item), 'local image is a file path or default image');
+            isNonEmptyFilePath(event.model.item), 'local image is a file path or default image');
         selectWallpaper(event.model.item, this.wallpaperProvider_, this.getStore());
     }
     getAriaIndex_(i) {

@@ -10,7 +10,6 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
-#include "chromeos/components/sensors/mojom/cros_sensor_service.mojom-shared-internal.h"
 #include "components/chromeos_camera/common/jpeg_encode_accelerator.mojom-shared-internal.h"
 #include "components/chromeos_camera/common/mjpeg_decode_accelerator.mojom-shared-internal.h"
 #include "media/capture/video/chromeos/mojom/camera_common.mojom-shared-internal.h"

@@ -17,6 +17,7 @@ namespace internal {
 constexpr uint32_t kPageHandlerFactory_CreatePageHandler_Name = 0;
 constexpr uint32_t kPageHandler_DisplayDialog_Name = 0;
 constexpr uint32_t kPageHandler_HandleSearchEngineChoiceSelected_Name = 1;
+constexpr uint32_t kPageHandler_HandleLearnMoreLinkClicked_Name = 2;
 
 }  // namespace internal
 

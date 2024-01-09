@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,11 +30,11 @@ namespace resources_private {
 // Types
 //
 
-enum  Component {
-  COMPONENT_NONE = 0,
-  COMPONENT_IDENTITY,
-  COMPONENT_PDF,
-  COMPONENT_LAST = COMPONENT_PDF,
+enum class Component {
+  kNone = 0,
+  kIdentity,
+  kPdf,
+  kMaxValue = kPdf,
 };
 
 
@@ -49,11 +50,11 @@ std::u16string GetComponentParseError(base::StringPiece as_string);
 namespace GetStrings {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Internal Chrome component to get strings for.
@@ -71,8 +72,8 @@ struct Result {
   ~Result();
   Result(const Result&) = delete;
   Result& operator=(const Result&) = delete;
-  Result(Result&& rhs);
-  Result& operator=(Result&& rhs);
+  Result(Result&& rhs) noexcept;
+  Result& operator=(Result&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResult object.

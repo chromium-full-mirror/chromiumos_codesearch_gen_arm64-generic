@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import * as Platform from '../../core/platform/platform.js';
+import * as VisualLogging from '../visual_logging/visual_logging.js';
 import * as ARIAUtils from './ARIAUtils.js';
 import { Events as ListModelEvents } from './ListModel.js';
 import { measurePreferredSize } from './UIUtils.js';
@@ -74,7 +75,7 @@ export class ListControl {
         const to = from + data.removed.length;
         const keepSelectedIndex = data.keepSelectedIndex;
         const oldSelectedItem = this.selectedItemInternal;
-        const oldSelectedElement = oldSelectedItem ? (this.itemToElement.get(oldSelectedItem) || null) : null;
+        const oldSelectedElement = oldSelectedItem !== null ? (this.itemToElement.get(oldSelectedItem) || null) : null;
         for (let i = 0; i < data.removed.length; i++) {
             this.itemToElement.delete(data.removed[i]);
         }
@@ -261,7 +262,7 @@ export class ListControl {
     }
     onClick(event) {
         const item = this.itemForNode(event.target);
-        if (item && this.delegate.isItemSelectable(item)) {
+        if (item !== null && this.delegate.isItemSelectable(item)) {
             this.selectItem(item);
         }
     }
@@ -309,6 +310,7 @@ export class ListControl {
         let element = this.itemToElement.get(item);
         if (!element) {
             element = this.delegate.createElementForItem(item);
+            element.setAttribute('jslog', `${VisualLogging.item().track({ click: true })}`);
             this.itemToElement.set(item, element);
             this.updateElementARIA(element, index);
         }

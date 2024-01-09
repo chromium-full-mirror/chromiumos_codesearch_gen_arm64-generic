@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/tracing/public/mojom/perfetto_service.mojom-features.h"
 #include "services/tracing/public/mojom/perfetto_service.mojom-shared.h"
 #include "services/tracing/public/mojom/perfetto_service.mojom-forward.h"
+#include "mojo/public/mojom/base/token.mojom.h"
 #include "mojo/public/mojom/base/file.mojom.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
 #include <string>
@@ -39,6 +41,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/core/data_source_config.h"
 #include "third_party/perfetto/include/perfetto/tracing/core/data_source_descriptor.h"
 #include "third_party/perfetto/include/perfetto/tracing/core/trace_config.h"
+#include "third_party/perfetto/protos/perfetto/config/interceptor_config.gen.h"
 #include "base/component_export.h"
 
 
@@ -1255,6 +1258,151 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class COMPONENT_EXPORT(TRACING_MOJOM) ConsoleConfig {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ConsoleConfig, T>::value>;
+  using DataView = ConsoleConfigDataView;
+  using Data_ = internal::ConsoleConfig_Data;
+
+  template <typename... Args>
+  static ConsoleConfigPtr New(Args&&... args) {
+    return ConsoleConfigPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ConsoleConfigPtr From(const U& u) {
+    return mojo::TypeConverter<ConsoleConfigPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ConsoleConfig>::Convert(*this);
+  }
+
+
+  ConsoleConfig();
+
+  ConsoleConfig(
+      ConsoleOutput output,
+      bool enable_colors);
+
+
+  ~ConsoleConfig();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ConsoleConfigPtr>
+  ConsoleConfigPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ConsoleConfig::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ConsoleConfig::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ConsoleConfig::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ConsoleConfig::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ConsoleConfig::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ConsoleConfig_UnserializedMessageContext<
+            UserType, ConsoleConfig::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ConsoleConfig::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ConsoleConfig::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ConsoleConfig_UnserializedMessageContext<
+            UserType, ConsoleConfig::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ConsoleConfig::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ConsoleOutput output;
+  
+  bool enable_colors;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ConsoleConfig::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ConsoleConfig::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ConsoleConfig::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ConsoleConfig::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
 
 class COMPONENT_EXPORT(TRACING_MOJOM) DataSourceRegistration {
  public:
@@ -1996,6 +2144,152 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+class COMPONENT_EXPORT(TRACING_MOJOM) InterceptorConfig {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<InterceptorConfig, T>::value>;
+  using DataView = InterceptorConfigDataView;
+  using Data_ = internal::InterceptorConfig_Data;
+
+  template <typename... Args>
+  static InterceptorConfigPtr New(Args&&... args) {
+    return InterceptorConfigPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static InterceptorConfigPtr From(const U& u) {
+    return mojo::TypeConverter<InterceptorConfigPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, InterceptorConfig>::Convert(*this);
+  }
+
+
+  InterceptorConfig();
+
+  InterceptorConfig(
+      const std::string& name,
+      ConsoleConfigPtr console_config);
+
+InterceptorConfig(const InterceptorConfig&) = delete;
+InterceptorConfig& operator=(const InterceptorConfig&) = delete;
+
+  ~InterceptorConfig();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = InterceptorConfigPtr>
+  InterceptorConfigPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, InterceptorConfig::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, InterceptorConfig::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, InterceptorConfig::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        InterceptorConfig::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        InterceptorConfig::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::InterceptorConfig_UnserializedMessageContext<
+            UserType, InterceptorConfig::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<InterceptorConfig::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return InterceptorConfig::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::InterceptorConfig_UnserializedMessageContext<
+            UserType, InterceptorConfig::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<InterceptorConfig::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string name;
+  
+  ConsoleConfigPtr console_config;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, InterceptorConfig::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, InterceptorConfig::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, InterceptorConfig::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, InterceptorConfig::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class COMPONENT_EXPORT(TRACING_MOJOM) DataSourceConfig {
  public:
   template <typename T>
@@ -2028,9 +2322,12 @@ class COMPONENT_EXPORT(TRACING_MOJOM) DataSourceConfig {
       uint32_t trace_duration_ms,
       uint64_t tracing_session_id,
       const ::perfetto::ChromeConfig& chrome_config,
+      InterceptorConfigPtr interceptor_config,
       const std::string& legacy_config,
       const std::string& track_event_config_raw);
 
+DataSourceConfig(const DataSourceConfig&) = delete;
+DataSourceConfig& operator=(const DataSourceConfig&) = delete;
 
   ~DataSourceConfig();
 
@@ -2116,6 +2413,8 @@ class COMPONENT_EXPORT(TRACING_MOJOM) DataSourceConfig {
   uint64_t tracing_session_id;
   
   ::perfetto::ChromeConfig chrome_config;
+  
+  InterceptorConfigPtr interceptor_config;
   
   std::string legacy_config;
   
@@ -2484,7 +2783,8 @@ class COMPONENT_EXPORT(TRACING_MOJOM) TraceConfig {
       std::vector<BufferConfigPtr> buffers,
       const ::perfetto::TraceConfig::IncrementalStateConfig& incremental_state_config,
       uint32_t duration_ms,
-      bool write_into_file);
+      bool write_into_file,
+      const std::optional<::base::Token>& trace_uuid);
 
 TraceConfig(const TraceConfig&) = delete;
 TraceConfig& operator=(const TraceConfig&) = delete;
@@ -2575,6 +2875,8 @@ TraceConfig& operator=(const TraceConfig&) = delete;
   uint32_t duration_ms;
   
   bool write_into_file;
+  
+  std::optional<::base::Token> trace_uuid;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2800,6 +3102,64 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+ConsoleConfigPtr ConsoleConfig::Clone() const {
+  return New(
+      mojo::Clone(output),
+      mojo::Clone(enable_colors)
+  );
+}
+
+template <typename T, ConsoleConfig::EnableIfSame<T>*>
+bool ConsoleConfig::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->output, other_struct.output))
+    return false;
+  if (!mojo::Equals(this->enable_colors, other_struct.enable_colors))
+    return false;
+  return true;
+}
+
+template <typename T, ConsoleConfig::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.output < rhs.output)
+    return true;
+  if (rhs.output < lhs.output)
+    return false;
+  if (lhs.enable_colors < rhs.enable_colors)
+    return true;
+  if (rhs.enable_colors < lhs.enable_colors)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+InterceptorConfigPtr InterceptorConfig::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(console_config)
+  );
+}
+
+template <typename T, InterceptorConfig::EnableIfSame<T>*>
+bool InterceptorConfig::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->console_config, other_struct.console_config))
+    return false;
+  return true;
+}
+
+template <typename T, InterceptorConfig::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.console_config < rhs.console_config)
+    return true;
+  if (rhs.console_config < lhs.console_config)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 DataSourceConfigPtr DataSourceConfig::Clone() const {
   return New(
       mojo::Clone(name),
@@ -2807,6 +3167,7 @@ DataSourceConfigPtr DataSourceConfig::Clone() const {
       mojo::Clone(trace_duration_ms),
       mojo::Clone(tracing_session_id),
       mojo::Clone(chrome_config),
+      mojo::Clone(interceptor_config),
       mojo::Clone(legacy_config),
       mojo::Clone(track_event_config_raw)
   );
@@ -2823,6 +3184,8 @@ bool DataSourceConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->tracing_session_id, other_struct.tracing_session_id))
     return false;
   if (!mojo::Equals(this->chrome_config, other_struct.chrome_config))
+    return false;
+  if (!mojo::Equals(this->interceptor_config, other_struct.interceptor_config))
     return false;
   if (!mojo::Equals(this->legacy_config, other_struct.legacy_config))
     return false;
@@ -2852,6 +3215,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.chrome_config < rhs.chrome_config)
     return true;
   if (rhs.chrome_config < lhs.chrome_config)
+    return false;
+  if (lhs.interceptor_config < rhs.interceptor_config)
+    return true;
+  if (rhs.interceptor_config < lhs.interceptor_config)
     return false;
   if (lhs.legacy_config < rhs.legacy_config)
     return true;
@@ -3044,7 +3411,8 @@ TraceConfigPtr TraceConfig::Clone() const {
       mojo::Clone(buffers),
       mojo::Clone(incremental_state_config),
       mojo::Clone(duration_ms),
-      mojo::Clone(write_into_file)
+      mojo::Clone(write_into_file),
+      mojo::Clone(trace_uuid)
   );
 }
 
@@ -3061,6 +3429,8 @@ bool TraceConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->duration_ms, other_struct.duration_ms))
     return false;
   if (!mojo::Equals(this->write_into_file, other_struct.write_into_file))
+    return false;
+  if (!mojo::Equals(this->trace_uuid, other_struct.trace_uuid))
     return false;
   return true;
 }
@@ -3090,6 +3460,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.write_into_file < rhs.write_into_file)
     return true;
   if (rhs.write_into_file < lhs.write_into_file)
+    return false;
+  if (lhs.trace_uuid < rhs.trace_uuid)
+    return true;
+  if (rhs.trace_uuid < lhs.trace_uuid)
     return false;
   return false;
 }
@@ -3236,6 +3610,46 @@ struct COMPONENT_EXPORT(TRACING_MOJOM) StructTraits<::tracing::mojom::ChromeConf
 
 
 template <>
+struct COMPONENT_EXPORT(TRACING_MOJOM) StructTraits<::tracing::mojom::ConsoleConfig::DataView,
+                                         ::tracing::mojom::ConsoleConfigPtr> {
+  static bool IsNull(const ::tracing::mojom::ConsoleConfigPtr& input) { return !input; }
+  static void SetToNull(::tracing::mojom::ConsoleConfigPtr* output) { output->reset(); }
+
+  static decltype(::tracing::mojom::ConsoleConfig::output) output(
+      const ::tracing::mojom::ConsoleConfigPtr& input) {
+    return input->output;
+  }
+
+  static decltype(::tracing::mojom::ConsoleConfig::enable_colors) enable_colors(
+      const ::tracing::mojom::ConsoleConfigPtr& input) {
+    return input->enable_colors;
+  }
+
+  static bool Read(::tracing::mojom::ConsoleConfig::DataView input, ::tracing::mojom::ConsoleConfigPtr* output);
+};
+
+
+template <>
+struct COMPONENT_EXPORT(TRACING_MOJOM) StructTraits<::tracing::mojom::InterceptorConfig::DataView,
+                                         ::tracing::mojom::InterceptorConfigPtr> {
+  static bool IsNull(const ::tracing::mojom::InterceptorConfigPtr& input) { return !input; }
+  static void SetToNull(::tracing::mojom::InterceptorConfigPtr* output) { output->reset(); }
+
+  static const decltype(::tracing::mojom::InterceptorConfig::name)& name(
+      const ::tracing::mojom::InterceptorConfigPtr& input) {
+    return input->name;
+  }
+
+  static const decltype(::tracing::mojom::InterceptorConfig::console_config)& console_config(
+      const ::tracing::mojom::InterceptorConfigPtr& input) {
+    return input->console_config;
+  }
+
+  static bool Read(::tracing::mojom::InterceptorConfig::DataView input, ::tracing::mojom::InterceptorConfigPtr* output);
+};
+
+
+template <>
 struct COMPONENT_EXPORT(TRACING_MOJOM) StructTraits<::tracing::mojom::DataSourceConfig::DataView,
                                          ::tracing::mojom::DataSourceConfigPtr> {
   static bool IsNull(const ::tracing::mojom::DataSourceConfigPtr& input) { return !input; }
@@ -3264,6 +3678,11 @@ struct COMPONENT_EXPORT(TRACING_MOJOM) StructTraits<::tracing::mojom::DataSource
   static const decltype(::tracing::mojom::DataSourceConfig::chrome_config)& chrome_config(
       const ::tracing::mojom::DataSourceConfigPtr& input) {
     return input->chrome_config;
+  }
+
+  static const decltype(::tracing::mojom::DataSourceConfig::interceptor_config)& interceptor_config(
+      const ::tracing::mojom::DataSourceConfigPtr& input) {
+    return input->interceptor_config;
   }
 
   static const decltype(::tracing::mojom::DataSourceConfig::legacy_config)& legacy_config(
@@ -3434,6 +3853,11 @@ struct COMPONENT_EXPORT(TRACING_MOJOM) StructTraits<::tracing::mojom::TraceConfi
   static decltype(::tracing::mojom::TraceConfig::write_into_file) write_into_file(
       const ::tracing::mojom::TraceConfigPtr& input) {
     return input->write_into_file;
+  }
+
+  static const decltype(::tracing::mojom::TraceConfig::trace_uuid)& trace_uuid(
+      const ::tracing::mojom::TraceConfigPtr& input) {
+    return input->trace_uuid;
   }
 
   static bool Read(::tracing::mojom::TraceConfig::DataView input, ::tracing::mojom::TraceConfigPtr* output);

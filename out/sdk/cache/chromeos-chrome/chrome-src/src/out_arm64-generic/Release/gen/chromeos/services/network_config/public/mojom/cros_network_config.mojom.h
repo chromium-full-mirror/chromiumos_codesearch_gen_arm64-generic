@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-features.h"
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-shared.h"
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-forward.h"
 #include "chromeos/services/network_config/public/mojom/network_types.mojom-forward.h"
@@ -217,7 +218,7 @@ class CrosNetworkConfig
   virtual void SetProperties(const std::string& guid, ConfigPropertiesPtr properties, SetPropertiesCallback callback) = 0;
 
 
-  using ConfigureNetworkCallback = base::OnceCallback<void(const absl::optional<std::string>&, const std::string&)>;
+  using ConfigureNetworkCallback = base::OnceCallback<void(const std::optional<std::string>&, const std::string&)>;
   
   virtual void ConfigureNetwork(ConfigPropertiesPtr properties, bool shared, ConfigureNetworkCallback callback) = 0;
 
@@ -298,8 +299,10 @@ class CrosNetworkConfig
   
   virtual void SetTrafficCountersAutoReset(const std::string& guid, bool auto_reset, UInt32ValuePtr day, SetTrafficCountersAutoResetCallback callback) = 0;
 
+
+  using CreateCustomApnCallback = base::OnceCallback<void(bool)>;
   
-  virtual void CreateCustomApn(const std::string& network_guid, ApnPropertiesPtr apn) = 0;
+  virtual void CreateCustomApn(const std::string& network_guid, ApnPropertiesPtr apn, CreateCustomApnCallback callback) = 0;
 
   
   virtual void RemoveCustomApn(const std::string& network_guid, const std::string& apn_id) = 0;
@@ -452,7 +455,7 @@ class  CrosNetworkConfigProxy
   
   void SetTrafficCountersAutoReset(const std::string& guid, bool auto_reset, UInt32ValuePtr day, SetTrafficCountersAutoResetCallback callback) final;
   
-  void CreateCustomApn(const std::string& network_guid, ApnPropertiesPtr apn) final;
+  void CreateCustomApn(const std::string& network_guid, ApnPropertiesPtr apn, CreateCustomApnCallback callback) final;
   
   void RemoveCustomApn(const std::string& network_guid, const std::string& apn_id) final;
   
@@ -1644,7 +1647,7 @@ class  CellularProviderProperties {
   CellularProviderProperties(
       const std::string& name,
       const std::string& code,
-      const absl::optional<std::string>& country);
+      const std::optional<std::string>& country);
 
 
   ~CellularProviderProperties();
@@ -1726,7 +1729,7 @@ class  CellularProviderProperties {
   
   std::string code;
   
-  absl::optional<std::string> country;
+  std::optional<std::string> country;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1791,8 +1794,8 @@ class  PaymentPortalProperties {
 
   PaymentPortalProperties(
       const std::string& method,
-      const absl::optional<std::string>& post_data,
-      const absl::optional<std::string>& url);
+      const std::optional<std::string>& post_data,
+      const std::optional<std::string>& url);
 
 
   ~PaymentPortalProperties();
@@ -1872,9 +1875,9 @@ class  PaymentPortalProperties {
   
   std::string method;
   
-  absl::optional<std::string> post_data;
+  std::optional<std::string> post_data;
   
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2233,7 +2236,7 @@ class  ManagedString {
   ManagedString(
       const std::string& active_value,
       ::chromeos::network_config::mojom::PolicySource policy_source,
-      const absl::optional<std::string>& policy_value);
+      const std::optional<std::string>& policy_value);
 
 
   ~ManagedString();
@@ -2315,7 +2318,7 @@ class  ManagedString {
   
   ::chromeos::network_config::mojom::PolicySource policy_source;
   
-  absl::optional<std::string> policy_value;
+  std::optional<std::string> policy_value;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3399,9 +3402,9 @@ class  L2TPConfigProperties {
 
   L2TPConfigProperties(
       bool lcp_echo_disabled,
-      const absl::optional<std::string>& password,
+      const std::optional<std::string>& password,
       bool save_credentials,
-      const absl::optional<std::string>& username);
+      const std::optional<std::string>& username);
 
 
   ~L2TPConfigProperties();
@@ -3481,11 +3484,11 @@ class  L2TPConfigProperties {
   
   bool lcp_echo_disabled;
   
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
   
   bool save_credentials;
   
-  absl::optional<std::string> username;
+  std::optional<std::string> username;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3696,7 +3699,7 @@ class  CellularSimState {
 
   CellularSimState(
       const std::string& current_pin_or_puk,
-      const absl::optional<std::string>& new_pin,
+      const std::optional<std::string>& new_pin,
       bool require_pin);
 
 
@@ -3777,7 +3780,7 @@ class  CellularSimState {
   
   std::string current_pin_or_puk;
   
-  absl::optional<std::string> new_pin;
+  std::optional<std::string> new_pin;
   
   bool require_pin;
 
@@ -4127,41 +4130,41 @@ class  NetworkTypeStateProperties {
   // Construct an instance holding |cellular|.
   static NetworkTypeStatePropertiesPtr
   NewCellular(
-      CellularStatePropertiesPtr cellular) {
+      CellularStatePropertiesPtr value) {
     auto result = NetworkTypeStatePropertiesPtr(absl::in_place);
-    result->set_cellular(std::move(cellular));
+    result->set_cellular(std::move(value));
     return result;
   }
   // Construct an instance holding |ethernet|.
   static NetworkTypeStatePropertiesPtr
   NewEthernet(
-      EthernetStatePropertiesPtr ethernet) {
+      EthernetStatePropertiesPtr value) {
     auto result = NetworkTypeStatePropertiesPtr(absl::in_place);
-    result->set_ethernet(std::move(ethernet));
+    result->set_ethernet(std::move(value));
     return result;
   }
   // Construct an instance holding |tether|.
   static NetworkTypeStatePropertiesPtr
   NewTether(
-      TetherStatePropertiesPtr tether) {
+      TetherStatePropertiesPtr value) {
     auto result = NetworkTypeStatePropertiesPtr(absl::in_place);
-    result->set_tether(std::move(tether));
+    result->set_tether(std::move(value));
     return result;
   }
   // Construct an instance holding |vpn|.
   static NetworkTypeStatePropertiesPtr
   NewVpn(
-      VPNStatePropertiesPtr vpn) {
+      VPNStatePropertiesPtr value) {
     auto result = NetworkTypeStatePropertiesPtr(absl::in_place);
-    result->set_vpn(std::move(vpn));
+    result->set_vpn(std::move(value));
     return result;
   }
   // Construct an instance holding |wifi|.
   static NetworkTypeStatePropertiesPtr
   NewWifi(
-      WiFiStatePropertiesPtr wifi) {
+      WiFiStatePropertiesPtr value) {
     auto result = NetworkTypeStatePropertiesPtr(absl::in_place);
-    result->set_wifi(std::move(wifi));
+    result->set_wifi(std::move(value));
     return result;
   }
 
@@ -4321,41 +4324,41 @@ class  NetworkTypeManagedProperties {
   // Construct an instance holding |cellular|.
   static NetworkTypeManagedPropertiesPtr
   NewCellular(
-      ManagedCellularPropertiesPtr cellular) {
+      ManagedCellularPropertiesPtr value) {
     auto result = NetworkTypeManagedPropertiesPtr(absl::in_place);
-    result->set_cellular(std::move(cellular));
+    result->set_cellular(std::move(value));
     return result;
   }
   // Construct an instance holding |ethernet|.
   static NetworkTypeManagedPropertiesPtr
   NewEthernet(
-      ManagedEthernetPropertiesPtr ethernet) {
+      ManagedEthernetPropertiesPtr value) {
     auto result = NetworkTypeManagedPropertiesPtr(absl::in_place);
-    result->set_ethernet(std::move(ethernet));
+    result->set_ethernet(std::move(value));
     return result;
   }
   // Construct an instance holding |tether|.
   static NetworkTypeManagedPropertiesPtr
   NewTether(
-      TetherStatePropertiesPtr tether) {
+      TetherStatePropertiesPtr value) {
     auto result = NetworkTypeManagedPropertiesPtr(absl::in_place);
-    result->set_tether(std::move(tether));
+    result->set_tether(std::move(value));
     return result;
   }
   // Construct an instance holding |vpn|.
   static NetworkTypeManagedPropertiesPtr
   NewVpn(
-      ManagedVPNPropertiesPtr vpn) {
+      ManagedVPNPropertiesPtr value) {
     auto result = NetworkTypeManagedPropertiesPtr(absl::in_place);
-    result->set_vpn(std::move(vpn));
+    result->set_vpn(std::move(value));
     return result;
   }
   // Construct an instance holding |wifi|.
   static NetworkTypeManagedPropertiesPtr
   NewWifi(
-      ManagedWiFiPropertiesPtr wifi) {
+      ManagedWiFiPropertiesPtr value) {
     auto result = NetworkTypeManagedPropertiesPtr(absl::in_place);
-    result->set_wifi(std::move(wifi));
+    result->set_wifi(std::move(value));
     return result;
   }
 
@@ -4514,33 +4517,33 @@ class  NetworkTypeConfigProperties {
   // Construct an instance holding |cellular|.
   static NetworkTypeConfigPropertiesPtr
   NewCellular(
-      CellularConfigPropertiesPtr cellular) {
+      CellularConfigPropertiesPtr value) {
     auto result = NetworkTypeConfigPropertiesPtr(absl::in_place);
-    result->set_cellular(std::move(cellular));
+    result->set_cellular(std::move(value));
     return result;
   }
   // Construct an instance holding |ethernet|.
   static NetworkTypeConfigPropertiesPtr
   NewEthernet(
-      EthernetConfigPropertiesPtr ethernet) {
+      EthernetConfigPropertiesPtr value) {
     auto result = NetworkTypeConfigPropertiesPtr(absl::in_place);
-    result->set_ethernet(std::move(ethernet));
+    result->set_ethernet(std::move(value));
     return result;
   }
   // Construct an instance holding |vpn|.
   static NetworkTypeConfigPropertiesPtr
   NewVpn(
-      VPNConfigPropertiesPtr vpn) {
+      VPNConfigPropertiesPtr value) {
     auto result = NetworkTypeConfigPropertiesPtr(absl::in_place);
-    result->set_vpn(std::move(vpn));
+    result->set_vpn(std::move(value));
     return result;
   }
   // Construct an instance holding |wifi|.
   static NetworkTypeConfigPropertiesPtr
   NewWifi(
-      WiFiConfigPropertiesPtr wifi) {
+      WiFiConfigPropertiesPtr value) {
     auto result = NetworkTypeConfigPropertiesPtr(absl::in_place);
-    result->set_wifi(std::move(wifi));
+    result->set_wifi(std::move(value));
     return result;
   }
 
@@ -5037,11 +5040,11 @@ class  NetworkStateProperties {
       bool connectable,
       bool connect_requested,
       ::chromeos::network_config::mojom::ConnectionStateType connection_state,
-      const absl::optional<std::string>& error_state,
+      const std::optional<std::string>& error_state,
       const std::string& guid,
       const std::string& name,
       ::chromeos::network_config::mojom::PortalState portal_state,
-      const absl::optional<::GURL>& portal_probe_url,
+      const std::optional<::GURL>& portal_probe_url,
       int32_t priority,
       ProxyMode proxy_mode,
       bool prohibited_by_policy,
@@ -5133,7 +5136,7 @@ NetworkStateProperties& operator=(const NetworkStateProperties&) = delete;
   
   ::chromeos::network_config::mojom::ConnectionStateType connection_state;
   
-  absl::optional<std::string> error_state;
+  std::optional<std::string> error_state;
   
   std::string guid;
   
@@ -5141,7 +5144,7 @@ NetworkStateProperties& operator=(const NetworkStateProperties&) = delete;
   
   ::chromeos::network_config::mojom::PortalState portal_state;
   
-  absl::optional<::GURL> portal_probe_url;
+  std::optional<::GURL> portal_probe_url;
   
   int32_t priority;
   
@@ -5215,19 +5218,20 @@ class  DeviceStateProperties {
   DeviceStateProperties();
 
   DeviceStateProperties(
-      const absl::optional<::net::IPAddress>& ipv4_address,
-      const absl::optional<::net::IPAddress>& ipv6_address,
-      const absl::optional<std::string>& imei,
-      const absl::optional<std::string>& mac_address,
+      const std::optional<::net::IPAddress>& ipv4_address,
+      const std::optional<::net::IPAddress>& ipv6_address,
+      const std::optional<std::string>& imei,
+      const std::optional<std::string>& mac_address,
       bool scanning,
       SIMLockStatusPtr sim_lock_status,
-      absl::optional<std::vector<SIMInfoPtr>> sim_infos,
+      std::optional<std::vector<SIMInfoPtr>> sim_infos,
       InhibitReason inhibit_reason,
       bool sim_absent,
       ::chromeos::network_config::mojom::DeviceStateType device_state,
       ::chromeos::network_config::mojom::NetworkType type,
       bool managed_network_available,
-      const absl::optional<std::string>& serial);
+      const std::optional<std::string>& serial,
+      bool is_carrier_locked);
 
 DeviceStateProperties(const DeviceStateProperties&) = delete;
 DeviceStateProperties& operator=(const DeviceStateProperties&) = delete;
@@ -5307,19 +5311,19 @@ DeviceStateProperties& operator=(const DeviceStateProperties&) = delete;
   }
 
   
-  absl::optional<::net::IPAddress> ipv4_address;
+  std::optional<::net::IPAddress> ipv4_address;
   
-  absl::optional<::net::IPAddress> ipv6_address;
+  std::optional<::net::IPAddress> ipv6_address;
   
-  absl::optional<std::string> imei;
+  std::optional<std::string> imei;
   
-  absl::optional<std::string> mac_address;
+  std::optional<std::string> mac_address;
   
   bool scanning;
   
   SIMLockStatusPtr sim_lock_status;
   
-  absl::optional<std::vector<SIMInfoPtr>> sim_infos;
+  std::optional<std::vector<SIMInfoPtr>> sim_infos;
   
   InhibitReason inhibit_reason;
   
@@ -5331,7 +5335,9 @@ DeviceStateProperties& operator=(const DeviceStateProperties&) = delete;
   
   bool managed_network_available;
   
-  absl::optional<std::string> serial;
+  std::optional<std::string> serial;
+  
+  bool is_carrier_locked;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -5395,14 +5401,14 @@ class  ApnProperties {
 
   ApnProperties(
       const std::string& access_point_name,
-      const absl::optional<std::string>& id,
+      const std::optional<std::string>& id,
       ApnAuthenticationType authentication,
-      const absl::optional<std::string>& language,
-      const absl::optional<std::string>& localized_name,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& password,
-      const absl::optional<std::string>& username,
-      const absl::optional<std::string>& attach,
+      const std::optional<std::string>& language,
+      const std::optional<std::string>& localized_name,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& password,
+      const std::optional<std::string>& username,
+      const std::optional<std::string>& attach,
       ApnState state,
       ApnIpType ip_type,
       std::vector<ApnType> apn_types);
@@ -5485,21 +5491,21 @@ class  ApnProperties {
   
   std::string access_point_name;
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
   
   ApnAuthenticationType authentication;
   
-  absl::optional<std::string> language;
+  std::optional<std::string> language;
   
-  absl::optional<std::string> localized_name;
+  std::optional<std::string> localized_name;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
   
-  absl::optional<std::string> username;
+  std::optional<std::string> username;
   
-  absl::optional<std::string> attach;
+  std::optional<std::string> attach;
   
   ApnState state;
   
@@ -5572,8 +5578,8 @@ class  FoundNetworkProperties {
       const std::string& status,
       const std::string& network_id,
       const std::string& technology,
-      const absl::optional<std::string>& short_name,
-      const absl::optional<std::string>& long_name);
+      const std::optional<std::string>& short_name,
+      const std::optional<std::string>& long_name);
 
 
   ~FoundNetworkProperties();
@@ -5657,9 +5663,9 @@ class  FoundNetworkProperties {
   
   std::string technology;
   
-  absl::optional<std::string> short_name;
+  std::optional<std::string> short_name;
   
-  absl::optional<std::string> long_name;
+  std::optional<std::string> long_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -5721,15 +5727,15 @@ class  IPConfigProperties {
   IPConfigProperties();
 
   IPConfigProperties(
-      const absl::optional<std::string>& gateway,
-      const absl::optional<std::string>& ip_address,
-      absl::optional<std::vector<std::string>> excluded_routes,
-      absl::optional<std::vector<std::string>> included_routes,
-      absl::optional<std::vector<std::string>> name_servers,
-      absl::optional<std::vector<std::string>> search_domains,
+      const std::optional<std::string>& gateway,
+      const std::optional<std::string>& ip_address,
+      std::optional<std::vector<std::string>> excluded_routes,
+      std::optional<std::vector<std::string>> included_routes,
+      std::optional<std::vector<std::string>> name_servers,
+      std::optional<std::vector<std::string>> search_domains,
       int32_t routing_prefix,
       ::chromeos::network_config::mojom::IPConfigType type,
-      const absl::optional<std::string>& web_proxy_auto_discovery_url);
+      const std::optional<std::string>& web_proxy_auto_discovery_url);
 
 
   ~IPConfigProperties();
@@ -5807,23 +5813,23 @@ class  IPConfigProperties {
   }
 
   
-  absl::optional<std::string> gateway;
+  std::optional<std::string> gateway;
   
-  absl::optional<std::string> ip_address;
+  std::optional<std::string> ip_address;
   
-  absl::optional<std::vector<std::string>> excluded_routes;
+  std::optional<std::vector<std::string>> excluded_routes;
   
-  absl::optional<std::vector<std::string>> included_routes;
+  std::optional<std::vector<std::string>> included_routes;
   
-  absl::optional<std::vector<std::string>> name_servers;
+  std::optional<std::vector<std::string>> name_servers;
   
-  absl::optional<std::vector<std::string>> search_domains;
+  std::optional<std::vector<std::string>> search_domains;
   
   int32_t routing_prefix;
   
   ::chromeos::network_config::mojom::IPConfigType type;
   
-  absl::optional<std::string> web_proxy_auto_discovery_url;
+  std::optional<std::string> web_proxy_auto_discovery_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -5887,9 +5893,9 @@ class  WireGuardPeerProperties {
 
   WireGuardPeerProperties(
       const std::string& public_key,
-      const absl::optional<std::string>& preshared_key,
-      const absl::optional<std::string>& allowed_ips,
-      const absl::optional<std::string>& endpoint,
+      const std::optional<std::string>& preshared_key,
+      const std::optional<std::string>& allowed_ips,
+      const std::optional<std::string>& endpoint,
       int32_t persistent_keepalive_interval);
 
 
@@ -5970,11 +5976,11 @@ class  WireGuardPeerProperties {
   
   std::string public_key;
   
-  absl::optional<std::string> preshared_key;
+  std::optional<std::string> preshared_key;
   
-  absl::optional<std::string> allowed_ips;
+  std::optional<std::string> allowed_ips;
   
-  absl::optional<std::string> endpoint;
+  std::optional<std::string> endpoint;
   
   int32_t persistent_keepalive_interval;
 
@@ -6043,7 +6049,7 @@ class  ManagedStringList {
   ManagedStringList(
       std::vector<std::string> active_value,
       ::chromeos::network_config::mojom::PolicySource policy_source,
-      absl::optional<std::vector<std::string>> policy_value);
+      std::optional<std::vector<std::string>> policy_value);
 
 
   ~ManagedStringList();
@@ -6125,7 +6131,7 @@ class  ManagedStringList {
   
   ::chromeos::network_config::mojom::PolicySource policy_source;
   
-  absl::optional<std::vector<std::string>> policy_value;
+  std::optional<std::vector<std::string>> policy_value;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -6352,7 +6358,7 @@ class  ManagedApnList {
   ManagedApnList(
       std::vector<ApnPropertiesPtr> active_value,
       ::chromeos::network_config::mojom::PolicySource policy_source,
-      absl::optional<std::vector<ApnPropertiesPtr>> policy_value);
+      std::optional<std::vector<ApnPropertiesPtr>> policy_value);
 
 ManagedApnList(const ManagedApnList&) = delete;
 ManagedApnList& operator=(const ManagedApnList&) = delete;
@@ -6436,7 +6442,7 @@ ManagedApnList& operator=(const ManagedApnList&) = delete;
   
   ::chromeos::network_config::mojom::PolicySource policy_source;
   
-  absl::optional<std::vector<ApnPropertiesPtr>> policy_value;
+  std::optional<std::vector<ApnPropertiesPtr>> policy_value;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -8480,7 +8486,7 @@ class  ManagedWireGuardPeerList {
   ManagedWireGuardPeerList(
       std::vector<WireGuardPeerPropertiesPtr> active_value,
       ::chromeos::network_config::mojom::PolicySource policy_source,
-      absl::optional<std::vector<WireGuardPeerPropertiesPtr>> policy_value);
+      std::optional<std::vector<WireGuardPeerPropertiesPtr>> policy_value);
 
 ManagedWireGuardPeerList(const ManagedWireGuardPeerList&) = delete;
 ManagedWireGuardPeerList& operator=(const ManagedWireGuardPeerList&) = delete;
@@ -8564,7 +8570,7 @@ ManagedWireGuardPeerList& operator=(const ManagedWireGuardPeerList&) = delete;
   
   ::chromeos::network_config::mojom::PolicySource policy_source;
   
-  absl::optional<std::vector<WireGuardPeerPropertiesPtr>> policy_value;
+  std::optional<std::vector<WireGuardPeerPropertiesPtr>> policy_value;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -8783,26 +8789,26 @@ class  ManagedCellularProperties {
       ManagedBooleanPtr allow_text_messages,
       ManagedApnListPtr apn_list,
       ManagedBooleanPtr auto_connect,
-      absl::optional<std::vector<ApnPropertiesPtr>> custom_apn_list,
-      const absl::optional<std::string>& eid,
-      const absl::optional<std::string>& esn,
-      const absl::optional<std::string>& family,
-      const absl::optional<std::string>& firmware_revision,
-      absl::optional<std::vector<FoundNetworkPropertiesPtr>> found_networks,
-      const absl::optional<std::string>& hardware_revision,
+      std::optional<std::vector<ApnPropertiesPtr>> custom_apn_list,
+      const std::optional<std::string>& eid,
+      const std::optional<std::string>& esn,
+      const std::optional<std::string>& family,
+      const std::optional<std::string>& firmware_revision,
+      std::optional<std::vector<FoundNetworkPropertiesPtr>> found_networks,
+      const std::optional<std::string>& hardware_revision,
       CellularProviderPropertiesPtr home_provider,
-      const absl::optional<std::string>& iccid,
-      const absl::optional<std::string>& imei,
+      const std::optional<std::string>& iccid,
+      const std::optional<std::string>& imei,
       ApnPropertiesPtr last_good_apn,
       ApnPropertiesPtr connected_apn,
-      const absl::optional<std::string>& manufacturer,
-      const absl::optional<std::string>& mdn,
-      const absl::optional<std::string>& meid,
-      const absl::optional<std::string>& min,
-      const absl::optional<std::string>& model_id,
-      const absl::optional<std::string>& network_technology,
+      const std::optional<std::string>& manufacturer,
+      const std::optional<std::string>& mdn,
+      const std::optional<std::string>& meid,
+      const std::optional<std::string>& min,
+      const std::optional<std::string>& model_id,
+      const std::optional<std::string>& network_technology,
       PaymentPortalPropertiesPtr payment_portal,
-      const absl::optional<std::string>& roaming_state,
+      const std::optional<std::string>& roaming_state,
       ManagedApnPropertiesPtr selected_apn,
       CellularProviderPropertiesPtr serving_operator,
       int32_t signal_strength,
@@ -8898,45 +8904,45 @@ ManagedCellularProperties& operator=(const ManagedCellularProperties&) = delete;
   
   ManagedBooleanPtr auto_connect;
   
-  absl::optional<std::vector<ApnPropertiesPtr>> custom_apn_list;
+  std::optional<std::vector<ApnPropertiesPtr>> custom_apn_list;
   
-  absl::optional<std::string> eid;
+  std::optional<std::string> eid;
   
-  absl::optional<std::string> esn;
+  std::optional<std::string> esn;
   
-  absl::optional<std::string> family;
+  std::optional<std::string> family;
   
-  absl::optional<std::string> firmware_revision;
+  std::optional<std::string> firmware_revision;
   
-  absl::optional<std::vector<FoundNetworkPropertiesPtr>> found_networks;
+  std::optional<std::vector<FoundNetworkPropertiesPtr>> found_networks;
   
-  absl::optional<std::string> hardware_revision;
+  std::optional<std::string> hardware_revision;
   
   CellularProviderPropertiesPtr home_provider;
   
-  absl::optional<std::string> iccid;
+  std::optional<std::string> iccid;
   
-  absl::optional<std::string> imei;
+  std::optional<std::string> imei;
   
   ApnPropertiesPtr last_good_apn;
   
   ApnPropertiesPtr connected_apn;
   
-  absl::optional<std::string> manufacturer;
+  std::optional<std::string> manufacturer;
   
-  absl::optional<std::string> mdn;
+  std::optional<std::string> mdn;
   
-  absl::optional<std::string> meid;
+  std::optional<std::string> meid;
   
-  absl::optional<std::string> min;
+  std::optional<std::string> min;
   
-  absl::optional<std::string> model_id;
+  std::optional<std::string> model_id;
   
-  absl::optional<std::string> network_technology;
+  std::optional<std::string> network_technology;
   
   PaymentPortalPropertiesPtr payment_portal;
   
-  absl::optional<std::string> roaming_state;
+  std::optional<std::string> roaming_state;
   
   ManagedApnPropertiesPtr selected_apn;
   
@@ -9319,10 +9325,10 @@ class  ManagedWiFiProperties {
   ManagedWiFiProperties(
       ManagedBooleanPtr allow_gateway_arp_polling,
       ManagedBooleanPtr auto_connect,
-      const absl::optional<std::string>& bssid,
+      const std::optional<std::string>& bssid,
       ManagedEAPPropertiesPtr eap,
       int32_t frequency,
-      absl::optional<std::vector<int32_t>> frequency_list,
+      std::optional<std::vector<int32_t>> frequency_list,
       ManagedStringPtr hex_ssid,
       ManagedBooleanPtr hidden_ssid,
       ManagedStringPtr passphrase,
@@ -9331,7 +9337,7 @@ class  ManagedWiFiProperties {
       int32_t signal_strength,
       bool is_syncable,
       bool is_configured_by_active_user,
-      const absl::optional<std::string>& passpoint_id,
+      const std::optional<std::string>& passpoint_id,
       MatchType passpoint_match_type);
 
 ManagedWiFiProperties(const ManagedWiFiProperties&) = delete;
@@ -9416,13 +9422,13 @@ ManagedWiFiProperties& operator=(const ManagedWiFiProperties&) = delete;
   
   ManagedBooleanPtr auto_connect;
   
-  absl::optional<std::string> bssid;
+  std::optional<std::string> bssid;
   
   ManagedEAPPropertiesPtr eap;
   
   int32_t frequency;
   
-  absl::optional<std::vector<int32_t>> frequency_list;
+  std::optional<std::vector<int32_t>> frequency_list;
   
   ManagedStringPtr hex_ssid;
   
@@ -9440,7 +9446,7 @@ ManagedWiFiProperties& operator=(const ManagedWiFiProperties&) = delete;
   
   bool is_configured_by_active_user;
   
-  absl::optional<std::string> passpoint_id;
+  std::optional<std::string> passpoint_id;
   
   MatchType passpoint_match_type;
 
@@ -9505,8 +9511,8 @@ class  TrafficCounterProperties {
   TrafficCounterProperties();
 
   TrafficCounterProperties(
-      absl::optional<::base::Time> last_reset_time,
-      const absl::optional<std::string>& friendly_date,
+      std::optional<::base::Time> last_reset_time,
+      const std::optional<std::string>& friendly_date,
       bool auto_reset,
       uint32_t user_specified_reset_day);
 
@@ -9586,9 +9592,9 @@ class  TrafficCounterProperties {
   }
 
   
-  absl::optional<::base::Time> last_reset_time;
+  std::optional<::base::Time> last_reset_time;
   
-  absl::optional<std::string> friendly_date;
+  std::optional<std::string> friendly_date;
   
   bool auto_reset;
   
@@ -9657,10 +9663,10 @@ class  ManagedProperties {
       ::chromeos::network_config::mojom::ConnectionStateType connection_state,
       ::chromeos::network_config::mojom::OncSource source,
       bool connectable,
-      const absl::optional<std::string>& error_state,
+      const std::optional<std::string>& error_state,
       const std::string& guid,
       ManagedStringPtr ip_address_config_type,
-      absl::optional<std::vector<IPConfigPropertiesPtr>> ip_configs,
+      std::optional<std::vector<IPConfigPropertiesPtr>> ip_configs,
       ManagedBooleanPtr metered,
       ManagedStringPtr name,
       ManagedStringPtr name_servers_config_type,
@@ -9757,13 +9763,13 @@ ManagedProperties& operator=(const ManagedProperties&) = delete;
   
   bool connectable;
   
-  absl::optional<std::string> error_state;
+  std::optional<std::string> error_state;
   
   std::string guid;
   
   ManagedStringPtr ip_address_config_type;
   
-  absl::optional<std::vector<IPConfigPropertiesPtr>> ip_configs;
+  std::optional<std::vector<IPConfigPropertiesPtr>> ip_configs;
   
   ManagedBooleanPtr metered;
   
@@ -10005,8 +10011,8 @@ class  ProxySettings {
   ProxySettings(
       const std::string& type,
       ManualProxySettingsPtr manual,
-      absl::optional<std::vector<std::string>> exclude_domains,
-      const absl::optional<std::string>& pac);
+      std::optional<std::vector<std::string>> exclude_domains,
+      const std::optional<std::string>& pac);
 
 ProxySettings(const ProxySettings&) = delete;
 ProxySettings& operator=(const ProxySettings&) = delete;
@@ -10090,9 +10096,9 @@ ProxySettings& operator=(const ProxySettings&) = delete;
   
   ManualProxySettingsPtr manual;
   
-  absl::optional<std::vector<std::string>> exclude_domains;
+  std::optional<std::vector<std::string>> exclude_domains;
   
-  absl::optional<std::string> pac;
+  std::optional<std::string> pac;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -10154,18 +10160,18 @@ class  EAPConfigProperties {
   EAPConfigProperties();
 
   EAPConfigProperties(
-      const absl::optional<std::string>& anonymous_identity,
-      const absl::optional<std::string>& client_cert_pkcs11_id,
-      const absl::optional<std::string>& client_cert_type,
+      const std::optional<std::string>& anonymous_identity,
+      const std::optional<std::string>& client_cert_pkcs11_id,
+      const std::optional<std::string>& client_cert_type,
       std::vector<std::string> domain_suffix_match,
-      const absl::optional<std::string>& identity,
-      const absl::optional<std::string>& inner,
-      const absl::optional<std::string>& outer,
-      const absl::optional<std::string>& password,
+      const std::optional<std::string>& identity,
+      const std::optional<std::string>& inner,
+      const std::optional<std::string>& outer,
+      const std::optional<std::string>& password,
       bool save_credentials,
-      absl::optional<std::vector<std::string>> server_ca_pems,
+      std::optional<std::vector<std::string>> server_ca_pems,
       std::vector<SubjectAltNamePtr> subject_alt_name_match,
-      const absl::optional<std::string>& subject_match,
+      const std::optional<std::string>& subject_match,
       bool use_system_cas);
 
 EAPConfigProperties(const EAPConfigProperties&) = delete;
@@ -10246,29 +10252,29 @@ EAPConfigProperties& operator=(const EAPConfigProperties&) = delete;
   }
 
   
-  absl::optional<std::string> anonymous_identity;
+  std::optional<std::string> anonymous_identity;
   
-  absl::optional<std::string> client_cert_pkcs11_id;
+  std::optional<std::string> client_cert_pkcs11_id;
   
-  absl::optional<std::string> client_cert_type;
+  std::optional<std::string> client_cert_type;
   
   std::vector<std::string> domain_suffix_match;
   
-  absl::optional<std::string> identity;
+  std::optional<std::string> identity;
   
-  absl::optional<std::string> inner;
+  std::optional<std::string> inner;
   
-  absl::optional<std::string> outer;
+  std::optional<std::string> outer;
   
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
   
   bool save_credentials;
   
-  absl::optional<std::vector<std::string>> server_ca_pems;
+  std::optional<std::vector<std::string>> server_ca_pems;
   
   std::vector<SubjectAltNamePtr> subject_alt_name_match;
   
-  absl::optional<std::string> subject_match;
+  std::optional<std::string> subject_match;
   
   bool use_system_cas;
 
@@ -10334,17 +10340,17 @@ class  IPSecConfigProperties {
 
   IPSecConfigProperties(
       const std::string& authentication_type,
-      const absl::optional<std::string>& client_cert_pkcs11_id,
-      const absl::optional<std::string>& client_cert_type,
+      const std::optional<std::string>& client_cert_pkcs11_id,
+      const std::optional<std::string>& client_cert_type,
       EAPConfigPropertiesPtr eap,
-      const absl::optional<std::string>& group,
+      const std::optional<std::string>& group,
       int32_t ike_version,
-      const absl::optional<std::string>& local_identity,
-      const absl::optional<std::string>& psk,
-      const absl::optional<std::string>& remote_identity,
+      const std::optional<std::string>& local_identity,
+      const std::optional<std::string>& psk,
+      const std::optional<std::string>& remote_identity,
       bool save_credentials,
-      absl::optional<std::vector<std::string>> server_ca_pems,
-      absl::optional<std::vector<std::string>> server_ca_refs);
+      std::optional<std::vector<std::string>> server_ca_pems,
+      std::optional<std::vector<std::string>> server_ca_refs);
 
 IPSecConfigProperties(const IPSecConfigProperties&) = delete;
 IPSecConfigProperties& operator=(const IPSecConfigProperties&) = delete;
@@ -10426,27 +10432,27 @@ IPSecConfigProperties& operator=(const IPSecConfigProperties&) = delete;
   
   std::string authentication_type;
   
-  absl::optional<std::string> client_cert_pkcs11_id;
+  std::optional<std::string> client_cert_pkcs11_id;
   
-  absl::optional<std::string> client_cert_type;
+  std::optional<std::string> client_cert_type;
   
   EAPConfigPropertiesPtr eap;
   
-  absl::optional<std::string> group;
+  std::optional<std::string> group;
   
   int32_t ike_version;
   
-  absl::optional<std::string> local_identity;
+  std::optional<std::string> local_identity;
   
-  absl::optional<std::string> psk;
+  std::optional<std::string> psk;
   
-  absl::optional<std::string> remote_identity;
+  std::optional<std::string> remote_identity;
   
   bool save_credentials;
   
-  absl::optional<std::vector<std::string>> server_ca_pems;
+  std::optional<std::vector<std::string>> server_ca_pems;
   
-  absl::optional<std::vector<std::string>> server_ca_refs;
+  std::optional<std::vector<std::string>> server_ca_refs;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -10509,16 +10515,16 @@ class  OpenVPNConfigProperties {
   OpenVPNConfigProperties();
 
   OpenVPNConfigProperties(
-      const absl::optional<std::string>& client_cert_pkcs11_id,
-      const absl::optional<std::string>& client_cert_type,
-      absl::optional<std::vector<std::string>> extra_hosts,
-      const absl::optional<std::string>& otp,
-      const absl::optional<std::string>& password,
+      const std::optional<std::string>& client_cert_pkcs11_id,
+      const std::optional<std::string>& client_cert_type,
+      std::optional<std::vector<std::string>> extra_hosts,
+      const std::optional<std::string>& otp,
+      const std::optional<std::string>& password,
       bool save_credentials,
-      absl::optional<std::vector<std::string>> server_ca_pems,
-      absl::optional<std::vector<std::string>> server_ca_refs,
-      const absl::optional<std::string>& username,
-      const absl::optional<std::string>& user_authentication_type);
+      std::optional<std::vector<std::string>> server_ca_pems,
+      std::optional<std::vector<std::string>> server_ca_refs,
+      const std::optional<std::string>& username,
+      const std::optional<std::string>& user_authentication_type);
 
 
   ~OpenVPNConfigProperties();
@@ -10596,25 +10602,25 @@ class  OpenVPNConfigProperties {
   }
 
   
-  absl::optional<std::string> client_cert_pkcs11_id;
+  std::optional<std::string> client_cert_pkcs11_id;
   
-  absl::optional<std::string> client_cert_type;
+  std::optional<std::string> client_cert_type;
   
-  absl::optional<std::vector<std::string>> extra_hosts;
+  std::optional<std::vector<std::string>> extra_hosts;
   
-  absl::optional<std::string> otp;
+  std::optional<std::string> otp;
   
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
   
   bool save_credentials;
   
-  absl::optional<std::vector<std::string>> server_ca_pems;
+  std::optional<std::vector<std::string>> server_ca_pems;
   
-  absl::optional<std::vector<std::string>> server_ca_refs;
+  std::optional<std::vector<std::string>> server_ca_refs;
   
-  absl::optional<std::string> username;
+  std::optional<std::string> username;
   
-  absl::optional<std::string> user_authentication_type;
+  std::optional<std::string> user_authentication_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -10676,9 +10682,9 @@ class  WireGuardConfigProperties {
   WireGuardConfigProperties();
 
   WireGuardConfigProperties(
-      absl::optional<std::vector<std::string>> ip_addresses,
-      const absl::optional<std::string>& private_key,
-      absl::optional<std::vector<WireGuardPeerPropertiesPtr>> peers);
+      std::optional<std::vector<std::string>> ip_addresses,
+      const std::optional<std::string>& private_key,
+      std::optional<std::vector<WireGuardPeerPropertiesPtr>> peers);
 
 WireGuardConfigProperties(const WireGuardConfigProperties&) = delete;
 WireGuardConfigProperties& operator=(const WireGuardConfigProperties&) = delete;
@@ -10758,11 +10764,11 @@ WireGuardConfigProperties& operator=(const WireGuardConfigProperties&) = delete;
   }
 
   
-  absl::optional<std::vector<std::string>> ip_addresses;
+  std::optional<std::vector<std::string>> ip_addresses;
   
-  absl::optional<std::string> private_key;
+  std::optional<std::string> private_key;
   
-  absl::optional<std::vector<WireGuardPeerPropertiesPtr>> peers;
+  std::optional<std::vector<WireGuardPeerPropertiesPtr>> peers;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -10973,7 +10979,7 @@ class  EthernetConfigProperties {
   EthernetConfigProperties();
 
   EthernetConfigProperties(
-      const absl::optional<std::string>& authentication,
+      const std::optional<std::string>& authentication,
       EAPConfigPropertiesPtr eap);
 
 EthernetConfigProperties(const EthernetConfigProperties&) = delete;
@@ -11054,7 +11060,7 @@ EthernetConfigProperties& operator=(const EthernetConfigProperties&) = delete;
   }
 
   
-  absl::optional<std::string> authentication;
+  std::optional<std::string> authentication;
   
   EAPConfigPropertiesPtr eap;
 
@@ -11118,7 +11124,7 @@ class  VPNConfigProperties {
   VPNConfigProperties();
 
   VPNConfigProperties(
-      const absl::optional<std::string>& host,
+      const std::optional<std::string>& host,
       IPSecConfigPropertiesPtr ip_sec,
       L2TPConfigPropertiesPtr l2tp,
       OpenVPNConfigPropertiesPtr open_vpn,
@@ -11203,7 +11209,7 @@ VPNConfigProperties& operator=(const VPNConfigProperties&) = delete;
   }
 
   
-  absl::optional<std::string> host;
+  std::optional<std::string> host;
   
   IPSecConfigPropertiesPtr ip_sec;
   
@@ -11276,8 +11282,8 @@ class  WiFiConfigProperties {
 
   WiFiConfigProperties(
       EAPConfigPropertiesPtr eap,
-      const absl::optional<std::string>& passphrase,
-      const absl::optional<std::string>& ssid,
+      const std::optional<std::string>& passphrase,
+      const std::optional<std::string>& ssid,
       SecurityType security,
       HiddenSsidMode hidden_ssid);
 
@@ -11361,9 +11367,9 @@ WiFiConfigProperties& operator=(const WiFiConfigProperties&) = delete;
   
   EAPConfigPropertiesPtr eap;
   
-  absl::optional<std::string> passphrase;
+  std::optional<std::string> passphrase;
   
-  absl::optional<std::string> ssid;
+  std::optional<std::string> ssid;
   
   SecurityType security;
   
@@ -11430,11 +11436,11 @@ class  ConfigProperties {
 
   ConfigProperties(
       AutoConnectConfigPtr auto_connect,
-      const absl::optional<std::string>& guid,
-      const absl::optional<std::string>& ip_address_config_type,
+      const std::optional<std::string>& guid,
+      const std::optional<std::string>& ip_address_config_type,
       MeteredConfigPtr metered,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& name_servers_config_type,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& name_servers_config_type,
       PriorityConfigPtr priority,
       ProxySettingsPtr proxy_settings,
       IPConfigPropertiesPtr static_ip_config,
@@ -11520,15 +11526,15 @@ ConfigProperties& operator=(const ConfigProperties&) = delete;
   
   AutoConnectConfigPtr auto_connect;
   
-  absl::optional<std::string> guid;
+  std::optional<std::string> guid;
   
-  absl::optional<std::string> ip_address_config_type;
+  std::optional<std::string> ip_address_config_type;
   
   MeteredConfigPtr metered;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> name_servers_config_type;
+  std::optional<std::string> name_servers_config_type;
   
   PriorityConfigPtr priority;
   
@@ -11609,7 +11615,8 @@ class  GlobalPolicy {
       bool report_xdr_events_enabled,
       std::vector<std::string> blocked_hex_ssids,
       bool recommended_values_are_ephemeral,
-      bool user_created_network_configurations_are_ephemeral);
+      bool user_created_network_configurations_are_ephemeral,
+      SuppressionType allow_text_messages);
 
 
   ~GlobalPolicy();
@@ -11708,6 +11715,8 @@ class  GlobalPolicy {
   bool recommended_values_are_ephemeral;
   
   bool user_created_network_configurations_are_ephemeral;
+  
+  SuppressionType allow_text_messages;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -12652,7 +12661,8 @@ DeviceStatePropertiesPtr DeviceStateProperties::Clone() const {
       mojo::Clone(device_state),
       mojo::Clone(type),
       mojo::Clone(managed_network_available),
-      mojo::Clone(serial)
+      mojo::Clone(serial),
+      mojo::Clone(is_carrier_locked)
   );
 }
 
@@ -12683,6 +12693,8 @@ bool DeviceStateProperties::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->managed_network_available, other_struct.managed_network_available))
     return false;
   if (!mojo::Equals(this->serial, other_struct.serial))
+    return false;
+  if (!mojo::Equals(this->is_carrier_locked, other_struct.is_carrier_locked))
     return false;
   return true;
 }
@@ -12740,6 +12752,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.serial < rhs.serial)
     return true;
   if (rhs.serial < lhs.serial)
+    return false;
+  if (lhs.is_carrier_locked < rhs.is_carrier_locked)
+    return true;
+  if (rhs.is_carrier_locked < lhs.is_carrier_locked)
     return false;
   return false;
 }
@@ -15982,7 +15998,8 @@ GlobalPolicyPtr GlobalPolicy::Clone() const {
       mojo::Clone(report_xdr_events_enabled),
       mojo::Clone(blocked_hex_ssids),
       mojo::Clone(recommended_values_are_ephemeral),
-      mojo::Clone(user_created_network_configurations_are_ephemeral)
+      mojo::Clone(user_created_network_configurations_are_ephemeral),
+      mojo::Clone(allow_text_messages)
   );
 }
 
@@ -16009,6 +16026,8 @@ bool GlobalPolicy::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->recommended_values_are_ephemeral, other_struct.recommended_values_are_ephemeral))
     return false;
   if (!mojo::Equals(this->user_created_network_configurations_are_ephemeral, other_struct.user_created_network_configurations_are_ephemeral))
+    return false;
+  if (!mojo::Equals(this->allow_text_messages, other_struct.allow_text_messages))
     return false;
   return true;
 }
@@ -16058,6 +16077,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.user_created_network_configurations_are_ephemeral < rhs.user_created_network_configurations_are_ephemeral)
     return true;
   if (rhs.user_created_network_configurations_are_ephemeral < lhs.user_created_network_configurations_are_ephemeral)
+    return false;
+  if (lhs.allow_text_messages < rhs.allow_text_messages)
+    return true;
+  if (rhs.allow_text_messages < lhs.allow_text_messages)
     return false;
   return false;
 }
@@ -16643,6 +16666,11 @@ struct  StructTraits<::chromeos::network_config::mojom::DeviceStateProperties::D
   static const decltype(::chromeos::network_config::mojom::DeviceStateProperties::serial)& serial(
       const ::chromeos::network_config::mojom::DeviceStatePropertiesPtr& input) {
     return input->serial;
+  }
+
+  static decltype(::chromeos::network_config::mojom::DeviceStateProperties::is_carrier_locked) is_carrier_locked(
+      const ::chromeos::network_config::mojom::DeviceStatePropertiesPtr& input) {
+    return input->is_carrier_locked;
   }
 
   static bool Read(::chromeos::network_config::mojom::DeviceStateProperties::DataView input, ::chromeos::network_config::mojom::DeviceStatePropertiesPtr* output);
@@ -18973,6 +19001,11 @@ struct  StructTraits<::chromeos::network_config::mojom::GlobalPolicy::DataView,
   static decltype(::chromeos::network_config::mojom::GlobalPolicy::user_created_network_configurations_are_ephemeral) user_created_network_configurations_are_ephemeral(
       const ::chromeos::network_config::mojom::GlobalPolicyPtr& input) {
     return input->user_created_network_configurations_are_ephemeral;
+  }
+
+  static decltype(::chromeos::network_config::mojom::GlobalPolicy::allow_text_messages) allow_text_messages(
+      const ::chromeos::network_config::mojom::GlobalPolicyPtr& input) {
+    return input->allow_text_messages;
   }
 
   static bool Read(::chromeos::network_config::mojom::GlobalPolicy::DataView input, ::chromeos::network_config::mojom::GlobalPolicyPtr* output);

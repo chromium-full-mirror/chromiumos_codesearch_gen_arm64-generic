@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -47,6 +48,7 @@ namespace network::mojom::blink {
 CookieManagerParams::CookieManagerParams()
     : block_third_party_cookies(false),
       block_truncated_cookies(true),
+      tracking_protection_enabled_for_3pcd(false),
       mitigations_enabled_for_3pcd(false),
       content_settings(),
       secure_origin_cookies_allowed_schemes(),
@@ -58,6 +60,7 @@ CookieManagerParams::CookieManagerParams()
 CookieManagerParams::CookieManagerParams(
     bool block_third_party_cookies_in,
     bool block_truncated_cookies_in,
+    bool tracking_protection_enabled_for_3pcd_in,
     bool mitigations_enabled_for_3pcd_in,
     WTF::HashMap<::content_settings::mojom::blink::ContentSettingsType, WTF::Vector<::content_settings::mojom::blink::ContentSettingPatternSourcePtr>> content_settings_in,
     WTF::Vector<WTF::String> secure_origin_cookies_allowed_schemes_in,
@@ -67,6 +70,7 @@ CookieManagerParams::CookieManagerParams(
     CookieAccessDelegateType cookie_access_delegate_type_in)
     : block_third_party_cookies(std::move(block_third_party_cookies_in)),
       block_truncated_cookies(std::move(block_truncated_cookies_in)),
+      tracking_protection_enabled_for_3pcd(std::move(tracking_protection_enabled_for_3pcd_in)),
       mitigations_enabled_for_3pcd(std::move(mitigations_enabled_for_3pcd_in)),
       content_settings(std::move(content_settings_in)),
       secure_origin_cookies_allowed_schemes(std::move(secure_origin_cookies_allowed_schemes_in)),
@@ -92,6 +96,15 @@ void CookieManagerParams::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "block_truncated_cookies"), this->block_truncated_cookies,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "tracking_protection_enabled_for_3pcd"), this->tracking_protection_enabled_for_3pcd,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -382,7 +395,6 @@ CanonicalCookie::CanonicalCookie()
       site_restrictions(CookieSameSite::NO_RESTRICTION),
       priority(CookiePriority::MEDIUM),
       source_scheme(CookieSourceScheme::kUnset),
-      same_party(false),
       partition_key(),
       source_port(-1) {}
 
@@ -400,7 +412,6 @@ CanonicalCookie::CanonicalCookie(
     CookieSameSite site_restrictions_in,
     CookiePriority priority_in,
     CookieSourceScheme source_scheme_in,
-    bool same_party_in,
     ::network::mojom::blink::CookiePartitionKeyPtr partition_key_in,
     int32_t source_port_in)
     : name(std::move(name_in)),
@@ -416,7 +427,6 @@ CanonicalCookie::CanonicalCookie(
       site_restrictions(std::move(site_restrictions_in)),
       priority(std::move(priority_in)),
       source_scheme(std::move(source_scheme_in)),
-      same_party(std::move(same_party_in)),
       partition_key(std::move(partition_key_in)),
       source_port(std::move(source_port_in)) {}
 
@@ -544,15 +554,6 @@ void CanonicalCookie::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "same_party"), this->same_party,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "partition_key"), this->partition_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::network::mojom::blink::CookiePartitionKeyPtr>"
@@ -622,7 +623,7 @@ CookieAndLineWithAccessResult::CookieAndLineWithAccessResult()
       access_result() {}
 
 CookieAndLineWithAccessResult::CookieAndLineWithAccessResult(
-    const absl::optional<::net::CanonicalCookie>& cookie_in,
+    const std::optional<::net::CanonicalCookie>& cookie_in,
     const WTF::String& cookie_string_in,
     CookieAccessResultPtr access_result_in)
     : cookie(std::move(cookie_in)),
@@ -638,7 +639,7 @@ void CookieAndLineWithAccessResult::WriteIntoTrace(
     dict.AddItem(
       "cookie"), this->cookie,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::CanonicalCookie>&>"
+      "<value of type const std::optional<::net::CanonicalCookie>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -877,13 +878,13 @@ CookieDeletionFilter::CookieDeletionFilter()
       partitioned_state_only() {}
 
 CookieDeletionFilter::CookieDeletionFilter(
-    absl::optional<::base::Time> created_after_time_in,
-    absl::optional<::base::Time> created_before_time_in,
-    absl::optional<WTF::Vector<WTF::String>> excluding_domains_in,
-    absl::optional<WTF::Vector<WTF::String>> including_domains_in,
+    std::optional<::base::Time> created_after_time_in,
+    std::optional<::base::Time> created_before_time_in,
+    std::optional<WTF::Vector<WTF::String>> excluding_domains_in,
+    std::optional<WTF::Vector<WTF::String>> including_domains_in,
     const WTF::String& cookie_name_in,
     const WTF::String& host_name_in,
-    const absl::optional<::blink::KURL>& url_in,
+    const std::optional<::blink::KURL>& url_in,
     CookieDeletionSessionControl session_control_in,
     ::network::mojom::blink::CookiePartitionKeyCollectionPtr cookie_partition_key_collection_in,
     bool partitioned_state_only_in)
@@ -907,7 +908,7 @@ void CookieDeletionFilter::WriteIntoTrace(
     dict.AddItem(
       "created_after_time"), this->created_after_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -916,7 +917,7 @@ void CookieDeletionFilter::WriteIntoTrace(
     dict.AddItem(
       "created_before_time"), this->created_before_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -925,7 +926,7 @@ void CookieDeletionFilter::WriteIntoTrace(
     dict.AddItem(
       "excluding_domains"), this->excluding_domains,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<WTF::String>>&>"
+      "<value of type const std::optional<WTF::Vector<WTF::String>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -934,7 +935,7 @@ void CookieDeletionFilter::WriteIntoTrace(
     dict.AddItem(
       "including_domains"), this->including_domains,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<WTF::String>>&>"
+      "<value of type const std::optional<WTF::Vector<WTF::String>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -961,7 +962,7 @@ void CookieDeletionFilter::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::KURL>&>"
+      "<value of type const std::optional<::blink::KURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1122,14 +1123,17 @@ void CookieChangeListenerProxy::OnCookieChange(
                         "<value of type CookieChangeInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieChangeListener_OnCookieChange_Name, kFlags, 0, 0, nullptr);
@@ -1208,10 +1212,10 @@ bool CookieChangeListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCookieChangeListenerValidationInfo[] = {
-    {&internal::CookieChangeListener_OnCookieChange_Params_Data::Validate,
+    { &internal::CookieChangeListener_OnCookieChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1276,6 +1280,9 @@ CookieManager::IPCStableHashFunction CookieManager::MessageToMethodInfo_(mojo::M
     case internal::kCookieManager_SetMitigationsEnabledFor3pcd_Name: {
       return &CookieManager::SetMitigationsEnabledFor3pcd_Sym::IPCStableHash;
     }
+    case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name: {
+      return &CookieManager::SetTrackingProtectionEnabledFor3pcd_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1321,6 +1328,8 @@ const char* CookieManager::MessageToMethodName_(mojo::Message& message) {
             return "Receive network::mojom::CookieManager::BlockTruncatedCookies";
       case internal::kCookieManager_SetMitigationsEnabledFor3pcd_Name:
             return "Receive network::mojom::CookieManager::SetMitigationsEnabledFor3pcd";
+      case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name:
+            return "Receive network::mojom::CookieManager::SetTrackingProtectionEnabledFor3pcd";
     }
   } else {
     switch (message.name()) {
@@ -1358,6 +1367,8 @@ const char* CookieManager::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply network::mojom::CookieManager::BlockTruncatedCookies";
       case internal::kCookieManager_SetMitigationsEnabledFor3pcd_Name:
             return "Receive reply network::mojom::CookieManager::SetMitigationsEnabledFor3pcd";
+      case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name:
+            return "Receive reply network::mojom::CookieManager::SetTrackingProtectionEnabledFor3pcd";
     }
   }
   return "Receive unknown mojo message";
@@ -1593,6 +1604,19 @@ uint32_t CookieManager::SetMitigationsEnabledFor3pcd_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t CookieManager::SetTrackingProtectionEnabledFor3pcd_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)network::mojom::CookieManager::SetTrackingProtectionEnabledFor3pcd");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CookieManager_GetAllCookies_ForwardToCallback
@@ -1764,14 +1788,17 @@ void CookieManagerProxy::GetAllCookies(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::CookieManager::GetAllCookies");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_GetAllCookies_Name, kFlags, 0, 0, nullptr);
@@ -1795,14 +1822,17 @@ void CookieManagerProxy::GetAllCookiesWithAccessSemantics(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::CookieManager::GetAllCookiesWithAccessSemantics");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_GetAllCookiesWithAccessSemantics_Name, kFlags, 0, 0, nullptr);
@@ -1839,14 +1869,17 @@ void CookieManagerProxy::GetCookieList(
                         "<value of type ::network::mojom::blink::CookiePartitionKeyCollectionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_GetCookieList_Name, kFlags, 0, 0, nullptr);
@@ -1916,14 +1949,17 @@ void CookieManagerProxy::SetCanonicalCookie(
                         "<value of type CookieOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_SetCanonicalCookie_Name, kFlags, 0, 0, nullptr);
@@ -1987,14 +2023,17 @@ void CookieManagerProxy::DeleteCanonicalCookie(
                         "<value of type const ::net::CanonicalCookie&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_DeleteCanonicalCookie_Name, kFlags, 0, 0, nullptr);
@@ -2036,14 +2075,17 @@ void CookieManagerProxy::DeleteCookies(
                         "<value of type CookieDeletionFilterPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_DeleteCookies_Name, kFlags, 0, 0, nullptr);
@@ -2078,14 +2120,17 @@ void CookieManagerProxy::DeleteSessionOnlyCookies(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::CookieManager::DeleteSessionOnlyCookies");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_DeleteSessionOnlyCookies_Name, kFlags, 0, 0, nullptr);
@@ -2122,14 +2167,17 @@ void CookieManagerProxy::AddCookieChangeListener(
                         "<value of type ::mojo::PendingRemote<CookieChangeListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_AddCookieChangeListener_Name, kFlags, 0, 0, nullptr);
@@ -2183,14 +2231,17 @@ void CookieManagerProxy::AddGlobalChangeListener(
                         "<value of type ::mojo::PendingRemote<CookieChangeListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_AddGlobalChangeListener_Name, kFlags, 0, 0, nullptr);
@@ -2226,14 +2277,17 @@ void CookieManagerProxy::CloneInterface(
                         "<value of type ::mojo::PendingReceiver<CookieManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_CloneInterface_Name, kFlags, 0, 0, nullptr);
@@ -2262,14 +2316,17 @@ void CookieManagerProxy::FlushCookieStore(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::CookieManager::FlushCookieStore");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_FlushCookieStore_Name, kFlags, 0, 0, nullptr);
@@ -2300,14 +2357,17 @@ void CookieManagerProxy::AllowFileSchemeCookies(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_AllowFileSchemeCookies_Name, kFlags, 0, 0, nullptr);
@@ -2342,14 +2402,17 @@ void CookieManagerProxy::SetContentSettings(
                         "<value of type WTF::Vector<::content_settings::mojom::blink::ContentSettingPatternSourcePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_SetContentSettings_Name, kFlags, 0, 0, nullptr);
@@ -2388,14 +2451,17 @@ void CookieManagerProxy::SetForceKeepSessionState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::CookieManager::SetForceKeepSessionState");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_SetForceKeepSessionState_Name, kFlags, 0, 0, nullptr);
@@ -2425,14 +2491,17 @@ void CookieManagerProxy::BlockThirdPartyCookies(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_BlockThirdPartyCookies_Name, kFlags, 0, 0, nullptr);
@@ -2463,14 +2532,17 @@ void CookieManagerProxy::BlockTruncatedCookies(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_BlockTruncatedCookies_Name, kFlags, 0, 0, nullptr);
@@ -2501,14 +2573,17 @@ void CookieManagerProxy::SetMitigationsEnabledFor3pcd(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_SetMitigationsEnabledFor3pcd_Name, kFlags, 0, 0, nullptr);
@@ -2521,6 +2596,47 @@ void CookieManagerProxy::SetMitigationsEnabledFor3pcd(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CookieManager::Name_);
   message.set_method_name("SetMitigationsEnabledFor3pcd");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CookieManagerProxy::SetTrackingProtectionEnabledFor3pcd(
+    bool in_enable) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send network::mojom::CookieManager::SetTrackingProtectionEnabledFor3pcd", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("enable"), in_enable,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::network::mojom::internal::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data> params(
+          message);
+  params.Allocate();
+  params->enable = in_enable;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CookieManager::Name_);
+  message.set_method_name("SetTrackingProtectionEnabledFor3pcd");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2618,7 +2734,8 @@ void CookieManager_GetAllCookies_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_GetAllCookies_Name, kFlags, 0, 0, nullptr);
@@ -2755,7 +2872,8 @@ void CookieManager_GetAllCookiesWithAccessSemantics_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_GetAllCookiesWithAccessSemantics_Name, kFlags, 0, 0, nullptr);
@@ -2905,7 +3023,8 @@ void CookieManager_GetCookieList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_GetCookieList_Name, kFlags, 0, 0, nullptr);
@@ -3048,7 +3167,8 @@ void CookieManager_SetCanonicalCookie_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_SetCanonicalCookie_Name, kFlags, 0, 0, nullptr);
@@ -3176,7 +3296,8 @@ void CookieManager_DeleteCanonicalCookie_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_DeleteCanonicalCookie_Name, kFlags, 0, 0, nullptr);
@@ -3294,7 +3415,8 @@ void CookieManager_DeleteCookies_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_DeleteCookies_Name, kFlags, 0, 0, nullptr);
@@ -3412,7 +3534,8 @@ void CookieManager_DeleteSessionOnlyCookies_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_DeleteSessionOnlyCookies_Name, kFlags, 0, 0, nullptr);
@@ -3519,7 +3642,8 @@ void CookieManager_FlushCookieStore_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_FlushCookieStore_Name, kFlags, 0, 0, nullptr);
@@ -3636,7 +3760,8 @@ void CookieManager_AllowFileSchemeCookies_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_AllowFileSchemeCookies_Name, kFlags, 0, 0, nullptr);
@@ -3743,7 +3868,8 @@ void CookieManager_SetContentSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCookieManager_SetContentSettings_Name, kFlags, 0, 0, nullptr);
@@ -3993,6 +4119,32 @@ std::move(p_block));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->SetMitigationsEnabledFor3pcd(
+std::move(p_enable));
+      return true;
+    }
+    case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data* params =
+          reinterpret_cast<internal::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_enable{};
+      CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_enable = input_data_view.enable();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CookieManager::Name_, 17, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetTrackingProtectionEnabledFor3pcd(
 std::move(p_enable));
       return true;
     }
@@ -4324,45 +4476,50 @@ std::move(p_settings), std::move(callback));
     case internal::kCookieManager_SetMitigationsEnabledFor3pcd_Name: {
       break;
     }
+    case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCookieManagerValidationInfo[] = {
-    {&internal::CookieManager_GetAllCookies_Params_Data::Validate,
+    { &internal::CookieManager_GetAllCookies_Params_Data::Validate,
      &internal::CookieManager_GetAllCookies_ResponseParams_Data::Validate},
-    {&internal::CookieManager_GetAllCookiesWithAccessSemantics_Params_Data::Validate,
+    { &internal::CookieManager_GetAllCookiesWithAccessSemantics_Params_Data::Validate,
      &internal::CookieManager_GetAllCookiesWithAccessSemantics_ResponseParams_Data::Validate},
-    {&internal::CookieManager_GetCookieList_Params_Data::Validate,
+    { &internal::CookieManager_GetCookieList_Params_Data::Validate,
      &internal::CookieManager_GetCookieList_ResponseParams_Data::Validate},
-    {&internal::CookieManager_SetCanonicalCookie_Params_Data::Validate,
+    { &internal::CookieManager_SetCanonicalCookie_Params_Data::Validate,
      &internal::CookieManager_SetCanonicalCookie_ResponseParams_Data::Validate},
-    {&internal::CookieManager_DeleteCanonicalCookie_Params_Data::Validate,
+    { &internal::CookieManager_DeleteCanonicalCookie_Params_Data::Validate,
      &internal::CookieManager_DeleteCanonicalCookie_ResponseParams_Data::Validate},
-    {&internal::CookieManager_DeleteCookies_Params_Data::Validate,
+    { &internal::CookieManager_DeleteCookies_Params_Data::Validate,
      &internal::CookieManager_DeleteCookies_ResponseParams_Data::Validate},
-    {&internal::CookieManager_DeleteSessionOnlyCookies_Params_Data::Validate,
+    { &internal::CookieManager_DeleteSessionOnlyCookies_Params_Data::Validate,
      &internal::CookieManager_DeleteSessionOnlyCookies_ResponseParams_Data::Validate},
-    {&internal::CookieManager_AddCookieChangeListener_Params_Data::Validate,
+    { &internal::CookieManager_AddCookieChangeListener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CookieManager_AddGlobalChangeListener_Params_Data::Validate,
+    { &internal::CookieManager_AddGlobalChangeListener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CookieManager_CloneInterface_Params_Data::Validate,
+    { &internal::CookieManager_CloneInterface_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CookieManager_FlushCookieStore_Params_Data::Validate,
+    { &internal::CookieManager_FlushCookieStore_Params_Data::Validate,
      &internal::CookieManager_FlushCookieStore_ResponseParams_Data::Validate},
-    {&internal::CookieManager_AllowFileSchemeCookies_Params_Data::Validate,
+    { &internal::CookieManager_AllowFileSchemeCookies_Params_Data::Validate,
      &internal::CookieManager_AllowFileSchemeCookies_ResponseParams_Data::Validate},
-    {&internal::CookieManager_SetContentSettings_Params_Data::Validate,
+    { &internal::CookieManager_SetContentSettings_Params_Data::Validate,
      &internal::CookieManager_SetContentSettings_ResponseParams_Data::Validate},
-    {&internal::CookieManager_SetForceKeepSessionState_Params_Data::Validate,
+    { &internal::CookieManager_SetForceKeepSessionState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CookieManager_BlockThirdPartyCookies_Params_Data::Validate,
+    { &internal::CookieManager_BlockThirdPartyCookies_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CookieManager_BlockTruncatedCookies_Params_Data::Validate,
+    { &internal::CookieManager_BlockTruncatedCookies_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CookieManager_SetMitigationsEnabledFor3pcd_Params_Data::Validate,
+    { &internal::CookieManager_SetMitigationsEnabledFor3pcd_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4394,6 +4551,8 @@ bool StructTraits<::network::mojom::blink::CookieManagerParams::DataView, ::netw
         result->block_third_party_cookies = input.block_third_party_cookies();
       if (success)
         result->block_truncated_cookies = input.block_truncated_cookies();
+      if (success)
+        result->tracking_protection_enabled_for_3pcd = input.tracking_protection_enabled_for_3pcd();
       if (success)
         result->mitigations_enabled_for_3pcd = input.mitigations_enabled_for_3pcd();
       if (success && !input.ReadContentSettings(&result->content_settings))
@@ -4504,8 +4663,6 @@ bool StructTraits<::network::mojom::blink::CanonicalCookie::DataView, ::network:
         success = false;
       if (success && !input.ReadSourceScheme(&result->source_scheme))
         success = false;
-      if (success)
-        result->same_party = input.same_party();
       if (success && !input.ReadPartitionKey(&result->partition_key))
         success = false;
       if (success)
@@ -4754,6 +4911,9 @@ void CookieManagerInterceptorForTesting::BlockTruncatedCookies(bool block) {
 }
 void CookieManagerInterceptorForTesting::SetMitigationsEnabledFor3pcd(bool enable) {
   GetForwardingInterface()->SetMitigationsEnabledFor3pcd(std::move(enable));
+}
+void CookieManagerInterceptorForTesting::SetTrackingProtectionEnabledFor3pcd(bool enable) {
+  GetForwardingInterface()->SetTrackingProtectionEnabledFor3pcd(std::move(enable));
 }
 CookieManagerAsyncWaiter::CookieManagerAsyncWaiter(
     CookieManager* proxy) : proxy_(proxy) {}

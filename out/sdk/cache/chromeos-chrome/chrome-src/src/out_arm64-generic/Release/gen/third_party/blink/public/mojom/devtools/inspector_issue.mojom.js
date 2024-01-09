@@ -427,15 +427,17 @@
   FederatedAuthRequestResult.kErrorFetchingIdTokenHttpNotFound = 24;
   FederatedAuthRequestResult.kErrorFetchingIdTokenNoResponse = 25;
   FederatedAuthRequestResult.kErrorFetchingIdTokenInvalidResponse = 26;
-  FederatedAuthRequestResult.kErrorFetchingIdTokenInvalidContentType = 27;
-  FederatedAuthRequestResult.kErrorCanceled = 28;
-  FederatedAuthRequestResult.kErrorRpPageNotVisible = 29;
-  FederatedAuthRequestResult.kErrorSilentMediationFailure = 30;
-  FederatedAuthRequestResult.kErrorThirdPartyCookiesBlocked = 31;
-  FederatedAuthRequestResult.kErrorNotSignedInWithIdp = 32;
-  FederatedAuthRequestResult.kError = 33;
+  FederatedAuthRequestResult.kErrorFetchingIdTokenIdpErrorResponse = 27;
+  FederatedAuthRequestResult.kErrorFetchingIdTokenCrossSiteIdpErrorResponse = 28;
+  FederatedAuthRequestResult.kErrorFetchingIdTokenInvalidContentType = 29;
+  FederatedAuthRequestResult.kErrorCanceled = 30;
+  FederatedAuthRequestResult.kErrorRpPageNotVisible = 31;
+  FederatedAuthRequestResult.kErrorSilentMediationFailure = 32;
+  FederatedAuthRequestResult.kErrorThirdPartyCookiesBlocked = 33;
+  FederatedAuthRequestResult.kErrorNotSignedInWithIdp = 34;
+  FederatedAuthRequestResult.kError = 35;
   FederatedAuthRequestResult.MIN_VALUE = 0;
-  FederatedAuthRequestResult.MAX_VALUE = 33;
+  FederatedAuthRequestResult.MAX_VALUE = 35;
 
   FederatedAuthRequestResult.isKnownEnumValue = function(value) {
     switch (value) {
@@ -473,6 +475,8 @@
     case 31:
     case 32:
     case 33:
+    case 34:
+    case 35:
       return true;
     }
     return false;

@@ -520,13 +520,14 @@ bool ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destinat
     case 22:
     case 23:
     case 24:
+    case 25:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings[25] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings[26] = {};
 
 static const char ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names[] =
   "kAudioDestination"
@@ -547,6 +548,7 @@ static const char ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Req
   "kScriptDestination"
   "kServiceWorkerDestination"
   "kSharedWorkerDestination"
+  "kSpeculationRulesDestination"
   "kStyleDestination"
   "kTrackDestination"
   "kVideoDestination"
@@ -574,13 +576,14 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ServiceWorkerRegistrat
   { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 288, 18}, 13 },
   { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 306, 25}, 14 },
   { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 331, 24}, 15 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 355, 17}, 16 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 372, 17}, 17 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 389, 17}, 18 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 406, 21}, 19 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 427, 23}, 23 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 450, 18}, 20 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 468, 16}, 21 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 355, 28}, 25 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 383, 17}, 16 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 400, 17}, 17 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 417, 17}, 18 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 434, 21}, 19 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 455, 23}, 23 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 478, 18}, 20 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 496, 16}, 21 },
 };
 
 static const int ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries_by_number[] = {
@@ -600,15 +603,16 @@ static const int ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Requ
   15, // 13 -> kScriptDestination
   16, // 14 -> kServiceWorkerDestination
   17, // 15 -> kSharedWorkerDestination
-  18, // 16 -> kStyleDestination
-  19, // 17 -> kTrackDestination
-  20, // 18 -> kVideoDestination
-  21, // 19 -> kWebBundleDestination
-  23, // 20 -> kWorkerDestination
-  24, // 21 -> kXsltDestination
+  19, // 16 -> kStyleDestination
+  20, // 17 -> kTrackDestination
+  21, // 18 -> kVideoDestination
+  22, // 19 -> kWebBundleDestination
+  24, // 20 -> kWorkerDestination
+  25, // 21 -> kXsltDestination
   6, // 22 -> kFencedframeDestination
-  22, // 23 -> kWebIdentityDestination
+  23, // 23 -> kWebIdentityDestination
   2, // 24 -> kDictionaryDestination
+  18, // 25 -> kSpeculationRulesDestination
 };
 
 const std::string& ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_Name(
@@ -617,12 +621,12 @@ const std::string& ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Re
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries,
           ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries_by_number,
-          25, ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings);
+          26, ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries,
       ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries_by_number,
-      25, value);
+      26, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings[idx].get();
 }
@@ -630,7 +634,7 @@ bool ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destinat
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries, 25, name, &int_value);
+      ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries, 26, name, &int_value);
   if (success) {
     *value = static_cast<ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination>(int_value);
   }
@@ -662,6 +666,7 @@ constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Des
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::kFencedframeDestination;
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::kWebIdentityDestination;
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::kDictionaryDestination;
+constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::kSpeculationRulesDestination;
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::Destination_MIN;
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::Destination_MAX;
 constexpr int ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::Destination_ARRAYSIZE;

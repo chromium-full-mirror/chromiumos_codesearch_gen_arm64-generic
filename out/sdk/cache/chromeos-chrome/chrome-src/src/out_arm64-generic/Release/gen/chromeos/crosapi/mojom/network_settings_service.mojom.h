@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/network_settings_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/network_settings_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/network_settings_service.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -56,7 +57,7 @@ class NetworkSettingsObserver
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -70,6 +71,7 @@ class NetworkSettingsObserver
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kOnProxyChangedMinVersion = 0,
+    kOnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChangedMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -78,11 +80,17 @@ class NetworkSettingsObserver
   struct OnProxyChanged_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~NetworkSettingsObserver() = default;
 
   
   virtual void OnProxyChanged(ProxyConfigPtr proxy_config) = 0;
+
+  
+  virtual void OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged(bool enfoced) = 0;
 };
 
 class NetworkSettingsServiceProxy;
@@ -91,6 +99,7 @@ template <typename ImplRefTraits>
 class NetworkSettingsServiceStub;
 
 class NetworkSettingsServiceRequestValidator;
+class NetworkSettingsServiceResponseValidator;
 
 
 class NetworkSettingsService
@@ -103,7 +112,7 @@ class NetworkSettingsService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 16758281480875230538ULL,
                                       10875947850652110420ULL };
-  static constexpr uint32_t Version_ = 2;
+  static constexpr uint32_t Version_ = 3;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -114,13 +123,14 @@ class NetworkSettingsService
   using Stub_ = NetworkSettingsServiceStub<ImplRefTraits>;
 
   using RequestValidator_ = NetworkSettingsServiceRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = NetworkSettingsServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kAddNetworkSettingsObserverMinVersion = 0,
     kSetExtensionProxyMinVersion = 1,
     kClearExtensionProxyMinVersion = 1,
     kSetExtensionControllingProxyMetadataMinVersion = 2,
     kClearExtensionControllingProxyMetadataMinVersion = 2,
+    kIsAlwaysOnVpnPreConnectUrlAllowlistEnforcedMinVersion = 3,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -141,6 +151,9 @@ class NetworkSettingsService
   struct ClearExtensionControllingProxyMetadata_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~NetworkSettingsService() = default;
 
@@ -158,6 +171,11 @@ class NetworkSettingsService
 
   
   virtual void ClearExtensionControllingProxyMetadata() = 0;
+
+
+  using IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback callback) = 0;
 };
 
 
@@ -170,6 +188,8 @@ class  NetworkSettingsObserverProxy
   explicit NetworkSettingsObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void OnProxyChanged(ProxyConfigPtr proxy_config) final;
+  
+  void OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged(bool enfoced) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -193,6 +213,8 @@ class  NetworkSettingsServiceProxy
   void SetExtensionControllingProxyMetadata(ExtensionControllingProxyPtr extension) final;
   
   void ClearExtensionControllingProxyMetadata() final;
+  
+  void IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -284,6 +306,10 @@ class  NetworkSettingsObserverRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  NetworkSettingsServiceRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  NetworkSettingsServiceResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -754,33 +780,33 @@ class  ProxySettings {
   // Construct an instance holding |direct|.
   static ProxySettingsPtr
   NewDirect(
-      ProxySettingsDirectPtr direct) {
+      ProxySettingsDirectPtr value) {
     auto result = ProxySettingsPtr(absl::in_place);
-    result->set_direct(std::move(direct));
+    result->set_direct(std::move(value));
     return result;
   }
   // Construct an instance holding |manual|.
   static ProxySettingsPtr
   NewManual(
-      ProxySettingsManualPtr manual) {
+      ProxySettingsManualPtr value) {
     auto result = ProxySettingsPtr(absl::in_place);
-    result->set_manual(std::move(manual));
+    result->set_manual(std::move(value));
     return result;
   }
   // Construct an instance holding |pac|.
   static ProxySettingsPtr
   NewPac(
-      ProxySettingsPacPtr pac) {
+      ProxySettingsPacPtr value) {
     auto result = ProxySettingsPtr(absl::in_place);
-    result->set_pac(std::move(pac));
+    result->set_pac(std::move(value));
     return result;
   }
   // Construct an instance holding |wpad|.
   static ProxySettingsPtr
   NewWpad(
-      ProxySettingsWpadPtr wpad) {
+      ProxySettingsWpadPtr value) {
     auto result = ProxySettingsPtr(absl::in_place);
-    result->set_wpad(std::move(wpad));
+    result->set_wpad(std::move(value));
     return result;
   }
 

@@ -87,8 +87,6 @@ class  CTLogInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> id;
   mojo::internal::Pointer<mojo::internal::String_Data> public_key;
   mojo::internal::Pointer<mojo::internal::String_Data> name;
-  uint8_t operated_by_google : 1;
-  uint8_t pad3_[7];
   mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> disqualified_at;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> mmd;
   mojo::internal::Pointer<mojo::internal::String_Data> current_operator;
@@ -100,7 +98,7 @@ class  CTLogInfo_Data {
   CTLogInfo_Data();
   ~CTLogInfo_Data() = delete;
 };
-static_assert(sizeof(CTLogInfo_Data) == 72,
+static_assert(sizeof(CTLogInfo_Data) == 64,
               "Bad sizeof(CTLogInfo_Data)");
 // Used by CTLogInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

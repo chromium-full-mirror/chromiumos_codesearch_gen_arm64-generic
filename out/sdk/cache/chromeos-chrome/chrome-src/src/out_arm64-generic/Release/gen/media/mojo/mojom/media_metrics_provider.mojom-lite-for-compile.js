@@ -165,6 +165,11 @@ media.mojom.MediaMetricsProviderInterface = class {
   /**
    */
 
+  setHasWaitingForKey() {}
+  
+  /**
+   */
+
   setIsHardwareSecure() {}
   
   /**
@@ -425,9 +430,22 @@ media.mojom.MediaMetricsProviderRemote = class {
   /**
    */
 
-  setIsHardwareSecure() {
+  setHasWaitingForKey() {
     this.proxy.sendMessage(
         11,
+        media.mojom.MediaMetricsProvider_SetHasWaitingForKey_ParamsSpec.$,
+        null,
+        [
+        ]);
+  }
+
+  
+  /**
+   */
+
+  setIsHardwareSecure() {
+    this.proxy.sendMessage(
+        12,
         media.mojom.MediaMetricsProvider_SetIsHardwareSecure_ParamsSpec.$,
         null,
         [
@@ -442,7 +460,7 @@ media.mojom.MediaMetricsProviderRemote = class {
   setContainerName(
       containerName) {
     this.proxy.sendMessage(
-        12,
+        13,
         media.mojom.MediaMetricsProvider_SetContainerName_ParamsSpec.$,
         null,
         [
@@ -460,7 +478,7 @@ media.mojom.MediaMetricsProviderRemote = class {
       properties,
       recorder) {
     this.proxy.sendMessage(
-        13,
+        14,
         media.mojom.MediaMetricsProvider_AcquireWatchTimeRecorder_ParamsSpec.$,
         null,
         [
@@ -477,7 +495,7 @@ media.mojom.MediaMetricsProviderRemote = class {
   acquireVideoDecodeStatsRecorder(
       recorder) {
     this.proxy.sendMessage(
-        14,
+        15,
         media.mojom.MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_ParamsSpec.$,
         null,
         [
@@ -495,7 +513,7 @@ media.mojom.MediaMetricsProviderRemote = class {
       taskName,
       controller) {
     this.proxy.sendMessage(
-        15,
+        16,
         media.mojom.MediaMetricsProvider_AcquireLearningTaskController_ParamsSpec.$,
         null,
         [
@@ -512,7 +530,7 @@ media.mojom.MediaMetricsProviderRemote = class {
   acquirePlaybackEventsRecorder(
       receiver) {
     this.proxy.sendMessage(
-        16,
+        17,
         media.mojom.MediaMetricsProvider_AcquirePlaybackEventsRecorder_ParamsSpec.$,
         null,
         [
@@ -528,7 +546,7 @@ media.mojom.MediaMetricsProviderRemote = class {
   setHasAudio(
       codec) {
     this.proxy.sendMessage(
-        17,
+        18,
         media.mojom.MediaMetricsProvider_SetHasAudio_ParamsSpec.$,
         null,
         [
@@ -544,7 +562,7 @@ media.mojom.MediaMetricsProviderRemote = class {
   setHasVideo(
       codec) {
     this.proxy.sendMessage(
-        18,
+        19,
         media.mojom.MediaMetricsProvider_SetHasVideo_ParamsSpec.$,
         null,
         [
@@ -560,7 +578,7 @@ media.mojom.MediaMetricsProviderRemote = class {
   setVideoPipelineInfo(
       info) {
     this.proxy.sendMessage(
-        19,
+        20,
         media.mojom.MediaMetricsProvider_SetVideoPipelineInfo_ParamsSpec.$,
         null,
         [
@@ -576,7 +594,7 @@ media.mojom.MediaMetricsProviderRemote = class {
   setAudioPipelineInfo(
       info) {
     this.proxy.sendMessage(
-        20,
+        21,
         media.mojom.MediaMetricsProvider_SetAudioPipelineInfo_ParamsSpec.$,
         null,
         [
@@ -664,51 +682,56 @@ media.mojom.MediaMetricsProviderReceiver = class {
         impl.setKeySystem.bind(impl));
     this.helper_internal_.registerHandler(
         11,
+        media.mojom.MediaMetricsProvider_SetHasWaitingForKey_ParamsSpec.$,
+        null,
+        impl.setHasWaitingForKey.bind(impl));
+    this.helper_internal_.registerHandler(
+        12,
         media.mojom.MediaMetricsProvider_SetIsHardwareSecure_ParamsSpec.$,
         null,
         impl.setIsHardwareSecure.bind(impl));
     this.helper_internal_.registerHandler(
-        12,
+        13,
         media.mojom.MediaMetricsProvider_SetContainerName_ParamsSpec.$,
         null,
         impl.setContainerName.bind(impl));
     this.helper_internal_.registerHandler(
-        13,
+        14,
         media.mojom.MediaMetricsProvider_AcquireWatchTimeRecorder_ParamsSpec.$,
         null,
         impl.acquireWatchTimeRecorder.bind(impl));
     this.helper_internal_.registerHandler(
-        14,
+        15,
         media.mojom.MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_ParamsSpec.$,
         null,
         impl.acquireVideoDecodeStatsRecorder.bind(impl));
     this.helper_internal_.registerHandler(
-        15,
+        16,
         media.mojom.MediaMetricsProvider_AcquireLearningTaskController_ParamsSpec.$,
         null,
         impl.acquireLearningTaskController.bind(impl));
     this.helper_internal_.registerHandler(
-        16,
+        17,
         media.mojom.MediaMetricsProvider_AcquirePlaybackEventsRecorder_ParamsSpec.$,
         null,
         impl.acquirePlaybackEventsRecorder.bind(impl));
     this.helper_internal_.registerHandler(
-        17,
+        18,
         media.mojom.MediaMetricsProvider_SetHasAudio_ParamsSpec.$,
         null,
         impl.setHasAudio.bind(impl));
     this.helper_internal_.registerHandler(
-        18,
+        19,
         media.mojom.MediaMetricsProvider_SetHasVideo_ParamsSpec.$,
         null,
         impl.setHasVideo.bind(impl));
     this.helper_internal_.registerHandler(
-        19,
+        20,
         media.mojom.MediaMetricsProvider_SetVideoPipelineInfo_ParamsSpec.$,
         null,
         impl.setVideoPipelineInfo.bind(impl));
     this.helper_internal_.registerHandler(
-        20,
+        21,
         media.mojom.MediaMetricsProvider_SetAudioPipelineInfo_ParamsSpec.$,
         null,
         impl.setAudioPipelineInfo.bind(impl));
@@ -899,12 +922,24 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.setIsHardwareSecure =
+    this.setHasWaitingForKey =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         11,
+        media.mojom.MediaMetricsProvider_SetHasWaitingForKey_ParamsSpec.$,
+        null,
+        this.setHasWaitingForKey.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setIsHardwareSecure =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        12,
         media.mojom.MediaMetricsProvider_SetIsHardwareSecure_ParamsSpec.$,
         null,
         this.setIsHardwareSecure.createReceiverHandler(false /* expectsResponse */));
@@ -916,7 +951,7 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        12,
+        13,
         media.mojom.MediaMetricsProvider_SetContainerName_ParamsSpec.$,
         null,
         this.setContainerName.createReceiverHandler(false /* expectsResponse */));
@@ -928,7 +963,7 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        13,
+        14,
         media.mojom.MediaMetricsProvider_AcquireWatchTimeRecorder_ParamsSpec.$,
         null,
         this.acquireWatchTimeRecorder.createReceiverHandler(false /* expectsResponse */));
@@ -940,7 +975,7 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        14,
+        15,
         media.mojom.MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_ParamsSpec.$,
         null,
         this.acquireVideoDecodeStatsRecorder.createReceiverHandler(false /* expectsResponse */));
@@ -952,7 +987,7 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        15,
+        16,
         media.mojom.MediaMetricsProvider_AcquireLearningTaskController_ParamsSpec.$,
         null,
         this.acquireLearningTaskController.createReceiverHandler(false /* expectsResponse */));
@@ -964,7 +999,7 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        16,
+        17,
         media.mojom.MediaMetricsProvider_AcquirePlaybackEventsRecorder_ParamsSpec.$,
         null,
         this.acquirePlaybackEventsRecorder.createReceiverHandler(false /* expectsResponse */));
@@ -976,7 +1011,7 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        17,
+        18,
         media.mojom.MediaMetricsProvider_SetHasAudio_ParamsSpec.$,
         null,
         this.setHasAudio.createReceiverHandler(false /* expectsResponse */));
@@ -988,7 +1023,7 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        18,
+        19,
         media.mojom.MediaMetricsProvider_SetHasVideo_ParamsSpec.$,
         null,
         this.setHasVideo.createReceiverHandler(false /* expectsResponse */));
@@ -1000,7 +1035,7 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        19,
+        20,
         media.mojom.MediaMetricsProvider_SetVideoPipelineInfo_ParamsSpec.$,
         null,
         this.setVideoPipelineInfo.createReceiverHandler(false /* expectsResponse */));
@@ -1012,7 +1047,7 @@ media.mojom.MediaMetricsProviderCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        20,
+        21,
         media.mojom.MediaMetricsProvider_SetAudioPipelineInfo_ParamsSpec.$,
         null,
         this.setAudioPipelineInfo.createReceiverHandler(false /* expectsResponse */));
@@ -1117,6 +1152,14 @@ goog.provide('media.mojom.MediaMetricsProvider_SetKeySystem_ParamsSpec');
  * @export
  */
 media.mojom.MediaMetricsProvider_SetKeySystem_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('media.mojom.MediaMetricsProvider_SetHasWaitingForKey_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+media.mojom.MediaMetricsProvider_SetHasWaitingForKey_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('media.mojom.MediaMetricsProvider_SetIsHardwareSecure_ParamsSpec');
@@ -1506,6 +1549,25 @@ media.mojom.MediaMetricsProvider_SetKeySystem_Params = class {
   constructor() {
     /** @export { !string } */
     this.keySystem;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    media.mojom.MediaMetricsProvider_SetHasWaitingForKey_ParamsSpec.$,
+    'MediaMetricsProvider_SetHasWaitingForKey_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+goog.provide('media.mojom.MediaMetricsProvider_SetHasWaitingForKey_Params');
+
+/** @record */
+media.mojom.MediaMetricsProvider_SetHasWaitingForKey_Params = class {
+  constructor() {
   }
 };
 

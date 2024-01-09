@@ -58,8 +58,8 @@ class  VideoEncodeAcceleratorInterceptorForTesting : public VideoEncodeAccelerat
   void Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, InitializeCallback callback) override;
   void Encode(const ::scoped_refptr<::media::VideoFrame>& frame, const ::media::VideoEncoder::EncodeOptions& options, EncodeCallback callback) override;
   void UseOutputBitstreamBuffer(int32_t bitstream_buffer_id, ::base::UnsafeSharedMemoryRegion region) override;
-  void RequestEncodingParametersChangeWithLayers(const ::media::VideoBitrateAllocation& bitrate_allocation, uint32_t framerate) override;
-  void RequestEncodingParametersChangeWithBitrate(const ::media::Bitrate& bitrate, uint32_t framerate) override;
+  void RequestEncodingParametersChangeWithLayers(const ::media::VideoBitrateAllocation& bitrate_allocation, uint32_t framerate, const std::optional<::gfx::Size>& size) override;
+  void RequestEncodingParametersChangeWithBitrate(const ::media::Bitrate& bitrate, uint32_t framerate, const std::optional<::gfx::Size>& size) override;
   void IsFlushSupported(IsFlushSupportedCallback callback) override;
   void Flush(FlushCallback callback) override;
 };

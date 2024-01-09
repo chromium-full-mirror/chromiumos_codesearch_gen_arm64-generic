@@ -22,6 +22,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_trusted_type_policy.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_trusted_type_policy_options.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
+#include "third_party/blink/renderer/core/frame/web_feature.h"
 #include "third_party/blink/renderer/core/trustedtypes/trusted_html.h"
 #include "third_party/blink/renderer/core/trustedtypes/trusted_script.h"
 #include "third_party/blink/renderer/core/trustedtypes/trusted_type_policy.h"
@@ -31,6 +32,7 @@
 #include "third_party/blink/renderer/platform/bindings/runtime_call_stats.h"
 #include "third_party/blink/renderer/platform/bindings/v8_binding.h"
 #include "third_party/blink/renderer/platform/bindings/wrapper_type_info.h"
+#include "third_party/blink/renderer/platform/instrumentation/use_counter.h"
 
 namespace blink {
 
@@ -76,11 +78,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TrustedTypePolicyFactory>::value,
     "TrustedTypePolicyFactory inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TrustedTypePolicyFactory::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TrustedTypePolicyFactory is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +90,9 @@ BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.emptyHTML.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->emptyHTML();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -107,8 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.emptyScript.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->emptyScript();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -121,8 +120,9 @@ BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.defaultPolicy.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->defaultPolicy();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -135,10 +135,10 @@ BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.onbeforecreatepolicy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforecreatepolicy();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforecreatepolicy();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -151,8 +151,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforecreatepolicy(event_handler);
 }
 
@@ -178,7 +179,7 @@ return;
 
 TrustedTypePolicy* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 auto&& arg1_policy_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -206,10 +207,14 @@ void GetAttributeTypeOperationCallback(const v8::FunctionCallbackInfo<v8::Value>
 BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.getAttributeType");
 
 
-
-
-
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kTrustedTypesIntrospection);
+
+
+
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TrustedTypePolicyFactory";
 const char* const property_name = "getAttributeType";
@@ -222,7 +227,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_tag_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -258,10 +263,14 @@ void GetPropertyTypeOperationCallback(const v8::FunctionCallbackInfo<v8::Value>&
 BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.getPropertyType");
 
 
-
-
-
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kTrustedTypesIntrospection);
+
+
+
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TrustedTypePolicyFactory";
 const char* const property_name = "getPropertyType";
@@ -274,7 +283,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_tag_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -301,6 +310,11 @@ void GetTypeMappingOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& 
 BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.getTypeMapping");
 
 
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kTrustedTypesIntrospection);
 
 
 
@@ -311,7 +325,7 @@ ScriptValue return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -321,10 +335,9 @@ break;
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_ns;
 if (LIKELY(info[0]->IsString())) {
-  arg1_ns.Init(info[0].As<v8::String>());
+  arg1_ns.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TrustedTypePolicyFactory";
 const char* const property_name = "getTypeMapping";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -343,10 +356,14 @@ void IsHTMLOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
 BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.isHTML");
 
 
-
-
-
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kTrustedTypesIsCheck);
+
+
+
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TrustedTypePolicyFactory";
 const char* const property_name = "isHTML";
@@ -359,7 +376,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -376,10 +393,14 @@ void IsScriptOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) 
 BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.isScript");
 
 
-
-
-
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kTrustedTypesIsCheck);
+
+
+
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TrustedTypePolicyFactory";
 const char* const property_name = "isScript";
@@ -392,7 +413,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -409,10 +430,14 @@ void IsScriptURLOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& inf
 BLINK_BINDINGS_TRACE_EVENT("TrustedTypePolicyFactory.isScriptURL");
 
 
-
-
-
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kTrustedTypesIsCheck);
+
+
+
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TrustedTypePolicyFactory";
 const char* const property_name = "isScriptURL";
@@ -425,7 +450,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(v8_receiver);
+TrustedTypePolicyFactory* blink_receiver = V8TrustedTypePolicyFactory::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

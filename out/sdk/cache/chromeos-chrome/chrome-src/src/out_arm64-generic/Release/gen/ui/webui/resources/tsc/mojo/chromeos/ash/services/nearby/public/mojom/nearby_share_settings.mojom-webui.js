@@ -45,6 +45,7 @@ export var FastInitiationNotificationState;
     FastInitiationNotificationState[FastInitiationNotificationState["kDisabledByFeature"] = 2] = "kDisabledByFeature";
 })(FastInitiationNotificationState || (FastInitiationNotificationState = {}));
 export class NearbyShareSettingsObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -53,6 +54,9 @@ export class NearbyShareSettingsObserverPendingReceiver {
     }
 }
 export class NearbyShareSettingsObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(NearbyShareSettingsObserverPendingReceiver, handle);
@@ -107,6 +111,9 @@ export class NearbyShareSettingsObserverRemote {
  * interface.
  */
 export class NearbyShareSettingsObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(NearbyShareSettingsObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -143,6 +150,18 @@ export class NearbyShareSettingsObserver {
  * receiver can have any number of listeners added to it.
  */
 export class NearbyShareSettingsObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onEnabledChanged;
+    onFastInitiationNotificationStateChanged;
+    onIsFastInitiationHardwareSupportedChanged;
+    onDeviceNameChanged;
+    onDataUsageChanged;
+    onVisibilityChanged;
+    onAllowedContactsChanged;
+    onIsOnboardingCompleteChanged;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(NearbyShareSettingsObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -182,6 +201,7 @@ export class NearbyShareSettingsObserverCallbackRouter {
     }
 }
 export class NearbyShareSettingsPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -190,6 +210,9 @@ export class NearbyShareSettingsPendingReceiver {
     }
 }
 export class NearbyShareSettingsRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(NearbyShareSettingsPendingReceiver, handle);
@@ -273,6 +296,9 @@ export class NearbyShareSettingsRemote {
  * interface.
  */
 export class NearbyShareSettingsReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(NearbyShareSettingsRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -318,6 +344,27 @@ export class NearbyShareSettings {
  * receiver can have any number of listeners added to it.
  */
 export class NearbyShareSettingsCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    addSettingsObserver;
+    getEnabled;
+    setEnabled;
+    isOnboardingComplete;
+    setIsOnboardingComplete;
+    getFastInitiationNotificationState;
+    setFastInitiationNotificationState;
+    getIsFastInitiationHardwareSupported;
+    getDeviceName;
+    validateDeviceName;
+    setDeviceName;
+    getDataUsage;
+    setDataUsage;
+    getVisibility;
+    setVisibility;
+    getAllowedContacts;
+    setAllowedContacts;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(NearbyShareSettingsRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -384,6 +431,7 @@ export class NearbyShareSettingsCallbackRouter {
     }
 }
 export class DownloadContactsObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -392,6 +440,9 @@ export class DownloadContactsObserverPendingReceiver {
     }
 }
 export class DownloadContactsObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(DownloadContactsObserverPendingReceiver, handle);
@@ -416,6 +467,9 @@ export class DownloadContactsObserverRemote {
  * interface.
  */
 export class DownloadContactsObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DownloadContactsObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -446,6 +500,12 @@ export class DownloadContactsObserver {
  * receiver can have any number of listeners added to it.
  */
 export class DownloadContactsObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onContactsDownloaded;
+    onContactsDownloadFailed;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DownloadContactsObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -467,6 +527,7 @@ export class DownloadContactsObserverCallbackRouter {
     }
 }
 export class ContactManagerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -475,6 +536,9 @@ export class ContactManagerPendingReceiver {
     }
 }
 export class ContactManagerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(ContactManagerPendingReceiver, handle);
@@ -502,6 +566,9 @@ export class ContactManagerRemote {
  * interface.
  */
 export class ContactManagerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ContactManagerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -533,6 +600,13 @@ export class ContactManager {
  * receiver can have any number of listeners added to it.
  */
 export class ContactManagerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    addDownloadContactsObserver;
+    downloadContacts;
+    setAllowedContacts;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ContactManagerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

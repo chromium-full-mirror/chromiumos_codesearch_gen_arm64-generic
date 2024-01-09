@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AbortSignal>::value,
     "AbortSignal inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AbortSignal::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AbortSignal is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("AbortSignal.aborted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(v8_receiver);
+AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->aborted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("AbortSignal.reason.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(v8_receiver);
+AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -119,10 +116,10 @@ BLINK_BINDINGS_TRACE_EVENT("AbortSignal.onabort.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onabort();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onabort();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -135,8 +132,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(v8_receiver);
+AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnabort(event_handler);
 }
 
@@ -157,7 +155,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAbortSignalThrowIfAbor
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(v8_receiver);
+AbortSignal* blink_receiver = V8AbortSignal::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

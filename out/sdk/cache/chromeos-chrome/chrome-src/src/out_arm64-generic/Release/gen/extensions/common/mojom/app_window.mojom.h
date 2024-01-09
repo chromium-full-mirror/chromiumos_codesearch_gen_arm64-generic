@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/app_window.mojom-features.h"
 #include "extensions/common/mojom/app_window.mojom-shared.h"
 #include "extensions/common/mojom/app_window.mojom-forward.h"
 #include <string>
@@ -68,6 +69,7 @@ class AppWindow
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kSetVisuallyDeemphasizedMinVersion = 0,
+    kSetSupportsAppRegionMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -76,11 +78,17 @@ class AppWindow
   struct SetVisuallyDeemphasized_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SetSupportsAppRegion_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~AppWindow() = default;
 
   
   virtual void SetVisuallyDeemphasized(bool deemphasized) = 0;
+
+  
+  virtual void SetSupportsAppRegion(bool supports_app_region) = 0;
 };
 
 
@@ -93,6 +101,8 @@ class  AppWindowProxy
   explicit AppWindowProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void SetVisuallyDeemphasized(bool deemphasized) final;
+  
+  void SetSupportsAppRegion(bool supports_app_region) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

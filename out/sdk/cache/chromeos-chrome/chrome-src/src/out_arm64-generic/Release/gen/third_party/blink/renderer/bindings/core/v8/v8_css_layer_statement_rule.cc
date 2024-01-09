@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSLayerStatementRule>::value,
     "CSSLayerStatementRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSLayerStatementRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSLayerStatementRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,7 +85,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CSSLayerStatementRule* blink_receiver = V8CSSLayerStatementRule::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+CSSLayerStatementRule* blink_receiver = V8CSSLayerStatementRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->nameList();
 if (!ToV8Traits<IDLArray<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

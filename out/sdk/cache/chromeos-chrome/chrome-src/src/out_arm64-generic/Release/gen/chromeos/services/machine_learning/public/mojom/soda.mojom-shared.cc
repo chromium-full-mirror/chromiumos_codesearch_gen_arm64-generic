@@ -220,6 +220,7 @@ bool SodaConfig_Data::Validate(
     { 3, 48 },
     { 4, 56 },
     { 5, 56 },
+    { 6, 56 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -282,7 +283,7 @@ bool SodaConfig_Data::Validate(
 }
 
 SodaConfig_Data::SodaConfig_Data()
-    : header_({sizeof(*this), 5}) {}
+    : header_({sizeof(*this), 6}) {}
 
 
 // static

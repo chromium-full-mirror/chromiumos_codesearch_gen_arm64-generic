@@ -24,8 +24,6 @@ import {
 } from './cors.mojom.m.js';
 
 import {
-  ProxyServer as network_mojom_ProxyServer,
-  ProxyServerSpec as network_mojom_ProxyServerSpec,
   ResolveErrorInfo as network_mojom_ResolveErrorInfo,
   ResolveErrorInfoSpec as network_mojom_ResolveErrorInfoSpec,
   SSLInfo as network_mojom_SSLInfo,
@@ -200,15 +198,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'proxyServer', 80,
-        0,
-        network_mojom_ProxyServerSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'resolveErrorInfo', 88,
+        'resolveErrorInfo', 80,
         0,
         network_mojom_ResolveErrorInfoSpec.$,
         null,
@@ -224,7 +214,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 104],]);
+    [[0, 96],]);
 
 
 
@@ -261,8 +251,6 @@ export class URLLoaderCompletionStatus {
     this.blockedByResponseReason;
     /** @type { !boolean } */
     this.shouldReportCorbBlocking;
-    /** @type { !network_mojom_ProxyServer } */
-    this.proxyServer;
     /** @type { !network_mojom_ResolveErrorInfo } */
     this.resolveErrorInfo;
     /** @type { !boolean } */

@@ -47,8 +47,8 @@ class  PageHandlerAsyncWaiter {
 
   ~PageHandlerAsyncWaiter();
   void GetUserEmailAddress(
-      absl::optional<std::string>* out_email);
-  absl::optional<std::string> GetUserEmailAddress();
+      std::optional<std::string>* out_email);
+  std::optional<std::string> GetUserEmailAddress();
   void ConnectToOneDrive(
       bool* out_success);
   bool ConnectToOneDrive();

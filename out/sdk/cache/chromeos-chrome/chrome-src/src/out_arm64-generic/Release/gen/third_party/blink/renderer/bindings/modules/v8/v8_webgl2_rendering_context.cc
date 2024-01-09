@@ -120,11 +120,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, WebGL2RenderingContext>::value,
     "WebGL2RenderingContext does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&WebGL2RenderingContext::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGL2RenderingContext is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -142,7 +137,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getHTMLOrOffscreenCanvas();
 if (!ToV8Traits<V8UnionHTMLCanvasElementOrOffscreenCanvas>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -158,8 +154,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.drawingBufferWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->drawingBufferWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -172,8 +169,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.drawingBufferHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->drawingBufferHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -186,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.drawingBufferFormat.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->drawingBufferFormat();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -200,10 +199,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.drawingBufferColorSpace.get")
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->drawingBufferColorSpace();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->drawingBufferColorSpace();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -214,9 +213,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.drawingBufferColorSpace.set")
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "WebGL2RenderingContext";
@@ -253,10 +252,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.unpackColorSpace.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->unpackColorSpace();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->unpackColorSpace();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -267,9 +266,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.unpackColorSpace.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "WebGL2RenderingContext";
@@ -879,7 +878,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_texture = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -909,7 +908,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -943,7 +942,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -977,7 +976,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_primitive_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1007,7 +1006,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1046,7 +1045,7 @@ blink_receiver->bindBuffer(arg1_target, arg2_buffer);
 void BindBufferOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "bindBuffer";
@@ -1076,14 +1075,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.bindBuffer");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "bindBuffer";
@@ -1142,7 +1141,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1180,7 +1179,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1227,7 +1226,7 @@ blink_receiver->bindFramebuffer(arg1_target, arg2_framebuffer);
 void BindFramebufferOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "bindFramebuffer";
@@ -1257,14 +1256,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.bindFramebuffer");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "bindFramebuffer";
@@ -1323,7 +1322,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1357,7 +1356,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_unit = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1392,7 +1391,7 @@ blink_receiver->bindTexture(arg1_target, arg2_texture);
 void BindTextureOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "bindTexture";
@@ -1422,14 +1421,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.bindTexture");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "bindTexture";
@@ -1488,7 +1487,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1522,7 +1521,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_vertex_array = NativeValueTraits<IDLNullable<WebGLVertexArrayObject>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1552,7 +1551,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_red = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1594,7 +1593,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1624,7 +1623,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode_rgb = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1658,7 +1657,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sfactor = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1692,7 +1691,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_src_rgb = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1734,7 +1733,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_src_x_0 = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1797,7 +1796,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1832,7 +1831,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1867,7 +1866,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1902,7 +1901,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1990,7 +1989,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2025,7 +2024,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2060,7 +2059,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2147,7 +2146,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2169,7 +2168,7 @@ blink_receiver->clear(arg1_mask);
 void ClearOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clear";
@@ -2195,14 +2194,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.clear");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clear";
@@ -2252,7 +2251,7 @@ blink_receiver->clearBufferfi(arg1_buffer, arg2_drawbuffer, arg3_depth, arg4_ste
 void ClearBufferfiOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferfi";
@@ -2290,14 +2289,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.clearBufferfi");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferfi";
@@ -2403,7 +2402,7 @@ blink_receiver->clearBufferfv(arg1_buffer, arg2_drawbuffer, arg3_value, arg4_src
 void ClearBufferfvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferfv";
@@ -2440,7 +2439,7 @@ blink_receiver->clearBufferfv(arg1_buffer, arg2_drawbuffer, arg3_value, arg4_src
 void ClearBufferfvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferfv";
@@ -2478,14 +2477,14 @@ void ClearBufferfvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& 
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferfv";
@@ -2539,14 +2538,14 @@ void ClearBufferfvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& 
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferfv";
@@ -2702,7 +2701,7 @@ blink_receiver->clearBufferiv(arg1_buffer, arg2_drawbuffer, arg3_value, arg4_src
 void ClearBufferivOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferiv";
@@ -2739,7 +2738,7 @@ blink_receiver->clearBufferiv(arg1_buffer, arg2_drawbuffer, arg3_value, arg4_src
 void ClearBufferivOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferiv";
@@ -2777,14 +2776,14 @@ void ClearBufferivOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& 
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferiv";
@@ -2838,14 +2837,14 @@ void ClearBufferivOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& 
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferiv";
@@ -3001,7 +3000,7 @@ blink_receiver->clearBufferuiv(arg1_buffer, arg2_drawbuffer, arg3_value, arg4_sr
 void ClearBufferuivOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferuiv";
@@ -3038,7 +3037,7 @@ blink_receiver->clearBufferuiv(arg1_buffer, arg2_drawbuffer, arg3_value, arg4_sr
 void ClearBufferuivOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferuiv";
@@ -3076,14 +3075,14 @@ void ClearBufferuivOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>&
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferuiv";
@@ -3137,14 +3136,14 @@ void ClearBufferuivOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>&
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearBufferuiv";
@@ -3256,7 +3255,7 @@ blink_receiver->clearColor(arg1_red, arg2_green, arg3_blue, arg4_alpha);
 void ClearColorOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearColor";
@@ -3294,14 +3293,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.clearColor");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearColor";
@@ -3360,7 +3359,7 @@ blink_receiver->clearDepth(arg1_depth);
 void ClearDepthOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearDepth";
@@ -3386,14 +3385,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.clearDepth");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearDepth";
@@ -3440,7 +3439,7 @@ blink_receiver->clearStencil(arg1_s);
 void ClearStencilOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearStencil";
@@ -3466,14 +3465,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.clearStencil");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "clearStencil";
@@ -3528,7 +3527,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sync = NativeValueTraits<WebGLSync>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3561,7 +3560,7 @@ blink_receiver->colorMask(arg1_red, arg2_green, arg3_blue, arg4_alpha);
 void ColorMaskOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "colorMask";
@@ -3599,14 +3598,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.colorMask");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "colorMask";
@@ -3663,8 +3662,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.commit");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->commit();
 
 }
@@ -3690,7 +3690,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_shader = NativeValueTraits<WebGLShader>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3717,7 +3717,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3768,7 +3768,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3830,7 +3830,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3921,7 +3921,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3990,7 +3990,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4085,7 +4085,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4140,7 +4140,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4206,7 +4206,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4301,7 +4301,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4378,7 +4378,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4484,7 +4484,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_read_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4530,7 +4530,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4588,7 +4588,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4646,7 +4646,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4698,8 +4698,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.createBuffer");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createBuffer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4715,8 +4716,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.createFramebuffer");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createFramebuffer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4732,8 +4734,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.createProgram");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createProgram();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4749,8 +4752,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.createQuery");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createQuery();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4766,8 +4770,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.createRenderbuffer");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createRenderbuffer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4783,8 +4788,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.createSampler");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createSampler();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4810,7 +4816,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4830,8 +4836,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.createTexture");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createTexture();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4847,8 +4854,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.createTransformFeedback");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createTransformFeedback();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4864,8 +4872,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.createVertexArray");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createVertexArray();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4891,7 +4900,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4921,7 +4930,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<IDLNullable<WebGLBuffer>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4951,7 +4960,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_framebuffer = NativeValueTraits<IDLNullable<WebGLFramebuffer>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4981,7 +4990,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<IDLNullable<WebGLProgram>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5011,7 +5020,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_query = NativeValueTraits<IDLNullable<WebGLQuery>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5041,7 +5050,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_renderbuffer = NativeValueTraits<IDLNullable<WebGLRenderbuffer>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5071,7 +5080,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sampler = NativeValueTraits<IDLNullable<WebGLSampler>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5101,7 +5110,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_shader = NativeValueTraits<IDLNullable<WebGLShader>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5131,7 +5140,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sync = NativeValueTraits<IDLNullable<WebGLSync>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5161,7 +5170,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_texture = NativeValueTraits<IDLNullable<WebGLTexture>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5191,7 +5200,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_feedback = NativeValueTraits<IDLNullable<WebGLTransformFeedback>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5221,7 +5230,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_vertex_array = NativeValueTraits<IDLNullable<WebGLVertexArrayObject>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5251,7 +5260,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_func = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5281,7 +5290,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_flag = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5311,7 +5320,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_z_near = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5345,7 +5354,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5379,7 +5388,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_cap = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5401,7 +5410,7 @@ blink_receiver->disableVertexAttribArray(arg1_index);
 void DisableVertexAttribArrayOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "disableVertexAttribArray";
@@ -5427,14 +5436,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.disableVertexAttribArray");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "disableVertexAttribArray";
@@ -5483,7 +5492,7 @@ blink_receiver->drawArrays(arg1_mode, arg2_first, arg3_count);
 void DrawArraysOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "drawArrays";
@@ -5517,14 +5526,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.drawArrays");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "drawArrays";
@@ -5587,7 +5596,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5625,7 +5634,7 @@ blink_receiver->drawBuffers(arg1_buffers);
 void DrawBuffersOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "drawBuffers";
@@ -5651,14 +5660,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.drawBuffers");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "drawBuffers";
@@ -5708,7 +5717,7 @@ blink_receiver->drawElements(arg1_mode, arg2_count, arg3_type, arg4_offset);
 void DrawElementsOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "drawElements";
@@ -5746,14 +5755,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.drawElements");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "drawElements";
@@ -5820,7 +5829,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5866,7 +5875,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5916,7 +5925,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sizedformat = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5954,7 +5963,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_cap = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5976,7 +5985,7 @@ blink_receiver->enableVertexAttribArray(arg1_index);
 void EnableVertexAttribArrayOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "enableVertexAttribArray";
@@ -6002,14 +6011,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.enableVertexAttribArray");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "enableVertexAttribArray";
@@ -6064,7 +6073,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6084,8 +6093,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.endTransformFeedback");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->endTransformFeedback();
 
 }
@@ -6111,7 +6121,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_condition = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6135,8 +6145,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.finish");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->finish();
 
 }
@@ -6152,8 +6163,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.flush");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->flush();
 
 }
@@ -6179,7 +6191,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6221,7 +6233,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6267,7 +6279,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6313,7 +6325,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6343,7 +6355,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6373,7 +6385,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6407,7 +6419,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6441,7 +6453,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6475,7 +6487,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -6516,7 +6528,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -6561,7 +6573,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6594,7 +6606,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6628,7 +6640,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -6665,7 +6677,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6712,7 +6724,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getContextAttributes();
 if (!ToV8Traits<IDLNullable<WebGLContextAttributes>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -6731,8 +6744,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.getError");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getError();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -6764,13 +6778,13 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_name.Init(info[0].As<v8::String>());
+  arg1_name.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
@@ -6806,7 +6820,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6840,7 +6854,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -6881,7 +6895,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -6924,7 +6938,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -6971,7 +6985,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7004,7 +7018,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7034,7 +7048,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7071,7 +7085,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7108,7 +7122,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7151,7 +7165,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7188,7 +7202,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7225,7 +7239,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_shader = NativeValueTraits<WebGLShader>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7255,7 +7269,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7298,7 +7312,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_shadertype = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7332,7 +7346,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_shader = NativeValueTraits<WebGLShader>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7364,7 +7378,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getSupportedExtensions();
 if (!ToV8Traits<IDLNullable<IDLSequence<IDLString>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -7395,7 +7409,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7432,7 +7446,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7469,7 +7483,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7503,7 +7517,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7540,7 +7554,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7578,7 +7592,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7615,7 +7629,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7649,7 +7663,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7686,7 +7700,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7720,7 +7734,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7754,7 +7768,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7788,7 +7802,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7838,7 +7852,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<IDLNullable<WebGLBuffer>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7858,8 +7872,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.isContextLost");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isContextLost();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -7885,7 +7900,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_cap = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7915,7 +7930,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_framebuffer = NativeValueTraits<IDLNullable<WebGLFramebuffer>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7945,7 +7960,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<IDLNullable<WebGLProgram>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7975,7 +7990,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_query = NativeValueTraits<IDLNullable<WebGLQuery>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8005,7 +8020,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_renderbuffer = NativeValueTraits<IDLNullable<WebGLRenderbuffer>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8035,7 +8050,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sampler = NativeValueTraits<IDLNullable<WebGLSampler>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8065,7 +8080,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_shader = NativeValueTraits<IDLNullable<WebGLShader>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8095,7 +8110,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sync = NativeValueTraits<IDLNullable<WebGLSync>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8125,7 +8140,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_texture = NativeValueTraits<IDLNullable<WebGLTexture>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8155,7 +8170,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_feedback = NativeValueTraits<IDLNullable<WebGLTransformFeedback>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8185,7 +8200,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_vertex_array = NativeValueTraits<IDLNullable<WebGLVertexArrayObject>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8215,7 +8230,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_width = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8245,7 +8260,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8283,7 +8298,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebGLRenderingContextM
 
 
 
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -8305,8 +8320,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.pauseTransformFeedback");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->pauseTransformFeedback();
 
 }
@@ -8332,7 +8348,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_pname = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8366,7 +8382,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_factor = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8400,7 +8416,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8427,7 +8443,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8478,7 +8494,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8533,7 +8549,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8623,7 +8639,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8665,7 +8681,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8701,8 +8717,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.resumeTransformFeedback");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->resumeTransformFeedback();
 
 }
@@ -8728,7 +8745,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_value = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8762,7 +8779,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sampler = NativeValueTraits<WebGLSampler>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8800,7 +8817,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sampler = NativeValueTraits<WebGLSampler>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8833,7 +8850,7 @@ blink_receiver->scissor(arg1_x, arg2_y, arg3_width, arg4_height);
 void ScissorOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "scissor";
@@ -8871,14 +8888,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.scissor");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "scissor";
@@ -8945,7 +8962,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_shader = NativeValueTraits<WebGLShader>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -8979,7 +8996,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_func = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9017,7 +9034,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_face = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9059,7 +9076,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mask = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9089,7 +9106,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_face = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9123,7 +9140,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_fail = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9161,7 +9178,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_face = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9200,7 +9217,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9259,7 +9276,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9306,7 +9323,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -9359,7 +9376,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -9412,7 +9429,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -9465,7 +9482,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -9518,7 +9535,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9568,7 +9585,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -9621,7 +9638,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9680,7 +9697,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -9739,7 +9756,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -9804,7 +9821,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -9869,7 +9886,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -9934,7 +9951,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -9999,7 +10016,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -10064,7 +10081,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -10126,7 +10143,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -10272,7 +10289,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -10335,7 +10352,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -10398,7 +10415,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -10467,7 +10484,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -10536,7 +10553,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -10605,7 +10622,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -10674,7 +10691,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -10743,7 +10760,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -10809,7 +10826,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -10872,7 +10889,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -10999,7 +11016,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -11037,7 +11054,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -11075,7 +11092,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -11121,7 +11138,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -11168,7 +11185,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -11227,7 +11244,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -11278,7 +11295,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -11335,7 +11352,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -11392,7 +11409,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -11449,7 +11466,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -11506,7 +11523,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -11560,7 +11577,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -11617,7 +11634,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -11676,7 +11693,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -11735,7 +11752,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -11800,7 +11817,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -11865,7 +11882,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -11930,7 +11947,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -11995,7 +12012,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -12060,7 +12077,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -12122,7 +12139,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -12268,7 +12285,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -12335,7 +12352,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -12402,7 +12419,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -12475,7 +12492,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -12548,7 +12565,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -12621,7 +12638,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -12694,7 +12711,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -12767,7 +12784,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -12837,7 +12854,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -12968,7 +12985,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -13007,7 +13024,7 @@ blink_receiver->uniform1f(arg1_location, arg2_x);
 void Uniform1FOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1f";
@@ -13037,14 +13054,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.uniform1f");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1f";
@@ -13214,7 +13231,7 @@ blink_receiver->uniform1fv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform1FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1fv";
@@ -13240,7 +13257,7 @@ blink_receiver->uniform1fv(arg1_location, arg2_v);
 void Uniform1FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1fv";
@@ -13266,7 +13283,7 @@ blink_receiver->uniform1fv(arg1_location, arg2_v);
 void Uniform1FvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1fv";
@@ -13303,7 +13320,7 @@ blink_receiver->uniform1fv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform1FvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1fv";
@@ -13341,14 +13358,14 @@ void Uniform1FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1fv";
@@ -13391,14 +13408,14 @@ void Uniform1FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1fv";
@@ -13441,14 +13458,14 @@ void Uniform1FvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1fv";
@@ -13502,14 +13519,14 @@ void Uniform1FvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1fv";
@@ -13639,7 +13656,7 @@ blink_receiver->uniform1i(arg1_location, arg2_x);
 void Uniform1IOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1i";
@@ -13669,14 +13686,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.uniform1i");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1i";
@@ -13846,7 +13863,7 @@ blink_receiver->uniform1iv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform1IvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1iv";
@@ -13872,7 +13889,7 @@ blink_receiver->uniform1iv(arg1_location, arg2_v);
 void Uniform1IvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1iv";
@@ -13898,7 +13915,7 @@ blink_receiver->uniform1iv(arg1_location, arg2_v);
 void Uniform1IvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1iv";
@@ -13935,7 +13952,7 @@ blink_receiver->uniform1iv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform1IvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1iv";
@@ -13973,14 +13990,14 @@ void Uniform1IvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1iv";
@@ -14023,14 +14040,14 @@ void Uniform1IvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1iv";
@@ -14073,14 +14090,14 @@ void Uniform1IvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1iv";
@@ -14134,14 +14151,14 @@ void Uniform1IvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1iv";
@@ -14270,7 +14287,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_location = NativeValueTraits<IDLNullable<WebGLUniformLocation>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -14419,7 +14436,7 @@ blink_receiver->uniform1uiv(arg1_location, arg2_v, arg3_src_offset, arg4_src_len
 void Uniform1UivOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1uiv";
@@ -14459,7 +14476,7 @@ blink_receiver->uniform1uiv(arg1_location, arg2_v, arg3_src_offset, arg4_src_len
 void Uniform1UivOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1uiv";
@@ -14500,14 +14517,14 @@ void Uniform1UivOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& in
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1uiv";
@@ -14564,14 +14581,14 @@ void Uniform1UivOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& in
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform1uiv";
@@ -14705,7 +14722,7 @@ blink_receiver->uniform2f(arg1_location, arg2_x, arg3_y);
 void Uniform2FOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2f";
@@ -14739,14 +14756,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.uniform2f");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2f";
@@ -14920,7 +14937,7 @@ blink_receiver->uniform2fv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform2FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2fv";
@@ -14946,7 +14963,7 @@ blink_receiver->uniform2fv(arg1_location, arg2_v);
 void Uniform2FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2fv";
@@ -14972,7 +14989,7 @@ blink_receiver->uniform2fv(arg1_location, arg2_v);
 void Uniform2FvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2fv";
@@ -15009,7 +15026,7 @@ blink_receiver->uniform2fv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform2FvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2fv";
@@ -15047,14 +15064,14 @@ void Uniform2FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2fv";
@@ -15097,14 +15114,14 @@ void Uniform2FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2fv";
@@ -15147,14 +15164,14 @@ void Uniform2FvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2fv";
@@ -15208,14 +15225,14 @@ void Uniform2FvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2fv";
@@ -15346,7 +15363,7 @@ blink_receiver->uniform2i(arg1_location, arg2_x, arg3_y);
 void Uniform2IOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2i";
@@ -15380,14 +15397,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.uniform2i");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2i";
@@ -15561,7 +15578,7 @@ blink_receiver->uniform2iv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform2IvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2iv";
@@ -15587,7 +15604,7 @@ blink_receiver->uniform2iv(arg1_location, arg2_v);
 void Uniform2IvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2iv";
@@ -15613,7 +15630,7 @@ blink_receiver->uniform2iv(arg1_location, arg2_v);
 void Uniform2IvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2iv";
@@ -15650,7 +15667,7 @@ blink_receiver->uniform2iv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform2IvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2iv";
@@ -15688,14 +15705,14 @@ void Uniform2IvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2iv";
@@ -15738,14 +15755,14 @@ void Uniform2IvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2iv";
@@ -15788,14 +15805,14 @@ void Uniform2IvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2iv";
@@ -15849,14 +15866,14 @@ void Uniform2IvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2iv";
@@ -15985,7 +16002,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_location = NativeValueTraits<IDLNullable<WebGLUniformLocation>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -16138,7 +16155,7 @@ blink_receiver->uniform2uiv(arg1_location, arg2_v, arg3_src_offset, arg4_src_len
 void Uniform2UivOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2uiv";
@@ -16178,7 +16195,7 @@ blink_receiver->uniform2uiv(arg1_location, arg2_v, arg3_src_offset, arg4_src_len
 void Uniform2UivOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2uiv";
@@ -16219,14 +16236,14 @@ void Uniform2UivOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& in
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2uiv";
@@ -16283,14 +16300,14 @@ void Uniform2UivOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& in
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform2uiv";
@@ -16425,7 +16442,7 @@ blink_receiver->uniform3f(arg1_location, arg2_x, arg3_y, arg4_z);
 void Uniform3FOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3f";
@@ -16463,14 +16480,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.uniform3f");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3f";
@@ -16648,7 +16665,7 @@ blink_receiver->uniform3fv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform3FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3fv";
@@ -16674,7 +16691,7 @@ blink_receiver->uniform3fv(arg1_location, arg2_v);
 void Uniform3FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3fv";
@@ -16700,7 +16717,7 @@ blink_receiver->uniform3fv(arg1_location, arg2_v);
 void Uniform3FvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3fv";
@@ -16737,7 +16754,7 @@ blink_receiver->uniform3fv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform3FvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3fv";
@@ -16775,14 +16792,14 @@ void Uniform3FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3fv";
@@ -16825,14 +16842,14 @@ void Uniform3FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3fv";
@@ -16875,14 +16892,14 @@ void Uniform3FvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3fv";
@@ -16936,14 +16953,14 @@ void Uniform3FvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3fv";
@@ -17075,7 +17092,7 @@ blink_receiver->uniform3i(arg1_location, arg2_x, arg3_y, arg4_z);
 void Uniform3IOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3i";
@@ -17113,14 +17130,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.uniform3i");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3i";
@@ -17298,7 +17315,7 @@ blink_receiver->uniform3iv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform3IvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3iv";
@@ -17324,7 +17341,7 @@ blink_receiver->uniform3iv(arg1_location, arg2_v);
 void Uniform3IvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3iv";
@@ -17350,7 +17367,7 @@ blink_receiver->uniform3iv(arg1_location, arg2_v);
 void Uniform3IvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3iv";
@@ -17387,7 +17404,7 @@ blink_receiver->uniform3iv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform3IvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3iv";
@@ -17425,14 +17442,14 @@ void Uniform3IvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3iv";
@@ -17475,14 +17492,14 @@ void Uniform3IvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3iv";
@@ -17525,14 +17542,14 @@ void Uniform3IvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3iv";
@@ -17586,14 +17603,14 @@ void Uniform3IvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3iv";
@@ -17722,7 +17739,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_location = NativeValueTraits<IDLNullable<WebGLUniformLocation>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -17879,7 +17896,7 @@ blink_receiver->uniform3uiv(arg1_location, arg2_v, arg3_src_offset, arg4_src_len
 void Uniform3UivOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3uiv";
@@ -17919,7 +17936,7 @@ blink_receiver->uniform3uiv(arg1_location, arg2_v, arg3_src_offset, arg4_src_len
 void Uniform3UivOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3uiv";
@@ -17960,14 +17977,14 @@ void Uniform3UivOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& in
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3uiv";
@@ -18024,14 +18041,14 @@ void Uniform3UivOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& in
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform3uiv";
@@ -18167,7 +18184,7 @@ blink_receiver->uniform4f(arg1_location, arg2_x, arg3_y, arg4_z, arg5_w);
 void Uniform4FOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4f";
@@ -18209,14 +18226,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.uniform4f");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4f";
@@ -18398,7 +18415,7 @@ blink_receiver->uniform4fv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform4FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4fv";
@@ -18424,7 +18441,7 @@ blink_receiver->uniform4fv(arg1_location, arg2_v);
 void Uniform4FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4fv";
@@ -18450,7 +18467,7 @@ blink_receiver->uniform4fv(arg1_location, arg2_v);
 void Uniform4FvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4fv";
@@ -18487,7 +18504,7 @@ blink_receiver->uniform4fv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform4FvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4fv";
@@ -18525,14 +18542,14 @@ void Uniform4FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4fv";
@@ -18575,14 +18592,14 @@ void Uniform4FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4fv";
@@ -18625,14 +18642,14 @@ void Uniform4FvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4fv";
@@ -18686,14 +18703,14 @@ void Uniform4FvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4fv";
@@ -18826,7 +18843,7 @@ blink_receiver->uniform4i(arg1_location, arg2_x, arg3_y, arg4_z, arg5_w);
 void Uniform4IOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4i";
@@ -18868,14 +18885,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.uniform4i");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4i";
@@ -19057,7 +19074,7 @@ blink_receiver->uniform4iv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform4IvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4iv";
@@ -19083,7 +19100,7 @@ blink_receiver->uniform4iv(arg1_location, arg2_v);
 void Uniform4IvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4iv";
@@ -19109,7 +19126,7 @@ blink_receiver->uniform4iv(arg1_location, arg2_v);
 void Uniform4IvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4iv";
@@ -19146,7 +19163,7 @@ blink_receiver->uniform4iv(arg1_location, arg2_v, arg3_src_offset, arg4_src_leng
 void Uniform4IvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4iv";
@@ -19184,14 +19201,14 @@ void Uniform4IvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4iv";
@@ -19234,14 +19251,14 @@ void Uniform4IvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4iv";
@@ -19284,14 +19301,14 @@ void Uniform4IvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4iv";
@@ -19345,14 +19362,14 @@ void Uniform4IvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4iv";
@@ -19481,7 +19498,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_location = NativeValueTraits<IDLNullable<WebGLUniformLocation>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -19642,7 +19659,7 @@ blink_receiver->uniform4uiv(arg1_location, arg2_v, arg3_src_offset, arg4_src_len
 void Uniform4UivOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4uiv";
@@ -19682,7 +19699,7 @@ blink_receiver->uniform4uiv(arg1_location, arg2_v, arg3_src_offset, arg4_src_len
 void Uniform4UivOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4uiv";
@@ -19723,14 +19740,14 @@ void Uniform4UivOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& in
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4uiv";
@@ -19787,14 +19804,14 @@ void Uniform4UivOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& in
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniform4uiv";
@@ -19926,7 +19943,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -20081,7 +20098,7 @@ blink_receiver->uniformMatrix2fv(arg1_location, arg2_transpose, arg3_array, arg4
 void UniformMatrix2FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2fv";
@@ -20111,7 +20128,7 @@ blink_receiver->uniformMatrix2fv(arg1_location, arg2_transpose, arg3_array);
 void UniformMatrix2FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2fv";
@@ -20141,7 +20158,7 @@ blink_receiver->uniformMatrix2fv(arg1_location, arg2_transpose, arg3_array);
 void UniformMatrix2FvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2fv";
@@ -20182,7 +20199,7 @@ blink_receiver->uniformMatrix2fv(arg1_location, arg2_transpose, arg3_array, arg4
 void UniformMatrix2FvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2fv";
@@ -20224,14 +20241,14 @@ void UniformMatrix2FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2fv";
@@ -20278,14 +20295,14 @@ void UniformMatrix2FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2fv";
@@ -20332,14 +20349,14 @@ void UniformMatrix2FvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2fv";
@@ -20397,14 +20414,14 @@ void UniformMatrix2FvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2fv";
@@ -20658,7 +20675,7 @@ blink_receiver->uniformMatrix2x3fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix2X3FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2x3fv";
@@ -20702,7 +20719,7 @@ blink_receiver->uniformMatrix2x3fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix2X3FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2x3fv";
@@ -20747,14 +20764,14 @@ void UniformMatrix2X3FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2x3fv";
@@ -20815,14 +20832,14 @@ void UniformMatrix2X3FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2x3fv";
@@ -21079,7 +21096,7 @@ blink_receiver->uniformMatrix2x4fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix2X4FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2x4fv";
@@ -21123,7 +21140,7 @@ blink_receiver->uniformMatrix2x4fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix2X4FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2x4fv";
@@ -21168,14 +21185,14 @@ void UniformMatrix2X4FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2x4fv";
@@ -21236,14 +21253,14 @@ void UniformMatrix2X4FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix2x4fv";
@@ -21496,7 +21513,7 @@ blink_receiver->uniformMatrix3fv(arg1_location, arg2_transpose, arg3_array, arg4
 void UniformMatrix3FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3fv";
@@ -21526,7 +21543,7 @@ blink_receiver->uniformMatrix3fv(arg1_location, arg2_transpose, arg3_array);
 void UniformMatrix3FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3fv";
@@ -21556,7 +21573,7 @@ blink_receiver->uniformMatrix3fv(arg1_location, arg2_transpose, arg3_array);
 void UniformMatrix3FvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3fv";
@@ -21597,7 +21614,7 @@ blink_receiver->uniformMatrix3fv(arg1_location, arg2_transpose, arg3_array, arg4
 void UniformMatrix3FvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3fv";
@@ -21639,14 +21656,14 @@ void UniformMatrix3FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3fv";
@@ -21693,14 +21710,14 @@ void UniformMatrix3FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3fv";
@@ -21747,14 +21764,14 @@ void UniformMatrix3FvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3fv";
@@ -21812,14 +21829,14 @@ void UniformMatrix3FvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3fv";
@@ -22073,7 +22090,7 @@ blink_receiver->uniformMatrix3x2fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix3X2FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3x2fv";
@@ -22117,7 +22134,7 @@ blink_receiver->uniformMatrix3x2fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix3X2FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3x2fv";
@@ -22162,14 +22179,14 @@ void UniformMatrix3X2FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3x2fv";
@@ -22230,14 +22247,14 @@ void UniformMatrix3X2FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3x2fv";
@@ -22494,7 +22511,7 @@ blink_receiver->uniformMatrix3x4fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix3X4FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3x4fv";
@@ -22538,7 +22555,7 @@ blink_receiver->uniformMatrix3x4fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix3X4FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3x4fv";
@@ -22583,14 +22600,14 @@ void UniformMatrix3X4FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3x4fv";
@@ -22651,14 +22668,14 @@ void UniformMatrix3X4FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix3x4fv";
@@ -22911,7 +22928,7 @@ blink_receiver->uniformMatrix4fv(arg1_location, arg2_transpose, arg3_array, arg4
 void UniformMatrix4FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4fv";
@@ -22941,7 +22958,7 @@ blink_receiver->uniformMatrix4fv(arg1_location, arg2_transpose, arg3_array);
 void UniformMatrix4FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4fv";
@@ -22971,7 +22988,7 @@ blink_receiver->uniformMatrix4fv(arg1_location, arg2_transpose, arg3_array);
 void UniformMatrix4FvOperationNoAllocDirectCallForTestingOverload3(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4fv";
@@ -23012,7 +23029,7 @@ blink_receiver->uniformMatrix4fv(arg1_location, arg2_transpose, arg3_array, arg4
 void UniformMatrix4FvOperationNoAllocDirectCallForTestingOverload4(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4fv";
@@ -23054,14 +23071,14 @@ void UniformMatrix4FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4fv";
@@ -23108,14 +23125,14 @@ void UniformMatrix4FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4fv";
@@ -23162,14 +23179,14 @@ void UniformMatrix4FvOperationOverload3(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4fv";
@@ -23227,14 +23244,14 @@ void UniformMatrix4FvOperationOverload4(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4fv";
@@ -23488,7 +23505,7 @@ blink_receiver->uniformMatrix4x2fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix4X2FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4x2fv";
@@ -23532,7 +23549,7 @@ blink_receiver->uniformMatrix4x2fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix4X2FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4x2fv";
@@ -23577,14 +23594,14 @@ void UniformMatrix4X2FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4x2fv";
@@ -23645,14 +23662,14 @@ void UniformMatrix4X2FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4x2fv";
@@ -23909,7 +23926,7 @@ blink_receiver->uniformMatrix4x3fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix4X3FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4x3fv";
@@ -23953,7 +23970,7 @@ blink_receiver->uniformMatrix4x3fv(arg1_location, arg2_transpose, arg3_value, ar
 void UniformMatrix4X3FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4x3fv";
@@ -23998,14 +24015,14 @@ void UniformMatrix4X3FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4x3fv";
@@ -24066,14 +24083,14 @@ void UniformMatrix4X3FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Val
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "uniformMatrix4x3fv";
@@ -24209,7 +24226,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<IDLNullable<WebGLProgram>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -24239,7 +24256,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -24262,7 +24279,7 @@ blink_receiver->vertexAttrib1f(arg1_indx, arg2_x);
 void VertexAttrib1FOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib1f";
@@ -24292,14 +24309,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.vertexAttrib1f");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib1f";
@@ -24365,7 +24382,7 @@ blink_receiver->vertexAttrib1fv(arg1_indx, arg2_values);
 void VertexAttrib1FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib1fv";
@@ -24391,7 +24408,7 @@ blink_receiver->vertexAttrib1fv(arg1_indx, arg2_values);
 void VertexAttrib1FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib1fv";
@@ -24418,14 +24435,14 @@ void VertexAttrib1FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib1fv";
@@ -24468,14 +24485,14 @@ void VertexAttrib1FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib1fv";
@@ -24563,7 +24580,7 @@ blink_receiver->vertexAttrib2f(arg1_indx, arg2_x, arg3_y);
 void VertexAttrib2FOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib2f";
@@ -24597,14 +24614,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.vertexAttrib2f");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib2f";
@@ -24674,7 +24691,7 @@ blink_receiver->vertexAttrib2fv(arg1_indx, arg2_values);
 void VertexAttrib2FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib2fv";
@@ -24700,7 +24717,7 @@ blink_receiver->vertexAttrib2fv(arg1_indx, arg2_values);
 void VertexAttrib2FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib2fv";
@@ -24727,14 +24744,14 @@ void VertexAttrib2FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib2fv";
@@ -24777,14 +24794,14 @@ void VertexAttrib2FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib2fv";
@@ -24873,7 +24890,7 @@ blink_receiver->vertexAttrib3f(arg1_indx, arg2_x, arg3_y, arg4_z);
 void VertexAttrib3FOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib3f";
@@ -24911,14 +24928,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.vertexAttrib3f");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib3f";
@@ -24992,7 +25009,7 @@ blink_receiver->vertexAttrib3fv(arg1_indx, arg2_values);
 void VertexAttrib3FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib3fv";
@@ -25018,7 +25035,7 @@ blink_receiver->vertexAttrib3fv(arg1_indx, arg2_values);
 void VertexAttrib3FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib3fv";
@@ -25045,14 +25062,14 @@ void VertexAttrib3FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib3fv";
@@ -25095,14 +25112,14 @@ void VertexAttrib3FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib3fv";
@@ -25192,7 +25209,7 @@ blink_receiver->vertexAttrib4f(arg1_indx, arg2_x, arg3_y, arg4_z, arg5_w);
 void VertexAttrib4FOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib4f";
@@ -25234,14 +25251,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.vertexAttrib4f");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib4f";
@@ -25319,7 +25336,7 @@ blink_receiver->vertexAttrib4fv(arg1_indx, arg2_values);
 void VertexAttrib4FvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib4fv";
@@ -25345,7 +25362,7 @@ blink_receiver->vertexAttrib4fv(arg1_indx, arg2_values);
 void VertexAttrib4FvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib4fv";
@@ -25372,14 +25389,14 @@ void VertexAttrib4FvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib4fv";
@@ -25422,14 +25439,14 @@ void VertexAttrib4FvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttrib4fv";
@@ -25523,7 +25540,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -25557,7 +25574,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -25610,7 +25627,7 @@ blink_receiver->vertexAttribI4iv(arg1_index, arg2_v);
 void VertexAttribI4IvOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribI4iv";
@@ -25636,7 +25653,7 @@ blink_receiver->vertexAttribI4iv(arg1_index, arg2_v);
 void VertexAttribI4IvOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribI4iv";
@@ -25663,14 +25680,14 @@ void VertexAttribI4IvOperationOverload1(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribI4iv";
@@ -25713,14 +25730,14 @@ void VertexAttribI4IvOperationOverload2(const v8::FunctionCallbackInfo<v8::Value
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribI4iv";
@@ -25814,7 +25831,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -25867,7 +25884,7 @@ blink_receiver->vertexAttribI4uiv(arg1_index, arg2_v);
 void VertexAttribI4UivOperationNoAllocDirectCallForTestingOverload1(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribI4uiv";
@@ -25893,7 +25910,7 @@ blink_receiver->vertexAttribI4uiv(arg1_index, arg2_v);
 void VertexAttribI4UivOperationNoAllocDirectCallForTestingOverload2(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribI4uiv";
@@ -25920,14 +25937,14 @@ void VertexAttribI4UivOperationOverload1(const v8::FunctionCallbackInfo<v8::Valu
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribI4uiv";
@@ -25970,14 +25987,14 @@ void VertexAttribI4UivOperationOverload2(const v8::FunctionCallbackInfo<v8::Valu
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribI4uiv";
@@ -26071,7 +26088,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -26114,7 +26131,7 @@ blink_receiver->vertexAttribPointer(arg1_indx, arg2_size, arg3_type, arg4_normal
 void VertexAttribPointerOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribPointer";
@@ -26160,14 +26177,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.vertexAttribPointer");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "vertexAttribPointer";
@@ -26237,7 +26254,7 @@ blink_receiver->viewport(arg1_x, arg2_y, arg3_width, arg4_height);
 void ViewportOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "viewport";
@@ -26275,14 +26292,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.viewport");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebGL2RenderingContext";
 const char* const property_name = "viewport";
@@ -26349,7 +26366,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(v8_receiver);
+WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sync = NativeValueTraits<WebGLSync>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

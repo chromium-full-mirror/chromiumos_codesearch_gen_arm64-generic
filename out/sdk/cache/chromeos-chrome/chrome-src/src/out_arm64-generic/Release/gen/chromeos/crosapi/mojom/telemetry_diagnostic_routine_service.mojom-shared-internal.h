@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "chromeos/crosapi/mojom/telemetry_extension_exception.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -26,11 +27,15 @@ class ValidationContext;
 namespace crosapi::mojom {
 namespace internal {
 class TelemetryDiagnosticMemoryRoutineArgument_Data;
+class TelemetryDiagnosticVolumeButtonRoutineArgument_Data;
+class TelemetryDiagnosticFanRoutineArgument_Data;
 class TelemetryDiagnosticRoutineStateInitialized_Data;
 class TelemetryDiagnosticRoutineStateRunning_Data;
 class TelemetryDiagnosticRoutineStateWaiting_Data;
 class TelemetryDiagnosticMemtesterResult_Data;
 class TelemetryDiagnosticMemoryRoutineDetail_Data;
+class TelemetryDiagnosticVolumeButtonRoutineDetail_Data;
+class TelemetryDiagnosticFanRoutineDetail_Data;
 class TelemetryDiagnosticRoutineStateFinished_Data;
 class TelemetryDiagnosticRoutineState_Data;
 class TelemetryDiagnosticRoutineArgument_Data;
@@ -63,6 +68,57 @@ struct TelemetryDiagnosticMemtesterTestItemEnum_Data {
       case 17:
       case 18:
       case 19:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct TelemetryDiagnosticHardwarePresenceStatus_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
         return true;
     }
     return false;
@@ -139,6 +195,10 @@ class  TelemetryDiagnosticRoutineArgument_Data {
     kUnrecognizedArgument,
     
     kMemory,
+    
+    kVolumeButton,
+    
+    kFan,
   };
 
   // A note on layout:
@@ -148,6 +208,8 @@ class  TelemetryDiagnosticRoutineArgument_Data {
     Union_() : unknown(0) {}
     uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::TelemetryDiagnosticMemoryRoutineArgument_Data> f_memory;
+    mojo::internal::Pointer<internal::TelemetryDiagnosticVolumeButtonRoutineArgument_Data> f_volume_button;
+    mojo::internal::Pointer<internal::TelemetryDiagnosticFanRoutineArgument_Data> f_fan;
     uint64_t unknown;
   };
 
@@ -191,6 +253,10 @@ class  TelemetryDiagnosticRoutineDetail_Data {
     kUnrecognizedArgument,
     
     kMemory,
+    
+    kVolumeButton,
+    
+    kFan,
   };
 
   // A note on layout:
@@ -200,6 +266,8 @@ class  TelemetryDiagnosticRoutineDetail_Data {
     Union_() : unknown(0) {}
     uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::TelemetryDiagnosticMemoryRoutineDetail_Data> f_memory;
+    mojo::internal::Pointer<internal::TelemetryDiagnosticVolumeButtonRoutineDetail_Data> f_volume_button;
+    mojo::internal::Pointer<internal::TelemetryDiagnosticFanRoutineDetail_Data> f_fan;
     uint64_t unknown;
   };
 
@@ -320,6 +388,103 @@ struct TelemetryDiagnosticMemoryRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     TelemetryDiagnosticMemoryRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TelemetryDiagnosticVolumeButtonRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> timeout;
+
+ private:
+  friend class mojo::internal::MessageFragment<TelemetryDiagnosticVolumeButtonRoutineArgument_Data>;
+
+  TelemetryDiagnosticVolumeButtonRoutineArgument_Data();
+  ~TelemetryDiagnosticVolumeButtonRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(TelemetryDiagnosticVolumeButtonRoutineArgument_Data) == 24,
+              "Bad sizeof(TelemetryDiagnosticVolumeButtonRoutineArgument_Data)");
+// Used by TelemetryDiagnosticVolumeButtonRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TelemetryDiagnosticVolumeButtonRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TelemetryDiagnosticVolumeButtonRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TelemetryDiagnosticVolumeButtonRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TelemetryDiagnosticVolumeButtonRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TelemetryDiagnosticVolumeButtonRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TelemetryDiagnosticFanRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<TelemetryDiagnosticFanRoutineArgument_Data>;
+
+  TelemetryDiagnosticFanRoutineArgument_Data();
+  ~TelemetryDiagnosticFanRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(TelemetryDiagnosticFanRoutineArgument_Data) == 8,
+              "Bad sizeof(TelemetryDiagnosticFanRoutineArgument_Data)");
+// Used by TelemetryDiagnosticFanRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TelemetryDiagnosticFanRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TelemetryDiagnosticFanRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TelemetryDiagnosticFanRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TelemetryDiagnosticFanRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TelemetryDiagnosticFanRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  TelemetryDiagnosticRoutineStateInitialized_Data {
  public:
   static bool Validate(const void* data,
@@ -562,6 +727,104 @@ struct TelemetryDiagnosticMemoryRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     TelemetryDiagnosticMemoryRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TelemetryDiagnosticVolumeButtonRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<TelemetryDiagnosticVolumeButtonRoutineDetail_Data>;
+
+  TelemetryDiagnosticVolumeButtonRoutineDetail_Data();
+  ~TelemetryDiagnosticVolumeButtonRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(TelemetryDiagnosticVolumeButtonRoutineDetail_Data) == 8,
+              "Bad sizeof(TelemetryDiagnosticVolumeButtonRoutineDetail_Data)");
+// Used by TelemetryDiagnosticVolumeButtonRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TelemetryDiagnosticVolumeButtonRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TelemetryDiagnosticVolumeButtonRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TelemetryDiagnosticVolumeButtonRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TelemetryDiagnosticVolumeButtonRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TelemetryDiagnosticVolumeButtonRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TelemetryDiagnosticFanRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> passed_fan_ids;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> failed_fan_ids;
+  int32_t fan_count_status;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<TelemetryDiagnosticFanRoutineDetail_Data>;
+
+  TelemetryDiagnosticFanRoutineDetail_Data();
+  ~TelemetryDiagnosticFanRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(TelemetryDiagnosticFanRoutineDetail_Data) == 32,
+              "Bad sizeof(TelemetryDiagnosticFanRoutineDetail_Data)");
+// Used by TelemetryDiagnosticFanRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TelemetryDiagnosticFanRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TelemetryDiagnosticFanRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TelemetryDiagnosticFanRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TelemetryDiagnosticFanRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TelemetryDiagnosticFanRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  TelemetryDiagnosticRoutineStateFinished_Data {
  public:
   static bool Validate(const void* data,

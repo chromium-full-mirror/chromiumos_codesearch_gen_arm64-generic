@@ -97,7 +97,7 @@ bool ContentSettingsManager_AllowStorageAccess_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -105,6 +105,13 @@ bool ContentSettingsManager_AllowStorageAccess_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const ContentSettingsManager_AllowStorageAccess_Params_Data* object =
       static_cast<const ContentSettingsManager_AllowStorageAccess_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->frame_token, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->frame_token, validation_context))
+    return false;
 
 
   if (!::content_settings::mojom::internal::ContentSettingsManager_StorageType_Data
@@ -169,7 +176,7 @@ bool ContentSettingsManager_OnContentBlocked_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -177,6 +184,13 @@ bool ContentSettingsManager_OnContentBlocked_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const ContentSettingsManager_OnContentBlocked_Params_Data* object =
       static_cast<const ContentSettingsManager_OnContentBlocked_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->frame_token, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->frame_token, validation_context))
+    return false;
 
 
   if (!::content_settings::mojom::internal::ContentSettingsType_Data

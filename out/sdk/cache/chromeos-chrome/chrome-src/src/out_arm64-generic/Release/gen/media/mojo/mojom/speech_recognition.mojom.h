@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/speech_recognition.mojom-features.h"
 #include "media/mojo/mojom/speech_recognition.mojom-shared.h"
 #include "media/mojo/mojom/speech_recognition.mojom-forward.h"
 #include "media/mojo/mojom/audio_data.mojom-forward.h"
@@ -336,7 +337,7 @@ class SpeechRecognitionSurface
   virtual void Activate() = 0;
 
 
-  using GetBoundsCallback = base::OnceCallback<void(const absl::optional<::gfx::Rect>&)>;
+  using GetBoundsCallback = base::OnceCallback<void(const std::optional<::gfx::Rect>&)>;
   
   virtual void GetBounds(GetBoundsCallback callback) = 0;
 };
@@ -939,7 +940,7 @@ class  LanguageIdentificationEvent {
   LanguageIdentificationEvent(
       const std::string& language,
       ConfidenceLevel confidence_level,
-      absl::optional<AsrSwitchResult> asr_switch_result);
+      std::optional<AsrSwitchResult> asr_switch_result);
 
 
   ~LanguageIdentificationEvent();
@@ -1021,7 +1022,7 @@ class  LanguageIdentificationEvent {
   
   ConfidenceLevel confidence_level;
   
-  absl::optional<AsrSwitchResult> asr_switch_result;
+  std::optional<AsrSwitchResult> asr_switch_result;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1232,7 +1233,7 @@ class  TimingInformation {
   TimingInformation(
       ::base::TimeDelta audio_start_time,
       ::base::TimeDelta audio_end_time,
-      absl::optional<std::vector<::media::HypothesisParts>> hypothesis_parts);
+      std::optional<std::vector<::media::HypothesisParts>> hypothesis_parts);
 
 
   ~TimingInformation();
@@ -1314,7 +1315,7 @@ class  TimingInformation {
   
   ::base::TimeDelta audio_end_time;
   
-  absl::optional<std::vector<::media::HypothesisParts>> hypothesis_parts;
+  std::optional<std::vector<::media::HypothesisParts>> hypothesis_parts;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1378,7 +1379,7 @@ class  SpeechRecognitionResult {
   SpeechRecognitionResult(
       const std::string& transcription,
       bool is_final,
-      const absl::optional<::media::TimingInformation>& timing_information);
+      const std::optional<::media::TimingInformation>& timing_information);
 
 
   ~SpeechRecognitionResult();
@@ -1460,7 +1461,7 @@ class  SpeechRecognitionResult {
   
   bool is_final;
   
-  absl::optional<::media::TimingInformation> timing_information;
+  std::optional<::media::TimingInformation> timing_information;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1665,19 +1666,19 @@ class  SpeechRecognitionOptions {
   SpeechRecognitionOptions(
       SpeechRecognitionMode recognition_mode,
       bool enable_formatting,
-      const absl::optional<std::string>& language);
+      const std::optional<std::string>& language);
 
   SpeechRecognitionOptions(
       SpeechRecognitionMode recognition_mode,
       bool enable_formatting,
-      const absl::optional<std::string>& language,
+      const std::optional<std::string>& language,
       bool is_server_based,
       RecognizerClientType recognizer_client_type);
 
   SpeechRecognitionOptions(
       SpeechRecognitionMode recognition_mode,
       bool enable_formatting,
-      const absl::optional<std::string>& language,
+      const std::optional<std::string>& language,
       bool is_server_based,
       RecognizerClientType recognizer_client_type,
       bool skip_continuously_empty_audio);
@@ -1762,7 +1763,7 @@ class  SpeechRecognitionOptions {
   
   bool enable_formatting;
   
-  absl::optional<std::string> language;
+  std::optional<std::string> language;
   
   bool is_server_based;
   

@@ -8,6 +8,7 @@
 #define CHROME_COMMON_NET_NET_ERROR_PAGE_SUPPORT_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

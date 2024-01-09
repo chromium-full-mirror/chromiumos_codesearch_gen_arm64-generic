@@ -65,7 +65,7 @@ UI.ViewManager.registerViewExtension({
     order: 0,
     async loadView() {
         const Settings = await loadSettingsModule();
-        return Settings.SettingsScreen.GenericSettingsTab.instance();
+        return new Settings.SettingsScreen.GenericSettingsTab();
     },
 });
 UI.ViewManager.registerViewExtension({
@@ -77,7 +77,7 @@ UI.ViewManager.registerViewExtension({
     experiment: Root.Runtime.ExperimentName.ALL,
     async loadView() {
         const Settings = await loadSettingsModule();
-        return Settings.SettingsScreen.ExperimentsSettingsTab.instance();
+        return new Settings.SettingsScreen.ExperimentsSettingsTab();
     },
 });
 UI.ViewManager.registerViewExtension({
@@ -88,7 +88,7 @@ UI.ViewManager.registerViewExtension({
     order: 4,
     async loadView() {
         const Settings = await loadSettingsModule();
-        return Settings.FrameworkIgnoreListSettingsTab.FrameworkIgnoreListSettingsTab.instance();
+        return new Settings.FrameworkIgnoreListSettingsTab.FrameworkIgnoreListSettingsTab();
     },
 });
 UI.ViewManager.registerViewExtension({
@@ -99,7 +99,7 @@ UI.ViewManager.registerViewExtension({
     order: 100,
     async loadView() {
         const Settings = await loadSettingsModule();
-        return Settings.KeybindsSettingsTab.KeybindsSettingsTab.instance();
+        return new Settings.KeybindsSettingsTab.KeybindsSettingsTab();
     },
 });
 UI.ActionRegistration.registerActionExtension({
@@ -108,7 +108,7 @@ UI.ActionRegistration.registerActionExtension({
     title: i18nLazyString(UIStrings.settings),
     async loadActionDelegate() {
         const Settings = await loadSettingsModule();
-        return Settings.SettingsScreen.ActionDelegate.instance();
+        return new Settings.SettingsScreen.ActionDelegate();
     },
     iconClass: "gear" /* UI.ActionRegistration.IconClass.LARGEICON_SETTINGS_GEAR */,
     bindings: [
@@ -143,16 +143,16 @@ UI.ActionRegistration.registerActionExtension({
     title: i18nLazyString(UIStrings.documentation),
     async loadActionDelegate() {
         const Settings = await loadSettingsModule();
-        return Settings.SettingsScreen.ActionDelegate.instance();
+        return new Settings.SettingsScreen.ActionDelegate();
     },
 });
 UI.ActionRegistration.registerActionExtension({
     category: UI.ActionRegistration.ActionCategory.SETTINGS,
     actionId: 'settings.shortcuts',
-    title: i18nLazyString(UIStrings.shortcuts),
+    title: i18nLazyString(UIStrings.showShortcuts),
     async loadActionDelegate() {
         const Settings = await loadSettingsModule();
-        return Settings.SettingsScreen.ActionDelegate.instance();
+        return new Settings.SettingsScreen.ActionDelegate();
     },
     bindings: [
         {
@@ -186,11 +186,11 @@ Common.Revealer.registerRevealer({
             Root.Runtime.Experiment,
         ];
     },
+    destination: undefined,
     async loadRevealer() {
         const Settings = await loadSettingsModule();
-        return Settings.SettingsScreen.Revealer.instance();
+        return new Settings.SettingsScreen.Revealer();
     },
-    destination: undefined,
 });
 UI.ContextMenu.registerItem({
     location: UI.ContextMenu.ItemLocation.MAIN_MENU_FOOTER,

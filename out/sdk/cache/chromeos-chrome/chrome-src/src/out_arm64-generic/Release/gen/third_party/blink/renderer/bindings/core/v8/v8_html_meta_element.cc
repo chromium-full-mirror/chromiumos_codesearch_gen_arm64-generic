@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLMetaElement>::value,
     "HTMLMetaElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLMetaElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLMetaElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMetaElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -114,10 +109,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMetaElement.httpEquiv.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHttpEquivAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHttpEquivAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -138,10 +133,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMetaElement.content.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kContentAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kContentAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -168,7 +163,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMediaMetaThemeColor);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMediaAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -195,10 +190,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMetaElement.scheme.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSchemeAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMetaElement* blink_receiver = V8HTMLMetaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSchemeAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

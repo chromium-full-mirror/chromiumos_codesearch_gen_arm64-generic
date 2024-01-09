@@ -4,111 +4,145 @@
 #include "perf_parser_options.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace quipper {
+template <typename>
 PROTOBUF_CONSTEXPR PerfParserOptionsProto::PerfParserOptionsProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.do_remap_)*/false
-  , /*decltype(_impl_.discard_unused_events_)*/false
-  , /*decltype(_impl_.sort_events_by_time_)*/false
-  , /*decltype(_impl_.read_missing_buildids_)*/false
-  , /*decltype(_impl_.sample_mapping_percentage_threshold_)*/95
-  , /*decltype(_impl_.deduce_huge_page_mappings_)*/true
-  , /*decltype(_impl_.combine_mappings_)*/true} {}
+  , /*decltype(_impl_.do_remap_)*/ false
+
+  , /*decltype(_impl_.discard_unused_events_)*/ false
+
+  , /*decltype(_impl_.sort_events_by_time_)*/ false
+
+  , /*decltype(_impl_.read_missing_buildids_)*/ false
+
+  , /*decltype(_impl_.sample_mapping_percentage_threshold_)*/ 95
+
+  , /*decltype(_impl_.deduce_huge_page_mappings_)*/ true
+
+  , /*decltype(_impl_.combine_mappings_)*/ true
+} {}
 struct PerfParserOptionsProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PerfParserOptionsProtoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PerfParserOptionsProtoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PerfParserOptionsProtoDefaultTypeInternal() {}
   union {
     PerfParserOptionsProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfParserOptionsProtoDefaultTypeInternal _PerfParserOptionsProto_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfParserOptionsProtoDefaultTypeInternal _PerfParserOptionsProto_default_instance_;
 }  // namespace quipper
 static ::_pb::Metadata file_level_metadata_perf_5fparser_5foptions_2eproto[1];
-static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_perf_5fparser_5foptions_2eproto = nullptr;
-static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_perf_5fparser_5foptions_2eproto = nullptr;
-
-const uint32_t TableStruct_perf_5fparser_5foptions_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.do_remap_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.discard_unused_events_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.sample_mapping_percentage_threshold_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.sort_events_by_time_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.read_missing_buildids_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.deduce_huge_page_mappings_),
-  PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.combine_mappings_),
-  0,
-  1,
-  4,
-  2,
-  3,
-  5,
-  6,
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_perf_5fparser_5foptions_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_perf_5fparser_5foptions_2eproto = nullptr;
+const ::uint32_t TableStruct_perf_5fparser_5foptions_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.do_remap_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.discard_unused_events_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.sample_mapping_percentage_threshold_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.sort_events_by_time_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.read_missing_buildids_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.deduce_huge_page_mappings_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfParserOptionsProto, _impl_.combine_mappings_),
+    0,
+    1,
+    4,
+    2,
+    3,
+    5,
+    6,
 };
-static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 13, -1, sizeof(::quipper::PerfParserOptionsProto)},
+
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        { 0, 15, -1, sizeof(::quipper::PerfParserOptionsProto)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::quipper::_PerfParserOptionsProto_default_instance_._instance,
+    &::quipper::_PerfParserOptionsProto_default_instance_._instance,
 };
-
-const char descriptor_table_protodef_perf_5fparser_5foptions_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\031perf_parser_options.proto\022\007quipper\"\233\002\n"
-  "\026PerfParserOptionsProto\022\027\n\010do_remap\030\001 \001("
-  "\010:\005false\022$\n\025discard_unused_events\030\002 \001(\010:"
-  "\005false\022/\n#sample_mapping_percentage_thre"
-  "shold\030\003 \001(\002:\00295\022\"\n\023sort_events_by_time\030\004"
-  " \001(\010:\005false\022$\n\025read_missing_buildids\030\005 \001"
-  "(\010:\005false\022\'\n\031deduce_huge_page_mappings\030\006"
-  " \001(\010:\004true\022\036\n\020combine_mappings\030\007 \001(\010:\004tr"
-  "ue"
-  ;
-static ::_pbi::once_flag descriptor_table_perf_5fparser_5foptions_2eproto_once;
+const char descriptor_table_protodef_perf_5fparser_5foptions_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\031perf_parser_options.proto\022\007quipper\"\233\002\n"
+    "\026PerfParserOptionsProto\022\027\n\010do_remap\030\001 \001("
+    "\010:\005false\022$\n\025discard_unused_events\030\002 \001(\010:"
+    "\005false\022/\n#sample_mapping_percentage_thre"
+    "shold\030\003 \001(\002:\00295\022\"\n\023sort_events_by_time\030\004"
+    " \001(\010:\005false\022$\n\025read_missing_buildids\030\005 \001"
+    "(\010:\005false\022\'\n\031deduce_huge_page_mappings\030\006"
+    " \001(\010:\004true\022\036\n\020combine_mappings\030\007 \001(\010:\004tr"
+    "ue"
+};
+static ::absl::once_flag descriptor_table_perf_5fparser_5foptions_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_perf_5fparser_5foptions_2eproto = {
-    false, false, 322, descriptor_table_protodef_perf_5fparser_5foptions_2eproto,
+    false,
+    false,
+    322,
+    descriptor_table_protodef_perf_5fparser_5foptions_2eproto,
     "perf_parser_options.proto",
-    &descriptor_table_perf_5fparser_5foptions_2eproto_once, nullptr, 0, 1,
-    schemas, file_default_instances, TableStruct_perf_5fparser_5foptions_2eproto::offsets,
-    file_level_metadata_perf_5fparser_5foptions_2eproto, file_level_enum_descriptors_perf_5fparser_5foptions_2eproto,
+    &descriptor_table_perf_5fparser_5foptions_2eproto_once,
+    nullptr,
+    0,
+    1,
+    schemas,
+    file_default_instances,
+    TableStruct_perf_5fparser_5foptions_2eproto::offsets,
+    file_level_metadata_perf_5fparser_5foptions_2eproto,
+    file_level_enum_descriptors_perf_5fparser_5foptions_2eproto,
     file_level_service_descriptors_perf_5fparser_5foptions_2eproto,
 };
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
 PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_perf_5fparser_5foptions_2eproto_getter() {
   return &descriptor_table_perf_5fparser_5foptions_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_perf_5fparser_5foptions_2eproto(&descriptor_table_perf_5fparser_5foptions_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_perf_5fparser_5foptions_2eproto(&descriptor_table_perf_5fparser_5foptions_2eproto);
 namespace quipper {
-
 // ===================================================================
 
 class PerfParserOptionsProto::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfParserOptionsProto>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfParserOptionsProto, _impl_._has_bits_);
   static void set_has_do_remap(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -132,47 +166,37 @@ class PerfParserOptionsProto::_Internal {
   }
 };
 
-PerfParserOptionsProto::PerfParserOptionsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PerfParserOptionsProto::PerfParserOptionsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:quipper.PerfParserOptionsProto)
 }
 PerfParserOptionsProto::PerfParserOptionsProto(const PerfParserOptionsProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PerfParserOptionsProto* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.do_remap_){}
-    , decltype(_impl_.discard_unused_events_){}
-    , decltype(_impl_.sort_events_by_time_){}
-    , decltype(_impl_.read_missing_buildids_){}
-    , decltype(_impl_.sample_mapping_percentage_threshold_){}
-    , decltype(_impl_.deduce_huge_page_mappings_){}
-    , decltype(_impl_.combine_mappings_){}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.do_remap_, &from._impl_.do_remap_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.combine_mappings_) -
-    reinterpret_cast<char*>(&_impl_.do_remap_)) + sizeof(_impl_.combine_mappings_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:quipper.PerfParserOptionsProto)
 }
 
-inline void PerfParserOptionsProto::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PerfParserOptionsProto::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.do_remap_){false}
-    , decltype(_impl_.discard_unused_events_){false}
-    , decltype(_impl_.sort_events_by_time_){false}
-    , decltype(_impl_.read_missing_buildids_){false}
-    , decltype(_impl_.sample_mapping_percentage_threshold_){95}
-    , decltype(_impl_.deduce_huge_page_mappings_){true}
-    , decltype(_impl_.combine_mappings_){true}
+    , decltype(_impl_.do_remap_) { false }
+
+    , decltype(_impl_.discard_unused_events_) { false }
+
+    , decltype(_impl_.sort_events_by_time_) { false }
+
+    , decltype(_impl_.read_missing_buildids_) { false }
+
+    , decltype(_impl_.sample_mapping_percentage_threshold_) { 95 }
+
+    , decltype(_impl_.deduce_huge_page_mappings_) { true }
+
+    , decltype(_impl_.combine_mappings_) { true }
+
   };
 }
 
@@ -186,7 +210,7 @@ PerfParserOptionsProto::~PerfParserOptionsProto() {
 }
 
 inline void PerfParserOptionsProto::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PerfParserOptionsProto::SetCachedSize(int size) const {
@@ -195,11 +219,11 @@ void PerfParserOptionsProto::SetCachedSize(int size) const {
 
 void PerfParserOptionsProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:quipper.PerfParserOptionsProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.do_remap_, 0, static_cast<size_t>(
+  ::memset(&_impl_.do_remap_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.read_missing_buildids_) -
       reinterpret_cast<char*>(&_impl_.do_remap_)) + sizeof(_impl_.read_missing_buildids_));
   cached_has_bits = _impl_._has_bits_[0];
@@ -216,71 +240,78 @@ const char* PerfParserOptionsProto::_InternalParse(const char* ptr, ::_pbi::Pars
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool do_remap = 1 [default = false];
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_do_remap(&has_bits);
           _impl_.do_remap_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool discard_unused_events = 2 [default = false];
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_discard_unused_events(&has_bits);
           _impl_.discard_unused_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional float sample_mapping_percentage_threshold = 3 [default = 95];
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 29)) {
           _Internal::set_has_sample_mapping_percentage_threshold(&has_bits);
           _impl_.sample_mapping_percentage_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool sort_events_by_time = 4 [default = false];
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_sort_events_by_time(&has_bits);
           _impl_.sort_events_by_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool read_missing_buildids = 5 [default = false];
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_read_missing_buildids(&has_bits);
           _impl_.read_missing_buildids_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool deduce_huge_page_mappings = 6 [default = true];
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_deduce_huge_page_mappings(&has_bits);
           _impl_.deduce_huge_page_mappings_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool combine_mappings = 7 [default = true];
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_combine_mappings(&has_bits);
           _impl_.combine_mappings_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -306,53 +337,60 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PerfParserOptionsProto::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PerfParserOptionsProto::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfParserOptionsProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bool do_remap = 1 [default = false];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_do_remap(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_do_remap(), target);
   }
 
   // optional bool discard_unused_events = 2 [default = false];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_discard_unused_events(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_discard_unused_events(), target);
   }
 
   // optional float sample_mapping_percentage_threshold = 3 [default = 95];
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_sample_mapping_percentage_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        3, this->_internal_sample_mapping_percentage_threshold(), target);
   }
 
   // optional bool sort_events_by_time = 4 [default = false];
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_sort_events_by_time(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_sort_events_by_time(), target);
   }
 
   // optional bool read_missing_buildids = 5 [default = false];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_read_missing_buildids(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        5, this->_internal_read_missing_buildids(), target);
   }
 
   // optional bool deduce_huge_page_mappings = 6 [default = true];
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_deduce_huge_page_mappings(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        6, this->_internal_deduce_huge_page_mappings(), target);
   }
 
   // optional bool combine_mappings = 7 [default = true];
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_combine_mappings(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        7, this->_internal_combine_mappings(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -363,11 +401,11 @@ uint8_t* PerfParserOptionsProto::_InternalSerialize(
   return target;
 }
 
-size_t PerfParserOptionsProto::ByteSizeLong() const {
+::size_t PerfParserOptionsProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:quipper.PerfParserOptionsProto)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -375,37 +413,37 @@ size_t PerfParserOptionsProto::ByteSizeLong() const {
   if (cached_has_bits & 0x0000007fu) {
     // optional bool do_remap = 1 [default = false];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool discard_unused_events = 2 [default = false];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool sort_events_by_time = 4 [default = false];
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool read_missing_buildids = 5 [default = false];
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional float sample_mapping_percentage_threshold = 3 [default = 95];
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional bool deduce_huge_page_mappings = 6 [default = true];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool combine_mappings = 7 [default = true];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -423,8 +461,8 @@ void PerfParserOptionsProto::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   auto* const _this = static_cast<PerfParserOptionsProto*>(&to_msg);
   auto& from = static_cast<const PerfParserOptionsProto&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfParserOptionsProto)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -471,14 +509,11 @@ void PerfParserOptionsProto::InternalSwap(PerfParserOptionsProto* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PerfParserOptionsProto, _impl_.read_missing_buildids_)
-      + sizeof(PerfParserOptionsProto::_impl_.read_missing_buildids_)
+      PROTOBUF_FIELD_OFFSET(PerfParserOptionsProto, _impl_.combine_mappings_)
+      + sizeof(PerfParserOptionsProto::_impl_.combine_mappings_)
       - PROTOBUF_FIELD_OFFSET(PerfParserOptionsProto, _impl_.do_remap_)>(
           reinterpret_cast<char*>(&_impl_.do_remap_),
           reinterpret_cast<char*>(&other->_impl_.do_remap_));
-  swap(_impl_.sample_mapping_percentage_threshold_, other->_impl_.sample_mapping_percentage_threshold_);
-  swap(_impl_.deduce_huge_page_mappings_, other->_impl_.deduce_huge_page_mappings_);
-  swap(_impl_.combine_mappings_, other->_impl_.combine_mappings_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PerfParserOptionsProto::GetMetadata() const {
@@ -486,7 +521,6 @@ void PerfParserOptionsProto::InternalSwap(PerfParserOptionsProto* other) {
       &descriptor_table_perf_5fparser_5foptions_2eproto_getter, &descriptor_table_perf_5fparser_5foptions_2eproto_once,
       file_level_metadata_perf_5fparser_5foptions_2eproto[0]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace quipper
 PROTOBUF_NAMESPACE_OPEN
@@ -495,6 +529,5 @@ Arena::CreateMaybeMessage< ::quipper::PerfParserOptionsProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::quipper::PerfParserOptionsProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

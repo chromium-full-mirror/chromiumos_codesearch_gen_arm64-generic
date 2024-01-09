@@ -143,14 +143,16 @@
   LockType.kNone = 0;
   LockType.kSimPin = 1;
   LockType.kSimPuk = 2;
+  LockType.kNetworkPin = 3;
   LockType.MIN_VALUE = 0;
-  LockType.MAX_VALUE = 2;
+  LockType.MAX_VALUE = 3;
 
   LockType.isKnownEnumValue = function(value) {
     switch (value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     }
     return false;

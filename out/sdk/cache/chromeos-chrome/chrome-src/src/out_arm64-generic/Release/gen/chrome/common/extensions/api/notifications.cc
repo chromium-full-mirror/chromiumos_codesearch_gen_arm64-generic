@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/notifications.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,15 +37,15 @@ namespace notifications {
 
 const char* ToString(TemplateType enum_param) {
   switch (enum_param) {
-    case TEMPLATE_TYPE_BASIC:
+    case TemplateType::kBasic:
       return "basic";
-    case TEMPLATE_TYPE_IMAGE:
+    case TemplateType::kImage:
       return "image";
-    case TEMPLATE_TYPE_LIST:
+    case TemplateType::kList:
       return "list";
-    case TEMPLATE_TYPE_PROGRESS:
+    case TemplateType::kProgress:
       return "progress";
-    case TEMPLATE_TYPE_NONE:
+    case TemplateType::kNone:
       return "";
   }
   NOTREACHED();
@@ -53,14 +54,14 @@ const char* ToString(TemplateType enum_param) {
 
 TemplateType ParseTemplateType(base::StringPiece enum_string) {
   if (enum_string == "basic")
-    return TEMPLATE_TYPE_BASIC;
+    return TemplateType::kBasic;
   if (enum_string == "image")
-    return TEMPLATE_TYPE_IMAGE;
+    return TemplateType::kImage;
   if (enum_string == "list")
-    return TEMPLATE_TYPE_LIST;
+    return TemplateType::kList;
   if (enum_string == "progress")
-    return TEMPLATE_TYPE_PROGRESS;
-  return TEMPLATE_TYPE_NONE;
+    return TemplateType::kProgress;
+  return TemplateType::kNone;
 }
 
 std::u16string GetTemplateTypeParseError(base::StringPiece enum_string) {
@@ -70,11 +71,11 @@ std::u16string GetTemplateTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(PermissionLevel enum_param) {
   switch (enum_param) {
-    case PERMISSION_LEVEL_GRANTED:
+    case PermissionLevel::kGranted:
       return "granted";
-    case PERMISSION_LEVEL_DENIED:
+    case PermissionLevel::kDenied:
       return "denied";
-    case PERMISSION_LEVEL_NONE:
+    case PermissionLevel::kNone:
       return "";
   }
   NOTREACHED();
@@ -83,10 +84,10 @@ const char* ToString(PermissionLevel enum_param) {
 
 PermissionLevel ParsePermissionLevel(base::StringPiece enum_string) {
   if (enum_string == "granted")
-    return PERMISSION_LEVEL_GRANTED;
+    return PermissionLevel::kGranted;
   if (enum_string == "denied")
-    return PERMISSION_LEVEL_DENIED;
-  return PERMISSION_LEVEL_NONE;
+    return PermissionLevel::kDenied;
+  return PermissionLevel::kNone;
 }
 
 std::u16string GetPermissionLevelParseError(base::StringPiece enum_string) {
@@ -98,8 +99,8 @@ NotificationItem::NotificationItem()
  {}
 
 NotificationItem::~NotificationItem() = default;
-NotificationItem::NotificationItem(NotificationItem&& rhs) = default;
-NotificationItem& NotificationItem::operator=(NotificationItem&& rhs) = default;
+NotificationItem::NotificationItem(NotificationItem&& rhs) noexcept = default;
+NotificationItem& NotificationItem::operator=(NotificationItem&& rhs) noexcept = default;
 NotificationItem NotificationItem::Clone() const {
   NotificationItem out;
   out.title = title;
@@ -147,34 +148,21 @@ bool NotificationItem::Populate(
 }
 
 // static
-std::unique_ptr<NotificationItem> NotificationItem::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NotificationItem>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NotificationItem> NotificationItem::FromValue(const base::Value::Dict& value) {
+  NotificationItem out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NotificationItem> NotificationItem::FromValue(const base::Value::Dict& value) {
+std::optional<NotificationItem> NotificationItem::FromValue(const base::Value& value) {
   NotificationItem out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NotificationItem> NotificationItem::FromValue(const base::Value& value) {
-  NotificationItem out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -196,8 +184,8 @@ NotificationBitmap::NotificationBitmap()
 height(0) {}
 
 NotificationBitmap::~NotificationBitmap() = default;
-NotificationBitmap::NotificationBitmap(NotificationBitmap&& rhs) = default;
-NotificationBitmap& NotificationBitmap::operator=(NotificationBitmap&& rhs) = default;
+NotificationBitmap::NotificationBitmap(NotificationBitmap&& rhs) noexcept = default;
+NotificationBitmap& NotificationBitmap::operator=(NotificationBitmap&& rhs) noexcept = default;
 NotificationBitmap NotificationBitmap::Clone() const {
   NotificationBitmap out;
   out.width = width;
@@ -258,34 +246,21 @@ bool NotificationBitmap::Populate(
 }
 
 // static
-std::unique_ptr<NotificationBitmap> NotificationBitmap::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NotificationBitmap>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NotificationBitmap> NotificationBitmap::FromValue(const base::Value::Dict& value) {
+  NotificationBitmap out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NotificationBitmap> NotificationBitmap::FromValue(const base::Value::Dict& value) {
+std::optional<NotificationBitmap> NotificationBitmap::FromValue(const base::Value& value) {
   NotificationBitmap out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NotificationBitmap> NotificationBitmap::FromValue(const base::Value& value) {
-  NotificationBitmap out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -310,8 +285,8 @@ NotificationButton::NotificationButton()
  {}
 
 NotificationButton::~NotificationButton() = default;
-NotificationButton::NotificationButton(NotificationButton&& rhs) = default;
-NotificationButton& NotificationButton::operator=(NotificationButton&& rhs) = default;
+NotificationButton::NotificationButton(NotificationButton&& rhs) noexcept = default;
+NotificationButton& NotificationButton::operator=(NotificationButton&& rhs) noexcept = default;
 NotificationButton NotificationButton::Clone() const {
   NotificationButton out;
   out.title = title;
@@ -342,7 +317,7 @@ bool NotificationButton::Populate(
     {
       auto* temp = (*icon_url_value).GetIfString();
       if (!temp) {
-        out.icon_url = absl::nullopt;
+        out.icon_url = std::nullopt;
         return false;
       }
       out.icon_url = *temp;
@@ -377,34 +352,21 @@ bool NotificationButton::Populate(
 }
 
 // static
-std::unique_ptr<NotificationButton> NotificationButton::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NotificationButton>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NotificationButton> NotificationButton::FromValue(const base::Value::Dict& value) {
+  NotificationButton out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NotificationButton> NotificationButton::FromValue(const base::Value::Dict& value) {
+std::optional<NotificationButton> NotificationButton::FromValue(const base::Value& value) {
   NotificationButton out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NotificationButton> NotificationButton::FromValue(const base::Value& value) {
-  NotificationButton out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -431,8 +393,8 @@ NotificationOptions::NotificationOptions()
 : type() {}
 
 NotificationOptions::~NotificationOptions() = default;
-NotificationOptions::NotificationOptions(NotificationOptions&& rhs) = default;
-NotificationOptions& NotificationOptions::operator=(NotificationOptions&& rhs) = default;
+NotificationOptions::NotificationOptions(NotificationOptions&& rhs) noexcept = default;
+NotificationOptions& NotificationOptions::operator=(NotificationOptions&& rhs) noexcept = default;
 NotificationOptions NotificationOptions::Clone() const {
   NotificationOptions out;
   out.type = type;
@@ -500,7 +462,7 @@ bool NotificationOptions::Populate(
     {
       auto* temp = (*icon_url_value).GetIfString();
       if (!temp) {
-        out.icon_url = absl::nullopt;
+        out.icon_url = std::nullopt;
         return false;
       }
       out.icon_url = *temp;
@@ -527,7 +489,7 @@ bool NotificationOptions::Populate(
     {
       auto* temp = (*app_icon_mask_url_value).GetIfString();
       if (!temp) {
-        out.app_icon_mask_url = absl::nullopt;
+        out.app_icon_mask_url = std::nullopt;
         return false;
       }
       out.app_icon_mask_url = *temp;
@@ -554,7 +516,7 @@ bool NotificationOptions::Populate(
     {
       auto* temp = (*title_value).GetIfString();
       if (!temp) {
-        out.title = absl::nullopt;
+        out.title = std::nullopt;
         return false;
       }
       out.title = *temp;
@@ -566,7 +528,7 @@ bool NotificationOptions::Populate(
     {
       auto* temp = (*message_value).GetIfString();
       if (!temp) {
-        out.message = absl::nullopt;
+        out.message = std::nullopt;
         return false;
       }
       out.message = *temp;
@@ -578,7 +540,7 @@ bool NotificationOptions::Populate(
     {
       auto* temp = (*context_message_value).GetIfString();
       if (!temp) {
-        out.context_message = absl::nullopt;
+        out.context_message = std::nullopt;
         return false;
       }
       out.context_message = *temp;
@@ -590,7 +552,7 @@ bool NotificationOptions::Populate(
     {
       auto temp = (*priority_value).GetIfInt();
       if (!temp.has_value()) {
-        out.priority = absl::nullopt;
+        out.priority = std::nullopt;
         return false;
       }
       out.priority = *temp;
@@ -602,7 +564,7 @@ bool NotificationOptions::Populate(
     {
       auto temp = (*event_time_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.event_time = absl::nullopt;
+        out.event_time = std::nullopt;
         return false;
       }
       out.event_time = *temp;
@@ -628,7 +590,7 @@ bool NotificationOptions::Populate(
     {
       auto* temp = (*expanded_message_value).GetIfString();
       if (!temp) {
-        out.expanded_message = absl::nullopt;
+        out.expanded_message = std::nullopt;
         return false;
       }
       out.expanded_message = *temp;
@@ -640,7 +602,7 @@ bool NotificationOptions::Populate(
     {
       auto* temp = (*image_url_value).GetIfString();
       if (!temp) {
-        out.image_url = absl::nullopt;
+        out.image_url = std::nullopt;
         return false;
       }
       out.image_url = *temp;
@@ -681,7 +643,7 @@ bool NotificationOptions::Populate(
     {
       auto temp = (*progress_value).GetIfInt();
       if (!temp.has_value()) {
-        out.progress = absl::nullopt;
+        out.progress = std::nullopt;
         return false;
       }
       out.progress = *temp;
@@ -693,7 +655,7 @@ bool NotificationOptions::Populate(
     {
       auto temp = (*is_clickable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_clickable = absl::nullopt;
+        out.is_clickable = std::nullopt;
         return false;
       }
       out.is_clickable = *temp;
@@ -705,7 +667,7 @@ bool NotificationOptions::Populate(
     {
       auto temp = (*require_interaction_value).GetIfBool();
       if (!temp.has_value()) {
-        out.require_interaction = absl::nullopt;
+        out.require_interaction = std::nullopt;
         return false;
       }
       out.require_interaction = *temp;
@@ -717,7 +679,7 @@ bool NotificationOptions::Populate(
     {
       auto temp = (*silent_value).GetIfBool();
       if (!temp.has_value()) {
-        out.silent = absl::nullopt;
+        out.silent = std::nullopt;
         return false;
       }
       out.silent = *temp;
@@ -737,34 +699,21 @@ bool NotificationOptions::Populate(
 }
 
 // static
-std::unique_ptr<NotificationOptions> NotificationOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NotificationOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NotificationOptions> NotificationOptions::FromValue(const base::Value::Dict& value) {
+  NotificationOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NotificationOptions> NotificationOptions::FromValue(const base::Value::Dict& value) {
+std::optional<NotificationOptions> NotificationOptions::FromValue(const base::Value& value) {
   NotificationOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NotificationOptions> NotificationOptions::FromValue(const base::Value& value) {
-  NotificationOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -862,13 +811,13 @@ namespace Create {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -878,8 +827,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = notification_id_value.GetIfString();
       if (!temp) {
-        params.notification_id = absl::nullopt;
-        return absl::nullopt;
+        params.notification_id = std::nullopt;
+        return std::nullopt;
       }
       params.notification_id = *temp;
     }
@@ -890,15 +839,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[1];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!NotificationOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -918,13 +867,13 @@ namespace Update {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -934,13 +883,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = notification_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.notification_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -948,15 +897,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[1];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!NotificationOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -976,13 +925,13 @@ namespace Clear {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -992,13 +941,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = notification_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.notification_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1020,8 +969,8 @@ Results::Notifications::Notifications()
  {}
 
 Results::Notifications::~Notifications() = default;
-Results::Notifications::Notifications(Notifications&& rhs) = default;
-Results::Notifications& Results::Notifications::operator=(Notifications&& rhs) = default;
+Results::Notifications::Notifications(Notifications&& rhs) noexcept = default;
+Results::Notifications& Results::Notifications::operator=(Notifications&& rhs) noexcept = default;
 base::Value::Dict Results::Notifications::ToValue() const {
   base::Value::Dict to_value_result;
 

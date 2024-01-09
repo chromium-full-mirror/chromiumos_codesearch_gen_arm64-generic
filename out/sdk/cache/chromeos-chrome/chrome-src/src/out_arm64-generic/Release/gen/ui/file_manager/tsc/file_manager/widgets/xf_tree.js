@@ -4,7 +4,7 @@
 var XfTree_1;
 import { isRTL } from 'chrome://resources/ash/common/util.js';
 import { css, customElement, html, query, state, XfBase } from './xf_base.js';
-import './xf_tree_item.js';
+import { XfTreeItem } from './xf_tree_item.js';
 import { handleTreeSlotChange, isTreeItem } from './xf_tree_util.js';
 /**
  * <xf-tree> is the container of the <xf-tree-item> elements. An example
@@ -158,7 +158,6 @@ let XfTree = XfTree_1 = class XfTree extends XfBase {
         else {
             treeItem.selected = true;
         }
-        this.makeItemFocusable_(treeItem);
         treeItem.focus();
     }
     /** Called when the user double clicks within the host element. */
@@ -183,7 +182,6 @@ let XfTree = XfTree_1 = class XfTree extends XfBase {
         if (innerClickTarget.className !== 'expand-icon' &&
             treeItem.hasChildren()) {
             treeItem.expanded = !treeItem.expanded;
-            this.makeItemFocusable_(treeItem);
             treeItem.focus();
         }
     }
@@ -208,7 +206,6 @@ let XfTree = XfTree_1 = class XfTree extends XfBase {
             e.preventDefault();
             return;
         }
-        this.makeItemFocusable_(treeItem);
         treeItem.focus();
     }
     /** Called when a context menu event happens within the host element. */
@@ -285,7 +282,6 @@ let XfTree = XfTree_1 = class XfTree extends XfBase {
                 break;
         }
         if (itemToFocus) {
-            this.makeItemFocusable_(itemToFocus);
             itemToFocus.focus();
             e.preventDefault();
         }

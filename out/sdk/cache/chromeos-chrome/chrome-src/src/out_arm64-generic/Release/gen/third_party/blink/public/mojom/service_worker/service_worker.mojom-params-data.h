@@ -370,6 +370,37 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerHost_Regis
 };
 static_assert(sizeof(ServiceWorkerHost_RegisterRouter_ResponseParams_Data) == 8,
               "Bad sizeof(ServiceWorkerHost_RegisterRouter_ResponseParams_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerHost_AddRoutes_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::blink::mojom::internal::ServiceWorkerRouterRules_Data> rules;
+
+ private:
+  friend class mojo::internal::MessageFragment<ServiceWorkerHost_AddRoutes_Params_Data>;
+
+  ServiceWorkerHost_AddRoutes_Params_Data();
+  ~ServiceWorkerHost_AddRoutes_Params_Data() = delete;
+};
+static_assert(sizeof(ServiceWorkerHost_AddRoutes_Params_Data) == 16,
+              "Bad sizeof(ServiceWorkerHost_AddRoutes_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorkerHost_AddRoutes_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<ServiceWorkerHost_AddRoutes_ResponseParams_Data>;
+
+  ServiceWorkerHost_AddRoutes_ResponseParams_Data();
+  ~ServiceWorkerHost_AddRoutes_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(ServiceWorkerHost_AddRoutes_ResponseParams_Data) == 8,
+              "Bad sizeof(ServiceWorkerHost_AddRoutes_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ServiceWorker_InitializeGlobalScope_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1836,6 +1867,47 @@ class ServiceWorkerHost_RegisterRouter_ResponseParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::ServiceWorkerHost_RegisterRouter_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class ServiceWorkerHost_AddRoutes_ParamsDataView {
+ public:
+  ServiceWorkerHost_AddRoutes_ParamsDataView() = default;
+
+  ServiceWorkerHost_AddRoutes_ParamsDataView(
+      internal::ServiceWorkerHost_AddRoutes_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetRulesDataView(
+      ::blink::mojom::ServiceWorkerRouterRulesDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRules(UserType* output) {
+    
+    auto* pointer = data_->rules.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ServiceWorkerRouterRulesDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ServiceWorkerHost_AddRoutes_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ServiceWorkerHost_AddRoutes_ResponseParamsDataView {
+ public:
+  ServiceWorkerHost_AddRoutes_ResponseParamsDataView() = default;
+
+  ServiceWorkerHost_AddRoutes_ResponseParamsDataView(
+      internal::ServiceWorkerHost_AddRoutes_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::ServiceWorkerHost_AddRoutes_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -3368,6 +3440,15 @@ inline void ServiceWorkerHost_ClaimClients_ResponseParamsDataView::GetErrorMsgDa
 
 
 inline void ServiceWorkerHost_RegisterRouter_ParamsDataView::GetRulesDataView(
+    ::blink::mojom::ServiceWorkerRouterRulesDataView* output) {
+  auto pointer = data_->rules.Get();
+  *output = ::blink::mojom::ServiceWorkerRouterRulesDataView(pointer, message_);
+}
+
+
+
+
+inline void ServiceWorkerHost_AddRoutes_ParamsDataView::GetRulesDataView(
     ::blink::mojom::ServiceWorkerRouterRulesDataView* output) {
   auto pointer = data_->rules.Get();
   *output = ::blink::mojom::ServiceWorkerRouterRulesDataView(pointer, message_);

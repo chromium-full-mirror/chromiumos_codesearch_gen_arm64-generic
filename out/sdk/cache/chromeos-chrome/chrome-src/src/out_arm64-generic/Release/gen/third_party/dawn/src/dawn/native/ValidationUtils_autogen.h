@@ -9,6 +9,7 @@
 namespace dawn::native {
 
     // Helper functions to check the value of enums and bitmasks
+    MaybeError ValidateWGSLFeatureName(wgpu::WGSLFeatureName value);
     MaybeError ValidateAdapterType(wgpu::AdapterType value);
     MaybeError ValidateAddressMode(wgpu::AddressMode value);
     MaybeError ValidateAlphaMode(wgpu::AlphaMode value);
@@ -58,6 +59,7 @@ namespace dawn::native {
     MaybeError ValidateWaitStatus(wgpu::WaitStatus value);
     MaybeError ValidateBufferUsage(wgpu::BufferUsage value);
     MaybeError ValidateColorWriteMask(wgpu::ColorWriteMask value);
+    MaybeError ValidateHeapProperty(wgpu::HeapProperty value);
     MaybeError ValidateMapMode(wgpu::MapMode value);
     MaybeError ValidateShaderStage(wgpu::ShaderStage value);
     MaybeError ValidateTextureUsage(wgpu::TextureUsage value);

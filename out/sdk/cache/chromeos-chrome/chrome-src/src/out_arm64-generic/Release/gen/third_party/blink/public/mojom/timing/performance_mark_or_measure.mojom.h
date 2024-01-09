@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/timing/performance_mark_or_measure.mojom-features.h"
 #include "third_party/blink/public/mojom/timing/performance_mark_or_measure.mojom-shared.h"
 #include "third_party/blink/public/mojom/timing/performance_mark_or_measure.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -79,7 +80,7 @@ class BLINK_COMMON_EXPORT PerformanceMarkOrMeasure {
       PerformanceMarkOrMeasure::EntryType entry_type,
       double start_time,
       double duration,
-      absl::optional<::mojo_base::BigBuffer> detail);
+      std::optional<::mojo_base::BigBuffer> detail);
 
 PerformanceMarkOrMeasure(const PerformanceMarkOrMeasure&) = delete;
 PerformanceMarkOrMeasure& operator=(const PerformanceMarkOrMeasure&) = delete;
@@ -162,7 +163,7 @@ PerformanceMarkOrMeasure& operator=(const PerformanceMarkOrMeasure&) = delete;
   
   double duration;
   
-  absl::optional<::mojo_base::BigBuffer> detail;
+  std::optional<::mojo_base::BigBuffer> detail;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

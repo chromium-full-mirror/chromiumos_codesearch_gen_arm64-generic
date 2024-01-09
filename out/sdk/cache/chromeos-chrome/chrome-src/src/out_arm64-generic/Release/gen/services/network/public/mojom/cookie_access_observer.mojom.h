@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,11 +23,14 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/cookie_access_observer.mojom-features.h"
 #include "services/network/public/mojom/cookie_access_observer.mojom-shared.h"
 #include "services/network/public/mojom/cookie_access_observer.mojom-forward.h"
+#include "url/mojom/origin.mojom.h"
 #include "url/mojom/url.mojom.h"
 #include "services/network/public/mojom/site_for_cookies.mojom.h"
 #include "services/network/public/mojom/cookie_manager.mojom.h"
+#include "services/network/public/mojom/cookie_setting_overrides.mojom.h"
 #include <string>
 #include <vector>
 
@@ -192,10 +195,13 @@ class  CookieAccessDetails {
   CookieAccessDetails(
       CookieAccessDetails::Type type,
       const ::GURL& url,
+      const ::url::Origin& top_frame_origin,
       const ::net::SiteForCookies& site_for_cookies,
       std::vector<::network::mojom::CookieOrLineWithAccessResultPtr> cookie_list,
-      const absl::optional<std::string>& devtools_request_id,
-      uint32_t count);
+      const std::optional<std::string>& devtools_request_id,
+      uint32_t count,
+      bool is_ad_tagged,
+      const ::net::CookieSettingOverrides& cookie_setting_overrides);
 
 CookieAccessDetails(const CookieAccessDetails&) = delete;
 CookieAccessDetails& operator=(const CookieAccessDetails&) = delete;
@@ -279,13 +285,19 @@ CookieAccessDetails& operator=(const CookieAccessDetails&) = delete;
   
   ::GURL url;
   
+  ::url::Origin top_frame_origin;
+  
   ::net::SiteForCookies site_for_cookies;
   
   std::vector<::network::mojom::CookieOrLineWithAccessResultPtr> cookie_list;
   
-  absl::optional<std::string> devtools_request_id;
+  std::optional<std::string> devtools_request_id;
   
   uint32_t count;
+  
+  bool is_ad_tagged;
+  
+  ::net::CookieSettingOverrides cookie_setting_overrides;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -321,10 +333,13 @@ CookieAccessDetailsPtr CookieAccessDetails::Clone() const {
   return New(
       mojo::Clone(type),
       mojo::Clone(url),
+      mojo::Clone(top_frame_origin),
       mojo::Clone(site_for_cookies),
       mojo::Clone(cookie_list),
       mojo::Clone(devtools_request_id),
-      mojo::Clone(count)
+      mojo::Clone(count),
+      mojo::Clone(is_ad_tagged),
+      mojo::Clone(cookie_setting_overrides)
   );
 }
 
@@ -334,6 +349,8 @@ bool CookieAccessDetails::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->url, other_struct.url))
     return false;
+  if (!mojo::Equals(this->top_frame_origin, other_struct.top_frame_origin))
+    return false;
   if (!mojo::Equals(this->site_for_cookies, other_struct.site_for_cookies))
     return false;
   if (!mojo::Equals(this->cookie_list, other_struct.cookie_list))
@@ -341,6 +358,10 @@ bool CookieAccessDetails::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->devtools_request_id, other_struct.devtools_request_id))
     return false;
   if (!mojo::Equals(this->count, other_struct.count))
+    return false;
+  if (!mojo::Equals(this->is_ad_tagged, other_struct.is_ad_tagged))
+    return false;
+  if (!mojo::Equals(this->cookie_setting_overrides, other_struct.cookie_setting_overrides))
     return false;
   return true;
 }
@@ -354,6 +375,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.url < rhs.url)
     return true;
   if (rhs.url < lhs.url)
+    return false;
+  if (lhs.top_frame_origin < rhs.top_frame_origin)
+    return true;
+  if (rhs.top_frame_origin < lhs.top_frame_origin)
     return false;
   if (lhs.site_for_cookies < rhs.site_for_cookies)
     return true;
@@ -370,6 +395,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.count < rhs.count)
     return true;
   if (rhs.count < lhs.count)
+    return false;
+  if (lhs.is_ad_tagged < rhs.is_ad_tagged)
+    return true;
+  if (rhs.is_ad_tagged < lhs.is_ad_tagged)
+    return false;
+  if (lhs.cookie_setting_overrides < rhs.cookie_setting_overrides)
+    return true;
+  if (rhs.cookie_setting_overrides < lhs.cookie_setting_overrides)
     return false;
   return false;
 }
@@ -396,6 +429,11 @@ struct  StructTraits<::network::mojom::CookieAccessDetails::DataView,
     return input->url;
   }
 
+  static const decltype(::network::mojom::CookieAccessDetails::top_frame_origin)& top_frame_origin(
+      const ::network::mojom::CookieAccessDetailsPtr& input) {
+    return input->top_frame_origin;
+  }
+
   static const decltype(::network::mojom::CookieAccessDetails::site_for_cookies)& site_for_cookies(
       const ::network::mojom::CookieAccessDetailsPtr& input) {
     return input->site_for_cookies;
@@ -414,6 +452,16 @@ struct  StructTraits<::network::mojom::CookieAccessDetails::DataView,
   static decltype(::network::mojom::CookieAccessDetails::count) count(
       const ::network::mojom::CookieAccessDetailsPtr& input) {
     return input->count;
+  }
+
+  static decltype(::network::mojom::CookieAccessDetails::is_ad_tagged) is_ad_tagged(
+      const ::network::mojom::CookieAccessDetailsPtr& input) {
+    return input->is_ad_tagged;
+  }
+
+  static const decltype(::network::mojom::CookieAccessDetails::cookie_setting_overrides)& cookie_setting_overrides(
+      const ::network::mojom::CookieAccessDetailsPtr& input) {
+    return input->cookie_setting_overrides;
   }
 
   static bool Read(::network::mojom::CookieAccessDetails::DataView input, ::network::mojom::CookieAccessDetailsPtr* output);

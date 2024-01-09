@@ -10,11 +10,13 @@ import 'chrome://resources/cr_elements/cr_icons.css.js';
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import './check_mark_wrapper.js';
 import './strings.m.js';
+import './wallpaper_search/wallpaper_search_tile.js';
 import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/help_bubble_mixin.js';
 import { FocusOutlineManager } from 'chrome://resources/js/focus_outline_manager.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './categories.html.js';
+import { CustomizeChromeAction, recordCustomizeChromeAction } from './common.js';
 import { CustomizeChromeApiProxy } from './customize_chrome_api_proxy.js';
 import { WindowProxy } from './window_proxy.js';
 export var CategoryType;
@@ -24,6 +26,7 @@ export var CategoryType;
     CategoryType[CategoryType["LOCAL"] = 2] = "LOCAL";
     CategoryType[CategoryType["COLOR"] = 3] = "COLOR";
     CategoryType[CategoryType["COLLECTION"] = 4] = "COLLECTION";
+    CategoryType[CategoryType["WALLPAPER_SEARCH"] = 5] = "WALLPAPER_SEARCH";
 })(CategoryType || (CategoryType = {}));
 export const CHROME_THEME_COLLECTION_ELEMENT_ID = 'CustomizeChromeUI::kChromeThemeCollectionElementId';
 export const CHANGE_CHROME_THEME_CLASSIC_ELEMENT_ID = 'CustomizeChromeUI::kChangeChromeThemeClassicElementId';
@@ -54,6 +57,10 @@ export class CategoriesElement extends CategoriesElementBase {
             isLocalImageSelected_: {
                 type: Boolean,
                 computed: 'computeIsLocalImageSelected_(selectedCategory_)',
+            },
+            isWallpaperSearchSelected_: {
+                type: Boolean,
+                computed: 'computeIsWallpaperSearchSelected_(selectedCategory_)',
             },
             isChromeColorsSelected_: {
                 type: Boolean,
@@ -106,7 +113,7 @@ export class CategoriesElement extends CategoriesElementBase {
             metricName: 'NewTabPage.Images.ShownTime.CollectionPreviewImage',
             type: chrome.metricsPrivate.MetricTypeType.HISTOGRAM_LOG,
             min: 1,
-            max: 60000,
+            max: 60000, // 60 seconds.
             buckets: 100,
         }, Math.floor(WindowProxy.getInstance().now() -
             this.previewImageLoadStartEpoch_));
@@ -122,7 +129,9 @@ export class CategoriesElement extends CategoriesElementBase {
             return { type: CategoryType.COLOR };
         }
         if (this.theme_.backgroundImage.isUploadedImage) {
-            return { type: CategoryType.LOCAL };
+            return this.theme_.backgroundImage.localBackgroundId ?
+                { type: CategoryType.WALLPAPER_SEARCH } :
+                { type: CategoryType.LOCAL };
         }
         if (this.theme_.backgroundImage.collectionId) {
             return {
@@ -138,6 +147,9 @@ export class CategoriesElement extends CategoriesElementBase {
     computeIsLocalImageSelected_() {
         return this.selectedCategory_.type === CategoryType.LOCAL;
     }
+    computeIsWallpaperSearchSelected_() {
+        return this.selectedCategory_.type === CategoryType.WALLPAPER_SEARCH;
+    }
     computeIsChromeColorsSelected_() {
         return this.selectedCategory_.type === CategoryType.COLOR;
     }
@@ -152,13 +164,16 @@ export class CategoriesElement extends CategoriesElementBase {
         return this.boolToString_(this.isCollectionSelected_(id));
     }
     onClassicChromeClick_() {
+        recordCustomizeChromeAction(CustomizeChromeAction.CATEGORIES_DEFAULT_CHROME_SELECTED);
         this.pageHandler_.setDefaultColor();
         this.pageHandler_.removeBackgroundImage();
     }
     onWallpaperSearchClick_() {
+        recordCustomizeChromeAction(CustomizeChromeAction.CATEGORIES_WALLPAPER_SEARCH_SELECTED);
         this.dispatchEvent(new Event('wallpaper-search-select'));
     }
     async onUploadImageClick_() {
+        recordCustomizeChromeAction(CustomizeChromeAction.CATEGORIES_UPLOAD_IMAGE_SELECTED);
         chrome.metricsPrivate.recordUserAction('NTPRicherPicker.Backgrounds.UploadClicked');
         const { success } = await this.pageHandler_.chooseLocalCustomBackground();
         if (success) {
@@ -169,6 +184,7 @@ export class CategoriesElement extends CategoriesElementBase {
         this.dispatchEvent(new Event('chrome-colors-select'));
     }
     onCollectionClick_(e) {
+        recordCustomizeChromeAction(CustomizeChromeAction.CATEGORIES_FIRST_PARTY_COLLECTION_SELECTED);
         this.dispatchEvent(new CustomEvent('collection-select', { detail: e.model.item }));
     }
     onChromeWebStoreClick_() {

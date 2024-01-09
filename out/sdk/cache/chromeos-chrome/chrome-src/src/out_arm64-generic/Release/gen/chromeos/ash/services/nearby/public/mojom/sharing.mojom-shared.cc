@@ -81,7 +81,7 @@ bool NearbyDependencies_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -104,6 +104,11 @@ bool NearbyDependencies_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->wifilan_dependencies, validation_context))
     return false;
+
+  if (!mojo::internal::ValidateHandleOrInterface(object->nearby_presence_credential_storage,
+                                                 validation_context)) {
+    return false;
+  }
 
 
   if (!::nearby::connections::mojom::internal::LogSeverity_Data

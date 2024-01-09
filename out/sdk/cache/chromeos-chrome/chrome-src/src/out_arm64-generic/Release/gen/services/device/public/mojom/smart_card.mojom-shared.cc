@@ -108,6 +108,8 @@ NOINLINE static const char* SmartCardErrorToStringHelper(SmartCardError value) {
       return "kShutdown";
     case SmartCardError::kUnknown:
       return "kUnknown";
+    case SmartCardError::kPermissionDenied:
+      return "kPermissionDenied";
     default:
       return nullptr;
   }

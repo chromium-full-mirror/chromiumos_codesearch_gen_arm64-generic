@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -44,55 +45,24 @@
 
 
 namespace blink::mojom::blink {
-LogoutRpsRequest::LogoutRpsRequest()
-    : url(),
-      account_id() {}
-
-LogoutRpsRequest::LogoutRpsRequest(
-    const ::blink::KURL& url_in,
-    const WTF::String& account_id_in)
-    : url(std::move(url_in)),
-      account_id(std::move(account_id_in)) {}
-
-LogoutRpsRequest::~LogoutRpsRequest() = default;
-
-void LogoutRpsRequest::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "url"), this->url,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::blink::KURL&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "account_id"), this->account_id,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const WTF::String&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool LogoutRpsRequest::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 DigitalCredentialProvider::DigitalCredentialProvider()
     : params(),
-      selector() {}
+      selector(),
+      protocol(),
+      request(),
+      publicKey() {}
 
 DigitalCredentialProvider::DigitalCredentialProvider(
-    const WTF::HashMap<WTF::String, WTF::String>& params_in,
-    DigitalCredentialSelectorPtr selector_in)
+    const std::optional<WTF::HashMap<WTF::String, WTF::String>>& params_in,
+    DigitalCredentialSelectorPtr selector_in,
+    const WTF::String& protocol_in,
+    const WTF::String& request_in,
+    const WTF::String& publicKey_in)
     : params(std::move(params_in)),
-      selector(std::move(selector_in)) {}
+      selector(std::move(selector_in)),
+      protocol(std::move(protocol_in)),
+      request(std::move(request_in)),
+      publicKey(std::move(publicKey_in)) {}
 
 DigitalCredentialProvider::~DigitalCredentialProvider() = default;
 
@@ -103,7 +73,7 @@ void DigitalCredentialProvider::WriteIntoTrace(
     dict.AddItem(
       "params"), this->params,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const WTF::HashMap<WTF::String, WTF::String>&>"
+      "<value of type const std::optional<WTF::HashMap<WTF::String, WTF::String>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -113,6 +83,33 @@ void DigitalCredentialProvider::WriteIntoTrace(
       "selector"), this->selector,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type DigitalCredentialSelectorPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "protocol"), this->protocol,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "request"), this->request,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "publicKey"), this->publicKey,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -218,31 +215,16 @@ bool DigitalCredentialFieldRequirement::Validate(
 }
 IdentityProviderConfig::IdentityProviderConfig()
     : config_url(),
-      client_id(),
-      nonce(),
-      login_hint(),
-      hosted_domain(),
-      scope(),
-      responseType(),
-      params() {}
+      use_registered_config_urls(),
+      client_id() {}
 
 IdentityProviderConfig::IdentityProviderConfig(
     const ::blink::KURL& config_url_in,
-    const WTF::String& client_id_in,
-    const WTF::String& nonce_in,
-    const WTF::String& login_hint_in,
-    const WTF::String& hosted_domain_in,
-    WTF::Vector<WTF::String> scope_in,
-    WTF::Vector<WTF::String> responseType_in,
-    const WTF::HashMap<WTF::String, WTF::String>& params_in)
+    bool use_registered_config_urls_in,
+    const WTF::String& client_id_in)
     : config_url(std::move(config_url_in)),
-      client_id(std::move(client_id_in)),
-      nonce(std::move(nonce_in)),
-      login_hint(std::move(login_hint_in)),
-      hosted_domain(std::move(hosted_domain_in)),
-      scope(std::move(scope_in)),
-      responseType(std::move(responseType_in)),
-      params(std::move(params_in)) {}
+      use_registered_config_urls(std::move(use_registered_config_urls_in)),
+      client_id(std::move(client_id_in)) {}
 
 IdentityProviderConfig::~IdentityProviderConfig() = default;
 
@@ -260,9 +242,64 @@ void IdentityProviderConfig::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "use_registered_config_urls"), this->use_registered_config_urls,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "client_id"), this->client_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool IdentityProviderConfig::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+IdentityProviderRequestOptions::IdentityProviderRequestOptions()
+    : config(),
+      nonce(),
+      login_hint(),
+      domain_hint(),
+      scope(),
+      responseType(),
+      params() {}
+
+IdentityProviderRequestOptions::IdentityProviderRequestOptions(
+    IdentityProviderConfigPtr config_in,
+    const WTF::String& nonce_in,
+    const WTF::String& login_hint_in,
+    const WTF::String& domain_hint_in,
+    WTF::Vector<WTF::String> scope_in,
+    WTF::Vector<WTF::String> responseType_in,
+    const WTF::HashMap<WTF::String, WTF::String>& params_in)
+    : config(std::move(config_in)),
+      nonce(std::move(nonce_in)),
+      login_hint(std::move(login_hint_in)),
+      domain_hint(std::move(domain_hint_in)),
+      scope(std::move(scope_in)),
+      responseType(std::move(responseType_in)),
+      params(std::move(params_in)) {}
+
+IdentityProviderRequestOptions::~IdentityProviderRequestOptions() = default;
+
+void IdentityProviderRequestOptions::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "config"), this->config,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type IdentityProviderConfigPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -287,7 +324,7 @@ void IdentityProviderConfig::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "hosted_domain"), this->hosted_domain,
+      "domain_hint"), this->domain_hint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const WTF::String&>"
 #else
@@ -323,7 +360,47 @@ void IdentityProviderConfig::WriteIntoTrace(
     );
 }
 
-bool IdentityProviderConfig::Validate(
+bool IdentityProviderRequestOptions::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+IdentityCredentialDisconnectOptions::IdentityCredentialDisconnectOptions()
+    : config(),
+      account_hint() {}
+
+IdentityCredentialDisconnectOptions::IdentityCredentialDisconnectOptions(
+    IdentityProviderConfigPtr config_in,
+    const WTF::String& account_hint_in)
+    : config(std::move(config_in)),
+      account_hint(std::move(account_hint_in)) {}
+
+IdentityCredentialDisconnectOptions::~IdentityCredentialDisconnectOptions() = default;
+
+void IdentityCredentialDisconnectOptions::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "config"), this->config,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type IdentityProviderConfigPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "account_hint"), this->account_hint,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool IdentityCredentialDisconnectOptions::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -492,7 +569,7 @@ bool TokenError::Validate(
   return Data_::Validate(data, validation_context);
 }
 IdentityProvider::IdentityProvider() : tag_(Tag::kFederated) {
-  data_.federated = new IdentityProviderConfigPtr;
+  data_.federated = new IdentityProviderRequestOptionsPtr;
 }
 
 IdentityProvider::~IdentityProvider() {
@@ -501,13 +578,13 @@ IdentityProvider::~IdentityProvider() {
 
 
 void IdentityProvider::set_federated(
-    IdentityProviderConfigPtr federated) {
+    IdentityProviderRequestOptionsPtr federated) {
   if (tag_ == Tag::kFederated) {
     *(data_.federated) = std::move(federated);
   } else {
     DestroyActive();
     tag_ = Tag::kFederated;
-    data_.federated = new IdentityProviderConfigPtr(
+    data_.federated = new IdentityProviderRequestOptionsPtr(
         std::move(federated));
   }
 }
@@ -559,9 +636,6 @@ FederatedAuthRequest::IPCStableHashFunction FederatedAuthRequest::MessageToMetho
     case internal::kFederatedAuthRequest_ResolveTokenRequest_Name: {
       return &FederatedAuthRequest::ResolveTokenRequest_Sym::IPCStableHash;
     }
-    case internal::kFederatedAuthRequest_LogoutRps_Name: {
-      return &FederatedAuthRequest::LogoutRps_Sym::IPCStableHash;
-    }
     case internal::kFederatedAuthRequest_SetIdpSigninStatus_Name: {
       return &FederatedAuthRequest::SetIdpSigninStatus_Sym::IPCStableHash;
     }
@@ -576,6 +650,9 @@ FederatedAuthRequest::IPCStableHashFunction FederatedAuthRequest::MessageToMetho
     }
     case internal::kFederatedAuthRequest_PreventSilentAccess_Name: {
       return &FederatedAuthRequest::PreventSilentAccess_Sym::IPCStableHash;
+    }
+    case internal::kFederatedAuthRequest_Disconnect_Name: {
+      return &FederatedAuthRequest::Disconnect_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -596,8 +673,6 @@ const char* FederatedAuthRequest::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::FederatedAuthRequest::CancelTokenRequest";
       case internal::kFederatedAuthRequest_ResolveTokenRequest_Name:
             return "Receive blink::mojom::FederatedAuthRequest::ResolveTokenRequest";
-      case internal::kFederatedAuthRequest_LogoutRps_Name:
-            return "Receive blink::mojom::FederatedAuthRequest::LogoutRps";
       case internal::kFederatedAuthRequest_SetIdpSigninStatus_Name:
             return "Receive blink::mojom::FederatedAuthRequest::SetIdpSigninStatus";
       case internal::kFederatedAuthRequest_RegisterIdP_Name:
@@ -608,6 +683,8 @@ const char* FederatedAuthRequest::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::FederatedAuthRequest::CloseModalDialogView";
       case internal::kFederatedAuthRequest_PreventSilentAccess_Name:
             return "Receive blink::mojom::FederatedAuthRequest::PreventSilentAccess";
+      case internal::kFederatedAuthRequest_Disconnect_Name:
+            return "Receive blink::mojom::FederatedAuthRequest::Disconnect";
     }
   } else {
     switch (message.name()) {
@@ -619,8 +696,6 @@ const char* FederatedAuthRequest::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::FederatedAuthRequest::CancelTokenRequest";
       case internal::kFederatedAuthRequest_ResolveTokenRequest_Name:
             return "Receive reply blink::mojom::FederatedAuthRequest::ResolveTokenRequest";
-      case internal::kFederatedAuthRequest_LogoutRps_Name:
-            return "Receive reply blink::mojom::FederatedAuthRequest::LogoutRps";
       case internal::kFederatedAuthRequest_SetIdpSigninStatus_Name:
             return "Receive reply blink::mojom::FederatedAuthRequest::SetIdpSigninStatus";
       case internal::kFederatedAuthRequest_RegisterIdP_Name:
@@ -631,6 +706,8 @@ const char* FederatedAuthRequest::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::FederatedAuthRequest::CloseModalDialogView";
       case internal::kFederatedAuthRequest_PreventSilentAccess_Name:
             return "Receive reply blink::mojom::FederatedAuthRequest::PreventSilentAccess";
+      case internal::kFederatedAuthRequest_Disconnect_Name:
+            return "Receive reply blink::mojom::FederatedAuthRequest::Disconnect";
     }
   }
   return "Receive unknown mojo message";
@@ -693,19 +770,6 @@ uint32_t FederatedAuthRequest::ResolveTokenRequest_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)blink::mojom::FederatedAuthRequest::ResolveTokenRequest");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t FederatedAuthRequest::LogoutRps_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::FederatedAuthRequest::LogoutRps");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -775,6 +839,19 @@ uint32_t FederatedAuthRequest::PreventSilentAccess_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t FederatedAuthRequest::Disconnect_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::FederatedAuthRequest::Disconnect");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class FederatedAuthRequest_RequestToken_ForwardToCallback
@@ -825,22 +902,6 @@ class FederatedAuthRequest_ResolveTokenRequest_ForwardToCallback
   FederatedAuthRequest::ResolveTokenRequestCallback callback_;
 };
 
-class FederatedAuthRequest_LogoutRps_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  FederatedAuthRequest_LogoutRps_ForwardToCallback(
-      FederatedAuthRequest::LogoutRpsCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  FederatedAuthRequest_LogoutRps_ForwardToCallback(const FederatedAuthRequest_LogoutRps_ForwardToCallback&) = delete;
-  FederatedAuthRequest_LogoutRps_ForwardToCallback& operator=(const FederatedAuthRequest_LogoutRps_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  FederatedAuthRequest::LogoutRpsCallback callback_;
-};
-
 class FederatedAuthRequest_RegisterIdP_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -889,6 +950,22 @@ class FederatedAuthRequest_PreventSilentAccess_ForwardToCallback
   FederatedAuthRequest::PreventSilentAccessCallback callback_;
 };
 
+class FederatedAuthRequest_Disconnect_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  FederatedAuthRequest_Disconnect_ForwardToCallback(
+      FederatedAuthRequest::DisconnectCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  FederatedAuthRequest_Disconnect_ForwardToCallback(const FederatedAuthRequest_Disconnect_ForwardToCallback&) = delete;
+  FederatedAuthRequest_Disconnect_ForwardToCallback& operator=(const FederatedAuthRequest_Disconnect_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  FederatedAuthRequest::DisconnectCallback callback_;
+};
+
 FederatedAuthRequestProxy::FederatedAuthRequestProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -908,14 +985,17 @@ void FederatedAuthRequestProxy::RequestToken(
                         "<value of type ::blink::mojom::blink::CredentialMediationRequirement>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_RequestToken_Name, kFlags, 0, 0, nullptr);
@@ -961,14 +1041,17 @@ void FederatedAuthRequestProxy::RequestUserInfo(
                         "<value of type IdentityProviderConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_RequestUserInfo_Name, kFlags, 0, 0, nullptr);
@@ -1003,14 +1086,17 @@ void FederatedAuthRequestProxy::CancelTokenRequest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FederatedAuthRequest::CancelTokenRequest");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_CancelTokenRequest_Name, kFlags, 0, 0, nullptr);
@@ -1040,14 +1126,17 @@ void FederatedAuthRequestProxy::ResolveTokenRequest(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_ResolveTokenRequest_Name, kFlags, 0, 0, nullptr);
@@ -1077,57 +1166,6 @@ void FederatedAuthRequestProxy::ResolveTokenRequest(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void FederatedAuthRequestProxy::LogoutRps(
-    WTF::Vector<LogoutRpsRequestPtr> in_rp_logout_requests, LogoutRpsCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send blink::mojom::FederatedAuthRequest::LogoutRps", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("rp_logout_requests"), in_rp_logout_requests,
-                        "<value of type WTF::Vector<LogoutRpsRequestPtr>>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kFederatedAuthRequest_LogoutRps_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::FederatedAuthRequest_LogoutRps_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->rp_logout_requests)::BaseType>
-      rp_logout_requests_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& rp_logout_requests_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::LogoutRpsRequestDataView>>(
-      in_rp_logout_requests, rp_logout_requests_fragment, &rp_logout_requests_validate_params);
-  params->rp_logout_requests.Set(
-      rp_logout_requests_fragment.is_null() ? nullptr : rp_logout_requests_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->rp_logout_requests.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null rp_logout_requests in FederatedAuthRequest.LogoutRps request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(FederatedAuthRequest::Name_);
-  message.set_method_name("LogoutRps");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new FederatedAuthRequest_LogoutRps_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
 void FederatedAuthRequestProxy::SetIdpSigninStatus(
     const ::scoped_refptr<const ::blink::SecurityOrigin>& in_origin, IdpSigninStatus in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1143,14 +1181,17 @@ void FederatedAuthRequestProxy::SetIdpSigninStatus(
                         "<value of type IdpSigninStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_SetIdpSigninStatus_Name, kFlags, 0, 0, nullptr);
@@ -1193,14 +1234,17 @@ void FederatedAuthRequestProxy::RegisterIdP(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_RegisterIdP_Name, kFlags, 0, 0, nullptr);
@@ -1242,14 +1286,17 @@ void FederatedAuthRequestProxy::UnregisterIdP(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_UnregisterIdP_Name, kFlags, 0, 0, nullptr);
@@ -1284,14 +1331,17 @@ void FederatedAuthRequestProxy::CloseModalDialogView(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FederatedAuthRequest::CloseModalDialogView");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_CloseModalDialogView_Name, kFlags, 0, 0, nullptr);
@@ -1314,14 +1364,17 @@ void FederatedAuthRequestProxy::PreventSilentAccess(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FederatedAuthRequest::PreventSilentAccess");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_PreventSilentAccess_Name, kFlags, 0, 0, nullptr);
@@ -1336,6 +1389,58 @@ void FederatedAuthRequestProxy::PreventSilentAccess(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new FederatedAuthRequest_PreventSilentAccess_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void FederatedAuthRequestProxy::Disconnect(
+    IdentityCredentialDisconnectOptionsPtr in_options, DisconnectCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::FederatedAuthRequest::Disconnect", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("options"), in_options,
+                        "<value of type IdentityCredentialDisconnectOptionsPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kFederatedAuthRequest_Disconnect_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::FederatedAuthRequest_Disconnect_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->options)::BaseType> options_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::IdentityCredentialDisconnectOptionsDataView>(
+      in_options, options_fragment);
+  params->options.Set(
+      options_fragment.is_null() ? nullptr : options_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->options.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null options in FederatedAuthRequest.Disconnect request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(FederatedAuthRequest::Name_);
+  message.set_method_name("Disconnect");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new FederatedAuthRequest_Disconnect_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -1385,7 +1490,7 @@ class FederatedAuthRequest_RequestToken_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      RequestTokenStatus in_status, const absl::optional<::blink::KURL>& in_selected_identity_provider_config_url, const WTF::String& in_token, TokenErrorPtr in_error, bool in_is_auto_selected);
+      RequestTokenStatus in_status, const std::optional<::blink::KURL>& in_selected_identity_provider_config_url, const WTF::String& in_token, TokenErrorPtr in_error, bool in_is_auto_selected);
 };
 
 bool FederatedAuthRequest_RequestToken_ForwardToCallback::Accept(
@@ -1399,7 +1504,7 @@ bool FederatedAuthRequest_RequestToken_ForwardToCallback::Accept(
   
   bool success = true;
   RequestTokenStatus p_status{};
-  absl::optional<::blink::KURL> p_selected_identity_provider_config_url{};
+  std::optional<::blink::KURL> p_selected_identity_provider_config_url{};
   WTF::String p_token{};
   TokenErrorPtr p_error{};
   bool p_is_auto_selected{};
@@ -1433,7 +1538,7 @@ std::move(p_is_auto_selected));
 }
 
 void FederatedAuthRequest_RequestToken_ProxyToResponder::Run(
-    RequestTokenStatus in_status, const absl::optional<::blink::KURL>& in_selected_identity_provider_config_url, const WTF::String& in_token, TokenErrorPtr in_error, bool in_is_auto_selected) {
+    RequestTokenStatus in_status, const std::optional<::blink::KURL>& in_selected_identity_provider_config_url, const WTF::String& in_token, TokenErrorPtr in_error, bool in_is_auto_selected) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::FederatedAuthRequest::RequestToken", "async_response_parameters",
@@ -1444,7 +1549,7 @@ void FederatedAuthRequest_RequestToken_ProxyToResponder::Run(
                         "<value of type RequestTokenStatus>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("selected_identity_provider_config_url"), in_selected_identity_provider_config_url,
-                        "<value of type const absl::optional<::blink::KURL>&>");
+                        "<value of type const std::optional<::blink::KURL>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("token"), in_token,
                         "<value of type const WTF::String&>");
@@ -1459,7 +1564,8 @@ void FederatedAuthRequest_RequestToken_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_RequestToken_Name, kFlags, 0, 0, nullptr);
@@ -1554,7 +1660,7 @@ class FederatedAuthRequest_RequestUserInfo_ProxyToResponder : public ::mojo::int
 #endif
 
   void Run(
-      RequestUserInfoStatus in_status, absl::optional<WTF::Vector<IdentityUserInfoPtr>> in_user_info);
+      RequestUserInfoStatus in_status, std::optional<WTF::Vector<IdentityUserInfoPtr>> in_user_info);
 };
 
 bool FederatedAuthRequest_RequestUserInfo_ForwardToCallback::Accept(
@@ -1568,7 +1674,7 @@ bool FederatedAuthRequest_RequestUserInfo_ForwardToCallback::Accept(
   
   bool success = true;
   RequestUserInfoStatus p_status{};
-  absl::optional<WTF::Vector<IdentityUserInfoPtr>> p_user_info{};
+  std::optional<WTF::Vector<IdentityUserInfoPtr>> p_user_info{};
   FederatedAuthRequest_RequestUserInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -1590,7 +1696,7 @@ std::move(p_user_info));
 }
 
 void FederatedAuthRequest_RequestUserInfo_ProxyToResponder::Run(
-    RequestUserInfoStatus in_status, absl::optional<WTF::Vector<IdentityUserInfoPtr>> in_user_info) {
+    RequestUserInfoStatus in_status, std::optional<WTF::Vector<IdentityUserInfoPtr>> in_user_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::FederatedAuthRequest::RequestUserInfo", "async_response_parameters",
@@ -1601,13 +1707,14 @@ void FederatedAuthRequest_RequestUserInfo_ProxyToResponder::Run(
                         "<value of type RequestUserInfoStatus>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("user_info"), in_user_info,
-                        "<value of type absl::optional<WTF::Vector<IdentityUserInfoPtr>>>");
+                        "<value of type std::optional<WTF::Vector<IdentityUserInfoPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_RequestUserInfo_Name, kFlags, 0, 0, nullptr);
@@ -1735,7 +1842,8 @@ void FederatedAuthRequest_ResolveTokenRequest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_ResolveTokenRequest_Name, kFlags, 0, 0, nullptr);
@@ -1748,125 +1856,6 @@ void FederatedAuthRequest_ResolveTokenRequest_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(FederatedAuthRequest::Name_);
   message.set_method_name("ResolveTokenRequest");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class FederatedAuthRequest_LogoutRps_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static FederatedAuthRequest::LogoutRpsCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<FederatedAuthRequest_LogoutRps_ProxyToResponder> proxy(
-        new FederatedAuthRequest_LogoutRps_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&FederatedAuthRequest_LogoutRps_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~FederatedAuthRequest_LogoutRps_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  FederatedAuthRequest_LogoutRps_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "FederatedAuthRequest::LogoutRpsCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      LogoutRpsStatus in_status);
-};
-
-bool FederatedAuthRequest_LogoutRps_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::FederatedAuthRequest_LogoutRps_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::FederatedAuthRequest_LogoutRps_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  LogoutRpsStatus p_status{};
-  FederatedAuthRequest_LogoutRps_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadStatus(&p_status))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        FederatedAuthRequest::Name_, 4, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_status));
-  return true;
-}
-
-void FederatedAuthRequest_LogoutRps_ProxyToResponder::Run(
-    LogoutRpsStatus in_status) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply blink::mojom::FederatedAuthRequest::LogoutRps", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("status"), in_status,
-                        "<value of type LogoutRpsStatus>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kFederatedAuthRequest_LogoutRps_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::FederatedAuthRequest_LogoutRps_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::blink::mojom::LogoutRpsStatus>(
-      in_status, &params->status);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(FederatedAuthRequest::Name_);
-  message.set_method_name("LogoutRps");
 #endif
 
   message.set_request_id(request_id_);
@@ -1948,7 +1937,7 @@ bool FederatedAuthRequest_RegisterIdP_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        FederatedAuthRequest::Name_, 6, true);
+        FederatedAuthRequest::Name_, 5, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1972,7 +1961,8 @@ void FederatedAuthRequest_RegisterIdP_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_RegisterIdP_Name, kFlags, 0, 0, nullptr);
@@ -2066,7 +2056,7 @@ bool FederatedAuthRequest_UnregisterIdP_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        FederatedAuthRequest::Name_, 7, true);
+        FederatedAuthRequest::Name_, 6, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2090,7 +2080,8 @@ void FederatedAuthRequest_UnregisterIdP_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_UnregisterIdP_Name, kFlags, 0, 0, nullptr);
@@ -2181,7 +2172,7 @@ bool FederatedAuthRequest_PreventSilentAccess_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        FederatedAuthRequest::Name_, 9, true);
+        FederatedAuthRequest::Name_, 8, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2197,7 +2188,8 @@ void FederatedAuthRequest_PreventSilentAccess_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequest_PreventSilentAccess_Name, kFlags, 0, 0, nullptr);
@@ -2209,6 +2201,126 @@ void FederatedAuthRequest_PreventSilentAccess_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(FederatedAuthRequest::Name_);
   message.set_method_name("PreventSilentAccess");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class FederatedAuthRequest_Disconnect_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static FederatedAuthRequest::DisconnectCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<FederatedAuthRequest_Disconnect_ProxyToResponder> proxy(
+        new FederatedAuthRequest_Disconnect_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&FederatedAuthRequest_Disconnect_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~FederatedAuthRequest_Disconnect_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  FederatedAuthRequest_Disconnect_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "FederatedAuthRequest::DisconnectCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      DisconnectStatus in_status);
+};
+
+bool FederatedAuthRequest_Disconnect_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::FederatedAuthRequest_Disconnect_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::FederatedAuthRequest_Disconnect_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  DisconnectStatus p_status{};
+  FederatedAuthRequest_Disconnect_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadStatus(&p_status))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        FederatedAuthRequest::Name_, 9, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_status));
+  return true;
+}
+
+void FederatedAuthRequest_Disconnect_ProxyToResponder::Run(
+    DisconnectStatus in_status) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply blink::mojom::FederatedAuthRequest::Disconnect", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type DisconnectStatus>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kFederatedAuthRequest_Disconnect_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::FederatedAuthRequest_Disconnect_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::blink::mojom::DisconnectStatus>(
+      in_status, &params->status);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(FederatedAuthRequest::Name_);
+  message.set_method_name("Disconnect");
 #endif
 
   message.set_request_id(request_id_);
@@ -2259,9 +2371,6 @@ bool FederatedAuthRequestStubDispatch::Accept(
     case internal::kFederatedAuthRequest_ResolveTokenRequest_Name: {
       break;
     }
-    case internal::kFederatedAuthRequest_LogoutRps_Name: {
-      break;
-    }
     case internal::kFederatedAuthRequest_SetIdpSigninStatus_Name: {
 
       DCHECK(message->is_serialized());
@@ -2282,7 +2391,7 @@ bool FederatedAuthRequestStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FederatedAuthRequest::Name_, 5, false);
+            FederatedAuthRequest::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2312,7 +2421,7 @@ std::move(p_status));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FederatedAuthRequest::Name_, 8, false);
+            FederatedAuthRequest::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2321,6 +2430,9 @@ std::move(p_status));
       return true;
     }
     case internal::kFederatedAuthRequest_PreventSilentAccess_Name: {
+      break;
+    }
+    case internal::kFederatedAuthRequest_Disconnect_Name: {
       break;
     }
   }
@@ -2430,35 +2542,6 @@ std::move(p_provider), std::move(callback));
 std::move(p_token), std::move(callback));
       return true;
     }
-    case internal::kFederatedAuthRequest_LogoutRps_Name: {
-
-      internal::FederatedAuthRequest_LogoutRps_Params_Data* params =
-          reinterpret_cast<
-              internal::FederatedAuthRequest_LogoutRps_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      WTF::Vector<LogoutRpsRequestPtr> p_rp_logout_requests{};
-      FederatedAuthRequest_LogoutRps_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadRpLogoutRequests(&p_rp_logout_requests))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FederatedAuthRequest::Name_, 4, false);
-        return false;
-      }
-      FederatedAuthRequest::LogoutRpsCallback callback =
-          FederatedAuthRequest_LogoutRps_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->LogoutRps(
-std::move(p_rp_logout_requests), std::move(callback));
-      return true;
-    }
     case internal::kFederatedAuthRequest_SetIdpSigninStatus_Name: {
       break;
     }
@@ -2479,7 +2562,7 @@ std::move(p_rp_logout_requests), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FederatedAuthRequest::Name_, 6, false);
+            FederatedAuthRequest::Name_, 5, false);
         return false;
       }
       FederatedAuthRequest::RegisterIdPCallback callback =
@@ -2508,7 +2591,7 @@ std::move(p_url), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FederatedAuthRequest::Name_, 7, false);
+            FederatedAuthRequest::Name_, 6, false);
         return false;
       }
       FederatedAuthRequest::UnregisterIdPCallback callback =
@@ -2537,7 +2620,7 @@ std::move(p_url), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FederatedAuthRequest::Name_, 9, false);
+            FederatedAuthRequest::Name_, 8, false);
         return false;
       }
       FederatedAuthRequest::PreventSilentAccessCallback callback =
@@ -2548,32 +2631,61 @@ std::move(p_url), std::move(callback));
       impl->PreventSilentAccess(std::move(callback));
       return true;
     }
+    case internal::kFederatedAuthRequest_Disconnect_Name: {
+
+      internal::FederatedAuthRequest_Disconnect_Params_Data* params =
+          reinterpret_cast<
+              internal::FederatedAuthRequest_Disconnect_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      IdentityCredentialDisconnectOptionsPtr p_options{};
+      FederatedAuthRequest_Disconnect_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadOptions(&p_options))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            FederatedAuthRequest::Name_, 9, false);
+        return false;
+      }
+      FederatedAuthRequest::DisconnectCallback callback =
+          FederatedAuthRequest_Disconnect_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->Disconnect(
+std::move(p_options), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFederatedAuthRequestValidationInfo[] = {
-    {&internal::FederatedAuthRequest_RequestToken_Params_Data::Validate,
+    { &internal::FederatedAuthRequest_RequestToken_Params_Data::Validate,
      &internal::FederatedAuthRequest_RequestToken_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequest_RequestUserInfo_Params_Data::Validate,
+    { &internal::FederatedAuthRequest_RequestUserInfo_Params_Data::Validate,
      &internal::FederatedAuthRequest_RequestUserInfo_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequest_CancelTokenRequest_Params_Data::Validate,
+    { &internal::FederatedAuthRequest_CancelTokenRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FederatedAuthRequest_ResolveTokenRequest_Params_Data::Validate,
+    { &internal::FederatedAuthRequest_ResolveTokenRequest_Params_Data::Validate,
      &internal::FederatedAuthRequest_ResolveTokenRequest_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequest_LogoutRps_Params_Data::Validate,
-     &internal::FederatedAuthRequest_LogoutRps_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequest_SetIdpSigninStatus_Params_Data::Validate,
+    { &internal::FederatedAuthRequest_SetIdpSigninStatus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FederatedAuthRequest_RegisterIdP_Params_Data::Validate,
+    { &internal::FederatedAuthRequest_RegisterIdP_Params_Data::Validate,
      &internal::FederatedAuthRequest_RegisterIdP_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequest_UnregisterIdP_Params_Data::Validate,
+    { &internal::FederatedAuthRequest_UnregisterIdP_Params_Data::Validate,
      &internal::FederatedAuthRequest_UnregisterIdP_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequest_CloseModalDialogView_Params_Data::Validate,
+    { &internal::FederatedAuthRequest_CloseModalDialogView_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FederatedAuthRequest_PreventSilentAccess_Params_Data::Validate,
+    { &internal::FederatedAuthRequest_PreventSilentAccess_Params_Data::Validate,
      &internal::FederatedAuthRequest_PreventSilentAccess_ResponseParams_Data::Validate},
+    { &internal::FederatedAuthRequest_Disconnect_Params_Data::Validate,
+     &internal::FederatedAuthRequest_Disconnect_ResponseParams_Data::Validate},
 };
 
 bool FederatedAuthRequestRequestValidator::Accept(mojo::Message* message) {
@@ -2594,22 +2706,6 @@ namespace mojo {
 
 
 // static
-bool StructTraits<::blink::mojom::blink::LogoutRpsRequest::DataView, ::blink::mojom::blink::LogoutRpsRequestPtr>::Read(
-    ::blink::mojom::blink::LogoutRpsRequest::DataView input,
-    ::blink::mojom::blink::LogoutRpsRequestPtr* output) {
-  bool success = true;
-  ::blink::mojom::blink::LogoutRpsRequestPtr result(::blink::mojom::blink::LogoutRpsRequest::New());
-  
-      if (success && !input.ReadUrl(&result->url))
-        success = false;
-      if (success && !input.ReadAccountId(&result->account_id))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
 bool StructTraits<::blink::mojom::blink::DigitalCredentialProvider::DataView, ::blink::mojom::blink::DigitalCredentialProviderPtr>::Read(
     ::blink::mojom::blink::DigitalCredentialProvider::DataView input,
     ::blink::mojom::blink::DigitalCredentialProviderPtr* output) {
@@ -2619,6 +2715,12 @@ bool StructTraits<::blink::mojom::blink::DigitalCredentialProvider::DataView, ::
       if (success && !input.ReadParams(&result->params))
         success = false;
       if (success && !input.ReadSelector(&result->selector))
+        success = false;
+      if (success && !input.ReadProtocol(&result->protocol))
+        success = false;
+      if (success && !input.ReadRequest(&result->request))
+        success = false;
+      if (success && !input.ReadPublicKey(&result->publicKey))
         success = false;
   *output = std::move(result);
   return success;
@@ -2668,19 +2770,51 @@ bool StructTraits<::blink::mojom::blink::IdentityProviderConfig::DataView, ::bli
   
       if (success && !input.ReadConfigUrl(&result->config_url))
         success = false;
+      if (success)
+        result->use_registered_config_urls = input.use_registered_config_urls();
       if (success && !input.ReadClientId(&result->client_id))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::blink::mojom::blink::IdentityProviderRequestOptions::DataView, ::blink::mojom::blink::IdentityProviderRequestOptionsPtr>::Read(
+    ::blink::mojom::blink::IdentityProviderRequestOptions::DataView input,
+    ::blink::mojom::blink::IdentityProviderRequestOptionsPtr* output) {
+  bool success = true;
+  ::blink::mojom::blink::IdentityProviderRequestOptionsPtr result(::blink::mojom::blink::IdentityProviderRequestOptions::New());
+  
+      if (success && !input.ReadConfig(&result->config))
         success = false;
       if (success && !input.ReadNonce(&result->nonce))
         success = false;
       if (success && !input.ReadLoginHint(&result->login_hint))
         success = false;
-      if (success && !input.ReadHostedDomain(&result->hosted_domain))
+      if (success && !input.ReadDomainHint(&result->domain_hint))
         success = false;
       if (success && !input.ReadScope(&result->scope))
         success = false;
       if (success && !input.ReadResponseType(&result->responseType))
         success = false;
       if (success && !input.ReadParams(&result->params))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::blink::mojom::blink::IdentityCredentialDisconnectOptions::DataView, ::blink::mojom::blink::IdentityCredentialDisconnectOptionsPtr>::Read(
+    ::blink::mojom::blink::IdentityCredentialDisconnectOptions::DataView input,
+    ::blink::mojom::blink::IdentityCredentialDisconnectOptionsPtr* output) {
+  bool success = true;
+  ::blink::mojom::blink::IdentityCredentialDisconnectOptionsPtr result(::blink::mojom::blink::IdentityCredentialDisconnectOptions::New());
+  
+      if (success && !input.ReadConfig(&result->config))
+        success = false;
+      if (success && !input.ReadAccountHint(&result->account_hint))
         success = false;
   *output = std::move(result);
   return success;
@@ -2749,7 +2883,7 @@ bool UnionTraits<::blink::mojom::blink::IdentityProvider::DataView, ::blink::moj
 
   switch (input.tag()) {
     case Tag::kFederated: {
-      ::blink::mojom::blink::IdentityProviderConfigPtr result_federated;
+      ::blink::mojom::blink::IdentityProviderRequestOptionsPtr result_federated;
       if (!input.ReadFederated(&result_federated))
         return false;
 
@@ -2795,9 +2929,6 @@ void FederatedAuthRequestInterceptorForTesting::CancelTokenRequest() {
 void FederatedAuthRequestInterceptorForTesting::ResolveTokenRequest(const WTF::String& token, ResolveTokenRequestCallback callback) {
   GetForwardingInterface()->ResolveTokenRequest(std::move(token), std::move(callback));
 }
-void FederatedAuthRequestInterceptorForTesting::LogoutRps(WTF::Vector<LogoutRpsRequestPtr> rp_logout_requests, LogoutRpsCallback callback) {
-  GetForwardingInterface()->LogoutRps(std::move(rp_logout_requests), std::move(callback));
-}
 void FederatedAuthRequestInterceptorForTesting::SetIdpSigninStatus(const ::scoped_refptr<const ::blink::SecurityOrigin>& origin, IdpSigninStatus status) {
   GetForwardingInterface()->SetIdpSigninStatus(std::move(origin), std::move(status));
 }
@@ -2813,20 +2944,23 @@ void FederatedAuthRequestInterceptorForTesting::CloseModalDialogView() {
 void FederatedAuthRequestInterceptorForTesting::PreventSilentAccess(PreventSilentAccessCallback callback) {
   GetForwardingInterface()->PreventSilentAccess(std::move(callback));
 }
+void FederatedAuthRequestInterceptorForTesting::Disconnect(IdentityCredentialDisconnectOptionsPtr options, DisconnectCallback callback) {
+  GetForwardingInterface()->Disconnect(std::move(options), std::move(callback));
+}
 FederatedAuthRequestAsyncWaiter::FederatedAuthRequestAsyncWaiter(
     FederatedAuthRequest* proxy) : proxy_(proxy) {}
 
 FederatedAuthRequestAsyncWaiter::~FederatedAuthRequestAsyncWaiter() = default;
 
 void FederatedAuthRequestAsyncWaiter::RequestToken(
-    WTF::Vector<IdentityProviderGetParametersPtr> idp_get_params, ::blink::mojom::blink::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, absl::optional<::blink::KURL>* out_selected_identity_provider_config_url, WTF::String* out_token, TokenErrorPtr* out_error, bool* out_is_auto_selected) {
+    WTF::Vector<IdentityProviderGetParametersPtr> idp_get_params, ::blink::mojom::blink::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, std::optional<::blink::KURL>* out_selected_identity_provider_config_url, WTF::String* out_token, TokenErrorPtr* out_error, bool* out_is_auto_selected) {
   base::RunLoop loop;
   proxy_->RequestToken(std::move(idp_get_params),std::move(requirement),
       base::BindOnce(
           [](base::RunLoop* loop,
              RequestTokenStatus* out_status
 ,
-             absl::optional<::blink::KURL>* out_selected_identity_provider_config_url
+             std::optional<::blink::KURL>* out_selected_identity_provider_config_url
 ,
              WTF::String* out_token
 ,
@@ -2835,7 +2969,7 @@ void FederatedAuthRequestAsyncWaiter::RequestToken(
              bool* out_is_auto_selected
 ,
              RequestTokenStatus status,
-             const absl::optional<::blink::KURL>& selected_identity_provider_config_url,
+             const std::optional<::blink::KURL>& selected_identity_provider_config_url,
              const WTF::String& token,
              TokenErrorPtr error,
              bool is_auto_selected) {*out_status = std::move(status);*out_selected_identity_provider_config_url = std::move(selected_identity_provider_config_url);*out_token = std::move(token);*out_error = std::move(error);*out_is_auto_selected = std::move(is_auto_selected);
@@ -2853,17 +2987,17 @@ void FederatedAuthRequestAsyncWaiter::RequestToken(
 
 
 void FederatedAuthRequestAsyncWaiter::RequestUserInfo(
-    IdentityProviderConfigPtr provider, RequestUserInfoStatus* out_status, absl::optional<WTF::Vector<IdentityUserInfoPtr>>* out_user_info) {
+    IdentityProviderConfigPtr provider, RequestUserInfoStatus* out_status, std::optional<WTF::Vector<IdentityUserInfoPtr>>* out_user_info) {
   base::RunLoop loop;
   proxy_->RequestUserInfo(std::move(provider),
       base::BindOnce(
           [](base::RunLoop* loop,
              RequestUserInfoStatus* out_status
 ,
-             absl::optional<WTF::Vector<IdentityUserInfoPtr>>* out_user_info
+             std::optional<WTF::Vector<IdentityUserInfoPtr>>* out_user_info
 ,
              RequestUserInfoStatus status,
-             absl::optional<WTF::Vector<IdentityUserInfoPtr>> user_info) {*out_status = std::move(status);*out_user_info = std::move(user_info);
+             std::optional<WTF::Vector<IdentityUserInfoPtr>> user_info) {*out_status = std::move(status);*out_user_info = std::move(user_info);
             loop->Quit();
           },
           &loop,
@@ -2894,29 +3028,6 @@ bool FederatedAuthRequestAsyncWaiter::ResolveTokenRequest(
     const WTF::String& token) {
   bool async_wait_result;
   ResolveTokenRequest(std::move(token),&async_wait_result);
-  return async_wait_result;
-}
-
-void FederatedAuthRequestAsyncWaiter::LogoutRps(
-    WTF::Vector<LogoutRpsRequestPtr> rp_logout_requests, LogoutRpsStatus* out_status) {
-  base::RunLoop loop;
-  proxy_->LogoutRps(std::move(rp_logout_requests),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             LogoutRpsStatus* out_status
-,
-             LogoutRpsStatus status) {*out_status = std::move(status);
-            loop->Quit();
-          },
-          &loop,
-          out_status));
-  loop.Run();
-}
-
-LogoutRpsStatus FederatedAuthRequestAsyncWaiter::LogoutRps(
-    WTF::Vector<LogoutRpsRequestPtr> rp_logout_requests) {
-  LogoutRpsStatus async_wait_result;
-  LogoutRps(std::move(rp_logout_requests),&async_wait_result);
   return async_wait_result;
 }
 
@@ -2979,6 +3090,29 @@ void FederatedAuthRequestAsyncWaiter::PreventSilentAccess(
 }
 
 
+
+void FederatedAuthRequestAsyncWaiter::Disconnect(
+    IdentityCredentialDisconnectOptionsPtr options, DisconnectStatus* out_status) {
+  base::RunLoop loop;
+  proxy_->Disconnect(std::move(options),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             DisconnectStatus* out_status
+,
+             DisconnectStatus status) {*out_status = std::move(status);
+            loop->Quit();
+          },
+          &loop,
+          out_status));
+  loop.Run();
+}
+
+DisconnectStatus FederatedAuthRequestAsyncWaiter::Disconnect(
+    IdentityCredentialDisconnectOptionsPtr options) {
+  DisconnectStatus async_wait_result;
+  Disconnect(std::move(options),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

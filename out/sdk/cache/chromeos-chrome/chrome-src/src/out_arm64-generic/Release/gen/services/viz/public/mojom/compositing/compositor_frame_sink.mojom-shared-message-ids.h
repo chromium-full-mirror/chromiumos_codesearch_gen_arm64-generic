@@ -30,6 +30,7 @@ constexpr uint32_t kCompositorFrameSinkClient_OnBeginFrame_Name = 1;
 constexpr uint32_t kCompositorFrameSinkClient_OnBeginFramePausedChanged_Name = 2;
 constexpr uint32_t kCompositorFrameSinkClient_ReclaimResources_Name = 3;
 constexpr uint32_t kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name = 4;
+constexpr uint32_t kCompositorFrameSinkClient_OnSurfaceEvicted_Name = 5;
 
 }  // namespace internal
 

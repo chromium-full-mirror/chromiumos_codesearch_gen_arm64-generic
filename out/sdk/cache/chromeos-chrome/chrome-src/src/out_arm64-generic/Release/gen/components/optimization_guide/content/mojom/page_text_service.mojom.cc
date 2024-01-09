@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -179,14 +180,17 @@ void PageTextConsumerProxy::OnTextDumpChunk(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageTextConsumer_OnTextDumpChunk_Name, kFlags, 0, 0, nullptr);
@@ -220,14 +224,17 @@ void PageTextConsumerProxy::OnChunksEnd(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send optimization_guide::mojom::PageTextConsumer::OnChunksEnd");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageTextConsumer_OnChunksEnd_Name, kFlags, 0, 0, nullptr);
@@ -320,12 +327,12 @@ bool PageTextConsumerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageTextConsumerValidationInfo[] = {
-    {&internal::PageTextConsumer_OnTextDumpChunk_Params_Data::Validate,
+    { &internal::PageTextConsumer_OnTextDumpChunk_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageTextConsumer_OnChunksEnd_Params_Data::Validate,
+    { &internal::PageTextConsumer_OnChunksEnd_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -408,14 +415,17 @@ void PageTextServiceProxy::RequestPageTextDump(
                         "<value of type ::mojo::PendingRemote<PageTextConsumer>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageTextService_RequestPageTextDump_Name, kFlags, 0, 0, nullptr);
@@ -506,10 +516,10 @@ bool PageTextServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageTextServiceValidationInfo[] = {
-    {&internal::PageTextService_RequestPageTextDump_Params_Data::Validate,
+    { &internal::PageTextService_RequestPageTextDump_Params_Data::Validate,
      nullptr /* no response */},
 };
 

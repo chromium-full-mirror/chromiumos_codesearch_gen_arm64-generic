@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/iterator-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -117,7 +118,7 @@ TF_BUILTIN(GetIteratorWithFeedback, CodeStubAssembler) {
   if (block11.is_used()) {
     ca_.Bind(&block11);
     tmp2 = CodeStubAssembler(state_).IteratorSymbolConstant();
-    tmp3 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kLoadIC), parameter0, parameter1, tmp2, parameter2, ca_.UncheckedCast<FeedbackVector>(parameter4));
+    tmp3 = ca_.CallBuiltin<Object>(Builtin::kLoadIC, parameter0, parameter1, tmp2, parameter2, ca_.UncheckedCast<FeedbackVector>(parameter4));
     ca_.Goto(&block8, tmp3);
   }
 
@@ -136,7 +137,7 @@ TF_BUILTIN(GetIteratorWithFeedback, CodeStubAssembler) {
   if (block8.is_used()) {
     ca_.Bind(&block8, &phi_bb8_5);
     tmp6 = CodeStubAssembler(state_).TaggedIndexToSmi(TNode<TaggedIndex>{parameter3});
-    tmp7 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kCallIteratorWithFeedback), parameter0, parameter1, phi_bb8_5, tmp6, parameter4);
+    tmp7 = ca_.CallBuiltin<Object>(Builtin::kCallIteratorWithFeedback, parameter0, parameter1, phi_bb8_5, tmp6, parameter4);
     CodeStubAssembler(state_).Return(tmp7);
   }
 }
@@ -163,9 +164,9 @@ TF_BUILTIN(GetIteratorBaseline, CodeStubAssembler) {
     tmp0 = CodeStubAssembler(state_).LoadContextFromBaseline();
     tmp1 = CodeStubAssembler(state_).LoadFeedbackVectorFromBaseline();
     tmp2 = CodeStubAssembler(state_).IteratorSymbolConstant();
-    tmp3 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kLoadIC), tmp0, parameter0, tmp2, parameter1, tmp1);
+    tmp3 = ca_.CallBuiltin<Object>(Builtin::kLoadIC, tmp0, parameter0, tmp2, parameter1, tmp1);
     tmp4 = CodeStubAssembler(state_).TaggedIndexToSmi(TNode<TaggedIndex>{parameter2});
-    tmp5 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kCallIteratorWithFeedback), tmp0, parameter0, tmp3, tmp4, tmp1);
+    tmp5 = ca_.CallBuiltin<Object>(Builtin::kCallIteratorWithFeedback, tmp0, parameter0, tmp3, tmp4, tmp1);
     CodeStubAssembler(state_).Return(tmp5);
   }
 }
@@ -187,7 +188,7 @@ TF_BUILTIN(CreateAsyncFromSyncIteratorBaseline, CodeStubAssembler) {
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=104&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=107&c=1
 TorqueStructIteratorRecord GetIteratorRecordAfterCreateAsyncFromSyncIterator_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TorqueStructIteratorRecord p_asyncIterator) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -212,7 +213,7 @@ TorqueStructIteratorRecord GetIteratorRecordAfterCreateAsyncFromSyncIterator_0(c
   return TorqueStructIteratorRecord{TNode<JSReceiver>{tmp3}, TNode<Object>{tmp2}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=116&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=119&c=1
 TNode<Object> GetLazyReceiver_0(compiler::CodeAssemblerState* state_, TNode<Object> p_receiver) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -280,7 +281,7 @@ TF_BUILTIN(CallIteratorWithFeedback, CodeStubAssembler) {
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=138&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=141&c=1
 void IteratorCloseOnException_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TorqueStructIteratorRecord p_iterator) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -458,7 +459,7 @@ void IteratorCloseOnException_0(compiler::CodeAssemblerState* state_, TNode<Cont
     ca_.Bind(&block14);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=160&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=163&c=1
 void IteratorClose_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TorqueStructIteratorRecord p_iterator) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -598,6 +599,167 @@ USE(parameter3);
     tmp4 = GetDerivedMap_0(state_, TNode<Context>{parameter0}, TNode<JSFunction>{parameter3}, TNode<JSReceiver>{tmp3});
     tmp5 = AllocateFastOrSlowJSObjectFromMap_0(state_, TNode<Context>{parameter0}, TNode<Map>{tmp4});
     CodeStubAssembler(state_).Return(tmp5);
+  }
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/iterator.tq?l=208&c=1
+TNode<Object> SetterThatIgnoresPrototypeProperties_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_receiver, TNode<JSObject> p_home, TNode<Object> p_key, TNode<Object> p_value, const char* p_methodName) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block4(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block7(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block8(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block9(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block10(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block11(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<JSReceiver> tmp0;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    compiler::CodeAssemblerLabel label1(&ca_);
+    tmp0 = Cast_JSReceiver_1(state_, TNode<Context>{p_context}, TNode<Object>{p_receiver}, &label1);
+    ca_.Goto(&block4);
+    if (label1.is_used()) {
+      ca_.Bind(&label1);
+      ca_.Goto(&block5);
+    }
+  }
+
+  if (block5.is_used()) {
+    ca_.Bind(&block5);
+    CodeStubAssembler(state_).ThrowTypeError(TNode<Context>{p_context}, MessageTemplate::kCalledOnNonObject, p_methodName);
+  }
+
+  TNode<BoolT> tmp2;
+  if (block4.is_used()) {
+    ca_.Bind(&block4);
+    tmp2 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp0}, TNode<HeapObject>{p_home});
+    ca_.Branch(tmp2, &block6, std::vector<compiler::Node*>{}, &block7, std::vector<compiler::Node*>{});
+  }
+
+  TNode<String> tmp3;
+  if (block6.is_used()) {
+    ca_.Bind(&block6);
+    tmp3 = CodeStubAssembler(state_).objectStringConstant();
+    CodeStubAssembler(state_).ThrowTypeError(TNode<Context>{p_context}, MessageTemplate::kStrictReadOnlyProperty, TNode<Object>{p_key}, TNode<Object>{tmp3}, TNode<Object>{p_home});
+  }
+
+  TNode<Boolean> tmp4;
+  TNode<False> tmp5;
+  TNode<BoolT> tmp6;
+  if (block7.is_used()) {
+    ca_.Bind(&block7);
+    tmp4 = TORQUE_CAST(CodeStubAssembler(state_).CallRuntime(Runtime::kObjectHasOwnProperty, p_context, tmp0, p_key)); 
+    tmp5 = False_0(state_);
+    tmp6 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp4}, TNode<HeapObject>{tmp5});
+    ca_.Branch(tmp6, &block8, std::vector<compiler::Node*>{}, &block9, std::vector<compiler::Node*>{});
+  }
+
+  if (block8.is_used()) {
+    ca_.Bind(&block8);
+    CodeStubAssembler(state_).CallRuntime(Runtime::kCreateDataProperty, p_context, tmp0, p_key, p_value);
+    ca_.Goto(&block10);
+  }
+
+  TNode<Object> tmp7;
+  if (block9.is_used()) {
+    ca_.Bind(&block9);
+    tmp7 = ca_.CallBuiltin<Object>(Builtin::kSetProperty, p_context, tmp0, p_key, p_value);
+    ca_.Goto(&block10);
+  }
+
+  TNode<Undefined> tmp8;
+  if (block10.is_used()) {
+    ca_.Bind(&block10);
+    tmp8 = Undefined_0(state_);
+    ca_.Goto(&block11);
+  }
+
+    ca_.Bind(&block11);
+  return TNode<Object>{tmp8};
+}
+
+TF_BUILTIN(IteratorPrototypeGetToStringTag, CodeStubAssembler) {
+  compiler::CodeAssemblerState* state_ = state();  compiler::CodeAssembler ca_(state());
+  TNode<NativeContext> parameter0 = UncheckedParameter<NativeContext>(Descriptor::kContext);
+  USE(parameter0);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<String> tmp0;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = CodeStubAssembler(state_).IteratorStringConstant();
+    CodeStubAssembler(state_).Return(tmp0);
+  }
+}
+
+TF_BUILTIN(IteratorPrototypeSetToStringTag, CodeStubAssembler) {
+  compiler::CodeAssemblerState* state_ = state();  compiler::CodeAssembler ca_(state());
+  TNode<NativeContext> parameter0 = UncheckedParameter<NativeContext>(Descriptor::kContext);
+  USE(parameter0);
+  TNode<Object> parameter1 = UncheckedParameter<Object>(Descriptor::kReceiver);
+  USE(parameter1);
+  TNode<Object> parameter2 = UncheckedParameter<Object>(Descriptor::kValue);
+  USE(parameter2);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<JSObject> tmp0;
+  TNode<Symbol> tmp1;
+  TNode<Object> tmp2;
+  TNode<Undefined> tmp3;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = GetIteratorPrototype_0(state_, TNode<Context>{parameter0});
+    tmp1 = CodeStubAssembler(state_).ToStringTagSymbolConstant();
+    tmp2 = SetterThatIgnoresPrototypeProperties_0(state_, TNode<Context>{parameter0}, TNode<Object>{parameter1}, TNode<JSObject>{tmp0}, TNode<Object>{tmp1}, TNode<Object>{parameter2}, "set Iterator.prototype[Symbol.toStringTag]");
+    tmp3 = Undefined_0(state_);
+    CodeStubAssembler(state_).Return(tmp3);
+  }
+}
+
+TF_BUILTIN(IteratorPrototypeGetConstructor, CodeStubAssembler) {
+  compiler::CodeAssemblerState* state_ = state();  compiler::CodeAssembler ca_(state());
+  TNode<NativeContext> parameter0 = UncheckedParameter<NativeContext>(Descriptor::kContext);
+  USE(parameter0);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<JSFunction> tmp0;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = GetIteratorFunction_0(state_, TNode<Context>{parameter0});
+    CodeStubAssembler(state_).Return(tmp0);
+  }
+}
+
+TF_BUILTIN(IteratorPrototypeSetConstructor, CodeStubAssembler) {
+  compiler::CodeAssemblerState* state_ = state();  compiler::CodeAssembler ca_(state());
+  TNode<NativeContext> parameter0 = UncheckedParameter<NativeContext>(Descriptor::kContext);
+  USE(parameter0);
+  TNode<Object> parameter1 = UncheckedParameter<Object>(Descriptor::kReceiver);
+  USE(parameter1);
+  TNode<Object> parameter2 = UncheckedParameter<Object>(Descriptor::kValue);
+  USE(parameter2);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<JSObject> tmp0;
+  TNode<String> tmp1;
+  TNode<Object> tmp2;
+  TNode<Undefined> tmp3;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = GetIteratorPrototype_0(state_, TNode<Context>{parameter0});
+    tmp1 = CodeStubAssembler(state_).ConstructorStringConstant();
+    tmp2 = SetterThatIgnoresPrototypeProperties_0(state_, TNode<Context>{parameter0}, TNode<Object>{parameter1}, TNode<JSObject>{tmp0}, TNode<Object>{tmp1}, TNode<Object>{parameter2}, "set Iterator.prototype.constructor");
+    tmp3 = Undefined_0(state_);
+    CodeStubAssembler(state_).Return(tmp3);
   }
 }
 

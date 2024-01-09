@@ -56,8 +56,12 @@ bool MemoryPressure_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 24 },
+    { 1, 32 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -70,12 +74,17 @@ bool MemoryPressure_Data::Validate(
   if (!::crosapi::mojom::internal::MemoryPressureLevel_Data
         ::Validate(object->level, validation_context))
     return false;
+  if (object->header_.version < 1)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->signal_origin, validation_context))
+    return false;
 
   return true;
 }
 
 MemoryPressure_Data::MemoryPressure_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static

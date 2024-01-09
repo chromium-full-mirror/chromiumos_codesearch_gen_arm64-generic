@@ -46,6 +46,11 @@ export class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleEleme
                 value: () => [],
                 observer: 'onSitesChanged_',
             },
+            // If set to true, users of this class MUST call animateShow() after
+            // adding any items added to |sites|, otherwise these will not be
+            // properly rendered. Users SHOULD also call animateHide() on any item
+            // before removing it from |sites|, to apply the reverse animation.
+            animated: { type: Boolean, value: false },
             // The string for the header label.
             header: String,
             // The string for the subheader label.
@@ -205,15 +210,13 @@ export class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleEleme
         }));
     }
     onHeaderIconChanged_() {
-        switch (this.headerIcon) {
-            case 'cr:check':
-                this.headerIconColor = 'green';
-                break;
-            case 'settings:shield-with-heart':
-                this.headerIconColor = 'blue';
-                break;
-            default:
-                this.headerIconColor = '';
+        // The check icon is always green for all Safety Hub modules.
+        if (this.headerIcon === 'cr:check') {
+            this.headerIconColor = 'green';
+            // The Safety Check icon color is managed in specific Safety Hub modules.
+        }
+        else if (this.headerIcon !== 'cr:security') {
+            this.headerIconColor = '';
         }
     }
     onShowTooltip_(e) {

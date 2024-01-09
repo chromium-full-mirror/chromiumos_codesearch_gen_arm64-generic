@@ -2,12 +2,12 @@
 	"package": "7091ee19920ef749a9bfdcffacaf0b293198e5889409f1bf566511a58017586d",
 	"files": {
 		"c_metrics_library.h": "d23f54899d2dddce6ae05e0b2b61930ca3630c8cde8b55777ee1fd0d1f598d80",
+		"Cargo.lock": "d67be43b7040bf7e63ce34ca2ef307a368693969e869b80f237447234a10b4b3",
+		"Cargo.toml.orig": "256fb2f561ffd82014c4f64c5e6d7fda631c696cdf36641c464e123e13f7a585",
 		"build.rs": "bdf72b6bafec90becd76d7e76b520f6e603e63f2d23bd25b5f764b13fd11ed43",
+		"src/lib.rs": "1f45cf1885602d0f078d870b5a95351d7aaad3b49ac2e443672c582ec114546a",
 		"README.md": "97c5832921c83b40f1890d105b74c2a1f8bb03154a03a223ed2ecaa44bf25db3",
 		"Cargo.toml": "5eafaf13eae8ea798362a01f9e558767fb7fdeee58c62d4f20be34da2ff010e3",
-		"examples/metrics.rs": "b84b1bc315d2950b0433589591d7c6ef48c6cda608cdaa1c8b92f09bf1b43b0d",
-		"Cargo.toml.orig": "256fb2f561ffd82014c4f64c5e6d7fda631c696cdf36641c464e123e13f7a585",
-		"Cargo.lock": "d67be43b7040bf7e63ce34ca2ef307a368693969e869b80f237447234a10b4b3",
-		"src/lib.rs": "1f45cf1885602d0f078d870b5a95351d7aaad3b49ac2e443672c582ec114546a"
+		"examples/metrics.rs": "b84b1bc315d2950b0433589591d7c6ef48c6cda608cdaa1c8b92f09bf1b43b0d"
 	}
 }

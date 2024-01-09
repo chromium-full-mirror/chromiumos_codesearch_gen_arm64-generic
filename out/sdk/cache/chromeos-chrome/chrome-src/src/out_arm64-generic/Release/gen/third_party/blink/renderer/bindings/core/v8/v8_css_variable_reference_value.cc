@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSStyleVariableReferenceValue>::value,
     "CSSStyleVariableReferenceValue inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSStyleVariableReferenceValue::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSStyleVariableReferenceValue is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSVariableReferenceValue.variable.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleVariableReferenceValue* blink_receiver = V8CSSVariableReferenceValue::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->variable();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSStyleVariableReferenceValue* blink_receiver = V8CSSVariableReferenceValue::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->variable();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,9 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSVariableReferenceValue.variable.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleVariableReferenceValue* blink_receiver = V8CSSVariableReferenceValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSStyleVariableReferenceValue* blink_receiver = V8CSSVariableReferenceValue::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSVariableReferenceValue";
@@ -127,8 +122,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSVariableReferenceValue.fallback.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleVariableReferenceValue* blink_receiver = V8CSSVariableReferenceValue::ToWrappableUnsafe(v8_receiver);
+CSSStyleVariableReferenceValue* blink_receiver = V8CSSVariableReferenceValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fallback();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

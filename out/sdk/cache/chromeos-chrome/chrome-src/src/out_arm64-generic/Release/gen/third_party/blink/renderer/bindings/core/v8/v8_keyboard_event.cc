@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, KeyboardEvent>::value,
     "KeyboardEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&KeyboardEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "KeyboardEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.key.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->key();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->key();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -106,10 +101,10 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.code.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->code();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->code();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -121,8 +116,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.location.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->location();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -135,8 +131,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.ctrlKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ctrlKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -149,8 +146,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.shiftKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->shiftKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -163,8 +161,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.altKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->altKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -177,8 +176,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.metaKey.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->metaKey();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -191,8 +191,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.repeat.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->repeat();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -205,8 +206,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.isComposing.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isComposing();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -219,8 +221,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.charCode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->charCode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -233,8 +236,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.keyCode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->keyCode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -247,8 +251,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -311,9 +316,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyboardEvent.getModifierState");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "KeyboardEvent";
 const char* const property_name = "getModifierState";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -324,13 +329,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_key_arg;
 if (LIKELY(info[0]->IsString())) {
-  arg1_key_arg.Init(info[0].As<v8::String>());
+  arg1_key_arg.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "KeyboardEvent";
 const char* const property_name = "getModifierState";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -368,7 +372,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(v8_receiver);
+KeyboardEvent* blink_receiver = V8KeyboardEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

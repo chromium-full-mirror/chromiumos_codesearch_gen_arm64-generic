@@ -6,11 +6,9 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { addWebUiListener } from 'chrome://resources/js/cr.js';
 let instance = null;
 class TrafficLogTag {
-    constructor() {
-        this.container = null;
-        this.protocolEvents = [];
-        this.knownEventTimestamps = new Set();
-    }
+    container = null;
+    protocolEvents = [];
+    knownEventTimestamps = new Set();
     /**
      * Helper to determine if the window is scrolled to its bottom limit.
      * @return true if the container is scrolled to the bottom

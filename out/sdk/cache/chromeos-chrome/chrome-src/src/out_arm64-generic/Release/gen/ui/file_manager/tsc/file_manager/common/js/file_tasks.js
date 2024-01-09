@@ -1,11 +1,11 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import '../../externs/ts/state.js';
-import '../../foreground/js/task_history.js';
-import { FileType } from './file_type.js';
+import { FileData } from '../../externs/ts/state.js';
+import { TaskHistory } from '../../foreground/js/task_history.js';
+import { getIcon } from './file_type.js';
+import { str } from './translations.js';
 import { LEGACY_FILES_EXTENSION_ID, SWA_APP_ID, SWA_FILES_APP_URL, toFilesAppURL } from './url_constants.js';
-import { str } from './util.js';
 /**
  * The SWA actionId is prefixed with chrome://file-manager/?ACTION_ID, just the
  * sub-string compatible with the extension/legacy e.g.: "view-pdf".
@@ -86,7 +86,7 @@ export function annotateTasks(tasks, entries) {
                     annotateTask.iconType = 'generic';
                 }
                 else { // Use specific icon.
-                    annotateTask.iconType = FileType.getIcon(entries[0]);
+                    annotateTask.iconType = getIcon(entries[0]);
                 }
                 annotateTask.title = str('TASK_OPEN');
             }

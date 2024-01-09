@@ -1333,6 +1333,24 @@ struct zcr_remote_surface_v2_interface {
 					uint32_t upper_right_radius,
 					uint32_t lower_right_radius,
 					uint32_t lower_left_radius);
+	/**
+	 * Request to apply rounded corners to the shadow of the surface.
+	 *
+	 * The client specifies the radius of each corner to be applied
+	 * to the shadow associated with the aura toplevel surface in
+	 * device independent pixels (DPs).
+	 *
+	 * The shadow radius is double buffered, and will be applied at the
+	 * time wl_surface.commit of the corresponding wl_surface is
+	 * called.
+	 * @since 6
+	 */
+	void (*set_shadow_corner_radii)(struct wl_client *client,
+					struct wl_resource *resource,
+					uint32_t upper_left_radius,
+					uint32_t upper_right_radius,
+					uint32_t lower_right_radius,
+					uint32_t lower_left_radius);
 };
 
 #define ZCR_REMOTE_SURFACE_V2_CLOSE 0
@@ -1545,6 +1563,10 @@ struct zcr_remote_surface_v2_interface {
  * @ingroup iface_zcr_remote_surface_v2
  */
 #define ZCR_REMOTE_SURFACE_V2_SET_WINDOW_CORNER_RADII_SINCE_VERSION 5
+/**
+ * @ingroup iface_zcr_remote_surface_v2
+ */
+#define ZCR_REMOTE_SURFACE_V2_SET_SHADOW_CORNER_RADII_SINCE_VERSION 6
 
 /**
  * @ingroup iface_zcr_remote_surface_v2

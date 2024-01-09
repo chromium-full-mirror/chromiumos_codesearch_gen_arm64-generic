@@ -34,9 +34,8 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/lorgnette/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/lorgnette/_lorgnette-install_config.stamp: stamp
-build obj/lorgnette/all.stamp: stamp obj/lorgnette/install_dbus_config.stamp obj/lorgnette/install_init.stamp obj/lorgnette/install_minijail_config.stamp obj/lorgnette/install_system_service.stamp ./lorgnette ./lorgnette_cli obj/lorgnette/tmpfiles.d/tmpfiles.d.stamp ./lorgnette_cli_unittest ./lorgnette_unittest
+build obj/lorgnette/all.stamp: stamp obj/lorgnette/install_dbus_config.stamp obj/lorgnette/install_init.stamp obj/lorgnette/install_minijail_config.stamp obj/lorgnette/install_system_service.stamp ./lorgnette ./lorgnette_cli obj/lorgnette/tmpfiles.d/tmpfiles.d.stamp
 build obj/lorgnette/install_dbus_config.stamp: stamp
 build obj/lorgnette/install_init.stamp: stamp
 build obj/lorgnette/install_minijail_config.stamp: stamp
@@ -62,7 +61,5 @@ build gen/include/lorgnette/dbus-proxies.h: __lorgnette_lorgnette-proxies___comm
 
 build obj/lorgnette/lorgnette-proxies.stamp: stamp gen/include/lorgnette/dbus-proxies.h
 subninja obj/lorgnette/lorgnette_cli.ninja
-subninja obj/lorgnette/lorgnette_cli_unittest.ninja
-subninja obj/lorgnette/lorgnette_unittest.ninja
 build obj/lorgnette/tmpfiles.d/install_tmpfiles_config.stamp: stamp
 build obj/lorgnette/tmpfiles.d/tmpfiles.d.stamp: stamp obj/lorgnette/tmpfiles.d/install_tmpfiles_config.stamp

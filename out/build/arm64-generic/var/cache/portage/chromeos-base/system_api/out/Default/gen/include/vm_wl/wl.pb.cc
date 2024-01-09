@@ -4,127 +4,140 @@
 #include "vm_wl/wl.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace vm_tools {
 namespace wl {
+template <typename>
 PROTOBUF_CONSTEXPR VmDescription::VmDescription(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.type_)*/0
+    /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.owner_id_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.type_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct VmDescriptionDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR VmDescriptionDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR VmDescriptionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~VmDescriptionDefaultTypeInternal() {}
   union {
     VmDescription _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmDescriptionDefaultTypeInternal _VmDescription_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmDescriptionDefaultTypeInternal _VmDescription_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ListenOnSocketRequest::ListenOnSocketRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.desc_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.desc_)*/nullptr} {}
 struct ListenOnSocketRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ListenOnSocketRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ListenOnSocketRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ListenOnSocketRequestDefaultTypeInternal() {}
   union {
     ListenOnSocketRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListenOnSocketRequestDefaultTypeInternal _ListenOnSocketRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListenOnSocketRequestDefaultTypeInternal _ListenOnSocketRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CloseSocketRequest::CloseSocketRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.desc_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.desc_)*/nullptr} {}
 struct CloseSocketRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CloseSocketRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CloseSocketRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CloseSocketRequestDefaultTypeInternal() {}
   union {
     CloseSocketRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CloseSocketRequestDefaultTypeInternal _CloseSocketRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CloseSocketRequestDefaultTypeInternal _CloseSocketRequest_default_instance_;
 }  // namespace wl
 }  // namespace vm_tools
 namespace vm_tools {
 namespace wl {
-
 // ===================================================================
 
 class VmDescription::_Internal {
  public:
 };
 
-VmDescription::VmDescription(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+VmDescription::VmDescription(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.wl.VmDescription)
 }
 VmDescription::VmDescription(const VmDescription& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   VmDescription* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.owner_id_){}
-    , decltype(_impl_.type_){}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.owner_id_) {}
+
+    , decltype(_impl_.type_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   _impl_.owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.owner_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_owner_id().empty()) {
-    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), _this->GetArenaForAllocation());
   }
   _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.wl.VmDescription)
 }
 
-inline void VmDescription::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void VmDescription::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.owner_id_){}
-    , decltype(_impl_.type_){0}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.owner_id_) {}
+
+    , decltype(_impl_.type_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.owner_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 VmDescription::~VmDescription() {
@@ -137,7 +150,7 @@ VmDescription::~VmDescription() {
 }
 
 inline void VmDescription::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
   _impl_.owner_id_.Destroy();
 }
@@ -148,7 +161,7 @@ void VmDescription::SetCachedSize(int size) const {
 
 void VmDescription::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.wl.VmDescription)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -161,37 +174,40 @@ void VmDescription::Clear() {
 const char* VmDescription::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // string owner_id = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_owner_id();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .vm_tools.apps.VmType type = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_type(static_cast<::vm_tools::apps::VmType>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -216,37 +232,33 @@ failure:
 #undef CHK_
 }
 
-uint8_t* VmDescription::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* VmDescription::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.wl.VmDescription)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
+    const std::string& _s = this->_internal_name();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.wl.VmDescription.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "vm_tools.wl.VmDescription.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // string owner_id = 2;
   if (!this->_internal_owner_id().empty()) {
+    const std::string& _s = this->_internal_owner_id();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_owner_id().data(), static_cast<int>(this->_internal_owner_id().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.wl.VmDescription.owner_id");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_owner_id(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "vm_tools.wl.VmDescription.owner_id");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // .vm_tools.apps.VmType type = 3;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      3, this->_internal_type(), target);
+        3, this->_internal_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -257,32 +269,30 @@ uint8_t* VmDescription::_InternalSerialize(
   return target;
 }
 
-size_t VmDescription::ByteSizeLong() const {
+::size_t VmDescription::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.wl.VmDescription)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
   }
 
   // string owner_id = 2;
   if (!this->_internal_owner_id().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_owner_id());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_owner_id());
   }
 
   // .vm_tools.apps.VmType type = 3;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -302,8 +312,8 @@ void VmDescription::CheckTypeAndMergeFrom(
 void VmDescription::MergeFrom(const VmDescription& from) {
   VmDescription* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.wl.VmDescription)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
@@ -334,14 +344,10 @@ void VmDescription::InternalSwap(VmDescription* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.owner_id_, lhs_arena,
-      &other->_impl_.owner_id_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.owner_id_, lhs_arena,
+                                       &other->_impl_.owner_id_, rhs_arena);
   swap(_impl_.type_, other->_impl_.type_);
 }
 
@@ -349,45 +355,49 @@ std::string VmDescription::GetTypeName() const {
   return "vm_tools.wl.VmDescription";
 }
 
-
 // ===================================================================
 
 class ListenOnSocketRequest::_Internal {
  public:
+  using HasBits = decltype(std::declval<ListenOnSocketRequest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ListenOnSocketRequest, _impl_._has_bits_);
   static const ::vm_tools::wl::VmDescription& desc(const ListenOnSocketRequest* msg);
+  static void set_has_desc(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::vm_tools::wl::VmDescription&
 ListenOnSocketRequest::_Internal::desc(const ListenOnSocketRequest* msg) {
   return *msg->_impl_.desc_;
 }
-ListenOnSocketRequest::ListenOnSocketRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ListenOnSocketRequest::ListenOnSocketRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.wl.ListenOnSocketRequest)
 }
 ListenOnSocketRequest::ListenOnSocketRequest(const ListenOnSocketRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   ListenOnSocketRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.desc_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.desc_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_desc()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.desc_ = new ::vm_tools::wl::VmDescription(*from._impl_.desc_);
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.wl.ListenOnSocketRequest)
 }
 
-inline void ListenOnSocketRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ListenOnSocketRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.desc_){nullptr}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.desc_){nullptr}
   };
 }
 
@@ -401,7 +411,7 @@ ListenOnSocketRequest::~ListenOnSocketRequest() {
 }
 
 inline void ListenOnSocketRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.desc_;
 }
 
@@ -411,30 +421,34 @@ void ListenOnSocketRequest::SetCachedSize(int size) const {
 
 void ListenOnSocketRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.wl.ListenOnSocketRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.desc_ != nullptr) {
-    delete _impl_.desc_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.desc_ != nullptr);
+    _impl_.desc_->Clear();
   }
-  _impl_.desc_ = nullptr;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* ListenOnSocketRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.wl.VmDescription desc = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_desc(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -452,6 +466,7 @@ const char* ListenOnSocketRequest::_InternalParse(const char* ptr, ::_pbi::Parse
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -459,14 +474,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ListenOnSocketRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ListenOnSocketRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.wl.ListenOnSocketRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .vm_tools.wl.VmDescription desc = 1;
-  if (this->_internal_has_desc()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::desc(this),
         _Internal::desc(this).GetCachedSize(), target, stream);
@@ -480,16 +496,17 @@ uint8_t* ListenOnSocketRequest::_InternalSerialize(
   return target;
 }
 
-size_t ListenOnSocketRequest::ByteSizeLong() const {
+::size_t ListenOnSocketRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.wl.ListenOnSocketRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .vm_tools.wl.VmDescription desc = 1;
-  if (this->_internal_has_desc()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.desc_);
@@ -512,11 +529,11 @@ void ListenOnSocketRequest::CheckTypeAndMergeFrom(
 void ListenOnSocketRequest::MergeFrom(const ListenOnSocketRequest& from) {
   ListenOnSocketRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.wl.ListenOnSocketRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_desc()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_desc()->::vm_tools::wl::VmDescription::MergeFrom(
         from._internal_desc());
   }
@@ -537,6 +554,7 @@ bool ListenOnSocketRequest::IsInitialized() const {
 void ListenOnSocketRequest::InternalSwap(ListenOnSocketRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   swap(_impl_.desc_, other->_impl_.desc_);
 }
 
@@ -544,45 +562,49 @@ std::string ListenOnSocketRequest::GetTypeName() const {
   return "vm_tools.wl.ListenOnSocketRequest";
 }
 
-
 // ===================================================================
 
 class CloseSocketRequest::_Internal {
  public:
+  using HasBits = decltype(std::declval<CloseSocketRequest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CloseSocketRequest, _impl_._has_bits_);
   static const ::vm_tools::wl::VmDescription& desc(const CloseSocketRequest* msg);
+  static void set_has_desc(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::vm_tools::wl::VmDescription&
 CloseSocketRequest::_Internal::desc(const CloseSocketRequest* msg) {
   return *msg->_impl_.desc_;
 }
-CloseSocketRequest::CloseSocketRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CloseSocketRequest::CloseSocketRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vm_tools.wl.CloseSocketRequest)
 }
 CloseSocketRequest::CloseSocketRequest(const CloseSocketRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CloseSocketRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.desc_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.desc_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_desc()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.desc_ = new ::vm_tools::wl::VmDescription(*from._impl_.desc_);
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.wl.CloseSocketRequest)
 }
 
-inline void CloseSocketRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CloseSocketRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.desc_){nullptr}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.desc_){nullptr}
   };
 }
 
@@ -596,7 +618,7 @@ CloseSocketRequest::~CloseSocketRequest() {
 }
 
 inline void CloseSocketRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.desc_;
 }
 
@@ -606,30 +628,34 @@ void CloseSocketRequest::SetCachedSize(int size) const {
 
 void CloseSocketRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:vm_tools.wl.CloseSocketRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.desc_ != nullptr) {
-    delete _impl_.desc_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.desc_ != nullptr);
+    _impl_.desc_->Clear();
   }
-  _impl_.desc_ = nullptr;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* CloseSocketRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.wl.VmDescription desc = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_desc(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -647,6 +673,7 @@ const char* CloseSocketRequest::_InternalParse(const char* ptr, ::_pbi::ParseCon
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -654,14 +681,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CloseSocketRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CloseSocketRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vm_tools.wl.CloseSocketRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .vm_tools.wl.VmDescription desc = 1;
-  if (this->_internal_has_desc()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::desc(this),
         _Internal::desc(this).GetCachedSize(), target, stream);
@@ -675,16 +703,17 @@ uint8_t* CloseSocketRequest::_InternalSerialize(
   return target;
 }
 
-size_t CloseSocketRequest::ByteSizeLong() const {
+::size_t CloseSocketRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vm_tools.wl.CloseSocketRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .vm_tools.wl.VmDescription desc = 1;
-  if (this->_internal_has_desc()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.desc_);
@@ -707,11 +736,11 @@ void CloseSocketRequest::CheckTypeAndMergeFrom(
 void CloseSocketRequest::MergeFrom(const CloseSocketRequest& from) {
   CloseSocketRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.wl.CloseSocketRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_desc()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_desc()->::vm_tools::wl::VmDescription::MergeFrom(
         from._internal_desc());
   }
@@ -732,13 +761,13 @@ bool CloseSocketRequest::IsInitialized() const {
 void CloseSocketRequest::InternalSwap(CloseSocketRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   swap(_impl_.desc_, other->_impl_.desc_);
 }
 
 std::string CloseSocketRequest::GetTypeName() const {
   return "vm_tools.wl.CloseSocketRequest";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace wl
@@ -757,6 +786,5 @@ Arena::CreateMaybeMessage< ::vm_tools::wl::CloseSocketRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::wl::CloseSocketRequest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

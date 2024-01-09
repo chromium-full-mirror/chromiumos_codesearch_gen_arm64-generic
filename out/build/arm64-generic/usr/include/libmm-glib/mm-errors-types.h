@@ -33,6 +33,10 @@ GQuark mm_cdma_activation_error_quark    (void); /* implemented in mm-errors-qua
 GType  mm_cdma_activation_error_get_type (void) G_GNUC_CONST;
 #define MM_CDMA_ACTIVATION_ERROR (mm_cdma_activation_error_quark ())
 #define MM_TYPE_CDMA_ACTIVATION_ERROR (mm_cdma_activation_error_get_type ())
+GQuark mm_carrier_lock_error_quark    (void); /* implemented in mm-errors-quarks.c */
+GType  mm_carrier_lock_error_get_type (void) G_GNUC_CONST;
+#define MM_CARRIER_LOCK_ERROR (mm_carrier_lock_error_quark ())
+#define MM_TYPE_CARRIER_LOCK_ERROR (mm_carrier_lock_error_get_type ())
 G_END_DECLS
 
 #endif /* __MM_ERRORS_TYPES_H__ */

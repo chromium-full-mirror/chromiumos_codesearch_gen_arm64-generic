@@ -18,6 +18,8 @@
 #include "media/mojo/mojom/speech_recognition.mojom-blink-import-headers.h"
 #include "mojo/public/mojom/base/file_path.mojom-blink.h"
 #include "mojo/public/mojom/base/file_path.mojom-blink-import-headers.h"
+#include "sandbox/policy/mojom/context.mojom-blink.h"
+#include "sandbox/policy/mojom/context.mojom-blink-import-headers.h"
 #include "sandbox/policy/mojom/sandbox.mojom-blink.h"
 #include "sandbox/policy/mojom/sandbox.mojom-blink-import-headers.h"
 

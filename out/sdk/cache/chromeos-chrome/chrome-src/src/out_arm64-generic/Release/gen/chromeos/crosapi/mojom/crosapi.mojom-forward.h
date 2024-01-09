@@ -28,6 +28,8 @@ class DefaultPathsDataView;
 
 class DevicePropertiesDataView;
 
+class EntropySourceDataView;
+
 class BrowserInitParamsDataView;
 
 class BrowserPostLoginParamsDataView;
@@ -72,6 +74,9 @@ using DefaultPathsPtr = mojo::StructPtr<DefaultPaths>;
 
 class DeviceProperties;
 using DevicePropertiesPtr = mojo::StructPtr<DeviceProperties>;
+
+class EntropySource;
+using EntropySourcePtr = mojo::InlinedStructPtr<EntropySource>;
 
 class BrowserInitParams;
 using BrowserInitParamsPtr = mojo::StructPtr<BrowserInitParams>;

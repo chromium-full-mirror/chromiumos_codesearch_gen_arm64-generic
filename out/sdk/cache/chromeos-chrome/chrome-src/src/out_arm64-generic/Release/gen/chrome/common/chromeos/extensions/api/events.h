@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -74,8 +75,8 @@ struct EventSupportStatusInfo {
   ~EventSupportStatusInfo();
   EventSupportStatusInfo(const EventSupportStatusInfo&) = delete;
   EventSupportStatusInfo& operator=(const EventSupportStatusInfo&) = delete;
-  EventSupportStatusInfo(EventSupportStatusInfo&& rhs);
-  EventSupportStatusInfo& operator=(EventSupportStatusInfo&& rhs);
+  EventSupportStatusInfo(EventSupportStatusInfo&& rhs) noexcept;
+  EventSupportStatusInfo& operator=(EventSupportStatusInfo&& rhs) noexcept;
 
   // Populates a EventSupportStatusInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -88,17 +89,13 @@ struct EventSupportStatusInfo {
   // Creates a deep copy of EventSupportStatusInfo.
   EventSupportStatusInfo Clone() const;
 
-  // Creates a EventSupportStatusInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<EventSupportStatusInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a EventSupportStatusInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<EventSupportStatusInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<EventSupportStatusInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a EventSupportStatusInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<EventSupportStatusInfo> FromValue(const base::Value& value);
+  static std::optional<EventSupportStatusInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEventSupportStatusInfo object.
@@ -238,8 +235,8 @@ struct KeyboardInfo {
   ~KeyboardInfo();
   KeyboardInfo(const KeyboardInfo&) = delete;
   KeyboardInfo& operator=(const KeyboardInfo&) = delete;
-  KeyboardInfo(KeyboardInfo&& rhs);
-  KeyboardInfo& operator=(KeyboardInfo&& rhs);
+  KeyboardInfo(KeyboardInfo&& rhs) noexcept;
+  KeyboardInfo& operator=(KeyboardInfo&& rhs) noexcept;
 
   // Populates a KeyboardInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -252,26 +249,23 @@ struct KeyboardInfo {
   // Creates a deep copy of KeyboardInfo.
   KeyboardInfo Clone() const;
 
-  // Creates a KeyboardInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<KeyboardInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a KeyboardInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<KeyboardInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<KeyboardInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a KeyboardInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<KeyboardInfo> FromValue(const base::Value& value);
+  static std::optional<KeyboardInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisKeyboardInfo object.
   base::Value::Dict ToValue() const;
 
   // The number of the keyboard's /dev/input/event* node.
-  absl::optional<int> id;
+  std::optional<int> id;
 
   KeyboardConnectionType connection_type;
 
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   PhysicalKeyboardLayout physical_layout;
 
@@ -279,7 +273,7 @@ struct KeyboardInfo {
 
   // For internal keyboards, the region code of the device (from which the visual
   // layout can be determined).
-  absl::optional<std::string> region_code;
+  std::optional<std::string> region_code;
 
   KeyboardNumberPadPresence number_pad_present;
 
@@ -294,7 +288,7 @@ struct KeyboardInfo {
   KeyboardTopRightKey top_right_key;
 
   // Only applicable to CrOS keyboards.
-  absl::optional<bool> has_assistant_key;
+  std::optional<bool> has_assistant_key;
 
 };
 
@@ -303,8 +297,8 @@ struct KeyboardDiagnosticEventInfo {
   ~KeyboardDiagnosticEventInfo();
   KeyboardDiagnosticEventInfo(const KeyboardDiagnosticEventInfo&) = delete;
   KeyboardDiagnosticEventInfo& operator=(const KeyboardDiagnosticEventInfo&) = delete;
-  KeyboardDiagnosticEventInfo(KeyboardDiagnosticEventInfo&& rhs);
-  KeyboardDiagnosticEventInfo& operator=(KeyboardDiagnosticEventInfo&& rhs);
+  KeyboardDiagnosticEventInfo(KeyboardDiagnosticEventInfo&& rhs) noexcept;
+  KeyboardDiagnosticEventInfo& operator=(KeyboardDiagnosticEventInfo&& rhs) noexcept;
 
   // Populates a KeyboardDiagnosticEventInfo object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -317,24 +311,20 @@ struct KeyboardDiagnosticEventInfo {
   // Creates a deep copy of KeyboardDiagnosticEventInfo.
   KeyboardDiagnosticEventInfo Clone() const;
 
-  // Creates a KeyboardDiagnosticEventInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<KeyboardDiagnosticEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a KeyboardDiagnosticEventInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<KeyboardDiagnosticEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<KeyboardDiagnosticEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a KeyboardDiagnosticEventInfo object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<KeyboardDiagnosticEventInfo> FromValue(const base::Value& value);
+  static std::optional<KeyboardDiagnosticEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisKeyboardDiagnosticEventInfo object.
   base::Value::Dict ToValue() const;
 
   // The keyboard which has been tested.
-  absl::optional<KeyboardInfo> keyboard_info;
+  std::optional<KeyboardInfo> keyboard_info;
 
   // Keys which have been tested. It is an array of the evdev key code.
   std::vector<int> tested_keys;
@@ -427,8 +417,8 @@ struct AudioJackEventInfo {
   ~AudioJackEventInfo();
   AudioJackEventInfo(const AudioJackEventInfo&) = delete;
   AudioJackEventInfo& operator=(const AudioJackEventInfo&) = delete;
-  AudioJackEventInfo(AudioJackEventInfo&& rhs);
-  AudioJackEventInfo& operator=(AudioJackEventInfo&& rhs);
+  AudioJackEventInfo(AudioJackEventInfo&& rhs) noexcept;
+  AudioJackEventInfo& operator=(AudioJackEventInfo&& rhs) noexcept;
 
   // Populates a AudioJackEventInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -441,16 +431,13 @@ struct AudioJackEventInfo {
   // Creates a deep copy of AudioJackEventInfo.
   AudioJackEventInfo Clone() const;
 
-  // Creates a AudioJackEventInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AudioJackEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a AudioJackEventInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AudioJackEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<AudioJackEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a AudioJackEventInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AudioJackEventInfo> FromValue(const base::Value& value);
+  static std::optional<AudioJackEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAudioJackEventInfo object.
@@ -467,8 +454,8 @@ struct LidEventInfo {
   ~LidEventInfo();
   LidEventInfo(const LidEventInfo&) = delete;
   LidEventInfo& operator=(const LidEventInfo&) = delete;
-  LidEventInfo(LidEventInfo&& rhs);
-  LidEventInfo& operator=(LidEventInfo&& rhs);
+  LidEventInfo(LidEventInfo&& rhs) noexcept;
+  LidEventInfo& operator=(LidEventInfo&& rhs) noexcept;
 
   // Populates a LidEventInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -481,15 +468,12 @@ struct LidEventInfo {
   // Creates a deep copy of LidEventInfo.
   LidEventInfo Clone() const;
 
-  // Creates a LidEventInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<LidEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a LidEventInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<LidEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<LidEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a LidEventInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<LidEventInfo> FromValue(const base::Value& value);
+  static std::optional<LidEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLidEventInfo object.
@@ -504,8 +488,8 @@ struct UsbEventInfo {
   ~UsbEventInfo();
   UsbEventInfo(const UsbEventInfo&) = delete;
   UsbEventInfo& operator=(const UsbEventInfo&) = delete;
-  UsbEventInfo(UsbEventInfo&& rhs);
-  UsbEventInfo& operator=(UsbEventInfo&& rhs);
+  UsbEventInfo(UsbEventInfo&& rhs) noexcept;
+  UsbEventInfo& operator=(UsbEventInfo&& rhs) noexcept;
 
   // Populates a UsbEventInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -518,31 +502,28 @@ struct UsbEventInfo {
   // Creates a deep copy of UsbEventInfo.
   UsbEventInfo Clone() const;
 
-  // Creates a UsbEventInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UsbEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a UsbEventInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UsbEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<UsbEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a UsbEventInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<UsbEventInfo> FromValue(const base::Value& value);
+  static std::optional<UsbEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUsbEventInfo object.
   base::Value::Dict ToValue() const;
 
   // Vendor name.
-  absl::optional<std::string> vendor;
+  std::optional<std::string> vendor;
 
   // Name, model name, product name.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // Vendor ID.
-  absl::optional<int> vid;
+  std::optional<int> vid;
 
   // Product ID.
-  absl::optional<int> pid;
+  std::optional<int> pid;
 
   // USB device categories. https://www.usb.org/defined-class-codes
   std::vector<std::string> categories;
@@ -570,8 +551,8 @@ struct ExternalDisplayInfo {
   ~ExternalDisplayInfo();
   ExternalDisplayInfo(const ExternalDisplayInfo&) = delete;
   ExternalDisplayInfo& operator=(const ExternalDisplayInfo&) = delete;
-  ExternalDisplayInfo(ExternalDisplayInfo&& rhs);
-  ExternalDisplayInfo& operator=(ExternalDisplayInfo&& rhs);
+  ExternalDisplayInfo(ExternalDisplayInfo&& rhs) noexcept;
+  ExternalDisplayInfo& operator=(ExternalDisplayInfo&& rhs) noexcept;
 
   // Populates a ExternalDisplayInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -584,60 +565,56 @@ struct ExternalDisplayInfo {
   // Creates a deep copy of ExternalDisplayInfo.
   ExternalDisplayInfo Clone() const;
 
-  // Creates a ExternalDisplayInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ExternalDisplayInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExternalDisplayInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ExternalDisplayInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ExternalDisplayInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ExternalDisplayInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ExternalDisplayInfo> FromValue(const base::Value& value);
+  static std::optional<ExternalDisplayInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExternalDisplayInfo object.
   base::Value::Dict ToValue() const;
 
   // Display width in millimeters.
-  absl::optional<int> display_width;
+  std::optional<int> display_width;
 
   // Display height in millimeters.
-  absl::optional<int> display_height;
+  std::optional<int> display_height;
 
   // Horizontal resolution.
-  absl::optional<int> resolution_horizontal;
+  std::optional<int> resolution_horizontal;
 
   // Vertical resolution.
-  absl::optional<int> resolution_vertical;
+  std::optional<int> resolution_vertical;
 
   // Refresh rate.
-  absl::optional<double> refresh_rate;
+  std::optional<double> refresh_rate;
 
   // Three letter manufacturer ID.
-  absl::optional<std::string> manufacturer;
+  std::optional<std::string> manufacturer;
 
   // Manufacturer product code.
-  absl::optional<int> model_id;
+  std::optional<int> model_id;
 
   // 32 bits serial number.
-  absl::optional<int> serial_number;
+  std::optional<int> serial_number;
 
   // Week of manufacture.
-  absl::optional<int> manufacture_week;
+  std::optional<int> manufacture_week;
 
   // Year of manufacture.
-  absl::optional<int> manufacture_year;
+  std::optional<int> manufacture_year;
 
   // EDID version.
-  absl::optional<std::string> edid_version;
+  std::optional<std::string> edid_version;
 
   // Digital or analog input.
   DisplayInputType input_type;
 
   // Name of display product.
-  absl::optional<std::string> display_name;
+  std::optional<std::string> display_name;
 
 };
 
@@ -646,8 +623,8 @@ struct ExternalDisplayEventInfo {
   ~ExternalDisplayEventInfo();
   ExternalDisplayEventInfo(const ExternalDisplayEventInfo&) = delete;
   ExternalDisplayEventInfo& operator=(const ExternalDisplayEventInfo&) = delete;
-  ExternalDisplayEventInfo(ExternalDisplayEventInfo&& rhs);
-  ExternalDisplayEventInfo& operator=(ExternalDisplayEventInfo&& rhs);
+  ExternalDisplayEventInfo(ExternalDisplayEventInfo&& rhs) noexcept;
+  ExternalDisplayEventInfo& operator=(ExternalDisplayEventInfo&& rhs) noexcept;
 
   // Populates a ExternalDisplayEventInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -660,17 +637,13 @@ struct ExternalDisplayEventInfo {
   // Creates a deep copy of ExternalDisplayEventInfo.
   ExternalDisplayEventInfo Clone() const;
 
-  // Creates a ExternalDisplayEventInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ExternalDisplayEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExternalDisplayEventInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ExternalDisplayEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ExternalDisplayEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ExternalDisplayEventInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ExternalDisplayEventInfo> FromValue(const base::Value& value);
+  static std::optional<ExternalDisplayEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExternalDisplayEventInfo object.
@@ -678,7 +651,7 @@ struct ExternalDisplayEventInfo {
 
   ExternalDisplayEvent event;
 
-  absl::optional<ExternalDisplayInfo> display_info;
+  std::optional<ExternalDisplayInfo> display_info;
 
 };
 
@@ -687,8 +660,8 @@ struct SdCardEventInfo {
   ~SdCardEventInfo();
   SdCardEventInfo(const SdCardEventInfo&) = delete;
   SdCardEventInfo& operator=(const SdCardEventInfo&) = delete;
-  SdCardEventInfo(SdCardEventInfo&& rhs);
-  SdCardEventInfo& operator=(SdCardEventInfo&& rhs);
+  SdCardEventInfo(SdCardEventInfo&& rhs) noexcept;
+  SdCardEventInfo& operator=(SdCardEventInfo&& rhs) noexcept;
 
   // Populates a SdCardEventInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -701,15 +674,12 @@ struct SdCardEventInfo {
   // Creates a deep copy of SdCardEventInfo.
   SdCardEventInfo Clone() const;
 
-  // Creates a SdCardEventInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SdCardEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a SdCardEventInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SdCardEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<SdCardEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a SdCardEventInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<SdCardEventInfo> FromValue(const base::Value& value);
+  static std::optional<SdCardEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSdCardEventInfo object.
@@ -724,8 +694,8 @@ struct PowerEventInfo {
   ~PowerEventInfo();
   PowerEventInfo(const PowerEventInfo&) = delete;
   PowerEventInfo& operator=(const PowerEventInfo&) = delete;
-  PowerEventInfo(PowerEventInfo&& rhs);
-  PowerEventInfo& operator=(PowerEventInfo&& rhs);
+  PowerEventInfo(PowerEventInfo&& rhs) noexcept;
+  PowerEventInfo& operator=(PowerEventInfo&& rhs) noexcept;
 
   // Populates a PowerEventInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -738,15 +708,12 @@ struct PowerEventInfo {
   // Creates a deep copy of PowerEventInfo.
   PowerEventInfo Clone() const;
 
-  // Creates a PowerEventInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PowerEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a PowerEventInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PowerEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<PowerEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a PowerEventInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<PowerEventInfo> FromValue(const base::Value& value);
+  static std::optional<PowerEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPowerEventInfo object.
@@ -761,8 +728,8 @@ struct StylusGarageEventInfo {
   ~StylusGarageEventInfo();
   StylusGarageEventInfo(const StylusGarageEventInfo&) = delete;
   StylusGarageEventInfo& operator=(const StylusGarageEventInfo&) = delete;
-  StylusGarageEventInfo(StylusGarageEventInfo&& rhs);
-  StylusGarageEventInfo& operator=(StylusGarageEventInfo&& rhs);
+  StylusGarageEventInfo(StylusGarageEventInfo&& rhs) noexcept;
+  StylusGarageEventInfo& operator=(StylusGarageEventInfo&& rhs) noexcept;
 
   // Populates a StylusGarageEventInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -775,17 +742,13 @@ struct StylusGarageEventInfo {
   // Creates a deep copy of StylusGarageEventInfo.
   StylusGarageEventInfo Clone() const;
 
-  // Creates a StylusGarageEventInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<StylusGarageEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StylusGarageEventInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<StylusGarageEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StylusGarageEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StylusGarageEventInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<StylusGarageEventInfo> FromValue(const base::Value& value);
+  static std::optional<StylusGarageEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStylusGarageEventInfo object.
@@ -829,8 +792,8 @@ struct TouchpadButtonEventInfo {
   ~TouchpadButtonEventInfo();
   TouchpadButtonEventInfo(const TouchpadButtonEventInfo&) = delete;
   TouchpadButtonEventInfo& operator=(const TouchpadButtonEventInfo&) = delete;
-  TouchpadButtonEventInfo(TouchpadButtonEventInfo&& rhs);
-  TouchpadButtonEventInfo& operator=(TouchpadButtonEventInfo&& rhs);
+  TouchpadButtonEventInfo(TouchpadButtonEventInfo&& rhs) noexcept;
+  TouchpadButtonEventInfo& operator=(TouchpadButtonEventInfo&& rhs) noexcept;
 
   // Populates a TouchpadButtonEventInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -843,17 +806,13 @@ struct TouchpadButtonEventInfo {
   // Creates a deep copy of TouchpadButtonEventInfo.
   TouchpadButtonEventInfo Clone() const;
 
-  // Creates a TouchpadButtonEventInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TouchpadButtonEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TouchpadButtonEventInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<TouchpadButtonEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TouchpadButtonEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TouchpadButtonEventInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<TouchpadButtonEventInfo> FromValue(const base::Value& value);
+  static std::optional<TouchpadButtonEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTouchpadButtonEventInfo object.
@@ -870,8 +829,8 @@ struct TouchPointInfo {
   ~TouchPointInfo();
   TouchPointInfo(const TouchPointInfo&) = delete;
   TouchPointInfo& operator=(const TouchPointInfo&) = delete;
-  TouchPointInfo(TouchPointInfo&& rhs);
-  TouchPointInfo& operator=(TouchPointInfo&& rhs);
+  TouchPointInfo(TouchPointInfo&& rhs) noexcept;
+  TouchPointInfo& operator=(TouchPointInfo&& rhs) noexcept;
 
   // Populates a TouchPointInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -884,38 +843,35 @@ struct TouchPointInfo {
   // Creates a deep copy of TouchPointInfo.
   TouchPointInfo Clone() const;
 
-  // Creates a TouchPointInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TouchPointInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TouchPointInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<TouchPointInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TouchPointInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TouchPointInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<TouchPointInfo> FromValue(const base::Value& value);
+  static std::optional<TouchPointInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTouchPointInfo object.
   base::Value::Dict ToValue() const;
 
   // An id to track an initiated contact throughout its life cycle.
-  absl::optional<int> tracking_id;
+  std::optional<int> tracking_id;
 
   // The x position.
-  absl::optional<int> x;
+  std::optional<int> x;
 
   // The y position.
-  absl::optional<int> y;
+  std::optional<int> y;
 
   // The pressure applied to the touch contact. The value ranges from 0 to
   // |max_pressure| as defined in TouchpadConnectedEventInfo.
-  absl::optional<int> pressure;
+  std::optional<int> pressure;
 
   // The length of the longer dimension of the touch contact.
-  absl::optional<int> touch_major;
+  std::optional<int> touch_major;
 
   // The length of the shorter dimension of the touch contact.
-  absl::optional<int> touch_minor;
+  std::optional<int> touch_minor;
 
 };
 
@@ -924,8 +880,8 @@ struct TouchpadTouchEventInfo {
   ~TouchpadTouchEventInfo();
   TouchpadTouchEventInfo(const TouchpadTouchEventInfo&) = delete;
   TouchpadTouchEventInfo& operator=(const TouchpadTouchEventInfo&) = delete;
-  TouchpadTouchEventInfo(TouchpadTouchEventInfo&& rhs);
-  TouchpadTouchEventInfo& operator=(TouchpadTouchEventInfo&& rhs);
+  TouchpadTouchEventInfo(TouchpadTouchEventInfo&& rhs) noexcept;
+  TouchpadTouchEventInfo& operator=(TouchpadTouchEventInfo&& rhs) noexcept;
 
   // Populates a TouchpadTouchEventInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -938,17 +894,13 @@ struct TouchpadTouchEventInfo {
   // Creates a deep copy of TouchpadTouchEventInfo.
   TouchpadTouchEventInfo Clone() const;
 
-  // Creates a TouchpadTouchEventInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TouchpadTouchEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TouchpadTouchEventInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<TouchpadTouchEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TouchpadTouchEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TouchpadTouchEventInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<TouchpadTouchEventInfo> FromValue(const base::Value& value);
+  static std::optional<TouchpadTouchEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTouchpadTouchEventInfo object.
@@ -964,8 +916,8 @@ struct TouchpadConnectedEventInfo {
   ~TouchpadConnectedEventInfo();
   TouchpadConnectedEventInfo(const TouchpadConnectedEventInfo&) = delete;
   TouchpadConnectedEventInfo& operator=(const TouchpadConnectedEventInfo&) = delete;
-  TouchpadConnectedEventInfo(TouchpadConnectedEventInfo&& rhs);
-  TouchpadConnectedEventInfo& operator=(TouchpadConnectedEventInfo&& rhs);
+  TouchpadConnectedEventInfo(TouchpadConnectedEventInfo&& rhs) noexcept;
+  TouchpadConnectedEventInfo& operator=(TouchpadConnectedEventInfo&& rhs) noexcept;
 
   // Populates a TouchpadConnectedEventInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -978,31 +930,27 @@ struct TouchpadConnectedEventInfo {
   // Creates a deep copy of TouchpadConnectedEventInfo.
   TouchpadConnectedEventInfo Clone() const;
 
-  // Creates a TouchpadConnectedEventInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TouchpadConnectedEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TouchpadConnectedEventInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<TouchpadConnectedEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TouchpadConnectedEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TouchpadConnectedEventInfo object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<TouchpadConnectedEventInfo> FromValue(const base::Value& value);
+  static std::optional<TouchpadConnectedEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTouchpadConnectedEventInfo object.
   base::Value::Dict ToValue() const;
 
   // The maximum possible x position of touch points.
-  absl::optional<int> max_x;
+  std::optional<int> max_x;
 
   // The maximum possible y position of touch points.
-  absl::optional<int> max_y;
+  std::optional<int> max_y;
 
   // The maximum possible pressure of touch points, or 0 if pressure is not
   // supported.
-  absl::optional<int> max_pressure;
+  std::optional<int> max_pressure;
 
   // The supported buttons;
   std::vector<InputTouchButton> buttons;
@@ -1014,8 +962,8 @@ struct TouchscreenTouchEventInfo {
   ~TouchscreenTouchEventInfo();
   TouchscreenTouchEventInfo(const TouchscreenTouchEventInfo&) = delete;
   TouchscreenTouchEventInfo& operator=(const TouchscreenTouchEventInfo&) = delete;
-  TouchscreenTouchEventInfo(TouchscreenTouchEventInfo&& rhs);
-  TouchscreenTouchEventInfo& operator=(TouchscreenTouchEventInfo&& rhs);
+  TouchscreenTouchEventInfo(TouchscreenTouchEventInfo&& rhs) noexcept;
+  TouchscreenTouchEventInfo& operator=(TouchscreenTouchEventInfo&& rhs) noexcept;
 
   // Populates a TouchscreenTouchEventInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1028,17 +976,13 @@ struct TouchscreenTouchEventInfo {
   // Creates a deep copy of TouchscreenTouchEventInfo.
   TouchscreenTouchEventInfo Clone() const;
 
-  // Creates a TouchscreenTouchEventInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TouchscreenTouchEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TouchscreenTouchEventInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<TouchscreenTouchEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TouchscreenTouchEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TouchscreenTouchEventInfo object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<TouchscreenTouchEventInfo> FromValue(const base::Value& value);
+  static std::optional<TouchscreenTouchEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTouchscreenTouchEventInfo object.
@@ -1054,8 +998,8 @@ struct TouchscreenConnectedEventInfo {
   ~TouchscreenConnectedEventInfo();
   TouchscreenConnectedEventInfo(const TouchscreenConnectedEventInfo&) = delete;
   TouchscreenConnectedEventInfo& operator=(const TouchscreenConnectedEventInfo&) = delete;
-  TouchscreenConnectedEventInfo(TouchscreenConnectedEventInfo&& rhs);
-  TouchscreenConnectedEventInfo& operator=(TouchscreenConnectedEventInfo&& rhs);
+  TouchscreenConnectedEventInfo(TouchscreenConnectedEventInfo&& rhs) noexcept;
+  TouchscreenConnectedEventInfo& operator=(TouchscreenConnectedEventInfo&& rhs) noexcept;
 
   // Populates a TouchscreenConnectedEventInfo object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -1068,31 +1012,27 @@ struct TouchscreenConnectedEventInfo {
   // Creates a deep copy of TouchscreenConnectedEventInfo.
   TouchscreenConnectedEventInfo Clone() const;
 
-  // Creates a TouchscreenConnectedEventInfo object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<TouchscreenConnectedEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TouchscreenConnectedEventInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<TouchscreenConnectedEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TouchscreenConnectedEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TouchscreenConnectedEventInfo object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<TouchscreenConnectedEventInfo> FromValue(const base::Value& value);
+  static std::optional<TouchscreenConnectedEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTouchscreenConnectedEventInfo object.
   base::Value::Dict ToValue() const;
 
   // The maximum possible x position of touch points.
-  absl::optional<int> max_x;
+  std::optional<int> max_x;
 
   // The maximum possible y position of touch points.
-  absl::optional<int> max_y;
+  std::optional<int> max_y;
 
   // The maximum possible pressure of touch points, or 0 if pressure is not
   // supported.
-  absl::optional<int> max_pressure;
+  std::optional<int> max_pressure;
 
 };
 
@@ -1101,8 +1041,8 @@ struct StylusTouchPointInfo {
   ~StylusTouchPointInfo();
   StylusTouchPointInfo(const StylusTouchPointInfo&) = delete;
   StylusTouchPointInfo& operator=(const StylusTouchPointInfo&) = delete;
-  StylusTouchPointInfo(StylusTouchPointInfo&& rhs);
-  StylusTouchPointInfo& operator=(StylusTouchPointInfo&& rhs);
+  StylusTouchPointInfo(StylusTouchPointInfo&& rhs) noexcept;
+  StylusTouchPointInfo& operator=(StylusTouchPointInfo&& rhs) noexcept;
 
   // Populates a StylusTouchPointInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1115,17 +1055,13 @@ struct StylusTouchPointInfo {
   // Creates a deep copy of StylusTouchPointInfo.
   StylusTouchPointInfo Clone() const;
 
-  // Creates a StylusTouchPointInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<StylusTouchPointInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StylusTouchPointInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<StylusTouchPointInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StylusTouchPointInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StylusTouchPointInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<StylusTouchPointInfo> FromValue(const base::Value& value);
+  static std::optional<StylusTouchPointInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStylusTouchPointInfo object.
@@ -1133,15 +1069,15 @@ struct StylusTouchPointInfo {
 
   // The x position. The value ranges from 0 to |max_x| as defined in
   // StylusConnectedEventInfo.
-  absl::optional<int> x;
+  std::optional<int> x;
 
   // The y position. The value ranges from 0 to |max_y| as defined in
   // StylusConnectedEventInfo.
-  absl::optional<int> y;
+  std::optional<int> y;
 
   // The pressure applied to the touch contact. The value ranges from 0 to
   // |max_pressure| as defined in StylusConnectedEventInfo.
-  absl::optional<int> pressure;
+  std::optional<int> pressure;
 
 };
 
@@ -1150,8 +1086,8 @@ struct StylusTouchEventInfo {
   ~StylusTouchEventInfo();
   StylusTouchEventInfo(const StylusTouchEventInfo&) = delete;
   StylusTouchEventInfo& operator=(const StylusTouchEventInfo&) = delete;
-  StylusTouchEventInfo(StylusTouchEventInfo&& rhs);
-  StylusTouchEventInfo& operator=(StylusTouchEventInfo&& rhs);
+  StylusTouchEventInfo(StylusTouchEventInfo&& rhs) noexcept;
+  StylusTouchEventInfo& operator=(StylusTouchEventInfo&& rhs) noexcept;
 
   // Populates a StylusTouchEventInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1164,17 +1100,13 @@ struct StylusTouchEventInfo {
   // Creates a deep copy of StylusTouchEventInfo.
   StylusTouchEventInfo Clone() const;
 
-  // Creates a StylusTouchEventInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<StylusTouchEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StylusTouchEventInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<StylusTouchEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StylusTouchEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StylusTouchEventInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<StylusTouchEventInfo> FromValue(const base::Value& value);
+  static std::optional<StylusTouchEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStylusTouchEventInfo object.
@@ -1182,7 +1114,7 @@ struct StylusTouchEventInfo {
 
   // The info of the stylus touch point. A null touch point means the stylus
   // leaves the contact.
-  absl::optional<StylusTouchPointInfo> touch_point;
+  std::optional<StylusTouchPointInfo> touch_point;
 
 };
 
@@ -1191,8 +1123,8 @@ struct StylusConnectedEventInfo {
   ~StylusConnectedEventInfo();
   StylusConnectedEventInfo(const StylusConnectedEventInfo&) = delete;
   StylusConnectedEventInfo& operator=(const StylusConnectedEventInfo&) = delete;
-  StylusConnectedEventInfo(StylusConnectedEventInfo&& rhs);
-  StylusConnectedEventInfo& operator=(StylusConnectedEventInfo&& rhs);
+  StylusConnectedEventInfo(StylusConnectedEventInfo&& rhs) noexcept;
+  StylusConnectedEventInfo& operator=(StylusConnectedEventInfo&& rhs) noexcept;
 
   // Populates a StylusConnectedEventInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1205,31 +1137,27 @@ struct StylusConnectedEventInfo {
   // Creates a deep copy of StylusConnectedEventInfo.
   StylusConnectedEventInfo Clone() const;
 
-  // Creates a StylusConnectedEventInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<StylusConnectedEventInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StylusConnectedEventInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<StylusConnectedEventInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StylusConnectedEventInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StylusConnectedEventInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<StylusConnectedEventInfo> FromValue(const base::Value& value);
+  static std::optional<StylusConnectedEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStylusConnectedEventInfo object.
   base::Value::Dict ToValue() const;
 
   // The maximum possible x position of touch points.
-  absl::optional<int> max_x;
+  std::optional<int> max_x;
 
   // The maximum possible y position of touch points.
-  absl::optional<int> max_y;
+  std::optional<int> max_y;
 
   // The maximum possible pressure of touch points, or 0 if pressure is not
   // supported.
-  absl::optional<int> max_pressure;
+  std::optional<int> max_pressure;
 
 };
 
@@ -1241,11 +1169,11 @@ struct StylusConnectedEventInfo {
 namespace IsEventSupported {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   EventCategory category;
@@ -1265,11 +1193,11 @@ base::Value::List Create(const EventSupportStatusInfo& info);
 namespace StartCapturingEvents {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   EventCategory category;
@@ -1289,11 +1217,11 @@ base::Value::List Create();
 namespace StopCapturingEvents {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   EventCategory category;

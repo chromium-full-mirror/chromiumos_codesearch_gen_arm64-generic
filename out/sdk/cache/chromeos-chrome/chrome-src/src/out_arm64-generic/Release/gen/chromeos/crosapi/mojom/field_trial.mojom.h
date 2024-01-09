@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/field_trial.mojom-features.h"
 #include "chromeos/crosapi/mojom/field_trial.mojom-shared.h"
 #include "chromeos/crosapi/mojom/field_trial.mojom-forward.h"
 #include <string>
@@ -287,6 +288,11 @@ class  FieldTrialGroupInfo {
       const std::string& trial_name,
       const std::string& group_name);
 
+  FieldTrialGroupInfo(
+      const std::string& trial_name,
+      const std::string& group_name,
+      std::optional<bool> is_overridden);
+
 
   ~FieldTrialGroupInfo();
 
@@ -307,7 +313,6 @@ class  FieldTrialGroupInfo {
 
   template <typename T, FieldTrialGroupInfo::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -367,6 +372,8 @@ class  FieldTrialGroupInfo {
   std::string trial_name;
   
   std::string group_name;
+  
+  std::optional<bool> is_overridden;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -404,7 +411,8 @@ template <typename StructPtrType>
 FieldTrialGroupInfoPtr FieldTrialGroupInfo::Clone() const {
   return New(
       mojo::Clone(trial_name),
-      mojo::Clone(group_name)
+      mojo::Clone(group_name),
+      mojo::Clone(is_overridden)
   );
 }
 
@@ -413,6 +421,8 @@ bool FieldTrialGroupInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->trial_name, other_struct.trial_name))
     return false;
   if (!mojo::Equals(this->group_name, other_struct.group_name))
+    return false;
+  if (!mojo::Equals(this->is_overridden, other_struct.is_overridden))
     return false;
   return true;
 }
@@ -426,6 +436,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.group_name < rhs.group_name)
     return true;
   if (rhs.group_name < lhs.group_name)
+    return false;
+  if (lhs.is_overridden < rhs.is_overridden)
+    return true;
+  if (rhs.is_overridden < lhs.is_overridden)
     return false;
   return false;
 }
@@ -450,6 +464,11 @@ struct  StructTraits<::crosapi::mojom::FieldTrialGroupInfo::DataView,
   static const decltype(::crosapi::mojom::FieldTrialGroupInfo::group_name)& group_name(
       const ::crosapi::mojom::FieldTrialGroupInfoPtr& input) {
     return input->group_name;
+  }
+
+  static decltype(::crosapi::mojom::FieldTrialGroupInfo::is_overridden) is_overridden(
+      const ::crosapi::mojom::FieldTrialGroupInfoPtr& input) {
+    return input->is_overridden;
   }
 
   static bool Read(::crosapi::mojom::FieldTrialGroupInfo::DataView input, ::crosapi::mojom::FieldTrialGroupInfoPtr* output);

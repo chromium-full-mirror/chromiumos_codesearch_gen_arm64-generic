@@ -16,7 +16,7 @@ namespace blink::mojom::blink {
 
 class PLATFORM_EXPORT RendererAudioOutputStreamFactoryInterceptorForTesting : public RendererAudioOutputStreamFactory {
   virtual RendererAudioOutputStreamFactory* GetForwardingInterface() = 0;
-  void RequestDeviceAuthorization(::mojo::PendingReceiver<::media::mojom::blink::AudioOutputStreamProvider> stream_provider_receiver, const absl::optional<::base::UnguessableToken>& session_id, const WTF::String& device_id, RequestDeviceAuthorizationCallback callback) override;
+  void RequestDeviceAuthorization(::mojo::PendingReceiver<::media::mojom::blink::AudioOutputStreamProvider> stream_provider_receiver, const std::optional<::base::UnguessableToken>& session_id, const WTF::String& device_id, RequestDeviceAuthorizationCallback callback) override;
 };
 class PLATFORM_EXPORT RendererAudioOutputStreamFactoryAsyncWaiter {
  public:
@@ -27,7 +27,7 @@ class PLATFORM_EXPORT RendererAudioOutputStreamFactoryAsyncWaiter {
 
   ~RendererAudioOutputStreamFactoryAsyncWaiter();
   void RequestDeviceAuthorization(
-      ::mojo::PendingReceiver<::media::mojom::blink::AudioOutputStreamProvider> stream_provider_receiver, const absl::optional<::base::UnguessableToken>& session_id, const WTF::String& device_id, ::media::mojom::blink::OutputDeviceStatus* out_state, ::media::AudioParameters* out_output_params, WTF::String* out_matched_device_id);
+      ::mojo::PendingReceiver<::media::mojom::blink::AudioOutputStreamProvider> stream_provider_receiver, const std::optional<::base::UnguessableToken>& session_id, const WTF::String& device_id, ::media::mojom::blink::OutputDeviceStatus* out_state, ::media::AudioParameters* out_output_params, WTF::String* out_matched_device_id);
   
 
  private:

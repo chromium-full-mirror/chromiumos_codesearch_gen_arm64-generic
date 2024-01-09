@@ -21,6 +21,36 @@
 namespace cros {
 namespace mojom {
 
+NOINLINE static const char* PortraitModeSegResultToStringHelper(PortraitModeSegResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case PortraitModeSegResult::kSuccess:
+      return "kSuccess";
+    case PortraitModeSegResult::kFailure:
+      return "kFailure";
+    case PortraitModeSegResult::kTimeout:
+      return "kTimeout";
+    case PortraitModeSegResult::kNoFaces:
+      return "kNoFaces";
+    case PortraitModeSegResult::kUnknown:
+      return "kUnknown";
+    default:
+      return nullptr;
+  }
+}
+
+std::string PortraitModeSegResultToString(PortraitModeSegResult value) {
+  const char *str = PortraitModeSegResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown PortraitModeSegResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, PortraitModeSegResult value) {
+  return os << PortraitModeSegResultToString(value);
+}
+
 namespace internal {
 // static
 bool Camera3StreamEffect_Data::Validate(
@@ -96,3 +126,13 @@ PortraitModeConfig_Data::PortraitModeConfig_Data()
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::PortraitModeSegResult>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::PortraitModeSegResult value) {
+  return std::move(context).WriteString(::cros::mojom::PortraitModeSegResultToString(value));
+}
+
+} // namespace perfetto

@@ -1,9 +1,11 @@
 #pragma once
 #include "src/ports/fontations/src/skpath_bridge.h"
+#include <algorithm>
 #include <array>
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
+#include <initializer_list>
 #include <iterator>
 #include <new>
 #include <stdexcept>
@@ -552,6 +554,251 @@ template <typename T>
 Box<T>::Box(uninit) noexcept {}
 #endif // CXXBRIDGE1_RUST_BOX
 
+#ifndef CXXBRIDGE1_RUST_BITCOPY_T
+#define CXXBRIDGE1_RUST_BITCOPY_T
+struct unsafe_bitcopy_t final {
+  explicit unsafe_bitcopy_t() = default;
+};
+#endif // CXXBRIDGE1_RUST_BITCOPY_T
+
+#ifndef CXXBRIDGE1_RUST_VEC
+#define CXXBRIDGE1_RUST_VEC
+template <typename T>
+class Vec final {
+public:
+  using value_type = T;
+
+  Vec() noexcept;
+  Vec(std::initializer_list<T>);
+  Vec(const Vec &);
+  Vec(Vec &&) noexcept;
+  ~Vec() noexcept;
+
+  Vec &operator=(Vec &&) &noexcept;
+  Vec &operator=(const Vec &) &;
+
+  std::size_t size() const noexcept;
+  bool empty() const noexcept;
+  const T *data() const noexcept;
+  T *data() noexcept;
+  std::size_t capacity() const noexcept;
+
+  const T &operator[](std::size_t n) const noexcept;
+  const T &at(std::size_t n) const;
+  const T &front() const noexcept;
+  const T &back() const noexcept;
+
+  T &operator[](std::size_t n) noexcept;
+  T &at(std::size_t n);
+  T &front() noexcept;
+  T &back() noexcept;
+
+  void reserve(std::size_t new_cap);
+  void push_back(const T &value);
+  void push_back(T &&value);
+  template <typename... Args>
+  void emplace_back(Args &&...args);
+  void truncate(std::size_t len);
+  void clear();
+
+  using iterator = typename Slice<T>::iterator;
+  iterator begin() noexcept;
+  iterator end() noexcept;
+
+  using const_iterator = typename Slice<const T>::iterator;
+  const_iterator begin() const noexcept;
+  const_iterator end() const noexcept;
+  const_iterator cbegin() const noexcept;
+  const_iterator cend() const noexcept;
+
+  void swap(Vec &) noexcept;
+
+  Vec(unsafe_bitcopy_t, const Vec &) noexcept;
+
+private:
+  void reserve_total(std::size_t new_cap) noexcept;
+  void set_len(std::size_t len) noexcept;
+  void drop() noexcept;
+
+  friend void swap(Vec &lhs, Vec &rhs) noexcept { lhs.swap(rhs); }
+
+  std::array<std::uintptr_t, 3> repr;
+};
+
+template <typename T>
+Vec<T>::Vec(std::initializer_list<T> init) : Vec{} {
+  this->reserve_total(init.size());
+  std::move(init.begin(), init.end(), std::back_inserter(*this));
+}
+
+template <typename T>
+Vec<T>::Vec(const Vec &other) : Vec() {
+  this->reserve_total(other.size());
+  std::copy(other.begin(), other.end(), std::back_inserter(*this));
+}
+
+template <typename T>
+Vec<T>::Vec(Vec &&other) noexcept : repr(other.repr) {
+  new (&other) Vec();
+}
+
+template <typename T>
+Vec<T>::~Vec() noexcept {
+  this->drop();
+}
+
+template <typename T>
+Vec<T> &Vec<T>::operator=(Vec &&other) &noexcept {
+  this->drop();
+  this->repr = other.repr;
+  new (&other) Vec();
+  return *this;
+}
+
+template <typename T>
+Vec<T> &Vec<T>::operator=(const Vec &other) & {
+  if (this != &other) {
+    this->drop();
+    new (this) Vec(other);
+  }
+  return *this;
+}
+
+template <typename T>
+bool Vec<T>::empty() const noexcept {
+  return this->size() == 0;
+}
+
+template <typename T>
+T *Vec<T>::data() noexcept {
+  return const_cast<T *>(const_cast<const Vec<T> *>(this)->data());
+}
+
+template <typename T>
+const T &Vec<T>::operator[](std::size_t n) const noexcept {
+  assert(n < this->size());
+  auto data = reinterpret_cast<const char *>(this->data());
+  return *reinterpret_cast<const T *>(data + n * size_of<T>());
+}
+
+template <typename T>
+const T &Vec<T>::at(std::size_t n) const {
+  if (n >= this->size()) {
+    panic<std::out_of_range>("rust::Vec index out of range");
+  }
+  return (*this)[n];
+}
+
+template <typename T>
+const T &Vec<T>::front() const noexcept {
+  assert(!this->empty());
+  return (*this)[0];
+}
+
+template <typename T>
+const T &Vec<T>::back() const noexcept {
+  assert(!this->empty());
+  return (*this)[this->size() - 1];
+}
+
+template <typename T>
+T &Vec<T>::operator[](std::size_t n) noexcept {
+  assert(n < this->size());
+  auto data = reinterpret_cast<char *>(this->data());
+  return *reinterpret_cast<T *>(data + n * size_of<T>());
+}
+
+template <typename T>
+T &Vec<T>::at(std::size_t n) {
+  if (n >= this->size()) {
+    panic<std::out_of_range>("rust::Vec index out of range");
+  }
+  return (*this)[n];
+}
+
+template <typename T>
+T &Vec<T>::front() noexcept {
+  assert(!this->empty());
+  return (*this)[0];
+}
+
+template <typename T>
+T &Vec<T>::back() noexcept {
+  assert(!this->empty());
+  return (*this)[this->size() - 1];
+}
+
+template <typename T>
+void Vec<T>::reserve(std::size_t new_cap) {
+  this->reserve_total(new_cap);
+}
+
+template <typename T>
+void Vec<T>::push_back(const T &value) {
+  this->emplace_back(value);
+}
+
+template <typename T>
+void Vec<T>::push_back(T &&value) {
+  this->emplace_back(std::move(value));
+}
+
+template <typename T>
+template <typename... Args>
+void Vec<T>::emplace_back(Args &&...args) {
+  auto size = this->size();
+  this->reserve_total(size + 1);
+  ::new (reinterpret_cast<T *>(reinterpret_cast<char *>(this->data()) +
+                               size * size_of<T>()))
+      T(std::forward<Args>(args)...);
+  this->set_len(size + 1);
+}
+
+template <typename T>
+void Vec<T>::clear() {
+  this->truncate(0);
+}
+
+template <typename T>
+typename Vec<T>::iterator Vec<T>::begin() noexcept {
+  return Slice<T>(this->data(), this->size()).begin();
+}
+
+template <typename T>
+typename Vec<T>::iterator Vec<T>::end() noexcept {
+  return Slice<T>(this->data(), this->size()).end();
+}
+
+template <typename T>
+typename Vec<T>::const_iterator Vec<T>::begin() const noexcept {
+  return this->cbegin();
+}
+
+template <typename T>
+typename Vec<T>::const_iterator Vec<T>::end() const noexcept {
+  return this->cend();
+}
+
+template <typename T>
+typename Vec<T>::const_iterator Vec<T>::cbegin() const noexcept {
+  return Slice<const T>(this->data(), this->size()).begin();
+}
+
+template <typename T>
+typename Vec<T>::const_iterator Vec<T>::cend() const noexcept {
+  return Slice<const T>(this->data(), this->size()).end();
+}
+
+template <typename T>
+void Vec<T>::swap(Vec &rhs) noexcept {
+  using std::swap;
+  swap(this->repr, rhs.repr);
+}
+
+template <typename T>
+Vec<T>::Vec(unsafe_bitcopy_t, const Vec &bits) noexcept : repr(bits.repr) {}
+#endif // CXXBRIDGE1_RUST_VEC
+
 #ifndef CXXBRIDGE1_RUST_ISIZE
 #define CXXBRIDGE1_RUST_ISIZE
 #if defined(_WIN32)
@@ -646,8 +893,7 @@ namespace fontations_ffi {
   struct BridgeLocalizedName;
   struct SkiaDesignCoordinate;
   struct BridgeScalerMetrics;
-  struct ColrV0GlyphLayerRange;
-  struct ColrV0Layer;
+  struct PaletteOverride;
   struct BridgeFontRef;
   struct BridgeLocalizedStrings;
   struct BridgeNormalizedCoords;
@@ -704,32 +950,15 @@ struct BridgeScalerMetrics final {
 };
 #endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeScalerMetrics
 
-#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0GlyphLayerRange
-#define CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0GlyphLayerRange
-// Information on whether COLRv0 glyph coverage exists for a
-// certain glyph and if yes, which layers need to be drawn.
-struct ColrV0GlyphLayerRange final {
-  bool has_v0_layers;
-  ::std::size_t start_index;
-  ::std::size_t end_index;
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$PaletteOverride
+#define CXXBRIDGE1_STRUCT_fontations_ffi$PaletteOverride
+struct PaletteOverride final {
+  ::std::uint16_t index;
+  ::std::uint32_t color_8888;
 
   using IsRelocatable = ::std::true_type;
 };
-#endif // CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0GlyphLayerRange
-
-#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0Layer
-#define CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0Layer
-// Representation of a COLRv0 layer consisting of glyph id
-// and palette index.
-struct ColrV0Layer final {
-  ::std::uint16_t glyph_id;
-  ::std::uint16_t palette_index;
-
-  bool operator==(ColrV0Layer const &) const noexcept;
-  bool operator!=(ColrV0Layer const &) const noexcept;
-  using IsRelocatable = ::std::true_type;
-};
-#endif // CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0Layer
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$PaletteOverride
 
 #ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeFontRef
 #define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeFontRef
@@ -793,41 +1022,11 @@ float advance_width_or_zero(::fontations_ffi::BridgeFontRef const &font_ref, flo
 
 bool postscript_name(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::String &out_string) noexcept;
 
-// Get the number of CPAL palettes.
-// # Returns
-// * Number of palettes in the font, 0 if there are none or an error occured.
-::std::uint16_t num_palettes(::fontations_ffi::BridgeFontRef const &font_ref) noexcept;
-
-// Get the number of entries in each CPAL palette.
-// # Returns
-// * Number of palette entries per palette, 0 if none or an error occured.
-::std::uint16_t num_palette_entries(::fontations_ffi::BridgeFontRef const &font_ref) noexcept;
-
-// Copies into `colors` slice `SkColor`-compatible uint32_t ARGB color values
-// for a specified `palette_index`.
-// # Returns
-// `true` on success, `false` on failure.
-bool palette_colors(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t palette_index, ::rust::Slice<::std::uint32_t > colors) noexcept;
-
-// Provides information on whether the specified glyph can be drawn
-// as a COLRv0 colored glyph.
-//
-// # Arguments
-//
-// * `font_ref` - font instance as created with `make_font_ref`
-// * `glyph_id` - glyph id of the glyph to check for COLRv0 coverage for
-//
-// # Returns
-//
-// `ColrV0GlyphLayerRange` - struct containing information on whether COLRv0
-// coverage exists, and if yes, start and end layer index.
-::fontations_ffi::ColrV0GlyphLayerRange colrv0_layer_range(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t glyph_id) noexcept;
-
-// Provides access to COLRv0 layers in the COLR table.
-// Using a layer index between start and end index
-// retrieved with [colrv0_layer_range], use this method
-// to retrieve glyph id and palette index of a specific layer.
-bool colrv0_glyph_layer(::fontations_ffi::BridgeFontRef const &font_ref, ::std::size_t layer_index, ::fontations_ffi::ColrV0Layer &out_layer) noexcept;
+// Receives a slice of palette overrides that will be merged
+// with the specified base palette of the font. The result is a
+// palette of RGBA, 8-bit per component, colors, consisting of
+// palette entries merged with overrides.
+::rust::Vec<::std::uint32_t> resolve_palette(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t base_palette, ::rust::Slice<::fontations_ffi::PaletteOverride const> palette_overrides) noexcept;
 
 ::std::size_t table_data(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint32_t tag, ::std::size_t offset, ::rust::Slice<::std::uint8_t > data) noexcept;
 

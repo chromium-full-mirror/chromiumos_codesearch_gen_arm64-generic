@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/sockets_tcp_server.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ SocketProperties::SocketProperties()
  {}
 
 SocketProperties::~SocketProperties() = default;
-SocketProperties::SocketProperties(SocketProperties&& rhs) = default;
-SocketProperties& SocketProperties::operator=(SocketProperties&& rhs) = default;
+SocketProperties::SocketProperties(SocketProperties&& rhs) noexcept = default;
+SocketProperties& SocketProperties::operator=(SocketProperties&& rhs) noexcept = default;
 SocketProperties SocketProperties::Clone() const {
   SocketProperties out;
   out.persistent = persistent;
@@ -53,7 +54,7 @@ bool SocketProperties::Populate(
     {
       auto temp = (*persistent_value).GetIfBool();
       if (!temp.has_value()) {
-        out.persistent = absl::nullopt;
+        out.persistent = std::nullopt;
         return false;
       }
       out.persistent = *temp;
@@ -65,7 +66,7 @@ bool SocketProperties::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -85,34 +86,21 @@ bool SocketProperties::Populate(
 }
 
 // static
-std::unique_ptr<SocketProperties> SocketProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SocketProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SocketProperties> SocketProperties::FromValue(const base::Value::Dict& value) {
+  SocketProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SocketProperties> SocketProperties::FromValue(const base::Value::Dict& value) {
+std::optional<SocketProperties> SocketProperties::FromValue(const base::Value& value) {
   SocketProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SocketProperties> SocketProperties::FromValue(const base::Value& value) {
-  SocketProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -137,8 +125,8 @@ CreateInfo::CreateInfo()
 : socket_id(0) {}
 
 CreateInfo::~CreateInfo() = default;
-CreateInfo::CreateInfo(CreateInfo&& rhs) = default;
-CreateInfo& CreateInfo::operator=(CreateInfo&& rhs) = default;
+CreateInfo::CreateInfo(CreateInfo&& rhs) noexcept = default;
+CreateInfo& CreateInfo::operator=(CreateInfo&& rhs) noexcept = default;
 CreateInfo CreateInfo::Clone() const {
   CreateInfo out;
   out.socket_id = socket_id;
@@ -173,34 +161,21 @@ bool CreateInfo::Populate(
 }
 
 // static
-std::unique_ptr<CreateInfo> CreateInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CreateInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CreateInfo> CreateInfo::FromValue(const base::Value::Dict& value) {
+  CreateInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CreateInfo> CreateInfo::FromValue(const base::Value::Dict& value) {
+std::optional<CreateInfo> CreateInfo::FromValue(const base::Value& value) {
   CreateInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CreateInfo> CreateInfo::FromValue(const base::Value& value) {
-  CreateInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -221,8 +196,8 @@ persistent(false),
 paused(false) {}
 
 SocketInfo::~SocketInfo() = default;
-SocketInfo::SocketInfo(SocketInfo&& rhs) = default;
-SocketInfo& SocketInfo::operator=(SocketInfo&& rhs) = default;
+SocketInfo::SocketInfo(SocketInfo&& rhs) noexcept = default;
+SocketInfo& SocketInfo::operator=(SocketInfo&& rhs) noexcept = default;
 SocketInfo SocketInfo::Clone() const {
   SocketInfo out;
   out.socket_id = socket_id;
@@ -266,7 +241,7 @@ bool SocketInfo::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -290,7 +265,7 @@ bool SocketInfo::Populate(
     {
       auto* temp = (*local_address_value).GetIfString();
       if (!temp) {
-        out.local_address = absl::nullopt;
+        out.local_address = std::nullopt;
         return false;
       }
       out.local_address = *temp;
@@ -302,7 +277,7 @@ bool SocketInfo::Populate(
     {
       auto temp = (*local_port_value).GetIfInt();
       if (!temp.has_value()) {
-        out.local_port = absl::nullopt;
+        out.local_port = std::nullopt;
         return false;
       }
       out.local_port = *temp;
@@ -322,34 +297,21 @@ bool SocketInfo::Populate(
 }
 
 // static
-std::unique_ptr<SocketInfo> SocketInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SocketInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SocketInfo> SocketInfo::FromValue(const base::Value::Dict& value) {
+  SocketInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SocketInfo> SocketInfo::FromValue(const base::Value::Dict& value) {
+std::optional<SocketInfo> SocketInfo::FromValue(const base::Value& value) {
   SocketInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SocketInfo> SocketInfo::FromValue(const base::Value& value) {
-  SocketInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -385,8 +347,8 @@ AcceptInfo::AcceptInfo()
 client_socket_id(0) {}
 
 AcceptInfo::~AcceptInfo() = default;
-AcceptInfo::AcceptInfo(AcceptInfo&& rhs) = default;
-AcceptInfo& AcceptInfo::operator=(AcceptInfo&& rhs) = default;
+AcceptInfo::AcceptInfo(AcceptInfo&& rhs) noexcept = default;
+AcceptInfo& AcceptInfo::operator=(AcceptInfo&& rhs) noexcept = default;
 AcceptInfo AcceptInfo::Clone() const {
   AcceptInfo out;
   out.socket_id = socket_id;
@@ -434,34 +396,21 @@ bool AcceptInfo::Populate(
 }
 
 // static
-std::unique_ptr<AcceptInfo> AcceptInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AcceptInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AcceptInfo> AcceptInfo::FromValue(const base::Value::Dict& value) {
+  AcceptInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AcceptInfo> AcceptInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AcceptInfo> AcceptInfo::FromValue(const base::Value& value) {
   AcceptInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AcceptInfo> AcceptInfo::FromValue(const base::Value& value) {
-  AcceptInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -483,8 +432,8 @@ AcceptErrorInfo::AcceptErrorInfo()
 result_code(0) {}
 
 AcceptErrorInfo::~AcceptErrorInfo() = default;
-AcceptErrorInfo::AcceptErrorInfo(AcceptErrorInfo&& rhs) = default;
-AcceptErrorInfo& AcceptErrorInfo::operator=(AcceptErrorInfo&& rhs) = default;
+AcceptErrorInfo::AcceptErrorInfo(AcceptErrorInfo&& rhs) noexcept = default;
+AcceptErrorInfo& AcceptErrorInfo::operator=(AcceptErrorInfo&& rhs) noexcept = default;
 AcceptErrorInfo AcceptErrorInfo::Clone() const {
   AcceptErrorInfo out;
   out.socket_id = socket_id;
@@ -532,34 +481,21 @@ bool AcceptErrorInfo::Populate(
 }
 
 // static
-std::unique_ptr<AcceptErrorInfo> AcceptErrorInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AcceptErrorInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AcceptErrorInfo> AcceptErrorInfo::FromValue(const base::Value::Dict& value) {
+  AcceptErrorInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AcceptErrorInfo> AcceptErrorInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AcceptErrorInfo> AcceptErrorInfo::FromValue(const base::Value& value) {
   AcceptErrorInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AcceptErrorInfo> AcceptErrorInfo::FromValue(const base::Value& value) {
-  AcceptErrorInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -585,13 +521,13 @@ namespace Create {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -600,12 +536,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[0];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         SocketProperties temp;
         if (!SocketProperties::Populate(properties_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.properties = std::move(temp);
       }
     }
@@ -628,13 +564,13 @@ namespace Update {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -644,13 +580,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = socket_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.socket_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -658,15 +594,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[1];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SocketProperties::Populate(properties_value.GetDict(), params.properties)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -684,13 +620,13 @@ namespace SetPaused {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -700,13 +636,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = socket_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.socket_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -715,13 +651,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = paused_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.paused = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -739,13 +675,13 @@ namespace Listen {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 3 || args.size() > 4) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -755,13 +691,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = socket_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.socket_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -770,13 +706,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = address_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.address = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -785,13 +721,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = port_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.port = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (3 < args.size() &&
@@ -800,8 +736,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = backlog_value.GetIfInt();
       if (!temp.has_value()) {
-        params.backlog = absl::nullopt;
-        return absl::nullopt;
+        params.backlog = std::nullopt;
+        return std::nullopt;
       }
       params.backlog = *temp;
     }
@@ -824,13 +760,13 @@ namespace Disconnect {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -840,13 +776,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = socket_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.socket_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -864,13 +800,13 @@ namespace Close {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -880,13 +816,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = socket_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.socket_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -904,13 +840,13 @@ namespace GetInfo {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -920,13 +856,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = socket_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.socket_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -34,30 +34,27 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/libmems/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/libmems/_libmems-install_config.stamp: stamp
 build obj/libmems/_libmems_pkg_config-install_config.stamp: stamp
 build obj/libmems/_libmems_test_support-install_config.stamp: stamp
 build obj/libmems/_libmems_test_support_pkg_config-install_config.stamp: stamp
-build obj/libmems/all.stamp: stamp obj/libmems/install_headers.stamp ./lib/libmems.so obj/libmems/libmems_pkg_config.stamp ./lib/libmems_test_support.so obj/libmems/libmems_test_support_pkg_config.stamp ./libmems_testrunner
+build obj/libmems/all.stamp: stamp obj/libmems/install_headers.stamp ./lib/libmems.so obj/libmems/libmems_pkg_config.stamp ./lib/libmems_test_support.so
 build obj/libmems/install_headers.stamp: stamp
-build obj/libmems/install_test_pkg_config.stamp: stamp
 subninja obj/libmems/libmems.ninja
 rule __libmems_libmems_pkg_config___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libmems/out/Default/obj/libmems/libmems.pc --name=libmems --description=MEMS\$ support\$ library --version=0.1 --libs=-lmems
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libmems-0.0.1-r513/work/libmems-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libmems/out/Default/obj/libmems/libmems.pc --name=libmems --description=MEMS\$ support\$ library --version=0.1 --libs=-lmems
   description = ACTION //libmems:libmems_pkg_config(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/libmems/libmems.pc: __libmems_libmems_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libmems/_libmems_pkg_config-install_config.stamp
+build obj/libmems/libmems.pc: __libmems_libmems_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libmems-0.0.1-r513/work/libmems-0.0.1/common-mk/generate-pc.py obj/libmems/_libmems_pkg_config-install_config.stamp
 
 build obj/libmems/libmems_pkg_config.stamp: stamp obj/libmems/libmems.pc
 subninja obj/libmems/libmems_test_support.ninja
 rule __libmems_libmems_test_support_pkg_config___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libmems/out/Default/obj/libmems/libmems_test_support.pc --name=libmems_test_support --description=MEMS\$ support\$ library\$ test\$ helpers --version=0.1 --libs=-lmems_test_support
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libmems-0.0.1-r513/work/libmems-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libmems/out/Default/obj/libmems/libmems_test_support.pc --name=libmems_test_support --description=MEMS\$ support\$ library\$ test\$ helpers --version=0.1 --libs=-lmems_test_support
   description = ACTION //libmems:libmems_test_support_pkg_config(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/libmems/libmems_test_support.pc: __libmems_libmems_test_support_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libmems/_libmems_test_support_pkg_config-install_config.stamp
+build obj/libmems/libmems_test_support.pc: __libmems_libmems_test_support_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libmems-0.0.1-r513/work/libmems-0.0.1/common-mk/generate-pc.py obj/libmems/_libmems_test_support_pkg_config-install_config.stamp
 
 build obj/libmems/libmems_test_support_pkg_config.stamp: stamp obj/libmems/libmems_test_support.pc
-subninja obj/libmems/libmems_testrunner.ninja

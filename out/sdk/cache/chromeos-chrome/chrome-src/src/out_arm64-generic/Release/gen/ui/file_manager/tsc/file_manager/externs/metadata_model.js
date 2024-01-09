@@ -7,7 +7,8 @@ export class MetadataModelInterface {
     /**
      * Obtains metadata for entries.
      * @param {!Array<!Entry|!FilesAppEntry>} entries Entries.
-     * @param {!Array<string>} names Metadata property names to be obtained.
+     * @param {!Array<import("../foreground/js/metadata/metadata_item.js").MetadataKey>}
+     *     names Metadata property names to be obtained.
      * @return {!Promise<!Array<!MetadataItem>>}
      */
     // @ts-ignore: error TS6133: 'names' is declared but its value is never read.
@@ -16,8 +17,9 @@ export class MetadataModelInterface {
     }
     /**
      * Obtains metadata cache for entries.
-     * @param {!Array<!Entry>} entries Entries.
-     * @param {!Array<string>} names Metadata property names to be obtained.
+     * @param {!Array<!Entry|!FilesAppEntry>} entries Entries.
+     * @param {!Array<import("../foreground/js/metadata/metadata_item.js").MetadataKey>}
+     *     names Metadata property names to be obtained.
      * @return {!Array<!MetadataItem>}
      */
     // @ts-ignore: error TS6133: 'names' is declared but its value is never read.
@@ -27,7 +29,8 @@ export class MetadataModelInterface {
     /**
      * Obtains metadata cache for file URLs.
      * @param {!Array<!string>} urls File URLs.
-     * @param {!Array<string>} names Metadata property names to be obtained.
+     * @param {!Array<import("../foreground/js/metadata/metadata_item.js").MetadataKey>}
+     *     names Metadata property names to be obtained.
      * @return {!Array<!MetadataItem>}
      */
     // @ts-ignore: error TS6133: 'names' is declared but its value is never read.

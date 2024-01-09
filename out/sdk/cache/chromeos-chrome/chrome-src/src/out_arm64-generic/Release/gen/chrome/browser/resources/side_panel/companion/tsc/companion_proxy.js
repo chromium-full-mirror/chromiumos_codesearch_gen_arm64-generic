@@ -4,6 +4,8 @@
 import { CompanionPageCallbackRouter, CompanionPageHandlerFactory, CompanionPageHandlerRemote } from './companion.mojom-webui.js';
 let instance = null;
 export class CompanionProxyImpl {
+    callbackRouter;
+    handler;
     constructor() {
         this.callbackRouter = new CompanionPageCallbackRouter();
         this.handler = new CompanionPageHandlerRemote();

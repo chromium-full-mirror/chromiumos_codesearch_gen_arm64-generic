@@ -86,11 +86,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRWebGLLayer>::value,
     "XRWebGLLayer inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRWebGLLayer::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRWebGLLayer is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -103,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLLayer.antialias.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(v8_receiver);
+XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->antialias();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -117,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLLayer.ignoreDepthValues.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(v8_receiver);
+XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ignoreDepthValues();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -131,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLLayer.framebufferWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(v8_receiver);
+XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->framebufferWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -145,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLLayer.framebufferHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(v8_receiver);
+XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->framebufferHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -159,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRWebGLLayer.framebuffer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(v8_receiver);
+XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->framebuffer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -240,7 +240,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(v8_receiver);
+XRWebGLLayer* blink_receiver = V8XRWebGLLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_view = NativeValueTraits<XRView>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="3" failures="0" disabled="0" errors="0" time="100." timestamp="1970-01-01T00:00:00.000" name="AllTests">
-  <testsuite name="CrasAbiTestSuite" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="100." timestamp="1970-01-01T00:00:00.000">
-    <testcase name="CheckUnsupportedFunction" file="cras/src/tests/cras_abi_unittest.cc" line="64" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="CrasAbiTestSuite" />
-    <testcase name="BasicStream" file="cras/src/tests/cras_abi_unittest.cc" line="71" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="CrasAbiTestSuite" />
-    <testcase name="StreamCallback" file="cras/src/tests/cras_abi_unittest.cc" line="94" status="run" result="completed" time="100." timestamp="1970-01-01T00:00:00.000" classname="CrasAbiTestSuite" />
-  </testsuite>
-</testsuites>

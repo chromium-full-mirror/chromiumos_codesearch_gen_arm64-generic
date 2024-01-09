@@ -39,7 +39,6 @@ namespace blink {
 void V8URL::Impl::Init() {
   V8URL::install_interface_template_func_ = InstallInterfaceTemplate;
 V8URL::install_unconditional_props_func_ = InstallUnconditionalProperties;
-V8URL::install_context_independent_props_func_ = InstallContextIndependentProperties;
 V8URL::install_context_dependent_props_func_ = InstallContextDependentProperties;
 }
 
@@ -54,10 +53,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.origin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->origin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->origin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -69,10 +68,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.protocol.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->protocol();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->protocol();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -83,9 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.protocol.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -106,10 +105,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.username.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->username();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->username();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -120,9 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.username.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -143,10 +142,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.password.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->password();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->password();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -157,9 +156,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.password.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -180,10 +179,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.host.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->host();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->host();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -194,9 +193,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.host.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -217,10 +216,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.hostname.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->hostname();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->hostname();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -231,9 +230,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.hostname.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -254,10 +253,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.port.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->port();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->port();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -268,9 +267,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.port.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -291,10 +290,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.pathname.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->pathname();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->pathname();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -305,9 +304,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.pathname.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -328,10 +327,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.search.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->search();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->search();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -342,9 +341,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.search.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -365,8 +364,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.searchParams.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->searchParams();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -379,10 +379,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.hash.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->hash();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->hash();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -393,9 +393,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.hash.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -416,10 +416,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.href.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->href();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -430,9 +430,9 @@ BLINK_BINDINGS_TRACE_EVENT("URL.href.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "URL";
@@ -508,10 +508,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.toJSON");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toJSON();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toJSON();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -686,7 +686,7 @@ ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_url;
 if (LIKELY(info[0]->IsString())) {
-  arg1_url.Init(info[0].As<v8::String>());
+  arg1_url.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "URL";
@@ -708,10 +708,10 @@ BLINK_BINDINGS_TRACE_EVENT("URL.href.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->href();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -741,7 +741,6 @@ interface_function_template->SetLength(1);
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
-InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8URL::Impl::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -774,6 +773,7 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"toJSON", ToJSONOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"canParse", CanParseStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"toString", ToStringOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
 };
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
@@ -783,24 +783,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
-void V8URL::Impl::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
-  using bindings::IDLMemberInstaller;
-
-
-
-
-
-if (RuntimeEnabledFeatures::URLCanParseEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"canParse", CanParseStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
-}
-
-
-}
 
 void V8URL::Impl::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
   using bindings::IDLMemberInstaller;

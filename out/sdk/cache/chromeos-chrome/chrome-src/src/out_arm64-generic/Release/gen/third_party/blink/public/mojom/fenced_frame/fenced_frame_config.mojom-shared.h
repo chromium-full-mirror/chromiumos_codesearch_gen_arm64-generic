@@ -205,6 +205,24 @@ inline bool IsKnownEnumValue(Opaque value) {
 }
 
 
+enum class AutomaticBeaconType : int32_t {
+  
+  kDeprecatedTopNavigation = 0,
+  
+  kTopNavigationStart = 1,
+  
+  kTopNavigationCommit = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, AutomaticBeaconType value);
+inline bool IsKnownEnumValue(AutomaticBeaconType value) {
+  return internal::AutomaticBeaconType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 class AdAuctionDataDataView {
  public:
   AdAuctionDataDataView() = default;
@@ -1033,6 +1051,10 @@ template <>
 struct hash<::blink::mojom::Opaque>
     : public mojo::internal::EnumHashImpl<::blink::mojom::Opaque> {};
 
+template <>
+struct hash<::blink::mojom::AutomaticBeaconType>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::AutomaticBeaconType> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -1092,6 +1114,26 @@ struct Serializer<::blink::mojom::Opaque, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::blink::mojom::Opaque>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::AutomaticBeaconType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::AutomaticBeaconType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::AutomaticBeaconType>(input)), output);
   }
 };
 
@@ -2066,6 +2108,15 @@ namespace perfetto {
 template <>
 struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::Opaque> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::Opaque value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::AutomaticBeaconType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::AutomaticBeaconType value);
 };
 
 } // namespace perfetto

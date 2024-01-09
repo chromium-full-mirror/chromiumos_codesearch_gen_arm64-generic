@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "flashrom", "version": "0.9.9", "revision": 1694, "fullname": "sys-apps/flashrom", "fullnamerev": "sys-apps/flashrom-0.9.9-r1694", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://flashrom.org/"], "skip": false, "tainted": false, "ebuild_path": null}

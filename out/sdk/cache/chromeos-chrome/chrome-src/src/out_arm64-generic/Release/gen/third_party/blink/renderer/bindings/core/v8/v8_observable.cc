@@ -15,8 +15,11 @@
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_observer.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_observer_callback.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_subscribe_callback.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_subscribe_options.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_union_observer_observercallback.h"
 #include "third_party/blink/renderer/core/dom/observable.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/core/frame/web_feature.h"
@@ -71,11 +74,6 @@ const WrapperTypeInfo& Observable::wrapper_type_info_ =
 static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Observable>::value,
     "Observable inherits from ActiveScriptWrappable<> without "
-    "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Observable::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Observable is overriding hasPendingActivity() without "
     "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
@@ -132,26 +130,35 @@ BLINK_BINDINGS_TRACE_EVENT("Observable.subscribe");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Observable* blink_receiver = V8Observable::ToWrappableUnsafe(v8_receiver);
+Observable* blink_receiver = V8Observable::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-decltype(NativeValueTraits<Observer>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_observer;
-if (info[0]->IsUndefined()) {
-  arg1_observer = Observer::Create();
-} else {
-  v8::Isolate* isolate = info.GetIsolate();
+decltype(NativeValueTraits<V8UnionObserverOrObserverCallback>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_observer;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Observable";
 const char* const property_name = "subscribe";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-arg1_observer = NativeValueTraits<Observer>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (info[0]->IsUndefined()) {
+  arg1_observer = MakeGarbageCollected<V8UnionObserverOrObserverCallback>(Observer::Create());
+} else {
+  arg1_observer = NativeValueTraits<V8UnionObserverOrObserverCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 }
-blink_receiver->subscribe(script_state, arg1_observer);
+decltype(NativeValueTraits<SubscribeOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = SubscribeOptions::Create();
+} else {
+  arg2_options = NativeValueTraits<SubscribeOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+blink_receiver->subscribe(script_state, arg1_observer, arg2_options);
 
 }
 

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct TokenInfo {
   ~TokenInfo();
   TokenInfo(const TokenInfo&) = delete;
   TokenInfo& operator=(const TokenInfo&) = delete;
-  TokenInfo(TokenInfo&& rhs);
-  TokenInfo& operator=(TokenInfo&& rhs);
+  TokenInfo(TokenInfo&& rhs) noexcept;
+  TokenInfo& operator=(TokenInfo&& rhs) noexcept;
 
   // Populates a TokenInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -48,14 +49,11 @@ struct TokenInfo {
   // Creates a deep copy of TokenInfo.
   TokenInfo Clone() const;
 
-  // Creates a TokenInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TokenInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TokenInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<TokenInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TokenInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TokenInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<TokenInfo> FromValue(const base::Value& value);
+  static std::optional<TokenInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTokenInfo object.
@@ -71,10 +69,10 @@ struct TokenInfo {
 };
 
 // TODO(jdufault): Add more quick unlock modes, such as a pattern unlock.
-enum  QuickUnlockMode {
-  QUICK_UNLOCK_MODE_NONE = 0,
-  QUICK_UNLOCK_MODE_PIN,
-  QUICK_UNLOCK_MODE_LAST = QUICK_UNLOCK_MODE_PIN,
+enum class QuickUnlockMode {
+  kNone = 0,
+  kPin,
+  kMaxValue = kPin,
 };
 
 
@@ -83,13 +81,13 @@ QuickUnlockMode ParseQuickUnlockMode(base::StringPiece as_string);
 std::u16string GetQuickUnlockModeParseError(base::StringPiece as_string);
 
 // The problems a given PIN might have.
-enum  CredentialProblem {
-  CREDENTIAL_PROBLEM_NONE = 0,
-  CREDENTIAL_PROBLEM_TOO_SHORT,
-  CREDENTIAL_PROBLEM_TOO_LONG,
-  CREDENTIAL_PROBLEM_TOO_WEAK,
-  CREDENTIAL_PROBLEM_CONTAINS_NONDIGIT,
-  CREDENTIAL_PROBLEM_LAST = CREDENTIAL_PROBLEM_CONTAINS_NONDIGIT,
+enum class CredentialProblem {
+  kNone = 0,
+  kTooShort,
+  kTooLong,
+  kTooWeak,
+  kContainsNondigit,
+  kMaxValue = kContainsNondigit,
 };
 
 
@@ -102,8 +100,8 @@ struct CredentialCheck {
   ~CredentialCheck();
   CredentialCheck(const CredentialCheck&) = delete;
   CredentialCheck& operator=(const CredentialCheck&) = delete;
-  CredentialCheck(CredentialCheck&& rhs);
-  CredentialCheck& operator=(CredentialCheck&& rhs);
+  CredentialCheck(CredentialCheck&& rhs) noexcept;
+  CredentialCheck& operator=(CredentialCheck&& rhs) noexcept;
 
   // Populates a CredentialCheck object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -116,15 +114,12 @@ struct CredentialCheck {
   // Creates a deep copy of CredentialCheck.
   CredentialCheck Clone() const;
 
-  // Creates a CredentialCheck object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CredentialCheck> FromValueDeprecated(const base::Value& value);
-
   // Creates a CredentialCheck object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CredentialCheck> FromValue(const base::Value::Dict& value);
+  static std::optional<CredentialCheck> FromValue(const base::Value::Dict& value);
 
   // Creates a CredentialCheck object from a base::Value, or nullopt on failure.
-  static absl::optional<CredentialCheck> FromValue(const base::Value& value);
+  static std::optional<CredentialCheck> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCredentialCheck object.
@@ -144,8 +139,8 @@ struct CredentialRequirements {
   ~CredentialRequirements();
   CredentialRequirements(const CredentialRequirements&) = delete;
   CredentialRequirements& operator=(const CredentialRequirements&) = delete;
-  CredentialRequirements(CredentialRequirements&& rhs);
-  CredentialRequirements& operator=(CredentialRequirements&& rhs);
+  CredentialRequirements(CredentialRequirements&& rhs) noexcept;
+  CredentialRequirements& operator=(CredentialRequirements&& rhs) noexcept;
 
   // Populates a CredentialRequirements object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -158,17 +153,13 @@ struct CredentialRequirements {
   // Creates a deep copy of CredentialRequirements.
   CredentialRequirements Clone() const;
 
-  // Creates a CredentialRequirements object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CredentialRequirements> FromValueDeprecated(const base::Value& value);
-
   // Creates a CredentialRequirements object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<CredentialRequirements> FromValue(const base::Value::Dict& value);
+  static std::optional<CredentialRequirements> FromValue(const base::Value::Dict& value);
 
   // Creates a CredentialRequirements object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CredentialRequirements> FromValue(const base::Value& value);
+  static std::optional<CredentialRequirements> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCredentialRequirements object.
@@ -191,11 +182,11 @@ struct CredentialRequirements {
 namespace GetAuthToken {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The account password for the logged in user.
@@ -216,11 +207,11 @@ base::Value::List Create(const TokenInfo& result);
 namespace SetLockScreenEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The token returned by $(ref:getAuthToken).
@@ -244,11 +235,11 @@ base::Value::List Create();
 namespace SetPinAutosubmitEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The authentication token.
@@ -302,11 +293,11 @@ base::Value::List Create(const std::vector<QuickUnlockMode>& modes);
 namespace CheckCredential {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The quick unlock mode that is used.
@@ -330,11 +321,11 @@ base::Value::List Create(const CredentialCheck& check);
 namespace GetCredentialRequirements {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The quick unlock mode that is used.
@@ -355,11 +346,11 @@ base::Value::List Create(const CredentialRequirements& requirements);
 namespace SetModes {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The token returned by $(ref:getAuthToken).

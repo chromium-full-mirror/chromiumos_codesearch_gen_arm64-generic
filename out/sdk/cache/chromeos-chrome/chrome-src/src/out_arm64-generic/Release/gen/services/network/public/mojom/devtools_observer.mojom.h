@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/devtools_observer.mojom-features.h"
 #include "services/network/public/mojom/devtools_observer.mojom-shared.h"
 #include "services/network/public/mojom/devtools_observer.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -39,6 +40,7 @@
 #include "services/network/public/mojom/ip_address_space.mojom-forward.h"
 #include "services/network/public/mojom/referrer_policy.mojom.h"
 #include "services/network/public/mojom/request_priority.mojom.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom.h"
 #include "services/network/public/mojom/trust_tokens.mojom.h"
 #include "services/network/public/mojom/ip_endpoint.mojom.h"
 #include "services/network/public/mojom/url_loader_completion_status.mojom.h"
@@ -158,10 +160,10 @@ class DevToolsObserver
   virtual void OnRawRequest(const std::string& devtool_request_id, const std::vector<::net::CookieWithAccessResult>& cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> headers, ::base::TimeTicks timestamp, ::network::mojom::ClientSecurityStatePtr client_security_state, OtherPartitionInfoPtr other_partition_info) = 0;
 
   
-  virtual void OnRawResponse(const std::string& devtool_request_id, const std::vector<::net::CookieAndLineWithAccessResult>& cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> headers, const absl::optional<std::string>& raw_response_headers, ::network::mojom::IPAddressSpace resource_address_space, int32_t http_status_code, const absl::optional<::net::CookiePartitionKey>& cookie_partition_key) = 0;
+  virtual void OnRawResponse(const std::string& devtool_request_id, const std::vector<::net::CookieAndLineWithAccessResult>& cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> headers, const std::optional<std::string>& raw_response_headers, ::network::mojom::IPAddressSpace resource_address_space, int32_t http_status_code, const std::optional<::net::CookiePartitionKey>& cookie_partition_key) = 0;
 
   
-  virtual void OnPrivateNetworkRequest(const absl::optional<std::string>& devtool_request_id, const ::GURL& url, bool is_warning, ::network::mojom::IPAddressSpace resource_address_space, ::network::mojom::ClientSecurityStatePtr client_security_state) = 0;
+  virtual void OnPrivateNetworkRequest(const std::optional<std::string>& devtool_request_id, const ::GURL& url, bool is_warning, ::network::mojom::IPAddressSpace resource_address_space, ::network::mojom::ClientSecurityStatePtr client_security_state) = 0;
 
   
   virtual void OnCorsPreflightRequest(const ::base::UnguessableToken& devtool_request_id, const ::net::HttpRequestHeaders& request_headers, URLRequestDevToolsInfoPtr request_info, const ::GURL& initiator_url, const std::string& initiator_devtool_request_id) = 0;
@@ -176,10 +178,10 @@ class DevToolsObserver
   virtual void OnTrustTokenOperationDone(const std::string& devtool_request_id, ::network::mojom::TrustTokenOperationResultPtr result) = 0;
 
   
-  virtual void OnCorsError(const absl::optional<std::string>& devtool_request_id, const absl::optional<::url::Origin>& initiator_origin, ::network::mojom::ClientSecurityStatePtr client_security_state, const ::GURL& url, const ::network::CorsErrorStatus& status, bool is_warning) = 0;
+  virtual void OnCorsError(const std::optional<std::string>& devtool_request_id, const std::optional<::url::Origin>& initiator_origin, ::network::mojom::ClientSecurityStatePtr client_security_state, const ::GURL& url, const ::network::CorsErrorStatus& status, bool is_warning) = 0;
 
   
-  virtual void OnCorbError(const absl::optional<std::string>& devtools_request_id, const ::GURL& url) = 0;
+  virtual void OnCorbError(const std::optional<std::string>& devtools_request_id, const ::GURL& url) = 0;
 
   
   virtual void OnSubresourceWebBundleMetadata(const std::string& devtool_request_id, const std::vector<::GURL>& urls) = 0;
@@ -188,10 +190,10 @@ class DevToolsObserver
   virtual void OnSubresourceWebBundleMetadataError(const std::string& devtool_request_id, const std::string& error_message) = 0;
 
   
-  virtual void OnSubresourceWebBundleInnerResponse(const std::string& inner_request_devtools_id, const ::GURL& url, const absl::optional<std::string>& bundle_request_devtools_id) = 0;
+  virtual void OnSubresourceWebBundleInnerResponse(const std::string& inner_request_devtools_id, const ::GURL& url, const std::optional<std::string>& bundle_request_devtools_id) = 0;
 
   
-  virtual void OnSubresourceWebBundleInnerResponseError(const std::string& inner_request_devtools_id, const ::GURL& url, const std::string& error_message, const absl::optional<std::string>& bundle_request_devtools_id) = 0;
+  virtual void OnSubresourceWebBundleInnerResponseError(const std::string& inner_request_devtools_id, const ::GURL& url, const std::string& error_message, const std::optional<std::string>& bundle_request_devtools_id) = 0;
 
   
   virtual void Clone(::mojo::PendingReceiver<DevToolsObserver> listener) = 0;
@@ -208,9 +210,9 @@ class  DevToolsObserverProxy
   
   void OnRawRequest(const std::string& devtool_request_id, const std::vector<::net::CookieWithAccessResult>& cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> headers, ::base::TimeTicks timestamp, ::network::mojom::ClientSecurityStatePtr client_security_state, OtherPartitionInfoPtr other_partition_info) final;
   
-  void OnRawResponse(const std::string& devtool_request_id, const std::vector<::net::CookieAndLineWithAccessResult>& cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> headers, const absl::optional<std::string>& raw_response_headers, ::network::mojom::IPAddressSpace resource_address_space, int32_t http_status_code, const absl::optional<::net::CookiePartitionKey>& cookie_partition_key) final;
+  void OnRawResponse(const std::string& devtool_request_id, const std::vector<::net::CookieAndLineWithAccessResult>& cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> headers, const std::optional<std::string>& raw_response_headers, ::network::mojom::IPAddressSpace resource_address_space, int32_t http_status_code, const std::optional<::net::CookiePartitionKey>& cookie_partition_key) final;
   
-  void OnPrivateNetworkRequest(const absl::optional<std::string>& devtool_request_id, const ::GURL& url, bool is_warning, ::network::mojom::IPAddressSpace resource_address_space, ::network::mojom::ClientSecurityStatePtr client_security_state) final;
+  void OnPrivateNetworkRequest(const std::optional<std::string>& devtool_request_id, const ::GURL& url, bool is_warning, ::network::mojom::IPAddressSpace resource_address_space, ::network::mojom::ClientSecurityStatePtr client_security_state) final;
   
   void OnCorsPreflightRequest(const ::base::UnguessableToken& devtool_request_id, const ::net::HttpRequestHeaders& request_headers, URLRequestDevToolsInfoPtr request_info, const ::GURL& initiator_url, const std::string& initiator_devtool_request_id) final;
   
@@ -220,17 +222,17 @@ class  DevToolsObserverProxy
   
   void OnTrustTokenOperationDone(const std::string& devtool_request_id, ::network::mojom::TrustTokenOperationResultPtr result) final;
   
-  void OnCorsError(const absl::optional<std::string>& devtool_request_id, const absl::optional<::url::Origin>& initiator_origin, ::network::mojom::ClientSecurityStatePtr client_security_state, const ::GURL& url, const ::network::CorsErrorStatus& status, bool is_warning) final;
+  void OnCorsError(const std::optional<std::string>& devtool_request_id, const std::optional<::url::Origin>& initiator_origin, ::network::mojom::ClientSecurityStatePtr client_security_state, const ::GURL& url, const ::network::CorsErrorStatus& status, bool is_warning) final;
   
-  void OnCorbError(const absl::optional<std::string>& devtools_request_id, const ::GURL& url) final;
+  void OnCorbError(const std::optional<std::string>& devtools_request_id, const ::GURL& url) final;
   
   void OnSubresourceWebBundleMetadata(const std::string& devtool_request_id, const std::vector<::GURL>& urls) final;
   
   void OnSubresourceWebBundleMetadataError(const std::string& devtool_request_id, const std::string& error_message) final;
   
-  void OnSubresourceWebBundleInnerResponse(const std::string& inner_request_devtools_id, const ::GURL& url, const absl::optional<std::string>& bundle_request_devtools_id) final;
+  void OnSubresourceWebBundleInnerResponse(const std::string& inner_request_devtools_id, const ::GURL& url, const std::optional<std::string>& bundle_request_devtools_id) final;
   
-  void OnSubresourceWebBundleInnerResponseError(const std::string& inner_request_devtools_id, const ::GURL& url, const std::string& error_message, const absl::optional<std::string>& bundle_request_devtools_id) final;
+  void OnSubresourceWebBundleInnerResponseError(const std::string& inner_request_devtools_id, const ::GURL& url, const std::string& error_message, const std::optional<std::string>& bundle_request_devtools_id) final;
   
   void Clone(::mojo::PendingReceiver<DevToolsObserver> listener) final;
 
@@ -632,10 +634,13 @@ class  URLResponseHeadDevToolsInfo {
       ::net::AlternateProtocolUsage alternate_protocol_usage,
       bool was_fetched_via_spdy,
       ::network::mojom::FetchResponseSource service_worker_response_source,
-      const absl::optional<::net::SSLInfo>& ssl_info,
+      ::network::mojom::ServiceWorkerRouterInfoPtr service_worker_router_info,
+      const std::optional<::net::SSLInfo>& ssl_info,
       const ::net::IPEndPoint& remote_endpoint,
       bool emitted_extra_info);
 
+URLResponseHeadDevToolsInfo(const URLResponseHeadDevToolsInfo&) = delete;
+URLResponseHeadDevToolsInfo& operator=(const URLResponseHeadDevToolsInfo&) = delete;
 
   ~URLResponseHeadDevToolsInfo();
 
@@ -738,7 +743,9 @@ class  URLResponseHeadDevToolsInfo {
   
   ::network::mojom::FetchResponseSource service_worker_response_source;
   
-  absl::optional<::net::SSLInfo> ssl_info;
+  ::network::mojom::ServiceWorkerRouterInfoPtr service_worker_router_info;
+  
+  std::optional<::net::SSLInfo> ssl_info;
   
   ::net::IPEndPoint remote_endpoint;
   
@@ -854,6 +861,7 @@ URLResponseHeadDevToolsInfoPtr URLResponseHeadDevToolsInfo::Clone() const {
       mojo::Clone(alternate_protocol_usage),
       mojo::Clone(was_fetched_via_spdy),
       mojo::Clone(service_worker_response_source),
+      mojo::Clone(service_worker_router_info),
       mojo::Clone(ssl_info),
       mojo::Clone(remote_endpoint),
       mojo::Clone(emitted_extra_info)
@@ -887,6 +895,8 @@ bool URLResponseHeadDevToolsInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->was_fetched_via_spdy, other_struct.was_fetched_via_spdy))
     return false;
   if (!mojo::Equals(this->service_worker_response_source, other_struct.service_worker_response_source))
+    return false;
+  if (!mojo::Equals(this->service_worker_router_info, other_struct.service_worker_router_info))
     return false;
   if (!mojo::Equals(this->ssl_info, other_struct.ssl_info))
     return false;
@@ -950,6 +960,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.service_worker_response_source < rhs.service_worker_response_source)
     return true;
   if (rhs.service_worker_response_source < lhs.service_worker_response_source)
+    return false;
+  if (lhs.service_worker_router_info < rhs.service_worker_router_info)
+    return true;
+  if (rhs.service_worker_router_info < lhs.service_worker_router_info)
     return false;
   if (lhs.ssl_info < rhs.ssl_info)
     return true;
@@ -1108,6 +1122,11 @@ struct  StructTraits<::network::mojom::URLResponseHeadDevToolsInfo::DataView,
   static decltype(::network::mojom::URLResponseHeadDevToolsInfo::service_worker_response_source) service_worker_response_source(
       const ::network::mojom::URLResponseHeadDevToolsInfoPtr& input) {
     return input->service_worker_response_source;
+  }
+
+  static const decltype(::network::mojom::URLResponseHeadDevToolsInfo::service_worker_router_info)& service_worker_router_info(
+      const ::network::mojom::URLResponseHeadDevToolsInfoPtr& input) {
+    return input->service_worker_router_info;
   }
 
   static const decltype(::network::mojom::URLResponseHeadDevToolsInfo::ssl_info)& ssl_info(

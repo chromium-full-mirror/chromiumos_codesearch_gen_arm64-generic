@@ -179,7 +179,8 @@ bool FrameTimelineEvent_ActualSurfaceFrameStart::operator==(const FrameTimelineE
    && ::protozero::internal::gen_helpers::EqualsField(gpu_composition_, other.gpu_composition_)
    && ::protozero::internal::gen_helpers::EqualsField(jank_type_, other.jank_type_)
    && ::protozero::internal::gen_helpers::EqualsField(prediction_type_, other.prediction_type_)
-   && ::protozero::internal::gen_helpers::EqualsField(is_buffer_, other.is_buffer_);
+   && ::protozero::internal::gen_helpers::EqualsField(is_buffer_, other.is_buffer_)
+   && ::protozero::internal::gen_helpers::EqualsField(jank_severity_type_, other.jank_severity_type_);
 }
 
 bool FrameTimelineEvent_ActualSurfaceFrameStart::ParseFromArray(const void* raw, size_t size) {
@@ -224,6 +225,9 @@ bool FrameTimelineEvent_ActualSurfaceFrameStart::ParseFromArray(const void* raw,
         break;
       case 11 /* is_buffer */:
         field.get(&is_buffer_);
+        break;
+      case 12 /* jank_severity_type */:
+        field.get(&jank_severity_type_);
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -299,6 +303,11 @@ void FrameTimelineEvent_ActualSurfaceFrameStart::Serialize(::protozero::Message*
   // Field 11: is_buffer
   if (_has_field_[11]) {
     ::protozero::internal::gen_helpers::SerializeTinyVarInt(11, is_buffer_, msg);
+  }
+
+  // Field 12: jank_severity_type
+  if (_has_field_[12]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(12, jank_severity_type_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);
@@ -412,7 +421,8 @@ bool FrameTimelineEvent_ActualDisplayFrameStart::operator==(const FrameTimelineE
    && ::protozero::internal::gen_helpers::EqualsField(on_time_finish_, other.on_time_finish_)
    && ::protozero::internal::gen_helpers::EqualsField(gpu_composition_, other.gpu_composition_)
    && ::protozero::internal::gen_helpers::EqualsField(jank_type_, other.jank_type_)
-   && ::protozero::internal::gen_helpers::EqualsField(prediction_type_, other.prediction_type_);
+   && ::protozero::internal::gen_helpers::EqualsField(prediction_type_, other.prediction_type_)
+   && ::protozero::internal::gen_helpers::EqualsField(jank_severity_type_, other.jank_severity_type_);
 }
 
 bool FrameTimelineEvent_ActualDisplayFrameStart::ParseFromArray(const void* raw, size_t size) {
@@ -448,6 +458,9 @@ bool FrameTimelineEvent_ActualDisplayFrameStart::ParseFromArray(const void* raw,
         break;
       case 8 /* prediction_type */:
         field.get(&prediction_type_);
+        break;
+      case 9 /* jank_severity_type */:
+        field.get(&jank_severity_type_);
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -508,6 +521,11 @@ void FrameTimelineEvent_ActualDisplayFrameStart::Serialize(::protozero::Message*
   // Field 8: prediction_type
   if (_has_field_[8]) {
     ::protozero::internal::gen_helpers::SerializeVarInt(8, prediction_type_, msg);
+  }
+
+  // Field 9: jank_severity_type
+  if (_has_field_[9]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(9, jank_severity_type_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

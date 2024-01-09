@@ -76,6 +76,21 @@ class AlternativeAnimationWithTimeline final : public Shorthand {
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
  };
 
+// -alternative-mask
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class AlternativeMask final : public Shorthand {
+ public:
+  constexpr AlternativeMask() : Shorthand(CSSPropertyID::kAlternativeMask, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  bool ParseShorthand(bool, CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&, HeapVector<CSSPropertyValue, 64>&) const override;
+  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+ };
+
 // -alternative-view-timeline-with-inset
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
@@ -906,6 +921,21 @@ class Marker final : public Shorthand {
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
  };
 
+// mask-position
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class MaskPosition final : public Shorthand {
+ public:
+  constexpr MaskPosition() : Shorthand(CSSPropertyID::kMaskPosition, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  bool ParseShorthand(bool, CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&, HeapVector<CSSPropertyValue, 64>&) const override;
+  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+ };
+
 // offset
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
@@ -1262,21 +1292,6 @@ class TextSpacing final : public Shorthand {
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
  };
 
-// toggle
-// NOTE: Multiple inheritance is not allowed here, since the class must be
-// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
-// (the cast happens in GetPropertyInternal()).
-class Toggle final : public Shorthand {
- public:
-  constexpr Toggle() : Shorthand(CSSPropertyID::kToggle, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
-  const char* GetPropertyName() const override;
-  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
-  const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
-  bool ParseShorthand(bool, CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&, HeapVector<CSSPropertyValue, 64>&) const override;
-  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
- };
-
 // transition
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
@@ -1307,20 +1322,6 @@ class ViewTimeline final : public Shorthand {
   }
   bool ParseShorthand(bool, CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&, HeapVector<CSSPropertyValue, 64>&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
- };
-
-// -webkit-alternative-mask
-// NOTE: Multiple inheritance is not allowed here, since the class must be
-// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
-// (the cast happens in GetPropertyInternal()).
-class WebkitAlternativeMask final : public Shorthand {
- public:
-  constexpr WebkitAlternativeMask() : Shorthand(CSSPropertyID::kWebkitAlternativeMask, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
-  const char* GetPropertyName() const override;
-  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
-  const char* GetJSPropertyName() const override;
-  CSSExposure Exposure(const ExecutionContext*) const override;
-  bool ParseShorthand(bool, CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&, HeapVector<CSSPropertyValue, 64>&) const override;
  };
 
 // -webkit-column-break-after
@@ -1377,7 +1378,7 @@ class WebkitMask final : public Shorthand {
   const char* GetJSPropertyName() const override;
   CSSExposure Exposure(const ExecutionContext*) const override;
   CSSPropertyID GetAlternative() const override {
-    return CSSPropertyID::kWebkitAlternativeMask;
+    return CSSPropertyID::kAliasWebkitAlternativeMask;
   }
   bool ParseShorthand(bool, CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&, HeapVector<CSSPropertyValue, 64>&) const override;
  };
@@ -1406,6 +1407,10 @@ class WebkitMaskPosition final : public Shorthand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  CSSPropertyID GetAlternative() const override {
+    return CSSPropertyID::kAliasWebkitAlternativeMaskPosition;
+  }
   bool ParseShorthand(bool, CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&, HeapVector<CSSPropertyValue, 64>&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
  };
@@ -1483,6 +1488,32 @@ class WebkitBorderStart final : public CSSUnresolvedProperty {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
+ };
+
+// -webkit-alternative-mask
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class WebkitAlternativeMask final : public CSSUnresolvedProperty {
+ public:
+  constexpr WebkitAlternativeMask() : CSSUnresolvedProperty() { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+ };
+
+// -webkit-alternative-mask-position
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class WebkitAlternativeMaskPosition final : public CSSUnresolvedProperty {
+ public:
+  constexpr WebkitAlternativeMaskPosition() : CSSUnresolvedProperty() { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
  };
 
 // -epub-text-emphasis

@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/internal/singleplanar_format.mojom-features.h"
 #include "services/viz/public/mojom/compositing/internal/singleplanar_format.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/internal/singleplanar_format.mojom-blink-forward.h"
 
@@ -31,18 +32,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::viz::mojom::SingleplanarFormat>
-    : EnumHashTraits<::viz::mojom::SingleplanarFormat, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace viz::mojom::blink {

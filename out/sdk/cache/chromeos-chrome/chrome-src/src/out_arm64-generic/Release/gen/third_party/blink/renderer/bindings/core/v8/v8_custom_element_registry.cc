@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CustomElementRegistry>::value,
     "CustomElementRegistry inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CustomElementRegistry::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CustomElementRegistry is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -141,7 +136,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(v8_receiver);
+CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -177,9 +172,9 @@ BLINK_BINDINGS_TRACE_EVENT("CustomElementRegistry.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CustomElementRegistry";
 const char* const property_name = "get";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -190,13 +185,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(v8_receiver);
+CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_name.Init(info[0].As<v8::String>());
+  arg1_name.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CustomElementRegistry";
 const char* const property_name = "get";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -230,7 +224,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(v8_receiver);
+CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<V8CustomElementConstructor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_constructor;
 if (LIKELY(info[0]->IsFunction())) {
   arg1_constructor = V8CustomElementConstructor::Create(info[0].As<v8::Function>());
@@ -272,7 +266,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(v8_receiver);
+CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_root = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -308,7 +302,7 @@ return;
 
 
 
-CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(v8_receiver);
+CustomElementRegistry* blink_receiver = V8CustomElementRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

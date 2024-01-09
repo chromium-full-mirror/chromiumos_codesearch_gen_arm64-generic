@@ -75,6 +75,32 @@ std::ostream& operator<<(std::ostream& os, TabOrganizationError value) {
   return os << TabOrganizationErrorToString(value);
 }
 
+NOINLINE static const char* UserFeedbackToStringHelper(UserFeedback value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case UserFeedback::kUserFeedBackUnspecified:
+      return "kUserFeedBackUnspecified";
+    case UserFeedback::kUserFeedBackPositive:
+      return "kUserFeedBackPositive";
+    case UserFeedback::kUserFeedBackNegative:
+      return "kUserFeedBackNegative";
+    default:
+      return nullptr;
+  }
+}
+
+std::string UserFeedbackToString(UserFeedback value) {
+  const char *str = UserFeedbackToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown UserFeedback value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, UserFeedback value) {
+  return os << UserFeedbackToString(value);
+}
+
 namespace internal {
 
 
@@ -481,12 +507,8 @@ bool TabOrganization_Data::Validate(
           object->name, 3, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->name, validation_context,
-                                         &name_validate_params)) {
+  if (!mojo::internal::ValidateStruct(object->name, validation_context))
     return false;
-  }
 
   return true;
 }
@@ -698,12 +720,8 @@ bool PageHandler_AcceptTabOrganization_Params_Data::Validate(
           object->name, 3, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->name, validation_context,
-                                         &name_validate_params)) {
+  if (!mojo::internal::ValidateStruct(object->name, validation_context))
     return false;
-  }
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->tabs, 4, validation_context)) {
@@ -929,6 +947,59 @@ PageHandler_RequestTabOrganization_Params_Data::PageHandler_RequestTabOrganizati
 
 
 // static
+bool PageHandler_RemoveTabFromOrganization_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_RemoveTabFromOrganization_Params_Data* object =
+      static_cast<const PageHandler_RemoveTabFromOrganization_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->tab, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->tab, validation_context))
+    return false;
+
+  return true;
+}
+
+PageHandler_RemoveTabFromOrganization_Params_Data::PageHandler_RemoveTabFromOrganization_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_ResetSession_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_ResetSession_Params_Data* object =
+      static_cast<const PageHandler_ResetSession_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_ResetSession_Params_Data::PageHandler_ResetSession_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool PageHandler_SaveRecentlyClosedExpandedPref_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -971,6 +1042,172 @@ bool PageHandler_SetTabIndex_Params_Data::Validate(
 }
 
 PageHandler_SetTabIndex_Params_Data::PageHandler_SetTabIndex_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_StartTabGroupTutorial_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_StartTabGroupTutorial_Params_Data* object =
+      static_cast<const PageHandler_StartTabGroupTutorial_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_StartTabGroupTutorial_Params_Data::PageHandler_StartTabGroupTutorial_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_TriggerFeedback_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_TriggerFeedback_Params_Data* object =
+      static_cast<const PageHandler_TriggerFeedback_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_TriggerFeedback_Params_Data::PageHandler_TriggerFeedback_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_TriggerSync_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_TriggerSync_Params_Data* object =
+      static_cast<const PageHandler_TriggerSync_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_TriggerSync_Params_Data::PageHandler_TriggerSync_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_TriggerSignIn_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_TriggerSignIn_Params_Data* object =
+      static_cast<const PageHandler_TriggerSignIn_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_TriggerSignIn_Params_Data::PageHandler_TriggerSignIn_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_OpenHelpPage_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_OpenHelpPage_Params_Data* object =
+      static_cast<const PageHandler_OpenHelpPage_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_OpenHelpPage_Params_Data::PageHandler_OpenHelpPage_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_OpenSyncSettings_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_OpenSyncSettings_Params_Data* object =
+      static_cast<const PageHandler_OpenSyncSettings_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_OpenSyncSettings_Params_Data::PageHandler_OpenSyncSettings_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_SetUserFeedback_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_SetUserFeedback_Params_Data* object =
+      static_cast<const PageHandler_SetUserFeedback_Params_Data*>(data);
+
+
+  if (!::tab_search::mojom::internal::UserFeedback_Data
+        ::Validate(object->feedback, validation_context))
+    return false;
+
+  return true;
+}
+
+PageHandler_SetUserFeedback_Params_Data::PageHandler_SetUserFeedback_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1136,6 +1373,16 @@ namespace perfetto {
 void TraceFormatTraits<::tab_search::mojom::TabOrganizationError>::WriteIntoTrace(
    perfetto::TracedValue context, ::tab_search::mojom::TabOrganizationError value) {
   return std::move(context).WriteString(::tab_search::mojom::TabOrganizationErrorToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::tab_search::mojom::UserFeedback>::WriteIntoTrace(
+   perfetto::TracedValue context, ::tab_search::mojom::UserFeedback value) {
+  return std::move(context).WriteString(::tab_search::mojom::UserFeedbackToString(value));
 }
 
 } // namespace perfetto

@@ -16,7 +16,7 @@ namespace blink::mojom::blink {
 
 class PLATFORM_EXPORT BlobURLStoreInterceptorForTesting : public BlobURLStore {
   virtual BlobURLStore* GetForwardingInterface() = 0;
-  void Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site, RegisterCallback callback) override;
+  void Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site, RegisterCallback callback) override;
   void Revoke(const ::blink::KURL& url) override;
   void Resolve(const ::blink::KURL& url, ResolveCallback callback) override;
   void ResolveAsURLLoaderFactory(const ::blink::KURL& url, ::mojo::PendingReceiver<::network::mojom::blink::URLLoaderFactory> factory, ResolveAsURLLoaderFactoryCallback callback) override;
@@ -31,17 +31,17 @@ class PLATFORM_EXPORT BlobURLStoreAsyncWaiter {
 
   ~BlobURLStoreAsyncWaiter();
   void Register(
-      ::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site);
+      ::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site);
   
   void Resolve(
-      const ::blink::KURL& url, ::mojo::PendingRemote<::blink::mojom::blink::Blob>* out_blob, absl::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id);
+      const ::blink::KURL& url, ::mojo::PendingRemote<::blink::mojom::blink::Blob>* out_blob, std::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id);
   
   void ResolveAsURLLoaderFactory(
-      const ::blink::KURL& url, ::mojo::PendingReceiver<::network::mojom::blink::URLLoaderFactory> factory, absl::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id, absl::optional<::blink::BlinkSchemefulSite>* out_unsafe_top_level_site);
+      const ::blink::KURL& url, ::mojo::PendingReceiver<::network::mojom::blink::URLLoaderFactory> factory, std::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id, std::optional<::blink::BlinkSchemefulSite>* out_unsafe_top_level_site);
   
   void ResolveForNavigation(
-      const ::blink::KURL& url, ::mojo::PendingReceiver<BlobURLToken> token, absl::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id);
-  absl::optional<::base::UnguessableToken> ResolveForNavigation(const ::blink::KURL& url, ::mojo::PendingReceiver<BlobURLToken> token);
+      const ::blink::KURL& url, ::mojo::PendingReceiver<BlobURLToken> token, std::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id);
+  std::optional<::base::UnguessableToken> ResolveForNavigation(const ::blink::KURL& url, ::mojo::PendingReceiver<BlobURLToken> token);
 
  private:
   BlobURLStore* const proxy_;

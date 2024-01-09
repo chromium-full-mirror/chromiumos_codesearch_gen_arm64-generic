@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Metadata>::value,
     "Metadata inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Metadata::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Metadata is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,7 +86,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Metadata_Modificatio
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Metadata* blink_receiver = V8Metadata::ToWrappableUnsafe(v8_receiver);
+Metadata* blink_receiver = V8Metadata::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -107,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("Metadata.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Metadata* blink_receiver = V8Metadata::ToWrappableUnsafe(v8_receiver);
+Metadata* blink_receiver = V8Metadata::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }

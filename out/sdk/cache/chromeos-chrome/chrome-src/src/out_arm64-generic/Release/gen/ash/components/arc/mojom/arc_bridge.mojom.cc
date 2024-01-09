@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -1254,14 +1255,17 @@ void ArcBridgeHostProxy::OnAccessibilityHelperInstanceReady(
                         "<value of type ::mojo::PendingRemote<::ax::android::mojom::AccessibilityHelperInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnAccessibilityHelperInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1297,14 +1301,17 @@ void ArcBridgeHostProxy::OnAdbdMonitorInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::AdbdMonitorInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnAdbdMonitorInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1340,14 +1347,17 @@ void ArcBridgeHostProxy::OnAppInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::AppInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnAppInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1383,14 +1393,17 @@ void ArcBridgeHostProxy::OnAppPermissionsInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::AppPermissionsInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnAppPermissionsInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1426,14 +1439,17 @@ void ArcBridgeHostProxy::OnAppfuseInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::AppfuseInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnAppfuseInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1469,14 +1485,17 @@ void ArcBridgeHostProxy::OnAudioInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::AudioInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnAudioInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1512,14 +1531,17 @@ void ArcBridgeHostProxy::OnAuthInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::AuthInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnAuthInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1555,14 +1577,17 @@ void ArcBridgeHostProxy::OnBackupSettingsInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::BackupSettingsInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnBackupSettingsInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1598,14 +1623,17 @@ void ArcBridgeHostProxy::OnBluetoothInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::BluetoothInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnBluetoothInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1641,14 +1669,17 @@ void ArcBridgeHostProxy::OnBootPhaseMonitorInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::BootPhaseMonitorInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnBootPhaseMonitorInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1684,14 +1715,17 @@ void ArcBridgeHostProxy::OnCameraInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::CameraInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnCameraInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1727,14 +1761,17 @@ void ArcBridgeHostProxy::OnChromeFeatureFlagsInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::ChromeFeatureFlagsInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnChromeFeatureFlagsInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1770,14 +1807,17 @@ void ArcBridgeHostProxy::OnClipboardInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::ClipboardInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnClipboardInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1813,14 +1853,17 @@ void ArcBridgeHostProxy::OnCompatibilityModeInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::CompatibilityModeInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnCompatibilityModeInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1856,14 +1899,17 @@ void ArcBridgeHostProxy::OnCrashCollectorInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::CrashCollectorInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnCrashCollectorInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1899,14 +1945,17 @@ void ArcBridgeHostProxy::OnDigitalGoodsInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::DigitalGoodsInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnDigitalGoodsInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1942,14 +1991,17 @@ void ArcBridgeHostProxy::OnDiskQuotaInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::DiskQuotaInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnDiskQuotaInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -1985,14 +2037,17 @@ void ArcBridgeHostProxy::OnEnterpriseReportingInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::EnterpriseReportingInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnEnterpriseReportingInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2028,14 +2083,17 @@ void ArcBridgeHostProxy::OnFileSystemInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::FileSystemInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnFileSystemInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2071,14 +2129,17 @@ void ArcBridgeHostProxy::OnIioSensorInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::IioSensorInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnIioSensorInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2114,14 +2175,17 @@ void ArcBridgeHostProxy::OnImeInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::ImeInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnImeInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2157,14 +2221,17 @@ void ArcBridgeHostProxy::OnInputMethodManagerInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::InputMethodManagerInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnInputMethodManagerInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2200,14 +2267,17 @@ void ArcBridgeHostProxy::OnIntentHelperInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::IntentHelperInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnIntentHelperInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2243,14 +2313,17 @@ void ArcBridgeHostProxy::OnKeyboardShortcutInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::KeyboardShortcutInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnKeyboardShortcutInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2286,14 +2359,17 @@ void ArcBridgeHostProxy::OnKeymasterInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::KeymasterInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnKeymasterInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2329,14 +2405,17 @@ void ArcBridgeHostProxy::OnKeyMintInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::keymint::KeyMintInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnKeyMintInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2372,14 +2451,17 @@ void ArcBridgeHostProxy::OnKioskInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::KioskInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnKioskInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2415,14 +2497,17 @@ void ArcBridgeHostProxy::OnMediaSessionInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::MediaSessionInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnMediaSessionInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2458,14 +2543,17 @@ void ArcBridgeHostProxy::OnMemoryInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::MemoryInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnMemoryInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2501,14 +2589,17 @@ void ArcBridgeHostProxy::OnMetricsInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::MetricsInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnMetricsInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2544,14 +2635,17 @@ void ArcBridgeHostProxy::OnMidisInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::MidisInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnMidisInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2587,14 +2681,17 @@ void ArcBridgeHostProxy::OnNearbyShareInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::NearbyShareInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnNearbyShareInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2630,14 +2727,17 @@ void ArcBridgeHostProxy::OnNetInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::NetInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnNetInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2673,14 +2773,17 @@ void ArcBridgeHostProxy::OnNotificationsInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::NotificationsInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnNotificationsInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2716,14 +2819,17 @@ void ArcBridgeHostProxy::OnObbMounterInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::ObbMounterInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnObbMounterInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2759,14 +2865,17 @@ void ArcBridgeHostProxy::OnOemCryptoInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::OemCryptoInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnOemCryptoInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2802,14 +2911,17 @@ void ArcBridgeHostProxy::OnPaymentAppInstanceReady(
                         "<value of type ::mojo::PendingRemote<::chromeos::payments::mojom::PaymentAppInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnPaymentAppInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2845,14 +2957,17 @@ void ArcBridgeHostProxy::OnPipInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::PipInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnPipInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2888,14 +3003,17 @@ void ArcBridgeHostProxy::OnPolicyInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::PolicyInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnPolicyInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2931,14 +3049,17 @@ void ArcBridgeHostProxy::OnPowerInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::PowerInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnPowerInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -2974,14 +3095,17 @@ void ArcBridgeHostProxy::OnPrintSpoolerInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::PrintSpoolerInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnPrintSpoolerInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3017,14 +3141,17 @@ void ArcBridgeHostProxy::OnPrivacyItemsInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::PrivacyItemsInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnPrivacyItemsInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3060,14 +3187,17 @@ void ArcBridgeHostProxy::OnProcessInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::ProcessInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnProcessInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3103,14 +3233,17 @@ void ArcBridgeHostProxy::OnPropertyInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::PropertyInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnPropertyInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3146,14 +3279,17 @@ void ArcBridgeHostProxy::OnScreenCaptureInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::ScreenCaptureInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnScreenCaptureInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3189,14 +3325,17 @@ void ArcBridgeHostProxy::OnSharesheetInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::SharesheetInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnSharesheetInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3232,14 +3371,17 @@ void ArcBridgeHostProxy::OnStorageManagerInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::StorageManagerInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnStorageManagerInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3275,14 +3417,17 @@ void ArcBridgeHostProxy::OnSystemStateInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::SystemStateInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnSystemStateInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3318,14 +3463,17 @@ void ArcBridgeHostProxy::OnSystemUiInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::SystemUiInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnSystemUiInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3361,14 +3509,17 @@ void ArcBridgeHostProxy::OnTimerInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::TimerInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnTimerInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3404,14 +3555,17 @@ void ArcBridgeHostProxy::OnTracingInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::TracingInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnTracingInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3447,14 +3601,17 @@ void ArcBridgeHostProxy::OnTtsInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::TtsInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnTtsInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3490,14 +3647,17 @@ void ArcBridgeHostProxy::OnUsbHostInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::UsbHostInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnUsbHostInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3533,14 +3693,17 @@ void ArcBridgeHostProxy::OnVideoInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::VideoInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnVideoInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3576,14 +3739,17 @@ void ArcBridgeHostProxy::OnVolumeMounterInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::VolumeMounterInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnVolumeMounterInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3619,14 +3785,17 @@ void ArcBridgeHostProxy::OnWakeLockInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::WakeLockInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnWakeLockInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3662,14 +3831,17 @@ void ArcBridgeHostProxy::OnWallpaperInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::WallpaperInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnWallpaperInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -3705,14 +3877,17 @@ void ArcBridgeHostProxy::OnWebApkInstanceReady(
                         "<value of type ::mojo::PendingRemote<::arc::mojom::WebApkInstance>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kArcBridgeHost_OnWebApkInstanceReady_Name, kFlags, 0, 0, nullptr);
@@ -5555,182 +5730,182 @@ bool ArcBridgeHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const std::pair<uint32_t, mojo::internal::GenericValidationInfo> kArcBridgeHostValidationInfo[] = {
     {internal::kArcBridgeHost_OnAccessibilityHelperInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnAccessibilityHelperInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnAccessibilityHelperInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnAdbdMonitorInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnAdbdMonitorInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnAdbdMonitorInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnAppInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnAppInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnAppInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnAppPermissionsInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnAppPermissionsInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnAppPermissionsInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnAppfuseInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnAppfuseInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnAppfuseInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnAudioInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnAudioInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnAudioInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnAuthInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnAuthInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnAuthInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnBackupSettingsInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnBackupSettingsInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnBackupSettingsInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnBluetoothInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnBluetoothInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnBluetoothInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnBootPhaseMonitorInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnBootPhaseMonitorInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnBootPhaseMonitorInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnCameraInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnCameraInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnCameraInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnChromeFeatureFlagsInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnChromeFeatureFlagsInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnChromeFeatureFlagsInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnClipboardInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnClipboardInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnClipboardInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnCompatibilityModeInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnCompatibilityModeInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnCompatibilityModeInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnCrashCollectorInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnCrashCollectorInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnCrashCollectorInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnDigitalGoodsInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnDigitalGoodsInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnDigitalGoodsInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnDiskQuotaInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnDiskQuotaInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnDiskQuotaInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnEnterpriseReportingInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnEnterpriseReportingInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnEnterpriseReportingInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnFileSystemInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnFileSystemInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnFileSystemInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnIioSensorInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnIioSensorInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnIioSensorInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnImeInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnImeInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnImeInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnInputMethodManagerInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnInputMethodManagerInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnInputMethodManagerInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnIntentHelperInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnIntentHelperInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnIntentHelperInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnKeyboardShortcutInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnKeyboardShortcutInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnKeyboardShortcutInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnKeymasterInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnKeymasterInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnKeymasterInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnKeyMintInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnKeyMintInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnKeyMintInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnKioskInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnKioskInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnKioskInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnMediaSessionInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnMediaSessionInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnMediaSessionInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnMemoryInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnMemoryInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnMemoryInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnMetricsInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnMetricsInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnMetricsInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnMidisInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnMidisInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnMidisInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnNearbyShareInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnNearbyShareInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnNearbyShareInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnNetInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnNetInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnNetInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnNotificationsInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnNotificationsInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnNotificationsInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnObbMounterInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnObbMounterInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnObbMounterInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnOemCryptoInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnOemCryptoInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnOemCryptoInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnPaymentAppInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnPaymentAppInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnPaymentAppInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnPipInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnPipInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnPipInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnPolicyInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnPolicyInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnPolicyInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnPowerInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnPowerInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnPowerInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnPrintSpoolerInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnPrintSpoolerInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnPrintSpoolerInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnPrivacyItemsInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnPrivacyItemsInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnPrivacyItemsInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnProcessInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnProcessInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnProcessInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnPropertyInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnPropertyInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnPropertyInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnScreenCaptureInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnScreenCaptureInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnScreenCaptureInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnSharesheetInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnSharesheetInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnSharesheetInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnStorageManagerInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnStorageManagerInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnStorageManagerInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnSystemStateInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnSystemStateInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnSystemStateInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnSystemUiInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnSystemUiInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnSystemUiInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnTimerInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnTimerInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnTimerInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnTracingInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnTracingInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnTracingInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnTtsInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnTtsInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnTtsInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnUsbHostInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnUsbHostInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnUsbHostInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnVideoInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnVideoInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnVideoInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnVolumeMounterInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnVolumeMounterInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnVolumeMounterInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnWakeLockInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnWakeLockInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnWakeLockInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnWallpaperInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnWallpaperInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnWallpaperInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnWebApkInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnWebApkInstanceReady_Params_Data::Validate,
+     { &internal::ArcBridgeHost_OnWebApkInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
 };
 

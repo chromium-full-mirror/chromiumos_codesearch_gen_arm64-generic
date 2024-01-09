@@ -18,6 +18,7 @@ constexpr uint32_t kURLLoaderFactoryConnector_CreateURLLoaderFactory_Name = 0;
 constexpr uint32_t kCertVerifierService_EnableNetworkAccess_Name = 0;
 constexpr uint32_t kCertVerifierService_Verify_Name = 1;
 constexpr uint32_t kCertVerifierService_SetConfig_Name = 2;
+constexpr uint32_t kCertVerifierServiceUpdater_UpdateAdditionalCertificates_Name = 0;
 constexpr uint32_t kCertVerifierServiceClient_OnCertVerifierChanged_Name = 0;
 constexpr uint32_t kCertVerifierRequest_Complete_Name = 0;
 

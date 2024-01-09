@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -50,7 +51,6 @@ URLResponseHead::URLResponseHead()
       headers(),
       mime_type(),
       charset(),
-      ct_policy_compliance(),
       content_length(-1),
       encoded_data_length(-1),
       encoded_body_length(),
@@ -69,10 +69,11 @@ URLResponseHead::URLResponseHead()
       is_validated(false),
       was_fetched_via_cache(false),
       navigation_delivery_type(NavigationDeliveryType::kDefault),
-      proxy_server(),
+      proxy_chain(),
       was_fetched_via_service_worker(false),
       service_worker_response_source(::network::mojom::FetchResponseSource::kUnspecified),
       url_list_via_service_worker(),
+      service_worker_router_info(),
       response_type(::network::mojom::FetchResponseType::kDefault),
       padding(0),
       cache_storage_cache_name(),
@@ -83,6 +84,7 @@ URLResponseHead::URLResponseHead()
       async_revalidation_requested(false),
       did_mime_sniff(false),
       is_signed_exchange_inner_response(false),
+      is_web_bundle_inner_response(false),
       was_in_prefetch_cache(false),
       was_cookie_in_request(false),
       intercepted_by_plugin(false),
@@ -94,9 +96,9 @@ URLResponseHead::URLResponseHead()
       parsed_headers(),
       recursive_prefetch_token(),
       dns_aliases(),
-      web_bundle_url(),
       has_authorization_covered_by_wildcard_on_preflight(false),
       request_include_credentials(true),
+      should_use_source_hash_for_js_code_cache(false),
       trigger_verifications(),
       private_network_access_preflight_result(::network::mojom::PrivateNetworkAccessPreflightResult::kNone),
       did_use_shared_dictionary(false) {}
@@ -107,7 +109,6 @@ URLResponseHead::URLResponseHead(
     const ::scoped_refptr<::net::HttpResponseHeaders>& headers_in,
     const std::string& mime_type_in,
     const std::string& charset_in,
-    ::net::ct::CTPolicyCompliance ct_policy_compliance_in,
     int64_t content_length_in,
     int64_t encoded_data_length_in,
     ::network::mojom::EncodedBodyLengthPtr encoded_body_length_in,
@@ -117,7 +118,7 @@ URLResponseHead::URLResponseHead(
     bool was_fetched_via_spdy_in,
     bool was_alpn_negotiated_in,
     bool was_alternate_protocol_available_in,
-    ::net::HttpResponseInfo::ConnectionInfo connection_info_in,
+    ::net::HttpConnectionInfo connection_info_in,
     const std::string& alpn_negotiated_protocol_in,
     ::net::AlternateProtocolUsage alternate_protocol_usage_in,
     const ::net::IPEndPoint& remote_endpoint_in,
@@ -126,34 +127,36 @@ URLResponseHead::URLResponseHead(
     bool is_validated_in,
     bool was_fetched_via_cache_in,
     NavigationDeliveryType navigation_delivery_type_in,
-    const ::net::ProxyServer& proxy_server_in,
+    const ::net::ProxyChain& proxy_chain_in,
     bool was_fetched_via_service_worker_in,
     ::network::mojom::FetchResponseSource service_worker_response_source_in,
     std::vector<::GURL> url_list_via_service_worker_in,
+    ::network::mojom::ServiceWorkerRouterInfoPtr service_worker_router_info_in,
     ::network::mojom::FetchResponseType response_type_in,
     int64_t padding_in,
     const std::string& cache_storage_cache_name_in,
     uint32_t cert_status_in,
-    const absl::optional<::net::SSLInfo>& ssl_info_in,
+    const std::optional<::net::SSLInfo>& ssl_info_in,
     std::vector<std::string> cors_exposed_header_names_in,
     bool did_service_worker_navigation_preload_in,
     bool async_revalidation_requested_in,
     bool did_mime_sniff_in,
     bool is_signed_exchange_inner_response_in,
+    bool is_web_bundle_inner_response_in,
     bool was_in_prefetch_cache_in,
     bool was_cookie_in_request_in,
     bool intercepted_by_plugin_in,
     bool has_range_requested_in,
     bool timing_allow_passed_in,
-    const absl::optional<::net::AuthChallengeInfo>& auth_challenge_info_in,
+    const std::optional<::net::AuthChallengeInfo>& auth_challenge_info_in,
     ::base::TimeTicks request_start_in,
     ::base::TimeTicks response_start_in,
     ::network::mojom::ParsedHeadersPtr parsed_headers_in,
-    const absl::optional<::base::UnguessableToken>& recursive_prefetch_token_in,
+    const std::optional<::base::UnguessableToken>& recursive_prefetch_token_in,
     std::vector<std::string> dns_aliases_in,
-    const ::GURL& web_bundle_url_in,
     bool has_authorization_covered_by_wildcard_on_preflight_in,
     bool request_include_credentials_in,
+    bool should_use_source_hash_for_js_code_cache_in,
     std::vector<::network::TriggerVerification> trigger_verifications_in,
     ::network::mojom::PrivateNetworkAccessPreflightResult private_network_access_preflight_result_in,
     bool did_use_shared_dictionary_in)
@@ -162,7 +165,6 @@ URLResponseHead::URLResponseHead(
       headers(std::move(headers_in)),
       mime_type(std::move(mime_type_in)),
       charset(std::move(charset_in)),
-      ct_policy_compliance(std::move(ct_policy_compliance_in)),
       content_length(std::move(content_length_in)),
       encoded_data_length(std::move(encoded_data_length_in)),
       encoded_body_length(std::move(encoded_body_length_in)),
@@ -181,10 +183,11 @@ URLResponseHead::URLResponseHead(
       is_validated(std::move(is_validated_in)),
       was_fetched_via_cache(std::move(was_fetched_via_cache_in)),
       navigation_delivery_type(std::move(navigation_delivery_type_in)),
-      proxy_server(std::move(proxy_server_in)),
+      proxy_chain(std::move(proxy_chain_in)),
       was_fetched_via_service_worker(std::move(was_fetched_via_service_worker_in)),
       service_worker_response_source(std::move(service_worker_response_source_in)),
       url_list_via_service_worker(std::move(url_list_via_service_worker_in)),
+      service_worker_router_info(std::move(service_worker_router_info_in)),
       response_type(std::move(response_type_in)),
       padding(std::move(padding_in)),
       cache_storage_cache_name(std::move(cache_storage_cache_name_in)),
@@ -195,6 +198,7 @@ URLResponseHead::URLResponseHead(
       async_revalidation_requested(std::move(async_revalidation_requested_in)),
       did_mime_sniff(std::move(did_mime_sniff_in)),
       is_signed_exchange_inner_response(std::move(is_signed_exchange_inner_response_in)),
+      is_web_bundle_inner_response(std::move(is_web_bundle_inner_response_in)),
       was_in_prefetch_cache(std::move(was_in_prefetch_cache_in)),
       was_cookie_in_request(std::move(was_cookie_in_request_in)),
       intercepted_by_plugin(std::move(intercepted_by_plugin_in)),
@@ -206,9 +210,9 @@ URLResponseHead::URLResponseHead(
       parsed_headers(std::move(parsed_headers_in)),
       recursive_prefetch_token(std::move(recursive_prefetch_token_in)),
       dns_aliases(std::move(dns_aliases_in)),
-      web_bundle_url(std::move(web_bundle_url_in)),
       has_authorization_covered_by_wildcard_on_preflight(std::move(has_authorization_covered_by_wildcard_on_preflight_in)),
       request_include_credentials(std::move(request_include_credentials_in)),
+      should_use_source_hash_for_js_code_cache(std::move(should_use_source_hash_for_js_code_cache_in)),
       trigger_verifications(std::move(trigger_verifications_in)),
       private_network_access_preflight_result(std::move(private_network_access_preflight_result_in)),
       did_use_shared_dictionary(std::move(did_use_shared_dictionary_in)) {}
@@ -259,15 +263,6 @@ void URLResponseHead::WriteIntoTrace(
       "charset"), this->charset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "ct_policy_compliance"), this->ct_policy_compliance,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::net::ct::CTPolicyCompliance>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -357,7 +352,7 @@ void URLResponseHead::WriteIntoTrace(
     dict.AddItem(
       "connection_info"), this->connection_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::net::HttpResponseInfo::ConnectionInfo>"
+      "<value of type ::net::HttpConnectionInfo>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -436,9 +431,9 @@ void URLResponseHead::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "proxy_server"), this->proxy_server,
+      "proxy_chain"), this->proxy_chain,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::net::ProxyServer&>"
+      "<value of type const ::net::ProxyChain&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -466,6 +461,15 @@ void URLResponseHead::WriteIntoTrace(
       "url_list_via_service_worker"), this->url_list_via_service_worker,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<::GURL>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "service_worker_router_info"), this->service_worker_router_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::network::mojom::ServiceWorkerRouterInfoPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -510,7 +514,7 @@ void URLResponseHead::WriteIntoTrace(
     dict.AddItem(
       "ssl_info"), this->ssl_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::SSLInfo>&>"
+      "<value of type const std::optional<::net::SSLInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -554,6 +558,15 @@ void URLResponseHead::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_signed_exchange_inner_response"), this->is_signed_exchange_inner_response,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_web_bundle_inner_response"), this->is_web_bundle_inner_response,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -609,7 +622,7 @@ void URLResponseHead::WriteIntoTrace(
     dict.AddItem(
       "auth_challenge_info"), this->auth_challenge_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::AuthChallengeInfo>&>"
+      "<value of type const std::optional<::net::AuthChallengeInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -645,7 +658,7 @@ void URLResponseHead::WriteIntoTrace(
     dict.AddItem(
       "recursive_prefetch_token"), this->recursive_prefetch_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -655,15 +668,6 @@ void URLResponseHead::WriteIntoTrace(
       "dns_aliases"), this->dns_aliases,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "web_bundle_url"), this->web_bundle_url,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::GURL&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -680,6 +684,15 @@ void URLResponseHead::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "request_include_credentials"), this->request_include_credentials,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "should_use_source_hash_for_js_code_cache"), this->should_use_source_hash_for_js_code_cache,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -745,8 +758,6 @@ bool StructTraits<::network::mojom::URLResponseHead::DataView, ::network::mojom:
         success = false;
       if (success && !input.ReadCharset(&result->charset))
         success = false;
-      if (success && !input.ReadCtPolicyCompliance(&result->ct_policy_compliance))
-        success = false;
       if (success)
         result->content_length = input.content_length();
       if (success)
@@ -783,13 +794,15 @@ bool StructTraits<::network::mojom::URLResponseHead::DataView, ::network::mojom:
         result->was_fetched_via_cache = input.was_fetched_via_cache();
       if (success && !input.ReadNavigationDeliveryType(&result->navigation_delivery_type))
         success = false;
-      if (success && !input.ReadProxyServer(&result->proxy_server))
+      if (success && !input.ReadProxyChain(&result->proxy_chain))
         success = false;
       if (success)
         result->was_fetched_via_service_worker = input.was_fetched_via_service_worker();
       if (success && !input.ReadServiceWorkerResponseSource(&result->service_worker_response_source))
         success = false;
       if (success && !input.ReadUrlListViaServiceWorker(&result->url_list_via_service_worker))
+        success = false;
+      if (success && !input.ReadServiceWorkerRouterInfo(&result->service_worker_router_info))
         success = false;
       if (success && !input.ReadResponseType(&result->response_type))
         success = false;
@@ -812,6 +825,8 @@ bool StructTraits<::network::mojom::URLResponseHead::DataView, ::network::mojom:
       if (success)
         result->is_signed_exchange_inner_response = input.is_signed_exchange_inner_response();
       if (success)
+        result->is_web_bundle_inner_response = input.is_web_bundle_inner_response();
+      if (success)
         result->was_in_prefetch_cache = input.was_in_prefetch_cache();
       if (success)
         result->was_cookie_in_request = input.was_cookie_in_request();
@@ -833,12 +848,12 @@ bool StructTraits<::network::mojom::URLResponseHead::DataView, ::network::mojom:
         success = false;
       if (success && !input.ReadDnsAliases(&result->dns_aliases))
         success = false;
-      if (success && !input.ReadWebBundleUrl(&result->web_bundle_url))
-        success = false;
       if (success)
         result->has_authorization_covered_by_wildcard_on_preflight = input.has_authorization_covered_by_wildcard_on_preflight();
       if (success)
         result->request_include_credentials = input.request_include_credentials();
+      if (success)
+        result->should_use_source_hash_for_js_code_cache = input.should_use_source_hash_for_js_code_cache();
       if (success && !input.ReadTriggerVerifications(&result->trigger_verifications))
         success = false;
       if (success && !input.ReadPrivateNetworkAccessPreflightResult(&result->private_network_access_preflight_result))

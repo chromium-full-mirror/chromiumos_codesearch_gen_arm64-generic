@@ -1064,7 +1064,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sslInfo', 72,
+        'serviceWorkerRouterInfo', 72,
+        0,
+        network.mojom.ServiceWorkerRouterInfoSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'sslInfo', 80,
         0,
         network.mojom.SSLInfoSpec.$,
         null,
@@ -1072,7 +1080,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'remoteEndpoint', 80,
+        'remoteEndpoint', 88,
         0,
         network.mojom.IPEndPointSpec.$,
         null,
@@ -1088,7 +1096,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 96],]);
+    [[0, 104],]);
 
 
 
@@ -1123,6 +1131,8 @@ network.mojom.URLResponseHeadDevToolsInfo = class {
     this.wasFetchedViaSpdy;
     /** @export { !network.mojom.FetchResponseSource } */
     this.serviceWorkerResponseSource;
+    /** @export { (network.mojom.ServiceWorkerRouterInfo|undefined) } */
+    this.serviceWorkerRouterInfo;
     /** @export { (network.mojom.SSLInfo|undefined) } */
     this.sslInfo;
     /** @export { !network.mojom.IPEndPoint } */

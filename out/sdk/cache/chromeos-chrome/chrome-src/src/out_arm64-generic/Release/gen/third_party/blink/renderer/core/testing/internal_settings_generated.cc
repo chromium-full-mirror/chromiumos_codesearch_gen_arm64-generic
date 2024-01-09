@@ -155,20 +155,20 @@ InternalSettingsGenerated::InternalSettingsGenerated(Page& page)
       GetSettings().GetLazyFrameLoadingDistanceThresholdPxSlow2G());
   backup_.SetLazyFrameLoadingDistanceThresholdPxUnknown(
       GetSettings().GetLazyFrameLoadingDistanceThresholdPxUnknown());
-  backup_.SetLazyImageLoadingDistanceThresholdPx2G(
-      GetSettings().GetLazyImageLoadingDistanceThresholdPx2G());
-  backup_.SetLazyImageLoadingDistanceThresholdPx3G(
-      GetSettings().GetLazyImageLoadingDistanceThresholdPx3G());
-  backup_.SetLazyImageLoadingDistanceThresholdPx4G(
-      GetSettings().GetLazyImageLoadingDistanceThresholdPx4G());
-  backup_.SetLazyImageLoadingDistanceThresholdPxOffline(
-      GetSettings().GetLazyImageLoadingDistanceThresholdPxOffline());
-  backup_.SetLazyImageLoadingDistanceThresholdPxSlow2G(
-      GetSettings().GetLazyImageLoadingDistanceThresholdPxSlow2G());
-  backup_.SetLazyImageLoadingDistanceThresholdPxUnknown(
-      GetSettings().GetLazyImageLoadingDistanceThresholdPxUnknown());
   backup_.SetLazyLoadEnabled(
       GetSettings().GetLazyLoadEnabled());
+  backup_.SetLazyLoadingImageMarginPx2G(
+      GetSettings().GetLazyLoadingImageMarginPx2G());
+  backup_.SetLazyLoadingImageMarginPx3G(
+      GetSettings().GetLazyLoadingImageMarginPx3G());
+  backup_.SetLazyLoadingImageMarginPx4G(
+      GetSettings().GetLazyLoadingImageMarginPx4G());
+  backup_.SetLazyLoadingImageMarginPxOffline(
+      GetSettings().GetLazyLoadingImageMarginPxOffline());
+  backup_.SetLazyLoadingImageMarginPxSlow2G(
+      GetSettings().GetLazyLoadingImageMarginPxSlow2G());
+  backup_.SetLazyLoadingImageMarginPxUnknown(
+      GetSettings().GetLazyLoadingImageMarginPxUnknown());
   backup_.SetLoadWithOverviewMode(
       GetSettings().GetLoadWithOverviewMode());
   backup_.SetLoadsImagesAutomatically(
@@ -508,20 +508,20 @@ void InternalSettingsGenerated::ResetToConsistentState() {
       backup_.GetLazyFrameLoadingDistanceThresholdPxSlow2G());
   GetSettings().SetLazyFrameLoadingDistanceThresholdPxUnknown(
       backup_.GetLazyFrameLoadingDistanceThresholdPxUnknown());
-  GetSettings().SetLazyImageLoadingDistanceThresholdPx2G(
-      backup_.GetLazyImageLoadingDistanceThresholdPx2G());
-  GetSettings().SetLazyImageLoadingDistanceThresholdPx3G(
-      backup_.GetLazyImageLoadingDistanceThresholdPx3G());
-  GetSettings().SetLazyImageLoadingDistanceThresholdPx4G(
-      backup_.GetLazyImageLoadingDistanceThresholdPx4G());
-  GetSettings().SetLazyImageLoadingDistanceThresholdPxOffline(
-      backup_.GetLazyImageLoadingDistanceThresholdPxOffline());
-  GetSettings().SetLazyImageLoadingDistanceThresholdPxSlow2G(
-      backup_.GetLazyImageLoadingDistanceThresholdPxSlow2G());
-  GetSettings().SetLazyImageLoadingDistanceThresholdPxUnknown(
-      backup_.GetLazyImageLoadingDistanceThresholdPxUnknown());
   GetSettings().SetLazyLoadEnabled(
       backup_.GetLazyLoadEnabled());
+  GetSettings().SetLazyLoadingImageMarginPx2G(
+      backup_.GetLazyLoadingImageMarginPx2G());
+  GetSettings().SetLazyLoadingImageMarginPx3G(
+      backup_.GetLazyLoadingImageMarginPx3G());
+  GetSettings().SetLazyLoadingImageMarginPx4G(
+      backup_.GetLazyLoadingImageMarginPx4G());
+  GetSettings().SetLazyLoadingImageMarginPxOffline(
+      backup_.GetLazyLoadingImageMarginPxOffline());
+  GetSettings().SetLazyLoadingImageMarginPxSlow2G(
+      backup_.GetLazyLoadingImageMarginPxSlow2G());
+  GetSettings().SetLazyLoadingImageMarginPxUnknown(
+      backup_.GetLazyLoadingImageMarginPxUnknown());
   GetSettings().SetLoadWithOverviewMode(
       backup_.GetLoadWithOverviewMode());
   GetSettings().SetLoadsImagesAutomatically(
@@ -1040,39 +1040,39 @@ void InternalSettingsGenerated::setLazyFrameLoadingDistanceThresholdPxUnknown(
   GetSettings().SetLazyFrameLoadingDistanceThresholdPxUnknown(lazyFrameLoadingDistanceThresholdPxUnknown);
 }
 
-void InternalSettingsGenerated::setLazyImageLoadingDistanceThresholdPx2G(
-    int lazyImageLoadingDistanceThresholdPx2G) {
-  GetSettings().SetLazyImageLoadingDistanceThresholdPx2G(lazyImageLoadingDistanceThresholdPx2G);
-}
-
-void InternalSettingsGenerated::setLazyImageLoadingDistanceThresholdPx3G(
-    int lazyImageLoadingDistanceThresholdPx3G) {
-  GetSettings().SetLazyImageLoadingDistanceThresholdPx3G(lazyImageLoadingDistanceThresholdPx3G);
-}
-
-void InternalSettingsGenerated::setLazyImageLoadingDistanceThresholdPx4G(
-    int lazyImageLoadingDistanceThresholdPx4G) {
-  GetSettings().SetLazyImageLoadingDistanceThresholdPx4G(lazyImageLoadingDistanceThresholdPx4G);
-}
-
-void InternalSettingsGenerated::setLazyImageLoadingDistanceThresholdPxOffline(
-    int lazyImageLoadingDistanceThresholdPxOffline) {
-  GetSettings().SetLazyImageLoadingDistanceThresholdPxOffline(lazyImageLoadingDistanceThresholdPxOffline);
-}
-
-void InternalSettingsGenerated::setLazyImageLoadingDistanceThresholdPxSlow2G(
-    int lazyImageLoadingDistanceThresholdPxSlow2G) {
-  GetSettings().SetLazyImageLoadingDistanceThresholdPxSlow2G(lazyImageLoadingDistanceThresholdPxSlow2G);
-}
-
-void InternalSettingsGenerated::setLazyImageLoadingDistanceThresholdPxUnknown(
-    int lazyImageLoadingDistanceThresholdPxUnknown) {
-  GetSettings().SetLazyImageLoadingDistanceThresholdPxUnknown(lazyImageLoadingDistanceThresholdPxUnknown);
-}
-
 void InternalSettingsGenerated::setLazyLoadEnabled(
     bool lazyLoadEnabled) {
   GetSettings().SetLazyLoadEnabled(lazyLoadEnabled);
+}
+
+void InternalSettingsGenerated::setLazyLoadingImageMarginPx2G(
+    int lazyLoadingImageMarginPx2G) {
+  GetSettings().SetLazyLoadingImageMarginPx2G(lazyLoadingImageMarginPx2G);
+}
+
+void InternalSettingsGenerated::setLazyLoadingImageMarginPx3G(
+    int lazyLoadingImageMarginPx3G) {
+  GetSettings().SetLazyLoadingImageMarginPx3G(lazyLoadingImageMarginPx3G);
+}
+
+void InternalSettingsGenerated::setLazyLoadingImageMarginPx4G(
+    int lazyLoadingImageMarginPx4G) {
+  GetSettings().SetLazyLoadingImageMarginPx4G(lazyLoadingImageMarginPx4G);
+}
+
+void InternalSettingsGenerated::setLazyLoadingImageMarginPxOffline(
+    int lazyLoadingImageMarginPxOffline) {
+  GetSettings().SetLazyLoadingImageMarginPxOffline(lazyLoadingImageMarginPxOffline);
+}
+
+void InternalSettingsGenerated::setLazyLoadingImageMarginPxSlow2G(
+    int lazyLoadingImageMarginPxSlow2G) {
+  GetSettings().SetLazyLoadingImageMarginPxSlow2G(lazyLoadingImageMarginPxSlow2G);
+}
+
+void InternalSettingsGenerated::setLazyLoadingImageMarginPxUnknown(
+    int lazyLoadingImageMarginPxUnknown) {
+  GetSettings().SetLazyLoadingImageMarginPxUnknown(lazyLoadingImageMarginPxUnknown);
 }
 
 void InternalSettingsGenerated::setLoadWithOverviewMode(

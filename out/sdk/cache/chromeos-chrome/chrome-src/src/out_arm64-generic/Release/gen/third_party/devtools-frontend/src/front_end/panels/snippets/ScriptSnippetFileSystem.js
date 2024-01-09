@@ -113,7 +113,7 @@ export class SnippetFileSystem extends Persistence.PlatformFileSystem.PlatformFi
     }
 }
 export async function evaluateScriptSnippet(uiSourceCode) {
-    if (!uiSourceCode.url().startsWith('snippet://')) {
+    if (!Common.ParsedURL.schemeIs(uiSourceCode.url(), 'snippet:')) {
         return;
     }
     const executionContext = UI.Context.Context.instance().flavor(SDK.RuntimeModel.ExecutionContext);
@@ -158,7 +158,7 @@ export async function evaluateScriptSnippet(uiSourceCode) {
     consoleModel?.addMessage(new SDK.ConsoleModel.ConsoleMessage(runtimeModel, "javascript" /* Protocol.Log.LogEntrySource.Javascript */, "info" /* Protocol.Log.LogEntryLevel.Info */, '', details));
 }
 export function isSnippetsUISourceCode(uiSourceCode) {
-    return uiSourceCode.url().startsWith('snippet://');
+    return Common.ParsedURL.schemeIs(uiSourceCode.url(), 'snippet:');
 }
 export function isSnippetsProject(project) {
     return project.type() === Workspace.Workspace.projectTypes.FileSystem &&

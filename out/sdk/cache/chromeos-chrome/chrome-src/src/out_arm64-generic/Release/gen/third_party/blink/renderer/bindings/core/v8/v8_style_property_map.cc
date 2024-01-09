@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, StylePropertyMap>::value,
     "StylePropertyMap inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&StylePropertyMap::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "StylePropertyMap is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(v8_receiver);
+StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -132,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("StylePropertyMap.clear");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(v8_receiver);
+StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->clear();
 
 }
@@ -159,7 +155,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(v8_receiver);
+StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -195,7 +191,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(v8_receiver);
+StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;

@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SnapEvent>::value,
     "SnapEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SnapEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SnapEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("SnapEvent.snapTargets.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SnapEvent* blink_receiver = V8SnapEvent::ToWrappableUnsafe(v8_receiver);
+SnapEvent* blink_receiver = V8SnapEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->snapTargets();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("SnapEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SnapEvent* blink_receiver = V8SnapEvent::ToWrappableUnsafe(v8_receiver);
+SnapEvent* blink_receiver = V8SnapEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

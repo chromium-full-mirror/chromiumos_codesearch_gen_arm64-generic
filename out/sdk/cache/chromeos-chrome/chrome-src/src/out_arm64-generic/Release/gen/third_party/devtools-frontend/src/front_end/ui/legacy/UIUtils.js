@@ -44,7 +44,6 @@ import confirmDialogStyles from './confirmDialog.css.legacy.js';
 import { Dialog } from './Dialog.js';
 import { Size } from './Geometry.js';
 import { GlassPane } from './GlassPane.js';
-import { Icon } from './Icon.js';
 import inlineButtonStyles from './inlineButton.css.legacy.js';
 import { KeyboardShortcut } from './KeyboardShortcut.js';
 import radioButtonStyles from './radioButton.css.legacy.js';
@@ -935,7 +934,7 @@ export function createTextButton(text, eventHandler, className, primary, alterna
     element.type = 'button';
     return element;
 }
-export function createInput(className, type) {
+export function createInput(className, type, jslogContext) {
     const element = document.createElement('input');
     if (className) {
         element.className = className;
@@ -944,6 +943,9 @@ export function createInput(className, type) {
     element.classList.add('harmony-input');
     if (type) {
         element.type = type;
+    }
+    if (jslogContext) {
+        element.setAttribute('jslog', `${VisualLogging.textField().track({ keydown: true }).context(jslogContext)}`);
     }
     return element;
 }
@@ -980,11 +982,14 @@ export function createLabel(title, className, associatedControl) {
     }
     return element;
 }
-export function createRadioLabel(name, title, checked) {
+export function createRadioLabel(name, title, checked, jslogContext) {
     const element = document.createElement('span', { is: 'dt-radio' });
     element.radioElement.name = name;
     element.radioElement.checked = Boolean(checked);
     createTextChild(element.labelElement, title);
+    if (jslogContext) {
+        element.radioElement.setAttribute('jslog', `${VisualLogging.toggle().track({ change: true }).context(jslogContext)}`);
+    }
     return element;
 }
 export function createIconLabel(options) {
@@ -1036,7 +1041,7 @@ export class CheckboxLabel extends HTMLSpanElement {
         const element = CheckboxLabel.constructorInternal();
         element.checkboxElement.checked = Boolean(checked);
         if (jslogContext) {
-            element.checkboxElement.setAttribute('jslog', `${VisualLogging.toggle().track({ click: true }).context(jslogContext)}`);
+            element.checkboxElement.setAttribute('jslog', `${VisualLogging.toggle().track({ change: true }).context(jslogContext)}`);
         }
         if (title !== undefined) {
             element.textElement.textContent = title;
@@ -1142,7 +1147,7 @@ export class DevToolsCloseButton extends HTMLDivElement {
         Tooltip.install(this.buttonElement, i18nString(UIStrings.close));
         ARIAUtils.setLabel(this.buttonElement, i18nString(UIStrings.close));
         ARIAUtils.markAsButton(this.buttonElement);
-        const regularIcon = Icon.create('cross', 'default-icon');
+        const regularIcon = IconButton.Icon.create('cross');
         this.buttonElement.appendChild(regularIcon);
     }
     setAccessibleName(name) {
@@ -1186,13 +1191,14 @@ export function bindInput(input, apply, validate, numeric, modifierMultiplier) {
             return;
         }
         const value = modifiedFloatNumber(parseFloat(input.value), event, modifierMultiplier);
-        const stringValue = value ? String(value) : '';
-        const { valid } = validate(stringValue);
-        if (!valid || !value) {
+        if (value === null) {
             return;
         }
-        input.value = stringValue;
-        apply(input.value);
+        const stringValue = String(value);
+        const { valid } = validate(stringValue);
+        if (valid) {
+            setValue(stringValue);
+        }
         event.preventDefault();
     }
     function setValue(value) {

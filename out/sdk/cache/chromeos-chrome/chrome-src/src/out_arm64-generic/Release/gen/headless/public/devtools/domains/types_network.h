@@ -391,7 +391,7 @@ class HEADLESS_EXPORT Request {
 
   // HTTP request headers.
   const base::Value::Dict& GetHeaders() const { return *headers_; }
-  void SetHeaders(absl::optional<base::Value::Dict> value) { headers_ = std::move(value); }
+  void SetHeaders(std::optional<base::Value::Dict> value) { headers_ = std::move(value); }
 
   // HTTP POST request data.
   bool HasPostData() const { return !!post_data_; }
@@ -471,7 +471,7 @@ class HEADLESS_EXPORT Request {
       return CastState<kMethodSet>();
     }
 
-    RequestBuilder<STATE | kHeadersSet>& SetHeaders(absl::optional<base::Value::Dict> value) {
+    RequestBuilder<STATE | kHeadersSet>& SetHeaders(std::optional<base::Value::Dict> value) {
       static_assert(!(STATE & kHeadersSet), "property headers should not have already been set");
       result_->SetHeaders(std::move(value));
       return CastState<kHeadersSet>();
@@ -550,7 +550,7 @@ class HEADLESS_EXPORT Request {
   std::string url_;
   absl::optional<std::string> url_fragment_;
   std::string method_;
-  absl::optional<base::Value::Dict> headers_;
+  std::optional<base::Value::Dict> headers_;
   absl::optional<std::string> post_data_;
   absl::optional<bool> has_post_data_;
   absl::optional<std::vector<std::unique_ptr<::headless::network::PostDataEntry>>> post_data_entries_;
@@ -1090,6 +1090,64 @@ class HEADLESS_EXPORT TrustTokenParams {
 };
 
 
+class HEADLESS_EXPORT ServiceWorkerRouterInfo {
+ public:
+  static std::unique_ptr<ServiceWorkerRouterInfo> Parse(const base::Value& value, ErrorReporter* errors);
+
+  ServiceWorkerRouterInfo(const ServiceWorkerRouterInfo&) = delete;
+  ServiceWorkerRouterInfo& operator=(const ServiceWorkerRouterInfo&) = delete;
+
+  ~ServiceWorkerRouterInfo() { }
+
+
+  int GetRuleIdMatched() const { return rule_id_matched_; }
+  void SetRuleIdMatched(int value) { rule_id_matched_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<ServiceWorkerRouterInfo> Clone() const;
+
+  template<int STATE>
+  class ServiceWorkerRouterInfoBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kRuleIdMatchedSet = 1 << 1,
+      kAllRequiredFieldsSet = (kRuleIdMatchedSet | 0)
+    };
+
+    ServiceWorkerRouterInfoBuilder<STATE | kRuleIdMatchedSet>& SetRuleIdMatched(int value) {
+      static_assert(!(STATE & kRuleIdMatchedSet), "property ruleIdMatched should not have already been set");
+      result_->SetRuleIdMatched(value);
+      return CastState<kRuleIdMatchedSet>();
+    }
+
+    std::unique_ptr<ServiceWorkerRouterInfo> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class ServiceWorkerRouterInfo;
+    ServiceWorkerRouterInfoBuilder() : result_(new ServiceWorkerRouterInfo()) { }
+
+    template<int STEP> ServiceWorkerRouterInfoBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<ServiceWorkerRouterInfoBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<ServiceWorkerRouterInfo> result_;
+  };
+
+  static ServiceWorkerRouterInfoBuilder<0> Builder() {
+    return ServiceWorkerRouterInfoBuilder<0>();
+  }
+
+ private:
+  ServiceWorkerRouterInfo() { }
+
+  int rule_id_matched_;
+};
+
+
 // HTTP response data.
 class HEADLESS_EXPORT Response {
  public:
@@ -1115,7 +1173,7 @@ class HEADLESS_EXPORT Response {
 
   // HTTP response headers.
   const base::Value::Dict& GetHeaders() const { return *headers_; }
-  void SetHeaders(absl::optional<base::Value::Dict> value) { headers_ = std::move(value); }
+  void SetHeaders(std::optional<base::Value::Dict> value) { headers_ = std::move(value); }
 
   // HTTP response headers text. This has been replaced by the headers in Network.responseReceivedExtraInfo.
   bool HasHeadersText() const { return !!headers_text_; }
@@ -1129,7 +1187,7 @@ class HEADLESS_EXPORT Response {
   // Refined HTTP request headers that were actually transmitted over the network.
   bool HasRequestHeaders() const { return !!request_headers_; }
   const base::Value::Dict& GetRequestHeaders() const { DCHECK(HasRequestHeaders()); return *request_headers_.value(); }
-  void SetRequestHeaders(absl::optional<base::Value::Dict> value) { request_headers_ = std::move(value); }
+  void SetRequestHeaders(std::optional<base::Value::Dict> value) { request_headers_ = std::move(value); }
 
   // HTTP request headers text. This has been replaced by the headers in Network.requestWillBeSentExtraInfo.
   bool HasRequestHeadersText() const { return !!request_headers_text_; }
@@ -1168,6 +1226,11 @@ class HEADLESS_EXPORT Response {
   bool HasFromPrefetchCache() const { return !!from_prefetch_cache_; }
   bool GetFromPrefetchCache() const { DCHECK(HasFromPrefetchCache()); return from_prefetch_cache_.value(); }
   void SetFromPrefetchCache(bool value) { from_prefetch_cache_ = value; }
+
+  // Infomation about how Service Worker Static Router was used.
+  bool HasServiceWorkerRouterInfo() const { return !!service_worker_router_info_; }
+  const ::headless::network::ServiceWorkerRouterInfo* GetServiceWorkerRouterInfo() const { DCHECK(HasServiceWorkerRouterInfo()); return service_worker_router_info_.value().get(); }
+  void SetServiceWorkerRouterInfo(std::unique_ptr<::headless::network::ServiceWorkerRouterInfo> value) { service_worker_router_info_ = std::move(value); }
 
   // Total number of bytes received for this request so far.
   double GetEncodedDataLength() const { return encoded_data_length_; }
@@ -1250,7 +1313,7 @@ class HEADLESS_EXPORT Response {
       return CastState<kStatusTextSet>();
     }
 
-    ResponseBuilder<STATE | kHeadersSet>& SetHeaders(absl::optional<base::Value::Dict> value) {
+    ResponseBuilder<STATE | kHeadersSet>& SetHeaders(std::optional<base::Value::Dict> value) {
       static_assert(!(STATE & kHeadersSet), "property headers should not have already been set");
       result_->SetHeaders(std::move(value));
       return CastState<kHeadersSet>();
@@ -1267,7 +1330,7 @@ class HEADLESS_EXPORT Response {
       return CastState<kMimeTypeSet>();
     }
 
-    ResponseBuilder<STATE>& SetRequestHeaders(absl::optional<base::Value::Dict> value) {
+    ResponseBuilder<STATE>& SetRequestHeaders(std::optional<base::Value::Dict> value) {
       result_->SetRequestHeaders(std::move(value));
       return *this;
     }
@@ -1311,6 +1374,11 @@ class HEADLESS_EXPORT Response {
 
     ResponseBuilder<STATE>& SetFromPrefetchCache(bool value) {
       result_->SetFromPrefetchCache(value);
+      return *this;
+    }
+
+    ResponseBuilder<STATE>& SetServiceWorkerRouterInfo(std::unique_ptr<::headless::network::ServiceWorkerRouterInfo> value) {
+      result_->SetServiceWorkerRouterInfo(std::move(value));
       return *this;
     }
 
@@ -1387,10 +1455,10 @@ class HEADLESS_EXPORT Response {
   std::string url_;
   int status_;
   std::string status_text_;
-  absl::optional<base::Value::Dict> headers_;
+  std::optional<base::Value::Dict> headers_;
   absl::optional<std::string> headers_text_;
   std::string mime_type_;
-  absl::optional<absl::optional<base::Value::Dict>> request_headers_;
+  absl::optional<std::optional<base::Value::Dict>> request_headers_;
   absl::optional<std::string> request_headers_text_;
   bool connection_reused_;
   double connection_id_;
@@ -1399,6 +1467,7 @@ class HEADLESS_EXPORT Response {
   absl::optional<bool> from_disk_cache_;
   absl::optional<bool> from_service_worker_;
   absl::optional<bool> from_prefetch_cache_;
+  absl::optional<std::unique_ptr<::headless::network::ServiceWorkerRouterInfo>> service_worker_router_info_;
   double encoded_data_length_;
   absl::optional<std::unique_ptr<::headless::network::ResourceTiming>> timing_;
   absl::optional<::headless::network::ServiceWorkerResponseSource> service_worker_response_source_;
@@ -1424,7 +1493,7 @@ class HEADLESS_EXPORT WebSocketRequest {
 
   // HTTP request headers.
   const base::Value::Dict& GetHeaders() const { return *headers_; }
-  void SetHeaders(absl::optional<base::Value::Dict> value) { headers_ = std::move(value); }
+  void SetHeaders(std::optional<base::Value::Dict> value) { headers_ = std::move(value); }
 
   base::Value Serialize() const;
   std::unique_ptr<WebSocketRequest> Clone() const;
@@ -1438,7 +1507,7 @@ class HEADLESS_EXPORT WebSocketRequest {
       kAllRequiredFieldsSet = (kHeadersSet | 0)
     };
 
-    WebSocketRequestBuilder<STATE | kHeadersSet>& SetHeaders(absl::optional<base::Value::Dict> value) {
+    WebSocketRequestBuilder<STATE | kHeadersSet>& SetHeaders(std::optional<base::Value::Dict> value) {
       static_assert(!(STATE & kHeadersSet), "property headers should not have already been set");
       result_->SetHeaders(std::move(value));
       return CastState<kHeadersSet>();
@@ -1467,7 +1536,7 @@ class HEADLESS_EXPORT WebSocketRequest {
  private:
   WebSocketRequest() { }
 
-  absl::optional<base::Value::Dict> headers_;
+  std::optional<base::Value::Dict> headers_;
 };
 
 
@@ -1492,7 +1561,7 @@ class HEADLESS_EXPORT WebSocketResponse {
 
   // HTTP response headers.
   const base::Value::Dict& GetHeaders() const { return *headers_; }
-  void SetHeaders(absl::optional<base::Value::Dict> value) { headers_ = std::move(value); }
+  void SetHeaders(std::optional<base::Value::Dict> value) { headers_ = std::move(value); }
 
   // HTTP response headers text.
   bool HasHeadersText() const { return !!headers_text_; }
@@ -1502,7 +1571,7 @@ class HEADLESS_EXPORT WebSocketResponse {
   // HTTP request headers.
   bool HasRequestHeaders() const { return !!request_headers_; }
   const base::Value::Dict& GetRequestHeaders() const { DCHECK(HasRequestHeaders()); return *request_headers_.value(); }
-  void SetRequestHeaders(absl::optional<base::Value::Dict> value) { request_headers_ = std::move(value); }
+  void SetRequestHeaders(std::optional<base::Value::Dict> value) { request_headers_ = std::move(value); }
 
   // HTTP request headers text.
   bool HasRequestHeadersText() const { return !!request_headers_text_; }
@@ -1535,7 +1604,7 @@ class HEADLESS_EXPORT WebSocketResponse {
       return CastState<kStatusTextSet>();
     }
 
-    WebSocketResponseBuilder<STATE | kHeadersSet>& SetHeaders(absl::optional<base::Value::Dict> value) {
+    WebSocketResponseBuilder<STATE | kHeadersSet>& SetHeaders(std::optional<base::Value::Dict> value) {
       static_assert(!(STATE & kHeadersSet), "property headers should not have already been set");
       result_->SetHeaders(std::move(value));
       return CastState<kHeadersSet>();
@@ -1546,7 +1615,7 @@ class HEADLESS_EXPORT WebSocketResponse {
       return *this;
     }
 
-    WebSocketResponseBuilder<STATE>& SetRequestHeaders(absl::optional<base::Value::Dict> value) {
+    WebSocketResponseBuilder<STATE>& SetRequestHeaders(std::optional<base::Value::Dict> value) {
       result_->SetRequestHeaders(std::move(value));
       return *this;
     }
@@ -1581,9 +1650,9 @@ class HEADLESS_EXPORT WebSocketResponse {
 
   int status_;
   std::string status_text_;
-  absl::optional<base::Value::Dict> headers_;
+  std::optional<base::Value::Dict> headers_;
   absl::optional<std::string> headers_text_;
-  absl::optional<absl::optional<base::Value::Dict>> request_headers_;
+  absl::optional<std::optional<base::Value::Dict>> request_headers_;
   absl::optional<std::string> request_headers_text_;
 };
 
@@ -2932,7 +3001,7 @@ class HEADLESS_EXPORT SignedExchangeHeader {
 
   // Signed exchange response headers.
   const base::Value::Dict& GetResponseHeaders() const { return *response_headers_; }
-  void SetResponseHeaders(absl::optional<base::Value::Dict> value) { response_headers_ = std::move(value); }
+  void SetResponseHeaders(std::optional<base::Value::Dict> value) { response_headers_ = std::move(value); }
 
   // Signed exchange response signature.
   const std::vector<std::unique_ptr<::headless::network::SignedExchangeSignature>>* GetSignatures() const { return &signatures_; }
@@ -2970,7 +3039,7 @@ class HEADLESS_EXPORT SignedExchangeHeader {
       return CastState<kResponseCodeSet>();
     }
 
-    SignedExchangeHeaderBuilder<STATE | kResponseHeadersSet>& SetResponseHeaders(absl::optional<base::Value::Dict> value) {
+    SignedExchangeHeaderBuilder<STATE | kResponseHeadersSet>& SetResponseHeaders(std::optional<base::Value::Dict> value) {
       static_assert(!(STATE & kResponseHeadersSet), "property responseHeaders should not have already been set");
       result_->SetResponseHeaders(std::move(value));
       return CastState<kResponseHeadersSet>();
@@ -3013,7 +3082,7 @@ class HEADLESS_EXPORT SignedExchangeHeader {
 
   std::string request_url_;
   int response_code_;
-  absl::optional<base::Value::Dict> response_headers_;
+  std::optional<base::Value::Dict> response_headers_;
   std::vector<std::unique_ptr<::headless::network::SignedExchangeSignature>> signatures_;
   std::string header_integrity_;
 };
@@ -3929,7 +3998,7 @@ class HEADLESS_EXPORT LoadNetworkResourcePageResult {
   // Response headers.
   bool HasHeaders() const { return !!headers_; }
   const base::Value::Dict& GetHeaders() const { DCHECK(HasHeaders()); return *headers_.value(); }
-  void SetHeaders(absl::optional<base::Value::Dict> value) { headers_ = std::move(value); }
+  void SetHeaders(std::optional<base::Value::Dict> value) { headers_ = std::move(value); }
 
   base::Value Serialize() const;
   std::unique_ptr<LoadNetworkResourcePageResult> Clone() const;
@@ -3969,7 +4038,7 @@ class HEADLESS_EXPORT LoadNetworkResourcePageResult {
       return *this;
     }
 
-    LoadNetworkResourcePageResultBuilder<STATE>& SetHeaders(absl::optional<base::Value::Dict> value) {
+    LoadNetworkResourcePageResultBuilder<STATE>& SetHeaders(std::optional<base::Value::Dict> value) {
       result_->SetHeaders(std::move(value));
       return *this;
     }
@@ -4002,7 +4071,7 @@ class HEADLESS_EXPORT LoadNetworkResourcePageResult {
   absl::optional<std::string> net_error_name_;
   absl::optional<double> http_status_code_;
   absl::optional<std::string> stream_;
-  absl::optional<absl::optional<base::Value::Dict>> headers_;
+  absl::optional<std::optional<base::Value::Dict>> headers_;
 };
 
 
@@ -4845,7 +4914,7 @@ class HEADLESS_EXPORT ContinueInterceptedRequestParams {
   // authChallenge.
   bool HasHeaders() const { return !!headers_; }
   const base::Value::Dict& GetHeaders() const { DCHECK(HasHeaders()); return *headers_.value(); }
-  void SetHeaders(absl::optional<base::Value::Dict> value) { headers_ = std::move(value); }
+  void SetHeaders(std::optional<base::Value::Dict> value) { headers_ = std::move(value); }
 
   // Response to a requestIntercepted with an authChallenge. Must not be set otherwise.
   bool HasAuthChallengeResponse() const { return !!auth_challenge_response_; }
@@ -4895,7 +4964,7 @@ class HEADLESS_EXPORT ContinueInterceptedRequestParams {
       return *this;
     }
 
-    ContinueInterceptedRequestParamsBuilder<STATE>& SetHeaders(absl::optional<base::Value::Dict> value) {
+    ContinueInterceptedRequestParamsBuilder<STATE>& SetHeaders(std::optional<base::Value::Dict> value) {
       result_->SetHeaders(std::move(value));
       return *this;
     }
@@ -4934,7 +5003,7 @@ class HEADLESS_EXPORT ContinueInterceptedRequestParams {
   absl::optional<std::string> url_;
   absl::optional<std::string> method_;
   absl::optional<std::string> post_data_;
-  absl::optional<absl::optional<base::Value::Dict>> headers_;
+  absl::optional<std::optional<base::Value::Dict>> headers_;
   absl::optional<std::unique_ptr<::headless::network::AuthChallengeResponse>> auth_challenge_response_;
 };
 
@@ -7335,7 +7404,7 @@ class HEADLESS_EXPORT SetExtraHTTPHeadersParams {
 
   // Map with extra HTTP headers.
   const base::Value::Dict& GetHeaders() const { return *headers_; }
-  void SetHeaders(absl::optional<base::Value::Dict> value) { headers_ = std::move(value); }
+  void SetHeaders(std::optional<base::Value::Dict> value) { headers_ = std::move(value); }
 
   base::Value Serialize() const;
   std::unique_ptr<SetExtraHTTPHeadersParams> Clone() const;
@@ -7349,7 +7418,7 @@ class HEADLESS_EXPORT SetExtraHTTPHeadersParams {
       kAllRequiredFieldsSet = (kHeadersSet | 0)
     };
 
-    SetExtraHTTPHeadersParamsBuilder<STATE | kHeadersSet>& SetHeaders(absl::optional<base::Value::Dict> value) {
+    SetExtraHTTPHeadersParamsBuilder<STATE | kHeadersSet>& SetHeaders(std::optional<base::Value::Dict> value) {
       static_assert(!(STATE & kHeadersSet), "property headers should not have already been set");
       result_->SetHeaders(std::move(value));
       return CastState<kHeadersSet>();
@@ -7378,7 +7447,7 @@ class HEADLESS_EXPORT SetExtraHTTPHeadersParams {
  private:
   SetExtraHTTPHeadersParams() { }
 
-  absl::optional<base::Value::Dict> headers_;
+  std::optional<base::Value::Dict> headers_;
 };
 
 
@@ -7662,7 +7731,7 @@ class HEADLESS_EXPORT SetUserAgentOverrideParams {
   std::string GetUserAgent() const { return user_agent_; }
   void SetUserAgent(const std::string& value) { user_agent_ = value; }
 
-  // Browser langugage to emulate.
+  // Browser language to emulate.
   bool HasAcceptLanguage() const { return !!accept_language_; }
   std::string GetAcceptLanguage() const { DCHECK(HasAcceptLanguage()); return accept_language_.value(); }
   void SetAcceptLanguage(const std::string& value) { accept_language_ = value; }
@@ -7785,6 +7854,126 @@ class HEADLESS_EXPORT SetUserAgentOverrideResult {
  private:
   SetUserAgentOverrideResult() { }
 
+};
+
+
+// Parameters for the StreamResourceContent command.
+class HEADLESS_EXPORT StreamResourceContentParams {
+ public:
+  static std::unique_ptr<StreamResourceContentParams> Parse(const base::Value& value, ErrorReporter* errors);
+
+  StreamResourceContentParams(const StreamResourceContentParams&) = delete;
+  StreamResourceContentParams& operator=(const StreamResourceContentParams&) = delete;
+
+  ~StreamResourceContentParams() { }
+
+
+  // Identifier of the request to stream.
+  std::string GetRequestId() const { return request_id_; }
+  void SetRequestId(const std::string& value) { request_id_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<StreamResourceContentParams> Clone() const;
+
+  template<int STATE>
+  class StreamResourceContentParamsBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kRequestIdSet = 1 << 1,
+      kAllRequiredFieldsSet = (kRequestIdSet | 0)
+    };
+
+    StreamResourceContentParamsBuilder<STATE | kRequestIdSet>& SetRequestId(const std::string& value) {
+      static_assert(!(STATE & kRequestIdSet), "property requestId should not have already been set");
+      result_->SetRequestId(value);
+      return CastState<kRequestIdSet>();
+    }
+
+    std::unique_ptr<StreamResourceContentParams> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class StreamResourceContentParams;
+    StreamResourceContentParamsBuilder() : result_(new StreamResourceContentParams()) { }
+
+    template<int STEP> StreamResourceContentParamsBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<StreamResourceContentParamsBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<StreamResourceContentParams> result_;
+  };
+
+  static StreamResourceContentParamsBuilder<0> Builder() {
+    return StreamResourceContentParamsBuilder<0>();
+  }
+
+ private:
+  StreamResourceContentParams() { }
+
+  std::string request_id_;
+};
+
+
+// Result for the StreamResourceContent command.
+class HEADLESS_EXPORT StreamResourceContentResult {
+ public:
+  static std::unique_ptr<StreamResourceContentResult> Parse(const base::Value& value, ErrorReporter* errors);
+
+  StreamResourceContentResult(const StreamResourceContentResult&) = delete;
+  StreamResourceContentResult& operator=(const StreamResourceContentResult&) = delete;
+
+  ~StreamResourceContentResult() { }
+
+
+  // Data that has been buffered until streaming is enabled.
+  protocol::Binary GetBufferedData() const { return buffered_data_; }
+  void SetBufferedData(const protocol::Binary& value) { buffered_data_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<StreamResourceContentResult> Clone() const;
+
+  template<int STATE>
+  class StreamResourceContentResultBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kBufferedDataSet = 1 << 1,
+      kAllRequiredFieldsSet = (kBufferedDataSet | 0)
+    };
+
+    StreamResourceContentResultBuilder<STATE | kBufferedDataSet>& SetBufferedData(const protocol::Binary& value) {
+      static_assert(!(STATE & kBufferedDataSet), "property bufferedData should not have already been set");
+      result_->SetBufferedData(value);
+      return CastState<kBufferedDataSet>();
+    }
+
+    std::unique_ptr<StreamResourceContentResult> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class StreamResourceContentResult;
+    StreamResourceContentResultBuilder() : result_(new StreamResourceContentResult()) { }
+
+    template<int STEP> StreamResourceContentResultBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<StreamResourceContentResultBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<StreamResourceContentResult> result_;
+  };
+
+  static StreamResourceContentResultBuilder<0> Builder() {
+    return StreamResourceContentResultBuilder<0>();
+  }
+
+ private:
+  StreamResourceContentResult() { }
+
+  protocol::Binary buffered_data_;
 };
 
 
@@ -8184,6 +8373,11 @@ class HEADLESS_EXPORT DataReceivedParams {
   int GetEncodedDataLength() const { return encoded_data_length_; }
   void SetEncodedDataLength(int value) { encoded_data_length_ = value; }
 
+  // Data that was received.
+  bool HasData() const { return !!data_; }
+  protocol::Binary GetData() const { DCHECK(HasData()); return data_.value(); }
+  void SetData(const protocol::Binary& value) { data_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<DataReceivedParams> Clone() const;
 
@@ -8223,6 +8417,11 @@ class HEADLESS_EXPORT DataReceivedParams {
       return CastState<kEncodedDataLengthSet>();
     }
 
+    DataReceivedParamsBuilder<STATE>& SetData(const protocol::Binary& value) {
+      result_->SetData(value);
+      return *this;
+    }
+
     std::unique_ptr<DataReceivedParams> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -8250,6 +8449,7 @@ class HEADLESS_EXPORT DataReceivedParams {
   double timestamp_;
   int data_length_;
   int encoded_data_length_;
+  absl::optional<protocol::Binary> data_;
 };
 
 
@@ -8639,7 +8839,7 @@ class HEADLESS_EXPORT RequestInterceptedParams {
   // intercepting request or auth retry occurred.
   bool HasResponseHeaders() const { return !!response_headers_; }
   const base::Value::Dict& GetResponseHeaders() const { DCHECK(HasResponseHeaders()); return *response_headers_.value(); }
-  void SetResponseHeaders(absl::optional<base::Value::Dict> value) { response_headers_ = std::move(value); }
+  void SetResponseHeaders(std::optional<base::Value::Dict> value) { response_headers_ = std::move(value); }
 
   // If the intercepted request had a corresponding requestWillBeSent event fired for it, then
   // this requestId will be the same as the requestId present in the requestWillBeSent event.
@@ -8718,7 +8918,7 @@ class HEADLESS_EXPORT RequestInterceptedParams {
       return *this;
     }
 
-    RequestInterceptedParamsBuilder<STATE>& SetResponseHeaders(absl::optional<base::Value::Dict> value) {
+    RequestInterceptedParamsBuilder<STATE>& SetResponseHeaders(std::optional<base::Value::Dict> value) {
       result_->SetResponseHeaders(std::move(value));
       return *this;
     }
@@ -8761,7 +8961,7 @@ class HEADLESS_EXPORT RequestInterceptedParams {
   absl::optional<std::unique_ptr<::headless::network::AuthChallenge>> auth_challenge_;
   absl::optional<::headless::network::ErrorReason> response_error_reason_;
   absl::optional<int> response_status_code_;
-  absl::optional<absl::optional<base::Value::Dict>> response_headers_;
+  absl::optional<std::optional<base::Value::Dict>> response_headers_;
   absl::optional<std::string> request_id_;
 };
 
@@ -10152,7 +10352,7 @@ class HEADLESS_EXPORT RequestWillBeSentExtraInfoParams {
 
   // Raw request headers as they will be sent over the wire.
   const base::Value::Dict& GetHeaders() const { return *headers_; }
-  void SetHeaders(absl::optional<base::Value::Dict> value) { headers_ = std::move(value); }
+  void SetHeaders(std::optional<base::Value::Dict> value) { headers_ = std::move(value); }
 
   // Connection timing information for the request.
   const ::headless::network::ConnectTiming* GetConnectTiming() const { return connect_timing_.get(); }
@@ -10195,7 +10395,7 @@ class HEADLESS_EXPORT RequestWillBeSentExtraInfoParams {
       return CastState<kAssociatedCookiesSet>();
     }
 
-    RequestWillBeSentExtraInfoParamsBuilder<STATE | kHeadersSet>& SetHeaders(absl::optional<base::Value::Dict> value) {
+    RequestWillBeSentExtraInfoParamsBuilder<STATE | kHeadersSet>& SetHeaders(std::optional<base::Value::Dict> value) {
       static_assert(!(STATE & kHeadersSet), "property headers should not have already been set");
       result_->SetHeaders(std::move(value));
       return CastState<kHeadersSet>();
@@ -10242,7 +10442,7 @@ class HEADLESS_EXPORT RequestWillBeSentExtraInfoParams {
 
   std::string request_id_;
   std::vector<std::unique_ptr<::headless::network::BlockedCookieWithReason>> associated_cookies_;
-  absl::optional<base::Value::Dict> headers_;
+  std::optional<base::Value::Dict> headers_;
   std::unique_ptr<::headless::network::ConnectTiming> connect_timing_;
   absl::optional<std::unique_ptr<::headless::network::ClientSecurityState>> client_security_state_;
   absl::optional<bool> site_has_cookie_in_other_partition_;
@@ -10272,7 +10472,7 @@ class HEADLESS_EXPORT ResponseReceivedExtraInfoParams {
 
   // Raw response headers as they were received over the wire.
   const base::Value::Dict& GetHeaders() const { return *headers_; }
-  void SetHeaders(absl::optional<base::Value::Dict> value) { headers_ = std::move(value); }
+  void SetHeaders(std::optional<base::Value::Dict> value) { headers_ = std::move(value); }
 
   // The IP address space of the resource. The address space can only be determined once the transport
   // established the connection, so we can't send it in `requestWillBeSentExtraInfo`.
@@ -10330,7 +10530,7 @@ class HEADLESS_EXPORT ResponseReceivedExtraInfoParams {
       return CastState<kBlockedCookiesSet>();
     }
 
-    ResponseReceivedExtraInfoParamsBuilder<STATE | kHeadersSet>& SetHeaders(absl::optional<base::Value::Dict> value) {
+    ResponseReceivedExtraInfoParamsBuilder<STATE | kHeadersSet>& SetHeaders(std::optional<base::Value::Dict> value) {
       static_assert(!(STATE & kHeadersSet), "property headers should not have already been set");
       result_->SetHeaders(std::move(value));
       return CastState<kHeadersSet>();
@@ -10388,7 +10588,7 @@ class HEADLESS_EXPORT ResponseReceivedExtraInfoParams {
 
   std::string request_id_;
   std::vector<std::unique_ptr<::headless::network::BlockedSetCookieWithReason>> blocked_cookies_;
-  absl::optional<base::Value::Dict> headers_;
+  std::optional<base::Value::Dict> headers_;
   ::headless::network::IPAddressSpace resourceip_address_space_;
   int status_code_;
   absl::optional<std::string> headers_text_;

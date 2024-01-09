@@ -16,9 +16,9 @@ namespace internal {
 
 constexpr uint32_t kSpellChecker_Initialize_Name = 0;
 constexpr uint32_t kSpellChecker_CustomDictionaryChanged_Name = 1;
-constexpr uint32_t kSpellCheckHost_RequestDictionary_Name = 0;
-constexpr uint32_t kSpellCheckHost_NotifyChecked_Name = 1;
-constexpr uint32_t kSpellCheckHost_CallSpellingService_Name = 2;
+constexpr uint32_t kSpellCheckInitializationHost_RequestDictionary_Name = 0;
+constexpr uint32_t kSpellCheckHost_NotifyChecked_Name = 0;
+constexpr uint32_t kSpellCheckHost_CallSpellingService_Name = 1;
 
 }  // namespace internal
 

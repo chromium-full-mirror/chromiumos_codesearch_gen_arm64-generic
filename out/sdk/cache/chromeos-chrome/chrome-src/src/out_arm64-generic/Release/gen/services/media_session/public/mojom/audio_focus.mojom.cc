@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -62,7 +63,7 @@ AudioFocusRequestState::AudioFocusRequestState(
 AudioFocusRequestState::AudioFocusRequestState(
     ::media_session::mojom::MediaSessionInfoPtr session_info_in,
     AudioFocusType audio_focus_type_in,
-    const absl::optional<std::string>& source_name_in)
+    const std::optional<std::string>& source_name_in)
     : session_info(std::move(session_info_in)),
       audio_focus_type(std::move(audio_focus_type_in)),
       source_name(std::move(source_name_in)),
@@ -72,8 +73,8 @@ AudioFocusRequestState::AudioFocusRequestState(
 AudioFocusRequestState::AudioFocusRequestState(
     ::media_session::mojom::MediaSessionInfoPtr session_info_in,
     AudioFocusType audio_focus_type_in,
-    const absl::optional<std::string>& source_name_in,
-    const absl::optional<::base::UnguessableToken>& request_id_in)
+    const std::optional<std::string>& source_name_in,
+    const std::optional<::base::UnguessableToken>& request_id_in)
     : session_info(std::move(session_info_in)),
       audio_focus_type(std::move(audio_focus_type_in)),
       source_name(std::move(source_name_in)),
@@ -83,9 +84,9 @@ AudioFocusRequestState::AudioFocusRequestState(
 AudioFocusRequestState::AudioFocusRequestState(
     ::media_session::mojom::MediaSessionInfoPtr session_info_in,
     AudioFocusType audio_focus_type_in,
-    const absl::optional<std::string>& source_name_in,
-    const absl::optional<::base::UnguessableToken>& request_id_in,
-    const absl::optional<::base::UnguessableToken>& source_id_in)
+    const std::optional<std::string>& source_name_in,
+    const std::optional<::base::UnguessableToken>& request_id_in,
+    const std::optional<::base::UnguessableToken>& source_id_in)
     : session_info(std::move(session_info_in)),
       audio_focus_type(std::move(audio_focus_type_in)),
       source_name(std::move(source_name_in)),
@@ -119,7 +120,7 @@ void AudioFocusRequestState::WriteIntoTrace(
     dict.AddItem(
       "source_name"), this->source_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -128,7 +129,7 @@ void AudioFocusRequestState::WriteIntoTrace(
     dict.AddItem(
       "request_id"), this->request_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -137,7 +138,7 @@ void AudioFocusRequestState::WriteIntoTrace(
     dict.AddItem(
       "source_id"), this->source_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -260,14 +261,17 @@ void AudioFocusObserverProxy::OnFocusGained(
                         "<value of type AudioFocusRequestStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusObserver_OnFocusGained_Name, kFlags, 0, 0, nullptr);
@@ -308,14 +312,17 @@ void AudioFocusObserverProxy::OnFocusLost(
                         "<value of type AudioFocusRequestStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusObserver_OnFocusLost_Name, kFlags, 0, 0, nullptr);
@@ -356,14 +363,17 @@ void AudioFocusObserverProxy::OnRequestIdReleased(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusObserver_OnRequestIdReleased_Name, kFlags, 0, 0, nullptr);
@@ -500,14 +510,14 @@ bool AudioFocusObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioFocusObserverValidationInfo[] = {
-    {&internal::AudioFocusObserver_OnFocusGained_Params_Data::Validate,
+    { &internal::AudioFocusObserver_OnFocusGained_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioFocusObserver_OnFocusLost_Params_Data::Validate,
+    { &internal::AudioFocusObserver_OnFocusLost_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioFocusObserver_OnRequestIdReleased_Params_Data::Validate,
+    { &internal::AudioFocusObserver_OnRequestIdReleased_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -646,14 +656,17 @@ void AudioFocusRequestClientProxy::RequestAudioFocus(
                         "<value of type AudioFocusType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusRequestClient_RequestAudioFocus_Name, kFlags, 0, 0, nullptr);
@@ -690,14 +703,17 @@ void AudioFocusRequestClientProxy::AbandonAudioFocus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::AudioFocusRequestClient::AbandonAudioFocus");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusRequestClient_AbandonAudioFocus_Name, kFlags, 0, 0, nullptr);
@@ -727,14 +743,17 @@ void AudioFocusRequestClientProxy::MediaSessionInfoChanged(
                         "<value of type ::media_session::mojom::MediaSessionInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusRequestClient_MediaSessionInfoChanged_Name, kFlags, 0, 0, nullptr);
@@ -843,7 +862,8 @@ void AudioFocusRequestClient_RequestAudioFocus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusRequestClient_RequestAudioFocus_Name, kFlags, 0, 0, nullptr);
@@ -980,14 +1000,14 @@ std::move(p_type), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioFocusRequestClientValidationInfo[] = {
-    {&internal::AudioFocusRequestClient_RequestAudioFocus_Params_Data::Validate,
+    { &internal::AudioFocusRequestClient_RequestAudioFocus_Params_Data::Validate,
      &internal::AudioFocusRequestClient_RequestAudioFocus_ResponseParams_Data::Validate},
-    {&internal::AudioFocusRequestClient_AbandonAudioFocus_Params_Data::Validate,
+    { &internal::AudioFocusRequestClient_AbandonAudioFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioFocusRequestClient_MediaSessionInfoChanged_Params_Data::Validate,
+    { &internal::AudioFocusRequestClient_MediaSessionInfoChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1305,14 +1325,17 @@ void AudioFocusManagerProxy::RequestAudioFocus(
                         "<value of type AudioFocusType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_RequestAudioFocus_Name, kFlags, 0, 0, nullptr);
@@ -1383,14 +1406,17 @@ void AudioFocusManagerProxy::RequestGroupedAudioFocus(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_RequestGroupedAudioFocus_Name, kFlags, 0, 0, nullptr);
@@ -1461,14 +1487,17 @@ void AudioFocusManagerProxy::GetFocusRequests(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::AudioFocusManager::GetFocusRequests");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_GetFocusRequests_Name, kFlags, 0, 0, nullptr);
@@ -1499,14 +1528,17 @@ void AudioFocusManagerProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<AudioFocusObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1545,14 +1577,17 @@ void AudioFocusManagerProxy::SetSource(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_SetSource_Name, kFlags, 0, 0, nullptr);
@@ -1604,14 +1639,17 @@ void AudioFocusManagerProxy::SetEnforcementMode(
                         "<value of type EnforcementMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_SetEnforcementMode_Name, kFlags, 0, 0, nullptr);
@@ -1646,14 +1684,17 @@ void AudioFocusManagerProxy::AddSourceObserver(
                         "<value of type ::mojo::PendingRemote<AudioFocusObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_AddSourceObserver_Name, kFlags, 0, 0, nullptr);
@@ -1700,14 +1741,17 @@ void AudioFocusManagerProxy::GetSourceFocusRequests(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_GetSourceFocusRequests_Name, kFlags, 0, 0, nullptr);
@@ -1749,14 +1793,17 @@ void AudioFocusManagerProxy::RequestIdReleased(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_RequestIdReleased_Name, kFlags, 0, 0, nullptr);
@@ -1876,7 +1923,8 @@ void AudioFocusManager_RequestAudioFocus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_RequestAudioFocus_Name, kFlags, 0, 0, nullptr);
@@ -2004,7 +2052,8 @@ void AudioFocusManager_RequestGroupedAudioFocus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_RequestGroupedAudioFocus_Name, kFlags, 0, 0, nullptr);
@@ -2122,7 +2171,8 @@ void AudioFocusManager_GetFocusRequests_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_GetFocusRequests_Name, kFlags, 0, 0, nullptr);
@@ -2252,7 +2302,8 @@ void AudioFocusManager_GetSourceFocusRequests_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManager_GetSourceFocusRequests_Name, kFlags, 0, 0, nullptr);
@@ -2633,27 +2684,27 @@ std::move(p_source_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioFocusManagerValidationInfo[] = {
-    {&internal::AudioFocusManager_RequestAudioFocus_Params_Data::Validate,
+    { &internal::AudioFocusManager_RequestAudioFocus_Params_Data::Validate,
      &internal::AudioFocusManager_RequestAudioFocus_ResponseParams_Data::Validate},
-    {&internal::AudioFocusManager_GetFocusRequests_Params_Data::Validate,
+    { &internal::AudioFocusManager_GetFocusRequests_Params_Data::Validate,
      &internal::AudioFocusManager_GetFocusRequests_ResponseParams_Data::Validate},
-    {&internal::AudioFocusManager_AddObserver_Params_Data::Validate,
+    { &internal::AudioFocusManager_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::AudioFocusManager_RequestGroupedAudioFocus_Params_Data::Validate,
+    { &internal::AudioFocusManager_RequestGroupedAudioFocus_Params_Data::Validate,
      &internal::AudioFocusManager_RequestGroupedAudioFocus_ResponseParams_Data::Validate},
-    {&internal::AudioFocusManager_SetEnforcementMode_Params_Data::Validate,
+    { &internal::AudioFocusManager_SetEnforcementMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioFocusManager_SetSource_Params_Data::Validate,
+    { &internal::AudioFocusManager_SetSource_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioFocusManager_AddSourceObserver_Params_Data::Validate,
+    { &internal::AudioFocusManager_AddSourceObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioFocusManager_GetSourceFocusRequests_Params_Data::Validate,
+    { &internal::AudioFocusManager_GetSourceFocusRequests_Params_Data::Validate,
      &internal::AudioFocusManager_GetSourceFocusRequests_ResponseParams_Data::Validate},
-    {&internal::AudioFocusManager_RequestIdReleased_Params_Data::Validate,
+    { &internal::AudioFocusManager_RequestIdReleased_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2754,14 +2805,17 @@ void AudioFocusManagerDebugProxy::GetDebugInfoForRequest(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManagerDebug_GetDebugInfoForRequest_Name, kFlags, 0, 0, nullptr);
@@ -2882,7 +2936,8 @@ void AudioFocusManagerDebug_GetDebugInfoForRequest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioFocusManagerDebug_GetDebugInfoForRequest_Name, kFlags, 0, 0, nullptr);
@@ -2972,10 +3027,10 @@ std::move(p_request_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioFocusManagerDebugValidationInfo[] = {
-    {&internal::AudioFocusManagerDebug_GetDebugInfoForRequest_Params_Data::Validate,
+    { &internal::AudioFocusManagerDebug_GetDebugInfoForRequest_Params_Data::Validate,
      &internal::AudioFocusManagerDebug_GetDebugInfoForRequest_ResponseParams_Data::Validate},
 };
 

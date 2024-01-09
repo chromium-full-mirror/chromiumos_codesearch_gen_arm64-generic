@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "diagnostics/mojom/public/cros_healthd_events.mojom-features.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-forward.h"
 #include "diagnostics/mojom/external/input.mojom.h"
@@ -2631,33 +2632,33 @@ class  TouchpadEventInfo {
   // Construct an instance holding |default_type|.
   static TouchpadEventInfoPtr
   NewDefaultType(
-      uint8_t default_type) {
+      uint8_t value) {
     auto result = TouchpadEventInfoPtr(absl::in_place);
-    result->set_default_type(std::move(default_type));
+    result->set_default_type(std::move(value));
     return result;
   }
   // Construct an instance holding |button_event|.
   static TouchpadEventInfoPtr
   NewButtonEvent(
-      TouchpadButtonEventPtr button_event) {
+      TouchpadButtonEventPtr value) {
     auto result = TouchpadEventInfoPtr(absl::in_place);
-    result->set_button_event(std::move(button_event));
+    result->set_button_event(std::move(value));
     return result;
   }
   // Construct an instance holding |touch_event|.
   static TouchpadEventInfoPtr
   NewTouchEvent(
-      TouchpadTouchEventPtr touch_event) {
+      TouchpadTouchEventPtr value) {
     auto result = TouchpadEventInfoPtr(absl::in_place);
-    result->set_touch_event(std::move(touch_event));
+    result->set_touch_event(std::move(value));
     return result;
   }
   // Construct an instance holding |connected_event|.
   static TouchpadEventInfoPtr
   NewConnectedEvent(
-      TouchpadConnectedEventPtr connected_event) {
+      TouchpadConnectedEventPtr value) {
     auto result = TouchpadEventInfoPtr(absl::in_place);
-    result->set_connected_event(std::move(connected_event));
+    result->set_connected_event(std::move(value));
     return result;
   }
 
@@ -2803,25 +2804,25 @@ class  TouchscreenEventInfo {
   // Construct an instance holding |default_type|.
   static TouchscreenEventInfoPtr
   NewDefaultType(
-      uint8_t default_type) {
+      uint8_t value) {
     auto result = TouchscreenEventInfoPtr(absl::in_place);
-    result->set_default_type(std::move(default_type));
+    result->set_default_type(std::move(value));
     return result;
   }
   // Construct an instance holding |touch_event|.
   static TouchscreenEventInfoPtr
   NewTouchEvent(
-      TouchscreenTouchEventPtr touch_event) {
+      TouchscreenTouchEventPtr value) {
     auto result = TouchscreenEventInfoPtr(absl::in_place);
-    result->set_touch_event(std::move(touch_event));
+    result->set_touch_event(std::move(value));
     return result;
   }
   // Construct an instance holding |connected_event|.
   static TouchscreenEventInfoPtr
   NewConnectedEvent(
-      TouchscreenConnectedEventPtr connected_event) {
+      TouchscreenConnectedEventPtr value) {
     auto result = TouchscreenEventInfoPtr(absl::in_place);
-    result->set_connected_event(std::move(connected_event));
+    result->set_connected_event(std::move(value));
     return result;
   }
 
@@ -2954,25 +2955,25 @@ class  StylusEventInfo {
   // Construct an instance holding |default_type|.
   static StylusEventInfoPtr
   NewDefaultType(
-      uint8_t default_type) {
+      uint8_t value) {
     auto result = StylusEventInfoPtr(absl::in_place);
-    result->set_default_type(std::move(default_type));
+    result->set_default_type(std::move(value));
     return result;
   }
   // Construct an instance holding |touch_event|.
   static StylusEventInfoPtr
   NewTouchEvent(
-      StylusTouchEventPtr touch_event) {
+      StylusTouchEventPtr value) {
     auto result = StylusEventInfoPtr(absl::in_place);
-    result->set_touch_event(std::move(touch_event));
+    result->set_touch_event(std::move(value));
     return result;
   }
   // Construct an instance holding |connected_event|.
   static StylusEventInfoPtr
   NewConnectedEvent(
-      StylusConnectedEventPtr connected_event) {
+      StylusConnectedEventPtr value) {
     auto result = StylusEventInfoPtr(absl::in_place);
-    result->set_connected_event(std::move(connected_event));
+    result->set_connected_event(std::move(value));
     return result;
   }
 
@@ -3105,129 +3106,129 @@ class  EventInfo {
   // Construct an instance holding |default_type|.
   static EventInfoPtr
   NewDefaultType(
-      uint8_t default_type) {
+      uint8_t value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_default_type(std::move(default_type));
+    result->set_default_type(std::move(value));
     return result;
   }
   // Construct an instance holding |usb_event_info|.
   static EventInfoPtr
   NewUsbEventInfo(
-      UsbEventInfoPtr usb_event_info) {
+      UsbEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_usb_event_info(std::move(usb_event_info));
+    result->set_usb_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |thunderbolt_event_info|.
   static EventInfoPtr
   NewThunderboltEventInfo(
-      ThunderboltEventInfoPtr thunderbolt_event_info) {
+      ThunderboltEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_thunderbolt_event_info(std::move(thunderbolt_event_info));
+    result->set_thunderbolt_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |lid_event_info|.
   static EventInfoPtr
   NewLidEventInfo(
-      LidEventInfoPtr lid_event_info) {
+      LidEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_lid_event_info(std::move(lid_event_info));
+    result->set_lid_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |bluetooth_event_info|.
   static EventInfoPtr
   NewBluetoothEventInfo(
-      BluetoothEventInfoPtr bluetooth_event_info) {
+      BluetoothEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_bluetooth_event_info(std::move(bluetooth_event_info));
+    result->set_bluetooth_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |power_event_info|.
   static EventInfoPtr
   NewPowerEventInfo(
-      PowerEventInfoPtr power_event_info) {
+      PowerEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_power_event_info(std::move(power_event_info));
+    result->set_power_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |audio_event_info|.
   static EventInfoPtr
   NewAudioEventInfo(
-      AudioEventInfoPtr audio_event_info) {
+      AudioEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_audio_event_info(std::move(audio_event_info));
+    result->set_audio_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |audio_jack_event_info|.
   static EventInfoPtr
   NewAudioJackEventInfo(
-      AudioJackEventInfoPtr audio_jack_event_info) {
+      AudioJackEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_audio_jack_event_info(std::move(audio_jack_event_info));
+    result->set_audio_jack_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |sd_card_event_info|.
   static EventInfoPtr
   NewSdCardEventInfo(
-      SdCardEventInfoPtr sd_card_event_info) {
+      SdCardEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_sd_card_event_info(std::move(sd_card_event_info));
+    result->set_sd_card_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |keyboard_diagnostic_event_info|.
   static EventInfoPtr
   NewKeyboardDiagnosticEventInfo(
-      ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr keyboard_diagnostic_event_info) {
+      ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_keyboard_diagnostic_event_info(std::move(keyboard_diagnostic_event_info));
+    result->set_keyboard_diagnostic_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |touchpad_event_info|.
   static EventInfoPtr
   NewTouchpadEventInfo(
-      TouchpadEventInfoPtr touchpad_event_info) {
+      TouchpadEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_touchpad_event_info(std::move(touchpad_event_info));
+    result->set_touchpad_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |external_display_event_info|.
   static EventInfoPtr
   NewExternalDisplayEventInfo(
-      ExternalDisplayEventInfoPtr external_display_event_info) {
+      ExternalDisplayEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_external_display_event_info(std::move(external_display_event_info));
+    result->set_external_display_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |touchscreen_event_info|.
   static EventInfoPtr
   NewTouchscreenEventInfo(
-      TouchscreenEventInfoPtr touchscreen_event_info) {
+      TouchscreenEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_touchscreen_event_info(std::move(touchscreen_event_info));
+    result->set_touchscreen_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |stylus_garage_event_info|.
   static EventInfoPtr
   NewStylusGarageEventInfo(
-      StylusGarageEventInfoPtr stylus_garage_event_info) {
+      StylusGarageEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_stylus_garage_event_info(std::move(stylus_garage_event_info));
+    result->set_stylus_garage_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |stylus_event_info|.
   static EventInfoPtr
   NewStylusEventInfo(
-      StylusEventInfoPtr stylus_event_info) {
+      StylusEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_stylus_event_info(std::move(stylus_event_info));
+    result->set_stylus_event_info(std::move(value));
     return result;
   }
   // Construct an instance holding |crash_event_info|.
   static EventInfoPtr
   NewCrashEventInfo(
-      CrashEventInfoPtr crash_event_info) {
+      CrashEventInfoPtr value) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_crash_event_info(std::move(crash_event_info));
+    result->set_crash_event_info(std::move(value));
     return result;
   }
 

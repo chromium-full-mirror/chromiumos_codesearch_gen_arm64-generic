@@ -34,15 +34,24 @@ class  PageHandlerFactoryAsyncWaiter {
 class  PageHandlerInterceptorForTesting : public PageHandler {
   virtual PageHandler* GetForwardingInterface() = 0;
   void CloseTab(int32_t tab_id) override;
-  void AcceptTabOrganization(int32_t session_id, int32_t organization_id, const std::string& name, std::vector<TabPtr> tabs) override;
+  void AcceptTabOrganization(int32_t session_id, int32_t organization_id, const ::std::u16string& name, std::vector<TabPtr> tabs) override;
   void RejectTabOrganization(int32_t session_id, int32_t organization_id) override;
   void GetProfileData(GetProfileDataCallback callback) override;
   void GetTabOrganizationSession(GetTabOrganizationSessionCallback callback) override;
   void SwitchToTab(SwitchToTabInfoPtr switch_to_tab_info) override;
   void OpenRecentlyClosedEntry(int32_t session_id) override;
   void RequestTabOrganization() override;
+  void RemoveTabFromOrganization(int32_t session_id, int32_t organization_id, TabPtr tab) override;
+  void ResetSession() override;
   void SaveRecentlyClosedExpandedPref(bool expanded) override;
   void SetTabIndex(int32_t index) override;
+  void StartTabGroupTutorial() override;
+  void TriggerFeedback(int32_t session_id) override;
+  void TriggerSync() override;
+  void TriggerSignIn() override;
+  void OpenHelpPage() override;
+  void OpenSyncSettings() override;
+  void SetUserFeedback(int32_t session_id, int32_t organization_id, UserFeedback feedback) override;
   void ShowUI() override;
 };
 class  PageHandlerAsyncWaiter {

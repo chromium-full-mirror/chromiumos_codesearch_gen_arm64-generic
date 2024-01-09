@@ -40,6 +40,8 @@ NOINLINE static const char* DangerTypeToStringHelper(DangerType value) {
       return "kPotentiallyUnwanted";
     case DangerType::kAsyncScanning:
       return "kAsyncScanning";
+    case DangerType::kAsyncLocalPasswordScanning:
+      return "kAsyncLocalPasswordScanning";
     case DangerType::kBlockedPasswordProtected:
       return "kBlockedPasswordProtected";
     case DangerType::kBlockedTooLarge:
@@ -94,6 +96,8 @@ NOINLINE static const char* StateToStringHelper(State value) {
       return "kAsyncScanning";
     case State::kPromptForScanning:
       return "kPromptForScanning";
+    case State::kPromptForLocalPasswordScanning:
+      return "kPromptForLocalPasswordScanning";
     default:
       return nullptr;
   }
@@ -483,6 +487,142 @@ bool PageHandler_SaveDangerousRequiringGesture_Params_Data::Validate(
 }
 
 PageHandler_SaveDangerousRequiringGesture_Params_Data::PageHandler_SaveDangerousRequiringGesture_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_SaveSuspiciousRequiringGesture_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_SaveSuspiciousRequiringGesture_Params_Data* object =
+      static_cast<const PageHandler_SaveSuspiciousRequiringGesture_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->id, validation_context,
+                                         &id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_SaveSuspiciousRequiringGesture_Params_Data::PageHandler_SaveSuspiciousRequiringGesture_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_RecordOpenBypassWarningPrompt_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_RecordOpenBypassWarningPrompt_Params_Data* object =
+      static_cast<const PageHandler_RecordOpenBypassWarningPrompt_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->id, validation_context,
+                                         &id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_RecordOpenBypassWarningPrompt_Params_Data::PageHandler_RecordOpenBypassWarningPrompt_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data* object =
+      static_cast<const PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->id, validation_context,
+                                         &id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data::PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_RecordCancelBypassWarningPrompt_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_RecordCancelBypassWarningPrompt_Params_Data* object =
+      static_cast<const PageHandler_RecordCancelBypassWarningPrompt_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->id, validation_context,
+                                         &id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_RecordCancelBypassWarningPrompt_Params_Data::PageHandler_RecordCancelBypassWarningPrompt_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

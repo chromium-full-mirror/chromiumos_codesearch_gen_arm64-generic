@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, UnderlyingSinkBase>::value,
     "UnderlyingSinkBase inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&UnderlyingSinkBase::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "UnderlyingSinkBase is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -82,8 +77,9 @@ BLINK_BINDINGS_TRACE_EVENT("UnderlyingSinkBase.type.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(v8_receiver);
+UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -119,7 +115,7 @@ return;
 
 
 
-UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(v8_receiver);
+UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -157,7 +153,7 @@ return;
 
 
 
-UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(v8_receiver);
+UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -195,7 +191,7 @@ return;
 
 
 
-UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(v8_receiver);
+UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -237,7 +233,7 @@ return;
 
 
 
-UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(v8_receiver);
+UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

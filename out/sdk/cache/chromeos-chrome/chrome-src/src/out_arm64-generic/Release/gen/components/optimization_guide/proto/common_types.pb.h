@@ -56,9 +56,6 @@ extern FieldTrialDefaultTypeInternal _FieldTrial_default_instance_;
 class OriginInfo;
 struct OriginInfoDefaultTypeInternal;
 extern OriginInfoDefaultTypeInternal _OriginInfo_default_instance_;
-class StringValue;
-struct StringValueDefaultTypeInternal;
-extern StringValueDefaultTypeInternal _StringValue_default_instance_;
 class Timestamp;
 struct TimestampDefaultTypeInternal;
 extern TimestampDefaultTypeInternal _Timestamp_default_instance_;
@@ -69,7 +66,6 @@ template<> ::optimization_guide::proto::Any* Arena::CreateMaybeMessage<::optimiz
 template<> ::optimization_guide::proto::Duration* Arena::CreateMaybeMessage<::optimization_guide::proto::Duration>(Arena*);
 template<> ::optimization_guide::proto::FieldTrial* Arena::CreateMaybeMessage<::optimization_guide::proto::FieldTrial>(Arena*);
 template<> ::optimization_guide::proto::OriginInfo* Arena::CreateMaybeMessage<::optimization_guide::proto::OriginInfo>(Arena*);
-template<> ::optimization_guide::proto::StringValue* Arena::CreateMaybeMessage<::optimization_guide::proto::StringValue>(Arena*);
 template<> ::optimization_guide::proto::Timestamp* Arena::CreateMaybeMessage<::optimization_guide::proto::Timestamp>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace optimization_guide {
@@ -754,150 +750,6 @@ class Any final :
 };
 // -------------------------------------------------------------------
 
-class StringValue final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.StringValue) */ {
- public:
-  inline StringValue() : StringValue(nullptr) {}
-  ~StringValue() override;
-  explicit PROTOBUF_CONSTEXPR StringValue(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  StringValue(const StringValue& from);
-  StringValue(StringValue&& from) noexcept
-    : StringValue() {
-    *this = ::std::move(from);
-  }
-
-  inline StringValue& operator=(const StringValue& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline StringValue& operator=(StringValue&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const std::string& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-  }
-  inline std::string* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<std::string>();
-  }
-
-  static const StringValue& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const StringValue* internal_default_instance() {
-    return reinterpret_cast<const StringValue*>(
-               &_StringValue_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    4;
-
-  friend void swap(StringValue& a, StringValue& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(StringValue* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(StringValue* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  StringValue* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<StringValue>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const StringValue& from);
-  void MergeFrom(const StringValue& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(StringValue* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "optimization_guide.proto.StringValue";
-  }
-  protected:
-  explicit StringValue(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kValueFieldNumber = 1,
-  };
-  // optional string value = 1;
-  bool has_value() const;
-  private:
-  bool _internal_has_value() const;
-  public:
-  void clear_value();
-  const std::string& value() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_value(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_value();
-  PROTOBUF_NODISCARD std::string* release_value();
-  void set_allocated_value(std::string* value);
-  private:
-  const std::string& _internal_value() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_value(const std::string& value);
-  std::string* _internal_mutable_value();
-  public:
-
-  // @@protoc_insertion_point(class_scope:optimization_guide.proto.StringValue)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_;
-  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fcommon_5ftypes_2eproto;
-};
-// -------------------------------------------------------------------
-
 class OriginInfo final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.OriginInfo) */ {
  public:
@@ -944,7 +796,7 @@ class OriginInfo final :
                &_OriginInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(OriginInfo& a, OriginInfo& b) {
     a.Swap(&b);
@@ -1364,78 +1216,6 @@ inline void Any::set_allocated_value(std::string* value) {
 
 // -------------------------------------------------------------------
 
-// StringValue
-
-// optional string value = 1;
-inline bool StringValue::_internal_has_value() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool StringValue::has_value() const {
-  return _internal_has_value();
-}
-inline void StringValue::clear_value() {
-  value_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& StringValue::value() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.StringValue.value)
-  return _internal_value();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void StringValue::set_value(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
- value_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:optimization_guide.proto.StringValue.value)
-}
-inline std::string* StringValue::mutable_value() {
-  std::string* _s = _internal_mutable_value();
-  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.StringValue.value)
-  return _s;
-}
-inline const std::string& StringValue::_internal_value() const {
-  return value_.Get();
-}
-inline void StringValue::_internal_set_value(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  value_.Set(value, GetArenaForAllocation());
-}
-inline std::string* StringValue::_internal_mutable_value() {
-  _has_bits_[0] |= 0x00000001u;
-  return value_.Mutable(GetArenaForAllocation());
-}
-inline std::string* StringValue::release_value() {
-  // @@protoc_insertion_point(field_release:optimization_guide.proto.StringValue.value)
-  if (!_internal_has_value()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  auto* p = value_.Release();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (value_.IsDefault()) {
-    value_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  return p;
-}
-inline void StringValue::set_allocated_value(std::string* value) {
-  if (value != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  value_.SetAllocated(value, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (value_.IsDefault()) {
-    value_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.StringValue.value)
-}
-
-// -------------------------------------------------------------------
-
 // OriginInfo
 
 // optional .optimization_guide.proto.Platform platform = 1;
@@ -1470,8 +1250,6 @@ inline void OriginInfo::set_platform(::optimization_guide::proto::Platform value
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

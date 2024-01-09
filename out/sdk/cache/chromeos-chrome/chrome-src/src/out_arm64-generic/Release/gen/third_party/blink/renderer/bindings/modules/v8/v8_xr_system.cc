@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRSystem>::value,
     "XRSystem inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRSystem::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRSystem is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,10 +87,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSystem.ondevicechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondevicechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondevicechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -108,8 +103,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(v8_receiver);
+XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndevicechange(event_handler);
 }
 
@@ -144,7 +140,7 @@ return;
 
 
 
-XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(v8_receiver);
+XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -190,7 +186,7 @@ return;
 
 
 
-XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(v8_receiver);
+XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -245,7 +241,7 @@ return;
 
 
 
-XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(v8_receiver);
+XRSystem* blink_receiver = V8XRSystem::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

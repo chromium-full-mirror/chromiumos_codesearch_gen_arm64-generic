@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FileEntrySync>::value,
     "FileEntrySync inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FileEntrySync::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FileEntrySync is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,9 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileEntrySync.createWriter");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileEntrySync* blink_receiver = V8FileEntrySync::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileEntrySync* blink_receiver = V8FileEntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FileEntrySync";
 const char* const property_name = "createWriter";
@@ -116,9 +111,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileEntrySync.file");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileEntrySync* blink_receiver = V8FileEntrySync::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileEntrySync* blink_receiver = V8FileEntrySync::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FileEntrySync";
 const char* const property_name = "file";

@@ -47,6 +47,32 @@ std::ostream& operator<<(std::ostream& os, InterestGroup_ExecutionMode value) {
   return os << InterestGroup_ExecutionModeToString(value);
 }
 
+NOINLINE static const char* InterestGroup_TrustedBiddingSignalsSlotSizeModeToStringHelper(InterestGroup_TrustedBiddingSignalsSlotSizeMode value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case InterestGroup_TrustedBiddingSignalsSlotSizeMode::kNone:
+      return "kNone";
+    case InterestGroup_TrustedBiddingSignalsSlotSizeMode::kSlotSize:
+      return "kSlotSize";
+    case InterestGroup_TrustedBiddingSignalsSlotSizeMode::kAllSlotsRequestedSizes:
+      return "kAllSlotsRequestedSizes";
+    default:
+      return nullptr;
+  }
+}
+
+std::string InterestGroup_TrustedBiddingSignalsSlotSizeModeToString(InterestGroup_TrustedBiddingSignalsSlotSizeMode value) {
+  const char *str = InterestGroup_TrustedBiddingSignalsSlotSizeModeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown InterestGroup_TrustedBiddingSignalsSlotSizeMode value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, InterestGroup_TrustedBiddingSignalsSlotSizeMode value) {
+  return os << InterestGroup_TrustedBiddingSignalsSlotSizeModeToString(value);
+}
+
 NOINLINE static const char* AuctionAdConfigNonSharedParams_BuyerReportTypeToStringHelper(AuctionAdConfigNonSharedParams_BuyerReportType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -349,8 +375,12 @@ bool InterestGroupAd_Data::Validate(
           object->render_url, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->render_url, validation_context))
+  constexpr const mojo::internal::ContainerValidateParams& render_url_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->render_url, validation_context,
+                                         &render_url_validate_params)) {
     return false;
+  }
 
   constexpr const mojo::internal::ContainerValidateParams& size_group_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
@@ -454,7 +484,7 @@ bool InterestGroup_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 184, validation_context)) {
+          data, 192, validation_context)) {
     return false;
   }
 
@@ -521,6 +551,11 @@ bool InterestGroup_Data::Validate(
         ::Validate(object->execution_mode, validation_context))
     return false;
 
+
+  if (!::blink::mojom::internal::InterestGroup_TrustedBiddingSignalsSlotSizeMode_Data
+        ::Validate(object->trusted_bidding_signals_slot_size_mode, validation_context))
+    return false;
+
   if (!mojo::internal::ValidateStruct(object->bidding_url, validation_context))
     return false;
 
@@ -576,7 +611,7 @@ bool InterestGroup_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->auction_server_request_flags, 21, validation_context)) {
+          object->auction_server_request_flags, 22, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->auction_server_request_flags, validation_context))
@@ -850,7 +885,7 @@ bool AuctionAdConfigNonSharedParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 208, validation_context)) {
+          data, 216, validation_context)) {
     return false;
   }
 
@@ -963,11 +998,18 @@ bool AuctionAdConfigNonSharedParams_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->requested_size, validation_context))
     return false;
 
+  constexpr const mojo::internal::ContainerValidateParams& all_slots_requested_sizes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->all_slots_requested_sizes, validation_context,
+                                         &all_slots_requested_sizes_validate_params)) {
+    return false;
+  }
+
   if (!mojo::internal::ValidateStruct(object->auction_nonce, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->component_auctions, 19, validation_context)) {
+          object->component_auctions, 20, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& component_auctions_validate_params =
@@ -1060,6 +1102,16 @@ namespace perfetto {
 void TraceFormatTraits<::blink::mojom::InterestGroup_ExecutionMode>::WriteIntoTrace(
    perfetto::TracedValue context, ::blink::mojom::InterestGroup_ExecutionMode value) {
   return std::move(context).WriteString(::blink::mojom::InterestGroup_ExecutionModeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeMode value) {
+  return std::move(context).WriteString(::blink::mojom::InterestGroup_TrustedBiddingSignalsSlotSizeModeToString(value));
 }
 
 } // namespace perfetto

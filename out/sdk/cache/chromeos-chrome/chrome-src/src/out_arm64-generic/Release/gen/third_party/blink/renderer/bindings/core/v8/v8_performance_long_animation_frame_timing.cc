@@ -70,29 +70,10 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PerformanceLongAnimationFrameTiming>::value,
     "PerformanceLongAnimationFrameTiming inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PerformanceLongAnimationFrameTiming::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PerformanceLongAnimationFrameTiming is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
 namespace v8_performance_long_animation_frame_timing {
-
-void DesiredRenderStartAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PerformanceLongAnimationFrameTiming_desiredRenderStart_Getter");
-BLINK_BINDINGS_TRACE_EVENT("PerformanceLongAnimationFrameTiming.desiredRenderStart.get");
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->desiredRenderStart();
-bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
-}
-
 
 void RenderStartAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
@@ -101,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceLongAnimationFrameTiming.renderStart.get"
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->renderStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -115,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceLongAnimationFrameTiming.styleAndLayoutSt
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->styleAndLayoutStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -129,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceLongAnimationFrameTiming.firstUIEventTime
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firstUIEventTimestamp();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -143,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceLongAnimationFrameTiming.blockingDuration
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blockingDuration();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -178,7 +163,7 @@ v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->scripts();
 if (!ToV8Traits<IDLArray<PerformanceScriptTiming>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -200,8 +185,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceLongAnimationFrameTiming.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(v8_receiver);
+PerformanceLongAnimationFrameTiming* blink_receiver = V8PerformanceLongAnimationFrameTiming::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -241,7 +227,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"desiredRenderStart", DesiredRenderStartAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"renderStart", RenderStartAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"styleAndLayoutStart", StyleAndLayoutStartAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"firstUIEventTimestamp", FirstUIEventTimestampAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

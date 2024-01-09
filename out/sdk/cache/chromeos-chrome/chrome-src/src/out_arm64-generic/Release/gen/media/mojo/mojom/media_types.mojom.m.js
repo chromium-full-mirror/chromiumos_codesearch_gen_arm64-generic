@@ -346,14 +346,26 @@ export const SVCScalabilityMode = {
   kL1T1: 1,
   kL1T2: 2,
   kL1T3: 3,
-  kL2T1Key: 4,
-  kL2T2Key: 5,
-  kL2T3Key: 6,
-  kL3T1Key: 7,
-  kL3T2Key: 8,
-  kL3T3Key: 9,
+  kL2T1: 4,
+  kL2T2: 5,
+  kL2T3: 6,
+  kL3T1: 7,
+  kL3T2: 8,
+  kL3T3: 9,
+  kL2T1Key: 10,
+  kL2T2Key: 11,
+  kL2T3Key: 12,
+  kL3T1Key: 13,
+  kL3T2Key: 14,
+  kL3T3Key: 15,
+  kS2T1: 16,
+  kS2T2: 17,
+  kS2T3: 18,
+  kS3T1: 19,
+  kS3T2: 20,
+  kS3T3: 21,
   MIN_VALUE: 0,
-  MAX_VALUE: 9,
+  MAX_VALUE: 21,
 };
 
 /**
@@ -1778,8 +1790,33 @@ mojo.internal.Struct(
         true /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'frame_sequence_$flag', 2,
+        4,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "frame_sequence_$value",
+          originalFieldName: "frameSequence",
+        }
+      ),
+      mojo.internal.StructField(
+        'frame_sequence_$value', 184,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "frameSequence",
+        }
+      ),
     ],
-    [[0, 192],]);
+    [[0, 200],]);
 
 
 
@@ -1874,6 +1911,8 @@ export class VideoFrameMetadata {
     this.receiveTime;
     /** @type { (mojoBase_mojom_TimeDelta|undefined) } */
     this.wallclockFrameDuration;
+    /** @type { (bigint|undefined) } */
+    this.frameSequence;
   }
 }
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -300,14 +301,17 @@ void TtsHostProxy::OnVoicesChanged(
                         "<value of type std::vector<TtsVoicePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsHost_OnVoicesChanged_Name, kFlags, 0, 0, nullptr);
@@ -362,14 +366,17 @@ void TtsHostProxy::OnTtsEvent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsHost_OnTtsEvent_Name, kFlags, 0, 0, nullptr);
@@ -498,13 +505,13 @@ bool TtsHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTtsHostValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::TtsHost_OnVoicesChanged_Params_Data::Validate,
+    { &internal::TtsHost_OnVoicesChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsHost_OnTtsEvent_Params_Data::Validate,
+    { &internal::TtsHost_OnTtsEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -660,14 +667,17 @@ void TtsInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<TtsHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -704,14 +714,17 @@ void TtsInstanceProxy::Speak(
                         "<value of type TtsUtterancePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsInstance_Speak_Name, kFlags, 0, 0, nullptr);
@@ -745,14 +758,17 @@ void TtsInstanceProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::TtsInstance::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsInstance_Stop_Name, kFlags, 0, 0, nullptr);
@@ -775,14 +791,17 @@ void TtsInstanceProxy::RefreshVoices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::TtsInstance::RefreshVoices");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsInstance_RefreshVoices_Name, kFlags, 0, 0, nullptr);
@@ -880,7 +899,8 @@ void TtsInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1040,17 +1060,17 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTtsInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::TtsInstance_Speak_Params_Data::Validate,
+    { &internal::TtsInstance_Speak_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsInstance_Stop_Params_Data::Validate,
+    { &internal::TtsInstance_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsInstance_Init_Params_Data::Validate,
+    { &internal::TtsInstance_Init_Params_Data::Validate,
      &internal::TtsInstance_Init_ResponseParams_Data::Validate},
-    {&internal::TtsInstance_RefreshVoices_Params_Data::Validate,
+    { &internal::TtsInstance_RefreshVoices_Params_Data::Validate,
      nullptr /* no response */},
 };
 

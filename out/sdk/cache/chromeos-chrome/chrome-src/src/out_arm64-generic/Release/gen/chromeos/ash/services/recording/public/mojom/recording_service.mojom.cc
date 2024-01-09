@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -123,14 +124,17 @@ void DriveFsQuotaDelegateProxy::GetDriveFsFreeSpaceBytes(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send recording::mojom::DriveFsQuotaDelegate::GetDriveFsFreeSpaceBytes");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_Name, kFlags, 0, 0, nullptr);
@@ -240,7 +244,8 @@ void DriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_Name, kFlags, 0, 0, nullptr);
@@ -316,10 +321,10 @@ bool DriveFsQuotaDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDriveFsQuotaDelegateValidationInfo[] = {
-    {&internal::DriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_Params_Data::Validate,
+    { &internal::DriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_Params_Data::Validate,
      &internal::DriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_ResponseParams_Data::Validate},
 };
 
@@ -406,14 +411,17 @@ void RecordingServiceClientProxy::OnRecordingEnded(
                         "<value of type const ::gfx::ImageSkia&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecordingServiceClient_OnRecordingEnded_Name, kFlags, 0, 0, nullptr);
@@ -494,10 +502,10 @@ bool RecordingServiceClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRecordingServiceClientValidationInfo[] = {
-    {&internal::RecordingServiceClient_OnRecordingEnded_Params_Data::Validate,
+    { &internal::RecordingServiceClient_OnRecordingEnded_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -721,14 +729,17 @@ void RecordingServiceProxy::RecordFullscreen(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecordingService_RecordFullscreen_Name, kFlags, 0, 0, nullptr);
@@ -840,14 +851,17 @@ void RecordingServiceProxy::RecordWindow(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecordingService_RecordWindow_Name, kFlags, 0, 0, nullptr);
@@ -978,14 +992,17 @@ void RecordingServiceProxy::RecordRegion(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecordingService_RecordRegion_Name, kFlags, 0, 0, nullptr);
@@ -1071,14 +1088,17 @@ void RecordingServiceProxy::StopRecording(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send recording::mojom::RecordingService::StopRecording");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecordingService_StopRecording_Name, kFlags, 0, 0, nullptr);
@@ -1114,14 +1134,17 @@ void RecordingServiceProxy::OnRecordedWindowChangingRoot(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecordingService_OnRecordedWindowChangingRoot_Name, kFlags, 0, 0, nullptr);
@@ -1174,14 +1197,17 @@ void RecordingServiceProxy::OnRecordedWindowSizeChanged(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecordingService_OnRecordedWindowSizeChanged_Name, kFlags, 0, 0, nullptr);
@@ -1225,14 +1251,17 @@ void RecordingServiceProxy::OnFrameSinkSizeChanged(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRecordingService_OnFrameSinkSizeChanged_Name, kFlags, 0, 0, nullptr);
@@ -1632,22 +1661,22 @@ bool RecordingServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRecordingServiceValidationInfo[] = {
-    {&internal::RecordingService_RecordFullscreen_Params_Data::Validate,
+    { &internal::RecordingService_RecordFullscreen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RecordingService_RecordWindow_Params_Data::Validate,
+    { &internal::RecordingService_RecordWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RecordingService_RecordRegion_Params_Data::Validate,
+    { &internal::RecordingService_RecordRegion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RecordingService_StopRecording_Params_Data::Validate,
+    { &internal::RecordingService_StopRecording_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RecordingService_OnRecordedWindowChangingRoot_Params_Data::Validate,
+    { &internal::RecordingService_OnRecordedWindowChangingRoot_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RecordingService_OnRecordedWindowSizeChanged_Params_Data::Validate,
+    { &internal::RecordingService_OnRecordedWindowSizeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RecordingService_OnFrameSinkSizeChanged_Params_Data::Validate,
+    { &internal::RecordingService_OnFrameSinkSizeChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 

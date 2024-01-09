@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/messaging/static_bitmap_image.mojom-features.h"
 #include "third_party/blink/public/mojom/messaging/static_bitmap_image.mojom-shared.h"
 #include "third_party/blink/public/mojom/messaging/static_bitmap_image.mojom-blink-forward.h"
 #include "skia/public/mojom/bitmap.mojom-blink.h"
@@ -176,17 +177,17 @@ class CORE_EXPORT SerializedStaticBitmapImage {
   // Construct an instance holding |bitmap|.
   static SerializedStaticBitmapImagePtr
   NewBitmap(
-      const ::SkBitmap& bitmap) {
+      const ::SkBitmap& value) {
     auto result = SerializedStaticBitmapImagePtr(absl::in_place);
-    result->set_bitmap(std::move(bitmap));
+    result->set_bitmap(std::move(value));
     return result;
   }
   // Construct an instance holding |accelerated_image|.
   static SerializedStaticBitmapImagePtr
   NewAcceleratedImage(
-      ::blink::AcceleratedImageInfo accelerated_image) {
+      ::blink::AcceleratedImageInfo value) {
     auto result = SerializedStaticBitmapImagePtr(absl::in_place);
-    result->set_accelerated_image(std::move(accelerated_image));
+    result->set_accelerated_image(std::move(value));
     return result;
   }
 

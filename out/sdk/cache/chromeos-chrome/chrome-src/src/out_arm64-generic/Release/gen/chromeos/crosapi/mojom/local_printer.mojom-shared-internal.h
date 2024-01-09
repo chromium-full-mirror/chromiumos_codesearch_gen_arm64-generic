@@ -81,6 +81,7 @@ struct PrintJobSource_Data {
     switch (value) {
       case 0:
       case 1:
+      case 2:
         return true;
     }
     return false;
@@ -198,6 +199,7 @@ struct PrintJob_Source_Data {
       case 1:
       case 2:
       case 3:
+      case 4:
         return true;
     }
     return false;

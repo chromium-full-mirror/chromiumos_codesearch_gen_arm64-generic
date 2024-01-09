@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/common/navigation_client.mojom-features.h"
 #include "content/common/navigation_client.mojom-shared.h"
 #include "content/common/navigation_client.mojom-forward.h"
 #include "content/common/frame_messages.mojom-forward.h"
@@ -138,12 +139,12 @@ class CONTENT_EXPORT NavigationClient
 
   using CommitNavigationCallback = base::OnceCallback<void(DidCommitProvisionalLoadParamsPtr, ::content::mojom::DidCommitProvisionalLoadInterfaceParamsPtr)>;
   
-  virtual void CommitNavigation(::blink::mojom::CommonNavigationParamsPtr common_params, ::blink::mojom::CommitNavigationParamsPtr request_params, ::network::mojom::URLResponseHeadPtr response_head, ::mojo::ScopedDataPipeConsumerHandle response_body, ::network::mojom::URLLoaderClientEndpointsPtr url_loader_client_endpoints, ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories, absl::optional<std::vector<::blink::mojom::TransferrableURLLoaderPtr>> subresource_overrides, ::blink::mojom::ControllerServiceWorkerInfoPtr controller_service_worker_info, ::blink::mojom::ServiceWorkerContainerInfoForClientPtr container_info, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> subresource_proxying_loader_factory, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> keep_alive_loader_factory, ::mojo::PendingAssociatedRemote<::blink::mojom::FetchLaterLoaderFactory> fetch_later_loader_factory, const ::blink::DocumentToken& document_token, const ::base::UnguessableToken& devtools_navigation_token, const absl::optional<std::vector<::blink::ParsedPermissionsPolicyDeclaration>>& permissions_policy, ::blink::mojom::PolicyContainerPtr policy_container, ::mojo::PendingRemote<::blink::mojom::CodeCacheHost> code_cache_host, ::mojo::PendingRemote<::blink::mojom::ResourceCache> resource_cache, CookieManagerInfoPtr cookie_manager_info, StorageInfoPtr storage_info, CommitNavigationCallback callback) = 0;
+  virtual void CommitNavigation(::blink::mojom::CommonNavigationParamsPtr common_params, ::blink::mojom::CommitNavigationParamsPtr request_params, ::network::mojom::URLResponseHeadPtr response_head, ::mojo::ScopedDataPipeConsumerHandle response_body, ::network::mojom::URLLoaderClientEndpointsPtr url_loader_client_endpoints, ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories, std::optional<std::vector<::blink::mojom::TransferrableURLLoaderPtr>> subresource_overrides, ::blink::mojom::ControllerServiceWorkerInfoPtr controller_service_worker_info, ::blink::mojom::ServiceWorkerContainerInfoForClientPtr container_info, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> subresource_proxying_loader_factory, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> keep_alive_loader_factory, ::mojo::PendingAssociatedRemote<::blink::mojom::FetchLaterLoaderFactory> fetch_later_loader_factory, const ::blink::DocumentToken& document_token, const ::base::UnguessableToken& devtools_navigation_token, const std::optional<std::vector<::blink::ParsedPermissionsPolicyDeclaration>>& permissions_policy, ::blink::mojom::PolicyContainerPtr policy_container, ::mojo::PendingRemote<::blink::mojom::CodeCacheHost> code_cache_host, ::mojo::PendingRemote<::blink::mojom::CodeCacheHost> code_cache_host_for_background, ::mojo::PendingRemote<::blink::mojom::ResourceCache> resource_cache, CookieManagerInfoPtr cookie_manager_info, StorageInfoPtr storage_info, CommitNavigationCallback callback) = 0;
 
 
   using CommitFailedNavigationCallback = base::OnceCallback<void(DidCommitProvisionalLoadParamsPtr, ::content::mojom::DidCommitProvisionalLoadInterfaceParamsPtr)>;
   
-  virtual void CommitFailedNavigation(::blink::mojom::CommonNavigationParamsPtr common_params, ::blink::mojom::CommitNavigationParamsPtr request_params, bool has_stale_copy_in_cache, int32_t error_code, int32_t extended_error_code, const ::net::ResolveErrorInfo& resolve_error_info, const absl::optional<std::string>& error_page_content, ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories, const ::blink::DocumentToken& document_token, ::blink::mojom::PolicyContainerPtr policy_container, ::content::mojom::AlternativeErrorPageOverrideInfoPtr alternative_error_page_info, CommitFailedNavigationCallback callback) = 0;
+  virtual void CommitFailedNavigation(::blink::mojom::CommonNavigationParamsPtr common_params, ::blink::mojom::CommitNavigationParamsPtr request_params, bool has_stale_copy_in_cache, int32_t error_code, int32_t extended_error_code, const ::net::ResolveErrorInfo& resolve_error_info, const std::optional<std::string>& error_page_content, ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories, const ::blink::DocumentToken& document_token, ::blink::mojom::PolicyContainerPtr policy_container, ::content::mojom::AlternativeErrorPageOverrideInfoPtr alternative_error_page_info, CommitFailedNavigationCallback callback) = 0;
 };
 
 
@@ -155,9 +156,9 @@ class CONTENT_EXPORT NavigationClientProxy
 
   explicit NavigationClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void CommitNavigation(::blink::mojom::CommonNavigationParamsPtr common_params, ::blink::mojom::CommitNavigationParamsPtr request_params, ::network::mojom::URLResponseHeadPtr response_head, ::mojo::ScopedDataPipeConsumerHandle response_body, ::network::mojom::URLLoaderClientEndpointsPtr url_loader_client_endpoints, ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories, absl::optional<std::vector<::blink::mojom::TransferrableURLLoaderPtr>> subresource_overrides, ::blink::mojom::ControllerServiceWorkerInfoPtr controller_service_worker_info, ::blink::mojom::ServiceWorkerContainerInfoForClientPtr container_info, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> subresource_proxying_loader_factory, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> keep_alive_loader_factory, ::mojo::PendingAssociatedRemote<::blink::mojom::FetchLaterLoaderFactory> fetch_later_loader_factory, const ::blink::DocumentToken& document_token, const ::base::UnguessableToken& devtools_navigation_token, const absl::optional<std::vector<::blink::ParsedPermissionsPolicyDeclaration>>& permissions_policy, ::blink::mojom::PolicyContainerPtr policy_container, ::mojo::PendingRemote<::blink::mojom::CodeCacheHost> code_cache_host, ::mojo::PendingRemote<::blink::mojom::ResourceCache> resource_cache, CookieManagerInfoPtr cookie_manager_info, StorageInfoPtr storage_info, CommitNavigationCallback callback) final;
+  void CommitNavigation(::blink::mojom::CommonNavigationParamsPtr common_params, ::blink::mojom::CommitNavigationParamsPtr request_params, ::network::mojom::URLResponseHeadPtr response_head, ::mojo::ScopedDataPipeConsumerHandle response_body, ::network::mojom::URLLoaderClientEndpointsPtr url_loader_client_endpoints, ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories, std::optional<std::vector<::blink::mojom::TransferrableURLLoaderPtr>> subresource_overrides, ::blink::mojom::ControllerServiceWorkerInfoPtr controller_service_worker_info, ::blink::mojom::ServiceWorkerContainerInfoForClientPtr container_info, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> subresource_proxying_loader_factory, ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> keep_alive_loader_factory, ::mojo::PendingAssociatedRemote<::blink::mojom::FetchLaterLoaderFactory> fetch_later_loader_factory, const ::blink::DocumentToken& document_token, const ::base::UnguessableToken& devtools_navigation_token, const std::optional<std::vector<::blink::ParsedPermissionsPolicyDeclaration>>& permissions_policy, ::blink::mojom::PolicyContainerPtr policy_container, ::mojo::PendingRemote<::blink::mojom::CodeCacheHost> code_cache_host, ::mojo::PendingRemote<::blink::mojom::CodeCacheHost> code_cache_host_for_background, ::mojo::PendingRemote<::blink::mojom::ResourceCache> resource_cache, CookieManagerInfoPtr cookie_manager_info, StorageInfoPtr storage_info, CommitNavigationCallback callback) final;
   
-  void CommitFailedNavigation(::blink::mojom::CommonNavigationParamsPtr common_params, ::blink::mojom::CommitNavigationParamsPtr request_params, bool has_stale_copy_in_cache, int32_t error_code, int32_t extended_error_code, const ::net::ResolveErrorInfo& resolve_error_info, const absl::optional<std::string>& error_page_content, ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories, const ::blink::DocumentToken& document_token, ::blink::mojom::PolicyContainerPtr policy_container, ::content::mojom::AlternativeErrorPageOverrideInfoPtr alternative_error_page_info, CommitFailedNavigationCallback callback) final;
+  void CommitFailedNavigation(::blink::mojom::CommonNavigationParamsPtr common_params, ::blink::mojom::CommitNavigationParamsPtr request_params, bool has_stale_copy_in_cache, int32_t error_code, int32_t extended_error_code, const ::net::ResolveErrorInfo& resolve_error_info, const std::optional<std::string>& error_page_content, ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> subresource_loader_factories, const ::blink::DocumentToken& document_token, ::blink::mojom::PolicyContainerPtr policy_container, ::content::mojom::AlternativeErrorPageOverrideInfoPtr alternative_error_page_info, CommitFailedNavigationCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -417,7 +418,7 @@ class CONTENT_EXPORT DidCommitProvisionalLoadParams {
       bool is_overriding_user_agent,
       bool history_list_was_cleared,
       const ::url::Origin& origin,
-      const absl::optional<::GURL>& initiator_base_url,
+      const std::optional<::GURL>& initiator_base_url,
       const std::string& origin_calculation_debug_info,
       std::vector<::blink::ParsedPermissionsPolicyDeclaration> permissions_policy_header,
       const base::flat_map<::blink::mojom::DocumentPolicyFeature, ::blink::PolicyValue>& document_policy_header,
@@ -426,10 +427,10 @@ class CONTENT_EXPORT DidCommitProvisionalLoadParams {
       bool has_potentially_trustworthy_unique_origin,
       int32_t request_id,
       const ::base::UnguessableToken& navigation_token,
-      const absl::optional<::base::UnguessableToken>& embedding_token,
-      absl::optional<::base::TimeTicks> unload_start,
-      absl::optional<::base::TimeTicks> unload_end,
-      absl::optional<::base::TimeTicks> commit_navigation_end);
+      const std::optional<::base::UnguessableToken>& embedding_token,
+      std::optional<::base::TimeTicks> unload_start,
+      std::optional<::base::TimeTicks> unload_end,
+      std::optional<::base::TimeTicks> commit_navigation_end);
 
 DidCommitProvisionalLoadParams(const DidCommitProvisionalLoadParams&) = delete;
 DidCommitProvisionalLoadParams& operator=(const DidCommitProvisionalLoadParams&) = delete;
@@ -543,7 +544,7 @@ DidCommitProvisionalLoadParams& operator=(const DidCommitProvisionalLoadParams&)
   
   ::url::Origin origin;
   
-  absl::optional<::GURL> initiator_base_url;
+  std::optional<::GURL> initiator_base_url;
   
   std::string origin_calculation_debug_info;
   
@@ -561,13 +562,13 @@ DidCommitProvisionalLoadParams& operator=(const DidCommitProvisionalLoadParams&)
   
   ::base::UnguessableToken navigation_token;
   
-  absl::optional<::base::UnguessableToken> embedding_token;
+  std::optional<::base::UnguessableToken> embedding_token;
   
-  absl::optional<::base::TimeTicks> unload_start;
+  std::optional<::base::TimeTicks> unload_start;
   
-  absl::optional<::base::TimeTicks> unload_end;
+  std::optional<::base::TimeTicks> unload_end;
   
-  absl::optional<::base::TimeTicks> commit_navigation_end;
+  std::optional<::base::TimeTicks> commit_navigation_end;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

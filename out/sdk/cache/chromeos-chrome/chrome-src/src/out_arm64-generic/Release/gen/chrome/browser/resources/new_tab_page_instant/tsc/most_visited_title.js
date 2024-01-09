@@ -192,7 +192,7 @@ function getTextColor(params, isTitle) {
  */
 function getMostVisitedStyles(params, isTitle) {
     const styles = {
-        color: getTextColor(params, isTitle),
+        color: getTextColor(params, isTitle), // Handles 'c' in params.
         fontFamily: '',
         fontSize: 11,
     };

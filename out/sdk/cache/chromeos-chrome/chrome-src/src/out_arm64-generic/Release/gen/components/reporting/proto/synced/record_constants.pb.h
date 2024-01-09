@@ -49,7 +49,7 @@ enum Destination : int {
   UNDEFINED_DESTINATION = 0,
   UPLOAD_EVENTS = 1,
   MEET_DEVICE_TELEMETRY = 2,
-  WEB_PROTECT = 3,
+  WEB_PROTECT PROTOBUF_DEPRECATED_ENUM = 3,
   ARC_INSTALL = 4,
   POLICY_VALIDATION = 5,
   EXTENSION_INSTALL = 6,
@@ -73,11 +73,14 @@ enum Destination : int {
   LEGACY_TECH = 25,
   CROS_SECURITY_NETWORK = 26,
   LOG_UPLOAD = 27,
-  CROS_SECURITY_USER = 28
+  CROS_SECURITY_USER = 28,
+  KIOSK_HEARTBEAT_EVENTS = 29,
+  CHROME_BROWSER_ENTERPRISE = 30,
+  CRASH_EVENTS = 31
 };
 bool Destination_IsValid(int value);
 constexpr Destination Destination_MIN = UNDEFINED_DESTINATION;
-constexpr Destination Destination_MAX = CROS_SECURITY_USER;
+constexpr Destination Destination_MAX = CRASH_EVENTS;
 constexpr int Destination_ARRAYSIZE = Destination_MAX + 1;
 
 const std::string& Destination_Name(Destination value);

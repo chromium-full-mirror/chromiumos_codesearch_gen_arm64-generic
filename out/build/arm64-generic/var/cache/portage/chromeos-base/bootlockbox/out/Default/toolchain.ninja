@@ -35,8 +35,7 @@ rule copy
 
 build obj/bootlockbox/_bootlockboxd-install_config.stamp: stamp
 build obj/bootlockbox/_bootlockboxtool-install_config.stamp: stamp
-build obj/bootlockbox/all.stamp: stamp ./bootlockboxd ./bootlockboxtool obj/bootlockbox/install_minijail_conf.stamp obj/bootlockbox/install_policy.stamp obj/bootlockbox/install_systemd.stamp obj/bootlockbox/install_tmpfiles_config.stamp ./boot_lockbox_test obj/bootlockbox/install_init.stamp
-subninja obj/bootlockbox/boot_lockbox_test.ninja
+build obj/bootlockbox/all.stamp: stamp ./bootlockboxd ./bootlockboxtool obj/bootlockbox/install_minijail_conf.stamp obj/bootlockbox/install_policy.stamp obj/bootlockbox/install_systemd.stamp obj/bootlockbox/install_tmpfiles_config.stamp obj/bootlockbox/install_init.stamp
 rule __bootlockbox_bootlockbox-adaptors___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/bootlockbox/out/Default/gen/include/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/bootlockbox/dbus_adaptors/dbus-service-config.json ${in}
   description = ACTION //bootlockbox:bootlockbox-adaptors(//common-mk/toolchain:toolchain)
@@ -55,4 +54,3 @@ build obj/bootlockbox/install_systemd.stamp: stamp
 build obj/bootlockbox/install_tmpfiles_config.stamp: stamp
 subninja obj/bootlockbox/libnvram-boot-lockbox.ninja
 build obj/common-mk/gn_root/root.stamp: stamp obj/bootlockbox/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja

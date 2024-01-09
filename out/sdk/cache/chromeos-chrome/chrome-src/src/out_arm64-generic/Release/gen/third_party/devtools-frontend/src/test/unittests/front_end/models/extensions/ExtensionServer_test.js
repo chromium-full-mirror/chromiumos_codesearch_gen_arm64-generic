@@ -218,7 +218,7 @@ function waitForFunction(fn) {
 }
 describeWithDevtoolsExtension('Runtime hosts policy', { hostsPolicy }, context => {
     expectConsoleLogs({ error: ['Extension server error: Operation failed: Permission denied'] });
-    for (const protocol of ['devtools', 'chrome', 'chrome-untrusted', 'chrome-error']) {
+    for (const protocol of ['devtools', 'chrome', 'chrome-untrusted', 'chrome-error', 'chrome-search']) {
         it(`blocks API calls on blocked protocols: ${protocol}`, async () => {
             assert.isUndefined(context.chrome.devtools);
             const target = createTarget({ type: SDK.Target.Type.Frame });
@@ -407,8 +407,8 @@ describeWithDevtoolsExtension('Runtime hosts policy', { hostsPolicy }, context =
         ]);
     });
     function createRequest(networkManager, frameId, requestId, url) {
-        const dataProvider = () => Promise.resolve({ content: 'content', encoded: false, error: null });
         const request = SDK.NetworkRequest.NetworkRequest.create(requestId, url, url, frameId, null, null, undefined);
+        const dataProvider = () => Promise.resolve(new SDK.ContentData.ContentData('content', false, request.resourceType(), request.mimeType));
         request.setContentDataProvider(dataProvider);
         networkManager.dispatchEventToListeners(SDK.NetworkManager.Events.RequestStarted, { request, originalRequest: null });
         request.finished = true;
@@ -466,6 +466,50 @@ describe('ExtensionServer', () => {
         assert.strictEqual(expectation, Extensions.ExtensionServer.ExtensionServer.expandResourcePath(almostOrigin, expectation));
         assert.strictEqual(expectation, Extensions.ExtensionServer.ExtensionServer.expandResourcePath(almostOrigin, '/foo'));
         assert.strictEqual(expectation, Extensions.ExtensionServer.ExtensionServer.expandResourcePath(almostOrigin, 'foo'));
+    });
+    it('cannot inspect chrome webstore URLs', () => {
+        const blockedUrls = [
+            'http://chrome.google.com/webstore',
+            'https://chrome.google.com./webstore',
+            'http://chrome.google.com/webstore',
+            'https://chrome.google.com./webstore',
+            'http://chrome.google.com/webstore/foo',
+            'https://chrome.google.com./webstore/foo',
+            'http://chrome.google.com/webstore/foo',
+            'https://chrome.google.com./webstore/foo',
+            'http://chromewebstore.google.com/',
+            'https://chromewebstore.google.com./',
+            'http://chromewebstore.google.com/',
+            'https://chromewebstore.google.com./',
+            'http://chromewebstore.google.com/foo',
+            'https://chromewebstore.google.com./foo',
+            'http://chromewebstore.google.com/foo',
+            'https://chromewebstore.google.com./foo',
+        ];
+        const allowedUrls = [
+            'http://chrome.google.com/webstor',
+            'https://chrome.google.com./webstor',
+            'http://chrome.google.com/webstor',
+            'https://chrome.google.com./webstor',
+            'http://chrome.google.com/',
+            'https://chrome.google.com./',
+            'http://chrome.google.com/',
+            'https://chrome.google.com./',
+            'http://google.com/webstore',
+            'https://google.com./webstore',
+            'http://google.com/webstore',
+            'https://google.com./webstore',
+            'http://chromewebstor.google.com/',
+            'https://chromewebstor.google.com./',
+            'http://chromewebstor.google.com/',
+            'https://chromewebstor.google.com./',
+        ];
+        for (const url of blockedUrls) {
+            assert.isFalse(Extensions.ExtensionServer.ExtensionServer.canInspectURL(url), url);
+        }
+        for (const url of allowedUrls) {
+            assert.isTrue(Extensions.ExtensionServer.ExtensionServer.canInspectURL(url), url);
+        }
     });
 });
 //# sourceMappingURL=ExtensionServer_test.js.map

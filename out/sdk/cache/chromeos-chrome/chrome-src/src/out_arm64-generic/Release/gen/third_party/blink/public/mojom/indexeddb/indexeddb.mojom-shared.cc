@@ -2156,29 +2156,6 @@ IDBDatabase_CreateTransaction_Params_Data::IDBDatabase_CreateTransaction_Params_
 
 
 // static
-bool IDBDatabase_Close_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const IDBDatabase_Close_Params_Data* object =
-      static_cast<const IDBDatabase_Close_Params_Data*>(data);
-
-  return true;
-}
-
-IDBDatabase_Close_Params_Data::IDBDatabase_Close_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool IDBDatabase_VersionChangeIgnored_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

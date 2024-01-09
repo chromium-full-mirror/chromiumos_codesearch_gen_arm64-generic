@@ -15,7 +15,7 @@ import inspectorCommonStyles from '../../../ui/legacy/inspectorCommon.css.js';
 import * as UI from '../../../ui/legacy/legacy.js';
 import * as LitHtml from '../../../ui/lit-html/lit-html.js';
 import * as VisualLogging from '../../../ui/visual_logging/visual_logging.js';
-import layoutPaneStyles from '../layoutPane.css.js';
+import layoutPaneStyles from './layoutPane.css.js';
 const UIStrings = {
     /**
      *@description Title of the input to select the overlay color for an element using the color picker
@@ -164,6 +164,7 @@ export class LayoutPane extends LegacyWrapper.LegacyWrapper.WrappableComponent {
         if (!layoutPaneWrapperInstance) {
             layoutPaneWrapperInstance = LegacyWrapper.LegacyWrapper.legacyWrapper(UI.Widget.Widget, new LayoutPane());
         }
+        layoutPaneWrapperInstance.element.style.minWidth = 'min-content';
         return layoutPaneWrapperInstance.getComponent();
     }
     modelAdded(domModel) {
@@ -437,8 +438,12 @@ export class LayoutPane extends LegacyWrapper.LegacyWrapper.WrappableComponent {
     }
     #renderEnumSetting(setting) {
         const onEnumSettingChange = this.#onEnumSettingChange.bind(this, setting);
-        return html `<label data-enum-setting="true" class="select-label" title=${setting.title} jslog=${VisualLogging.dropDown().track({ change: true }).context(setting.name)}>
-      <select class="chrome-select" data-input="true" @change=${onEnumSettingChange}>
+        return html `<label data-enum-setting="true" class="select-label" title=${setting.title}>
+      <select
+        class="chrome-select"
+        data-input="true"
+        jslog=${VisualLogging.dropDown().track({ change: true }).context(setting.name)}
+        @change=${onEnumSettingChange}>
         ${setting.options.map(opt => html `<option value=${opt.value} .selected=${setting.value === opt.value}>${opt.title}</option>`)}
       </select>
     </label>`;

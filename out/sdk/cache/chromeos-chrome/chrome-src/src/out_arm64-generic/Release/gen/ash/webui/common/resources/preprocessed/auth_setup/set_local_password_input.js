@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
+import './auth_setup_icons.html.js';
 import { CrInputElement } from 'chrome://resources/cr_elements/cr_input/cr_input.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assertInstanceof, assertNotReached } from 'chrome://resources/js/assert.js';
@@ -41,6 +42,8 @@ var ConfirmInputValidity;
  * When the user presses <Enter> in the confirmation input field and validation
  * passes, then the 'set-local-password-input' element dispatches a "submit"
  * event.
+ *
+ * TODO(b/309430756): Reuse ShowPasswordMixin here.
  */
 export class SetLocalPasswordInputElement extends LocalPasswordInputElementBase {
     static get is() {
@@ -68,6 +71,13 @@ export class SetLocalPasswordInputElement extends LocalPasswordInputElementBase 
                 type: String,
                 value: '',
             },
+            /**
+             * Aria label to apply to the first input.
+             */
+            firstInputAriaLabel: {
+                type: String,
+                value: null,
+            },
             firstInputValidity_: {
                 type: String,
                 value: null,
@@ -75,6 +85,14 @@ export class SetLocalPasswordInputElement extends LocalPasswordInputElementBase 
             confirmInputValidity_: {
                 type: String,
                 value: null,
+            },
+            isFirstPasswordVisible_: {
+                type: Boolean,
+                value: false,
+            },
+            isConfirmPasswordVisible_: {
+                type: Boolean,
+                value: false,
             },
         };
     }
@@ -230,6 +248,26 @@ export class SetLocalPasswordInputElement extends LocalPasswordInputElementBase 
             case ConfirmInputValidity.OK:
                 return false;
         }
+    }
+    getPasswordInputType(isVisible) {
+        return isVisible ? 'text' : 'password';
+    }
+    getShowHideButtonLabel(isVisible) {
+        return isVisible ? loadTimeData.getString('hidePassword') :
+            loadTimeData.getString('showPassword');
+    }
+    getShowHideButtonIcon(isVisible) {
+        return isVisible ? 'auth-setup:visibility-off' : 'auth-setup:visibility';
+    }
+    /**
+     * Handlers for showing/hiding the passwords. These methods should be
+     * attached to on-click event of show/hide password button.
+     */
+    onFirstShowHidePasswordButtonClick() {
+        this.isFirstPasswordVisible_ = !this.isFirstPasswordVisible_;
+    }
+    onConfirmShowHidePasswordButtonClick() {
+        this.isConfirmPasswordVisible_ = !this.isConfirmPasswordVisible_;
     }
 }
 customElements.define(SetLocalPasswordInputElement.is, SetLocalPasswordInputElement);

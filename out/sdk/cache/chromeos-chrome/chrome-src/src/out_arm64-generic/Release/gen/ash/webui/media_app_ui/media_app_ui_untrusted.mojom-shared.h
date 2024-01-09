@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ash/webui/media_app_ui/media_app_ui_untrusted.mojom-shared-internal.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -56,26 +57,26 @@ using UntrustedPageHandlerFactoryAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<UntrustedPageHandlerFactoryInterfaceBase>;
 using UntrustedPageHandlerFactoryAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<UntrustedPageHandlerFactoryInterfaceBase>;
-class UntrustedPageHandlerInterfaceBase {};
+class OcrUntrustedPageHandlerInterfaceBase {};
 
-using UntrustedPageHandlerPtrDataView =
-    mojo::InterfacePtrDataView<UntrustedPageHandlerInterfaceBase>;
-using UntrustedPageHandlerRequestDataView =
-    mojo::InterfaceRequestDataView<UntrustedPageHandlerInterfaceBase>;
-using UntrustedPageHandlerAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<UntrustedPageHandlerInterfaceBase>;
-using UntrustedPageHandlerAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<UntrustedPageHandlerInterfaceBase>;
-class UntrustedPageInterfaceBase {};
+using OcrUntrustedPageHandlerPtrDataView =
+    mojo::InterfacePtrDataView<OcrUntrustedPageHandlerInterfaceBase>;
+using OcrUntrustedPageHandlerRequestDataView =
+    mojo::InterfaceRequestDataView<OcrUntrustedPageHandlerInterfaceBase>;
+using OcrUntrustedPageHandlerAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<OcrUntrustedPageHandlerInterfaceBase>;
+using OcrUntrustedPageHandlerAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<OcrUntrustedPageHandlerInterfaceBase>;
+class OcrUntrustedPageInterfaceBase {};
 
-using UntrustedPagePtrDataView =
-    mojo::InterfacePtrDataView<UntrustedPageInterfaceBase>;
-using UntrustedPageRequestDataView =
-    mojo::InterfaceRequestDataView<UntrustedPageInterfaceBase>;
-using UntrustedPageAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<UntrustedPageInterfaceBase>;
-using UntrustedPageAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<UntrustedPageInterfaceBase>;
+using OcrUntrustedPagePtrDataView =
+    mojo::InterfacePtrDataView<OcrUntrustedPageInterfaceBase>;
+using OcrUntrustedPageRequestDataView =
+    mojo::InterfaceRequestDataView<OcrUntrustedPageInterfaceBase>;
+using OcrUntrustedPageAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<OcrUntrustedPageInterfaceBase>;
+using OcrUntrustedPageAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<OcrUntrustedPageInterfaceBase>;
 
 
 }  // ash::media_app_ui::mojom

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/probe_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/probe_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/probe_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/nullable_primitives.mojom.h"
@@ -343,7 +344,7 @@ class  ProbeFwupdFirmwareVersionInfo {
   ProbeFwupdFirmwareVersionInfo();
 
   ProbeFwupdFirmwareVersionInfo(
-      const absl::optional<std::string>& version,
+      const std::optional<std::string>& version,
       ProbeFwupdVersionFormat version_format);
 
 
@@ -422,7 +423,7 @@ class  ProbeFwupdFirmwareVersionInfo {
   }
 
   
-  absl::optional<std::string> version;
+  std::optional<std::string> version;
   
   ProbeFwupdVersionFormat version_format;
 
@@ -488,10 +489,10 @@ class  ProbeCachedVpdInfo {
   ProbeCachedVpdInfo();
 
   ProbeCachedVpdInfo(
-      const absl::optional<std::string>& first_power_date,
-      const absl::optional<std::string>& sku_number,
-      const absl::optional<std::string>& serial_number,
-      const absl::optional<std::string>& model_name);
+      const std::optional<std::string>& first_power_date,
+      const std::optional<std::string>& sku_number,
+      const std::optional<std::string>& serial_number,
+      const std::optional<std::string>& model_name);
 
 
   ~ProbeCachedVpdInfo();
@@ -569,13 +570,13 @@ class  ProbeCachedVpdInfo {
   }
 
   
-  absl::optional<std::string> first_power_date;
+  std::optional<std::string> first_power_date;
   
-  absl::optional<std::string> sku_number;
+  std::optional<std::string> sku_number;
   
-  absl::optional<std::string> serial_number;
+  std::optional<std::string> serial_number;
   
-  absl::optional<std::string> model_name;
+  std::optional<std::string> model_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -641,8 +642,8 @@ class  ProbeTimezoneInfo {
   ProbeTimezoneInfo();
 
   ProbeTimezoneInfo(
-      const absl::optional<std::string>& posix,
-      const absl::optional<std::string>& region);
+      const std::optional<std::string>& posix,
+      const std::optional<std::string>& region);
 
 
   ~ProbeTimezoneInfo();
@@ -720,9 +721,9 @@ class  ProbeTimezoneInfo {
   }
 
   
-  absl::optional<std::string> posix;
+  std::optional<std::string> posix;
   
-  absl::optional<std::string> region;
+  std::optional<std::string> region;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -793,10 +794,10 @@ class  ProbeOsVersion {
   ProbeOsVersion();
 
   ProbeOsVersion(
-      const absl::optional<std::string>& release_milestone,
-      const absl::optional<std::string>& build_number,
-      const absl::optional<std::string>& patch_number,
-      const absl::optional<std::string>& release_channel);
+      const std::optional<std::string>& release_milestone,
+      const std::optional<std::string>& build_number,
+      const std::optional<std::string>& patch_number,
+      const std::optional<std::string>& release_channel);
 
 
   ~ProbeOsVersion();
@@ -874,13 +875,13 @@ class  ProbeOsVersion {
   }
 
   
-  absl::optional<std::string> release_milestone;
+  std::optional<std::string> release_milestone;
   
-  absl::optional<std::string> build_number;
+  std::optional<std::string> build_number;
   
-  absl::optional<std::string> patch_number;
+  std::optional<std::string> patch_number;
   
-  absl::optional<std::string> release_channel;
+  std::optional<std::string> release_channel;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -951,7 +952,7 @@ class  ProbeOemData {
   ProbeOemData();
 
   explicit ProbeOemData(
-      const absl::optional<std::string>& oem_data);
+      const std::optional<std::string>& oem_data);
 
 
   ~ProbeOemData();
@@ -1029,7 +1030,7 @@ class  ProbeOemData {
   }
 
   
-  absl::optional<std::string> oem_data;
+  std::optional<std::string> oem_data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1083,17 +1084,17 @@ class  ProbeBatteryResult {
   // Construct an instance holding |battery_info|.
   static ProbeBatteryResultPtr
   NewBatteryInfo(
-      ProbeBatteryInfoPtr battery_info) {
+      ProbeBatteryInfoPtr value) {
     auto result = ProbeBatteryResultPtr(absl::in_place);
-    result->set_battery_info(std::move(battery_info));
+    result->set_battery_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeBatteryResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeBatteryResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1213,17 +1214,17 @@ class  ProbeBusInfo {
   // Construct an instance holding |unmapped_field|.
   static ProbeBusInfoPtr
   NewUnmappedField(
-      bool unmapped_field) {
+      bool value) {
     auto result = ProbeBusInfoPtr(absl::in_place);
-    result->set_unmapped_field(std::move(unmapped_field));
+    result->set_unmapped_field(std::move(value));
     return result;
   }
   // Construct an instance holding |usb_bus_info|.
   static ProbeBusInfoPtr
   NewUsbBusInfo(
-      ProbeUsbBusInfoPtr usb_bus_info) {
+      ProbeUsbBusInfoPtr value) {
     auto result = ProbeBusInfoPtr(absl::in_place);
-    result->set_usb_bus_info(std::move(usb_bus_info));
+    result->set_usb_bus_info(std::move(value));
     return result;
   }
 
@@ -1343,17 +1344,17 @@ class  ProbeBusResult {
   // Construct an instance holding |bus_devices_info|.
   static ProbeBusResultPtr
   NewBusDevicesInfo(
-      std::vector<ProbeBusInfoPtr> bus_devices_info) {
+      std::vector<ProbeBusInfoPtr> value) {
     auto result = ProbeBusResultPtr(absl::in_place);
-    result->set_bus_devices_info(std::move(bus_devices_info));
+    result->set_bus_devices_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeBusResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeBusResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1473,17 +1474,17 @@ class  ProbeNonRemovableBlockDeviceResult {
   // Construct an instance holding |block_device_info|.
   static ProbeNonRemovableBlockDeviceResultPtr
   NewBlockDeviceInfo(
-      std::vector<ProbeNonRemovableBlockDeviceInfoPtr> block_device_info) {
+      std::vector<ProbeNonRemovableBlockDeviceInfoPtr> value) {
     auto result = ProbeNonRemovableBlockDeviceResultPtr(absl::in_place);
-    result->set_block_device_info(std::move(block_device_info));
+    result->set_block_device_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeNonRemovableBlockDeviceResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeNonRemovableBlockDeviceResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1603,17 +1604,17 @@ class  ProbeCachedVpdResult {
   // Construct an instance holding |vpd_info|.
   static ProbeCachedVpdResultPtr
   NewVpdInfo(
-      ProbeCachedVpdInfoPtr vpd_info) {
+      ProbeCachedVpdInfoPtr value) {
     auto result = ProbeCachedVpdResultPtr(absl::in_place);
-    result->set_vpd_info(std::move(vpd_info));
+    result->set_vpd_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeCachedVpdResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeCachedVpdResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1733,17 +1734,17 @@ class  ProbeCpuResult {
   // Construct an instance holding |cpu_info|.
   static ProbeCpuResultPtr
   NewCpuInfo(
-      ProbeCpuInfoPtr cpu_info) {
+      ProbeCpuInfoPtr value) {
     auto result = ProbeCpuResultPtr(absl::in_place);
-    result->set_cpu_info(std::move(cpu_info));
+    result->set_cpu_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeCpuResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeCpuResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1863,17 +1864,17 @@ class  ProbeTimezoneResult {
   // Construct an instance holding |timezone_info|.
   static ProbeTimezoneResultPtr
   NewTimezoneInfo(
-      ProbeTimezoneInfoPtr timezone_info) {
+      ProbeTimezoneInfoPtr value) {
     auto result = ProbeTimezoneResultPtr(absl::in_place);
-    result->set_timezone_info(std::move(timezone_info));
+    result->set_timezone_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeTimezoneResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeTimezoneResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1993,17 +1994,17 @@ class  ProbeMemoryResult {
   // Construct an instance holding |memory_info|.
   static ProbeMemoryResultPtr
   NewMemoryInfo(
-      ProbeMemoryInfoPtr memory_info) {
+      ProbeMemoryInfoPtr value) {
     auto result = ProbeMemoryResultPtr(absl::in_place);
-    result->set_memory_info(std::move(memory_info));
+    result->set_memory_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeMemoryResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeMemoryResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -2123,17 +2124,17 @@ class  ProbeBacklightResult {
   // Construct an instance holding |backlight_info|.
   static ProbeBacklightResultPtr
   NewBacklightInfo(
-      std::vector<ProbeBacklightInfoPtr> backlight_info) {
+      std::vector<ProbeBacklightInfoPtr> value) {
     auto result = ProbeBacklightResultPtr(absl::in_place);
-    result->set_backlight_info(std::move(backlight_info));
+    result->set_backlight_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeBacklightResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeBacklightResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -2253,17 +2254,17 @@ class  ProbeFanResult {
   // Construct an instance holding |fan_info|.
   static ProbeFanResultPtr
   NewFanInfo(
-      std::vector<ProbeFanInfoPtr> fan_info) {
+      std::vector<ProbeFanInfoPtr> value) {
     auto result = ProbeFanResultPtr(absl::in_place);
-    result->set_fan_info(std::move(fan_info));
+    result->set_fan_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeFanResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeFanResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -2383,17 +2384,17 @@ class  ProbeStatefulPartitionResult {
   // Construct an instance holding |partition_info|.
   static ProbeStatefulPartitionResultPtr
   NewPartitionInfo(
-      ProbeStatefulPartitionInfoPtr partition_info) {
+      ProbeStatefulPartitionInfoPtr value) {
     auto result = ProbeStatefulPartitionResultPtr(absl::in_place);
-    result->set_partition_info(std::move(partition_info));
+    result->set_partition_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeStatefulPartitionResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeStatefulPartitionResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -2513,17 +2514,17 @@ class  ProbeTpmResult {
   // Construct an instance holding |tpm_info|.
   static ProbeTpmResultPtr
   NewTpmInfo(
-      ProbeTpmInfoPtr tpm_info) {
+      ProbeTpmInfoPtr value) {
     auto result = ProbeTpmResultPtr(absl::in_place);
-    result->set_tpm_info(std::move(tpm_info));
+    result->set_tpm_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeTpmResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeTpmResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -2643,17 +2644,17 @@ class  ProbeBluetoothResult {
   // Construct an instance holding |bluetooth_adapter_info|.
   static ProbeBluetoothResultPtr
   NewBluetoothAdapterInfo(
-      std::vector<ProbeBluetoothAdapterInfoPtr> bluetooth_adapter_info) {
+      std::vector<ProbeBluetoothAdapterInfoPtr> value) {
     auto result = ProbeBluetoothResultPtr(absl::in_place);
-    result->set_bluetooth_adapter_info(std::move(bluetooth_adapter_info));
+    result->set_bluetooth_adapter_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeBluetoothResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeBluetoothResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -2773,17 +2774,17 @@ class  ProbeSystemResult {
   // Construct an instance holding |system_info|.
   static ProbeSystemResultPtr
   NewSystemInfo(
-      ProbeSystemInfoPtr system_info) {
+      ProbeSystemInfoPtr value) {
     auto result = ProbeSystemResultPtr(absl::in_place);
-    result->set_system_info(std::move(system_info));
+    result->set_system_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeSystemResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeSystemResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -2903,17 +2904,17 @@ class  ProbeNetworkResult {
   // Construct an instance holding |network_health|.
   static ProbeNetworkResultPtr
   NewNetworkHealth(
-      ::chromeos::network_health::mojom::NetworkHealthStatePtr network_health) {
+      ::chromeos::network_health::mojom::NetworkHealthStatePtr value) {
     auto result = ProbeNetworkResultPtr(absl::in_place);
-    result->set_network_health(std::move(network_health));
+    result->set_network_health(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeNetworkResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeNetworkResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -3033,17 +3034,17 @@ class  ProbeAudioResult {
   // Construct an instance holding |audio_info|.
   static ProbeAudioResultPtr
   NewAudioInfo(
-      ProbeAudioInfoPtr audio_info) {
+      ProbeAudioInfoPtr value) {
     auto result = ProbeAudioResultPtr(absl::in_place);
-    result->set_audio_info(std::move(audio_info));
+    result->set_audio_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeAudioResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeAudioResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -3163,17 +3164,17 @@ class  ProbeDisplayResult {
   // Construct an instance holding |display_info|.
   static ProbeDisplayResultPtr
   NewDisplayInfo(
-      ProbeDisplayInfoPtr display_info) {
+      ProbeDisplayInfoPtr value) {
     auto result = ProbeDisplayResultPtr(absl::in_place);
-    result->set_display_info(std::move(display_info));
+    result->set_display_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProbeDisplayResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProbeDisplayResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -3306,17 +3307,17 @@ class  ProbeBatteryInfo {
   ProbeBatteryInfo(
       ::crosapi::mojom::Int64ValuePtr cycle_count,
       ::crosapi::mojom::DoubleValuePtr voltage_now,
-      const absl::optional<std::string>& vendor,
-      const absl::optional<std::string>& serial_number,
+      const std::optional<std::string>& vendor,
+      const std::optional<std::string>& serial_number,
       ::crosapi::mojom::DoubleValuePtr charge_full_design,
       ::crosapi::mojom::DoubleValuePtr charge_full,
       ::crosapi::mojom::DoubleValuePtr voltage_min_design,
-      const absl::optional<std::string>& model_name,
+      const std::optional<std::string>& model_name,
       ::crosapi::mojom::DoubleValuePtr charge_now,
       ::crosapi::mojom::DoubleValuePtr current_now,
-      const absl::optional<std::string>& technology,
-      const absl::optional<std::string>& status,
-      const absl::optional<std::string>& manufacture_date,
+      const std::optional<std::string>& technology,
+      const std::optional<std::string>& status,
+      const std::optional<std::string>& manufacture_date,
       ::crosapi::mojom::UInt64ValuePtr temperature);
 
 ProbeBatteryInfo(const ProbeBatteryInfo&) = delete;
@@ -3401,9 +3402,9 @@ ProbeBatteryInfo& operator=(const ProbeBatteryInfo&) = delete;
   
   ::crosapi::mojom::DoubleValuePtr voltage_now;
   
-  absl::optional<std::string> vendor;
+  std::optional<std::string> vendor;
   
-  absl::optional<std::string> serial_number;
+  std::optional<std::string> serial_number;
   
   ::crosapi::mojom::DoubleValuePtr charge_full_design;
   
@@ -3411,17 +3412,17 @@ ProbeBatteryInfo& operator=(const ProbeBatteryInfo&) = delete;
   
   ::crosapi::mojom::DoubleValuePtr voltage_min_design;
   
-  absl::optional<std::string> model_name;
+  std::optional<std::string> model_name;
   
   ::crosapi::mojom::DoubleValuePtr charge_now;
   
   ::crosapi::mojom::DoubleValuePtr current_now;
   
-  absl::optional<std::string> technology;
+  std::optional<std::string> technology;
   
-  absl::optional<std::string> status;
+  std::optional<std::string> status;
   
-  absl::optional<std::string> manufacture_date;
+  std::optional<std::string> manufacture_date;
   
   ::crosapi::mojom::UInt64ValuePtr temperature;
 
@@ -3489,7 +3490,7 @@ class  ProbeUsbBusInterfaceInfo {
       ::crosapi::mojom::UInt8ValuePtr class_id,
       ::crosapi::mojom::UInt8ValuePtr subclass_id,
       ::crosapi::mojom::UInt8ValuePtr protocol_id,
-      const absl::optional<std::string>& driver);
+      const std::optional<std::string>& driver);
 
 ProbeUsbBusInterfaceInfo(const ProbeUsbBusInterfaceInfo&) = delete;
 ProbeUsbBusInterfaceInfo& operator=(const ProbeUsbBusInterfaceInfo&) = delete;
@@ -3577,7 +3578,7 @@ ProbeUsbBusInterfaceInfo& operator=(const ProbeUsbBusInterfaceInfo&) = delete;
   
   ::crosapi::mojom::UInt8ValuePtr protocol_id;
   
-  absl::optional<std::string> driver;
+  std::optional<std::string> driver;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3645,7 +3646,7 @@ class  ProbeUsbBusInfo {
       ::crosapi::mojom::UInt8ValuePtr protocol_id,
       ::crosapi::mojom::UInt16ValuePtr vendor_id,
       ::crosapi::mojom::UInt16ValuePtr product_id,
-      absl::optional<std::vector<ProbeUsbBusInterfaceInfoPtr>> interfaces,
+      std::optional<std::vector<ProbeUsbBusInterfaceInfoPtr>> interfaces,
       ProbeFwupdFirmwareVersionInfoPtr fwupd_firmware_version_info,
       ProbeUsbVersion version,
       ProbeUsbSpecSpeed spec_speed);
@@ -3738,7 +3739,7 @@ ProbeUsbBusInfo& operator=(const ProbeUsbBusInfo&) = delete;
   
   ::crosapi::mojom::UInt16ValuePtr product_id;
   
-  absl::optional<std::vector<ProbeUsbBusInterfaceInfoPtr>> interfaces;
+  std::optional<std::vector<ProbeUsbBusInterfaceInfoPtr>> interfaces;
   
   ProbeFwupdFirmwareVersionInfoPtr fwupd_firmware_version_info;
   
@@ -3806,12 +3807,12 @@ class  ProbeNonRemovableBlockDeviceInfo {
   ProbeNonRemovableBlockDeviceInfo();
 
   ProbeNonRemovableBlockDeviceInfo(
-      const absl::optional<std::string>& path,
+      const std::optional<std::string>& path,
       ::crosapi::mojom::UInt64ValuePtr size,
-      const absl::optional<std::string>& type,
+      const std::optional<std::string>& type,
       ::crosapi::mojom::UInt32ValuePtr manufacturer_id,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& serial,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& serial,
       ::crosapi::mojom::UInt64ValuePtr bytes_read_since_last_boot,
       ::crosapi::mojom::UInt64ValuePtr bytes_written_since_last_boot,
       ::crosapi::mojom::UInt64ValuePtr read_time_seconds_since_last_boot,
@@ -3897,17 +3898,17 @@ ProbeNonRemovableBlockDeviceInfo& operator=(const ProbeNonRemovableBlockDeviceIn
   }
 
   
-  absl::optional<std::string> path;
+  std::optional<std::string> path;
   
   ::crosapi::mojom::UInt64ValuePtr size;
   
-  absl::optional<std::string> type;
+  std::optional<std::string> type;
   
   ::crosapi::mojom::UInt32ValuePtr manufacturer_id;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> serial;
+  std::optional<std::string> serial;
   
   ::crosapi::mojom::UInt64ValuePtr bytes_read_since_last_boot;
   
@@ -3982,7 +3983,7 @@ class  ProbeCpuCStateInfo {
   ProbeCpuCStateInfo();
 
   ProbeCpuCStateInfo(
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& name,
       ::crosapi::mojom::UInt64ValuePtr time_in_state_since_last_boot_us);
 
 ProbeCpuCStateInfo(const ProbeCpuCStateInfo&) = delete;
@@ -4063,7 +4064,7 @@ ProbeCpuCStateInfo& operator=(const ProbeCpuCStateInfo&) = delete;
   }
 
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
   ::crosapi::mojom::UInt64ValuePtr time_in_state_since_last_boot_us;
 
@@ -4291,7 +4292,7 @@ class  ProbePhysicalCpuInfo {
   ProbePhysicalCpuInfo();
 
   ProbePhysicalCpuInfo(
-      const absl::optional<std::string>& model_name,
+      const std::optional<std::string>& model_name,
       std::vector<ProbeLogicalCpuInfoPtr> logical_cpus);
 
 ProbePhysicalCpuInfo(const ProbePhysicalCpuInfo&) = delete;
@@ -4372,7 +4373,7 @@ ProbePhysicalCpuInfo& operator=(const ProbePhysicalCpuInfo&) = delete;
   }
 
   
-  absl::optional<std::string> model_name;
+  std::optional<std::string> model_name;
   
   std::vector<ProbeLogicalCpuInfoPtr> logical_cpus;
 
@@ -4736,7 +4737,7 @@ class  ProbeBacklightInfo {
   ProbeBacklightInfo();
 
   ProbeBacklightInfo(
-      const absl::optional<std::string>& path,
+      const std::optional<std::string>& path,
       ::crosapi::mojom::UInt32ValuePtr max_brightness,
       ::crosapi::mojom::UInt32ValuePtr brightness);
 
@@ -4818,7 +4819,7 @@ ProbeBacklightInfo& operator=(const ProbeBacklightInfo&) = delete;
   }
 
   
-  absl::optional<std::string> path;
+  std::optional<std::string> path;
   
   ::crosapi::mojom::UInt32ValuePtr max_brightness;
   
@@ -5177,7 +5178,7 @@ class  ProbeTpmVersion {
       ::crosapi::mojom::UInt32ValuePtr manufacturer,
       ::crosapi::mojom::UInt32ValuePtr tpm_model,
       ::crosapi::mojom::UInt64ValuePtr firmware_version,
-      const absl::optional<std::string>& vendor_specific);
+      const std::optional<std::string>& vendor_specific);
 
 ProbeTpmVersion(const ProbeTpmVersion&) = delete;
 ProbeTpmVersion& operator=(const ProbeTpmVersion&) = delete;
@@ -5269,7 +5270,7 @@ ProbeTpmVersion& operator=(const ProbeTpmVersion&) = delete;
   
   ::crosapi::mojom::UInt64ValuePtr firmware_version;
   
-  absl::optional<std::string> vendor_specific;
+  std::optional<std::string> vendor_specific;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -5778,8 +5779,8 @@ class  ProbeBluetoothAdapterInfo {
   ProbeBluetoothAdapterInfo();
 
   ProbeBluetoothAdapterInfo(
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& address,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& address,
       ::crosapi::mojom::BoolValuePtr powered,
       ::crosapi::mojom::UInt32ValuePtr num_connected_devices);
 
@@ -5861,9 +5862,9 @@ ProbeBluetoothAdapterInfo& operator=(const ProbeBluetoothAdapterInfo&) = delete;
   }
 
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> address;
+  std::optional<std::string> address;
   
   ::crosapi::mojom::BoolValuePtr powered;
   
@@ -5930,16 +5931,16 @@ class  ProbeOsInfo {
   ProbeOsInfo();
 
   explicit ProbeOsInfo(
-      const absl::optional<std::string>& oem_name);
+      const std::optional<std::string>& oem_name);
 
   ProbeOsInfo(
-      const absl::optional<std::string>& oem_name,
+      const std::optional<std::string>& oem_name,
       ProbeOsVersionPtr os_version);
 
   ProbeOsInfo(
-      const absl::optional<std::string>& oem_name,
+      const std::optional<std::string>& oem_name,
       ProbeOsVersionPtr os_version,
-      const absl::optional<std::string>& marketing_name);
+      const std::optional<std::string>& marketing_name);
 
 ProbeOsInfo(const ProbeOsInfo&) = delete;
 ProbeOsInfo& operator=(const ProbeOsInfo&) = delete;
@@ -6019,11 +6020,11 @@ ProbeOsInfo& operator=(const ProbeOsInfo&) = delete;
   }
 
   
-  absl::optional<std::string> oem_name;
+  std::optional<std::string> oem_name;
   
   ProbeOsVersionPtr os_version;
   
-  absl::optional<std::string> marketing_name;
+  std::optional<std::string> marketing_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -6228,8 +6229,8 @@ class  ProbeAudioInputNodeInfo {
 
   ProbeAudioInputNodeInfo(
       ::crosapi::mojom::UInt64ValuePtr id,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& device_name,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& device_name,
       ::crosapi::mojom::BoolValuePtr active,
       ::crosapi::mojom::UInt8ValuePtr node_gain);
 
@@ -6313,9 +6314,9 @@ ProbeAudioInputNodeInfo& operator=(const ProbeAudioInputNodeInfo&) = delete;
   
   ::crosapi::mojom::UInt64ValuePtr id;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> device_name;
+  std::optional<std::string> device_name;
   
   ::crosapi::mojom::BoolValuePtr active;
   
@@ -6382,8 +6383,8 @@ class  ProbeAudioOutputNodeInfo {
 
   ProbeAudioOutputNodeInfo(
       ::crosapi::mojom::UInt64ValuePtr id,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& device_name,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& device_name,
       ::crosapi::mojom::BoolValuePtr active,
       ::crosapi::mojom::UInt8ValuePtr node_volume);
 
@@ -6467,9 +6468,9 @@ ProbeAudioOutputNodeInfo& operator=(const ProbeAudioOutputNodeInfo&) = delete;
   
   ::crosapi::mojom::UInt64ValuePtr id;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> device_name;
+  std::optional<std::string> device_name;
   
   ::crosapi::mojom::BoolValuePtr active;
   
@@ -6539,8 +6540,8 @@ class  ProbeAudioInfo {
       ::crosapi::mojom::BoolValuePtr input_mute,
       ::crosapi::mojom::UInt32ValuePtr underruns,
       ::crosapi::mojom::UInt32ValuePtr severe_underruns,
-      absl::optional<std::vector<ProbeAudioOutputNodeInfoPtr>> output_nodes,
-      absl::optional<std::vector<ProbeAudioInputNodeInfoPtr>> input_nodes);
+      std::optional<std::vector<ProbeAudioOutputNodeInfoPtr>> output_nodes,
+      std::optional<std::vector<ProbeAudioInputNodeInfoPtr>> input_nodes);
 
 ProbeAudioInfo(const ProbeAudioInfo&) = delete;
 ProbeAudioInfo& operator=(const ProbeAudioInfo&) = delete;
@@ -6628,9 +6629,9 @@ ProbeAudioInfo& operator=(const ProbeAudioInfo&) = delete;
   
   ::crosapi::mojom::UInt32ValuePtr severe_underruns;
   
-  absl::optional<std::vector<ProbeAudioOutputNodeInfoPtr>> output_nodes;
+  std::optional<std::vector<ProbeAudioOutputNodeInfoPtr>> output_nodes;
   
-  absl::optional<std::vector<ProbeAudioInputNodeInfoPtr>> input_nodes;
+  std::optional<std::vector<ProbeAudioInputNodeInfoPtr>> input_nodes;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -6692,21 +6693,21 @@ class  ProbeEmbeddedDisplayInfo {
   ProbeEmbeddedDisplayInfo();
 
   ProbeEmbeddedDisplayInfo(
-      absl::optional<bool> privacy_screen_supported,
-      absl::optional<bool> privacy_screen_enabled,
-      absl::optional<uint32_t> display_width,
-      absl::optional<uint32_t> display_height,
-      absl::optional<uint32_t> resolution_horizontal,
-      absl::optional<uint32_t> resolution_vertical,
-      absl::optional<double> refresh_rate,
-      const absl::optional<std::string>& manufacturer,
-      absl::optional<uint16_t> model_id,
-      absl::optional<uint32_t> serial_number,
-      absl::optional<uint8_t> manufacture_week,
-      absl::optional<uint16_t> manufacture_year,
-      const absl::optional<std::string>& edid_version,
+      std::optional<bool> privacy_screen_supported,
+      std::optional<bool> privacy_screen_enabled,
+      std::optional<uint32_t> display_width,
+      std::optional<uint32_t> display_height,
+      std::optional<uint32_t> resolution_horizontal,
+      std::optional<uint32_t> resolution_vertical,
+      std::optional<double> refresh_rate,
+      const std::optional<std::string>& manufacturer,
+      std::optional<uint16_t> model_id,
+      std::optional<uint32_t> serial_number,
+      std::optional<uint8_t> manufacture_week,
+      std::optional<uint16_t> manufacture_year,
+      const std::optional<std::string>& edid_version,
       ProbeDisplayInputType input_type,
-      const absl::optional<std::string>& display_name);
+      const std::optional<std::string>& display_name);
 
 
   ~ProbeEmbeddedDisplayInfo();
@@ -6784,35 +6785,35 @@ class  ProbeEmbeddedDisplayInfo {
   }
 
   
-  absl::optional<bool> privacy_screen_supported;
+  std::optional<bool> privacy_screen_supported;
   
-  absl::optional<bool> privacy_screen_enabled;
+  std::optional<bool> privacy_screen_enabled;
   
-  absl::optional<uint32_t> display_width;
+  std::optional<uint32_t> display_width;
   
-  absl::optional<uint32_t> display_height;
+  std::optional<uint32_t> display_height;
   
-  absl::optional<uint32_t> resolution_horizontal;
+  std::optional<uint32_t> resolution_horizontal;
   
-  absl::optional<uint32_t> resolution_vertical;
+  std::optional<uint32_t> resolution_vertical;
   
-  absl::optional<double> refresh_rate;
+  std::optional<double> refresh_rate;
   
-  absl::optional<std::string> manufacturer;
+  std::optional<std::string> manufacturer;
   
-  absl::optional<uint16_t> model_id;
+  std::optional<uint16_t> model_id;
   
-  absl::optional<uint32_t> serial_number;
+  std::optional<uint32_t> serial_number;
   
-  absl::optional<uint8_t> manufacture_week;
+  std::optional<uint8_t> manufacture_week;
   
-  absl::optional<uint16_t> manufacture_year;
+  std::optional<uint16_t> manufacture_year;
   
-  absl::optional<std::string> edid_version;
+  std::optional<std::string> edid_version;
   
   ProbeDisplayInputType input_type;
   
-  absl::optional<std::string> display_name;
+  std::optional<std::string> display_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -6874,19 +6875,19 @@ class  ProbeExternalDisplayInfo {
   ProbeExternalDisplayInfo();
 
   ProbeExternalDisplayInfo(
-      absl::optional<uint32_t> display_width,
-      absl::optional<uint32_t> display_height,
-      absl::optional<uint32_t> resolution_horizontal,
-      absl::optional<uint32_t> resolution_vertical,
-      absl::optional<double> refresh_rate,
-      const absl::optional<std::string>& manufacturer,
-      absl::optional<uint16_t> model_id,
-      absl::optional<uint32_t> serial_number,
-      absl::optional<uint8_t> manufacture_week,
-      absl::optional<uint16_t> manufacture_year,
-      const absl::optional<std::string>& edid_version,
+      std::optional<uint32_t> display_width,
+      std::optional<uint32_t> display_height,
+      std::optional<uint32_t> resolution_horizontal,
+      std::optional<uint32_t> resolution_vertical,
+      std::optional<double> refresh_rate,
+      const std::optional<std::string>& manufacturer,
+      std::optional<uint16_t> model_id,
+      std::optional<uint32_t> serial_number,
+      std::optional<uint8_t> manufacture_week,
+      std::optional<uint16_t> manufacture_year,
+      const std::optional<std::string>& edid_version,
       ProbeDisplayInputType input_type,
-      const absl::optional<std::string>& display_name);
+      const std::optional<std::string>& display_name);
 
 
   ~ProbeExternalDisplayInfo();
@@ -6964,31 +6965,31 @@ class  ProbeExternalDisplayInfo {
   }
 
   
-  absl::optional<uint32_t> display_width;
+  std::optional<uint32_t> display_width;
   
-  absl::optional<uint32_t> display_height;
+  std::optional<uint32_t> display_height;
   
-  absl::optional<uint32_t> resolution_horizontal;
+  std::optional<uint32_t> resolution_horizontal;
   
-  absl::optional<uint32_t> resolution_vertical;
+  std::optional<uint32_t> resolution_vertical;
   
-  absl::optional<double> refresh_rate;
+  std::optional<double> refresh_rate;
   
-  absl::optional<std::string> manufacturer;
+  std::optional<std::string> manufacturer;
   
-  absl::optional<uint16_t> model_id;
+  std::optional<uint16_t> model_id;
   
-  absl::optional<uint32_t> serial_number;
+  std::optional<uint32_t> serial_number;
   
-  absl::optional<uint8_t> manufacture_week;
+  std::optional<uint8_t> manufacture_week;
   
-  absl::optional<uint16_t> manufacture_year;
+  std::optional<uint16_t> manufacture_year;
   
-  absl::optional<std::string> edid_version;
+  std::optional<std::string> edid_version;
   
   ProbeDisplayInputType input_type;
   
-  absl::optional<std::string> display_name;
+  std::optional<std::string> display_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -7051,7 +7052,7 @@ class  ProbeDisplayInfo {
 
   ProbeDisplayInfo(
       ProbeEmbeddedDisplayInfoPtr embedded_display,
-      absl::optional<std::vector<ProbeExternalDisplayInfoPtr>> external_displays);
+      std::optional<std::vector<ProbeExternalDisplayInfoPtr>> external_displays);
 
 ProbeDisplayInfo(const ProbeDisplayInfo&) = delete;
 ProbeDisplayInfo& operator=(const ProbeDisplayInfo&) = delete;
@@ -7133,7 +7134,7 @@ ProbeDisplayInfo& operator=(const ProbeDisplayInfo&) = delete;
   
   ProbeEmbeddedDisplayInfoPtr embedded_display;
   
-  absl::optional<std::vector<ProbeExternalDisplayInfoPtr>> external_displays;
+  std::optional<std::vector<ProbeExternalDisplayInfoPtr>> external_displays;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

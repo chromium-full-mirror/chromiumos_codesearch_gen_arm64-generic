@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -137,14 +138,17 @@ void NetworkEventsObserverProxy::OnConnectionStateChanged(
                         "<value of type ::chromeos::network_health::mojom::NetworkState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkEventsObserver_OnConnectionStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -190,14 +194,17 @@ void NetworkEventsObserverProxy::OnSignalStrengthChanged(
                         "<value of type ::chromeos::network_health::mojom::UInt32ValuePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name, kFlags, 0, 0, nullptr);
@@ -324,12 +331,12 @@ bool NetworkEventsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkEventsObserverValidationInfo[] = {
-    {&internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data::Validate,
+    { &internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data::Validate,
+    { &internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -481,14 +488,17 @@ void NetworkHealthServiceProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<NetworkEventsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkHealthService_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -517,14 +527,17 @@ void NetworkHealthServiceProxy::GetNetworkList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_health::mojom::NetworkHealthService::GetNetworkList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkHealthService_GetNetworkList_Name, kFlags, 0, 0, nullptr);
@@ -548,14 +561,17 @@ void NetworkHealthServiceProxy::GetHealthSnapshot(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::network_health::mojom::NetworkHealthService::GetHealthSnapshot");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkHealthService_GetHealthSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -665,7 +681,8 @@ void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkHealthService_GetNetworkList_Name, kFlags, 0, 0, nullptr);
@@ -795,7 +812,8 @@ void NetworkHealthService_GetHealthSnapshot_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkHealthService_GetHealthSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -940,14 +958,14 @@ bool NetworkHealthServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkHealthServiceValidationInfo[] = {
-    {&internal::NetworkHealthService_AddObserver_Params_Data::Validate,
+    { &internal::NetworkHealthService_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkHealthService_GetNetworkList_Params_Data::Validate,
+    { &internal::NetworkHealthService_GetNetworkList_Params_Data::Validate,
      &internal::NetworkHealthService_GetNetworkList_ResponseParams_Data::Validate},
-    {&internal::NetworkHealthService_GetHealthSnapshot_Params_Data::Validate,
+    { &internal::NetworkHealthService_GetHealthSnapshot_Params_Data::Validate,
      &internal::NetworkHealthService_GetHealthSnapshot_ResponseParams_Data::Validate},
 };
 

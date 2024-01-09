@@ -47,8 +47,8 @@ class  LocalSearchServiceAsyncWaiter {
 
   ~LocalSearchServiceAsyncWaiter();
   void BindIndex(
-      ::ash::local_search_service::IndexId index_id, ::ash::local_search_service::Backend backend, ::mojo::PendingReceiver<::ash::local_search_service::mojom::Index> index_receiver, ::mojo::PendingRemote<SearchMetricsReporter> reporter_remote, absl::optional<std::string>* out_error);
-  absl::optional<std::string> BindIndex(::ash::local_search_service::IndexId index_id, ::ash::local_search_service::Backend backend, ::mojo::PendingReceiver<::ash::local_search_service::mojom::Index> index_receiver, ::mojo::PendingRemote<SearchMetricsReporter> reporter_remote);
+      ::ash::local_search_service::IndexId index_id, ::ash::local_search_service::Backend backend, ::mojo::PendingReceiver<::ash::local_search_service::mojom::Index> index_receiver, ::mojo::PendingRemote<SearchMetricsReporter> reporter_remote, std::optional<std::string>* out_error);
+  std::optional<std::string> BindIndex(::ash::local_search_service::IndexId index_id, ::ash::local_search_service::Backend backend, ::mojo::PendingReceiver<::ash::local_search_service::mojom::Index> index_receiver, ::mojo::PendingRemote<SearchMetricsReporter> reporter_remote);
 
  private:
   LocalSearchService* const proxy_;

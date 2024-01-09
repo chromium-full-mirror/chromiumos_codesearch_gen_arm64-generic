@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGMaskElement>::value,
     "SVGMaskElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGMaskElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGMaskElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -100,7 +95,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMaskElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(v8_receiver);
+SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maskUnits();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -119,7 +114,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMaskElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(v8_receiver);
+SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maskContentUnits();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -138,7 +133,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMaskElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(v8_receiver);
+SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -157,7 +152,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMaskElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(v8_receiver);
+SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -176,7 +171,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMaskElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(v8_receiver);
+SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -195,7 +190,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMMaskElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(v8_receiver);
+SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -216,7 +211,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGTests);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(v8_receiver);
+SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->requiredExtensions();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 // [HighEntropy=Direct]
@@ -239,7 +234,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGTests);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(v8_receiver);
+SVGMaskElement* blink_receiver = V8SVGMaskElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->systemLanguage();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 // [HighEntropy=Direct]

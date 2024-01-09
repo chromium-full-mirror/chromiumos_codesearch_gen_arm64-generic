@@ -34,8 +34,6 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/print_tools/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/print_tools/_printer_diag-install_config.stamp: stamp
-build obj/print_tools/all.stamp: stamp ./printer_diag ./printer_diag_test
+build obj/print_tools/all.stamp: stamp ./printer_diag
 subninja obj/print_tools/printer_diag.ninja
-subninja obj/print_tools/printer_diag_test.ninja

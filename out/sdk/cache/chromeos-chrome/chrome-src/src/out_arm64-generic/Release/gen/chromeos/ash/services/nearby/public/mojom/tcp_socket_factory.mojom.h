@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/tcp_socket_factory.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/tcp_socket_factory.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/tcp_socket_factory.mojom-forward.h"
 #include "chromeos/ash/services/nearby/public/mojom/tcp_server_socket_port.mojom.h"
@@ -92,14 +93,14 @@ class TcpSocketFactory
   virtual ~TcpSocketFactory() = default;
 
 
-  using CreateTCPServerSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&)>;
+  using CreateTCPServerSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&)>;
   
   virtual void CreateTCPServerSocket(const ::net::IPAddress& local_addr, const ::ash::nearby::TcpServerSocketPort& port, uint32_t backlog, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> socket, CreateTCPServerSocketCallback callback) = 0;
 
 
-  using CreateTCPConnectedSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&, const absl::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
+  using CreateTCPConnectedSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&, const std::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
   
-  virtual void CreateTCPConnectedSocket(::base::TimeDelta timeout, const absl::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) = 0;
+  virtual void CreateTCPConnectedSocket(::base::TimeDelta timeout, const std::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) = 0;
 };
 
 
@@ -113,7 +114,7 @@ class  TcpSocketFactoryProxy
   
   void CreateTCPServerSocket(const ::net::IPAddress& local_addr, const ::ash::nearby::TcpServerSocketPort& port, uint32_t backlog, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> socket, CreateTCPServerSocketCallback callback) final;
   
-  void CreateTCPConnectedSocket(::base::TimeDelta timeout, const absl::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) final;
+  void CreateTCPConnectedSocket(::base::TimeDelta timeout, const std::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

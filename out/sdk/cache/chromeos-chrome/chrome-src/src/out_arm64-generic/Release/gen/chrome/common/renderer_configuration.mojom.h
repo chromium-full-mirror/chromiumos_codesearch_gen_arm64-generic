@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/common/renderer_configuration.mojom-features.h"
 #include "chrome/common/renderer_configuration.mojom-shared.h"
 #include "chrome/common/renderer_configuration.mojom-forward.h"
 #include "components/content_settings/common/content_settings_manager.mojom-forward.h"
@@ -41,16 +42,16 @@
 
 namespace chrome::mojom {
 
-class BoundSessionRequestThrottledListenerProxy;
+class BoundSessionRequestThrottledHandlerProxy;
 
 template <typename ImplRefTraits>
-class BoundSessionRequestThrottledListenerStub;
+class BoundSessionRequestThrottledHandlerStub;
 
-class BoundSessionRequestThrottledListenerRequestValidator;
+class BoundSessionRequestThrottledHandlerRequestValidator;
 
 
-class BoundSessionRequestThrottledListener
-    : public BoundSessionRequestThrottledListenerInterfaceBase {
+class BoundSessionRequestThrottledHandler
+    : public BoundSessionRequestThrottledHandlerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
 
@@ -61,13 +62,13 @@ class BoundSessionRequestThrottledListener
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
-  using Base_ = BoundSessionRequestThrottledListenerInterfaceBase;
-  using Proxy_ = BoundSessionRequestThrottledListenerProxy;
+  using Base_ = BoundSessionRequestThrottledHandlerInterfaceBase;
+  using Proxy_ = BoundSessionRequestThrottledHandlerProxy;
 
   template <typename ImplRefTraits>
-  using Stub_ = BoundSessionRequestThrottledListenerStub<ImplRefTraits>;
+  using Stub_ = BoundSessionRequestThrottledHandlerStub<ImplRefTraits>;
 
-  using RequestValidator_ = BoundSessionRequestThrottledListenerRequestValidator;
+  using RequestValidator_ = BoundSessionRequestThrottledHandlerRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
   };
@@ -76,7 +77,7 @@ class BoundSessionRequestThrottledListener
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
 #endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~BoundSessionRequestThrottledListener() = default;
+  virtual ~BoundSessionRequestThrottledHandler() = default;
 };
 
 class ChromeOSListenerProxy;
@@ -170,7 +171,7 @@ class RendererConfiguration
   virtual ~RendererConfiguration() = default;
 
   
-  virtual void SetInitialConfiguration(bool is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledListener> bound_session_request_throttled_listener) = 0;
+  virtual void SetInitialConfiguration(bool is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledHandler> bound_session_request_throttled_handler) = 0;
 
   
   virtual void SetConfiguration(DynamicParamsPtr params) = 0;
@@ -178,12 +179,12 @@ class RendererConfiguration
 
 
 
-class  BoundSessionRequestThrottledListenerProxy
-    : public BoundSessionRequestThrottledListener {
+class  BoundSessionRequestThrottledHandlerProxy
+    : public BoundSessionRequestThrottledHandler {
  public:
-  using InterfaceType = BoundSessionRequestThrottledListener;
+  using InterfaceType = BoundSessionRequestThrottledHandler;
 
-  explicit BoundSessionRequestThrottledListenerProxy(mojo::MessageReceiverWithResponder* receiver);
+  explicit BoundSessionRequestThrottledHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -213,31 +214,31 @@ class  RendererConfigurationProxy
 
   explicit RendererConfigurationProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void SetInitialConfiguration(bool is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledListener> bound_session_request_throttled_listener) final;
+  void SetInitialConfiguration(bool is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledHandler> bound_session_request_throttled_handler) final;
   
   void SetConfiguration(DynamicParamsPtr params) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
 };
-class  BoundSessionRequestThrottledListenerStubDispatch {
+class  BoundSessionRequestThrottledHandlerStubDispatch {
  public:
-  static bool Accept(BoundSessionRequestThrottledListener* impl, mojo::Message* message);
+  static bool Accept(BoundSessionRequestThrottledHandler* impl, mojo::Message* message);
   static bool AcceptWithResponder(
-      BoundSessionRequestThrottledListener* impl,
+      BoundSessionRequestThrottledHandler* impl,
       mojo::Message* message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
 };
 
 template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<BoundSessionRequestThrottledListener>>
-class BoundSessionRequestThrottledListenerStub
+              mojo::RawPtrImplRefTraits<BoundSessionRequestThrottledHandler>>
+class BoundSessionRequestThrottledHandlerStub
     : public mojo::MessageReceiverWithResponderStatus {
  public:
   using ImplPointerType = typename ImplRefTraits::PointerType;
 
-  BoundSessionRequestThrottledListenerStub() = default;
-  ~BoundSessionRequestThrottledListenerStub() override = default;
+  BoundSessionRequestThrottledHandlerStub() = default;
+  ~BoundSessionRequestThrottledHandlerStub() override = default;
 
   void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
   ImplPointerType& sink() { return sink_; }
@@ -245,7 +246,7 @@ class BoundSessionRequestThrottledListenerStub
   bool Accept(mojo::Message* message) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return BoundSessionRequestThrottledListenerStubDispatch::Accept(
+    return BoundSessionRequestThrottledHandlerStubDispatch::Accept(
         ImplRefTraits::GetRawPointer(&sink_), message);
   }
 
@@ -254,7 +255,7 @@ class BoundSessionRequestThrottledListenerStub
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return BoundSessionRequestThrottledListenerStubDispatch::AcceptWithResponder(
+    return BoundSessionRequestThrottledHandlerStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -343,7 +344,7 @@ class RendererConfigurationStub
  private:
   ImplPointerType sink_;
 };
-class  BoundSessionRequestThrottledListenerRequestValidator : public mojo::MessageReceiver {
+class  BoundSessionRequestThrottledHandlerRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

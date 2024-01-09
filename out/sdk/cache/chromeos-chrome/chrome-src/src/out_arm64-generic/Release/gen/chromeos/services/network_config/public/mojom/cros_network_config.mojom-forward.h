@@ -196,6 +196,8 @@ enum class ApnIpType : int32_t;
 
 enum class ApnType : int32_t;
 
+enum class SuppressionType : int32_t;
+
 enum class TrafficCounterSource : int32_t;
 
 enum class SubjectAltName_Type : int32_t;

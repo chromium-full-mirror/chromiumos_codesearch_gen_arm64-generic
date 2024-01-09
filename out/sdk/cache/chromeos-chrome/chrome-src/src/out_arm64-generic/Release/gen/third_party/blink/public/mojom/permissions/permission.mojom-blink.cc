@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -413,14 +414,17 @@ void PermissionObserverProxy::OnPermissionStatusChange(
                         "<value of type ::blink::mojom::blink::PermissionStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionObserver_OnPermissionStatusChange_Name, kFlags, 0, 0, nullptr);
@@ -490,10 +494,10 @@ bool PermissionObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPermissionObserverValidationInfo[] = {
-    {&internal::PermissionObserver_OnPermissionStatusChange_Params_Data::Validate,
+    { &internal::PermissionObserver_OnPermissionStatusChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -509,6 +513,9 @@ PermissionService::IPCStableHashFunction PermissionService::MessageToMethodInfo_
   switch (message.name()) {
     case internal::kPermissionService_HasPermission_Name: {
       return &PermissionService::HasPermission_Sym::IPCStableHash;
+    }
+    case internal::kPermissionService_RegisterPageEmbeddedPermissionControl_Name: {
+      return &PermissionService::RegisterPageEmbeddedPermissionControl_Sym::IPCStableHash;
     }
     case internal::kPermissionService_RequestPageEmbeddedPermission_Name: {
       return &PermissionService::RequestPageEmbeddedPermission_Sym::IPCStableHash;
@@ -541,6 +548,8 @@ const char* PermissionService::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kPermissionService_HasPermission_Name:
             return "Receive blink::mojom::PermissionService::HasPermission";
+      case internal::kPermissionService_RegisterPageEmbeddedPermissionControl_Name:
+            return "Receive blink::mojom::PermissionService::RegisterPageEmbeddedPermissionControl";
       case internal::kPermissionService_RequestPageEmbeddedPermission_Name:
             return "Receive blink::mojom::PermissionService::RequestPageEmbeddedPermission";
       case internal::kPermissionService_RequestPermission_Name:
@@ -558,6 +567,8 @@ const char* PermissionService::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kPermissionService_HasPermission_Name:
             return "Receive reply blink::mojom::PermissionService::HasPermission";
+      case internal::kPermissionService_RegisterPageEmbeddedPermissionControl_Name:
+            return "Receive reply blink::mojom::PermissionService::RegisterPageEmbeddedPermissionControl";
       case internal::kPermissionService_RequestPageEmbeddedPermission_Name:
             return "Receive reply blink::mojom::PermissionService::RequestPageEmbeddedPermission";
       case internal::kPermissionService_RequestPermission_Name:
@@ -593,6 +604,19 @@ uint32_t PermissionService::HasPermission_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)blink::mojom::PermissionService::HasPermission");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PermissionService::RegisterPageEmbeddedPermissionControl_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::PermissionService::RegisterPageEmbeddedPermissionControl");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -693,6 +717,22 @@ class PermissionService_HasPermission_ForwardToCallback
   PermissionService::HasPermissionCallback callback_;
 };
 
+class PermissionService_RegisterPageEmbeddedPermissionControl_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PermissionService_RegisterPageEmbeddedPermissionControl_ForwardToCallback(
+      PermissionService::RegisterPageEmbeddedPermissionControlCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_ForwardToCallback(const PermissionService_RegisterPageEmbeddedPermissionControl_ForwardToCallback&) = delete;
+  PermissionService_RegisterPageEmbeddedPermissionControl_ForwardToCallback& operator=(const PermissionService_RegisterPageEmbeddedPermissionControl_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PermissionService::RegisterPageEmbeddedPermissionControlCallback callback_;
+};
+
 class PermissionService_RequestPageEmbeddedPermission_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -773,14 +813,17 @@ void PermissionServiceProxy::HasPermission(
                         "<value of type PermissionDescriptorPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_HasPermission_Name, kFlags, 0, 0, nullptr);
@@ -810,6 +853,60 @@ void PermissionServiceProxy::HasPermission(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
+void PermissionServiceProxy::RegisterPageEmbeddedPermissionControl(
+    WTF::Vector<PermissionDescriptorPtr> in_permissions, RegisterPageEmbeddedPermissionControlCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::PermissionService::RegisterPageEmbeddedPermissionControl", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("permissions"), in_permissions,
+                        "<value of type WTF::Vector<PermissionDescriptorPtr>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPermissionService_RegisterPageEmbeddedPermissionControl_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->permissions)::BaseType>
+      permissions_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& permissions_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::PermissionDescriptorDataView>>(
+      in_permissions, permissions_fragment, &permissions_validate_params);
+  params->permissions.Set(
+      permissions_fragment.is_null() ? nullptr : permissions_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->permissions.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null permissions in PermissionService.RegisterPageEmbeddedPermissionControl request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PermissionService::Name_);
+  message.set_method_name("RegisterPageEmbeddedPermissionControl");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PermissionService_RegisterPageEmbeddedPermissionControl_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
 void PermissionServiceProxy::RequestPageEmbeddedPermission(
     EmbeddedPermissionRequestDescriptorPtr in_descriptor, RequestPageEmbeddedPermissionCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -822,14 +919,17 @@ void PermissionServiceProxy::RequestPageEmbeddedPermission(
                         "<value of type EmbeddedPermissionRequestDescriptorPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_RequestPageEmbeddedPermission_Name, kFlags, 0, 0, nullptr);
@@ -874,14 +974,17 @@ void PermissionServiceProxy::RequestPermission(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_RequestPermission_Name, kFlags, 0, 0, nullptr);
@@ -927,14 +1030,17 @@ void PermissionServiceProxy::RequestPermissions(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_RequestPermissions_Name, kFlags, 0, 0, nullptr);
@@ -979,14 +1085,17 @@ void PermissionServiceProxy::RevokePermission(
                         "<value of type PermissionDescriptorPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_RevokePermission_Name, kFlags, 0, 0, nullptr);
@@ -1034,14 +1143,17 @@ void PermissionServiceProxy::AddPermissionObserver(
                         "<value of type ::mojo::PendingRemote<PermissionObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_AddPermissionObserver_Name, kFlags, 0, 0, nullptr);
@@ -1096,14 +1208,17 @@ void PermissionServiceProxy::NotifyEventListener(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_NotifyEventListener_Name, kFlags, 0, 0, nullptr);
@@ -1235,7 +1350,8 @@ void PermissionService_HasPermission_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_HasPermission_Name, kFlags, 0, 0, nullptr);
@@ -1249,6 +1365,141 @@ void PermissionService_HasPermission_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PermissionService::Name_);
   message.set_method_name("HasPermission");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class PermissionService_RegisterPageEmbeddedPermissionControl_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PermissionService::RegisterPageEmbeddedPermissionControlCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PermissionService_RegisterPageEmbeddedPermissionControl_ProxyToResponder> proxy(
+        new PermissionService_RegisterPageEmbeddedPermissionControl_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PermissionService_RegisterPageEmbeddedPermissionControl_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PermissionService_RegisterPageEmbeddedPermissionControl_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PermissionService_RegisterPageEmbeddedPermissionControl_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PermissionService::RegisterPageEmbeddedPermissionControlCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_allowed, const std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>>& in_statuses);
+};
+
+bool PermissionService_RegisterPageEmbeddedPermissionControl_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_allowed{};
+  std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>> p_statuses{};
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_allowed = input_data_view.allowed();
+  if (success && !input_data_view.ReadStatuses(&p_statuses))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PermissionService::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_allowed), 
+std::move(p_statuses));
+  return true;
+}
+
+void PermissionService_RegisterPageEmbeddedPermissionControl_ProxyToResponder::Run(
+    bool in_allowed, const std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>>& in_statuses) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply blink::mojom::PermissionService::RegisterPageEmbeddedPermissionControl", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("allowed"), in_allowed,
+                        "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("statuses"), in_statuses,
+                        "<value of type const std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPermissionService_RegisterPageEmbeddedPermissionControl_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->allowed = in_allowed;
+  mojo::internal::MessageFragment<
+      typename decltype(params->statuses)::BaseType>
+      statuses_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& statuses_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::PermissionStatus_Data::Validate>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::PermissionStatus>>(
+      in_statuses, statuses_fragment, &statuses_validate_params);
+  params->statuses.Set(
+      statuses_fragment.is_null() ? nullptr : statuses_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PermissionService::Name_);
+  message.set_method_name("RegisterPageEmbeddedPermissionControl");
 #endif
 
   message.set_request_id(request_id_);
@@ -1330,7 +1581,7 @@ bool PermissionService_RequestPageEmbeddedPermission_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PermissionService::Name_, 1, true);
+        PermissionService::Name_, 2, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1354,7 +1605,8 @@ void PermissionService_RequestPageEmbeddedPermission_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_RequestPageEmbeddedPermission_Name, kFlags, 0, 0, nullptr);
@@ -1449,7 +1701,7 @@ bool PermissionService_RequestPermission_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PermissionService::Name_, 2, true);
+        PermissionService::Name_, 3, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1473,7 +1725,8 @@ void PermissionService_RequestPermission_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_RequestPermission_Name, kFlags, 0, 0, nullptr);
@@ -1568,7 +1821,7 @@ bool PermissionService_RequestPermissions_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PermissionService::Name_, 3, true);
+        PermissionService::Name_, 4, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1592,7 +1845,8 @@ void PermissionService_RequestPermissions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_RequestPermissions_Name, kFlags, 0, 0, nullptr);
@@ -1698,7 +1952,7 @@ bool PermissionService_RevokePermission_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PermissionService::Name_, 4, true);
+        PermissionService::Name_, 5, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1722,7 +1976,8 @@ void PermissionService_RevokePermission_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPermissionService_RevokePermission_Name, kFlags, 0, 0, nullptr);
@@ -1756,6 +2011,9 @@ bool PermissionServiceStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kPermissionService_HasPermission_Name: {
+      break;
+    }
+    case internal::kPermissionService_RegisterPageEmbeddedPermissionControl_Name: {
       break;
     }
     case internal::kPermissionService_RequestPageEmbeddedPermission_Name: {
@@ -1795,7 +2053,7 @@ bool PermissionServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PermissionService::Name_, 5, false);
+            PermissionService::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1829,7 +2087,7 @@ std::move(p_observer));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PermissionService::Name_, 6, false);
+            PermissionService::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1882,6 +2140,35 @@ bool PermissionServiceStubDispatch::AcceptWithResponder(
 std::move(p_permission), std::move(callback));
       return true;
     }
+    case internal::kPermissionService_RegisterPageEmbeddedPermissionControl_Name: {
+
+      internal::PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data* params =
+          reinterpret_cast<
+              internal::PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      WTF::Vector<PermissionDescriptorPtr> p_permissions{};
+      PermissionService_RegisterPageEmbeddedPermissionControl_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPermissions(&p_permissions))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PermissionService::Name_, 1, false);
+        return false;
+      }
+      PermissionService::RegisterPageEmbeddedPermissionControlCallback callback =
+          PermissionService_RegisterPageEmbeddedPermissionControl_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RegisterPageEmbeddedPermissionControl(
+std::move(p_permissions), std::move(callback));
+      return true;
+    }
     case internal::kPermissionService_RequestPageEmbeddedPermission_Name: {
 
       internal::PermissionService_RequestPageEmbeddedPermission_Params_Data* params =
@@ -1899,7 +2186,7 @@ std::move(p_permission), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PermissionService::Name_, 1, false);
+            PermissionService::Name_, 2, false);
         return false;
       }
       PermissionService::RequestPageEmbeddedPermissionCallback callback =
@@ -1931,7 +2218,7 @@ std::move(p_descriptor), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PermissionService::Name_, 2, false);
+            PermissionService::Name_, 3, false);
         return false;
       }
       PermissionService::RequestPermissionCallback callback =
@@ -1964,7 +2251,7 @@ std::move(p_user_gesture), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PermissionService::Name_, 3, false);
+            PermissionService::Name_, 4, false);
         return false;
       }
       PermissionService::RequestPermissionsCallback callback =
@@ -1994,7 +2281,7 @@ std::move(p_user_gesture), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PermissionService::Name_, 4, false);
+            PermissionService::Name_, 5, false);
         return false;
       }
       PermissionService::RevokePermissionCallback callback =
@@ -2015,22 +2302,24 @@ std::move(p_permission), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPermissionServiceValidationInfo[] = {
-    {&internal::PermissionService_HasPermission_Params_Data::Validate,
+    { &internal::PermissionService_HasPermission_Params_Data::Validate,
      &internal::PermissionService_HasPermission_ResponseParams_Data::Validate},
-    {&internal::PermissionService_RequestPageEmbeddedPermission_Params_Data::Validate,
+    { &internal::PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data::Validate,
+     &internal::PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data::Validate},
+    { &internal::PermissionService_RequestPageEmbeddedPermission_Params_Data::Validate,
      &internal::PermissionService_RequestPageEmbeddedPermission_ResponseParams_Data::Validate},
-    {&internal::PermissionService_RequestPermission_Params_Data::Validate,
+    { &internal::PermissionService_RequestPermission_Params_Data::Validate,
      &internal::PermissionService_RequestPermission_ResponseParams_Data::Validate},
-    {&internal::PermissionService_RequestPermissions_Params_Data::Validate,
+    { &internal::PermissionService_RequestPermissions_Params_Data::Validate,
      &internal::PermissionService_RequestPermissions_ResponseParams_Data::Validate},
-    {&internal::PermissionService_RevokePermission_Params_Data::Validate,
+    { &internal::PermissionService_RevokePermission_Params_Data::Validate,
      &internal::PermissionService_RevokePermission_ResponseParams_Data::Validate},
-    {&internal::PermissionService_AddPermissionObserver_Params_Data::Validate,
+    { &internal::PermissionService_AddPermissionObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PermissionService_NotifyEventListener_Params_Data::Validate,
+    { &internal::PermissionService_NotifyEventListener_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2215,6 +2504,9 @@ PermissionObserverAsyncWaiter::~PermissionObserverAsyncWaiter() = default;
 void PermissionServiceInterceptorForTesting::HasPermission(PermissionDescriptorPtr permission, HasPermissionCallback callback) {
   GetForwardingInterface()->HasPermission(std::move(permission), std::move(callback));
 }
+void PermissionServiceInterceptorForTesting::RegisterPageEmbeddedPermissionControl(WTF::Vector<PermissionDescriptorPtr> permissions, RegisterPageEmbeddedPermissionControlCallback callback) {
+  GetForwardingInterface()->RegisterPageEmbeddedPermissionControl(std::move(permissions), std::move(callback));
+}
 void PermissionServiceInterceptorForTesting::RequestPageEmbeddedPermission(EmbeddedPermissionRequestDescriptorPtr descriptor, RequestPageEmbeddedPermissionCallback callback) {
   GetForwardingInterface()->RequestPageEmbeddedPermission(std::move(descriptor), std::move(callback));
 }
@@ -2260,6 +2552,28 @@ void PermissionServiceAsyncWaiter::HasPermission(
   HasPermission(std::move(permission),&async_wait_result);
   return async_wait_result;
 }
+
+void PermissionServiceAsyncWaiter::RegisterPageEmbeddedPermissionControl(
+    WTF::Vector<PermissionDescriptorPtr> permissions, bool* out_allowed, std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>>* out_statuses) {
+  base::RunLoop loop;
+  proxy_->RegisterPageEmbeddedPermissionControl(std::move(permissions),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_allowed
+,
+             std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>>* out_statuses
+,
+             bool allowed,
+             const std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>>& statuses) {*out_allowed = std::move(allowed);*out_statuses = std::move(statuses);
+            loop->Quit();
+          },
+          &loop,
+          out_allowed,
+          out_statuses));
+  loop.Run();
+}
+
+
 
 void PermissionServiceAsyncWaiter::RequestPageEmbeddedPermission(
     EmbeddedPermissionRequestDescriptorPtr descriptor, EmbeddedPermissionControlResult* out_status) {

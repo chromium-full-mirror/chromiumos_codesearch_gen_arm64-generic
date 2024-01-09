@@ -503,109 +503,120 @@ class HEADLESS_EXPORT SelectAccountResult {
 };
 
 
-// Parameters for the ConfirmIdpLogin command.
-class HEADLESS_EXPORT ConfirmIdpLoginParams {
+// Parameters for the ClickDialogButton command.
+class HEADLESS_EXPORT ClickDialogButtonParams {
  public:
-  static std::unique_ptr<ConfirmIdpLoginParams> Parse(const base::Value& value, ErrorReporter* errors);
+  static std::unique_ptr<ClickDialogButtonParams> Parse(const base::Value& value, ErrorReporter* errors);
 
-  ConfirmIdpLoginParams(const ConfirmIdpLoginParams&) = delete;
-  ConfirmIdpLoginParams& operator=(const ConfirmIdpLoginParams&) = delete;
+  ClickDialogButtonParams(const ClickDialogButtonParams&) = delete;
+  ClickDialogButtonParams& operator=(const ClickDialogButtonParams&) = delete;
 
-  ~ConfirmIdpLoginParams() { }
+  ~ClickDialogButtonParams() { }
 
 
   std::string GetDialogId() const { return dialog_id_; }
   void SetDialogId(const std::string& value) { dialog_id_ = value; }
 
+  ::headless::fed_cm::DialogButton GetDialogButton() const { return dialog_button_; }
+  void SetDialogButton(::headless::fed_cm::DialogButton value) { dialog_button_ = value; }
+
   base::Value Serialize() const;
-  std::unique_ptr<ConfirmIdpLoginParams> Clone() const;
+  std::unique_ptr<ClickDialogButtonParams> Clone() const;
 
   template<int STATE>
-  class ConfirmIdpLoginParamsBuilder {
+  class ClickDialogButtonParamsBuilder {
   public:
     enum {
       kNoFieldsSet = 0,
     kDialogIdSet = 1 << 1,
-      kAllRequiredFieldsSet = (kDialogIdSet | 0)
+    kDialogButtonSet = 1 << 2,
+      kAllRequiredFieldsSet = (kDialogIdSet | kDialogButtonSet | 0)
     };
 
-    ConfirmIdpLoginParamsBuilder<STATE | kDialogIdSet>& SetDialogId(const std::string& value) {
+    ClickDialogButtonParamsBuilder<STATE | kDialogIdSet>& SetDialogId(const std::string& value) {
       static_assert(!(STATE & kDialogIdSet), "property dialogId should not have already been set");
       result_->SetDialogId(value);
       return CastState<kDialogIdSet>();
     }
 
-    std::unique_ptr<ConfirmIdpLoginParams> Build() {
+    ClickDialogButtonParamsBuilder<STATE | kDialogButtonSet>& SetDialogButton(::headless::fed_cm::DialogButton value) {
+      static_assert(!(STATE & kDialogButtonSet), "property dialogButton should not have already been set");
+      result_->SetDialogButton(value);
+      return CastState<kDialogButtonSet>();
+    }
+
+    std::unique_ptr<ClickDialogButtonParams> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
     }
 
    private:
-    friend class ConfirmIdpLoginParams;
-    ConfirmIdpLoginParamsBuilder() : result_(new ConfirmIdpLoginParams()) { }
+    friend class ClickDialogButtonParams;
+    ClickDialogButtonParamsBuilder() : result_(new ClickDialogButtonParams()) { }
 
-    template<int STEP> ConfirmIdpLoginParamsBuilder<STATE | STEP>& CastState() {
-      return *reinterpret_cast<ConfirmIdpLoginParamsBuilder<STATE | STEP>*>(this);
+    template<int STEP> ClickDialogButtonParamsBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<ClickDialogButtonParamsBuilder<STATE | STEP>*>(this);
     }
 
-    std::unique_ptr<ConfirmIdpLoginParams> result_;
+    std::unique_ptr<ClickDialogButtonParams> result_;
   };
 
-  static ConfirmIdpLoginParamsBuilder<0> Builder() {
-    return ConfirmIdpLoginParamsBuilder<0>();
+  static ClickDialogButtonParamsBuilder<0> Builder() {
+    return ClickDialogButtonParamsBuilder<0>();
   }
 
  private:
-  ConfirmIdpLoginParams() { }
+  ClickDialogButtonParams() { }
 
   std::string dialog_id_;
+  ::headless::fed_cm::DialogButton dialog_button_;
 };
 
 
-// Result for the ConfirmIdpLogin command.
-class HEADLESS_EXPORT ConfirmIdpLoginResult {
+// Result for the ClickDialogButton command.
+class HEADLESS_EXPORT ClickDialogButtonResult {
  public:
-  static std::unique_ptr<ConfirmIdpLoginResult> Parse(const base::Value& value, ErrorReporter* errors);
+  static std::unique_ptr<ClickDialogButtonResult> Parse(const base::Value& value, ErrorReporter* errors);
 
-  ConfirmIdpLoginResult(const ConfirmIdpLoginResult&) = delete;
-  ConfirmIdpLoginResult& operator=(const ConfirmIdpLoginResult&) = delete;
+  ClickDialogButtonResult(const ClickDialogButtonResult&) = delete;
+  ClickDialogButtonResult& operator=(const ClickDialogButtonResult&) = delete;
 
-  ~ConfirmIdpLoginResult() { }
+  ~ClickDialogButtonResult() { }
 
 
   base::Value Serialize() const;
-  std::unique_ptr<ConfirmIdpLoginResult> Clone() const;
+  std::unique_ptr<ClickDialogButtonResult> Clone() const;
 
   template<int STATE>
-  class ConfirmIdpLoginResultBuilder {
+  class ClickDialogButtonResultBuilder {
   public:
     enum {
       kNoFieldsSet = 0,
       kAllRequiredFieldsSet = (0)
     };
 
-    std::unique_ptr<ConfirmIdpLoginResult> Build() {
+    std::unique_ptr<ClickDialogButtonResult> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
     }
 
    private:
-    friend class ConfirmIdpLoginResult;
-    ConfirmIdpLoginResultBuilder() : result_(new ConfirmIdpLoginResult()) { }
+    friend class ClickDialogButtonResult;
+    ClickDialogButtonResultBuilder() : result_(new ClickDialogButtonResult()) { }
 
-    template<int STEP> ConfirmIdpLoginResultBuilder<STATE | STEP>& CastState() {
-      return *reinterpret_cast<ConfirmIdpLoginResultBuilder<STATE | STEP>*>(this);
+    template<int STEP> ClickDialogButtonResultBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<ClickDialogButtonResultBuilder<STATE | STEP>*>(this);
     }
 
-    std::unique_ptr<ConfirmIdpLoginResult> result_;
+    std::unique_ptr<ClickDialogButtonResult> result_;
   };
 
-  static ConfirmIdpLoginResultBuilder<0> Builder() {
-    return ConfirmIdpLoginResultBuilder<0>();
+  static ClickDialogButtonResultBuilder<0> Builder() {
+    return ClickDialogButtonResultBuilder<0>();
   }
 
  private:
-  ConfirmIdpLoginResult() { }
+  ClickDialogButtonResult() { }
 
 };
 
@@ -924,6 +935,65 @@ class HEADLESS_EXPORT DialogShownParams {
   std::vector<std::unique_ptr<::headless::fed_cm::Account>> accounts_;
   std::string title_;
   absl::optional<std::string> subtitle_;
+};
+
+
+// Parameters for the DialogClosed event.
+class HEADLESS_EXPORT DialogClosedParams {
+ public:
+  static std::unique_ptr<DialogClosedParams> Parse(const base::Value& value, ErrorReporter* errors);
+
+  DialogClosedParams(const DialogClosedParams&) = delete;
+  DialogClosedParams& operator=(const DialogClosedParams&) = delete;
+
+  ~DialogClosedParams() { }
+
+
+  std::string GetDialogId() const { return dialog_id_; }
+  void SetDialogId(const std::string& value) { dialog_id_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<DialogClosedParams> Clone() const;
+
+  template<int STATE>
+  class DialogClosedParamsBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kDialogIdSet = 1 << 1,
+      kAllRequiredFieldsSet = (kDialogIdSet | 0)
+    };
+
+    DialogClosedParamsBuilder<STATE | kDialogIdSet>& SetDialogId(const std::string& value) {
+      static_assert(!(STATE & kDialogIdSet), "property dialogId should not have already been set");
+      result_->SetDialogId(value);
+      return CastState<kDialogIdSet>();
+    }
+
+    std::unique_ptr<DialogClosedParams> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class DialogClosedParams;
+    DialogClosedParamsBuilder() : result_(new DialogClosedParams()) { }
+
+    template<int STEP> DialogClosedParamsBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<DialogClosedParamsBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<DialogClosedParams> result_;
+  };
+
+  static DialogClosedParamsBuilder<0> Builder() {
+    return DialogClosedParamsBuilder<0>();
+  }
+
+ private:
+  DialogClosedParams() { }
+
+  std::string dialog_id_;
 };
 
 

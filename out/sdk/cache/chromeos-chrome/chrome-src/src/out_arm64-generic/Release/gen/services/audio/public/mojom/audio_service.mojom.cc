@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -214,14 +215,17 @@ void AudioServiceProxy::BindSystemInfo(
                         "<value of type ::mojo::PendingReceiver<::audio::mojom::SystemInfo>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_BindSystemInfo_Name, kFlags, 0, 0, nullptr);
@@ -257,14 +261,17 @@ void AudioServiceProxy::BindDebugRecording(
                         "<value of type ::mojo::PendingReceiver<::audio::mojom::DebugRecording>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_BindDebugRecording_Name, kFlags, 0, 0, nullptr);
@@ -300,14 +307,17 @@ void AudioServiceProxy::BindStreamFactory(
                         "<value of type ::mojo::PendingReceiver<::media::mojom::AudioStreamFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_BindStreamFactory_Name, kFlags, 0, 0, nullptr);
@@ -343,14 +353,17 @@ void AudioServiceProxy::BindDeviceNotifier(
                         "<value of type ::mojo::PendingReceiver<::audio::mojom::DeviceNotifier>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_BindDeviceNotifier_Name, kFlags, 0, 0, nullptr);
@@ -386,14 +399,17 @@ void AudioServiceProxy::BindLogFactoryManager(
                         "<value of type ::mojo::PendingReceiver<::audio::mojom::LogFactoryManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_BindLogFactoryManager_Name, kFlags, 0, 0, nullptr);
@@ -429,14 +445,17 @@ void AudioServiceProxy::BindTestingApi(
                         "<value of type ::mojo::PendingReceiver<::audio::mojom::TestingApi>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioService_BindTestingApi_Name, kFlags, 0, 0, nullptr);
@@ -667,20 +686,20 @@ bool AudioServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioServiceValidationInfo[] = {
-    {&internal::AudioService_BindSystemInfo_Params_Data::Validate,
+    { &internal::AudioService_BindSystemInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioService_BindDebugRecording_Params_Data::Validate,
+    { &internal::AudioService_BindDebugRecording_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioService_BindStreamFactory_Params_Data::Validate,
+    { &internal::AudioService_BindStreamFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioService_BindDeviceNotifier_Params_Data::Validate,
+    { &internal::AudioService_BindDeviceNotifier_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioService_BindLogFactoryManager_Params_Data::Validate,
+    { &internal::AudioService_BindLogFactoryManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioService_BindTestingApi_Params_Data::Validate,
+    { &internal::AudioService_BindTestingApi_Params_Data::Validate,
      nullptr /* no response */},
 };
 

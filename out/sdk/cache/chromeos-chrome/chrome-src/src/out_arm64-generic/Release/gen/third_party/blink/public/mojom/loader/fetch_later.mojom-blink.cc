@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -150,14 +151,17 @@ void FetchLaterLoaderFactoryProxy::CreateLoader(
                         "<value of type const ::net::MutableNetworkTrafficAnnotationTag&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFetchLaterLoaderFactory_CreateLoader_Name, kFlags, 0, 0, nullptr);
@@ -217,14 +221,17 @@ void FetchLaterLoaderFactoryProxy::Clone(
                         "<value of type ::mojo::PendingAssociatedReceiver<FetchLaterLoaderFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFetchLaterLoaderFactory_Clone_Name, kFlags, 0, 0, nullptr);
@@ -347,12 +354,12 @@ bool FetchLaterLoaderFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFetchLaterLoaderFactoryValidationInfo[] = {
-    {&internal::FetchLaterLoaderFactory_CreateLoader_Params_Data::Validate,
+    { &internal::FetchLaterLoaderFactory_CreateLoader_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FetchLaterLoaderFactory_Clone_Params_Data::Validate,
+    { &internal::FetchLaterLoaderFactory_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -445,14 +452,17 @@ void FetchLaterLoaderProxy::SendNow(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FetchLaterLoader::SendNow");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFetchLaterLoader_SendNow_Name, kFlags, 0, 0, nullptr);
@@ -475,14 +485,17 @@ void FetchLaterLoaderProxy::Cancel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FetchLaterLoader::Cancel");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFetchLaterLoader_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -571,12 +584,12 @@ bool FetchLaterLoaderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFetchLaterLoaderValidationInfo[] = {
-    {&internal::FetchLaterLoader_SendNow_Params_Data::Validate,
+    { &internal::FetchLaterLoader_SendNow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FetchLaterLoader_Cancel_Params_Data::Validate,
+    { &internal::FetchLaterLoader_Cancel_Params_Data::Validate,
      nullptr /* no response */},
 };
 

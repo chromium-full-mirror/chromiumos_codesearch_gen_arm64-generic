@@ -65,14 +65,14 @@ export class LiveHeapProfileView extends UI.Widget.VBox {
         this.setting = Common.Settings.Settings.instance().moduleSetting('memoryLiveHeapProfile');
         const toolbar = new UI.Toolbar.Toolbar('live-heap-profile-toolbar', this.contentElement);
         this.toggleRecordAction =
-            UI.ActionRegistry.ActionRegistry.instance().action('live-heap-profile.toggle-recording');
+            UI.ActionRegistry.ActionRegistry.instance().getAction('live-heap-profile.toggle-recording');
         this.toggleRecordButton =
             UI.Toolbar.Toolbar.createActionButton(this.toggleRecordAction);
         this.toggleRecordButton.setToggled(this.setting.get());
         toolbar.appendToolbarItem(this.toggleRecordButton);
         const mainTarget = SDK.TargetManager.TargetManager.instance().primaryPageTarget();
         if (mainTarget && mainTarget.model(SDK.ResourceTreeModel.ResourceTreeModel)) {
-            const startWithReloadAction = UI.ActionRegistry.ActionRegistry.instance().action('live-heap-profile.start-with-reload');
+            const startWithReloadAction = UI.ActionRegistry.ActionRegistry.instance().getAction('live-heap-profile.start-with-reload');
             this.startWithReloadButton = UI.Toolbar.Toolbar.createActionButton(startWithReloadAction);
             toolbar.appendToolbarItem(this.startWithReloadButton);
         }
@@ -340,15 +340,7 @@ export class GridNode extends DataGrid.SortableDataGrid.SortableDataGridNode {
         return cell;
     }
 }
-let profilerActionDelegateInstance;
 export class ActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!profilerActionDelegateInstance || forceNew) {
-            profilerActionDelegateInstance = new ActionDelegate();
-        }
-        return profilerActionDelegateInstance;
-    }
     handleAction(_context, actionId) {
         void (async () => {
             const profileViewId = 'live_heap_profile';

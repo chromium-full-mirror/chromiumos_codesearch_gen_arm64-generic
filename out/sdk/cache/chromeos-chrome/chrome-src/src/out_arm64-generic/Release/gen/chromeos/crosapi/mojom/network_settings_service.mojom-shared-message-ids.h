@@ -15,11 +15,13 @@ namespace internal {
 
 
 constexpr uint32_t kNetworkSettingsObserver_OnProxyChanged_Name = 0;
+constexpr uint32_t kNetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Name = 1;
 constexpr uint32_t kNetworkSettingsService_AddNetworkSettingsObserver_Name = 0;
 constexpr uint32_t kNetworkSettingsService_SetExtensionProxy_Name = 1;
 constexpr uint32_t kNetworkSettingsService_ClearExtensionProxy_Name = 2;
 constexpr uint32_t kNetworkSettingsService_SetExtensionControllingProxyMetadata_Name = 3;
 constexpr uint32_t kNetworkSettingsService_ClearExtensionControllingProxyMetadata_Name = 4;
+constexpr uint32_t kNetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Name = 5;
 
 }  // namespace internal
 

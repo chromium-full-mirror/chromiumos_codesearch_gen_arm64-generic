@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/paint_filter.mojom-features.h"
 #include "services/viz/public/mojom/compositing/paint_filter.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/paint_filter.mojom-blink-forward.h"
 
@@ -75,7 +76,7 @@ class BLINK_PLATFORM_EXPORT PaintFilter {
   PaintFilter();
 
   explicit PaintFilter(
-      absl::optional<WTF::Vector<uint8_t>> data);
+      std::optional<WTF::Vector<uint8_t>> data);
 
 
   ~PaintFilter();
@@ -153,7 +154,7 @@ class BLINK_PLATFORM_EXPORT PaintFilter {
   }
 
   
-  absl::optional<WTF::Vector<uint8_t>> data;
+  std::optional<WTF::Vector<uint8_t>> data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

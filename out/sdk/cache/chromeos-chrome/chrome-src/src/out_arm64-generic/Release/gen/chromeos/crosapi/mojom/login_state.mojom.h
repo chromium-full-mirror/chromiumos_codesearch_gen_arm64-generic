@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/login_state.mojom-features.h"
 #include "chromeos/crosapi/mojom/login_state.mojom-shared.h"
 #include "chromeos/crosapi/mojom/login_state.mojom-forward.h"
 #include <string>
@@ -292,17 +293,17 @@ class  GetSessionStateResult {
   // Construct an instance holding |error_message|.
   static GetSessionStateResultPtr
   NewErrorMessage(
-      const std::string& error_message) {
+      const std::string& value) {
     auto result = GetSessionStateResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
   // Construct an instance holding |session_state|.
   static GetSessionStateResultPtr
   NewSessionState(
-      SessionState session_state) {
+      SessionState value) {
     auto result = GetSessionStateResultPtr(absl::in_place);
-    result->set_session_state(std::move(session_state));
+    result->set_session_state(std::move(value));
     return result;
   }
 

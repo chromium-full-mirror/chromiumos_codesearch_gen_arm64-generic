@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "gmp", "version": "6.3.0", "revision": 0, "fullname": "dev-libs/gmp", "fullnamerev": "dev-libs/gmp-6.3.0", "license_names": ["LGPL-3+"], "license_text_scanned": [], "homepages": ["https://gmplib.org/"], "skip": false, "tainted": false, "ebuild_path": null}

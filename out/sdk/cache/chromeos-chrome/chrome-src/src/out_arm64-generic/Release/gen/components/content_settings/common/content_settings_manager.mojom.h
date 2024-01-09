@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,10 +23,12 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/content_settings/common/content_settings_manager.mojom-features.h"
 #include "components/content_settings/common/content_settings_manager.mojom-shared.h"
 #include "components/content_settings/common/content_settings_manager.mojom-forward.h"
 #include "components/content_settings/core/common/content_settings.mojom.h"
 #include "services/network/public/mojom/site_for_cookies.mojom.h"
+#include "third_party/blink/public/mojom/tokens/tokens.mojom.h"
 #include "url/mojom/origin.mojom.h"
 #include <string>
 #include <vector>
@@ -102,14 +104,14 @@ class ContentSettingsManager
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool AllowStorageAccess(int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed);
+  virtual bool AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed);
 
   using AllowStorageAccessCallback = base::OnceCallback<void(bool)>;
   
-  virtual void AllowStorageAccess(int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) = 0;
+  virtual void AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) = 0;
 
   
-  virtual void OnContentBlocked(int32_t render_frame_id, ::ContentSettingsType type) = 0;
+  virtual void OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::ContentSettingsType type) = 0;
 };
 
 
@@ -123,11 +125,11 @@ class  ContentSettingsManagerProxy
   
   void Clone(::mojo::PendingReceiver<ContentSettingsManager> clone) final;
   
-  bool AllowStorageAccess(int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed) final;
+  bool AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed) final;
   
-  void AllowStorageAccess(int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) final;
+  void AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) final;
   
-  void OnContentBlocked(int32_t render_frame_id, ::ContentSettingsType type) final;
+  void OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::ContentSettingsType type) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

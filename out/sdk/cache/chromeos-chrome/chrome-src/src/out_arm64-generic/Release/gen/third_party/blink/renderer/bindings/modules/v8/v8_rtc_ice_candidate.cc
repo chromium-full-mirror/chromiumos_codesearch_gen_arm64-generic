@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCIceCandidate>::value,
     "RTCIceCandidate inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCIceCandidate::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCIceCandidate is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -101,7 +96,7 @@ UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidateCandida
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->candidate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -116,10 +111,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.sdpMid.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sdpMid();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sdpMid();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -131,8 +126,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.sdpMLineIndex.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sdpMLineIndex();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -145,10 +141,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.foundation.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->foundation();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->foundation();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -160,10 +156,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.component.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->component();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->component();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -175,8 +171,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.priority.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->priority();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -197,7 +194,7 @@ UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidateAddress
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->address();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 // [HighEntropy=Direct]
@@ -212,10 +209,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.protocol.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->protocol();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->protocol();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -235,7 +232,7 @@ UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidatePort);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->port();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 // [HighEntropy=Direct]
@@ -250,10 +247,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -265,10 +262,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.tcpType.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->tcpType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->tcpType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -288,7 +285,7 @@ UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidateRelated
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->relatedAddress();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 // [HighEntropy=Direct]
@@ -311,7 +308,7 @@ UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidateRelated
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->relatedPort();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 // [HighEntropy=Direct]
@@ -326,10 +323,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.usernameFragment.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->usernameFragment();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->usernameFragment();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -385,8 +382,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(v8_receiver);
+RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/fenced_frame/fenced_frame.mojom-features.h"
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame.mojom-shared.h"
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -89,7 +90,7 @@ class BLINK_COMMON_EXPORT FencedFrameOwnerHost
   virtual ~FencedFrameOwnerHost() = default;
 
   
-  virtual void Navigate(const ::GURL& url, ::base::TimeTicks navigation_start_time, const absl::optional<::std::u16string>& embedder_shared_storage_context) = 0;
+  virtual void Navigate(const ::GURL& url, ::base::TimeTicks navigation_start_time, const std::optional<::std::u16string>& embedder_shared_storage_context) = 0;
 
   
   virtual void DidChangeFramePolicy(const ::blink::FramePolicy& frame_policy) = 0;
@@ -104,7 +105,7 @@ class BLINK_COMMON_EXPORT FencedFrameOwnerHostProxy
 
   explicit FencedFrameOwnerHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void Navigate(const ::GURL& url, ::base::TimeTicks navigation_start_time, const absl::optional<::std::u16string>& embedder_shared_storage_context) final;
+  void Navigate(const ::GURL& url, ::base::TimeTicks navigation_start_time, const std::optional<::std::u16string>& embedder_shared_storage_context) final;
   
   void DidChangeFramePolicy(const ::blink::FramePolicy& frame_policy) final;
 

@@ -169,36 +169,6 @@ nullptr,  // intel_gpu_series
 nullptr,  // exceptions
 },
 {
-56,  // id
-"Mesa drivers in ChromeOS handle varyings without static use incorrectly",
-std::size(kFeatureListForWorkaroundsEntry56),  // features size
-kFeatureListForWorkaroundsEntry56,  // features
-0,  // DisabledExtensions size
-nullptr,  // DisabledExtensions
-0,  // DisabledWebGLExtensions size
-nullptr,  // DisabledWebGLExtensions
-std::size(kCrBugsForWorkaroundsEntry56),  // CrBugs size
-kCrBugsForWorkaroundsEntry56,  // CrBugs
-{
-GpuControlList::kOsChromeOS,  // os_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // os_version
-0x00,  // vendor_id
-0,  // Devices size
-nullptr,  // Devices
-GpuControlList::kMultiGpuCategoryNone,  // multi_gpu_category
-GpuControlList::kMultiGpuStyleNone,  // multi_gpu_style
-&kDriverInfoForWorkaroundsEntry56,  // driver info
-nullptr,  // GL strings
-nullptr,  // machine model info
-0,  // intel_gpu_series size
-nullptr,  // intel_gpu_series
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // intel_gpu_generation
-&kMoreForEntry56_619971032,  // more data
-},
-0,  // exceptions count
-nullptr,  // exceptions
-},
-{
 132,  // id
 "On Intel GPUs MSAA performance is not acceptable for GPU rasterization",
 std::size(kFeatureListForWorkaroundsEntry132),  // features size
@@ -289,36 +259,6 @@ nullptr,  // intel_gpu_series
 nullptr,  // exceptions
 },
 {
-192,  // id
-"Decode and encode before generateMipmap for srgb format textures on os except macosx",
-std::size(kFeatureListForWorkaroundsEntry192),  // features size
-kFeatureListForWorkaroundsEntry192,  // features
-0,  // DisabledExtensions size
-nullptr,  // DisabledExtensions
-0,  // DisabledWebGLExtensions size
-nullptr,  // DisabledWebGLExtensions
-std::size(kCrBugsForWorkaroundsEntry192),  // CrBugs size
-kCrBugsForWorkaroundsEntry192,  // CrBugs
-{
-GpuControlList::kOsAny,  // os_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // os_version
-0x00,  // vendor_id
-0,  // Devices size
-nullptr,  // Devices
-GpuControlList::kMultiGpuCategoryNone,  // multi_gpu_category
-GpuControlList::kMultiGpuStyleNone,  // multi_gpu_style
-nullptr,  // driver info
-nullptr,  // GL strings
-nullptr,  // machine model info
-0,  // intel_gpu_series size
-nullptr,  // intel_gpu_series
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // intel_gpu_generation
-&kMoreForEntry192_619971032,  // more data
-},
-std::size(kExceptionsForEntry192),  // exceptions count
-kExceptionsForEntry192,  // exceptions
-},
-{
 206,  // id
 "Disable KHR_blend_equation_advanced until cc shaders are updated",
 0,  // feature size
@@ -344,36 +284,6 @@ nullptr,  // machine model info
 nullptr,  // intel_gpu_series
 {GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // intel_gpu_generation
 &kMoreForEntry206_619971032,  // more data
-},
-0,  // exceptions count
-nullptr,  // exceptions
-},
-{
-209,  // id
-"Decode and Encode before generateMipmap for srgb format textures on Chromeos Intel",
-std::size(kFeatureListForWorkaroundsEntry209),  // features size
-kFeatureListForWorkaroundsEntry209,  // features
-0,  // DisabledExtensions size
-nullptr,  // DisabledExtensions
-0,  // DisabledWebGLExtensions size
-nullptr,  // DisabledWebGLExtensions
-std::size(kCrBugsForWorkaroundsEntry209),  // CrBugs size
-kCrBugsForWorkaroundsEntry209,  // CrBugs
-{
-GpuControlList::kOsChromeOS,  // os_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // os_version
-0x8086,  // vendor_id
-0,  // Devices size
-nullptr,  // Devices
-GpuControlList::kMultiGpuCategoryNone,  // multi_gpu_category
-GpuControlList::kMultiGpuStyleNone,  // multi_gpu_style
-nullptr,  // driver info
-nullptr,  // GL strings
-nullptr,  // machine model info
-0,  // intel_gpu_series size
-nullptr,  // intel_gpu_series
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // intel_gpu_generation
-&kMoreForEntry209_619971032,  // more data
 },
 0,  // exceptions count
 nullptr,  // exceptions
@@ -614,36 +524,6 @@ nullptr,  // machine model info
 nullptr,  // intel_gpu_series
 {GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // intel_gpu_generation
 &kMoreForEntry289_619971032,  // more data
-},
-0,  // exceptions count
-nullptr,  // exceptions
-},
-{
-307,  // id
-"Workaround for broken EGL_IMAGE_EXTERNAL_FLUSH_EXT implementation on NVIDIA",
-std::size(kFeatureListForWorkaroundsEntry307),  // features size
-kFeatureListForWorkaroundsEntry307,  // features
-0,  // DisabledExtensions size
-nullptr,  // DisabledExtensions
-0,  // DisabledWebGLExtensions size
-nullptr,  // DisabledWebGLExtensions
-std::size(kCrBugsForWorkaroundsEntry307),  // CrBugs size
-kCrBugsForWorkaroundsEntry307,  // CrBugs
-{
-GpuControlList::kOsChromeOS,  // os_type
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // os_version
-0x00,  // vendor_id
-0,  // Devices size
-nullptr,  // Devices
-GpuControlList::kMultiGpuCategoryNone,  // multi_gpu_category
-GpuControlList::kMultiGpuStyleNone,  // multi_gpu_style
-nullptr,  // driver info
-&kGLStringsForWorkaroundsEntry307,  // GL strings
-nullptr,  // machine model info
-0,  // intel_gpu_series size
-nullptr,  // intel_gpu_series
-{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // intel_gpu_generation
-&kMoreForEntry307_619971032,  // more data
 },
 0,  // exceptions count
 nullptr,  // exceptions
@@ -1188,6 +1068,66 @@ nullptr,  // intel_gpu_series
 0,  // exceptions count
 nullptr,  // exceptions
 },
+{
+422,  // id
+"Disable video acceleration on some Intel 8LP GPUs on ChromeOS [b/293173688]",
+std::size(kFeatureListForWorkaroundsEntry422),  // features size
+kFeatureListForWorkaroundsEntry422,  // features
+0,  // DisabledExtensions size
+nullptr,  // DisabledExtensions
+0,  // DisabledWebGLExtensions size
+nullptr,  // DisabledWebGLExtensions
+0,  // CrBugs size
+nullptr,  // CrBugs
+{
+GpuControlList::kOsChromeOS,  // os_type
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // os_version
+0x8086,  // vendor_id
+std::size(kDevicesForWorkaroundsEntry422),  // Devices size
+kDevicesForWorkaroundsEntry422,  // Devices
+GpuControlList::kMultiGpuCategoryNone,  // multi_gpu_category
+GpuControlList::kMultiGpuStyleNone,  // multi_gpu_style
+nullptr,  // driver info
+nullptr,  // GL strings
+nullptr,  // machine model info
+0,  // intel_gpu_series size
+nullptr,  // intel_gpu_series
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // intel_gpu_generation
+&kMoreForEntry422_619971032,  // more data
+},
+0,  // exceptions count
+nullptr,  // exceptions
+},
+{
+423,  // id
+"Legacy AMD GPUs can't synchronize multiple write streams on SharedImages [b/293613437]",
+std::size(kFeatureListForWorkaroundsEntry423),  // features size
+kFeatureListForWorkaroundsEntry423,  // features
+0,  // DisabledExtensions size
+nullptr,  // DisabledExtensions
+0,  // DisabledWebGLExtensions size
+nullptr,  // DisabledWebGLExtensions
+0,  // CrBugs size
+nullptr,  // CrBugs
+{
+GpuControlList::kOsChromeOS,  // os_type
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // os_version
+0x1002,  // vendor_id
+std::size(kDevicesForWorkaroundsEntry423),  // Devices size
+kDevicesForWorkaroundsEntry423,  // Devices
+GpuControlList::kMultiGpuCategoryNone,  // multi_gpu_category
+GpuControlList::kMultiGpuStyleNone,  // multi_gpu_style
+nullptr,  // driver info
+nullptr,  // GL strings
+nullptr,  // machine model info
+0,  // intel_gpu_series size
+nullptr,  // intel_gpu_series
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // intel_gpu_generation
+&kMoreForEntry423_619971032,  // more data
+},
+0,  // exceptions count
+nullptr,  // exceptions
+},
 };
-const size_t kGpuDriverBugListEntryCount = 39;
+const size_t kGpuDriverBugListEntryCount = 37;
 }  // namespace gpu

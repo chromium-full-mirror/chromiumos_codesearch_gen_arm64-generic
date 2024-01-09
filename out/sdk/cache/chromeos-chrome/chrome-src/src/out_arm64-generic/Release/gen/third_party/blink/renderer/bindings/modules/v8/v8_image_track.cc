@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ImageTrack>::value,
     "ImageTrack inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ImageTrack::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ImageTrack is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageTrack.frameCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(v8_receiver);
+ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->frameCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageTrack.animated.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(v8_receiver);
+ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->animated();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -112,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageTrack.repetitionCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(v8_receiver);
+ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->repetitionCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -126,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageTrack.selected.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(v8_receiver);
+ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->selected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -139,9 +138,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageTrack.selected.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ImageTrack* blink_receiver = V8ImageTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "ImageTrack";

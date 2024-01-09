@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGTextPositioningElement>::value,
     "SVGTextPositioningElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGTextPositioningElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGTextPositioningElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(v8_receiver);
+SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,7 +111,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(v8_receiver);
+SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -135,7 +130,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(v8_receiver);
+SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->dx();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -154,7 +149,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(v8_receiver);
+SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->dy();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -173,7 +168,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(v8_receiver);
+SVGTextPositioningElement* blink_receiver = V8SVGTextPositioningElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rotate();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

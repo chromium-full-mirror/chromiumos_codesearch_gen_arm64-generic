@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,29 +49,8 @@ const char CameraHalDispatcher::Name_[] = "cros.mojom.CameraHalDispatcher";
 CameraHalDispatcher::IPCStableHashFunction CameraHalDispatcher::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kCameraHalDispatcher_RegisterServer_Name: {
-      return &CameraHalDispatcher::RegisterServer_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalDispatcher_RegisterClient_Name: {
-      return &CameraHalDispatcher::RegisterClient_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name: {
-      return &CameraHalDispatcher::GetMjpegDecodeAccelerator_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalDispatcher_GetJpegEncodeAccelerator_Name: {
-      return &CameraHalDispatcher::GetJpegEncodeAccelerator_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalDispatcher_RegisterServerWithToken_Name: {
-      return &CameraHalDispatcher::RegisterServerWithToken_Sym::IPCStableHash;
-    }
     case internal::kCameraHalDispatcher_RegisterClientWithToken_Name: {
       return &CameraHalDispatcher::RegisterClientWithToken_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name: {
-      return &CameraHalDispatcher::RegisterSensorClientWithToken_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name: {
-      return &CameraHalDispatcher::BindServiceToMojoServiceManager_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -83,41 +63,13 @@ const char* CameraHalDispatcher::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kCameraHalDispatcher_RegisterServer_Name:
-            return "Receive cros::mojom::CameraHalDispatcher::RegisterServer";
-      case internal::kCameraHalDispatcher_RegisterClient_Name:
-            return "Receive cros::mojom::CameraHalDispatcher::RegisterClient";
-      case internal::kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name:
-            return "Receive cros::mojom::CameraHalDispatcher::GetMjpegDecodeAccelerator";
-      case internal::kCameraHalDispatcher_GetJpegEncodeAccelerator_Name:
-            return "Receive cros::mojom::CameraHalDispatcher::GetJpegEncodeAccelerator";
-      case internal::kCameraHalDispatcher_RegisterServerWithToken_Name:
-            return "Receive cros::mojom::CameraHalDispatcher::RegisterServerWithToken";
       case internal::kCameraHalDispatcher_RegisterClientWithToken_Name:
             return "Receive cros::mojom::CameraHalDispatcher::RegisterClientWithToken";
-      case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name:
-            return "Receive cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken";
-      case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name:
-            return "Receive cros::mojom::CameraHalDispatcher::BindServiceToMojoServiceManager";
     }
   } else {
     switch (message.name()) {
-      case internal::kCameraHalDispatcher_RegisterServer_Name:
-            return "Receive reply cros::mojom::CameraHalDispatcher::RegisterServer";
-      case internal::kCameraHalDispatcher_RegisterClient_Name:
-            return "Receive reply cros::mojom::CameraHalDispatcher::RegisterClient";
-      case internal::kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name:
-            return "Receive reply cros::mojom::CameraHalDispatcher::GetMjpegDecodeAccelerator";
-      case internal::kCameraHalDispatcher_GetJpegEncodeAccelerator_Name:
-            return "Receive reply cros::mojom::CameraHalDispatcher::GetJpegEncodeAccelerator";
-      case internal::kCameraHalDispatcher_RegisterServerWithToken_Name:
-            return "Receive reply cros::mojom::CameraHalDispatcher::RegisterServerWithToken";
       case internal::kCameraHalDispatcher_RegisterClientWithToken_Name:
             return "Receive reply cros::mojom::CameraHalDispatcher::RegisterClientWithToken";
-      case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name:
-            return "Receive reply cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken";
-      case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name:
-            return "Receive reply cros::mojom::CameraHalDispatcher::BindServiceToMojoServiceManager";
     }
   }
   return "Receive unknown mojo message";
@@ -132,71 +84,6 @@ const char* CameraHalDispatcher::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t CameraHalDispatcher::RegisterServer_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalDispatcher::RegisterServer");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalDispatcher::RegisterClient_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalDispatcher::RegisterClient");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalDispatcher::GetMjpegDecodeAccelerator_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalDispatcher::GetMjpegDecodeAccelerator");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalDispatcher::GetJpegEncodeAccelerator_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalDispatcher::GetJpegEncodeAccelerator");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalDispatcher::RegisterServerWithToken_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalDispatcher::RegisterServerWithToken");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t CameraHalDispatcher::RegisterClientWithToken_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -210,49 +97,7 @@ uint32_t CameraHalDispatcher::RegisterClientWithToken_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CameraHalDispatcher::RegisterSensorClientWithToken_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalDispatcher::BindServiceToMojoServiceManager_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalDispatcher::BindServiceToMojoServiceManager");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 # endif // !BUILDFLAG(IS_FUCHSIA)
-
-class CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback(
-      CameraHalDispatcher::RegisterServerWithTokenCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback(const CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback&) = delete;
-  CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback& operator=(const CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  CameraHalDispatcher::RegisterServerWithTokenCallback callback_;
-};
 
 class CameraHalDispatcher_RegisterClientWithToken_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -270,254 +115,8 @@ class CameraHalDispatcher_RegisterClientWithToken_ForwardToCallback
   CameraHalDispatcher::RegisterClientWithTokenCallback callback_;
 };
 
-class CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback(
-      CameraHalDispatcher::RegisterSensorClientWithTokenCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback(const CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback&) = delete;
-  CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback& operator=(const CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  CameraHalDispatcher::RegisterSensorClientWithTokenCallback callback_;
-};
-
 CameraHalDispatcherProxy::CameraHalDispatcherProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
-}
-
-void CameraHalDispatcherProxy::RegisterServer(
-    ::mojo::PendingRemote<CameraHalServer> in_server) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalDispatcher::RegisterServer", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("server"), in_server,
-                        "<value of type ::mojo::PendingRemote<CameraHalServer>>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterServer_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalDispatcher_RegisterServer_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::cros::mojom::CameraHalServerInterfaceBase>>(
-      in_server, &params->server, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->server),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid server in CameraHalDispatcher.RegisterServer request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalDispatcher::Name_);
-  message.set_method_name("RegisterServer");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void CameraHalDispatcherProxy::RegisterClient(
-    ::mojo::PendingRemote<::cros::mojom::CameraHalClient> in_client) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalDispatcher::RegisterClient", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("client"), in_client,
-                        "<value of type ::mojo::PendingRemote<::cros::mojom::CameraHalClient>>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterClient_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalDispatcher_RegisterClient_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::cros::mojom::CameraHalClientInterfaceBase>>(
-      in_client, &params->client, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->client),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid client in CameraHalDispatcher.RegisterClient request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalDispatcher::Name_);
-  message.set_method_name("RegisterClient");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void CameraHalDispatcherProxy::GetMjpegDecodeAccelerator(
-    ::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator> in_jda_receiver) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalDispatcher::GetMjpegDecodeAccelerator", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("jda_receiver"), in_jda_receiver,
-                        "<value of type ::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator>>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalDispatcher_GetMjpegDecodeAccelerator_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos_camera::mojom::MjpegDecodeAcceleratorInterfaceBase>>(
-      in_jda_receiver, &params->jda_receiver, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->jda_receiver),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid jda_receiver in CameraHalDispatcher.GetMjpegDecodeAccelerator request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalDispatcher::Name_);
-  message.set_method_name("GetMjpegDecodeAccelerator");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void CameraHalDispatcherProxy::GetJpegEncodeAccelerator(
-    ::mojo::PendingReceiver<::chromeos_camera::mojom::JpegEncodeAccelerator> in_jea_receiver) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalDispatcher::GetJpegEncodeAccelerator", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("jea_receiver"), in_jea_receiver,
-                        "<value of type ::mojo::PendingReceiver<::chromeos_camera::mojom::JpegEncodeAccelerator>>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalDispatcher_GetJpegEncodeAccelerator_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos_camera::mojom::JpegEncodeAcceleratorInterfaceBase>>(
-      in_jea_receiver, &params->jea_receiver, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->jea_receiver),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid jea_receiver in CameraHalDispatcher.GetJpegEncodeAccelerator request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalDispatcher::Name_);
-  message.set_method_name("GetJpegEncodeAccelerator");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void CameraHalDispatcherProxy::RegisterServerWithToken(
-    ::mojo::PendingRemote<CameraHalServer> in_server, const ::base::UnguessableToken& in_auth_token, RegisterServerWithTokenCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalDispatcher::RegisterServerWithToken", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("server"), in_server,
-                        "<value of type ::mojo::PendingRemote<CameraHalServer>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("auth_token"), in_auth_token,
-                        "<value of type const ::base::UnguessableToken&>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterServerWithToken_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalDispatcher_RegisterServerWithToken_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::cros::mojom::CameraHalServerInterfaceBase>>(
-      in_server, &params->server, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->server),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid server in CameraHalDispatcher.RegisterServerWithToken request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->auth_token)::BaseType> auth_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
-      in_auth_token, auth_token_fragment);
-  params->auth_token.Set(
-      auth_token_fragment.is_null() ? nullptr : auth_token_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->auth_token.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null auth_token in CameraHalDispatcher.RegisterServerWithToken request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalDispatcher::Name_);
-  message.set_method_name("RegisterServerWithToken");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraHalDispatcherProxy::RegisterClientWithToken(
@@ -538,14 +137,17 @@ void CameraHalDispatcherProxy::RegisterClientWithToken(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraHalDispatcher_RegisterClientWithToken_Name, kFlags, 0, 0, nullptr);
@@ -581,254 +183,6 @@ void CameraHalDispatcherProxy::RegisterClientWithToken(
       new CameraHalDispatcher_RegisterClientWithToken_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void CameraHalDispatcherProxy::RegisterSensorClientWithToken(
-    ::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> in_client, const ::base::UnguessableToken& in_auth_token, RegisterSensorClientWithTokenCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("client"), in_client,
-                        "<value of type ::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("auth_token"), in_auth_token,
-                        "<value of type const ::base::UnguessableToken&>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::sensors::mojom::SensorHalClientInterfaceBase>>(
-      in_client, &params->client, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->client),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid client in CameraHalDispatcher.RegisterSensorClientWithToken request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->auth_token)::BaseType> auth_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
-      in_auth_token, auth_token_fragment);
-  params->auth_token.Set(
-      auth_token_fragment.is_null() ? nullptr : auth_token_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->auth_token.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null auth_token in CameraHalDispatcher.RegisterSensorClientWithToken request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalDispatcher::Name_);
-  message.set_method_name("RegisterSensorClientWithToken");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void CameraHalDispatcherProxy::BindServiceToMojoServiceManager(
-    const std::string& in_service_name, ::mojo::ScopedMessagePipeHandle in_receiver) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalDispatcher::BindServiceToMojoServiceManager", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("service_name"), in_service_name,
-                        "<value of type const std::string&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("receiver"), in_receiver,
-                        "<value of type ::mojo::ScopedMessagePipeHandle>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->service_name)::BaseType> service_name_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_service_name, service_name_fragment);
-  params->service_name.Set(
-      service_name_fragment.is_null() ? nullptr : service_name_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->service_name.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null service_name in CameraHalDispatcher.BindServiceToMojoServiceManager request");
-  mojo::internal::Serialize<mojo::ScopedMessagePipeHandle>(
-      in_receiver, &params->receiver, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid receiver in CameraHalDispatcher.BindServiceToMojoServiceManager request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalDispatcher::Name_);
-  message.set_method_name("BindServiceToMojoServiceManager");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-class CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static CameraHalDispatcher::RegisterServerWithTokenCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder> proxy(
-        new CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "CameraHalDispatcher::RegisterServerWithTokenCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      int32_t in_result, ::mojo::PendingRemote<CameraHalServerCallbacks> in_callbacks);
-};
-
-bool CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  int32_t p_result{};
-  ::mojo::PendingRemote<CameraHalServerCallbacks> p_callbacks{};
-  CameraHalDispatcher_RegisterServerWithToken_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_result = input_data_view.result();
-  if (success) {
-    p_callbacks =
-        input_data_view.TakeCallbacks<decltype(p_callbacks)>();
-  }
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CameraHalDispatcher::Name_, 4, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_result), 
-std::move(p_callbacks));
-  return true;
-}
-
-void CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder::Run(
-    int32_t in_result, ::mojo::PendingRemote<CameraHalServerCallbacks> in_callbacks) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply cros::mojom::CameraHalDispatcher::RegisterServerWithToken", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type int32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("callbacks"), in_callbacks,
-                        "<value of type ::mojo::PendingRemote<CameraHalServerCallbacks>>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterServerWithToken_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->result = in_result;
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::cros::mojom::CameraHalServerCallbacksInterfaceBase>>(
-      in_callbacks, &params->callbacks, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->callbacks),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid callbacks in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalDispatcher::Name_);
-  message.set_method_name("RegisterServerWithToken");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
 }
 class CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -922,7 +276,8 @@ void CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCameraHalDispatcher_RegisterClientWithToken_Name, kFlags, 0, 0, nullptr);
@@ -948,280 +303,14 @@ void CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static CameraHalDispatcher::RegisterSensorClientWithTokenCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder> proxy(
-        new CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "CameraHalDispatcher::RegisterSensorClientWithTokenCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      int32_t in_result);
-};
-
-bool CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  int32_t p_result{};
-  CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_result = input_data_view.result();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CameraHalDispatcher::Name_, 6, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_result));
-  return true;
-}
-
-void CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder::Run(
-    int32_t in_result) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type int32_t>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->result = in_result;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalDispatcher::Name_);
-  message.set_method_name("RegisterSensorClientWithToken");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
 
 // static
 bool CameraHalDispatcherStubDispatch::Accept(
     CameraHalDispatcher* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kCameraHalDispatcher_RegisterServer_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CameraHalDispatcher_RegisterServer_Params_Data* params =
-          reinterpret_cast<internal::CameraHalDispatcher_RegisterServer_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::mojo::PendingRemote<CameraHalServer> p_server{};
-      CameraHalDispatcher_RegisterServer_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_server =
-            input_data_view.TakeServer<decltype(p_server)>();
-      }
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalDispatcher::Name_, 0, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->RegisterServer(
-std::move(p_server));
-      return true;
-    }
-    case internal::kCameraHalDispatcher_RegisterClient_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CameraHalDispatcher_RegisterClient_Params_Data* params =
-          reinterpret_cast<internal::CameraHalDispatcher_RegisterClient_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::mojo::PendingRemote<::cros::mojom::CameraHalClient> p_client{};
-      CameraHalDispatcher_RegisterClient_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_client =
-            input_data_view.TakeClient<decltype(p_client)>();
-      }
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalDispatcher::Name_, 1, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->RegisterClient(
-std::move(p_client));
-      return true;
-    }
-    case internal::kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CameraHalDispatcher_GetMjpegDecodeAccelerator_Params_Data* params =
-          reinterpret_cast<internal::CameraHalDispatcher_GetMjpegDecodeAccelerator_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator> p_jda_receiver{};
-      CameraHalDispatcher_GetMjpegDecodeAccelerator_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_jda_receiver =
-            input_data_view.TakeJdaReceiver<decltype(p_jda_receiver)>();
-      }
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalDispatcher::Name_, 2, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetMjpegDecodeAccelerator(
-std::move(p_jda_receiver));
-      return true;
-    }
-    case internal::kCameraHalDispatcher_GetJpegEncodeAccelerator_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data* params =
-          reinterpret_cast<internal::CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::mojo::PendingReceiver<::chromeos_camera::mojom::JpegEncodeAccelerator> p_jea_receiver{};
-      CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_jea_receiver =
-            input_data_view.TakeJeaReceiver<decltype(p_jea_receiver)>();
-      }
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalDispatcher::Name_, 3, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetJpegEncodeAccelerator(
-std::move(p_jea_receiver));
-      return true;
-    }
-    case internal::kCameraHalDispatcher_RegisterServerWithToken_Name: {
-      break;
-    }
     case internal::kCameraHalDispatcher_RegisterClientWithToken_Name: {
       break;
-    }
-    case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name: {
-      break;
-    }
-    case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data* params =
-          reinterpret_cast<internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      std::string p_service_name{};
-      ::mojo::ScopedMessagePipeHandle p_receiver{};
-      CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadServiceName(&p_service_name))
-        success = false;
-      if (success)
-        p_receiver = input_data_view.TakeReceiver();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalDispatcher::Name_, 7, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->BindServiceToMojoServiceManager(
-std::move(p_service_name), 
-std::move(p_receiver));
-      return true;
     }
   }
   return false;
@@ -1236,53 +325,6 @@ bool CameraHalDispatcherStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kCameraHalDispatcher_RegisterServer_Name: {
-      break;
-    }
-    case internal::kCameraHalDispatcher_RegisterClient_Name: {
-      break;
-    }
-    case internal::kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name: {
-      break;
-    }
-    case internal::kCameraHalDispatcher_GetJpegEncodeAccelerator_Name: {
-      break;
-    }
-    case internal::kCameraHalDispatcher_RegisterServerWithToken_Name: {
-
-      internal::CameraHalDispatcher_RegisterServerWithToken_Params_Data* params =
-          reinterpret_cast<
-              internal::CameraHalDispatcher_RegisterServerWithToken_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::mojo::PendingRemote<CameraHalServer> p_server{};
-      ::base::UnguessableToken p_auth_token{};
-      CameraHalDispatcher_RegisterServerWithToken_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_server =
-            input_data_view.TakeServer<decltype(p_server)>();
-      }
-      if (success && !input_data_view.ReadAuthToken(&p_auth_token))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalDispatcher::Name_, 4, false);
-        return false;
-      }
-      CameraHalDispatcher::RegisterServerWithTokenCallback callback =
-          CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->RegisterServerWithToken(
-std::move(p_server), 
-std::move(p_auth_token), std::move(callback));
-      return true;
-    }
     case internal::kCameraHalDispatcher_RegisterClientWithToken_Name: {
 
       internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data* params =
@@ -1322,102 +364,40 @@ std::move(p_type),
 std::move(p_auth_token), std::move(callback));
       return true;
     }
-    case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name: {
-
-      internal::CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data* params =
-          reinterpret_cast<
-              internal::CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> p_client{};
-      ::base::UnguessableToken p_auth_token{};
-      CameraHalDispatcher_RegisterSensorClientWithToken_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_client =
-            input_data_view.TakeClient<decltype(p_client)>();
-      }
-      if (success && !input_data_view.ReadAuthToken(&p_auth_token))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalDispatcher::Name_, 6, false);
-        return false;
-      }
-      CameraHalDispatcher::RegisterSensorClientWithTokenCallback callback =
-          CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->RegisterSensorClientWithToken(
-std::move(p_client), 
-std::move(p_auth_token), std::move(callback));
-      return true;
-    }
-    case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name: {
-      break;
-    }
   }
   return false;
 }
-
-
-static const mojo::internal::GenericValidationInfo kCameraHalDispatcherValidationInfo[] = {
-    {&internal::CameraHalDispatcher_RegisterServer_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CameraHalDispatcher_RegisterClient_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CameraHalDispatcher_GetMjpegDecodeAccelerator_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CameraHalDispatcher_RegisterServerWithToken_Params_Data::Validate,
-     &internal::CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data::Validate},
-    {&internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data::Validate,
-     &internal::CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data::Validate},
-    {&internal::CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data::Validate,
-     &internal::CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data::Validate},
-    {&internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data::Validate,
-     nullptr /* no response */},
+namespace {
+}  // namespace
+static const std::pair<uint32_t, mojo::internal::GenericValidationInfo> kCameraHalDispatcherValidationInfo[] = {
+    {internal::kCameraHalDispatcher_RegisterClientWithToken_Name,
+     { &internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data::Validate,
+      &internal::CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data::Validate}},
 };
 
 bool CameraHalDispatcherRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::cros::mojom::CameraHalDispatcher::Name_;
-  return mojo::internal::ValidateRequestGenericPacked(message, name, kCameraHalDispatcherValidationInfo);
+  return mojo::internal::ValidateRequestGeneric(message, name, kCameraHalDispatcherValidationInfo);
 }
 
 bool CameraHalDispatcherResponseValidator::Accept(mojo::Message* message) {
   const char* name = ::cros::mojom::CameraHalDispatcher::Name_;
-  return mojo::internal::ValidateResponseGenericPacked(message, name, kCameraHalDispatcherValidationInfo);
-}
-const char CameraHalServer::Name_[] = "cros.mojom.CameraHalServer";
+  return mojo::internal::ValidateResponseGeneric(message, name, kCameraHalDispatcherValidationInfo);
 
-CameraHalServer::IPCStableHashFunction CameraHalServer::MessageToMethodInfo_(mojo::Message& message) {
+}
+const char CrosCameraServiceObserver::Name_[] = "cros.mojom.CrosCameraServiceObserver";
+
+CrosCameraServiceObserver::IPCStableHashFunction CrosCameraServiceObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kCameraHalServer_CreateChannel_Name: {
-      return &CameraHalServer::CreateChannel_Sym::IPCStableHash;
+    case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name: {
+      return &CrosCameraServiceObserver::CameraDeviceActivityChange_Sym::IPCStableHash;
     }
-    case internal::kCameraHalServer_SetTracingEnabled_Name: {
-      return &CameraHalServer::SetTracingEnabled_Sym::IPCStableHash;
+    case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name: {
+      return &CrosCameraServiceObserver::CameraPrivacySwitchStateChange_Sym::IPCStableHash;
     }
-    case internal::kCameraHalServer_SetAutoFramingState_Name: {
-      return &CameraHalServer::SetAutoFramingState_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalServer_GetCameraSWPrivacySwitchState_Name: {
-      return &CameraHalServer::GetCameraSWPrivacySwitchState_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name: {
-      return &CameraHalServer::SetCameraSWPrivacySwitchState_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalServer_GetAutoFramingSupported_Name: {
-      return &CameraHalServer::GetAutoFramingSupported_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalServer_SetCameraEffect_Name: {
-      return &CameraHalServer::SetCameraEffect_Sym::IPCStableHash;
+    case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
+      return &CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -1425,42 +405,26 @@ CameraHalServer::IPCStableHashFunction CameraHalServer::MessageToMethodInfo_(moj
 }
 
 
-const char* CameraHalServer::MessageToMethodName_(mojo::Message& message) {
+const char* CrosCameraServiceObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kCameraHalServer_CreateChannel_Name:
-            return "Receive cros::mojom::CameraHalServer::CreateChannel";
-      case internal::kCameraHalServer_SetTracingEnabled_Name:
-            return "Receive cros::mojom::CameraHalServer::SetTracingEnabled";
-      case internal::kCameraHalServer_SetAutoFramingState_Name:
-            return "Receive cros::mojom::CameraHalServer::SetAutoFramingState";
-      case internal::kCameraHalServer_GetCameraSWPrivacySwitchState_Name:
-            return "Receive cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState";
-      case internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name:
-            return "Receive cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState";
-      case internal::kCameraHalServer_GetAutoFramingSupported_Name:
-            return "Receive cros::mojom::CameraHalServer::GetAutoFramingSupported";
-      case internal::kCameraHalServer_SetCameraEffect_Name:
-            return "Receive cros::mojom::CameraHalServer::SetCameraEffect";
+      case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name:
+            return "Receive cros::mojom::CrosCameraServiceObserver::CameraDeviceActivityChange";
+      case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name:
+            return "Receive cros::mojom::CrosCameraServiceObserver::CameraPrivacySwitchStateChange";
+      case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name:
+            return "Receive cros::mojom::CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange";
     }
   } else {
     switch (message.name()) {
-      case internal::kCameraHalServer_CreateChannel_Name:
-            return "Receive reply cros::mojom::CameraHalServer::CreateChannel";
-      case internal::kCameraHalServer_SetTracingEnabled_Name:
-            return "Receive reply cros::mojom::CameraHalServer::SetTracingEnabled";
-      case internal::kCameraHalServer_SetAutoFramingState_Name:
-            return "Receive reply cros::mojom::CameraHalServer::SetAutoFramingState";
-      case internal::kCameraHalServer_GetCameraSWPrivacySwitchState_Name:
-            return "Receive reply cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState";
-      case internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name:
-            return "Receive reply cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState";
-      case internal::kCameraHalServer_GetAutoFramingSupported_Name:
-            return "Receive reply cros::mojom::CameraHalServer::GetAutoFramingSupported";
-      case internal::kCameraHalServer_SetCameraEffect_Name:
-            return "Receive reply cros::mojom::CameraHalServer::SetCameraEffect";
+      case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name:
+            return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraDeviceActivityChange";
+      case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name:
+            return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraPrivacySwitchStateChange";
+      case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name:
+            return "Receive reply cros::mojom::CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange";
     }
   }
   return "Receive unknown mojo message";
@@ -1475,7 +439,7 @@ const char* CameraHalServer::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t CameraHalServer::CreateChannel_Sym::IPCStableHash() {
+uint32_t CrosCameraServiceObserver::CameraDeviceActivityChange_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1483,12 +447,12 @@ uint32_t CameraHalServer::CreateChannel_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServer::CreateChannel");
+          "(Impl)cros::mojom::CrosCameraServiceObserver::CameraDeviceActivityChange");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CameraHalServer::SetTracingEnabled_Sym::IPCStableHash() {
+uint32_t CrosCameraServiceObserver::CameraPrivacySwitchStateChange_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1496,12 +460,12 @@ uint32_t CameraHalServer::SetTracingEnabled_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServer::SetTracingEnabled");
+          "(Impl)cros::mojom::CrosCameraServiceObserver::CameraPrivacySwitchStateChange");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CameraHalServer::SetAutoFramingState_Sym::IPCStableHash() {
+uint32_t CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1509,1111 +473,22 @@ uint32_t CameraHalServer::SetAutoFramingState_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServer::SetAutoFramingState");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalServer::GetCameraSWPrivacySwitchState_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalServer::SetCameraSWPrivacySwitchState_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalServer::GetAutoFramingSupported_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServer::GetAutoFramingSupported");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalServer::SetCameraEffect_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServer::SetCameraEffect");
+          "(Impl)cros::mojom::CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-class CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback(
-      CameraHalServer::GetCameraSWPrivacySwitchStateCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback(const CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback&) = delete;
-  CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback& operator=(const CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  CameraHalServer::GetCameraSWPrivacySwitchStateCallback callback_;
-};
-
-class CameraHalServer_GetAutoFramingSupported_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  CameraHalServer_GetAutoFramingSupported_ForwardToCallback(
-      CameraHalServer::GetAutoFramingSupportedCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  CameraHalServer_GetAutoFramingSupported_ForwardToCallback(const CameraHalServer_GetAutoFramingSupported_ForwardToCallback&) = delete;
-  CameraHalServer_GetAutoFramingSupported_ForwardToCallback& operator=(const CameraHalServer_GetAutoFramingSupported_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  CameraHalServer::GetAutoFramingSupportedCallback callback_;
-};
-
-class CameraHalServer_SetCameraEffect_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  CameraHalServer_SetCameraEffect_ForwardToCallback(
-      CameraHalServer::SetCameraEffectCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  CameraHalServer_SetCameraEffect_ForwardToCallback(const CameraHalServer_SetCameraEffect_ForwardToCallback&) = delete;
-  CameraHalServer_SetCameraEffect_ForwardToCallback& operator=(const CameraHalServer_SetCameraEffect_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  CameraHalServer::SetCameraEffectCallback callback_;
-};
-
-CameraHalServerProxy::CameraHalServerProxy(mojo::MessageReceiverWithResponder* receiver)
+CrosCameraServiceObserverProxy::CrosCameraServiceObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
-void CameraHalServerProxy::CreateChannel(
-    ::mojo::PendingReceiver<::cros::mojom::CameraModule> in_camera_module_receiver, CameraClientType in_type) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalServer::CreateChannel", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("camera_module_receiver"), in_camera_module_receiver,
-                        "<value of type ::mojo::PendingReceiver<::cros::mojom::CameraModule>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("type"), in_type,
-                        "<value of type CameraClientType>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_CreateChannel_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_CreateChannel_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::cros::mojom::CameraModuleInterfaceBase>>(
-      in_camera_module_receiver, &params->camera_module_receiver, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->camera_module_receiver),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid camera_module_receiver in CameraHalServer.CreateChannel request");
-  mojo::internal::Serialize<::cros::mojom::CameraClientType>(
-      in_type, &params->type);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("CreateChannel");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void CameraHalServerProxy::SetTracingEnabled(
-    bool in_enabled) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalServer::SetTracingEnabled", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("enabled"), in_enabled,
-                        "<value of type bool>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_SetTracingEnabled_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_SetTracingEnabled_Params_Data> params(
-          message);
-  params.Allocate();
-  params->enabled = in_enabled;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("SetTracingEnabled");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void CameraHalServerProxy::SetAutoFramingState(
-    CameraAutoFramingState in_state) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalServer::SetAutoFramingState", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("state"), in_state,
-                        "<value of type CameraAutoFramingState>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_SetAutoFramingState_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_SetAutoFramingState_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::cros::mojom::CameraAutoFramingState>(
-      in_state, &params->state);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("SetAutoFramingState");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void CameraHalServerProxy::GetCameraSWPrivacySwitchState(
-    GetCameraSWPrivacySwitchStateCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("GetCameraSWPrivacySwitchState");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void CameraHalServerProxy::SetCameraSWPrivacySwitchState(
-    CameraPrivacySwitchState in_state) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("state"), in_state,
-                        "<value of type CameraPrivacySwitchState>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::cros::mojom::CameraPrivacySwitchState>(
-      in_state, &params->state);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("SetCameraSWPrivacySwitchState");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void CameraHalServerProxy::GetAutoFramingSupported(
-    GetAutoFramingSupportedCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send cros::mojom::CameraHalServer::GetAutoFramingSupported");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_GetAutoFramingSupported_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("GetAutoFramingSupported");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new CameraHalServer_GetAutoFramingSupported_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void CameraHalServerProxy::SetCameraEffect(
-    ::cros::mojom::EffectsConfigPtr in_config, SetCameraEffectCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalServer::SetCameraEffect", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("config"), in_config,
-                        "<value of type ::cros::mojom::EffectsConfigPtr>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_SetCameraEffect_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_SetCameraEffect_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->config)::BaseType> config_fragment(
-          params.message());
-  mojo::internal::Serialize<::cros::mojom::EffectsConfigDataView>(
-      in_config, config_fragment);
-  params->config.Set(
-      config_fragment.is_null() ? nullptr : config_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->config.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null config in CameraHalServer.SetCameraEffect request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("SetCameraEffect");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new CameraHalServer_SetCameraEffect_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-class CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static CameraHalServer::GetCameraSWPrivacySwitchStateCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder> proxy(
-        new CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "CameraHalServer::GetCameraSWPrivacySwitchStateCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      CameraPrivacySwitchState in_state);
-};
-
-bool CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  CameraPrivacySwitchState p_state{};
-  CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadState(&p_state))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CameraHalServer::Name_, 3, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_state));
-  return true;
-}
-
-void CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder::Run(
-    CameraPrivacySwitchState in_state) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("state"), in_state,
-                        "<value of type CameraPrivacySwitchState>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::cros::mojom::CameraPrivacySwitchState>(
-      in_state, &params->state);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("GetCameraSWPrivacySwitchState");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class CameraHalServer_GetAutoFramingSupported_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static CameraHalServer::GetAutoFramingSupportedCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CameraHalServer_GetAutoFramingSupported_ProxyToResponder> proxy(
-        new CameraHalServer_GetAutoFramingSupported_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&CameraHalServer_GetAutoFramingSupported_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~CameraHalServer_GetAutoFramingSupported_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  CameraHalServer_GetAutoFramingSupported_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "CameraHalServer::GetAutoFramingSupportedCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_supported);
-};
-
-bool CameraHalServer_GetAutoFramingSupported_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  bool p_supported{};
-  CameraHalServer_GetAutoFramingSupported_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_supported = input_data_view.supported();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CameraHalServer::Name_, 5, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_supported));
-  return true;
-}
-
-void CameraHalServer_GetAutoFramingSupported_ProxyToResponder::Run(
-    bool in_supported) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply cros::mojom::CameraHalServer::GetAutoFramingSupported", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("supported"), in_supported,
-                        "<value of type bool>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->supported = in_supported;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("GetAutoFramingSupported");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class CameraHalServer_SetCameraEffect_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static CameraHalServer::SetCameraEffectCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CameraHalServer_SetCameraEffect_ProxyToResponder> proxy(
-        new CameraHalServer_SetCameraEffect_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&CameraHalServer_SetCameraEffect_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~CameraHalServer_SetCameraEffect_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  CameraHalServer_SetCameraEffect_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "CameraHalServer::SetCameraEffectCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      ::cros::mojom::SetEffectResult in_result);
-};
-
-bool CameraHalServer_SetCameraEffect_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::CameraHalServer_SetCameraEffect_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::CameraHalServer_SetCameraEffect_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  ::cros::mojom::SetEffectResult p_result{};
-  CameraHalServer_SetCameraEffect_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CameraHalServer::Name_, 6, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_result));
-  return true;
-}
-
-void CameraHalServer_SetCameraEffect_ProxyToResponder::Run(
-    ::cros::mojom::SetEffectResult in_result) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply cros::mojom::CameraHalServer::SetCameraEffect", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type ::cros::mojom::SetEffectResult>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kCameraHalServer_SetCameraEffect_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServer_SetCameraEffect_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::cros::mojom::SetEffectResult>(
-      in_result, &params->result);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServer::Name_);
-  message.set_method_name("SetCameraEffect");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-
-// static
-bool CameraHalServerStubDispatch::Accept(
-    CameraHalServer* impl,
-    mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kCameraHalServer_CreateChannel_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CameraHalServer_CreateChannel_Params_Data* params =
-          reinterpret_cast<internal::CameraHalServer_CreateChannel_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::mojo::PendingReceiver<::cros::mojom::CameraModule> p_camera_module_receiver{};
-      CameraClientType p_type{};
-      CameraHalServer_CreateChannel_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_camera_module_receiver =
-            input_data_view.TakeCameraModuleReceiver<decltype(p_camera_module_receiver)>();
-      }
-      if (success && !input_data_view.ReadType(&p_type))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServer::Name_, 0, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->CreateChannel(
-std::move(p_camera_module_receiver), 
-std::move(p_type));
-      return true;
-    }
-    case internal::kCameraHalServer_SetTracingEnabled_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CameraHalServer_SetTracingEnabled_Params_Data* params =
-          reinterpret_cast<internal::CameraHalServer_SetTracingEnabled_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      bool p_enabled{};
-      CameraHalServer_SetTracingEnabled_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_enabled = input_data_view.enabled();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServer::Name_, 1, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetTracingEnabled(
-std::move(p_enabled));
-      return true;
-    }
-    case internal::kCameraHalServer_SetAutoFramingState_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CameraHalServer_SetAutoFramingState_Params_Data* params =
-          reinterpret_cast<internal::CameraHalServer_SetAutoFramingState_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      CameraAutoFramingState p_state{};
-      CameraHalServer_SetAutoFramingState_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadState(&p_state))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServer::Name_, 2, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetAutoFramingState(
-std::move(p_state));
-      return true;
-    }
-    case internal::kCameraHalServer_GetCameraSWPrivacySwitchState_Name: {
-      break;
-    }
-    case internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data* params =
-          reinterpret_cast<internal::CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      CameraPrivacySwitchState p_state{};
-      CameraHalServer_SetCameraSWPrivacySwitchState_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadState(&p_state))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServer::Name_, 4, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetCameraSWPrivacySwitchState(
-std::move(p_state));
-      return true;
-    }
-    case internal::kCameraHalServer_GetAutoFramingSupported_Name: {
-      break;
-    }
-    case internal::kCameraHalServer_SetCameraEffect_Name: {
-      break;
-    }
-  }
-  return false;
-}
-
-// static
-bool CameraHalServerStubDispatch::AcceptWithResponder(
-    CameraHalServer* impl,
-    mojo::Message* message,
-    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-  [[maybe_unused]] const bool message_is_sync =
-      message->has_flag(mojo::Message::kFlagIsSync);
-  [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kCameraHalServer_CreateChannel_Name: {
-      break;
-    }
-    case internal::kCameraHalServer_SetTracingEnabled_Name: {
-      break;
-    }
-    case internal::kCameraHalServer_SetAutoFramingState_Name: {
-      break;
-    }
-    case internal::kCameraHalServer_GetCameraSWPrivacySwitchState_Name: {
-
-      internal::CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data* params =
-          reinterpret_cast<
-              internal::CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      CameraHalServer_GetCameraSWPrivacySwitchState_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServer::Name_, 3, false);
-        return false;
-      }
-      CameraHalServer::GetCameraSWPrivacySwitchStateCallback callback =
-          CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetCameraSWPrivacySwitchState(std::move(callback));
-      return true;
-    }
-    case internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name: {
-      break;
-    }
-    case internal::kCameraHalServer_GetAutoFramingSupported_Name: {
-
-      internal::CameraHalServer_GetAutoFramingSupported_Params_Data* params =
-          reinterpret_cast<
-              internal::CameraHalServer_GetAutoFramingSupported_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      CameraHalServer_GetAutoFramingSupported_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServer::Name_, 5, false);
-        return false;
-      }
-      CameraHalServer::GetAutoFramingSupportedCallback callback =
-          CameraHalServer_GetAutoFramingSupported_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetAutoFramingSupported(std::move(callback));
-      return true;
-    }
-    case internal::kCameraHalServer_SetCameraEffect_Name: {
-
-      internal::CameraHalServer_SetCameraEffect_Params_Data* params =
-          reinterpret_cast<
-              internal::CameraHalServer_SetCameraEffect_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::cros::mojom::EffectsConfigPtr p_config{};
-      CameraHalServer_SetCameraEffect_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadConfig(&p_config))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServer::Name_, 6, false);
-        return false;
-      }
-      CameraHalServer::SetCameraEffectCallback callback =
-          CameraHalServer_SetCameraEffect_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetCameraEffect(
-std::move(p_config), std::move(callback));
-      return true;
-    }
-  }
-  return false;
-}
-
-
-static const mojo::internal::GenericValidationInfo kCameraHalServerValidationInfo[] = {
-    {&internal::CameraHalServer_CreateChannel_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CameraHalServer_SetTracingEnabled_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CameraHalServer_SetAutoFramingState_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data::Validate,
-     &internal::CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data::Validate},
-    {&internal::CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::CameraHalServer_GetAutoFramingSupported_Params_Data::Validate,
-     &internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data::Validate},
-    {&internal::CameraHalServer_SetCameraEffect_Params_Data::Validate,
-     &internal::CameraHalServer_SetCameraEffect_ResponseParams_Data::Validate},
-};
-
-bool CameraHalServerRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::cros::mojom::CameraHalServer::Name_;
-  return mojo::internal::ValidateRequestGenericPacked(message, name, kCameraHalServerValidationInfo);
-}
-
-bool CameraHalServerResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::cros::mojom::CameraHalServer::Name_;
-  return mojo::internal::ValidateResponseGenericPacked(message, name, kCameraHalServerValidationInfo);
-}
-const char CameraHalServerCallbacks::Name_[] = "cros.mojom.CameraHalServerCallbacks";
-
-CameraHalServerCallbacks::IPCStableHashFunction CameraHalServerCallbacks::MessageToMethodInfo_(mojo::Message& message) {
-#if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kCameraHalServerCallbacks_CameraDeviceActivityChange_Name: {
-      return &CameraHalServerCallbacks::CameraDeviceActivityChange_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name: {
-      return &CameraHalServerCallbacks::CameraPrivacySwitchStateChange_Sym::IPCStableHash;
-    }
-    case internal::kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name: {
-      return &CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange_Sym::IPCStableHash;
-    }
-  }
-#endif  // !BUILDFLAG(IS_FUCHSIA)
-  return nullptr;
-}
-
-
-const char* CameraHalServerCallbacks::MessageToMethodName_(mojo::Message& message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
-  if (!is_response) {
-    switch (message.name()) {
-      case internal::kCameraHalServerCallbacks_CameraDeviceActivityChange_Name:
-            return "Receive cros::mojom::CameraHalServerCallbacks::CameraDeviceActivityChange";
-      case internal::kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name:
-            return "Receive cros::mojom::CameraHalServerCallbacks::CameraPrivacySwitchStateChange";
-      case internal::kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name:
-            return "Receive cros::mojom::CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange";
-    }
-  } else {
-    switch (message.name()) {
-      case internal::kCameraHalServerCallbacks_CameraDeviceActivityChange_Name:
-            return "Receive reply cros::mojom::CameraHalServerCallbacks::CameraDeviceActivityChange";
-      case internal::kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name:
-            return "Receive reply cros::mojom::CameraHalServerCallbacks::CameraPrivacySwitchStateChange";
-      case internal::kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name:
-            return "Receive reply cros::mojom::CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange";
-    }
-  }
-  return "Receive unknown mojo message";
-#else
-  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
-  if (is_response) {
-    return "Receive mojo reply";
-  } else {
-    return "Receive mojo message";
-  }
-#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
-}
-
-#if !BUILDFLAG(IS_FUCHSIA)
-uint32_t CameraHalServerCallbacks::CameraDeviceActivityChange_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServerCallbacks::CameraDeviceActivityChange");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalServerCallbacks::CameraPrivacySwitchStateChange_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServerCallbacks::CameraPrivacySwitchStateChange");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-# endif // !BUILDFLAG(IS_FUCHSIA)
-
-CameraHalServerCallbacksProxy::CameraHalServerCallbacksProxy(mojo::MessageReceiverWithResponder* receiver)
-    : receiver_(receiver) {
-}
-
-void CameraHalServerCallbacksProxy::CameraDeviceActivityChange(
+void CrosCameraServiceObserverProxy::CameraDeviceActivityChange(
     int32_t in_camera_id, bool in_opened, CameraClientType in_type) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalServerCallbacks::CameraDeviceActivityChange", "input_parameters",
+    "mojom", "Send cros::mojom::CrosCameraServiceObserver::CameraDeviceActivityChange", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2627,19 +502,22 @@ void CameraHalServerCallbacksProxy::CameraDeviceActivityChange(
                         "<value of type CameraClientType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kCameraHalServerCallbacks_CameraDeviceActivityChange_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data> params(
+      ::cros::mojom::internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data> params(
           message);
   params.Allocate();
   params->camera_id = in_camera_id;
@@ -2648,7 +526,7 @@ void CameraHalServerCallbacksProxy::CameraDeviceActivityChange(
       in_type, &params->type);
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServerCallbacks::Name_);
+  message.set_interface_name(CrosCameraServiceObserver::Name_);
   message.set_method_name("CameraDeviceActivityChange");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -2656,11 +534,11 @@ void CameraHalServerCallbacksProxy::CameraDeviceActivityChange(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CameraHalServerCallbacksProxy::CameraPrivacySwitchStateChange(
+void CrosCameraServiceObserverProxy::CameraPrivacySwitchStateChange(
     CameraPrivacySwitchState in_state, int32_t in_camera_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalServerCallbacks::CameraPrivacySwitchStateChange", "input_parameters",
+    "mojom", "Send cros::mojom::CrosCameraServiceObserver::CameraPrivacySwitchStateChange", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2671,19 +549,22 @@ void CameraHalServerCallbacksProxy::CameraPrivacySwitchStateChange(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params_Data> params(
+      ::cros::mojom::internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<::cros::mojom::CameraPrivacySwitchState>(
@@ -2691,7 +572,7 @@ void CameraHalServerCallbacksProxy::CameraPrivacySwitchStateChange(
   params->camera_id = in_camera_id;
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServerCallbacks::Name_);
+  message.set_interface_name(CrosCameraServiceObserver::Name_);
   message.set_method_name("CameraPrivacySwitchStateChange");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -2699,11 +580,11 @@ void CameraHalServerCallbacksProxy::CameraPrivacySwitchStateChange(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CameraHalServerCallbacksProxy::CameraSWPrivacySwitchStateChange(
+void CrosCameraServiceObserverProxy::CameraSWPrivacySwitchStateChange(
     CameraPrivacySwitchState in_state) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send cros::mojom::CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange", "input_parameters",
+    "mojom", "Send cros::mojom::CrosCameraServiceObserver::CameraSWPrivacySwitchStateChange", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2711,26 +592,29 @@ void CameraHalServerCallbacksProxy::CameraSWPrivacySwitchStateChange(
                         "<value of type CameraPrivacySwitchState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::cros::mojom::internal::CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data> params(
+      ::cros::mojom::internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<::cros::mojom::CameraPrivacySwitchState>(
       in_state, &params->state);
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CameraHalServerCallbacks::Name_);
+  message.set_interface_name(CrosCameraServiceObserver::Name_);
   message.set_method_name("CameraSWPrivacySwitchStateChange");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -2739,22 +623,22 @@ void CameraHalServerCallbacksProxy::CameraSWPrivacySwitchStateChange(
 }
 
 // static
-bool CameraHalServerCallbacksStubDispatch::Accept(
-    CameraHalServerCallbacks* impl,
+bool CrosCameraServiceObserverStubDispatch::Accept(
+    CrosCameraServiceObserver* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kCameraHalServerCallbacks_CameraDeviceActivityChange_Name: {
+    case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name: {
 
       DCHECK(message->is_serialized());
-      internal::CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data* params =
-          reinterpret_cast<internal::CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data*>(
+      internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data* params =
+          reinterpret_cast<internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       int32_t p_camera_id{};
       bool p_opened{};
       CameraClientType p_type{};
-      CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsDataView input_data_view(params, message);
+      CrosCameraServiceObserver_CameraDeviceActivityChange_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_camera_id = input_data_view.camera_id();
@@ -2766,7 +650,7 @@ bool CameraHalServerCallbacksStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServerCallbacks::Name_, 0, false);
+            CrosCameraServiceObserver::Name_, 0, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2777,17 +661,17 @@ std::move(p_opened),
 std::move(p_type));
       return true;
     }
-    case internal::kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name: {
+    case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name: {
 
       DCHECK(message->is_serialized());
-      internal::CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params_Data* params =
-          reinterpret_cast<internal::CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params_Data*>(
+      internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data* params =
+          reinterpret_cast<internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       CameraPrivacySwitchState p_state{};
       int32_t p_camera_id{};
-      CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsDataView input_data_view(params, message);
+      CrosCameraServiceObserver_CameraPrivacySwitchStateChange_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadState(&p_state))
         success = false;
@@ -2797,7 +681,7 @@ std::move(p_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServerCallbacks::Name_, 1, false);
+            CrosCameraServiceObserver::Name_, 1, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2807,16 +691,16 @@ std::move(p_state),
 std::move(p_camera_id));
       return true;
     }
-    case internal::kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name: {
+    case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
 
       DCHECK(message->is_serialized());
-      internal::CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data* params =
-          reinterpret_cast<internal::CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data*>(
+      internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data* params =
+          reinterpret_cast<internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       CameraPrivacySwitchState p_state{};
-      CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsDataView input_data_view(params, message);
+      CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadState(&p_state))
         success = false;
@@ -2824,7 +708,7 @@ std::move(p_camera_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CameraHalServerCallbacks::Name_, 2, false);
+            CrosCameraServiceObserver::Name_, 2, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2838,42 +722,1413 @@ std::move(p_state));
 }
 
 // static
-bool CameraHalServerCallbacksStubDispatch::AcceptWithResponder(
-    CameraHalServerCallbacks* impl,
+bool CrosCameraServiceObserverStubDispatch::AcceptWithResponder(
+    CrosCameraServiceObserver* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kCameraHalServerCallbacks_CameraDeviceActivityChange_Name: {
+    case internal::kCrosCameraServiceObserver_CameraDeviceActivityChange_Name: {
       break;
     }
-    case internal::kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name: {
+    case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name: {
       break;
     }
-    case internal::kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name: {
+    case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
       break;
     }
   }
   return false;
 }
-
-
-static const mojo::internal::GenericValidationInfo kCameraHalServerCallbacksValidationInfo[] = {
-    {&internal::CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data::Validate,
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kCrosCameraServiceObserverValidationInfo[] = {
+    { &internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params_Data::Validate,
+    { &internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data::Validate,
+    { &internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
-bool CameraHalServerCallbacksRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::cros::mojom::CameraHalServerCallbacks::Name_;
-  return mojo::internal::ValidateRequestGenericPacked(message, name, kCameraHalServerCallbacksValidationInfo);
+bool CrosCameraServiceObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::cros::mojom::CrosCameraServiceObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosCameraServiceObserverValidationInfo);
 }
 
+const char CrosCameraService::Name_[] = "cros.mojom.CrosCameraService";
+
+CrosCameraService::IPCStableHashFunction CrosCameraService::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kCrosCameraService_GetCameraModule_Name: {
+      return &CrosCameraService::GetCameraModule_Sym::IPCStableHash;
+    }
+    case internal::kCrosCameraService_SetTracingEnabled_Name: {
+      return &CrosCameraService::SetTracingEnabled_Sym::IPCStableHash;
+    }
+    case internal::kCrosCameraService_SetAutoFramingState_Name: {
+      return &CrosCameraService::SetAutoFramingState_Sym::IPCStableHash;
+    }
+    case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name: {
+      return &CrosCameraService::GetCameraSWPrivacySwitchState_Sym::IPCStableHash;
+    }
+    case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name: {
+      return &CrosCameraService::SetCameraSWPrivacySwitchState_Sym::IPCStableHash;
+    }
+    case internal::kCrosCameraService_GetAutoFramingSupported_Name: {
+      return &CrosCameraService::GetAutoFramingSupported_Sym::IPCStableHash;
+    }
+    case internal::kCrosCameraService_SetCameraEffect_Name: {
+      return &CrosCameraService::SetCameraEffect_Sym::IPCStableHash;
+    }
+    case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name: {
+      return &CrosCameraService::AddCrosCameraServiceObserver_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* CrosCameraService::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kCrosCameraService_GetCameraModule_Name:
+            return "Receive cros::mojom::CrosCameraService::GetCameraModule";
+      case internal::kCrosCameraService_SetTracingEnabled_Name:
+            return "Receive cros::mojom::CrosCameraService::SetTracingEnabled";
+      case internal::kCrosCameraService_SetAutoFramingState_Name:
+            return "Receive cros::mojom::CrosCameraService::SetAutoFramingState";
+      case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name:
+            return "Receive cros::mojom::CrosCameraService::GetCameraSWPrivacySwitchState";
+      case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name:
+            return "Receive cros::mojom::CrosCameraService::SetCameraSWPrivacySwitchState";
+      case internal::kCrosCameraService_GetAutoFramingSupported_Name:
+            return "Receive cros::mojom::CrosCameraService::GetAutoFramingSupported";
+      case internal::kCrosCameraService_SetCameraEffect_Name:
+            return "Receive cros::mojom::CrosCameraService::SetCameraEffect";
+      case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name:
+            return "Receive cros::mojom::CrosCameraService::AddCrosCameraServiceObserver";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kCrosCameraService_GetCameraModule_Name:
+            return "Receive reply cros::mojom::CrosCameraService::GetCameraModule";
+      case internal::kCrosCameraService_SetTracingEnabled_Name:
+            return "Receive reply cros::mojom::CrosCameraService::SetTracingEnabled";
+      case internal::kCrosCameraService_SetAutoFramingState_Name:
+            return "Receive reply cros::mojom::CrosCameraService::SetAutoFramingState";
+      case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name:
+            return "Receive reply cros::mojom::CrosCameraService::GetCameraSWPrivacySwitchState";
+      case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name:
+            return "Receive reply cros::mojom::CrosCameraService::SetCameraSWPrivacySwitchState";
+      case internal::kCrosCameraService_GetAutoFramingSupported_Name:
+            return "Receive reply cros::mojom::CrosCameraService::GetAutoFramingSupported";
+      case internal::kCrosCameraService_SetCameraEffect_Name:
+            return "Receive reply cros::mojom::CrosCameraService::SetCameraEffect";
+      case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name:
+            return "Receive reply cros::mojom::CrosCameraService::AddCrosCameraServiceObserver";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CrosCameraService::GetCameraModule_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraService::GetCameraModule");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosCameraService::SetTracingEnabled_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraService::SetTracingEnabled");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosCameraService::SetAutoFramingState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraService::SetAutoFramingState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosCameraService::GetCameraSWPrivacySwitchState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraService::GetCameraSWPrivacySwitchState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosCameraService::SetCameraSWPrivacySwitchState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraService::SetCameraSWPrivacySwitchState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosCameraService::GetAutoFramingSupported_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraService::GetAutoFramingSupported");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosCameraService::SetCameraEffect_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraService::SetCameraEffect");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosCameraService::AddCrosCameraServiceObserver_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CrosCameraService::AddCrosCameraServiceObserver");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+class CrosCameraService_GetCameraModule_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosCameraService_GetCameraModule_ForwardToCallback(
+      CrosCameraService::GetCameraModuleCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosCameraService_GetCameraModule_ForwardToCallback(const CrosCameraService_GetCameraModule_ForwardToCallback&) = delete;
+  CrosCameraService_GetCameraModule_ForwardToCallback& operator=(const CrosCameraService_GetCameraModule_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosCameraService::GetCameraModuleCallback callback_;
+};
+
+class CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback(
+      CrosCameraService::GetCameraSWPrivacySwitchStateCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback(const CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback&) = delete;
+  CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback& operator=(const CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosCameraService::GetCameraSWPrivacySwitchStateCallback callback_;
+};
+
+class CrosCameraService_GetAutoFramingSupported_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosCameraService_GetAutoFramingSupported_ForwardToCallback(
+      CrosCameraService::GetAutoFramingSupportedCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosCameraService_GetAutoFramingSupported_ForwardToCallback(const CrosCameraService_GetAutoFramingSupported_ForwardToCallback&) = delete;
+  CrosCameraService_GetAutoFramingSupported_ForwardToCallback& operator=(const CrosCameraService_GetAutoFramingSupported_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosCameraService::GetAutoFramingSupportedCallback callback_;
+};
+
+class CrosCameraService_SetCameraEffect_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosCameraService_SetCameraEffect_ForwardToCallback(
+      CrosCameraService::SetCameraEffectCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosCameraService_SetCameraEffect_ForwardToCallback(const CrosCameraService_SetCameraEffect_ForwardToCallback&) = delete;
+  CrosCameraService_SetCameraEffect_ForwardToCallback& operator=(const CrosCameraService_SetCameraEffect_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosCameraService::SetCameraEffectCallback callback_;
+};
+
+CrosCameraServiceProxy::CrosCameraServiceProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void CrosCameraServiceProxy::GetCameraModule(
+    CameraClientType in_type, GetCameraModuleCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CrosCameraService::GetCameraModule", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("type"), in_type,
+                        "<value of type CameraClientType>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_GetCameraModule_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_GetCameraModule_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::cros::mojom::CameraClientType>(
+      in_type, &params->type);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("GetCameraModule");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosCameraService_GetCameraModule_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosCameraServiceProxy::SetTracingEnabled(
+    bool in_enabled) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CrosCameraService::SetTracingEnabled", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("enabled"), in_enabled,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_SetTracingEnabled_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_SetTracingEnabled_Params_Data> params(
+          message);
+  params.Allocate();
+  params->enabled = in_enabled;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("SetTracingEnabled");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CrosCameraServiceProxy::SetAutoFramingState(
+    CameraAutoFramingState in_state) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CrosCameraService::SetAutoFramingState", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("state"), in_state,
+                        "<value of type CameraAutoFramingState>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_SetAutoFramingState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_SetAutoFramingState_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::cros::mojom::CameraAutoFramingState>(
+      in_state, &params->state);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("SetAutoFramingState");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CrosCameraServiceProxy::GetCameraSWPrivacySwitchState(
+    GetCameraSWPrivacySwitchStateCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send cros::mojom::CrosCameraService::GetCameraSWPrivacySwitchState");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("GetCameraSWPrivacySwitchState");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosCameraServiceProxy::SetCameraSWPrivacySwitchState(
+    CameraPrivacySwitchState in_state) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CrosCameraService::SetCameraSWPrivacySwitchState", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("state"), in_state,
+                        "<value of type CameraPrivacySwitchState>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::cros::mojom::CameraPrivacySwitchState>(
+      in_state, &params->state);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("SetCameraSWPrivacySwitchState");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CrosCameraServiceProxy::GetAutoFramingSupported(
+    GetAutoFramingSupportedCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send cros::mojom::CrosCameraService::GetAutoFramingSupported");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_GetAutoFramingSupported_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("GetAutoFramingSupported");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosCameraService_GetAutoFramingSupported_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosCameraServiceProxy::SetCameraEffect(
+    ::cros::mojom::EffectsConfigPtr in_config, SetCameraEffectCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CrosCameraService::SetCameraEffect", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("config"), in_config,
+                        "<value of type ::cros::mojom::EffectsConfigPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_SetCameraEffect_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_SetCameraEffect_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->config)::BaseType> config_fragment(
+          params.message());
+  mojo::internal::Serialize<::cros::mojom::EffectsConfigDataView>(
+      in_config, config_fragment);
+  params->config.Set(
+      config_fragment.is_null() ? nullptr : config_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->config.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null config in CrosCameraService.SetCameraEffect request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("SetCameraEffect");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosCameraService_SetCameraEffect_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosCameraServiceProxy::AddCrosCameraServiceObserver(
+    ::mojo::PendingRemote<CrosCameraServiceObserver> in_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CrosCameraService::AddCrosCameraServiceObserver", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<CrosCameraServiceObserver>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_AddCrosCameraServiceObserver_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::cros::mojom::CrosCameraServiceObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in CrosCameraService.AddCrosCameraServiceObserver request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("AddCrosCameraServiceObserver");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+class CrosCameraService_GetCameraModule_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosCameraService::GetCameraModuleCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosCameraService_GetCameraModule_ProxyToResponder> proxy(
+        new CrosCameraService_GetCameraModule_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosCameraService_GetCameraModule_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosCameraService_GetCameraModule_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosCameraService_GetCameraModule_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosCameraService::GetCameraModuleCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::mojo::PendingRemote<::cros::mojom::CameraModule> in_camera_module_receiver);
+};
+
+bool CrosCameraService_GetCameraModule_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosCameraService_GetCameraModule_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosCameraService_GetCameraModule_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::mojo::PendingRemote<::cros::mojom::CameraModule> p_camera_module_receiver{};
+  CrosCameraService_GetCameraModule_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success) {
+    p_camera_module_receiver =
+        input_data_view.TakeCameraModuleReceiver<decltype(p_camera_module_receiver)>();
+  }
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosCameraService::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_camera_module_receiver));
+  return true;
+}
+
+void CrosCameraService_GetCameraModule_ProxyToResponder::Run(
+    ::mojo::PendingRemote<::cros::mojom::CameraModule> in_camera_module_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply cros::mojom::CrosCameraService::GetCameraModule", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("camera_module_receiver"), in_camera_module_receiver,
+                        "<value of type ::mojo::PendingRemote<::cros::mojom::CameraModule>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_GetCameraModule_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_GetCameraModule_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::cros::mojom::CameraModuleInterfaceBase>>(
+      in_camera_module_receiver, &params->camera_module_receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->camera_module_receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid camera_module_receiver in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("GetCameraModule");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosCameraService::GetCameraSWPrivacySwitchStateCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder> proxy(
+        new CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosCameraService::GetCameraSWPrivacySwitchStateCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      CameraPrivacySwitchState in_state);
+};
+
+bool CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  CameraPrivacySwitchState p_state{};
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadState(&p_state))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosCameraService::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_state));
+  return true;
+}
+
+void CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder::Run(
+    CameraPrivacySwitchState in_state) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply cros::mojom::CrosCameraService::GetCameraSWPrivacySwitchState", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("state"), in_state,
+                        "<value of type CameraPrivacySwitchState>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::cros::mojom::CameraPrivacySwitchState>(
+      in_state, &params->state);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("GetCameraSWPrivacySwitchState");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosCameraService_GetAutoFramingSupported_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosCameraService::GetAutoFramingSupportedCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosCameraService_GetAutoFramingSupported_ProxyToResponder> proxy(
+        new CrosCameraService_GetAutoFramingSupported_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosCameraService_GetAutoFramingSupported_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosCameraService_GetAutoFramingSupported_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosCameraService_GetAutoFramingSupported_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosCameraService::GetAutoFramingSupportedCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_supported);
+};
+
+bool CrosCameraService_GetAutoFramingSupported_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_supported{};
+  CrosCameraService_GetAutoFramingSupported_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_supported = input_data_view.supported();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosCameraService::Name_, 5, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_supported));
+  return true;
+}
+
+void CrosCameraService_GetAutoFramingSupported_ProxyToResponder::Run(
+    bool in_supported) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply cros::mojom::CrosCameraService::GetAutoFramingSupported", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("supported"), in_supported,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->supported = in_supported;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("GetAutoFramingSupported");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosCameraService_SetCameraEffect_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosCameraService::SetCameraEffectCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosCameraService_SetCameraEffect_ProxyToResponder> proxy(
+        new CrosCameraService_SetCameraEffect_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosCameraService_SetCameraEffect_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosCameraService_SetCameraEffect_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosCameraService_SetCameraEffect_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosCameraService::SetCameraEffectCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::cros::mojom::SetEffectResult in_result);
+};
+
+bool CrosCameraService_SetCameraEffect_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosCameraService_SetCameraEffect_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosCameraService_SetCameraEffect_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::cros::mojom::SetEffectResult p_result{};
+  CrosCameraService_SetCameraEffect_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosCameraService::Name_, 6, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void CrosCameraService_SetCameraEffect_ProxyToResponder::Run(
+    ::cros::mojom::SetEffectResult in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply cros::mojom::CrosCameraService::SetCameraEffect", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::cros::mojom::SetEffectResult>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosCameraService_SetCameraEffect_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CrosCameraService_SetCameraEffect_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::cros::mojom::SetEffectResult>(
+      in_result, &params->result);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosCameraService::Name_);
+  message.set_method_name("SetCameraEffect");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+
+// static
+bool CrosCameraServiceStubDispatch::Accept(
+    CrosCameraService* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kCrosCameraService_GetCameraModule_Name: {
+      break;
+    }
+    case internal::kCrosCameraService_SetTracingEnabled_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CrosCameraService_SetTracingEnabled_Params_Data* params =
+          reinterpret_cast<internal::CrosCameraService_SetTracingEnabled_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_enabled{};
+      CrosCameraService_SetTracingEnabled_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_enabled = input_data_view.enabled();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraService::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetTracingEnabled(
+std::move(p_enabled));
+      return true;
+    }
+    case internal::kCrosCameraService_SetAutoFramingState_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CrosCameraService_SetAutoFramingState_Params_Data* params =
+          reinterpret_cast<internal::CrosCameraService_SetAutoFramingState_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      CameraAutoFramingState p_state{};
+      CrosCameraService_SetAutoFramingState_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadState(&p_state))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraService::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAutoFramingState(
+std::move(p_state));
+      return true;
+    }
+    case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name: {
+      break;
+    }
+    case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data* params =
+          reinterpret_cast<internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      CameraPrivacySwitchState p_state{};
+      CrosCameraService_SetCameraSWPrivacySwitchState_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadState(&p_state))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraService::Name_, 4, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetCameraSWPrivacySwitchState(
+std::move(p_state));
+      return true;
+    }
+    case internal::kCrosCameraService_GetAutoFramingSupported_Name: {
+      break;
+    }
+    case internal::kCrosCameraService_SetCameraEffect_Name: {
+      break;
+    }
+    case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data* params =
+          reinterpret_cast<internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<CrosCameraServiceObserver> p_observer{};
+      CrosCameraService_AddCrosCameraServiceObserver_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraService::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->AddCrosCameraServiceObserver(
+std::move(p_observer));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool CrosCameraServiceStubDispatch::AcceptWithResponder(
+    CrosCameraService* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kCrosCameraService_GetCameraModule_Name: {
+
+      internal::CrosCameraService_GetCameraModule_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosCameraService_GetCameraModule_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CameraClientType p_type{};
+      CrosCameraService_GetCameraModule_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadType(&p_type))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraService::Name_, 0, false);
+        return false;
+      }
+      CrosCameraService::GetCameraModuleCallback callback =
+          CrosCameraService_GetCameraModule_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetCameraModule(
+std::move(p_type), std::move(callback));
+      return true;
+    }
+    case internal::kCrosCameraService_SetTracingEnabled_Name: {
+      break;
+    }
+    case internal::kCrosCameraService_SetAutoFramingState_Name: {
+      break;
+    }
+    case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name: {
+
+      internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CrosCameraService_GetCameraSWPrivacySwitchState_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraService::Name_, 3, false);
+        return false;
+      }
+      CrosCameraService::GetCameraSWPrivacySwitchStateCallback callback =
+          CrosCameraService_GetCameraSWPrivacySwitchState_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetCameraSWPrivacySwitchState(std::move(callback));
+      return true;
+    }
+    case internal::kCrosCameraService_SetCameraSWPrivacySwitchState_Name: {
+      break;
+    }
+    case internal::kCrosCameraService_GetAutoFramingSupported_Name: {
+
+      internal::CrosCameraService_GetAutoFramingSupported_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosCameraService_GetAutoFramingSupported_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CrosCameraService_GetAutoFramingSupported_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraService::Name_, 5, false);
+        return false;
+      }
+      CrosCameraService::GetAutoFramingSupportedCallback callback =
+          CrosCameraService_GetAutoFramingSupported_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetAutoFramingSupported(std::move(callback));
+      return true;
+    }
+    case internal::kCrosCameraService_SetCameraEffect_Name: {
+
+      internal::CrosCameraService_SetCameraEffect_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosCameraService_SetCameraEffect_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::cros::mojom::EffectsConfigPtr p_config{};
+      CrosCameraService_SetCameraEffect_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadConfig(&p_config))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosCameraService::Name_, 6, false);
+        return false;
+      }
+      CrosCameraService::SetCameraEffectCallback callback =
+          CrosCameraService_SetCameraEffect_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetCameraEffect(
+std::move(p_config), std::move(callback));
+      return true;
+    }
+    case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kCrosCameraServiceValidationInfo[] = {
+    { &internal::CrosCameraService_GetCameraModule_Params_Data::Validate,
+     &internal::CrosCameraService_GetCameraModule_ResponseParams_Data::Validate},
+    { &internal::CrosCameraService_SetTracingEnabled_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CrosCameraService_SetAutoFramingState_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data::Validate,
+     &internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data::Validate},
+    { &internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CrosCameraService_GetAutoFramingSupported_Params_Data::Validate,
+     &internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data::Validate},
+    { &internal::CrosCameraService_SetCameraEffect_Params_Data::Validate,
+     &internal::CrosCameraService_SetCameraEffect_ResponseParams_Data::Validate},
+    { &internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool CrosCameraServiceRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::cros::mojom::CrosCameraService::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosCameraServiceValidationInfo);
+}
+
+bool CrosCameraServiceResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::cros::mojom::CrosCameraService::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kCrosCameraServiceValidationInfo);
+}
 
 
 }  // cros::mojom
@@ -2891,56 +2146,13 @@ namespace mojo {
 namespace cros::mojom {
 
 
-void CameraHalDispatcherInterceptorForTesting::RegisterServer(::mojo::PendingRemote<CameraHalServer> server) {
-  GetForwardingInterface()->RegisterServer(std::move(server));
-}
-void CameraHalDispatcherInterceptorForTesting::RegisterClient(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client) {
-  GetForwardingInterface()->RegisterClient(std::move(client));
-}
-void CameraHalDispatcherInterceptorForTesting::GetMjpegDecodeAccelerator(::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator> jda_receiver) {
-  GetForwardingInterface()->GetMjpegDecodeAccelerator(std::move(jda_receiver));
-}
-void CameraHalDispatcherInterceptorForTesting::GetJpegEncodeAccelerator(::mojo::PendingReceiver<::chromeos_camera::mojom::JpegEncodeAccelerator> jea_receiver) {
-  GetForwardingInterface()->GetJpegEncodeAccelerator(std::move(jea_receiver));
-}
-void CameraHalDispatcherInterceptorForTesting::RegisterServerWithToken(::mojo::PendingRemote<CameraHalServer> server, const ::base::UnguessableToken& auth_token, RegisterServerWithTokenCallback callback) {
-  GetForwardingInterface()->RegisterServerWithToken(std::move(server), std::move(auth_token), std::move(callback));
-}
 void CameraHalDispatcherInterceptorForTesting::RegisterClientWithToken(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client, CameraClientType type, const ::base::UnguessableToken& auth_token, RegisterClientWithTokenCallback callback) {
   GetForwardingInterface()->RegisterClientWithToken(std::move(client), std::move(type), std::move(auth_token), std::move(callback));
-}
-void CameraHalDispatcherInterceptorForTesting::RegisterSensorClientWithToken(::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> client, const ::base::UnguessableToken& auth_token, RegisterSensorClientWithTokenCallback callback) {
-  GetForwardingInterface()->RegisterSensorClientWithToken(std::move(client), std::move(auth_token), std::move(callback));
-}
-void CameraHalDispatcherInterceptorForTesting::BindServiceToMojoServiceManager(const std::string& service_name, ::mojo::ScopedMessagePipeHandle receiver) {
-  GetForwardingInterface()->BindServiceToMojoServiceManager(std::move(service_name), std::move(receiver));
 }
 CameraHalDispatcherAsyncWaiter::CameraHalDispatcherAsyncWaiter(
     CameraHalDispatcher* proxy) : proxy_(proxy) {}
 
 CameraHalDispatcherAsyncWaiter::~CameraHalDispatcherAsyncWaiter() = default;
-
-void CameraHalDispatcherAsyncWaiter::RegisterServerWithToken(
-    ::mojo::PendingRemote<CameraHalServer> server, const ::base::UnguessableToken& auth_token, int32_t* out_result, ::mojo::PendingRemote<CameraHalServerCallbacks>* out_callbacks) {
-  base::RunLoop loop;
-  proxy_->RegisterServerWithToken(std::move(server),std::move(auth_token),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             int32_t* out_result
-,
-             ::mojo::PendingRemote<CameraHalServerCallbacks>* out_callbacks
-,
-             int32_t result,
-             ::mojo::PendingRemote<CameraHalServerCallbacks> callbacks) {*out_result = std::move(result);*out_callbacks = std::move(callbacks);
-            loop->Quit();
-          },
-          &loop,
-          out_result,
-          out_callbacks));
-  loop.Run();
-}
-
-
 
 void CameraHalDispatcherAsyncWaiter::RegisterClientWithToken(
     ::mojo::PendingRemote<::cros::mojom::CameraHalClient> client, CameraClientType type, const ::base::UnguessableToken& auth_token, int32_t* out_result) {
@@ -2965,59 +2177,79 @@ int32_t CameraHalDispatcherAsyncWaiter::RegisterClientWithToken(
   return async_wait_result;
 }
 
-void CameraHalDispatcherAsyncWaiter::RegisterSensorClientWithToken(
-    ::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> client, const ::base::UnguessableToken& auth_token, int32_t* out_result) {
+
+
+
+void CrosCameraServiceObserverInterceptorForTesting::CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) {
+  GetForwardingInterface()->CameraDeviceActivityChange(std::move(camera_id), std::move(opened), std::move(type));
+}
+void CrosCameraServiceObserverInterceptorForTesting::CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) {
+  GetForwardingInterface()->CameraPrivacySwitchStateChange(std::move(state), std::move(camera_id));
+}
+void CrosCameraServiceObserverInterceptorForTesting::CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) {
+  GetForwardingInterface()->CameraSWPrivacySwitchStateChange(std::move(state));
+}
+CrosCameraServiceObserverAsyncWaiter::CrosCameraServiceObserverAsyncWaiter(
+    CrosCameraServiceObserver* proxy) : proxy_(proxy) {}
+
+CrosCameraServiceObserverAsyncWaiter::~CrosCameraServiceObserverAsyncWaiter() = default;
+
+
+
+
+void CrosCameraServiceInterceptorForTesting::GetCameraModule(CameraClientType type, GetCameraModuleCallback callback) {
+  GetForwardingInterface()->GetCameraModule(std::move(type), std::move(callback));
+}
+void CrosCameraServiceInterceptorForTesting::SetTracingEnabled(bool enabled) {
+  GetForwardingInterface()->SetTracingEnabled(std::move(enabled));
+}
+void CrosCameraServiceInterceptorForTesting::SetAutoFramingState(CameraAutoFramingState state) {
+  GetForwardingInterface()->SetAutoFramingState(std::move(state));
+}
+void CrosCameraServiceInterceptorForTesting::GetCameraSWPrivacySwitchState(GetCameraSWPrivacySwitchStateCallback callback) {
+  GetForwardingInterface()->GetCameraSWPrivacySwitchState(std::move(callback));
+}
+void CrosCameraServiceInterceptorForTesting::SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) {
+  GetForwardingInterface()->SetCameraSWPrivacySwitchState(std::move(state));
+}
+void CrosCameraServiceInterceptorForTesting::GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) {
+  GetForwardingInterface()->GetAutoFramingSupported(std::move(callback));
+}
+void CrosCameraServiceInterceptorForTesting::SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) {
+  GetForwardingInterface()->SetCameraEffect(std::move(config), std::move(callback));
+}
+void CrosCameraServiceInterceptorForTesting::AddCrosCameraServiceObserver(::mojo::PendingRemote<CrosCameraServiceObserver> observer) {
+  GetForwardingInterface()->AddCrosCameraServiceObserver(std::move(observer));
+}
+CrosCameraServiceAsyncWaiter::CrosCameraServiceAsyncWaiter(
+    CrosCameraService* proxy) : proxy_(proxy) {}
+
+CrosCameraServiceAsyncWaiter::~CrosCameraServiceAsyncWaiter() = default;
+
+void CrosCameraServiceAsyncWaiter::GetCameraModule(
+    CameraClientType type, ::mojo::PendingRemote<::cros::mojom::CameraModule>* out_camera_module_receiver) {
   base::RunLoop loop;
-  proxy_->RegisterSensorClientWithToken(std::move(client),std::move(auth_token),
+  proxy_->GetCameraModule(std::move(type),
       base::BindOnce(
           [](base::RunLoop* loop,
-             int32_t* out_result
+             ::mojo::PendingRemote<::cros::mojom::CameraModule>* out_camera_module_receiver
 ,
-             int32_t result) {*out_result = std::move(result);
+             ::mojo::PendingRemote<::cros::mojom::CameraModule> camera_module_receiver) {*out_camera_module_receiver = std::move(camera_module_receiver);
             loop->Quit();
           },
           &loop,
-          out_result));
+          out_camera_module_receiver));
   loop.Run();
 }
 
-int32_t CameraHalDispatcherAsyncWaiter::RegisterSensorClientWithToken(
-    ::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> client, const ::base::UnguessableToken& auth_token) {
-  int32_t async_wait_result;
-  RegisterSensorClientWithToken(std::move(client),std::move(auth_token),&async_wait_result);
+::mojo::PendingRemote<::cros::mojom::CameraModule> CrosCameraServiceAsyncWaiter::GetCameraModule(
+    CameraClientType type) {
+  ::mojo::PendingRemote<::cros::mojom::CameraModule> async_wait_result;
+  GetCameraModule(std::move(type),&async_wait_result);
   return async_wait_result;
 }
 
-
-
-
-void CameraHalServerInterceptorForTesting::CreateChannel(::mojo::PendingReceiver<::cros::mojom::CameraModule> camera_module_receiver, CameraClientType type) {
-  GetForwardingInterface()->CreateChannel(std::move(camera_module_receiver), std::move(type));
-}
-void CameraHalServerInterceptorForTesting::SetTracingEnabled(bool enabled) {
-  GetForwardingInterface()->SetTracingEnabled(std::move(enabled));
-}
-void CameraHalServerInterceptorForTesting::SetAutoFramingState(CameraAutoFramingState state) {
-  GetForwardingInterface()->SetAutoFramingState(std::move(state));
-}
-void CameraHalServerInterceptorForTesting::GetCameraSWPrivacySwitchState(GetCameraSWPrivacySwitchStateCallback callback) {
-  GetForwardingInterface()->GetCameraSWPrivacySwitchState(std::move(callback));
-}
-void CameraHalServerInterceptorForTesting::SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) {
-  GetForwardingInterface()->SetCameraSWPrivacySwitchState(std::move(state));
-}
-void CameraHalServerInterceptorForTesting::GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) {
-  GetForwardingInterface()->GetAutoFramingSupported(std::move(callback));
-}
-void CameraHalServerInterceptorForTesting::SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) {
-  GetForwardingInterface()->SetCameraEffect(std::move(config), std::move(callback));
-}
-CameraHalServerAsyncWaiter::CameraHalServerAsyncWaiter(
-    CameraHalServer* proxy) : proxy_(proxy) {}
-
-CameraHalServerAsyncWaiter::~CameraHalServerAsyncWaiter() = default;
-
-void CameraHalServerAsyncWaiter::GetCameraSWPrivacySwitchState(
+void CrosCameraServiceAsyncWaiter::GetCameraSWPrivacySwitchState(
     CameraPrivacySwitchState* out_state) {
   base::RunLoop loop;
   proxy_->GetCameraSWPrivacySwitchState(
@@ -3033,14 +2265,14 @@ void CameraHalServerAsyncWaiter::GetCameraSWPrivacySwitchState(
   loop.Run();
 }
 
-CameraPrivacySwitchState CameraHalServerAsyncWaiter::GetCameraSWPrivacySwitchState(
+CameraPrivacySwitchState CrosCameraServiceAsyncWaiter::GetCameraSWPrivacySwitchState(
     ) {
   CameraPrivacySwitchState async_wait_result;
   GetCameraSWPrivacySwitchState(&async_wait_result);
   return async_wait_result;
 }
 
-void CameraHalServerAsyncWaiter::GetAutoFramingSupported(
+void CrosCameraServiceAsyncWaiter::GetAutoFramingSupported(
     bool* out_supported) {
   base::RunLoop loop;
   proxy_->GetAutoFramingSupported(
@@ -3056,14 +2288,14 @@ void CameraHalServerAsyncWaiter::GetAutoFramingSupported(
   loop.Run();
 }
 
-bool CameraHalServerAsyncWaiter::GetAutoFramingSupported(
+bool CrosCameraServiceAsyncWaiter::GetAutoFramingSupported(
     ) {
   bool async_wait_result;
   GetAutoFramingSupported(&async_wait_result);
   return async_wait_result;
 }
 
-void CameraHalServerAsyncWaiter::SetCameraEffect(
+void CrosCameraServiceAsyncWaiter::SetCameraEffect(
     ::cros::mojom::EffectsConfigPtr config, ::cros::mojom::SetEffectResult* out_result) {
   base::RunLoop loop;
   proxy_->SetCameraEffect(std::move(config),
@@ -3079,29 +2311,12 @@ void CameraHalServerAsyncWaiter::SetCameraEffect(
   loop.Run();
 }
 
-::cros::mojom::SetEffectResult CameraHalServerAsyncWaiter::SetCameraEffect(
+::cros::mojom::SetEffectResult CrosCameraServiceAsyncWaiter::SetCameraEffect(
     ::cros::mojom::EffectsConfigPtr config) {
   ::cros::mojom::SetEffectResult async_wait_result;
   SetCameraEffect(std::move(config),&async_wait_result);
   return async_wait_result;
 }
-
-
-
-
-void CameraHalServerCallbacksInterceptorForTesting::CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) {
-  GetForwardingInterface()->CameraDeviceActivityChange(std::move(camera_id), std::move(opened), std::move(type));
-}
-void CameraHalServerCallbacksInterceptorForTesting::CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) {
-  GetForwardingInterface()->CameraPrivacySwitchStateChange(std::move(state), std::move(camera_id));
-}
-void CameraHalServerCallbacksInterceptorForTesting::CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) {
-  GetForwardingInterface()->CameraSWPrivacySwitchStateChange(std::move(state));
-}
-CameraHalServerCallbacksAsyncWaiter::CameraHalServerCallbacksAsyncWaiter(
-    CameraHalServerCallbacks* proxy) : proxy_(proxy) {}
-
-CameraHalServerCallbacksAsyncWaiter::~CameraHalServerCallbacksAsyncWaiter() = default;
 
 
 

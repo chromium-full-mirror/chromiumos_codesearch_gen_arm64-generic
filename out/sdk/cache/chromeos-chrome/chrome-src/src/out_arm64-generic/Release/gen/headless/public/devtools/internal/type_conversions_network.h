@@ -837,6 +837,19 @@ inline base::Value ToValue(const network::AlternateProtocolUsage& value) {
 }
 
 template <>
+struct FromValue<network::ServiceWorkerRouterInfo> {
+  static std::unique_ptr<network::ServiceWorkerRouterInfo> Parse(const base::Value& value, ErrorReporter* errors) {
+    return network::ServiceWorkerRouterInfo::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const network::ServiceWorkerRouterInfo& value) {
+  return value.Serialize();
+}
+
+
+template <>
 struct FromValue<network::Response> {
   static std::unique_ptr<network::Response> Parse(const base::Value& value, ErrorReporter* errors) {
     return network::Response::Parse(value, errors);
@@ -2648,6 +2661,32 @@ struct FromValue<network::SetUserAgentOverrideResult> {
 
 template <>
 inline base::Value ToValue(const network::SetUserAgentOverrideResult& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<network::StreamResourceContentParams> {
+  static std::unique_ptr<network::StreamResourceContentParams> Parse(const base::Value& value, ErrorReporter* errors) {
+    return network::StreamResourceContentParams::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const network::StreamResourceContentParams& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<network::StreamResourceContentResult> {
+  static std::unique_ptr<network::StreamResourceContentResult> Parse(const base::Value& value, ErrorReporter* errors) {
+    return network::StreamResourceContentResult::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const network::StreamResourceContentResult& value) {
   return value.Serialize();
 }
 

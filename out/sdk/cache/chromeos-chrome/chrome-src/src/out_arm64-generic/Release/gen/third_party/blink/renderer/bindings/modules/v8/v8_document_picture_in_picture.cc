@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DocumentPictureInPicture>::value,
     "DocumentPictureInPicture inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DocumentPictureInPicture::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DocumentPictureInPicture is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,7 +93,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8DocumentPictureInPic
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentPictureInPicture* blink_receiver = V8DocumentPictureInPicture::ToWrappableUnsafe(v8_receiver);
+DocumentPictureInPicture* blink_receiver = V8DocumentPictureInPicture::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -114,10 +109,10 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentPictureInPicture.onenter.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DocumentPictureInPicture* blink_receiver = V8DocumentPictureInPicture::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onenter();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DocumentPictureInPicture* blink_receiver = V8DocumentPictureInPicture::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onenter();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -130,8 +125,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentPictureInPicture* blink_receiver = V8DocumentPictureInPicture::ToWrappableUnsafe(v8_receiver);
+DocumentPictureInPicture* blink_receiver = V8DocumentPictureInPicture::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnenter(event_handler);
 }
 
@@ -162,7 +158,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8DocumentPictureInPic
 
 
 
-DocumentPictureInPicture* blink_receiver = V8DocumentPictureInPicture::ToWrappableUnsafe(v8_receiver);
+DocumentPictureInPicture* blink_receiver = V8DocumentPictureInPicture::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

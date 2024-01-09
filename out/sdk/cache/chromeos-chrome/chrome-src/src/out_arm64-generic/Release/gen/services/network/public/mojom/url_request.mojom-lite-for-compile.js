@@ -565,7 +565,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sharedStorageWritable', 25,
+        'sharedStorageWritableEligible', 25,
         0,
         mojo.internal.Bool,
         false,
@@ -821,8 +821,16 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sharedDictionaryWriterEnabled', 26,
+        'isAdTagged', 26,
         4,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'sharedDictionaryWriterEnabled', 26,
+        5,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -895,7 +903,7 @@ network.mojom.URLRequest = class {
     /** @export { !boolean } */
     this.adAuctionHeaders;
     /** @export { !boolean } */
-    this.sharedStorageWritable;
+    this.sharedStorageWritableEligible;
     /** @export { !boolean } */
     this.hasUserGesture;
     /** @export { !boolean } */
@@ -958,6 +966,8 @@ network.mojom.URLRequest = class {
     this.attributionReportingRuntimeFeatures;
     /** @export { (mojoBase.mojom.UnguessableToken|undefined) } */
     this.attributionReportingSrcToken;
+    /** @export { !boolean } */
+    this.isAdTagged;
     /** @export { !boolean } */
     this.sharedDictionaryWriterEnabled;
   }

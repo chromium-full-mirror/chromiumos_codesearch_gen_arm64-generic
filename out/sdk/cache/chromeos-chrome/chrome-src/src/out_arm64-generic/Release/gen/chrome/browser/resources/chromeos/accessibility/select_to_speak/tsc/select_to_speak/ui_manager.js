@@ -3,13 +3,8 @@
 // found in the LICENSE file.
 import { AutomationUtil } from '../common/automation_util.js';
 import { ParagraphUtils } from '../common/paragraph_utils.js';
-import { PrefsManager } from './prefs_manager.js';
-const AutomationEvent = chrome.automation.AutomationEvent;
-const AutomationNode = chrome.automation.AutomationNode;
 const EventType = chrome.automation.EventType;
 const FocusRingStackingOrder = chrome.accessibilityPrivate.FocusRingStackingOrder;
-const RoleType = chrome.automation.RoleType;
-const SelectToSpeakPanelAction = chrome.accessibilityPrivate.SelectToSpeakPanelAction;
 // This must match the name of view class that implements the SelectToSpeakTray:
 // ash/system/accessibility/select_to_speak/select_to_speak_tray.h
 export const SELECT_TO_SPEAK_TRAY_CLASS_NAME = 'SelectToSpeakTray';
@@ -31,57 +26,29 @@ const FLOATING_MENU_BUTTON_CLASS_NAME = 'FloatingMenuButton';
 // AshColorProvider::ShieldLayerType kShield40.
 const DEFAULT_BACKGROUND_SHADING_COLOR = '#0006';
 /**
- * Callbacks invoked when users perform actions in the UI.
- * @interface
- */
-export class SelectToSpeakUiListener {
-    /** User requests navigation to next paragraph. */
-    onNextParagraphRequested() { }
-    /** User requests navigation to previous paragraph. */
-    onPreviousParagraphRequested() { }
-    /** User requests navigation to next sentence. */
-    onNextSentenceRequested() { }
-    /** User requests navigation to previous sentence. */
-    onPreviousSentenceRequested() { }
-    /** User requests pausing TTS. */
-    onPauseRequested() { }
-    /** User requests resuming TTS. */
-    onResumeRequested() { }
-    /**
-     * User requests reading speed adjustment.
-     * @param {number} speed Speech rate multiplier.
-     */
-    onChangeSpeedRequested(speed) { }
-    /** User requests exiting STS. */
-    onExitRequested() { }
-    /** User requests state change via tray button. */
-    onStateChangeRequested() { }
-}
-/**
  * Manages user interface elements controlled by Select-to-speak, such the
  * focus ring, floating control panel, tray button, and word highlight.
  */
 export class UiManager {
+    // TODO(b/314204374): Convert from null to undefined.
+    desktop_;
+    listener_;
+    // TODO(b/314204374): Convert from null to undefined.
+    panelButton_;
+    prefsManager_;
     /**
      * Please keep fields in alphabetical order.
-     * @param {!PrefsManager} prefsManager
-     * @param {!SelectToSpeakUiListener} listener
      */
     constructor(prefsManager, listener) {
-        /** @private {?chrome.automation.AutomationNode} */
         this.desktop_ = null;
-        /** @private {!SelectToSpeakUiListener} */
         this.listener_ = listener;
         /**
          * Button in the floating panel, useful for restoring focus to the panel.
-         * @private {?chrome.automation.AutomationNode}
          */
         this.panelButton_ = null;
-        /** @private {!PrefsManager} */
         this.prefsManager_ = prefsManager;
         this.init_();
     }
-    /** @private */
     init_() {
         // Cache desktop and listen to focus changes.
         chrome.automation.getDesktop(desktop => {
@@ -104,34 +71,35 @@ export class UiManager {
     }
     /**
      * Handles Select-to-speak panel action.
-     * @param {!SelectToSpeakPanelAction} panelAction Action to perform.
-     * @param {number=} value Optional value associated with action.
-     * @private
+     * @param panelAction Action to perform.
+     * @param value Optional value associated with action.
      */
     onPanelAction_(panelAction, value) {
         switch (panelAction) {
-            case SelectToSpeakPanelAction.NEXT_PARAGRAPH:
+            case chrome.accessibilityPrivate.SelectToSpeakPanelAction.NEXT_PARAGRAPH:
                 this.listener_.onNextParagraphRequested();
                 break;
-            case SelectToSpeakPanelAction.PREVIOUS_PARAGRAPH:
+            case chrome.accessibilityPrivate.SelectToSpeakPanelAction
+                .PREVIOUS_PARAGRAPH:
                 this.listener_.onPreviousParagraphRequested();
                 break;
-            case SelectToSpeakPanelAction.NEXT_SENTENCE:
+            case chrome.accessibilityPrivate.SelectToSpeakPanelAction.NEXT_SENTENCE:
                 this.listener_.onNextSentenceRequested();
                 break;
-            case SelectToSpeakPanelAction.PREVIOUS_SENTENCE:
+            case chrome.accessibilityPrivate.SelectToSpeakPanelAction
+                .PREVIOUS_SENTENCE:
                 this.listener_.onPreviousSentenceRequested();
                 break;
-            case SelectToSpeakPanelAction.EXIT:
+            case chrome.accessibilityPrivate.SelectToSpeakPanelAction.EXIT:
                 this.listener_.onExitRequested();
                 break;
-            case SelectToSpeakPanelAction.PAUSE:
+            case chrome.accessibilityPrivate.SelectToSpeakPanelAction.PAUSE:
                 this.listener_.onPauseRequested();
                 break;
-            case SelectToSpeakPanelAction.RESUME:
+            case chrome.accessibilityPrivate.SelectToSpeakPanelAction.RESUME:
                 this.listener_.onResumeRequested();
                 break;
-            case SelectToSpeakPanelAction.CHANGE_SPEED:
+            case chrome.accessibilityPrivate.SelectToSpeakPanelAction.CHANGE_SPEED:
                 if (!value) {
                     console.warn('Change speed request receieved with invalid value', value);
                     return;
@@ -144,8 +112,6 @@ export class UiManager {
     }
     /**
      * Handles desktop-wide focus changes.
-     * @param {!AutomationEvent} evt
-     * @private
      */
     onFocusChange_(evt) {
         const focusedNode = evt.target;
@@ -155,7 +121,7 @@ export class UiManager {
             // When panel is focused, initial focus is always on one of the buttons.
             return;
         }
-        const windowParent = AutomationUtil.getFirstAncestorWithRole(focusedNode, RoleType.WINDOW);
+        const windowParent = AutomationUtil.getFirstAncestorWithRole(focusedNode, chrome.automation.RoleType.WINDOW);
         if (windowParent &&
             windowParent.className === TRAY_BUBBLE_VIEW_CLASS_NAME &&
             windowParent.children.length === 1 &&
@@ -186,7 +152,8 @@ export class UiManager {
         if (menuView !== null && menuView.parent &&
             menuView.parent.className === TRAY_BUBBLE_VIEW_CLASS_NAME) {
             // The menu view's parent is the TrayBubbleView can can be assigned focus.
-            this.panelButton_ = menuView.find({ role: RoleType.TOGGLE_BUTTON });
+            this.panelButton_ =
+                menuView.find({ role: chrome.automation.RoleType.TOGGLE_BUTTON });
             this.panelButton_.focus();
         }
     }
@@ -194,10 +161,6 @@ export class UiManager {
      * Sets the focus ring to |rects|. If |drawBackground|, draws the grey focus
      * background with the alpha set in prefs. |panelVisible| determines
      * the stacking order, so focus rings do not appear on top of panel.
-     * @param {!Array<!chrome.accessibilityPrivate.ScreenRect>} rects
-     * @param {boolean} drawBackground
-     * @param {boolean} panelVisible
-     * @private
      */
     setFocusRings_(rects, drawBackground, panelVisible) {
         let color = '#0000'; // Fully transparent.
@@ -219,11 +182,6 @@ export class UiManager {
     }
     /**
      * Updates the floating control panel.
-     * @param {boolean} showPanel
-     * @param {!chrome.accessibilityPrivate.ScreenRect=} anchorRect
-     * @param {boolean=} paused
-     * @param {number=} speechRateMultiplier
-     * @private
      */
     updatePanel_(showPanel, anchorRect, paused, speechRateMultiplier) {
         if (showPanel) {
@@ -248,19 +206,20 @@ export class UiManager {
     }
     /**
      * Updates word highlight.
-     * @param {!AutomationNode} node Current node being spoken.
-     * @param {?{start: number, end: number}} currentWord Character offsets of
+     * @param node Current node being spoken.
+     * @param currentWord Character offsets of
      *    current word spoken within node if word highlighting is enabled.
-     * @private
      */
-    updateHighlight_(node, currentWord) {
+    updateHighlight_(node, 
+    // TODO(b/314204374): Convert null to undefined.
+    currentWord) {
         if (!currentWord) {
             chrome.accessibilityPrivate.setHighlights([], this.prefsManager_.highlightColor());
             return;
         }
         // getStartCharIndexInParent is only defined for nodes with role
         // INLINE_TEXT_BOX.
-        const charIndexInParent = node.role === RoleType.INLINE_TEXT_BOX ?
+        const charIndexInParent = node.role === chrome.automation.RoleType.INLINE_TEXT_BOX ?
             ParagraphUtils.getStartCharIndexInParent(node) :
             0;
         node.boundsForRange(currentWord.start - charIndexInParent, currentWord.end - charIndexInParent, bounds => {
@@ -270,7 +229,6 @@ export class UiManager {
     }
     /**
      * Renders user selection rect, in the form of a focus ring.
-     * @param {!chrome.accessibilityPrivate.ScreenRect} rect
      */
     setSelectionRect(rect) {
         // TODO(crbug.com/1185238): Support showing two focus rings at once, in case
@@ -279,15 +237,14 @@ export class UiManager {
     }
     /**
      * Updates overlay UI based on current node and panel state.
-     * @param {!ParagraphUtils.NodeGroup} nodeGroup Current node group.
-     * @param {!AutomationNode} node Current node being spoken.
-     * @param {?{start: number, end: number}} currentWord Character offsets of
+     * @param nodeGroup Current node group.
+     * @param node Current node being spoken.
+     * @param currentWord Character offsets of
      *    current word spoken within node if word highlighting is enabled.
-     * @param {!{showPanel: boolean,
-     *          paused: boolean,
-     *          speechRateMultiplier: number}} panelState
      */
-    update(nodeGroup, node, currentWord, panelState) {
+    update(nodeGroup, node, 
+    // TODO(b/314204374): Convert null to undefined.
+    currentWord, panelState) {
         const { showPanel, paused, speechRateMultiplier } = panelState;
         // Show the block parent of the currently verbalized node with the
         // focus ring. If the node has no siblings in the group, highlight just
@@ -318,8 +275,7 @@ export class UiManager {
         this.updatePanel_(false /* hide panel */);
     }
     /**
-     * @param {?AutomationNode|undefined} node
-     * @return {boolean} Whether given node is the Select-to-speak floating panel.
+     * @return Whether given node is the Select-to-speak floating panel.
      */
     static isPanel(node) {
         if (!node) {
@@ -333,8 +289,7 @@ export class UiManager {
                 node.children[0].className === SELECT_TO_SPEAK_SPEED_CLASS_NAME));
     }
     /**
-     * @param {?AutomationNode|undefined} node
-     * @return {boolean} Whether given node is the Select-to-speak tray button.
+     * @return Whether given node is the Select-to-speak tray button.
      */
     static isTrayButton(node) {
         if (!node) {

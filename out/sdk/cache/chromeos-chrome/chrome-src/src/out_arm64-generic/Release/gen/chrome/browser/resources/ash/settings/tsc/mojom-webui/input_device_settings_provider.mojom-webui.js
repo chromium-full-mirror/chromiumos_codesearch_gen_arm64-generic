@@ -561,6 +561,9 @@ export class InputDeviceSettingsProviderRemote {
     getActionsForGraphicsTabletButtonCustomization() {
         return this.proxy.sendMessage(15, InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ParamsSpec.$, InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParamsSpec.$, []);
     }
+    hasLauncherButton() {
+        return this.proxy.sendMessage(16, InputDeviceSettingsProvider_HasLauncherButton_ParamsSpec.$, InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsSpec.$, []);
+    }
 }
 ;
 /**
@@ -588,6 +591,7 @@ export class InputDeviceSettingsProviderReceiver {
         this.helper_internal_.registerHandler(13, InputDeviceSettingsProvider_StopObserving_ParamsSpec.$, null, impl.stopObserving.bind(impl));
         this.helper_internal_.registerHandler(14, InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ParamsSpec.$, InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ResponseParamsSpec.$, impl.getActionsForMouseButtonCustomization.bind(impl));
         this.helper_internal_.registerHandler(15, InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ParamsSpec.$, InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParamsSpec.$, impl.getActionsForGraphicsTabletButtonCustomization.bind(impl));
+        this.helper_internal_.registerHandler(16, InputDeviceSettingsProvider_HasLauncherButton_ParamsSpec.$, InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsSpec.$, impl.hasLauncherButton.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -665,6 +669,9 @@ export class InputDeviceSettingsProviderCallbackRouter {
         this.getActionsForGraphicsTabletButtonCustomization =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(15, InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ParamsSpec.$, InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParamsSpec.$, this.getActionsForGraphicsTabletButtonCustomization.createReceiverHandler(true /* expectsResponse */));
+        this.hasLauncherButton =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(16, InputDeviceSettingsProvider_HasLauncherButton_ParamsSpec.$, InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsSpec.$, this.hasLauncherButton.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -702,6 +709,8 @@ export const InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_P
 export const InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ResponseParamsSpec = { $: {} };
 export const InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ParamsSpec = { $: {} };
 export const InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParamsSpec = { $: {} };
+export const InputDeviceSettingsProvider_HasLauncherButton_ParamsSpec = { $: {} };
+export const InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsSpec = { $: {} };
 export const ActionTypeSpec = { $: {} };
 mojo.internal.Struct(ActionChoiceSpec.$, 'ActionChoice', [
     mojo.internal.StructField('actionType', 0, 0, ActionTypeSpec.$, null, false /* nullable */, 0),
@@ -783,6 +792,10 @@ mojo.internal.Struct(InputDeviceSettingsProvider_GetActionsForMouseButtonCustomi
 mojo.internal.Struct(InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ParamsSpec.$, 'InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Params', [], [[0, 8],]);
 mojo.internal.Struct(InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParamsSpec.$, 'InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParams', [
     mojo.internal.StructField('options', 0, 0, mojo.internal.Array(ActionChoiceSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(InputDeviceSettingsProvider_HasLauncherButton_ParamsSpec.$, 'InputDeviceSettingsProvider_HasLauncherButton_Params', [], [[0, 8],]);
+mojo.internal.Struct(InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsSpec.$, 'InputDeviceSettingsProvider_HasLauncherButton_ResponseParams', [
+    mojo.internal.StructField('hasLauncherButton', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Union(ActionTypeSpec.$, 'ActionType', {
     'acceleratorAction': {

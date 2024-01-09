@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -266,14 +267,17 @@ void ServiceManagerListenerProxy::OnInit(
                         "<value of type std::vector<RunningServiceInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceManagerListener_OnInit_Name, kFlags, 0, 0, nullptr);
@@ -316,14 +320,17 @@ void ServiceManagerListenerProxy::OnServiceCreated(
                         "<value of type RunningServiceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceManagerListener_OnServiceCreated_Name, kFlags, 0, 0, nullptr);
@@ -367,14 +374,17 @@ void ServiceManagerListenerProxy::OnServiceStarted(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceManagerListener_OnServiceStarted_Name, kFlags, 0, 0, nullptr);
@@ -419,14 +429,17 @@ void ServiceManagerListenerProxy::OnServicePIDReceived(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceManagerListener_OnServicePIDReceived_Name, kFlags, 0, 0, nullptr);
@@ -468,14 +481,17 @@ void ServiceManagerListenerProxy::OnServiceFailedToStart(
                         "<value of type const ::service_manager::Identity&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceManagerListener_OnServiceFailedToStart_Name, kFlags, 0, 0, nullptr);
@@ -516,14 +532,17 @@ void ServiceManagerListenerProxy::OnServiceStopped(
                         "<value of type const ::service_manager::Identity&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceManagerListener_OnServiceStopped_Name, kFlags, 0, 0, nullptr);
@@ -755,20 +774,20 @@ bool ServiceManagerListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceManagerListenerValidationInfo[] = {
-    {&internal::ServiceManagerListener_OnInit_Params_Data::Validate,
+    { &internal::ServiceManagerListener_OnInit_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceManagerListener_OnServiceCreated_Params_Data::Validate,
+    { &internal::ServiceManagerListener_OnServiceCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceManagerListener_OnServiceStarted_Params_Data::Validate,
+    { &internal::ServiceManagerListener_OnServiceStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceManagerListener_OnServicePIDReceived_Params_Data::Validate,
+    { &internal::ServiceManagerListener_OnServicePIDReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceManagerListener_OnServiceFailedToStart_Params_Data::Validate,
+    { &internal::ServiceManagerListener_OnServiceFailedToStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceManagerListener_OnServiceStopped_Params_Data::Validate,
+    { &internal::ServiceManagerListener_OnServiceStopped_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -848,14 +867,17 @@ void ServiceManagerProxy::AddListener(
                         "<value of type ::mojo::PendingRemote<ServiceManagerListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceManager_AddListener_Name, kFlags, 0, 0, nullptr);
@@ -931,10 +953,10 @@ bool ServiceManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceManagerValidationInfo[] = {
-    {&internal::ServiceManager_AddListener_Params_Data::Validate,
+    { &internal::ServiceManager_AddListener_Params_Data::Validate,
      nullptr /* no response */},
 };
 

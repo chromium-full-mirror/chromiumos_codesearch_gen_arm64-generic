@@ -4,9 +4,9 @@
 import { assert } from 'chrome://resources/ash/common/assert.js';
 import { FakeEntryImpl } from '../../common/js/files_app_entry_types.js';
 import { isDriveFsBulkPinningEnabled } from '../../common/js/flags.js';
-import { str } from '../../common/js/util.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import '../../externs/files_app_entry_interfaces.js';
+import { str } from '../../common/js/translations.js';
+import { COMPUTERS_DIRECTORY_NAME, FileSystemType, RootType, SHARED_DRIVES_DIRECTORY_NAME, Source, VolumeType } from '../../common/js/volume_manager_types.js';
+import { FakeEntry, FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
 /**
  * Represents each volume, such as "drive", "download directory", each "USB
  * flush storage", or "mounted zip archive" etc.
@@ -85,13 +85,11 @@ export class VolumeInfoImpl {
         this.computersDisplayRoot_ = null;
         this.prefixEntry_ = null;
         this.fakeEntries_ = {};
-        if (volumeType_ === VolumeManagerCommon.VolumeType.DRIVE) {
+        if (volumeType_ === VolumeType.DRIVE) {
             if (!isDriveFsBulkPinningEnabled()) {
-                this.fakeEntries_[VolumeManagerCommon.RootType.DRIVE_OFFLINE] =
-                    new FakeEntryImpl(str('DRIVE_OFFLINE_COLLECTION_LABEL'), VolumeManagerCommon.RootType.DRIVE_OFFLINE);
+                this.fakeEntries_[RootType.DRIVE_OFFLINE] = new FakeEntryImpl(str('DRIVE_OFFLINE_COLLECTION_LABEL'), RootType.DRIVE_OFFLINE);
             }
-            this.fakeEntries_[VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME] =
-                new FakeEntryImpl(str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL'), VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME);
+            this.fakeEntries_[RootType.DRIVE_SHARED_WITH_ME] = new FakeEntryImpl(str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL'), RootType.DRIVE_SHARED_WITH_ME);
         }
         this.displayRootPromise_ = this.resolveDisplayRootImpl_();
     }
@@ -102,6 +100,7 @@ export class VolumeInfoImpl {
         return this.volumeId_;
     }
     get fileSystem() {
+        // TODO(b/309054429): fileSystem could be null, handle it gracefully.
         return this.fileSystem_;
     }
     /** Display root path. It is null before finishing to resolve the entry. */
@@ -230,9 +229,11 @@ export class VolumeInfoImpl {
      * The return value will resolve once this operation is complete.
      */
     resolveSharedDrivesRoot_() {
+        if (!this.fileSystem_) {
+            return Promise.reject(this.error);
+        }
         return VolumeInfoImpl
-            .resolveFileSystemUrl_(this.fileSystem_.root.toURL() +
-            VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME)
+            .resolveFileSystemUrl_(this.fileSystem_.root.toURL() + SHARED_DRIVES_DIRECTORY_NAME)
             .then(sharedDrivesRoot => {
             this.sharedDriveDisplayRoot_ = sharedDrivesRoot;
         }, error => {
@@ -251,9 +252,11 @@ export class VolumeInfoImpl {
      * The return value will resolve once this operation is complete.
      */
     resolveComputersRoot_() {
+        if (!this.fileSystem_) {
+            return Promise.reject(this.error);
+        }
         return VolumeInfoImpl
-            .resolveFileSystemUrl_(this.fileSystem_.root.toURL() +
-            VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME)
+            .resolveFileSystemUrl_(this.fileSystem_.root.toURL() + COMPUTERS_DIRECTORY_NAME)
             .then((computersRoot) => {
             this.computersDisplayRoot_ = computersRoot;
         }, (error) => {
@@ -269,7 +272,7 @@ export class VolumeInfoImpl {
         if (!this.fileSystem_) {
             return Promise.reject(this.error);
         }
-        if (this.volumeType !== VolumeManagerCommon.VolumeType.DRIVE) {
+        if (this.volumeType !== VolumeType.DRIVE) {
             this.displayRoot_ = this.fileSystem_.root;
             return Promise.resolve(this.displayRoot_);
         }

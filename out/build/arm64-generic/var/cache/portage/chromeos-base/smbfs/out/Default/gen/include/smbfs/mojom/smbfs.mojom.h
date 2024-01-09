@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "smbfs/mojom/smbfs.mojom-features.h"
 #include "smbfs/mojom/smbfs.mojom-shared.h"
 #include "smbfs/mojom/smbfs.mojom-forward.h"
 #include "smbfs/mojom/file_path.mojom.h"
@@ -862,7 +863,7 @@ class  MountOptions {
       ::smbfs::mojom::IPAddressPtr resolved_host,
       const std::string& username,
       const std::string& workgroup,
-      absl::optional<std::unique_ptr<password_provider::Password>> password,
+      std::optional<std::unique_ptr<password_provider::Password>> password,
       KerberosConfigPtr kerberos_config,
       bool allow_ntlm,
       bool skip_connect);
@@ -872,7 +873,7 @@ class  MountOptions {
       ::smbfs::mojom::IPAddressPtr resolved_host,
       const std::string& username,
       const std::string& workgroup,
-      absl::optional<std::unique_ptr<password_provider::Password>> password,
+      std::optional<std::unique_ptr<password_provider::Password>> password,
       KerberosConfigPtr kerberos_config,
       bool allow_ntlm,
       bool skip_connect,
@@ -959,7 +960,7 @@ MountOptions& operator=(const MountOptions&) = delete;
   
   std::string workgroup;
   
-  absl::optional<std::unique_ptr<password_provider::Password>> password;
+  std::optional<std::unique_ptr<password_provider::Password>> password;
   
   KerberosConfigPtr kerberos_config;
   
@@ -1031,7 +1032,7 @@ class  Credentials {
   Credentials(
       const std::string& username,
       const std::string& workgroup,
-      absl::optional<std::unique_ptr<password_provider::Password>> password);
+      std::optional<std::unique_ptr<password_provider::Password>> password);
 
 Credentials(const Credentials&) = delete;
 Credentials& operator=(const Credentials&) = delete;
@@ -1110,7 +1111,7 @@ Credentials& operator=(const Credentials&) = delete;
   
   std::string workgroup;
   
-  absl::optional<std::unique_ptr<password_provider::Password>> password;
+  std::optional<std::unique_ptr<password_provider::Password>> password;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

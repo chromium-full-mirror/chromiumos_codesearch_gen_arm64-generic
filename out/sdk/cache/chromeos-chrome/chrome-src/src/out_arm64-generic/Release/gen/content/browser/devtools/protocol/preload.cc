@@ -139,7 +139,8 @@ const char PrefetchFailedMIMENotSupported[] = "PrefetchFailedMIMENotSupported";
 const char PrefetchFailedNetError[] = "PrefetchFailedNetError";
 const char PrefetchFailedNon2XX[] = "PrefetchFailedNon2XX";
 const char PrefetchFailedPerPageLimitExceeded[] = "PrefetchFailedPerPageLimitExceeded";
-const char PrefetchEvicted[] = "PrefetchEvicted";
+const char PrefetchEvictedAfterCandidateRemoved[] = "PrefetchEvictedAfterCandidateRemoved";
+const char PrefetchEvictedForNewerPrefetch[] = "PrefetchEvictedForNewerPrefetch";
 const char PrefetchHeldback[] = "PrefetchHeldback";
 const char PrefetchIneligibleRetryAfter[] = "PrefetchIneligibleRetryAfter";
 const char PrefetchIsPrivacyDecoy[] = "PrefetchIsPrivacyDecoy";
@@ -163,6 +164,19 @@ const char PrefetchResponseUsed[] = "PrefetchResponseUsed";
 const char PrefetchSuccessfulButNotUsed[] = "PrefetchSuccessfulButNotUsed";
 const char PrefetchNotUsedProbeFailed[] = "PrefetchNotUsedProbeFailed";
 } // namespace PrefetchStatusEnum
+
+
+CRDTP_BEGIN_DESERIALIZER(PrerenderMismatchedHeaders)
+    CRDTP_DESERIALIZE_FIELD_OPT("activationValue", m_activationValue),
+    CRDTP_DESERIALIZE_FIELD("headerName", m_headerName),
+    CRDTP_DESERIALIZE_FIELD_OPT("initialValue", m_initialValue),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(PrerenderMismatchedHeaders)
+    CRDTP_SERIALIZE_FIELD("headerName", m_headerName);
+    CRDTP_SERIALIZE_FIELD("initialValue", m_initialValue);
+    CRDTP_SERIALIZE_FIELD("activationValue", m_activationValue);
+CRDTP_END_SERIALIZER();
 
 
 // ------------- Enum values from params.
@@ -197,7 +211,7 @@ void Frontend::PrefetchStatusUpdated(std::unique_ptr<protocol::Preload::Preloadi
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Preload.prefetchStatusUpdated", serializer.Finish()));
 }
 
-void Frontend::PrerenderStatusUpdated(std::unique_ptr<protocol::Preload::PreloadingAttemptKey> key, const String& status, Maybe<String> prerenderStatus, Maybe<String> disallowedMojoInterface)
+void Frontend::PrerenderStatusUpdated(std::unique_ptr<protocol::Preload::PreloadingAttemptKey> key, const String& status, Maybe<String> prerenderStatus, Maybe<String> disallowedMojoInterface, Maybe<protocol::Array<protocol::Preload::PrerenderMismatchedHeaders>> mismatchedHeaders)
 {
     if (!frontend_channel_)
         return;
@@ -206,6 +220,7 @@ void Frontend::PrerenderStatusUpdated(std::unique_ptr<protocol::Preload::Preload
     serializer.AddField(crdtp::MakeSpan("status"), status);
     serializer.AddField(crdtp::MakeSpan("prerenderStatus"), prerenderStatus);
     serializer.AddField(crdtp::MakeSpan("disallowedMojoInterface"), disallowedMojoInterface);
+    serializer.AddField(crdtp::MakeSpan("mismatchedHeaders"), mismatchedHeaders);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Preload.prerenderStatusUpdated", serializer.Finish()));
 }
 

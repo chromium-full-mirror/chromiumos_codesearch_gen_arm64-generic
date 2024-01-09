@@ -16,10 +16,10 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isCrostiniAllowed, isCrostiniSupported, isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { CrostiniBrowserProxyImpl } from './crostini_browser_proxy.js';
 import { getTemplate } from './crostini_settings_card.html.js';
@@ -60,7 +60,9 @@ export class CrostiniSettingsCardElement extends CrostiniSettingsCardElementBase
             },
             showBruschetta_: {
                 type: Boolean,
-                value: loadTimeData.getBoolean('showBruschetta'),
+                value() {
+                    return loadTimeData.getBoolean('showBruschetta');
+                },
             },
             isRevampWayfindingEnabled_: {
                 type: Boolean,

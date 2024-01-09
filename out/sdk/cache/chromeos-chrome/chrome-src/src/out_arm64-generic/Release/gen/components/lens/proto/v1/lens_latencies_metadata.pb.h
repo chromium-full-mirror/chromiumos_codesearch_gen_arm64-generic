@@ -538,8 +538,22 @@ class ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kEncodedImageSizeBytesFieldNumber = 2,
     kOriginalImageTypeFieldNumber = 1,
   };
+  // optional int64 encoded_image_size_bytes = 2;
+  bool has_encoded_image_size_bytes() const;
+  private:
+  bool _internal_has_encoded_image_size_bytes() const;
+  public:
+  void clear_encoded_image_size_bytes();
+  int64_t encoded_image_size_bytes() const;
+  void set_encoded_image_size_bytes(int64_t value);
+  private:
+  int64_t _internal_encoded_image_size_bytes() const;
+  void _internal_set_encoded_image_size_bytes(int64_t value);
+  public:
+
   // optional .lens.proto.lens_latencies_metadata.ChromeSpecificPhaseLatenciesMetadata.ImageType original_image_type = 1;
   bool has_original_image_type() const;
   private:
@@ -562,6 +576,7 @@ class ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int64_t encoded_image_size_bytes_;
   int original_image_type_;
   friend struct ::TableStruct_lens_5flatencies_5fmetadata_2eproto;
 };
@@ -1129,7 +1144,7 @@ inline void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageDownscaleData::set_d
 
 // optional .lens.proto.lens_latencies_metadata.ChromeSpecificPhaseLatenciesMetadata.ImageType original_image_type = 1;
 inline bool ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::_internal_has_original_image_type() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::has_original_image_type() const {
@@ -1137,7 +1152,7 @@ inline bool ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::has_orig
 }
 inline void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::clear_original_image_type() {
   original_image_type_ = 0;
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline ::lens::proto::lens_latencies_metadata::ChromeSpecificPhaseLatenciesMetadata_ImageType ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::_internal_original_image_type() const {
   return static_cast< ::lens::proto::lens_latencies_metadata::ChromeSpecificPhaseLatenciesMetadata_ImageType >(original_image_type_);
@@ -1148,12 +1163,40 @@ inline ::lens::proto::lens_latencies_metadata::ChromeSpecificPhaseLatenciesMetad
 }
 inline void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::_internal_set_original_image_type(::lens::proto::lens_latencies_metadata::ChromeSpecificPhaseLatenciesMetadata_ImageType value) {
   assert(::lens::proto::lens_latencies_metadata::ChromeSpecificPhaseLatenciesMetadata_ImageType_IsValid(value));
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   original_image_type_ = value;
 }
 inline void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::set_original_image_type(::lens::proto::lens_latencies_metadata::ChromeSpecificPhaseLatenciesMetadata_ImageType value) {
   _internal_set_original_image_type(value);
   // @@protoc_insertion_point(field_set:lens.proto.lens_latencies_metadata.ChromeSpecificPhaseLatenciesMetadata.Phase.ImageEncodeData.original_image_type)
+}
+
+// optional int64 encoded_image_size_bytes = 2;
+inline bool ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::_internal_has_encoded_image_size_bytes() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::has_encoded_image_size_bytes() const {
+  return _internal_has_encoded_image_size_bytes();
+}
+inline void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::clear_encoded_image_size_bytes() {
+  encoded_image_size_bytes_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int64_t ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::_internal_encoded_image_size_bytes() const {
+  return encoded_image_size_bytes_;
+}
+inline int64_t ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::encoded_image_size_bytes() const {
+  // @@protoc_insertion_point(field_get:lens.proto.lens_latencies_metadata.ChromeSpecificPhaseLatenciesMetadata.Phase.ImageEncodeData.encoded_image_size_bytes)
+  return _internal_encoded_image_size_bytes();
+}
+inline void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::_internal_set_encoded_image_size_bytes(int64_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  encoded_image_size_bytes_ = value;
+}
+inline void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::set_encoded_image_size_bytes(int64_t value) {
+  _internal_set_encoded_image_size_bytes(value);
+  // @@protoc_insertion_point(field_set:lens.proto.lens_latencies_metadata.ChromeSpecificPhaseLatenciesMetadata.Phase.ImageEncodeData.encoded_image_size_bytes)
 }
 
 // -------------------------------------------------------------------

@@ -20,7 +20,7 @@ class FtraceDescriptor;
 class GpuCounterDescriptor;
 class TrackEventDescriptor;
 
-class DataSourceDescriptor_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/8, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class DataSourceDescriptor_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   DataSourceDescriptor_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit DataSourceDescriptor_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -35,6 +35,8 @@ class DataSourceDescriptor_Decoder : public ::protozero::TypedProtoDecoder</*MAX
   bool will_notify_on_start() const { return at<3>().as_bool(); }
   bool has_handles_incremental_state_clear() const { return at<4>().valid(); }
   bool handles_incremental_state_clear() const { return at<4>().as_bool(); }
+  bool has_no_flush() const { return at<9>().valid(); }
+  bool no_flush() const { return at<9>().as_bool(); }
   bool has_gpu_counter_descriptor() const { return at<5>().valid(); }
   ::protozero::ConstBytes gpu_counter_descriptor() const { return at<5>().as_bytes(); }
   bool has_track_event_descriptor() const { return at<6>().valid(); }
@@ -52,6 +54,7 @@ class DataSourceDescriptor : public ::protozero::Message {
     kWillNotifyOnStopFieldNumber = 2,
     kWillNotifyOnStartFieldNumber = 3,
     kHandlesIncrementalStateClearFieldNumber = 4,
+    kNoFlushFieldNumber = 9,
     kGpuCounterDescriptorFieldNumber = 5,
     kTrackEventDescriptorFieldNumber = 6,
     kFtraceDescriptorFieldNumber = 8,
@@ -148,6 +151,24 @@ class DataSourceDescriptor : public ::protozero::Message {
   static constexpr FieldMetadata_HandlesIncrementalStateClear kHandlesIncrementalStateClear{};
   void set_handles_incremental_state_clear(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_HandlesIncrementalStateClear::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NoFlush =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      DataSourceDescriptor>;
+
+  static constexpr FieldMetadata_NoFlush kNoFlush{};
+  void set_no_flush(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_NoFlush::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -180,7 +181,7 @@ CastMediaSink::CastMediaSink()
 CastMediaSink::CastMediaSink(
     const ::net::IPEndPoint& ip_endpoint_in,
     const std::string& model_name_in,
-    uint8_t capabilities_in,
+    uint64_t capabilities_in,
     int32_t cast_channel_id_in)
     : ip_endpoint(std::move(ip_endpoint_in)),
       model_name(std::move(model_name_in)),
@@ -214,7 +215,7 @@ void CastMediaSink::WriteIntoTrace(
     dict.AddItem(
       "capabilities"), this->capabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint8_t>"
+      "<value of type uint64_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -250,7 +251,7 @@ MediaRoute::MediaRoute()
 MediaRoute::MediaRoute(
     const std::string& media_route_id_in,
     const std::string& presentation_id_in,
-    const absl::optional<std::string>& media_source_in,
+    const std::optional<std::string>& media_source_in,
     const std::string& media_sink_id_in,
     const std::string& media_sink_name_in,
     const std::string& description_in,
@@ -296,7 +297,7 @@ void MediaRoute::WriteIntoTrace(
     dict.AddItem(
       "media_source"), this->media_source,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -383,7 +384,7 @@ Issue::Issue(
     const std::string& sink_id_in,
     ::media_router::IssueInfo::Severity severity_in,
     const std::string& title_in,
-    const absl::optional<std::string>& message_in)
+    const std::optional<std::string>& message_in)
     : route_id(std::move(route_id_in)),
       sink_id(std::move(sink_id_in)),
       severity(std::move(severity_in)),
@@ -435,7 +436,7 @@ void Issue::WriteIntoTrace(
     dict.AddItem(
       "message"), this->message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -454,8 +455,8 @@ RouteMessage::RouteMessage()
 
 RouteMessage::RouteMessage(
     RouteMessage::Type type_in,
-    const absl::optional<std::string>& message_in,
-    absl::optional<std::vector<uint8_t>> data_in)
+    const std::optional<std::string>& message_in,
+    std::optional<std::vector<uint8_t>> data_in)
     : type(std::move(type_in)),
       message(std::move(message_in)),
       data(std::move(data_in)) {}
@@ -478,7 +479,7 @@ void RouteMessage::WriteIntoTrace(
     dict.AddItem(
       "message"), this->message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -487,7 +488,7 @@ void RouteMessage::WriteIntoTrace(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1131,14 +1132,17 @@ void MediaRouteProviderProxy::CreateRoute(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_CreateRoute_Name, kFlags, 0, 0, nullptr);
@@ -1237,14 +1241,17 @@ void MediaRouteProviderProxy::JoinRoute(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_JoinRoute_Name, kFlags, 0, 0, nullptr);
@@ -1320,14 +1327,17 @@ void MediaRouteProviderProxy::TerminateRoute(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_TerminateRoute_Name, kFlags, 0, 0, nullptr);
@@ -1372,14 +1382,17 @@ void MediaRouteProviderProxy::SendRouteMessage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_SendRouteMessage_Name, kFlags, 0, 0, nullptr);
@@ -1434,14 +1447,17 @@ void MediaRouteProviderProxy::SendRouteBinaryMessage(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_SendRouteBinaryMessage_Name, kFlags, 0, 0, nullptr);
@@ -1495,14 +1511,17 @@ void MediaRouteProviderProxy::StartObservingMediaSinks(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_StartObservingMediaSinks_Name, kFlags, 0, 0, nullptr);
@@ -1543,14 +1562,17 @@ void MediaRouteProviderProxy::StopObservingMediaSinks(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_StopObservingMediaSinks_Name, kFlags, 0, 0, nullptr);
@@ -1584,14 +1606,17 @@ void MediaRouteProviderProxy::StartObservingMediaRoutes(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_router::mojom::MediaRouteProvider::StartObservingMediaRoutes");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_StartObservingMediaRoutes_Name, kFlags, 0, 0, nullptr);
@@ -1621,14 +1646,17 @@ void MediaRouteProviderProxy::DetachRoute(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_DetachRoute_Name, kFlags, 0, 0, nullptr);
@@ -1662,14 +1690,17 @@ void MediaRouteProviderProxy::EnableMdnsDiscovery(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_router::mojom::MediaRouteProvider::EnableMdnsDiscovery");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_EnableMdnsDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -1692,14 +1723,17 @@ void MediaRouteProviderProxy::DiscoverSinksNow(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_router::mojom::MediaRouteProvider::DiscoverSinksNow");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_DiscoverSinksNow_Name, kFlags, 0, 0, nullptr);
@@ -1735,14 +1769,17 @@ void MediaRouteProviderProxy::CreateMediaRouteController(
                         "<value of type ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_CreateMediaRouteController_Name, kFlags, 0, 0, nullptr);
@@ -1789,14 +1826,17 @@ void MediaRouteProviderProxy::GetState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_router::mojom::MediaRouteProvider::GetState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_GetState_Name, kFlags, 0, 0, nullptr);
@@ -1860,7 +1900,7 @@ class MediaRouteProvider_CreateRoute_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      const absl::optional<::media_router::MediaRoute>& in_route, RoutePresentationConnectionPtr in_connection, const absl::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code);
+      const std::optional<::media_router::MediaRoute>& in_route, RoutePresentationConnectionPtr in_connection, const std::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code);
 };
 
 bool MediaRouteProvider_CreateRoute_ForwardToCallback::Accept(
@@ -1873,9 +1913,9 @@ bool MediaRouteProvider_CreateRoute_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::media_router::MediaRoute> p_route{};
+  std::optional<::media_router::MediaRoute> p_route{};
   RoutePresentationConnectionPtr p_connection{};
-  absl::optional<std::string> p_error_text{};
+  std::optional<std::string> p_error_text{};
   ::media_router::mojom::RouteRequestResultCode p_result_code{};
   MediaRouteProvider_CreateRoute_ResponseParamsDataView input_data_view(params, message);
   
@@ -1904,7 +1944,7 @@ std::move(p_result_code));
 }
 
 void MediaRouteProvider_CreateRoute_ProxyToResponder::Run(
-    const absl::optional<::media_router::MediaRoute>& in_route, RoutePresentationConnectionPtr in_connection, const absl::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code) {
+    const std::optional<::media_router::MediaRoute>& in_route, RoutePresentationConnectionPtr in_connection, const std::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply media_router::mojom::MediaRouteProvider::CreateRoute", "async_response_parameters",
@@ -1912,13 +1952,13 @@ void MediaRouteProvider_CreateRoute_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("route"), in_route,
-                        "<value of type const absl::optional<::media_router::MediaRoute>&>");
+                        "<value of type const std::optional<::media_router::MediaRoute>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("connection"), in_connection,
                         "<value of type RoutePresentationConnectionPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_text"), in_error_text,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result_code"), in_result_code,
                         "<value of type ::media_router::mojom::RouteRequestResultCode>");
@@ -1927,7 +1967,8 @@ void MediaRouteProvider_CreateRoute_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_CreateRoute_Name, kFlags, 0, 0, nullptr);
@@ -2021,7 +2062,7 @@ class MediaRouteProvider_JoinRoute_ProxyToResponder : public ::mojo::internal::P
 #endif
 
   void Run(
-      const absl::optional<::media_router::MediaRoute>& in_route, RoutePresentationConnectionPtr in_connection, const absl::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code);
+      const std::optional<::media_router::MediaRoute>& in_route, RoutePresentationConnectionPtr in_connection, const std::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code);
 };
 
 bool MediaRouteProvider_JoinRoute_ForwardToCallback::Accept(
@@ -2034,9 +2075,9 @@ bool MediaRouteProvider_JoinRoute_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::media_router::MediaRoute> p_route{};
+  std::optional<::media_router::MediaRoute> p_route{};
   RoutePresentationConnectionPtr p_connection{};
-  absl::optional<std::string> p_error_text{};
+  std::optional<std::string> p_error_text{};
   ::media_router::mojom::RouteRequestResultCode p_result_code{};
   MediaRouteProvider_JoinRoute_ResponseParamsDataView input_data_view(params, message);
   
@@ -2065,7 +2106,7 @@ std::move(p_result_code));
 }
 
 void MediaRouteProvider_JoinRoute_ProxyToResponder::Run(
-    const absl::optional<::media_router::MediaRoute>& in_route, RoutePresentationConnectionPtr in_connection, const absl::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code) {
+    const std::optional<::media_router::MediaRoute>& in_route, RoutePresentationConnectionPtr in_connection, const std::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply media_router::mojom::MediaRouteProvider::JoinRoute", "async_response_parameters",
@@ -2073,13 +2114,13 @@ void MediaRouteProvider_JoinRoute_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("route"), in_route,
-                        "<value of type const absl::optional<::media_router::MediaRoute>&>");
+                        "<value of type const std::optional<::media_router::MediaRoute>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("connection"), in_connection,
                         "<value of type RoutePresentationConnectionPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_text"), in_error_text,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result_code"), in_result_code,
                         "<value of type ::media_router::mojom::RouteRequestResultCode>");
@@ -2088,7 +2129,8 @@ void MediaRouteProvider_JoinRoute_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_JoinRoute_Name, kFlags, 0, 0, nullptr);
@@ -2182,7 +2224,7 @@ class MediaRouteProvider_TerminateRoute_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code);
+      const std::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code);
 };
 
 bool MediaRouteProvider_TerminateRoute_ForwardToCallback::Accept(
@@ -2195,7 +2237,7 @@ bool MediaRouteProvider_TerminateRoute_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error_text{};
+  std::optional<std::string> p_error_text{};
   ::media_router::mojom::RouteRequestResultCode p_result_code{};
   MediaRouteProvider_TerminateRoute_ResponseParamsDataView input_data_view(params, message);
   
@@ -2218,7 +2260,7 @@ std::move(p_result_code));
 }
 
 void MediaRouteProvider_TerminateRoute_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code) {
+    const std::optional<std::string>& in_error_text, ::media_router::mojom::RouteRequestResultCode in_result_code) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply media_router::mojom::MediaRouteProvider::TerminateRoute", "async_response_parameters",
@@ -2226,7 +2268,7 @@ void MediaRouteProvider_TerminateRoute_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_text"), in_error_text,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result_code"), in_result_code,
                         "<value of type ::media_router::mojom::RouteRequestResultCode>");
@@ -2235,7 +2277,8 @@ void MediaRouteProvider_TerminateRoute_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_TerminateRoute_Name, kFlags, 0, 0, nullptr);
@@ -2361,7 +2404,8 @@ void MediaRouteProvider_CreateMediaRouteController_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_CreateMediaRouteController_Name, kFlags, 0, 0, nullptr);
@@ -2479,7 +2523,8 @@ void MediaRouteProvider_GetState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouteProvider_GetState_Name, kFlags, 0, 0, nullptr);
@@ -2963,34 +3008,34 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaRouteProviderValidationInfo[] = {
-    {&internal::MediaRouteProvider_CreateRoute_Params_Data::Validate,
+    { &internal::MediaRouteProvider_CreateRoute_Params_Data::Validate,
      &internal::MediaRouteProvider_CreateRoute_ResponseParams_Data::Validate},
-    {&internal::MediaRouteProvider_JoinRoute_Params_Data::Validate,
+    { &internal::MediaRouteProvider_JoinRoute_Params_Data::Validate,
      &internal::MediaRouteProvider_JoinRoute_ResponseParams_Data::Validate},
-    {&internal::MediaRouteProvider_TerminateRoute_Params_Data::Validate,
+    { &internal::MediaRouteProvider_TerminateRoute_Params_Data::Validate,
      &internal::MediaRouteProvider_TerminateRoute_ResponseParams_Data::Validate},
-    {&internal::MediaRouteProvider_SendRouteMessage_Params_Data::Validate,
+    { &internal::MediaRouteProvider_SendRouteMessage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouteProvider_SendRouteBinaryMessage_Params_Data::Validate,
+    { &internal::MediaRouteProvider_SendRouteBinaryMessage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouteProvider_StartObservingMediaSinks_Params_Data::Validate,
+    { &internal::MediaRouteProvider_StartObservingMediaSinks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouteProvider_StopObservingMediaSinks_Params_Data::Validate,
+    { &internal::MediaRouteProvider_StopObservingMediaSinks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouteProvider_StartObservingMediaRoutes_Params_Data::Validate,
+    { &internal::MediaRouteProvider_StartObservingMediaRoutes_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouteProvider_DetachRoute_Params_Data::Validate,
+    { &internal::MediaRouteProvider_DetachRoute_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouteProvider_EnableMdnsDiscovery_Params_Data::Validate,
+    { &internal::MediaRouteProvider_EnableMdnsDiscovery_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouteProvider_DiscoverSinksNow_Params_Data::Validate,
+    { &internal::MediaRouteProvider_DiscoverSinksNow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouteProvider_CreateMediaRouteController_Params_Data::Validate,
+    { &internal::MediaRouteProvider_CreateMediaRouteController_Params_Data::Validate,
      &internal::MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data::Validate},
-    {&internal::MediaRouteProvider_GetState_Params_Data::Validate,
+    { &internal::MediaRouteProvider_GetState_Params_Data::Validate,
      &internal::MediaRouteProvider_GetState_ResponseParams_Data::Validate},
 };
 
@@ -3329,14 +3374,17 @@ void MediaRouterProxy::RegisterMediaRouteProvider(
                         "<value of type ::mojo::PendingRemote<MediaRouteProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_RegisterMediaRouteProvider_Name, kFlags, 0, 0, nullptr);
@@ -3383,14 +3431,17 @@ void MediaRouterProxy::OnSinksReceived(
                         "<value of type const std::vector<::url::Origin>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_OnSinksReceived_Name, kFlags, 0, 0, nullptr);
@@ -3459,14 +3510,17 @@ void MediaRouterProxy::OnIssue(
                         "<value of type const ::media_router::IssueInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_OnIssue_Name, kFlags, 0, 0, nullptr);
@@ -3507,14 +3561,17 @@ void MediaRouterProxy::ClearTopIssueForSink(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_ClearTopIssueForSink_Name, kFlags, 0, 0, nullptr);
@@ -3558,14 +3615,17 @@ void MediaRouterProxy::OnRoutesUpdated(
                         "<value of type const std::vector<::media_router::MediaRoute>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_OnRoutesUpdated_Name, kFlags, 0, 0, nullptr);
@@ -3613,14 +3673,17 @@ void MediaRouterProxy::OnPresentationConnectionStateChanged(
                         "<value of type ::blink::mojom::PresentationConnectionState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_OnPresentationConnectionStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -3669,14 +3732,17 @@ void MediaRouterProxy::OnPresentationConnectionClosed(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_OnPresentationConnectionClosed_Name, kFlags, 0, 0, nullptr);
@@ -3733,14 +3799,17 @@ void MediaRouterProxy::OnRouteMessagesReceived(
                         "<value of type std::vector<RouteMessagePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_OnRouteMessagesReceived_Name, kFlags, 0, 0, nullptr);
@@ -3787,14 +3856,17 @@ void MediaRouterProxy::GetMediaSinkServiceStatus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_router::mojom::MediaRouter::GetMediaSinkServiceStatus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_GetMediaSinkServiceStatus_Name, kFlags, 0, 0, nullptr);
@@ -3825,14 +3897,17 @@ void MediaRouterProxy::GetLogger(
                         "<value of type ::mojo::PendingReceiver<::media_router::mojom::Logger>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_GetLogger_Name, kFlags, 0, 0, nullptr);
@@ -3868,14 +3943,17 @@ void MediaRouterProxy::GetDebugger(
                         "<value of type ::mojo::PendingReceiver<::media_router::mojom::Debugger>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_GetDebugger_Name, kFlags, 0, 0, nullptr);
@@ -3904,14 +3982,17 @@ void MediaRouterProxy::GetLogsAsString(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_router::mojom::MediaRouter::GetLogsAsString");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_GetLogsAsString_Name, kFlags, 0, 0, nullptr);
@@ -4021,7 +4102,8 @@ void MediaRouter_GetMediaSinkServiceStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_GetMediaSinkServiceStatus_Name, kFlags, 0, 0, nullptr);
@@ -4149,7 +4231,8 @@ void MediaRouter_GetLogsAsString_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaRouter_GetLogsAsString_Name, kFlags, 0, 0, nullptr);
@@ -4595,32 +4678,32 @@ bool MediaRouterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaRouterValidationInfo[] = {
-    {&internal::MediaRouter_RegisterMediaRouteProvider_Params_Data::Validate,
+    { &internal::MediaRouter_RegisterMediaRouteProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_OnSinksReceived_Params_Data::Validate,
+    { &internal::MediaRouter_OnSinksReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_OnIssue_Params_Data::Validate,
+    { &internal::MediaRouter_OnIssue_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_ClearTopIssueForSink_Params_Data::Validate,
+    { &internal::MediaRouter_ClearTopIssueForSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_OnRoutesUpdated_Params_Data::Validate,
+    { &internal::MediaRouter_OnRoutesUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_OnPresentationConnectionStateChanged_Params_Data::Validate,
+    { &internal::MediaRouter_OnPresentationConnectionStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_OnPresentationConnectionClosed_Params_Data::Validate,
+    { &internal::MediaRouter_OnPresentationConnectionClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_OnRouteMessagesReceived_Params_Data::Validate,
+    { &internal::MediaRouter_OnRouteMessagesReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_GetMediaSinkServiceStatus_Params_Data::Validate,
+    { &internal::MediaRouter_GetMediaSinkServiceStatus_Params_Data::Validate,
      &internal::MediaRouter_GetMediaSinkServiceStatus_ResponseParams_Data::Validate},
-    {&internal::MediaRouter_GetLogger_Params_Data::Validate,
+    { &internal::MediaRouter_GetLogger_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_GetDebugger_Params_Data::Validate,
+    { &internal::MediaRouter_GetDebugger_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaRouter_GetLogsAsString_Params_Data::Validate,
+    { &internal::MediaRouter_GetLogsAsString_Params_Data::Validate,
      &internal::MediaRouter_GetLogsAsString_ResponseParams_Data::Validate},
 };
 
@@ -4938,22 +5021,22 @@ MediaRouteProviderAsyncWaiter::MediaRouteProviderAsyncWaiter(
 MediaRouteProviderAsyncWaiter::~MediaRouteProviderAsyncWaiter() = default;
 
 void MediaRouteProviderAsyncWaiter::CreateRoute(
-    const std::string& media_source, const std::string& sink_id, const std::string& original_presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, absl::optional<::media_router::MediaRoute>* out_route, RoutePresentationConnectionPtr* out_connection, absl::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code) {
+    const std::string& media_source, const std::string& sink_id, const std::string& original_presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, std::optional<::media_router::MediaRoute>* out_route, RoutePresentationConnectionPtr* out_connection, std::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code) {
   base::RunLoop loop;
   proxy_->CreateRoute(std::move(media_source),std::move(sink_id),std::move(original_presentation_id),std::move(origin),std::move(frame_tree_node_id),std::move(timeout),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::media_router::MediaRoute>* out_route
+             std::optional<::media_router::MediaRoute>* out_route
 ,
              RoutePresentationConnectionPtr* out_connection
 ,
-             absl::optional<std::string>* out_error_text
+             std::optional<std::string>* out_error_text
 ,
              ::media_router::mojom::RouteRequestResultCode* out_result_code
 ,
-             const absl::optional<::media_router::MediaRoute>& route,
+             const std::optional<::media_router::MediaRoute>& route,
              RoutePresentationConnectionPtr connection,
-             const absl::optional<std::string>& error_text,
+             const std::optional<std::string>& error_text,
              ::media_router::mojom::RouteRequestResultCode result_code) {*out_route = std::move(route);*out_connection = std::move(connection);*out_error_text = std::move(error_text);*out_result_code = std::move(result_code);
             loop->Quit();
           },
@@ -4968,22 +5051,22 @@ void MediaRouteProviderAsyncWaiter::CreateRoute(
 
 
 void MediaRouteProviderAsyncWaiter::JoinRoute(
-    const std::string& media_source, const std::string& presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, absl::optional<::media_router::MediaRoute>* out_route, RoutePresentationConnectionPtr* out_connection, absl::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code) {
+    const std::string& media_source, const std::string& presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, std::optional<::media_router::MediaRoute>* out_route, RoutePresentationConnectionPtr* out_connection, std::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code) {
   base::RunLoop loop;
   proxy_->JoinRoute(std::move(media_source),std::move(presentation_id),std::move(origin),std::move(frame_tree_node_id),std::move(timeout),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::media_router::MediaRoute>* out_route
+             std::optional<::media_router::MediaRoute>* out_route
 ,
              RoutePresentationConnectionPtr* out_connection
 ,
-             absl::optional<std::string>* out_error_text
+             std::optional<std::string>* out_error_text
 ,
              ::media_router::mojom::RouteRequestResultCode* out_result_code
 ,
-             const absl::optional<::media_router::MediaRoute>& route,
+             const std::optional<::media_router::MediaRoute>& route,
              RoutePresentationConnectionPtr connection,
-             const absl::optional<std::string>& error_text,
+             const std::optional<std::string>& error_text,
              ::media_router::mojom::RouteRequestResultCode result_code) {*out_route = std::move(route);*out_connection = std::move(connection);*out_error_text = std::move(error_text);*out_result_code = std::move(result_code);
             loop->Quit();
           },
@@ -4998,16 +5081,16 @@ void MediaRouteProviderAsyncWaiter::JoinRoute(
 
 
 void MediaRouteProviderAsyncWaiter::TerminateRoute(
-    const std::string& route_id, absl::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code) {
+    const std::string& route_id, std::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code) {
   base::RunLoop loop;
   proxy_->TerminateRoute(std::move(route_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error_text
+             std::optional<std::string>* out_error_text
 ,
              ::media_router::mojom::RouteRequestResultCode* out_result_code
 ,
-             const absl::optional<std::string>& error_text,
+             const std::optional<std::string>& error_text,
              ::media_router::mojom::RouteRequestResultCode result_code) {*out_error_text = std::move(error_text);*out_result_code = std::move(result_code);
             loop->Quit();
           },

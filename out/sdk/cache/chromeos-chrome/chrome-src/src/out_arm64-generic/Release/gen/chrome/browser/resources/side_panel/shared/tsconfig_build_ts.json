@@ -47,7 +47,7 @@
     "preprocessed/sp_footer.ts",
     "preprocessed/sp_heading.ts",
     "preprocessed/sp_list_item_badge.ts",
-    "preprocessed/commerce/shopping_list_api_proxy.ts",
+    "preprocessed/commerce/shopping_service_api_proxy.ts",
     "preprocessed/sp_empty_state.html.ts",
     "preprocessed/sp_footer.html.ts",
     "preprocessed/sp_heading.html.ts",

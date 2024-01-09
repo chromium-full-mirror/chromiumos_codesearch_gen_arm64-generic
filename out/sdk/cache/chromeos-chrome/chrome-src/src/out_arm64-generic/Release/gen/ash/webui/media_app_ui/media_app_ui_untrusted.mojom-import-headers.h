@@ -6,5 +6,7 @@
 
 #ifndef ASH_WEBUI_MEDIA_APP_UI_MEDIA_APP_UI_UNTRUSTED_MOJOM_IMPORT_HEADERS_H_
 #define ASH_WEBUI_MEDIA_APP_UI_MEDIA_APP_UI_UNTRUSTED_MOJOM_IMPORT_HEADERS_H_
+#include "ui/gfx/geometry/mojom/geometry.mojom.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom-import-headers.h"
 
 #endif  // ASH_WEBUI_MEDIA_APP_UI_MEDIA_APP_UI_UNTRUSTED_MOJOM_IMPORT_HEADERS_H_

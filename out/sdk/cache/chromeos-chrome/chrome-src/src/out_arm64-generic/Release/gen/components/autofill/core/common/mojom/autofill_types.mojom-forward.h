@@ -78,11 +78,13 @@ enum class ButtonTitleType : int32_t;
 
 enum class SubmissionReadinessState : int32_t;
 
-enum class AutofillState : int32_t;
+enum class AutofillSuggestionAvailability : int32_t;
 
 enum class ActionPersistence : int32_t;
 
 enum class ActionType : int32_t;
+
+enum class TextReplacement : int32_t;
 
 enum class AutofillSuggestionTriggerSource : int32_t;
 

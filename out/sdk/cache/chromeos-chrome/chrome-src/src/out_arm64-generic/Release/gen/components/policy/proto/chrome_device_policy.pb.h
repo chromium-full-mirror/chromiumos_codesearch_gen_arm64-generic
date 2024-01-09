@@ -24850,6 +24850,7 @@ kDeviceDlcPredownloadListFieldNumber = 154,
 kDeviceEphemeralNetworkPoliciesEnabledFieldNumber = 155,
 kExtendedFkeysModifierFieldNumber = 156,
 kDeviceFlexHwDataForProductImprovementEnabledFieldNumber = 157,
+kDeviceHardwareVideoDecodingEnabledFieldNumber = 1185,
 };
 // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
 bool has_device_policy_refresh_rate() const;
@@ -27623,6 +27624,24 @@ void unsafe_arena_set_allocated_device_flex_hw_data_for_product_improvement_enab
 ::enterprise_management::DeviceFlexHwDataForProductImprovementEnabledProto* device_flex_hw_data_for_product_improvement_enabled);
 ::enterprise_management::DeviceFlexHwDataForProductImprovementEnabledProto* unsafe_arena_release_device_flex_hw_data_for_product_improvement_enabled();
 
+// optional .enterprise_management.BooleanPolicyProto DeviceHardwareVideoDecodingEnabled = 1185;
+bool has_devicehardwarevideodecodingenabled() const;
+private:
+bool _internal_has_devicehardwarevideodecodingenabled() const;
+public:
+void clear_devicehardwarevideodecodingenabled();
+const ::enterprise_management::BooleanPolicyProto& devicehardwarevideodecodingenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_devicehardwarevideodecodingenabled();
+::enterprise_management::BooleanPolicyProto* mutable_devicehardwarevideodecodingenabled();
+void set_allocated_devicehardwarevideodecodingenabled(::enterprise_management::BooleanPolicyProto* devicehardwarevideodecodingenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_devicehardwarevideodecodingenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_devicehardwarevideodecodingenabled();
+public:
+void unsafe_arena_set_allocated_devicehardwarevideodecodingenabled(
+::enterprise_management::BooleanPolicyProto* devicehardwarevideodecodingenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_devicehardwarevideodecodingenabled();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
 private:
 class _Internal;
@@ -27786,6 +27805,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::BooleanPolicyProto* device_ephemeral_network_policies_enabled_;
 ::enterprise_management::ExtendedFkeysModifierProto* extended_fkeys_modifier_;
 ::enterprise_management::DeviceFlexHwDataForProductImprovementEnabledProto* device_flex_hw_data_for_product_improvement_enabled_;
+::enterprise_management::BooleanPolicyProto* devicehardwarevideodecodingenabled_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // ===================================================================
@@ -54464,6 +54484,93 @@ _has_bits_[4] &= ~0x02000000u;
 }
 device_flex_hw_data_for_product_improvement_enabled_ = device_flex_hw_data_for_product_improvement_enabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_flex_hw_data_for_product_improvement_enabled)
+}
+
+// optional .enterprise_management.BooleanPolicyProto DeviceHardwareVideoDecodingEnabled = 1185;
+inline bool ChromeDeviceSettingsProto::_internal_has_devicehardwarevideodecodingenabled() const {
+bool value = (_has_bits_[4] & 0x04000000u) != 0;
+PROTOBUF_ASSUME(!value || devicehardwarevideodecodingenabled_ != nullptr);
+return value;
+}
+inline bool ChromeDeviceSettingsProto::has_devicehardwarevideodecodingenabled() const {
+return _internal_has_devicehardwarevideodecodingenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& ChromeDeviceSettingsProto::_internal_devicehardwarevideodecodingenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = devicehardwarevideodecodingenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& ChromeDeviceSettingsProto::devicehardwarevideodecodingenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.DeviceHardwareVideoDecodingEnabled)
+return _internal_devicehardwarevideodecodingenabled();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_devicehardwarevideodecodingenabled(
+::enterprise_management::BooleanPolicyProto* devicehardwarevideodecodingenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(devicehardwarevideodecodingenabled_);
+}
+devicehardwarevideodecodingenabled_ = devicehardwarevideodecodingenabled;
+if (devicehardwarevideodecodingenabled) {
+_has_bits_[4] |= 0x04000000u;
+} else {
+_has_bits_[4] &= ~0x04000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceHardwareVideoDecodingEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* ChromeDeviceSettingsProto::release_devicehardwarevideodecodingenabled() {
+_has_bits_[4] &= ~0x04000000u;
+::enterprise_management::BooleanPolicyProto* temp = devicehardwarevideodecodingenabled_;
+devicehardwarevideodecodingenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_devicehardwarevideodecodingenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.DeviceHardwareVideoDecodingEnabled)
+_has_bits_[4] &= ~0x04000000u;
+::enterprise_management::BooleanPolicyProto* temp = devicehardwarevideodecodingenabled_;
+devicehardwarevideodecodingenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_devicehardwarevideodecodingenabled() {
+_has_bits_[4] |= 0x04000000u;
+if (devicehardwarevideodecodingenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+devicehardwarevideodecodingenabled_ = p;
+}
+return devicehardwarevideodecodingenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* ChromeDeviceSettingsProto::mutable_devicehardwarevideodecodingenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_devicehardwarevideodecodingenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.DeviceHardwareVideoDecodingEnabled)
+return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_devicehardwarevideodecodingenabled(::enterprise_management::BooleanPolicyProto* devicehardwarevideodecodingenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(devicehardwarevideodecodingenabled_);
+}
+if (devicehardwarevideodecodingenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(devicehardwarevideodecodingenabled));
+if (message_arena != submessage_arena) {
+devicehardwarevideodecodingenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, devicehardwarevideodecodingenabled, submessage_arena);
+}
+_has_bits_[4] |= 0x04000000u;
+} else {
+_has_bits_[4] &= ~0x04000000u;
+}
+devicehardwarevideodecodingenabled_ = devicehardwarevideodecodingenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceHardwareVideoDecodingEnabled)
 }
 
 #ifdef __GNUC__

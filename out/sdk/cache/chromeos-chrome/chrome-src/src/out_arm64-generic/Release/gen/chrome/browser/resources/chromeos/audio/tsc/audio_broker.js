@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 import { PageCallbackRouter, PageHandlerFactory, PageHandlerRemote } from './audio.mojom-webui.js';
 export class AudioBroker {
+    callbackRouter;
+    handler;
     constructor() {
         this.callbackRouter = new PageCallbackRouter();
         this.handler = new PageHandlerRemote();

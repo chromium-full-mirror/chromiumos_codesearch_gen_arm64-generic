@@ -208,7 +208,8 @@ class BuganizerClient:
         'Componenet ID is required when creating a new issue on Buganizer.')
     if len(components)>1:
       logging.warning(
-        '[PerfIssueService] More than 1 components on issue create. Using the first one.')
+        '[PerfIssueService] %s components on NewIssue. Using the first one: %s',
+        len(components), components)
     buganizer_component_id = b_utils.FindBuganizerComponentId(components[0])
 
     if owner:
@@ -220,7 +221,6 @@ class BuganizerClient:
     buganizer_status = b_utils.FindBuganizerStatus(monorail_status)
 
     priority  = 'P%s' % b_utils.LoadPriorityFromMonorailLabels(labels)
-    labels = [label for label in labels if not label.startswith('Pri-')]
 
     new_issue_state = {
       'title': title,
@@ -244,7 +244,16 @@ class BuganizerClient:
       new_issue_state['ccs'] = [
         {'emailAddress': email} for email in emails if email
       ]
+
+    if 'Restrict-View-Google' in labels:
+      access_limit = {
+        'accessLevel': 'LIMIT_VIEW_TRUSTED'
+      }
+      new_issue_state['accessLimit'] = access_limit
+      labels.remove('Restrict-View-Google')
+
     if labels:
+      labels = [label for label in labels if not label.startswith('Pri-')]
       hotlist_list = b_utils.FindBuganizerHotlists(labels)
       new_issue_state['hotlistIds'] = [hotlist for hotlist in hotlist_list]
 
@@ -253,14 +262,14 @@ class BuganizerClient:
       'issueComment': new_description
     }
 
-    logging.warning('[PerfIssueService] PostIssue request: %s', new_issue)
+    logging.info('[PerfIssueService] PostIssue request: %s', new_issue)
     request = self._service.issues().create(body=new_issue)
 
     try:
       response = self._ExecuteRequest(request)
       logging.debug('[PerfIssueService] PostIssue response: %s', response)
       if response and 'issueId' in response:
-        return {'issue_id': response['issueId'], 'project_id': project}
+        return {'issue_id': int(response['issueId']), 'project_id': project}
       logging.error('Failed to create new issue; response %s', response)
     except errors.HttpError as e:
       reason = self._GetErrorReason(e)
@@ -326,6 +335,22 @@ class BuganizerClient:
       return {
         'error': '[PerfIssueService] Missing issue id on PostIssueComment'
         }
+    if issue_id < 2000000:
+      # This is a hack to handle the use case that:
+      #  - we have the monorail issue id in our database
+      #  - the issue is migrated to buganizer
+      #  - we need to update the issue but we don't know the id on buganizer
+      # Assuming all monorail id are less than 2000000, trying to access an
+      # issue using buganizer client and a monorail id means the project has
+      # been migrated.
+      # In this case, we should find the buganizer id first.
+      logging.debug('Looking for b/ id for crbug %s in %s', issue_id, project)
+      b_issue_id = b_utils.FindBuganizerIdByMonorailId(project, issue_id)
+      if not b_issue_id:
+        err_msg = 'Cannot find the migrated id for crbug %s in %s' % (issue_id, project)
+        logging.error(err_msg)
+        return {'error': err_msg}
+      issue_id = b_issue_id
 
     add_issue_state, remove_issue_state = {}, {}
 
@@ -341,12 +366,6 @@ class BuganizerClient:
 
     if owner:
       add_issue_state['assignee'] = {'emailAddress': owner}
-
-    if components:
-      if len(components)>1:
-        logging.warning(
-          '[PerfIssueService] More than 1 components on issue create. Using the first one.')
-      add_issue_state['componentId'] = b_utils.FindBuganizerComponentId(components[0])
 
     if cc:
       ccs_to_remove = [
@@ -368,6 +387,25 @@ class BuganizerClient:
       priority = 'P%s' % b_utils.LoadPriorityFromMonorailLabels(labels)
       add_issue_state['priority'] = priority
       labels = [label for label in labels if not label.startswith('Pri-')]
+
+    #TODO: Add handling for 'Restrict-View-Google'.
+    # Needs update on the public API to have UpdateIssueAccessLimitRequest.
+
+    if components:
+      if len(components)>1:
+        logging.warning(
+          '[PerfIssueService] More than 1 components on issue create. Using the first one.')
+      new_component_id = b_utils.FindBuganizerComponentId(components[0])
+      move_issue_request = {
+        'componentId': str(new_component_id),
+        'significanceOverride': significance_override
+      }
+      logging.debug('Moving issue %s to component %s',
+                    issue_id, new_component_id)
+      request = self._service.issues().move(
+        issueId=str(issue_id), body=move_issue_request)
+      response = self._ExecuteRequest(request)
+      logging.debug('[PerfIssueService] Move issue response %s', response)
 
     if labels:
       labels_to_remove = [

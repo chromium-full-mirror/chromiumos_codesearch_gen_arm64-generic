@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUAdapter>::value,
     "GPUAdapter inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUAdapter::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUAdapter is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUAdapter.features.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(v8_receiver);
+GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->features();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUAdapter.limits.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(v8_receiver);
+GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->limits();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -118,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUAdapter.isFallbackAdapter.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(v8_receiver);
+GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isFallbackAdapter();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -132,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUAdapter.isCompatibilityMode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(v8_receiver);
+GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isCompatibilityMode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -162,7 +161,7 @@ return;
 
 
 
-GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(v8_receiver);
+GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -193,7 +192,7 @@ return;
 
 
 
-GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(v8_receiver);
+GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

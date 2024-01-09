@@ -135,8 +135,8 @@ class  AccessibilityObserverAsyncWaiter {
       const std::vector<uint8_t>& serialized_proto, bool* out_result);
   bool PerformAction(const std::vector<uint8_t>& serialized_proto);
   void RefreshWithExtraData(
-      const std::vector<uint8_t>& refresh_data_proto, absl::optional<std::vector<uint8_t>>* out_text_location_proto);
-  absl::optional<std::vector<uint8_t>> RefreshWithExtraData(const std::vector<uint8_t>& refresh_data_proto);
+      const std::vector<uint8_t>& refresh_data_proto, std::optional<std::vector<uint8_t>>* out_text_location_proto);
+  std::optional<std::vector<uint8_t>> RefreshWithExtraData(const std::vector<uint8_t>& refresh_data_proto);
 
  private:
   AccessibilityObserver* const proxy_;

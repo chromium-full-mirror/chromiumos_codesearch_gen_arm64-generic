@@ -47,7 +47,6 @@
 
 
   GuestView_ReadyToCreateMimeHandlerView_Params.prototype.initDefaults_ = function() {
-    this.routingId = 0;
     this.success = false;
   };
   GuestView_ReadyToCreateMimeHandlerView_Params.prototype.initFields_ = function(fields) {
@@ -71,7 +70,6 @@
         return err;
 
 
-
     return validator.validationError.NONE;
   };
 
@@ -82,10 +80,12 @@
     var val = new GuestView_ReadyToCreateMimeHandlerView_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.routingId =
-        decoder.decodeStruct(codec.Int32);
     packed = decoder.readUint8();
     val.success = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -96,10 +96,13 @@
     var packed;
     encoder.writeUint32(GuestView_ReadyToCreateMimeHandlerView_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.routingId);
     packed = 0;
     packed |= (val.success & 1) << 0
     encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
@@ -111,7 +114,6 @@
 
 
   GuestView_CanExecuteContentScript_Params.prototype.initDefaults_ = function() {
-    this.routingId = 0;
     this.scriptId = null;
   };
   GuestView_CanExecuteContentScript_Params.prototype.initFields_ = function(fields) {
@@ -128,35 +130,28 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-
     // validate GuestView_CanExecuteContentScript_Params.scriptId
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, false)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  GuestView_CanExecuteContentScript_Params.encodedSize = codec.kStructHeaderSize + 16;
+  GuestView_CanExecuteContentScript_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   GuestView_CanExecuteContentScript_Params.decode = function(decoder) {
     var packed;
     var val = new GuestView_CanExecuteContentScript_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.routingId =
-        decoder.decodeStruct(codec.Int32);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
     val.scriptId =
         decoder.decodeStruct(codec.String);
     return val;
@@ -166,11 +161,6 @@
     var packed;
     encoder.writeUint32(GuestView_CanExecuteContentScript_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.routingId);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
     encoder.encodeStruct(codec.String, val.scriptId);
   };
   function GuestView_CanExecuteContentScript_ResponseParams(values) {
@@ -552,9 +542,8 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  GuestViewProxy.prototype.readyToCreateMimeHandlerView = function(routingId, success) {
+  GuestViewProxy.prototype.readyToCreateMimeHandlerView = function(success) {
     var params_ = new GuestView_ReadyToCreateMimeHandlerView_Params();
-    params_.routingId = routingId;
     params_.success = success;
     var builder = new codec.MessageV0Builder(
         kGuestView_ReadyToCreateMimeHandlerView_Name,
@@ -568,9 +557,8 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  GuestViewProxy.prototype.canExecuteContentScript = function(routingId, scriptId) {
+  GuestViewProxy.prototype.canExecuteContentScript = function(scriptId) {
     var params_ = new GuestView_CanExecuteContentScript_Params();
-    params_.routingId = routingId;
     params_.scriptId = scriptId;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
@@ -593,11 +581,11 @@
   function GuestViewStub(delegate) {
     this.delegate_ = delegate;
   }
-  GuestViewStub.prototype.readyToCreateMimeHandlerView = function(routingId, success) {
-    return this.delegate_ && this.delegate_.readyToCreateMimeHandlerView && this.delegate_.readyToCreateMimeHandlerView(routingId, success);
+  GuestViewStub.prototype.readyToCreateMimeHandlerView = function(success) {
+    return this.delegate_ && this.delegate_.readyToCreateMimeHandlerView && this.delegate_.readyToCreateMimeHandlerView(success);
   }
-  GuestViewStub.prototype.canExecuteContentScript = function(routingId, scriptId) {
-    return this.delegate_ && this.delegate_.canExecuteContentScript && this.delegate_.canExecuteContentScript(routingId, scriptId);
+  GuestViewStub.prototype.canExecuteContentScript = function(scriptId) {
+    return this.delegate_ && this.delegate_.canExecuteContentScript && this.delegate_.canExecuteContentScript(scriptId);
   }
 
   GuestViewStub.prototype.accept = function(message) {
@@ -605,7 +593,7 @@
     switch (reader.messageName) {
     case kGuestView_ReadyToCreateMimeHandlerView_Name:
       var params = reader.decodeStruct(GuestView_ReadyToCreateMimeHandlerView_Params);
-      this.readyToCreateMimeHandlerView(params.routingId, params.success);
+      this.readyToCreateMimeHandlerView(params.success);
       return true;
     default:
       return false;
@@ -618,7 +606,7 @@
     switch (reader.messageName) {
     case kGuestView_CanExecuteContentScript_Name:
       var params = reader.decodeStruct(GuestView_CanExecuteContentScript_Params);
-      this.canExecuteContentScript(params.routingId, params.scriptId).then(function(response) {
+      this.canExecuteContentScript(params.scriptId).then(function(response) {
         var responseParams =
             new GuestView_CanExecuteContentScript_ResponseParams();
         responseParams.allowed = response.allowed;

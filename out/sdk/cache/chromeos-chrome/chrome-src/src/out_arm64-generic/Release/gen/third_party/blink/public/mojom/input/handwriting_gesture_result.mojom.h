@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/input/handwriting_gesture_result.mojom-features.h"
 #include "third_party/blink/public/mojom/input/handwriting_gesture_result.mojom-shared.h"
 #include "third_party/blink/public/mojom/input/handwriting_gesture_result.mojom-forward.h"
 #include <string>

@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TreeWalker>::value,
     "TreeWalker inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TreeWalker::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TreeWalker is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.root.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->root();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.whatToShow.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->whatToShow();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -120,7 +117,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->filter();
 if (!ToV8Traits<IDLNullable<V8NodeFilter>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -136,8 +134,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.currentNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -149,9 +148,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.currentNode.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TreeWalker";
@@ -176,9 +175,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.firstChild");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TreeWalker";
 const char* const property_name = "firstChild";
@@ -201,9 +200,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.lastChild");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TreeWalker";
 const char* const property_name = "lastChild";
@@ -226,9 +225,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.nextNode");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TreeWalker";
 const char* const property_name = "nextNode";
@@ -251,9 +250,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.nextSibling");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TreeWalker";
 const char* const property_name = "nextSibling";
@@ -276,9 +275,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.parentNode");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TreeWalker";
 const char* const property_name = "parentNode";
@@ -301,9 +300,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.previousNode");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TreeWalker";
 const char* const property_name = "previousNode";
@@ -326,9 +325,9 @@ BLINK_BINDINGS_TRACE_EVENT("TreeWalker.previousSibling");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TreeWalker* blink_receiver = V8TreeWalker::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "TreeWalker";
 const char* const property_name = "previousSibling";

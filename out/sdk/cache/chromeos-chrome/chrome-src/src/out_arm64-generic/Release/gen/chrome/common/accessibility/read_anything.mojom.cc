@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -205,14 +206,17 @@ void UntrustedPageHandlerFactoryProxy::CreateUntrustedPageHandler(
                         "<value of type ::mojo::PendingReceiver<UntrustedPageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name, kFlags, 0, 0, nullptr);
@@ -300,10 +304,10 @@ bool UntrustedPageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUntrustedPageHandlerFactoryValidationInfo[] = {
-    {&internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::Validate,
+    { &internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -337,6 +341,9 @@ UntrustedPageHandler::IPCStableHashFunction UntrustedPageHandler::MessageToMetho
     }
     case internal::kUntrustedPageHandler_OnSpeechRateChange_Name: {
       return &UntrustedPageHandler::OnSpeechRateChange_Sym::IPCStableHash;
+    }
+    case internal::kUntrustedPageHandler_OnVoiceChange_Name: {
+      return &UntrustedPageHandler::OnVoiceChange_Sym::IPCStableHash;
     }
     case internal::kUntrustedPageHandler_OnHighlightGranularityChanged_Name: {
       return &UntrustedPageHandler::OnHighlightGranularityChanged_Sym::IPCStableHash;
@@ -378,6 +385,8 @@ const char* UntrustedPageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive read_anything::mojom::UntrustedPageHandler::OnColorChange";
       case internal::kUntrustedPageHandler_OnSpeechRateChange_Name:
             return "Receive read_anything::mojom::UntrustedPageHandler::OnSpeechRateChange";
+      case internal::kUntrustedPageHandler_OnVoiceChange_Name:
+            return "Receive read_anything::mojom::UntrustedPageHandler::OnVoiceChange";
       case internal::kUntrustedPageHandler_OnHighlightGranularityChanged_Name:
             return "Receive read_anything::mojom::UntrustedPageHandler::OnHighlightGranularityChanged";
       case internal::kUntrustedPageHandler_OnLinkClicked_Name:
@@ -405,6 +414,8 @@ const char* UntrustedPageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply read_anything::mojom::UntrustedPageHandler::OnColorChange";
       case internal::kUntrustedPageHandler_OnSpeechRateChange_Name:
             return "Receive reply read_anything::mojom::UntrustedPageHandler::OnSpeechRateChange";
+      case internal::kUntrustedPageHandler_OnVoiceChange_Name:
+            return "Receive reply read_anything::mojom::UntrustedPageHandler::OnVoiceChange";
       case internal::kUntrustedPageHandler_OnHighlightGranularityChanged_Name:
             return "Receive reply read_anything::mojom::UntrustedPageHandler::OnHighlightGranularityChanged";
       case internal::kUntrustedPageHandler_OnLinkClicked_Name:
@@ -520,6 +531,19 @@ uint32_t UntrustedPageHandler::OnSpeechRateChange_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t UntrustedPageHandler::OnVoiceChange_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)read_anything::mojom::UntrustedPageHandler::OnVoiceChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t UntrustedPageHandler::OnHighlightGranularityChanged_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -596,14 +620,17 @@ void UntrustedPageHandlerProxy::OnCopy(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send read_anything::mojom::UntrustedPageHandler::OnCopy");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnCopy_Name, kFlags, 0, 0, nullptr);
@@ -633,14 +660,17 @@ void UntrustedPageHandlerProxy::OnLineSpaceChange(
                         "<value of type LineSpacing>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnLineSpaceChange_Name, kFlags, 0, 0, nullptr);
@@ -672,14 +702,17 @@ void UntrustedPageHandlerProxy::OnLetterSpaceChange(
                         "<value of type LetterSpacing>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnLetterSpaceChange_Name, kFlags, 0, 0, nullptr);
@@ -711,14 +744,17 @@ void UntrustedPageHandlerProxy::OnFontChange(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnFontChange_Name, kFlags, 0, 0, nullptr);
@@ -759,14 +795,17 @@ void UntrustedPageHandlerProxy::OnFontSizeChange(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnFontSizeChange_Name, kFlags, 0, 0, nullptr);
@@ -797,14 +836,17 @@ void UntrustedPageHandlerProxy::OnColorChange(
                         "<value of type Colors>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnColorChange_Name, kFlags, 0, 0, nullptr);
@@ -836,14 +878,17 @@ void UntrustedPageHandlerProxy::OnSpeechRateChange(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnSpeechRateChange_Name, kFlags, 0, 0, nullptr);
@@ -862,6 +907,71 @@ void UntrustedPageHandlerProxy::OnSpeechRateChange(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void UntrustedPageHandlerProxy::OnVoiceChange(
+    const std::string& in_voice, const std::string& in_lang) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send read_anything::mojom::UntrustedPageHandler::OnVoiceChange", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("voice"), in_voice,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("lang"), in_lang,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUntrustedPageHandler_OnVoiceChange_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::read_anything::mojom::internal::UntrustedPageHandler_OnVoiceChange_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->voice)::BaseType> voice_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_voice, voice_fragment);
+  params->voice.Set(
+      voice_fragment.is_null() ? nullptr : voice_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->voice.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null voice in UntrustedPageHandler.OnVoiceChange request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->lang)::BaseType> lang_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_lang, lang_fragment);
+  params->lang.Set(
+      lang_fragment.is_null() ? nullptr : lang_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->lang.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null lang in UntrustedPageHandler.OnVoiceChange request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UntrustedPageHandler::Name_);
+  message.set_method_name("OnVoiceChange");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void UntrustedPageHandlerProxy::OnHighlightGranularityChanged(
     HighlightGranularity in_granularity) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -874,14 +984,17 @@ void UntrustedPageHandlerProxy::OnHighlightGranularityChanged(
                         "<value of type HighlightGranularity>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnHighlightGranularityChanged_Name, kFlags, 0, 0, nullptr);
@@ -916,14 +1029,17 @@ void UntrustedPageHandlerProxy::OnLinkClicked(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnLinkClicked_Name, kFlags, 0, 0, nullptr);
@@ -975,14 +1091,17 @@ void UntrustedPageHandlerProxy::OnSelectionChange(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnSelectionChange_Name, kFlags, 0, 0, nullptr);
@@ -1018,14 +1137,17 @@ void UntrustedPageHandlerProxy::OnCollapseSelection(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send read_anything::mojom::UntrustedPageHandler::OnCollapseSelection");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_OnCollapseSelection_Name, kFlags, 0, 0, nullptr);
@@ -1055,14 +1177,17 @@ void UntrustedPageHandlerProxy::EnablePDFContentAccessibility(
                         "<value of type const ::ui::AXTreeID&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPageHandler_EnablePDFContentAccessibility_Name, kFlags, 0, 0, nullptr);
@@ -1272,6 +1397,36 @@ std::move(p_color));
 std::move(p_rate));
       return true;
     }
+    case internal::kUntrustedPageHandler_OnVoiceChange_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::UntrustedPageHandler_OnVoiceChange_Params_Data* params =
+          reinterpret_cast<internal::UntrustedPageHandler_OnVoiceChange_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_voice{};
+      std::string p_lang{};
+      UntrustedPageHandler_OnVoiceChange_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadVoice(&p_voice))
+        success = false;
+      if (success && !input_data_view.ReadLang(&p_lang))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            UntrustedPageHandler::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnVoiceChange(
+std::move(p_voice), 
+std::move(p_lang));
+      return true;
+    }
     case internal::kUntrustedPageHandler_OnHighlightGranularityChanged_Name: {
 
       DCHECK(message->is_serialized());
@@ -1289,7 +1444,7 @@ std::move(p_rate));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 7, false);
+            UntrustedPageHandler::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1318,7 +1473,7 @@ std::move(p_granularity));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 8, false);
+            UntrustedPageHandler::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1357,7 +1512,7 @@ std::move(p_target_node_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 9, false);
+            UntrustedPageHandler::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1384,7 +1539,7 @@ std::move(p_focus_offset));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 10, false);
+            UntrustedPageHandler::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1409,7 +1564,7 @@ std::move(p_focus_offset));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 11, false);
+            UntrustedPageHandler::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1452,6 +1607,9 @@ bool UntrustedPageHandlerStubDispatch::AcceptWithResponder(
     case internal::kUntrustedPageHandler_OnSpeechRateChange_Name: {
       break;
     }
+    case internal::kUntrustedPageHandler_OnVoiceChange_Name: {
+      break;
+    }
     case internal::kUntrustedPageHandler_OnHighlightGranularityChanged_Name: {
       break;
     }
@@ -1470,32 +1628,34 @@ bool UntrustedPageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUntrustedPageHandlerValidationInfo[] = {
-    {&internal::UntrustedPageHandler_OnCopy_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnCopy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnLineSpaceChange_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnLineSpaceChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnLetterSpaceChange_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnLetterSpaceChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnFontChange_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnFontChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnFontSizeChange_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnFontSizeChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnColorChange_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnColorChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnSpeechRateChange_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnSpeechRateChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnHighlightGranularityChanged_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnVoiceChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnLinkClicked_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnHighlightGranularityChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnSelectionChange_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnLinkClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_OnCollapseSelection_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnSelectionChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPageHandler_EnablePDFContentAccessibility_Params_Data::Validate,
+    { &internal::UntrustedPageHandler_OnCollapseSelection_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::UntrustedPageHandler_EnablePDFContentAccessibility_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1701,14 +1861,17 @@ void UntrustedPageProxy::AccessibilityEventReceived(
                         "<value of type const std::vector<::ui::AXEvent>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPage_AccessibilityEventReceived_Name, kFlags, 0, 0, nullptr);
@@ -1782,14 +1945,17 @@ void UntrustedPageProxy::OnActiveAXTreeIDChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPage_OnActiveAXTreeIDChanged_Name, kFlags, 0, 0, nullptr);
@@ -1841,14 +2007,17 @@ void UntrustedPageProxy::OnAXTreeDestroyed(
                         "<value of type const ::ui::AXTreeID&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPage_OnAXTreeDestroyed_Name, kFlags, 0, 0, nullptr);
@@ -1887,14 +2056,17 @@ void UntrustedPageProxy::OnThemeChanged(
                         "<value of type ReadAnythingThemePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPage_OnThemeChanged_Name, kFlags, 0, 0, nullptr);
@@ -1935,14 +2107,17 @@ void UntrustedPageProxy::SetDefaultLanguageCode(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPage_SetDefaultLanguageCode_Name, kFlags, 0, 0, nullptr);
@@ -1972,7 +2147,7 @@ void UntrustedPageProxy::SetDefaultLanguageCode(
 }
 
 void UntrustedPageProxy::OnSettingsRestoredFromPrefs(
-    LineSpacing in_line_spacing, LetterSpacing in_letter_spacing, const std::string& in_font, double in_font_size, Colors in_color, double in_speech_rate, HighlightGranularity in_granularity) {
+    LineSpacing in_line_spacing, LetterSpacing in_letter_spacing, const std::string& in_font, double in_font_size, Colors in_color, double in_speech_rate, ::base::Value::Dict in_voices, HighlightGranularity in_granularity) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send read_anything::mojom::UntrustedPage::OnSettingsRestoredFromPrefs", "input_parameters",
@@ -1997,18 +2172,24 @@ void UntrustedPageProxy::OnSettingsRestoredFromPrefs(
            dict.AddItem("speech_rate"), in_speech_rate,
                         "<value of type double>");
       perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("voices"), in_voices,
+                        "<value of type ::base::Value::Dict>");
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("granularity"), in_granularity,
                         "<value of type HighlightGranularity>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPage_OnSettingsRestoredFromPrefs_Name, kFlags, 0, 0, nullptr);
@@ -2035,6 +2216,17 @@ void UntrustedPageProxy::OnSettingsRestoredFromPrefs(
   mojo::internal::Serialize<::read_anything::mojom::Colors>(
       in_color, &params->color);
   params->speech_rate = in_speech_rate;
+  mojo::internal::MessageFragment<
+      typename decltype(params->voices)::BaseType> voices_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::DictionaryValueDataView>(
+      in_voices, voices_fragment);
+  params->voices.Set(
+      voices_fragment.is_null() ? nullptr : voices_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->voices.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null voices in UntrustedPage.OnSettingsRestoredFromPrefs request");
   mojo::internal::Serialize<::read_anything::mojom::HighlightGranularity>(
       in_granularity, &params->granularity);
 
@@ -2052,14 +2244,17 @@ void UntrustedPageProxy::ScreenAIServiceReady(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send read_anything::mojom::UntrustedPage::ScreenAIServiceReady");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUntrustedPage_ScreenAIServiceReady_Name, kFlags, 0, 0, nullptr);
@@ -2246,6 +2441,7 @@ std::move(p_code));
       double p_font_size{};
       Colors p_color{};
       double p_speech_rate{};
+      ::base::Value::Dict p_voices{};
       HighlightGranularity p_granularity{};
       UntrustedPage_OnSettingsRestoredFromPrefs_ParamsDataView input_data_view(params, message);
       
@@ -2261,6 +2457,8 @@ std::move(p_code));
         success = false;
       if (success)
         p_speech_rate = input_data_view.speech_rate();
+      if (success && !input_data_view.ReadVoices(&p_voices))
+        success = false;
       if (success && !input_data_view.ReadGranularity(&p_granularity))
         success = false;
       if (!success) {
@@ -2279,6 +2477,7 @@ std::move(p_font),
 std::move(p_font_size), 
 std::move(p_color), 
 std::move(p_speech_rate), 
+std::move(p_voices), 
 std::move(p_granularity));
       return true;
     }
@@ -2341,22 +2540,22 @@ bool UntrustedPageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUntrustedPageValidationInfo[] = {
-    {&internal::UntrustedPage_AccessibilityEventReceived_Params_Data::Validate,
+    { &internal::UntrustedPage_AccessibilityEventReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPage_OnActiveAXTreeIDChanged_Params_Data::Validate,
+    { &internal::UntrustedPage_OnActiveAXTreeIDChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPage_OnAXTreeDestroyed_Params_Data::Validate,
+    { &internal::UntrustedPage_OnAXTreeDestroyed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPage_OnThemeChanged_Params_Data::Validate,
+    { &internal::UntrustedPage_OnThemeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPage_SetDefaultLanguageCode_Params_Data::Validate,
+    { &internal::UntrustedPage_SetDefaultLanguageCode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data::Validate,
+    { &internal::UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UntrustedPage_ScreenAIServiceReady_Params_Data::Validate,
+    { &internal::UntrustedPage_ScreenAIServiceReady_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2438,6 +2637,9 @@ void UntrustedPageHandlerInterceptorForTesting::OnColorChange(Colors color) {
 void UntrustedPageHandlerInterceptorForTesting::OnSpeechRateChange(double rate) {
   GetForwardingInterface()->OnSpeechRateChange(std::move(rate));
 }
+void UntrustedPageHandlerInterceptorForTesting::OnVoiceChange(const std::string& voice, const std::string& lang) {
+  GetForwardingInterface()->OnVoiceChange(std::move(voice), std::move(lang));
+}
 void UntrustedPageHandlerInterceptorForTesting::OnHighlightGranularityChanged(HighlightGranularity granularity) {
   GetForwardingInterface()->OnHighlightGranularityChanged(std::move(granularity));
 }
@@ -2476,8 +2678,8 @@ void UntrustedPageInterceptorForTesting::OnThemeChanged(ReadAnythingThemePtr new
 void UntrustedPageInterceptorForTesting::SetDefaultLanguageCode(const std::string& code) {
   GetForwardingInterface()->SetDefaultLanguageCode(std::move(code));
 }
-void UntrustedPageInterceptorForTesting::OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, HighlightGranularity granularity) {
-  GetForwardingInterface()->OnSettingsRestoredFromPrefs(std::move(line_spacing), std::move(letter_spacing), std::move(font), std::move(font_size), std::move(color), std::move(speech_rate), std::move(granularity));
+void UntrustedPageInterceptorForTesting::OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) {
+  GetForwardingInterface()->OnSettingsRestoredFromPrefs(std::move(line_spacing), std::move(letter_spacing), std::move(font), std::move(font_size), std::move(color), std::move(speech_rate), std::move(voices), std::move(granularity));
 }
 void UntrustedPageInterceptorForTesting::ScreenAIServiceReady() {
   GetForwardingInterface()->ScreenAIServiceReady();

@@ -58,7 +58,6 @@ class BaseLinkSwatch extends HTMLElement {
         }
     }
 }
-const VARIABLE_FUNCTION_REGEX = /(^var\()\s*(--(?:[\s\w\P{ASCII}-]|\\.)+)(,?\s*.*)\s*(\))$/u;
 export class CSSVarSwatch extends HTMLElement {
     static litTagName = LitHtml.literal `devtools-css-var-swatch`;
     shadow = this.attachShadow({ mode: 'open' });
@@ -79,55 +78,27 @@ export class CSSVarSwatch extends HTMLElement {
     get link() {
         return this.#link;
     }
-    parseVariableFunctionParts(text) {
-        // When the value of CSS var() is greater than two spaces, only one is
-        // always displayed, and the actual number of spaces is displayed when
-        // editing is clicked.
-        const result = text.replace(/\n/g, ' ').replace(/\s{2,}/g, ' ').match(VARIABLE_FUNCTION_REGEX);
-        if (!result) {
-            return null;
-        }
-        return {
-            // Returns `var(`
-            pre: result[1],
-            // Returns the CSS variable name, e.g. `--foo`
-            variableName: result[2].trim(),
-            // Returns the fallback value in the CSS variable, including a comma if
-            // one is present, e.g. `,50px`
-            fallbackIncludeComma: result[3],
-            // Returns `)`
-            post: result[4],
-        };
-    }
-    variableName(text) {
-        const match = text.match(VARIABLE_FUNCTION_REGEX);
-        if (match) {
-            return match[2];
-        }
-        return '';
-    }
     render(data) {
-        const { text, fromFallback, computedValue, onLinkActivate } = data;
-        const functionParts = this.parseVariableFunctionParts(text);
-        if (!functionParts) {
-            render('', this.shadow, { host: this });
-            return;
-        }
+        const { variableName, fromFallback, computedValue, onLinkActivate } = data;
         const isDefined = Boolean(computedValue) && !fromFallback;
-        const title = isDefined ? computedValue ?? '' : i18nString(UIStrings.sIsNotDefined, { PH1: this.variableName(text) });
-        const fallbackIncludeComma = functionParts.fallbackIncludeComma ? functionParts.fallbackIncludeComma : '';
+        const title = isDefined ? computedValue ?? '' : i18nString(UIStrings.sIsNotDefined, { PH1: variableName });
+        // This is a terrible hack to account for `StylesSidebarPropertyRenderer` parsing var() usages
+        // with a variable fallback without the last parens, so it adds a last parenthesis itself.
+        const shouldAddClosingParens = !data.fallbackHtml?.textContent?.startsWith('var(');
         this.#link = new BaseLinkSwatch();
         this.#link.data = {
             title,
             showTitle: false,
-            text: functionParts.variableName,
+            text: variableName,
             isDefined,
             onLinkActivate,
         };
         this.#link.classList.add('css-var-link');
-        render(html `<span data-title=${data.computedValue || ''} jslog=${VisualLogging.link().track({ click: true, hover: true }).context('cssVar')}>
-            ${functionParts.pre}${this.#link}${fallbackIncludeComma}${functionParts.post}
-          </span>`, this.shadow, { host: this });
+        // clang-format off
+        render(html `<span data-title=${data.computedValue || ''}
+          jslog=${VisualLogging.link().track({ click: true, hover: true }).context('cssVar')}
+        >var(${this.#link}${data.fallbackHtml ? ', ' : ''}${data.fallbackHtml}${shouldAddClosingParens ? ')' : ''}</span>`, this.shadow, { host: this });
+        // clang-format on
     }
 }
 export class LinkSwatch extends HTMLElement {

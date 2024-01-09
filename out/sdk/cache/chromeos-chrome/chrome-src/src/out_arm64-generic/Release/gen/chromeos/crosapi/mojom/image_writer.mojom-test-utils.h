@@ -37,7 +37,7 @@ class  ImageWriterInterceptorForTesting : public ImageWriter {
   virtual ImageWriter* GetForwardingInterface() = 0;
   void ListRemovableStorageDevices(ListRemovableStorageDevicesCallback callback) override;
   void DestroyPartitions(const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client, DestroyPartitionsCallback callback) override;
-  void WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const absl::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromUrlCallback callback) override;
+  void WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const std::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromUrlCallback callback) override;
   void WriteFromFile(const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromFileCallback callback) override;
 };
 class  ImageWriterAsyncWaiter {
@@ -49,17 +49,17 @@ class  ImageWriterAsyncWaiter {
 
   ~ImageWriterAsyncWaiter();
   void ListRemovableStorageDevices(
-      absl::optional<std::vector<RemovableStorageDevicePtr>>* out_devices);
-  absl::optional<std::vector<RemovableStorageDevicePtr>> ListRemovableStorageDevices();
+      std::optional<std::vector<RemovableStorageDevicePtr>>* out_devices);
+  std::optional<std::vector<RemovableStorageDevicePtr>> ListRemovableStorageDevices();
   void DestroyPartitions(
-      const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client, absl::optional<std::string>* out_error);
-  absl::optional<std::string> DestroyPartitions(const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client);
+      const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client, std::optional<std::string>* out_error);
+  std::optional<std::string> DestroyPartitions(const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client);
   void WriteFromUrl(
-      const std::string& storage_unit_id, const ::GURL& image_url, const absl::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, absl::optional<std::string>* out_error);
-  absl::optional<std::string> WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const absl::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client);
+      const std::string& storage_unit_id, const ::GURL& image_url, const std::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, std::optional<std::string>* out_error);
+  std::optional<std::string> WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const std::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client);
   void WriteFromFile(
-      const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client, absl::optional<std::string>* out_error);
-  absl::optional<std::string> WriteFromFile(const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client);
+      const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client, std::optional<std::string>* out_error);
+  std::optional<std::string> WriteFromFile(const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client);
 
  private:
   ImageWriter* const proxy_;

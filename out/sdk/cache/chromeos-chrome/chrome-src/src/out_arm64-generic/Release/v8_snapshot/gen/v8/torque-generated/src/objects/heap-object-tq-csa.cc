@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/objects/heap-object-tq-csa.h"
 #include "torque-generated/src/builtins/convert-tq-csa.h"
@@ -73,7 +74,7 @@
 namespace v8 {
 namespace internal {
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-object.tq?l=9&c=9
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-object.tq?l=10&c=9
 TNode<Map> LoadHeapObjectMap_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

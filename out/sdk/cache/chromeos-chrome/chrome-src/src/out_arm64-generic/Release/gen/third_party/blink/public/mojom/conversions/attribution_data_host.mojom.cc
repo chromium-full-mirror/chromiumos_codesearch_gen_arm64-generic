@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -177,14 +178,17 @@ void AttributionDataHostProxy::SourceDataAvailable(
                         "<value of type ::attribution_reporting::SourceRegistration>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAttributionDataHost_SourceDataAvailable_Name, kFlags, 0, 0, nullptr);
@@ -242,14 +246,17 @@ void AttributionDataHostProxy::TriggerDataAvailable(
                         "<value of type std::vector<::network::TriggerVerification>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAttributionDataHost_TriggerDataAvailable_Name, kFlags, 0, 0, nullptr);
@@ -314,14 +321,17 @@ void AttributionDataHostProxy::OsSourceDataAvailable(
                         "<value of type ::std::vector<::attribution_reporting::OsRegistrationItem>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAttributionDataHost_OsSourceDataAvailable_Name, kFlags, 0, 0, nullptr);
@@ -362,14 +372,17 @@ void AttributionDataHostProxy::OsTriggerDataAvailable(
                         "<value of type ::std::vector<::attribution_reporting::OsRegistrationItem>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAttributionDataHost_OsTriggerDataAvailable_Name, kFlags, 0, 0, nullptr);
@@ -547,16 +560,16 @@ bool AttributionDataHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAttributionDataHostValidationInfo[] = {
-    {&internal::AttributionDataHost_SourceDataAvailable_Params_Data::Validate,
+    { &internal::AttributionDataHost_SourceDataAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AttributionDataHost_TriggerDataAvailable_Params_Data::Validate,
+    { &internal::AttributionDataHost_TriggerDataAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AttributionDataHost_OsSourceDataAvailable_Params_Data::Validate,
+    { &internal::AttributionDataHost_OsSourceDataAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AttributionDataHost_OsTriggerDataAvailable_Params_Data::Validate,
+    { &internal::AttributionDataHost_OsTriggerDataAvailable_Params_Data::Validate,
      nullptr /* no response */},
 };
 

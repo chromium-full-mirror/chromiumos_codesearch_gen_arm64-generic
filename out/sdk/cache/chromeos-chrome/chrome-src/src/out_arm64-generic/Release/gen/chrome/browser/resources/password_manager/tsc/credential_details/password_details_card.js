@@ -7,6 +7,7 @@ import 'chrome://resources/cr_elements/cr_icons.css.js';
 import 'chrome://resources/cr_elements/cr_input/cr_input.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
+import 'chrome://resources/cr_elements/policy/cr_tooltip_icon.js';
 import '../shared_style.css.js';
 import './credential_details_card.css.js';
 import '../dialogs/edit_password_dialog.js';
@@ -14,6 +15,7 @@ import '../dialogs/multi_store_delete_password_dialog.js';
 import '../sharing/share_password_flow.js';
 import '../sharing/metrics_utils.js';
 import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/help_bubble_mixin.js';
+import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -23,7 +25,7 @@ import { ShowPasswordMixin } from '../show_password_mixin.js';
 import { UserUtilMixin } from '../user_utils_mixin.js';
 import { getTemplate } from './password_details_card.html.js';
 export const PASSWORD_SHARE_BUTTON_BUTTON_ELEMENT_ID = 'PasswordManagerUI::kSharePasswordElementId';
-const PasswordDetailsCardElementBase = HelpBubbleMixin(UserUtilMixin(ShowPasswordMixin(I18nMixin(PolymerElement))));
+const PasswordDetailsCardElementBase = PrefsMixin(HelpBubbleMixin(UserUtilMixin(ShowPasswordMixin(I18nMixin(PolymerElement)))));
 export class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
     static get is() {
         return 'password-details-card';
@@ -49,6 +51,12 @@ export class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
                 type: Boolean,
                 computed: 'computeShowShareButton_(enableSendPasswords_, ' +
                     'isOptedInForAccountStorage, isSyncingPasswords)',
+            },
+            passwordSharingDisabled_: {
+                type: Boolean,
+                computed: 'computePasswordSharingDisabled_(' +
+                    'prefs.password_manager.password_sharing_enabled.enforcement, ' +
+                    'prefs.password_manager.password_sharing_enabled.value)',
             },
             showShareFlow_: {
                 type: Boolean,
@@ -147,8 +155,32 @@ export class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
         return this.enableSendPasswords_ && !this.isFederated_() &&
             (this.isSyncingPasswords || this.isOptedInForAccountStorage);
     }
+    computePasswordSharingDisabled_() {
+        const pref = this.getPref('password_manager.password_sharing_enabled');
+        return pref.enforcement === chrome.settingsPrivate.Enforcement.ENFORCED &&
+            !pref.value;
+    }
+    getCredentialTypeString_() {
+        return this.isFederated_() ? this.i18n('federatedCredentialProviderAriaLabel', this.password.federationText) :
+            this.i18n('passwordLabel');
+    }
+    getAriaLabelForPasswordCard_() {
+        return this.password.username ?
+            this.i18n('passwordDetailsCardAriaLabel', this.getCredentialTypeString_(), this.password.username) :
+            this.getCredentialTypeString_();
+    }
+    getAriaLabelForEditButton_() {
+        return this.password.username ?
+            this.i18n('passwordDetailsCardEditButtonAriaLabel', this.getCredentialTypeString_(), this.password.username) :
+            this.i18n('passwordDetailsCardEditButtonNoUsernameAriaLabel', this.getCredentialTypeString_());
+    }
+    getAriaLabelForDeleteButton_() {
+        return this.password.username ?
+            this.i18n('passwordDetailsCardDeleteButtonAriaLabel', this.getCredentialTypeString_(), this.password.username) :
+            this.i18n('passwordDetailsCardDeleteButtonNoUsernameAriaLabel', this.getCredentialTypeString_());
+    }
     maybeRegisterSharingHelpBubble() {
-        if (!this.showShareButton_) {
+        if (!this.showShareButton_ && !this.passwordSharingDisabled_) {
             return;
         }
         this.registerHelpBubble(PASSWORD_SHARE_BUTTON_BUTTON_ELEMENT_ID, this.$.shareButton);

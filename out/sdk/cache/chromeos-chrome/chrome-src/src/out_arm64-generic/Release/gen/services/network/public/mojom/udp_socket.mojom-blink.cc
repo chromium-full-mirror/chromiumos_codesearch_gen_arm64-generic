@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -618,14 +619,17 @@ void UDPSocketProxy::Bind(
                         "<value of type UDPSocketOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_Bind_Name, kFlags, 0, 0, nullptr);
@@ -677,14 +681,17 @@ void UDPSocketProxy::Connect(
                         "<value of type UDPSocketOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_Connect_Name, kFlags, 0, 0, nullptr);
@@ -733,14 +740,17 @@ void UDPSocketProxy::SetBroadcast(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_SetBroadcast_Name, kFlags, 0, 0, nullptr);
@@ -772,14 +782,17 @@ void UDPSocketProxy::SetSendBufferSize(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_SetSendBufferSize_Name, kFlags, 0, 0, nullptr);
@@ -811,14 +824,17 @@ void UDPSocketProxy::SetReceiveBufferSize(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_SetReceiveBufferSize_Name, kFlags, 0, 0, nullptr);
@@ -850,14 +866,17 @@ void UDPSocketProxy::JoinGroup(
                         "<value of type const ::net::IPAddress&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_JoinGroup_Name, kFlags, 0, 0, nullptr);
@@ -899,14 +918,17 @@ void UDPSocketProxy::LeaveGroup(
                         "<value of type const ::net::IPAddress&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_LeaveGroup_Name, kFlags, 0, 0, nullptr);
@@ -948,14 +970,17 @@ void UDPSocketProxy::ReceiveMore(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_ReceiveMore_Name, kFlags, 0, 0, nullptr);
@@ -989,14 +1014,17 @@ void UDPSocketProxy::ReceiveMoreWithBufferSize(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_ReceiveMoreWithBufferSize_Name, kFlags, 0, 0, nullptr);
@@ -1034,14 +1062,17 @@ void UDPSocketProxy::SendTo(
                         "<value of type const ::net::MutableNetworkTrafficAnnotationTag&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_SendTo_Name, kFlags, 0, 0, nullptr);
@@ -1108,14 +1139,17 @@ void UDPSocketProxy::Send(
                         "<value of type const ::net::MutableNetworkTrafficAnnotationTag&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_Send_Name, kFlags, 0, 0, nullptr);
@@ -1161,14 +1195,17 @@ void UDPSocketProxy::Close(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::UDPSocket::Close");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_Close_Name, kFlags, 0, 0, nullptr);
@@ -1231,7 +1268,7 @@ class UDPSocket_Bind_ProxyToResponder : public ::mojo::internal::ProxyToResponde
 #endif
 
   void Run(
-      int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr_out);
+      int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr_out);
 };
 
 bool UDPSocket_Bind_ForwardToCallback::Accept(
@@ -1245,7 +1282,7 @@ bool UDPSocket_Bind_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_result{};
-  absl::optional<::net::IPEndPoint> p_local_addr_out{};
+  std::optional<::net::IPEndPoint> p_local_addr_out{};
   UDPSocket_Bind_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1267,7 +1304,7 @@ std::move(p_local_addr_out));
 }
 
 void UDPSocket_Bind_ProxyToResponder::Run(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr_out) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr_out) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply network::mojom::UDPSocket::Bind", "async_response_parameters",
@@ -1278,13 +1315,14 @@ void UDPSocket_Bind_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr_out"), in_local_addr_out,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_Bind_Name, kFlags, 0, 0, nullptr);
@@ -1363,7 +1401,7 @@ class UDPSocket_Connect_ProxyToResponder : public ::mojo::internal::ProxyToRespo
 #endif
 
   void Run(
-      int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr_out);
+      int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr_out);
 };
 
 bool UDPSocket_Connect_ForwardToCallback::Accept(
@@ -1377,7 +1415,7 @@ bool UDPSocket_Connect_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_result{};
-  absl::optional<::net::IPEndPoint> p_local_addr_out{};
+  std::optional<::net::IPEndPoint> p_local_addr_out{};
   UDPSocket_Connect_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1399,7 +1437,7 @@ std::move(p_local_addr_out));
 }
 
 void UDPSocket_Connect_ProxyToResponder::Run(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr_out) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr_out) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply network::mojom::UDPSocket::Connect", "async_response_parameters",
@@ -1410,13 +1448,14 @@ void UDPSocket_Connect_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr_out"), in_local_addr_out,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_Connect_Name, kFlags, 0, 0, nullptr);
@@ -1541,7 +1580,8 @@ void UDPSocket_SetBroadcast_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_SetBroadcast_Name, kFlags, 0, 0, nullptr);
@@ -1659,7 +1699,8 @@ void UDPSocket_SetSendBufferSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_SetSendBufferSize_Name, kFlags, 0, 0, nullptr);
@@ -1777,7 +1818,8 @@ void UDPSocket_SetReceiveBufferSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_SetReceiveBufferSize_Name, kFlags, 0, 0, nullptr);
@@ -1895,7 +1937,8 @@ void UDPSocket_JoinGroup_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_JoinGroup_Name, kFlags, 0, 0, nullptr);
@@ -2013,7 +2056,8 @@ void UDPSocket_LeaveGroup_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_LeaveGroup_Name, kFlags, 0, 0, nullptr);
@@ -2131,7 +2175,8 @@ void UDPSocket_SendTo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_SendTo_Name, kFlags, 0, 0, nullptr);
@@ -2249,7 +2294,8 @@ void UDPSocket_Send_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocket_Send_Name, kFlags, 0, 0, nullptr);
@@ -2692,32 +2738,32 @@ std::move(p_traffic_annotation), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUDPSocketValidationInfo[] = {
-    {&internal::UDPSocket_Bind_Params_Data::Validate,
+    { &internal::UDPSocket_Bind_Params_Data::Validate,
      &internal::UDPSocket_Bind_ResponseParams_Data::Validate},
-    {&internal::UDPSocket_Connect_Params_Data::Validate,
+    { &internal::UDPSocket_Connect_Params_Data::Validate,
      &internal::UDPSocket_Connect_ResponseParams_Data::Validate},
-    {&internal::UDPSocket_SetBroadcast_Params_Data::Validate,
+    { &internal::UDPSocket_SetBroadcast_Params_Data::Validate,
      &internal::UDPSocket_SetBroadcast_ResponseParams_Data::Validate},
-    {&internal::UDPSocket_SetSendBufferSize_Params_Data::Validate,
+    { &internal::UDPSocket_SetSendBufferSize_Params_Data::Validate,
      &internal::UDPSocket_SetSendBufferSize_ResponseParams_Data::Validate},
-    {&internal::UDPSocket_SetReceiveBufferSize_Params_Data::Validate,
+    { &internal::UDPSocket_SetReceiveBufferSize_Params_Data::Validate,
      &internal::UDPSocket_SetReceiveBufferSize_ResponseParams_Data::Validate},
-    {&internal::UDPSocket_JoinGroup_Params_Data::Validate,
+    { &internal::UDPSocket_JoinGroup_Params_Data::Validate,
      &internal::UDPSocket_JoinGroup_ResponseParams_Data::Validate},
-    {&internal::UDPSocket_LeaveGroup_Params_Data::Validate,
+    { &internal::UDPSocket_LeaveGroup_Params_Data::Validate,
      &internal::UDPSocket_LeaveGroup_ResponseParams_Data::Validate},
-    {&internal::UDPSocket_ReceiveMore_Params_Data::Validate,
+    { &internal::UDPSocket_ReceiveMore_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UDPSocket_ReceiveMoreWithBufferSize_Params_Data::Validate,
+    { &internal::UDPSocket_ReceiveMoreWithBufferSize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UDPSocket_SendTo_Params_Data::Validate,
+    { &internal::UDPSocket_SendTo_Params_Data::Validate,
      &internal::UDPSocket_SendTo_ResponseParams_Data::Validate},
-    {&internal::UDPSocket_Send_Params_Data::Validate,
+    { &internal::UDPSocket_Send_Params_Data::Validate,
      &internal::UDPSocket_Send_ResponseParams_Data::Validate},
-    {&internal::UDPSocket_Close_Params_Data::Validate,
+    { &internal::UDPSocket_Close_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2790,7 +2836,7 @@ UDPSocketListenerProxy::UDPSocketListenerProxy(mojo::MessageReceiverWithResponde
 }
 
 void UDPSocketListenerProxy::OnReceived(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_src_addr, absl::optional<::base::span<const ::uint8_t>> in_data) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_src_addr, std::optional<::base::span<const ::uint8_t>> in_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::UDPSocketListener::OnReceived", "input_parameters",
@@ -2801,20 +2847,23 @@ void UDPSocketListenerProxy::OnReceived(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("src_addr"), in_src_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data"), in_data,
-                        "<value of type absl::optional<::base::span<const ::uint8_t>>>");
+                        "<value of type std::optional<::base::span<const ::uint8_t>>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUDPSocketListener_OnReceived_Name, kFlags, 0, 0, nullptr);
@@ -2861,8 +2910,8 @@ bool UDPSocketListenerStubDispatch::Accept(
       
       bool success = true;
       int32_t p_result{};
-      absl::optional<::net::IPEndPoint> p_src_addr{};
-      absl::optional<::base::span<const ::uint8_t>> p_data{};
+      std::optional<::net::IPEndPoint> p_src_addr{};
+      std::optional<::base::span<const ::uint8_t>> p_data{};
       UDPSocketListener_OnReceived_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -2905,10 +2954,10 @@ bool UDPSocketListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUDPSocketListenerValidationInfo[] = {
-    {&internal::UDPSocketListener_OnReceived_Params_Data::Validate,
+    { &internal::UDPSocketListener_OnReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3006,17 +3055,17 @@ UDPSocketAsyncWaiter::UDPSocketAsyncWaiter(
 UDPSocketAsyncWaiter::~UDPSocketAsyncWaiter() = default;
 
 void UDPSocketAsyncWaiter::Bind(
-    const ::net::IPEndPoint& local_addr, UDPSocketOptionsPtr socket_options, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr_out) {
+    const ::net::IPEndPoint& local_addr, UDPSocketOptionsPtr socket_options, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr_out) {
   base::RunLoop loop;
   proxy_->Bind(std::move(local_addr),std::move(socket_options),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_result
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr_out
+             std::optional<::net::IPEndPoint>* out_local_addr_out
 ,
              int32_t result,
-             const absl::optional<::net::IPEndPoint>& local_addr_out) {*out_result = std::move(result);*out_local_addr_out = std::move(local_addr_out);
+             const std::optional<::net::IPEndPoint>& local_addr_out) {*out_result = std::move(result);*out_local_addr_out = std::move(local_addr_out);
             loop->Quit();
           },
           &loop,
@@ -3028,17 +3077,17 @@ void UDPSocketAsyncWaiter::Bind(
 
 
 void UDPSocketAsyncWaiter::Connect(
-    const ::net::IPEndPoint& remote_addr, UDPSocketOptionsPtr socket_options, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr_out) {
+    const ::net::IPEndPoint& remote_addr, UDPSocketOptionsPtr socket_options, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr_out) {
   base::RunLoop loop;
   proxy_->Connect(std::move(remote_addr),std::move(socket_options),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_result
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr_out
+             std::optional<::net::IPEndPoint>* out_local_addr_out
 ,
              int32_t result,
-             const absl::optional<::net::IPEndPoint>& local_addr_out) {*out_result = std::move(result);*out_local_addr_out = std::move(local_addr_out);
+             const std::optional<::net::IPEndPoint>& local_addr_out) {*out_result = std::move(result);*out_local_addr_out = std::move(local_addr_out);
             loop->Quit();
           },
           &loop,
@@ -3213,7 +3262,7 @@ int32_t UDPSocketAsyncWaiter::Send(
 
 
 
-void UDPSocketListenerInterceptorForTesting::OnReceived(int32_t result, const absl::optional<::net::IPEndPoint>& src_addr, absl::optional<::base::span<const ::uint8_t>> data) {
+void UDPSocketListenerInterceptorForTesting::OnReceived(int32_t result, const std::optional<::net::IPEndPoint>& src_addr, std::optional<::base::span<const ::uint8_t>> data) {
   GetForwardingInterface()->OnReceived(std::move(result), std::move(src_addr), std::move(data));
 }
 UDPSocketListenerAsyncWaiter::UDPSocketListenerAsyncWaiter(

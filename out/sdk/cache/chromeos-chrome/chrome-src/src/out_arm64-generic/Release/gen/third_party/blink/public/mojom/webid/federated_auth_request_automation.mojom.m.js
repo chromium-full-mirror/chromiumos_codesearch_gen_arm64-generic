@@ -7,6 +7,23 @@
 import {mojo} from '../../../../../mojo/public/js/bindings.js';
 
 
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const DialogButtonSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const DialogButton = {
+  
+  kConfirmIdpLoginContinue: 0,
+  kErrorGotIt: 1,
+  kErrorMoreDetails: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
 
 
 /**
@@ -65,12 +82,13 @@ export class FederatedAuthRequestAutomationInterface {
   dismissFedCmDialog() {}
   
   /**
+   * @param { !DialogButton } dialogButton
    * @return {!Promise<{
         success: !boolean,
    *  }>}
    */
 
-  confirmIdpLogin() {}
+  clickFedCmDialogButton(dialogButton) {}
 }
 
 /**
@@ -165,17 +183,20 @@ export class FederatedAuthRequestAutomationRemote {
 
   
   /**
+   * @param { !DialogButton } dialogButton
    * @return {!Promise<{
         success: !boolean,
    *  }>}
    */
 
-  confirmIdpLogin() {
+  clickFedCmDialogButton(
+      dialogButton) {
     return this.proxy.sendMessage(
         4,
-        FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec.$,
-        FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec.$,
+        FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec.$,
+        FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec.$,
         [
+          dialogButton
         ]);
   }
 }
@@ -222,9 +243,9 @@ export class FederatedAuthRequestAutomationReceiver {
         impl.dismissFedCmDialog.bind(impl));
     this.helper_internal_.registerHandler(
         4,
-        FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec.$,
-        FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec.$,
-        impl.confirmIdpLogin.bind(impl));
+        FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec.$,
+        FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec.$,
+        impl.clickFedCmDialogButton.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -322,15 +343,15 @@ export class FederatedAuthRequestAutomationCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.confirmIdpLogin =
+    this.clickFedCmDialogButton =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         4,
-        FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec.$,
-        FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec.$,
-        this.confirmIdpLogin.createReceiverHandler(true /* expectsResponse */));
+        FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec.$,
+        FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec.$,
+        this.clickFedCmDialogButton.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -395,13 +416,13 @@ export const FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParamsSpe
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec =
+export const FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec =
+export const FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -610,27 +631,37 @@ export class FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParams {
 
 
 mojo.internal.Struct(
-    FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec.$,
-    'FederatedAuthRequestAutomation_ConfirmIdpLogin_Params',
+    FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec.$,
+    'FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params',
     [
+      mojo.internal.StructField(
+        'dialogButton', 0,
+        0,
+        DialogButtonSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 8],]);
+    [[0, 16],]);
 
 
 
 /**
  * @record
  */
-export class FederatedAuthRequestAutomation_ConfirmIdpLogin_Params {
+export class FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params {
   constructor() {
+    /** @type { !DialogButton } */
+    this.dialogButton;
   }
 }
 
 
 
 mojo.internal.Struct(
-    FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec.$,
-    'FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams',
+    FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec.$,
+    'FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams',
     [
       mojo.internal.StructField(
         'success', 0,
@@ -648,7 +679,7 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams {
+export class FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams {
   constructor() {
     /** @type { !boolean } */
     this.success;

@@ -171,7 +171,7 @@ class TestFuture {
  public:
   using TupleType = std::tuple<std::decay_t<Types>...>;
 
-  static_assert(std::tuple_size<TupleType>::value > 0,
+  static_assert(std::tuple_size_v<TupleType> > 0,
                 "Don't use TestFuture<> but use TestFuture<void> instead");
 
   TestFuture() = default;
@@ -412,6 +412,14 @@ class TestFuture<void> {
   //
   //   ASSERT_TRUE(future.Wait()) << "Detailed error message";
   [[nodiscard]] bool Wait() { return implementation_.Wait(); }
+
+  // Same as above, then clears the future, allowing it to be reused and accept
+  // a new value.
+  [[nodiscard]] bool WaitAndClear() {
+    auto result = Wait();
+    Clear();
+    return result;
+  }
 
   // Waits until the callback or `SetValue()` is invoked.
   void Get() { std::ignore = implementation_.Get(); }

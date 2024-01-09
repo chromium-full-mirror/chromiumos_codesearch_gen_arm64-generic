@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSScale>::value,
     "CSSScale inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSScale::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSScale is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,7 +89,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 if (!ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -109,9 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSScale.x.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSScale";
@@ -140,7 +136,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 if (!ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -155,9 +152,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSScale.y.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSScale";
@@ -186,7 +183,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->z();
 if (!ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -201,9 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSScale.z.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSScale* blink_receiver = V8CSSScale::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSScale";

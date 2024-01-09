@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/content_scripts.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -73,8 +74,8 @@ ContentScript::ContentScript()
 world() {}
 
 ContentScript::~ContentScript() = default;
-ContentScript::ContentScript(ContentScript&& rhs) = default;
-ContentScript& ContentScript::operator=(ContentScript&& rhs) = default;
+ContentScript::ContentScript(ContentScript&& rhs) noexcept = default;
+ContentScript& ContentScript::operator=(ContentScript&& rhs) noexcept = default;
 // static
 constexpr char ContentScript::kMatches[];
 // static
@@ -209,7 +210,7 @@ bool ContentScript::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'all_frames': expected all_frames, got " + UTF8ToUTF16(base::Value::GetTypeName((*all_frames_value).type()));
-        out.all_frames = absl::nullopt;
+        out.all_frames = std::nullopt;
         return false;
       }
       out.all_frames = *temp;
@@ -223,7 +224,7 @@ bool ContentScript::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'match_origin_as_fallback': expected match_origin_as_fallback, got " + UTF8ToUTF16(base::Value::GetTypeName((*match_origin_as_fallback_value).type()));
-        out.match_origin_as_fallback = absl::nullopt;
+        out.match_origin_as_fallback = std::nullopt;
         return false;
       }
       out.match_origin_as_fallback = *temp;
@@ -237,7 +238,7 @@ bool ContentScript::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'match_about_blank': expected match_about_blank, got " + UTF8ToUTF16(base::Value::GetTypeName((*match_about_blank_value).type()));
-        out.match_about_blank = absl::nullopt;
+        out.match_about_blank = std::nullopt;
         return false;
       }
       out.match_about_blank = *temp;
@@ -336,24 +337,6 @@ bool ContentScript::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<ContentScript> ContentScript::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<ContentScript>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -507,8 +490,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kContentScripts[];
 

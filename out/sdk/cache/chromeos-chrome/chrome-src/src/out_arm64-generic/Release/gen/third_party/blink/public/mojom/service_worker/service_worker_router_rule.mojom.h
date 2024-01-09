@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/service_worker/service_worker_router_rule.mojom-features.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker_router_rule.mojom-shared.h"
 #include "third_party/blink/public/mojom/service_worker/service_worker_router_rule.mojom-forward.h"
 #include "services/network/public/mojom/fetch_api.mojom-forward.h"
@@ -624,7 +625,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerRouterCacheSource {
   ServiceWorkerRouterCacheSource();
 
   explicit ServiceWorkerRouterCacheSource(
-      const absl::optional<std::string>& cache_name);
+      const std::optional<std::string>& cache_name);
 
 
   ~ServiceWorkerRouterCacheSource();
@@ -702,7 +703,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerRouterCacheSource {
   }
 
   
-  absl::optional<std::string> cache_name;
+  std::optional<std::string> cache_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -739,178 +740,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class BLINK_COMMON_EXPORT ServiceWorkerRouterCondition {
- public:
-  using DataView = ServiceWorkerRouterConditionDataView;
-  using Data_ = internal::ServiceWorkerRouterCondition_Data;
-  using Tag = Data_::ServiceWorkerRouterCondition_Tag;
-
-  template <typename... Args>
-  static ServiceWorkerRouterConditionPtr New(Args&&... args) {
-    static_assert(
-        sizeof...(args) < 0,
-        "Do not use Union::New(); to create a union of a given subtype, use "
-        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
-        "an empty union, mark the field or parameter as nullable in the mojom "
-        "definition.");
-    return nullptr;
-  }
-  // Construct an instance holding |url_pattern|.
-  static ServiceWorkerRouterConditionPtr
-  NewUrlPattern(
-      const ::blink::SafeUrlPattern& url_pattern) {
-    auto result = ServiceWorkerRouterConditionPtr(absl::in_place);
-    result->set_url_pattern(std::move(url_pattern));
-    return result;
-  }
-  // Construct an instance holding |request|.
-  static ServiceWorkerRouterConditionPtr
-  NewRequest(
-      ServiceWorkerRouterRequestConditionPtr request) {
-    auto result = ServiceWorkerRouterConditionPtr(absl::in_place);
-    result->set_request(std::move(request));
-    return result;
-  }
-  // Construct an instance holding |running_status|.
-  static ServiceWorkerRouterConditionPtr
-  NewRunningStatus(
-      ServiceWorkerRouterRunningStatusConditionPtr running_status) {
-    auto result = ServiceWorkerRouterConditionPtr(absl::in_place);
-    result->set_running_status(std::move(running_status));
-    return result;
-  }
-  // Construct an instance holding |or_condition|.
-  static ServiceWorkerRouterConditionPtr
-  NewOrCondition(
-      ServiceWorkerRouterOrConditionPtr or_condition) {
-    auto result = ServiceWorkerRouterConditionPtr(absl::in_place);
-    result->set_or_condition(std::move(or_condition));
-    return result;
-  }
-
-  template <typename U>
-  static ServiceWorkerRouterConditionPtr From(const U& u) {
-    return mojo::TypeConverter<ServiceWorkerRouterConditionPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, ServiceWorkerRouterCondition>::Convert(*this);
-  }
-
-  ServiceWorkerRouterCondition();
-  ~ServiceWorkerRouterCondition();
-  // Delete the copy constructor and copy assignment operators because `data_`
-  // contains raw pointers that must not be copied.
-  ServiceWorkerRouterCondition(const ServiceWorkerRouterCondition& other) = delete;
-  ServiceWorkerRouterCondition& operator=(const ServiceWorkerRouterCondition& other) = delete;
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename UnionPtrType = ServiceWorkerRouterConditionPtr>
-  ServiceWorkerRouterConditionPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T,
-            typename std::enable_if<std::is_same<
-                T, ServiceWorkerRouterCondition>::value>::type* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T,
-            typename std::enable_if<std::is_same<
-                T, ServiceWorkerRouterCondition>::value>::type* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  Tag which() const {
-    return tag_;
-  }
-
-
-  
-  bool is_url_pattern() const { return tag_ == Tag::kUrlPattern; }
-
-  
-  ::blink::SafeUrlPattern& get_url_pattern() const {
-    CHECK(tag_ == Tag::kUrlPattern);
-    return *(data_.url_pattern);
-  }
-
-  
-  void set_url_pattern(
-      const ::blink::SafeUrlPattern& url_pattern);
-  
-  bool is_request() const { return tag_ == Tag::kRequest; }
-
-  
-  ServiceWorkerRouterRequestConditionPtr& get_request() const {
-    CHECK(tag_ == Tag::kRequest);
-    return *(data_.request);
-  }
-
-  
-  void set_request(
-      ServiceWorkerRouterRequestConditionPtr request);
-  
-  bool is_running_status() const { return tag_ == Tag::kRunningStatus; }
-
-  
-  ServiceWorkerRouterRunningStatusConditionPtr& get_running_status() const {
-    CHECK(tag_ == Tag::kRunningStatus);
-    return *(data_.running_status);
-  }
-
-  
-  void set_running_status(
-      ServiceWorkerRouterRunningStatusConditionPtr running_status);
-  
-  bool is_or_condition() const { return tag_ == Tag::kOrCondition; }
-
-  
-  ServiceWorkerRouterOrConditionPtr& get_or_condition() const {
-    CHECK(tag_ == Tag::kOrCondition);
-    return *(data_.or_condition);
-  }
-
-  
-  void set_or_condition(
-      ServiceWorkerRouterOrConditionPtr or_condition);
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        ServiceWorkerRouterCondition::DataView>(input);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    return mojo::internal::DeserializeImpl<ServiceWorkerRouterCondition::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
- private:
-  union Union_ {
-    Union_() = default;
-    ~Union_() = default;
-    ::blink::SafeUrlPattern* url_pattern;
-    ServiceWorkerRouterRequestConditionPtr* request;
-    ServiceWorkerRouterRunningStatusConditionPtr* running_status;
-    ServiceWorkerRouterOrConditionPtr* or_condition;
-  };
-
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  void DestroyActive();
-  Tag tag_;
-  Union_ data_;
-};
-
-
-
 class BLINK_COMMON_EXPORT ServiceWorkerRouterSource {
  public:
   using DataView = ServiceWorkerRouterSourceDataView;
@@ -930,33 +759,33 @@ class BLINK_COMMON_EXPORT ServiceWorkerRouterSource {
   // Construct an instance holding |network_source|.
   static ServiceWorkerRouterSourcePtr
   NewNetworkSource(
-      ServiceWorkerRouterNetworkSourcePtr network_source) {
+      ServiceWorkerRouterNetworkSourcePtr value) {
     auto result = ServiceWorkerRouterSourcePtr(absl::in_place);
-    result->set_network_source(std::move(network_source));
+    result->set_network_source(std::move(value));
     return result;
   }
   // Construct an instance holding |race_source|.
   static ServiceWorkerRouterSourcePtr
   NewRaceSource(
-      ServiceWorkerRouterRaceSourcePtr race_source) {
+      ServiceWorkerRouterRaceSourcePtr value) {
     auto result = ServiceWorkerRouterSourcePtr(absl::in_place);
-    result->set_race_source(std::move(race_source));
+    result->set_race_source(std::move(value));
     return result;
   }
   // Construct an instance holding |fetch_event_source|.
   static ServiceWorkerRouterSourcePtr
   NewFetchEventSource(
-      ServiceWorkerRouterFetchEventSourcePtr fetch_event_source) {
+      ServiceWorkerRouterFetchEventSourcePtr value) {
     auto result = ServiceWorkerRouterSourcePtr(absl::in_place);
-    result->set_fetch_event_source(std::move(fetch_event_source));
+    result->set_fetch_event_source(std::move(value));
     return result;
   }
   // Construct an instance holding |cache_source|.
   static ServiceWorkerRouterSourcePtr
   NewCacheSource(
-      ServiceWorkerRouterCacheSourcePtr cache_source) {
+      ServiceWorkerRouterCacheSourcePtr value) {
     auto result = ServiceWorkerRouterSourcePtr(absl::in_place);
-    result->set_cache_source(std::move(cache_source));
+    result->set_cache_source(std::move(value));
     return result;
   }
 
@@ -1113,7 +942,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerRouterRequestCondition {
   ServiceWorkerRouterRequestCondition();
 
   ServiceWorkerRouterRequestCondition(
-      const absl::optional<std::string>& method,
+      const std::optional<std::string>& method,
       bool has_mode,
       ::network::mojom::RequestMode mode,
       bool has_destination,
@@ -1195,7 +1024,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerRouterRequestCondition {
   }
 
   
-  absl::optional<std::string> method;
+  std::optional<std::string> method;
   
   bool has_mode;
   
@@ -1238,148 +1067,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class BLINK_COMMON_EXPORT ServiceWorkerRouterConditionObject {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<ServiceWorkerRouterConditionObject, T>::value>;
-  using DataView = ServiceWorkerRouterConditionObjectDataView;
-  using Data_ = internal::ServiceWorkerRouterConditionObject_Data;
-
-  template <typename... Args>
-  static ServiceWorkerRouterConditionObjectPtr New(Args&&... args) {
-    return ServiceWorkerRouterConditionObjectPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static ServiceWorkerRouterConditionObjectPtr From(const U& u) {
-    return mojo::TypeConverter<ServiceWorkerRouterConditionObjectPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, ServiceWorkerRouterConditionObject>::Convert(*this);
-  }
-
-
-  ServiceWorkerRouterConditionObject();
-
-  explicit ServiceWorkerRouterConditionObject(
-      std::vector<ServiceWorkerRouterConditionPtr> conditions);
-
-ServiceWorkerRouterConditionObject(const ServiceWorkerRouterConditionObject&) = delete;
-ServiceWorkerRouterConditionObject& operator=(const ServiceWorkerRouterConditionObject&) = delete;
-
-  ~ServiceWorkerRouterConditionObject();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = ServiceWorkerRouterConditionObjectPtr>
-  ServiceWorkerRouterConditionObjectPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, ServiceWorkerRouterConditionObject::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, ServiceWorkerRouterConditionObject::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, ServiceWorkerRouterConditionObject::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        ServiceWorkerRouterConditionObject::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        ServiceWorkerRouterConditionObject::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::ServiceWorkerRouterConditionObject_UnserializedMessageContext<
-            UserType, ServiceWorkerRouterConditionObject::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<ServiceWorkerRouterConditionObject::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return ServiceWorkerRouterConditionObject::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::ServiceWorkerRouterConditionObject_UnserializedMessageContext<
-            UserType, ServiceWorkerRouterConditionObject::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<ServiceWorkerRouterConditionObject::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  std::vector<ServiceWorkerRouterConditionPtr> conditions;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, ServiceWorkerRouterConditionObject::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, ServiceWorkerRouterConditionObject::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, ServiceWorkerRouterConditionObject::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, ServiceWorkerRouterConditionObject::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
 class BLINK_COMMON_EXPORT ServiceWorkerRouterOrCondition {
  public:
   template <typename T>
@@ -1407,7 +1094,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerRouterOrCondition {
   ServiceWorkerRouterOrCondition();
 
   explicit ServiceWorkerRouterOrCondition(
-      std::vector<ServiceWorkerRouterConditionObjectPtr> objects);
+      std::vector<ServiceWorkerRouterConditionPtr> conditions);
 
 ServiceWorkerRouterOrCondition(const ServiceWorkerRouterOrCondition&) = delete;
 ServiceWorkerRouterOrCondition& operator=(const ServiceWorkerRouterOrCondition&) = delete;
@@ -1487,7 +1174,7 @@ ServiceWorkerRouterOrCondition& operator=(const ServiceWorkerRouterOrCondition&)
   }
 
   
-  std::vector<ServiceWorkerRouterConditionObjectPtr> objects;
+  std::vector<ServiceWorkerRouterConditionPtr> conditions;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1514,6 +1201,157 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, ServiceWorkerRouterOrCondition::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class BLINK_COMMON_EXPORT ServiceWorkerRouterCondition {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ServiceWorkerRouterCondition, T>::value>;
+  using DataView = ServiceWorkerRouterConditionDataView;
+  using Data_ = internal::ServiceWorkerRouterCondition_Data;
+
+  template <typename... Args>
+  static ServiceWorkerRouterConditionPtr New(Args&&... args) {
+    return ServiceWorkerRouterConditionPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ServiceWorkerRouterConditionPtr From(const U& u) {
+    return mojo::TypeConverter<ServiceWorkerRouterConditionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ServiceWorkerRouterCondition>::Convert(*this);
+  }
+
+
+  ServiceWorkerRouterCondition();
+
+  ServiceWorkerRouterCondition(
+      const std::optional<::blink::SafeUrlPattern>& url_pattern,
+      ServiceWorkerRouterRequestConditionPtr request,
+      ServiceWorkerRouterRunningStatusConditionPtr running_status,
+      ServiceWorkerRouterOrConditionPtr or_condition);
+
+ServiceWorkerRouterCondition(const ServiceWorkerRouterCondition&) = delete;
+ServiceWorkerRouterCondition& operator=(const ServiceWorkerRouterCondition&) = delete;
+
+  ~ServiceWorkerRouterCondition();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ServiceWorkerRouterConditionPtr>
+  ServiceWorkerRouterConditionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ServiceWorkerRouterCondition::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ServiceWorkerRouterCondition::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ServiceWorkerRouterCondition::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ServiceWorkerRouterCondition::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ServiceWorkerRouterCondition::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ServiceWorkerRouterCondition_UnserializedMessageContext<
+            UserType, ServiceWorkerRouterCondition::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ServiceWorkerRouterCondition::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ServiceWorkerRouterCondition::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ServiceWorkerRouterCondition_UnserializedMessageContext<
+            UserType, ServiceWorkerRouterCondition::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ServiceWorkerRouterCondition::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::optional<::blink::SafeUrlPattern> url_pattern;
+  
+  ServiceWorkerRouterRequestConditionPtr request;
+  
+  ServiceWorkerRouterRunningStatusConditionPtr running_status;
+  
+  ServiceWorkerRouterOrConditionPtr or_condition;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ServiceWorkerRouterCondition::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ServiceWorkerRouterCondition::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ServiceWorkerRouterCondition::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ServiceWorkerRouterCondition::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1553,7 +1391,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerRouterRule {
   ServiceWorkerRouterRule();
 
   ServiceWorkerRouterRule(
-      std::vector<ServiceWorkerRouterConditionPtr> conditions,
+      ServiceWorkerRouterConditionPtr condition,
       std::vector<ServiceWorkerRouterSourcePtr> sources);
 
 ServiceWorkerRouterRule(const ServiceWorkerRouterRule&) = delete;
@@ -1634,7 +1472,7 @@ ServiceWorkerRouterRule& operator=(const ServiceWorkerRouterRule&) = delete;
   }
 
   
-  std::vector<ServiceWorkerRouterConditionPtr> conditions;
+  ServiceWorkerRouterConditionPtr condition;
   
   std::vector<ServiceWorkerRouterSourcePtr> sources;
 
@@ -1810,45 +1648,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 template <typename UnionPtrType>
-ServiceWorkerRouterConditionPtr ServiceWorkerRouterCondition::Clone() const {
-  switch (tag_) {
-    case Tag::kUrlPattern:
-      return NewUrlPattern(
-          mojo::Clone(*data_.url_pattern));
-    case Tag::kRequest:
-      return NewRequest(
-          mojo::Clone(*data_.request));
-    case Tag::kRunningStatus:
-      return NewRunningStatus(
-          mojo::Clone(*data_.running_status));
-    case Tag::kOrCondition:
-      return NewOrCondition(
-          mojo::Clone(*data_.or_condition));
-  }
-  return nullptr;
-}
-
-template <typename T,
-          typename std::enable_if<std::is_same<
-              T, ServiceWorkerRouterCondition>::value>::type*>
-bool ServiceWorkerRouterCondition::Equals(const T& other) const {
-  if (tag_ != other.which())
-    return false;
-
-  switch (tag_) {
-    case Tag::kUrlPattern:
-      return mojo::Equals(*(data_.url_pattern), *(other.data_.url_pattern));
-    case Tag::kRequest:
-      return mojo::Equals(*(data_.request), *(other.data_.request));
-    case Tag::kRunningStatus:
-      return mojo::Equals(*(data_.running_status), *(other.data_.running_status));
-    case Tag::kOrCondition:
-      return mojo::Equals(*(data_.or_condition), *(other.data_.or_condition));
-  }
-
-  return false;
-}
-template <typename UnionPtrType>
 ServiceWorkerRouterSourcePtr ServiceWorkerRouterSource::Clone() const {
   switch (tag_) {
     case Tag::kNetworkSource:
@@ -1960,20 +1759,20 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-ServiceWorkerRouterConditionObjectPtr ServiceWorkerRouterConditionObject::Clone() const {
+ServiceWorkerRouterOrConditionPtr ServiceWorkerRouterOrCondition::Clone() const {
   return New(
       mojo::Clone(conditions)
   );
 }
 
-template <typename T, ServiceWorkerRouterConditionObject::EnableIfSame<T>*>
-bool ServiceWorkerRouterConditionObject::Equals(const T& other_struct) const {
+template <typename T, ServiceWorkerRouterOrCondition::EnableIfSame<T>*>
+bool ServiceWorkerRouterOrCondition::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->conditions, other_struct.conditions))
     return false;
   return true;
 }
 
-template <typename T, ServiceWorkerRouterConditionObject::EnableIfSame<T>*>
+template <typename T, ServiceWorkerRouterOrCondition::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.conditions < rhs.conditions)
     return true;
@@ -1982,24 +1781,45 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-ServiceWorkerRouterOrConditionPtr ServiceWorkerRouterOrCondition::Clone() const {
+ServiceWorkerRouterConditionPtr ServiceWorkerRouterCondition::Clone() const {
   return New(
-      mojo::Clone(objects)
+      mojo::Clone(url_pattern),
+      mojo::Clone(request),
+      mojo::Clone(running_status),
+      mojo::Clone(or_condition)
   );
 }
 
-template <typename T, ServiceWorkerRouterOrCondition::EnableIfSame<T>*>
-bool ServiceWorkerRouterOrCondition::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->objects, other_struct.objects))
+template <typename T, ServiceWorkerRouterCondition::EnableIfSame<T>*>
+bool ServiceWorkerRouterCondition::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->url_pattern, other_struct.url_pattern))
+    return false;
+  if (!mojo::Equals(this->request, other_struct.request))
+    return false;
+  if (!mojo::Equals(this->running_status, other_struct.running_status))
+    return false;
+  if (!mojo::Equals(this->or_condition, other_struct.or_condition))
     return false;
   return true;
 }
 
-template <typename T, ServiceWorkerRouterOrCondition::EnableIfSame<T>*>
+template <typename T, ServiceWorkerRouterCondition::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.objects < rhs.objects)
+  if (lhs.url_pattern < rhs.url_pattern)
     return true;
-  if (rhs.objects < lhs.objects)
+  if (rhs.url_pattern < lhs.url_pattern)
+    return false;
+  if (lhs.request < rhs.request)
+    return true;
+  if (rhs.request < lhs.request)
+    return false;
+  if (lhs.running_status < rhs.running_status)
+    return true;
+  if (rhs.running_status < lhs.running_status)
+    return false;
+  if (lhs.or_condition < rhs.or_condition)
+    return true;
+  if (rhs.or_condition < lhs.or_condition)
     return false;
   return false;
 }
@@ -2073,14 +1893,14 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 ServiceWorkerRouterRulePtr ServiceWorkerRouterRule::Clone() const {
   return New(
-      mojo::Clone(conditions),
+      mojo::Clone(condition),
       mojo::Clone(sources)
   );
 }
 
 template <typename T, ServiceWorkerRouterRule::EnableIfSame<T>*>
 bool ServiceWorkerRouterRule::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->conditions, other_struct.conditions))
+  if (!mojo::Equals(this->condition, other_struct.condition))
     return false;
   if (!mojo::Equals(this->sources, other_struct.sources))
     return false;
@@ -2089,9 +1909,9 @@ bool ServiceWorkerRouterRule::Equals(const T& other_struct) const {
 
 template <typename T, ServiceWorkerRouterRule::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.conditions < rhs.conditions)
+  if (lhs.condition < rhs.condition)
     return true;
-  if (rhs.conditions < lhs.conditions)
+  if (rhs.condition < lhs.condition)
     return false;
   if (lhs.sources < rhs.sources)
     return true;
@@ -2179,32 +1999,47 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::ServiceWorkerRouterReque
 
 
 template <>
-struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::ServiceWorkerRouterConditionObject::DataView,
-                                         ::blink::mojom::ServiceWorkerRouterConditionObjectPtr> {
-  static bool IsNull(const ::blink::mojom::ServiceWorkerRouterConditionObjectPtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::ServiceWorkerRouterConditionObjectPtr* output) { output->reset(); }
-
-  static const decltype(::blink::mojom::ServiceWorkerRouterConditionObject::conditions)& conditions(
-      const ::blink::mojom::ServiceWorkerRouterConditionObjectPtr& input) {
-    return input->conditions;
-  }
-
-  static bool Read(::blink::mojom::ServiceWorkerRouterConditionObject::DataView input, ::blink::mojom::ServiceWorkerRouterConditionObjectPtr* output);
-};
-
-
-template <>
 struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::ServiceWorkerRouterOrCondition::DataView,
                                          ::blink::mojom::ServiceWorkerRouterOrConditionPtr> {
   static bool IsNull(const ::blink::mojom::ServiceWorkerRouterOrConditionPtr& input) { return !input; }
   static void SetToNull(::blink::mojom::ServiceWorkerRouterOrConditionPtr* output) { output->reset(); }
 
-  static const decltype(::blink::mojom::ServiceWorkerRouterOrCondition::objects)& objects(
+  static const decltype(::blink::mojom::ServiceWorkerRouterOrCondition::conditions)& conditions(
       const ::blink::mojom::ServiceWorkerRouterOrConditionPtr& input) {
-    return input->objects;
+    return input->conditions;
   }
 
   static bool Read(::blink::mojom::ServiceWorkerRouterOrCondition::DataView input, ::blink::mojom::ServiceWorkerRouterOrConditionPtr* output);
+};
+
+
+template <>
+struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::ServiceWorkerRouterCondition::DataView,
+                                         ::blink::mojom::ServiceWorkerRouterConditionPtr> {
+  static bool IsNull(const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::ServiceWorkerRouterConditionPtr* output) { output->reset(); }
+
+  static const decltype(::blink::mojom::ServiceWorkerRouterCondition::url_pattern)& url_pattern(
+      const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) {
+    return input->url_pattern;
+  }
+
+  static const decltype(::blink::mojom::ServiceWorkerRouterCondition::request)& request(
+      const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) {
+    return input->request;
+  }
+
+  static const decltype(::blink::mojom::ServiceWorkerRouterCondition::running_status)& running_status(
+      const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) {
+    return input->running_status;
+  }
+
+  static const decltype(::blink::mojom::ServiceWorkerRouterCondition::or_condition)& or_condition(
+      const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) {
+    return input->or_condition;
+  }
+
+  static bool Read(::blink::mojom::ServiceWorkerRouterCondition::DataView input, ::blink::mojom::ServiceWorkerRouterConditionPtr* output);
 };
 
 
@@ -2259,9 +2094,9 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::ServiceWorkerRouterRule:
   static bool IsNull(const ::blink::mojom::ServiceWorkerRouterRulePtr& input) { return !input; }
   static void SetToNull(::blink::mojom::ServiceWorkerRouterRulePtr* output) { output->reset(); }
 
-  static const decltype(::blink::mojom::ServiceWorkerRouterRule::conditions)& conditions(
+  static const decltype(::blink::mojom::ServiceWorkerRouterRule::condition)& condition(
       const ::blink::mojom::ServiceWorkerRouterRulePtr& input) {
-    return input->conditions;
+    return input->condition;
   }
 
   static const decltype(::blink::mojom::ServiceWorkerRouterRule::sources)& sources(
@@ -2285,36 +2120,6 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::ServiceWorkerRouterRules
   }
 
   static bool Read(::blink::mojom::ServiceWorkerRouterRules::DataView input, ::blink::mojom::ServiceWorkerRouterRulesPtr* output);
-};
-
-
-template <>
-struct BLINK_COMMON_EXPORT UnionTraits<::blink::mojom::ServiceWorkerRouterCondition::DataView,
-                                        ::blink::mojom::ServiceWorkerRouterConditionPtr> {
-  static bool IsNull(const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::ServiceWorkerRouterConditionPtr* output) { output->reset(); }
-
-  static ::blink::mojom::ServiceWorkerRouterCondition::Tag GetTag(const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) {
-    return input->which();
-  }
-
-  static const ::blink::SafeUrlPattern& url_pattern(const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) {
-    return input->get_url_pattern();
-  }
-
-  static const ::blink::mojom::ServiceWorkerRouterRequestConditionPtr& request(const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) {
-    return input->get_request();
-  }
-
-  static const ::blink::mojom::ServiceWorkerRouterRunningStatusConditionPtr& running_status(const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) {
-    return input->get_running_status();
-  }
-
-  static const ::blink::mojom::ServiceWorkerRouterOrConditionPtr& or_condition(const ::blink::mojom::ServiceWorkerRouterConditionPtr& input) {
-    return input->get_or_condition();
-  }
-
-  static bool Read(::blink::mojom::ServiceWorkerRouterCondition::DataView input, ::blink::mojom::ServiceWorkerRouterConditionPtr* output);
 };
 
 

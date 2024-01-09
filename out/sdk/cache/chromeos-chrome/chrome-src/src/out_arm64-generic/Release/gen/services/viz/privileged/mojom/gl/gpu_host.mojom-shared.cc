@@ -248,7 +248,7 @@ bool GpuHost_DidLoseContext_Params_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->active_url, 3, validation_context)) {
+          object->active_url, 2, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->active_url, validation_context))

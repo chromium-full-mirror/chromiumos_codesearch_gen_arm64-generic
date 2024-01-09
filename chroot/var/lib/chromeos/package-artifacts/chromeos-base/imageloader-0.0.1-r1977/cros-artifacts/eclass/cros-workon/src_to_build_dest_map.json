@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform2",
+      "build_dest_path": "/var/tmp/portage/chromeos-base/imageloader-0.0.1-r1977/work/imageloader-0.0.1"
+    }
+  ]
+}

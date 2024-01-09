@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,8 +49,8 @@ const char UntrustedPageHandlerFactory::Name_[] = "ash.media_app_ui.mojom.Untrus
 UntrustedPageHandlerFactory::IPCStableHashFunction UntrustedPageHandlerFactory::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name: {
-      return &UntrustedPageHandlerFactory::CreateUntrustedPageHandler_Sym::IPCStableHash;
+    case internal::kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name: {
+      return &UntrustedPageHandlerFactory::CreateOcrUntrustedPageHandler_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -62,13 +63,13 @@ const char* UntrustedPageHandlerFactory::MessageToMethodName_(mojo::Message& mes
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name:
-            return "Receive ash::media_app_ui::mojom::UntrustedPageHandlerFactory::CreateUntrustedPageHandler";
+      case internal::kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name:
+            return "Receive ash::media_app_ui::mojom::UntrustedPageHandlerFactory::CreateOcrUntrustedPageHandler";
     }
   } else {
     switch (message.name()) {
-      case internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name:
-            return "Receive reply ash::media_app_ui::mojom::UntrustedPageHandlerFactory::CreateUntrustedPageHandler";
+      case internal::kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name:
+            return "Receive reply ash::media_app_ui::mojom::UntrustedPageHandlerFactory::CreateOcrUntrustedPageHandler";
     }
   }
   return "Receive unknown mojo message";
@@ -83,7 +84,7 @@ const char* UntrustedPageHandlerFactory::MessageToMethodName_(mojo::Message& mes
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t UntrustedPageHandlerFactory::CreateUntrustedPageHandler_Sym::IPCStableHash() {
+uint32_t UntrustedPageHandlerFactory::CreateOcrUntrustedPageHandler_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -91,7 +92,7 @@ uint32_t UntrustedPageHandlerFactory::CreateUntrustedPageHandler_Sym::IPCStableH
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::media_app_ui::mojom::UntrustedPageHandlerFactory::CreateUntrustedPageHandler");
+          "(Impl)ash::media_app_ui::mojom::UntrustedPageHandlerFactory::CreateOcrUntrustedPageHandler");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -102,52 +103,55 @@ UntrustedPageHandlerFactoryProxy::UntrustedPageHandlerFactoryProxy(mojo::Message
     : receiver_(receiver) {
 }
 
-void UntrustedPageHandlerFactoryProxy::CreateUntrustedPageHandler(
-    ::mojo::PendingReceiver<UntrustedPageHandler> in_receiver, ::mojo::PendingRemote<UntrustedPage> in_page) {
+void UntrustedPageHandlerFactoryProxy::CreateOcrUntrustedPageHandler(
+    ::mojo::PendingReceiver<OcrUntrustedPageHandler> in_receiver, ::mojo::PendingRemote<OcrUntrustedPage> in_page) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::media_app_ui::mojom::UntrustedPageHandlerFactory::CreateUntrustedPageHandler", "input_parameters",
+    "mojom", "Send ash::media_app_ui::mojom::UntrustedPageHandlerFactory::CreateOcrUntrustedPageHandler", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
-                        "<value of type ::mojo::PendingReceiver<UntrustedPageHandler>>");
+                        "<value of type ::mojo::PendingReceiver<OcrUntrustedPageHandler>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("page"), in_page,
-                        "<value of type ::mojo::PendingRemote<UntrustedPage>>");
+                        "<value of type ::mojo::PendingRemote<OcrUntrustedPage>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name, kFlags, 0, 0, nullptr);
+      internal::kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::media_app_ui::mojom::internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data> params(
+      ::ash::media_app_ui::mojom::internal::UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::media_app_ui::mojom::UntrustedPageHandlerInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::media_app_ui::mojom::OcrUntrustedPageHandlerInterfaceBase>>(
       in_receiver, &params->receiver, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid receiver in UntrustedPageHandlerFactory.CreateUntrustedPageHandler request");
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::media_app_ui::mojom::UntrustedPageInterfaceBase>>(
+      "invalid receiver in UntrustedPageHandlerFactory.CreateOcrUntrustedPageHandler request");
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::media_app_ui::mojom::OcrUntrustedPageInterfaceBase>>(
       in_page, &params->page, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->page),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid page in UntrustedPageHandlerFactory.CreateUntrustedPageHandler request");
+      "invalid page in UntrustedPageHandlerFactory.CreateOcrUntrustedPageHandler request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(UntrustedPageHandlerFactory::Name_);
-  message.set_method_name("CreateUntrustedPageHandler");
+  message.set_method_name("CreateOcrUntrustedPageHandler");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -159,17 +163,17 @@ bool UntrustedPageHandlerFactoryStubDispatch::Accept(
     UntrustedPageHandlerFactory* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name: {
+    case internal::kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name: {
 
       DCHECK(message->is_serialized());
-      internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data* params =
-          reinterpret_cast<internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data*>(
+      internal::UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data* params =
+          reinterpret_cast<internal::UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<UntrustedPageHandler> p_receiver{};
-      ::mojo::PendingRemote<UntrustedPage> p_page{};
-      UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsDataView input_data_view(params, message);
+      ::mojo::PendingReceiver<OcrUntrustedPageHandler> p_receiver{};
+      ::mojo::PendingRemote<OcrUntrustedPage> p_page{};
+      UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_receiver =
@@ -188,7 +192,7 @@ bool UntrustedPageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateUntrustedPageHandler(
+      impl->CreateOcrUntrustedPageHandler(
 std::move(p_receiver), 
 std::move(p_page));
       return true;
@@ -206,16 +210,16 @@ bool UntrustedPageHandlerFactoryStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name: {
+    case internal::kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name: {
       break;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUntrustedPageHandlerFactoryValidationInfo[] = {
-    {&internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::Validate,
+    { &internal::UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -224,17 +228,34 @@ bool UntrustedPageHandlerFactoryRequestValidator::Accept(mojo::Message* message)
   return mojo::internal::ValidateRequestGenericPacked(message, name, kUntrustedPageHandlerFactoryValidationInfo);
 }
 
-const char UntrustedPageHandler::Name_[] = "ash.media_app_ui.mojom.UntrustedPageHandler";
+const char OcrUntrustedPageHandler::Name_[] = "ash.media_app_ui.mojom.OcrUntrustedPageHandler";
 
-UntrustedPageHandler::IPCStableHashFunction UntrustedPageHandler::MessageToMethodInfo_(mojo::Message& message) {
+OcrUntrustedPageHandler::IPCStableHashFunction OcrUntrustedPageHandler::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name: {
+      return &OcrUntrustedPageHandler::ViewportUpdated_Sym::IPCStableHash;
+    }
+  }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
 }
 
 
-const char* UntrustedPageHandler::MessageToMethodName_(mojo::Message& message) {
+const char* OcrUntrustedPageHandler::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name:
+            return "Receive ash::media_app_ui::mojom::OcrUntrustedPageHandler::ViewportUpdated";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name:
+            return "Receive reply ash::media_app_ui::mojom::OcrUntrustedPageHandler::ViewportUpdated";
+    }
+  }
   return "Receive unknown mojo message";
 #else
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
@@ -247,45 +268,174 @@ const char* UntrustedPageHandler::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t OcrUntrustedPageHandler::ViewportUpdated_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::media_app_ui::mojom::OcrUntrustedPageHandler::ViewportUpdated");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-UntrustedPageHandlerProxy::UntrustedPageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
+OcrUntrustedPageHandlerProxy::OcrUntrustedPageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
+void OcrUntrustedPageHandlerProxy::ViewportUpdated(
+    const ::gfx::RectF& in_viewportBox, float in_scaleFactor) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::media_app_ui::mojom::OcrUntrustedPageHandler::ViewportUpdated", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("viewportBox"), in_viewportBox,
+                        "<value of type const ::gfx::RectF&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("scaleFactor"), in_scaleFactor,
+                        "<value of type float>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kOcrUntrustedPageHandler_ViewportUpdated_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::media_app_ui::mojom::internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->viewportBox)::BaseType> viewportBox_fragment(
+          params.message());
+  mojo::internal::Serialize<::gfx::mojom::RectFDataView>(
+      in_viewportBox, viewportBox_fragment);
+  params->viewportBox.Set(
+      viewportBox_fragment.is_null() ? nullptr : viewportBox_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->viewportBox.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null viewportBox in OcrUntrustedPageHandler.ViewportUpdated request");
+  params->scaleFactor = in_scaleFactor;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(OcrUntrustedPageHandler::Name_);
+  message.set_method_name("ViewportUpdated");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
-bool UntrustedPageHandlerStubDispatch::Accept(
-    UntrustedPageHandler* impl,
+bool OcrUntrustedPageHandlerStubDispatch::Accept(
+    OcrUntrustedPageHandler* impl,
     mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data* params =
+          reinterpret_cast<internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::gfx::RectF p_viewportBox{};
+      float p_scaleFactor{};
+      OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadViewportBox(&p_viewportBox))
+        success = false;
+      if (success)
+        p_scaleFactor = input_data_view.scaleFactor();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            OcrUntrustedPageHandler::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ViewportUpdated(
+std::move(p_viewportBox), 
+std::move(p_scaleFactor));
+      return true;
+    }
+  }
   return false;
 }
 
 // static
-bool UntrustedPageHandlerStubDispatch::AcceptWithResponder(
-    UntrustedPageHandler* impl,
+bool OcrUntrustedPageHandlerStubDispatch::AcceptWithResponder(
+    OcrUntrustedPageHandler* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name: {
+      break;
+    }
+  }
   return false;
 }
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kOcrUntrustedPageHandlerValidationInfo[] = {
+    { &internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data::Validate,
+     nullptr /* no response */},
+};
 
-
-
-bool UntrustedPageHandlerRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::ash::media_app_ui::mojom::UntrustedPageHandler::Name_;
-  return mojo::internal::ValidateRequestGeneric(message, name, {});
+bool OcrUntrustedPageHandlerRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::media_app_ui::mojom::OcrUntrustedPageHandler::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kOcrUntrustedPageHandlerValidationInfo);
 }
 
-const char UntrustedPage::Name_[] = "ash.media_app_ui.mojom.UntrustedPage";
+const char OcrUntrustedPage::Name_[] = "ash.media_app_ui.mojom.OcrUntrustedPage";
 
-UntrustedPage::IPCStableHashFunction UntrustedPage::MessageToMethodInfo_(mojo::Message& message) {
+OcrUntrustedPage::IPCStableHashFunction OcrUntrustedPage::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kOcrUntrustedPage_SetViewport_Name: {
+      return &OcrUntrustedPage::SetViewport_Sym::IPCStableHash;
+    }
+  }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
 }
 
 
-const char* UntrustedPage::MessageToMethodName_(mojo::Message& message) {
+const char* OcrUntrustedPage::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kOcrUntrustedPage_SetViewport_Name:
+            return "Receive ash::media_app_ui::mojom::OcrUntrustedPage::SetViewport";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kOcrUntrustedPage_SetViewport_Name:
+            return "Receive reply ash::media_app_ui::mojom::OcrUntrustedPage::SetViewport";
+    }
+  }
   return "Receive unknown mojo message";
 #else
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
@@ -298,32 +448,136 @@ const char* UntrustedPage::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t OcrUntrustedPage::SetViewport_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::media_app_ui::mojom::OcrUntrustedPage::SetViewport");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-UntrustedPageProxy::UntrustedPageProxy(mojo::MessageReceiverWithResponder* receiver)
+OcrUntrustedPageProxy::OcrUntrustedPageProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
+void OcrUntrustedPageProxy::SetViewport(
+    const ::gfx::RectF& in_viewportBox) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::media_app_ui::mojom::OcrUntrustedPage::SetViewport", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("viewportBox"), in_viewportBox,
+                        "<value of type const ::gfx::RectF&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kOcrUntrustedPage_SetViewport_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::media_app_ui::mojom::internal::OcrUntrustedPage_SetViewport_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->viewportBox)::BaseType> viewportBox_fragment(
+          params.message());
+  mojo::internal::Serialize<::gfx::mojom::RectFDataView>(
+      in_viewportBox, viewportBox_fragment);
+  params->viewportBox.Set(
+      viewportBox_fragment.is_null() ? nullptr : viewportBox_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->viewportBox.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null viewportBox in OcrUntrustedPage.SetViewport request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(OcrUntrustedPage::Name_);
+  message.set_method_name("SetViewport");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
-bool UntrustedPageStubDispatch::Accept(
-    UntrustedPage* impl,
+bool OcrUntrustedPageStubDispatch::Accept(
+    OcrUntrustedPage* impl,
     mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kOcrUntrustedPage_SetViewport_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::OcrUntrustedPage_SetViewport_Params_Data* params =
+          reinterpret_cast<internal::OcrUntrustedPage_SetViewport_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::gfx::RectF p_viewportBox{};
+      OcrUntrustedPage_SetViewport_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadViewportBox(&p_viewportBox))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            OcrUntrustedPage::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetViewport(
+std::move(p_viewportBox));
+      return true;
+    }
+  }
   return false;
 }
 
 // static
-bool UntrustedPageStubDispatch::AcceptWithResponder(
-    UntrustedPage* impl,
+bool OcrUntrustedPageStubDispatch::AcceptWithResponder(
+    OcrUntrustedPage* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kOcrUntrustedPage_SetViewport_Name: {
+      break;
+    }
+  }
   return false;
 }
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kOcrUntrustedPageValidationInfo[] = {
+    { &internal::OcrUntrustedPage_SetViewport_Params_Data::Validate,
+     nullptr /* no response */},
+};
 
-
-
-bool UntrustedPageRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::ash::media_app_ui::mojom::UntrustedPage::Name_;
-  return mojo::internal::ValidateRequestGeneric(message, name, {});
+bool OcrUntrustedPageRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::media_app_ui::mojom::OcrUntrustedPage::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kOcrUntrustedPageValidationInfo);
 }
 
 
@@ -343,8 +597,8 @@ namespace mojo {
 namespace ash::media_app_ui::mojom {
 
 
-void UntrustedPageHandlerFactoryInterceptorForTesting::CreateUntrustedPageHandler(::mojo::PendingReceiver<UntrustedPageHandler> receiver, ::mojo::PendingRemote<UntrustedPage> page) {
-  GetForwardingInterface()->CreateUntrustedPageHandler(std::move(receiver), std::move(page));
+void UntrustedPageHandlerFactoryInterceptorForTesting::CreateOcrUntrustedPageHandler(::mojo::PendingReceiver<OcrUntrustedPageHandler> receiver, ::mojo::PendingRemote<OcrUntrustedPage> page) {
+  GetForwardingInterface()->CreateOcrUntrustedPageHandler(std::move(receiver), std::move(page));
 }
 UntrustedPageHandlerFactoryAsyncWaiter::UntrustedPageHandlerFactoryAsyncWaiter(
     UntrustedPageHandlerFactory* proxy) : proxy_(proxy) {}
@@ -354,18 +608,24 @@ UntrustedPageHandlerFactoryAsyncWaiter::~UntrustedPageHandlerFactoryAsyncWaiter(
 
 
 
-UntrustedPageHandlerAsyncWaiter::UntrustedPageHandlerAsyncWaiter(
-    UntrustedPageHandler* proxy) : proxy_(proxy) {}
+void OcrUntrustedPageHandlerInterceptorForTesting::ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) {
+  GetForwardingInterface()->ViewportUpdated(std::move(viewportBox), std::move(scaleFactor));
+}
+OcrUntrustedPageHandlerAsyncWaiter::OcrUntrustedPageHandlerAsyncWaiter(
+    OcrUntrustedPageHandler* proxy) : proxy_(proxy) {}
 
-UntrustedPageHandlerAsyncWaiter::~UntrustedPageHandlerAsyncWaiter() = default;
+OcrUntrustedPageHandlerAsyncWaiter::~OcrUntrustedPageHandlerAsyncWaiter() = default;
 
 
 
 
-UntrustedPageAsyncWaiter::UntrustedPageAsyncWaiter(
-    UntrustedPage* proxy) : proxy_(proxy) {}
+void OcrUntrustedPageInterceptorForTesting::SetViewport(const ::gfx::RectF& viewportBox) {
+  GetForwardingInterface()->SetViewport(std::move(viewportBox));
+}
+OcrUntrustedPageAsyncWaiter::OcrUntrustedPageAsyncWaiter(
+    OcrUntrustedPage* proxy) : proxy_(proxy) {}
 
-UntrustedPageAsyncWaiter::~UntrustedPageAsyncWaiter() = default;
+OcrUntrustedPageAsyncWaiter::~OcrUntrustedPageAsyncWaiter() = default;
 
 
 

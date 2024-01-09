@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="0" disabled="0" errors="0" time="1.02" timestamp="1970-01-01T00:00:00.000" name="AllTests">
-  <testsuite name="EmptyIodev" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="1.02" timestamp="1970-01-01T00:00:00.000">
-    <testcase name="GetInputBuffer" file="cras/src/tests/empty_iodev_unittest.cc" line="18" status="run" result="completed" time="1.02" timestamp="1970-01-01T00:00:00.000" classname="EmptyIodev" />
-  </testsuite>
-</testsuites>

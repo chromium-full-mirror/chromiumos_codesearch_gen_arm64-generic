@@ -174,6 +174,7 @@ class EtwTraceEvent final :
 
   enum : int {
     kTimestampFieldNumber = 1,
+    kCpuFieldNumber = 4,
     kCSwitchFieldNumber = 2,
     kReadyThreadFieldNumber = 3,
   };
@@ -188,6 +189,19 @@ class EtwTraceEvent final :
   private:
   uint64_t _internal_timestamp() const;
   void _internal_set_timestamp(uint64_t value);
+  public:
+
+  // optional uint32 cpu = 4;
+  bool has_cpu() const;
+  private:
+  bool _internal_has_cpu() const;
+  public:
+  void clear_cpu();
+  uint32_t cpu() const;
+  void set_cpu(uint32_t value);
+  private:
+  uint32_t _internal_cpu() const;
+  void _internal_set_cpu(uint32_t value);
   public:
 
   // .perfetto.protos.CSwitchEtwEvent c_switch = 2;
@@ -243,6 +257,7 @@ class EtwTraceEvent final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   uint64_t timestamp_;
+  uint32_t cpu_;
   union EventUnion {
     constexpr EventUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -290,6 +305,34 @@ inline void EtwTraceEvent::_internal_set_timestamp(uint64_t value) {
 inline void EtwTraceEvent::set_timestamp(uint64_t value) {
   _internal_set_timestamp(value);
   // @@protoc_insertion_point(field_set:perfetto.protos.EtwTraceEvent.timestamp)
+}
+
+// optional uint32 cpu = 4;
+inline bool EtwTraceEvent::_internal_has_cpu() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool EtwTraceEvent::has_cpu() const {
+  return _internal_has_cpu();
+}
+inline void EtwTraceEvent::clear_cpu() {
+  cpu_ = 0u;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline uint32_t EtwTraceEvent::_internal_cpu() const {
+  return cpu_;
+}
+inline uint32_t EtwTraceEvent::cpu() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.EtwTraceEvent.cpu)
+  return _internal_cpu();
+}
+inline void EtwTraceEvent::_internal_set_cpu(uint32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  cpu_ = value;
+}
+inline void EtwTraceEvent::set_cpu(uint32_t value) {
+  _internal_set_cpu(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.EtwTraceEvent.cpu)
 }
 
 // .perfetto.protos.CSwitchEtwEvent c_switch = 2;

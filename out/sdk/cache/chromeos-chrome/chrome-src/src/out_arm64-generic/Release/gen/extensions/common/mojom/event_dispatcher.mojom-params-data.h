@@ -39,6 +39,23 @@ class  EventDispatcher_DispatchEvent_Params_Data {
 };
 static_assert(sizeof(EventDispatcher_DispatchEvent_Params_Data) == 24,
               "Bad sizeof(EventDispatcher_DispatchEvent_Params_Data)");
+class  EventDispatcher_DispatchEvent_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t event_will_run_in_lazy_background_page_script : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<EventDispatcher_DispatchEvent_ResponseParams_Data>;
+
+  EventDispatcher_DispatchEvent_ResponseParams_Data();
+  ~EventDispatcher_DispatchEvent_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(EventDispatcher_DispatchEvent_ResponseParams_Data) == 16,
+              "Bad sizeof(EventDispatcher_DispatchEvent_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -78,6 +95,24 @@ class EventDispatcher_DispatchEvent_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class EventDispatcher_DispatchEvent_ResponseParamsDataView {
+ public:
+  EventDispatcher_DispatchEvent_ResponseParamsDataView() = default;
+
+  EventDispatcher_DispatchEvent_ResponseParamsDataView(
+      internal::EventDispatcher_DispatchEvent_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool event_will_run_in_lazy_background_page_script() const {
+    return data_->event_will_run_in_lazy_background_page_script;
+  }
+ private:
+  internal::EventDispatcher_DispatchEvent_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void EventDispatcher_DispatchEvent_ParamsDataView::GetParamsDataView(
     DispatchEventParamsDataView* output) {
   auto pointer = data_->params.Get();
@@ -88,6 +123,8 @@ inline void EventDispatcher_DispatchEvent_ParamsDataView::GetEventArgsDataView(
   auto pointer = data_->event_args.Get();
   *output = ::mojo_base::mojom::ListValueDataView(pointer, message_);
 }
+
+
 
 
 

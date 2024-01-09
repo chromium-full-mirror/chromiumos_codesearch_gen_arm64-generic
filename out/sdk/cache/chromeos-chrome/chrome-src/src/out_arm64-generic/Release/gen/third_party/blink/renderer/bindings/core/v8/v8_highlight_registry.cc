@@ -33,7 +33,7 @@ namespace blink {
 
 bool V8HighlightRegistry::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::HighlightAPIEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HighlightRegistry>::value,
     "HighlightRegistry inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HighlightRegistry::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HighlightRegistry is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("HighlightRegistry.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -106,12 +102,12 @@ BLINK_BINDINGS_TRACE_EVENT("HighlightRegistry.clear");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HighlightRegistry";
 const char* const property_name = "clear";
@@ -144,7 +140,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -170,12 +166,12 @@ BLINK_BINDINGS_TRACE_EVENT("HighlightRegistry.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HighlightRegistry";
 const char* const property_name = "entries";
@@ -208,7 +204,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -253,7 +249,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -289,7 +285,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -315,12 +311,12 @@ BLINK_BINDINGS_TRACE_EVENT("HighlightRegistry.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HighlightRegistry";
 const char* const property_name = "keys";
@@ -353,7 +349,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -383,12 +379,12 @@ BLINK_BINDINGS_TRACE_EVENT("HighlightRegistry.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(v8_receiver);
+HighlightRegistry* blink_receiver = V8HighlightRegistry::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HighlightRegistry";
 const char* const property_name = "values";

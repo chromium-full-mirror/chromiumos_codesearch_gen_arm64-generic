@@ -3662,7 +3662,7 @@ bool BluetoothDeviceInfo_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->rssi, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->mtu, validation_context))
+  if (!mojo::internal::ValidateStruct(object->deprecated_mtu, validation_context))
     return false;
 
   constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =

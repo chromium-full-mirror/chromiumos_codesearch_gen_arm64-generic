@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XPathEvaluator>::value,
     "XPathEvaluator inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XPathEvaluator::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XPathEvaluator is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -141,7 +136,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XPathEvaluator* blink_receiver = V8XPathEvaluator::ToWrappableUnsafe(v8_receiver);
+XPathEvaluator* blink_receiver = V8XPathEvaluator::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -188,7 +183,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XPathEvaluator* blink_receiver = V8XPathEvaluator::ToWrappableUnsafe(v8_receiver);
+XPathEvaluator* blink_receiver = V8XPathEvaluator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node_resolver = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -222,7 +217,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XPathEvaluator* blink_receiver = V8XPathEvaluator::ToWrappableUnsafe(v8_receiver);
+XPathEvaluator* blink_receiver = V8XPathEvaluator::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;

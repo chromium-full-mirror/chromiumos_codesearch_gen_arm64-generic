@@ -19,7 +19,7 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   void GetCartForCluster(::history_clusters::mojom::ClusterPtr cluster, GetCartForClusterCallback callback) override;
   void GetDiscountsForCluster(::history_clusters::mojom::ClusterPtr cluster, GetDiscountsForClusterCallback callback) override;
   void ShowJourneysSidePanel(const std::string& query) override;
-  void OpenUrlsInTabGroup(const std::vector<::GURL>& urls, const absl::optional<std::string>& tab_group_name) override;
+  void OpenUrlsInTabGroup(const std::vector<::GURL>& urls, const std::optional<std::string>& tab_group_name) override;
   void DismissCluster(std::vector<::history_clusters::mojom::URLVisitPtr> visits, int64_t cluster_id) override;
   void RecordClick(int64_t cluster_id) override;
   void RecordDisabled(int64_t cluster_id) override;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -145,8 +146,8 @@ bool LockHandleStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool LockHandleRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::blink::mojom::blink::LockHandle::Name_;
@@ -244,14 +245,17 @@ void LockRequestProxy::Granted(
                         "<value of type ::mojo::PendingAssociatedRemote<LockHandle>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLockRequest_Granted_Name, kFlags, 0, 0, nullptr);
@@ -280,14 +284,17 @@ void LockRequestProxy::Failed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LockRequest::Failed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLockRequest_Failed_Name, kFlags, 0, 0, nullptr);
@@ -382,12 +389,12 @@ bool LockRequestStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLockRequestValidationInfo[] = {
-    {&internal::LockRequest_Granted_Params_Data::Validate,
+    { &internal::LockRequest_Granted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LockRequest_Failed_Params_Data::Validate,
+    { &internal::LockRequest_Failed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -512,14 +519,17 @@ void LockManagerProxy::RequestLock(
                         "<value of type ::mojo::PendingAssociatedRemote<LockRequest>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLockManager_RequestLock_Name, kFlags, 0, 0, nullptr);
@@ -563,14 +573,17 @@ void LockManagerProxy::QueryState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LockManager::QueryState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLockManager_QueryState_Name, kFlags, 0, 0, nullptr);
@@ -687,7 +700,8 @@ void LockManager_QueryState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLockManager_QueryState_Name, kFlags, 0, 0, nullptr);
@@ -831,12 +845,12 @@ bool LockManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLockManagerValidationInfo[] = {
-    {&internal::LockManager_RequestLock_Params_Data::Validate,
+    { &internal::LockManager_RequestLock_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LockManager_QueryState_Params_Data::Validate,
+    { &internal::LockManager_QueryState_Params_Data::Validate,
      &internal::LockManager_QueryState_ResponseParams_Data::Validate},
 };
 

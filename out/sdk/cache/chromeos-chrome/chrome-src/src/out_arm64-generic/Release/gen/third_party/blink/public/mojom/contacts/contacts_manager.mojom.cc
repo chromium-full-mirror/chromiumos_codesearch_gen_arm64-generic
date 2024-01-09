@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -91,11 +92,11 @@ ContactInfo::ContactInfo()
       icon() {}
 
 ContactInfo::ContactInfo(
-    absl::optional<std::vector<std::string>> name_in,
-    absl::optional<std::vector<std::string>> email_in,
-    absl::optional<std::vector<std::string>> tel_in,
-    absl::optional<std::vector<::payments::mojom::PaymentAddressPtr>> address_in,
-    absl::optional<std::vector<ContactIconBlobPtr>> icon_in)
+    std::optional<std::vector<std::string>> name_in,
+    std::optional<std::vector<std::string>> email_in,
+    std::optional<std::vector<std::string>> tel_in,
+    std::optional<std::vector<::payments::mojom::PaymentAddressPtr>> address_in,
+    std::optional<std::vector<ContactIconBlobPtr>> icon_in)
     : name(std::move(name_in)),
       email(std::move(email_in)),
       tel(std::move(tel_in)),
@@ -111,7 +112,7 @@ void ContactInfo::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -120,7 +121,7 @@ void ContactInfo::WriteIntoTrace(
     dict.AddItem(
       "email"), this->email,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -129,7 +130,7 @@ void ContactInfo::WriteIntoTrace(
     dict.AddItem(
       "tel"), this->tel,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -138,7 +139,7 @@ void ContactInfo::WriteIntoTrace(
     dict.AddItem(
       "address"), this->address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::payments::mojom::PaymentAddressPtr>>>"
+      "<value of type std::optional<std::vector<::payments::mojom::PaymentAddressPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -147,7 +148,7 @@ void ContactInfo::WriteIntoTrace(
     dict.AddItem(
       "icon"), this->icon,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<ContactIconBlobPtr>>>"
+      "<value of type std::optional<std::vector<ContactIconBlobPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -261,14 +262,17 @@ void ContactsManagerProxy::Select(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContactsManager_Select_Name, kFlags, 0, 0, nullptr);
@@ -338,7 +342,7 @@ class ContactsManager_Select_ProxyToResponder : public ::mojo::internal::ProxyTo
 #endif
 
   void Run(
-      absl::optional<std::vector<ContactInfoPtr>> in_contacts);
+      std::optional<std::vector<ContactInfoPtr>> in_contacts);
 };
 
 bool ContactsManager_Select_ForwardToCallback::Accept(
@@ -351,7 +355,7 @@ bool ContactsManager_Select_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<ContactInfoPtr>> p_contacts{};
+  std::optional<std::vector<ContactInfoPtr>> p_contacts{};
   ContactsManager_Select_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadContacts(&p_contacts))
@@ -370,7 +374,7 @@ std::move(p_contacts));
 }
 
 void ContactsManager_Select_ProxyToResponder::Run(
-    absl::optional<std::vector<ContactInfoPtr>> in_contacts) {
+    std::optional<std::vector<ContactInfoPtr>> in_contacts) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::ContactsManager::Select", "async_response_parameters",
@@ -378,13 +382,14 @@ void ContactsManager_Select_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("contacts"), in_contacts,
-                        "<value of type absl::optional<std::vector<ContactInfoPtr>>>");
+                        "<value of type std::optional<std::vector<ContactInfoPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContactsManager_Select_Name, kFlags, 0, 0, nullptr);
@@ -492,10 +497,10 @@ std::move(p_include_icons), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContactsManagerValidationInfo[] = {
-    {&internal::ContactsManager_Select_Params_Data::Validate,
+    { &internal::ContactsManager_Select_Params_Data::Validate,
      &internal::ContactsManager_Select_ResponseParams_Data::Validate},
 };
 
@@ -572,14 +577,14 @@ ContactsManagerAsyncWaiter::ContactsManagerAsyncWaiter(
 ContactsManagerAsyncWaiter::~ContactsManagerAsyncWaiter() = default;
 
 void ContactsManagerAsyncWaiter::Select(
-    bool multiple, bool include_names, bool include_emails, bool include_tel, bool include_addresses, bool include_icons, absl::optional<std::vector<ContactInfoPtr>>* out_contacts) {
+    bool multiple, bool include_names, bool include_emails, bool include_tel, bool include_addresses, bool include_icons, std::optional<std::vector<ContactInfoPtr>>* out_contacts) {
   base::RunLoop loop;
   proxy_->Select(std::move(multiple),std::move(include_names),std::move(include_emails),std::move(include_tel),std::move(include_addresses),std::move(include_icons),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<ContactInfoPtr>>* out_contacts
+             std::optional<std::vector<ContactInfoPtr>>* out_contacts
 ,
-             absl::optional<std::vector<ContactInfoPtr>> contacts) {*out_contacts = std::move(contacts);
+             std::optional<std::vector<ContactInfoPtr>> contacts) {*out_contacts = std::move(contacts);
             loop->Quit();
           },
           &loop,
@@ -587,9 +592,9 @@ void ContactsManagerAsyncWaiter::Select(
   loop.Run();
 }
 
-absl::optional<std::vector<ContactInfoPtr>> ContactsManagerAsyncWaiter::Select(
+std::optional<std::vector<ContactInfoPtr>> ContactsManagerAsyncWaiter::Select(
     bool multiple, bool include_names, bool include_emails, bool include_tel, bool include_addresses, bool include_icons) {
-  absl::optional<std::vector<ContactInfoPtr>> async_wait_result;
+  std::optional<std::vector<ContactInfoPtr>> async_wait_result;
   Select(std::move(multiple),std::move(include_names),std::move(include_emails),std::move(include_tel),std::move(include_addresses),std::move(include_icons),&async_wait_result);
   return async_wait_result;
 }

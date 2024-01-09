@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -171,14 +172,17 @@ void UrlHandlerProxy::OpenUrl(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUrlHandler_OpenUrl_Name, kFlags, 0, 0, nullptr);
@@ -219,14 +223,17 @@ void UrlHandlerProxy::GetExternalHandler(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUrlHandler_GetExternalHandler_Name, kFlags, 0, 0, nullptr);
@@ -268,14 +275,17 @@ void UrlHandlerProxy::OpenExternal(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUrlHandler_OpenExternal_Name, kFlags, 0, 0, nullptr);
@@ -349,7 +359,7 @@ class UrlHandler_GetExternalHandler_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_name);
+      const std::optional<std::string>& in_name);
 };
 
 bool UrlHandler_GetExternalHandler_ForwardToCallback::Accept(
@@ -362,7 +372,7 @@ bool UrlHandler_GetExternalHandler_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_name{};
+  std::optional<std::string> p_name{};
   UrlHandler_GetExternalHandler_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadName(&p_name))
@@ -381,7 +391,7 @@ std::move(p_name));
 }
 
 void UrlHandler_GetExternalHandler_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_name) {
+    const std::optional<std::string>& in_name) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::UrlHandler::GetExternalHandler", "async_response_parameters",
@@ -389,13 +399,14 @@ void UrlHandler_GetExternalHandler_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUrlHandler_GetExternalHandler_Name, kFlags, 0, 0, nullptr);
@@ -539,14 +550,14 @@ std::move(p_url), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUrlHandlerValidationInfo[] = {
-    {&internal::UrlHandler_OpenUrl_Params_Data::Validate,
+    { &internal::UrlHandler_OpenUrl_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UrlHandler_GetExternalHandler_Params_Data::Validate,
+    { &internal::UrlHandler_GetExternalHandler_Params_Data::Validate,
      &internal::UrlHandler_GetExternalHandler_ResponseParams_Data::Validate},
-    {&internal::UrlHandler_OpenExternal_Params_Data::Validate,
+    { &internal::UrlHandler_OpenExternal_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -591,14 +602,14 @@ UrlHandlerAsyncWaiter::UrlHandlerAsyncWaiter(
 UrlHandlerAsyncWaiter::~UrlHandlerAsyncWaiter() = default;
 
 void UrlHandlerAsyncWaiter::GetExternalHandler(
-    const ::GURL& url, absl::optional<std::string>* out_name) {
+    const ::GURL& url, std::optional<std::string>* out_name) {
   base::RunLoop loop;
   proxy_->GetExternalHandler(std::move(url),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_name
+             std::optional<std::string>* out_name
 ,
-             const absl::optional<std::string>& name) {*out_name = std::move(name);
+             const std::optional<std::string>& name) {*out_name = std::move(name);
             loop->Quit();
           },
           &loop,
@@ -606,9 +617,9 @@ void UrlHandlerAsyncWaiter::GetExternalHandler(
   loop.Run();
 }
 
-absl::optional<std::string> UrlHandlerAsyncWaiter::GetExternalHandler(
+std::optional<std::string> UrlHandlerAsyncWaiter::GetExternalHandler(
     const ::GURL& url) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetExternalHandler(std::move(url),&async_wait_result);
   return async_wait_result;
 }

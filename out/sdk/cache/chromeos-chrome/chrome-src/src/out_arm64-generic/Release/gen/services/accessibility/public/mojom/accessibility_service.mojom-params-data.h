@@ -96,8 +96,6 @@ class  AccessibilityServiceClient_BindAutomation_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::AssociatedInterface_Data automation;
-  mojo::internal::Handle_Data automation_client;
-  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<AccessibilityServiceClient_BindAutomation_Params_Data>;
@@ -105,8 +103,25 @@ class  AccessibilityServiceClient_BindAutomation_Params_Data {
   AccessibilityServiceClient_BindAutomation_Params_Data();
   ~AccessibilityServiceClient_BindAutomation_Params_Data() = delete;
 };
-static_assert(sizeof(AccessibilityServiceClient_BindAutomation_Params_Data) == 24,
+static_assert(sizeof(AccessibilityServiceClient_BindAutomation_Params_Data) == 16,
               "Bad sizeof(AccessibilityServiceClient_BindAutomation_Params_Data)");
+class  AccessibilityServiceClient_BindAutomationClient_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data automation_client;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<AccessibilityServiceClient_BindAutomationClient_Params_Data>;
+
+  AccessibilityServiceClient_BindAutomationClient_Params_Data();
+  ~AccessibilityServiceClient_BindAutomationClient_Params_Data() = delete;
+};
+static_assert(sizeof(AccessibilityServiceClient_BindAutomationClient_Params_Data) == 16,
+              "Bad sizeof(AccessibilityServiceClient_BindAutomationClient_Params_Data)");
 class  AccessibilityServiceClient_BindAutoclickClient_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -158,6 +173,23 @@ class  AccessibilityServiceClient_BindTts_Params_Data {
 };
 static_assert(sizeof(AccessibilityServiceClient_BindTts_Params_Data) == 16,
               "Bad sizeof(AccessibilityServiceClient_BindTts_Params_Data)");
+class  AccessibilityServiceClient_BindUserInput_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data user_input_receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<AccessibilityServiceClient_BindUserInput_Params_Data>;
+
+  AccessibilityServiceClient_BindUserInput_Params_Data();
+  ~AccessibilityServiceClient_BindUserInput_Params_Data() = delete;
+};
+static_assert(sizeof(AccessibilityServiceClient_BindUserInput_Params_Data) == 16,
+              "Bad sizeof(AccessibilityServiceClient_BindUserInput_Params_Data)");
 class  AccessibilityServiceClient_BindUserInterface_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -336,6 +368,22 @@ class AccessibilityServiceClient_BindAutomation_ParamsDataView {
     DCHECK(ret);
     return result;
   }
+ private:
+  internal::AccessibilityServiceClient_BindAutomation_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class AccessibilityServiceClient_BindAutomationClient_ParamsDataView {
+ public:
+  AccessibilityServiceClient_BindAutomationClient_ParamsDataView() = default;
+
+  AccessibilityServiceClient_BindAutomationClient_ParamsDataView(
+      internal::AccessibilityServiceClient_BindAutomationClient_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
   template <typename UserType>
   UserType TakeAutomationClient() {
     UserType result;
@@ -346,7 +394,7 @@ class AccessibilityServiceClient_BindAutomation_ParamsDataView {
     return result;
   }
  private:
-  internal::AccessibilityServiceClient_BindAutomation_Params_Data* data_ = nullptr;
+  internal::AccessibilityServiceClient_BindAutomationClient_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -426,6 +474,31 @@ class AccessibilityServiceClient_BindTts_ParamsDataView {
 };
 
 
+class AccessibilityServiceClient_BindUserInput_ParamsDataView {
+ public:
+  AccessibilityServiceClient_BindUserInput_ParamsDataView() = default;
+
+  AccessibilityServiceClient_BindUserInput_ParamsDataView(
+      internal::AccessibilityServiceClient_BindUserInput_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeUserInputReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ax::mojom::UserInputInterfaceBase>>(
+            &data_->user_input_receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::AccessibilityServiceClient_BindUserInput_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class AccessibilityServiceClient_BindUserInterface_ParamsDataView {
  public:
   AccessibilityServiceClient_BindUserInterface_ParamsDataView() = default;
@@ -489,6 +562,10 @@ inline void AccessibilityService_BindAssistiveTechnologyController_ParamsDataVie
   auto pointer = data_->enabled_features.Get();
   *output = mojo::ArrayDataView<::ax::mojom::AssistiveTechnologyType>(pointer, message_);
 }
+
+
+
+
 
 
 

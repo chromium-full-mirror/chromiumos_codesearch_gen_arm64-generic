@@ -88,9 +88,12 @@ class ThunderboltBusInterfaceInfo_Data;
 class ThunderboltBusInfo_Data;
 class InputInfo_Data;
 class TouchscreenDevice_Data;
+class TouchpadDevice_Data;
 class InputDevice_Data;
 class SensorInfo_Data;
 class Sensor_Data;
+class ThermalInfo_Data;
+class ThermalSensorInfo_Data;
 class TelemetryInfo_Data;
 class ProcessResult_Data;
 class BatteryResult_Data;
@@ -122,6 +125,7 @@ class GraphicsResult_Data;
 class DisplayResult_Data;
 class InputResult_Data;
 class SensorResult_Data;
+class ThermalResult_Data;
 
 struct CpuArchitectureEnum_Data {
  public:
@@ -177,6 +181,7 @@ struct ProbeCategoryEnum_Data {
       case 19:
       case 20:
       case 21:
+      case 22:
         return true;
     }
     return false;
@@ -815,6 +820,31 @@ struct Sensor_Location_Data {
       case 2:
       case 3:
       case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct ThermalSensorInfo_ThermalSensorSource_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
         return true;
     }
     return false;
@@ -2428,6 +2458,58 @@ class  SensorResult_Data {
 };
 static_assert(sizeof(SensorResult_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(SensorResult_Data)");
+
+
+class  ThermalResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  ThermalResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~ThermalResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<ThermalResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class ThermalResult_Tag : uint32_t {
+
+    
+    kThermalInfo,
+    
+    kError,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::ThermalInfo_Data> f_thermal_info;
+    mojo::internal::Pointer<internal::ProbeError_Data> f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  ThermalResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(ThermalResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(ThermalResult_Data)");
 class  ProbeError_Data {
  public:
   static bool Validate(const void* data,
@@ -3714,7 +3796,7 @@ class  BluetoothDeviceInfo_Data {
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> appearance;
   mojo::internal::Pointer<mojo::internal::String_Data> modalias;
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableInt16_Data> rssi;
-  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> mtu;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> deprecated_mtu;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> uuids;
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint8_Data> battery_percentage;
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> bluetooth_class;
@@ -5638,6 +5720,7 @@ class  InputInfo_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> touchpad_library_name;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::TouchscreenDevice_Data>>> touchscreen_devices;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::TouchpadDevice_Data>>> touchpad_devices;
 
  private:
   friend class mojo::internal::MessageFragment<InputInfo_Data>;
@@ -5645,7 +5728,7 @@ class  InputInfo_Data {
   InputInfo_Data();
   ~InputInfo_Data() = delete;
 };
-static_assert(sizeof(InputInfo_Data) == 24,
+static_assert(sizeof(InputInfo_Data) == 32,
               "Bad sizeof(InputInfo_Data)");
 // Used by InputInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -5731,6 +5814,55 @@ struct TouchscreenDevice_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     TouchscreenDevice_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TouchpadDevice_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::InputDevice_Data> input_device;
+  mojo::internal::Pointer<mojo::internal::String_Data> driver_name;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchpadDevice_Data>;
+
+  TouchpadDevice_Data();
+  ~TouchpadDevice_Data() = delete;
+};
+static_assert(sizeof(TouchpadDevice_Data) == 24,
+              "Bad sizeof(TouchpadDevice_Data)");
+// Used by TouchpadDevice::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TouchpadDevice_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TouchpadDevice_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TouchpadDevice_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TouchpadDevice_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TouchpadDevice_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  InputDevice_Data {
  public:
   static bool Validate(const void* data,
@@ -5884,6 +6016,105 @@ struct Sensor_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Sensor_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ThermalInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ThermalSensorInfo_Data>>> thermal_sensors;
+
+ private:
+  friend class mojo::internal::MessageFragment<ThermalInfo_Data>;
+
+  ThermalInfo_Data();
+  ~ThermalInfo_Data() = delete;
+};
+static_assert(sizeof(ThermalInfo_Data) == 16,
+              "Bad sizeof(ThermalInfo_Data)");
+// Used by ThermalInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ThermalInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ThermalInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ThermalInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ThermalInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ThermalInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ThermalSensorInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  double temperature_celsius;
+  int32_t source;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<ThermalSensorInfo_Data>;
+
+  ThermalSensorInfo_Data();
+  ~ThermalSensorInfo_Data() = delete;
+};
+static_assert(sizeof(ThermalSensorInfo_Data) == 32,
+              "Bad sizeof(ThermalSensorInfo_Data)");
+// Used by ThermalSensorInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ThermalSensorInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ThermalSensorInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ThermalSensorInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ThermalSensorInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ThermalSensorInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  TelemetryInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -5912,6 +6143,7 @@ class  TelemetryInfo_Data {
   internal::InputResult_Data input_result;
   internal::AudioHardwareResult_Data audio_hardware_result;
   internal::SensorResult_Data sensor_result;
+  internal::ThermalResult_Data thermal_result;
 
  private:
   friend class mojo::internal::MessageFragment<TelemetryInfo_Data>;
@@ -5919,7 +6151,7 @@ class  TelemetryInfo_Data {
   TelemetryInfo_Data();
   ~TelemetryInfo_Data() = delete;
 };
-static_assert(sizeof(TelemetryInfo_Data) == 360,
+static_assert(sizeof(TelemetryInfo_Data) == 376,
               "Bad sizeof(TelemetryInfo_Data)");
 // Used by TelemetryInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

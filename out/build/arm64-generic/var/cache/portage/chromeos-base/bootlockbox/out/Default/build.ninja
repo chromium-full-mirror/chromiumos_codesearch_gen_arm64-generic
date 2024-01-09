@@ -28,11 +28,9 @@ build install_systemd: phony obj/bootlockbox/install_systemd.stamp
 build install_tmpfiles_config: phony obj/bootlockbox/install_tmpfiles_config.stamp
 build libnvram-boot-lockbox: phony ./libnvram-boot-lockbox.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build bootlockbox$:_bootlockboxd-install_config: phony obj/bootlockbox/_bootlockboxd-install_config.stamp
 build bootlockbox$:_bootlockboxtool-install_config: phony obj/bootlockbox/_bootlockboxtool-install_config.stamp
 build bootlockbox$:all: phony obj/bootlockbox/all.stamp
-build bootlockbox$:boot_lockbox_test: phony ./boot_lockbox_test
 build bootlockbox$:bootlockbox-adaptors: phony obj/bootlockbox/bootlockbox-adaptors.stamp
 build bootlockbox$:bootlockboxd: phony ./bootlockboxd
 build bootlockbox$:bootlockboxtool: phony ./bootlockboxtool
@@ -43,14 +41,11 @@ build bootlockbox$:install_systemd: phony obj/bootlockbox/install_systemd.stamp
 build bootlockbox$:install_tmpfiles_config: phony obj/bootlockbox/install_tmpfiles_config.stamp
 build bootlockbox$:libnvram-boot-lockbox: phony ./libnvram-boot-lockbox.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 
 build all: phony $
     obj/bootlockbox/_bootlockboxd-install_config.stamp $
     obj/bootlockbox/_bootlockboxtool-install_config.stamp $
     obj/bootlockbox/all.stamp $
-    ./boot_lockbox_test $
     obj/bootlockbox/bootlockbox-adaptors.stamp $
     ./bootlockboxd $
     ./bootlockboxtool $
@@ -60,7 +55,6 @@ build all: phony $
     obj/bootlockbox/install_systemd.stamp $
     obj/bootlockbox/install_tmpfiles_config.stamp $
     ./libnvram-boot-lockbox.a $
-    obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a
+    obj/common-mk/gn_root/root.stamp
 
 default all

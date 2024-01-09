@@ -144,8 +144,32 @@
   bool VisitArmBuiltinAliasAttr(ArmBuiltinAliasAttr *A) {
     return true; 
   }
+  bool TraverseArmLocallyStreamingAttr(ArmLocallyStreamingAttr *A);
+  bool VisitArmLocallyStreamingAttr(ArmLocallyStreamingAttr *A) {
+    return true; 
+  }
   bool TraverseArmMveStrictPolymorphismAttr(ArmMveStrictPolymorphismAttr *A);
   bool VisitArmMveStrictPolymorphismAttr(ArmMveStrictPolymorphismAttr *A) {
+    return true; 
+  }
+  bool TraverseArmNewZAAttr(ArmNewZAAttr *A);
+  bool VisitArmNewZAAttr(ArmNewZAAttr *A) {
+    return true; 
+  }
+  bool TraverseArmPreservesZAAttr(ArmPreservesZAAttr *A);
+  bool VisitArmPreservesZAAttr(ArmPreservesZAAttr *A) {
+    return true; 
+  }
+  bool TraverseArmSharedZAAttr(ArmSharedZAAttr *A);
+  bool VisitArmSharedZAAttr(ArmSharedZAAttr *A) {
+    return true; 
+  }
+  bool TraverseArmStreamingAttr(ArmStreamingAttr *A);
+  bool VisitArmStreamingAttr(ArmStreamingAttr *A) {
+    return true; 
+  }
+  bool TraverseArmStreamingCompatibleAttr(ArmStreamingCompatibleAttr *A);
+  bool VisitArmStreamingCompatibleAttr(ArmStreamingCompatibleAttr *A) {
     return true; 
   }
   bool TraverseArtificialAttr(ArtificialAttr *A);
@@ -178,6 +202,10 @@
   }
   bool TraverseAvailabilityAttr(AvailabilityAttr *A);
   bool VisitAvailabilityAttr(AvailabilityAttr *A) {
+    return true; 
+  }
+  bool TraverseAvailableOnlyInDefaultEvalMethodAttr(AvailableOnlyInDefaultEvalMethodAttr *A);
+  bool VisitAvailableOnlyInDefaultEvalMethodAttr(AvailableOnlyInDefaultEvalMethodAttr *A) {
     return true; 
   }
   bool TraverseBPFPreserveAccessIndexAttr(BPFPreserveAccessIndexAttr *A);
@@ -1871,10 +1899,64 @@ bool VISITORCLASS<Derived>::TraverseArmBuiltinAliasAttr(ArmBuiltinAliasAttr *A) 
 }
 
 template <typename Derived>
+bool VISITORCLASS<Derived>::TraverseArmLocallyStreamingAttr(ArmLocallyStreamingAttr *A) {
+  if (!getDerived().VisitAttr(A))
+    return false;
+  if (!getDerived().VisitArmLocallyStreamingAttr(A))
+    return false;
+  return true;
+}
+
+template <typename Derived>
 bool VISITORCLASS<Derived>::TraverseArmMveStrictPolymorphismAttr(ArmMveStrictPolymorphismAttr *A) {
   if (!getDerived().VisitAttr(A))
     return false;
   if (!getDerived().VisitArmMveStrictPolymorphismAttr(A))
+    return false;
+  return true;
+}
+
+template <typename Derived>
+bool VISITORCLASS<Derived>::TraverseArmNewZAAttr(ArmNewZAAttr *A) {
+  if (!getDerived().VisitAttr(A))
+    return false;
+  if (!getDerived().VisitArmNewZAAttr(A))
+    return false;
+  return true;
+}
+
+template <typename Derived>
+bool VISITORCLASS<Derived>::TraverseArmPreservesZAAttr(ArmPreservesZAAttr *A) {
+  if (!getDerived().VisitAttr(A))
+    return false;
+  if (!getDerived().VisitArmPreservesZAAttr(A))
+    return false;
+  return true;
+}
+
+template <typename Derived>
+bool VISITORCLASS<Derived>::TraverseArmSharedZAAttr(ArmSharedZAAttr *A) {
+  if (!getDerived().VisitAttr(A))
+    return false;
+  if (!getDerived().VisitArmSharedZAAttr(A))
+    return false;
+  return true;
+}
+
+template <typename Derived>
+bool VISITORCLASS<Derived>::TraverseArmStreamingAttr(ArmStreamingAttr *A) {
+  if (!getDerived().VisitAttr(A))
+    return false;
+  if (!getDerived().VisitArmStreamingAttr(A))
+    return false;
+  return true;
+}
+
+template <typename Derived>
+bool VISITORCLASS<Derived>::TraverseArmStreamingCompatibleAttr(ArmStreamingCompatibleAttr *A) {
+  if (!getDerived().VisitAttr(A))
+    return false;
+  if (!getDerived().VisitArmStreamingCompatibleAttr(A))
     return false;
   return true;
 }
@@ -1975,6 +2057,15 @@ bool VISITORCLASS<Derived>::TraverseAvailabilityAttr(AvailabilityAttr *A) {
   if (!getDerived().VisitAttr(A))
     return false;
   if (!getDerived().VisitAvailabilityAttr(A))
+    return false;
+  return true;
+}
+
+template <typename Derived>
+bool VISITORCLASS<Derived>::TraverseAvailableOnlyInDefaultEvalMethodAttr(AvailableOnlyInDefaultEvalMethodAttr *A) {
+  if (!getDerived().VisitAttr(A))
+    return false;
+  if (!getDerived().VisitAvailableOnlyInDefaultEvalMethodAttr(A))
     return false;
   return true;
 }
@@ -5152,8 +5243,20 @@ bool VISITORCLASS<Derived>::TraverseAttr(Attr *A) {
       return getDerived().TraverseArgumentWithTypeTagAttr(cast<ArgumentWithTypeTagAttr>(A));
     case attr::ArmBuiltinAlias:
       return getDerived().TraverseArmBuiltinAliasAttr(cast<ArmBuiltinAliasAttr>(A));
+    case attr::ArmLocallyStreaming:
+      return getDerived().TraverseArmLocallyStreamingAttr(cast<ArmLocallyStreamingAttr>(A));
     case attr::ArmMveStrictPolymorphism:
       return getDerived().TraverseArmMveStrictPolymorphismAttr(cast<ArmMveStrictPolymorphismAttr>(A));
+    case attr::ArmNewZA:
+      return getDerived().TraverseArmNewZAAttr(cast<ArmNewZAAttr>(A));
+    case attr::ArmPreservesZA:
+      return getDerived().TraverseArmPreservesZAAttr(cast<ArmPreservesZAAttr>(A));
+    case attr::ArmSharedZA:
+      return getDerived().TraverseArmSharedZAAttr(cast<ArmSharedZAAttr>(A));
+    case attr::ArmStreaming:
+      return getDerived().TraverseArmStreamingAttr(cast<ArmStreamingAttr>(A));
+    case attr::ArmStreamingCompatible:
+      return getDerived().TraverseArmStreamingCompatibleAttr(cast<ArmStreamingCompatibleAttr>(A));
     case attr::Artificial:
       return getDerived().TraverseArtificialAttr(cast<ArtificialAttr>(A));
     case attr::AsmLabel:
@@ -5170,6 +5273,8 @@ bool VISITORCLASS<Derived>::TraverseAttr(Attr *A) {
       return getDerived().TraverseAssumptionAttr(cast<AssumptionAttr>(A));
     case attr::Availability:
       return getDerived().TraverseAvailabilityAttr(cast<AvailabilityAttr>(A));
+    case attr::AvailableOnlyInDefaultEvalMethod:
+      return getDerived().TraverseAvailableOnlyInDefaultEvalMethodAttr(cast<AvailableOnlyInDefaultEvalMethodAttr>(A));
     case attr::BPFPreserveAccessIndex:
       return getDerived().TraverseBPFPreserveAccessIndexAttr(cast<BPFPreserveAccessIndexAttr>(A));
     case attr::BTFDeclTag:

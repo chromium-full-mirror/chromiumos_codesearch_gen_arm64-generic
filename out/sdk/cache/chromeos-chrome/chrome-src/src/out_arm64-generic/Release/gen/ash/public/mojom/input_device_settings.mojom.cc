@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -435,8 +436,8 @@ KeyboardSettings::KeyboardSettings(
     bool top_row_are_fkeys_in,
     bool suppress_meta_fkey_rewrites_in,
     SixPackKeyInfoPtr six_pack_key_remappings_in,
-    absl::optional<::ui::mojom::ExtendedFkeysModifier> f11_in,
-    absl::optional<::ui::mojom::ExtendedFkeysModifier> f12_in)
+    std::optional<::ui::mojom::ExtendedFkeysModifier> f11_in,
+    std::optional<::ui::mojom::ExtendedFkeysModifier> f12_in)
     : modifier_remappings(std::move(modifier_remappings_in)),
       top_row_are_fkeys(std::move(top_row_are_fkeys_in)),
       suppress_meta_fkey_rewrites(std::move(suppress_meta_fkey_rewrites_in)),
@@ -489,7 +490,7 @@ void KeyboardSettings::WriteIntoTrace(
     dict.AddItem(
       "f11"), this->f11,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::ui::mojom::ExtendedFkeysModifier>>"
+      "<value of type std::optional<::ui::mojom::ExtendedFkeysModifier>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -498,7 +499,7 @@ void KeyboardSettings::WriteIntoTrace(
     dict.AddItem(
       "f12"), this->f12,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::ui::mojom::ExtendedFkeysModifier>>"
+      "<value of type std::optional<::ui::mojom::ExtendedFkeysModifier>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1120,16 +1121,19 @@ GraphicsTablet::GraphicsTablet()
     : name(),
       id(),
       device_key(),
+      customization_restriction(),
       settings() {}
 
 GraphicsTablet::GraphicsTablet(
     const std::string& name_in,
     uint32_t id_in,
     const std::string& device_key_in,
+    CustomizationRestriction customization_restriction_in,
     GraphicsTabletSettingsPtr settings_in)
     : name(std::move(name_in)),
       id(std::move(id_in)),
       device_key(std::move(device_key_in)),
+      customization_restriction(std::move(customization_restriction_in)),
       settings(std::move(settings_in)) {}
 
 GraphicsTablet::~GraphicsTablet() = default;
@@ -1160,6 +1164,15 @@ void GraphicsTablet::WriteIntoTrace(
       "device_key"), this->device_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "customization_restriction"), this->customization_restriction,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CustomizationRestriction>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1276,17 +1289,20 @@ KeyEvent::KeyEvent()
     : vkey(),
       dom_code(),
       dom_key(),
-      modifiers() {}
+      modifiers(),
+      key_display() {}
 
 KeyEvent::KeyEvent(
     ::ui::KeyboardCode vkey_in,
     uint32_t dom_code_in,
     uint32_t dom_key_in,
-    uint32_t modifiers_in)
+    uint32_t modifiers_in,
+    const std::string& key_display_in)
     : vkey(std::move(vkey_in)),
       dom_code(std::move(dom_code_in)),
       dom_key(std::move(dom_key_in)),
-      modifiers(std::move(modifiers_in)) {}
+      modifiers(std::move(modifiers_in)),
+      key_display(std::move(key_display_in)) {}
 
 KeyEvent::~KeyEvent() = default;
 
@@ -1325,6 +1341,15 @@ void KeyEvent::WriteIntoTrace(
       "modifiers"), this->modifiers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "key_display"), this->key_display,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1760,6 +1785,8 @@ bool StructTraits<::ash::mojom::GraphicsTablet::DataView, ::ash::mojom::Graphics
         result->id = input.id();
       if (success && !input.ReadDeviceKey(&result->device_key))
         success = false;
+      if (success && !input.ReadCustomizationRestriction(&result->customization_restriction))
+        success = false;
       if (success && !input.ReadSettings(&result->settings))
         success = false;
   *output = std::move(result);
@@ -1816,6 +1843,8 @@ bool StructTraits<::ash::mojom::KeyEvent::DataView, ::ash::mojom::KeyEventPtr>::
         result->dom_key = input.dom_key();
       if (success)
         result->modifiers = input.modifiers();
+      if (success && !input.ReadKeyDisplay(&result->key_display))
+        success = false;
   *output = std::move(result);
   return success;
 }

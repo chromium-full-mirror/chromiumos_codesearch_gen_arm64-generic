@@ -1,6 +1,6 @@
 import { getTrustedHTML } from '//resources/js/static_types.js';
 export function getTemplate() {
-    return getTrustedHTML `<!--_html_template_start_--><style>cr-tab-box{--tabs-background-color:white}.uma-callout{font-style:italic}th{text-align:start}.uma-header-type{min-width:100px}.uma-header-hash{min-width:300px}.uma-header-timestamp{min-width:140px}.uma-header-size{min-width:70px}.uma-header-status{min-width:500px}.uma-log-events{width:100%}.uma-log-events-peek{display:flex}.uma-log-events-peek:hover{background-color:#eee;cursor:pointer}.uma-log-events pre{display:none;margin:0}.uma-log-events-expanded pre{display:block;max-height:100px;min-height:20px;overflow-y:scroll}.uma-log-events .expand-or-collapse-icon{content:url(chrome://resources/images/icon_expand_more.svg);margin-inline-start:auto;width:15px}.uma-log-events-expanded .expand-or-collapse-icon{content:url(chrome://resources/images/icon_expand_less.svg)}tbody tr:nth-child(odd){background:#eff3ff}#export-uma-logs{margin-top:10px}</style>
+    return getTrustedHTML `<!--_html_template_start_--><style>cr-tab-box{--tabs-background-color:white}.uma-callout{font-style:italic}th{text-align:start}.uma-header-type{min-width:100px}.uma-header-hash{min-width:300px}.uma-header-timestamp{min-width:140px}.uma-header-size{min-width:70px}.uma-header-status{min-width:500px}.uma-log-events{width:100%}.uma-log-events-peek{display:flex}.uma-log-events-peek:hover{background-color:#eee;cursor:pointer}.uma-log-events pre{display:none;margin:0}.uma-log-events-expanded pre{display:block;max-height:100px;min-height:20px;overflow-y:scroll}.uma-log-events .expand-or-collapse-icon{content:url(chrome://resources/images/icon_expand_more.svg);margin-inline-start:auto;width:15px}.uma-log-events-expanded .expand-or-collapse-icon{content:url(chrome://resources/images/icon_expand_less.svg)}tbody tr:nth-child(odd){background:#eff3ff}#export-uma-logs{margin-top:10px}#structured-metrics-event-template{text-align:center}.sm-metric-row{display:none}#event-row:hover{background-color:#b0c4de;cursor:pointer}#sm-refresh-events{margin-top:10px}#summary-row-template .td{text-align:center}</style>
 <cr-tab-box>
   <div slot="tab">UMA</div>
   <div slot="panel">
@@ -32,14 +32,38 @@ export function getTemplate() {
       <tbody id="variations-summary-body"></tbody>
     </table>
   </div>
+  
+    <div id="sm-tab" slot="tab">Structured Metrics</div>
+    <div slot="panel">
+      <h2>Structured Metrics Summary</h2>
+      <table>
+        <tbody id="sm-summary-body"></tbody>
+      </table>
+      <h2>Structured Metrics Events</h2>
+      <p>Events are only collected once this page is open.</p>
+      <p>Events are not polled, please refresh to view new events.</p>
+      <button id="sm-refresh-events">Refresh</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Event</th>
+            <th>Type</th>
+            <th>Uptime</th>
+          </tr>
+        </thead>
+        <tbody id="sm-events-body"></tbody>
+      </table>
+    </div>
+  
 </cr-tab-box>
 <template id="uma-log-row-template">
   <tr>
     <td></td>
     <td></td>
     <td></td>
-    <td>/td>
-    </td><td>
+    <td></td>
+    <td>
       
       <div class="uma-log-events">
         <div class="uma-log-events-peek">
@@ -56,5 +80,24 @@ export function getTemplate() {
     <td></td>
     <td></td>
   </tr>
-</template><!--_html_template_end_-->`;
+</template>
+<template id="structured-metrics-event-row-template">
+  <tr id="event-row">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</template>
+<template id="structured-metrics-event-details-template">
+  <tr id="metrics-row" class="sm-metric-row">
+    <td colspan="4">
+      <div><b>Details</b></div>
+      <table><tbody id="details-table"></tbody></table>
+      <div><b>Metrics</b></div>
+      <table><tbody id="metrics-table"></tbody></table>
+    </td>
+  </tr>
+</template>
+<!--_html_template_end_-->`;
 }

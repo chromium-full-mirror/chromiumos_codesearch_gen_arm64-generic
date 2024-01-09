@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, USB>::value,
     "USB inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&USB::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "USB is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("USB.onconnect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-USB* blink_receiver = V8USB::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onconnect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+USB* blink_receiver = V8USB::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onconnect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -106,8 +101,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USB* blink_receiver = V8USB::ToWrappableUnsafe(v8_receiver);
+USB* blink_receiver = V8USB::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnconnect(event_handler);
 }
 
@@ -118,10 +114,10 @@ BLINK_BINDINGS_TRACE_EVENT("USB.ondisconnect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-USB* blink_receiver = V8USB::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondisconnect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+USB* blink_receiver = V8USB::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondisconnect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -134,8 +130,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USB* blink_receiver = V8USB::ToWrappableUnsafe(v8_receiver);
+USB* blink_receiver = V8USB::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndisconnect(event_handler);
 }
 
@@ -166,7 +163,7 @@ UseCounter::Count(current_execution_context, WebFeature::kUsbGetDevices);
 
 
 
-USB* blink_receiver = V8USB::ToWrappableUnsafe(v8_receiver);
+USB* blink_receiver = V8USB::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -208,7 +205,7 @@ return;
 
 
 
-USB* blink_receiver = V8USB::ToWrappableUnsafe(v8_receiver);
+USB* blink_receiver = V8USB::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

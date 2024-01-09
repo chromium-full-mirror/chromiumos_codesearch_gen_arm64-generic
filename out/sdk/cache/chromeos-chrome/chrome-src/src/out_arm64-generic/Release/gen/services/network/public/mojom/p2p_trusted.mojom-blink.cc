@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -128,14 +129,17 @@ void P2PTrustedSocketManagerClientProxy::InvalidSocketPortRangeRequested(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::P2PTrustedSocketManagerClient::InvalidSocketPortRangeRequested");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PTrustedSocketManagerClient_InvalidSocketPortRangeRequested_Name, kFlags, 0, 0, nullptr);
@@ -171,14 +175,17 @@ void P2PTrustedSocketManagerClientProxy::DumpPacket(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PTrustedSocketManagerClient_DumpPacket_Name, kFlags, 0, 0, nullptr);
@@ -294,12 +301,12 @@ bool P2PTrustedSocketManagerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kP2PTrustedSocketManagerClientValidationInfo[] = {
-    {&internal::P2PTrustedSocketManagerClient_InvalidSocketPortRangeRequested_Params_Data::Validate,
+    { &internal::P2PTrustedSocketManagerClient_InvalidSocketPortRangeRequested_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PTrustedSocketManagerClient_DumpPacket_Params_Data::Validate,
+    { &internal::P2PTrustedSocketManagerClient_DumpPacket_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -442,14 +449,17 @@ void P2PTrustedSocketManagerProxy::StartRtpDump(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PTrustedSocketManager_StartRtpDump_Name, kFlags, 0, 0, nullptr);
@@ -484,14 +494,17 @@ void P2PTrustedSocketManagerProxy::StopRtpDump(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PTrustedSocketManager_StopRtpDump_Name, kFlags, 0, 0, nullptr);
@@ -516,14 +529,17 @@ void P2PTrustedSocketManagerProxy::PauseNetworkChangeNotifications(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::P2PTrustedSocketManager::PauseNetworkChangeNotifications");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PTrustedSocketManager_PauseNetworkChangeNotifications_Name, kFlags, 0, 0, nullptr);
@@ -546,14 +562,17 @@ void P2PTrustedSocketManagerProxy::ResumeNetworkChangeNotifications(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::P2PTrustedSocketManager::ResumeNetworkChangeNotifications");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kP2PTrustedSocketManager_ResumeNetworkChangeNotifications_Name, kFlags, 0, 0, nullptr);
@@ -708,16 +727,16 @@ bool P2PTrustedSocketManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kP2PTrustedSocketManagerValidationInfo[] = {
-    {&internal::P2PTrustedSocketManager_StartRtpDump_Params_Data::Validate,
+    { &internal::P2PTrustedSocketManager_StartRtpDump_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PTrustedSocketManager_StopRtpDump_Params_Data::Validate,
+    { &internal::P2PTrustedSocketManager_StopRtpDump_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PTrustedSocketManager_PauseNetworkChangeNotifications_Params_Data::Validate,
+    { &internal::P2PTrustedSocketManager_PauseNetworkChangeNotifications_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::P2PTrustedSocketManager_ResumeNetworkChangeNotifications_Params_Data::Validate,
+    { &internal::P2PTrustedSocketManager_ResumeNetworkChangeNotifications_Params_Data::Validate,
      nullptr /* no response */},
 };
 

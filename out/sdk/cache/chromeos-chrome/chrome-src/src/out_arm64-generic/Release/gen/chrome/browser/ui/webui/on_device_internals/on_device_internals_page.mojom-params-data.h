@@ -29,6 +29,8 @@ class  OnDeviceInternalsPage_LoadModel_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> model_path;
+  mojo::internal::Handle_Data model;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<OnDeviceInternalsPage_LoadModel_Params_Data>;
@@ -36,7 +38,7 @@ class  OnDeviceInternalsPage_LoadModel_Params_Data {
   OnDeviceInternalsPage_LoadModel_Params_Data();
   ~OnDeviceInternalsPage_LoadModel_Params_Data() = delete;
 };
-static_assert(sizeof(OnDeviceInternalsPage_LoadModel_Params_Data) == 16,
+static_assert(sizeof(OnDeviceInternalsPage_LoadModel_Params_Data) == 24,
               "Bad sizeof(OnDeviceInternalsPage_LoadModel_Params_Data)");
 class  OnDeviceInternalsPage_LoadModel_ResponseParams_Data {
  public:
@@ -44,7 +46,8 @@ class  OnDeviceInternalsPage_LoadModel_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  ::on_device_model::mojom::internal::LoadModelResult_Data result;
+  int32_t result;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<OnDeviceInternalsPage_LoadModel_ResponseParams_Data>;
@@ -52,7 +55,7 @@ class  OnDeviceInternalsPage_LoadModel_ResponseParams_Data {
   OnDeviceInternalsPage_LoadModel_ResponseParams_Data();
   ~OnDeviceInternalsPage_LoadModel_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(OnDeviceInternalsPage_LoadModel_ResponseParams_Data) == 24,
+static_assert(sizeof(OnDeviceInternalsPage_LoadModel_ResponseParams_Data) == 16,
               "Bad sizeof(OnDeviceInternalsPage_LoadModel_ResponseParams_Data)");
 class  OnDeviceInternalsPage_GetEstimatedPerformanceClass_Params_Data {
  public:
@@ -110,6 +113,15 @@ class OnDeviceInternalsPage_LoadModel_ParamsDataView {
     return mojo::internal::Deserialize<::mojo_base::mojom::FilePathDataView>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  UserType TakeModel() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::on_device_model::mojom::OnDeviceModelInterfaceBase>>(
+            &data_->model, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
  private:
   internal::OnDeviceInternalsPage_LoadModel_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -123,22 +135,21 @@ class OnDeviceInternalsPage_LoadModel_ResponseParamsDataView {
   OnDeviceInternalsPage_LoadModel_ResponseParamsDataView(
       internal::OnDeviceInternalsPage_LoadModel_ResponseParams_Data* data,
       mojo::Message* message)
-      : data_(data), message_(message) {}
+      : data_(data) {}
 
   bool is_null() const { return !data_; }
-  inline void GetResultDataView(
-      ::on_device_model::mojom::LoadModelResultDataView* output);
-
   template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) {
-    
-    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
-    return mojo::internal::Deserialize<::on_device_model::mojom::LoadModelResultDataView>(
-        pointer, output, message_);
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::on_device_model::mojom::LoadModelResult>(
+        data_value, output);
+  }
+  ::on_device_model::mojom::LoadModelResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::on_device_model::mojom::LoadModelResult>(data_->result));
   }
  private:
   internal::OnDeviceInternalsPage_LoadModel_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
 };
 
 
@@ -188,11 +199,6 @@ inline void OnDeviceInternalsPage_LoadModel_ParamsDataView::GetModelPathDataView
 }
 
 
-inline void OnDeviceInternalsPage_LoadModel_ResponseParamsDataView::GetResultDataView(
-    ::on_device_model::mojom::LoadModelResultDataView* output) {
-  auto pointer = &data_->result;
-  *output = ::on_device_model::mojom::LoadModelResultDataView(pointer, message_);
-}
 
 
 

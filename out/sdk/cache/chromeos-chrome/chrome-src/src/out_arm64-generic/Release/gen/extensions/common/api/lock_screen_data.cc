@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/lock_screen_data.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ DataItemInfo::DataItemInfo()
  {}
 
 DataItemInfo::~DataItemInfo() = default;
-DataItemInfo::DataItemInfo(DataItemInfo&& rhs) = default;
-DataItemInfo& DataItemInfo::operator=(DataItemInfo&& rhs) = default;
+DataItemInfo::DataItemInfo(DataItemInfo&& rhs) noexcept = default;
+DataItemInfo& DataItemInfo::operator=(DataItemInfo&& rhs) noexcept = default;
 DataItemInfo DataItemInfo::Clone() const {
   DataItemInfo out;
   out.id = id;
@@ -72,34 +73,21 @@ bool DataItemInfo::Populate(
 }
 
 // static
-std::unique_ptr<DataItemInfo> DataItemInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DataItemInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DataItemInfo> DataItemInfo::FromValue(const base::Value::Dict& value) {
+  DataItemInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DataItemInfo> DataItemInfo::FromValue(const base::Value::Dict& value) {
+std::optional<DataItemInfo> DataItemInfo::FromValue(const base::Value& value) {
   DataItemInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DataItemInfo> DataItemInfo::FromValue(const base::Value& value) {
-  DataItemInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -118,8 +106,8 @@ DataItemsAvailableEvent::DataItemsAvailableEvent()
 : was_locked(false) {}
 
 DataItemsAvailableEvent::~DataItemsAvailableEvent() = default;
-DataItemsAvailableEvent::DataItemsAvailableEvent(DataItemsAvailableEvent&& rhs) = default;
-DataItemsAvailableEvent& DataItemsAvailableEvent::operator=(DataItemsAvailableEvent&& rhs) = default;
+DataItemsAvailableEvent::DataItemsAvailableEvent(DataItemsAvailableEvent&& rhs) noexcept = default;
+DataItemsAvailableEvent& DataItemsAvailableEvent::operator=(DataItemsAvailableEvent&& rhs) noexcept = default;
 DataItemsAvailableEvent DataItemsAvailableEvent::Clone() const {
   DataItemsAvailableEvent out;
   out.was_locked = was_locked;
@@ -154,34 +142,21 @@ bool DataItemsAvailableEvent::Populate(
 }
 
 // static
-std::unique_ptr<DataItemsAvailableEvent> DataItemsAvailableEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DataItemsAvailableEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DataItemsAvailableEvent> DataItemsAvailableEvent::FromValue(const base::Value::Dict& value) {
+  DataItemsAvailableEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DataItemsAvailableEvent> DataItemsAvailableEvent::FromValue(const base::Value::Dict& value) {
+std::optional<DataItemsAvailableEvent> DataItemsAvailableEvent::FromValue(const base::Value& value) {
   DataItemsAvailableEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DataItemsAvailableEvent> DataItemsAvailableEvent::FromValue(const base::Value& value) {
-  DataItemsAvailableEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -227,13 +202,13 @@ namespace GetContent {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -243,13 +218,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -269,13 +244,13 @@ namespace SetContent {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -285,13 +260,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -299,7 +274,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& data_value = args[1];
     {
       if (!data_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.data = data_value.GetBlob();
@@ -307,7 +282,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -325,13 +300,13 @@ namespace Delete {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -341,13 +316,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

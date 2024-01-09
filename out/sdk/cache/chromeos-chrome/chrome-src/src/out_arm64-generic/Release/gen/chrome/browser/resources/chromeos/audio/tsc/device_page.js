@@ -1,13 +1,16 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { AudioBroker } from './audio_broker.js';
 import { DeviceTable } from './device_table.js';
 import { InputPage } from './input_page.js';
 import { OutputPage } from './output_page.js';
 import { Page, PageNavigator } from './page.js';
 export class DevicePage extends Page {
+    deviceTable;
+    router;
+    mojoHandler;
     constructor() {
         super('devices');
         this.router = AudioBroker.getInstance().callbackRouter;

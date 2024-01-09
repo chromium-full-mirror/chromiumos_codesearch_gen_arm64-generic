@@ -16,14 +16,14 @@ describeWithEnvironment('Handler Threads helper', function () {
             { name: 'CrRendererMain', type: "MAIN_THREAD" /* TraceEngine.Handlers.Threads.ThreadType.MAIN_THREAD */ },
             { name: 'Chrome_ChildIOThread', type: "OTHER" /* TraceEngine.Handlers.Threads.ThreadType.OTHER */ },
             { name: 'Compositor', type: "OTHER" /* TraceEngine.Handlers.Threads.ThreadType.OTHER */ },
-            { name: 'ThreadPoolServiceThread', type: "OTHER" /* TraceEngine.Handlers.Threads.ThreadType.OTHER */ },
+            { name: 'ThreadPoolServiceThread', type: "THREAD_POOL" /* TraceEngine.Handlers.Threads.ThreadType.THREAD_POOL */ },
             { name: 'Media', type: "OTHER" /* TraceEngine.Handlers.Threads.ThreadType.OTHER */ },
-            { name: 'ThreadPoolForegroundWorker', type: "OTHER" /* TraceEngine.Handlers.Threads.ThreadType.OTHER */ },
+            { name: 'ThreadPoolForegroundWorker', type: "THREAD_POOL" /* TraceEngine.Handlers.Threads.ThreadType.THREAD_POOL */ },
             { name: 'CompositorTileWorker4', type: "RASTERIZER" /* TraceEngine.Handlers.Threads.ThreadType.RASTERIZER */ },
             { name: 'CompositorTileWorker2', type: "RASTERIZER" /* TraceEngine.Handlers.Threads.ThreadType.RASTERIZER */ },
             { name: 'CompositorTileWorker1', type: "RASTERIZER" /* TraceEngine.Handlers.Threads.ThreadType.RASTERIZER */ },
             { name: 'CompositorTileWorkerBackground', type: "RASTERIZER" /* TraceEngine.Handlers.Threads.ThreadType.RASTERIZER */ },
-            { name: 'ThreadPoolForegroundWorker', type: "OTHER" /* TraceEngine.Handlers.Threads.ThreadType.OTHER */ },
+            { name: 'ThreadPoolForegroundWorker', type: "THREAD_POOL" /* TraceEngine.Handlers.Threads.ThreadType.THREAD_POOL */ },
             { name: 'CompositorTileWorker3', type: "RASTERIZER" /* TraceEngine.Handlers.Threads.ThreadType.RASTERIZER */ },
         ];
         const threads = TraceEngine.Handlers.Threads.threadsInTrace(traceData);

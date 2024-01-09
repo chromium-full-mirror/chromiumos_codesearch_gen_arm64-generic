@@ -40,7 +40,7 @@ class  NotificationDelegateInterceptorForTesting : public NotificationDelegate {
   virtual NotificationDelegate* GetForwardingInterface() = 0;
   void OnNotificationClosed(bool by_user) override;
   void OnNotificationClicked() override;
-  void OnNotificationButtonClicked(uint32_t button_index, const absl::optional<::std::u16string>& reply) override;
+  void OnNotificationButtonClicked(uint32_t button_index, const std::optional<::std::u16string>& reply) override;
   void OnNotificationSettingsButtonClicked() override;
   void OnNotificationDisabled() override;
 };

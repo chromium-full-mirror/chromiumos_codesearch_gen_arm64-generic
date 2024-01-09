@@ -447,7 +447,8 @@ class  TextureQuadState_Data {
   uint8_t secure_output_only : 1;
   uint8_t is_stream_video : 1;
   uint8_t is_video_frame : 1;
-  uint8_t pad7_[3];
+  uint8_t force_rgbx : 1;
+  uint8_t pad8_[3];
   int32_t protected_video_type;
   mojo::internal::Pointer<::gfx::mojom::internal::PointF_Data> uv_top_left;
   mojo::internal::Pointer<::gfx::mojom::internal::PointF_Data> uv_bottom_right;
@@ -456,7 +457,7 @@ class  TextureQuadState_Data {
   mojo::internal::Pointer<::gfx::mojom::internal::HDRMetadata_Data> hdr_metadata;
   mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> damage_rect;
   int32_t overlay_priority_hint;
-  uint8_t pad15_[4];
+  uint8_t pad16_[4];
   mojo::internal::Pointer<internal::RoundedDisplayMasksInfo_Data> rounded_display_masks_info;
 
  private:

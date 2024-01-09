@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/file_system_access/file_system_access_file_delegate_host.mojom-features.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_file_delegate_host.mojom-shared.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_file_delegate_host.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom-blink.h"
@@ -107,9 +108,9 @@ class PLATFORM_EXPORT FileSystemAccessFileDelegateHost
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool Read(int64_t offset, int32_t bytes_to_read, absl::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read);
+  virtual bool Read(int64_t offset, int32_t bytes_to_read, std::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read);
 
-  using ReadCallback = base::OnceCallback<void(absl::optional<::mojo_base::BigBuffer>, ::base::File::Error, int32_t)>;
+  using ReadCallback = base::OnceCallback<void(std::optional<::mojo_base::BigBuffer>, ::base::File::Error, int32_t)>;
   
   virtual void Read(int64_t offset, int32_t bytes_to_read, ReadCallback callback) = 0;
 
@@ -150,7 +151,7 @@ class PLATFORM_EXPORT FileSystemAccessFileDelegateHostProxy
 
   explicit FileSystemAccessFileDelegateHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  bool Read(int64_t offset, int32_t bytes_to_read, absl::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read) final;
+  bool Read(int64_t offset, int32_t bytes_to_read, std::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read) final;
   
   void Read(int64_t offset, int32_t bytes_to_read, ReadCallback callback) final;
   

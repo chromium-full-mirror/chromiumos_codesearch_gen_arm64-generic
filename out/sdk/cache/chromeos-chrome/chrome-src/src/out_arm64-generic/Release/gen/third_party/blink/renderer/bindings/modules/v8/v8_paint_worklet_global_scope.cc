@@ -121,11 +121,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, PaintWorkletGlobalScope>::value,
     "PaintWorkletGlobalScope does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&PaintWorkletGlobalScope::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PaintWorkletGlobalScope is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -146,7 +141,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PaintWorkletGlobalSc
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PaintWorkletGlobalScope* blink_receiver = V8PaintWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+PaintWorkletGlobalScope* blink_receiver = V8PaintWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->devicePixelRatio();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 // [HighEntropy=Direct]
@@ -536,7 +531,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PaintWorkletGlobalScope* blink_receiver = V8PaintWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+PaintWorkletGlobalScope* blink_receiver = V8PaintWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

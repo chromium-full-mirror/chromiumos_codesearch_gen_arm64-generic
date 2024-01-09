@@ -21,7 +21,7 @@ public:
   enum Spelling {
     GNU_aarch64_sve_pcs = 0,
     CXX11_clang_aarch64_sve_pcs = 1,
-    C2x_clang_aarch64_sve_pcs = 2,
+    C23_clang_aarch64_sve_pcs = 2,
   SpellingNotCalculated = 15
 
   };
@@ -50,7 +50,7 @@ public:
   enum Spelling {
     GNU_aarch64_vector_pcs = 0,
     CXX11_clang_aarch64_vector_pcs = 1,
-    C2x_clang_aarch64_vector_pcs = 2,
+    C23_clang_aarch64_vector_pcs = 2,
   SpellingNotCalculated = 15
 
   };
@@ -121,7 +121,7 @@ public:
   enum Spelling {
     GNU_amdgpu_kernel = 0,
     CXX11_clang_amdgpu_kernel = 1,
-    C2x_clang_amdgpu_kernel = 2,
+    C23_clang_amdgpu_kernel = 2,
   SpellingNotCalculated = 15
 
   };
@@ -277,7 +277,7 @@ public:
   enum Spelling {
     GNU_interrupt = 0,
     CXX11_gnu_interrupt = 1,
-    C2x_gnu_interrupt = 2,
+    C23_gnu_interrupt = 2,
   SpellingNotCalculated = 15
 
   };
@@ -315,7 +315,7 @@ public:
   enum Spelling {
     GNU_interrupt = 0,
     CXX11_gnu_interrupt = 1,
-    C2x_gnu_interrupt = 2,
+    C23_gnu_interrupt = 2,
   SpellingNotCalculated = 15
 
   };
@@ -344,7 +344,7 @@ public:
   enum Spelling {
     GNU_signal = 0,
     CXX11_gnu_signal = 1,
-    C2x_gnu_signal = 2,
+    C23_gnu_signal = 2,
   SpellingNotCalculated = 15
 
   };
@@ -466,7 +466,7 @@ public:
   enum Spelling {
     GNU_acquire_handle = 0,
     CXX11_clang_acquire_handle = 1,
-    C2x_clang_acquire_handle = 2,
+    C23_clang_acquire_handle = 2,
   SpellingNotCalculated = 15
 
   };
@@ -579,7 +579,7 @@ public:
   enum Spelling {
     GNU_address_space = 0,
     CXX11_clang_address_space = 1,
-    C2x_clang_address_space = 2,
+    C23_clang_address_space = 2,
   SpellingNotCalculated = 15
 
   };
@@ -616,7 +616,7 @@ public:
   enum Spelling {
     GNU_alias = 0,
     CXX11_gnu_alias = 1,
-    C2x_gnu_alias = 2,
+    C23_gnu_alias = 2,
   SpellingNotCalculated = 15
 
   };
@@ -730,12 +730,14 @@ union {
 Expr *alignmentExpr;
 TypeSourceInfo *alignmentType;
 };
+std::optional<unsigned> alignmentCache;
+
 
 public:
   enum Spelling {
     GNU_aligned = 0,
     CXX11_gnu_aligned = 1,
-    C2x_gnu_aligned = 2,
+    C23_gnu_aligned = 2,
     Declspec_align = 3,
     Keyword_alignas = 4,
     Keyword_Alignas = 5,
@@ -781,6 +783,10 @@ public:
   TypeSourceInfo *getAlignmentType() const {
     assert(!isalignmentExpr);
     return alignmentType;
+  }  std::optional<unsigned> getCachedAlignmentValue() const {
+    return alignmentCache;
+  }  void setCachedAlignmentValue(unsigned AlignVal) {
+    alignmentCache = AlignVal;
   }
 
 
@@ -795,7 +801,7 @@ public:
   enum Spelling {
     GNU_alloc_align = 0,
     CXX11_gnu_alloc_align = 1,
-    C2x_gnu_alloc_align = 2,
+    C23_gnu_alloc_align = 2,
   SpellingNotCalculated = 15
 
   };
@@ -833,7 +839,7 @@ public:
   enum Spelling {
     GNU_alloc_size = 0,
     CXX11_gnu_alloc_size = 1,
-    C2x_gnu_alloc_size = 2,
+    C23_gnu_alloc_size = 2,
   SpellingNotCalculated = 15
 
   };
@@ -903,9 +909,9 @@ public:
   enum Spelling {
     GNU_always_inline = 0,
     CXX11_gnu_always_inline = 1,
-    C2x_gnu_always_inline = 2,
+    C23_gnu_always_inline = 2,
     CXX11_clang_always_inline = 3,
-    C2x_clang_always_inline = 4,
+    C23_clang_always_inline = 4,
     Keyword_forceinline = 5,
   SpellingNotCalculated = 15
 
@@ -968,7 +974,7 @@ public:
   enum Spelling {
     GNU_annotate = 0,
     CXX11_clang_annotate = 1,
-    C2x_clang_annotate = 2,
+    C23_clang_annotate = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1055,7 +1061,7 @@ char *annotation;
 public:
   enum Spelling {
     CXX11_clang_annotate_type = 0,
-    C2x_clang_annotate_type = 1,
+    C23_clang_annotate_type = 1,
   SpellingNotCalculated = 15
 
   };
@@ -1125,7 +1131,7 @@ public:
   enum Spelling {
     GNU_interrupt = 0,
     CXX11_gnu_interrupt = 1,
-    C2x_gnu_interrupt = 2,
+    C23_gnu_interrupt = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1154,7 +1160,7 @@ public:
   enum Spelling {
     GNU_no_caller_saved_registers = 0,
     CXX11_gnu_no_caller_saved_registers = 1,
-    C2x_gnu_no_caller_saved_registers = 2,
+    C23_gnu_no_caller_saved_registers = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1183,7 +1189,7 @@ public:
   enum Spelling {
     GNU_nocf_check = 0,
     CXX11_gnu_nocf_check = 1,
-    C2x_gnu_nocf_check = 2,
+    C23_gnu_nocf_check = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1212,7 +1218,7 @@ public:
   enum Spelling {
     GNU_objc_arc_weak_reference_unavailable = 0,
     CXX11_clang_objc_arc_weak_reference_unavailable = 1,
-    C2x_clang_objc_arc_weak_reference_unavailable = 2,
+    C23_clang_objc_arc_weak_reference_unavailable = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1249,10 +1255,10 @@ public:
   enum Spelling {
     GNU_argument_with_type_tag = 0,
     CXX11_clang_argument_with_type_tag = 1,
-    C2x_clang_argument_with_type_tag = 2,
+    C23_clang_argument_with_type_tag = 2,
     GNU_pointer_with_type_tag = 3,
     CXX11_clang_pointer_with_type_tag = 4,
-    C2x_clang_pointer_with_type_tag = 5,
+    C23_clang_pointer_with_type_tag = 5,
   SpellingNotCalculated = 15
 
   };
@@ -1313,7 +1319,7 @@ public:
   enum Spelling {
     GNU_clang_arm_builtin_alias = 0,
     CXX11_clang_clang_arm_builtin_alias = 1,
-    C2x_clang_clang_arm_builtin_alias = 2,
+    C23_clang_clang_arm_builtin_alias = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1342,12 +1348,33 @@ public:
   static bool classof(const Attr *A) { return A->getKind() == attr::ArmBuiltinAlias; }
 };
 
+class ArmLocallyStreamingAttr : public InheritableAttr {
+public:
+  // Factory methods
+  static ArmLocallyStreamingAttr *CreateImplicit(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmLocallyStreamingAttr *Create(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmLocallyStreamingAttr *CreateImplicit(ASTContext &Ctx, SourceRange Range = {});
+  static ArmLocallyStreamingAttr *Create(ASTContext &Ctx, SourceRange Range = {});
+
+  // Constructors
+  ArmLocallyStreamingAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
+             );
+
+  ArmLocallyStreamingAttr *clone(ASTContext &C) const;
+  void printPretty(raw_ostream &OS,
+                   const PrintingPolicy &Policy) const;
+  const char *getSpelling() const;
+
+
+  static bool classof(const Attr *A) { return A->getKind() == attr::ArmLocallyStreaming; }
+};
+
 class ArmMveStrictPolymorphismAttr : public TypeAttr {
 public:
   enum Spelling {
     GNU_clang_arm_mve_strict_polymorphism = 0,
     CXX11_clang_clang_arm_mve_strict_polymorphism = 1,
-    C2x_clang_clang_arm_mve_strict_polymorphism = 2,
+    C23_clang_clang_arm_mve_strict_polymorphism = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1371,12 +1398,117 @@ public:
   static bool classof(const Attr *A) { return A->getKind() == attr::ArmMveStrictPolymorphism; }
 };
 
+class ArmNewZAAttr : public InheritableAttr {
+public:
+  // Factory methods
+  static ArmNewZAAttr *CreateImplicit(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmNewZAAttr *Create(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmNewZAAttr *CreateImplicit(ASTContext &Ctx, SourceRange Range = {});
+  static ArmNewZAAttr *Create(ASTContext &Ctx, SourceRange Range = {});
+
+  // Constructors
+  ArmNewZAAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
+             );
+
+  ArmNewZAAttr *clone(ASTContext &C) const;
+  void printPretty(raw_ostream &OS,
+                   const PrintingPolicy &Policy) const;
+  const char *getSpelling() const;
+
+
+  static bool classof(const Attr *A) { return A->getKind() == attr::ArmNewZA; }
+};
+
+class ArmPreservesZAAttr : public TypeAttr {
+public:
+  // Factory methods
+  static ArmPreservesZAAttr *CreateImplicit(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmPreservesZAAttr *Create(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmPreservesZAAttr *CreateImplicit(ASTContext &Ctx, SourceRange Range = {});
+  static ArmPreservesZAAttr *Create(ASTContext &Ctx, SourceRange Range = {});
+
+  // Constructors
+  ArmPreservesZAAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
+             );
+
+  ArmPreservesZAAttr *clone(ASTContext &C) const;
+  void printPretty(raw_ostream &OS,
+                   const PrintingPolicy &Policy) const;
+  const char *getSpelling() const;
+
+
+  static bool classof(const Attr *A) { return A->getKind() == attr::ArmPreservesZA; }
+};
+
+class ArmSharedZAAttr : public TypeAttr {
+public:
+  // Factory methods
+  static ArmSharedZAAttr *CreateImplicit(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmSharedZAAttr *Create(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmSharedZAAttr *CreateImplicit(ASTContext &Ctx, SourceRange Range = {});
+  static ArmSharedZAAttr *Create(ASTContext &Ctx, SourceRange Range = {});
+
+  // Constructors
+  ArmSharedZAAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
+             );
+
+  ArmSharedZAAttr *clone(ASTContext &C) const;
+  void printPretty(raw_ostream &OS,
+                   const PrintingPolicy &Policy) const;
+  const char *getSpelling() const;
+
+
+  static bool classof(const Attr *A) { return A->getKind() == attr::ArmSharedZA; }
+};
+
+class ArmStreamingAttr : public TypeAttr {
+public:
+  // Factory methods
+  static ArmStreamingAttr *CreateImplicit(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmStreamingAttr *Create(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmStreamingAttr *CreateImplicit(ASTContext &Ctx, SourceRange Range = {});
+  static ArmStreamingAttr *Create(ASTContext &Ctx, SourceRange Range = {});
+
+  // Constructors
+  ArmStreamingAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
+             );
+
+  ArmStreamingAttr *clone(ASTContext &C) const;
+  void printPretty(raw_ostream &OS,
+                   const PrintingPolicy &Policy) const;
+  const char *getSpelling() const;
+
+
+  static bool classof(const Attr *A) { return A->getKind() == attr::ArmStreaming; }
+};
+
+class ArmStreamingCompatibleAttr : public TypeAttr {
+public:
+  // Factory methods
+  static ArmStreamingCompatibleAttr *CreateImplicit(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmStreamingCompatibleAttr *Create(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static ArmStreamingCompatibleAttr *CreateImplicit(ASTContext &Ctx, SourceRange Range = {});
+  static ArmStreamingCompatibleAttr *Create(ASTContext &Ctx, SourceRange Range = {});
+
+  // Constructors
+  ArmStreamingCompatibleAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
+             );
+
+  ArmStreamingCompatibleAttr *clone(ASTContext &C) const;
+  void printPretty(raw_ostream &OS,
+                   const PrintingPolicy &Policy) const;
+  const char *getSpelling() const;
+
+
+  static bool classof(const Attr *A) { return A->getKind() == attr::ArmStreamingCompatible; }
+};
+
 class ArtificialAttr : public InheritableAttr {
 public:
   enum Spelling {
     GNU_artificial = 0,
     CXX11_gnu_artificial = 1,
-    C2x_gnu_artificial = 2,
+    C23_gnu_artificial = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1585,7 +1717,7 @@ public:
   enum Spelling {
     GNU_assume_aligned = 0,
     CXX11_gnu_assume_aligned = 1,
-    C2x_gnu_assume_aligned = 2,
+    C23_gnu_assume_aligned = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1630,7 +1762,7 @@ public:
   enum Spelling {
     GNU_assume = 0,
     CXX11_clang_assume = 1,
-    C2x_clang_assume = 2,
+    C23_clang_assume = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1696,7 +1828,7 @@ public:
   enum Spelling {
     GNU_availability = 0,
     CXX11_clang_availability = 1,
-    C2x_clang_availability = 2,
+    C23_clang_availability = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1842,12 +1974,41 @@ static llvm::StringRef canonicalizePlatformName(llvm::StringRef Platform) {
   static bool classof(const Attr *A) { return A->getKind() == attr::Availability; }
 };
 
+class AvailableOnlyInDefaultEvalMethodAttr : public InheritableAttr {
+public:
+  enum Spelling {
+    GNU_available_only_in_default_eval_method = 0,
+    CXX11_clang_available_only_in_default_eval_method = 1,
+    C23_clang_available_only_in_default_eval_method = 2,
+  SpellingNotCalculated = 15
+
+  };
+
+  // Factory methods
+  static AvailableOnlyInDefaultEvalMethodAttr *CreateImplicit(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static AvailableOnlyInDefaultEvalMethodAttr *Create(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo);
+  static AvailableOnlyInDefaultEvalMethodAttr *CreateImplicit(ASTContext &Ctx, SourceRange Range = {}, Spelling S = GNU_available_only_in_default_eval_method);
+  static AvailableOnlyInDefaultEvalMethodAttr *Create(ASTContext &Ctx, SourceRange Range = {}, Spelling S = GNU_available_only_in_default_eval_method);
+
+  // Constructors
+  AvailableOnlyInDefaultEvalMethodAttr(ASTContext &Ctx, const AttributeCommonInfo &CommonInfo
+             );
+
+  AvailableOnlyInDefaultEvalMethodAttr *clone(ASTContext &C) const;
+  void printPretty(raw_ostream &OS,
+                   const PrintingPolicy &Policy) const;
+  const char *getSpelling() const;
+
+
+  static bool classof(const Attr *A) { return A->getKind() == attr::AvailableOnlyInDefaultEvalMethod; }
+};
+
 class BPFPreserveAccessIndexAttr : public InheritableAttr {
 public:
   enum Spelling {
     GNU_preserve_access_index = 0,
     CXX11_clang_preserve_access_index = 1,
-    C2x_clang_preserve_access_index = 2,
+    C23_clang_preserve_access_index = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1879,7 +2040,7 @@ public:
   enum Spelling {
     GNU_btf_decl_tag = 0,
     CXX11_clang_btf_decl_tag = 1,
-    C2x_clang_btf_decl_tag = 2,
+    C23_clang_btf_decl_tag = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1925,7 +2086,7 @@ public:
   enum Spelling {
     GNU_btf_type_tag = 0,
     CXX11_clang_btf_type_tag = 1,
-    C2x_clang_btf_type_tag = 2,
+    C23_clang_btf_type_tag = 2,
   SpellingNotCalculated = 15
 
   };
@@ -1975,7 +2136,7 @@ public:
   enum Spelling {
     GNU_blocks = 0,
     CXX11_clang_blocks = 1,
-    C2x_clang_blocks = 2,
+    C23_clang_blocks = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2040,7 +2201,7 @@ IdentifierInfo * builtinName;
 public:
   enum Spelling {
     CXX11_clang_builtin_alias = 0,
-    C2x_clang_builtin_alias = 1,
+    C23_clang_builtin_alias = 1,
     GNU_clang_builtin_alias = 2,
   SpellingNotCalculated = 15
 
@@ -2097,7 +2258,7 @@ public:
   enum Spelling {
     GNU_cdecl = 0,
     CXX11_gnu_cdecl = 1,
-    C2x_gnu_cdecl = 2,
+    C23_gnu_cdecl = 2,
     Keyword_cdecl = 3,
   SpellingNotCalculated = 15
 
@@ -2127,7 +2288,7 @@ public:
   enum Spelling {
     GNU_cf_audited_transfer = 0,
     CXX11_clang_cf_audited_transfer = 1,
-    C2x_clang_cf_audited_transfer = 2,
+    C23_clang_cf_audited_transfer = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2156,7 +2317,7 @@ public:
   enum Spelling {
     GNU_cf_consumed = 0,
     CXX11_clang_cf_consumed = 1,
-    C2x_clang_cf_consumed = 2,
+    C23_clang_cf_consumed = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2193,7 +2354,7 @@ public:
     Declspec_guard = 0,
     GNU_guard = 1,
     CXX11_clang_guard = 2,
-    C2x_clang_guard = 3,
+    C23_clang_guard = 3,
   SpellingNotCalculated = 15
 
   };
@@ -2229,7 +2390,7 @@ public:
   enum Spelling {
     GNU_cfi_canonical_jump_table = 0,
     CXX11_clang_cfi_canonical_jump_table = 1,
-    C2x_clang_cfi_canonical_jump_table = 2,
+    C23_clang_cfi_canonical_jump_table = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2258,7 +2419,7 @@ public:
   enum Spelling {
     GNU_cf_returns_not_retained = 0,
     CXX11_clang_cf_returns_not_retained = 1,
-    C2x_clang_cf_returns_not_retained = 2,
+    C23_clang_cf_returns_not_retained = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2287,7 +2448,7 @@ public:
   enum Spelling {
     GNU_cf_returns_retained = 0,
     CXX11_clang_cf_returns_retained = 1,
-    C2x_clang_cf_returns_retained = 2,
+    C23_clang_cf_returns_retained = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2316,7 +2477,7 @@ public:
   enum Spelling {
     GNU_cf_unknown_transfer = 0,
     CXX11_clang_cf_unknown_transfer = 1,
-    C2x_clang_cf_unknown_transfer = 2,
+    C23_clang_cf_unknown_transfer = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2348,7 +2509,7 @@ public:
   enum Spelling {
     GNU_cpu_dispatch = 0,
     CXX11_clang_cpu_dispatch = 1,
-    C2x_clang_cpu_dispatch = 2,
+    C23_clang_cpu_dispatch = 2,
     Declspec_cpu_dispatch = 3,
   SpellingNotCalculated = 15
 
@@ -2391,7 +2552,7 @@ public:
   enum Spelling {
     GNU_cpu_specific = 0,
     CXX11_clang_cpu_specific = 1,
-    C2x_clang_cpu_specific = 2,
+    C23_clang_cpu_specific = 2,
     Declspec_cpu_specific = 3,
   SpellingNotCalculated = 15
 
@@ -2696,8 +2857,8 @@ class CXX11NoReturnAttr : public InheritableAttr {
 public:
   enum Spelling {
     CXX11_noreturn = 0,
-    C2x_noreturn = 1,
-    C2x_Noreturn = 2,
+    C23_noreturn = 1,
+    C23_Noreturn = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2780,7 +2941,7 @@ public:
   enum Spelling {
     GNU_callback = 0,
     CXX11_clang_callback = 1,
-    C2x_clang_callback = 2,
+    C23_clang_callback = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2819,7 +2980,7 @@ public:
   enum Spelling {
     GNU_called_once = 0,
     CXX11_clang_called_once = 1,
-    C2x_clang_called_once = 2,
+    C23_clang_called_once = 2,
   SpellingNotCalculated = 15
 
   };
@@ -2949,7 +3110,7 @@ public:
   enum Spelling {
     GNU_cleanup = 0,
     CXX11_gnu_cleanup = 1,
-    C2x_gnu_cleanup = 2,
+    C23_gnu_cleanup = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3063,7 +3224,7 @@ public:
   enum Spelling {
     GNU_cold = 0,
     CXX11_gnu_cold = 1,
-    C2x_gnu_cold = 2,
+    C23_gnu_cold = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3092,7 +3253,7 @@ public:
   enum Spelling {
     GNU_common = 0,
     CXX11_gnu_common = 1,
-    C2x_gnu_common = 2,
+    C23_gnu_common = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3121,7 +3282,7 @@ public:
   enum Spelling {
     GNU_const = 0,
     CXX11_gnu_const = 1,
-    C2x_gnu_const = 2,
+    C23_gnu_const = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3183,7 +3344,7 @@ public:
   enum Spelling {
     GNU_constructor = 0,
     CXX11_gnu_constructor = 1,
-    C2x_gnu_constructor = 2,
+    C23_gnu_constructor = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3321,7 +3482,7 @@ public:
   enum Spelling {
     GNU_convergent = 0,
     CXX11_clang_convergent = 1,
-    C2x_clang_convergent = 2,
+    C23_clang_convergent = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3351,7 +3512,7 @@ public:
     Declspec_dllexport = 0,
     GNU_dllexport = 1,
     CXX11_gnu_dllexport = 2,
-    C2x_gnu_dllexport = 3,
+    C23_gnu_dllexport = 3,
   SpellingNotCalculated = 15
 
   };
@@ -3402,7 +3563,7 @@ public:
     Declspec_dllimport = 0,
     GNU_dllimport = 1,
     CXX11_gnu_dllimport = 2,
-    C2x_gnu_dllimport = 3,
+    C23_gnu_dllimport = 3,
   SpellingNotCalculated = 15
 
   };
@@ -3465,10 +3626,10 @@ public:
   enum Spelling {
     GNU_deprecated = 0,
     CXX11_gnu_deprecated = 1,
-    C2x_gnu_deprecated = 2,
+    C23_gnu_deprecated = 2,
     Declspec_deprecated = 3,
     CXX11_deprecated = 4,
-    C2x_deprecated = 5,
+    C23_deprecated = 5,
   SpellingNotCalculated = 15
 
   };
@@ -3529,7 +3690,7 @@ public:
   enum Spelling {
     GNU_destructor = 0,
     CXX11_gnu_destructor = 1,
-    C2x_gnu_destructor = 2,
+    C23_gnu_destructor = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3572,7 +3733,7 @@ public:
   enum Spelling {
     GNU_diagnose_as_builtin = 0,
     CXX11_clang_diagnose_as_builtin = 1,
-    C2x_clang_diagnose_as_builtin = 2,
+    C23_clang_diagnose_as_builtin = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3703,7 +3864,7 @@ public:
   enum Spelling {
     GNU_disable_sanitizer_instrumentation = 0,
     CXX11_clang_disable_sanitizer_instrumentation = 1,
-    C2x_clang_disable_sanitizer_instrumentation = 2,
+    C23_clang_disable_sanitizer_instrumentation = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3732,7 +3893,7 @@ public:
   enum Spelling {
     GNU_disable_tail_calls = 0,
     CXX11_clang_disable_tail_calls = 1,
-    C2x_clang_disable_tail_calls = 2,
+    C23_clang_disable_tail_calls = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3830,7 +3991,7 @@ public:
   enum Spelling {
     GNU_enforce_tcb = 0,
     CXX11_clang_enforce_tcb = 1,
-    C2x_clang_enforce_tcb = 2,
+    C23_clang_enforce_tcb = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3876,7 +4037,7 @@ public:
   enum Spelling {
     GNU_enforce_tcb_leaf = 0,
     CXX11_clang_enforce_tcb_leaf = 1,
-    C2x_clang_enforce_tcb_leaf = 2,
+    C23_clang_enforce_tcb_leaf = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3927,7 +4088,7 @@ public:
   enum Spelling {
     GNU_enum_extensibility = 0,
     CXX11_clang_enum_extensibility = 1,
-    C2x_clang_enum_extensibility = 2,
+    C23_clang_enum_extensibility = 2,
   SpellingNotCalculated = 15
 
   };
@@ -3966,10 +4127,10 @@ public:
   enum Spelling {
     GNU_error = 0,
     CXX11_gnu_error = 1,
-    C2x_gnu_error = 2,
+    C23_gnu_error = 2,
     GNU_warning = 3,
     CXX11_gnu_warning = 4,
-    C2x_gnu_warning = 5,
+    C23_gnu_warning = 5,
   SpellingNotCalculated = 15
 
   };
@@ -4019,7 +4180,7 @@ public:
   enum Spelling {
     GNU_exclude_from_explicit_instantiation = 0,
     CXX11_clang_exclude_from_explicit_instantiation = 1,
-    C2x_clang_exclude_from_explicit_instantiation = 2,
+    C23_clang_exclude_from_explicit_instantiation = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4101,7 +4262,7 @@ public:
   enum Spelling {
     GNU_external_source_symbol = 0,
     CXX11_clang_external_source_symbol = 1,
-    C2x_clang_external_source_symbol = 2,
+    C23_clang_external_source_symbol = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4178,11 +4339,11 @@ class FallThroughAttr : public StmtAttr {
 public:
   enum Spelling {
     CXX11_fallthrough = 0,
-    C2x_fallthrough = 1,
+    C23_fallthrough = 1,
     CXX11_clang_fallthrough = 2,
     GNU_fallthrough = 3,
     CXX11_gnu_fallthrough = 4,
-    C2x_gnu_fallthrough = 5,
+    C23_gnu_fallthrough = 5,
   SpellingNotCalculated = 15
 
   };
@@ -4211,7 +4372,7 @@ public:
   enum Spelling {
     GNU_fastcall = 0,
     CXX11_gnu_fastcall = 1,
-    C2x_gnu_fastcall = 2,
+    C23_gnu_fastcall = 2,
     Keyword_fastcall = 3,
   SpellingNotCalculated = 15
 
@@ -4271,7 +4432,7 @@ public:
   enum Spelling {
     GNU_flag_enum = 0,
     CXX11_clang_flag_enum = 1,
-    C2x_clang_flag_enum = 2,
+    C23_clang_flag_enum = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4300,7 +4461,7 @@ public:
   enum Spelling {
     GNU_flatten = 0,
     CXX11_gnu_flatten = 1,
-    C2x_gnu_flatten = 2,
+    C23_gnu_flatten = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4335,7 +4496,7 @@ public:
   enum Spelling {
     GNU_format = 0,
     CXX11_gnu_format = 1,
-    C2x_gnu_format = 2,
+    C23_gnu_format = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4381,7 +4542,7 @@ public:
   enum Spelling {
     GNU_format_arg = 0,
     CXX11_gnu_format_arg = 1,
-    C2x_gnu_format_arg = 2,
+    C23_gnu_format_arg = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4423,7 +4584,7 @@ public:
   enum Spelling {
     GNU_function_return = 0,
     CXX11_gnu_function_return = 1,
-    C2x_gnu_function_return = 2,
+    C23_gnu_function_return = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4459,7 +4620,7 @@ public:
   enum Spelling {
     GNU_gnu_inline = 0,
     CXX11_gnu_gnu_inline = 1,
-    C2x_gnu_gnu_inline = 2,
+    C23_gnu_gnu_inline = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4808,7 +4969,6 @@ public:
     Hull,
     Domain,
     Compute,
-    Library,
     RayGeneration,
     Intersection,
     AnyHit,
@@ -4853,7 +5013,7 @@ public:
   enum Spelling {
     GNU_hot = 0,
     CXX11_gnu_hot = 1,
-    C2x_gnu_hot = 2,
+    C23_gnu_hot = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4882,7 +5042,7 @@ public:
   enum Spelling {
     GNU_ibaction = 0,
     CXX11_clang_ibaction = 1,
-    C2x_clang_ibaction = 2,
+    C23_clang_ibaction = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4911,7 +5071,7 @@ public:
   enum Spelling {
     GNU_iboutlet = 0,
     CXX11_clang_iboutlet = 1,
-    C2x_clang_iboutlet = 2,
+    C23_clang_iboutlet = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4942,7 +5102,7 @@ public:
   enum Spelling {
     GNU_iboutletcollection = 0,
     CXX11_clang_iboutletcollection = 1,
-    C2x_clang_iboutletcollection = 2,
+    C23_clang_iboutletcollection = 2,
   SpellingNotCalculated = 15
 
   };
@@ -4983,7 +5143,7 @@ public:
   enum Spelling {
     GNU_ifunc = 0,
     CXX11_gnu_ifunc = 1,
-    C2x_gnu_ifunc = 2,
+    C23_gnu_ifunc = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5131,7 +5291,7 @@ public:
   enum Spelling {
     GNU_internal_linkage = 0,
     CXX11_clang_internal_linkage = 1,
-    C2x_clang_internal_linkage = 2,
+    C23_clang_internal_linkage = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5160,7 +5320,7 @@ public:
   enum Spelling {
     GNU_lto_visibility_public = 0,
     CXX11_clang_lto_visibility_public = 1,
-    C2x_clang_lto_visibility_public = 2,
+    C23_clang_lto_visibility_public = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5217,7 +5377,7 @@ public:
   enum Spelling {
     GNU_leaf = 0,
     CXX11_gnu_leaf = 1,
-    C2x_gnu_leaf = 2,
+    C23_gnu_leaf = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5273,7 +5433,7 @@ class LikelyAttr : public StmtAttr {
 public:
   enum Spelling {
     CXX11_likely = 0,
-    C2x_clang_likely = 1,
+    C23_clang_likely = 1,
   SpellingNotCalculated = 15
 
   };
@@ -5302,7 +5462,7 @@ public:
   enum Spelling {
     GNU_loader_uninitialized = 0,
     CXX11_clang_loader_uninitialized = 1,
-    C2x_clang_loader_uninitialized = 2,
+    C23_clang_loader_uninitialized = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5532,7 +5692,7 @@ public:
   enum Spelling {
     GNU_mig_server_routine = 0,
     CXX11_clang_mig_server_routine = 1,
-    C2x_clang_mig_server_routine = 2,
+    C23_clang_mig_server_routine = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5561,7 +5721,7 @@ public:
   enum Spelling {
     GNU_ms_abi = 0,
     CXX11_gnu_ms_abi = 1,
-    C2x_gnu_ms_abi = 2,
+    C23_gnu_ms_abi = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5685,7 +5845,7 @@ public:
   enum Spelling {
     GNU_interrupt = 0,
     CXX11_gnu_interrupt = 1,
-    C2x_gnu_interrupt = 2,
+    C23_gnu_interrupt = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5719,7 +5879,7 @@ public:
   enum Spelling {
     GNU_ms_struct = 0,
     CXX11_gnu_ms_struct = 1,
-    C2x_gnu_ms_struct = 2,
+    C23_gnu_ms_struct = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5806,7 +5966,7 @@ public:
   enum Spelling {
     GNU_may_alias = 0,
     CXX11_gnu_may_alias = 1,
-    C2x_gnu_may_alias = 2,
+    C23_gnu_may_alias = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5835,7 +5995,7 @@ public:
   enum Spelling {
     GNU_maybe_undef = 0,
     CXX11_clang_maybe_undef = 1,
-    C2x_clang_maybe_undef = 2,
+    C23_clang_maybe_undef = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5864,7 +6024,7 @@ public:
   enum Spelling {
     GNU_micromips = 0,
     CXX11_gnu_micromips = 1,
-    C2x_gnu_micromips = 2,
+    C23_gnu_micromips = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5893,7 +6053,7 @@ public:
   enum Spelling {
     GNU_minsize = 0,
     CXX11_clang_minsize = 1,
-    C2x_clang_minsize = 2,
+    C23_clang_minsize = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5924,7 +6084,7 @@ public:
   enum Spelling {
     GNU_min_vector_width = 0,
     CXX11_clang_min_vector_width = 1,
-    C2x_clang_min_vector_width = 2,
+    C23_clang_min_vector_width = 2,
   SpellingNotCalculated = 15
 
   };
@@ -5958,7 +6118,7 @@ public:
   enum Spelling {
     GNU_mips16 = 0,
     CXX11_gnu_mips16 = 1,
-    C2x_gnu_mips16 = 2,
+    C23_gnu_mips16 = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6002,7 +6162,7 @@ public:
   enum Spelling {
     GNU_interrupt = 0,
     CXX11_gnu_interrupt = 1,
-    C2x_gnu_interrupt = 2,
+    C23_gnu_interrupt = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6038,10 +6198,10 @@ public:
   enum Spelling {
     GNU_long_call = 0,
     CXX11_gnu_long_call = 1,
-    C2x_gnu_long_call = 2,
+    C23_gnu_long_call = 2,
     GNU_far = 3,
     CXX11_gnu_far = 4,
-    C2x_gnu_far = 5,
+    C23_gnu_far = 5,
   SpellingNotCalculated = 15
 
   };
@@ -6071,10 +6231,10 @@ public:
   enum Spelling {
     GNU_short_call = 0,
     CXX11_gnu_short_call = 1,
-    C2x_gnu_short_call = 2,
+    C23_gnu_short_call = 2,
     GNU_near = 3,
     CXX11_gnu_near = 4,
-    C2x_gnu_near = 5,
+    C23_gnu_near = 5,
   SpellingNotCalculated = 15
 
   };
@@ -6106,7 +6266,7 @@ public:
   enum Spelling {
     GNU_mode = 0,
     CXX11_gnu_mode = 1,
-    C2x_gnu_mode = 2,
+    C23_gnu_mode = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6140,7 +6300,7 @@ public:
   enum Spelling {
     GNU_musttail = 0,
     CXX11_clang_musttail = 1,
-    C2x_clang_musttail = 2,
+    C23_clang_musttail = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6169,7 +6329,7 @@ public:
   enum Spelling {
     GNU_ns_consumed = 0,
     CXX11_clang_ns_consumed = 1,
-    C2x_clang_ns_consumed = 2,
+    C23_clang_ns_consumed = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6198,7 +6358,7 @@ public:
   enum Spelling {
     GNU_ns_consumes_self = 0,
     CXX11_clang_ns_consumes_self = 1,
-    C2x_clang_ns_consumes_self = 2,
+    C23_clang_ns_consumes_self = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6255,7 +6415,7 @@ public:
   enum Spelling {
     GNU_ns_returns_autoreleased = 0,
     CXX11_clang_ns_returns_autoreleased = 1,
-    C2x_clang_ns_returns_autoreleased = 2,
+    C23_clang_ns_returns_autoreleased = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6284,7 +6444,7 @@ public:
   enum Spelling {
     GNU_ns_returns_not_retained = 0,
     CXX11_clang_ns_returns_not_retained = 1,
-    C2x_clang_ns_returns_not_retained = 2,
+    C23_clang_ns_returns_not_retained = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6313,7 +6473,7 @@ public:
   enum Spelling {
     GNU_ns_returns_retained = 0,
     CXX11_clang_ns_returns_retained = 1,
-    C2x_clang_ns_returns_retained = 2,
+    C23_clang_ns_returns_retained = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6342,7 +6502,7 @@ public:
   enum Spelling {
     GNU_nvptx_kernel = 0,
     CXX11_clang_nvptx_kernel = 1,
-    C2x_clang_nvptx_kernel = 2,
+    C23_clang_nvptx_kernel = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6371,7 +6531,7 @@ public:
   enum Spelling {
     GNU_naked = 0,
     CXX11_gnu_naked = 1,
-    C2x_gnu_naked = 2,
+    C23_gnu_naked = 2,
     Declspec_naked = 3,
   SpellingNotCalculated = 15
 
@@ -6425,7 +6585,7 @@ public:
   enum Spelling {
     GNU_no_builtin = 0,
     CXX11_clang_no_builtin = 1,
-    C2x_clang_no_builtin = 2,
+    C23_clang_no_builtin = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6464,7 +6624,7 @@ public:
   enum Spelling {
     GNU_nocommon = 0,
     CXX11_gnu_nocommon = 1,
-    C2x_gnu_nocommon = 2,
+    C23_gnu_nocommon = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6493,7 +6653,7 @@ public:
   enum Spelling {
     GNU_nodebug = 0,
     CXX11_gnu_nodebug = 1,
-    C2x_gnu_nodebug = 2,
+    C23_gnu_nodebug = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6522,7 +6682,7 @@ public:
   enum Spelling {
     GNU_noderef = 0,
     CXX11_clang_noderef = 1,
-    C2x_clang_noderef = 2,
+    C23_clang_noderef = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6579,7 +6739,7 @@ public:
   enum Spelling {
     GNU_noduplicate = 0,
     CXX11_clang_noduplicate = 1,
-    C2x_clang_noduplicate = 2,
+    C23_clang_noduplicate = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6608,7 +6768,7 @@ public:
   enum Spelling {
     GNU_noescape = 0,
     CXX11_clang_noescape = 1,
-    C2x_clang_noescape = 2,
+    C23_clang_noescape = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6638,9 +6798,9 @@ public:
     Keyword_noinline = 0,
     GNU_noinline = 1,
     CXX11_gnu_noinline = 2,
-    C2x_gnu_noinline = 3,
+    C23_gnu_noinline = 3,
     CXX11_clang_noinline = 4,
-    C2x_clang_noinline = 5,
+    C23_clang_noinline = 5,
     Declspec_noinline = 6,
   SpellingNotCalculated = 15
 
@@ -6672,7 +6832,7 @@ public:
   enum Spelling {
     GNU_no_instrument_function = 0,
     CXX11_gnu_no_instrument_function = 1,
-    C2x_gnu_no_instrument_function = 2,
+    C23_gnu_no_instrument_function = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6701,7 +6861,7 @@ public:
   enum Spelling {
     GNU_nomerge = 0,
     CXX11_clang_nomerge = 1,
-    C2x_clang_nomerge = 2,
+    C23_clang_nomerge = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6730,7 +6890,7 @@ public:
   enum Spelling {
     GNU_nomicromips = 0,
     CXX11_gnu_nomicromips = 1,
-    C2x_gnu_nomicromips = 2,
+    C23_gnu_nomicromips = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6759,7 +6919,7 @@ public:
   enum Spelling {
     GNU_nomips16 = 0,
     CXX11_gnu_nomips16 = 1,
-    C2x_gnu_nomips16 = 2,
+    C23_gnu_nomips16 = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6788,7 +6948,7 @@ public:
   enum Spelling {
     GNU_no_profile_instrument_function = 0,
     CXX11_gnu_no_profile_instrument_function = 1,
-    C2x_gnu_no_profile_instrument_function = 2,
+    C23_gnu_no_profile_instrument_function = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6817,7 +6977,7 @@ public:
   enum Spelling {
     GNU_no_randomize_layout = 0,
     CXX11_gnu_no_randomize_layout = 1,
-    C2x_gnu_no_randomize_layout = 2,
+    C23_gnu_no_randomize_layout = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6846,7 +7006,7 @@ public:
   enum Spelling {
     GNU_noreturn = 0,
     CXX11_gnu_noreturn = 1,
-    C2x_gnu_noreturn = 2,
+    C23_gnu_noreturn = 2,
     Declspec_noreturn = 3,
   SpellingNotCalculated = 15
 
@@ -6879,7 +7039,7 @@ public:
   enum Spelling {
     GNU_no_sanitize = 0,
     CXX11_clang_no_sanitize = 1,
-    C2x_clang_no_sanitize = 2,
+    C23_clang_no_sanitize = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6932,7 +7092,7 @@ public:
   enum Spelling {
     GNU_no_speculative_load_hardening = 0,
     CXX11_clang_no_speculative_load_hardening = 1,
-    C2x_clang_no_speculative_load_hardening = 2,
+    C23_clang_no_speculative_load_hardening = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6961,7 +7121,7 @@ public:
   enum Spelling {
     GNU_no_split_stack = 0,
     CXX11_gnu_no_split_stack = 1,
-    C2x_gnu_no_split_stack = 2,
+    C23_gnu_no_split_stack = 2,
   SpellingNotCalculated = 15
 
   };
@@ -6990,7 +7150,7 @@ public:
   enum Spelling {
     GNU_no_stack_protector = 0,
     CXX11_clang_no_stack_protector = 1,
-    C2x_clang_no_stack_protector = 2,
+    C23_clang_no_stack_protector = 2,
     Declspec_safebuffers = 3,
   SpellingNotCalculated = 15
 
@@ -7021,7 +7181,7 @@ public:
   enum Spelling {
     GNU_no_thread_safety_analysis = 0,
     CXX11_clang_no_thread_safety_analysis = 1,
-    C2x_clang_no_thread_safety_analysis = 2,
+    C23_clang_no_thread_safety_analysis = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7050,7 +7210,7 @@ public:
   enum Spelling {
     GNU_nothrow = 0,
     CXX11_gnu_nothrow = 1,
-    C2x_gnu_nothrow = 2,
+    C23_gnu_nothrow = 2,
     Declspec_nothrow = 3,
   SpellingNotCalculated = 15
 
@@ -7101,7 +7261,7 @@ public:
   enum Spelling {
     GNU_nouwtable = 0,
     CXX11_clang_nouwtable = 1,
-    C2x_clang_nouwtable = 2,
+    C23_clang_nouwtable = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7133,7 +7293,7 @@ public:
   enum Spelling {
     GNU_nonnull = 0,
     CXX11_gnu_nonnull = 1,
-    C2x_gnu_nonnull = 2,
+    C23_gnu_nonnull = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7180,7 +7340,7 @@ public:
   enum Spelling {
     GNU_not_tail_called = 0,
     CXX11_clang_not_tail_called = 1,
-    C2x_clang_not_tail_called = 2,
+    C23_clang_not_tail_called = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7651,7 +7811,7 @@ public:
   enum Spelling {
     GNU_os_consumed = 0,
     CXX11_clang_os_consumed = 1,
-    C2x_clang_os_consumed = 2,
+    C23_clang_os_consumed = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7680,7 +7840,7 @@ public:
   enum Spelling {
     GNU_os_consumes_this = 0,
     CXX11_clang_os_consumes_this = 1,
-    C2x_clang_os_consumes_this = 2,
+    C23_clang_os_consumes_this = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7709,7 +7869,7 @@ public:
   enum Spelling {
     GNU_os_returns_not_retained = 0,
     CXX11_clang_os_returns_not_retained = 1,
-    C2x_clang_os_returns_not_retained = 2,
+    C23_clang_os_returns_not_retained = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7738,7 +7898,7 @@ public:
   enum Spelling {
     GNU_os_returns_retained = 0,
     CXX11_clang_os_returns_retained = 1,
-    C2x_clang_os_returns_retained = 2,
+    C23_clang_os_returns_retained = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7767,7 +7927,7 @@ public:
   enum Spelling {
     GNU_os_returns_retained_on_non_zero = 0,
     CXX11_clang_os_returns_retained_on_non_zero = 1,
-    C2x_clang_os_returns_retained_on_non_zero = 2,
+    C23_clang_os_returns_retained_on_non_zero = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7796,7 +7956,7 @@ public:
   enum Spelling {
     GNU_os_returns_retained_on_zero = 0,
     CXX11_clang_os_returns_retained_on_zero = 1,
-    C2x_clang_os_returns_retained_on_zero = 2,
+    C23_clang_os_returns_retained_on_zero = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7825,7 +7985,7 @@ public:
   enum Spelling {
     GNU_objc_boxable = 0,
     CXX11_clang_objc_boxable = 1,
-    C2x_clang_objc_boxable = 2,
+    C23_clang_objc_boxable = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7856,7 +8016,7 @@ public:
   enum Spelling {
     GNU_objc_bridge = 0,
     CXX11_clang_objc_bridge = 1,
-    C2x_clang_objc_bridge = 2,
+    C23_clang_objc_bridge = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7892,7 +8052,7 @@ public:
   enum Spelling {
     GNU_objc_bridge_mutable = 0,
     CXX11_clang_objc_bridge_mutable = 1,
-    C2x_clang_objc_bridge_mutable = 2,
+    C23_clang_objc_bridge_mutable = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7932,7 +8092,7 @@ public:
   enum Spelling {
     GNU_objc_bridge_related = 0,
     CXX11_clang_objc_bridge_related = 1,
-    C2x_clang_objc_bridge_related = 2,
+    C23_clang_objc_bridge_related = 2,
   SpellingNotCalculated = 15
 
   };
@@ -7976,7 +8136,7 @@ public:
   enum Spelling {
     GNU_objc_class_stub = 0,
     CXX11_clang_objc_class_stub = 1,
-    C2x_clang_objc_class_stub = 2,
+    C23_clang_objc_class_stub = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8005,7 +8165,7 @@ public:
   enum Spelling {
     GNU_objc_designated_initializer = 0,
     CXX11_clang_objc_designated_initializer = 1,
-    C2x_clang_objc_designated_initializer = 2,
+    C23_clang_objc_designated_initializer = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8034,7 +8194,7 @@ public:
   enum Spelling {
     GNU_objc_direct = 0,
     CXX11_clang_objc_direct = 1,
-    C2x_clang_objc_direct = 2,
+    C23_clang_objc_direct = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8063,7 +8223,7 @@ public:
   enum Spelling {
     GNU_objc_direct_members = 0,
     CXX11_clang_objc_direct_members = 1,
-    C2x_clang_objc_direct_members = 2,
+    C23_clang_objc_direct_members = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8092,7 +8252,7 @@ public:
   enum Spelling {
     GNU_objc_exception = 0,
     CXX11_clang_objc_exception = 1,
-    C2x_clang_objc_exception = 2,
+    C23_clang_objc_exception = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8121,7 +8281,7 @@ public:
   enum Spelling {
     GNU_objc_protocol_requires_explicit_implementation = 0,
     CXX11_clang_objc_protocol_requires_explicit_implementation = 1,
-    C2x_clang_objc_protocol_requires_explicit_implementation = 2,
+    C23_clang_objc_protocol_requires_explicit_implementation = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8150,7 +8310,7 @@ public:
   enum Spelling {
     GNU_objc_externally_retained = 0,
     CXX11_clang_objc_externally_retained = 1,
-    C2x_clang_objc_externally_retained = 2,
+    C23_clang_objc_externally_retained = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8181,7 +8341,7 @@ public:
   enum Spelling {
     GNU_objc_gc = 0,
     CXX11_clang_objc_gc = 1,
-    C2x_clang_objc_gc = 2,
+    C23_clang_objc_gc = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8215,7 +8375,7 @@ public:
   enum Spelling {
     GNU_objc_independent_class = 0,
     CXX11_clang_objc_independent_class = 1,
-    C2x_clang_objc_independent_class = 2,
+    C23_clang_objc_independent_class = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8298,7 +8458,7 @@ public:
   enum Spelling {
     GNU_objc_method_family = 0,
     CXX11_clang_objc_method_family = 1,
-    C2x_clang_objc_method_family = 2,
+    C23_clang_objc_method_family = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8334,7 +8494,7 @@ public:
   enum Spelling {
     GNU_NSObject = 0,
     CXX11_clang_NSObject = 1,
-    C2x_clang_NSObject = 2,
+    C23_clang_NSObject = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8363,7 +8523,7 @@ public:
   enum Spelling {
     GNU_objc_nonlazy_class = 0,
     CXX11_clang_objc_nonlazy_class = 1,
-    C2x_clang_objc_nonlazy_class = 2,
+    C23_clang_objc_nonlazy_class = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8392,7 +8552,7 @@ public:
   enum Spelling {
     GNU_objc_non_runtime_protocol = 0,
     CXX11_clang_objc_non_runtime_protocol = 1,
-    C2x_clang_objc_non_runtime_protocol = 2,
+    C23_clang_objc_non_runtime_protocol = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8423,7 +8583,7 @@ public:
   enum Spelling {
     GNU_objc_ownership = 0,
     CXX11_clang_objc_ownership = 1,
-    C2x_clang_objc_ownership = 2,
+    C23_clang_objc_ownership = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8457,7 +8617,7 @@ public:
   enum Spelling {
     GNU_objc_precise_lifetime = 0,
     CXX11_clang_objc_precise_lifetime = 1,
-    C2x_clang_objc_precise_lifetime = 2,
+    C23_clang_objc_precise_lifetime = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8486,7 +8646,7 @@ public:
   enum Spelling {
     GNU_objc_requires_property_definitions = 0,
     CXX11_clang_objc_requires_property_definitions = 1,
-    C2x_clang_objc_requires_property_definitions = 2,
+    C23_clang_objc_requires_property_definitions = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8515,7 +8675,7 @@ public:
   enum Spelling {
     GNU_objc_requires_super = 0,
     CXX11_clang_objc_requires_super = 1,
-    C2x_clang_objc_requires_super = 2,
+    C23_clang_objc_requires_super = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8544,7 +8704,7 @@ public:
   enum Spelling {
     GNU_objc_returns_inner_pointer = 0,
     CXX11_clang_objc_returns_inner_pointer = 1,
-    C2x_clang_objc_returns_inner_pointer = 2,
+    C23_clang_objc_returns_inner_pointer = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8573,7 +8733,7 @@ public:
   enum Spelling {
     GNU_objc_root_class = 0,
     CXX11_clang_objc_root_class = 1,
-    C2x_clang_objc_root_class = 2,
+    C23_clang_objc_root_class = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8605,7 +8765,7 @@ public:
   enum Spelling {
     GNU_objc_runtime_name = 0,
     CXX11_clang_objc_runtime_name = 1,
-    C2x_clang_objc_runtime_name = 2,
+    C23_clang_objc_runtime_name = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8648,7 +8808,7 @@ public:
   enum Spelling {
     GNU_objc_runtime_visible = 0,
     CXX11_clang_objc_runtime_visible = 1,
-    C2x_clang_objc_runtime_visible = 2,
+    C23_clang_objc_runtime_visible = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8677,7 +8837,7 @@ public:
   enum Spelling {
     GNU_objc_subclassing_restricted = 0,
     CXX11_clang_objc_subclassing_restricted = 1,
-    C2x_clang_objc_subclassing_restricted = 2,
+    C23_clang_objc_subclassing_restricted = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8743,7 +8903,7 @@ public:
     Keyword_constant = 0,
     GNU_opencl_constant = 2,
     CXX11_clang_opencl_constant = 3,
-    C2x_clang_opencl_constant = 4,
+    C23_clang_opencl_constant = 4,
   SpellingNotCalculated = 15
 
   };
@@ -8774,7 +8934,7 @@ public:
     Keyword_generic = 0,
     GNU_opencl_generic = 2,
     CXX11_clang_opencl_generic = 3,
-    C2x_clang_opencl_generic = 4,
+    C23_clang_opencl_generic = 4,
   SpellingNotCalculated = 15
 
   };
@@ -8805,7 +8965,7 @@ public:
     Keyword_global = 0,
     GNU_opencl_global = 2,
     CXX11_clang_opencl_global = 3,
-    C2x_clang_opencl_global = 4,
+    C23_clang_opencl_global = 4,
   SpellingNotCalculated = 15
 
   };
@@ -8835,7 +8995,7 @@ public:
   enum Spelling {
     GNU_opencl_global_device = 0,
     CXX11_clang_opencl_global_device = 1,
-    C2x_clang_opencl_global_device = 2,
+    C23_clang_opencl_global_device = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8864,7 +9024,7 @@ public:
   enum Spelling {
     GNU_opencl_global_host = 0,
     CXX11_clang_opencl_global_host = 1,
-    C2x_clang_opencl_global_host = 2,
+    C23_clang_opencl_global_host = 2,
   SpellingNotCalculated = 15
 
   };
@@ -8949,7 +9109,7 @@ public:
     Keyword_local = 0,
     GNU_opencl_local = 2,
     CXX11_clang_opencl_local = 3,
-    C2x_clang_opencl_local = 4,
+    C23_clang_opencl_local = 4,
   SpellingNotCalculated = 15
 
   };
@@ -8980,7 +9140,7 @@ public:
     Keyword_private = 0,
     GNU_opencl_private = 2,
     CXX11_clang_opencl_private = 3,
-    C2x_clang_opencl_private = 4,
+    C23_clang_opencl_private = 4,
   SpellingNotCalculated = 15
 
   };
@@ -9040,7 +9200,7 @@ public:
   enum Spelling {
     GNU_optnone = 0,
     CXX11_clang_optnone = 1,
-    C2x_clang_optnone = 2,
+    C23_clang_optnone = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9069,7 +9229,7 @@ public:
   enum Spelling {
     GNU_overloadable = 0,
     CXX11_clang_overloadable = 1,
-    C2x_clang_overloadable = 2,
+    C23_clang_overloadable = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9156,13 +9316,13 @@ public:
   enum Spelling {
     GNU_ownership_holds = 0,
     CXX11_clang_ownership_holds = 1,
-    C2x_clang_ownership_holds = 2,
+    C23_clang_ownership_holds = 2,
     GNU_ownership_returns = 3,
     CXX11_clang_ownership_returns = 4,
-    C2x_clang_ownership_returns = 5,
+    C23_clang_ownership_returns = 5,
     GNU_ownership_takes = 6,
     CXX11_clang_ownership_takes = 7,
-    C2x_clang_ownership_takes = 8,
+    C23_clang_ownership_takes = 8,
   SpellingNotCalculated = 15
 
   };
@@ -9224,7 +9384,7 @@ public:
   enum Spelling {
     GNU_packed = 0,
     CXX11_gnu_packed = 1,
-    C2x_gnu_packed = 2,
+    C23_gnu_packed = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9297,7 +9457,7 @@ public:
   enum Spelling {
     GNU_pascal = 0,
     CXX11_clang_pascal = 1,
-    C2x_clang_pascal = 2,
+    C23_clang_pascal = 2,
     Keyword_pascal = 3,
   SpellingNotCalculated = 15
 
@@ -9329,10 +9489,10 @@ public:
   enum Spelling {
     GNU_pass_object_size = 0,
     CXX11_clang_pass_object_size = 1,
-    C2x_clang_pass_object_size = 2,
+    C23_clang_pass_object_size = 2,
     GNU_pass_dynamic_object_size = 3,
     CXX11_clang_pass_dynamic_object_size = 4,
-    C2x_clang_pass_dynamic_object_size = 5,
+    C23_clang_pass_dynamic_object_size = 5,
   SpellingNotCalculated = 15
 
   };
@@ -9374,7 +9534,7 @@ public:
   enum Spelling {
     GNU_patchable_function_entry = 0,
     CXX11_gnu_patchable_function_entry = 1,
-    C2x_gnu_patchable_function_entry = 2,
+    C23_gnu_patchable_function_entry = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9426,7 +9586,7 @@ public:
   enum Spelling {
     GNU_pcs = 0,
     CXX11_gnu_pcs = 1,
-    C2x_gnu_pcs = 2,
+    C23_gnu_pcs = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9721,7 +9881,7 @@ public:
   enum Spelling {
     GNU_preserve_all = 0,
     CXX11_clang_preserve_all = 1,
-    C2x_clang_preserve_all = 2,
+    C23_clang_preserve_all = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9750,7 +9910,7 @@ public:
   enum Spelling {
     GNU_preserve_most = 0,
     CXX11_clang_preserve_most = 1,
-    C2x_clang_preserve_most = 2,
+    C23_clang_preserve_most = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9877,7 +10037,7 @@ public:
   enum Spelling {
     GNU_pure = 0,
     CXX11_gnu_pure = 1,
-    C2x_gnu_pure = 2,
+    C23_gnu_pure = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9914,7 +10074,7 @@ public:
   enum Spelling {
     GNU_interrupt = 0,
     CXX11_gnu_interrupt = 1,
-    C2x_gnu_interrupt = 2,
+    C23_gnu_interrupt = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9952,7 +10112,7 @@ public:
   enum Spelling {
     GNU_randomize_layout = 0,
     CXX11_gnu_randomize_layout = 1,
-    C2x_gnu_randomize_layout = 2,
+    C23_gnu_randomize_layout = 2,
   SpellingNotCalculated = 15
 
   };
@@ -9981,7 +10141,7 @@ public:
   enum Spelling {
     GNU_enforce_read_only_placement = 0,
     CXX11_clang_enforce_read_only_placement = 1,
-    C2x_clang_enforce_read_only_placement = 2,
+    C23_clang_enforce_read_only_placement = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10010,7 +10170,7 @@ public:
   enum Spelling {
     GNU_regcall = 0,
     CXX11_gnu_regcall = 1,
-    C2x_gnu_regcall = 2,
+    C23_gnu_regcall = 2,
     Keyword_regcall = 3,
   SpellingNotCalculated = 15
 
@@ -10125,7 +10285,7 @@ public:
   enum Spelling {
     GNU_release_handle = 0,
     CXX11_clang_release_handle = 1,
-    C2x_clang_release_handle = 2,
+    C23_clang_release_handle = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10284,7 +10444,7 @@ public:
     Declspec_restrict = 0,
     GNU_malloc = 1,
     CXX11_gnu_malloc = 2,
-    C2x_gnu_malloc = 3,
+    C23_gnu_malloc = 3,
   SpellingNotCalculated = 15
 
   };
@@ -10314,7 +10474,7 @@ public:
   enum Spelling {
     GNU_retain = 0,
     CXX11_gnu_retain = 1,
-    C2x_gnu_retain = 2,
+    C23_gnu_retain = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10387,7 +10547,7 @@ public:
   enum Spelling {
     GNU_returns_nonnull = 0,
     CXX11_gnu_returns_nonnull = 1,
-    C2x_gnu_returns_nonnull = 2,
+    C23_gnu_returns_nonnull = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10416,7 +10576,7 @@ public:
   enum Spelling {
     GNU_returns_twice = 0,
     CXX11_gnu_returns_twice = 1,
-    C2x_gnu_returns_twice = 2,
+    C23_gnu_returns_twice = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10466,7 +10626,7 @@ public:
   enum Spelling {
     GNU_sycl_kernel = 0,
     CXX11_clang_sycl_kernel = 1,
-    C2x_clang_sycl_kernel = 2,
+    C23_clang_sycl_kernel = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10495,7 +10655,7 @@ public:
   enum Spelling {
     GNU_sycl_special_class = 0,
     CXX11_clang_sycl_special_class = 1,
-    C2x_clang_sycl_special_class = 2,
+    C23_clang_sycl_special_class = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10555,7 +10715,7 @@ public:
   enum Spelling {
     GNU_section = 0,
     CXX11_gnu_section = 1,
-    C2x_gnu_section = 2,
+    C23_gnu_section = 2,
     Declspec_allocate = 3,
   SpellingNotCalculated = 15
 
@@ -10601,7 +10761,7 @@ public:
     Declspec_selectany = 0,
     GNU_selectany = 1,
     CXX11_gnu_selectany = 2,
-    C2x_gnu_selectany = 3,
+    C23_gnu_selectany = 3,
   SpellingNotCalculated = 15
 
   };
@@ -10634,7 +10794,7 @@ public:
   enum Spelling {
     GNU_sentinel = 0,
     CXX11_gnu_sentinel = 1,
-    C2x_gnu_sentinel = 2,
+    C23_gnu_sentinel = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10765,7 +10925,7 @@ public:
   enum Spelling {
     GNU_speculative_load_hardening = 0,
     CXX11_clang_speculative_load_hardening = 1,
-    C2x_clang_speculative_load_hardening = 2,
+    C23_clang_speculative_load_hardening = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10822,7 +10982,7 @@ public:
   enum Spelling {
     GNU_stdcall = 0,
     CXX11_gnu_stdcall = 1,
-    C2x_gnu_stdcall = 2,
+    C23_gnu_stdcall = 2,
     Keyword_stdcall = 3,
   SpellingNotCalculated = 15
 
@@ -10939,7 +11099,7 @@ public:
   enum Spelling {
     GNU_swift_async = 0,
     CXX11_clang_swift_async = 1,
-    C2x_clang_swift_async = 2,
+    C23_clang_swift_async = 2,
   SpellingNotCalculated = 15
 
   };
@@ -10983,7 +11143,7 @@ public:
   enum Spelling {
     GNU_swiftasynccall = 0,
     CXX11_clang_swiftasynccall = 1,
-    C2x_clang_swiftasynccall = 2,
+    C23_clang_swiftasynccall = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11012,7 +11172,7 @@ public:
   enum Spelling {
     GNU_swift_async_context = 0,
     CXX11_clang_swift_async_context = 1,
-    C2x_clang_swift_async_context = 2,
+    C23_clang_swift_async_context = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11053,7 +11213,7 @@ public:
   enum Spelling {
     GNU_swift_async_error = 0,
     CXX11_clang_swift_async_error = 1,
-    C2x_clang_swift_async_error = 2,
+    C23_clang_swift_async_error = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11232,7 +11392,7 @@ public:
   enum Spelling {
     GNU_swiftcall = 0,
     CXX11_clang_swiftcall = 1,
-    C2x_clang_swiftcall = 2,
+    C23_clang_swiftcall = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11261,7 +11421,7 @@ public:
   enum Spelling {
     GNU_swift_context = 0,
     CXX11_clang_swift_context = 1,
-    C2x_clang_swift_context = 2,
+    C23_clang_swift_context = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11329,7 +11489,7 @@ public:
   enum Spelling {
     GNU_swift_error_result = 0,
     CXX11_clang_swift_error_result = 1,
-    C2x_clang_swift_error_result = 2,
+    C23_clang_swift_error_result = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11358,7 +11518,7 @@ public:
   enum Spelling {
     GNU_swift_indirect_result = 0,
     CXX11_clang_swift_indirect_result = 1,
-    C2x_clang_swift_indirect_result = 2,
+    C23_clang_swift_indirect_result = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11511,7 +11671,7 @@ public:
   enum Spelling {
     GNU_sysv_abi = 0,
     CXX11_gnu_sysv_abi = 1,
-    C2x_gnu_sysv_abi = 2,
+    C23_gnu_sysv_abi = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11543,7 +11703,7 @@ public:
   enum Spelling {
     GNU_tls_model = 0,
     CXX11_gnu_tls_model = 1,
-    C2x_gnu_tls_model = 2,
+    C23_gnu_tls_model = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11589,7 +11749,7 @@ public:
   enum Spelling {
     GNU_target = 0,
     CXX11_gnu_target = 1,
-    C2x_gnu_target = 2,
+    C23_gnu_target = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11670,7 +11830,7 @@ public:
   enum Spelling {
     GNU_target_clones = 0,
     CXX11_gnu_target_clones = 1,
-    C2x_gnu_target_clones = 2,
+    C23_gnu_target_clones = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11742,7 +11902,7 @@ public:
   enum Spelling {
     GNU_target_version = 0,
     CXX11_gnu_target_version = 1,
-    C2x_gnu_target_version = 2,
+    C23_gnu_target_version = 2,
   SpellingNotCalculated = 15
 
   };
@@ -11845,7 +12005,7 @@ public:
   enum Spelling {
     GNU_thiscall = 0,
     CXX11_gnu_thiscall = 1,
-    C2x_gnu_thiscall = 2,
+    C23_gnu_thiscall = 2,
     Keyword_thiscall = 3,
   SpellingNotCalculated = 15
 
@@ -11896,7 +12056,7 @@ public:
   enum Spelling {
     GNU_transparent_union = 0,
     CXX11_gnu_transparent_union = 1,
-    C2x_gnu_transparent_union = 2,
+    C23_gnu_transparent_union = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12099,7 +12259,7 @@ public:
   enum Spelling {
     GNU_type_tag_for_datatype = 0,
     CXX11_clang_type_tag_for_datatype = 1,
-    C2x_clang_type_tag_for_datatype = 2,
+    C23_clang_type_tag_for_datatype = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12159,7 +12319,7 @@ public:
   enum Spelling {
     GNU_type_visibility = 0,
     CXX11_clang_type_visibility = 1,
-    C2x_clang_type_visibility = 2,
+    C23_clang_type_visibility = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12231,7 +12391,7 @@ public:
   enum Spelling {
     GNU_unavailable = 0,
     CXX11_clang_unavailable = 1,
-    C2x_clang_unavailable = 2,
+    C23_clang_unavailable = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12315,7 +12475,7 @@ class UnlikelyAttr : public StmtAttr {
 public:
   enum Spelling {
     CXX11_unlikely = 0,
-    C2x_clang_unlikely = 1,
+    C23_clang_unlikely = 1,
   SpellingNotCalculated = 15
 
   };
@@ -12344,7 +12504,7 @@ public:
   enum Spelling {
     GNU_unsafe_buffer_usage = 0,
     CXX11_clang_unsafe_buffer_usage = 1,
-    C2x_clang_unsafe_buffer_usage = 2,
+    C23_clang_unsafe_buffer_usage = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12374,8 +12534,8 @@ public:
     CXX11_maybe_unused = 0,
     GNU_unused = 1,
     CXX11_gnu_unused = 2,
-    C2x_gnu_unused = 3,
-    C2x_maybe_unused = 4,
+    C23_gnu_unused = 3,
+    C23_maybe_unused = 4,
   SpellingNotCalculated = 15
 
   };
@@ -12408,7 +12568,7 @@ public:
   enum Spelling {
     GNU_use_handle = 0,
     CXX11_clang_use_handle = 1,
-    C2x_clang_use_handle = 2,
+    C23_clang_use_handle = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12451,7 +12611,7 @@ public:
   enum Spelling {
     GNU_used = 0,
     CXX11_gnu_used = 1,
-    C2x_gnu_used = 2,
+    C23_gnu_used = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12625,7 +12785,7 @@ public:
   enum Spelling {
     GNU_vectorcall = 0,
     CXX11_clang_vectorcall = 1,
-    C2x_clang_vectorcall = 2,
+    C23_clang_vectorcall = 2,
     Keyword_vectorcall = 3,
   SpellingNotCalculated = 15
 
@@ -12664,7 +12824,7 @@ public:
   enum Spelling {
     GNU_visibility = 0,
     CXX11_gnu_visibility = 1,
-    C2x_gnu_visibility = 2,
+    C23_gnu_visibility = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12700,7 +12860,7 @@ public:
   enum Spelling {
     GNU_warn_unused = 0,
     CXX11_gnu_warn_unused = 1,
-    C2x_gnu_warn_unused = 2,
+    C23_gnu_warn_unused = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12731,11 +12891,11 @@ char *message;
 public:
   enum Spelling {
     CXX11_nodiscard = 0,
-    C2x_nodiscard = 1,
+    C23_nodiscard = 1,
     CXX11_clang_warn_unused_result = 2,
     GNU_warn_unused_result = 3,
     CXX11_gnu_warn_unused_result = 4,
-    C2x_gnu_warn_unused_result = 5,
+    C23_gnu_warn_unused_result = 5,
   SpellingNotCalculated = 15
 
   };
@@ -12787,7 +12947,7 @@ public:
   enum Spelling {
     GNU_weak = 0,
     CXX11_gnu_weak = 1,
-    C2x_gnu_weak = 2,
+    C23_gnu_weak = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12816,7 +12976,7 @@ public:
   enum Spelling {
     GNU_weak_import = 0,
     CXX11_clang_weak_import = 1,
-    C2x_clang_weak_import = 2,
+    C23_clang_weak_import = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12848,7 +13008,7 @@ public:
   enum Spelling {
     GNU_weakref = 0,
     CXX11_gnu_weakref = 1,
-    C2x_gnu_weakref = 2,
+    C23_gnu_weakref = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12896,7 +13056,7 @@ public:
   enum Spelling {
     GNU_export_name = 0,
     CXX11_clang_export_name = 1,
-    C2x_clang_export_name = 2,
+    C23_clang_export_name = 2,
   SpellingNotCalculated = 15
 
   };
@@ -12963,7 +13123,7 @@ public:
   enum Spelling {
     GNU_import_module = 0,
     CXX11_clang_import_module = 1,
-    C2x_clang_import_module = 2,
+    C23_clang_import_module = 2,
   SpellingNotCalculated = 15
 
   };
@@ -13009,7 +13169,7 @@ public:
   enum Spelling {
     GNU_import_name = 0,
     CXX11_clang_import_name = 1,
-    C2x_clang_import_name = 2,
+    C23_clang_import_name = 2,
   SpellingNotCalculated = 15
 
   };
@@ -13094,7 +13254,7 @@ public:
   enum Spelling {
     GNU_force_align_arg_pointer = 0,
     CXX11_gnu_force_align_arg_pointer = 1,
-    C2x_gnu_force_align_arg_pointer = 2,
+    C23_gnu_force_align_arg_pointer = 2,
   SpellingNotCalculated = 15
 
   };
@@ -13123,10 +13283,10 @@ public:
   enum Spelling {
     GNU_xray_always_instrument = 0,
     CXX11_clang_xray_always_instrument = 1,
-    C2x_clang_xray_always_instrument = 2,
+    C23_clang_xray_always_instrument = 2,
     GNU_xray_never_instrument = 3,
     CXX11_clang_xray_never_instrument = 4,
-    C2x_clang_xray_never_instrument = 5,
+    C23_clang_xray_never_instrument = 5,
   SpellingNotCalculated = 15
 
   };
@@ -13164,7 +13324,7 @@ public:
   enum Spelling {
     GNU_xray_log_args = 0,
     CXX11_clang_xray_log_args = 1,
-    C2x_clang_xray_log_args = 2,
+    C23_clang_xray_log_args = 2,
   SpellingNotCalculated = 15
 
   };
@@ -13213,7 +13373,7 @@ public:
   enum Spelling {
     GNU_zero_call_used_regs = 0,
     CXX11_gnu_zero_call_used_regs = 1,
-    C2x_gnu_zero_call_used_regs = 2,
+    C23_gnu_zero_call_used_regs = 2,
   SpellingNotCalculated = 15
 
   };

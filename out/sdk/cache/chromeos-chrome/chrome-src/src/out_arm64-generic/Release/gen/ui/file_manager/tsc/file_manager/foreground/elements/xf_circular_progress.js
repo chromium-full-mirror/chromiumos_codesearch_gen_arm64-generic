@@ -1,59 +1,8 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { html } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-/** @type {!HTMLTemplateElement} */
-const htmlTemplate = html `<!--_html_template_start_-->
-<style>
-  .progress {
-    height: 36px;
-    width: 36px;
-  }
-
-  :host-context([detailed-panel][data-category='expanded'])
-  .progress {
-    height: 32px;
-    width: 32px;
-   }
-
-  :host-context([detailed-panel][data-category='collapsed'])
-  .progress {
-    height: 28px;
-    width: 28px;
-  }
-
-  .bottom {
-    fill: none;
-    stroke: var(--cros-sys-highlight_shape);
-  }
-  .top {
-    fill: none;
-    stroke: var(--cros-sys-primary);
-    stroke-linecap: round;
-  }
-  text {
-    fill: var(--cros-sys-primary);
-    font: var(--cros-button-1-font);
-  }
-  .errormark {
-    fill: var(--cros-sys-error);
-  }
-</style>
-<div class='progress'>
-  <svg xmlns='http://www.w3.org/2000/svg'
-    viewBox='0 0 36 36'>
-    <g id='circles' stroke-width='3'>
-      <circle class='bottom' cx='18' cy='18' r='10'></circle>
-      <circle class='top' transform='rotate(-90 18 18)'
-      cx='18' cy='18' r='10' stroke-dasharray='0 1'></circle>
-    </g>
-    <text class='label' x='18' y='18' text-anchor='middle'
-      alignment-baseline='central'></text>
-    <circle class='errormark' visibility='hidden'
-      cx='25.5' cy='10.5' r='4' stroke='none'></circle>
-  </svg>
-</div>
-<!--_html_template_end_-->`;
+import { getTemplate } from './xf_circular_progress.html.js';
+const MAX_PROGRESS = 100.0;
 /**
  * Definition of a circular progress indicator custom element.
  * The element supports two attributes for control - 'radius' and 'progress'.
@@ -66,36 +15,18 @@ const htmlTemplate = html `<!--_html_template_start_-->
 export class CircularProgress extends HTMLElement {
     constructor() {
         super();
-        const fragment = htmlTemplate.content.cloneNode(true);
-        this.attachShadow({ mode: 'open' }).appendChild(fragment);
-        /** @private @type {number} */
-        this.progress_ = 0.0;
-        if (!this.shadowRoot) {
-            return;
-        }
-        /**
-         * The visual indicator for the progress is accomplished by changing the
-         * stroke-dasharray SVG attribute on the top circle. The stroke-dasharray
-         * is calculated by using the circumference of the circle as the 100%
-         * length and then setting the dash length to match the percentage of
-         * the set 'progress_' value.
-         * @private @type {SVGElement}
-         */
-        this.indicator_ =
-            /** @type {SVGElement}*/ (this.shadowRoot.querySelector('.top'));
-        /** @private @type {SVGElement} */
-        this.errormark_ =
-            /** @type {SVGElement}*/ (this.shadowRoot.querySelector('.errormark'));
-        /** @private @type {SVGElement} */
-        this.label_ =
-            /** @type {SVGElement}*/ (this.shadowRoot.querySelector('.label'));
-        /** @private @type {number} */
-        this.maxProgress_ = 100.0;
-        /**
-         * The circumference for the circle (default 63 for radius r='10').
-         * @private @type {number}
-         */
         this.fullCircle_ = 63;
+        this.progress_ = 0.0;
+        const template = document.createElement('template');
+        template.innerHTML = getTemplate();
+        const fragment = template.content.cloneNode(true);
+        this.attachShadow({ mode: 'open' }).appendChild(fragment);
+        this.indicator_ = this.shadowRoot.querySelector('.top');
+        this.errormark_ = this.shadowRoot.querySelector('.errormark');
+        this.label_ = this.shadowRoot.querySelector('.label');
+    }
+    static get is() {
+        return 'xf-circular-progress';
     }
     /**
      * Registers this instance to listen to these attribute changes.
@@ -110,14 +41,12 @@ export class CircularProgress extends HTMLElement {
     }
     /**
      * Sets the indicators progress position.
-     * @param {number} progress A value between 0 and maxProgress_ to indicate.
-     * @return {number}
-     * @public
+     * @param progress A value between 0 and MAX_PROGRESS to indicate.
      */
     setProgress(progress) {
-        // Clamp progress to 0 .. maxProgress_.
-        progress = Math.min(Math.max(progress, 0), this.maxProgress_);
-        const value = (progress / this.maxProgress_) * this.fullCircle_;
+        // Clamp progress to 0 .. MAX_PROGRESS.
+        progress = Math.min(Math.max(progress, 0), MAX_PROGRESS);
+        const value = (progress / MAX_PROGRESS) * this.fullCircle_;
         this.indicator_?.setAttribute('stroke-dasharray', value + ' ' + this.fullCircle_);
         return progress;
     }
@@ -125,9 +54,8 @@ export class CircularProgress extends HTMLElement {
      * Sets the position of the error indicator.
      * The error indicator is used by the summary panel. Its position is aligned
      * with the top-right square that contains the progress circle itself.
-     * @param {number} radius The radius of the progress circle.
-     * @param {number} strokeWidth The width of the progress circle stroke.
-     * @private
+     * @param radius The radius of the progress circle.
+     * @param strokeWidth The width of the progress circle stroke.
      */
     setErrorPosition_(radius, strokeWidth) {
         const center = 18;
@@ -139,9 +67,9 @@ export class CircularProgress extends HTMLElement {
     /**
      * Callback triggered by the browser when our attribute values change.
      * TODO(crbug.com/947388) Add unit tests to exercise attribute edge cases.
-     * @param {string} name Attribute that's changed.
-     * @param {?string} oldValue Old value of the attribute.
-     * @param {?string} newValue New value of the attribute.
+     * @param name Attribute that's changed.
+     * @param oldValue Old value of the attribute.
+     * @param newValue New value of the attribute.
      */
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue) {
@@ -186,16 +114,13 @@ export class CircularProgress extends HTMLElement {
     }
     /**
      * Getter for the visibility of the error marker.
-     * @public
-     * @return {string}
      */
     get errorMarkerVisibility() {
         return this.errormark_.getAttribute('visibility') || '';
     }
     /**
      * Set the visibility of the error marker.
-     * @param {string} visibility Visibility value being set.
-     * @public
+     * @param visibility Visibility value being set.
      */
     set errorMarkerVisibility(visibility) {
         // Reflect the progress property into the attribute.
@@ -203,16 +128,13 @@ export class CircularProgress extends HTMLElement {
     }
     /**
      * Getter for the current state of the progress indication.
-     * @public
-     * @return {string}
      */
     get progress() {
         return this.progress_.toString();
     }
     /**
      * Sets the progress position between 0 and 100.0.
-     * @param {string} progress Progress value being set.
-     * @public
+     * @param progress Progress value being set.
      */
     set progress(progress) {
         // Reflect the progress property into the attribute.
@@ -221,12 +143,10 @@ export class CircularProgress extends HTMLElement {
     /**
      * Set the text label in the centre of the progress indicator.
      * This is used to indicate multiple operations in progress.
-     * @param {string} label Text to place inside the circle.
-     * @public
+     * @param label Text to place inside the circle.
      */
     set label(label) {
         this.setAttribute('label', label);
     }
 }
-window.customElements.define('xf-circular-progress', CircularProgress);
-//# sourceURL=//ui/file_manager/file_manager/foreground/elements/xf_circular_progress.js
+window.customElements.define(CircularProgress.is, CircularProgress);

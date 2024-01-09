@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,8 @@ struct WebAccessibleResource {
   ~WebAccessibleResource();
   WebAccessibleResource(const WebAccessibleResource&) = delete;
   WebAccessibleResource& operator=(const WebAccessibleResource&) = delete;
-  WebAccessibleResource(WebAccessibleResource&& rhs);
-  WebAccessibleResource& operator=(WebAccessibleResource&& rhs);
+  WebAccessibleResource(WebAccessibleResource&& rhs) noexcept;
+  WebAccessibleResource& operator=(WebAccessibleResource&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kResources[] = "resources";
@@ -54,10 +55,6 @@ struct WebAccessibleResource {
 
   // Creates a deep copy of WebAccessibleResource.
   WebAccessibleResource Clone() const;
-
-  // Creates a WebAccessibleResource object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<WebAccessibleResource> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a WebAccessibleResource object from a base::Value::Dict, or
   // unexpected on failure.
@@ -86,17 +83,17 @@ struct WebAccessibleResource {
   // patterns</a> to which "resources" are accessible. These patterns should have
   // an effective path of "*". Each match will be checked against the initiating
   // origin.
-  absl::optional<std::vector<std::string>> matches;
+  std::optional<std::vector<std::string>> matches;
 
   // List of extension IDs the "resources" are accessible to. A wildcard can be
   // used, denoted by "*".
-  absl::optional<std::vector<std::string>> extension_ids;
+  std::optional<std::vector<std::string>> extension_ids;
 
   // If true, the web accessible resources will only be accessible through a
   // dynamic ID. This is an identifier that uniquely identifies the extension and
   // is generated each session. The corresponding dynamic extension URL is
   // available through $(ref:runtime.getURL).
-  absl::optional<bool> use_dynamic_url;
+  std::optional<bool> use_dynamic_url;
 
 };
 
@@ -110,8 +107,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kWebAccessibleResources[] = "web_accessible_resources";

@@ -9,13 +9,11 @@ const TEST_CONTAINER_ID = '__devtools-test-container-id';
 export const renderElementIntoDOM = (element, renderOptions = {}) => {
     const container = document.getElementById(TEST_CONTAINER_ID);
     if (!container) {
-        assert.fail(`renderIntoDOM expected to find ${TEST_CONTAINER_ID}`);
-        return;
+        throw new Error(`renderElementIntoDOM expects to find ${TEST_CONTAINER_ID}`);
     }
     const allowMultipleChildren = Boolean(renderOptions.allowMultipleChildren);
     if (container.childNodes.length !== 0 && !allowMultipleChildren) {
-        assert.fail('renderIntoDOM expects the container to be empty ' + container.innerHTML);
-        return;
+        throw new Error(`renderElementIntoDOM expects the container to be empty ${container.innerHTML}`);
     }
     container.appendChild(element);
     return element;

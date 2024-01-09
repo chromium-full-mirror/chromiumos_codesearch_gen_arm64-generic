@@ -7,21 +7,6 @@
 import {mojo} from '../../../../../mojo/public/js/bindings.js';
 
 import {
-  SensorHalClientRemote as chromeos_sensors_mojom_SensorHalClientRemote,
-  SensorHalClientPendingReceiver as chromeos_sensors_mojom_SensorHalClientPendingReceiver
-} from '../../../../../chromeos/components/sensors/mojom/cros_sensor_service.mojom.m.js';
-
-import {
-  JpegEncodeAcceleratorRemote as chromeosCamera_mojom_JpegEncodeAcceleratorRemote,
-  JpegEncodeAcceleratorPendingReceiver as chromeosCamera_mojom_JpegEncodeAcceleratorPendingReceiver
-} from '../../../../../components/chromeos_camera/common/jpeg_encode_accelerator.mojom.m.js';
-
-import {
-  MjpegDecodeAcceleratorRemote as chromeosCamera_mojom_MjpegDecodeAcceleratorRemote,
-  MjpegDecodeAcceleratorPendingReceiver as chromeosCamera_mojom_MjpegDecodeAcceleratorPendingReceiver
-} from '../../../../../components/chromeos_camera/common/mjpeg_decode_accelerator.mojom.m.js';
-
-import {
   UnguessableToken as mojoBase_mojom_UnguessableToken,
   UnguessableTokenSpec as mojoBase_mojom_UnguessableTokenSpec
 } from '../../../../../mojo/public/mojom/base/unguessable_token.mojom.m.js';
@@ -124,41 +109,6 @@ export class CameraHalDispatcherPendingReceiver {
 export class CameraHalDispatcherInterface {
   
   /**
-   * @param { !CameraHalServerRemote } server
-   */
-
-  registerServer(server) {}
-  
-  /**
-   * @param { !cros_mojom_CameraHalClientRemote } client
-   */
-
-  registerClient(client) {}
-  
-  /**
-   * @param { !chromeosCamera_mojom_MjpegDecodeAcceleratorPendingReceiver } jdaReceiver
-   */
-
-  getMjpegDecodeAccelerator(jdaReceiver) {}
-  
-  /**
-   * @param { !chromeosCamera_mojom_JpegEncodeAcceleratorPendingReceiver } jeaReceiver
-   */
-
-  getJpegEncodeAccelerator(jeaReceiver) {}
-  
-  /**
-   * @param { !CameraHalServerRemote } server
-   * @param { !mojoBase_mojom_UnguessableToken } authToken
-   * @return {!Promise<{
-        result: !number,
-        callbacks: !CameraHalServerCallbacksRemote,
-   *  }>}
-   */
-
-  registerServerWithToken(server, authToken) {}
-  
-  /**
    * @param { !cros_mojom_CameraHalClientRemote } client
    * @param { !CameraClientType } type
    * @param { !mojoBase_mojom_UnguessableToken } authToken
@@ -168,23 +118,6 @@ export class CameraHalDispatcherInterface {
    */
 
   registerClientWithToken(client, type, authToken) {}
-  
-  /**
-   * @param { !chromeos_sensors_mojom_SensorHalClientRemote } client
-   * @param { !mojoBase_mojom_UnguessableToken } authToken
-   * @return {!Promise<{
-        result: !number,
-   *  }>}
-   */
-
-  registerSensorClientWithToken(client, authToken) {}
-  
-  /**
-   * @param { !string } serviceName
-   * @param { !MojoHandle } receiver
-   */
-
-  bindServiceToMojoServiceManager(serviceName, receiver) {}
 }
 
 /**
@@ -212,93 +145,6 @@ export class CameraHalDispatcherRemote {
 
   
   /**
-   * @param { !CameraHalServerRemote } server
-   */
-
-  registerServer(
-      server) {
-    this.proxy.sendMessage(
-        0,
-        CameraHalDispatcher_RegisterServer_ParamsSpec.$,
-        null,
-        [
-          server
-        ]);
-  }
-
-  
-  /**
-   * @param { !cros_mojom_CameraHalClientRemote } client
-   */
-
-  registerClient(
-      client) {
-    this.proxy.sendMessage(
-        1,
-        CameraHalDispatcher_RegisterClient_ParamsSpec.$,
-        null,
-        [
-          client
-        ]);
-  }
-
-  
-  /**
-   * @param { !chromeosCamera_mojom_MjpegDecodeAcceleratorPendingReceiver } jdaReceiver
-   */
-
-  getMjpegDecodeAccelerator(
-      jdaReceiver) {
-    this.proxy.sendMessage(
-        2,
-        CameraHalDispatcher_GetMjpegDecodeAccelerator_ParamsSpec.$,
-        null,
-        [
-          jdaReceiver
-        ]);
-  }
-
-  
-  /**
-   * @param { !chromeosCamera_mojom_JpegEncodeAcceleratorPendingReceiver } jeaReceiver
-   */
-
-  getJpegEncodeAccelerator(
-      jeaReceiver) {
-    this.proxy.sendMessage(
-        3,
-        CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsSpec.$,
-        null,
-        [
-          jeaReceiver
-        ]);
-  }
-
-  
-  /**
-   * @param { !CameraHalServerRemote } server
-   * @param { !mojoBase_mojom_UnguessableToken } authToken
-   * @return {!Promise<{
-        result: !number,
-        callbacks: !CameraHalServerCallbacksRemote,
-   *  }>}
-   */
-
-  registerServerWithToken(
-      server,
-      authToken) {
-    return this.proxy.sendMessage(
-        4,
-        CameraHalDispatcher_RegisterServerWithToken_ParamsSpec.$,
-        CameraHalDispatcher_RegisterServerWithToken_ResponseParamsSpec.$,
-        [
-          server,
-          authToken
-        ]);
-  }
-
-  
-  /**
    * @param { !cros_mojom_CameraHalClientRemote } client
    * @param { !CameraClientType } type
    * @param { !mojoBase_mojom_UnguessableToken } authToken
@@ -319,47 +165,6 @@ export class CameraHalDispatcherRemote {
           client,
           type,
           authToken
-        ]);
-  }
-
-  
-  /**
-   * @param { !chromeos_sensors_mojom_SensorHalClientRemote } client
-   * @param { !mojoBase_mojom_UnguessableToken } authToken
-   * @return {!Promise<{
-        result: !number,
-   *  }>}
-   */
-
-  registerSensorClientWithToken(
-      client,
-      authToken) {
-    return this.proxy.sendMessage(
-        6,
-        CameraHalDispatcher_RegisterSensorClientWithToken_ParamsSpec.$,
-        CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsSpec.$,
-        [
-          client,
-          authToken
-        ]);
-  }
-
-  
-  /**
-   * @param { !string } serviceName
-   * @param { !MojoHandle } receiver
-   */
-
-  bindServiceToMojoServiceManager(
-      serviceName,
-      receiver) {
-    this.proxy.sendMessage(
-        7,
-        CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsSpec.$,
-        null,
-        [
-          serviceName,
-          receiver
         ]);
   }
 }
@@ -385,45 +190,10 @@ export class CameraHalDispatcherReceiver {
 
 
     this.helper_internal_.registerHandler(
-        0,
-        CameraHalDispatcher_RegisterServer_ParamsSpec.$,
-        null,
-        impl.registerServer.bind(impl));
-    this.helper_internal_.registerHandler(
-        1,
-        CameraHalDispatcher_RegisterClient_ParamsSpec.$,
-        null,
-        impl.registerClient.bind(impl));
-    this.helper_internal_.registerHandler(
-        2,
-        CameraHalDispatcher_GetMjpegDecodeAccelerator_ParamsSpec.$,
-        null,
-        impl.getMjpegDecodeAccelerator.bind(impl));
-    this.helper_internal_.registerHandler(
-        3,
-        CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsSpec.$,
-        null,
-        impl.getJpegEncodeAccelerator.bind(impl));
-    this.helper_internal_.registerHandler(
-        4,
-        CameraHalDispatcher_RegisterServerWithToken_ParamsSpec.$,
-        CameraHalDispatcher_RegisterServerWithToken_ResponseParamsSpec.$,
-        impl.registerServerWithToken.bind(impl));
-    this.helper_internal_.registerHandler(
         5,
         CameraHalDispatcher_RegisterClientWithToken_ParamsSpec.$,
         CameraHalDispatcher_RegisterClientWithToken_ResponseParamsSpec.$,
         impl.registerClientWithToken.bind(impl));
-    this.helper_internal_.registerHandler(
-        6,
-        CameraHalDispatcher_RegisterSensorClientWithToken_ParamsSpec.$,
-        CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsSpec.$,
-        impl.registerSensorClientWithToken.bind(impl));
-    this.helper_internal_.registerHandler(
-        7,
-        CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsSpec.$,
-        null,
-        impl.bindServiceToMojoServiceManager.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -473,66 +243,6 @@ export class CameraHalDispatcherCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.registerServer =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        0,
-        CameraHalDispatcher_RegisterServer_ParamsSpec.$,
-        null,
-        this.registerServer.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.registerClient =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        1,
-        CameraHalDispatcher_RegisterClient_ParamsSpec.$,
-        null,
-        this.registerClient.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.getMjpegDecodeAccelerator =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        2,
-        CameraHalDispatcher_GetMjpegDecodeAccelerator_ParamsSpec.$,
-        null,
-        this.getMjpegDecodeAccelerator.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.getJpegEncodeAccelerator =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        3,
-        CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsSpec.$,
-        null,
-        this.getJpegEncodeAccelerator.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.registerServerWithToken =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        4,
-        CameraHalDispatcher_RegisterServerWithToken_ParamsSpec.$,
-        CameraHalDispatcher_RegisterServerWithToken_ResponseParamsSpec.$,
-        this.registerServerWithToken.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.registerClientWithToken =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
@@ -542,30 +252,6 @@ export class CameraHalDispatcherCallbackRouter {
         CameraHalDispatcher_RegisterClientWithToken_ParamsSpec.$,
         CameraHalDispatcher_RegisterClientWithToken_ResponseParamsSpec.$,
         this.registerClientWithToken.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.registerSensorClientWithToken =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        6,
-        CameraHalDispatcher_RegisterSensorClientWithToken_ParamsSpec.$,
-        CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsSpec.$,
-        this.registerSensorClientWithToken.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.bindServiceToMojoServiceManager =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        7,
-        CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsSpec.$,
-        null,
-        this.bindServiceToMojoServiceManager.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -583,7 +269,7 @@ export class CameraHalDispatcherCallbackRouter {
 /**
  * @implements {mojo.internal.interfaceSupport.PendingReceiver}
  */
-export class CameraHalServerPendingReceiver {
+export class CrosCameraServiceObserverPendingReceiver {
   /**
    * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
    */
@@ -595,19 +281,277 @@ export class CameraHalServerPendingReceiver {
   /** @param {string=} scope */
   bindInBrowser(scope = 'context') {
     mojo.internal.interfaceSupport.bind(
-        this.handle, 'cros.mojom.CameraHalServer', scope);
+        this.handle, 'cros.mojom.CrosCameraServiceObserver', scope);
   }
 }
 
 /** @interface */
-export class CameraHalServerInterface {
+export class CrosCameraServiceObserverInterface {
   
   /**
-   * @param { !cros_mojom_CameraModulePendingReceiver } cameraModuleReceiver
+   * @param { !number } cameraId
+   * @param { !boolean } opened
    * @param { !CameraClientType } type
    */
 
-  createChannel(cameraModuleReceiver, type) {}
+  cameraDeviceActivityChange(cameraId, opened, type) {}
+  
+  /**
+   * @param { !CameraPrivacySwitchState } state
+   * @param { !number } cameraId
+   */
+
+  cameraPrivacySwitchStateChange(state, cameraId) {}
+  
+  /**
+   * @param { !CameraPrivacySwitchState } state
+   */
+
+  cameraSWPrivacySwitchStateChange(state) {}
+}
+
+/**
+ * @implements { CrosCameraServiceObserverInterface }
+ */
+export class CrosCameraServiceObserverRemote {
+  /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
+  constructor(handle = undefined) {
+    /**
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!CrosCameraServiceObserverPendingReceiver>}
+     */
+    this.proxy =
+        new mojo.internal.interfaceSupport.InterfaceRemoteBase(
+          CrosCameraServiceObserverPendingReceiver,
+          handle);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!CrosCameraServiceObserverPendingReceiver>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+  }
+
+  
+  /**
+   * @param { !number } cameraId
+   * @param { !boolean } opened
+   * @param { !CameraClientType } type
+   */
+
+  cameraDeviceActivityChange(
+      cameraId,
+      opened,
+      type) {
+    this.proxy.sendMessage(
+        0,
+        CrosCameraServiceObserver_CameraDeviceActivityChange_ParamsSpec.$,
+        null,
+        [
+          cameraId,
+          opened,
+          type
+        ]);
+  }
+
+  
+  /**
+   * @param { !CameraPrivacySwitchState } state
+   * @param { !number } cameraId
+   */
+
+  cameraPrivacySwitchStateChange(
+      state,
+      cameraId) {
+    this.proxy.sendMessage(
+        1,
+        CrosCameraServiceObserver_CameraPrivacySwitchStateChange_ParamsSpec.$,
+        null,
+        [
+          state,
+          cameraId
+        ]);
+  }
+
+  
+  /**
+   * @param { !CameraPrivacySwitchState } state
+   */
+
+  cameraSWPrivacySwitchStateChange(
+      state) {
+    this.proxy.sendMessage(
+        2,
+        CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
+        null,
+        [
+          state
+        ]);
+  }
+}
+
+/**
+ * An object which receives request messages for the CrosCameraServiceObserver
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+export class CrosCameraServiceObserverReceiver {
+  /**
+   * @param {!CrosCameraServiceObserverInterface } impl
+   */
+  constructor(impl) {
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!CrosCameraServiceObserverRemote>} */
+    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
+        CrosCameraServiceObserverRemote);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!CrosCameraServiceObserverRemote>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+
+
+    this.helper_internal_.registerHandler(
+        0,
+        CrosCameraServiceObserver_CameraDeviceActivityChange_ParamsSpec.$,
+        null,
+        impl.cameraDeviceActivityChange.bind(impl));
+    this.helper_internal_.registerHandler(
+        1,
+        CrosCameraServiceObserver_CameraPrivacySwitchStateChange_ParamsSpec.$,
+        null,
+        impl.cameraPrivacySwitchStateChange.bind(impl));
+    this.helper_internal_.registerHandler(
+        2,
+        CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
+        null,
+        impl.cameraSWPrivacySwitchStateChange.bind(impl));
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+  }
+}
+
+export class CrosCameraServiceObserver {
+  /**
+   * @return {!string}
+   */
+  static get $interfaceName() {
+    return "cros.mojom.CrosCameraServiceObserver";
+  }
+
+  /**
+   * Returns a remote for this interface which sends messages to the browser.
+   * The browser must have an interface request binder registered for this
+   * interface and accessible to the calling document's frame.
+   *
+   * @return {!CrosCameraServiceObserverRemote}
+   */
+  static getRemote() {
+    let remote = new CrosCameraServiceObserverRemote;
+    remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+    return remote;
+  }
+}
+
+
+/**
+ * An object which receives request messages for the CrosCameraServiceObserver
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+export class CrosCameraServiceObserverCallbackRouter {
+  constructor() {
+    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
+      CrosCameraServiceObserverRemote);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!CrosCameraServiceObserverRemote>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+
+    this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.cameraDeviceActivityChange =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        CrosCameraServiceObserver_CameraDeviceActivityChange_ParamsSpec.$,
+        null,
+        this.cameraDeviceActivityChange.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.cameraPrivacySwitchStateChange =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        1,
+        CrosCameraServiceObserver_CameraPrivacySwitchStateChange_ParamsSpec.$,
+        null,
+        this.cameraPrivacySwitchStateChange.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.cameraSWPrivacySwitchStateChange =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        2,
+        CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
+        null,
+        this.cameraSWPrivacySwitchStateChange.createReceiverHandler(false /* expectsResponse */));
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+  }
+
+  /**
+   * @param {number} id An ID returned by a prior call to addListener.
+   * @return {boolean} True iff the identified listener was found and removed.
+   */
+  removeListener(id) {
+    return this.router_.removeListener(id);
+  }
+}
+
+
+/**
+ * @implements {mojo.internal.interfaceSupport.PendingReceiver}
+ */
+export class CrosCameraServicePendingReceiver {
+  /**
+   * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
+   */
+  constructor(handle) {
+    /** @public {!mojo.internal.interfaceSupport.Endpoint} */
+    this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+  }
+
+  /** @param {string=} scope */
+  bindInBrowser(scope = 'context') {
+    mojo.internal.interfaceSupport.bind(
+        this.handle, 'cros.mojom.CrosCameraService', scope);
+  }
+}
+
+/** @interface */
+export class CrosCameraServiceInterface {
+  
+  /**
+   * @param { !CameraClientType } type
+   * @return {!Promise<{
+        cameraModuleReceiver: !cros_mojom_CameraModuleRemote,
+   *  }>}
+   */
+
+  getCameraModule(type) {}
   
   /**
    * @param { !boolean } enabled
@@ -651,24 +595,30 @@ export class CameraHalServerInterface {
    */
 
   setCameraEffect(config) {}
+  
+  /**
+   * @param { !CrosCameraServiceObserverRemote } observer
+   */
+
+  addCrosCameraServiceObserver(observer) {}
 }
 
 /**
- * @implements { CameraHalServerInterface }
+ * @implements { CrosCameraServiceInterface }
  */
-export class CameraHalServerRemote {
+export class CrosCameraServiceRemote {
   /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
   constructor(handle = undefined) {
     /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!CameraHalServerPendingReceiver>}
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!CrosCameraServicePendingReceiver>}
      */
     this.proxy =
         new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          CameraHalServerPendingReceiver,
+          CrosCameraServicePendingReceiver,
           handle);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!CameraHalServerPendingReceiver>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!CrosCameraServicePendingReceiver>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
 
@@ -678,19 +628,19 @@ export class CameraHalServerRemote {
 
   
   /**
-   * @param { !cros_mojom_CameraModulePendingReceiver } cameraModuleReceiver
    * @param { !CameraClientType } type
+   * @return {!Promise<{
+        cameraModuleReceiver: !cros_mojom_CameraModuleRemote,
+   *  }>}
    */
 
-  createChannel(
-      cameraModuleReceiver,
+  getCameraModule(
       type) {
-    this.proxy.sendMessage(
+    return this.proxy.sendMessage(
         0,
-        CameraHalServer_CreateChannel_ParamsSpec.$,
-        null,
+        CrosCameraService_GetCameraModule_ParamsSpec.$,
+        CrosCameraService_GetCameraModule_ResponseParamsSpec.$,
         [
-          cameraModuleReceiver,
           type
         ]);
   }
@@ -704,7 +654,7 @@ export class CameraHalServerRemote {
       enabled) {
     this.proxy.sendMessage(
         1,
-        CameraHalServer_SetTracingEnabled_ParamsSpec.$,
+        CrosCameraService_SetTracingEnabled_ParamsSpec.$,
         null,
         [
           enabled
@@ -720,7 +670,7 @@ export class CameraHalServerRemote {
       state) {
     this.proxy.sendMessage(
         2,
-        CameraHalServer_SetAutoFramingState_ParamsSpec.$,
+        CrosCameraService_SetAutoFramingState_ParamsSpec.$,
         null,
         [
           state
@@ -737,8 +687,8 @@ export class CameraHalServerRemote {
   getCameraSWPrivacySwitchState() {
     return this.proxy.sendMessage(
         3,
-        CameraHalServer_GetCameraSWPrivacySwitchState_ParamsSpec.$,
-        CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParamsSpec.$,
+        CrosCameraService_GetCameraSWPrivacySwitchState_ParamsSpec.$,
+        CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsSpec.$,
         [
         ]);
   }
@@ -752,7 +702,7 @@ export class CameraHalServerRemote {
       state) {
     this.proxy.sendMessage(
         4,
-        CameraHalServer_SetCameraSWPrivacySwitchState_ParamsSpec.$,
+        CrosCameraService_SetCameraSWPrivacySwitchState_ParamsSpec.$,
         null,
         [
           state
@@ -769,8 +719,8 @@ export class CameraHalServerRemote {
   getAutoFramingSupported() {
     return this.proxy.sendMessage(
         5,
-        CameraHalServer_GetAutoFramingSupported_ParamsSpec.$,
-        CameraHalServer_GetAutoFramingSupported_ResponseParamsSpec.$,
+        CrosCameraService_GetAutoFramingSupported_ParamsSpec.$,
+        CrosCameraService_GetAutoFramingSupported_ResponseParamsSpec.$,
         [
         ]);
   }
@@ -787,80 +737,101 @@ export class CameraHalServerRemote {
       config) {
     return this.proxy.sendMessage(
         6,
-        CameraHalServer_SetCameraEffect_ParamsSpec.$,
-        CameraHalServer_SetCameraEffect_ResponseParamsSpec.$,
+        CrosCameraService_SetCameraEffect_ParamsSpec.$,
+        CrosCameraService_SetCameraEffect_ResponseParamsSpec.$,
         [
           config
+        ]);
+  }
+
+  
+  /**
+   * @param { !CrosCameraServiceObserverRemote } observer
+   */
+
+  addCrosCameraServiceObserver(
+      observer) {
+    this.proxy.sendMessage(
+        7,
+        CrosCameraService_AddCrosCameraServiceObserver_ParamsSpec.$,
+        null,
+        [
+          observer
         ]);
   }
 }
 
 /**
- * An object which receives request messages for the CameraHalServer
+ * An object which receives request messages for the CrosCameraService
  * mojom interface. Must be constructed over an object which implements that
  * interface.
  */
-export class CameraHalServerReceiver {
+export class CrosCameraServiceReceiver {
   /**
-   * @param {!CameraHalServerInterface } impl
+   * @param {!CrosCameraServiceInterface } impl
    */
   constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!CameraHalServerRemote>} */
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!CrosCameraServiceRemote>} */
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        CameraHalServerRemote);
+        CrosCameraServiceRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!CameraHalServerRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!CrosCameraServiceRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
 
     this.helper_internal_.registerHandler(
         0,
-        CameraHalServer_CreateChannel_ParamsSpec.$,
-        null,
-        impl.createChannel.bind(impl));
+        CrosCameraService_GetCameraModule_ParamsSpec.$,
+        CrosCameraService_GetCameraModule_ResponseParamsSpec.$,
+        impl.getCameraModule.bind(impl));
     this.helper_internal_.registerHandler(
         1,
-        CameraHalServer_SetTracingEnabled_ParamsSpec.$,
+        CrosCameraService_SetTracingEnabled_ParamsSpec.$,
         null,
         impl.setTracingEnabled.bind(impl));
     this.helper_internal_.registerHandler(
         2,
-        CameraHalServer_SetAutoFramingState_ParamsSpec.$,
+        CrosCameraService_SetAutoFramingState_ParamsSpec.$,
         null,
         impl.setAutoFramingState.bind(impl));
     this.helper_internal_.registerHandler(
         3,
-        CameraHalServer_GetCameraSWPrivacySwitchState_ParamsSpec.$,
-        CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParamsSpec.$,
+        CrosCameraService_GetCameraSWPrivacySwitchState_ParamsSpec.$,
+        CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsSpec.$,
         impl.getCameraSWPrivacySwitchState.bind(impl));
     this.helper_internal_.registerHandler(
         4,
-        CameraHalServer_SetCameraSWPrivacySwitchState_ParamsSpec.$,
+        CrosCameraService_SetCameraSWPrivacySwitchState_ParamsSpec.$,
         null,
         impl.setCameraSWPrivacySwitchState.bind(impl));
     this.helper_internal_.registerHandler(
         5,
-        CameraHalServer_GetAutoFramingSupported_ParamsSpec.$,
-        CameraHalServer_GetAutoFramingSupported_ResponseParamsSpec.$,
+        CrosCameraService_GetAutoFramingSupported_ParamsSpec.$,
+        CrosCameraService_GetAutoFramingSupported_ResponseParamsSpec.$,
         impl.getAutoFramingSupported.bind(impl));
     this.helper_internal_.registerHandler(
         6,
-        CameraHalServer_SetCameraEffect_ParamsSpec.$,
-        CameraHalServer_SetCameraEffect_ResponseParamsSpec.$,
+        CrosCameraService_SetCameraEffect_ParamsSpec.$,
+        CrosCameraService_SetCameraEffect_ResponseParamsSpec.$,
         impl.setCameraEffect.bind(impl));
+    this.helper_internal_.registerHandler(
+        7,
+        CrosCameraService_AddCrosCameraServiceObserver_ParamsSpec.$,
+        null,
+        impl.addCrosCameraServiceObserver.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
 }
 
-export class CameraHalServer {
+export class CrosCameraService {
   /**
    * @return {!string}
    */
   static get $interfaceName() {
-    return "cros.mojom.CameraHalServer";
+    return "cros.mojom.CrosCameraService";
   }
 
   /**
@@ -868,10 +839,10 @@ export class CameraHalServer {
    * The browser must have an interface request binder registered for this
    * interface and accessible to the calling document's frame.
    *
-   * @return {!CameraHalServerRemote}
+   * @return {!CrosCameraServiceRemote}
    */
   static getRemote() {
-    let remote = new CameraHalServerRemote;
+    let remote = new CrosCameraServiceRemote;
     remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
     return remote;
   }
@@ -879,18 +850,18 @@ export class CameraHalServer {
 
 
 /**
- * An object which receives request messages for the CameraHalServer
+ * An object which receives request messages for the CrosCameraService
  * mojom interface and dispatches them as callbacks. One callback receiver exists
  * on this object for each message defined in the mojom interface, and each
  * receiver can have any number of listeners added to it.
  */
-export class CameraHalServerCallbackRouter {
+export class CrosCameraServiceCallbackRouter {
   constructor() {
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      CameraHalServerRemote);
+      CrosCameraServiceRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!CameraHalServerRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!CrosCameraServiceRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
@@ -899,15 +870,15 @@ export class CameraHalServerCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.createChannel =
+    this.getCameraModule =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         0,
-        CameraHalServer_CreateChannel_ParamsSpec.$,
-        null,
-        this.createChannel.createReceiverHandler(false /* expectsResponse */));
+        CrosCameraService_GetCameraModule_ParamsSpec.$,
+        CrosCameraService_GetCameraModule_ResponseParamsSpec.$,
+        this.getCameraModule.createReceiverHandler(true /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -917,7 +888,7 @@ export class CameraHalServerCallbackRouter {
 
     this.helper_internal_.registerHandler(
         1,
-        CameraHalServer_SetTracingEnabled_ParamsSpec.$,
+        CrosCameraService_SetTracingEnabled_ParamsSpec.$,
         null,
         this.setTracingEnabled.createReceiverHandler(false /* expectsResponse */));
     /**
@@ -929,7 +900,7 @@ export class CameraHalServerCallbackRouter {
 
     this.helper_internal_.registerHandler(
         2,
-        CameraHalServer_SetAutoFramingState_ParamsSpec.$,
+        CrosCameraService_SetAutoFramingState_ParamsSpec.$,
         null,
         this.setAutoFramingState.createReceiverHandler(false /* expectsResponse */));
     /**
@@ -941,8 +912,8 @@ export class CameraHalServerCallbackRouter {
 
     this.helper_internal_.registerHandler(
         3,
-        CameraHalServer_GetCameraSWPrivacySwitchState_ParamsSpec.$,
-        CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParamsSpec.$,
+        CrosCameraService_GetCameraSWPrivacySwitchState_ParamsSpec.$,
+        CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsSpec.$,
         this.getCameraSWPrivacySwitchState.createReceiverHandler(true /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
@@ -953,7 +924,7 @@ export class CameraHalServerCallbackRouter {
 
     this.helper_internal_.registerHandler(
         4,
-        CameraHalServer_SetCameraSWPrivacySwitchState_ParamsSpec.$,
+        CrosCameraService_SetCameraSWPrivacySwitchState_ParamsSpec.$,
         null,
         this.setCameraSWPrivacySwitchState.createReceiverHandler(false /* expectsResponse */));
     /**
@@ -965,8 +936,8 @@ export class CameraHalServerCallbackRouter {
 
     this.helper_internal_.registerHandler(
         5,
-        CameraHalServer_GetAutoFramingSupported_ParamsSpec.$,
-        CameraHalServer_GetAutoFramingSupported_ResponseParamsSpec.$,
+        CrosCameraService_GetAutoFramingSupported_ParamsSpec.$,
+        CrosCameraService_GetAutoFramingSupported_ResponseParamsSpec.$,
         this.getAutoFramingSupported.createReceiverHandler(true /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
@@ -977,9 +948,21 @@ export class CameraHalServerCallbackRouter {
 
     this.helper_internal_.registerHandler(
         6,
-        CameraHalServer_SetCameraEffect_ParamsSpec.$,
-        CameraHalServer_SetCameraEffect_ResponseParamsSpec.$,
+        CrosCameraService_SetCameraEffect_ParamsSpec.$,
+        CrosCameraService_SetCameraEffect_ResponseParamsSpec.$,
         this.setCameraEffect.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.addCrosCameraServiceObserver =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        7,
+        CrosCameraService_AddCrosCameraServiceObserver_ParamsSpec.$,
+        null,
+        this.addCrosCameraServiceObserver.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -992,298 +975,6 @@ export class CameraHalServerCallbackRouter {
     return this.router_.removeListener(id);
   }
 }
-
-
-/**
- * @implements {mojo.internal.interfaceSupport.PendingReceiver}
- */
-export class CameraHalServerCallbacksPendingReceiver {
-  /**
-   * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
-   */
-  constructor(handle) {
-    /** @public {!mojo.internal.interfaceSupport.Endpoint} */
-    this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-  }
-
-  /** @param {string=} scope */
-  bindInBrowser(scope = 'context') {
-    mojo.internal.interfaceSupport.bind(
-        this.handle, 'cros.mojom.CameraHalServerCallbacks', scope);
-  }
-}
-
-/** @interface */
-export class CameraHalServerCallbacksInterface {
-  
-  /**
-   * @param { !number } cameraId
-   * @param { !boolean } opened
-   * @param { !CameraClientType } type
-   */
-
-  cameraDeviceActivityChange(cameraId, opened, type) {}
-  
-  /**
-   * @param { !CameraPrivacySwitchState } state
-   * @param { !number } cameraId
-   */
-
-  cameraPrivacySwitchStateChange(state, cameraId) {}
-  
-  /**
-   * @param { !CameraPrivacySwitchState } state
-   */
-
-  cameraSWPrivacySwitchStateChange(state) {}
-}
-
-/**
- * @implements { CameraHalServerCallbacksInterface }
- */
-export class CameraHalServerCallbacksRemote {
-  /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
-  constructor(handle = undefined) {
-    /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!CameraHalServerCallbacksPendingReceiver>}
-     */
-    this.proxy =
-        new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          CameraHalServerCallbacksPendingReceiver,
-          handle);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!CameraHalServerCallbacksPendingReceiver>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-  }
-
-  
-  /**
-   * @param { !number } cameraId
-   * @param { !boolean } opened
-   * @param { !CameraClientType } type
-   */
-
-  cameraDeviceActivityChange(
-      cameraId,
-      opened,
-      type) {
-    this.proxy.sendMessage(
-        0,
-        CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsSpec.$,
-        null,
-        [
-          cameraId,
-          opened,
-          type
-        ]);
-  }
-
-  
-  /**
-   * @param { !CameraPrivacySwitchState } state
-   * @param { !number } cameraId
-   */
-
-  cameraPrivacySwitchStateChange(
-      state,
-      cameraId) {
-    this.proxy.sendMessage(
-        1,
-        CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsSpec.$,
-        null,
-        [
-          state,
-          cameraId
-        ]);
-  }
-
-  
-  /**
-   * @param { !CameraPrivacySwitchState } state
-   */
-
-  cameraSWPrivacySwitchStateChange(
-      state) {
-    this.proxy.sendMessage(
-        2,
-        CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
-        null,
-        [
-          state
-        ]);
-  }
-}
-
-/**
- * An object which receives request messages for the CameraHalServerCallbacks
- * mojom interface. Must be constructed over an object which implements that
- * interface.
- */
-export class CameraHalServerCallbacksReceiver {
-  /**
-   * @param {!CameraHalServerCallbacksInterface } impl
-   */
-  constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!CameraHalServerCallbacksRemote>} */
-    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        CameraHalServerCallbacksRemote);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!CameraHalServerCallbacksRemote>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-
-
-    this.helper_internal_.registerHandler(
-        0,
-        CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsSpec.$,
-        null,
-        impl.cameraDeviceActivityChange.bind(impl));
-    this.helper_internal_.registerHandler(
-        1,
-        CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsSpec.$,
-        null,
-        impl.cameraPrivacySwitchStateChange.bind(impl));
-    this.helper_internal_.registerHandler(
-        2,
-        CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
-        null,
-        impl.cameraSWPrivacySwitchStateChange.bind(impl));
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-  }
-}
-
-export class CameraHalServerCallbacks {
-  /**
-   * @return {!string}
-   */
-  static get $interfaceName() {
-    return "cros.mojom.CameraHalServerCallbacks";
-  }
-
-  /**
-   * Returns a remote for this interface which sends messages to the browser.
-   * The browser must have an interface request binder registered for this
-   * interface and accessible to the calling document's frame.
-   *
-   * @return {!CameraHalServerCallbacksRemote}
-   */
-  static getRemote() {
-    let remote = new CameraHalServerCallbacksRemote;
-    remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-    return remote;
-  }
-}
-
-
-/**
- * An object which receives request messages for the CameraHalServerCallbacks
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
- */
-export class CameraHalServerCallbacksCallbackRouter {
-  constructor() {
-    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      CameraHalServerCallbacksRemote);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!CameraHalServerCallbacksRemote>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-
-    this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.cameraDeviceActivityChange =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        0,
-        CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsSpec.$,
-        null,
-        this.cameraDeviceActivityChange.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.cameraPrivacySwitchStateChange =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        1,
-        CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsSpec.$,
-        null,
-        this.cameraPrivacySwitchStateChange.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.cameraSWPrivacySwitchStateChange =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        2,
-        CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
-        null,
-        this.cameraSWPrivacySwitchStateChange.createReceiverHandler(false /* expectsResponse */));
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-  }
-
-  /**
-   * @param {number} id An ID returned by a prior call to addListener.
-   * @return {boolean} True iff the identified listener was found and removed.
-   */
-  removeListener(id) {
-    return this.router_.removeListener(id);
-  }
-}
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const CameraHalDispatcher_RegisterServer_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const CameraHalDispatcher_RegisterClient_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const CameraHalDispatcher_GetMjpegDecodeAccelerator_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const CameraHalDispatcher_RegisterServerWithToken_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const CameraHalDispatcher_RegisterServerWithToken_ResponseParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -1300,293 +991,93 @@ export const CameraHalDispatcher_RegisterClientWithToken_ResponseParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalDispatcher_RegisterSensorClientWithToken_ParamsSpec =
+export const CrosCameraServiceObserver_CameraDeviceActivityChange_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsSpec =
+export const CrosCameraServiceObserver_CameraPrivacySwitchStateChange_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsSpec =
+export const CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_CreateChannel_ParamsSpec =
+export const CrosCameraService_GetCameraModule_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_SetTracingEnabled_ParamsSpec =
+export const CrosCameraService_GetCameraModule_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_SetAutoFramingState_ParamsSpec =
+export const CrosCameraService_SetTracingEnabled_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_GetCameraSWPrivacySwitchState_ParamsSpec =
+export const CrosCameraService_SetAutoFramingState_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParamsSpec =
+export const CrosCameraService_GetCameraSWPrivacySwitchState_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_SetCameraSWPrivacySwitchState_ParamsSpec =
+export const CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_GetAutoFramingSupported_ParamsSpec =
+export const CrosCameraService_SetCameraSWPrivacySwitchState_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_GetAutoFramingSupported_ResponseParamsSpec =
+export const CrosCameraService_GetAutoFramingSupported_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_SetCameraEffect_ParamsSpec =
+export const CrosCameraService_GetAutoFramingSupported_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServer_SetCameraEffect_ResponseParamsSpec =
+export const CrosCameraService_SetCameraEffect_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsSpec =
+export const CrosCameraService_SetCameraEffect_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsSpec =
+export const CrosCameraService_AddCrosCameraServiceObserver_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-
-
-mojo.internal.Struct(
-    CameraHalDispatcher_RegisterServer_ParamsSpec.$,
-    'CameraHalDispatcher_RegisterServer_Params',
-    [
-      mojo.internal.StructField(
-        'server', 0,
-        0,
-        mojo.internal.InterfaceProxy(CameraHalServerRemote),
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalDispatcher_RegisterServer_Params {
-  constructor() {
-    /** @type { !CameraHalServerRemote } */
-    this.server;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalDispatcher_RegisterClient_ParamsSpec.$,
-    'CameraHalDispatcher_RegisterClient_Params',
-    [
-      mojo.internal.StructField(
-        'client', 0,
-        0,
-        mojo.internal.InterfaceProxy(cros_mojom_CameraHalClientRemote),
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalDispatcher_RegisterClient_Params {
-  constructor() {
-    /** @type { !cros_mojom_CameraHalClientRemote } */
-    this.client;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalDispatcher_GetMjpegDecodeAccelerator_ParamsSpec.$,
-    'CameraHalDispatcher_GetMjpegDecodeAccelerator_Params',
-    [
-      mojo.internal.StructField(
-        'jdaReceiver', 0,
-        0,
-        mojo.internal.InterfaceRequest(chromeosCamera_mojom_MjpegDecodeAcceleratorPendingReceiver),
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalDispatcher_GetMjpegDecodeAccelerator_Params {
-  constructor() {
-    /** @type { !chromeosCamera_mojom_MjpegDecodeAcceleratorPendingReceiver } */
-    this.jdaReceiver;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsSpec.$,
-    'CameraHalDispatcher_GetJpegEncodeAccelerator_Params',
-    [
-      mojo.internal.StructField(
-        'jeaReceiver', 0,
-        0,
-        mojo.internal.InterfaceRequest(chromeosCamera_mojom_JpegEncodeAcceleratorPendingReceiver),
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalDispatcher_GetJpegEncodeAccelerator_Params {
-  constructor() {
-    /** @type { !chromeosCamera_mojom_JpegEncodeAcceleratorPendingReceiver } */
-    this.jeaReceiver;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalDispatcher_RegisterServerWithToken_ParamsSpec.$,
-    'CameraHalDispatcher_RegisterServerWithToken_Params',
-    [
-      mojo.internal.StructField(
-        'server', 0,
-        0,
-        mojo.internal.InterfaceProxy(CameraHalServerRemote),
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'authToken', 8,
-        0,
-        mojoBase_mojom_UnguessableTokenSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalDispatcher_RegisterServerWithToken_Params {
-  constructor() {
-    /** @type { !CameraHalServerRemote } */
-    this.server;
-    /** @type { !mojoBase_mojom_UnguessableToken } */
-    this.authToken;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalDispatcher_RegisterServerWithToken_ResponseParamsSpec.$,
-    'CameraHalDispatcher_RegisterServerWithToken_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'result', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'callbacks', 4,
-        0,
-        mojo.internal.InterfaceProxy(CameraHalServerCallbacksRemote),
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalDispatcher_RegisterServerWithToken_ResponseParams {
-  constructor() {
-    /** @type { !number } */
-    this.result;
-    /** @type { !CameraHalServerCallbacksRemote } */
-    this.callbacks;
-  }
-}
 
 
 
@@ -1669,395 +1160,8 @@ export class CameraHalDispatcher_RegisterClientWithToken_ResponseParams {
 
 
 mojo.internal.Struct(
-    CameraHalDispatcher_RegisterSensorClientWithToken_ParamsSpec.$,
-    'CameraHalDispatcher_RegisterSensorClientWithToken_Params',
-    [
-      mojo.internal.StructField(
-        'client', 0,
-        0,
-        mojo.internal.InterfaceProxy(chromeos_sensors_mojom_SensorHalClientRemote),
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'authToken', 8,
-        0,
-        mojoBase_mojom_UnguessableTokenSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalDispatcher_RegisterSensorClientWithToken_Params {
-  constructor() {
-    /** @type { !chromeos_sensors_mojom_SensorHalClientRemote } */
-    this.client;
-    /** @type { !mojoBase_mojom_UnguessableToken } */
-    this.authToken;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsSpec.$,
-    'CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'result', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams {
-  constructor() {
-    /** @type { !number } */
-    this.result;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsSpec.$,
-    'CameraHalDispatcher_BindServiceToMojoServiceManager_Params',
-    [
-      mojo.internal.StructField(
-        'serviceName', 0,
-        0,
-        mojo.internal.String,
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'receiver', 8,
-        0,
-        mojo.internal.Handle,
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalDispatcher_BindServiceToMojoServiceManager_Params {
-  constructor() {
-    /** @type { !string } */
-    this.serviceName;
-    /** @type { !MojoHandle } */
-    this.receiver;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_CreateChannel_ParamsSpec.$,
-    'CameraHalServer_CreateChannel_Params',
-    [
-      mojo.internal.StructField(
-        'cameraModuleReceiver', 0,
-        0,
-        mojo.internal.InterfaceRequest(cros_mojom_CameraModulePendingReceiver),
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'type', 4,
-        0,
-        CameraClientTypeSpec.$,
-        0,
-        false /* nullable */,
-        4,
-      ),
-    ],
-    [[0, 16],[4, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_CreateChannel_Params {
-  constructor() {
-    /** @type { !cros_mojom_CameraModulePendingReceiver } */
-    this.cameraModuleReceiver;
-    /** @type { !CameraClientType } */
-    this.type;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_SetTracingEnabled_ParamsSpec.$,
-    'CameraHalServer_SetTracingEnabled_Params',
-    [
-      mojo.internal.StructField(
-        'enabled', 0,
-        0,
-        mojo.internal.Bool,
-        false,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_SetTracingEnabled_Params {
-  constructor() {
-    /** @type { !boolean } */
-    this.enabled;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_SetAutoFramingState_ParamsSpec.$,
-    'CameraHalServer_SetAutoFramingState_Params',
-    [
-      mojo.internal.StructField(
-        'state', 0,
-        0,
-        CameraAutoFramingStateSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_SetAutoFramingState_Params {
-  constructor() {
-    /** @type { !CameraAutoFramingState } */
-    this.state;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_GetCameraSWPrivacySwitchState_ParamsSpec.$,
-    'CameraHalServer_GetCameraSWPrivacySwitchState_Params',
-    [
-    ],
-    [[0, 8],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_GetCameraSWPrivacySwitchState_Params {
-  constructor() {
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParamsSpec.$,
-    'CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'state', 0,
-        0,
-        CameraPrivacySwitchStateSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams {
-  constructor() {
-    /** @type { !CameraPrivacySwitchState } */
-    this.state;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_SetCameraSWPrivacySwitchState_ParamsSpec.$,
-    'CameraHalServer_SetCameraSWPrivacySwitchState_Params',
-    [
-      mojo.internal.StructField(
-        'state', 0,
-        0,
-        CameraPrivacySwitchStateSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_SetCameraSWPrivacySwitchState_Params {
-  constructor() {
-    /** @type { !CameraPrivacySwitchState } */
-    this.state;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_GetAutoFramingSupported_ParamsSpec.$,
-    'CameraHalServer_GetAutoFramingSupported_Params',
-    [
-    ],
-    [[0, 8],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_GetAutoFramingSupported_Params {
-  constructor() {
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_GetAutoFramingSupported_ResponseParamsSpec.$,
-    'CameraHalServer_GetAutoFramingSupported_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'supported', 0,
-        0,
-        mojo.internal.Bool,
-        false,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_GetAutoFramingSupported_ResponseParams {
-  constructor() {
-    /** @type { !boolean } */
-    this.supported;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_SetCameraEffect_ParamsSpec.$,
-    'CameraHalServer_SetCameraEffect_Params',
-    [
-      mojo.internal.StructField(
-        'config', 0,
-        0,
-        cros_mojom_EffectsConfigSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_SetCameraEffect_Params {
-  constructor() {
-    /** @type { !cros_mojom_EffectsConfig } */
-    this.config;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServer_SetCameraEffect_ResponseParamsSpec.$,
-    'CameraHalServer_SetCameraEffect_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'result', 0,
-        0,
-        cros_mojom_SetEffectResultSpec.$,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class CameraHalServer_SetCameraEffect_ResponseParams {
-  constructor() {
-    /** @type { !cros_mojom_SetEffectResult } */
-    this.result;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsSpec.$,
-    'CameraHalServerCallbacks_CameraDeviceActivityChange_Params',
+    CrosCameraServiceObserver_CameraDeviceActivityChange_ParamsSpec.$,
+    'CrosCameraServiceObserver_CameraDeviceActivityChange_Params',
     [
       mojo.internal.StructField(
         'cameraId', 0,
@@ -2091,7 +1195,7 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class CameraHalServerCallbacks_CameraDeviceActivityChange_Params {
+export class CrosCameraServiceObserver_CameraDeviceActivityChange_Params {
   constructor() {
     /** @type { !number } */
     this.cameraId;
@@ -2105,8 +1209,8 @@ export class CameraHalServerCallbacks_CameraDeviceActivityChange_Params {
 
 
 mojo.internal.Struct(
-    CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsSpec.$,
-    'CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params',
+    CrosCameraServiceObserver_CameraPrivacySwitchStateChange_ParamsSpec.$,
+    'CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params',
     [
       mojo.internal.StructField(
         'state', 0,
@@ -2122,17 +1226,17 @@ mojo.internal.Struct(
         mojo.internal.Int32,
         0,
         false /* nullable */,
-        9,
+        0,
       ),
     ],
-    [[0, 16],[9, 16],]);
+    [[0, 16],]);
 
 
 
 /**
  * @record
  */
-export class CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params {
+export class CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params {
   constructor() {
     /** @type { !CameraPrivacySwitchState } */
     this.state;
@@ -2144,8 +1248,8 @@ export class CameraHalServerCallbacks_CameraPrivacySwitchStateChange_Params {
 
 
 mojo.internal.Struct(
-    CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
-    'CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params',
+    CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsSpec.$,
+    'CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params',
     [
       mojo.internal.StructField(
         'state', 0,
@@ -2163,10 +1267,338 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params {
+export class CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params {
   constructor() {
     /** @type { !CameraPrivacySwitchState } */
     this.state;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_GetCameraModule_ParamsSpec.$,
+    'CrosCameraService_GetCameraModule_Params',
+    [
+      mojo.internal.StructField(
+        'type', 0,
+        0,
+        CameraClientTypeSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_GetCameraModule_Params {
+  constructor() {
+    /** @type { !CameraClientType } */
+    this.type;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_GetCameraModule_ResponseParamsSpec.$,
+    'CrosCameraService_GetCameraModule_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'cameraModuleReceiver', 0,
+        0,
+        mojo.internal.InterfaceProxy(cros_mojom_CameraModuleRemote),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_GetCameraModule_ResponseParams {
+  constructor() {
+    /** @type { !cros_mojom_CameraModuleRemote } */
+    this.cameraModuleReceiver;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_SetTracingEnabled_ParamsSpec.$,
+    'CrosCameraService_SetTracingEnabled_Params',
+    [
+      mojo.internal.StructField(
+        'enabled', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_SetTracingEnabled_Params {
+  constructor() {
+    /** @type { !boolean } */
+    this.enabled;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_SetAutoFramingState_ParamsSpec.$,
+    'CrosCameraService_SetAutoFramingState_Params',
+    [
+      mojo.internal.StructField(
+        'state', 0,
+        0,
+        CameraAutoFramingStateSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_SetAutoFramingState_Params {
+  constructor() {
+    /** @type { !CameraAutoFramingState } */
+    this.state;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_GetCameraSWPrivacySwitchState_ParamsSpec.$,
+    'CrosCameraService_GetCameraSWPrivacySwitchState_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_GetCameraSWPrivacySwitchState_Params {
+  constructor() {
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsSpec.$,
+    'CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'state', 0,
+        0,
+        CameraPrivacySwitchStateSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams {
+  constructor() {
+    /** @type { !CameraPrivacySwitchState } */
+    this.state;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_SetCameraSWPrivacySwitchState_ParamsSpec.$,
+    'CrosCameraService_SetCameraSWPrivacySwitchState_Params',
+    [
+      mojo.internal.StructField(
+        'state', 0,
+        0,
+        CameraPrivacySwitchStateSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_SetCameraSWPrivacySwitchState_Params {
+  constructor() {
+    /** @type { !CameraPrivacySwitchState } */
+    this.state;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_GetAutoFramingSupported_ParamsSpec.$,
+    'CrosCameraService_GetAutoFramingSupported_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_GetAutoFramingSupported_Params {
+  constructor() {
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_GetAutoFramingSupported_ResponseParamsSpec.$,
+    'CrosCameraService_GetAutoFramingSupported_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'supported', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_GetAutoFramingSupported_ResponseParams {
+  constructor() {
+    /** @type { !boolean } */
+    this.supported;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_SetCameraEffect_ParamsSpec.$,
+    'CrosCameraService_SetCameraEffect_Params',
+    [
+      mojo.internal.StructField(
+        'config', 0,
+        0,
+        cros_mojom_EffectsConfigSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_SetCameraEffect_Params {
+  constructor() {
+    /** @type { !cros_mojom_EffectsConfig } */
+    this.config;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_SetCameraEffect_ResponseParamsSpec.$,
+    'CrosCameraService_SetCameraEffect_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'result', 0,
+        0,
+        cros_mojom_SetEffectResultSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_SetCameraEffect_ResponseParams {
+  constructor() {
+    /** @type { !cros_mojom_SetEffectResult } */
+    this.result;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CrosCameraService_AddCrosCameraServiceObserver_ParamsSpec.$,
+    'CrosCameraService_AddCrosCameraServiceObserver_Params',
+    [
+      mojo.internal.StructField(
+        'observer', 0,
+        0,
+        mojo.internal.InterfaceProxy(CrosCameraServiceObserverRemote),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CrosCameraService_AddCrosCameraServiceObserver_Params {
+  constructor() {
+    /** @type { !CrosCameraServiceObserverRemote } */
+    this.observer;
   }
 }
 

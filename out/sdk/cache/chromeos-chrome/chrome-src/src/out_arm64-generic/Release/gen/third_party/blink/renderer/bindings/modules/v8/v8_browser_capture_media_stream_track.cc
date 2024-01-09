@@ -36,7 +36,7 @@ namespace blink {
 
 bool V8BrowserCaptureMediaStreamTrack::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::RegionCaptureEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -52,7 +52,7 @@ return execution_context->IsWindow() && RuntimeEnabledFeatures::RegionCaptureEna
 const WrapperTypeInfo V8BrowserCaptureMediaStreamTrack::wrapper_type_info_{
     gin::kEmbedderBlink,
     V8BrowserCaptureMediaStreamTrack::InstallInterfaceTemplate,
-    nullptr,
+    V8BrowserCaptureMediaStreamTrack::InstallContextDependentProperties,
     "BrowserCaptureMediaStreamTrack",
     V8MediaStreamTrack::GetWrapperTypeInfo(),
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
@@ -73,11 +73,6 @@ const WrapperTypeInfo& BrowserCaptureMediaStreamTrack::wrapper_type_info_ =
 static_assert(
     std::is_base_of<ActiveScriptWrappableBase, BrowserCaptureMediaStreamTrack>::value,
     "BrowserCaptureMediaStreamTrack does not inherit from ActiveScriptWrappable<> despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&BrowserCaptureMediaStreamTrack::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BrowserCaptureMediaStreamTrack is not overriding hasPendingActivity() despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
@@ -115,7 +110,7 @@ return;
 
 
 
-BrowserCaptureMediaStreamTrack* blink_receiver = V8BrowserCaptureMediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+BrowserCaptureMediaStreamTrack* blink_receiver = V8BrowserCaptureMediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -161,7 +156,7 @@ return;
 
 
 
-BrowserCaptureMediaStreamTrack* blink_receiver = V8BrowserCaptureMediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+BrowserCaptureMediaStreamTrack* blink_receiver = V8BrowserCaptureMediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -217,18 +212,31 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }
-if (RuntimeEnabledFeatures::ElementCaptureEnabled()) {
+
+
+}
+
+void V8BrowserCaptureMediaStreamTrack::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
+  using bindings::IDLMemberInstaller;
+
+
+
+
+
+ScriptState* script_state = ScriptState::From(context);
+ExecutionContext* execution_context = ExecutionContext::From(script_state);
+if ((feature_selector.IsAll() && RuntimeEnabledFeatures::ElementCaptureEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kElementCapture)) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"restrictTo", RestrictToOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
+v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
 }
 
 
 }
-
 
 
 }  // namespace blink

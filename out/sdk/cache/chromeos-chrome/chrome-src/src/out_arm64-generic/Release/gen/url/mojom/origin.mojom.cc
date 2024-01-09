@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -53,7 +54,7 @@ Origin::Origin(
     const std::string& scheme_in,
     const std::string& host_in,
     uint16_t port_in,
-    const absl::optional<::base::UnguessableToken>& nonce_if_opaque_in)
+    const std::optional<::base::UnguessableToken>& nonce_if_opaque_in)
     : scheme(std::move(scheme_in)),
       host(std::move(host_in)),
       port(std::move(port_in)),
@@ -95,7 +96,7 @@ void Origin::WriteIntoTrace(
     dict.AddItem(
       "nonce_if_opaque"), this->nonce_if_opaque,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

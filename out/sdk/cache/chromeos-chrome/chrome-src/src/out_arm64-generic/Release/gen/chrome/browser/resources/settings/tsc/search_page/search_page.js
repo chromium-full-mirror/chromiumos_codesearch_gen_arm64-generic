@@ -44,23 +44,24 @@ export class SettingsSearchPageElement extends SettingsSearchPageElementBase {
             /**
              * List of search engines available.
              */
-            searchEngines_: {
-                type: Array,
-                value() {
-                    return [];
-                },
-            },
-            // Whether the `kSearchEngineChoiceSettingsUi` feature is enabled or not.
+            searchEngines_: Array,
+            // Whether the `SearchEngineChoice` or `SearchEngineChoiceFre` features
+            // are enabled or not.
             searchEngineChoiceSettingsUi_: {
                 type: Boolean,
                 value() {
                     return loadTimeData.getBoolean('searchEngineChoiceSettingsUi');
                 },
             },
+            // Whether we need to set the icon size to large because they are loaded
+            // in the binary or smaller because we get them from the favicon service.
+            useLargeSearchEngineIcons_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('useLargeSearchEngineIcons');
+                },
+            },
             // The selected default search engine.
-            // This depends on `searchEngines_` because we want to update the
-            // `defaultSearchEngine_` variable every time the search engine list is
-            // updated.
             defaultSearchEngine_: {
                 type: Object,
                 computed: 'computeDefaultSearchEngine_(searchEngines_)',
@@ -84,6 +85,10 @@ export class SettingsSearchPageElement extends SettingsSearchPageElementBase {
         if (routes.SEARCH_ENGINES) {
             this.focusConfig_.set(routes.SEARCH_ENGINES.path, '#enginesSubpageTrigger');
         }
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.setFaviconSize_();
     }
     onChange_() {
         assert(!this.searchEngineChoiceSettingsUi_);
@@ -113,17 +118,19 @@ export class SettingsSearchPageElement extends SettingsSearchPageElementBase {
         if (!this.searchEngines_.length || !this.searchEngineChoiceSettingsUi_) {
             return null;
         }
-        const defaultSearchEngine = this.searchEngines_.find(searchEngine => searchEngine.default);
-        assert(defaultSearchEngine);
-        return defaultSearchEngine;
+        return this.searchEngines_.find(engine => engine.default);
     }
     onOpenDialogButtonClick_() {
         assert(this.searchEngineChoiceSettingsUi_);
         this.showSearchEngineListDialog_ = true;
+        chrome.metricsPrivate.recordUserAction('ChooseDefaultSearchEngine');
     }
     onSearchEngineListDialogClose_() {
         assert(this.searchEngineChoiceSettingsUi_);
         this.showSearchEngineListDialog_ = false;
+    }
+    setFaviconSize_() {
+        this.style.setProperty('--favicon-size', this.useLargeSearchEngineIcons_ ? '24px' : '16px');
     }
 }
 customElements.define(SettingsSearchPageElement.is, SettingsSearchPageElement);

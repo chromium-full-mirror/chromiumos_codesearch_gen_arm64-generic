@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -200,6 +201,7 @@ enum class RoleType {
   kDialog,
   kDirectory,
   kDisclosureTriangle,
+  kDisclosureTriangleGrouped,
   kDocAbstract,
   kDocAcknowledgments,
   kDocAfterword,
@@ -773,8 +775,8 @@ struct Rect {
   ~Rect();
   Rect(const Rect&) = delete;
   Rect& operator=(const Rect&) = delete;
-  Rect(Rect&& rhs);
-  Rect& operator=(Rect&& rhs);
+  Rect(Rect&& rhs) noexcept;
+  Rect& operator=(Rect&& rhs) noexcept;
 
   // Populates a Rect object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -787,14 +789,11 @@ struct Rect {
   // Creates a deep copy of Rect.
   Rect Clone() const;
 
-  // Creates a Rect object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Rect> FromValueDeprecated(const base::Value& value);
-
   // Creates a Rect object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Rect> FromValue(const base::Value::Dict& value);
+  static std::optional<Rect> FromValue(const base::Value::Dict& value);
 
   // Creates a Rect object from a base::Value, or nullopt on failure.
-  static absl::optional<Rect> FromValue(const base::Value& value);
+  static std::optional<Rect> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRect object.
@@ -815,8 +814,8 @@ struct FindParams {
   ~FindParams();
   FindParams(const FindParams&) = delete;
   FindParams& operator=(const FindParams&) = delete;
-  FindParams(FindParams&& rhs);
-  FindParams& operator=(FindParams&& rhs);
+  FindParams(FindParams&& rhs) noexcept;
+  FindParams& operator=(FindParams&& rhs) noexcept;
 
   // Populates a FindParams object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -829,15 +828,12 @@ struct FindParams {
   // Creates a deep copy of FindParams.
   FindParams Clone() const;
 
-  // Creates a FindParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FindParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a FindParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FindParams> FromValue(const base::Value::Dict& value);
+  static std::optional<FindParams> FromValue(const base::Value::Dict& value);
 
   // Creates a FindParams object from a base::Value, or nullopt on failure.
-  static absl::optional<FindParams> FromValue(const base::Value& value);
+  static std::optional<FindParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFindParams object.
@@ -850,8 +846,8 @@ struct SetDocumentSelectionParams {
   ~SetDocumentSelectionParams();
   SetDocumentSelectionParams(const SetDocumentSelectionParams&) = delete;
   SetDocumentSelectionParams& operator=(const SetDocumentSelectionParams&) = delete;
-  SetDocumentSelectionParams(SetDocumentSelectionParams&& rhs);
-  SetDocumentSelectionParams& operator=(SetDocumentSelectionParams&& rhs);
+  SetDocumentSelectionParams(SetDocumentSelectionParams&& rhs) noexcept;
+  SetDocumentSelectionParams& operator=(SetDocumentSelectionParams&& rhs) noexcept;
 
   // Populates a SetDocumentSelectionParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -864,17 +860,13 @@ struct SetDocumentSelectionParams {
   // Creates a deep copy of SetDocumentSelectionParams.
   SetDocumentSelectionParams Clone() const;
 
-  // Creates a SetDocumentSelectionParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SetDocumentSelectionParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a SetDocumentSelectionParams object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<SetDocumentSelectionParams> FromValue(const base::Value::Dict& value);
+  static std::optional<SetDocumentSelectionParams> FromValue(const base::Value::Dict& value);
 
   // Creates a SetDocumentSelectionParams object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<SetDocumentSelectionParams> FromValue(const base::Value& value);
+  static std::optional<SetDocumentSelectionParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSetDocumentSelectionParams object.
@@ -887,8 +879,8 @@ struct AutomationIntent {
   ~AutomationIntent();
   AutomationIntent(const AutomationIntent&) = delete;
   AutomationIntent& operator=(const AutomationIntent&) = delete;
-  AutomationIntent(AutomationIntent&& rhs);
-  AutomationIntent& operator=(AutomationIntent&& rhs);
+  AutomationIntent(AutomationIntent&& rhs) noexcept;
+  AutomationIntent& operator=(AutomationIntent&& rhs) noexcept;
 
   // Populates a AutomationIntent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -901,16 +893,13 @@ struct AutomationIntent {
   // Creates a deep copy of AutomationIntent.
   AutomationIntent Clone() const;
 
-  // Creates a AutomationIntent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AutomationIntent> FromValueDeprecated(const base::Value& value);
-
   // Creates a AutomationIntent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AutomationIntent> FromValue(const base::Value::Dict& value);
+  static std::optional<AutomationIntent> FromValue(const base::Value::Dict& value);
 
   // Creates a AutomationIntent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AutomationIntent> FromValue(const base::Value& value);
+  static std::optional<AutomationIntent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAutomationIntent object.
@@ -923,8 +912,8 @@ struct AutomationEvent {
   ~AutomationEvent();
   AutomationEvent(const AutomationEvent&) = delete;
   AutomationEvent& operator=(const AutomationEvent&) = delete;
-  AutomationEvent(AutomationEvent&& rhs);
-  AutomationEvent& operator=(AutomationEvent&& rhs);
+  AutomationEvent(AutomationEvent&& rhs) noexcept;
+  AutomationEvent& operator=(AutomationEvent&& rhs) noexcept;
 
   // Populates a AutomationEvent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -937,15 +926,12 @@ struct AutomationEvent {
   // Creates a deep copy of AutomationEvent.
   AutomationEvent Clone() const;
 
-  // Creates a AutomationEvent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AutomationEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a AutomationEvent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AutomationEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<AutomationEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a AutomationEvent object from a base::Value, or nullopt on failure.
-  static absl::optional<AutomationEvent> FromValue(const base::Value& value);
+  static std::optional<AutomationEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAutomationEvent object.
@@ -958,8 +944,8 @@ struct TreeChange {
   ~TreeChange();
   TreeChange(const TreeChange&) = delete;
   TreeChange& operator=(const TreeChange&) = delete;
-  TreeChange(TreeChange&& rhs);
-  TreeChange& operator=(TreeChange&& rhs);
+  TreeChange(TreeChange&& rhs) noexcept;
+  TreeChange& operator=(TreeChange&& rhs) noexcept;
 
   // Populates a TreeChange object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -972,15 +958,12 @@ struct TreeChange {
   // Creates a deep copy of TreeChange.
   TreeChange Clone() const;
 
-  // Creates a TreeChange object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TreeChange> FromValueDeprecated(const base::Value& value);
-
   // Creates a TreeChange object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<TreeChange> FromValue(const base::Value::Dict& value);
+  static std::optional<TreeChange> FromValue(const base::Value::Dict& value);
 
   // Creates a TreeChange object from a base::Value, or nullopt on failure.
-  static absl::optional<TreeChange> FromValue(const base::Value& value);
+  static std::optional<TreeChange> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTreeChange object.
@@ -1009,8 +992,8 @@ struct CustomAction {
   ~CustomAction();
   CustomAction(const CustomAction&) = delete;
   CustomAction& operator=(const CustomAction&) = delete;
-  CustomAction(CustomAction&& rhs);
-  CustomAction& operator=(CustomAction&& rhs);
+  CustomAction(CustomAction&& rhs) noexcept;
+  CustomAction& operator=(CustomAction&& rhs) noexcept;
 
   // Populates a CustomAction object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1023,15 +1006,12 @@ struct CustomAction {
   // Creates a deep copy of CustomAction.
   CustomAction Clone() const;
 
-  // Creates a CustomAction object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CustomAction> FromValueDeprecated(const base::Value& value);
-
   // Creates a CustomAction object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CustomAction> FromValue(const base::Value::Dict& value);
+  static std::optional<CustomAction> FromValue(const base::Value::Dict& value);
 
   // Creates a CustomAction object from a base::Value, or nullopt on failure.
-  static absl::optional<CustomAction> FromValue(const base::Value& value);
+  static std::optional<CustomAction> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCustomAction object.
@@ -1044,8 +1024,8 @@ struct Marker {
   ~Marker();
   Marker(const Marker&) = delete;
   Marker& operator=(const Marker&) = delete;
-  Marker(Marker&& rhs);
-  Marker& operator=(Marker&& rhs);
+  Marker(Marker&& rhs) noexcept;
+  Marker& operator=(Marker&& rhs) noexcept;
 
   // Populates a Marker object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1058,14 +1038,11 @@ struct Marker {
   // Creates a deep copy of Marker.
   Marker Clone() const;
 
-  // Creates a Marker object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Marker> FromValueDeprecated(const base::Value& value);
-
   // Creates a Marker object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Marker> FromValue(const base::Value::Dict& value);
+  static std::optional<Marker> FromValue(const base::Value::Dict& value);
 
   // Creates a Marker object from a base::Value, or nullopt on failure.
-  static absl::optional<Marker> FromValue(const base::Value& value);
+  static std::optional<Marker> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMarker object.
@@ -1078,8 +1055,8 @@ struct AutomationPosition {
   ~AutomationPosition();
   AutomationPosition(const AutomationPosition&) = delete;
   AutomationPosition& operator=(const AutomationPosition&) = delete;
-  AutomationPosition(AutomationPosition&& rhs);
-  AutomationPosition& operator=(AutomationPosition&& rhs);
+  AutomationPosition(AutomationPosition&& rhs) noexcept;
+  AutomationPosition& operator=(AutomationPosition&& rhs) noexcept;
 
   // Populates a AutomationPosition object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1092,16 +1069,13 @@ struct AutomationPosition {
   // Creates a deep copy of AutomationPosition.
   AutomationPosition Clone() const;
 
-  // Creates a AutomationPosition object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AutomationPosition> FromValueDeprecated(const base::Value& value);
-
   // Creates a AutomationPosition object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AutomationPosition> FromValue(const base::Value::Dict& value);
+  static std::optional<AutomationPosition> FromValue(const base::Value::Dict& value);
 
   // Creates a AutomationPosition object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AutomationPosition> FromValue(const base::Value& value);
+  static std::optional<AutomationPosition> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAutomationPosition object.
@@ -1114,8 +1088,8 @@ struct AutomationNode {
   ~AutomationNode();
   AutomationNode(const AutomationNode&) = delete;
   AutomationNode& operator=(const AutomationNode&) = delete;
-  AutomationNode(AutomationNode&& rhs);
-  AutomationNode& operator=(AutomationNode&& rhs);
+  AutomationNode(AutomationNode&& rhs) noexcept;
+  AutomationNode& operator=(AutomationNode&& rhs) noexcept;
 
   // Populates a AutomationNode object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1128,15 +1102,12 @@ struct AutomationNode {
   // Creates a deep copy of AutomationNode.
   AutomationNode Clone() const;
 
-  // Creates a AutomationNode object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AutomationNode> FromValueDeprecated(const base::Value& value);
-
   // Creates a AutomationNode object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AutomationNode> FromValue(const base::Value::Dict& value);
+  static std::optional<AutomationNode> FromValue(const base::Value::Dict& value);
 
   // Creates a AutomationNode object from a base::Value, or nullopt on failure.
-  static absl::optional<AutomationNode> FromValue(const base::Value& value);
+  static std::optional<AutomationNode> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAutomationNode object.

@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AuthenticatorAssertionResponse>::value,
     "AuthenticatorAssertionResponse inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AuthenticatorAssertionResponse::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AuthenticatorAssertionResponse is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,7 +86,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AuthenticatorAssertionResponse* blink_receiver = V8AuthenticatorAssertionResponse::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+AuthenticatorAssertionResponse* blink_receiver = V8AuthenticatorAssertionResponse::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->authenticatorData();
 if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -112,7 +108,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AuthenticatorAssertionResponse* blink_receiver = V8AuthenticatorAssertionResponse::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+AuthenticatorAssertionResponse* blink_receiver = V8AuthenticatorAssertionResponse::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->signature();
 if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -133,7 +130,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AuthenticatorAssertionResponse* blink_receiver = V8AuthenticatorAssertionResponse::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+AuthenticatorAssertionResponse* blink_receiver = V8AuthenticatorAssertionResponse::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->userHandle();
 if (!ToV8Traits<IDLNullable<DOMArrayBuffer>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/arc.mojom-features.h"
 #include "chromeos/crosapi/mojom/arc.mojom-shared.h"
 #include "chromeos/crosapi/mojom/arc.mojom-forward.h"
 #include "ui/gfx/image/mojom/image.mojom.h"
@@ -362,7 +363,7 @@ class  ActivityName {
 
   ActivityName(
       const std::string& package_name,
-      const absl::optional<std::string>& activity_name);
+      const std::optional<std::string>& activity_name);
 
 
   ~ActivityName();
@@ -442,7 +443,7 @@ class  ActivityName {
   
   std::string package_name;
   
-  absl::optional<std::string> activity_name;
+  std::optional<std::string> activity_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -513,9 +514,9 @@ class  RawIconPngData {
 
   RawIconPngData(
       bool is_adaptive_icon,
-      absl::optional<std::vector<uint8_t>> icon_png_data,
-      absl::optional<std::vector<uint8_t>> foreground_icon_png_data,
-      absl::optional<std::vector<uint8_t>> background_icon_png_data);
+      std::optional<std::vector<uint8_t>> icon_png_data,
+      std::optional<std::vector<uint8_t>> foreground_icon_png_data,
+      std::optional<std::vector<uint8_t>> background_icon_png_data);
 
 
   ~RawIconPngData();
@@ -595,11 +596,11 @@ class  RawIconPngData {
   
   bool is_adaptive_icon;
   
-  absl::optional<std::vector<uint8_t>> icon_png_data;
+  std::optional<std::vector<uint8_t>> icon_png_data;
   
-  absl::optional<std::vector<uint8_t>> foreground_icon_png_data;
+  std::optional<std::vector<uint8_t>> foreground_icon_png_data;
   
-  absl::optional<std::vector<uint8_t>> background_icon_png_data;
+  std::optional<std::vector<uint8_t>> background_icon_png_data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -824,7 +825,7 @@ class  IntentHandlerInfo {
       const std::string& package_name,
       const std::string& activity_name,
       bool is_preferred,
-      const absl::optional<std::string>& fallback_url);
+      const std::optional<std::string>& fallback_url);
 
 
   ~IntentHandlerInfo();
@@ -910,7 +911,7 @@ class  IntentHandlerInfo {
   
   bool is_preferred;
   
-  absl::optional<std::string> fallback_url;
+  std::optional<std::string> fallback_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -973,11 +974,11 @@ class  IntentInfo {
 
   IntentInfo(
       const std::string& action,
-      absl::optional<std::vector<std::string>> categories,
-      const absl::optional<std::string>& data,
-      const absl::optional<std::string>& type,
+      std::optional<std::vector<std::string>> categories,
+      const std::optional<std::string>& data,
+      const std::optional<std::string>& type,
       bool ui_bypassed,
-      const absl::optional<base::flat_map<std::string, std::string>>& extras);
+      const std::optional<base::flat_map<std::string, std::string>>& extras);
 
 
   ~IntentInfo();
@@ -1057,15 +1058,15 @@ class  IntentInfo {
   
   std::string action;
   
-  absl::optional<std::vector<std::string>> categories;
+  std::optional<std::vector<std::string>> categories;
   
-  absl::optional<std::string> data;
+  std::optional<std::string> data;
   
-  absl::optional<std::string> type;
+  std::optional<std::string> type;
   
   bool ui_bypassed;
   
-  absl::optional<base::flat_map<std::string, std::string>> extras;
+  std::optional<base::flat_map<std::string, std::string>> extras;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

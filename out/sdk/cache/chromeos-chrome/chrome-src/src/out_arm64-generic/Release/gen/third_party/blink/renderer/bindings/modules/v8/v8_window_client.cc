@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ServiceWorkerWindowClient>::value,
     "ServiceWorkerWindowClient inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ServiceWorkerWindowClient::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ServiceWorkerWindowClient is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("WindowClient.visibilityState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerWindowClient* blink_receiver = V8WindowClient::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->visibilityState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerWindowClient* blink_receiver = V8WindowClient::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->visibilityState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,8 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("WindowClient.focused.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerWindowClient* blink_receiver = V8WindowClient::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerWindowClient* blink_receiver = V8WindowClient::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->focused();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -131,7 +127,7 @@ return;
 
 
 
-ServiceWorkerWindowClient* blink_receiver = V8WindowClient::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerWindowClient* blink_receiver = V8WindowClient::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -166,7 +162,7 @@ return;
 
 
 
-ServiceWorkerWindowClient* blink_receiver = V8WindowClient::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerWindowClient* blink_receiver = V8WindowClient::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

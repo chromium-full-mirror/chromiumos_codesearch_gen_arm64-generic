@@ -66,7 +66,10 @@ PROTOBUF_CONSTEXPR SampledProfile::SampledProfile(
   , psi_cpu_last_10s_pct_(0)
   , psi_cpu_last_60s_pct_(0)
   , lacros_channel_(0)
-{}
+
+  , thermal_state_(0)
+
+  , cpu_speed_limit_percent_(0){}
 struct SampledProfileDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SampledProfileDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -241,6 +244,12 @@ class SampledProfile::_Internal {
   static void set_has_psi_cpu_last_60s_pct(HasBits* has_bits) {
     (*has_bits)[0] |= 16384u;
   }
+  static void set_has_thermal_state(HasBits* has_bits) {
+    (*has_bits)[0] |= 65536u;
+  }
+  static void set_has_cpu_speed_limit_percent(HasBits* has_bits) {
+    (*has_bits)[0] |= 131072u;
+  }
 };
 
 const ::metrics::PerfDataProto&
@@ -309,8 +318,8 @@ SampledProfile::SampledProfile(const SampledProfile& from)
     perf_stat_ = nullptr;
   }
   ::memcpy(&ms_after_boot_, &from.ms_after_boot_,
-    static_cast<size_t>(reinterpret_cast<char*>(&lacros_channel_) -
-    reinterpret_cast<char*>(&ms_after_boot_)) + sizeof(lacros_channel_));
+    static_cast<size_t>(reinterpret_cast<char*>(&cpu_speed_limit_percent_) -
+    reinterpret_cast<char*>(&ms_after_boot_)) + sizeof(cpu_speed_limit_percent_));
   // @@protoc_insertion_point(copy_constructor:metrics.SampledProfile)
 }
 
@@ -321,8 +330,8 @@ lacros_version_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&perf_data_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&lacros_channel_) -
-    reinterpret_cast<char*>(&perf_data_)) + sizeof(lacros_channel_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&cpu_speed_limit_percent_) -
+    reinterpret_cast<char*>(&perf_data_)) + sizeof(cpu_speed_limit_percent_));
 }
 
 SampledProfile::~SampledProfile() {
@@ -385,6 +394,11 @@ void SampledProfile::Clear() {
     ::memset(&suspend_duration_ms_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&lacros_channel_) -
         reinterpret_cast<char*>(&suspend_duration_ms_)) + sizeof(lacros_channel_));
+  }
+  if (cached_has_bits & 0x00030000u) {
+    ::memset(&thermal_state_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&cpu_speed_limit_percent_) -
+        reinterpret_cast<char*>(&thermal_state_)) + sizeof(cpu_speed_limit_percent_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -609,6 +623,28 @@ const char* SampledProfile::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
+      // optional .metrics.ThermalState thermal_state = 21;
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::metrics::ThermalState_IsValid(val))) {
+            _internal_set_thermal_state(static_cast<::metrics::ThermalState>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(21, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int32 cpu_speed_limit_percent = 22;
+      case 22:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
+          _Internal::set_has_cpu_speed_limit_percent(&has_bits);
+          cpu_speed_limit_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -792,6 +828,19 @@ uint8_t* SampledProfile::_InternalSerialize(
       20, this->_internal_lacros_channel(), target);
   }
 
+  // optional .metrics.ThermalState thermal_state = 21;
+  if (cached_has_bits & 0x00010000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      21, this->_internal_thermal_state(), target);
+  }
+
+  // optional int32 cpu_speed_limit_percent = 22;
+  if (cached_has_bits & 0x00020000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(22, this->_internal_cpu_speed_limit_percent(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -946,6 +995,21 @@ size_t SampledProfile::ByteSizeLong() const {
     }
 
   }
+  if (cached_has_bits & 0x00030000u) {
+    // optional .metrics.ThermalState thermal_state = 21;
+    if (cached_has_bits & 0x00010000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_thermal_state());
+    }
+
+    // optional int32 cpu_speed_limit_percent = 22;
+    if (cached_has_bits & 0x00020000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int32Size(
+          this->_internal_cpu_speed_limit_percent());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1025,6 +1089,15 @@ void SampledProfile::MergeFrom(const SampledProfile& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
+  if (cached_has_bits & 0x00030000u) {
+    if (cached_has_bits & 0x00010000u) {
+      thermal_state_ = from.thermal_state_;
+    }
+    if (cached_has_bits & 0x00020000u) {
+      cpu_speed_limit_percent_ = from.cpu_speed_limit_percent_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -1054,8 +1127,8 @@ void SampledProfile::InternalSwap(SampledProfile* other) {
       &other->lacros_version_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SampledProfile, lacros_channel_)
-      + sizeof(SampledProfile::lacros_channel_)
+      PROTOBUF_FIELD_OFFSET(SampledProfile, cpu_speed_limit_percent_)
+      + sizeof(SampledProfile::cpu_speed_limit_percent_)
       - PROTOBUF_FIELD_OFFSET(SampledProfile, perf_data_)>(
           reinterpret_cast<char*>(&perf_data_),
           reinterpret_cast<char*>(&other->perf_data_));

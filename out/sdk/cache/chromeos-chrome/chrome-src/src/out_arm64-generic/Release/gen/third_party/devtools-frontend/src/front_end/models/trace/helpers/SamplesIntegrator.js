@@ -234,7 +234,7 @@ export class SamplesIntegrator {
     }
     #getStackTraceFromProfileCall(profileCall) {
         let node = this.#profileModel.nodeById(profileCall.nodeId);
-        const isGarbageCollection = Boolean(node?.id === this.#profileModel.gcNode?.id);
+        const isGarbageCollection = node?.id === this.#profileModel.gcNode?.id;
         if (isGarbageCollection) {
             // Because GC don't have a stack, we use the stack of the previous
             // sample.

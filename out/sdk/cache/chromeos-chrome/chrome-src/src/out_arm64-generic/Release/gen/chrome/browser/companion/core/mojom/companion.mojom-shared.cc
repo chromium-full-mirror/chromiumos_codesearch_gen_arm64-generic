@@ -48,6 +48,8 @@ NOINLINE static const char* MethodTypeToStringHelper(MethodType value) {
       return "kCompanionLoadingState";
     case MethodType::kRefreshCompanionPage:
       return "kRefreshCompanionPage";
+    case MethodType::kServerSideUrlFilterEvent:
+      return "kServerSideUrlFilterEvent";
     case MethodType::kUpdateCompanionPage:
       return "kUpdateCompanionPage";
     case MethodType::kOnCqFindTextResultsAvailable:
@@ -56,6 +58,8 @@ NOINLINE static const char* MethodTypeToStringHelper(MethodType value) {
       return "kOnDeviceVisualClassificationResult";
     case MethodType::kNotifyLinkOpen:
       return "kNotifyLinkOpen";
+    case MethodType::kUpdatePageContent:
+      return "kUpdatePageContent";
     default:
       return nullptr;
   }
@@ -789,6 +793,29 @@ CompanionPageHandler_RefreshCompanionPage_Params_Data::CompanionPageHandler_Refr
 
 
 // static
+bool CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data* object =
+      static_cast<const CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data*>(data);
+
+  return true;
+}
+
+CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data::CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CompanionPage_LoadCompanionPage_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1018,6 +1045,51 @@ bool CompanionPage_NotifyLinkOpen_Params_Data::Validate(
 }
 
 CompanionPage_NotifyLinkOpen_Params_Data::CompanionPage_NotifyLinkOpen_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CompanionPage_UpdatePageContent_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CompanionPage_UpdatePageContent_Params_Data* object =
+      static_cast<const CompanionPage_UpdatePageContent_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->page_title, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& page_title_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->page_title, validation_context,
+                                         &page_title_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->inner_html, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& inner_html_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->inner_html, validation_context,
+                                         &inner_html_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+CompanionPage_UpdatePageContent_Params_Data::CompanionPage_UpdatePageContent_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

@@ -1,5 +1,5 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/missive-0.0.1-r776/work/missive-0.0.1/platform2 -I/build/arm64-generic/usr/include -Igen
 root_out_dir = .
 target_output_name = libmissive_service
 

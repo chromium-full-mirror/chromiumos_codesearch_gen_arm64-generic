@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -148,14 +149,14 @@ HelpBubbleParams::HelpBubbleParams()
 HelpBubbleParams::HelpBubbleParams(
     const std::string& native_identifier_in,
     HelpBubbleArrowPosition position_in,
-    const absl::optional<std::string>& title_text_in,
+    const std::optional<std::string>& title_text_in,
     const std::string& body_text_in,
     const std::string& close_button_alt_text_in,
-    const absl::optional<std::string>& body_icon_name_in,
+    const std::optional<std::string>& body_icon_name_in,
     const std::string& body_icon_alt_text_in,
     ProgressPtr progress_in,
     std::vector<HelpBubbleButtonParamsPtr> buttons_in,
-    absl::optional<::base::TimeDelta> timeout_in)
+    std::optional<::base::TimeDelta> timeout_in)
     : native_identifier(std::move(native_identifier_in)),
       position(std::move(position_in)),
       title_text(std::move(title_text_in)),
@@ -194,7 +195,7 @@ void HelpBubbleParams::WriteIntoTrace(
     dict.AddItem(
       "title_text"), this->title_text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -221,7 +222,7 @@ void HelpBubbleParams::WriteIntoTrace(
     dict.AddItem(
       "body_icon_name"), this->body_icon_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -257,7 +258,7 @@ void HelpBubbleParams::WriteIntoTrace(
     dict.AddItem(
       "timeout"), this->timeout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -343,14 +344,17 @@ void HelpBubbleHandlerFactoryProxy::CreateHelpBubbleHandler(
                         "<value of type ::mojo::PendingReceiver<HelpBubbleHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleHandlerFactory_CreateHelpBubbleHandler_Name, kFlags, 0, 0, nullptr);
@@ -438,10 +442,10 @@ bool HelpBubbleHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHelpBubbleHandlerFactoryValidationInfo[] = {
-    {&internal::HelpBubbleHandlerFactory_CreateHelpBubbleHandler_Params_Data::Validate,
+    { &internal::HelpBubbleHandlerFactory_CreateHelpBubbleHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -607,14 +611,17 @@ void HelpBubbleHandlerProxy::HelpBubbleAnchorVisibilityChanged(
                         "<value of type const ::gfx::RectF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleHandler_HelpBubbleAnchorVisibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -667,14 +674,17 @@ void HelpBubbleHandlerProxy::HelpBubbleAnchorActivated(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleHandler_HelpBubbleAnchorActivated_Name, kFlags, 0, 0, nullptr);
@@ -718,14 +728,17 @@ void HelpBubbleHandlerProxy::HelpBubbleAnchorCustomEvent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleHandler_HelpBubbleAnchorCustomEvent_Name, kFlags, 0, 0, nullptr);
@@ -780,14 +793,17 @@ void HelpBubbleHandlerProxy::HelpBubbleButtonPressed(
                         "<value of type uint8_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleHandler_HelpBubbleButtonPressed_Name, kFlags, 0, 0, nullptr);
@@ -832,14 +848,17 @@ void HelpBubbleHandlerProxy::HelpBubbleClosed(
                         "<value of type HelpBubbleClosedReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleHandler_HelpBubbleClosed_Name, kFlags, 0, 0, nullptr);
@@ -1056,18 +1075,18 @@ bool HelpBubbleHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHelpBubbleHandlerValidationInfo[] = {
-    {&internal::HelpBubbleHandler_HelpBubbleAnchorVisibilityChanged_Params_Data::Validate,
+    { &internal::HelpBubbleHandler_HelpBubbleAnchorVisibilityChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HelpBubbleHandler_HelpBubbleAnchorActivated_Params_Data::Validate,
+    { &internal::HelpBubbleHandler_HelpBubbleAnchorActivated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HelpBubbleHandler_HelpBubbleAnchorCustomEvent_Params_Data::Validate,
+    { &internal::HelpBubbleHandler_HelpBubbleAnchorCustomEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HelpBubbleHandler_HelpBubbleButtonPressed_Params_Data::Validate,
+    { &internal::HelpBubbleHandler_HelpBubbleButtonPressed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HelpBubbleHandler_HelpBubbleClosed_Params_Data::Validate,
+    { &internal::HelpBubbleHandler_HelpBubbleClosed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1207,14 +1226,17 @@ void HelpBubbleClientProxy::ShowHelpBubble(
                         "<value of type HelpBubbleParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleClient_ShowHelpBubble_Name, kFlags, 0, 0, nullptr);
@@ -1255,14 +1277,17 @@ void HelpBubbleClientProxy::ToggleFocusForAccessibility(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleClient_ToggleFocusForAccessibility_Name, kFlags, 0, 0, nullptr);
@@ -1303,14 +1328,17 @@ void HelpBubbleClientProxy::HideHelpBubble(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleClient_HideHelpBubble_Name, kFlags, 0, 0, nullptr);
@@ -1354,14 +1382,17 @@ void HelpBubbleClientProxy::ExternalHelpBubbleUpdated(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHelpBubbleClient_ExternalHelpBubbleUpdated_Name, kFlags, 0, 0, nullptr);
@@ -1532,16 +1563,16 @@ bool HelpBubbleClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHelpBubbleClientValidationInfo[] = {
-    {&internal::HelpBubbleClient_ShowHelpBubble_Params_Data::Validate,
+    { &internal::HelpBubbleClient_ShowHelpBubble_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HelpBubbleClient_ToggleFocusForAccessibility_Params_Data::Validate,
+    { &internal::HelpBubbleClient_ToggleFocusForAccessibility_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HelpBubbleClient_HideHelpBubble_Params_Data::Validate,
+    { &internal::HelpBubbleClient_HideHelpBubble_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HelpBubbleClient_ExternalHelpBubbleUpdated_Params_Data::Validate,
+    { &internal::HelpBubbleClient_ExternalHelpBubbleUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 

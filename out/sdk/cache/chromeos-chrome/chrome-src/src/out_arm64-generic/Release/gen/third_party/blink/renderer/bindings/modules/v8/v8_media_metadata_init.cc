@@ -13,6 +13,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_chapter_information.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_image.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/exception_state.h"
@@ -82,6 +83,17 @@ void MediaMetadataInit::setArtwork(HeapVector<Member<MediaImage>>&& value) {
 
 
 
+void MediaMetadataInit::setChapterInfo(const HeapVector<Member<ChapterInformation>>& value) {
+  member_chapter_info_ = value;
+}
+
+void MediaMetadataInit::setChapterInfo(HeapVector<Member<ChapterInformation>>&& value) {
+  member_chapter_info_ = std::move(value);
+}
+
+
+
+
 void MediaMetadataInit::setTitle(const String& value) {
   member_title_ = value;
 }
@@ -97,6 +109,7 @@ void MediaMetadataInit::Trace(Visitor* visitor) const {
   TraceIfNeeded<String>::Trace(visitor, member_album_);
 TraceIfNeeded<String>::Trace(visitor, member_artist_);
 TraceIfNeeded<HeapVector<Member<MediaImage>>>::Trace(visitor, member_artwork_);
+TraceIfNeeded<HeapVector<Member<ChapterInformation>>>::Trace(visitor, member_chapter_info_);
 TraceIfNeeded<String>::Trace(visitor, member_title_);
 bindings::DictionaryBase::Trace(visitor);
 }
@@ -131,11 +144,19 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].G
   return false;
 }
 }
+if (hasChapterInfo()) {
+  if (!ToV8Traits<IDLSequence<ChapterInformation>>::ToV8(script_state, member_chapter_info_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
 if (hasTitle()) {
   if (!ToV8Traits<IDLString>::ToV8(script_state, member_title_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -162,8 +183,12 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("artwork");
 if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<MediaImage>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_artwork_, try_block, exception_state)) {
   return;
 }
+exception_context_scope.ChangePropertyNameAsOptimizationHack("chapterInfo");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<ChapterInformation>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_chapter_info_, try_block, exception_state)) {
+  return;
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("title");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_title_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), fallback_presence_var, member_title_, try_block, exception_state)) {
   return;
 }
 }
@@ -173,6 +198,7 @@ const base::span<const v8::Eternal<v8::Name>> MediaMetadataInit::GetV8OwnMemberN
 "album",
 "artist",
 "artwork",
+"chapterInfo",
 "title",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-features.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
 #include "diagnostics/mojom/external/network_health_types.mojom.h"
@@ -1391,7 +1392,7 @@ class  CpuTemperatureChannel {
   CpuTemperatureChannel();
 
   CpuTemperatureChannel(
-      const absl::optional<std::string>& label,
+      const std::optional<std::string>& label,
       int32_t temperature_celsius);
 
 
@@ -1470,7 +1471,7 @@ class  CpuTemperatureChannel {
   }
 
   
-  absl::optional<std::string> label;
+  std::optional<std::string> label;
   
   int32_t temperature_celsius;
 
@@ -3434,6 +3435,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  InputDevice {
  public:
   template <typename T>
@@ -3615,7 +3617,7 @@ class  Sensor {
   Sensor();
 
   Sensor(
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& name,
       int32_t device_id,
       Sensor::Type type,
       Sensor::Location location);
@@ -3696,7 +3698,7 @@ class  Sensor {
   }
 
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
   int32_t device_id;
   
@@ -3738,6 +3740,155 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  ThermalSensorInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ThermalSensorInfo, T>::value>;
+  using DataView = ThermalSensorInfoDataView;
+  using Data_ = internal::ThermalSensorInfo_Data;
+  using ThermalSensorSource = ThermalSensorInfo_ThermalSensorSource;
+
+  template <typename... Args>
+  static ThermalSensorInfoPtr New(Args&&... args) {
+    return ThermalSensorInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ThermalSensorInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ThermalSensorInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ThermalSensorInfo>::Convert(*this);
+  }
+
+
+  ThermalSensorInfo();
+
+  ThermalSensorInfo(
+      const std::string& name,
+      double temperature_celsius,
+      ThermalSensorInfo::ThermalSensorSource source);
+
+
+  ~ThermalSensorInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ThermalSensorInfoPtr>
+  ThermalSensorInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ThermalSensorInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ThermalSensorInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ThermalSensorInfo_UnserializedMessageContext<
+            UserType, ThermalSensorInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ThermalSensorInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ThermalSensorInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ThermalSensorInfo_UnserializedMessageContext<
+            UserType, ThermalSensorInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ThermalSensorInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string name;
+  
+  double temperature_celsius;
+  
+  ThermalSensorInfo::ThermalSensorSource source;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
 class  ProcessResult {
  public:
   using DataView = ProcessResultDataView;
@@ -3757,17 +3908,17 @@ class  ProcessResult {
   // Construct an instance holding |process_info|.
   static ProcessResultPtr
   NewProcessInfo(
-      ProcessInfoPtr process_info) {
+      ProcessInfoPtr value) {
     auto result = ProcessResultPtr(absl::in_place);
-    result->set_process_info(std::move(process_info));
+    result->set_process_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ProcessResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = ProcessResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -3887,17 +4038,17 @@ class  BatteryResult {
   // Construct an instance holding |battery_info|.
   static BatteryResultPtr
   NewBatteryInfo(
-      BatteryInfoPtr battery_info) {
+      BatteryInfoPtr value) {
     auto result = BatteryResultPtr(absl::in_place);
-    result->set_battery_info(std::move(battery_info));
+    result->set_battery_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static BatteryResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = BatteryResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -4017,17 +4168,17 @@ class  NonRemovableBlockDeviceResult {
   // Construct an instance holding |block_device_info|.
   static NonRemovableBlockDeviceResultPtr
   NewBlockDeviceInfo(
-      std::vector<NonRemovableBlockDeviceInfoPtr> block_device_info) {
+      std::vector<NonRemovableBlockDeviceInfoPtr> value) {
     auto result = NonRemovableBlockDeviceResultPtr(absl::in_place);
-    result->set_block_device_info(std::move(block_device_info));
+    result->set_block_device_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static NonRemovableBlockDeviceResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = NonRemovableBlockDeviceResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -4147,41 +4298,41 @@ class  BlockDeviceVendor {
   // Construct an instance holding |nvme_subsystem_vendor|.
   static BlockDeviceVendorPtr
   NewNvmeSubsystemVendor(
-      uint32_t nvme_subsystem_vendor) {
+      uint32_t value) {
     auto result = BlockDeviceVendorPtr(absl::in_place);
-    result->set_nvme_subsystem_vendor(std::move(nvme_subsystem_vendor));
+    result->set_nvme_subsystem_vendor(std::move(value));
     return result;
   }
   // Construct an instance holding |emmc_oemid|.
   static BlockDeviceVendorPtr
   NewEmmcOemid(
-      uint16_t emmc_oemid) {
+      uint16_t value) {
     auto result = BlockDeviceVendorPtr(absl::in_place);
-    result->set_emmc_oemid(std::move(emmc_oemid));
+    result->set_emmc_oemid(std::move(value));
     return result;
   }
   // Construct an instance holding |other|.
   static BlockDeviceVendorPtr
   NewOther(
-      uint16_t other) {
+      uint16_t value) {
     auto result = BlockDeviceVendorPtr(absl::in_place);
-    result->set_other(std::move(other));
+    result->set_other(std::move(value));
     return result;
   }
   // Construct an instance holding |unknown|.
   static BlockDeviceVendorPtr
   NewUnknown(
-      uint64_t unknown) {
+      uint64_t value) {
     auto result = BlockDeviceVendorPtr(absl::in_place);
-    result->set_unknown(std::move(unknown));
+    result->set_unknown(std::move(value));
     return result;
   }
   // Construct an instance holding |jedec_manfid|.
   static BlockDeviceVendorPtr
   NewJedecManfid(
-      uint16_t jedec_manfid) {
+      uint16_t value) {
     auto result = BlockDeviceVendorPtr(absl::in_place);
-    result->set_jedec_manfid(std::move(jedec_manfid));
+    result->set_jedec_manfid(std::move(value));
     return result;
   }
 
@@ -4337,33 +4488,33 @@ class  BlockDeviceProduct {
   // Construct an instance holding |nvme_subsystem_device|.
   static BlockDeviceProductPtr
   NewNvmeSubsystemDevice(
-      uint32_t nvme_subsystem_device) {
+      uint32_t value) {
     auto result = BlockDeviceProductPtr(absl::in_place);
-    result->set_nvme_subsystem_device(std::move(nvme_subsystem_device));
+    result->set_nvme_subsystem_device(std::move(value));
     return result;
   }
   // Construct an instance holding |emmc_pnm|.
   static BlockDeviceProductPtr
   NewEmmcPnm(
-      uint64_t emmc_pnm) {
+      uint64_t value) {
     auto result = BlockDeviceProductPtr(absl::in_place);
-    result->set_emmc_pnm(std::move(emmc_pnm));
+    result->set_emmc_pnm(std::move(value));
     return result;
   }
   // Construct an instance holding |other|.
   static BlockDeviceProductPtr
   NewOther(
-      uint16_t other) {
+      uint16_t value) {
     auto result = BlockDeviceProductPtr(absl::in_place);
-    result->set_other(std::move(other));
+    result->set_other(std::move(value));
     return result;
   }
   // Construct an instance holding |unknown|.
   static BlockDeviceProductPtr
   NewUnknown(
-      uint64_t unknown) {
+      uint64_t value) {
     auto result = BlockDeviceProductPtr(absl::in_place);
-    result->set_unknown(std::move(unknown));
+    result->set_unknown(std::move(value));
     return result;
   }
 
@@ -4506,33 +4657,33 @@ class  BlockDeviceRevision {
   // Construct an instance holding |nvme_pcie_rev|.
   static BlockDeviceRevisionPtr
   NewNvmePcieRev(
-      uint8_t nvme_pcie_rev) {
+      uint8_t value) {
     auto result = BlockDeviceRevisionPtr(absl::in_place);
-    result->set_nvme_pcie_rev(std::move(nvme_pcie_rev));
+    result->set_nvme_pcie_rev(std::move(value));
     return result;
   }
   // Construct an instance holding |emmc_prv|.
   static BlockDeviceRevisionPtr
   NewEmmcPrv(
-      uint8_t emmc_prv) {
+      uint8_t value) {
     auto result = BlockDeviceRevisionPtr(absl::in_place);
-    result->set_emmc_prv(std::move(emmc_prv));
+    result->set_emmc_prv(std::move(value));
     return result;
   }
   // Construct an instance holding |other|.
   static BlockDeviceRevisionPtr
   NewOther(
-      uint16_t other) {
+      uint16_t value) {
     auto result = BlockDeviceRevisionPtr(absl::in_place);
-    result->set_other(std::move(other));
+    result->set_other(std::move(value));
     return result;
   }
   // Construct an instance holding |unknown|.
   static BlockDeviceRevisionPtr
   NewUnknown(
-      uint64_t unknown) {
+      uint64_t value) {
     auto result = BlockDeviceRevisionPtr(absl::in_place);
-    result->set_unknown(std::move(unknown));
+    result->set_unknown(std::move(value));
     return result;
   }
 
@@ -4675,41 +4826,41 @@ class  BlockDeviceFirmware {
   // Construct an instance holding |nvme_firmware_rev|.
   static BlockDeviceFirmwarePtr
   NewNvmeFirmwareRev(
-      uint64_t nvme_firmware_rev) {
+      uint64_t value) {
     auto result = BlockDeviceFirmwarePtr(absl::in_place);
-    result->set_nvme_firmware_rev(std::move(nvme_firmware_rev));
+    result->set_nvme_firmware_rev(std::move(value));
     return result;
   }
   // Construct an instance holding |emmc_fwrev|.
   static BlockDeviceFirmwarePtr
   NewEmmcFwrev(
-      uint64_t emmc_fwrev) {
+      uint64_t value) {
     auto result = BlockDeviceFirmwarePtr(absl::in_place);
-    result->set_emmc_fwrev(std::move(emmc_fwrev));
+    result->set_emmc_fwrev(std::move(value));
     return result;
   }
   // Construct an instance holding |other|.
   static BlockDeviceFirmwarePtr
   NewOther(
-      uint16_t other) {
+      uint16_t value) {
     auto result = BlockDeviceFirmwarePtr(absl::in_place);
-    result->set_other(std::move(other));
+    result->set_other(std::move(value));
     return result;
   }
   // Construct an instance holding |unknown|.
   static BlockDeviceFirmwarePtr
   NewUnknown(
-      uint64_t unknown) {
+      uint64_t value) {
     auto result = BlockDeviceFirmwarePtr(absl::in_place);
-    result->set_unknown(std::move(unknown));
+    result->set_unknown(std::move(value));
     return result;
   }
   // Construct an instance holding |ufs_fwrev|.
   static BlockDeviceFirmwarePtr
   NewUfsFwrev(
-      uint64_t ufs_fwrev) {
+      uint64_t value) {
     auto result = BlockDeviceFirmwarePtr(absl::in_place);
-    result->set_ufs_fwrev(std::move(ufs_fwrev));
+    result->set_ufs_fwrev(std::move(value));
     return result;
   }
 
@@ -4865,33 +5016,33 @@ class  BlockDeviceInfo {
   // Construct an instance holding |unrecognized|.
   static BlockDeviceInfoPtr
   NewUnrecognized(
-      bool unrecognized) {
+      bool value) {
     auto result = BlockDeviceInfoPtr(absl::in_place);
-    result->set_unrecognized(std::move(unrecognized));
+    result->set_unrecognized(std::move(value));
     return result;
   }
   // Construct an instance holding |nvme_device_info|.
   static BlockDeviceInfoPtr
   NewNvmeDeviceInfo(
-      NvmeDeviceInfoPtr nvme_device_info) {
+      NvmeDeviceInfoPtr value) {
     auto result = BlockDeviceInfoPtr(absl::in_place);
-    result->set_nvme_device_info(std::move(nvme_device_info));
+    result->set_nvme_device_info(std::move(value));
     return result;
   }
   // Construct an instance holding |emmc_device_info|.
   static BlockDeviceInfoPtr
   NewEmmcDeviceInfo(
-      EmmcDeviceInfoPtr emmc_device_info) {
+      EmmcDeviceInfoPtr value) {
     auto result = BlockDeviceInfoPtr(absl::in_place);
-    result->set_emmc_device_info(std::move(emmc_device_info));
+    result->set_emmc_device_info(std::move(value));
     return result;
   }
   // Construct an instance holding |ufs_device_info|.
   static BlockDeviceInfoPtr
   NewUfsDeviceInfo(
-      UfsDeviceInfoPtr ufs_device_info) {
+      UfsDeviceInfoPtr value) {
     auto result = BlockDeviceInfoPtr(absl::in_place);
-    result->set_ufs_device_info(std::move(ufs_device_info));
+    result->set_ufs_device_info(std::move(value));
     return result;
   }
 
@@ -5038,17 +5189,17 @@ class  CpuResult {
   // Construct an instance holding |cpu_info|.
   static CpuResultPtr
   NewCpuInfo(
-      CpuInfoPtr cpu_info) {
+      CpuInfoPtr value) {
     auto result = CpuResultPtr(absl::in_place);
-    result->set_cpu_info(std::move(cpu_info));
+    result->set_cpu_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static CpuResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = CpuResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -5168,17 +5319,17 @@ class  TimezoneResult {
   // Construct an instance holding |timezone_info|.
   static TimezoneResultPtr
   NewTimezoneInfo(
-      TimezoneInfoPtr timezone_info) {
+      TimezoneInfoPtr value) {
     auto result = TimezoneResultPtr(absl::in_place);
-    result->set_timezone_info(std::move(timezone_info));
+    result->set_timezone_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static TimezoneResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = TimezoneResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -5299,17 +5450,17 @@ class  MemoryResult {
   // Construct an instance holding |memory_info|.
   static MemoryResultPtr
   NewMemoryInfo(
-      MemoryInfoPtr memory_info) {
+      MemoryInfoPtr value) {
     auto result = MemoryResultPtr(absl::in_place);
-    result->set_memory_info(std::move(memory_info));
+    result->set_memory_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static MemoryResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = MemoryResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -5429,17 +5580,17 @@ class  BacklightResult {
   // Construct an instance holding |backlight_info|.
   static BacklightResultPtr
   NewBacklightInfo(
-      std::vector<BacklightInfoPtr> backlight_info) {
+      std::vector<BacklightInfoPtr> value) {
     auto result = BacklightResultPtr(absl::in_place);
-    result->set_backlight_info(std::move(backlight_info));
+    result->set_backlight_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static BacklightResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = BacklightResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -5559,17 +5710,17 @@ class  FanResult {
   // Construct an instance holding |fan_info|.
   static FanResultPtr
   NewFanInfo(
-      std::vector<FanInfoPtr> fan_info) {
+      std::vector<FanInfoPtr> value) {
     auto result = FanResultPtr(absl::in_place);
-    result->set_fan_info(std::move(fan_info));
+    result->set_fan_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static FanResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = FanResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -5689,17 +5840,17 @@ class  StatefulPartitionResult {
   // Construct an instance holding |partition_info|.
   static StatefulPartitionResultPtr
   NewPartitionInfo(
-      StatefulPartitionInfoPtr partition_info) {
+      StatefulPartitionInfoPtr value) {
     auto result = StatefulPartitionResultPtr(absl::in_place);
-    result->set_partition_info(std::move(partition_info));
+    result->set_partition_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static StatefulPartitionResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = StatefulPartitionResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -5820,17 +5971,17 @@ class  BluetoothResult {
   // Construct an instance holding |bluetooth_adapter_info|.
   static BluetoothResultPtr
   NewBluetoothAdapterInfo(
-      std::vector<BluetoothAdapterInfoPtr> bluetooth_adapter_info) {
+      std::vector<BluetoothAdapterInfoPtr> value) {
     auto result = BluetoothResultPtr(absl::in_place);
-    result->set_bluetooth_adapter_info(std::move(bluetooth_adapter_info));
+    result->set_bluetooth_adapter_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static BluetoothResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = BluetoothResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -5950,9 +6101,9 @@ class  DEPRECATED_SystemResult {
   // Construct an instance holding |error|.
   static DEPRECATED_SystemResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = DEPRECATED_SystemResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -6060,17 +6211,17 @@ class  SystemResult {
   // Construct an instance holding |system_info|.
   static SystemResultPtr
   NewSystemInfo(
-      SystemInfoPtr system_info) {
+      SystemInfoPtr value) {
     auto result = SystemResultPtr(absl::in_place);
-    result->set_system_info(std::move(system_info));
+    result->set_system_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SystemResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = SystemResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -6190,17 +6341,17 @@ class  NetworkResult {
   // Construct an instance holding |network_health|.
   static NetworkResultPtr
   NewNetworkHealth(
-      ::chromeos::network_health::mojom::NetworkHealthStatePtr network_health) {
+      ::chromeos::network_health::mojom::NetworkHealthStatePtr value) {
     auto result = NetworkResultPtr(absl::in_place);
-    result->set_network_health(std::move(network_health));
+    result->set_network_health(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static NetworkResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = NetworkResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -6320,17 +6471,17 @@ class  NetworkInterfaceResult {
   // Construct an instance holding |network_interface_info|.
   static NetworkInterfaceResultPtr
   NewNetworkInterfaceInfo(
-      std::vector<NetworkInterfaceInfoPtr> network_interface_info) {
+      std::vector<NetworkInterfaceInfoPtr> value) {
     auto result = NetworkInterfaceResultPtr(absl::in_place);
-    result->set_network_interface_info(std::move(network_interface_info));
+    result->set_network_interface_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static NetworkInterfaceResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = NetworkInterfaceResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -6450,9 +6601,9 @@ class  NetworkInterfaceInfo {
   // Construct an instance holding |wireless_interface_info|.
   static NetworkInterfaceInfoPtr
   NewWirelessInterfaceInfo(
-      WirelessInterfaceInfoPtr wireless_interface_info) {
+      WirelessInterfaceInfoPtr value) {
     auto result = NetworkInterfaceInfoPtr(absl::in_place);
-    result->set_wireless_interface_info(std::move(wireless_interface_info));
+    result->set_wireless_interface_info(std::move(value));
     return result;
   }
 
@@ -6559,17 +6710,17 @@ class  AudioResult {
   // Construct an instance holding |audio_info|.
   static AudioResultPtr
   NewAudioInfo(
-      AudioInfoPtr audio_info) {
+      AudioInfoPtr value) {
     auto result = AudioResultPtr(absl::in_place);
-    result->set_audio_info(std::move(audio_info));
+    result->set_audio_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static AudioResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = AudioResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -6689,17 +6840,17 @@ class  AudioHardwareResult {
   // Construct an instance holding |audio_hardware_info|.
   static AudioHardwareResultPtr
   NewAudioHardwareInfo(
-      AudioHardwareInfoPtr audio_hardware_info) {
+      AudioHardwareInfoPtr value) {
     auto result = AudioHardwareResultPtr(absl::in_place);
-    result->set_audio_hardware_info(std::move(audio_hardware_info));
+    result->set_audio_hardware_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static AudioHardwareResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = AudioHardwareResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -6819,17 +6970,17 @@ class  BootPerformanceResult {
   // Construct an instance holding |boot_performance_info|.
   static BootPerformanceResultPtr
   NewBootPerformanceInfo(
-      BootPerformanceInfoPtr boot_performance_info) {
+      BootPerformanceInfoPtr value) {
     auto result = BootPerformanceResultPtr(absl::in_place);
-    result->set_boot_performance_info(std::move(boot_performance_info));
+    result->set_boot_performance_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static BootPerformanceResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = BootPerformanceResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -6949,17 +7100,17 @@ class  BusResult {
   // Construct an instance holding |bus_devices|.
   static BusResultPtr
   NewBusDevices(
-      std::vector<BusDevicePtr> bus_devices) {
+      std::vector<BusDevicePtr> value) {
     auto result = BusResultPtr(absl::in_place);
-    result->set_bus_devices(std::move(bus_devices));
+    result->set_bus_devices(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static BusResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = BusResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -7079,33 +7230,33 @@ class  BusInfo {
   // Construct an instance holding |pci_bus_info|.
   static BusInfoPtr
   NewPciBusInfo(
-      PciBusInfoPtr pci_bus_info) {
+      PciBusInfoPtr value) {
     auto result = BusInfoPtr(absl::in_place);
-    result->set_pci_bus_info(std::move(pci_bus_info));
+    result->set_pci_bus_info(std::move(value));
     return result;
   }
   // Construct an instance holding |usb_bus_info|.
   static BusInfoPtr
   NewUsbBusInfo(
-      UsbBusInfoPtr usb_bus_info) {
+      UsbBusInfoPtr value) {
     auto result = BusInfoPtr(absl::in_place);
-    result->set_usb_bus_info(std::move(usb_bus_info));
+    result->set_usb_bus_info(std::move(value));
     return result;
   }
   // Construct an instance holding |thunderbolt_bus_info|.
   static BusInfoPtr
   NewThunderboltBusInfo(
-      ThunderboltBusInfoPtr thunderbolt_bus_info) {
+      ThunderboltBusInfoPtr value) {
     auto result = BusInfoPtr(absl::in_place);
-    result->set_thunderbolt_bus_info(std::move(thunderbolt_bus_info));
+    result->set_thunderbolt_bus_info(std::move(value));
     return result;
   }
   // Construct an instance holding |unmapped_field|.
   static BusInfoPtr
   NewUnmappedField(
-      bool unmapped_field) {
+      bool value) {
     auto result = BusInfoPtr(absl::in_place);
-    result->set_unmapped_field(std::move(unmapped_field));
+    result->set_unmapped_field(std::move(value));
     return result;
   }
 
@@ -7251,17 +7402,17 @@ class  TpmResult {
   // Construct an instance holding |tpm_info|.
   static TpmResultPtr
   NewTpmInfo(
-      TpmInfoPtr tpm_info) {
+      TpmInfoPtr value) {
     auto result = TpmResultPtr(absl::in_place);
-    result->set_tpm_info(std::move(tpm_info));
+    result->set_tpm_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static TpmResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = TpmResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -7381,17 +7532,17 @@ class  GraphicsResult {
   // Construct an instance holding |graphics_info|.
   static GraphicsResultPtr
   NewGraphicsInfo(
-      GraphicsInfoPtr graphics_info) {
+      GraphicsInfoPtr value) {
     auto result = GraphicsResultPtr(absl::in_place);
-    result->set_graphics_info(std::move(graphics_info));
+    result->set_graphics_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static GraphicsResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = GraphicsResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -7511,17 +7662,17 @@ class  DisplayResult {
   // Construct an instance holding |display_info|.
   static DisplayResultPtr
   NewDisplayInfo(
-      DisplayInfoPtr display_info) {
+      DisplayInfoPtr value) {
     auto result = DisplayResultPtr(absl::in_place);
-    result->set_display_info(std::move(display_info));
+    result->set_display_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static DisplayResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = DisplayResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -7641,17 +7792,17 @@ class  InputResult {
   // Construct an instance holding |input_info|.
   static InputResultPtr
   NewInputInfo(
-      InputInfoPtr input_info) {
+      InputInfoPtr value) {
     auto result = InputResultPtr(absl::in_place);
-    result->set_input_info(std::move(input_info));
+    result->set_input_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static InputResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = InputResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -7771,17 +7922,17 @@ class  SensorResult {
   // Construct an instance holding |sensor_info|.
   static SensorResultPtr
   NewSensorInfo(
-      SensorInfoPtr sensor_info) {
+      SensorInfoPtr value) {
     auto result = SensorResultPtr(absl::in_place);
-    result->set_sensor_info(std::move(sensor_info));
+    result->set_sensor_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SensorResultPtr
   NewError(
-      ProbeErrorPtr error) {
+      ProbeErrorPtr value) {
     auto result = SensorResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -7869,6 +8020,136 @@ class  SensorResult {
     Union_() = default;
     ~Union_() = default;
     SensorInfoPtr* sensor_info;
+    ProbeErrorPtr* error;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  ThermalResult {
+ public:
+  using DataView = ThermalResultDataView;
+  using Data_ = internal::ThermalResult_Data;
+  using Tag = Data_::ThermalResult_Tag;
+
+  template <typename... Args>
+  static ThermalResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |thermal_info|.
+  static ThermalResultPtr
+  NewThermalInfo(
+      ThermalInfoPtr value) {
+    auto result = ThermalResultPtr(absl::in_place);
+    result->set_thermal_info(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |error|.
+  static ThermalResultPtr
+  NewError(
+      ProbeErrorPtr value) {
+    auto result = ThermalResultPtr(absl::in_place);
+    result->set_error(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static ThermalResultPtr From(const U& u) {
+    return mojo::TypeConverter<ThermalResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ThermalResult>::Convert(*this);
+  }
+
+  ThermalResult();
+  ~ThermalResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  ThermalResult(const ThermalResult& other) = delete;
+  ThermalResult& operator=(const ThermalResult& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = ThermalResultPtr>
+  ThermalResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ThermalResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ThermalResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_thermal_info() const { return tag_ == Tag::kThermalInfo; }
+
+  
+  ThermalInfoPtr& get_thermal_info() const {
+    CHECK(tag_ == Tag::kThermalInfo);
+    return *(data_.thermal_info);
+  }
+
+  
+  void set_thermal_info(
+      ThermalInfoPtr thermal_info);
+  
+  bool is_error() const { return tag_ == Tag::kError; }
+
+  
+  ProbeErrorPtr& get_error() const {
+    CHECK(tag_ == Tag::kError);
+    return *(data_.error);
+  }
+
+  
+  void set_error(
+      ProbeErrorPtr error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ThermalResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<ThermalResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    ThermalInfoPtr* thermal_info;
     ProbeErrorPtr* error;
   };
 
@@ -8091,7 +8372,7 @@ class  ProcessInfo {
       uint64_t physical_bytes_read,
       uint64_t physical_bytes_written,
       uint64_t cancelled_bytes_written,
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& name,
       uint32_t parent_process_id,
       uint32_t process_group_id,
       uint32_t threads);
@@ -8113,7 +8394,7 @@ class  ProcessInfo {
       uint64_t physical_bytes_read,
       uint64_t physical_bytes_written,
       uint64_t cancelled_bytes_written,
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& name,
       uint32_t parent_process_id,
       uint32_t process_group_id,
       uint32_t threads,
@@ -8227,7 +8508,7 @@ class  ProcessInfo {
   
   uint64_t cancelled_bytes_written;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
   uint32_t parent_process_id;
   
@@ -8309,7 +8590,7 @@ class  BatteryInfo {
       double current_now,
       const std::string& technology,
       const std::string& status,
-      const absl::optional<std::string>& manufacture_date,
+      const std::optional<std::string>& manufacture_date,
       ::ash::cros_healthd::mojom::NullableUint64Ptr temperature);
 
 BatteryInfo(const BatteryInfo&) = delete;
@@ -8414,7 +8695,7 @@ BatteryInfo& operator=(const BatteryInfo&) = delete;
   
   std::string status;
   
-  absl::optional<std::string> manufacture_date;
+  std::optional<std::string> manufacture_date;
   
   ::ash::cros_healthd::mojom::NullableUint64Ptr temperature;
 
@@ -8538,7 +8819,7 @@ class  NonRemovableBlockDeviceInfo {
       const std::string& path,
       uint8_t manufacturer_id,
       uint32_t serial,
-      const absl::optional<std::string>& firmware_string);
+      const std::optional<std::string>& firmware_string);
 
 NonRemovableBlockDeviceInfo(const NonRemovableBlockDeviceInfo&) = delete;
 NonRemovableBlockDeviceInfo& operator=(const NonRemovableBlockDeviceInfo&) = delete;
@@ -8654,7 +8935,7 @@ NonRemovableBlockDeviceInfo& operator=(const NonRemovableBlockDeviceInfo&) = del
   
   uint32_t serial;
   
-  absl::optional<std::string> firmware_string;
+  std::optional<std::string> firmware_string;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -8729,7 +9010,7 @@ class  CpuInfo {
       std::vector<CpuTemperatureChannelPtr> temperature_channels,
       KeylockerInfoPtr keylocker_info,
       VirtualizationInfoPtr virtualization,
-      absl::optional<base::flat_map<std::string, VulnerabilityInfoPtr>> vulnerabilities);
+      std::optional<base::flat_map<std::string, VulnerabilityInfoPtr>> vulnerabilities);
 
 CpuInfo(const CpuInfo&) = delete;
 CpuInfo& operator=(const CpuInfo&) = delete;
@@ -8821,7 +9102,7 @@ CpuInfo& operator=(const CpuInfo&) = delete;
   
   VirtualizationInfoPtr virtualization;
   
-  absl::optional<base::flat_map<std::string, VulnerabilityInfoPtr>> vulnerabilities;
+  std::optional<base::flat_map<std::string, VulnerabilityInfoPtr>> vulnerabilities;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -8886,13 +9167,13 @@ class  PhysicalCpuInfo {
   PhysicalCpuInfo();
 
   PhysicalCpuInfo(
-      const absl::optional<std::string>& model_name,
+      const std::optional<std::string>& model_name,
       std::vector<LogicalCpuInfoPtr> logical_cpus);
 
   PhysicalCpuInfo(
-      const absl::optional<std::string>& model_name,
+      const std::optional<std::string>& model_name,
       std::vector<LogicalCpuInfoPtr> logical_cpus,
-      absl::optional<std::vector<std::string>> flags,
+      std::optional<std::vector<std::string>> flags,
       CpuVirtualizationInfoPtr virtualization);
 
 PhysicalCpuInfo(const PhysicalCpuInfo&) = delete;
@@ -8973,11 +9254,11 @@ PhysicalCpuInfo& operator=(const PhysicalCpuInfo&) = delete;
   }
 
   
-  absl::optional<std::string> model_name;
+  std::optional<std::string> model_name;
   
   std::vector<LogicalCpuInfoPtr> logical_cpus;
   
-  absl::optional<std::vector<std::string>> flags;
+  std::optional<std::vector<std::string>> flags;
   
   CpuVirtualizationInfoPtr virtualization;
 
@@ -9391,23 +9672,23 @@ class  BluetoothAdapterInfo {
       const std::string& address,
       bool powered,
       uint32_t num_connected_devices,
-      absl::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices,
+      std::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices,
       bool discoverable,
       bool discovering,
-      absl::optional<std::vector<std::string>> uuids,
-      const absl::optional<std::string>& modalias);
+      std::optional<std::vector<std::string>> uuids,
+      const std::optional<std::string>& modalias);
 
   BluetoothAdapterInfo(
       const std::string& name,
       const std::string& address,
       bool powered,
       uint32_t num_connected_devices,
-      absl::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices,
+      std::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices,
       bool discoverable,
       bool discovering,
-      absl::optional<std::vector<std::string>> uuids,
-      const absl::optional<std::string>& modalias,
-      absl::optional<std::vector<std::string>> service_allow_list,
+      std::optional<std::vector<std::string>> uuids,
+      const std::optional<std::string>& modalias,
+      std::optional<std::vector<std::string>> service_allow_list,
       DEPRECATED_SupportedCapabilitiesPtr deprecated_capabilities);
 
 BluetoothAdapterInfo(const BluetoothAdapterInfo&) = delete;
@@ -9496,17 +9777,17 @@ BluetoothAdapterInfo& operator=(const BluetoothAdapterInfo&) = delete;
   
   uint32_t num_connected_devices;
   
-  absl::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices;
+  std::optional<std::vector<BluetoothDeviceInfoPtr>> connected_devices;
   
   bool discoverable;
   
   bool discovering;
   
-  absl::optional<std::vector<std::string>> uuids;
+  std::optional<std::vector<std::string>> uuids;
   
-  absl::optional<std::string> modalias;
+  std::optional<std::string> modalias;
   
-  absl::optional<std::vector<std::string>> service_allow_list;
+  std::optional<std::vector<std::string>> service_allow_list;
   
   DEPRECATED_SupportedCapabilitiesPtr deprecated_capabilities;
 
@@ -9571,34 +9852,34 @@ class  BluetoothDeviceInfo {
 
   BluetoothDeviceInfo(
       const std::string& address,
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& name,
       BluetoothDeviceType type,
       ::ash::cros_healthd::mojom::NullableUint16Ptr appearance,
-      const absl::optional<std::string>& modalias,
+      const std::optional<std::string>& modalias,
       ::ash::cros_healthd::mojom::NullableInt16Ptr rssi,
-      ::ash::cros_healthd::mojom::NullableUint16Ptr mtu,
-      absl::optional<std::vector<std::string>> uuids);
+      ::ash::cros_healthd::mojom::NullableUint16Ptr deprecated_mtu,
+      std::optional<std::vector<std::string>> uuids);
 
   BluetoothDeviceInfo(
       const std::string& address,
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& name,
       BluetoothDeviceType type,
       ::ash::cros_healthd::mojom::NullableUint16Ptr appearance,
-      const absl::optional<std::string>& modalias,
+      const std::optional<std::string>& modalias,
       ::ash::cros_healthd::mojom::NullableInt16Ptr rssi,
-      ::ash::cros_healthd::mojom::NullableUint16Ptr mtu,
-      absl::optional<std::vector<std::string>> uuids,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr deprecated_mtu,
+      std::optional<std::vector<std::string>> uuids,
       ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage);
 
   BluetoothDeviceInfo(
       const std::string& address,
-      const absl::optional<std::string>& name,
+      const std::optional<std::string>& name,
       BluetoothDeviceType type,
       ::ash::cros_healthd::mojom::NullableUint16Ptr appearance,
-      const absl::optional<std::string>& modalias,
+      const std::optional<std::string>& modalias,
       ::ash::cros_healthd::mojom::NullableInt16Ptr rssi,
-      ::ash::cros_healthd::mojom::NullableUint16Ptr mtu,
-      absl::optional<std::vector<std::string>> uuids,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr deprecated_mtu,
+      std::optional<std::vector<std::string>> uuids,
       ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage,
       ::ash::cros_healthd::mojom::NullableUint32Ptr bluetooth_class);
 
@@ -9682,19 +9963,19 @@ BluetoothDeviceInfo& operator=(const BluetoothDeviceInfo&) = delete;
   
   std::string address;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
   BluetoothDeviceType type;
   
   ::ash::cros_healthd::mojom::NullableUint16Ptr appearance;
   
-  absl::optional<std::string> modalias;
+  std::optional<std::string> modalias;
   
   ::ash::cros_healthd::mojom::NullableInt16Ptr rssi;
   
-  ::ash::cros_healthd::mojom::NullableUint16Ptr mtu;
+  ::ash::cros_healthd::mojom::NullableUint16Ptr deprecated_mtu;
   
-  absl::optional<std::vector<std::string>> uuids;
+  std::optional<std::vector<std::string>> uuids;
   
   ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage;
   
@@ -9919,23 +10200,23 @@ class  OsInfo {
 
   OsInfo(
       const std::string& code_name,
-      const absl::optional<std::string>& marketing_name,
+      const std::optional<std::string>& marketing_name,
       OsVersionPtr os_version,
       BootMode boot_mode);
 
   OsInfo(
       const std::string& code_name,
-      const absl::optional<std::string>& marketing_name,
+      const std::optional<std::string>& marketing_name,
       OsVersionPtr os_version,
       BootMode boot_mode,
-      const absl::optional<std::string>& oem_name);
+      const std::optional<std::string>& oem_name);
 
   OsInfo(
       const std::string& code_name,
-      const absl::optional<std::string>& marketing_name,
+      const std::optional<std::string>& marketing_name,
       OsVersionPtr os_version,
       BootMode boot_mode,
-      const absl::optional<std::string>& oem_name,
+      const std::optional<std::string>& oem_name,
       OsInfo::EfiPlatformSize efi_platform_size);
 
 OsInfo(const OsInfo&) = delete;
@@ -10018,13 +10299,13 @@ OsInfo& operator=(const OsInfo&) = delete;
   
   std::string code_name;
   
-  absl::optional<std::string> marketing_name;
+  std::optional<std::string> marketing_name;
   
   OsVersionPtr os_version;
   
   BootMode boot_mode;
   
-  absl::optional<std::string> oem_name;
+  std::optional<std::string> oem_name;
   
   OsInfo::EfiPlatformSize efi_platform_size;
 
@@ -10096,7 +10377,7 @@ class  OsVersion {
   OsVersion(
       const std::string& release_milestone,
       const std::string& build_number,
-      const absl::optional<std::string>& branch_number,
+      const std::optional<std::string>& branch_number,
       const std::string& patch_number,
       const std::string& release_channel);
 
@@ -10180,7 +10461,7 @@ class  OsVersion {
   
   std::string build_number;
   
-  absl::optional<std::string> branch_number;
+  std::optional<std::string> branch_number;
   
   std::string patch_number;
   
@@ -10246,21 +10527,21 @@ class  VpdInfo {
   VpdInfo();
 
   VpdInfo(
-      const absl::optional<std::string>& serial_number,
-      const absl::optional<std::string>& region,
-      const absl::optional<std::string>& mfg_date,
-      const absl::optional<std::string>& activate_date,
-      const absl::optional<std::string>& sku_number,
-      const absl::optional<std::string>& model_name);
+      const std::optional<std::string>& serial_number,
+      const std::optional<std::string>& region,
+      const std::optional<std::string>& mfg_date,
+      const std::optional<std::string>& activate_date,
+      const std::optional<std::string>& sku_number,
+      const std::optional<std::string>& model_name);
 
   VpdInfo(
-      const absl::optional<std::string>& serial_number,
-      const absl::optional<std::string>& region,
-      const absl::optional<std::string>& mfg_date,
-      const absl::optional<std::string>& activate_date,
-      const absl::optional<std::string>& sku_number,
-      const absl::optional<std::string>& model_name,
-      const absl::optional<std::string>& oem_name);
+      const std::optional<std::string>& serial_number,
+      const std::optional<std::string>& region,
+      const std::optional<std::string>& mfg_date,
+      const std::optional<std::string>& activate_date,
+      const std::optional<std::string>& sku_number,
+      const std::optional<std::string>& model_name,
+      const std::optional<std::string>& oem_name);
 
 
   ~VpdInfo();
@@ -10338,19 +10619,19 @@ class  VpdInfo {
   }
 
   
-  absl::optional<std::string> serial_number;
+  std::optional<std::string> serial_number;
   
-  absl::optional<std::string> region;
+  std::optional<std::string> region;
   
-  absl::optional<std::string> mfg_date;
+  std::optional<std::string> mfg_date;
   
-  absl::optional<std::string> activate_date;
+  std::optional<std::string> activate_date;
   
-  absl::optional<std::string> sku_number;
+  std::optional<std::string> sku_number;
   
-  absl::optional<std::string> model_name;
+  std::optional<std::string> model_name;
   
-  absl::optional<std::string> oem_name;
+  std::optional<std::string> oem_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -10412,17 +10693,17 @@ class  DmiInfo {
   DmiInfo();
 
   DmiInfo(
-      const absl::optional<std::string>& bios_vendor,
-      const absl::optional<std::string>& bios_version,
-      const absl::optional<std::string>& board_name,
-      const absl::optional<std::string>& board_vendor,
-      const absl::optional<std::string>& board_version,
-      const absl::optional<std::string>& chassis_vendor,
+      const std::optional<std::string>& bios_vendor,
+      const std::optional<std::string>& bios_version,
+      const std::optional<std::string>& board_name,
+      const std::optional<std::string>& board_vendor,
+      const std::optional<std::string>& board_version,
+      const std::optional<std::string>& chassis_vendor,
       ::ash::cros_healthd::mojom::NullableUint64Ptr chassis_type,
-      const absl::optional<std::string>& product_family,
-      const absl::optional<std::string>& product_name,
-      const absl::optional<std::string>& product_version,
-      const absl::optional<std::string>& sys_vendor);
+      const std::optional<std::string>& product_family,
+      const std::optional<std::string>& product_name,
+      const std::optional<std::string>& product_version,
+      const std::optional<std::string>& sys_vendor);
 
 DmiInfo(const DmiInfo&) = delete;
 DmiInfo& operator=(const DmiInfo&) = delete;
@@ -10502,27 +10783,27 @@ DmiInfo& operator=(const DmiInfo&) = delete;
   }
 
   
-  absl::optional<std::string> bios_vendor;
+  std::optional<std::string> bios_vendor;
   
-  absl::optional<std::string> bios_version;
+  std::optional<std::string> bios_version;
   
-  absl::optional<std::string> board_name;
+  std::optional<std::string> board_name;
   
-  absl::optional<std::string> board_vendor;
+  std::optional<std::string> board_vendor;
   
-  absl::optional<std::string> board_version;
+  std::optional<std::string> board_version;
   
-  absl::optional<std::string> chassis_vendor;
+  std::optional<std::string> chassis_vendor;
   
   ::ash::cros_healthd::mojom::NullableUint64Ptr chassis_type;
   
-  absl::optional<std::string> product_family;
+  std::optional<std::string> product_family;
   
-  absl::optional<std::string> product_name;
+  std::optional<std::string> product_name;
   
-  absl::optional<std::string> product_version;
+  std::optional<std::string> product_version;
   
-  absl::optional<std::string> sys_vendor;
+  std::optional<std::string> sys_vendor;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -11115,8 +11396,8 @@ class  AudioInfo {
       const std::string& input_device_name,
       uint32_t underruns,
       uint32_t severe_underruns,
-      absl::optional<std::vector<AudioNodeInfoPtr>> output_nodes,
-      absl::optional<std::vector<AudioNodeInfoPtr>> input_nodes);
+      std::optional<std::vector<AudioNodeInfoPtr>> output_nodes,
+      std::optional<std::vector<AudioNodeInfoPtr>> input_nodes);
 
 AudioInfo(const AudioInfo&) = delete;
 AudioInfo& operator=(const AudioInfo&) = delete;
@@ -11212,9 +11493,9 @@ AudioInfo& operator=(const AudioInfo&) = delete;
   
   uint32_t severe_underruns;
   
-  absl::optional<std::vector<AudioNodeInfoPtr>> output_nodes;
+  std::optional<std::vector<AudioNodeInfoPtr>> output_nodes;
   
-  absl::optional<std::vector<AudioNodeInfoPtr>> input_nodes;
+  std::optional<std::vector<AudioNodeInfoPtr>> input_nodes;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -11744,11 +12025,11 @@ class  BootPerformanceInfo {
       double shutdown_timestamp,
       const std::string& shutdown_reason,
       ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds,
-      absl::optional<double> power_on_to_kernel_seconds,
-      absl::optional<double> kernel_to_pre_startup_seconds,
-      absl::optional<double> kernel_to_post_startup_seconds,
-      absl::optional<double> startup_to_chrome_exec_seconds,
-      absl::optional<double> chrome_exec_to_login_seconds);
+      std::optional<double> power_on_to_kernel_seconds,
+      std::optional<double> kernel_to_pre_startup_seconds,
+      std::optional<double> kernel_to_post_startup_seconds,
+      std::optional<double> startup_to_chrome_exec_seconds,
+      std::optional<double> chrome_exec_to_login_seconds);
 
 BootPerformanceInfo(const BootPerformanceInfo&) = delete;
 BootPerformanceInfo& operator=(const BootPerformanceInfo&) = delete;
@@ -11840,15 +12121,15 @@ BootPerformanceInfo& operator=(const BootPerformanceInfo&) = delete;
   
   ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds;
   
-  absl::optional<double> power_on_to_kernel_seconds;
+  std::optional<double> power_on_to_kernel_seconds;
   
-  absl::optional<double> kernel_to_pre_startup_seconds;
+  std::optional<double> kernel_to_pre_startup_seconds;
   
-  absl::optional<double> kernel_to_post_startup_seconds;
+  std::optional<double> kernel_to_post_startup_seconds;
   
-  absl::optional<double> startup_to_chrome_exec_seconds;
+  std::optional<double> startup_to_chrome_exec_seconds;
   
-  absl::optional<double> chrome_exec_to_login_seconds;
+  std::optional<double> chrome_exec_to_login_seconds;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -12066,7 +12347,7 @@ class  PciBusInfo {
       uint8_t prog_if_id,
       uint16_t vendor_id,
       uint16_t device_id,
-      const absl::optional<std::string>& driver);
+      const std::optional<std::string>& driver);
 
   PciBusInfo(
       uint8_t class_id,
@@ -12074,7 +12355,7 @@ class  PciBusInfo {
       uint8_t prog_if_id,
       uint16_t vendor_id,
       uint16_t device_id,
-      const absl::optional<std::string>& driver,
+      const std::optional<std::string>& driver,
       ::ash::cros_healthd::mojom::NullableUint16Ptr sub_vendor_id,
       ::ash::cros_healthd::mojom::NullableUint16Ptr sub_device_id);
 
@@ -12166,7 +12447,7 @@ PciBusInfo& operator=(const PciBusInfo&) = delete;
   
   uint16_t device_id;
   
-  absl::optional<std::string> driver;
+  std::optional<std::string> driver;
   
   ::ash::cros_healthd::mojom::NullableUint16Ptr sub_vendor_id;
   
@@ -12420,7 +12701,7 @@ class  UsbBusInterfaceInfo {
       uint8_t class_id,
       uint8_t subclass_id,
       uint8_t protocol_id,
-      const absl::optional<std::string>& driver);
+      const std::optional<std::string>& driver);
 
 
   ~UsbBusInterfaceInfo();
@@ -12506,7 +12787,7 @@ class  UsbBusInterfaceInfo {
   
   uint8_t protocol_id;
   
-  absl::optional<std::string> driver;
+  std::optional<std::string> driver;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -12573,7 +12854,7 @@ class  TpmInfo {
       TpmDictionaryAttackPtr dictionary_attack,
       TpmAttestationPtr attestation,
       TpmSupportedFeaturesPtr supported_features,
-      const absl::optional<std::string>& did_vid);
+      const std::optional<std::string>& did_vid);
 
 TpmInfo(const TpmInfo&) = delete;
 TpmInfo& operator=(const TpmInfo&) = delete;
@@ -12663,7 +12944,7 @@ TpmInfo& operator=(const TpmInfo&) = delete;
   
   TpmSupportedFeaturesPtr supported_features;
   
-  absl::optional<std::string> did_vid;
+  std::optional<std::string> did_vid;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -12731,7 +13012,7 @@ class  TpmVersion {
       uint32_t manufacturer,
       uint32_t tpm_model,
       uint64_t firmware_version,
-      const absl::optional<std::string>& vendor_specific);
+      const std::optional<std::string>& vendor_specific);
 
 
   ~TpmVersion();
@@ -12821,7 +13102,7 @@ class  TpmVersion {
   
   uint64_t firmware_version;
   
-  absl::optional<std::string> vendor_specific;
+  std::optional<std::string> vendor_specific;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -13337,7 +13618,7 @@ class  DisplayInfo {
 
   DisplayInfo(
       EmbeddedDisplayInfoPtr embedded_display,
-      absl::optional<std::vector<ExternalDisplayInfoPtr>> external_displays);
+      std::optional<std::vector<ExternalDisplayInfoPtr>> external_displays);
 
 DisplayInfo(const DisplayInfo&) = delete;
 DisplayInfo& operator=(const DisplayInfo&) = delete;
@@ -13419,7 +13700,7 @@ DisplayInfo& operator=(const DisplayInfo&) = delete;
   
   EmbeddedDisplayInfoPtr embedded_display;
   
-  absl::optional<std::vector<ExternalDisplayInfoPtr>> external_displays;
+  std::optional<std::vector<ExternalDisplayInfoPtr>> external_displays;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -13501,14 +13782,14 @@ class  EmbeddedDisplayInfo {
       ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
       ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
       ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate,
-      const absl::optional<std::string>& manufacturer,
+      const std::optional<std::string>& manufacturer,
       ::ash::cros_healthd::mojom::NullableUint16Ptr model_id,
       ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number,
       ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week,
       ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year,
-      const absl::optional<std::string>& edid_version,
+      const std::optional<std::string>& edid_version,
       DisplayInputType input_type,
-      const absl::optional<std::string>& display_name);
+      const std::optional<std::string>& display_name);
 
 EmbeddedDisplayInfo(const EmbeddedDisplayInfo&) = delete;
 EmbeddedDisplayInfo& operator=(const EmbeddedDisplayInfo&) = delete;
@@ -13602,7 +13883,7 @@ EmbeddedDisplayInfo& operator=(const EmbeddedDisplayInfo&) = delete;
   
   ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate;
   
-  absl::optional<std::string> manufacturer;
+  std::optional<std::string> manufacturer;
   
   ::ash::cros_healthd::mojom::NullableUint16Ptr model_id;
   
@@ -13612,11 +13893,11 @@ EmbeddedDisplayInfo& operator=(const EmbeddedDisplayInfo&) = delete;
   
   ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year;
   
-  absl::optional<std::string> edid_version;
+  std::optional<std::string> edid_version;
   
   DisplayInputType input_type;
   
-  absl::optional<std::string> display_name;
+  std::optional<std::string> display_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -13690,14 +13971,14 @@ class  ExternalDisplayInfo {
       ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
       ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
       ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate,
-      const absl::optional<std::string>& manufacturer,
+      const std::optional<std::string>& manufacturer,
       ::ash::cros_healthd::mojom::NullableUint16Ptr model_id,
       ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number,
       ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week,
       ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year,
-      const absl::optional<std::string>& edid_version,
+      const std::optional<std::string>& edid_version,
       DisplayInputType input_type,
-      const absl::optional<std::string>& display_name);
+      const std::optional<std::string>& display_name);
 
 ExternalDisplayInfo(const ExternalDisplayInfo&) = delete;
 ExternalDisplayInfo& operator=(const ExternalDisplayInfo&) = delete;
@@ -13787,7 +14068,7 @@ ExternalDisplayInfo& operator=(const ExternalDisplayInfo&) = delete;
   
   ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate;
   
-  absl::optional<std::string> manufacturer;
+  std::optional<std::string> manufacturer;
   
   ::ash::cros_healthd::mojom::NullableUint16Ptr model_id;
   
@@ -13797,11 +14078,11 @@ ExternalDisplayInfo& operator=(const ExternalDisplayInfo&) = delete;
   
   ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year;
   
-  absl::optional<std::string> edid_version;
+  std::optional<std::string> edid_version;
   
   DisplayInputType input_type;
   
-  absl::optional<std::string> display_name;
+  std::optional<std::string> display_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -14173,6 +14454,11 @@ class  InputInfo {
       const std::string& touchpad_library_name,
       std::vector<TouchscreenDevicePtr> touchscreen_devices);
 
+  InputInfo(
+      const std::string& touchpad_library_name,
+      std::vector<TouchscreenDevicePtr> touchscreen_devices,
+      std::optional<std::vector<TouchpadDevicePtr>> touchpad_devices);
+
 InputInfo(const InputInfo&) = delete;
 InputInfo& operator=(const InputInfo&) = delete;
 
@@ -14254,6 +14540,8 @@ InputInfo& operator=(const InputInfo&) = delete;
   std::string touchpad_library_name;
   
   std::vector<TouchscreenDevicePtr> touchscreen_devices;
+  
+  std::optional<std::vector<TouchpadDevicePtr>> touchpad_devices;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -14440,6 +14728,152 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  TouchpadDevice {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TouchpadDevice, T>::value>;
+  using DataView = TouchpadDeviceDataView;
+  using Data_ = internal::TouchpadDevice_Data;
+
+  template <typename... Args>
+  static TouchpadDevicePtr New(Args&&... args) {
+    return TouchpadDevicePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TouchpadDevicePtr From(const U& u) {
+    return mojo::TypeConverter<TouchpadDevicePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TouchpadDevice>::Convert(*this);
+  }
+
+
+  TouchpadDevice();
+
+  TouchpadDevice(
+      InputDevicePtr input_device,
+      const std::string& driver_name);
+
+TouchpadDevice(const TouchpadDevice&) = delete;
+TouchpadDevice& operator=(const TouchpadDevice&) = delete;
+
+  ~TouchpadDevice();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TouchpadDevicePtr>
+  TouchpadDevicePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TouchpadDevice::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TouchpadDevice::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TouchpadDevice_UnserializedMessageContext<
+            UserType, TouchpadDevice::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TouchpadDevice::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TouchpadDevice::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TouchpadDevice_UnserializedMessageContext<
+            UserType, TouchpadDevice::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TouchpadDevice::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  InputDevicePtr input_device;
+  
+  std::string driver_name;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  SensorInfo {
  public:
@@ -14472,7 +14906,7 @@ class  SensorInfo {
 
   SensorInfo(
       ::ash::cros_healthd::mojom::NullableUint16Ptr lid_angle,
-      absl::optional<std::vector<SensorPtr>> sensors);
+      std::optional<std::vector<SensorPtr>> sensors);
 
 SensorInfo(const SensorInfo&) = delete;
 SensorInfo& operator=(const SensorInfo&) = delete;
@@ -14554,7 +14988,7 @@ SensorInfo& operator=(const SensorInfo&) = delete;
   
   ::ash::cros_healthd::mojom::NullableUint16Ptr lid_angle;
   
-  absl::optional<std::vector<SensorPtr>> sensors;
+  std::optional<std::vector<SensorPtr>> sensors;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -14581,6 +15015,149 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, SensorInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  ThermalInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ThermalInfo, T>::value>;
+  using DataView = ThermalInfoDataView;
+  using Data_ = internal::ThermalInfo_Data;
+
+  template <typename... Args>
+  static ThermalInfoPtr New(Args&&... args) {
+    return ThermalInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ThermalInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ThermalInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ThermalInfo>::Convert(*this);
+  }
+
+
+  ThermalInfo();
+
+  explicit ThermalInfo(
+      std::vector<ThermalSensorInfoPtr> thermal_sensors);
+
+ThermalInfo(const ThermalInfo&) = delete;
+ThermalInfo& operator=(const ThermalInfo&) = delete;
+
+  ~ThermalInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ThermalInfoPtr>
+  ThermalInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ThermalInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ThermalInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ThermalInfo_UnserializedMessageContext<
+            UserType, ThermalInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ThermalInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ThermalInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ThermalInfo_UnserializedMessageContext<
+            UserType, ThermalInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ThermalInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<ThermalSensorInfoPtr> thermal_sensors;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -14745,6 +15322,31 @@ class  TelemetryInfo {
       AudioHardwareResultPtr audio_hardware_result,
       SensorResultPtr sensor_result);
 
+  TelemetryInfo(
+      BatteryResultPtr battery_result,
+      NonRemovableBlockDeviceResultPtr block_device_result,
+      CpuResultPtr cpu_result,
+      TimezoneResultPtr timezone_result,
+      MemoryResultPtr memory_result,
+      BacklightResultPtr backlight_result,
+      FanResultPtr fan_result,
+      StatefulPartitionResultPtr stateful_partition_result,
+      BluetoothResultPtr bluetooth_result,
+      DEPRECATED_SystemResultPtr deprecated_system_result,
+      NetworkResultPtr network_result,
+      AudioResultPtr audio_result,
+      BootPerformanceResultPtr boot_performance_result,
+      BusResultPtr bus_result,
+      SystemResultPtr system_result,
+      TpmResultPtr tpm_result,
+      GraphicsResultPtr graphics_result,
+      DisplayResultPtr display_result,
+      NetworkInterfaceResultPtr network_interface_result,
+      InputResultPtr input_result,
+      AudioHardwareResultPtr audio_hardware_result,
+      SensorResultPtr sensor_result,
+      ThermalResultPtr thermal_result);
+
 TelemetryInfo(const TelemetryInfo&) = delete;
 TelemetryInfo& operator=(const TelemetryInfo&) = delete;
 
@@ -14866,6 +15468,8 @@ TelemetryInfo& operator=(const TelemetryInfo&) = delete;
   AudioHardwareResultPtr audio_hardware_result;
   
   SensorResultPtr sensor_result;
+  
+  ThermalResultPtr thermal_result;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -15820,6 +16424,35 @@ bool SensorResult::Equals(const T& other) const {
   switch (tag_) {
     case Tag::kSensorInfo:
       return mojo::Equals(*(data_.sensor_info), *(other.data_.sensor_info));
+    case Tag::kError:
+      return mojo::Equals(*(data_.error), *(other.data_.error));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+ThermalResultPtr ThermalResult::Clone() const {
+  switch (tag_) {
+    case Tag::kThermalInfo:
+      return NewThermalInfo(
+          mojo::Clone(*data_.thermal_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, ThermalResult>::value>::type*>
+bool ThermalResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kThermalInfo:
+      return mojo::Equals(*(data_.thermal_info), *(other.data_.thermal_info));
     case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
@@ -17105,7 +17738,7 @@ BluetoothDeviceInfoPtr BluetoothDeviceInfo::Clone() const {
       mojo::Clone(appearance),
       mojo::Clone(modalias),
       mojo::Clone(rssi),
-      mojo::Clone(mtu),
+      mojo::Clone(deprecated_mtu),
       mojo::Clone(uuids),
       mojo::Clone(battery_percentage),
       mojo::Clone(bluetooth_class)
@@ -17126,7 +17759,7 @@ bool BluetoothDeviceInfo::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->rssi, other_struct.rssi))
     return false;
-  if (!mojo::Equals(this->mtu, other_struct.mtu))
+  if (!mojo::Equals(this->deprecated_mtu, other_struct.deprecated_mtu))
     return false;
   if (!mojo::Equals(this->uuids, other_struct.uuids))
     return false;
@@ -17163,9 +17796,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.rssi < lhs.rssi)
     return false;
-  if (lhs.mtu < rhs.mtu)
+  if (lhs.deprecated_mtu < rhs.deprecated_mtu)
     return true;
-  if (rhs.mtu < lhs.mtu)
+  if (rhs.deprecated_mtu < lhs.deprecated_mtu)
     return false;
   if (lhs.uuids < rhs.uuids)
     return true;
@@ -19110,7 +19743,8 @@ template <typename StructPtrType>
 InputInfoPtr InputInfo::Clone() const {
   return New(
       mojo::Clone(touchpad_library_name),
-      mojo::Clone(touchscreen_devices)
+      mojo::Clone(touchscreen_devices),
+      mojo::Clone(touchpad_devices)
   );
 }
 
@@ -19119,6 +19753,8 @@ bool InputInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->touchpad_library_name, other_struct.touchpad_library_name))
     return false;
   if (!mojo::Equals(this->touchscreen_devices, other_struct.touchscreen_devices))
+    return false;
+  if (!mojo::Equals(this->touchpad_devices, other_struct.touchpad_devices))
     return false;
   return true;
 }
@@ -19132,6 +19768,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.touchscreen_devices < rhs.touchscreen_devices)
     return true;
   if (rhs.touchscreen_devices < lhs.touchscreen_devices)
+    return false;
+  if (lhs.touchpad_devices < rhs.touchpad_devices)
+    return true;
+  if (rhs.touchpad_devices < lhs.touchpad_devices)
     return false;
   return false;
 }
@@ -19175,6 +19815,35 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.has_stylus_garage_switch < rhs.has_stylus_garage_switch)
     return true;
   if (rhs.has_stylus_garage_switch < lhs.has_stylus_garage_switch)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+TouchpadDevicePtr TouchpadDevice::Clone() const {
+  return New(
+      mojo::Clone(input_device),
+      mojo::Clone(driver_name)
+  );
+}
+
+template <typename T, TouchpadDevice::EnableIfSame<T>*>
+bool TouchpadDevice::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->input_device, other_struct.input_device))
+    return false;
+  if (!mojo::Equals(this->driver_name, other_struct.driver_name))
+    return false;
+  return true;
+}
+
+template <typename T, TouchpadDevice::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.input_device < rhs.input_device)
+    return true;
+  if (rhs.input_device < lhs.input_device)
+    return false;
+  if (lhs.driver_name < rhs.driver_name)
+    return true;
+  if (rhs.driver_name < lhs.driver_name)
     return false;
   return false;
 }
@@ -19294,6 +19963,64 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+ThermalInfoPtr ThermalInfo::Clone() const {
+  return New(
+      mojo::Clone(thermal_sensors)
+  );
+}
+
+template <typename T, ThermalInfo::EnableIfSame<T>*>
+bool ThermalInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->thermal_sensors, other_struct.thermal_sensors))
+    return false;
+  return true;
+}
+
+template <typename T, ThermalInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.thermal_sensors < rhs.thermal_sensors)
+    return true;
+  if (rhs.thermal_sensors < lhs.thermal_sensors)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ThermalSensorInfoPtr ThermalSensorInfo::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(temperature_celsius),
+      mojo::Clone(source)
+  );
+}
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>*>
+bool ThermalSensorInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->temperature_celsius, other_struct.temperature_celsius))
+    return false;
+  if (!mojo::Equals(this->source, other_struct.source))
+    return false;
+  return true;
+}
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.temperature_celsius < rhs.temperature_celsius)
+    return true;
+  if (rhs.temperature_celsius < lhs.temperature_celsius)
+    return false;
+  if (lhs.source < rhs.source)
+    return true;
+  if (rhs.source < lhs.source)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 TelemetryInfoPtr TelemetryInfo::Clone() const {
   return New(
       mojo::Clone(battery_result),
@@ -19317,7 +20044,8 @@ TelemetryInfoPtr TelemetryInfo::Clone() const {
       mojo::Clone(network_interface_result),
       mojo::Clone(input_result),
       mojo::Clone(audio_hardware_result),
-      mojo::Clone(sensor_result)
+      mojo::Clone(sensor_result),
+      mojo::Clone(thermal_result)
   );
 }
 
@@ -19366,6 +20094,8 @@ bool TelemetryInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->audio_hardware_result, other_struct.audio_hardware_result))
     return false;
   if (!mojo::Equals(this->sensor_result, other_struct.sensor_result))
+    return false;
+  if (!mojo::Equals(this->thermal_result, other_struct.thermal_result))
     return false;
   return true;
 }
@@ -19459,6 +20189,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.sensor_result < rhs.sensor_result)
     return true;
   if (rhs.sensor_result < lhs.sensor_result)
+    return false;
+  if (lhs.thermal_result < rhs.thermal_result)
+    return true;
+  if (rhs.thermal_result < lhs.thermal_result)
     return false;
   return false;
 }
@@ -20395,9 +21129,9 @@ struct  StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView,
     return input->rssi;
   }
 
-  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::mtu)& mtu(
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::deprecated_mtu)& deprecated_mtu(
       const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
-    return input->mtu;
+    return input->deprecated_mtu;
   }
 
   static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::uuids)& uuids(
@@ -21785,6 +22519,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::InputInfo::DataView,
     return input->touchscreen_devices;
   }
 
+  static const decltype(::ash::cros_healthd::mojom::InputInfo::touchpad_devices)& touchpad_devices(
+      const ::ash::cros_healthd::mojom::InputInfoPtr& input) {
+    return input->touchpad_devices;
+  }
+
   static bool Read(::ash::cros_healthd::mojom::InputInfo::DataView input, ::ash::cros_healthd::mojom::InputInfoPtr* output);
 };
 
@@ -21816,6 +22555,26 @@ struct  StructTraits<::ash::cros_healthd::mojom::TouchscreenDevice::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::TouchscreenDevice::DataView input, ::ash::cros_healthd::mojom::TouchscreenDevicePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::TouchpadDevice::DataView,
+                                         ::ash::cros_healthd::mojom::TouchpadDevicePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TouchpadDevicePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TouchpadDevicePtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::TouchpadDevice::input_device)& input_device(
+      const ::ash::cros_healthd::mojom::TouchpadDevicePtr& input) {
+    return input->input_device;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::TouchpadDevice::driver_name)& driver_name(
+      const ::ash::cros_healthd::mojom::TouchpadDevicePtr& input) {
+    return input->driver_name;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::TouchpadDevice::DataView input, ::ash::cros_healthd::mojom::TouchpadDevicePtr* output);
 };
 
 
@@ -21896,6 +22655,46 @@ struct  StructTraits<::ash::cros_healthd::mojom::Sensor::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::Sensor::DataView input, ::ash::cros_healthd::mojom::SensorPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::ThermalInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ThermalInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ThermalInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ThermalInfoPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::ThermalInfo::thermal_sensors)& thermal_sensors(
+      const ::ash::cros_healthd::mojom::ThermalInfoPtr& input) {
+    return input->thermal_sensors;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::ThermalInfo::DataView input, ::ash::cros_healthd::mojom::ThermalInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::ThermalSensorInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ThermalSensorInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ThermalSensorInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ThermalSensorInfoPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::ThermalSensorInfo::name)& name(
+      const ::ash::cros_healthd::mojom::ThermalSensorInfoPtr& input) {
+    return input->name;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::ThermalSensorInfo::temperature_celsius) temperature_celsius(
+      const ::ash::cros_healthd::mojom::ThermalSensorInfoPtr& input) {
+    return input->temperature_celsius;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::ThermalSensorInfo::source) source(
+      const ::ash::cros_healthd::mojom::ThermalSensorInfoPtr& input) {
+    return input->source;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::ThermalSensorInfo::DataView input, ::ash::cros_healthd::mojom::ThermalSensorInfoPtr* output);
 };
 
 
@@ -22013,6 +22812,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::TelemetryInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::sensor_result)& sensor_result(
       const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->sensor_result;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::thermal_result)& thermal_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
+    return input->thermal_result;
   }
 
   static bool Read(::ash::cros_healthd::mojom::TelemetryInfo::DataView input, ::ash::cros_healthd::mojom::TelemetryInfoPtr* output);
@@ -22724,6 +23528,28 @@ struct  UnionTraits<::ash::cros_healthd::mojom::SensorResult::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::SensorResult::DataView input, ::ash::cros_healthd::mojom::SensorResultPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::ThermalResult::DataView,
+                                        ::ash::cros_healthd::mojom::ThermalResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ThermalResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ThermalResultPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::ThermalResult::Tag GetTag(const ::ash::cros_healthd::mojom::ThermalResultPtr& input) {
+    return input->which();
+  }
+
+  static const ::ash::cros_healthd::mojom::ThermalInfoPtr& thermal_info(const ::ash::cros_healthd::mojom::ThermalResultPtr& input) {
+    return input->get_thermal_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::ThermalResultPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::ThermalResult::DataView input, ::ash::cros_healthd::mojom::ThermalResultPtr* output);
 };
 
 }  // namespace mojo

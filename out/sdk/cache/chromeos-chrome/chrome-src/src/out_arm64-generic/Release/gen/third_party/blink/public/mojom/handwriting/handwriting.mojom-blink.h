@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/handwriting/handwriting.mojom-features.h"
 #include "third_party/blink/public/mojom/handwriting/handwriting.mojom-shared.h"
 #include "third_party/blink/public/mojom/handwriting/handwriting.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -40,42 +41,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::handwriting::mojom::HandwritingRecognitionType>
-    : EnumHashTraits<::handwriting::mojom::HandwritingRecognitionType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::handwriting::mojom::HandwritingInputType>
-    : EnumHashTraits<::handwriting::mojom::HandwritingInputType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::handwriting::mojom::CreateHandwritingRecognizerResult>
-    : EnumHashTraits<::handwriting::mojom::CreateHandwritingRecognizerResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace handwriting::mojom::blink {
@@ -123,7 +88,7 @@ class PLATFORM_EXPORT HandwritingRecognizer
   virtual ~HandwritingRecognizer() = default;
 
 
-  using GetPredictionCallback = base::OnceCallback<void(absl::optional<WTF::Vector<HandwritingPredictionPtr>>)>;
+  using GetPredictionCallback = base::OnceCallback<void(std::optional<WTF::Vector<HandwritingPredictionPtr>>)>;
   
   virtual void GetPrediction(WTF::Vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints, GetPredictionCallback callback) = 0;
 };
@@ -652,7 +617,7 @@ class PLATFORM_EXPORT HandwritingPoint {
 
   HandwritingPoint(
       const ::gfx::PointF& location,
-      absl::optional<::base::TimeDelta> t);
+      std::optional<::base::TimeDelta> t);
 
 
   ~HandwritingPoint();
@@ -732,7 +697,7 @@ class PLATFORM_EXPORT HandwritingPoint {
   
   ::gfx::PointF location;
   
-  absl::optional<::base::TimeDelta> t;
+  std::optional<::base::TimeDelta> t;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

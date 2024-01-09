@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/oemcrypto.mojom-features.h"
 #include "ash/components/arc/mojom/oemcrypto.mojom-shared.h"
 #include "ash/components/arc/mojom/oemcrypto.mojom-forward.h"
 #include <string>
@@ -423,7 +424,7 @@ class OemCryptoService
   virtual void GenerateNonce(uint32_t session, GenerateNonceCallback callback) = 0;
 
 
-  using GenerateSignatureCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using GenerateSignatureCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GenerateSignature(uint32_t session, const std::vector<uint8_t>& message, GenerateSignatureCallback callback) = 0;
 
@@ -438,7 +439,7 @@ class OemCryptoService
   virtual void RefreshKeysV14(uint32_t session, const std::vector<uint8_t>& message, const std::vector<uint8_t>& signature, std::vector<OemCryptoKeyRefreshObjectV14Ptr> key_array, RefreshKeysV14Callback callback) = 0;
 
 
-  using QueryKeyControlCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using QueryKeyControlCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void QueryKeyControl(uint32_t session, const std::vector<uint8_t>& key_id, QueryKeyControlCallback callback) = 0;
 
@@ -448,22 +449,22 @@ class OemCryptoService
   virtual void SelectKeyV13(uint32_t session, const std::vector<uint8_t>& key_id, SelectKeyV13Callback callback) = 0;
 
 
-  using DecryptCencV15Callback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using DecryptCencV15Callback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void DecryptCencV15(uint32_t session, const std::vector<uint8_t>& data, bool is_encrypted, const std::vector<uint8_t>& iv, uint32_t block_offset, OemCryptoSecureBufferPtr secure_buffer, OemCryptoCencEncryptPatternDescPtr pattern, DecryptCencV15Callback callback) = 0;
 
 
-  using GenericEncryptCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using GenericEncryptCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GenericEncrypt(uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, GenericEncryptCallback callback) = 0;
 
 
-  using GenericDecryptCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using GenericDecryptCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GenericDecrypt(uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, GenericDecryptCallback callback) = 0;
 
 
-  using GenericSignCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using GenericSignCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GenericSign(uint32_t session, const std::vector<uint8_t>& data, OemCryptoAlgorithm algorithm, GenericSignCallback callback) = 0;
 
@@ -488,17 +489,17 @@ class OemCryptoService
   virtual void IsRootKeyCertificateValid(IsRootKeyCertificateValidCallback callback) = 0;
 
 
-  using GetDeviceIdCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using GetDeviceIdCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GetDeviceId(GetDeviceIdCallback callback) = 0;
 
 
-  using GetKeyDataCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using GetKeyDataCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GetKeyData(GetKeyDataCallback callback) = 0;
 
 
-  using GetRandomCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using GetRandomCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GetRandom(uint32_t length, GetRandomCallback callback) = 0;
 
@@ -513,7 +514,7 @@ class OemCryptoService
   virtual void GetMaxNumberOfSessions(GetMaxNumberOfSessionsCallback callback) = 0;
 
 
-  using RewrapDeviceRsaKeyCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using RewrapDeviceRsaKeyCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void RewrapDeviceRsaKey(uint32_t session, const std::vector<uint8_t>& message, const std::vector<uint8_t>& signature, uint32_t nonce_offset, uint32_t enc_rsa_key_offset, uint32_t enc_rsa_key_length, uint32_t enc_rsa_key_iv_offset, RewrapDeviceRsaKeyCallback callback) = 0;
 
@@ -523,7 +524,7 @@ class OemCryptoService
   virtual void LoadDeviceRsaKey(uint32_t session, const std::vector<uint8_t>& wrapped_rsa_key, LoadDeviceRsaKeyCallback callback) = 0;
 
 
-  using GenerateRsaSignatureCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using GenerateRsaSignatureCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GenerateRsaSignature(uint32_t session, const std::vector<uint8_t>& message, OemCryptoRsaPaddingScheme padding_scheme, GenerateRsaSignatureCallback callback) = 0;
 
@@ -603,7 +604,7 @@ class OemCryptoService
   virtual void RemoveSrm(RemoveSrmCallback callback) = 0;
 
 
-  using CreateUsageTableHeaderCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using CreateUsageTableHeaderCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void CreateUsageTableHeader(uint32_t avail_header_length, CreateUsageTableHeaderCallback callback) = 0;
 
@@ -623,7 +624,7 @@ class OemCryptoService
   virtual void LoadUsageEntry(uint32_t session, uint32_t index, const std::vector<uint8_t>& buffer, LoadUsageEntryCallback callback) = 0;
 
 
-  using UpdateUsageEntryCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&, const absl::optional<std::vector<uint8_t>>&)>;
+  using UpdateUsageEntryCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void UpdateUsageEntry(uint32_t session, uint32_t avail_header_length, uint32_t avail_entry_length, UpdateUsageEntryCallback callback) = 0;
 
@@ -633,7 +634,7 @@ class OemCryptoService
   virtual void DeactivateUsageEntry(uint32_t session, const std::vector<uint8_t>& pst, DeactivateUsageEntryCallback callback) = 0;
 
 
-  using ShrinkUsageTableHeaderCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using ShrinkUsageTableHeaderCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void ShrinkUsageTableHeader(uint32_t new_entry_count, uint32_t avail_header_length, ShrinkUsageTableHeaderCallback callback) = 0;
 
@@ -703,7 +704,7 @@ class OemCryptoService
   virtual void LoadEntitledContentKeys(uint32_t session, const std::vector<uint8_t>& message, std::vector<OemCryptoEntitledContentKeyObjectPtr> key_array, LoadEntitledContentKeysCallback callback) = 0;
 
 
-  using GetOemPublicCertificateCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using GetOemPublicCertificateCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GetOemPublicCertificate(GetOemPublicCertificateCallback callback) = 0;
 
@@ -723,17 +724,17 @@ class OemCryptoService
   virtual void MinorApiVersion(MinorApiVersionCallback callback) = 0;
 
 
-  using PrepAndSignLicenseRequestCallback = base::OnceCallback<void(OemCryptoResult, uint32_t, const absl::optional<std::vector<uint8_t>>&, const absl::optional<std::vector<uint8_t>>&)>;
+  using PrepAndSignLicenseRequestCallback = base::OnceCallback<void(OemCryptoResult, uint32_t, const std::optional<std::vector<uint8_t>>&, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void PrepAndSignLicenseRequest(uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, PrepAndSignLicenseRequestCallback callback) = 0;
 
 
-  using PrepAndSignRenewalRequestCallback = base::OnceCallback<void(OemCryptoResult, uint32_t, const absl::optional<std::vector<uint8_t>>&, const absl::optional<std::vector<uint8_t>>&)>;
+  using PrepAndSignRenewalRequestCallback = base::OnceCallback<void(OemCryptoResult, uint32_t, const std::optional<std::vector<uint8_t>>&, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void PrepAndSignRenewalRequest(uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, PrepAndSignRenewalRequestCallback callback) = 0;
 
 
-  using PrepAndSignProvisioningRequestCallback = base::OnceCallback<void(OemCryptoResult, uint32_t, const absl::optional<std::vector<uint8_t>>&, const absl::optional<std::vector<uint8_t>>&)>;
+  using PrepAndSignProvisioningRequestCallback = base::OnceCallback<void(OemCryptoResult, uint32_t, const std::optional<std::vector<uint8_t>>&, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void PrepAndSignProvisioningRequest(uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, PrepAndSignProvisioningRequestCallback callback) = 0;
 
@@ -748,7 +749,7 @@ class OemCryptoService
   virtual void LoadRenewal(uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_length, const std::vector<uint8_t>& signature, LoadRenewalCallback callback) = 0;
 
 
-  using LoadProvisioningCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using LoadProvisioningCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void LoadProvisioning(uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_length, const std::vector<uint8_t>& signature, uint32_t avail_wrapped_private_key_size, LoadProvisioningCallback callback) = 0;
 
@@ -763,7 +764,7 @@ class OemCryptoService
   virtual void LoadDrmPrivateKey(uint32_t session, OemCryptoPrivateKey key_type, const std::vector<uint8_t>& wrapped_private_key, LoadDrmPrivateKeyCallback callback) = 0;
 
 
-  using DecryptCencCallback = base::OnceCallback<void(OemCryptoResult, const absl::optional<std::vector<uint8_t>>&)>;
+  using DecryptCencCallback = base::OnceCallback<void(OemCryptoResult, const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void DecryptCenc(uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, std::vector<SubSampleDescriptionPtr> sub_samples, OemCryptoCencEncryptPatternDescPtr pattern, OemCryptoSecureBufferPtr secure_buffer, DecryptCencCallback callback) = 0;
 

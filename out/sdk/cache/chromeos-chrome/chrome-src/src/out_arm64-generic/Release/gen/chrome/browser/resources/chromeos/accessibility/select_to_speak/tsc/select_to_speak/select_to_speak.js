@@ -13,25 +13,21 @@ import { MetricsUtils } from './metrics_utils.js';
 import { PrefsManager } from './prefs_manager.js';
 import { SelectToSpeakConstants } from './select_to_speak_constants.js';
 import { TtsManager } from './tts_manager.js';
-import { SelectToSpeakUiListener, UiManager } from './ui_manager.js';
-const AutomationNode = chrome.automation.AutomationNode;
-const AutomationEvent = chrome.automation.AutomationEvent;
-const EventType = chrome.automation.EventType;
-const RoleType = chrome.automation.RoleType;
-const AccessibilityFeature = chrome.accessibilityPrivate.AccessibilityFeature;
-const SelectToSpeakState = chrome.accessibilityPrivate.SelectToSpeakState;
+import { UiManager } from './ui_manager.js';
+var EventType = chrome.automation.EventType;
+var RoleType = chrome.automation.RoleType;
+var SelectToSpeakState = chrome.accessibilityPrivate.SelectToSpeakState;
 // Matches one of the known GSuite apps which need the clipboard to find and
 // read selected text. Includes sandbox and non-sandbox versions.
-const GSUITE_APP_REGEXP = /^https:\/\/docs\.(?:sandbox\.)?google\.com\/(?:(?:presentation)|(?:document)|(?:spreadsheets)|(?:drawings)){1}\//;
+const GSUITE_APP_REGEXP = /^https:\/\/docs\.(?:sandbox\.)?google\.com\/(?:(?:presentation)|(?:document)|(?:spreadsheets)|(?:drawings)|(?:scenes)){1}\//;
 /**
  * Determines if a node is in one of the known Google GSuite apps that needs
  * special case treatment for speaking selected text. Not all Google GSuite
  * pages are included, because some are not known to have a problem with
  * selection: Forms is not included since it's relatively similar to any HTML
  * page, for example.
- * @param {AutomationNode=}  node The node to check
- * @return {?AutomationNode} The root node of the GSuite app, or null if none is
- *     found.
+ * @param node The node to check
+ * @return The root node of the GSuite app, or null if none is found.
  */
 export function getGSuiteAppRoot(node) {
     while (node !== undefined && node.root !== undefined) {
@@ -44,21 +40,39 @@ export function getGSuiteAppRoot(node) {
 }
 /**
  * Select-to-speak component extension controller.
- * @implements {SelectToSpeakUiListener}
  */
 export class SelectToSpeak {
+    currentCharIndex_;
+    currentNodeGroupIndex_;
+    // TODO(b/314203187): In many places we've added a currentNodeGroupItem_!,
+    // determine if this is correct or if a check should be added.
+    currentNodeGroupItem_;
+    currentNodeGroupItemIndex_;
+    currentNodeGroups_;
+    currentNodeWord_;
+    desktop_;
+    inputHandler_;
+    intervalId_;
+    nullSelectionTone_;
+    onStateChangeRequestedCallbackForTest_;
+    prefsManager_;
+    scrollToSpokenNode_;
+    speechRateMultiplier_;
+    state_;
+    supportsNavigationPanel_;
+    ttsManager_;
+    uiManager_;
+    onLoadDesktopCallbackForTest_;
     /** Please keep fields in alphabetical order. */
     constructor() {
         /**
          * The start char index of the word to be spoken. The index is relative
          * to the text content of the current node group.
-         * @private {number}
          */
         this.currentCharIndex_ = -1;
         /**
          * The index for the node group currently being spoken in
          * |this.currentNodeGroups_|.
-         * @private {number}
          */
         this.currentNodeGroupIndex_ = -1;
         /**
@@ -66,7 +80,6 @@ export class SelectToSpeak {
          * representation of the original input nodes, but may not be the same. For
          * example, an input inline text node will be represented by its static text
          * node in the node group item.
-         * @private {?ParagraphUtils.NodeGroupItem}
          */
         this.currentNodeGroupItem_ = null;
         /**
@@ -76,7 +89,6 @@ export class SelectToSpeak {
          * |this.currentNodeGroupItemIndex_| can be used to get
          * |this.currentNodeGroupItem_| from the current node group. However, in
          * Gsuite, we will have node group items outside of a node group.
-         * @private {number}
          */
         this.currentNodeGroupItemIndex_ = -1;
         /**
@@ -84,64 +96,44 @@ export class SelectToSpeak {
          * pass one node group at a time to the TTS engine. Note that we do not use
          * node groups for user-selected text in Gsuite. See more details in
          * readNodesBetweenPositions_.
-         * @private {!Array<!ParagraphUtils.NodeGroup>}
          */
         this.currentNodeGroups_ = [];
         /**
          * The indexes within the current node group item representing the word
          * currently being spoken. Only updated if word highlighting is enabled.
-         * @private {?{start: number, end: number}}
          */
         this.currentNodeWord_ = null;
-        /** @private {chrome.automation.AutomationNode} */
         this.desktop_;
-        /**
-         * Feature flag controlling STS language detection integration.
-         * @private {boolean}
-         */
-        this.enableLanguageDetectionIntegration_ = false;
-        /** @private {InputHandler} */
         this.inputHandler_ = null;
         /**
          * The interval ID from a call to setInterval, which is set whenever
          * speech is in progress.
-         * @private {number|undefined}
          */
         this.intervalId_;
-        /** @private {Audio} */
-        this.null_selection_tone_ = new Audio('earcons/null_selection.ogg');
+        this.nullSelectionTone_ = new Audio('earcons/null_selection.ogg');
         /**
          * Function to be called when a state change request is received from the
          * accessibilityPrivate API.
-         * @protected {?function()}
          */
         this.onStateChangeRequestedCallbackForTest_ = null;
-        /** @private {PrefsManager} */
         this.prefsManager_ = new PrefsManager();
-        /** @private {boolean} */
         this.scrollToSpokenNode_ = false;
-        /** @private {number} Speech rate multiplier. */
+        /** Speech rate multiplier. */
         this.speechRateMultiplier_ = 1.0;
         /**
          * The current state of the SelectToSpeak extension, from
          * SelectToSpeakState.
-         * @private {!chrome.accessibilityPrivate.SelectToSpeakState}
          */
         this.state_ = SelectToSpeakState.INACTIVE;
         /**
          * Whether the current nodes support use of the navigation panel.
-         * @private {boolean}
          */
         this.supportsNavigationPanel_ = true;
-        /** @private {!TtsManager} */
         this.ttsManager_ = new TtsManager();
-        /** @private {!UiManager} */
-        this.uiManager_ = new UiManager(this.prefsManager_, this /* listener */);
-        /** @private {?function()} */
+        this.uiManager_ = new UiManager(this.prefsManager_, /*listener=*/ this);
         this.onLoadDesktopCallbackForTest_ = null;
         this.init_();
     }
-    /** @private */
     init_() {
         chrome.automation.getDesktop(desktop => {
             this.desktop_ = desktop;
@@ -159,7 +151,7 @@ export class SelectToSpeak {
         this.setUpEventListeners_();
         chrome.contextMenus.create({
             title: chrome.i18n.getMessage('select_to_speak_listen_context_menu_option_text'),
-            contexts: ['selection'],
+            contexts: [chrome.contextMenus.ContextType.SELECTION],
             onclick: () => {
                 this.getFocusedNodeAndSpeakSelectedText_();
             },
@@ -170,7 +162,6 @@ export class SelectToSpeak {
     }
     /**
      * Gets the node group currently being spoken.
-     * @return {!ParagraphUtils.NodeGroup|undefined}
      */
     getCurrentNodeGroup_() {
         if (this.currentNodeGroups_.length === 0) {
@@ -179,20 +170,9 @@ export class SelectToSpeak {
         return this.currentNodeGroups_[this.currentNodeGroupIndex_];
     }
     /**
-     * Gets the last node group from current selection.
-     * @return {!ParagraphUtils.NodeGroup|undefined}
-     */
-    getLastNodeGroup_() {
-        if (this.currentNodeGroups_.length === 0) {
-            return undefined;
-        }
-        return this.currentNodeGroups_[this.currentNodeGroups_.length - 1];
-    }
-    /**
      * Determines if navigation controls should be shown (and other related
      * functionality, such as auto-dismiss and click-to-navigate to sentence,
      * should be activated) based on feature flag and user setting.
-     * @private
      */
     shouldShowNavigationControls_() {
         return this.prefsManager_.navigationControlsEnabled() &&
@@ -202,8 +182,7 @@ export class SelectToSpeak {
      * Called in response to our hit test after the mouse is released,
      * when the user is in a mode where Select-to-speak is capturing
      * mouse events (for example holding down Search).
-     * @param {!AutomationEvent} evt The automation event.
-     * @private
+     * @param evt The automation event from the hit test.
      */
     onAutomationHitTest_(evt) {
         // Walk up to the nearest window, web area, toolbar, or dialog that the
@@ -231,6 +210,8 @@ export class SelectToSpeak {
             // that a node is in ARC++.
             if (!NodeUtils.findAllMatching(root, rect, nodes) && focusedNode &&
                 focusedNode.root.role !== RoleType.DESKTOP) {
+                // TODO(b/314203187): Determine if not null assertion is appropriate
+                // here.
                 NodeUtils.findAllMatching(focusedNode.root, rect, nodes);
             }
             if (nodes.length === 1 && UiManager.isTrayButton(nodes[0])) {
@@ -246,19 +227,19 @@ export class SelectToSpeak {
                 // expand to entire paragraph.
                 nodes = NodeUtils.getAllNodesInParagraph(nodes[0]);
             }
-            this.startSpeechQueue_(nodes, { clearFocusRing: true });
+            this.startSpeechQueue_(nodes, {
+                clearFocusRing: true,
+            });
             MetricsUtils.recordStartEvent(MetricsUtils.StartSpeechMethod.MOUSE, this.prefsManager_);
         });
     }
-    /** @private */
     getFocusedNodeAndSpeakSelectedText_() {
         chrome.automation.getFocus(focusedNode => this.requestSpeakSelectedText_(MetricsUtils.StartSpeechMethod.CONTEXT_MENU, focusedNode));
     }
     /**
      * Queues up selected text for reading by finding the Position objects
      * representing the selection.
-     * @private
-     * @param {MetricsUtils.StartSpeechMethod} method the method that
+     * @param method the method that
      *     caused the text to speak.
      */
     requestSpeakSelectedText_(method, focusedNode) {
@@ -279,9 +260,9 @@ export class SelectToSpeak {
             return;
         }
         let startObject;
-        let startOffset;
+        let startOffset = 0;
         let endObject;
-        let endOffset;
+        let endOffset = 0;
         // Use selectionStartObject/selectionEndObject if available. Otherwise,
         // use textSelStart/textSelEnd to get the selection offset.
         if (hasSelectionObjects) {
@@ -344,17 +325,15 @@ export class SelectToSpeak {
     }
     /**
      * Reads nodes between positions.
-     * @param {NodeUtils.Position} firstPosition The first position at which to
-     *     start reading.
-     * @param {NodeUtils.Position} lastPosition The last position at which to
-     *     stop reading.
-     * @param {MetricsUtils.StartSpeechMethod | null} method the method used to
+     * @param firstPosition The first position at which to start reading.
+     * @param lastPosition The last position at which to stop reading.
+     * @param method the method used to
      *     activate the speech, null if not actived by user.
-     * @param {AutomationNode=} focusedNode The node with user focus.
-     * @private
+     * @param focusedNode The node with user focus.
      */
     readNodesBetweenPositions_(firstPosition, lastPosition, method, focusedNode) {
         const nodes = [];
+        // TODO(b/314204374): AutomationUtil.findNextNode may return null.
         let selectedNode = firstPosition.node;
         // If the method is set, a user requested the speech.
         const userRequested = method !== null;
@@ -464,15 +443,14 @@ export class SelectToSpeak {
     /**
      * Gets ready to cancel future scrolling to offscreen nodes as soon as
      * a user-initiated scroll is done.
-     * @param {AutomationNode=} root The root node to listen for events on.
-     * @private
+     * @param root The root node to listen for events on.
      */
     initializeScrollingToOffscreenNodes_(root) {
         if (!root) {
             return;
         }
         this.scrollToSpokenNode_ = true;
-        const listener = event => {
+        const listener = (event) => {
             if (event.eventFrom !== 'action') {
                 // User initiated event. Cancel all future scrolling to spoken nodes.
                 // If the user wants a certain scroll position we will respect that.
@@ -492,11 +470,10 @@ export class SelectToSpeak {
     /**
      * Plays a tone to let the user know they did the correct
      * keystroke but nothing was selected.
-     * @private
      */
     onNullSelection_() {
         if (!this.shouldShowNavigationControls_()) {
-            this.null_selection_tone_.play();
+            this.nullSelectionTone_.play();
             return;
         }
         this.uiManager_.setFocusToPanel();
@@ -506,7 +483,6 @@ export class SelectToSpeak {
      * false and |this.state_| is SPEAKING.
      * TODO(leileilei): use two SelectToSpeak states to differentiate speaking and
      * pausing with panel.
-     * @private
      */
     isPaused_() {
         return !this.ttsManager_.isSpeaking() &&
@@ -514,15 +490,12 @@ export class SelectToSpeak {
     }
     /**
      * Pause the TTS.
-     * @return {!Promise}
-     * @private
      */
     pause_() {
         return this.ttsManager_.pause();
     }
     /**
      * Resume the TTS.
-     * @private
      */
     resume_() {
         // If TTS is not paused, return early.
@@ -540,7 +513,6 @@ export class SelectToSpeak {
     /**
      * If resume is successful, a resume event will be sent. We use this event to
      * update node state.
-     * @param {!chrome.tts.TtsEvent} event
      */
     onTtsResumeSucceedEvent_(event) {
         // If the node group is invalid, ignore the resume event. This is not
@@ -557,9 +529,8 @@ export class SelectToSpeak {
      * is no remaining user-selected content, STS will read from the current
      * position to the end of the current paragraph. If there is no content left
      * in this paragraph, we navigate to the next paragraph.
-     * @param {!chrome.tts.TtsEvent} event
      */
-    onTtsResumeErrorEvent_(event) {
+    onTtsResumeErrorEvent_(_event) {
         // If the node group is invalid, ignore the error event. This is not
         // expected.
         const currentNodeGroup = this.getCurrentNodeGroup_();
@@ -581,7 +552,10 @@ export class SelectToSpeak {
             this.navigateToNextParagraph_(constants.Dir.FORWARD);
             return;
         }
-        this.startSpeechQueue_(remainingNodes, { clearFocusRing: false, startCharIndex: offset });
+        this.startSpeechQueue_(remainingNodes, {
+            clearFocusRing: false,
+            startCharIndex: offset,
+        });
     }
     /**
      * Stop speech. If speech was in-progress, the interruption
@@ -590,7 +564,6 @@ export class SelectToSpeak {
      * If speech was not in progress, i.e. if the user was drawing
      * a focus ring on the screen, this still clears the visual
      * focus ring.
-     * @private
      */
     stopAll_() {
         this.ttsManager_.stop();
@@ -600,7 +573,6 @@ export class SelectToSpeak {
     /**
      * Clears the current focus ring and node, but does
      * not stop the speech.
-     * @private
      */
     clearFocusRingAndNode_() {
         this.uiManager_.clear();
@@ -615,7 +587,6 @@ export class SelectToSpeak {
     }
     /**
      * Resets the instance variables for nodes and node groups.
-     * @private
      */
     resetNodes_() {
         this.currentNodeGroups_ = [];
@@ -632,7 +603,6 @@ export class SelectToSpeak {
      * tabs already opened will be checked.
      * This should be kept in sync with the "content_scripts" section in
      * the Select-to-Speak manifest.
-     * @private
      */
     runContentScripts_() {
         const scripts = chrome.runtime.getManifest()['content_scripts'][0]['js'];
@@ -654,7 +624,6 @@ export class SelectToSpeak {
     }
     /**
      * Set up event listeners user input.
-     * @private
      */
     setUpEventListeners_() {
         this.inputHandler_ = new InputHandler({
@@ -768,8 +737,6 @@ export class SelectToSpeak {
     }
     /**
      * Handles user request to adjust reading speed.
-     * @param {number} rateMultiplier
-     * @private
      */
     onChangeSpeedRequested(rateMultiplier) {
         this.speechRateMultiplier_ = rateMultiplier;
@@ -782,11 +749,10 @@ export class SelectToSpeak {
     }
     /**
      * Navigates to the next sentence.
-     * @param {constants.Dir} direction Direction to search for the next sentence.
+     * @param direction Direction to search for the next sentence.
      *     If set to forward, we look for the sentence start after the current
      *     position. Otherwise, we look for the sentence start before the current
      *     position.
-     * @private
      */
     async navigateToNextSentence_(direction) {
         if (!this.isPaused_()) {
@@ -798,12 +764,12 @@ export class SelectToSpeak {
         }
         // Ensure the first node in the paragraph is visible.
         nodes[0].makeVisible();
-        this.startSpeechQueue_(nodes, { startCharIndex: offset });
+        this.startSpeechQueue_(nodes, {
+            startCharIndex: offset,
+        });
     }
     /**
      * Navigates to the next text block in the given direction.
-     * @param {constants.Dir} direction
-     * @private
      */
     async navigateToNextParagraph_(direction) {
         if (!this.isPaused_()) {
@@ -822,9 +788,7 @@ export class SelectToSpeak {
     /**
      * A predicate for paragraph selection and navigation. The current
      * implementation filters out paragraph that belongs to the panel.
-     * @param {Array<!AutomationNode>} nodes
-     * @return {boolean} Whether the paragraph made of the |nodes| is valid
-     * @private
+     * @return Whether the paragraph made of the |nodes| is valid
      */
     skipPanel_(nodes) {
         return !AutomationUtil.getAncestors(nodes[0]).find(n => UiManager.isPanel(n));
@@ -833,8 +797,7 @@ export class SelectToSpeak {
      * Enqueue speech for the single given string. The string is not associated
      * with any particular nodes, so this does not do any work around drawing
      * focus rings, unlike startSpeechQueue_ below.
-     * @param {string} text The text to speak.
-     * @private
+     * @param text The text to speak.
      */
     startSpeech_(text) {
         this.prepareForSpeech_(true /* clearFocusRing */);
@@ -863,10 +826,8 @@ export class SelectToSpeak {
      * Enqueue nodes to TTS queue and start TTS. This function can be used for
      * adding nodes, either from user selection (e.g., mouse selection) or
      * navigation control (e.g., next paragraph).
-     * @param {!Array<AutomationNode>} nodes The nodes to speak.
-     * @param {!{clearFocusRing: (boolean|undefined),
-     *          startCharIndex: (number|undefined),
-     *          endCharIndex: (number|undefined)}=} opt_params
+     * @param  nodes The nodes to speak.
+     * @param optParams:
      *    clearFocusRing: Whether to clear the focus ring or not. For example, we
      * need to clear the focus ring when starting from scratch but we do not need
      * to clear the focus ring when resuming from a previous pause. If this is not
@@ -875,11 +836,10 @@ export class SelectToSpeak {
      * speaking. If this is not passed, will start at 0.
      *    endCharIndex: The index into the last node's text at which to end
      * speech. If this is not passed, will stop at the end.
-     * @private
      */
-    startSpeechQueue_(nodes, opt_params) {
+    startSpeechQueue_(nodes, optParams) {
         this.maybeShowEnhancedVoicesDialog_(() => {
-            const params = opt_params || {};
+            const params = optParams || {};
             const clearFocusRing = params.clearFocusRing || false;
             let startCharIndex = params.startCharIndex;
             let endCharIndex = params.endCharIndex;
@@ -911,12 +871,11 @@ export class SelectToSpeak {
      * Updates the node groups to be spoken. Converts |nodes|, |startCharIndex|,
      * and |endCharIndex| into node groups, and updates |this.currentNodeGroups_|
      * and |this.currentNodeGroupIndex_|.
-     * @param {!Array<AutomationNode>} nodes The nodes to speak.
-     * @param {number=} startCharIndex The index into the first node's text at
+     * @param nodes The nodes to speak.
+     * @param startCharIndex The index into the first node's text at
      *     which to start speaking. If this is not passed, will start at 0.
-     * @param {number=} endCharIndex The index into the last node's text at which
+     * @param endCharIndex The index into the last node's text at which
      *     to end speech. If this is not passed, will stop at the end.
-     * @private
      */
     updateNodeGroups_(nodes, startCharIndex, endCharIndex) {
         this.resetNodes_();
@@ -991,7 +950,6 @@ export class SelectToSpeak {
     }
     /**
      * Starts reading the current node group.
-     * @private
      */
     startCurrentNodeGroup_() {
         const nodeGroup = this.getCurrentNodeGroup_();
@@ -1003,17 +961,19 @@ export class SelectToSpeak {
             return;
         }
         const options = this.getTtsOptionsForCurrentNodeGroup_();
-        const voiceName = options['voiceName'] || '';
+        const voiceName = (options && options['voiceName']) || '';
         const fallbackVoiceName = this.prefsManager_.getLocalVoice();
         MetricsUtils.recordTtsEngineUsed(voiceName, this.prefsManager_);
-        this.ttsManager_.speak(nodeGroup.text, options, this.prefsManager_.isNetworkVoice(voiceName), fallbackVoiceName);
+        this.ttsManager_.speak(
+        // TODO(b/314203187): Options may be undefined.
+        nodeGroup.text, options, this.prefsManager_.isNetworkVoice(voiceName), fallbackVoiceName);
     }
     getTtsOptionsForCurrentNodeGroup_() {
         const nodeGroup = this.getCurrentNodeGroup_();
         if (!nodeGroup) {
             return;
         }
-        const options = /** @type {!chrome.tts.TtsOptions} */ ({});
+        const options = {};
         let language;
         let useVoiceSwitching = false;
         if (this.shouldUseVoiceSwitching_() && nodeGroup.detectedLanguage) {
@@ -1027,7 +987,7 @@ export class SelectToSpeak {
             MetricsUtils.recordSpeechRateOverrideMultiplier(this.speechRateMultiplier_);
         }
         const nodeGroupText = nodeGroup.text || '';
-        options.onEvent = event => {
+        options.onEvent = (event) => {
             switch (event.type) {
                 case chrome.tts.EventType.START:
                     if (nodeGroup.nodes.length <= 0) {
@@ -1045,7 +1005,7 @@ export class SelectToSpeak {
                         this.currentNodeWord_ = null;
                         // If |this.currentCharIndex_| is not 0, that means we have applied
                         // a start offset. Thus, we need to pass startIndexInNodeGroup to
-                        // opt_startIndex and overwrite the word boundaries in the original
+                        // optStartIndex and overwrite the word boundaries in the original
                         // node.
                         this.updateNodeHighlight_(nodeGroupText, this.currentCharIndex_, this.currentCharIndex_ !== 0 ? this.currentCharIndex_ :
                             undefined);
@@ -1063,6 +1023,7 @@ export class SelectToSpeak {
                         this.onTtsResumeErrorEvent_(event);
                     }
                     break;
+                // @ts-expect-error: Fallthrough on purpose.
                 case chrome.tts.EventType.PAUSE:
                     // Updates the select to speak state to speaking to keep navigation
                     // panel visible, so that the user can click resume from the panel.
@@ -1103,7 +1064,6 @@ export class SelectToSpeak {
      * indicated by the end index. If we have reached the last node group, this
      * function will update STS status depending whether the navigation feature is
      * enabled.
-     * @private
      */
     onNodeGroupSpeakingCompleted_() {
         const currentNodeGroup = this.getCurrentNodeGroup_();
@@ -1136,28 +1096,28 @@ export class SelectToSpeak {
     /**
      * Update |this.currentNodeGroupItem_|, the current speaking or the node to be
      * spoken in the node group.
-     * @param {ParagraphUtils.NodeGroup} nodeGroup the current nodeGroup.
-     * @param {number} charIndex the start char index of the word to be spoken.
+     * @param nodeGroup the current nodeGroup.
+     * @param charIndex the start char index of the word to be spoken.
      *    The index is relative to the entire NodeGroup.
-     * @param {number=} opt_startFromNodeGroupIndex the NodeGroupIndex to start
+     * @param optStartFromNodeGroupIndex the NodeGroupIndex to start
      *    with. If undefined, search from 0.
-     * @return {boolean} if the found NodeGroupIndex is different from the
-     *    |opt_startFromNodeGroupIndex|.
+     * @return If the found NodeGroupIndex is different from the
+     *    |optStartFromNodeGroupIndex|.
      */
-    syncCurrentNodeWithCharIndex_(nodeGroup, charIndex, opt_startFromNodeGroupIndex) {
-        if (opt_startFromNodeGroupIndex === undefined) {
-            opt_startFromNodeGroupIndex = 0;
+    syncCurrentNodeWithCharIndex_(nodeGroup, charIndex, optStartFromNodeGroupIndex) {
+        if (optStartFromNodeGroupIndex === undefined) {
+            optStartFromNodeGroupIndex = 0;
         }
         // There is no speaking word, set the NodeGroupItemIndex to 0.
         if (charIndex <= 0) {
             this.currentNodeGroupItemIndex_ = 0;
             this.currentNodeGroupItem_ =
                 nodeGroup.nodes[this.currentNodeGroupItemIndex_];
-            return this.currentNodeGroupItemIndex_ === opt_startFromNodeGroupIndex;
+            return this.currentNodeGroupItemIndex_ === optStartFromNodeGroupIndex;
         }
         // Sets the |this.currentNodeGroupItemIndex_| to
-        // |opt_startFromNodeGroupIndex|
-        this.currentNodeGroupItemIndex_ = opt_startFromNodeGroupIndex;
+        // |optStartFromNodeGroupIndex|
+        this.currentNodeGroupItemIndex_ = optStartFromNodeGroupIndex;
         this.currentNodeGroupItem_ =
             nodeGroup.nodes[this.currentNodeGroupItemIndex_];
         if (this.currentNodeGroupItemIndex_ + 1 < nodeGroup.nodes.length) {
@@ -1180,9 +1140,9 @@ export class SelectToSpeak {
     }
     /**
      * Apply start or end offset to the text of the |nodeGroup|.
-     * @param {ParagraphUtils.NodeGroup} nodeGroup the input nodeGroup.
-     * @param {number} offset the size of offset.
-     * @param {boolean} isStartOffset whether to apply a startOffset or an
+     * @param nodeGroup the input nodeGroup.
+     * @param offset the size of offset.
+     * @param isStartOffset whether to apply a startOffset or an
      *     endOffset.
      */
     applyOffset(nodeGroup, offset, isStartOffset) {
@@ -1200,8 +1160,7 @@ export class SelectToSpeak {
     }
     /**
      * Prepares for speech. Call once before this.ttsManager_.speak is called.
-     * @param {boolean} clearFocusRing Whether to clear the focus ring.
-     * @private
+     * @param clearFocusRing Whether to clear the focus ring.
      */
     prepareForSpeech_(clearFocusRing) {
         this.cancelIfSpeaking_(clearFocusRing /* clear the focus ring */);
@@ -1214,10 +1173,9 @@ export class SelectToSpeak {
     /**
      * Uses the 'word' speech event to determine which node is currently beings
      * spoken, and prepares for highlight if enabled.
-     * @param {!chrome.tts.TtsEvent} event The event to use for updates.
-     * @param {ParagraphUtils.NodeGroup} nodeGroup The node group for this
+     * @param event The event to use for updates.
+     * @param nodeGroup The node group for this
      *     utterance.
-     * @private
      */
     onTtsWordEvent_(event, nodeGroup) {
         if (event.charIndex === undefined) {
@@ -1267,9 +1225,6 @@ export class SelectToSpeak {
     /**
      * Updates the current node and relevant points to be the next node in the
      * group, then returns the next node in the group after that.
-     * @param {!ParagraphUtils.NodeGroup} nodeGroup
-     * @return {ParagraphUtils.NodeGroupItem}
-     * @private
      */
     incrementCurrentNodeAndGetNext_(nodeGroup) {
         // Move to the next node.
@@ -1286,8 +1241,6 @@ export class SelectToSpeak {
     }
     /**
      * Updates the state.
-     * @param {!chrome.accessibilityPrivate.SelectToSpeakState} state
-     * @private
      */
     onStateChanged_(state) {
         if (this.state_ !== state) {
@@ -1301,9 +1254,7 @@ export class SelectToSpeak {
     }
     /**
      * Cancels the current speech queue.
-     * @param {boolean} clearFocusRing Whether to clear the focus ring
-     *    as well.
-     * @private
+     * @param clearFocusRing Whether to clear the focus ring as well.
      */
     cancelIfSpeaking_(clearFocusRing) {
         if (clearFocusRing) {
@@ -1315,10 +1266,8 @@ export class SelectToSpeak {
         }
     }
     /**
-     * @param {!AutomationNode} node
-     * @return {!Promise<boolean>} Promise that resolves to whether the given node
+     * @return Promise that resolves to whether the given node
      *     should be considered in the foreground or not.
-     * @private
      */
     isNodeInForeground_(node) {
         return new Promise(resolve => {
@@ -1345,7 +1294,7 @@ export class SelectToSpeak {
                         // window which received the hit test request is not part of the
                         // tree that contains the actual content. In such cases, use
                         // focus to get the appropriate root.
-                        const focusedWindow = NodeUtils.getNearestContainingWindow(focusedNode.root || null);
+                        const focusedWindow = NodeUtils.getNearestContainingWindow(focusedNode.root);
                         if (focusedWindow != null && currentWindow === focusedWindow) {
                             resolve(true);
                             return;
@@ -1357,8 +1306,7 @@ export class SelectToSpeak {
         });
     }
     /**
-     * @return {?AutomationNode} Current node that is being spoken.
-     * @private
+     * @return Current node that is being spoken.
      */
     getCurrentSpokenNode_() {
         if (!this.currentNodeGroupItem_) {
@@ -1380,8 +1328,7 @@ export class SelectToSpeak {
     }
     /**
      * Updates the UI based on the current STS and node state.
-     * @return {!Promise<void>} Promise that resolves when operation is complete.
-     * @private
+     * @return Promise that resolves when operation is complete.
      */
     async updateUi_() {
         if (this.currentNodeGroupItem_ === null) {
@@ -1414,7 +1361,7 @@ export class SelectToSpeak {
             console.warn('Could not update UI; no node group or spoken node');
             return;
         }
-        if (this.scrollToSpokenNode_ && spokenNode.state.offscreen) {
+        if (this.scrollToSpokenNode_ && spokenNode.state['offscreen']) {
             spokenNode.makeVisible();
         }
         const currentWord = this.prefsManager_.wordHighlightingEnabled() ?
@@ -1431,7 +1378,7 @@ export class SelectToSpeak {
      * showing privacy disclaimer and asking if the user wants to turn on enhanced
      * network voices.
      *
-     * @param {function()} callback Called back after user has confirmed or
+     * @param callback Called back after user has confirmed or
      *     canceled in the dialog.
      */
     maybeShowEnhancedVoicesDialog_(callback) {
@@ -1459,13 +1406,12 @@ export class SelectToSpeak {
     /**
      * Updates the currently highlighted node word based on the current text
      * and the character index of an event.
-     * @param {string} text The current text
-     * @param {number} charIndex The index of a current event in the text.
-     * @param {number=} opt_startIndex The index at which to start the
+     * @param text The current text
+     * @param charIndex The index of a current event in the text.
+     * @param optStartIndex The index at which to start the
      *     highlight. This takes precedence over the charIndex.
-     * @private
      */
-    updateNodeHighlight_(text, charIndex, opt_startIndex) {
+    updateNodeHighlight_(text, charIndex, optStartIndex) {
         if (charIndex >= text.length) {
             // No need to do work if we are at the end of the paragraph.
             return;
@@ -1474,12 +1420,12 @@ export class SelectToSpeak {
         const nextWordStart = WordUtils.getNextWordStart(text, charIndex, this.currentNodeGroupItem_);
         // The |WordUtils.getNextWordEnd| will find the correct end based on the
         // trimmed text, so there is no need to provide additional input like
-        // opt_startIndex.
-        const nextWordEnd = WordUtils.getNextWordEnd(text, opt_startIndex === undefined ? nextWordStart : opt_startIndex, this.currentNodeGroupItem_);
+        // optStartIndex.
+        const nextWordEnd = WordUtils.getNextWordEnd(text, optStartIndex === undefined ? nextWordStart : optStartIndex, this.currentNodeGroupItem_);
         // Map the next word into the node's index from the text.
-        const nodeStart = opt_startIndex === undefined ?
+        const nodeStart = optStartIndex === undefined ?
             nextWordStart - this.currentNodeGroupItem_.startChar :
-            opt_startIndex - this.currentNodeGroupItem_.startChar;
+            optStartIndex - this.currentNodeGroupItem_.startChar;
         const nodeEnd = Math.min(nextWordEnd - this.currentNodeGroupItem_.startChar, NodeUtils.nameLength(this.currentNodeGroupItem_.node));
         if ((this.currentNodeWord_ == null ||
             nodeStart >= this.currentNodeWord_.end) &&
@@ -1494,8 +1440,7 @@ export class SelectToSpeak {
         }
     }
     /**
-     * @return {number} Current speech rate.
-     * @private
+     * @return Current speech rate.
      */
     getSpeechRate_() {
         // Multiply default speech rate with user-selected multiplier.
@@ -1504,9 +1449,7 @@ export class SelectToSpeak {
         return Math.round(rate * 10) / 10;
     }
     /**
-     * @param {!Array<!AutomationNode>} nodes
-     * @return {boolean} Whether all given nodes support the navigation panel.
-     * @private
+     * @return Whether all given nodes support the navigation panel.
      */
     isNavigationPanelSupported_(nodes) {
         if (nodes.length === 0) {
@@ -1528,38 +1471,30 @@ export class SelectToSpeak {
         return !nodes.some(n => n.root && n.root.role === RoleType.DESKTOP);
     }
     /**
-     * @param {!Array<number>} keysPressed Which keys to pretend are currently
-     *     pressed.
-     * @protected
+     * @param keysPressed Which keys to pretend are currently pressed.
      */
     sendMockSelectToSpeakKeysPressedChanged(keysPressed) {
-        this.inputHandler_.onKeysPressedChanged_(new Set(keysPressed));
+        this.inputHandler_.onKeysPressedChanged(new Set(keysPressed));
     }
     /**
      * Fires a mock mouse down event for testing.
-     * @param {!chrome.accessibilityPrivate.SyntheticMouseEventType} type The
-     *     event type.
-     * @param {number} mouse_x The mouse x coordinate in global screen
-     *     coordinates.
-     * @param {number} mouse_y The mouse y coordinate in global screen
-     *     coordinates.
-     * @protected
+     * @param type The event type.
+     * @param mouseX The mouse x coordinate in global screen coordinates.
+     * @param mouseY The mouse y coordinate in global screen coordinates.
      */
-    fireMockMouseEvent(type, mouse_x, mouse_y) {
-        this.inputHandler_.onMouseEvent_(type, mouse_x, mouse_y);
+    fireMockMouseEvent(type, mouseX, mouseY) {
+        this.inputHandler_.onMouseEvent(type, mouseX, mouseY);
     }
     /**
      * TODO(crbug.com/950391): Consider adding a metric for when voice switching
      * gets used.
-     * @return {boolean}
-     * @private
      */
     shouldUseVoiceSwitching_() {
         return this.prefsManager_.voiceSwitchingEnabled();
     }
     /**
      * Used by C++ tests to ensure STS load is completed.
-     * @param {!function()} callback Callback for when desktop is loaded from
+     * @param callback Callback for when desktop is loaded from
      * automation.
      */
     setOnLoadDesktopCallbackForTest(callback) {

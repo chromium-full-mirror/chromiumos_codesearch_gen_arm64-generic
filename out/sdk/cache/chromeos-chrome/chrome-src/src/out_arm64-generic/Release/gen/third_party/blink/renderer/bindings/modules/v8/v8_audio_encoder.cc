@@ -78,11 +78,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, AudioEncoder>::value,
     "AudioEncoder does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&AudioEncoder::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioEncoder is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,8 +90,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioEncoder.encodeQueueSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(v8_receiver);
+AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->encodeQueueSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -109,10 +105,10 @@ BLINK_BINDINGS_TRACE_EVENT("AudioEncoder.ondequeue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondequeue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondequeue();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -125,8 +121,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(v8_receiver);
+AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndequeue(event_handler);
 }
 
@@ -137,10 +134,10 @@ BLINK_BINDINGS_TRACE_EVENT("AudioEncoder.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -198,9 +195,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioEncoder.close");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "AudioEncoder";
 const char* const property_name = "close";
@@ -233,7 +230,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(v8_receiver);
+AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_config = NativeValueTraits<AudioEncoderConfig>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -266,7 +263,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(v8_receiver);
+AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<AudioData>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -301,7 +298,7 @@ return;
 
 
 
-AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(v8_receiver);
+AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->flush(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -320,9 +317,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioEncoder.reset");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioEncoder* blink_receiver = V8AudioEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "AudioEncoder";
 const char* const property_name = "reset";

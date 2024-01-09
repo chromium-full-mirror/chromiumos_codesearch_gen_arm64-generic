@@ -57,7 +57,8 @@ PROTOBUF_CONSTEXPR LocalData::LocalData(
   , endorsement_password_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , lockout_password_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , owner_delegate_(nullptr)
-  , no_srk_auth_(false){}
+  , no_srk_auth_(false)
+  , reset_da_lock_auth_failure_(false){}
 struct LocalDataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR LocalDataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -383,7 +384,9 @@ PROTOBUF_CONSTEXPR GetSupportedFeaturesReply::GetSupportedFeaturesReply(
   , support_u2f_(false)
   , support_pinweaver_(false)
   , support_runtime_selection_(false)
-  , is_allowed_(false){}
+  , is_allowed_(false)
+  , support_clear_request_(false)
+  , support_clear_without_prompt_(false){}
 struct GetSupportedFeaturesReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetSupportedFeaturesReplyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -546,6 +549,30 @@ struct ClearStoredOwnerPasswordReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClearStoredOwnerPasswordReplyDefaultTypeInternal _ClearStoredOwnerPasswordReply_default_instance_;
+PROTOBUF_CONSTEXPR ClearTpmRequest::ClearTpmRequest(
+    ::_pbi::ConstantInitialized){}
+struct ClearTpmRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ClearTpmRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ClearTpmRequestDefaultTypeInternal() {}
+  union {
+    ClearTpmRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClearTpmRequestDefaultTypeInternal _ClearTpmRequest_default_instance_;
+PROTOBUF_CONSTEXPR ClearTpmReply::ClearTpmReply(
+    ::_pbi::ConstantInitialized)
+  : status_(0)
+{}
+struct ClearTpmReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ClearTpmReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ClearTpmReplyDefaultTypeInternal() {}
+  union {
+    ClearTpmReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClearTpmReplyDefaultTypeInternal _ClearTpmReply_default_instance_;
 }  // namespace tpm_manager
 namespace tpm_manager {
 bool TpmManagerStatus_IsValid(int value) {
@@ -1653,6 +1680,9 @@ class LocalData::_Internal {
   static void set_has_no_srk_auth(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
+  static void set_has_reset_da_lock_auth_failure(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
 };
 
 const ::tpm_manager::AuthDelegate&
@@ -1702,7 +1732,9 @@ LocalData::LocalData(const LocalData& from)
   } else {
     owner_delegate_ = nullptr;
   }
-  no_srk_auth_ = from.no_srk_auth_;
+  ::memcpy(&no_srk_auth_, &from.no_srk_auth_,
+    static_cast<size_t>(reinterpret_cast<char*>(&reset_da_lock_auth_failure_) -
+    reinterpret_cast<char*>(&no_srk_auth_)) + sizeof(reset_da_lock_auth_failure_));
   // @@protoc_insertion_point(copy_constructor:tpm_manager.LocalData)
 }
 
@@ -1721,8 +1753,8 @@ lockout_password_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&owner_delegate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&no_srk_auth_) -
-    reinterpret_cast<char*>(&owner_delegate_)) + sizeof(no_srk_auth_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&reset_da_lock_auth_failure_) -
+    reinterpret_cast<char*>(&owner_delegate_)) + sizeof(reset_da_lock_auth_failure_));
 }
 
 LocalData::~LocalData() {
@@ -1770,7 +1802,9 @@ void LocalData::Clear() {
       owner_delegate_->Clear();
     }
   }
-  no_srk_auth_ = false;
+  ::memset(&no_srk_auth_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&reset_da_lock_auth_failure_) -
+      reinterpret_cast<char*>(&no_srk_auth_)) + sizeof(reset_da_lock_auth_failure_));
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1853,6 +1887,15 @@ const char* LocalData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
         } else
           goto handle_unusual;
         continue;
+      // optional bool reset_da_lock_auth_failure = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          _Internal::set_has_reset_da_lock_auth_failure(&has_bits);
+          reset_da_lock_auth_failure_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1929,6 +1972,12 @@ uint8_t* LocalData::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_no_srk_auth(), target);
   }
 
+  // optional bool reset_da_lock_auth_failure = 9;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_reset_da_lock_auth_failure(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1961,7 +2010,7 @@ size_t LocalData::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     // optional bytes owner_password = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1995,6 +2044,11 @@ size_t LocalData::ByteSizeLong() const {
       total_size += 1 + 1;
     }
 
+    // optional bool reset_da_lock_auth_failure = 9;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 + 1;
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -2019,7 +2073,7 @@ void LocalData::MergeFrom(const LocalData& from) {
   owner_dependency_.MergeFrom(from.owner_dependency_);
   nvram_policy_.MergeFrom(from.nvram_policy_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_owner_password(from._internal_owner_password());
     }
@@ -2034,6 +2088,9 @@ void LocalData::MergeFrom(const LocalData& from) {
     }
     if (cached_has_bits & 0x00000010u) {
       no_srk_auth_ = from.no_srk_auth_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      reset_da_lock_auth_failure_ = from.reset_da_lock_auth_failure_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -2072,8 +2129,8 @@ void LocalData::InternalSwap(LocalData* other) {
       &other->lockout_password_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(LocalData, no_srk_auth_)
-      + sizeof(LocalData::no_srk_auth_)
+      PROTOBUF_FIELD_OFFSET(LocalData, reset_da_lock_auth_failure_)
+      + sizeof(LocalData::reset_da_lock_auth_failure_)
       - PROTOBUF_FIELD_OFFSET(LocalData, owner_delegate_)>(
           reinterpret_cast<char*>(&owner_delegate_),
           reinterpret_cast<char*>(&other->owner_delegate_));
@@ -7335,6 +7392,12 @@ class GetSupportedFeaturesReply::_Internal {
   static void set_has_is_allowed(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
+  static void set_has_support_clear_request(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_support_clear_without_prompt(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
 };
 
 GetSupportedFeaturesReply::GetSupportedFeaturesReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -7348,16 +7411,16 @@ GetSupportedFeaturesReply::GetSupportedFeaturesReply(const GetSupportedFeaturesR
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&is_allowed_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(is_allowed_));
+    static_cast<size_t>(reinterpret_cast<char*>(&support_clear_without_prompt_) -
+    reinterpret_cast<char*>(&status_)) + sizeof(support_clear_without_prompt_));
   // @@protoc_insertion_point(copy_constructor:tpm_manager.GetSupportedFeaturesReply)
 }
 
 inline void GetSupportedFeaturesReply::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&is_allowed_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(is_allowed_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&support_clear_without_prompt_) -
+    reinterpret_cast<char*>(&status_)) + sizeof(support_clear_without_prompt_));
 }
 
 GetSupportedFeaturesReply::~GetSupportedFeaturesReply() {
@@ -7384,10 +7447,10 @@ void GetSupportedFeaturesReply::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000007fu) {
     ::memset(&status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&is_allowed_) -
-        reinterpret_cast<char*>(&status_)) + sizeof(is_allowed_));
+        reinterpret_cast<char*>(&support_clear_without_prompt_) -
+        reinterpret_cast<char*>(&status_)) + sizeof(support_clear_without_prompt_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -7445,6 +7508,24 @@ const char* GetSupportedFeaturesReply::_InternalParse(const char* ptr, ::_pbi::P
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_is_allowed(&has_bits);
           is_allowed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool support_clear_request = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _Internal::set_has_support_clear_request(&has_bits);
+          support_clear_request_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool support_clear_without_prompt = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _Internal::set_has_support_clear_without_prompt(&has_bits);
+          support_clear_without_prompt_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7511,6 +7592,18 @@ uint8_t* GetSupportedFeaturesReply::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_is_allowed(), target);
   }
 
+  // optional bool support_clear_request = 6;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_support_clear_request(), target);
+  }
+
+  // optional bool support_clear_without_prompt = 7;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_support_clear_without_prompt(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -7528,7 +7621,7 @@ size_t GetSupportedFeaturesReply::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional .tpm_manager.TpmManagerStatus status = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -7555,6 +7648,16 @@ size_t GetSupportedFeaturesReply::ByteSizeLong() const {
       total_size += 1 + 1;
     }
 
+    // optional bool support_clear_request = 6;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool support_clear_without_prompt = 7;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 + 1;
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -7577,7 +7680,7 @@ void GetSupportedFeaturesReply::MergeFrom(const GetSupportedFeaturesReply& from)
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       status_ = from.status_;
     }
@@ -7592,6 +7695,12 @@ void GetSupportedFeaturesReply::MergeFrom(const GetSupportedFeaturesReply& from)
     }
     if (cached_has_bits & 0x00000010u) {
       is_allowed_ = from.is_allowed_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      support_clear_request_ = from.support_clear_request_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      support_clear_without_prompt_ = from.support_clear_without_prompt_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -7614,8 +7723,8 @@ void GetSupportedFeaturesReply::InternalSwap(GetSupportedFeaturesReply* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetSupportedFeaturesReply, is_allowed_)
-      + sizeof(GetSupportedFeaturesReply::is_allowed_)
+      PROTOBUF_FIELD_OFFSET(GetSupportedFeaturesReply, support_clear_without_prompt_)
+      + sizeof(GetSupportedFeaturesReply::support_clear_without_prompt_)
       - PROTOBUF_FIELD_OFFSET(GetSupportedFeaturesReply, status_)>(
           reinterpret_cast<char*>(&status_),
           reinterpret_cast<char*>(&other->status_));
@@ -9892,6 +10001,329 @@ std::string ClearStoredOwnerPasswordReply::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class ClearTpmRequest::_Internal {
+ public:
+};
+
+ClearTpmRequest::ClearTpmRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:tpm_manager.ClearTpmRequest)
+}
+ClearTpmRequest::ClearTpmRequest(const ClearTpmRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:tpm_manager.ClearTpmRequest)
+}
+
+inline void ClearTpmRequest::SharedCtor() {
+}
+
+ClearTpmRequest::~ClearTpmRequest() {
+  // @@protoc_insertion_point(destructor:tpm_manager.ClearTpmRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ClearTpmRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ClearTpmRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ClearTpmRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:tpm_manager.ClearTpmRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ClearTpmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ClearTpmRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:tpm_manager.ClearTpmRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:tpm_manager.ClearTpmRequest)
+  return target;
+}
+
+size_t ClearTpmRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:tpm_manager.ClearTpmRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ClearTpmRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ClearTpmRequest*>(
+      &from));
+}
+
+void ClearTpmRequest::MergeFrom(const ClearTpmRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tpm_manager.ClearTpmRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ClearTpmRequest::CopyFrom(const ClearTpmRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tpm_manager.ClearTpmRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ClearTpmRequest::IsInitialized() const {
+  return true;
+}
+
+void ClearTpmRequest::InternalSwap(ClearTpmRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string ClearTpmRequest::GetTypeName() const {
+  return "tpm_manager.ClearTpmRequest";
+}
+
+
+// ===================================================================
+
+class ClearTpmReply::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ClearTpmReply>()._has_bits_);
+  static void set_has_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ClearTpmReply::ClearTpmReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:tpm_manager.ClearTpmReply)
+}
+ClearTpmReply::ClearTpmReply(const ClearTpmReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  status_ = from.status_;
+  // @@protoc_insertion_point(copy_constructor:tpm_manager.ClearTpmReply)
+}
+
+inline void ClearTpmReply::SharedCtor() {
+status_ = 0;
+}
+
+ClearTpmReply::~ClearTpmReply() {
+  // @@protoc_insertion_point(destructor:tpm_manager.ClearTpmReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ClearTpmReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ClearTpmReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ClearTpmReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:tpm_manager.ClearTpmReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  status_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ClearTpmReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .tpm_manager.TpmManagerStatus status = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::tpm_manager::TpmManagerStatus_IsValid(val))) {
+            _internal_set_status(static_cast<::tpm_manager::TpmManagerStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ClearTpmReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:tpm_manager.ClearTpmReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .tpm_manager.TpmManagerStatus status = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_status(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:tpm_manager.ClearTpmReply)
+  return target;
+}
+
+size_t ClearTpmReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:tpm_manager.ClearTpmReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .tpm_manager.TpmManagerStatus status = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ClearTpmReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ClearTpmReply*>(
+      &from));
+}
+
+void ClearTpmReply::MergeFrom(const ClearTpmReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tpm_manager.ClearTpmReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_status()) {
+    _internal_set_status(from._internal_status());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ClearTpmReply::CopyFrom(const ClearTpmReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tpm_manager.ClearTpmReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ClearTpmReply::IsInitialized() const {
+  return true;
+}
+
+void ClearTpmReply::InternalSwap(ClearTpmReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(status_, other->status_);
+}
+
+std::string ClearTpmReply::GetTypeName() const {
+  return "tpm_manager.ClearTpmReply";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace tpm_manager
 PROTOBUF_NAMESPACE_OPEN
@@ -10046,6 +10478,14 @@ Arena::CreateMaybeMessage< ::tpm_manager::ClearStoredOwnerPasswordRequest >(Aren
 template<> PROTOBUF_NOINLINE ::tpm_manager::ClearStoredOwnerPasswordReply*
 Arena::CreateMaybeMessage< ::tpm_manager::ClearStoredOwnerPasswordReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::tpm_manager::ClearStoredOwnerPasswordReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::tpm_manager::ClearTpmRequest*
+Arena::CreateMaybeMessage< ::tpm_manager::ClearTpmRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::tpm_manager::ClearTpmRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::tpm_manager::ClearTpmReply*
+Arena::CreateMaybeMessage< ::tpm_manager::ClearTpmReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::tpm_manager::ClearTpmReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

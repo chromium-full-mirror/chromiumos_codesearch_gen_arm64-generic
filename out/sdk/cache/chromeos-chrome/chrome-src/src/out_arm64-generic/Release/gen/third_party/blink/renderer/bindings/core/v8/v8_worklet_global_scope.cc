@@ -67,11 +67,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, WorkletGlobalScope>::value,
     "WorkletGlobalScope does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&WorkletGlobalScope::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WorkletGlobalScope is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 

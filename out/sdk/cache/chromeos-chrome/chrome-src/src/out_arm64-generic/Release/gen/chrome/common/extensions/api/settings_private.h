@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,15 +30,15 @@ namespace settings_private {
 // Types
 //
 
-enum  PrefType {
-  PREF_TYPE_NONE = 0,
-  PREF_TYPE_BOOLEAN,
-  PREF_TYPE_NUMBER,
-  PREF_TYPE_STRING,
-  PREF_TYPE_URL,
-  PREF_TYPE_LIST,
-  PREF_TYPE_DICTIONARY,
-  PREF_TYPE_LAST = PREF_TYPE_DICTIONARY,
+enum class PrefType {
+  kNone = 0,
+  kBoolean,
+  kNumber,
+  kString,
+  kUrl,
+  kList,
+  kDictionary,
+  kMaxValue = kDictionary,
 };
 
 
@@ -45,16 +46,16 @@ const char* ToString(PrefType as_enum);
 PrefType ParsePrefType(base::StringPiece as_string);
 std::u16string GetPrefTypeParseError(base::StringPiece as_string);
 
-enum  ControlledBy {
-  CONTROLLED_BY_NONE = 0,
-  CONTROLLED_BY_DEVICE_POLICY,
-  CONTROLLED_BY_USER_POLICY,
-  CONTROLLED_BY_OWNER,
-  CONTROLLED_BY_PRIMARY_USER,
-  CONTROLLED_BY_EXTENSION,
-  CONTROLLED_BY_PARENT,
-  CONTROLLED_BY_CHILD_RESTRICTION,
-  CONTROLLED_BY_LAST = CONTROLLED_BY_CHILD_RESTRICTION,
+enum class ControlledBy {
+  kNone = 0,
+  kDevicePolicy,
+  kUserPolicy,
+  kOwner,
+  kPrimaryUser,
+  kExtension,
+  kParent,
+  kChildRestriction,
+  kMaxValue = kChildRestriction,
 };
 
 
@@ -62,12 +63,12 @@ const char* ToString(ControlledBy as_enum);
 ControlledBy ParseControlledBy(base::StringPiece as_string);
 std::u16string GetControlledByParseError(base::StringPiece as_string);
 
-enum  Enforcement {
-  ENFORCEMENT_NONE = 0,
-  ENFORCEMENT_ENFORCED,
-  ENFORCEMENT_RECOMMENDED,
-  ENFORCEMENT_PARENT_SUPERVISED,
-  ENFORCEMENT_LAST = ENFORCEMENT_PARENT_SUPERVISED,
+enum class Enforcement {
+  kNone = 0,
+  kEnforced,
+  kRecommended,
+  kParentSupervised,
+  kMaxValue = kParentSupervised,
 };
 
 
@@ -80,8 +81,8 @@ struct PrefObject {
   ~PrefObject();
   PrefObject(const PrefObject&) = delete;
   PrefObject& operator=(const PrefObject&) = delete;
-  PrefObject(PrefObject&& rhs);
-  PrefObject& operator=(PrefObject&& rhs);
+  PrefObject(PrefObject&& rhs) noexcept;
+  PrefObject& operator=(PrefObject&& rhs) noexcept;
 
   // Populates a PrefObject object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -94,15 +95,12 @@ struct PrefObject {
   // Creates a deep copy of PrefObject.
   PrefObject Clone() const;
 
-  // Creates a PrefObject object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PrefObject> FromValueDeprecated(const base::Value& value);
-
   // Creates a PrefObject object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PrefObject> FromValue(const base::Value::Dict& value);
+  static std::optional<PrefObject> FromValue(const base::Value::Dict& value);
 
   // Creates a PrefObject object from a base::Value, or nullopt on failure.
-  static absl::optional<PrefObject> FromValue(const base::Value& value);
+  static std::optional<PrefObject> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrefObject object.
@@ -115,7 +113,7 @@ struct PrefObject {
   PrefType type;
 
   // The current value of the pref.
-  absl::optional<base::Value> value;
+  std::optional<base::Value> value;
 
   // The policy source of the pref; an undefined value means there is no policy.
   ControlledBy controlled_by;
@@ -123,32 +121,32 @@ struct PrefObject {
   // The owner name if controlledBy == OWNER. The primary user name if
   // controlledBy == PRIMARY_USER. The extension name if controlledBy ==
   // EXTENSION.
-  absl::optional<std::string> controlled_by_name;
+  std::optional<std::string> controlled_by_name;
 
   // The policy enforcement of the pref; must be specified if controlledBy is also
   // present.
   Enforcement enforcement;
 
   // The recommended value if enforcement == RECOMMENDED.
-  absl::optional<base::Value> recommended_value;
+  std::optional<base::Value> recommended_value;
 
   // If enforcement == ENFORCED this optionally specifies preference values that
   // are still available for selection by the user. If set, must contain at least
   // 2 distinct values, as must contain |value| and |recommendedValue| (if
   // present).
-  absl::optional<base::Value::List> user_selectable_values;
+  std::optional<base::Value::List> user_selectable_values;
 
   // If true, user control of the preference is disabled for reasons unrelated to
   // controlledBy (e.g. no signed-in profile is present). A false value is a
   // no-op.
-  absl::optional<bool> user_control_disabled;
+  std::optional<bool> user_control_disabled;
 
   // The extension ID if controlledBy == EXTENSION.
-  absl::optional<std::string> extension_id;
+  std::optional<std::string> extension_id;
 
   // Whether the controlling extension can be disabled if controlledBy ==
   // EXTENSION.
-  absl::optional<bool> extension_can_be_disabled;
+  std::optional<bool> extension_can_be_disabled;
 
 };
 
@@ -160,11 +158,11 @@ struct PrefObject {
 namespace SetPref {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The name of the pref.
@@ -174,7 +172,7 @@ struct Params {
   base::Value value;
 
   // An optional user metrics identifier.
-  absl::optional<std::string> page_id;
+  std::optional<std::string> page_id;
 
 
  private:
@@ -200,11 +198,11 @@ base::Value::List Create(const std::vector<PrefObject>& prefs);
 namespace GetPref {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string name;
@@ -233,11 +231,11 @@ base::Value::List Create(double zoom);
 namespace SetDefaultZoom {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   double zoom;

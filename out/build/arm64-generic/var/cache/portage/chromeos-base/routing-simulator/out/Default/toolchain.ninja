@@ -34,9 +34,7 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/routing-simulator/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/routing-simulator/_routing-simulator-install_config.stamp: stamp
-build obj/routing-simulator/all.stamp: stamp ./routing-simulator ./routing_simulator_testrunner
+build obj/routing-simulator/all.stamp: stamp ./routing-simulator
 subninja obj/routing-simulator/librouting-simulator.ninja
 subninja obj/routing-simulator/routing-simulator.ninja
-subninja obj/routing-simulator/routing_simulator_testrunner.ninja

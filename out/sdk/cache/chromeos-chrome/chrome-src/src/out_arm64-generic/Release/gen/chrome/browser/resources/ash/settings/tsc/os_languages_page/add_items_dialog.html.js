@@ -1,13 +1,15 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_-->
-<style include="settings-shared shared-style">[slot=body]{display:flex;flex-direction:column;height:350px;overflow:auto}cr-search-field{margin-bottom:8px}.label{padding-bottom:4px;padding-top:8px}.list-item{color:var(--cros-text-color-primary);min-height:36px}cr-checkbox::part(label-container){white-space:nowrap}</style>
+<style include="settings-shared shared-style">[slot=body]{display:flex;flex-direction:column;height:350px;overflow:auto}cr-search-field{margin-top:20px}cr-search-field::part(searchInput){font:var(--cros-body-2-font)}.label{padding-bottom:4px;padding-top:8px}.list-item{color:var(--cros-text-color-primary);min-height:36px}cr-checkbox::part(label-container){white-space:nowrap}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
-  <div slot="title">[[header]]</div>
-  <div id="dialog-body" slot="body" scrollable>
+  <div slot="title">
+    <div id="heading">[[header]]</div>
     <cr-search-field label="[[searchLabel]]" id="search" clear-label="$i18n{clearSearch}" autofocus on-search-changed="onSearchChanged_" on-keydown="onKeydown_">
     </cr-search-field>
+  </div>
+  <div id="dialog-body" slot="body" scrollable>
     <template is="dom-if" if="[[showSuggestedList_]]">
       <div id="suggested-items-label" class="label">
         [[suggestedItemsLabel]]

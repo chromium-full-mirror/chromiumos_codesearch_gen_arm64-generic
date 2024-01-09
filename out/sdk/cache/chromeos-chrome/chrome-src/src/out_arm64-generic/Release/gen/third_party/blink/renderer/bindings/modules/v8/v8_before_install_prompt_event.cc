@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, BeforeInstallPromptEvent>::value,
     "BeforeInstallPromptEvent does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&BeforeInstallPromptEvent::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BeforeInstallPromptEvent is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-BeforeInstallPromptEvent* blink_receiver = V8BeforeInstallPromptEvent::ToWrappableUnsafe(v8_receiver);
+BeforeInstallPromptEvent* blink_receiver = V8BeforeInstallPromptEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->platforms();
 if (!ToV8Traits<IDLArray<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -132,7 +127,7 @@ BLINK_BINDINGS_TRACE_EVENT("BeforeInstallPromptEvent.userChoice.get");
 
 
 
-BeforeInstallPromptEvent* blink_receiver = V8BeforeInstallPromptEvent::ToWrappableUnsafe(v8_receiver);
+BeforeInstallPromptEvent* blink_receiver = V8BeforeInstallPromptEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -151,8 +146,9 @@ BLINK_BINDINGS_TRACE_EVENT("BeforeInstallPromptEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BeforeInstallPromptEvent* blink_receiver = V8BeforeInstallPromptEvent::ToWrappableUnsafe(v8_receiver);
+BeforeInstallPromptEvent* blink_receiver = V8BeforeInstallPromptEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -226,7 +222,7 @@ return;
 
 
 
-BeforeInstallPromptEvent* blink_receiver = V8BeforeInstallPromptEvent::ToWrappableUnsafe(v8_receiver);
+BeforeInstallPromptEvent* blink_receiver = V8BeforeInstallPromptEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

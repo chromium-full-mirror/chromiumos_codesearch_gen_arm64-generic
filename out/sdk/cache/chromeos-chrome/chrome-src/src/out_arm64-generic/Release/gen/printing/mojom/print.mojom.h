@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "printing/mojom/print.mojom-features.h"
 #include "printing/mojom/print.mojom-shared.h"
 #include "printing/mojom/print.mojom-forward.h"
 #include <string>
@@ -376,9 +377,9 @@ class  IppClientInfo {
   IppClientInfo(
       IppClientInfo::ClientType client_type,
       const std::string& client_name,
-      const absl::optional<std::string>& client_patches,
+      const std::optional<std::string>& client_patches,
       const std::string& client_string_version,
-      const absl::optional<std::string>& client_version);
+      const std::optional<std::string>& client_version);
 
 
   ~IppClientInfo();
@@ -460,11 +461,11 @@ class  IppClientInfo {
   
   std::string client_name;
   
-  absl::optional<std::string> client_patches;
+  std::optional<std::string> client_patches;
   
   std::string client_string_version;
   
-  absl::optional<std::string> client_version;
+  std::optional<std::string> client_version;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

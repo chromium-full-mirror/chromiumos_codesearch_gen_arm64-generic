@@ -61,8 +61,9 @@ export const RequestDestination = {
   kFencedframe: 22,
   kWebIdentity: 23,
   kDictionary: 24,
+  kSpeculationRules: 25,
   MIN_VALUE: 0,
-  MAX_VALUE: 24,
+  MAX_VALUE: 25,
 };
 
 /**

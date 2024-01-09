@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRJointPose>::value,
     "XRJointPose inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRJointPose::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRJointPose is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRJointPose.radius.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRJointPose* blink_receiver = V8XRJointPose::ToWrappableUnsafe(v8_receiver);
+XRJointPose* blink_receiver = V8XRJointPose::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->radius();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }

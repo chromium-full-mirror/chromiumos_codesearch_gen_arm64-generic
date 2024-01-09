@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DeviceOrientationEvent>::value,
     "DeviceOrientationEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DeviceOrientationEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DeviceOrientationEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceOrientationEvent.alpha.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(v8_receiver);
+DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->alpha();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceOrientationEvent.beta.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(v8_receiver);
+DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->beta();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -118,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceOrientationEvent.gamma.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(v8_receiver);
+DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->gamma();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -132,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceOrientationEvent.absolute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(v8_receiver);
+DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->absolute();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -146,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceOrientationEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(v8_receiver);
+DeviceOrientationEvent* blink_receiver = V8DeviceOrientationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

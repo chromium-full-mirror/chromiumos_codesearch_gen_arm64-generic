@@ -753,36 +753,36 @@ struct drsuapi_DsGetNCChangesMSZIPCtr6 {
 	struct drsuapi_DsGetNCChangesCtr6TS *ts;/* [compression(NDR_COMPRESSION_MSZIP,compressed_length,decompressed_length),subcontext(4),subcontext_size(compressed_length),unique] */
 }/* [nopush] */;
 
-struct drsuapi_DsGetNCChangesXPRESSCtr1 {
+struct drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr1 {
 	uint32_t decompressed_length;
 	uint32_t compressed_length;
-	struct drsuapi_DsGetNCChangesCtr1TS *ts;/* [compression(NDR_COMPRESSION_XPRESS,compressed_length,decompressed_length),subcontext(4),subcontext_size(compressed_length),unique] */
+	struct drsuapi_DsGetNCChangesCtr1TS *ts;/* [compression(NDR_COMPRESSION_WIN2K3_LZ77_DIRECT2,compressed_length,decompressed_length),subcontext(4),subcontext_size(compressed_length),unique] */
 }/* [nopush] */;
 
-struct drsuapi_DsGetNCChangesXPRESSCtr6 {
+struct drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr6 {
 	uint32_t decompressed_length;
 	uint32_t compressed_length;
-	struct drsuapi_DsGetNCChangesCtr6TS *ts;/* [compression(NDR_COMPRESSION_XPRESS,compressed_length,decompressed_length),subcontext(4),subcontext_size(compressed_length),unique] */
+	struct drsuapi_DsGetNCChangesCtr6TS *ts;/* [compression(NDR_COMPRESSION_WIN2K3_LZ77_DIRECT2,compressed_length,decompressed_length),subcontext(4),subcontext_size(compressed_length),unique] */
 }/* [nopush] */;
 
 enum drsuapi_DsGetNCChangesCompressionType
 #ifndef USE_UINT_ENUMS
  {
 	DRSUAPI_COMPRESSION_TYPE_MSZIP=(int)(2),
-	DRSUAPI_COMPRESSION_TYPE_XPRESS=(int)(3)
+	DRSUAPI_COMPRESSION_TYPE_WIN2K3_LZ77_DIRECT2=(int)(3)
 }
 #else
  { __do_not_use_enum_drsuapi_DsGetNCChangesCompressionType=0x7FFFFFFF}
 #define DRSUAPI_COMPRESSION_TYPE_MSZIP ( 2 )
-#define DRSUAPI_COMPRESSION_TYPE_XPRESS ( 3 )
+#define DRSUAPI_COMPRESSION_TYPE_WIN2K3_LZ77_DIRECT2 ( 3 )
 #endif
 ;
 
 union drsuapi_DsGetNCChangesCompressedCtr {
 	struct drsuapi_DsGetNCChangesMSZIPCtr1 mszip1;/* [case(1|(DRSUAPI_COMPRESSION_TYPE_MSZIP<<16))] */
 	struct drsuapi_DsGetNCChangesMSZIPCtr6 mszip6;/* [case(6|(DRSUAPI_COMPRESSION_TYPE_MSZIP<<16))] */
-	struct drsuapi_DsGetNCChangesXPRESSCtr1 xpress1;/* [case(1|(DRSUAPI_COMPRESSION_TYPE_XPRESS<<16))] */
-	struct drsuapi_DsGetNCChangesXPRESSCtr6 xpress6;/* [case(6|(DRSUAPI_COMPRESSION_TYPE_XPRESS<<16))] */
+	struct drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr1 xpress1;/* [case(1|(DRSUAPI_COMPRESSION_TYPE_WIN2K3_LZ77_DIRECT2<<16))] */
+	struct drsuapi_DsGetNCChangesWIN2K3_LZ77_DIRECT2Ctr6 xpress6;/* [case(6|(DRSUAPI_COMPRESSION_TYPE_WIN2K3_LZ77_DIRECT2<<16))] */
 }/* [flag(LIBNDR_PRINT_ARRAY_HEX),nodiscriminant] */;
 
 struct drsuapi_DsGetNCChangesCtr2 {

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/libassistant/public/mojom/assistant_notification.mojom-features.h"
 #include "chromeos/ash/services/libassistant/public/mojom/assistant_notification.mojom-shared.h"
 #include "chromeos/ash/services/libassistant/public/mojom/assistant_notification.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -84,7 +85,7 @@ class  AssistantNotification {
       const std::string& opaque_token,
       const std::string& grouping_key,
       const std::string& obfuscated_gaia_id,
-      absl::optional<::base::Time> expiry_time,
+      std::optional<::base::Time> expiry_time,
       std::vector<AssistantNotificationButtonPtr> buttons,
       bool from_server);
 
@@ -184,7 +185,7 @@ AssistantNotification& operator=(const AssistantNotification&) = delete;
   
   std::string obfuscated_gaia_id;
   
-  absl::optional<::base::Time> expiry_time;
+  std::optional<::base::Time> expiry_time;
   
   std::vector<AssistantNotificationButtonPtr> buttons;
   

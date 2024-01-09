@@ -343,7 +343,8 @@ PROTOBUF_CONSTEXPR WebAppProto::WebAppProto(
   , data_size_in_bytes_(uint64_t{0u})
   , run_on_os_login_os_integration_state_(0)
 
-  , is_user_selected_app_for_capturing_links_(false)
+  , user_link_capturing_preference_(0)
+
   , latest_install_time_(int64_t{0})
   , supported_links_offer_ignore_count_(0)
   , supported_links_offer_dismiss_count_(0)
@@ -5229,9 +5230,6 @@ class IsolationDataProto_PendingUpdateInfo::_Internal {
   static void set_has_version(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
-  }
 };
 
 const ::web_app::IsolationDataProto_InstalledBundle&
@@ -5434,7 +5432,7 @@ const char* IsolationDataProto_PendingUpdateInfo::_InternalParse(const char* ptr
         } else
           goto handle_unusual;
         continue;
-      // required string version = 4;
+      // optional string version = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_version();
@@ -5495,7 +5493,7 @@ uint8_t* IsolationDataProto_PendingUpdateInfo::_InternalSerialize(
     default: ;
   }
   cached_has_bits = _has_bits_[0];
-  // required string version = 4;
+  // optional string version = 4;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         4, this->_internal_version(), target);
@@ -5513,15 +5511,17 @@ size_t IsolationDataProto_PendingUpdateInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.IsolationDataProto.PendingUpdateInfo)
   size_t total_size = 0;
 
-  // required string version = 4;
-  if (_internal_has_version()) {
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional string version = 4;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_version());
   }
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
 
   switch (location_case()) {
     // .web_app.IsolationDataProto.InstalledBundle installed_bundle = 1;
@@ -5600,7 +5600,6 @@ void IsolationDataProto_PendingUpdateInfo::CopyFrom(const IsolationDataProto_Pen
 }
 
 bool IsolationDataProto_PendingUpdateInfo::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -5637,9 +5636,6 @@ class IsolationDataProto::_Internal {
   static const ::web_app::IsolationDataProto_PendingUpdateInfo& pending_update_info(const IsolationDataProto* msg);
   static void set_has_pending_update_info(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
   }
 };
 
@@ -5877,7 +5873,7 @@ const char* IsolationDataProto::_InternalParse(const char* ptr, ::_pbi::ParseCon
         } else
           goto handle_unusual;
         continue;
-      // required string version = 5;
+      // optional string version = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_version();
@@ -5952,7 +5948,7 @@ uint8_t* IsolationDataProto::_InternalSerialize(
   }
 
   cached_has_bits = _has_bits_[0];
-  // required string version = 5;
+  // optional string version = 5;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         5, this->_internal_version(), target);
@@ -5977,12 +5973,6 @@ size_t IsolationDataProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.IsolationDataProto)
   size_t total_size = 0;
 
-  // required string version = 5;
-  if (_internal_has_version()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_version());
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -5995,14 +5985,23 @@ size_t IsolationDataProto::ByteSizeLong() const {
       controlled_frame_partitions_.Get(i));
   }
 
-  // optional .web_app.IsolationDataProto.PendingUpdateInfo pending_update_info = 6;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000002u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *pending_update_info_);
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional string version = 5;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_version());
+    }
 
+    // optional .web_app.IsolationDataProto.PendingUpdateInfo pending_update_info = 6;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *pending_update_info_);
+    }
+
+  }
   switch (location_case()) {
     // .web_app.IsolationDataProto.InstalledBundle installed_bundle = 1;
     case kInstalledBundle: {
@@ -6087,10 +6086,6 @@ void IsolationDataProto::CopyFrom(const IsolationDataProto& from) {
 }
 
 bool IsolationDataProto::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
-  if (_internal_has_pending_update_info()) {
-    if (!pending_update_info_->IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -6540,7 +6535,7 @@ class WebAppProto::_Internal {
   static void set_has_isolation_data(HasBits* has_bits) {
     (*has_bits)[0] |= 65536u;
   }
-  static void set_has_is_user_selected_app_for_capturing_links(HasBits* has_bits) {
+  static void set_has_user_link_capturing_preference(HasBits* has_bits) {
     (*has_bits)[1] |= 512u;
   }
   static void set_has_latest_install_time(HasBits* has_bits) {
@@ -7625,12 +7620,16 @@ const char* WebAppProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // optional bool is_user_selected_app_for_capturing_links = 63;
+      // optional .web_app.proto.LinkCapturingUserPreference user_link_capturing_preference = 63;
       case 63:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 248)) {
-          _Internal::set_has_is_user_selected_app_for_capturing_links(&_has_bits_);
-          is_user_selected_app_for_capturing_links_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::web_app::proto::LinkCapturingUserPreference_IsValid(val))) {
+            _internal_set_user_link_capturing_preference(static_cast<::web_app::proto::LinkCapturingUserPreference>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(63, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -8100,10 +8099,11 @@ uint8_t* WebAppProto::_InternalSerialize(
   }
 
   cached_has_bits = _has_bits_[1];
-  // optional bool is_user_selected_app_for_capturing_links = 63;
+  // optional .web_app.proto.LinkCapturingUserPreference user_link_capturing_preference = 63;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(63, this->_internal_is_user_selected_app_for_capturing_links(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      63, this->_internal_user_link_capturing_preference(), target);
   }
 
   // optional int64 latest_install_time = 64;
@@ -8586,9 +8586,10 @@ size_t WebAppProto::ByteSizeLong() const {
         ::_pbi::WireFormatLite::EnumSize(this->_internal_run_on_os_login_os_integration_state());
     }
 
-    // optional bool is_user_selected_app_for_capturing_links = 63;
+    // optional .web_app.proto.LinkCapturingUserPreference user_link_capturing_preference = 63;
     if (cached_has_bits & 0x00000200u) {
-      total_size += 2 + 1;
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_user_link_capturing_preference());
     }
 
     // optional int64 latest_install_time = 64;
@@ -8802,7 +8803,7 @@ void WebAppProto::MergeFrom(const WebAppProto& from) {
       run_on_os_login_os_integration_state_ = from.run_on_os_login_os_integration_state_;
     }
     if (cached_has_bits & 0x00000200u) {
-      is_user_selected_app_for_capturing_links_ = from.is_user_selected_app_for_capturing_links_;
+      user_link_capturing_preference_ = from.user_link_capturing_preference_;
     }
     if (cached_has_bits & 0x00000400u) {
       latest_install_time_ = from.latest_install_time_;
@@ -8853,9 +8854,6 @@ bool WebAppProto::IsInitialized() const {
   }
   if (_internal_has_share_target()) {
     if (!share_target_->IsInitialized()) return false;
-  }
-  if (_internal_has_isolation_data()) {
-    if (!isolation_data_->IsInitialized()) return false;
   }
   return true;
 }

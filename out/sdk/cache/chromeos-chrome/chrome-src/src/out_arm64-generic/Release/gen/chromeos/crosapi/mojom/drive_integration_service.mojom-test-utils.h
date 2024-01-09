@@ -54,7 +54,7 @@ class  DriveFsNativeMessageHostBridgeAsyncWaiter {
 
 class  DriveIntegrationServiceInterceptorForTesting : public DriveIntegrationService {
   virtual DriveIntegrationService* GetForwardingInterface() = 0;
-  void GetMountPointPath(GetMountPointPathCallback callback) override;
+  void DeprecatedGetMountPointPath(DeprecatedGetMountPointPathCallback callback) override;
   void AddDriveIntegrationServiceObserver(::mojo::PendingRemote<DriveIntegrationServiceObserver> observer) override;
   void CreateNativeHostSession(::drivefs::mojom::ExtensionConnectionParamsPtr params, ::mojo::PendingReceiver<::drivefs::mojom::NativeMessagingHost> drivefs_receiver, ::mojo::PendingRemote<::drivefs::mojom::NativeMessagingPort> extension_remote) override;
   void RegisterDriveFsNativeMessageHostBridge(::mojo::PendingRemote<DriveFsNativeMessageHostBridge> bridge) override;
@@ -67,9 +67,9 @@ class  DriveIntegrationServiceAsyncWaiter {
   DriveIntegrationServiceAsyncWaiter& operator=(const DriveIntegrationServiceAsyncWaiter&) = delete;
 
   ~DriveIntegrationServiceAsyncWaiter();
-  void GetMountPointPath(
+  void DeprecatedGetMountPointPath(
       ::base::FilePath* out_drive_path);
-  ::base::FilePath GetMountPointPath();
+  ::base::FilePath DeprecatedGetMountPointPath();
 
  private:
   DriveIntegrationService* const proxy_;

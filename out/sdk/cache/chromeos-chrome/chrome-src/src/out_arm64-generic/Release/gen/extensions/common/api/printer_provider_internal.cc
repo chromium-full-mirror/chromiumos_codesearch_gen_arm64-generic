@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/printer_provider_internal.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -78,13 +79,13 @@ namespace ReportPrinters {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -94,13 +95,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -108,11 +109,11 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& printers_value = args[1];
     {
       if (!printers_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateOptionalArrayFromList(printers_value.GetList(), params.printers)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
@@ -128,13 +129,13 @@ namespace ReportUsbPrinterInfo {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -144,13 +145,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -158,12 +159,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& printer_info_value = args[1];
     {
       if (!printer_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         extensions::api::printer_provider::PrinterInfo temp;
         if (!extensions::api::printer_provider::PrinterInfo::Populate(printer_info_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.printer_info = std::move(temp);
       }
     }
@@ -181,8 +182,8 @@ Params::Capability::Capability()
  {}
 
 Params::Capability::~Capability() = default;
-Params::Capability::Capability(Capability&& rhs) = default;
-Params::Capability& Params::Capability::operator=(Capability&& rhs) = default;
+Params::Capability::Capability(Capability&& rhs) noexcept = default;
+Params::Capability& Params::Capability::operator=(Capability&& rhs) noexcept = default;
 Params::Capability Params::Capability::Clone() const {
   Capability out;
   return out;
@@ -205,21 +206,21 @@ bool Params::Capability::Populate(
 }
 
 // static
-absl::optional<Params::Capability> Params::Capability::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Capability> Params::Capability::FromValue(const base::Value::Dict& value) {
   Capability out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Capability> Params::Capability::FromValue(const base::Value& value) {
+std::optional<Params::Capability> Params::Capability::FromValue(const base::Value& value) {
   Capability out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -227,13 +228,13 @@ absl::optional<Params::Capability> Params::Capability::FromValue(const base::Val
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -243,13 +244,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -257,12 +258,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& capability_value = args[1];
     {
       if (!capability_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Capability temp;
         if (!Capability::Populate(capability_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.capability = std::move(temp);
       }
     }
@@ -278,13 +279,13 @@ namespace ReportPrintResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
   params.error = PrintError();
@@ -295,13 +296,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -310,11 +311,11 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* print_error_as_string = error_value.GetIfString();
       if (!print_error_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.error = ParsePrintError(*print_error_as_string);
       if (params.error == PrintError()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
@@ -329,13 +330,13 @@ namespace GetPrintData {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -345,13 +346,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -362,8 +363,8 @@ Results::Blob::Blob()
  {}
 
 Results::Blob::~Blob() = default;
-Results::Blob::Blob(Blob&& rhs) = default;
-Results::Blob& Results::Blob::operator=(Blob&& rhs) = default;
+Results::Blob::Blob(Blob&& rhs) noexcept = default;
+Results::Blob& Results::Blob::operator=(Blob&& rhs) noexcept = default;
 base::Value::Dict Results::Blob::ToValue() const {
   base::Value::Dict to_value_result;
 

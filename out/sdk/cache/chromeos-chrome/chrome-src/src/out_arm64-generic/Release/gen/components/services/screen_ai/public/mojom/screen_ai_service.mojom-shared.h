@@ -24,9 +24,6 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-shared-internal.h"
-#include "mojo/public/mojom/base/file_path.mojom-shared.h"
-#include "mojo/public/mojom/base/read_only_file.mojom-shared.h"
-#include "sandbox/policy/mojom/sandbox.mojom-shared.h"
 #include "skia/public/mojom/bitmap.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom-shared.h"
@@ -129,16 +126,6 @@ using MainContentExtractionServiceAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<MainContentExtractionServiceInterfaceBase>;
 using MainContentExtractionServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<MainContentExtractionServiceInterfaceBase>;
-class ScreenAIServiceFactoryInterfaceBase {};
-
-using ScreenAIServiceFactoryPtrDataView =
-    mojo::InterfacePtrDataView<ScreenAIServiceFactoryInterfaceBase>;
-using ScreenAIServiceFactoryRequestDataView =
-    mojo::InterfaceRequestDataView<ScreenAIServiceFactoryInterfaceBase>;
-using ScreenAIServiceFactoryAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<ScreenAIServiceFactoryInterfaceBase>;
-using ScreenAIServiceFactoryAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<ScreenAIServiceFactoryInterfaceBase>;
 
 
 class VisualAnnotationDataView {
@@ -251,6 +238,9 @@ class WordBoxDataView {
     auto* pointer = data_->language.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
+  }
+  bool has_space_after() const {
+    return data_->has_space_after;
   }
  private:
   internal::WordBox_Data* data_ = nullptr;
@@ -417,6 +407,7 @@ struct Serializer<::screen_ai::mojom::WordBoxDataView, MaybeConstUserType> {
         fragment->language.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null language in WordBox struct");
+    fragment->has_space_after = Traits::has_space_after(input);
   }
 
   static bool Deserialize(::screen_ai::mojom::internal::WordBox_Data* input,

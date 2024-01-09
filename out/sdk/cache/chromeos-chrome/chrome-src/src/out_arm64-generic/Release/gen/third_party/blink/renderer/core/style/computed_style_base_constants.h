@@ -18,6 +18,13 @@
 #ifndef THIRD_PARTY_BLINK_RENDERER_CORE_STYLE_COMPUTED_STYLE_BASE_CONSTANTS_H_
 #define THIRD_PARTY_BLINK_RENDERER_CORE_STYLE_COMPUTED_STYLE_BASE_CONSTANTS_H_
 
+#include <stdint.h>
+
+#include <iosfwd>
+
+#include "base/dcheck_is_on.h"
+#include "third_party/blink/renderer/core/core_export.h"
+
 namespace blink {
 
 // TODO(sashab): Move these enums to their own namespace, or add a CSS prefix,
@@ -88,12 +95,6 @@ enum class EBoxDecorationBreak : uint8_t {
 };
 
 enum class EBoxDirection : uint8_t {
-  kNormal,
-  kReverse,
-  kMaxEnumValue = kReverse,
-};
-
-enum class EBoxDirectionAlternative : uint8_t {
   kNormal,
   kReverse,
   kMaxEnumValue = kReverse,
@@ -268,7 +269,10 @@ enum class EDisplay : uint8_t {
   kInlineListItem,
   kFlowRootListItem,
   kInlineFlowRootListItem,
-  kMaxEnumValue = kInlineFlowRootListItem,
+  kRuby,
+  kBlockRuby,
+  kRubyText,
+  kMaxEnumValue = kRubyText,
 };
 
 enum class EDominantBaseline : uint8_t {
@@ -292,13 +296,6 @@ enum class EDraggableRegionMode : uint8_t {
   kDrag,
   kNoDrag,
   kMaxEnumValue = kNoDrag,
-};
-
-enum class EDynamicRangeLimit : uint8_t {
-  kStandard,
-  kHigh,
-  kConstrainedHigh,
-  kMaxEnumValue = kConstrainedHigh,
 };
 
 enum class EEmptyCells : uint8_t {
@@ -770,6 +767,92 @@ enum class TextEmphasisMark : uint8_t {
   kCustom,
   kMaxEnumValue = kCustom,
 };
+
+
+#if DCHECK_IS_ON()
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EAlignmentBaseline);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBackfaceVisibility);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBaselineSource);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBorderCollapse);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBorderStyle);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBoxAlignment);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBoxDecorationBreak);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBoxDirection);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBoxOrient);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBoxPack);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBoxSizing);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBreakBetween);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBreakInside);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EBufferedRendering);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ECaptionSide);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EClear);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EColorInterpolation);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EColorRendering);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EColumnFill);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EColumnSpan);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EContentVisibility);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ECursor);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EDisplay);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EDominantBaseline);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EDraggableRegionMode);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EEmptyCells);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EFieldSizing);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EFlexDirection);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EFlexWrap);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EFloat);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EForcedColorAdjust);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EImageRendering);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EInsideLink);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EIsolation);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EListStylePosition);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EMaskType);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EMathShift);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EMathStyle);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EObjectFit);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EOrder);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EOriginTrialTestProperty);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EOverflow);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EOverflowAnchor);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EOverflowWrap);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EOverlay);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EOverscrollBehavior);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EPointerEvents);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EPosition);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EPrintColorAdjust);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EResize);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EScrollSnapStop);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EScrollStartTarget);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EScrollbarWidth);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EShapeRendering);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ESpeak);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETableLayout);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextAlign);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextAlignLast);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextAnchor);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextAutospace);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextBoxTrim);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextCombine);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextDecorationSkipInk);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextDecorationStyle);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextOrientation);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextOverflow);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextSecurity);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETextTransform);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETransformBox);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const ETransformStyle3D);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EUserDrag);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EUserModify);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EUserSelect);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EVectorEffect);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EVisibility);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EWordBreak);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const Hyphens);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const LineBreak);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const RubyPosition);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const TextDecorationLine);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const TextEmphasisFill);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const TextEmphasisMark);
+#endif
 
 }  // namespace blink
 

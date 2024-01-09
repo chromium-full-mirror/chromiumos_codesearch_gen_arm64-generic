@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -31,12 +32,12 @@ namespace input_method_private {
 
 // The type of menu item. Radio buttons between separators are considered
 // grouped.
-enum  MenuItemStyle {
-  MENU_ITEM_STYLE_NONE = 0,
-  MENU_ITEM_STYLE_CHECK,
-  MENU_ITEM_STYLE_RADIO,
-  MENU_ITEM_STYLE_SEPARATOR,
-  MENU_ITEM_STYLE_LAST = MENU_ITEM_STYLE_SEPARATOR,
+enum class MenuItemStyle {
+  kNone = 0,
+  kCheck,
+  kRadio,
+  kSeparator,
+  kMaxValue = kSeparator,
 };
 
 
@@ -51,8 +52,8 @@ struct MenuItem {
   ~MenuItem();
   MenuItem(const MenuItem&) = delete;
   MenuItem& operator=(const MenuItem&) = delete;
-  MenuItem(MenuItem&& rhs);
-  MenuItem& operator=(MenuItem&& rhs);
+  MenuItem(MenuItem&& rhs) noexcept;
+  MenuItem& operator=(MenuItem&& rhs) noexcept;
 
   // Populates a MenuItem object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -65,14 +66,11 @@ struct MenuItem {
   // Creates a deep copy of MenuItem.
   MenuItem Clone() const;
 
-  // Creates a MenuItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MenuItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a MenuItem object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<MenuItem> FromValue(const base::Value::Dict& value);
+  static std::optional<MenuItem> FromValue(const base::Value::Dict& value);
 
   // Creates a MenuItem object from a base::Value, or nullopt on failure.
-  static absl::optional<MenuItem> FromValue(const base::Value& value);
+  static std::optional<MenuItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMenuItem object.
@@ -82,29 +80,29 @@ struct MenuItem {
   std::string id;
 
   // Text displayed in the menu for this item.
-  absl::optional<std::string> label;
+  std::optional<std::string> label;
 
   // The type of menu item.
   MenuItemStyle style;
 
   // Indicates this item is visible.
-  absl::optional<bool> visible;
+  std::optional<bool> visible;
 
   // Indicates this item should be drawn with a check.
-  absl::optional<bool> checked;
+  std::optional<bool> checked;
 
   // Indicates this item is enabled.
-  absl::optional<bool> enabled;
+  std::optional<bool> enabled;
 
 };
 
 // The type of the underline to modify a composition segment.
-enum  UnderlineStyle {
-  UNDERLINE_STYLE_NONE = 0,
-  UNDERLINE_STYLE_UNDERLINE,
-  UNDERLINE_STYLE_DOUBLEUNDERLINE,
-  UNDERLINE_STYLE_NOUNDERLINE,
-  UNDERLINE_STYLE_LAST = UNDERLINE_STYLE_NOUNDERLINE,
+enum class UnderlineStyle {
+  kNone = 0,
+  kUnderline,
+  kDoubleUnderline,
+  kNoUnderline,
+  kMaxValue = kNoUnderline,
 };
 
 
@@ -113,13 +111,13 @@ UnderlineStyle ParseUnderlineStyle(base::StringPiece as_string);
 std::u16string GetUnderlineStyleParseError(base::StringPiece as_string);
 
 // Describes how the text field was focused
-enum  FocusReason {
-  FOCUS_REASON_NONE = 0,
-  FOCUS_REASON_MOUSE,
-  FOCUS_REASON_TOUCH,
-  FOCUS_REASON_PEN,
-  FOCUS_REASON_OTHER,
-  FOCUS_REASON_LAST = FOCUS_REASON_OTHER,
+enum class FocusReason {
+  kNone = 0,
+  kMouse,
+  kTouch,
+  kPen,
+  kOther,
+  kMaxValue = kOther,
 };
 
 
@@ -129,17 +127,17 @@ std::u16string GetFocusReasonParseError(base::StringPiece as_string);
 
 // Type of keyboard to show for this text field, (Text, Number, URL, etc) set by
 // mode property of input tag
-enum  InputModeType {
-  INPUT_MODE_TYPE_NONE = 0,
-  INPUT_MODE_TYPE_NOKEYBOARD,
-  INPUT_MODE_TYPE_TEXT,
-  INPUT_MODE_TYPE_TEL,
-  INPUT_MODE_TYPE_URL,
-  INPUT_MODE_TYPE_EMAIL,
-  INPUT_MODE_TYPE_NUMERIC,
-  INPUT_MODE_TYPE_DECIMAL,
-  INPUT_MODE_TYPE_SEARCH,
-  INPUT_MODE_TYPE_LAST = INPUT_MODE_TYPE_SEARCH,
+enum class InputModeType {
+  kNone = 0,
+  kNoKeyboard,
+  kText,
+  kTel,
+  kUrl,
+  kEmail,
+  kNumeric,
+  kDecimal,
+  kSearch,
+  kMaxValue = kSearch,
 };
 
 
@@ -148,17 +146,17 @@ InputModeType ParseInputModeType(base::StringPiece as_string);
 std::u16string GetInputModeTypeParseError(base::StringPiece as_string);
 
 // Type of value this text field edits, (Text, Number, URL, etc)
-enum  InputContextType {
-  INPUT_CONTEXT_TYPE_NONE = 0,
-  INPUT_CONTEXT_TYPE_TEXT,
-  INPUT_CONTEXT_TYPE_SEARCH,
-  INPUT_CONTEXT_TYPE_TEL,
-  INPUT_CONTEXT_TYPE_URL,
-  INPUT_CONTEXT_TYPE_EMAIL,
-  INPUT_CONTEXT_TYPE_NUMBER,
-  INPUT_CONTEXT_TYPE_PASSWORD,
-  INPUT_CONTEXT_TYPE_NULL,
-  INPUT_CONTEXT_TYPE_LAST = INPUT_CONTEXT_TYPE_NULL,
+enum class InputContextType {
+  kNone = 0,
+  kText,
+  kSearch,
+  kTel,
+  kUrl,
+  kEmail,
+  kNumber,
+  kPassword,
+  kNull,
+  kMaxValue = kNull,
 };
 
 
@@ -167,13 +165,13 @@ InputContextType ParseInputContextType(base::StringPiece as_string);
 std::u16string GetInputContextTypeParseError(base::StringPiece as_string);
 
 // The auto-capitalize type of the text field.
-enum  AutoCapitalizeType {
-  AUTO_CAPITALIZE_TYPE_NONE = 0,
-  AUTO_CAPITALIZE_TYPE_OFF,
-  AUTO_CAPITALIZE_TYPE_CHARACTERS,
-  AUTO_CAPITALIZE_TYPE_WORDS,
-  AUTO_CAPITALIZE_TYPE_SENTENCES,
-  AUTO_CAPITALIZE_TYPE_LAST = AUTO_CAPITALIZE_TYPE_SENTENCES,
+enum class AutoCapitalizeType {
+  kNone = 0,
+  kOff,
+  kCharacters,
+  kWords,
+  kSentences,
+  kMaxValue = kSentences,
 };
 
 
@@ -182,15 +180,15 @@ AutoCapitalizeType ParseAutoCapitalizeType(base::StringPiece as_string);
 std::u16string GetAutoCapitalizeTypeParseError(base::StringPiece as_string);
 
 // The aggregated status of all language packs for a given input method.
-enum  LanguagePackStatus {
-  LANGUAGE_PACK_STATUS_NONE = 0,
-  LANGUAGE_PACK_STATUS_UNKNOWN,
-  LANGUAGE_PACK_STATUS_NOTINSTALLED,
-  LANGUAGE_PACK_STATUS_INPROGRESS,
-  LANGUAGE_PACK_STATUS_INSTALLED,
-  LANGUAGE_PACK_STATUS_ERROROTHER,
-  LANGUAGE_PACK_STATUS_ERRORNEEDSREBOOT,
-  LANGUAGE_PACK_STATUS_LAST = LANGUAGE_PACK_STATUS_ERRORNEEDSREBOOT,
+enum class LanguagePackStatus {
+  kNone = 0,
+  kUnknown,
+  kNotInstalled,
+  kInProgress,
+  kInstalled,
+  kErrorOther,
+  kErrorNeedsReboot,
+  kMaxValue = kErrorNeedsReboot,
 };
 
 
@@ -204,8 +202,8 @@ struct LanguagePackStatusChange {
   ~LanguagePackStatusChange();
   LanguagePackStatusChange(const LanguagePackStatusChange&) = delete;
   LanguagePackStatusChange& operator=(const LanguagePackStatusChange&) = delete;
-  LanguagePackStatusChange(LanguagePackStatusChange&& rhs);
-  LanguagePackStatusChange& operator=(LanguagePackStatusChange&& rhs);
+  LanguagePackStatusChange(LanguagePackStatusChange&& rhs) noexcept;
+  LanguagePackStatusChange& operator=(LanguagePackStatusChange&& rhs) noexcept;
 
   // Populates a LanguagePackStatusChange object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -218,17 +216,13 @@ struct LanguagePackStatusChange {
   // Creates a deep copy of LanguagePackStatusChange.
   LanguagePackStatusChange Clone() const;
 
-  // Creates a LanguagePackStatusChange object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<LanguagePackStatusChange> FromValueDeprecated(const base::Value& value);
-
   // Creates a LanguagePackStatusChange object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<LanguagePackStatusChange> FromValue(const base::Value::Dict& value);
+  static std::optional<LanguagePackStatusChange> FromValue(const base::Value::Dict& value);
 
   // Creates a LanguagePackStatusChange object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<LanguagePackStatusChange> FromValue(const base::Value& value);
+  static std::optional<LanguagePackStatusChange> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLanguagePackStatusChange object.
@@ -248,8 +242,8 @@ struct InputContext {
   ~InputContext();
   InputContext(const InputContext&) = delete;
   InputContext& operator=(const InputContext&) = delete;
-  InputContext(InputContext&& rhs);
-  InputContext& operator=(InputContext&& rhs);
+  InputContext(InputContext&& rhs) noexcept;
+  InputContext& operator=(InputContext&& rhs) noexcept;
 
   // Populates a InputContext object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -262,15 +256,12 @@ struct InputContext {
   // Creates a deep copy of InputContext.
   InputContext Clone() const;
 
-  // Creates a InputContext object from a base::Value, or NULL on failure.
-  static std::unique_ptr<InputContext> FromValueDeprecated(const base::Value& value);
-
   // Creates a InputContext object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<InputContext> FromValue(const base::Value::Dict& value);
+  static std::optional<InputContext> FromValue(const base::Value::Dict& value);
 
   // Creates a InputContext object from a base::Value, or nullopt on failure.
-  static absl::optional<InputContext> FromValue(const base::Value& value);
+  static std::optional<InputContext> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInputContext object.
@@ -306,7 +297,7 @@ struct InputContext {
   FocusReason focus_reason;
 
   // Key of the app associated with this text field if any.
-  absl::optional<std::string> app_key;
+  std::optional<std::string> app_key;
 
 };
 
@@ -317,8 +308,8 @@ struct InputMethodSettings {
   ~InputMethodSettings();
   InputMethodSettings(const InputMethodSettings&) = delete;
   InputMethodSettings& operator=(const InputMethodSettings&) = delete;
-  InputMethodSettings(InputMethodSettings&& rhs);
-  InputMethodSettings& operator=(InputMethodSettings&& rhs);
+  InputMethodSettings(InputMethodSettings&& rhs) noexcept;
+  InputMethodSettings& operator=(InputMethodSettings&& rhs) noexcept;
 
   // Populates a InputMethodSettings object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -331,17 +322,13 @@ struct InputMethodSettings {
   // Creates a deep copy of InputMethodSettings.
   InputMethodSettings Clone() const;
 
-  // Creates a InputMethodSettings object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<InputMethodSettings> FromValueDeprecated(const base::Value& value);
-
   // Creates a InputMethodSettings object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<InputMethodSettings> FromValue(const base::Value::Dict& value);
+  static std::optional<InputMethodSettings> FromValue(const base::Value::Dict& value);
 
   // Creates a InputMethodSettings object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<InputMethodSettings> FromValue(const base::Value& value);
+  static std::optional<InputMethodSettings> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInputMethodSettings object.
@@ -353,8 +340,8 @@ struct InputMethodSettings {
     ~PinyinFuzzyConfig();
     PinyinFuzzyConfig(const PinyinFuzzyConfig&) = delete;
     PinyinFuzzyConfig& operator=(const PinyinFuzzyConfig&) = delete;
-    PinyinFuzzyConfig(PinyinFuzzyConfig&& rhs);
-    PinyinFuzzyConfig& operator=(PinyinFuzzyConfig&& rhs);
+    PinyinFuzzyConfig(PinyinFuzzyConfig&& rhs) noexcept;
+    PinyinFuzzyConfig& operator=(PinyinFuzzyConfig&& rhs) noexcept;
 
     // Populates a PinyinFuzzyConfig object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -369,162 +356,162 @@ struct InputMethodSettings {
 
     // Creates a PinyinFuzzyConfig object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<PinyinFuzzyConfig> FromValue(const base::Value::Dict& value);
+    static std::optional<PinyinFuzzyConfig> FromValue(const base::Value::Dict& value);
 
     // Creates a PinyinFuzzyConfig object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<PinyinFuzzyConfig> FromValue(const base::Value& value);
+    static std::optional<PinyinFuzzyConfig> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisPinyinFuzzyConfig object.
     base::Value::Dict ToValue() const;
 
     // Whether to enable an_ang fuzzy
-    absl::optional<bool> an_ang;
+    std::optional<bool> an_ang;
 
     // Whether to enable c_ch fuzzy
-    absl::optional<bool> c_ch;
+    std::optional<bool> c_ch;
 
     // Whether to enable en_eng fuzzy
-    absl::optional<bool> en_eng;
+    std::optional<bool> en_eng;
 
     // Whether to enable f_h fuzzy
-    absl::optional<bool> f_h;
+    std::optional<bool> f_h;
 
     // Whether to enable ian_iang fuzzy
-    absl::optional<bool> ian_iang;
+    std::optional<bool> ian_iang;
 
     // Whether to enable in_ing fuzzy
-    absl::optional<bool> in_ing;
+    std::optional<bool> in_ing;
 
     // Whether to enable k_g fuzzy
-    absl::optional<bool> k_g;
+    std::optional<bool> k_g;
 
     // Whether to enable l_n fuzzy
-    absl::optional<bool> l_n;
+    std::optional<bool> l_n;
 
     // Whether to enable r_l fuzzy
-    absl::optional<bool> r_l;
+    std::optional<bool> r_l;
 
     // Whether to enable s_sh fuzzy
-    absl::optional<bool> s_sh;
+    std::optional<bool> s_sh;
 
     // Whether to enable uan_uang fuzzy
-    absl::optional<bool> uan_uang;
+    std::optional<bool> uan_uang;
 
     // Whether to enable z_zh fuzzy
-    absl::optional<bool> z_zh;
+    std::optional<bool> z_zh;
 
   };
 
 
   // Whether to enable auto completion.
-  absl::optional<bool> enable_completion;
+  std::optional<bool> enable_completion;
 
   // Whether to auto transform double spaces to type period.
-  absl::optional<bool> enable_double_space_period;
+  std::optional<bool> enable_double_space_period;
 
   // Whether to enable gesture typing.
-  absl::optional<bool> enable_gesture_typing;
+  std::optional<bool> enable_gesture_typing;
 
   // Whether to enable word prediction.
-  absl::optional<bool> enable_prediction;
+  std::optional<bool> enable_prediction;
 
   // Whether to enable sound on keypress.
-  absl::optional<bool> enable_sound_on_keypress;
+  std::optional<bool> enable_sound_on_keypress;
 
   // Whether auto correction should be enabled for physical keyboard by default.
-  absl::optional<bool> physical_keyboard_auto_correction_enabled_by_default;
+  std::optional<bool> physical_keyboard_auto_correction_enabled_by_default;
 
   // The level of auto correction for physical keyboard (0: Off, 1: Modest, 2:
   // Aggressive).
-  absl::optional<int> physical_keyboard_auto_correction_level;
+  std::optional<int> physical_keyboard_auto_correction_level;
 
   // Whether to enable auto capitalization for physical keyboard.
-  absl::optional<bool> physical_keyboard_enable_capitalization;
+  std::optional<bool> physical_keyboard_enable_capitalization;
 
   // Whether to enable diacritics on longpress for physical keyboard.
-  absl::optional<bool> physical_keyboard_enable_diacritics_on_longpress;
+  std::optional<bool> physical_keyboard_enable_diacritics_on_longpress;
 
   // Whether to enable physical keyboard predictive writing
-  absl::optional<bool> physical_keyboard_enable_predictive_writing;
+  std::optional<bool> physical_keyboard_enable_predictive_writing;
 
   // The level of auto correction for virtual keyboard (0: Off, 1: Modest, 2:
   // Aggressive).
-  absl::optional<int> virtual_keyboard_auto_correction_level;
+  std::optional<int> virtual_keyboard_auto_correction_level;
 
   // Whether enable auto capitalization for virtual keyboard.
-  absl::optional<bool> virtual_keyboard_enable_capitalization;
+  std::optional<bool> virtual_keyboard_enable_capitalization;
 
   // The xkb keyboard (system provided keyboard) layout.
-  absl::optional<std::string> xkb_layout;
+  std::optional<std::string> xkb_layout;
 
   // Whether input one syllable at a time in korean input method.
-  absl::optional<bool> korean_enable_syllable_input;
+  std::optional<bool> korean_enable_syllable_input;
 
   // The layout of korean keyboard.
-  absl::optional<std::string> korean_keyboard_layout;
+  std::optional<std::string> korean_keyboard_layout;
 
   // Whether to show hangul candidates in korean input method.
-  absl::optional<bool> korean_show_hangul_candidate;
+  std::optional<bool> korean_show_hangul_candidate;
 
   // Whether to use Chinese punctuations in pinyin.
-  absl::optional<bool> pinyin_chinese_punctuation;
+  std::optional<bool> pinyin_chinese_punctuation;
 
   // User can use shortcuts to switch between Chinese and English quickly when
   // using pinyin, this flag indicates whether the default language is Chinese.
-  absl::optional<bool> pinyin_default_chinese;
+  std::optional<bool> pinyin_default_chinese;
 
   // Whether to enable fuzzy pinyin.
-  absl::optional<bool> pinyin_enable_fuzzy;
+  std::optional<bool> pinyin_enable_fuzzy;
 
   // Whether to enable using ','/'.' to page up/down the candidates in pinyin.
-  absl::optional<bool> pinyin_enable_lower_paging;
+  std::optional<bool> pinyin_enable_lower_paging;
 
   // Whether to enable using '-'/'=' to page up/down the candidates in pinyin.
-  absl::optional<bool> pinyin_enable_upper_paging;
+  std::optional<bool> pinyin_enable_upper_paging;
 
   // Whether to output full width letters and digits in pinyin.
-  absl::optional<bool> pinyin_full_width_character;
+  std::optional<bool> pinyin_full_width_character;
 
   // The configuration of which fuzzy pairs are enable.
-  absl::optional<PinyinFuzzyConfig> pinyin_fuzzy_config;
+  std::optional<PinyinFuzzyConfig> pinyin_fuzzy_config;
 
   // The layout of zhuyin keyboard.
-  absl::optional<std::string> zhuyin_keyboard_layout;
+  std::optional<std::string> zhuyin_keyboard_layout;
 
   // The page size of zhuyin candidate page.
-  absl::optional<int> zhuyin_page_size;
+  std::optional<int> zhuyin_page_size;
 
   // The keys used to select candidates in zhuyin.
-  absl::optional<std::string> zhuyin_select_keys;
+  std::optional<std::string> zhuyin_select_keys;
 
   // Enable VNI flexible Vietnamese typing mode
-  absl::optional<bool> vietnamese_vni_allow_flexible_diacritics;
+  std::optional<bool> vietnamese_vni_allow_flexible_diacritics;
 
   // Enable VNI modern tone mark placement
-  absl::optional<bool> vietnamese_vni_new_style_tone_mark_placement;
+  std::optional<bool> vietnamese_vni_new_style_tone_mark_placement;
 
   // Enable VNI insert-double-horn-on-UO shortcut
-  absl::optional<bool> vietnamese_vni_insert_double_horn_on_uo;
+  std::optional<bool> vietnamese_vni_insert_double_horn_on_uo;
 
   // Enable VNI showing underline on composition text
-  absl::optional<bool> vietnamese_vni_show_underline;
+  std::optional<bool> vietnamese_vni_show_underline;
 
   // Enable Telex flexible Vietnamese typing mode
-  absl::optional<bool> vietnamese_telex_allow_flexible_diacritics;
+  std::optional<bool> vietnamese_telex_allow_flexible_diacritics;
 
   // Enable Telex modern tone mark placement
-  absl::optional<bool> vietnamese_telex_new_style_tone_mark_placement;
+  std::optional<bool> vietnamese_telex_new_style_tone_mark_placement;
 
   // Enable Telex insert-double-horn-on-UO horn shortcut
-  absl::optional<bool> vietnamese_telex_insert_double_horn_on_uo;
+  std::optional<bool> vietnamese_telex_insert_double_horn_on_uo;
 
   // Enable Telex inser-U-Horn-on-W shortcut
-  absl::optional<bool> vietnamese_telex_insert_u_horn_on_w;
+  std::optional<bool> vietnamese_telex_insert_u_horn_on_w;
 
   // Enable Telex showing underline on composition text
-  absl::optional<bool> vietnamese_telex_show_underline;
+  std::optional<bool> vietnamese_telex_show_underline;
 
 };
 
@@ -543,8 +530,8 @@ struct Config {
   ~Config();
   Config(const Config&) = delete;
   Config& operator=(const Config&) = delete;
-  Config(Config&& rhs);
-  Config& operator=(Config&& rhs);
+  Config(Config&& rhs) noexcept;
+  Config& operator=(Config&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisConfig object.
@@ -572,8 +559,8 @@ struct InputMethodsType {
   ~InputMethodsType();
   InputMethodsType(const InputMethodsType&) = delete;
   InputMethodsType& operator=(const InputMethodsType&) = delete;
-  InputMethodsType(InputMethodsType&& rhs);
-  InputMethodsType& operator=(InputMethodsType&& rhs);
+  InputMethodsType(InputMethodsType&& rhs) noexcept;
+  InputMethodsType& operator=(InputMethodsType&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInputMethodsType object.
@@ -610,11 +597,11 @@ base::Value::List Create(const std::string& input_method_id);
 namespace SetCurrentInputMethod {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The input method ID to be set as current input method.
@@ -654,11 +641,11 @@ base::Value::List Create(const std::vector<std::string>& words);
 namespace AddWordToDictionary {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A new word to add to the dictionary.
@@ -679,11 +666,11 @@ base::Value::List Create();
 namespace SetXkbLayout {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The XKB layout name.
@@ -704,11 +691,11 @@ base::Value::List Create();
 namespace FinishComposingText {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -716,8 +703,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -732,10 +719,10 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     // ID of the context where we want to finish composing.
     int context_id;
@@ -778,11 +765,11 @@ base::Value::List Create();
 namespace OpenOptionsPage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // ID of the input method to open options for.
@@ -798,11 +785,11 @@ struct Params {
 namespace GetSurroundingText {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The number of characters before the current selection.
@@ -824,8 +811,8 @@ struct SurroundingInfo {
   ~SurroundingInfo();
   SurroundingInfo(const SurroundingInfo&) = delete;
   SurroundingInfo& operator=(const SurroundingInfo&) = delete;
-  SurroundingInfo(SurroundingInfo&& rhs);
-  SurroundingInfo& operator=(SurroundingInfo&& rhs);
+  SurroundingInfo(SurroundingInfo&& rhs) noexcept;
+  SurroundingInfo& operator=(SurroundingInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSurroundingInfo object.
@@ -849,11 +836,11 @@ base::Value::List Create(const SurroundingInfo& surrounding_info);
 namespace GetSettings {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the engine (e.g. 'zh-t-i0-pinyin', 'xkb:us::eng')
@@ -875,11 +862,11 @@ base::Value::List Create(const InputMethodSettings& settings);
 namespace SetSettings {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the engine (e.g. 'zh-t-i0-pinyin', 'xkb:us::eng')
@@ -903,11 +890,11 @@ base::Value::List Create();
 namespace SetCompositionRange {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -915,8 +902,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -931,18 +918,18 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     struct SegmentsType {
       SegmentsType();
       ~SegmentsType();
       SegmentsType(const SegmentsType&) = delete;
       SegmentsType& operator=(const SegmentsType&) = delete;
-      SegmentsType(SegmentsType&& rhs);
-      SegmentsType& operator=(SegmentsType&& rhs);
+      SegmentsType(SegmentsType&& rhs) noexcept;
+      SegmentsType& operator=(SegmentsType&& rhs) noexcept;
 
       // Populates a SegmentsType object from a base::Value& instance. Returns
       // whether |out| was successfully populated.
@@ -957,10 +944,10 @@ struct Params {
 
       // Creates a SegmentsType object from a base::Value::Dict, or nullopt on
       // failure.
-      static absl::optional<SegmentsType> FromValue(const base::Value::Dict& value);
+      static std::optional<SegmentsType> FromValue(const base::Value::Dict& value);
 
       // Creates a SegmentsType object from a base::Value, or nullopt on failure.
-      static absl::optional<SegmentsType> FromValue(const base::Value& value);
+      static std::optional<SegmentsType> FromValue(const base::Value& value);
 
       // Index of the character to start this segment at
       int start;
@@ -985,7 +972,7 @@ struct Params {
     int selection_after;
 
     // List of segments and their associated types.
-    absl::optional<std::vector<SegmentsType>> segments;
+    std::optional<std::vector<SegmentsType>> segments;
 
   };
 
@@ -1011,11 +998,11 @@ namespace Reset {
 namespace OnAutocorrect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Parameters {
@@ -1023,8 +1010,8 @@ struct Params {
     ~Parameters();
     Parameters(const Parameters&) = delete;
     Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
+    Parameters(Parameters&& rhs) noexcept;
+    Parameters& operator=(Parameters&& rhs) noexcept;
 
     // Populates a Parameters object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1039,10 +1026,10 @@ struct Params {
 
     // Creates a Parameters object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+    static std::optional<Parameters> FromValue(const base::Value::Dict& value);
 
     // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
+    static std::optional<Parameters> FromValue(const base::Value& value);
 
     // ID of the context where the autocorrect occurred.
     int context_id;
@@ -1071,89 +1058,6 @@ struct Params {
 
 }  // namespace OnAutocorrect
 
-namespace GetTextFieldBounds {
-
-struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
-  Params(const Params&) = delete;
-  Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
-  ~Params();
-
-  struct Parameters {
-    Parameters();
-    ~Parameters();
-    Parameters(const Parameters&) = delete;
-    Parameters& operator=(const Parameters&) = delete;
-    Parameters(Parameters&& rhs);
-    Parameters& operator=(Parameters&& rhs);
-
-    // Populates a Parameters object from a base::Value& instance. Returns whether
-    // |out| was successfully populated.
-    static bool Populate(const base::Value& value, Parameters& out);
-
-    // Populates a Parameters object from a Dict& instance. Returns whether |out|
-    // was successfully populated.
-    static bool Populate(const base::Value::Dict& value, Parameters& out);
-
-    // Creates a deep copy of Parameters.
-    Parameters Clone() const;
-
-    // Creates a Parameters object from a base::Value::Dict, or nullopt on
-    // failure.
-    static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
-
-    // Creates a Parameters object from a base::Value, or nullopt on failure.
-    static absl::optional<Parameters> FromValue(const base::Value& value);
-
-    // ID of the context.
-    int context_id;
-
-  };
-
-
-  Parameters parameters;
-
-
- private:
-  Params();
-};
-
-namespace Results {
-
-struct TextFieldBounds {
-  TextFieldBounds();
-  ~TextFieldBounds();
-  TextFieldBounds(const TextFieldBounds&) = delete;
-  TextFieldBounds& operator=(const TextFieldBounds&) = delete;
-  TextFieldBounds(TextFieldBounds&& rhs);
-  TextFieldBounds& operator=(TextFieldBounds&& rhs);
-
-  // Returns a new base::Value::Dict representing the serialized form of
-  // thisTextFieldBounds object.
-  base::Value::Dict ToValue() const;
-
-  // The x-coordinate of the text field's bounds.
-  int x;
-
-  // The y-coordinate of the text field's bounds.
-  int y;
-
-  // The width of the text field's bounds.
-  int width;
-
-  // The height of the  bounds.
-  int height;
-
-};
-
-
-base::Value::List Create(const TextFieldBounds& text_field_bounds);
-}  // namespace Results
-
-}  // namespace GetTextFieldBounds
-
 namespace NotifyInputMethodReadyForTesting {
 
 }  // namespace NotifyInputMethodReadyForTesting
@@ -1161,11 +1065,11 @@ namespace NotifyInputMethodReadyForTesting {
 namespace GetLanguagePackStatus {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Fully qualified ID of the input method
@@ -1199,8 +1103,8 @@ struct CaretBounds {
   ~CaretBounds();
   CaretBounds(const CaretBounds&) = delete;
   CaretBounds& operator=(const CaretBounds&) = delete;
-  CaretBounds(CaretBounds&& rhs);
-  CaretBounds& operator=(CaretBounds&& rhs);
+  CaretBounds(CaretBounds&& rhs) noexcept;
+  CaretBounds& operator=(CaretBounds&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCaretBounds object.
@@ -1276,14 +1180,6 @@ extern const char kEventName[];  // "inputMethodPrivate.onFocus"
 // Describes the text field that has acquired focus.
 base::Value::List Create(const InputContext& context);
 }  // namespace OnFocus
-
-namespace OnTouch {
-
-extern const char kEventName[];  // "inputMethodPrivate.onTouch"
-
-// Pointer type used to touch the text field
-base::Value::List Create(const FocusReason& pointer_type);
-}  // namespace OnTouch
 
 namespace OnSettingsChanged {
 

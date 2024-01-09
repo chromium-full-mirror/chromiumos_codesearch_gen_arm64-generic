@@ -8,6 +8,7 @@
 #define COMPONENTS_COMMERCE_CORE_MOJOM_SHOPPING_LIST_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

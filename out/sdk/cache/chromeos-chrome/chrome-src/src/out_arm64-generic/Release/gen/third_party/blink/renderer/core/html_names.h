@@ -74,7 +74,7 @@ enum class HTMLTag {
   kDt,
   kEm,
   kEmbed,
-  kFencedframe,
+  kFencedframeOrUnknown,
   kFieldset,
   kFigcaption,
   kFigure,
@@ -132,7 +132,6 @@ enum class HTMLTag {
   kPermission,
   kPicture,
   kPlaintext,
-  kPortal,
   kPre,
   kProgress,
   kQ,
@@ -279,7 +278,6 @@ CORE_EXPORT extern const blink::HTMLQualifiedName& kParamTag;
 CORE_EXPORT extern const blink::HTMLQualifiedName& kPermissionTag;
 CORE_EXPORT extern const blink::HTMLQualifiedName& kPictureTag;
 CORE_EXPORT extern const blink::HTMLQualifiedName& kPlaintextTag;
-CORE_EXPORT extern const blink::HTMLQualifiedName& kPortalTag;
 CORE_EXPORT extern const blink::HTMLQualifiedName& kPreTag;
 CORE_EXPORT extern const blink::HTMLQualifiedName& kProgressTag;
 CORE_EXPORT extern const blink::HTMLQualifiedName& kQTag;
@@ -332,6 +330,7 @@ CORE_EXPORT extern const blink::QualifiedName& kAcceptAttr;
 CORE_EXPORT extern const blink::QualifiedName& kAcceptCharsetAttr;
 CORE_EXPORT extern const blink::QualifiedName& kAccesskeyAttr;
 CORE_EXPORT extern const blink::QualifiedName& kActionAttr;
+CORE_EXPORT extern const blink::QualifiedName& kAdauctionheadersAttr;
 CORE_EXPORT extern const blink::QualifiedName& kAlignAttr;
 CORE_EXPORT extern const blink::QualifiedName& kAlinkAttr;
 CORE_EXPORT extern const blink::QualifiedName& kAllowAttr;
@@ -437,6 +436,7 @@ CORE_EXPORT extern const blink::QualifiedName& kCredentiallessAttr;
 CORE_EXPORT extern const blink::QualifiedName& kCrossoriginAttr;
 CORE_EXPORT extern const blink::QualifiedName& kCspAttr;
 CORE_EXPORT extern const blink::QualifiedName& kDataAttr;
+CORE_EXPORT extern const blink::QualifiedName& kDataSrcAttr;
 CORE_EXPORT extern const blink::QualifiedName& kDatetimeAttr;
 CORE_EXPORT extern const blink::QualifiedName& kDeclareAttr;
 CORE_EXPORT extern const blink::QualifiedName& kDecodingAttr;
@@ -592,6 +592,7 @@ CORE_EXPORT extern const blink::QualifiedName& kOnmouseoutAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnmouseoverAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnmouseupAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnmousewheelAttr;
+CORE_EXPORT extern const blink::QualifiedName& kOnmoveAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnofflineAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnonlineAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnorientationchangeAttr;
@@ -612,7 +613,6 @@ CORE_EXPORT extern const blink::QualifiedName& kOnpointeroverAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnpointerrawupdateAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnpointerupAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnpopstateAttr;
-CORE_EXPORT extern const blink::QualifiedName& kOnportalactivateAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnprogressAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnratechangeAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnresetAttr;
@@ -629,6 +629,7 @@ CORE_EXPORT extern const blink::QualifiedName& kOnselectstartAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnshowAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnslotchangeAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnsnapchangedAttr;
+CORE_EXPORT extern const blink::QualifiedName& kOnsnapchangingAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnstalledAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnstorageAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnsubmitAttr;
@@ -725,10 +726,10 @@ CORE_EXPORT extern const blink::QualifiedName& kWebkitdirectoryAttr;
 CORE_EXPORT extern const blink::QualifiedName& kWidthAttr;
 CORE_EXPORT extern const blink::QualifiedName& kWrapAttr;
 
-constexpr unsigned kTagsCount = 145;
+constexpr unsigned kTagsCount = 144;
 CORE_EXPORT std::unique_ptr<const HTMLQualifiedName*[]> GetTags();
 
-constexpr unsigned kAttrsCount = 397;
+constexpr unsigned kAttrsCount = 400;
 
 CORE_EXPORT  extern const blink::HTMLQualifiedName& TagToQualifedName(HTMLTag tag);
 

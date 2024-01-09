@@ -19,6 +19,12 @@
   var validator = mojo.internal;
 
   var exports = mojo.internal.exposeNamespace('extensions.mojom');
+  var message_port$ =
+      mojo.internal.exposeNamespace('extensions.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'extensions/common/mojom/message_port.mojom', 'message_port.mojom.js');
+  }
   var permission_set$ =
       mojo.internal.exposeNamespace('extensions.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -94,7 +100,191 @@
     encoder.encodeStructPointer(permission_set$.PermissionSet, val.activePermissions);
     encoder.encodeStructPointer(permission_set$.PermissionSet, val.withheldPermissions);
   };
+  function ServiceWorker_DispatchOnConnect_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  ServiceWorker_DispatchOnConnect_Params.prototype.initDefaults_ = function() {
+    this.portId = null;
+    this.channelType = 0;
+    this.port = new associatedBindings.AssociatedInterfaceRequest();
+    this.channelName = null;
+    this.tabInfo = null;
+    this.externalConnectionInfo = null;
+    this.portHost = new associatedBindings.AssociatedInterfacePtrInfo();
+  };
+  ServiceWorker_DispatchOnConnect_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  ServiceWorker_DispatchOnConnect_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 56}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorker_DispatchOnConnect_Params.portId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, message_port$.PortId, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorker_DispatchOnConnect_Params.channelType
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 8, message_port$.ChannelType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorker_DispatchOnConnect_Params.channelName
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorker_DispatchOnConnect_Params.tabInfo
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, message_port$.TabConnectionInfo, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorker_DispatchOnConnect_Params.externalConnectionInfo
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, message_port$.ExternalConnectionInfo, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorker_DispatchOnConnect_Params.port
+    err = messageValidator.validateAssociatedInterfaceRequest(offset + codec.kStructHeaderSize + 12, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ServiceWorker_DispatchOnConnect_Params.portHost
+    err = messageValidator.validateAssociatedInterface(offset + codec.kStructHeaderSize + 40, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  ServiceWorker_DispatchOnConnect_Params.encodedSize = codec.kStructHeaderSize + 48;
+
+  ServiceWorker_DispatchOnConnect_Params.decode = function(decoder) {
+    var packed;
+    var val = new ServiceWorker_DispatchOnConnect_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.portId =
+        decoder.decodeStructPointer(message_port$.PortId);
+    val.channelType =
+        decoder.decodeStruct(new codec.Enum(message_port$.ChannelType));
+    val.port =
+        decoder.decodeStruct(codec.AssociatedInterfaceRequest);
+    val.channelName =
+        decoder.decodeStruct(codec.String);
+    val.tabInfo =
+        decoder.decodeStructPointer(message_port$.TabConnectionInfo);
+    val.externalConnectionInfo =
+        decoder.decodeStructPointer(message_port$.ExternalConnectionInfo);
+    val.portHost =
+        decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
+    return val;
+  };
+
+  ServiceWorker_DispatchOnConnect_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(ServiceWorker_DispatchOnConnect_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(message_port$.PortId, val.portId);
+    encoder.encodeStruct(codec.Int32, val.channelType);
+    encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.port);
+    encoder.encodeStruct(codec.String, val.channelName);
+    encoder.encodeStructPointer(message_port$.TabConnectionInfo, val.tabInfo);
+    encoder.encodeStructPointer(message_port$.ExternalConnectionInfo, val.externalConnectionInfo);
+    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.portHost);
+  };
+  function ServiceWorker_DispatchOnConnect_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  ServiceWorker_DispatchOnConnect_ResponseParams.prototype.initDefaults_ = function() {
+    this.success = false;
+  };
+  ServiceWorker_DispatchOnConnect_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  ServiceWorker_DispatchOnConnect_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  ServiceWorker_DispatchOnConnect_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  ServiceWorker_DispatchOnConnect_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new ServiceWorker_DispatchOnConnect_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.success = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  ServiceWorker_DispatchOnConnect_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(ServiceWorker_DispatchOnConnect_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.success & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   var kServiceWorker_UpdatePermissions_Name = 0;
+  var kServiceWorker_DispatchOnConnect_Name = 1;
 
   function ServiceWorkerPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(ServiceWorker,
@@ -130,12 +320,46 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  ServiceWorkerPtr.prototype.dispatchOnConnect = function() {
+    return ServiceWorkerProxy.prototype.dispatchOnConnect
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  ServiceWorkerProxy.prototype.dispatchOnConnect = function(portId, channelType, channelName, tabInfo, externalConnectionInfo, port, portHost) {
+    var params_ = new ServiceWorker_DispatchOnConnect_Params();
+    params_.portId = portId;
+    params_.channelType = channelType;
+    params_.channelName = channelName;
+    params_.tabInfo = tabInfo;
+    params_.externalConnectionInfo = externalConnectionInfo;
+    params_.port = port;
+    params_.portHost = portHost;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV2Builder(
+          kServiceWorker_DispatchOnConnect_Name,
+          codec.align(ServiceWorker_DispatchOnConnect_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.setPayload(ServiceWorker_DispatchOnConnect_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(ServiceWorker_DispatchOnConnect_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
 
   function ServiceWorkerStub(delegate) {
     this.delegate_ = delegate;
   }
   ServiceWorkerStub.prototype.updatePermissions = function(activePermissions, withheldPermissions) {
     return this.delegate_ && this.delegate_.updatePermissions && this.delegate_.updatePermissions(activePermissions, withheldPermissions);
+  }
+  ServiceWorkerStub.prototype.dispatchOnConnect = function(portId, channelType, channelName, tabInfo, externalConnectionInfo, port, portHost) {
+    return this.delegate_ && this.delegate_.dispatchOnConnect && this.delegate_.dispatchOnConnect(portId, channelType, channelName, tabInfo, externalConnectionInfo, port, portHost);
   }
 
   ServiceWorkerStub.prototype.accept = function(message) {
@@ -154,6 +378,23 @@
       function(message, responder) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
+    case kServiceWorker_DispatchOnConnect_Name:
+      var params = reader.decodeStruct(ServiceWorker_DispatchOnConnect_Params);
+      this.dispatchOnConnect(params.portId, params.channelType, params.channelName, params.tabInfo, params.externalConnectionInfo, params.port, params.portHost).then(function(response) {
+        var responseParams =
+            new ServiceWorker_DispatchOnConnect_ResponseParams();
+        responseParams.success = response.success;
+        var builder = new codec.MessageV2Builder(
+            kServiceWorker_DispatchOnConnect_Name,
+            codec.align(ServiceWorker_DispatchOnConnect_ResponseParams
+                .encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.setPayload(ServiceWorker_DispatchOnConnect_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -167,6 +408,10 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = ServiceWorker_UpdatePermissions_Params;
       break;
+      case kServiceWorker_DispatchOnConnect_Name:
+        if (message.expectsResponse())
+          paramsClass = ServiceWorker_DispatchOnConnect_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -174,7 +419,17 @@
   }
 
   function validateServiceWorkerResponse(messageValidator) {
-    return validator.validationError.NONE;
+   var message = messageValidator.message;
+   var paramsClass = null;
+   switch (message.getName()) {
+      case kServiceWorker_DispatchOnConnect_Name:
+        if (message.isResponse())
+          paramsClass = ServiceWorker_DispatchOnConnect_ResponseParams;
+        break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
   }
 
   var ServiceWorker = {
@@ -184,10 +439,10 @@
     proxyClass: ServiceWorkerProxy,
     stubClass: ServiceWorkerStub,
     validateRequest: validateServiceWorkerRequest,
-    validateResponse: null,
+    validateResponse: validateServiceWorkerResponse,
   };
   ServiceWorkerStub.prototype.validator = validateServiceWorkerRequest;
-  ServiceWorkerProxy.prototype.validator = null;
+  ServiceWorkerProxy.prototype.validator = validateServiceWorkerResponse;
   exports.ServiceWorker = ServiceWorker;
   exports.ServiceWorkerPtr = ServiceWorkerPtr;
   exports.ServiceWorkerAssociatedPtr = ServiceWorkerAssociatedPtr;

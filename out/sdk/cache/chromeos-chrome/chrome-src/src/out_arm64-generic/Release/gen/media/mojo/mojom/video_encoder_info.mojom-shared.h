@@ -153,6 +153,9 @@ class VideoEncoderInfoDataView {
   bool apply_alignment_to_all_simulcast_layers() const {
     return data_->apply_alignment_to_all_simulcast_layers;
   }
+  bool supports_frame_size_change() const {
+    return data_->supports_frame_size_change;
+  }
   inline void GetFpsAllocationDataView(
       mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>* output);
 
@@ -268,6 +271,7 @@ struct Serializer<::media::mojom::VideoEncoderInfoDataView, MaybeConstUserType> 
     fragment->reports_average_qp = Traits::reports_average_qp(input);
     fragment->requested_resolution_alignment = Traits::requested_resolution_alignment(input);
     fragment->apply_alignment_to_all_simulcast_layers = Traits::apply_alignment_to_all_simulcast_layers(input);
+    fragment->supports_frame_size_change = Traits::supports_frame_size_change(input);
     decltype(Traits::fps_allocation(input)) in_fps_allocation = Traits::fps_allocation(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->fps_allocation)::BaseType>

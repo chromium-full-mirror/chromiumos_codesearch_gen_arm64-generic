@@ -11,20 +11,18 @@ import { recordEnum } from './metrics.js';
  *
  * Must be kept in synch with FileManagerGlitch defined in
  * //tools/metrics/histograms/enums.xml
- *
- * @enum {number}
- * @const
  */
-export const GlitchType = {
-    UNKNOWN: 0,
-    UNHANDLED_ERROR: 1,
-    UNHANDLED_REJECTION: 2,
+export var GlitchType;
+(function (GlitchType) {
+    GlitchType[GlitchType["UNKNOWN"] = 0] = "UNKNOWN";
+    GlitchType[GlitchType["UNHANDLED_ERROR"] = 1] = "UNHANDLED_ERROR";
+    GlitchType[GlitchType["UNHANDLED_REJECTION"] = 2] = "UNHANDLED_REJECTION";
     // Do not use it to report all caught exceptions. Only those exceptions that
     // we catch to work around errors that should never occur.
-    CAUGHT_EXCEPTION: 3,
-};
+    GlitchType[GlitchType["CAUGHT_EXCEPTION"] = 3] = "CAUGHT_EXCEPTION";
+})(GlitchType || (GlitchType = {}));
 /**
- * @param {!GlitchType} glitchType What type of glitch was it.
+ * @param glitchType What type of glitch was it.
  */
 export function reportGlitch(glitchType) {
     recordEnum(`Glitch`, glitchType, Object.values(GlitchType));

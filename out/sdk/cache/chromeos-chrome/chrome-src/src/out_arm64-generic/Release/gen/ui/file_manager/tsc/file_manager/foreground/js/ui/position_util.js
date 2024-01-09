@@ -1,54 +1,47 @@
-// Copyright 2012 The Chromium Authors
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
  * @fileoverview This file provides utility functions for position popups.
  */
 /**
- * Type def for rects as returned by getBoundingClientRect.
- * @typedef {{left: number, top: number, width: number, height: number,
- *            right: number, bottom: number}}
- */
-let Rect;
-/**
  * Enum for defining how to anchor a popup to an anchor element.
- * @enum {number}
  */
-export const AnchorType = {
+export var AnchorType;
+(function (AnchorType) {
     /**
      * The popup's right edge is aligned with the left edge of the anchor.
      * The popup's top edge is aligned with the top edge of the anchor.
      */
-    BEFORE: 1,
+    AnchorType[AnchorType["BEFORE"] = 1] = "BEFORE";
     /**
      * The popop's left edge is aligned with the right edge of the anchor.
      * The popup's top edge is aligned with the top edge of the anchor.
      */
-    AFTER: 2,
+    AnchorType[AnchorType["AFTER"] = 2] = "AFTER";
     /**
      * The popop's bottom edge is aligned with the top edge of the anchor.
      * The popup's left edge is aligned with the left edge of the anchor.
      */
-    ABOVE: 3,
+    AnchorType[AnchorType["ABOVE"] = 3] = "ABOVE";
     /**
      * The popop's top edge is aligned with the bottom edge of the anchor.
      * The popup's left edge is aligned with the left edge of the anchor.
      */
-    BELOW: 4, // p: top, a: bottom, p: left, a: left
-};
+    AnchorType[AnchorType["BELOW"] = 4] = "BELOW";
+})(AnchorType || (AnchorType = {}));
 /**
  * Helper function for positionPopupAroundElement and positionPopupAroundRect.
- * @param {!Rect} anchorRect The rect for the anchor.
- * @param {!HTMLElement} popupElement The element used for the popup.
- * @param {AnchorType} type The type of anchoring to do.
- * @param {boolean=} opt_invertLeftRight Whether to invert the right/left
+ * @param anchorRect The rect for the anchor.
+ * @param popupElement The element used for the popup.
+ * @param type The type of anchoring to do.
+ * @param invertLeftRight [Optional] Whether to invert the right/left
  *     alignment.
  */
-function positionPopupAroundRect(anchorRect, popupElement, type, opt_invertLeftRight) {
+function positionPopupAroundRect(anchorRect, popupElement, type, invertLeftRight) {
     const popupRect = popupElement.getBoundingClientRect();
     let availRect;
     const ownerDoc = popupElement.ownerDocument;
-    // @ts-ignore: error TS18047: 'ownerDoc.defaultView' is possibly 'null'.
     const cs = ownerDoc.defaultView.getComputedStyle(popupElement);
     const docElement = ownerDoc.documentElement;
     if (cs.position === 'fixed') {
@@ -64,15 +57,13 @@ function positionPopupAroundRect(anchorRect, popupElement, type, opt_invertLeftR
         };
     }
     else {
-        // @ts-ignore: error TS18047: 'popupElement.offsetParent' is possibly
-        // 'null'.
         availRect = popupElement.offsetParent.getBoundingClientRect();
     }
     if (cs.direction === 'rtl') {
-        opt_invertLeftRight = !opt_invertLeftRight;
+        invertLeftRight = !invertLeftRight;
     }
     // Flip BEFORE, AFTER based on alignment.
-    if (opt_invertLeftRight) {
+    if (invertLeftRight) {
         if (type === AnchorType.BEFORE) {
             type = AnchorType.AFTER;
         }
@@ -150,7 +141,7 @@ function positionPopupAroundRect(anchorRect, popupElement, type, opt_invertLeftR
     switch (type) {
         case AnchorType.BELOW:
         case AnchorType.ABOVE:
-            if (opt_invertLeftRight) {
+            if (invertLeftRight) {
                 // align right edges
                 if (anchorRect.right - popupRect.width >= 0) {
                     style.right = availRect.width - anchorRect.right + 'px';
@@ -200,26 +191,24 @@ function positionPopupAroundRect(anchorRect, popupElement, type, opt_invertLeftR
  * Positions a popup element relative to an anchor element. The popup element
  * should have position set to absolute and it should be a child of the body
  * element.
- * @param {!HTMLElement} anchorElement The element that the popup is anchored
+ * @param anchorElement The element that the popup is anchored
  *     to.
- * @param {!HTMLElement} popupElement The popup element we are positioning.
- * @param {AnchorType} type The type of anchoring we want.
- * @param {boolean=} opt_invertLeftRight Whether to invert the right/left
+ * @param popupElement The popup element we are positioning.
+ * @param type The type of anchoring we want.
+ * @param invertLeftRight [Optional] Whether to invert the right/left
  *     alignment.
  */
-export function positionPopupAroundElement(anchorElement, popupElement, type, opt_invertLeftRight) {
+export function positionPopupAroundElement(anchorElement, popupElement, type, invertLeftRight) {
     const anchorRect = anchorElement.getBoundingClientRect();
-    positionPopupAroundRect(anchorRect, popupElement, type, !!opt_invertLeftRight);
+    positionPopupAroundRect(anchorRect, popupElement, type, !!invertLeftRight);
 }
 /**
  * Positions a popup around a point.
- * @param {number} x The client x position.
- * @param {number} y The client y position.
- * @param {!HTMLElement} popupElement The popup element we are positioning.
- * @param {AnchorType=} opt_anchorType The type of anchoring we want.
+ * @param x The client x position.
+ * @param y The client y position.
+ * @param popupElement The popup element we are positioning.
+ * @param anchorType [Optional] The type of anchoring we want.
  */
-export function positionPopupAtPoint(x, y, popupElement, opt_anchorType) {
-    const rect = { left: x, top: y, width: 0, height: 0, right: x, bottom: y };
-    const anchorType = opt_anchorType || AnchorType.BELOW;
-    positionPopupAroundRect(rect, popupElement, anchorType);
+export function positionPopupAtPoint(x, y, popupElement, anchorType = AnchorType.BELOW) {
+    positionPopupAroundRect(new DOMRect(x, y, 0, 0), popupElement, anchorType);
 }

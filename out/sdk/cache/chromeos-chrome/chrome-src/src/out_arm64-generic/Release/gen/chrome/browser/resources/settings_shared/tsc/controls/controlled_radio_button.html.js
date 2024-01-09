@@ -5,6 +5,7 @@ export function getTemplate() {
 <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
   <div class="disc-border"></div>
   <div class="disc"></div>
+  <div id="overlay"></div>
 </div>
 
 <div id="labelWrapper" part="labelWrapper">

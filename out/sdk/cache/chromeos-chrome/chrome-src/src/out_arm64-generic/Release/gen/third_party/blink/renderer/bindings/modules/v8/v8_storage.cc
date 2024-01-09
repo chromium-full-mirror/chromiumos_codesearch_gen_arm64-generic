@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, StorageArea>::value,
     "StorageArea inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&StorageArea::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "StorageArea is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8Storage::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_StorageArea_NamedPropertyGetter");
@@ -84,10 +79,10 @@ void V8Storage::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // "If the result of running the named property visibility
 //  algorithm with property name P and object O is true, then:"
-v8::Local<v8::Object> v8_receiver = info.Holder();
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyGetter;
 const char* const class_like_name = "Storage";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -117,10 +112,10 @@ void V8Storage::NamedPropertySetterCallback(v8::Local<v8::Name> v8_property_name
 if (info.Holder() == info.This()) {
   // step 1.2.1. Invoke the named property setter with P and V.
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "Storage";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -147,10 +142,10 @@ void V8Storage::NamedPropertyDeleterCallback(v8::Local<v8::Name> v8_property_nam
 // 3.9.4. [[Delete]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDeleter;
 const char* const class_like_name = "Storage";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -183,7 +178,7 @@ if (v8_property_desc.has_get() || v8_property_desc.has_set()) {
 if (info.ShouldThrowOnError()) {
   const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDefiner;
 const char* const class_like_name = "Storage";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Accessor properties are not allowed.");
 }
@@ -249,10 +244,10 @@ bindings::V8SetReturnValue(info, desc);
 void V8Storage::NamedPropertyQueryCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Integer>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_StorageArea_NamedPropertyQuery");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyQuery;
 const char* const class_like_name = "Storage";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -272,9 +267,9 @@ void V8Storage::NamedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v
 //   property names that is visible according to the named property
 //   visibility algorithm, append P to keys.
 Vector<String> blink_property_names;
-v8::Local<v8::Object> v8_receiver = info.Holder();
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyEnumerator;
 const char* const class_like_name = "Storage";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name);
@@ -352,9 +347,9 @@ BLINK_BINDINGS_TRACE_EVENT("Storage.length.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "Storage";
 const char* const property_name = "length";
@@ -383,14 +378,14 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogMethod("Storage.clear", info); }
+if (UNLIKELY(per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogMethod(script_state, "Storage.clear", info); }
 
 
 
 
 
 
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Storage";
 const char* const property_name = "clear";
@@ -418,7 +413,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogMethod("Storage.getItem", info); }
+if (UNLIKELY(per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogMethod(script_state, "Storage.getItem", info); }
 
 
 
@@ -433,7 +428,7 @@ return;
 
 
 
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_key = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -470,7 +465,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -498,7 +493,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogMethod("Storage.removeItem", info); }
+if (UNLIKELY(per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogMethod(script_state, "Storage.removeItem", info); }
 
 
 
@@ -513,7 +508,7 @@ return;
 
 
 
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_key = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -541,7 +536,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogMethod("Storage.setItem", info); }
+if (UNLIKELY(per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogMethod(script_state, "Storage.setItem", info); }
 
 
 
@@ -556,7 +551,7 @@ return;
 
 
 
-StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(v8_receiver);
+StorageArea* blink_receiver = V8Storage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_key = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

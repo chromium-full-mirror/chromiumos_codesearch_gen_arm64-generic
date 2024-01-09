@@ -37,6 +37,10 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   void OpenFileRequiringGesture(const std::string& id) override;
   void Drag(const std::string& id) override;
   void SaveDangerousRequiringGesture(const std::string& id) override;
+  void SaveSuspiciousRequiringGesture(const std::string& id) override;
+  void RecordOpenBypassWarningPrompt(const std::string& id) override;
+  void SaveDangerousFromPromptRequiringGesture(const std::string& id) override;
+  void RecordCancelBypassWarningPrompt(const std::string& id) override;
   void DiscardDangerous(const std::string& id) override;
   void RetryDownload(const std::string& id) override;
   void Show(const std::string& id) override;

@@ -582,6 +582,8 @@ NOINLINE static const char* RoleToStringHelper(Role value) {
       return "kMathMLUnderOver";
     case Role::kComboBoxSelect:
       return "kComboBoxSelect";
+    case Role::kDisclosureTriangleGrouped:
+      return "kDisclosureTriangleGrouped";
     default:
       return nullptr;
   }

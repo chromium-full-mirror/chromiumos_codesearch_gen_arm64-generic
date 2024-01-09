@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ProgressEvent>::value,
     "ProgressEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ProgressEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ProgressEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("ProgressEvent.lengthComputable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ProgressEvent* blink_receiver = V8ProgressEvent::ToWrappableUnsafe(v8_receiver);
+ProgressEvent* blink_receiver = V8ProgressEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lengthComputable();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("ProgressEvent.loaded.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ProgressEvent* blink_receiver = V8ProgressEvent::ToWrappableUnsafe(v8_receiver);
+ProgressEvent* blink_receiver = V8ProgressEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->loaded();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -115,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("ProgressEvent.total.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ProgressEvent* blink_receiver = V8ProgressEvent::ToWrappableUnsafe(v8_receiver);
+ProgressEvent* blink_receiver = V8ProgressEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->total();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -129,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("ProgressEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ProgressEvent* blink_receiver = V8ProgressEvent::ToWrappableUnsafe(v8_receiver);
+ProgressEvent* blink_receiver = V8ProgressEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

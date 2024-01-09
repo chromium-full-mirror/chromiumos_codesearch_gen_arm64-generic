@@ -5,9 +5,9 @@ export function getTemplate() {
 </settings-toggle-button>
 <div class="settings-columned-section">
   <div class="column">
-    <div class="description-header">
+    <h2 class="description-header">
       $i18n{privacyGuideFeatureDescriptionHeader}
-    </div>
+    </h2>
     <ul class="icon-bulleted-list">
       <li>
         <iron-icon icon="settings20:astrophotography-mode" aria-hidden="true">
@@ -17,9 +17,7 @@ export function getTemplate() {
     </ul>
   </div>
   <div class="column">
-    <div class="description-header">
-      $i18n{privacyGuideThingsToConsider}
-    </div>
+    <h2 class="description-header">$i18n{privacyGuideThingsToConsider}</h2>
     <ul class="icon-bulleted-list">
       <li>
         <iron-icon icon="settings20:find-in-path" aria-hidden="true">
@@ -27,9 +25,15 @@ export function getTemplate() {
         <div class="secondary">$i18n{pageContentThingsToConsiderBulletOne}</div>
       </li>
       <li>
+        <iron-icon icon="settings20:bar-chart" aria-hidden="true"></iron-icon>
+        <div class="secondary">$i18n{pageContentThingsToConsiderBulletTwo}</div>
+      </li>
+      <li>
         <iron-icon icon="settings20:google-lens-2" aria-hidden="true">
         </iron-icon>
-        <div class="secondary">$i18n{pageContentThingsToConsiderBulletTwo}</div>
+        <div class="secondary">
+          $i18n{pageContentThingsToConsiderBulletThree}
+        </div>
       </li>
     </ul>
   </div>

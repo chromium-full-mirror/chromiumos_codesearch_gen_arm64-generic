@@ -40,7 +40,6 @@ class SharedStorageWorkletToken_Data;
 class ShadowRealmToken_Data;
 class AttributionSrcToken_Data;
 class ClipboardSequenceNumberToken_Data;
-class PortalToken_Data;
 class V8ContextToken_Data;
 class FrameToken_Data;
 class WorkerToken_Data;
@@ -1017,54 +1016,6 @@ struct ClipboardSequenceNumberToken_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ClipboardSequenceNumberToken_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class COMPONENT_EXPORT(TOKENS_MOJOM_SHARED) PortalToken_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> value;
-
- private:
-  friend class mojo::internal::MessageFragment<PortalToken_Data>;
-
-  PortalToken_Data();
-  ~PortalToken_Data() = delete;
-};
-static_assert(sizeof(PortalToken_Data) == 16,
-              "Bad sizeof(PortalToken_Data)");
-// Used by PortalToken::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct PortalToken_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  PortalToken_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~PortalToken_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<PortalToken_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    PortalToken_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(TOKENS_MOJOM_SHARED) V8ContextToken_Data {
  public:
   static bool Validate(const void* data,

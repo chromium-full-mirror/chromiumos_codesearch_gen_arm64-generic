@@ -38,20 +38,20 @@ class  FileSystemHostAsyncWaiter {
 
   ~FileSystemHostAsyncWaiter();
   void GetFileName(
-      const std::string& url, absl::optional<std::string>* out_name);
-  absl::optional<std::string> GetFileName(const std::string& url);
+      const std::string& url, std::optional<std::string>* out_name);
+  std::optional<std::string> GetFileName(const std::string& url);
   void GetFileSize(
       const std::string& url, int64_t* out_size);
   int64_t GetFileSize(const std::string& url);
   void GetLastModified(
-      const ::GURL& url, absl::optional<::base::Time>* out_last_modified);
-  absl::optional<::base::Time> GetLastModified(const ::GURL& url);
+      const ::GURL& url, std::optional<::base::Time>* out_last_modified);
+  std::optional<::base::Time> GetLastModified(const ::GURL& url);
   void GetFileType(
-      const std::string& url, absl::optional<std::string>* out_mime_type);
-  absl::optional<std::string> GetFileType(const std::string& url);
+      const std::string& url, std::optional<std::string>* out_mime_type);
+  std::optional<std::string> GetFileType(const std::string& url);
   void GetVirtualFileId(
-      const std::string& url, absl::optional<std::string>* out_id);
-  absl::optional<std::string> GetVirtualFileId(const std::string& url);
+      const std::string& url, std::optional<std::string>* out_id);
+  std::optional<std::string> GetVirtualFileId(const std::string& url);
   void HandleIdReleased(
       const std::string& id, bool* out_success);
   bool HandleIdReleased(const std::string& id);
@@ -112,8 +112,8 @@ class  FileSystemInstanceAsyncWaiter {
       const std::string& authority, const std::string& document_id, int64_t* out_watcher_id);
   int64_t AddWatcher(const std::string& authority, const std::string& document_id);
   void GetChildDocuments(
-      const std::string& authority, const std::string& parent_document_id, absl::optional<std::vector<DocumentPtr>>* out_documents);
-  absl::optional<std::vector<DocumentPtr>> GetChildDocuments(const std::string& authority, const std::string& parent_document_id);
+      const std::string& authority, const std::string& parent_document_id, std::optional<std::vector<DocumentPtr>>* out_documents);
+  std::optional<std::vector<DocumentPtr>> GetChildDocuments(const std::string& authority, const std::string& parent_document_id);
   void GetDocument(
       const std::string& authority, const std::string& document_id, DocumentPtr* out_document);
   DocumentPtr GetDocument(const std::string& authority, const std::string& document_id);
@@ -121,14 +121,14 @@ class  FileSystemInstanceAsyncWaiter {
       const std::string& url, int64_t* out_size);
   int64_t GetFileSize(const std::string& url);
   void GetMimeType(
-      const std::string& url, absl::optional<std::string>* out_mime_type);
-  absl::optional<std::string> GetMimeType(const std::string& url);
+      const std::string& url, std::optional<std::string>* out_mime_type);
+  std::optional<std::string> GetMimeType(const std::string& url);
   void GetRecentDocuments(
-      const std::string& authority, const std::string& root_id, absl::optional<std::vector<DocumentPtr>>* out_documents);
-  absl::optional<std::vector<DocumentPtr>> GetRecentDocuments(const std::string& authority, const std::string& root_id);
+      const std::string& authority, const std::string& root_id, std::optional<std::vector<DocumentPtr>>* out_documents);
+  std::optional<std::vector<DocumentPtr>> GetRecentDocuments(const std::string& authority, const std::string& root_id);
   void GetRoots(
-      absl::optional<std::vector<RootPtr>>* out_roots);
-  absl::optional<std::vector<RootPtr>> GetRoots();
+      std::optional<std::vector<RootPtr>>* out_roots);
+  std::optional<std::vector<RootPtr>> GetRoots();
   void GetRootSize(
       const std::string& authority, const std::string& root_id, RootSizePtr* out_root_size);
   RootSizePtr GetRootSize(const std::string& authority, const std::string& root_id);

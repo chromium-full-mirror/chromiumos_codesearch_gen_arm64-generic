@@ -155,14 +155,6 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'colorCorrectionInLinearSpace', 26,
-        4,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
         'colorSpace', 72,
         0,
         gfx.mojom.ColorSpaceSpec.$,
@@ -236,7 +228,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'hasCurrentMode', 26,
-        5,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -252,7 +244,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'hasNativeMode', 26,
-        6,
+        5,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -344,8 +336,6 @@ display.mojom.DisplaySnapshot = class {
     this.hasContentProtectionKey;
     /** @export { !boolean } */
     this.hasColorCorrectionMatrix;
-    /** @export { !boolean } */
-    this.colorCorrectionInLinearSpace;
     /** @export { !gfx.mojom.ColorSpace } */
     this.colorSpace;
     /** @export { !number } */

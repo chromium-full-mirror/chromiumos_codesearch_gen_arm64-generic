@@ -99,11 +99,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ServiceWorkerRegistration>::value,
     "ServiceWorkerRegistration does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ServiceWorkerRegistration::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ServiceWorkerRegistration is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -116,8 +111,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.installing.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->installing();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -130,8 +126,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.waiting.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->waiting();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -144,8 +141,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.active.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->active();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -158,8 +156,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.navigationPreload.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->navigationPreload();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -172,10 +171,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.scope.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->scope();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->scope();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -187,10 +186,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.updateViaCache.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->updateViaCache();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->updateViaCache();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -202,10 +201,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.onupdatefound.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onupdatefound();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onupdatefound();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -218,8 +217,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnupdatefound(event_handler);
 }
 
@@ -230,8 +230,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.backgroundFetch.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = ServiceWorkerRegistrationBackgroundFetch::backgroundFetch(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -250,7 +251,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPeriodicBackgroundSync
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = ServiceWorkerRegistrationSync::periodicSync(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -269,7 +270,7 @@ UseCounter::Count(current_execution_context, WebFeature::kBackgroundSync);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = ServiceWorkerRegistrationSync::sync(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -282,8 +283,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.index.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = ServiceWorkerRegistrationContentIndex::index(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -296,8 +298,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.cookies.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = CookieStoreManager::cookies(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -314,8 +317,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "ServiceWorkerRegistration";
 const char* const property_name = "paymentManager";
@@ -335,8 +338,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.pushManager.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = ServiceWorkerRegistrationPush::pushManager(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -368,7 +372,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<GetNotificationOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_filter;
 if (info[0]->IsUndefined()) {
   arg1_filter = GetNotificationOptions::Create();
@@ -417,7 +421,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_title = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -461,7 +465,7 @@ return;
 
 
 
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -495,7 +499,7 @@ return;
 
 
 
-ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

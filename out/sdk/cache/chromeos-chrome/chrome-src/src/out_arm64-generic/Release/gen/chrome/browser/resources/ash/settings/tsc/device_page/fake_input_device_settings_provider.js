@@ -70,6 +70,7 @@ export class FakeInputDeviceSettingsProvider {
         this.methods.register('fakeGraphicsTablets');
         this.methods.register('fakeMouseButtonActions');
         this.methods.register('fakeGraphicsTabletButtonActions');
+        this.methods.register('fakeHasLauncherButton');
     }
     setFakeKeyboards(keyboards) {
         this.methods.setResult('fakeKeyboards', keyboards);
@@ -193,7 +194,7 @@ export class FakeInputDeviceSettingsProvider {
     notifyKeboardListUpdated() {
         const keyboards = this.methods.getResult('fakeKeyboards');
         // Make a deep copy to notify the functions observing keyboard settings.
-        const keyboardsClone = !keyboards ? keyboards : JSON.parse(JSON.stringify(keyboards));
+        const keyboardsClone = !keyboards ? keyboards : structuredClone(keyboards);
         for (const observer of this.keyboardObservers) {
             observer.onKeyboardListUpdated(keyboardsClone);
         }
@@ -283,5 +284,11 @@ export class FakeInputDeviceSettingsProvider {
         for (const observer of this.buttonPressObservers) {
             observer.onButtonPressed(button);
         }
+    }
+    hasLauncherButton() {
+        return this.methods.resolveMethod('fakeHasLauncherButton');
+    }
+    setFakeHasLauncherButton(hasLauncherButton) {
+        this.methods.setResult('fakeHasLauncherButton', { hasLauncherButton: hasLauncherButton });
     }
 }

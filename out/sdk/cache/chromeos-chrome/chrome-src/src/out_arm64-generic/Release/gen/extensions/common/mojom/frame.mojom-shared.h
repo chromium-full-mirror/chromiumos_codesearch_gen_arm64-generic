@@ -26,9 +26,11 @@
 #include "extensions/common/mojom/frame.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/uuid.mojom-shared.h"
 #include "extensions/common/mojom/code_injection.mojom-shared.h"
+#include "extensions/common/mojom/context_type.mojom-shared.h"
 #include "extensions/common/mojom/extra_response_data.mojom-shared.h"
 #include "extensions/common/mojom/host_id.mojom-shared.h"
 #include "extensions/common/mojom/injection_type.mojom-shared.h"
+#include "extensions/common/mojom/message_port.mojom-shared.h"
 #include "extensions/common/mojom/run_location.mojom-shared.h"
 #include "extensions/common/mojom/stack_frame.mojom-shared.h"
 #include "extensions/common/mojom/view_type.mojom-shared.h"
@@ -85,38 +87,6 @@ struct MojomTypeTraits<::extensions::mojom::DraggableRegionDataView> {
 
 
 namespace extensions::mojom {
-
-
-enum class ContextType : int32_t {
-  
-  kPrivilegedExtension = 0,
-  
-  kUnprivilegedExtension = 1,
-  
-  kContentScript = 2,
-  
-  kWebPage = 3,
-  
-  kPrivilegedWebPage = 4,
-  
-  kWebUi = 5,
-  
-  kUntrustedWebUi = 6,
-  
-  kLockscreenExtension = 7,
-  
-  kOffscreenExtension = 8,
-  
-  kUserScript = 9,
-  kMinValue = 0,
-  kMaxValue = 9,
-};
-
- std::ostream& operator<<(std::ostream& os, ContextType value);
-inline bool IsKnownEnumValue(ContextType value) {
-  return internal::ContextType_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
 // Interface base classes. They are used for type safety check.
 class LocalFrameInterfaceBase {};
 
@@ -258,7 +228,7 @@ class RequestParamsDataView {
     return mojo::internal::Deserialize<::extensions::mojom::ContextType>(
         data_value, output);
   }
-  ContextType context_type() const {
+  ::extensions::mojom::ContextType context_type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::extensions::mojom::ContextType>(data_->context_type));
   }
@@ -316,33 +286,9 @@ class DraggableRegionDataView {
 
 namespace std {
 
-template <>
-struct hash<::extensions::mojom::ContextType>
-    : public mojo::internal::EnumHashImpl<::extensions::mojom::ContextType> {};
-
 }  // namespace std
 
 namespace mojo {
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::extensions::mojom::ContextType, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::extensions::mojom::ContextType, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::extensions::mojom::ContextType>(input)), output);
-  }
-};
-
-}  // namespace internal
 
 
 namespace internal {
@@ -593,14 +539,5 @@ inline void DraggableRegionDataView::GetBoundsDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::extensions::mojom::ContextType> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::extensions::mojom::ContextType value);
-};
-
-} // namespace perfetto
 
 #endif  // EXTENSIONS_COMMON_MOJOM_FRAME_MOJOM_SHARED_H_

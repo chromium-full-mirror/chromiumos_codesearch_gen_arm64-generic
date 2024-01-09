@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-features.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-forward.h"
 #include <string>
@@ -342,33 +343,33 @@ class  SupportStatus {
   // Construct an instance holding |unmapped_union_field|.
   static SupportStatusPtr
   NewUnmappedUnionField(
-      int8_t unmapped_union_field) {
+      int8_t value) {
     auto result = SupportStatusPtr(absl::in_place);
-    result->set_unmapped_union_field(std::move(unmapped_union_field));
+    result->set_unmapped_union_field(std::move(value));
     return result;
   }
   // Construct an instance holding |exception|.
   static SupportStatusPtr
   NewException(
-      ExceptionPtr exception) {
+      ExceptionPtr value) {
     auto result = SupportStatusPtr(absl::in_place);
-    result->set_exception(std::move(exception));
+    result->set_exception(std::move(value));
     return result;
   }
   // Construct an instance holding |supported|.
   static SupportStatusPtr
   NewSupported(
-      SupportedPtr supported) {
+      SupportedPtr value) {
     auto result = SupportStatusPtr(absl::in_place);
-    result->set_supported(std::move(supported));
+    result->set_supported(std::move(value));
     return result;
   }
   // Construct an instance holding |unsupported|.
   static SupportStatusPtr
   NewUnsupported(
-      UnsupportedPtr unsupported) {
+      UnsupportedPtr value) {
     auto result = SupportStatusPtr(absl::in_place);
-    result->set_unsupported(std::move(unsupported));
+    result->set_unsupported(std::move(value));
     return result;
   }
 
@@ -514,9 +515,9 @@ class  UnsupportedReason {
   // Construct an instance holding |unmapped_union_field|.
   static UnsupportedReasonPtr
   NewUnmappedUnionField(
-      int8_t unmapped_union_field) {
+      int8_t value) {
     auto result = UnsupportedReasonPtr(absl::in_place);
-    result->set_unmapped_union_field(std::move(unmapped_union_field));
+    result->set_unmapped_union_field(std::move(value));
     return result;
   }
 

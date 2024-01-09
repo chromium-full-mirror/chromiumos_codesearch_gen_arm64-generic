@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, InstallEvent>::value,
     "InstallEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&InstallEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "InstallEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("InstallEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-InstallEvent* blink_receiver = V8InstallEvent::ToWrappableUnsafe(v8_receiver);
+InstallEvent* blink_receiver = V8InstallEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -140,6 +136,52 @@ v8::Local<v8::Object> v8_wrapper = return_value->AssociateWithWrapper(isolate, V
 bindings::V8SetReturnValue(info, v8_wrapper);
 }
 
+void AddRoutesOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InstallEvent_addRoutes");
+BLINK_BINDINGS_TRACE_EVENT("InstallEvent.addRoutes");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "InstallEvent";
+const char* const property_name = "addRoutes";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8InstallEvent::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kServiceWorkerStaticRouter_AddRoutes);
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+InstallEvent* blink_receiver = V8InstallEvent::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_rules = NativeValueTraits<V8UnionRouterRuleOrRouterRuleSequence>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->addRoutes(script_state, arg1_rules, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value);
+}
+
 void RegisterRouterOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InstallEvent_registerRouter");
 BLINK_BINDINGS_TRACE_EVENT("InstallEvent.registerRouter");
@@ -171,7 +213,7 @@ return;
 
 
 
-InstallEvent* blink_receiver = V8InstallEvent::ToWrappableUnsafe(v8_receiver);
+InstallEvent* blink_receiver = V8InstallEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -246,6 +288,7 @@ ScriptState* script_state = ScriptState::From(context);
 ExecutionContext* execution_context = ExecutionContext::From(script_state);
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::ServiceWorkerStaticRouterEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kServiceWorkerStaticRouter)) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"addRoutes", AddRoutesOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"registerRouter", RegisterRouterOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Isolate* isolate = context->GetIsolate();

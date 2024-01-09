@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PrivateAttribution>::value,
     "PrivateAttribution inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PrivateAttribution::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PrivateAttribution is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -106,7 +101,7 @@ return;
 
 
 
-PrivateAttribution* blink_receiver = V8PrivateAttribution::ToWrappableUnsafe(v8_receiver);
+PrivateAttribution* blink_receiver = V8PrivateAttribution::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -148,7 +143,7 @@ return;
 
 
 
-PrivateAttribution* blink_receiver = V8PrivateAttribution::ToWrappableUnsafe(v8_receiver);
+PrivateAttribution* blink_receiver = V8PrivateAttribution::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -12,7 +12,7 @@
 #             android-pixel-6 android-shield-android-tv android-sm-a135m
 #             android-sm-a235m
 #         chromeos-board-amd64-generic chromeos-board-eve chromeos-board-jacuzzi
-#             chromeos-board-octopus
+#             chromeos-board-octopus chromeos-board-volteer
 #         fuchsia-board-astro fuchsia-board-nelson fuchsia-board-sherlock
 #             fuchsia-board-qemu-x64 ]
 # Platform
@@ -113,8 +113,8 @@ crbug.com/1302427 [ clang-coverage fuchsia fuchsia-board-qemu-x64 ] ExpectedColo
 
 crbug.com/1469270 [ bigsur nvidia-0xfe9 angle-opengl ] ExpectedColor_MediaRecorderFromVideoElementWithOoprCanvasDisabled [ Failure ]
 
-# Flaky failure with black screenshot and no logs
-crbug.com/1488792 [ linux amd-0x7340 angle-vulkan passthrough ] ExpectedColor_maps [ Failure ]
+crbug.com/1506258 [ asan graphite-enabled intel-0x3e9b mac no-clang-coverage release ] ExpectedColor_MediaRecorderFromVideoElement [ RetryOnFailure ]
+crbug.com/1506258 [ debug graphite-enabled intel-0x3e9b mac no-asan no-clang-coverage ] ExpectedColor_MediaRecorderFromVideoElement [ RetryOnFailure ]
 
 
 #######################################################################

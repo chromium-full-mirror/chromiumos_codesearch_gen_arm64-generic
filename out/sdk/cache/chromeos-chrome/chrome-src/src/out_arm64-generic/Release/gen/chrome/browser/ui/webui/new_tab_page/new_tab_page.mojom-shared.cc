@@ -34,6 +34,8 @@ NOINLINE static const char* NtpBackgroundImageSourceToStringHelper(NtpBackground
       return "kThirdPartyTheme";
     case NtpBackgroundImageSource::kUploadedImage:
       return "kUploadedImage";
+    case NtpBackgroundImageSource::kWallpaperSearch:
+      return "kWallpaperSearch";
     default:
       return nullptr;
   }
@@ -49,6 +51,30 @@ std::string NtpBackgroundImageSourceToString(NtpBackgroundImageSource value) {
 
 std::ostream& operator<<(std::ostream& os, NtpBackgroundImageSource value) {
   return os << NtpBackgroundImageSourceToString(value);
+}
+
+NOINLINE static const char* IphFeatureToStringHelper(IphFeature value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case IphFeature::kCustomizeChrome:
+      return "kCustomizeChrome";
+    case IphFeature::kCustomizeModules:
+      return "kCustomizeModules";
+    default:
+      return nullptr;
+  }
+}
+
+std::string IphFeatureToString(IphFeature value) {
+  const char *str = IphFeatureToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown IphFeature value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, IphFeature value) {
+  return os << IphFeatureToString(value);
 }
 
 NOINLINE static const char* DoodleImageTypeToStringHelper(DoodleImageType value) {
@@ -539,7 +565,7 @@ bool Theme_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->most_visited, 13, validation_context)) {
+          object->most_visited, 14, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->most_visited, validation_context))
@@ -1740,6 +1766,40 @@ PageHandler_OnModulesLoadedWithData_Params_Data::PageHandler_OnModulesLoadedWith
 
 
 // static
+bool PageHandler_OnModuleUsed_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_OnModuleUsed_Params_Data* object =
+      static_cast<const PageHandler_OnModuleUsed_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->module_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& module_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->module_id, validation_context,
+                                         &module_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_OnModuleUsed_Params_Data::PageHandler_OnModuleUsed_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool PageHandler_GetModulesIdNames_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2036,25 +2096,30 @@ PageHandler_IncrementCustomizeChromeButtonOpenCount_Params_Data::PageHandler_Inc
 
 
 // static
-bool PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data::Validate(
+bool PageHandler_MaybeShowFeaturePromo_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data* object =
-      static_cast<const PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data*>(data);
+  [[maybe_unused]] const PageHandler_MaybeShowFeaturePromo_Params_Data* object =
+      static_cast<const PageHandler_MaybeShowFeaturePromo_Params_Data*>(data);
+
+
+  if (!::new_tab_page::mojom::internal::IphFeature_Data
+        ::Validate(object->iph_feature, validation_context))
+    return false;
 
   return true;
 }
 
-PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data::PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data()
+PageHandler_MaybeShowFeaturePromo_Params_Data::PageHandler_MaybeShowFeaturePromo_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2501,6 +2566,16 @@ namespace perfetto {
 void TraceFormatTraits<::new_tab_page::mojom::NtpBackgroundImageSource>::WriteIntoTrace(
    perfetto::TracedValue context, ::new_tab_page::mojom::NtpBackgroundImageSource value) {
   return std::move(context).WriteString(::new_tab_page::mojom::NtpBackgroundImageSourceToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::new_tab_page::mojom::IphFeature>::WriteIntoTrace(
+   perfetto::TracedValue context, ::new_tab_page::mojom::IphFeature value) {
+  return std::move(context).WriteString(::new_tab_page::mojom::IphFeatureToString(value));
 }
 
 } // namespace perfetto

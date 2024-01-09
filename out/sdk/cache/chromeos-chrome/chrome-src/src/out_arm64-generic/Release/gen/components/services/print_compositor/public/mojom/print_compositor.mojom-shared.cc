@@ -49,6 +49,30 @@ std::ostream& operator<<(std::ostream& os, PrintCompositor_Status value) {
   return os << PrintCompositor_StatusToString(value);
 }
 
+NOINLINE static const char* PrintCompositor_DocumentTypeToStringHelper(PrintCompositor_DocumentType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case PrintCompositor_DocumentType::kPDF:
+      return "kPDF";
+    case PrintCompositor_DocumentType::kXPS:
+      return "kXPS";
+    default:
+      return nullptr;
+  }
+}
+
+std::string PrintCompositor_DocumentTypeToString(PrintCompositor_DocumentType value) {
+  const char *str = PrintCompositor_DocumentTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown PrintCompositor_DocumentType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, PrintCompositor_DocumentType value) {
+  return os << PrintCompositor_DocumentTypeToString(value);
+}
+
 namespace internal {
 
 
@@ -147,7 +171,7 @@ PrintCompositor_SetAccessibilityTree_Params_Data::PrintCompositor_SetAccessibili
 
 
 // static
-bool PrintCompositor_CompositePageToPdf_Params_Data::Validate(
+bool PrintCompositor_CompositePage_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -159,8 +183,8 @@ bool PrintCompositor_CompositePageToPdf_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PrintCompositor_CompositePageToPdf_Params_Data* object =
-      static_cast<const PrintCompositor_CompositePageToPdf_Params_Data*>(data);
+  [[maybe_unused]] const PrintCompositor_CompositePage_Params_Data* object =
+      static_cast<const PrintCompositor_CompositePage_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->sk_region, 2, validation_context)) {
@@ -183,12 +207,12 @@ bool PrintCompositor_CompositePageToPdf_Params_Data::Validate(
   return true;
 }
 
-PrintCompositor_CompositePageToPdf_Params_Data::PrintCompositor_CompositePageToPdf_Params_Data()
+PrintCompositor_CompositePage_Params_Data::PrintCompositor_CompositePage_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool PrintCompositor_CompositePageToPdf_ResponseParams_Data::Validate(
+bool PrintCompositor_CompositePage_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -200,39 +224,39 @@ bool PrintCompositor_CompositePageToPdf_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PrintCompositor_CompositePageToPdf_ResponseParams_Data* object =
-      static_cast<const PrintCompositor_CompositePageToPdf_ResponseParams_Data*>(data);
+  [[maybe_unused]] const PrintCompositor_CompositePage_ResponseParams_Data* object =
+      static_cast<const PrintCompositor_CompositePage_ResponseParams_Data*>(data);
 
 
   if (!::printing::mojom::internal::PrintCompositor_Status_Data
         ::Validate(object->status, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->pdf_region, validation_context))
+  if (!mojo::internal::ValidateStruct(object->document_region, validation_context))
     return false;
 
   return true;
 }
 
-PrintCompositor_CompositePageToPdf_ResponseParams_Data::PrintCompositor_CompositePageToPdf_ResponseParams_Data()
+PrintCompositor_CompositePage_ResponseParams_Data::PrintCompositor_CompositePage_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool PrintCompositor_CompositeDocumentToPdf_Params_Data::Validate(
+bool PrintCompositor_CompositeDocument_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PrintCompositor_CompositeDocumentToPdf_Params_Data* object =
-      static_cast<const PrintCompositor_CompositeDocumentToPdf_Params_Data*>(data);
+  [[maybe_unused]] const PrintCompositor_CompositeDocument_Params_Data* object =
+      static_cast<const PrintCompositor_CompositeDocument_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->sk_region, 2, validation_context)) {
@@ -252,15 +276,20 @@ bool PrintCompositor_CompositeDocumentToPdf_Params_Data::Validate(
     return false;
   }
 
+
+  if (!::printing::mojom::internal::PrintCompositor_DocumentType_Data
+        ::Validate(object->document_type, validation_context))
+    return false;
+
   return true;
 }
 
-PrintCompositor_CompositeDocumentToPdf_Params_Data::PrintCompositor_CompositeDocumentToPdf_Params_Data()
+PrintCompositor_CompositeDocument_Params_Data::PrintCompositor_CompositeDocument_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data::Validate(
+bool PrintCompositor_CompositeDocument_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -272,49 +301,26 @@ bool PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data* object =
-      static_cast<const PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data*>(data);
+  [[maybe_unused]] const PrintCompositor_CompositeDocument_ResponseParams_Data* object =
+      static_cast<const PrintCompositor_CompositeDocument_ResponseParams_Data*>(data);
 
 
   if (!::printing::mojom::internal::PrintCompositor_Status_Data
         ::Validate(object->status, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->pdf_region, validation_context))
+  if (!mojo::internal::ValidateStruct(object->document_region, validation_context))
     return false;
 
   return true;
 }
 
-PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data::PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data()
+PrintCompositor_CompositeDocument_ResponseParams_Data::PrintCompositor_CompositeDocument_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool PrintCompositor_PrepareForDocumentToPdf_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PrintCompositor_PrepareForDocumentToPdf_Params_Data* object =
-      static_cast<const PrintCompositor_PrepareForDocumentToPdf_Params_Data*>(data);
-
-  return true;
-}
-
-PrintCompositor_PrepareForDocumentToPdf_Params_Data::PrintCompositor_PrepareForDocumentToPdf_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data::Validate(
+bool PrintCompositor_PrepareToCompositeDocument_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -326,23 +332,23 @@ bool PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data* object =
-      static_cast<const PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data*>(data);
+  [[maybe_unused]] const PrintCompositor_PrepareToCompositeDocument_Params_Data* object =
+      static_cast<const PrintCompositor_PrepareToCompositeDocument_Params_Data*>(data);
 
 
-  if (!::printing::mojom::internal::PrintCompositor_Status_Data
-        ::Validate(object->status, validation_context))
+  if (!::printing::mojom::internal::PrintCompositor_DocumentType_Data
+        ::Validate(object->document_type, validation_context))
     return false;
 
   return true;
 }
 
-PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data::PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data()
+PrintCompositor_PrepareToCompositeDocument_Params_Data::PrintCompositor_PrepareToCompositeDocument_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool PrintCompositor_CompleteDocumentToPdf_Params_Data::Validate(
+bool PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -354,18 +360,46 @@ bool PrintCompositor_CompleteDocumentToPdf_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PrintCompositor_CompleteDocumentToPdf_Params_Data* object =
-      static_cast<const PrintCompositor_CompleteDocumentToPdf_Params_Data*>(data);
+  [[maybe_unused]] const PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data* object =
+      static_cast<const PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data*>(data);
+
+
+  if (!::printing::mojom::internal::PrintCompositor_Status_Data
+        ::Validate(object->status, validation_context))
+    return false;
 
   return true;
 }
 
-PrintCompositor_CompleteDocumentToPdf_Params_Data::PrintCompositor_CompleteDocumentToPdf_Params_Data()
+PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data::PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data::Validate(
+bool PrintCompositor_FinishDocumentComposition_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PrintCompositor_FinishDocumentComposition_Params_Data* object =
+      static_cast<const PrintCompositor_FinishDocumentComposition_Params_Data*>(data);
+
+  return true;
+}
+
+PrintCompositor_FinishDocumentComposition_Params_Data::PrintCompositor_FinishDocumentComposition_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PrintCompositor_FinishDocumentComposition_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -377,21 +411,21 @@ bool PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data* object =
-      static_cast<const PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data*>(data);
+  [[maybe_unused]] const PrintCompositor_FinishDocumentComposition_ResponseParams_Data* object =
+      static_cast<const PrintCompositor_FinishDocumentComposition_ResponseParams_Data*>(data);
 
 
   if (!::printing::mojom::internal::PrintCompositor_Status_Data
         ::Validate(object->status, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->pdf_region, validation_context))
+  if (!mojo::internal::ValidateStruct(object->document_region, validation_context))
     return false;
 
   return true;
 }
 
-PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data::PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data()
+PrintCompositor_FinishDocumentComposition_ResponseParams_Data::PrintCompositor_FinishDocumentComposition_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -468,6 +502,16 @@ namespace perfetto {
 void TraceFormatTraits<::printing::mojom::PrintCompositor_Status>::WriteIntoTrace(
    perfetto::TracedValue context, ::printing::mojom::PrintCompositor_Status value) {
   return std::move(context).WriteString(::printing::mojom::PrintCompositor_StatusToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::printing::mojom::PrintCompositor_DocumentType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::printing::mojom::PrintCompositor_DocumentType value) {
+  return std::move(context).WriteString(::printing::mojom::PrintCompositor_DocumentTypeToString(value));
 }
 
 } // namespace perfetto

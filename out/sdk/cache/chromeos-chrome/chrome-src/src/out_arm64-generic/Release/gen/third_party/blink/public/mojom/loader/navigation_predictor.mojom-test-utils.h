@@ -25,6 +25,7 @@ class BLINK_COMMON_EXPORT AnchorElementMetricsHostInterceptorForTesting : public
   void ReportAnchorElementPointerDown(AnchorElementPointerDownPtr pointer_down_event) override;
   void ReportAnchorElementPointerDataOnHoverTimerFired(AnchorElementPointerDataOnHoverTimerFiredPtr pointer_data) override;
   void ProcessPointerEventUsingMLModel(AnchorElementPointerEventForMLModelPtr pointer_event) override;
+  void ShouldSkipUpdateDelays(ShouldSkipUpdateDelaysCallback callback) override;
 };
 class BLINK_COMMON_EXPORT AnchorElementMetricsHostAsyncWaiter {
  public:
@@ -34,6 +35,9 @@ class BLINK_COMMON_EXPORT AnchorElementMetricsHostAsyncWaiter {
   AnchorElementMetricsHostAsyncWaiter& operator=(const AnchorElementMetricsHostAsyncWaiter&) = delete;
 
   ~AnchorElementMetricsHostAsyncWaiter();
+  void ShouldSkipUpdateDelays(
+      bool* out_should_skip_for_testing);
+  bool ShouldSkipUpdateDelays();
 
  private:
   AnchorElementMetricsHost* const proxy_;

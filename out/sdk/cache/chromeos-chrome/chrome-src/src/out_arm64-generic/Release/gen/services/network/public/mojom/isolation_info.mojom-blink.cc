@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -55,7 +56,7 @@ IsolationInfo::IsolationInfo(
     IsolationInfoRequestType request_type_in,
     const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin_in,
     const ::scoped_refptr<const ::blink::SecurityOrigin>& frame_origin_in,
-    const absl::optional<::base::UnguessableToken>& nonce_in,
+    const std::optional<::base::UnguessableToken>& nonce_in,
     const ::net::SiteForCookies& site_for_cookies_in)
     : request_type(std::move(request_type_in)),
       top_frame_origin(std::move(top_frame_origin_in)),
@@ -99,7 +100,7 @@ void IsolationInfo::WriteIntoTrace(
     dict.AddItem(
       "nonce"), this->nonce,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

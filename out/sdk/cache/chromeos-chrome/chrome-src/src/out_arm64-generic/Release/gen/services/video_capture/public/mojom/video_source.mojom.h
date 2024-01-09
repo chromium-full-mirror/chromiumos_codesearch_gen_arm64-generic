@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/video_capture/public/mojom/video_source.mojom-features.h"
 #include "services/video_capture/public/mojom/video_source.mojom-shared.h"
 #include "services/video_capture/public/mojom/video_source.mojom-forward.h"
 #include "media/capture/mojom/image_capture.mojom-forward.h"
@@ -369,17 +370,17 @@ class  CreatePushSubscriptionResultCode {
   // Construct an instance holding |success_code|.
   static CreatePushSubscriptionResultCodePtr
   NewSuccessCode(
-      CreatePushSubscriptionSuccessCode success_code) {
+      CreatePushSubscriptionSuccessCode value) {
     auto result = CreatePushSubscriptionResultCodePtr(absl::in_place);
-    result->set_success_code(std::move(success_code));
+    result->set_success_code(std::move(value));
     return result;
   }
   // Construct an instance holding |error_code|.
   static CreatePushSubscriptionResultCodePtr
   NewErrorCode(
-      ::media::VideoCaptureError error_code) {
+      ::media::VideoCaptureError value) {
     auto result = CreatePushSubscriptionResultCodePtr(absl::in_place);
-    result->set_error_code(std::move(error_code));
+    result->set_error_code(std::move(value));
     return result;
   }
 

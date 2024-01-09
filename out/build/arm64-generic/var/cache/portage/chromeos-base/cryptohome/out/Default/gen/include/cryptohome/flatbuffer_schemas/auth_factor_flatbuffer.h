@@ -1,4 +1,4 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -46,6 +46,36 @@
 namespace hwsec_foundation {
 
 template <>
+struct ToFlatBuffer<::cryptohome::SerializedKnowledgeFactorHashAlgorithm> {
+  using ResultType =
+      ::cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm;
+
+  ResultType operator()(
+      flatbuffers::FlatBufferBuilder* builder,
+      ::cryptohome::SerializedKnowledgeFactorHashAlgorithm object) const {
+    return static_cast<ResultType>(object);
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
+struct FromFlatBuffer<::cryptohome::SerializedKnowledgeFactorHashAlgorithm> {
+  ::cryptohome::SerializedKnowledgeFactorHashAlgorithm operator()(
+      ::cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm object)
+      const {
+    return static_cast<::cryptohome::SerializedKnowledgeFactorHashAlgorithm>(
+        object);
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
 struct ToFlatBuffer<::cryptohome::SerializedLockoutPolicy> {
   using ResultType = ::cryptohome::_serialized_::SerializedLockoutPolicy;
 
@@ -72,15 +102,61 @@ struct FromFlatBuffer<::cryptohome::SerializedLockoutPolicy> {
 namespace hwsec_foundation {
 
 template <>
+struct ToFlatBuffer<::cryptohome::SerializedKnowledgeFactorHashInfo> {
+  using ResultType = flatbuffers::Offset<
+      ::cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo>;
+
+  ResultType operator()(
+      flatbuffers::FlatBufferBuilder* builder,
+      const ::cryptohome::SerializedKnowledgeFactorHashInfo& object) const {
+    auto algorithm = ToFlatBuffer<
+        std::optional<::cryptohome::SerializedKnowledgeFactorHashAlgorithm>>()(
+        builder, object.algorithm);
+    auto salt = ToFlatBuffer<brillo::Blob>()(builder, object.salt);
+
+    return ::cryptohome::_serialized_::CreateSerializedKnowledgeFactorHashInfo(
+        *builder, algorithm, salt);
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
+struct FromFlatBuffer<::cryptohome::SerializedKnowledgeFactorHashInfo> {
+  ::cryptohome::SerializedKnowledgeFactorHashInfo operator()(
+      const ::cryptohome::_serialized_::SerializedKnowledgeFactorHashInfo*
+          object) const {
+    if (object == nullptr) {
+      return ::cryptohome::SerializedKnowledgeFactorHashInfo();
+    }
+    return ::cryptohome::SerializedKnowledgeFactorHashInfo{
+        .algorithm = FromFlatBuffer<std::optional<
+            ::cryptohome::SerializedKnowledgeFactorHashAlgorithm>>()(
+            object->algorithm()),
+        .salt = FromFlatBuffer<brillo::Blob>()(object->salt()),
+    };
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
 struct ToFlatBuffer<::cryptohome::PasswordMetadata> {
   using ResultType =
       flatbuffers::Offset<::cryptohome::_serialized_::PasswordMetadata>;
 
   ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
                         const ::cryptohome::PasswordMetadata& object) const {
-    return ::cryptohome::_serialized_::CreatePasswordMetadata(*builder
+    auto hash_info = ToFlatBuffer<
+        std::optional<::cryptohome::SerializedKnowledgeFactorHashInfo>>()(
+        builder, object.hash_info);
 
-    );
+    return ::cryptohome::_serialized_::CreatePasswordMetadata(*builder,
+                                                              hash_info);
   }
 };
 
@@ -96,7 +172,9 @@ struct FromFlatBuffer<::cryptohome::PasswordMetadata> {
       return ::cryptohome::PasswordMetadata();
     }
     return ::cryptohome::PasswordMetadata{
-
+        .hash_info = FromFlatBuffer<
+            std::optional<::cryptohome::SerializedKnowledgeFactorHashInfo>>()(
+            object->hash_info()),
     };
   }
 };
@@ -112,9 +190,11 @@ struct ToFlatBuffer<::cryptohome::PinMetadata> {
 
   ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
                         const ::cryptohome::PinMetadata& object) const {
-    return ::cryptohome::_serialized_::CreatePinMetadata(*builder
+    auto hash_info = ToFlatBuffer<
+        std::optional<::cryptohome::SerializedKnowledgeFactorHashInfo>>()(
+        builder, object.hash_info);
 
-    );
+    return ::cryptohome::_serialized_::CreatePinMetadata(*builder, hash_info);
   }
 };
 
@@ -130,7 +210,9 @@ struct FromFlatBuffer<::cryptohome::PinMetadata> {
       return ::cryptohome::PinMetadata();
     }
     return ::cryptohome::PinMetadata{
-
+        .hash_info = FromFlatBuffer<
+            std::optional<::cryptohome::SerializedKnowledgeFactorHashInfo>>()(
+            object->hash_info()),
     };
   }
 };

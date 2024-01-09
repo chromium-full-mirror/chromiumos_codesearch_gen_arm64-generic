@@ -16,6 +16,7 @@ namespace printscanmgr::mojom {
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void RestartUpstartJob(UpstartJob job, RestartUpstartJobCallback callback) override;
+  void GetPpdFile(const std::string& fileName, GetPpdFileCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -27,6 +28,9 @@ class  ExecutorAsyncWaiter {
   ~ExecutorAsyncWaiter();
   void RestartUpstartJob(
       UpstartJob job, bool* out_success, std::string* out_errorMsg);
+  
+  void GetPpdFile(
+      const std::string& fileName, std::string* out_fileContents, bool* out_success);
   
 
  private:

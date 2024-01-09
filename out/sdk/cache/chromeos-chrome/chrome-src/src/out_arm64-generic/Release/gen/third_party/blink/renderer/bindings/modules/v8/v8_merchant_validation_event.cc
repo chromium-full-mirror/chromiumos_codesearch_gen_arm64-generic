@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MerchantValidationEvent>::value,
     "MerchantValidationEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MerchantValidationEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MerchantValidationEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("MerchantValidationEvent.methodName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MerchantValidationEvent* blink_receiver = V8MerchantValidationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->methodName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MerchantValidationEvent* blink_receiver = V8MerchantValidationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->methodName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,10 +98,10 @@ BLINK_BINDINGS_TRACE_EVENT("MerchantValidationEvent.validationURL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MerchantValidationEvent* blink_receiver = V8MerchantValidationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->validationURL();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MerchantValidationEvent* blink_receiver = V8MerchantValidationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->validationURL();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -118,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("MerchantValidationEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MerchantValidationEvent* blink_receiver = V8MerchantValidationEvent::ToWrappableUnsafe(v8_receiver);
+MerchantValidationEvent* blink_receiver = V8MerchantValidationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -194,7 +190,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MerchantValidationEvent* blink_receiver = V8MerchantValidationEvent::ToWrappableUnsafe(v8_receiver);
+MerchantValidationEvent* blink_receiver = V8MerchantValidationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

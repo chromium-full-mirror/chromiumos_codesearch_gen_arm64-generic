@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -139,14 +140,17 @@ void MockFailureInjectorProxy::FailOperation(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMockFailureInjector_FailOperation_Name, kFlags, 0, 0, nullptr);
@@ -251,7 +255,8 @@ void MockFailureInjector_FailOperation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMockFailureInjector_FailOperation_Name, kFlags, 0, 0, nullptr);
@@ -342,10 +347,10 @@ std::move(p_call_num), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMockFailureInjectorValidationInfo[] = {
-    {&internal::MockFailureInjector_FailOperation_Params_Data::Validate,
+    { &internal::MockFailureInjector_FailOperation_Params_Data::Validate,
      &internal::MockFailureInjector_FailOperation_ResponseParams_Data::Validate},
 };
 
@@ -393,6 +398,9 @@ IndexedDBControlTest::IPCStableHashFunction IndexedDBControlTest::MessageToMetho
     case internal::kIndexedDBControlTest_CompactBackingStoreForTesting_Name: {
       return &IndexedDBControlTest::CompactBackingStoreForTesting_Sym::IPCStableHash;
     }
+    case internal::kIndexedDBControlTest_GetUsageForTesting_Name: {
+      return &IndexedDBControlTest::GetUsageForTesting_Sym::IPCStableHash;
+    }
     case internal::kIndexedDBControlTest_BindMockFailureSingletonForTesting_Name: {
       return &IndexedDBControlTest::BindMockFailureSingletonForTesting_Sym::IPCStableHash;
     }
@@ -433,6 +441,8 @@ const char* IndexedDBControlTest::MessageToMethodName_(mojo::Message& message) {
             return "Receive storage::mojom::IndexedDBControlTest::GetPathForBlobForTesting";
       case internal::kIndexedDBControlTest_CompactBackingStoreForTesting_Name:
             return "Receive storage::mojom::IndexedDBControlTest::CompactBackingStoreForTesting";
+      case internal::kIndexedDBControlTest_GetUsageForTesting_Name:
+            return "Receive storage::mojom::IndexedDBControlTest::GetUsageForTesting";
       case internal::kIndexedDBControlTest_BindMockFailureSingletonForTesting_Name:
             return "Receive storage::mojom::IndexedDBControlTest::BindMockFailureSingletonForTesting";
       case internal::kIndexedDBControlTest_GetDatabaseKeysForTesting_Name:
@@ -462,6 +472,8 @@ const char* IndexedDBControlTest::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply storage::mojom::IndexedDBControlTest::GetPathForBlobForTesting";
       case internal::kIndexedDBControlTest_CompactBackingStoreForTesting_Name:
             return "Receive reply storage::mojom::IndexedDBControlTest::CompactBackingStoreForTesting";
+      case internal::kIndexedDBControlTest_GetUsageForTesting_Name:
+            return "Receive reply storage::mojom::IndexedDBControlTest::GetUsageForTesting";
       case internal::kIndexedDBControlTest_BindMockFailureSingletonForTesting_Name:
             return "Receive reply storage::mojom::IndexedDBControlTest::BindMockFailureSingletonForTesting";
       case internal::kIndexedDBControlTest_GetDatabaseKeysForTesting_Name:
@@ -608,6 +620,19 @@ uint32_t IndexedDBControlTest::CompactBackingStoreForTesting_Sym::IPCStableHash(
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)storage::mojom::IndexedDBControlTest::CompactBackingStoreForTesting");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t IndexedDBControlTest::GetUsageForTesting_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)storage::mojom::IndexedDBControlTest::GetUsageForTesting");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -813,6 +838,22 @@ class IndexedDBControlTest_CompactBackingStoreForTesting_ForwardToCallback
   IndexedDBControlTest::CompactBackingStoreForTestingCallback callback_;
 };
 
+class IndexedDBControlTest_GetUsageForTesting_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  IndexedDBControlTest_GetUsageForTesting_ForwardToCallback(
+      IndexedDBControlTest::GetUsageForTestingCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  IndexedDBControlTest_GetUsageForTesting_ForwardToCallback(const IndexedDBControlTest_GetUsageForTesting_ForwardToCallback&) = delete;
+  IndexedDBControlTest_GetUsageForTesting_ForwardToCallback& operator=(const IndexedDBControlTest_GetUsageForTesting_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  IndexedDBControlTest::GetUsageForTestingCallback callback_;
+};
+
 class IndexedDBControlTest_GetDatabaseKeysForTesting_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -854,14 +895,17 @@ void IndexedDBControlTestProxy::GetBaseDataPathForTesting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::IndexedDBControlTest::GetBaseDataPathForTesting");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetBaseDataPathForTesting_Name, kFlags, 0, 0, nullptr);
@@ -892,14 +936,17 @@ void IndexedDBControlTestProxy::GetFilePathForTesting(
                         "<value of type const ::storage::BucketLocator&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetFilePathForTesting_Name, kFlags, 0, 0, nullptr);
@@ -934,14 +981,17 @@ void IndexedDBControlTestProxy::ResetCachesForTesting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::IndexedDBControlTest::ResetCachesForTesting");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_ResetCachesForTesting_Name, kFlags, 0, 0, nullptr);
@@ -972,14 +1022,17 @@ void IndexedDBControlTestProxy::ForceSchemaDowngradeForTesting(
                         "<value of type const ::storage::BucketLocator&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1021,14 +1074,17 @@ void IndexedDBControlTestProxy::HasV2SchemaCorruptionForTesting(
                         "<value of type const ::storage::BucketLocator&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1076,14 +1132,17 @@ void IndexedDBControlTestProxy::WriteToIndexedDBForTesting(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_WriteToIndexedDBForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1147,14 +1206,17 @@ void IndexedDBControlTestProxy::GetBlobCountForTesting(
                         "<value of type const ::storage::BucketLocator&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetBlobCountForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1199,14 +1261,17 @@ void IndexedDBControlTestProxy::GetNextBlobNumberForTesting(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetNextBlobNumberForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1255,14 +1320,17 @@ void IndexedDBControlTestProxy::GetPathForBlobForTesting(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetPathForBlobForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1306,14 +1374,17 @@ void IndexedDBControlTestProxy::CompactBackingStoreForTesting(
                         "<value of type const ::storage::BucketLocator&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_CompactBackingStoreForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1343,6 +1414,40 @@ void IndexedDBControlTestProxy::CompactBackingStoreForTesting(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
+void IndexedDBControlTestProxy::GetUsageForTesting(
+    GetUsageForTestingCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send storage::mojom::IndexedDBControlTest::GetUsageForTesting");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kIndexedDBControlTest_GetUsageForTesting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::storage::mojom::internal::IndexedDBControlTest_GetUsageForTesting_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(IndexedDBControlTest::Name_);
+  message.set_method_name("GetUsageForTesting");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new IndexedDBControlTest_GetUsageForTesting_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
 void IndexedDBControlTestProxy::BindMockFailureSingletonForTesting(
     ::mojo::PendingReceiver<MockFailureInjector> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1355,14 +1460,17 @@ void IndexedDBControlTestProxy::BindMockFailureSingletonForTesting(
                         "<value of type ::mojo::PendingReceiver<MockFailureInjector>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_BindMockFailureSingletonForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1391,14 +1499,17 @@ void IndexedDBControlTestProxy::GetDatabaseKeysForTesting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::IndexedDBControlTest::GetDatabaseKeysForTesting");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetDatabaseKeysForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1422,14 +1533,17 @@ void IndexedDBControlTestProxy::ForceInitializeFromFilesForTesting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::IndexedDBControlTest::ForceInitializeFromFilesForTesting");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_ForceInitializeFromFilesForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1539,7 +1653,8 @@ void IndexedDBControlTest_GetBaseDataPathForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetBaseDataPathForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1667,7 +1782,8 @@ void IndexedDBControlTest_GetFilePathForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetFilePathForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1784,7 +1900,8 @@ void IndexedDBControlTest_ResetCachesForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_ResetCachesForTesting_Name, kFlags, 0, 0, nullptr);
@@ -1901,7 +2018,8 @@ void IndexedDBControlTest_ForceSchemaDowngradeForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_ForceSchemaDowngradeForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2019,7 +2137,8 @@ void IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2127,7 +2246,8 @@ void IndexedDBControlTest_WriteToIndexedDBForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_WriteToIndexedDBForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2244,7 +2364,8 @@ void IndexedDBControlTest_GetBlobCountForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetBlobCountForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2362,7 +2483,8 @@ void IndexedDBControlTest_GetNextBlobNumberForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetNextBlobNumberForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2480,7 +2602,8 @@ void IndexedDBControlTest_GetPathForBlobForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetPathForBlobForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2597,7 +2720,8 @@ void IndexedDBControlTest_CompactBackingStoreForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_CompactBackingStoreForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2609,6 +2733,125 @@ void IndexedDBControlTest_CompactBackingStoreForTesting_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(IndexedDBControlTest::Name_);
   message.set_method_name("CompactBackingStoreForTesting");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class IndexedDBControlTest_GetUsageForTesting_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static IndexedDBControlTest::GetUsageForTestingCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<IndexedDBControlTest_GetUsageForTesting_ProxyToResponder> proxy(
+        new IndexedDBControlTest_GetUsageForTesting_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&IndexedDBControlTest_GetUsageForTesting_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~IndexedDBControlTest_GetUsageForTesting_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  IndexedDBControlTest_GetUsageForTesting_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "IndexedDBControlTest::GetUsageForTestingCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      int64_t in_total_usage);
+};
+
+bool IndexedDBControlTest_GetUsageForTesting_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  int64_t p_total_usage{};
+  IndexedDBControlTest_GetUsageForTesting_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_total_usage = input_data_view.total_usage();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        IndexedDBControlTest::Name_, 10, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_total_usage));
+  return true;
+}
+
+void IndexedDBControlTest_GetUsageForTesting_ProxyToResponder::Run(
+    int64_t in_total_usage) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply storage::mojom::IndexedDBControlTest::GetUsageForTesting", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("total_usage"), in_total_usage,
+                        "<value of type int64_t>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kIndexedDBControlTest_GetUsageForTesting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::storage::mojom::internal::IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->total_usage = in_total_usage;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(IndexedDBControlTest::Name_);
+  message.set_method_name("GetUsageForTesting");
 #endif
 
   message.set_request_id(request_id_);
@@ -2693,7 +2936,7 @@ bool IndexedDBControlTest_GetDatabaseKeysForTesting_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 11, true);
+        IndexedDBControlTest::Name_, 12, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2721,7 +2964,8 @@ void IndexedDBControlTest_GetDatabaseKeysForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_GetDatabaseKeysForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2833,7 +3077,7 @@ bool IndexedDBControlTest_ForceInitializeFromFilesForTesting_ForwardToCallback::
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IndexedDBControlTest::Name_, 12, true);
+        IndexedDBControlTest::Name_, 13, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2849,7 +3093,8 @@ void IndexedDBControlTest_ForceInitializeFromFilesForTesting_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndexedDBControlTest_ForceInitializeFromFilesForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2910,6 +3155,9 @@ bool IndexedDBControlTestStubDispatch::Accept(
     case internal::kIndexedDBControlTest_CompactBackingStoreForTesting_Name: {
       break;
     }
+    case internal::kIndexedDBControlTest_GetUsageForTesting_Name: {
+      break;
+    }
     case internal::kIndexedDBControlTest_BindMockFailureSingletonForTesting_Name: {
 
       DCHECK(message->is_serialized());
@@ -2929,7 +3177,7 @@ bool IndexedDBControlTestStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 10, false);
+            IndexedDBControlTest::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3259,6 +3507,31 @@ std::move(p_blob_number), std::move(callback));
 std::move(p_bucket_locator), std::move(callback));
       return true;
     }
+    case internal::kIndexedDBControlTest_GetUsageForTesting_Name: {
+
+      internal::IndexedDBControlTest_GetUsageForTesting_Params_Data* params =
+          reinterpret_cast<
+              internal::IndexedDBControlTest_GetUsageForTesting_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      IndexedDBControlTest_GetUsageForTesting_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            IndexedDBControlTest::Name_, 10, false);
+        return false;
+      }
+      IndexedDBControlTest::GetUsageForTestingCallback callback =
+          IndexedDBControlTest_GetUsageForTesting_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetUsageForTesting(std::move(callback));
+      return true;
+    }
     case internal::kIndexedDBControlTest_BindMockFailureSingletonForTesting_Name: {
       break;
     }
@@ -3276,7 +3549,7 @@ std::move(p_bucket_locator), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 11, false);
+            IndexedDBControlTest::Name_, 12, false);
         return false;
       }
       IndexedDBControlTest::GetDatabaseKeysForTestingCallback callback =
@@ -3301,7 +3574,7 @@ std::move(p_bucket_locator), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IndexedDBControlTest::Name_, 12, false);
+            IndexedDBControlTest::Name_, 13, false);
         return false;
       }
       IndexedDBControlTest::ForceInitializeFromFilesForTestingCallback callback =
@@ -3315,34 +3588,36 @@ std::move(p_bucket_locator), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIndexedDBControlTestValidationInfo[] = {
-    {&internal::IndexedDBControlTest_GetBaseDataPathForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_GetBaseDataPathForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_GetBaseDataPathForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_GetFilePathForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_GetFilePathForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_GetFilePathForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_ResetCachesForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_ResetCachesForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_ResetCachesForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_WriteToIndexedDBForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_WriteToIndexedDBForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_WriteToIndexedDBForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_GetBlobCountForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_GetBlobCountForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_GetBlobCountForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_GetNextBlobNumberForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_GetNextBlobNumberForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_GetNextBlobNumberForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_GetPathForBlobForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_GetPathForBlobForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_GetPathForBlobForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_CompactBackingStoreForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_CompactBackingStoreForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_CompactBackingStoreForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_BindMockFailureSingletonForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_GetUsageForTesting_Params_Data::Validate,
+     &internal::IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data::Validate},
+    { &internal::IndexedDBControlTest_BindMockFailureSingletonForTesting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IndexedDBControlTest_GetDatabaseKeysForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_GetDatabaseKeysForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_GetDatabaseKeysForTesting_ResponseParams_Data::Validate},
-    {&internal::IndexedDBControlTest_ForceInitializeFromFilesForTesting_Params_Data::Validate,
+    { &internal::IndexedDBControlTest_ForceInitializeFromFilesForTesting_Params_Data::Validate,
      &internal::IndexedDBControlTest_ForceInitializeFromFilesForTesting_ResponseParams_Data::Validate},
 };
 
@@ -3426,6 +3701,9 @@ void IndexedDBControlTestInterceptorForTesting::GetPathForBlobForTesting(const :
 }
 void IndexedDBControlTestInterceptorForTesting::CompactBackingStoreForTesting(const ::storage::BucketLocator& bucket_locator, CompactBackingStoreForTestingCallback callback) {
   GetForwardingInterface()->CompactBackingStoreForTesting(std::move(bucket_locator), std::move(callback));
+}
+void IndexedDBControlTestInterceptorForTesting::GetUsageForTesting(GetUsageForTestingCallback callback) {
+  GetForwardingInterface()->GetUsageForTesting(std::move(callback));
 }
 void IndexedDBControlTestInterceptorForTesting::BindMockFailureSingletonForTesting(::mojo::PendingReceiver<MockFailureInjector> receiver) {
   GetForwardingInterface()->BindMockFailureSingletonForTesting(std::move(receiver));
@@ -3643,6 +3921,29 @@ void IndexedDBControlTestAsyncWaiter::CompactBackingStoreForTesting(
 }
 
 
+
+void IndexedDBControlTestAsyncWaiter::GetUsageForTesting(
+    int64_t* out_total_usage) {
+  base::RunLoop loop;
+  proxy_->GetUsageForTesting(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             int64_t* out_total_usage
+,
+             int64_t total_usage) {*out_total_usage = std::move(total_usage);
+            loop->Quit();
+          },
+          &loop,
+          out_total_usage));
+  loop.Run();
+}
+
+int64_t IndexedDBControlTestAsyncWaiter::GetUsageForTesting(
+    ) {
+  int64_t async_wait_result;
+  GetUsageForTesting(&async_wait_result);
+  return async_wait_result;
+}
 
 void IndexedDBControlTestAsyncWaiter::GetDatabaseKeysForTesting(
     std::string* out_schema_version_key, std::string* out_data_version_key) {

@@ -1,6 +1,6 @@
 /* include/qb/qbconfig.h.  Generated from qbconfig.h.in by configure.  */
 /*
- * Copyright (C) 2011 Red Hat, Inc.
+ * Copyright (C) 2010-2020 Red Hat, Inc.
  *
  * All rights reserved.
  *
@@ -23,10 +23,28 @@
 #ifndef QB_CONFIG_H_DEFINED
 #define QB_CONFIG_H_DEFINED
 
+#include <qb/qbdefs.h>  /* QB_PP_STRINGIFY */
+
 /* need atomic memory barrier */
 #define QB_ATOMIC_OP_MEMORY_BARRIER_NEEDED 1
 
-/* Enabling code using __attribute__((section)) */
-#define QB_HAVE_ATTRIBUTE_SECTION 1
+/* versioning info: MAJOR, MINOR, MICRO, and REST components;
+   note that static compile-time info is not that useful as consulting
+   the respectively named members of qb_version struct constant under
+   @c qb_ver identifier (or @c qb_ver_str equivalent of the local
+   upper-cased value) directly from libqb in run-time (see qbutil.h),
+   but that was only introduced after v1.0.2 */
+#define QB_VER_MAJOR 2
+#define QB_VER_MINOR 0
+#define QB_VER_MICRO 4
+#define QB_VER_REST ""
+
+#define QB_VER_STR   \
+	QB_PP_STRINGIFY(QB_VER_MAJOR) \
+	"." \
+	QB_PP_STRINGIFY(QB_VER_MINOR) \
+	"." \
+	QB_PP_STRINGIFY(QB_VER_MICRO) \
+	QB_VER_REST
 
 #endif /* QB_CONFIG_H_DEFINED */

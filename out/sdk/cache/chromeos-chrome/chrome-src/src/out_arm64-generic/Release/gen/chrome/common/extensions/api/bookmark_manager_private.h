@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct BookmarkNodeDataElement {
   ~BookmarkNodeDataElement();
   BookmarkNodeDataElement(const BookmarkNodeDataElement&) = delete;
   BookmarkNodeDataElement& operator=(const BookmarkNodeDataElement&) = delete;
-  BookmarkNodeDataElement(BookmarkNodeDataElement&& rhs);
-  BookmarkNodeDataElement& operator=(BookmarkNodeDataElement&& rhs);
+  BookmarkNodeDataElement(BookmarkNodeDataElement&& rhs) noexcept;
+  BookmarkNodeDataElement& operator=(BookmarkNodeDataElement&& rhs) noexcept;
 
   // Populates a BookmarkNodeDataElement object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -48,17 +49,13 @@ struct BookmarkNodeDataElement {
   // Creates a deep copy of BookmarkNodeDataElement.
   BookmarkNodeDataElement Clone() const;
 
-  // Creates a BookmarkNodeDataElement object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<BookmarkNodeDataElement> FromValueDeprecated(const base::Value& value);
-
   // Creates a BookmarkNodeDataElement object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<BookmarkNodeDataElement> FromValue(const base::Value::Dict& value);
+  static std::optional<BookmarkNodeDataElement> FromValue(const base::Value::Dict& value);
 
   // Creates a BookmarkNodeDataElement object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<BookmarkNodeDataElement> FromValue(const base::Value& value);
+  static std::optional<BookmarkNodeDataElement> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBookmarkNodeDataElement object.
@@ -66,15 +63,15 @@ struct BookmarkNodeDataElement {
 
   // The ID of the bookmark. This is only provided if the data is from the same
   // profile.
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
 
   // The ID of the parent of the bookmark. This is only provided if the data is
   // from the same profile.
-  absl::optional<std::string> parent_id;
+  std::optional<std::string> parent_id;
 
   std::string title;
 
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   std::vector<BookmarkNodeDataElement> children;
 
@@ -86,8 +83,8 @@ struct BookmarkNodeData {
   ~BookmarkNodeData();
   BookmarkNodeData(const BookmarkNodeData&) = delete;
   BookmarkNodeData& operator=(const BookmarkNodeData&) = delete;
-  BookmarkNodeData(BookmarkNodeData&& rhs);
-  BookmarkNodeData& operator=(BookmarkNodeData&& rhs);
+  BookmarkNodeData(BookmarkNodeData&& rhs) noexcept;
+  BookmarkNodeData& operator=(BookmarkNodeData&& rhs) noexcept;
 
   // Populates a BookmarkNodeData object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -100,16 +97,13 @@ struct BookmarkNodeData {
   // Creates a deep copy of BookmarkNodeData.
   BookmarkNodeData Clone() const;
 
-  // Creates a BookmarkNodeData object from a base::Value, or NULL on failure.
-  static std::unique_ptr<BookmarkNodeData> FromValueDeprecated(const base::Value& value);
-
   // Creates a BookmarkNodeData object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<BookmarkNodeData> FromValue(const base::Value::Dict& value);
+  static std::optional<BookmarkNodeData> FromValue(const base::Value::Dict& value);
 
   // Creates a BookmarkNodeData object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<BookmarkNodeData> FromValue(const base::Value& value);
+  static std::optional<BookmarkNodeData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBookmarkNodeData object.
@@ -129,11 +123,11 @@ struct BookmarkNodeData {
 namespace Copy {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An array of string-valued ids
@@ -154,11 +148,11 @@ base::Value::List Create();
 namespace Cut {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An array of string-valued ids
@@ -179,17 +173,17 @@ base::Value::List Create();
 namespace Paste {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string parent_id;
 
   // An array of string-valued ids for selected bookmarks.
-  absl::optional<std::vector<std::string>> selected_id_list;
+  std::optional<std::vector<std::string>> selected_id_list;
 
 
  private:
@@ -206,11 +200,11 @@ base::Value::List Create();
 namespace CanPaste {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the folder to paste into.
@@ -231,11 +225,11 @@ base::Value::List Create(bool result);
 namespace SortChildren {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the folder to sort the children of.
@@ -251,11 +245,11 @@ struct Params {
 namespace StartDrag {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An array of string-valued ids.
@@ -283,11 +277,11 @@ struct Params {
 namespace Drop {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the folder that the drop was made.
@@ -295,7 +289,7 @@ struct Params {
 
   // The index of the position to drop at. If left out the dropped items will be
   // placed at the end of the existing children.
-  absl::optional<int> index;
+  std::optional<int> index;
 
 
  private:
@@ -312,11 +306,11 @@ base::Value::List Create();
 namespace GetSubtree {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // ID of the root of the tree to pull.  If empty, the entire tree will be
@@ -341,11 +335,11 @@ base::Value::List Create(const std::vector<extensions::api::bookmarks::BookmarkT
 namespace RemoveTrees {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An array of string-valued ids.
@@ -374,11 +368,11 @@ namespace Redo {
 namespace OpenInNewTab {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // One string-valued id.
@@ -397,11 +391,11 @@ struct Params {
 namespace OpenInNewWindow {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // An array of string-valued ids.

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/trust_token_access_observer.mojom-features.h"
 #include "services/network/public/mojom/trust_token_access_observer.mojom-shared.h"
 #include "services/network/public/mojom/trust_token_access_observer.mojom-blink-forward.h"
 #include "url/mojom/origin.mojom-blink.h"
@@ -183,25 +184,25 @@ class BLINK_PLATFORM_EXPORT TrustTokenAccessDetails {
   // Construct an instance holding |issuance|.
   static TrustTokenAccessDetailsPtr
   NewIssuance(
-      TrustTokenIssuanceDetailsPtr issuance) {
+      TrustTokenIssuanceDetailsPtr value) {
     auto result = TrustTokenAccessDetailsPtr(absl::in_place);
-    result->set_issuance(std::move(issuance));
+    result->set_issuance(std::move(value));
     return result;
   }
   // Construct an instance holding |redemption|.
   static TrustTokenAccessDetailsPtr
   NewRedemption(
-      TrustTokenRedemptionDetailsPtr redemption) {
+      TrustTokenRedemptionDetailsPtr value) {
     auto result = TrustTokenAccessDetailsPtr(absl::in_place);
-    result->set_redemption(std::move(redemption));
+    result->set_redemption(std::move(value));
     return result;
   }
   // Construct an instance holding |signing|.
   static TrustTokenAccessDetailsPtr
   NewSigning(
-      TrustTokenSigningDetailsPtr signing) {
+      TrustTokenSigningDetailsPtr value) {
     auto result = TrustTokenAccessDetailsPtr(absl::in_place);
-    result->set_signing(std::move(signing));
+    result->set_signing(std::move(value));
     return result;
   }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Red Hat, Inc.
+ * Copyright (C) 2010-2020 Red Hat, Inc.
  *
  * Author: Angus Salkeld <asalkeld@redhat.com>
  *
@@ -288,6 +288,17 @@ qb_util_stopwatch_split_last(qb_util_stopwatch_t *sw);
 uint64_t
 qb_util_stopwatch_time_split_get(qb_util_stopwatch_t *sw,
 				 uint32_t receint, uint32_t older);
+
+/** Structured library versioning info */
+extern const struct qb_version {
+	uint8_t major; /**< Major component */
+	uint8_t minor; /**< Minor component */
+	uint8_t micro; /**< Micro component */
+	const char *rest; /**< Rest (pertaining the mid-release-point) */
+} qb_ver;
+
+/** Complete library versioning info as a string */
+extern const char *const qb_ver_str;
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus

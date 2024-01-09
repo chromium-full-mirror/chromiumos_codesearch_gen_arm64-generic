@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, Geolocation>::value,
     "Geolocation does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&Geolocation::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Geolocation is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -105,7 +100,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Geolocation* blink_receiver = V8Geolocation::ToWrappableUnsafe(v8_receiver);
+Geolocation* blink_receiver = V8Geolocation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_watch_id = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -130,7 +125,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogMethod("Geolocation.getCurrentPosition", info); }
+if (UNLIKELY(per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogMethod(script_state, "Geolocation.getCurrentPosition", info); }
 
 
 
@@ -145,7 +140,7 @@ return;
 
 
 
-Geolocation* blink_receiver = V8Geolocation::ToWrappableUnsafe(v8_receiver);
+Geolocation* blink_receiver = V8Geolocation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_success_callback = NativeValueTraits<V8PositionCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -186,7 +181,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogMethod("Geolocation.watchPosition", info); }
+if (UNLIKELY(per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogMethod(script_state, "Geolocation.watchPosition", info); }
 
 
 
@@ -201,7 +196,7 @@ return;
 
 
 
-Geolocation* blink_receiver = V8Geolocation::ToWrappableUnsafe(v8_receiver);
+Geolocation* blink_receiver = V8Geolocation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_success_callback = NativeValueTraits<V8PositionCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

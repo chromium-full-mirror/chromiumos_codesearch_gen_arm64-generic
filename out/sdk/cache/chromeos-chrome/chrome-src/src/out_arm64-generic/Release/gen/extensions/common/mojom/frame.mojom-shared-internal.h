@@ -12,9 +12,11 @@
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "mojo/public/mojom/base/uuid.mojom-shared-internal.h"
 #include "extensions/common/mojom/code_injection.mojom-shared-internal.h"
+#include "extensions/common/mojom/context_type.mojom-shared-internal.h"
 #include "extensions/common/mojom/extra_response_data.mojom-shared-internal.h"
 #include "extensions/common/mojom/host_id.mojom-shared-internal.h"
 #include "extensions/common/mojom/injection_type.mojom-shared-internal.h"
+#include "extensions/common/mojom/message_port.mojom-shared-internal.h"
 #include "extensions/common/mojom/run_location.mojom-shared-internal.h"
 #include "extensions/common/mojom/stack_frame.mojom-shared-internal.h"
 #include "extensions/common/mojom/view_type.mojom-shared-internal.h"
@@ -40,38 +42,6 @@ namespace internal {
 class ExecuteCodeParams_Data;
 class RequestParams_Data;
 class DraggableRegion_Data;
-
-struct ContextType_Data {
- public:
-  static bool constexpr kIsExtensible = false;
-
-  static bool IsKnownValue(int32_t value) {
-    switch (value) {
-      case 0:
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 7:
-      case 8:
-      case 9:
-        return true;
-    }
-    return false;
-  }
-
-  static bool Validate(int32_t value,
-                       mojo::internal::ValidationContext* validation_context) {
-    if (kIsExtensible || IsKnownValue(value))
-      return true;
-
-    ReportValidationError(validation_context,
-                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
-    return false;
-  }
-};
 
 #pragma pack(push, 1)
 class  ExecuteCodeParams_Data {

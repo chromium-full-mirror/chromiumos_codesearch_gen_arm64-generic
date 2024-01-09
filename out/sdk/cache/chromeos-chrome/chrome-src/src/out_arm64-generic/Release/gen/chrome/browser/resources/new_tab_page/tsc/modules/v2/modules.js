@@ -4,10 +4,13 @@
 import 'chrome://resources/cr_elements/cr_hidden_style.css.js';
 import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/help_bubble_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { PolymerElement, templatize } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from '../../i18n_setup.js';
+import { recordOccurence as recordOccurrence } from '../../metrics_utils.js';
+import { IphFeature } from '../../new_tab_page.mojom-webui.js';
 import { NewTabPageProxy } from '../../new_tab_page_proxy.js';
 import { WindowProxy } from '../../window_proxy.js';
 import { ModuleRegistry } from '../module_registry.js';
@@ -20,8 +23,10 @@ export const SUPPORTED_MODULE_WIDTHS = [
 const CONTAINER_GAP_WIDTH = 8;
 const MARGIN_WIDTH = 48;
 const METRIC_NAME_MODULE_DISABLED = 'NewTabPage.Modules.Disabled';
+export const MODULE_CUSTOMIZE_ELEMENT_ID = 'NewTabPageUI::kModulesCustomizeIPHAnchorElement';
+const AppElementBase = HelpBubbleMixin(PolymerElement);
 /** Container for the NTP modules. */
-export class ModulesV2Element extends PolymerElement {
+export class ModulesV2Element extends AppElementBase {
     constructor() {
         super(...arguments);
         this.eventTracker_ = new EventTracker();
@@ -174,6 +179,19 @@ export class ModulesV2Element extends PolymerElement {
             chrome.metricsPrivate.recordBoolean('NewTabPage.Modules.VisibleOnNTPLoad', !this.disabledModules_.all);
             this.recordModuleLoadedWithModules_(modules);
             this.dispatchEvent(new Event('modules-loaded'));
+            if (this.templateInstances_.length > 0) {
+                this.registerHelpBubble(MODULE_CUSTOMIZE_ELEMENT_ID, [
+                    '#container',
+                    'ntp-module-wrapper',
+                    '#moduleElement',
+                ], { fixed: true });
+                // TODO(crbug.com/1494416): Currently, a period of time must elapse
+                // between the registration of the anchor element and the promo
+                // invocation, else the anchor element will not be ready for use.
+                setTimeout(() => {
+                    NewTabPageProxy.getInstance().handler.maybeShowFeaturePromo(IphFeature.kCustomizeModules);
+                }, 1000);
+            }
         }
     }
     recordModuleLoadedWithModules_(modules) {
@@ -263,13 +281,14 @@ export class ModulesV2Element extends PolymerElement {
                 () => {
                     this.$.container.insertBefore(wrapper, this.$.container.childNodes[index]);
                     restoreCallback();
-                    chrome.metricsPrivate.recordSparseValueWithPersistentHash('NewTabPage.Modules.Restored', wrapper.module.descriptor.id);
+                    recordOccurrence('NewTabPage.Modules.Restored');
+                    recordOccurrence(`NewTabPage.Modules.Restored.${wrapper.module.descriptor.id}`);
                 } :
                 undefined,
         };
         // Notify the user.
         this.$.undoToast.show();
-        chrome.metricsPrivate.recordSparseValueWithPersistentHash('NewTabPage.Modules.Dismissed', wrapper.module.descriptor.id);
+        NewTabPageProxy.getInstance().handler.onDismissModule(wrapper.module.descriptor.id);
     }
     onUndoButtonClick_() {
         if (!this.undoData_) {

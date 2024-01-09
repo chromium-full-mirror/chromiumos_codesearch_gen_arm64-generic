@@ -3,12 +3,11 @@ export function getTemplate() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">:host{--icon-width:40px}.sync-row{align-items:center;flex:auto}#profile-icon{background:center/cover no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#syncSetupRow{--cr-secondary-text-color:var(--cros-text-color-alert)}:host-context(body.jelly-enabled) #syncSetupRow{--cr-secondary-text-color:var(--cros-sys-error)}cr-link-row{--cr-link-row-icon-width:var(--icon-width);border-top:var(--cr-separator-line)}settings-parental-controls-page{--cr-link-row-icon-width:var(--icon-width)}parental-controls-settings-card{--cr-link-row-icon-width:var(--icon-width)}.icon-container{display:flex;flex-shrink:0;justify-content:center;width:40px}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
-  
   <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
     <div route-path="default">
-      <account-manager-settings-card prefs="{{prefs}}">
+      <account-manager-settings-card prefs="{{prefs}}" device-account="[[deviceAccount_]]">
       </account-manager-settings-card>
-      <additional-accounts-settings-card prefs="{{prefs}}">
+      <additional-accounts-settings-card prefs="{{prefs}}" accounts="[[accounts_]]">
       </additional-accounts-settings-card>
       <template is="dom-if" if="[[showParentalControls_]]">
         <parental-controls-settings-card prefs="{{prefs}}">

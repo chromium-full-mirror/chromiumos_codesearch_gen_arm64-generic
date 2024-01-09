@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SpeechGrammar>::value,
     "SpeechGrammar inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SpeechGrammar::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SpeechGrammar is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,13 +81,13 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechGrammar.src.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechGrammar* blink_receiver = V8SpeechGrammar::ToWrappableUnsafe(v8_receiver);
+SpeechGrammar* blink_receiver = V8SpeechGrammar::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->src(script_state);
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,12 +98,12 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechGrammar.src.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechGrammar* blink_receiver = V8SpeechGrammar::ToWrappableUnsafe(v8_receiver);
+SpeechGrammar* blink_receiver = V8SpeechGrammar::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SpeechGrammar";
@@ -129,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechGrammar.weight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechGrammar* blink_receiver = V8SpeechGrammar::ToWrappableUnsafe(v8_receiver);
+SpeechGrammar* blink_receiver = V8SpeechGrammar::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->weight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -142,9 +138,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechGrammar.weight.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechGrammar* blink_receiver = V8SpeechGrammar::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechGrammar* blink_receiver = V8SpeechGrammar::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SpeechGrammar";

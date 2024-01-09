@@ -64,8 +64,9 @@
   PermissionName.LOCAL_FONTS = 21;
   PermissionName.DISPLAY_CAPTURE = 22;
   PermissionName.TOP_LEVEL_STORAGE_ACCESS = 23;
+  PermissionName.CAPTURED_SURFACE_CONTROL = 24;
   PermissionName.MIN_VALUE = 0;
-  PermissionName.MAX_VALUE = 23;
+  PermissionName.MAX_VALUE = 24;
 
   PermissionName.isKnownEnumValue = function(value) {
     switch (value) {
@@ -93,6 +94,7 @@
     case 21:
     case 22:
     case 23:
+    case 24:
       return true;
     }
     return false;
@@ -726,6 +728,139 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
+  };
+  function PermissionService_RegisterPageEmbeddedPermissionControl_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_Params.prototype.initDefaults_ = function() {
+    this.permissions = null;
+  };
+  PermissionService_RegisterPageEmbeddedPermissionControl_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate PermissionService_RegisterPageEmbeddedPermissionControl_Params.permissions
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(PermissionDescriptor), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_Params.decode = function(decoder) {
+    var packed;
+    var val = new PermissionService_RegisterPageEmbeddedPermissionControl_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.permissions =
+        decoder.decodeArrayPointer(new codec.PointerTo(PermissionDescriptor));
+    return val;
+  };
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(PermissionService_RegisterPageEmbeddedPermissionControl_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeArrayPointer(new codec.PointerTo(PermissionDescriptor), val.permissions);
+  };
+  function PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams.prototype.initDefaults_ = function() {
+    this.allowed = false;
+    this.statuses = null;
+  };
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    // validate PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams.statuses
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 4, new codec.Enum(permission_status$.PermissionStatus), true, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams.encodedSize = codec.kStructHeaderSize + 16;
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.allowed = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.statuses =
+        decoder.decodeArrayPointer(new codec.Enum(permission_status$.PermissionStatus));
+    return val;
+  };
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.allowed & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeArrayPointer(new codec.Enum(permission_status$.PermissionStatus), val.statuses);
   };
   function PermissionService_RequestPageEmbeddedPermission_Params(values) {
     this.initDefaults_();
@@ -1719,12 +1854,13 @@
   PermissionObserverStub.prototype.validator = validatePermissionObserverRequest;
   PermissionObserverProxy.prototype.validator = null;
   var kPermissionService_HasPermission_Name = 0;
-  var kPermissionService_RequestPageEmbeddedPermission_Name = 1;
-  var kPermissionService_RequestPermission_Name = 2;
-  var kPermissionService_RequestPermissions_Name = 3;
-  var kPermissionService_RevokePermission_Name = 4;
-  var kPermissionService_AddPermissionObserver_Name = 5;
-  var kPermissionService_NotifyEventListener_Name = 6;
+  var kPermissionService_RegisterPageEmbeddedPermissionControl_Name = 1;
+  var kPermissionService_RequestPageEmbeddedPermission_Name = 2;
+  var kPermissionService_RequestPermission_Name = 3;
+  var kPermissionService_RequestPermissions_Name = 4;
+  var kPermissionService_RevokePermission_Name = 5;
+  var kPermissionService_AddPermissionObserver_Name = 6;
+  var kPermissionService_NotifyEventListener_Name = 7;
 
   function PermissionServicePtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(PermissionService,
@@ -1763,6 +1899,31 @@
         var reader = new codec.MessageReader(message);
         var responseParams =
             reader.decodeStruct(PermissionService_HasPermission_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
+  PermissionServicePtr.prototype.registerPageEmbeddedPermissionControl = function() {
+    return PermissionServiceProxy.prototype.registerPageEmbeddedPermissionControl
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  PermissionServiceProxy.prototype.registerPageEmbeddedPermissionControl = function(permissions) {
+    var params_ = new PermissionService_RegisterPageEmbeddedPermissionControl_Params();
+    params_.permissions = permissions;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kPermissionService_RegisterPageEmbeddedPermissionControl_Name,
+          codec.align(PermissionService_RegisterPageEmbeddedPermissionControl_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(PermissionService_RegisterPageEmbeddedPermissionControl_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams);
         resolve(responseParams);
       }).catch(function(result) {
         reject(Error("Connection error: " + result));
@@ -1912,6 +2073,9 @@
   PermissionServiceStub.prototype.hasPermission = function(permission) {
     return this.delegate_ && this.delegate_.hasPermission && this.delegate_.hasPermission(permission);
   }
+  PermissionServiceStub.prototype.registerPageEmbeddedPermissionControl = function(permissions) {
+    return this.delegate_ && this.delegate_.registerPageEmbeddedPermissionControl && this.delegate_.registerPageEmbeddedPermissionControl(permissions);
+  }
   PermissionServiceStub.prototype.requestPageEmbeddedPermission = function(descriptor) {
     return this.delegate_ && this.delegate_.requestPageEmbeddedPermission && this.delegate_.requestPageEmbeddedPermission(descriptor);
   }
@@ -1962,6 +2126,23 @@
             codec.align(PermissionService_HasPermission_ResponseParams.encodedSize),
             codec.kMessageIsResponse, reader.requestID);
         builder.encodeStruct(PermissionService_HasPermission_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
+    case kPermissionService_RegisterPageEmbeddedPermissionControl_Name:
+      var params = reader.decodeStruct(PermissionService_RegisterPageEmbeddedPermissionControl_Params);
+      this.registerPageEmbeddedPermissionControl(params.permissions).then(function(response) {
+        var responseParams =
+            new PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams();
+        responseParams.allowed = response.allowed;
+        responseParams.statuses = response.statuses;
+        var builder = new codec.MessageV1Builder(
+            kPermissionService_RegisterPageEmbeddedPermissionControl_Name,
+            codec.align(PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams,
                              responseParams);
         var message = builder.finish();
         responder.accept(message);
@@ -2044,6 +2225,10 @@
         if (message.expectsResponse())
           paramsClass = PermissionService_HasPermission_Params;
       break;
+      case kPermissionService_RegisterPageEmbeddedPermissionControl_Name:
+        if (message.expectsResponse())
+          paramsClass = PermissionService_RegisterPageEmbeddedPermissionControl_Params;
+      break;
       case kPermissionService_RequestPageEmbeddedPermission_Name:
         if (message.expectsResponse())
           paramsClass = PermissionService_RequestPageEmbeddedPermission_Params;
@@ -2081,6 +2266,10 @@
       case kPermissionService_HasPermission_Name:
         if (message.isResponse())
           paramsClass = PermissionService_HasPermission_ResponseParams;
+        break;
+      case kPermissionService_RegisterPageEmbeddedPermissionControl_Name:
+        if (message.isResponse())
+          paramsClass = PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams;
         break;
       case kPermissionService_RequestPageEmbeddedPermission_Name:
         if (message.isResponse())

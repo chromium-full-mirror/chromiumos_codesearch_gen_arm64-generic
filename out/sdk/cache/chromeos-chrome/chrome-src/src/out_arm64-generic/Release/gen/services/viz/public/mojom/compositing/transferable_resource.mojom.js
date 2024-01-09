@@ -109,7 +109,6 @@
     this.isBackedBySurfaceTexture = false;
     this.wantsPromotionHint = false;
     this.colorSpace = null;
-    this.colorSpaceWhenSampled = null;
     this.hdrMetadata = null;
     this.ycbcrInfo = null;
   };
@@ -127,7 +126,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 88}
+      {version: 0, numBytes: 80}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -174,27 +173,21 @@
         return err;
 
 
-    // validate TransferableResource.colorSpaceWhenSampled
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 56, color_space$.ColorSpace, true);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate TransferableResource.hdrMetadata
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 64, hdr_metadata$.HDRMetadata, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 56, hdr_metadata$.HDRMetadata, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate TransferableResource.ycbcrInfo
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 72, vulkan_ycbcr_info$.VulkanYCbCrInfo, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 64, vulkan_ycbcr_info$.VulkanYCbCrInfo, true);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  TransferableResource.encodedSize = codec.kStructHeaderSize + 80;
+  TransferableResource.encodedSize = codec.kStructHeaderSize + 72;
 
   TransferableResource.decode = function(decoder) {
     var packed;
@@ -220,8 +213,6 @@
     decoder.skip(1);
     decoder.skip(1);
     val.colorSpace =
-        decoder.decodeStructPointer(color_space$.ColorSpace);
-    val.colorSpaceWhenSampled =
         decoder.decodeStructPointer(color_space$.ColorSpace);
     val.hdrMetadata =
         decoder.decodeStructPointer(hdr_metadata$.HDRMetadata);
@@ -249,7 +240,6 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStructPointer(color_space$.ColorSpace, val.colorSpace);
-    encoder.encodeStructPointer(color_space$.ColorSpace, val.colorSpaceWhenSampled);
     encoder.encodeStructPointer(hdr_metadata$.HDRMetadata, val.hdrMetadata);
     encoder.encodeStructPointer(vulkan_ycbcr_info$.VulkanYCbCrInfo, val.ycbcrInfo);
   };

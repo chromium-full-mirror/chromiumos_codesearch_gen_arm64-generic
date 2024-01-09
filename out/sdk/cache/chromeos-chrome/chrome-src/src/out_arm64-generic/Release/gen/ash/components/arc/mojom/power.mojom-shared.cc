@@ -99,6 +99,32 @@ std::ostream& operator<<(std::ostream& os, WakefulnessMode value) {
   return os << WakefulnessModeToString(value);
 }
 
+NOINLINE static const char* IdleStateToStringHelper(IdleState value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case IdleState::ACTIVE:
+      return "ACTIVE";
+    case IdleState::INACTIVE:
+      return "INACTIVE";
+    case IdleState::FORCE_INACTIVE:
+      return "FORCE_INACTIVE";
+    default:
+      return nullptr;
+  }
+}
+
+std::string IdleStateToString(IdleState value) {
+  const char *str = IdleStateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown IdleState value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, IdleState value) {
+  return os << IdleStateToString(value);
+}
+
 namespace internal {
 
 
@@ -443,7 +469,7 @@ PowerInstance_Init_ResponseParams_Data::PowerInstance_Init_ResponseParams_Data()
 
 
 // static
-bool PowerInstance_SetInteractive_Params_Data::Validate(
+bool PowerInstance_SetInteractiveDeprecated_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -455,13 +481,13 @@ bool PowerInstance_SetInteractive_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PowerInstance_SetInteractive_Params_Data* object =
-      static_cast<const PowerInstance_SetInteractive_Params_Data*>(data);
+  [[maybe_unused]] const PowerInstance_SetInteractiveDeprecated_Params_Data* object =
+      static_cast<const PowerInstance_SetInteractiveDeprecated_Params_Data*>(data);
 
   return true;
 }
 
-PowerInstance_SetInteractive_Params_Data::PowerInstance_SetInteractive_Params_Data()
+PowerInstance_SetInteractiveDeprecated_Params_Data::PowerInstance_SetInteractiveDeprecated_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -688,6 +714,34 @@ bool PowerInstance_OnBatterySaverModeStateChanged_Params_Data::Validate(
 PowerInstance_OnBatterySaverModeStateChanged_Params_Data::PowerInstance_OnBatterySaverModeStateChanged_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool PowerInstance_SetIdleState_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PowerInstance_SetIdleState_Params_Data* object =
+      static_cast<const PowerInstance_SetIdleState_Params_Data*>(data);
+
+
+  if (!::arc::mojom::internal::IdleState_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+PowerInstance_SetIdleState_Params_Data::PowerInstance_SetIdleState_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace arc
@@ -718,6 +772,16 @@ namespace perfetto {
 void TraceFormatTraits<::arc::mojom::WakefulnessMode>::WriteIntoTrace(
    perfetto::TracedValue context, ::arc::mojom::WakefulnessMode value) {
   return std::move(context).WriteString(::arc::mojom::WakefulnessModeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::arc::mojom::IdleState>::WriteIntoTrace(
+   perfetto::TracedValue context, ::arc::mojom::IdleState value) {
+  return std::move(context).WriteString(::arc::mojom::IdleStateToString(value));
 }
 
 } // namespace perfetto

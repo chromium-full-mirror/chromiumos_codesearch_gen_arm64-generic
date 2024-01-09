@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -79,7 +80,7 @@ FirstPartySetEntry::FirstPartySetEntry()
 FirstPartySetEntry::FirstPartySetEntry(
     const ::net::SchemefulSite& primary_in,
     ::net::SiteType site_type_in,
-    const absl::optional<::net::FirstPartySetEntry::SiteIndex>& site_index_in)
+    const std::optional<::net::FirstPartySetEntry::SiteIndex>& site_index_in)
     : primary(std::move(primary_in)),
       site_type(std::move(site_type_in)),
       site_index(std::move(site_index_in)) {}
@@ -111,7 +112,7 @@ void FirstPartySetEntry::WriteIntoTrace(
     dict.AddItem(
       "site_index"), this->site_index,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::FirstPartySetEntry::SiteIndex>&>"
+      "<value of type const std::optional<::net::FirstPartySetEntry::SiteIndex>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -128,8 +129,8 @@ FirstPartySetMetadata::FirstPartySetMetadata()
       top_frame_entry() {}
 
 FirstPartySetMetadata::FirstPartySetMetadata(
-    const absl::optional<::net::FirstPartySetEntry>& frame_entry_in,
-    const absl::optional<::net::FirstPartySetEntry>& top_frame_entry_in)
+    const std::optional<::net::FirstPartySetEntry>& frame_entry_in,
+    const std::optional<::net::FirstPartySetEntry>& top_frame_entry_in)
     : frame_entry(std::move(frame_entry_in)),
       top_frame_entry(std::move(top_frame_entry_in)) {}
 
@@ -142,7 +143,7 @@ void FirstPartySetMetadata::WriteIntoTrace(
     dict.AddItem(
       "frame_entry"), this->frame_entry,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::FirstPartySetEntry>&>"
+      "<value of type const std::optional<::net::FirstPartySetEntry>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -151,7 +152,7 @@ void FirstPartySetMetadata::WriteIntoTrace(
     dict.AddItem(
       "top_frame_entry"), this->top_frame_entry,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::FirstPartySetEntry>&>"
+      "<value of type const std::optional<::net::FirstPartySetEntry>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -167,7 +168,7 @@ FirstPartySetEntryOverride::FirstPartySetEntryOverride()
     : entry() {}
 
 FirstPartySetEntryOverride::FirstPartySetEntryOverride(
-    const absl::optional<::net::FirstPartySetEntry>& entry_in)
+    const std::optional<::net::FirstPartySetEntry>& entry_in)
     : entry(std::move(entry_in)) {}
 
 FirstPartySetEntryOverride::~FirstPartySetEntryOverride() = default;
@@ -179,7 +180,7 @@ void FirstPartySetEntryOverride::WriteIntoTrace(
     dict.AddItem(
       "entry"), this->entry,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::FirstPartySetEntry>&>"
+      "<value of type const std::optional<::net::FirstPartySetEntry>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -263,17 +264,20 @@ GlobalFirstPartySets::GlobalFirstPartySets()
     : public_sets_version(),
       sets(),
       aliases(),
-      manual_config() {}
+      manual_config(),
+      manual_aliases() {}
 
 GlobalFirstPartySets::GlobalFirstPartySets(
     const ::base::Version& public_sets_version_in,
     const base::flat_map<::net::SchemefulSite, ::net::FirstPartySetEntry>& sets_in,
     const base::flat_map<::net::SchemefulSite, ::net::SchemefulSite>& aliases_in,
-    ::net::FirstPartySetsContextConfig manual_config_in)
+    ::net::FirstPartySetsContextConfig manual_config_in,
+    const base::flat_map<::net::SchemefulSite, ::net::SchemefulSite>& manual_aliases_in)
     : public_sets_version(std::move(public_sets_version_in)),
       sets(std::move(sets_in)),
       aliases(std::move(aliases_in)),
-      manual_config(std::move(manual_config_in)) {}
+      manual_config(std::move(manual_config_in)),
+      manual_aliases(std::move(manual_aliases_in)) {}
 
 GlobalFirstPartySets::~GlobalFirstPartySets() = default;
 
@@ -312,6 +316,15 @@ void GlobalFirstPartySets::WriteIntoTrace(
       "manual_config"), this->manual_config,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::net::FirstPartySetsContextConfig>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "manual_aliases"), this->manual_aliases,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const base::flat_map<::net::SchemefulSite, ::net::SchemefulSite>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -437,6 +450,8 @@ bool StructTraits<::network::mojom::GlobalFirstPartySets::DataView, ::network::m
       if (success && !input.ReadAliases(&result->aliases))
         success = false;
       if (success && !input.ReadManualConfig(&result->manual_config))
+        success = false;
+      if (success && !input.ReadManualAliases(&result->manual_aliases))
         success = false;
   *output = std::move(result);
   return success;

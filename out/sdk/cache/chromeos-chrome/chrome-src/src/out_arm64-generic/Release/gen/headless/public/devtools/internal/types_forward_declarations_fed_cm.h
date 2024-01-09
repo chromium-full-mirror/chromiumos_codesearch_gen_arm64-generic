@@ -19,13 +19,14 @@ class DisableParams;
 class DisableResult;
 class SelectAccountParams;
 class SelectAccountResult;
-class ConfirmIdpLoginParams;
-class ConfirmIdpLoginResult;
+class ClickDialogButtonParams;
+class ClickDialogButtonResult;
 class DismissDialogParams;
 class DismissDialogResult;
 class ResetCooldownParams;
 class ResetCooldownResult;
 class DialogShownParams;
+class DialogClosedParams;
 
 enum class LoginState {
   SIGN_IN,
@@ -35,7 +36,14 @@ enum class LoginState {
 enum class DialogType {
   ACCOUNT_CHOOSER,
   AUTO_REAUTHN,
-  CONFIRM_IDP_LOGIN
+  CONFIRM_IDP_LOGIN,
+  ERROR
+};
+
+enum class DialogButton {
+  CONFIRM_IDP_LOGIN_CONTINUE,
+  ERROR_GOT_IT,
+  ERROR_MORE_DETAILS
 };
 
 }  // namespace fed_cm

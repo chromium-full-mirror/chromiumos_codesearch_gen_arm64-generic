@@ -56,6 +56,9 @@ struct TriggerRegistrationError_Data {
       case 33:
       case 34:
       case 35:
+      case 36:
+      case 37:
+      case 38:
         return true;
     }
     return false;

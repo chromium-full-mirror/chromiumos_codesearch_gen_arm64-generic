@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform/audiotest",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/audiotest-0.0.1-r125/work/audiotest-0.0.1"
-    }
-  ]
-}

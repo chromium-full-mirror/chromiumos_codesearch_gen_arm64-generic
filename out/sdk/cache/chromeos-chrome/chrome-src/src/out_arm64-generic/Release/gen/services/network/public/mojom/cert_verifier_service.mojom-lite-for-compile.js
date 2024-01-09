@@ -487,6 +487,193 @@ certVerifier.mojom.CertVerifierServiceCallbackRouter = class {
 };
 
 
+goog.provide('certVerifier.mojom.CertVerifierServiceUpdater');
+goog.provide('certVerifier.mojom.CertVerifierServiceUpdaterReceiver');
+goog.provide('certVerifier.mojom.CertVerifierServiceUpdaterCallbackRouter');
+goog.provide('certVerifier.mojom.CertVerifierServiceUpdaterInterface');
+goog.provide('certVerifier.mojom.CertVerifierServiceUpdaterRemote');
+goog.provide('certVerifier.mojom.CertVerifierServiceUpdaterPendingReceiver');
+
+
+/**
+ * @implements {mojo.internal.interfaceSupport.PendingReceiver}
+ * @export
+ */
+certVerifier.mojom.CertVerifierServiceUpdaterPendingReceiver = class {
+  /**
+   * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
+   */
+  constructor(handle) {
+    /** @public {!mojo.internal.interfaceSupport.Endpoint} */
+    this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+  }
+
+  /** @param {string=} scope */
+  bindInBrowser(scope = 'context') {
+    mojo.internal.interfaceSupport.bind(
+        this.handle,
+        certVerifier.mojom.CertVerifierServiceUpdater.$interfaceName,
+        scope);
+  }
+};
+
+/** @interface */
+certVerifier.mojom.CertVerifierServiceUpdaterInterface = class {
+  
+  /**
+   * @param { !certVerifier.mojom.AdditionalCertificates } certificates
+   */
+
+  updateAdditionalCertificates(certificates) {}
+};
+
+/**
+ * @export
+ * @implements { certVerifier.mojom.CertVerifierServiceUpdaterInterface }
+ */
+certVerifier.mojom.CertVerifierServiceUpdaterRemote = class {
+  /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
+  constructor(handle = undefined) {
+    /**
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!certVerifier.mojom.CertVerifierServiceUpdaterPendingReceiver>}
+     */
+    this.proxy =
+        new mojo.internal.interfaceSupport.InterfaceRemoteBase(
+          certVerifier.mojom.CertVerifierServiceUpdaterPendingReceiver,
+          handle);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!certVerifier.mojom.CertVerifierServiceUpdaterPendingReceiver>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+  }
+
+  
+  /**
+   * @param { !certVerifier.mojom.AdditionalCertificates } certificates
+   */
+
+  updateAdditionalCertificates(
+      certificates) {
+    this.proxy.sendMessage(
+        0,
+        certVerifier.mojom.CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsSpec.$,
+        null,
+        [
+          certificates
+        ]);
+  }
+};
+
+/**
+ * An object which receives request messages for the CertVerifierServiceUpdater
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ *
+ * @export
+ */
+certVerifier.mojom.CertVerifierServiceUpdaterReceiver = class {
+  /**
+   * @param {!certVerifier.mojom.CertVerifierServiceUpdaterInterface } impl
+   */
+  constructor(impl) {
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!certVerifier.mojom.CertVerifierServiceUpdaterRemote>} */
+    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
+        certVerifier.mojom.CertVerifierServiceUpdaterRemote);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!certVerifier.mojom.CertVerifierServiceUpdaterRemote>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+
+
+    this.helper_internal_.registerHandler(
+        0,
+        certVerifier.mojom.CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsSpec.$,
+        null,
+        impl.updateAdditionalCertificates.bind(impl));
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+  }
+};
+
+/**
+ *  @export
+ */
+certVerifier.mojom.CertVerifierServiceUpdater = class {
+  /**
+   * @return {!string}
+   */
+  static get $interfaceName() {
+    return "cert_verifier.mojom.CertVerifierServiceUpdater";
+  }
+
+  /**
+   * Returns a remote for this interface which sends messages to the browser.
+   * The browser must have an interface request binder registered for this
+   * interface and accessible to the calling document's frame.
+   *
+   * @return {!certVerifier.mojom.CertVerifierServiceUpdaterRemote}
+   * @export
+   */
+  static getRemote() {
+    let remote = new certVerifier.mojom.CertVerifierServiceUpdaterRemote;
+    remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+    return remote;
+  }
+};
+
+
+/**
+ * An object which receives request messages for the CertVerifierServiceUpdater
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ *
+ * @export
+ */
+certVerifier.mojom.CertVerifierServiceUpdaterCallbackRouter = class {
+  constructor() {
+    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
+      certVerifier.mojom.CertVerifierServiceUpdaterRemote);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!certVerifier.mojom.CertVerifierServiceUpdaterRemote>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+
+    this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.updateAdditionalCertificates =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        certVerifier.mojom.CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsSpec.$,
+        null,
+        this.updateAdditionalCertificates.createReceiverHandler(false /* expectsResponse */));
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+  }
+
+  /**
+   * @param {number} id An ID returned by a prior call to addListener.
+   * @return {boolean} True iff the identified listener was found and removed.
+   * @export
+   */
+  removeListener(id) {
+    return this.router_.removeListener(id);
+  }
+};
+
+
 goog.provide('certVerifier.mojom.CertVerifierServiceClient');
 goog.provide('certVerifier.mojom.CertVerifierServiceClientReceiver');
 goog.provide('certVerifier.mojom.CertVerifierServiceClientCallbackRouter');
@@ -877,6 +1064,14 @@ goog.provide('certVerifier.mojom.CertVerifierConfigSpec');
 certVerifier.mojom.CertVerifierConfigSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('certVerifier.mojom.AdditionalCertificatesSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+certVerifier.mojom.AdditionalCertificatesSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('certVerifier.mojom.URLLoaderFactoryConnector_CreateURLLoaderFactory_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -907,6 +1102,14 @@ goog.provide('certVerifier.mojom.CertVerifierService_SetConfig_ParamsSpec');
  * @export
  */
 certVerifier.mojom.CertVerifierService_SetConfig_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('certVerifier.mojom.CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+certVerifier.mojom.CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('certVerifier.mojom.CertVerifierServiceClient_OnCertVerifierChanged_ParamsSpec');
@@ -1033,24 +1236,8 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
-      mojo.internal.StructField(
-        'additionalTrustAnchors', 8,
-        0,
-        mojo.internal.Array(network.mojom.X509CertificateSpec.$, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'additionalUntrustedAuthorities', 16,
-        0,
-        mojo.internal.Array(network.mojom.X509CertificateSpec.$, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
     ],
-    [[0, 32],]);
+    [[0, 16],]);
 
 
 
@@ -1067,10 +1254,55 @@ certVerifier.mojom.CertVerifierConfig = class {
     this.enableSha1LocalAnchors;
     /** @export { !boolean } */
     this.disableSymantecEnforcement;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    certVerifier.mojom.AdditionalCertificatesSpec.$,
+    'AdditionalCertificates',
+    [
+      mojo.internal.StructField(
+        'allCertificates', 0,
+        0,
+        mojo.internal.Array(network.mojom.X509CertificateSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'trustAnchors', 8,
+        0,
+        mojo.internal.Array(network.mojom.X509CertificateSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'distrustedSpkis', 16,
+        0,
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+goog.provide('certVerifier.mojom.AdditionalCertificates');
+
+/** @record */
+certVerifier.mojom.AdditionalCertificates = class {
+  constructor() {
     /** @export { !Array<!network.mojom.X509Certificate> } */
-    this.additionalTrustAnchors;
+    this.allCertificates;
     /** @export { !Array<!network.mojom.X509Certificate> } */
-    this.additionalUntrustedAuthorities;
+    this.trustAnchors;
+    /** @export { !Array<!Array<!number>> } */
+    this.distrustedSpkis;
   }
 };
 
@@ -1217,6 +1449,35 @@ certVerifier.mojom.CertVerifierService_SetConfig_Params = class {
   constructor() {
     /** @export { !certVerifier.mojom.CertVerifierConfig } */
     this.config;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    certVerifier.mojom.CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsSpec.$,
+    'CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params',
+    [
+      mojo.internal.StructField(
+        'certificates', 0,
+        0,
+        certVerifier.mojom.AdditionalCertificatesSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('certVerifier.mojom.CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params');
+
+/** @record */
+certVerifier.mojom.CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params = class {
+  constructor() {
+    /** @export { !certVerifier.mojom.AdditionalCertificates } */
+    this.certificates;
   }
 };
 

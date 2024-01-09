@@ -34,17 +34,11 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/p2p/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/p2p/all.stamp: stamp ./libp2p-client.a ./libp2p-http-server.a ./libp2p-server.a ./libp2p-util.a ./p2p-client ./p2p-http-server ./p2p-server ./libp2p-testutil.a ./p2p-client-unittests ./p2p-common-unittests ./p2p-http-server-unittests ./p2p-server-unittests
+build obj/p2p/all.stamp: stamp ./libp2p-client.a ./libp2p-http-server.a ./libp2p-server.a ./libp2p-util.a ./p2p-client ./p2p-http-server ./p2p-server
 subninja obj/p2p/libp2p-client.ninja
 subninja obj/p2p/libp2p-http-server.ninja
 subninja obj/p2p/libp2p-server.ninja
-subninja obj/p2p/libp2p-testutil.ninja
 subninja obj/p2p/libp2p-util.ninja
 subninja obj/p2p/p2p-client.ninja
-subninja obj/p2p/p2p-client-unittests.ninja
-subninja obj/p2p/p2p-common-unittests.ninja
 subninja obj/p2p/p2p-http-server.ninja
-subninja obj/p2p/p2p-http-server-unittests.ninja
 subninja obj/p2p/p2p-server.ninja
-subninja obj/p2p/p2p-server-unittests.ninja

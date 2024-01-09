@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/shimless_rma/mojom/shimless_rma.mojom-features.h"
 #include "ash/webui/shimless_rma/mojom/shimless_rma.mojom-shared.h"
 #include "ash/webui/shimless_rma/mojom/shimless_rma.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -859,7 +860,7 @@ class ShimlessRmaService
   virtual void NetworkSelectionComplete(NetworkSelectionCompleteCallback callback) = 0;
 
 
-  using GetCurrentOsVersionCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetCurrentOsVersionCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetCurrentOsVersion(GetCurrentOsVersionCallback callback) = 0;
 
@@ -1115,12 +1116,12 @@ class ShimlessRmaService
   virtual void CriticalErrorReboot(CriticalErrorRebootCallback callback) = 0;
 
 
-  using Get3pDiagnosticsProviderCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using Get3pDiagnosticsProviderCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void Get3pDiagnosticsProvider(Get3pDiagnosticsProviderCallback callback) = 0;
 
 
-  using GetInstallable3pDiagnosticsAppPathCallback = base::OnceCallback<void(const absl::optional<::base::FilePath>&)>;
+  using GetInstallable3pDiagnosticsAppPathCallback = base::OnceCallback<void(const std::optional<::base::FilePath>&)>;
   
   virtual void GetInstallable3pDiagnosticsAppPath(GetInstallable3pDiagnosticsAppPathCallback callback) = 0;
 
@@ -2454,7 +2455,7 @@ class  Shimless3pDiagnosticsAppInfo {
 
   Shimless3pDiagnosticsAppInfo(
       const std::string& name,
-      const absl::optional<std::string>& permission_message);
+      const std::optional<std::string>& permission_message);
 
 
   ~Shimless3pDiagnosticsAppInfo();
@@ -2534,7 +2535,7 @@ class  Shimless3pDiagnosticsAppInfo {
   
   std::string name;
   
-  absl::optional<std::string> permission_message;
+  std::optional<std::string> permission_message;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

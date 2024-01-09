@@ -10,6 +10,7 @@ pub trait OrgChromiumUserDataAuthInterface {
     fn remove(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn get_web_authn_secret(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn get_web_authn_secret_hash(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
+    fn get_recoverable_key_stores(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn get_hibernate_secret(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn get_encryption_info(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn start_migrate_to_dircrypto(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
@@ -188,6 +189,126 @@ impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceAuthenticateA
     const INTERFACE: &'static str = "org.chromium.UserDataAuthInterface";
 }
 
+#[derive(Debug)]
+pub struct OrgChromiumUserDataAuthInterfaceAuthFactorAdded {
+    pub status: Vec<u8>,
+}
+
+impl arg::AppendAll for OrgChromiumUserDataAuthInterfaceAuthFactorAdded {
+    fn append(&self, i: &mut arg::IterAppend) {
+        arg::RefArg::append(&self.status, i);
+    }
+}
+
+impl arg::ReadAll for OrgChromiumUserDataAuthInterfaceAuthFactorAdded {
+    fn read(i: &mut arg::Iter) -> Result<Self, arg::TypeMismatchError> {
+        Ok(OrgChromiumUserDataAuthInterfaceAuthFactorAdded {
+            status: i.read()?,
+        })
+    }
+}
+
+impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceAuthFactorAdded {
+    const NAME: &'static str = "AuthFactorAdded";
+    const INTERFACE: &'static str = "org.chromium.UserDataAuthInterface";
+}
+
+#[derive(Debug)]
+pub struct OrgChromiumUserDataAuthInterfaceAuthFactorRemoved {
+    pub status: Vec<u8>,
+}
+
+impl arg::AppendAll for OrgChromiumUserDataAuthInterfaceAuthFactorRemoved {
+    fn append(&self, i: &mut arg::IterAppend) {
+        arg::RefArg::append(&self.status, i);
+    }
+}
+
+impl arg::ReadAll for OrgChromiumUserDataAuthInterfaceAuthFactorRemoved {
+    fn read(i: &mut arg::Iter) -> Result<Self, arg::TypeMismatchError> {
+        Ok(OrgChromiumUserDataAuthInterfaceAuthFactorRemoved {
+            status: i.read()?,
+        })
+    }
+}
+
+impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceAuthFactorRemoved {
+    const NAME: &'static str = "AuthFactorRemoved";
+    const INTERFACE: &'static str = "org.chromium.UserDataAuthInterface";
+}
+
+#[derive(Debug)]
+pub struct OrgChromiumUserDataAuthInterfaceAuthFactorUpdated {
+    pub status: Vec<u8>,
+}
+
+impl arg::AppendAll for OrgChromiumUserDataAuthInterfaceAuthFactorUpdated {
+    fn append(&self, i: &mut arg::IterAppend) {
+        arg::RefArg::append(&self.status, i);
+    }
+}
+
+impl arg::ReadAll for OrgChromiumUserDataAuthInterfaceAuthFactorUpdated {
+    fn read(i: &mut arg::Iter) -> Result<Self, arg::TypeMismatchError> {
+        Ok(OrgChromiumUserDataAuthInterfaceAuthFactorUpdated {
+            status: i.read()?,
+        })
+    }
+}
+
+impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceAuthFactorUpdated {
+    const NAME: &'static str = "AuthFactorUpdated";
+    const INTERFACE: &'static str = "org.chromium.UserDataAuthInterface";
+}
+
+#[derive(Debug)]
+pub struct OrgChromiumUserDataAuthInterfaceAuthSessionExpiring {
+    pub status: Vec<u8>,
+}
+
+impl arg::AppendAll for OrgChromiumUserDataAuthInterfaceAuthSessionExpiring {
+    fn append(&self, i: &mut arg::IterAppend) {
+        arg::RefArg::append(&self.status, i);
+    }
+}
+
+impl arg::ReadAll for OrgChromiumUserDataAuthInterfaceAuthSessionExpiring {
+    fn read(i: &mut arg::Iter) -> Result<Self, arg::TypeMismatchError> {
+        Ok(OrgChromiumUserDataAuthInterfaceAuthSessionExpiring {
+            status: i.read()?,
+        })
+    }
+}
+
+impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceAuthSessionExpiring {
+    const NAME: &'static str = "AuthSessionExpiring";
+    const INTERFACE: &'static str = "org.chromium.UserDataAuthInterface";
+}
+
+#[derive(Debug)]
+pub struct OrgChromiumUserDataAuthInterfaceEvictedKeyRestored {
+    pub status: Vec<u8>,
+}
+
+impl arg::AppendAll for OrgChromiumUserDataAuthInterfaceEvictedKeyRestored {
+    fn append(&self, i: &mut arg::IterAppend) {
+        arg::RefArg::append(&self.status, i);
+    }
+}
+
+impl arg::ReadAll for OrgChromiumUserDataAuthInterfaceEvictedKeyRestored {
+    fn read(i: &mut arg::Iter) -> Result<Self, arg::TypeMismatchError> {
+        Ok(OrgChromiumUserDataAuthInterfaceEvictedKeyRestored {
+            status: i.read()?,
+        })
+    }
+}
+
+impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceEvictedKeyRestored {
+    const NAME: &'static str = "EvictedKeyRestored";
+    const INTERFACE: &'static str = "org.chromium.UserDataAuthInterface";
+}
+
 impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiumUserDataAuthInterface for blocking::Proxy<'a, C> {
 
     fn is_mounted(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error> {
@@ -212,6 +333,11 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
 
     fn get_web_authn_secret_hash(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error> {
         self.method_call("org.chromium.UserDataAuthInterface", "GetWebAuthnSecretHash", (request, ))
+            .and_then(|r: (Vec<u8>, )| Ok(r.0, ))
+    }
+
+    fn get_recoverable_key_stores(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error> {
+        self.method_call("org.chromium.UserDataAuthInterface", "GetRecoverableKeyStores", (request, ))
             .and_then(|r: (Vec<u8>, )| Ok(r.0, ))
     }
 

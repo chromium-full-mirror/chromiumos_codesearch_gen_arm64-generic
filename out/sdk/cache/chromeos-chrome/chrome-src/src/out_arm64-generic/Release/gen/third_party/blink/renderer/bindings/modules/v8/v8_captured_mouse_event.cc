@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CapturedMouseEvent>::value,
     "CapturedMouseEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CapturedMouseEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CapturedMouseEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("CapturedMouseEvent.surfaceX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CapturedMouseEvent* blink_receiver = V8CapturedMouseEvent::ToWrappableUnsafe(v8_receiver);
+CapturedMouseEvent* blink_receiver = V8CapturedMouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->surfaceX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("CapturedMouseEvent.surfaceY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CapturedMouseEvent* blink_receiver = V8CapturedMouseEvent::ToWrappableUnsafe(v8_receiver);
+CapturedMouseEvent* blink_receiver = V8CapturedMouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->surfaceY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -115,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("CapturedMouseEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CapturedMouseEvent* blink_receiver = V8CapturedMouseEvent::ToWrappableUnsafe(v8_receiver);
+CapturedMouseEvent* blink_receiver = V8CapturedMouseEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

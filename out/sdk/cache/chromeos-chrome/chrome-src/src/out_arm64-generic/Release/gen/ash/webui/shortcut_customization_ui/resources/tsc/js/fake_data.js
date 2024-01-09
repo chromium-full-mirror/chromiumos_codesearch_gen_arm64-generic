@@ -394,7 +394,7 @@ export const TakeScreenshotSearchResult = {
             locked: false,
             layoutProperties: {
                 standardAccelerator: {
-                    keyDisplay: stringToMojoString16('LaunchApplication1'),
+                    keyDisplay: stringToMojoString16('LaunchApplication1'), // overview
                     accelerator: {
                         modifiers: Modifier.CONTROL,
                         keyCode: 0,
@@ -411,7 +411,7 @@ export const TakeScreenshotSearchResult = {
             locked: false,
             layoutProperties: {
                 standardAccelerator: {
-                    keyDisplay: stringToMojoString16('PrintScreen'),
+                    keyDisplay: stringToMojoString16('PrintScreen'), // screenshot
                     accelerator: {
                         modifiers: 0,
                         keyCode: 0,

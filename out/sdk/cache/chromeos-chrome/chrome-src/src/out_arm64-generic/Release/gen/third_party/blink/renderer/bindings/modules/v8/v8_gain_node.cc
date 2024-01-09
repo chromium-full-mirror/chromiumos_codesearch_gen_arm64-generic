@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GainNode>::value,
     "GainNode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GainNode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GainNode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("GainNode.gain.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GainNode* blink_receiver = V8GainNode::ToWrappableUnsafe(v8_receiver);
+GainNode* blink_receiver = V8GainNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->gain();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

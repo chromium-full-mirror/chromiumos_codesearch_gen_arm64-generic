@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2009 Red Hat, Inc.
+ * Copyright (C) 2010-2020 Red Hat, Inc.
  *
  * Author: Steven Dake <sdake@redhat.com>,
  *         Angus Salkeld <asalkeld@redhat.com>
@@ -29,11 +29,11 @@ extern "C" {
 #endif
 /* *INDENT-ON* */
 
-#include <stdlib.h>
-#include <sys/uio.h>
-#include <qb/qbipc_common.h>
-#include <qb/qbhdb.h>
-#include <qb/qbloop.h>
+#include <sys/types.h>  /* size_t, ssize_t */
+#include <sys/uio.h>  /* iovec */
+
+#include <qb/qbipc_common.h>  /* qb_ipc_type */
+#include <qb/qbloop.h> /* qb_loop_priority */
 
 /**
  * @file qbipcs.h
@@ -43,6 +43,12 @@ extern "C" {
  * @example ipcserver.c
  */
 
+/**
+ * Rates to be passed to #qb_ipcs_request_rate_limit.  The exact interpretation
+ * depends on how the event loop implementation understands the concept of
+ * priorities, see the discussion at #qb_ipcs_poll_handlers structure -- an
+ * integration point between IPC server instance and the underlying event loop.
+ */
 enum qb_ipcs_rate_limit {
 	QB_IPCS_RATE_FAST,
 	QB_IPCS_RATE_NORMAL,
@@ -104,6 +110,22 @@ typedef int32_t (*qb_ipcs_job_add_fn)(enum qb_loop_priority p,
 				      void *data,
 				      qb_loop_job_dispatch_fn dispatch_fn);
 
+/*
+ * A set of callbacks that need to be provided (only #job_add can be #NULL)
+ * whenever the IPC server is to be run (by the means of #qb_ipcs_run).
+ * It is possible to use accordingly named functions defined in qbloop.h module
+ * or integrate with other existing (like GLib's event loop) or entirely new
+ * code -- see the subtle distinction amongst the possible event loops pointed
+ * out in the introductory comment at qbloop.h.
+ *
+ * At that occasion, please note the correlation of #QB_IPCS_RATE_FAST etc.
+ * symbolic names with said advisory effect of the priorities in the native
+ * implementation.  This correspondence will not be this intuitively seemless
+ * if some other event loop implementation is hooked in given that it abids
+ * them strictly as mentioned (e.g. GLib's event loop over poll'able sources).
+ * Differences between the two paradigms should also be accounted for when
+ * the requirement to swap the event loop implementations arises.
+ */
 struct qb_ipcs_poll_handlers {
 	qb_ipcs_job_add_fn job_add;
 	qb_ipcs_dispatch_add_fn dispatch_add;
@@ -114,7 +136,7 @@ struct qb_ipcs_poll_handlers {
 /**
  * This callback is to check whether you want to accept a new connection.
  *
- * The type of checks you should do are authentication, service availabilty
+ * The type of checks you should do are authentication, service availability
  * or process resource constraints. 
  * @return 0 to accept or -errno to indicate a failure (sent back to the client)
  *
@@ -141,7 +163,11 @@ typedef void (*qb_ipcs_connection_created_fn) (qb_ipcs_connection_t *c);
  * @note This callback will only be invoked if the connection is
  * successfully created.
  * @note if you return anything but 0 this function will be
- * repeativily called (until 0 is returned).
+ * repeatedly called (until 0 is returned).
+ *
+ * With SHM connections libqb will briefly trap SIGBUS during the
+ * disconnect process to guard against server crashes if the mapped
+ * file is truncated. The signal will be restored afterwards.
  */
 typedef int32_t (*qb_ipcs_connection_closed_fn) (qb_ipcs_connection_t *c);
 
@@ -278,7 +304,7 @@ ssize_t qb_ipcs_response_sendv(qb_ipcs_connection_t *c,
 			       const struct iovec * iov, size_t iov_len);
 
 /**
- * Send an asyncronous event message to the client.
+ * Send an asynchronous event message to the client.
  *
  * @param c connection instance
  * @param data the message to send
@@ -297,7 +323,7 @@ ssize_t qb_ipcs_event_send(qb_ipcs_connection_t *c, const void *data,
 			   size_t size);
 
 /**
- * Send an asyncronous event message to the client.
+ * Send an asynchronous event message to the client.
  *
  * @param c connection instance
  * @param iov the iovec struct that points to the message to send

@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/libpasswordprovider-0.0.1-r745/work/libpasswordprovider-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -20,19 +20,13 @@ subninja toolchain.ninja
 
 build libpasswordprovider: phony ./lib/libpasswordprovider.so
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build libpasswordprovider$:all: phony obj/libpasswordprovider/all.stamp
 build libpasswordprovider$:libpasswordprovider: phony ./lib/libpasswordprovider.so
-build libpasswordprovider$:password_provider_test: phony ./password_provider_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/libpasswordprovider/all.stamp $
-    ./lib/libpasswordprovider.so $
-    ./password_provider_test
+    ./lib/libpasswordprovider.so
 
 default all

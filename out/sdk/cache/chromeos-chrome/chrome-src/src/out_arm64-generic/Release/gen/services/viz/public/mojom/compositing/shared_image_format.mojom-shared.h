@@ -87,8 +87,12 @@ inline bool IsKnownEnumValue(PlaneConfig value) {
 enum class Subsampling : int32_t {
   
   k420 = 0,
+  
+  k422 = 1,
+  
+  k444 = 2,
   kMinValue = 0,
-  kMaxValue = 0,
+  kMaxValue = 2,
 };
 
  std::ostream& operator<<(std::ostream& os, Subsampling value);

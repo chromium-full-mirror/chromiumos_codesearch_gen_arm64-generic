@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -43,6 +44,1281 @@
 
 
 namespace crosapi::mojom {
+ScannerInfo::ScannerInfo()
+    : id(),
+      display_name(),
+      manufacturer(),
+      model(),
+      device_uuid(),
+      connection_type(),
+      secure(),
+      image_formats() {}
+
+ScannerInfo::ScannerInfo(
+    const std::string& id_in,
+    const std::string& display_name_in,
+    const std::string& manufacturer_in,
+    const std::string& model_in,
+    const std::string& device_uuid_in,
+    ScannerInfo::ConnectionType connection_type_in,
+    bool secure_in,
+    std::vector<std::string> image_formats_in)
+    : id(std::move(id_in)),
+      display_name(std::move(display_name_in)),
+      manufacturer(std::move(manufacturer_in)),
+      model(std::move(model_in)),
+      device_uuid(std::move(device_uuid_in)),
+      connection_type(std::move(connection_type_in)),
+      secure(std::move(secure_in)),
+      image_formats(std::move(image_formats_in)) {}
+
+ScannerInfo::~ScannerInfo() = default;
+
+void ScannerInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "id"), this->id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "display_name"), this->display_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "manufacturer"), this->manufacturer,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "model"), this->model,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_uuid"), this->device_uuid,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "connection_type"), this->connection_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ScannerInfo::ConnectionType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "secure"), this->secure,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "image_formats"), this->image_formats,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ScannerInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ScannerEnumFilter::ScannerEnumFilter()
+    : local(),
+      secure() {}
+
+ScannerEnumFilter::ScannerEnumFilter(
+    bool local_in,
+    bool secure_in)
+    : local(std::move(local_in)),
+      secure(std::move(secure_in)) {}
+
+ScannerEnumFilter::~ScannerEnumFilter() = default;
+size_t ScannerEnumFilter::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->local);
+  seed = mojo::internal::Hash(seed, this->secure);
+  return seed;
+}
+
+void ScannerEnumFilter::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "local"), this->local,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "secure"), this->secure,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ScannerEnumFilter::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+IntRange::IntRange()
+    : min(),
+      max(),
+      quant() {}
+
+IntRange::IntRange(
+    int32_t min_in,
+    int32_t max_in,
+    int32_t quant_in)
+    : min(std::move(min_in)),
+      max(std::move(max_in)),
+      quant(std::move(quant_in)) {}
+
+IntRange::~IntRange() = default;
+size_t IntRange::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->min);
+  seed = mojo::internal::Hash(seed, this->max);
+  seed = mojo::internal::Hash(seed, this->quant);
+  return seed;
+}
+
+void IntRange::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "min"), this->min,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max"), this->max,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "quant"), this->quant,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool IntRange::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FixedRange::FixedRange()
+    : min(),
+      max(),
+      quant() {}
+
+FixedRange::FixedRange(
+    double min_in,
+    double max_in,
+    double quant_in)
+    : min(std::move(min_in)),
+      max(std::move(max_in)),
+      quant(std::move(quant_in)) {}
+
+FixedRange::~FixedRange() = default;
+size_t FixedRange::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->min);
+  seed = mojo::internal::Hash(seed, this->max);
+  seed = mojo::internal::Hash(seed, this->quant);
+  return seed;
+}
+
+void FixedRange::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "min"), this->min,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max"), this->max,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "quant"), this->quant,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FixedRange::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+OptionConstraint::OptionConstraint()
+    : type(),
+      restriction() {}
+
+OptionConstraint::OptionConstraint(
+    OptionConstraintType type_in,
+    OptionConstraintRestrictionPtr restriction_in)
+    : type(std::move(type_in)),
+      restriction(std::move(restriction_in)) {}
+
+OptionConstraint::~OptionConstraint() = default;
+
+void OptionConstraint::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionConstraintType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "restriction"), this->restriction,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionConstraintRestrictionPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool OptionConstraint::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ScannerOption::ScannerOption()
+    : name(),
+      title(),
+      description(),
+      type(),
+      unit(),
+      value(),
+      constraint(),
+      isDetectable(),
+      configurability(),
+      isAutoSettable(),
+      isEmulated(),
+      isActive(),
+      isAdvanced(),
+      isInternal() {}
+
+ScannerOption::ScannerOption(
+    const std::string& name_in,
+    const std::string& title_in,
+    const std::string& description_in,
+    OptionType type_in,
+    OptionUnit unit_in,
+    OptionValuePtr value_in,
+    OptionConstraintPtr constraint_in,
+    bool isDetectable_in,
+    OptionConfigurability configurability_in,
+    bool isAutoSettable_in,
+    bool isEmulated_in,
+    bool isActive_in,
+    bool isAdvanced_in,
+    bool isInternal_in)
+    : name(std::move(name_in)),
+      title(std::move(title_in)),
+      description(std::move(description_in)),
+      type(std::move(type_in)),
+      unit(std::move(unit_in)),
+      value(std::move(value_in)),
+      constraint(std::move(constraint_in)),
+      isDetectable(std::move(isDetectable_in)),
+      configurability(std::move(configurability_in)),
+      isAutoSettable(std::move(isAutoSettable_in)),
+      isEmulated(std::move(isEmulated_in)),
+      isActive(std::move(isActive_in)),
+      isAdvanced(std::move(isAdvanced_in)),
+      isInternal(std::move(isInternal_in)) {}
+
+ScannerOption::~ScannerOption() = default;
+
+void ScannerOption::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "title"), this->title,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "description"), this->description,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "unit"), this->unit,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionUnit>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "value"), this->value,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionValuePtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "constraint"), this->constraint,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionConstraintPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "isDetectable"), this->isDetectable,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "configurability"), this->configurability,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionConfigurability>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "isAutoSettable"), this->isAutoSettable,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "isEmulated"), this->isEmulated,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "isActive"), this->isActive,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "isAdvanced"), this->isAdvanced,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "isInternal"), this->isInternal,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ScannerOption::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+GetScannerListResponse::GetScannerListResponse()
+    : result(),
+      scanners() {}
+
+GetScannerListResponse::GetScannerListResponse(
+    ScannerOperationResult result_in,
+    std::vector<ScannerInfoPtr> scanners_in)
+    : result(std::move(result_in)),
+      scanners(std::move(scanners_in)) {}
+
+GetScannerListResponse::~GetScannerListResponse() = default;
+
+void GetScannerListResponse::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "result"), this->result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ScannerOperationResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scanners"), this->scanners,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<ScannerInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool GetScannerListResponse::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+OpenScannerResponse::OpenScannerResponse()
+    : scanner_id(),
+      result(),
+      scanner_handle(),
+      options() {}
+
+OpenScannerResponse::OpenScannerResponse(
+    const std::string& scanner_id_in,
+    ScannerOperationResult result_in,
+    const std::optional<std::string>& scanner_handle_in,
+    std::optional<base::flat_map<std::string, ScannerOptionPtr>> options_in)
+    : scanner_id(std::move(scanner_id_in)),
+      result(std::move(result_in)),
+      scanner_handle(std::move(scanner_handle_in)),
+      options(std::move(options_in)) {}
+
+OpenScannerResponse::~OpenScannerResponse() = default;
+
+void OpenScannerResponse::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scanner_id"), this->scanner_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "result"), this->result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ScannerOperationResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scanner_handle"), this->scanner_handle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "options"), this->options,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<base::flat_map<std::string, ScannerOptionPtr>>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool OpenScannerResponse::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CloseScannerResponse::CloseScannerResponse()
+    : scanner_handle(),
+      result() {}
+
+CloseScannerResponse::CloseScannerResponse(
+    const std::string& scanner_handle_in,
+    ScannerOperationResult result_in)
+    : scanner_handle(std::move(scanner_handle_in)),
+      result(std::move(result_in)) {}
+
+CloseScannerResponse::~CloseScannerResponse() = default;
+size_t CloseScannerResponse::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->scanner_handle);
+  seed = mojo::internal::Hash(seed, this->result);
+  return seed;
+}
+
+void CloseScannerResponse::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scanner_handle"), this->scanner_handle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "result"), this->result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ScannerOperationResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CloseScannerResponse::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+StartScanOptions::StartScanOptions()
+    : format() {}
+
+StartScanOptions::StartScanOptions(
+    const std::string& format_in)
+    : format(std::move(format_in)) {}
+
+StartScanOptions::~StartScanOptions() = default;
+size_t StartScanOptions::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->format);
+  return seed;
+}
+
+void StartScanOptions::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "format"), this->format,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool StartScanOptions::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+StartPreparedScanResponse::StartPreparedScanResponse()
+    : scanner_handle(),
+      result(),
+      job_handle() {}
+
+StartPreparedScanResponse::StartPreparedScanResponse(
+    const std::string& scanner_handle_in,
+    ScannerOperationResult result_in,
+    const std::optional<std::string>& job_handle_in)
+    : scanner_handle(std::move(scanner_handle_in)),
+      result(std::move(result_in)),
+      job_handle(std::move(job_handle_in)) {}
+
+StartPreparedScanResponse::~StartPreparedScanResponse() = default;
+
+void StartPreparedScanResponse::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scanner_handle"), this->scanner_handle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "result"), this->result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ScannerOperationResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "job_handle"), this->job_handle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool StartPreparedScanResponse::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ReadScanDataResponse::ReadScanDataResponse()
+    : job_handle(),
+      result(),
+      data(),
+      estimated_completion() {}
+
+ReadScanDataResponse::ReadScanDataResponse(
+    const std::string& job_handle_in,
+    ScannerOperationResult result_in,
+    std::optional<std::vector<int8_t>> data_in,
+    std::optional<uint32_t> estimated_completion_in)
+    : job_handle(std::move(job_handle_in)),
+      result(std::move(result_in)),
+      data(std::move(data_in)),
+      estimated_completion(std::move(estimated_completion_in)) {}
+
+ReadScanDataResponse::~ReadScanDataResponse() = default;
+
+void ReadScanDataResponse::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "job_handle"), this->job_handle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "result"), this->result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ScannerOperationResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "data"), this->data,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::vector<int8_t>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "estimated_completion"), this->estimated_completion,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint32_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ReadScanDataResponse::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+OptionSetting::OptionSetting()
+    : name(),
+      type(),
+      value() {}
+
+OptionSetting::OptionSetting(
+    const std::string& name_in,
+    OptionType type_in,
+    OptionValuePtr value_in)
+    : name(std::move(name_in)),
+      type(std::move(type_in)),
+      value(std::move(value_in)) {}
+
+OptionSetting::~OptionSetting() = default;
+
+void OptionSetting::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "value"), this->value,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionValuePtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool OptionSetting::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+OptionGroup::OptionGroup()
+    : title(),
+      members() {}
+
+OptionGroup::OptionGroup(
+    const std::string& title_in,
+    std::vector<std::string> members_in)
+    : title(std::move(title_in)),
+      members(std::move(members_in)) {}
+
+OptionGroup::~OptionGroup() = default;
+
+void OptionGroup::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "title"), this->title,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "members"), this->members,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool OptionGroup::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+SetOptionResult::SetOptionResult()
+    : name(),
+      result() {}
+
+SetOptionResult::SetOptionResult(
+    const std::string& name_in,
+    ScannerOperationResult result_in)
+    : name(std::move(name_in)),
+      result(std::move(result_in)) {}
+
+SetOptionResult::~SetOptionResult() = default;
+size_t SetOptionResult::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->name);
+  seed = mojo::internal::Hash(seed, this->result);
+  return seed;
+}
+
+void SetOptionResult::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "result"), this->result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ScannerOperationResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SetOptionResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+SetOptionsResponse::SetOptionsResponse()
+    : scanner_handle(),
+      results(),
+      options() {}
+
+SetOptionsResponse::SetOptionsResponse(
+    const std::string& scanner_handle_in,
+    std::vector<SetOptionResultPtr> results_in,
+    std::optional<base::flat_map<std::string, ScannerOptionPtr>> options_in)
+    : scanner_handle(std::move(scanner_handle_in)),
+      results(std::move(results_in)),
+      options(std::move(options_in)) {}
+
+SetOptionsResponse::~SetOptionsResponse() = default;
+
+void SetOptionsResponse::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scanner_handle"), this->scanner_handle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "results"), this->results,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<SetOptionResultPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "options"), this->options,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<base::flat_map<std::string, ScannerOptionPtr>>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SetOptionsResponse::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+GetOptionGroupsResponse::GetOptionGroupsResponse()
+    : scanner_handle(),
+      result(),
+      groups() {}
+
+GetOptionGroupsResponse::GetOptionGroupsResponse(
+    const std::string& scanner_handle_in,
+    ScannerOperationResult result_in,
+    std::optional<std::vector<OptionGroupPtr>> groups_in)
+    : scanner_handle(std::move(scanner_handle_in)),
+      result(std::move(result_in)),
+      groups(std::move(groups_in)) {}
+
+GetOptionGroupsResponse::~GetOptionGroupsResponse() = default;
+
+void GetOptionGroupsResponse::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scanner_handle"), this->scanner_handle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "result"), this->result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ScannerOperationResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "groups"), this->groups,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<std::vector<OptionGroupPtr>>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool GetOptionGroupsResponse::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CancelScanResponse::CancelScanResponse()
+    : job_handle(),
+      result() {}
+
+CancelScanResponse::CancelScanResponse(
+    const std::string& job_handle_in,
+    ScannerOperationResult result_in)
+    : job_handle(std::move(job_handle_in)),
+      result(std::move(result_in)) {}
+
+CancelScanResponse::~CancelScanResponse() = default;
+size_t CancelScanResponse::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->job_handle);
+  seed = mojo::internal::Hash(seed, this->result);
+  return seed;
+}
+
+void CancelScanResponse::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "job_handle"), this->job_handle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "result"), this->result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ScannerOperationResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CancelScanResponse::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+OptionValue::OptionValue() : tag_(Tag::kBoolValue) {
+  data_.bool_value = bool();
+}
+
+OptionValue::~OptionValue() {
+  DestroyActive();
+}
+
+
+void OptionValue::set_bool_value(
+    bool bool_value) {
+  if (tag_ != Tag::kBoolValue) {
+    DestroyActive();
+    tag_ = Tag::kBoolValue;
+  }
+  data_.bool_value = bool_value;
+}
+void OptionValue::set_int_value(
+    int32_t int_value) {
+  if (tag_ != Tag::kIntValue) {
+    DestroyActive();
+    tag_ = Tag::kIntValue;
+  }
+  data_.int_value = int_value;
+}
+void OptionValue::set_int_list(
+    std::vector<int32_t> int_list) {
+  if (tag_ == Tag::kIntList) {
+    *(data_.int_list) = std::move(int_list);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kIntList;
+    data_.int_list = new std::vector<int32_t>(
+        std::move(int_list));
+  }
+}
+void OptionValue::set_fixed_value(
+    double fixed_value) {
+  if (tag_ != Tag::kFixedValue) {
+    DestroyActive();
+    tag_ = Tag::kFixedValue;
+  }
+  data_.fixed_value = fixed_value;
+}
+void OptionValue::set_fixed_list(
+    std::vector<double> fixed_list) {
+  if (tag_ == Tag::kFixedList) {
+    *(data_.fixed_list) = std::move(fixed_list);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFixedList;
+    data_.fixed_list = new std::vector<double>(
+        std::move(fixed_list));
+  }
+}
+void OptionValue::set_string_value(
+    const std::string& string_value) {
+  if (tag_ == Tag::kStringValue) {
+    *(data_.string_value) = std::move(string_value);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kStringValue;
+    data_.string_value = new std::string(
+        std::move(string_value));
+  }
+}
+
+void OptionValue::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kBoolValue:
+
+      break;
+    case Tag::kIntValue:
+
+      break;
+    case Tag::kIntList:
+
+      delete data_.int_list;
+      break;
+    case Tag::kFixedValue:
+
+      break;
+    case Tag::kFixedList:
+
+      delete data_.fixed_list;
+      break;
+    case Tag::kStringValue:
+
+      delete data_.string_value;
+      break;
+  }
+}
+
+bool OptionValue::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+OptionConstraintRestriction::OptionConstraintRestriction() : tag_(Tag::kIntRange) {
+  data_.int_range = new IntRangePtr;
+}
+
+OptionConstraintRestriction::~OptionConstraintRestriction() {
+  DestroyActive();
+}
+
+
+void OptionConstraintRestriction::set_int_range(
+    IntRangePtr int_range) {
+  if (tag_ == Tag::kIntRange) {
+    *(data_.int_range) = std::move(int_range);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kIntRange;
+    data_.int_range = new IntRangePtr(
+        std::move(int_range));
+  }
+}
+void OptionConstraintRestriction::set_fixed_range(
+    FixedRangePtr fixed_range) {
+  if (tag_ == Tag::kFixedRange) {
+    *(data_.fixed_range) = std::move(fixed_range);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFixedRange;
+    data_.fixed_range = new FixedRangePtr(
+        std::move(fixed_range));
+  }
+}
+void OptionConstraintRestriction::set_valid_int(
+    std::vector<int32_t> valid_int) {
+  if (tag_ == Tag::kValidInt) {
+    *(data_.valid_int) = std::move(valid_int);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kValidInt;
+    data_.valid_int = new std::vector<int32_t>(
+        std::move(valid_int));
+  }
+}
+void OptionConstraintRestriction::set_valid_fixed(
+    std::vector<double> valid_fixed) {
+  if (tag_ == Tag::kValidFixed) {
+    *(data_.valid_fixed) = std::move(valid_fixed);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kValidFixed;
+    data_.valid_fixed = new std::vector<double>(
+        std::move(valid_fixed));
+  }
+}
+void OptionConstraintRestriction::set_valid_string(
+    std::vector<std::string> valid_string) {
+  if (tag_ == Tag::kValidString) {
+    *(data_.valid_string) = std::move(valid_string);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kValidString;
+    data_.valid_string = new std::vector<std::string>(
+        std::move(valid_string));
+  }
+}
+
+void OptionConstraintRestriction::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kIntRange:
+
+      delete data_.int_range;
+      break;
+    case Tag::kFixedRange:
+
+      delete data_.fixed_range;
+      break;
+    case Tag::kValidInt:
+
+      delete data_.valid_int;
+      break;
+    case Tag::kValidFixed:
+
+      delete data_.valid_fixed;
+      break;
+    case Tag::kValidString:
+
+      delete data_.valid_string;
+      break;
+  }
+}
+
+bool OptionConstraintRestriction::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 const char DocumentScan::Name_[] = "crosapi.mojom.DocumentScan";
 constexpr base::Token DocumentScan::Uuid_;
 
@@ -54,6 +1330,30 @@ DocumentScan::IPCStableHashFunction DocumentScan::MessageToMethodInfo_(mojo::Mes
     }
     case internal::kDocumentScan_ScanFirstPage_Name: {
       return &DocumentScan::ScanFirstPage_Sym::IPCStableHash;
+    }
+    case internal::kDocumentScan_GetScannerList_Name: {
+      return &DocumentScan::GetScannerList_Sym::IPCStableHash;
+    }
+    case internal::kDocumentScan_OpenScanner_Name: {
+      return &DocumentScan::OpenScanner_Sym::IPCStableHash;
+    }
+    case internal::kDocumentScan_CloseScanner_Name: {
+      return &DocumentScan::CloseScanner_Sym::IPCStableHash;
+    }
+    case internal::kDocumentScan_StartPreparedScan_Name: {
+      return &DocumentScan::StartPreparedScan_Sym::IPCStableHash;
+    }
+    case internal::kDocumentScan_ReadScanData_Name: {
+      return &DocumentScan::ReadScanData_Sym::IPCStableHash;
+    }
+    case internal::kDocumentScan_SetOptions_Name: {
+      return &DocumentScan::SetOptions_Sym::IPCStableHash;
+    }
+    case internal::kDocumentScan_GetOptionGroups_Name: {
+      return &DocumentScan::GetOptionGroups_Sym::IPCStableHash;
+    }
+    case internal::kDocumentScan_CancelScan_Name: {
+      return &DocumentScan::CancelScan_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -70,6 +1370,22 @@ const char* DocumentScan::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::DocumentScan::GetScannerNames";
       case internal::kDocumentScan_ScanFirstPage_Name:
             return "Receive crosapi::mojom::DocumentScan::ScanFirstPage";
+      case internal::kDocumentScan_GetScannerList_Name:
+            return "Receive crosapi::mojom::DocumentScan::GetScannerList";
+      case internal::kDocumentScan_OpenScanner_Name:
+            return "Receive crosapi::mojom::DocumentScan::OpenScanner";
+      case internal::kDocumentScan_CloseScanner_Name:
+            return "Receive crosapi::mojom::DocumentScan::CloseScanner";
+      case internal::kDocumentScan_StartPreparedScan_Name:
+            return "Receive crosapi::mojom::DocumentScan::StartPreparedScan";
+      case internal::kDocumentScan_ReadScanData_Name:
+            return "Receive crosapi::mojom::DocumentScan::ReadScanData";
+      case internal::kDocumentScan_SetOptions_Name:
+            return "Receive crosapi::mojom::DocumentScan::SetOptions";
+      case internal::kDocumentScan_GetOptionGroups_Name:
+            return "Receive crosapi::mojom::DocumentScan::GetOptionGroups";
+      case internal::kDocumentScan_CancelScan_Name:
+            return "Receive crosapi::mojom::DocumentScan::CancelScan";
     }
   } else {
     switch (message.name()) {
@@ -77,6 +1393,22 @@ const char* DocumentScan::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::DocumentScan::GetScannerNames";
       case internal::kDocumentScan_ScanFirstPage_Name:
             return "Receive reply crosapi::mojom::DocumentScan::ScanFirstPage";
+      case internal::kDocumentScan_GetScannerList_Name:
+            return "Receive reply crosapi::mojom::DocumentScan::GetScannerList";
+      case internal::kDocumentScan_OpenScanner_Name:
+            return "Receive reply crosapi::mojom::DocumentScan::OpenScanner";
+      case internal::kDocumentScan_CloseScanner_Name:
+            return "Receive reply crosapi::mojom::DocumentScan::CloseScanner";
+      case internal::kDocumentScan_StartPreparedScan_Name:
+            return "Receive reply crosapi::mojom::DocumentScan::StartPreparedScan";
+      case internal::kDocumentScan_ReadScanData_Name:
+            return "Receive reply crosapi::mojom::DocumentScan::ReadScanData";
+      case internal::kDocumentScan_SetOptions_Name:
+            return "Receive reply crosapi::mojom::DocumentScan::SetOptions";
+      case internal::kDocumentScan_GetOptionGroups_Name:
+            return "Receive reply crosapi::mojom::DocumentScan::GetOptionGroups";
+      case internal::kDocumentScan_CancelScan_Name:
+            return "Receive reply crosapi::mojom::DocumentScan::CancelScan";
     }
   }
   return "Receive unknown mojo message";
@@ -117,6 +1449,110 @@ uint32_t DocumentScan::ScanFirstPage_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t DocumentScan::GetScannerList_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::DocumentScan::GetScannerList");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DocumentScan::OpenScanner_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::DocumentScan::OpenScanner");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DocumentScan::CloseScanner_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::DocumentScan::CloseScanner");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DocumentScan::StartPreparedScan_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::DocumentScan::StartPreparedScan");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DocumentScan::ReadScanData_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::DocumentScan::ReadScanData");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DocumentScan::SetOptions_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::DocumentScan::SetOptions");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DocumentScan::GetOptionGroups_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::DocumentScan::GetOptionGroups");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DocumentScan::CancelScan_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::DocumentScan::CancelScan");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class DocumentScan_GetScannerNames_ForwardToCallback
@@ -151,6 +1587,134 @@ class DocumentScan_ScanFirstPage_ForwardToCallback
   DocumentScan::ScanFirstPageCallback callback_;
 };
 
+class DocumentScan_GetScannerList_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  DocumentScan_GetScannerList_ForwardToCallback(
+      DocumentScan::GetScannerListCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  DocumentScan_GetScannerList_ForwardToCallback(const DocumentScan_GetScannerList_ForwardToCallback&) = delete;
+  DocumentScan_GetScannerList_ForwardToCallback& operator=(const DocumentScan_GetScannerList_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  DocumentScan::GetScannerListCallback callback_;
+};
+
+class DocumentScan_OpenScanner_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  DocumentScan_OpenScanner_ForwardToCallback(
+      DocumentScan::OpenScannerCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  DocumentScan_OpenScanner_ForwardToCallback(const DocumentScan_OpenScanner_ForwardToCallback&) = delete;
+  DocumentScan_OpenScanner_ForwardToCallback& operator=(const DocumentScan_OpenScanner_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  DocumentScan::OpenScannerCallback callback_;
+};
+
+class DocumentScan_CloseScanner_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  DocumentScan_CloseScanner_ForwardToCallback(
+      DocumentScan::CloseScannerCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  DocumentScan_CloseScanner_ForwardToCallback(const DocumentScan_CloseScanner_ForwardToCallback&) = delete;
+  DocumentScan_CloseScanner_ForwardToCallback& operator=(const DocumentScan_CloseScanner_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  DocumentScan::CloseScannerCallback callback_;
+};
+
+class DocumentScan_StartPreparedScan_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  DocumentScan_StartPreparedScan_ForwardToCallback(
+      DocumentScan::StartPreparedScanCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  DocumentScan_StartPreparedScan_ForwardToCallback(const DocumentScan_StartPreparedScan_ForwardToCallback&) = delete;
+  DocumentScan_StartPreparedScan_ForwardToCallback& operator=(const DocumentScan_StartPreparedScan_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  DocumentScan::StartPreparedScanCallback callback_;
+};
+
+class DocumentScan_ReadScanData_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  DocumentScan_ReadScanData_ForwardToCallback(
+      DocumentScan::ReadScanDataCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  DocumentScan_ReadScanData_ForwardToCallback(const DocumentScan_ReadScanData_ForwardToCallback&) = delete;
+  DocumentScan_ReadScanData_ForwardToCallback& operator=(const DocumentScan_ReadScanData_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  DocumentScan::ReadScanDataCallback callback_;
+};
+
+class DocumentScan_SetOptions_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  DocumentScan_SetOptions_ForwardToCallback(
+      DocumentScan::SetOptionsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  DocumentScan_SetOptions_ForwardToCallback(const DocumentScan_SetOptions_ForwardToCallback&) = delete;
+  DocumentScan_SetOptions_ForwardToCallback& operator=(const DocumentScan_SetOptions_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  DocumentScan::SetOptionsCallback callback_;
+};
+
+class DocumentScan_GetOptionGroups_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  DocumentScan_GetOptionGroups_ForwardToCallback(
+      DocumentScan::GetOptionGroupsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  DocumentScan_GetOptionGroups_ForwardToCallback(const DocumentScan_GetOptionGroups_ForwardToCallback&) = delete;
+  DocumentScan_GetOptionGroups_ForwardToCallback& operator=(const DocumentScan_GetOptionGroups_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  DocumentScan::GetOptionGroupsCallback callback_;
+};
+
+class DocumentScan_CancelScan_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  DocumentScan_CancelScan_ForwardToCallback(
+      DocumentScan::CancelScanCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  DocumentScan_CancelScan_ForwardToCallback(const DocumentScan_CancelScan_ForwardToCallback&) = delete;
+  DocumentScan_CancelScan_ForwardToCallback& operator=(const DocumentScan_CancelScan_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  DocumentScan::CancelScanCallback callback_;
+};
+
 DocumentScanProxy::DocumentScanProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -160,14 +1724,17 @@ void DocumentScanProxy::GetScannerNames(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::DocumentScan::GetScannerNames");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScan_GetScannerNames_Name, kFlags, 0, 0, nullptr);
@@ -198,14 +1765,17 @@ void DocumentScanProxy::ScanFirstPage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScan_ScanFirstPage_Name, kFlags, 0, 0, nullptr);
@@ -231,6 +1801,476 @@ void DocumentScanProxy::ScanFirstPage(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new DocumentScan_ScanFirstPage_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DocumentScanProxy::GetScannerList(
+    const std::string& in_client_id, ScannerEnumFilterPtr in_filter, GetScannerListCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::DocumentScan::GetScannerList", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("client_id"), in_client_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("filter"), in_filter,
+                        "<value of type ScannerEnumFilterPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_GetScannerList_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_GetScannerList_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->client_id)::BaseType> client_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_client_id, client_id_fragment);
+  params->client_id.Set(
+      client_id_fragment.is_null() ? nullptr : client_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->client_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null client_id in DocumentScan.GetScannerList request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->filter)::BaseType> filter_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::ScannerEnumFilterDataView>(
+      in_filter, filter_fragment);
+  params->filter.Set(
+      filter_fragment.is_null() ? nullptr : filter_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("GetScannerList");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new DocumentScan_GetScannerList_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DocumentScanProxy::OpenScanner(
+    const std::string& in_client_id, const std::string& in_scanner_id, OpenScannerCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::DocumentScan::OpenScanner", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("client_id"), in_client_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("scanner_id"), in_scanner_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_OpenScanner_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_OpenScanner_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->client_id)::BaseType> client_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_client_id, client_id_fragment);
+  params->client_id.Set(
+      client_id_fragment.is_null() ? nullptr : client_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->client_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null client_id in DocumentScan.OpenScanner request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->scanner_id)::BaseType> scanner_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_scanner_id, scanner_id_fragment);
+  params->scanner_id.Set(
+      scanner_id_fragment.is_null() ? nullptr : scanner_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->scanner_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null scanner_id in DocumentScan.OpenScanner request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("OpenScanner");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new DocumentScan_OpenScanner_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DocumentScanProxy::CloseScanner(
+    const std::string& in_scanner_handle, CloseScannerCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::DocumentScan::CloseScanner", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("scanner_handle"), in_scanner_handle,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_CloseScanner_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_CloseScanner_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->scanner_handle)::BaseType> scanner_handle_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_scanner_handle, scanner_handle_fragment);
+  params->scanner_handle.Set(
+      scanner_handle_fragment.is_null() ? nullptr : scanner_handle_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->scanner_handle.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null scanner_handle in DocumentScan.CloseScanner request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("CloseScanner");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new DocumentScan_CloseScanner_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DocumentScanProxy::StartPreparedScan(
+    const std::string& in_scanner_handle, StartScanOptionsPtr in_options, StartPreparedScanCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::DocumentScan::StartPreparedScan", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("scanner_handle"), in_scanner_handle,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("options"), in_options,
+                        "<value of type StartScanOptionsPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_StartPreparedScan_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_StartPreparedScan_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->scanner_handle)::BaseType> scanner_handle_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_scanner_handle, scanner_handle_fragment);
+  params->scanner_handle.Set(
+      scanner_handle_fragment.is_null() ? nullptr : scanner_handle_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->scanner_handle.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null scanner_handle in DocumentScan.StartPreparedScan request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->options)::BaseType> options_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::StartScanOptionsDataView>(
+      in_options, options_fragment);
+  params->options.Set(
+      options_fragment.is_null() ? nullptr : options_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->options.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null options in DocumentScan.StartPreparedScan request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("StartPreparedScan");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new DocumentScan_StartPreparedScan_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DocumentScanProxy::ReadScanData(
+    const std::string& in_job_handle, ReadScanDataCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::DocumentScan::ReadScanData", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("job_handle"), in_job_handle,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_ReadScanData_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_ReadScanData_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->job_handle)::BaseType> job_handle_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_job_handle, job_handle_fragment);
+  params->job_handle.Set(
+      job_handle_fragment.is_null() ? nullptr : job_handle_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->job_handle.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null job_handle in DocumentScan.ReadScanData request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("ReadScanData");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new DocumentScan_ReadScanData_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DocumentScanProxy::SetOptions(
+    const std::string& in_scanner_handle, std::vector<OptionSettingPtr> in_options, SetOptionsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::DocumentScan::SetOptions", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("scanner_handle"), in_scanner_handle,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("options"), in_options,
+                        "<value of type std::vector<OptionSettingPtr>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_SetOptions_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_SetOptions_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->scanner_handle)::BaseType> scanner_handle_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_scanner_handle, scanner_handle_fragment);
+  params->scanner_handle.Set(
+      scanner_handle_fragment.is_null() ? nullptr : scanner_handle_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->scanner_handle.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null scanner_handle in DocumentScan.SetOptions request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->options)::BaseType>
+      options_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& options_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::crosapi::mojom::OptionSettingDataView>>(
+      in_options, options_fragment, &options_validate_params);
+  params->options.Set(
+      options_fragment.is_null() ? nullptr : options_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->options.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null options in DocumentScan.SetOptions request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("SetOptions");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new DocumentScan_SetOptions_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DocumentScanProxy::GetOptionGroups(
+    const std::string& in_scanner_handle, GetOptionGroupsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::DocumentScan::GetOptionGroups", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("scanner_handle"), in_scanner_handle,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_GetOptionGroups_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_GetOptionGroups_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->scanner_handle)::BaseType> scanner_handle_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_scanner_handle, scanner_handle_fragment);
+  params->scanner_handle.Set(
+      scanner_handle_fragment.is_null() ? nullptr : scanner_handle_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->scanner_handle.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null scanner_handle in DocumentScan.GetOptionGroups request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("GetOptionGroups");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new DocumentScan_GetOptionGroups_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DocumentScanProxy::CancelScan(
+    const std::string& in_job_handle, CancelScanCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::DocumentScan::CancelScan", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("job_handle"), in_job_handle,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_CancelScan_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_CancelScan_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->job_handle)::BaseType> job_handle_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_job_handle, job_handle_fragment);
+  params->job_handle.Set(
+      job_handle_fragment.is_null() ? nullptr : job_handle_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->job_handle.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null job_handle in DocumentScan.CancelScan request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("CancelScan");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new DocumentScan_CancelScan_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -326,7 +2366,8 @@ void DocumentScan_GetScannerNames_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScan_GetScannerNames_Name, kFlags, 0, 0, nullptr);
@@ -410,7 +2451,7 @@ class DocumentScan_ScanFirstPage_ProxyToResponder : public ::mojo::internal::Pro
 #endif
 
   void Run(
-      ScanFailureMode in_failure_mode, const absl::optional<std::string>& in_scan_data);
+      ScanFailureMode in_failure_mode, const std::optional<std::string>& in_scan_data);
 };
 
 bool DocumentScan_ScanFirstPage_ForwardToCallback::Accept(
@@ -424,7 +2465,7 @@ bool DocumentScan_ScanFirstPage_ForwardToCallback::Accept(
   
   bool success = true;
   ScanFailureMode p_failure_mode{};
-  absl::optional<std::string> p_scan_data{};
+  std::optional<std::string> p_scan_data{};
   DocumentScan_ScanFirstPage_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadFailureMode(&p_failure_mode))
@@ -446,7 +2487,7 @@ std::move(p_scan_data));
 }
 
 void DocumentScan_ScanFirstPage_ProxyToResponder::Run(
-    ScanFailureMode in_failure_mode, const absl::optional<std::string>& in_scan_data) {
+    ScanFailureMode in_failure_mode, const std::optional<std::string>& in_scan_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::DocumentScan::ScanFirstPage", "async_response_parameters",
@@ -457,13 +2498,14 @@ void DocumentScan_ScanFirstPage_ProxyToResponder::Run(
                         "<value of type ScanFailureMode>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("scan_data"), in_scan_data,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentScan_ScanFirstPage_Name, kFlags, 0, 0, nullptr);
@@ -497,6 +2539,1038 @@ void DocumentScan_ScanFirstPage_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class DocumentScan_GetScannerList_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static DocumentScan::GetScannerListCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<DocumentScan_GetScannerList_ProxyToResponder> proxy(
+        new DocumentScan_GetScannerList_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&DocumentScan_GetScannerList_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~DocumentScan_GetScannerList_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  DocumentScan_GetScannerList_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "DocumentScan::GetScannerListCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      GetScannerListResponsePtr in_response);
+};
+
+bool DocumentScan_GetScannerList_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::DocumentScan_GetScannerList_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::DocumentScan_GetScannerList_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  GetScannerListResponsePtr p_response{};
+  DocumentScan_GetScannerList_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        DocumentScan::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void DocumentScan_GetScannerList_ProxyToResponder::Run(
+    GetScannerListResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::DocumentScan::GetScannerList", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type GetScannerListResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_GetScannerList_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_GetScannerList_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::GetScannerListResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("GetScannerList");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class DocumentScan_OpenScanner_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static DocumentScan::OpenScannerCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<DocumentScan_OpenScanner_ProxyToResponder> proxy(
+        new DocumentScan_OpenScanner_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&DocumentScan_OpenScanner_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~DocumentScan_OpenScanner_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  DocumentScan_OpenScanner_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "DocumentScan::OpenScannerCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      OpenScannerResponsePtr in_response);
+};
+
+bool DocumentScan_OpenScanner_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::DocumentScan_OpenScanner_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::DocumentScan_OpenScanner_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  OpenScannerResponsePtr p_response{};
+  DocumentScan_OpenScanner_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        DocumentScan::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void DocumentScan_OpenScanner_ProxyToResponder::Run(
+    OpenScannerResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::DocumentScan::OpenScanner", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type OpenScannerResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_OpenScanner_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_OpenScanner_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::OpenScannerResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("OpenScanner");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class DocumentScan_CloseScanner_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static DocumentScan::CloseScannerCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<DocumentScan_CloseScanner_ProxyToResponder> proxy(
+        new DocumentScan_CloseScanner_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&DocumentScan_CloseScanner_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~DocumentScan_CloseScanner_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  DocumentScan_CloseScanner_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "DocumentScan::CloseScannerCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      CloseScannerResponsePtr in_response);
+};
+
+bool DocumentScan_CloseScanner_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::DocumentScan_CloseScanner_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::DocumentScan_CloseScanner_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  CloseScannerResponsePtr p_response{};
+  DocumentScan_CloseScanner_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        DocumentScan::Name_, 4, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void DocumentScan_CloseScanner_ProxyToResponder::Run(
+    CloseScannerResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::DocumentScan::CloseScanner", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type CloseScannerResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_CloseScanner_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_CloseScanner_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::CloseScannerResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("CloseScanner");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class DocumentScan_StartPreparedScan_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static DocumentScan::StartPreparedScanCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<DocumentScan_StartPreparedScan_ProxyToResponder> proxy(
+        new DocumentScan_StartPreparedScan_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&DocumentScan_StartPreparedScan_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~DocumentScan_StartPreparedScan_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  DocumentScan_StartPreparedScan_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "DocumentScan::StartPreparedScanCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      StartPreparedScanResponsePtr in_response);
+};
+
+bool DocumentScan_StartPreparedScan_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::DocumentScan_StartPreparedScan_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::DocumentScan_StartPreparedScan_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  StartPreparedScanResponsePtr p_response{};
+  DocumentScan_StartPreparedScan_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        DocumentScan::Name_, 5, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void DocumentScan_StartPreparedScan_ProxyToResponder::Run(
+    StartPreparedScanResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::DocumentScan::StartPreparedScan", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type StartPreparedScanResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_StartPreparedScan_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_StartPreparedScan_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::StartPreparedScanResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("StartPreparedScan");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class DocumentScan_ReadScanData_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static DocumentScan::ReadScanDataCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<DocumentScan_ReadScanData_ProxyToResponder> proxy(
+        new DocumentScan_ReadScanData_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&DocumentScan_ReadScanData_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~DocumentScan_ReadScanData_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  DocumentScan_ReadScanData_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "DocumentScan::ReadScanDataCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ReadScanDataResponsePtr in_response);
+};
+
+bool DocumentScan_ReadScanData_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::DocumentScan_ReadScanData_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::DocumentScan_ReadScanData_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ReadScanDataResponsePtr p_response{};
+  DocumentScan_ReadScanData_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        DocumentScan::Name_, 6, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void DocumentScan_ReadScanData_ProxyToResponder::Run(
+    ReadScanDataResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::DocumentScan::ReadScanData", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ReadScanDataResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_ReadScanData_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_ReadScanData_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::ReadScanDataResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("ReadScanData");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class DocumentScan_SetOptions_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static DocumentScan::SetOptionsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<DocumentScan_SetOptions_ProxyToResponder> proxy(
+        new DocumentScan_SetOptions_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&DocumentScan_SetOptions_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~DocumentScan_SetOptions_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  DocumentScan_SetOptions_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "DocumentScan::SetOptionsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      SetOptionsResponsePtr in_response);
+};
+
+bool DocumentScan_SetOptions_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::DocumentScan_SetOptions_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::DocumentScan_SetOptions_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  SetOptionsResponsePtr p_response{};
+  DocumentScan_SetOptions_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        DocumentScan::Name_, 7, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void DocumentScan_SetOptions_ProxyToResponder::Run(
+    SetOptionsResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::DocumentScan::SetOptions", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type SetOptionsResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_SetOptions_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_SetOptions_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::SetOptionsResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("SetOptions");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class DocumentScan_GetOptionGroups_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static DocumentScan::GetOptionGroupsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<DocumentScan_GetOptionGroups_ProxyToResponder> proxy(
+        new DocumentScan_GetOptionGroups_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&DocumentScan_GetOptionGroups_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~DocumentScan_GetOptionGroups_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  DocumentScan_GetOptionGroups_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "DocumentScan::GetOptionGroupsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      GetOptionGroupsResponsePtr in_response);
+};
+
+bool DocumentScan_GetOptionGroups_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::DocumentScan_GetOptionGroups_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::DocumentScan_GetOptionGroups_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  GetOptionGroupsResponsePtr p_response{};
+  DocumentScan_GetOptionGroups_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        DocumentScan::Name_, 8, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void DocumentScan_GetOptionGroups_ProxyToResponder::Run(
+    GetOptionGroupsResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::DocumentScan::GetOptionGroups", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type GetOptionGroupsResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_GetOptionGroups_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_GetOptionGroups_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::GetOptionGroupsResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("GetOptionGroups");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class DocumentScan_CancelScan_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static DocumentScan::CancelScanCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<DocumentScan_CancelScan_ProxyToResponder> proxy(
+        new DocumentScan_CancelScan_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&DocumentScan_CancelScan_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~DocumentScan_CancelScan_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  DocumentScan_CancelScan_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "DocumentScan::CancelScanCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      CancelScanResponsePtr in_response);
+};
+
+bool DocumentScan_CancelScan_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::DocumentScan_CancelScan_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::DocumentScan_CancelScan_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  CancelScanResponsePtr p_response{};
+  DocumentScan_CancelScan_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        DocumentScan::Name_, 9, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void DocumentScan_CancelScan_ProxyToResponder::Run(
+    CancelScanResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::DocumentScan::CancelScan", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type CancelScanResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDocumentScan_CancelScan_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::DocumentScan_CancelScan_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::CancelScanResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DocumentScan::Name_);
+  message.set_method_name("CancelScan");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool DocumentScanStubDispatch::Accept(
@@ -507,6 +3581,30 @@ bool DocumentScanStubDispatch::Accept(
       break;
     }
     case internal::kDocumentScan_ScanFirstPage_Name: {
+      break;
+    }
+    case internal::kDocumentScan_GetScannerList_Name: {
+      break;
+    }
+    case internal::kDocumentScan_OpenScanner_Name: {
+      break;
+    }
+    case internal::kDocumentScan_CloseScanner_Name: {
+      break;
+    }
+    case internal::kDocumentScan_StartPreparedScan_Name: {
+      break;
+    }
+    case internal::kDocumentScan_ReadScanData_Name: {
+      break;
+    }
+    case internal::kDocumentScan_SetOptions_Name: {
+      break;
+    }
+    case internal::kDocumentScan_GetOptionGroups_Name: {
+      break;
+    }
+    case internal::kDocumentScan_CancelScan_Name: {
       break;
     }
   }
@@ -576,16 +3674,280 @@ bool DocumentScanStubDispatch::AcceptWithResponder(
 std::move(p_scanner_name), std::move(callback));
       return true;
     }
+    case internal::kDocumentScan_GetScannerList_Name: {
+
+      internal::DocumentScan_GetScannerList_Params_Data* params =
+          reinterpret_cast<
+              internal::DocumentScan_GetScannerList_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_client_id{};
+      ScannerEnumFilterPtr p_filter{};
+      DocumentScan_GetScannerList_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadClientId(&p_client_id))
+        success = false;
+      if (success && !input_data_view.ReadFilter(&p_filter))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DocumentScan::Name_, 2, false);
+        return false;
+      }
+      DocumentScan::GetScannerListCallback callback =
+          DocumentScan_GetScannerList_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetScannerList(
+std::move(p_client_id), 
+std::move(p_filter), std::move(callback));
+      return true;
+    }
+    case internal::kDocumentScan_OpenScanner_Name: {
+
+      internal::DocumentScan_OpenScanner_Params_Data* params =
+          reinterpret_cast<
+              internal::DocumentScan_OpenScanner_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_client_id{};
+      std::string p_scanner_id{};
+      DocumentScan_OpenScanner_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadClientId(&p_client_id))
+        success = false;
+      if (success && !input_data_view.ReadScannerId(&p_scanner_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DocumentScan::Name_, 3, false);
+        return false;
+      }
+      DocumentScan::OpenScannerCallback callback =
+          DocumentScan_OpenScanner_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenScanner(
+std::move(p_client_id), 
+std::move(p_scanner_id), std::move(callback));
+      return true;
+    }
+    case internal::kDocumentScan_CloseScanner_Name: {
+
+      internal::DocumentScan_CloseScanner_Params_Data* params =
+          reinterpret_cast<
+              internal::DocumentScan_CloseScanner_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_scanner_handle{};
+      DocumentScan_CloseScanner_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadScannerHandle(&p_scanner_handle))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DocumentScan::Name_, 4, false);
+        return false;
+      }
+      DocumentScan::CloseScannerCallback callback =
+          DocumentScan_CloseScanner_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->CloseScanner(
+std::move(p_scanner_handle), std::move(callback));
+      return true;
+    }
+    case internal::kDocumentScan_StartPreparedScan_Name: {
+
+      internal::DocumentScan_StartPreparedScan_Params_Data* params =
+          reinterpret_cast<
+              internal::DocumentScan_StartPreparedScan_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_scanner_handle{};
+      StartScanOptionsPtr p_options{};
+      DocumentScan_StartPreparedScan_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadScannerHandle(&p_scanner_handle))
+        success = false;
+      if (success && !input_data_view.ReadOptions(&p_options))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DocumentScan::Name_, 5, false);
+        return false;
+      }
+      DocumentScan::StartPreparedScanCallback callback =
+          DocumentScan_StartPreparedScan_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->StartPreparedScan(
+std::move(p_scanner_handle), 
+std::move(p_options), std::move(callback));
+      return true;
+    }
+    case internal::kDocumentScan_ReadScanData_Name: {
+
+      internal::DocumentScan_ReadScanData_Params_Data* params =
+          reinterpret_cast<
+              internal::DocumentScan_ReadScanData_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_job_handle{};
+      DocumentScan_ReadScanData_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadJobHandle(&p_job_handle))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DocumentScan::Name_, 6, false);
+        return false;
+      }
+      DocumentScan::ReadScanDataCallback callback =
+          DocumentScan_ReadScanData_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ReadScanData(
+std::move(p_job_handle), std::move(callback));
+      return true;
+    }
+    case internal::kDocumentScan_SetOptions_Name: {
+
+      internal::DocumentScan_SetOptions_Params_Data* params =
+          reinterpret_cast<
+              internal::DocumentScan_SetOptions_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_scanner_handle{};
+      std::vector<OptionSettingPtr> p_options{};
+      DocumentScan_SetOptions_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadScannerHandle(&p_scanner_handle))
+        success = false;
+      if (success && !input_data_view.ReadOptions(&p_options))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DocumentScan::Name_, 7, false);
+        return false;
+      }
+      DocumentScan::SetOptionsCallback callback =
+          DocumentScan_SetOptions_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetOptions(
+std::move(p_scanner_handle), 
+std::move(p_options), std::move(callback));
+      return true;
+    }
+    case internal::kDocumentScan_GetOptionGroups_Name: {
+
+      internal::DocumentScan_GetOptionGroups_Params_Data* params =
+          reinterpret_cast<
+              internal::DocumentScan_GetOptionGroups_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_scanner_handle{};
+      DocumentScan_GetOptionGroups_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadScannerHandle(&p_scanner_handle))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DocumentScan::Name_, 8, false);
+        return false;
+      }
+      DocumentScan::GetOptionGroupsCallback callback =
+          DocumentScan_GetOptionGroups_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetOptionGroups(
+std::move(p_scanner_handle), std::move(callback));
+      return true;
+    }
+    case internal::kDocumentScan_CancelScan_Name: {
+
+      internal::DocumentScan_CancelScan_Params_Data* params =
+          reinterpret_cast<
+              internal::DocumentScan_CancelScan_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_job_handle{};
+      DocumentScan_CancelScan_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadJobHandle(&p_job_handle))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DocumentScan::Name_, 9, false);
+        return false;
+      }
+      DocumentScan::CancelScanCallback callback =
+          DocumentScan_CancelScan_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->CancelScan(
+std::move(p_job_handle), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDocumentScanValidationInfo[] = {
-    {&internal::DocumentScan_GetScannerNames_Params_Data::Validate,
+    { &internal::DocumentScan_GetScannerNames_Params_Data::Validate,
      &internal::DocumentScan_GetScannerNames_ResponseParams_Data::Validate},
-    {&internal::DocumentScan_ScanFirstPage_Params_Data::Validate,
+    { &internal::DocumentScan_ScanFirstPage_Params_Data::Validate,
      &internal::DocumentScan_ScanFirstPage_ResponseParams_Data::Validate},
+    { &internal::DocumentScan_GetScannerList_Params_Data::Validate,
+     &internal::DocumentScan_GetScannerList_ResponseParams_Data::Validate},
+    { &internal::DocumentScan_OpenScanner_Params_Data::Validate,
+     &internal::DocumentScan_OpenScanner_ResponseParams_Data::Validate},
+    { &internal::DocumentScan_CloseScanner_Params_Data::Validate,
+     &internal::DocumentScan_CloseScanner_ResponseParams_Data::Validate},
+    { &internal::DocumentScan_StartPreparedScan_Params_Data::Validate,
+     &internal::DocumentScan_StartPreparedScan_ResponseParams_Data::Validate},
+    { &internal::DocumentScan_ReadScanData_Params_Data::Validate,
+     &internal::DocumentScan_ReadScanData_ResponseParams_Data::Validate},
+    { &internal::DocumentScan_SetOptions_Params_Data::Validate,
+     &internal::DocumentScan_SetOptions_ResponseParams_Data::Validate},
+    { &internal::DocumentScan_GetOptionGroups_Params_Data::Validate,
+     &internal::DocumentScan_GetOptionGroups_ResponseParams_Data::Validate},
+    { &internal::DocumentScan_CancelScan_Params_Data::Validate,
+     &internal::DocumentScan_CancelScan_ResponseParams_Data::Validate},
 };
 
 bool DocumentScanRequestValidator::Accept(mojo::Message* message) {
@@ -604,6 +3966,463 @@ bool DocumentScanResponseValidator::Accept(mojo::Message* message) {
 
 namespace mojo {
 
+
+// static
+bool StructTraits<::crosapi::mojom::ScannerInfo::DataView, ::crosapi::mojom::ScannerInfoPtr>::Read(
+    ::crosapi::mojom::ScannerInfo::DataView input,
+    ::crosapi::mojom::ScannerInfoPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::ScannerInfoPtr result(::crosapi::mojom::ScannerInfo::New());
+  
+      if (success && !input.ReadId(&result->id))
+        success = false;
+      if (success && !input.ReadDisplayName(&result->display_name))
+        success = false;
+      if (success && !input.ReadManufacturer(&result->manufacturer))
+        success = false;
+      if (success && !input.ReadModel(&result->model))
+        success = false;
+      if (success && !input.ReadDeviceUuid(&result->device_uuid))
+        success = false;
+      if (success && !input.ReadConnectionType(&result->connection_type))
+        success = false;
+      if (success)
+        result->secure = input.secure();
+      if (success && !input.ReadImageFormats(&result->image_formats))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::ScannerEnumFilter::DataView, ::crosapi::mojom::ScannerEnumFilterPtr>::Read(
+    ::crosapi::mojom::ScannerEnumFilter::DataView input,
+    ::crosapi::mojom::ScannerEnumFilterPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::ScannerEnumFilterPtr result(::crosapi::mojom::ScannerEnumFilter::New());
+  
+      if (success)
+        result->local = input.local();
+      if (success)
+        result->secure = input.secure();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::IntRange::DataView, ::crosapi::mojom::IntRangePtr>::Read(
+    ::crosapi::mojom::IntRange::DataView input,
+    ::crosapi::mojom::IntRangePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::IntRangePtr result(::crosapi::mojom::IntRange::New());
+  
+      if (success)
+        result->min = input.min();
+      if (success)
+        result->max = input.max();
+      if (success)
+        result->quant = input.quant();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::FixedRange::DataView, ::crosapi::mojom::FixedRangePtr>::Read(
+    ::crosapi::mojom::FixedRange::DataView input,
+    ::crosapi::mojom::FixedRangePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::FixedRangePtr result(::crosapi::mojom::FixedRange::New());
+  
+      if (success)
+        result->min = input.min();
+      if (success)
+        result->max = input.max();
+      if (success)
+        result->quant = input.quant();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::OptionConstraint::DataView, ::crosapi::mojom::OptionConstraintPtr>::Read(
+    ::crosapi::mojom::OptionConstraint::DataView input,
+    ::crosapi::mojom::OptionConstraintPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::OptionConstraintPtr result(::crosapi::mojom::OptionConstraint::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadRestriction(&result->restriction))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::ScannerOption::DataView, ::crosapi::mojom::ScannerOptionPtr>::Read(
+    ::crosapi::mojom::ScannerOption::DataView input,
+    ::crosapi::mojom::ScannerOptionPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::ScannerOptionPtr result(::crosapi::mojom::ScannerOption::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadTitle(&result->title))
+        success = false;
+      if (success && !input.ReadDescription(&result->description))
+        success = false;
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadUnit(&result->unit))
+        success = false;
+      if (success && !input.ReadValue(&result->value))
+        success = false;
+      if (success && !input.ReadConstraint(&result->constraint))
+        success = false;
+      if (success)
+        result->isDetectable = input.isDetectable();
+      if (success && !input.ReadConfigurability(&result->configurability))
+        success = false;
+      if (success)
+        result->isAutoSettable = input.isAutoSettable();
+      if (success)
+        result->isEmulated = input.isEmulated();
+      if (success)
+        result->isActive = input.isActive();
+      if (success)
+        result->isAdvanced = input.isAdvanced();
+      if (success)
+        result->isInternal = input.isInternal();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::GetScannerListResponse::DataView, ::crosapi::mojom::GetScannerListResponsePtr>::Read(
+    ::crosapi::mojom::GetScannerListResponse::DataView input,
+    ::crosapi::mojom::GetScannerListResponsePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::GetScannerListResponsePtr result(::crosapi::mojom::GetScannerListResponse::New());
+  
+      if (success && !input.ReadResult(&result->result))
+        success = false;
+      if (success && !input.ReadScanners(&result->scanners))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::OpenScannerResponse::DataView, ::crosapi::mojom::OpenScannerResponsePtr>::Read(
+    ::crosapi::mojom::OpenScannerResponse::DataView input,
+    ::crosapi::mojom::OpenScannerResponsePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::OpenScannerResponsePtr result(::crosapi::mojom::OpenScannerResponse::New());
+  
+      if (success && !input.ReadScannerId(&result->scanner_id))
+        success = false;
+      if (success && !input.ReadResult(&result->result))
+        success = false;
+      if (success && !input.ReadScannerHandle(&result->scanner_handle))
+        success = false;
+      if (success && !input.ReadOptions(&result->options))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::CloseScannerResponse::DataView, ::crosapi::mojom::CloseScannerResponsePtr>::Read(
+    ::crosapi::mojom::CloseScannerResponse::DataView input,
+    ::crosapi::mojom::CloseScannerResponsePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::CloseScannerResponsePtr result(::crosapi::mojom::CloseScannerResponse::New());
+  
+      if (success && !input.ReadScannerHandle(&result->scanner_handle))
+        success = false;
+      if (success && !input.ReadResult(&result->result))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::StartScanOptions::DataView, ::crosapi::mojom::StartScanOptionsPtr>::Read(
+    ::crosapi::mojom::StartScanOptions::DataView input,
+    ::crosapi::mojom::StartScanOptionsPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::StartScanOptionsPtr result(::crosapi::mojom::StartScanOptions::New());
+  
+      if (success && !input.ReadFormat(&result->format))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::StartPreparedScanResponse::DataView, ::crosapi::mojom::StartPreparedScanResponsePtr>::Read(
+    ::crosapi::mojom::StartPreparedScanResponse::DataView input,
+    ::crosapi::mojom::StartPreparedScanResponsePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::StartPreparedScanResponsePtr result(::crosapi::mojom::StartPreparedScanResponse::New());
+  
+      if (success && !input.ReadScannerHandle(&result->scanner_handle))
+        success = false;
+      if (success && !input.ReadResult(&result->result))
+        success = false;
+      if (success && !input.ReadJobHandle(&result->job_handle))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::ReadScanDataResponse::DataView, ::crosapi::mojom::ReadScanDataResponsePtr>::Read(
+    ::crosapi::mojom::ReadScanDataResponse::DataView input,
+    ::crosapi::mojom::ReadScanDataResponsePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::ReadScanDataResponsePtr result(::crosapi::mojom::ReadScanDataResponse::New());
+  
+      if (success && !input.ReadJobHandle(&result->job_handle))
+        success = false;
+      if (success && !input.ReadResult(&result->result))
+        success = false;
+      if (success && !input.ReadData(&result->data))
+        success = false;
+      if (success) {
+        result->estimated_completion = input.estimated_completion();
+      }
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::OptionSetting::DataView, ::crosapi::mojom::OptionSettingPtr>::Read(
+    ::crosapi::mojom::OptionSetting::DataView input,
+    ::crosapi::mojom::OptionSettingPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::OptionSettingPtr result(::crosapi::mojom::OptionSetting::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadValue(&result->value))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::OptionGroup::DataView, ::crosapi::mojom::OptionGroupPtr>::Read(
+    ::crosapi::mojom::OptionGroup::DataView input,
+    ::crosapi::mojom::OptionGroupPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::OptionGroupPtr result(::crosapi::mojom::OptionGroup::New());
+  
+      if (success && !input.ReadTitle(&result->title))
+        success = false;
+      if (success && !input.ReadMembers(&result->members))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::SetOptionResult::DataView, ::crosapi::mojom::SetOptionResultPtr>::Read(
+    ::crosapi::mojom::SetOptionResult::DataView input,
+    ::crosapi::mojom::SetOptionResultPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::SetOptionResultPtr result(::crosapi::mojom::SetOptionResult::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadResult(&result->result))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::SetOptionsResponse::DataView, ::crosapi::mojom::SetOptionsResponsePtr>::Read(
+    ::crosapi::mojom::SetOptionsResponse::DataView input,
+    ::crosapi::mojom::SetOptionsResponsePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::SetOptionsResponsePtr result(::crosapi::mojom::SetOptionsResponse::New());
+  
+      if (success && !input.ReadScannerHandle(&result->scanner_handle))
+        success = false;
+      if (success && !input.ReadResults(&result->results))
+        success = false;
+      if (success && !input.ReadOptions(&result->options))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::GetOptionGroupsResponse::DataView, ::crosapi::mojom::GetOptionGroupsResponsePtr>::Read(
+    ::crosapi::mojom::GetOptionGroupsResponse::DataView input,
+    ::crosapi::mojom::GetOptionGroupsResponsePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::GetOptionGroupsResponsePtr result(::crosapi::mojom::GetOptionGroupsResponse::New());
+  
+      if (success && !input.ReadScannerHandle(&result->scanner_handle))
+        success = false;
+      if (success && !input.ReadResult(&result->result))
+        success = false;
+      if (success && !input.ReadGroups(&result->groups))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::CancelScanResponse::DataView, ::crosapi::mojom::CancelScanResponsePtr>::Read(
+    ::crosapi::mojom::CancelScanResponse::DataView input,
+    ::crosapi::mojom::CancelScanResponsePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::CancelScanResponsePtr result(::crosapi::mojom::CancelScanResponse::New());
+  
+      if (success && !input.ReadJobHandle(&result->job_handle))
+        success = false;
+      if (success && !input.ReadResult(&result->result))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+// static
+bool UnionTraits<::crosapi::mojom::OptionValue::DataView, ::crosapi::mojom::OptionValuePtr>::Read(
+    ::crosapi::mojom::OptionValue::DataView input,
+    ::crosapi::mojom::OptionValuePtr* output) {
+  using UnionType = ::crosapi::mojom::OptionValue;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kBoolValue: {
+      *output = UnionType::NewBoolValue(input.bool_value());
+      break;
+    }
+    case Tag::kIntValue: {
+      *output = UnionType::NewIntValue(input.int_value());
+      break;
+    }
+    case Tag::kIntList: {
+      std::vector<int32_t> result_int_list;
+      if (!input.ReadIntList(&result_int_list))
+        return false;
+
+      *output = UnionType::NewIntList(
+          std::move(result_int_list));
+      break;
+    }
+    case Tag::kFixedValue: {
+      *output = UnionType::NewFixedValue(input.fixed_value());
+      break;
+    }
+    case Tag::kFixedList: {
+      std::vector<double> result_fixed_list;
+      if (!input.ReadFixedList(&result_fixed_list))
+        return false;
+
+      *output = UnionType::NewFixedList(
+          std::move(result_fixed_list));
+      break;
+    }
+    case Tag::kStringValue: {
+      std::string result_string_value;
+      if (!input.ReadStringValue(&result_string_value))
+        return false;
+
+      *output = UnionType::NewStringValue(
+          std::move(result_string_value));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::crosapi::mojom::OptionConstraintRestriction::DataView, ::crosapi::mojom::OptionConstraintRestrictionPtr>::Read(
+    ::crosapi::mojom::OptionConstraintRestriction::DataView input,
+    ::crosapi::mojom::OptionConstraintRestrictionPtr* output) {
+  using UnionType = ::crosapi::mojom::OptionConstraintRestriction;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kIntRange: {
+      ::crosapi::mojom::IntRangePtr result_int_range;
+      if (!input.ReadIntRange(&result_int_range))
+        return false;
+
+      *output = UnionType::NewIntRange(
+          std::move(result_int_range));
+      break;
+    }
+    case Tag::kFixedRange: {
+      ::crosapi::mojom::FixedRangePtr result_fixed_range;
+      if (!input.ReadFixedRange(&result_fixed_range))
+        return false;
+
+      *output = UnionType::NewFixedRange(
+          std::move(result_fixed_range));
+      break;
+    }
+    case Tag::kValidInt: {
+      std::vector<int32_t> result_valid_int;
+      if (!input.ReadValidInt(&result_valid_int))
+        return false;
+
+      *output = UnionType::NewValidInt(
+          std::move(result_valid_int));
+      break;
+    }
+    case Tag::kValidFixed: {
+      std::vector<double> result_valid_fixed;
+      if (!input.ReadValidFixed(&result_valid_fixed))
+        return false;
+
+      *output = UnionType::NewValidFixed(
+          std::move(result_valid_fixed));
+      break;
+    }
+    case Tag::kValidString: {
+      std::vector<std::string> result_valid_string;
+      if (!input.ReadValidString(&result_valid_string))
+        return false;
+
+      *output = UnionType::NewValidString(
+          std::move(result_valid_string));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
 }  // namespace mojo
 
 
@@ -619,6 +4438,30 @@ void DocumentScanInterceptorForTesting::GetScannerNames(GetScannerNamesCallback 
 }
 void DocumentScanInterceptorForTesting::ScanFirstPage(const std::string& scanner_name, ScanFirstPageCallback callback) {
   GetForwardingInterface()->ScanFirstPage(std::move(scanner_name), std::move(callback));
+}
+void DocumentScanInterceptorForTesting::GetScannerList(const std::string& client_id, ScannerEnumFilterPtr filter, GetScannerListCallback callback) {
+  GetForwardingInterface()->GetScannerList(std::move(client_id), std::move(filter), std::move(callback));
+}
+void DocumentScanInterceptorForTesting::OpenScanner(const std::string& client_id, const std::string& scanner_id, OpenScannerCallback callback) {
+  GetForwardingInterface()->OpenScanner(std::move(client_id), std::move(scanner_id), std::move(callback));
+}
+void DocumentScanInterceptorForTesting::CloseScanner(const std::string& scanner_handle, CloseScannerCallback callback) {
+  GetForwardingInterface()->CloseScanner(std::move(scanner_handle), std::move(callback));
+}
+void DocumentScanInterceptorForTesting::StartPreparedScan(const std::string& scanner_handle, StartScanOptionsPtr options, StartPreparedScanCallback callback) {
+  GetForwardingInterface()->StartPreparedScan(std::move(scanner_handle), std::move(options), std::move(callback));
+}
+void DocumentScanInterceptorForTesting::ReadScanData(const std::string& job_handle, ReadScanDataCallback callback) {
+  GetForwardingInterface()->ReadScanData(std::move(job_handle), std::move(callback));
+}
+void DocumentScanInterceptorForTesting::SetOptions(const std::string& scanner_handle, std::vector<OptionSettingPtr> options, SetOptionsCallback callback) {
+  GetForwardingInterface()->SetOptions(std::move(scanner_handle), std::move(options), std::move(callback));
+}
+void DocumentScanInterceptorForTesting::GetOptionGroups(const std::string& scanner_handle, GetOptionGroupsCallback callback) {
+  GetForwardingInterface()->GetOptionGroups(std::move(scanner_handle), std::move(callback));
+}
+void DocumentScanInterceptorForTesting::CancelScan(const std::string& job_handle, CancelScanCallback callback) {
+  GetForwardingInterface()->CancelScan(std::move(job_handle), std::move(callback));
 }
 DocumentScanAsyncWaiter::DocumentScanAsyncWaiter(
     DocumentScan* proxy) : proxy_(proxy) {}
@@ -649,17 +4492,17 @@ std::vector<std::string> DocumentScanAsyncWaiter::GetScannerNames(
 }
 
 void DocumentScanAsyncWaiter::ScanFirstPage(
-    const std::string& scanner_name, ScanFailureMode* out_failure_mode, absl::optional<std::string>* out_scan_data) {
+    const std::string& scanner_name, ScanFailureMode* out_failure_mode, std::optional<std::string>* out_scan_data) {
   base::RunLoop loop;
   proxy_->ScanFirstPage(std::move(scanner_name),
       base::BindOnce(
           [](base::RunLoop* loop,
              ScanFailureMode* out_failure_mode
 ,
-             absl::optional<std::string>* out_scan_data
+             std::optional<std::string>* out_scan_data
 ,
              ScanFailureMode failure_mode,
-             const absl::optional<std::string>& scan_data) {*out_failure_mode = std::move(failure_mode);*out_scan_data = std::move(scan_data);
+             const std::optional<std::string>& scan_data) {*out_failure_mode = std::move(failure_mode);*out_scan_data = std::move(scan_data);
             loop->Quit();
           },
           &loop,
@@ -669,6 +4512,190 @@ void DocumentScanAsyncWaiter::ScanFirstPage(
 }
 
 
+
+void DocumentScanAsyncWaiter::GetScannerList(
+    const std::string& client_id, ScannerEnumFilterPtr filter, GetScannerListResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->GetScannerList(std::move(client_id),std::move(filter),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             GetScannerListResponsePtr* out_response
+,
+             GetScannerListResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+GetScannerListResponsePtr DocumentScanAsyncWaiter::GetScannerList(
+    const std::string& client_id, ScannerEnumFilterPtr filter) {
+  GetScannerListResponsePtr async_wait_result;
+  GetScannerList(std::move(client_id),std::move(filter),&async_wait_result);
+  return async_wait_result;
+}
+
+void DocumentScanAsyncWaiter::OpenScanner(
+    const std::string& client_id, const std::string& scanner_id, OpenScannerResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->OpenScanner(std::move(client_id),std::move(scanner_id),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             OpenScannerResponsePtr* out_response
+,
+             OpenScannerResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+OpenScannerResponsePtr DocumentScanAsyncWaiter::OpenScanner(
+    const std::string& client_id, const std::string& scanner_id) {
+  OpenScannerResponsePtr async_wait_result;
+  OpenScanner(std::move(client_id),std::move(scanner_id),&async_wait_result);
+  return async_wait_result;
+}
+
+void DocumentScanAsyncWaiter::CloseScanner(
+    const std::string& scanner_handle, CloseScannerResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->CloseScanner(std::move(scanner_handle),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             CloseScannerResponsePtr* out_response
+,
+             CloseScannerResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+CloseScannerResponsePtr DocumentScanAsyncWaiter::CloseScanner(
+    const std::string& scanner_handle) {
+  CloseScannerResponsePtr async_wait_result;
+  CloseScanner(std::move(scanner_handle),&async_wait_result);
+  return async_wait_result;
+}
+
+void DocumentScanAsyncWaiter::StartPreparedScan(
+    const std::string& scanner_handle, StartScanOptionsPtr options, StartPreparedScanResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->StartPreparedScan(std::move(scanner_handle),std::move(options),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             StartPreparedScanResponsePtr* out_response
+,
+             StartPreparedScanResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+StartPreparedScanResponsePtr DocumentScanAsyncWaiter::StartPreparedScan(
+    const std::string& scanner_handle, StartScanOptionsPtr options) {
+  StartPreparedScanResponsePtr async_wait_result;
+  StartPreparedScan(std::move(scanner_handle),std::move(options),&async_wait_result);
+  return async_wait_result;
+}
+
+void DocumentScanAsyncWaiter::ReadScanData(
+    const std::string& job_handle, ReadScanDataResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->ReadScanData(std::move(job_handle),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ReadScanDataResponsePtr* out_response
+,
+             ReadScanDataResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+ReadScanDataResponsePtr DocumentScanAsyncWaiter::ReadScanData(
+    const std::string& job_handle) {
+  ReadScanDataResponsePtr async_wait_result;
+  ReadScanData(std::move(job_handle),&async_wait_result);
+  return async_wait_result;
+}
+
+void DocumentScanAsyncWaiter::SetOptions(
+    const std::string& scanner_handle, std::vector<OptionSettingPtr> options, SetOptionsResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->SetOptions(std::move(scanner_handle),std::move(options),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             SetOptionsResponsePtr* out_response
+,
+             SetOptionsResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+SetOptionsResponsePtr DocumentScanAsyncWaiter::SetOptions(
+    const std::string& scanner_handle, std::vector<OptionSettingPtr> options) {
+  SetOptionsResponsePtr async_wait_result;
+  SetOptions(std::move(scanner_handle),std::move(options),&async_wait_result);
+  return async_wait_result;
+}
+
+void DocumentScanAsyncWaiter::GetOptionGroups(
+    const std::string& scanner_handle, GetOptionGroupsResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->GetOptionGroups(std::move(scanner_handle),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             GetOptionGroupsResponsePtr* out_response
+,
+             GetOptionGroupsResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+GetOptionGroupsResponsePtr DocumentScanAsyncWaiter::GetOptionGroups(
+    const std::string& scanner_handle) {
+  GetOptionGroupsResponsePtr async_wait_result;
+  GetOptionGroups(std::move(scanner_handle),&async_wait_result);
+  return async_wait_result;
+}
+
+void DocumentScanAsyncWaiter::CancelScan(
+    const std::string& job_handle, CancelScanResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->CancelScan(std::move(job_handle),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             CancelScanResponsePtr* out_response
+,
+             CancelScanResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+CancelScanResponsePtr DocumentScanAsyncWaiter::CancelScan(
+    const std::string& job_handle) {
+  CancelScanResponsePtr async_wait_result;
+  CancelScan(std::move(job_handle),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

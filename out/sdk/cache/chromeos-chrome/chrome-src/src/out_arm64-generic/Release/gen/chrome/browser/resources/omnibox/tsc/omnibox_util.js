@@ -56,6 +56,9 @@ export function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 export class MlVersionObj {
+    version;
+    string;
+    url;
     constructor(version) {
         this.version = version;
         this.string = version === -1 ?
@@ -64,4 +67,68 @@ export class MlVersionObj {
         const codeSearchPrefix = 'https://source.corp.google.com/search?q=file:google3/googledata/chrome/breve/cacao/models/data/omnibox/url_scoring/';
         this.url = `${codeSearchPrefix} ${version}`;
     }
+}
+function setFormattedClipboard(text) {
+    let styleCount = 0;
+    const addStyle = (style) => {
+        styleCount++;
+        return `<span style="${style}">`;
+    };
+    const clearStyles = () => {
+        const n = styleCount;
+        styleCount = 0;
+        return '</span>'.repeat(n);
+    };
+    let linkStep = 0;
+    const addLink = () => {
+        linkStep = (linkStep + 1) % 3;
+        switch (linkStep) {
+            case 1:
+                return '<a href="';
+            case 2:
+                return '">';
+            case 3:
+            default:
+                return '</a>';
+        }
+    };
+    const htmlMap = {
+        $$: () => '$',
+        $n: () => '<br>',
+        $h: () => addStyle('font-weight:bold'),
+        $r: () => addStyle('color:red'),
+        $g: () => addStyle('color:green'),
+        $b: () => addStyle('color:blue'),
+        $p: () => addStyle('color:purple'),
+        $0: clearStyles,
+        $l: addLink,
+    };
+    const plainMap = {
+        $$: () => '$',
+        $n: () => '\n',
+    };
+    const applyMap = (map) => {
+        return text.split(/(\$.)/g)
+            .map((part, i) => i % 2 ? map[part]?.() ?? '' : part)
+            .join('');
+    };
+    const clipboardEntries = [
+        ['text/html', htmlMap],
+        ['text/plain', plainMap],
+    ];
+    const clipboardItem = new ClipboardItem(Object.fromEntries(clipboardEntries.map(([type, map]) => [type, new Blob([applyMap(map)], { type })])));
+    return navigator.clipboard.write([clipboardItem]);
+}
+export function setFormattedClipboardForMl(matchDetails, signals, shareUrl, version) {
+    return setFormattedClipboard([
+        // clang-format off
+        ...Object.entries(matchDetails)
+            .flatMap(([k, v]) => ['$h$g', k, ': $0$b', v, '$0$n']),
+        ...Object.entries(signals)
+            .filter(([, v]) => v)
+            .flatMap(([k, v]) => ['$h$p', k, ': $0$b', v, '$0$n']),
+        ...shareUrl ? ['$r', shareUrl, '$0$n'] : [],
+        '$h$r', 'Version: ', '$0', '$l', version.url, '$l', version.string, '$l$n',
+        // clang-format on
+    ].join(''));
 }

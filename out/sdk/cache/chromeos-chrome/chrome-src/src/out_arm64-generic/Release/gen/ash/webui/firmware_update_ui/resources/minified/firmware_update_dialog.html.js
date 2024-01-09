@@ -1,4 +1,4 @@
-import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="firmware-shared-fonts firmware-shared">:host{--cr-dialog-width:416px}[slot=button-container]{display:flex;justify-content:flex-end}[slot=footer]{border:none}#progress{display:inline-block;margin:8px 0}paper-progress{--paper-progress-active-color:var(--cros-slider-color-active);--paper-progress-container-color:var(--cros-slider-track-color-active);--paper-progress-height:4px;border-radius:5px;display:inline-block;margin-bottom:8px;width:95%}</style>
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="firmware-shared-fonts firmware-shared">:host{--cr-dialog-width:416px}[slot=button-container]{display:flex;justify-content:flex-end}[slot=footer]{border:none}#updateDialogBody{min-height:100px}#progress{display:inline-block;margin:8px 0}paper-progress{--paper-progress-active-color:var(--cros-slider-color-active);--paper-progress-container-color:var(--cros-slider-track-color-active);--paper-progress-height:4px;border-radius:5px;display:inline-block;margin-bottom:8px;width:95%}</style>
 <template is="dom-if" if="[[shouldShowUpdateDialog(installationProgress.*,
         isInitiallyInflight)]]" restamp>
   <cr-dialog id="updateDialog" show-on-attach on-close="closeDialog">
@@ -11,15 +11,18 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
       </div>
     </div>
     <div slot="footer" hidden$="[[!shouldShowProgressBar(installationProgress.*,
-                   isInitiallyInflight)]]">
+                   isInitiallyInflight, lastDeviceRequestId)]]">
       <label id="progress" class="firmware-dialog-installing-font" aria-live="polite" tabindex="0">
         [[dialogContent.footer]]
       </label>
-      <template is="dom-if" if="[[!isInIndeterminateState(installationProgress.*)]]" restamp>
-        <paper-progress id="updateProgressBar" value="[[computePercentageValue(installationProgress.percentage)]]" max="100">
+      <template is="dom-if" if="[[!isInIndeterminateState(installationProgress.*,
+                lastDeviceRequestId)]]" restamp>
+        <paper-progress id="updateProgressBar" value="[[computePercentageValue(installationProgress.percentage)]]" max="100" disabled="[[isProgressBarDisabled(installationProgress.*,
+                                  lastDeviceRequestId)]]">
         </paper-progress>
       </template>
-      <template is="dom-if" if="[[isInIndeterminateState(installationProgress.*)]]" restamp>
+      <template is="dom-if" if="[[isInIndeterminateState(installationProgress.*,
+                lastDeviceRequestId)]]" restamp>
         <paper-progress id="indeterminateProgressBar" indeterminate>
         </paper-progress>
       </template>

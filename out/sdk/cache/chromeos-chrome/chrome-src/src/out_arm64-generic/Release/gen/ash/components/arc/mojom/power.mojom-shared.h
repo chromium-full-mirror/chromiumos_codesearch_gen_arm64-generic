@@ -109,6 +109,31 @@ inline bool IsKnownEnumValue(WakefulnessMode value) {
   return internal::WakefulnessMode_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class IdleState : int32_t {
+  
+  ACTIVE = 0,
+  
+  INACTIVE = 1,
+  
+  FORCE_INACTIVE = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, IdleState value);
+inline bool IsKnownEnumValue(IdleState value) {
+  return internal::IdleState_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline IdleState ToKnownEnumValue(IdleState value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return IdleState::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
 class PowerHostInterfaceBase {};
 
@@ -165,6 +190,10 @@ struct hash<::arc::mojom::DisplayWakeLockType>
 template <>
 struct hash<::arc::mojom::WakefulnessMode>
     : public mojo::internal::EnumHashImpl<::arc::mojom::WakefulnessMode> {};
+
+template <>
+struct hash<::arc::mojom::IdleState>
+    : public mojo::internal::EnumHashImpl<::arc::mojom::IdleState> {};
 
 }  // namespace std
 
@@ -225,6 +254,26 @@ struct Serializer<::arc::mojom::WakefulnessMode, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::arc::mojom::WakefulnessMode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::arc::mojom::IdleState, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::arc::mojom::IdleState, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::arc::mojom::IdleState>(input)), output);
   }
 };
 
@@ -296,6 +345,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::arc::mojom::WakefulnessMode> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::WakefulnessMode value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::arc::mojom::IdleState> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::IdleState value);
 };
 
 } // namespace perfetto

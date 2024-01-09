@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct OAuth2Info {
   ~OAuth2Info();
   OAuth2Info(const OAuth2Info&) = delete;
   OAuth2Info& operator=(const OAuth2Info&) = delete;
-  OAuth2Info(OAuth2Info&& rhs);
-  OAuth2Info& operator=(OAuth2Info&& rhs);
+  OAuth2Info(OAuth2Info&& rhs) noexcept;
+  OAuth2Info& operator=(OAuth2Info&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kAutoApprove[] = "auto_approve";
@@ -53,15 +54,12 @@ struct OAuth2Info {
   // Creates a deep copy of OAuth2Info.
   OAuth2Info Clone() const;
 
-  // Creates a OAuth2Info object from a base::Value, or NULL on failure.
-  static std::unique_ptr<OAuth2Info> FromValueDeprecated(const base::Value& value);
-
   // Creates a OAuth2Info object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<OAuth2Info> FromValue(const base::Value::Dict& value);
+  static std::optional<OAuth2Info> FromValue(const base::Value::Dict& value);
 
   // Creates a OAuth2Info object from a base::Value, or nullopt on failure.
-  static absl::optional<OAuth2Info> FromValue(const base::Value& value);
+  static std::optional<OAuth2Info> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOAuth2Info object.
@@ -75,10 +73,10 @@ struct OAuth2Info {
 
   // Whether the approval UI should be skipped. Only available to allowlisted
   // extensions/apps.
-  absl::optional<bool> auto_approve;
+  std::optional<bool> auto_approve;
 
   // Client ID of the corresponding extension/app.
-  absl::optional<std::string> client_id;
+  std::optional<std::string> client_id;
 
   // Scopes the extension/app needs access to.
   std::vector<std::string> scopes;
@@ -95,8 +93,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kOauth2[] = "oauth2";

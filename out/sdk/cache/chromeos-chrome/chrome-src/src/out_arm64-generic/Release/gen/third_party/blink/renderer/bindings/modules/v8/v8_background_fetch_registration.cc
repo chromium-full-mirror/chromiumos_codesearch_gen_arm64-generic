@@ -78,11 +78,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, BackgroundFetchRegistration>::value,
     "BackgroundFetchRegistration does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&BackgroundFetchRegistration::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BackgroundFetchRegistration is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,10 +90,10 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchRegistration.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -110,8 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchRegistration.uploadTotal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->uploadTotal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -124,8 +120,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchRegistration.uploaded.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->uploaded();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -138,8 +135,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchRegistration.downloadTotal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->downloadTotal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -152,8 +150,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchRegistration.downloaded.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->downloaded();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -166,10 +165,10 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchRegistration.result.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->result();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->result();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -189,7 +188,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8BackgroundFetchRegis
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->failureReason();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -202,8 +201,9 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchRegistration.recordsAvailable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->recordsAvailable();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -216,10 +216,10 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchRegistration.onprogress.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onprogress();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onprogress();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -232,8 +232,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnprogress(event_handler);
 }
 
@@ -264,7 +265,7 @@ UseCounter::Count(current_execution_context, WebFeature::kBackgroundFetchRegistr
 
 
 
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -306,7 +307,7 @@ return;
 
 
 
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -360,7 +361,7 @@ UseCounter::Count(current_execution_context, WebFeature::kBackgroundFetchRegistr
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchRegistration* blink_receiver = V8BackgroundFetchRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

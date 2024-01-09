@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-features.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-forward.h"
 #include <string>
@@ -603,17 +604,17 @@ class  RoutineUpdateUnion {
   // Construct an instance holding |interactive_update|.
   static RoutineUpdateUnionPtr
   NewInteractiveUpdate(
-      InteractiveRoutineUpdatePtr interactive_update) {
+      InteractiveRoutineUpdatePtr value) {
     auto result = RoutineUpdateUnionPtr(absl::in_place);
-    result->set_interactive_update(std::move(interactive_update));
+    result->set_interactive_update(std::move(value));
     return result;
   }
   // Construct an instance holding |noninteractive_update|.
   static RoutineUpdateUnionPtr
   NewNoninteractiveUpdate(
-      NonInteractiveRoutineUpdatePtr noninteractive_update) {
+      NonInteractiveRoutineUpdatePtr value) {
     auto result = RoutineUpdateUnionPtr(absl::in_place);
-    result->set_noninteractive_update(std::move(noninteractive_update));
+    result->set_noninteractive_update(std::move(value));
     return result;
   }
 

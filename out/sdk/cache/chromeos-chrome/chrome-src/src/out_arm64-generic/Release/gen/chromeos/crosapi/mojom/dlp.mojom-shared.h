@@ -26,6 +26,7 @@
 #include "chromeos/crosapi/mojom/dlp.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/string16.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
+#include "mojo/public/mojom/base/file_path.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -95,6 +96,41 @@ enum class DlpRestrictionLevel : int32_t {
 inline bool IsKnownEnumValue(DlpRestrictionLevel value) {
   return internal::DlpRestrictionLevel_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+
+
+enum class FileAction : int32_t {
+  
+  kUnknown = 0,
+  
+  kDownload = 1,
+  
+  kTransfer = 2,
+  
+  kUpload = 3,
+  
+  kCopy = 4,
+  
+  kMove = 5,
+  
+  kOpen = 6,
+  
+  kShare = 7,
+  kMinValue = 0,
+  kMaxValue = 7,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, FileAction value);
+inline bool IsKnownEnumValue(FileAction value) {
+  return internal::FileAction_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline FileAction ToKnownEnumValue(FileAction value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return FileAction::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class StateChangeDelegateInterfaceBase {};
@@ -260,6 +296,10 @@ template <>
 struct hash<::crosapi::mojom::DlpRestrictionLevel>
     : public mojo::internal::EnumHashImpl<::crosapi::mojom::DlpRestrictionLevel> {};
 
+template <>
+struct hash<::crosapi::mojom::FileAction>
+    : public mojo::internal::EnumHashImpl<::crosapi::mojom::FileAction> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -279,6 +319,26 @@ struct Serializer<::crosapi::mojom::DlpRestrictionLevel, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::crosapi::mojom::DlpRestrictionLevel>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::FileAction, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::crosapi::mojom::FileAction, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::crosapi::mojom::FileAction>(input)), output);
   }
 };
 
@@ -494,6 +554,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::crosapi::mojom::DlpRestrictionLevel> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::DlpRestrictionLevel value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::crosapi::mojom::FileAction> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::FileAction value);
 };
 
 } // namespace perfetto

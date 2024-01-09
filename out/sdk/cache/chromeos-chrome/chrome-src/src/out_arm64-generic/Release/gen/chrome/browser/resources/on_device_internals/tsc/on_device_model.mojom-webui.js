@@ -3,19 +3,37 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
-import { FileSpec as mojoBase_mojom_FileSpec } from '//resources/mojo/mojo/public/mojom/base/file.mojom-webui.js';
+export const ResponseStatusSpec = { $: mojo.internal.Enum() };
+export var ResponseStatus;
+(function (ResponseStatus) {
+    ResponseStatus[ResponseStatus["MIN_VALUE"] = 0] = "MIN_VALUE";
+    ResponseStatus[ResponseStatus["MAX_VALUE"] = 1] = "MAX_VALUE";
+    ResponseStatus[ResponseStatus["kOk"] = 0] = "kOk";
+    ResponseStatus[ResponseStatus["kRetracted"] = 1] = "kRetracted";
+})(ResponseStatus || (ResponseStatus = {}));
 export const PerformanceClassSpec = { $: mojo.internal.Enum() };
 export var PerformanceClass;
 (function (PerformanceClass) {
     PerformanceClass[PerformanceClass["MIN_VALUE"] = 0] = "MIN_VALUE";
-    PerformanceClass[PerformanceClass["MAX_VALUE"] = 5] = "MAX_VALUE";
+    PerformanceClass[PerformanceClass["MAX_VALUE"] = 7] = "MAX_VALUE";
     PerformanceClass[PerformanceClass["kError"] = 0] = "kError";
-    PerformanceClass[PerformanceClass["kVeryLow"] = 1] = "kVeryLow";
-    PerformanceClass[PerformanceClass["kLow"] = 2] = "kLow";
-    PerformanceClass[PerformanceClass["kMedium"] = 3] = "kMedium";
-    PerformanceClass[PerformanceClass["kHigh"] = 4] = "kHigh";
-    PerformanceClass[PerformanceClass["kVeryHigh"] = 5] = "kVeryHigh";
+    PerformanceClass[PerformanceClass["kGpuBlocked"] = 1] = "kGpuBlocked";
+    PerformanceClass[PerformanceClass["kFailedToLoadLibrary"] = 2] = "kFailedToLoadLibrary";
+    PerformanceClass[PerformanceClass["kVeryLow"] = 3] = "kVeryLow";
+    PerformanceClass[PerformanceClass["kLow"] = 4] = "kLow";
+    PerformanceClass[PerformanceClass["kMedium"] = 5] = "kMedium";
+    PerformanceClass[PerformanceClass["kHigh"] = 6] = "kHigh";
+    PerformanceClass[PerformanceClass["kVeryHigh"] = 7] = "kVeryHigh";
 })(PerformanceClass || (PerformanceClass = {}));
+export const LoadModelResultSpec = { $: mojo.internal.Enum() };
+export var LoadModelResult;
+(function (LoadModelResult) {
+    LoadModelResult[LoadModelResult["MIN_VALUE"] = 0] = "MIN_VALUE";
+    LoadModelResult[LoadModelResult["MAX_VALUE"] = 2] = "MAX_VALUE";
+    LoadModelResult[LoadModelResult["kSuccess"] = 0] = "kSuccess";
+    LoadModelResult[LoadModelResult["kGpuBlocked"] = 1] = "kGpuBlocked";
+    LoadModelResult[LoadModelResult["kFailedToLoadLibrary"] = 2] = "kFailedToLoadLibrary";
+})(LoadModelResult || (LoadModelResult = {}));
 export class StreamingResponderPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -36,8 +54,10 @@ export class StreamingResponderRemote {
             text
         ]);
     }
-    onComplete() {
-        this.proxy.sendMessage(1, StreamingResponder_OnComplete_ParamsSpec.$, null, []);
+    onComplete(status) {
+        this.proxy.sendMessage(1, StreamingResponder_OnComplete_ParamsSpec.$, null, [
+            status
+        ]);
     }
 }
 ;
@@ -97,6 +117,165 @@ export class StreamingResponderCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+export class ContextClientPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'on_device_model.mojom.ContextClient', scope);
+    }
+}
+export class ContextClientRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(ContextClientPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    onComplete(tokensProcessed) {
+        this.proxy.sendMessage(0, ContextClient_OnComplete_ParamsSpec.$, null, [
+            tokensProcessed
+        ]);
+    }
+}
+;
+/**
+ * An object which receives request messages for the ContextClient
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+export class ContextClientReceiver {
+    constructor(impl) {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ContextClientRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, ContextClient_OnComplete_ParamsSpec.$, null, impl.onComplete.bind(impl));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+}
+export class ContextClient {
+    static get $interfaceName() {
+        return "on_device_model.mojom.ContextClient";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new ContextClientRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+/**
+ * An object which receives request messages for the ContextClient
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+export class ContextClientCallbackRouter {
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ContextClientRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.onComplete =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, ContextClient_OnComplete_ParamsSpec.$, null, this.onComplete.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
+export class SessionPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'on_device_model.mojom.Session', scope);
+    }
+}
+export class SessionRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(SessionPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    addContext(input, client) {
+        this.proxy.sendMessage(0, Session_AddContext_ParamsSpec.$, null, [
+            input,
+            client
+        ]);
+    }
+    execute(input, response) {
+        this.proxy.sendMessage(1, Session_Execute_ParamsSpec.$, null, [
+            input,
+            response
+        ]);
+    }
+}
+;
+/**
+ * An object which receives request messages for the Session
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+export class SessionReceiver {
+    constructor(impl) {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(SessionRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, Session_AddContext_ParamsSpec.$, null, impl.addContext.bind(impl));
+        this.helper_internal_.registerHandler(1, Session_Execute_ParamsSpec.$, null, impl.execute.bind(impl));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+}
+export class Session {
+    static get $interfaceName() {
+        return "on_device_model.mojom.Session";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new SessionRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+/**
+ * An object which receives request messages for the Session
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+export class SessionCallbackRouter {
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(SessionRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.addContext =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, Session_AddContext_ParamsSpec.$, null, this.addContext.createReceiverHandler(false /* expectsResponse */));
+        this.execute =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, Session_Execute_ParamsSpec.$, null, this.execute.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
 export class OnDeviceModelPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -112,10 +291,9 @@ export class OnDeviceModelRemote {
         this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
         this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
     }
-    execute(input, response) {
-        this.proxy.sendMessage(0, OnDeviceModel_Execute_ParamsSpec.$, null, [
-            input,
-            response
+    startSession(session) {
+        this.proxy.sendMessage(0, OnDeviceModel_StartSession_ParamsSpec.$, null, [
+            session
         ]);
     }
 }
@@ -129,7 +307,7 @@ export class OnDeviceModelReceiver {
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OnDeviceModelRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.helper_internal_.registerHandler(0, OnDeviceModel_Execute_ParamsSpec.$, null, impl.execute.bind(impl));
+        this.helper_internal_.registerHandler(0, OnDeviceModel_StartSession_ParamsSpec.$, null, impl.startSession.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -159,9 +337,9 @@ export class OnDeviceModelCallbackRouter {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OnDeviceModelRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-        this.execute =
+        this.startSession =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(0, OnDeviceModel_Execute_ParamsSpec.$, null, this.execute.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(0, OnDeviceModel_StartSession_ParamsSpec.$, null, this.startSession.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -172,126 +350,61 @@ export class OnDeviceModelCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
-export class OnDeviceModelServicePendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'on_device_model.mojom.OnDeviceModelService', scope);
-    }
-}
-export class OnDeviceModelServiceRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(OnDeviceModelServicePendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    loadModel(assets) {
-        return this.proxy.sendMessage(0, OnDeviceModelService_LoadModel_ParamsSpec.$, OnDeviceModelService_LoadModel_ResponseParamsSpec.$, [
-            assets
-        ]);
-    }
-    getEstimatedPerformanceClass() {
-        return this.proxy.sendMessage(1, OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec.$, OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec.$, []);
-    }
-}
-;
-/**
- * An object which receives request messages for the OnDeviceModelService
- * mojom interface. Must be constructed over an object which implements that
- * interface.
- */
-export class OnDeviceModelServiceReceiver {
-    constructor(impl) {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OnDeviceModelServiceRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.helper_internal_.registerHandler(0, OnDeviceModelService_LoadModel_ParamsSpec.$, OnDeviceModelService_LoadModel_ResponseParamsSpec.$, impl.loadModel.bind(impl));
-        this.helper_internal_.registerHandler(1, OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec.$, OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec.$, impl.getEstimatedPerformanceClass.bind(impl));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
-}
-export class OnDeviceModelService {
-    static get $interfaceName() {
-        return "on_device_model.mojom.OnDeviceModelService";
-    }
-    /**
-     * Returns a remote for this interface which sends messages to the browser.
-     * The browser must have an interface request binder registered for this
-     * interface and accessible to the calling document's frame.
-     */
-    static getRemote() {
-        let remote = new OnDeviceModelServiceRemote;
-        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-        return remote;
-    }
-}
-/**
- * An object which receives request messages for the OnDeviceModelService
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
- */
-export class OnDeviceModelServiceCallbackRouter {
-    constructor() {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OnDeviceModelServiceRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-        this.loadModel =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(0, OnDeviceModelService_LoadModel_ParamsSpec.$, OnDeviceModelService_LoadModel_ResponseParamsSpec.$, this.loadModel.createReceiverHandler(true /* expectsResponse */));
-        this.getEstimatedPerformanceClass =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(1, OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec.$, OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec.$, this.getEstimatedPerformanceClass.createReceiverHandler(true /* expectsResponse */));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
-    /**
-     * @param id An ID returned by a prior call to addListener.
-     * @return True iff the identified listener was found and removed.
-     */
-    removeListener(id) {
-        return this.router_.removeListener(id);
-    }
-}
-export const ModelAssetsSpec = { $: {} };
+export const InputOptionsSpec = { $: {} };
 export const StreamingResponder_OnResponse_ParamsSpec = { $: {} };
 export const StreamingResponder_OnComplete_ParamsSpec = { $: {} };
-export const OnDeviceModel_Execute_ParamsSpec = { $: {} };
-export const OnDeviceModelService_LoadModel_ParamsSpec = { $: {} };
-export const OnDeviceModelService_LoadModel_ResponseParamsSpec = { $: {} };
-export const OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec = { $: {} };
-export const OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec = { $: {} };
-export const LoadModelResultSpec = { $: {} };
-mojo.internal.Struct(ModelAssetsSpec.$, 'ModelAssets', [
-    mojo.internal.StructField('spModel', 0, 0, mojoBase_mojom_FileSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('model', 8, 0, mojoBase_mojom_FileSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('weights', 16, 0, mojoBase_mojom_FileSpec.$, null, true /* nullable */, 0),
+export const ContextClient_OnComplete_ParamsSpec = { $: {} };
+export const Session_AddContext_ParamsSpec = { $: {} };
+export const Session_Execute_ParamsSpec = { $: {} };
+export const OnDeviceModel_StartSession_ParamsSpec = { $: {} };
+mojo.internal.Struct(InputOptionsSpec.$, 'InputOptions', [
+    mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('max_tokens_$flag', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "max_tokens_$value",
+        originalFieldName: "maxTokens",
+    }),
+    mojo.internal.StructField('max_tokens_$value', 12, 0, mojo.internal.Uint32, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "maxTokens",
+    }),
+    mojo.internal.StructField('token_offset_$flag', 8, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "token_offset_$value",
+        originalFieldName: "tokenOffset",
+    }),
+    mojo.internal.StructField('token_offset_$value', 16, 0, mojo.internal.Uint32, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "tokenOffset",
+    }),
+    mojo.internal.StructField('ignoreContext', 8, 2, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('max_output_tokens_$flag', 8, 3, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "max_output_tokens_$value",
+        originalFieldName: "maxOutputTokens",
+    }),
+    mojo.internal.StructField('max_output_tokens_$value', 20, 0, mojo.internal.Uint32, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "maxOutputTokens",
+    }),
 ], [[0, 32],]);
 mojo.internal.Struct(StreamingResponder_OnResponse_ParamsSpec.$, 'StreamingResponder_OnResponse_Params', [
     mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
-mojo.internal.Struct(StreamingResponder_OnComplete_ParamsSpec.$, 'StreamingResponder_OnComplete_Params', [], [[0, 8],]);
-mojo.internal.Struct(OnDeviceModel_Execute_ParamsSpec.$, 'OnDeviceModel_Execute_Params', [
-    mojo.internal.StructField('input', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+mojo.internal.Struct(StreamingResponder_OnComplete_ParamsSpec.$, 'StreamingResponder_OnComplete_Params', [
+    mojo.internal.StructField('status', 0, 0, ResponseStatusSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(ContextClient_OnComplete_ParamsSpec.$, 'ContextClient_OnComplete_Params', [
+    mojo.internal.StructField('tokensProcessed', 0, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Session_AddContext_ParamsSpec.$, 'Session_AddContext_Params', [
+    mojo.internal.StructField('input', 0, 0, InputOptionsSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('client', 8, 0, mojo.internal.InterfaceProxy(ContextClientRemote), null, true /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(Session_Execute_ParamsSpec.$, 'Session_Execute_Params', [
+    mojo.internal.StructField('input', 0, 0, InputOptionsSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('response', 8, 0, mojo.internal.InterfaceProxy(StreamingResponderRemote), null, false /* nullable */, 0),
 ], [[0, 24],]);
-mojo.internal.Struct(OnDeviceModelService_LoadModel_ParamsSpec.$, 'OnDeviceModelService_LoadModel_Params', [
-    mojo.internal.StructField('assets', 0, 0, ModelAssetsSpec.$, null, false /* nullable */, 0),
+mojo.internal.Struct(OnDeviceModel_StartSession_ParamsSpec.$, 'OnDeviceModel_StartSession_Params', [
+    mojo.internal.StructField('session', 0, 0, mojo.internal.InterfaceRequest(SessionPendingReceiver), null, false /* nullable */, 0),
 ], [[0, 16],]);
-mojo.internal.Struct(OnDeviceModelService_LoadModel_ResponseParamsSpec.$, 'OnDeviceModelService_LoadModel_ResponseParams', [
-    mojo.internal.StructField('result', 0, 0, LoadModelResultSpec.$, null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec.$, 'OnDeviceModelService_GetEstimatedPerformanceClass_Params', [], [[0, 8],]);
-mojo.internal.Struct(OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec.$, 'OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams', [
-    mojo.internal.StructField('performanceClass', 0, 0, PerformanceClassSpec.$, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Union(LoadModelResultSpec.$, 'LoadModelResult', {
-    'model': {
-        'ordinal': 0,
-        'type': mojo.internal.InterfaceProxy(OnDeviceModelRemote),
-    },
-    'error': {
-        'ordinal': 1,
-        'type': mojo.internal.String,
-    },
-});

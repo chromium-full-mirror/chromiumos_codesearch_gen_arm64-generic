@@ -32,7 +32,7 @@ namespace blink {
 
 bool V8AnimationTimeline::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::WebAnimationsAPIEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AnimationTimeline>::value,
     "AnimationTimeline inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AnimationTimeline::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AnimationTimeline is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,7 +87,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AnimationTimeline* blink_receiver = V8AnimationTimeline::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+AnimationTimeline* blink_receiver = V8AnimationTimeline::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTime();
 if (!ToV8Traits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -113,7 +109,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AnimationTimeline* blink_receiver = V8AnimationTimeline::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+AnimationTimeline* blink_receiver = V8AnimationTimeline::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->duration();
 if (!ToV8Traits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -133,17 +130,17 @@ BLINK_BINDINGS_TRACE_EVENT("AnimationTimeline.getCurrentTime");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AnimationTimeline* blink_receiver = V8AnimationTimeline::ToWrappableUnsafe(v8_receiver);
+AnimationTimeline* blink_receiver = V8AnimationTimeline::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_range_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_range_name.Init(info[0].As<v8::String>());
+  arg1_range_name.Init(isolate, info[0].As<v8::String>());
 } else {
   if (info[0]->IsUndefined()) {
   arg1_range_name = "cover";
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "AnimationTimeline";
 const char* const property_name = "getCurrentTime";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

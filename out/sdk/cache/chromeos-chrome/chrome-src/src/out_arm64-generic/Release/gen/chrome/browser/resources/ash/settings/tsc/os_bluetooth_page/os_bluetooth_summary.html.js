@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared os-settings-icons">#pairNewDeviceBtn{margin-inline-end:20px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared os-settings-icons">#pairNewDeviceBtn{margin-inline-end:20px}:host-context(body.revamp-wayfinding-enabled) #statusIcon{--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 <template is="dom-if" if="[[!isSecondaryUser_]]">
   <div id="bluetoothSummary" class="settings-box two-line first no-padding">
     <div class="link-wrapper" actionable on-click="onWrapperClick_">

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -239,14 +240,17 @@ void ProtectedBufferManagerProxy::DeprecatedGetProtectedSharedMemoryFromHandle(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_Name, kFlags, 0, 0, nullptr);
@@ -283,14 +287,17 @@ void ProtectedBufferManagerProxy::GetProtectedSharedMemoryFromHandle(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProtectedBufferManager_GetProtectedSharedMemoryFromHandle_Name, kFlags, 0, 0, nullptr);
@@ -327,14 +334,17 @@ void ProtectedBufferManagerProxy::GetProtectedNativePixmapHandleFromHandle(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_Name, kFlags, 0, 0, nullptr);
@@ -371,14 +381,17 @@ void ProtectedBufferManagerProxy::IsProtectedNativePixmapHandle(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProtectedBufferManager_IsProtectedNativePixmapHandle_Name, kFlags, 0, 0, nullptr);
@@ -494,7 +507,8 @@ void ProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_ProxyTo
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_Name, kFlags, 0, 0, nullptr);
@@ -617,7 +631,8 @@ void ProtectedBufferManager_GetProtectedSharedMemoryFromHandle_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProtectedBufferManager_GetProtectedSharedMemoryFromHandle_Name, kFlags, 0, 0, nullptr);
@@ -690,7 +705,7 @@ class ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ProxyToRes
 #endif
 
   void Run(
-      absl::optional<::gfx::NativePixmapHandle> in_native_pixmap_handle);
+      std::optional<::gfx::NativePixmapHandle> in_native_pixmap_handle);
 };
 
 bool ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ForwardToCallback::Accept(
@@ -703,7 +718,7 @@ bool ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ForwardToCa
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::gfx::NativePixmapHandle> p_native_pixmap_handle{};
+  std::optional<::gfx::NativePixmapHandle> p_native_pixmap_handle{};
   ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadNativePixmapHandle(&p_native_pixmap_handle))
@@ -722,7 +737,7 @@ std::move(p_native_pixmap_handle));
 }
 
 void ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ProxyToResponder::Run(
-    absl::optional<::gfx::NativePixmapHandle> in_native_pixmap_handle) {
+    std::optional<::gfx::NativePixmapHandle> in_native_pixmap_handle) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::ProtectedBufferManager::GetProtectedNativePixmapHandleFromHandle", "async_response_parameters",
@@ -730,13 +745,14 @@ void ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ProxyToResp
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("native_pixmap_handle"), in_native_pixmap_handle,
-                        "<value of type absl::optional<::gfx::NativePixmapHandle>>");
+                        "<value of type std::optional<::gfx::NativePixmapHandle>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_Name, kFlags, 0, 0, nullptr);
@@ -860,7 +876,8 @@ void ProtectedBufferManager_IsProtectedNativePixmapHandle_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProtectedBufferManager_IsProtectedNativePixmapHandle_Name, kFlags, 0, 0, nullptr);
@@ -1036,16 +1053,16 @@ std::move(p_dummy_handle), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProtectedBufferManagerValidationInfo[] = {
-    {&internal::ProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_Params_Data::Validate,
+    { &internal::ProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_Params_Data::Validate,
      &internal::ProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_ResponseParams_Data::Validate},
-    {&internal::ProtectedBufferManager_GetProtectedSharedMemoryFromHandle_Params_Data::Validate,
+    { &internal::ProtectedBufferManager_GetProtectedSharedMemoryFromHandle_Params_Data::Validate,
      &internal::ProtectedBufferManager_GetProtectedSharedMemoryFromHandle_ResponseParams_Data::Validate},
-    {&internal::ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_Params_Data::Validate,
+    { &internal::ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_Params_Data::Validate,
      &internal::ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ResponseParams_Data::Validate},
-    {&internal::ProtectedBufferManager_IsProtectedNativePixmapHandle_Params_Data::Validate,
+    { &internal::ProtectedBufferManager_IsProtectedNativePixmapHandle_Params_Data::Validate,
      &internal::ProtectedBufferManager_IsProtectedNativePixmapHandle_ResponseParams_Data::Validate},
 };
 
@@ -1139,14 +1156,14 @@ void ProtectedBufferManagerAsyncWaiter::GetProtectedSharedMemoryFromHandle(
 }
 
 void ProtectedBufferManagerAsyncWaiter::GetProtectedNativePixmapHandleFromHandle(
-    ::mojo::ScopedHandle dummy_handle, absl::optional<::gfx::NativePixmapHandle>* out_native_pixmap_handle) {
+    ::mojo::ScopedHandle dummy_handle, std::optional<::gfx::NativePixmapHandle>* out_native_pixmap_handle) {
   base::RunLoop loop;
   proxy_->GetProtectedNativePixmapHandleFromHandle(std::move(dummy_handle),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::gfx::NativePixmapHandle>* out_native_pixmap_handle
+             std::optional<::gfx::NativePixmapHandle>* out_native_pixmap_handle
 ,
-             absl::optional<::gfx::NativePixmapHandle> native_pixmap_handle) {*out_native_pixmap_handle = std::move(native_pixmap_handle);
+             std::optional<::gfx::NativePixmapHandle> native_pixmap_handle) {*out_native_pixmap_handle = std::move(native_pixmap_handle);
             loop->Quit();
           },
           &loop,
@@ -1154,9 +1171,9 @@ void ProtectedBufferManagerAsyncWaiter::GetProtectedNativePixmapHandleFromHandle
   loop.Run();
 }
 
-absl::optional<::gfx::NativePixmapHandle> ProtectedBufferManagerAsyncWaiter::GetProtectedNativePixmapHandleFromHandle(
+std::optional<::gfx::NativePixmapHandle> ProtectedBufferManagerAsyncWaiter::GetProtectedNativePixmapHandleFromHandle(
     ::mojo::ScopedHandle dummy_handle) {
-  absl::optional<::gfx::NativePixmapHandle> async_wait_result;
+  std::optional<::gfx::NativePixmapHandle> async_wait_result;
   GetProtectedNativePixmapHandleFromHandle(std::move(dummy_handle),&async_wait_result);
   return async_wait_result;
 }

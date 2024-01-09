@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "services/accessibility/public/mojom/speech_recognition.mojom-shared-internal.h"
+#include "services/accessibility/public/mojom/assistive_technology_type.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -35,12 +36,15 @@
 namespace ax::mojom {
 class SpeechRecognitionResultEventDataView;
 
+class SpeechRecognitionErrorEventDataView;
+
 class StartOptionsDataView;
 
 class StopOptionsDataView;
 
 class SpeechRecognitionStartInfoDataView;
 
+class ObserverOrErrorDataView;
 
 
 }  // ax::mojom
@@ -51,6 +55,13 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::ax::mojom::SpeechRecognitionResultEventDataView> {
   using Data = ::ax::mojom::internal::SpeechRecognitionResultEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ax::mojom::SpeechRecognitionErrorEventDataView> {
+  using Data = ::ax::mojom::internal::SpeechRecognitionErrorEvent_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -74,6 +85,13 @@ struct MojomTypeTraits<::ax::mojom::SpeechRecognitionStartInfoDataView> {
   using Data = ::ax::mojom::internal::SpeechRecognitionStartInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ax::mojom::ObserverOrErrorDataView> {
+  using Data = ::ax::mojom::internal::ObserverOrError_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 }  // namespace internal
@@ -149,6 +167,32 @@ class SpeechRecognitionResultEventDataView {
 };
 
 
+class SpeechRecognitionErrorEventDataView {
+ public:
+  SpeechRecognitionErrorEventDataView() = default;
+
+  SpeechRecognitionErrorEventDataView(
+      internal::SpeechRecognitionErrorEvent_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetMessageDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMessage(UserType* output) {
+    
+    auto* pointer = data_->message.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SpeechRecognitionErrorEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class StartOptionsDataView {
  public:
   StartOptionsDataView() = default;
@@ -159,11 +203,15 @@ class StartOptionsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<int32_t> client_id() const {
-
-    return data_->client_id_$flag
-        ? absl::make_optional(data_->client_id_$value)
-        : absl::nullopt;
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ax::mojom::AssistiveTechnologyType>(
+        data_value, output);
+  }
+  ::ax::mojom::AssistiveTechnologyType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ax::mojom::AssistiveTechnologyType>(data_->type));
   }
   inline void GetLocaleDataView(
       mojo::StringDataView* output);
@@ -185,7 +233,7 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  absl::optional<bool> interim_results() const {
+  std::optional<bool> interim_results() const {
 
     return data_->interim_results_$flag
         ? absl::make_optional(!!data_->interim_results_$value)
@@ -207,11 +255,15 @@ class StopOptionsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<int32_t> client_id() const {
-
-    return data_->client_id_$flag
-        ? absl::make_optional(data_->client_id_$value)
-        : absl::nullopt;
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ax::mojom::AssistiveTechnologyType>(
+        data_value, output);
+  }
+  ::ax::mojom::AssistiveTechnologyType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ax::mojom::AssistiveTechnologyType>(data_->type));
   }
  private:
   internal::StopOptions_Data* data_ = nullptr;
@@ -238,19 +290,68 @@ class SpeechRecognitionStartInfoDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ax::mojom::SpeechRecognitionType>(data_->type));
   }
+  inline void GetObserverOrErrorDataView(
+      ObserverOrErrorDataView* output);
+
   template <typename UserType>
-  UserType TakeObserver() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ax::mojom::SpeechRecognitionEventObserverInterfaceBase>>(
-            &data_->observer, &result, message_);
-    DCHECK(ret);
-    return result;
+  [[nodiscard]] bool ReadObserverOrError(UserType* output) {
+    
+    auto* pointer = !data_->observer_or_error.is_null() ? &data_->observer_or_error : nullptr;
+    return mojo::internal::Deserialize<::ax::mojom::ObserverOrErrorDataView>(
+        pointer, output, message_);
   }
  private:
   internal::SpeechRecognitionStartInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
+class ObserverOrErrorDataView {
+ public:
+  using Tag = internal::ObserverOrError_Data::ObserverOrError_Tag;
+
+  ObserverOrErrorDataView() = default;
+
+  ObserverOrErrorDataView(
+      internal::ObserverOrError_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_observer() const { return data_->tag == Tag::kObserver; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    CHECK(is_observer());
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ax::mojom::SpeechRecognitionEventObserverInterfaceBase>>(
+            &data_->data.f_observer, &result, message_);
+    CHECK(ret);
+    return result;
+  }
+  bool is_error() const { return data_->tag == Tag::kError; }
+  inline void GetErrorDataView(
+      mojo::StringDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    
+    CHECK(is_error());
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        data_->data.f_error.Get(), output, message_);
+  }
+
+ private:
+  internal::ObserverOrError_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 
 
 }  // ax::mojom
@@ -331,6 +432,47 @@ struct Serializer<::ax::mojom::SpeechRecognitionResultEventDataView, MaybeConstU
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ax::mojom::SpeechRecognitionErrorEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ax::mojom::SpeechRecognitionErrorEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ax::mojom::internal::SpeechRecognitionErrorEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::message(input)) in_message = Traits::message(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->message)::BaseType> message_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_message, message_fragment);
+    fragment->message.Set(
+        message_fragment.is_null() ? nullptr : message_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->message.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null message in SpeechRecognitionErrorEvent struct");
+  }
+
+  static bool Deserialize(::ax::mojom::internal::SpeechRecognitionErrorEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ax::mojom::SpeechRecognitionErrorEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ax::mojom::StartOptionsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ax::mojom::StartOptionsDataView, UserType>;
@@ -341,10 +483,8 @@ struct Serializer<::ax::mojom::StartOptionsDataView, MaybeConstUserType> {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    fragment->client_id_$flag = Traits::client_id(input).has_value();
-    if (Traits::client_id(input).has_value()) {
-      fragment->client_id_$value = Traits::client_id(input).value();
-    }
+    mojo::internal::Serialize<::ax::mojom::AssistiveTechnologyType>(
+        Traits::type(input), &fragment->type);
     decltype(Traits::locale(input)) in_locale = Traits::locale(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->locale)::BaseType> locale_fragment(
@@ -386,10 +526,8 @@ struct Serializer<::ax::mojom::StopOptionsDataView, MaybeConstUserType> {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    fragment->client_id_$flag = Traits::client_id(input).has_value();
-    if (Traits::client_id(input).has_value()) {
-      fragment->client_id_$value = Traits::client_id(input).value();
-    }
+    mojo::internal::Serialize<::ax::mojom::AssistiveTechnologyType>(
+        Traits::type(input), &fragment->type);
   }
 
   static bool Deserialize(::ax::mojom::internal::StopOptions_Data* input,
@@ -421,13 +559,16 @@ struct Serializer<::ax::mojom::SpeechRecognitionStartInfoDataView, MaybeConstUse
     fragment.Allocate();
     mojo::internal::Serialize<::ax::mojom::SpeechRecognitionType>(
         Traits::type(input), &fragment->type);
-    decltype(Traits::observer(input)) in_observer = Traits::observer(input);
-    mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ax::mojom::SpeechRecognitionEventObserverInterfaceBase>>(
-        in_observer, &fragment->observer, &fragment.message());
+    decltype(Traits::observer_or_error(input)) in_observer_or_error = Traits::observer_or_error(input);
+    mojo::internal::MessageFragment<decltype(fragment->observer_or_error)>
+        observer_or_error_fragment(fragment.message());
+    observer_or_error_fragment.Claim(&fragment->observer_or_error);
+    mojo::internal::Serialize<::ax::mojom::ObserverOrErrorDataView>(
+        in_observer_or_error, observer_or_error_fragment, true);
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        !mojo::internal::IsHandleOrInterfaceValid(fragment->observer),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-        "invalid observer in SpeechRecognitionStartInfo struct");
+        fragment->observer_or_error.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null observer_or_error in SpeechRecognitionStartInfo struct");
   }
 
   static bool Deserialize(::ax::mojom::internal::SpeechRecognitionStartInfo_Data* input,
@@ -437,6 +578,74 @@ struct Serializer<::ax::mojom::SpeechRecognitionStartInfoDataView, MaybeConstUse
       return CallSetToNullIfExists<Traits>(output);
 
     ::ax::mojom::SpeechRecognitionStartInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ax::mojom::ObserverOrErrorDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ax::mojom::ObserverOrErrorDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ax::mojom::internal::ObserverOrError_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ax::mojom::ObserverOrErrorDataView::Tag::kObserver: {
+        decltype(Traits::observer(input))
+            in_observer = Traits::observer(input);
+        mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ax::mojom::SpeechRecognitionEventObserverInterfaceBase>>(
+            in_observer, &fragment->data.f_observer, &fragment.message());
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            !mojo::internal::IsHandleOrInterfaceValid(fragment->data.f_observer),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+            "invalid observer in ObserverOrError union");
+        break;
+      }
+      case ::ax::mojom::ObserverOrErrorDataView::Tag::kError: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_error)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<mojo::StringDataView>(
+            in_error, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null error in ObserverOrError union");
+        fragment->data.f_error.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ax::mojom::internal::ObserverOrError_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ax::mojom::ObserverOrErrorDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -455,6 +664,13 @@ inline void SpeechRecognitionResultEventDataView::GetTranscriptDataView(
 }
 
 
+inline void SpeechRecognitionErrorEventDataView::GetMessageDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->message.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 inline void StartOptionsDataView::GetLocaleDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->locale.Get();
@@ -464,7 +680,18 @@ inline void StartOptionsDataView::GetLocaleDataView(
 
 
 
+inline void SpeechRecognitionStartInfoDataView::GetObserverOrErrorDataView(
+    ObserverOrErrorDataView* output) {
+  auto pointer = &data_->observer_or_error;
+  *output = ObserverOrErrorDataView(pointer, message_);
+}
 
+
+inline void ObserverOrErrorDataView::GetErrorDataView(
+    mojo::StringDataView* output) const {
+  CHECK(is_error());
+  *output = mojo::StringDataView(data_->data.f_error.Get(), message_);
+}
 
 
 }  // ax::mojom

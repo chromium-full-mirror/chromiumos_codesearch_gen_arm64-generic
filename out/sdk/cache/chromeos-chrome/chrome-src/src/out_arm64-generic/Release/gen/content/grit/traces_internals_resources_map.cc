@@ -16,6 +16,7 @@ const webui::ResourcePath kTracesInternalsResources[] = {
   {"trace_report_browser_proxy.js", IDR_TRACES_INTERNALS_TRACE_REPORT_BROWSER_PROXY_JS},
   {"trace_report_list.html.js", IDR_TRACES_INTERNALS_TRACE_REPORT_LIST_HTML_JS},
   {"trace_report.html.js", IDR_TRACES_INTERNALS_TRACE_REPORT_HTML_JS},
+  {"icons.html.js", IDR_TRACES_INTERNALS_ICONS_HTML_JS},
   {"trace_report.mojom-webui.js", IDR_TRACES_INTERNALS_TRACE_REPORT_MOJOM_WEBUI_JS},
 };
 

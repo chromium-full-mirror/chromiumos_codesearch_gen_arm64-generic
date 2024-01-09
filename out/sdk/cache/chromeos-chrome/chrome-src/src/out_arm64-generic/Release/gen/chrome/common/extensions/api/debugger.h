@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,8 @@ struct Debuggee {
   ~Debuggee();
   Debuggee(const Debuggee&) = delete;
   Debuggee& operator=(const Debuggee&) = delete;
-  Debuggee(Debuggee&& rhs);
-  Debuggee& operator=(Debuggee&& rhs);
+  Debuggee(Debuggee&& rhs) noexcept;
+  Debuggee& operator=(Debuggee&& rhs) noexcept;
 
   // Populates a Debuggee object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -49,29 +50,26 @@ struct Debuggee {
   // Creates a deep copy of Debuggee.
   Debuggee Clone() const;
 
-  // Creates a Debuggee object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Debuggee> FromValueDeprecated(const base::Value& value);
-
   // Creates a Debuggee object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Debuggee> FromValue(const base::Value::Dict& value);
+  static std::optional<Debuggee> FromValue(const base::Value::Dict& value);
 
   // Creates a Debuggee object from a base::Value, or nullopt on failure.
-  static absl::optional<Debuggee> FromValue(const base::Value& value);
+  static std::optional<Debuggee> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDebuggee object.
   base::Value::Dict ToValue() const;
 
   // The id of the tab which you intend to debug.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // The id of the extension which you intend to debug. Attaching to an extension
   // background page is only possible when the
   // <code>--silent-debugger-extension-api</code> command-line switch is used.
-  absl::optional<std::string> extension_id;
+  std::optional<std::string> extension_id;
 
   // The opaque id of the debug target.
-  absl::optional<std::string> target_id;
+  std::optional<std::string> target_id;
 
 };
 
@@ -109,8 +107,8 @@ struct TargetInfo {
   ~TargetInfo();
   TargetInfo(const TargetInfo&) = delete;
   TargetInfo& operator=(const TargetInfo&) = delete;
-  TargetInfo(TargetInfo&& rhs);
-  TargetInfo& operator=(TargetInfo&& rhs);
+  TargetInfo(TargetInfo&& rhs) noexcept;
+  TargetInfo& operator=(TargetInfo&& rhs) noexcept;
 
   // Populates a TargetInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -123,15 +121,12 @@ struct TargetInfo {
   // Creates a deep copy of TargetInfo.
   TargetInfo Clone() const;
 
-  // Creates a TargetInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TargetInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a TargetInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<TargetInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<TargetInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a TargetInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<TargetInfo> FromValue(const base::Value& value);
+  static std::optional<TargetInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTargetInfo object.
@@ -144,10 +139,10 @@ struct TargetInfo {
   std::string id;
 
   // The tab id, defined if type == 'page'.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // The extension id, defined if type = 'background_page'.
-  absl::optional<std::string> extension_id;
+  std::optional<std::string> extension_id;
 
   // True if debugger is already attached.
   bool attached;
@@ -159,7 +154,7 @@ struct TargetInfo {
   std::string url;
 
   // Target favicon URL.
-  absl::optional<std::string> favicon_url;
+  std::optional<std::string> favicon_url;
 
 };
 
@@ -171,11 +166,11 @@ struct TargetInfo {
 namespace Attach {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Debugging target to which you want to attach.
@@ -202,11 +197,11 @@ base::Value::List Create();
 namespace Detach {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Debugging target from which you want to detach.
@@ -227,11 +222,11 @@ base::Value::List Create();
 namespace SendCommand {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // JSON object with request parameters. This object must conform to the remote
@@ -241,8 +236,8 @@ struct Params {
     ~CommandParams();
     CommandParams(const CommandParams&) = delete;
     CommandParams& operator=(const CommandParams&) = delete;
-    CommandParams(CommandParams&& rhs);
-    CommandParams& operator=(CommandParams&& rhs);
+    CommandParams(CommandParams&& rhs) noexcept;
+    CommandParams& operator=(CommandParams&& rhs) noexcept;
 
     // Populates a CommandParams object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -257,10 +252,10 @@ struct Params {
 
     // Creates a CommandParams object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<CommandParams> FromValue(const base::Value::Dict& value);
+    static std::optional<CommandParams> FromValue(const base::Value::Dict& value);
 
     // Creates a CommandParams object from a base::Value, or nullopt on failure.
-    static absl::optional<CommandParams> FromValue(const base::Value& value);
+    static std::optional<CommandParams> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -276,7 +271,7 @@ struct Params {
 
   // JSON object with request parameters. This object must conform to the remote
   // debugging params scheme for given method.
-  absl::optional<CommandParams> command_params;
+  std::optional<CommandParams> command_params;
 
 
  private:
@@ -293,8 +288,8 @@ struct Result {
   ~Result();
   Result(const Result&) = delete;
   Result& operator=(const Result&) = delete;
-  Result(Result&& rhs);
-  Result& operator=(Result&& rhs);
+  Result(Result&& rhs) noexcept;
+  Result& operator=(Result&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResult object.
@@ -338,8 +333,8 @@ struct Params {
   ~Params();
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisParams object.

@@ -196,6 +196,12 @@ NOINLINE static const char* StaticShortcutActionToStringHelper(StaticShortcutAct
       return "kPreviousPage";
     case StaticShortcutAction::kNextPage:
       return "kNextPage";
+    case StaticShortcutAction::kLeftClick:
+      return "kLeftClick";
+    case StaticShortcutAction::kRightClick:
+      return "kRightClick";
+    case StaticShortcutAction::kMiddleClick:
+      return "kMiddleClick";
     default:
       return nullptr;
   }
@@ -222,6 +228,10 @@ NOINLINE static const char* CustomizationRestrictionToStringHelper(Customization
       return "kDisallowCustomizations";
     case CustomizationRestriction::kDisableKeyEventRewrites:
       return "kDisableKeyEventRewrites";
+    case CustomizationRestriction::kAllowAlphabetKeyEventRewrites:
+      return "kAllowAlphabetKeyEventRewrites";
+    case CustomizationRestriction::kAllowAlphabetOrNumberKeyEventRewrites:
+      return "kAllowAlphabetOrNumberKeyEventRewrites";
     default:
       return nullptr;
   }
@@ -963,8 +973,13 @@ bool GraphicsTablet_Data::Validate(
     return false;
   }
 
+
+  if (!::ash::mojom::internal::CustomizationRestriction_Data
+        ::Validate(object->customization_restriction, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->settings, 4, validation_context)) {
+          object->settings, 5, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->settings, validation_context))
@@ -1073,7 +1088,7 @@ bool KeyEvent_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -1086,6 +1101,17 @@ bool KeyEvent_Data::Validate(
   if (!::ash::mojom::internal::VKey_Data
         ::Validate(object->vkey, validation_context))
     return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->key_display, 5, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& key_display_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->key_display, validation_context,
+                                         &key_display_validate_params)) {
+    return false;
+  }
 
   return true;
 }

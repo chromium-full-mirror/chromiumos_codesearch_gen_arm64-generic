@@ -36,8 +36,9 @@ rule copy
 build obj/common-mk/gn_root/root.stamp: stamp obj/libhwsec-foundation/all.stamp
 build obj/libhwsec-foundation/_libhwsec-foundation-install_config.stamp: stamp
 build obj/libhwsec-foundation/_libhwsec-profiling-install_config.stamp: stamp
+build obj/libhwsec-foundation/_tpm_clear_request-install_config.stamp: stamp
 build obj/libhwsec-foundation/_tpm_version_client-install_config.stamp: stamp
-build obj/libhwsec-foundation/all.stamp: stamp obj/libhwsec-foundation/install_headers.stamp obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp ./lib/libhwsec-foundation.so ./libhwsec-profiling.a ./tpm_version_client
+build obj/libhwsec-foundation/all.stamp: stamp obj/libhwsec-foundation/install_headers.stamp obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp ./lib/libhwsec-foundation.so ./libhwsec-profiling.a ./tpm_clear_request ./tpm_version_client
 build obj/libhwsec-foundation/install_headers.stamp: stamp obj/libhwsec-foundation/install_status_headers.stamp obj/libhwsec-foundation/install_syscaller_headers.stamp obj/libhwsec-foundation/install_tlcl_wrapper_headers.stamp obj/libhwsec-foundation/install_tpm_error_headers.stamp obj/libhwsec-foundation/install_utility_headers.stamp obj/libhwsec-foundation/install_vpd_reader_headers.stamp
 build obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp: stamp
 build obj/libhwsec-foundation/install_no_tpm_checker.stamp: stamp
@@ -52,4 +53,5 @@ build obj/libhwsec-foundation/install_utility_headers.stamp: stamp
 build obj/libhwsec-foundation/install_vpd_reader_headers.stamp: stamp
 subninja obj/libhwsec-foundation/libhwsec-foundation.ninja
 subninja obj/libhwsec-foundation/libhwsec-profiling.ninja
+subninja obj/libhwsec-foundation/tpm_clear_request.ninja
 subninja obj/libhwsec-foundation/tpm_version_client.ninja

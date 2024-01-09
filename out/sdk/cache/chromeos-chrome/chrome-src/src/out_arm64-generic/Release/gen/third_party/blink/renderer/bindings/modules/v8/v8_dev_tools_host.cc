@@ -50,9 +50,9 @@ BLINK_BINDINGS_TRACE_EVENT("DevToolsHost.copyText");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DevToolsHost";
 const char* const property_name = "copyText";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -63,13 +63,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(v8_receiver);
+DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text.Init(info[0].As<v8::String>());
+  arg1_text.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DevToolsHost";
 const char* const property_name = "copyText";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -93,8 +92,9 @@ BLINK_BINDINGS_TRACE_EVENT("DevToolsHost.isHostedMode");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(v8_receiver);
+DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isHostedMode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -107,9 +107,9 @@ BLINK_BINDINGS_TRACE_EVENT("DevToolsHost.isolatedFileSystem");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DevToolsHost";
 const char* const property_name = "isolatedFileSystem";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -120,13 +120,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(v8_receiver);
+DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_file_system_id;
 if (LIKELY(info[0]->IsString())) {
-  arg1_file_system_id.Init(info[0].As<v8::String>());
+  arg1_file_system_id.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DevToolsHost";
 const char* const property_name = "isolatedFileSystem";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -137,10 +136,9 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_registered_name;
 if (LIKELY(info[1]->IsString())) {
-  arg2_registered_name.Init(info[1].As<v8::String>());
+  arg2_registered_name.Init(isolate, info[1].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DevToolsHost";
 const char* const property_name = "isolatedFileSystem";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -164,10 +162,10 @@ BLINK_BINDINGS_TRACE_EVENT("DevToolsHost.platform");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->platform();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->platform();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -179,9 +177,9 @@ BLINK_BINDINGS_TRACE_EVENT("DevToolsHost.sendMessageToEmbedder");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DevToolsHost";
 const char* const property_name = "sendMessageToEmbedder";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -192,13 +190,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(v8_receiver);
+DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_message;
 if (LIKELY(info[0]->IsString())) {
-  arg1_message.Init(info[0].As<v8::String>());
+  arg1_message.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DevToolsHost";
 const char* const property_name = "sendMessageToEmbedder";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -233,9 +230,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DevToolsHost";
 const char* const property_name = "showContextMenuAtPoint";
@@ -286,7 +283,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(v8_receiver);
+DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_dom_file_system = NativeValueTraits<DOMFileSystem>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -306,8 +303,9 @@ BLINK_BINDINGS_TRACE_EVENT("DevToolsHost.zoomFactor");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(v8_receiver);
+DevToolsHost* blink_receiver = V8DevToolsHost::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->zoomFactor();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }

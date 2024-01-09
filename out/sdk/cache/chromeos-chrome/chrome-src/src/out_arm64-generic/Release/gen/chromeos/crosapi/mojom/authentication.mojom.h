@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/authentication.mojom-features.h"
 #include "chromeos/crosapi/mojom/authentication.mojom-shared.h"
 #include "chromeos/crosapi/mojom/authentication.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -332,17 +333,17 @@ class  CreateQuickUnlockPrivateTokenInfoResultDeprecated {
   // Construct an instance holding |REMOVED_0|.
   static CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr
   NewRemoved0(
-      const std::string& REMOVED_0) {
+      const std::string& value) {
     auto result = CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr(absl::in_place);
-    result->set_REMOVED_0(std::move(REMOVED_0));
+    result->set_REMOVED_0(std::move(value));
     return result;
   }
   // Construct an instance holding |REMOVED_1|.
   static CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr
   NewRemoved1(
-      QuickUnlockPrivateTokenInfoDeprecatedPtr REMOVED_1) {
+      QuickUnlockPrivateTokenInfoDeprecatedPtr value) {
     auto result = CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr(absl::in_place);
-    result->set_REMOVED_1(std::move(REMOVED_1));
+    result->set_REMOVED_1(std::move(value));
     return result;
   }
 

@@ -21,6 +21,56 @@
 namespace drivefs {
 namespace mojom {
 
+NOINLINE static const char* DocsOfflineEnableStatusToStringHelper(DocsOfflineEnableStatus value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DocsOfflineEnableStatus::kUnknown:
+      return "kUnknown";
+    case DocsOfflineEnableStatus::kSuccess:
+      return "kSuccess";
+    case DocsOfflineEnableStatus::kAlreadyEnabled:
+      return "kAlreadyEnabled";
+    case DocsOfflineEnableStatus::kUnknownError:
+      return "kUnknownError";
+    case DocsOfflineEnableStatus::kDisableUnsupported:
+      return "kDisableUnsupported";
+    case DocsOfflineEnableStatus::kOfflineEligible:
+      return "kOfflineEligible";
+    case DocsOfflineEnableStatus::kOfflineIneligibleUnknown:
+      return "kOfflineIneligibleUnknown";
+    case DocsOfflineEnableStatus::kOfflineIneligibleOtherUser:
+      return "kOfflineIneligibleOtherUser";
+    case DocsOfflineEnableStatus::kOfflineIneligibleDbInInvalidState:
+      return "kOfflineIneligibleDbInInvalidState";
+    case DocsOfflineEnableStatus::kOfflineIneligiblePolicyDisallow:
+      return "kOfflineIneligiblePolicyDisallow";
+    case DocsOfflineEnableStatus::kOfflineIneligibleNoExtension:
+      return "kOfflineIneligibleNoExtension";
+    case DocsOfflineEnableStatus::kOfflineIneligibleInsufficientDiskSpace:
+      return "kOfflineIneligibleInsufficientDiskSpace";
+    case DocsOfflineEnableStatus::kNativeMessageHostError:
+      return "kNativeMessageHostError";
+    case DocsOfflineEnableStatus::kNativeMessageClientError:
+      return "kNativeMessageClientError";
+    case DocsOfflineEnableStatus::kSystemError:
+      return "kSystemError";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DocsOfflineEnableStatusToString(DocsOfflineEnableStatus value) {
+  const char *str = DocsOfflineEnableStatusToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DocsOfflineEnableStatus value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DocsOfflineEnableStatus value) {
+  return os << DocsOfflineEnableStatusToString(value);
+}
+
 NOINLINE static const char* CSESupportToStringHelper(CSESupport value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -790,6 +840,47 @@ bool DriveFsConfiguration_Data::Validate(
 
 DriveFsConfiguration_Data::DriveFsConfiguration_Data()
     : header_({sizeof(*this), 7}) {}
+
+
+// static
+bool AccessToken_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AccessToken_Data* object =
+      static_cast<const AccessToken_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->token, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& token_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->token, validation_context,
+                                         &token_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->expiry_time, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->expiry_time, validation_context))
+    return false;
+
+  return true;
+}
+
+AccessToken_Data::AccessToken_Data()
+    : header_({sizeof(*this), 0}) {}
 
 
 // static
@@ -3134,6 +3225,11 @@ bool DriveFs_SetDocsOfflineEnabled_ResponseParams_Data::Validate(
         ::Validate(object->error, validation_context))
     return false;
 
+
+  if (!::drivefs::mojom::internal::DocsOfflineEnableStatus_Data
+        ::Validate(object->status, validation_context))
+    return false;
+
   return true;
 }
 
@@ -4160,6 +4256,93 @@ DriveFsDelegate_OnItemProgress_Params_Data::DriveFsDelegate_OnItemProgress_Param
 
 
 // static
+bool DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data* object =
+      static_cast<const DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->client_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& client_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->client_id, validation_context,
+                                         &client_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->app_id, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& app_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->app_id, validation_context,
+                                         &app_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->scopes, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& scopes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->scopes, validation_context,
+                                         &scopes_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data::DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data* object =
+      static_cast<const DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data*>(data);
+
+
+  if (!::drivefs::mojom::internal::AccessTokenStatus_Data
+        ::Validate(object->status, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->access_token, validation_context))
+    return false;
+
+  return true;
+}
+
+DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data::DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool SearchQuery_GetNextPage_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -4343,6 +4526,16 @@ HttpDelegate_OnRequestComplete_Params_Data::HttpDelegate_OnRequestComplete_Param
 }  // namespace internal
 }  // namespace mojom
 }  // namespace drivefs
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::drivefs::mojom::DocsOfflineEnableStatus>::WriteIntoTrace(
+   perfetto::TracedValue context, ::drivefs::mojom::DocsOfflineEnableStatus value) {
+  return std::move(context).WriteString(::drivefs::mojom::DocsOfflineEnableStatusToString(value));
+}
+
+} // namespace perfetto
 
 namespace perfetto {
 

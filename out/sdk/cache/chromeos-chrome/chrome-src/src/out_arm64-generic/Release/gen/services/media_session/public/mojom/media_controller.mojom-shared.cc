@@ -653,6 +653,29 @@ MediaController_EnterAutoPictureInPicture_Params_Data::MediaController_EnterAuto
 
 
 // static
+bool MediaController_SkipAd_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MediaController_SkipAd_Params_Data* object =
+      static_cast<const MediaController_SkipAd_Params_Data*>(data);
+
+  return true;
+}
+
+MediaController_SkipAd_Params_Data::MediaController_SkipAd_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool MediaControllerObserver_MediaSessionInfoChanged_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

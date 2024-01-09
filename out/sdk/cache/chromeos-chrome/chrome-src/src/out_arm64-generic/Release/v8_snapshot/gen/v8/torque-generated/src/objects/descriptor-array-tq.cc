@@ -20,7 +20,7 @@ void TorqueGeneratedEnumCache<EnumCache, Struct>::EnumCacheVerify(Isolate* isola
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=17&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=18&c=1
 bool IsDescriptorArray_NonInline(Tagged<HeapObject> o) {
   return IsDescriptorArray(o);
 }

@@ -4,12 +4,6 @@
     "rootDir": "preprocessed",
     "outDir": "tsc",
     "paths": {
-      "//resources/cr_elements/*": [
-        "./../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
       "//resources/js/*": [
         "./../../../../ui/webui/resources/tsc/js/*"
       ],
@@ -28,18 +22,13 @@
     }
   },
   "files": [
-    "preprocessed/media_history.ts",
     "preprocessed/media_data_table.ts",
     "preprocessed/media_engagement.ts",
     "preprocessed/webrtc_logs.ts",
-    "preprocessed/media_history_store.mojom-webui.ts",
     "preprocessed/media_engagement_score_details.mojom-webui.ts",
     "preprocessed/media_session.mojom-webui.ts"
   ],
   "references": [
-    {
-      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
-    },
     {
       "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
     },

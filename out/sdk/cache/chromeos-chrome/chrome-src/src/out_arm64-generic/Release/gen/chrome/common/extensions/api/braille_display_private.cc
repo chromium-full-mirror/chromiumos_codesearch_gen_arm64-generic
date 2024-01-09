@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/braille_display_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -100,8 +101,8 @@ KeyEvent::KeyEvent()
 : command() {}
 
 KeyEvent::~KeyEvent() = default;
-KeyEvent::KeyEvent(KeyEvent&& rhs) = default;
-KeyEvent& KeyEvent::operator=(KeyEvent&& rhs) = default;
+KeyEvent::KeyEvent(KeyEvent&& rhs) noexcept = default;
+KeyEvent& KeyEvent::operator=(KeyEvent&& rhs) noexcept = default;
 KeyEvent KeyEvent::Clone() const {
   KeyEvent out;
   out.command = command;
@@ -139,7 +140,7 @@ bool KeyEvent::Populate(
     {
       auto temp = (*display_position_value).GetIfInt();
       if (!temp.has_value()) {
-        out.display_position = absl::nullopt;
+        out.display_position = std::nullopt;
         return false;
       }
       out.display_position = *temp;
@@ -151,7 +152,7 @@ bool KeyEvent::Populate(
     {
       auto temp = (*braille_dots_value).GetIfInt();
       if (!temp.has_value()) {
-        out.braille_dots = absl::nullopt;
+        out.braille_dots = std::nullopt;
         return false;
       }
       out.braille_dots = *temp;
@@ -163,7 +164,7 @@ bool KeyEvent::Populate(
     {
       auto* temp = (*standard_key_code_value).GetIfString();
       if (!temp) {
-        out.standard_key_code = absl::nullopt;
+        out.standard_key_code = std::nullopt;
         return false;
       }
       out.standard_key_code = *temp;
@@ -175,7 +176,7 @@ bool KeyEvent::Populate(
     {
       auto* temp = (*standard_key_char_value).GetIfString();
       if (!temp) {
-        out.standard_key_char = absl::nullopt;
+        out.standard_key_char = std::nullopt;
         return false;
       }
       out.standard_key_char = *temp;
@@ -187,7 +188,7 @@ bool KeyEvent::Populate(
     {
       auto temp = (*space_key_value).GetIfBool();
       if (!temp.has_value()) {
-        out.space_key = absl::nullopt;
+        out.space_key = std::nullopt;
         return false;
       }
       out.space_key = *temp;
@@ -199,7 +200,7 @@ bool KeyEvent::Populate(
     {
       auto temp = (*alt_key_value).GetIfBool();
       if (!temp.has_value()) {
-        out.alt_key = absl::nullopt;
+        out.alt_key = std::nullopt;
         return false;
       }
       out.alt_key = *temp;
@@ -211,7 +212,7 @@ bool KeyEvent::Populate(
     {
       auto temp = (*shift_key_value).GetIfBool();
       if (!temp.has_value()) {
-        out.shift_key = absl::nullopt;
+        out.shift_key = std::nullopt;
         return false;
       }
       out.shift_key = *temp;
@@ -223,7 +224,7 @@ bool KeyEvent::Populate(
     {
       auto temp = (*ctrl_key_value).GetIfBool();
       if (!temp.has_value()) {
-        out.ctrl_key = absl::nullopt;
+        out.ctrl_key = std::nullopt;
         return false;
       }
       out.ctrl_key = *temp;
@@ -243,34 +244,21 @@ bool KeyEvent::Populate(
 }
 
 // static
-std::unique_ptr<KeyEvent> KeyEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<KeyEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<KeyEvent> KeyEvent::FromValue(const base::Value::Dict& value) {
+  KeyEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<KeyEvent> KeyEvent::FromValue(const base::Value::Dict& value) {
+std::optional<KeyEvent> KeyEvent::FromValue(const base::Value& value) {
   KeyEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<KeyEvent> KeyEvent::FromValue(const base::Value& value) {
-  KeyEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -321,8 +309,8 @@ DisplayState::DisplayState()
 : available(false) {}
 
 DisplayState::~DisplayState() = default;
-DisplayState::DisplayState(DisplayState&& rhs) = default;
-DisplayState& DisplayState::operator=(DisplayState&& rhs) = default;
+DisplayState::DisplayState(DisplayState&& rhs) noexcept = default;
+DisplayState& DisplayState::operator=(DisplayState&& rhs) noexcept = default;
 DisplayState DisplayState::Clone() const {
   DisplayState out;
   out.available = available;
@@ -352,7 +340,7 @@ bool DisplayState::Populate(
     {
       auto temp = (*text_row_count_value).GetIfInt();
       if (!temp.has_value()) {
-        out.text_row_count = absl::nullopt;
+        out.text_row_count = std::nullopt;
         return false;
       }
       out.text_row_count = *temp;
@@ -364,7 +352,7 @@ bool DisplayState::Populate(
     {
       auto temp = (*text_column_count_value).GetIfInt();
       if (!temp.has_value()) {
-        out.text_column_count = absl::nullopt;
+        out.text_column_count = std::nullopt;
         return false;
       }
       out.text_column_count = *temp;
@@ -376,7 +364,7 @@ bool DisplayState::Populate(
     {
       auto temp = (*cell_size_value).GetIfInt();
       if (!temp.has_value()) {
-        out.cell_size = absl::nullopt;
+        out.cell_size = std::nullopt;
         return false;
       }
       out.cell_size = *temp;
@@ -396,34 +384,21 @@ bool DisplayState::Populate(
 }
 
 // static
-std::unique_ptr<DisplayState> DisplayState::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DisplayState>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DisplayState> DisplayState::FromValue(const base::Value::Dict& value) {
+  DisplayState out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DisplayState> DisplayState::FromValue(const base::Value::Dict& value) {
+std::optional<DisplayState> DisplayState::FromValue(const base::Value& value) {
   DisplayState out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DisplayState> DisplayState::FromValue(const base::Value& value) {
-  DisplayState out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -470,13 +445,13 @@ namespace WriteDots {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -485,7 +460,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& cells_value = args[0];
     {
       if (!cells_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.cells = cells_value.GetBlob();
@@ -493,7 +468,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -502,13 +477,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = columns_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.columns = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -517,13 +492,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = rows_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.rows = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -536,13 +511,13 @@ namespace UpdateBluetoothBrailleDisplayAddress {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -552,13 +527,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = address_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.address = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

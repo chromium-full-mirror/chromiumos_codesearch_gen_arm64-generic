@@ -126,6 +126,7 @@ class PERFETTO_EXPORT_COMPONENT IPCFrame_SetPeerIdentity : public ::protozero::C
   enum FieldNumbers {
     kPidFieldNumber = 1,
     kUidFieldNumber = 2,
+    kMachineIdHintFieldNumber = 3,
   };
 
   IPCFrame_SetPeerIdentity();
@@ -150,15 +151,20 @@ class PERFETTO_EXPORT_COMPONENT IPCFrame_SetPeerIdentity : public ::protozero::C
   int32_t uid() const { return uid_; }
   void set_uid(int32_t value) { uid_ = value; _has_field_.set(2); }
 
+  bool has_machine_id_hint() const { return _has_field_[3]; }
+  const std::string& machine_id_hint() const { return machine_id_hint_; }
+  void set_machine_id_hint(const std::string& value) { machine_id_hint_ = value; _has_field_.set(3); }
+
  private:
   int32_t pid_{};
   int32_t uid_{};
+  std::string machine_id_hint_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<3> _has_field_{};
+  std::bitset<4> _has_field_{};
 };
 
 

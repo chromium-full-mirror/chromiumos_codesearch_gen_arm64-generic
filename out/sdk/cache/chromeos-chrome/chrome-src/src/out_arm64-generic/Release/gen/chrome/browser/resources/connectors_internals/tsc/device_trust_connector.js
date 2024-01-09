@@ -104,6 +104,7 @@ export class DeviceTrustConnectorElement extends CustomElement {
             }
         }
     }
+    signalsString_ = '';
     set signalsString(str) {
         const signalsEl = this.$('#signals');
         if (signalsEl) {
@@ -131,9 +132,9 @@ export class DeviceTrustConnectorElement extends CustomElement {
     get signalsString() {
         return this.signalsString_;
     }
+    pageHandler;
     constructor() {
         super();
-        this.signalsString_ = '';
         this.pageHandler = PageHandler.getRemote();
         this.fetchDeviceTrustValues();
         if (this.deleteKeyEnabled) {

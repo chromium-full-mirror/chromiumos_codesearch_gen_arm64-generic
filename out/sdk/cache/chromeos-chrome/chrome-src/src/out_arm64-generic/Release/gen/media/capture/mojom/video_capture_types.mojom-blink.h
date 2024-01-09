@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/capture/mojom/video_capture_types.mojom-features.h"
 #include "media/capture/mojom/video_capture_types.mojom-shared.h"
 #include "media/capture/mojom/video_capture_types.mojom-blink-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink.h"
@@ -39,138 +40,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::VideoCapturePixelFormat>
-    : EnumHashTraits<::media::mojom::VideoCapturePixelFormat, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::ResolutionChangePolicy>
-    : EnumHashTraits<::media::mojom::ResolutionChangePolicy, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::PowerLineFrequency>
-    : EnumHashTraits<::media::mojom::PowerLineFrequency, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::VideoFacingMode>
-    : EnumHashTraits<::media::mojom::VideoFacingMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::VideoCaptureApi>
-    : EnumHashTraits<::media::mojom::VideoCaptureApi, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::VideoCaptureTransportType>
-    : EnumHashTraits<::media::mojom::VideoCaptureTransportType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::VideoCaptureBufferType>
-    : EnumHashTraits<::media::mojom::VideoCaptureBufferType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::VideoCaptureError>
-    : EnumHashTraits<::media::mojom::VideoCaptureError, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::VideoCaptureFrameDropReason>
-    : EnumHashTraits<::media::mojom::VideoCaptureFrameDropReason, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::ApplySubCaptureTargetResult>
-    : EnumHashTraits<::media::mojom::ApplySubCaptureTargetResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::DeviceEnumerationResult>
-    : EnumHashTraits<::media::mojom::DeviceEnumerationResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace media::mojom::blink {
@@ -679,14 +548,14 @@ class BLINK_PLATFORM_EXPORT VideoCaptureFeedback {
       float max_framerate_fps,
       int32_t max_pixels,
       bool require_mapped_frame,
-      absl::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes);
+      std::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes);
 
   VideoCaptureFeedback(
       double resource_utilization,
       float max_framerate_fps,
       int32_t max_pixels,
       bool require_mapped_frame,
-      absl::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes,
+      std::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes,
       int32_t frame_id,
       bool has_frame_id);
 
@@ -774,7 +643,7 @@ class BLINK_PLATFORM_EXPORT VideoCaptureFeedback {
   
   bool require_mapped_frame;
   
-  absl::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes;
+  std::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes;
   
   int32_t frame_id;
   
@@ -988,6 +857,16 @@ class BLINK_PLATFORM_EXPORT VideoCaptureDeviceDescriptor {
       const ::media::VideoCaptureControlSupport& control_support,
       VideoCaptureTransportType transport_type);
 
+  VideoCaptureDeviceDescriptor(
+      const WTF::String& display_name,
+      const WTF::String& device_id,
+      const WTF::String& model_id,
+      ::media::VideoFacingMode facing_mode,
+      VideoCaptureApi capture_api,
+      const ::media::VideoCaptureControlSupport& control_support,
+      VideoCaptureTransportType transport_type,
+      std::optional<CameraAvailability> availability);
+
 
   ~VideoCaptureDeviceDescriptor();
 
@@ -1077,6 +956,8 @@ class BLINK_PLATFORM_EXPORT VideoCaptureDeviceDescriptor {
   ::media::VideoCaptureControlSupport control_support;
   
   VideoCaptureTransportType transport_type;
+  
+  std::optional<CameraAvailability> availability;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1474,7 +1355,8 @@ VideoCaptureDeviceDescriptorPtr VideoCaptureDeviceDescriptor::Clone() const {
       mojo::Clone(facing_mode),
       mojo::Clone(capture_api),
       mojo::Clone(control_support),
-      mojo::Clone(transport_type)
+      mojo::Clone(transport_type),
+      mojo::Clone(availability)
   );
 }
 
@@ -1493,6 +1375,8 @@ bool VideoCaptureDeviceDescriptor::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->control_support, other_struct.control_support))
     return false;
   if (!mojo::Equals(this->transport_type, other_struct.transport_type))
+    return false;
+  if (!mojo::Equals(this->availability, other_struct.availability))
     return false;
   return true;
 }
@@ -1526,6 +1410,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.transport_type < rhs.transport_type)
     return true;
   if (rhs.transport_type < lhs.transport_type)
+    return false;
+  if (lhs.availability < rhs.availability)
+    return true;
+  if (rhs.availability < lhs.availability)
     return false;
   return false;
 }
@@ -1754,6 +1642,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::media::mojom::blink::VideoCaptureDev
   static decltype(::media::mojom::blink::VideoCaptureDeviceDescriptor::transport_type) transport_type(
       const ::media::mojom::blink::VideoCaptureDeviceDescriptorPtr& input) {
     return input->transport_type;
+  }
+
+  static decltype(::media::mojom::blink::VideoCaptureDeviceDescriptor::availability) availability(
+      const ::media::mojom::blink::VideoCaptureDeviceDescriptorPtr& input) {
+    return input->availability;
   }
 
   static bool Read(::media::mojom::blink::VideoCaptureDeviceDescriptor::DataView input, ::media::mojom::blink::VideoCaptureDeviceDescriptorPtr* output);

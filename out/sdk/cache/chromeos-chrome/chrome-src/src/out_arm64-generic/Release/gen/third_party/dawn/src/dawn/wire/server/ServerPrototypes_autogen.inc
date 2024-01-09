@@ -224,7 +224,7 @@ WireResult HandleInstanceProcessEvents(DeserializeBuffer* deserializeBuffer);
 WireResult DoInstanceProcessEvents(WGPUInstance self);
 WireResult HandleInstanceRequestAdapter(DeserializeBuffer* deserializeBuffer);
 
-WireResult DoInstanceRequestAdapter(Known<WGPUInstance> instanceId, uint64_t requestSerial, ObjectHandle adapterObjectHandle, WGPURequestAdapterOptions const * options);
+WireResult DoInstanceRequestAdapter(Known<WGPUInstance> instanceId, WGPUFuture future, ObjectHandle adapterObjectHandle, WGPURequestAdapterOptions const * options);
 WireResult HandlePipelineLayoutSetLabel(DeserializeBuffer* deserializeBuffer);
 
 WireResult DoPipelineLayoutSetLabel(WGPUPipelineLayout self, char const * label);

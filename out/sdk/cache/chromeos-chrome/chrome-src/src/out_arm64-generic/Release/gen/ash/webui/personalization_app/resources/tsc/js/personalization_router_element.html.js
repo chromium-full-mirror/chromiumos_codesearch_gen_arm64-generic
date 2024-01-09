@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="common">#container{display:flex;flex-flow:column nowrap;position:relative;width:100%}#breadcrumbArea{background-color:var(--cros-bg-color);display:grid;grid-template-areas:'. . breadcrumb . .';grid-template-columns:1fr 16px minmax(568px,920px) 16px 1fr;grid-template-rows:var(--personalization-app-breadcrumb-height);position:sticky;top:0;width:100%;z-index:3}:host-context(body.jelly-enabled) #breadcrumbArea{background-color:var(--cros-sys-app_base_shaded)}personalization-breadcrumb{grid-area:breadcrumb}personalization-toast{bottom:16px;left:16px;max-width:380px;position:sticky}wallpaper-fullscreen{bottom:0;height:100%;left:0;pointer-events:none;position:absolute;width:100%}</style>
+    return html `<!--_html_template_start_--><style include="common">#container{display:flex;flex-flow:column nowrap;position:relative;width:100%}#breadcrumbArea{background-color:var(--cros-bg-color);display:grid;grid-template-areas:'. . breadcrumb . .';grid-template-columns:1fr 10px minmax(568px,920px) 10px 1fr;grid-template-rows:var(--personalization-app-breadcrumb-height);position:sticky;top:0;width:100%;z-index:3}:host-context(body.jelly-enabled) #breadcrumbArea{background-color:var(--cros-sys-app_base_shaded)}personalization-breadcrumb{grid-area:breadcrumb}personalization-toast{bottom:16px;left:16px;max-width:380px;position:sticky}wallpaper-fullscreen{bottom:0;height:100%;left:0;pointer-events:none;position:absolute;width:100%}</style>
 <div id="container">
   
   <iron-location path="{{path_}}" query="{{query_}}" dwell-time="200">
@@ -26,6 +26,9 @@ export function getTemplate() {
   <template is="dom-if" if="[[shouldShowWallpaperSubpage_(path_)]]" restamp>
     <wallpaper-subpage path="[[path_]]" query-params="[[queryParams_]]">
     </wallpaper-subpage>
+  </template>
+  <template is="dom-if" if="[[shouldShowSeaPen_(path_)]]" restamp>
+    <sea-pen-router base-path="[[seaPenBasePath_]]"></sea-pen-router>
   </template>
   <personalization-toast></personalization-toast>
 </div>

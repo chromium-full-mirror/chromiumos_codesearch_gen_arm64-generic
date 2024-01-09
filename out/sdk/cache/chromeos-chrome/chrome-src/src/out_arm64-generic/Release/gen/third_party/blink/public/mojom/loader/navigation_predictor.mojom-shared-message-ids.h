@@ -23,6 +23,7 @@ constexpr uint32_t kAnchorElementMetricsHost_ReportAnchorElementPointerOut_Name 
 constexpr uint32_t kAnchorElementMetricsHost_ReportAnchorElementPointerDown_Name = 6;
 constexpr uint32_t kAnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimerFired_Name = 7;
 constexpr uint32_t kAnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Name = 8;
+constexpr uint32_t kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name = 9;
 
 }  // namespace internal
 

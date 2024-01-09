@@ -1,0 +1,89 @@
+{
+  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/ash/common/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://shortcut-customization/*": [
+        "./../../../../../../ash/webui/shortcut_customization_ui/resources/tsc/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/accelerator_edit_dialog_test.ts",
+    "preprocessed/accelerator_edit_view_test.ts",
+    "preprocessed/accelerator_lookup_manager_test.ts",
+    "preprocessed/accelerator_row_test.ts",
+    "preprocessed/accelerator_subsection_test.ts",
+    "preprocessed/accelerator_view_test.ts",
+    "preprocessed/bottom_nav_content_test.ts",
+    "preprocessed/fake_shortcut_provider_test.ts",
+    "preprocessed/fake_shortcut_search_handler_test.ts",
+    "preprocessed/router_test.ts",
+    "preprocessed/search_box_test.ts",
+    "preprocessed/search_result_bolding_test.ts",
+    "preprocessed/search_result_row_test.ts",
+    "preprocessed/shortcut_customization_test.ts",
+    "preprocessed/shortcut_customization_test_util.ts",
+    "preprocessed/shortcut_search_handler_test.ts",
+    "preprocessed/shortcuts_page_test.ts",
+    "preprocessed/shortcut_utils_test.ts",
+    "preprocessed/text_accelerator_test.ts"
+  ],
+  "references": [
+    {
+      "path": "../../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ash/webui/shortcut_customization_ui/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

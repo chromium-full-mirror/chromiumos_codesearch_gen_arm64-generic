@@ -83,12 +83,9 @@ describeWithLocale('SharedStorageMetadataView', () => {
         renderElementIntoDOM(component);
         assertShadowRoot(component.shadowRoot);
         await coordinator.done({ waitForWork: true });
-        const resetButtonComponent = component.shadowRoot.querySelector('devtools-shared-storage-reset-budget-button');
+        const resetButtonComponent = component.shadowRoot.querySelector('devtools-button');
         assertElement(resetButtonComponent, HTMLElement);
-        assertShadowRoot(resetButtonComponent.shadowRoot);
-        const resetButton = resetButtonComponent.shadowRoot.querySelector('button');
-        assertElement(resetButton, HTMLButtonElement);
-        dispatchClickEvent(resetButton);
+        dispatchClickEvent(resetButtonComponent);
         assert.isTrue(resetBudgetHandlerSpy.calledOnce);
     });
 });

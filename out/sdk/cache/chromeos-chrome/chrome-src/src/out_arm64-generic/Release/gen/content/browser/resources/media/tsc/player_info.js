@@ -35,7 +35,7 @@ export class PlayerInfo {
             throw new Error(typeof key + ' is not a valid key type');
         }
         this.properties[key] = value;
-        var recordValue = {
+        const recordValue = {
             time: timestamp - this.firstTimestamp_,
             key: key,
             value: value,

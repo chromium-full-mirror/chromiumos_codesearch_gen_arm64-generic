@@ -421,6 +421,51 @@ UntrustedPageHandler_OnSpeechRateChange_Params_Data::UntrustedPageHandler_OnSpee
 
 
 // static
+bool UntrustedPageHandler_OnVoiceChange_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UntrustedPageHandler_OnVoiceChange_Params_Data* object =
+      static_cast<const UntrustedPageHandler_OnVoiceChange_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->voice, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& voice_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->voice, validation_context,
+                                         &voice_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->lang, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& lang_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->lang, validation_context,
+                                         &lang_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+UntrustedPageHandler_OnVoiceChange_Params_Data::UntrustedPageHandler_OnVoiceChange_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool UntrustedPageHandler_OnHighlightGranularityChanged_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -751,7 +796,7 @@ bool UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -784,6 +829,13 @@ bool UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data::Validate(
 
   if (!::read_anything::mojom::internal::Colors_Data
         ::Validate(object->color, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->voices, 7, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->voices, validation_context))
     return false;
 
 

@@ -41,12 +41,15 @@ class PLATFORM_EXPORT MediaStreamDispatcherHostInterceptorForTesting : public Me
   void GenerateStreams(int32_t request_id, const ::blink::StreamControls& controls, bool user_gesture, StreamSelectionInfoPtr audio_stream_selection_info, GenerateStreamsCallback callback) override;
   void FocusCapturedSurface(const WTF::String& label, bool focus) override;
   void CancelRequest(int32_t request_id) override;
-  void StopStreamDevice(const WTF::String& device_id, const absl::optional<::base::UnguessableToken>& session_id) override;
+  void StopStreamDevice(const WTF::String& device_id, const std::optional<::base::UnguessableToken>& session_id) override;
   void OpenDevice(int32_t request_id, const WTF::String& device_id, MediaStreamType type, OpenDeviceCallback callback) override;
   void CloseDevice(const WTF::String& label) override;
-  void SetCapturingLinkSecured(const absl::optional<::base::UnguessableToken>& session_id, MediaStreamType type, bool is_secure) override;
+  void SetCapturingLinkSecured(const std::optional<::base::UnguessableToken>& session_id, MediaStreamType type, bool is_secure) override;
   void OnStreamStarted(const WTF::String& label) override;
-  void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) override;
+  void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::media::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) override;
+  void SendWheel(const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action, SendWheelCallback callback) override;
+  void GetZoomLevel(const ::base::UnguessableToken& device_id, GetZoomLevelCallback callback) override;
+  void SetZoomLevel(const ::base::UnguessableToken& device_id, int32_t zoom_level, SetZoomLevelCallback callback) override;
   void GetOpenDevice(int32_t request_id, const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, GetOpenDeviceCallback callback) override;
   void KeepDeviceAliveForTransfer(const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, KeepDeviceAliveForTransferCallback callback) override;
 };
@@ -65,8 +68,17 @@ class PLATFORM_EXPORT MediaStreamDispatcherHostAsyncWaiter {
       int32_t request_id, const WTF::String& device_id, MediaStreamType type, bool* out_success, WTF::String* out_label, ::blink::MediaStreamDevice* out_device);
   
   void ApplySubCaptureTarget(
-      const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ::media::mojom::blink::ApplySubCaptureTargetResult* out_result);
-  ::media::mojom::blink::ApplySubCaptureTargetResult ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version);
+      const ::base::UnguessableToken& device_id, ::media::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ::media::mojom::blink::ApplySubCaptureTargetResult* out_result);
+  ::media::mojom::blink::ApplySubCaptureTargetResult ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::media::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version);
+  void SendWheel(
+      const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action, CapturedSurfaceControlResult* out_result);
+  CapturedSurfaceControlResult SendWheel(const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action);
+  void GetZoomLevel(
+      const ::base::UnguessableToken& device_id, std::optional<int32_t>* out_zoom_level, CapturedSurfaceControlResult* out_result);
+  
+  void SetZoomLevel(
+      const ::base::UnguessableToken& device_id, int32_t zoom_level, CapturedSurfaceControlResult* out_result);
+  CapturedSurfaceControlResult SetZoomLevel(const ::base::UnguessableToken& device_id, int32_t zoom_level);
   void GetOpenDevice(
       int32_t request_id, const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, MediaStreamRequestResult* out_result, GetOpenDeviceResponsePtr* out_response);
   

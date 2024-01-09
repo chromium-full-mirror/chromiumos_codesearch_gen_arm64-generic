@@ -19,6 +19,8 @@ class TestBundleWrapper;
 class FtraceEventBundle;
 class FtraceEventBundle_CompactSched;
 class FtraceEvent;
+class GpuWorkPeriodFtraceEvent;
+class SchedSwitchWithCtrsFtraceEvent;
 class BinderReturnFtraceEvent;
 class BinderCommandFtraceEvent;
 class SamsungTracingMarkWriteFtraceEvent;

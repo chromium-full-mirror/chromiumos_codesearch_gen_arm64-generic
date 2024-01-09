@@ -32,31 +32,32 @@ ComputedStyleBase::ComputedStyleBase() :
     , visual_data_(StyleVisualData::Create())
     , rare_non_inherited_usage_less_than_14_percent_data_(StyleRareNonInheritedUsageLessThan14PercentData::Create())
     , svg_data_(StyleSVGData::Create())
-    , box_data_(StyleBoxData::Create())
-    , background_data_(StyleBackgroundData::Create())
     , surround_data_(StyleSurroundData::Create())
+    , background_data_(StyleBackgroundData::Create())
+    , box_data_(StyleBoxData::Create())
+    , font_data_(StyleFontData::Create())
     , base_data_(nullptr)
   , data_{
     static_cast<unsigned>(kPseudoIdNone) // pseudo_element_styles_
     , static_cast<unsigned>(ECursor::kAuto) // cursor_
-    , static_cast<unsigned>(PseudoId::kPseudoIdNone) // style_type_
     , static_cast<unsigned>(EDisplay::kInline) // display_
-    , static_cast<unsigned>(EClear::kNone) // clear_
+    , static_cast<unsigned>(PseudoId::kPseudoIdNone) // style_type_
+    , static_cast<unsigned>(EBreakInside::kAuto) // break_inside_
     , static_cast<unsigned>(EBreakBetween::kAuto) // break_after_
     , static_cast<unsigned>(EBreakBetween::kAuto) // break_before_
     , static_cast<unsigned>(EPointerEvents::kAuto) // pointer_events_
     , static_cast<unsigned>(kScrollbarGutterAuto) // scrollbar_gutter_
     , static_cast<unsigned>(ETextAlign::kStart) // text_align_
     , static_cast<unsigned>(static_cast<unsigned>(EVerticalAlign::kBaseline)) // vertical_align_
+    , static_cast<unsigned>(EClear::kNone) // clear_
     , static_cast<unsigned>(EFloat::kNone) // floating_
+    , static_cast<unsigned>(EContentVisibility::kVisible) // content_visibility_
     , static_cast<unsigned>(EOverflow::kVisible) // overflow_x_
-    , static_cast<unsigned>(EBreakInside::kAuto) // break_inside_
     , static_cast<unsigned>(EOverflow::kVisible) // overflow_y_
     , static_cast<unsigned>(EPosition::kStatic) // position_
     , static_cast<unsigned>(ETextTransform::kNone) // text_transform_
     , static_cast<unsigned>(ETransformBox::kViewBox) // transform_box_
     , static_cast<unsigned>(UnicodeBidi::kNormal) // unicode_bidi_
-    , static_cast<unsigned>(EContentVisibility::kVisible) // content_visibility_
     , static_cast<unsigned>(EInsideLink::kNotInsideLink) // inside_link_
     , static_cast<unsigned>(0) // is_stacking_context_without_containment_
     , static_cast<unsigned>(EOverflowAnchor::kAuto) // overflow_anchor_
@@ -64,20 +65,20 @@ ComputedStyleBase::ComputedStyleBase() :
     , static_cast<unsigned>(0) // viewport_unit_flags_
     , static_cast<unsigned>(EVisibility::kVisible) // visibility_
     , static_cast<unsigned>(WhiteSpaceCollapse::kCollapse) // white_space_collapse_
-    , static_cast<unsigned>(false) // affected_by_active_
     , static_cast<unsigned>(WritingMode::kHorizontalTb) // writing_mode_
+    , static_cast<unsigned>(false) // affected_by_active_
     , static_cast<unsigned>(false) // affected_by_drag_
     , static_cast<unsigned>(false) // affected_by_focus_within_
     , static_cast<unsigned>(false) // affected_by_hover_
     , static_cast<unsigned>(EBorderCollapse::kSeparate) // border_collapse_
     , static_cast<unsigned>(true) // border_collapse_is_inherited_
     , static_cast<unsigned>(EBoxDirection::kNormal) // box_direction_
-    , static_cast<unsigned>(EBoxDirectionAlternative::kNormal) // box_direction_alternative_
-    , static_cast<unsigned>(true) // box_direction_is_inherited_
+    , static_cast<unsigned>(EBoxSizing::kContentBox) // box_sizing_
     , static_cast<unsigned>(ECaptionSide::kTop) // caption_side_
     , static_cast<unsigned>(true) // caption_side_is_inherited_
     , static_cast<unsigned>(false) // child_has_explicit_inheritance_
     , static_cast<unsigned>(true) // color_is_inherited_
+    , static_cast<unsigned>(false) // color_scheme_flags_is_normal_
     , static_cast<unsigned>(false) // color_scheme_forced_
     , static_cast<unsigned>(false) // custom_style_callback_depends_on_font_
     , static_cast<unsigned>(false) // dark_color_scheme_
@@ -101,6 +102,7 @@ ComputedStyleBase::ComputedStyleBase() :
     , static_cast<unsigned>(false) // is_ensured_outside_flat_tree_
     , static_cast<unsigned>(false) // is_flex_or_grid_or_custom_item_
     , static_cast<unsigned>(false) // is_in_blockifying_display_
+    , static_cast<unsigned>(false) // is_in_inlinifying_display_
     , static_cast<unsigned>(false) // is_inert_
     , static_cast<unsigned>(true) // is_inert_is_inherited_
     , static_cast<unsigned>(false) // is_inside_display_ignoring_floating_children_
@@ -131,9 +133,10 @@ ComputedStyleBase::ComputedStyleBase(const ComputedStyleBuilderBase& builder) :
     , visual_data_(const_cast<StyleVisualData*>(builder.visual_data_))
     , rare_non_inherited_usage_less_than_14_percent_data_(const_cast<StyleRareNonInheritedUsageLessThan14PercentData*>(builder.rare_non_inherited_usage_less_than_14_percent_data_))
     , svg_data_(const_cast<StyleSVGData*>(builder.svg_data_))
-    , box_data_(const_cast<StyleBoxData*>(builder.box_data_))
-    , background_data_(const_cast<StyleBackgroundData*>(builder.background_data_))
     , surround_data_(const_cast<StyleSurroundData*>(builder.surround_data_))
+    , background_data_(const_cast<StyleBackgroundData*>(builder.background_data_))
+    , box_data_(const_cast<StyleBoxData*>(builder.box_data_))
+    , font_data_(const_cast<StyleFontData*>(builder.font_data_))
     , base_data_(builder.base_data_)
     , data_(builder.data_)
   {
@@ -141,12 +144,190 @@ ComputedStyleBase::ComputedStyleBase(const ComputedStyleBuilderBase& builder) :
     data_.is_stacking_context_without_containment_ = 0;
   }
 
+
+Vector<std::pair<String, size_t>>
+ComputedStyleBase::FindChangedGroups(const ComputedStyleBase &other_style) const {
+  Vector<std::pair<String, size_t>> output;
+    if (!base::ValuesEquivalent(inherited_data_,
+      other_style.inherited_data_)) {
+    output.emplace_back("inherited_data_",
+        sizeof(*inherited_data_));
+  }
+  if (!base::ValuesEquivalent(rare_inherited_usage_less_than_64_percent_data_,
+      other_style.rare_inherited_usage_less_than_64_percent_data_)) {
+    output.emplace_back("rare_inherited_usage_less_than_64_percent_data_",
+        sizeof(*rare_inherited_usage_less_than_64_percent_data_));
+  }
+  if (!base::ValuesEquivalent(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_,
+      other_style.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_)) {
+    output.emplace_back("rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_",
+        sizeof(*rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_));
+  }
+  if (!base::ValuesEquivalent(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_,
+      other_style.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_)) {
+    output.emplace_back("rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_",
+        sizeof(*rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_));
+  }
+  if (!base::ValuesEquivalent(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->inherited_forced_colors_data_,
+      other_style.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->inherited_forced_colors_data_)) {
+    output.emplace_back("rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->inherited_forced_colors_data_",
+        sizeof(*rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->inherited_forced_colors_data_));
+  }
+  if (!base::ValuesEquivalent(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->inherited_visited_data_,
+      other_style.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->inherited_visited_data_)) {
+    output.emplace_back("rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->inherited_visited_data_",
+        sizeof(*rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->inherited_visited_data_));
+  }
+  if (!base::ValuesEquivalent(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->highlight_data_data_,
+      other_style.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->highlight_data_data_)) {
+    output.emplace_back("rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->highlight_data_data_",
+        sizeof(*rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->highlight_data_data_));
+  }
+  if (!base::ValuesEquivalent(visual_data_,
+      other_style.visual_data_)) {
+    output.emplace_back("visual_data_",
+        sizeof(*visual_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->rare_non_inherited_usage_less_than_100_percent_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->rare_non_inherited_usage_less_than_100_percent_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->rare_non_inherited_usage_less_than_100_percent_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->rare_non_inherited_usage_less_than_100_percent_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->grid_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->grid_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->grid_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->grid_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->forced_colors_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->forced_colors_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->forced_colors_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->forced_colors_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->visited_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->visited_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->visited_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->visited_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->start_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->start_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->start_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->start_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->target_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->target_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->target_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->target_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->timeline_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->timeline_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->timeline_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->timeline_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->will_change_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->will_change_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->will_change_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->will_change_data_));
+  }
+  if (!base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->math_data_,
+      other_style.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->math_data_)) {
+    output.emplace_back("rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->math_data_",
+        sizeof(*rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->math_data_));
+  }
+  if (!base::ValuesEquivalent(svg_data_,
+      other_style.svg_data_)) {
+    output.emplace_back("svg_data_",
+        sizeof(*svg_data_));
+  }
+  if (!base::ValuesEquivalent(svg_data_->misc_data_,
+      other_style.svg_data_->misc_data_)) {
+    output.emplace_back("svg_data_->misc_data_",
+        sizeof(*svg_data_->misc_data_));
+  }
+  if (!base::ValuesEquivalent(svg_data_->geometry_data_,
+      other_style.svg_data_->geometry_data_)) {
+    output.emplace_back("svg_data_->geometry_data_",
+        sizeof(*svg_data_->geometry_data_));
+  }
+  if (!base::ValuesEquivalent(svg_data_->fill_data_,
+      other_style.svg_data_->fill_data_)) {
+    output.emplace_back("svg_data_->fill_data_",
+        sizeof(*svg_data_->fill_data_));
+  }
+  if (!base::ValuesEquivalent(svg_data_->stroke_data_,
+      other_style.svg_data_->stroke_data_)) {
+    output.emplace_back("svg_data_->stroke_data_",
+        sizeof(*svg_data_->stroke_data_));
+  }
+  if (!base::ValuesEquivalent(svg_data_->inherited_resources_data_,
+      other_style.svg_data_->inherited_resources_data_)) {
+    output.emplace_back("svg_data_->inherited_resources_data_",
+        sizeof(*svg_data_->inherited_resources_data_));
+  }
+  if (!base::ValuesEquivalent(svg_data_->stop_data_,
+      other_style.svg_data_->stop_data_)) {
+    output.emplace_back("svg_data_->stop_data_",
+        sizeof(*svg_data_->stop_data_));
+  }
+  if (!base::ValuesEquivalent(surround_data_,
+      other_style.surround_data_)) {
+    output.emplace_back("surround_data_",
+        sizeof(*surround_data_));
+  }
+  if (!base::ValuesEquivalent(background_data_,
+      other_style.background_data_)) {
+    output.emplace_back("background_data_",
+        sizeof(*background_data_));
+  }
+  if (!base::ValuesEquivalent(box_data_,
+      other_style.box_data_)) {
+    output.emplace_back("box_data_",
+        sizeof(*box_data_));
+  }
+  if (!base::ValuesEquivalent(font_data_,
+      other_style.font_data_)) {
+    output.emplace_back("font_data_",
+        sizeof(*font_data_));
+  }
+
+  return output;
+}
+
 void ComputedStyleBase::Trace(Visitor* visitor) const {
   static_cast<const ComputedStyle*>(this)->TraceAfterDispatch(visitor);
 }
 
 bool ComputedStyleBase::ScrollAnchorDisablingPropertyChanged(const ComputedStyle& a, const ComputedStyle& b) {
-  if (a.box_data_.Get() != b.box_data_.Get()) {
+  if (a.surround_data_.Get() != b.surround_data_.Get()) {
+      if (a.surround_data_->left_ != b.surround_data_->left_)
+        return true;
+      if (a.surround_data_->right_ != b.surround_data_->right_)
+        return true;
+      if (a.surround_data_->top_ != b.surround_data_->top_)
+        return true;
+      if (a.surround_data_->bottom_ != b.surround_data_->bottom_)
+        return true;
+      if (a.surround_data_->contain_intrinsic_width_ != b.surround_data_->contain_intrinsic_width_)
+        return true;
+      if (a.surround_data_->contain_intrinsic_height_ != b.surround_data_->contain_intrinsic_height_)
+        return true;
+
+    }
+    if (a.box_data_.Get() != b.box_data_.Get()) {
       if (a.box_data_->width_ != b.box_data_->width_)
         return true;
       if (a.box_data_->min_width_ != b.box_data_->min_width_)
@@ -159,36 +340,21 @@ bool ComputedStyleBase::ScrollAnchorDisablingPropertyChanged(const ComputedStyle
         return true;
       if (a.box_data_->max_height_ != b.box_data_->max_height_)
         return true;
-      if (a.box_data_->contain_intrinsic_width_ != b.box_data_->contain_intrinsic_width_)
+      if (a.box_data_->margin_top_ != b.box_data_->margin_top_)
         return true;
-      if (a.box_data_->contain_intrinsic_height_ != b.box_data_->contain_intrinsic_height_)
+      if (a.box_data_->margin_left_ != b.box_data_->margin_left_)
         return true;
-
-    }
-    if (a.surround_data_.Get() != b.surround_data_.Get()) {
-      if (a.surround_data_->margin_top_ != b.surround_data_->margin_top_)
+      if (a.box_data_->margin_right_ != b.box_data_->margin_right_)
         return true;
-      if (a.surround_data_->margin_left_ != b.surround_data_->margin_left_)
+      if (a.box_data_->margin_bottom_ != b.box_data_->margin_bottom_)
         return true;
-      if (a.surround_data_->margin_right_ != b.surround_data_->margin_right_)
+      if (a.box_data_->padding_top_ != b.box_data_->padding_top_)
         return true;
-      if (a.surround_data_->margin_bottom_ != b.surround_data_->margin_bottom_)
+      if (a.box_data_->padding_left_ != b.box_data_->padding_left_)
         return true;
-      if (a.surround_data_->left_ != b.surround_data_->left_)
+      if (a.box_data_->padding_right_ != b.box_data_->padding_right_)
         return true;
-      if (a.surround_data_->right_ != b.surround_data_->right_)
-        return true;
-      if (a.surround_data_->top_ != b.surround_data_->top_)
-        return true;
-      if (a.surround_data_->bottom_ != b.surround_data_->bottom_)
-        return true;
-      if (a.surround_data_->padding_top_ != b.surround_data_->padding_top_)
-        return true;
-      if (a.surround_data_->padding_left_ != b.surround_data_->padding_left_)
-        return true;
-      if (a.surround_data_->padding_right_ != b.surround_data_->padding_right_)
-        return true;
-      if (a.surround_data_->padding_bottom_ != b.surround_data_->padding_bottom_)
+      if (a.box_data_->padding_bottom_ != b.box_data_->padding_bottom_)
         return true;
 
     }
@@ -199,20 +365,17 @@ bool ComputedStyleBase::ScrollAnchorDisablingPropertyChanged(const ComputedStyle
 }
 
 bool ComputedStyleBase::DiffNeedsReshapeAndFullLayoutAndPaintInvalidation(const ComputedStyle& a, const ComputedStyle& b) {
-  if (a.inherited_data_.Get() != b.inherited_data_.Get()) {
-      if (a.inherited_data_->font_data_.Get() != b.inherited_data_->font_data_.Get()) {
-        if (a.inherited_data_->font_data_->font_ != b.inherited_data_->font_data_->font_)
-          return true;
-
-      }
-
-    }
-    if (a.rare_inherited_usage_less_than_64_percent_data_.Get() != b.rare_inherited_usage_less_than_64_percent_data_.Get()) {
+  if (a.rare_inherited_usage_less_than_64_percent_data_.Get() != b.rare_inherited_usage_less_than_64_percent_data_.Get()) {
       if (a.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_.Get() != b.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_.Get()) {
         if (a.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->text_autospace_ != b.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->text_autospace_)
           return true;
 
       }
+
+    }
+    if (a.font_data_.Get() != b.font_data_.Get()) {
+      if (a.font_data_->font_ != b.font_data_->font_)
+        return true;
 
     }
     if (a.data_.white_space_collapse_ != b.data_.white_space_collapse_)
@@ -245,7 +408,7 @@ bool ComputedStyleBase::DiffNeedsFullLayoutAndPaintInvalidation(const ComputedSt
     }
     if (a.rare_inherited_usage_less_than_64_percent_data_.Get() != b.rare_inherited_usage_less_than_64_percent_data_.Get()) {
       if (a.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_.Get() != b.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_.Get()) {
-        if (a.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->respect_image_orientation_ != b.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->respect_image_orientation_)
+        if (a.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->image_orientation_ != b.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->image_orientation_)
           return true;
         if (a.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->ruby_position_ != b.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->ruby_position_)
           return true;
@@ -476,18 +639,15 @@ bool ComputedStyleBase::DiffNeedsFullLayoutAndPaintInvalidation(const ComputedSt
 
     }
     if (a.box_data_.Get() != b.box_data_.Get()) {
+      if (a.box_data_->padding_top_ != b.box_data_->padding_top_)
+        return true;
+      if (a.box_data_->padding_left_ != b.box_data_->padding_left_)
+        return true;
+      if (a.box_data_->padding_right_ != b.box_data_->padding_right_)
+        return true;
+      if (a.box_data_->padding_bottom_ != b.box_data_->padding_bottom_)
+        return true;
       if (a.box_data_->box_decoration_break_ != b.box_data_->box_decoration_break_)
-        return true;
-
-    }
-    if (a.surround_data_.Get() != b.surround_data_.Get()) {
-      if (a.surround_data_->padding_top_ != b.surround_data_->padding_top_)
-        return true;
-      if (a.surround_data_->padding_left_ != b.surround_data_->padding_left_)
-        return true;
-      if (a.surround_data_->padding_right_ != b.surround_data_->padding_right_)
-        return true;
-      if (a.surround_data_->padding_bottom_ != b.surround_data_->padding_bottom_)
         return true;
       if (a.BorderLeftWidth() != b.BorderLeftWidth())
         return true;
@@ -502,8 +662,6 @@ bool ComputedStyleBase::DiffNeedsFullLayoutAndPaintInvalidation(const ComputedSt
     if (a.HasPseudoElementStyle(kPseudoIdScrollbar) != b.HasPseudoElementStyle(kPseudoIdScrollbar))
       return true;
     if (a.BoxDirection() != b.BoxDirection())
-      return true;
-    if (a.BoxDirectionAlternative() != b.BoxDirectionAlternative())
       return true;
     if (a.GetTextAlign() != b.GetTextAlign())
       return true;
@@ -574,6 +732,8 @@ bool ComputedStyleBase::DiffNeedsFullLayout(const ComputedStyle& a, const Comput
             return true;
           if (a.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->rare_non_inherited_usage_less_than_100_percent_data_->contain_ != b.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->rare_non_inherited_usage_less_than_100_percent_data_->contain_)
             return true;
+          if (a.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->rare_non_inherited_usage_less_than_100_percent_data_->draggable_region_mode_ != b.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->rare_non_inherited_usage_less_than_100_percent_data_->draggable_region_mode_)
+            return true;
 
         }
         if (a.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->align_content_ != b.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_22_percent_data_->align_content_)
@@ -606,6 +766,15 @@ bool ComputedStyleBase::DiffNeedsFullLayout(const ComputedStyle& a, const Comput
         return true;
 
     }
+    if (a.surround_data_.Get() != b.surround_data_.Get()) {
+      if (a.surround_data_->contain_intrinsic_width_ != b.surround_data_->contain_intrinsic_width_)
+        return true;
+      if (a.surround_data_->contain_intrinsic_height_ != b.surround_data_->contain_intrinsic_height_)
+        return true;
+      if (a.surround_data_->aspect_ratio_ != b.surround_data_->aspect_ratio_)
+        return true;
+
+    }
     if (a.box_data_.Get() != b.box_data_.Get()) {
       if (a.box_data_->width_ != b.box_data_->width_)
         return true;
@@ -621,18 +790,12 @@ bool ComputedStyleBase::DiffNeedsFullLayout(const ComputedStyle& a, const Comput
         return true;
       if (a.box_data_->vertical_align_length_ != b.box_data_->vertical_align_length_)
         return true;
-      if (a.box_data_->box_sizing_ != b.box_data_->box_sizing_)
-        return true;
-      if (a.box_data_->contain_intrinsic_width_ != b.box_data_->contain_intrinsic_width_)
-        return true;
-      if (a.box_data_->contain_intrinsic_height_ != b.box_data_->contain_intrinsic_height_)
-        return true;
-      if (a.box_data_->aspect_ratio_ != b.box_data_->aspect_ratio_)
-        return true;
       if (a.box_data_->baseline_source_ != b.box_data_->baseline_source_)
         return true;
 
     }
+    if (a.data_.box_sizing_ != b.data_.box_sizing_)
+      return true;
     if (a.data_.content_visibility_ != b.data_.content_visibility_)
       return true;
     if (a.data_.scrollbar_gutter_ != b.data_.scrollbar_gutter_)
@@ -846,7 +1009,10 @@ bool ComputedStyleBase::DiffTransformData(const ComputedStyle& a, const Computed
       }
       if (a.rare_non_inherited_usage_less_than_14_percent_data_->transform_ != b.rare_non_inherited_usage_less_than_14_percent_data_->transform_)
         return true;
-      if (a.rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_ != b.rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_)
+
+    }
+    if (a.svg_data_.Get() != b.svg_data_.Get()) {
+      if (a.svg_data_->transform_origin_ != b.svg_data_->transform_origin_)
         return true;
 
     }
@@ -901,9 +1067,12 @@ bool ComputedStyleBase::UpdatePropertySpecificDifferencesOtherTransform(const Co
           return true;
 
       }
-      if (a.rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_ != b.rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_)
-        return true;
       if (a.HasTransform() != b.HasTransform())
+        return true;
+
+    }
+    if (a.svg_data_.Get() != b.svg_data_.Get()) {
+      if (a.svg_data_->transform_origin_ != b.svg_data_->transform_origin_)
         return true;
 
     }
@@ -1189,10 +1358,6 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "box_decoration_break_";
    case DebugField::box_direction_:
      return "box_direction_";
-   case DebugField::box_direction_alternative_:
-     return "box_direction_alternative_";
-   case DebugField::box_direction_is_inherited_:
-     return "box_direction_is_inherited_";
    case DebugField::box_flex_:
      return "box_flex_";
    case DebugField::box_ordinal_group_:
@@ -1251,6 +1416,8 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "color_rendering_";
    case DebugField::color_scheme_:
      return "color_scheme_";
+   case DebugField::color_scheme_flags_is_normal_:
+     return "color_scheme_flags_is_normal_";
    case DebugField::color_scheme_forced_:
      return "color_scheme_forced_";
    case DebugField::column_count_:
@@ -1477,6 +1644,8 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "hyphenation_string_";
    case DebugField::hyphens_:
      return "hyphens_";
+   case DebugField::image_orientation_:
+     return "image_orientation_";
    case DebugField::image_rendering_:
      return "image_rendering_";
    case DebugField::in_forced_colors_mode_:
@@ -1489,6 +1658,8 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "initial_letter_";
    case DebugField::inline_style_lost_cascade_:
      return "inline_style_lost_cascade_";
+   case DebugField::inset_area_:
+     return "inset_area_";
    case DebugField::inside_link_:
      return "inside_link_";
    case DebugField::internal_forced_background_color_:
@@ -1541,6 +1712,8 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "is_flex_or_grid_or_custom_item_";
    case DebugField::is_in_blockifying_display_:
      return "is_in_blockifying_display_";
+   case DebugField::is_in_inlinifying_display_:
+     return "is_in_inlinifying_display_";
    case DebugField::is_inert_:
      return "is_inert_";
    case DebugField::is_inert_is_inherited_:
@@ -1761,8 +1934,6 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "requires_accelerated_compositing_for_external_reasons_";
    case DebugField::resize_:
      return "resize_";
-   case DebugField::respect_image_orientation_:
-     return "respect_image_orientation_";
    case DebugField::right_:
      return "right_";
    case DebugField::rotate_:
@@ -1937,14 +2108,6 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "text_wrap_";
    case DebugField::timeline_scope_:
      return "timeline_scope_";
-   case DebugField::toggle_group_:
-     return "toggle_group_";
-   case DebugField::toggle_root_:
-     return "toggle_root_";
-   case DebugField::toggle_trigger_:
-     return "toggle_trigger_";
-   case DebugField::toggle_visibility_:
-     return "toggle_visibility_";
    case DebugField::top_:
      return "top_";
    case DebugField::touch_action_:
@@ -2063,16 +2226,7 @@ static std::string DebugStringForField(const T& t) {
 Vector<ComputedStyleBase::DebugDiff>
 ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
   Vector<DebugDiff> diff;
-      // Group: font
-  if (!(inherited_data_->font_data_->font_ == o.inherited_data_->font_data_->font_)) {
-      DebugDiff d;
-      d.field = DebugField::font_;
-      d.actual = DebugStringForField(inherited_data_->font_data_->font_);
-      d.correct = DebugStringForField(o.inherited_data_->font_data_->font_);
-      diff.push_back(std::move(d));
-    }
-
-  // Group: inherited
+    // Group: inherited
   if (!(base::ValuesEquivalent(inherited_data_->inherited_variables_, o.inherited_data_->inherited_variables_))) {
       DebugDiff d;
       d.field = DebugField::inherited_variables_;
@@ -2166,6 +2320,13 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.correct = DebugStringForField(o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->math_depth_);
       diff.push_back(std::move(d));
     }
+  if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->image_orientation_ == o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->image_orientation_)) {
+      DebugDiff d;
+      d.field = DebugField::image_orientation_;
+      d.actual = DebugStringForField(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->image_orientation_);
+      d.correct = DebugStringForField(o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->image_orientation_);
+      diff.push_back(std::move(d));
+    }
   if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->math_shift_ == o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->math_shift_)) {
       DebugDiff d;
       d.field = DebugField::math_shift_;
@@ -2178,13 +2339,6 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.field = DebugField::math_style_;
       d.actual = DebugStringForField(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->math_style_);
       d.correct = DebugStringForField(o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->math_style_);
-      diff.push_back(std::move(d));
-    }
-  if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->respect_image_orientation_ == o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->respect_image_orientation_)) {
-      DebugDiff d;
-      d.field = DebugField::respect_image_orientation_;
-      d.actual = DebugStringForField(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->respect_image_orientation_);
-      d.correct = DebugStringForField(o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->respect_image_orientation_);
       diff.push_back(std::move(d));
     }
   if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->ruby_position_ == o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_100_percent_data_->ruby_position_)) {
@@ -2251,6 +2405,13 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
     }
 
   // Group: rare-inherited-usage-less-than-64-percent-sub
+  if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_ == o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_)) {
+      DebugDiff d;
+      d.field = DebugField::dynamic_range_limit_;
+      d.actual = DebugStringForField(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_);
+      d.correct = DebugStringForField(o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_);
+      diff.push_back(std::move(d));
+    }
   if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->text_emphasis_custom_mark_ == o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->text_emphasis_custom_mark_)) {
       DebugDiff d;
       d.field = DebugField::text_emphasis_custom_mark_;
@@ -2305,13 +2466,6 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.field = DebugField::text_emphasis_mark_;
       d.actual = DebugStringForField(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->text_emphasis_mark_);
       d.correct = DebugStringForField(o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->text_emphasis_mark_);
-      diff.push_back(std::move(d));
-    }
-  if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_ == o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_)) {
-      DebugDiff d;
-      d.field = DebugField::dynamic_range_limit_;
-      d.actual = DebugStringForField(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_);
-      d.correct = DebugStringForField(o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->dynamic_range_limit_);
       diff.push_back(std::move(d));
     }
   if (!(rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->has_line_if_empty_ == o.rare_inherited_usage_less_than_64_percent_data_->rare_inherited_usage_less_than_64_percent_sub_data_->has_line_if_empty_)) {
@@ -3439,13 +3593,6 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
     }
 
   // Group: rare-non-inherited-usage-less-than-14-percent-sub
-  if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_visibility_ == o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_visibility_)) {
-      DebugDiff d;
-      d.field = DebugField::toggle_visibility_;
-      d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_visibility_);
-      d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_visibility_);
-      diff.push_back(std::move(d));
-    }
   if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_name_ == o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_name_)) {
       DebugDiff d;
       d.field = DebugField::view_transition_name_;
@@ -3479,27 +3626,6 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.field = DebugField::object_view_box_;
       d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->object_view_box_);
       d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->object_view_box_);
-      diff.push_back(std::move(d));
-    }
-  if (!(base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_group_, o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_group_))) {
-      DebugDiff d;
-      d.field = DebugField::toggle_group_;
-      d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_group_);
-      d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_group_);
-      diff.push_back(std::move(d));
-    }
-  if (!(base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_root_, o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_root_))) {
-      DebugDiff d;
-      d.field = DebugField::toggle_root_;
-      d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_root_);
-      d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_root_);
-      diff.push_back(std::move(d));
-    }
-  if (!(base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_trigger_, o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_trigger_))) {
-      DebugDiff d;
-      d.field = DebugField::toggle_trigger_;
-      d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_trigger_);
-      d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->toggle_trigger_);
       diff.push_back(std::move(d));
     }
   if (!(base::ValuesEquivalent(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->custom_highlight_names_, o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->custom_highlight_names_))) {
@@ -3661,6 +3787,13 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.field = DebugField::scroll_margin_top_;
       d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->scroll_margin_top_);
       d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->scroll_margin_top_);
+      diff.push_back(std::move(d));
+    }
+  if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->inset_area_ == o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->inset_area_)) {
+      DebugDiff d;
+      d.field = DebugField::inset_area_;
+      d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->inset_area_);
+      d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->inset_area_);
       diff.push_back(std::move(d));
     }
   if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->effective_appearance_ == o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->effective_appearance_)) {
@@ -3929,13 +4062,6 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.field = DebugField::content_;
       d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->content_);
       d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->content_);
-      diff.push_back(std::move(d));
-    }
-  if (!(rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_ == o.rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_)) {
-      DebugDiff d;
-      d.field = DebugField::transform_origin_;
-      d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_);
-      d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->transform_origin_);
       diff.push_back(std::move(d));
     }
   if (!(rare_non_inherited_usage_less_than_14_percent_data_->opacity_ == o.rare_non_inherited_usage_less_than_14_percent_data_->opacity_)) {
@@ -4218,6 +4344,13 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.correct = DebugStringForField(o.svg_data_->masker_resource_);
       diff.push_back(std::move(d));
     }
+  if (!(svg_data_->transform_origin_ == o.svg_data_->transform_origin_)) {
+      DebugDiff d;
+      d.field = DebugField::transform_origin_;
+      d.actual = DebugStringForField(svg_data_->transform_origin_);
+      d.correct = DebugStringForField(o.svg_data_->transform_origin_);
+      diff.push_back(std::move(d));
+    }
   if (!(svg_data_->alignment_baseline_ == o.svg_data_->alignment_baseline_)) {
       DebugDiff d;
       d.field = DebugField::alignment_baseline_;
@@ -4317,142 +4450,33 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       diff.push_back(std::move(d));
     }
 
-    // Group: box
-  if (!(box_data_->aspect_ratio_ == o.box_data_->aspect_ratio_)) {
-      DebugDiff d;
-      d.field = DebugField::aspect_ratio_;
-      d.actual = DebugStringForField(box_data_->aspect_ratio_);
-      d.correct = DebugStringForField(o.box_data_->aspect_ratio_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->contain_intrinsic_height_ == o.box_data_->contain_intrinsic_height_)) {
-      DebugDiff d;
-      d.field = DebugField::contain_intrinsic_height_;
-      d.actual = DebugStringForField(box_data_->contain_intrinsic_height_);
-      d.correct = DebugStringForField(o.box_data_->contain_intrinsic_height_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->contain_intrinsic_width_ == o.box_data_->contain_intrinsic_width_)) {
-      DebugDiff d;
-      d.field = DebugField::contain_intrinsic_width_;
-      d.actual = DebugStringForField(box_data_->contain_intrinsic_width_);
-      d.correct = DebugStringForField(o.box_data_->contain_intrinsic_width_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->height_ == o.box_data_->height_)) {
-      DebugDiff d;
-      d.field = DebugField::height_;
-      d.actual = DebugStringForField(box_data_->height_);
-      d.correct = DebugStringForField(o.box_data_->height_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->max_height_ == o.box_data_->max_height_)) {
-      DebugDiff d;
-      d.field = DebugField::max_height_;
-      d.actual = DebugStringForField(box_data_->max_height_);
-      d.correct = DebugStringForField(o.box_data_->max_height_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->max_width_ == o.box_data_->max_width_)) {
-      DebugDiff d;
-      d.field = DebugField::max_width_;
-      d.actual = DebugStringForField(box_data_->max_width_);
-      d.correct = DebugStringForField(o.box_data_->max_width_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->min_height_ == o.box_data_->min_height_)) {
-      DebugDiff d;
-      d.field = DebugField::min_height_;
-      d.actual = DebugStringForField(box_data_->min_height_);
-      d.correct = DebugStringForField(o.box_data_->min_height_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->min_width_ == o.box_data_->min_width_)) {
-      DebugDiff d;
-      d.field = DebugField::min_width_;
-      d.actual = DebugStringForField(box_data_->min_width_);
-      d.correct = DebugStringForField(o.box_data_->min_width_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->width_ == o.box_data_->width_)) {
-      DebugDiff d;
-      d.field = DebugField::width_;
-      d.actual = DebugStringForField(box_data_->width_);
-      d.correct = DebugStringForField(o.box_data_->width_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->vertical_align_length_ == o.box_data_->vertical_align_length_)) {
-      DebugDiff d;
-      d.field = DebugField::vertical_align_length_;
-      d.actual = DebugStringForField(box_data_->vertical_align_length_);
-      d.correct = DebugStringForField(o.box_data_->vertical_align_length_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->z_index_ == o.box_data_->z_index_)) {
-      DebugDiff d;
-      d.field = DebugField::z_index_;
-      d.actual = DebugStringForField(box_data_->z_index_);
-      d.correct = DebugStringForField(o.box_data_->z_index_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->baseline_source_ == o.box_data_->baseline_source_)) {
-      DebugDiff d;
-      d.field = DebugField::baseline_source_;
-      d.actual = DebugStringForField(box_data_->baseline_source_);
-      d.correct = DebugStringForField(o.box_data_->baseline_source_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->text_box_trim_ == o.box_data_->text_box_trim_)) {
-      DebugDiff d;
-      d.field = DebugField::text_box_trim_;
-      d.actual = DebugStringForField(box_data_->text_box_trim_);
-      d.correct = DebugStringForField(o.box_data_->text_box_trim_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->box_decoration_break_ == o.box_data_->box_decoration_break_)) {
-      DebugDiff d;
-      d.field = DebugField::box_decoration_break_;
-      d.actual = DebugStringForField(box_data_->box_decoration_break_);
-      d.correct = DebugStringForField(o.box_data_->box_decoration_break_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->box_sizing_ == o.box_data_->box_sizing_)) {
-      DebugDiff d;
-      d.field = DebugField::box_sizing_;
-      d.actual = DebugStringForField(box_data_->box_sizing_);
-      d.correct = DebugStringForField(o.box_data_->box_sizing_);
-      diff.push_back(std::move(d));
-    }
-  if (!(box_data_->has_auto_z_index_ == o.box_data_->has_auto_z_index_)) {
-      DebugDiff d;
-      d.field = DebugField::has_auto_z_index_;
-      d.actual = DebugStringForField(box_data_->has_auto_z_index_);
-      d.correct = DebugStringForField(o.box_data_->has_auto_z_index_);
-      diff.push_back(std::move(d));
-    }
-
-    // Group: background
-  if (!(background_data_->background_ == o.background_data_->background_)) {
-      DebugDiff d;
-      d.field = DebugField::background_;
-      d.actual = DebugStringForField(background_data_->background_);
-      d.correct = DebugStringForField(o.background_data_->background_);
-      diff.push_back(std::move(d));
-    }
-  if (!(background_data_->background_color_ == o.background_data_->background_color_)) {
-      DebugDiff d;
-      d.field = DebugField::background_color_;
-      d.actual = DebugStringForField(background_data_->background_color_);
-      d.correct = DebugStringForField(o.background_data_->background_color_);
-      diff.push_back(std::move(d));
-    }
-
     // Group: surround
   if (!(surround_data_->border_image_ == o.surround_data_->border_image_)) {
       DebugDiff d;
       d.field = DebugField::border_image_;
       d.actual = DebugStringForField(surround_data_->border_image_);
       d.correct = DebugStringForField(o.surround_data_->border_image_);
+      diff.push_back(std::move(d));
+    }
+  if (!(surround_data_->aspect_ratio_ == o.surround_data_->aspect_ratio_)) {
+      DebugDiff d;
+      d.field = DebugField::aspect_ratio_;
+      d.actual = DebugStringForField(surround_data_->aspect_ratio_);
+      d.correct = DebugStringForField(o.surround_data_->aspect_ratio_);
+      diff.push_back(std::move(d));
+    }
+  if (!(surround_data_->contain_intrinsic_height_ == o.surround_data_->contain_intrinsic_height_)) {
+      DebugDiff d;
+      d.field = DebugField::contain_intrinsic_height_;
+      d.actual = DebugStringForField(surround_data_->contain_intrinsic_height_);
+      d.correct = DebugStringForField(o.surround_data_->contain_intrinsic_height_);
+      diff.push_back(std::move(d));
+    }
+  if (!(surround_data_->contain_intrinsic_width_ == o.surround_data_->contain_intrinsic_width_)) {
+      DebugDiff d;
+      d.field = DebugField::contain_intrinsic_width_;
+      d.actual = DebugStringForField(surround_data_->contain_intrinsic_width_);
+      d.correct = DebugStringForField(o.surround_data_->contain_intrinsic_width_);
       diff.push_back(std::move(d));
     }
   if (!(surround_data_->border_bottom_left_radius_ == o.surround_data_->border_bottom_left_radius_)) {
@@ -4497,62 +4521,6 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.correct = DebugStringForField(o.surround_data_->left_);
       diff.push_back(std::move(d));
     }
-  if (!(surround_data_->margin_bottom_ == o.surround_data_->margin_bottom_)) {
-      DebugDiff d;
-      d.field = DebugField::margin_bottom_;
-      d.actual = DebugStringForField(surround_data_->margin_bottom_);
-      d.correct = DebugStringForField(o.surround_data_->margin_bottom_);
-      diff.push_back(std::move(d));
-    }
-  if (!(surround_data_->margin_left_ == o.surround_data_->margin_left_)) {
-      DebugDiff d;
-      d.field = DebugField::margin_left_;
-      d.actual = DebugStringForField(surround_data_->margin_left_);
-      d.correct = DebugStringForField(o.surround_data_->margin_left_);
-      diff.push_back(std::move(d));
-    }
-  if (!(surround_data_->margin_right_ == o.surround_data_->margin_right_)) {
-      DebugDiff d;
-      d.field = DebugField::margin_right_;
-      d.actual = DebugStringForField(surround_data_->margin_right_);
-      d.correct = DebugStringForField(o.surround_data_->margin_right_);
-      diff.push_back(std::move(d));
-    }
-  if (!(surround_data_->margin_top_ == o.surround_data_->margin_top_)) {
-      DebugDiff d;
-      d.field = DebugField::margin_top_;
-      d.actual = DebugStringForField(surround_data_->margin_top_);
-      d.correct = DebugStringForField(o.surround_data_->margin_top_);
-      diff.push_back(std::move(d));
-    }
-  if (!(surround_data_->padding_bottom_ == o.surround_data_->padding_bottom_)) {
-      DebugDiff d;
-      d.field = DebugField::padding_bottom_;
-      d.actual = DebugStringForField(surround_data_->padding_bottom_);
-      d.correct = DebugStringForField(o.surround_data_->padding_bottom_);
-      diff.push_back(std::move(d));
-    }
-  if (!(surround_data_->padding_left_ == o.surround_data_->padding_left_)) {
-      DebugDiff d;
-      d.field = DebugField::padding_left_;
-      d.actual = DebugStringForField(surround_data_->padding_left_);
-      d.correct = DebugStringForField(o.surround_data_->padding_left_);
-      diff.push_back(std::move(d));
-    }
-  if (!(surround_data_->padding_right_ == o.surround_data_->padding_right_)) {
-      DebugDiff d;
-      d.field = DebugField::padding_right_;
-      d.actual = DebugStringForField(surround_data_->padding_right_);
-      d.correct = DebugStringForField(o.surround_data_->padding_right_);
-      diff.push_back(std::move(d));
-    }
-  if (!(surround_data_->padding_top_ == o.surround_data_->padding_top_)) {
-      DebugDiff d;
-      d.field = DebugField::padding_top_;
-      d.actual = DebugStringForField(surround_data_->padding_top_);
-      d.correct = DebugStringForField(o.surround_data_->padding_top_);
-      diff.push_back(std::move(d));
-    }
   if (!(surround_data_->right_ == o.surround_data_->right_)) {
       DebugDiff d;
       d.field = DebugField::right_;
@@ -4595,60 +4563,227 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.correct = DebugStringForField(o.surround_data_->border_top_color_);
       diff.push_back(std::move(d));
     }
-  if (!(surround_data_->border_bottom_width_ == o.surround_data_->border_bottom_width_)) {
+
+    // Group: background
+  if (!(background_data_->background_ == o.background_data_->background_)) {
+      DebugDiff d;
+      d.field = DebugField::background_;
+      d.actual = DebugStringForField(background_data_->background_);
+      d.correct = DebugStringForField(o.background_data_->background_);
+      diff.push_back(std::move(d));
+    }
+  if (!(background_data_->background_color_ == o.background_data_->background_color_)) {
+      DebugDiff d;
+      d.field = DebugField::background_color_;
+      d.actual = DebugStringForField(background_data_->background_color_);
+      d.correct = DebugStringForField(o.background_data_->background_color_);
+      diff.push_back(std::move(d));
+    }
+
+    // Group: box
+  if (!(box_data_->height_ == o.box_data_->height_)) {
+      DebugDiff d;
+      d.field = DebugField::height_;
+      d.actual = DebugStringForField(box_data_->height_);
+      d.correct = DebugStringForField(o.box_data_->height_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->margin_bottom_ == o.box_data_->margin_bottom_)) {
+      DebugDiff d;
+      d.field = DebugField::margin_bottom_;
+      d.actual = DebugStringForField(box_data_->margin_bottom_);
+      d.correct = DebugStringForField(o.box_data_->margin_bottom_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->margin_left_ == o.box_data_->margin_left_)) {
+      DebugDiff d;
+      d.field = DebugField::margin_left_;
+      d.actual = DebugStringForField(box_data_->margin_left_);
+      d.correct = DebugStringForField(o.box_data_->margin_left_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->margin_right_ == o.box_data_->margin_right_)) {
+      DebugDiff d;
+      d.field = DebugField::margin_right_;
+      d.actual = DebugStringForField(box_data_->margin_right_);
+      d.correct = DebugStringForField(o.box_data_->margin_right_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->margin_top_ == o.box_data_->margin_top_)) {
+      DebugDiff d;
+      d.field = DebugField::margin_top_;
+      d.actual = DebugStringForField(box_data_->margin_top_);
+      d.correct = DebugStringForField(o.box_data_->margin_top_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->max_height_ == o.box_data_->max_height_)) {
+      DebugDiff d;
+      d.field = DebugField::max_height_;
+      d.actual = DebugStringForField(box_data_->max_height_);
+      d.correct = DebugStringForField(o.box_data_->max_height_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->max_width_ == o.box_data_->max_width_)) {
+      DebugDiff d;
+      d.field = DebugField::max_width_;
+      d.actual = DebugStringForField(box_data_->max_width_);
+      d.correct = DebugStringForField(o.box_data_->max_width_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->min_height_ == o.box_data_->min_height_)) {
+      DebugDiff d;
+      d.field = DebugField::min_height_;
+      d.actual = DebugStringForField(box_data_->min_height_);
+      d.correct = DebugStringForField(o.box_data_->min_height_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->min_width_ == o.box_data_->min_width_)) {
+      DebugDiff d;
+      d.field = DebugField::min_width_;
+      d.actual = DebugStringForField(box_data_->min_width_);
+      d.correct = DebugStringForField(o.box_data_->min_width_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->padding_bottom_ == o.box_data_->padding_bottom_)) {
+      DebugDiff d;
+      d.field = DebugField::padding_bottom_;
+      d.actual = DebugStringForField(box_data_->padding_bottom_);
+      d.correct = DebugStringForField(o.box_data_->padding_bottom_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->padding_left_ == o.box_data_->padding_left_)) {
+      DebugDiff d;
+      d.field = DebugField::padding_left_;
+      d.actual = DebugStringForField(box_data_->padding_left_);
+      d.correct = DebugStringForField(o.box_data_->padding_left_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->padding_right_ == o.box_data_->padding_right_)) {
+      DebugDiff d;
+      d.field = DebugField::padding_right_;
+      d.actual = DebugStringForField(box_data_->padding_right_);
+      d.correct = DebugStringForField(o.box_data_->padding_right_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->padding_top_ == o.box_data_->padding_top_)) {
+      DebugDiff d;
+      d.field = DebugField::padding_top_;
+      d.actual = DebugStringForField(box_data_->padding_top_);
+      d.correct = DebugStringForField(o.box_data_->padding_top_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->width_ == o.box_data_->width_)) {
+      DebugDiff d;
+      d.field = DebugField::width_;
+      d.actual = DebugStringForField(box_data_->width_);
+      d.correct = DebugStringForField(o.box_data_->width_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->vertical_align_length_ == o.box_data_->vertical_align_length_)) {
+      DebugDiff d;
+      d.field = DebugField::vertical_align_length_;
+      d.actual = DebugStringForField(box_data_->vertical_align_length_);
+      d.correct = DebugStringForField(o.box_data_->vertical_align_length_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->border_bottom_width_ == o.box_data_->border_bottom_width_)) {
       DebugDiff d;
       d.field = DebugField::border_bottom_width_;
-      d.actual = DebugStringForField(surround_data_->border_bottom_width_);
-      d.correct = DebugStringForField(o.surround_data_->border_bottom_width_);
+      d.actual = DebugStringForField(box_data_->border_bottom_width_);
+      d.correct = DebugStringForField(o.box_data_->border_bottom_width_);
       diff.push_back(std::move(d));
     }
-  if (!(surround_data_->border_left_width_ == o.surround_data_->border_left_width_)) {
+  if (!(box_data_->border_left_width_ == o.box_data_->border_left_width_)) {
       DebugDiff d;
       d.field = DebugField::border_left_width_;
-      d.actual = DebugStringForField(surround_data_->border_left_width_);
-      d.correct = DebugStringForField(o.surround_data_->border_left_width_);
+      d.actual = DebugStringForField(box_data_->border_left_width_);
+      d.correct = DebugStringForField(o.box_data_->border_left_width_);
       diff.push_back(std::move(d));
     }
-  if (!(surround_data_->border_right_width_ == o.surround_data_->border_right_width_)) {
+  if (!(box_data_->border_right_width_ == o.box_data_->border_right_width_)) {
       DebugDiff d;
       d.field = DebugField::border_right_width_;
-      d.actual = DebugStringForField(surround_data_->border_right_width_);
-      d.correct = DebugStringForField(o.surround_data_->border_right_width_);
+      d.actual = DebugStringForField(box_data_->border_right_width_);
+      d.correct = DebugStringForField(o.box_data_->border_right_width_);
       diff.push_back(std::move(d));
     }
-  if (!(surround_data_->border_top_width_ == o.surround_data_->border_top_width_)) {
+  if (!(box_data_->border_top_width_ == o.box_data_->border_top_width_)) {
       DebugDiff d;
       d.field = DebugField::border_top_width_;
-      d.actual = DebugStringForField(surround_data_->border_top_width_);
-      d.correct = DebugStringForField(o.surround_data_->border_top_width_);
+      d.actual = DebugStringForField(box_data_->border_top_width_);
+      d.correct = DebugStringForField(o.box_data_->border_top_width_);
       diff.push_back(std::move(d));
     }
-  if (!(surround_data_->border_bottom_style_ == o.surround_data_->border_bottom_style_)) {
+  if (!(box_data_->z_index_ == o.box_data_->z_index_)) {
+      DebugDiff d;
+      d.field = DebugField::z_index_;
+      d.actual = DebugStringForField(box_data_->z_index_);
+      d.correct = DebugStringForField(o.box_data_->z_index_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->border_bottom_style_ == o.box_data_->border_bottom_style_)) {
       DebugDiff d;
       d.field = DebugField::border_bottom_style_;
-      d.actual = DebugStringForField(surround_data_->border_bottom_style_);
-      d.correct = DebugStringForField(o.surround_data_->border_bottom_style_);
+      d.actual = DebugStringForField(box_data_->border_bottom_style_);
+      d.correct = DebugStringForField(o.box_data_->border_bottom_style_);
       diff.push_back(std::move(d));
     }
-  if (!(surround_data_->border_left_style_ == o.surround_data_->border_left_style_)) {
+  if (!(box_data_->border_left_style_ == o.box_data_->border_left_style_)) {
       DebugDiff d;
       d.field = DebugField::border_left_style_;
-      d.actual = DebugStringForField(surround_data_->border_left_style_);
-      d.correct = DebugStringForField(o.surround_data_->border_left_style_);
+      d.actual = DebugStringForField(box_data_->border_left_style_);
+      d.correct = DebugStringForField(o.box_data_->border_left_style_);
       diff.push_back(std::move(d));
     }
-  if (!(surround_data_->border_right_style_ == o.surround_data_->border_right_style_)) {
+  if (!(box_data_->border_right_style_ == o.box_data_->border_right_style_)) {
       DebugDiff d;
       d.field = DebugField::border_right_style_;
-      d.actual = DebugStringForField(surround_data_->border_right_style_);
-      d.correct = DebugStringForField(o.surround_data_->border_right_style_);
+      d.actual = DebugStringForField(box_data_->border_right_style_);
+      d.correct = DebugStringForField(o.box_data_->border_right_style_);
       diff.push_back(std::move(d));
     }
-  if (!(surround_data_->border_top_style_ == o.surround_data_->border_top_style_)) {
+  if (!(box_data_->border_top_style_ == o.box_data_->border_top_style_)) {
       DebugDiff d;
       d.field = DebugField::border_top_style_;
-      d.actual = DebugStringForField(surround_data_->border_top_style_);
-      d.correct = DebugStringForField(o.surround_data_->border_top_style_);
+      d.actual = DebugStringForField(box_data_->border_top_style_);
+      d.correct = DebugStringForField(o.box_data_->border_top_style_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->baseline_source_ == o.box_data_->baseline_source_)) {
+      DebugDiff d;
+      d.field = DebugField::baseline_source_;
+      d.actual = DebugStringForField(box_data_->baseline_source_);
+      d.correct = DebugStringForField(o.box_data_->baseline_source_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->text_box_trim_ == o.box_data_->text_box_trim_)) {
+      DebugDiff d;
+      d.field = DebugField::text_box_trim_;
+      d.actual = DebugStringForField(box_data_->text_box_trim_);
+      d.correct = DebugStringForField(o.box_data_->text_box_trim_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->box_decoration_break_ == o.box_data_->box_decoration_break_)) {
+      DebugDiff d;
+      d.field = DebugField::box_decoration_break_;
+      d.actual = DebugStringForField(box_data_->box_decoration_break_);
+      d.correct = DebugStringForField(o.box_data_->box_decoration_break_);
+      diff.push_back(std::move(d));
+    }
+  if (!(box_data_->has_auto_z_index_ == o.box_data_->has_auto_z_index_)) {
+      DebugDiff d;
+      d.field = DebugField::has_auto_z_index_;
+      d.actual = DebugStringForField(box_data_->has_auto_z_index_);
+      d.correct = DebugStringForField(o.box_data_->has_auto_z_index_);
+      diff.push_back(std::move(d));
+    }
+
+    // Group: font
+  if (!(font_data_->font_ == o.font_data_->font_)) {
+      DebugDiff d;
+      d.field = DebugField::font_;
+      d.actual = DebugStringForField(font_data_->font_);
+      d.correct = DebugStringForField(o.font_data_->font_);
       diff.push_back(std::move(d));
     }
 
@@ -4667,11 +4802,11 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.correct = DebugStringForField(o.data_.display_);
       diff.push_back(std::move(d));
     }
-  if (!(data_.clear_ == o.data_.clear_)) {
+  if (!(data_.break_inside_ == o.data_.break_inside_)) {
       DebugDiff d;
-      d.field = DebugField::clear_;
-      d.actual = DebugStringForField(data_.clear_);
-      d.correct = DebugStringForField(o.data_.clear_);
+      d.field = DebugField::break_inside_;
+      d.actual = DebugStringForField(data_.break_inside_);
+      d.correct = DebugStringForField(o.data_.break_inside_);
       diff.push_back(std::move(d));
     }
   if (!(data_.break_after_ == o.data_.break_after_)) {
@@ -4716,6 +4851,13 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.correct = DebugStringForField(o.data_.vertical_align_);
       diff.push_back(std::move(d));
     }
+  if (!(data_.clear_ == o.data_.clear_)) {
+      DebugDiff d;
+      d.field = DebugField::clear_;
+      d.actual = DebugStringForField(data_.clear_);
+      d.correct = DebugStringForField(o.data_.clear_);
+      diff.push_back(std::move(d));
+    }
   if (!(data_.floating_ == o.data_.floating_)) {
       DebugDiff d;
       d.field = DebugField::floating_;
@@ -4723,18 +4865,18 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.correct = DebugStringForField(o.data_.floating_);
       diff.push_back(std::move(d));
     }
+  if (!(data_.content_visibility_ == o.data_.content_visibility_)) {
+      DebugDiff d;
+      d.field = DebugField::content_visibility_;
+      d.actual = DebugStringForField(data_.content_visibility_);
+      d.correct = DebugStringForField(o.data_.content_visibility_);
+      diff.push_back(std::move(d));
+    }
   if (!(data_.overflow_x_ == o.data_.overflow_x_)) {
       DebugDiff d;
       d.field = DebugField::overflow_x_;
       d.actual = DebugStringForField(data_.overflow_x_);
       d.correct = DebugStringForField(o.data_.overflow_x_);
-      diff.push_back(std::move(d));
-    }
-  if (!(data_.break_inside_ == o.data_.break_inside_)) {
-      DebugDiff d;
-      d.field = DebugField::break_inside_;
-      d.actual = DebugStringForField(data_.break_inside_);
-      d.correct = DebugStringForField(o.data_.break_inside_);
       diff.push_back(std::move(d));
     }
   if (!(data_.overflow_y_ == o.data_.overflow_y_)) {
@@ -4770,13 +4912,6 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.field = DebugField::unicode_bidi_;
       d.actual = DebugStringForField(data_.unicode_bidi_);
       d.correct = DebugStringForField(o.data_.unicode_bidi_);
-      diff.push_back(std::move(d));
-    }
-  if (!(data_.content_visibility_ == o.data_.content_visibility_)) {
-      DebugDiff d;
-      d.field = DebugField::content_visibility_;
-      d.actual = DebugStringForField(data_.content_visibility_);
-      d.correct = DebugStringForField(o.data_.content_visibility_);
       diff.push_back(std::move(d));
     }
   if (!(data_.inside_link_ == o.data_.inside_link_)) {
@@ -4856,18 +4991,11 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.correct = DebugStringForField(o.data_.box_direction_);
       diff.push_back(std::move(d));
     }
-  if (!(data_.box_direction_alternative_ == o.data_.box_direction_alternative_)) {
+  if (!(data_.box_sizing_ == o.data_.box_sizing_)) {
       DebugDiff d;
-      d.field = DebugField::box_direction_alternative_;
-      d.actual = DebugStringForField(data_.box_direction_alternative_);
-      d.correct = DebugStringForField(o.data_.box_direction_alternative_);
-      diff.push_back(std::move(d));
-    }
-  if (!(data_.box_direction_is_inherited_ == o.data_.box_direction_is_inherited_)) {
-      DebugDiff d;
-      d.field = DebugField::box_direction_is_inherited_;
-      d.actual = DebugStringForField(data_.box_direction_is_inherited_);
-      d.correct = DebugStringForField(o.data_.box_direction_is_inherited_);
+      d.field = DebugField::box_sizing_;
+      d.actual = DebugStringForField(data_.box_sizing_);
+      d.correct = DebugStringForField(o.data_.box_sizing_);
       diff.push_back(std::move(d));
     }
   if (!(data_.caption_side_ == o.data_.caption_side_)) {
@@ -5065,17 +5193,8 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
 
 #endif // DCHECK_IS_ON()
 
-ComputedStyleBase::StyleFontData::StyleFontData() :
-      font_(Font())
-  {}
-
-ComputedStyleBase::StyleFontData::StyleFontData(const StyleFontData& other) :
-      font_(other.font_)
-  {}
-
 ComputedStyleBase::StyleInheritedData::StyleInheritedData() :
-    font_data_(StyleFontData::Create())
-      , inherited_variables_(nullptr)
+      inherited_variables_(nullptr)
       , line_height_(Length::Percent(-100.0))
       , text_autosizing_multiplier_(1.0)
       , color_(StyleColor(Color::kBlack))
@@ -5088,8 +5207,7 @@ ComputedStyleBase::StyleInheritedData::StyleInheritedData() :
   {}
 
 ComputedStyleBase::StyleInheritedData::StyleInheritedData(const StyleInheritedData& other) :
-      font_data_(other.font_data_)
-      , inherited_variables_(MemberCopy(other.inherited_variables_))
+      inherited_variables_(MemberCopy(other.inherited_variables_))
       , line_height_(other.line_height_)
       , text_autosizing_multiplier_(other.text_autosizing_multiplier_)
       , color_(other.color_)
@@ -5105,9 +5223,9 @@ ComputedStyleBase::StyleRareInheritedUsageLessThan100PercentData::StyleRareInher
       tap_highlight_color_(StyleColor(LayoutTheme::TapHighlightColor()))
       , accent_color_(StyleAutoColor::AutoColor())
       , math_depth_(0)
+      , image_orientation_(static_cast<unsigned>(kRespectImageOrientation))
       , math_shift_(static_cast<unsigned>(EMathShift::kNormal))
       , math_style_(static_cast<unsigned>(EMathStyle::kNormal))
-      , respect_image_orientation_(static_cast<unsigned>(true))
       , ruby_position_(static_cast<unsigned>(RubyPosition::kBefore))
   {}
 
@@ -5115,9 +5233,9 @@ ComputedStyleBase::StyleRareInheritedUsageLessThan100PercentData::StyleRareInher
       tap_highlight_color_(other.tap_highlight_color_)
       , accent_color_(other.accent_color_)
       , math_depth_(other.math_depth_)
+      , image_orientation_(other.image_orientation_)
       , math_shift_(other.math_shift_)
       , math_style_(other.math_style_)
-      , respect_image_orientation_(other.respect_image_orientation_)
       , ruby_position_(other.ruby_position_)
   {}
 
@@ -5157,6 +5275,7 @@ ComputedStyleBase::StyleRareInheritedUsageLessThan64PercentSubData::StyleRareInh
     inherited_forced_colors_data_(StyleInheritedForcedColorsData::Create())
     , inherited_visited_data_(StyleInheritedVisitedData::Create())
     , highlight_data_data_(StyleHighlightDataData::Create())
+      , dynamic_range_limit_(DynamicRangeLimit(cc::PaintFlags::DynamicRangeLimit::kHigh))
       , text_emphasis_custom_mark_(AtomicString())
       , initial_data_(nullptr)
       , scrollbar_color_(absl::optional<StyleScrollbarColor>())
@@ -5165,7 +5284,6 @@ ComputedStyleBase::StyleRareInheritedUsageLessThan64PercentSubData::StyleRareInh
       , hyphenate_limit_chars_(StyleHyphenateLimitChars())
       , effective_touch_action_(static_cast<unsigned>(TouchAction::kAuto))
       , text_emphasis_mark_(static_cast<unsigned>(TextEmphasisMark::kNone))
-      , dynamic_range_limit_(static_cast<unsigned>(EDynamicRangeLimit::kHigh))
       , has_line_if_empty_(static_cast<unsigned>(false))
       , subtree_is_sticky_(static_cast<unsigned>(false))
       , text_autospace_(static_cast<unsigned>(ETextAutospace::kNormal))
@@ -5176,6 +5294,7 @@ ComputedStyleBase::StyleRareInheritedUsageLessThan64PercentSubData::StyleRareInh
       inherited_forced_colors_data_(other.inherited_forced_colors_data_)
       , inherited_visited_data_(other.inherited_visited_data_)
       , highlight_data_data_(other.highlight_data_data_)
+      , dynamic_range_limit_(other.dynamic_range_limit_)
       , text_emphasis_custom_mark_(other.text_emphasis_custom_mark_)
       , initial_data_(MemberCopy(other.initial_data_))
       , scrollbar_color_(other.scrollbar_color_)
@@ -5184,7 +5303,6 @@ ComputedStyleBase::StyleRareInheritedUsageLessThan64PercentSubData::StyleRareInh
       , hyphenate_limit_chars_(other.hyphenate_limit_chars_)
       , effective_touch_action_(other.effective_touch_action_)
       , text_emphasis_mark_(other.text_emphasis_mark_)
-      , dynamic_range_limit_(other.dynamic_range_limit_)
       , has_line_if_empty_(other.has_line_if_empty_)
       , subtree_is_sticky_(other.subtree_is_sticky_)
       , text_autospace_(other.text_autospace_)
@@ -5584,15 +5702,11 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
     , timeline_data_(StyleTimelineData::Create())
     , will_change_data_(StyleWillChangeData::Create())
     , math_data_(StyleMathData::Create())
-      , toggle_visibility_(g_null_atom)
       , view_transition_name_(AtomicString())
       , display_layout_custom_name_(g_null_atom)
       , display_layout_custom_parent_name_(g_null_atom)
       , pseudo_argument_(g_null_atom)
       , object_view_box_(nullptr)
-      , toggle_group_(nullptr)
-      , toggle_root_(nullptr)
-      , toggle_trigger_(nullptr)
       , custom_highlight_names_(nullptr)
       , counter_directives_(nullptr)
       , animations_(nullptr)
@@ -5617,6 +5731,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , scroll_margin_left_(0.0f)
       , scroll_margin_right_(0.0f)
       , scroll_margin_top_(0.0f)
+      , inset_area_(InsetArea())
       , effective_appearance_(static_cast<unsigned>(kNoControlPart))
       , container_type_(static_cast<unsigned>(kContainerTypeNormal))
       , overscroll_behavior_x_(static_cast<unsigned>(EOverscrollBehavior::kAuto))
@@ -5676,15 +5791,11 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , timeline_data_(other.timeline_data_)
       , will_change_data_(other.will_change_data_)
       , math_data_(other.math_data_)
-      , toggle_visibility_(other.toggle_visibility_)
       , view_transition_name_(other.view_transition_name_)
       , display_layout_custom_name_(other.display_layout_custom_name_)
       , display_layout_custom_parent_name_(other.display_layout_custom_parent_name_)
       , pseudo_argument_(other.pseudo_argument_)
       , object_view_box_(MemberCopy(other.object_view_box_))
-      , toggle_group_(MemberCopy(other.toggle_group_))
-      , toggle_root_(MemberCopy(other.toggle_root_))
-      , toggle_trigger_(MemberCopy(other.toggle_trigger_))
       , custom_highlight_names_(MemberCopy(other.custom_highlight_names_))
       , counter_directives_(MemberCopy(other.counter_directives_))
       , animations_(MemberCopy(other.animations_))
@@ -5709,6 +5820,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , scroll_margin_left_(other.scroll_margin_left_)
       , scroll_margin_right_(other.scroll_margin_right_)
       , scroll_margin_top_(other.scroll_margin_top_)
+      , inset_area_(other.inset_area_)
       , effective_appearance_(other.effective_appearance_)
       , container_type_(other.container_type_)
       , overscroll_behavior_x_(other.overscroll_behavior_x_)
@@ -5765,7 +5877,6 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentData::StyleRareNon
       , transform_(EmptyTransformOperations())
       , box_shadow_(nullptr)
       , content_(nullptr)
-      , transform_origin_(TransformOrigin(Length::Percent(50.0), Length::Percent(50.0), 0))
       , opacity_(1.0)
       , align_items_(StyleSelfAlignmentData(ItemPosition::kNormal, OverflowAlignment::kDefault))
       , justify_content_(StyleContentAlignmentData(ContentPosition::kNormal, ContentDistributionType::kDefault, OverflowAlignment::kDefault))
@@ -5781,7 +5892,6 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentData::StyleRareNon
       , transform_(other.transform_)
       , box_shadow_(MemberCopy(other.box_shadow_))
       , content_(MemberCopy(other.content_))
-      , transform_origin_(other.transform_origin_)
       , opacity_(other.opacity_)
       , align_items_(other.align_items_)
       , justify_content_(other.justify_content_)
@@ -5895,6 +6005,7 @@ ComputedStyleBase::StyleSVGData::StyleSVGData() :
     , inherited_resources_data_(StyleInheritedResourcesData::Create())
     , stop_data_(StyleStopData::Create())
       , masker_resource_(nullptr)
+      , transform_origin_(TransformOrigin(Length::Percent(50.0), Length::Percent(50.0), 0))
       , alignment_baseline_(static_cast<unsigned>(EAlignmentBaseline::kAuto))
       , css_dominant_baseline_(static_cast<unsigned>(EDominantBaseline::kAuto))
       , dominant_baseline_(static_cast<unsigned>(EDominantBaseline::kAuto))
@@ -5919,6 +6030,7 @@ ComputedStyleBase::StyleSVGData::StyleSVGData(const StyleSVGData& other) :
       , inherited_resources_data_(other.inherited_resources_data_)
       , stop_data_(other.stop_data_)
       , masker_resource_(MemberCopy(other.masker_resource_))
+      , transform_origin_(other.transform_origin_)
       , alignment_baseline_(other.alignment_baseline_)
       , css_dominant_baseline_(other.css_dominant_baseline_)
       , dominant_baseline_(other.dominant_baseline_)
@@ -5935,42 +6047,46 @@ ComputedStyleBase::StyleSVGData::StyleSVGData(const StyleSVGData& other) :
       , vector_effect_(other.vector_effect_)
   {}
 
-ComputedStyleBase::StyleBoxData::StyleBoxData() :
-      aspect_ratio_(StyleAspectRatio(EAspectRatioType::kAuto, gfx::SizeF()))
+ComputedStyleBase::StyleSurroundData::StyleSurroundData() :
+      border_image_(NinePieceImage())
+      , aspect_ratio_(StyleAspectRatio(EAspectRatioType::kAuto, gfx::SizeF()))
       , contain_intrinsic_height_(StyleIntrinsicLength())
       , contain_intrinsic_width_(StyleIntrinsicLength())
-      , height_(Length())
-      , max_height_(Length::None())
-      , max_width_(Length::None())
-      , min_height_(Length())
-      , min_width_(Length())
-      , width_(Length())
-      , vertical_align_length_(Length())
-      , z_index_(0)
-      , baseline_source_(static_cast<unsigned>(EBaselineSource::kAuto))
-      , text_box_trim_(static_cast<unsigned>(ETextBoxTrim::kNone))
-      , box_decoration_break_(static_cast<unsigned>(EBoxDecorationBreak::kSlice))
-      , box_sizing_(static_cast<unsigned>(EBoxSizing::kContentBox))
-      , has_auto_z_index_(static_cast<unsigned>(true))
+      , border_bottom_left_radius_(LengthSize(Length::Fixed(0), Length::Fixed(0)))
+      , border_bottom_right_radius_(LengthSize(Length::Fixed(0), Length::Fixed(0)))
+      , border_top_left_radius_(LengthSize(Length::Fixed(0), Length::Fixed(0)))
+      , border_top_right_radius_(LengthSize(Length::Fixed(0), Length::Fixed(0)))
+      , bottom_(Length())
+      , left_(Length())
+      , right_(Length())
+      , top_(Length())
+      , border_bottom_color_(StyleColor::CurrentColor())
+      , border_left_color_(StyleColor::CurrentColor())
+      , border_right_color_(StyleColor::CurrentColor())
+      , border_top_color_(StyleColor::CurrentColor())
+      , may_have_margin_(static_cast<unsigned>(false))
+      , may_have_padding_(static_cast<unsigned>(false))
   {}
 
-ComputedStyleBase::StyleBoxData::StyleBoxData(const StyleBoxData& other) :
-      aspect_ratio_(other.aspect_ratio_)
+ComputedStyleBase::StyleSurroundData::StyleSurroundData(const StyleSurroundData& other) :
+      border_image_(other.border_image_)
+      , aspect_ratio_(other.aspect_ratio_)
       , contain_intrinsic_height_(other.contain_intrinsic_height_)
       , contain_intrinsic_width_(other.contain_intrinsic_width_)
-      , height_(other.height_)
-      , max_height_(other.max_height_)
-      , max_width_(other.max_width_)
-      , min_height_(other.min_height_)
-      , min_width_(other.min_width_)
-      , width_(other.width_)
-      , vertical_align_length_(other.vertical_align_length_)
-      , z_index_(other.z_index_)
-      , baseline_source_(other.baseline_source_)
-      , text_box_trim_(other.text_box_trim_)
-      , box_decoration_break_(other.box_decoration_break_)
-      , box_sizing_(other.box_sizing_)
-      , has_auto_z_index_(other.has_auto_z_index_)
+      , border_bottom_left_radius_(other.border_bottom_left_radius_)
+      , border_bottom_right_radius_(other.border_bottom_right_radius_)
+      , border_top_left_radius_(other.border_top_left_radius_)
+      , border_top_right_radius_(other.border_top_right_radius_)
+      , bottom_(other.bottom_)
+      , left_(other.left_)
+      , right_(other.right_)
+      , top_(other.top_)
+      , border_bottom_color_(other.border_bottom_color_)
+      , border_left_color_(other.border_left_color_)
+      , border_right_color_(other.border_right_color_)
+      , border_top_color_(other.border_top_color_)
+      , may_have_margin_(other.may_have_margin_)
+      , may_have_padding_(other.may_have_padding_)
   {}
 
 ComputedStyleBase::StyleBackgroundData::StyleBackgroundData() :
@@ -5983,72 +6099,74 @@ ComputedStyleBase::StyleBackgroundData::StyleBackgroundData(const StyleBackgroun
       , background_color_(other.background_color_)
   {}
 
-ComputedStyleBase::StyleSurroundData::StyleSurroundData() :
-      border_image_(NinePieceImage())
-      , border_bottom_left_radius_(LengthSize(Length::Fixed(0), Length::Fixed(0)))
-      , border_bottom_right_radius_(LengthSize(Length::Fixed(0), Length::Fixed(0)))
-      , border_top_left_radius_(LengthSize(Length::Fixed(0), Length::Fixed(0)))
-      , border_top_right_radius_(LengthSize(Length::Fixed(0), Length::Fixed(0)))
-      , bottom_(Length())
-      , left_(Length())
+ComputedStyleBase::StyleBoxData::StyleBoxData() :
+      height_(Length())
       , margin_bottom_(Length::Fixed())
       , margin_left_(Length::Fixed())
       , margin_right_(Length::Fixed())
       , margin_top_(Length::Fixed())
+      , max_height_(Length::None())
+      , max_width_(Length::None())
+      , min_height_(Length())
+      , min_width_(Length())
       , padding_bottom_(Length::Fixed())
       , padding_left_(Length::Fixed())
       , padding_right_(Length::Fixed())
       , padding_top_(Length::Fixed())
-      , right_(Length())
-      , top_(Length())
-      , border_bottom_color_(StyleColor::CurrentColor())
-      , border_left_color_(StyleColor::CurrentColor())
-      , border_right_color_(StyleColor::CurrentColor())
-      , border_top_color_(StyleColor::CurrentColor())
+      , width_(Length())
+      , vertical_align_length_(Length())
       , border_bottom_width_(LayoutUnit(3))
       , border_left_width_(LayoutUnit(3))
       , border_right_width_(LayoutUnit(3))
       , border_top_width_(LayoutUnit(3))
+      , z_index_(0)
       , border_bottom_style_(static_cast<unsigned>(EBorderStyle::kNone))
       , border_left_style_(static_cast<unsigned>(EBorderStyle::kNone))
       , border_right_style_(static_cast<unsigned>(EBorderStyle::kNone))
       , border_top_style_(static_cast<unsigned>(EBorderStyle::kNone))
-      , may_have_margin_(static_cast<unsigned>(false))
-      , may_have_padding_(static_cast<unsigned>(false))
+      , baseline_source_(static_cast<unsigned>(EBaselineSource::kAuto))
+      , text_box_trim_(static_cast<unsigned>(ETextBoxTrim::kNone))
+      , box_decoration_break_(static_cast<unsigned>(EBoxDecorationBreak::kSlice))
+      , has_auto_z_index_(static_cast<unsigned>(true))
   {}
 
-ComputedStyleBase::StyleSurroundData::StyleSurroundData(const StyleSurroundData& other) :
-      border_image_(other.border_image_)
-      , border_bottom_left_radius_(other.border_bottom_left_radius_)
-      , border_bottom_right_radius_(other.border_bottom_right_radius_)
-      , border_top_left_radius_(other.border_top_left_radius_)
-      , border_top_right_radius_(other.border_top_right_radius_)
-      , bottom_(other.bottom_)
-      , left_(other.left_)
+ComputedStyleBase::StyleBoxData::StyleBoxData(const StyleBoxData& other) :
+      height_(other.height_)
       , margin_bottom_(other.margin_bottom_)
       , margin_left_(other.margin_left_)
       , margin_right_(other.margin_right_)
       , margin_top_(other.margin_top_)
+      , max_height_(other.max_height_)
+      , max_width_(other.max_width_)
+      , min_height_(other.min_height_)
+      , min_width_(other.min_width_)
       , padding_bottom_(other.padding_bottom_)
       , padding_left_(other.padding_left_)
       , padding_right_(other.padding_right_)
       , padding_top_(other.padding_top_)
-      , right_(other.right_)
-      , top_(other.top_)
-      , border_bottom_color_(other.border_bottom_color_)
-      , border_left_color_(other.border_left_color_)
-      , border_right_color_(other.border_right_color_)
-      , border_top_color_(other.border_top_color_)
+      , width_(other.width_)
+      , vertical_align_length_(other.vertical_align_length_)
       , border_bottom_width_(other.border_bottom_width_)
       , border_left_width_(other.border_left_width_)
       , border_right_width_(other.border_right_width_)
       , border_top_width_(other.border_top_width_)
+      , z_index_(other.z_index_)
       , border_bottom_style_(other.border_bottom_style_)
       , border_left_style_(other.border_left_style_)
       , border_right_style_(other.border_right_style_)
       , border_top_style_(other.border_top_style_)
-      , may_have_margin_(other.may_have_margin_)
-      , may_have_padding_(other.may_have_padding_)
+      , baseline_source_(other.baseline_source_)
+      , text_box_trim_(other.text_box_trim_)
+      , box_decoration_break_(other.box_decoration_break_)
+      , has_auto_z_index_(other.has_auto_z_index_)
+  {}
+
+ComputedStyleBase::StyleFontData::StyleFontData() :
+      font_(Font())
+  {}
+
+ComputedStyleBase::StyleFontData::StyleFontData(const StyleFontData& other) :
+      font_(other.font_)
   {}
 
 
@@ -6058,9 +6176,10 @@ ComputedStyleBuilderBase::ComputedStyleBuilderBase(const ComputedStyleBase& styl
   , visual_data_(style.visual_data_)
   , rare_non_inherited_usage_less_than_14_percent_data_(style.rare_non_inherited_usage_less_than_14_percent_data_)
   , svg_data_(style.svg_data_)
-  , box_data_(style.box_data_)
-  , background_data_(style.background_data_)
   , surround_data_(style.surround_data_)
+  , background_data_(style.background_data_)
+  , box_data_(style.box_data_)
+  , font_data_(style.font_data_)
   , base_data_(style.base_data_)
   , data_(style.data_)
   {}
@@ -6075,31 +6194,32 @@ ComputedStyleBuilderBase::ComputedStyleBuilderBase(
   , svg_data_(parent_style.svg_data_ == source_for_noninherited.svg_data_
         ? parent_style.svg_data_.Get()
         : MakeGarbageCollected<StyleSVGData>(*source_for_noninherited.svg_data_, *parent_style.svg_data_))
-  , box_data_(source_for_noninherited.box_data_)
-  , background_data_(source_for_noninherited.background_data_)
   , surround_data_(source_for_noninherited.surround_data_)
+  , background_data_(source_for_noninherited.background_data_)
+  , box_data_(source_for_noninherited.box_data_)
+  , font_data_(parent_style.font_data_)
   , base_data_(nullptr /* base_data_ */)
   , data_{
     static_cast<unsigned>(kPseudoIdNone) /* pseudo_element_styles_ */
     , parent_style.data_.cursor_
-    , static_cast<unsigned>(PseudoId::kPseudoIdNone) /* style_type_ */
     , source_for_noninherited.data_.display_
-    , source_for_noninherited.data_.clear_
+    , static_cast<unsigned>(PseudoId::kPseudoIdNone) /* style_type_ */
+    , source_for_noninherited.data_.break_inside_
     , source_for_noninherited.data_.break_after_
     , source_for_noninherited.data_.break_before_
     , parent_style.data_.pointer_events_
     , source_for_noninherited.data_.scrollbar_gutter_
     , parent_style.data_.text_align_
     , source_for_noninherited.data_.vertical_align_
+    , source_for_noninherited.data_.clear_
     , source_for_noninherited.data_.floating_
+    , source_for_noninherited.data_.content_visibility_
     , source_for_noninherited.data_.overflow_x_
-    , source_for_noninherited.data_.break_inside_
     , source_for_noninherited.data_.overflow_y_
     , source_for_noninherited.data_.position_
     , parent_style.data_.text_transform_
     , source_for_noninherited.data_.transform_box_
     , source_for_noninherited.data_.unicode_bidi_
-    , source_for_noninherited.data_.content_visibility_
     , parent_style.data_.inside_link_
     , static_cast<unsigned>(0) /* is_stacking_context_without_containment_ (mutable) */
     , source_for_noninherited.data_.overflow_anchor_
@@ -6107,20 +6227,20 @@ ComputedStyleBuilderBase::ComputedStyleBuilderBase(
     , source_for_noninherited.data_.viewport_unit_flags_
     , parent_style.data_.visibility_
     , parent_style.data_.white_space_collapse_
-    , static_cast<unsigned>(false) /* affected_by_active_ */
     , parent_style.data_.writing_mode_
+    , static_cast<unsigned>(false) /* affected_by_active_ */
     , static_cast<unsigned>(false) /* affected_by_drag_ */
     , static_cast<unsigned>(false) /* affected_by_focus_within_ */
     , static_cast<unsigned>(false) /* affected_by_hover_ */
     , parent_style.data_.border_collapse_
     , source_for_noninherited.data_.border_collapse_is_inherited_
-    , parent_style.data_.box_direction_
-    , source_for_noninherited.data_.box_direction_alternative_
-    , source_for_noninherited.data_.box_direction_is_inherited_
+    , source_for_noninherited.data_.box_direction_
+    , source_for_noninherited.data_.box_sizing_
     , parent_style.data_.caption_side_
     , source_for_noninherited.data_.caption_side_is_inherited_
     , static_cast<unsigned>(false) /* child_has_explicit_inheritance_ (mutable) */
     , source_for_noninherited.data_.color_is_inherited_
+    , parent_style.data_.color_scheme_flags_is_normal_
     , parent_style.data_.color_scheme_forced_
     , source_for_noninherited.data_.custom_style_callback_depends_on_font_
     , parent_style.data_.dark_color_scheme_
@@ -6144,6 +6264,7 @@ ComputedStyleBuilderBase::ComputedStyleBuilderBase(
     , parent_style.data_.is_ensured_outside_flat_tree_
     , source_for_noninherited.data_.is_flex_or_grid_or_custom_item_
     , source_for_noninherited.data_.is_in_blockifying_display_
+    , source_for_noninherited.data_.is_in_inlinifying_display_
     , parent_style.data_.is_inert_
     , source_for_noninherited.data_.is_inert_is_inherited_
     , source_for_noninherited.data_.is_inside_display_ignoring_floating_children_
@@ -6197,8 +6318,6 @@ void ComputedStyleBuilderBase::PropagateIndependentInheritedProperties(
     builder.data_.visibility_ = parent_style.data_.visibility_;
   if (BorderCollapseIsInherited())
     builder.data_.border_collapse_ = parent_style.data_.border_collapse_;
-  if (BoxDirectionIsInherited())
-    builder.data_.box_direction_ = parent_style.data_.box_direction_;
   if (CaptionSideIsInherited())
     builder.data_.caption_side_ = parent_style.data_.caption_side_;
   if (EmptyCellsIsInherited())

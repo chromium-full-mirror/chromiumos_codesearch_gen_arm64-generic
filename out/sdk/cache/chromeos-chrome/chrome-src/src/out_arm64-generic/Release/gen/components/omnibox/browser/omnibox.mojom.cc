@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -204,6 +205,7 @@ AutocompleteMatch::AutocompleteMatch()
       destination_url(),
       inline_autocompletion(),
       fill_into_edit(),
+      is_weather_answer_suggestion(),
       icon_url(),
       image_dominant_color(),
       image_url(),
@@ -228,6 +230,7 @@ AutocompleteMatch::AutocompleteMatch(
     const ::GURL& destination_url_in,
     const ::std::u16string& inline_autocompletion_in,
     const ::std::u16string& fill_into_edit_in,
+    std::optional<bool> is_weather_answer_suggestion_in,
     const std::string& icon_url_in,
     const std::string& image_dominant_color_in,
     const std::string& image_url_in,
@@ -238,7 +241,7 @@ AutocompleteMatch::AutocompleteMatch(
     bool swap_contents_and_description_in,
     int32_t suggestion_group_id_in,
     bool supports_deletion_in,
-    const absl::optional<::std::u16string>& tail_suggest_common_prefix_in)
+    const std::optional<::std::u16string>& tail_suggest_common_prefix_in)
     : a11y_label(std::move(a11y_label_in)),
       allowed_to_be_default_match(std::move(allowed_to_be_default_match_in)),
       actions(std::move(actions_in)),
@@ -250,6 +253,7 @@ AutocompleteMatch::AutocompleteMatch(
       destination_url(std::move(destination_url_in)),
       inline_autocompletion(std::move(inline_autocompletion_in)),
       fill_into_edit(std::move(fill_into_edit_in)),
+      is_weather_answer_suggestion(std::move(is_weather_answer_suggestion_in)),
       icon_url(std::move(icon_url_in)),
       image_dominant_color(std::move(image_dominant_color_in)),
       image_url(std::move(image_url_in)),
@@ -368,6 +372,15 @@ void AutocompleteMatch::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "is_weather_answer_suggestion"), this->is_weather_answer_suggestion,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<bool>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "icon_url"), this->icon_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
@@ -460,7 +473,7 @@ void AutocompleteMatch::WriteIntoTrace(
     dict.AddItem(
       "tail_suggest_common_prefix"), this->tail_suggest_common_prefix,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -909,14 +922,17 @@ void PageHandlerProxy::SetPage(
                         "<value of type ::mojo::PendingRemote<Page>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetPage_Name, kFlags, 0, 0, nullptr);
@@ -952,14 +968,17 @@ void PageHandlerProxy::OnFocusChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnFocusChanged_Name, kFlags, 0, 0, nullptr);
@@ -993,14 +1012,17 @@ void PageHandlerProxy::QueryAutocomplete(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_QueryAutocomplete_Name, kFlags, 0, 0, nullptr);
@@ -1042,14 +1064,17 @@ void PageHandlerProxy::StopAutocomplete(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_StopAutocomplete_Name, kFlags, 0, 0, nullptr);
@@ -1101,14 +1126,17 @@ void PageHandlerProxy::OpenAutocompleteMatch(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenAutocompleteMatch_Name, kFlags, 0, 0, nullptr);
@@ -1162,14 +1190,17 @@ void PageHandlerProxy::OnNavigationLikely(
                         "<value of type NavigationPredictor>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnNavigationLikely_Name, kFlags, 0, 0, nullptr);
@@ -1216,14 +1247,17 @@ void PageHandlerProxy::DeleteAutocompleteMatch(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DeleteAutocompleteMatch_Name, kFlags, 0, 0, nullptr);
@@ -1265,14 +1299,17 @@ void PageHandlerProxy::ToggleSuggestionGroupIdVisibility(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ToggleSuggestionGroupIdVisibility_Name, kFlags, 0, 0, nullptr);
@@ -1327,14 +1364,17 @@ void PageHandlerProxy::ExecuteAction(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ExecuteAction_Name, kFlags, 0, 0, nullptr);
@@ -1393,14 +1433,17 @@ void PageHandlerProxy::PopupElementSizeChanged(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_PopupElementSizeChanged_Name, kFlags, 0, 0, nullptr);
@@ -1818,28 +1861,28 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_SetPage_Params_Data::Validate,
+    { &internal::PageHandler_SetPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnFocusChanged_Params_Data::Validate,
+    { &internal::PageHandler_OnFocusChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_QueryAutocomplete_Params_Data::Validate,
+    { &internal::PageHandler_QueryAutocomplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_StopAutocomplete_Params_Data::Validate,
+    { &internal::PageHandler_StopAutocomplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OpenAutocompleteMatch_Params_Data::Validate,
+    { &internal::PageHandler_OpenAutocompleteMatch_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnNavigationLikely_Params_Data::Validate,
+    { &internal::PageHandler_OnNavigationLikely_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_DeleteAutocompleteMatch_Params_Data::Validate,
+    { &internal::PageHandler_DeleteAutocompleteMatch_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ToggleSuggestionGroupIdVisibility_Params_Data::Validate,
+    { &internal::PageHandler_ToggleSuggestionGroupIdVisibility_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ExecuteAction_Params_Data::Validate,
+    { &internal::PageHandler_ExecuteAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_PopupElementSizeChanged_Params_Data::Validate,
+    { &internal::PageHandler_PopupElementSizeChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1939,14 +1982,17 @@ void PageProxy::AutocompleteResultChanged(
                         "<value of type AutocompleteResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_AutocompleteResultChanged_Name, kFlags, 0, 0, nullptr);
@@ -1987,14 +2033,17 @@ void PageProxy::UpdateSelection(
                         "<value of type OmniboxPopupSelectionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_UpdateSelection_Name, kFlags, 0, 0, nullptr);
@@ -2102,12 +2151,12 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_AutocompleteResultChanged_Params_Data::Validate,
+    { &internal::Page_AutocompleteResultChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_UpdateSelection_Params_Data::Validate,
+    { &internal::Page_UpdateSelection_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2205,6 +2254,9 @@ bool StructTraits<::omnibox::mojom::AutocompleteMatch::DataView, ::omnibox::mojo
         success = false;
       if (success && !input.ReadFillIntoEdit(&result->fill_into_edit))
         success = false;
+      if (success) {
+        result->is_weather_answer_suggestion = input.is_weather_answer_suggestion();
+      }
       if (success && !input.ReadIconUrl(&result->icon_url))
         success = false;
       if (success && !input.ReadImageDominantColor(&result->image_dominant_color))

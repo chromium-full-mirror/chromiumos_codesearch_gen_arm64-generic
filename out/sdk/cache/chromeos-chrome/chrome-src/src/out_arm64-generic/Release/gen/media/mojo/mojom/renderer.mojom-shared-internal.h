@@ -47,7 +47,8 @@ class  MediaUrlParams_Data {
   uint8_t has_storage_access : 1;
   uint8_t allow_credentials : 1;
   uint8_t is_hls : 1;
-  uint8_t padfinal_[7];
+  uint8_t pad5_[7];
+  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::String_Data>>> headers;
 
  private:
   friend class mojo::internal::MessageFragment<MediaUrlParams_Data>;
@@ -55,7 +56,7 @@ class  MediaUrlParams_Data {
   MediaUrlParams_Data();
   ~MediaUrlParams_Data() = delete;
 };
-static_assert(sizeof(MediaUrlParams_Data) == 40,
+static_assert(sizeof(MediaUrlParams_Data) == 48,
               "Bad sizeof(MediaUrlParams_Data)");
 // Used by MediaUrlParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

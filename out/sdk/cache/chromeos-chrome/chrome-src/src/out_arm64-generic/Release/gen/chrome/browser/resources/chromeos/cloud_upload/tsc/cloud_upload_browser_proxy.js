@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import { PageHandlerFactory, PageHandlerRemote } from './cloud_upload.mojom-webui.js';
 export class CloudUploadBrowserProxy {
+    handler;
     constructor() {
         this.handler = new PageHandlerRemote();
     }

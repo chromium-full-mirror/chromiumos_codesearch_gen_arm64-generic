@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -155,7 +156,7 @@ OnDeviceInternalsPageProxy::OnDeviceInternalsPageProxy(mojo::MessageReceiverWith
 }
 
 void OnDeviceInternalsPageProxy::LoadModel(
-    const ::base::FilePath& in_model_path, LoadModelCallback callback) {
+    const ::base::FilePath& in_model_path, ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> in_model, LoadModelCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send mojom::OnDeviceInternalsPage::LoadModel", "input_parameters",
@@ -164,16 +165,22 @@ void OnDeviceInternalsPageProxy::LoadModel(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("model_path"), in_model_path,
                         "<value of type const ::base::FilePath&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("model"), in_model,
+                        "<value of type ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOnDeviceInternalsPage_LoadModel_Name, kFlags, 0, 0, nullptr);
@@ -192,6 +199,12 @@ void OnDeviceInternalsPageProxy::LoadModel(
       params->model_path.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null model_path in OnDeviceInternalsPage.LoadModel request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::on_device_model::mojom::OnDeviceModelInterfaceBase>>(
+      in_model, &params->model, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->model),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid model in OnDeviceInternalsPage.LoadModel request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(OnDeviceInternalsPage::Name_);
@@ -208,14 +221,17 @@ void OnDeviceInternalsPageProxy::GetEstimatedPerformanceClass(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::OnDeviceInternalsPage::GetEstimatedPerformanceClass");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOnDeviceInternalsPage_GetEstimatedPerformanceClass_Name, kFlags, 0, 0, nullptr);
@@ -279,7 +295,7 @@ class OnDeviceInternalsPage_LoadModel_ProxyToResponder : public ::mojo::internal
 #endif
 
   void Run(
-      ::on_device_model::mojom::LoadModelResultPtr in_result);
+      ::on_device_model::mojom::LoadModelResult in_result);
 };
 
 bool OnDeviceInternalsPage_LoadModel_ForwardToCallback::Accept(
@@ -292,7 +308,7 @@ bool OnDeviceInternalsPage_LoadModel_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::on_device_model::mojom::LoadModelResultPtr p_result{};
+  ::on_device_model::mojom::LoadModelResult p_result{};
   OnDeviceInternalsPage_LoadModel_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -311,7 +327,7 @@ std::move(p_result));
 }
 
 void OnDeviceInternalsPage_LoadModel_ProxyToResponder::Run(
-    ::on_device_model::mojom::LoadModelResultPtr in_result) {
+    ::on_device_model::mojom::LoadModelResult in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply mojom::OnDeviceInternalsPage::LoadModel", "async_response_parameters",
@@ -319,13 +335,14 @@ void OnDeviceInternalsPage_LoadModel_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type ::on_device_model::mojom::LoadModelResultPtr>");
+                        "<value of type ::on_device_model::mojom::LoadModelResult>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOnDeviceInternalsPage_LoadModel_Name, kFlags, 0, 0, nullptr);
@@ -333,15 +350,8 @@ void OnDeviceInternalsPage_LoadModel_ProxyToResponder::Run(
       ::mojom::internal::OnDeviceInternalsPage_LoadModel_ResponseParams_Data> params(
           message);
   params.Allocate();
-  mojo::internal::MessageFragment<decltype(params->result)>
-      result_fragment(params.message());
-  result_fragment.Claim(&params->result);
-  mojo::internal::Serialize<::on_device_model::mojom::LoadModelResultDataView>(
-      in_result, result_fragment, true);
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->result.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null result in ");
+  mojo::internal::Serialize<::on_device_model::mojom::LoadModelResult>(
+      in_result, &params->result);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(OnDeviceInternalsPage::Name_);
@@ -451,7 +461,8 @@ void OnDeviceInternalsPage_GetEstimatedPerformanceClass_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOnDeviceInternalsPage_GetEstimatedPerformanceClass_Name, kFlags, 0, 0, nullptr);
@@ -512,10 +523,15 @@ bool OnDeviceInternalsPageStubDispatch::AcceptWithResponder(
       
       bool success = true;
       ::base::FilePath p_model_path{};
+      ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> p_model{};
       OnDeviceInternalsPage_LoadModel_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadModelPath(&p_model_path))
         success = false;
+      if (success) {
+        p_model =
+            input_data_view.TakeModel<decltype(p_model)>();
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -529,7 +545,8 @@ bool OnDeviceInternalsPageStubDispatch::AcceptWithResponder(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->LoadModel(
-std::move(p_model_path), std::move(callback));
+std::move(p_model_path), 
+std::move(p_model), std::move(callback));
       return true;
     }
     case internal::kOnDeviceInternalsPage_GetEstimatedPerformanceClass_Name: {
@@ -560,12 +577,12 @@ std::move(p_model_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOnDeviceInternalsPageValidationInfo[] = {
-    {&internal::OnDeviceInternalsPage_LoadModel_Params_Data::Validate,
+    { &internal::OnDeviceInternalsPage_LoadModel_Params_Data::Validate,
      &internal::OnDeviceInternalsPage_LoadModel_ResponseParams_Data::Validate},
-    {&internal::OnDeviceInternalsPage_GetEstimatedPerformanceClass_Params_Data::Validate,
+    { &internal::OnDeviceInternalsPage_GetEstimatedPerformanceClass_Params_Data::Validate,
      &internal::OnDeviceInternalsPage_GetEstimatedPerformanceClass_ResponseParams_Data::Validate},
 };
 
@@ -595,8 +612,8 @@ namespace mojo {
 namespace mojom {
 
 
-void OnDeviceInternalsPageInterceptorForTesting::LoadModel(const ::base::FilePath& model_path, LoadModelCallback callback) {
-  GetForwardingInterface()->LoadModel(std::move(model_path), std::move(callback));
+void OnDeviceInternalsPageInterceptorForTesting::LoadModel(const ::base::FilePath& model_path, ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> model, LoadModelCallback callback) {
+  GetForwardingInterface()->LoadModel(std::move(model_path), std::move(model), std::move(callback));
 }
 void OnDeviceInternalsPageInterceptorForTesting::GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) {
   GetForwardingInterface()->GetEstimatedPerformanceClass(std::move(callback));
@@ -607,14 +624,14 @@ OnDeviceInternalsPageAsyncWaiter::OnDeviceInternalsPageAsyncWaiter(
 OnDeviceInternalsPageAsyncWaiter::~OnDeviceInternalsPageAsyncWaiter() = default;
 
 void OnDeviceInternalsPageAsyncWaiter::LoadModel(
-    const ::base::FilePath& model_path, ::on_device_model::mojom::LoadModelResultPtr* out_result) {
+    const ::base::FilePath& model_path, ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> model, ::on_device_model::mojom::LoadModelResult* out_result) {
   base::RunLoop loop;
-  proxy_->LoadModel(std::move(model_path),
+  proxy_->LoadModel(std::move(model_path),std::move(model),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::on_device_model::mojom::LoadModelResultPtr* out_result
+             ::on_device_model::mojom::LoadModelResult* out_result
 ,
-             ::on_device_model::mojom::LoadModelResultPtr result) {*out_result = std::move(result);
+             ::on_device_model::mojom::LoadModelResult result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
@@ -622,10 +639,10 @@ void OnDeviceInternalsPageAsyncWaiter::LoadModel(
   loop.Run();
 }
 
-::on_device_model::mojom::LoadModelResultPtr OnDeviceInternalsPageAsyncWaiter::LoadModel(
-    const ::base::FilePath& model_path) {
-  ::on_device_model::mojom::LoadModelResultPtr async_wait_result;
-  LoadModel(std::move(model_path),&async_wait_result);
+::on_device_model::mojom::LoadModelResult OnDeviceInternalsPageAsyncWaiter::LoadModel(
+    const ::base::FilePath& model_path, ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> model) {
+  ::on_device_model::mojom::LoadModelResult async_wait_result;
+  LoadModel(std::move(model_path),std::move(model),&async_wait_result);
   return async_wait_result;
 }
 

@@ -1,11 +1,11 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_checkbox/cr_checkbox.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import { CrButtonElement } from 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import { CrCheckboxElement } from 'chrome://resources/cr_elements/cr_checkbox/cr_checkbox.js';
+import { CrDialogElement } from 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import { AsyncQueue } from '../common/js/async_util.js';
-import { str, strf } from '../common/js/util.js';
+import { str, strf } from '../common/js/translations.js';
 import { getTemplate } from './xf_conflict_dialog.html.js';
 /**
  * Files Conflict Dialog: if the target file of a copy/move operation exists,
@@ -168,7 +168,7 @@ export class XfConflictDialog extends HTMLElement {
      * Dialog 'keepboth' button was clicked.
      */
     keepboth_() {
-        this.action_ = "keepboth" /* ConflictResolveType.KEEPBOTH */;
+        this.action_ = ConflictResolveType.KEEPBOTH;
         this.dialog_.close();
     }
     /*
@@ -181,7 +181,7 @@ export class XfConflictDialog extends HTMLElement {
      * Dialog 'replace' button was clicked.
      */
     replace_() {
-        this.action_ = "replace" /* ConflictResolveType.REPLACE */;
+        this.action_ = ConflictResolveType.REPLACE;
         this.dialog_.close();
     }
     /*
@@ -195,9 +195,14 @@ export class XfConflictDialog extends HTMLElement {
         }
         const applyToAll = this.getCheckboxElement().checked;
         this.resolve_({
-            resolve: this.action_,
+            resolve: this.action_, // Either 'keepboth' or 'replace'.
             checked: applyToAll, // True or False.
         });
     }
 }
+export var ConflictResolveType;
+(function (ConflictResolveType) {
+    ConflictResolveType["KEEPBOTH"] = "keepboth";
+    ConflictResolveType["REPLACE"] = "replace";
+})(ConflictResolveType || (ConflictResolveType = {}));
 customElements.define('xf-conflict-dialog', XfConflictDialog);

@@ -50,6 +50,7 @@ struct DangerType_Data {
       case 13:
       case 14:
       case 15:
+      case 16:
         return true;
     }
     return false;
@@ -81,6 +82,7 @@ struct State_Data {
       case 6:
       case 7:
       case 8:
+      case 9:
         return true;
     }
     return false;

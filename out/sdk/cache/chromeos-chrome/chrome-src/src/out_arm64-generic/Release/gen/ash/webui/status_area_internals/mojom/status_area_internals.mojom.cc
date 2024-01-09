@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -69,6 +70,9 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_ToggleProjectorTray_Name: {
       return &PageHandler::ToggleProjectorTray_Sym::IPCStableHash;
     }
+    case internal::kPageHandler_SetActiveDirectoryManaged_Name: {
+      return &PageHandler::SetActiveDirectoryManaged_Sym::IPCStableHash;
+    }
     case internal::kPageHandler_TriggerPrivacyIndicators_Name: {
       return &PageHandler::TriggerPrivacyIndicators_Sym::IPCStableHash;
     }
@@ -97,6 +101,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::mojom::status_area_internals::PageHandler::ToggleVideoConferenceTray";
       case internal::kPageHandler_ToggleProjectorTray_Name:
             return "Receive ash::mojom::status_area_internals::PageHandler::ToggleProjectorTray";
+      case internal::kPageHandler_SetActiveDirectoryManaged_Name:
+            return "Receive ash::mojom::status_area_internals::PageHandler::SetActiveDirectoryManaged";
       case internal::kPageHandler_TriggerPrivacyIndicators_Name:
             return "Receive ash::mojom::status_area_internals::PageHandler::TriggerPrivacyIndicators";
     }
@@ -116,6 +122,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::mojom::status_area_internals::PageHandler::ToggleVideoConferenceTray";
       case internal::kPageHandler_ToggleProjectorTray_Name:
             return "Receive reply ash::mojom::status_area_internals::PageHandler::ToggleProjectorTray";
+      case internal::kPageHandler_SetActiveDirectoryManaged_Name:
+            return "Receive reply ash::mojom::status_area_internals::PageHandler::SetActiveDirectoryManaged";
       case internal::kPageHandler_TriggerPrivacyIndicators_Name:
             return "Receive reply ash::mojom::status_area_internals::PageHandler::TriggerPrivacyIndicators";
     }
@@ -223,6 +231,19 @@ uint32_t PageHandler::ToggleProjectorTray_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::SetActiveDirectoryManaged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::mojom::status_area_internals::PageHandler::SetActiveDirectoryManaged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t PageHandler::TriggerPrivacyIndicators_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -254,14 +275,17 @@ void PageHandlerProxy::ToggleImeTray(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ToggleImeTray_Name, kFlags, 0, 0, nullptr);
@@ -292,14 +316,17 @@ void PageHandlerProxy::TogglePaletteTray(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_TogglePaletteTray_Name, kFlags, 0, 0, nullptr);
@@ -330,14 +357,17 @@ void PageHandlerProxy::ToggleLogoutTray(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ToggleLogoutTray_Name, kFlags, 0, 0, nullptr);
@@ -368,14 +398,17 @@ void PageHandlerProxy::ToggleVirtualKeyboardTray(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ToggleVirtualKeyboardTray_Name, kFlags, 0, 0, nullptr);
@@ -406,14 +439,17 @@ void PageHandlerProxy::ToggleDictationTray(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ToggleDictationTray_Name, kFlags, 0, 0, nullptr);
@@ -444,14 +480,17 @@ void PageHandlerProxy::ToggleVideoConferenceTray(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ToggleVideoConferenceTray_Name, kFlags, 0, 0, nullptr);
@@ -482,14 +521,17 @@ void PageHandlerProxy::ToggleProjectorTray(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ToggleProjectorTray_Name, kFlags, 0, 0, nullptr);
@@ -502,6 +544,47 @@ void PageHandlerProxy::ToggleProjectorTray(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
   message.set_method_name("ToggleProjectorTray");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::SetActiveDirectoryManaged(
+    bool in_managed) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::mojom::status_area_internals::PageHandler::SetActiveDirectoryManaged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("managed"), in_managed,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_SetActiveDirectoryManaged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::mojom::status_area_internals::internal::PageHandler_SetActiveDirectoryManaged_Params_Data> params(
+          message);
+  params.Allocate();
+  params->managed = in_managed;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("SetActiveDirectoryManaged");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -529,14 +612,17 @@ void PageHandlerProxy::TriggerPrivacyIndicators(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_TriggerPrivacyIndicators_Name, kFlags, 0, 0, nullptr);
@@ -765,6 +851,32 @@ std::move(p_visible));
 std::move(p_visible));
       return true;
     }
+    case internal::kPageHandler_SetActiveDirectoryManaged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_SetActiveDirectoryManaged_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_SetActiveDirectoryManaged_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_managed{};
+      PageHandler_SetActiveDirectoryManaged_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_managed = input_data_view.managed();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetActiveDirectoryManaged(
+std::move(p_managed));
+      return true;
+    }
     case internal::kPageHandler_TriggerPrivacyIndicators_Name: {
 
       DCHECK(message->is_serialized());
@@ -791,7 +903,7 @@ std::move(p_visible));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 7, false);
+            PageHandler::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -837,30 +949,35 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
     case internal::kPageHandler_ToggleProjectorTray_Name: {
       break;
     }
+    case internal::kPageHandler_SetActiveDirectoryManaged_Name: {
+      break;
+    }
     case internal::kPageHandler_TriggerPrivacyIndicators_Name: {
       break;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_ToggleImeTray_Params_Data::Validate,
+    { &internal::PageHandler_ToggleImeTray_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_TogglePaletteTray_Params_Data::Validate,
+    { &internal::PageHandler_TogglePaletteTray_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ToggleLogoutTray_Params_Data::Validate,
+    { &internal::PageHandler_ToggleLogoutTray_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ToggleVirtualKeyboardTray_Params_Data::Validate,
+    { &internal::PageHandler_ToggleVirtualKeyboardTray_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ToggleDictationTray_Params_Data::Validate,
+    { &internal::PageHandler_ToggleDictationTray_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ToggleVideoConferenceTray_Params_Data::Validate,
+    { &internal::PageHandler_ToggleVideoConferenceTray_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ToggleProjectorTray_Params_Data::Validate,
+    { &internal::PageHandler_ToggleProjectorTray_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_TriggerPrivacyIndicators_Params_Data::Validate,
+    { &internal::PageHandler_SetActiveDirectoryManaged_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_TriggerPrivacyIndicators_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -906,6 +1023,9 @@ void PageHandlerInterceptorForTesting::ToggleVideoConferenceTray(bool visible) {
 }
 void PageHandlerInterceptorForTesting::ToggleProjectorTray(bool visible) {
   GetForwardingInterface()->ToggleProjectorTray(std::move(visible));
+}
+void PageHandlerInterceptorForTesting::SetActiveDirectoryManaged(bool managed) {
+  GetForwardingInterface()->SetActiveDirectoryManaged(std::move(managed));
 }
 void PageHandlerInterceptorForTesting::TriggerPrivacyIndicators(const std::string& app_id, const std::string& app_name, bool is_camera_used, bool is_microphone_used) {
   GetForwardingInterface()->TriggerPrivacyIndicators(std::move(app_id), std::move(app_name), std::move(is_camera_used), std::move(is_microphone_used));

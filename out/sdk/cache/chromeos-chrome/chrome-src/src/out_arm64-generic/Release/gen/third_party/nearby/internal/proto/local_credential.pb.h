@@ -372,14 +372,14 @@ class LocalCredential final :
   ::PROTOBUF_NAMESPACE_ID::Map< uint32_t, bool >*
       mutable_consumed_salts();
 
-  // bytes secret_id = 1;
-  void clear_secret_id();
-  const std::string& secret_id() const;
+  // bytes secret_id = 1 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_secret_id();
+  PROTOBUF_DEPRECATED const std::string& secret_id() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_secret_id(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_secret_id();
-  PROTOBUF_NODISCARD std::string* release_secret_id();
-  void set_allocated_secret_id(std::string* secret_id);
+  PROTOBUF_DEPRECATED void set_secret_id(ArgT0&& arg0, ArgT... args);
+  PROTOBUF_DEPRECATED std::string* mutable_secret_id();
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_secret_id();
+  PROTOBUF_DEPRECATED void set_allocated_secret_id(std::string* secret_id);
   private:
   const std::string& _internal_secret_id() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_secret_id(const std::string& value);
@@ -642,7 +642,7 @@ inline void LocalCredential_PrivateKey::set_allocated_key(std::string* key) {
 
 // LocalCredential
 
-// bytes secret_id = 1;
+// bytes secret_id = 1 [deprecated = true];
 inline void LocalCredential::clear_secret_id() {
   secret_id_.ClearToEmpty();
 }

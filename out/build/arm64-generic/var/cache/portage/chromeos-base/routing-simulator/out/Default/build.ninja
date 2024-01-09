@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/routing-simulator-0.0.1-r86/work/routing-simulator-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -21,23 +21,17 @@ subninja toolchain.ninja
 build _routing-simulator-install_config: phony obj/routing-simulator/_routing-simulator-install_config.stamp
 build librouting-simulator: phony ./librouting-simulator.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build routing-simulator$:_routing-simulator-install_config: phony obj/routing-simulator/_routing-simulator-install_config.stamp
 build routing-simulator$:all: phony obj/routing-simulator/all.stamp
 build routing-simulator$:librouting-simulator: phony ./librouting-simulator.a
 build routing-simulator$:routing-simulator: phony ./routing-simulator
-build routing-simulator$:routing_simulator_testrunner: phony ./routing_simulator_testrunner
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/routing-simulator/_routing-simulator-install_config.stamp $
     obj/routing-simulator/all.stamp $
     ./librouting-simulator.a $
-    ./routing-simulator $
-    ./routing_simulator_testrunner
+    ./routing-simulator
 
 default all

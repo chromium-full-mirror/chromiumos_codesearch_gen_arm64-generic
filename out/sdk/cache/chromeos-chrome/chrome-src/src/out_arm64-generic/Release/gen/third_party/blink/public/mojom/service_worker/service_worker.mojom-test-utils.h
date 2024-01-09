@@ -28,6 +28,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerHostInterceptorForTesting : public Servic
   void SkipWaiting(SkipWaitingCallback callback) override;
   void ClaimClients(ClaimClientsCallback callback) override;
   void RegisterRouter(const ::blink::ServiceWorkerRouterRules& rules, RegisterRouterCallback callback) override;
+  void AddRoutes(const ::blink::ServiceWorkerRouterRules& rules, AddRoutesCallback callback) override;
 };
 class BLINK_COMMON_EXPORT ServiceWorkerHostAsyncWaiter {
  public:
@@ -44,24 +45,27 @@ class BLINK_COMMON_EXPORT ServiceWorkerHostAsyncWaiter {
       const std::string& client_uuid, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client);
   ::blink::mojom::ServiceWorkerClientInfoPtr GetClient(const std::string& client_uuid);
   void OpenNewTab(
-      const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, absl::optional<std::string>* out_error_msg);
+      const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, std::optional<std::string>* out_error_msg);
   
   void OpenPaymentHandlerWindow(
-      const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, absl::optional<std::string>* out_error_msg);
+      const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, std::optional<std::string>* out_error_msg);
   
   void FocusClient(
       const std::string& client_uuid, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client);
   ::blink::mojom::ServiceWorkerClientInfoPtr FocusClient(const std::string& client_uuid);
   void NavigateClient(
-      const std::string& client_uuid, const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, absl::optional<std::string>* out_error_msg);
+      const std::string& client_uuid, const ::GURL& url, bool* out_success, ::blink::mojom::ServiceWorkerClientInfoPtr* out_client, std::optional<std::string>* out_error_msg);
   
   void SkipWaiting(
       bool* out_success);
   bool SkipWaiting();
   void ClaimClients(
-      ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg);
+      ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg);
   
   void RegisterRouter(
+      const ::blink::ServiceWorkerRouterRules& rules);
+  
+  void AddRoutes(
       const ::blink::ServiceWorkerRouterRules& rules);
   
 
@@ -81,9 +85,9 @@ class BLINK_COMMON_EXPORT ServiceWorkerInterceptorForTesting : public ServiceWor
   void DispatchBackgroundFetchSuccessEvent(::blink::mojom::BackgroundFetchRegistrationPtr registration, DispatchBackgroundFetchSuccessEventCallback callback) override;
   void DispatchCookieChangeEvent(const ::net::CookieChangeInfo& change, DispatchCookieChangeEventCallback callback) override;
   void DispatchFetchEventForMainResource(::blink::mojom::DispatchFetchEventParamsPtr params, ::mojo::PendingRemote<::blink::mojom::ServiceWorkerFetchResponseCallback> response_callback, DispatchFetchEventForMainResourceCallback callback) override;
-  void DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const absl::optional<::std::u16string>& reply, DispatchNotificationClickEventCallback callback) override;
+  void DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const std::optional<::std::u16string>& reply, DispatchNotificationClickEventCallback callback) override;
   void DispatchNotificationCloseEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, DispatchNotificationCloseEventCallback callback) override;
-  void DispatchPushEvent(const absl::optional<std::string>& payload, DispatchPushEventCallback callback) override;
+  void DispatchPushEvent(const std::optional<std::string>& payload, DispatchPushEventCallback callback) override;
   void DispatchPushSubscriptionChangeEvent(::blink::mojom::PushSubscriptionPtr old_subscription, ::blink::mojom::PushSubscriptionPtr new_subscription, DispatchPushSubscriptionChangeEventCallback callback) override;
   void DispatchSyncEvent(const std::string& tag, bool last_chance, ::base::TimeDelta timeout, DispatchSyncEventCallback callback) override;
   void DispatchPeriodicSyncEvent(const std::string& tag, ::base::TimeDelta timeout, DispatchPeriodicSyncEventCallback callback) override;
@@ -132,14 +136,14 @@ class BLINK_COMMON_EXPORT ServiceWorkerAsyncWaiter {
       ::blink::mojom::DispatchFetchEventParamsPtr params, ::mojo::PendingRemote<::blink::mojom::ServiceWorkerFetchResponseCallback> response_callback, ::blink::mojom::ServiceWorkerEventStatus* out_status);
   ::blink::mojom::ServiceWorkerEventStatus DispatchFetchEventForMainResource(::blink::mojom::DispatchFetchEventParamsPtr params, ::mojo::PendingRemote<::blink::mojom::ServiceWorkerFetchResponseCallback> response_callback);
   void DispatchNotificationClickEvent(
-      const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const absl::optional<::std::u16string>& reply, ::blink::mojom::ServiceWorkerEventStatus* out_status);
-  ::blink::mojom::ServiceWorkerEventStatus DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const absl::optional<::std::u16string>& reply);
+      const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const std::optional<::std::u16string>& reply, ::blink::mojom::ServiceWorkerEventStatus* out_status);
+  ::blink::mojom::ServiceWorkerEventStatus DispatchNotificationClickEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, int32_t action_index, const std::optional<::std::u16string>& reply);
   void DispatchNotificationCloseEvent(
       const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data, ::blink::mojom::ServiceWorkerEventStatus* out_status);
   ::blink::mojom::ServiceWorkerEventStatus DispatchNotificationCloseEvent(const std::string& notification_id, const ::blink::PlatformNotificationData& notification_data);
   void DispatchPushEvent(
-      const absl::optional<std::string>& payload, ::blink::mojom::ServiceWorkerEventStatus* out_status);
-  ::blink::mojom::ServiceWorkerEventStatus DispatchPushEvent(const absl::optional<std::string>& payload);
+      const std::optional<std::string>& payload, ::blink::mojom::ServiceWorkerEventStatus* out_status);
+  ::blink::mojom::ServiceWorkerEventStatus DispatchPushEvent(const std::optional<std::string>& payload);
   void DispatchPushSubscriptionChangeEvent(
       ::blink::mojom::PushSubscriptionPtr old_subscription, ::blink::mojom::PushSubscriptionPtr new_subscription, ::blink::mojom::ServiceWorkerEventStatus* out_status);
   ::blink::mojom::ServiceWorkerEventStatus DispatchPushSubscriptionChangeEvent(::blink::mojom::PushSubscriptionPtr old_subscription, ::blink::mojom::PushSubscriptionPtr new_subscription);
@@ -168,7 +172,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerAsyncWaiter {
       );
   
   void ExecuteScriptForTest(
-      const ::std::u16string& javascript, bool wants_result, ::base::Value* out_result, absl::optional<std::string>* out_error);
+      const ::std::u16string& javascript, bool wants_result, ::base::Value* out_result, std::optional<std::string>* out_error);
   
 
  private:

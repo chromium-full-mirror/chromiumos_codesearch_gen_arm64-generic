@@ -53,8 +53,16 @@
   },
   "files": [
     "preprocessed/app.ts",
-    "preprocessed/performance_api_proxy.ts",
+    "preprocessed/battery_saver_card.ts",
+    "preprocessed/browser_health_card.ts",
+    "preprocessed/memory_saver_card.ts",
+    "preprocessed/performance_page_api_proxy.ts",
+    "preprocessed/memory_saver_card_api_proxy.ts",
+    "preprocessed/battery_saver_card_api_proxy.ts",
     "preprocessed/app.html.ts",
+    "preprocessed/battery_saver_card.html.ts",
+    "preprocessed/browser_health_card.html.ts",
+    "preprocessed/memory_saver_card.html.ts",
     "preprocessed/performance.mojom-webui.ts"
   ],
   "references": [

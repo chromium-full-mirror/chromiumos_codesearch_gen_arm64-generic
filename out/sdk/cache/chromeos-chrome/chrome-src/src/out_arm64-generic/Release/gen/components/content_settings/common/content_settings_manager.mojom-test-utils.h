@@ -16,8 +16,8 @@ namespace content_settings::mojom {
 class  ContentSettingsManagerInterceptorForTesting : public ContentSettingsManager {
   virtual ContentSettingsManager* GetForwardingInterface() = 0;
   void Clone(::mojo::PendingReceiver<ContentSettingsManager> clone) override;
-  void AllowStorageAccess(int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) override;
-  void OnContentBlocked(int32_t render_frame_id, ::ContentSettingsType type) override;
+  void AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) override;
+  void OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::ContentSettingsType type) override;
 };
 class  ContentSettingsManagerAsyncWaiter {
  public:
@@ -28,8 +28,8 @@ class  ContentSettingsManagerAsyncWaiter {
 
   ~ContentSettingsManagerAsyncWaiter();
   void AllowStorageAccess(
-      int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed);
-  bool AllowStorageAccess(int32_t render_frame_id, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin);
+      const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, bool* out_allowed);
+  bool AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin);
 
  private:
   ContentSettingsManager* const proxy_;

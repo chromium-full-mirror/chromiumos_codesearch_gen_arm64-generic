@@ -13,12 +13,12 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { isCrostiniSupported, isExternalStorageEnabled } from '../common/load_time_booleans.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { DevicePageBrowserProxyImpl, StorageSpaceState } from './device_page_browser_proxy.js';
 import { getTemplate } from './storage.html.js';
 const SettingsStorageElementBase = RouteOriginMixin(WebUiListenerMixin(PolymerElement));
-class SettingsStorageElement extends SettingsStorageElementBase {
+export class SettingsStorageElement extends SettingsStorageElementBase {
     static get is() {
         return 'settings-storage';
     }
@@ -27,6 +27,10 @@ class SettingsStorageElement extends SettingsStorageElementBase {
     }
     static get properties() {
         return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
             showCrostiniStorage_: {
                 type: Boolean,
                 value: false,
@@ -34,14 +38,6 @@ class SettingsStorageElement extends SettingsStorageElementBase {
             isDriveEnabled_: {
                 type: Boolean,
                 value: true,
-            },
-            showGoogleDriveSettingsPage_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('showGoogleDriveSettingsPage'),
-            },
-            isDriveFsBulkPinningEnabled_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('enableDriveFsBulkPinning'),
             },
             isEphemeralUser_: {
                 type: Boolean,
@@ -241,9 +237,7 @@ class SettingsStorageElement extends SettingsStorageElementBase {
      * Whether to show the Offline files row or not.
      */
     shouldShowOfflineFilesRow_() {
-        return this.isDriveEnabled_ &&
-            (this.isDriveFsBulkPinningEnabled_ ||
-                this.showGoogleDriveSettingsPage_);
+        return this.isDriveEnabled_;
     }
     /**
      * Starts periodic update for storage usage.

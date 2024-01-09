@@ -1,1 +1,1 @@
-{"piex_module.rollup.js": ["../stage/piex_loader.js", "../stage/piex_module.js"]}
+{"piex_module.rollup.js": ["../../../stage_rollup/piex_loader.js", "../../../stage_rollup/piex_module.js"]}

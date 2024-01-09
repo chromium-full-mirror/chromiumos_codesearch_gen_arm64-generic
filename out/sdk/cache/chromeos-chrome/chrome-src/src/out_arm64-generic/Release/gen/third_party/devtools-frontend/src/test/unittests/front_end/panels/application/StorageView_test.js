@@ -114,7 +114,7 @@ describeWithMockConnection('StorageView', () => {
             sinon.stub(target.storageAgent(), 'invoke_getStorageKeyForFrame')
                 .resolves({ storageKey: testKey, getError: () => undefined });
             dispatchEvent(target, 'Page.frameNavigated', { frame: FRAME });
-            const actionDelegate = Resources.StorageView.ActionDelegate.instance();
+            const actionDelegate = new Resources.StorageView.ActionDelegate();
             actionDelegate.handleAction(UI.ActionRegistration.ActionCategory.RESOURCES, 'resources.clear');
             await databaseRemoved;
             assert.isEmpty(databaseModel.databases());

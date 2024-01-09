@@ -22,13 +22,13 @@ class BLINK_COMMON_EXPORT WebBluetoothServiceInterceptorForTesting : public WebB
   void ForgetDevice(const ::blink::WebBluetoothDeviceId& device_id, ForgetDeviceCallback callback) override;
   void RemoteServerConnect(const ::blink::WebBluetoothDeviceId& device_id, ::mojo::PendingAssociatedRemote<WebBluetoothServerClient> client, RemoteServerConnectCallback callback) override;
   void RemoteServerDisconnect(const ::blink::WebBluetoothDeviceId& device_id) override;
-  void RemoteServerGetPrimaryServices(const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& services_uuid, RemoteServerGetPrimaryServicesCallback callback) override;
-  void RemoteServiceGetCharacteristics(const std::string& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& characteristics_uuid, RemoteServiceGetCharacteristicsCallback callback) override;
+  void RemoteServerGetPrimaryServices(const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& services_uuid, RemoteServerGetPrimaryServicesCallback callback) override;
+  void RemoteServiceGetCharacteristics(const std::string& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& characteristics_uuid, RemoteServiceGetCharacteristicsCallback callback) override;
   void RemoteCharacteristicReadValue(const std::string& characteristic_instance_id, RemoteCharacteristicReadValueCallback callback) override;
   void RemoteCharacteristicWriteValue(const std::string& characteristic_instance_id, const std::vector<uint8_t>& value, WebBluetoothWriteType write_type, RemoteCharacteristicWriteValueCallback callback) override;
   void RemoteCharacteristicStartNotifications(const std::string& characteristic_instance_id, ::mojo::PendingAssociatedRemote<WebBluetoothCharacteristicClient> client, RemoteCharacteristicStartNotificationsCallback callback) override;
   void RemoteCharacteristicStopNotifications(const std::string& characteristic_instance_id, RemoteCharacteristicStopNotificationsCallback callback) override;
-  void RemoteCharacteristicGetDescriptors(const std::string& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& descriptor_uuid, RemoteCharacteristicGetDescriptorsCallback callback) override;
+  void RemoteCharacteristicGetDescriptors(const std::string& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& descriptor_uuid, RemoteCharacteristicGetDescriptorsCallback callback) override;
   void RemoteDescriptorReadValue(const std::string& descriptor_instance_id, RemoteDescriptorReadValueCallback callback) override;
   void RemoteDescriptorWriteValue(const std::string& descriptor_instance_id, const std::vector<uint8_t>& value, RemoteDescriptorWriteValueCallback callback) override;
   void RequestScanningStart(::mojo::PendingAssociatedRemote<WebBluetoothAdvertisementClient> client, WebBluetoothRequestLEScanOptionsPtr options, RequestScanningStartCallback callback) override;
@@ -58,13 +58,13 @@ class BLINK_COMMON_EXPORT WebBluetoothServiceAsyncWaiter {
       const ::blink::WebBluetoothDeviceId& device_id, ::mojo::PendingAssociatedRemote<WebBluetoothServerClient> client, WebBluetoothResult* out_result);
   WebBluetoothResult RemoteServerConnect(const ::blink::WebBluetoothDeviceId& device_id, ::mojo::PendingAssociatedRemote<WebBluetoothServerClient> client);
   void RemoteServerGetPrimaryServices(
-      const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& services_uuid, WebBluetoothResult* out_result, absl::optional<std::vector<WebBluetoothRemoteGATTServicePtr>>* out_services);
+      const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& services_uuid, WebBluetoothResult* out_result, std::optional<std::vector<WebBluetoothRemoteGATTServicePtr>>* out_services);
   
   void RemoteServiceGetCharacteristics(
-      const std::string& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& characteristics_uuid, WebBluetoothResult* out_result, absl::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>>* out_characteristics);
+      const std::string& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& characteristics_uuid, WebBluetoothResult* out_result, std::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>>* out_characteristics);
   
   void RemoteCharacteristicReadValue(
-      const std::string& characteristic_instance_id, WebBluetoothResult* out_result, absl::optional<std::vector<uint8_t>>* out_value);
+      const std::string& characteristic_instance_id, WebBluetoothResult* out_result, std::optional<std::vector<uint8_t>>* out_value);
   
   void RemoteCharacteristicWriteValue(
       const std::string& characteristic_instance_id, const std::vector<uint8_t>& value, WebBluetoothWriteType write_type, WebBluetoothResult* out_result);
@@ -76,10 +76,10 @@ class BLINK_COMMON_EXPORT WebBluetoothServiceAsyncWaiter {
       const std::string& characteristic_instance_id);
   
   void RemoteCharacteristicGetDescriptors(
-      const std::string& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const absl::optional<::device::BluetoothUUID>& descriptor_uuid, WebBluetoothResult* out_result, absl::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>>* out_descriptors);
+      const std::string& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const std::optional<::device::BluetoothUUID>& descriptor_uuid, WebBluetoothResult* out_result, std::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>>* out_descriptors);
   
   void RemoteDescriptorReadValue(
-      const std::string& descriptor_instance_id, WebBluetoothResult* out_result, absl::optional<std::vector<uint8_t>>* out_value);
+      const std::string& descriptor_instance_id, WebBluetoothResult* out_result, std::optional<std::vector<uint8_t>>* out_value);
   
   void RemoteDescriptorWriteValue(
       const std::string& descriptor_instance_id, const std::vector<uint8_t>& value, WebBluetoothResult* out_result);

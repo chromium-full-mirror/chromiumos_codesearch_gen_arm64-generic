@@ -15,6 +15,9 @@ export function getTemplate() {
     <input name="re" value="[[renderingEnvironment_]]">
     <input name="s" value="[[chromiumSurface_]]">
   </form>
+  
+  <iframe src="https://lens.google.com/gen204" style="display:none" alt="">
+  </iframe>
 </div>
 <!--_html_template_end_-->`;
 }

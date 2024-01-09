@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -141,14 +142,17 @@ void WebDatabaseProxy::UpdateSize(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabase_UpdateSize_Name, kFlags, 0, 0, nullptr);
@@ -204,14 +208,17 @@ void WebDatabaseProxy::CloseImmediately(
                         "<value of type const ::WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabase_CloseImmediately_Name, kFlags, 0, 0, nullptr);
@@ -342,12 +349,12 @@ bool WebDatabaseStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebDatabaseValidationInfo[] = {
-    {&internal::WebDatabase_UpdateSize_Params_Data::Validate,
+    { &internal::WebDatabase_UpdateSize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebDatabase_CloseImmediately_Params_Data::Validate,
+    { &internal::WebDatabase_CloseImmediately_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -771,15 +778,18 @@ bool WebDatabaseHostProxy::OpenFile(
 #else
   TRACE_EVENT0("mojom", "WebDatabaseHost::OpenFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -838,14 +848,17 @@ void WebDatabaseHostProxy::OpenFile(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -892,15 +905,18 @@ bool WebDatabaseHostProxy::DeleteFile(
 #else
   TRACE_EVENT0("mojom", "WebDatabaseHost::DeleteFile");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_DeleteFile_Name, kFlags, 0, 0, nullptr);
@@ -959,14 +975,17 @@ void WebDatabaseHostProxy::DeleteFile(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_DeleteFile_Name, kFlags, 0, 0, nullptr);
@@ -1010,15 +1029,18 @@ bool WebDatabaseHostProxy::GetFileAttributes(
 #else
   TRACE_EVENT0("mojom", "WebDatabaseHost::GetFileAttributes");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_GetFileAttributes_Name, kFlags, 0, 0, nullptr);
@@ -1073,14 +1095,17 @@ void WebDatabaseHostProxy::GetFileAttributes(
                         "<value of type const ::WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_GetFileAttributes_Name, kFlags, 0, 0, nullptr);
@@ -1126,15 +1151,18 @@ bool WebDatabaseHostProxy::SetFileSize(
 #else
   TRACE_EVENT0("mojom", "WebDatabaseHost::SetFileSize");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_SetFileSize_Name, kFlags, 0, 0, nullptr);
@@ -1193,14 +1221,17 @@ void WebDatabaseHostProxy::SetFileSize(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_SetFileSize_Name, kFlags, 0, 0, nullptr);
@@ -1244,15 +1275,18 @@ bool WebDatabaseHostProxy::GetSpaceAvailable(
 #else
   TRACE_EVENT0("mojom", "WebDatabaseHost::GetSpaceAvailable");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_GetSpaceAvailable_Name, kFlags, 0, 0, nullptr);
@@ -1307,14 +1341,17 @@ void WebDatabaseHostProxy::GetSpaceAvailable(
                         "<value of type const ::scoped_refptr<const ::blink::SecurityOrigin>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_GetSpaceAvailable_Name, kFlags, 0, 0, nullptr);
@@ -1362,14 +1399,17 @@ void WebDatabaseHostProxy::Opened(
                         "<value of type const ::WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_Opened_Name, kFlags, 0, 0, nullptr);
@@ -1435,14 +1475,17 @@ void WebDatabaseHostProxy::Modified(
                         "<value of type const ::WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_Modified_Name, kFlags, 0, 0, nullptr);
@@ -1497,14 +1540,17 @@ void WebDatabaseHostProxy::Closed(
                         "<value of type const ::WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_Closed_Name, kFlags, 0, 0, nullptr);
@@ -1562,14 +1608,17 @@ void WebDatabaseHostProxy::HandleSqliteError(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_HandleSqliteError_Name, kFlags, 0, 0, nullptr);
@@ -1701,7 +1750,8 @@ void WebDatabaseHost_OpenFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -1850,7 +1900,8 @@ void WebDatabaseHost_DeleteFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_DeleteFile_Name, kFlags, 0, 0, nullptr);
@@ -1993,7 +2044,8 @@ void WebDatabaseHost_GetFileAttributes_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_GetFileAttributes_Name, kFlags, 0, 0, nullptr);
@@ -2136,7 +2188,8 @@ void WebDatabaseHost_SetFileSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_SetFileSize_Name, kFlags, 0, 0, nullptr);
@@ -2279,7 +2332,8 @@ void WebDatabaseHost_GetSpaceAvailable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebDatabaseHost_GetSpaceAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2664,26 +2718,26 @@ std::move(p_origin), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebDatabaseHostValidationInfo[] = {
-    {&internal::WebDatabaseHost_OpenFile_Params_Data::Validate,
+    { &internal::WebDatabaseHost_OpenFile_Params_Data::Validate,
      &internal::WebDatabaseHost_OpenFile_ResponseParams_Data::Validate},
-    {&internal::WebDatabaseHost_DeleteFile_Params_Data::Validate,
+    { &internal::WebDatabaseHost_DeleteFile_Params_Data::Validate,
      &internal::WebDatabaseHost_DeleteFile_ResponseParams_Data::Validate},
-    {&internal::WebDatabaseHost_GetFileAttributes_Params_Data::Validate,
+    { &internal::WebDatabaseHost_GetFileAttributes_Params_Data::Validate,
      &internal::WebDatabaseHost_GetFileAttributes_ResponseParams_Data::Validate},
-    {&internal::WebDatabaseHost_SetFileSize_Params_Data::Validate,
+    { &internal::WebDatabaseHost_SetFileSize_Params_Data::Validate,
      &internal::WebDatabaseHost_SetFileSize_ResponseParams_Data::Validate},
-    {&internal::WebDatabaseHost_GetSpaceAvailable_Params_Data::Validate,
+    { &internal::WebDatabaseHost_GetSpaceAvailable_Params_Data::Validate,
      &internal::WebDatabaseHost_GetSpaceAvailable_ResponseParams_Data::Validate},
-    {&internal::WebDatabaseHost_Opened_Params_Data::Validate,
+    { &internal::WebDatabaseHost_Opened_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebDatabaseHost_Modified_Params_Data::Validate,
+    { &internal::WebDatabaseHost_Modified_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebDatabaseHost_Closed_Params_Data::Validate,
+    { &internal::WebDatabaseHost_Closed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebDatabaseHost_HandleSqliteError_Params_Data::Validate,
+    { &internal::WebDatabaseHost_HandleSqliteError_Params_Data::Validate,
      nullptr /* no response */},
 };
 

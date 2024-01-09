@@ -131,7 +131,7 @@ DriveFsNativeMessageHostBridge_ConnectToExtension_ResponseParams_Data::DriveFsNa
 
 
 // static
-bool DriveIntegrationService_GetMountPointPath_Params_Data::Validate(
+bool DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -143,18 +143,18 @@ bool DriveIntegrationService_GetMountPointPath_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const DriveIntegrationService_GetMountPointPath_Params_Data* object =
-      static_cast<const DriveIntegrationService_GetMountPointPath_Params_Data*>(data);
+  [[maybe_unused]] const DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data* object =
+      static_cast<const DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data*>(data);
 
   return true;
 }
 
-DriveIntegrationService_GetMountPointPath_Params_Data::DriveIntegrationService_GetMountPointPath_Params_Data()
+DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data::DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool DriveIntegrationService_GetMountPointPath_ResponseParams_Data::Validate(
+bool DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -166,8 +166,8 @@ bool DriveIntegrationService_GetMountPointPath_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const DriveIntegrationService_GetMountPointPath_ResponseParams_Data* object =
-      static_cast<const DriveIntegrationService_GetMountPointPath_ResponseParams_Data*>(data);
+  [[maybe_unused]] const DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data* object =
+      static_cast<const DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->drive_path, 1, validation_context)) {
@@ -179,7 +179,7 @@ bool DriveIntegrationService_GetMountPointPath_ResponseParams_Data::Validate(
   return true;
 }
 
-DriveIntegrationService_GetMountPointPath_ResponseParams_Data::DriveIntegrationService_GetMountPointPath_ResponseParams_Data()
+DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data::DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

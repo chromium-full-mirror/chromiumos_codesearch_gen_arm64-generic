@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -51,8 +52,8 @@ CompatibilityModeInstance::IPCStableHashFunction CompatibilityModeInstance::Mess
     case internal::kCompatibilityModeInstance_SetResizeLockState_Name: {
       return &CompatibilityModeInstance::SetResizeLockState_Sym::IPCStableHash;
     }
-    case internal::kCompatibilityModeInstance_IsGioApplicable_Name: {
-      return &CompatibilityModeInstance::IsGioApplicable_Sym::IPCStableHash;
+    case internal::kCompatibilityModeInstance_IsOptimizedForCrosApp_Name: {
+      return &CompatibilityModeInstance::IsOptimizedForCrosApp_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -67,15 +68,15 @@ const char* CompatibilityModeInstance::MessageToMethodName_(mojo::Message& messa
     switch (message.name()) {
       case internal::kCompatibilityModeInstance_SetResizeLockState_Name:
             return "Receive arc::mojom::CompatibilityModeInstance::SetResizeLockState";
-      case internal::kCompatibilityModeInstance_IsGioApplicable_Name:
-            return "Receive arc::mojom::CompatibilityModeInstance::IsGioApplicable";
+      case internal::kCompatibilityModeInstance_IsOptimizedForCrosApp_Name:
+            return "Receive arc::mojom::CompatibilityModeInstance::IsOptimizedForCrosApp";
     }
   } else {
     switch (message.name()) {
       case internal::kCompatibilityModeInstance_SetResizeLockState_Name:
             return "Receive reply arc::mojom::CompatibilityModeInstance::SetResizeLockState";
-      case internal::kCompatibilityModeInstance_IsGioApplicable_Name:
-            return "Receive reply arc::mojom::CompatibilityModeInstance::IsGioApplicable";
+      case internal::kCompatibilityModeInstance_IsOptimizedForCrosApp_Name:
+            return "Receive reply arc::mojom::CompatibilityModeInstance::IsOptimizedForCrosApp";
     }
   }
   return "Receive unknown mojo message";
@@ -103,7 +104,7 @@ uint32_t CompatibilityModeInstance::SetResizeLockState_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CompatibilityModeInstance::IsGioApplicable_Sym::IPCStableHash() {
+uint32_t CompatibilityModeInstance::IsOptimizedForCrosApp_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -111,27 +112,27 @@ uint32_t CompatibilityModeInstance::IsGioApplicable_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)arc::mojom::CompatibilityModeInstance::IsGioApplicable");
+          "(Impl)arc::mojom::CompatibilityModeInstance::IsOptimizedForCrosApp");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-class CompatibilityModeInstance_IsGioApplicable_ForwardToCallback
+class CompatibilityModeInstance_IsOptimizedForCrosApp_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  CompatibilityModeInstance_IsGioApplicable_ForwardToCallback(
-      CompatibilityModeInstance::IsGioApplicableCallback callback
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ForwardToCallback(
+      CompatibilityModeInstance::IsOptimizedForCrosAppCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  CompatibilityModeInstance_IsGioApplicable_ForwardToCallback(const CompatibilityModeInstance_IsGioApplicable_ForwardToCallback&) = delete;
-  CompatibilityModeInstance_IsGioApplicable_ForwardToCallback& operator=(const CompatibilityModeInstance_IsGioApplicable_ForwardToCallback&) = delete;
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ForwardToCallback(const CompatibilityModeInstance_IsOptimizedForCrosApp_ForwardToCallback&) = delete;
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ForwardToCallback& operator=(const CompatibilityModeInstance_IsOptimizedForCrosApp_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  CompatibilityModeInstance::IsGioApplicableCallback callback_;
+  CompatibilityModeInstance::IsOptimizedForCrosAppCallback callback_;
 };
 
 CompatibilityModeInstanceProxy::CompatibilityModeInstanceProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -153,14 +154,17 @@ void CompatibilityModeInstanceProxy::SetResizeLockState(
                         "<value of type ArcResizeLockState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCompatibilityModeInstance_SetResizeLockState_Name, kFlags, 0, 0, nullptr);
@@ -191,11 +195,11 @@ void CompatibilityModeInstanceProxy::SetResizeLockState(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CompatibilityModeInstanceProxy::IsGioApplicable(
-    const std::string& in_package_name, IsGioApplicableCallback callback) {
+void CompatibilityModeInstanceProxy::IsOptimizedForCrosApp(
+    const std::string& in_package_name, IsOptimizedForCrosAppCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send arc::mojom::CompatibilityModeInstance::IsGioApplicable", "input_parameters",
+    "mojom", "Send arc::mojom::CompatibilityModeInstance::IsOptimizedForCrosApp", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -203,19 +207,22 @@ void CompatibilityModeInstanceProxy::IsGioApplicable(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kCompatibilityModeInstance_IsGioApplicable_Name, kFlags, 0, 0, nullptr);
+      internal::kCompatibilityModeInstance_IsOptimizedForCrosApp_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::arc::mojom::internal::CompatibilityModeInstance_IsGioApplicable_Params_Data> params(
+      ::arc::mojom::internal::CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -228,30 +235,30 @@ void CompatibilityModeInstanceProxy::IsGioApplicable(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->package_name.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null package_name in CompatibilityModeInstance.IsGioApplicable request");
+      "null package_name in CompatibilityModeInstance.IsOptimizedForCrosApp request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CompatibilityModeInstance::Name_);
-  message.set_method_name("IsGioApplicable");
+  message.set_method_name("IsOptimizedForCrosApp");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new CompatibilityModeInstance_IsGioApplicable_ForwardToCallback(
+      new CompatibilityModeInstance_IsOptimizedForCrosApp_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-class CompatibilityModeInstance_IsGioApplicable_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class CompatibilityModeInstance_IsOptimizedForCrosApp_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static CompatibilityModeInstance::IsGioApplicableCallback CreateCallback(
+  static CompatibilityModeInstance::IsOptimizedForCrosAppCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CompatibilityModeInstance_IsGioApplicable_ProxyToResponder> proxy(
-        new CompatibilityModeInstance_IsGioApplicable_ProxyToResponder(
+    std::unique_ptr<CompatibilityModeInstance_IsOptimizedForCrosApp_ProxyToResponder> proxy(
+        new CompatibilityModeInstance_IsOptimizedForCrosApp_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&CompatibilityModeInstance_IsGioApplicable_ProxyToResponder::Run,
+    return base::BindOnce(&CompatibilityModeInstance_IsOptimizedForCrosApp_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~CompatibilityModeInstance_IsGioApplicable_ProxyToResponder() {
+  ~CompatibilityModeInstance_IsOptimizedForCrosApp_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -268,7 +275,7 @@ class CompatibilityModeInstance_IsGioApplicable_ProxyToResponder : public ::mojo
   }
 
  private:
-  CompatibilityModeInstance_IsGioApplicable_ProxyToResponder(
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -277,7 +284,7 @@ class CompatibilityModeInstance_IsGioApplicable_ProxyToResponder : public ::mojo
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "CompatibilityModeInstance::IsGioApplicableCallback was destroyed without "
+        << "CompatibilityModeInstance::IsOptimizedForCrosAppCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -285,65 +292,66 @@ class CompatibilityModeInstance_IsGioApplicable_ProxyToResponder : public ::mojo
 #endif
 
   void Run(
-      bool in_is_gio_applicable);
+      bool in_is_o4c_app);
 };
 
-bool CompatibilityModeInstance_IsGioApplicable_ForwardToCallback::Accept(
+bool CompatibilityModeInstance_IsOptimizedForCrosApp_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data* params =
+  internal::CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data*>(
+          internal::CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
-  bool p_is_gio_applicable{};
-  CompatibilityModeInstance_IsGioApplicable_ResponseParamsDataView input_data_view(params, message);
+  bool p_is_o4c_app{};
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
-    p_is_gio_applicable = input_data_view.is_gio_applicable();
+    p_is_o4c_app = input_data_view.is_o4c_app();
   if (!success) {
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CompatibilityModeInstance::Name_, 1, true);
+        CompatibilityModeInstance::Name_, 2, true);
     return false;
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_is_gio_applicable));
+std::move(p_is_o4c_app));
   return true;
 }
 
-void CompatibilityModeInstance_IsGioApplicable_ProxyToResponder::Run(
-    bool in_is_gio_applicable) {
+void CompatibilityModeInstance_IsOptimizedForCrosApp_ProxyToResponder::Run(
+    bool in_is_o4c_app) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply arc::mojom::CompatibilityModeInstance::IsGioApplicable", "async_response_parameters",
+    "mojom", "Send reply arc::mojom::CompatibilityModeInstance::IsOptimizedForCrosApp", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("is_gio_applicable"), in_is_gio_applicable,
+           dict.AddItem("is_o4c_app"), in_is_o4c_app,
                         "<value of type bool>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kCompatibilityModeInstance_IsGioApplicable_Name, kFlags, 0, 0, nullptr);
+      internal::kCompatibilityModeInstance_IsOptimizedForCrosApp_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::arc::mojom::internal::CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data> params(
+      ::arc::mojom::internal::CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data> params(
           message);
   params.Allocate();
-  params->is_gio_applicable = in_is_gio_applicable;
+  params->is_o4c_app = in_is_o4c_app;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CompatibilityModeInstance::Name_);
-  message.set_method_name("IsGioApplicable");
+  message.set_method_name("IsOptimizedForCrosApp");
 #endif
 
   message.set_request_id(request_id_);
@@ -393,7 +401,7 @@ std::move(p_package_name),
 std::move(p_state));
       return true;
     }
-    case internal::kCompatibilityModeInstance_IsGioApplicable_Name: {
+    case internal::kCompatibilityModeInstance_IsOptimizedForCrosApp_Name: {
       break;
     }
   }
@@ -412,16 +420,16 @@ bool CompatibilityModeInstanceStubDispatch::AcceptWithResponder(
     case internal::kCompatibilityModeInstance_SetResizeLockState_Name: {
       break;
     }
-    case internal::kCompatibilityModeInstance_IsGioApplicable_Name: {
+    case internal::kCompatibilityModeInstance_IsOptimizedForCrosApp_Name: {
 
-      internal::CompatibilityModeInstance_IsGioApplicable_Params_Data* params =
+      internal::CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data* params =
           reinterpret_cast<
-              internal::CompatibilityModeInstance_IsGioApplicable_Params_Data*>(
+              internal::CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
       std::string p_package_name{};
-      CompatibilityModeInstance_IsGioApplicable_ParamsDataView input_data_view(params, message);
+      CompatibilityModeInstance_IsOptimizedForCrosApp_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPackageName(&p_package_name))
         success = false;
@@ -429,28 +437,29 @@ bool CompatibilityModeInstanceStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CompatibilityModeInstance::Name_, 1, false);
+            CompatibilityModeInstance::Name_, 2, false);
         return false;
       }
-      CompatibilityModeInstance::IsGioApplicableCallback callback =
-          CompatibilityModeInstance_IsGioApplicable_ProxyToResponder::CreateCallback(
+      CompatibilityModeInstance::IsOptimizedForCrosAppCallback callback =
+          CompatibilityModeInstance_IsOptimizedForCrosApp_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsGioApplicable(
+      impl->IsOptimizedForCrosApp(
 std::move(p_package_name), std::move(callback));
       return true;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCompatibilityModeInstanceValidationInfo[] = {
-    {&internal::CompatibilityModeInstance_SetResizeLockState_Params_Data::Validate,
+    { &internal::CompatibilityModeInstance_SetResizeLockState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CompatibilityModeInstance_IsGioApplicable_Params_Data::Validate,
-     &internal::CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data::Validate},
+    {nullptr, nullptr},  // nonexistent
+    { &internal::CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data::Validate,
+     &internal::CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data::Validate},
 };
 
 bool CompatibilityModeInstanceRequestValidator::Accept(mojo::Message* message) {
@@ -482,34 +491,34 @@ namespace arc::mojom {
 void CompatibilityModeInstanceInterceptorForTesting::SetResizeLockState(const std::string& package_name, ArcResizeLockState state) {
   GetForwardingInterface()->SetResizeLockState(std::move(package_name), std::move(state));
 }
-void CompatibilityModeInstanceInterceptorForTesting::IsGioApplicable(const std::string& package_name, IsGioApplicableCallback callback) {
-  GetForwardingInterface()->IsGioApplicable(std::move(package_name), std::move(callback));
+void CompatibilityModeInstanceInterceptorForTesting::IsOptimizedForCrosApp(const std::string& package_name, IsOptimizedForCrosAppCallback callback) {
+  GetForwardingInterface()->IsOptimizedForCrosApp(std::move(package_name), std::move(callback));
 }
 CompatibilityModeInstanceAsyncWaiter::CompatibilityModeInstanceAsyncWaiter(
     CompatibilityModeInstance* proxy) : proxy_(proxy) {}
 
 CompatibilityModeInstanceAsyncWaiter::~CompatibilityModeInstanceAsyncWaiter() = default;
 
-void CompatibilityModeInstanceAsyncWaiter::IsGioApplicable(
-    const std::string& package_name, bool* out_is_gio_applicable) {
+void CompatibilityModeInstanceAsyncWaiter::IsOptimizedForCrosApp(
+    const std::string& package_name, bool* out_is_o4c_app) {
   base::RunLoop loop;
-  proxy_->IsGioApplicable(std::move(package_name),
+  proxy_->IsOptimizedForCrosApp(std::move(package_name),
       base::BindOnce(
           [](base::RunLoop* loop,
-             bool* out_is_gio_applicable
+             bool* out_is_o4c_app
 ,
-             bool is_gio_applicable) {*out_is_gio_applicable = std::move(is_gio_applicable);
+             bool is_o4c_app) {*out_is_o4c_app = std::move(is_o4c_app);
             loop->Quit();
           },
           &loop,
-          out_is_gio_applicable));
+          out_is_o4c_app));
   loop.Run();
 }
 
-bool CompatibilityModeInstanceAsyncWaiter::IsGioApplicable(
+bool CompatibilityModeInstanceAsyncWaiter::IsOptimizedForCrosApp(
     const std::string& package_name) {
   bool async_wait_result;
-  IsGioApplicable(std::move(package_name),&async_wait_result);
+  IsOptimizedForCrosApp(std::move(package_name),&async_wait_result);
   return async_wait_result;
 }
 

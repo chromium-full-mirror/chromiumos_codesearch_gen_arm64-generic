@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -51,14 +52,14 @@ extern const int WINDOW_ID_CURRENT;
 // The type of browser window this is. In some circumstances a window may not be
 // assigned a <code>type</code> property; for example, when querying closed
 // windows from the $(ref:sessions) API.
-enum  WindowType {
-  WINDOW_TYPE_NONE = 0,
-  WINDOW_TYPE_NORMAL,
-  WINDOW_TYPE_POPUP,
-  WINDOW_TYPE_PANEL,
-  WINDOW_TYPE_APP,
-  WINDOW_TYPE_DEVTOOLS,
-  WINDOW_TYPE_LAST = WINDOW_TYPE_DEVTOOLS,
+enum class WindowType {
+  kNone = 0,
+  kNormal,
+  kPopup,
+  kPanel,
+  kApp,
+  kDevtools,
+  kMaxValue = kDevtools,
 };
 
 
@@ -69,14 +70,14 @@ std::u16string GetWindowTypeParseError(base::StringPiece as_string);
 // The state of this browser window. In some circumstances a window may not be
 // assigned a <code>state</code> property; for example, when querying closed
 // windows from the $(ref:sessions) API.
-enum  WindowState {
-  WINDOW_STATE_NONE = 0,
-  WINDOW_STATE_NORMAL,
-  WINDOW_STATE_MINIMIZED,
-  WINDOW_STATE_MAXIMIZED,
-  WINDOW_STATE_FULLSCREEN,
-  WINDOW_STATE_LOCKED_FULLSCREEN,
-  WINDOW_STATE_LAST = WINDOW_STATE_LOCKED_FULLSCREEN,
+enum class WindowState {
+  kNone = 0,
+  kNormal,
+  kMinimized,
+  kMaximized,
+  kFullscreen,
+  kLockedFullscreen,
+  kMaxValue = kLockedFullscreen,
 };
 
 
@@ -89,8 +90,8 @@ struct Window {
   ~Window();
   Window(const Window&) = delete;
   Window& operator=(const Window&) = delete;
-  Window(Window&& rhs);
-  Window& operator=(Window&& rhs);
+  Window(Window&& rhs) noexcept;
+  Window& operator=(Window&& rhs) noexcept;
 
   // Populates a Window object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -103,14 +104,11 @@ struct Window {
   // Creates a deep copy of Window.
   Window Clone() const;
 
-  // Creates a Window object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Window> FromValueDeprecated(const base::Value& value);
-
   // Creates a Window object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Window> FromValue(const base::Value::Dict& value);
+  static std::optional<Window> FromValue(const base::Value::Dict& value);
 
   // Creates a Window object from a base::Value, or nullopt on failure.
-  static absl::optional<Window> FromValue(const base::Value& value);
+  static std::optional<Window> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWindow object.
@@ -120,7 +118,7 @@ struct Window {
   // circumstances a window may not be assigned an <code>ID</code> property; for
   // example, when querying windows using the $(ref:sessions) API, in which case a
   // session ID may be present.
-  absl::optional<int> id;
+  std::optional<int> id;
 
   // Whether the window is currently the focused window.
   bool focused;
@@ -128,25 +126,25 @@ struct Window {
   // The offset of the window from the top edge of the screen in pixels. In some
   // circumstances a window may not be assigned a <code>top</code> property; for
   // example, when querying closed windows from the $(ref:sessions) API.
-  absl::optional<int> top;
+  std::optional<int> top;
 
   // The offset of the window from the left edge of the screen in pixels. In some
   // circumstances a window may not be assigned a <code>left</code> property; for
   // example, when querying closed windows from the $(ref:sessions) API.
-  absl::optional<int> left;
+  std::optional<int> left;
 
   // The width of the window, including the frame, in pixels. In some
   // circumstances a window may not be assigned a <code>width</code> property; for
   // example, when querying closed windows from the $(ref:sessions) API.
-  absl::optional<int> width;
+  std::optional<int> width;
 
   // The height of the window, including the frame, in pixels. In some
   // circumstances a window may not be assigned a <code>height</code> property;
   // for example, when querying closed windows from the $(ref:sessions) API.
-  absl::optional<int> height;
+  std::optional<int> height;
 
   // Array of $(ref:tabs.Tab) objects representing the current tabs in the window.
-  absl::optional<std::vector<extensions::api::tabs::Tab>> tabs;
+  std::optional<std::vector<extensions::api::tabs::Tab>> tabs;
 
   // Whether the window is incognito.
   bool incognito;
@@ -162,18 +160,18 @@ struct Window {
 
   // The session ID used to uniquely identify a window, obtained from the
   // $(ref:sessions) API.
-  absl::optional<std::string> session_id;
+  std::optional<std::string> session_id;
 
 };
 
 // Specifies what type of browser window to create. 'panel' is deprecated and is
 // available only to existing allowlisted extensions on Chrome OS.
-enum  CreateType {
-  CREATE_TYPE_NONE = 0,
-  CREATE_TYPE_NORMAL,
-  CREATE_TYPE_POPUP,
-  CREATE_TYPE_PANEL,
-  CREATE_TYPE_LAST = CREATE_TYPE_PANEL,
+enum class CreateType {
+  kNone = 0,
+  kNormal,
+  kPopup,
+  kPanel,
+  kMaxValue = kPanel,
 };
 
 
@@ -186,8 +184,8 @@ struct QueryOptions {
   ~QueryOptions();
   QueryOptions(const QueryOptions&) = delete;
   QueryOptions& operator=(const QueryOptions&) = delete;
-  QueryOptions(QueryOptions&& rhs);
-  QueryOptions& operator=(QueryOptions&& rhs);
+  QueryOptions(QueryOptions&& rhs) noexcept;
+  QueryOptions& operator=(QueryOptions&& rhs) noexcept;
 
   // Populates a QueryOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -200,15 +198,12 @@ struct QueryOptions {
   // Creates a deep copy of QueryOptions.
   QueryOptions Clone() const;
 
-  // Creates a QueryOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<QueryOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a QueryOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<QueryOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<QueryOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a QueryOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<QueryOptions> FromValue(const base::Value& value);
+  static std::optional<QueryOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisQueryOptions object.
@@ -219,11 +214,11 @@ struct QueryOptions {
   // only contain the <code>url</code>, <code>pendingUrl</code>,
   // <code>title</code>, and <code>favIconUrl</code> properties if the extension's
   // manifest file includes the <code>"tabs"</code> permission.
-  absl::optional<bool> populate;
+  std::optional<bool> populate;
 
   // If set, the $(ref:windows.Window) returned is filtered based on its type. If
   // unset, the default filter is set to <code>['normal', 'popup']</code>.
-  absl::optional<std::vector<WindowType>> window_types;
+  std::optional<std::vector<WindowType>> window_types;
 
 };
 
@@ -235,16 +230,16 @@ struct QueryOptions {
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int window_id;
 
-  absl::optional<QueryOptions> query_options;
+  std::optional<QueryOptions> query_options;
 
 
  private:
@@ -261,14 +256,14 @@ base::Value::List Create(const Window& window);
 namespace GetCurrent {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<QueryOptions> query_options;
+  std::optional<QueryOptions> query_options;
 
 
  private:
@@ -285,14 +280,14 @@ base::Value::List Create(const Window& window);
 namespace GetLastFocused {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<QueryOptions> query_options;
+  std::optional<QueryOptions> query_options;
 
 
  private:
@@ -309,14 +304,14 @@ base::Value::List Create(const Window& window);
 namespace GetAll {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<QueryOptions> query_options;
+  std::optional<QueryOptions> query_options;
 
 
  private:
@@ -333,11 +328,11 @@ base::Value::List Create(const std::vector<Window>& windows);
 namespace Create {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct CreateData {
@@ -345,8 +340,8 @@ struct Params {
     ~CreateData();
     CreateData(const CreateData&) = delete;
     CreateData& operator=(const CreateData&) = delete;
-    CreateData(CreateData&& rhs);
-    CreateData& operator=(CreateData&& rhs);
+    CreateData(CreateData&& rhs) noexcept;
+    CreateData& operator=(CreateData&& rhs) noexcept;
 
     // Populates a CreateData object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -361,10 +356,10 @@ struct Params {
 
     // Creates a CreateData object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<CreateData> FromValue(const base::Value::Dict& value);
+    static std::optional<CreateData> FromValue(const base::Value::Dict& value);
 
     // Creates a CreateData object from a base::Value, or nullopt on failure.
-    static absl::optional<CreateData> FromValue(const base::Value& value);
+    static std::optional<CreateData> FromValue(const base::Value& value);
 
     // A URL or array of URLs to open as tabs in the window. Fully-qualified URLs
     // must include a scheme, e.g., 'http://www.google.com', not 'www.google.com'.
@@ -375,8 +370,8 @@ struct Params {
       ~Url();
       Url(const Url&) = delete;
       Url& operator=(const Url&) = delete;
-      Url(Url&& rhs);
-      Url& operator=(Url&& rhs);
+      Url(Url&& rhs) noexcept;
+      Url& operator=(Url&& rhs) noexcept;
 
       // Populates a Url object from a base::Value& instance. Returns whether |out|
       // was successfully populated.
@@ -386,10 +381,10 @@ struct Params {
       Url Clone() const;
 
       // Creates a Url object from a base::Value, or nullopt on failure.
-      static absl::optional<Url> FromValue(const base::Value& value);
+      static std::optional<Url> FromValue(const base::Value& value);
       // Choices:
-      absl::optional<std::string> as_string;
-      absl::optional<std::vector<std::string>> as_strings;
+      std::optional<std::string> as_string;
+      std::optional<std::vector<std::string>> as_strings;
     };
 
 
@@ -397,35 +392,35 @@ struct Params {
     // must include a scheme, e.g., 'http://www.google.com', not 'www.google.com'.
     // Non-fully-qualified URLs are considered relative within the extension.
     // Defaults to the New Tab Page.
-    absl::optional<Url> url;
+    std::optional<Url> url;
 
     // The ID of the tab to add to the new window.
-    absl::optional<int> tab_id;
+    std::optional<int> tab_id;
 
     // The number of pixels to position the new window from the left edge of the
     // screen. If not specified, the new window is offset naturally from the last
     // focused window. This value is ignored for panels.
-    absl::optional<int> left;
+    std::optional<int> left;
 
     // The number of pixels to position the new window from the top edge of the
     // screen. If not specified, the new window is offset naturally from the last
     // focused window. This value is ignored for panels.
-    absl::optional<int> top;
+    std::optional<int> top;
 
     // The width in pixels of the new window, including the frame. If not specified,
     // defaults to a natural width.
-    absl::optional<int> width;
+    std::optional<int> width;
 
     // The height in pixels of the new window, including the frame. If not
     // specified, defaults to a natural height.
-    absl::optional<int> height;
+    std::optional<int> height;
 
     // If <code>true</code>, opens an active window. If <code>false</code>, opens an
     // inactive window.
-    absl::optional<bool> focused;
+    std::optional<bool> focused;
 
     // Whether the new window should be an incognito window.
-    absl::optional<bool> incognito;
+    std::optional<bool> incognito;
 
     // Specifies what type of browser window to create.
     CreateType type;
@@ -439,12 +434,12 @@ struct Params {
     // If <code>true</code>, the newly-created window's 'window.opener' is set to
     // the caller and is in the same <a
     // href="https://www.w3.org/TR/html51/browsers.html#unit-of-related-browsing-contexts">unit of related browsing contexts</a> as the caller.
-    absl::optional<bool> set_self_as_opener;
+    std::optional<bool> set_self_as_opener;
 
   };
 
 
-  absl::optional<CreateData> create_data;
+  std::optional<CreateData> create_data;
 
 
  private:
@@ -462,11 +457,11 @@ base::Value::List Create(const Window& window);
 namespace Update {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct UpdateInfo {
@@ -474,8 +469,8 @@ struct Params {
     ~UpdateInfo();
     UpdateInfo(const UpdateInfo&) = delete;
     UpdateInfo& operator=(const UpdateInfo&) = delete;
-    UpdateInfo(UpdateInfo&& rhs);
-    UpdateInfo& operator=(UpdateInfo&& rhs);
+    UpdateInfo(UpdateInfo&& rhs) noexcept;
+    UpdateInfo& operator=(UpdateInfo&& rhs) noexcept;
 
     // Populates a UpdateInfo object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -490,39 +485,39 @@ struct Params {
 
     // Creates a UpdateInfo object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<UpdateInfo> FromValue(const base::Value::Dict& value);
+    static std::optional<UpdateInfo> FromValue(const base::Value::Dict& value);
 
     // Creates a UpdateInfo object from a base::Value, or nullopt on failure.
-    static absl::optional<UpdateInfo> FromValue(const base::Value& value);
+    static std::optional<UpdateInfo> FromValue(const base::Value& value);
 
     // The offset from the left edge of the screen to move the window to in pixels.
     // This value is ignored for panels.
-    absl::optional<int> left;
+    std::optional<int> left;
 
     // The offset from the top edge of the screen to move the window to in pixels.
     // This value is ignored for panels.
-    absl::optional<int> top;
+    std::optional<int> top;
 
     // The width to resize the window to in pixels. This value is ignored for
     // panels.
-    absl::optional<int> width;
+    std::optional<int> width;
 
     // The height to resize the window to in pixels. This value is ignored for
     // panels.
-    absl::optional<int> height;
+    std::optional<int> height;
 
     // If <code>true</code>, brings the window to the front; cannot be combined with
     // the state 'minimized'. If <code>false</code>, brings the next window in the
     // z-order to the front; cannot be combined with the state 'fullscreen' or
     // 'maximized'.
-    absl::optional<bool> focused;
+    std::optional<bool> focused;
 
     // If <code>true</code>, causes the window to be displayed in a manner that
     // draws the user's attention to the window, without changing the focused
     // window. The effect lasts until the user changes focus to the window. This
     // option has no effect if the window already has focus. Set to
     // <code>false</code> to cancel a previous <code>drawAttention</code> request.
-    absl::optional<bool> draw_attention;
+    std::optional<bool> draw_attention;
 
     // The new state of the window. The 'minimized', 'maximized', and 'fullscreen'
     // states cannot be combined with 'left', 'top', 'width', or 'height'.
@@ -550,11 +545,11 @@ base::Value::List Create(const Window& window);
 namespace Remove {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int window_id;

@@ -630,70 +630,7 @@
   };
   AutomationStub.prototype.validator = validateAutomationRequest;
   AutomationProxy.prototype.validator = null;
-
-  function AutomationClientPtr(handleOrPtrInfo) {
-    this.ptr = new bindings.InterfacePtrController(AutomationClient,
-                                                   handleOrPtrInfo);
-  }
-
-  function AutomationClientAssociatedPtr(associatedInterfacePtrInfo) {
-    this.ptr = new associatedBindings.AssociatedInterfacePtrController(
-        AutomationClient, associatedInterfacePtrInfo);
-  }
-
-  AutomationClientAssociatedPtr.prototype =
-      Object.create(AutomationClientPtr.prototype);
-  AutomationClientAssociatedPtr.prototype.constructor =
-      AutomationClientAssociatedPtr;
-
-  function AutomationClientProxy(receiver) {
-    this.receiver_ = receiver;
-  }
-
-  function AutomationClientStub(delegate) {
-    this.delegate_ = delegate;
-  }
-
-  AutomationClientStub.prototype.accept = function(message) {
-    var reader = new codec.MessageReader(message);
-    switch (reader.messageName) {
-    default:
-      return false;
-    }
-  };
-
-  AutomationClientStub.prototype.acceptWithResponder =
-      function(message, responder) {
-    var reader = new codec.MessageReader(message);
-    switch (reader.messageName) {
-    default:
-      return false;
-    }
-  };
-
-  function validateAutomationClientRequest(messageValidator) {
-    return validator.validationError.NONE;
-  }
-
-  function validateAutomationClientResponse(messageValidator) {
-    return validator.validationError.NONE;
-  }
-
-  var AutomationClient = {
-    name: 'ax.mojom.AutomationClient',
-    kVersion: 0,
-    ptrClass: AutomationClientPtr,
-    proxyClass: AutomationClientProxy,
-    stubClass: AutomationClientStub,
-    validateRequest: validateAutomationClientRequest,
-    validateResponse: null,
-  };
-  AutomationClientStub.prototype.validator = validateAutomationClientRequest;
-  AutomationClientProxy.prototype.validator = null;
   exports.Automation = Automation;
   exports.AutomationPtr = AutomationPtr;
   exports.AutomationAssociatedPtr = AutomationAssociatedPtr;
-  exports.AutomationClient = AutomationClient;
-  exports.AutomationClientPtr = AutomationClientPtr;
-  exports.AutomationClientAssociatedPtr = AutomationClientAssociatedPtr;
 })();

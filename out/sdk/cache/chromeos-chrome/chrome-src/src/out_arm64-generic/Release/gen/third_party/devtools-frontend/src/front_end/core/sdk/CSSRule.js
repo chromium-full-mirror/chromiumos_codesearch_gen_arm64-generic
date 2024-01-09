@@ -221,6 +221,16 @@ export class CSSPropertyRule extends CSSRule {
         return this.cssModelInternal.setPropertyRulePropertyName(styleSheetId, range, newPropertyName);
     }
 }
+export class CSSFontPaletteValuesRule extends CSSRule {
+    #paletteName;
+    constructor(cssModel, payload) {
+        super(cssModel, { origin: payload.origin, style: payload.style, styleSheetId: payload.styleSheetId });
+        this.#paletteName = new CSSValue(payload.fontPaletteName);
+    }
+    name() {
+        return this.#paletteName;
+    }
+}
 export class CSSKeyframesRule {
     #animationName;
     #keyframesInternal;

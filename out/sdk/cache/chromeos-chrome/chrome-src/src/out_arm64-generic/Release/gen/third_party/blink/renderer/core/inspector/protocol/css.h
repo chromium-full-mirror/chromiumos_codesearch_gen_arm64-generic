@@ -50,6 +50,7 @@ class CSSTryRule;
 class CSSPositionFallbackRule;
 class CSSKeyframesRule;
 class CSSPropertyRegistration;
+class CSSFontPaletteValuesRule;
 class CSSPropertyRule;
 class CSSKeyframeRule;
 class StyleDeclarationEdit;
@@ -2439,6 +2440,9 @@ public:
     String getFamilyName() { return m_familyName; }
     void setFamilyName(const String& value) { m_familyName = value; }
 
+    String getPostScriptName() { return m_postScriptName; }
+    void setPostScriptName(const String& value) { m_postScriptName = value; }
+
     bool getIsCustomFont() { return m_isCustomFont; }
     void setIsCustomFont(bool value) { m_isCustomFont = value; }
 
@@ -2451,9 +2455,10 @@ public:
         enum {
             NoFieldsSet = 0,
             FamilyNameSet = 1 << 1,
-            IsCustomFontSet = 1 << 2,
-            GlyphCountSet = 1 << 3,
-            AllFieldsSet = (FamilyNameSet | IsCustomFontSet | GlyphCountSet | 0)};
+            PostScriptNameSet = 1 << 2,
+            IsCustomFontSet = 1 << 3,
+            GlyphCountSet = 1 << 4,
+            AllFieldsSet = (FamilyNameSet | PostScriptNameSet | IsCustomFontSet | GlyphCountSet | 0)};
 
 
         PlatformFontUsageBuilder<STATE | FamilyNameSet>& setFamilyName(const String& value)
@@ -2461,6 +2466,13 @@ public:
             static_assert(!(STATE & FamilyNameSet), "property familyName should not be set yet");
             m_result->setFamilyName(value);
             return castState<FamilyNameSet>();
+        }
+
+        PlatformFontUsageBuilder<STATE | PostScriptNameSet>& setPostScriptName(const String& value)
+        {
+            static_assert(!(STATE & PostScriptNameSet), "property postScriptName should not be set yet");
+            m_result->setPostScriptName(value);
+            return castState<PostScriptNameSet>();
         }
 
         PlatformFontUsageBuilder<STATE | IsCustomFontSet>& setIsCustomFont(bool value)
@@ -2510,6 +2522,7 @@ private:
     }
 
     String m_familyName;
+    String m_postScriptName;
     bool m_isCustomFont;
     double m_glyphCount;
 };
@@ -3104,6 +3117,100 @@ private:
 };
 
 
+class CORE_EXPORT CSSFontPaletteValuesRule : public ::crdtp::ProtocolObject<CSSFontPaletteValuesRule> {
+public:
+    ~CSSFontPaletteValuesRule() override { }
+
+    bool hasStyleSheetId() { return m_styleSheetId.has_value(); }
+    String getStyleSheetId(const String& defaultValue) const {
+       return m_styleSheetId.value_or(defaultValue);
+    }
+    void setStyleSheetId(const String& value) { m_styleSheetId = value; }
+
+    String getOrigin() { return m_origin; }
+    void setOrigin(const String& value) { m_origin = value; }
+
+    protocol::CSS::Value* getFontPaletteName() { return m_fontPaletteName.get(); }
+    void setFontPaletteName(std::unique_ptr<protocol::CSS::Value> value) { m_fontPaletteName = std::move(value); }
+
+    protocol::CSS::CSSStyle* getStyle() { return m_style.get(); }
+    void setStyle(std::unique_ptr<protocol::CSS::CSSStyle> value) { m_style = std::move(value); }
+
+    template<int STATE>
+    class CSSFontPaletteValuesRuleBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            OriginSet = 1 << 1,
+            FontPaletteNameSet = 1 << 2,
+            StyleSet = 1 << 3,
+            AllFieldsSet = (OriginSet | FontPaletteNameSet | StyleSet | 0)};
+
+
+        CSSFontPaletteValuesRuleBuilder<STATE>& setStyleSheetId(const String& value)
+        {
+            m_result->setStyleSheetId(value);
+            return *this;
+        }
+
+        CSSFontPaletteValuesRuleBuilder<STATE | OriginSet>& setOrigin(const String& value)
+        {
+            static_assert(!(STATE & OriginSet), "property origin should not be set yet");
+            m_result->setOrigin(value);
+            return castState<OriginSet>();
+        }
+
+        CSSFontPaletteValuesRuleBuilder<STATE | FontPaletteNameSet>& setFontPaletteName(std::unique_ptr<protocol::CSS::Value> value)
+        {
+            static_assert(!(STATE & FontPaletteNameSet), "property fontPaletteName should not be set yet");
+            m_result->setFontPaletteName(std::move(value));
+            return castState<FontPaletteNameSet>();
+        }
+
+        CSSFontPaletteValuesRuleBuilder<STATE | StyleSet>& setStyle(std::unique_ptr<protocol::CSS::CSSStyle> value)
+        {
+            static_assert(!(STATE & StyleSet), "property style should not be set yet");
+            m_result->setStyle(std::move(value));
+            return castState<StyleSet>();
+        }
+
+        std::unique_ptr<CSSFontPaletteValuesRule> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class CSSFontPaletteValuesRule;
+        CSSFontPaletteValuesRuleBuilder() : m_result(new CSSFontPaletteValuesRule()) { }
+
+        template<int STEP> CSSFontPaletteValuesRuleBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<CSSFontPaletteValuesRuleBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::CSS::CSSFontPaletteValuesRule> m_result;
+    };
+
+    static CSSFontPaletteValuesRuleBuilder<0> create()
+    {
+        return CSSFontPaletteValuesRuleBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    CSSFontPaletteValuesRule()
+    {
+    }
+
+    Maybe<String> m_styleSheetId;
+    String m_origin;
+    std::unique_ptr<protocol::CSS::Value> m_fontPaletteName;
+    std::unique_ptr<protocol::CSS::CSSStyle> m_style;
+};
+
+
 class CORE_EXPORT CSSPropertyRule : public ::crdtp::ProtocolObject<CSSPropertyRule> {
 public:
     ~CSSPropertyRule() override { }
@@ -3379,7 +3486,7 @@ class CORE_EXPORT Backend {
 public:
     virtual ~Backend() { }
 
-    virtual DispatchResponse addRule(const String& in_styleSheetId, const String& in_ruleText, std::unique_ptr<protocol::CSS::SourceRange> in_location, std::unique_ptr<protocol::CSS::CSSRule>* out_rule) = 0;
+    virtual DispatchResponse addRule(const String& in_styleSheetId, const String& in_ruleText, std::unique_ptr<protocol::CSS::SourceRange> in_location, Maybe<int> in_nodeForPropertySyntaxValidation, std::unique_ptr<protocol::CSS::CSSRule>* out_rule) = 0;
     virtual DispatchResponse collectClassNames(const String& in_styleSheetId, std::unique_ptr<protocol::Array<String>>* out_classNames) = 0;
     virtual DispatchResponse createStyleSheet(const String& in_frameId, String* out_styleSheetId) = 0;
     virtual DispatchResponse disable() = 0;
@@ -3395,7 +3502,7 @@ public:
     virtual DispatchResponse getBackgroundColors(int in_nodeId, Maybe<protocol::Array<String>>* out_backgroundColors, Maybe<String>* out_computedFontSize, Maybe<String>* out_computedFontWeight) = 0;
     virtual DispatchResponse getComputedStyleForNode(int in_nodeId, std::unique_ptr<protocol::Array<protocol::CSS::CSSComputedStyleProperty>>* out_computedStyle) = 0;
     virtual DispatchResponse getInlineStylesForNode(int in_nodeId, Maybe<protocol::CSS::CSSStyle>* out_inlineStyle, Maybe<protocol::CSS::CSSStyle>* out_attributesStyle) = 0;
-    virtual DispatchResponse getMatchedStylesForNode(int in_nodeId, Maybe<protocol::CSS::CSSStyle>* out_inlineStyle, Maybe<protocol::CSS::CSSStyle>* out_attributesStyle, Maybe<protocol::Array<protocol::CSS::RuleMatch>>* out_matchedCSSRules, Maybe<protocol::Array<protocol::CSS::PseudoElementMatches>>* out_pseudoElements, Maybe<protocol::Array<protocol::CSS::InheritedStyleEntry>>* out_inherited, Maybe<protocol::Array<protocol::CSS::InheritedPseudoElementMatches>>* out_inheritedPseudoElements, Maybe<protocol::Array<protocol::CSS::CSSKeyframesRule>>* out_cssKeyframesRules, Maybe<protocol::Array<protocol::CSS::CSSPositionFallbackRule>>* out_cssPositionFallbackRules, Maybe<protocol::Array<protocol::CSS::CSSPropertyRule>>* out_cssPropertyRules, Maybe<protocol::Array<protocol::CSS::CSSPropertyRegistration>>* out_cssPropertyRegistrations, Maybe<int>* out_parentLayoutNodeId) = 0;
+    virtual DispatchResponse getMatchedStylesForNode(int in_nodeId, Maybe<protocol::CSS::CSSStyle>* out_inlineStyle, Maybe<protocol::CSS::CSSStyle>* out_attributesStyle, Maybe<protocol::Array<protocol::CSS::RuleMatch>>* out_matchedCSSRules, Maybe<protocol::Array<protocol::CSS::PseudoElementMatches>>* out_pseudoElements, Maybe<protocol::Array<protocol::CSS::InheritedStyleEntry>>* out_inherited, Maybe<protocol::Array<protocol::CSS::InheritedPseudoElementMatches>>* out_inheritedPseudoElements, Maybe<protocol::Array<protocol::CSS::CSSKeyframesRule>>* out_cssKeyframesRules, Maybe<protocol::Array<protocol::CSS::CSSPositionFallbackRule>>* out_cssPositionFallbackRules, Maybe<protocol::Array<protocol::CSS::CSSPropertyRule>>* out_cssPropertyRules, Maybe<protocol::Array<protocol::CSS::CSSPropertyRegistration>>* out_cssPropertyRegistrations, Maybe<protocol::CSS::CSSFontPaletteValuesRule>* out_cssFontPaletteValuesRule, Maybe<int>* out_parentLayoutNodeId) = 0;
     virtual DispatchResponse getMediaQueries(std::unique_ptr<protocol::Array<protocol::CSS::CSSMedia>>* out_medias) = 0;
     virtual DispatchResponse getPlatformFontsForNode(int in_nodeId, std::unique_ptr<protocol::Array<protocol::CSS::PlatformFontUsage>>* out_fonts) = 0;
     virtual DispatchResponse getStyleSheetText(const String& in_styleSheetId, String* out_text) = 0;
@@ -3418,7 +3525,7 @@ public:
     virtual DispatchResponse setScopeText(const String& in_styleSheetId, std::unique_ptr<protocol::CSS::SourceRange> in_range, const String& in_text, std::unique_ptr<protocol::CSS::CSSScope>* out_scope) = 0;
     virtual DispatchResponse setRuleSelector(const String& in_styleSheetId, std::unique_ptr<protocol::CSS::SourceRange> in_range, const String& in_selector, std::unique_ptr<protocol::CSS::SelectorList>* out_selectorList) = 0;
     virtual DispatchResponse setStyleSheetText(const String& in_styleSheetId, const String& in_text, Maybe<String>* out_sourceMapURL) = 0;
-    virtual DispatchResponse setStyleTexts(std::unique_ptr<protocol::Array<protocol::CSS::StyleDeclarationEdit>> in_edits, std::unique_ptr<protocol::Array<protocol::CSS::CSSStyle>>* out_styles) = 0;
+    virtual DispatchResponse setStyleTexts(std::unique_ptr<protocol::Array<protocol::CSS::StyleDeclarationEdit>> in_edits, Maybe<int> in_nodeForPropertySyntaxValidation, std::unique_ptr<protocol::Array<protocol::CSS::CSSStyle>>* out_styles) = 0;
     virtual DispatchResponse startRuleUsageTracking() = 0;
     virtual DispatchResponse stopRuleUsageTracking(std::unique_ptr<protocol::Array<protocol::CSS::RuleUsage>>* out_ruleUsage) = 0;
     virtual DispatchResponse takeCoverageDelta(std::unique_ptr<protocol::Array<protocol::CSS::RuleUsage>>* out_coverage, double* out_timestamp) = 0;

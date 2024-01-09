@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -319,14 +320,17 @@ void MidiSessionClientProxy::AddInputPort(
                         "<value of type PortInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidiSessionClient_AddInputPort_Name, kFlags, 0, 0, nullptr);
@@ -367,14 +371,17 @@ void MidiSessionClientProxy::AddOutputPort(
                         "<value of type PortInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidiSessionClient_AddOutputPort_Name, kFlags, 0, 0, nullptr);
@@ -418,14 +425,17 @@ void MidiSessionClientProxy::SetInputPortState(
                         "<value of type PortState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidiSessionClient_SetInputPortState_Name, kFlags, 0, 0, nullptr);
@@ -461,14 +471,17 @@ void MidiSessionClientProxy::SetOutputPortState(
                         "<value of type PortState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidiSessionClient_SetOutputPortState_Name, kFlags, 0, 0, nullptr);
@@ -501,14 +514,17 @@ void MidiSessionClientProxy::SessionStarted(
                         "<value of type Result>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidiSessionClient_SessionStarted_Name, kFlags, 0, 0, nullptr);
@@ -540,14 +556,17 @@ void MidiSessionClientProxy::AcknowledgeSentData(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidiSessionClient_AcknowledgeSentData_Name, kFlags, 0, 0, nullptr);
@@ -584,14 +603,17 @@ void MidiSessionClientProxy::DataReceived(
                         "<value of type ::base::TimeTicks>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidiSessionClient_DataReceived_Name, kFlags, 0, 0, nullptr);
@@ -874,22 +896,22 @@ bool MidiSessionClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMidiSessionClientValidationInfo[] = {
-    {&internal::MidiSessionClient_AddInputPort_Params_Data::Validate,
+    { &internal::MidiSessionClient_AddInputPort_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MidiSessionClient_AddOutputPort_Params_Data::Validate,
+    { &internal::MidiSessionClient_AddOutputPort_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MidiSessionClient_SetInputPortState_Params_Data::Validate,
+    { &internal::MidiSessionClient_SetInputPortState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MidiSessionClient_SetOutputPortState_Params_Data::Validate,
+    { &internal::MidiSessionClient_SetOutputPortState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MidiSessionClient_SessionStarted_Params_Data::Validate,
+    { &internal::MidiSessionClient_SessionStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MidiSessionClient_AcknowledgeSentData_Params_Data::Validate,
+    { &internal::MidiSessionClient_AcknowledgeSentData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MidiSessionClient_DataReceived_Params_Data::Validate,
+    { &internal::MidiSessionClient_DataReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -972,14 +994,17 @@ void MidiSessionProviderProxy::StartSession(
                         "<value of type ::mojo::PendingRemote<MidiSessionClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidiSessionProvider_StartSession_Name, kFlags, 0, 0, nullptr);
@@ -1067,10 +1092,10 @@ bool MidiSessionProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMidiSessionProviderValidationInfo[] = {
-    {&internal::MidiSessionProvider_StartSession_Params_Data::Validate,
+    { &internal::MidiSessionProvider_StartSession_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1156,14 +1181,17 @@ void MidiSessionProxy::SendData(
                         "<value of type ::base::TimeTicks>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMidiSession_SendData_Name, kFlags, 0, 0, nullptr);
@@ -1264,10 +1292,10 @@ bool MidiSessionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMidiSessionValidationInfo[] = {
-    {&internal::MidiSession_SendData_Params_Data::Validate,
+    { &internal::MidiSession_SendData_Params_Data::Validate,
      nullptr /* no response */},
 };
 

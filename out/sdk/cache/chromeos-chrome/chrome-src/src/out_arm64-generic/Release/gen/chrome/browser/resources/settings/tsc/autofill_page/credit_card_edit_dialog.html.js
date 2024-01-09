@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared md-select">cr-input{--cr-input-error-display:block;margin-bottom:0;width:var(--cr-default-input-max-width)}.md-select+.md-select{margin-inline-start:8px}#month{width:70px}#saved-to-this-device-only-label{margin-bottom:10px;margin-top:0}#year{width:100px}#nicknameInput{--cr-input-width:var(--cr-default-input-max-width);width:fit-content}#charCount{font-size:var(--cr-form-field-label-font-size);line-height:var(--cr-form-field-label-line-height);padding-inline-start:8px}#nicknameInput:not(:focus-within) #charCount{display:none}#expiredError{display:block;font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden}:host([expired_]) #expiredError{visibility:visible}#expiredError,:host([expired_]) #expiration{color:var(--google-red-600)}@media (prefers-color-scheme:dark){#expiredError,:host([expired_]) #expiration{color:var(--google-red-300)}}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared md-select">cr-input{--cr-input-error-display:block;margin-bottom:0;width:var(--cr-default-input-max-width)}.md-select+.md-select{margin-inline-start:8px}#month{width:70px}#cvcInput{width:132px}#cvcImage{margin-inline-start:10px}#saved-to-this-device-only-label{margin-bottom:10px;margin-top:0}#year{width:100px}#nicknameInput{--cr-input-width:var(--cr-default-input-max-width);width:fit-content}#charCount{font-size:var(--cr-form-field-label-font-size);line-height:var(--cr-form-field-label-line-height);padding-inline-start:8px}#nicknameInput:not(:focus-within) #charCount{display:none}#expiredError{display:block;font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden}:host([expired_]) #expiredError{visibility:visible}#expiredError,:host([expired_]) #expiration{color:var(--google-red-600)}@media (prefers-color-scheme:dark){#expiredError,:host([expired_]) #expiration{color:var(--google-red-300)}}</style>
     <cr-dialog id="dialog" close-text="$i18n{close}">
       <div slot="title">[[title_]]</div>
       <div slot="body">
@@ -21,6 +21,14 @@ export function getTemplate() {
           </template>
         </select>
         <div id="expiredError">$i18n{creditCardExpired}</div>
+        <template is="dom-if" if="[[checkIfCvcStorageIsAvailable_(
+                  prefs.autofill.payment_cvc_storage.value,
+                  cvcStorageAvailable_)]]">
+          <cr-input id="cvcInput" label="$i18n{creditCardCvcInputTitle}" placeholder="$i18n{creditCardCvcInputPlaceholder}" value="{{cvc_}}">
+            <img slot="suffix" id="cvcImage" src="[[getCvcImageSource_(cardNumber_)]]" title="[[getCvcImageTooltip_(cardNumber_)]]">
+            
+          </cr-input>
+        </template>
         
         <cr-input id="nameInput" label="$i18n{creditCardName}" value="{{name_}}" spellcheck="false">
         </cr-input>

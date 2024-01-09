@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -295,14 +296,17 @@ void BrowserCdmFactoryProxy::CreateFactory(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_CreateFactory_Name, kFlags, 0, 0, nullptr);
@@ -344,14 +348,17 @@ void BrowserCdmFactoryProxy::GetOutputProtection(
                         "<value of type ::mojo::PendingReceiver<::chromeos::cdm::mojom::OutputProtection>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_GetOutputProtection_Name, kFlags, 0, 0, nullptr);
@@ -380,14 +387,17 @@ void BrowserCdmFactoryProxy::GetHwConfigData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::cdm::mojom::BrowserCdmFactory::GetHwConfigData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_GetHwConfigData_Name, kFlags, 0, 0, nullptr);
@@ -411,14 +421,17 @@ void BrowserCdmFactoryProxy::GetScreenResolutions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::cdm::mojom::BrowserCdmFactory::GetScreenResolutions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_GetScreenResolutions_Name, kFlags, 0, 0, nullptr);
@@ -452,14 +465,17 @@ void BrowserCdmFactoryProxy::GetAndroidHwKeyData(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_GetAndroidHwKeyData_Name, kFlags, 0, 0, nullptr);
@@ -516,14 +532,17 @@ void BrowserCdmFactoryProxy::AllocateSecureBuffer(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_AllocateSecureBuffer_Name, kFlags, 0, 0, nullptr);
@@ -636,7 +655,8 @@ void BrowserCdmFactory_CreateFactory_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_CreateFactory_Name, kFlags, 0, 0, nullptr);
@@ -762,7 +782,8 @@ void BrowserCdmFactory_GetHwConfigData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_GetHwConfigData_Name, kFlags, 0, 0, nullptr);
@@ -893,7 +914,8 @@ void BrowserCdmFactory_GetScreenResolutions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_GetScreenResolutions_Name, kFlags, 0, 0, nullptr);
@@ -1030,7 +1052,8 @@ void BrowserCdmFactory_GetAndroidHwKeyData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_GetAndroidHwKeyData_Name, kFlags, 0, 0, nullptr);
@@ -1162,7 +1185,8 @@ void BrowserCdmFactory_AllocateSecureBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserCdmFactory_AllocateSecureBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1398,20 +1422,20 @@ std::move(p_size), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBrowserCdmFactoryValidationInfo[] = {
-    {&internal::BrowserCdmFactory_CreateFactory_Params_Data::Validate,
+    { &internal::BrowserCdmFactory_CreateFactory_Params_Data::Validate,
      &internal::BrowserCdmFactory_CreateFactory_ResponseParams_Data::Validate},
-    {&internal::BrowserCdmFactory_GetOutputProtection_Params_Data::Validate,
+    { &internal::BrowserCdmFactory_GetOutputProtection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserCdmFactory_GetHwConfigData_Params_Data::Validate,
+    { &internal::BrowserCdmFactory_GetHwConfigData_Params_Data::Validate,
      &internal::BrowserCdmFactory_GetHwConfigData_ResponseParams_Data::Validate},
-    {&internal::BrowserCdmFactory_GetScreenResolutions_Params_Data::Validate,
+    { &internal::BrowserCdmFactory_GetScreenResolutions_Params_Data::Validate,
      &internal::BrowserCdmFactory_GetScreenResolutions_ResponseParams_Data::Validate},
-    {&internal::BrowserCdmFactory_GetAndroidHwKeyData_Params_Data::Validate,
+    { &internal::BrowserCdmFactory_GetAndroidHwKeyData_Params_Data::Validate,
      &internal::BrowserCdmFactory_GetAndroidHwKeyData_ResponseParams_Data::Validate},
-    {&internal::BrowserCdmFactory_AllocateSecureBuffer_Params_Data::Validate,
+    { &internal::BrowserCdmFactory_AllocateSecureBuffer_Params_Data::Validate,
      &internal::BrowserCdmFactory_AllocateSecureBuffer_ResponseParams_Data::Validate},
 };
 

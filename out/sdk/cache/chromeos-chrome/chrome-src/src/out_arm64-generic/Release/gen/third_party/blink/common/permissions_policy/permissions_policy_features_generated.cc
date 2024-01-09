@@ -59,6 +59,9 @@ PermissionsPolicyFeatureList GetBasePermissionsPolicyFeatureList() {
           mojom::PermissionsPolicyFeature::kCamera,
           PermissionsPolicyFeatureDefault::EnableForSelf
         },        {
+          mojom::PermissionsPolicyFeature::kCapturedSurfaceControl,
+          PermissionsPolicyFeatureDefault::EnableForSelf
+        },        {
           mojom::PermissionsPolicyFeature::kClientHintDPR,
           PermissionsPolicyFeatureDefault::EnableForSelf
         },        {
@@ -215,6 +218,9 @@ PermissionsPolicyFeatureList GetBasePermissionsPolicyFeatureList() {
           mojom::PermissionsPolicyFeature::kPrivateStateTokenIssuance,
           PermissionsPolicyFeatureDefault::EnableForSelf
         },        {
+          mojom::PermissionsPolicyFeature::kPublicKeyCredentialsCreate,
+          PermissionsPolicyFeatureDefault::EnableForSelf
+        },        {
           mojom::PermissionsPolicyFeature::kPublicKeyCredentialsGet,
           PermissionsPolicyFeatureDefault::EnableForSelf
         },        {
@@ -242,6 +248,9 @@ PermissionsPolicyFeatureList GetBasePermissionsPolicyFeatureList() {
           mojom::PermissionsPolicyFeature::kStorageAccessAPI,
           PermissionsPolicyFeatureDefault::EnableForAll
         },        {
+          mojom::PermissionsPolicyFeature::kSubApps,
+          PermissionsPolicyFeatureDefault::EnableForSelf
+        },        {
           mojom::PermissionsPolicyFeature::kSyncXHR,
           PermissionsPolicyFeatureDefault::EnableForAll
         },        {
@@ -251,11 +260,17 @@ PermissionsPolicyFeatureList GetBasePermissionsPolicyFeatureList() {
           mojom::PermissionsPolicyFeature::kUsb,
           PermissionsPolicyFeatureDefault::EnableForSelf
         },        {
+          mojom::PermissionsPolicyFeature::kUsbUnrestricted,
+          PermissionsPolicyFeatureDefault::EnableForSelf
+        },        {
           mojom::PermissionsPolicyFeature::kUnload,
           PermissionsPolicyFeatureDefault::EnableForAll
         },        {
           mojom::PermissionsPolicyFeature::kVerticalScroll,
           PermissionsPolicyFeatureDefault::EnableForAll
+        },        {
+          mojom::PermissionsPolicyFeature::kWebPrinting,
+          PermissionsPolicyFeatureDefault::EnableForSelf
         },        {
           mojom::PermissionsPolicyFeature::kWebShare,
           PermissionsPolicyFeatureDefault::EnableForSelf

@@ -28,9 +28,9 @@ class ConnectorsTabsElement extends CustomElement {
     get noConnectorsMessage() {
         return this.$('#no-connectors-message');
     }
+    enabledTabs = connectorTabs.filter(x => x.isEnabled);
     constructor() {
         super();
-        this.enabledTabs = connectorTabs.filter(x => x.isEnabled);
         // Exit early if no connectors are enabled.
         if (!this.enabledTabs.length) {
             this.showElement(this.noConnectorsMessage);

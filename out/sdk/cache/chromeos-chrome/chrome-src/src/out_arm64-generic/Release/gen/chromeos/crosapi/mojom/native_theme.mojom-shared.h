@@ -127,7 +127,7 @@ static_assert(
     return mojo::internal::Deserialize<::color::mojom::SchemeVariant>(
         data_->scheme_variant_$value, &output->emplace());
   }
-  absl::optional<::color::mojom::SchemeVariant> scheme_variant() const {
+  std::optional<::color::mojom::SchemeVariant> scheme_variant() const {
     if (data_->header_.version < 1) {
       return absl::nullopt;
     }

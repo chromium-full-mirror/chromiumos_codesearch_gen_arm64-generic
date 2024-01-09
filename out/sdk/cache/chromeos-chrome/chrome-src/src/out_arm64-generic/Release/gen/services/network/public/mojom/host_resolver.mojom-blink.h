@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/host_resolver.mojom-features.h"
 #include "services/network/public/mojom/host_resolver.mojom-shared.h"
 #include "services/network/public/mojom/host_resolver.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -48,114 +49,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::OptionalSecureDnsMode>
-    : EnumHashTraits<::network::mojom::OptionalSecureDnsMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::SecureDnsMode>
-    : EnumHashTraits<::network::mojom::SecureDnsMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::SecureDnsPolicy>
-    : EnumHashTraits<::network::mojom::SecureDnsPolicy, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::DnsQueryType>
-    : EnumHashTraits<::network::mojom::DnsQueryType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::DnsConfigOverrides_Tristate>
-    : EnumHashTraits<::network::mojom::DnsConfigOverrides_Tristate, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ResolveHostParameters_Source>
-    : EnumHashTraits<::network::mojom::ResolveHostParameters_Source, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ResolveHostParameters_CacheUsage>
-    : EnumHashTraits<::network::mojom::ResolveHostParameters_CacheUsage, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ResolveHostParameters_Purpose>
-    : EnumHashTraits<::network::mojom::ResolveHostParameters_Purpose, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::MdnsListenClient_UpdateType>
-    : EnumHashTraits<::network::mojom::MdnsListenClient_UpdateType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -255,7 +148,7 @@ class BLINK_PLATFORM_EXPORT ResolveHostClient
   virtual ~ResolveHostClient() = default;
 
   
-  virtual void OnComplete(int32_t result, ::network::mojom::blink::ResolveErrorInfoPtr resolve_error_info, ::network::mojom::blink::AddressListPtr resolved_addresses, absl::optional<WTF::Vector<::network::mojom::blink::HostResolverEndpointResultPtr>> endpoint_results_with_metadata) = 0;
+  virtual void OnComplete(int32_t result, ::network::mojom::blink::ResolveErrorInfoPtr resolve_error_info, ::network::mojom::blink::AddressListPtr resolved_addresses, std::optional<WTF::Vector<::network::mojom::blink::HostResolverEndpointResultPtr>> endpoint_results_with_metadata) = 0;
 
   
   virtual void OnTextResults(const WTF::Vector<WTF::String>& text_results) = 0;
@@ -501,7 +394,7 @@ class BLINK_PLATFORM_EXPORT ResolveHostClientProxy
 
   explicit ResolveHostClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnComplete(int32_t result, ::network::mojom::blink::ResolveErrorInfoPtr resolve_error_info, ::network::mojom::blink::AddressListPtr resolved_addresses, absl::optional<WTF::Vector<::network::mojom::blink::HostResolverEndpointResultPtr>> endpoint_results_with_metadata) final;
+  void OnComplete(int32_t result, ::network::mojom::blink::ResolveErrorInfoPtr resolve_error_info, ::network::mojom::blink::AddressListPtr resolved_addresses, std::optional<WTF::Vector<::network::mojom::blink::HostResolverEndpointResultPtr>> endpoint_results_with_metadata) final;
   
   void OnTextResults(const WTF::Vector<WTF::String>& text_results) final;
   
@@ -880,17 +773,17 @@ class BLINK_PLATFORM_EXPORT HostResolverHost {
   // Construct an instance holding |scheme_host_port|.
   static HostResolverHostPtr
   NewSchemeHostPort(
-      ::url::mojom::blink::SchemeHostPortPtr scheme_host_port) {
+      ::url::mojom::blink::SchemeHostPortPtr value) {
     auto result = HostResolverHostPtr(absl::in_place);
-    result->set_scheme_host_port(std::move(scheme_host_port));
+    result->set_scheme_host_port(std::move(value));
     return result;
   }
   // Construct an instance holding |host_port_pair|.
   static HostResolverHostPtr
   NewHostPortPair(
-      const ::net::HostPortPair& host_port_pair) {
+      const ::net::HostPortPair& value) {
     auto result = HostResolverHostPtr(absl::in_place);
-    result->set_host_port_pair(std::move(host_port_pair));
+    result->set_host_port_pair(std::move(value));
     return result;
   }
 
@@ -1306,11 +1199,11 @@ class BLINK_PLATFORM_EXPORT DnsConfigOverrides {
   DnsConfigOverrides();
 
   DnsConfigOverrides(
-      absl::optional<WTF::Vector<::net::IPEndPoint>> nameservers,
-      absl::optional<WTF::Vector<WTF::String>> search,
+      std::optional<WTF::Vector<::net::IPEndPoint>> nameservers,
+      std::optional<WTF::Vector<WTF::String>> search,
       DnsConfigOverrides::Tristate append_to_multi_label_name,
       int8_t ndots,
-      absl::optional<::base::TimeDelta> fallback_period,
+      std::optional<::base::TimeDelta> fallback_period,
       int32_t attempts,
       DnsConfigOverrides::Tristate rotate,
       DnsConfigOverrides::Tristate use_local_ipv6,
@@ -1397,15 +1290,15 @@ DnsConfigOverrides& operator=(const DnsConfigOverrides&) = delete;
   }
 
   
-  absl::optional<WTF::Vector<::net::IPEndPoint>> nameservers;
+  std::optional<WTF::Vector<::net::IPEndPoint>> nameservers;
   
-  absl::optional<WTF::Vector<WTF::String>> search;
+  std::optional<WTF::Vector<WTF::String>> search;
   
   DnsConfigOverrides::Tristate append_to_multi_label_name;
   
   int8_t ndots;
   
-  absl::optional<::base::TimeDelta> fallback_period;
+  std::optional<::base::TimeDelta> fallback_period;
   
   int32_t attempts;
   

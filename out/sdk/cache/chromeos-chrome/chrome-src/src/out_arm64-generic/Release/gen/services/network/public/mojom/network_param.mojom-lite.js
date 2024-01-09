@@ -102,6 +102,14 @@ network.mojom.ProxyServerSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
+network.mojom.ProxyChainSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
 network.mojom.ResolveErrorInfoSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -388,6 +396,45 @@ network.mojom.ProxyServer = class {
     this.scheme;
     /** @export { (network.mojom.HostPortPair|undefined) } */
     this.hostAndPort;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    network.mojom.ProxyChainSpec.$,
+    'ProxyChain',
+    [
+      mojo.internal.StructField(
+        'proxyServers', 0,
+        0,
+        mojo.internal.Array(network.mojom.ProxyServerSpec.$, false),
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'isForIpProtection', 8,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+network.mojom.ProxyChain = class {
+  constructor() {
+    /** @export { (Array<!network.mojom.ProxyServer>|undefined) } */
+    this.proxyServers;
+    /** @export { !boolean } */
+    this.isForIpProtection;
   }
 };
 

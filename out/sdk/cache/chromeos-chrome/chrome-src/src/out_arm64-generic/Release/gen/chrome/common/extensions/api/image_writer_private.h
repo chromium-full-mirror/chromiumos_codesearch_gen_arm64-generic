@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -38,16 +39,16 @@ namespace image_writer_private {
 // <dt>write</dt>    <dd>The image is being written to disk.</dd>
 // <dt>verifyWrite</dt>    <dt>The system is verifying that the written image
 // matches the    downloaded image.</dd> <dl></p>
-enum  Stage {
-  STAGE_NONE = 0,
-  STAGE_CONFIRMATION,
-  STAGE_DOWNLOAD,
-  STAGE_VERIFYDOWNLOAD,
-  STAGE_UNZIP,
-  STAGE_WRITE,
-  STAGE_VERIFYWRITE,
-  STAGE_UNKNOWN,
-  STAGE_LAST = STAGE_UNKNOWN,
+enum class Stage {
+  kNone = 0,
+  kConfirmation,
+  kDownload,
+  kVerifyDownload,
+  kUnzip,
+  kWrite,
+  kVerifyWrite,
+  kUnknown,
+  kMaxValue = kUnknown,
 };
 
 
@@ -60,8 +61,8 @@ struct UrlWriteOptions {
   ~UrlWriteOptions();
   UrlWriteOptions(const UrlWriteOptions&) = delete;
   UrlWriteOptions& operator=(const UrlWriteOptions&) = delete;
-  UrlWriteOptions(UrlWriteOptions&& rhs);
-  UrlWriteOptions& operator=(UrlWriteOptions&& rhs);
+  UrlWriteOptions(UrlWriteOptions&& rhs) noexcept;
+  UrlWriteOptions& operator=(UrlWriteOptions&& rhs) noexcept;
 
   // Populates a UrlWriteOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -74,26 +75,23 @@ struct UrlWriteOptions {
   // Creates a deep copy of UrlWriteOptions.
   UrlWriteOptions Clone() const;
 
-  // Creates a UrlWriteOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UrlWriteOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a UrlWriteOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UrlWriteOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<UrlWriteOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a UrlWriteOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<UrlWriteOptions> FromValue(const base::Value& value);
+  static std::optional<UrlWriteOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUrlWriteOptions object.
   base::Value::Dict ToValue() const;
 
   // If present, verify that the downloaded image matches this hash.
-  absl::optional<std::string> image_hash;
+  std::optional<std::string> image_hash;
 
   // If true, save the downloaded image as a file using the user's downloads
   // preferences.
-  absl::optional<bool> save_as_download;
+  std::optional<bool> save_as_download;
 
 };
 
@@ -102,8 +100,8 @@ struct ProgressInfo {
   ~ProgressInfo();
   ProgressInfo(const ProgressInfo&) = delete;
   ProgressInfo& operator=(const ProgressInfo&) = delete;
-  ProgressInfo(ProgressInfo&& rhs);
-  ProgressInfo& operator=(ProgressInfo&& rhs);
+  ProgressInfo(ProgressInfo&& rhs) noexcept;
+  ProgressInfo& operator=(ProgressInfo&& rhs) noexcept;
 
   // Populates a ProgressInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -116,15 +114,12 @@ struct ProgressInfo {
   // Creates a deep copy of ProgressInfo.
   ProgressInfo Clone() const;
 
-  // Creates a ProgressInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProgressInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProgressInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProgressInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ProgressInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ProgressInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ProgressInfo> FromValue(const base::Value& value);
+  static std::optional<ProgressInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProgressInfo object.
@@ -143,8 +138,8 @@ struct RemovableStorageDevice {
   ~RemovableStorageDevice();
   RemovableStorageDevice(const RemovableStorageDevice&) = delete;
   RemovableStorageDevice& operator=(const RemovableStorageDevice&) = delete;
-  RemovableStorageDevice(RemovableStorageDevice&& rhs);
-  RemovableStorageDevice& operator=(RemovableStorageDevice&& rhs);
+  RemovableStorageDevice(RemovableStorageDevice&& rhs) noexcept;
+  RemovableStorageDevice& operator=(RemovableStorageDevice&& rhs) noexcept;
 
   // Populates a RemovableStorageDevice object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -157,17 +152,13 @@ struct RemovableStorageDevice {
   // Creates a deep copy of RemovableStorageDevice.
   RemovableStorageDevice Clone() const;
 
-  // Creates a RemovableStorageDevice object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RemovableStorageDevice> FromValueDeprecated(const base::Value& value);
-
   // Creates a RemovableStorageDevice object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RemovableStorageDevice> FromValue(const base::Value::Dict& value);
+  static std::optional<RemovableStorageDevice> FromValue(const base::Value::Dict& value);
 
   // Creates a RemovableStorageDevice object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RemovableStorageDevice> FromValue(const base::Value& value);
+  static std::optional<RemovableStorageDevice> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRemovableStorageDevice object.
@@ -193,11 +184,11 @@ struct RemovableStorageDevice {
 namespace WriteFromUrl {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The identifier for the storage unit
@@ -210,7 +201,7 @@ struct Params {
   // Optional parameters if comparing the download with a given hash or saving the
   // download to the users Downloads folder instead of a temporary directory is
   // desired
-  absl::optional<UrlWriteOptions> options;
+  std::optional<UrlWriteOptions> options;
 
 
  private:
@@ -227,11 +218,11 @@ base::Value::List Create();
 namespace WriteFromFile {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The FileEntry object of the image to be burned.
@@ -240,8 +231,8 @@ struct Params {
     ~FileEntry();
     FileEntry(const FileEntry&) = delete;
     FileEntry& operator=(const FileEntry&) = delete;
-    FileEntry(FileEntry&& rhs);
-    FileEntry& operator=(FileEntry&& rhs);
+    FileEntry(FileEntry&& rhs) noexcept;
+    FileEntry& operator=(FileEntry&& rhs) noexcept;
 
     // Populates a FileEntry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -255,10 +246,10 @@ struct Params {
     FileEntry Clone() const;
 
     // Creates a FileEntry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<FileEntry> FromValue(const base::Value::Dict& value);
+    static std::optional<FileEntry> FromValue(const base::Value::Dict& value);
 
     // Creates a FileEntry object from a base::Value, or nullopt on failure.
-    static absl::optional<FileEntry> FromValue(const base::Value& value);
+    static std::optional<FileEntry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -294,11 +285,11 @@ base::Value::List Create();
 namespace DestroyPartitions {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The identifier of the storage unit to wipe

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -732,7 +733,7 @@ Event::Event(
     ScrollDataPtr scroll_data_in,
     TouchDataPtr touch_data_in,
     MouseDataPtr mouse_data_in,
-    const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>& properties_in)
+    const std::optional<base::flat_map<std::string, std::vector<uint8_t>>>& properties_in)
     : action(std::move(action_in)),
       flags(std::move(flags_in)),
       time_stamp(std::move(time_stamp_in)),
@@ -834,7 +835,7 @@ void Event::WriteIntoTrace(
     dict.AddItem(
       "properties"), this->properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, std::vector<uint8_t>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

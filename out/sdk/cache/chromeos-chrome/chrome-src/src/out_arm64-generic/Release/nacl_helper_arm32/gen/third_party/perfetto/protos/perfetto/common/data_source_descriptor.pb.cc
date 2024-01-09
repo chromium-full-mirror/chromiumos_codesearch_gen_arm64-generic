@@ -28,7 +28,8 @@ PROTOBUF_CONSTEXPR DataSourceDescriptor::DataSourceDescriptor(
   , id_(uint64_t{0u})
   , will_notify_on_stop_(false)
   , will_notify_on_start_(false)
-  , handles_incremental_state_clear_(false){}
+  , handles_incremental_state_clear_(false)
+  , no_flush_(false){}
 struct DataSourceDescriptorDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DataSourceDescriptorDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -62,6 +63,9 @@ class DataSourceDescriptor::_Internal {
   }
   static void set_has_handles_incremental_state_clear(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
+  }
+  static void set_has_no_flush(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
   }
   static const ::perfetto::protos::GpuCounterDescriptor& gpu_counter_descriptor(const DataSourceDescriptor* msg);
   static void set_has_gpu_counter_descriptor(HasBits* has_bits) {
@@ -135,8 +139,8 @@ DataSourceDescriptor::DataSourceDescriptor(const DataSourceDescriptor& from)
     ftrace_descriptor_ = nullptr;
   }
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&handles_incremental_state_clear_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(handles_incremental_state_clear_));
+    static_cast<size_t>(reinterpret_cast<char*>(&no_flush_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(no_flush_));
   // @@protoc_insertion_point(copy_constructor:perfetto.protos.DataSourceDescriptor)
 }
 
@@ -147,8 +151,8 @@ name_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&gpu_counter_descriptor_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&handles_incremental_state_clear_) -
-    reinterpret_cast<char*>(&gpu_counter_descriptor_)) + sizeof(handles_incremental_state_clear_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&no_flush_) -
+    reinterpret_cast<char*>(&gpu_counter_descriptor_)) + sizeof(no_flush_));
 }
 
 DataSourceDescriptor::~DataSourceDescriptor() {
@@ -201,6 +205,7 @@ void DataSourceDescriptor::Clear() {
         reinterpret_cast<char*>(&handles_incremental_state_clear_) -
         reinterpret_cast<char*>(&id_)) + sizeof(handles_incremental_state_clear_));
   }
+  no_flush_ = false;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -277,6 +282,15 @@ const char* DataSourceDescriptor::_InternalParse(const char* ptr, ::_pbi::ParseC
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_ftrace_descriptor(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool no_flush = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          _Internal::set_has_no_flush(&has_bits);
+          no_flush_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -363,6 +377,12 @@ uint8_t* DataSourceDescriptor::_InternalSerialize(
         _Internal::ftrace_descriptor(this).GetCachedSize(), target, stream);
   }
 
+  // optional bool no_flush = 9;
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_no_flush(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -430,6 +450,11 @@ size_t DataSourceDescriptor::ByteSizeLong() const {
     }
 
   }
+  // optional bool no_flush = 9;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -478,6 +503,9 @@ void DataSourceDescriptor::MergeFrom(const DataSourceDescriptor& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
+  if (cached_has_bits & 0x00000100u) {
+    _internal_set_no_flush(from._internal_no_flush());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -503,8 +531,8 @@ void DataSourceDescriptor::InternalSwap(DataSourceDescriptor* other) {
       &other->name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DataSourceDescriptor, handles_incremental_state_clear_)
-      + sizeof(DataSourceDescriptor::handles_incremental_state_clear_)
+      PROTOBUF_FIELD_OFFSET(DataSourceDescriptor, no_flush_)
+      + sizeof(DataSourceDescriptor::no_flush_)
       - PROTOBUF_FIELD_OFFSET(DataSourceDescriptor, gpu_counter_descriptor_)>(
           reinterpret_cast<char*>(&gpu_counter_descriptor_),
           reinterpret_cast<char*>(&other->gpu_counter_descriptor_));

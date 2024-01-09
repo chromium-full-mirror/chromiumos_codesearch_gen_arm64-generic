@@ -389,6 +389,17 @@ struct DisplayStatusDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DisplayStatusDefaultTypeInternal _DisplayStatus_default_instance_;
+PROTOBUF_CONSTEXPR KioskHeartbeatTelemetry::KioskHeartbeatTelemetry(
+    ::_pbi::ConstantInitialized){}
+struct KioskHeartbeatTelemetryDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR KioskHeartbeatTelemetryDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~KioskHeartbeatTelemetryDefaultTypeInternal() {}
+  union {
+    KioskHeartbeatTelemetry _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KioskHeartbeatTelemetryDefaultTypeInternal _KioskHeartbeatTelemetry_default_instance_;
 PROTOBUF_CONSTEXPR TelemetryData::TelemetryData(
     ::_pbi::ConstantInitialized)
   : networks_telemetry_(nullptr)
@@ -401,6 +412,7 @@ PROTOBUF_CONSTEXPR TelemetryData::TelemetryData(
   , fatal_crash_telemetry_(nullptr)
   , runtime_counters_telemetry_(nullptr)
   , website_telemetry_(nullptr)
+  , heartbeat_telemetry_(nullptr)
   , is_event_driven_(false){}
 struct TelemetryDataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TelemetryDataDefaultTypeInternal()
@@ -1412,21 +1424,23 @@ bool MetricEventType_IsValid(int value) {
     case 17:
     case 18:
     case 19:
+    case 20:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> MetricEventType_strings[15] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> MetricEventType_strings[16] = {};
 
 static const char MetricEventType_names[] =
   "APP_INSTALLED"
   "APP_LAUNCHED"
   "APP_UNINSTALLED"
   "AUDIO_SEVERE_UNDERRUN"
-  "CRASH_FATALLY"
   "EVENT_TYPE_UNSPECIFIED"
+  "FATAL_CRASH"
+  "KIOSK_HEARTBEAT"
   "NETWORK_HTTPS_LATENCY_CHANGE"
   "NETWORK_STATE_CHANGE"
   "URL_CLOSED"
@@ -1442,35 +1456,37 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry MetricEventType_entrie
   { {MetricEventType_names + 13, 12}, 9 },
   { {MetricEventType_names + 25, 15}, 8 },
   { {MetricEventType_names + 40, 21}, 4 },
-  { {MetricEventType_names + 61, 13}, 17 },
-  { {MetricEventType_names + 74, 22}, 0 },
-  { {MetricEventType_names + 96, 28}, 1 },
-  { {MetricEventType_names + 124, 20}, 15 },
-  { {MetricEventType_names + 144, 10}, 19 },
-  { {MetricEventType_names + 154, 10}, 18 },
-  { {MetricEventType_names + 164, 9}, 5 },
-  { {MetricEventType_names + 173, 11}, 6 },
-  { {MetricEventType_names + 184, 27}, 16 },
-  { {MetricEventType_names + 211, 24}, 13 },
-  { {MetricEventType_names + 235, 30}, 14 },
+  { {MetricEventType_names + 61, 22}, 0 },
+  { {MetricEventType_names + 83, 11}, 17 },
+  { {MetricEventType_names + 94, 15}, 20 },
+  { {MetricEventType_names + 109, 28}, 1 },
+  { {MetricEventType_names + 137, 20}, 15 },
+  { {MetricEventType_names + 157, 10}, 19 },
+  { {MetricEventType_names + 167, 10}, 18 },
+  { {MetricEventType_names + 177, 9}, 5 },
+  { {MetricEventType_names + 186, 11}, 6 },
+  { {MetricEventType_names + 197, 27}, 16 },
+  { {MetricEventType_names + 224, 24}, 13 },
+  { {MetricEventType_names + 248, 30}, 14 },
 };
 
 static const int MetricEventType_entries_by_number[] = {
-  5, // 0 -> EVENT_TYPE_UNSPECIFIED
-  6, // 1 -> NETWORK_HTTPS_LATENCY_CHANGE
+  4, // 0 -> EVENT_TYPE_UNSPECIFIED
+  7, // 1 -> NETWORK_HTTPS_LATENCY_CHANGE
   3, // 4 -> AUDIO_SEVERE_UNDERRUN
-  10, // 5 -> USB_ADDED
-  11, // 6 -> USB_REMOVED
+  11, // 5 -> USB_ADDED
+  12, // 6 -> USB_REMOVED
   0, // 7 -> APP_INSTALLED
   2, // 8 -> APP_UNINSTALLED
   1, // 9 -> APP_LAUNCHED
-  13, // 13 -> WIFI_SIGNAL_STRENGTH_LOW
-  14, // 14 -> WIFI_SIGNAL_STRENGTH_RECOVERED
-  7, // 15 -> NETWORK_STATE_CHANGE
-  12, // 16 -> VPN_CONNECTION_STATE_CHANGE
-  4, // 17 -> CRASH_FATALLY
-  9, // 18 -> URL_OPENED
-  8, // 19 -> URL_CLOSED
+  14, // 13 -> WIFI_SIGNAL_STRENGTH_LOW
+  15, // 14 -> WIFI_SIGNAL_STRENGTH_RECOVERED
+  8, // 15 -> NETWORK_STATE_CHANGE
+  13, // 16 -> VPN_CONNECTION_STATE_CHANGE
+  5, // 17 -> FATAL_CRASH
+  10, // 18 -> URL_OPENED
+  9, // 19 -> URL_CLOSED
+  6, // 20 -> KIOSK_HEARTBEAT
 };
 
 const std::string& MetricEventType_Name(
@@ -1479,12 +1495,12 @@ const std::string& MetricEventType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           MetricEventType_entries,
           MetricEventType_entries_by_number,
-          15, MetricEventType_strings);
+          16, MetricEventType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       MetricEventType_entries,
       MetricEventType_entries_by_number,
-      15, value);
+      16, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      MetricEventType_strings[idx].get();
 }
@@ -1492,7 +1508,7 @@ bool MetricEventType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MetricEventType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      MetricEventType_entries, 15, name, &int_value);
+      MetricEventType_entries, 16, name, &int_value);
   if (success) {
     *value = static_cast<MetricEventType>(int_value);
   }
@@ -8598,11 +8614,148 @@ std::string DisplayStatus::GetTypeName() const {
 
 // ===================================================================
 
+class KioskHeartbeatTelemetry::_Internal {
+ public:
+};
+
+KioskHeartbeatTelemetry::KioskHeartbeatTelemetry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:reporting.KioskHeartbeatTelemetry)
+}
+KioskHeartbeatTelemetry::KioskHeartbeatTelemetry(const KioskHeartbeatTelemetry& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:reporting.KioskHeartbeatTelemetry)
+}
+
+inline void KioskHeartbeatTelemetry::SharedCtor() {
+}
+
+KioskHeartbeatTelemetry::~KioskHeartbeatTelemetry() {
+  // @@protoc_insertion_point(destructor:reporting.KioskHeartbeatTelemetry)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void KioskHeartbeatTelemetry::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void KioskHeartbeatTelemetry::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void KioskHeartbeatTelemetry::Clear() {
+// @@protoc_insertion_point(message_clear_start:reporting.KioskHeartbeatTelemetry)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* KioskHeartbeatTelemetry::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* KioskHeartbeatTelemetry::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:reporting.KioskHeartbeatTelemetry)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:reporting.KioskHeartbeatTelemetry)
+  return target;
+}
+
+size_t KioskHeartbeatTelemetry::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:reporting.KioskHeartbeatTelemetry)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void KioskHeartbeatTelemetry::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const KioskHeartbeatTelemetry*>(
+      &from));
+}
+
+void KioskHeartbeatTelemetry::MergeFrom(const KioskHeartbeatTelemetry& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:reporting.KioskHeartbeatTelemetry)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void KioskHeartbeatTelemetry::CopyFrom(const KioskHeartbeatTelemetry& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:reporting.KioskHeartbeatTelemetry)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool KioskHeartbeatTelemetry::IsInitialized() const {
+  return true;
+}
+
+void KioskHeartbeatTelemetry::InternalSwap(KioskHeartbeatTelemetry* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string KioskHeartbeatTelemetry::GetTypeName() const {
+  return "reporting.KioskHeartbeatTelemetry";
+}
+
+
+// ===================================================================
+
 class TelemetryData::_Internal {
  public:
   using HasBits = decltype(std::declval<TelemetryData>()._has_bits_);
   static void set_has_is_event_driven(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
+    (*has_bits)[0] |= 2048u;
   }
   static const ::reporting::NetworksTelemetry& networks_telemetry(const TelemetryData* msg);
   static void set_has_networks_telemetry(HasBits* has_bits) {
@@ -8643,6 +8796,10 @@ class TelemetryData::_Internal {
   static const ::reporting::WebsiteTelemetry& website_telemetry(const TelemetryData* msg);
   static void set_has_website_telemetry(HasBits* has_bits) {
     (*has_bits)[0] |= 512u;
+  }
+  static const ::reporting::KioskHeartbeatTelemetry& heartbeat_telemetry(const TelemetryData* msg);
+  static void set_has_heartbeat_telemetry(HasBits* has_bits) {
+    (*has_bits)[0] |= 1024u;
   }
 };
 
@@ -8685,6 +8842,10 @@ TelemetryData::_Internal::runtime_counters_telemetry(const TelemetryData* msg) {
 const ::reporting::WebsiteTelemetry&
 TelemetryData::_Internal::website_telemetry(const TelemetryData* msg) {
   return *msg->website_telemetry_;
+}
+const ::reporting::KioskHeartbeatTelemetry&
+TelemetryData::_Internal::heartbeat_telemetry(const TelemetryData* msg) {
+  return *msg->heartbeat_telemetry_;
 }
 TelemetryData::TelemetryData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -8746,6 +8907,11 @@ TelemetryData::TelemetryData(const TelemetryData& from)
   } else {
     website_telemetry_ = nullptr;
   }
+  if (from._internal_has_heartbeat_telemetry()) {
+    heartbeat_telemetry_ = new ::reporting::KioskHeartbeatTelemetry(*from.heartbeat_telemetry_);
+  } else {
+    heartbeat_telemetry_ = nullptr;
+  }
   is_event_driven_ = from.is_event_driven_;
   // @@protoc_insertion_point(copy_constructor:reporting.TelemetryData)
 }
@@ -8778,6 +8944,7 @@ inline void TelemetryData::SharedDtor() {
   if (this != internal_default_instance()) delete fatal_crash_telemetry_;
   if (this != internal_default_instance()) delete runtime_counters_telemetry_;
   if (this != internal_default_instance()) delete website_telemetry_;
+  if (this != internal_default_instance()) delete heartbeat_telemetry_;
 }
 
 void TelemetryData::SetCachedSize(int size) const {
@@ -8825,7 +8992,7 @@ void TelemetryData::Clear() {
       fatal_crash_telemetry_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000300u) {
+  if (cached_has_bits & 0x00000700u) {
     if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(runtime_counters_telemetry_ != nullptr);
       runtime_counters_telemetry_->Clear();
@@ -8833,6 +9000,10 @@ void TelemetryData::Clear() {
     if (cached_has_bits & 0x00000200u) {
       GOOGLE_DCHECK(website_telemetry_ != nullptr);
       website_telemetry_->Clear();
+    }
+    if (cached_has_bits & 0x00000400u) {
+      GOOGLE_DCHECK(heartbeat_telemetry_ != nullptr);
+      heartbeat_telemetry_->Clear();
     }
   }
   is_event_driven_ = false;
@@ -8936,6 +9107,14 @@ const char* TelemetryData::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
+      // optional .reporting.KioskHeartbeatTelemetry heartbeat_telemetry = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          ptr = ctx->ParseMessage(_internal_mutable_heartbeat_telemetry(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -9017,7 +9196,7 @@ uint8_t* TelemetryData::_InternalSerialize(
   }
 
   // optional bool is_event_driven = 8;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_is_event_driven(), target);
   }
@@ -9041,6 +9220,13 @@ uint8_t* TelemetryData::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(11, _Internal::website_telemetry(this),
         _Internal::website_telemetry(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .reporting.KioskHeartbeatTelemetry heartbeat_telemetry = 12;
+  if (cached_has_bits & 0x00000400u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(12, _Internal::heartbeat_telemetry(this),
+        _Internal::heartbeat_telemetry(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9118,7 +9304,7 @@ size_t TelemetryData::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00000f00u) {
     // optional .reporting.RuntimeCountersTelemetry runtime_counters_telemetry = 10;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 +
@@ -9133,8 +9319,15 @@ size_t TelemetryData::ByteSizeLong() const {
           *website_telemetry_);
     }
 
-    // optional bool is_event_driven = 8;
+    // optional .reporting.KioskHeartbeatTelemetry heartbeat_telemetry = 12;
     if (cached_has_bits & 0x00000400u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *heartbeat_telemetry_);
+    }
+
+    // optional bool is_event_driven = 8;
+    if (cached_has_bits & 0x00000800u) {
       total_size += 1 + 1;
     }
 
@@ -9186,7 +9379,7 @@ void TelemetryData::MergeFrom(const TelemetryData& from) {
       _internal_mutable_fatal_crash_telemetry()->::reporting::FatalCrashTelemetry::MergeFrom(from._internal_fatal_crash_telemetry());
     }
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00000f00u) {
     if (cached_has_bits & 0x00000100u) {
       _internal_mutable_runtime_counters_telemetry()->::reporting::RuntimeCountersTelemetry::MergeFrom(from._internal_runtime_counters_telemetry());
     }
@@ -9194,6 +9387,9 @@ void TelemetryData::MergeFrom(const TelemetryData& from) {
       _internal_mutable_website_telemetry()->::reporting::WebsiteTelemetry::MergeFrom(from._internal_website_telemetry());
     }
     if (cached_has_bits & 0x00000400u) {
+      _internal_mutable_heartbeat_telemetry()->::reporting::KioskHeartbeatTelemetry::MergeFrom(from._internal_heartbeat_telemetry());
+    }
+    if (cached_has_bits & 0x00000800u) {
       is_event_driven_ = from.is_event_driven_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -14402,6 +14598,10 @@ Arena::CreateMaybeMessage< ::reporting::DisplaysTelemetry >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::reporting::DisplayStatus*
 Arena::CreateMaybeMessage< ::reporting::DisplayStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::reporting::DisplayStatus >(arena);
+}
+template<> PROTOBUF_NOINLINE ::reporting::KioskHeartbeatTelemetry*
+Arena::CreateMaybeMessage< ::reporting::KioskHeartbeatTelemetry >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::reporting::KioskHeartbeatTelemetry >(arena);
 }
 template<> PROTOBUF_NOINLINE ::reporting::TelemetryData*
 Arena::CreateMaybeMessage< ::reporting::TelemetryData >(Arena* arena) {

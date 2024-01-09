@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -247,14 +248,17 @@ void AutomationClientProxy::PerformActionDeprecated(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomationClient_PerformActionDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -312,14 +316,17 @@ void AutomationClientProxy::Enable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::AutomationClient::Enable");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomationClient_Enable_Name, kFlags, 0, 0, nullptr);
@@ -349,14 +356,17 @@ void AutomationClientProxy::EnableTree(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomationClient_EnableTree_Name, kFlags, 0, 0, nullptr);
@@ -390,14 +400,17 @@ void AutomationClientProxy::Disable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::AutomationClient::Disable");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomationClient_Disable_Name, kFlags, 0, 0, nullptr);
@@ -427,14 +440,17 @@ void AutomationClientProxy::PerformAction(
                         "<value of type const ::ui::AXActionData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomationClient_PerformAction_Name, kFlags, 0, 0, nullptr);
@@ -468,14 +484,17 @@ void AutomationClientProxy::NotifyAllAutomationExtensionsGone(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::AutomationClient::NotifyAllAutomationExtensionsGone");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomationClient_NotifyAllAutomationExtensionsGone_Name, kFlags, 0, 0, nullptr);
@@ -498,14 +517,17 @@ void AutomationClientProxy::NotifyExtensionListenerAdded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::AutomationClient::NotifyExtensionListenerAdded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomationClient_NotifyExtensionListenerAdded_Name, kFlags, 0, 0, nullptr);
@@ -747,22 +769,22 @@ bool AutomationClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAutomationClientValidationInfo[] = {
-    {&internal::AutomationClient_Enable_Params_Data::Validate,
+    { &internal::AutomationClient_Enable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutomationClient_EnableTree_Params_Data::Validate,
+    { &internal::AutomationClient_EnableTree_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutomationClient_PerformActionDeprecated_Params_Data::Validate,
+    { &internal::AutomationClient_PerformActionDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutomationClient_Disable_Params_Data::Validate,
+    { &internal::AutomationClient_Disable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutomationClient_PerformAction_Params_Data::Validate,
+    { &internal::AutomationClient_PerformAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutomationClient_NotifyAllAutomationExtensionsGone_Params_Data::Validate,
+    { &internal::AutomationClient_NotifyAllAutomationExtensionsGone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutomationClient_NotifyExtensionListenerAdded_Params_Data::Validate,
+    { &internal::AutomationClient_NotifyExtensionListenerAdded_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -946,14 +968,17 @@ void AutomationProxy::RegisterAutomationClientDeprecated(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_RegisterAutomationClientDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -1009,14 +1034,17 @@ void AutomationProxy::ReceiveEventPrototypeDeprecated(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_ReceiveEventPrototypeDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -1080,14 +1108,17 @@ void AutomationProxy::DispatchTreeDestroyedEvent(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_DispatchTreeDestroyedEvent_Name, kFlags, 0, 0, nullptr);
@@ -1131,14 +1162,17 @@ void AutomationProxy::DispatchActionResult(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_DispatchActionResult_Name, kFlags, 0, 0, nullptr);
@@ -1189,14 +1223,17 @@ void AutomationProxy::DispatchAccessibilityEvents(
                         "<value of type const std::vector<::ui::AXEvent>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_DispatchAccessibilityEvents_Name, kFlags, 0, 0, nullptr);
@@ -1280,14 +1317,17 @@ void AutomationProxy::DispatchAccessibilityLocationChange(
                         "<value of type const ::ui::AXRelativeBounds&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomation_DispatchAccessibilityLocationChange_Name, kFlags, 0, 0, nullptr);
@@ -1565,20 +1605,20 @@ bool AutomationStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAutomationValidationInfo[] = {
-    {&internal::Automation_RegisterAutomationClientDeprecated_Params_Data::Validate,
+    { &internal::Automation_RegisterAutomationClientDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Automation_ReceiveEventPrototypeDeprecated_Params_Data::Validate,
+    { &internal::Automation_ReceiveEventPrototypeDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Automation_DispatchTreeDestroyedEvent_Params_Data::Validate,
+    { &internal::Automation_DispatchTreeDestroyedEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Automation_DispatchActionResult_Params_Data::Validate,
+    { &internal::Automation_DispatchActionResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Automation_DispatchAccessibilityEvents_Params_Data::Validate,
+    { &internal::Automation_DispatchAccessibilityEvents_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Automation_DispatchAccessibilityLocationChange_Params_Data::Validate,
+    { &internal::Automation_DispatchAccessibilityLocationChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1662,14 +1702,17 @@ void AutomationFactoryProxy::BindAutomation(
                         "<value of type ::mojo::PendingReceiver<Automation>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutomationFactory_BindAutomation_Name, kFlags, 0, 0, nullptr);
@@ -1757,10 +1800,10 @@ bool AutomationFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAutomationFactoryValidationInfo[] = {
-    {&internal::AutomationFactory_BindAutomation_Params_Data::Validate,
+    { &internal::AutomationFactory_BindAutomation_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -445,14 +446,17 @@ void ServiceWorkerRegistrationObjectHostProxy::Update(
                         "<value of type ::blink::mojom::blink::FetchClientSettingsObjectPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_Update_Name, kFlags, 0, 0, nullptr);
@@ -487,14 +491,17 @@ void ServiceWorkerRegistrationObjectHostProxy::Unregister(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerRegistrationObjectHost::Unregister");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_Unregister_Name, kFlags, 0, 0, nullptr);
@@ -525,14 +532,17 @@ void ServiceWorkerRegistrationObjectHostProxy::EnableNavigationPreload(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_EnableNavigationPreload_Name, kFlags, 0, 0, nullptr);
@@ -557,14 +567,17 @@ void ServiceWorkerRegistrationObjectHostProxy::GetNavigationPreloadState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerRegistrationObjectHost::GetNavigationPreloadState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Name, kFlags, 0, 0, nullptr);
@@ -595,14 +608,17 @@ void ServiceWorkerRegistrationObjectHostProxy::SetNavigationPreloadHeader(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_Name, kFlags, 0, 0, nullptr);
@@ -730,7 +746,8 @@ void ServiceWorkerRegistrationObjectHost_Update_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_Update_Name, kFlags, 0, 0, nullptr);
@@ -863,7 +880,8 @@ void ServiceWorkerRegistrationObjectHost_Unregister_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_Unregister_Name, kFlags, 0, 0, nullptr);
@@ -996,7 +1014,8 @@ void ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ProxyToResponde
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_EnableNavigationPreload_Name, kFlags, 0, 0, nullptr);
@@ -1136,7 +1155,8 @@ void ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ProxyToRespon
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Name, kFlags, 0, 0, nullptr);
@@ -1276,7 +1296,8 @@ void ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ProxyToRespo
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_Name, kFlags, 0, 0, nullptr);
@@ -1484,18 +1505,18 @@ std::move(p_value), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerRegistrationObjectHostValidationInfo[] = {
-    {&internal::ServiceWorkerRegistrationObjectHost_Update_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_Update_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_Update_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerRegistrationObjectHost_Unregister_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_Unregister_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_Unregister_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ResponseParams_Data::Validate},
-    {&internal::ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_Params_Data::Validate,
      &internal::ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ResponseParams_Data::Validate},
 };
 
@@ -1628,14 +1649,17 @@ void ServiceWorkerRegistrationObjectProxy::SetServiceWorkerObjects(
                         "<value of type ::blink::mojom::blink::ServiceWorkerObjectInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObject_SetServiceWorkerObjects_Name, kFlags, 0, 0, nullptr);
@@ -1697,14 +1721,17 @@ void ServiceWorkerRegistrationObjectProxy::SetUpdateViaCache(
                         "<value of type ::blink::mojom::blink::ServiceWorkerUpdateViaCache>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObject_SetUpdateViaCache_Name, kFlags, 0, 0, nullptr);
@@ -1729,14 +1756,17 @@ void ServiceWorkerRegistrationObjectProxy::UpdateFound(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ServiceWorkerRegistrationObject::UpdateFound");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerRegistrationObject_UpdateFound_Name, kFlags, 0, 0, nullptr);
@@ -1870,14 +1900,14 @@ bool ServiceWorkerRegistrationObjectStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerRegistrationObjectValidationInfo[] = {
-    {&internal::ServiceWorkerRegistrationObject_SetServiceWorkerObjects_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObject_SetServiceWorkerObjects_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerRegistrationObject_SetUpdateViaCache_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObject_SetUpdateViaCache_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerRegistrationObject_UpdateFound_Params_Data::Validate,
+    { &internal::ServiceWorkerRegistrationObject_UpdateFound_Params_Data::Validate,
      nullptr /* no response */},
 };
 

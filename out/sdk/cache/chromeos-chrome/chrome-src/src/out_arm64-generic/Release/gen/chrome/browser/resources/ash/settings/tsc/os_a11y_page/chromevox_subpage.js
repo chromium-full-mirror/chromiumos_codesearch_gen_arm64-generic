@@ -16,8 +16,8 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertExhaustive } from '../assert_extras.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './chromevox_subpage.html.js';
 import { ChromeVoxSubpageBrowserProxyImpl } from './chromevox_subpage_browser_proxy.js';
@@ -330,7 +330,7 @@ export class SettingsChromeVoxSubpageElement extends SettingsChromeVoxSubpageEle
         // TODO(b/271422242): voiceName can actually be omitted in the TTS engine.
         // We should generate a name in that case.
         voices.forEach(voice => voice.name = voice.name || '');
-        voices.sort(function (a, b) {
+        voices.sort((a, b) => {
             function score(voice) {
                 // Prefer Google tts voices over all others.
                 if (voice.extensionId === GOOGLE_TTS_EXTENSION_ID) {

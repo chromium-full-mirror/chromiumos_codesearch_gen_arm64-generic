@@ -370,7 +370,7 @@ const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
         });
     });
     (0, mocha_extensions_js_1.describe)('for memory objects', () => {
-        const MEMORY_ICON_SELECTOR = '[aria-label="Reveal in Memory Inspector panel"]';
+        const MEMORY_ICON_SELECTOR = '[aria-label="Reveal in Memory inspector panel"]';
         (0, mocha_extensions_js_1.it)('shows one memory icon to open memory inspector for ArrayBuffers (description)', async () => {
             const { frontend } = (0, helper_js_1.getBrowserAndPages)();
             await (0, console_helpers_js_1.navigateToConsoleTab)();

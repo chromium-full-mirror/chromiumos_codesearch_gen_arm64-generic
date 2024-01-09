@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -50,7 +51,7 @@ TrustTokenIssuanceDetails::TrustTokenIssuanceDetails()
 
 TrustTokenIssuanceDetails::TrustTokenIssuanceDetails(
     const ::url::Origin& origin_in,
-    const absl::optional<::url::Origin>& issuer_in,
+    const std::optional<::url::Origin>& issuer_in,
     bool blocked_in)
     : origin(std::move(origin_in)),
       issuer(std::move(issuer_in)),
@@ -74,7 +75,7 @@ void TrustTokenIssuanceDetails::WriteIntoTrace(
     dict.AddItem(
       "issuer"), this->issuer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -102,7 +103,7 @@ TrustTokenRedemptionDetails::TrustTokenRedemptionDetails()
 
 TrustTokenRedemptionDetails::TrustTokenRedemptionDetails(
     const ::url::Origin& origin_in,
-    const absl::optional<::url::Origin>& issuer_in,
+    const std::optional<::url::Origin>& issuer_in,
     bool blocked_in)
     : origin(std::move(origin_in)),
       issuer(std::move(issuer_in)),
@@ -126,7 +127,7 @@ void TrustTokenRedemptionDetails::WriteIntoTrace(
     dict.AddItem(
       "issuer"), this->issuer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -344,14 +345,17 @@ void TrustTokenAccessObserverProxy::OnTrustTokensAccessed(
                         "<value of type TrustTokenAccessDetailsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustTokenAccessObserver_OnTrustTokensAccessed_Name, kFlags, 0, 0, nullptr);
@@ -390,14 +394,17 @@ void TrustTokenAccessObserverProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<TrustTokenAccessObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrustTokenAccessObserver_Clone_Name, kFlags, 0, 0, nullptr);
@@ -502,12 +509,12 @@ bool TrustTokenAccessObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTrustTokenAccessObserverValidationInfo[] = {
-    {&internal::TrustTokenAccessObserver_OnTrustTokensAccessed_Params_Data::Validate,
+    { &internal::TrustTokenAccessObserver_OnTrustTokensAccessed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TrustTokenAccessObserver_Clone_Params_Data::Validate,
+    { &internal::TrustTokenAccessObserver_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 

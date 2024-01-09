@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/buckets/bucket_manager_host.mojom-features.h"
 #include "third_party/blink/public/mojom/buckets/bucket_manager_host.mojom-shared.h"
 #include "third_party/blink/public/mojom/buckets/bucket_manager_host.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -45,18 +46,6 @@
 #include "third_party/blink/renderer/modules/modules_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::BucketError>
-    : EnumHashTraits<::blink::mojom::BucketError, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -165,7 +154,7 @@ class MODULES_EXPORT BucketHost
   virtual void SetExpires(::base::Time expires, SetExpiresCallback callback) = 0;
 
 
-  using ExpiresCallback = base::OnceCallback<void(absl::optional<::base::Time>, bool)>;
+  using ExpiresCallback = base::OnceCallback<void(std::optional<::base::Time>, bool)>;
   
   virtual void Expires(ExpiresCallback callback) = 0;
 
@@ -449,7 +438,7 @@ class MODULES_EXPORT BucketPolicies {
       bool has_durability,
       int64_t quota,
       bool has_quota,
-      absl::optional<::base::Time> expires);
+      std::optional<::base::Time> expires);
 
 
   ~BucketPolicies();
@@ -539,7 +528,7 @@ class MODULES_EXPORT BucketPolicies {
   
   bool has_quota;
   
-  absl::optional<::base::Time> expires;
+  std::optional<::base::Time> expires;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

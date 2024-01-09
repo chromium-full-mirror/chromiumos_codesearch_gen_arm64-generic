@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,11 +23,13 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/page/page.mojom-features.h"
 #include "third_party/blink/public/mojom/page/page.mojom-shared.h"
 #include "third_party/blink/public/mojom/page/page.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
 #include "skia/public/mojom/skcolor.mojom-blink.h"
+#include "services/network/public/mojom/attribution.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/frame/frame_replication_state.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/frame/remote_frame.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/frame/view_transition_state.mojom-blink.h"
@@ -37,6 +39,7 @@
 #include "third_party/blink/public/mojom/tokens/tokens.mojom-blink.h"
 #include "third_party/blink/public/mojom/webpreferences/web_preferences.mojom-blink.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom-blink.h"
+#include "ui/color/color_id.mojom-blink.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
 #include "mojo/public/cpp/bindings/lib/wtf_hash_util.h"
@@ -47,21 +50,10 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
+#include "third_party/blink/public/common/page/color_provider_color_maps_mojom_traits.h"
 #include "third_party/blink/renderer/core/core_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::PagehideDispatch>
-    : EnumHashTraits<::blink::mojom::PagehideDispatch, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -99,13 +91,14 @@ class CORE_EXPORT PageBroadcast
     kSetPageLifecycleStateMinVersion = 0,
     kAudioStateChangedMinVersion = 0,
     kActivatePrerenderedPageMinVersion = 0,
-    kSetInsidePortalMinVersion = 0,
     kUpdateWebPreferencesMinVersion = 0,
     kUpdateRendererPreferencesMinVersion = 0,
     kSetHistoryOffsetAndLengthMinVersion = 0,
     kSetPageBaseBackgroundColorMinVersion = 0,
     kCreateRemoteMainFrameMinVersion = 0,
     kUpdatePageBrowsingContextGroupMinVersion = 0,
+    kSetPageAttributionSupportMinVersion = 0,
+    kUpdateColorProvidersMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -118,9 +111,6 @@ class CORE_EXPORT PageBroadcast
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ActivatePrerenderedPage_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetInsidePortal_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct UpdateWebPreferences_Sym {
@@ -141,6 +131,12 @@ class CORE_EXPORT PageBroadcast
   struct UpdatePageBrowsingContextGroup_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SetPageAttributionSupport_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct UpdateColorProviders_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~PageBroadcast() = default;
 
@@ -158,9 +154,6 @@ class CORE_EXPORT PageBroadcast
   virtual void ActivatePrerenderedPage(PrerenderPageActivationParamsPtr prerender_page_activation_params, ActivatePrerenderedPageCallback callback) = 0;
 
   
-  virtual void SetInsidePortal(bool is_inside_portal) = 0;
-
-  
   virtual void UpdateWebPreferences(const ::blink::web_pref::WebPreferences& preferences) = 0;
 
   
@@ -170,13 +163,19 @@ class CORE_EXPORT PageBroadcast
   virtual void SetHistoryOffsetAndLength(int32_t offset, int32_t length) = 0;
 
   
-  virtual void SetPageBaseBackgroundColor(absl::optional<::SkColor> color) = 0;
+  virtual void SetPageBaseBackgroundColor(std::optional<::SkColor> color) = 0;
 
   
-  virtual void CreateRemoteMainFrame(const ::blink::RemoteFrameToken& token, const absl::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::blink::FrameReplicationStatePtr replication_state, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, ::blink::mojom::blink::RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces, ::blink::mojom::blink::RemoteMainFrameInterfacesPtr remote_main_frame_interfaces) = 0;
+  virtual void CreateRemoteMainFrame(const ::blink::RemoteFrameToken& token, const std::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::blink::FrameReplicationStatePtr replication_state, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, ::blink::mojom::blink::RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces, ::blink::mojom::blink::RemoteMainFrameInterfacesPtr remote_main_frame_interfaces) = 0;
 
   
   virtual void UpdatePageBrowsingContextGroup(const ::blink::BrowsingContextGroupInfo& browsing_context_group_info) = 0;
+
+  
+  virtual void SetPageAttributionSupport(::network::mojom::blink::AttributionSupport support) = 0;
+
+  
+  virtual void UpdateColorProviders(const ::blink::ColorProviderColorMaps& color_provider_colors) = 0;
 };
 
 
@@ -194,19 +193,21 @@ class CORE_EXPORT PageBroadcastProxy
   
   void ActivatePrerenderedPage(PrerenderPageActivationParamsPtr prerender_page_activation_params, ActivatePrerenderedPageCallback callback) final;
   
-  void SetInsidePortal(bool is_inside_portal) final;
-  
   void UpdateWebPreferences(const ::blink::web_pref::WebPreferences& preferences) final;
   
   void UpdateRendererPreferences(const ::blink::RendererPreferences& preferences) final;
   
   void SetHistoryOffsetAndLength(int32_t offset, int32_t length) final;
   
-  void SetPageBaseBackgroundColor(absl::optional<::SkColor> color) final;
+  void SetPageBaseBackgroundColor(std::optional<::SkColor> color) final;
   
-  void CreateRemoteMainFrame(const ::blink::RemoteFrameToken& token, const absl::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::blink::FrameReplicationStatePtr replication_state, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, ::blink::mojom::blink::RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces, ::blink::mojom::blink::RemoteMainFrameInterfacesPtr remote_main_frame_interfaces) final;
+  void CreateRemoteMainFrame(const ::blink::RemoteFrameToken& token, const std::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::blink::FrameReplicationStatePtr replication_state, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, ::blink::mojom::blink::RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces, ::blink::mojom::blink::RemoteMainFrameInterfacesPtr remote_main_frame_interfaces) final;
   
   void UpdatePageBrowsingContextGroup(const ::blink::BrowsingContextGroupInfo& browsing_context_group_info) final;
+  
+  void SetPageAttributionSupport(::network::mojom::blink::AttributionSupport support) final;
+  
+  void UpdateColorProviders(const ::blink::ColorProviderColorMaps& color_provider_colors) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -260,6 +261,7 @@ class CORE_EXPORT PageBroadcastResponseValidator : public mojo::MessageReceiver 
  public:
   bool Accept(mojo::Message* message) override;
 };
+
 
 
 
@@ -453,7 +455,7 @@ class CORE_EXPORT PageRestoreParams {
       ::base::TimeTicks navigation_start,
       int32_t pending_history_list_offset,
       int32_t current_history_list_length,
-      const absl::optional<::blink::ViewTransitionState>& view_transition_state);
+      const std::optional<::blink::ViewTransitionState>& view_transition_state);
 
 
   ~PageRestoreParams();
@@ -537,7 +539,7 @@ class CORE_EXPORT PageRestoreParams {
   
   int32_t current_history_list_length;
   
-  absl::optional<::blink::ViewTransitionState> view_transition_state;
+  std::optional<::blink::ViewTransitionState> view_transition_state;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -564,6 +566,152 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, PageRestoreParams::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class CORE_EXPORT ColorProviderColorMaps {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ColorProviderColorMaps, T>::value>;
+  using DataView = ColorProviderColorMapsDataView;
+  using Data_ = internal::ColorProviderColorMaps_Data;
+
+  template <typename... Args>
+  static ColorProviderColorMapsPtr New(Args&&... args) {
+    return ColorProviderColorMapsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ColorProviderColorMapsPtr From(const U& u) {
+    return mojo::TypeConverter<ColorProviderColorMapsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ColorProviderColorMaps>::Convert(*this);
+  }
+
+
+  ColorProviderColorMaps();
+
+  ColorProviderColorMaps(
+      const WTF::HashMap<::color::mojom::blink::RendererColorId, ::SkColor>& light_colors_map,
+      const WTF::HashMap<::color::mojom::blink::RendererColorId, ::SkColor>& dark_colors_map,
+      const WTF::HashMap<::color::mojom::blink::RendererColorId, ::SkColor>& forced_colors_map);
+
+
+  ~ColorProviderColorMaps();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ColorProviderColorMapsPtr>
+  ColorProviderColorMapsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ColorProviderColorMaps::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ColorProviderColorMaps::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ColorProviderColorMaps::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ColorProviderColorMaps::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ColorProviderColorMaps::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ColorProviderColorMaps_UnserializedMessageContext<
+            UserType, ColorProviderColorMaps::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ColorProviderColorMaps::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return ColorProviderColorMaps::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ColorProviderColorMaps_UnserializedMessageContext<
+            UserType, ColorProviderColorMaps::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ColorProviderColorMaps::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  WTF::HashMap<::color::mojom::blink::RendererColorId, ::SkColor> light_colors_map;
+  
+  WTF::HashMap<::color::mojom::blink::RendererColorId, ::SkColor> dark_colors_map;
+  
+  WTF::HashMap<::color::mojom::blink::RendererColorId, ::SkColor> forced_colors_map;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ColorProviderColorMaps::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ColorProviderColorMaps::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ColorProviderColorMaps::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ColorProviderColorMaps::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -601,7 +749,7 @@ class CORE_EXPORT PrerenderPageActivationParams {
   PrerenderPageActivationParams(
       ::blink::mojom::blink::WasActivatedOption was_user_activated,
       ::base::TimeTicks activation_start,
-      const absl::optional<::blink::ViewTransitionState>& view_transition_state);
+      const std::optional<::blink::ViewTransitionState>& view_transition_state);
 
 
   ~PrerenderPageActivationParams();
@@ -683,7 +831,7 @@ class CORE_EXPORT PrerenderPageActivationParams {
   
   ::base::TimeTicks activation_start;
   
-  absl::optional<::blink::ViewTransitionState> view_transition_state;
+  std::optional<::blink::ViewTransitionState> view_transition_state;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -808,6 +956,42 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+ColorProviderColorMapsPtr ColorProviderColorMaps::Clone() const {
+  return New(
+      mojo::Clone(light_colors_map),
+      mojo::Clone(dark_colors_map),
+      mojo::Clone(forced_colors_map)
+  );
+}
+
+template <typename T, ColorProviderColorMaps::EnableIfSame<T>*>
+bool ColorProviderColorMaps::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->light_colors_map, other_struct.light_colors_map))
+    return false;
+  if (!mojo::Equals(this->dark_colors_map, other_struct.dark_colors_map))
+    return false;
+  if (!mojo::Equals(this->forced_colors_map, other_struct.forced_colors_map))
+    return false;
+  return true;
+}
+
+template <typename T, ColorProviderColorMaps::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.light_colors_map < rhs.light_colors_map)
+    return true;
+  if (rhs.light_colors_map < lhs.light_colors_map)
+    return false;
+  if (lhs.dark_colors_map < rhs.dark_colors_map)
+    return true;
+  if (rhs.dark_colors_map < lhs.dark_colors_map)
+    return false;
+  if (lhs.forced_colors_map < rhs.forced_colors_map)
+    return true;
+  if (rhs.forced_colors_map < lhs.forced_colors_map)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 PrerenderPageActivationParamsPtr PrerenderPageActivationParams::Clone() const {
   return New(
       mojo::Clone(was_user_activated),
@@ -912,6 +1096,31 @@ struct CORE_EXPORT StructTraits<::blink::mojom::blink::PageRestoreParams::DataVi
   }
 
   static bool Read(::blink::mojom::blink::PageRestoreParams::DataView input, ::blink::mojom::blink::PageRestoreParamsPtr* output);
+};
+
+
+template <>
+struct CORE_EXPORT StructTraits<::blink::mojom::blink::ColorProviderColorMaps::DataView,
+                                         ::blink::mojom::blink::ColorProviderColorMapsPtr> {
+  static bool IsNull(const ::blink::mojom::blink::ColorProviderColorMapsPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::blink::ColorProviderColorMapsPtr* output) { output->reset(); }
+
+  static const decltype(::blink::mojom::blink::ColorProviderColorMaps::light_colors_map)& light_colors_map(
+      const ::blink::mojom::blink::ColorProviderColorMapsPtr& input) {
+    return input->light_colors_map;
+  }
+
+  static const decltype(::blink::mojom::blink::ColorProviderColorMaps::dark_colors_map)& dark_colors_map(
+      const ::blink::mojom::blink::ColorProviderColorMapsPtr& input) {
+    return input->dark_colors_map;
+  }
+
+  static const decltype(::blink::mojom::blink::ColorProviderColorMaps::forced_colors_map)& forced_colors_map(
+      const ::blink::mojom::blink::ColorProviderColorMapsPtr& input) {
+    return input->forced_colors_map;
+  }
+
+  static bool Read(::blink::mojom::blink::ColorProviderColorMaps::DataView input, ::blink::mojom::blink::ColorProviderColorMapsPtr* output);
 };
 
 

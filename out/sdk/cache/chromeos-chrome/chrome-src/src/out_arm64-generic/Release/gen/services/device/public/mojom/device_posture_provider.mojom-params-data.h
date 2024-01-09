@@ -87,6 +87,38 @@ class  DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponsePa
 };
 static_assert(sizeof(DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponseParams_Data) == 16,
               "Bad sizeof(DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponseParams_Data)");
+class  DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t posture;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data>;
+
+  DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data();
+  ~DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data() = delete;
+};
+static_assert(sizeof(DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data) == 16,
+              "Bad sizeof(DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data)");
+class  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data>;
+
+  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data();
+  ~DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data() = delete;
+};
+static_assert(sizeof(DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data) == 8,
+              "Bad sizeof(DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data)");
 class  DevicePostureClient_OnPostureChanged_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -225,6 +257,46 @@ class DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponsePar
 };
 
 
+class DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsDataView {
+ public:
+  DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsDataView() = default;
+
+  DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsDataView(
+      internal::DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadPosture(UserType* output) const {
+    auto data_value = data_->posture;
+    return mojo::internal::Deserialize<::device::mojom::DevicePostureType>(
+        data_value, output);
+  }
+  DevicePostureType posture() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::device::mojom::DevicePostureType>(data_->posture));
+  }
+ private:
+  internal::DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data* data_ = nullptr;
+};
+
+
+class DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsDataView {
+ public:
+  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsDataView() = default;
+
+  DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsDataView(
+      internal::DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data* data_ = nullptr;
+};
+
+
 class DevicePostureClient_OnPostureChanged_ParamsDataView {
  public:
   DevicePostureClient_OnPostureChanged_ParamsDataView() = default;
@@ -286,6 +358,10 @@ inline void DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Respo
   auto pointer = data_->segments.Get();
   *output = mojo::ArrayDataView<::gfx::mojom::RectDataView>(pointer, message_);
 }
+
+
+
+
 
 
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/media_session/public/mojom/media_session.mojom-features.h"
 #include "services/media_session/public/mojom/media_session.mojom-shared.h"
 #include "services/media_session/public/mojom/media_session.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
@@ -42,126 +43,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::MediaPlaybackState>
-    : EnumHashTraits<::media_session::mojom::MediaPlaybackState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::MediaSessionAction>
-    : EnumHashTraits<::media_session::mojom::MediaSessionAction, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::MediaSessionImageType>
-    : EnumHashTraits<::media_session::mojom::MediaSessionImageType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::MediaPictureInPictureState>
-    : EnumHashTraits<::media_session::mojom::MediaPictureInPictureState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::MediaAudioVideoState>
-    : EnumHashTraits<::media_session::mojom::MediaAudioVideoState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::MediaImageBitmapColorType>
-    : EnumHashTraits<::media_session::mojom::MediaImageBitmapColorType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::MicrophoneState>
-    : EnumHashTraits<::media_session::mojom::MicrophoneState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::CameraState>
-    : EnumHashTraits<::media_session::mojom::CameraState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::MediaSessionInfo_SessionState>
-    : EnumHashTraits<::media_session::mojom::MediaSessionInfo_SessionState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media_session::mojom::MediaSession_SuspendType>
-    : EnumHashTraits<::media_session::mojom::MediaSession_SuspendType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace media_session::mojom::blink {
@@ -669,6 +550,7 @@ class BLINK_PLATFORM_EXPORT MediaSessionResponseValidator : public mojo::Message
 
 
 
+
 class BLINK_PLATFORM_EXPORT MediaSessionDebugInfo {
  public:
   template <typename T>
@@ -956,6 +838,154 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, MediaImage::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class BLINK_PLATFORM_EXPORT ChapterInformation {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ChapterInformation, T>::value>;
+  using DataView = ChapterInformationDataView;
+  using Data_ = internal::ChapterInformation_Data;
+
+  template <typename... Args>
+  static ChapterInformationPtr New(Args&&... args) {
+    return ChapterInformationPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ChapterInformationPtr From(const U& u) {
+    return mojo::TypeConverter<ChapterInformationPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ChapterInformation>::Convert(*this);
+  }
+
+
+  ChapterInformation();
+
+  ChapterInformation(
+      const ::WTF::String& title,
+      ::base::TimeDelta startTime,
+      WTF::Vector<MediaImagePtr> artwork);
+
+ChapterInformation(const ChapterInformation&) = delete;
+ChapterInformation& operator=(const ChapterInformation&) = delete;
+
+  ~ChapterInformation();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ChapterInformationPtr>
+  ChapterInformationPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ChapterInformation::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ChapterInformation::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ChapterInformation_UnserializedMessageContext<
+            UserType, ChapterInformation::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ChapterInformation::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return ChapterInformation::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ChapterInformation_UnserializedMessageContext<
+            UserType, ChapterInformation::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ChapterInformation::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::WTF::String title;
+  
+  ::base::TimeDelta startTime;
+  
+  WTF::Vector<MediaImagePtr> artwork;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ChapterInformation::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1689,7 +1719,7 @@ class BLINK_PLATFORM_EXPORT MediaSessionInfo {
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
       const WTF::String& audio_sink_id,
-      absl::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states);
+      std::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states);
 
   MediaSessionInfo(
       MediaSessionInfo::SessionState state,
@@ -1701,7 +1731,7 @@ class BLINK_PLATFORM_EXPORT MediaSessionInfo {
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
       const WTF::String& audio_sink_id,
-      absl::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
+      std::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state);
 
@@ -1715,7 +1745,7 @@ class BLINK_PLATFORM_EXPORT MediaSessionInfo {
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
       const WTF::String& audio_sink_id,
-      absl::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
+      std::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state,
       bool muted);
@@ -1730,7 +1760,7 @@ class BLINK_PLATFORM_EXPORT MediaSessionInfo {
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
       const WTF::String& audio_sink_id,
-      absl::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
+      std::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state,
       bool muted,
@@ -1746,7 +1776,7 @@ class BLINK_PLATFORM_EXPORT MediaSessionInfo {
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
       const WTF::String& audio_sink_id,
-      absl::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
+      std::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state,
       bool muted,
@@ -1763,7 +1793,7 @@ class BLINK_PLATFORM_EXPORT MediaSessionInfo {
       MediaPictureInPictureState picture_in_picture_state,
       MediaAudioVideoState deprecated_audio_video_state,
       const WTF::String& audio_sink_id,
-      absl::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
+      std::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states,
       MicrophoneState microphone_state,
       CameraState camera_state,
       bool muted,
@@ -1867,7 +1897,7 @@ MediaSessionInfo& operator=(const MediaSessionInfo&) = delete;
   
   WTF::String audio_sink_id;
   
-  absl::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states;
+  std::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states;
   
   MicrophoneState microphone_state;
   
@@ -1944,6 +1974,42 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.sizes < rhs.sizes)
     return true;
   if (rhs.sizes < lhs.sizes)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ChapterInformationPtr ChapterInformation::Clone() const {
+  return New(
+      mojo::Clone(title),
+      mojo::Clone(startTime),
+      mojo::Clone(artwork)
+  );
+}
+
+template <typename T, ChapterInformation::EnableIfSame<T>*>
+bool ChapterInformation::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->title, other_struct.title))
+    return false;
+  if (!mojo::Equals(this->startTime, other_struct.startTime))
+    return false;
+  if (!mojo::Equals(this->artwork, other_struct.artwork))
+    return false;
+  return true;
+}
+
+template <typename T, ChapterInformation::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.title < rhs.title)
+    return true;
+  if (rhs.title < lhs.title)
+    return false;
+  if (lhs.startTime < rhs.startTime)
+    return true;
+  if (rhs.startTime < lhs.startTime)
+    return false;
+  if (lhs.artwork < rhs.artwork)
+    return true;
+  if (rhs.artwork < lhs.artwork)
     return false;
   return false;
 }
@@ -2332,6 +2398,31 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::media_session::mojom::blink::MediaIm
   }
 
   static bool Read(::media_session::mojom::blink::MediaImage::DataView input, ::media_session::mojom::blink::MediaImagePtr* output);
+};
+
+
+template <>
+struct BLINK_PLATFORM_EXPORT StructTraits<::media_session::mojom::blink::ChapterInformation::DataView,
+                                         ::media_session::mojom::blink::ChapterInformationPtr> {
+  static bool IsNull(const ::media_session::mojom::blink::ChapterInformationPtr& input) { return !input; }
+  static void SetToNull(::media_session::mojom::blink::ChapterInformationPtr* output) { output->reset(); }
+
+  static const decltype(::media_session::mojom::blink::ChapterInformation::title)& title(
+      const ::media_session::mojom::blink::ChapterInformationPtr& input) {
+    return input->title;
+  }
+
+  static const decltype(::media_session::mojom::blink::ChapterInformation::startTime)& startTime(
+      const ::media_session::mojom::blink::ChapterInformationPtr& input) {
+    return input->startTime;
+  }
+
+  static const decltype(::media_session::mojom::blink::ChapterInformation::artwork)& artwork(
+      const ::media_session::mojom::blink::ChapterInformationPtr& input) {
+    return input->artwork;
+  }
+
+  static bool Read(::media_session::mojom::blink::ChapterInformation::DataView input, ::media_session::mojom::blink::ChapterInformationPtr* output);
 };
 
 

@@ -76,7 +76,6 @@ class  TransferableResource_Data {
   uint8_t wants_promotion_hint : 1;
   uint8_t pad8_[3];
   mojo::internal::Pointer<::gfx::mojom::internal::ColorSpace_Data> color_space;
-  mojo::internal::Pointer<::gfx::mojom::internal::ColorSpace_Data> color_space_when_sampled;
   mojo::internal::Pointer<::gfx::mojom::internal::HDRMetadata_Data> hdr_metadata;
   mojo::internal::Pointer<::gpu::mojom::internal::VulkanYCbCrInfo_Data> ycbcr_info;
 
@@ -86,7 +85,7 @@ class  TransferableResource_Data {
   TransferableResource_Data();
   ~TransferableResource_Data() = delete;
 };
-static_assert(sizeof(TransferableResource_Data) == 88,
+static_assert(sizeof(TransferableResource_Data) == 80,
               "Bad sizeof(TransferableResource_Data)");
 // Used by TransferableResource::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

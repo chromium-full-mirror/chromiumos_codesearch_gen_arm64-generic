@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SQLResultSet>::value,
     "SQLResultSet inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SQLResultSet::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SQLResultSet is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("SQLResultSet.rows.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SQLResultSet* blink_receiver = V8SQLResultSet::ToWrappableUnsafe(v8_receiver);
+SQLResultSet* blink_receiver = V8SQLResultSet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rows();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -98,9 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("SQLResultSet.insertId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SQLResultSet* blink_receiver = V8SQLResultSet::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SQLResultSet* blink_receiver = V8SQLResultSet::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "SQLResultSet";
 const char* const property_name = "insertId";
@@ -120,8 +116,9 @@ BLINK_BINDINGS_TRACE_EVENT("SQLResultSet.rowsAffected.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SQLResultSet* blink_receiver = V8SQLResultSet::ToWrappableUnsafe(v8_receiver);
+SQLResultSet* blink_receiver = V8SQLResultSet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rowsAffected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct ErrorInfo {
   ~ErrorInfo();
   ErrorInfo(const ErrorInfo&) = delete;
   ErrorInfo& operator=(const ErrorInfo&) = delete;
-  ErrorInfo(ErrorInfo&& rhs);
-  ErrorInfo& operator=(ErrorInfo&& rhs);
+  ErrorInfo(ErrorInfo&& rhs) noexcept;
+  ErrorInfo& operator=(ErrorInfo&& rhs) noexcept;
 
   // Populates a ErrorInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -46,14 +47,11 @@ struct ErrorInfo {
   // Creates a deep copy of ErrorInfo.
   ErrorInfo Clone() const;
 
-  // Creates a ErrorInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ErrorInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ErrorInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<ErrorInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ErrorInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ErrorInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ErrorInfo> FromValue(const base::Value& value);
+  static std::optional<ErrorInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisErrorInfo object.
@@ -69,25 +67,25 @@ struct ErrorInfo {
   // Name of the product where the error occurred. Defaults to the product variant
   // of Chrome that is hosting the extension. (e.g. "Chrome" or
   // "Chrome_ChromeOS").
-  absl::optional<std::string> product;
+  std::optional<std::string> product;
 
   // Version of the product where the error occurred. Defaults to the version of
   // Chrome that is hosting the extension (e.g. "73.0.3683.75").
-  absl::optional<std::string> version;
+  std::optional<std::string> version;
 
   // Line number where the error occurred.
-  absl::optional<int> line_number;
+  std::optional<int> line_number;
 
   // Column number where the error occurred.
-  absl::optional<int> column_number;
+  std::optional<int> column_number;
 
   // Used to map the obfuscated source code back to a source map. If present, must
   // match the debug_id used to upload the source map.
-  absl::optional<std::string> debug_id;
+  std::optional<std::string> debug_id;
 
   // String containing the stack trace for the error. Defaults to the empty
   // string.
-  absl::optional<std::string> stack_trace;
+  std::optional<std::string> stack_trace;
 
 };
 
@@ -99,11 +97,11 @@ struct ErrorInfo {
 namespace ReportError {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Information about the error.

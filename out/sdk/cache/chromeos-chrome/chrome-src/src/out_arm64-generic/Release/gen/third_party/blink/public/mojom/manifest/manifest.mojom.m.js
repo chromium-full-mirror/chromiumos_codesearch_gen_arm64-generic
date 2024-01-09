@@ -252,7 +252,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'startUrl', 32,
+        'hasCustomId', 32,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'startUrl', 40,
         0,
         url_mojom_UrlSpec.$,
         null,
@@ -260,7 +268,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'display', 40,
+        'display', 36,
         0,
         blink_mojom_DisplayModeSpec.$,
         0,
@@ -276,7 +284,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'orientation', 44,
+        'orientation', 56,
         0,
         device_mojom_ScreenOrientationLockTypeSpec.$,
         0,
@@ -284,7 +292,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'icons', 56,
+        'icons', 64,
         0,
         mojo.internal.Array(ManifestImageResourceSpec.$, false),
         null,
@@ -292,7 +300,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'screenshots', 64,
+        'screenshots', 72,
         0,
         mojo.internal.Array(ManifestScreenshotSpec.$, false),
         null,
@@ -300,7 +308,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'shortcuts', 72,
+        'shortcuts', 80,
         0,
         mojo.internal.Array(ManifestShortcutItemSpec.$, false),
         null,
@@ -308,7 +316,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'shareTarget', 80,
+        'shareTarget', 88,
         0,
         ManifestShareTargetSpec.$,
         null,
@@ -316,7 +324,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'fileHandlers', 88,
+        'fileHandlers', 96,
         0,
         mojo.internal.Array(ManifestFileHandlerSpec.$, false),
         null,
@@ -324,7 +332,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'protocolHandlers', 96,
+        'protocolHandlers', 104,
         0,
         mojo.internal.Array(ManifestProtocolHandlerSpec.$, false),
         null,
@@ -332,7 +340,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'urlHandlers', 104,
+        'urlHandlers', 112,
         0,
         mojo.internal.Array(ManifestUrlHandlerSpec.$, false),
         null,
@@ -340,7 +348,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'scopeExtensions', 112,
+        'scopeExtensions', 120,
         0,
         mojo.internal.Array(ManifestScopeExtensionSpec.$, false),
         null,
@@ -348,7 +356,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'lockScreen', 120,
+        'lockScreen', 128,
         0,
         ManifestLockScreenSpec.$,
         null,
@@ -356,7 +364,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'noteTaking', 128,
+        'noteTaking', 136,
         0,
         ManifestNoteTakingSpec.$,
         null,
@@ -364,7 +372,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'relatedApplications', 136,
+        'relatedApplications', 144,
         0,
         mojo.internal.Array(ManifestRelatedApplicationSpec.$, false),
         null,
@@ -372,15 +380,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'preferRelatedApplications', 144,
-        0,
-        mojo.internal.Bool,
-        false,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'hasThemeColor', 144,
+        'preferRelatedApplications', 32,
         1,
         mojo.internal.Bool,
         false,
@@ -388,7 +388,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'themeColor', 148,
+        'hasThemeColor', 32,
+        2,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'themeColor', 60,
         0,
         mojo.internal.Uint32,
         0,
@@ -396,8 +404,8 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'hasBackgroundColor', 144,
-        2,
+        'hasBackgroundColor', 32,
+        3,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -468,8 +476,8 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'hasDarkThemeColor', 144,
-        3,
+        'hasDarkThemeColor', 32,
+        4,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -484,8 +492,8 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'hasDarkBackgroundColor', 144,
-        4,
+        'hasDarkBackgroundColor', 32,
+        5,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -533,6 +541,8 @@ export class Manifest {
     this.description;
     /** @type { !url_mojom_Url } */
     this.id;
+    /** @type { !boolean } */
+    this.hasCustomId;
     /** @type { !url_mojom_Url } */
     this.startUrl;
     /** @type { !blink_mojom_DisplayMode } */

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -151,8 +152,8 @@ struct GetAvailableRoutinesResponse {
   ~GetAvailableRoutinesResponse();
   GetAvailableRoutinesResponse(const GetAvailableRoutinesResponse&) = delete;
   GetAvailableRoutinesResponse& operator=(const GetAvailableRoutinesResponse&) = delete;
-  GetAvailableRoutinesResponse(GetAvailableRoutinesResponse&& rhs);
-  GetAvailableRoutinesResponse& operator=(GetAvailableRoutinesResponse&& rhs);
+  GetAvailableRoutinesResponse(GetAvailableRoutinesResponse&& rhs) noexcept;
+  GetAvailableRoutinesResponse& operator=(GetAvailableRoutinesResponse&& rhs) noexcept;
 
   // Populates a GetAvailableRoutinesResponse object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -165,17 +166,13 @@ struct GetAvailableRoutinesResponse {
   // Creates a deep copy of GetAvailableRoutinesResponse.
   GetAvailableRoutinesResponse Clone() const;
 
-  // Creates a GetAvailableRoutinesResponse object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<GetAvailableRoutinesResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetAvailableRoutinesResponse object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetAvailableRoutinesResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<GetAvailableRoutinesResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a GetAvailableRoutinesResponse object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<GetAvailableRoutinesResponse> FromValue(const base::Value& value);
+  static std::optional<GetAvailableRoutinesResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetAvailableRoutinesResponse object.
@@ -190,8 +187,8 @@ struct GetRoutineUpdateRequest {
   ~GetRoutineUpdateRequest();
   GetRoutineUpdateRequest(const GetRoutineUpdateRequest&) = delete;
   GetRoutineUpdateRequest& operator=(const GetRoutineUpdateRequest&) = delete;
-  GetRoutineUpdateRequest(GetRoutineUpdateRequest&& rhs);
-  GetRoutineUpdateRequest& operator=(GetRoutineUpdateRequest&& rhs);
+  GetRoutineUpdateRequest(GetRoutineUpdateRequest&& rhs) noexcept;
+  GetRoutineUpdateRequest& operator=(GetRoutineUpdateRequest&& rhs) noexcept;
 
   // Populates a GetRoutineUpdateRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -204,17 +201,13 @@ struct GetRoutineUpdateRequest {
   // Creates a deep copy of GetRoutineUpdateRequest.
   GetRoutineUpdateRequest Clone() const;
 
-  // Creates a GetRoutineUpdateRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetRoutineUpdateRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetRoutineUpdateRequest object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetRoutineUpdateRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<GetRoutineUpdateRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a GetRoutineUpdateRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetRoutineUpdateRequest> FromValue(const base::Value& value);
+  static std::optional<GetRoutineUpdateRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetRoutineUpdateRequest object.
@@ -231,8 +224,8 @@ struct GetRoutineUpdateResponse {
   ~GetRoutineUpdateResponse();
   GetRoutineUpdateResponse(const GetRoutineUpdateResponse&) = delete;
   GetRoutineUpdateResponse& operator=(const GetRoutineUpdateResponse&) = delete;
-  GetRoutineUpdateResponse(GetRoutineUpdateResponse&& rhs);
-  GetRoutineUpdateResponse& operator=(GetRoutineUpdateResponse&& rhs);
+  GetRoutineUpdateResponse(GetRoutineUpdateResponse&& rhs) noexcept;
+  GetRoutineUpdateResponse& operator=(GetRoutineUpdateResponse&& rhs) noexcept;
 
   // Populates a GetRoutineUpdateResponse object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -245,17 +238,13 @@ struct GetRoutineUpdateResponse {
   // Creates a deep copy of GetRoutineUpdateResponse.
   GetRoutineUpdateResponse Clone() const;
 
-  // Creates a GetRoutineUpdateResponse object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetRoutineUpdateResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetRoutineUpdateResponse object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetRoutineUpdateResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<GetRoutineUpdateResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a GetRoutineUpdateResponse object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetRoutineUpdateResponse> FromValue(const base::Value& value);
+  static std::optional<GetRoutineUpdateResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetRoutineUpdateResponse object.
@@ -263,7 +252,7 @@ struct GetRoutineUpdateResponse {
 
   int progress_percent;
 
-  absl::optional<std::string> output;
+  std::optional<std::string> output;
 
   RoutineStatus status;
 
@@ -279,8 +268,8 @@ struct RunAcPowerRoutineRequest {
   ~RunAcPowerRoutineRequest();
   RunAcPowerRoutineRequest(const RunAcPowerRoutineRequest&) = delete;
   RunAcPowerRoutineRequest& operator=(const RunAcPowerRoutineRequest&) = delete;
-  RunAcPowerRoutineRequest(RunAcPowerRoutineRequest&& rhs);
-  RunAcPowerRoutineRequest& operator=(RunAcPowerRoutineRequest&& rhs);
+  RunAcPowerRoutineRequest(RunAcPowerRoutineRequest&& rhs) noexcept;
+  RunAcPowerRoutineRequest& operator=(RunAcPowerRoutineRequest&& rhs) noexcept;
 
   // Populates a RunAcPowerRoutineRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -293,17 +282,13 @@ struct RunAcPowerRoutineRequest {
   // Creates a deep copy of RunAcPowerRoutineRequest.
   RunAcPowerRoutineRequest Clone() const;
 
-  // Creates a RunAcPowerRoutineRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RunAcPowerRoutineRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunAcPowerRoutineRequest object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RunAcPowerRoutineRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunAcPowerRoutineRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunAcPowerRoutineRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RunAcPowerRoutineRequest> FromValue(const base::Value& value);
+  static std::optional<RunAcPowerRoutineRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunAcPowerRoutineRequest object.
@@ -313,7 +298,7 @@ struct RunAcPowerRoutineRequest {
 
   // If specified, this must match the type of power supply for the routine to
   // succeed.
-  absl::optional<std::string> expected_power_type;
+  std::optional<std::string> expected_power_type;
 
 };
 
@@ -322,8 +307,8 @@ struct RunBatteryChargeRoutineRequest {
   ~RunBatteryChargeRoutineRequest();
   RunBatteryChargeRoutineRequest(const RunBatteryChargeRoutineRequest&) = delete;
   RunBatteryChargeRoutineRequest& operator=(const RunBatteryChargeRoutineRequest&) = delete;
-  RunBatteryChargeRoutineRequest(RunBatteryChargeRoutineRequest&& rhs);
-  RunBatteryChargeRoutineRequest& operator=(RunBatteryChargeRoutineRequest&& rhs);
+  RunBatteryChargeRoutineRequest(RunBatteryChargeRoutineRequest&& rhs) noexcept;
+  RunBatteryChargeRoutineRequest& operator=(RunBatteryChargeRoutineRequest&& rhs) noexcept;
 
   // Populates a RunBatteryChargeRoutineRequest object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -336,17 +321,13 @@ struct RunBatteryChargeRoutineRequest {
   // Creates a deep copy of RunBatteryChargeRoutineRequest.
   RunBatteryChargeRoutineRequest Clone() const;
 
-  // Creates a RunBatteryChargeRoutineRequest object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<RunBatteryChargeRoutineRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunBatteryChargeRoutineRequest object from a base::Value::Dict,
   // or nullopt on failure.
-  static absl::optional<RunBatteryChargeRoutineRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunBatteryChargeRoutineRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunBatteryChargeRoutineRequest object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<RunBatteryChargeRoutineRequest> FromValue(const base::Value& value);
+  static std::optional<RunBatteryChargeRoutineRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunBatteryChargeRoutineRequest object.
@@ -363,8 +344,8 @@ struct RunBatteryDischargeRoutineRequest {
   ~RunBatteryDischargeRoutineRequest();
   RunBatteryDischargeRoutineRequest(const RunBatteryDischargeRoutineRequest&) = delete;
   RunBatteryDischargeRoutineRequest& operator=(const RunBatteryDischargeRoutineRequest&) = delete;
-  RunBatteryDischargeRoutineRequest(RunBatteryDischargeRoutineRequest&& rhs);
-  RunBatteryDischargeRoutineRequest& operator=(RunBatteryDischargeRoutineRequest&& rhs);
+  RunBatteryDischargeRoutineRequest(RunBatteryDischargeRoutineRequest&& rhs) noexcept;
+  RunBatteryDischargeRoutineRequest& operator=(RunBatteryDischargeRoutineRequest&& rhs) noexcept;
 
   // Populates a RunBatteryDischargeRoutineRequest object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -377,17 +358,13 @@ struct RunBatteryDischargeRoutineRequest {
   // Creates a deep copy of RunBatteryDischargeRoutineRequest.
   RunBatteryDischargeRoutineRequest Clone() const;
 
-  // Creates a RunBatteryDischargeRoutineRequest object from a base::Value, or
-  // NULL on failure.
-  static std::unique_ptr<RunBatteryDischargeRoutineRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunBatteryDischargeRoutineRequest object from a
   // base::Value::Dict, or nullopt on failure.
-  static absl::optional<RunBatteryDischargeRoutineRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunBatteryDischargeRoutineRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunBatteryDischargeRoutineRequest object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<RunBatteryDischargeRoutineRequest> FromValue(const base::Value& value);
+  static std::optional<RunBatteryDischargeRoutineRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunBatteryDischargeRoutineRequest object.
@@ -404,8 +381,8 @@ struct RunBluetoothPairingRoutineRequest {
   ~RunBluetoothPairingRoutineRequest();
   RunBluetoothPairingRoutineRequest(const RunBluetoothPairingRoutineRequest&) = delete;
   RunBluetoothPairingRoutineRequest& operator=(const RunBluetoothPairingRoutineRequest&) = delete;
-  RunBluetoothPairingRoutineRequest(RunBluetoothPairingRoutineRequest&& rhs);
-  RunBluetoothPairingRoutineRequest& operator=(RunBluetoothPairingRoutineRequest&& rhs);
+  RunBluetoothPairingRoutineRequest(RunBluetoothPairingRoutineRequest&& rhs) noexcept;
+  RunBluetoothPairingRoutineRequest& operator=(RunBluetoothPairingRoutineRequest&& rhs) noexcept;
 
   // Populates a RunBluetoothPairingRoutineRequest object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -418,17 +395,13 @@ struct RunBluetoothPairingRoutineRequest {
   // Creates a deep copy of RunBluetoothPairingRoutineRequest.
   RunBluetoothPairingRoutineRequest Clone() const;
 
-  // Creates a RunBluetoothPairingRoutineRequest object from a base::Value, or
-  // NULL on failure.
-  static std::unique_ptr<RunBluetoothPairingRoutineRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunBluetoothPairingRoutineRequest object from a
   // base::Value::Dict, or nullopt on failure.
-  static absl::optional<RunBluetoothPairingRoutineRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunBluetoothPairingRoutineRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunBluetoothPairingRoutineRequest object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<RunBluetoothPairingRoutineRequest> FromValue(const base::Value& value);
+  static std::optional<RunBluetoothPairingRoutineRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunBluetoothPairingRoutineRequest object.
@@ -443,8 +416,8 @@ struct RunBluetoothScanningRoutineRequest {
   ~RunBluetoothScanningRoutineRequest();
   RunBluetoothScanningRoutineRequest(const RunBluetoothScanningRoutineRequest&) = delete;
   RunBluetoothScanningRoutineRequest& operator=(const RunBluetoothScanningRoutineRequest&) = delete;
-  RunBluetoothScanningRoutineRequest(RunBluetoothScanningRoutineRequest&& rhs);
-  RunBluetoothScanningRoutineRequest& operator=(RunBluetoothScanningRoutineRequest&& rhs);
+  RunBluetoothScanningRoutineRequest(RunBluetoothScanningRoutineRequest&& rhs) noexcept;
+  RunBluetoothScanningRoutineRequest& operator=(RunBluetoothScanningRoutineRequest&& rhs) noexcept;
 
   // Populates a RunBluetoothScanningRoutineRequest object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -457,17 +430,13 @@ struct RunBluetoothScanningRoutineRequest {
   // Creates a deep copy of RunBluetoothScanningRoutineRequest.
   RunBluetoothScanningRoutineRequest Clone() const;
 
-  // Creates a RunBluetoothScanningRoutineRequest object from a base::Value, or
-  // NULL on failure.
-  static std::unique_ptr<RunBluetoothScanningRoutineRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunBluetoothScanningRoutineRequest object from a
   // base::Value::Dict, or nullopt on failure.
-  static absl::optional<RunBluetoothScanningRoutineRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunBluetoothScanningRoutineRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunBluetoothScanningRoutineRequest object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<RunBluetoothScanningRoutineRequest> FromValue(const base::Value& value);
+  static std::optional<RunBluetoothScanningRoutineRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunBluetoothScanningRoutineRequest object.
@@ -482,8 +451,8 @@ struct RunCpuRoutineRequest {
   ~RunCpuRoutineRequest();
   RunCpuRoutineRequest(const RunCpuRoutineRequest&) = delete;
   RunCpuRoutineRequest& operator=(const RunCpuRoutineRequest&) = delete;
-  RunCpuRoutineRequest(RunCpuRoutineRequest&& rhs);
-  RunCpuRoutineRequest& operator=(RunCpuRoutineRequest&& rhs);
+  RunCpuRoutineRequest(RunCpuRoutineRequest&& rhs) noexcept;
+  RunCpuRoutineRequest& operator=(RunCpuRoutineRequest&& rhs) noexcept;
 
   // Populates a RunCpuRoutineRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -496,17 +465,13 @@ struct RunCpuRoutineRequest {
   // Creates a deep copy of RunCpuRoutineRequest.
   RunCpuRoutineRequest Clone() const;
 
-  // Creates a RunCpuRoutineRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RunCpuRoutineRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunCpuRoutineRequest object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<RunCpuRoutineRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunCpuRoutineRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunCpuRoutineRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RunCpuRoutineRequest> FromValue(const base::Value& value);
+  static std::optional<RunCpuRoutineRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunCpuRoutineRequest object.
@@ -521,8 +486,8 @@ struct RunDiskReadRequest {
   ~RunDiskReadRequest();
   RunDiskReadRequest(const RunDiskReadRequest&) = delete;
   RunDiskReadRequest& operator=(const RunDiskReadRequest&) = delete;
-  RunDiskReadRequest(RunDiskReadRequest&& rhs);
-  RunDiskReadRequest& operator=(RunDiskReadRequest&& rhs);
+  RunDiskReadRequest(RunDiskReadRequest&& rhs) noexcept;
+  RunDiskReadRequest& operator=(RunDiskReadRequest&& rhs) noexcept;
 
   // Populates a RunDiskReadRequest object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -535,16 +500,13 @@ struct RunDiskReadRequest {
   // Creates a deep copy of RunDiskReadRequest.
   RunDiskReadRequest Clone() const;
 
-  // Creates a RunDiskReadRequest object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RunDiskReadRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunDiskReadRequest object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RunDiskReadRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunDiskReadRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunDiskReadRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RunDiskReadRequest> FromValue(const base::Value& value);
+  static std::optional<RunDiskReadRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunDiskReadRequest object.
@@ -575,8 +537,8 @@ struct RunNvmeSelfTestRequest {
   ~RunNvmeSelfTestRequest();
   RunNvmeSelfTestRequest(const RunNvmeSelfTestRequest&) = delete;
   RunNvmeSelfTestRequest& operator=(const RunNvmeSelfTestRequest&) = delete;
-  RunNvmeSelfTestRequest(RunNvmeSelfTestRequest&& rhs);
-  RunNvmeSelfTestRequest& operator=(RunNvmeSelfTestRequest&& rhs);
+  RunNvmeSelfTestRequest(RunNvmeSelfTestRequest&& rhs) noexcept;
+  RunNvmeSelfTestRequest& operator=(RunNvmeSelfTestRequest&& rhs) noexcept;
 
   // Populates a RunNvmeSelfTestRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -589,17 +551,13 @@ struct RunNvmeSelfTestRequest {
   // Creates a deep copy of RunNvmeSelfTestRequest.
   RunNvmeSelfTestRequest Clone() const;
 
-  // Creates a RunNvmeSelfTestRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RunNvmeSelfTestRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunNvmeSelfTestRequest object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RunNvmeSelfTestRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunNvmeSelfTestRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunNvmeSelfTestRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RunNvmeSelfTestRequest> FromValue(const base::Value& value);
+  static std::optional<RunNvmeSelfTestRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunNvmeSelfTestRequest object.
@@ -614,8 +572,8 @@ struct RunNvmeWearLevelRequest {
   ~RunNvmeWearLevelRequest();
   RunNvmeWearLevelRequest(const RunNvmeWearLevelRequest&) = delete;
   RunNvmeWearLevelRequest& operator=(const RunNvmeWearLevelRequest&) = delete;
-  RunNvmeWearLevelRequest(RunNvmeWearLevelRequest&& rhs);
-  RunNvmeWearLevelRequest& operator=(RunNvmeWearLevelRequest&& rhs);
+  RunNvmeWearLevelRequest(RunNvmeWearLevelRequest&& rhs) noexcept;
+  RunNvmeWearLevelRequest& operator=(RunNvmeWearLevelRequest&& rhs) noexcept;
 
   // Populates a RunNvmeWearLevelRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -628,17 +586,13 @@ struct RunNvmeWearLevelRequest {
   // Creates a deep copy of RunNvmeWearLevelRequest.
   RunNvmeWearLevelRequest Clone() const;
 
-  // Creates a RunNvmeWearLevelRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RunNvmeWearLevelRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunNvmeWearLevelRequest object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RunNvmeWearLevelRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunNvmeWearLevelRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunNvmeWearLevelRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RunNvmeWearLevelRequest> FromValue(const base::Value& value);
+  static std::optional<RunNvmeWearLevelRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunNvmeWearLevelRequest object.
@@ -653,8 +607,8 @@ struct RunSmartctlCheckRequest {
   ~RunSmartctlCheckRequest();
   RunSmartctlCheckRequest(const RunSmartctlCheckRequest&) = delete;
   RunSmartctlCheckRequest& operator=(const RunSmartctlCheckRequest&) = delete;
-  RunSmartctlCheckRequest(RunSmartctlCheckRequest&& rhs);
-  RunSmartctlCheckRequest& operator=(RunSmartctlCheckRequest&& rhs);
+  RunSmartctlCheckRequest(RunSmartctlCheckRequest&& rhs) noexcept;
+  RunSmartctlCheckRequest& operator=(RunSmartctlCheckRequest&& rhs) noexcept;
 
   // Populates a RunSmartctlCheckRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -667,23 +621,19 @@ struct RunSmartctlCheckRequest {
   // Creates a deep copy of RunSmartctlCheckRequest.
   RunSmartctlCheckRequest Clone() const;
 
-  // Creates a RunSmartctlCheckRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RunSmartctlCheckRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunSmartctlCheckRequest object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RunSmartctlCheckRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunSmartctlCheckRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunSmartctlCheckRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RunSmartctlCheckRequest> FromValue(const base::Value& value);
+  static std::optional<RunSmartctlCheckRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunSmartctlCheckRequest object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<int> percentage_used_threshold;
+  std::optional<int> percentage_used_threshold;
 
 };
 
@@ -692,8 +642,8 @@ struct RunPowerButtonRequest {
   ~RunPowerButtonRequest();
   RunPowerButtonRequest(const RunPowerButtonRequest&) = delete;
   RunPowerButtonRequest& operator=(const RunPowerButtonRequest&) = delete;
-  RunPowerButtonRequest(RunPowerButtonRequest&& rhs);
-  RunPowerButtonRequest& operator=(RunPowerButtonRequest&& rhs);
+  RunPowerButtonRequest(RunPowerButtonRequest&& rhs) noexcept;
+  RunPowerButtonRequest& operator=(RunPowerButtonRequest&& rhs) noexcept;
 
   // Populates a RunPowerButtonRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -706,17 +656,13 @@ struct RunPowerButtonRequest {
   // Creates a deep copy of RunPowerButtonRequest.
   RunPowerButtonRequest Clone() const;
 
-  // Creates a RunPowerButtonRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RunPowerButtonRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunPowerButtonRequest object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<RunPowerButtonRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<RunPowerButtonRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a RunPowerButtonRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RunPowerButtonRequest> FromValue(const base::Value& value);
+  static std::optional<RunPowerButtonRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunPowerButtonRequest object.
@@ -731,8 +677,8 @@ struct RunRoutineResponse {
   ~RunRoutineResponse();
   RunRoutineResponse(const RunRoutineResponse&) = delete;
   RunRoutineResponse& operator=(const RunRoutineResponse&) = delete;
-  RunRoutineResponse(RunRoutineResponse&& rhs);
-  RunRoutineResponse& operator=(RunRoutineResponse&& rhs);
+  RunRoutineResponse(RunRoutineResponse&& rhs) noexcept;
+  RunRoutineResponse& operator=(RunRoutineResponse&& rhs) noexcept;
 
   // Populates a RunRoutineResponse object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -745,16 +691,13 @@ struct RunRoutineResponse {
   // Creates a deep copy of RunRoutineResponse.
   RunRoutineResponse Clone() const;
 
-  // Creates a RunRoutineResponse object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RunRoutineResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunRoutineResponse object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RunRoutineResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<RunRoutineResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a RunRoutineResponse object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RunRoutineResponse> FromValue(const base::Value& value);
+  static std::optional<RunRoutineResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunRoutineResponse object.
@@ -771,8 +714,8 @@ struct RoutineInitializedInfo {
   ~RoutineInitializedInfo();
   RoutineInitializedInfo(const RoutineInitializedInfo&) = delete;
   RoutineInitializedInfo& operator=(const RoutineInitializedInfo&) = delete;
-  RoutineInitializedInfo(RoutineInitializedInfo&& rhs);
-  RoutineInitializedInfo& operator=(RoutineInitializedInfo&& rhs);
+  RoutineInitializedInfo(RoutineInitializedInfo&& rhs) noexcept;
+  RoutineInitializedInfo& operator=(RoutineInitializedInfo&& rhs) noexcept;
 
   // Populates a RoutineInitializedInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -785,23 +728,19 @@ struct RoutineInitializedInfo {
   // Creates a deep copy of RoutineInitializedInfo.
   RoutineInitializedInfo Clone() const;
 
-  // Creates a RoutineInitializedInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RoutineInitializedInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a RoutineInitializedInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RoutineInitializedInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<RoutineInitializedInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a RoutineInitializedInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RoutineInitializedInfo> FromValue(const base::Value& value);
+  static std::optional<RoutineInitializedInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRoutineInitializedInfo object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> uuid;
+  std::optional<std::string> uuid;
 
 };
 
@@ -810,8 +749,8 @@ struct RoutineRunningInfo {
   ~RoutineRunningInfo();
   RoutineRunningInfo(const RoutineRunningInfo&) = delete;
   RoutineRunningInfo& operator=(const RoutineRunningInfo&) = delete;
-  RoutineRunningInfo(RoutineRunningInfo&& rhs);
-  RoutineRunningInfo& operator=(RoutineRunningInfo&& rhs);
+  RoutineRunningInfo(RoutineRunningInfo&& rhs) noexcept;
+  RoutineRunningInfo& operator=(RoutineRunningInfo&& rhs) noexcept;
 
   // Populates a RoutineRunningInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -824,24 +763,21 @@ struct RoutineRunningInfo {
   // Creates a deep copy of RoutineRunningInfo.
   RoutineRunningInfo Clone() const;
 
-  // Creates a RoutineRunningInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RoutineRunningInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a RoutineRunningInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RoutineRunningInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<RoutineRunningInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a RoutineRunningInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RoutineRunningInfo> FromValue(const base::Value& value);
+  static std::optional<RoutineRunningInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRoutineRunningInfo object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> uuid;
+  std::optional<std::string> uuid;
 
-  absl::optional<int> percentage;
+  std::optional<int> percentage;
 
 };
 
@@ -862,8 +798,8 @@ struct RoutineWaitingInfo {
   ~RoutineWaitingInfo();
   RoutineWaitingInfo(const RoutineWaitingInfo&) = delete;
   RoutineWaitingInfo& operator=(const RoutineWaitingInfo&) = delete;
-  RoutineWaitingInfo(RoutineWaitingInfo&& rhs);
-  RoutineWaitingInfo& operator=(RoutineWaitingInfo&& rhs);
+  RoutineWaitingInfo(RoutineWaitingInfo&& rhs) noexcept;
+  RoutineWaitingInfo& operator=(RoutineWaitingInfo&& rhs) noexcept;
 
   // Populates a RoutineWaitingInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -876,30 +812,27 @@ struct RoutineWaitingInfo {
   // Creates a deep copy of RoutineWaitingInfo.
   RoutineWaitingInfo Clone() const;
 
-  // Creates a RoutineWaitingInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RoutineWaitingInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a RoutineWaitingInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RoutineWaitingInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<RoutineWaitingInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a RoutineWaitingInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RoutineWaitingInfo> FromValue(const base::Value& value);
+  static std::optional<RoutineWaitingInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRoutineWaitingInfo object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> uuid;
+  std::optional<std::string> uuid;
 
-  absl::optional<int> percentage;
+  std::optional<int> percentage;
 
   // Reason why the routine waits.
   RoutineWaitingReason reason;
 
   // Additional information, may be used to pass instruction or explanation.
-  absl::optional<std::string> message;
+  std::optional<std::string> message;
 
 };
 
@@ -922,8 +855,8 @@ struct ExceptionInfo {
   ~ExceptionInfo();
   ExceptionInfo(const ExceptionInfo&) = delete;
   ExceptionInfo& operator=(const ExceptionInfo&) = delete;
-  ExceptionInfo(ExceptionInfo&& rhs);
-  ExceptionInfo& operator=(ExceptionInfo&& rhs);
+  ExceptionInfo(ExceptionInfo&& rhs) noexcept;
+  ExceptionInfo& operator=(ExceptionInfo&& rhs) noexcept;
 
   // Populates a ExceptionInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -936,27 +869,24 @@ struct ExceptionInfo {
   // Creates a deep copy of ExceptionInfo.
   ExceptionInfo Clone() const;
 
-  // Creates a ExceptionInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ExceptionInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExceptionInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ExceptionInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ExceptionInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ExceptionInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ExceptionInfo> FromValue(const base::Value& value);
+  static std::optional<ExceptionInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExceptionInfo object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> uuid;
+  std::optional<std::string> uuid;
 
   ExceptionReason reason;
 
   // A human readable message for debugging. Don't rely on the content because it
   // could change anytime.
-  absl::optional<std::string> debug_message;
+  std::optional<std::string> debug_message;
 
 };
 
@@ -994,8 +924,8 @@ struct MemtesterResult {
   ~MemtesterResult();
   MemtesterResult(const MemtesterResult&) = delete;
   MemtesterResult& operator=(const MemtesterResult&) = delete;
-  MemtesterResult(MemtesterResult&& rhs);
-  MemtesterResult& operator=(MemtesterResult&& rhs);
+  MemtesterResult(MemtesterResult&& rhs) noexcept;
+  MemtesterResult& operator=(MemtesterResult&& rhs) noexcept;
 
   // Populates a MemtesterResult object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1008,15 +938,12 @@ struct MemtesterResult {
   // Creates a deep copy of MemtesterResult.
   MemtesterResult Clone() const;
 
-  // Creates a MemtesterResult object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MemtesterResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a MemtesterResult object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MemtesterResult> FromValue(const base::Value::Dict& value);
+  static std::optional<MemtesterResult> FromValue(const base::Value::Dict& value);
 
   // Creates a MemtesterResult object from a base::Value, or nullopt on failure.
-  static absl::optional<MemtesterResult> FromValue(const base::Value& value);
+  static std::optional<MemtesterResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMemtesterResult object.
@@ -1033,8 +960,8 @@ struct MemoryRoutineFinishedInfo {
   ~MemoryRoutineFinishedInfo();
   MemoryRoutineFinishedInfo(const MemoryRoutineFinishedInfo&) = delete;
   MemoryRoutineFinishedInfo& operator=(const MemoryRoutineFinishedInfo&) = delete;
-  MemoryRoutineFinishedInfo(MemoryRoutineFinishedInfo&& rhs);
-  MemoryRoutineFinishedInfo& operator=(MemoryRoutineFinishedInfo&& rhs);
+  MemoryRoutineFinishedInfo(MemoryRoutineFinishedInfo&& rhs) noexcept;
+  MemoryRoutineFinishedInfo& operator=(MemoryRoutineFinishedInfo&& rhs) noexcept;
 
   // Populates a MemoryRoutineFinishedInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1047,31 +974,27 @@ struct MemoryRoutineFinishedInfo {
   // Creates a deep copy of MemoryRoutineFinishedInfo.
   MemoryRoutineFinishedInfo Clone() const;
 
-  // Creates a MemoryRoutineFinishedInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MemoryRoutineFinishedInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a MemoryRoutineFinishedInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<MemoryRoutineFinishedInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<MemoryRoutineFinishedInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a MemoryRoutineFinishedInfo object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<MemoryRoutineFinishedInfo> FromValue(const base::Value& value);
+  static std::optional<MemoryRoutineFinishedInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMemoryRoutineFinishedInfo object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> uuid;
+  std::optional<std::string> uuid;
 
-  absl::optional<bool> has_passed;
+  std::optional<bool> has_passed;
 
   // Number of bytes tested in the memory routine.
-  absl::optional<double> bytes_tested;
+  std::optional<double> bytes_tested;
 
   // Contains the memtester test results.
-  absl::optional<MemtesterResult> result;
+  std::optional<MemtesterResult> result;
 
 };
 
@@ -1080,8 +1003,8 @@ struct RunMemoryRoutineArguments {
   ~RunMemoryRoutineArguments();
   RunMemoryRoutineArguments(const RunMemoryRoutineArguments&) = delete;
   RunMemoryRoutineArguments& operator=(const RunMemoryRoutineArguments&) = delete;
-  RunMemoryRoutineArguments(RunMemoryRoutineArguments&& rhs);
-  RunMemoryRoutineArguments& operator=(RunMemoryRoutineArguments&& rhs);
+  RunMemoryRoutineArguments(RunMemoryRoutineArguments&& rhs) noexcept;
+  RunMemoryRoutineArguments& operator=(RunMemoryRoutineArguments&& rhs) noexcept;
 
   // Populates a RunMemoryRoutineArguments object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1094,17 +1017,13 @@ struct RunMemoryRoutineArguments {
   // Creates a deep copy of RunMemoryRoutineArguments.
   RunMemoryRoutineArguments Clone() const;
 
-  // Creates a RunMemoryRoutineArguments object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RunMemoryRoutineArguments> FromValueDeprecated(const base::Value& value);
-
   // Creates a RunMemoryRoutineArguments object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RunMemoryRoutineArguments> FromValue(const base::Value::Dict& value);
+  static std::optional<RunMemoryRoutineArguments> FromValue(const base::Value::Dict& value);
 
   // Creates a RunMemoryRoutineArguments object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<RunMemoryRoutineArguments> FromValue(const base::Value& value);
+  static std::optional<RunMemoryRoutineArguments> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRunMemoryRoutineArguments object.
@@ -1112,7 +1031,188 @@ struct RunMemoryRoutineArguments {
 
   // An optional field to indicate how much memory should be tested. If the value
   // is null, memory test will run with as much memory as possible.
-  absl::optional<int> max_testing_mem_kib;
+  std::optional<int> max_testing_mem_kib;
+
+};
+
+enum class VolumeButtonType {
+  kNone = 0,
+  kVolumeUp,
+  kVolumeDown,
+  kMaxValue = kVolumeDown,
+};
+
+
+const char* ToString(VolumeButtonType as_enum);
+VolumeButtonType ParseVolumeButtonType(base::StringPiece as_string);
+std::u16string GetVolumeButtonTypeParseError(base::StringPiece as_string);
+
+struct VolumeButtonRoutineFinishedInfo {
+  VolumeButtonRoutineFinishedInfo();
+  ~VolumeButtonRoutineFinishedInfo();
+  VolumeButtonRoutineFinishedInfo(const VolumeButtonRoutineFinishedInfo&) = delete;
+  VolumeButtonRoutineFinishedInfo& operator=(const VolumeButtonRoutineFinishedInfo&) = delete;
+  VolumeButtonRoutineFinishedInfo(VolumeButtonRoutineFinishedInfo&& rhs) noexcept;
+  VolumeButtonRoutineFinishedInfo& operator=(VolumeButtonRoutineFinishedInfo&& rhs) noexcept;
+
+  // Populates a VolumeButtonRoutineFinishedInfo object from a base::Value&
+  // instance. Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, VolumeButtonRoutineFinishedInfo& out);
+
+  // Populates a VolumeButtonRoutineFinishedInfo object from a Dict& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, VolumeButtonRoutineFinishedInfo& out);
+
+  // Creates a deep copy of VolumeButtonRoutineFinishedInfo.
+  VolumeButtonRoutineFinishedInfo Clone() const;
+
+  // Creates a VolumeButtonRoutineFinishedInfo object from a base::Value::Dict,
+  // or nullopt on failure.
+  static std::optional<VolumeButtonRoutineFinishedInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a VolumeButtonRoutineFinishedInfo object from a base::Value, or
+  // nullopt on failure.
+  static std::optional<VolumeButtonRoutineFinishedInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisVolumeButtonRoutineFinishedInfo object.
+  base::Value::Dict ToValue() const;
+
+  std::optional<std::string> uuid;
+
+  std::optional<bool> has_passed;
+
+};
+
+struct RunVolumeButtonRoutineArguments {
+  RunVolumeButtonRoutineArguments();
+  ~RunVolumeButtonRoutineArguments();
+  RunVolumeButtonRoutineArguments(const RunVolumeButtonRoutineArguments&) = delete;
+  RunVolumeButtonRoutineArguments& operator=(const RunVolumeButtonRoutineArguments&) = delete;
+  RunVolumeButtonRoutineArguments(RunVolumeButtonRoutineArguments&& rhs) noexcept;
+  RunVolumeButtonRoutineArguments& operator=(RunVolumeButtonRoutineArguments&& rhs) noexcept;
+
+  // Populates a RunVolumeButtonRoutineArguments object from a base::Value&
+  // instance. Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, RunVolumeButtonRoutineArguments& out);
+
+  // Populates a RunVolumeButtonRoutineArguments object from a Dict& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, RunVolumeButtonRoutineArguments& out);
+
+  // Creates a deep copy of RunVolumeButtonRoutineArguments.
+  RunVolumeButtonRoutineArguments Clone() const;
+
+  // Creates a RunVolumeButtonRoutineArguments object from a base::Value::Dict,
+  // or nullopt on failure.
+  static std::optional<RunVolumeButtonRoutineArguments> FromValue(const base::Value::Dict& value);
+
+  // Creates a RunVolumeButtonRoutineArguments object from a base::Value, or
+  // nullopt on failure.
+  static std::optional<RunVolumeButtonRoutineArguments> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisRunVolumeButtonRoutineArguments object.
+  base::Value::Dict ToValue() const;
+
+  // The volume button to be tested.
+  VolumeButtonType button_type;
+
+  // Length of time to listen to the volume button events. The value should be
+  // positive and less or equal to 600 seconds.
+  int timeout_seconds;
+
+};
+
+enum class HardwarePresenceStatus {
+  kNone = 0,
+  kMatched,
+  kNotMatched,
+  kNotConfigured,
+  kMaxValue = kNotConfigured,
+};
+
+
+const char* ToString(HardwarePresenceStatus as_enum);
+HardwarePresenceStatus ParseHardwarePresenceStatus(base::StringPiece as_string);
+std::u16string GetHardwarePresenceStatusParseError(base::StringPiece as_string);
+
+struct FanRoutineFinishedInfo {
+  FanRoutineFinishedInfo();
+  ~FanRoutineFinishedInfo();
+  FanRoutineFinishedInfo(const FanRoutineFinishedInfo&) = delete;
+  FanRoutineFinishedInfo& operator=(const FanRoutineFinishedInfo&) = delete;
+  FanRoutineFinishedInfo(FanRoutineFinishedInfo&& rhs) noexcept;
+  FanRoutineFinishedInfo& operator=(FanRoutineFinishedInfo&& rhs) noexcept;
+
+  // Populates a FanRoutineFinishedInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, FanRoutineFinishedInfo& out);
+
+  // Populates a FanRoutineFinishedInfo object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, FanRoutineFinishedInfo& out);
+
+  // Creates a deep copy of FanRoutineFinishedInfo.
+  FanRoutineFinishedInfo Clone() const;
+
+  // Creates a FanRoutineFinishedInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static std::optional<FanRoutineFinishedInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a FanRoutineFinishedInfo object from a base::Value, or nullopt on
+  // failure.
+  static std::optional<FanRoutineFinishedInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisFanRoutineFinishedInfo object.
+  base::Value::Dict ToValue() const;
+
+  std::optional<std::string> uuid;
+
+  std::optional<bool> has_passed;
+
+  // The ids of fans that can be controlled.
+  std::optional<std::vector<int>> passed_fan_ids;
+
+  // The ids of fans that cannot be controlled.
+  std::optional<std::vector<int>> failed_fan_ids;
+
+  // Whether the number of fan probed is matched.
+  HardwarePresenceStatus fan_count_status;
+
+};
+
+struct RunFanRoutineArguments {
+  RunFanRoutineArguments();
+  ~RunFanRoutineArguments();
+  RunFanRoutineArguments(const RunFanRoutineArguments&) = delete;
+  RunFanRoutineArguments& operator=(const RunFanRoutineArguments&) = delete;
+  RunFanRoutineArguments(RunFanRoutineArguments&& rhs) noexcept;
+  RunFanRoutineArguments& operator=(RunFanRoutineArguments&& rhs) noexcept;
+
+  // Populates a RunFanRoutineArguments object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, RunFanRoutineArguments& out);
+
+  // Populates a RunFanRoutineArguments object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, RunFanRoutineArguments& out);
+
+  // Creates a deep copy of RunFanRoutineArguments.
+  RunFanRoutineArguments Clone() const;
+
+  // Creates a RunFanRoutineArguments object from a base::Value::Dict, or
+  // nullopt on failure.
+  static std::optional<RunFanRoutineArguments> FromValue(const base::Value::Dict& value);
+
+  // Creates a RunFanRoutineArguments object from a base::Value, or nullopt on
+  // failure.
+  static std::optional<RunFanRoutineArguments> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisRunFanRoutineArguments object.
+  base::Value::Dict ToValue() const;
 
 };
 
@@ -1121,8 +1221,8 @@ struct CreateRoutineResponse {
   ~CreateRoutineResponse();
   CreateRoutineResponse(const CreateRoutineResponse&) = delete;
   CreateRoutineResponse& operator=(const CreateRoutineResponse&) = delete;
-  CreateRoutineResponse(CreateRoutineResponse&& rhs);
-  CreateRoutineResponse& operator=(CreateRoutineResponse&& rhs);
+  CreateRoutineResponse(CreateRoutineResponse&& rhs) noexcept;
+  CreateRoutineResponse& operator=(CreateRoutineResponse&& rhs) noexcept;
 
   // Populates a CreateRoutineResponse object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1135,23 +1235,19 @@ struct CreateRoutineResponse {
   // Creates a deep copy of CreateRoutineResponse.
   CreateRoutineResponse Clone() const;
 
-  // Creates a CreateRoutineResponse object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CreateRoutineResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a CreateRoutineResponse object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<CreateRoutineResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<CreateRoutineResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a CreateRoutineResponse object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CreateRoutineResponse> FromValue(const base::Value& value);
+  static std::optional<CreateRoutineResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateRoutineResponse object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> uuid;
+  std::optional<std::string> uuid;
 
 };
 
@@ -1172,8 +1268,8 @@ struct RoutineSupportStatusInfo {
   ~RoutineSupportStatusInfo();
   RoutineSupportStatusInfo(const RoutineSupportStatusInfo&) = delete;
   RoutineSupportStatusInfo& operator=(const RoutineSupportStatusInfo&) = delete;
-  RoutineSupportStatusInfo(RoutineSupportStatusInfo&& rhs);
-  RoutineSupportStatusInfo& operator=(RoutineSupportStatusInfo&& rhs);
+  RoutineSupportStatusInfo(RoutineSupportStatusInfo&& rhs) noexcept;
+  RoutineSupportStatusInfo& operator=(RoutineSupportStatusInfo&& rhs) noexcept;
 
   // Populates a RoutineSupportStatusInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1186,17 +1282,13 @@ struct RoutineSupportStatusInfo {
   // Creates a deep copy of RoutineSupportStatusInfo.
   RoutineSupportStatusInfo Clone() const;
 
-  // Creates a RoutineSupportStatusInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<RoutineSupportStatusInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a RoutineSupportStatusInfo object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RoutineSupportStatusInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<RoutineSupportStatusInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a RoutineSupportStatusInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RoutineSupportStatusInfo> FromValue(const base::Value& value);
+  static std::optional<RoutineSupportStatusInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRoutineSupportStatusInfo object.
@@ -1211,8 +1303,8 @@ struct StartRoutineRequest {
   ~StartRoutineRequest();
   StartRoutineRequest(const StartRoutineRequest&) = delete;
   StartRoutineRequest& operator=(const StartRoutineRequest&) = delete;
-  StartRoutineRequest(StartRoutineRequest&& rhs);
-  StartRoutineRequest& operator=(StartRoutineRequest&& rhs);
+  StartRoutineRequest(StartRoutineRequest&& rhs) noexcept;
+  StartRoutineRequest& operator=(StartRoutineRequest&& rhs) noexcept;
 
   // Populates a StartRoutineRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1225,17 +1317,13 @@ struct StartRoutineRequest {
   // Creates a deep copy of StartRoutineRequest.
   StartRoutineRequest Clone() const;
 
-  // Creates a StartRoutineRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<StartRoutineRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a StartRoutineRequest object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<StartRoutineRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<StartRoutineRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a StartRoutineRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<StartRoutineRequest> FromValue(const base::Value& value);
+  static std::optional<StartRoutineRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStartRoutineRequest object.
@@ -1250,8 +1338,8 @@ struct CancelRoutineRequest {
   ~CancelRoutineRequest();
   CancelRoutineRequest(const CancelRoutineRequest&) = delete;
   CancelRoutineRequest& operator=(const CancelRoutineRequest&) = delete;
-  CancelRoutineRequest(CancelRoutineRequest&& rhs);
-  CancelRoutineRequest& operator=(CancelRoutineRequest&& rhs);
+  CancelRoutineRequest(CancelRoutineRequest&& rhs) noexcept;
+  CancelRoutineRequest& operator=(CancelRoutineRequest&& rhs) noexcept;
 
   // Populates a CancelRoutineRequest object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1264,17 +1352,13 @@ struct CancelRoutineRequest {
   // Creates a deep copy of CancelRoutineRequest.
   CancelRoutineRequest Clone() const;
 
-  // Creates a CancelRoutineRequest object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CancelRoutineRequest> FromValueDeprecated(const base::Value& value);
-
   // Creates a CancelRoutineRequest object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<CancelRoutineRequest> FromValue(const base::Value::Dict& value);
+  static std::optional<CancelRoutineRequest> FromValue(const base::Value::Dict& value);
 
   // Creates a CancelRoutineRequest object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CancelRoutineRequest> FromValue(const base::Value& value);
+  static std::optional<CancelRoutineRequest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCancelRoutineRequest object.
@@ -1301,11 +1385,11 @@ base::Value::List Create(const GetAvailableRoutinesResponse& response);
 namespace GetRoutineUpdate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   GetRoutineUpdateRequest request;
@@ -1325,11 +1409,11 @@ base::Value::List Create(const GetRoutineUpdateResponse& response);
 namespace RunAcPowerRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunAcPowerRoutineRequest request;
@@ -1358,11 +1442,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunBatteryChargeRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunBatteryChargeRoutineRequest request;
@@ -1382,11 +1466,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunBatteryDischargeRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunBatteryDischargeRoutineRequest request;
@@ -1424,11 +1508,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunBluetoothPairingRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunBluetoothPairingRoutineRequest request;
@@ -1457,11 +1541,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunBluetoothScanningRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunBluetoothScanningRoutineRequest request;
@@ -1481,11 +1565,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunCpuCacheRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunCpuRoutineRequest request;
@@ -1505,11 +1589,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunCpuFloatingPointAccuracyRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunCpuRoutineRequest request;
@@ -1529,11 +1613,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunCpuPrimeSearchRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunCpuRoutineRequest request;
@@ -1553,11 +1637,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunCpuStressRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunCpuRoutineRequest request;
@@ -1577,11 +1661,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunDiskReadRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunDiskReadRequest request;
@@ -1664,11 +1748,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunNvmeSelfTestRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunNvmeSelfTestRequest request;
@@ -1688,11 +1772,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunNvmeWearLevelRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunNvmeWearLevelRequest request;
@@ -1730,14 +1814,14 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunSmartctlCheckRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<RunSmartctlCheckRequest> request;
+  std::optional<RunSmartctlCheckRequest> request;
 
 
  private:
@@ -1763,11 +1847,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace RunPowerButtonRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunPowerButtonRequest request;
@@ -1805,11 +1889,11 @@ base::Value::List Create(const RunRoutineResponse& response);
 namespace StartRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   StartRoutineRequest request;
@@ -1829,11 +1913,11 @@ base::Value::List Create();
 namespace CancelRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   CancelRoutineRequest request;
@@ -1853,11 +1937,11 @@ base::Value::List Create();
 namespace CreateMemoryRoutine {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunMemoryRoutineArguments args;
@@ -1877,11 +1961,11 @@ base::Value::List Create(const CreateRoutineResponse& response);
 namespace IsMemoryRoutineArgumentSupported {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RunMemoryRoutineArguments args;
@@ -1897,6 +1981,102 @@ base::Value::List Create(const RoutineSupportStatusInfo& info);
 }  // namespace Results
 
 }  // namespace IsMemoryRoutineArgumentSupported
+
+namespace CreateVolumeButtonRoutine {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  RunVolumeButtonRoutineArguments args;
+
+
+ private:
+  Params();
+};
+
+namespace Results {
+
+base::Value::List Create(const CreateRoutineResponse& response);
+}  // namespace Results
+
+}  // namespace CreateVolumeButtonRoutine
+
+namespace IsVolumeButtonRoutineArgumentSupported {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  RunVolumeButtonRoutineArguments args;
+
+
+ private:
+  Params();
+};
+
+namespace Results {
+
+base::Value::List Create(const RoutineSupportStatusInfo& info);
+}  // namespace Results
+
+}  // namespace IsVolumeButtonRoutineArgumentSupported
+
+namespace CreateFanRoutine {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  RunFanRoutineArguments args;
+
+
+ private:
+  Params();
+};
+
+namespace Results {
+
+base::Value::List Create(const CreateRoutineResponse& response);
+}  // namespace Results
+
+}  // namespace CreateFanRoutine
+
+namespace IsFanRoutineArgumentSupported {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  RunFanRoutineArguments args;
+
+
+ private:
+  Params();
+};
+
+namespace Results {
+
+base::Value::List Create(const RoutineSupportStatusInfo& info);
+}  // namespace Results
+
+}  // namespace IsFanRoutineArgumentSupported
 
 //
 // Events
@@ -1929,6 +2109,20 @@ extern const char kEventName[];  // "os.diagnostics.onMemoryRoutineFinished"
 
 base::Value::List Create(const MemoryRoutineFinishedInfo& finished_info);
 }  // namespace OnMemoryRoutineFinished
+
+namespace OnVolumeButtonRoutineFinished {
+
+extern const char kEventName[];  // "os.diagnostics.onVolumeButtonRoutineFinished"
+
+base::Value::List Create(const VolumeButtonRoutineFinishedInfo& finished_info);
+}  // namespace OnVolumeButtonRoutineFinished
+
+namespace OnFanRoutineFinished {
+
+extern const char kEventName[];  // "os.diagnostics.onFanRoutineFinished"
+
+base::Value::List Create(const FanRoutineFinishedInfo& finished_info);
+}  // namespace OnFanRoutineFinished
 
 namespace OnRoutineException {
 

@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRDOMOverlayState>::value,
     "XRDOMOverlayState inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRDOMOverlayState::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRDOMOverlayState is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRDOMOverlayState.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRDOMOverlayState* blink_receiver = V8XRDOMOverlayState::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRDOMOverlayState* blink_receiver = V8XRDOMOverlayState::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

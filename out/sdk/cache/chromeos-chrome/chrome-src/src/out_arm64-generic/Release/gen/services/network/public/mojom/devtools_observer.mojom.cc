@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -158,6 +159,7 @@ URLResponseHeadDevToolsInfo::URLResponseHeadDevToolsInfo()
       alternate_protocol_usage(),
       was_fetched_via_spdy(),
       service_worker_response_source(),
+      service_worker_router_info(),
       ssl_info(),
       remote_endpoint(),
       emitted_extra_info() {}
@@ -176,7 +178,8 @@ URLResponseHeadDevToolsInfo::URLResponseHeadDevToolsInfo(
     ::net::AlternateProtocolUsage alternate_protocol_usage_in,
     bool was_fetched_via_spdy_in,
     ::network::mojom::FetchResponseSource service_worker_response_source_in,
-    const absl::optional<::net::SSLInfo>& ssl_info_in,
+    ::network::mojom::ServiceWorkerRouterInfoPtr service_worker_router_info_in,
+    const std::optional<::net::SSLInfo>& ssl_info_in,
     const ::net::IPEndPoint& remote_endpoint_in,
     bool emitted_extra_info_in)
     : response_time(std::move(response_time_in)),
@@ -192,6 +195,7 @@ URLResponseHeadDevToolsInfo::URLResponseHeadDevToolsInfo(
       alternate_protocol_usage(std::move(alternate_protocol_usage_in)),
       was_fetched_via_spdy(std::move(was_fetched_via_spdy_in)),
       service_worker_response_source(std::move(service_worker_response_source_in)),
+      service_worker_router_info(std::move(service_worker_router_info_in)),
       ssl_info(std::move(ssl_info_in)),
       remote_endpoint(std::move(remote_endpoint_in)),
       emitted_extra_info(std::move(emitted_extra_info_in)) {}
@@ -320,9 +324,18 @@ void URLResponseHeadDevToolsInfo::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "service_worker_router_info"), this->service_worker_router_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::network::mojom::ServiceWorkerRouterInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "ssl_info"), this->ssl_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::SSLInfo>&>"
+      "<value of type const std::optional<::net::SSLInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -730,14 +743,17 @@ void DevToolsObserverProxy::OnRawRequest(
                         "<value of type OtherPartitionInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnRawRequest_Name, kFlags, 0, 0, nullptr);
@@ -818,7 +834,7 @@ void DevToolsObserverProxy::OnRawRequest(
 }
 
 void DevToolsObserverProxy::OnRawResponse(
-    const std::string& in_devtool_request_id, const std::vector<::net::CookieAndLineWithAccessResult>& in_cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> in_headers, const absl::optional<std::string>& in_raw_response_headers, ::network::mojom::IPAddressSpace in_resource_address_space, int32_t in_http_status_code, const absl::optional<::net::CookiePartitionKey>& in_cookie_partition_key) {
+    const std::string& in_devtool_request_id, const std::vector<::net::CookieAndLineWithAccessResult>& in_cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> in_headers, const std::optional<std::string>& in_raw_response_headers, ::network::mojom::IPAddressSpace in_resource_address_space, int32_t in_http_status_code, const std::optional<::net::CookiePartitionKey>& in_cookie_partition_key) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::DevToolsObserver::OnRawResponse", "input_parameters",
@@ -835,7 +851,7 @@ void DevToolsObserverProxy::OnRawResponse(
                         "<value of type std::vector<::network::mojom::HttpRawHeaderPairPtr>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("raw_response_headers"), in_raw_response_headers,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("resource_address_space"), in_resource_address_space,
                         "<value of type ::network::mojom::IPAddressSpace>");
@@ -844,17 +860,20 @@ void DevToolsObserverProxy::OnRawResponse(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("cookie_partition_key"), in_cookie_partition_key,
-                        "<value of type const absl::optional<::net::CookiePartitionKey>&>");
+                        "<value of type const std::optional<::net::CookiePartitionKey>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnRawResponse_Name, kFlags, 0, 0, nullptr);
@@ -927,7 +946,7 @@ void DevToolsObserverProxy::OnRawResponse(
 }
 
 void DevToolsObserverProxy::OnPrivateNetworkRequest(
-    const absl::optional<std::string>& in_devtool_request_id, const ::GURL& in_url, bool in_is_warning, ::network::mojom::IPAddressSpace in_resource_address_space, ::network::mojom::ClientSecurityStatePtr in_client_security_state) {
+    const std::optional<std::string>& in_devtool_request_id, const ::GURL& in_url, bool in_is_warning, ::network::mojom::IPAddressSpace in_resource_address_space, ::network::mojom::ClientSecurityStatePtr in_client_security_state) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::DevToolsObserver::OnPrivateNetworkRequest", "input_parameters",
@@ -935,7 +954,7 @@ void DevToolsObserverProxy::OnPrivateNetworkRequest(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("devtool_request_id"), in_devtool_request_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("url"), in_url,
                         "<value of type const ::GURL&>");
@@ -950,14 +969,17 @@ void DevToolsObserverProxy::OnPrivateNetworkRequest(
                         "<value of type ::network::mojom::ClientSecurityStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnPrivateNetworkRequest_Name, kFlags, 0, 0, nullptr);
@@ -1031,14 +1053,17 @@ void DevToolsObserverProxy::OnCorsPreflightRequest(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorsPreflightRequest_Name, kFlags, 0, 0, nullptr);
@@ -1129,14 +1154,17 @@ void DevToolsObserverProxy::OnCorsPreflightResponse(
                         "<value of type URLResponseHeadDevToolsInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorsPreflightResponse_Name, kFlags, 0, 0, nullptr);
@@ -1202,14 +1230,17 @@ void DevToolsObserverProxy::OnCorsPreflightRequestCompleted(
                         "<value of type const ::network::URLLoaderCompletionStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorsPreflightRequestCompleted_Name, kFlags, 0, 0, nullptr);
@@ -1264,14 +1295,17 @@ void DevToolsObserverProxy::OnTrustTokenOperationDone(
                         "<value of type ::network::mojom::TrustTokenOperationResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnTrustTokenOperationDone_Name, kFlags, 0, 0, nullptr);
@@ -1312,7 +1346,7 @@ void DevToolsObserverProxy::OnTrustTokenOperationDone(
 }
 
 void DevToolsObserverProxy::OnCorsError(
-    const absl::optional<std::string>& in_devtool_request_id, const absl::optional<::url::Origin>& in_initiator_origin, ::network::mojom::ClientSecurityStatePtr in_client_security_state, const ::GURL& in_url, const ::network::CorsErrorStatus& in_status, bool in_is_warning) {
+    const std::optional<std::string>& in_devtool_request_id, const std::optional<::url::Origin>& in_initiator_origin, ::network::mojom::ClientSecurityStatePtr in_client_security_state, const ::GURL& in_url, const ::network::CorsErrorStatus& in_status, bool in_is_warning) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::DevToolsObserver::OnCorsError", "input_parameters",
@@ -1320,10 +1354,10 @@ void DevToolsObserverProxy::OnCorsError(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("devtool_request_id"), in_devtool_request_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("initiator_origin"), in_initiator_origin,
-                        "<value of type const absl::optional<::url::Origin>&>");
+                        "<value of type const std::optional<::url::Origin>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client_security_state"), in_client_security_state,
                         "<value of type ::network::mojom::ClientSecurityStatePtr>");
@@ -1338,14 +1372,17 @@ void DevToolsObserverProxy::OnCorsError(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorsError_Name, kFlags, 0, 0, nullptr);
@@ -1408,7 +1445,7 @@ void DevToolsObserverProxy::OnCorsError(
 }
 
 void DevToolsObserverProxy::OnCorbError(
-    const absl::optional<std::string>& in_devtools_request_id, const ::GURL& in_url) {
+    const std::optional<std::string>& in_devtools_request_id, const ::GURL& in_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::DevToolsObserver::OnCorbError", "input_parameters",
@@ -1416,20 +1453,23 @@ void DevToolsObserverProxy::OnCorbError(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("devtools_request_id"), in_devtools_request_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("url"), in_url,
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorbError_Name, kFlags, 0, 0, nullptr);
@@ -1480,14 +1520,17 @@ void DevToolsObserverProxy::OnSubresourceWebBundleMetadata(
                         "<value of type const std::vector<::GURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnSubresourceWebBundleMetadata_Name, kFlags, 0, 0, nullptr);
@@ -1544,14 +1587,17 @@ void DevToolsObserverProxy::OnSubresourceWebBundleMetadataError(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnSubresourceWebBundleMetadataError_Name, kFlags, 0, 0, nullptr);
@@ -1592,7 +1638,7 @@ void DevToolsObserverProxy::OnSubresourceWebBundleMetadataError(
 }
 
 void DevToolsObserverProxy::OnSubresourceWebBundleInnerResponse(
-    const std::string& in_inner_request_devtools_id, const ::GURL& in_url, const absl::optional<std::string>& in_bundle_request_devtools_id) {
+    const std::string& in_inner_request_devtools_id, const ::GURL& in_url, const std::optional<std::string>& in_bundle_request_devtools_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::DevToolsObserver::OnSubresourceWebBundleInnerResponse", "input_parameters",
@@ -1606,17 +1652,20 @@ void DevToolsObserverProxy::OnSubresourceWebBundleInnerResponse(
                         "<value of type const ::GURL&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("bundle_request_devtools_id"), in_bundle_request_devtools_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnSubresourceWebBundleInnerResponse_Name, kFlags, 0, 0, nullptr);
@@ -1664,7 +1713,7 @@ void DevToolsObserverProxy::OnSubresourceWebBundleInnerResponse(
 }
 
 void DevToolsObserverProxy::OnSubresourceWebBundleInnerResponseError(
-    const std::string& in_inner_request_devtools_id, const ::GURL& in_url, const std::string& in_error_message, const absl::optional<std::string>& in_bundle_request_devtools_id) {
+    const std::string& in_inner_request_devtools_id, const ::GURL& in_url, const std::string& in_error_message, const std::optional<std::string>& in_bundle_request_devtools_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::DevToolsObserver::OnSubresourceWebBundleInnerResponseError", "input_parameters",
@@ -1681,17 +1730,20 @@ void DevToolsObserverProxy::OnSubresourceWebBundleInnerResponseError(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("bundle_request_devtools_id"), in_bundle_request_devtools_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnSubresourceWebBundleInnerResponseError_Name, kFlags, 0, 0, nullptr);
@@ -1761,14 +1813,17 @@ void DevToolsObserverProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<DevToolsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_Clone_Name, kFlags, 0, 0, nullptr);
@@ -1854,10 +1909,10 @@ std::move(p_other_partition_info));
       std::string p_devtool_request_id{};
       std::vector<::net::CookieAndLineWithAccessResult> p_cookies_with_access_result{};
       std::vector<::network::mojom::HttpRawHeaderPairPtr> p_headers{};
-      absl::optional<std::string> p_raw_response_headers{};
+      std::optional<std::string> p_raw_response_headers{};
       ::network::mojom::IPAddressSpace p_resource_address_space{};
       int32_t p_http_status_code{};
-      absl::optional<::net::CookiePartitionKey> p_cookie_partition_key{};
+      std::optional<::net::CookiePartitionKey> p_cookie_partition_key{};
       DevToolsObserver_OnRawResponse_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDevtoolRequestId(&p_devtool_request_id))
@@ -1901,7 +1956,7 @@ std::move(p_cookie_partition_key));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_devtool_request_id{};
+      std::optional<std::string> p_devtool_request_id{};
       ::GURL p_url{};
       bool p_is_warning{};
       ::network::mojom::IPAddressSpace p_resource_address_space{};
@@ -2079,8 +2134,8 @@ std::move(p_result));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_devtool_request_id{};
-      absl::optional<::url::Origin> p_initiator_origin{};
+      std::optional<std::string> p_devtool_request_id{};
+      std::optional<::url::Origin> p_initiator_origin{};
       ::network::mojom::ClientSecurityStatePtr p_client_security_state{};
       ::GURL p_url{};
       ::network::CorsErrorStatus p_status{mojo::internal::DefaultConstructTag()};
@@ -2125,7 +2180,7 @@ std::move(p_is_warning));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_devtools_request_id{};
+      std::optional<std::string> p_devtools_request_id{};
       ::GURL p_url{};
       DevToolsObserver_OnCorbError_ParamsDataView input_data_view(params, message);
       
@@ -2217,7 +2272,7 @@ std::move(p_error_message));
       bool success = true;
       std::string p_inner_request_devtools_id{};
       ::GURL p_url{};
-      absl::optional<std::string> p_bundle_request_devtools_id{};
+      std::optional<std::string> p_bundle_request_devtools_id{};
       DevToolsObserver_OnSubresourceWebBundleInnerResponse_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInnerRequestDevtoolsId(&p_inner_request_devtools_id))
@@ -2252,7 +2307,7 @@ std::move(p_bundle_request_devtools_id));
       std::string p_inner_request_devtools_id{};
       ::GURL p_url{};
       std::string p_error_message{};
-      absl::optional<std::string> p_bundle_request_devtools_id{};
+      std::optional<std::string> p_bundle_request_devtools_id{};
       DevToolsObserver_OnSubresourceWebBundleInnerResponseError_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInnerRequestDevtoolsId(&p_inner_request_devtools_id))
@@ -2365,36 +2420,36 @@ bool DevToolsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevToolsObserverValidationInfo[] = {
-    {&internal::DevToolsObserver_OnRawRequest_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnRawRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnRawResponse_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnRawResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnPrivateNetworkRequest_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnPrivateNetworkRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorsPreflightRequest_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorsPreflightRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorsPreflightResponse_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorsPreflightResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorsPreflightRequestCompleted_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorsPreflightRequestCompleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnTrustTokenOperationDone_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnTrustTokenOperationDone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorsError_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorsError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorbError_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorbError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnSubresourceWebBundleMetadata_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnSubresourceWebBundleMetadata_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnSubresourceWebBundleMetadataError_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnSubresourceWebBundleMetadataError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnSubresourceWebBundleInnerResponse_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnSubresourceWebBundleInnerResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnSubresourceWebBundleInnerResponseError_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnSubresourceWebBundleInnerResponseError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_Clone_Params_Data::Validate,
+    { &internal::DevToolsObserver_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2470,6 +2525,8 @@ bool StructTraits<::network::mojom::URLResponseHeadDevToolsInfo::DataView, ::net
         result->was_fetched_via_spdy = input.was_fetched_via_spdy();
       if (success && !input.ReadServiceWorkerResponseSource(&result->service_worker_response_source))
         success = false;
+      if (success && !input.ReadServiceWorkerRouterInfo(&result->service_worker_router_info))
+        success = false;
       if (success && !input.ReadSslInfo(&result->ssl_info))
         success = false;
       if (success && !input.ReadRemoteEndpoint(&result->remote_endpoint))
@@ -2507,10 +2564,10 @@ namespace network::mojom {
 void DevToolsObserverInterceptorForTesting::OnRawRequest(const std::string& devtool_request_id, const std::vector<::net::CookieWithAccessResult>& cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> headers, ::base::TimeTicks timestamp, ::network::mojom::ClientSecurityStatePtr client_security_state, OtherPartitionInfoPtr other_partition_info) {
   GetForwardingInterface()->OnRawRequest(std::move(devtool_request_id), std::move(cookies_with_access_result), std::move(headers), std::move(timestamp), std::move(client_security_state), std::move(other_partition_info));
 }
-void DevToolsObserverInterceptorForTesting::OnRawResponse(const std::string& devtool_request_id, const std::vector<::net::CookieAndLineWithAccessResult>& cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> headers, const absl::optional<std::string>& raw_response_headers, ::network::mojom::IPAddressSpace resource_address_space, int32_t http_status_code, const absl::optional<::net::CookiePartitionKey>& cookie_partition_key) {
+void DevToolsObserverInterceptorForTesting::OnRawResponse(const std::string& devtool_request_id, const std::vector<::net::CookieAndLineWithAccessResult>& cookies_with_access_result, std::vector<::network::mojom::HttpRawHeaderPairPtr> headers, const std::optional<std::string>& raw_response_headers, ::network::mojom::IPAddressSpace resource_address_space, int32_t http_status_code, const std::optional<::net::CookiePartitionKey>& cookie_partition_key) {
   GetForwardingInterface()->OnRawResponse(std::move(devtool_request_id), std::move(cookies_with_access_result), std::move(headers), std::move(raw_response_headers), std::move(resource_address_space), std::move(http_status_code), std::move(cookie_partition_key));
 }
-void DevToolsObserverInterceptorForTesting::OnPrivateNetworkRequest(const absl::optional<std::string>& devtool_request_id, const ::GURL& url, bool is_warning, ::network::mojom::IPAddressSpace resource_address_space, ::network::mojom::ClientSecurityStatePtr client_security_state) {
+void DevToolsObserverInterceptorForTesting::OnPrivateNetworkRequest(const std::optional<std::string>& devtool_request_id, const ::GURL& url, bool is_warning, ::network::mojom::IPAddressSpace resource_address_space, ::network::mojom::ClientSecurityStatePtr client_security_state) {
   GetForwardingInterface()->OnPrivateNetworkRequest(std::move(devtool_request_id), std::move(url), std::move(is_warning), std::move(resource_address_space), std::move(client_security_state));
 }
 void DevToolsObserverInterceptorForTesting::OnCorsPreflightRequest(const ::base::UnguessableToken& devtool_request_id, const ::net::HttpRequestHeaders& request_headers, URLRequestDevToolsInfoPtr request_info, const ::GURL& initiator_url, const std::string& initiator_devtool_request_id) {
@@ -2525,10 +2582,10 @@ void DevToolsObserverInterceptorForTesting::OnCorsPreflightRequestCompleted(cons
 void DevToolsObserverInterceptorForTesting::OnTrustTokenOperationDone(const std::string& devtool_request_id, ::network::mojom::TrustTokenOperationResultPtr result) {
   GetForwardingInterface()->OnTrustTokenOperationDone(std::move(devtool_request_id), std::move(result));
 }
-void DevToolsObserverInterceptorForTesting::OnCorsError(const absl::optional<std::string>& devtool_request_id, const absl::optional<::url::Origin>& initiator_origin, ::network::mojom::ClientSecurityStatePtr client_security_state, const ::GURL& url, const ::network::CorsErrorStatus& status, bool is_warning) {
+void DevToolsObserverInterceptorForTesting::OnCorsError(const std::optional<std::string>& devtool_request_id, const std::optional<::url::Origin>& initiator_origin, ::network::mojom::ClientSecurityStatePtr client_security_state, const ::GURL& url, const ::network::CorsErrorStatus& status, bool is_warning) {
   GetForwardingInterface()->OnCorsError(std::move(devtool_request_id), std::move(initiator_origin), std::move(client_security_state), std::move(url), std::move(status), std::move(is_warning));
 }
-void DevToolsObserverInterceptorForTesting::OnCorbError(const absl::optional<std::string>& devtools_request_id, const ::GURL& url) {
+void DevToolsObserverInterceptorForTesting::OnCorbError(const std::optional<std::string>& devtools_request_id, const ::GURL& url) {
   GetForwardingInterface()->OnCorbError(std::move(devtools_request_id), std::move(url));
 }
 void DevToolsObserverInterceptorForTesting::OnSubresourceWebBundleMetadata(const std::string& devtool_request_id, const std::vector<::GURL>& urls) {
@@ -2537,10 +2594,10 @@ void DevToolsObserverInterceptorForTesting::OnSubresourceWebBundleMetadata(const
 void DevToolsObserverInterceptorForTesting::OnSubresourceWebBundleMetadataError(const std::string& devtool_request_id, const std::string& error_message) {
   GetForwardingInterface()->OnSubresourceWebBundleMetadataError(std::move(devtool_request_id), std::move(error_message));
 }
-void DevToolsObserverInterceptorForTesting::OnSubresourceWebBundleInnerResponse(const std::string& inner_request_devtools_id, const ::GURL& url, const absl::optional<std::string>& bundle_request_devtools_id) {
+void DevToolsObserverInterceptorForTesting::OnSubresourceWebBundleInnerResponse(const std::string& inner_request_devtools_id, const ::GURL& url, const std::optional<std::string>& bundle_request_devtools_id) {
   GetForwardingInterface()->OnSubresourceWebBundleInnerResponse(std::move(inner_request_devtools_id), std::move(url), std::move(bundle_request_devtools_id));
 }
-void DevToolsObserverInterceptorForTesting::OnSubresourceWebBundleInnerResponseError(const std::string& inner_request_devtools_id, const ::GURL& url, const std::string& error_message, const absl::optional<std::string>& bundle_request_devtools_id) {
+void DevToolsObserverInterceptorForTesting::OnSubresourceWebBundleInnerResponseError(const std::string& inner_request_devtools_id, const ::GURL& url, const std::string& error_message, const std::optional<std::string>& bundle_request_devtools_id) {
   GetForwardingInterface()->OnSubresourceWebBundleInnerResponseError(std::move(inner_request_devtools_id), std::move(url), std::move(error_message), std::move(bundle_request_devtools_id));
 }
 void DevToolsObserverInterceptorForTesting::Clone(::mojo::PendingReceiver<DevToolsObserver> listener) {

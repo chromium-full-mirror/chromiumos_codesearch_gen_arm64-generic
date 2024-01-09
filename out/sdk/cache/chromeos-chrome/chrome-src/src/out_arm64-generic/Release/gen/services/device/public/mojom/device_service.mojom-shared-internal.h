@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "services/device/public/mojom/battery_monitor.mojom-shared-internal.h"
+#include "services/device/public/mojom/device_posture_provider.mojom-shared-internal.h"
 #include "services/device/public/mojom/fingerprint.mojom-shared-internal.h"
 #include "services/device/public/mojom/geolocation_config.mojom-shared-internal.h"
 #include "services/device/public/mojom/geolocation_context.mojom-shared-internal.h"

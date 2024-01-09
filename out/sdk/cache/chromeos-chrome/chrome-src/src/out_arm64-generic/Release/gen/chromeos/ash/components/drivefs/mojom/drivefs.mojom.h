@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/components/drivefs/mojom/drivefs.mojom-features.h"
 #include "chromeos/ash/components/drivefs/mojom/drivefs.mojom-shared.h"
 #include "chromeos/ash/components/drivefs/mojom/drivefs.mojom-forward.h"
 #include "chromeos/components/drivefs/mojom/drivefs_native_messaging.mojom-forward.h"
@@ -287,7 +288,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFs
   virtual void ResetCache(ResetCacheCallback callback) = 0;
 
 
-  using GetThumbnailCallback = base::OnceCallback<void(const absl::optional<std::vector<uint8_t>>&)>;
+  using GetThumbnailCallback = base::OnceCallback<void(const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void GetThumbnail(const ::base::FilePath& path, bool crop_to_square, GetThumbnailCallback callback) = 0;
 
@@ -339,7 +340,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFs
   virtual void CreateNativeHostSession(::drivefs::mojom::ExtensionConnectionParamsPtr params, ::mojo::PendingReceiver<::drivefs::mojom::NativeMessagingHost> host, ::mojo::PendingRemote<::drivefs::mojom::NativeMessagingPort> port) = 0;
 
 
-  using LocateFilesByItemIdsCallback = base::OnceCallback<void(absl::optional<std::vector<FilePathOrErrorPtr>>)>;
+  using LocateFilesByItemIdsCallback = base::OnceCallback<void(std::optional<std::vector<FilePathOrErrorPtr>>)>;
   
   virtual void LocateFilesByItemIds(const std::vector<std::string>& item_ids, LocateFilesByItemIdsCallback callback) = 0;
 
@@ -385,7 +386,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFs
   virtual void CancelUploadByPath(const ::base::FilePath& path, DriveFs::CancelUploadMode cancel_mode) = 0;
 
 
-  using SetDocsOfflineEnabledCallback = base::OnceCallback<void(::drive::FileError)>;
+  using SetDocsOfflineEnabledCallback = base::OnceCallback<void(::drive::FileError, DocsOfflineEnableStatus)>;
   
   virtual void SetDocsOfflineEnabled(bool enabled, SetDocsOfflineEnabledCallback callback) = 0;
 
@@ -467,6 +468,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegate
     kPersistMachineRootIDMinVersion = 0,
     kOnMirrorSyncingStatusUpdateMinVersion = 0,
     kOnItemProgressMinVersion = 0,
+    kGetAccessTokenWithExpiryMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -523,6 +525,9 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegate
   struct OnItemProgress_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct GetAccessTokenWithExpiry_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   
   using CreateOrDelete = DriveFsDelegate_CreateOrDelete;
@@ -537,10 +542,10 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegate
   virtual void OnMounted() = 0;
 
   
-  virtual void OnMountFailed(absl::optional<::base::TimeDelta> retry_delay) = 0;
+  virtual void OnMountFailed(std::optional<::base::TimeDelta> retry_delay) = 0;
 
   
-  virtual void OnUnmounted(absl::optional<::base::TimeDelta> retry_delay) = 0;
+  virtual void OnUnmounted(std::optional<::base::TimeDelta> retry_delay) = 0;
 
   
   virtual void OnSyncingStatusUpdate(SyncingStatusPtr status) = 0;
@@ -586,6 +591,11 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegate
 
   
   virtual void OnItemProgress(ProgressEventPtr progress_event) = 0;
+
+
+  using GetAccessTokenWithExpiryCallback = base::OnceCallback<void(AccessTokenStatus, AccessTokenPtr)>;
+  
+  virtual void GetAccessTokenWithExpiry(const std::string& client_id, const std::string& app_id, const std::vector<std::string>& scopes, GetAccessTokenWithExpiryCallback callback) = 0;
 };
 
 class SearchQueryProxy;
@@ -631,7 +641,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) SearchQuery
   virtual ~SearchQuery() = default;
 
 
-  using GetNextPageCallback = base::OnceCallback<void(::drive::FileError, absl::optional<std::vector<QueryItemPtr>>)>;
+  using GetNextPageCallback = base::OnceCallback<void(::drive::FileError, std::optional<std::vector<QueryItemPtr>>)>;
   
   virtual void GetNextPage(GetNextPageCallback callback) = 0;
 };
@@ -813,9 +823,9 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegateProxy
   
   void OnMounted() final;
   
-  void OnMountFailed(absl::optional<::base::TimeDelta> retry_delay) final;
+  void OnMountFailed(std::optional<::base::TimeDelta> retry_delay) final;
   
-  void OnUnmounted(absl::optional<::base::TimeDelta> retry_delay) final;
+  void OnUnmounted(std::optional<::base::TimeDelta> retry_delay) final;
   
   void OnSyncingStatusUpdate(SyncingStatusPtr status) final;
   
@@ -842,6 +852,8 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsDelegateProxy
   void OnMirrorSyncingStatusUpdate(SyncingStatusPtr status) final;
   
   void OnItemProgress(ProgressEventPtr progress_event) final;
+  
+  void GetAccessTokenWithExpiry(const std::string& client_id, const std::string& app_id, const std::vector<std::string>& scopes, GetAccessTokenWithExpiryCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1119,6 +1131,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) SearchQueryResponseValidator : public mojo
  public:
   bool Accept(mojo::Message* message) override;
 };
+
 
 
 
@@ -2457,17 +2470,17 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FilePathOrError {
   // Construct an instance holding |error|.
   static FilePathOrErrorPtr
   NewError(
-      ::drive::FileError error) {
+      ::drive::FileError value) {
     auto result = FilePathOrErrorPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |path|.
   static FilePathOrErrorPtr
   NewPath(
-      const ::base::FilePath& path) {
+      const ::base::FilePath& value) {
     auto result = FilePathOrErrorPtr(absl::in_place);
-    result->set_path(std::move(path));
+    result->set_path(std::move(value));
     return result;
   }
 
@@ -2601,48 +2614,48 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsConfiguration {
 
   DriveFsConfiguration(
       const std::string& user_email,
-      const absl::optional<std::string>& access_token);
+      const std::optional<std::string>& access_token);
 
   DriveFsConfiguration(
       const std::string& user_email,
-      const absl::optional<std::string>& access_token,
+      const std::optional<std::string>& access_token,
       bool enable_metrics);
 
   DriveFsConfiguration(
       const std::string& user_email,
-      const absl::optional<std::string>& access_token,
+      const std::optional<std::string>& access_token,
       bool enable_metrics,
-      const absl::optional<std::string>& lost_and_found_directory_name);
+      const std::optional<std::string>& lost_and_found_directory_name);
 
   DriveFsConfiguration(
       const std::string& user_email,
-      const absl::optional<std::string>& access_token,
+      const std::optional<std::string>& access_token,
       bool enable_metrics,
-      const absl::optional<std::string>& lost_and_found_directory_name,
+      const std::optional<std::string>& lost_and_found_directory_name,
       bool enable_experimental_mirroring);
 
   DriveFsConfiguration(
       const std::string& user_email,
-      const absl::optional<std::string>& access_token,
+      const std::optional<std::string>& access_token,
       bool enable_metrics,
-      const absl::optional<std::string>& lost_and_found_directory_name,
+      const std::optional<std::string>& lost_and_found_directory_name,
       bool enable_experimental_mirroring,
       bool enable_verbose_logging);
 
   DriveFsConfiguration(
       const std::string& user_email,
-      const absl::optional<std::string>& access_token,
+      const std::optional<std::string>& access_token,
       bool enable_metrics,
-      const absl::optional<std::string>& lost_and_found_directory_name,
+      const std::optional<std::string>& lost_and_found_directory_name,
       bool enable_experimental_mirroring,
       bool enable_verbose_logging,
       bool enable_cros_network);
 
   DriveFsConfiguration(
       const std::string& user_email,
-      const absl::optional<std::string>& access_token,
+      const std::optional<std::string>& access_token,
       bool enable_metrics,
-      const absl::optional<std::string>& lost_and_found_directory_name,
+      const std::optional<std::string>& lost_and_found_directory_name,
       bool enable_experimental_mirroring,
       bool enable_verbose_logging,
       bool enable_cros_network,
@@ -2726,11 +2739,11 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsConfiguration {
   
   std::string user_email;
   
-  absl::optional<std::string> access_token;
+  std::optional<std::string> access_token;
   
   bool enable_metrics;
   
-  absl::optional<std::string> lost_and_found_directory_name;
+  std::optional<std::string> lost_and_found_directory_name;
   
   bool enable_experimental_mirroring;
   
@@ -2765,6 +2778,149 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, DriveFsConfiguration::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class COMPONENT_EXPORT(DRIVEFS_MOJOM) AccessToken {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<AccessToken, T>::value>;
+  using DataView = AccessTokenDataView;
+  using Data_ = internal::AccessToken_Data;
+
+  template <typename... Args>
+  static AccessTokenPtr New(Args&&... args) {
+    return AccessTokenPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static AccessTokenPtr From(const U& u) {
+    return mojo::TypeConverter<AccessTokenPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, AccessToken>::Convert(*this);
+  }
+
+
+  AccessToken();
+
+  AccessToken(
+      const std::string& token,
+      ::base::Time expiry_time);
+
+
+  ~AccessToken();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = AccessTokenPtr>
+  AccessTokenPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, AccessToken::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, AccessToken::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, AccessToken::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        AccessToken::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        AccessToken::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::AccessToken_UnserializedMessageContext<
+            UserType, AccessToken::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<AccessToken::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return AccessToken::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::AccessToken_UnserializedMessageContext<
+            UserType, AccessToken::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<AccessToken::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string token;
+  
+  ::base::Time expiry_time;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, AccessToken::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, AccessToken::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, AccessToken::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, AccessToken::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -2813,7 +2969,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveError {
       DriveError::Type type,
       const ::base::FilePath& path,
       int64_t stable_id,
-      const absl::optional<std::string>& shared_drive);
+      const std::optional<std::string>& shared_drive);
 
 
   ~DriveError();
@@ -2897,7 +3053,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveError {
   
   int64_t stable_id;
   
-  absl::optional<std::string> shared_drive;
+  std::optional<std::string> shared_drive;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3119,7 +3275,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       bool shared,
       bool starred,
       ImageMetadataPtr image_metadata,
-      absl::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
       CapabilitiesPtr capabilities);
 
   FileMetadata(
@@ -3137,7 +3293,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       bool shared,
       bool starred,
       ImageMetadataPtr image_metadata,
-      absl::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
       CapabilitiesPtr capabilities,
       FolderFeaturePtr folder_feature);
 
@@ -3156,7 +3312,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       bool shared,
       bool starred,
       ImageMetadataPtr image_metadata,
-      absl::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
       CapabilitiesPtr capabilities,
       FolderFeaturePtr folder_feature,
       QuickAccessPtr quick_access);
@@ -3176,7 +3332,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       bool shared,
       bool starred,
       ImageMetadataPtr image_metadata,
-      absl::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
       CapabilitiesPtr capabilities,
       FolderFeaturePtr folder_feature,
       QuickAccessPtr quick_access,
@@ -3197,7 +3353,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       bool shared,
       bool starred,
       ImageMetadataPtr image_metadata,
-      absl::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
       CapabilitiesPtr capabilities,
       FolderFeaturePtr folder_feature,
       QuickAccessPtr quick_access,
@@ -3219,13 +3375,13 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       bool shared,
       bool starred,
       ImageMetadataPtr image_metadata,
-      absl::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
       CapabilitiesPtr capabilities,
       FolderFeaturePtr folder_feature,
       QuickAccessPtr quick_access,
       int64_t stable_id,
       FileMetadata::CanPinStatus can_pin,
-      const absl::optional<std::string>& item_id);
+      const std::optional<std::string>& item_id);
 
   FileMetadata(
       FileMetadata::Type type,
@@ -3242,13 +3398,13 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       bool shared,
       bool starred,
       ImageMetadataPtr image_metadata,
-      absl::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
       CapabilitiesPtr capabilities,
       FolderFeaturePtr folder_feature,
       QuickAccessPtr quick_access,
       int64_t stable_id,
       FileMetadata::CanPinStatus can_pin,
-      const absl::optional<std::string>& item_id,
+      const std::optional<std::string>& item_id,
       SharedDriveQuotaPtr shared_drive_quota);
 
   FileMetadata(
@@ -3266,13 +3422,13 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       bool shared,
       bool starred,
       ImageMetadataPtr image_metadata,
-      absl::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
       CapabilitiesPtr capabilities,
       FolderFeaturePtr folder_feature,
       QuickAccessPtr quick_access,
       int64_t stable_id,
       FileMetadata::CanPinStatus can_pin,
-      const absl::optional<std::string>& item_id,
+      const std::optional<std::string>& item_id,
       SharedDriveQuotaPtr shared_drive_quota,
       ShortcutDetailsPtr shortcut_details);
 
@@ -3291,13 +3447,13 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       bool shared,
       bool starred,
       ImageMetadataPtr image_metadata,
-      absl::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
       CapabilitiesPtr capabilities,
       FolderFeaturePtr folder_feature,
       QuickAccessPtr quick_access,
       int64_t stable_id,
       FileMetadata::CanPinStatus can_pin,
-      const absl::optional<std::string>& item_id,
+      const std::optional<std::string>& item_id,
       SharedDriveQuotaPtr shared_drive_quota,
       ShortcutDetailsPtr shortcut_details,
       bool trashed);
@@ -3408,7 +3564,7 @@ FileMetadata& operator=(const FileMetadata&) = delete;
   
   ImageMetadataPtr image_metadata;
   
-  absl::optional<std::vector<uint8_t>> deprecated_thumbnail;
+  std::optional<std::vector<uint8_t>> deprecated_thumbnail;
   
   CapabilitiesPtr capabilities;
   
@@ -3420,7 +3576,7 @@ FileMetadata& operator=(const FileMetadata&) = delete;
   
   FileMetadata::CanPinStatus can_pin;
   
-  absl::optional<std::string> item_id;
+  std::optional<std::string> item_id;
   
   SharedDriveQuotaPtr shared_drive_quota;
   
@@ -3495,7 +3651,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) ShortcutDetails {
   ShortcutDetails(
       int64_t target_stable_id,
       ShortcutDetails::LookupStatus target_lookup_status,
-      const absl::optional<::base::FilePath>& target_path);
+      const std::optional<::base::FilePath>& target_path);
 
 
   ~ShortcutDetails();
@@ -3577,7 +3733,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) ShortcutDetails {
   
   ShortcutDetails::LookupStatus target_lookup_status;
   
-  absl::optional<::base::FilePath> target_path;
+  std::optional<::base::FilePath> target_path;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3984,7 +4140,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) ProgressEvent {
       int64_t stable_id,
       const std::string& path,
       uint8_t progress,
-      const absl::optional<::base::FilePath>& file_path);
+      const std::optional<::base::FilePath>& file_path);
 
 
   ~ProgressEvent();
@@ -4068,7 +4224,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) ProgressEvent {
   
   uint8_t progress;
   
-  absl::optional<::base::FilePath> file_path;
+  std::optional<::base::FilePath> file_path;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -4429,9 +4585,9 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QueryParameters {
   QueryParameters(
       int32_t page_size,
       QueryParameters::QuerySource query_source,
-      const absl::optional<std::string>& title,
-      const absl::optional<std::string>& text_content,
-      const absl::optional<std::string>& mime_type,
+      const std::optional<std::string>& title,
+      const std::optional<std::string>& text_content,
+      const std::optional<std::string>& mime_type,
       bool shared_with_me,
       bool available_offline,
       QueryParameters::SortField sort_field,
@@ -4440,9 +4596,9 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QueryParameters {
   QueryParameters(
       int32_t page_size,
       QueryParameters::QuerySource query_source,
-      const absl::optional<std::string>& title,
-      const absl::optional<std::string>& text_content,
-      const absl::optional<std::string>& mime_type,
+      const std::optional<std::string>& title,
+      const std::optional<std::string>& text_content,
+      const std::optional<std::string>& mime_type,
       bool shared_with_me,
       bool available_offline,
       QueryParameters::SortField sort_field,
@@ -4452,61 +4608,61 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QueryParameters {
   QueryParameters(
       int32_t page_size,
       QueryParameters::QuerySource query_source,
-      const absl::optional<std::string>& title,
-      const absl::optional<std::string>& text_content,
-      const absl::optional<std::string>& mime_type,
+      const std::optional<std::string>& title,
+      const std::optional<std::string>& text_content,
+      const std::optional<std::string>& mime_type,
       bool shared_with_me,
       bool available_offline,
       QueryParameters::SortField sort_field,
       QueryParameters::SortDirection sort_direction,
       QueryKind query_kind,
-      absl::optional<std::vector<std::string>> mime_types);
+      std::optional<std::vector<std::string>> mime_types);
 
   QueryParameters(
       int32_t page_size,
       QueryParameters::QuerySource query_source,
-      const absl::optional<std::string>& title,
-      const absl::optional<std::string>& text_content,
-      const absl::optional<std::string>& mime_type,
+      const std::optional<std::string>& title,
+      const std::optional<std::string>& text_content,
+      const std::optional<std::string>& mime_type,
       bool shared_with_me,
       bool available_offline,
       QueryParameters::SortField sort_field,
       QueryParameters::SortDirection sort_direction,
       QueryKind query_kind,
-      absl::optional<std::vector<std::string>> mime_types,
+      std::optional<std::vector<std::string>> mime_types,
       bool my_drive_results_only);
 
   QueryParameters(
       int32_t page_size,
       QueryParameters::QuerySource query_source,
-      const absl::optional<std::string>& title,
-      const absl::optional<std::string>& text_content,
-      const absl::optional<std::string>& mime_type,
+      const std::optional<std::string>& title,
+      const std::optional<std::string>& text_content,
+      const std::optional<std::string>& mime_type,
       bool shared_with_me,
       bool available_offline,
       QueryParameters::SortField sort_field,
       QueryParameters::SortDirection sort_direction,
       QueryKind query_kind,
-      absl::optional<std::vector<std::string>> mime_types,
+      std::optional<std::vector<std::string>> mime_types,
       bool my_drive_results_only,
       QueryParameters::DateComparisonOperator modified_time_operator,
-      absl::optional<::base::Time> modified_time);
+      std::optional<::base::Time> modified_time);
 
   QueryParameters(
       int32_t page_size,
       QueryParameters::QuerySource query_source,
-      const absl::optional<std::string>& title,
-      const absl::optional<std::string>& text_content,
-      const absl::optional<std::string>& mime_type,
+      const std::optional<std::string>& title,
+      const std::optional<std::string>& text_content,
+      const std::optional<std::string>& mime_type,
       bool shared_with_me,
       bool available_offline,
       QueryParameters::SortField sort_field,
       QueryParameters::SortDirection sort_direction,
       QueryKind query_kind,
-      absl::optional<std::vector<std::string>> mime_types,
+      std::optional<std::vector<std::string>> mime_types,
       bool my_drive_results_only,
       QueryParameters::DateComparisonOperator modified_time_operator,
-      absl::optional<::base::Time> modified_time,
+      std::optional<::base::Time> modified_time,
       int64_t parent_stable_id);
 
 
@@ -4589,11 +4745,11 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QueryParameters {
   
   QueryParameters::QuerySource query_source;
   
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
   
-  absl::optional<std::string> text_content;
+  std::optional<std::string> text_content;
   
-  absl::optional<std::string> mime_type;
+  std::optional<std::string> mime_type;
   
   bool shared_with_me;
   
@@ -4605,13 +4761,13 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QueryParameters {
   
   QueryKind query_kind;
   
-  absl::optional<std::vector<std::string>> mime_types;
+  std::optional<std::vector<std::string>> mime_types;
   
   bool my_drive_results_only;
   
   QueryParameters::DateComparisonOperator modified_time_operator;
   
-  absl::optional<::base::Time> modified_time;
+  std::optional<::base::Time> modified_time;
   
   int64_t parent_stable_id;
 
@@ -5340,6 +5496,35 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.cse_support < rhs.cse_support)
     return true;
   if (rhs.cse_support < lhs.cse_support)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+AccessTokenPtr AccessToken::Clone() const {
+  return New(
+      mojo::Clone(token),
+      mojo::Clone(expiry_time)
+  );
+}
+
+template <typename T, AccessToken::EnableIfSame<T>*>
+bool AccessToken::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->token, other_struct.token))
+    return false;
+  if (!mojo::Equals(this->expiry_time, other_struct.expiry_time))
+    return false;
+  return true;
+}
+
+template <typename T, AccessToken::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.token < rhs.token)
+    return true;
+  if (rhs.token < lhs.token)
+    return false;
+  if (lhs.expiry_time < rhs.expiry_time)
+    return true;
+  if (rhs.expiry_time < lhs.expiry_time)
     return false;
   return false;
 }
@@ -6449,6 +6634,26 @@ struct COMPONENT_EXPORT(DRIVEFS_MOJOM) StructTraits<::drivefs::mojom::DriveFsCon
   }
 
   static bool Read(::drivefs::mojom::DriveFsConfiguration::DataView input, ::drivefs::mojom::DriveFsConfigurationPtr* output);
+};
+
+
+template <>
+struct COMPONENT_EXPORT(DRIVEFS_MOJOM) StructTraits<::drivefs::mojom::AccessToken::DataView,
+                                         ::drivefs::mojom::AccessTokenPtr> {
+  static bool IsNull(const ::drivefs::mojom::AccessTokenPtr& input) { return !input; }
+  static void SetToNull(::drivefs::mojom::AccessTokenPtr* output) { output->reset(); }
+
+  static const decltype(::drivefs::mojom::AccessToken::token)& token(
+      const ::drivefs::mojom::AccessTokenPtr& input) {
+    return input->token;
+  }
+
+  static const decltype(::drivefs::mojom::AccessToken::expiry_time)& expiry_time(
+      const ::drivefs::mojom::AccessTokenPtr& input) {
+    return input->expiry_time;
+  }
+
+  static bool Read(::drivefs::mojom::AccessToken::DataView input, ::drivefs::mojom::AccessTokenPtr* output);
 };
 
 

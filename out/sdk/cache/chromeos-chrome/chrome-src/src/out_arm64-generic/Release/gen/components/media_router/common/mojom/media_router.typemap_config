@@ -9,6 +9,7 @@
     ],
     "traits_public_deps": [
       "//components/media_router/common",
+      "//components/media_router/common/providers/cast/channel:capability",
       "//net"
     ],
     "traits_sources": [

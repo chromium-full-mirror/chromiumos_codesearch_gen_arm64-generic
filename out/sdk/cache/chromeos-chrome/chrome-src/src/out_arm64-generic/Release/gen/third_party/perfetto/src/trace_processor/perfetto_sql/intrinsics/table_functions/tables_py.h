@@ -1800,24 +1800,27 @@ class ConnectedFlowTable : public macros_internal::MacroTable {
     static constexpr uint32_t type = 1;
     static constexpr uint32_t slice_out = 2;
     static constexpr uint32_t slice_in = 3;
-    static constexpr uint32_t arg_set_id = 4;
-    static constexpr uint32_t start_id = 5;
+    static constexpr uint32_t trace_id = 4;
+    static constexpr uint32_t arg_set_id = 5;
+    static constexpr uint32_t start_id = 6;
   };
   struct ColumnType {
     using id = IdColumn<ConnectedFlowTable::Id>;
     using type = TypedColumn<StringPool::Id>;
     using slice_out = TypedColumn<SliceTable::Id>;
     using slice_in = TypedColumn<SliceTable::Id>;
+    using trace_id = TypedColumn<std::optional<int64_t>>;
     using arg_set_id = TypedColumn<uint32_t>;
     using start_id = TypedColumn<SliceTable::Id>;
   };
   struct Row : public FlowTable::Row {
     Row(SliceTable::Id in_slice_out = {},
         SliceTable::Id in_slice_in = {},
+        std::optional<int64_t> in_trace_id = {},
         uint32_t in_arg_set_id = {},
         SliceTable::Id in_start_id = {},
         std::nullptr_t = nullptr)
-        : FlowTable::Row(std::move(in_slice_out), std::move(in_slice_in), std::move(in_arg_set_id)),
+        : FlowTable::Row(std::move(in_slice_out), std::move(in_slice_in), std::move(in_trace_id), std::move(in_arg_set_id)),
           start_id(std::move(in_start_id)) {
       type_ = "not_exposed_to_sql";
     }
@@ -1826,6 +1829,7 @@ class ConnectedFlowTable : public macros_internal::MacroTable {
     bool operator==(const ConnectedFlowTable::Row& other) const {
       return type() == other.type() && ColumnType::slice_out::Equals(slice_out, other.slice_out) &&
        ColumnType::slice_in::Equals(slice_in, other.slice_in) &&
+       ColumnType::trace_id::Equals(trace_id, other.trace_id) &&
        ColumnType::arg_set_id::Equals(arg_set_id, other.arg_set_id) &&
        ColumnType::start_id::Equals(start_id, other.start_id);
     }
@@ -1865,6 +1869,9 @@ class ConnectedFlowTable : public macros_internal::MacroTable {
     ColumnType::slice_in::type slice_in() const {
       return table_->slice_in()[row_number_];
     }
+    ColumnType::trace_id::type trace_id() const {
+      return table_->trace_id()[row_number_];
+    }
     ColumnType::arg_set_id::type arg_set_id() const {
       return table_->arg_set_id()[row_number_];
     }
@@ -1886,6 +1893,10 @@ class ConnectedFlowTable : public macros_internal::MacroTable {
     void set_slice_in(
         ColumnType::slice_in::non_optional_type v) {
       return mutable_table()->mutable_slice_in()->Set(row_number_, v);
+    }
+    void set_trace_id(
+        ColumnType::trace_id::non_optional_type v) {
+      return mutable_table()->mutable_trace_id()->Set(row_number_, v);
     }
     void set_arg_set_id(
         ColumnType::arg_set_id::non_optional_type v) {
@@ -1924,6 +1935,10 @@ class ConnectedFlowTable : public macros_internal::MacroTable {
       const auto& col = table_->slice_in();
       return col.GetAtIdx(its_[col.overlay_index()].index());
     }
+    ColumnType::trace_id::type trace_id() const {
+      const auto& col = table_->trace_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
     ColumnType::arg_set_id::type arg_set_id() const {
       const auto& col = table_->arg_set_id();
       return col.GetAtIdx(its_[col.overlay_index()].index());
@@ -1955,6 +1970,10 @@ class ConnectedFlowTable : public macros_internal::MacroTable {
       }
       void set_slice_in(ColumnType::slice_in::non_optional_type v) {
         auto* col = mutable_table_->mutable_slice_in();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_trace_id(ColumnType::trace_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_trace_id();
         col->SetAtIdx(its_[col->overlay_index()].index(), v);
       }
       void set_arg_set_id(ColumnType::arg_set_id::non_optional_type v) {
@@ -2017,6 +2036,11 @@ class ConnectedFlowTable : public macros_internal::MacroTable {
         false});
     schema.columns.emplace_back(Table::Schema::Column{
         "slice_in", ColumnType::slice_in::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "trace_id", ColumnType::trace_id::SqlValueType(), false,
         false,
         false,
         false});
@@ -2109,6 +2133,9 @@ class ConnectedFlowTable : public macros_internal::MacroTable {
   const TypedColumn<SliceTable::Id>& slice_in() const {
     return static_cast<const ColumnType::slice_in&>(columns_[ColumnIndex::slice_in]);
   }
+  const TypedColumn<std::optional<int64_t>>& trace_id() const {
+    return static_cast<const ColumnType::trace_id&>(columns_[ColumnIndex::trace_id]);
+  }
   const TypedColumn<uint32_t>& arg_set_id() const {
     return static_cast<const ColumnType::arg_set_id&>(columns_[ColumnIndex::arg_set_id]);
   }
@@ -2123,6 +2150,10 @@ class ConnectedFlowTable : public macros_internal::MacroTable {
   TypedColumn<SliceTable::Id>* mutable_slice_in() {
     return static_cast<ColumnType::slice_in*>(
         &columns_[ColumnIndex::slice_in]);
+  }
+  TypedColumn<std::optional<int64_t>>* mutable_trace_id() {
+    return static_cast<ColumnType::trace_id*>(
+        &columns_[ColumnIndex::trace_id]);
   }
   TypedColumn<uint32_t>* mutable_arg_set_id() {
     return static_cast<ColumnType::arg_set_id*>(
@@ -5661,6 +5692,429 @@ class ExperimentalSliceLayoutTable : public macros_internal::MacroTable {
   SliceTable* parent_ = nullptr;
   ColumnStorage<ColumnType::layout_depth::stored_type> layout_depth_;
   ColumnStorage<ColumnType::filter_track_ids::stored_type> filter_track_ids_;
+};
+  
+
+class PerfettoTableInfoTable : public macros_internal::MacroTable {
+ public:
+  struct Id : public BaseId {
+    Id() = default;
+    explicit constexpr Id(uint32_t v) : BaseId(v) {}
+  };
+  static_assert(std::is_trivially_destructible<Id>::value,
+                "Inheritance used without trivial destruction");
+    
+  struct ColumnIndex {
+    static constexpr uint32_t id = 0;
+    static constexpr uint32_t type = 1;
+    static constexpr uint32_t table_name = 2;
+    static constexpr uint32_t name = 3;
+    static constexpr uint32_t col_type = 4;
+    static constexpr uint32_t nullable = 5;
+    static constexpr uint32_t sorted = 6;
+  };
+  struct ColumnType {
+    using id = IdColumn<PerfettoTableInfoTable::Id>;
+    using type = TypedColumn<StringPool::Id>;
+    using table_name = TypedColumn<StringPool::Id>;
+    using name = TypedColumn<StringPool::Id>;
+    using col_type = TypedColumn<StringPool::Id>;
+    using nullable = TypedColumn<int64_t>;
+    using sorted = TypedColumn<int64_t>;
+  };
+  struct Row : public macros_internal::RootParentTable::Row {
+    Row(StringPool::Id in_table_name = {},
+        StringPool::Id in_name = {},
+        StringPool::Id in_col_type = {},
+        int64_t in_nullable = {},
+        int64_t in_sorted = {},
+        std::nullptr_t = nullptr)
+        : macros_internal::RootParentTable::Row(),
+          table_name(std::move(in_table_name)),
+          name(std::move(in_name)),
+          col_type(std::move(in_col_type)),
+          nullable(std::move(in_nullable)),
+          sorted(std::move(in_sorted)) {
+      type_ = "perfetto_table_info";
+    }
+    StringPool::Id table_name;
+    StringPool::Id name;
+    StringPool::Id col_type;
+    int64_t nullable;
+    int64_t sorted;
+
+    bool operator==(const PerfettoTableInfoTable::Row& other) const {
+      return type() == other.type() && ColumnType::table_name::Equals(table_name, other.table_name) &&
+       ColumnType::name::Equals(name, other.name) &&
+       ColumnType::col_type::Equals(col_type, other.col_type) &&
+       ColumnType::nullable::Equals(nullable, other.nullable) &&
+       ColumnType::sorted::Equals(sorted, other.sorted);
+    }
+  };
+  struct ColumnFlag {
+    static constexpr uint32_t table_name = static_cast<uint32_t>(Column::Flag::kHidden) | ColumnType::table_name::default_flags();
+    static constexpr uint32_t name = ColumnType::name::default_flags();
+    static constexpr uint32_t col_type = ColumnType::col_type::default_flags();
+    static constexpr uint32_t nullable = ColumnType::nullable::default_flags();
+    static constexpr uint32_t sorted = ColumnType::sorted::default_flags();
+  };
+
+  class RowNumber;
+  class ConstRowReference;
+  class RowReference;
+
+  class RowNumber : public macros_internal::AbstractRowNumber<
+      PerfettoTableInfoTable, ConstRowReference, RowReference> {
+   public:
+    explicit RowNumber(uint32_t row_number)
+        : AbstractRowNumber(row_number) {}
+  };
+  static_assert(std::is_trivially_destructible<RowNumber>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstRowReference : public macros_internal::AbstractConstRowReference<
+    PerfettoTableInfoTable, RowNumber> {
+   public:
+    ConstRowReference(const PerfettoTableInfoTable* table, uint32_t row_number)
+        : AbstractConstRowReference(table, row_number) {}
+
+    ColumnType::id::type id() const {
+      return table_->id()[row_number_];
+    }
+    ColumnType::type::type type() const {
+      return table_->type()[row_number_];
+    }
+    ColumnType::table_name::type table_name() const {
+      return table_->table_name()[row_number_];
+    }
+    ColumnType::name::type name() const {
+      return table_->name()[row_number_];
+    }
+    ColumnType::col_type::type col_type() const {
+      return table_->col_type()[row_number_];
+    }
+    ColumnType::nullable::type nullable() const {
+      return table_->nullable()[row_number_];
+    }
+    ColumnType::sorted::type sorted() const {
+      return table_->sorted()[row_number_];
+    }
+  };
+  static_assert(std::is_trivially_destructible<ConstRowReference>::value,
+                "Inheritance used without trivial destruction");
+  class RowReference : public ConstRowReference {
+   public:
+    RowReference(const PerfettoTableInfoTable* table, uint32_t row_number)
+        : ConstRowReference(table, row_number) {}
+
+    void set_table_name(
+        ColumnType::table_name::non_optional_type v) {
+      return mutable_table()->mutable_table_name()->Set(row_number_, v);
+    }
+    void set_name(
+        ColumnType::name::non_optional_type v) {
+      return mutable_table()->mutable_name()->Set(row_number_, v);
+    }
+    void set_col_type(
+        ColumnType::col_type::non_optional_type v) {
+      return mutable_table()->mutable_col_type()->Set(row_number_, v);
+    }
+    void set_nullable(
+        ColumnType::nullable::non_optional_type v) {
+      return mutable_table()->mutable_nullable()->Set(row_number_, v);
+    }
+    void set_sorted(
+        ColumnType::sorted::non_optional_type v) {
+      return mutable_table()->mutable_sorted()->Set(row_number_, v);
+    }
+
+   private:
+    PerfettoTableInfoTable* mutable_table() const {
+      return const_cast<PerfettoTableInfoTable*>(table_);
+    }
+  };
+  static_assert(std::is_trivially_destructible<RowReference>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstIterator;
+  class ConstIterator : public macros_internal::AbstractConstIterator<
+    ConstIterator, PerfettoTableInfoTable, RowNumber, ConstRowReference> {
+   public:
+    ColumnType::id::type id() const {
+      const auto& col = table_->id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::type::type type() const {
+      const auto& col = table_->type();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::table_name::type table_name() const {
+      const auto& col = table_->table_name();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::name::type name() const {
+      const auto& col = table_->name();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::col_type::type col_type() const {
+      const auto& col = table_->col_type();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::nullable::type nullable() const {
+      const auto& col = table_->nullable();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::sorted::type sorted() const {
+      const auto& col = table_->sorted();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+
+   protected:
+    explicit ConstIterator(const PerfettoTableInfoTable* table,
+                           std::vector<ColumnStorageOverlay> overlays)
+        : AbstractConstIterator(table, std::move(overlays)) {}
+
+    uint32_t CurrentRowNumber() const {
+      return its_.back().index();
+    }
+
+   private:
+    friend class PerfettoTableInfoTable;
+    friend class macros_internal::AbstractConstIterator<
+      ConstIterator, PerfettoTableInfoTable, RowNumber, ConstRowReference>;
+  };
+  class Iterator : public ConstIterator {
+    public:
+    void set_table_name(ColumnType::table_name::non_optional_type v) {
+        auto* col = mutable_table_->mutable_table_name();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_name(ColumnType::name::non_optional_type v) {
+        auto* col = mutable_table_->mutable_name();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_col_type(ColumnType::col_type::non_optional_type v) {
+        auto* col = mutable_table_->mutable_col_type();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_nullable(ColumnType::nullable::non_optional_type v) {
+        auto* col = mutable_table_->mutable_nullable();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_sorted(ColumnType::sorted::non_optional_type v) {
+        auto* col = mutable_table_->mutable_sorted();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+
+    RowReference row_reference() const {
+      return RowReference(mutable_table_, CurrentRowNumber());
+    }
+
+    private:
+    friend class PerfettoTableInfoTable;
+
+    explicit Iterator(PerfettoTableInfoTable* table,
+                      std::vector<ColumnStorageOverlay> overlays)
+        : ConstIterator(table, std::move(overlays)),
+          mutable_table_(table) {}
+
+    PerfettoTableInfoTable* mutable_table_ = nullptr;
+  };
+
+  struct IdAndRow {
+    Id id;
+    uint32_t row;
+    RowReference row_reference;
+    RowNumber row_number;
+  };
+
+  explicit PerfettoTableInfoTable(StringPool* pool)
+      : macros_internal::MacroTable(pool, nullptr),
+        table_name_(ColumnStorage<ColumnType::table_name::stored_type>::Create<false>()),
+        name_(ColumnStorage<ColumnType::name::stored_type>::Create<false>()),
+        col_type_(ColumnStorage<ColumnType::col_type::stored_type>::Create<false>()),
+        nullable_(ColumnStorage<ColumnType::nullable::stored_type>::Create<false>()),
+        sorted_(ColumnStorage<ColumnType::sorted::stored_type>::Create<false>()) {
+    static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::table_name::stored_type>(
+          ColumnFlag::table_name),
+        "Column type and flag combination is not valid");
+      static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+          ColumnFlag::name),
+        "Column type and flag combination is not valid");
+      static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::col_type::stored_type>(
+          ColumnFlag::col_type),
+        "Column type and flag combination is not valid");
+      static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::nullable::stored_type>(
+          ColumnFlag::nullable),
+        "Column type and flag combination is not valid");
+      static_assert(
+        Column::IsFlagsAndTypeValid<ColumnType::sorted::stored_type>(
+          ColumnFlag::sorted),
+        "Column type and flag combination is not valid");
+    uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
+    columns_.emplace_back("table_name", &table_name_, ColumnFlag::table_name,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("name", &name_, ColumnFlag::name,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("col_type", &col_type_, ColumnFlag::col_type,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("nullable", &nullable_, ColumnFlag::nullable,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("sorted", &sorted_, ColumnFlag::sorted,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+  }
+  ~PerfettoTableInfoTable() override;
+
+  static const char* Name() { return "perfetto_table_info"; }
+
+  static Table::Schema ComputeStaticSchema() {
+    Table::Schema schema;
+    schema.columns.emplace_back(Table::Schema::Column{
+        "id", SqlValue::Type::kLong, true, true, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "type", SqlValue::Type::kString, false, false, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "table_name", ColumnType::table_name::SqlValueType(), false,
+        false,
+        true,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "name", ColumnType::name::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "col_type", ColumnType::col_type::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "nullable", ColumnType::nullable::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "sorted", ColumnType::sorted::SqlValueType(), false,
+        false,
+        false,
+        false});
+    return schema;
+  }
+
+  ConstIterator IterateRows() const {
+    return ConstIterator(this, CopyOverlays());
+  }
+
+  Iterator IterateRows() { return Iterator(this, CopyOverlays()); }
+
+  ConstIterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) const {
+    return ConstIterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  Iterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) {
+    return Iterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  void ShrinkToFit() {
+    type_.ShrinkToFit();
+    table_name_.ShrinkToFit();
+    name_.ShrinkToFit();
+    col_type_.ShrinkToFit();
+    nullable_.ShrinkToFit();
+    sorted_.ShrinkToFit();
+  }
+
+  std::optional<ConstRowReference> FindById(Id find_id) const {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(ConstRowReference(this, *row))
+               : std::nullopt;
+  }
+
+  std::optional<RowReference> FindById(Id find_id) {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(RowReference(this, *row)) : std::nullopt;
+  }
+
+  IdAndRow Insert(const Row& row) {
+    uint32_t row_number = row_count();
+    Id id = Id{row_number};
+    type_.Append(string_pool_->InternString(row.type()));
+    mutable_table_name()->Append(std::move(row.table_name));
+    mutable_name()->Append(std::move(row.name));
+    mutable_col_type()->Append(std::move(row.col_type));
+    mutable_nullable()->Append(std::move(row.nullable));
+    mutable_sorted()->Append(std::move(row.sorted));
+    UpdateSelfOverlayAfterInsert();
+    return IdAndRow{std::move(id), row_number, RowReference(this, row_number),
+                     RowNumber(row_number)};
+  }
+
+  
+
+  const IdColumn<PerfettoTableInfoTable::Id>& id() const {
+    return static_cast<const ColumnType::id&>(columns_[ColumnIndex::id]);
+  }
+  const TypedColumn<StringPool::Id>& type() const {
+    return static_cast<const ColumnType::type&>(columns_[ColumnIndex::type]);
+  }
+  const TypedColumn<StringPool::Id>& table_name() const {
+    return static_cast<const ColumnType::table_name&>(columns_[ColumnIndex::table_name]);
+  }
+  const TypedColumn<StringPool::Id>& name() const {
+    return static_cast<const ColumnType::name&>(columns_[ColumnIndex::name]);
+  }
+  const TypedColumn<StringPool::Id>& col_type() const {
+    return static_cast<const ColumnType::col_type&>(columns_[ColumnIndex::col_type]);
+  }
+  const TypedColumn<int64_t>& nullable() const {
+    return static_cast<const ColumnType::nullable&>(columns_[ColumnIndex::nullable]);
+  }
+  const TypedColumn<int64_t>& sorted() const {
+    return static_cast<const ColumnType::sorted&>(columns_[ColumnIndex::sorted]);
+  }
+
+  TypedColumn<StringPool::Id>* mutable_table_name() {
+    return static_cast<ColumnType::table_name*>(
+        &columns_[ColumnIndex::table_name]);
+  }
+  TypedColumn<StringPool::Id>* mutable_name() {
+    return static_cast<ColumnType::name*>(
+        &columns_[ColumnIndex::name]);
+  }
+  TypedColumn<StringPool::Id>* mutable_col_type() {
+    return static_cast<ColumnType::col_type*>(
+        &columns_[ColumnIndex::col_type]);
+  }
+  TypedColumn<int64_t>* mutable_nullable() {
+    return static_cast<ColumnType::nullable*>(
+        &columns_[ColumnIndex::nullable]);
+  }
+  TypedColumn<int64_t>* mutable_sorted() {
+    return static_cast<ColumnType::sorted*>(
+        &columns_[ColumnIndex::sorted]);
+  }
+
+ private:
+  
+  
+  ColumnStorage<ColumnType::table_name::stored_type> table_name_;
+  ColumnStorage<ColumnType::name::stored_type> name_;
+  ColumnStorage<ColumnType::col_type::stored_type> col_type_;
+  ColumnStorage<ColumnType::nullable::stored_type> nullable_;
+  ColumnStorage<ColumnType::sorted::stored_type> sorted_;
 };
 
 }  // namespace tables

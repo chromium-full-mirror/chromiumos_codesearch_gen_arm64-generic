@@ -33,6 +33,7 @@
 #include "chrome/browser/ash/system_web_apps/types/proto/system_web_app_data.pb.h"
 #include "chrome/browser/web_applications/proto/web_app_launch_handler.pb.h"
 #include "chrome/browser/web_applications/proto/web_app_os_integration_state.pb.h"
+#include "chrome/browser/web_applications/proto/web_app_proto_package.pb.h"
 #include "chrome/browser/web_applications/proto/web_app_share_target.pb.h"
 #include "chrome/browser/web_applications/proto/web_app_tab_strip.pb.h"
 // @@protoc_insertion_point(includes)
@@ -3251,7 +3252,7 @@ class IsolationDataProto_PendingUpdateInfo final :
     kDevModeBundleFieldNumber = 2,
     kDevModeProxyFieldNumber = 3,
   };
-  // required string version = 4;
+  // optional string version = 4;
   bool has_version() const;
   private:
   bool _internal_has_version() const;
@@ -3507,7 +3508,7 @@ class IsolationDataProto final :
   std::string* _internal_add_controlled_frame_partitions();
   public:
 
-  // required string version = 5;
+  // optional string version = 5;
   bool has_version() const;
   private:
   bool _internal_has_version() const;
@@ -4128,7 +4129,7 @@ class WebAppProto final :
     kAppSizeInBytesFieldNumber = 54,
     kDataSizeInBytesFieldNumber = 55,
     kRunOnOsLoginOsIntegrationStateFieldNumber = 51,
-    kIsUserSelectedAppForCapturingLinksFieldNumber = 63,
+    kUserLinkCapturingPreferenceFieldNumber = 63,
     kLatestInstallTimeFieldNumber = 64,
     kSupportedLinksOfferIgnoreCountFieldNumber = 66,
     kSupportedLinksOfferDismissCountFieldNumber = 67,
@@ -5093,17 +5094,17 @@ class WebAppProto final :
   void _internal_set_run_on_os_login_os_integration_state(::web_app::WebAppProto_RunOnOsLoginMode value);
   public:
 
-  // optional bool is_user_selected_app_for_capturing_links = 63;
-  bool has_is_user_selected_app_for_capturing_links() const;
+  // optional .web_app.proto.LinkCapturingUserPreference user_link_capturing_preference = 63;
+  bool has_user_link_capturing_preference() const;
   private:
-  bool _internal_has_is_user_selected_app_for_capturing_links() const;
+  bool _internal_has_user_link_capturing_preference() const;
   public:
-  void clear_is_user_selected_app_for_capturing_links();
-  bool is_user_selected_app_for_capturing_links() const;
-  void set_is_user_selected_app_for_capturing_links(bool value);
+  void clear_user_link_capturing_preference();
+  ::web_app::proto::LinkCapturingUserPreference user_link_capturing_preference() const;
+  void set_user_link_capturing_preference(::web_app::proto::LinkCapturingUserPreference value);
   private:
-  bool _internal_is_user_selected_app_for_capturing_links() const;
-  void _internal_set_is_user_selected_app_for_capturing_links(bool value);
+  ::web_app::proto::LinkCapturingUserPreference _internal_user_link_capturing_preference() const;
+  void _internal_set_user_link_capturing_preference(::web_app::proto::LinkCapturingUserPreference value);
   public:
 
   // optional int64 latest_install_time = 64;
@@ -5241,7 +5242,7 @@ class WebAppProto final :
   uint64_t app_size_in_bytes_;
   uint64_t data_size_in_bytes_;
   int run_on_os_login_os_integration_state_;
-  bool is_user_selected_app_for_capturing_links_;
+  int user_link_capturing_preference_;
   int64_t latest_install_time_;
   int32_t supported_links_offer_ignore_count_;
   int32_t supported_links_offer_dismiss_count_;
@@ -7816,7 +7817,7 @@ inline ::web_app::IsolationDataProto_DevModeProxy* IsolationDataProto_PendingUpd
   return _msg;
 }
 
-// required string version = 4;
+// optional string version = 4;
 inline bool IsolationDataProto_PendingUpdateInfo::_internal_has_version() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -8194,7 +8195,7 @@ IsolationDataProto::mutable_controlled_frame_partitions() {
   return &controlled_frame_partitions_;
 }
 
-// required string version = 5;
+// optional string version = 5;
 inline bool IsolationDataProto::_internal_has_version() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -11335,32 +11336,33 @@ WebAppProto::scope_extensions_validated() const {
   return scope_extensions_validated_;
 }
 
-// optional bool is_user_selected_app_for_capturing_links = 63;
-inline bool WebAppProto::_internal_has_is_user_selected_app_for_capturing_links() const {
+// optional .web_app.proto.LinkCapturingUserPreference user_link_capturing_preference = 63;
+inline bool WebAppProto::_internal_has_user_link_capturing_preference() const {
   bool value = (_has_bits_[1] & 0x00000200u) != 0;
   return value;
 }
-inline bool WebAppProto::has_is_user_selected_app_for_capturing_links() const {
-  return _internal_has_is_user_selected_app_for_capturing_links();
+inline bool WebAppProto::has_user_link_capturing_preference() const {
+  return _internal_has_user_link_capturing_preference();
 }
-inline void WebAppProto::clear_is_user_selected_app_for_capturing_links() {
-  is_user_selected_app_for_capturing_links_ = false;
+inline void WebAppProto::clear_user_link_capturing_preference() {
+  user_link_capturing_preference_ = 0;
   _has_bits_[1] &= ~0x00000200u;
 }
-inline bool WebAppProto::_internal_is_user_selected_app_for_capturing_links() const {
-  return is_user_selected_app_for_capturing_links_;
+inline ::web_app::proto::LinkCapturingUserPreference WebAppProto::_internal_user_link_capturing_preference() const {
+  return static_cast< ::web_app::proto::LinkCapturingUserPreference >(user_link_capturing_preference_);
 }
-inline bool WebAppProto::is_user_selected_app_for_capturing_links() const {
-  // @@protoc_insertion_point(field_get:web_app.WebAppProto.is_user_selected_app_for_capturing_links)
-  return _internal_is_user_selected_app_for_capturing_links();
+inline ::web_app::proto::LinkCapturingUserPreference WebAppProto::user_link_capturing_preference() const {
+  // @@protoc_insertion_point(field_get:web_app.WebAppProto.user_link_capturing_preference)
+  return _internal_user_link_capturing_preference();
 }
-inline void WebAppProto::_internal_set_is_user_selected_app_for_capturing_links(bool value) {
+inline void WebAppProto::_internal_set_user_link_capturing_preference(::web_app::proto::LinkCapturingUserPreference value) {
+  assert(::web_app::proto::LinkCapturingUserPreference_IsValid(value));
   _has_bits_[1] |= 0x00000200u;
-  is_user_selected_app_for_capturing_links_ = value;
+  user_link_capturing_preference_ = value;
 }
-inline void WebAppProto::set_is_user_selected_app_for_capturing_links(bool value) {
-  _internal_set_is_user_selected_app_for_capturing_links(value);
-  // @@protoc_insertion_point(field_set:web_app.WebAppProto.is_user_selected_app_for_capturing_links)
+inline void WebAppProto::set_user_link_capturing_preference(::web_app::proto::LinkCapturingUserPreference value) {
+  _internal_set_user_link_capturing_preference(value);
+  // @@protoc_insertion_point(field_set:web_app.WebAppProto.user_link_capturing_preference)
 }
 
 // optional int64 latest_install_time = 64;

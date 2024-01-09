@@ -41,7 +41,7 @@ export class ModuleHeaderElementV2 extends I18nMixin(PolymerElement) {
     }
     onMenuButtonClick_(e) {
         e.stopPropagation();
-        this.dispatchEvent(new Event('menu-button-click', { bubbles: true }));
+        this.dispatchEvent(new Event('menu-button-click', { bubbles: true, composed: true }));
     }
     showDivider_(index) {
         return index === 0;

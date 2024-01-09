@@ -1,14 +1,13 @@
 // Copyright 2023 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { assertNotNullOrUndefined } from '../../../../../../../front_end/core/platform/platform.js';
-import * as PreloadingComponents from '../../../../../../../front_end/panels/application/preloading/components/components.js';
 import * as SDK from '../../../../../../../front_end/core/sdk/sdk.js';
-import * as Coordinator from '../../../../../../../front_end/ui/components/render_coordinator/render_coordinator.js';
+import * as PreloadingComponents from '../../../../../../../front_end/panels/application/preloading/components/components.js';
 import * as DataGrid from '../../../../../../../front_end/ui/components/data_grid/data_grid.js';
+import * as Coordinator from '../../../../../../../front_end/ui/components/render_coordinator/render_coordinator.js';
 import { assertShadowRoot, getElementWithinComponent, renderElementIntoDOM, } from '../../../../helpers/DOMHelpers.js';
 import { describeWithEnvironment } from '../../../../helpers/EnvironmentHelpers.js';
-import { getHeaderCells, getValuesOfAllBodyRows, getCellByIndexes, } from '../../../../ui/components/DataGridHelpers.js';
+import { assertGridContents, getCellByIndexes, } from '../../../../ui/components/DataGridHelpers.js';
 const { assert } = chai;
 const coordinator = Coordinator.RenderCoordinator.RenderCoordinator.instance();
 const zip2 = (xs, ys) => {
@@ -22,17 +21,6 @@ async function renderMismatchedPreloadingGrid(data) {
     assertShadowRoot(component.shadowRoot);
     await coordinator.done();
     return component;
-}
-function assertGridContents(gridComponent, headerExpected, rowsExpected) {
-    const controller = getElementWithinComponent(gridComponent, 'devtools-data-grid-controller', DataGrid.DataGridController.DataGridController);
-    const grid = getElementWithinComponent(controller, 'devtools-data-grid', DataGrid.DataGrid.DataGrid);
-    assertShadowRoot(grid.shadowRoot);
-    const headerGot = Array.from(getHeaderCells(grid.shadowRoot), cell => {
-        assertNotNullOrUndefined(cell.textContent);
-        return cell.textContent.trim();
-    });
-    const rowsGot = getValuesOfAllBodyRows(grid.shadowRoot);
-    assert.deepEqual([headerGot, rowsGot], [headerExpected, rowsExpected]);
 }
 function assertDiff(gridComponent, cellIndex, spansExpected) {
     const controller = getElementWithinComponent(gridComponent, 'devtools-data-grid-controller', DataGrid.DataGridController.DataGridController);

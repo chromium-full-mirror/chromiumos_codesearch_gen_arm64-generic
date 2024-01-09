@@ -1363,7 +1363,7 @@
   WebFeature.kRequestMIDIAccessIframeWithSysExOption_ObscuredByFootprinting = 1963;
   WebFeature.kGamepadAxes = 1964;
   WebFeature.kGamepadButtons = 1965;
-  WebFeature.kDispatchMouseEventOnDisabledFormControl = 1967;
+  WebFeature.kOBSOLETE_DispatchMouseEventOnDisabledFormControl = 1967;
   WebFeature.kElementNameDOMInvalidHTMLParserValid = 1968;
   WebFeature.kElementNameDOMValidHTMLParserInvalid = 1969;
   WebFeature.kGATTServerDisconnectedEvent = 1970;
@@ -1652,7 +1652,7 @@
   WebFeature.kCSSSelectorWebkitTextfieldDecorationContainer = 2318;
   WebFeature.kCSSSelectorWebkitUnknownPseudo = 2319;
   WebFeature.kFilterAsContainingBlockMayChangeOutput = 2320;
-  WebFeature.kDispatchMouseUpDownEventOnDisabledFormControl = 2321;
+  WebFeature.kOBSOLETE_DispatchMouseUpDownEventOnDisabledFormControl = 2321;
   WebFeature.kCSSSelectorPseudoIs = 2322;
   WebFeature.kV8RTCRtpSender_ReplaceTrack_Method = 2323;
   WebFeature.kInputTypeFileSecureOriginOpenChooser = 2324;
@@ -2079,7 +2079,7 @@
   WebFeature.kCSSValueAppearanceSearchCancel = 2820;
   WebFeature.kCSSValueAppearanceTextarea = 2821;
   WebFeature.kCSSValueAppearanceTextFieldForTemporalRendered = 2823;
-  WebFeature.kAdClickNavigation = 2826;
+  WebFeature.kOBSOLETE_AdClickNavigation = 2826;
   WebFeature.kRTCStatsRelativePacketArrivalDelay = 2827;
   WebFeature.kCSSSelectorHostContextInSnapshotProfile = 2829;
   WebFeature.kCSSSelectorHostContextInLiveProfile = 2830;
@@ -3175,8 +3175,8 @@
   WebFeature.kClientHintsUAReduced = 3968;
   WebFeature.kSpeculationRulesPrerender = 3969;
   WebFeature.kOBSOLETE_ExecCommandWithTrustedTypes = 3970;
-  WebFeature.kCSSSelectorPseudoHasInSnapshotProfile = 3971;
-  WebFeature.kCSSSelectorPseudoHasInLiveProfile = 3972;
+  WebFeature.kOBSOLETE_CSSSelectorPseudoHasInSnapshotProfile = 3971;
+  WebFeature.kOBSOLETE_CSSSelectorPseudoHasInLiveProfile = 3972;
   WebFeature.kNavigatorPdfViewerEnabled = 3973;
   WebFeature.kCanvasRenderingContext2DContextLostEvent = 3974;
   WebFeature.kCanvasRenderingContext2DContextRestoredEvent = 3975;
@@ -3425,9 +3425,9 @@
   WebFeature.kOBSOLETE_GestureScrollUpdate = 4221;
   WebFeature.kOBSOLETE_GestureScrollEnd = 4222;
   WebFeature.kArrayBufferTooBigForWebAPI = 4223;
-  WebFeature.kFedCmRevoke = 4224;
-  WebFeature.kFedCmLogout = 4225;
-  WebFeature.kFedCmLogoutRps = 4226;
+  WebFeature.kFedCmDisconnect = 4224;
+  WebFeature.kOBSOLETE_FedCmLogout = 4225;
+  WebFeature.kOBSOLETE_FedCmLogoutRps = 4226;
   WebFeature.kV8Navigator_DeprecatedReplaceInURN_Method = 4227;
   WebFeature.kWebAppBorderless = 4228;
   WebFeature.kPaymentInstruments = 4229;
@@ -3503,7 +3503,7 @@
   WebFeature.kOBSOLETE_WebCodecsImageDecoderPremultiplyAlphaDeprecation = 4299;
   WebFeature.kCookieDomainNonASCII = 4300;
   WebFeature.kClientHintsMetaEquivDelegateCH = 4301;
-  WebFeature.kExpectCTHeader = 4302;
+  WebFeature.kOBSOLETE_ExpectCTHeader = 4302;
   WebFeature.kOBSOLETE_kNavigateEventTransitionWhile = 4303;
   WebFeature.kOBSOLETE_kNavigateEventRestoreScroll = 4304;
   WebFeature.kSendBeaconWithArrayBuffer = 4305;
@@ -3562,11 +3562,11 @@
   WebFeature.kWebAuthnConditionalUiGetSuccess = 4358;
   WebFeature.kWebAuthnRkRequiredCreationSuccess = 4359;
   WebFeature.kDestructiveDocumentWriteAfterModuleScript = 4360;
-  WebFeature.kCSSAtSupportsDropInvalidWhileForgivingParsing = 4361;
+  WebFeature.kOBSOLETE_CSSAtSupportsDropInvalidWhileForgivingParsing = 4361;
   WebFeature.kPermissionsPolicyUnload = 4362;
   WebFeature.kServiceWorkerSkippedForSubresourceLoad = 4363;
   WebFeature.kClientHintsPrefersReducedMotion = 4364;
-  WebFeature.kWakeLockAcquireScreenLockWithoutActivation = 4365;
+  WebFeature.kOBSOLETE_WakeLockAcquireScreenLockWithoutActivation = 4365;
   WebFeature.kInteractiveWidgetOverlaysContent = 4366;
   WebFeature.kInteractiveWidgetResizesContent = 4367;
   WebFeature.kInteractiveWidgetResizesVisual = 4368;
@@ -3641,8 +3641,8 @@
   WebFeature.kCSSBackgroundClipContent = 4437;
   WebFeature.kCSSBackgroundClipPadding = 4438;
   WebFeature.kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning = 4439;
-  WebFeature.kCSSPseudoHasContainsMixOfValidAndInvalid = 4440;
-  WebFeature.kCSSPseudoIsWhereContainsMixOfValidAndInvalid = 4441;
+  WebFeature.kOBSOLETE_kCSSPseudoHasContainsMixOfValidAndInvalid = 4440;
+  WebFeature.kOBSOLETE_kCSSPseudoIsWhereContainsMixOfValidAndInvalid = 4441;
   WebFeature.kPrivateNetworkAccessFetchedSubFrame = 4442;
   WebFeature.kPrivateNetworkAccessFetchedTopFrame = 4443;
   WebFeature.kDisableThirdPartyStoragePartitioning = 4444;
@@ -3657,12 +3657,12 @@
   WebFeature.kServiceWorkerFetchHandlerModifiedAfterInitialization = 4453;
   WebFeature.kOptionLabelInQuirksMode = 4454;
   WebFeature.kParseFromStringIncludeShadows = 4455;
-  WebFeature.kWebAppEnableScopeExtensions = 4456;
+  WebFeature.kWebAppManifestScopeExtensions = 4456;
   WebFeature.kServiceWorkerBypassFetchHandlerForMainResourceByOriginTrial = 4457;
   WebFeature.kOBSOLETE_V8RegExpUnicodeSetIncompatibilitiesWithUnicodeMode = 4458;
   WebFeature.kFedCmAutoReauthn = 4459;
   WebFeature.kTopicsAPIFetch = 4460;
-  WebFeature.kTopicsAPIXhr = 4461;
+  WebFeature.kOBSOLETE_TopicsAPIXhr = 4461;
   WebFeature.kParseFromString = 4462;
   WebFeature.kOBSOLETE_HTMLPatternRegExpUnicodeSetIncompatibilitiesWithUnicodeMode = 4463;
   WebFeature.kPopoverTypeAuto = 4464;
@@ -3801,7 +3801,6 @@
   WebFeature.kEventTimingPresentationPromiseResolvedAfterReport = 4597;
   WebFeature.kGetCoalescedEventsInInsecureContext = 4598;
   WebFeature.kCSPEESameOriginBlanketEnforcement = 4599;
-  WebFeature.kV8Navigator_GetEnvironmentIntegrity_Method = 4600;
   WebFeature.kSharedDictionaryUsed = 4601;
   WebFeature.kSharedDictionaryUsedForNavigation = 4602;
   WebFeature.kSharedDictionaryUsedForMainFrameNavigation = 4603;
@@ -3819,15 +3818,15 @@
   WebFeature.kV8WasmMemory64 = 4615;
   WebFeature.kV8WasmMultiMemory = 4616;
   WebFeature.kV8WasmGC = 4617;
-  WebFeature.kORBBlockWithoutAnyEventHandler = 4618;
-  WebFeature.kORBBlockWithOnErrorButWithoutOnLoadEventHandler = 4619;
-  WebFeature.kORBBlockWithOnLoadButWithoutOnErrorEventHandler = 4620;
-  WebFeature.kORBBlockWithOnLoadAndOnErrorEventHandler = 4621;
-  WebFeature.kORBBlockWithAnyEventHandler = 4622;
+  WebFeature.kOBSOLETE_ORBBlockWithoutAnyEventHandler = 4618;
+  WebFeature.kOBSOLETE_ORBBlockWithOnErrorButWithoutOnLoadEventHandler = 4619;
+  WebFeature.kOBSOLETE_ORBBlockWithOnLoadButWithoutOnErrorEventHandler = 4620;
+  WebFeature.kOBSOLETE_ORBBlockWithOnLoadAndOnErrorEventHandler = 4621;
+  WebFeature.kOBSOLETE_ORBBlockWithAnyEventHandler = 4622;
   WebFeature.kV8RTCEncodedVideoFrame_SetMetadata_Method = 4623;
   WebFeature.kV8RTCEncodedVideoFrame_SetTimestamp_Method = 4624;
   WebFeature.kV8RTCEncodedAudioFrame_SetTimestamp_Method = 4625;
-  WebFeature.kCSSAtRuleViewTransitions = 4626;
+  WebFeature.kCSSAtRuleViewTransition = 4626;
   WebFeature.kSharedDictionaryUsedWithSharedBrotli = 4627;
   WebFeature.kSharedDictionaryUsedWithSharedZstd = 4628;
   WebFeature.kZstdContentEncoding = 4629;
@@ -3859,7 +3858,7 @@
   WebFeature.kV8FileSystemHandle_GetCloudIdentifiers_Method = 4655;
   WebFeature.kPrivateAggregationApiEnableDebugMode = 4656;
   WebFeature.kLineBreakPhrase = 4657;
-  WebFeature.kAttributionReportingUnderscorePrefixedFilterKey = 4658;
+  WebFeature.kOBSOLETE_AttributionReportingUnderscorePrefixedFilterKey = 4658;
   WebFeature.kPercentOrCalcStickyUsedOffset = 4659;
   WebFeature.kPercentOrCalcRelativeUsedOffset = 4660;
   WebFeature.kAutoRelativeUsedOffset = 4661;
@@ -3895,9 +3894,76 @@
   WebFeature.kElementCheckVisibility = 4691;
   WebFeature.kV8ClipboardItem_Supports_Method = 4692;
   WebFeature.kThirdPartyCookieAccessBlockByExperiment = 4693;
-  WebFeature.kNumberOfFeatures = 4694;
+  WebFeature.kCspWouldBlockIfWildcardDoesNotMatchWs = 4694;
+  WebFeature.kCspWouldBlockIfWildcardDoesNotMatchFtp = 4695;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies = 4696;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_all = 4697;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_sessionStorage = 4698;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_sessionStorage_Use = 4699;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_localStorage = 4700;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_localStorage_Use = 4701;
+  WebFeature.kElementCheckVisibilityOptionCheckVisibilityCSS = 4702;
+  WebFeature.kElementCheckVisibilityOptionCheckOpacity = 4703;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_indexedDB = 4704;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_indexedDB_Use = 4705;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_locks = 4706;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_locks_Use = 4707;
+  WebFeature.kRubyElementWithDisplayBlockAndRt = 4708;
+  WebFeature.kCSSDeclarationAfterNestedRule = 4709;
+  WebFeature.kThirdPartyCookieAdAccessBlockByExperiment = 4710;
+  WebFeature.kServiceWorkerStaticRouter_AddRoutes = 4711;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_caches = 4712;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_caches_Use = 4713;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_getDirectory = 4714;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_getDirectory_Use = 4715;
+  WebFeature.kElementCheckVisibilityOptionContentVisibilityAuto = 4716;
+  WebFeature.kElementCheckVisibilityOptionOpacityProperty = 4717;
+  WebFeature.kElementCheckVisibilityOptionVisibilityProperty = 4718;
+  WebFeature.kAdClickMainFrameNavigation = 4719;
+  WebFeature.kLinkRelPrivacyPolicy = 4720;
+  WebFeature.kLinkRelTermsOfService = 4721;
+  WebFeature.kWebAppManifestIdField = 4722;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_estimate = 4723;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_estimate_Use = 4724;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_createObjectURL = 4725;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_createObjectURL_Use = 4726;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_revokeObjectURL = 4727;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_revokeObjectURL_Use = 4728;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_BroadcastChannel = 4729;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_BroadcastChannel_Use = 4730;
+  WebFeature.kThirdPartyCookieDeprecation_AllowByExplicitSetting = 4731;
+  WebFeature.kThirdPartyCookieDeprecation_AllowByGlobalSetting = 4732;
+  WebFeature.kThirdPartyCookieDeprecation_AllowBy3PCDMetadata = 4733;
+  WebFeature.kThirdPartyCookieDeprecation_AllowBy3PCD = 4734;
+  WebFeature.kThirdPartyCookieDeprecation_AllowBy3PCDHeuristics = 4735;
+  WebFeature.kThirdPartyCookieDeprecation_AllowByStorageAccess = 4736;
+  WebFeature.kThirdPartyCookieDeprecation_AllowByTopLevelStorageAccess = 4737;
+  WebFeature.kIframeAdAuctionHeadersAttribute = 4738;
+  WebFeature.kAutoSpeculationRulesOptedOut = 4739;
+  WebFeature.kOverrideFlashEmbedwithHTML = 4740;
+  WebFeature.kLinkRelOpener = 4741;
+  WebFeature.kLinkRelOpenerTargetingSameFrame = 4742;
+  WebFeature.kCSSSelectorPseudoHas = 4743;
+  WebFeature.kWakeLockAcquireScreenLockWithoutStickyActivation = 4744;
+  WebFeature.kSubtleCryptoDeriveBitsZeroLength = 4745;
+  WebFeature.kSubtleCryptoDeriveBitsTruncation = 4746;
+  WebFeature.kTextDirectiveInShadowDOM = 4747;
+  WebFeature.kPseudoFirstLetterOnRt = 4748;
+  WebFeature.kPseudoFirstLineOnRt = 4749;
+  WebFeature.kAutoSizesLazy = 4750;
+  WebFeature.kAutoSizesNonLazy = 4751;
+  WebFeature.kTrustedTypesIntrospection = 4752;
+  WebFeature.kTrustedTypesIsCheck = 4753;
+  WebFeature.kMouseDragOnCancelledMouseMove = 4754;
+  WebFeature.kFedCmDomainHint = 4755;
+  WebFeature.kLCPImageWasLazy = 4756;
+  WebFeature.kEventTargetOnObservable = 4757;
+  WebFeature.kCredentialManagerCrossOriginPublicKeyCreateRequest = 4758;
+  WebFeature.kViewTransitionNameAuto = 4759;
+  WebFeature.kV8WasmJavaScriptPromiseIntegration = 4760;
+  WebFeature.kNumberOfFeatures = 4761;
   WebFeature.MIN_VALUE = 0;
-  WebFeature.MAX_VALUE = 4694;
+  WebFeature.MAX_VALUE = 4761;
 
   WebFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -7680,7 +7746,6 @@
     case 4597:
     case 4598:
     case 4599:
-    case 4600:
     case 4601:
     case 4602:
     case 4603:
@@ -7775,6 +7840,73 @@
     case 4692:
     case 4693:
     case 4694:
+    case 4695:
+    case 4696:
+    case 4697:
+    case 4698:
+    case 4699:
+    case 4700:
+    case 4701:
+    case 4702:
+    case 4703:
+    case 4704:
+    case 4705:
+    case 4706:
+    case 4707:
+    case 4708:
+    case 4709:
+    case 4710:
+    case 4711:
+    case 4712:
+    case 4713:
+    case 4714:
+    case 4715:
+    case 4716:
+    case 4717:
+    case 4718:
+    case 4719:
+    case 4720:
+    case 4721:
+    case 4722:
+    case 4723:
+    case 4724:
+    case 4725:
+    case 4726:
+    case 4727:
+    case 4728:
+    case 4729:
+    case 4730:
+    case 4731:
+    case 4732:
+    case 4733:
+    case 4734:
+    case 4735:
+    case 4736:
+    case 4737:
+    case 4738:
+    case 4739:
+    case 4740:
+    case 4741:
+    case 4742:
+    case 4743:
+    case 4744:
+    case 4745:
+    case 4746:
+    case 4747:
+    case 4748:
+    case 4749:
+    case 4750:
+    case 4751:
+    case 4752:
+    case 4753:
+    case 4754:
+    case 4755:
+    case 4756:
+    case 4757:
+    case 4758:
+    case 4759:
+    case 4760:
+    case 4761:
       return true;
     }
     return false;

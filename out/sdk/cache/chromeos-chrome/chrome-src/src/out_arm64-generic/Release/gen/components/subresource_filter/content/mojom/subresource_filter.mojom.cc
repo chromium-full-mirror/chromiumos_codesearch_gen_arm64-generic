@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -103,7 +104,7 @@ SubresourceFilterAgentProxy::SubresourceFilterAgentProxy(mojo::MessageReceiverWi
 }
 
 void SubresourceFilterAgentProxy::ActivateForNextCommittedLoad(
-    ::subresource_filter::mojom::ActivationStatePtr in_activation_state, const absl::optional<::blink::FrameAdEvidence>& in_ad_evidence) {
+    ::subresource_filter::mojom::ActivationStatePtr in_activation_state, const std::optional<::blink::FrameAdEvidence>& in_ad_evidence) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send subresource_filter::mojom::SubresourceFilterAgent::ActivateForNextCommittedLoad", "input_parameters",
@@ -114,17 +115,20 @@ void SubresourceFilterAgentProxy::ActivateForNextCommittedLoad(
                         "<value of type ::subresource_filter::mojom::ActivationStatePtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("ad_evidence"), in_ad_evidence,
-                        "<value of type const absl::optional<::blink::FrameAdEvidence>&>");
+                        "<value of type const std::optional<::blink::FrameAdEvidence>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSubresourceFilterAgent_ActivateForNextCommittedLoad_Name, kFlags, 0, 0, nullptr);
@@ -174,7 +178,7 @@ bool SubresourceFilterAgentStubDispatch::Accept(
       
       bool success = true;
       ::subresource_filter::mojom::ActivationStatePtr p_activation_state{};
-      absl::optional<::blink::FrameAdEvidence> p_ad_evidence{};
+      std::optional<::blink::FrameAdEvidence> p_ad_evidence{};
       SubresourceFilterAgent_ActivateForNextCommittedLoad_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadActivationState(&p_activation_state))
@@ -214,10 +218,10 @@ bool SubresourceFilterAgentStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSubresourceFilterAgentValidationInfo[] = {
-    {&internal::SubresourceFilterAgent_ActivateForNextCommittedLoad_Params_Data::Validate,
+    { &internal::SubresourceFilterAgent_ActivateForNextCommittedLoad_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -390,14 +394,17 @@ void SubresourceFilterHostProxy::DidDisallowFirstSubresource(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send subresource_filter::mojom::SubresourceFilterHost::DidDisallowFirstSubresource");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSubresourceFilterHost_DidDisallowFirstSubresource_Name, kFlags, 0, 0, nullptr);
@@ -420,14 +427,17 @@ void SubresourceFilterHostProxy::FrameIsAd(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send subresource_filter::mojom::SubresourceFilterHost::FrameIsAd");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSubresourceFilterHost_FrameIsAd_Name, kFlags, 0, 0, nullptr);
@@ -450,14 +460,17 @@ void SubresourceFilterHostProxy::FrameWasCreatedByAdScript(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send subresource_filter::mojom::SubresourceFilterHost::FrameWasCreatedByAdScript");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSubresourceFilterHost_FrameWasCreatedByAdScript_Name, kFlags, 0, 0, nullptr);
@@ -487,14 +500,17 @@ void SubresourceFilterHostProxy::AdScriptDidCreateFencedFrame(
                         "<value of type const ::blink::RemoteFrameToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSubresourceFilterHost_AdScriptDidCreateFencedFrame_Name, kFlags, 0, 0, nullptr);
@@ -535,14 +551,17 @@ void SubresourceFilterHostProxy::SetDocumentLoadStatistics(
                         "<value of type ::subresource_filter::mojom::DocumentLoadStatisticsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSubresourceFilterHost_SetDocumentLoadStatistics_Name, kFlags, 0, 0, nullptr);
@@ -583,14 +602,17 @@ void SubresourceFilterHostProxy::OnAdsViolationTriggered(
                         "<value of type ::subresource_filter::mojom::AdsViolation>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSubresourceFilterHost_OnAdsViolationTriggered_Name, kFlags, 0, 0, nullptr);
@@ -793,20 +815,20 @@ bool SubresourceFilterHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSubresourceFilterHostValidationInfo[] = {
-    {&internal::SubresourceFilterHost_DidDisallowFirstSubresource_Params_Data::Validate,
+    { &internal::SubresourceFilterHost_DidDisallowFirstSubresource_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SubresourceFilterHost_FrameIsAd_Params_Data::Validate,
+    { &internal::SubresourceFilterHost_FrameIsAd_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SubresourceFilterHost_FrameWasCreatedByAdScript_Params_Data::Validate,
+    { &internal::SubresourceFilterHost_FrameWasCreatedByAdScript_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SubresourceFilterHost_AdScriptDidCreateFencedFrame_Params_Data::Validate,
+    { &internal::SubresourceFilterHost_AdScriptDidCreateFencedFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SubresourceFilterHost_SetDocumentLoadStatistics_Params_Data::Validate,
+    { &internal::SubresourceFilterHost_SetDocumentLoadStatistics_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SubresourceFilterHost_OnAdsViolationTriggered_Params_Data::Validate,
+    { &internal::SubresourceFilterHost_OnAdsViolationTriggered_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -832,7 +854,7 @@ namespace mojo {
 namespace subresource_filter::mojom {
 
 
-void SubresourceFilterAgentInterceptorForTesting::ActivateForNextCommittedLoad(::subresource_filter::mojom::ActivationStatePtr activation_state, const absl::optional<::blink::FrameAdEvidence>& ad_evidence) {
+void SubresourceFilterAgentInterceptorForTesting::ActivateForNextCommittedLoad(::subresource_filter::mojom::ActivationStatePtr activation_state, const std::optional<::blink::FrameAdEvidence>& ad_evidence) {
   GetForwardingInterface()->ActivateForNextCommittedLoad(std::move(activation_state), std::move(ad_evidence));
 }
 SubresourceFilterAgentAsyncWaiter::SubresourceFilterAgentAsyncWaiter(

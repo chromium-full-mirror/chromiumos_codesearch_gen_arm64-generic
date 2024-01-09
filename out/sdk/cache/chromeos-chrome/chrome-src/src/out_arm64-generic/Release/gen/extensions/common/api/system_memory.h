@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct MemoryInfo {
   ~MemoryInfo();
   MemoryInfo(const MemoryInfo&) = delete;
   MemoryInfo& operator=(const MemoryInfo&) = delete;
-  MemoryInfo(MemoryInfo&& rhs);
-  MemoryInfo& operator=(MemoryInfo&& rhs);
+  MemoryInfo(MemoryInfo&& rhs) noexcept;
+  MemoryInfo& operator=(MemoryInfo&& rhs) noexcept;
 
   // Populates a MemoryInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -46,15 +47,12 @@ struct MemoryInfo {
   // Creates a deep copy of MemoryInfo.
   MemoryInfo Clone() const;
 
-  // Creates a MemoryInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MemoryInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a MemoryInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MemoryInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<MemoryInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a MemoryInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<MemoryInfo> FromValue(const base::Value& value);
+  static std::optional<MemoryInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMemoryInfo object.

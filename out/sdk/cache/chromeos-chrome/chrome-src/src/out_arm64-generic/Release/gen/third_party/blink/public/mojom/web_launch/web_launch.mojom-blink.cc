@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -135,14 +136,17 @@ void WebLaunchServiceProxy::SetLaunchFiles(
                         "<value of type WTF::Vector<::blink::mojom::blink::FileSystemAccessEntryPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebLaunchService_SetLaunchFiles_Name, kFlags, 0, 0, nullptr);
@@ -185,14 +189,17 @@ void WebLaunchServiceProxy::EnqueueLaunchParams(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebLaunchService_EnqueueLaunchParams_Name, kFlags, 0, 0, nullptr);
@@ -300,12 +307,12 @@ bool WebLaunchServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebLaunchServiceValidationInfo[] = {
-    {&internal::WebLaunchService_SetLaunchFiles_Params_Data::Validate,
+    { &internal::WebLaunchService_SetLaunchFiles_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebLaunchService_EnqueueLaunchParams_Params_Data::Validate,
+    { &internal::WebLaunchService_EnqueueLaunchParams_Params_Data::Validate,
      nullptr /* no response */},
 };
 

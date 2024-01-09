@@ -48,6 +48,11 @@ return dictionary;
 
 
 
+
+
+
+
+
 Vector<V8FenceReportingDestination> FenceEvent::getDestinationOr(const Vector<V8FenceReportingDestination>& fallback_value) const {
   if (!hasDestination()) {
   return fallback_value;
@@ -162,7 +167,8 @@ has_event_type_ = true;
 
 
 void FenceEvent::Trace(Visitor* visitor) const {
-  TraceIfNeeded<Vector<V8FenceReportingDestination>>::Trace(visitor, member_destination_);
+  TraceIfNeeded<bool>::Trace(visitor, member_cross_origin_exposed_);
+TraceIfNeeded<Vector<V8FenceReportingDestination>>::Trace(visitor, member_destination_);
 TraceIfNeeded<String>::Trace(visitor, member_destination_url_);
 TraceIfNeeded<String>::Trace(visitor, member_event_data_);
 TraceIfNeeded<String>::Trace(visitor, member_event_type_);
@@ -176,11 +182,19 @@ v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 bool was_property_created;
+if (hasCrossOriginExposed()) {
+  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_cross_origin_exposed_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
 if (hasDestination()) {
   if (!ToV8Traits<IDLSequence<V8FenceReportingDestination>>::ToV8(script_state, member_destination_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -188,7 +202,7 @@ if (hasDestinationURL()) {
   if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_destination_url_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -196,7 +210,7 @@ if (hasEventData()) {
   if (!ToV8Traits<IDLString>::ToV8(script_state, member_event_data_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -204,7 +218,7 @@ if (hasEventType()) {
   if (!ToV8Traits<IDLString>::ToV8(script_state, member_event_type_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -212,7 +226,7 @@ if (hasOnce()) {
   if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_once_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -222,35 +236,40 @@ return true;
 void FenceEvent::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
   const char* const class_like_name = "FenceEvent";
 ExceptionState::ContextScope exception_context_scope(ExceptionContext(ExceptionContextType::kDictionaryMemberGet, class_like_name, ""), exception_state);
-exception_context_scope.ChangePropertyNameAsOptimizationHack("destination");
+exception_context_scope.ChangePropertyNameAsOptimizationHack("crossOriginExposed");
 constexpr bool is_optional = false;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+bool fallback_presence_var;
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<V8FenceReportingDestination>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_destination_, member_destination_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), fallback_presence_var, member_cross_origin_exposed_, try_block, exception_state)) {
+  return;
+}
+exception_context_scope.ChangePropertyNameAsOptimizationHack("destination");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<V8FenceReportingDestination>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_destination_, member_destination_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("destinationURL");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_destination_url_, member_destination_url_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_destination_url_, member_destination_url_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("eventData");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_event_data_, member_event_data_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_event_data_, member_event_data_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("eventType");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_event_type_, member_event_type_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_event_type_, member_event_type_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("once");
-bool fallback_presence_var;
-if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), fallback_presence_var, member_once_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), fallback_presence_var, member_once_, try_block, exception_state)) {
   return;
 }
 }
 
 const base::span<const v8::Eternal<v8::Name>> FenceEvent::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
+"crossOriginExposed",
 "destination",
 "destinationURL",
 "eventData",

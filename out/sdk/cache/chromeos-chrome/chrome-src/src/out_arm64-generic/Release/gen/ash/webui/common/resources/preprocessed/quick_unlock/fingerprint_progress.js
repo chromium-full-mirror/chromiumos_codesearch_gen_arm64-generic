@@ -121,7 +121,6 @@ export class FingerprintProgressElement extends PolymerElement {
         this.progressCircleBackgroundColor =
             getComputedStyle(document.body)
                 .getPropertyValue('--cros-sys-primary_container');
-        this.$.scanningAnimation.onColorSchemeChanged();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -153,7 +152,6 @@ export class FingerprintProgressElement extends PolymerElement {
         this.updateAnimationAsset_();
         this.resizeAndCenterIcon_(scanningAnimation);
         scanningAnimation.hidden = false;
-        scanningAnimation.onColorSchemeChanged();
     }
     /**
      * Animates the progress circle. Animates an arc that starts at the top of

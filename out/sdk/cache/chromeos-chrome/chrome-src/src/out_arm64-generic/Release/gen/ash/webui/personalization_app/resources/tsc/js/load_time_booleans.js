@@ -38,9 +38,6 @@ export function isTimeOfDayScreenSaverEnabled() {
 export function isTimeOfDayWallpaperEnabled() {
     return loadTimeData.getBoolean('isTimeOfDayWallpaperEnabled');
 }
-export function isSeaPenEnabled() {
-    return loadTimeData.getBoolean('isSeaPenEnabled');
-}
-export function isSeaPenTextInputEnabled() {
-    return loadTimeData.getBoolean('isSeaPenTextInputEnabled');
+export function isTimeOfDayWallpaperForcedAutoScheduleEnabled() {
+    return loadTimeData.getBoolean('isTimeOfDayWallpaperForcedAutoScheduleEnabled');
 }

@@ -425,9 +425,10 @@ class  CookieManagerParams_Data {
   mojo::internal::StructHeader header_;
   uint8_t block_third_party_cookies : 1;
   uint8_t block_truncated_cookies : 1;
+  uint8_t tracking_protection_enabled_for_3pcd : 1;
   uint8_t mitigations_enabled_for_3pcd : 1;
   uint8_t allow_file_scheme_cookies : 1;
-  uint8_t pad3_[3];
+  uint8_t pad4_[3];
   int32_t cookie_access_delegate_type;
   mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::content_settings::mojom::internal::ContentSettingPatternSource_Data>>>>> content_settings;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> secure_origin_cookies_allowed_schemes;
@@ -644,8 +645,7 @@ class  CanonicalCookie_Data {
   mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> last_update;
   uint8_t secure : 1;
   uint8_t httponly : 1;
-  uint8_t same_party : 1;
-  uint8_t pad10_[3];
+  uint8_t pad9_[3];
   int32_t site_restrictions;
   int32_t priority;
   int32_t source_scheme;

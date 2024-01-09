@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/optimization_guide/optimization_guide_internals/webui/optimization_guide_internals.mojom-features.h"
 #include "components/optimization_guide/optimization_guide_internals/webui/optimization_guide_internals.mojom-shared.h"
 #include "components/optimization_guide/optimization_guide_internals/webui/optimization_guide_internals.mojom-forward.h"
 #include "components/optimization_guide/core/optimization_guide_common.mojom-forward.h"
@@ -72,6 +73,7 @@ class PageHandlerFactory
   enum MethodMinVersions : uint32_t {
     kCreatePageHandlerMinVersion = 0,
     kRequestDownloadedModelsInfoMinVersion = 0,
+    kRequestLoggedModelQualityClientIdsMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -81,6 +83,9 @@ class PageHandlerFactory
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RequestDownloadedModelsInfo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RequestLoggedModelQualityClientIds_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -93,6 +98,11 @@ class PageHandlerFactory
   using RequestDownloadedModelsInfoCallback = base::OnceCallback<void(std::vector<DownloadedModelInfoPtr>)>;
   
   virtual void RequestDownloadedModelsInfo(RequestDownloadedModelsInfoCallback callback) = 0;
+
+
+  using RequestLoggedModelQualityClientIdsCallback = base::OnceCallback<void(std::vector<LoggedClientIdsPtr>)>;
+  
+  virtual void RequestLoggedModelQualityClientIds(RequestLoggedModelQualityClientIdsCallback callback) = 0;
 };
 
 class PageProxy;
@@ -152,6 +162,8 @@ class  PageHandlerFactoryProxy
   void CreatePageHandler(::mojo::PendingRemote<Page> page) final;
   
   void RequestDownloadedModelsInfo(RequestDownloadedModelsInfoCallback callback) final;
+  
+  void RequestLoggedModelQualityClientIds(RequestLoggedModelQualityClientIdsCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -416,6 +428,148 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+class  LoggedClientIds {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<LoggedClientIds, T>::value>;
+  using DataView = LoggedClientIdsDataView;
+  using Data_ = internal::LoggedClientIds_Data;
+
+  template <typename... Args>
+  static LoggedClientIdsPtr New(Args&&... args) {
+    return LoggedClientIdsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static LoggedClientIdsPtr From(const U& u) {
+    return mojo::TypeConverter<LoggedClientIdsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, LoggedClientIds>::Convert(*this);
+  }
+
+
+  LoggedClientIds();
+
+  explicit LoggedClientIds(
+      int64_t client_id);
+
+
+  ~LoggedClientIds();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = LoggedClientIdsPtr>
+  LoggedClientIdsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, LoggedClientIds::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, LoggedClientIds::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, LoggedClientIds::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        LoggedClientIds::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        LoggedClientIds::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::LoggedClientIds_UnserializedMessageContext<
+            UserType, LoggedClientIds::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<LoggedClientIds::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return LoggedClientIds::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::LoggedClientIds_UnserializedMessageContext<
+            UserType, LoggedClientIds::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<LoggedClientIds::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  int64_t client_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, LoggedClientIds::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, LoggedClientIds::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, LoggedClientIds::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, LoggedClientIds::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 template <typename StructPtrType>
 DownloadedModelInfoPtr DownloadedModelInfo::Clone() const {
   return New(
@@ -452,6 +606,28 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+LoggedClientIdsPtr LoggedClientIds::Clone() const {
+  return New(
+      mojo::Clone(client_id)
+  );
+}
+
+template <typename T, LoggedClientIds::EnableIfSame<T>*>
+bool LoggedClientIds::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->client_id, other_struct.client_id))
+    return false;
+  return true;
+}
+
+template <typename T, LoggedClientIds::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.client_id < rhs.client_id)
+    return true;
+  if (rhs.client_id < lhs.client_id)
+    return false;
+  return false;
+}
 
 
 }  // optimization_guide_internals::mojom
@@ -481,6 +657,21 @@ struct  StructTraits<::optimization_guide_internals::mojom::DownloadedModelInfo:
   }
 
   static bool Read(::optimization_guide_internals::mojom::DownloadedModelInfo::DataView input, ::optimization_guide_internals::mojom::DownloadedModelInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::optimization_guide_internals::mojom::LoggedClientIds::DataView,
+                                         ::optimization_guide_internals::mojom::LoggedClientIdsPtr> {
+  static bool IsNull(const ::optimization_guide_internals::mojom::LoggedClientIdsPtr& input) { return !input; }
+  static void SetToNull(::optimization_guide_internals::mojom::LoggedClientIdsPtr* output) { output->reset(); }
+
+  static decltype(::optimization_guide_internals::mojom::LoggedClientIds::client_id) client_id(
+      const ::optimization_guide_internals::mojom::LoggedClientIdsPtr& input) {
+    return input->client_id;
+  }
+
+  static bool Read(::optimization_guide_internals::mojom::LoggedClientIds::DataView input, ::optimization_guide_internals::mojom::LoggedClientIdsPtr* output);
 };
 
 }  // namespace mojo

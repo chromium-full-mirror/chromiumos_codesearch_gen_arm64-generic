@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SyncManager>::value,
     "SyncManager inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SyncManager::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SyncManager is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ return;
 
 
 
-SyncManager* blink_receiver = V8SyncManager::ToWrappableUnsafe(v8_receiver);
+SyncManager* blink_receiver = V8SyncManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -141,7 +136,7 @@ return;
 
 
 
-SyncManager* blink_receiver = V8SyncManager::ToWrappableUnsafe(v8_receiver);
+SyncManager* blink_receiver = V8SyncManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -38,7 +38,7 @@ export class SettingsCaptionsElement extends SettingsCaptionsElementBase {
                 value() {
                     return [
                         {
-                            value: 100,
+                            value: 100, // Default
                             name: loadTimeData.getString('captionsOpacityOpaque'),
                         },
                         {
@@ -109,7 +109,7 @@ export class SettingsCaptionsElement extends SettingsCaptionsElementBase {
                 value() {
                     return [
                         {
-                            value: 100,
+                            value: 100, // Default
                             name: loadTimeData.getString('captionsOpacityOpaque'),
                         },
                         {
@@ -168,7 +168,7 @@ export class SettingsCaptionsElement extends SettingsCaptionsElementBase {
                         {
                             value: '',
                             name: loadTimeData.getString('medium'),
-                        },
+                        }, // Default = 100%
                         { value: '150%', name: loadTimeData.getString('large') },
                         { value: '200%', name: loadTimeData.getString('veryLarge') },
                     ];

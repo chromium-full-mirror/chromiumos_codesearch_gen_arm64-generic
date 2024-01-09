@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/multidevice_setup/public/mojom/multidevice_setup.mojom-features.h"
 #include "chromeos/ash/services/multidevice_setup/public/mojom/multidevice_setup.mojom-shared.h"
 #include "chromeos/ash/services/multidevice_setup/public/mojom/multidevice_setup.mojom-forward.h"
 #include "chromeos/ash/components/multidevice/mojom/multidevice_types.mojom.h"
@@ -155,7 +156,7 @@ class HostStatusObserver
   virtual ~HostStatusObserver() = default;
 
   
-  virtual void OnHostStatusChanged(HostStatus host_status, const absl::optional<::ash::multidevice::RemoteDevice>& host_device) = 0;
+  virtual void OnHostStatusChanged(HostStatus host_status, const std::optional<::ash::multidevice::RemoteDevice>& host_device) = 0;
 };
 
 class FeatureStateObserverProxy;
@@ -325,14 +326,14 @@ class MultiDeviceSetup
   virtual void RemoveHostDevice() = 0;
 
 
-  using GetHostStatusCallback = base::OnceCallback<void(HostStatus, const absl::optional<::ash::multidevice::RemoteDevice>&)>;
+  using GetHostStatusCallback = base::OnceCallback<void(HostStatus, const std::optional<::ash::multidevice::RemoteDevice>&)>;
   
   virtual void GetHostStatus(GetHostStatusCallback callback) = 0;
 
 
   using SetFeatureEnabledStateCallback = base::OnceCallback<void(bool)>;
   
-  virtual void SetFeatureEnabledState(Feature feature, bool enabled, const absl::optional<std::string>& auth_token, SetFeatureEnabledStateCallback callback) = 0;
+  virtual void SetFeatureEnabledState(Feature feature, bool enabled, const std::optional<std::string>& auth_token, SetFeatureEnabledStateCallback callback) = 0;
 
 
   using GetFeatureStatesCallback = base::OnceCallback<void(const base::flat_map<Feature, FeatureState>&)>;
@@ -353,7 +354,7 @@ class MultiDeviceSetup
   virtual void SetQuickStartPhoneInstanceID(const std::string& qs_phone_instance_id) = 0;
 
 
-  using GetQuickStartPhoneInstanceIDCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetQuickStartPhoneInstanceIDCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetQuickStartPhoneInstanceID(GetQuickStartPhoneInstanceIDCallback callback) = 0;
 };
@@ -438,7 +439,7 @@ class  HostStatusObserverProxy
 
   explicit HostStatusObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnHostStatusChanged(HostStatus host_status, const absl::optional<::ash::multidevice::RemoteDevice>& host_device) final;
+  void OnHostStatusChanged(HostStatus host_status, const std::optional<::ash::multidevice::RemoteDevice>& host_device) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -484,7 +485,7 @@ class  MultiDeviceSetupProxy
   
   void GetHostStatus(GetHostStatusCallback callback) final;
   
-  void SetFeatureEnabledState(Feature feature, bool enabled, const absl::optional<std::string>& auth_token, SetFeatureEnabledStateCallback callback) final;
+  void SetFeatureEnabledState(Feature feature, bool enabled, const std::optional<std::string>& auth_token, SetFeatureEnabledStateCallback callback) final;
   
   void GetFeatureStates(GetFeatureStatesCallback callback) final;
   

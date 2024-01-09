@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -52,7 +53,7 @@ CacheStorageVerboseError::CacheStorageVerboseError()
 
 CacheStorageVerboseError::CacheStorageVerboseError(
     CacheStorageError value_in,
-    const absl::optional<std::string>& message_in)
+    const std::optional<std::string>& message_in)
     : value(std::move(value_in)),
       message(std::move(message_in)) {}
 
@@ -74,7 +75,7 @@ void CacheStorageVerboseError::WriteIntoTrace(
     dict.AddItem(
       "message"), this->message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -150,7 +151,7 @@ MultiCacheQueryOptions::MultiCacheQueryOptions()
 
 MultiCacheQueryOptions::MultiCacheQueryOptions(
     CacheQueryOptionsPtr query_options_in,
-    const absl::optional<::std::u16string>& cache_name_in)
+    const std::optional<::std::u16string>& cache_name_in)
     : query_options(std::move(query_options_in)),
       cache_name(std::move(cache_name_in)) {}
 
@@ -172,7 +173,7 @@ void MultiCacheQueryOptions::WriteIntoTrace(
     dict.AddItem(
       "cache_name"), this->cache_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -869,14 +870,17 @@ void CacheStorageCacheProxy::Match(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_Match_Name, kFlags, 0, 0, nullptr);
@@ -938,14 +942,17 @@ void CacheStorageCacheProxy::MatchAll(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_MatchAll_Name, kFlags, 0, 0, nullptr);
@@ -1001,14 +1008,17 @@ void CacheStorageCacheProxy::GetAllMatchedEntries(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_GetAllMatchedEntries_Name, kFlags, 0, 0, nullptr);
@@ -1064,14 +1074,17 @@ void CacheStorageCacheProxy::Keys(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_Keys_Name, kFlags, 0, 0, nullptr);
@@ -1124,14 +1137,17 @@ void CacheStorageCacheProxy::Batch(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_Batch_Name, kFlags, 0, 0, nullptr);
@@ -1185,14 +1201,17 @@ void CacheStorageCacheProxy::WriteSideData(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_WriteSideData_Name, kFlags, 0, 0, nullptr);
@@ -1334,7 +1353,8 @@ void CacheStorageCache_Match_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_Match_Name, kFlags, 0, 0, nullptr);
@@ -1460,7 +1480,8 @@ void CacheStorageCache_MatchAll_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_MatchAll_Name, kFlags, 0, 0, nullptr);
@@ -1586,7 +1607,8 @@ void CacheStorageCache_GetAllMatchedEntries_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_GetAllMatchedEntries_Name, kFlags, 0, 0, nullptr);
@@ -1712,7 +1734,8 @@ void CacheStorageCache_Keys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_Keys_Name, kFlags, 0, 0, nullptr);
@@ -1838,7 +1861,8 @@ void CacheStorageCache_Batch_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_Batch_Name, kFlags, 0, 0, nullptr);
@@ -1966,7 +1990,8 @@ void CacheStorageCache_WriteSideData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorageCache_WriteSideData_Name, kFlags, 0, 0, nullptr);
@@ -2263,20 +2288,20 @@ std::move(p_trace_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCacheStorageCacheValidationInfo[] = {
-    {&internal::CacheStorageCache_Match_Params_Data::Validate,
+    { &internal::CacheStorageCache_Match_Params_Data::Validate,
      &internal::CacheStorageCache_Match_ResponseParams_Data::Validate},
-    {&internal::CacheStorageCache_MatchAll_Params_Data::Validate,
+    { &internal::CacheStorageCache_MatchAll_Params_Data::Validate,
      &internal::CacheStorageCache_MatchAll_ResponseParams_Data::Validate},
-    {&internal::CacheStorageCache_GetAllMatchedEntries_Params_Data::Validate,
+    { &internal::CacheStorageCache_GetAllMatchedEntries_Params_Data::Validate,
      &internal::CacheStorageCache_GetAllMatchedEntries_ResponseParams_Data::Validate},
-    {&internal::CacheStorageCache_Keys_Params_Data::Validate,
+    { &internal::CacheStorageCache_Keys_Params_Data::Validate,
      &internal::CacheStorageCache_Keys_ResponseParams_Data::Validate},
-    {&internal::CacheStorageCache_Batch_Params_Data::Validate,
+    { &internal::CacheStorageCache_Batch_Params_Data::Validate,
      &internal::CacheStorageCache_Batch_ResponseParams_Data::Validate},
-    {&internal::CacheStorageCache_WriteSideData_Params_Data::Validate,
+    { &internal::CacheStorageCache_WriteSideData_Params_Data::Validate,
      &internal::CacheStorageCache_WriteSideData_ResponseParams_Data::Validate},
 };
 
@@ -2523,14 +2548,17 @@ void CacheStorageProxy::Has(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Has_Name, kFlags, 0, 0, nullptr);
@@ -2576,14 +2604,17 @@ void CacheStorageProxy::Delete(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Delete_Name, kFlags, 0, 0, nullptr);
@@ -2626,14 +2657,17 @@ void CacheStorageProxy::Keys(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Keys_Name, kFlags, 0, 0, nullptr);
@@ -2677,14 +2711,17 @@ void CacheStorageProxy::Match(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Match_Name, kFlags, 0, 0, nullptr);
@@ -2743,14 +2780,17 @@ void CacheStorageProxy::Open(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Open_Name, kFlags, 0, 0, nullptr);
@@ -2872,7 +2912,8 @@ void CacheStorage_Has_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Has_Name, kFlags, 0, 0, nullptr);
@@ -2991,7 +3032,8 @@ void CacheStorage_Delete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Delete_Name, kFlags, 0, 0, nullptr);
@@ -3110,7 +3152,8 @@ void CacheStorage_Keys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Keys_Name, kFlags, 0, 0, nullptr);
@@ -3240,7 +3283,8 @@ void CacheStorage_Match_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Match_Name, kFlags, 0, 0, nullptr);
@@ -3366,7 +3410,8 @@ void CacheStorage_Open_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCacheStorage_Open_Name, kFlags, 0, 0, nullptr);
@@ -3610,18 +3655,18 @@ std::move(p_trace_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCacheStorageValidationInfo[] = {
-    {&internal::CacheStorage_Has_Params_Data::Validate,
+    { &internal::CacheStorage_Has_Params_Data::Validate,
      &internal::CacheStorage_Has_ResponseParams_Data::Validate},
-    {&internal::CacheStorage_Delete_Params_Data::Validate,
+    { &internal::CacheStorage_Delete_Params_Data::Validate,
      &internal::CacheStorage_Delete_ResponseParams_Data::Validate},
-    {&internal::CacheStorage_Keys_Params_Data::Validate,
+    { &internal::CacheStorage_Keys_Params_Data::Validate,
      &internal::CacheStorage_Keys_ResponseParams_Data::Validate},
-    {&internal::CacheStorage_Match_Params_Data::Validate,
+    { &internal::CacheStorage_Match_Params_Data::Validate,
      &internal::CacheStorage_Match_ResponseParams_Data::Validate},
-    {&internal::CacheStorage_Open_Params_Data::Validate,
+    { &internal::CacheStorage_Open_Params_Data::Validate,
      &internal::CacheStorage_Open_ResponseParams_Data::Validate},
 };
 

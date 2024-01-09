@@ -72,7 +72,7 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 
 
-String member_action_{""};
+String member_action_{"auto"};
 Member<Element> member_invoker_{nullptr};
 
 

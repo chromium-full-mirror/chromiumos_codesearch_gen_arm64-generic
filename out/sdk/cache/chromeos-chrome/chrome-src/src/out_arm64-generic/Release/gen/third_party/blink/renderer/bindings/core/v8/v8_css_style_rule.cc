@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSStyleRule>::value,
     "CSSStyleRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSStyleRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSStyleRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,10 +88,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleRule.selectorText.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->selectorText();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->selectorText();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -107,12 +102,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleRule.selectorText.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSStyleRule";
@@ -133,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleRule.style.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->style();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -188,7 +184,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCSSTypedOMStylePropert
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->styleMap();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -201,8 +197,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleRule.cssRules.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cssRules();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -229,7 +226,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -262,7 +259,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(v8_receiver);
+CSSStyleRule* blink_receiver = V8CSSStyleRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -307,58 +304,39 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
-InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8CSSStyleRule::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"selectorText", SelectorTextAttributeGetCallback, SelectorTextAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"style", StyleAttributeGetCallback, StyleAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"styleMap", StyleMapAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
-
-
-
-
-
-
-
-}
-
-void V8CSSStyleRule::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
-  using bindings::IDLMemberInstaller;
-
-if (RuntimeEnabledFeatures::CSSNestingEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"cssRules", CSSRulesAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
 
 
 
 
-if (RuntimeEnabledFeatures::CSSNestingEnabled()) {
+
+{
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"deleteRule", DeleteRuleOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"insertRule", InsertRuleOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }
 
 
+
 }
+
 
 
 

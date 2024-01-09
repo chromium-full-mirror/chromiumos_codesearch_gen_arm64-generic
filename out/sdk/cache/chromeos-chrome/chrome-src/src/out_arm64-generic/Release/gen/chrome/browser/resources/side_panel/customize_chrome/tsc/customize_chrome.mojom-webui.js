@@ -179,22 +179,6 @@ export class CustomizeChromePageHandlerRemote {
     updateScrollToSection() {
         this.proxy.sendMessage(16, CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, null, []);
     }
-    getDescriptors() {
-        return this.proxy.sendMessage(17, CustomizeChromePageHandler_GetDescriptors_ParamsSpec.$, CustomizeChromePageHandler_GetDescriptors_ResponseParamsSpec.$, []);
-    }
-    getWallpaperSearchResults(descriptorA, descriptorB, descriptorC, descriptorD) {
-        return this.proxy.sendMessage(18, CustomizeChromePageHandler_GetWallpaperSearchResults_ParamsSpec.$, CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, [
-            descriptorA,
-            descriptorB,
-            descriptorC,
-            descriptorD
-        ]);
-    }
-    setBackgroundToWallpaperSearchResult(resultId) {
-        this.proxy.sendMessage(19, CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, null, [
-            resultId
-        ]);
-    }
 }
 ;
 /**
@@ -223,9 +207,6 @@ export class CustomizeChromePageHandlerReceiver {
         this.helper_internal_.registerHandler(14, CustomizeChromePageHandler_SetModulesVisible_ParamsSpec.$, null, impl.setModulesVisible.bind(impl));
         this.helper_internal_.registerHandler(15, CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec.$, null, impl.setModuleDisabled.bind(impl));
         this.helper_internal_.registerHandler(16, CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, null, impl.updateScrollToSection.bind(impl));
-        this.helper_internal_.registerHandler(17, CustomizeChromePageHandler_GetDescriptors_ParamsSpec.$, CustomizeChromePageHandler_GetDescriptors_ResponseParamsSpec.$, impl.getDescriptors.bind(impl));
-        this.helper_internal_.registerHandler(18, CustomizeChromePageHandler_GetWallpaperSearchResults_ParamsSpec.$, CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, impl.getWallpaperSearchResults.bind(impl));
-        this.helper_internal_.registerHandler(19, CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, null, impl.setBackgroundToWallpaperSearchResult.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -306,15 +287,6 @@ export class CustomizeChromePageHandlerCallbackRouter {
         this.updateScrollToSection =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(16, CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, null, this.updateScrollToSection.createReceiverHandler(false /* expectsResponse */));
-        this.getDescriptors =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(17, CustomizeChromePageHandler_GetDescriptors_ParamsSpec.$, CustomizeChromePageHandler_GetDescriptors_ResponseParamsSpec.$, this.getDescriptors.createReceiverHandler(true /* expectsResponse */));
-        this.getWallpaperSearchResults =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(18, CustomizeChromePageHandler_GetWallpaperSearchResults_ParamsSpec.$, CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, this.getWallpaperSearchResults.createReceiverHandler(true /* expectsResponse */));
-        this.setBackgroundToWallpaperSearchResult =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(19, CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, null, this.setBackgroundToWallpaperSearchResult.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -435,10 +407,6 @@ export const ThemeSpec = { $: {} };
 export const BackgroundCollectionSpec = { $: {} };
 export const CollectionImageSpec = { $: {} };
 export const ModuleSettingsSpec = { $: {} };
-export const DescriptorASpec = { $: {} };
-export const DescriptorBSpec = { $: {} };
-export const DescriptorsSpec = { $: {} };
-export const WallpaperSearchResultSpec = { $: {} };
 export const CustomizeChromePageHandlerFactory_CreatePageHandler_ParamsSpec = { $: {} };
 export const CustomizeChromePageHandler_SetMostVisitedSettings_ParamsSpec = { $: {} };
 export const CustomizeChromePageHandler_UpdateMostVisitedSettings_ParamsSpec = { $: {} };
@@ -460,11 +428,6 @@ export const CustomizeChromePageHandler_OpenThirdPartyThemePage_ParamsSpec = { $
 export const CustomizeChromePageHandler_SetModulesVisible_ParamsSpec = { $: {} };
 export const CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec = { $: {} };
 export const CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec = { $: {} };
-export const CustomizeChromePageHandler_GetDescriptors_ParamsSpec = { $: {} };
-export const CustomizeChromePageHandler_GetDescriptors_ResponseParamsSpec = { $: {} };
-export const CustomizeChromePageHandler_GetWallpaperSearchResults_ParamsSpec = { $: {} };
-export const CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParamsSpec = { $: {} };
-export const CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec = { $: {} };
 export const CustomizeChromePage_SetModulesSettings_ParamsSpec = { $: {} };
 export const CustomizeChromePage_SetMostVisitedSettings_ParamsSpec = { $: {} };
 export const CustomizeChromePage_SetTheme_ParamsSpec = { $: {} };
@@ -473,10 +436,11 @@ mojo.internal.Struct(BackgroundImageSpec.$, 'BackgroundImage', [
     mojo.internal.StructField('url', 0, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('snapshotUrl', 8, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('isUploadedImage', 16, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('title', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('collectionId', 32, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('localBackgroundId', 24, 0, mojoBase_mojom_TokenSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('title', 32, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('collectionId', 40, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('dailyRefreshEnabled', 16, 1, mojo.internal.Bool, false, false /* nullable */, 0),
-], [[0, 48],]);
+], [[0, 56],]);
 mojo.internal.Struct(ThirdPartyThemeInfoSpec.$, 'ThirdPartyThemeInfo', [
     mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('name', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
@@ -507,23 +471,6 @@ mojo.internal.Struct(ModuleSettingsSpec.$, 'ModuleSettings', [
     mojo.internal.StructField('name', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('enabled', 16, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 32],]);
-mojo.internal.Struct(DescriptorASpec.$, 'DescriptorA', [
-    mojo.internal.StructField('category', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('labels', 8, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(DescriptorBSpec.$, 'DescriptorB', [
-    mojo.internal.StructField('label', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('imagePath', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(DescriptorsSpec.$, 'Descriptors', [
-    mojo.internal.StructField('descriptorA', 0, 0, mojo.internal.Array(DescriptorASpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('descriptorB', 8, 0, mojo.internal.Array(DescriptorBSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('descriptorC', 16, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
-], [[0, 32],]);
-mojo.internal.Struct(WallpaperSearchResultSpec.$, 'WallpaperSearchResult', [
-    mojo.internal.StructField('id', 0, 0, mojoBase_mojom_TokenSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('image', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 24],]);
 mojo.internal.Struct(CustomizeChromePageHandlerFactory_CreatePageHandler_ParamsSpec.$, 'CustomizeChromePageHandlerFactory_CreatePageHandler_Params', [
     mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(CustomizeChromePageRemote), null, false /* nullable */, 0),
     mojo.internal.StructField('handler', 8, 0, mojo.internal.InterfaceRequest(CustomizeChromePageHandlerPendingReceiver), null, false /* nullable */, 0),
@@ -577,22 +524,6 @@ mojo.internal.Struct(CustomizeChromePageHandler_SetModuleDisabled_ParamsSpec.$, 
     mojo.internal.StructField('disabled', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 24],]);
 mojo.internal.Struct(CustomizeChromePageHandler_UpdateScrollToSection_ParamsSpec.$, 'CustomizeChromePageHandler_UpdateScrollToSection_Params', [], [[0, 8],]);
-mojo.internal.Struct(CustomizeChromePageHandler_GetDescriptors_ParamsSpec.$, 'CustomizeChromePageHandler_GetDescriptors_Params', [], [[0, 8],]);
-mojo.internal.Struct(CustomizeChromePageHandler_GetDescriptors_ResponseParamsSpec.$, 'CustomizeChromePageHandler_GetDescriptors_ResponseParams', [
-    mojo.internal.StructField('descriptors', 0, 0, DescriptorsSpec.$, null, true /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(CustomizeChromePageHandler_GetWallpaperSearchResults_ParamsSpec.$, 'CustomizeChromePageHandler_GetWallpaperSearchResults_Params', [
-    mojo.internal.StructField('descriptorA', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('descriptorB', 8, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('descriptorC', 16, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('descriptorD', 24, 0, mojo.internal.String, null, true /* nullable */, 0),
-], [[0, 40],]);
-mojo.internal.Struct(CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, 'CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams', [
-    mojo.internal.StructField('results', 0, 0, mojo.internal.Array(WallpaperSearchResultSpec.$, false), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, 'CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params', [
-    mojo.internal.StructField('resultId', 0, 0, mojoBase_mojom_TokenSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
 mojo.internal.Struct(CustomizeChromePage_SetModulesSettings_ParamsSpec.$, 'CustomizeChromePage_SetModulesSettings_Params', [
     mojo.internal.StructField('modulesSettings', 0, 0, mojo.internal.Array(ModuleSettingsSpec.$, false), null, false /* nullable */, 0),
     mojo.internal.StructField('managed', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),

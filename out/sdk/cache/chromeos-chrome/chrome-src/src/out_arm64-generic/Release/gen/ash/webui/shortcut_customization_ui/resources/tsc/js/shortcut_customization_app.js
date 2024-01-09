@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 import './accelerator_edit_dialog.js';
 import './bottom_nav_content.js';
-import './shortcut_input.js';
 import './shortcuts_page.js';
 import '../strings.m.js';
 import './search/search_box.js';
@@ -16,6 +15,8 @@ import 'chrome://resources/cr_elements/policy/cr_policy_indicator.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
 import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
+import { CrToolbarSearchFieldElement } from 'chrome://resources/cr_elements/cr_toolbar/cr_toolbar_search_field.js';
+import { FindShortcutMixin } from 'chrome://resources/cr_elements/find_shortcut_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -23,6 +24,7 @@ import { AcceleratorsUpdatedObserverReceiver, PolicyUpdatedObserverReceiver, Use
 import { AcceleratorLookupManager } from './accelerator_lookup_manager.js';
 import { getShortcutProvider } from './mojo_interface_provider.js';
 import { Router } from './router.js';
+import { SearchBoxElement } from './search/search_box.js';
 import { getTemplate } from './shortcut_customization_app.html.js';
 import { AcceleratorConfigResult } from './shortcut_types.js';
 import { getAcceleratorId, getCategoryNameStringId, isCustomizationAllowed } from './shortcut_utils.js';
@@ -33,7 +35,7 @@ const newKeyboardSettingsLink = 'chrome://os-settings/per-device-keyboard';
  * 'shortcut-customization-app' is the main landing page for the shortcut
  * customization app.
  */
-const ShortcutCustomizationAppElementBase = I18nMixin(PolymerElement);
+const ShortcutCustomizationAppElementBase = I18nMixin(FindShortcutMixin(PolymerElement));
 export class ShortcutCustomizationAppElement extends ShortcutCustomizationAppElementBase {
     constructor() {
         super(...arguments);
@@ -248,6 +250,23 @@ export class ShortcutCustomizationAppElement extends ShortcutCustomizationAppEle
         const updatedAccels = this.acceleratorlookupManager.getStandardAcceleratorInfos(source, action);
         this.shadowRoot.querySelector('#editDialog')
             .updateDialogAccelerators(updatedAccels);
+    }
+    // Override FindShortcutMixin methods.
+    handleFindShortcut(modalContextOpen) {
+        if (modalContextOpen) {
+            return false;
+        }
+        this.getSearchFieldElement().getSearchInput().focus();
+        return true;
+    }
+    // Override FindShortcutMixin methods.
+    searchInputHasFocus() {
+        return this.getSearchFieldElement().isSearchFocused();
+    }
+    getSearchFieldElement() {
+        const searchBox = strictQuery('search-box', this.shadowRoot, SearchBoxElement);
+        const searchField = strictQuery('#search', searchBox.shadowRoot, CrToolbarSearchFieldElement);
+        return searchField;
     }
     setAcceleratorUpdateInProgressForTesting(acceleratorUpdateInProgress) {
         this.acceleratorUpdateInProgress = acceleratorUpdateInProgress;

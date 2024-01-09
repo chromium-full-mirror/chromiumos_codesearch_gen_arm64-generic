@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CustomLayoutEdges>::value,
     "CustomLayoutEdges inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CustomLayoutEdges::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CustomLayoutEdges is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutEdges.inlineStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(v8_receiver);
+CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inlineStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutEdges.inlineEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(v8_receiver);
+CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inlineEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -112,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutEdges.blockStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(v8_receiver);
+CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blockStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -126,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutEdges.blockEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(v8_receiver);
+CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blockEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -140,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutEdges.inline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(v8_receiver);
+CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inlineSum();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -154,8 +154,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutEdges.block.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(v8_receiver);
+CustomLayoutEdges* blink_receiver = V8LayoutEdges::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blockSum();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }

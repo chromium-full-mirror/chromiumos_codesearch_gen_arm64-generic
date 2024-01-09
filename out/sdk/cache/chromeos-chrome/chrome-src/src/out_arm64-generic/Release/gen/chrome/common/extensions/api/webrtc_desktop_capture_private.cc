@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/webrtc_desktop_capture_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -39,8 +40,8 @@ RequestInfo::RequestInfo()
 guest_render_frame_id(0) {}
 
 RequestInfo::~RequestInfo() = default;
-RequestInfo::RequestInfo(RequestInfo&& rhs) = default;
-RequestInfo& RequestInfo::operator=(RequestInfo&& rhs) = default;
+RequestInfo::RequestInfo(RequestInfo&& rhs) noexcept = default;
+RequestInfo& RequestInfo::operator=(RequestInfo&& rhs) noexcept = default;
 RequestInfo RequestInfo::Clone() const {
   RequestInfo out;
   out.guest_process_id = guest_process_id;
@@ -88,34 +89,21 @@ bool RequestInfo::Populate(
 }
 
 // static
-std::unique_ptr<RequestInfo> RequestInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RequestInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RequestInfo> RequestInfo::FromValue(const base::Value::Dict& value) {
+  RequestInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RequestInfo> RequestInfo::FromValue(const base::Value::Dict& value) {
+std::optional<RequestInfo> RequestInfo::FromValue(const base::Value& value) {
   RequestInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RequestInfo> RequestInfo::FromValue(const base::Value& value) {
-  RequestInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -134,13 +122,13 @@ base::Value::Dict RequestInfo::ToValue() const {
 
 const char* ToString(DesktopCaptureSourceType enum_param) {
   switch (enum_param) {
-    case DESKTOP_CAPTURE_SOURCE_TYPE_SCREEN:
+    case DesktopCaptureSourceType::kScreen:
       return "screen";
-    case DESKTOP_CAPTURE_SOURCE_TYPE_WINDOW:
+    case DesktopCaptureSourceType::kWindow:
       return "window";
-    case DESKTOP_CAPTURE_SOURCE_TYPE_TAB:
+    case DesktopCaptureSourceType::kTab:
       return "tab";
-    case DESKTOP_CAPTURE_SOURCE_TYPE_NONE:
+    case DesktopCaptureSourceType::kNone:
       return "";
   }
   NOTREACHED();
@@ -149,12 +137,12 @@ const char* ToString(DesktopCaptureSourceType enum_param) {
 
 DesktopCaptureSourceType ParseDesktopCaptureSourceType(base::StringPiece enum_string) {
   if (enum_string == "screen")
-    return DESKTOP_CAPTURE_SOURCE_TYPE_SCREEN;
+    return DesktopCaptureSourceType::kScreen;
   if (enum_string == "window")
-    return DESKTOP_CAPTURE_SOURCE_TYPE_WINDOW;
+    return DesktopCaptureSourceType::kWindow;
   if (enum_string == "tab")
-    return DESKTOP_CAPTURE_SOURCE_TYPE_TAB;
-  return DESKTOP_CAPTURE_SOURCE_TYPE_NONE;
+    return DesktopCaptureSourceType::kTab;
+  return DesktopCaptureSourceType::kNone;
 }
 
 std::u16string GetDesktopCaptureSourceTypeParseError(base::StringPiece enum_string) {
@@ -171,13 +159,13 @@ namespace ChooseDesktopMedia {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -186,18 +174,18 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& sources_value = args[0];
     {
       if (!sources_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         for (const auto& it : (sources_value).GetList()) {
           DesktopCaptureSourceType tmp;
           const std::string* desktop_capture_source_type_as_string = (it).GetIfString();
           if (!desktop_capture_source_type_as_string) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           tmp = ParseDesktopCaptureSourceType(*desktop_capture_source_type_as_string);
           if (tmp == DesktopCaptureSourceType()) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           params.sources.push_back(tmp);
         }
@@ -205,7 +193,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -213,15 +201,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[1];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestInfo::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -241,13 +229,13 @@ namespace CancelChooseDesktopMedia {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -257,13 +245,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = desktop_media_request_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.desktop_media_request_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

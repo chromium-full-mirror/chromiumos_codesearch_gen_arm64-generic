@@ -18,7 +18,7 @@ class  UserEducationInternalsPageHandlerInterceptorForTesting : public UserEduca
   void GetTutorials(GetTutorialsCallback callback) override;
   void StartTutorial(const std::string& tutorial_id, StartTutorialCallback callback) override;
   void GetFeaturePromos(GetFeaturePromosCallback callback) override;
-  void ShowFeaturePromo(const std::string& title, ShowFeaturePromoCallback callback) override;
+  void ShowFeaturePromo(const std::string& feature_name, ShowFeaturePromoCallback callback) override;
 };
 class  UserEducationInternalsPageHandlerAsyncWaiter {
  public:
@@ -38,8 +38,8 @@ class  UserEducationInternalsPageHandlerAsyncWaiter {
       std::vector<FeaturePromoDemoPageInfoPtr>* out_feature_promos);
   std::vector<FeaturePromoDemoPageInfoPtr> GetFeaturePromos();
   void ShowFeaturePromo(
-      const std::string& title, std::string* out_error_message);
-  std::string ShowFeaturePromo(const std::string& title);
+      const std::string& feature_name, std::string* out_error_message);
+  std::string ShowFeaturePromo(const std::string& feature_name);
 
  private:
   UserEducationInternalsPageHandler* const proxy_;

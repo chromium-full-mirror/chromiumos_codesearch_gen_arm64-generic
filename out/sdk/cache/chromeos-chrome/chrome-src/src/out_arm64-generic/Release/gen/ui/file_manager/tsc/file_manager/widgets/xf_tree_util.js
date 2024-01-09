@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /** Check if an `Element` is a tree or not. */
-export function isTree(element) {
-    return element.tagName === 'XF-TREE';
+export function isXfTree(element) {
+    return !!element && element.tagName === 'XF-TREE';
 }
 /** Check if an `Element` is a tree item or not. */
 export function isTreeItem(element) {

@@ -1,7 +1,7 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { constants } from '../../foreground/js/constants.js';
+import { ICON_TYPES } from '../../foreground/js/constants.js';
 /**
  * @fileoverview This file contains utils for working with icons.
  */
@@ -13,11 +13,11 @@ export function vmTypeToIconName(vmType) {
     }
     switch (vmType) {
         case chrome.fileManagerPrivate.VmType.BRUSCHETTA:
-            return constants.ICON_TYPES.BRUSCHETTA;
+            return ICON_TYPES.BRUSCHETTA;
         case chrome.fileManagerPrivate.VmType.ARCVM:
-            return constants.ICON_TYPES.ANDROID_FILES;
+            return ICON_TYPES.ANDROID_FILES;
         case chrome.fileManagerPrivate.VmType.TERMINA:
-            return constants.ICON_TYPES.CROSTINI;
+            return ICON_TYPES.CROSTINI;
         default:
             console.error('Unable to determine icon for vmType: ' + vmType);
             return '';

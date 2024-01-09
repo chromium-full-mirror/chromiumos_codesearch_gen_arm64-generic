@@ -36,6 +36,8 @@ NOINLINE static const char* SandboxToStringHelper(Sandbox value) {
       return "kCdm";
     case Sandbox::kNetwork:
       return "kNetwork";
+    case Sandbox::kOnDeviceModelExecution:
+      return "kOnDeviceModelExecution";
     case Sandbox::kNoSandbox:
       return "kNoSandbox";
     case Sandbox::kGpu:

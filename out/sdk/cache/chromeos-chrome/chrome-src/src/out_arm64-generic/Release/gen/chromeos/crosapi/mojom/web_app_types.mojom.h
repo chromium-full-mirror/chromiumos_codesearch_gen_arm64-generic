@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/web_app_types.mojom-features.h"
 #include "chromeos/crosapi/mojom/web_app_types.mojom-shared.h"
 #include "chromeos/crosapi/mojom/web_app_types.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -51,6 +52,7 @@
 #include "components/services/app_service/public/cpp/capability_access.h"
 #include "components/services/app_service/public/cpp/icon_types.h"
 #include "components/services/app_service/public/cpp/preferred_app.h"
+#include "components/services/app_service/public/cpp/shortcut/shortcut.h"
 
 
 
@@ -95,16 +97,16 @@ class  ArcWebAppInstallInfo {
       const ::std::u16string& title,
       const ::GURL& start_url,
       const ::GURL& scope,
-      absl::optional<::SkColor> theme_color,
+      std::optional<::SkColor> theme_color,
       const ::gfx::ImageSkia& icon);
 
   ArcWebAppInstallInfo(
       const ::std::u16string& title,
       const ::GURL& start_url,
       const ::GURL& scope,
-      absl::optional<::SkColor> theme_color,
+      std::optional<::SkColor> theme_color,
       const ::gfx::ImageSkia& icon,
-      absl::optional<std::vector<std::string>> additional_policy_ids);
+      std::optional<std::vector<std::string>> additional_policy_ids);
 
 
   ~ArcWebAppInstallInfo();
@@ -183,11 +185,11 @@ class  ArcWebAppInstallInfo {
   
   ::GURL scope;
   
-  absl::optional<::SkColor> theme_color;
+  std::optional<::SkColor> theme_color;
   
   ::gfx::ImageSkia icon;
   
-  absl::optional<std::vector<std::string>> additional_policy_ids;
+  std::optional<std::vector<std::string>> additional_policy_ids;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

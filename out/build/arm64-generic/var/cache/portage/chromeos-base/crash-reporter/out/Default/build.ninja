@@ -19,7 +19,9 @@ build build.ninja: phony build.ninja.stamp
 subninja toolchain.ninja
 
 build crash_serializer_main: phony ./crash_serializer
-build cloud_policy_proto_generator: phony obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp
+build _crash_fd_logger-install_config: phony obj/crash-reporter/_crash_fd_logger-install_config.stamp
+build crash-reporter-adaptors: phony obj/crash-reporter/crash-reporter-adaptors.stamp
+build crash_fd_logger_lib: phony ./libcrash_fd_logger_lib.a
 build crash_reporter_proto: phony ./libcrash_reporter_proto.a
 build crash_reporter_proto_gen: phony obj/crash-reporter/crash_reporter_proto_gen.stamp
 build crash_sender_proto: phony ./libcrash_sender_proto.a
@@ -35,7 +37,6 @@ build libcrash: phony ./libcrash.a
 build libcrash_reporter: phony ./libcrash_reporter.a
 build libcrash_sender: phony ./libcrash_sender.a
 build libcrash_serializer: phony ./libcrash_serializer.a
-build libcrash_test_util: phony ./libcrash_test_util.a
 build modemmanager-dbus-adaptors: phony obj/common-mk/external_dependencies/modemmanager-dbus-adaptors.stamp
 build policy-goprotos: phony obj/common-mk/external_dependencies/policy-goprotos.stamp
 build policy-protos: phony ./libpolicy-protos.a
@@ -46,10 +47,8 @@ build private_membership_goprotos: phony obj/common-mk/external_dependencies/pri
 build private_membership_rlwe_goprotos: phony obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp
 build rlwe_goprotos: phony obj/common-mk/external_dependencies/rlwe_goprotos.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build user_policy-protos: phony ./libuser_policy-protos.a
 build user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
-build common-mk/external_dependencies$:cloud_policy_proto_generator: phony obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp
 build common-mk/external_dependencies$:dbus-proxies: phony obj/common-mk/external_dependencies/dbus-proxies.stamp
 build common-mk/external_dependencies$:enterprise_management_goprotos: phony obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp
 build common-mk/external_dependencies$:install_attributes-proto: phony ./libinstall_attributes-proto.a
@@ -66,35 +65,29 @@ build common-mk/external_dependencies$:rlwe_goprotos: phony obj/common-mk/extern
 build common-mk/external_dependencies$:user_policy-protos: phony ./libuser_policy-protos.a
 build common-mk/external_dependencies$:user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
+build crash-reporter$:_crash_fd_logger-install_config: phony obj/crash-reporter/_crash_fd_logger-install_config.stamp
 build crash-reporter$:all: phony obj/crash-reporter/all.stamp
 build crash-reporter$:anomaly_detector: phony ./anomaly_detector
-build crash-reporter$:anomaly_detector_log_reader_test: phony ./anomaly_detector_log_reader_test
-build crash-reporter$:anomaly_detector_test: phony ./anomaly_detector_test
-build crash-reporter$:anomaly_detector_text_file_reader_test: phony ./anomaly_detector_text_file_reader_test
 build crash-reporter$:bluetooth_devcd_parser: phony ./bluetooth_devcd_parser
+build crash-reporter$:crash-reporter-adaptors: phony obj/crash-reporter/crash-reporter-adaptors.stamp
+build crash-reporter$:crash_fd_logger: phony ./crash_fd_logger
+build crash-reporter$:crash_fd_logger_lib: phony ./libcrash_fd_logger_lib.a
 build crash-reporter$:crash_reporter: phony ./crash_reporter
 build crash-reporter$:crash_reporter_proto: phony ./libcrash_reporter_proto.a
 build crash-reporter$:crash_reporter_proto_gen: phony obj/crash-reporter/crash_reporter_proto_gen.stamp
-build crash-reporter$:crash_reporter_test: phony ./crash_reporter_test
 build crash-reporter$:crash_sender: phony ./crash_sender
 build crash-reporter$:crash_sender_proto: phony ./libcrash_sender_proto.a
 build crash-reporter$:crash_sender_proto_gen: phony obj/crash-reporter/crash_sender_proto_gen.stamp
 build crash-reporter$:crash_serializer_main: phony ./crash_serializer
 build crash-reporter$:crash_serializer_proto: phony ./libcrash_serializer_proto.a
 build crash-reporter$:crash_serializer_proto_gen: phony obj/crash-reporter/crash_serializer_proto_gen.stamp
-build crash-reporter$:hold_lock_file: phony ./hold_lock_file
 build crash-reporter$:libbluetooth_devcd_parser: phony ./libbluetooth_devcd_parser.a
 build crash-reporter$:libcrash: phony ./libcrash.a
 build crash-reporter$:libcrash_reporter: phony ./libcrash_reporter.a
 build crash-reporter$:libcrash_sender: phony ./libcrash_sender.a
 build crash-reporter$:libcrash_serializer: phony ./libcrash_serializer.a
-build crash-reporter$:libcrash_test_util: phony ./libcrash_test_util.a
-build crash-reporter$:lock_file_tester: phony ./lock_file_tester
 
 build all: phony $
-    obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp $
     obj/common-mk/external_dependencies/dbus-proxies.stamp $
     obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp $
     ./libinstall_attributes-proto.a $
@@ -111,30 +104,26 @@ build all: phony $
     ./libuser_policy-protos.a $
     obj/common-mk/external_dependencies/user_policy-protos_gen.stamp $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
+    obj/crash-reporter/_crash_fd_logger-install_config.stamp $
     obj/crash-reporter/all.stamp $
     ./anomaly_detector $
-    ./anomaly_detector_log_reader_test $
-    ./anomaly_detector_test $
-    ./anomaly_detector_text_file_reader_test $
     ./bluetooth_devcd_parser $
+    obj/crash-reporter/crash-reporter-adaptors.stamp $
+    ./crash_fd_logger $
+    ./libcrash_fd_logger_lib.a $
     ./crash_reporter $
     ./libcrash_reporter_proto.a $
     obj/crash-reporter/crash_reporter_proto_gen.stamp $
-    ./crash_reporter_test $
     ./crash_sender $
     ./libcrash_sender_proto.a $
     obj/crash-reporter/crash_sender_proto_gen.stamp $
     ./crash_serializer $
     ./libcrash_serializer_proto.a $
     obj/crash-reporter/crash_serializer_proto_gen.stamp $
-    ./hold_lock_file $
     ./libbluetooth_devcd_parser.a $
     ./libcrash.a $
     ./libcrash_reporter.a $
     ./libcrash_sender.a $
-    ./libcrash_serializer.a $
-    ./libcrash_test_util.a $
-    ./lock_file_tester
+    ./libcrash_serializer.a
 
 default all

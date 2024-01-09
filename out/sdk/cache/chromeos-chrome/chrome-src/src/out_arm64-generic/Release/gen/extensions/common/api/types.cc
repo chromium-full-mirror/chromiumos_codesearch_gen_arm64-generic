@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/types.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -106,8 +107,8 @@ ChromeSetting::ChromeSetting()
  {}
 
 ChromeSetting::~ChromeSetting() = default;
-ChromeSetting::ChromeSetting(ChromeSetting&& rhs) = default;
-ChromeSetting& ChromeSetting::operator=(ChromeSetting&& rhs) = default;
+ChromeSetting::ChromeSetting(ChromeSetting&& rhs) noexcept = default;
+ChromeSetting& ChromeSetting::operator=(ChromeSetting&& rhs) noexcept = default;
 ChromeSetting ChromeSetting::Clone() const {
   ChromeSetting out;
   return out;
@@ -129,34 +130,21 @@ bool ChromeSetting::Populate(
 }
 
 // static
-std::unique_ptr<ChromeSetting> ChromeSetting::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ChromeSetting>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ChromeSetting> ChromeSetting::FromValue(const base::Value::Dict& value) {
+  ChromeSetting out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ChromeSetting> ChromeSetting::FromValue(const base::Value::Dict& value) {
+std::optional<ChromeSetting> ChromeSetting::FromValue(const base::Value& value) {
   ChromeSetting out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ChromeSetting> ChromeSetting::FromValue(const base::Value& value) {
-  ChromeSetting out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

@@ -22,5 +22,7 @@
 #include "mojo/public/mojom/base/shared_memory.mojom-import-headers.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-import-headers.h"
+#include "sandbox/policy/mojom/context.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-import-headers.h"
 
 #endif  // MEDIA_MOJO_MOJOM_AUDIO_STREAM_FACTORY_MOJOM_IMPORT_HEADERS_H_

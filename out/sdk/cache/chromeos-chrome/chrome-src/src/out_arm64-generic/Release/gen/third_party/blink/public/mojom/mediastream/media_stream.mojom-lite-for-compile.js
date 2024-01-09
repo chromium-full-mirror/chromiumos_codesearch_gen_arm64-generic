@@ -13,7 +13,7 @@ goog.require('mojo.internal');
 goog.require('mojo.internal.interfaceSupport');
 
 goog.require('media.mojom.ApplySubCaptureTargetResult');
-goog.require('blink.mojom.SubCaptureTargetType');
+goog.require('media.mojom.SubCaptureTargetType');
 goog.require('media.mojom.VideoFacingMode');
 goog.require('media.mojom.AudioParameters');
 goog.require('media.mojom.DisplayMediaInformation');
@@ -148,6 +148,28 @@ blink.mojom.PreferredDisplaySurface = {
   MONITOR: 1,
   WINDOW: 2,
   BROWSER: 3,
+  MIN_VALUE: 0,
+  MAX_VALUE: 3,
+};
+
+goog.provide('blink.mojom.CapturedSurfaceControlResult');
+goog.provide('blink.mojom.CapturedSurfaceControlResultSpec');
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+blink.mojom.CapturedSurfaceControlResultSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+blink.mojom.CapturedSurfaceControlResult = {
+  
+  kSuccess: 0,
+  kUnknownError: 1,
+  kNoPermissionError: 2,
+  kCapturedSurfaceNotFoundError: 3,
   MIN_VALUE: 0,
   MAX_VALUE: 3,
 };
@@ -628,7 +650,7 @@ blink.mojom.MediaStreamDispatcherHostInterface = class {
   
   /**
    * @param { !mojoBase.mojom.UnguessableToken } deviceId
-   * @param { !blink.mojom.SubCaptureTargetType } type
+   * @param { !media.mojom.SubCaptureTargetType } type
    * @param { !mojoBase.mojom.Token } subCaptureTarget
    * @param { !number } subCaptureTargetVersion
    * @return {!Promise<{
@@ -637,6 +659,36 @@ blink.mojom.MediaStreamDispatcherHostInterface = class {
    */
 
   applySubCaptureTarget(deviceId, type, subCaptureTarget, subCaptureTargetVersion) {}
+  
+  /**
+   * @param { !mojoBase.mojom.UnguessableToken } deviceId
+   * @param { !blink.mojom.CapturedWheelAction } action
+   * @return {!Promise<{
+        result: !blink.mojom.CapturedSurfaceControlResult,
+   *  }>}
+   */
+
+  sendWheel(deviceId, action) {}
+  
+  /**
+   * @param { !mojoBase.mojom.UnguessableToken } deviceId
+   * @return {!Promise<{
+        zoomLevel: ?number,
+        result: !blink.mojom.CapturedSurfaceControlResult,
+   *  }>}
+   */
+
+  getZoomLevel(deviceId) {}
+  
+  /**
+   * @param { !mojoBase.mojom.UnguessableToken } deviceId
+   * @param { !number } zoomLevel
+   * @return {!Promise<{
+        result: !blink.mojom.CapturedSurfaceControlResult,
+   *  }>}
+   */
+
+  setZoomLevel(deviceId, zoomLevel) {}
   
   /**
    * @param { !number } requestId
@@ -854,7 +906,7 @@ blink.mojom.MediaStreamDispatcherHostRemote = class {
   
   /**
    * @param { !mojoBase.mojom.UnguessableToken } deviceId
-   * @param { !blink.mojom.SubCaptureTargetType } type
+   * @param { !media.mojom.SubCaptureTargetType } type
    * @param { !mojoBase.mojom.Token } subCaptureTarget
    * @param { !number } subCaptureTargetVersion
    * @return {!Promise<{
@@ -881,6 +933,70 @@ blink.mojom.MediaStreamDispatcherHostRemote = class {
 
   
   /**
+   * @param { !mojoBase.mojom.UnguessableToken } deviceId
+   * @param { !blink.mojom.CapturedWheelAction } action
+   * @return {!Promise<{
+        result: !blink.mojom.CapturedSurfaceControlResult,
+   *  }>}
+   */
+
+  sendWheel(
+      deviceId,
+      action) {
+    return this.proxy.sendMessage(
+        9,
+        blink.mojom.MediaStreamDispatcherHost_SendWheel_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParamsSpec.$,
+        [
+          deviceId,
+          action
+        ]);
+  }
+
+  
+  /**
+   * @param { !mojoBase.mojom.UnguessableToken } deviceId
+   * @return {!Promise<{
+        zoomLevel: ?number,
+        result: !blink.mojom.CapturedSurfaceControlResult,
+   *  }>}
+   */
+
+  getZoomLevel(
+      deviceId) {
+    return this.proxy.sendMessage(
+        10,
+        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
+        [
+          deviceId
+        ]);
+  }
+
+  
+  /**
+   * @param { !mojoBase.mojom.UnguessableToken } deviceId
+   * @param { !number } zoomLevel
+   * @return {!Promise<{
+        result: !blink.mojom.CapturedSurfaceControlResult,
+   *  }>}
+   */
+
+  setZoomLevel(
+      deviceId,
+      zoomLevel) {
+    return this.proxy.sendMessage(
+        11,
+        blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
+        [
+          deviceId,
+          zoomLevel
+        ]);
+  }
+
+  
+  /**
    * @param { !number } requestId
    * @param { !mojoBase.mojom.UnguessableToken } sessionId
    * @param { !mojoBase.mojom.UnguessableToken } transferId
@@ -895,7 +1011,7 @@ blink.mojom.MediaStreamDispatcherHostRemote = class {
       sessionId,
       transferId) {
     return this.proxy.sendMessage(
-        9,
+        12,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ResponseParamsSpec.$,
         [
@@ -918,7 +1034,7 @@ blink.mojom.MediaStreamDispatcherHostRemote = class {
       sessionId,
       transferId) {
     return this.proxy.sendMessage(
-        10,
+        13,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsSpec.$,
         [
@@ -997,11 +1113,26 @@ blink.mojom.MediaStreamDispatcherHostReceiver = class {
         impl.applySubCaptureTarget.bind(impl));
     this.helper_internal_.registerHandler(
         9,
+        blink.mojom.MediaStreamDispatcherHost_SendWheel_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParamsSpec.$,
+        impl.sendWheel.bind(impl));
+    this.helper_internal_.registerHandler(
+        10,
+        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
+        impl.getZoomLevel.bind(impl));
+    this.helper_internal_.registerHandler(
+        11,
+        blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
+        impl.setZoomLevel.bind(impl));
+    this.helper_internal_.registerHandler(
+        12,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ResponseParamsSpec.$,
         impl.getOpenDevice.bind(impl));
     this.helper_internal_.registerHandler(
-        10,
+        13,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsSpec.$,
         impl.keepDeviceAliveForTransfer.bind(impl));
@@ -1168,12 +1299,48 @@ blink.mojom.MediaStreamDispatcherHostCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.getOpenDevice =
+    this.sendWheel =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         9,
+        blink.mojom.MediaStreamDispatcherHost_SendWheel_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParamsSpec.$,
+        this.sendWheel.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.getZoomLevel =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        10,
+        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
+        this.getZoomLevel.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setZoomLevel =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        11,
+        blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
+        this.setZoomLevel.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.getOpenDevice =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        12,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ResponseParamsSpec.$,
         this.getOpenDevice.createReceiverHandler(true /* expectsResponse */));
@@ -1185,7 +1352,7 @@ blink.mojom.MediaStreamDispatcherHostCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        10,
+        13,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ParamsSpec.$,
         blink.mojom.MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsSpec.$,
         this.keepDeviceAliveForTransfer.createReceiverHandler(true /* expectsResponse */));
@@ -1478,6 +1645,14 @@ goog.provide('blink.mojom.GetOpenDeviceResponseSpec');
 blink.mojom.GetOpenDeviceResponseSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('blink.mojom.CapturedWheelActionSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.CapturedWheelActionSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('blink.mojom.StreamDevicesSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -1628,6 +1803,54 @@ goog.provide('blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_Respon
  * @export
  */
 blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_SendWheel_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.MediaStreamDispatcherHost_SendWheel_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec');
@@ -2061,6 +2284,65 @@ blink.mojom.GetOpenDeviceResponse = class {
     this.device;
     /** @export { !boolean } */
     this.panTiltZoomAllowed;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.CapturedWheelActionSpec.$,
+    'CapturedWheelAction',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 4,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'wheelDeltaX', 8,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'wheelDeltaY', 12,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('blink.mojom.CapturedWheelAction');
+
+/** @record */
+blink.mojom.CapturedWheelAction = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+    /** @export { !number } */
+    this.wheelDeltaX;
+    /** @export { !number } */
+    this.wheelDeltaY;
   }
 };
 
@@ -2794,7 +3076,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'type', 8,
         0,
-        blink.mojom.SubCaptureTargetTypeSpec.$,
+        media.mojom.SubCaptureTargetTypeSpec.$,
         0,
         false, /* nullable */
         0 /* minVersion */,
@@ -2827,7 +3109,7 @@ blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_Params = class {
   constructor() {
     /** @export { !mojoBase.mojom.UnguessableToken } */
     this.deviceId;
-    /** @export { !blink.mojom.SubCaptureTargetType } */
+    /** @export { !media.mojom.SubCaptureTargetType } */
     this.type;
     /** @export { !mojoBase.mojom.Token } */
     this.subCaptureTarget;
@@ -2861,6 +3143,227 @@ goog.provide('blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_Respon
 blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams = class {
   constructor() {
     /** @export { !media.mojom.ApplySubCaptureTargetResult } */
+    this.result;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.MediaStreamDispatcherHost_SendWheel_ParamsSpec.$,
+    'MediaStreamDispatcherHost_SendWheel_Params',
+    [
+      mojo.internal.StructField(
+        'deviceId', 0,
+        0,
+        mojoBase.mojom.UnguessableTokenSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'action', 8,
+        0,
+        blink.mojom.CapturedWheelActionSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_SendWheel_Params');
+
+/** @record */
+blink.mojom.MediaStreamDispatcherHost_SendWheel_Params = class {
+  constructor() {
+    /** @export { !mojoBase.mojom.UnguessableToken } */
+    this.deviceId;
+    /** @export { !blink.mojom.CapturedWheelAction } */
+    this.action;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParamsSpec.$,
+    'MediaStreamDispatcherHost_SendWheel_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'result', 0,
+        0,
+        blink.mojom.CapturedSurfaceControlResultSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParams');
+
+/** @record */
+blink.mojom.MediaStreamDispatcherHost_SendWheel_ResponseParams = class {
+  constructor() {
+    /** @export { !blink.mojom.CapturedSurfaceControlResult } */
+    this.result;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ParamsSpec.$,
+    'MediaStreamDispatcherHost_GetZoomLevel_Params',
+    [
+      mojo.internal.StructField(
+        'deviceId', 0,
+        0,
+        mojoBase.mojom.UnguessableTokenSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_Params');
+
+/** @record */
+blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_Params = class {
+  constructor() {
+    /** @export { !mojoBase.mojom.UnguessableToken } */
+    this.deviceId;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsSpec.$,
+    'MediaStreamDispatcherHost_GetZoomLevel_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'zoom_level_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "zoom_level_$value",
+          originalFieldName: "zoomLevel",
+        }
+      ),
+      mojo.internal.StructField(
+        'zoom_level_$value', 4,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "zoomLevel",
+        }
+      ),
+      mojo.internal.StructField(
+        'result', 8,
+        0,
+        blink.mojom.CapturedSurfaceControlResultSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParams');
+
+/** @record */
+blink.mojom.MediaStreamDispatcherHost_GetZoomLevel_ResponseParams = class {
+  constructor() {
+    /** @export { (number|undefined) } */
+    this.zoomLevel;
+    /** @export { !blink.mojom.CapturedSurfaceControlResult } */
+    this.result;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ParamsSpec.$,
+    'MediaStreamDispatcherHost_SetZoomLevel_Params',
+    [
+      mojo.internal.StructField(
+        'deviceId', 0,
+        0,
+        mojoBase.mojom.UnguessableTokenSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'zoomLevel', 8,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_Params');
+
+/** @record */
+blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_Params = class {
+  constructor() {
+    /** @export { !mojoBase.mojom.UnguessableToken } */
+    this.deviceId;
+    /** @export { !number } */
+    this.zoomLevel;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsSpec.$,
+    'MediaStreamDispatcherHost_SetZoomLevel_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'result', 0,
+        0,
+        blink.mojom.CapturedSurfaceControlResultSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParams');
+
+/** @record */
+blink.mojom.MediaStreamDispatcherHost_SetZoomLevel_ResponseParams = class {
+  constructor() {
+    /** @export { !blink.mojom.CapturedSurfaceControlResult } */
     this.result;
   }
 };

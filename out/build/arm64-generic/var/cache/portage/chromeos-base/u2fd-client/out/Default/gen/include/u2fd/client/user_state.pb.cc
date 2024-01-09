@@ -4,106 +4,117 @@
 #include "user_state.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace u2f {
+template <typename>
 PROTOBUF_CONSTEXPR UserSecret::UserSecret(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.secret_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.secret_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UserSecretDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UserSecretDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UserSecretDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UserSecretDefaultTypeInternal() {}
   union {
     UserSecret _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserSecretDefaultTypeInternal _UserSecret_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserSecretDefaultTypeInternal _UserSecret_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR U2fCounter::U2fCounter(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.counter_)*/int64_t{0}
+    /*decltype(_impl_.counter_)*/ ::int64_t{0}
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct U2fCounterDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR U2fCounterDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR U2fCounterDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~U2fCounterDefaultTypeInternal() {}
   union {
     U2fCounter _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 U2fCounterDefaultTypeInternal _U2fCounter_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 U2fCounterDefaultTypeInternal _U2fCounter_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR UserDataContainer::UserDataContainer(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.sha256_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.data_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.sha256_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UserDataContainerDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UserDataContainerDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UserDataContainerDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UserDataContainerDefaultTypeInternal() {}
   union {
     UserDataContainer _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserDataContainerDefaultTypeInternal _UserDataContainer_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserDataContainerDefaultTypeInternal _UserDataContainer_default_instance_;
 }  // namespace u2f
 namespace u2f {
-
 // ===================================================================
 
 class UserSecret::_Internal {
  public:
 };
 
-UserSecret::UserSecret(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+UserSecret::UserSecret(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:u2f.UserSecret)
 }
 UserSecret::UserSecret(const UserSecret& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   UserSecret* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.secret_){}
+      decltype(_impl_.secret_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_secret().empty()) {
-    _this->_impl_.secret_.Set(from._internal_secret(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.secret_.Set(from._internal_secret(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:u2f.UserSecret)
 }
 
-inline void UserSecret::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void UserSecret::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.secret_){}
+      decltype(_impl_.secret_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.secret_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.secret_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UserSecret::~UserSecret() {
@@ -116,7 +127,7 @@ UserSecret::~UserSecret() {
 }
 
 inline void UserSecret::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.secret_.Destroy();
 }
 
@@ -126,7 +137,7 @@ void UserSecret::SetCachedSize(int size) const {
 
 void UserSecret::Clear() {
 // @@protoc_insertion_point(message_clear_start:u2f.UserSecret)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -137,17 +148,18 @@ void UserSecret::Clear() {
 const char* UserSecret::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bytes secret = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_secret();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -172,16 +184,16 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UserSecret::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* UserSecret::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:u2f.UserSecret)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // bytes secret = 1;
   if (!this->_internal_secret().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_secret(), target);
+    const std::string& _s = this->_internal_secret();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -192,19 +204,18 @@ uint8_t* UserSecret::_InternalSerialize(
   return target;
 }
 
-size_t UserSecret::ByteSizeLong() const {
+::size_t UserSecret::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:u2f.UserSecret)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bytes secret = 1;
   if (!this->_internal_secret().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_secret());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_secret());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -224,8 +235,8 @@ void UserSecret::CheckTypeAndMergeFrom(
 void UserSecret::MergeFrom(const UserSecret& from) {
   UserSecret* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:u2f.UserSecret)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_secret().empty()) {
@@ -250,16 +261,13 @@ void UserSecret::InternalSwap(UserSecret* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.secret_, lhs_arena,
-      &other->_impl_.secret_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.secret_, lhs_arena,
+                                       &other->_impl_.secret_, rhs_arena);
 }
 
 std::string UserSecret::GetTypeName() const {
   return "u2f.UserSecret";
 }
-
 
 // ===================================================================
 
@@ -267,30 +275,23 @@ class U2fCounter::_Internal {
  public:
 };
 
-U2fCounter::U2fCounter(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+U2fCounter::U2fCounter(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:u2f.U2fCounter)
 }
 U2fCounter::U2fCounter(const U2fCounter& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  U2fCounter* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.counter_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.counter_ = from._impl_.counter_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:u2f.U2fCounter)
 }
 
-inline void U2fCounter::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void U2fCounter::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.counter_){int64_t{0}}
+      decltype(_impl_.counter_) { ::int64_t{0} }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -305,7 +306,7 @@ U2fCounter::~U2fCounter() {
 }
 
 inline void U2fCounter::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void U2fCounter::SetCachedSize(int size) const {
@@ -314,27 +315,28 @@ void U2fCounter::SetCachedSize(int size) const {
 
 void U2fCounter::Clear() {
 // @@protoc_insertion_point(message_clear_start:u2f.U2fCounter)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.counter_ = int64_t{0};
+  _impl_.counter_ = ::int64_t{0};
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* U2fCounter::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int64 counter = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.counter_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -359,16 +361,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* U2fCounter::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* U2fCounter::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:u2f.U2fCounter)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int64 counter = 1;
   if (this->_internal_counter() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_counter(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        1, this->_internal_counter(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -379,17 +382,18 @@ uint8_t* U2fCounter::_InternalSerialize(
   return target;
 }
 
-size_t U2fCounter::ByteSizeLong() const {
+::size_t U2fCounter::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:u2f.U2fCounter)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int64 counter = 1;
   if (this->_internal_counter() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_counter());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+        this->_internal_counter());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -409,8 +413,8 @@ void U2fCounter::CheckTypeAndMergeFrom(
 void U2fCounter::MergeFrom(const U2fCounter& from) {
   U2fCounter* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:u2f.U2fCounter)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_counter() != 0) {
@@ -433,6 +437,7 @@ bool U2fCounter::IsInitialized() const {
 void U2fCounter::InternalSwap(U2fCounter* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+
   swap(_impl_.counter_, other->_impl_.counter_);
 }
 
@@ -440,64 +445,62 @@ std::string U2fCounter::GetTypeName() const {
   return "u2f.U2fCounter";
 }
 
-
 // ===================================================================
 
 class UserDataContainer::_Internal {
  public:
 };
 
-UserDataContainer::UserDataContainer(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+UserDataContainer::UserDataContainer(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:u2f.UserDataContainer)
 }
 UserDataContainer::UserDataContainer(const UserDataContainer& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   UserDataContainer* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.data_){}
-    , decltype(_impl_.sha256_){}
+      decltype(_impl_.data_) {}
+
+    , decltype(_impl_.sha256_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_data().empty()) {
-    _this->_impl_.data_.Set(from._internal_data(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.data_.Set(from._internal_data(), _this->GetArenaForAllocation());
   }
   _impl_.sha256_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sha256_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.sha256_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_sha256().empty()) {
-    _this->_impl_.sha256_.Set(from._internal_sha256(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.sha256_.Set(from._internal_sha256(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:u2f.UserDataContainer)
 }
 
-inline void UserDataContainer::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void UserDataContainer::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.data_){}
-    , decltype(_impl_.sha256_){}
+      decltype(_impl_.data_) {}
+
+    , decltype(_impl_.sha256_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.sha256_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sha256_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.sha256_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UserDataContainer::~UserDataContainer() {
@@ -510,7 +513,7 @@ UserDataContainer::~UserDataContainer() {
 }
 
 inline void UserDataContainer::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.data_.Destroy();
   _impl_.sha256_.Destroy();
 }
@@ -521,7 +524,7 @@ void UserDataContainer::SetCachedSize(int size) const {
 
 void UserDataContainer::Clear() {
 // @@protoc_insertion_point(message_clear_start:u2f.UserDataContainer)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -533,26 +536,28 @@ void UserDataContainer::Clear() {
 const char* UserDataContainer::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bytes data = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_data();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes sha256 = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_sha256();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -577,22 +582,22 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UserDataContainer::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* UserDataContainer::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:u2f.UserDataContainer)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // bytes data = 1;
   if (!this->_internal_data().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_data(), target);
+    const std::string& _s = this->_internal_data();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // bytes sha256 = 2;
   if (!this->_internal_sha256().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_sha256(), target);
+    const std::string& _s = this->_internal_sha256();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -603,26 +608,24 @@ uint8_t* UserDataContainer::_InternalSerialize(
   return target;
 }
 
-size_t UserDataContainer::ByteSizeLong() const {
+::size_t UserDataContainer::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:u2f.UserDataContainer)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bytes data = 1;
   if (!this->_internal_data().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_data());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_data());
   }
 
   // bytes sha256 = 2;
   if (!this->_internal_sha256().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_sha256());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_sha256());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -642,8 +645,8 @@ void UserDataContainer::CheckTypeAndMergeFrom(
 void UserDataContainer::MergeFrom(const UserDataContainer& from) {
   UserDataContainer* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:u2f.UserDataContainer)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_data().empty()) {
@@ -671,20 +674,15 @@ void UserDataContainer::InternalSwap(UserDataContainer* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.data_, lhs_arena,
-      &other->_impl_.data_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.sha256_, lhs_arena,
-      &other->_impl_.sha256_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.data_, lhs_arena,
+                                       &other->_impl_.data_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.sha256_, lhs_arena,
+                                       &other->_impl_.sha256_, rhs_arena);
 }
 
 std::string UserDataContainer::GetTypeName() const {
   return "u2f.UserDataContainer";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace u2f
@@ -702,6 +700,5 @@ Arena::CreateMaybeMessage< ::u2f::UserDataContainer >(Arena* arena) {
   return Arena::CreateMessageInternal< ::u2f::UserDataContainer >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

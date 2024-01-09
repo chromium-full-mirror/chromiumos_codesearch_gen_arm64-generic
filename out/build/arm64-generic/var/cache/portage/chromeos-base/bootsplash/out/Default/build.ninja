@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/bootsplash-9999/work/bootsplash-9999/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/bootsplash-0.0.1-r118/work/bootsplash-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -21,23 +21,17 @@ subninja toolchain.ninja
 build install_upstart_config: phony obj/bootsplash/install_upstart_config.stamp
 build libbootsplash: phony ./libbootsplash.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build bootsplash$:all: phony obj/bootsplash/all.stamp
 build bootsplash$:bootsplash: phony ./bootsplash
-build bootsplash$:bootsplash_testrunner: phony ./bootsplash_testrunner
 build bootsplash$:install_upstart_config: phony obj/bootsplash/install_upstart_config.stamp
 build bootsplash$:libbootsplash: phony ./libbootsplash.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 
 build all: phony $
     obj/bootsplash/all.stamp $
     ./bootsplash $
-    ./bootsplash_testrunner $
     obj/bootsplash/install_upstart_config.stamp $
     ./libbootsplash.a $
-    obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a
+    obj/common-mk/gn_root/root.stamp
 
 default all

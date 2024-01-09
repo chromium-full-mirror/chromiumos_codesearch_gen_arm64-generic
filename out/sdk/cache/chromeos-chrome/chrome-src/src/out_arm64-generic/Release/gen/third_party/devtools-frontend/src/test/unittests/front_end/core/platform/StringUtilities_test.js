@@ -395,6 +395,14 @@ describe('StringUtilities', () => {
             assert.strictEqual(Platform.StringUtilities.findUnclosedCssQuote('"a\\\'b"c\\\'de\'f\\\'\''), '');
         });
     });
+    describe('countUnmatchedLeftParentheses', () => {
+        it('correctly counts unmatched left parentheses', () => {
+            assert.strictEqual(Platform.StringUtilities.countUnmatchedLeftParentheses('a(b'), 1);
+            assert.strictEqual(Platform.StringUtilities.countUnmatchedLeftParentheses('a(b)'), 0);
+            assert.strictEqual(Platform.StringUtilities.countUnmatchedLeftParentheses(')a(b)'), 0);
+            assert.strictEqual(Platform.StringUtilities.countUnmatchedLeftParentheses(')a(()bc(d(f)('), 3);
+        });
+    });
     describe('sprintf', () => {
         it('correctly deals with empty format string', () => {
             assert.strictEqual(Platform.StringUtilities.sprintf(''), '');

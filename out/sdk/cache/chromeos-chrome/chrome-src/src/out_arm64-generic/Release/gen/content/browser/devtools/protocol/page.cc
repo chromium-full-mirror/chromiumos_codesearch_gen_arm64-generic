@@ -268,6 +268,8 @@ const char JsNetworkRequestReceivedCacheControlNoStoreResource[] = "JsNetworkReq
 const char WebRTCSticky[] = "WebRTCSticky";
 const char WebTransportSticky[] = "WebTransportSticky";
 const char WebSocketSticky[] = "WebSocketSticky";
+const char SmartCard[] = "SmartCard";
+const char LiveMediaStreamTrack[] = "LiveMediaStreamTrack";
 const char ContentSecurityHandler[] = "ContentSecurityHandler";
 const char ContentWebAuthenticationAPI[] = "ContentWebAuthenticationAPI";
 const char ContentFileChooser[] = "ContentFileChooser";
@@ -1626,7 +1628,6 @@ const std::vector<std::pair<crdtp::span<uint8_t>, crdtp::span<uint8_t>>>& Sorted
           { crdtp::SpanFrom("Page.clearDeviceOrientationOverride"), crdtp::SpanFrom("DeviceOrientation.clearDeviceOrientationOverride") },
           { crdtp::SpanFrom("Page.clearGeolocationOverride"), crdtp::SpanFrom("Emulation.clearGeolocationOverride") },
           { crdtp::SpanFrom("Page.deleteCookie"), crdtp::SpanFrom("Network.deleteCookie") },
-          { crdtp::SpanFrom("Page.getCookies"), crdtp::SpanFrom("Network.getCookies") },
           { crdtp::SpanFrom("Page.setDeviceMetricsOverride"), crdtp::SpanFrom("Emulation.setDeviceMetricsOverride") },
           { crdtp::SpanFrom("Page.setDeviceOrientationOverride"), crdtp::SpanFrom("DeviceOrientation.setDeviceOrientationOverride") },
           { crdtp::SpanFrom("Page.setGeolocationOverride"), crdtp::SpanFrom("Emulation.setGeolocationOverride") },

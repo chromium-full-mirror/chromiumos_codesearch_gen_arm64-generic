@@ -45,6 +45,32 @@ std::ostream& operator<<(std::ostream& os, BackgroundBlurMode value) {
   return os << BackgroundBlurModeToString(value);
 }
 
+NOINLINE static const char* EyeGazeCorrectionModeToStringHelper(EyeGazeCorrectionMode value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case EyeGazeCorrectionMode::OFF:
+      return "OFF";
+    case EyeGazeCorrectionMode::ON:
+      return "ON";
+    case EyeGazeCorrectionMode::STARE:
+      return "STARE";
+    default:
+      return nullptr;
+  }
+}
+
+std::string EyeGazeCorrectionModeToString(EyeGazeCorrectionMode value) {
+  const char *str = EyeGazeCorrectionModeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown EyeGazeCorrectionMode value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, EyeGazeCorrectionMode value) {
+  return os << EyeGazeCorrectionModeToString(value);
+}
+
 NOINLINE static const char* MeteringModeToStringHelper(MeteringMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -161,6 +187,7 @@ bool PhotoState_Data::Validate(
     { 0, 184 },
     { 1, 192 },
     { 2, 208 },
+    { 3, 216 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -376,12 +403,28 @@ bool PhotoState_Data::Validate(
   if (!::media::mojom::internal::MeteringMode_Data
         ::Validate(object->current_face_framing_mode, validation_context))
     return false;
+  if (object->header_.version < 3)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& supported_eye_gaze_correction_modes_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::EyeGazeCorrectionMode_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->supported_eye_gaze_correction_modes, validation_context,
+                                         &supported_eye_gaze_correction_modes_validate_params)) {
+    return false;
+  }
+  if (object->header_.version < 3)
+    return true;
+
+
+  if (!::media::mojom::internal::EyeGazeCorrectionMode_Data
+        ::Validate(object->current_eye_gaze_correction_mode, validation_context))
+    return false;
 
   return true;
 }
 
 PhotoState_Data::PhotoState_Data()
-    : header_({sizeof(*this), 2}) {}
+    : header_({sizeof(*this), 3}) {}
 
 
 // static
@@ -417,6 +460,7 @@ bool PhotoSettings_Data::Validate(
     { 0, 152 },
     { 1, 152 },
     { 2, 160 },
+    { 3, 160 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -472,12 +516,19 @@ bool PhotoSettings_Data::Validate(
   if (!::media::mojom::internal::MeteringMode_Data
         ::Validate(object->face_framing_mode, validation_context))
     return false;
+  if (object->header_.version < 3)
+    return true;
+
+
+  if (!::media::mojom::internal::EyeGazeCorrectionMode_Data
+        ::Validate(object->eye_gaze_correction_mode_$value, validation_context))
+    return false;
 
   return true;
 }
 
 PhotoSettings_Data::PhotoSettings_Data()
-    : header_({sizeof(*this), 2}) {}
+    : header_({sizeof(*this), 3}) {}
 
 
 // static
@@ -726,6 +777,16 @@ namespace perfetto {
 void TraceFormatTraits<::media::mojom::BackgroundBlurMode>::WriteIntoTrace(
    perfetto::TracedValue context, ::media::mojom::BackgroundBlurMode value) {
   return std::move(context).WriteString(::media::mojom::BackgroundBlurModeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::media::mojom::EyeGazeCorrectionMode>::WriteIntoTrace(
+   perfetto::TracedValue context, ::media::mojom::EyeGazeCorrectionMode value) {
+  return std::move(context).WriteString(::media::mojom::EyeGazeCorrectionModeToString(value));
 }
 
 } // namespace perfetto

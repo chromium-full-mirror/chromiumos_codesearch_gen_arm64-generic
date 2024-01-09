@@ -35,7 +35,7 @@ rule copy
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/tpm_manager/all.stamp
 build obj/tpm_manager/_check_tpm_preinit_condition-install_config.stamp: stamp
-build obj/tpm_manager/all.stamp: stamp ./check_tpm_preinit_condition obj/tpm_manager/install_minijail_conf.stamp obj/tpm_manager/install_tmpfiles_config.stamp ./local_data_migration ./tpm_managerd ./tpm_manager_testrunner
+build obj/tpm_manager/all.stamp: stamp ./check_tpm_preinit_condition obj/tpm_manager/install_minijail_conf.stamp obj/tpm_manager/install_tmpfiles_config.stamp ./local_data_migration ./tpm_managerd
 subninja obj/tpm_manager/check_tpm_preinit_condition.ninja
 build obj/tpm_manager/install_minijail_conf.stamp: stamp
 build obj/tpm_manager/install_tmpfiles_config.stamp: stamp
@@ -51,5 +51,4 @@ build obj/tpm_manager/legacy_local_data_proto_gen.stamp: stamp gen/include/tpm_m
 subninja obj/tpm_manager/local_data_migration.ninja
 subninja obj/tpm_manager/server_library.ninja
 subninja obj/tpm_manager/tpm_manager_test.ninja
-subninja obj/tpm_manager/tpm_manager_testrunner.ninja
 subninja obj/tpm_manager/tpm_managerd.ninja

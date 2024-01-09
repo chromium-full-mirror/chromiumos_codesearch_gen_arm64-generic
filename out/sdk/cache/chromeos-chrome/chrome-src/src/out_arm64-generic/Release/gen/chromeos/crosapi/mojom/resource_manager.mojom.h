@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/resource_manager.mojom-features.h"
 #include "chromeos/crosapi/mojom/resource_manager.mojom-shared.h"
 #include "chromeos/crosapi/mojom/resource_manager.mojom-forward.h"
+#include "mojo/public/mojom/base/time.mojom.h"
 #include <string>
 #include <vector>
 
@@ -275,149 +277,6 @@ class  ResourceManagerRequestValidator : public mojo::MessageReceiver {
 
 
 
-class  MemoryPressure {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<MemoryPressure, T>::value>;
-  using DataView = MemoryPressureDataView;
-  using Data_ = internal::MemoryPressure_Data;
-
-  template <typename... Args>
-  static MemoryPressurePtr New(Args&&... args) {
-    return MemoryPressurePtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static MemoryPressurePtr From(const U& u) {
-    return mojo::TypeConverter<MemoryPressurePtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, MemoryPressure>::Convert(*this);
-  }
-
-
-  MemoryPressure();
-
-  MemoryPressure(
-      MemoryPressureLevel level,
-      uint64_t reclaim_target_kb);
-
-
-  ~MemoryPressure();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = MemoryPressurePtr>
-  MemoryPressurePtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        MemoryPressure::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        MemoryPressure::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::MemoryPressure_UnserializedMessageContext<
-            UserType, MemoryPressure::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<MemoryPressure::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return MemoryPressure::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::MemoryPressure_UnserializedMessageContext<
-            UserType, MemoryPressure::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<MemoryPressure::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  MemoryPressureLevel level;
-  
-  uint64_t reclaim_target_kb;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
 
 class  PageProcess {
  public:
@@ -574,11 +433,161 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
+class  MemoryPressure {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<MemoryPressure, T>::value>;
+  using DataView = MemoryPressureDataView;
+  using Data_ = internal::MemoryPressure_Data;
+
+  template <typename... Args>
+  static MemoryPressurePtr New(Args&&... args) {
+    return MemoryPressurePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static MemoryPressurePtr From(const U& u) {
+    return mojo::TypeConverter<MemoryPressurePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, MemoryPressure>::Convert(*this);
+  }
+
+
+  MemoryPressure();
+
+  MemoryPressure(
+      MemoryPressureLevel level,
+      uint64_t reclaim_target_kb);
+
+  MemoryPressure(
+      MemoryPressureLevel level,
+      uint64_t reclaim_target_kb,
+      std::optional<::base::TimeTicks> signal_origin);
+
+
+  ~MemoryPressure();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = MemoryPressurePtr>
+  MemoryPressurePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        MemoryPressure::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        MemoryPressure::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::MemoryPressure_UnserializedMessageContext<
+            UserType, MemoryPressure::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<MemoryPressure::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return MemoryPressure::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::MemoryPressure_UnserializedMessageContext<
+            UserType, MemoryPressure::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<MemoryPressure::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  MemoryPressureLevel level;
+  
+  uint64_t reclaim_target_kb;
+  
+  std::optional<::base::TimeTicks> signal_origin;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, MemoryPressure::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
 template <typename StructPtrType>
 MemoryPressurePtr MemoryPressure::Clone() const {
   return New(
       mojo::Clone(level),
-      mojo::Clone(reclaim_target_kb)
+      mojo::Clone(reclaim_target_kb),
+      mojo::Clone(signal_origin)
   );
 }
 
@@ -587,6 +596,8 @@ bool MemoryPressure::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->level, other_struct.level))
     return false;
   if (!mojo::Equals(this->reclaim_target_kb, other_struct.reclaim_target_kb))
+    return false;
+  if (!mojo::Equals(this->signal_origin, other_struct.signal_origin))
     return false;
   return true;
 }
@@ -600,6 +611,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.reclaim_target_kb < rhs.reclaim_target_kb)
     return true;
   if (rhs.reclaim_target_kb < lhs.reclaim_target_kb)
+    return false;
+  if (lhs.signal_origin < rhs.signal_origin)
+    return true;
+  if (rhs.signal_origin < lhs.signal_origin)
     return false;
   return false;
 }
@@ -667,6 +682,11 @@ struct  StructTraits<::crosapi::mojom::MemoryPressure::DataView,
   static decltype(::crosapi::mojom::MemoryPressure::reclaim_target_kb) reclaim_target_kb(
       const ::crosapi::mojom::MemoryPressurePtr& input) {
     return input->reclaim_target_kb;
+  }
+
+  static const decltype(::crosapi::mojom::MemoryPressure::signal_origin)& signal_origin(
+      const ::crosapi::mojom::MemoryPressurePtr& input) {
+    return input->signal_origin;
   }
 
   static bool Read(::crosapi::mojom::MemoryPressure::DataView input, ::crosapi::mojom::MemoryPressurePtr* output);

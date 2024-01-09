@@ -83,8 +83,8 @@ class PLATFORM_EXPORT ManagedConfigurationServiceAsyncWaiter {
 
   ~ManagedConfigurationServiceAsyncWaiter();
   void GetManagedConfiguration(
-      const WTF::Vector<WTF::String>& keys, absl::optional<WTF::HashMap<WTF::String, WTF::String>>* out_configurations);
-  absl::optional<WTF::HashMap<WTF::String, WTF::String>> GetManagedConfiguration(const WTF::Vector<WTF::String>& keys);
+      const WTF::Vector<WTF::String>& keys, std::optional<WTF::HashMap<WTF::String, WTF::String>>* out_configurations);
+  std::optional<WTF::HashMap<WTF::String, WTF::String>> GetManagedConfiguration(const WTF::Vector<WTF::String>& keys);
 
  private:
   ManagedConfigurationService* const proxy_;

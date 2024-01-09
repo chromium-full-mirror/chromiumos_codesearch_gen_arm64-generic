@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/management.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ IconInfo::IconInfo()
 : size(0) {}
 
 IconInfo::~IconInfo() = default;
-IconInfo::IconInfo(IconInfo&& rhs) = default;
-IconInfo& IconInfo::operator=(IconInfo&& rhs) = default;
+IconInfo::IconInfo(IconInfo&& rhs) noexcept = default;
+IconInfo& IconInfo::operator=(IconInfo&& rhs) noexcept = default;
 IconInfo IconInfo::Clone() const {
   IconInfo out;
   out.size = size;
@@ -87,34 +88,21 @@ bool IconInfo::Populate(
 }
 
 // static
-std::unique_ptr<IconInfo> IconInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IconInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IconInfo> IconInfo::FromValue(const base::Value::Dict& value) {
+  IconInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IconInfo> IconInfo::FromValue(const base::Value::Dict& value) {
+std::optional<IconInfo> IconInfo::FromValue(const base::Value& value) {
   IconInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IconInfo> IconInfo::FromValue(const base::Value& value) {
-  IconInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -282,8 +270,8 @@ install_type(),
 launch_type() {}
 
 ExtensionInfo::~ExtensionInfo() = default;
-ExtensionInfo::ExtensionInfo(ExtensionInfo&& rhs) = default;
-ExtensionInfo& ExtensionInfo::operator=(ExtensionInfo&& rhs) = default;
+ExtensionInfo::ExtensionInfo(ExtensionInfo&& rhs) noexcept = default;
+ExtensionInfo& ExtensionInfo::operator=(ExtensionInfo&& rhs) noexcept = default;
 ExtensionInfo ExtensionInfo::Clone() const {
   ExtensionInfo out;
   out.id = id;
@@ -388,7 +376,7 @@ bool ExtensionInfo::Populate(
     {
       auto* temp = (*version_name_value).GetIfString();
       if (!temp) {
-        out.version_name = absl::nullopt;
+        out.version_name = std::nullopt;
         return false;
       }
       out.version_name = *temp;
@@ -412,7 +400,7 @@ bool ExtensionInfo::Populate(
     {
       auto temp = (*may_enable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.may_enable = absl::nullopt;
+        out.may_enable = std::nullopt;
         return false;
       }
       out.may_enable = *temp;
@@ -479,7 +467,7 @@ bool ExtensionInfo::Populate(
     {
       auto* temp = (*app_launch_url_value).GetIfString();
       if (!temp) {
-        out.app_launch_url = absl::nullopt;
+        out.app_launch_url = std::nullopt;
         return false;
       }
       out.app_launch_url = *temp;
@@ -491,7 +479,7 @@ bool ExtensionInfo::Populate(
     {
       auto* temp = (*homepage_url_value).GetIfString();
       if (!temp) {
-        out.homepage_url = absl::nullopt;
+        out.homepage_url = std::nullopt;
         return false;
       }
       out.homepage_url = *temp;
@@ -503,7 +491,7 @@ bool ExtensionInfo::Populate(
     {
       auto* temp = (*update_url_value).GetIfString();
       if (!temp) {
-        out.update_url = absl::nullopt;
+        out.update_url = std::nullopt;
         return false;
       }
       out.update_url = *temp;
@@ -646,34 +634,21 @@ bool ExtensionInfo::Populate(
 }
 
 // static
-std::unique_ptr<ExtensionInfo> ExtensionInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExtensionInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExtensionInfo> ExtensionInfo::FromValue(const base::Value::Dict& value) {
+  ExtensionInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExtensionInfo> ExtensionInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ExtensionInfo> ExtensionInfo::FromValue(const base::Value& value) {
   ExtensionInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExtensionInfo> ExtensionInfo::FromValue(const base::Value& value) {
-  ExtensionInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -760,8 +735,8 @@ UninstallOptions::UninstallOptions()
  {}
 
 UninstallOptions::~UninstallOptions() = default;
-UninstallOptions::UninstallOptions(UninstallOptions&& rhs) = default;
-UninstallOptions& UninstallOptions::operator=(UninstallOptions&& rhs) = default;
+UninstallOptions::UninstallOptions(UninstallOptions&& rhs) noexcept = default;
+UninstallOptions& UninstallOptions::operator=(UninstallOptions&& rhs) noexcept = default;
 UninstallOptions UninstallOptions::Clone() const {
   UninstallOptions out;
   out.show_confirm_dialog = show_confirm_dialog;
@@ -776,7 +751,7 @@ bool UninstallOptions::Populate(
     {
       auto temp = (*show_confirm_dialog_value).GetIfBool();
       if (!temp.has_value()) {
-        out.show_confirm_dialog = absl::nullopt;
+        out.show_confirm_dialog = std::nullopt;
         return false;
       }
       out.show_confirm_dialog = *temp;
@@ -796,34 +771,21 @@ bool UninstallOptions::Populate(
 }
 
 // static
-std::unique_ptr<UninstallOptions> UninstallOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UninstallOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UninstallOptions> UninstallOptions::FromValue(const base::Value::Dict& value) {
+  UninstallOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UninstallOptions> UninstallOptions::FromValue(const base::Value::Dict& value) {
+std::optional<UninstallOptions> UninstallOptions::FromValue(const base::Value& value) {
   UninstallOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UninstallOptions> UninstallOptions::FromValue(const base::Value& value) {
-  UninstallOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -860,13 +822,13 @@ namespace Get {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -876,13 +838,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -913,13 +875,13 @@ namespace GetPermissionWarningsById {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -929,13 +891,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -955,13 +917,13 @@ namespace GetPermissionWarningsByManifest {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -971,13 +933,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = manifest_str_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.manifest_str = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -997,13 +959,13 @@ namespace SetEnabled {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1013,13 +975,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1028,13 +990,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1052,13 +1014,13 @@ namespace Uninstall {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1068,13 +1030,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1082,12 +1044,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[1];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         UninstallOptions temp;
         if (!UninstallOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -1108,13 +1070,13 @@ namespace UninstallSelf {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1123,12 +1085,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         UninstallOptions temp;
         if (!UninstallOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -1149,13 +1111,13 @@ namespace LaunchApp {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1165,13 +1127,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1189,13 +1151,13 @@ namespace CreateAppShortcut {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1205,13 +1167,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1229,13 +1191,13 @@ namespace SetLaunchType {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1245,13 +1207,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1260,16 +1222,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* launch_type_as_string = launch_type_value.GetIfString();
       if (!launch_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.launch_type = ParseLaunchType(*launch_type_as_string);
       if (params.launch_type == LaunchType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1287,13 +1249,13 @@ namespace GenerateAppForLink {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1303,13 +1265,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1318,13 +1280,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = title_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.title = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

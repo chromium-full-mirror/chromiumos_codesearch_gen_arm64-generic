@@ -1,12 +1,12 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { isNonEmptyArray, isNonEmptyFilePath } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { GooglePhotosEnablementState, WallpaperLayout, WallpaperType } from '../../personalization_app.mojom-webui.js';
 import { setErrorAction } from '../personalization_actions.js';
-import { isNonEmptyArray } from '../utils.js';
-import { isDefaultImage, isFilePath, isGooglePhotosPhoto, isImageAMatchForKey, isImageEqualToSelected, isWallpaperImage } from './utils.js';
+import { isDefaultImage, isGooglePhotosPhoto, isImageAMatchForKey, isImageEqualToSelected, isWallpaperImage } from './utils.js';
 import * as action from './wallpaper_actions.js';
 import { DailyRefreshType } from './wallpaper_state.js';
 /**
@@ -195,38 +195,6 @@ export async function fetchGooglePhotosPhotos(provider, store) {
     }
     store.dispatch(action.appendGooglePhotosPhotosAction(photos, resumeToken));
 }
-export async function searchImageThumbnails(query, store) {
-    // TODO(b/300129209): use real API to search for thumbnails.
-    store.dispatch(action.beginSearchImageThumbnailsAction(query));
-    const images = [
-        {
-            id: BigInt(1),
-            url: { url: 'chrome://personalization/images/feel_the_breeze.png' },
-        },
-        {
-            id: BigInt(2),
-            url: { url: 'chrome://personalization/images/float_on_by.png' },
-        },
-        {
-            id: BigInt(3),
-            url: { url: 'chrome://personalization/images/slideshow.png' },
-        },
-        {
-            id: BigInt(4),
-            url: { url: 'chrome://personalization/images/feel_the_breeze.png' },
-        },
-    ];
-    if (!isNonEmptyArray(images)) {
-        console.warn('Failed to generate thumbnails.');
-    }
-    // Mock thumbnail loading by sleeping for 2s.
-    return new Promise(resolve => {
-        window.setTimeout(() => {
-            store.dispatch(action.setImageThumbnailsAction(query, images));
-            resolve();
-        }, 2000);
-    });
-}
 export async function getDefaultImageThumbnail(provider, store) {
     store.dispatch(action.beginLoadDefaultImageThubmnailAction());
     const { data } = await provider.getDefaultImageThumbnail();
@@ -308,7 +276,7 @@ export async function selectWallpaper(image, provider, store, layout = Wallpaper
         else if (isDefaultImage(image)) {
             return provider.selectDefaultImage();
         }
-        else if (isFilePath(image)) {
+        else if (isNonEmptyFilePath(image)) {
             return provider.selectLocalImage(image, layout, /*preview_mode=*/ shouldPreview);
         }
         else if (isGooglePhotosPhoto(image)) {
@@ -442,6 +410,11 @@ export async function confirmPreviewWallpaper(provider) {
 export async function cancelPreviewWallpaper(provider) {
     await provider.cancelPreviewWallpaper();
     provider.makeOpaque();
+}
+export async function getShouldShowTimeOfDayWallpaperDialog(provider, store) {
+    const { shouldShowDialog } = await provider.shouldShowTimeOfDayWallpaperDialog();
+    // Dispatch action to set the should show dialog boolean.
+    store.dispatch(action.setShouldShowTimeOfDayWallpaperDialog(shouldShowDialog));
 }
 /**
  * Fetches list of collections, then fetches list of images for each

@@ -86,14 +86,6 @@ export class SettingsCupsPrintersEntryElement extends SettingsCupsPrintersEntryE
                 },
                 readOnly: true,
             },
-            /** @protected {boolean} */
-            isJellyEnabled_: {
-                type: Boolean,
-                value: () => {
-                    return loadTimeData.getBoolean('isJellyEnabled');
-                },
-                readOnly: true,
-            },
         };
     }
     /**
@@ -187,13 +179,11 @@ export class SettingsCupsPrintersEntryElement extends SettingsCupsPrintersEntryE
         return this.showPrinterIcon_() || this.printerEntry.printerInfo.isManaged;
     }
     getPrinterIcon_() {
-        const printerStatusIcon = this.isJellyEnabled_ ?
-            `os-settings:printer-status-illo` :
-            `os-settings:printer-status`;
         // Only saved printers need to display an icon with printer status.
         if (!this.isSavedPrinter_()) {
             return 'os-settings:printer-plain';
         }
+        const printerStatusIcon = 'os-settings:printer-status-illo';
         const printerStatusReason = this.printerStatusReasonCache.get(this.printerEntry.printerInfo.printerId);
         if (printerStatusReason === undefined || printerStatusReason === null) {
             return `${printerStatusIcon}-grey`;

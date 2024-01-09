@@ -21,6 +21,7 @@ constexpr uint32_t kDlp_DlpRestrictionsUpdated_Name = 0;
 constexpr uint32_t kDlp_CheckScreenShareRestriction_Name = 1;
 constexpr uint32_t kDlp_OnScreenShareStarted_Name = 2;
 constexpr uint32_t kDlp_OnScreenShareStopped_Name = 3;
+constexpr uint32_t kDlp_ShowBlockedFiles_Name = 4;
 
 }  // namespace internal
 

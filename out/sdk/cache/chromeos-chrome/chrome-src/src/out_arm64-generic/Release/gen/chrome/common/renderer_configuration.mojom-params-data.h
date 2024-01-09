@@ -47,7 +47,7 @@ class  RendererConfiguration_SetInitialConfiguration_Params_Data {
   uint8_t pad0_[3];
   mojo::internal::Handle_Data chromeos_listener;
   mojo::internal::Interface_Data content_settings_manager;
-  mojo::internal::Interface_Data bound_session_request_throttled_listener;
+  mojo::internal::Interface_Data bound_session_request_throttled_handler;
 
  private:
   friend class mojo::internal::MessageFragment<RendererConfiguration_SetInitialConfiguration_Params_Data>;
@@ -124,11 +124,11 @@ class RendererConfiguration_SetInitialConfiguration_ParamsDataView {
     return result;
   }
   template <typename UserType>
-  UserType TakeBoundSessionRequestThrottledListener() {
+  UserType TakeBoundSessionRequestThrottledHandler() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chrome::mojom::BoundSessionRequestThrottledListenerInterfaceBase>>(
-            &data_->bound_session_request_throttled_listener, &result, message_);
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chrome::mojom::BoundSessionRequestThrottledHandlerInterfaceBase>>(
+            &data_->bound_session_request_throttled_handler, &result, message_);
     DCHECK(ret);
     return result;
   }

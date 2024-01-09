@@ -16,6 +16,7 @@ namespace extensions::mojom {
 class  ServiceWorkerInterceptorForTesting : public ServiceWorker {
   virtual ServiceWorker* GetForwardingInterface() = 0;
   void UpdatePermissions(::extensions::PermissionSet active_permissions, ::extensions::PermissionSet withheld_permissions) override;
+  void DispatchOnConnect(const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, DispatchOnConnectCallback callback) override;
 };
 class  ServiceWorkerAsyncWaiter {
  public:
@@ -25,6 +26,9 @@ class  ServiceWorkerAsyncWaiter {
   ServiceWorkerAsyncWaiter& operator=(const ServiceWorkerAsyncWaiter&) = delete;
 
   ~ServiceWorkerAsyncWaiter();
+  void DispatchOnConnect(
+      const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, bool* out_success);
+  bool DispatchOnConnect(const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host);
 
  private:
   ServiceWorker* const proxy_;

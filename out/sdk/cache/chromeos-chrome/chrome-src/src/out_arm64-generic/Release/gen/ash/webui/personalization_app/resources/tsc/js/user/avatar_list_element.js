@@ -5,11 +5,14 @@
  * @fileoverview The avatar-list component displays the list of avatar images
  * that the user can select from.
  */
+import 'chrome://resources/ash/common/personalization_shared_icons.html.js';
+import { isNonEmptyArray } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
+import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { isUserAvatarCustomizationSelectorsEnabled } from '../load_time_booleans.js';
 import { setErrorAction } from '../personalization_actions.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
-import { decodeString16, getCheckmarkIcon, isNonEmptyArray, isSelectionEvent } from '../utils.js';
+import { getCheckmarkIcon, isSelectionEvent } from '../utils.js';
 import { getTemplate } from './avatar_list_element.html.js';
 import { fetchDefaultUserImages } from './user_controller.js';
 import { getUserProvider } from './user_interface_provider.js';
@@ -163,7 +166,7 @@ export class AvatarListElement extends WithPersonalizationStore {
                     class: 'image-container',
                     imgSrc: defaultImage.url.url,
                     icon: getCheckmarkIcon(),
-                    title: decodeString16(defaultImage.title),
+                    title: mojoString16ToString(defaultImage.title),
                     defaultImageIndex: defaultImage.index,
                 });
             });

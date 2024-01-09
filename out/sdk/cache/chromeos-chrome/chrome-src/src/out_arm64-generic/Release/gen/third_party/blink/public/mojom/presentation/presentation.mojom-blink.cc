@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -343,14 +344,17 @@ void PresentationConnectionProxy::OnMessage(
                         "<value of type PresentationConnectionMessagePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationConnection_OnMessage_Name, kFlags, 0, 0, nullptr);
@@ -389,14 +393,17 @@ void PresentationConnectionProxy::DidChangeState(
                         "<value of type PresentationConnectionState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationConnection_DidChangeState_Name, kFlags, 0, 0, nullptr);
@@ -428,14 +435,17 @@ void PresentationConnectionProxy::DidClose(
                         "<value of type PresentationConnectionCloseReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationConnection_DidClose_Name, kFlags, 0, 0, nullptr);
@@ -563,14 +573,14 @@ bool PresentationConnectionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPresentationConnectionValidationInfo[] = {
-    {&internal::PresentationConnection_OnMessage_Params_Data::Validate,
+    { &internal::PresentationConnection_OnMessage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationConnection_DidChangeState_Params_Data::Validate,
+    { &internal::PresentationConnection_DidChangeState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationConnection_DidClose_Params_Data::Validate,
+    { &internal::PresentationConnection_DidClose_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -842,14 +852,17 @@ void PresentationServiceProxy::SetController(
                         "<value of type ::mojo::PendingRemote<PresentationController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_SetController_Name, kFlags, 0, 0, nullptr);
@@ -885,14 +898,17 @@ void PresentationServiceProxy::SetReceiver(
                         "<value of type ::mojo::PendingRemote<PresentationReceiver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_SetReceiver_Name, kFlags, 0, 0, nullptr);
@@ -928,14 +944,17 @@ void PresentationServiceProxy::SetDefaultPresentationUrls(
                         "<value of type const WTF::Vector<::blink::KURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_SetDefaultPresentationUrls_Name, kFlags, 0, 0, nullptr);
@@ -978,14 +997,17 @@ void PresentationServiceProxy::ListenForScreenAvailability(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_ListenForScreenAvailability_Name, kFlags, 0, 0, nullptr);
@@ -1026,14 +1048,17 @@ void PresentationServiceProxy::StopListeningForScreenAvailability(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_StopListeningForScreenAvailability_Name, kFlags, 0, 0, nullptr);
@@ -1074,14 +1099,17 @@ void PresentationServiceProxy::StartPresentation(
                         "<value of type const WTF::Vector<::blink::KURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_StartPresentation_Name, kFlags, 0, 0, nullptr);
@@ -1128,14 +1156,17 @@ void PresentationServiceProxy::ReconnectPresentation(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_ReconnectPresentation_Name, kFlags, 0, 0, nullptr);
@@ -1193,14 +1224,17 @@ void PresentationServiceProxy::CloseConnection(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_CloseConnection_Name, kFlags, 0, 0, nullptr);
@@ -1255,14 +1289,17 @@ void PresentationServiceProxy::Terminate(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_Terminate_Name, kFlags, 0, 0, nullptr);
@@ -1400,7 +1437,8 @@ void PresentationService_StartPresentation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_StartPresentation_Name, kFlags, 0, 0, nullptr);
@@ -1538,7 +1576,8 @@ void PresentationService_ReconnectPresentation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationService_ReconnectPresentation_Name, kFlags, 0, 0, nullptr);
@@ -1882,26 +1921,26 @@ std::move(p_presentation_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPresentationServiceValidationInfo[] = {
-    {&internal::PresentationService_SetController_Params_Data::Validate,
+    { &internal::PresentationService_SetController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationService_SetReceiver_Params_Data::Validate,
+    { &internal::PresentationService_SetReceiver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationService_SetDefaultPresentationUrls_Params_Data::Validate,
+    { &internal::PresentationService_SetDefaultPresentationUrls_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationService_ListenForScreenAvailability_Params_Data::Validate,
+    { &internal::PresentationService_ListenForScreenAvailability_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationService_StopListeningForScreenAvailability_Params_Data::Validate,
+    { &internal::PresentationService_StopListeningForScreenAvailability_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationService_StartPresentation_Params_Data::Validate,
+    { &internal::PresentationService_StartPresentation_Params_Data::Validate,
      &internal::PresentationService_StartPresentation_ResponseParams_Data::Validate},
-    {&internal::PresentationService_ReconnectPresentation_Params_Data::Validate,
+    { &internal::PresentationService_ReconnectPresentation_Params_Data::Validate,
      &internal::PresentationService_ReconnectPresentation_ResponseParams_Data::Validate},
-    {&internal::PresentationService_CloseConnection_Params_Data::Validate,
+    { &internal::PresentationService_CloseConnection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationService_Terminate_Params_Data::Validate,
+    { &internal::PresentationService_Terminate_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2048,14 +2087,17 @@ void PresentationControllerProxy::OnScreenAvailabilityUpdated(
                         "<value of type ScreenAvailability>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationController_OnScreenAvailabilityUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2098,14 +2140,17 @@ void PresentationControllerProxy::OnDefaultPresentationStarted(
                         "<value of type PresentationConnectionResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationController_OnDefaultPresentationStarted_Name, kFlags, 0, 0, nullptr);
@@ -2149,14 +2194,17 @@ void PresentationControllerProxy::OnConnectionStateChanged(
                         "<value of type PresentationConnectionState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationController_OnConnectionStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -2205,14 +2253,17 @@ void PresentationControllerProxy::OnConnectionClosed(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationController_OnConnectionClosed_Name, kFlags, 0, 0, nullptr);
@@ -2407,16 +2458,16 @@ bool PresentationControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPresentationControllerValidationInfo[] = {
-    {&internal::PresentationController_OnScreenAvailabilityUpdated_Params_Data::Validate,
+    { &internal::PresentationController_OnScreenAvailabilityUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationController_OnDefaultPresentationStarted_Params_Data::Validate,
+    { &internal::PresentationController_OnDefaultPresentationStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationController_OnConnectionStateChanged_Params_Data::Validate,
+    { &internal::PresentationController_OnConnectionStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PresentationController_OnConnectionClosed_Params_Data::Validate,
+    { &internal::PresentationController_OnConnectionClosed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2496,14 +2547,17 @@ void PresentationReceiverProxy::OnReceiverConnectionAvailable(
                         "<value of type PresentationConnectionResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPresentationReceiver_OnReceiverConnectionAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2582,10 +2636,10 @@ bool PresentationReceiverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPresentationReceiverValidationInfo[] = {
-    {&internal::PresentationReceiver_OnReceiverConnectionAvailable_Params_Data::Validate,
+    { &internal::PresentationReceiver_OnReceiverConnectionAvailable_Params_Data::Validate,
      nullptr /* no response */},
 };
 

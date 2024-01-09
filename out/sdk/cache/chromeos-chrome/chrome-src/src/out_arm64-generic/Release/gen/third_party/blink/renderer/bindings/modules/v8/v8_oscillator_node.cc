@@ -79,11 +79,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, OscillatorNode>::value,
     "OscillatorNode does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&OscillatorNode::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OscillatorNode is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,10 +91,10 @@ BLINK_BINDINGS_TRACE_EVENT("OscillatorNode.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -110,9 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("OscillatorNode.type.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OscillatorNode";
@@ -149,8 +144,9 @@ BLINK_BINDINGS_TRACE_EVENT("OscillatorNode.frequency.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(v8_receiver);
+OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->frequency();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -163,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("OscillatorNode.detune.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(v8_receiver);
+OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->detune();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -240,7 +237,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(v8_receiver);
+OscillatorNode* blink_receiver = V8OscillatorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_periodic_wave = NativeValueTraits<PeriodicWave>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

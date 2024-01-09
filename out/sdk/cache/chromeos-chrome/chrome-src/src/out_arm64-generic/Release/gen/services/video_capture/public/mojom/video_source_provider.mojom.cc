@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -259,14 +260,17 @@ void VideoSourceProviderProxy::GetSourceInfos(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::VideoSourceProvider::GetSourceInfos");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSourceProvider_GetSourceInfos_Name, kFlags, 0, 0, nullptr);
@@ -300,14 +304,17 @@ void VideoSourceProviderProxy::GetVideoSource(
                         "<value of type ::mojo::PendingReceiver<::video_capture::mojom::VideoSource>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSourceProvider_GetVideoSource_Name, kFlags, 0, 0, nullptr);
@@ -360,14 +367,17 @@ void VideoSourceProviderProxy::AddSharedMemoryVirtualDevice(
                         "<value of type ::mojo::PendingReceiver<::video_capture::mojom::SharedMemoryVirtualDevice>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSourceProvider_AddSharedMemoryVirtualDevice_Name, kFlags, 0, 0, nullptr);
@@ -423,14 +433,17 @@ void VideoSourceProviderProxy::AddTextureVirtualDevice(
                         "<value of type ::mojo::PendingReceiver<::video_capture::mojom::TextureVirtualDevice>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSourceProvider_AddTextureVirtualDevice_Name, kFlags, 0, 0, nullptr);
@@ -480,14 +493,17 @@ void VideoSourceProviderProxy::RegisterVirtualDevicesChangedObserver(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSourceProvider_RegisterVirtualDevicesChangedObserver_Name, kFlags, 0, 0, nullptr);
@@ -524,14 +540,17 @@ void VideoSourceProviderProxy::RegisterDevicesChangedObserver(
                         "<value of type ::mojo::PendingRemote<::video_capture::mojom::DevicesChangedObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSourceProvider_RegisterDevicesChangedObserver_Name, kFlags, 0, 0, nullptr);
@@ -560,14 +579,17 @@ void VideoSourceProviderProxy::Close(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send video_capture::mojom::VideoSourceProvider::Close");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSourceProvider_Close_Name, kFlags, 0, 0, nullptr);
@@ -677,7 +699,8 @@ void VideoSourceProvider_GetSourceInfos_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSourceProvider_GetSourceInfos_Name, kFlags, 0, 0, nullptr);
@@ -796,7 +819,8 @@ void VideoSourceProvider_Close_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoSourceProvider_Close_Name, kFlags, 0, 0, nullptr);
@@ -1076,22 +1100,22 @@ bool VideoSourceProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoSourceProviderValidationInfo[] = {
-    {&internal::VideoSourceProvider_GetSourceInfos_Params_Data::Validate,
+    { &internal::VideoSourceProvider_GetSourceInfos_Params_Data::Validate,
      &internal::VideoSourceProvider_GetSourceInfos_ResponseParams_Data::Validate},
-    {&internal::VideoSourceProvider_GetVideoSource_Params_Data::Validate,
+    { &internal::VideoSourceProvider_GetVideoSource_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoSourceProvider_AddSharedMemoryVirtualDevice_Params_Data::Validate,
+    { &internal::VideoSourceProvider_AddSharedMemoryVirtualDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoSourceProvider_AddTextureVirtualDevice_Params_Data::Validate,
+    { &internal::VideoSourceProvider_AddTextureVirtualDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoSourceProvider_RegisterVirtualDevicesChangedObserver_Params_Data::Validate,
+    { &internal::VideoSourceProvider_RegisterVirtualDevicesChangedObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoSourceProvider_RegisterDevicesChangedObserver_Params_Data::Validate,
+    { &internal::VideoSourceProvider_RegisterDevicesChangedObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoSourceProvider_Close_Params_Data::Validate,
+    { &internal::VideoSourceProvider_Close_Params_Data::Validate,
      &internal::VideoSourceProvider_Close_ResponseParams_Data::Validate},
 };
 

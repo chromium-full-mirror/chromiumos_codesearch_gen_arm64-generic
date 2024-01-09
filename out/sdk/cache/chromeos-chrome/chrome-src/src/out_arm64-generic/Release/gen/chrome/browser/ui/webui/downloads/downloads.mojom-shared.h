@@ -76,23 +76,25 @@ enum class DangerType : int32_t {
   
   kAsyncScanning = 7,
   
-  kBlockedPasswordProtected = 8,
+  kAsyncLocalPasswordScanning = 8,
   
-  kBlockedTooLarge = 9,
+  kBlockedPasswordProtected = 9,
   
-  kSensitiveContentWarning = 10,
+  kBlockedTooLarge = 10,
   
-  kSensitiveContentBlock = 11,
+  kSensitiveContentWarning = 11,
   
-  kDeepScannedFailed = 12,
+  kSensitiveContentBlock = 12,
   
-  kDeepScannedSafe = 13,
+  kDeepScannedFailed = 13,
   
-  kDeepScannedOpenedDangerous = 14,
+  kDeepScannedSafe = 14,
   
-  kBlockedUnsupportedFileType = 15,
+  kDeepScannedOpenedDangerous = 15,
+  
+  kBlockedUnsupportedFileType = 16,
   kMinValue = 0,
-  kMaxValue = 15,
+  kMaxValue = 16,
 };
 
  std::ostream& operator<<(std::ostream& os, DangerType value);
@@ -121,8 +123,10 @@ enum class State : int32_t {
   kAsyncScanning = 7,
   
   kPromptForScanning = 8,
+  
+  kPromptForLocalPasswordScanning = 9,
   kMinValue = 0,
-  kMaxValue = 8,
+  kMaxValue = 9,
 };
 
  std::ostream& operator<<(std::ostream& os, State value);

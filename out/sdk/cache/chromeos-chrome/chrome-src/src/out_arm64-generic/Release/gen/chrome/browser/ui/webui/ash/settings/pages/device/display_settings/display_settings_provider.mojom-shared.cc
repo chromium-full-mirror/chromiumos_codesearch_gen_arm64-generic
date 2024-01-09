@@ -22,7 +22,72 @@ namespace ash {
 namespace settings {
 namespace mojom {
 
+NOINLINE static const char* DisplaySettingsTypeToStringHelper(DisplaySettingsType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DisplaySettingsType::kResolution:
+      return "kResolution";
+    case DisplaySettingsType::kRefreshRate:
+      return "kRefreshRate";
+    case DisplaySettingsType::kScaling:
+      return "kScaling";
+    case DisplaySettingsType::kOrientation:
+      return "kOrientation";
+    case DisplaySettingsType::kOverscan:
+      return "kOverscan";
+    case DisplaySettingsType::kNightLight:
+      return "kNightLight";
+    case DisplaySettingsType::kNightLightSchedule:
+      return "kNightLightSchedule";
+    case DisplaySettingsType::kDisplayPage:
+      return "kDisplayPage";
+    case DisplaySettingsType::kMirrorMode:
+      return "kMirrorMode";
+    case DisplaySettingsType::kUnifiedMode:
+      return "kUnifiedMode";
+    case DisplaySettingsType::kPrimaryDisplay:
+      return "kPrimaryDisplay";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DisplaySettingsTypeToString(DisplaySettingsType value) {
+  const char *str = DisplaySettingsTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DisplaySettingsType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DisplaySettingsType value) {
+  return os << DisplaySettingsTypeToString(value);
+}
+
 namespace internal {
+
+
+// static
+bool DisplaySettingsValue_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DisplaySettingsValue_Data* object =
+      static_cast<const DisplaySettingsValue_Data*>(data);
+
+  return true;
+}
+
+DisplaySettingsValue_Data::DisplaySettingsValue_Data()
+    : header_({sizeof(*this), 0}) {}
 
 
 // static
@@ -45,6 +110,29 @@ bool TabletModeObserver_OnTabletModeChanged_Params_Data::Validate(
 }
 
 TabletModeObserver_OnTabletModeChanged_Params_Data::TabletModeObserver_OnTabletModeChanged_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data* object =
+      static_cast<const DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data*>(data);
+
+  return true;
+}
+
+DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data::DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -102,7 +190,84 @@ bool DisplaySettingsProvider_ObserveTabletMode_ResponseParams_Data::Validate(
 DisplaySettingsProvider_ObserveTabletMode_ResponseParams_Data::DisplaySettingsProvider_ObserveTabletMode_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data* object =
+      static_cast<const DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data::DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data* object =
+      static_cast<const DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data*>(data);
+
+
+  if (!::ash::settings::mojom::internal::DisplaySettingsType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->value, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->value, validation_context))
+    return false;
+
+  return true;
+}
+
+DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data::DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace settings
 }  // namespace ash
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::settings::mojom::DisplaySettingsType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsType value) {
+  return std::move(context).WriteString(::ash::settings::mojom::DisplaySettingsTypeToString(value));
+}
+
+} // namespace perfetto

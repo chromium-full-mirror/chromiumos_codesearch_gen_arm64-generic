@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void AssistiveTechnologyControllerProxy::EnableAssistiveTechnology(
                         "<value of type const std::vector<::ax::mojom::AssistiveTechnologyType>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAssistiveTechnologyController_EnableAssistiveTechnology_Name, kFlags, 0, 0, nullptr);
@@ -202,10 +206,10 @@ bool AssistiveTechnologyControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAssistiveTechnologyControllerValidationInfo[] = {
-    {&internal::AssistiveTechnologyController_EnableAssistiveTechnology_Params_Data::Validate,
+    { &internal::AssistiveTechnologyController_EnableAssistiveTechnology_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -325,14 +329,17 @@ void AccessibilityServiceProxy::BindAccessibilityServiceClient(
                         "<value of type ::mojo::PendingRemote<AccessibilityServiceClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityService_BindAccessibilityServiceClient_Name, kFlags, 0, 0, nullptr);
@@ -371,14 +378,17 @@ void AccessibilityServiceProxy::BindAssistiveTechnologyController(
                         "<value of type const std::vector<::ax::mojom::AssistiveTechnologyType>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityService_BindAssistiveTechnologyController_Name, kFlags, 0, 0, nullptr);
@@ -430,14 +440,17 @@ void AccessibilityServiceProxy::ConnectDevToolsAgent(
                         "<value of type ::ax::mojom::AssistiveTechnologyType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityService_ConnectDevToolsAgent_Name, kFlags, 0, 0, nullptr);
@@ -585,14 +598,14 @@ bool AccessibilityServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccessibilityServiceValidationInfo[] = {
-    {&internal::AccessibilityService_BindAccessibilityServiceClient_Params_Data::Validate,
+    { &internal::AccessibilityService_BindAccessibilityServiceClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityService_BindAssistiveTechnologyController_Params_Data::Validate,
+    { &internal::AccessibilityService_BindAssistiveTechnologyController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityService_ConnectDevToolsAgent_Params_Data::Validate,
+    { &internal::AccessibilityService_ConnectDevToolsAgent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -609,6 +622,9 @@ AccessibilityServiceClient::IPCStableHashFunction AccessibilityServiceClient::Me
     case internal::kAccessibilityServiceClient_BindAutomation_Name: {
       return &AccessibilityServiceClient::BindAutomation_Sym::IPCStableHash;
     }
+    case internal::kAccessibilityServiceClient_BindAutomationClient_Name: {
+      return &AccessibilityServiceClient::BindAutomationClient_Sym::IPCStableHash;
+    }
     case internal::kAccessibilityServiceClient_BindAutoclickClient_Name: {
       return &AccessibilityServiceClient::BindAutoclickClient_Sym::IPCStableHash;
     }
@@ -617,6 +633,9 @@ AccessibilityServiceClient::IPCStableHashFunction AccessibilityServiceClient::Me
     }
     case internal::kAccessibilityServiceClient_BindTts_Name: {
       return &AccessibilityServiceClient::BindTts_Sym::IPCStableHash;
+    }
+    case internal::kAccessibilityServiceClient_BindUserInput_Name: {
+      return &AccessibilityServiceClient::BindUserInput_Sym::IPCStableHash;
     }
     case internal::kAccessibilityServiceClient_BindUserInterface_Name: {
       return &AccessibilityServiceClient::BindUserInterface_Sym::IPCStableHash;
@@ -637,12 +656,16 @@ const char* AccessibilityServiceClient::MessageToMethodName_(mojo::Message& mess
     switch (message.name()) {
       case internal::kAccessibilityServiceClient_BindAutomation_Name:
             return "Receive ax::mojom::AccessibilityServiceClient::BindAutomation";
+      case internal::kAccessibilityServiceClient_BindAutomationClient_Name:
+            return "Receive ax::mojom::AccessibilityServiceClient::BindAutomationClient";
       case internal::kAccessibilityServiceClient_BindAutoclickClient_Name:
             return "Receive ax::mojom::AccessibilityServiceClient::BindAutoclickClient";
       case internal::kAccessibilityServiceClient_BindSpeechRecognition_Name:
             return "Receive ax::mojom::AccessibilityServiceClient::BindSpeechRecognition";
       case internal::kAccessibilityServiceClient_BindTts_Name:
             return "Receive ax::mojom::AccessibilityServiceClient::BindTts";
+      case internal::kAccessibilityServiceClient_BindUserInput_Name:
+            return "Receive ax::mojom::AccessibilityServiceClient::BindUserInput";
       case internal::kAccessibilityServiceClient_BindUserInterface_Name:
             return "Receive ax::mojom::AccessibilityServiceClient::BindUserInterface";
       case internal::kAccessibilityServiceClient_BindAccessibilityFileLoader_Name:
@@ -652,12 +675,16 @@ const char* AccessibilityServiceClient::MessageToMethodName_(mojo::Message& mess
     switch (message.name()) {
       case internal::kAccessibilityServiceClient_BindAutomation_Name:
             return "Receive reply ax::mojom::AccessibilityServiceClient::BindAutomation";
+      case internal::kAccessibilityServiceClient_BindAutomationClient_Name:
+            return "Receive reply ax::mojom::AccessibilityServiceClient::BindAutomationClient";
       case internal::kAccessibilityServiceClient_BindAutoclickClient_Name:
             return "Receive reply ax::mojom::AccessibilityServiceClient::BindAutoclickClient";
       case internal::kAccessibilityServiceClient_BindSpeechRecognition_Name:
             return "Receive reply ax::mojom::AccessibilityServiceClient::BindSpeechRecognition";
       case internal::kAccessibilityServiceClient_BindTts_Name:
             return "Receive reply ax::mojom::AccessibilityServiceClient::BindTts";
+      case internal::kAccessibilityServiceClient_BindUserInput_Name:
+            return "Receive reply ax::mojom::AccessibilityServiceClient::BindUserInput";
       case internal::kAccessibilityServiceClient_BindUserInterface_Name:
             return "Receive reply ax::mojom::AccessibilityServiceClient::BindUserInterface";
       case internal::kAccessibilityServiceClient_BindAccessibilityFileLoader_Name:
@@ -685,6 +712,19 @@ uint32_t AccessibilityServiceClient::BindAutomation_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ax::mojom::AccessibilityServiceClient::BindAutomation");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AccessibilityServiceClient::BindAutomationClient_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ax::mojom::AccessibilityServiceClient::BindAutomationClient");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -728,6 +768,19 @@ uint32_t AccessibilityServiceClient::BindTts_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AccessibilityServiceClient::BindUserInput_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ax::mojom::AccessibilityServiceClient::BindUserInput");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t AccessibilityServiceClient::BindUserInterface_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -761,7 +814,7 @@ AccessibilityServiceClientProxy::AccessibilityServiceClientProxy(mojo::MessageRe
 }
 
 void AccessibilityServiceClientProxy::BindAutomation(
-    ::mojo::PendingAssociatedRemote<::ax::mojom::Automation> in_automation, ::mojo::PendingReceiver<::ax::mojom::AutomationClient> in_automation_client) {
+    ::mojo::PendingAssociatedRemote<::ax::mojom::Automation> in_automation) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ax::mojom::AccessibilityServiceClient::BindAutomation", "input_parameters",
@@ -770,19 +823,19 @@ void AccessibilityServiceClientProxy::BindAutomation(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("automation"), in_automation,
                         "<value of type ::mojo::PendingAssociatedRemote<::ax::mojom::Automation>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("automation_client"), in_automation_client,
-                        "<value of type ::mojo::PendingReceiver<::ax::mojom::AutomationClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityServiceClient_BindAutomation_Name, kFlags, 0, 0, nullptr);
@@ -796,16 +849,56 @@ void AccessibilityServiceClientProxy::BindAutomation(
       !mojo::internal::IsHandleOrInterfaceValid(params->automation),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
       "invalid automation in AccessibilityServiceClient.BindAutomation request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AccessibilityServiceClient::Name_);
+  message.set_method_name("BindAutomation");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AccessibilityServiceClientProxy::BindAutomationClient(
+    ::mojo::PendingReceiver<::ax::mojom::AutomationClient> in_automation_client) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ax::mojom::AccessibilityServiceClient::BindAutomationClient", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("automation_client"), in_automation_client,
+                        "<value of type ::mojo::PendingReceiver<::ax::mojom::AutomationClient>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAccessibilityServiceClient_BindAutomationClient_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ax::mojom::internal::AccessibilityServiceClient_BindAutomationClient_Params_Data> params(
+          message);
+  params.Allocate();
   mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ax::mojom::AutomationClientInterfaceBase>>(
       in_automation_client, &params->automation_client, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->automation_client),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid automation_client in AccessibilityServiceClient.BindAutomation request");
+      "invalid automation_client in AccessibilityServiceClient.BindAutomationClient request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AccessibilityServiceClient::Name_);
-  message.set_method_name("BindAutomation");
+  message.set_method_name("BindAutomationClient");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -824,14 +917,17 @@ void AccessibilityServiceClientProxy::BindAutoclickClient(
                         "<value of type ::mojo::PendingReceiver<::ax::mojom::AutoclickClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityServiceClient_BindAutoclickClient_Name, kFlags, 0, 0, nullptr);
@@ -867,14 +963,17 @@ void AccessibilityServiceClientProxy::BindSpeechRecognition(
                         "<value of type ::mojo::PendingReceiver<::ax::mojom::SpeechRecognition>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityServiceClient_BindSpeechRecognition_Name, kFlags, 0, 0, nullptr);
@@ -910,14 +1009,17 @@ void AccessibilityServiceClientProxy::BindTts(
                         "<value of type ::mojo::PendingReceiver<::ax::mojom::Tts>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityServiceClient_BindTts_Name, kFlags, 0, 0, nullptr);
@@ -941,6 +1043,52 @@ void AccessibilityServiceClientProxy::BindTts(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void AccessibilityServiceClientProxy::BindUserInput(
+    ::mojo::PendingReceiver<::ax::mojom::UserInput> in_user_input_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ax::mojom::AccessibilityServiceClient::BindUserInput", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("user_input_receiver"), in_user_input_receiver,
+                        "<value of type ::mojo::PendingReceiver<::ax::mojom::UserInput>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAccessibilityServiceClient_BindUserInput_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ax::mojom::internal::AccessibilityServiceClient_BindUserInput_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ax::mojom::UserInputInterfaceBase>>(
+      in_user_input_receiver, &params->user_input_receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->user_input_receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid user_input_receiver in AccessibilityServiceClient.BindUserInput request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AccessibilityServiceClient::Name_);
+  message.set_method_name("BindUserInput");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void AccessibilityServiceClientProxy::BindUserInterface(
     ::mojo::PendingReceiver<::ax::mojom::UserInterface> in_user_interface_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -953,14 +1101,17 @@ void AccessibilityServiceClientProxy::BindUserInterface(
                         "<value of type ::mojo::PendingReceiver<::ax::mojom::UserInterface>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityServiceClient_BindUserInterface_Name, kFlags, 0, 0, nullptr);
@@ -996,14 +1147,17 @@ void AccessibilityServiceClientProxy::BindAccessibilityFileLoader(
                         "<value of type ::mojo::PendingReceiver<::ax::mojom::AccessibilityFileLoader>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAccessibilityServiceClient_BindAccessibilityFileLoader_Name, kFlags, 0, 0, nullptr);
@@ -1041,16 +1195,11 @@ bool AccessibilityServiceClientStubDispatch::Accept(
       
       bool success = true;
       ::mojo::PendingAssociatedRemote<::ax::mojom::Automation> p_automation{};
-      ::mojo::PendingReceiver<::ax::mojom::AutomationClient> p_automation_client{};
       AccessibilityServiceClient_BindAutomation_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_automation =
             input_data_view.TakeAutomation<decltype(p_automation)>();
-      }
-      if (success) {
-        p_automation_client =
-            input_data_view.TakeAutomationClient<decltype(p_automation_client)>();
       }
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1062,7 +1211,34 @@ bool AccessibilityServiceClientStubDispatch::Accept(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->BindAutomation(
-std::move(p_automation), 
+std::move(p_automation));
+      return true;
+    }
+    case internal::kAccessibilityServiceClient_BindAutomationClient_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AccessibilityServiceClient_BindAutomationClient_Params_Data* params =
+          reinterpret_cast<internal::AccessibilityServiceClient_BindAutomationClient_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::ax::mojom::AutomationClient> p_automation_client{};
+      AccessibilityServiceClient_BindAutomationClient_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_automation_client =
+            input_data_view.TakeAutomationClient<decltype(p_automation_client)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AccessibilityServiceClient::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindAutomationClient(
 std::move(p_automation_client));
       return true;
     }
@@ -1085,7 +1261,7 @@ std::move(p_automation_client));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AccessibilityServiceClient::Name_, 1, false);
+            AccessibilityServiceClient::Name_, 2, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1113,7 +1289,7 @@ std::move(p_autoclick_client));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AccessibilityServiceClient::Name_, 2, false);
+            AccessibilityServiceClient::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1141,13 +1317,41 @@ std::move(p_sr_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AccessibilityServiceClient::Name_, 3, false);
+            AccessibilityServiceClient::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->BindTts(
 std::move(p_tts_receiver));
+      return true;
+    }
+    case internal::kAccessibilityServiceClient_BindUserInput_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AccessibilityServiceClient_BindUserInput_Params_Data* params =
+          reinterpret_cast<internal::AccessibilityServiceClient_BindUserInput_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::ax::mojom::UserInput> p_user_input_receiver{};
+      AccessibilityServiceClient_BindUserInput_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_user_input_receiver =
+            input_data_view.TakeUserInputReceiver<decltype(p_user_input_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AccessibilityServiceClient::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindUserInput(
+std::move(p_user_input_receiver));
       return true;
     }
     case internal::kAccessibilityServiceClient_BindUserInterface_Name: {
@@ -1169,7 +1373,7 @@ std::move(p_tts_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AccessibilityServiceClient::Name_, 4, false);
+            AccessibilityServiceClient::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1197,7 +1401,7 @@ std::move(p_user_interface_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AccessibilityServiceClient::Name_, 5, false);
+            AccessibilityServiceClient::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1222,6 +1426,9 @@ bool AccessibilityServiceClientStubDispatch::AcceptWithResponder(
     case internal::kAccessibilityServiceClient_BindAutomation_Name: {
       break;
     }
+    case internal::kAccessibilityServiceClient_BindAutomationClient_Name: {
+      break;
+    }
     case internal::kAccessibilityServiceClient_BindAutoclickClient_Name: {
       break;
     }
@@ -1229,6 +1436,9 @@ bool AccessibilityServiceClientStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kAccessibilityServiceClient_BindTts_Name: {
+      break;
+    }
+    case internal::kAccessibilityServiceClient_BindUserInput_Name: {
       break;
     }
     case internal::kAccessibilityServiceClient_BindUserInterface_Name: {
@@ -1240,20 +1450,24 @@ bool AccessibilityServiceClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAccessibilityServiceClientValidationInfo[] = {
-    {&internal::AccessibilityServiceClient_BindAutomation_Params_Data::Validate,
+    { &internal::AccessibilityServiceClient_BindAutomation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityServiceClient_BindAutoclickClient_Params_Data::Validate,
+    { &internal::AccessibilityServiceClient_BindAutomationClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityServiceClient_BindSpeechRecognition_Params_Data::Validate,
+    { &internal::AccessibilityServiceClient_BindAutoclickClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityServiceClient_BindTts_Params_Data::Validate,
+    { &internal::AccessibilityServiceClient_BindSpeechRecognition_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityServiceClient_BindUserInterface_Params_Data::Validate,
+    { &internal::AccessibilityServiceClient_BindTts_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AccessibilityServiceClient_BindAccessibilityFileLoader_Params_Data::Validate,
+    { &internal::AccessibilityServiceClient_BindUserInput_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AccessibilityServiceClient_BindUserInterface_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AccessibilityServiceClient_BindAccessibilityFileLoader_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1307,8 +1521,11 @@ AccessibilityServiceAsyncWaiter::~AccessibilityServiceAsyncWaiter() = default;
 
 
 
-void AccessibilityServiceClientInterceptorForTesting::BindAutomation(::mojo::PendingAssociatedRemote<::ax::mojom::Automation> automation, ::mojo::PendingReceiver<::ax::mojom::AutomationClient> automation_client) {
-  GetForwardingInterface()->BindAutomation(std::move(automation), std::move(automation_client));
+void AccessibilityServiceClientInterceptorForTesting::BindAutomation(::mojo::PendingAssociatedRemote<::ax::mojom::Automation> automation) {
+  GetForwardingInterface()->BindAutomation(std::move(automation));
+}
+void AccessibilityServiceClientInterceptorForTesting::BindAutomationClient(::mojo::PendingReceiver<::ax::mojom::AutomationClient> automation_client) {
+  GetForwardingInterface()->BindAutomationClient(std::move(automation_client));
 }
 void AccessibilityServiceClientInterceptorForTesting::BindAutoclickClient(::mojo::PendingReceiver<::ax::mojom::AutoclickClient> autoclick_client) {
   GetForwardingInterface()->BindAutoclickClient(std::move(autoclick_client));
@@ -1318,6 +1535,9 @@ void AccessibilityServiceClientInterceptorForTesting::BindSpeechRecognition(::mo
 }
 void AccessibilityServiceClientInterceptorForTesting::BindTts(::mojo::PendingReceiver<::ax::mojom::Tts> tts_receiver) {
   GetForwardingInterface()->BindTts(std::move(tts_receiver));
+}
+void AccessibilityServiceClientInterceptorForTesting::BindUserInput(::mojo::PendingReceiver<::ax::mojom::UserInput> user_input_receiver) {
+  GetForwardingInterface()->BindUserInput(std::move(user_input_receiver));
 }
 void AccessibilityServiceClientInterceptorForTesting::BindUserInterface(::mojo::PendingReceiver<::ax::mojom::UserInterface> user_interface_receiver) {
   GetForwardingInterface()->BindUserInterface(std::move(user_interface_receiver));

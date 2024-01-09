@@ -148,13 +148,14 @@ enum StringFilterPolicy : int32_t {
   SFP_ATRACE_MATCH_REDACT_GROUPS = 2,
   SFP_MATCH_BREAK = 3,
   SFP_ATRACE_MATCH_BREAK = 4,
+  SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS = 5,
 };
 } // namespace perfetto_pbzero_enum_TraceConfig_TraceFilter
 using TraceConfig_TraceFilter_StringFilterPolicy = perfetto_pbzero_enum_TraceConfig_TraceFilter::StringFilterPolicy;
 
 
 constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter_StringFilterPolicy_MIN = TraceConfig_TraceFilter_StringFilterPolicy::SFP_UNSPECIFIED;
-constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter_StringFilterPolicy_MAX = TraceConfig_TraceFilter_StringFilterPolicy::SFP_ATRACE_MATCH_BREAK;
+constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter_StringFilterPolicy_MAX = TraceConfig_TraceFilter_StringFilterPolicy::SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -174,6 +175,9 @@ const char* TraceConfig_TraceFilter_StringFilterPolicy_Name(::perfetto::protos::
 
   case ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy::SFP_ATRACE_MATCH_BREAK:
     return "SFP_ATRACE_MATCH_BREAK";
+
+  case ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy::SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS:
+    return "SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -1180,6 +1184,7 @@ class TraceConfig_TraceFilter : public ::protozero::Message {
   static inline const StringFilterPolicy SFP_ATRACE_MATCH_REDACT_GROUPS = StringFilterPolicy::SFP_ATRACE_MATCH_REDACT_GROUPS;
   static inline const StringFilterPolicy SFP_MATCH_BREAK = StringFilterPolicy::SFP_MATCH_BREAK;
   static inline const StringFilterPolicy SFP_ATRACE_MATCH_BREAK = StringFilterPolicy::SFP_ATRACE_MATCH_BREAK;
+  static inline const StringFilterPolicy SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS = StringFilterPolicy::SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS;
 
   using FieldMetadata_Bytecode =
     ::protozero::proto_utils::FieldMetadata<

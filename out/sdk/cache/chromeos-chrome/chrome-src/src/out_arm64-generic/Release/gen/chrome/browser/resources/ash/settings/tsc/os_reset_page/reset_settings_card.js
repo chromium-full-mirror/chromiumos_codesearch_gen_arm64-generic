@@ -11,10 +11,10 @@ import './os_powerwash_dialog.js';
 import { getEuicc, getNonPendingESimProfiles } from 'chrome://resources/ash/common/cellular_setup/esim_manager_utils.js';
 import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { getTemplate } from './reset_settings_card.html.js';
 const ResetSettingsCardElementBase = DeepLinkingMixin(RouteObserverMixin(PolymerElement));
@@ -37,6 +37,13 @@ export class ResetSettingsCardElement extends ResetSettingsCardElementBase {
                     return [];
                 },
             },
+            isRevampWayfindingEnabled_: {
+                type: Boolean,
+                value() {
+                    return isRevampWayfindingEnabled();
+                },
+                readOnly: true,
+            },
             /**
              * Used by DeepLinkingMixin to focus this page's deep links.
              */
@@ -48,7 +55,7 @@ export class ResetSettingsCardElement extends ResetSettingsCardElementBase {
     }
     constructor() {
         super();
-        this.route_ = isRevampWayfindingEnabled() ? routes.SYSTEM_PREFERENCES :
+        this.route_ = this.isRevampWayfindingEnabled_ ? routes.SYSTEM_PREFERENCES :
             routes.OS_RESET;
     }
     async onShowPowerwashDialog_(e) {

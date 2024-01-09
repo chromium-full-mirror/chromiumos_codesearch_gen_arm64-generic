@@ -61,6 +61,13 @@ class VideoConference {
     return { width: streamSettings.width, height: streamSettings.height};
   }
 
+  // Get the display capture resolution. This must not be called if
+  // present() is not called.
+  getDisplayCaptureResolution() {
+    const streamSettings = this.displayStream.getVideoTracks()[0].getSettings();
+    return { width: streamSettings.width, height: streamSettings.height};
+  }
+
   // Shows the camera preview.
   async showCameraPreview() {
     this.cameraPreview.srcObject = this.sentStream;
@@ -110,6 +117,31 @@ class VideoConference {
     return {width: width, height: height, columns: columns};
   }
 
+  getEncoderConfig(numPeople) {
+    const cameraHeight = this.getCameraResolution().height;
+    let encodeHeight = 0;
+    let scalabilityMode = '';
+    if (numPeople == 2) {
+      encodeHeight = cameraHeight;
+      scalabilityMode = 'L1T3';
+    } else if (numPeople <= 8) {
+      encodeHeight = 360;
+      scalabilityMode = 'L2T3_KEY';
+    } else if (numPeople <= 16) {
+      encodeHeight = 270;
+      scalabilityMode = 'L2T3_KEY';
+    } else {
+      encodeHeight = 135;
+      scalabilityMode = 'L1T3';
+    }
+
+    return {
+      inputHeight: cameraHeight,
+      outputHeight: encodeHeight,
+      scalabilityMode: scalabilityMode
+    };
+  }
+
   // Start a video call whose attendee is numPeople, which includes myself.
   // |numPeople-1| decoders and one encoder will run.
   async holdCall(numPeople, present) {
@@ -140,17 +172,12 @@ class VideoConference {
       this.cameraPreview.width = gridStyle.width;
       this.cameraPreview.height = gridStyle.height;
     }
-    // VP9 Temporal layer encoding for 1:1 (2p) call.
-    let sendEncodings = {
-      scaleResolutionDownBy: 1,
-      scalabilityMode: 'L1T3'
-    };
-    if (numPeople > 2) {
-      // VP9 SVC: [540p, 270p, 135p] or [720p, 360p, 180p] for 3p+ call.
-      sendEncodings.scaleResolutionDownBy = 2;
-      sendEncodings.scalabilityMode = 'L3T3_KEY';
-    }
 
+    let encCfg = this.getEncoderConfig(numPeople);
+    let sendEncodings = {
+      scaleResolutionDownBy: encCfg.inputHeight / encCfg.outputHeight,
+      scalabilityMode: encCfg.scalabilityMode
+    };
 
     if (present) {
       this.displayPreview = document.createElement('video');
@@ -283,17 +310,17 @@ class VideoConference {
         displaySurface: "browser", // Tab
       }
     };
-    const displayStream =
+    this.displayStream =
           await navigator.mediaDevices.getDisplayMedia(constraints);
-    displayStream.getVideoTracks()[0].applyConstraints(constraints);
-    this.displayPreview.srcObject = displayStream;
+    this.displayStream.getVideoTracks()[0].applyConstraints(constraints);
+    this.displayPreview.srcObject = this.displayStream;
 
     this.displayLocalPC =
           new RTCPeerConnection({encodedInsertableStreams: true});
     const displayLocalPCStream = this.displayLocalPC.addTransceiver(
-      displayStream.getVideoTracks()[0], {
+      this.displayStream.getVideoTracks()[0], {
         degradationPreference: 'maintain-resolution',
-        streams : [ displayStream ],
+        streams : [ this.displayStream ],
         sendEncodings : [{'scalabilityMode': 'L1T3'}],
       }).sender.createEncodedStreams();
 

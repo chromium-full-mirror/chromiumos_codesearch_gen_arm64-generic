@@ -40,19 +40,19 @@ class  DeviceAsyncWaiter {
       std::vector<ServiceInfoPtr>* out_services);
   std::vector<ServiceInfoPtr> GetServices();
   void GetCharacteristics(
-      const std::string& service_id, absl::optional<std::vector<CharacteristicInfoPtr>>* out_characteristics);
-  absl::optional<std::vector<CharacteristicInfoPtr>> GetCharacteristics(const std::string& service_id);
+      const std::string& service_id, std::optional<std::vector<CharacteristicInfoPtr>>* out_characteristics);
+  std::optional<std::vector<CharacteristicInfoPtr>> GetCharacteristics(const std::string& service_id);
   void ReadValueForCharacteristic(
-      const std::string& service_id, const std::string& characteristic_id, GattResult* out_result, absl::optional<std::vector<uint8_t>>* out_value);
+      const std::string& service_id, const std::string& characteristic_id, GattResult* out_result, std::optional<std::vector<uint8_t>>* out_value);
   
   void WriteValueForCharacteristic(
       const std::string& service_id, const std::string& characteristic_id, const std::vector<uint8_t>& value, GattResult* out_result);
   GattResult WriteValueForCharacteristic(const std::string& service_id, const std::string& characteristic_id, const std::vector<uint8_t>& value);
   void GetDescriptors(
-      const std::string& service_id, const std::string& characteristic_id, absl::optional<std::vector<DescriptorInfoPtr>>* out_descriptors);
-  absl::optional<std::vector<DescriptorInfoPtr>> GetDescriptors(const std::string& service_id, const std::string& characteristic_id);
+      const std::string& service_id, const std::string& characteristic_id, std::optional<std::vector<DescriptorInfoPtr>>* out_descriptors);
+  std::optional<std::vector<DescriptorInfoPtr>> GetDescriptors(const std::string& service_id, const std::string& characteristic_id);
   void ReadValueForDescriptor(
-      const std::string& service_id, const std::string& characteristic_id, const std::string& descriptor_id, GattResult* out_result, absl::optional<std::vector<uint8_t>>* out_value);
+      const std::string& service_id, const std::string& characteristic_id, const std::string& descriptor_id, GattResult* out_result, std::optional<std::vector<uint8_t>>* out_value);
   
   void WriteValueForDescriptor(
       const std::string& service_id, const std::string& characteristic_id, const std::string& descriptor_id, const std::vector<uint8_t>& value, GattResult* out_result);

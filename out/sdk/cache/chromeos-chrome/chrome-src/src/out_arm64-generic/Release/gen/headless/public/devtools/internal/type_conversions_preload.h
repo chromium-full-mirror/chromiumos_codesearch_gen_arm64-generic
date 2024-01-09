@@ -479,8 +479,10 @@ struct FromValue<preload::PrefetchStatus> {
       return preload::PrefetchStatus::PREFETCH_FAILED_NON2XX;
     if (value.GetString() == "PrefetchFailedPerPageLimitExceeded")
       return preload::PrefetchStatus::PREFETCH_FAILED_PER_PAGE_LIMIT_EXCEEDED;
-    if (value.GetString() == "PrefetchEvicted")
-      return preload::PrefetchStatus::PREFETCH_EVICTED;
+    if (value.GetString() == "PrefetchEvictedAfterCandidateRemoved")
+      return preload::PrefetchStatus::PREFETCH_EVICTED_AFTER_CANDIDATE_REMOVED;
+    if (value.GetString() == "PrefetchEvictedForNewerPrefetch")
+      return preload::PrefetchStatus::PREFETCH_EVICTED_FOR_NEWER_PREFETCH;
     if (value.GetString() == "PrefetchHeldback")
       return preload::PrefetchStatus::PREFETCH_HELDBACK;
     if (value.GetString() == "PrefetchIneligibleRetryAfter")
@@ -547,8 +549,10 @@ inline base::Value ToValue(const preload::PrefetchStatus& value) {
       return base::Value("PrefetchFailedNon2XX");
     case preload::PrefetchStatus::PREFETCH_FAILED_PER_PAGE_LIMIT_EXCEEDED:
       return base::Value("PrefetchFailedPerPageLimitExceeded");
-    case preload::PrefetchStatus::PREFETCH_EVICTED:
-      return base::Value("PrefetchEvicted");
+    case preload::PrefetchStatus::PREFETCH_EVICTED_AFTER_CANDIDATE_REMOVED:
+      return base::Value("PrefetchEvictedAfterCandidateRemoved");
+    case preload::PrefetchStatus::PREFETCH_EVICTED_FOR_NEWER_PREFETCH:
+      return base::Value("PrefetchEvictedForNewerPrefetch");
     case preload::PrefetchStatus::PREFETCH_HELDBACK:
       return base::Value("PrefetchHeldback");
     case preload::PrefetchStatus::PREFETCH_INELIGIBLE_RETRY_AFTER:
@@ -597,6 +601,19 @@ inline base::Value ToValue(const preload::PrefetchStatus& value) {
   NOTREACHED();
   return base::Value();
 }
+
+template <>
+struct FromValue<preload::PrerenderMismatchedHeaders> {
+  static std::unique_ptr<preload::PrerenderMismatchedHeaders> Parse(const base::Value& value, ErrorReporter* errors) {
+    return preload::PrerenderMismatchedHeaders::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const preload::PrerenderMismatchedHeaders& value) {
+  return value.Serialize();
+}
+
 
 template <>
 struct FromValue<preload::EnableParams> {

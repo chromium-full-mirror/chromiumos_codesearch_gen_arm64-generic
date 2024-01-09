@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/interest_group/ad_display_size.mojom-features.h"
 #include "third_party/blink/public/mojom/interest_group/ad_display_size.mojom-shared.h"
 #include "third_party/blink/public/mojom/interest_group/ad_display_size.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -226,7 +227,7 @@ class BLINK_COMMON_EXPORT AdDescriptor {
 
   AdDescriptor(
       const ::GURL& url,
-      const absl::optional<::blink::AdSize>& size);
+      const std::optional<::blink::AdSize>& size);
 
 
   ~AdDescriptor();
@@ -306,7 +307,7 @@ class BLINK_COMMON_EXPORT AdDescriptor {
   
   ::GURL url;
   
-  absl::optional<::blink::AdSize> size;
+  std::optional<::blink::AdSize> size;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

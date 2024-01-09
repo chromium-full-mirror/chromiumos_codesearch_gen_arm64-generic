@@ -27,11 +27,11 @@ import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { flush, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertExists, cast, castExists } from '../assert_extras.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
-import { TabletModeObserverReceiver } from '../mojom-webui/display_settings_provider.mojom-webui.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
+import { DisplayConfigurationObserverReceiver, DisplaySettingsType, TabletModeObserverReceiver } from '../mojom-webui/display_settings_provider.mojom-webui.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { DevicePageBrowserProxyImpl, getDisplayApi } from './device_page_browser_proxy.js';
 import { getTemplate } from './display.html.js';
@@ -52,6 +52,7 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
                 value: () => {
                     return isRevampWayfindingEnabled();
                 },
+                readOnly: true,
             },
             selectedModePref_: {
                 type: Object,
@@ -224,6 +225,10 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
         this.$.displaySizeSlider.updateValueInstantly = false;
         const { isTabletMode } = await this.displaySettingsProvider.observeTabletMode(new TabletModeObserverReceiver(this).$.bindNewPipeAndPassRemote());
         this.isTabletMode_ = isTabletMode;
+        this.displaySettingsProvider.observeDisplayConfiguration(new DisplayConfigurationObserverReceiver(this)
+            .$.bindNewPipeAndPassRemote());
+        // Record metrics that user has opened the display settings page.
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kDisplayPage, /*value=*/ {});
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -236,6 +241,13 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
      */
     onTabletModeChanged(isTabletMode) {
         this.isTabletMode_ = isTabletMode;
+    }
+    /**
+     * Implements DisplayConfigurationObserver.OnDisplayConfigurationChanged.
+     */
+    onDisplayConfigurationChanged() {
+        // Sync active display settings to avoid UI inconsistency.
+        this.getDisplayInfo_();
     }
     beforeDeepLinkAttempt(_settingId) {
         if (!this.displays) {
@@ -850,6 +862,7 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kPrimaryDisplay, /*value=*/ {});
     }
     /**
      * Handles a change in the |selectedParentModePref| value triggered via the
@@ -914,6 +927,18 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
+        // Compare new mode and current mode to find out if user has changed the
+        // resolution or just the refresh rate.
+        const currentMode = this.selectedDisplay.modes[this.currentSelectedModeIndex_];
+        const newMode = this.selectedDisplay.modes[this.selectedModePref_.value];
+        const displaySettingsType = (currentMode.height === newMode.height &&
+            currentMode.width === newMode.width) ?
+            DisplaySettingsType.kRefreshRate :
+            DisplaySettingsType.kResolution;
+        this.displaySettingsProvider.recordChangingDisplaySettings(displaySettingsType, {
+            isInternalDisplay: this.selectedDisplay.isInternal,
+            displayId: BigInt(this.selectedDisplay.id),
+        });
     }
     /**
      * Triggerend when the display size slider changes its value. This only
@@ -930,6 +955,10 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kScaling, {
+            isInternalDisplay: this.selectedDisplay.isInternal,
+            displayId: BigInt(this.selectedDisplay.id),
+        });
     }
     /**
      * Returns whether the option "Auto-rotate" is one of the shown options in
@@ -949,6 +978,7 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kOrientation, { isInternalDisplay: this.selectedDisplay.isInternal });
     }
     onMirroredClick_(event) {
         // Blur the control so that when the transition animation completes and
@@ -963,6 +993,7 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
                 console.error('setMirrorMode Error: ' + error.message);
             }
         });
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kMirrorMode, /*value=*/ {});
     }
     onUnifiedDesktopClick_() {
         const properties = {
@@ -971,11 +1002,14 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.primaryDisplayId, properties)
             .then(() => this.setPropertiesCallback_());
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kUnifiedMode, /*value=*/ {});
     }
     onOverscanClick_(e) {
         e.preventDefault();
+        assert(this.selectedDisplay);
         this.overscanDisplayId = this.selectedDisplay.id;
         this.showOverscanDialog_(true);
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kOverscan, { isInternalDisplay: this.selectedDisplay.isInternal });
     }
     onCloseOverscanDialog_() {
         focusWithoutInk(castExists(this.shadowRoot.getElementById('overscan')));

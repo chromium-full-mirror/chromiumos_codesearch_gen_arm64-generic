@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/usb.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -237,8 +238,8 @@ product_id(0),
 version(0) {}
 
 Device::~Device() = default;
-Device::Device(Device&& rhs) = default;
-Device& Device::operator=(Device&& rhs) = default;
+Device::Device(Device&& rhs) noexcept = default;
+Device& Device::operator=(Device&& rhs) noexcept = default;
 Device Device::Clone() const {
   Device out;
   out.device = device;
@@ -351,34 +352,21 @@ bool Device::Populate(
 }
 
 // static
-std::unique_ptr<Device> Device::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Device>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Device> Device::FromValue(const base::Value::Dict& value) {
+  Device out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Device> Device::FromValue(const base::Value::Dict& value) {
+std::optional<Device> Device::FromValue(const base::Value& value) {
   Device out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Device> Device::FromValue(const base::Value& value) {
-  Device out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -411,8 +399,8 @@ vendor_id(0),
 product_id(0) {}
 
 ConnectionHandle::~ConnectionHandle() = default;
-ConnectionHandle::ConnectionHandle(ConnectionHandle&& rhs) = default;
-ConnectionHandle& ConnectionHandle::operator=(ConnectionHandle&& rhs) = default;
+ConnectionHandle::ConnectionHandle(ConnectionHandle&& rhs) noexcept = default;
+ConnectionHandle& ConnectionHandle::operator=(ConnectionHandle&& rhs) noexcept = default;
 ConnectionHandle ConnectionHandle::Clone() const {
   ConnectionHandle out;
   out.handle = handle;
@@ -473,34 +461,21 @@ bool ConnectionHandle::Populate(
 }
 
 // static
-std::unique_ptr<ConnectionHandle> ConnectionHandle::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ConnectionHandle>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ConnectionHandle> ConnectionHandle::FromValue(const base::Value::Dict& value) {
+  ConnectionHandle out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ConnectionHandle> ConnectionHandle::FromValue(const base::Value::Dict& value) {
+std::optional<ConnectionHandle> ConnectionHandle::FromValue(const base::Value& value) {
   ConnectionHandle out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ConnectionHandle> ConnectionHandle::FromValue(const base::Value& value) {
-  ConnectionHandle out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -528,8 +503,8 @@ synchronization(),
 usage() {}
 
 EndpointDescriptor::~EndpointDescriptor() = default;
-EndpointDescriptor::EndpointDescriptor(EndpointDescriptor&& rhs) = default;
-EndpointDescriptor& EndpointDescriptor::operator=(EndpointDescriptor&& rhs) = default;
+EndpointDescriptor::EndpointDescriptor(EndpointDescriptor&& rhs) noexcept = default;
+EndpointDescriptor& EndpointDescriptor::operator=(EndpointDescriptor&& rhs) noexcept = default;
 EndpointDescriptor EndpointDescriptor::Clone() const {
   EndpointDescriptor out;
   out.address = address;
@@ -639,7 +614,7 @@ bool EndpointDescriptor::Populate(
     {
       auto temp = (*polling_interval_value).GetIfInt();
       if (!temp.has_value()) {
-        out.polling_interval = absl::nullopt;
+        out.polling_interval = std::nullopt;
         return false;
       }
       out.polling_interval = *temp;
@@ -672,34 +647,21 @@ bool EndpointDescriptor::Populate(
 }
 
 // static
-std::unique_ptr<EndpointDescriptor> EndpointDescriptor::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EndpointDescriptor>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EndpointDescriptor> EndpointDescriptor::FromValue(const base::Value::Dict& value) {
+  EndpointDescriptor out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EndpointDescriptor> EndpointDescriptor::FromValue(const base::Value::Dict& value) {
+std::optional<EndpointDescriptor> EndpointDescriptor::FromValue(const base::Value& value) {
   EndpointDescriptor out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EndpointDescriptor> EndpointDescriptor::FromValue(const base::Value& value) {
-  EndpointDescriptor out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -742,8 +704,8 @@ interface_subclass(0),
 interface_protocol(0) {}
 
 InterfaceDescriptor::~InterfaceDescriptor() = default;
-InterfaceDescriptor::InterfaceDescriptor(InterfaceDescriptor&& rhs) = default;
-InterfaceDescriptor& InterfaceDescriptor::operator=(InterfaceDescriptor&& rhs) = default;
+InterfaceDescriptor::InterfaceDescriptor(InterfaceDescriptor&& rhs) noexcept = default;
+InterfaceDescriptor& InterfaceDescriptor::operator=(InterfaceDescriptor&& rhs) noexcept = default;
 InterfaceDescriptor InterfaceDescriptor::Clone() const {
   InterfaceDescriptor out;
   out.interface_number = interface_number;
@@ -828,7 +790,7 @@ bool InterfaceDescriptor::Populate(
     {
       auto* temp = (*description_value).GetIfString();
       if (!temp) {
-        out.description = absl::nullopt;
+        out.description = std::nullopt;
         return false;
       }
       out.description = *temp;
@@ -876,34 +838,21 @@ bool InterfaceDescriptor::Populate(
 }
 
 // static
-std::unique_ptr<InterfaceDescriptor> InterfaceDescriptor::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InterfaceDescriptor>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InterfaceDescriptor> InterfaceDescriptor::FromValue(const base::Value::Dict& value) {
+  InterfaceDescriptor out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InterfaceDescriptor> InterfaceDescriptor::FromValue(const base::Value::Dict& value) {
+std::optional<InterfaceDescriptor> InterfaceDescriptor::FromValue(const base::Value& value) {
   InterfaceDescriptor out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InterfaceDescriptor> InterfaceDescriptor::FromValue(const base::Value& value) {
-  InterfaceDescriptor out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -942,8 +891,8 @@ remote_wakeup(false),
 max_power(0) {}
 
 ConfigDescriptor::~ConfigDescriptor() = default;
-ConfigDescriptor::ConfigDescriptor(ConfigDescriptor&& rhs) = default;
-ConfigDescriptor& ConfigDescriptor::operator=(ConfigDescriptor&& rhs) = default;
+ConfigDescriptor::ConfigDescriptor(ConfigDescriptor&& rhs) noexcept = default;
+ConfigDescriptor& ConfigDescriptor::operator=(ConfigDescriptor&& rhs) noexcept = default;
 ConfigDescriptor ConfigDescriptor::Clone() const {
   ConfigDescriptor out;
   out.active = active;
@@ -992,7 +941,7 @@ bool ConfigDescriptor::Populate(
     {
       auto* temp = (*description_value).GetIfString();
       if (!temp) {
-        out.description = absl::nullopt;
+        out.description = std::nullopt;
         return false;
       }
       out.description = *temp;
@@ -1076,34 +1025,21 @@ bool ConfigDescriptor::Populate(
 }
 
 // static
-std::unique_ptr<ConfigDescriptor> ConfigDescriptor::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ConfigDescriptor>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ConfigDescriptor> ConfigDescriptor::FromValue(const base::Value::Dict& value) {
+  ConfigDescriptor out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ConfigDescriptor> ConfigDescriptor::FromValue(const base::Value::Dict& value) {
+std::optional<ConfigDescriptor> ConfigDescriptor::FromValue(const base::Value& value) {
   ConfigDescriptor out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ConfigDescriptor> ConfigDescriptor::FromValue(const base::Value& value) {
-  ConfigDescriptor out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1143,8 +1079,8 @@ value(0),
 index(0) {}
 
 ControlTransferInfo::~ControlTransferInfo() = default;
-ControlTransferInfo::ControlTransferInfo(ControlTransferInfo&& rhs) = default;
-ControlTransferInfo& ControlTransferInfo::operator=(ControlTransferInfo&& rhs) = default;
+ControlTransferInfo::ControlTransferInfo(ControlTransferInfo&& rhs) noexcept = default;
+ControlTransferInfo& ControlTransferInfo::operator=(ControlTransferInfo&& rhs) noexcept = default;
 ControlTransferInfo ControlTransferInfo::Clone() const {
   ControlTransferInfo out;
   out.direction = direction;
@@ -1248,7 +1184,7 @@ bool ControlTransferInfo::Populate(
     {
       auto temp = (*length_value).GetIfInt();
       if (!temp.has_value()) {
-        out.length = absl::nullopt;
+        out.length = std::nullopt;
         return false;
       }
       out.length = *temp;
@@ -1272,7 +1208,7 @@ bool ControlTransferInfo::Populate(
     {
       auto temp = (*timeout_value).GetIfInt();
       if (!temp.has_value()) {
-        out.timeout = absl::nullopt;
+        out.timeout = std::nullopt;
         return false;
       }
       out.timeout = *temp;
@@ -1292,34 +1228,21 @@ bool ControlTransferInfo::Populate(
 }
 
 // static
-std::unique_ptr<ControlTransferInfo> ControlTransferInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ControlTransferInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ControlTransferInfo> ControlTransferInfo::FromValue(const base::Value::Dict& value) {
+  ControlTransferInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ControlTransferInfo> ControlTransferInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ControlTransferInfo> ControlTransferInfo::FromValue(const base::Value& value) {
   ControlTransferInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ControlTransferInfo> ControlTransferInfo::FromValue(const base::Value& value) {
-  ControlTransferInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1361,8 +1284,8 @@ GenericTransferInfo::GenericTransferInfo()
 endpoint(0) {}
 
 GenericTransferInfo::~GenericTransferInfo() = default;
-GenericTransferInfo::GenericTransferInfo(GenericTransferInfo&& rhs) = default;
-GenericTransferInfo& GenericTransferInfo::operator=(GenericTransferInfo&& rhs) = default;
+GenericTransferInfo::GenericTransferInfo(GenericTransferInfo&& rhs) noexcept = default;
+GenericTransferInfo& GenericTransferInfo::operator=(GenericTransferInfo&& rhs) noexcept = default;
 GenericTransferInfo GenericTransferInfo::Clone() const {
   GenericTransferInfo out;
   out.direction = direction;
@@ -1408,7 +1331,7 @@ bool GenericTransferInfo::Populate(
     {
       auto temp = (*length_value).GetIfInt();
       if (!temp.has_value()) {
-        out.length = absl::nullopt;
+        out.length = std::nullopt;
         return false;
       }
       out.length = *temp;
@@ -1432,7 +1355,7 @@ bool GenericTransferInfo::Populate(
     {
       auto temp = (*timeout_value).GetIfInt();
       if (!temp.has_value()) {
-        out.timeout = absl::nullopt;
+        out.timeout = std::nullopt;
         return false;
       }
       out.timeout = *temp;
@@ -1452,34 +1375,21 @@ bool GenericTransferInfo::Populate(
 }
 
 // static
-std::unique_ptr<GenericTransferInfo> GenericTransferInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GenericTransferInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GenericTransferInfo> GenericTransferInfo::FromValue(const base::Value::Dict& value) {
+  GenericTransferInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GenericTransferInfo> GenericTransferInfo::FromValue(const base::Value::Dict& value) {
+std::optional<GenericTransferInfo> GenericTransferInfo::FromValue(const base::Value& value) {
   GenericTransferInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GenericTransferInfo> GenericTransferInfo::FromValue(const base::Value& value) {
-  GenericTransferInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1513,8 +1423,8 @@ IsochronousTransferInfo::IsochronousTransferInfo()
 packet_length(0) {}
 
 IsochronousTransferInfo::~IsochronousTransferInfo() = default;
-IsochronousTransferInfo::IsochronousTransferInfo(IsochronousTransferInfo&& rhs) = default;
-IsochronousTransferInfo& IsochronousTransferInfo::operator=(IsochronousTransferInfo&& rhs) = default;
+IsochronousTransferInfo::IsochronousTransferInfo(IsochronousTransferInfo&& rhs) noexcept = default;
+IsochronousTransferInfo& IsochronousTransferInfo::operator=(IsochronousTransferInfo&& rhs) noexcept = default;
 IsochronousTransferInfo IsochronousTransferInfo::Clone() const {
   IsochronousTransferInfo out;
   out.transfer_info = transfer_info.Clone();
@@ -1576,34 +1486,21 @@ bool IsochronousTransferInfo::Populate(
 }
 
 // static
-std::unique_ptr<IsochronousTransferInfo> IsochronousTransferInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IsochronousTransferInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IsochronousTransferInfo> IsochronousTransferInfo::FromValue(const base::Value::Dict& value) {
+  IsochronousTransferInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IsochronousTransferInfo> IsochronousTransferInfo::FromValue(const base::Value::Dict& value) {
+std::optional<IsochronousTransferInfo> IsochronousTransferInfo::FromValue(const base::Value& value) {
   IsochronousTransferInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IsochronousTransferInfo> IsochronousTransferInfo::FromValue(const base::Value& value) {
-  IsochronousTransferInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1626,8 +1523,8 @@ TransferResultInfo::TransferResultInfo()
  {}
 
 TransferResultInfo::~TransferResultInfo() = default;
-TransferResultInfo::TransferResultInfo(TransferResultInfo&& rhs) = default;
-TransferResultInfo& TransferResultInfo::operator=(TransferResultInfo&& rhs) = default;
+TransferResultInfo::TransferResultInfo(TransferResultInfo&& rhs) noexcept = default;
+TransferResultInfo& TransferResultInfo::operator=(TransferResultInfo&& rhs) noexcept = default;
 TransferResultInfo TransferResultInfo::Clone() const {
   TransferResultInfo out;
   out.result_code = result_code;
@@ -1643,7 +1540,7 @@ bool TransferResultInfo::Populate(
     {
       auto temp = (*result_code_value).GetIfInt();
       if (!temp.has_value()) {
-        out.result_code = absl::nullopt;
+        out.result_code = std::nullopt;
         return false;
       }
       out.result_code = *temp;
@@ -1675,34 +1572,21 @@ bool TransferResultInfo::Populate(
 }
 
 // static
-std::unique_ptr<TransferResultInfo> TransferResultInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TransferResultInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TransferResultInfo> TransferResultInfo::FromValue(const base::Value::Dict& value) {
+  TransferResultInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TransferResultInfo> TransferResultInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TransferResultInfo> TransferResultInfo::FromValue(const base::Value& value) {
   TransferResultInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TransferResultInfo> TransferResultInfo::FromValue(const base::Value& value) {
-  TransferResultInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1727,8 +1611,8 @@ DeviceFilter::DeviceFilter()
  {}
 
 DeviceFilter::~DeviceFilter() = default;
-DeviceFilter::DeviceFilter(DeviceFilter&& rhs) = default;
-DeviceFilter& DeviceFilter::operator=(DeviceFilter&& rhs) = default;
+DeviceFilter::DeviceFilter(DeviceFilter&& rhs) noexcept = default;
+DeviceFilter& DeviceFilter::operator=(DeviceFilter&& rhs) noexcept = default;
 DeviceFilter DeviceFilter::Clone() const {
   DeviceFilter out;
   out.vendor_id = vendor_id;
@@ -1747,7 +1631,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*vendor_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.vendor_id = absl::nullopt;
+        out.vendor_id = std::nullopt;
         return false;
       }
       out.vendor_id = *temp;
@@ -1759,7 +1643,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*product_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.product_id = absl::nullopt;
+        out.product_id = std::nullopt;
         return false;
       }
       out.product_id = *temp;
@@ -1771,7 +1655,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*interface_class_value).GetIfInt();
       if (!temp.has_value()) {
-        out.interface_class = absl::nullopt;
+        out.interface_class = std::nullopt;
         return false;
       }
       out.interface_class = *temp;
@@ -1783,7 +1667,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*interface_subclass_value).GetIfInt();
       if (!temp.has_value()) {
-        out.interface_subclass = absl::nullopt;
+        out.interface_subclass = std::nullopt;
         return false;
       }
       out.interface_subclass = *temp;
@@ -1795,7 +1679,7 @@ bool DeviceFilter::Populate(
     {
       auto temp = (*interface_protocol_value).GetIfInt();
       if (!temp.has_value()) {
-        out.interface_protocol = absl::nullopt;
+        out.interface_protocol = std::nullopt;
         return false;
       }
       out.interface_protocol = *temp;
@@ -1815,34 +1699,21 @@ bool DeviceFilter::Populate(
 }
 
 // static
-std::unique_ptr<DeviceFilter> DeviceFilter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeviceFilter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value::Dict& value) {
+  DeviceFilter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value::Dict& value) {
+std::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value& value) {
   DeviceFilter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeviceFilter> DeviceFilter::FromValue(const base::Value& value) {
-  DeviceFilter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1879,8 +1750,8 @@ EnumerateDevicesOptions::EnumerateDevicesOptions()
  {}
 
 EnumerateDevicesOptions::~EnumerateDevicesOptions() = default;
-EnumerateDevicesOptions::EnumerateDevicesOptions(EnumerateDevicesOptions&& rhs) = default;
-EnumerateDevicesOptions& EnumerateDevicesOptions::operator=(EnumerateDevicesOptions&& rhs) = default;
+EnumerateDevicesOptions::EnumerateDevicesOptions(EnumerateDevicesOptions&& rhs) noexcept = default;
+EnumerateDevicesOptions& EnumerateDevicesOptions::operator=(EnumerateDevicesOptions&& rhs) noexcept = default;
 EnumerateDevicesOptions EnumerateDevicesOptions::Clone() const {
   EnumerateDevicesOptions out;
   out.vendor_id = vendor_id;
@@ -1903,7 +1774,7 @@ bool EnumerateDevicesOptions::Populate(
     {
       auto temp = (*vendor_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.vendor_id = absl::nullopt;
+        out.vendor_id = std::nullopt;
         return false;
       }
       out.vendor_id = *temp;
@@ -1915,7 +1786,7 @@ bool EnumerateDevicesOptions::Populate(
     {
       auto temp = (*product_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.product_id = absl::nullopt;
+        out.product_id = std::nullopt;
         return false;
       }
       out.product_id = *temp;
@@ -1949,34 +1820,21 @@ bool EnumerateDevicesOptions::Populate(
 }
 
 // static
-std::unique_ptr<EnumerateDevicesOptions> EnumerateDevicesOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EnumerateDevicesOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EnumerateDevicesOptions> EnumerateDevicesOptions::FromValue(const base::Value::Dict& value) {
+  EnumerateDevicesOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EnumerateDevicesOptions> EnumerateDevicesOptions::FromValue(const base::Value::Dict& value) {
+std::optional<EnumerateDevicesOptions> EnumerateDevicesOptions::FromValue(const base::Value& value) {
   EnumerateDevicesOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EnumerateDevicesOptions> EnumerateDevicesOptions::FromValue(const base::Value& value) {
-  EnumerateDevicesOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2006,8 +1864,8 @@ EnumerateDevicesAndRequestAccessOptions::EnumerateDevicesAndRequestAccessOptions
 product_id(0) {}
 
 EnumerateDevicesAndRequestAccessOptions::~EnumerateDevicesAndRequestAccessOptions() = default;
-EnumerateDevicesAndRequestAccessOptions::EnumerateDevicesAndRequestAccessOptions(EnumerateDevicesAndRequestAccessOptions&& rhs) = default;
-EnumerateDevicesAndRequestAccessOptions& EnumerateDevicesAndRequestAccessOptions::operator=(EnumerateDevicesAndRequestAccessOptions&& rhs) = default;
+EnumerateDevicesAndRequestAccessOptions::EnumerateDevicesAndRequestAccessOptions(EnumerateDevicesAndRequestAccessOptions&& rhs) noexcept = default;
+EnumerateDevicesAndRequestAccessOptions& EnumerateDevicesAndRequestAccessOptions::operator=(EnumerateDevicesAndRequestAccessOptions&& rhs) noexcept = default;
 EnumerateDevicesAndRequestAccessOptions EnumerateDevicesAndRequestAccessOptions::Clone() const {
   EnumerateDevicesAndRequestAccessOptions out;
   out.vendor_id = vendor_id;
@@ -2048,7 +1906,7 @@ bool EnumerateDevicesAndRequestAccessOptions::Populate(
     {
       auto temp = (*interface_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.interface_id = absl::nullopt;
+        out.interface_id = std::nullopt;
         return false;
       }
       out.interface_id = *temp;
@@ -2068,34 +1926,21 @@ bool EnumerateDevicesAndRequestAccessOptions::Populate(
 }
 
 // static
-std::unique_ptr<EnumerateDevicesAndRequestAccessOptions> EnumerateDevicesAndRequestAccessOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EnumerateDevicesAndRequestAccessOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EnumerateDevicesAndRequestAccessOptions> EnumerateDevicesAndRequestAccessOptions::FromValue(const base::Value::Dict& value) {
+  EnumerateDevicesAndRequestAccessOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EnumerateDevicesAndRequestAccessOptions> EnumerateDevicesAndRequestAccessOptions::FromValue(const base::Value::Dict& value) {
+std::optional<EnumerateDevicesAndRequestAccessOptions> EnumerateDevicesAndRequestAccessOptions::FromValue(const base::Value& value) {
   EnumerateDevicesAndRequestAccessOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EnumerateDevicesAndRequestAccessOptions> EnumerateDevicesAndRequestAccessOptions::FromValue(const base::Value& value) {
-  EnumerateDevicesAndRequestAccessOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2120,8 +1965,8 @@ DevicePromptOptions::DevicePromptOptions()
  {}
 
 DevicePromptOptions::~DevicePromptOptions() = default;
-DevicePromptOptions::DevicePromptOptions(DevicePromptOptions&& rhs) = default;
-DevicePromptOptions& DevicePromptOptions::operator=(DevicePromptOptions&& rhs) = default;
+DevicePromptOptions::DevicePromptOptions(DevicePromptOptions&& rhs) noexcept = default;
+DevicePromptOptions& DevicePromptOptions::operator=(DevicePromptOptions&& rhs) noexcept = default;
 DevicePromptOptions DevicePromptOptions::Clone() const {
   DevicePromptOptions out;
   out.multiple = multiple;
@@ -2143,7 +1988,7 @@ bool DevicePromptOptions::Populate(
     {
       auto temp = (*multiple_value).GetIfBool();
       if (!temp.has_value()) {
-        out.multiple = absl::nullopt;
+        out.multiple = std::nullopt;
         return false;
       }
       out.multiple = *temp;
@@ -2177,34 +2022,21 @@ bool DevicePromptOptions::Populate(
 }
 
 // static
-std::unique_ptr<DevicePromptOptions> DevicePromptOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DevicePromptOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DevicePromptOptions> DevicePromptOptions::FromValue(const base::Value::Dict& value) {
+  DevicePromptOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DevicePromptOptions> DevicePromptOptions::FromValue(const base::Value::Dict& value) {
+std::optional<DevicePromptOptions> DevicePromptOptions::FromValue(const base::Value& value) {
   DevicePromptOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DevicePromptOptions> DevicePromptOptions::FromValue(const base::Value& value) {
-  DevicePromptOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2234,13 +2066,13 @@ namespace GetDevices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2249,15 +2081,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!EnumerateDevicesOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2277,13 +2109,13 @@ namespace GetUserSelectedDevices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2292,15 +2124,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!DevicePromptOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2320,13 +2152,13 @@ namespace GetConfigurations {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2335,15 +2167,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& device_value = args[0];
     {
       if (!device_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Device::Populate(device_value.GetDict(), params.device)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2363,13 +2195,13 @@ namespace RequestAccess {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2378,15 +2210,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& device_value = args[0];
     {
       if (!device_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Device::Populate(device_value.GetDict(), params.device)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2395,13 +2227,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = interface_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.interface_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2421,13 +2253,13 @@ namespace OpenDevice {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2436,15 +2268,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& device_value = args[0];
     {
       if (!device_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Device::Populate(device_value.GetDict(), params.device)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2464,13 +2296,13 @@ namespace FindDevices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2479,15 +2311,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!EnumerateDevicesAndRequestAccessOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2507,13 +2339,13 @@ namespace CloseDevice {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2522,15 +2354,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2548,13 +2380,13 @@ namespace SetConfiguration {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2563,15 +2395,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2580,13 +2412,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = configuration_value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.configuration_value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2604,13 +2436,13 @@ namespace GetConfiguration {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2619,15 +2451,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2647,13 +2479,13 @@ namespace ListInterfaces {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2662,15 +2494,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2690,13 +2522,13 @@ namespace ClaimInterface {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2705,15 +2537,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2722,13 +2554,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = interface_number_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.interface_number = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2746,13 +2578,13 @@ namespace ReleaseInterface {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2761,15 +2593,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2778,13 +2610,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = interface_number_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.interface_number = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2802,13 +2634,13 @@ namespace SetInterfaceAlternateSetting {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2817,15 +2649,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2834,13 +2666,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = interface_number_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.interface_number = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -2849,13 +2681,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = alternate_setting_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.alternate_setting = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2873,13 +2705,13 @@ namespace ControlTransfer {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2888,15 +2720,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2904,15 +2736,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& transfer_info_value = args[1];
     {
       if (!transfer_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ControlTransferInfo::Populate(transfer_info_value.GetDict(), params.transfer_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2932,13 +2764,13 @@ namespace BulkTransfer {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2947,15 +2779,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2963,15 +2795,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& transfer_info_value = args[1];
     {
       if (!transfer_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!GenericTransferInfo::Populate(transfer_info_value.GetDict(), params.transfer_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2991,13 +2823,13 @@ namespace InterruptTransfer {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3006,15 +2838,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -3022,15 +2854,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& transfer_info_value = args[1];
     {
       if (!transfer_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!GenericTransferInfo::Populate(transfer_info_value.GetDict(), params.transfer_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3050,13 +2882,13 @@ namespace IsochronousTransfer {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3065,15 +2897,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -3081,15 +2913,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& transfer_info_value = args[1];
     {
       if (!transfer_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!IsochronousTransferInfo::Populate(transfer_info_value.GetDict(), params.transfer_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3109,13 +2941,13 @@ namespace ResetDevice {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3124,15 +2956,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& handle_value = args[0];
     {
       if (!handle_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ConnectionHandle::Populate(handle_value.GetDict(), params.handle)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

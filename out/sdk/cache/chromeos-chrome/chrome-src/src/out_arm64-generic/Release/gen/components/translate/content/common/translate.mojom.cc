@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -316,14 +317,17 @@ void TranslateAgentProxy::TranslateFrame(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTranslateAgent_TranslateFrame_Name, kFlags, 0, 0, nullptr);
@@ -380,14 +384,17 @@ void TranslateAgentProxy::RevertTranslation(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send translate::mojom::TranslateAgent::RevertTranslation");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTranslateAgent_RevertTranslation_Name, kFlags, 0, 0, nullptr);
@@ -517,7 +524,8 @@ void TranslateAgent_TranslateFrame_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTranslateAgent_TranslateFrame_Name, kFlags, 0, 0, nullptr);
@@ -654,12 +662,12 @@ std::move(p_target_lang), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTranslateAgentValidationInfo[] = {
-    {&internal::TranslateAgent_TranslateFrame_Params_Data::Validate,
+    { &internal::TranslateAgent_TranslateFrame_Params_Data::Validate,
      &internal::TranslateAgent_TranslateFrame_ResponseParams_Data::Validate},
-    {&internal::TranslateAgent_RevertTranslation_Params_Data::Validate,
+    { &internal::TranslateAgent_RevertTranslation_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -785,14 +793,17 @@ void ContentTranslateDriverProxy::RegisterPage(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentTranslateDriver_RegisterPage_Name, kFlags, 0, 0, nullptr);
@@ -833,14 +844,17 @@ void ContentTranslateDriverProxy::GetLanguageDetectionModel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send translate::mojom::ContentTranslateDriver::GetLanguageDetectionModel");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentTranslateDriver_GetLanguageDetectionModel_Name, kFlags, 0, 0, nullptr);
@@ -950,7 +964,8 @@ void ContentTranslateDriver_GetLanguageDetectionModel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentTranslateDriver_GetLanguageDetectionModel_Name, kFlags, 0, 0, nullptr);
@@ -1071,12 +1086,12 @@ bool ContentTranslateDriverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContentTranslateDriverValidationInfo[] = {
-    {&internal::ContentTranslateDriver_RegisterPage_Params_Data::Validate,
+    { &internal::ContentTranslateDriver_RegisterPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentTranslateDriver_GetLanguageDetectionModel_Params_Data::Validate,
+    { &internal::ContentTranslateDriver_GetLanguageDetectionModel_Params_Data::Validate,
      &internal::ContentTranslateDriver_GetLanguageDetectionModel_ResponseParams_Data::Validate},
 };
 

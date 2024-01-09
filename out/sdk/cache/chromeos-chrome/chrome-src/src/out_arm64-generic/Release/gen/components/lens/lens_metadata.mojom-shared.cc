@@ -89,7 +89,7 @@ bool LatencyLog_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 

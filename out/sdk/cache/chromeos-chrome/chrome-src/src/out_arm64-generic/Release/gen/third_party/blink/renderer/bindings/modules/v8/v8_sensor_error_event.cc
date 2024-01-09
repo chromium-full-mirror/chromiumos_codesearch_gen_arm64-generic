@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SensorErrorEvent>::value,
     "SensorErrorEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SensorErrorEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SensorErrorEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("SensorErrorEvent.error.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SensorErrorEvent* blink_receiver = V8SensorErrorEvent::ToWrappableUnsafe(v8_receiver);
+SensorErrorEvent* blink_receiver = V8SensorErrorEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->error();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("SensorErrorEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SensorErrorEvent* blink_receiver = V8SensorErrorEvent::ToWrappableUnsafe(v8_receiver);
+SensorErrorEvent* blink_receiver = V8SensorErrorEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

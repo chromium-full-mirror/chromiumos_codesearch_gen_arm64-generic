@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -59,8 +60,8 @@ struct CreateParameters {
   ~CreateParameters();
   CreateParameters(const CreateParameters&) = delete;
   CreateParameters& operator=(const CreateParameters&) = delete;
-  CreateParameters(CreateParameters&& rhs);
-  CreateParameters& operator=(CreateParameters&& rhs);
+  CreateParameters(CreateParameters&& rhs) noexcept;
+  CreateParameters& operator=(CreateParameters&& rhs) noexcept;
 
   // Populates a CreateParameters object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -73,16 +74,13 @@ struct CreateParameters {
   // Creates a deep copy of CreateParameters.
   CreateParameters Clone() const;
 
-  // Creates a CreateParameters object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CreateParameters> FromValueDeprecated(const base::Value& value);
-
   // Creates a CreateParameters object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CreateParameters> FromValue(const base::Value::Dict& value);
+  static std::optional<CreateParameters> FromValue(const base::Value::Dict& value);
 
   // Creates a CreateParameters object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CreateParameters> FromValue(const base::Value& value);
+  static std::optional<CreateParameters> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateParameters object.
@@ -108,11 +106,11 @@ struct CreateParameters {
 namespace CreateDocument {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The parameters describing the offscreen document to create.

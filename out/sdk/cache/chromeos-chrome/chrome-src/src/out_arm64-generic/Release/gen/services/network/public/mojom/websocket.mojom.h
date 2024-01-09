@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/websocket.mojom-features.h"
 #include "services/network/public/mojom/websocket.mojom-shared.h"
 #include "services/network/public/mojom/websocket.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -84,7 +85,7 @@ class WebSocketAuthenticationHandler
   virtual ~WebSocketAuthenticationHandler() = default;
 
 
-  using OnAuthRequiredCallback = base::OnceCallback<void(const absl::optional<::net::AuthCredentials>&)>;
+  using OnAuthRequiredCallback = base::OnceCallback<void(const std::optional<::net::AuthCredentials>&)>;
   
   virtual void OnAuthRequired(const ::net::AuthChallengeInfo& info, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, const ::net::IPEndPoint& remote_endpoint, OnAuthRequiredCallback callback) = 0;
 };

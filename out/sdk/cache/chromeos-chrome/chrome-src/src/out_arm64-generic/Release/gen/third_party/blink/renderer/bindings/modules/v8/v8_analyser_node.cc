@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AnalyserNode>::value,
     "AnalyserNode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AnalyserNode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AnalyserNode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnalyserNode.fftSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fftSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -105,9 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnalyserNode.fftSize.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AnalyserNode";
@@ -131,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnalyserNode.frequencyBinCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->frequencyBinCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -145,8 +142,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnalyserNode.minDecibels.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->minDecibels();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -158,9 +156,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnalyserNode.minDecibels.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AnalyserNode";
@@ -184,8 +182,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnalyserNode.maxDecibels.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxDecibels();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -197,9 +196,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnalyserNode.maxDecibels.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AnalyserNode";
@@ -223,8 +222,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnalyserNode.smoothingTimeConstant.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->smoothingTimeConstant();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -236,9 +236,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnalyserNode.smoothingTimeConstant.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "AnalyserNode";
@@ -331,7 +331,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_array = NativeValueTraits<NotShared<DOMUint8Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -367,7 +367,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_array = NativeValueTraits<NotShared<DOMUint8Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -403,7 +403,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_array = NativeValueTraits<NotShared<DOMFloat32Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -439,7 +439,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(v8_receiver);
+AnalyserNode* blink_receiver = V8AnalyserNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_array = NativeValueTraits<NotShared<DOMFloat32Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

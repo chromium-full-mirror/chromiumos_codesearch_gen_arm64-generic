@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -166,14 +167,17 @@ void StructuredHeadersParserProxy::ParseItem(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStructuredHeadersParser_ParseItem_Name, kFlags, 0, 0, nullptr);
@@ -215,14 +219,17 @@ void StructuredHeadersParserProxy::ParseList(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStructuredHeadersParser_ParseList_Name, kFlags, 0, 0, nullptr);
@@ -297,7 +304,7 @@ class StructuredHeadersParser_ParseItem_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      absl::optional<::net::structured_headers::ParameterizedItem> in_result);
+      std::optional<::net::structured_headers::ParameterizedItem> in_result);
 };
 
 bool StructuredHeadersParser_ParseItem_ForwardToCallback::Accept(
@@ -310,7 +317,7 @@ bool StructuredHeadersParser_ParseItem_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::net::structured_headers::ParameterizedItem> p_result{};
+  std::optional<::net::structured_headers::ParameterizedItem> p_result{};
   StructuredHeadersParser_ParseItem_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -329,7 +336,7 @@ std::move(p_result));
 }
 
 void StructuredHeadersParser_ParseItem_ProxyToResponder::Run(
-    absl::optional<::net::structured_headers::ParameterizedItem> in_result) {
+    std::optional<::net::structured_headers::ParameterizedItem> in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply data_decoder::mojom::StructuredHeadersParser::ParseItem", "async_response_parameters",
@@ -337,13 +344,14 @@ void StructuredHeadersParser_ParseItem_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type absl::optional<::net::structured_headers::ParameterizedItem>>");
+                        "<value of type std::optional<::net::structured_headers::ParameterizedItem>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStructuredHeadersParser_ParseItem_Name, kFlags, 0, 0, nullptr);
@@ -421,7 +429,7 @@ class StructuredHeadersParser_ParseList_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      absl::optional<std::vector<::net::structured_headers::ParameterizedMember>> in_result);
+      std::optional<std::vector<::net::structured_headers::ParameterizedMember>> in_result);
 };
 
 bool StructuredHeadersParser_ParseList_ForwardToCallback::Accept(
@@ -434,7 +442,7 @@ bool StructuredHeadersParser_ParseList_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<::net::structured_headers::ParameterizedMember>> p_result{};
+  std::optional<std::vector<::net::structured_headers::ParameterizedMember>> p_result{};
   StructuredHeadersParser_ParseList_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -453,7 +461,7 @@ std::move(p_result));
 }
 
 void StructuredHeadersParser_ParseList_ProxyToResponder::Run(
-    absl::optional<std::vector<::net::structured_headers::ParameterizedMember>> in_result) {
+    std::optional<std::vector<::net::structured_headers::ParameterizedMember>> in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply data_decoder::mojom::StructuredHeadersParser::ParseList", "async_response_parameters",
@@ -461,13 +469,14 @@ void StructuredHeadersParser_ParseList_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type absl::optional<std::vector<::net::structured_headers::ParameterizedMember>>>");
+                        "<value of type std::optional<std::vector<::net::structured_headers::ParameterizedMember>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStructuredHeadersParser_ParseList_Name, kFlags, 0, 0, nullptr);
@@ -587,12 +596,12 @@ std::move(p_header), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStructuredHeadersParserValidationInfo[] = {
-    {&internal::StructuredHeadersParser_ParseItem_Params_Data::Validate,
+    { &internal::StructuredHeadersParser_ParseItem_Params_Data::Validate,
      &internal::StructuredHeadersParser_ParseItem_ResponseParams_Data::Validate},
-    {&internal::StructuredHeadersParser_ParseList_Params_Data::Validate,
+    { &internal::StructuredHeadersParser_ParseList_Params_Data::Validate,
      &internal::StructuredHeadersParser_ParseList_ResponseParams_Data::Validate},
 };
 
@@ -634,14 +643,14 @@ StructuredHeadersParserAsyncWaiter::StructuredHeadersParserAsyncWaiter(
 StructuredHeadersParserAsyncWaiter::~StructuredHeadersParserAsyncWaiter() = default;
 
 void StructuredHeadersParserAsyncWaiter::ParseItem(
-    const std::string& header, absl::optional<::net::structured_headers::ParameterizedItem>* out_result) {
+    const std::string& header, std::optional<::net::structured_headers::ParameterizedItem>* out_result) {
   base::RunLoop loop;
   proxy_->ParseItem(std::move(header),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::net::structured_headers::ParameterizedItem>* out_result
+             std::optional<::net::structured_headers::ParameterizedItem>* out_result
 ,
-             absl::optional<::net::structured_headers::ParameterizedItem> result) {*out_result = std::move(result);
+             std::optional<::net::structured_headers::ParameterizedItem> result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
@@ -649,22 +658,22 @@ void StructuredHeadersParserAsyncWaiter::ParseItem(
   loop.Run();
 }
 
-absl::optional<::net::structured_headers::ParameterizedItem> StructuredHeadersParserAsyncWaiter::ParseItem(
+std::optional<::net::structured_headers::ParameterizedItem> StructuredHeadersParserAsyncWaiter::ParseItem(
     const std::string& header) {
-  absl::optional<::net::structured_headers::ParameterizedItem> async_wait_result;
+  std::optional<::net::structured_headers::ParameterizedItem> async_wait_result;
   ParseItem(std::move(header),&async_wait_result);
   return async_wait_result;
 }
 
 void StructuredHeadersParserAsyncWaiter::ParseList(
-    const std::string& header, absl::optional<std::vector<::net::structured_headers::ParameterizedMember>>* out_result) {
+    const std::string& header, std::optional<std::vector<::net::structured_headers::ParameterizedMember>>* out_result) {
   base::RunLoop loop;
   proxy_->ParseList(std::move(header),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<::net::structured_headers::ParameterizedMember>>* out_result
+             std::optional<std::vector<::net::structured_headers::ParameterizedMember>>* out_result
 ,
-             absl::optional<std::vector<::net::structured_headers::ParameterizedMember>> result) {*out_result = std::move(result);
+             std::optional<std::vector<::net::structured_headers::ParameterizedMember>> result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
@@ -672,9 +681,9 @@ void StructuredHeadersParserAsyncWaiter::ParseList(
   loop.Run();
 }
 
-absl::optional<std::vector<::net::structured_headers::ParameterizedMember>> StructuredHeadersParserAsyncWaiter::ParseList(
+std::optional<std::vector<::net::structured_headers::ParameterizedMember>> StructuredHeadersParserAsyncWaiter::ParseList(
     const std::string& header) {
-  absl::optional<std::vector<::net::structured_headers::ParameterizedMember>> async_wait_result;
+  std::optional<std::vector<::net::structured_headers::ParameterizedMember>> async_wait_result;
   ParseList(std::move(header),&async_wait_result);
   return async_wait_result;
 }

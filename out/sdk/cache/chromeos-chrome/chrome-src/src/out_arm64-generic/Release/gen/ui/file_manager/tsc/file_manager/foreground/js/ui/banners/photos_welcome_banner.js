@@ -1,12 +1,7 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
-import { VolumeManagerCommon } from '../../../../common/js/volume_manager_types.js';
+import { PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID, VolumeType } from '../../../../common/js/volume_manager_types.js';
 import { EducationalBanner } from './educational_banner.js';
 import { getTemplate } from './photos_welcome_banner.html.js';
 /**
@@ -33,8 +28,8 @@ export class PhotosWelcomeBanner extends EducationalBanner {
      */
     allowedVolumes() {
         return [{
-                type: VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER,
-                id: VolumeManagerCommon.PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID,
+                type: VolumeType.DOCUMENTS_PROVIDER,
+                id: PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID,
             }];
     }
 }

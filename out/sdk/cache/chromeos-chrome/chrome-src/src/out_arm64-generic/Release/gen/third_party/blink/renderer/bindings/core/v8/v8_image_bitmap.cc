@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ImageBitmap>::value,
     "ImageBitmap inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ImageBitmap::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ImageBitmap is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageBitmap.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageBitmap* blink_receiver = V8ImageBitmap::ToWrappableUnsafe(v8_receiver);
+ImageBitmap* blink_receiver = V8ImageBitmap::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageBitmap.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageBitmap* blink_receiver = V8ImageBitmap::ToWrappableUnsafe(v8_receiver);
+ImageBitmap* blink_receiver = V8ImageBitmap::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -116,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageBitmap.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageBitmap* blink_receiver = V8ImageBitmap::ToWrappableUnsafe(v8_receiver);
+ImageBitmap* blink_receiver = V8ImageBitmap::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }

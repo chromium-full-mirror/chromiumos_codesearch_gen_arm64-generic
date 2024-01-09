@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/compatibility_mode.mojom-features.h"
 #include "ash/components/arc/mojom/compatibility_mode.mojom-shared.h"
 #include "ash/components/arc/mojom/compatibility_mode.mojom-forward.h"
 #include <string>
@@ -55,7 +56,7 @@ class CompatibilityModeInstance
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 1;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -69,7 +70,7 @@ class CompatibilityModeInstance
   using ResponseValidator_ = CompatibilityModeInstanceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kSetResizeLockStateMinVersion = 0,
-    kIsGioApplicableMinVersion = 1,
+    kIsOptimizedForCrosAppMinVersion = 2,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -78,7 +79,7 @@ class CompatibilityModeInstance
   struct SetResizeLockState_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct IsGioApplicable_Sym {
+  struct IsOptimizedForCrosApp_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -88,9 +89,9 @@ class CompatibilityModeInstance
   virtual void SetResizeLockState(const std::string& package_name, ArcResizeLockState state) = 0;
 
 
-  using IsGioApplicableCallback = base::OnceCallback<void(bool)>;
+  using IsOptimizedForCrosAppCallback = base::OnceCallback<void(bool)>;
   
-  virtual void IsGioApplicable(const std::string& package_name, IsGioApplicableCallback callback) = 0;
+  virtual void IsOptimizedForCrosApp(const std::string& package_name, IsOptimizedForCrosAppCallback callback) = 0;
 };
 
 
@@ -104,7 +105,7 @@ class  CompatibilityModeInstanceProxy
   
   void SetResizeLockState(const std::string& package_name, ArcResizeLockState state) final;
   
-  void IsGioApplicable(const std::string& package_name, IsGioApplicableCallback callback) final;
+  void IsOptimizedForCrosApp(const std::string& package_name, IsOptimizedForCrosAppCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

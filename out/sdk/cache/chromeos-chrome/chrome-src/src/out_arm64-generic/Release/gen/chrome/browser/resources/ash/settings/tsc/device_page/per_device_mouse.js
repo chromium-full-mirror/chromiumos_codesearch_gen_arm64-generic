@@ -18,7 +18,7 @@ import 'chrome://resources/cr_elements/cr_slider/cr_slider.js';
 import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { routes } from '../router.js';
 import { getDeviceStateChangesToAnnounce } from './input_device_settings_utils.js';
 import { getTemplate } from './per_device_mouse.html.js';

@@ -28,7 +28,7 @@ class  KeystoreServiceInterceptorForTesting : public KeystoreService {
   void GetKeyTags(const std::vector<uint8_t>& public_key, GetKeyTagsCallback callback) override;
   void AddKeyTags(const std::vector<uint8_t>& public_key, uint64_t tags, AddKeyTagsCallback callback) override;
   void CanUserGrantPermissionForKey(const std::vector<uint8_t>& public_key, CanUserGrantPermissionForKeyCallback callback) override;
-  void DEPRECATED_ExtensionGenerateKey(KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const absl::optional<std::string>& extension_id, DEPRECATED_ExtensionGenerateKeyCallback callback) override;
+  void DEPRECATED_ExtensionGenerateKey(KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const std::optional<std::string>& extension_id, DEPRECATED_ExtensionGenerateKeyCallback callback) override;
   void DEPRECATED_ExtensionSign(KeystoreType keystore, const std::vector<uint8_t>& public_key, KeystoreSigningScheme scheme, const std::vector<uint8_t>& data, const std::string& extension_id, DEPRECATED_ExtensionSignCallback callback) override;
   void DEPRECATED_GetPublicKey(const std::vector<uint8_t>& certificate, KeystoreSigningAlgorithmName algorithm_name, DEPRECATED_GetPublicKeyCallback callback) override;
   void DEPRECATED_GetKeyStores(DEPRECATED_GetKeyStoresCallback callback) override;
@@ -85,8 +85,8 @@ class  KeystoreServiceAsyncWaiter {
       const std::vector<uint8_t>& public_key, bool* out_is_allowed);
   bool CanUserGrantPermissionForKey(const std::vector<uint8_t>& public_key);
   void DEPRECATED_ExtensionGenerateKey(
-      KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const absl::optional<std::string>& extension_id, DEPRECATED_ExtensionKeystoreBinaryResultPtr* out_result);
-  DEPRECATED_ExtensionKeystoreBinaryResultPtr DEPRECATED_ExtensionGenerateKey(KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const absl::optional<std::string>& extension_id);
+      KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const std::optional<std::string>& extension_id, DEPRECATED_ExtensionKeystoreBinaryResultPtr* out_result);
+  DEPRECATED_ExtensionKeystoreBinaryResultPtr DEPRECATED_ExtensionGenerateKey(KeystoreType keystore, KeystoreSigningAlgorithmPtr algorithm, const std::optional<std::string>& extension_id);
   void DEPRECATED_ExtensionSign(
       KeystoreType keystore, const std::vector<uint8_t>& public_key, KeystoreSigningScheme scheme, const std::vector<uint8_t>& data, const std::string& extension_id, DEPRECATED_ExtensionKeystoreBinaryResultPtr* out_result);
   DEPRECATED_ExtensionKeystoreBinaryResultPtr DEPRECATED_ExtensionSign(KeystoreType keystore, const std::vector<uint8_t>& public_key, KeystoreSigningScheme scheme, const std::vector<uint8_t>& data, const std::string& extension_id);

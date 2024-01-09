@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -207,14 +208,17 @@ void PrivateAggregationHostProxy::ContributeToHistogram(
                         "<value of type WTF::Vector<::blink::mojom::blink::AggregatableReportHistogramContributionPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrivateAggregationHost_ContributeToHistogram_Name, kFlags, 0, 0, nullptr);
@@ -257,14 +261,17 @@ void PrivateAggregationHostProxy::EnableDebugMode(
                         "<value of type DebugKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrivateAggregationHost_EnableDebugMode_Name, kFlags, 0, 0, nullptr);
@@ -368,12 +375,12 @@ bool PrivateAggregationHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrivateAggregationHostValidationInfo[] = {
-    {&internal::PrivateAggregationHost_ContributeToHistogram_Params_Data::Validate,
+    { &internal::PrivateAggregationHost_ContributeToHistogram_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrivateAggregationHost_EnableDebugMode_Params_Data::Validate,
+    { &internal::PrivateAggregationHost_EnableDebugMode_Params_Data::Validate,
      nullptr /* no response */},
 };
 

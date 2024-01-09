@@ -1,27 +1,25 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #disconnectGoogleDriveAccountToggle{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}#smbSharesIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}</style>
 
 <settings-card header-text="$i18n{filesPageTitle}">
-  <template is="dom-if" if="[[!shouldShowGoogleDriveSettings_]]">
-    <settings-toggle-button id="disconnectGoogleDriveAccountToggle" pref="{{prefs.gdata.disabled}}" label="$i18n{disconnectGoogleDriveAccount}" deep-link-focus-id$="[[Setting.kGoogleDriveConnection]]">
-    </settings-toggle-button>
-  </template>
-  <template is="dom-if" if="[[shouldShowGoogleDriveSettings_]]">
-    <cr-link-row id="googleDriveRow" start-icon="settings20:google-drive" class="hr" on-click="onClickGoogleDrive_" label="$i18n{googleDriveLabel}" sub-label="[[computeGoogleDriveSublabel_(driveDisabled_, bulkPinningPrefEnabled_)]]" role-description="$i18n{subpageArrowRoleDescription}">
-    </cr-link-row>
-  </template>
+  <cr-link-row id="googleDriveRow" start-icon="[[rowIcons_.googleDrive]]" on-click="onClickGoogleDrive_" label="$i18n{googleDriveLabel}" role-description="$i18n{subpageArrowRoleDescription}">
+      <div id="googleDriveSubLabel" slot="sub-label" inner-h-t-m-l="[[getGoogleDriveSubLabelInnerHtml_(driveDisabled_, bulkPinningPrefEnabled_)]]">
+      </div>
+  </cr-link-row>
 
   <template is="dom-if" if="[[shouldShowOfficeSettings_]]">
-    <cr-link-row id="oneDriveRow" start-icon="settings20:onedrive" class="hr" on-click="onClickOneDrive_" label="$i18n{oneDriveLabel}" sub-label="[[computeOneDriveSignedInLabel_(oneDriveConnectionState_)]]" role-description="$i18n{subpageArrowRoleDescription}">
+    <cr-link-row id="oneDriveRow" start-icon="[[rowIcons_.oneDrive]]" class="hr" on-click="onClickOneDrive_" label="$i18n{oneDriveLabel}" sub-label="[[computeOneDriveSignedInLabel_(oneDriveConnectionState_)]]" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
-    <cr-link-row id="officeRow" class="hr" on-click="onClickOffice_" label="$i18n{officeLabel}" sub-label="$i18n{officeSublabel}" role-description="$i18n{subpageArrowRoleDescription}">
+    <cr-link-row id="officeRow" class="hr" start-icon="[[rowIcons_.ms365]]" on-click="onClickOffice_" label="$i18n{officeLabel}" sub-label="$i18n{officeSublabel}" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
   </template>
 
   <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
     <template is="dom-if" if="[[shouldShowAddSmbButton_]]" restamp>
       <div id="addSmbSharesRow" class="settings-box two-line">
+        <iron-icon id="smbSharesIcon" icon="[[rowIcons_.smbShares]]">
+        </iron-icon>
         <div class="start">
           <div class="settings-box-text">
             <div>
@@ -40,7 +38,7 @@ export function getTemplate() {
   </template>
 
   <template is="dom-if" if="[[computeShowSmbLinkRow_(shouldShowAddSmbButton_)]]" restamp>
-    <cr-link-row id="smbSharesRow" class="hr" on-click="onClickSmbShares_" label="$i18n{smbSharesTitle}" role-description="$i18n{subpageArrowRoleDescription}">
+    <cr-link-row id="smbSharesRow" start-icon="[[rowIcons_.smbShares]]" class="hr" on-click="onClickSmbShares_" label="$i18n{smbSharesTitle}" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
   </template>
 </settings-card>

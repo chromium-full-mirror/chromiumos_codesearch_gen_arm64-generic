@@ -30,6 +30,8 @@ enum class CpuRestrictionState : int32_t;
 enum class DisplayWakeLockType : int32_t;
 
 enum class WakefulnessMode : int32_t;
+
+enum class IdleState : int32_t;
 class BatterySaverModeState;
 using BatterySaverModeStatePtr = mojo::InlinedStructPtr<BatterySaverModeState>;
 

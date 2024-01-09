@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -75,7 +76,7 @@ DevToolsSessionState::DevToolsSessionState()
     : entries() {}
 
 DevToolsSessionState::DevToolsSessionState(
-    const base::flat_map<std::string, absl::optional<std::vector<uint8_t>>>& entries_in)
+    const base::flat_map<std::string, std::optional<std::vector<uint8_t>>>& entries_in)
     : entries(std::move(entries_in)) {}
 
 DevToolsSessionState::~DevToolsSessionState() = default;
@@ -87,7 +88,7 @@ void DevToolsSessionState::WriteIntoTrace(
     dict.AddItem(
       "entries"), this->entries,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const base::flat_map<std::string, absl::optional<std::vector<uint8_t>>>&>"
+      "<value of type const base::flat_map<std::string, std::optional<std::vector<uint8_t>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -283,14 +284,17 @@ void DevToolsAgentProxy::AttachDevToolsSession(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsAgent_AttachDevToolsSession_Name, kFlags, 0, 0, nullptr);
@@ -359,14 +363,17 @@ void DevToolsAgentProxy::InspectElement(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsAgent_InspectElement_Name, kFlags, 0, 0, nullptr);
@@ -410,14 +417,17 @@ void DevToolsAgentProxy::ReportChildTargets(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsAgent_ReportChildTargets_Name, kFlags, 0, 0, nullptr);
@@ -450,14 +460,17 @@ void DevToolsAgentProxy::GetUniqueFormControlId(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsAgent_GetUniqueFormControlId_Name, kFlags, 0, 0, nullptr);
@@ -557,7 +570,8 @@ void DevToolsAgent_ReportChildTargets_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsAgent_ReportChildTargets_Name, kFlags, 0, 0, nullptr);
@@ -674,7 +688,8 @@ void DevToolsAgent_GetUniqueFormControlId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsAgent_GetUniqueFormControlId_Name, kFlags, 0, 0, nullptr);
@@ -882,16 +897,16 @@ std::move(p_nodeId), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevToolsAgentValidationInfo[] = {
-    {&internal::DevToolsAgent_AttachDevToolsSession_Params_Data::Validate,
+    { &internal::DevToolsAgent_AttachDevToolsSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsAgent_InspectElement_Params_Data::Validate,
+    { &internal::DevToolsAgent_InspectElement_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsAgent_ReportChildTargets_Params_Data::Validate,
+    { &internal::DevToolsAgent_ReportChildTargets_Params_Data::Validate,
      &internal::DevToolsAgent_ReportChildTargets_ResponseParams_Data::Validate},
-    {&internal::DevToolsAgent_GetUniqueFormControlId_Params_Data::Validate,
+    { &internal::DevToolsAgent_GetUniqueFormControlId_Params_Data::Validate,
      &internal::DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data::Validate},
 };
 
@@ -1033,14 +1048,17 @@ void DevToolsAgentHostProxy::ChildTargetCreated(
                         "<value of type DevToolsExecutionContextType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsAgentHost_ChildTargetCreated_Name, kFlags, 0, 0, nullptr);
@@ -1111,14 +1129,17 @@ void DevToolsAgentHostProxy::MainThreadDebuggerPaused(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::DevToolsAgentHost::MainThreadDebuggerPaused");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsAgentHost_MainThreadDebuggerPaused_Name, kFlags, 0, 0, nullptr);
@@ -1141,14 +1162,17 @@ void DevToolsAgentHostProxy::MainThreadDebuggerResumed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::DevToolsAgentHost::MainThreadDebuggerResumed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsAgentHost_MainThreadDebuggerResumed_Name, kFlags, 0, 0, nullptr);
@@ -1294,14 +1318,14 @@ bool DevToolsAgentHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevToolsAgentHostValidationInfo[] = {
-    {&internal::DevToolsAgentHost_ChildTargetCreated_Params_Data::Validate,
+    { &internal::DevToolsAgentHost_ChildTargetCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsAgentHost_MainThreadDebuggerPaused_Params_Data::Validate,
+    { &internal::DevToolsAgentHost_MainThreadDebuggerPaused_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsAgentHost_MainThreadDebuggerResumed_Params_Data::Validate,
+    { &internal::DevToolsAgentHost_MainThreadDebuggerResumed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1387,14 +1411,17 @@ void DevToolsSessionProxy::DispatchProtocolCommand(
                         "<value of type ::base::span<const ::uint8_t>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsSession_DispatchProtocolCommand_Name, kFlags, 0, 0, nullptr);
@@ -1493,10 +1520,10 @@ bool DevToolsSessionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevToolsSessionValidationInfo[] = {
-    {&internal::DevToolsSession_DispatchProtocolCommand_Params_Data::Validate,
+    { &internal::DevToolsSession_DispatchProtocolCommand_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1602,14 +1629,17 @@ void DevToolsSessionHostProxy::DispatchProtocolResponse(
                         "<value of type DevToolsSessionStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsSessionHost_DispatchProtocolResponse_Name, kFlags, 0, 0,
@@ -1662,14 +1692,17 @@ void DevToolsSessionHostProxy::DispatchProtocolNotification(
                         "<value of type DevToolsSessionStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsSessionHost_DispatchProtocolNotification_Name, kFlags, 0, 0,
@@ -1797,12 +1830,12 @@ bool DevToolsSessionHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevToolsSessionHostValidationInfo[] = {
-    {&internal::DevToolsSessionHost_DispatchProtocolResponse_Params_Data::Validate,
+    { &internal::DevToolsSessionHost_DispatchProtocolResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsSessionHost_DispatchProtocolNotification_Params_Data::Validate,
+    { &internal::DevToolsSessionHost_DispatchProtocolNotification_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -19,8 +19,10 @@ build build.ninja: phony build.ninja.stamp
 subninja toolchain.ninja
 
 build libhwsec-foundation: phony ./lib/libhwsec-foundation.so
+build _hwsec_status-install_config: phony obj/libhwsec-foundation/_hwsec_status-install_config.stamp
 build _libhwsec-foundation-install_config: phony obj/libhwsec-foundation/_libhwsec-foundation-install_config.stamp
 build _libhwsec-profiling-install_config: phony obj/libhwsec-foundation/_libhwsec-profiling-install_config.stamp
+build _tpm_clear_request-install_config: phony obj/libhwsec-foundation/_tpm_clear_request-install_config.stamp
 build _tpm_version_client-install_config: phony obj/libhwsec-foundation/_tpm_version_client-install_config.stamp
 build install_headers: phony obj/libhwsec-foundation/install_headers.stamp
 build install_hwsec_shutdown_signal: phony obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp
@@ -35,16 +37,19 @@ build install_tpm_version: phony obj/libhwsec-foundation/install_tpm_version.sta
 build install_utility_headers: phony obj/libhwsec-foundation/install_utility_headers.stamp
 build install_vpd_reader_headers: phony obj/libhwsec-foundation/install_vpd_reader_headers.stamp
 build libhwsec-profiling: phony ./libhwsec-profiling.a
+build print_tool_proto_library: phony obj/libhwsec-foundation/print_tool_proto_library.stamp
+build proto_library: phony ./libproto_library.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
+build tool_proto: phony ./libtool_proto.a
+build tool_proto_gen: phony obj/libhwsec-foundation/tool_proto_gen.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
+build libhwsec-foundation$:_hwsec_status-install_config: phony obj/libhwsec-foundation/_hwsec_status-install_config.stamp
 build libhwsec-foundation$:_libhwsec-foundation-install_config: phony obj/libhwsec-foundation/_libhwsec-foundation-install_config.stamp
 build libhwsec-foundation$:_libhwsec-profiling-install_config: phony obj/libhwsec-foundation/_libhwsec-profiling-install_config.stamp
+build libhwsec-foundation$:_tpm_clear_request-install_config: phony obj/libhwsec-foundation/_tpm_clear_request-install_config.stamp
 build libhwsec-foundation$:_tpm_version_client-install_config: phony obj/libhwsec-foundation/_tpm_version_client-install_config.stamp
 build libhwsec-foundation$:all: phony obj/libhwsec-foundation/all.stamp
-build libhwsec-foundation$:hwsec-foundation_testrunner: phony ./hwsec-foundation_testrunner
+build libhwsec-foundation$:hwsec_status: phony ./hwsec_status
 build libhwsec-foundation$:install_headers: phony obj/libhwsec-foundation/install_headers.stamp
 build libhwsec-foundation$:install_hwsec_shutdown_signal: phony obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp
 build libhwsec-foundation$:install_no_tpm_checker: phony obj/libhwsec-foundation/install_no_tpm_checker.stamp
@@ -59,16 +64,22 @@ build libhwsec-foundation$:install_utility_headers: phony obj/libhwsec-foundatio
 build libhwsec-foundation$:install_vpd_reader_headers: phony obj/libhwsec-foundation/install_vpd_reader_headers.stamp
 build libhwsec-foundation$:libhwsec-foundation: phony ./lib/libhwsec-foundation.so
 build libhwsec-foundation$:libhwsec-profiling: phony ./libhwsec-profiling.a
+build libhwsec-foundation$:print_tool_proto_library: phony obj/libhwsec-foundation/print_tool_proto_library.stamp
+build libhwsec-foundation$:proto_library: phony ./libproto_library.a
+build libhwsec-foundation$:tool_proto: phony ./libtool_proto.a
+build libhwsec-foundation$:tool_proto_gen: phony obj/libhwsec-foundation/tool_proto_gen.stamp
+build libhwsec-foundation$:tpm_clear_request: phony ./tpm_clear_request
 build libhwsec-foundation$:tpm_version_client: phony ./tpm_version_client
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
+    obj/libhwsec-foundation/_hwsec_status-install_config.stamp $
     obj/libhwsec-foundation/_libhwsec-foundation-install_config.stamp $
     obj/libhwsec-foundation/_libhwsec-profiling-install_config.stamp $
+    obj/libhwsec-foundation/_tpm_clear_request-install_config.stamp $
     obj/libhwsec-foundation/_tpm_version_client-install_config.stamp $
     obj/libhwsec-foundation/all.stamp $
-    ./hwsec-foundation_testrunner $
+    ./hwsec_status $
     obj/libhwsec-foundation/install_headers.stamp $
     obj/libhwsec-foundation/install_hwsec_shutdown_signal.stamp $
     obj/libhwsec-foundation/install_no_tpm_checker.stamp $
@@ -83,6 +94,11 @@ build all: phony $
     obj/libhwsec-foundation/install_vpd_reader_headers.stamp $
     ./lib/libhwsec-foundation.so $
     ./libhwsec-profiling.a $
+    obj/libhwsec-foundation/print_tool_proto_library.stamp $
+    ./libproto_library.a $
+    ./libtool_proto.a $
+    obj/libhwsec-foundation/tool_proto_gen.stamp $
+    ./tpm_clear_request $
     ./tpm_version_client
 
 default all

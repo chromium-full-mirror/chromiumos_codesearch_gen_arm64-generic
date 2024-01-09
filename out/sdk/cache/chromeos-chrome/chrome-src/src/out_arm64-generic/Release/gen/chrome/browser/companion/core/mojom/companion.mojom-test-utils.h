@@ -43,9 +43,10 @@ class  CompanionPageHandlerInterceptorForTesting : public CompanionPageHandler {
   void OnCqCandidatesAvailable(const std::vector<std::string>& text_directives) override;
   void OnPhFeedback(PhFeedback ph_feedback) override;
   void OnCqJumptagClicked(const std::string& text_directive) override;
-  void OpenUrlInBrowser(const absl::optional<::GURL>& url_to_open, bool use_new_tab) override;
+  void OpenUrlInBrowser(const std::optional<::GURL>& url_to_open, bool use_new_tab) override;
   void OnLoadingState(LoadingState state) override;
   void RefreshCompanionPage() override;
+  void OnServerSideUrlFilterEvent() override;
 };
 class  CompanionPageHandlerAsyncWaiter {
  public:
@@ -70,6 +71,7 @@ class  CompanionPageInterceptorForTesting : public CompanionPage {
   void OnDeviceVisualClassificationResult(std::vector<VisualSearchResultPtr> results) override;
   void OnNavigationError() override;
   void NotifyLinkOpen(const ::GURL& opened_url, LinkOpenMetadataPtr metadata) override;
+  void UpdatePageContent(const std::string& page_title, const std::string& inner_html) override;
 };
 class  CompanionPageAsyncWaiter {
  public:

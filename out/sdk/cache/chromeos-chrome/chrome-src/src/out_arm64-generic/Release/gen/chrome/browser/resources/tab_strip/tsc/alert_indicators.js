@@ -10,6 +10,8 @@ export class AlertIndicatorsElement extends CustomElement {
     static get template() {
         return getTemplate();
     }
+    containerEl_;
+    alertIndicators_;
     constructor() {
         super();
         this.containerEl_ = this.$('#container');
@@ -17,6 +19,8 @@ export class AlertIndicatorsElement extends CustomElement {
         const recordingIndicator = new AlertIndicatorElement();
         this.alertIndicators_ = new Map([
             [TabAlertState.kMediaRecording, recordingIndicator],
+            [TabAlertState.kAudioRecording, recordingIndicator],
+            [TabAlertState.kVideoRecording, recordingIndicator],
             [TabAlertState.kTabCapturing, new AlertIndicatorElement()],
             [TabAlertState.kAudioPlaying, audioIndicator],
             [TabAlertState.kAudioMuting, audioIndicator],

@@ -17,10 +17,11 @@ import './shared_style.css.js';
 import './side_bar.js';
 import './toolbar.js';
 import { focusWithoutInk } from '//resources/js/focus_without_ink.js';
+import { loadTimeData } from '//resources/js/load_time_data.js';
 import { CrContainerShadowMixin } from 'chrome://resources/cr_elements/cr_container_shadow_mixin.js';
 import { FindShortcutMixin } from 'chrome://resources/cr_elements/find_shortcut_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { getDeepActiveElement, listenOnce } from 'chrome://resources/js/util_ts.js';
+import { getDeepActiveElement, listenOnce } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './password_manager_app.html.js';
 import { PasswordManagerImpl } from './password_manager_proxy.js';
@@ -38,6 +39,10 @@ function isEditable(element) {
 }
 const PasswordManagerAppElementBase = FindShortcutMixin(I18nMixin(CrContainerShadowMixin(RouteObserverMixin(PolymerElement))));
 export class PasswordManagerAppElement extends PasswordManagerAppElementBase {
+    constructor() {
+        super(...arguments);
+        this.pageTitle_ = this.i18n('passwordManagerTitle');
+    }
     static get is() {
         return 'password-manager-app';
     }
@@ -53,7 +58,14 @@ export class PasswordManagerAppElement extends PasswordManagerAppElementBase {
             selectedPage_: String,
             narrow_: {
                 type: Boolean,
-                observer: 'onNarrowChanged_',
+                observer: 'onMaxWidthChanged_',
+            },
+            collapsed_: {
+                type: Boolean,
+                observer: 'onMaxWidthChanged_',
+            },
+            pageTitle_: {
+                type: String,
             },
             /*
              * Mirroring the enum so that it can be used from HTML bindings.
@@ -84,6 +96,20 @@ export class PasswordManagerAppElement extends PasswordManagerAppElementBase {
     }
     ready() {
         super.ready();
+        window.CrPolicyStrings = {
+            controlledSettingExtension: loadTimeData.getString('controlledSettingExtension'),
+            controlledSettingExtensionWithoutName: loadTimeData.getString('controlledSettingExtensionWithoutName'),
+            controlledSettingPolicy: loadTimeData.getString('controlledSettingPolicy'),
+            controlledSettingRecommendedMatches: loadTimeData.getString('controlledSettingRecommendedMatches'),
+            controlledSettingRecommendedDiffers: loadTimeData.getString('controlledSettingRecommendedDiffers'),
+            controlledSettingChildRestriction: loadTimeData.getString('controlledSettingChildRestriction'),
+            controlledSettingParent: loadTimeData.getString('controlledSettingParent'),
+            // 
+            controlledSettingShared: loadTimeData.getString('controlledSettingShared'),
+            controlledSettingWithOwner: loadTimeData.getString('controlledSettingWithOwner'),
+            controlledSettingNoOwner: loadTimeData.getString('controlledSettingNoOwner'),
+            // 
+        };
         document.addEventListener('keydown', e => {
             // 
             // 
@@ -127,9 +153,16 @@ export class PasswordManagerAppElement extends PasswordManagerAppElementBase {
     searchInputHasFocus() {
         return this.$.toolbar.searchField.isSearchFocused();
     }
-    onNarrowChanged_() {
+    onMaxWidthChanged_() {
         if (this.$.drawer.open && !this.narrow_) {
             this.$.drawer.close();
+        }
+        // Window is greater than 980px but less than 1200px.
+        if (!this.narrow_ && this.collapsed_) {
+            this.pageTitle_ = this.i18n('passwordManagerString');
+        }
+        else {
+            this.pageTitle_ = this.i18n('passwordManagerTitle');
         }
     }
     onMenuButtonClick_() {

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -388,6 +389,7 @@ TextureQuadState::TextureQuadState()
       secure_output_only(),
       is_stream_video(),
       is_video_frame(),
+      force_rgbx(),
       protected_video_type(),
       hdr_metadata(),
       damage_rect(),
@@ -407,9 +409,10 @@ TextureQuadState::TextureQuadState(
     bool secure_output_only_in,
     bool is_stream_video_in,
     bool is_video_frame_in,
+    bool force_rgbx_in,
     ::gfx::ProtectedVideoType protected_video_type_in,
     const ::gfx::HDRMetadata& hdr_metadata_in,
-    const absl::optional<::gfx::Rect>& damage_rect_in,
+    const std::optional<::gfx::Rect>& damage_rect_in,
     OverlayPriority overlay_priority_hint_in,
     RoundedDisplayMasksInfoPtr rounded_display_masks_info_in)
     : resource_id(std::move(resource_id_in)),
@@ -424,6 +427,7 @@ TextureQuadState::TextureQuadState(
       secure_output_only(std::move(secure_output_only_in)),
       is_stream_video(std::move(is_stream_video_in)),
       is_video_frame(std::move(is_video_frame_in)),
+      force_rgbx(std::move(force_rgbx_in)),
       protected_video_type(std::move(protected_video_type_in)),
       hdr_metadata(std::move(hdr_metadata_in)),
       damage_rect(std::move(damage_rect_in)),
@@ -545,6 +549,15 @@ void TextureQuadState::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "force_rgbx"), this->force_rgbx,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "protected_video_type"), this->protected_video_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::gfx::ProtectedVideoType>"
@@ -565,7 +578,7 @@ void TextureQuadState::WriteIntoTrace(
     dict.AddItem(
       "damage_rect"), this->damage_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -715,7 +728,7 @@ YUVVideoQuadState::YUVVideoQuadState(
     const ::gfx::ColorSpace& video_color_space_in,
     ::gfx::ProtectedVideoType protected_video_type_in,
     const ::gfx::HDRMetadata& hdr_metadata_in,
-    const absl::optional<::gfx::Rect>& damage_rect_in)
+    const std::optional<::gfx::Rect>& damage_rect_in)
     : coded_size(std::move(coded_size_in)),
       video_visible_rect(std::move(video_visible_rect_in)),
       u_scale(std::move(u_scale_in)),
@@ -867,7 +880,7 @@ void YUVVideoQuadState::WriteIntoTrace(
     dict.AddItem(
       "damage_rect"), this->damage_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -946,7 +959,7 @@ DrawQuad::DrawQuad(
     const ::gfx::Rect& rect_in,
     const ::gfx::Rect& visible_rect_in,
     bool needs_blending_in,
-    const absl::optional<::viz::SharedQuadState>& sqs_in,
+    const std::optional<::viz::SharedQuadState>& sqs_in,
     DrawQuadStatePtr draw_quad_state_in)
     : rect(std::move(rect_in)),
       visible_rect(std::move(visible_rect_in)),
@@ -990,7 +1003,7 @@ void DrawQuad::WriteIntoTrace(
     dict.AddItem(
       "sqs"), this->sqs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::viz::SharedQuadState>&>"
+      "<value of type const std::optional<::viz::SharedQuadState>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1308,6 +1321,8 @@ bool StructTraits<::viz::mojom::TextureQuadState::DataView, ::viz::mojom::Textur
         result->is_stream_video = input.is_stream_video();
       if (success)
         result->is_video_frame = input.is_video_frame();
+      if (success)
+        result->force_rgbx = input.force_rgbx();
       if (success && !input.ReadProtectedVideoType(&result->protected_video_type))
         success = false;
       if (success && !input.ReadHdrMetadata(&result->hdr_metadata))

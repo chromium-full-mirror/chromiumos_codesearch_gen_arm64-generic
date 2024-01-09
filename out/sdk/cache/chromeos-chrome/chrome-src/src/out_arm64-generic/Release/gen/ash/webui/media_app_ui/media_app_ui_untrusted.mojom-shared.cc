@@ -26,7 +26,7 @@ namespace internal {
 
 
 // static
-bool UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::Validate(
+bool UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -38,8 +38,8 @@ bool UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::Validat
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data* object =
-      static_cast<const UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data*>(data);
+  [[maybe_unused]] const UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data* object =
+      static_cast<const UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->receiver, 1, validation_context)) {
@@ -62,7 +62,67 @@ bool UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::Validat
   return true;
 }
 
-UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data()
+UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data::UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool OcrUntrustedPageHandler_ViewportUpdated_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const OcrUntrustedPageHandler_ViewportUpdated_Params_Data* object =
+      static_cast<const OcrUntrustedPageHandler_ViewportUpdated_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->viewportBox, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->viewportBox, validation_context))
+    return false;
+
+  return true;
+}
+
+OcrUntrustedPageHandler_ViewportUpdated_Params_Data::OcrUntrustedPageHandler_ViewportUpdated_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool OcrUntrustedPage_SetViewport_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const OcrUntrustedPage_SetViewport_Params_Data* object =
+      static_cast<const OcrUntrustedPage_SetViewport_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->viewportBox, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->viewportBox, validation_context))
+    return false;
+
+  return true;
+}
+
+OcrUntrustedPage_SetViewport_Params_Data::OcrUntrustedPage_SetViewport_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

@@ -296,6 +296,25 @@ has_exposure_time_ = true;
 DCHECK(member_exposure_time_);
 }
 
+bool hasEyeGazeCorrection() const {
+  return has_eye_gaze_correction_;
+}
+V8UnionBooleanOrConstrainBooleanParameters* eyeGazeCorrection() const {
+  DCHECK(hasEyeGazeCorrection());
+return member_eye_gaze_correction_.Get();
+}
+V8UnionBooleanOrConstrainBooleanParameters* getEyeGazeCorrectionOr(V8UnionBooleanOrConstrainBooleanParameters* fallback_value) const {
+  if (!hasEyeGazeCorrection()) {
+  return fallback_value;
+}
+return member_eye_gaze_correction_.Get();
+}
+void setEyeGazeCorrection(V8UnionBooleanOrConstrainBooleanParameters* value) {
+  member_eye_gaze_correction_ = value;
+has_eye_gaze_correction_ = true;
+DCHECK(member_eye_gaze_correction_);
+}
+
 bool hasFaceFraming() const {
   return has_face_framing_;
 }
@@ -791,6 +810,7 @@ bool has_echo_cancellation_ = false;
 bool has_exposure_compensation_ = false;
 bool has_exposure_mode_ = false;
 bool has_exposure_time_ = false;
+bool has_eye_gaze_correction_ = false;
 bool has_face_framing_ = false;
 bool has_facing_mode_ = false;
 bool has_focus_distance_ = false;
@@ -829,6 +849,7 @@ Member<V8UnionBooleanOrConstrainBooleanParameters> member_echo_cancellation_;
 Member<V8UnionConstrainDoubleRangeOrDouble> member_exposure_compensation_;
 Member<V8UnionConstrainDOMStringParametersOrStringOrStringSequence> member_exposure_mode_;
 Member<V8UnionConstrainDoubleRangeOrDouble> member_exposure_time_;
+Member<V8UnionBooleanOrConstrainBooleanParameters> member_eye_gaze_correction_;
 Member<V8UnionBooleanOrConstrainBooleanParameters> member_face_framing_;
 Member<V8UnionConstrainDOMStringParametersOrStringOrStringSequence> member_facing_mode_;
 Member<V8UnionConstrainDoubleRangeOrDouble> member_focus_distance_;

@@ -46,6 +46,69 @@ std::ostream& operator<<(std::ostream& os, SpeechRecognitionType value) {
 }
 
 namespace internal {
+// static
+bool ObserverOrError_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const ObserverOrError_Data* object = static_cast<const ObserverOrError_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case ObserverOrError_Tag::kObserver: {
+
+      if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+              object->data.f_observer, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateHandleOrInterface(object->data.f_observer,
+                                                     validation_context)) {
+        return false;
+      }
+      return true;
+    }
+    case ObserverOrError_Tag::kError: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_error, 2, validation_context)) {
+        return false;
+      }
+      constexpr const mojo::internal::ContainerValidateParams& error_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
+      if (!mojo::internal::ValidateContainer(object->data.f_error, validation_context,
+                                             &error_validate_params)) {
+        return false;
+      }
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in ObserverOrError");
+      return false;
+    }
+  }
+}
 
 
 // static
@@ -83,6 +146,40 @@ SpeechRecognitionResultEvent_Data::SpeechRecognitionResultEvent_Data()
 
 
 // static
+bool SpeechRecognitionErrorEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SpeechRecognitionErrorEvent_Data* object =
+      static_cast<const SpeechRecognitionErrorEvent_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->message, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->message, validation_context,
+                                         &message_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+SpeechRecognitionErrorEvent_Data::SpeechRecognitionErrorEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool StartOptions_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -97,6 +194,11 @@ bool StartOptions_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const StartOptions_Data* object =
       static_cast<const StartOptions_Data*>(data);
+
+
+  if (!::ax::mojom::internal::AssistiveTechnologyType_Data
+        ::Validate(object->type, validation_context))
+    return false;
 
   constexpr const mojo::internal::ContainerValidateParams& locale_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
@@ -128,6 +230,11 @@ bool StopOptions_Data::Validate(
   [[maybe_unused]] const StopOptions_Data* object =
       static_cast<const StopOptions_Data*>(data);
 
+
+  if (!::ax::mojom::internal::AssistiveTechnologyType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
   return true;
 }
 
@@ -142,7 +249,7 @@ bool SpeechRecognitionStartInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -156,14 +263,12 @@ bool SpeechRecognitionStartInfo_Data::Validate(
         ::Validate(object->type, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->observer, 2, validation_context)) {
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->observer_or_error, 2, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
-                                                 validation_context)) {
+  if (!mojo::internal::ValidateInlinedUnion(object->observer_or_error, validation_context))
     return false;
-  }
 
   return true;
 }
@@ -222,6 +327,36 @@ bool SpeechRecognitionEventObserver_OnResult_Params_Data::Validate(
 }
 
 SpeechRecognitionEventObserver_OnResult_Params_Data::SpeechRecognitionEventObserver_OnResult_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool SpeechRecognitionEventObserver_OnError_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SpeechRecognitionEventObserver_OnError_Params_Data* object =
+      static_cast<const SpeechRecognitionEventObserver_OnError_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->event, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->event, validation_context))
+    return false;
+
+  return true;
+}
+
+SpeechRecognitionEventObserver_OnError_Params_Data::SpeechRecognitionEventObserver_OnError_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -322,7 +457,7 @@ bool SpeechRecognition_Stop_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -330,6 +465,13 @@ bool SpeechRecognition_Stop_ResponseParams_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const SpeechRecognition_Stop_ResponseParams_Data* object =
       static_cast<const SpeechRecognition_Stop_ResponseParams_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& error_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->error, validation_context,
+                                         &error_validate_params)) {
+    return false;
+  }
 
   return true;
 }

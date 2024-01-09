@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -178,7 +179,7 @@ uint32_t BlobURLStore::ResolveForNavigation_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool BlobURLStore::Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site) {
+bool BlobURLStore::Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site) {
   NOTREACHED();
   return false;
 }
@@ -266,7 +267,7 @@ BlobURLStoreProxy::BlobURLStoreProxy(mojo::MessageReceiverWithResponder* receive
     : receiver_(receiver) {
 }
 bool BlobURLStoreProxy::Register(
-    ::mojo::PendingRemote<::blink::mojom::blink::Blob> param_blob, const ::blink::KURL& param_url, const ::base::UnguessableToken& param_unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& param_unsafe_top_level_site) {
+    ::mojo::PendingRemote<::blink::mojom::blink::Blob> param_blob, const ::blink::KURL& param_url, const ::base::UnguessableToken& param_unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& param_unsafe_top_level_site) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call blink::mojom::BlobURLStore::Register (sync)", "input_parameters",
@@ -283,20 +284,23 @@ bool BlobURLStoreProxy::Register(
                         "<value of type const ::base::UnguessableToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("unsafe_top_level_site"), param_unsafe_top_level_site,
-                        "<value of type const absl::optional<::blink::BlinkSchemefulSite>&>");
+                        "<value of type const std::optional<::blink::BlinkSchemefulSite>&>");
    });
 #else
   TRACE_EVENT0("mojom", "BlobURLStore::Register");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_Register_Name, kFlags, 0, 0, nullptr);
@@ -357,7 +361,7 @@ bool BlobURLStoreProxy::Register(
 }
 
 void BlobURLStoreProxy::Register(
-    ::mojo::PendingRemote<::blink::mojom::blink::Blob> in_blob, const ::blink::KURL& in_url, const ::base::UnguessableToken& in_unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& in_unsafe_top_level_site, RegisterCallback callback) {
+    ::mojo::PendingRemote<::blink::mojom::blink::Blob> in_blob, const ::blink::KURL& in_url, const ::base::UnguessableToken& in_unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& in_unsafe_top_level_site, RegisterCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::BlobURLStore::Register", "input_parameters",
@@ -374,17 +378,20 @@ void BlobURLStoreProxy::Register(
                         "<value of type const ::base::UnguessableToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("unsafe_top_level_site"), in_unsafe_top_level_site,
-                        "<value of type const absl::optional<::blink::BlinkSchemefulSite>&>");
+                        "<value of type const std::optional<::blink::BlinkSchemefulSite>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_Register_Name, kFlags, 0, 0, nullptr);
@@ -450,14 +457,17 @@ void BlobURLStoreProxy::Revoke(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_Revoke_Name, kFlags, 0, 0, nullptr);
@@ -498,14 +508,17 @@ void BlobURLStoreProxy::Resolve(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_Resolve_Name, kFlags, 0, 0, nullptr);
@@ -550,14 +563,17 @@ void BlobURLStoreProxy::ResolveAsURLLoaderFactory(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::blink::URLLoaderFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_ResolveAsURLLoaderFactory_Name, kFlags, 0, 0, nullptr);
@@ -608,14 +624,17 @@ void BlobURLStoreProxy::ResolveForNavigation(
                         "<value of type ::mojo::PendingReceiver<BlobURLToken>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_ResolveForNavigation_Name, kFlags, 0, 0, nullptr);
@@ -731,7 +750,8 @@ void BlobURLStore_Register_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_Register_Name, kFlags, 0, 0, nullptr);
@@ -823,7 +843,7 @@ class BlobURLStore_Resolve_ProxyToResponder : public ::mojo::internal::ProxyToRe
 #endif
 
   void Run(
-      ::mojo::PendingRemote<::blink::mojom::blink::Blob> in_blob, const absl::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id);
+      ::mojo::PendingRemote<::blink::mojom::blink::Blob> in_blob, const std::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id);
 };
 
 bool BlobURLStore_Resolve_ForwardToCallback::Accept(
@@ -837,7 +857,7 @@ bool BlobURLStore_Resolve_ForwardToCallback::Accept(
   
   bool success = true;
   ::mojo::PendingRemote<::blink::mojom::blink::Blob> p_blob{};
-  absl::optional<::base::UnguessableToken> p_unsafe_agent_cluster_id{};
+  std::optional<::base::UnguessableToken> p_unsafe_agent_cluster_id{};
   BlobURLStore_Resolve_ResponseParamsDataView input_data_view(params, message);
   
   if (success) {
@@ -861,7 +881,7 @@ std::move(p_unsafe_agent_cluster_id));
 }
 
 void BlobURLStore_Resolve_ProxyToResponder::Run(
-    ::mojo::PendingRemote<::blink::mojom::blink::Blob> in_blob, const absl::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id) {
+    ::mojo::PendingRemote<::blink::mojom::blink::Blob> in_blob, const std::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::BlobURLStore::Resolve", "async_response_parameters",
@@ -872,13 +892,14 @@ void BlobURLStore_Resolve_ProxyToResponder::Run(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::blink::Blob>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("unsafe_agent_cluster_id"), in_unsafe_agent_cluster_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_Resolve_Name, kFlags, 0, 0, nullptr);
@@ -958,7 +979,7 @@ class BlobURLStore_ResolveAsURLLoaderFactory_ProxyToResponder : public ::mojo::i
 #endif
 
   void Run(
-      const absl::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& in_unsafe_top_level_site);
+      const std::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& in_unsafe_top_level_site);
 };
 
 bool BlobURLStore_ResolveAsURLLoaderFactory_ForwardToCallback::Accept(
@@ -971,8 +992,8 @@ bool BlobURLStore_ResolveAsURLLoaderFactory_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::UnguessableToken> p_unsafe_agent_cluster_id{};
-  absl::optional<::blink::BlinkSchemefulSite> p_unsafe_top_level_site{};
+  std::optional<::base::UnguessableToken> p_unsafe_agent_cluster_id{};
+  std::optional<::blink::BlinkSchemefulSite> p_unsafe_top_level_site{};
   BlobURLStore_ResolveAsURLLoaderFactory_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadUnsafeAgentClusterId(&p_unsafe_agent_cluster_id))
@@ -994,7 +1015,7 @@ std::move(p_unsafe_top_level_site));
 }
 
 void BlobURLStore_ResolveAsURLLoaderFactory_ProxyToResponder::Run(
-    const absl::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& in_unsafe_top_level_site) {
+    const std::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& in_unsafe_top_level_site) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::BlobURLStore::ResolveAsURLLoaderFactory", "async_response_parameters",
@@ -1002,16 +1023,17 @@ void BlobURLStore_ResolveAsURLLoaderFactory_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("unsafe_agent_cluster_id"), in_unsafe_agent_cluster_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("unsafe_top_level_site"), in_unsafe_top_level_site,
-                        "<value of type const absl::optional<::blink::BlinkSchemefulSite>&>");
+                        "<value of type const std::optional<::blink::BlinkSchemefulSite>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_ResolveAsURLLoaderFactory_Name, kFlags, 0, 0, nullptr);
@@ -1096,7 +1118,7 @@ class BlobURLStore_ResolveForNavigation_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      const absl::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id);
+      const std::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id);
 };
 
 bool BlobURLStore_ResolveForNavigation_ForwardToCallback::Accept(
@@ -1109,7 +1131,7 @@ bool BlobURLStore_ResolveForNavigation_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::UnguessableToken> p_unsafe_agent_cluster_id{};
+  std::optional<::base::UnguessableToken> p_unsafe_agent_cluster_id{};
   BlobURLStore_ResolveForNavigation_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadUnsafeAgentClusterId(&p_unsafe_agent_cluster_id))
@@ -1128,7 +1150,7 @@ std::move(p_unsafe_agent_cluster_id));
 }
 
 void BlobURLStore_ResolveForNavigation_ProxyToResponder::Run(
-    const absl::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id) {
+    const std::optional<::base::UnguessableToken>& in_unsafe_agent_cluster_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::BlobURLStore::ResolveForNavigation", "async_response_parameters",
@@ -1136,13 +1158,14 @@ void BlobURLStore_ResolveForNavigation_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("unsafe_agent_cluster_id"), in_unsafe_agent_cluster_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLStore_ResolveForNavigation_Name, kFlags, 0, 0, nullptr);
@@ -1242,7 +1265,7 @@ bool BlobURLStoreStubDispatch::AcceptWithResponder(
       ::mojo::PendingRemote<::blink::mojom::blink::Blob> p_blob{};
       ::blink::KURL p_url{};
       ::base::UnguessableToken p_unsafe_agent_cluster_id{};
-      absl::optional<::blink::BlinkSchemefulSite> p_unsafe_top_level_site{};
+      std::optional<::blink::BlinkSchemefulSite> p_unsafe_top_level_site{};
       BlobURLStore_Register_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1379,18 +1402,18 @@ std::move(p_token), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBlobURLStoreValidationInfo[] = {
-    {&internal::BlobURLStore_Register_Params_Data::Validate,
+    { &internal::BlobURLStore_Register_Params_Data::Validate,
      &internal::BlobURLStore_Register_ResponseParams_Data::Validate},
-    {&internal::BlobURLStore_Revoke_Params_Data::Validate,
+    { &internal::BlobURLStore_Revoke_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BlobURLStore_Resolve_Params_Data::Validate,
+    { &internal::BlobURLStore_Resolve_Params_Data::Validate,
      &internal::BlobURLStore_Resolve_ResponseParams_Data::Validate},
-    {&internal::BlobURLStore_ResolveAsURLLoaderFactory_Params_Data::Validate,
+    { &internal::BlobURLStore_ResolveAsURLLoaderFactory_Params_Data::Validate,
      &internal::BlobURLStore_ResolveAsURLLoaderFactory_ResponseParams_Data::Validate},
-    {&internal::BlobURLStore_ResolveForNavigation_Params_Data::Validate,
+    { &internal::BlobURLStore_ResolveForNavigation_Params_Data::Validate,
      &internal::BlobURLStore_ResolveForNavigation_ResponseParams_Data::Validate},
 };
 
@@ -1510,14 +1533,17 @@ void BlobURLTokenProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<BlobURLToken>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLToken_Clone_Name, kFlags, 0, 0, nullptr);
@@ -1546,14 +1572,17 @@ void BlobURLTokenProxy::GetToken(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BlobURLToken::GetToken");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLToken_GetToken_Name, kFlags, 0, 0, nullptr);
@@ -1663,7 +1692,8 @@ void BlobURLToken_GetToken_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobURLToken_GetToken_Name, kFlags, 0, 0, nullptr);
@@ -1780,12 +1810,12 @@ bool BlobURLTokenStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBlobURLTokenValidationInfo[] = {
-    {&internal::BlobURLToken_Clone_Params_Data::Validate,
+    { &internal::BlobURLToken_Clone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BlobURLToken_GetToken_Params_Data::Validate,
+    { &internal::BlobURLToken_GetToken_Params_Data::Validate,
      &internal::BlobURLToken_GetToken_ResponseParams_Data::Validate},
 };
 
@@ -1815,7 +1845,7 @@ namespace mojo {
 namespace blink::mojom::blink {
 
 
-void BlobURLStoreInterceptorForTesting::Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site, RegisterCallback callback) {
+void BlobURLStoreInterceptorForTesting::Register(::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site, RegisterCallback callback) {
   GetForwardingInterface()->Register(std::move(blob), std::move(url), std::move(unsafe_agent_cluster_id), std::move(unsafe_top_level_site), std::move(callback));
 }
 void BlobURLStoreInterceptorForTesting::Revoke(const ::blink::KURL& url) {
@@ -1836,7 +1866,7 @@ BlobURLStoreAsyncWaiter::BlobURLStoreAsyncWaiter(
 BlobURLStoreAsyncWaiter::~BlobURLStoreAsyncWaiter() = default;
 
 void BlobURLStoreAsyncWaiter::Register(
-    ::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site) {
+    ::mojo::PendingRemote<::blink::mojom::blink::Blob> blob, const ::blink::KURL& url, const ::base::UnguessableToken& unsafe_agent_cluster_id, const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site) {
   base::RunLoop loop;
   proxy_->Register(std::move(blob),std::move(url),std::move(unsafe_agent_cluster_id),std::move(unsafe_top_level_site),
       base::BindOnce(
@@ -1850,17 +1880,17 @@ void BlobURLStoreAsyncWaiter::Register(
 
 
 void BlobURLStoreAsyncWaiter::Resolve(
-    const ::blink::KURL& url, ::mojo::PendingRemote<::blink::mojom::blink::Blob>* out_blob, absl::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id) {
+    const ::blink::KURL& url, ::mojo::PendingRemote<::blink::mojom::blink::Blob>* out_blob, std::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id) {
   base::RunLoop loop;
   proxy_->Resolve(std::move(url),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::mojo::PendingRemote<::blink::mojom::blink::Blob>* out_blob
 ,
-             absl::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id
+             std::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id
 ,
              ::mojo::PendingRemote<::blink::mojom::blink::Blob> blob,
-             const absl::optional<::base::UnguessableToken>& unsafe_agent_cluster_id) {*out_blob = std::move(blob);*out_unsafe_agent_cluster_id = std::move(unsafe_agent_cluster_id);
+             const std::optional<::base::UnguessableToken>& unsafe_agent_cluster_id) {*out_blob = std::move(blob);*out_unsafe_agent_cluster_id = std::move(unsafe_agent_cluster_id);
             loop->Quit();
           },
           &loop,
@@ -1872,17 +1902,17 @@ void BlobURLStoreAsyncWaiter::Resolve(
 
 
 void BlobURLStoreAsyncWaiter::ResolveAsURLLoaderFactory(
-    const ::blink::KURL& url, ::mojo::PendingReceiver<::network::mojom::blink::URLLoaderFactory> factory, absl::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id, absl::optional<::blink::BlinkSchemefulSite>* out_unsafe_top_level_site) {
+    const ::blink::KURL& url, ::mojo::PendingReceiver<::network::mojom::blink::URLLoaderFactory> factory, std::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id, std::optional<::blink::BlinkSchemefulSite>* out_unsafe_top_level_site) {
   base::RunLoop loop;
   proxy_->ResolveAsURLLoaderFactory(std::move(url),std::move(factory),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id
+             std::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id
 ,
-             absl::optional<::blink::BlinkSchemefulSite>* out_unsafe_top_level_site
+             std::optional<::blink::BlinkSchemefulSite>* out_unsafe_top_level_site
 ,
-             const absl::optional<::base::UnguessableToken>& unsafe_agent_cluster_id,
-             const absl::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site) {*out_unsafe_agent_cluster_id = std::move(unsafe_agent_cluster_id);*out_unsafe_top_level_site = std::move(unsafe_top_level_site);
+             const std::optional<::base::UnguessableToken>& unsafe_agent_cluster_id,
+             const std::optional<::blink::BlinkSchemefulSite>& unsafe_top_level_site) {*out_unsafe_agent_cluster_id = std::move(unsafe_agent_cluster_id);*out_unsafe_top_level_site = std::move(unsafe_top_level_site);
             loop->Quit();
           },
           &loop,
@@ -1894,14 +1924,14 @@ void BlobURLStoreAsyncWaiter::ResolveAsURLLoaderFactory(
 
 
 void BlobURLStoreAsyncWaiter::ResolveForNavigation(
-    const ::blink::KURL& url, ::mojo::PendingReceiver<BlobURLToken> token, absl::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id) {
+    const ::blink::KURL& url, ::mojo::PendingReceiver<BlobURLToken> token, std::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id) {
   base::RunLoop loop;
   proxy_->ResolveForNavigation(std::move(url),std::move(token),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id
+             std::optional<::base::UnguessableToken>* out_unsafe_agent_cluster_id
 ,
-             const absl::optional<::base::UnguessableToken>& unsafe_agent_cluster_id) {*out_unsafe_agent_cluster_id = std::move(unsafe_agent_cluster_id);
+             const std::optional<::base::UnguessableToken>& unsafe_agent_cluster_id) {*out_unsafe_agent_cluster_id = std::move(unsafe_agent_cluster_id);
             loop->Quit();
           },
           &loop,
@@ -1909,9 +1939,9 @@ void BlobURLStoreAsyncWaiter::ResolveForNavigation(
   loop.Run();
 }
 
-absl::optional<::base::UnguessableToken> BlobURLStoreAsyncWaiter::ResolveForNavigation(
+std::optional<::base::UnguessableToken> BlobURLStoreAsyncWaiter::ResolveForNavigation(
     const ::blink::KURL& url, ::mojo::PendingReceiver<BlobURLToken> token) {
-  absl::optional<::base::UnguessableToken> async_wait_result;
+  std::optional<::base::UnguessableToken> async_wait_result;
   ResolveForNavigation(std::move(url),std::move(token),&async_wait_result);
   return async_wait_result;
 }

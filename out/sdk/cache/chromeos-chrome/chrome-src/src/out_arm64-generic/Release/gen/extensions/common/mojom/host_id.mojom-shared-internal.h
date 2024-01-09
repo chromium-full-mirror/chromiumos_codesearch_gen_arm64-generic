@@ -34,6 +34,7 @@ struct HostID_HostType_Data {
     switch (value) {
       case 0:
       case 1:
+      case 2:
         return true;
     }
     return false;

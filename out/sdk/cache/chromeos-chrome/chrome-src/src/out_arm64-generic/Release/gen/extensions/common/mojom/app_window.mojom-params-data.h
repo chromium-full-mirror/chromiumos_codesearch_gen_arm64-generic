@@ -39,6 +39,23 @@ class  AppWindow_SetVisuallyDeemphasized_Params_Data {
 };
 static_assert(sizeof(AppWindow_SetVisuallyDeemphasized_Params_Data) == 16,
               "Bad sizeof(AppWindow_SetVisuallyDeemphasized_Params_Data)");
+class  AppWindow_SetSupportsAppRegion_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t supports_app_region : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<AppWindow_SetSupportsAppRegion_Params_Data>;
+
+  AppWindow_SetSupportsAppRegion_Params_Data();
+  ~AppWindow_SetSupportsAppRegion_Params_Data() = delete;
+};
+static_assert(sizeof(AppWindow_SetSupportsAppRegion_Params_Data) == 16,
+              "Bad sizeof(AppWindow_SetSupportsAppRegion_Params_Data)");
 
 }  // namespace internal
 
@@ -59,6 +76,26 @@ class AppWindow_SetVisuallyDeemphasized_ParamsDataView {
  private:
   internal::AppWindow_SetVisuallyDeemphasized_Params_Data* data_ = nullptr;
 };
+
+
+class AppWindow_SetSupportsAppRegion_ParamsDataView {
+ public:
+  AppWindow_SetSupportsAppRegion_ParamsDataView() = default;
+
+  AppWindow_SetSupportsAppRegion_ParamsDataView(
+      internal::AppWindow_SetSupportsAppRegion_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool supports_app_region() const {
+    return data_->supports_app_region;
+  }
+ private:
+  internal::AppWindow_SetSupportsAppRegion_Params_Data* data_ = nullptr;
+};
+
+
 
 
 

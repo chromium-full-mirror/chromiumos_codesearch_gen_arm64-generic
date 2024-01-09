@@ -35,9 +35,9 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/messaging/task_attribution_id.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/messaging/transferable_message.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/messaging/user_activation_snapshot.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/broadcastchannel/broadcast_channel.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/fenced_frame/fenced_frame.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/navigation/navigation_params.mojom
-../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/portal/portal.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/service_worker/controller_service_worker.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/service_worker/embedded_worker.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/service_worker/service_worker.mojom

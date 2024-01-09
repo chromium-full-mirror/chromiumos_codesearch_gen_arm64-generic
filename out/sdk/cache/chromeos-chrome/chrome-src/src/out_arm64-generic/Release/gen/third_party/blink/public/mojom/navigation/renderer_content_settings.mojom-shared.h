@@ -78,9 +78,6 @@ class RendererContentSettingsDataView {
   bool allow_mixed_content() const {
     return data_->allow_mixed_content;
   }
-  bool allow_auto_dark() const {
-    return data_->allow_auto_dark;
-  }
  private:
   internal::RendererContentSettings_Data* data_ = nullptr;
 };
@@ -112,7 +109,6 @@ struct Serializer<::blink::mojom::RendererContentSettingsDataView, MaybeConstUse
     fragment->allow_image = Traits::allow_image(input);
     fragment->allow_popup = Traits::allow_popup(input);
     fragment->allow_mixed_content = Traits::allow_mixed_content(input);
-    fragment->allow_auto_dark = Traits::allow_auto_dark(input);
   }
 
   static bool Deserialize(::blink::mojom::internal::RendererContentSettings_Data* input,

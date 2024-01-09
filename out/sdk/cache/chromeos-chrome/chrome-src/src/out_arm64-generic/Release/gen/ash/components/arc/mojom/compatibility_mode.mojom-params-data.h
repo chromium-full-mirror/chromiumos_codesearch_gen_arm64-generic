@@ -40,7 +40,7 @@ class  CompatibilityModeInstance_SetResizeLockState_Params_Data {
 };
 static_assert(sizeof(CompatibilityModeInstance_SetResizeLockState_Params_Data) == 24,
               "Bad sizeof(CompatibilityModeInstance_SetResizeLockState_Params_Data)");
-class  CompatibilityModeInstance_IsGioApplicable_Params_Data {
+class  CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -49,30 +49,30 @@ class  CompatibilityModeInstance_IsGioApplicable_Params_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> package_name;
 
  private:
-  friend class mojo::internal::MessageFragment<CompatibilityModeInstance_IsGioApplicable_Params_Data>;
+  friend class mojo::internal::MessageFragment<CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data>;
 
-  CompatibilityModeInstance_IsGioApplicable_Params_Data();
-  ~CompatibilityModeInstance_IsGioApplicable_Params_Data() = delete;
+  CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data();
+  ~CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data() = delete;
 };
-static_assert(sizeof(CompatibilityModeInstance_IsGioApplicable_Params_Data) == 16,
-              "Bad sizeof(CompatibilityModeInstance_IsGioApplicable_Params_Data)");
-class  CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data {
+static_assert(sizeof(CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data) == 16,
+              "Bad sizeof(CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data)");
+class  CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint8_t is_gio_applicable : 1;
+  uint8_t is_o4c_app : 1;
   uint8_t padfinal_[7];
 
  private:
-  friend class mojo::internal::MessageFragment<CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data>;
 
-  CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data();
-  ~CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data() = delete;
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data();
+  ~CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data) == 16,
-              "Bad sizeof(CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data)");
+static_assert(sizeof(CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data) == 16,
+              "Bad sizeof(CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -113,12 +113,12 @@ class CompatibilityModeInstance_SetResizeLockState_ParamsDataView {
 };
 
 
-class CompatibilityModeInstance_IsGioApplicable_ParamsDataView {
+class CompatibilityModeInstance_IsOptimizedForCrosApp_ParamsDataView {
  public:
-  CompatibilityModeInstance_IsGioApplicable_ParamsDataView() = default;
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ParamsDataView() = default;
 
-  CompatibilityModeInstance_IsGioApplicable_ParamsDataView(
-      internal::CompatibilityModeInstance_IsGioApplicable_Params_Data* data,
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ParamsDataView(
+      internal::CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -134,26 +134,26 @@ class CompatibilityModeInstance_IsGioApplicable_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::CompatibilityModeInstance_IsGioApplicable_Params_Data* data_ = nullptr;
+  internal::CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class CompatibilityModeInstance_IsGioApplicable_ResponseParamsDataView {
+class CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParamsDataView {
  public:
-  CompatibilityModeInstance_IsGioApplicable_ResponseParamsDataView() = default;
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParamsDataView() = default;
 
-  CompatibilityModeInstance_IsGioApplicable_ResponseParamsDataView(
-      internal::CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data* data,
+  CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParamsDataView(
+      internal::CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  bool is_gio_applicable() const {
-    return data_->is_gio_applicable;
+  bool is_o4c_app() const {
+    return data_->is_o4c_app;
   }
  private:
-  internal::CompatibilityModeInstance_IsGioApplicable_ResponseParams_Data* data_ = nullptr;
+  internal::CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data* data_ = nullptr;
 };
 
 inline void CompatibilityModeInstance_SetResizeLockState_ParamsDataView::GetPackageNameDataView(
@@ -163,7 +163,7 @@ inline void CompatibilityModeInstance_SetResizeLockState_ParamsDataView::GetPack
 }
 
 
-inline void CompatibilityModeInstance_IsGioApplicable_ParamsDataView::GetPackageNameDataView(
+inline void CompatibilityModeInstance_IsOptimizedForCrosApp_ParamsDataView::GetPackageNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->package_name.Get();
   *output = mojo::StringDataView(pointer, message_);

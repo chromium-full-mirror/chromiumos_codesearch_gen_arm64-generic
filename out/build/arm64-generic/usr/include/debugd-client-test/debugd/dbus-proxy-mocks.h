@@ -25,6 +25,25 @@ class debugdProxyMock : public debugdProxyInterface {
   debugdProxyMock& operator=(const debugdProxyMock&) = delete;
 
   MOCK_METHOD(bool,
+              CroshShellStart,
+              (const base::ScopedFD& /*in_lifeline_fd*/,
+               const base::ScopedFD& /*in_infd*/,
+               const base::ScopedFD& /*in_outfd*/,
+               std::string* /*out_handle*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              CroshShellStartAsync,
+              (const base::ScopedFD& /*in_lifeline_fd*/,
+               const base::ScopedFD& /*in_infd*/,
+               const base::ScopedFD& /*in_outfd*/,
+               base::OnceCallback<void(const std::string& /*handle*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               PingStart,
               (const base::ScopedFD& /*in_outfd*/,
                const std::string& /*in_destination*/,
@@ -1149,21 +1168,6 @@ class debugdProxyMock : public debugdProxyInterface {
   MOCK_METHOD(void,
               WifiFWDumpAsync,
               (base::OnceCallback<void(const std::string& /*output*/)> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
-              CollectSmartBatteryMetric,
-              (const std::string& /*in_metric_name*/,
-               std::string* /*out_output*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              CollectSmartBatteryMetricAsync,
-              (const std::string& /*in_metric_name*/,
-               base::OnceCallback<void(const std::string& /*output*/)> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));

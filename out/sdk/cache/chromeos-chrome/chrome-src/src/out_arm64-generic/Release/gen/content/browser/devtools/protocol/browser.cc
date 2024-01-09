@@ -31,6 +31,7 @@ const char AccessibilityEvents[] = "accessibilityEvents";
 const char AudioCapture[] = "audioCapture";
 const char BackgroundSync[] = "backgroundSync";
 const char BackgroundFetch[] = "backgroundFetch";
+const char CapturedSurfaceControl[] = "capturedSurfaceControl";
 const char ClipboardReadWrite[] = "clipboardReadWrite";
 const char ClipboardSanitizedWrite[] = "clipboardSanitizedWrite";
 const char DisplayCapture[] = "displayCapture";

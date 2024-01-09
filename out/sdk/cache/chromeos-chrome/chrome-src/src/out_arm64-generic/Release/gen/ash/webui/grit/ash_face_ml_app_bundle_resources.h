@@ -2,4 +2,4 @@
 
 #pragma once
 
-#define IDR_FACE_ML_APP_APP_BIN_JS 32130
+#define IDR_FACE_ML_APP_APP_BIN_JS 33280

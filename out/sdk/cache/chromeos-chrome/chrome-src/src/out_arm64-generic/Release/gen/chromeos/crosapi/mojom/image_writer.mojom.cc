@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -242,14 +243,17 @@ void ImageWriterClientProxy::DispatchOnWriteProgressEvent(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriterClient_DispatchOnWriteProgressEvent_Name, kFlags, 0, 0, nullptr);
@@ -275,14 +279,17 @@ void ImageWriterClientProxy::DispatchOnWriteCompleteEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ImageWriterClient::DispatchOnWriteCompleteEvent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriterClient_DispatchOnWriteCompleteEvent_Name, kFlags, 0, 0, nullptr);
@@ -318,14 +325,17 @@ void ImageWriterClientProxy::DispatchOnWriteErrorEvent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriterClient_DispatchOnWriteErrorEvent_Name, kFlags, 0, 0, nullptr);
@@ -473,14 +483,14 @@ bool ImageWriterClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kImageWriterClientValidationInfo[] = {
-    {&internal::ImageWriterClient_DispatchOnWriteProgressEvent_Params_Data::Validate,
+    { &internal::ImageWriterClient_DispatchOnWriteProgressEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImageWriterClient_DispatchOnWriteCompleteEvent_Params_Data::Validate,
+    { &internal::ImageWriterClient_DispatchOnWriteCompleteEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImageWriterClient_DispatchOnWriteErrorEvent_Params_Data::Validate,
+    { &internal::ImageWriterClient_DispatchOnWriteErrorEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -678,14 +688,17 @@ void ImageWriterProxy::ListRemovableStorageDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ImageWriter::ListRemovableStorageDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriter_ListRemovableStorageDevices_Name, kFlags, 0, 0, nullptr);
@@ -719,14 +732,17 @@ void ImageWriterProxy::DestroyPartitions(
                         "<value of type ::mojo::PendingRemote<ImageWriterClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriter_DestroyPartitions_Name, kFlags, 0, 0, nullptr);
@@ -763,7 +779,7 @@ void ImageWriterProxy::DestroyPartitions(
 }
 
 void ImageWriterProxy::WriteFromUrl(
-    const std::string& in_storage_unit_id, const ::GURL& in_image_url, const absl::optional<std::string>& in_image_hash, ::mojo::PendingRemote<ImageWriterClient> in_remote_client, WriteFromUrlCallback callback) {
+    const std::string& in_storage_unit_id, const ::GURL& in_image_url, const std::optional<std::string>& in_image_hash, ::mojo::PendingRemote<ImageWriterClient> in_remote_client, WriteFromUrlCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::ImageWriter::WriteFromUrl", "input_parameters",
@@ -777,20 +793,23 @@ void ImageWriterProxy::WriteFromUrl(
                         "<value of type const ::GURL&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("image_hash"), in_image_hash,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("remote_client"), in_remote_client,
                         "<value of type ::mojo::PendingRemote<ImageWriterClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriter_WriteFromUrl_Name, kFlags, 0, 0, nullptr);
@@ -862,14 +881,17 @@ void ImageWriterProxy::WriteFromFile(
                         "<value of type ::mojo::PendingRemote<ImageWriterClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriter_WriteFromFile_Name, kFlags, 0, 0, nullptr);
@@ -961,7 +983,7 @@ class ImageWriter_ListRemovableStorageDevices_ProxyToResponder : public ::mojo::
 #endif
 
   void Run(
-      absl::optional<std::vector<RemovableStorageDevicePtr>> in_devices);
+      std::optional<std::vector<RemovableStorageDevicePtr>> in_devices);
 };
 
 bool ImageWriter_ListRemovableStorageDevices_ForwardToCallback::Accept(
@@ -974,7 +996,7 @@ bool ImageWriter_ListRemovableStorageDevices_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<RemovableStorageDevicePtr>> p_devices{};
+  std::optional<std::vector<RemovableStorageDevicePtr>> p_devices{};
   ImageWriter_ListRemovableStorageDevices_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDevices(&p_devices))
@@ -993,7 +1015,7 @@ std::move(p_devices));
 }
 
 void ImageWriter_ListRemovableStorageDevices_ProxyToResponder::Run(
-    absl::optional<std::vector<RemovableStorageDevicePtr>> in_devices) {
+    std::optional<std::vector<RemovableStorageDevicePtr>> in_devices) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::ImageWriter::ListRemovableStorageDevices", "async_response_parameters",
@@ -1001,13 +1023,14 @@ void ImageWriter_ListRemovableStorageDevices_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("devices"), in_devices,
-                        "<value of type absl::optional<std::vector<RemovableStorageDevicePtr>>>");
+                        "<value of type std::optional<std::vector<RemovableStorageDevicePtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriter_ListRemovableStorageDevices_Name, kFlags, 0, 0, nullptr);
@@ -1087,7 +1110,7 @@ class ImageWriter_DestroyPartitions_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool ImageWriter_DestroyPartitions_ForwardToCallback::Accept(
@@ -1100,7 +1123,7 @@ bool ImageWriter_DestroyPartitions_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   ImageWriter_DestroyPartitions_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1119,7 +1142,7 @@ std::move(p_error));
 }
 
 void ImageWriter_DestroyPartitions_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::ImageWriter::DestroyPartitions", "async_response_parameters",
@@ -1127,13 +1150,14 @@ void ImageWriter_DestroyPartitions_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriter_DestroyPartitions_Name, kFlags, 0, 0, nullptr);
@@ -1211,7 +1235,7 @@ class ImageWriter_WriteFromUrl_ProxyToResponder : public ::mojo::internal::Proxy
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool ImageWriter_WriteFromUrl_ForwardToCallback::Accept(
@@ -1224,7 +1248,7 @@ bool ImageWriter_WriteFromUrl_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   ImageWriter_WriteFromUrl_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1243,7 +1267,7 @@ std::move(p_error));
 }
 
 void ImageWriter_WriteFromUrl_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::ImageWriter::WriteFromUrl", "async_response_parameters",
@@ -1251,13 +1275,14 @@ void ImageWriter_WriteFromUrl_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriter_WriteFromUrl_Name, kFlags, 0, 0, nullptr);
@@ -1335,7 +1360,7 @@ class ImageWriter_WriteFromFile_ProxyToResponder : public ::mojo::internal::Prox
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool ImageWriter_WriteFromFile_ForwardToCallback::Accept(
@@ -1348,7 +1373,7 @@ bool ImageWriter_WriteFromFile_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   ImageWriter_WriteFromFile_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1367,7 +1392,7 @@ std::move(p_error));
 }
 
 void ImageWriter_WriteFromFile_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::ImageWriter::WriteFromFile", "async_response_parameters",
@@ -1375,13 +1400,14 @@ void ImageWriter_WriteFromFile_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageWriter_WriteFromFile_Name, kFlags, 0, 0, nullptr);
@@ -1514,7 +1540,7 @@ std::move(p_remote_client), std::move(callback));
       bool success = true;
       std::string p_storage_unit_id{};
       ::GURL p_image_url{};
-      absl::optional<std::string> p_image_hash{};
+      std::optional<std::string> p_image_hash{};
       ::mojo::PendingRemote<ImageWriterClient> p_remote_client{};
       ImageWriter_WriteFromUrl_ParamsDataView input_data_view(params, message);
       
@@ -1589,16 +1615,16 @@ std::move(p_remote_client), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kImageWriterValidationInfo[] = {
-    {&internal::ImageWriter_ListRemovableStorageDevices_Params_Data::Validate,
+    { &internal::ImageWriter_ListRemovableStorageDevices_Params_Data::Validate,
      &internal::ImageWriter_ListRemovableStorageDevices_ResponseParams_Data::Validate},
-    {&internal::ImageWriter_DestroyPartitions_Params_Data::Validate,
+    { &internal::ImageWriter_DestroyPartitions_Params_Data::Validate,
      &internal::ImageWriter_DestroyPartitions_ResponseParams_Data::Validate},
-    {&internal::ImageWriter_WriteFromUrl_Params_Data::Validate,
+    { &internal::ImageWriter_WriteFromUrl_Params_Data::Validate,
      &internal::ImageWriter_WriteFromUrl_ResponseParams_Data::Validate},
-    {&internal::ImageWriter_WriteFromFile_Params_Data::Validate,
+    { &internal::ImageWriter_WriteFromFile_Params_Data::Validate,
      &internal::ImageWriter_WriteFromFile_ResponseParams_Data::Validate},
 };
 
@@ -1673,7 +1699,7 @@ void ImageWriterInterceptorForTesting::ListRemovableStorageDevices(ListRemovable
 void ImageWriterInterceptorForTesting::DestroyPartitions(const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client, DestroyPartitionsCallback callback) {
   GetForwardingInterface()->DestroyPartitions(std::move(storage_unit_id), std::move(remote_client), std::move(callback));
 }
-void ImageWriterInterceptorForTesting::WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const absl::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromUrlCallback callback) {
+void ImageWriterInterceptorForTesting::WriteFromUrl(const std::string& storage_unit_id, const ::GURL& image_url, const std::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromUrlCallback callback) {
   GetForwardingInterface()->WriteFromUrl(std::move(storage_unit_id), std::move(image_url), std::move(image_hash), std::move(remote_client), std::move(callback));
 }
 void ImageWriterInterceptorForTesting::WriteFromFile(const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client, WriteFromFileCallback callback) {
@@ -1685,14 +1711,14 @@ ImageWriterAsyncWaiter::ImageWriterAsyncWaiter(
 ImageWriterAsyncWaiter::~ImageWriterAsyncWaiter() = default;
 
 void ImageWriterAsyncWaiter::ListRemovableStorageDevices(
-    absl::optional<std::vector<RemovableStorageDevicePtr>>* out_devices) {
+    std::optional<std::vector<RemovableStorageDevicePtr>>* out_devices) {
   base::RunLoop loop;
   proxy_->ListRemovableStorageDevices(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<RemovableStorageDevicePtr>>* out_devices
+             std::optional<std::vector<RemovableStorageDevicePtr>>* out_devices
 ,
-             absl::optional<std::vector<RemovableStorageDevicePtr>> devices) {*out_devices = std::move(devices);
+             std::optional<std::vector<RemovableStorageDevicePtr>> devices) {*out_devices = std::move(devices);
             loop->Quit();
           },
           &loop,
@@ -1700,22 +1726,22 @@ void ImageWriterAsyncWaiter::ListRemovableStorageDevices(
   loop.Run();
 }
 
-absl::optional<std::vector<RemovableStorageDevicePtr>> ImageWriterAsyncWaiter::ListRemovableStorageDevices(
+std::optional<std::vector<RemovableStorageDevicePtr>> ImageWriterAsyncWaiter::ListRemovableStorageDevices(
     ) {
-  absl::optional<std::vector<RemovableStorageDevicePtr>> async_wait_result;
+  std::optional<std::vector<RemovableStorageDevicePtr>> async_wait_result;
   ListRemovableStorageDevices(&async_wait_result);
   return async_wait_result;
 }
 
 void ImageWriterAsyncWaiter::DestroyPartitions(
-    const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client, absl::optional<std::string>* out_error) {
+    const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->DestroyPartitions(std::move(storage_unit_id),std::move(remote_client),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -1723,22 +1749,22 @@ void ImageWriterAsyncWaiter::DestroyPartitions(
   loop.Run();
 }
 
-absl::optional<std::string> ImageWriterAsyncWaiter::DestroyPartitions(
+std::optional<std::string> ImageWriterAsyncWaiter::DestroyPartitions(
     const std::string& storage_unit_id, ::mojo::PendingRemote<ImageWriterClient> remote_client) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   DestroyPartitions(std::move(storage_unit_id),std::move(remote_client),&async_wait_result);
   return async_wait_result;
 }
 
 void ImageWriterAsyncWaiter::WriteFromUrl(
-    const std::string& storage_unit_id, const ::GURL& image_url, const absl::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, absl::optional<std::string>* out_error) {
+    const std::string& storage_unit_id, const ::GURL& image_url, const std::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->WriteFromUrl(std::move(storage_unit_id),std::move(image_url),std::move(image_hash),std::move(remote_client),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -1746,22 +1772,22 @@ void ImageWriterAsyncWaiter::WriteFromUrl(
   loop.Run();
 }
 
-absl::optional<std::string> ImageWriterAsyncWaiter::WriteFromUrl(
-    const std::string& storage_unit_id, const ::GURL& image_url, const absl::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client) {
-  absl::optional<std::string> async_wait_result;
+std::optional<std::string> ImageWriterAsyncWaiter::WriteFromUrl(
+    const std::string& storage_unit_id, const ::GURL& image_url, const std::optional<std::string>& image_hash, ::mojo::PendingRemote<ImageWriterClient> remote_client) {
+  std::optional<std::string> async_wait_result;
   WriteFromUrl(std::move(storage_unit_id),std::move(image_url),std::move(image_hash),std::move(remote_client),&async_wait_result);
   return async_wait_result;
 }
 
 void ImageWriterAsyncWaiter::WriteFromFile(
-    const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client, absl::optional<std::string>* out_error) {
+    const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->WriteFromFile(std::move(storage_unit_id),std::move(image_path),std::move(remote_client),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -1769,9 +1795,9 @@ void ImageWriterAsyncWaiter::WriteFromFile(
   loop.Run();
 }
 
-absl::optional<std::string> ImageWriterAsyncWaiter::WriteFromFile(
+std::optional<std::string> ImageWriterAsyncWaiter::WriteFromFile(
     const std::string& storage_unit_id, const ::base::FilePath& image_path, ::mojo::PendingRemote<ImageWriterClient> remote_client) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   WriteFromFile(std::move(storage_unit_id),std::move(image_path),std::move(remote_client),&async_wait_result);
   return async_wait_result;
 }

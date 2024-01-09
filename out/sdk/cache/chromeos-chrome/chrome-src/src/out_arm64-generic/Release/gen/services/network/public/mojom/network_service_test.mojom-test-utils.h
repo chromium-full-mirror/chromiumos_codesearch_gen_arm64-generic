@@ -130,7 +130,7 @@ class  NetworkServiceTestInterceptorForTesting : public NetworkServiceTest {
   void GetEnvironmentVariableValue(const std::string& name, GetEnvironmentVariableValueCallback callback) override;
   void Log(const std::string& message, LogCallback callback) override;
   void ActivateFieldTrial(const std::string& field_trial_name) override;
-  void SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) override;
+  void SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) override;
   void OpenFile(const ::base::FilePath& path, OpenFileCallback callback) override;
   void EnumerateFiles(const ::base::FilePath& path, ::mojo::PendingRemote<::network::mojom::HttpCacheBackendFileOperationsFactory> factory, EnumerateFilesCallback callback) override;
   void CreateSimpleCache(::mojo::PendingRemote<::network::mojom::HttpCacheBackendFileOperationsFactory> factory, const ::base::FilePath& path, bool reset, CreateSimpleCacheCallback callback) override;
@@ -193,7 +193,7 @@ class  NetworkServiceTestAsyncWaiter {
       const std::string& message);
   
   void SetSCTAuditingRetryDelay(
-      absl::optional<::base::TimeDelta> delay);
+      std::optional<::base::TimeDelta> delay);
   
   void OpenFile(
       const ::base::FilePath& path, bool* out_result);

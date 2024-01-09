@@ -22,6 +22,32 @@ namespace blink {
 namespace test {
 namespace mojom {
 
+NOINLINE static const char* DialogButtonToStringHelper(DialogButton value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DialogButton::kConfirmIdpLoginContinue:
+      return "kConfirmIdpLoginContinue";
+    case DialogButton::kErrorGotIt:
+      return "kErrorGotIt";
+    case DialogButton::kErrorMoreDetails:
+      return "kErrorMoreDetails";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DialogButtonToString(DialogButton value) {
+  const char *str = DialogButtonToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DialogButton value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DialogButton value) {
+  return os << DialogButtonToString(value);
+}
+
 namespace internal {
 
 
@@ -224,30 +250,7 @@ FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParams_Data::Federated
 
 
 // static
-bool FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data* object =
-      static_cast<const FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data*>(data);
-
-  return true;
-}
-
-FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data::FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data::Validate(
+bool FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -259,16 +262,54 @@ bool FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data::Validat
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data* object =
-      static_cast<const FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data*>(data);
+  [[maybe_unused]] const FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data* object =
+      static_cast<const FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data*>(data);
+
+
+  if (!::blink::test::mojom::internal::DialogButton_Data
+        ::Validate(object->dialog_button, validation_context))
+    return false;
 
   return true;
 }
 
-FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data::FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data()
+FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data::FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data* object =
+      static_cast<const FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data::FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal
 }  // namespace mojom
 }  // namespace test
 }  // namespace blink
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::test::mojom::DialogButton>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::test::mojom::DialogButton value) {
+  return std::move(context).WriteString(::blink::test::mojom::DialogButtonToString(value));
+}
+
+} // namespace perfetto

@@ -35,8 +35,8 @@ class  ProtectedBufferManagerAsyncWaiter {
       ::mojo::ScopedHandle dummy_handle, ::mojo::ScopedSharedBufferHandle* out_shared_memory_handle);
   ::mojo::ScopedSharedBufferHandle GetProtectedSharedMemoryFromHandle(::mojo::ScopedHandle dummy_handle);
   void GetProtectedNativePixmapHandleFromHandle(
-      ::mojo::ScopedHandle dummy_handle, absl::optional<::gfx::NativePixmapHandle>* out_native_pixmap_handle);
-  absl::optional<::gfx::NativePixmapHandle> GetProtectedNativePixmapHandleFromHandle(::mojo::ScopedHandle dummy_handle);
+      ::mojo::ScopedHandle dummy_handle, std::optional<::gfx::NativePixmapHandle>* out_native_pixmap_handle);
+  std::optional<::gfx::NativePixmapHandle> GetProtectedNativePixmapHandleFromHandle(::mojo::ScopedHandle dummy_handle);
   void IsProtectedNativePixmapHandle(
       ::mojo::ScopedHandle dummy_handle, bool* out_is_protected);
   bool IsProtectedNativePixmapHandle(::mojo::ScopedHandle dummy_handle);

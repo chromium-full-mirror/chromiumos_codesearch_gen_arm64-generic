@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/web_navigation.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -37,29 +38,29 @@ namespace web_navigation {
 
 const char* ToString(TransitionType enum_param) {
   switch (enum_param) {
-    case TRANSITION_TYPE_LINK:
+    case TransitionType::kLink:
       return "link";
-    case TRANSITION_TYPE_TYPED:
+    case TransitionType::kTyped:
       return "typed";
-    case TRANSITION_TYPE_AUTO_BOOKMARK:
+    case TransitionType::kAutoBookmark:
       return "auto_bookmark";
-    case TRANSITION_TYPE_AUTO_SUBFRAME:
+    case TransitionType::kAutoSubframe:
       return "auto_subframe";
-    case TRANSITION_TYPE_MANUAL_SUBFRAME:
+    case TransitionType::kManualSubframe:
       return "manual_subframe";
-    case TRANSITION_TYPE_GENERATED:
+    case TransitionType::kGenerated:
       return "generated";
-    case TRANSITION_TYPE_START_PAGE:
+    case TransitionType::kStartPage:
       return "start_page";
-    case TRANSITION_TYPE_FORM_SUBMIT:
+    case TransitionType::kFormSubmit:
       return "form_submit";
-    case TRANSITION_TYPE_RELOAD:
+    case TransitionType::kReload:
       return "reload";
-    case TRANSITION_TYPE_KEYWORD:
+    case TransitionType::kKeyword:
       return "keyword";
-    case TRANSITION_TYPE_KEYWORD_GENERATED:
+    case TransitionType::kKeywordGenerated:
       return "keyword_generated";
-    case TRANSITION_TYPE_NONE:
+    case TransitionType::kNone:
       return "";
   }
   NOTREACHED();
@@ -68,28 +69,28 @@ const char* ToString(TransitionType enum_param) {
 
 TransitionType ParseTransitionType(base::StringPiece enum_string) {
   if (enum_string == "link")
-    return TRANSITION_TYPE_LINK;
+    return TransitionType::kLink;
   if (enum_string == "typed")
-    return TRANSITION_TYPE_TYPED;
+    return TransitionType::kTyped;
   if (enum_string == "auto_bookmark")
-    return TRANSITION_TYPE_AUTO_BOOKMARK;
+    return TransitionType::kAutoBookmark;
   if (enum_string == "auto_subframe")
-    return TRANSITION_TYPE_AUTO_SUBFRAME;
+    return TransitionType::kAutoSubframe;
   if (enum_string == "manual_subframe")
-    return TRANSITION_TYPE_MANUAL_SUBFRAME;
+    return TransitionType::kManualSubframe;
   if (enum_string == "generated")
-    return TRANSITION_TYPE_GENERATED;
+    return TransitionType::kGenerated;
   if (enum_string == "start_page")
-    return TRANSITION_TYPE_START_PAGE;
+    return TransitionType::kStartPage;
   if (enum_string == "form_submit")
-    return TRANSITION_TYPE_FORM_SUBMIT;
+    return TransitionType::kFormSubmit;
   if (enum_string == "reload")
-    return TRANSITION_TYPE_RELOAD;
+    return TransitionType::kReload;
   if (enum_string == "keyword")
-    return TRANSITION_TYPE_KEYWORD;
+    return TransitionType::kKeyword;
   if (enum_string == "keyword_generated")
-    return TRANSITION_TYPE_KEYWORD_GENERATED;
-  return TRANSITION_TYPE_NONE;
+    return TransitionType::kKeywordGenerated;
+  return TransitionType::kNone;
 }
 
 std::u16string GetTransitionTypeParseError(base::StringPiece enum_string) {
@@ -99,15 +100,15 @@ std::u16string GetTransitionTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(TransitionQualifier enum_param) {
   switch (enum_param) {
-    case TRANSITION_QUALIFIER_CLIENT_REDIRECT:
+    case TransitionQualifier::kClientRedirect:
       return "client_redirect";
-    case TRANSITION_QUALIFIER_SERVER_REDIRECT:
+    case TransitionQualifier::kServerRedirect:
       return "server_redirect";
-    case TRANSITION_QUALIFIER_FORWARD_BACK:
+    case TransitionQualifier::kForwardBack:
       return "forward_back";
-    case TRANSITION_QUALIFIER_FROM_ADDRESS_BAR:
+    case TransitionQualifier::kFromAddressBar:
       return "from_address_bar";
-    case TRANSITION_QUALIFIER_NONE:
+    case TransitionQualifier::kNone:
       return "";
   }
   NOTREACHED();
@@ -116,14 +117,14 @@ const char* ToString(TransitionQualifier enum_param) {
 
 TransitionQualifier ParseTransitionQualifier(base::StringPiece enum_string) {
   if (enum_string == "client_redirect")
-    return TRANSITION_QUALIFIER_CLIENT_REDIRECT;
+    return TransitionQualifier::kClientRedirect;
   if (enum_string == "server_redirect")
-    return TRANSITION_QUALIFIER_SERVER_REDIRECT;
+    return TransitionQualifier::kServerRedirect;
   if (enum_string == "forward_back")
-    return TRANSITION_QUALIFIER_FORWARD_BACK;
+    return TransitionQualifier::kForwardBack;
   if (enum_string == "from_address_bar")
-    return TRANSITION_QUALIFIER_FROM_ADDRESS_BAR;
-  return TRANSITION_QUALIFIER_NONE;
+    return TransitionQualifier::kFromAddressBar;
+  return TransitionQualifier::kNone;
 }
 
 std::u16string GetTransitionQualifierParseError(base::StringPiece enum_string) {
@@ -142,8 +143,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.tab_id = tab_id;
@@ -161,7 +162,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -173,7 +174,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*process_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.process_id = absl::nullopt;
+        out.process_id = std::nullopt;
         return false;
       }
       out.process_id = *temp;
@@ -185,7 +186,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*frame_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.frame_id = absl::nullopt;
+        out.frame_id = std::nullopt;
         return false;
       }
       out.frame_id = *temp;
@@ -197,7 +198,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*document_id_value).GetIfString();
       if (!temp) {
-        out.document_id = absl::nullopt;
+        out.document_id = std::nullopt;
         return false;
       }
       out.document_id = *temp;
@@ -217,21 +218,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -239,13 +240,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -254,15 +255,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -276,8 +277,8 @@ document_lifecycle(),
 frame_type() {}
 
 Results::Details::~Details() = default;
-Results::Details::Details(Details&& rhs) = default;
-Results::Details& Results::Details::operator=(Details&& rhs) = default;
+Results::Details::Details(Details&& rhs) noexcept = default;
+Results::Details& Results::Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Results::Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -317,8 +318,8 @@ Params::Details::Details()
 : tab_id(0) {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.tab_id = tab_id;
@@ -353,21 +354,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -375,13 +376,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -390,15 +391,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -414,8 +415,8 @@ document_lifecycle(),
 frame_type() {}
 
 Results::DetailsType::~DetailsType() = default;
-Results::DetailsType::DetailsType(DetailsType&& rhs) = default;
-Results::DetailsType& Results::DetailsType::operator=(DetailsType&& rhs) = default;
+Results::DetailsType::DetailsType(DetailsType&& rhs) noexcept = default;
+Results::DetailsType& Results::DetailsType::operator=(DetailsType&& rhs) noexcept = default;
 base::Value::Dict Results::DetailsType::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -472,8 +473,8 @@ document_lifecycle(),
 frame_type() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -527,8 +528,8 @@ document_lifecycle(),
 frame_type() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -593,8 +594,8 @@ document_lifecycle(),
 frame_type() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -649,8 +650,8 @@ document_lifecycle(),
 frame_type() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -705,8 +706,8 @@ document_lifecycle(),
 frame_type() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -761,8 +762,8 @@ tab_id(0),
 time_stamp(0.0) {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -808,8 +809,8 @@ document_lifecycle(),
 frame_type() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -870,8 +871,8 @@ tab_id(0),
 time_stamp(0.0) {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -911,8 +912,8 @@ document_lifecycle(),
 frame_type() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 

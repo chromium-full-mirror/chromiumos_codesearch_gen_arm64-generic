@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -138,14 +139,17 @@ void BlobReaderClientProxy::OnCalculatedSize(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobReaderClient_OnCalculatedSize_Name, kFlags, 0, 0, nullptr);
@@ -180,14 +184,17 @@ void BlobReaderClientProxy::OnComplete(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobReaderClient_OnComplete_Name, kFlags, 0, 0, nullptr);
@@ -294,12 +301,12 @@ bool BlobReaderClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBlobReaderClientValidationInfo[] = {
-    {&internal::BlobReaderClient_OnCalculatedSize_Params_Data::Validate,
+    { &internal::BlobReaderClient_OnCalculatedSize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BlobReaderClient_OnComplete_Params_Data::Validate,
+    { &internal::BlobReaderClient_OnComplete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -502,7 +509,7 @@ uint32_t Blob::GetInternalUUID_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool Blob::CaptureSnapshot(uint64_t* out_length, absl::optional<::base::Time>* out_modification_time) {
+bool Blob::CaptureSnapshot(uint64_t* out_length, std::optional<::base::Time>* out_modification_time) {
   NOTREACHED();
   return false;
 }
@@ -526,7 +533,7 @@ class Blob_CaptureSnapshot_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
   Blob_CaptureSnapshot_HandleSyncResponse(
-      bool* result, uint64_t* out_length, absl::optional<::base::Time>* out_modification_time)
+      bool* result, uint64_t* out_length, std::optional<::base::Time>* out_modification_time)
       : result_(result), out_length_(out_length), out_modification_time_(out_modification_time) {
     DCHECK(!*result_);
   }
@@ -538,7 +545,7 @@ class Blob_CaptureSnapshot_HandleSyncResponse
  private:
   bool* result_;
   uint64_t* out_length_;
-  absl::optional<::base::Time>* out_modification_time_;};
+  std::optional<::base::Time>* out_modification_time_;};
 
 class Blob_CaptureSnapshot_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -588,14 +595,17 @@ void BlobProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<Blob>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_Clone_Name, kFlags, 0, 0, nullptr);
@@ -631,14 +641,17 @@ void BlobProxy::AsDataPipeGetter(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::blink::DataPipeGetter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_AsDataPipeGetter_Name, kFlags, 0, 0, nullptr);
@@ -677,14 +690,17 @@ void BlobProxy::ReadAll(
                         "<value of type ::mojo::PendingRemote<BlobReaderClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_ReadAll_Name, kFlags, 0, 0, nullptr);
@@ -731,14 +747,17 @@ void BlobProxy::ReadRange(
                         "<value of type ::mojo::PendingRemote<BlobReaderClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_ReadRange_Name, kFlags, 0, 0, nullptr);
@@ -787,14 +806,17 @@ void BlobProxy::Load(
                         "<value of type ::mojo::PendingRemote<::network::mojom::blink::URLLoaderClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_Load_Name, kFlags, 0, 0, nullptr);
@@ -851,14 +873,17 @@ void BlobProxy::ReadSideData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::Blob::ReadSideData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_ReadSideData_Name, kFlags, 0, 0, nullptr);
@@ -877,21 +902,24 @@ void BlobProxy::ReadSideData(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 bool BlobProxy::CaptureSnapshot(
-    uint64_t* out_param_length, absl::optional<::base::Time>* out_param_modification_time) {
+    uint64_t* out_param_length, std::optional<::base::Time>* out_param_modification_time) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN0("mojom", "Call blink::mojom::Blob::CaptureSnapshot (sync)");
 #else
   TRACE_EVENT0("mojom", "Blob::CaptureSnapshot");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_CaptureSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -920,7 +948,7 @@ bool BlobProxy::CaptureSnapshot(
                         "<value of type uint64_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("modification_time"), out_param_modification_time,
-                        "<value of type absl::optional<::base::Time>>");
+                        "<value of type std::optional<::base::Time>>");
    });
 #endif
   return result;
@@ -931,14 +959,17 @@ void BlobProxy::CaptureSnapshot(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::Blob::CaptureSnapshot");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_CaptureSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -962,14 +993,17 @@ void BlobProxy::GetInternalUUID(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::Blob::GetInternalUUID");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_GetInternalUUID_Name, kFlags, 0, 0, nullptr);
@@ -1033,7 +1067,7 @@ class Blob_ReadSideData_ProxyToResponder : public ::mojo::internal::ProxyToRespo
 #endif
 
   void Run(
-      absl::optional<::mojo_base::BigBuffer> in_data);
+      std::optional<::mojo_base::BigBuffer> in_data);
 };
 
 bool Blob_ReadSideData_ForwardToCallback::Accept(
@@ -1046,7 +1080,7 @@ bool Blob_ReadSideData_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::mojo_base::BigBuffer> p_data{};
+  std::optional<::mojo_base::BigBuffer> p_data{};
   Blob_ReadSideData_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadData(&p_data))
@@ -1065,7 +1099,7 @@ std::move(p_data));
 }
 
 void Blob_ReadSideData_ProxyToResponder::Run(
-    absl::optional<::mojo_base::BigBuffer> in_data) {
+    std::optional<::mojo_base::BigBuffer> in_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::Blob::ReadSideData", "async_response_parameters",
@@ -1073,13 +1107,14 @@ void Blob_ReadSideData_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data"), in_data,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_ReadSideData_Name, kFlags, 0, 0, nullptr);
@@ -1155,7 +1190,7 @@ class Blob_CaptureSnapshot_ProxyToResponder : public ::mojo::internal::ProxyToRe
 #endif
 
   void Run(
-      uint64_t in_length, absl::optional<::base::Time> in_modification_time);
+      uint64_t in_length, std::optional<::base::Time> in_modification_time);
 };
 
 bool Blob_CaptureSnapshot_ForwardToCallback::Accept(
@@ -1169,7 +1204,7 @@ bool Blob_CaptureSnapshot_ForwardToCallback::Accept(
   
   bool success = true;
   uint64_t p_length{};
-  absl::optional<::base::Time> p_modification_time{};
+  std::optional<::base::Time> p_modification_time{};
   Blob_CaptureSnapshot_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1191,7 +1226,7 @@ std::move(p_modification_time));
 }
 
 void Blob_CaptureSnapshot_ProxyToResponder::Run(
-    uint64_t in_length, absl::optional<::base::Time> in_modification_time) {
+    uint64_t in_length, std::optional<::base::Time> in_modification_time) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::Blob::CaptureSnapshot", "async_response_parameters",
@@ -1202,13 +1237,14 @@ void Blob_CaptureSnapshot_ProxyToResponder::Run(
                         "<value of type uint64_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("modification_time"), in_modification_time,
-                        "<value of type absl::optional<::base::Time>>");
+                        "<value of type std::optional<::base::Time>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_CaptureSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -1251,7 +1287,7 @@ bool Blob_CaptureSnapshot_HandleSyncResponse::Accept(
   
   bool success = true;
   uint64_t p_length{};
-  absl::optional<::base::Time> p_modification_time{};
+  std::optional<::base::Time> p_modification_time{};
   Blob_CaptureSnapshot_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1362,7 +1398,8 @@ void Blob_GetInternalUUID_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlob_GetInternalUUID_Name, kFlags, 0, 0, nullptr);
@@ -1689,24 +1726,24 @@ bool BlobStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBlobValidationInfo[] = {
-    {&internal::Blob_Clone_Params_Data::Validate,
+    { &internal::Blob_Clone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Blob_AsDataPipeGetter_Params_Data::Validate,
+    { &internal::Blob_AsDataPipeGetter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Blob_ReadAll_Params_Data::Validate,
+    { &internal::Blob_ReadAll_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Blob_ReadRange_Params_Data::Validate,
+    { &internal::Blob_ReadRange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Blob_Load_Params_Data::Validate,
+    { &internal::Blob_Load_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Blob_ReadSideData_Params_Data::Validate,
+    { &internal::Blob_ReadSideData_Params_Data::Validate,
      &internal::Blob_ReadSideData_ResponseParams_Data::Validate},
-    {&internal::Blob_CaptureSnapshot_Params_Data::Validate,
+    { &internal::Blob_CaptureSnapshot_Params_Data::Validate,
      &internal::Blob_CaptureSnapshot_ResponseParams_Data::Validate},
-    {&internal::Blob_GetInternalUUID_Params_Data::Validate,
+    { &internal::Blob_GetInternalUUID_Params_Data::Validate,
      &internal::Blob_GetInternalUUID_ResponseParams_Data::Validate},
 };
 
@@ -1780,14 +1817,14 @@ BlobAsyncWaiter::BlobAsyncWaiter(
 BlobAsyncWaiter::~BlobAsyncWaiter() = default;
 
 void BlobAsyncWaiter::ReadSideData(
-    absl::optional<::mojo_base::BigBuffer>* out_data) {
+    std::optional<::mojo_base::BigBuffer>* out_data) {
   base::RunLoop loop;
   proxy_->ReadSideData(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::mojo_base::BigBuffer>* out_data
+             std::optional<::mojo_base::BigBuffer>* out_data
 ,
-             absl::optional<::mojo_base::BigBuffer> data) {*out_data = std::move(data);
+             std::optional<::mojo_base::BigBuffer> data) {*out_data = std::move(data);
             loop->Quit();
           },
           &loop,
@@ -1795,25 +1832,25 @@ void BlobAsyncWaiter::ReadSideData(
   loop.Run();
 }
 
-absl::optional<::mojo_base::BigBuffer> BlobAsyncWaiter::ReadSideData(
+std::optional<::mojo_base::BigBuffer> BlobAsyncWaiter::ReadSideData(
     ) {
-  absl::optional<::mojo_base::BigBuffer> async_wait_result;
+  std::optional<::mojo_base::BigBuffer> async_wait_result;
   ReadSideData(&async_wait_result);
   return async_wait_result;
 }
 
 void BlobAsyncWaiter::CaptureSnapshot(
-    uint64_t* out_length, absl::optional<::base::Time>* out_modification_time) {
+    uint64_t* out_length, std::optional<::base::Time>* out_modification_time) {
   base::RunLoop loop;
   proxy_->CaptureSnapshot(
       base::BindOnce(
           [](base::RunLoop* loop,
              uint64_t* out_length
 ,
-             absl::optional<::base::Time>* out_modification_time
+             std::optional<::base::Time>* out_modification_time
 ,
              uint64_t length,
-             absl::optional<::base::Time> modification_time) {*out_length = std::move(length);*out_modification_time = std::move(modification_time);
+             std::optional<::base::Time> modification_time) {*out_length = std::move(length);*out_modification_time = std::move(modification_time);
             loop->Quit();
           },
           &loop,

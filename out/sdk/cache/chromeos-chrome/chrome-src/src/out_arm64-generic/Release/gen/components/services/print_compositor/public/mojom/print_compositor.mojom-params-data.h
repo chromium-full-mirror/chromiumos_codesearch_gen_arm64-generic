@@ -72,7 +72,7 @@ class  PrintCompositor_SetAccessibilityTree_Params_Data {
 };
 static_assert(sizeof(PrintCompositor_SetAccessibilityTree_Params_Data) == 16,
               "Bad sizeof(PrintCompositor_SetAccessibilityTree_Params_Data)");
-class  PrintCompositor_CompositePageToPdf_Params_Data {
+class  PrintCompositor_CompositePage_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -83,14 +83,14 @@ class  PrintCompositor_CompositePageToPdf_Params_Data {
   mojo::internal::Pointer<mojo::internal::Map_Data<uint32_t, uint64_t>> subframe_content_info;
 
  private:
-  friend class mojo::internal::MessageFragment<PrintCompositor_CompositePageToPdf_Params_Data>;
+  friend class mojo::internal::MessageFragment<PrintCompositor_CompositePage_Params_Data>;
 
-  PrintCompositor_CompositePageToPdf_Params_Data();
-  ~PrintCompositor_CompositePageToPdf_Params_Data() = delete;
+  PrintCompositor_CompositePage_Params_Data();
+  ~PrintCompositor_CompositePage_Params_Data() = delete;
 };
-static_assert(sizeof(PrintCompositor_CompositePageToPdf_Params_Data) == 32,
-              "Bad sizeof(PrintCompositor_CompositePageToPdf_Params_Data)");
-class  PrintCompositor_CompositePageToPdf_ResponseParams_Data {
+static_assert(sizeof(PrintCompositor_CompositePage_Params_Data) == 32,
+              "Bad sizeof(PrintCompositor_CompositePage_Params_Data)");
+class  PrintCompositor_CompositePage_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -98,17 +98,17 @@ class  PrintCompositor_CompositePageToPdf_ResponseParams_Data {
   mojo::internal::StructHeader header_;
   int32_t status;
   uint8_t pad0_[4];
-  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> pdf_region;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> document_region;
 
  private:
-  friend class mojo::internal::MessageFragment<PrintCompositor_CompositePageToPdf_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<PrintCompositor_CompositePage_ResponseParams_Data>;
 
-  PrintCompositor_CompositePageToPdf_ResponseParams_Data();
-  ~PrintCompositor_CompositePageToPdf_ResponseParams_Data() = delete;
+  PrintCompositor_CompositePage_ResponseParams_Data();
+  ~PrintCompositor_CompositePage_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(PrintCompositor_CompositePageToPdf_ResponseParams_Data) == 24,
-              "Bad sizeof(PrintCompositor_CompositePageToPdf_ResponseParams_Data)");
-class  PrintCompositor_CompositeDocumentToPdf_Params_Data {
+static_assert(sizeof(PrintCompositor_CompositePage_ResponseParams_Data) == 24,
+              "Bad sizeof(PrintCompositor_CompositePage_ResponseParams_Data)");
+class  PrintCompositor_CompositeDocument_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -117,16 +117,18 @@ class  PrintCompositor_CompositeDocumentToPdf_Params_Data {
   uint64_t frame_guid;
   mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> sk_region;
   mojo::internal::Pointer<mojo::internal::Map_Data<uint32_t, uint64_t>> subframe_content_info;
+  int32_t document_type;
+  uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<PrintCompositor_CompositeDocumentToPdf_Params_Data>;
+  friend class mojo::internal::MessageFragment<PrintCompositor_CompositeDocument_Params_Data>;
 
-  PrintCompositor_CompositeDocumentToPdf_Params_Data();
-  ~PrintCompositor_CompositeDocumentToPdf_Params_Data() = delete;
+  PrintCompositor_CompositeDocument_Params_Data();
+  ~PrintCompositor_CompositeDocument_Params_Data() = delete;
 };
-static_assert(sizeof(PrintCompositor_CompositeDocumentToPdf_Params_Data) == 32,
-              "Bad sizeof(PrintCompositor_CompositeDocumentToPdf_Params_Data)");
-class  PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data {
+static_assert(sizeof(PrintCompositor_CompositeDocument_Params_Data) == 40,
+              "Bad sizeof(PrintCompositor_CompositeDocument_Params_Data)");
+class  PrintCompositor_CompositeDocument_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -134,32 +136,34 @@ class  PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data {
   mojo::internal::StructHeader header_;
   int32_t status;
   uint8_t pad0_[4];
-  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> pdf_region;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> document_region;
 
  private:
-  friend class mojo::internal::MessageFragment<PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<PrintCompositor_CompositeDocument_ResponseParams_Data>;
 
-  PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data();
-  ~PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data() = delete;
+  PrintCompositor_CompositeDocument_ResponseParams_Data();
+  ~PrintCompositor_CompositeDocument_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data) == 24,
-              "Bad sizeof(PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data)");
-class  PrintCompositor_PrepareForDocumentToPdf_Params_Data {
+static_assert(sizeof(PrintCompositor_CompositeDocument_ResponseParams_Data) == 24,
+              "Bad sizeof(PrintCompositor_CompositeDocument_ResponseParams_Data)");
+class  PrintCompositor_PrepareToCompositeDocument_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t document_type;
+  uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<PrintCompositor_PrepareForDocumentToPdf_Params_Data>;
+  friend class mojo::internal::MessageFragment<PrintCompositor_PrepareToCompositeDocument_Params_Data>;
 
-  PrintCompositor_PrepareForDocumentToPdf_Params_Data();
-  ~PrintCompositor_PrepareForDocumentToPdf_Params_Data() = delete;
+  PrintCompositor_PrepareToCompositeDocument_Params_Data();
+  ~PrintCompositor_PrepareToCompositeDocument_Params_Data() = delete;
 };
-static_assert(sizeof(PrintCompositor_PrepareForDocumentToPdf_Params_Data) == 8,
-              "Bad sizeof(PrintCompositor_PrepareForDocumentToPdf_Params_Data)");
-class  PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data {
+static_assert(sizeof(PrintCompositor_PrepareToCompositeDocument_Params_Data) == 16,
+              "Bad sizeof(PrintCompositor_PrepareToCompositeDocument_Params_Data)");
+class  PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -169,14 +173,14 @@ class  PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data {
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data>;
 
-  PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data();
-  ~PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data() = delete;
+  PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data();
+  ~PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data) == 16,
-              "Bad sizeof(PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data)");
-class  PrintCompositor_CompleteDocumentToPdf_Params_Data {
+static_assert(sizeof(PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data) == 16,
+              "Bad sizeof(PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data)");
+class  PrintCompositor_FinishDocumentComposition_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -186,14 +190,14 @@ class  PrintCompositor_CompleteDocumentToPdf_Params_Data {
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<PrintCompositor_CompleteDocumentToPdf_Params_Data>;
+  friend class mojo::internal::MessageFragment<PrintCompositor_FinishDocumentComposition_Params_Data>;
 
-  PrintCompositor_CompleteDocumentToPdf_Params_Data();
-  ~PrintCompositor_CompleteDocumentToPdf_Params_Data() = delete;
+  PrintCompositor_FinishDocumentComposition_Params_Data();
+  ~PrintCompositor_FinishDocumentComposition_Params_Data() = delete;
 };
-static_assert(sizeof(PrintCompositor_CompleteDocumentToPdf_Params_Data) == 16,
-              "Bad sizeof(PrintCompositor_CompleteDocumentToPdf_Params_Data)");
-class  PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data {
+static_assert(sizeof(PrintCompositor_FinishDocumentComposition_Params_Data) == 16,
+              "Bad sizeof(PrintCompositor_FinishDocumentComposition_Params_Data)");
+class  PrintCompositor_FinishDocumentComposition_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -201,16 +205,16 @@ class  PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data {
   mojo::internal::StructHeader header_;
   int32_t status;
   uint8_t pad0_[4];
-  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> pdf_region;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> document_region;
 
  private:
-  friend class mojo::internal::MessageFragment<PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<PrintCompositor_FinishDocumentComposition_ResponseParams_Data>;
 
-  PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data();
-  ~PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data() = delete;
+  PrintCompositor_FinishDocumentComposition_ResponseParams_Data();
+  ~PrintCompositor_FinishDocumentComposition_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data) == 24,
-              "Bad sizeof(PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data)");
+static_assert(sizeof(PrintCompositor_FinishDocumentComposition_ResponseParams_Data) == 24,
+              "Bad sizeof(PrintCompositor_FinishDocumentComposition_ResponseParams_Data)");
 class  PrintCompositor_SetWebContentsURL_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -330,12 +334,12 @@ class PrintCompositor_SetAccessibilityTree_ParamsDataView {
 };
 
 
-class PrintCompositor_CompositePageToPdf_ParamsDataView {
+class PrintCompositor_CompositePage_ParamsDataView {
  public:
-  PrintCompositor_CompositePageToPdf_ParamsDataView() = default;
+  PrintCompositor_CompositePage_ParamsDataView() = default;
 
-  PrintCompositor_CompositePageToPdf_ParamsDataView(
-      internal::PrintCompositor_CompositePageToPdf_Params_Data* data,
+  PrintCompositor_CompositePage_ParamsDataView(
+      internal::PrintCompositor_CompositePage_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -364,17 +368,17 @@ class PrintCompositor_CompositePageToPdf_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::PrintCompositor_CompositePageToPdf_Params_Data* data_ = nullptr;
+  internal::PrintCompositor_CompositePage_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class PrintCompositor_CompositePageToPdf_ResponseParamsDataView {
+class PrintCompositor_CompositePage_ResponseParamsDataView {
  public:
-  PrintCompositor_CompositePageToPdf_ResponseParamsDataView() = default;
+  PrintCompositor_CompositePage_ResponseParamsDataView() = default;
 
-  PrintCompositor_CompositePageToPdf_ResponseParamsDataView(
-      internal::PrintCompositor_CompositePageToPdf_ResponseParams_Data* data,
+  PrintCompositor_CompositePage_ResponseParamsDataView(
+      internal::PrintCompositor_CompositePage_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -389,38 +393,38 @@ class PrintCompositor_CompositePageToPdf_ResponseParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::printing::mojom::PrintCompositor_Status>(data_->status));
   }
-  inline void GetPdfRegionDataView(
+  inline void GetDocumentRegionDataView(
       ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadPdfRegion(UserType* output) {
+  [[nodiscard]] bool ReadDocumentRegion(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
         ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView, UserType>(),
-    "Attempting to read the optional `pdf_region` field into a type which "
+    "Attempting to read the optional `document_region` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadPdfRegion` instead "
-    "of `ReadPdfRegion if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadDocumentRegion` instead "
+    "of `ReadDocumentRegion if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->pdf_region.Get();
+    auto* pointer = data_->document_region.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
         pointer, output, message_);
   }
  private:
-  internal::PrintCompositor_CompositePageToPdf_ResponseParams_Data* data_ = nullptr;
+  internal::PrintCompositor_CompositePage_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class PrintCompositor_CompositeDocumentToPdf_ParamsDataView {
+class PrintCompositor_CompositeDocument_ParamsDataView {
  public:
-  PrintCompositor_CompositeDocumentToPdf_ParamsDataView() = default;
+  PrintCompositor_CompositeDocument_ParamsDataView() = default;
 
-  PrintCompositor_CompositeDocumentToPdf_ParamsDataView(
-      internal::PrintCompositor_CompositeDocumentToPdf_Params_Data* data,
+  PrintCompositor_CompositeDocument_ParamsDataView(
+      internal::PrintCompositor_CompositeDocument_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -448,18 +452,28 @@ class PrintCompositor_CompositeDocumentToPdf_ParamsDataView {
     return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, uint64_t>>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadDocumentType(UserType* output) const {
+    auto data_value = data_->document_type;
+    return mojo::internal::Deserialize<::printing::mojom::PrintCompositor_DocumentType>(
+        data_value, output);
+  }
+  PrintCompositor_DocumentType document_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::printing::mojom::PrintCompositor_DocumentType>(data_->document_type));
+  }
  private:
-  internal::PrintCompositor_CompositeDocumentToPdf_Params_Data* data_ = nullptr;
+  internal::PrintCompositor_CompositeDocument_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class PrintCompositor_CompositeDocumentToPdf_ResponseParamsDataView {
+class PrintCompositor_CompositeDocument_ResponseParamsDataView {
  public:
-  PrintCompositor_CompositeDocumentToPdf_ResponseParamsDataView() = default;
+  PrintCompositor_CompositeDocument_ResponseParamsDataView() = default;
 
-  PrintCompositor_CompositeDocumentToPdf_ResponseParamsDataView(
-      internal::PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data* data,
+  PrintCompositor_CompositeDocument_ResponseParamsDataView(
+      internal::PrintCompositor_CompositeDocument_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -474,53 +488,63 @@ class PrintCompositor_CompositeDocumentToPdf_ResponseParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::printing::mojom::PrintCompositor_Status>(data_->status));
   }
-  inline void GetPdfRegionDataView(
+  inline void GetDocumentRegionDataView(
       ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadPdfRegion(UserType* output) {
+  [[nodiscard]] bool ReadDocumentRegion(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
         ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView, UserType>(),
-    "Attempting to read the optional `pdf_region` field into a type which "
+    "Attempting to read the optional `document_region` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadPdfRegion` instead "
-    "of `ReadPdfRegion if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadDocumentRegion` instead "
+    "of `ReadDocumentRegion if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->pdf_region.Get();
+    auto* pointer = data_->document_region.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
         pointer, output, message_);
   }
  private:
-  internal::PrintCompositor_CompositeDocumentToPdf_ResponseParams_Data* data_ = nullptr;
+  internal::PrintCompositor_CompositeDocument_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class PrintCompositor_PrepareForDocumentToPdf_ParamsDataView {
+class PrintCompositor_PrepareToCompositeDocument_ParamsDataView {
  public:
-  PrintCompositor_PrepareForDocumentToPdf_ParamsDataView() = default;
+  PrintCompositor_PrepareToCompositeDocument_ParamsDataView() = default;
 
-  PrintCompositor_PrepareForDocumentToPdf_ParamsDataView(
-      internal::PrintCompositor_PrepareForDocumentToPdf_Params_Data* data,
+  PrintCompositor_PrepareToCompositeDocument_ParamsDataView(
+      internal::PrintCompositor_PrepareToCompositeDocument_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadDocumentType(UserType* output) const {
+    auto data_value = data_->document_type;
+    return mojo::internal::Deserialize<::printing::mojom::PrintCompositor_DocumentType>(
+        data_value, output);
+  }
+  PrintCompositor_DocumentType document_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::printing::mojom::PrintCompositor_DocumentType>(data_->document_type));
+  }
  private:
-  internal::PrintCompositor_PrepareForDocumentToPdf_Params_Data* data_ = nullptr;
+  internal::PrintCompositor_PrepareToCompositeDocument_Params_Data* data_ = nullptr;
 };
 
 
-class PrintCompositor_PrepareForDocumentToPdf_ResponseParamsDataView {
+class PrintCompositor_PrepareToCompositeDocument_ResponseParamsDataView {
  public:
-  PrintCompositor_PrepareForDocumentToPdf_ResponseParamsDataView() = default;
+  PrintCompositor_PrepareToCompositeDocument_ResponseParamsDataView() = default;
 
-  PrintCompositor_PrepareForDocumentToPdf_ResponseParamsDataView(
-      internal::PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data* data,
+  PrintCompositor_PrepareToCompositeDocument_ResponseParamsDataView(
+      internal::PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -536,16 +560,16 @@ class PrintCompositor_PrepareForDocumentToPdf_ResponseParamsDataView {
           static_cast<::printing::mojom::PrintCompositor_Status>(data_->status));
   }
  private:
-  internal::PrintCompositor_PrepareForDocumentToPdf_ResponseParams_Data* data_ = nullptr;
+  internal::PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data* data_ = nullptr;
 };
 
 
-class PrintCompositor_CompleteDocumentToPdf_ParamsDataView {
+class PrintCompositor_FinishDocumentComposition_ParamsDataView {
  public:
-  PrintCompositor_CompleteDocumentToPdf_ParamsDataView() = default;
+  PrintCompositor_FinishDocumentComposition_ParamsDataView() = default;
 
-  PrintCompositor_CompleteDocumentToPdf_ParamsDataView(
-      internal::PrintCompositor_CompleteDocumentToPdf_Params_Data* data,
+  PrintCompositor_FinishDocumentComposition_ParamsDataView(
+      internal::PrintCompositor_FinishDocumentComposition_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -554,16 +578,16 @@ class PrintCompositor_CompleteDocumentToPdf_ParamsDataView {
     return data_->pages_count;
   }
  private:
-  internal::PrintCompositor_CompleteDocumentToPdf_Params_Data* data_ = nullptr;
+  internal::PrintCompositor_FinishDocumentComposition_Params_Data* data_ = nullptr;
 };
 
 
-class PrintCompositor_CompleteDocumentToPdf_ResponseParamsDataView {
+class PrintCompositor_FinishDocumentComposition_ResponseParamsDataView {
  public:
-  PrintCompositor_CompleteDocumentToPdf_ResponseParamsDataView() = default;
+  PrintCompositor_FinishDocumentComposition_ResponseParamsDataView() = default;
 
-  PrintCompositor_CompleteDocumentToPdf_ResponseParamsDataView(
-      internal::PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data* data,
+  PrintCompositor_FinishDocumentComposition_ResponseParamsDataView(
+      internal::PrintCompositor_FinishDocumentComposition_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -578,28 +602,28 @@ class PrintCompositor_CompleteDocumentToPdf_ResponseParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::printing::mojom::PrintCompositor_Status>(data_->status));
   }
-  inline void GetPdfRegionDataView(
+  inline void GetDocumentRegionDataView(
       ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadPdfRegion(UserType* output) {
+  [[nodiscard]] bool ReadDocumentRegion(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
         ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView, UserType>(),
-    "Attempting to read the optional `pdf_region` field into a type which "
+    "Attempting to read the optional `document_region` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadPdfRegion` instead "
-    "of `ReadPdfRegion if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadDocumentRegion` instead "
+    "of `ReadDocumentRegion if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->pdf_region.Get();
+    auto* pointer = data_->document_region.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
         pointer, output, message_);
   }
  private:
-  internal::PrintCompositor_CompleteDocumentToPdf_ResponseParams_Data* data_ = nullptr;
+  internal::PrintCompositor_FinishDocumentComposition_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -676,40 +700,40 @@ inline void PrintCompositor_SetAccessibilityTree_ParamsDataView::GetAccessibilit
 }
 
 
-inline void PrintCompositor_CompositePageToPdf_ParamsDataView::GetSkRegionDataView(
+inline void PrintCompositor_CompositePage_ParamsDataView::GetSkRegionDataView(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {
   auto pointer = data_->sk_region.Get();
   *output = ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView(pointer, message_);
 }
-inline void PrintCompositor_CompositePageToPdf_ParamsDataView::GetSubframeContentInfoDataView(
+inline void PrintCompositor_CompositePage_ParamsDataView::GetSubframeContentInfoDataView(
     mojo::MapDataView<uint32_t, uint64_t>* output) {
   auto pointer = data_->subframe_content_info.Get();
   *output = mojo::MapDataView<uint32_t, uint64_t>(pointer, message_);
 }
 
 
-inline void PrintCompositor_CompositePageToPdf_ResponseParamsDataView::GetPdfRegionDataView(
+inline void PrintCompositor_CompositePage_ResponseParamsDataView::GetDocumentRegionDataView(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {
-  auto pointer = data_->pdf_region.Get();
+  auto pointer = data_->document_region.Get();
   *output = ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView(pointer, message_);
 }
 
 
-inline void PrintCompositor_CompositeDocumentToPdf_ParamsDataView::GetSkRegionDataView(
+inline void PrintCompositor_CompositeDocument_ParamsDataView::GetSkRegionDataView(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {
   auto pointer = data_->sk_region.Get();
   *output = ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView(pointer, message_);
 }
-inline void PrintCompositor_CompositeDocumentToPdf_ParamsDataView::GetSubframeContentInfoDataView(
+inline void PrintCompositor_CompositeDocument_ParamsDataView::GetSubframeContentInfoDataView(
     mojo::MapDataView<uint32_t, uint64_t>* output) {
   auto pointer = data_->subframe_content_info.Get();
   *output = mojo::MapDataView<uint32_t, uint64_t>(pointer, message_);
 }
 
 
-inline void PrintCompositor_CompositeDocumentToPdf_ResponseParamsDataView::GetPdfRegionDataView(
+inline void PrintCompositor_CompositeDocument_ResponseParamsDataView::GetDocumentRegionDataView(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {
-  auto pointer = data_->pdf_region.Get();
+  auto pointer = data_->document_region.Get();
   *output = ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView(pointer, message_);
 }
 
@@ -720,9 +744,9 @@ inline void PrintCompositor_CompositeDocumentToPdf_ResponseParamsDataView::GetPd
 
 
 
-inline void PrintCompositor_CompleteDocumentToPdf_ResponseParamsDataView::GetPdfRegionDataView(
+inline void PrintCompositor_FinishDocumentComposition_ResponseParamsDataView::GetDocumentRegionDataView(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {
-  auto pointer = data_->pdf_region.Get();
+  auto pointer = data_->document_region.Get();
   *output = ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView(pointer, message_);
 }
 

@@ -469,21 +469,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IDBDatabase_CreateTrans
 };
 static_assert(sizeof(IDBDatabase_CreateTransaction_Params_Data) == 40,
               "Bad sizeof(IDBDatabase_CreateTransaction_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IDBDatabase_Close_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<IDBDatabase_Close_Params_Data>;
-
-  IDBDatabase_Close_Params_Data();
-  ~IDBDatabase_Close_Params_Data() = delete;
-};
-static_assert(sizeof(IDBDatabase_Close_Params_Data) == 8,
-              "Bad sizeof(IDBDatabase_Close_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) IDBDatabase_VersionChangeIgnored_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1717,21 +1702,6 @@ class IDBDatabase_CreateTransaction_ParamsDataView {
 };
 
 
-class IDBDatabase_Close_ParamsDataView {
- public:
-  IDBDatabase_Close_ParamsDataView() = default;
-
-  IDBDatabase_Close_ParamsDataView(
-      internal::IDBDatabase_Close_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::IDBDatabase_Close_Params_Data* data_ = nullptr;
-};
-
-
 class IDBDatabase_VersionChangeIgnored_ParamsDataView {
  public:
   IDBDatabase_VersionChangeIgnored_ParamsDataView() = default;
@@ -2695,8 +2665,6 @@ inline void IDBDatabase_CreateTransaction_ParamsDataView::GetObjectStoreIdsDataV
   auto pointer = data_->object_store_ids.Get();
   *output = mojo::ArrayDataView<int64_t>(pointer, message_);
 }
-
-
 
 
 

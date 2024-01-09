@@ -4,35 +4,37 @@
 #include "switch_states.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace power_manager {
+template <typename>
 PROTOBUF_CONSTEXPR SwitchStates::SwitchStates(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.lid_state_)*/0
-  , /*decltype(_impl_.tablet_mode_)*/0} {}
+  , /*decltype(_impl_.lid_state_)*/ 0
+
+  , /*decltype(_impl_.tablet_mode_)*/ 0
+} {}
 struct SwitchStatesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SwitchStatesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SwitchStatesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SwitchStatesDefaultTypeInternal() {}
   union {
     SwitchStates _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwitchStatesDefaultTypeInternal _SwitchStates_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwitchStatesDefaultTypeInternal _SwitchStates_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 bool SwitchStates_LidState_IsValid(int value) {
@@ -45,43 +47,43 @@ bool SwitchStates_LidState_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    SwitchStates_LidState_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SwitchStates_LidState_strings[3] = {};
+static const char SwitchStates_LidState_names[] = {
+    "CLOSED"
+    "NOT_PRESENT"
+    "OPEN"
+};
 
-static const char SwitchStates_LidState_names[] =
-  "CLOSED"
-  "NOT_PRESENT"
-  "OPEN";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SwitchStates_LidState_entries[] = {
-  { {SwitchStates_LidState_names + 0, 6}, 1 },
-  { {SwitchStates_LidState_names + 6, 11}, 2 },
-  { {SwitchStates_LidState_names + 17, 4}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SwitchStates_LidState_entries[] =
+    {
+        {{&SwitchStates_LidState_names[0], 6}, 1},
+        {{&SwitchStates_LidState_names[6], 11}, 2},
+        {{&SwitchStates_LidState_names[17], 4}, 0},
 };
 
 static const int SwitchStates_LidState_entries_by_number[] = {
-  2, // 0 -> OPEN
-  0, // 1 -> CLOSED
-  1, // 2 -> NOT_PRESENT
+    2,  // 0 -> OPEN
+    0,  // 1 -> CLOSED
+    1,  // 2 -> NOT_PRESENT
 };
 
-const std::string& SwitchStates_LidState_Name(
-    SwitchStates_LidState value) {
-  static const bool dummy =
+const std::string& SwitchStates_LidState_Name(SwitchStates_LidState value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          SwitchStates_LidState_entries,
-          SwitchStates_LidState_entries_by_number,
+          SwitchStates_LidState_entries, SwitchStates_LidState_entries_by_number,
           3, SwitchStates_LidState_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      SwitchStates_LidState_entries,
-      SwitchStates_LidState_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     SwitchStates_LidState_strings[idx].get();
+      SwitchStates_LidState_entries, SwitchStates_LidState_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : SwitchStates_LidState_strings[idx].get();
 }
-bool SwitchStates_LidState_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SwitchStates_LidState* value) {
+
+bool SwitchStates_LidState_Parse(absl::string_view name, SwitchStates_LidState* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       SwitchStates_LidState_entries, 3, name, &int_value);
@@ -90,14 +92,18 @@ bool SwitchStates_LidState_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr SwitchStates_LidState SwitchStates::OPEN;
 constexpr SwitchStates_LidState SwitchStates::CLOSED;
 constexpr SwitchStates_LidState SwitchStates::NOT_PRESENT;
 constexpr SwitchStates_LidState SwitchStates::LidState_MIN;
 constexpr SwitchStates_LidState SwitchStates::LidState_MAX;
 constexpr int SwitchStates::LidState_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool SwitchStates_TabletMode_IsValid(int value) {
   switch (value) {
     case 0:
@@ -108,43 +114,43 @@ bool SwitchStates_TabletMode_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    SwitchStates_TabletMode_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SwitchStates_TabletMode_strings[3] = {};
+static const char SwitchStates_TabletMode_names[] = {
+    "OFF"
+    "ON"
+    "UNSUPPORTED"
+};
 
-static const char SwitchStates_TabletMode_names[] =
-  "OFF"
-  "ON"
-  "UNSUPPORTED";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SwitchStates_TabletMode_entries[] = {
-  { {SwitchStates_TabletMode_names + 0, 3}, 1 },
-  { {SwitchStates_TabletMode_names + 3, 2}, 0 },
-  { {SwitchStates_TabletMode_names + 5, 11}, 2 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SwitchStates_TabletMode_entries[] =
+    {
+        {{&SwitchStates_TabletMode_names[0], 3}, 1},
+        {{&SwitchStates_TabletMode_names[3], 2}, 0},
+        {{&SwitchStates_TabletMode_names[5], 11}, 2},
 };
 
 static const int SwitchStates_TabletMode_entries_by_number[] = {
-  1, // 0 -> ON
-  0, // 1 -> OFF
-  2, // 2 -> UNSUPPORTED
+    1,  // 0 -> ON
+    0,  // 1 -> OFF
+    2,  // 2 -> UNSUPPORTED
 };
 
-const std::string& SwitchStates_TabletMode_Name(
-    SwitchStates_TabletMode value) {
-  static const bool dummy =
+const std::string& SwitchStates_TabletMode_Name(SwitchStates_TabletMode value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          SwitchStates_TabletMode_entries,
-          SwitchStates_TabletMode_entries_by_number,
+          SwitchStates_TabletMode_entries, SwitchStates_TabletMode_entries_by_number,
           3, SwitchStates_TabletMode_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      SwitchStates_TabletMode_entries,
-      SwitchStates_TabletMode_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     SwitchStates_TabletMode_strings[idx].get();
+      SwitchStates_TabletMode_entries, SwitchStates_TabletMode_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : SwitchStates_TabletMode_strings[idx].get();
 }
-bool SwitchStates_TabletMode_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SwitchStates_TabletMode* value) {
+
+bool SwitchStates_TabletMode_Parse(absl::string_view name, SwitchStates_TabletMode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       SwitchStates_TabletMode_entries, 3, name, &int_value);
@@ -153,20 +159,25 @@ bool SwitchStates_TabletMode_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr SwitchStates_TabletMode SwitchStates::ON;
 constexpr SwitchStates_TabletMode SwitchStates::OFF;
 constexpr SwitchStates_TabletMode SwitchStates::UNSUPPORTED;
 constexpr SwitchStates_TabletMode SwitchStates::TabletMode_MIN;
 constexpr SwitchStates_TabletMode SwitchStates::TabletMode_MAX;
 constexpr int SwitchStates::TabletMode_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class SwitchStates::_Internal {
  public:
   using HasBits = decltype(std::declval<SwitchStates>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SwitchStates, _impl_._has_bits_);
   static void set_has_lid_state(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -175,37 +186,27 @@ class SwitchStates::_Internal {
   }
 };
 
-SwitchStates::SwitchStates(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SwitchStates::SwitchStates(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:power_manager.SwitchStates)
 }
 SwitchStates::SwitchStates(const SwitchStates& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  SwitchStates* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.lid_state_){}
-    , decltype(_impl_.tablet_mode_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.lid_state_, &from._impl_.lid_state_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tablet_mode_) -
-    reinterpret_cast<char*>(&_impl_.lid_state_)) + sizeof(_impl_.tablet_mode_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:power_manager.SwitchStates)
 }
 
-inline void SwitchStates::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SwitchStates::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.lid_state_){0}
-    , decltype(_impl_.tablet_mode_){0}
+    , decltype(_impl_.lid_state_) { 0 }
+
+    , decltype(_impl_.tablet_mode_) { 0 }
+
   };
 }
 
@@ -219,7 +220,7 @@ SwitchStates::~SwitchStates() {
 }
 
 inline void SwitchStates::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void SwitchStates::SetCachedSize(int size) const {
@@ -228,13 +229,13 @@ void SwitchStates::SetCachedSize(int size) const {
 
 void SwitchStates::Clear() {
 // @@protoc_insertion_point(message_clear_start:power_manager.SwitchStates)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.lid_state_, 0, static_cast<size_t>(
+    ::memset(&_impl_.lid_state_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.tablet_mode_) -
         reinterpret_cast<char*>(&_impl_.lid_state_)) + sizeof(_impl_.tablet_mode_));
   }
@@ -246,34 +247,36 @@ const char* SwitchStates::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .power_manager.SwitchStates.LidState lid_state = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::power_manager::SwitchStates_LidState_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::power_manager::SwitchStates_LidState_IsValid(static_cast<int>(val)))) {
             _internal_set_lid_state(static_cast<::power_manager::SwitchStates_LidState>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .power_manager.SwitchStates.TabletMode tablet_mode = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::power_manager::SwitchStates_TabletMode_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::power_manager::SwitchStates_TabletMode_IsValid(static_cast<int>(val)))) {
             _internal_set_tablet_mode(static_cast<::power_manager::SwitchStates_TabletMode>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -299,10 +302,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SwitchStates::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SwitchStates::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:power_manager.SwitchStates)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -310,14 +313,14 @@ uint8_t* SwitchStates::_InternalSerialize(
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_lid_state(), target);
+        1, this->_internal_lid_state(), target);
   }
 
   // optional .power_manager.SwitchStates.TabletMode tablet_mode = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_tablet_mode(), target);
+        2, this->_internal_tablet_mode(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -328,11 +331,11 @@ uint8_t* SwitchStates::_InternalSerialize(
   return target;
 }
 
-size_t SwitchStates::ByteSizeLong() const {
+::size_t SwitchStates::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:power_manager.SwitchStates)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -341,13 +344,13 @@ size_t SwitchStates::ByteSizeLong() const {
     // optional .power_manager.SwitchStates.LidState lid_state = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_lid_state());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_lid_state());
     }
 
     // optional .power_manager.SwitchStates.TabletMode tablet_mode = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_tablet_mode());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_tablet_mode());
     }
 
   }
@@ -368,8 +371,8 @@ void SwitchStates::CheckTypeAndMergeFrom(
 void SwitchStates::MergeFrom(const SwitchStates& from) {
   SwitchStates* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.SwitchStates)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -412,7 +415,6 @@ std::string SwitchStates::GetTypeName() const {
   return "power_manager.SwitchStates";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
@@ -421,6 +423,5 @@ Arena::CreateMaybeMessage< ::power_manager::SwitchStates >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::SwitchStates >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

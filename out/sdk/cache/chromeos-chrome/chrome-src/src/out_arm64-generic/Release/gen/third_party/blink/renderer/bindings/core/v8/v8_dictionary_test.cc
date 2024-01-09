@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DictionaryTest>::value,
     "DictionaryTest inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DictionaryTest::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DictionaryTest is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,8 +89,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->get(isolate);
 if (!ToV8Traits<InternalDictionary>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -119,8 +114,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getDerived(isolate);
 if (!ToV8Traits<InternalDictionaryDerived>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -144,8 +139,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getDerivedDerived(isolate);
 if (!ToV8Traits<InternalDictionaryDerivedDerived>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -164,9 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("DictionaryTest.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<InternalDictionary>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_testing_dictionary;
 if (info[0]->IsUndefined()) {
   arg1_testing_dictionary = InternalDictionary::Create(isolate);
@@ -205,7 +200,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(v8_receiver);
+DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_derived = NativeValueTraits<InternalDictionaryDerived>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -235,7 +230,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(v8_receiver);
+DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_derived = NativeValueTraits<InternalDictionaryDerivedDerived>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

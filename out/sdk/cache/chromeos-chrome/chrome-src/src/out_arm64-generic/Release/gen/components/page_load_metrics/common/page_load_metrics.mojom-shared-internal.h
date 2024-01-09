@@ -676,14 +676,13 @@ class  ResourceDataUpdate_Data {
   uint8_t is_primary_frame_resource : 1;
   uint8_t is_secure_scheme : 1;
   uint8_t proxy_used : 1;
-  uint8_t completed_before_fcp : 1;
-  uint8_t pad7_[3];
+  uint8_t pad6_[3];
   int64_t delta_bytes;
   int64_t received_data_length;
   int64_t encoded_body_length;
   int64_t decoded_body_length;
   int32_t cache_type;
-  uint8_t pad12_[4];
+  uint8_t pad11_[4];
   mojo::internal::Pointer<mojo::internal::String_Data> mime_type;
 
  private:
@@ -930,7 +929,9 @@ class  UserInteractionLatency_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> interaction_latency;
   int32_t interaction_type;
-  uint8_t padfinal_[4];
+  uint8_t pad1_[4];
+  uint64_t interaction_offset;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeTicks_Data> interaction_time;
 
  private:
   friend class mojo::internal::MessageFragment<UserInteractionLatency_Data>;
@@ -938,7 +939,7 @@ class  UserInteractionLatency_Data {
   UserInteractionLatency_Data();
   ~UserInteractionLatency_Data() = delete;
 };
-static_assert(sizeof(UserInteractionLatency_Data) == 24,
+static_assert(sizeof(UserInteractionLatency_Data) == 40,
               "Bad sizeof(UserInteractionLatency_Data)");
 // Used by UserInteractionLatency::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

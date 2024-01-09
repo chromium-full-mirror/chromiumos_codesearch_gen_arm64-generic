@@ -85,7 +85,7 @@ bool URLResponseHeadDevToolsInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 96, validation_context)) {
+          data, 104, validation_context)) {
     return false;
   }
 
@@ -158,11 +158,14 @@ bool URLResponseHeadDevToolsInfo_Data::Validate(
         ::Validate(object->service_worker_response_source, validation_context))
     return false;
 
+  if (!mojo::internal::ValidateStruct(object->service_worker_router_info, validation_context))
+    return false;
+
   if (!mojo::internal::ValidateStruct(object->ssl_info, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->remote_endpoint, 15, validation_context)) {
+          object->remote_endpoint, 16, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->remote_endpoint, validation_context))

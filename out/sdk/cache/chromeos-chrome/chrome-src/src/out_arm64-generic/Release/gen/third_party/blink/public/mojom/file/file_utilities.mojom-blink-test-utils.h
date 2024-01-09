@@ -27,8 +27,8 @@ class PLATFORM_EXPORT FileUtilitiesHostAsyncWaiter {
 
   ~FileUtilitiesHostAsyncWaiter();
   void GetFileInfo(
-      const ::base::FilePath& path, absl::optional<::base::File::Info>* out_result);
-  absl::optional<::base::File::Info> GetFileInfo(const ::base::FilePath& path);
+      const ::base::FilePath& path, std::optional<::base::File::Info>* out_result);
+  std::optional<::base::File::Info> GetFileInfo(const ::base::FilePath& path);
 
  private:
   FileUtilitiesHost* const proxy_;

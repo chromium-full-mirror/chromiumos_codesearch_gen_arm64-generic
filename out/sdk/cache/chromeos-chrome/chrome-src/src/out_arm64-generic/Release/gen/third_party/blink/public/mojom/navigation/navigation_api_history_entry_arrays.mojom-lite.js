@@ -135,8 +135,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'previousEntry', 16,
+        0,
+        blink.mojom.NavigationApiHistoryEntrySpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 24],]);
+    [[0, 32],]);
 
 
 
@@ -149,6 +157,8 @@ blink.mojom.NavigationApiHistoryEntryArrays = class {
     this.backEntries;
     /** @export { !Array<!blink.mojom.NavigationApiHistoryEntry> } */
     this.forwardEntries;
+    /** @export { (blink.mojom.NavigationApiHistoryEntry|undefined) } */
+    this.previousEntry;
   }
 };
 

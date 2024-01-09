@@ -429,6 +429,8 @@ PROTOBUF_CONSTEXPR SystemProfileProto_DemoModeDimensions::SystemProfileProto_Dem
   : customization_facet_()
   , _customization_facet_cached_byte_size_(0)
   , country_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , app_version_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , resources_version_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , retailer_(nullptr){}
 struct SystemProfileProto_DemoModeDimensionsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SystemProfileProto_DemoModeDimensionsDefaultTypeInternal()
@@ -2213,13 +2215,14 @@ bool SystemProfileProto_ComponentId_IsValid(int value) {
     case 60:
     case 61:
     case 62:
+    case 63:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_ComponentId_strings[62] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_ComponentId_strings[63] = {};
 
 static const char SystemProfileProto_ComponentId_names[] =
   "APP_PROVISIONING"
@@ -2277,6 +2280,7 @@ static const char SystemProfileProto_ComponentId_names[] =
   "STH_SET"
   "SUBRESOURCE_FILTER"
   "SW_REPORTER"
+  "THIRD_PARTY_COOKIE_DEPRECATION_METADATA"
   "THIRD_PARTY_MODULE_LIST"
   "TRUST_TOKEN_KEY_COMMITMENTS"
   "UNKNOWN"
@@ -2341,17 +2345,18 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemProfileProto_Com
   { {SystemProfileProto_ComponentId_names + 816, 7}, 9 },
   { {SystemProfileProto_ComponentId_names + 823, 18}, 11 },
   { {SystemProfileProto_ComponentId_names + 841, 11}, 12 },
-  { {SystemProfileProto_ComponentId_names + 852, 23}, 61 },
-  { {SystemProfileProto_ComponentId_names + 875, 27}, 62 },
-  { {SystemProfileProto_ComponentId_names + 902, 7}, 1 },
-  { {SystemProfileProto_ComponentId_names + 909, 9}, 20 },
-  { {SystemProfileProto_ComponentId_names + 918, 36}, 29 },
-  { {SystemProfileProto_ComponentId_names + 954, 12}, 13 },
-  { {SystemProfileProto_ComponentId_names + 966, 11}, 27 },
+  { {SystemProfileProto_ComponentId_names + 852, 39}, 63 },
+  { {SystemProfileProto_ComponentId_names + 891, 23}, 61 },
+  { {SystemProfileProto_ComponentId_names + 914, 27}, 62 },
+  { {SystemProfileProto_ComponentId_names + 941, 7}, 1 },
+  { {SystemProfileProto_ComponentId_names + 948, 9}, 20 },
+  { {SystemProfileProto_ComponentId_names + 957, 36}, 29 },
+  { {SystemProfileProto_ComponentId_names + 993, 12}, 13 },
+  { {SystemProfileProto_ComponentId_names + 1005, 11}, 27 },
 };
 
 static const int SystemProfileProto_ComponentId_entries_by_number[] = {
-  57, // 1 -> UNKNOWN
+  58, // 1 -> UNKNOWN
   17, // 2 -> FILE_TYPE_POLICIES
   29, // 3 -> ORIGIN_TRIALS
   30, // 4 -> PEPPER_FLASH
@@ -2363,23 +2368,23 @@ static const int SystemProfileProto_ComponentId_entries_by_number[] = {
   6, // 10 -> CRL_SET
   53, // 11 -> SUBRESOURCE_FILTER
   54, // 12 -> SW_REPORTER
-  60, // 13 -> WIDEVINE_CDM
+  61, // 13 -> WIDEVINE_CDM
   16, // 14 -> EPSON_INKJET_PRINTER_ESCPR
   8, // 15 -> CROS_TERMINA
   51, // 16 -> STAR_CUPS_DRIVER
   49, // 17 -> SPEECH_SYNTHESIS_SV_SE
   28, // 18 -> OPTIMIZATION_HINTS
   15, // 19 -> DOWNLOADABLE_STRINGS
-  58, // 20 -> VR_ASSETS
+  59, // 20 -> VR_ASSETS
   38, // 21 -> RTANALYTICS_LIGHT
   37, // 22 -> RTANALYTICS_FULL
   3, // 23 -> CELLULAR
   12, // 24 -> DEMO_MODE_RESOURCES
   27, // 25 -> ON_DEVICE_HEAD_SUGGEST
   7, // 26 -> CROS_SMART_DIM
-  61, // 27 -> ZXCVBN_DATA
+  62, // 27 -> ZXCVBN_DATA
   1, // 28 -> AUTOFILL_REGEX_CONSTANTS
-  59, // 29 -> WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST
+  60, // 29 -> WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST
   25, // 30 -> MEDIA_FOUNDATION_WIDEVINE_CDM
   9, // 31 -> CROWD_DENY
   0, // 32 -> APP_PROVISIONING
@@ -2411,8 +2416,9 @@ static const int SystemProfileProto_ComponentId_entries_by_number[] = {
   46, // 58 -> SODA_FR_FR
   47, // 59 -> SODA_IT_IT
   48, // 60 -> SODA_JA_JP
-  55, // 61 -> THIRD_PARTY_MODULE_LIST
-  56, // 62 -> TRUST_TOKEN_KEY_COMMITMENTS
+  56, // 61 -> THIRD_PARTY_MODULE_LIST
+  57, // 62 -> TRUST_TOKEN_KEY_COMMITMENTS
+  55, // 63 -> THIRD_PARTY_COOKIE_DEPRECATION_METADATA
 };
 
 const std::string& SystemProfileProto_ComponentId_Name(
@@ -2421,12 +2427,12 @@ const std::string& SystemProfileProto_ComponentId_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SystemProfileProto_ComponentId_entries,
           SystemProfileProto_ComponentId_entries_by_number,
-          62, SystemProfileProto_ComponentId_strings);
+          63, SystemProfileProto_ComponentId_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SystemProfileProto_ComponentId_entries,
       SystemProfileProto_ComponentId_entries_by_number,
-      62, value);
+      63, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SystemProfileProto_ComponentId_strings[idx].get();
 }
@@ -2434,7 +2440,7 @@ bool SystemProfileProto_ComponentId_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_ComponentId* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SystemProfileProto_ComponentId_entries, 62, name, &int_value);
+      SystemProfileProto_ComponentId_entries, 63, name, &int_value);
   if (success) {
     *value = static_cast<SystemProfileProto_ComponentId>(int_value);
   }
@@ -2503,6 +2509,7 @@ constexpr SystemProfileProto_ComponentId SystemProfileProto::SODA_IT_IT;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::SODA_JA_JP;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::THIRD_PARTY_MODULE_LIST;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::TRUST_TOKEN_KEY_COMMITMENTS;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::THIRD_PARTY_COOKIE_DEPRECATION_METADATA;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::ComponentId_MIN;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::ComponentId_MAX;
 constexpr int SystemProfileProto::ComponentId_ARRAYSIZE;
@@ -11553,7 +11560,13 @@ class SystemProfileProto_DemoModeDimensions::_Internal {
   }
   static const ::metrics::SystemProfileProto_DemoModeDimensions_Retailer& retailer(const SystemProfileProto_DemoModeDimensions* msg);
   static void set_has_retailer(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_app_version(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
+  }
+  static void set_has_resources_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
 };
 
@@ -11581,6 +11594,22 @@ SystemProfileProto_DemoModeDimensions::SystemProfileProto_DemoModeDimensions(con
     country_.Set(from._internal_country(), 
       GetArenaForAllocation());
   }
+  app_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    app_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_app_version()) {
+    app_version_.Set(from._internal_app_version(), 
+      GetArenaForAllocation());
+  }
+  resources_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    resources_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_resources_version()) {
+    resources_version_.Set(from._internal_resources_version(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_retailer()) {
     retailer_ = new ::metrics::SystemProfileProto_DemoModeDimensions_Retailer(*from.retailer_);
   } else {
@@ -11593,6 +11622,14 @@ inline void SystemProfileProto_DemoModeDimensions::SharedCtor() {
 country_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   country_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+app_version_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  app_version_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+resources_version_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  resources_version_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 retailer_ = nullptr;
 }
@@ -11609,6 +11646,8 @@ SystemProfileProto_DemoModeDimensions::~SystemProfileProto_DemoModeDimensions() 
 inline void SystemProfileProto_DemoModeDimensions::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   country_.Destroy();
+  app_version_.Destroy();
+  resources_version_.Destroy();
   if (this != internal_default_instance()) delete retailer_;
 }
 
@@ -11624,11 +11663,17 @@ void SystemProfileProto_DemoModeDimensions::Clear() {
 
   customization_facet_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       country_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
+      app_version_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      resources_version_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(retailer_ != nullptr);
       retailer_->Clear();
     }
@@ -11677,6 +11722,24 @@ const char* SystemProfileProto_DemoModeDimensions::_InternalParse(const char* pt
         } else
           goto handle_unusual;
         continue;
+      // optional string app_version = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_app_version();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string resources_version = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_resources_version();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -11715,7 +11778,7 @@ uint8_t* SystemProfileProto_DemoModeDimensions::_InternalSerialize(
   }
 
   // optional .metrics.SystemProfileProto.DemoModeDimensions.Retailer retailer = 2;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::retailer(this),
         _Internal::retailer(this).GetCachedSize(), target, stream);
@@ -11728,6 +11791,18 @@ uint8_t* SystemProfileProto_DemoModeDimensions::_InternalSerialize(
       target = stream->WriteEnumPacked(
           3, customization_facet_, byte_size, target);
     }
+  }
+
+  // optional string app_version = 4;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_app_version(), target);
+  }
+
+  // optional string resources_version = 5;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_resources_version(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -11764,7 +11839,7 @@ size_t SystemProfileProto_DemoModeDimensions::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string country = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -11772,8 +11847,22 @@ size_t SystemProfileProto_DemoModeDimensions::ByteSizeLong() const {
           this->_internal_country());
     }
 
-    // optional .metrics.SystemProfileProto.DemoModeDimensions.Retailer retailer = 2;
+    // optional string app_version = 4;
     if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_app_version());
+    }
+
+    // optional string resources_version = 5;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_resources_version());
+    }
+
+    // optional .metrics.SystemProfileProto.DemoModeDimensions.Retailer retailer = 2;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *retailer_);
@@ -11802,11 +11891,17 @@ void SystemProfileProto_DemoModeDimensions::MergeFrom(const SystemProfileProto_D
 
   customization_facet_.MergeFrom(from.customization_facet_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_country(from._internal_country());
     }
     if (cached_has_bits & 0x00000002u) {
+      _internal_set_app_version(from._internal_app_version());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_resources_version(from._internal_resources_version());
+    }
+    if (cached_has_bits & 0x00000008u) {
       _internal_mutable_retailer()->::metrics::SystemProfileProto_DemoModeDimensions_Retailer::MergeFrom(from._internal_retailer());
     }
   }
@@ -11834,6 +11929,14 @@ void SystemProfileProto_DemoModeDimensions::InternalSwap(SystemProfileProto_Demo
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &country_, lhs_arena,
       &other->country_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &app_version_, lhs_arena,
+      &other->app_version_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &resources_version_, lhs_arena,
+      &other->resources_version_, rhs_arena
   );
   swap(retailer_, other->retailer_);
 }

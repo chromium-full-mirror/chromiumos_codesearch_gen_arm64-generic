@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 import '../strings.m.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
+import { VKey as ash_mojom_VKey } from 'chrome://resources/ash/common/shortcut_input_ui/accelerator_keys.mojom-webui.js';
+import { ModifierKeyCodes } from 'chrome://resources/ash/common/shortcut_input_ui/shortcut_utils.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { AcceleratorCategory, AcceleratorConfigResult, AcceleratorKeyState, AcceleratorState, AcceleratorSubcategory, AcceleratorType, Modifier } from './shortcut_types.js';
@@ -26,7 +28,7 @@ export const keyCodeToModifier = {
 };
 export const unidentifiedKeyCodeToKey = {
     159: 'MicrophoneMuteToggle',
-    192: '`',
+    192: '`', // Backquote key.
     218: 'KeyboardBrightnessUp',
     232: 'KeyboardBrightnessDown',
     237: 'EmojiPicker',
@@ -98,6 +100,15 @@ export const createEmptyAccelInfoFromAccel = (accel) => {
 };
 export const createEmptyAcceleratorInfo = () => {
     return createEmptyAccelInfoFromAccel({ modifiers: 0, keyCode: 0, keyState: AcceleratorKeyState.PRESSED });
+};
+export const resetKeyEvent = () => {
+    return {
+        vkey: ash_mojom_VKey.MIN_VALUE,
+        domCode: 0,
+        domKey: 0,
+        modifiers: 0,
+        keyDisplay: '',
+    };
 };
 export const getAcceleratorId = (source, actionId) => {
     return `${source}-${actionId}`;
@@ -278,6 +289,15 @@ export const getURLForSearchResult = (searchResult) => {
 export const isFunctionKey = (keycode) => {
     return keycode >= kF11 && keycode <= kF24;
 };
+export const isModifierKey = (keycode) => {
+    return ModifierKeyCodes.includes(keycode);
+};
+export const isValidDefaultAccelerator = (accelerator) => {
+    // A valid default accelerator is one that has modifier(s) and a key or
+    // is function key.
+    return (accelerator.modifiers > 0 && accelerator.keyCode > 0) ||
+        isFunctionKey(accelerator.keyCode);
+};
 export const getSourceAndActionFromAcceleratorId = (uuid) => {
     // Split '{source}-{action}` into [source][action].
     const uuidSplit = uuid.split('-');
@@ -294,6 +314,46 @@ export const getSourceAndActionFromAcceleratorId = (uuid) => {
 export const getKeyDisplay = (keyOrIcon) => {
     const iconName = keyToIconNameMap[keyOrIcon];
     return iconName ? iconName : keyOrIcon;
+};
+/**
+ * Translate a numpadKey code to a display string.
+ */
+export const getNumpadKeyDisplay = (code) => {
+    // For "NumpadEnter", it is the same as "enter" key.
+    if (code === 'NumpadEnter') {
+        return 'enter';
+    }
+    // Map of special numpad key codes to their display symbols.
+    const numpadKeyMap = {
+        'NumpadAdd': '+',
+        'NumpadDecimal': '.',
+        'NumpadDivide': '/',
+        'NumpadMultiply': '*',
+        'NumpadSubtract': '-',
+    };
+    // Return the formatted string, using the map for special keys,
+    // or stripping 'Numpad' for numeric keys.
+    const numpadKey = numpadKeyMap[code] || code.replace('Numpad', '');
+    return `numpad ${numpadKey}`.toLowerCase();
+};
+/**
+ * Translate an unidentified key to a display string.
+ */
+export const getUnidentifiedKeyDisplay = (e) => {
+    if (e.code === 'Backquote') {
+        // Backquote `key` will become 'unidentified' when ctrl
+        // is pressed.
+        if (e.ctrlKey) {
+            return unidentifiedKeyCodeToKey[e.keyCode];
+        }
+        return e.key;
+    }
+    if (e.code === '') {
+        // If there is no `code`, check the `key`. If the `key` is
+        // `unidentified`, we need to manually lookup the key.
+        return unidentifiedKeyCodeToKey[e.keyCode] || e.key;
+    }
+    return `Key ${e.keyCode}`;
 };
 /**
  * @returns the Aria label for the standard accelerators.
@@ -330,4 +390,54 @@ export const getTextAcceleratorParts = (infos) => {
     const textAcceleratorInfo = infos[0];
     assert(isTextAcceleratorInfo(textAcceleratorInfo));
     return textAcceleratorInfo.layoutProperties.textAccelerator.parts;
+};
+export const getModifiersFromKeyboardEvent = (e) => {
+    let modifiers = 0;
+    if (e.metaKey) {
+        modifiers |= Modifier.COMMAND;
+    }
+    if (e.ctrlKey) {
+        modifiers |= Modifier.CONTROL;
+    }
+    if (e.altKey) {
+        modifiers |= Modifier.ALT;
+    }
+    if (e.key == 'Shift' || e.shiftKey) {
+        modifiers |= Modifier.SHIFT;
+    }
+    return modifiers;
+};
+export const getKeyDisplayFromKeyboardEvent = (e) => {
+    // Handle numpad keys:
+    if (e.code.startsWith('Numpad')) {
+        return getNumpadKeyDisplay(e.code);
+    }
+    // Handle unidentified keys:
+    if (e.key === 'Unidentified' || e.code === '') {
+        return getUnidentifiedKeyDisplay(e);
+    }
+    switch (e.code) {
+        case 'Space': // Space key: e.key: ' ', e.code: 'Space', set keyDisplay
+            // to be 'space' text.
+            return 'space';
+        case 'ShowAllWindows': // Overview key: e.key: 'F4', e.code:
+            // 'ShowAllWindows', set keyDisplay to be
+            // 'LaunchApplication1' and will display as
+            // 'overview' icon.
+            return 'LaunchApplication1';
+        default: // All other keys: Use the original e.key as keyDisplay.
+            return e.key;
+    }
+};
+export const keyEventToAccelerator = (keyEvent) => {
+    const output = {
+        modifiers: 0,
+        keyCode: 0,
+        keyState: AcceleratorKeyState.PRESSED,
+    };
+    output.modifiers = keyEvent.modifiers;
+    if (!isModifierKey(keyEvent.vkey) || isFunctionKey(keyEvent.vkey)) {
+        output.keyCode = keyEvent.vkey;
+    }
+    return output;
 };

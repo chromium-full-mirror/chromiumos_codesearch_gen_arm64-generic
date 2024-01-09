@@ -260,7 +260,13 @@ export class VideoFrameHandlerInterface {
    * @param { !Array<!ReadyFrameInBuffer> } scaledBuffers
    */
 
-  onFrameReadyInBuffer(buffer, scaledBuffers) {}
+  dEPRECATEDOnFrameReadyInBuffer(buffer, scaledBuffers) {}
+  
+  /**
+   * @param { !ReadyFrameInBuffer } buffer
+   */
+
+  onFrameReadyInBuffer(buffer) {}
   
   /**
    * @param { !number } bufferId
@@ -380,16 +386,32 @@ export class VideoFrameHandlerRemote {
    * @param { !Array<!ReadyFrameInBuffer> } scaledBuffers
    */
 
-  onFrameReadyInBuffer(
+  dEPRECATEDOnFrameReadyInBuffer(
       buffer,
       scaledBuffers) {
     this.proxy.sendMessage(
         1,
-        VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
+        VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec.$,
         null,
         [
           buffer,
           scaledBuffers
+        ]);
+  }
+
+  
+  /**
+   * @param { !ReadyFrameInBuffer } buffer
+   */
+
+  onFrameReadyInBuffer(
+      buffer) {
+    this.proxy.sendMessage(
+        13,
+        VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
+        null,
+        [
+          buffer
         ]);
   }
 
@@ -574,6 +596,11 @@ export class VideoFrameHandlerReceiver {
         impl.onNewBuffer.bind(impl));
     this.helper_internal_.registerHandler(
         1,
+        VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec.$,
+        null,
+        impl.dEPRECATEDOnFrameReadyInBuffer.bind(impl));
+    this.helper_internal_.registerHandler(
+        13,
         VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
         null,
         impl.onFrameReadyInBuffer.bind(impl));
@@ -700,12 +727,24 @@ export class VideoFrameHandlerCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.onFrameReadyInBuffer =
+    this.dEPRECATEDOnFrameReadyInBuffer =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         1,
+        VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec.$,
+        null,
+        this.dEPRECATEDOnFrameReadyInBuffer.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onFrameReadyInBuffer =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        13,
         VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
         null,
         this.onFrameReadyInBuffer.createReceiverHandler(false /* expectsResponse */));
@@ -1539,6 +1578,12 @@ export const VideoFrameHandler_OnNewBuffer_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -2002,8 +2047,8 @@ export class VideoFrameHandler_OnNewBuffer_Params {
 
 
 mojo.internal.Struct(
-    VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
-    'VideoFrameHandler_OnFrameReadyInBuffer_Params',
+    VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_ParamsSpec.$,
+    'VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params',
     [
       mojo.internal.StructField(
         'buffer', 0,
@@ -2029,12 +2074,41 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class VideoFrameHandler_OnFrameReadyInBuffer_Params {
+export class VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params {
   constructor() {
     /** @type { !ReadyFrameInBuffer } */
     this.buffer;
     /** @type { !Array<!ReadyFrameInBuffer> } */
     this.scaledBuffers;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    VideoFrameHandler_OnFrameReadyInBuffer_ParamsSpec.$,
+    'VideoFrameHandler_OnFrameReadyInBuffer_Params',
+    [
+      mojo.internal.StructField(
+        'buffer', 0,
+        0,
+        ReadyFrameInBufferSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class VideoFrameHandler_OnFrameReadyInBuffer_Params {
+  constructor() {
+    /** @type { !ReadyFrameInBuffer } */
+    this.buffer;
   }
 }
 

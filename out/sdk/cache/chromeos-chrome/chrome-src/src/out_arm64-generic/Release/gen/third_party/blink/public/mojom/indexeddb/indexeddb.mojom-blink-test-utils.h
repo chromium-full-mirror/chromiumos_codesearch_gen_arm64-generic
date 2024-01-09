@@ -135,7 +135,6 @@ class MODULES_EXPORT IDBDatabaseInterceptorForTesting : public IDBDatabase {
   virtual IDBDatabase* GetForwardingInterface() = 0;
   void RenameObjectStore(int64_t transaction_id, int64_t object_store_id, const ::WTF::String& new_name) override;
   void CreateTransaction(::mojo::PendingAssociatedReceiver<IDBTransaction> transaction_receiver, int64_t transaction_id, const WTF::Vector<int64_t>& object_store_ids, IDBTransactionMode mode, IDBTransactionDurability durability) override;
-  void Close() override;
   void VersionChangeIgnored() override;
   void Get(int64_t transaction_id, int64_t object_store_id, int64_t index_id, IDBKeyRangePtr key_range, bool key_only, GetCallback callback) override;
   void GetAll(int64_t transaction_id, int64_t object_store_id, int64_t index_id, IDBKeyRangePtr key_range, bool key_only, int64_t max_count, GetAllCallback callback) override;

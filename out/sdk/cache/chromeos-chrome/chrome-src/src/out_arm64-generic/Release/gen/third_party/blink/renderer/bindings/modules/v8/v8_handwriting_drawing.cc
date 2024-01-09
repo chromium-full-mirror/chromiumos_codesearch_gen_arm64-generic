@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HandwritingDrawing>::value,
     "HandwritingDrawing inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HandwritingDrawing::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HandwritingDrawing is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -101,7 +96,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(v8_receiver);
+HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_stroke = NativeValueTraits<HandwritingStroke>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -121,8 +116,9 @@ BLINK_BINDINGS_TRACE_EVENT("HandwritingDrawing.clear");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(v8_receiver);
+HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->clear();
 
 }
@@ -154,7 +150,7 @@ UseCounter::Count(current_execution_context, WebFeature::kHandwritingRecognition
 
 
 
-HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(v8_receiver);
+HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -178,7 +174,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getStrokes();
 if (!ToV8Traits<IDLSequence<HandwritingStroke>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -207,7 +204,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(v8_receiver);
+HandwritingDrawing* blink_receiver = V8HandwritingDrawing::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_stroke = NativeValueTraits<HandwritingStroke>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

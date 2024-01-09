@@ -53,16 +53,18 @@ bool SegmentId_IsValid(int value) {
     case 1006:
     case 1007:
     case 1008:
+    case 1009:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SegmentId_strings[29] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SegmentId_strings[30] = {};
 
 static const char SegmentId_names[] =
   "CROSS_DEVICE_USER_SEGMENT"
+  "DATABASE_API_CLIENTS"
   "DEVICE_TIER_SEGMENT"
   "FREQUENT_FEATURE_USER_SEGMENT"
   "INTENTIONAL_USER_SEGMENT"
@@ -94,66 +96,68 @@ static const char SegmentId_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SegmentId_entries[] = {
   { {SegmentId_names + 0, 25}, 1001 },
-  { {SegmentId_names + 25, 19}, 1005 },
-  { {SegmentId_names + 44, 29}, 1002 },
-  { {SegmentId_names + 73, 24}, 1003 },
-  { {SegmentId_names + 97, 23}, 999 },
-  { {SegmentId_names + 120, 23}, 1008 },
-  { {SegmentId_names + 143, 57}, 18 },
-  { {SegmentId_names + 200, 49}, 28 },
-  { {SegmentId_names + 249, 59}, 16 },
-  { {SegmentId_names + 308, 53}, 11 },
-  { {SegmentId_names + 361, 56}, 22 },
-  { {SegmentId_names + 417, 51}, 38 },
-  { {SegmentId_names + 468, 48}, 27 },
-  { {SegmentId_names + 516, 38}, 10 },
-  { {SegmentId_names + 554, 42}, 17 },
-  { {SegmentId_names + 596, 50}, 37 },
-  { {SegmentId_names + 646, 40}, 4 },
-  { {SegmentId_names + 686, 44}, 12 },
-  { {SegmentId_names + 730, 44}, 23 },
-  { {SegmentId_names + 774, 38}, 5 },
-  { {SegmentId_names + 812, 46}, 21 },
-  { {SegmentId_names + 858, 57}, 29 },
-  { {SegmentId_names + 915, 38}, 6 },
-  { {SegmentId_names + 953, 27}, 0 },
-  { {SegmentId_names + 980, 46}, 32 },
-  { {SegmentId_names + 1026, 21}, 1007 },
-  { {SegmentId_names + 1047, 18}, 1000 },
-  { {SegmentId_names + 1065, 25}, 1004 },
-  { {SegmentId_names + 1090, 25}, 1006 },
+  { {SegmentId_names + 25, 20}, 1009 },
+  { {SegmentId_names + 45, 19}, 1005 },
+  { {SegmentId_names + 64, 29}, 1002 },
+  { {SegmentId_names + 93, 24}, 1003 },
+  { {SegmentId_names + 117, 23}, 999 },
+  { {SegmentId_names + 140, 23}, 1008 },
+  { {SegmentId_names + 163, 57}, 18 },
+  { {SegmentId_names + 220, 49}, 28 },
+  { {SegmentId_names + 269, 59}, 16 },
+  { {SegmentId_names + 328, 53}, 11 },
+  { {SegmentId_names + 381, 56}, 22 },
+  { {SegmentId_names + 437, 51}, 38 },
+  { {SegmentId_names + 488, 48}, 27 },
+  { {SegmentId_names + 536, 38}, 10 },
+  { {SegmentId_names + 574, 42}, 17 },
+  { {SegmentId_names + 616, 50}, 37 },
+  { {SegmentId_names + 666, 40}, 4 },
+  { {SegmentId_names + 706, 44}, 12 },
+  { {SegmentId_names + 750, 44}, 23 },
+  { {SegmentId_names + 794, 38}, 5 },
+  { {SegmentId_names + 832, 46}, 21 },
+  { {SegmentId_names + 878, 57}, 29 },
+  { {SegmentId_names + 935, 38}, 6 },
+  { {SegmentId_names + 973, 27}, 0 },
+  { {SegmentId_names + 1000, 46}, 32 },
+  { {SegmentId_names + 1046, 21}, 1007 },
+  { {SegmentId_names + 1067, 18}, 1000 },
+  { {SegmentId_names + 1085, 25}, 1004 },
+  { {SegmentId_names + 1110, 25}, 1006 },
 };
 
 static const int SegmentId_entries_by_number[] = {
-  23, // 0 -> OPTIMIZATION_TARGET_UNKNOWN
-  16, // 4 -> OPTIMIZATION_TARGET_SEGMENTATION_NEW_TAB
-  19, // 5 -> OPTIMIZATION_TARGET_SEGMENTATION_SHARE
-  22, // 6 -> OPTIMIZATION_TARGET_SEGMENTATION_VOICE
-  13, // 10 -> OPTIMIZATION_TARGET_SEGMENTATION_DUMMY
-  9, // 11 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID
-  17, // 12 -> OPTIMIZATION_TARGET_SEGMENTATION_QUERY_TILES
-  8, // 16 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_LOW_USER_ENGAGEMENT
-  14, // 17 -> OPTIMIZATION_TARGET_SEGMENTATION_FEED_USER
-  6, // 18 -> OPTIMIZATION_TARGET_CONTEXTUAL_PAGE_ACTION_PRICE_TRACKING
-  20, // 21 -> OPTIMIZATION_TARGET_SEGMENTATION_SHOPPING_USER
-  10, // 22 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID_V2
-  18, // 23 -> OPTIMIZATION_TARGET_SEGMENTATION_SEARCH_USER
-  12, // 27 -> OPTIMIZATION_TARGET_SEGMENTATION_DEVICE_SWITCHER
-  7, // 28 -> OPTIMIZATION_TARGET_SEGMENTATION_ADAPTIVE_TOOLBAR
-  21, // 29 -> OPTIMIZATION_TARGET_SEGMENTATION_TABLET_PRODUCTIVITY_USER
-  24, // 32 -> OPTIMIZATION_TARGET_WEB_APP_INSTALLATION_PROMO
-  15, // 37 -> OPTIMIZATION_TARGET_SEGMENTATION_IOS_MODULE_RANKER
-  11, // 38 -> OPTIMIZATION_TARGET_SEGMENTATION_DESKTOP_NTP_MODULE
-  4, // 999 -> MAX_OPTIMIZATION_TARGET
-  26, // 1000 -> POWER_USER_SEGMENT
+  24, // 0 -> OPTIMIZATION_TARGET_UNKNOWN
+  17, // 4 -> OPTIMIZATION_TARGET_SEGMENTATION_NEW_TAB
+  20, // 5 -> OPTIMIZATION_TARGET_SEGMENTATION_SHARE
+  23, // 6 -> OPTIMIZATION_TARGET_SEGMENTATION_VOICE
+  14, // 10 -> OPTIMIZATION_TARGET_SEGMENTATION_DUMMY
+  10, // 11 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID
+  18, // 12 -> OPTIMIZATION_TARGET_SEGMENTATION_QUERY_TILES
+  9, // 16 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_LOW_USER_ENGAGEMENT
+  15, // 17 -> OPTIMIZATION_TARGET_SEGMENTATION_FEED_USER
+  7, // 18 -> OPTIMIZATION_TARGET_CONTEXTUAL_PAGE_ACTION_PRICE_TRACKING
+  21, // 21 -> OPTIMIZATION_TARGET_SEGMENTATION_SHOPPING_USER
+  11, // 22 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID_V2
+  19, // 23 -> OPTIMIZATION_TARGET_SEGMENTATION_SEARCH_USER
+  13, // 27 -> OPTIMIZATION_TARGET_SEGMENTATION_DEVICE_SWITCHER
+  8, // 28 -> OPTIMIZATION_TARGET_SEGMENTATION_ADAPTIVE_TOOLBAR
+  22, // 29 -> OPTIMIZATION_TARGET_SEGMENTATION_TABLET_PRODUCTIVITY_USER
+  25, // 32 -> OPTIMIZATION_TARGET_WEB_APP_INSTALLATION_PROMO
+  16, // 37 -> OPTIMIZATION_TARGET_SEGMENTATION_IOS_MODULE_RANKER
+  12, // 38 -> OPTIMIZATION_TARGET_SEGMENTATION_DESKTOP_NTP_MODULE
+  5, // 999 -> MAX_OPTIMIZATION_TARGET
+  27, // 1000 -> POWER_USER_SEGMENT
   0, // 1001 -> CROSS_DEVICE_USER_SEGMENT
-  2, // 1002 -> FREQUENT_FEATURE_USER_SEGMENT
-  3, // 1003 -> INTENTIONAL_USER_SEGMENT
-  27, // 1004 -> RESUME_HEAVY_USER_SEGMENT
-  1, // 1005 -> DEVICE_TIER_SEGMENT
-  28, // 1006 -> TAB_RESUMPTION_CLASSIFIER
-  25, // 1007 -> PASSWORD_MANAGER_USER
-  5, // 1008 -> MOST_VISITED_TILES_USER
+  3, // 1002 -> FREQUENT_FEATURE_USER_SEGMENT
+  4, // 1003 -> INTENTIONAL_USER_SEGMENT
+  28, // 1004 -> RESUME_HEAVY_USER_SEGMENT
+  2, // 1005 -> DEVICE_TIER_SEGMENT
+  29, // 1006 -> TAB_RESUMPTION_CLASSIFIER
+  26, // 1007 -> PASSWORD_MANAGER_USER
+  6, // 1008 -> MOST_VISITED_TILES_USER
+  1, // 1009 -> DATABASE_API_CLIENTS
 };
 
 const std::string& SegmentId_Name(
@@ -162,12 +166,12 @@ const std::string& SegmentId_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SegmentId_entries,
           SegmentId_entries_by_number,
-          29, SegmentId_strings);
+          30, SegmentId_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SegmentId_entries,
       SegmentId_entries_by_number,
-      29, value);
+      30, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SegmentId_strings[idx].get();
 }
@@ -175,7 +179,7 @@ bool SegmentId_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SegmentId* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SegmentId_entries, 29, name, &int_value);
+      SegmentId_entries, 30, name, &int_value);
   if (success) {
     *value = static_cast<SegmentId>(int_value);
   }

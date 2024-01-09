@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/user_scripts.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -37,11 +38,11 @@ namespace user_scripts {
 
 const char* ToString(ExecutionWorld enum_param) {
   switch (enum_param) {
-    case EXECUTION_WORLD_MAIN:
+    case ExecutionWorld::kMain:
       return "MAIN";
-    case EXECUTION_WORLD_USER_SCRIPT:
+    case ExecutionWorld::kUserScript:
       return "USER_SCRIPT";
-    case EXECUTION_WORLD_NONE:
+    case ExecutionWorld::kNone:
       return "";
   }
   NOTREACHED();
@@ -50,10 +51,10 @@ const char* ToString(ExecutionWorld enum_param) {
 
 ExecutionWorld ParseExecutionWorld(base::StringPiece enum_string) {
   if (enum_string == "MAIN")
-    return EXECUTION_WORLD_MAIN;
+    return ExecutionWorld::kMain;
   if (enum_string == "USER_SCRIPT")
-    return EXECUTION_WORLD_USER_SCRIPT;
-  return EXECUTION_WORLD_NONE;
+    return ExecutionWorld::kUserScript;
+  return ExecutionWorld::kNone;
 }
 
 std::u16string GetExecutionWorldParseError(base::StringPiece enum_string) {
@@ -65,8 +66,8 @@ ScriptSource::ScriptSource()
  {}
 
 ScriptSource::~ScriptSource() = default;
-ScriptSource::ScriptSource(ScriptSource&& rhs) = default;
-ScriptSource& ScriptSource::operator=(ScriptSource&& rhs) = default;
+ScriptSource::ScriptSource(ScriptSource&& rhs) noexcept = default;
+ScriptSource& ScriptSource::operator=(ScriptSource&& rhs) noexcept = default;
 ScriptSource ScriptSource::Clone() const {
   ScriptSource out;
   out.code = code;
@@ -82,7 +83,7 @@ bool ScriptSource::Populate(
     {
       auto* temp = (*code_value).GetIfString();
       if (!temp) {
-        out.code = absl::nullopt;
+        out.code = std::nullopt;
         return false;
       }
       out.code = *temp;
@@ -94,7 +95,7 @@ bool ScriptSource::Populate(
     {
       auto* temp = (*file_value).GetIfString();
       if (!temp) {
-        out.file = absl::nullopt;
+        out.file = std::nullopt;
         return false;
       }
       out.file = *temp;
@@ -114,34 +115,21 @@ bool ScriptSource::Populate(
 }
 
 // static
-std::unique_ptr<ScriptSource> ScriptSource::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ScriptSource>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ScriptSource> ScriptSource::FromValue(const base::Value::Dict& value) {
+  ScriptSource out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ScriptSource> ScriptSource::FromValue(const base::Value::Dict& value) {
+std::optional<ScriptSource> ScriptSource::FromValue(const base::Value& value) {
   ScriptSource out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ScriptSource> ScriptSource::FromValue(const base::Value& value) {
-  ScriptSource out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -167,8 +155,8 @@ RegisteredUserScript::RegisteredUserScript()
 world() {}
 
 RegisteredUserScript::~RegisteredUserScript() = default;
-RegisteredUserScript::RegisteredUserScript(RegisteredUserScript&& rhs) = default;
-RegisteredUserScript& RegisteredUserScript::operator=(RegisteredUserScript&& rhs) = default;
+RegisteredUserScript::RegisteredUserScript(RegisteredUserScript&& rhs) noexcept = default;
+RegisteredUserScript& RegisteredUserScript::operator=(RegisteredUserScript&& rhs) noexcept = default;
 RegisteredUserScript RegisteredUserScript::Clone() const {
   RegisteredUserScript out;
   out.all_frames = all_frames;
@@ -196,7 +184,7 @@ bool RegisteredUserScript::Populate(
     {
       auto temp = (*all_frames_value).GetIfBool();
       if (!temp.has_value()) {
-        out.all_frames = absl::nullopt;
+        out.all_frames = std::nullopt;
         return false;
       }
       out.all_frames = *temp;
@@ -331,34 +319,21 @@ bool RegisteredUserScript::Populate(
 }
 
 // static
-std::unique_ptr<RegisteredUserScript> RegisteredUserScript::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RegisteredUserScript>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RegisteredUserScript> RegisteredUserScript::FromValue(const base::Value::Dict& value) {
+  RegisteredUserScript out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RegisteredUserScript> RegisteredUserScript::FromValue(const base::Value::Dict& value) {
+std::optional<RegisteredUserScript> RegisteredUserScript::FromValue(const base::Value& value) {
   RegisteredUserScript out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RegisteredUserScript> RegisteredUserScript::FromValue(const base::Value& value) {
-  RegisteredUserScript out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -407,8 +382,8 @@ UserScriptFilter::UserScriptFilter()
  {}
 
 UserScriptFilter::~UserScriptFilter() = default;
-UserScriptFilter::UserScriptFilter(UserScriptFilter&& rhs) = default;
-UserScriptFilter& UserScriptFilter::operator=(UserScriptFilter&& rhs) = default;
+UserScriptFilter::UserScriptFilter(UserScriptFilter&& rhs) noexcept = default;
+UserScriptFilter& UserScriptFilter::operator=(UserScriptFilter&& rhs) noexcept = default;
 UserScriptFilter UserScriptFilter::Clone() const {
   UserScriptFilter out;
   out.ids = ids;
@@ -445,34 +420,21 @@ bool UserScriptFilter::Populate(
 }
 
 // static
-std::unique_ptr<UserScriptFilter> UserScriptFilter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UserScriptFilter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UserScriptFilter> UserScriptFilter::FromValue(const base::Value::Dict& value) {
+  UserScriptFilter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UserScriptFilter> UserScriptFilter::FromValue(const base::Value::Dict& value) {
+std::optional<UserScriptFilter> UserScriptFilter::FromValue(const base::Value& value) {
   UserScriptFilter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UserScriptFilter> UserScriptFilter::FromValue(const base::Value& value) {
-  UserScriptFilter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -489,6 +451,94 @@ base::Value::Dict UserScriptFilter::ToValue() const {
 }
 
 
+WorldProperties::WorldProperties()
+ {}
+
+WorldProperties::~WorldProperties() = default;
+WorldProperties::WorldProperties(WorldProperties&& rhs) noexcept = default;
+WorldProperties& WorldProperties::operator=(WorldProperties&& rhs) noexcept = default;
+WorldProperties WorldProperties::Clone() const {
+  WorldProperties out;
+  out.csp = csp;
+  out.messaging = messaging;
+  return out;
+}
+
+// static
+bool WorldProperties::Populate(
+    const base::Value::Dict& dict, WorldProperties& out) {
+  const base::Value* csp_value = dict.Find("csp");
+  if (csp_value) {
+    {
+      auto* temp = (*csp_value).GetIfString();
+      if (!temp) {
+        out.csp = std::nullopt;
+        return false;
+      }
+      out.csp = *temp;
+    }
+  }
+
+  const base::Value* messaging_value = dict.Find("messaging");
+  if (messaging_value) {
+    {
+      auto temp = (*messaging_value).GetIfBool();
+      if (!temp.has_value()) {
+        out.messaging = std::nullopt;
+        return false;
+      }
+      out.messaging = *temp;
+    }
+  }
+
+  return true;
+}
+
+// static
+bool WorldProperties::Populate(
+    const base::Value& value, WorldProperties& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<WorldProperties> WorldProperties::FromValue(const base::Value::Dict& value) {
+  WorldProperties out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<WorldProperties> WorldProperties::FromValue(const base::Value& value) {
+  WorldProperties out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict WorldProperties::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  if (this->csp) {
+    to_value_result.Set("csp", *this->csp);
+
+  }
+  if (this->messaging) {
+    to_value_result.Set("messaging", *this->messaging);
+
+  }
+
+  return to_value_result;
+}
+
+
 
 //
 // Functions
@@ -498,13 +548,13 @@ namespace Register {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -513,17 +563,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& scripts_value = args[0];
     {
       if (!scripts_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(scripts_value.GetList(), params.scripts)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -541,13 +591,13 @@ namespace GetScripts {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -556,12 +606,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         UserScriptFilter temp;
         if (!UserScriptFilter::Populate(filter_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -584,13 +634,13 @@ namespace Unregister {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -599,12 +649,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         UserScriptFilter temp;
         if (!UserScriptFilter::Populate(filter_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }
@@ -625,13 +675,13 @@ namespace Update {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -640,17 +690,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& scripts_value = args[0];
     {
       if (!scripts_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(scripts_value.GetList(), params.scripts)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -663,6 +713,47 @@ base::Value::List Results::Create() {
   return create_results;
 }
 }  // namespace Update
+
+namespace ConfigureWorld {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& properties_value = args[0];
+    {
+      if (!properties_value.is_dict()) {
+        return std::nullopt;
+      }
+      if (!WorldProperties::Populate(properties_value.GetDict(), params.properties)) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create() {
+  base::Value::List create_results;
+
+  return create_results;
+}
+}  // namespace ConfigureWorld
 
 }  // namespace user_scripts
 }  // namespace api

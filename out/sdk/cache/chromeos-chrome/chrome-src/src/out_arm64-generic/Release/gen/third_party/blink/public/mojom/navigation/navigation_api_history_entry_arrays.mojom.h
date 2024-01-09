@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/navigation/navigation_api_history_entry_arrays.mojom-features.h"
 #include "third_party/blink/public/mojom/navigation/navigation_api_history_entry_arrays.mojom-shared.h"
 #include "third_party/blink/public/mojom/navigation/navigation_api_history_entry_arrays.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -79,7 +80,7 @@ class BLINK_COMMON_EXPORT NavigationApiHistoryEntry {
       const ::std::u16string& url,
       int64_t item_sequence_number,
       int64_t document_sequence_number,
-      const absl::optional<::std::u16string>& state);
+      const std::optional<::std::u16string>& state);
 
 
   ~NavigationApiHistoryEntry();
@@ -167,7 +168,7 @@ class BLINK_COMMON_EXPORT NavigationApiHistoryEntry {
   
   int64_t document_sequence_number;
   
-  absl::optional<::std::u16string> state;
+  std::optional<::std::u16string> state;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -230,7 +231,8 @@ class BLINK_COMMON_EXPORT NavigationApiHistoryEntryArrays {
 
   NavigationApiHistoryEntryArrays(
       std::vector<NavigationApiHistoryEntryPtr> back_entries,
-      std::vector<NavigationApiHistoryEntryPtr> forward_entries);
+      std::vector<NavigationApiHistoryEntryPtr> forward_entries,
+      NavigationApiHistoryEntryPtr previous_entry);
 
 NavigationApiHistoryEntryArrays(const NavigationApiHistoryEntryArrays&) = delete;
 NavigationApiHistoryEntryArrays& operator=(const NavigationApiHistoryEntryArrays&) = delete;
@@ -313,6 +315,8 @@ NavigationApiHistoryEntryArrays& operator=(const NavigationApiHistoryEntryArrays
   std::vector<NavigationApiHistoryEntryPtr> back_entries;
   
   std::vector<NavigationApiHistoryEntryPtr> forward_entries;
+  
+  NavigationApiHistoryEntryPtr previous_entry;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -404,7 +408,8 @@ template <typename StructPtrType>
 NavigationApiHistoryEntryArraysPtr NavigationApiHistoryEntryArrays::Clone() const {
   return New(
       mojo::Clone(back_entries),
-      mojo::Clone(forward_entries)
+      mojo::Clone(forward_entries),
+      mojo::Clone(previous_entry)
   );
 }
 
@@ -413,6 +418,8 @@ bool NavigationApiHistoryEntryArrays::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->back_entries, other_struct.back_entries))
     return false;
   if (!mojo::Equals(this->forward_entries, other_struct.forward_entries))
+    return false;
+  if (!mojo::Equals(this->previous_entry, other_struct.previous_entry))
     return false;
   return true;
 }
@@ -426,6 +433,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.forward_entries < rhs.forward_entries)
     return true;
   if (rhs.forward_entries < lhs.forward_entries)
+    return false;
+  if (lhs.previous_entry < rhs.previous_entry)
+    return true;
+  if (rhs.previous_entry < lhs.previous_entry)
     return false;
   return false;
 }
@@ -490,6 +501,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::NavigationApiHistoryEntr
   static const decltype(::blink::mojom::NavigationApiHistoryEntryArrays::forward_entries)& forward_entries(
       const ::blink::mojom::NavigationApiHistoryEntryArraysPtr& input) {
     return input->forward_entries;
+  }
+
+  static const decltype(::blink::mojom::NavigationApiHistoryEntryArrays::previous_entry)& previous_entry(
+      const ::blink::mojom::NavigationApiHistoryEntryArraysPtr& input) {
+    return input->previous_entry;
   }
 
   static bool Read(::blink::mojom::NavigationApiHistoryEntryArrays::DataView input, ::blink::mojom::NavigationApiHistoryEntryArraysPtr* output);

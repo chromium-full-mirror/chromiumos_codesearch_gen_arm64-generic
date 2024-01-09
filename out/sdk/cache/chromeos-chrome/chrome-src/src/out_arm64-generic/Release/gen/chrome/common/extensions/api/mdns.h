@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -41,8 +42,8 @@ struct MDnsService {
   ~MDnsService();
   MDnsService(const MDnsService&) = delete;
   MDnsService& operator=(const MDnsService&) = delete;
-  MDnsService(MDnsService&& rhs);
-  MDnsService& operator=(MDnsService&& rhs);
+  MDnsService(MDnsService&& rhs) noexcept;
+  MDnsService& operator=(MDnsService&& rhs) noexcept;
 
   // Populates a MDnsService object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -55,15 +56,12 @@ struct MDnsService {
   // Creates a deep copy of MDnsService.
   MDnsService Clone() const;
 
-  // Creates a MDnsService object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MDnsService> FromValueDeprecated(const base::Value& value);
-
   // Creates a MDnsService object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MDnsService> FromValue(const base::Value::Dict& value);
+  static std::optional<MDnsService> FromValue(const base::Value::Dict& value);
 
   // Creates a MDnsService object from a base::Value, or nullopt on failure.
-  static absl::optional<MDnsService> FromValue(const base::Value& value);
+  static std::optional<MDnsService> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMDnsService object.

@@ -11,10 +11,10 @@ import './crostini_import_confirmation_dialog.js';
 import '../settings_shared.css.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { equalContainerId } from '../guest_os/guest_os_container_select.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { CrostiniBrowserProxyImpl, DEFAULT_CROSTINI_GUEST_ID, DEFAULT_CROSTINI_VM } from './crostini_browser_proxy.js';
 import { getTemplate } from './crostini_export_import.html.js';
@@ -28,6 +28,10 @@ export class SettingsCrostiniExportImportElement extends SettingsCrostiniExportI
     }
     static get properties() {
         return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
             showImportConfirmationDialog_: {
                 type: Boolean,
                 value: false,

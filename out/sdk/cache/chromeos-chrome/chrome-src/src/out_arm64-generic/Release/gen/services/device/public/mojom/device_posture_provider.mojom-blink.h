@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/device_posture_provider.mojom-features.h"
 #include "services/device/public/mojom/device_posture_provider.mojom-shared.h"
 #include "services/device/public/mojom/device_posture_provider.mojom-blink-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink.h"
@@ -39,18 +40,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::DevicePostureType>
-    : EnumHashTraits<::device::mojom::DevicePostureType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device::mojom::blink {
@@ -87,6 +76,8 @@ class BLINK_PLATFORM_EXPORT DevicePostureProvider
   enum MethodMinVersions : uint32_t {
     kAddListenerAndGetCurrentPostureMinVersion = 0,
     kAddListenerAndGetCurrentViewportSegmentsMinVersion = 0,
+    kOverrideDevicePostureForEmulationMinVersion = 0,
+    kDisableDevicePostureOverrideForEmulationMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -96,6 +87,12 @@ class BLINK_PLATFORM_EXPORT DevicePostureProvider
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AddListenerAndGetCurrentViewportSegments_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OverrideDevicePostureForEmulation_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct DisableDevicePostureOverrideForEmulation_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -110,6 +107,12 @@ class BLINK_PLATFORM_EXPORT DevicePostureProvider
   using AddListenerAndGetCurrentViewportSegmentsCallback = base::OnceCallback<void(const WTF::Vector<::gfx::Rect>&)>;
   
   virtual void AddListenerAndGetCurrentViewportSegments(::mojo::PendingRemote<DeviceViewportSegmentsClient> client, AddListenerAndGetCurrentViewportSegmentsCallback callback) = 0;
+
+  
+  virtual void OverrideDevicePostureForEmulation(DevicePostureType posture) = 0;
+
+  
+  virtual void DisableDevicePostureOverrideForEmulation() = 0;
 };
 
 class DevicePostureClientProxy;
@@ -214,6 +217,10 @@ class BLINK_PLATFORM_EXPORT DevicePostureProviderProxy
   void AddListenerAndGetCurrentPosture(::mojo::PendingRemote<DevicePostureClient> client, AddListenerAndGetCurrentPostureCallback callback) final;
   
   void AddListenerAndGetCurrentViewportSegments(::mojo::PendingRemote<DeviceViewportSegmentsClient> client, AddListenerAndGetCurrentViewportSegmentsCallback callback) final;
+  
+  void OverrideDevicePostureForEmulation(DevicePostureType posture) final;
+  
+  void DisableDevicePostureOverrideForEmulation() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -96,6 +96,7 @@ export async function initMetrics() {
         const baseDimensions = new Map([
             [GaMetricDimension.BOARD, board],
             [GaMetricDimension.IS_TEST_IMAGE, boolToIntString(isTestImage)],
+            [GaMetricDimension.OS_VERSION, loadTimeData.getOsVersion()],
         ]);
         const clientId = localStorage.getString(LocalStorageKey.GA_USER_ID);
         function setClientId(id) {
@@ -112,6 +113,7 @@ export async function initMetrics() {
             [Ga4MetricDimension.BOARD]: board,
             [Ga4MetricDimension.IS_TEST_IMAGE]: boolToIntString(isTestImage),
             [Ga4MetricDimension.BROWSER_VERSION]: loadTimeData.getBrowserVersion(),
+            [Ga4MetricDimension.OS_VERSION]: loadTimeData.getOsVersion(),
         };
         const clientId = localStorage.getString(LocalStorageKey.GA4_CLIENT_ID);
         function setClientId(id) {
@@ -338,16 +340,19 @@ export var BarcodeContentType;
 (function (BarcodeContentType) {
     BarcodeContentType["TEXT"] = "text";
     BarcodeContentType["URL"] = "url";
+    BarcodeContentType["WIFI"] = "wifi";
 })(BarcodeContentType || (BarcodeContentType = {}));
 /**
  * Sends the barcode detected event.
  */
-export function sendBarcodeDetectedEvent({ contentType }) {
+export function sendBarcodeDetectedEvent({ contentType }, wifiSecurityType = '') {
     sendEvent({
         eventCategory: 'barcode',
         eventAction: 'detect',
         eventLabel: contentType,
-    });
+    }, new Map([
+        [GaMetricDimension.WIFI_SECURITY_TYPE, wifiSecurityType],
+    ]));
 }
 /**
  * Sends the open ptz panel event.
@@ -437,22 +442,22 @@ async function checkCanSendMetrics() {
 export class PopularCamPeripheralSet {
     constructor() {
         this.moduleIDSet = new Set([
-            '046d:085b',
-            '046d:0825',
-            '0c45:636b',
-            '0c45:6366',
-            '046d:0843',
-            '046d:082d',
-            '046d:0892',
-            '046d:08e5',
-            '05a3:9331',
-            '046d:085e',
-            '046d:085c',
-            '1b3f:2002',
-            '1d6c:0103',
-            '046d:082c',
-            '1778:d021',
-            '07ca:313a',
+            '046d:085b', // C925e_Logitech
+            '046d:0825', // C270_Logitech
+            '0c45:636b', // Cam_Sonix
+            '0c45:6366', // VitadeAF_Microdia
+            '046d:0843', // C930e_Logitech
+            '046d:082d', // HDProC920_Logitech
+            '046d:0892', // C920HDPro_Logitech
+            '046d:08e5', // C920PROHD_Logitech
+            '05a3:9331', // Cam_ARC
+            '046d:085e', // BRIOUltraHD_Logitech
+            '046d:085c', // C922ProStream_Logitech
+            '1b3f:2002', // 808Camera9_Generalplus
+            '1d6c:0103', // NexiGoN60FHD_2MUVC
+            '046d:082c', // HDC615_Logitech
+            '1778:d021', // VZR_IPEVO
+            '07ca:313a', // LiveStreamer313_Sunplus
             '045e:0810', // LifeCamHD3000_Microsoft
         ]);
     }

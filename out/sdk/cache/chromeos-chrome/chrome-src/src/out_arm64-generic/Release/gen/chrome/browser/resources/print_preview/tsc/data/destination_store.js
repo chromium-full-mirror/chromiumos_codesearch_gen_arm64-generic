@@ -15,7 +15,7 @@ import { DestinationMatch } from './destination_match.js';
 import { parseDestination } from './local_parsers.js';
 // 
 import { parseExtensionDestination } from './local_parsers.js';
-import { getStatusReasonFromPrinterStatus } from './printer_status_cros.js';
+import { getStatusReasonFromPrinterStatus, PrinterStatusReason } from './printer_status_cros.js';
 // 
 /**
  * Printer search statuses used by the destination store.
@@ -490,12 +490,19 @@ export class DestinationStore extends EventTarget {
         // 
     }
     /**
-     * @param Destination to select.
+     * @param destination Destination to select.
+     * @param refreshDestination Set to true to allow the currently selected
+     *          destination to be re-selected.
      */
-    selectDestination(destination) {
-        if (destination === this.selectedDestination_) {
+    selectDestination(destination, refreshDestination = false) {
+        // 
+        // 
+        // Do not re-select the same destination unless explicitly requesting it to
+        // refetch the capabilities and reload the preview.
+        if (destination === this.selectedDestination_ && !refreshDestination) {
             return;
         }
+        // 
         if (destination === null) {
             this.selectedDestination_ = null;
             this.dispatchEvent(new CustomEvent(DestinationStoreEventType.DESTINATION_SELECT));
@@ -838,9 +845,21 @@ export class DestinationStore extends EventTarget {
         if (existingDestination === undefined) {
             return;
         }
-        existingDestination.printerStatusReason =
-            getStatusReasonFromPrinterStatus(printerStatus);
-        this.dispatchEvent(new CustomEvent(DestinationStoreEventType.DESTINATION_PRINTER_STATUS_UPDATE, { detail: destinationKey }));
+        // `nowOnline` captures the event where a previously offline printer
+        // becomes reachable. This will be used to trigger the destination to
+        // reload its preview.
+        const previousStatusReason = existingDestination.printerStatusReason;
+        const nextStatusReason = getStatusReasonFromPrinterStatus(printerStatus);
+        const nowOnline = previousStatusReason === PrinterStatusReason.PRINTER_UNREACHABLE &&
+            (nextStatusReason !== PrinterStatusReason.PRINTER_UNREACHABLE &&
+                nextStatusReason !== PrinterStatusReason.UNKNOWN_REASON);
+        existingDestination.printerStatusReason = nextStatusReason;
+        this.dispatchEvent(new CustomEvent(DestinationStoreEventType.DESTINATION_PRINTER_STATUS_UPDATE, {
+            detail: {
+                destinationKey: destinationKey,
+                nowOnline: nowOnline,
+            },
+        }));
     }
 }
 /**
@@ -972,7 +991,7 @@ const MEDIA_DISPLAY_NAMES_ = {
     'NA_INDEX_4X6_EXT': 'Index 4x6 ext',
     'NA_INDEX_5X8': '5x8',
     'NA_INVOICE': 'Invoice',
-    'NA_LEDGER': 'Tabloid',
+    'NA_LEDGER': 'Tabloid', // Ledger in portrait is called Tabloid.
     'NA_LEGAL': 'Legal',
     'NA_LEGAL_EXTRA': 'Legal extra',
     'NA_LETTER': 'Letter',

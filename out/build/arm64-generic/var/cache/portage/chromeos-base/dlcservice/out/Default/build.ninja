@@ -18,9 +18,17 @@ build build.ninja: phony build.ninja.stamp
 
 subninja toolchain.ninja
 
+build _dlc_metadata_util-install_config: phony obj/dlcservice/_dlc_metadata_util-install_config.stamp
+build _dlcservice-install_config: phony obj/dlcservice/_dlcservice-install_config.stamp
+build _dlcservice_util-install_config: phony obj/dlcservice/_dlcservice_util-install_config.stamp
+build _dlcverify-install_config: phony obj/dlcservice/_dlcverify-install_config.stamp
 build _libdlcservice-utils-install_config: phony obj/dlcservice/_libdlcservice-utils-install_config.stamp
 build dlcservice_adaptors: phony obj/dlcservice/dlcservice_adaptors.stamp
+build install_dbus_config: phony obj/dlcservice/install_dbus_config.stamp
+build install_dlctool: phony obj/dlcservice/install_dlctool.stamp
 build install_minijail_conf: phony obj/dlcservice/install_minijail_conf.stamp
+build install_seccomp_policy: phony obj/dlcservice/install_seccomp_policy.stamp
+build install_upstart_conf: phony obj/dlcservice/install_upstart_conf.stamp
 build install_utils_header: phony obj/dlcservice/install_utils_header.stamp
 build install_utils_pkgconfig: phony obj/dlcservice/install_utils_pkgconfig.stamp
 build libdlcservice: phony ./libdlcservice.a
@@ -28,19 +36,23 @@ build libdlcservice-utils: phony ./lib/libdlcservice-utils.so
 build libdlcservice_utils: phony ./libdlcservice_utils.a
 build libdlcverify: phony ./libdlcverify.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
+build dlcservice$:_dlc_metadata_util-install_config: phony obj/dlcservice/_dlc_metadata_util-install_config.stamp
+build dlcservice$:_dlcservice-install_config: phony obj/dlcservice/_dlcservice-install_config.stamp
+build dlcservice$:_dlcservice_util-install_config: phony obj/dlcservice/_dlcservice_util-install_config.stamp
+build dlcservice$:_dlcverify-install_config: phony obj/dlcservice/_dlcverify-install_config.stamp
 build dlcservice$:_libdlcservice-utils-install_config: phony obj/dlcservice/_libdlcservice-utils-install_config.stamp
 build dlcservice$:all: phony obj/dlcservice/all.stamp
 build dlcservice$:dlc_metadata_util: phony ./dlc_metadata_util
 build dlcservice$:dlcservice: phony ./dlcservice
 build dlcservice$:dlcservice_adaptors: phony obj/dlcservice/dlcservice_adaptors.stamp
-build dlcservice$:dlcservice_tests: phony ./dlcservice_tests
 build dlcservice$:dlcservice_util: phony ./dlcservice_util
 build dlcservice$:dlcverify: phony ./dlcverify
+build dlcservice$:install_dbus_config: phony obj/dlcservice/install_dbus_config.stamp
+build dlcservice$:install_dlctool: phony obj/dlcservice/install_dlctool.stamp
 build dlcservice$:install_minijail_conf: phony obj/dlcservice/install_minijail_conf.stamp
+build dlcservice$:install_seccomp_policy: phony obj/dlcservice/install_seccomp_policy.stamp
+build dlcservice$:install_upstart_conf: phony obj/dlcservice/install_upstart_conf.stamp
 build dlcservice$:install_utils_header: phony obj/dlcservice/install_utils_header.stamp
 build dlcservice$:install_utils_pkgconfig: phony obj/dlcservice/install_utils_pkgconfig.stamp
 build dlcservice$:libdlcservice: phony ./libdlcservice.a
@@ -50,16 +62,22 @@ build dlcservice$:libdlcverify: phony ./libdlcverify.a
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
+    obj/dlcservice/_dlc_metadata_util-install_config.stamp $
+    obj/dlcservice/_dlcservice-install_config.stamp $
+    obj/dlcservice/_dlcservice_util-install_config.stamp $
+    obj/dlcservice/_dlcverify-install_config.stamp $
     obj/dlcservice/_libdlcservice-utils-install_config.stamp $
     obj/dlcservice/all.stamp $
     ./dlc_metadata_util $
     ./dlcservice $
     obj/dlcservice/dlcservice_adaptors.stamp $
-    ./dlcservice_tests $
     ./dlcservice_util $
     ./dlcverify $
+    obj/dlcservice/install_dbus_config.stamp $
+    obj/dlcservice/install_dlctool.stamp $
     obj/dlcservice/install_minijail_conf.stamp $
+    obj/dlcservice/install_seccomp_policy.stamp $
+    obj/dlcservice/install_upstart_conf.stamp $
     obj/dlcservice/install_utils_header.stamp $
     obj/dlcservice/install_utils_pkgconfig.stamp $
     ./libdlcservice.a $

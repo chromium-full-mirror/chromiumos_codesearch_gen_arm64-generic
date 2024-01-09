@@ -35,8 +35,8 @@ describeWithMockConnection('ConsoleView', () => {
         // before proceding to the next test.
         await consoleView.getScheduledRefreshPromiseForTest();
     });
-    function createConsoleMessage(target, message) {
-        return new SDK.ConsoleModel.ConsoleMessage(target.model(SDK.RuntimeModel.RuntimeModel), "javascript" /* Protocol.Log.LogEntrySource.Javascript */, null, message);
+    function createConsoleMessage(target, message, type = "log" /* Protocol.Runtime.ConsoleAPICalledEventType.Log */) {
+        return new SDK.ConsoleModel.ConsoleMessage(target.model(SDK.RuntimeModel.RuntimeModel), "javascript" /* Protocol.Log.LogEntrySource.Javascript */, null, message, { type });
     }
     async function canSaveToFile(targetFactory) {
         const target = targetFactory();
@@ -163,13 +163,21 @@ describeWithMockConnection('ConsoleView', () => {
             const selfXssWarningDisabledSetting = Common.Settings.Settings.instance().createSetting('disableSelfXssWarning', false, Common.Settings.SettingStorageType.Synced);
             for (let i = 0; i < 5; i++) {
                 assert.isFalse(selfXssWarningDisabledSetting.get());
-                consoleModel.dispatchEventToListeners(SDK.ConsoleModel.Events.CommandEvaluated, {
-                    result: new SDK.RemoteObject.RemoteObjectImpl(runtimeModel, undefined, 'number', undefined, 42),
-                    commandMessage: createConsoleMessage(target, String(i)),
-                });
+                consoleModel.dispatchEventToListeners(SDK.ConsoleModel.Events.MessageAdded, createConsoleMessage(target, String(i), SDK.ConsoleModel.FrontendMessageType.Command));
             }
             assert.isTrue(selfXssWarningDisabledSetting.get());
         });
+    });
+    it('appends commands to the history right away', async () => {
+        const target = createTarget();
+        SDK.TargetManager.TargetManager.instance().setScopeTarget(target);
+        consoleView.markAsRoot();
+        consoleView.show(document.body);
+        const consoleModel = target.model(SDK.ConsoleModel.ConsoleModel);
+        assertNotNullOrUndefined(consoleModel);
+        const consoleHistorySetting = Common.Settings.Settings.instance().createLocalSetting('consoleHistory', []);
+        consoleModel.dispatchEventToListeners(SDK.ConsoleModel.Events.MessageAdded, createConsoleMessage(target, 'await new Promise(() => ())', SDK.ConsoleModel.FrontendMessageType.Command));
+        assert.deepStrictEqual(consoleHistorySetting.get(), ['await new Promise(() => ())']);
     });
 });
 //# sourceMappingURL=ConsoleView_test.js.map

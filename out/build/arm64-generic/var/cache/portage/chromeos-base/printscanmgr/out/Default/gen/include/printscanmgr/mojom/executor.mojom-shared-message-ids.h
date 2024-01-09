@@ -15,6 +15,7 @@ namespace internal {
 
 
 constexpr uint32_t kExecutor_RestartUpstartJob_Name = 0;
+constexpr uint32_t kExecutor_GetPpdFile_Name = 1;
 
 }  // namespace internal
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -96,7 +97,7 @@ Data::Data(
     const std::string& show_in_folder_text_in,
     const std::string& since_string_in,
     State state_in,
-    const absl::optional<::GURL>& url_in,
+    const std::optional<::GURL>& url_in,
     const ::std::u16string& display_url_in,
     SafeBrowsingState safe_browsing_state_in,
     bool has_safe_browsing_verdict_in)
@@ -344,7 +345,7 @@ void Data::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -457,14 +458,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -552,10 +556,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -580,6 +584,18 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     }
     case internal::kPageHandler_SaveDangerousRequiringGesture_Name: {
       return &PageHandler::SaveDangerousRequiringGesture_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_SaveSuspiciousRequiringGesture_Name: {
+      return &PageHandler::SaveSuspiciousRequiringGesture_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_RecordOpenBypassWarningPrompt_Name: {
+      return &PageHandler::RecordOpenBypassWarningPrompt_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_SaveDangerousFromPromptRequiringGesture_Name: {
+      return &PageHandler::SaveDangerousFromPromptRequiringGesture_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_RecordCancelBypassWarningPrompt_Name: {
+      return &PageHandler::RecordCancelBypassWarningPrompt_Sym::IPCStableHash;
     }
     case internal::kPageHandler_DiscardDangerous_Name: {
       return &PageHandler::DiscardDangerous_Sym::IPCStableHash;
@@ -642,6 +658,14 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive downloads::mojom::PageHandler::Drag";
       case internal::kPageHandler_SaveDangerousRequiringGesture_Name:
             return "Receive downloads::mojom::PageHandler::SaveDangerousRequiringGesture";
+      case internal::kPageHandler_SaveSuspiciousRequiringGesture_Name:
+            return "Receive downloads::mojom::PageHandler::SaveSuspiciousRequiringGesture";
+      case internal::kPageHandler_RecordOpenBypassWarningPrompt_Name:
+            return "Receive downloads::mojom::PageHandler::RecordOpenBypassWarningPrompt";
+      case internal::kPageHandler_SaveDangerousFromPromptRequiringGesture_Name:
+            return "Receive downloads::mojom::PageHandler::SaveDangerousFromPromptRequiringGesture";
+      case internal::kPageHandler_RecordCancelBypassWarningPrompt_Name:
+            return "Receive downloads::mojom::PageHandler::RecordCancelBypassWarningPrompt";
       case internal::kPageHandler_DiscardDangerous_Name:
             return "Receive downloads::mojom::PageHandler::DiscardDangerous";
       case internal::kPageHandler_RetryDownload_Name:
@@ -681,6 +705,14 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply downloads::mojom::PageHandler::Drag";
       case internal::kPageHandler_SaveDangerousRequiringGesture_Name:
             return "Receive reply downloads::mojom::PageHandler::SaveDangerousRequiringGesture";
+      case internal::kPageHandler_SaveSuspiciousRequiringGesture_Name:
+            return "Receive reply downloads::mojom::PageHandler::SaveSuspiciousRequiringGesture";
+      case internal::kPageHandler_RecordOpenBypassWarningPrompt_Name:
+            return "Receive reply downloads::mojom::PageHandler::RecordOpenBypassWarningPrompt";
+      case internal::kPageHandler_SaveDangerousFromPromptRequiringGesture_Name:
+            return "Receive reply downloads::mojom::PageHandler::SaveDangerousFromPromptRequiringGesture";
+      case internal::kPageHandler_RecordCancelBypassWarningPrompt_Name:
+            return "Receive reply downloads::mojom::PageHandler::RecordCancelBypassWarningPrompt";
       case internal::kPageHandler_DiscardDangerous_Name:
             return "Receive reply downloads::mojom::PageHandler::DiscardDangerous";
       case internal::kPageHandler_RetryDownload_Name:
@@ -771,6 +803,58 @@ uint32_t PageHandler::SaveDangerousRequiringGesture_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)downloads::mojom::PageHandler::SaveDangerousRequiringGesture");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::SaveSuspiciousRequiringGesture_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)downloads::mojom::PageHandler::SaveSuspiciousRequiringGesture");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::RecordOpenBypassWarningPrompt_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)downloads::mojom::PageHandler::RecordOpenBypassWarningPrompt");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::SaveDangerousFromPromptRequiringGesture_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)downloads::mojom::PageHandler::SaveDangerousFromPromptRequiringGesture");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::RecordCancelBypassWarningPrompt_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)downloads::mojom::PageHandler::RecordCancelBypassWarningPrompt");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -975,14 +1059,17 @@ void PageHandlerProxy::GetDownloads(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetDownloads_Name, kFlags, 0, 0, nullptr);
@@ -1025,14 +1112,17 @@ void PageHandlerProxy::OpenFileRequiringGesture(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenFileRequiringGesture_Name, kFlags, 0, 0, nullptr);
@@ -1073,14 +1163,17 @@ void PageHandlerProxy::Drag(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Drag_Name, kFlags, 0, 0, nullptr);
@@ -1121,14 +1214,17 @@ void PageHandlerProxy::SaveDangerousRequiringGesture(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SaveDangerousRequiringGesture_Name, kFlags, 0, 0, nullptr);
@@ -1157,6 +1253,210 @@ void PageHandlerProxy::SaveDangerousRequiringGesture(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void PageHandlerProxy::SaveSuspiciousRequiringGesture(
+    const std::string& in_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send downloads::mojom::PageHandler::SaveSuspiciousRequiringGesture", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("id"), in_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_SaveSuspiciousRequiringGesture_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::downloads::mojom::internal::PageHandler_SaveSuspiciousRequiringGesture_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->id)::BaseType> id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_id, id_fragment);
+  params->id.Set(
+      id_fragment.is_null() ? nullptr : id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null id in PageHandler.SaveSuspiciousRequiringGesture request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("SaveSuspiciousRequiringGesture");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::RecordOpenBypassWarningPrompt(
+    const std::string& in_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send downloads::mojom::PageHandler::RecordOpenBypassWarningPrompt", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("id"), in_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_RecordOpenBypassWarningPrompt_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::downloads::mojom::internal::PageHandler_RecordOpenBypassWarningPrompt_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->id)::BaseType> id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_id, id_fragment);
+  params->id.Set(
+      id_fragment.is_null() ? nullptr : id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null id in PageHandler.RecordOpenBypassWarningPrompt request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("RecordOpenBypassWarningPrompt");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::SaveDangerousFromPromptRequiringGesture(
+    const std::string& in_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send downloads::mojom::PageHandler::SaveDangerousFromPromptRequiringGesture", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("id"), in_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_SaveDangerousFromPromptRequiringGesture_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::downloads::mojom::internal::PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->id)::BaseType> id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_id, id_fragment);
+  params->id.Set(
+      id_fragment.is_null() ? nullptr : id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null id in PageHandler.SaveDangerousFromPromptRequiringGesture request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("SaveDangerousFromPromptRequiringGesture");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::RecordCancelBypassWarningPrompt(
+    const std::string& in_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send downloads::mojom::PageHandler::RecordCancelBypassWarningPrompt", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("id"), in_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_RecordCancelBypassWarningPrompt_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::downloads::mojom::internal::PageHandler_RecordCancelBypassWarningPrompt_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->id)::BaseType> id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_id, id_fragment);
+  params->id.Set(
+      id_fragment.is_null() ? nullptr : id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null id in PageHandler.RecordCancelBypassWarningPrompt request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("RecordCancelBypassWarningPrompt");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void PageHandlerProxy::DiscardDangerous(
     const std::string& in_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1169,14 +1469,17 @@ void PageHandlerProxy::DiscardDangerous(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DiscardDangerous_Name, kFlags, 0, 0, nullptr);
@@ -1217,14 +1520,17 @@ void PageHandlerProxy::RetryDownload(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RetryDownload_Name, kFlags, 0, 0, nullptr);
@@ -1265,14 +1571,17 @@ void PageHandlerProxy::Show(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Show_Name, kFlags, 0, 0, nullptr);
@@ -1313,14 +1622,17 @@ void PageHandlerProxy::Pause(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Pause_Name, kFlags, 0, 0, nullptr);
@@ -1361,14 +1673,17 @@ void PageHandlerProxy::Resume(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Resume_Name, kFlags, 0, 0, nullptr);
@@ -1409,14 +1724,17 @@ void PageHandlerProxy::Remove(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Remove_Name, kFlags, 0, 0, nullptr);
@@ -1450,14 +1768,17 @@ void PageHandlerProxy::Undo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send downloads::mojom::PageHandler::Undo");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Undo_Name, kFlags, 0, 0, nullptr);
@@ -1487,14 +1808,17 @@ void PageHandlerProxy::Cancel(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -1528,14 +1852,17 @@ void PageHandlerProxy::ClearAll(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send downloads::mojom::PageHandler::ClearAll");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ClearAll_Name, kFlags, 0, 0, nullptr);
@@ -1558,14 +1885,17 @@ void PageHandlerProxy::OpenDownloadsFolderRequiringGesture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send downloads::mojom::PageHandler::OpenDownloadsFolderRequiringGesture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenDownloadsFolderRequiringGesture_Name, kFlags, 0, 0, nullptr);
@@ -1595,14 +1925,17 @@ void PageHandlerProxy::OpenDuringScanningRequiringGesture(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenDuringScanningRequiringGesture_Name, kFlags, 0, 0, nullptr);
@@ -1643,14 +1976,17 @@ void PageHandlerProxy::ReviewDangerousRequiringGesture(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ReviewDangerousRequiringGesture_Name, kFlags, 0, 0, nullptr);
@@ -1691,14 +2027,17 @@ void PageHandlerProxy::DeepScan(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DeepScan_Name, kFlags, 0, 0, nullptr);
@@ -1739,14 +2078,17 @@ void PageHandlerProxy::BypassDeepScanRequiringGesture(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_BypassDeepScanRequiringGesture_Name, kFlags, 0, 0, nullptr);
@@ -1884,6 +2226,110 @@ std::move(p_id));
 std::move(p_id));
       return true;
     }
+    case internal::kPageHandler_SaveSuspiciousRequiringGesture_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_SaveSuspiciousRequiringGesture_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_SaveSuspiciousRequiringGesture_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_id{};
+      PageHandler_SaveSuspiciousRequiringGesture_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadId(&p_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 4, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SaveSuspiciousRequiringGesture(
+std::move(p_id));
+      return true;
+    }
+    case internal::kPageHandler_RecordOpenBypassWarningPrompt_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_RecordOpenBypassWarningPrompt_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_RecordOpenBypassWarningPrompt_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_id{};
+      PageHandler_RecordOpenBypassWarningPrompt_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadId(&p_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RecordOpenBypassWarningPrompt(
+std::move(p_id));
+      return true;
+    }
+    case internal::kPageHandler_SaveDangerousFromPromptRequiringGesture_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_id{};
+      PageHandler_SaveDangerousFromPromptRequiringGesture_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadId(&p_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 6, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SaveDangerousFromPromptRequiringGesture(
+std::move(p_id));
+      return true;
+    }
+    case internal::kPageHandler_RecordCancelBypassWarningPrompt_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_RecordCancelBypassWarningPrompt_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_RecordCancelBypassWarningPrompt_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_id{};
+      PageHandler_RecordCancelBypassWarningPrompt_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadId(&p_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RecordCancelBypassWarningPrompt(
+std::move(p_id));
+      return true;
+    }
     case internal::kPageHandler_DiscardDangerous_Name: {
 
       DCHECK(message->is_serialized());
@@ -1901,7 +2347,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 4, false);
+            PageHandler::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1927,7 +2373,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 5, false);
+            PageHandler::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1953,7 +2399,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 6, false);
+            PageHandler::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1979,7 +2425,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 7, false);
+            PageHandler::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2005,7 +2451,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 8, false);
+            PageHandler::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2031,7 +2477,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 9, false);
+            PageHandler::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2054,7 +2500,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 10, false);
+            PageHandler::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2079,7 +2525,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 11, false);
+            PageHandler::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2102,7 +2548,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 12, false);
+            PageHandler::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2124,7 +2570,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 13, false);
+            PageHandler::Name_, 17, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2149,7 +2595,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 14, false);
+            PageHandler::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2175,7 +2621,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 15, false);
+            PageHandler::Name_, 19, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2201,7 +2647,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 16, false);
+            PageHandler::Name_, 20, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2227,7 +2673,7 @@ std::move(p_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 17, false);
+            PageHandler::Name_, 21, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2261,6 +2707,18 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
     case internal::kPageHandler_SaveDangerousRequiringGesture_Name: {
       break;
     }
+    case internal::kPageHandler_SaveSuspiciousRequiringGesture_Name: {
+      break;
+    }
+    case internal::kPageHandler_RecordOpenBypassWarningPrompt_Name: {
+      break;
+    }
+    case internal::kPageHandler_SaveDangerousFromPromptRequiringGesture_Name: {
+      break;
+    }
+    case internal::kPageHandler_RecordCancelBypassWarningPrompt_Name: {
+      break;
+    }
     case internal::kPageHandler_DiscardDangerous_Name: {
       break;
     }
@@ -2306,44 +2764,52 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetDownloads_Params_Data::Validate,
+    { &internal::PageHandler_GetDownloads_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OpenFileRequiringGesture_Params_Data::Validate,
+    { &internal::PageHandler_OpenFileRequiringGesture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Drag_Params_Data::Validate,
+    { &internal::PageHandler_Drag_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SaveDangerousRequiringGesture_Params_Data::Validate,
+    { &internal::PageHandler_SaveDangerousRequiringGesture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_DiscardDangerous_Params_Data::Validate,
+    { &internal::PageHandler_SaveSuspiciousRequiringGesture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_RetryDownload_Params_Data::Validate,
+    { &internal::PageHandler_RecordOpenBypassWarningPrompt_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Show_Params_Data::Validate,
+    { &internal::PageHandler_SaveDangerousFromPromptRequiringGesture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Pause_Params_Data::Validate,
+    { &internal::PageHandler_RecordCancelBypassWarningPrompt_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Resume_Params_Data::Validate,
+    { &internal::PageHandler_DiscardDangerous_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Remove_Params_Data::Validate,
+    { &internal::PageHandler_RetryDownload_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Undo_Params_Data::Validate,
+    { &internal::PageHandler_Show_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Cancel_Params_Data::Validate,
+    { &internal::PageHandler_Pause_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ClearAll_Params_Data::Validate,
+    { &internal::PageHandler_Resume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OpenDownloadsFolderRequiringGesture_Params_Data::Validate,
+    { &internal::PageHandler_Remove_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OpenDuringScanningRequiringGesture_Params_Data::Validate,
+    { &internal::PageHandler_Undo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ReviewDangerousRequiringGesture_Params_Data::Validate,
+    { &internal::PageHandler_Cancel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_DeepScan_Params_Data::Validate,
+    { &internal::PageHandler_ClearAll_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_BypassDeepScanRequiringGesture_Params_Data::Validate,
+    { &internal::PageHandler_OpenDownloadsFolderRequiringGesture_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_OpenDuringScanningRequiringGesture_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_ReviewDangerousRequiringGesture_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_DeepScan_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_BypassDeepScanRequiringGesture_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2483,14 +2949,17 @@ void PageProxy::RemoveItem(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_RemoveItem_Name, kFlags, 0, 0, nullptr);
@@ -2524,14 +2993,17 @@ void PageProxy::UpdateItem(
                         "<value of type DataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_UpdateItem_Name, kFlags, 0, 0, nullptr);
@@ -2576,14 +3048,17 @@ void PageProxy::InsertItems(
                         "<value of type std::vector<DataPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_InsertItems_Name, kFlags, 0, 0, nullptr);
@@ -2620,14 +3095,17 @@ void PageProxy::ClearAll(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send downloads::mojom::Page::ClearAll");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_ClearAll_Name, kFlags, 0, 0, nullptr);
@@ -2786,16 +3264,16 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_RemoveItem_Params_Data::Validate,
+    { &internal::Page_RemoveItem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_UpdateItem_Params_Data::Validate,
+    { &internal::Page_UpdateItem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_InsertItems_Params_Data::Validate,
+    { &internal::Page_InsertItems_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_ClearAll_Params_Data::Validate,
+    { &internal::Page_ClearAll_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2909,6 +3387,18 @@ void PageHandlerInterceptorForTesting::Drag(const std::string& id) {
 }
 void PageHandlerInterceptorForTesting::SaveDangerousRequiringGesture(const std::string& id) {
   GetForwardingInterface()->SaveDangerousRequiringGesture(std::move(id));
+}
+void PageHandlerInterceptorForTesting::SaveSuspiciousRequiringGesture(const std::string& id) {
+  GetForwardingInterface()->SaveSuspiciousRequiringGesture(std::move(id));
+}
+void PageHandlerInterceptorForTesting::RecordOpenBypassWarningPrompt(const std::string& id) {
+  GetForwardingInterface()->RecordOpenBypassWarningPrompt(std::move(id));
+}
+void PageHandlerInterceptorForTesting::SaveDangerousFromPromptRequiringGesture(const std::string& id) {
+  GetForwardingInterface()->SaveDangerousFromPromptRequiringGesture(std::move(id));
+}
+void PageHandlerInterceptorForTesting::RecordCancelBypassWarningPrompt(const std::string& id) {
+  GetForwardingInterface()->RecordCancelBypassWarningPrompt(std::move(id));
 }
 void PageHandlerInterceptorForTesting::DiscardDangerous(const std::string& id) {
   GetForwardingInterface()->DiscardDangerous(std::move(id));

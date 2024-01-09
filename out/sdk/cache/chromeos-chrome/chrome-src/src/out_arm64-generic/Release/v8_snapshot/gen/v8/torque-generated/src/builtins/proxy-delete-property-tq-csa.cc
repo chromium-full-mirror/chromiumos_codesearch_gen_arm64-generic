@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/proxy-delete-property-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -144,7 +145,7 @@ TF_BUILTIN(ProxyDeleteProperty, CodeStubAssembler) {
   TNode<Boolean> tmp9;
   if (block29.is_used()) {
     ca_.Bind(&block29);
-    tmp9 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kDeleteProperty), parameter0, tmp6, parameter2, parameter3);
+    tmp9 = ca_.CallBuiltin<Boolean>(Builtin::kDeleteProperty, parameter0, tmp6, parameter2, parameter3);
     CodeStubAssembler(state_).Return(tmp9);
   }
 

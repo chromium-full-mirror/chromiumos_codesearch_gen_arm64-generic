@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PaymentRequestEvent>::value,
     "PaymentRequestEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PaymentRequestEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PaymentRequestEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentRequestEvent.topOrigin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->topOrigin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->topOrigin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -106,10 +101,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentRequestEvent.paymentRequestOrigin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->paymentRequestOrigin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->paymentRequestOrigin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -121,10 +116,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentRequestEvent.paymentRequestId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->paymentRequestId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->paymentRequestId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -141,7 +136,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->methodData();
 if (!ToV8Traits<IDLArray<PaymentMethodData>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -157,8 +153,9 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentRequestEvent.total.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -179,7 +176,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->modifiers();
 if (!ToV8Traits<IDLArray<PaymentDetailsModifier>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -195,10 +193,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentRequestEvent.instrumentKey.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->instrumentKey();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->instrumentKey();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -210,8 +208,9 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentRequestEvent.paymentOptions.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -232,7 +231,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->shippingOptions();
 if (!ToV8Traits<IDLNullable<IDLArray<PaymentShippingOption>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -248,8 +248,9 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentRequestEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -319,7 +320,7 @@ return;
 
 
 
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -370,7 +371,7 @@ return;
 
 
 
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -412,7 +413,7 @@ return;
 
 
 
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -454,7 +455,7 @@ return;
 
 
 
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -487,7 +488,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(v8_receiver);
+PaymentRequestEvent* blink_receiver = V8PaymentRequestEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

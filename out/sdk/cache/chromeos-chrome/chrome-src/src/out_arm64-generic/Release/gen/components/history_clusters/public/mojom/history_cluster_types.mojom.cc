@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -355,12 +356,12 @@ Cluster::Cluster(
     int64_t id_in,
     std::vector<URLVisitPtr> visits_in,
     const std::string& label_in,
-    const absl::optional<std::string>& tab_group_name_in,
+    const std::optional<std::string>& tab_group_name_in,
     std::vector<MatchPositionPtr> label_match_positions_in,
     std::vector<SearchQueryPtr> related_searches_in,
-    const absl::optional<::GURL>& image_url_in,
+    const std::optional<::GURL>& image_url_in,
     bool from_persistence_in,
-    const absl::optional<std::string>& debug_info_in)
+    const std::optional<std::string>& debug_info_in)
     : id(std::move(id_in)),
       visits(std::move(visits_in)),
       label(std::move(label_in)),
@@ -407,7 +408,7 @@ void Cluster::WriteIntoTrace(
     dict.AddItem(
       "tab_group_name"), this->tab_group_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -434,7 +435,7 @@ void Cluster::WriteIntoTrace(
     dict.AddItem(
       "image_url"), this->image_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -452,7 +453,7 @@ void Cluster::WriteIntoTrace(
     dict.AddItem(
       "debug_info"), this->debug_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

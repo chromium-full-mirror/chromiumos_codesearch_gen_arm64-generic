@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ChromeOS>::value,
     "ChromeOS inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ChromeOS::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ChromeOS is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("ChromeOS.windowManagement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(v8_receiver);
+ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -110,8 +106,9 @@ BLINK_BINDINGS_TRACE_EVENT("ChromeOS.hid.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(v8_receiver);
+ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -127,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("ChromeOS.telemetry.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(v8_receiver);
+ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -144,8 +142,9 @@ BLINK_BINDINGS_TRACE_EVENT("ChromeOS.diagnostics.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(v8_receiver);
+ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;

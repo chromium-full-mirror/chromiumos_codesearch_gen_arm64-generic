@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/prefs.mojom-features.h"
 #include "chromeos/crosapi/mojom/prefs.mojom-shared.h"
 #include "chromeos/crosapi/mojom/prefs.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -148,12 +149,12 @@ class Prefs
   virtual ~Prefs() = default;
 
 
-  using GetPrefCallback = base::OnceCallback<void(absl::optional<::base::Value>)>;
+  using GetPrefCallback = base::OnceCallback<void(std::optional<::base::Value>)>;
   
   virtual void GetPref(PrefPath path, GetPrefCallback callback) = 0;
 
 
-  using GetExtensionPrefWithControlCallback = base::OnceCallback<void(absl::optional<::base::Value>, PrefControlState)>;
+  using GetExtensionPrefWithControlCallback = base::OnceCallback<void(std::optional<::base::Value>, PrefControlState)>;
   
   virtual void GetExtensionPrefWithControl(PrefPath path, GetExtensionPrefWithControlCallback callback) = 0;
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -962,14 +963,17 @@ void SmartCardTransactionProxy::EndTransaction(
                         "<value of type SmartCardDisposition>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardTransaction_EndTransaction_Name, kFlags, 0, 0, nullptr);
@@ -1081,7 +1085,8 @@ void SmartCardTransaction_EndTransaction_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardTransaction_EndTransaction_Name, kFlags, 0, 0, nullptr);
@@ -1169,10 +1174,10 @@ std::move(p_disposition), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSmartCardTransactionValidationInfo[] = {
-    {&internal::SmartCardTransaction_EndTransaction_Params_Data::Validate,
+    { &internal::SmartCardTransaction_EndTransaction_Params_Data::Validate,
      &internal::SmartCardTransaction_EndTransaction_ResponseParams_Data::Validate},
 };
 
@@ -1488,14 +1493,17 @@ void SmartCardConnectionProxy::Disconnect(
                         "<value of type SmartCardDisposition>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -1531,14 +1539,17 @@ void SmartCardConnectionProxy::Transmit(
                         "<value of type const WTF::Vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_Transmit_Name, kFlags, 0, 0, nullptr);
@@ -1587,14 +1598,17 @@ void SmartCardConnectionProxy::Control(
                         "<value of type const WTF::Vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_Control_Name, kFlags, 0, 0, nullptr);
@@ -1639,14 +1653,17 @@ void SmartCardConnectionProxy::GetAttrib(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_GetAttrib_Name, kFlags, 0, 0, nullptr);
@@ -1681,14 +1698,17 @@ void SmartCardConnectionProxy::SetAttrib(
                         "<value of type const WTF::Vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_SetAttrib_Name, kFlags, 0, 0, nullptr);
@@ -1726,14 +1746,17 @@ void SmartCardConnectionProxy::Status(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::SmartCardConnection::Status");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_Status_Name, kFlags, 0, 0, nullptr);
@@ -1757,14 +1780,17 @@ void SmartCardConnectionProxy::BeginTransaction(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::SmartCardConnection::BeginTransaction");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_BeginTransaction_Name, kFlags, 0, 0, nullptr);
@@ -1874,7 +1900,8 @@ void SmartCardConnection_Disconnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -2000,7 +2027,8 @@ void SmartCardConnection_Transmit_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_Transmit_Name, kFlags, 0, 0, nullptr);
@@ -2126,7 +2154,8 @@ void SmartCardConnection_Control_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_Control_Name, kFlags, 0, 0, nullptr);
@@ -2252,7 +2281,8 @@ void SmartCardConnection_GetAttrib_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_GetAttrib_Name, kFlags, 0, 0, nullptr);
@@ -2378,7 +2408,8 @@ void SmartCardConnection_SetAttrib_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_SetAttrib_Name, kFlags, 0, 0, nullptr);
@@ -2504,7 +2535,8 @@ void SmartCardConnection_Status_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_Status_Name, kFlags, 0, 0, nullptr);
@@ -2630,7 +2662,8 @@ void SmartCardConnection_BeginTransaction_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardConnection_BeginTransaction_Name, kFlags, 0, 0, nullptr);
@@ -2914,22 +2947,22 @@ std::move(p_data), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSmartCardConnectionValidationInfo[] = {
-    {&internal::SmartCardConnection_Disconnect_Params_Data::Validate,
+    { &internal::SmartCardConnection_Disconnect_Params_Data::Validate,
      &internal::SmartCardConnection_Disconnect_ResponseParams_Data::Validate},
-    {&internal::SmartCardConnection_Transmit_Params_Data::Validate,
+    { &internal::SmartCardConnection_Transmit_Params_Data::Validate,
      &internal::SmartCardConnection_Transmit_ResponseParams_Data::Validate},
-    {&internal::SmartCardConnection_Control_Params_Data::Validate,
+    { &internal::SmartCardConnection_Control_Params_Data::Validate,
      &internal::SmartCardConnection_Control_ResponseParams_Data::Validate},
-    {&internal::SmartCardConnection_GetAttrib_Params_Data::Validate,
+    { &internal::SmartCardConnection_GetAttrib_Params_Data::Validate,
      &internal::SmartCardConnection_GetAttrib_ResponseParams_Data::Validate},
-    {&internal::SmartCardConnection_SetAttrib_Params_Data::Validate,
+    { &internal::SmartCardConnection_SetAttrib_Params_Data::Validate,
      &internal::SmartCardConnection_SetAttrib_ResponseParams_Data::Validate},
-    {&internal::SmartCardConnection_Status_Params_Data::Validate,
+    { &internal::SmartCardConnection_Status_Params_Data::Validate,
      &internal::SmartCardConnection_Status_ResponseParams_Data::Validate},
-    {&internal::SmartCardConnection_BeginTransaction_Params_Data::Validate,
+    { &internal::SmartCardConnection_BeginTransaction_Params_Data::Validate,
      &internal::SmartCardConnection_BeginTransaction_ResponseParams_Data::Validate},
 };
 
@@ -3130,14 +3163,17 @@ void SmartCardContextProxy::ListReaders(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::SmartCardContext::ListReaders");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContext_ListReaders_Name, kFlags, 0, 0, nullptr);
@@ -3171,14 +3207,17 @@ void SmartCardContextProxy::GetStatusChange(
                         "<value of type WTF::Vector<SmartCardReaderStateInPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContext_GetStatusChange_Name, kFlags, 0, 0, nullptr);
@@ -3226,14 +3265,17 @@ void SmartCardContextProxy::Cancel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::SmartCardContext::Cancel");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContext_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -3270,14 +3312,17 @@ void SmartCardContextProxy::Connect(
                         "<value of type SmartCardProtocolsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContext_Connect_Name, kFlags, 0, 0, nullptr);
@@ -3411,7 +3456,8 @@ void SmartCardContext_ListReaders_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContext_ListReaders_Name, kFlags, 0, 0, nullptr);
@@ -3537,7 +3583,8 @@ void SmartCardContext_GetStatusChange_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContext_GetStatusChange_Name, kFlags, 0, 0, nullptr);
@@ -3663,7 +3710,8 @@ void SmartCardContext_Cancel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContext_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -3789,7 +3837,8 @@ void SmartCardContext_Connect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContext_Connect_Name, kFlags, 0, 0, nullptr);
@@ -3977,16 +4026,16 @@ std::move(p_preferred_protocols), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSmartCardContextValidationInfo[] = {
-    {&internal::SmartCardContext_ListReaders_Params_Data::Validate,
+    { &internal::SmartCardContext_ListReaders_Params_Data::Validate,
      &internal::SmartCardContext_ListReaders_ResponseParams_Data::Validate},
-    {&internal::SmartCardContext_GetStatusChange_Params_Data::Validate,
+    { &internal::SmartCardContext_GetStatusChange_Params_Data::Validate,
      &internal::SmartCardContext_GetStatusChange_ResponseParams_Data::Validate},
-    {&internal::SmartCardContext_Cancel_Params_Data::Validate,
+    { &internal::SmartCardContext_Cancel_Params_Data::Validate,
      &internal::SmartCardContext_Cancel_ResponseParams_Data::Validate},
-    {&internal::SmartCardContext_Connect_Params_Data::Validate,
+    { &internal::SmartCardContext_Connect_Params_Data::Validate,
      &internal::SmartCardContext_Connect_ResponseParams_Data::Validate},
 };
 
@@ -4079,14 +4128,17 @@ void SmartCardContextFactoryProxy::CreateContext(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::SmartCardContextFactory::CreateContext");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContextFactory_CreateContext_Name, kFlags, 0, 0, nullptr);
@@ -4196,7 +4248,8 @@ void SmartCardContextFactory_CreateContext_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSmartCardContextFactory_CreateContext_Name, kFlags, 0, 0, nullptr);
@@ -4280,10 +4333,10 @@ bool SmartCardContextFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSmartCardContextFactoryValidationInfo[] = {
-    {&internal::SmartCardContextFactory_CreateContext_Params_Data::Validate,
+    { &internal::SmartCardContextFactory_CreateContext_Params_Data::Validate,
      &internal::SmartCardContextFactory_CreateContext_ResponseParams_Data::Validate},
 };
 

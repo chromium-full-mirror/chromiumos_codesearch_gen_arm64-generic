@@ -18,6 +18,7 @@ extern "C" {
 #define CRAS_NODE_MIC_POS_BUFFER_SIZE 128
 #define CRAS_NODE_NAME_BUFFER_SIZE 64
 #define CRAS_NODE_HOTWORD_MODEL_BUFFER_SIZE 16
+#define CRAS_DSP_PATTERN_STR_BUFFER_SIZE 28
 
 // Screen Rotation in clock-wise degrees.
 enum CRAS_SCREEN_ROTATION {
@@ -145,6 +146,42 @@ enum audio_effect_type {
   // Noise Cancellation support.
   EFFECT_TYPE_NOISE_CANCELLATION = 1 << 0,
   EFFECT_TYPE_HFP_MIC_SR = 1 << 1,
+};
+
+// The working state of DSP processings for a CRAS device.
+enum CRAS_DSP_PROC_STATE {
+  // The DSP processings are not ever started.
+  DSP_PROC_NOT_STARTED,
+  // The DSP processings work on CRAS.
+  DSP_PROC_ON_CRAS,
+  // The DSP processings work on DSP (offloaded).
+  DSP_PROC_ON_DSP,
+};
+
+static inline const char* cras_dsp_proc_state_to_str(
+    enum CRAS_DSP_PROC_STATE state) {
+  switch (state) {
+    case DSP_PROC_NOT_STARTED:
+      return "NOT STARTED";
+    case DSP_PROC_ON_CRAS:
+      return "PROCESS ON CRAS";
+    case DSP_PROC_ON_DSP:
+      return "PROCESS ON DSP";
+    default:
+      return "ERROR";
+  }
+}
+
+// The DSP processing information of an iodev.
+struct __attribute__((__packed__)) cras_dsp_offload_info {
+  // Index of the device.
+  uint32_t iodev_idx;
+  // The working state of DSP processings.
+  enum CRAS_DSP_PROC_STATE state;
+  // The associated pipeline ID on DSP for the device.
+  uint32_t dsp_pipe_id;
+  // The available pattern of the associated pipeline on DSP.
+  char dsp_pattern[CRAS_DSP_PATTERN_STR_BUFFER_SIZE];
 };
 
 #ifdef __cplusplus

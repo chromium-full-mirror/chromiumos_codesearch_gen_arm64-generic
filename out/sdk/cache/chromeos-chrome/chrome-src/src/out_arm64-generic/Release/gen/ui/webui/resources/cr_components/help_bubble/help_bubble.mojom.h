@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/webui/resources/cr_components/help_bubble/help_bubble.mojom-features.h"
 #include "ui/webui/resources/cr_components/help_bubble/help_bubble.mojom-shared.h"
 #include "ui/webui/resources/cr_components/help_bubble/help_bubble.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -744,14 +745,14 @@ class  HelpBubbleParams {
   HelpBubbleParams(
       const std::string& native_identifier,
       HelpBubbleArrowPosition position,
-      const absl::optional<std::string>& title_text,
+      const std::optional<std::string>& title_text,
       const std::string& body_text,
       const std::string& close_button_alt_text,
-      const absl::optional<std::string>& body_icon_name,
+      const std::optional<std::string>& body_icon_name,
       const std::string& body_icon_alt_text,
       ProgressPtr progress,
       std::vector<HelpBubbleButtonParamsPtr> buttons,
-      absl::optional<::base::TimeDelta> timeout);
+      std::optional<::base::TimeDelta> timeout);
 
 HelpBubbleParams(const HelpBubbleParams&) = delete;
 HelpBubbleParams& operator=(const HelpBubbleParams&) = delete;
@@ -835,13 +836,13 @@ HelpBubbleParams& operator=(const HelpBubbleParams&) = delete;
   
   HelpBubbleArrowPosition position;
   
-  absl::optional<std::string> title_text;
+  std::optional<std::string> title_text;
   
   std::string body_text;
   
   std::string close_button_alt_text;
   
-  absl::optional<std::string> body_icon_name;
+  std::optional<std::string> body_icon_name;
   
   std::string body_icon_alt_text;
   
@@ -849,7 +850,7 @@ HelpBubbleParams& operator=(const HelpBubbleParams&) = delete;
   
   std::vector<HelpBubbleButtonParamsPtr> buttons;
   
-  absl::optional<::base::TimeDelta> timeout;
+  std::optional<::base::TimeDelta> timeout;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

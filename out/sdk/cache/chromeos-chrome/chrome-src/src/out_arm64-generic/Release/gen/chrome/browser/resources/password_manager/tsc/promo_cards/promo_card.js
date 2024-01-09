@@ -1,0 +1,105 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/cr_elements/cr_icons.css.js';
+import 'chrome://resources/cr_elements/cr_shared_style.css.js';
+import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import { assertNotReached } from 'chrome://resources/js/assert.js';
+import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PasswordManagerImpl } from '../password_manager_proxy.js';
+import { Page, Router, UrlParam } from '../router.js';
+import { getTemplate } from './promo_card.html.js';
+import { PromoCardsProxyImpl } from './promo_cards_browser_proxy.js';
+// WARNING: Keep synced with
+// chrome/browser/ui/webui/password_manager/promo_cards_handler.cc.
+export var PromoCardId;
+(function (PromoCardId) {
+    PromoCardId["CHECKUP"] = "password_checkup_promo";
+    PromoCardId["WEB_PASSWORD_MANAGER"] = "passwords_on_web_promo";
+    PromoCardId["SHORTCUT"] = "password_shortcut_promo";
+    PromoCardId["ACCESS_ON_ANY_DEVICE"] = "access_on_any_device_promo";
+    PromoCardId["RELAUNCH_CHROME"] = "relaunch_chrome_promo";
+})(PromoCardId || (PromoCardId = {}));
+/**
+ * These values are persisted to logs. Entries should not be renumbered and
+ * numeric values should never be reused.
+ *
+ * Needs to stay in sync with PromoCardType in promo_card.cc
+ */
+var PromoCardMetricId;
+(function (PromoCardMetricId) {
+    PromoCardMetricId[PromoCardMetricId["CHECKUP"] = 0] = "CHECKUP";
+    PromoCardMetricId[PromoCardMetricId["UNUSED_WEB_PASSWORD_MANAGER"] = 1] = "UNUSED_WEB_PASSWORD_MANAGER";
+    PromoCardMetricId[PromoCardMetricId["SHORTCUT"] = 2] = "SHORTCUT";
+    PromoCardMetricId[PromoCardMetricId["UNUSED_ACCESS_ON_ANY_DEVICE"] = 3] = "UNUSED_ACCESS_ON_ANY_DEVICE";
+    PromoCardMetricId[PromoCardMetricId["RELAUNCH_CHROME"] = 4] = "RELAUNCH_CHROME";
+    // Must be last.
+    PromoCardMetricId[PromoCardMetricId["COUNT"] = 5] = "COUNT";
+})(PromoCardMetricId || (PromoCardMetricId = {}));
+function recordPromoCardAction(card) {
+    chrome.metricsPrivate.recordEnumerationValue('PasswordManager.PromoCard.ActionButtonClicked', card, PromoCardMetricId.COUNT);
+}
+const isOpenedAsShortcut = window.matchMedia('(display-mode: standalone)');
+export class PromoCardElement extends PolymerElement {
+    static get is() {
+        return 'promo-card';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            promoCard: Object,
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        // If this is a shortcut promo we should listen to display mode changes to
+        // close it automatically when shortcut is installed from another place.
+        // Check crbug.com/1493264 for more details when it can happen.
+        if (this.promoCard.id === PromoCardId.SHORTCUT) {
+            isOpenedAsShortcut.addEventListener('change', this.close_.bind(this));
+        }
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        if (this.promoCard.id === PromoCardId.SHORTCUT) {
+            isOpenedAsShortcut.removeEventListener('change', this.close_.bind(this));
+        }
+    }
+    getDescription_() {
+        return sanitizeInnerHtml(this.promoCard.description);
+    }
+    onActionButtonClick_() {
+        switch (this.promoCard.id) {
+            case PromoCardId.CHECKUP:
+                const params = new URLSearchParams();
+                params.set(UrlParam.START_CHECK, 'true');
+                Router.getInstance().navigateTo(Page.CHECKUP, null, params);
+                recordPromoCardAction(PromoCardMetricId.CHECKUP);
+                break;
+            case PromoCardId.SHORTCUT:
+                PasswordManagerImpl.getInstance().showAddShortcutDialog();
+                recordPromoCardAction(PromoCardMetricId.SHORTCUT);
+                break;
+            case PromoCardId.RELAUNCH_CHROME:
+                chrome.send('restartBrowser');
+                recordPromoCardAction(PromoCardMetricId.RELAUNCH_CHROME);
+                break;
+            default:
+                assertNotReached();
+        }
+        this.close_();
+    }
+    onCloseClick_() {
+        PromoCardsProxyImpl.getInstance().recordPromoDismissed(this.promoCard.id);
+        this.close_();
+    }
+    close_() {
+        this.dispatchEvent(new CustomEvent('promo-closed', { bubbles: true, composed: true }));
+    }
+}
+customElements.define(PromoCardElement.is, PromoCardElement);

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -944,11 +945,11 @@ FinishRequest::FinishRequest()
 
 FinishRequest::FinishRequest(
     uint64_t op_handle_in,
-    absl::optional<std::vector<uint8_t>> input_in,
-    absl::optional<std::vector<uint8_t>> signature_in,
+    std::optional<std::vector<uint8_t>> input_in,
+    std::optional<std::vector<uint8_t>> signature_in,
     HardwareAuthTokenPtr auth_token_in,
     TimeStampTokenPtr timestamp_token_in,
-    absl::optional<std::vector<uint8_t>> confirmation_token_in)
+    std::optional<std::vector<uint8_t>> confirmation_token_in)
     : op_handle(std::move(op_handle_in)),
       input(std::move(input_in)),
       signature(std::move(signature_in)),
@@ -974,7 +975,7 @@ void FinishRequest::WriteIntoTrace(
     dict.AddItem(
       "input"), this->input,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -983,7 +984,7 @@ void FinishRequest::WriteIntoTrace(
     dict.AddItem(
       "signature"), this->signature,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1010,7 +1011,7 @@ void FinishRequest::WriteIntoTrace(
     dict.AddItem(
       "confirmation_token"), this->confirmation_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1574,14 +1575,17 @@ void KeyMintHostProxy::GetServer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::keymint::KeyMintHost::GetServer");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintHost_GetServer_Name, kFlags, 0, 0, nullptr);
@@ -1693,7 +1697,8 @@ void KeyMintHost_GetServer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintHost_GetServer_Name, kFlags, 0, 0, nullptr);
@@ -1770,10 +1775,10 @@ bool KeyMintHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeyMintHostValidationInfo[] = {
-    {&internal::KeyMintHost_GetServer_Params_Data::Validate,
+    { &internal::KeyMintHost_GetServer_Params_Data::Validate,
      &internal::KeyMintHost_GetServer_ResponseParams_Data::Validate},
 };
 
@@ -1873,14 +1878,17 @@ void KeyMintInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<KeyMintHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1985,7 +1993,8 @@ void KeyMintInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -2066,10 +2075,10 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeyMintInstanceValidationInfo[] = {
-    {&internal::KeyMintInstance_Init_Params_Data::Validate,
+    { &internal::KeyMintInstance_Init_Params_Data::Validate,
      &internal::KeyMintInstance_Init_ResponseParams_Data::Validate},
 };
 
@@ -2984,14 +2993,17 @@ void KeyMintServerProxy::SetSystemVersion(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_SetSystemVersion_Name, kFlags, 0, 0, nullptr);
@@ -3023,14 +3035,17 @@ void KeyMintServerProxy::AddRngEntropy(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_AddRngEntropy_Name, kFlags, 0, 0, nullptr);
@@ -3074,14 +3089,17 @@ void KeyMintServerProxy::GenerateKey(
                         "<value of type GenerateKeyRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GenerateKey_Name, kFlags, 0, 0, nullptr);
@@ -3123,14 +3141,17 @@ void KeyMintServerProxy::ImportKey(
                         "<value of type ImportKeyRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_ImportKey_Name, kFlags, 0, 0, nullptr);
@@ -3172,14 +3193,17 @@ void KeyMintServerProxy::ImportWrappedKey(
                         "<value of type ImportWrappedKeyRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_ImportWrappedKey_Name, kFlags, 0, 0, nullptr);
@@ -3221,14 +3245,17 @@ void KeyMintServerProxy::UpgradeKey(
                         "<value of type UpgradeKeyRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_UpgradeKey_Name, kFlags, 0, 0, nullptr);
@@ -3270,14 +3297,17 @@ void KeyMintServerProxy::DeleteKey(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_DeleteKey_Name, kFlags, 0, 0, nullptr);
@@ -3314,14 +3344,17 @@ void KeyMintServerProxy::DeleteAllKeys(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::keymint::KeyMintServer::DeleteAllKeys");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_DeleteAllKeys_Name, kFlags, 0, 0, nullptr);
@@ -3345,14 +3378,17 @@ void KeyMintServerProxy::DestroyAttestationIds(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::keymint::KeyMintServer::DestroyAttestationIds");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_DestroyAttestationIds_Name, kFlags, 0, 0, nullptr);
@@ -3383,14 +3419,17 @@ void KeyMintServerProxy::Begin(
                         "<value of type BeginRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_Begin_Name, kFlags, 0, 0, nullptr);
@@ -3435,14 +3474,17 @@ void KeyMintServerProxy::DeviceLocked(
                         "<value of type TimeStampTokenPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_DeviceLocked_Name, kFlags, 0, 0, nullptr);
@@ -3474,14 +3516,17 @@ void KeyMintServerProxy::EarlyBootEnded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::keymint::KeyMintServer::EarlyBootEnded");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_EarlyBootEnded_Name, kFlags, 0, 0, nullptr);
@@ -3512,14 +3557,17 @@ void KeyMintServerProxy::ConvertStorageKeyToEphemeral(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_ConvertStorageKeyToEphemeral_Name, kFlags, 0, 0, nullptr);
@@ -3563,14 +3611,17 @@ void KeyMintServerProxy::GetKeyCharacteristics(
                         "<value of type GetKeyCharacteristicsRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GetKeyCharacteristics_Name, kFlags, 0, 0, nullptr);
@@ -3605,14 +3656,17 @@ void KeyMintServerProxy::GetRootOfTrustChallenge(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::keymint::KeyMintServer::GetRootOfTrustChallenge");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GetRootOfTrustChallenge_Name, kFlags, 0, 0, nullptr);
@@ -3643,14 +3697,17 @@ void KeyMintServerProxy::GetRootOfTrust(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GetRootOfTrust_Name, kFlags, 0, 0, nullptr);
@@ -3694,14 +3751,17 @@ void KeyMintServerProxy::SendRootOfTrust(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_SendRootOfTrust_Name, kFlags, 0, 0, nullptr);
@@ -3745,14 +3805,17 @@ void KeyMintServerProxy::UpdateAad(
                         "<value of type UpdateRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_UpdateAad_Name, kFlags, 0, 0, nullptr);
@@ -3794,14 +3857,17 @@ void KeyMintServerProxy::Update(
                         "<value of type UpdateRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_Update_Name, kFlags, 0, 0, nullptr);
@@ -3843,14 +3909,17 @@ void KeyMintServerProxy::Finish(
                         "<value of type FinishRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_Finish_Name, kFlags, 0, 0, nullptr);
@@ -3892,14 +3961,17 @@ void KeyMintServerProxy::Abort(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_Abort_Name, kFlags, 0, 0, nullptr);
@@ -3924,14 +3996,17 @@ void KeyMintServerProxy::GetSharedSecretParameters(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::keymint::KeyMintServer::GetSharedSecretParameters");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GetSharedSecretParameters_Name, kFlags, 0, 0, nullptr);
@@ -3962,14 +4037,17 @@ void KeyMintServerProxy::ComputeSharedSecret(
                         "<value of type std::vector<SharedSecretParametersPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_ComputeSharedSecret_Name, kFlags, 0, 0, nullptr);
@@ -4013,14 +4091,17 @@ void KeyMintServerProxy::GenerateTimeStamp(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GenerateTimeStamp_Name, kFlags, 0, 0, nullptr);
@@ -4131,7 +4212,8 @@ void KeyMintServer_AddRngEntropy_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_AddRngEntropy_Name, kFlags, 0, 0, nullptr);
@@ -4249,7 +4331,8 @@ void KeyMintServer_GenerateKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GenerateKey_Name, kFlags, 0, 0, nullptr);
@@ -4375,7 +4458,8 @@ void KeyMintServer_ImportKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_ImportKey_Name, kFlags, 0, 0, nullptr);
@@ -4501,7 +4585,8 @@ void KeyMintServer_ImportWrappedKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_ImportWrappedKey_Name, kFlags, 0, 0, nullptr);
@@ -4627,7 +4712,8 @@ void KeyMintServer_UpgradeKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_UpgradeKey_Name, kFlags, 0, 0, nullptr);
@@ -4753,7 +4839,8 @@ void KeyMintServer_DeleteKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_DeleteKey_Name, kFlags, 0, 0, nullptr);
@@ -4871,7 +4958,8 @@ void KeyMintServer_DeleteAllKeys_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_DeleteAllKeys_Name, kFlags, 0, 0, nullptr);
@@ -4989,7 +5077,8 @@ void KeyMintServer_DestroyAttestationIds_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_DestroyAttestationIds_Name, kFlags, 0, 0, nullptr);
@@ -5107,7 +5196,8 @@ void KeyMintServer_Begin_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_Begin_Name, kFlags, 0, 0, nullptr);
@@ -5233,7 +5323,8 @@ void KeyMintServer_DeviceLocked_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_DeviceLocked_Name, kFlags, 0, 0, nullptr);
@@ -5351,7 +5442,8 @@ void KeyMintServer_EarlyBootEnded_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_EarlyBootEnded_Name, kFlags, 0, 0, nullptr);
@@ -5469,7 +5561,8 @@ void KeyMintServer_ConvertStorageKeyToEphemeral_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_ConvertStorageKeyToEphemeral_Name, kFlags, 0, 0, nullptr);
@@ -5595,7 +5688,8 @@ void KeyMintServer_GetKeyCharacteristics_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GetKeyCharacteristics_Name, kFlags, 0, 0, nullptr);
@@ -5721,7 +5815,8 @@ void KeyMintServer_GetRootOfTrustChallenge_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GetRootOfTrustChallenge_Name, kFlags, 0, 0, nullptr);
@@ -5847,7 +5942,8 @@ void KeyMintServer_GetRootOfTrust_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GetRootOfTrust_Name, kFlags, 0, 0, nullptr);
@@ -5973,7 +6069,8 @@ void KeyMintServer_SendRootOfTrust_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_SendRootOfTrust_Name, kFlags, 0, 0, nullptr);
@@ -6091,7 +6188,8 @@ void KeyMintServer_UpdateAad_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_UpdateAad_Name, kFlags, 0, 0, nullptr);
@@ -6209,7 +6307,8 @@ void KeyMintServer_Update_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_Update_Name, kFlags, 0, 0, nullptr);
@@ -6335,7 +6434,8 @@ void KeyMintServer_Finish_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_Finish_Name, kFlags, 0, 0, nullptr);
@@ -6461,7 +6561,8 @@ void KeyMintServer_Abort_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_Abort_Name, kFlags, 0, 0, nullptr);
@@ -6579,7 +6680,8 @@ void KeyMintServer_GetSharedSecretParameters_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GetSharedSecretParameters_Name, kFlags, 0, 0, nullptr);
@@ -6705,7 +6807,8 @@ void KeyMintServer_ComputeSharedSecret_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_ComputeSharedSecret_Name, kFlags, 0, 0, nullptr);
@@ -6831,7 +6934,8 @@ void KeyMintServer_GenerateTimeStamp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyMintServer_GenerateTimeStamp_Name, kFlags, 0, 0, nullptr);
@@ -7640,56 +7744,56 @@ std::move(p_challenge), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeyMintServerValidationInfo[] = {
-    {&internal::KeyMintServer_SetSystemVersion_Params_Data::Validate,
+    { &internal::KeyMintServer_SetSystemVersion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeyMintServer_AddRngEntropy_Params_Data::Validate,
+    { &internal::KeyMintServer_AddRngEntropy_Params_Data::Validate,
      &internal::KeyMintServer_AddRngEntropy_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_GenerateKey_Params_Data::Validate,
+    { &internal::KeyMintServer_GenerateKey_Params_Data::Validate,
      &internal::KeyMintServer_GenerateKey_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_ImportKey_Params_Data::Validate,
+    { &internal::KeyMintServer_ImportKey_Params_Data::Validate,
      &internal::KeyMintServer_ImportKey_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_ImportWrappedKey_Params_Data::Validate,
+    { &internal::KeyMintServer_ImportWrappedKey_Params_Data::Validate,
      &internal::KeyMintServer_ImportWrappedKey_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_UpgradeKey_Params_Data::Validate,
+    { &internal::KeyMintServer_UpgradeKey_Params_Data::Validate,
      &internal::KeyMintServer_UpgradeKey_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_DeleteKey_Params_Data::Validate,
+    { &internal::KeyMintServer_DeleteKey_Params_Data::Validate,
      &internal::KeyMintServer_DeleteKey_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_DeleteAllKeys_Params_Data::Validate,
+    { &internal::KeyMintServer_DeleteAllKeys_Params_Data::Validate,
      &internal::KeyMintServer_DeleteAllKeys_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_DestroyAttestationIds_Params_Data::Validate,
+    { &internal::KeyMintServer_DestroyAttestationIds_Params_Data::Validate,
      &internal::KeyMintServer_DestroyAttestationIds_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_Begin_Params_Data::Validate,
+    { &internal::KeyMintServer_Begin_Params_Data::Validate,
      &internal::KeyMintServer_Begin_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_DeviceLocked_Params_Data::Validate,
+    { &internal::KeyMintServer_DeviceLocked_Params_Data::Validate,
      &internal::KeyMintServer_DeviceLocked_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_EarlyBootEnded_Params_Data::Validate,
+    { &internal::KeyMintServer_EarlyBootEnded_Params_Data::Validate,
      &internal::KeyMintServer_EarlyBootEnded_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_ConvertStorageKeyToEphemeral_Params_Data::Validate,
+    { &internal::KeyMintServer_ConvertStorageKeyToEphemeral_Params_Data::Validate,
      &internal::KeyMintServer_ConvertStorageKeyToEphemeral_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_GetKeyCharacteristics_Params_Data::Validate,
+    { &internal::KeyMintServer_GetKeyCharacteristics_Params_Data::Validate,
      &internal::KeyMintServer_GetKeyCharacteristics_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_GetRootOfTrustChallenge_Params_Data::Validate,
+    { &internal::KeyMintServer_GetRootOfTrustChallenge_Params_Data::Validate,
      &internal::KeyMintServer_GetRootOfTrustChallenge_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_GetRootOfTrust_Params_Data::Validate,
+    { &internal::KeyMintServer_GetRootOfTrust_Params_Data::Validate,
      &internal::KeyMintServer_GetRootOfTrust_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_SendRootOfTrust_Params_Data::Validate,
+    { &internal::KeyMintServer_SendRootOfTrust_Params_Data::Validate,
      &internal::KeyMintServer_SendRootOfTrust_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_UpdateAad_Params_Data::Validate,
+    { &internal::KeyMintServer_UpdateAad_Params_Data::Validate,
      &internal::KeyMintServer_UpdateAad_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_Update_Params_Data::Validate,
+    { &internal::KeyMintServer_Update_Params_Data::Validate,
      &internal::KeyMintServer_Update_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_Finish_Params_Data::Validate,
+    { &internal::KeyMintServer_Finish_Params_Data::Validate,
      &internal::KeyMintServer_Finish_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_Abort_Params_Data::Validate,
+    { &internal::KeyMintServer_Abort_Params_Data::Validate,
      &internal::KeyMintServer_Abort_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_GetSharedSecretParameters_Params_Data::Validate,
+    { &internal::KeyMintServer_GetSharedSecretParameters_Params_Data::Validate,
      &internal::KeyMintServer_GetSharedSecretParameters_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_ComputeSharedSecret_Params_Data::Validate,
+    { &internal::KeyMintServer_ComputeSharedSecret_Params_Data::Validate,
      &internal::KeyMintServer_ComputeSharedSecret_ResponseParams_Data::Validate},
-    {&internal::KeyMintServer_GenerateTimeStamp_Params_Data::Validate,
+    { &internal::KeyMintServer_GenerateTimeStamp_Params_Data::Validate,
      &internal::KeyMintServer_GenerateTimeStamp_ResponseParams_Data::Validate},
 };
 

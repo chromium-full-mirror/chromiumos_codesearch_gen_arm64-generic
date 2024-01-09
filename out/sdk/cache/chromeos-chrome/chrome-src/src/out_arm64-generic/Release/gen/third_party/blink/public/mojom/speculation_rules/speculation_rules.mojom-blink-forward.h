@@ -28,7 +28,7 @@ enum class SpeculationTargetHint : int32_t;
 
 enum class SpeculationEagerness : int32_t;
 
-enum class SpeculationInjectionWorld : int32_t;
+enum class SpeculationInjectionType : int32_t;
 class SpeculationHostInterfaceBase;
 
 
@@ -40,7 +40,7 @@ namespace blink::mojom::blink {
 using SpeculationAction = SpeculationAction;
 using SpeculationTargetHint = SpeculationTargetHint;
 using SpeculationEagerness = SpeculationEagerness;
-using SpeculationInjectionWorld = SpeculationInjectionWorld;
+using SpeculationInjectionType = SpeculationInjectionType;
 using SpeculationHostInterfaceBase = SpeculationHostInterfaceBase;
 class SpeculationCandidate;
 using SpeculationCandidatePtr = mojo::StructPtr<SpeculationCandidate>;

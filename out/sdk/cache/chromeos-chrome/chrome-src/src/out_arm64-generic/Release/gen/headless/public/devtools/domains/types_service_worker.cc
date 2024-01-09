@@ -158,6 +158,11 @@ std::unique_ptr<ServiceWorkerVersion> ServiceWorkerVersion::Parse(const base::Va
     errors->SetName("targetId");
     result->target_id_ = internal::FromValue<std::string>::Parse(*target_id_value, errors);
   }
+  const base::Value* router_rules_value = dict.Find("routerRules");
+  if (router_rules_value) {
+    errors->SetName("routerRules");
+    result->router_rules_ = internal::FromValue<std::string>::Parse(*router_rules_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -180,6 +185,8 @@ base::Value ServiceWorkerVersion::Serialize() const {
     result.Set("controlledClients", internal::ToValue(controlled_clients_.value()));
   if (target_id_)
     result.Set("targetId", internal::ToValue(target_id_.value()));
+  if (router_rules_)
+    result.Set("routerRules", internal::ToValue(router_rules_.value()));
   return base::Value(std::move(result));
 }
 

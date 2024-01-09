@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "device/vr/public/mojom/openxr_interaction_profile_type.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
 #include "ui/gfx/mojom/transform.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
@@ -126,38 +127,6 @@ struct EventType_Data {
       case 2:
       case 3:
       case 4:
-        return true;
-    }
-    return false;
-  }
-
-  static bool Validate(int32_t value,
-                       mojo::internal::ValidationContext* validation_context) {
-    if (kIsExtensible || IsKnownValue(value))
-      return true;
-
-    ReportValidationError(validation_context,
-                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
-    return false;
-  }
-};
-
-struct InteractionProfileType_Data {
- public:
-  static bool constexpr kIsExtensible = false;
-
-  static bool IsKnownValue(int32_t value) {
-    switch (value) {
-      case 0:
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 7:
-      case 8:
-      case 9:
         return true;
     }
     return false;

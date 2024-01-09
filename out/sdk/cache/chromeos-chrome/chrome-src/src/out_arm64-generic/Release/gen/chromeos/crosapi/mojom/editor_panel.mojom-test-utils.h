@@ -22,6 +22,7 @@ class  EditorPanelManagerInterceptorForTesting : public EditorPanelManager {
   void StartEditingFlowWithPreset(const std::string& text_query_id) override;
   void StartEditingFlowWithFreeform(const std::string& text) override;
   void OnEditorMenuVisibilityChanged(bool visible) override;
+  void LogEditorMode(EditorPanelMode mode) override;
 };
 class  EditorPanelManagerAsyncWaiter {
  public:

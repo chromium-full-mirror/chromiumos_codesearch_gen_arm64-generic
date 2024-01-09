@@ -8,6 +8,7 @@
 #define UI_BASE_DRAGDROP_MOJOM_DRAG_DROP_TYPES_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

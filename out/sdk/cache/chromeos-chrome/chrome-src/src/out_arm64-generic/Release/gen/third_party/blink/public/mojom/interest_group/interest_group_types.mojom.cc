@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -53,13 +54,13 @@ InterestGroupAd::InterestGroupAd()
       allowed_reporting_origins() {}
 
 InterestGroupAd::InterestGroupAd(
-    const ::GURL& render_url_in,
-    const absl::optional<std::string>& size_group_in,
-    const absl::optional<std::string>& buyer_reporting_id_in,
-    const absl::optional<std::string>& buyer_and_seller_reporting_id_in,
-    const absl::optional<std::string>& metadata_in,
-    const absl::optional<std::string>& ad_render_id_in,
-    absl::optional<std::vector<::url::Origin>> allowed_reporting_origins_in)
+    const std::string& render_url_in,
+    const std::optional<std::string>& size_group_in,
+    const std::optional<std::string>& buyer_reporting_id_in,
+    const std::optional<std::string>& buyer_and_seller_reporting_id_in,
+    const std::optional<std::string>& metadata_in,
+    const std::optional<std::string>& ad_render_id_in,
+    std::optional<std::vector<::url::Origin>> allowed_reporting_origins_in)
     : render_url(std::move(render_url_in)),
       size_group(std::move(size_group_in)),
       buyer_reporting_id(std::move(buyer_reporting_id_in)),
@@ -77,7 +78,7 @@ void InterestGroupAd::WriteIntoTrace(
     dict.AddItem(
       "render_url"), this->render_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::GURL&>"
+      "<value of type const std::string&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -86,7 +87,7 @@ void InterestGroupAd::WriteIntoTrace(
     dict.AddItem(
       "size_group"), this->size_group,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -95,7 +96,7 @@ void InterestGroupAd::WriteIntoTrace(
     dict.AddItem(
       "buyer_reporting_id"), this->buyer_reporting_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -104,7 +105,7 @@ void InterestGroupAd::WriteIntoTrace(
     dict.AddItem(
       "buyer_and_seller_reporting_id"), this->buyer_and_seller_reporting_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -113,7 +114,7 @@ void InterestGroupAd::WriteIntoTrace(
     dict.AddItem(
       "metadata"), this->metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -122,7 +123,7 @@ void InterestGroupAd::WriteIntoTrace(
     dict.AddItem(
       "ad_render_id"), this->ad_render_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -131,7 +132,7 @@ void InterestGroupAd::WriteIntoTrace(
     dict.AddItem(
       "allowed_reporting_origins"), this->allowed_reporting_origins,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::url::Origin>>&>"
+      "<value of type const std::optional<std::vector<::url::Origin>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -244,6 +245,7 @@ InterestGroup::InterestGroup()
       seller_capabilities(),
       all_sellers_capabilities(),
       execution_mode(InterestGroup_ExecutionMode::kCompatibilityMode),
+      trusted_bidding_signals_slot_size_mode(InterestGroup_TrustedBiddingSignalsSlotSizeMode::kNone),
       bidding_url(),
       bidding_wasm_helper_url(),
       update_url(),
@@ -264,24 +266,25 @@ InterestGroup::InterestGroup(
     const std::string& name_in,
     double priority_in,
     bool enable_bidding_signals_prioritization_in,
-    const absl::optional<base::flat_map<std::string, double>>& priority_vector_in,
-    const absl::optional<base::flat_map<std::string, double>>& priority_signals_overrides_in,
-    absl::optional<base::flat_map<::url::Origin, SellerCapabilitiesPtr>> seller_capabilities_in,
+    const std::optional<base::flat_map<std::string, double>>& priority_vector_in,
+    const std::optional<base::flat_map<std::string, double>>& priority_signals_overrides_in,
+    std::optional<base::flat_map<::url::Origin, SellerCapabilitiesPtr>> seller_capabilities_in,
     SellerCapabilitiesPtr all_sellers_capabilities_in,
     InterestGroup::ExecutionMode execution_mode_in,
-    const absl::optional<::GURL>& bidding_url_in,
-    const absl::optional<::GURL>& bidding_wasm_helper_url_in,
-    const absl::optional<::GURL>& update_url_in,
-    const absl::optional<::GURL>& trusted_bidding_signals_url_in,
-    absl::optional<std::vector<std::string>> trusted_bidding_signals_keys_in,
-    const absl::optional<std::string>& user_bidding_signals_in,
-    absl::optional<std::vector<::blink::InterestGroup::Ad>> ads_in,
-    absl::optional<std::vector<::blink::InterestGroup::Ad>> ad_components_in,
-    const absl::optional<base::flat_map<std::string, ::blink::AdSize>>& ad_sizes_in,
-    const absl::optional<base::flat_map<std::string, std::vector<std::string>>>& size_groups_in,
+    InterestGroup::TrustedBiddingSignalsSlotSizeMode trusted_bidding_signals_slot_size_mode_in,
+    const std::optional<::GURL>& bidding_url_in,
+    const std::optional<::GURL>& bidding_wasm_helper_url_in,
+    const std::optional<::GURL>& update_url_in,
+    const std::optional<::GURL>& trusted_bidding_signals_url_in,
+    std::optional<std::vector<std::string>> trusted_bidding_signals_keys_in,
+    const std::optional<std::string>& user_bidding_signals_in,
+    std::optional<std::vector<::blink::InterestGroup::Ad>> ads_in,
+    std::optional<std::vector<::blink::InterestGroup::Ad>> ad_components_in,
+    const std::optional<base::flat_map<std::string, ::blink::AdSize>>& ad_sizes_in,
+    const std::optional<base::flat_map<std::string, std::vector<std::string>>>& size_groups_in,
     AuctionServerRequestFlagsPtr auction_server_request_flags_in,
-    absl::optional<std::vector<uint8_t>> additional_bid_key_in,
-    const absl::optional<::url::Origin>& aggregation_coordinator_origin_in)
+    std::optional<std::vector<uint8_t>> additional_bid_key_in,
+    const std::optional<::url::Origin>& aggregation_coordinator_origin_in)
     : expiry(std::move(expiry_in)),
       owner(std::move(owner_in)),
       name(std::move(name_in)),
@@ -292,6 +295,7 @@ InterestGroup::InterestGroup(
       seller_capabilities(std::move(seller_capabilities_in)),
       all_sellers_capabilities(std::move(all_sellers_capabilities_in)),
       execution_mode(std::move(execution_mode_in)),
+      trusted_bidding_signals_slot_size_mode(std::move(trusted_bidding_signals_slot_size_mode_in)),
       bidding_url(std::move(bidding_url_in)),
       bidding_wasm_helper_url(std::move(bidding_wasm_helper_url_in)),
       update_url(std::move(update_url_in)),
@@ -360,7 +364,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "priority_vector"), this->priority_vector,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, double>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, double>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -369,7 +373,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "priority_signals_overrides"), this->priority_signals_overrides,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, double>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, double>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -378,7 +382,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "seller_capabilities"), this->seller_capabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<base::flat_map<::url::Origin, SellerCapabilitiesPtr>>>"
+      "<value of type std::optional<base::flat_map<::url::Origin, SellerCapabilitiesPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -403,9 +407,18 @@ void InterestGroup::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "trusted_bidding_signals_slot_size_mode"), this->trusted_bidding_signals_slot_size_mode,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InterestGroup::TrustedBiddingSignalsSlotSizeMode>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "bidding_url"), this->bidding_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -414,7 +427,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "bidding_wasm_helper_url"), this->bidding_wasm_helper_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -423,7 +436,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "update_url"), this->update_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -432,7 +445,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "trusted_bidding_signals_url"), this->trusted_bidding_signals_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -441,7 +454,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "trusted_bidding_signals_keys"), this->trusted_bidding_signals_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -450,7 +463,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "user_bidding_signals"), this->user_bidding_signals,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -459,7 +472,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "ads"), this->ads,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::blink::InterestGroup::Ad>>&>"
+      "<value of type const std::optional<std::vector<::blink::InterestGroup::Ad>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -468,7 +481,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "ad_components"), this->ad_components,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::blink::InterestGroup::Ad>>&>"
+      "<value of type const std::optional<std::vector<::blink::InterestGroup::Ad>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -477,7 +490,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "ad_sizes"), this->ad_sizes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, ::blink::AdSize>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, ::blink::AdSize>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -486,7 +499,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "size_groups"), this->size_groups,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, std::vector<std::string>>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, std::vector<std::string>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -504,7 +517,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "additional_bid_key"), this->additional_bid_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -513,7 +526,7 @@ void InterestGroup::WriteIntoTrace(
     dict.AddItem(
       "aggregation_coordinator_origin"), this->aggregation_coordinator_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -574,8 +587,8 @@ DirectFromSellerSignals::DirectFromSellerSignals()
 DirectFromSellerSignals::DirectFromSellerSignals(
     const ::GURL& prefix_in,
     const base::flat_map<::url::Origin, ::blink::DirectFromSellerSignalsSubresource>& per_buyer_signals_in,
-    const absl::optional<::blink::DirectFromSellerSignalsSubresource>& seller_signals_in,
-    const absl::optional<::blink::DirectFromSellerSignalsSubresource>& auction_signals_in)
+    const std::optional<::blink::DirectFromSellerSignalsSubresource>& seller_signals_in,
+    const std::optional<::blink::DirectFromSellerSignalsSubresource>& auction_signals_in)
     : prefix(std::move(prefix_in)),
       per_buyer_signals(std::move(per_buyer_signals_in)),
       seller_signals(std::move(seller_signals_in)),
@@ -608,7 +621,7 @@ void DirectFromSellerSignals::WriteIntoTrace(
     dict.AddItem(
       "seller_signals"), this->seller_signals,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::DirectFromSellerSignalsSubresource>&>"
+      "<value of type const std::optional<::blink::DirectFromSellerSignalsSubresource>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -617,7 +630,7 @@ void DirectFromSellerSignals::WriteIntoTrace(
     dict.AddItem(
       "auction_signals"), this->auction_signals,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::DirectFromSellerSignalsSubresource>&>"
+      "<value of type const std::optional<::blink::DirectFromSellerSignalsSubresource>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -634,8 +647,8 @@ AuctionAdConfigBuyerTimeouts::AuctionAdConfigBuyerTimeouts()
       per_buyer_timeouts() {}
 
 AuctionAdConfigBuyerTimeouts::AuctionAdConfigBuyerTimeouts(
-    absl::optional<::base::TimeDelta> all_buyers_timeout_in,
-    const absl::optional<base::flat_map<::url::Origin, ::base::TimeDelta>>& per_buyer_timeouts_in)
+    std::optional<::base::TimeDelta> all_buyers_timeout_in,
+    const std::optional<base::flat_map<::url::Origin, ::base::TimeDelta>>& per_buyer_timeouts_in)
     : all_buyers_timeout(std::move(all_buyers_timeout_in)),
       per_buyer_timeouts(std::move(per_buyer_timeouts_in)) {}
 
@@ -648,7 +661,7 @@ void AuctionAdConfigBuyerTimeouts::WriteIntoTrace(
     dict.AddItem(
       "all_buyers_timeout"), this->all_buyers_timeout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -657,7 +670,7 @@ void AuctionAdConfigBuyerTimeouts::WriteIntoTrace(
     dict.AddItem(
       "per_buyer_timeouts"), this->per_buyer_timeouts,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<::url::Origin, ::base::TimeDelta>>&>"
+      "<value of type const std::optional<base::flat_map<::url::Origin, ::base::TimeDelta>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -702,8 +715,8 @@ AuctionAdConfigBuyerCurrencies::AuctionAdConfigBuyerCurrencies()
       per_buyer_currencies() {}
 
 AuctionAdConfigBuyerCurrencies::AuctionAdConfigBuyerCurrencies(
-    const absl::optional<::blink::AdCurrency>& all_buyers_currency_in,
-    const absl::optional<base::flat_map<::url::Origin, ::blink::AdCurrency>>& per_buyer_currencies_in)
+    const std::optional<::blink::AdCurrency>& all_buyers_currency_in,
+    const std::optional<base::flat_map<::url::Origin, ::blink::AdCurrency>>& per_buyer_currencies_in)
     : all_buyers_currency(std::move(all_buyers_currency_in)),
       per_buyer_currencies(std::move(per_buyer_currencies_in)) {}
 
@@ -716,7 +729,7 @@ void AuctionAdConfigBuyerCurrencies::WriteIntoTrace(
     dict.AddItem(
       "all_buyers_currency"), this->all_buyers_currency,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::AdCurrency>&>"
+      "<value of type const std::optional<::blink::AdCurrency>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -725,7 +738,7 @@ void AuctionAdConfigBuyerCurrencies::WriteIntoTrace(
     dict.AddItem(
       "per_buyer_currencies"), this->per_buyer_currencies,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<::url::Origin, ::blink::AdCurrency>>&>"
+      "<value of type const std::optional<base::flat_map<::url::Origin, ::blink::AdCurrency>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -823,28 +836,30 @@ AuctionAdConfigNonSharedParams::AuctionAdConfigNonSharedParams()
       auction_report_buyers(),
       required_seller_capabilities(),
       requested_size(),
+      all_slots_requested_sizes(),
       auction_nonce(),
       component_auctions() {}
 
 AuctionAdConfigNonSharedParams::AuctionAdConfigNonSharedParams(
-    absl::optional<std::vector<::url::Origin>> interest_group_buyers_in,
+    std::optional<std::vector<::url::Origin>> interest_group_buyers_in,
     const ::blink::AuctionConfig::MaybePromiseJson& auction_signals_in,
     const ::blink::AuctionConfig::MaybePromiseJson& seller_signals_in,
-    absl::optional<::base::TimeDelta> seller_timeout_in,
+    std::optional<::base::TimeDelta> seller_timeout_in,
     const ::blink::AuctionConfig::MaybePromisePerBuyerSignals& per_buyer_signals_in,
     const ::blink::AuctionConfig::MaybePromiseBuyerTimeouts& buyer_timeouts_in,
-    const absl::optional<::blink::AdCurrency>& seller_currency_in,
+    const std::optional<::blink::AdCurrency>& seller_currency_in,
     const ::blink::AuctionConfig::MaybePromiseBuyerCurrencies& buyer_currencies_in,
     const ::blink::AuctionConfig::MaybePromiseBuyerTimeouts& buyer_cumulative_timeouts_in,
     const base::flat_map<::url::Origin, uint16_t>& per_buyer_group_limits_in,
-    const absl::optional<base::flat_map<::url::Origin, base::flat_map<std::string, double>>>& per_buyer_priority_signals_in,
-    const absl::optional<base::flat_map<std::string, double>>& all_buyers_priority_signals_in,
+    const std::optional<base::flat_map<::url::Origin, base::flat_map<std::string, double>>>& per_buyer_priority_signals_in,
+    const std::optional<base::flat_map<std::string, double>>& all_buyers_priority_signals_in,
     uint16_t all_buyers_group_limit_in,
-    absl::optional<std::vector<::absl::uint128>> auction_report_buyer_keys_in,
-    absl::optional<base::flat_map<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>> auction_report_buyers_in,
+    std::optional<std::vector<::absl::uint128>> auction_report_buyer_keys_in,
+    std::optional<base::flat_map<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>> auction_report_buyers_in,
     SellerCapabilitiesPtr required_seller_capabilities_in,
-    const absl::optional<::blink::AdSize>& requested_size_in,
-    const absl::optional<::base::Uuid>& auction_nonce_in,
+    const std::optional<::blink::AdSize>& requested_size_in,
+    std::optional<std::vector<::blink::AdSize>> all_slots_requested_sizes_in,
+    const std::optional<::base::Uuid>& auction_nonce_in,
     std::vector<::blink::AuctionConfig> component_auctions_in)
     : interest_group_buyers(std::move(interest_group_buyers_in)),
       auction_signals(std::move(auction_signals_in)),
@@ -863,6 +878,7 @@ AuctionAdConfigNonSharedParams::AuctionAdConfigNonSharedParams(
       auction_report_buyers(std::move(auction_report_buyers_in)),
       required_seller_capabilities(std::move(required_seller_capabilities_in)),
       requested_size(std::move(requested_size_in)),
+      all_slots_requested_sizes(std::move(all_slots_requested_sizes_in)),
       auction_nonce(std::move(auction_nonce_in)),
       component_auctions(std::move(component_auctions_in)) {}
 
@@ -875,7 +891,7 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     dict.AddItem(
       "interest_group_buyers"), this->interest_group_buyers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::url::Origin>>&>"
+      "<value of type const std::optional<std::vector<::url::Origin>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -902,7 +918,7 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     dict.AddItem(
       "seller_timeout"), this->seller_timeout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -929,7 +945,7 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     dict.AddItem(
       "seller_currency"), this->seller_currency,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::AdCurrency>&>"
+      "<value of type const std::optional<::blink::AdCurrency>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -965,7 +981,7 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     dict.AddItem(
       "per_buyer_priority_signals"), this->per_buyer_priority_signals,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<::url::Origin, base::flat_map<std::string, double>>>&>"
+      "<value of type const std::optional<base::flat_map<::url::Origin, base::flat_map<std::string, double>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -974,7 +990,7 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     dict.AddItem(
       "all_buyers_priority_signals"), this->all_buyers_priority_signals,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, double>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, double>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -992,7 +1008,7 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     dict.AddItem(
       "auction_report_buyer_keys"), this->auction_report_buyer_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::absl::uint128>>&>"
+      "<value of type const std::optional<std::vector<::absl::uint128>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1001,7 +1017,7 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     dict.AddItem(
       "auction_report_buyers"), this->auction_report_buyers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<base::flat_map<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>>>"
+      "<value of type std::optional<base::flat_map<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1019,7 +1035,16 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     dict.AddItem(
       "requested_size"), this->requested_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::AdSize>&>"
+      "<value of type const std::optional<::blink::AdSize>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "all_slots_requested_sizes"), this->all_slots_requested_sizes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::vector<::blink::AdSize>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1028,7 +1053,7 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     dict.AddItem(
       "auction_nonce"), this->auction_nonce,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::Uuid>&>"
+      "<value of type const std::optional<::base::Uuid>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1067,9 +1092,9 @@ AuctionAdConfig::AuctionAdConfig()
 
 AuctionAdConfig::AuctionAdConfig(
     const ::url::Origin& seller_in,
-    const absl::optional<::blink::AuctionConfig::ServerResponseConfig>& server_response_in,
-    const absl::optional<::GURL>& decision_logic_url_in,
-    const absl::optional<::GURL>& trusted_scoring_signals_url_in,
+    const std::optional<::blink::AuctionConfig::ServerResponseConfig>& server_response_in,
+    const std::optional<::GURL>& decision_logic_url_in,
+    const std::optional<::GURL>& trusted_scoring_signals_url_in,
     const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params_in,
     const ::blink::AuctionConfig::MaybePromiseDirectFromSellerSignals& direct_from_seller_signals_in,
     bool expects_direct_from_seller_signals_header_ad_slot_in,
@@ -1079,7 +1104,7 @@ AuctionAdConfig::AuctionAdConfig(
     int16_t all_buyer_experiment_group_id_in,
     const base::flat_map<::url::Origin, uint16_t>& per_buyer_experiment_group_ids_in,
     bool expects_additional_bids_in,
-    const absl::optional<::url::Origin>& aggregation_coordinator_origin_in)
+    const std::optional<::url::Origin>& aggregation_coordinator_origin_in)
     : seller(std::move(seller_in)),
       server_response(std::move(server_response_in)),
       decision_logic_url(std::move(decision_logic_url_in)),
@@ -1113,7 +1138,7 @@ void AuctionAdConfig::WriteIntoTrace(
     dict.AddItem(
       "server_response"), this->server_response,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::AuctionConfig::ServerResponseConfig>&>"
+      "<value of type const std::optional<::blink::AuctionConfig::ServerResponseConfig>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1122,7 +1147,7 @@ void AuctionAdConfig::WriteIntoTrace(
     dict.AddItem(
       "decision_logic_url"), this->decision_logic_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1131,7 +1156,7 @@ void AuctionAdConfig::WriteIntoTrace(
     dict.AddItem(
       "trusted_scoring_signals_url"), this->trusted_scoring_signals_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1221,7 +1246,7 @@ void AuctionAdConfig::WriteIntoTrace(
     dict.AddItem(
       "aggregation_coordinator_origin"), this->aggregation_coordinator_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1251,13 +1276,13 @@ void AuctionAdConfigMaybePromiseJson::set_promise(
   data_.promise = promise;
 }
 void AuctionAdConfigMaybePromiseJson::set_value(
-    const absl::optional<std::string>& value) {
+    const std::optional<std::string>& value) {
   if (tag_ == Tag::kValue) {
     *(data_.value) = std::move(value);
   } else {
     DestroyActive();
     tag_ = Tag::kValue;
-    data_.value = new absl::optional<std::string>(
+    data_.value = new std::optional<std::string>(
         std::move(value));
   }
 }
@@ -1298,13 +1323,13 @@ void AuctionAdConfigMaybePromisePerBuyerSignals::set_promise(
   data_.promise = promise;
 }
 void AuctionAdConfigMaybePromisePerBuyerSignals::set_value(
-    const absl::optional<base::flat_map<::url::Origin, std::string>>& value) {
+    const std::optional<base::flat_map<::url::Origin, std::string>>& value) {
   if (tag_ == Tag::kValue) {
     *(data_.value) = std::move(value);
   } else {
     DestroyActive();
     tag_ = Tag::kValue;
-    data_.value = new absl::optional<base::flat_map<::url::Origin, std::string>>(
+    data_.value = new std::optional<base::flat_map<::url::Origin, std::string>>(
         std::move(value));
   }
 }
@@ -1439,13 +1464,13 @@ void AuctionAdConfigMaybePromiseDirectFromSellerSignals::set_promise(
   data_.promise = promise;
 }
 void AuctionAdConfigMaybePromiseDirectFromSellerSignals::set_value(
-    const absl::optional<::blink::DirectFromSellerSignals>& value) {
+    const std::optional<::blink::DirectFromSellerSignals>& value) {
   if (tag_ == Tag::kValue) {
     *(data_.value) = std::move(value);
   } else {
     DestroyActive();
     tag_ = Tag::kValue;
-    data_.value = new absl::optional<::blink::DirectFromSellerSignals>(
+    data_.value = new std::optional<::blink::DirectFromSellerSignals>(
         std::move(value));
   }
 }
@@ -1560,6 +1585,8 @@ bool StructTraits<::blink::mojom::InterestGroup::DataView, ::blink::mojom::Inter
       if (success && !input.ReadAllSellersCapabilities(&result->all_sellers_capabilities))
         success = false;
       if (success && !input.ReadExecutionMode(&result->execution_mode))
+        success = false;
+      if (success && !input.ReadTrustedBiddingSignalsSlotSizeMode(&result->trusted_bidding_signals_slot_size_mode))
         success = false;
       if (success && !input.ReadBiddingUrl(&result->bidding_url))
         success = false;
@@ -1745,6 +1772,8 @@ bool StructTraits<::blink::mojom::AuctionAdConfigNonSharedParams::DataView, ::bl
         success = false;
       if (success && !input.ReadRequestedSize(&result->requested_size))
         success = false;
+      if (success && !input.ReadAllSlotsRequestedSizes(&result->all_slots_requested_sizes))
+        success = false;
       if (success && !input.ReadAuctionNonce(&result->auction_nonce))
         success = false;
       if (success && !input.ReadComponentAuctions(&result->component_auctions))
@@ -1806,7 +1835,7 @@ bool UnionTraits<::blink::mojom::AuctionAdConfigMaybePromiseJson::DataView, ::bl
       break;
     }
     case Tag::kValue: {
-      absl::optional<std::string> result_value;
+      std::optional<std::string> result_value;
       if (!input.ReadValue(&result_value))
         return false;
 
@@ -1834,7 +1863,7 @@ bool UnionTraits<::blink::mojom::AuctionAdConfigMaybePromisePerBuyerSignals::Dat
       break;
     }
     case Tag::kValue: {
-      absl::optional<base::flat_map<::url::Origin, std::string>> result_value;
+      std::optional<base::flat_map<::url::Origin, std::string>> result_value;
       if (!input.ReadValue(&result_value))
         return false;
 
@@ -1918,7 +1947,7 @@ bool UnionTraits<::blink::mojom::AuctionAdConfigMaybePromiseDirectFromSellerSign
       break;
     }
     case Tag::kValue: {
-      absl::optional<::blink::DirectFromSellerSignals> result_value;
+      std::optional<::blink::DirectFromSellerSignals> result_value;
       if (!input.ReadValue(&result_value))
         return false;
 

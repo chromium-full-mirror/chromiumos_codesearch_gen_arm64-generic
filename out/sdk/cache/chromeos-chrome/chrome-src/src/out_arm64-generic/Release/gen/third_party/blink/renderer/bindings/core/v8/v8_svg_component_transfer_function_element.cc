@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGComponentTransferFunctionElement>::value,
     "SVGComponentTransferFunctionElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGComponentTransferFunctionElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGComponentTransferFunctionElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,7 +94,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(v8_receiver);
+SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -118,7 +113,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(v8_receiver);
+SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->tableValues();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -137,7 +132,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(v8_receiver);
+SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->slope();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -156,7 +151,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(v8_receiver);
+SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->intercept();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -175,7 +170,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(v8_receiver);
+SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->amplitude();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -194,7 +189,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(v8_receiver);
+SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->exponent();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -213,7 +208,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(v8_receiver);
+SVGComponentTransferFunctionElement* blink_receiver = V8SVGComponentTransferFunctionElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->offset();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

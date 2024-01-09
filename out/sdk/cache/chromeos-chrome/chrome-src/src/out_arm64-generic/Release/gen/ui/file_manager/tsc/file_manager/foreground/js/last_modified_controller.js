@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { isRecentRootType } from '../../common/js/entry_utils.js';
-import './directory_model.js';
-import './ui/file_table.js';
+import { DirectoryModel } from './directory_model.js';
+import { FileTable } from './ui/file_table.js';
 /**
  * Controls last modified column in the file table.
  */

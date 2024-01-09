@@ -1,0 +1,35 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _mctk-install_config: phony obj/camera/tools/mctk/_mctk-install_config.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build camera/tools/mctk$:_mctk-install_config: phony obj/camera/tools/mctk/_mctk-install_config.stamp
+build camera/tools/mctk$:all: phony obj/camera/tools/mctk/all.stamp
+build camera/tools/mctk$:mctk: phony ./mctk
+build camera/tools/mctk: phony ./mctk
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+
+build all: phony $
+    obj/camera/tools/mctk/_mctk-install_config.stamp $
+    obj/camera/tools/mctk/all.stamp $
+    ./mctk $
+    obj/common-mk/gn_root/root.stamp
+
+default all

@@ -55,7 +55,8 @@ PROTOBUF_CONSTEXPR TraceStats_WriterStats::TraceStats_WriterStats(
   , _chunk_payload_histogram_counts_cached_byte_size_(0)
   , chunk_payload_histogram_sum_()
   , _chunk_payload_histogram_sum_cached_byte_size_(0)
-  , sequence_id_(uint64_t{0u}){}
+  , sequence_id_(uint64_t{0u})
+  , buffer_(0u){}
 struct TraceStats_WriterStatsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TraceStats_WriterStatsDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -67,7 +68,8 @@ struct TraceStats_WriterStatsDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TraceStats_WriterStatsDefaultTypeInternal _TraceStats_WriterStats_default_instance_;
 PROTOBUF_CONSTEXPR TraceStats_FilterStats::TraceStats_FilterStats(
     ::_pbi::ConstantInitialized)
-  : input_packets_(uint64_t{0u})
+  : bytes_discarded_per_buffer_()
+  , input_packets_(uint64_t{0u})
   , input_bytes_(uint64_t{0u})
   , output_bytes_(uint64_t{0u})
   , errors_(uint64_t{0u})
@@ -883,6 +885,9 @@ class TraceStats_WriterStats::_Internal {
   static void set_has_sequence_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_buffer(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 TraceStats_WriterStats::TraceStats_WriterStats(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -899,12 +904,17 @@ TraceStats_WriterStats::TraceStats_WriterStats(const TraceStats_WriterStats& fro
       chunk_payload_histogram_counts_(from.chunk_payload_histogram_counts_),
       chunk_payload_histogram_sum_(from.chunk_payload_histogram_sum_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  sequence_id_ = from.sequence_id_;
+  ::memcpy(&sequence_id_, &from.sequence_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&buffer_) -
+    reinterpret_cast<char*>(&sequence_id_)) + sizeof(buffer_));
   // @@protoc_insertion_point(copy_constructor:perfetto.protos.TraceStats.WriterStats)
 }
 
 inline void TraceStats_WriterStats::SharedCtor() {
-sequence_id_ = uint64_t{0u};
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&sequence_id_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&buffer_) -
+    reinterpret_cast<char*>(&sequence_id_)) + sizeof(buffer_));
 }
 
 TraceStats_WriterStats::~TraceStats_WriterStats() {
@@ -932,7 +942,12 @@ void TraceStats_WriterStats::Clear() {
 
   chunk_payload_histogram_counts_.Clear();
   chunk_payload_histogram_sum_.Clear();
-  sequence_id_ = uint64_t{0u};
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&sequence_id_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&buffer_) -
+        reinterpret_cast<char*>(&sequence_id_)) + sizeof(buffer_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -971,6 +986,15 @@ const char* TraceStats_WriterStats::_InternalParse(const char* ptr, ::_pbi::Pars
           CHK_(ptr);
         } else if (static_cast<uint8_t>(tag) == 24) {
           _internal_add_chunk_payload_histogram_sum(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint32 buffer = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_buffer(&has_bits);
+          buffer_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1030,6 +1054,12 @@ uint8_t* TraceStats_WriterStats::_InternalSerialize(
     }
   }
 
+  // optional uint32 buffer = 4;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_buffer(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1074,12 +1104,19 @@ size_t TraceStats_WriterStats::ByteSizeLong() const {
     total_size += data_size;
   }
 
-  // optional uint64 sequence_id = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_sequence_id());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional uint64 sequence_id = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_sequence_id());
+    }
 
+    // optional uint32 buffer = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_buffer());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1102,8 +1139,15 @@ void TraceStats_WriterStats::MergeFrom(const TraceStats_WriterStats& from) {
 
   chunk_payload_histogram_counts_.MergeFrom(from.chunk_payload_histogram_counts_);
   chunk_payload_histogram_sum_.MergeFrom(from.chunk_payload_histogram_sum_);
-  if (from._internal_has_sequence_id()) {
-    _internal_set_sequence_id(from._internal_sequence_id());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      sequence_id_ = from.sequence_id_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      buffer_ = from.buffer_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1125,7 +1169,12 @@ void TraceStats_WriterStats::InternalSwap(TraceStats_WriterStats* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   chunk_payload_histogram_counts_.InternalSwap(&other->chunk_payload_histogram_counts_);
   chunk_payload_histogram_sum_.InternalSwap(&other->chunk_payload_histogram_sum_);
-  swap(sequence_id_, other->sequence_id_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(TraceStats_WriterStats, buffer_)
+      + sizeof(TraceStats_WriterStats::buffer_)
+      - PROTOBUF_FIELD_OFFSET(TraceStats_WriterStats, sequence_id_)>(
+          reinterpret_cast<char*>(&sequence_id_),
+          reinterpret_cast<char*>(&other->sequence_id_));
 }
 
 std::string TraceStats_WriterStats::GetTypeName() const {
@@ -1157,13 +1206,15 @@ class TraceStats_FilterStats::_Internal {
 
 TraceStats_FilterStats::TraceStats_FilterStats(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  bytes_discarded_per_buffer_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:perfetto.protos.TraceStats.FilterStats)
 }
 TraceStats_FilterStats::TraceStats_FilterStats(const TraceStats_FilterStats& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+      _has_bits_(from._has_bits_),
+      bytes_discarded_per_buffer_(from.bytes_discarded_per_buffer_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&input_packets_, &from.input_packets_,
     static_cast<size_t>(reinterpret_cast<char*>(&time_taken_ns_) -
@@ -1201,6 +1252,7 @@ void TraceStats_FilterStats::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  bytes_discarded_per_buffer_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     ::memset(&input_packets_, 0, static_cast<size_t>(
@@ -1259,6 +1311,22 @@ const char* TraceStats_FilterStats::_InternalParse(const char* ptr, ::_pbi::Pars
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_time_taken_ns(&has_bits);
           time_taken_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated uint64 bytes_discarded_per_buffer = 20;
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            _internal_add_bytes_discarded_per_buffer(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<160>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 162) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_bytes_discarded_per_buffer(), ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1324,6 +1392,12 @@ uint8_t* TraceStats_FilterStats::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_time_taken_ns(), target);
   }
 
+  // repeated uint64 bytes_discarded_per_buffer = 20;
+  for (int i = 0, n = this->_internal_bytes_discarded_per_buffer_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(20, this->_internal_bytes_discarded_per_buffer(i), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1339,6 +1413,15 @@ size_t TraceStats_FilterStats::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated uint64 bytes_discarded_per_buffer = 20;
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt64Size(this->bytes_discarded_per_buffer_);
+    total_size += 2 *
+                  ::_pbi::FromIntSize(this->_internal_bytes_discarded_per_buffer_size());
+    total_size += data_size;
+  }
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
@@ -1388,6 +1471,7 @@ void TraceStats_FilterStats::MergeFrom(const TraceStats_FilterStats& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  bytes_discarded_per_buffer_.MergeFrom(from.bytes_discarded_per_buffer_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -1425,6 +1509,7 @@ void TraceStats_FilterStats::InternalSwap(TraceStats_FilterStats* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  bytes_discarded_per_buffer_.InternalSwap(&other->bytes_discarded_per_buffer_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(TraceStats_FilterStats, time_taken_ns_)
       + sizeof(TraceStats_FilterStats::time_taken_ns_)

@@ -4,465 +4,572 @@
 #include "ipp.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace mocking {
+template <typename>
 PROTOBUF_CONSTEXPR IntegerRange::IntegerRange(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.minimum_)*/0
-  , /*decltype(_impl_.maximum_)*/0
+    /*decltype(_impl_.minimum_)*/ 0
+
+  , /*decltype(_impl_.maximum_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct IntegerRangeDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR IntegerRangeDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IntegerRangeDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IntegerRangeDefaultTypeInternal() {}
   union {
     IntegerRange _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IntegerRangeDefaultTypeInternal _IntegerRange_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IntegerRangeDefaultTypeInternal _IntegerRange_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Resolution::Resolution(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.xres_)*/0u
-  , /*decltype(_impl_.yres_)*/0u
-  , /*decltype(_impl_.units_)*/0
+    /*decltype(_impl_.xres_)*/ 0u
+
+  , /*decltype(_impl_.yres_)*/ 0u
+
+  , /*decltype(_impl_.units_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ResolutionDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ResolutionDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ResolutionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ResolutionDefaultTypeInternal() {}
   union {
     Resolution _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResolutionDefaultTypeInternal _Resolution_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResolutionDefaultTypeInternal _Resolution_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR DateTime::DateTime(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.year_)*/0u
-  , /*decltype(_impl_.month_)*/0u
-  , /*decltype(_impl_.day_)*/0u
-  , /*decltype(_impl_.hour_)*/0
-  , /*decltype(_impl_.minutes_)*/0
-  , /*decltype(_impl_.seconds_)*/0
-  , /*decltype(_impl_.deciseconds_)*/0
-  , /*decltype(_impl_.utc_direction_)*/0
-  , /*decltype(_impl_.utc_hours_)*/0
-  , /*decltype(_impl_.utc_minutes_)*/0
+    /*decltype(_impl_.year_)*/ 0u
+
+  , /*decltype(_impl_.month_)*/ 0u
+
+  , /*decltype(_impl_.day_)*/ 0u
+
+  , /*decltype(_impl_.hour_)*/ 0
+
+  , /*decltype(_impl_.minutes_)*/ 0
+
+  , /*decltype(_impl_.seconds_)*/ 0
+
+  , /*decltype(_impl_.deciseconds_)*/ 0
+
+  , /*decltype(_impl_.utc_direction_)*/ 0
+
+  , /*decltype(_impl_.utc_hours_)*/ 0
+
+  , /*decltype(_impl_.utc_minutes_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct DateTimeDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DateTimeDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DateTimeDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DateTimeDefaultTypeInternal() {}
   union {
     DateTime _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DateTimeDefaultTypeInternal _DateTime_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DateTimeDefaultTypeInternal _DateTime_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RepeatedIppCollection::RepeatedIppCollection(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.collections_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RepeatedIppCollectionDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RepeatedIppCollectionDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RepeatedIppCollectionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RepeatedIppCollectionDefaultTypeInternal() {}
   union {
     RepeatedIppCollection _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedIppCollectionDefaultTypeInternal _RepeatedIppCollection_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedIppCollectionDefaultTypeInternal _RepeatedIppCollection_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RepeatedIntValues::RepeatedIntValues(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.int_values_)*/{}
-  , /*decltype(_impl_._int_values_cached_byte_size_)*/{0}
+    /*decltype(_impl_.int_values_)*/ {}
+  ,/* _impl_._int_values_cached_byte_size_ = */ { 0 }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RepeatedIntValuesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RepeatedIntValuesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RepeatedIntValuesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RepeatedIntValuesDefaultTypeInternal() {}
   union {
     RepeatedIntValues _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedIntValuesDefaultTypeInternal _RepeatedIntValues_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedIntValuesDefaultTypeInternal _RepeatedIntValues_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR OctetString::OctetString(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.language_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.language_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.value_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct OctetStringDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR OctetStringDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR OctetStringDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~OctetStringDefaultTypeInternal() {}
   union {
     OctetString _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OctetStringDefaultTypeInternal _OctetString_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OctetStringDefaultTypeInternal _OctetString_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RepeatedStringValues::RepeatedStringValues(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.string_values_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RepeatedStringValuesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RepeatedStringValuesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RepeatedStringValuesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RepeatedStringValuesDefaultTypeInternal() {}
   union {
     RepeatedStringValues _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedStringValuesDefaultTypeInternal _RepeatedStringValues_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedStringValuesDefaultTypeInternal _RepeatedStringValues_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RepeatedIntRanges::RepeatedIntRanges(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.int_ranges_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RepeatedIntRangesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RepeatedIntRangesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RepeatedIntRangesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RepeatedIntRangesDefaultTypeInternal() {}
   union {
     RepeatedIntRanges _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedIntRangesDefaultTypeInternal _RepeatedIntRanges_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedIntRangesDefaultTypeInternal _RepeatedIntRanges_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RepeatedResolutions::RepeatedResolutions(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.resolutions_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RepeatedResolutionsDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RepeatedResolutionsDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RepeatedResolutionsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RepeatedResolutionsDefaultTypeInternal() {}
   union {
     RepeatedResolutions _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedResolutionsDefaultTypeInternal _RepeatedResolutions_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedResolutionsDefaultTypeInternal _RepeatedResolutions_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR RepeatedDateTimes::RepeatedDateTimes(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.date_times_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RepeatedDateTimesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR RepeatedDateTimesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RepeatedDateTimesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RepeatedDateTimesDefaultTypeInternal() {}
   union {
     RepeatedDateTimes _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedDateTimesDefaultTypeInternal _RepeatedDateTimes_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepeatedDateTimesDefaultTypeInternal _RepeatedDateTimes_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR IppAttribute::IppAttribute(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.type_)*/0
+    /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.type_)*/ 0
+
   , /*decltype(_impl_.value_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct IppAttributeDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR IppAttributeDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IppAttributeDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IppAttributeDefaultTypeInternal() {}
   union {
     IppAttribute _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IppAttributeDefaultTypeInternal _IppAttribute_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IppAttributeDefaultTypeInternal _IppAttribute_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR IppCollection::IppCollection(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.attributes_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct IppCollectionDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR IppCollectionDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IppCollectionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IppCollectionDefaultTypeInternal() {}
   union {
     IppCollection _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IppCollectionDefaultTypeInternal _IppCollection_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IppCollectionDefaultTypeInternal _IppCollection_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR IppGroup::IppGroup(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.collections_)*/{}
-  , /*decltype(_impl_.tag_)*/0
+  , /*decltype(_impl_.tag_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct IppGroupDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR IppGroupDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IppGroupDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IppGroupDefaultTypeInternal() {}
   union {
     IppGroup _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IppGroupDefaultTypeInternal _IppGroup_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IppGroupDefaultTypeInternal _IppGroup_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR IppMessage::IppMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.groups_)*/{}
-  , /*decltype(_impl_.version_number_)*/0u
-  , /*decltype(_impl_.operation_id_)*/0u
-  , /*decltype(_impl_.status_)*/0u
+  , /*decltype(_impl_.version_number_)*/ 0u
+
+  , /*decltype(_impl_.operation_id_)*/ 0u
+
+  , /*decltype(_impl_.status_)*/ 0u
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct IppMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR IppMessageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IppMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IppMessageDefaultTypeInternal() {}
   union {
     IppMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IppMessageDefaultTypeInternal _IppMessage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IppMessageDefaultTypeInternal _IppMessage_default_instance_;
 }  // namespace mocking
 static ::_pb::Metadata file_level_metadata_ipp_2eproto[14];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_ipp_2eproto[4];
-static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_ipp_2eproto = nullptr;
-
-const uint32_t TableStruct_ipp_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::IntegerRange, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::IntegerRange, _impl_.minimum_),
-  PROTOBUF_FIELD_OFFSET(::mocking::IntegerRange, _impl_.maximum_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::Resolution, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::Resolution, _impl_.xres_),
-  PROTOBUF_FIELD_OFFSET(::mocking::Resolution, _impl_.yres_),
-  PROTOBUF_FIELD_OFFSET(::mocking::Resolution, _impl_.units_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.year_),
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.month_),
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.day_),
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.hour_),
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.minutes_),
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.seconds_),
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.deciseconds_),
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.utc_direction_),
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.utc_hours_),
-  PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.utc_minutes_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIppCollection, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIppCollection, _impl_.collections_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIntValues, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIntValues, _impl_.int_values_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::OctetString, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::OctetString, _impl_.language_),
-  PROTOBUF_FIELD_OFFSET(::mocking::OctetString, _impl_.value_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedStringValues, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedStringValues, _impl_.string_values_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIntRanges, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIntRanges, _impl_.int_ranges_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedResolutions, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedResolutions, _impl_.resolutions_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedDateTimes, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::RepeatedDateTimes, _impl_.date_times_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _internal_metadata_),
-  ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _impl_._oneof_case_[0]),
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _impl_.name_),
-  PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _impl_.type_),
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _impl_.value_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::IppCollection, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::IppCollection, _impl_.attributes_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::IppGroup, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::IppGroup, _impl_.tag_),
-  PROTOBUF_FIELD_OFFSET(::mocking::IppGroup, _impl_.collections_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _impl_.version_number_),
-  PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _impl_.operation_id_),
-  PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _impl_.status_),
-  PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _impl_.groups_),
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_ipp_2eproto = nullptr;
+const ::uint32_t TableStruct_ipp_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::IntegerRange, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::IntegerRange, _impl_.minimum_),
+    PROTOBUF_FIELD_OFFSET(::mocking::IntegerRange, _impl_.maximum_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::Resolution, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::Resolution, _impl_.xres_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Resolution, _impl_.yres_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Resolution, _impl_.units_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.year_),
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.month_),
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.day_),
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.hour_),
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.minutes_),
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.seconds_),
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.deciseconds_),
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.utc_direction_),
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.utc_hours_),
+    PROTOBUF_FIELD_OFFSET(::mocking::DateTime, _impl_.utc_minutes_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIppCollection, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIppCollection, _impl_.collections_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIntValues, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIntValues, _impl_.int_values_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::OctetString, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::OctetString, _impl_.language_),
+    PROTOBUF_FIELD_OFFSET(::mocking::OctetString, _impl_.value_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedStringValues, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedStringValues, _impl_.string_values_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIntRanges, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedIntRanges, _impl_.int_ranges_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedResolutions, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedResolutions, _impl_.resolutions_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedDateTimes, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::RepeatedDateTimes, _impl_.date_times_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _internal_metadata_),
+    ~0u,  // no _extensions_
+    PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _impl_._oneof_case_[0]),
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _impl_.name_),
+    PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _impl_.type_),
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _impl_.value_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::IppCollection, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::IppCollection, _impl_.attributes_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::IppGroup, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::IppGroup, _impl_.tag_),
+    PROTOBUF_FIELD_OFFSET(::mocking::IppGroup, _impl_.collections_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _impl_.version_number_),
+    PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _impl_.operation_id_),
+    PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _impl_.status_),
+    PROTOBUF_FIELD_OFFSET(::mocking::IppMessage, _impl_.groups_),
 };
-static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::mocking::IntegerRange)},
-  { 8, -1, -1, sizeof(::mocking::Resolution)},
-  { 17, -1, -1, sizeof(::mocking::DateTime)},
-  { 33, -1, -1, sizeof(::mocking::RepeatedIppCollection)},
-  { 40, -1, -1, sizeof(::mocking::RepeatedIntValues)},
-  { 47, -1, -1, sizeof(::mocking::OctetString)},
-  { 55, -1, -1, sizeof(::mocking::RepeatedStringValues)},
-  { 62, -1, -1, sizeof(::mocking::RepeatedIntRanges)},
-  { 69, -1, -1, sizeof(::mocking::RepeatedResolutions)},
-  { 76, -1, -1, sizeof(::mocking::RepeatedDateTimes)},
-  { 83, -1, -1, sizeof(::mocking::IppAttribute)},
-  { 98, -1, -1, sizeof(::mocking::IppCollection)},
-  { 105, -1, -1, sizeof(::mocking::IppGroup)},
-  { 113, -1, -1, sizeof(::mocking::IppMessage)},
+
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        { 0, -1, -1, sizeof(::mocking::IntegerRange)},
+        { 10, -1, -1, sizeof(::mocking::Resolution)},
+        { 21, -1, -1, sizeof(::mocking::DateTime)},
+        { 39, -1, -1, sizeof(::mocking::RepeatedIppCollection)},
+        { 48, -1, -1, sizeof(::mocking::RepeatedIntValues)},
+        { 57, -1, -1, sizeof(::mocking::OctetString)},
+        { 67, -1, -1, sizeof(::mocking::RepeatedStringValues)},
+        { 76, -1, -1, sizeof(::mocking::RepeatedIntRanges)},
+        { 85, -1, -1, sizeof(::mocking::RepeatedResolutions)},
+        { 94, -1, -1, sizeof(::mocking::RepeatedDateTimes)},
+        { 103, -1, -1, sizeof(::mocking::IppAttribute)},
+        { 120, -1, -1, sizeof(::mocking::IppCollection)},
+        { 129, -1, -1, sizeof(::mocking::IppGroup)},
+        { 139, -1, -1, sizeof(::mocking::IppMessage)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::mocking::_IntegerRange_default_instance_._instance,
-  &::mocking::_Resolution_default_instance_._instance,
-  &::mocking::_DateTime_default_instance_._instance,
-  &::mocking::_RepeatedIppCollection_default_instance_._instance,
-  &::mocking::_RepeatedIntValues_default_instance_._instance,
-  &::mocking::_OctetString_default_instance_._instance,
-  &::mocking::_RepeatedStringValues_default_instance_._instance,
-  &::mocking::_RepeatedIntRanges_default_instance_._instance,
-  &::mocking::_RepeatedResolutions_default_instance_._instance,
-  &::mocking::_RepeatedDateTimes_default_instance_._instance,
-  &::mocking::_IppAttribute_default_instance_._instance,
-  &::mocking::_IppCollection_default_instance_._instance,
-  &::mocking::_IppGroup_default_instance_._instance,
-  &::mocking::_IppMessage_default_instance_._instance,
+    &::mocking::_IntegerRange_default_instance_._instance,
+    &::mocking::_Resolution_default_instance_._instance,
+    &::mocking::_DateTime_default_instance_._instance,
+    &::mocking::_RepeatedIppCollection_default_instance_._instance,
+    &::mocking::_RepeatedIntValues_default_instance_._instance,
+    &::mocking::_OctetString_default_instance_._instance,
+    &::mocking::_RepeatedStringValues_default_instance_._instance,
+    &::mocking::_RepeatedIntRanges_default_instance_._instance,
+    &::mocking::_RepeatedResolutions_default_instance_._instance,
+    &::mocking::_RepeatedDateTimes_default_instance_._instance,
+    &::mocking::_IppAttribute_default_instance_._instance,
+    &::mocking::_IppCollection_default_instance_._instance,
+    &::mocking::_IppGroup_default_instance_._instance,
+    &::mocking::_IppMessage_default_instance_._instance,
 };
-
-const char descriptor_table_protodef_ipp_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\tipp.proto\022\007mocking\"0\n\014IntegerRange\022\017\n\007"
-  "minimum\030\001 \001(\005\022\017\n\007maximum\030\002 \001(\005\"\230\001\n\nResol"
-  "ution\022\014\n\004xres\030\001 \001(\r\022\014\n\004yres\030\002 \001(\r\022(\n\005uni"
-  "ts\030\003 \001(\0162\031.mocking.Resolution.Units\"D\n\005U"
-  "nits\022\017\n\013UNSPECIFIED\020\000\022\021\n\rDOTS_PER_INCH\020\001"
-  "\022\027\n\023DOTS_PER_CENTIMETER\020\002\"\216\002\n\010DateTime\022\014"
-  "\n\004year\030\001 \001(\r\022\r\n\005month\030\002 \001(\r\022\013\n\003day\030\003 \001(\r"
-  "\022\014\n\004hour\030\004 \001(\005\022\017\n\007minutes\030\005 \001(\005\022\017\n\007secon"
-  "ds\030\006 \001(\005\022\023\n\013deciseconds\030\007 \001(\005\0225\n\rutc_dir"
-  "ection\030\010 \001(\0162\036.mocking.DateTime.UtcDirec"
-  "tion\022\021\n\tutc_hours\030\t \001(\005\022\023\n\013utc_minutes\030\n"
-  " \001(\005\"4\n\014UtcDirection\022\017\n\013UNSPECIFIED\020\000\022\010\n"
-  "\004PLUS\020\001\022\t\n\005MINUS\020\002\"D\n\025RepeatedIppCollect"
-  "ion\022+\n\013collections\030\001 \003(\0132\026.mocking.IppCo"
-  "llection\"\'\n\021RepeatedIntValues\022\022\n\nint_val"
-  "ues\030\001 \003(\005\".\n\013OctetString\022\020\n\010language\030\001 \001"
-  "(\t\022\r\n\005value\030\002 \001(\014\"C\n\024RepeatedStringValue"
-  "s\022+\n\rstring_values\030\001 \003(\0132\024.mocking.Octet"
-  "String\">\n\021RepeatedIntRanges\022)\n\nint_range"
-  "s\030\001 \003(\0132\025.mocking.IntegerRange\"\?\n\023Repeat"
-  "edResolutions\022(\n\013resolutions\030\001 \003(\0132\023.moc"
-  "king.Resolution\":\n\021RepeatedDateTimes\022%\n\n"
-  "date_times\030\001 \003(\0132\021.mocking.DateTime\"\270\006\n\014"
-  "IppAttribute\022\014\n\004name\030\001 \001(\t\0224\n\004type\030\002 \001(\016"
-  "2&.mocking.IppAttribute.IppAttributeType"
-  "\0225\n\013collections\030\003 \001(\0132\036.mocking.Repeated"
-  "IppCollectionH\000\0220\n\nint_values\030\004 \001(\0132\032.mo"
-  "cking.RepeatedIntValuesH\000\0226\n\rstring_valu"
-  "es\030\005 \001(\0132\035.mocking.RepeatedStringValuesH"
-  "\000\0220\n\nint_ranges\030\006 \001(\0132\032.mocking.Repeated"
-  "IntRangesH\000\0223\n\013resolutions\030\007 \001(\0132\034.mocki"
-  "ng.RepeatedResolutionsH\000\0220\n\ndate_times\030\010"
-  " \001(\0132\032.mocking.RepeatedDateTimesH\000\"\240\003\n\020I"
-  "ppAttributeType\022\017\n\013UNSPECIFIED\020\000\022\013\n\007INTE"
-  "GER\020!\022\013\n\007BOOLEAN\020\"\022\010\n\004ENUM\020#\022\020\n\014OCTET_ST"
-  "RING\0200\022\014\n\010DATETIME\0201\022\016\n\nRESOLUTION\0202\022\024\n\020"
-  "RANGE_OF_INTEGER\0203\022\024\n\020BEGIN_COLLECTION\0204"
-  "\022\026\n\022TEXT_WITH_LANGUAGE\0205\022\026\n\022NAME_WITH_LA"
-  "NGUAGE\0206\022\031\n\025TEXT_WITHOUT_LANGUAGE\020A\022\031\n\025N"
-  "AME_WITHOUT_LANGUAGE\020B\022\013\n\007KEYWORD\020D\022\007\n\003U"
-  "RI\020E\022\016\n\nURI_SCHEME\020F\022\013\n\007CHARSET\020G\022\024\n\020NAT"
-  "URAL_LANGUAGE\020H\022\023\n\017MIME_MEDIA_TYPE\020I\022\031\n\025"
-  "MEMBER_ATTRIBUTE_NAME\020J\"\004\010\001\020 \"\004\010$\020/\"\004\0107\020"
-  "@\"\004\010C\020C\"\004\010K\020~B\007\n\005value\":\n\rIppCollection\022"
-  ")\n\nattributes\030\001 \003(\0132\025.mocking.IppAttribu"
-  "te\"\365\002\n\010IppGroup\022*\n\003tag\030\001 \001(\0162\035.mocking.I"
-  "ppGroup.IppGroupTag\022+\n\013collections\030\002 \003(\013"
-  "2\026.mocking.IppCollection\"\217\002\n\013IppGroupTag"
-  "\022\017\n\013UNSPECIFIED\020\000\022\030\n\024OPERATION_ATTRIBUTE"
-  "S\020\001\022\022\n\016JOB_ATTRIBUTES\020\002\022\026\n\022PRINTER_ATTRI"
-  "BUTES\020\004\022\032\n\026UNSUPPORTED_ATTRIBUTES\020\005\022\033\n\027S"
-  "UBSCRIPTION_ATTRIBUTES\020\006\022!\n\035EVENT_NOTIFI"
-  "CATION_ATTRIBUTES\020\007\022\027\n\023RESOURCE_ATTRIBUT"
-  "ES\020\010\022\027\n\023DOCUMENT_ATTRIBUTES\020\t\022\025\n\021SYSTEM_"
-  "ATTRIBUTES\020\n\"\004\010\003\020\003\"m\n\nIppMessage\022\026\n\016vers"
-  "ion_number\030\001 \001(\r\022\024\n\014operation_id\030\002 \001(\r\022\016"
-  "\n\006status\030\004 \001(\r\022!\n\006groups\030\003 \003(\0132\021.mocking"
-  ".IppGroupb\006proto3"
-  ;
-static ::_pbi::once_flag descriptor_table_ipp_2eproto_once;
+const char descriptor_table_protodef_ipp_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\tipp.proto\022\007mocking\"0\n\014IntegerRange\022\017\n\007"
+    "minimum\030\001 \001(\005\022\017\n\007maximum\030\002 \001(\005\"\230\001\n\nResol"
+    "ution\022\014\n\004xres\030\001 \001(\r\022\014\n\004yres\030\002 \001(\r\022(\n\005uni"
+    "ts\030\003 \001(\0162\031.mocking.Resolution.Units\"D\n\005U"
+    "nits\022\017\n\013UNSPECIFIED\020\000\022\021\n\rDOTS_PER_INCH\020\001"
+    "\022\027\n\023DOTS_PER_CENTIMETER\020\002\"\216\002\n\010DateTime\022\014"
+    "\n\004year\030\001 \001(\r\022\r\n\005month\030\002 \001(\r\022\013\n\003day\030\003 \001(\r"
+    "\022\014\n\004hour\030\004 \001(\005\022\017\n\007minutes\030\005 \001(\005\022\017\n\007secon"
+    "ds\030\006 \001(\005\022\023\n\013deciseconds\030\007 \001(\005\0225\n\rutc_dir"
+    "ection\030\010 \001(\0162\036.mocking.DateTime.UtcDirec"
+    "tion\022\021\n\tutc_hours\030\t \001(\005\022\023\n\013utc_minutes\030\n"
+    " \001(\005\"4\n\014UtcDirection\022\017\n\013UNSPECIFIED\020\000\022\010\n"
+    "\004PLUS\020\001\022\t\n\005MINUS\020\002\"D\n\025RepeatedIppCollect"
+    "ion\022+\n\013collections\030\001 \003(\0132\026.mocking.IppCo"
+    "llection\"\'\n\021RepeatedIntValues\022\022\n\nint_val"
+    "ues\030\001 \003(\005\".\n\013OctetString\022\020\n\010language\030\001 \001"
+    "(\t\022\r\n\005value\030\002 \001(\014\"C\n\024RepeatedStringValue"
+    "s\022+\n\rstring_values\030\001 \003(\0132\024.mocking.Octet"
+    "String\">\n\021RepeatedIntRanges\022)\n\nint_range"
+    "s\030\001 \003(\0132\025.mocking.IntegerRange\"\?\n\023Repeat"
+    "edResolutions\022(\n\013resolutions\030\001 \003(\0132\023.moc"
+    "king.Resolution\":\n\021RepeatedDateTimes\022%\n\n"
+    "date_times\030\001 \003(\0132\021.mocking.DateTime\"\270\006\n\014"
+    "IppAttribute\022\014\n\004name\030\001 \001(\t\0224\n\004type\030\002 \001(\016"
+    "2&.mocking.IppAttribute.IppAttributeType"
+    "\0225\n\013collections\030\003 \001(\0132\036.mocking.Repeated"
+    "IppCollectionH\000\0220\n\nint_values\030\004 \001(\0132\032.mo"
+    "cking.RepeatedIntValuesH\000\0226\n\rstring_valu"
+    "es\030\005 \001(\0132\035.mocking.RepeatedStringValuesH"
+    "\000\0220\n\nint_ranges\030\006 \001(\0132\032.mocking.Repeated"
+    "IntRangesH\000\0223\n\013resolutions\030\007 \001(\0132\034.mocki"
+    "ng.RepeatedResolutionsH\000\0220\n\ndate_times\030\010"
+    " \001(\0132\032.mocking.RepeatedDateTimesH\000\"\240\003\n\020I"
+    "ppAttributeType\022\017\n\013UNSPECIFIED\020\000\022\013\n\007INTE"
+    "GER\020!\022\013\n\007BOOLEAN\020\"\022\010\n\004ENUM\020#\022\020\n\014OCTET_ST"
+    "RING\0200\022\014\n\010DATETIME\0201\022\016\n\nRESOLUTION\0202\022\024\n\020"
+    "RANGE_OF_INTEGER\0203\022\024\n\020BEGIN_COLLECTION\0204"
+    "\022\026\n\022TEXT_WITH_LANGUAGE\0205\022\026\n\022NAME_WITH_LA"
+    "NGUAGE\0206\022\031\n\025TEXT_WITHOUT_LANGUAGE\020A\022\031\n\025N"
+    "AME_WITHOUT_LANGUAGE\020B\022\013\n\007KEYWORD\020D\022\007\n\003U"
+    "RI\020E\022\016\n\nURI_SCHEME\020F\022\013\n\007CHARSET\020G\022\024\n\020NAT"
+    "URAL_LANGUAGE\020H\022\023\n\017MIME_MEDIA_TYPE\020I\022\031\n\025"
+    "MEMBER_ATTRIBUTE_NAME\020J\"\004\010\001\020 \"\004\010$\020/\"\004\0107\020"
+    "@\"\004\010C\020C\"\004\010K\020~B\007\n\005value\":\n\rIppCollection\022"
+    ")\n\nattributes\030\001 \003(\0132\025.mocking.IppAttribu"
+    "te\"\365\002\n\010IppGroup\022*\n\003tag\030\001 \001(\0162\035.mocking.I"
+    "ppGroup.IppGroupTag\022+\n\013collections\030\002 \003(\013"
+    "2\026.mocking.IppCollection\"\217\002\n\013IppGroupTag"
+    "\022\017\n\013UNSPECIFIED\020\000\022\030\n\024OPERATION_ATTRIBUTE"
+    "S\020\001\022\022\n\016JOB_ATTRIBUTES\020\002\022\026\n\022PRINTER_ATTRI"
+    "BUTES\020\004\022\032\n\026UNSUPPORTED_ATTRIBUTES\020\005\022\033\n\027S"
+    "UBSCRIPTION_ATTRIBUTES\020\006\022!\n\035EVENT_NOTIFI"
+    "CATION_ATTRIBUTES\020\007\022\027\n\023RESOURCE_ATTRIBUT"
+    "ES\020\010\022\027\n\023DOCUMENT_ATTRIBUTES\020\t\022\025\n\021SYSTEM_"
+    "ATTRIBUTES\020\n\"\004\010\003\020\003\"m\n\nIppMessage\022\026\n\016vers"
+    "ion_number\030\001 \001(\r\022\024\n\014operation_id\030\002 \001(\r\022\016"
+    "\n\006status\030\004 \001(\r\022!\n\006groups\030\003 \003(\0132\021.mocking"
+    ".IppGroupb\006proto3"
+};
+static ::absl::once_flag descriptor_table_ipp_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_ipp_2eproto = {
-    false, false, 2297, descriptor_table_protodef_ipp_2eproto,
+    false,
+    false,
+    2297,
+    descriptor_table_protodef_ipp_2eproto,
     "ipp.proto",
-    &descriptor_table_ipp_2eproto_once, nullptr, 0, 14,
-    schemas, file_default_instances, TableStruct_ipp_2eproto::offsets,
-    file_level_metadata_ipp_2eproto, file_level_enum_descriptors_ipp_2eproto,
+    &descriptor_table_ipp_2eproto_once,
+    nullptr,
+    0,
+    14,
+    schemas,
+    file_default_instances,
+    TableStruct_ipp_2eproto::offsets,
+    file_level_metadata_ipp_2eproto,
+    file_level_enum_descriptors_ipp_2eproto,
     file_level_service_descriptors_ipp_2eproto,
 };
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
 PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_ipp_2eproto_getter() {
   return &descriptor_table_ipp_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_ipp_2eproto(&descriptor_table_ipp_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_ipp_2eproto(&descriptor_table_ipp_2eproto);
 namespace mocking {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Resolution_Units_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_ipp_2eproto);
@@ -478,15 +585,18 @@ bool Resolution_Units_IsValid(int value) {
       return false;
   }
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr Resolution_Units Resolution::UNSPECIFIED;
 constexpr Resolution_Units Resolution::DOTS_PER_INCH;
 constexpr Resolution_Units Resolution::DOTS_PER_CENTIMETER;
 constexpr Resolution_Units Resolution::Units_MIN;
 constexpr Resolution_Units Resolution::Units_MAX;
 constexpr int Resolution::Units_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* DateTime_UtcDirection_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_ipp_2eproto);
   return file_level_enum_descriptors_ipp_2eproto[1];
@@ -501,15 +611,18 @@ bool DateTime_UtcDirection_IsValid(int value) {
       return false;
   }
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr DateTime_UtcDirection DateTime::UNSPECIFIED;
 constexpr DateTime_UtcDirection DateTime::PLUS;
 constexpr DateTime_UtcDirection DateTime::MINUS;
 constexpr DateTime_UtcDirection DateTime::UtcDirection_MIN;
 constexpr DateTime_UtcDirection DateTime::UtcDirection_MAX;
 constexpr int DateTime::UtcDirection_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* IppAttribute_IppAttributeType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_ipp_2eproto);
   return file_level_enum_descriptors_ipp_2eproto[2];
@@ -541,8 +654,9 @@ bool IppAttribute_IppAttributeType_IsValid(int value) {
       return false;
   }
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr IppAttribute_IppAttributeType IppAttribute::UNSPECIFIED;
 constexpr IppAttribute_IppAttributeType IppAttribute::INTEGER;
 constexpr IppAttribute_IppAttributeType IppAttribute::BOOLEAN;
@@ -566,7 +680,9 @@ constexpr IppAttribute_IppAttributeType IppAttribute::MEMBER_ATTRIBUTE_NAME;
 constexpr IppAttribute_IppAttributeType IppAttribute::IppAttributeType_MIN;
 constexpr IppAttribute_IppAttributeType IppAttribute::IppAttributeType_MAX;
 constexpr int IppAttribute::IppAttributeType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* IppGroup_IppGroupTag_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_ipp_2eproto);
   return file_level_enum_descriptors_ipp_2eproto[3];
@@ -588,8 +704,9 @@ bool IppGroup_IppGroupTag_IsValid(int value) {
       return false;
   }
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr IppGroup_IppGroupTag IppGroup::UNSPECIFIED;
 constexpr IppGroup_IppGroupTag IppGroup::OPERATION_ATTRIBUTES;
 constexpr IppGroup_IppGroupTag IppGroup::JOB_ATTRIBUTES;
@@ -603,42 +720,34 @@ constexpr IppGroup_IppGroupTag IppGroup::SYSTEM_ATTRIBUTES;
 constexpr IppGroup_IppGroupTag IppGroup::IppGroupTag_MIN;
 constexpr IppGroup_IppGroupTag IppGroup::IppGroupTag_MAX;
 constexpr int IppGroup::IppGroupTag_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class IntegerRange::_Internal {
  public:
 };
 
-IntegerRange::IntegerRange(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+IntegerRange::IntegerRange(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.IntegerRange)
 }
 IntegerRange::IntegerRange(const IntegerRange& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  IntegerRange* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.minimum_){}
-    , decltype(_impl_.maximum_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.minimum_, &from._impl_.minimum_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.maximum_) -
-    reinterpret_cast<char*>(&_impl_.minimum_)) + sizeof(_impl_.maximum_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mocking.IntegerRange)
 }
 
-inline void IntegerRange::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void IntegerRange::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.minimum_){0}
-    , decltype(_impl_.maximum_){0}
+      decltype(_impl_.minimum_) { 0 }
+
+    , decltype(_impl_.maximum_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -653,7 +762,7 @@ IntegerRange::~IntegerRange() {
 }
 
 inline void IntegerRange::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void IntegerRange::SetCachedSize(int size) const {
@@ -662,11 +771,11 @@ void IntegerRange::SetCachedSize(int size) const {
 
 void IntegerRange::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.IntegerRange)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.minimum_, 0, static_cast<size_t>(
+  ::memset(&_impl_.minimum_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.maximum_) -
       reinterpret_cast<char*>(&_impl_.minimum_)) + sizeof(_impl_.maximum_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -675,24 +784,26 @@ void IntegerRange::Clear() {
 const char* IntegerRange::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 minimum = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.minimum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 maximum = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.maximum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -717,22 +828,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* IntegerRange::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* IntegerRange::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.IntegerRange)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 minimum = 1;
   if (this->_internal_minimum() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_minimum(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_minimum(), target);
   }
 
   // int32 maximum = 2;
   if (this->_internal_maximum() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_maximum(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_maximum(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -743,22 +856,24 @@ uint8_t* IntegerRange::_InternalSerialize(
   return target;
 }
 
-size_t IntegerRange::ByteSizeLong() const {
+::size_t IntegerRange::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.IntegerRange)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 minimum = 1;
   if (this->_internal_minimum() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_minimum());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_minimum());
   }
 
   // int32 maximum = 2;
   if (this->_internal_maximum() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_maximum());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_maximum());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -775,8 +890,8 @@ void IntegerRange::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   auto* const _this = static_cast<IntegerRange*>(&to_msg);
   auto& from = static_cast<const IntegerRange&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.IntegerRange)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_minimum() != 0) {
@@ -815,43 +930,33 @@ void IntegerRange::InternalSwap(IntegerRange* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[0]);
 }
-
 // ===================================================================
 
 class Resolution::_Internal {
  public:
 };
 
-Resolution::Resolution(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Resolution::Resolution(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.Resolution)
 }
 Resolution::Resolution(const Resolution& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  Resolution* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.xres_){}
-    , decltype(_impl_.yres_){}
-    , decltype(_impl_.units_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.xres_, &from._impl_.xres_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.units_) -
-    reinterpret_cast<char*>(&_impl_.xres_)) + sizeof(_impl_.units_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mocking.Resolution)
 }
 
-inline void Resolution::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Resolution::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.xres_){0u}
-    , decltype(_impl_.yres_){0u}
-    , decltype(_impl_.units_){0}
+      decltype(_impl_.xres_) { 0u }
+
+    , decltype(_impl_.yres_) { 0u }
+
+    , decltype(_impl_.units_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -866,7 +971,7 @@ Resolution::~Resolution() {
 }
 
 inline void Resolution::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void Resolution::SetCachedSize(int size) const {
@@ -875,11 +980,11 @@ void Resolution::SetCachedSize(int size) const {
 
 void Resolution::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.Resolution)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.xres_, 0, static_cast<size_t>(
+  ::memset(&_impl_.xres_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.units_) -
       reinterpret_cast<char*>(&_impl_.xres_)) + sizeof(_impl_.units_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -888,33 +993,36 @@ void Resolution::Clear() {
 const char* Resolution::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 xres = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.xres_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 yres = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.yres_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.Resolution.Units units = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_units(static_cast<::mocking::Resolution_Units>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -939,29 +1047,31 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Resolution::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Resolution::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.Resolution)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 xres = 1;
   if (this->_internal_xres() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_xres(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_xres(), target);
   }
 
   // uint32 yres = 2;
   if (this->_internal_yres() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_yres(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_yres(), target);
   }
 
   // .mocking.Resolution.Units units = 3;
   if (this->_internal_units() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      3, this->_internal_units(), target);
+        3, this->_internal_units(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -972,28 +1082,30 @@ uint8_t* Resolution::_InternalSerialize(
   return target;
 }
 
-size_t Resolution::ByteSizeLong() const {
+::size_t Resolution::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.Resolution)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // uint32 xres = 1;
   if (this->_internal_xres() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_xres());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_xres());
   }
 
   // uint32 yres = 2;
   if (this->_internal_yres() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_yres());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_yres());
   }
 
   // .mocking.Resolution.Units units = 3;
   if (this->_internal_units() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_units());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_units());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1010,8 +1122,8 @@ void Resolution::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   auto* const _this = static_cast<Resolution*>(&to_msg);
   auto& from = static_cast<const Resolution&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.Resolution)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_xres() != 0) {
@@ -1053,57 +1165,47 @@ void Resolution::InternalSwap(Resolution* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[1]);
 }
-
 // ===================================================================
 
 class DateTime::_Internal {
  public:
 };
 
-DateTime::DateTime(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+DateTime::DateTime(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.DateTime)
 }
 DateTime::DateTime(const DateTime& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  DateTime* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.year_){}
-    , decltype(_impl_.month_){}
-    , decltype(_impl_.day_){}
-    , decltype(_impl_.hour_){}
-    , decltype(_impl_.minutes_){}
-    , decltype(_impl_.seconds_){}
-    , decltype(_impl_.deciseconds_){}
-    , decltype(_impl_.utc_direction_){}
-    , decltype(_impl_.utc_hours_){}
-    , decltype(_impl_.utc_minutes_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.year_, &from._impl_.year_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.utc_minutes_) -
-    reinterpret_cast<char*>(&_impl_.year_)) + sizeof(_impl_.utc_minutes_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mocking.DateTime)
 }
 
-inline void DateTime::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void DateTime::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.year_){0u}
-    , decltype(_impl_.month_){0u}
-    , decltype(_impl_.day_){0u}
-    , decltype(_impl_.hour_){0}
-    , decltype(_impl_.minutes_){0}
-    , decltype(_impl_.seconds_){0}
-    , decltype(_impl_.deciseconds_){0}
-    , decltype(_impl_.utc_direction_){0}
-    , decltype(_impl_.utc_hours_){0}
-    , decltype(_impl_.utc_minutes_){0}
+      decltype(_impl_.year_) { 0u }
+
+    , decltype(_impl_.month_) { 0u }
+
+    , decltype(_impl_.day_) { 0u }
+
+    , decltype(_impl_.hour_) { 0 }
+
+    , decltype(_impl_.minutes_) { 0 }
+
+    , decltype(_impl_.seconds_) { 0 }
+
+    , decltype(_impl_.deciseconds_) { 0 }
+
+    , decltype(_impl_.utc_direction_) { 0 }
+
+    , decltype(_impl_.utc_hours_) { 0 }
+
+    , decltype(_impl_.utc_minutes_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1118,7 +1220,7 @@ DateTime::~DateTime() {
 }
 
 inline void DateTime::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void DateTime::SetCachedSize(int size) const {
@@ -1127,11 +1229,11 @@ void DateTime::SetCachedSize(int size) const {
 
 void DateTime::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.DateTime)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.year_, 0, static_cast<size_t>(
+  ::memset(&_impl_.year_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.utc_minutes_) -
       reinterpret_cast<char*>(&_impl_.year_)) + sizeof(_impl_.utc_minutes_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -1140,89 +1242,99 @@ void DateTime::Clear() {
 const char* DateTime::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 year = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.year_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 month = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.month_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 day = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.day_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 hour = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.hour_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 minutes = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _impl_.minutes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 seconds = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _impl_.seconds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 deciseconds = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _impl_.deciseconds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.DateTime.UtcDirection utc_direction = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_utc_direction(static_cast<::mocking::DateTime_UtcDirection>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 utc_hours = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
           _impl_.utc_hours_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 utc_minutes = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
           _impl_.utc_minutes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1247,71 +1359,80 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DateTime::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* DateTime::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.DateTime)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 year = 1;
   if (this->_internal_year() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_year(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_year(), target);
   }
 
   // uint32 month = 2;
   if (this->_internal_month() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_month(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_month(), target);
   }
 
   // uint32 day = 3;
   if (this->_internal_day() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_day(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_day(), target);
   }
 
   // int32 hour = 4;
   if (this->_internal_hour() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_hour(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_hour(), target);
   }
 
   // int32 minutes = 5;
   if (this->_internal_minutes() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_minutes(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        5, this->_internal_minutes(), target);
   }
 
   // int32 seconds = 6;
   if (this->_internal_seconds() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_seconds(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        6, this->_internal_seconds(), target);
   }
 
   // int32 deciseconds = 7;
   if (this->_internal_deciseconds() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_deciseconds(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        7, this->_internal_deciseconds(), target);
   }
 
   // .mocking.DateTime.UtcDirection utc_direction = 8;
   if (this->_internal_utc_direction() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      8, this->_internal_utc_direction(), target);
+        8, this->_internal_utc_direction(), target);
   }
 
   // int32 utc_hours = 9;
   if (this->_internal_utc_hours() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(9, this->_internal_utc_hours(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        9, this->_internal_utc_hours(), target);
   }
 
   // int32 utc_minutes = 10;
   if (this->_internal_utc_minutes() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(10, this->_internal_utc_minutes(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        10, this->_internal_utc_minutes(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1322,63 +1443,72 @@ uint8_t* DateTime::_InternalSerialize(
   return target;
 }
 
-size_t DateTime::ByteSizeLong() const {
+::size_t DateTime::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.DateTime)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // uint32 year = 1;
   if (this->_internal_year() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_year());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_year());
   }
 
   // uint32 month = 2;
   if (this->_internal_month() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_month());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_month());
   }
 
   // uint32 day = 3;
   if (this->_internal_day() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_day());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_day());
   }
 
   // int32 hour = 4;
   if (this->_internal_hour() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_hour());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_hour());
   }
 
   // int32 minutes = 5;
   if (this->_internal_minutes() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_minutes());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_minutes());
   }
 
   // int32 seconds = 6;
   if (this->_internal_seconds() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_seconds());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_seconds());
   }
 
   // int32 deciseconds = 7;
   if (this->_internal_deciseconds() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_deciseconds());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_deciseconds());
   }
 
   // .mocking.DateTime.UtcDirection utc_direction = 8;
   if (this->_internal_utc_direction() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_utc_direction());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_utc_direction());
   }
 
   // int32 utc_hours = 9;
   if (this->_internal_utc_hours() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_utc_hours());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_utc_hours());
   }
 
   // int32 utc_minutes = 10;
   if (this->_internal_utc_minutes() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_utc_minutes());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_utc_minutes());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1395,8 +1525,8 @@ void DateTime::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
   auto* const _this = static_cast<DateTime*>(&to_msg);
   auto& from = static_cast<const DateTime&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.DateTime)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_year() != 0) {
@@ -1459,17 +1589,15 @@ void DateTime::InternalSwap(DateTime* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[2]);
 }
-
 // ===================================================================
 
 class RepeatedIppCollection::_Internal {
  public:
 };
 
-RepeatedIppCollection::RepeatedIppCollection(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RepeatedIppCollection::RepeatedIppCollection(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.RepeatedIppCollection)
 }
 RepeatedIppCollection::RepeatedIppCollection(const RepeatedIppCollection& from)
@@ -1483,10 +1611,8 @@ RepeatedIppCollection::RepeatedIppCollection(const RepeatedIppCollection& from)
   // @@protoc_insertion_point(copy_constructor:mocking.RepeatedIppCollection)
 }
 
-inline void RepeatedIppCollection::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RepeatedIppCollection::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.collections_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -1503,8 +1629,8 @@ RepeatedIppCollection::~RepeatedIppCollection() {
 }
 
 inline void RepeatedIppCollection::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.collections_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_collections()->~RepeatedPtrField();
 }
 
 void RepeatedIppCollection::SetCachedSize(int size) const {
@@ -1513,23 +1639,23 @@ void RepeatedIppCollection::SetCachedSize(int size) const {
 
 void RepeatedIppCollection::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.RepeatedIppCollection)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.collections_.Clear();
+  _internal_mutable_collections()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* RepeatedIppCollection::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .mocking.IppCollection collections = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1537,8 +1663,9 @@ const char* RepeatedIppCollection::_InternalParse(const char* ptr, ::_pbi::Parse
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1563,10 +1690,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RepeatedIppCollection::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RepeatedIppCollection::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.RepeatedIppCollection)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .mocking.IppCollection collections = 1;
@@ -1585,17 +1712,17 @@ uint8_t* RepeatedIppCollection::_InternalSerialize(
   return target;
 }
 
-size_t RepeatedIppCollection::ByteSizeLong() const {
+::size_t RepeatedIppCollection::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.RepeatedIppCollection)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.IppCollection collections = 1;
   total_size += 1UL * this->_internal_collections_size();
-  for (const auto& msg : this->_impl_.collections_) {
+  for (const auto& msg : this->_internal_collections()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1614,11 +1741,11 @@ void RepeatedIppCollection::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, 
   auto* const _this = static_cast<RepeatedIppCollection*>(&to_msg);
   auto& from = static_cast<const RepeatedIppCollection&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.RepeatedIppCollection)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.collections_.MergeFrom(from._impl_.collections_);
+  _this->_internal_mutable_collections()->MergeFrom(from._internal_collections());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1636,7 +1763,7 @@ bool RepeatedIppCollection::IsInitialized() const {
 void RepeatedIppCollection::InternalSwap(RepeatedIppCollection* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.collections_.InternalSwap(&other->_impl_.collections_);
+  _internal_mutable_collections()->InternalSwap(other->_internal_mutable_collections());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RepeatedIppCollection::GetMetadata() const {
@@ -1644,38 +1771,36 @@ void RepeatedIppCollection::InternalSwap(RepeatedIppCollection* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[3]);
 }
-
 // ===================================================================
 
 class RepeatedIntValues::_Internal {
  public:
 };
 
-RepeatedIntValues::RepeatedIntValues(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RepeatedIntValues::RepeatedIntValues(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.RepeatedIntValues)
 }
 RepeatedIntValues::RepeatedIntValues(const RepeatedIntValues& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   RepeatedIntValues* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.int_values_){from._impl_.int_values_}
-    , /*decltype(_impl_._int_values_cached_byte_size_)*/{0}
+      decltype(_impl_.int_values_) { from._impl_.int_values_ }
+    ,/* _impl_._int_values_cached_byte_size_ = */ { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mocking.RepeatedIntValues)
 }
 
-inline void RepeatedIntValues::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RepeatedIntValues::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.int_values_){arena}
-    , /*decltype(_impl_._int_values_cached_byte_size_)*/{0}
+      decltype(_impl_.int_values_) { arena }
+    ,/* _impl_._int_values_cached_byte_size_ = */ { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1690,7 +1815,7 @@ RepeatedIntValues::~RepeatedIntValues() {
 }
 
 inline void RepeatedIntValues::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.int_values_.~RepeatedField();
 }
 
@@ -1700,30 +1825,31 @@ void RepeatedIntValues::SetCachedSize(int size) const {
 
 void RepeatedIntValues::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.RepeatedIntValues)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.int_values_.Clear();
+  _internal_mutable_int_values()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* RepeatedIntValues::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated int32 int_values = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt32Parser(_internal_mutable_int_values(), ptr, ctx);
           CHK_(ptr);
-        } else if (static_cast<uint8_t>(tag) == 8) {
+        } else if (static_cast<::uint8_t>(tag) == 8) {
           _internal_add_int_values(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1748,18 +1874,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RepeatedIntValues::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RepeatedIntValues::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.RepeatedIntValues)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated int32 int_values = 1;
   {
-    int byte_size = _impl_._int_values_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._int_values_cached_byte_size_.Get();
     if (byte_size > 0) {
-      target = stream->WriteInt32Packed(
-          1, _internal_int_values(), byte_size, target);
+      target = stream->WriteInt32Packed(1, _internal_int_values(),
+                                                 byte_size, target);
     }
   }
 
@@ -1771,26 +1897,26 @@ uint8_t* RepeatedIntValues::_InternalSerialize(
   return target;
 }
 
-size_t RepeatedIntValues::ByteSizeLong() const {
+::size_t RepeatedIntValues::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.RepeatedIntValues)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated int32 int_values = 1;
   {
-    size_t data_size = ::_pbi::WireFormatLite::
-      Int32Size(this->_impl_.int_values_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
-    }
-    int cached_size = ::_pbi::ToCachedSize(data_size);
-    _impl_._int_values_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_int_values())
+    ;
+    _impl_._int_values_cached_byte_size_.Set(::_pbi::ToCachedSize(data_size));
+    std::size_t tag_size = data_size == 0
+        ? 0
+        : 1 + ::_pbi::WireFormatLite::Int32Size(
+                            static_cast<int32_t>(data_size))
+    ;
+    total_size += tag_size + data_size;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1807,8 +1933,8 @@ void RepeatedIntValues::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   auto* const _this = static_cast<RepeatedIntValues*>(&to_msg);
   auto& from = static_cast<const RepeatedIntValues&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.RepeatedIntValues)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.int_values_.MergeFrom(from._impl_.int_values_);
@@ -1837,64 +1963,62 @@ void RepeatedIntValues::InternalSwap(RepeatedIntValues* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[4]);
 }
-
 // ===================================================================
 
 class OctetString::_Internal {
  public:
 };
 
-OctetString::OctetString(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+OctetString::OctetString(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.OctetString)
 }
 OctetString::OctetString(const OctetString& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   OctetString* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.language_){}
-    , decltype(_impl_.value_){}
+      decltype(_impl_.language_) {}
+
+    , decltype(_impl_.value_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.language_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.language_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.language_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_language().empty()) {
-    _this->_impl_.language_.Set(from._internal_language(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.language_.Set(from._internal_language(), _this->GetArenaForAllocation());
   }
   _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_value().empty()) {
-    _this->_impl_.value_.Set(from._internal_value(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.value_.Set(from._internal_value(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:mocking.OctetString)
 }
 
-inline void OctetString::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void OctetString::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.language_){}
-    , decltype(_impl_.value_){}
+      decltype(_impl_.language_) {}
+
+    , decltype(_impl_.value_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.language_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.language_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.language_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.value_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 OctetString::~OctetString() {
@@ -1907,7 +2031,7 @@ OctetString::~OctetString() {
 }
 
 inline void OctetString::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.language_.Destroy();
   _impl_.value_.Destroy();
 }
@@ -1918,7 +2042,7 @@ void OctetString::SetCachedSize(int size) const {
 
 void OctetString::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.OctetString)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1930,27 +2054,29 @@ void OctetString::Clear() {
 const char* OctetString::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string language = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_language();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "mocking.OctetString.language"));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes value = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_value();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1975,26 +2101,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* OctetString::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* OctetString::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.OctetString)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string language = 1;
   if (!this->_internal_language().empty()) {
+    const std::string& _s = this->_internal_language();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_language().data(), static_cast<int>(this->_internal_language().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mocking.OctetString.language");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_language(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "mocking.OctetString.language");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // bytes value = 2;
   if (!this->_internal_value().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_value(), target);
+    const std::string& _s = this->_internal_value();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2005,26 +2129,24 @@ uint8_t* OctetString::_InternalSerialize(
   return target;
 }
 
-size_t OctetString::ByteSizeLong() const {
+::size_t OctetString::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.OctetString)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string language = 1;
   if (!this->_internal_language().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_language());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_language());
   }
 
   // bytes value = 2;
   if (!this->_internal_value().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_value());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_value());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -2041,8 +2163,8 @@ void OctetString::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   auto* const _this = static_cast<OctetString*>(&to_msg);
   auto& from = static_cast<const OctetString&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.OctetString)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_language().empty()) {
@@ -2070,14 +2192,10 @@ void OctetString::InternalSwap(OctetString* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.language_, lhs_arena,
-      &other->_impl_.language_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.value_, lhs_arena,
-      &other->_impl_.value_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.language_, lhs_arena,
+                                       &other->_impl_.language_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.value_, lhs_arena,
+                                       &other->_impl_.value_, rhs_arena);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata OctetString::GetMetadata() const {
@@ -2085,17 +2203,15 @@ void OctetString::InternalSwap(OctetString* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[5]);
 }
-
 // ===================================================================
 
 class RepeatedStringValues::_Internal {
  public:
 };
 
-RepeatedStringValues::RepeatedStringValues(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RepeatedStringValues::RepeatedStringValues(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.RepeatedStringValues)
 }
 RepeatedStringValues::RepeatedStringValues(const RepeatedStringValues& from)
@@ -2109,10 +2225,8 @@ RepeatedStringValues::RepeatedStringValues(const RepeatedStringValues& from)
   // @@protoc_insertion_point(copy_constructor:mocking.RepeatedStringValues)
 }
 
-inline void RepeatedStringValues::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RepeatedStringValues::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.string_values_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -2129,8 +2243,8 @@ RepeatedStringValues::~RepeatedStringValues() {
 }
 
 inline void RepeatedStringValues::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.string_values_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_string_values()->~RepeatedPtrField();
 }
 
 void RepeatedStringValues::SetCachedSize(int size) const {
@@ -2139,23 +2253,23 @@ void RepeatedStringValues::SetCachedSize(int size) const {
 
 void RepeatedStringValues::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.RepeatedStringValues)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.string_values_.Clear();
+  _internal_mutable_string_values()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* RepeatedStringValues::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .mocking.OctetString string_values = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2163,8 +2277,9 @@ const char* RepeatedStringValues::_InternalParse(const char* ptr, ::_pbi::ParseC
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2189,10 +2304,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RepeatedStringValues::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RepeatedStringValues::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.RepeatedStringValues)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .mocking.OctetString string_values = 1;
@@ -2211,17 +2326,17 @@ uint8_t* RepeatedStringValues::_InternalSerialize(
   return target;
 }
 
-size_t RepeatedStringValues::ByteSizeLong() const {
+::size_t RepeatedStringValues::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.RepeatedStringValues)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.OctetString string_values = 1;
   total_size += 1UL * this->_internal_string_values_size();
-  for (const auto& msg : this->_impl_.string_values_) {
+  for (const auto& msg : this->_internal_string_values()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2240,11 +2355,11 @@ void RepeatedStringValues::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, c
   auto* const _this = static_cast<RepeatedStringValues*>(&to_msg);
   auto& from = static_cast<const RepeatedStringValues&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.RepeatedStringValues)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.string_values_.MergeFrom(from._impl_.string_values_);
+  _this->_internal_mutable_string_values()->MergeFrom(from._internal_string_values());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2262,7 +2377,7 @@ bool RepeatedStringValues::IsInitialized() const {
 void RepeatedStringValues::InternalSwap(RepeatedStringValues* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.string_values_.InternalSwap(&other->_impl_.string_values_);
+  _internal_mutable_string_values()->InternalSwap(other->_internal_mutable_string_values());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RepeatedStringValues::GetMetadata() const {
@@ -2270,17 +2385,15 @@ void RepeatedStringValues::InternalSwap(RepeatedStringValues* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[6]);
 }
-
 // ===================================================================
 
 class RepeatedIntRanges::_Internal {
  public:
 };
 
-RepeatedIntRanges::RepeatedIntRanges(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RepeatedIntRanges::RepeatedIntRanges(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.RepeatedIntRanges)
 }
 RepeatedIntRanges::RepeatedIntRanges(const RepeatedIntRanges& from)
@@ -2294,10 +2407,8 @@ RepeatedIntRanges::RepeatedIntRanges(const RepeatedIntRanges& from)
   // @@protoc_insertion_point(copy_constructor:mocking.RepeatedIntRanges)
 }
 
-inline void RepeatedIntRanges::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RepeatedIntRanges::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.int_ranges_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -2314,8 +2425,8 @@ RepeatedIntRanges::~RepeatedIntRanges() {
 }
 
 inline void RepeatedIntRanges::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.int_ranges_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_int_ranges()->~RepeatedPtrField();
 }
 
 void RepeatedIntRanges::SetCachedSize(int size) const {
@@ -2324,23 +2435,23 @@ void RepeatedIntRanges::SetCachedSize(int size) const {
 
 void RepeatedIntRanges::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.RepeatedIntRanges)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.int_ranges_.Clear();
+  _internal_mutable_int_ranges()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* RepeatedIntRanges::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .mocking.IntegerRange int_ranges = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2348,8 +2459,9 @@ const char* RepeatedIntRanges::_InternalParse(const char* ptr, ::_pbi::ParseCont
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2374,10 +2486,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RepeatedIntRanges::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RepeatedIntRanges::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.RepeatedIntRanges)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .mocking.IntegerRange int_ranges = 1;
@@ -2396,17 +2508,17 @@ uint8_t* RepeatedIntRanges::_InternalSerialize(
   return target;
 }
 
-size_t RepeatedIntRanges::ByteSizeLong() const {
+::size_t RepeatedIntRanges::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.RepeatedIntRanges)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.IntegerRange int_ranges = 1;
   total_size += 1UL * this->_internal_int_ranges_size();
-  for (const auto& msg : this->_impl_.int_ranges_) {
+  for (const auto& msg : this->_internal_int_ranges()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2425,11 +2537,11 @@ void RepeatedIntRanges::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   auto* const _this = static_cast<RepeatedIntRanges*>(&to_msg);
   auto& from = static_cast<const RepeatedIntRanges&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.RepeatedIntRanges)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.int_ranges_.MergeFrom(from._impl_.int_ranges_);
+  _this->_internal_mutable_int_ranges()->MergeFrom(from._internal_int_ranges());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2447,7 +2559,7 @@ bool RepeatedIntRanges::IsInitialized() const {
 void RepeatedIntRanges::InternalSwap(RepeatedIntRanges* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.int_ranges_.InternalSwap(&other->_impl_.int_ranges_);
+  _internal_mutable_int_ranges()->InternalSwap(other->_internal_mutable_int_ranges());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RepeatedIntRanges::GetMetadata() const {
@@ -2455,17 +2567,15 @@ void RepeatedIntRanges::InternalSwap(RepeatedIntRanges* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[7]);
 }
-
 // ===================================================================
 
 class RepeatedResolutions::_Internal {
  public:
 };
 
-RepeatedResolutions::RepeatedResolutions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RepeatedResolutions::RepeatedResolutions(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.RepeatedResolutions)
 }
 RepeatedResolutions::RepeatedResolutions(const RepeatedResolutions& from)
@@ -2479,10 +2589,8 @@ RepeatedResolutions::RepeatedResolutions(const RepeatedResolutions& from)
   // @@protoc_insertion_point(copy_constructor:mocking.RepeatedResolutions)
 }
 
-inline void RepeatedResolutions::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RepeatedResolutions::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.resolutions_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -2499,8 +2607,8 @@ RepeatedResolutions::~RepeatedResolutions() {
 }
 
 inline void RepeatedResolutions::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.resolutions_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_resolutions()->~RepeatedPtrField();
 }
 
 void RepeatedResolutions::SetCachedSize(int size) const {
@@ -2509,23 +2617,23 @@ void RepeatedResolutions::SetCachedSize(int size) const {
 
 void RepeatedResolutions::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.RepeatedResolutions)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.resolutions_.Clear();
+  _internal_mutable_resolutions()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* RepeatedResolutions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .mocking.Resolution resolutions = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2533,8 +2641,9 @@ const char* RepeatedResolutions::_InternalParse(const char* ptr, ::_pbi::ParseCo
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2559,10 +2668,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RepeatedResolutions::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RepeatedResolutions::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.RepeatedResolutions)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .mocking.Resolution resolutions = 1;
@@ -2581,17 +2690,17 @@ uint8_t* RepeatedResolutions::_InternalSerialize(
   return target;
 }
 
-size_t RepeatedResolutions::ByteSizeLong() const {
+::size_t RepeatedResolutions::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.RepeatedResolutions)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.Resolution resolutions = 1;
   total_size += 1UL * this->_internal_resolutions_size();
-  for (const auto& msg : this->_impl_.resolutions_) {
+  for (const auto& msg : this->_internal_resolutions()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2610,11 +2719,11 @@ void RepeatedResolutions::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, co
   auto* const _this = static_cast<RepeatedResolutions*>(&to_msg);
   auto& from = static_cast<const RepeatedResolutions&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.RepeatedResolutions)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.resolutions_.MergeFrom(from._impl_.resolutions_);
+  _this->_internal_mutable_resolutions()->MergeFrom(from._internal_resolutions());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2632,7 +2741,7 @@ bool RepeatedResolutions::IsInitialized() const {
 void RepeatedResolutions::InternalSwap(RepeatedResolutions* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.resolutions_.InternalSwap(&other->_impl_.resolutions_);
+  _internal_mutable_resolutions()->InternalSwap(other->_internal_mutable_resolutions());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RepeatedResolutions::GetMetadata() const {
@@ -2640,17 +2749,15 @@ void RepeatedResolutions::InternalSwap(RepeatedResolutions* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[8]);
 }
-
 // ===================================================================
 
 class RepeatedDateTimes::_Internal {
  public:
 };
 
-RepeatedDateTimes::RepeatedDateTimes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+RepeatedDateTimes::RepeatedDateTimes(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.RepeatedDateTimes)
 }
 RepeatedDateTimes::RepeatedDateTimes(const RepeatedDateTimes& from)
@@ -2664,10 +2771,8 @@ RepeatedDateTimes::RepeatedDateTimes(const RepeatedDateTimes& from)
   // @@protoc_insertion_point(copy_constructor:mocking.RepeatedDateTimes)
 }
 
-inline void RepeatedDateTimes::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void RepeatedDateTimes::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.date_times_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -2684,8 +2789,8 @@ RepeatedDateTimes::~RepeatedDateTimes() {
 }
 
 inline void RepeatedDateTimes::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.date_times_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_date_times()->~RepeatedPtrField();
 }
 
 void RepeatedDateTimes::SetCachedSize(int size) const {
@@ -2694,23 +2799,23 @@ void RepeatedDateTimes::SetCachedSize(int size) const {
 
 void RepeatedDateTimes::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.RepeatedDateTimes)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.date_times_.Clear();
+  _internal_mutable_date_times()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* RepeatedDateTimes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .mocking.DateTime date_times = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2718,8 +2823,9 @@ const char* RepeatedDateTimes::_InternalParse(const char* ptr, ::_pbi::ParseCont
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2744,10 +2850,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* RepeatedDateTimes::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* RepeatedDateTimes::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.RepeatedDateTimes)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .mocking.DateTime date_times = 1;
@@ -2766,17 +2872,17 @@ uint8_t* RepeatedDateTimes::_InternalSerialize(
   return target;
 }
 
-size_t RepeatedDateTimes::ByteSizeLong() const {
+::size_t RepeatedDateTimes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.RepeatedDateTimes)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.DateTime date_times = 1;
   total_size += 1UL * this->_internal_date_times_size();
-  for (const auto& msg : this->_impl_.date_times_) {
+  for (const auto& msg : this->_internal_date_times()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2795,11 +2901,11 @@ void RepeatedDateTimes::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   auto* const _this = static_cast<RepeatedDateTimes*>(&to_msg);
   auto& from = static_cast<const RepeatedDateTimes&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.RepeatedDateTimes)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.date_times_.MergeFrom(from._impl_.date_times_);
+  _this->_internal_mutable_date_times()->MergeFrom(from._internal_date_times());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2817,7 +2923,7 @@ bool RepeatedDateTimes::IsInitialized() const {
 void RepeatedDateTimes::InternalSwap(RepeatedDateTimes* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.date_times_.InternalSwap(&other->_impl_.date_times_);
+  _internal_mutable_date_times()->InternalSwap(other->_internal_mutable_date_times());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RepeatedDateTimes::GetMetadata() const {
@@ -2825,11 +2931,12 @@ void RepeatedDateTimes::InternalSwap(RepeatedDateTimes* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[9]);
 }
-
 // ===================================================================
 
 class IppAttribute::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::mocking::IppAttribute, _impl_._oneof_case_);
   static const ::mocking::RepeatedIppCollection& collections(const IppAttribute* msg);
   static const ::mocking::RepeatedIntValues& int_values(const IppAttribute* msg);
   static const ::mocking::RepeatedStringValues& string_values(const IppAttribute* msg);
@@ -2952,18 +3059,19 @@ void IppAttribute::set_allocated_date_times(::mocking::RepeatedDateTimes* date_t
   }
   // @@protoc_insertion_point(field_set_allocated:mocking.IppAttribute.date_times)
 }
-IppAttribute::IppAttribute(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+IppAttribute::IppAttribute(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.IppAttribute)
 }
 IppAttribute::IppAttribute(const IppAttribute& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   IppAttribute* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.type_){}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.type_) {}
+
     , decltype(_impl_.value_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_._oneof_case_)*/{}};
@@ -2971,11 +3079,10 @@ IppAttribute::IppAttribute(const IppAttribute& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   _this->_impl_.type_ = from._impl_.type_;
   clear_has_value();
@@ -3017,21 +3124,21 @@ IppAttribute::IppAttribute(const IppAttribute& from)
   // @@protoc_insertion_point(copy_constructor:mocking.IppAttribute)
 }
 
-inline void IppAttribute::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void IppAttribute::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.type_){0}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.type_) { 0 }
+
     , decltype(_impl_.value_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_._oneof_case_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   clear_has_value();
 }
 
@@ -3045,7 +3152,7 @@ IppAttribute::~IppAttribute() {
 }
 
 inline void IppAttribute::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
   if (has_value()) {
     clear_value();
@@ -3105,7 +3212,7 @@ void IppAttribute::clear_value() {
 
 void IppAttribute::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.IppAttribute)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3118,75 +3225,83 @@ void IppAttribute::Clear() {
 const char* IppAttribute::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "mocking.IppAttribute.name"));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.IppAttribute.IppAttributeType type = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_type(static_cast<::mocking::IppAttribute_IppAttributeType>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.RepeatedIppCollection collections = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_collections(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.RepeatedIntValues int_values = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_int_values(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.RepeatedStringValues string_values = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_string_values(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.RepeatedIntRanges int_ranges = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_int_ranges(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.RepeatedResolutions resolutions = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_resolutions(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.RepeatedDateTimes date_times = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_date_times(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3211,71 +3326,66 @@ failure:
 #undef CHK_
 }
 
-uint8_t* IppAttribute::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* IppAttribute::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.IppAttribute)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
+    const std::string& _s = this->_internal_name();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mocking.IppAttribute.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "mocking.IppAttribute.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // .mocking.IppAttribute.IppAttributeType type = 2;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_type(), target);
+        2, this->_internal_type(), target);
   }
 
-  // .mocking.RepeatedIppCollection collections = 3;
-  if (_internal_has_collections()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::collections(this),
-        _Internal::collections(this).GetCachedSize(), target, stream);
+  switch (value_case()) {
+    case kCollections: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(3, _Internal::collections(this),
+          _Internal::collections(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kIntValues: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, _Internal::int_values(this),
+          _Internal::int_values(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kStringValues: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(5, _Internal::string_values(this),
+          _Internal::string_values(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kIntRanges: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(6, _Internal::int_ranges(this),
+          _Internal::int_ranges(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kResolutions: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(7, _Internal::resolutions(this),
+          _Internal::resolutions(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kDateTimes: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(8, _Internal::date_times(this),
+          _Internal::date_times(this).GetCachedSize(), target, stream);
+      break;
+    }
+    default: ;
   }
-
-  // .mocking.RepeatedIntValues int_values = 4;
-  if (_internal_has_int_values()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::int_values(this),
-        _Internal::int_values(this).GetCachedSize(), target, stream);
-  }
-
-  // .mocking.RepeatedStringValues string_values = 5;
-  if (_internal_has_string_values()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::string_values(this),
-        _Internal::string_values(this).GetCachedSize(), target, stream);
-  }
-
-  // .mocking.RepeatedIntRanges int_ranges = 6;
-  if (_internal_has_int_ranges()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, _Internal::int_ranges(this),
-        _Internal::int_ranges(this).GetCachedSize(), target, stream);
-  }
-
-  // .mocking.RepeatedResolutions resolutions = 7;
-  if (_internal_has_resolutions()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(7, _Internal::resolutions(this),
-        _Internal::resolutions(this).GetCachedSize(), target, stream);
-  }
-
-  // .mocking.RepeatedDateTimes date_times = 8;
-  if (_internal_has_date_times()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(8, _Internal::date_times(this),
-        _Internal::date_times(this).GetCachedSize(), target, stream);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -3284,25 +3394,24 @@ uint8_t* IppAttribute::_InternalSerialize(
   return target;
 }
 
-size_t IppAttribute::ByteSizeLong() const {
+::size_t IppAttribute::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.IppAttribute)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
   }
 
   // .mocking.IppAttribute.IppAttributeType type = 2;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   switch (value_case()) {
@@ -3366,8 +3475,8 @@ void IppAttribute::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   auto* const _this = static_cast<IppAttribute*>(&to_msg);
   auto& from = static_cast<const IppAttribute&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.IppAttribute)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
@@ -3430,10 +3539,8 @@ void IppAttribute::InternalSwap(IppAttribute* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
   swap(_impl_.type_, other->_impl_.type_);
   swap(_impl_.value_, other->_impl_.value_);
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
@@ -3444,17 +3551,15 @@ void IppAttribute::InternalSwap(IppAttribute* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[10]);
 }
-
 // ===================================================================
 
 class IppCollection::_Internal {
  public:
 };
 
-IppCollection::IppCollection(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+IppCollection::IppCollection(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.IppCollection)
 }
 IppCollection::IppCollection(const IppCollection& from)
@@ -3468,10 +3573,8 @@ IppCollection::IppCollection(const IppCollection& from)
   // @@protoc_insertion_point(copy_constructor:mocking.IppCollection)
 }
 
-inline void IppCollection::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void IppCollection::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.attributes_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -3488,8 +3591,8 @@ IppCollection::~IppCollection() {
 }
 
 inline void IppCollection::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.attributes_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_attributes()->~RepeatedPtrField();
 }
 
 void IppCollection::SetCachedSize(int size) const {
@@ -3498,23 +3601,23 @@ void IppCollection::SetCachedSize(int size) const {
 
 void IppCollection::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.IppCollection)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.attributes_.Clear();
+  _internal_mutable_attributes()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* IppCollection::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .mocking.IppAttribute attributes = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3522,8 +3625,9 @@ const char* IppCollection::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3548,10 +3652,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* IppCollection::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* IppCollection::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.IppCollection)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .mocking.IppAttribute attributes = 1;
@@ -3570,17 +3674,17 @@ uint8_t* IppCollection::_InternalSerialize(
   return target;
 }
 
-size_t IppCollection::ByteSizeLong() const {
+::size_t IppCollection::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.IppCollection)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.IppAttribute attributes = 1;
   total_size += 1UL * this->_internal_attributes_size();
-  for (const auto& msg : this->_impl_.attributes_) {
+  for (const auto& msg : this->_internal_attributes()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3599,11 +3703,11 @@ void IppCollection::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   auto* const _this = static_cast<IppCollection*>(&to_msg);
   auto& from = static_cast<const IppCollection&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.IppCollection)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.attributes_.MergeFrom(from._impl_.attributes_);
+  _this->_internal_mutable_attributes()->MergeFrom(from._internal_attributes());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -3621,7 +3725,7 @@ bool IppCollection::IsInitialized() const {
 void IppCollection::InternalSwap(IppCollection* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.attributes_.InternalSwap(&other->_impl_.attributes_);
+  _internal_mutable_attributes()->InternalSwap(other->_internal_mutable_attributes());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata IppCollection::GetMetadata() const {
@@ -3629,17 +3733,15 @@ void IppCollection::InternalSwap(IppCollection* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[11]);
 }
-
 // ===================================================================
 
 class IppGroup::_Internal {
  public:
 };
 
-IppGroup::IppGroup(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+IppGroup::IppGroup(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.IppGroup)
 }
 IppGroup::IppGroup(const IppGroup& from)
@@ -3647,7 +3749,8 @@ IppGroup::IppGroup(const IppGroup& from)
   IppGroup* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.collections_){from._impl_.collections_}
-    , decltype(_impl_.tag_){}
+    , decltype(_impl_.tag_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -3655,13 +3758,12 @@ IppGroup::IppGroup(const IppGroup& from)
   // @@protoc_insertion_point(copy_constructor:mocking.IppGroup)
 }
 
-inline void IppGroup::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void IppGroup::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.collections_){arena}
-    , decltype(_impl_.tag_){0}
+    , decltype(_impl_.tag_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -3676,8 +3778,8 @@ IppGroup::~IppGroup() {
 }
 
 inline void IppGroup::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.collections_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_collections()->~RepeatedPtrField();
 }
 
 void IppGroup::SetCachedSize(int size) const {
@@ -3686,11 +3788,11 @@ void IppGroup::SetCachedSize(int size) const {
 
 void IppGroup::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.IppGroup)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.collections_.Clear();
+  _internal_mutable_collections()->Clear();
   _impl_.tag_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -3698,21 +3800,22 @@ void IppGroup::Clear() {
 const char* IppGroup::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .mocking.IppGroup.IppGroupTag tag = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_tag(static_cast<::mocking::IppGroup_IppGroupTag>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .mocking.IppCollection collections = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3720,8 +3823,9 @@ const char* IppGroup::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3746,17 +3850,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* IppGroup::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* IppGroup::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.IppGroup)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .mocking.IppGroup.IppGroupTag tag = 1;
   if (this->_internal_tag() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_tag(), target);
+        1, this->_internal_tag(), target);
   }
 
   // repeated .mocking.IppCollection collections = 2;
@@ -3775,17 +3879,17 @@ uint8_t* IppGroup::_InternalSerialize(
   return target;
 }
 
-size_t IppGroup::ByteSizeLong() const {
+::size_t IppGroup::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.IppGroup)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.IppCollection collections = 2;
   total_size += 1UL * this->_internal_collections_size();
-  for (const auto& msg : this->_impl_.collections_) {
+  for (const auto& msg : this->_internal_collections()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3793,7 +3897,7 @@ size_t IppGroup::ByteSizeLong() const {
   // .mocking.IppGroup.IppGroupTag tag = 1;
   if (this->_internal_tag() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_tag());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_tag());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -3810,11 +3914,11 @@ void IppGroup::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
   auto* const _this = static_cast<IppGroup*>(&to_msg);
   auto& from = static_cast<const IppGroup&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.IppGroup)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.collections_.MergeFrom(from._impl_.collections_);
+  _this->_internal_mutable_collections()->MergeFrom(from._internal_collections());
   if (from._internal_tag() != 0) {
     _this->_internal_set_tag(from._internal_tag());
   }
@@ -3835,7 +3939,7 @@ bool IppGroup::IsInitialized() const {
 void IppGroup::InternalSwap(IppGroup* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.collections_.InternalSwap(&other->_impl_.collections_);
+  _internal_mutable_collections()->InternalSwap(other->_internal_mutable_collections());
   swap(_impl_.tag_, other->_impl_.tag_);
 }
 
@@ -3844,17 +3948,15 @@ void IppGroup::InternalSwap(IppGroup* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[12]);
 }
-
 // ===================================================================
 
 class IppMessage::_Internal {
  public:
 };
 
-IppMessage::IppMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+IppMessage::IppMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.IppMessage)
 }
 IppMessage::IppMessage(const IppMessage& from)
@@ -3862,27 +3964,31 @@ IppMessage::IppMessage(const IppMessage& from)
   IppMessage* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.groups_){from._impl_.groups_}
-    , decltype(_impl_.version_number_){}
-    , decltype(_impl_.operation_id_){}
-    , decltype(_impl_.status_){}
+    , decltype(_impl_.version_number_) {}
+
+    , decltype(_impl_.operation_id_) {}
+
+    , decltype(_impl_.status_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.version_number_, &from._impl_.version_number_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.status_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.status_) -
     reinterpret_cast<char*>(&_impl_.version_number_)) + sizeof(_impl_.status_));
   // @@protoc_insertion_point(copy_constructor:mocking.IppMessage)
 }
 
-inline void IppMessage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void IppMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.groups_){arena}
-    , decltype(_impl_.version_number_){0u}
-    , decltype(_impl_.operation_id_){0u}
-    , decltype(_impl_.status_){0u}
+    , decltype(_impl_.version_number_) { 0u }
+
+    , decltype(_impl_.operation_id_) { 0u }
+
+    , decltype(_impl_.status_) { 0u }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -3897,8 +4003,8 @@ IppMessage::~IppMessage() {
 }
 
 inline void IppMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.groups_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_groups()->~RepeatedPtrField();
 }
 
 void IppMessage::SetCachedSize(int size) const {
@@ -3907,12 +4013,12 @@ void IppMessage::SetCachedSize(int size) const {
 
 void IppMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.IppMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.groups_.Clear();
-  ::memset(&_impl_.version_number_, 0, static_cast<size_t>(
+  _internal_mutable_groups()->Clear();
+  ::memset(&_impl_.version_number_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.status_) -
       reinterpret_cast<char*>(&_impl_.version_number_)) + sizeof(_impl_.status_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -3921,28 +4027,30 @@ void IppMessage::Clear() {
 const char* IppMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 version_number = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.version_number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 operation_id = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.operation_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .mocking.IppGroup groups = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3950,16 +4058,18 @@ const char* IppMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint32 status = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.status_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3984,22 +4094,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* IppMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* IppMessage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.IppMessage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint32 version_number = 1;
   if (this->_internal_version_number() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_version_number(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_version_number(), target);
   }
 
   // uint32 operation_id = 2;
   if (this->_internal_operation_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_operation_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_operation_id(), target);
   }
 
   // repeated .mocking.IppGroup groups = 3;
@@ -4013,7 +4125,8 @@ uint8_t* IppMessage::_InternalSerialize(
   // uint32 status = 4;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_status(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        4, this->_internal_status(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4024,34 +4137,37 @@ uint8_t* IppMessage::_InternalSerialize(
   return target;
 }
 
-size_t IppMessage::ByteSizeLong() const {
+::size_t IppMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.IppMessage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.IppGroup groups = 3;
   total_size += 1UL * this->_internal_groups_size();
-  for (const auto& msg : this->_impl_.groups_) {
+  for (const auto& msg : this->_internal_groups()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // uint32 version_number = 1;
   if (this->_internal_version_number() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_version_number());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_version_number());
   }
 
   // uint32 operation_id = 2;
   if (this->_internal_operation_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_operation_id());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_operation_id());
   }
 
   // uint32 status = 4;
   if (this->_internal_status() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_status());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_status());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -4068,11 +4184,11 @@ void IppMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   auto* const _this = static_cast<IppMessage*>(&to_msg);
   auto& from = static_cast<const IppMessage&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.IppMessage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.groups_.MergeFrom(from._impl_.groups_);
+  _this->_internal_mutable_groups()->MergeFrom(from._internal_groups());
   if (from._internal_version_number() != 0) {
     _this->_internal_set_version_number(from._internal_version_number());
   }
@@ -4099,7 +4215,7 @@ bool IppMessage::IsInitialized() const {
 void IppMessage::InternalSwap(IppMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.groups_.InternalSwap(&other->_impl_.groups_);
+  _internal_mutable_groups()->InternalSwap(other->_internal_mutable_groups());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(IppMessage, _impl_.status_)
       + sizeof(IppMessage::_impl_.status_)
@@ -4113,7 +4229,6 @@ void IppMessage::InternalSwap(IppMessage* other) {
       &descriptor_table_ipp_2eproto_getter, &descriptor_table_ipp_2eproto_once,
       file_level_metadata_ipp_2eproto[13]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace mocking
 PROTOBUF_NAMESPACE_OPEN
@@ -4174,6 +4289,5 @@ Arena::CreateMaybeMessage< ::mocking::IppMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::mocking::IppMessage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

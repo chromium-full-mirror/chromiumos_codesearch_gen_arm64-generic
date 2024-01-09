@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct RequestInfo {
   ~RequestInfo();
   RequestInfo(const RequestInfo&) = delete;
   RequestInfo& operator=(const RequestInfo&) = delete;
-  RequestInfo(RequestInfo&& rhs);
-  RequestInfo& operator=(RequestInfo&& rhs);
+  RequestInfo(RequestInfo&& rhs) noexcept;
+  RequestInfo& operator=(RequestInfo&& rhs) noexcept;
 
   // Populates a RequestInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -48,15 +49,12 @@ struct RequestInfo {
   // Creates a deep copy of RequestInfo.
   RequestInfo Clone() const;
 
-  // Creates a RequestInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RequestInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a RequestInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RequestInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<RequestInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a RequestInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<RequestInfo> FromValue(const base::Value& value);
+  static std::optional<RequestInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequestInfo object.
@@ -70,12 +68,12 @@ struct RequestInfo {
 
 };
 
-enum  DesktopCaptureSourceType {
-  DESKTOP_CAPTURE_SOURCE_TYPE_NONE = 0,
-  DESKTOP_CAPTURE_SOURCE_TYPE_SCREEN,
-  DESKTOP_CAPTURE_SOURCE_TYPE_WINDOW,
-  DESKTOP_CAPTURE_SOURCE_TYPE_TAB,
-  DESKTOP_CAPTURE_SOURCE_TYPE_LAST = DESKTOP_CAPTURE_SOURCE_TYPE_TAB,
+enum class DesktopCaptureSourceType {
+  kNone = 0,
+  kScreen,
+  kWindow,
+  kTab,
+  kMaxValue = kTab,
 };
 
 
@@ -91,11 +89,11 @@ std::u16string GetDesktopCaptureSourceTypeParseError(base::StringPiece as_string
 namespace ChooseDesktopMedia {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<DesktopCaptureSourceType> sources;
@@ -117,11 +115,11 @@ base::Value::List Create(const std::string& stream_id);
 namespace CancelChooseDesktopMedia {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int desktop_media_request_id;

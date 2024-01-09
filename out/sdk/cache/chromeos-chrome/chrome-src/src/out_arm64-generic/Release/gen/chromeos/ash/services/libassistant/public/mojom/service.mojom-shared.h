@@ -38,6 +38,7 @@
 #include "chromeos/ash/services/libassistant/public/mojom/speech_recognition_observer.mojom-shared.h"
 #include "chromeos/ash/services/libassistant/public/mojom/timer_controller.mojom-shared.h"
 #include "chromeos/ash/services/libassistant/public/mojom/notification_delegate.mojom-shared.h"
+#include "sandbox/policy/mojom/context.mojom-shared.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"

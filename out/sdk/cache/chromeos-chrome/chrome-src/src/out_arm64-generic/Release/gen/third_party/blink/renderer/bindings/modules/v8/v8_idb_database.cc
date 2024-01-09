@@ -81,11 +81,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, IDBDatabase>::value,
     "IDBDatabase does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&IDBDatabase::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IDBDatabase is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,10 +93,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBDatabase.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -113,8 +108,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBDatabase.version.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->version();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -127,8 +123,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBDatabase.objectStoreNames.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->objectStoreNames();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -141,10 +138,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBDatabase.onabort.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onabort();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onabort();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -157,8 +154,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnabort(event_handler);
 }
 
@@ -169,10 +167,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBDatabase.onclose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclose();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -185,8 +183,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclose(event_handler);
 }
 
@@ -197,10 +196,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBDatabase.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -213,8 +212,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -225,10 +225,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBDatabase.onversionchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onversionchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onversionchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -241,8 +241,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnversionchange(event_handler);
 }
 
@@ -257,8 +258,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBDatabase.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -288,7 +290,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -334,7 +336,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -367,7 +369,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(v8_receiver);
+IDBDatabase* blink_receiver = V8IDBDatabase::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/performance_manager/public/mojom/v8_contexts.mojom-features.h"
 #include "components/performance_manager/public/mojom/v8_contexts.mojom-shared.h"
 #include "components/performance_manager/public/mojom/v8_contexts.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/tokens/tokens.mojom-blink.h"
@@ -38,18 +39,6 @@
 #include "base/component_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::performance_manager::mojom::V8ContextWorldType>
-    : EnumHashTraits<::performance_manager::mojom::V8ContextWorldType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace performance_manager::mojom::blink {
@@ -235,7 +224,7 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM_BLINK) V8ContextDescript
       const ::blink::V8ContextToken& token,
       V8ContextWorldType world_type,
       const WTF::String& world_name,
-      const absl::optional<::blink::ExecutionContextToken>& execution_context_token);
+      const std::optional<::blink::ExecutionContextToken>& execution_context_token);
 
 
   ~V8ContextDescription();
@@ -319,7 +308,7 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM_BLINK) V8ContextDescript
   
   WTF::String world_name;
   
-  absl::optional<::blink::ExecutionContextToken> execution_context_token;
+  std::optional<::blink::ExecutionContextToken> execution_context_token;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

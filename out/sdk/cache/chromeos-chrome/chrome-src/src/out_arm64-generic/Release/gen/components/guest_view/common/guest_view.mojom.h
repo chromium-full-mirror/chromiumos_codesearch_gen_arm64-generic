@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/guest_view/common/guest_view.mojom-features.h"
 #include "components/guest_view/common/guest_view.mojom-shared.h"
 #include "components/guest_view/common/guest_view.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -38,6 +39,44 @@
 
 
 namespace guest_view::mojom {
+
+class ViewHandleProxy;
+
+template <typename ImplRefTraits>
+class ViewHandleStub;
+
+class ViewHandleRequestValidator;
+
+
+class ViewHandle
+    : public ViewHandleInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = ViewHandleInterfaceBase;
+  using Proxy_ = ViewHandleProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = ViewHandleStub<ImplRefTraits>;
+
+  using RequestValidator_ = ViewHandleRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~ViewHandle() = default;
+};
 
 class GuestViewHostProxy;
 
@@ -71,7 +110,6 @@ class GuestViewHost
   enum MethodMinVersions : uint32_t {
     kAttachToEmbedderFrameMinVersion = 0,
     kViewCreatedMinVersion = 0,
-    kViewGarbageCollectedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -83,22 +121,29 @@ class GuestViewHost
   struct ViewCreated_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct ViewGarbageCollected_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~GuestViewHost() = default;
 
 
   using AttachToEmbedderFrameCallback = base::OnceCallback<void()>;
   
-  virtual void AttachToEmbedderFrame(int32_t embedder_local_frame_routing_id, int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params, AttachToEmbedderFrameCallback callback) = 0;
+  virtual void AttachToEmbedderFrame(int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params, AttachToEmbedderFrameCallback callback) = 0;
 
   
-  virtual void ViewCreated(int32_t view_instance_id, const std::string& view_type) = 0;
+  virtual void ViewCreated(int32_t view_instance_id, const std::string& view_type, ::mojo::PendingReceiver<ViewHandle> keep_alive_handle_receiver) = 0;
+};
 
-  
-  virtual void ViewGarbageCollected(int32_t view_instance_id) = 0;
+
+
+class  ViewHandleProxy
+    : public ViewHandle {
+ public:
+  using InterfaceType = ViewHandle;
+
+  explicit ViewHandleProxy(mojo::MessageReceiverWithResponder* receiver);
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
 };
 
 
@@ -110,14 +155,53 @@ class  GuestViewHostProxy
 
   explicit GuestViewHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void AttachToEmbedderFrame(int32_t embedder_local_frame_routing_id, int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params, AttachToEmbedderFrameCallback callback) final;
+  void AttachToEmbedderFrame(int32_t element_instance_id, int32_t guest_instance_id, ::base::Value::Dict params, AttachToEmbedderFrameCallback callback) final;
   
-  void ViewCreated(int32_t view_instance_id, const std::string& view_type) final;
-  
-  void ViewGarbageCollected(int32_t view_instance_id) final;
+  void ViewCreated(int32_t view_instance_id, const std::string& view_type, ::mojo::PendingReceiver<ViewHandle> keep_alive_handle_receiver) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
+};
+class  ViewHandleStubDispatch {
+ public:
+  static bool Accept(ViewHandle* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      ViewHandle* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<ViewHandle>>
+class ViewHandleStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  ViewHandleStub() = default;
+  ~ViewHandleStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ViewHandleStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ViewHandleStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
 };
 class  GuestViewHostStubDispatch {
  public:
@@ -159,6 +243,10 @@ class GuestViewHostStub
 
  private:
   ImplPointerType sink_;
+};
+class  ViewHandleRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
 };
 class  GuestViewHostRequestValidator : public mojo::MessageReceiver {
  public:

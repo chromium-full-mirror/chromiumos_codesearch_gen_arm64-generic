@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -125,7 +126,8 @@ DeskTemplateState::DeskTemplateState()
       browser_app_name(),
       restore_window_id(),
       first_non_pinned_index(),
-      groups() {}
+      groups(),
+      lacros_profile_id() {}
 
 DeskTemplateState::DeskTemplateState(
     std::vector<::GURL> urls_in,
@@ -135,44 +137,64 @@ DeskTemplateState::DeskTemplateState(
       browser_app_name(),
       restore_window_id(),
       first_non_pinned_index(),
-      groups() {}
+      groups(),
+      lacros_profile_id() {}
 
 DeskTemplateState::DeskTemplateState(
     std::vector<::GURL> urls_in,
     uint32_t active_index_in,
-    const absl::optional<std::string>& browser_app_name_in)
+    const std::optional<std::string>& browser_app_name_in)
     : urls(std::move(urls_in)),
       active_index(std::move(active_index_in)),
       browser_app_name(std::move(browser_app_name_in)),
       restore_window_id(),
       first_non_pinned_index(),
-      groups() {}
+      groups(),
+      lacros_profile_id() {}
 
 DeskTemplateState::DeskTemplateState(
     std::vector<::GURL> urls_in,
     uint32_t active_index_in,
-    const absl::optional<std::string>& browser_app_name_in,
+    const std::optional<std::string>& browser_app_name_in,
     int64_t restore_window_id_in)
     : urls(std::move(urls_in)),
       active_index(std::move(active_index_in)),
       browser_app_name(std::move(browser_app_name_in)),
       restore_window_id(std::move(restore_window_id_in)),
       first_non_pinned_index(),
-      groups() {}
+      groups(),
+      lacros_profile_id() {}
 
 DeskTemplateState::DeskTemplateState(
     std::vector<::GURL> urls_in,
     uint32_t active_index_in,
-    const absl::optional<std::string>& browser_app_name_in,
+    const std::optional<std::string>& browser_app_name_in,
     int64_t restore_window_id_in,
     uint32_t first_non_pinned_index_in,
-    absl::optional<std::vector<::tab_groups::TabGroupInfo>> groups_in)
+    std::optional<std::vector<::tab_groups::TabGroupInfo>> groups_in)
     : urls(std::move(urls_in)),
       active_index(std::move(active_index_in)),
       browser_app_name(std::move(browser_app_name_in)),
       restore_window_id(std::move(restore_window_id_in)),
       first_non_pinned_index(std::move(first_non_pinned_index_in)),
-      groups(std::move(groups_in)) {}
+      groups(std::move(groups_in)),
+      lacros_profile_id() {}
+
+DeskTemplateState::DeskTemplateState(
+    std::vector<::GURL> urls_in,
+    uint32_t active_index_in,
+    const std::optional<std::string>& browser_app_name_in,
+    int64_t restore_window_id_in,
+    uint32_t first_non_pinned_index_in,
+    std::optional<std::vector<::tab_groups::TabGroupInfo>> groups_in,
+    uint64_t lacros_profile_id_in)
+    : urls(std::move(urls_in)),
+      active_index(std::move(active_index_in)),
+      browser_app_name(std::move(browser_app_name_in)),
+      restore_window_id(std::move(restore_window_id_in)),
+      first_non_pinned_index(std::move(first_non_pinned_index_in)),
+      groups(std::move(groups_in)),
+      lacros_profile_id(std::move(lacros_profile_id_in)) {}
 
 DeskTemplateState::~DeskTemplateState() = default;
 
@@ -201,7 +223,7 @@ void DeskTemplateState::WriteIntoTrace(
     dict.AddItem(
       "browser_app_name"), this->browser_app_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -228,7 +250,16 @@ void DeskTemplateState::WriteIntoTrace(
     dict.AddItem(
       "groups"), this->groups,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::tab_groups::TabGroupInfo>>&>"
+      "<value of type const std::optional<std::vector<::tab_groups::TabGroupInfo>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lacros_profile_id"), this->lacros_profile_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -389,14 +420,17 @@ void DeskTemplateClientProxy::CreateBrowserWithRestoredData(
                         "<value of type DeskTemplateStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeskTemplateClient_CreateBrowserWithRestoredData_Name, kFlags, 0, 0, nullptr);
@@ -453,14 +487,17 @@ void DeskTemplateClientProxy::GetBrowserInformation(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeskTemplateClient_GetBrowserInformation_Name, kFlags, 0, 0, nullptr);
@@ -503,14 +540,17 @@ void DeskTemplateClientProxy::GetFaviconImage(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeskTemplateClient_GetFaviconImage_Name, kFlags, 0, 0, nullptr);
@@ -645,7 +685,8 @@ void DeskTemplateClient_GetBrowserInformation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeskTemplateClient_GetBrowserInformation_Name, kFlags, 0, 0, nullptr);
@@ -781,7 +822,8 @@ void DeskTemplateClient_GetFaviconImage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeskTemplateClient_GetFaviconImage_Name, kFlags, 0, 0, nullptr);
@@ -940,14 +982,14 @@ std::move(p_url), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeskTemplateClientValidationInfo[] = {
-    {&internal::DeskTemplateClient_GetBrowserInformation_Params_Data::Validate,
+    { &internal::DeskTemplateClient_GetBrowserInformation_Params_Data::Validate,
      &internal::DeskTemplateClient_GetBrowserInformation_ResponseParams_Data::Validate},
-    {&internal::DeskTemplateClient_CreateBrowserWithRestoredData_Params_Data::Validate,
+    { &internal::DeskTemplateClient_CreateBrowserWithRestoredData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeskTemplateClient_GetFaviconImage_Params_Data::Validate,
+    { &internal::DeskTemplateClient_GetFaviconImage_Params_Data::Validate,
      &internal::DeskTemplateClient_GetFaviconImage_ResponseParams_Data::Validate},
 };
 
@@ -1032,14 +1074,17 @@ void DeskTemplateProxy::AddDeskTemplateClient(
                         "<value of type ::mojo::PendingRemote<DeskTemplateClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeskTemplate_AddDeskTemplateClient_Name, kFlags, 0, 0, nullptr);
@@ -1115,10 +1160,10 @@ bool DeskTemplateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeskTemplateValidationInfo[] = {
-    {&internal::DeskTemplate_AddDeskTemplateClient_Params_Data::Validate,
+    { &internal::DeskTemplate_AddDeskTemplateClient_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1176,6 +1221,8 @@ bool StructTraits<::crosapi::mojom::DeskTemplateState::DataView, ::crosapi::mojo
         result->first_non_pinned_index = input.first_non_pinned_index();
       if (success && !input.ReadGroups(&result->groups))
         success = false;
+      if (success)
+        result->lacros_profile_id = input.lacros_profile_id();
   *output = std::move(result);
   return success;
 }

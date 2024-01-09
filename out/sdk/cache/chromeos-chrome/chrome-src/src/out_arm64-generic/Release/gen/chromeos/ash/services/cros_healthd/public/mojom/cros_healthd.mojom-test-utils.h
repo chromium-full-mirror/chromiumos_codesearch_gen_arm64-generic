@@ -45,7 +45,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunBatteryCapacityRoutine(RunBatteryCapacityRoutineCallback callback) override;
   void RunBatteryHealthRoutine(RunBatteryHealthRoutineCallback callback) override;
   void RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) override;
-  void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) override;
+  void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) override;
   void RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuCacheRoutineCallback callback) override;
   void RunCpuStressRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuStressRoutineCallback callback) override;
   void RunFloatingPointAccuracyRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunFloatingPointAccuracyRoutineCallback callback) override;
@@ -56,7 +56,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunPrimeSearchRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunPrimeSearchRoutineCallback callback) override;
   void RunBatteryDischargeRoutine(uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, RunBatteryDischargeRoutineCallback callback) override;
   void RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) override;
-  void RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) override;
+  void RunMemoryRoutine(std::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) override;
   void RunLanConnectivityRoutine(RunLanConnectivityRoutineCallback callback) override;
   void RunSignalStrengthRoutine(RunSignalStrengthRoutineCallback callback) override;
   void RunGatewayCanBePingedRoutine(RunGatewayCanBePingedRoutineCallback callback) override;
@@ -68,7 +68,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunHttpFirewallRoutine(RunHttpFirewallRoutineCallback callback) override;
   void RunHttpsFirewallRoutine(RunHttpsFirewallRoutineCallback callback) override;
   void RunHttpsLatencyRoutine(RunHttpsLatencyRoutineCallback callback) override;
-  void RunVideoConferencingRoutine(const absl::optional<std::string>& stun_server_hostname, RunVideoConferencingRoutineCallback callback) override;
+  void RunVideoConferencingRoutine(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingRoutineCallback callback) override;
   void RunArcHttpRoutine(RunArcHttpRoutineCallback callback) override;
   void RunArcPingRoutine(RunArcPingRoutineCallback callback) override;
   void RunArcDnsResolutionRoutine(RunArcDnsResolutionRoutineCallback callback) override;
@@ -116,8 +116,8 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
       ::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold);
   void RunAcPowerRoutine(
-      ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type);
+      ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type);
   void RunCpuCacheRoutine(
       ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
@@ -149,8 +149,8 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
       uint32_t length_seconds, uint32_t minimum_charge_percent_required, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required);
   void RunMemoryRoutine(
-      absl::optional<uint32_t> max_testing_mem_kib, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib);
+      std::optional<uint32_t> max_testing_mem_kib, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunMemoryRoutine(std::optional<uint32_t> max_testing_mem_kib);
   void RunLanConnectivityRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunLanConnectivityRoutine();
@@ -185,8 +185,8 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunHttpsLatencyRoutine();
   void RunVideoConferencingRoutine(
-      const absl::optional<std::string>& stun_server_hostname, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunVideoConferencingRoutine(const absl::optional<std::string>& stun_server_hostname);
+      const std::optional<std::string>& stun_server_hostname, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunVideoConferencingRoutine(const std::optional<std::string>& stun_server_hostname);
   void RunArcHttpRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunArcHttpRoutine();
@@ -283,7 +283,7 @@ class  CrosHealthdProbeServiceInterceptorForTesting : public CrosHealthdProbeSer
   virtual CrosHealthdProbeService* GetForwardingInterface() = 0;
   void ProbeProcessInfo(uint32_t process_id, ProbeProcessInfoCallback callback) override;
   void ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) override;
-  void ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) override;
+  void ProbeMultipleProcessInfo(const std::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) override;
 };
 class  CrosHealthdProbeServiceAsyncWaiter {
  public:
@@ -300,8 +300,8 @@ class  CrosHealthdProbeServiceAsyncWaiter {
       const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ::ash::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info);
   ::ash::cros_healthd::mojom::TelemetryInfoPtr ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories);
   void ProbeMultipleProcessInfo(
-      const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ::ash::cros_healthd::mojom::MultipleProcessResultPtr* out_multiple_process_info);
-  ::ash::cros_healthd::mojom::MultipleProcessResultPtr ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error);
+      const std::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ::ash::cros_healthd::mojom::MultipleProcessResultPtr* out_multiple_process_info);
+  ::ash::cros_healthd::mojom::MultipleProcessResultPtr ProbeMultipleProcessInfo(const std::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error);
 
  private:
   CrosHealthdProbeService* const proxy_;

@@ -34,7 +34,7 @@ class  ShareTargetListenerAsyncWaiter {
 
 class  TransferUpdateListenerInterceptorForTesting : public TransferUpdateListener {
   virtual TransferUpdateListener* GetForwardingInterface() = 0;
-  void OnTransferUpdate(TransferStatus status, const absl::optional<std::string>& token) override;
+  void OnTransferUpdate(TransferStatus status, const std::optional<std::string>& token) override;
 };
 class  TransferUpdateListenerAsyncWaiter {
  public:

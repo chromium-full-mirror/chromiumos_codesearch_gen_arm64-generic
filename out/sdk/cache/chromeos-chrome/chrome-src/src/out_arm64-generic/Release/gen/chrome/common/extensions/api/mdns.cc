@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/mdns.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -42,8 +43,8 @@ MDnsService::MDnsService()
  {}
 
 MDnsService::~MDnsService() = default;
-MDnsService::MDnsService(MDnsService&& rhs) = default;
-MDnsService& MDnsService::operator=(MDnsService&& rhs) = default;
+MDnsService::MDnsService(MDnsService&& rhs) noexcept = default;
+MDnsService& MDnsService::operator=(MDnsService&& rhs) noexcept = default;
 MDnsService MDnsService::Clone() const {
   MDnsService out;
   out.service_name = service_name;
@@ -120,34 +121,21 @@ bool MDnsService::Populate(
 }
 
 // static
-std::unique_ptr<MDnsService> MDnsService::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MDnsService>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MDnsService> MDnsService::FromValue(const base::Value::Dict& value) {
+  MDnsService out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MDnsService> MDnsService::FromValue(const base::Value::Dict& value) {
+std::optional<MDnsService> MDnsService::FromValue(const base::Value& value) {
   MDnsService out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MDnsService> MDnsService::FromValue(const base::Value& value) {
-  MDnsService out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

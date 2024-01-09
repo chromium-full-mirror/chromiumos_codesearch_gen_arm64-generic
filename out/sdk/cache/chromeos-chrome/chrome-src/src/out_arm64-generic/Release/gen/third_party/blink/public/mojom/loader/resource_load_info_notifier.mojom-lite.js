@@ -92,13 +92,15 @@ blink.mojom.ResourceLoadInfoNotifierRemote = class {
    * @param { !url.mojom.SchemeHostPort } finalResponseUrl
    * @param { !network.mojom.URLResponseHead } head
    * @param { !network.mojom.RequestDestination } requestDestination
+   * @param { !boolean } isAdResource
    */
 
   notifyResourceResponseReceived(
       requestId,
       finalResponseUrl,
       head,
-      requestDestination) {
+      requestDestination,
+      isAdResource) {
     this.proxy.sendMessage(
         1,
         blink.mojom.ResourceLoadInfoNotifier_NotifyResourceResponseReceived_ParamsSpec.$,
@@ -107,7 +109,8 @@ blink.mojom.ResourceLoadInfoNotifierRemote = class {
           requestId,
           finalResponseUrl,
           head,
-          requestDestination
+          requestDestination,
+          isAdResource
         ]);
   }
 
@@ -499,6 +502,14 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'isAdResource', 28,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
     [[0, 40],]);
 
@@ -517,6 +528,8 @@ blink.mojom.ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params = cla
     this.head;
     /** @export { !network.mojom.RequestDestination } */
     this.requestDestination;
+    /** @export { !boolean } */
+    this.isAdResource;
   }
 };
 

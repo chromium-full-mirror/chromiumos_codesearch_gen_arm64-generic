@@ -59,6 +59,7 @@ function assert(value, message) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 class PageHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo$1.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -67,6 +68,9 @@ class PageHandlerPendingReceiver {
     }
 }
 class PageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo$1.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
@@ -95,6 +99,7 @@ class PageHandler {
     }
 }
 class PagePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo$1.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -103,6 +108,9 @@ class PagePendingReceiver {
     }
 }
 class PageRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo$1.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
@@ -120,6 +128,11 @@ class PageRemote {
  * receiver can have any number of listeners added to it.
  */
 class PageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onColorProviderChanged;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo$1.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
         this.$ = new mojo$1.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -156,6 +169,7 @@ mojo$1.internal.Struct(Page_OnColorProviderChanged_ParamsSpec.$, 'Page_OnColorPr
  */
 let instance = null;
 class BrowserProxy {
+    callbackRouter;
     constructor() {
         this.callbackRouter = new PageCallbackRouter();
         const pageHandlerRemote = PageHandler.getRemote();
@@ -187,11 +201,12 @@ let documentInstance = null;
 const COLOR_PROVIDER_CHANGED = 'color-provider-changed';
 // 
 class ColorChangeUpdater {
+    listenerId_ = null;
+    root_;
+    // 
+    eventTarget = new EventTarget();
     // 
     constructor(root) {
-        this.listenerId_ = null;
-        // 
-        this.eventTarget = new EventTarget();
         assert(documentInstance === null || root !== document);
         this.root_ = root;
     }
@@ -271,393 +286,294 @@ class ColorChangeUpdater {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
+/**
+ * The Object placed in MessageData.message (and thrown by the Promise returned
+ * by sendMessage) if an exception is caught on the receiving end.
+ * Note this must be a class (not an interface) whilst there are .js files
+ * importing `GenericErrorResponse`, otherwise the export is invisible.
+ */
 /**
  * To handle generic errors such as `DOMException` not being an `Error`
  * defensively assign '' if the attribute is undefined. Without explicitly
  * extracting fields, `Errors` are sent as `{}` across the pipe.
- * @param {!DefensiveError} error
- * @return {!GenericErrorResponse}
  */
 function serializeError(error) {
-  return {
-    message: error.message || '',
-    name: error.name || '',
-    stack: error.stack || '',
-  };
+    return {
+        message: error.message || '',
+        name: error.name || '',
+        stack: error.stack || '',
+    };
 }
-
 /**
  * Creates a new JavaScript native Promise and captures its resolve and reject
  * callbacks. The promise, resolve, and reject are available as properties.
  * Inspired by goog.promise.NativeResolver.
  */
 class NativeResolver {
-  constructor() {
-    /** @type {function(!Object): void} */
-    this.resolve;
-    /** @type {function(!Object): void} */
-    this.reject;
-
-    /** @type {!Promise<!Object>} */
-    this.promise = new Promise((resolve, reject) => {
-      this.resolve = resolve;
-      this.reject = reject;
-    });
-  }
+    resolve;
+    reject;
+    promise;
+    constructor() {
+        this.promise = new Promise((resolve, reject) => {
+            this.resolve = resolve;
+            this.reject = reject;
+        });
+    }
 }
-
 /**
  * A simplified "assert" that casts away null types. Assumes preconditions that
- * satisfy the assert have already been checked. Inspired by
- * webui/resources/js/assert/assert.js. However, this file is used (and tested)
- * verbatim in multiple repositories with different dependency management, so
- * that's not used directly. TODO(b/150650426): consolidate this better.
- *
- * @template T
- * @param {?T|undefined} condition
- * @return {T} A non-null |condition|.
- * @closurePrimitive {asserts.truthy}
- * @suppress {reportUnknownTypes} because T is not sufficiently constrained.
+ * satisfy the assert have already been checked.
+ * TODO(b/150650426): consolidate this better.
  */
 function assertCast(condition) {
-  if (!condition) {
-    throw new Error('Failed assertion');
-  }
-  return condition;
+    if (!condition) {
+        throw new Error('Failed assertion');
+    }
+    return condition;
 }
-
 /**
  * Enum for reserved message types used in generated messages.
- *
- * @enum {string}
  */
-const ReservedMessageTypes = {
-  /**
-   * Indicates a autogenerated response message for a previously received
-   * message.
-   */
-  RESPONSE_TYPE: '___response',
-  /**
-   * Indicates a autogenerated error message for a previously received
-   * message.
-   */
-  ERROR_TYPE: '___error',
-};
-
+var ReservedMessageTypes;
+(function (ReservedMessageTypes) {
+    /**
+     * Indicates a autogenerated response message for a previously received
+     * message.
+     */
+    ReservedMessageTypes["RESPONSE_TYPE"] = "___response";
+    /**
+     * Indicates a autogenerated error message for a previously received
+     * message.
+     */
+    ReservedMessageTypes["ERROR_TYPE"] = "___error";
+})(ReservedMessageTypes || (ReservedMessageTypes = {}));
 /**
  * Checks if a provided message type indicates a generated message.
- *
- * @param {string} messageType
- * @return {boolean}
  */
 function isGeneratedMessage(messageType) {
-  // Any message type with three underscores before it should only be used
-  // in generated messages.
-  return messageType.substr(0, 3) === '___';
+    // Any message type with three underscores before it should only be used
+    // in generated messages.
+    return messageType.substr(0, 3) === '___';
 }
-
 /**
  * Checks a message type is not reserved by generated messages, if it is, throws
  * a error indicating this to the user.
- *
- * @param {string} messageType
  */
 function throwIfReserved(messageType) {
-  if (isGeneratedMessage(messageType)) {
-    throw new Error(`Unexpected reserved message type: '${messageType}'`);
-  }
+    if (isGeneratedMessage(messageType)) {
+        throw new Error(`Unexpected reserved message type: '${messageType}'`);
+    }
 }
-
 /**
  * The message pipe allows two windows to communicate in 1 direction without
  * having to handle the internals. The caller can send messages to the other
  * window and receive async responses.
  */
 class MessagePipe {
-  /**
-   * Constructs a new message pipe to the `target` window which has the
-   * `targetOrigin` origin.
-   *
-   * @param {string} targetOrigin
-   * @param {!Window=} target If not specified, the document tree will be
-   *     queried for a iframe with src `targetOrigin` to target.
-   * @param {boolean=} rethrowErrors
-   */
-  constructor(targetOrigin, target, rethrowErrors = true) {
-    if (!target) {
-      const frame = /** @type {!HTMLIFrameElement} */ (
-          document.querySelector(`iframe[src^='${targetOrigin}']`));
-      if (!frame || !frame.contentWindow) {
-        throw new Error('Unable to locate target content window.');
-      }
-      target = assertCast(frame.contentWindow);
-    }
-
-    /** @private @const {!Window} */
-    this.target_ = target;
-
-    /** @private @const {string} */
-    this.targetOrigin_ = targetOrigin;
-
+    target_;
+    targetOrigin_;
     /**
      * If true any errors thrown in a handler during message handling will be
      * thrown again in addition to being sent over the pipe to the message
      * sender. true by default.
-     *
-     * @type {boolean}
      */
-    this.rethrowErrors = rethrowErrors;
-
+    rethrowErrors;
     /**
      * Client error logger. Mockable for tests that check for errors. This is
      * only used to log errors generated from handlers. Logging occurs on both
      * sides of the message pipe if rethrowErrors is set, otherwise only on
      * the side that sent the message.
      */
-    this.logClientError = (/** * */ object) =>
-        console.error(JSON.stringify(object));
-
+    logClientError = (object) => console.error(JSON.stringify(object));
     /**
      * Maps a message type to a message handler, a function which takes in
      * the message and returns a response message or a promise which resolves
      * with a response message.
-     *
-     * @private @const {!Map<string, !MessageHandler>}
      */
-    this.messageHandlers_ = new Map();
-
+    messageHandlers_ = new Map();
     /**
      * Maps a message id to a resolver.
-     *
-     * @private @const {!Map<number, !NativeResolver>}
      */
-    this.pendingMessages_ = new Map();
-
+    pendingMessages_ = new Map();
     /**
      * The id the next message the object sends will have.
-     *
-     * @private
      */
-    this.nextMessageId_ = 0;
-
+    nextMessageId_ = 0;
     /**
      * The message listener we attach to the window. We need a reference to the
      * function for later removal.
-     *
-     * @private @const {function(!Event): void}
      */
-    this.messageListener_ = (m) => this.receiveMessage_(m);
-
-    // Make sure we aren't trying to send messages to ourselves.
-    console.assert(this.target_ !== window, 'target !== window');
-
-    window.addEventListener('message', this.messageListener_);
-  }
-
-  /**
-   * Registers a handler to be called when a message of type `messageType` is
-   * received. The return value of this handler will automatically be sent to
-   * the message source as a response message. If the handler should throw an
-   * error while handling a message, the error message will be caught and sent
-   * to the message source automatically.
-   * NOTE: The message type can not be prefixed with 3 underscores as that is
-   * reserved for generated messages. i.e `___hello` is disallowed.
-   *
-   * @param {string} messageType
-   * @param {!MessageHandler} handler
-   */
-  registerHandler(messageType, handler) {
-    throwIfReserved(messageType);
-    if (this.messageHandlers_.has(messageType)) {
-      throw new Error(`A handler already exists for ${messageType}`);
+    messageListener_ = (m) => this.receiveMessage_(m);
+    /**
+     * Constructs a new message pipe to the `target` window which has the
+     * `targetOrigin` origin.
+     *
+     * @param target If not specified, the document tree will be
+     *     queried for a iframe with src `targetOrigin` to target.
+     */
+    constructor(targetOrigin, target, rethrowErrors = true) {
+        if (!target) {
+            const frame = document.querySelector(`iframe[src^='${targetOrigin}']`);
+            if (!frame || !frame.contentWindow) {
+                throw new Error('Unable to locate target content window.');
+            }
+            target = assertCast(frame.contentWindow);
+        }
+        this.target_ = target;
+        this.targetOrigin_ = targetOrigin;
+        this.rethrowErrors = rethrowErrors;
+        // Make sure we aren't trying to send messages to ourselves.
+        console.assert(this.target_ !== window, 'target !== window');
+        window.addEventListener('message', this.messageListener_);
     }
-
-    this.messageHandlers_.set(messageType, handler);
-  }
-
-  /**
-   * Wraps `sendMessageImpl()` catching errors from the target context to throw
-   * more useful errors with the current context stacktrace attached.
-   *
-   * @param {string} messageType
-   * @param {!Object=} message
-   * @return {!Promise<!Object>}
-   */
-  async sendMessage(messageType, message = {}) {
-    try {
-      return await this.sendMessageImpl(messageType, message);
-    } catch (/** @type {!GenericErrorResponse} */ errorResponse) {
-      // Create an error with the name of the IPC function invoked, append the
-      // stacktrace from the target context (origin of the error) with the
-      // stacktrace of the current context.
-      const error = new Error(`${messageType}: ${errorResponse.message}`);
-      error.name = errorResponse.name || 'Unknown Error';
-      error.stack +=
-          `\nError from ${this.targetOrigin_}\n${errorResponse.stack}`;
-      // TODO(b/156205603): use internal `chrome.crashReportPrivate.reportError`
-      // to log this error.
-      throw error;
+    /**
+     * Registers a handler to be called when a message of type `messageType` is
+     * received. The return value of this handler will automatically be sent to
+     * the message source as a response message. If the handler should throw an
+     * error while handling a message, the error message will be caught and sent
+     * to the message source automatically.
+     * NOTE: The message type can not be prefixed with 3 underscores as that is
+     * reserved for generated messages. i.e `___hello` is disallowed.
+     *
+     */
+    registerHandler(messageType, handler) {
+        throwIfReserved(messageType);
+        if (this.messageHandlers_.has(messageType)) {
+            throw new Error(`A handler already exists for ${messageType}`);
+        }
+        this.messageHandlers_.set(messageType, handler);
     }
-  }
-
-  /**
-   * Sends a message to the target window and return a Promise that will resolve
-   * on response. If the target handler does not send a response the promise
-   * will resolve with a empty object.
-   *
-   * @private
-   * @param {string} messageType
-   * @param {!Object=} message
-   * @return {!Promise<!Object>}
-   */
-  async sendMessageImpl(messageType, message = {}) {
-    throwIfReserved(messageType);
-
-    const messageId = this.nextMessageId_++;
-    const resolver = new NativeResolver();
-    this.pendingMessages_.set(messageId, resolver);
-
-    this.postToTarget_(messageType, message, messageId);
-
-    return resolver.promise;
-  }
-
-  /**
-   * Removes all listeners this object attaches to window in preparation for
-   * destruction.
-   */
-  detach() {
-    window.removeEventListener('message', this.messageListener_);
-  }
-
-  /**
-   * Handles a message which represents the targets response to a previously
-   * sent message.
-   *
-   * @private
-   * @param {string} messageType
-   * @param {!Object} message
-   * @param {number} messageId
-   */
-  handleMessageResponse_(messageType, message, messageId) {
-    const {RESPONSE_TYPE, ERROR_TYPE} = ReservedMessageTypes;
-    const resolver = this.pendingMessages_.get(messageId);
-
-    if (messageType === RESPONSE_TYPE) {
-      resolver.resolve(message);
-    } else if (messageType === ERROR_TYPE) {
-      this.logClientError(message);
-      resolver.reject(message);
-    } else {
-      console.error(`Response for message ${
-          messageId} received with invalid message type ${messageType}`);
+    /**
+     * Wraps `sendMessageImpl()` catching errors from the target context to throw
+     * more useful errors with the current context stacktrace attached.
+     */
+    async sendMessage(messageType, message = {}) {
+        try {
+            return await this.sendMessageImpl(messageType, message);
+        }
+        catch (errorResponse) {
+            // Create an error with the name of the IPC function invoked, append the
+            // stacktrace from the target context (origin of the error) with the
+            // stacktrace of the current context.
+            const error = new Error(`${messageType}: ${errorResponse.message}`);
+            error.name = errorResponse.name || 'Unknown Error';
+            error.stack +=
+                `\nError from ${this.targetOrigin_}\n${errorResponse.stack}`;
+            // TODO(b/156205603): use internal `chrome.crashReportPrivate.reportError`
+            // to log this error.
+            throw error;
+        }
     }
-    this.pendingMessages_.delete(messageId);
-  }
-
-  /**
-   * Calls the relevant handler for a received message and generates the right
-   * response message to send back to the source.
-   *
-   * @private
-   * @param {string} messageType
-   * @param {!Object} message
-   * @param {number} messageId
-   * @return {!Promise<void>}
-   */
-  async callHandlerForMessageType_(messageType, message, messageId) {
-    const {RESPONSE_TYPE, ERROR_TYPE} = ReservedMessageTypes;
-    /** @type {!Object|undefined} */
-    let response;
-    /** @type {?DefensiveError} */
-    let error = null;
-    /** @type {boolean} */
-    let sawError = false;
-
-    try {
-      response = await this.messageHandlers_.get(messageType)(message);
-    } catch (/** @type {!DefensiveError} */ err) {
-      // If an error happened capture the error and send it back.
-      sawError = true;
-      error = err;
-      response = serializeError(err);
+    /**
+     * Sends a message to the target window and return a Promise that will resolve
+     * on response. If the target handler does not send a response the promise
+     * will resolve with a empty object.
+     */
+    async sendMessageImpl(messageType, message = {}) {
+        throwIfReserved(messageType);
+        const messageId = this.nextMessageId_++;
+        const resolver = new NativeResolver();
+        this.pendingMessages_.set(messageId, resolver);
+        this.postToTarget_(messageType, message, messageId);
+        return resolver.promise;
     }
-    this.postToTarget_(
-        sawError ? ERROR_TYPE : RESPONSE_TYPE, response, messageId);
-
-    if (sawError && this.rethrowErrors) {
-      // Rethrow the error so the current frame has visibility on its handler
-      // failures.
-      this.logClientError(error);
-      throw error;
+    /**
+     * Removes all listeners this object attaches to window in preparation for
+     * destruction.
+     */
+    detach() {
+        window.removeEventListener('message', this.messageListener_);
     }
-  }
-
-  /**
-   * @private
-   * @param {!Event} event
-   */
-  receiveMessage_(event) {
-    const e = /** @type {!MessageEvent<!MessageData>} */ (event);
-
-    // Ignore message events missing a type.
-    if (typeof e.data !== 'object' || !e.data
-        || typeof e.data.type !== 'string') {
-      return;
+    /**
+     * Handles a message which represents the targets response to a previously
+     * sent message.
+     */
+    handleMessageResponse_(messageType, message, messageId) {
+        const { RESPONSE_TYPE, ERROR_TYPE } = ReservedMessageTypes;
+        const resolver = assertCast(this.pendingMessages_.get(messageId));
+        if (messageType === RESPONSE_TYPE) {
+            resolver.resolve(message);
+        }
+        else if (messageType === ERROR_TYPE) {
+            this.logClientError(message);
+            resolver.reject(message);
+        }
+        else {
+            console.error(`Response for message ${messageId} received with invalid message type ${messageType}`);
+        }
+        this.pendingMessages_.delete(messageId);
     }
-    const {messageId, type, message} = e.data;
-    const {ERROR_TYPE} = ReservedMessageTypes;
-
-    // Ignore any messages that are not from the target origin unless we are
-    // explicitly accepting messages from any origin.
-    if (e.origin !== this.targetOrigin_ && this.targetOrigin_ !== '*') {
-      return;
+    /**
+     * Calls the relevant handler for a received message and generates the right
+     * response message to send back to the source.
+     */
+    async callHandlerForMessageType_(messageType, message, messageId) {
+        const { RESPONSE_TYPE, ERROR_TYPE } = ReservedMessageTypes;
+        let response;
+        let error = null;
+        let sawError = false;
+        try {
+            const handler = assertCast(this.messageHandlers_.get(messageType));
+            response = await handler(message);
+        }
+        catch (err) {
+            // If an error happened capture the error and send it back.
+            sawError = true;
+            error = err;
+            response = serializeError(err);
+        }
+        this.postToTarget_(sawError ? ERROR_TYPE : RESPONSE_TYPE, response, messageId);
+        if (sawError && this.rethrowErrors) {
+            // Rethrow the error so the current frame has visibility on its handler
+            // failures.
+            this.logClientError(error);
+            throw error;
+        }
     }
-
-    // The case that the message is a response to a previously sent message.
-    if (isGeneratedMessage(type) && this.pendingMessages_.has(messageId)) {
-      this.handleMessageResponse_(type, message, messageId);
-      return;
+    receiveMessage_(e) {
+        // Ignore message events missing a type.
+        if (typeof e.data !== 'object' || !e.data ||
+            typeof e.data.type !== 'string') {
+            return;
+        }
+        const { messageId, type, message } = e.data;
+        const { ERROR_TYPE } = ReservedMessageTypes;
+        // Ignore any messages that are not from the target origin unless we are
+        // explicitly accepting messages from any origin.
+        if (e.origin !== this.targetOrigin_ && this.targetOrigin_ !== '*') {
+            return;
+        }
+        // The case that the message is a response to a previously sent message.
+        if (isGeneratedMessage(type) && this.pendingMessages_.has(messageId)) {
+            this.handleMessageResponse_(type, message, messageId);
+            return;
+        }
+        if (isGeneratedMessage(type)) {
+            // Currently all generated messages are only sent in a response, so should
+            // have been handled above.
+            console.error(`Response with type ${type} for unknown message received.`);
+            return;
+        }
+        if (!this.messageHandlers_.has(type)) {
+            // If there is no listener for this event send a error message to source.
+            const error = new Error(`No handler registered for message type '${type}'`);
+            const errorResponse = serializeError(error);
+            this.postToTarget_(ERROR_TYPE, errorResponse, messageId);
+            return;
+        }
+        this.callHandlerForMessageType_(type, message, messageId);
     }
-
-    if (isGeneratedMessage(type)) {
-      // Currently all generated messages are only sent in a response, so should
-      // have been handled above.
-      console.error(`Response with type ${type} for unknown message received.`);
-      return;
+    postToTarget_(messageType, message, messageId) {
+        const messageWrapper = {
+            messageId,
+            type: messageType,
+            message: message || {},
+        };
+        // The next line should probably be passing a transfer argument, but that
+        // causes Chrome to send a "null" message. The transfer seems to work
+        // without the third argument (but inefficiently, perhaps).
+        this.target_.postMessage(messageWrapper, this.targetOrigin_);
     }
-
-    if (!this.messageHandlers_.has(type)) {
-      // If there is no listener for this event send a error message to source.
-      const error =
-          new Error(`No handler registered for message type '${type}'`);
-      const errorResponse = serializeError(error);
-      this.postToTarget_(ERROR_TYPE, errorResponse, messageId);
-      return;
-    }
-
-    this.callHandlerForMessageType_(type, message, messageId);
-  }
-
-  /**
-   * @private
-   * @param {string} messageType
-   * @param {!Object|undefined} message
-   * @param {number} messageId
-   */
-  postToTarget_(messageType, message, messageId) {
-    const messageWrapper = {
-      messageId,
-      type: messageType,
-      message: message || {},
-    };
-    // The next line should probably be passing a transfer argument, but that
-    // causes Chrome to send a "null" message. The transfer seems to work
-    // without the third argument (but inefficiently, perhaps).
-    this.target_.postMessage(messageWrapper, this.targetOrigin_);
-  }
 }
 
 // Copyright 2020 The Chromium Authors
@@ -704,6 +620,816 @@ const RenameResult = {
   FILE_NO_LONGER_IN_LAST_OPENED_DIRECTORY: -1,
   SUCCESS: 0,
   FILE_EXISTS: 1,
+};
+
+// ui/gfx/geometry/mojom/geometry.mojom-lite.js is auto generated by mojom_bindings_generator.py, do not edit
+
+
+
+mojo.internal.exportModule('gfx.mojom');
+
+
+
+
+
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.PointSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.PointFSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.Point3FSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.SizeSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.SizeFSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.RectSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.RectFSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.InsetsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.InsetsFSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.Vector2dSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.Vector2dFSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.Vector3dFSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.QuaternionSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+gfx.mojom.QuadFSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.PointSpec.$,
+    'Point',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 4,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.Point = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.PointFSpec.$,
+    'PointF',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 4,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.PointF = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.Point3FSpec.$,
+    'Point3F',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 4,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'z', 8,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.Point3F = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+    /** @export { !number } */
+    this.z;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.SizeSpec.$,
+    'Size',
+    [
+      mojo.internal.StructField(
+        'width', 0,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'height', 4,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.Size = class {
+  constructor() {
+    /** @export { !number } */
+    this.width;
+    /** @export { !number } */
+    this.height;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.SizeFSpec.$,
+    'SizeF',
+    [
+      mojo.internal.StructField(
+        'width', 0,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'height', 4,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.SizeF = class {
+  constructor() {
+    /** @export { !number } */
+    this.width;
+    /** @export { !number } */
+    this.height;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.RectSpec.$,
+    'Rect',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 4,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'width', 8,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'height', 12,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.Rect = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+    /** @export { !number } */
+    this.width;
+    /** @export { !number } */
+    this.height;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.RectFSpec.$,
+    'RectF',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 4,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'width', 8,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'height', 12,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.RectF = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+    /** @export { !number } */
+    this.width;
+    /** @export { !number } */
+    this.height;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.InsetsSpec.$,
+    'Insets',
+    [
+      mojo.internal.StructField(
+        'top', 0,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'left', 4,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'bottom', 8,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'right', 12,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.Insets = class {
+  constructor() {
+    /** @export { !number } */
+    this.top;
+    /** @export { !number } */
+    this.left;
+    /** @export { !number } */
+    this.bottom;
+    /** @export { !number } */
+    this.right;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.InsetsFSpec.$,
+    'InsetsF',
+    [
+      mojo.internal.StructField(
+        'top', 0,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'left', 4,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'bottom', 8,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'right', 12,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.InsetsF = class {
+  constructor() {
+    /** @export { !number } */
+    this.top;
+    /** @export { !number } */
+    this.left;
+    /** @export { !number } */
+    this.bottom;
+    /** @export { !number } */
+    this.right;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.Vector2dSpec.$,
+    'Vector2d',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 4,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.Vector2d = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.Vector2dFSpec.$,
+    'Vector2dF',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 4,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.Vector2dF = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.Vector3dFSpec.$,
+    'Vector3dF',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 4,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'z', 8,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.Vector3dF = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+    /** @export { !number } */
+    this.z;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.QuaternionSpec.$,
+    'Quaternion',
+    [
+      mojo.internal.StructField(
+        'x', 0,
+        0,
+        mojo.internal.Double,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'y', 8,
+        0,
+        mojo.internal.Double,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'z', 16,
+        0,
+        mojo.internal.Double,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'w', 24,
+        0,
+        mojo.internal.Double,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 40],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.Quaternion = class {
+  constructor() {
+    /** @export { !number } */
+    this.x;
+    /** @export { !number } */
+    this.y;
+    /** @export { !number } */
+    this.z;
+    /** @export { !number } */
+    this.w;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    gfx.mojom.QuadFSpec.$,
+    'QuadF',
+    [
+      mojo.internal.StructField(
+        'p1', 0,
+        0,
+        gfx.mojom.PointFSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'p2', 8,
+        0,
+        gfx.mojom.PointFSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'p3', 16,
+        0,
+        gfx.mojom.PointFSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'p4', 24,
+        0,
+        gfx.mojom.PointFSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 40],]);
+
+
+
+
+
+/** @record */
+gfx.mojom.QuadF = class {
+  constructor() {
+    /** @export { !gfx.mojom.PointF } */
+    this.p1;
+    /** @export { !gfx.mojom.PointF } */
+    this.p2;
+    /** @export { !gfx.mojom.PointF } */
+    this.p3;
+    /** @export { !gfx.mojom.PointF } */
+    this.p4;
+  }
 };
 
 // ash/webui/media_app_ui/media_app_ui_untrusted.mojom-lite.js is auto generated by mojom_bindings_generator.py, do not edit
@@ -769,16 +1495,16 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote = class {
 
   
   /**
-   * @param { !ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver } receiver
-   * @param { !ash.mediaAppUi.mojom.UntrustedPageRemote } page
+   * @param { !ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver } receiver
+   * @param { !ash.mediaAppUi.mojom.OcrUntrustedPageRemote } page
    */
 
-  createUntrustedPageHandler(
+  createOcrUntrustedPageHandler(
       receiver,
       page) {
     this.proxy.sendMessage(
         0,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
+        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
         null,
         [
           receiver,
@@ -811,9 +1537,9 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryReceiver = class {
 
     this.helper_internal_.registerHandler(
         0,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
+        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
         null,
-        impl.createUntrustedPageHandler.bind(impl));
+        impl.createOcrUntrustedPageHandler.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -869,15 +1595,15 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.createUntrustedPageHandler =
+    this.createOcrUntrustedPageHandler =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         0,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
+        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
         null,
-        this.createUntrustedPageHandler.createReceiverHandler(false /* expectsResponse */));
+        this.createOcrUntrustedPageHandler.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -899,7 +1625,7 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryCallbackRouter = class {
  * @implements {mojo.internal.interfaceSupport.PendingReceiver}
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver = class {
   /**
    * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
    */
@@ -912,7 +1638,7 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver = class {
   bindInBrowser(scope = 'context') {
     mojo.internal.interfaceSupport.bind(
         this.handle,
-        ash.mediaAppUi.mojom.UntrustedPageHandler.$interfaceName,
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandler.$interfaceName,
         scope);
   }
 };
@@ -921,51 +1647,75 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver = class {
 
 /**
  * @export
- * @implements { ash.mediaAppUi.mojom.UntrustedPageHandlerInterface }
+ * @implements { ash.mediaAppUi.mojom.OcrUntrustedPageHandlerInterface }
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerRemote = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote = class {
   /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
   constructor(handle = undefined) {
     /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver>}
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver>}
      */
     this.proxy =
         new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver,
+          ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver,
           handle);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
 
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
   }
+
+  
+  /**
+   * @param { !gfx.mojom.RectF } viewportBox
+   * @param { !number } scaleFactor
+   */
+
+  viewportUpdated(
+      viewportBox,
+      scaleFactor) {
+    this.proxy.sendMessage(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+        null,
+        [
+          viewportBox,
+          scaleFactor
+        ]);
+  }
 };
 
 /**
- * An object which receives request messages for the UntrustedPageHandler
+ * An object which receives request messages for the OcrUntrustedPageHandler
  * mojom interface. Must be constructed over an object which implements that
  * interface.
  *
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerReceiver = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandlerReceiver = class {
   /**
-   * @param {!ash.mediaAppUi.mojom.UntrustedPageHandlerInterface } impl
+   * @param {!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerInterface } impl
    */
   constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.UntrustedPageHandlerRemote>} */
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote>} */
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        ash.mediaAppUi.mojom.UntrustedPageHandlerRemote);
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageHandlerRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
 
+    this.helper_internal_.registerHandler(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+        null,
+        impl.viewportUpdated.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -974,12 +1724,12 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerReceiver = class {
 /**
  *  @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandler = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandler = class {
   /**
    * @return {!string}
    */
   static get $interfaceName() {
-    return "ash.media_app_ui.mojom.UntrustedPageHandler";
+    return "ash.media_app_ui.mojom.OcrUntrustedPageHandler";
   }
 
   /**
@@ -987,11 +1737,11 @@ ash.mediaAppUi.mojom.UntrustedPageHandler = class {
    * The browser must have an interface request binder registered for this
    * interface and accessible to the calling document's frame.
    *
-   * @return {!ash.mediaAppUi.mojom.UntrustedPageHandlerRemote}
+   * @return {!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote}
    * @export
    */
   static getRemote() {
-    let remote = new ash.mediaAppUi.mojom.UntrustedPageHandlerRemote;
+    let remote = new ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote;
     remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
     return remote;
   }
@@ -999,25 +1749,37 @@ ash.mediaAppUi.mojom.UntrustedPageHandler = class {
 
 
 /**
- * An object which receives request messages for the UntrustedPageHandler
+ * An object which receives request messages for the OcrUntrustedPageHandler
  * mojom interface and dispatches them as callbacks. One callback receiver exists
  * on this object for each message defined in the mojom interface, and each
  * receiver can have any number of listeners added to it.
  *
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerCallbackRouter = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandlerCallbackRouter = class {
   constructor() {
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      ash.mediaAppUi.mojom.UntrustedPageHandlerRemote);
+      ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageHandlerRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
     this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
 
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.viewportUpdated =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+        null,
+        this.viewportUpdated.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1039,7 +1801,7 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerCallbackRouter = class {
  * @implements {mojo.internal.interfaceSupport.PendingReceiver}
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPagePendingReceiver = class {
+ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver = class {
   /**
    * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
    */
@@ -1052,7 +1814,7 @@ ash.mediaAppUi.mojom.UntrustedPagePendingReceiver = class {
   bindInBrowser(scope = 'context') {
     mojo.internal.interfaceSupport.bind(
         this.handle,
-        ash.mediaAppUi.mojom.UntrustedPage.$interfaceName,
+        ash.mediaAppUi.mojom.OcrUntrustedPage.$interfaceName,
         scope);
   }
 };
@@ -1061,51 +1823,72 @@ ash.mediaAppUi.mojom.UntrustedPagePendingReceiver = class {
 
 /**
  * @export
- * @implements { ash.mediaAppUi.mojom.UntrustedPageInterface }
+ * @implements { ash.mediaAppUi.mojom.OcrUntrustedPageInterface }
  */
-ash.mediaAppUi.mojom.UntrustedPageRemote = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageRemote = class {
   /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
   constructor(handle = undefined) {
     /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.UntrustedPagePendingReceiver>}
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver>}
      */
     this.proxy =
         new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          ash.mediaAppUi.mojom.UntrustedPagePendingReceiver,
+          ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver,
           handle);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.UntrustedPagePendingReceiver>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
 
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
   }
+
+  
+  /**
+   * @param { !gfx.mojom.RectF } viewportBox
+   */
+
+  setViewport(
+      viewportBox) {
+    this.proxy.sendMessage(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
+        null,
+        [
+          viewportBox
+        ]);
+  }
 };
 
 /**
- * An object which receives request messages for the UntrustedPage
+ * An object which receives request messages for the OcrUntrustedPage
  * mojom interface. Must be constructed over an object which implements that
  * interface.
  *
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageReceiver = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageReceiver = class {
   /**
-   * @param {!ash.mediaAppUi.mojom.UntrustedPageInterface } impl
+   * @param {!ash.mediaAppUi.mojom.OcrUntrustedPageInterface } impl
    */
   constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.UntrustedPageRemote>} */
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.OcrUntrustedPageRemote>} */
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        ash.mediaAppUi.mojom.UntrustedPageRemote);
+        ash.mediaAppUi.mojom.OcrUntrustedPageRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
 
+    this.helper_internal_.registerHandler(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
+        null,
+        impl.setViewport.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1114,12 +1897,12 @@ ash.mediaAppUi.mojom.UntrustedPageReceiver = class {
 /**
  *  @export
  */
-ash.mediaAppUi.mojom.UntrustedPage = class {
+ash.mediaAppUi.mojom.OcrUntrustedPage = class {
   /**
    * @return {!string}
    */
   static get $interfaceName() {
-    return "ash.media_app_ui.mojom.UntrustedPage";
+    return "ash.media_app_ui.mojom.OcrUntrustedPage";
   }
 
   /**
@@ -1127,11 +1910,11 @@ ash.mediaAppUi.mojom.UntrustedPage = class {
    * The browser must have an interface request binder registered for this
    * interface and accessible to the calling document's frame.
    *
-   * @return {!ash.mediaAppUi.mojom.UntrustedPageRemote}
+   * @return {!ash.mediaAppUi.mojom.OcrUntrustedPageRemote}
    * @export
    */
   static getRemote() {
-    let remote = new ash.mediaAppUi.mojom.UntrustedPageRemote;
+    let remote = new ash.mediaAppUi.mojom.OcrUntrustedPageRemote;
     remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
     return remote;
   }
@@ -1139,25 +1922,37 @@ ash.mediaAppUi.mojom.UntrustedPage = class {
 
 
 /**
- * An object which receives request messages for the UntrustedPage
+ * An object which receives request messages for the OcrUntrustedPage
  * mojom interface and dispatches them as callbacks. One callback receiver exists
  * on this object for each message defined in the mojom interface, and each
  * receiver can have any number of listeners added to it.
  *
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageCallbackRouter = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageCallbackRouter = class {
   constructor() {
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      ash.mediaAppUi.mojom.UntrustedPageRemote);
+      ash.mediaAppUi.mojom.OcrUntrustedPageRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
     this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
 
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setViewport =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
+        null,
+        this.setViewport.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1178,20 +1973,36 @@ ash.mediaAppUi.mojom.UntrustedPageCallbackRouter = class {
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec =
+ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
 
 
 mojo.internal.Struct(
-    ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
-    'UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params',
+    ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
+    'UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params',
     [
       mojo.internal.StructField(
         'receiver', 0,
         0,
-        mojo.internal.InterfaceRequest(ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver),
+        mojo.internal.InterfaceRequest(ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -1199,7 +2010,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'page', 4,
         0,
-        mojo.internal.InterfaceProxy(ash.mediaAppUi.mojom.UntrustedPageRemote),
+        mojo.internal.InterfaceProxy(ash.mediaAppUi.mojom.OcrUntrustedPageRemote),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -1212,12 +2023,80 @@ mojo.internal.Struct(
 
 
 /** @record */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params = class {
+ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params = class {
   constructor() {
-    /** @export { !ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver } */
+    /** @export { !ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver } */
     this.receiver;
-    /** @export { !ash.mediaAppUi.mojom.UntrustedPageRemote } */
+    /** @export { !ash.mediaAppUi.mojom.OcrUntrustedPageRemote } */
     this.page;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+    'OcrUntrustedPageHandler_ViewportUpdated_Params',
+    [
+      mojo.internal.StructField(
+        'viewportBox', 0,
+        0,
+        gfx.mojom.RectFSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'scaleFactor', 8,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_Params = class {
+  constructor() {
+    /** @export { !gfx.mojom.RectF } */
+    this.viewportBox;
+    /** @export { !number } */
+    this.scaleFactor;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
+    'OcrUntrustedPage_SetViewport_Params',
+    [
+      mojo.internal.StructField(
+        'viewportBox', 0,
+        0,
+        gfx.mojom.RectFSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_Params = class {
+  constructor() {
+    /** @export { !gfx.mojom.RectF } */
+    this.viewportBox;
   }
 };
 
@@ -1226,23 +2105,34 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Para
 // found in the LICENSE file.
 
 
-// Used to make calls on the remote UntrustedPageHandler interface. Singleton
+// Used to make calls on the remote OcrUntrustedPageHandler interface. Singleton
 // that client modules can use directly.
-const untrustedPageHandler =
-    new ash.mediaAppUi.mojom.UntrustedPageHandlerRemote();
+// TODO(b/316239558): The client should use the result of connectToOcrHandler()
+// directly instead of us exporting this.
+let ocrUntrustedPageHandler;
 
 // Use this subscribe to events e.g.
-// `callbackRouter.onEventOccurred.addListener(handleEvent)`.
-const callbackRouter =
-    new ash.mediaAppUi.mojom.UntrustedPageHandlerCallbackRouter();
+// `ocrCallbackRouter.onEventOccurred.addListener(handleEvent)`.
+const ocrCallbackRouter =
+    new ash.mediaAppUi.mojom.OcrUntrustedPageCallbackRouter();
 
-// Use UntrustedPageHandlerFactory to create a connection to
-// UntrustedPageHandler.
+// Used to create a connection to OcrUntrustedPageHandler.
 const factoryRemote =
     ash.mediaAppUi.mojom.UntrustedPageHandlerFactory.getRemote();
-factoryRemote.createUntrustedPageHandler(
-    untrustedPageHandler.$.bindNewPipeAndPassReceiver(),
-    callbackRouter.$.bindNewPipeAndPassRemote());
+
+// Called when a new file that may require OCR is loaded. Closes the existing
+// pipe and establishes a new one.
+function connectToOcrHandler() {
+  if (ocrUntrustedPageHandler) {
+    ocrUntrustedPageHandler.$.close();
+  }
+  ocrUntrustedPageHandler =
+      new ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote();
+  factoryRemote.createOcrUntrustedPageHandler(
+      ocrUntrustedPageHandler.$.bindNewPipeAndPassReceiver(),
+      ocrCallbackRouter.$.bindNewPipeAndPassRemote());
+  return ocrUntrustedPageHandler;
+}
 
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -1316,501 +2206,381 @@ window.addEventListener(
       });
     });
 
-// Copyright 2019 The Chromium Authors
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
+/// <reference path="media_app.d.ts" />
 /** A pipe through which we can send messages to the parent frame. */
 const parentMessagePipe = new MessagePipe('chrome://media-app', window.parent);
-
 /**
  * Placeholder Blob used when a null file is received. For null files we only
  * know the name until the file is navigated to.
  */
 const PLACEHOLDER_BLOB = new Blob([]);
-
 /**
  * A file received from the privileged context, and decorated with IPC methods
  * added in the untrusted (this) context to communicate back.
- * @implements {mediaApp.AbstractFile}
  */
 class ReceivedFile {
-  /** @param {!FileContext} file */
-  constructor(file) {
-    this.blob = file.file || PLACEHOLDER_BLOB;
-    this.name = file.name;
-    this.size = this.blob.size;
-    this.mimeType = this.blob.type;
-    this.token = file.token;
-    this.error = file.error;
-    this.fromClipboard = false;
-    if (file.canDelete) {
-      this.deleteOriginalFile = () => this.deleteOriginalFileImpl();
+    blob;
+    name;
+    token;
+    size;
+    mimeType;
+    fromClipboard;
+    error;
+    deleteOriginalFile;
+    renameOriginalFile;
+    constructor(file) {
+        this.blob = file.file || PLACEHOLDER_BLOB;
+        this.name = file.name;
+        this.size = this.blob.size;
+        this.mimeType = this.blob.type;
+        this.token = file.token;
+        this.error = file.error;
+        this.fromClipboard = false;
+        if (file.canDelete) {
+            this.deleteOriginalFile = () => this.deleteOriginalFileImpl();
+        }
+        if (file.canRename) {
+            this.renameOriginalFile = (newName) => this.renameOriginalFileImpl(newName);
+        }
     }
-    if (file.canRename) {
-      this.renameOriginalFile = (/** string */ newName) =>
-          this.renameOriginalFileImpl(newName);
+    async isArcWritable() {
+        const message = { token: this.token };
+        const { writable } = (await parentMessagePipe.sendMessage(Message.IS_FILE_ARC_WRITABLE, message));
+        return writable;
     }
-  }
-
-  /**
-   * @override
-   * @return {!Promise<boolean>}
-   */
-  async isArcWritable() {
-    /** @type {!IsFileArcWritableMessage} */
-    const message = {token: this.token};
-
-    const {writable} = /** @type {!IsFileArcWritableResponse} */ (
-        await parentMessagePipe.sendMessage(
-            Message.IS_FILE_ARC_WRITABLE, message));
-    return writable;
-  }
-
-  /**
-   * @override
-   * @return {!Promise<boolean>}
-   */
-  async isBrowserWritable() {
-    /** @type {!IsFileBrowserWritableMessage} */
-    const message = {token: this.token};
-
-    const {writable} = /** @type {!IsFileBrowserWritableResponse} */ (
-        await parentMessagePipe.sendMessage(
-            Message.IS_FILE_BROWSER_WRITABLE, message));
-    return writable;
-  }
-
-  /**
-   * @override
-   */
-  async editInPhotos() {
-    /** @type {!EditInPhotosMessage} */
-    const message = {token: this.token, mimeType: this.mimeType};
-
-    await parentMessagePipe.sendMessage(Message.EDIT_IN_PHOTOS, message);
-  }
-
-  /**
-   * @override
-   * @param{!Blob} blob
-   */
-  async overwriteOriginal(blob) {
-    /** @type {!OverwriteFileMessage} */
-    const message = {token: this.token, blob: blob};
-
-    const result = /** @type {!OverwriteViaFilePickerResponse} */ (
-        await parentMessagePipe.sendMessage(Message.OVERWRITE_FILE, message));
-    // Note the following are skipped if an exception is thrown above.
-    if (result.renamedTo) {
-      this.name = result.renamedTo;
-      // Assume a rename could have moved the file to a new folder via a file
-      // picker, which will break rename/delete functionality.
-      delete this.deleteOriginalFile;
-      delete this.renameOriginalFile;
+    async isBrowserWritable() {
+        const message = { token: this.token };
+        const { writable } = (await parentMessagePipe.sendMessage(Message.IS_FILE_BROWSER_WRITABLE, message));
+        return writable;
     }
-    this.error = result.errorName || '';
-    this.updateFile(blob, this.name);
-  }
-
-  /**
-   * @return {!Promise<number>}
-   */
-  async deleteOriginalFileImpl() {
-    await parentMessagePipe.sendMessage(
-        Message.DELETE_FILE, {token: this.token});
-    // TODO(b/156571159): Remove when app_main.js no longer needs this.
-    return 0; /* "SUCCESS" */
-  }
-
-  /**
-   * @param {string} newName
-   * @return {!Promise<number>}
-   */
-  async renameOriginalFileImpl(newName) {
-    const renameResponse =
-        /** @type {!RenameFileResponse} */ (await parentMessagePipe.sendMessage(
-            Message.RENAME_FILE, {token: this.token, newFilename: newName}));
-    if (renameResponse.renameResult === RenameResult.SUCCESS) {
-      this.name = newName;
+    async editInPhotos() {
+        const message = {
+            token: this.token,
+            mimeType: this.mimeType,
+        };
+        await parentMessagePipe.sendMessage(Message.EDIT_IN_PHOTOS, message);
     }
-    return renameResponse.renameResult;
-  }
-
-  /**
-   * @override
-   * @param {!Blob} blob
-   * @param {number} pickedFileToken
-   * @return {!Promise<undefined>}
-   */
-  async saveAs(blob, pickedFileToken) {
-    /** @type {!SaveAsMessage} */
-    const message = {blob, oldFileToken: this.token, pickedFileToken};
-    const result = /** @type {!SaveAsResponse} */ (
-        await parentMessagePipe.sendMessage(Message.SAVE_AS, message));
-    this.updateFile(blob, result.newFilename);
-    // Files obtained by a file picker currently can not be renamed/deleted.
-    // TODO(b/163285659): Detect when the new file is in the same folder as an
-    // on-launch file. Those should still be able to be renamed/deleted.
-    delete this.deleteOriginalFile;
-    delete this.renameOriginalFile;
-  }
-
-  /**
-   * @override
-   * @param {!Array<string>} accept
-   * @return {!Promise<!mediaApp.AbstractFile>}
-   */
-  async getExportFile(accept) {
-    /** @type {!RequestSaveFileMessage} */
-    const msg = {
-      suggestedName: this.name,
-      mimeType: this.mimeType,
-      startInToken: this.token,
-      accept,
-    };
-    const response =
-        /** @type {!RequestSaveFileResponse} */ (
-            await parentMessagePipe.sendMessage(
-                Message.REQUEST_SAVE_FILE, msg));
-    return new ReceivedFile(response.pickedFileContext);
-  }
-
-  /**
-   * @override
-   * @return {!Promise<!File>}
-   */
-  async openFile() {
-    /** @type {!OpenAllowedFileMessage} */
-    const msg = {
-      fileToken: this.token,
-    };
-    const response =
-        /** @type {!OpenAllowedFileResponse} */ (
-            await parentMessagePipe.sendMessage(
-                Message.OPEN_ALLOWED_FILE, msg));
-    return response.file;
-  }
-
-  /**
-   * Updates the wrapped file to reflect a change written to disk.
-   * @private
-   * @param {!Blob} blob
-   * @param {string} name
-   */
-  updateFile(blob, name) {
-    // Wrap the blob to acquire "now()" as the lastModified time. Note this may
-    // differ from the actual mtime recorded on the inode.
-    this.blob = new File([blob], name, {type: blob.type});
-    this.size = blob.size;
-    this.mimeType = blob.type;
-    this.name = name;
-  }
+    async overwriteOriginal(blob) {
+        const message = { token: this.token, blob: blob };
+        const result = await parentMessagePipe.sendMessage(Message.OVERWRITE_FILE, message);
+        // Note the following are skipped if an exception is thrown above.
+        if (result.renamedTo) {
+            this.name = result.renamedTo;
+            // Assume a rename could have moved the file to a new folder via a file
+            // picker, which will break rename/delete functionality.
+            delete this.deleteOriginalFile;
+            delete this.renameOriginalFile;
+        }
+        this.error = result.errorName || '';
+        this.updateFile(blob, this.name);
+    }
+    async deleteOriginalFileImpl() {
+        await parentMessagePipe.sendMessage(Message.DELETE_FILE, { token: this.token });
+    }
+    async renameOriginalFileImpl(newName) {
+        const renameResponse = await parentMessagePipe.sendMessage(Message.RENAME_FILE, {
+            token: this.token,
+            newFilename: newName,
+        });
+        if (renameResponse.renameResult === RenameResult.SUCCESS) {
+            this.name = newName;
+        }
+        return renameResponse.renameResult;
+    }
+    async saveAs(blob, pickedFileToken) {
+        const message = {
+            blob,
+            oldFileToken: this.token,
+            pickedFileToken,
+        };
+        const result = await parentMessagePipe.sendMessage(Message.SAVE_AS, message);
+        this.updateFile(blob, result.newFilename);
+        // Files obtained by a file picker currently can not be renamed/deleted.
+        // TODO(b/163285659): Detect when the new file is in the same folder as an
+        // on-launch file. Those should still be able to be renamed/deleted.
+        delete this.deleteOriginalFile;
+        delete this.renameOriginalFile;
+    }
+    async getExportFile(accept) {
+        const msg = {
+            suggestedName: this.name,
+            mimeType: this.mimeType,
+            startInToken: this.token,
+            accept,
+        };
+        const response = await parentMessagePipe.sendMessage(Message.REQUEST_SAVE_FILE, msg);
+        return new ReceivedFile(response.pickedFileContext);
+    }
+    async openFile() {
+        const msg = {
+            fileToken: this.token,
+        };
+        const response = await parentMessagePipe.sendMessage(Message.OPEN_ALLOWED_FILE, msg);
+        return response.file;
+    }
+    /**
+     * Updates the wrapped file to reflect a change written to disk.
+     */
+    updateFile(blob, name) {
+        // Wrap the blob to acquire "now()" as the lastModified time. Note this may
+        // differ from the actual mtime recorded on the inode.
+        this.blob = new File([blob], name, { type: blob.type });
+        this.size = blob.size;
+        this.mimeType = blob.type;
+        this.name = name;
+    }
 }
-
 /**
  * Source of truth for what files are loaded in the app. This can be appended to
  * via `ReceivedFileList.addFiles()`.
- * @type {?ReceivedFileList}
  */
 let lastLoadedReceivedFileList = null;
-
 /**
  * A file list consisting of all files received from the parent. Exposes all
  * readable files in the directory, some of which may be writable.
- * @implements mediaApp.AbstractFileList
  */
 class ReceivedFileList {
-  /** @param {!LoadFilesMessage} filesMessage */
-  constructor(filesMessage) {
-    const {files, currentFileIndex} = filesMessage;
-    if (files.length) {
-      // If we were not provided with a currentFileIndex, default to making the
-      // first file the current file.
-      this.currentFileIndex = currentFileIndex >= 0 ? currentFileIndex : 0;
-    } else {
-      // If we are empty we have no current file.
-      this.currentFileIndex = -1;
+    length;
+    currentFileIndex;
+    files; // Public for tests.
+    observers = [];
+    constructor(filesMessage) {
+        const { files, currentFileIndex } = filesMessage;
+        if (files.length) {
+            // If we were not provided with a currentFileIndex, default to making the
+            // first file the current file.
+            this.currentFileIndex = currentFileIndex >= 0 ? currentFileIndex : 0;
+        }
+        else {
+            // If we are empty we have no current file.
+            this.currentFileIndex = -1;
+        }
+        this.length = files.length;
+        this.files = files.map((f) => new ReceivedFile(f));
     }
-
-    this.length = files.length;
-    /** @type {!Array<!ReceivedFile>} */
-    this.files = files.map(f => new ReceivedFile(f));
-    /** @type {!Array<function(!mediaApp.AbstractFileList): void>} */
-    this.observers = [];
-  }
-
-  /** @override */
-  item(index) {
-    return this.files[index] || null;
-  }
-
-  /** @override */
-  async loadNext(currentFileToken) {
-    // Awaiting this message send allows callers to wait for the full effects of
-    // the navigation to complete. This may include a call to load a new set of
-    // files, and the initial decode, which replaces this AbstractFileList and
-    // alters other app state.
-    await parentMessagePipe.sendMessage(
-        Message.NAVIGATE, {currentFileToken, direction: 1});
-  }
-
-  /** @override */
-  async loadPrev(currentFileToken) {
-    await parentMessagePipe.sendMessage(
-        Message.NAVIGATE, {currentFileToken, direction: -1});
-  }
-
-  /** @override */
-  addObserver(observer) {
-    this.observers.push(observer);
-  }
-
-  /**
-   * @override
-   * @param {!Array<string>} acceptTypeKeys
-   * @param {?mediaApp.AbstractFile} startInFolder
-   * @param {?boolean} isSingleFile
-   * @return {!Promise<undefined>}
-   */
-  async openFilesWithFilePicker(acceptTypeKeys, startInFolder, isSingleFile) {
-    // AbstractFile doesn't guarantee tokens. Use one from a ReceivedFile if
-    // there is one, after ensuring it is valid.
-    const fileRep = /** @type {{token: (number|undefined)}} */ (startInFolder);
-    const startInToken = startInFolder ? (fileRep.token || 0) : 0;
-    /** @type {!OpenFilesWithPickerMessage} */
-    const msg = {
-      startInToken: startInToken > 0 ? startInToken : 0,
-      accept: acceptTypeKeys,
-      isSingleFile,
-    };
-    await parentMessagePipe.sendMessage(Message.OPEN_FILES_WITH_PICKER, msg);
-  }
-
-  /**
-   * @override
-   * @param {!function(!mediaApp.AbstractFile): boolean} filter
-   */
-  filterInPlace(filter) {
-    this.files = this.files.filter(filter);
-    this.length = this.files.length;
-    this.currentFileIndex = this.length > 0 ? 0 : -1;
-  }
-
-  /** @param {!Array<!ReceivedFile>} files */
-  addFiles(files) {
-    if (files.length === 0) {
-      return;
+    item(index) {
+        return this.files[index] || null;
     }
-    this.files = [...this.files, ...files];
-    this.length = this.files.length;
-    // Call observers with the new underlying files.
-    this.observers.map(o => o(this));
-  }
+    async loadNext(currentFileToken) {
+        // Awaiting this message send allows callers to wait for the full effects of
+        // the navigation to complete. This may include a call to load a new set of
+        // files, and the initial decode, which replaces this AbstractFileList and
+        // alters other app state.
+        await parentMessagePipe.sendMessage(Message.NAVIGATE, { currentFileToken, direction: 1 });
+    }
+    async loadPrev(currentFileToken) {
+        await parentMessagePipe.sendMessage(Message.NAVIGATE, { currentFileToken, direction: -1 });
+    }
+    addObserver(observer) {
+        this.observers.push(observer);
+    }
+    async openFilesWithFilePicker(acceptTypeKeys, startInFolder, isSingleFile) {
+        // AbstractFile doesn't guarantee tokens. Use one from a ReceivedFile if
+        // there is one, after ensuring it is valid.
+        const startInToken = startInFolder?.token || 0;
+        const msg = {
+            startInToken: startInToken > 0 ? startInToken : 0,
+            accept: acceptTypeKeys,
+            isSingleFile: !!isSingleFile,
+        };
+        await parentMessagePipe.sendMessage(Message.OPEN_FILES_WITH_PICKER, msg);
+    }
+    filterInPlace(filter) {
+        this.files = this.files.filter(filter);
+        this.length = this.files.length;
+        this.currentFileIndex = this.length > 0 ? 0 : -1;
+    }
+    addFiles(files) {
+        if (files.length === 0) {
+            return;
+        }
+        this.files = [...this.files, ...files];
+        this.length = this.files.length;
+        // Call observers with the new underlying files.
+        this.observers.map((o) => o(this));
+    }
 }
-
-parentMessagePipe.registerHandler(Message.LOAD_FILES, async (message) => {
-  const filesMessage = /** @type {!LoadFilesMessage} */ (message);
-  lastLoadedReceivedFileList = new ReceivedFileList(filesMessage);
-  await loadFiles(lastLoadedReceivedFileList);
+parentMessagePipe.registerHandler(Message.LOAD_FILES, async (filesMessage) => {
+    lastLoadedReceivedFileList = new ReceivedFileList(filesMessage);
+    await loadFiles(lastLoadedReceivedFileList);
 });
-
 // Load extra files by appending to the current `ReceivedFileList`.
-parentMessagePipe.registerHandler(Message.LOAD_EXTRA_FILES, async (message) => {
-  if (!lastLoadedReceivedFileList) {
-    return;
-  }
-  const extraFilesMessage = /** @type {!LoadFilesMessage} */ (message);
-  const newFiles = extraFilesMessage.files.map(f => new ReceivedFile(f));
-  lastLoadedReceivedFileList.addFiles(newFiles);
+parentMessagePipe.registerHandler(Message.LOAD_EXTRA_FILES, async (extraFilesMessage) => {
+    if (!lastLoadedReceivedFileList) {
+        return;
+    }
+    const newFiles = extraFilesMessage.files.map((f) => new ReceivedFile(f));
+    lastLoadedReceivedFileList.addFiles(newFiles);
 });
-
 // As soon as the LOAD_FILES handler is installed, signal readiness to the
 // parent frame (privileged context).
 parentMessagePipe.sendMessage(Message.IFRAME_READY);
-
+ocrCallbackRouter.setViewport.addListener((viewportBox) => {
+    const app = getApp();
+    if (app) {
+        app.setViewport({
+            left: viewportBox.x,
+            top: viewportBox.y,
+            width: viewportBox.width,
+            height: viewportBox.height,
+        });
+    }
+});
 /**
  * A delegate which exposes privileged WebUI functionality to the media
  * app.
- * @type {!mediaApp.ClientApiDelegate}
  */
 const DELEGATE = {
-  async openFeedbackDialog() {
-    const response =
-        await parentMessagePipe.sendMessage(Message.OPEN_FEEDBACK_DIALOG);
-    return /** @type {?string} */ (response['errorMessage']);
-  },
-  async toggleBrowserFullscreenMode() {
-    await parentMessagePipe.sendMessage(Message.TOGGLE_BROWSER_FULLSCREEN_MODE);
-  },
-  /**
-   * @param {string} suggestedName
-   * @param {string} mimeType
-   * @param {!Array<string>} accept
-   * @return {!Promise<!mediaApp.AbstractFile>}
-   */
-  async requestSaveFile(suggestedName, mimeType, accept) {
-    /** @type {!RequestSaveFileMessage} */
-    const msg = {suggestedName, mimeType, startInToken: 0, accept};
-    const response =
-        /** @type {!RequestSaveFileResponse} */ (
-            await parentMessagePipe.sendMessage(
-                Message.REQUEST_SAVE_FILE, msg));
-    return new ReceivedFile(response.pickedFileContext);
-  },
-  /**
-   * @param {string|undefined} name
-   * @param {string|undefined} type
-   */
-  notifyCurrentFile(name, type) {
-    parentMessagePipe.sendMessage(Message.NOTIFY_CURRENT_FILE, {name, type});
-  },
-  /**
-   * @param {!Blob} file
-   * @return {!Promise<!File>}
-   */
-  async extractPreview(file) {
-    try {
-      const bufferPromise = file.arrayBuffer();
-      const extractFromRawImageBuffer = await loadPiex();
-      return await extractFromRawImageBuffer(await bufferPromise);
-    } catch (/** @type {!Error} */ e) {
-      console.warn(e);
-      if (e.name === 'Error') {
-        e.name = 'JpegNotFound';
-      }
-      throw e;
-    }
-  },
-  /**
-   * @param {string} title
-   * @param {string} blobUuid
-   */
-  openInSandboxedViewer(title, blobUuid) {
-    parentMessagePipe.sendMessage(
-        Message.OPEN_IN_SANDBOXED_VIEWER, {title, blobUuid});
-  },
-  reloadMainFrame() {
-    parentMessagePipe.sendMessage(Message.RELOAD_MAIN_FRAME);
-  },
-  maybeTriggerPdfHats() {
-    parentMessagePipe.sendMessage(Message.MAYBE_TRIGGER_PDF_HATS);
-  },
-  // TODO(b/219631600): Implement openUrlInBrowserTab() for LacrOS if needed.
+    async openFeedbackDialog() {
+        const response = await parentMessagePipe.sendMessage(Message.OPEN_FEEDBACK_DIALOG);
+        return response['errorMessage'];
+    },
+    async toggleBrowserFullscreenMode() {
+        await parentMessagePipe.sendMessage(Message.TOGGLE_BROWSER_FULLSCREEN_MODE);
+    },
+    async requestSaveFile(suggestedName, mimeType, accept) {
+        const msg = {
+            suggestedName,
+            mimeType,
+            startInToken: 0,
+            accept,
+        };
+        const response = await parentMessagePipe.sendMessage(Message.REQUEST_SAVE_FILE, msg);
+        return new ReceivedFile(response.pickedFileContext);
+    },
+    notifyCurrentFile(name, type) {
+        parentMessagePipe.sendMessage(Message.NOTIFY_CURRENT_FILE, { name, type });
+        if (type === 'application/pdf') {
+            connectToOcrHandler();
+        }
+    },
+    async extractPreview(file) {
+        try {
+            const bufferPromise = file.arrayBuffer();
+            const extractFromRawImageBuffer = await loadPiex();
+            return await extractFromRawImageBuffer(await bufferPromise);
+        }
+        catch (e) {
+            console.warn(e);
+            if (e.name === 'Error') {
+                e.name = 'JpegNotFound';
+            }
+            throw e;
+        }
+    },
+    openInSandboxedViewer(title, blobUuid) {
+        parentMessagePipe.sendMessage(Message.OPEN_IN_SANDBOXED_VIEWER, { title, blobUuid });
+    },
+    reloadMainFrame() {
+        parentMessagePipe.sendMessage(Message.RELOAD_MAIN_FRAME);
+    },
+    maybeTriggerPdfHats() {
+        parentMessagePipe.sendMessage(Message.MAYBE_TRIGGER_PDF_HATS);
+    },
+    // TODO(b/219631600): Implement openUrlInBrowserTab() for LacrOS if needed.
+    async viewportUpdated(viewportBox, scaleFactor) {
+        await ocrUntrustedPageHandler?.viewportUpdated({
+            x: viewportBox.left,
+            y: viewportBox.top,
+            width: viewportBox.width,
+            height: viewportBox.height,
+        }, scaleFactor);
+    },
 };
-
 /**
  * Returns the media app if it can find it in the DOM.
- * @return {?mediaApp.ClientApi}
  */
 function getApp() {
-  return /** @type {?mediaApp.ClientApi} */ (
-      document.querySelector('backlight-app'));
+    return document.querySelector('backlight-app');
 }
-
 /**
  * Loads a file list into the media app.
- * @param {!ReceivedFileList} fileList
- * @return {!Promise<undefined>}
  */
-async function loadFiles(fileList) {
-  const app = getApp();
-  if (app) {
-    await app.loadFiles(fileList);
-  } else {
-    // Note we don't await in this case, which may affect b/152729704.
-    window.customLaunchData.files = fileList;
-  }
+async function loadFilesImpl(fileList) {
+    const app = getApp();
+    if (app) {
+        await app.loadFiles(fileList);
+    }
+    else {
+        // Note we don't await in this case, which may affect b/152729704.
+        window.customLaunchData.files = fileList;
+    }
 }
-
+/** Store `loadFilesImpl` into a variable so that tests may spy on it. */
+let loadFiles = loadFilesImpl;
 /**
  * Runs any initialization code on the media app once it is in the dom.
- * @param {!mediaApp.ClientApi} app
  */
 function initializeApp(app) {
-  app.setDelegate(DELEGATE);
+    app.setDelegate(DELEGATE);
 }
-
 /**
  * Called when a mutation occurs on document.body to check if the media app is
  * available.
- * @param {!Array<!MutationRecord>} mutationsList
- * @param {!MutationObserver} observer
  */
-function mutationCallback(mutationsList, observer) {
-  const app = getApp();
-  if (!app) {
-    return;
-  }
-  // The media app now exists so we can initialize it.
-  initializeApp(app);
-  observer.disconnect();
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  // Start listening to color change events. These events get picked up by logic
-  // in ts_helpers.ts on the google3 side.
-  /** @suppress {checkTypes} */
-  (function() {
-    ColorChangeUpdater.forDocument().start();
-  })();
-
-  const app = getApp();
-  if (app) {
+function mutationCallback(_mutationsList, observer) {
+    const app = getApp();
+    if (!app) {
+        return;
+    }
+    // The media app now exists so we can initialize it.
     initializeApp(app);
-    return;
-  }
-  // If translations need to be fetched, the app element may not be added yet.
-  // In that case, observe <body> until it is.
-  const observer = new MutationObserver(mutationCallback);
-  observer.observe(document.body, {childList: true});
+    observer.disconnect();
+}
+window.addEventListener('DOMContentLoaded', () => {
+    // Start listening to color change events. These events get picked up by logic
+    // in ts_helpers.ts on the google3 side.
+    /** @suppress {checkTypes} */
+    (function () {
+        ColorChangeUpdater.forDocument().start();
+    })();
+    const app = getApp();
+    if (app) {
+        initializeApp(app);
+        return;
+    }
+    // If translations need to be fetched, the app element may not be added yet.
+    // In that case, observe <body> until it is.
+    const observer = new MutationObserver(mutationCallback);
+    observer.observe(document.body, { childList: true });
 });
-
 // Ensure that if no files are loaded into the media app there is a default
 // empty file list available.
 window.customLaunchData = {
-  delegate: DELEGATE,
-  files: new ReceivedFileList({files: [], currentFileIndex: -1}),
+    delegate: DELEGATE,
+    files: new ReceivedFileList({ files: [], currentFileIndex: -1 }),
 };
-
 // Attempting to show file pickers in the sandboxed <iframe> is guaranteed to
 // result in a SecurityError: hide them.
-// TODO(crbug/1040328): Remove this when we have a polyfill that allows us to
-// talk to the privileged frame.
-window['chooseFileSystemEntries'] = null;
-window['showOpenFilePicker'] = null;
-window['showSaveFilePicker'] = null;
-window['showDirectoryPicker'] = null;
-
+window.chooseFileSystemEntries = null;
+window.showOpenFilePicker = null;
+window.showSaveFilePicker = null;
+window.showDirectoryPicker = null;
 // Expose functions to bind to color change events to window so they can be
 // automatically picked up by installColors(). See ts_helpers.ts in google3.
-window['addColorChangeListener'] =
-    /** @suppress {checkTypes} */ function(listener) {
-      ColorChangeUpdater.forDocument().eventTarget.addEventListener(
-          COLOR_PROVIDER_CHANGED, listener);
-    };
-window['removeColorChangeListener'] =
-    /** @suppress {checkTypes} */ function(listener) {
-      ColorChangeUpdater.forDocument().eventTarget.removeEventListener(
-          COLOR_PROVIDER_CHANGED, listener);
-    };
-
-const TEST_ONLY = {
-  RenameResult,
-  DELEGATE,
-  assertCast,
-  parentMessagePipe,
-  loadFiles,
-  setLoadFiles: spy => {
-    loadFiles = spy;
-  },
+window.addColorChangeListener = function (listener) {
+    ColorChangeUpdater.forDocument().eventTarget.addEventListener(COLOR_PROVIDER_CHANGED, listener);
 };
-
+window.removeColorChangeListener = function (listener) {
+    ColorChangeUpdater.forDocument().eventTarget.removeEventListener(COLOR_PROVIDER_CHANGED, listener);
+};
+const TEST_ONLY = {
+    RenameResult,
+    DELEGATE,
+    assertCast,
+    parentMessagePipe,
+    loadFiles,
+    setLoadFiles: (spy) => {
+        loadFiles = spy;
+    },
+};
 // Temporarily expose lastLoadedReceivedFileList on `window` for
 // MediaAppIntegrationWithFilesAppAllProfilesTest.RenameFile.
 // TODO(b/185957537): Convert the test case to a JS module.
-window['lastLoadedReceivedFileList'] = () => lastLoadedReceivedFileList;
+window.lastLoadedReceivedFileList = () => lastLoadedReceivedFileList;
 
-export { ReceivedFileList, TEST_ONLY };
+export { ReceivedFile, ReceivedFileList, TEST_ONLY };
 //# sourceMappingURL=receiver.rollup.js.map

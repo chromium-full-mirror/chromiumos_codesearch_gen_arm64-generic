@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLLabelElement>::value,
     "HTMLLabelElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLLabelElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLLabelElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLLabelElement.form.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLLabelElement* blink_receiver = V8HTMLLabelElement::ToWrappableUnsafe(v8_receiver);
+HTMLLabelElement* blink_receiver = V8HTMLLabelElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->form();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -105,10 +101,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLLabelElement.htmlFor.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLLabelElement* blink_receiver = V8HTMLLabelElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kForAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLLabelElement* blink_receiver = V8HTMLLabelElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kForAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -129,8 +125,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLLabelElement.control.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLLabelElement* blink_receiver = V8HTMLLabelElement::ToWrappableUnsafe(v8_receiver);
+HTMLLabelElement* blink_receiver = V8HTMLLabelElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->control();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

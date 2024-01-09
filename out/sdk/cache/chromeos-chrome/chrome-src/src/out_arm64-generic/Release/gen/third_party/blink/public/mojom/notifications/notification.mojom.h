@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/notifications/notification.mojom-features.h"
 #include "third_party/blink/public/mojom/notifications/notification.mojom-shared.h"
 #include "third_party/blink/public/mojom/notifications/notification.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -84,7 +85,7 @@ class BLINK_COMMON_EXPORT NotificationAction {
       const std::string& action,
       const ::std::u16string& title,
       const ::GURL& icon,
-      const absl::optional<::std::u16string>& placeholder);
+      const std::optional<::std::u16string>& placeholder);
 
 
   ~NotificationAction();
@@ -170,7 +171,7 @@ class BLINK_COMMON_EXPORT NotificationAction {
   
   ::GURL icon;
   
-  absl::optional<::std::u16string> placeholder;
+  std::optional<::std::u16string> placeholder;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -236,20 +237,20 @@ class BLINK_COMMON_EXPORT NotificationData {
   NotificationData(
       const ::std::u16string& title,
       NotificationDirection direction,
-      const absl::optional<std::string>& lang,
+      const std::optional<std::string>& lang,
       const ::std::u16string& body,
       const std::string& tag,
       const ::GURL& image,
       const ::GURL& icon,
       const ::GURL& badge,
-      absl::optional<std::vector<int32_t>> vibration_pattern,
+      std::optional<std::vector<int32_t>> vibration_pattern,
       double timestamp,
       bool renotify,
       bool silent,
       bool require_interaction,
-      absl::optional<std::vector<uint8_t>> data,
-      absl::optional<std::vector<NotificationActionPtr>> actions,
-      absl::optional<::base::Time> show_trigger_timestamp,
+      std::optional<std::vector<uint8_t>> data,
+      std::optional<std::vector<NotificationActionPtr>> actions,
+      std::optional<::base::Time> show_trigger_timestamp,
       NotificationScenario scenario);
 
 NotificationData(const NotificationData&) = delete;
@@ -334,7 +335,7 @@ NotificationData& operator=(const NotificationData&) = delete;
   
   NotificationDirection direction;
   
-  absl::optional<std::string> lang;
+  std::optional<std::string> lang;
   
   ::std::u16string body;
   
@@ -346,7 +347,7 @@ NotificationData& operator=(const NotificationData&) = delete;
   
   ::GURL badge;
   
-  absl::optional<std::vector<int32_t>> vibration_pattern;
+  std::optional<std::vector<int32_t>> vibration_pattern;
   
   double timestamp;
   
@@ -356,11 +357,11 @@ NotificationData& operator=(const NotificationData&) = delete;
   
   bool require_interaction;
   
-  absl::optional<std::vector<uint8_t>> data;
+  std::optional<std::vector<uint8_t>> data;
   
-  absl::optional<std::vector<NotificationActionPtr>> actions;
+  std::optional<std::vector<NotificationActionPtr>> actions;
   
-  absl::optional<::base::Time> show_trigger_timestamp;
+  std::optional<::base::Time> show_trigger_timestamp;
   
   NotificationScenario scenario;
 
@@ -427,7 +428,7 @@ class BLINK_COMMON_EXPORT NotificationResources {
       const ::SkBitmap& image,
       const ::SkBitmap& icon,
       const ::SkBitmap& badge,
-      absl::optional<std::vector<::SkBitmap>> action_icons);
+      std::optional<std::vector<::SkBitmap>> action_icons);
 
 
   ~NotificationResources();
@@ -506,7 +507,7 @@ class BLINK_COMMON_EXPORT NotificationResources {
   
   ::SkBitmap badge;
   
-  absl::optional<std::vector<::SkBitmap>> action_icons;
+  std::optional<std::vector<::SkBitmap>> action_icons;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

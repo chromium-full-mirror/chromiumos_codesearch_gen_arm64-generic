@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -412,14 +413,17 @@ void NetworkingPrivateDelegateObserverProxy::OnNetworksChangedEvent(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivateDelegateObserver_OnNetworksChangedEvent_Name, kFlags, 0, 0, nullptr);
@@ -462,14 +466,17 @@ void NetworkingPrivateDelegateObserverProxy::OnNetworkListChangedEvent(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivateDelegateObserver_OnNetworkListChangedEvent_Name, kFlags, 0, 0, nullptr);
@@ -505,14 +512,17 @@ void NetworkingPrivateDelegateObserverProxy::OnDeviceStateListChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NetworkingPrivateDelegateObserver::OnDeviceStateListChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivateDelegateObserver_OnDeviceStateListChanged_Name, kFlags, 0, 0, nullptr);
@@ -545,14 +555,17 @@ void NetworkingPrivateDelegateObserverProxy::OnPortalDetectionCompleted(
                         "<value of type CaptivePortalStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivateDelegateObserver_OnPortalDetectionCompleted_Name, kFlags, 0, 0, nullptr);
@@ -588,14 +601,17 @@ void NetworkingPrivateDelegateObserverProxy::OnCertificateListsChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NetworkingPrivateDelegateObserver::OnCertificateListsChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivateDelegateObserver_OnCertificateListsChanged_Name, kFlags, 0, 0, nullptr);
@@ -775,18 +791,18 @@ bool NetworkingPrivateDelegateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkingPrivateDelegateObserverValidationInfo[] = {
-    {&internal::NetworkingPrivateDelegateObserver_OnNetworksChangedEvent_Params_Data::Validate,
+    { &internal::NetworkingPrivateDelegateObserver_OnNetworksChangedEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkingPrivateDelegateObserver_OnNetworkListChangedEvent_Params_Data::Validate,
+    { &internal::NetworkingPrivateDelegateObserver_OnNetworkListChangedEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkingPrivateDelegateObserver_OnDeviceStateListChanged_Params_Data::Validate,
+    { &internal::NetworkingPrivateDelegateObserver_OnDeviceStateListChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkingPrivateDelegateObserver_OnPortalDetectionCompleted_Params_Data::Validate,
+    { &internal::NetworkingPrivateDelegateObserver_OnPortalDetectionCompleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkingPrivateDelegateObserver_OnCertificateListsChanged_Params_Data::Validate,
+    { &internal::NetworkingPrivateDelegateObserver_OnCertificateListsChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1623,14 +1639,17 @@ void NetworkingPrivateProxy::GetProperties(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetProperties_Name, kFlags, 0, 0, nullptr);
@@ -1672,14 +1691,17 @@ void NetworkingPrivateProxy::GetManagedProperties(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetManagedProperties_Name, kFlags, 0, 0, nullptr);
@@ -1721,14 +1743,17 @@ void NetworkingPrivateProxy::GetState(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetState_Name, kFlags, 0, 0, nullptr);
@@ -1776,14 +1801,17 @@ void NetworkingPrivateProxy::SetProperties(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_SetProperties_Name, kFlags, 0, 0, nullptr);
@@ -1840,14 +1868,17 @@ void NetworkingPrivateProxy::CreateNetwork(
                         "<value of type ::base::Value>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_CreateNetwork_Name, kFlags, 0, 0, nullptr);
@@ -1891,14 +1922,17 @@ void NetworkingPrivateProxy::ForgetNetwork(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_ForgetNetwork_Name, kFlags, 0, 0, nullptr);
@@ -1950,14 +1984,17 @@ void NetworkingPrivateProxy::GetNetworks(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetNetworks_Name, kFlags, 0, 0, nullptr);
@@ -2002,14 +2039,17 @@ void NetworkingPrivateProxy::StartConnect(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_StartConnect_Name, kFlags, 0, 0, nullptr);
@@ -2051,14 +2091,17 @@ void NetworkingPrivateProxy::StartDisconnect(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_StartDisconnect_Name, kFlags, 0, 0, nullptr);
@@ -2103,14 +2146,17 @@ void NetworkingPrivateProxy::StartActivate(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_StartActivate_Name, kFlags, 0, 0, nullptr);
@@ -2163,14 +2209,17 @@ void NetworkingPrivateProxy::GetCaptivePortalStatus(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetCaptivePortalStatus_Name, kFlags, 0, 0, nullptr);
@@ -2218,14 +2267,17 @@ void NetworkingPrivateProxy::UnlockCellularSim(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_UnlockCellularSim_Name, kFlags, 0, 0, nullptr);
@@ -2298,14 +2350,17 @@ void NetworkingPrivateProxy::SetCellularSimState(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_SetCellularSimState_Name, kFlags, 0, 0, nullptr);
@@ -2373,14 +2428,17 @@ void NetworkingPrivateProxy::SelectCellularMobileNetwork(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_SelectCellularMobileNetwork_Name, kFlags, 0, 0, nullptr);
@@ -2426,14 +2484,17 @@ void NetworkingPrivateProxy::GetEnabledNetworkTypes(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NetworkingPrivate::GetEnabledNetworkTypes");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetEnabledNetworkTypes_Name, kFlags, 0, 0, nullptr);
@@ -2457,14 +2518,17 @@ void NetworkingPrivateProxy::GetDeviceStateList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NetworkingPrivate::GetDeviceStateList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetDeviceStateList_Name, kFlags, 0, 0, nullptr);
@@ -2488,14 +2552,17 @@ void NetworkingPrivateProxy::GetGlobalPolicy(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NetworkingPrivate::GetGlobalPolicy");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetGlobalPolicy_Name, kFlags, 0, 0, nullptr);
@@ -2519,14 +2586,17 @@ void NetworkingPrivateProxy::GetCertificateLists(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NetworkingPrivate::GetCertificateLists");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetCertificateLists_Name, kFlags, 0, 0, nullptr);
@@ -2557,14 +2627,17 @@ void NetworkingPrivateProxy::EnableNetworkType(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_EnableNetworkType_Name, kFlags, 0, 0, nullptr);
@@ -2606,14 +2679,17 @@ void NetworkingPrivateProxy::DisableNetworkType(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_DisableNetworkType_Name, kFlags, 0, 0, nullptr);
@@ -2655,14 +2731,17 @@ void NetworkingPrivateProxy::RequestScan(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_RequestScan_Name, kFlags, 0, 0, nullptr);
@@ -2704,14 +2783,17 @@ void NetworkingPrivateProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<NetworkingPrivateDelegateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -2826,7 +2908,8 @@ void NetworkingPrivate_GetProperties_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetProperties_Name, kFlags, 0, 0, nullptr);
@@ -2952,7 +3035,8 @@ void NetworkingPrivate_GetManagedProperties_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetManagedProperties_Name, kFlags, 0, 0, nullptr);
@@ -3078,7 +3162,8 @@ void NetworkingPrivate_GetState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetState_Name, kFlags, 0, 0, nullptr);
@@ -3204,7 +3289,8 @@ void NetworkingPrivate_SetProperties_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_SetProperties_Name, kFlags, 0, 0, nullptr);
@@ -3332,7 +3418,8 @@ void NetworkingPrivate_CreateNetwork_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_CreateNetwork_Name, kFlags, 0, 0, nullptr);
@@ -3458,7 +3545,8 @@ void NetworkingPrivate_ForgetNetwork_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_ForgetNetwork_Name, kFlags, 0, 0, nullptr);
@@ -3586,7 +3674,8 @@ void NetworkingPrivate_GetNetworks_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetNetworks_Name, kFlags, 0, 0, nullptr);
@@ -3712,7 +3801,8 @@ void NetworkingPrivate_StartConnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_StartConnect_Name, kFlags, 0, 0, nullptr);
@@ -3840,7 +3930,8 @@ void NetworkingPrivate_StartDisconnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_StartDisconnect_Name, kFlags, 0, 0, nullptr);
@@ -3968,7 +4059,8 @@ void NetworkingPrivate_StartActivate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_StartActivate_Name, kFlags, 0, 0, nullptr);
@@ -4096,7 +4188,8 @@ void NetworkingPrivate_GetCaptivePortalStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetCaptivePortalStatus_Name, kFlags, 0, 0, nullptr);
@@ -4222,7 +4315,8 @@ void NetworkingPrivate_UnlockCellularSim_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_UnlockCellularSim_Name, kFlags, 0, 0, nullptr);
@@ -4350,7 +4444,8 @@ void NetworkingPrivate_SetCellularSimState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_SetCellularSimState_Name, kFlags, 0, 0, nullptr);
@@ -4478,7 +4573,8 @@ void NetworkingPrivate_SelectCellularMobileNetwork_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_SelectCellularMobileNetwork_Name, kFlags, 0, 0, nullptr);
@@ -4560,7 +4656,7 @@ class NetworkingPrivate_GetEnabledNetworkTypes_ProxyToResponder : public ::mojo:
 #endif
 
   void Run(
-      absl::optional<::base::Value::List> in_network_types);
+      std::optional<::base::Value::List> in_network_types);
 };
 
 bool NetworkingPrivate_GetEnabledNetworkTypes_ForwardToCallback::Accept(
@@ -4573,7 +4669,7 @@ bool NetworkingPrivate_GetEnabledNetworkTypes_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::Value::List> p_network_types{};
+  std::optional<::base::Value::List> p_network_types{};
   NetworkingPrivate_GetEnabledNetworkTypes_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadNetworkTypes(&p_network_types))
@@ -4592,7 +4688,7 @@ std::move(p_network_types));
 }
 
 void NetworkingPrivate_GetEnabledNetworkTypes_ProxyToResponder::Run(
-    absl::optional<::base::Value::List> in_network_types) {
+    std::optional<::base::Value::List> in_network_types) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::NetworkingPrivate::GetEnabledNetworkTypes", "async_response_parameters",
@@ -4600,13 +4696,14 @@ void NetworkingPrivate_GetEnabledNetworkTypes_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("network_types"), in_network_types,
-                        "<value of type absl::optional<::base::Value::List>>");
+                        "<value of type std::optional<::base::Value::List>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetEnabledNetworkTypes_Name, kFlags, 0, 0, nullptr);
@@ -4684,7 +4781,7 @@ class NetworkingPrivate_GetDeviceStateList_ProxyToResponder : public ::mojo::int
 #endif
 
   void Run(
-      absl::optional<std::vector<absl::optional<::base::Value::Dict>>> in_device_list);
+      std::optional<std::vector<std::optional<::base::Value::Dict>>> in_device_list);
 };
 
 bool NetworkingPrivate_GetDeviceStateList_ForwardToCallback::Accept(
@@ -4697,7 +4794,7 @@ bool NetworkingPrivate_GetDeviceStateList_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<absl::optional<::base::Value::Dict>>> p_device_list{};
+  std::optional<std::vector<std::optional<::base::Value::Dict>>> p_device_list{};
   NetworkingPrivate_GetDeviceStateList_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDeviceList(&p_device_list))
@@ -4716,7 +4813,7 @@ std::move(p_device_list));
 }
 
 void NetworkingPrivate_GetDeviceStateList_ProxyToResponder::Run(
-    absl::optional<std::vector<absl::optional<::base::Value::Dict>>> in_device_list) {
+    std::optional<std::vector<std::optional<::base::Value::Dict>>> in_device_list) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::NetworkingPrivate::GetDeviceStateList", "async_response_parameters",
@@ -4724,13 +4821,14 @@ void NetworkingPrivate_GetDeviceStateList_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("device_list"), in_device_list,
-                        "<value of type absl::optional<std::vector<absl::optional<::base::Value::Dict>>>>");
+                        "<value of type std::optional<std::vector<std::optional<::base::Value::Dict>>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetDeviceStateList_Name, kFlags, 0, 0, nullptr);
@@ -4810,7 +4908,7 @@ class NetworkingPrivate_GetGlobalPolicy_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      absl::optional<::base::Value::Dict> in_policies);
+      std::optional<::base::Value::Dict> in_policies);
 };
 
 bool NetworkingPrivate_GetGlobalPolicy_ForwardToCallback::Accept(
@@ -4823,7 +4921,7 @@ bool NetworkingPrivate_GetGlobalPolicy_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::Value::Dict> p_policies{};
+  std::optional<::base::Value::Dict> p_policies{};
   NetworkingPrivate_GetGlobalPolicy_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadPolicies(&p_policies))
@@ -4842,7 +4940,7 @@ std::move(p_policies));
 }
 
 void NetworkingPrivate_GetGlobalPolicy_ProxyToResponder::Run(
-    absl::optional<::base::Value::Dict> in_policies) {
+    std::optional<::base::Value::Dict> in_policies) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::NetworkingPrivate::GetGlobalPolicy", "async_response_parameters",
@@ -4850,13 +4948,14 @@ void NetworkingPrivate_GetGlobalPolicy_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("policies"), in_policies,
-                        "<value of type absl::optional<::base::Value::Dict>>");
+                        "<value of type std::optional<::base::Value::Dict>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetGlobalPolicy_Name, kFlags, 0, 0, nullptr);
@@ -4980,7 +5079,8 @@ void NetworkingPrivate_GetCertificateLists_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_GetCertificateLists_Name, kFlags, 0, 0, nullptr);
@@ -5108,7 +5208,8 @@ void NetworkingPrivate_EnableNetworkType_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_EnableNetworkType_Name, kFlags, 0, 0, nullptr);
@@ -5226,7 +5327,8 @@ void NetworkingPrivate_DisableNetworkType_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_DisableNetworkType_Name, kFlags, 0, 0, nullptr);
@@ -5344,7 +5446,8 @@ void NetworkingPrivate_RequestScan_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkingPrivate_RequestScan_Name, kFlags, 0, 0, nullptr);
@@ -6135,52 +6238,52 @@ std::move(p_type), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkingPrivateValidationInfo[] = {
-    {&internal::NetworkingPrivate_GetProperties_Params_Data::Validate,
+    { &internal::NetworkingPrivate_GetProperties_Params_Data::Validate,
      &internal::NetworkingPrivate_GetProperties_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_GetManagedProperties_Params_Data::Validate,
+    { &internal::NetworkingPrivate_GetManagedProperties_Params_Data::Validate,
      &internal::NetworkingPrivate_GetManagedProperties_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_GetState_Params_Data::Validate,
+    { &internal::NetworkingPrivate_GetState_Params_Data::Validate,
      &internal::NetworkingPrivate_GetState_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_SetProperties_Params_Data::Validate,
+    { &internal::NetworkingPrivate_SetProperties_Params_Data::Validate,
      &internal::NetworkingPrivate_SetProperties_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_CreateNetwork_Params_Data::Validate,
+    { &internal::NetworkingPrivate_CreateNetwork_Params_Data::Validate,
      &internal::NetworkingPrivate_CreateNetwork_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_ForgetNetwork_Params_Data::Validate,
+    { &internal::NetworkingPrivate_ForgetNetwork_Params_Data::Validate,
      &internal::NetworkingPrivate_ForgetNetwork_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_GetNetworks_Params_Data::Validate,
+    { &internal::NetworkingPrivate_GetNetworks_Params_Data::Validate,
      &internal::NetworkingPrivate_GetNetworks_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_StartConnect_Params_Data::Validate,
+    { &internal::NetworkingPrivate_StartConnect_Params_Data::Validate,
      &internal::NetworkingPrivate_StartConnect_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_StartDisconnect_Params_Data::Validate,
+    { &internal::NetworkingPrivate_StartDisconnect_Params_Data::Validate,
      &internal::NetworkingPrivate_StartDisconnect_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_StartActivate_Params_Data::Validate,
+    { &internal::NetworkingPrivate_StartActivate_Params_Data::Validate,
      &internal::NetworkingPrivate_StartActivate_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_GetCaptivePortalStatus_Params_Data::Validate,
+    { &internal::NetworkingPrivate_GetCaptivePortalStatus_Params_Data::Validate,
      &internal::NetworkingPrivate_GetCaptivePortalStatus_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_UnlockCellularSim_Params_Data::Validate,
+    { &internal::NetworkingPrivate_UnlockCellularSim_Params_Data::Validate,
      &internal::NetworkingPrivate_UnlockCellularSim_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_SetCellularSimState_Params_Data::Validate,
+    { &internal::NetworkingPrivate_SetCellularSimState_Params_Data::Validate,
      &internal::NetworkingPrivate_SetCellularSimState_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_SelectCellularMobileNetwork_Params_Data::Validate,
+    { &internal::NetworkingPrivate_SelectCellularMobileNetwork_Params_Data::Validate,
      &internal::NetworkingPrivate_SelectCellularMobileNetwork_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_GetEnabledNetworkTypes_Params_Data::Validate,
+    { &internal::NetworkingPrivate_GetEnabledNetworkTypes_Params_Data::Validate,
      &internal::NetworkingPrivate_GetEnabledNetworkTypes_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_GetDeviceStateList_Params_Data::Validate,
+    { &internal::NetworkingPrivate_GetDeviceStateList_Params_Data::Validate,
      &internal::NetworkingPrivate_GetDeviceStateList_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_GetGlobalPolicy_Params_Data::Validate,
+    { &internal::NetworkingPrivate_GetGlobalPolicy_Params_Data::Validate,
      &internal::NetworkingPrivate_GetGlobalPolicy_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_GetCertificateLists_Params_Data::Validate,
+    { &internal::NetworkingPrivate_GetCertificateLists_Params_Data::Validate,
      &internal::NetworkingPrivate_GetCertificateLists_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_EnableNetworkType_Params_Data::Validate,
+    { &internal::NetworkingPrivate_EnableNetworkType_Params_Data::Validate,
      &internal::NetworkingPrivate_EnableNetworkType_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_DisableNetworkType_Params_Data::Validate,
+    { &internal::NetworkingPrivate_DisableNetworkType_Params_Data::Validate,
      &internal::NetworkingPrivate_DisableNetworkType_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_RequestScan_Params_Data::Validate,
+    { &internal::NetworkingPrivate_RequestScan_Params_Data::Validate,
      &internal::NetworkingPrivate_RequestScan_ResponseParams_Data::Validate},
-    {&internal::NetworkingPrivate_AddObserver_Params_Data::Validate,
+    { &internal::NetworkingPrivate_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6759,14 +6862,14 @@ std::string NetworkingPrivateAsyncWaiter::SelectCellularMobileNetwork(
 }
 
 void NetworkingPrivateAsyncWaiter::GetEnabledNetworkTypes(
-    absl::optional<::base::Value::List>* out_network_types) {
+    std::optional<::base::Value::List>* out_network_types) {
   base::RunLoop loop;
   proxy_->GetEnabledNetworkTypes(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::Value::List>* out_network_types
+             std::optional<::base::Value::List>* out_network_types
 ,
-             absl::optional<::base::Value::List> network_types) {*out_network_types = std::move(network_types);
+             std::optional<::base::Value::List> network_types) {*out_network_types = std::move(network_types);
             loop->Quit();
           },
           &loop,
@@ -6774,22 +6877,22 @@ void NetworkingPrivateAsyncWaiter::GetEnabledNetworkTypes(
   loop.Run();
 }
 
-absl::optional<::base::Value::List> NetworkingPrivateAsyncWaiter::GetEnabledNetworkTypes(
+std::optional<::base::Value::List> NetworkingPrivateAsyncWaiter::GetEnabledNetworkTypes(
     ) {
-  absl::optional<::base::Value::List> async_wait_result;
+  std::optional<::base::Value::List> async_wait_result;
   GetEnabledNetworkTypes(&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkingPrivateAsyncWaiter::GetDeviceStateList(
-    absl::optional<std::vector<absl::optional<::base::Value::Dict>>>* out_device_list) {
+    std::optional<std::vector<std::optional<::base::Value::Dict>>>* out_device_list) {
   base::RunLoop loop;
   proxy_->GetDeviceStateList(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<absl::optional<::base::Value::Dict>>>* out_device_list
+             std::optional<std::vector<std::optional<::base::Value::Dict>>>* out_device_list
 ,
-             absl::optional<std::vector<absl::optional<::base::Value::Dict>>> device_list) {*out_device_list = std::move(device_list);
+             std::optional<std::vector<std::optional<::base::Value::Dict>>> device_list) {*out_device_list = std::move(device_list);
             loop->Quit();
           },
           &loop,
@@ -6797,22 +6900,22 @@ void NetworkingPrivateAsyncWaiter::GetDeviceStateList(
   loop.Run();
 }
 
-absl::optional<std::vector<absl::optional<::base::Value::Dict>>> NetworkingPrivateAsyncWaiter::GetDeviceStateList(
+std::optional<std::vector<std::optional<::base::Value::Dict>>> NetworkingPrivateAsyncWaiter::GetDeviceStateList(
     ) {
-  absl::optional<std::vector<absl::optional<::base::Value::Dict>>> async_wait_result;
+  std::optional<std::vector<std::optional<::base::Value::Dict>>> async_wait_result;
   GetDeviceStateList(&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkingPrivateAsyncWaiter::GetGlobalPolicy(
-    absl::optional<::base::Value::Dict>* out_policies) {
+    std::optional<::base::Value::Dict>* out_policies) {
   base::RunLoop loop;
   proxy_->GetGlobalPolicy(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::Value::Dict>* out_policies
+             std::optional<::base::Value::Dict>* out_policies
 ,
-             absl::optional<::base::Value::Dict> policies) {*out_policies = std::move(policies);
+             std::optional<::base::Value::Dict> policies) {*out_policies = std::move(policies);
             loop->Quit();
           },
           &loop,
@@ -6820,9 +6923,9 @@ void NetworkingPrivateAsyncWaiter::GetGlobalPolicy(
   loop.Run();
 }
 
-absl::optional<::base::Value::Dict> NetworkingPrivateAsyncWaiter::GetGlobalPolicy(
+std::optional<::base::Value::Dict> NetworkingPrivateAsyncWaiter::GetGlobalPolicy(
     ) {
-  absl::optional<::base::Value::Dict> async_wait_result;
+  std::optional<::base::Value::Dict> async_wait_result;
   GetGlobalPolicy(&async_wait_result);
   return async_wait_result;
 }

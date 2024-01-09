@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -115,6 +116,21 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_SetAllFanAutoControl_Name: {
       return &Delegate::SetAllFanAutoControl_Sym::IPCStableHash;
     }
+    case internal::kDelegate_GetEcThermalSensors_Name: {
+      return &Delegate::GetEcThermalSensors_Sym::IPCStableHash;
+    }
+    case internal::kDelegate_GetTouchpadDevices_Name: {
+      return &Delegate::GetTouchpadDevices_Sym::IPCStableHash;
+    }
+    case internal::kDelegate_GetSmartBatteryManufactureDate_Name: {
+      return &Delegate::GetSmartBatteryManufactureDate_Sym::IPCStableHash;
+    }
+    case internal::kDelegate_GetSmartBatteryTemperature_Name: {
+      return &Delegate::GetSmartBatteryTemperature_Sym::IPCStableHash;
+    }
+    case internal::kDelegate_RunUrandom_Name: {
+      return &Delegate::RunUrandom_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -170,6 +186,16 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::SetFanSpeed";
       case internal::kDelegate_SetAllFanAutoControl_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl";
+      case internal::kDelegate_GetEcThermalSensors_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetEcThermalSensors";
+      case internal::kDelegate_GetTouchpadDevices_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetTouchpadDevices";
+      case internal::kDelegate_GetSmartBatteryManufactureDate_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetSmartBatteryManufactureDate";
+      case internal::kDelegate_GetSmartBatteryTemperature_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetSmartBatteryTemperature";
+      case internal::kDelegate_RunUrandom_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::RunUrandom";
     }
   } else {
     switch (message.name()) {
@@ -217,6 +243,16 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::SetFanSpeed";
       case internal::kDelegate_SetAllFanAutoControl_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl";
+      case internal::kDelegate_GetEcThermalSensors_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetEcThermalSensors";
+      case internal::kDelegate_GetTouchpadDevices_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetTouchpadDevices";
+      case internal::kDelegate_GetSmartBatteryManufactureDate_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetSmartBatteryManufactureDate";
+      case internal::kDelegate_GetSmartBatteryTemperature_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetSmartBatteryTemperature";
+      case internal::kDelegate_RunUrandom_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::RunUrandom";
     }
   }
   return "Receive unknown mojo message";
@@ -517,6 +553,71 @@ uint32_t Delegate::SetAllFanAutoControl_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Delegate::GetEcThermalSensors_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetEcThermalSensors");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::GetTouchpadDevices_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetTouchpadDevices");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::GetSmartBatteryManufactureDate_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetSmartBatteryManufactureDate");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::GetSmartBatteryTemperature_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetSmartBatteryTemperature");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::RunUrandom_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::RunUrandom");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Delegate_GetFingerprintFrame_ForwardToCallback
@@ -759,6 +860,86 @@ class Delegate_SetAllFanAutoControl_ForwardToCallback
   Delegate::SetAllFanAutoControlCallback callback_;
 };
 
+class Delegate_GetEcThermalSensors_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_GetEcThermalSensors_ForwardToCallback(
+      Delegate::GetEcThermalSensorsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_GetEcThermalSensors_ForwardToCallback(const Delegate_GetEcThermalSensors_ForwardToCallback&) = delete;
+  Delegate_GetEcThermalSensors_ForwardToCallback& operator=(const Delegate_GetEcThermalSensors_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::GetEcThermalSensorsCallback callback_;
+};
+
+class Delegate_GetTouchpadDevices_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_GetTouchpadDevices_ForwardToCallback(
+      Delegate::GetTouchpadDevicesCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_GetTouchpadDevices_ForwardToCallback(const Delegate_GetTouchpadDevices_ForwardToCallback&) = delete;
+  Delegate_GetTouchpadDevices_ForwardToCallback& operator=(const Delegate_GetTouchpadDevices_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::GetTouchpadDevicesCallback callback_;
+};
+
+class Delegate_GetSmartBatteryManufactureDate_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_GetSmartBatteryManufactureDate_ForwardToCallback(
+      Delegate::GetSmartBatteryManufactureDateCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_GetSmartBatteryManufactureDate_ForwardToCallback(const Delegate_GetSmartBatteryManufactureDate_ForwardToCallback&) = delete;
+  Delegate_GetSmartBatteryManufactureDate_ForwardToCallback& operator=(const Delegate_GetSmartBatteryManufactureDate_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::GetSmartBatteryManufactureDateCallback callback_;
+};
+
+class Delegate_GetSmartBatteryTemperature_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_GetSmartBatteryTemperature_ForwardToCallback(
+      Delegate::GetSmartBatteryTemperatureCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_GetSmartBatteryTemperature_ForwardToCallback(const Delegate_GetSmartBatteryTemperature_ForwardToCallback&) = delete;
+  Delegate_GetSmartBatteryTemperature_ForwardToCallback& operator=(const Delegate_GetSmartBatteryTemperature_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::GetSmartBatteryTemperatureCallback callback_;
+};
+
+class Delegate_RunUrandom_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_RunUrandom_ForwardToCallback(
+      Delegate::RunUrandomCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_RunUrandom_ForwardToCallback(const Delegate_RunUrandom_ForwardToCallback&) = delete;
+  Delegate_RunUrandom_ForwardToCallback& operator=(const Delegate_RunUrandom_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::RunUrandomCallback callback_;
+};
+
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -775,14 +956,17 @@ void DelegateProxy::GetFingerprintFrame(
                         "<value of type ::ash::cros_healthd::mojom::FingerprintCaptureType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr);
@@ -808,14 +992,17 @@ void DelegateProxy::GetFingerprintInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetFingerprintInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr);
@@ -849,14 +1036,17 @@ void DelegateProxy::SetLedColor(
                         "<value of type ::ash::cros_healthd::mojom::LedColor>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_SetLedColor_Name, kFlags, 0, 0, nullptr);
@@ -891,14 +1081,17 @@ void DelegateProxy::ResetLedColor(
                         "<value of type ::ash::cros_healthd::mojom::LedName>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_ResetLedColor_Name, kFlags, 0, 0, nullptr);
@@ -931,14 +1124,17 @@ void DelegateProxy::MonitorAudioJack(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_MonitorAudioJack_Name, kFlags, 0, 0, nullptr);
@@ -974,14 +1170,17 @@ void DelegateProxy::MonitorTouchpad(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_MonitorTouchpad_Name, kFlags, 0, 0, nullptr);
@@ -1010,14 +1209,17 @@ void DelegateProxy::FetchBootPerformance(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::FetchBootPerformance");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr);
@@ -1048,14 +1250,17 @@ void DelegateProxy::MonitorTouchscreen(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_MonitorTouchscreen_Name, kFlags, 0, 0, nullptr);
@@ -1091,14 +1296,17 @@ void DelegateProxy::MonitorStylusGarage(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_MonitorStylusGarage_Name, kFlags, 0, 0, nullptr);
@@ -1134,14 +1342,17 @@ void DelegateProxy::MonitorStylus(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_MonitorStylus_Name, kFlags, 0, 0, nullptr);
@@ -1170,14 +1381,17 @@ void DelegateProxy::GetLidAngle(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetLidAngle");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr);
@@ -1201,14 +1415,17 @@ void DelegateProxy::GetPsr(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetPsr");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr);
@@ -1228,18 +1445,28 @@ void DelegateProxy::GetPsr(
 }
 
 void DelegateProxy::GetConnectedExternalDisplayConnectors(
-    GetConnectedExternalDisplayConnectorsCallback callback) {
+    const std::optional<std::vector<uint32_t>>& in_last_known_connectors, GetConnectedExternalDisplayConnectorsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors");
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("last_known_connectors"), in_last_known_connectors,
+                        "<value of type const std::optional<std::vector<uint32_t>>&>");
+   });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr);
@@ -1247,6 +1474,15 @@ void DelegateProxy::GetConnectedExternalDisplayConnectors(
       ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->last_known_connectors)::BaseType>
+      last_known_connectors_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& last_known_connectors_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
+      in_last_known_connectors, last_known_connectors_fragment, &last_known_connectors_validate_params);
+  params->last_known_connectors.Set(
+      last_known_connectors_fragment.is_null() ? nullptr : last_known_connectors_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Delegate::Name_);
@@ -1263,14 +1499,17 @@ void DelegateProxy::GetPrivacyScreenInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr);
@@ -1294,14 +1533,17 @@ void DelegateProxy::FetchDisplayInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::FetchDisplayInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr);
@@ -1332,14 +1574,17 @@ void DelegateProxy::MonitorPowerButton(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_MonitorPowerButton_Name, kFlags, 0, 0, nullptr);
@@ -1378,14 +1623,17 @@ void DelegateProxy::RunPrimeSearch(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr);
@@ -1428,14 +1676,17 @@ void DelegateProxy::MonitorVolumeButton(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_MonitorVolumeButton_Name, kFlags, 0, 0, nullptr);
@@ -1471,14 +1722,17 @@ void DelegateProxy::RunFloatingPoint(
                         "<value of type base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr);
@@ -1513,14 +1767,17 @@ void DelegateProxy::GetAllFanSpeed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetAllFanSpeed");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr);
@@ -1551,14 +1808,17 @@ void DelegateProxy::SetFanSpeed(
                         "<value of type const base::flat_map<uint8_t, uint16_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr);
@@ -1595,14 +1855,17 @@ void DelegateProxy::SetAllFanAutoControl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr);
@@ -1617,6 +1880,210 @@ void DelegateProxy::SetAllFanAutoControl(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Delegate_SetAllFanAutoControl_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::GetEcThermalSensors(
+    GetEcThermalSensorsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetEcThermalSensors");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetEcThermalSensors_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetEcThermalSensors");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_GetEcThermalSensors_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::GetTouchpadDevices(
+    GetTouchpadDevicesCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetTouchpadDevices");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetTouchpadDevices_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetTouchpadDevices");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_GetTouchpadDevices_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::GetSmartBatteryManufactureDate(
+    uint8_t in_i2c_port, GetSmartBatteryManufactureDateCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::GetSmartBatteryManufactureDate", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("i2c_port"), in_i2c_port,
+                        "<value of type uint8_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryManufactureDate_Params_Data> params(
+          message);
+  params.Allocate();
+  params->i2c_port = in_i2c_port;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetSmartBatteryManufactureDate");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_GetSmartBatteryManufactureDate_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::GetSmartBatteryTemperature(
+    uint8_t in_i2c_port, GetSmartBatteryTemperatureCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::GetSmartBatteryTemperature", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("i2c_port"), in_i2c_port,
+                        "<value of type uint8_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryTemperature_Params_Data> params(
+          message);
+  params.Allocate();
+  params->i2c_port = in_i2c_port;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetSmartBatteryTemperature");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_GetSmartBatteryTemperature_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::RunUrandom(
+    base::TimeDelta in_exec_duration, RunUrandomCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::RunUrandom", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("exec_duration"), in_exec_duration,
+                        "<value of type base::TimeDelta>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_RunUrandom_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_RunUrandom_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->exec_duration)::BaseType> exec_duration_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+      in_exec_duration, exec_duration_fragment);
+  params->exec_duration.Set(
+      exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->exec_duration.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null exec_duration in Delegate.RunUrandom request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("RunUrandom");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_RunUrandom_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -1666,7 +2133,7 @@ class Delegate_GetFingerprintFrame_ProxyToResponder : public ::mojo::internal::P
 #endif
 
   void Run(
-      ::ash::cros_healthd::mojom::FingerprintFrameResultPtr in_result, const absl::optional<std::string>& in_err);
+      ::ash::cros_healthd::mojom::FingerprintFrameResultPtr in_result, const std::optional<std::string>& in_err);
 };
 
 bool Delegate_GetFingerprintFrame_ForwardToCallback::Accept(
@@ -1680,7 +2147,7 @@ bool Delegate_GetFingerprintFrame_ForwardToCallback::Accept(
   
   bool success = true;
   ::ash::cros_healthd::mojom::FingerprintFrameResultPtr p_result{};
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_GetFingerprintFrame_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1702,7 +2169,7 @@ std::move(p_err));
 }
 
 void Delegate_GetFingerprintFrame_ProxyToResponder::Run(
-    ::ash::cros_healthd::mojom::FingerprintFrameResultPtr in_result, const absl::optional<std::string>& in_err) {
+    ::ash::cros_healthd::mojom::FingerprintFrameResultPtr in_result, const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetFingerprintFrame", "async_response_parameters",
@@ -1713,13 +2180,14 @@ void Delegate_GetFingerprintFrame_ProxyToResponder::Run(
                         "<value of type ::ash::cros_healthd::mojom::FingerprintFrameResultPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr);
@@ -1808,7 +2276,7 @@ class Delegate_GetFingerprintInfo_ProxyToResponder : public ::mojo::internal::Pr
 #endif
 
   void Run(
-      ::ash::cros_healthd::mojom::FingerprintInfoResultPtr in_result, const absl::optional<std::string>& in_err);
+      ::ash::cros_healthd::mojom::FingerprintInfoResultPtr in_result, const std::optional<std::string>& in_err);
 };
 
 bool Delegate_GetFingerprintInfo_ForwardToCallback::Accept(
@@ -1822,7 +2290,7 @@ bool Delegate_GetFingerprintInfo_ForwardToCallback::Accept(
   
   bool success = true;
   ::ash::cros_healthd::mojom::FingerprintInfoResultPtr p_result{};
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_GetFingerprintInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1844,7 +2312,7 @@ std::move(p_err));
 }
 
 void Delegate_GetFingerprintInfo_ProxyToResponder::Run(
-    ::ash::cros_healthd::mojom::FingerprintInfoResultPtr in_result, const absl::optional<std::string>& in_err) {
+    ::ash::cros_healthd::mojom::FingerprintInfoResultPtr in_result, const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetFingerprintInfo", "async_response_parameters",
@@ -1855,13 +2323,14 @@ void Delegate_GetFingerprintInfo_ProxyToResponder::Run(
                         "<value of type ::ash::cros_healthd::mojom::FingerprintInfoResultPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr);
@@ -1950,7 +2419,7 @@ class Delegate_SetLedColor_ProxyToResponder : public ::mojo::internal::ProxyToRe
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_err);
+      const std::optional<std::string>& in_err);
 };
 
 bool Delegate_SetLedColor_ForwardToCallback::Accept(
@@ -1963,7 +2432,7 @@ bool Delegate_SetLedColor_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_SetLedColor_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErr(&p_err))
@@ -1982,7 +2451,7 @@ std::move(p_err));
 }
 
 void Delegate_SetLedColor_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_err) {
+    const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::SetLedColor", "async_response_parameters",
@@ -1990,13 +2459,14 @@ void Delegate_SetLedColor_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_SetLedColor_Name, kFlags, 0, 0, nullptr);
@@ -2074,7 +2544,7 @@ class Delegate_ResetLedColor_ProxyToResponder : public ::mojo::internal::ProxyTo
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_err);
+      const std::optional<std::string>& in_err);
 };
 
 bool Delegate_ResetLedColor_ForwardToCallback::Accept(
@@ -2087,7 +2557,7 @@ bool Delegate_ResetLedColor_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_ResetLedColor_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErr(&p_err))
@@ -2106,7 +2576,7 @@ std::move(p_err));
 }
 
 void Delegate_ResetLedColor_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_err) {
+    const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::ResetLedColor", "async_response_parameters",
@@ -2114,13 +2584,14 @@ void Delegate_ResetLedColor_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_ResetLedColor_Name, kFlags, 0, 0, nullptr);
@@ -2244,7 +2715,8 @@ void Delegate_FetchBootPerformance_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr);
@@ -2324,7 +2796,7 @@ class Delegate_GetLidAngle_ProxyToResponder : public ::mojo::internal::ProxyToRe
 #endif
 
   void Run(
-      absl::optional<uint16_t> in_lid_angle);
+      std::optional<uint16_t> in_lid_angle);
 };
 
 bool Delegate_GetLidAngle_ForwardToCallback::Accept(
@@ -2337,7 +2809,7 @@ bool Delegate_GetLidAngle_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<uint16_t> p_lid_angle{};
+  std::optional<uint16_t> p_lid_angle{};
   Delegate_GetLidAngle_ResponseParamsDataView input_data_view(params, message);
   
   if (success) {
@@ -2357,7 +2829,7 @@ std::move(p_lid_angle));
 }
 
 void Delegate_GetLidAngle_ProxyToResponder::Run(
-    absl::optional<uint16_t> in_lid_angle) {
+    std::optional<uint16_t> in_lid_angle) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetLidAngle", "async_response_parameters",
@@ -2365,13 +2837,14 @@ void Delegate_GetLidAngle_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("lid_angle"), in_lid_angle,
-                        "<value of type absl::optional<uint16_t>>");
+                        "<value of type std::optional<uint16_t>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr);
@@ -2446,7 +2919,7 @@ class Delegate_GetPsr_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 #endif
 
   void Run(
-      ::ash::cros_healthd::mojom::PsrInfoPtr in_result, const absl::optional<std::string>& in_err);
+      ::ash::cros_healthd::mojom::PsrInfoPtr in_result, const std::optional<std::string>& in_err);
 };
 
 bool Delegate_GetPsr_ForwardToCallback::Accept(
@@ -2460,7 +2933,7 @@ bool Delegate_GetPsr_ForwardToCallback::Accept(
   
   bool success = true;
   ::ash::cros_healthd::mojom::PsrInfoPtr p_result{};
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_GetPsr_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2482,7 +2955,7 @@ std::move(p_err));
 }
 
 void Delegate_GetPsr_ProxyToResponder::Run(
-    ::ash::cros_healthd::mojom::PsrInfoPtr in_result, const absl::optional<std::string>& in_err) {
+    ::ash::cros_healthd::mojom::PsrInfoPtr in_result, const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetPsr", "async_response_parameters",
@@ -2493,13 +2966,14 @@ void Delegate_GetPsr_ProxyToResponder::Run(
                         "<value of type ::ash::cros_healthd::mojom::PsrInfoPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr);
@@ -2588,7 +3062,7 @@ class Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder : public :
 #endif
 
   void Run(
-      base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const absl::optional<std::string>& in_err);
+      base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const std::optional<std::string>& in_err);
 };
 
 bool Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback::Accept(
@@ -2602,7 +3076,7 @@ bool Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback::Accept(
   
   bool success = true;
   base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> p_connectors{};
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_GetConnectedExternalDisplayConnectors_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadConnectors(&p_connectors))
@@ -2624,7 +3098,7 @@ std::move(p_err));
 }
 
 void Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder::Run(
-    base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const absl::optional<std::string>& in_err) {
+    base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors", "async_response_parameters",
@@ -2635,13 +3109,14 @@ void Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder::Run(
                         "<value of type base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr);
@@ -2732,7 +3207,7 @@ class Delegate_GetPrivacyScreenInfo_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      bool in_privacy_screen_supported, bool in_privacy_screen_enabled, const absl::optional<std::string>& in_err);
+      bool in_privacy_screen_supported, bool in_privacy_screen_enabled, const std::optional<std::string>& in_err);
 };
 
 bool Delegate_GetPrivacyScreenInfo_ForwardToCallback::Accept(
@@ -2747,7 +3222,7 @@ bool Delegate_GetPrivacyScreenInfo_ForwardToCallback::Accept(
   bool success = true;
   bool p_privacy_screen_supported{};
   bool p_privacy_screen_enabled{};
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_GetPrivacyScreenInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2772,7 +3247,7 @@ std::move(p_err));
 }
 
 void Delegate_GetPrivacyScreenInfo_ProxyToResponder::Run(
-    bool in_privacy_screen_supported, bool in_privacy_screen_enabled, const absl::optional<std::string>& in_err) {
+    bool in_privacy_screen_supported, bool in_privacy_screen_enabled, const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo", "async_response_parameters",
@@ -2786,13 +3261,14 @@ void Delegate_GetPrivacyScreenInfo_ProxyToResponder::Run(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr);
@@ -2918,7 +3394,8 @@ void Delegate_FetchDisplayInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr);
@@ -3044,7 +3521,8 @@ void Delegate_RunPrimeSearch_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr);
@@ -3162,7 +3640,8 @@ void Delegate_RunFloatingPoint_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr);
@@ -3234,7 +3713,7 @@ class Delegate_GetAllFanSpeed_ProxyToResponder : public ::mojo::internal::ProxyT
 #endif
 
   void Run(
-      const std::vector<uint16_t>& in_fan_rpms, const absl::optional<std::string>& in_err);
+      const std::vector<uint16_t>& in_fan_rpms, const std::optional<std::string>& in_err);
 };
 
 bool Delegate_GetAllFanSpeed_ForwardToCallback::Accept(
@@ -3248,7 +3727,7 @@ bool Delegate_GetAllFanSpeed_ForwardToCallback::Accept(
   
   bool success = true;
   std::vector<uint16_t> p_fan_rpms{};
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_GetAllFanSpeed_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadFanRpms(&p_fan_rpms))
@@ -3270,7 +3749,7 @@ std::move(p_err));
 }
 
 void Delegate_GetAllFanSpeed_ProxyToResponder::Run(
-    const std::vector<uint16_t>& in_fan_rpms, const absl::optional<std::string>& in_err) {
+    const std::vector<uint16_t>& in_fan_rpms, const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetAllFanSpeed", "async_response_parameters",
@@ -3281,13 +3760,14 @@ void Delegate_GetAllFanSpeed_ProxyToResponder::Run(
                         "<value of type const std::vector<uint16_t>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr);
@@ -3378,7 +3858,7 @@ class Delegate_SetFanSpeed_ProxyToResponder : public ::mojo::internal::ProxyToRe
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_err);
+      const std::optional<std::string>& in_err);
 };
 
 bool Delegate_SetFanSpeed_ForwardToCallback::Accept(
@@ -3391,7 +3871,7 @@ bool Delegate_SetFanSpeed_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_SetFanSpeed_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErr(&p_err))
@@ -3410,7 +3890,7 @@ std::move(p_err));
 }
 
 void Delegate_SetFanSpeed_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_err) {
+    const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::SetFanSpeed", "async_response_parameters",
@@ -3418,13 +3898,14 @@ void Delegate_SetFanSpeed_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr);
@@ -3502,7 +3983,7 @@ class Delegate_SetAllFanAutoControl_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_err);
+      const std::optional<std::string>& in_err);
 };
 
 bool Delegate_SetAllFanAutoControl_ForwardToCallback::Accept(
@@ -3515,7 +3996,7 @@ bool Delegate_SetAllFanAutoControl_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_err{};
+  std::optional<std::string> p_err{};
   Delegate_SetAllFanAutoControl_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErr(&p_err))
@@ -3534,7 +4015,7 @@ std::move(p_err));
 }
 
 void Delegate_SetAllFanAutoControl_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_err) {
+    const std::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl", "async_response_parameters",
@@ -3542,13 +4023,14 @@ void Delegate_SetAllFanAutoControl_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr);
@@ -3567,6 +4049,661 @@ void Delegate_SetAllFanAutoControl_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Delegate::Name_);
   message.set_method_name("SetAllFanAutoControl");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_GetEcThermalSensors_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::GetEcThermalSensorsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_GetEcThermalSensors_ProxyToResponder> proxy(
+        new Delegate_GetEcThermalSensors_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_GetEcThermalSensors_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_GetEcThermalSensors_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_GetEcThermalSensors_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::GetEcThermalSensorsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr> in_thermal_sensors, const std::optional<std::string>& in_err);
+};
+
+bool Delegate_GetEcThermalSensors_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_GetEcThermalSensors_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_GetEcThermalSensors_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr> p_thermal_sensors{};
+  std::optional<std::string> p_err{};
+  Delegate_GetEcThermalSensors_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadThermalSensors(&p_thermal_sensors))
+    success = false;
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 22, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_thermal_sensors), 
+std::move(p_err));
+  return true;
+}
+
+void Delegate_GetEcThermalSensors_ProxyToResponder::Run(
+    std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr> in_thermal_sensors, const std::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetEcThermalSensors", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("thermal_sensors"), in_thermal_sensors,
+                        "<value of type std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const std::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_GetEcThermalSensors_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetEcThermalSensors_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->thermal_sensors)::BaseType>
+      thermal_sensors_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& thermal_sensors_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ThermalSensorInfoDataView>>(
+      in_thermal_sensors, thermal_sensors_fragment, &thermal_sensors_validate_params);
+  params->thermal_sensors.Set(
+      thermal_sensors_fragment.is_null() ? nullptr : thermal_sensors_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->thermal_sensors.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null thermal_sensors in ");
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetEcThermalSensors");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_GetTouchpadDevices_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::GetTouchpadDevicesCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_GetTouchpadDevices_ProxyToResponder> proxy(
+        new Delegate_GetTouchpadDevices_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_GetTouchpadDevices_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_GetTouchpadDevices_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_GetTouchpadDevices_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::GetTouchpadDevicesCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr> in_devices, const std::optional<std::string>& in_err);
+};
+
+bool Delegate_GetTouchpadDevices_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_GetTouchpadDevices_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_GetTouchpadDevices_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr> p_devices{};
+  std::optional<std::string> p_err{};
+  Delegate_GetTouchpadDevices_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadDevices(&p_devices))
+    success = false;
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 23, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_devices), 
+std::move(p_err));
+  return true;
+}
+
+void Delegate_GetTouchpadDevices_ProxyToResponder::Run(
+    std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr> in_devices, const std::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetTouchpadDevices", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("devices"), in_devices,
+                        "<value of type std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const std::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_GetTouchpadDevices_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetTouchpadDevices_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->devices)::BaseType>
+      devices_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& devices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchpadDeviceDataView>>(
+      in_devices, devices_fragment, &devices_validate_params);
+  params->devices.Set(
+      devices_fragment.is_null() ? nullptr : devices_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->devices.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null devices in ");
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetTouchpadDevices");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_GetSmartBatteryManufactureDate_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::GetSmartBatteryManufactureDateCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_GetSmartBatteryManufactureDate_ProxyToResponder> proxy(
+        new Delegate_GetSmartBatteryManufactureDate_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_GetSmartBatteryManufactureDate_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_GetSmartBatteryManufactureDate_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_GetSmartBatteryManufactureDate_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::GetSmartBatteryManufactureDateCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::optional<uint32_t> in_manufacture_date);
+};
+
+bool Delegate_GetSmartBatteryManufactureDate_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::optional<uint32_t> p_manufacture_date{};
+  Delegate_GetSmartBatteryManufactureDate_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success) {
+    p_manufacture_date = input_data_view.manufacture_date();
+  }
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 24, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_manufacture_date));
+  return true;
+}
+
+void Delegate_GetSmartBatteryManufactureDate_ProxyToResponder::Run(
+    std::optional<uint32_t> in_manufacture_date) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetSmartBatteryManufactureDate", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("manufacture_date"), in_manufacture_date,
+                        "<value of type std::optional<uint32_t>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_GetSmartBatteryManufactureDate_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->manufacture_date_$flag = in_manufacture_date.has_value();
+  if (in_manufacture_date.has_value()) {
+    params->manufacture_date_$value = in_manufacture_date.value();
+  }
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetSmartBatteryManufactureDate");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_GetSmartBatteryTemperature_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::GetSmartBatteryTemperatureCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_GetSmartBatteryTemperature_ProxyToResponder> proxy(
+        new Delegate_GetSmartBatteryTemperature_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_GetSmartBatteryTemperature_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_GetSmartBatteryTemperature_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_GetSmartBatteryTemperature_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::GetSmartBatteryTemperatureCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::optional<uint32_t> in_temperature);
+};
+
+bool Delegate_GetSmartBatteryTemperature_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::optional<uint32_t> p_temperature{};
+  Delegate_GetSmartBatteryTemperature_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success) {
+    p_temperature = input_data_view.temperature();
+  }
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 25, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_temperature));
+  return true;
+}
+
+void Delegate_GetSmartBatteryTemperature_ProxyToResponder::Run(
+    std::optional<uint32_t> in_temperature) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetSmartBatteryTemperature", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("temperature"), in_temperature,
+                        "<value of type std::optional<uint32_t>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_GetSmartBatteryTemperature_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->temperature_$flag = in_temperature.has_value();
+  if (in_temperature.has_value()) {
+    params->temperature_$value = in_temperature.value();
+  }
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetSmartBatteryTemperature");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_RunUrandom_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::RunUrandomCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_RunUrandom_ProxyToResponder> proxy(
+        new Delegate_RunUrandom_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_RunUrandom_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_RunUrandom_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_RunUrandom_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::RunUrandomCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_passed);
+};
+
+bool Delegate_RunUrandom_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_RunUrandom_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_RunUrandom_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_passed{};
+  Delegate_RunUrandom_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_passed = input_data_view.passed();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 26, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_passed));
+  return true;
+}
+
+void Delegate_RunUrandom_ProxyToResponder::Run(
+    bool in_passed) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::RunUrandom", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("passed"), in_passed,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDelegate_RunUrandom_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_RunUrandom_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->passed = in_passed;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("RunUrandom");
 #endif
 
   message.set_request_id(request_id_);
@@ -3827,6 +4964,21 @@ std::move(p_observer));
     case internal::kDelegate_SetAllFanAutoControl_Name: {
       break;
     }
+    case internal::kDelegate_GetEcThermalSensors_Name: {
+      break;
+    }
+    case internal::kDelegate_GetTouchpadDevices_Name: {
+      break;
+    }
+    case internal::kDelegate_GetSmartBatteryManufactureDate_Name: {
+      break;
+    }
+    case internal::kDelegate_GetSmartBatteryTemperature_Name: {
+      break;
+    }
+    case internal::kDelegate_RunUrandom_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -4054,8 +5206,11 @@ std::move(p_name), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
+      std::optional<std::vector<uint32_t>> p_last_known_connectors{};
       Delegate_GetConnectedExternalDisplayConnectors_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadLastKnownConnectors(&p_last_known_connectors))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4068,7 +5223,8 @@ std::move(p_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetConnectedExternalDisplayConnectors(std::move(callback));
+      impl->GetConnectedExternalDisplayConnectors(
+std::move(p_last_known_connectors), std::move(callback));
       return true;
     }
     case internal::kDelegate_GetPrivacyScreenInfo_Name: {
@@ -4268,56 +5424,203 @@ std::move(p_fan_id_to_rpm), std::move(callback));
       impl->SetAllFanAutoControl(std::move(callback));
       return true;
     }
+    case internal::kDelegate_GetEcThermalSensors_Name: {
+
+      internal::Delegate_GetEcThermalSensors_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_GetEcThermalSensors_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_GetEcThermalSensors_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 22, false);
+        return false;
+      }
+      Delegate::GetEcThermalSensorsCallback callback =
+          Delegate_GetEcThermalSensors_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetEcThermalSensors(std::move(callback));
+      return true;
+    }
+    case internal::kDelegate_GetTouchpadDevices_Name: {
+
+      internal::Delegate_GetTouchpadDevices_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_GetTouchpadDevices_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_GetTouchpadDevices_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 23, false);
+        return false;
+      }
+      Delegate::GetTouchpadDevicesCallback callback =
+          Delegate_GetTouchpadDevices_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetTouchpadDevices(std::move(callback));
+      return true;
+    }
+    case internal::kDelegate_GetSmartBatteryManufactureDate_Name: {
+
+      internal::Delegate_GetSmartBatteryManufactureDate_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_GetSmartBatteryManufactureDate_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      uint8_t p_i2c_port{};
+      Delegate_GetSmartBatteryManufactureDate_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_i2c_port = input_data_view.i2c_port();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 24, false);
+        return false;
+      }
+      Delegate::GetSmartBatteryManufactureDateCallback callback =
+          Delegate_GetSmartBatteryManufactureDate_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetSmartBatteryManufactureDate(
+std::move(p_i2c_port), std::move(callback));
+      return true;
+    }
+    case internal::kDelegate_GetSmartBatteryTemperature_Name: {
+
+      internal::Delegate_GetSmartBatteryTemperature_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_GetSmartBatteryTemperature_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      uint8_t p_i2c_port{};
+      Delegate_GetSmartBatteryTemperature_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_i2c_port = input_data_view.i2c_port();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 25, false);
+        return false;
+      }
+      Delegate::GetSmartBatteryTemperatureCallback callback =
+          Delegate_GetSmartBatteryTemperature_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetSmartBatteryTemperature(
+std::move(p_i2c_port), std::move(callback));
+      return true;
+    }
+    case internal::kDelegate_RunUrandom_Name: {
+
+      internal::Delegate_RunUrandom_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_RunUrandom_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      base::TimeDelta p_exec_duration{};
+      Delegate_RunUrandom_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadExecDuration(&p_exec_duration))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 26, false);
+        return false;
+      }
+      Delegate::RunUrandomCallback callback =
+          Delegate_RunUrandom_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunUrandom(
+std::move(p_exec_duration), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
-    {&internal::Delegate_GetFingerprintFrame_Params_Data::Validate,
+    { &internal::Delegate_GetFingerprintFrame_Params_Data::Validate,
      &internal::Delegate_GetFingerprintFrame_ResponseParams_Data::Validate},
-    {&internal::Delegate_GetFingerprintInfo_Params_Data::Validate,
+    { &internal::Delegate_GetFingerprintInfo_Params_Data::Validate,
      &internal::Delegate_GetFingerprintInfo_ResponseParams_Data::Validate},
-    {&internal::Delegate_SetLedColor_Params_Data::Validate,
+    { &internal::Delegate_SetLedColor_Params_Data::Validate,
      &internal::Delegate_SetLedColor_ResponseParams_Data::Validate},
-    {&internal::Delegate_ResetLedColor_Params_Data::Validate,
+    { &internal::Delegate_ResetLedColor_Params_Data::Validate,
      &internal::Delegate_ResetLedColor_ResponseParams_Data::Validate},
-    {&internal::Delegate_MonitorAudioJack_Params_Data::Validate,
+    { &internal::Delegate_MonitorAudioJack_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Delegate_MonitorTouchpad_Params_Data::Validate,
+    { &internal::Delegate_MonitorTouchpad_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Delegate_FetchBootPerformance_Params_Data::Validate,
+    { &internal::Delegate_FetchBootPerformance_Params_Data::Validate,
      &internal::Delegate_FetchBootPerformance_ResponseParams_Data::Validate},
-    {&internal::Delegate_MonitorTouchscreen_Params_Data::Validate,
+    { &internal::Delegate_MonitorTouchscreen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Delegate_MonitorStylusGarage_Params_Data::Validate,
+    { &internal::Delegate_MonitorStylusGarage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Delegate_MonitorStylus_Params_Data::Validate,
+    { &internal::Delegate_MonitorStylus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Delegate_GetLidAngle_Params_Data::Validate,
+    { &internal::Delegate_GetLidAngle_Params_Data::Validate,
      &internal::Delegate_GetLidAngle_ResponseParams_Data::Validate},
-    {&internal::Delegate_GetPsr_Params_Data::Validate,
+    { &internal::Delegate_GetPsr_Params_Data::Validate,
      &internal::Delegate_GetPsr_ResponseParams_Data::Validate},
-    {&internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data::Validate,
+    { &internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data::Validate,
      &internal::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data::Validate},
-    {&internal::Delegate_GetPrivacyScreenInfo_Params_Data::Validate,
+    { &internal::Delegate_GetPrivacyScreenInfo_Params_Data::Validate,
      &internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data::Validate},
-    {&internal::Delegate_FetchDisplayInfo_Params_Data::Validate,
+    { &internal::Delegate_FetchDisplayInfo_Params_Data::Validate,
      &internal::Delegate_FetchDisplayInfo_ResponseParams_Data::Validate},
-    {&internal::Delegate_MonitorPowerButton_Params_Data::Validate,
+    { &internal::Delegate_MonitorPowerButton_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Delegate_RunPrimeSearch_Params_Data::Validate,
+    { &internal::Delegate_RunPrimeSearch_Params_Data::Validate,
      &internal::Delegate_RunPrimeSearch_ResponseParams_Data::Validate},
-    {&internal::Delegate_MonitorVolumeButton_Params_Data::Validate,
+    { &internal::Delegate_MonitorVolumeButton_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Delegate_RunFloatingPoint_Params_Data::Validate,
+    { &internal::Delegate_RunFloatingPoint_Params_Data::Validate,
      &internal::Delegate_RunFloatingPoint_ResponseParams_Data::Validate},
-    {&internal::Delegate_GetAllFanSpeed_Params_Data::Validate,
+    { &internal::Delegate_GetAllFanSpeed_Params_Data::Validate,
      &internal::Delegate_GetAllFanSpeed_ResponseParams_Data::Validate},
-    {&internal::Delegate_SetFanSpeed_Params_Data::Validate,
+    { &internal::Delegate_SetFanSpeed_Params_Data::Validate,
      &internal::Delegate_SetFanSpeed_ResponseParams_Data::Validate},
-    {&internal::Delegate_SetAllFanAutoControl_Params_Data::Validate,
+    { &internal::Delegate_SetAllFanAutoControl_Params_Data::Validate,
      &internal::Delegate_SetAllFanAutoControl_ResponseParams_Data::Validate},
+    { &internal::Delegate_GetEcThermalSensors_Params_Data::Validate,
+     &internal::Delegate_GetEcThermalSensors_ResponseParams_Data::Validate},
+    { &internal::Delegate_GetTouchpadDevices_Params_Data::Validate,
+     &internal::Delegate_GetTouchpadDevices_ResponseParams_Data::Validate},
+    { &internal::Delegate_GetSmartBatteryManufactureDate_Params_Data::Validate,
+     &internal::Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data::Validate},
+    { &internal::Delegate_GetSmartBatteryTemperature_Params_Data::Validate,
+     &internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data::Validate},
+    { &internal::Delegate_RunUrandom_Params_Data::Validate,
+     &internal::Delegate_RunUrandom_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -4382,8 +5685,8 @@ void DelegateInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
 void DelegateInterceptorForTesting::GetPsr(GetPsrCallback callback) {
   GetForwardingInterface()->GetPsr(std::move(callback));
 }
-void DelegateInterceptorForTesting::GetConnectedExternalDisplayConnectors(GetConnectedExternalDisplayConnectorsCallback callback) {
-  GetForwardingInterface()->GetConnectedExternalDisplayConnectors(std::move(callback));
+void DelegateInterceptorForTesting::GetConnectedExternalDisplayConnectors(const std::optional<std::vector<uint32_t>>& last_known_connectors, GetConnectedExternalDisplayConnectorsCallback callback) {
+  GetForwardingInterface()->GetConnectedExternalDisplayConnectors(std::move(last_known_connectors), std::move(callback));
 }
 void DelegateInterceptorForTesting::GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) {
   GetForwardingInterface()->GetPrivacyScreenInfo(std::move(callback));
@@ -4412,23 +5715,38 @@ void DelegateInterceptorForTesting::SetFanSpeed(const base::flat_map<uint8_t, ui
 void DelegateInterceptorForTesting::SetAllFanAutoControl(SetAllFanAutoControlCallback callback) {
   GetForwardingInterface()->SetAllFanAutoControl(std::move(callback));
 }
+void DelegateInterceptorForTesting::GetEcThermalSensors(GetEcThermalSensorsCallback callback) {
+  GetForwardingInterface()->GetEcThermalSensors(std::move(callback));
+}
+void DelegateInterceptorForTesting::GetTouchpadDevices(GetTouchpadDevicesCallback callback) {
+  GetForwardingInterface()->GetTouchpadDevices(std::move(callback));
+}
+void DelegateInterceptorForTesting::GetSmartBatteryManufactureDate(uint8_t i2c_port, GetSmartBatteryManufactureDateCallback callback) {
+  GetForwardingInterface()->GetSmartBatteryManufactureDate(std::move(i2c_port), std::move(callback));
+}
+void DelegateInterceptorForTesting::GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) {
+  GetForwardingInterface()->GetSmartBatteryTemperature(std::move(i2c_port), std::move(callback));
+}
+void DelegateInterceptorForTesting::RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) {
+  GetForwardingInterface()->RunUrandom(std::move(exec_duration), std::move(callback));
+}
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
 
 DelegateAsyncWaiter::~DelegateAsyncWaiter() = default;
 
 void DelegateAsyncWaiter::GetFingerprintFrame(
-    ::ash::cros_healthd::mojom::FingerprintCaptureType type, ::ash::cros_healthd::mojom::FingerprintFrameResultPtr* out_result, absl::optional<std::string>* out_err) {
+    ::ash::cros_healthd::mojom::FingerprintCaptureType type, ::ash::cros_healthd::mojom::FingerprintFrameResultPtr* out_result, std::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->GetFingerprintFrame(std::move(type),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::cros_healthd::mojom::FingerprintFrameResultPtr* out_result
 ,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
              ::ash::cros_healthd::mojom::FingerprintFrameResultPtr result,
-             const absl::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4440,17 +5758,17 @@ void DelegateAsyncWaiter::GetFingerprintFrame(
 
 
 void DelegateAsyncWaiter::GetFingerprintInfo(
-    ::ash::cros_healthd::mojom::FingerprintInfoResultPtr* out_result, absl::optional<std::string>* out_err) {
+    ::ash::cros_healthd::mojom::FingerprintInfoResultPtr* out_result, std::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->GetFingerprintInfo(
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::cros_healthd::mojom::FingerprintInfoResultPtr* out_result
 ,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
              ::ash::cros_healthd::mojom::FingerprintInfoResultPtr result,
-             const absl::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4462,14 +5780,14 @@ void DelegateAsyncWaiter::GetFingerprintInfo(
 
 
 void DelegateAsyncWaiter::SetLedColor(
-    ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, absl::optional<std::string>* out_err) {
+    ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, std::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->SetLedColor(std::move(name),std::move(color),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
-             const absl::optional<std::string>& err) {*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4477,22 +5795,22 @@ void DelegateAsyncWaiter::SetLedColor(
   loop.Run();
 }
 
-absl::optional<std::string> DelegateAsyncWaiter::SetLedColor(
+std::optional<std::string> DelegateAsyncWaiter::SetLedColor(
     ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   SetLedColor(std::move(name),std::move(color),&async_wait_result);
   return async_wait_result;
 }
 
 void DelegateAsyncWaiter::ResetLedColor(
-    ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err) {
+    ::ash::cros_healthd::mojom::LedName name, std::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->ResetLedColor(std::move(name),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
-             const absl::optional<std::string>& err) {*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4500,9 +5818,9 @@ void DelegateAsyncWaiter::ResetLedColor(
   loop.Run();
 }
 
-absl::optional<std::string> DelegateAsyncWaiter::ResetLedColor(
+std::optional<std::string> DelegateAsyncWaiter::ResetLedColor(
     ::ash::cros_healthd::mojom::LedName name) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   ResetLedColor(std::move(name),&async_wait_result);
   return async_wait_result;
 }
@@ -4531,14 +5849,14 @@ void DelegateAsyncWaiter::FetchBootPerformance(
 }
 
 void DelegateAsyncWaiter::GetLidAngle(
-    absl::optional<uint16_t>* out_lid_angle) {
+    std::optional<uint16_t>* out_lid_angle) {
   base::RunLoop loop;
   proxy_->GetLidAngle(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<uint16_t>* out_lid_angle
+             std::optional<uint16_t>* out_lid_angle
 ,
-             absl::optional<uint16_t> lid_angle) {*out_lid_angle = std::move(lid_angle);
+             std::optional<uint16_t> lid_angle) {*out_lid_angle = std::move(lid_angle);
             loop->Quit();
           },
           &loop,
@@ -4546,25 +5864,25 @@ void DelegateAsyncWaiter::GetLidAngle(
   loop.Run();
 }
 
-absl::optional<uint16_t> DelegateAsyncWaiter::GetLidAngle(
+std::optional<uint16_t> DelegateAsyncWaiter::GetLidAngle(
     ) {
-  absl::optional<uint16_t> async_wait_result;
+  std::optional<uint16_t> async_wait_result;
   GetLidAngle(&async_wait_result);
   return async_wait_result;
 }
 
 void DelegateAsyncWaiter::GetPsr(
-    ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, absl::optional<std::string>* out_err) {
+    ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, std::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->GetPsr(
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::cros_healthd::mojom::PsrInfoPtr* out_result
 ,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
              ::ash::cros_healthd::mojom::PsrInfoPtr result,
-             const absl::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4576,17 +5894,17 @@ void DelegateAsyncWaiter::GetPsr(
 
 
 void DelegateAsyncWaiter::GetConnectedExternalDisplayConnectors(
-    base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err) {
+    const std::optional<std::vector<uint32_t>>& last_known_connectors, base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, std::optional<std::string>* out_err) {
   base::RunLoop loop;
-  proxy_->GetConnectedExternalDisplayConnectors(
+  proxy_->GetConnectedExternalDisplayConnectors(std::move(last_known_connectors),
       base::BindOnce(
           [](base::RunLoop* loop,
              base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors
 ,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
              base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> connectors,
-             const absl::optional<std::string>& err) {*out_connectors = std::move(connectors);*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_connectors = std::move(connectors);*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4598,7 +5916,7 @@ void DelegateAsyncWaiter::GetConnectedExternalDisplayConnectors(
 
 
 void DelegateAsyncWaiter::GetPrivacyScreenInfo(
-    bool* out_privacy_screen_supported, bool* out_privacy_screen_enabled, absl::optional<std::string>* out_err) {
+    bool* out_privacy_screen_supported, bool* out_privacy_screen_enabled, std::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->GetPrivacyScreenInfo(
       base::BindOnce(
@@ -4607,11 +5925,11 @@ void DelegateAsyncWaiter::GetPrivacyScreenInfo(
 ,
              bool* out_privacy_screen_enabled
 ,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
              bool privacy_screen_supported,
              bool privacy_screen_enabled,
-             const absl::optional<std::string>& err) {*out_privacy_screen_supported = std::move(privacy_screen_supported);*out_privacy_screen_enabled = std::move(privacy_screen_enabled);*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_privacy_screen_supported = std::move(privacy_screen_supported);*out_privacy_screen_enabled = std::move(privacy_screen_enabled);*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4693,17 +6011,17 @@ bool DelegateAsyncWaiter::RunFloatingPoint(
 }
 
 void DelegateAsyncWaiter::GetAllFanSpeed(
-    std::vector<uint16_t>* out_fan_rpms, absl::optional<std::string>* out_err) {
+    std::vector<uint16_t>* out_fan_rpms, std::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->GetAllFanSpeed(
       base::BindOnce(
           [](base::RunLoop* loop,
              std::vector<uint16_t>* out_fan_rpms
 ,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
              const std::vector<uint16_t>& fan_rpms,
-             const absl::optional<std::string>& err) {*out_fan_rpms = std::move(fan_rpms);*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_fan_rpms = std::move(fan_rpms);*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4715,14 +6033,14 @@ void DelegateAsyncWaiter::GetAllFanSpeed(
 
 
 void DelegateAsyncWaiter::SetFanSpeed(
-    const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, absl::optional<std::string>* out_err) {
+    const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, std::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->SetFanSpeed(std::move(fan_id_to_rpm),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
-             const absl::optional<std::string>& err) {*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4730,22 +6048,22 @@ void DelegateAsyncWaiter::SetFanSpeed(
   loop.Run();
 }
 
-absl::optional<std::string> DelegateAsyncWaiter::SetFanSpeed(
+std::optional<std::string> DelegateAsyncWaiter::SetFanSpeed(
     const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   SetFanSpeed(std::move(fan_id_to_rpm),&async_wait_result);
   return async_wait_result;
 }
 
 void DelegateAsyncWaiter::SetAllFanAutoControl(
-    absl::optional<std::string>* out_err) {
+    std::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->SetAllFanAutoControl(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_err
+             std::optional<std::string>* out_err
 ,
-             const absl::optional<std::string>& err) {*out_err = std::move(err);
+             const std::optional<std::string>& err) {*out_err = std::move(err);
             loop->Quit();
           },
           &loop,
@@ -4753,10 +6071,123 @@ void DelegateAsyncWaiter::SetAllFanAutoControl(
   loop.Run();
 }
 
-absl::optional<std::string> DelegateAsyncWaiter::SetAllFanAutoControl(
+std::optional<std::string> DelegateAsyncWaiter::SetAllFanAutoControl(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   SetAllFanAutoControl(&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::GetEcThermalSensors(
+    std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr>* out_thermal_sensors, std::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetEcThermalSensors(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr>* out_thermal_sensors
+,
+             std::optional<std::string>* out_err
+,
+             std::vector<::ash::cros_healthd::mojom::ThermalSensorInfoPtr> thermal_sensors,
+             const std::optional<std::string>& err) {*out_thermal_sensors = std::move(thermal_sensors);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_thermal_sensors,
+          out_err));
+  loop.Run();
+}
+
+
+
+void DelegateAsyncWaiter::GetTouchpadDevices(
+    std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr>* out_devices, std::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetTouchpadDevices(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr>* out_devices
+,
+             std::optional<std::string>* out_err
+,
+             std::vector<::ash::cros_healthd::mojom::TouchpadDevicePtr> devices,
+             const std::optional<std::string>& err) {*out_devices = std::move(devices);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_devices,
+          out_err));
+  loop.Run();
+}
+
+
+
+void DelegateAsyncWaiter::GetSmartBatteryManufactureDate(
+    uint8_t i2c_port, std::optional<uint32_t>* out_manufacture_date) {
+  base::RunLoop loop;
+  proxy_->GetSmartBatteryManufactureDate(std::move(i2c_port),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::optional<uint32_t>* out_manufacture_date
+,
+             std::optional<uint32_t> manufacture_date) {*out_manufacture_date = std::move(manufacture_date);
+            loop->Quit();
+          },
+          &loop,
+          out_manufacture_date));
+  loop.Run();
+}
+
+std::optional<uint32_t> DelegateAsyncWaiter::GetSmartBatteryManufactureDate(
+    uint8_t i2c_port) {
+  std::optional<uint32_t> async_wait_result;
+  GetSmartBatteryManufactureDate(std::move(i2c_port),&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::GetSmartBatteryTemperature(
+    uint8_t i2c_port, std::optional<uint32_t>* out_temperature) {
+  base::RunLoop loop;
+  proxy_->GetSmartBatteryTemperature(std::move(i2c_port),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::optional<uint32_t>* out_temperature
+,
+             std::optional<uint32_t> temperature) {*out_temperature = std::move(temperature);
+            loop->Quit();
+          },
+          &loop,
+          out_temperature));
+  loop.Run();
+}
+
+std::optional<uint32_t> DelegateAsyncWaiter::GetSmartBatteryTemperature(
+    uint8_t i2c_port) {
+  std::optional<uint32_t> async_wait_result;
+  GetSmartBatteryTemperature(std::move(i2c_port),&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::RunUrandom(
+    base::TimeDelta exec_duration, bool* out_passed) {
+  base::RunLoop loop;
+  proxy_->RunUrandom(std::move(exec_duration),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_passed
+,
+             bool passed) {*out_passed = std::move(passed);
+            loop->Quit();
+          },
+          &loop,
+          out_passed));
+  loop.Run();
+}
+
+bool DelegateAsyncWaiter::RunUrandom(
+    base::TimeDelta exec_duration) {
+  bool async_wait_result;
+  RunUrandom(std::move(exec_duration),&async_wait_result);
   return async_wait_result;
 }
 

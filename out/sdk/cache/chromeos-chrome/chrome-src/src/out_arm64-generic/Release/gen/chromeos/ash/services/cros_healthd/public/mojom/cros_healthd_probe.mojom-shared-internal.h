@@ -3714,7 +3714,7 @@ class  BluetoothDeviceInfo_Data {
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> appearance;
   mojo::internal::Pointer<mojo::internal::String_Data> modalias;
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableInt16_Data> rssi;
-  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> mtu;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> deprecated_mtu;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> uuids;
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint8_Data> battery_percentage;
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> bluetooth_class;

@@ -3,7 +3,6 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/chunked_data_pipe_getter.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/client_security_state.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/content_security_policy.mojom
-../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cookie_setting_overrides.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cors.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cross_origin_embedder_policy.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cross_origin_opener_policy.mojom
@@ -27,6 +26,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/parsed_headers.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/referrer_policy.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/request_priority.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/service_worker_router_info.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/shared_dictionary_access_observer.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/source_location.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/supports_loading_mode.mojom

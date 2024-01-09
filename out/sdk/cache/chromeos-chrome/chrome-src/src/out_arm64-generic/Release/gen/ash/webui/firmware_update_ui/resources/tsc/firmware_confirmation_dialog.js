@@ -4,6 +4,7 @@
 import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import 'chrome://resources/mojo/mojo/public/mojom/base/big_buffer.mojom-webui.js';
 import 'chrome://resources/mojo/mojo/public/mojom/base/string16.mojom-webui.js';
+import './icons.html.js';
 import './firmware_shared.css.js';
 import './firmware_shared_fonts.css.js';
 import './strings.m.js';
@@ -11,6 +12,7 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './firmware_confirmation_dialog.html.js';
+import { isAppV2Enabled } from './firmware_update_utils.js';
 /**
  * @fileoverview
  * 'firmware-confirmation-dialog' provides information about the update and
@@ -21,6 +23,7 @@ export class FirmwareConfirmationDialogElement extends FirmwareConfirmationDialo
     constructor() {
         super(...arguments);
         this.open = false;
+        this.shouldShowDisclaimer = false;
     }
     static get is() {
         return 'firmware-confirmation-dialog';
@@ -37,11 +40,16 @@ export class FirmwareConfirmationDialogElement extends FirmwareConfirmationDialo
                 type: Boolean,
                 value: false,
             },
+            shouldShowDisclaimer: {
+                type: Boolean,
+                value: false,
+            },
         };
     }
     connectedCallback() {
         super.connectedCallback();
         window.addEventListener('open-confirmation-dialog', (e) => this.onOpenConfirmationDialog(e));
+        this.shouldShowDisclaimer = isAppV2Enabled();
     }
     openUpdateDialog() {
         this.closeDialog();

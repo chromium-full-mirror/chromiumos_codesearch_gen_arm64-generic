@@ -34,11 +34,8 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/patchpanel/dbus/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/patchpanel/dbus/all.stamp: stamp ./lib/libpatchpanel-client.so ./patchpanel-client_testrunner
+build obj/patchpanel/dbus/all.stamp: stamp ./lib/libpatchpanel-client.so
 subninja obj/patchpanel/dbus/libpatchpanel-client.ninja
-subninja obj/patchpanel/dbus/patchpanel-client_testrunner.ninja
-subninja obj/patchpanel/dbus/patchpanel_client_test_support.ninja
 rule __patchpanel_dbus_patchpanel_dbus_proxies___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config=/mnt/host/source/src/platform2/patchpanel/dbus_bindings/dbus-service-config.json -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel-client/out/Default/gen/include/patchpanel/dbus-proxies.h ../../../../../../../../../mnt/host/source/src/platform2/patchpanel/dbus_bindings/org.chromium.patchpanel.xml
   description = ACTION //patchpanel/dbus:patchpanel_dbus_proxies(//common-mk/toolchain:toolchain)

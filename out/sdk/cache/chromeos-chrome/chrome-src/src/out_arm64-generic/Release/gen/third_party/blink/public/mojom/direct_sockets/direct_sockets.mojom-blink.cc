@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -55,12 +56,12 @@ DirectTCPSocketOptions::DirectTCPSocketOptions()
 
 DirectTCPSocketOptions::DirectTCPSocketOptions(
     const ::net::HostPortPair& remote_addr_in,
-    const absl::optional<::net::IPEndPoint>& local_addr_in,
-    absl::optional<int32_t> send_buffer_size_in,
-    absl::optional<int32_t> receive_buffer_size_in,
+    const std::optional<::net::IPEndPoint>& local_addr_in,
+    std::optional<int32_t> send_buffer_size_in,
+    std::optional<int32_t> receive_buffer_size_in,
     bool no_delay_in,
     ::network::mojom::blink::TCPKeepAliveOptionsPtr keep_alive_options_in,
-    absl::optional<::net::DnsQueryType> dns_query_type_in)
+    std::optional<::net::DnsQueryType> dns_query_type_in)
     : remote_addr(std::move(remote_addr_in)),
       local_addr(std::move(local_addr_in)),
       send_buffer_size(std::move(send_buffer_size_in)),
@@ -87,7 +88,7 @@ void DirectTCPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "local_addr"), this->local_addr,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::IPEndPoint>&>"
+      "<value of type const std::optional<::net::IPEndPoint>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -96,7 +97,7 @@ void DirectTCPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "send_buffer_size"), this->send_buffer_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -105,7 +106,7 @@ void DirectTCPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "receive_buffer_size"), this->receive_buffer_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,7 +133,7 @@ void DirectTCPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "dns_query_type"), this->dns_query_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::net::DnsQueryType>>"
+      "<value of type std::optional<::net::DnsQueryType>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -152,9 +153,9 @@ DirectConnectedUDPSocketOptions::DirectConnectedUDPSocketOptions()
 
 DirectConnectedUDPSocketOptions::DirectConnectedUDPSocketOptions(
     const ::net::HostPortPair& remote_addr_in,
-    absl::optional<int32_t> send_buffer_size_in,
-    absl::optional<int32_t> receive_buffer_size_in,
-    absl::optional<::net::DnsQueryType> dns_query_type_in)
+    std::optional<int32_t> send_buffer_size_in,
+    std::optional<int32_t> receive_buffer_size_in,
+    std::optional<::net::DnsQueryType> dns_query_type_in)
     : remote_addr(std::move(remote_addr_in)),
       send_buffer_size(std::move(send_buffer_size_in)),
       receive_buffer_size(std::move(receive_buffer_size_in)),
@@ -178,7 +179,7 @@ void DirectConnectedUDPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "send_buffer_size"), this->send_buffer_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -187,7 +188,7 @@ void DirectConnectedUDPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "receive_buffer_size"), this->receive_buffer_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -196,7 +197,7 @@ void DirectConnectedUDPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "dns_query_type"), this->dns_query_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::net::DnsQueryType>>"
+      "<value of type std::optional<::net::DnsQueryType>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -216,9 +217,9 @@ DirectBoundUDPSocketOptions::DirectBoundUDPSocketOptions()
 
 DirectBoundUDPSocketOptions::DirectBoundUDPSocketOptions(
     const ::net::IPEndPoint& local_addr_in,
-    absl::optional<int32_t> send_buffer_size_in,
-    absl::optional<int32_t> receive_buffer_size_in,
-    absl::optional<bool> ipv6_only_in)
+    std::optional<int32_t> send_buffer_size_in,
+    std::optional<int32_t> receive_buffer_size_in,
+    std::optional<bool> ipv6_only_in)
     : local_addr(std::move(local_addr_in)),
       send_buffer_size(std::move(send_buffer_size_in)),
       receive_buffer_size(std::move(receive_buffer_size_in)),
@@ -242,7 +243,7 @@ void DirectBoundUDPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "send_buffer_size"), this->send_buffer_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -251,7 +252,7 @@ void DirectBoundUDPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "receive_buffer_size"), this->receive_buffer_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int32_t>>"
+      "<value of type std::optional<int32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -260,7 +261,7 @@ void DirectBoundUDPSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "ipv6_only"), this->ipv6_only,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -279,8 +280,8 @@ DirectTCPServerSocketOptions::DirectTCPServerSocketOptions()
 
 DirectTCPServerSocketOptions::DirectTCPServerSocketOptions(
     const ::net::IPEndPoint& local_addr_in,
-    absl::optional<bool> ipv6_only_in,
-    absl::optional<uint32_t> backlog_in)
+    std::optional<bool> ipv6_only_in,
+    std::optional<uint32_t> backlog_in)
     : local_addr(std::move(local_addr_in)),
       ipv6_only(std::move(ipv6_only_in)),
       backlog(std::move(backlog_in)) {}
@@ -303,7 +304,7 @@ void DirectTCPServerSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "ipv6_only"), this->ipv6_only,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -312,7 +313,7 @@ void DirectTCPServerSocketOptions::WriteIntoTrace(
     dict.AddItem(
       "backlog"), this->backlog,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<uint32_t>>"
+      "<value of type std::optional<uint32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -525,14 +526,17 @@ void DirectSocketsServiceProxy::OpenTCPSocket(
                         "<value of type ::mojo::PendingRemote<::network::mojom::blink::SocketObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectSocketsService_OpenTCPSocket_Name, kFlags, 0, 0, nullptr);
@@ -588,14 +592,17 @@ void DirectSocketsServiceProxy::OpenConnectedUDPSocket(
                         "<value of type ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectSocketsService_OpenConnectedUDPSocket_Name, kFlags, 0, 0, nullptr);
@@ -651,14 +658,17 @@ void DirectSocketsServiceProxy::OpenBoundUDPSocket(
                         "<value of type ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectSocketsService_OpenBoundUDPSocket_Name, kFlags, 0, 0, nullptr);
@@ -711,14 +721,17 @@ void DirectSocketsServiceProxy::OpenTCPServerSocket(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectSocketsService_OpenTCPServerSocket_Name, kFlags, 0, 0, nullptr);
@@ -799,7 +812,7 @@ class DirectSocketsService_OpenTCPSocket_ProxyToResponder : public ::mojo::inter
 #endif
 
   void Run(
-      int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream);
+      int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream);
 };
 
 bool DirectSocketsService_OpenTCPSocket_ForwardToCallback::Accept(
@@ -813,8 +826,8 @@ bool DirectSocketsService_OpenTCPSocket_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_result{};
-  absl::optional<::net::IPEndPoint> p_local_addr{};
-  absl::optional<::net::IPEndPoint> p_peer_addr{};
+  std::optional<::net::IPEndPoint> p_local_addr{};
+  std::optional<::net::IPEndPoint> p_peer_addr{};
   ::mojo::ScopedDataPipeConsumerHandle p_receive_stream{};
   ::mojo::ScopedDataPipeProducerHandle p_send_stream{};
   DirectSocketsService_OpenTCPSocket_ResponseParamsDataView input_data_view(params, message);
@@ -847,7 +860,7 @@ std::move(p_send_stream));
 }
 
 void DirectSocketsService_OpenTCPSocket_ProxyToResponder::Run(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::DirectSocketsService::OpenTCPSocket", "async_response_parameters",
@@ -858,10 +871,10 @@ void DirectSocketsService_OpenTCPSocket_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr"), in_local_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("peer_addr"), in_peer_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receive_stream"), in_receive_stream,
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
@@ -873,7 +886,8 @@ void DirectSocketsService_OpenTCPSocket_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectSocketsService_OpenTCPSocket_Name, kFlags, 0, 0, nullptr);
@@ -963,7 +977,7 @@ class DirectSocketsService_OpenConnectedUDPSocket_ProxyToResponder : public ::mo
 #endif
 
   void Run(
-      int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr);
+      int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr);
 };
 
 bool DirectSocketsService_OpenConnectedUDPSocket_ForwardToCallback::Accept(
@@ -977,8 +991,8 @@ bool DirectSocketsService_OpenConnectedUDPSocket_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_result{};
-  absl::optional<::net::IPEndPoint> p_local_addr{};
-  absl::optional<::net::IPEndPoint> p_peer_addr{};
+  std::optional<::net::IPEndPoint> p_local_addr{};
+  std::optional<::net::IPEndPoint> p_peer_addr{};
   DirectSocketsService_OpenConnectedUDPSocket_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1003,7 +1017,7 @@ std::move(p_peer_addr));
 }
 
 void DirectSocketsService_OpenConnectedUDPSocket_ProxyToResponder::Run(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::DirectSocketsService::OpenConnectedUDPSocket", "async_response_parameters",
@@ -1014,16 +1028,17 @@ void DirectSocketsService_OpenConnectedUDPSocket_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr"), in_local_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("peer_addr"), in_peer_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectSocketsService_OpenConnectedUDPSocket_Name, kFlags, 0, 0, nullptr);
@@ -1109,7 +1124,7 @@ class DirectSocketsService_OpenBoundUDPSocket_ProxyToResponder : public ::mojo::
 #endif
 
   void Run(
-      int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr);
+      int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr);
 };
 
 bool DirectSocketsService_OpenBoundUDPSocket_ForwardToCallback::Accept(
@@ -1123,7 +1138,7 @@ bool DirectSocketsService_OpenBoundUDPSocket_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_result{};
-  absl::optional<::net::IPEndPoint> p_local_addr{};
+  std::optional<::net::IPEndPoint> p_local_addr{};
   DirectSocketsService_OpenBoundUDPSocket_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1145,7 +1160,7 @@ std::move(p_local_addr));
 }
 
 void DirectSocketsService_OpenBoundUDPSocket_ProxyToResponder::Run(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::DirectSocketsService::OpenBoundUDPSocket", "async_response_parameters",
@@ -1156,13 +1171,14 @@ void DirectSocketsService_OpenBoundUDPSocket_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr"), in_local_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectSocketsService_OpenBoundUDPSocket_Name, kFlags, 0, 0, nullptr);
@@ -1241,7 +1257,7 @@ class DirectSocketsService_OpenTCPServerSocket_ProxyToResponder : public ::mojo:
 #endif
 
   void Run(
-      int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr);
+      int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr);
 };
 
 bool DirectSocketsService_OpenTCPServerSocket_ForwardToCallback::Accept(
@@ -1255,7 +1271,7 @@ bool DirectSocketsService_OpenTCPServerSocket_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_result{};
-  absl::optional<::net::IPEndPoint> p_local_addr{};
+  std::optional<::net::IPEndPoint> p_local_addr{};
   DirectSocketsService_OpenTCPServerSocket_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1277,7 +1293,7 @@ std::move(p_local_addr));
 }
 
 void DirectSocketsService_OpenTCPServerSocket_ProxyToResponder::Run(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::DirectSocketsService::OpenTCPServerSocket", "async_response_parameters",
@@ -1288,13 +1304,14 @@ void DirectSocketsService_OpenTCPServerSocket_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr"), in_local_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDirectSocketsService_OpenTCPServerSocket_Name, kFlags, 0, 0, nullptr);
@@ -1519,16 +1536,16 @@ std::move(p_receiver), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDirectSocketsServiceValidationInfo[] = {
-    {&internal::DirectSocketsService_OpenTCPSocket_Params_Data::Validate,
+    { &internal::DirectSocketsService_OpenTCPSocket_Params_Data::Validate,
      &internal::DirectSocketsService_OpenTCPSocket_ResponseParams_Data::Validate},
-    {&internal::DirectSocketsService_OpenConnectedUDPSocket_Params_Data::Validate,
+    { &internal::DirectSocketsService_OpenConnectedUDPSocket_Params_Data::Validate,
      &internal::DirectSocketsService_OpenConnectedUDPSocket_ResponseParams_Data::Validate},
-    {&internal::DirectSocketsService_OpenBoundUDPSocket_Params_Data::Validate,
+    { &internal::DirectSocketsService_OpenBoundUDPSocket_Params_Data::Validate,
      &internal::DirectSocketsService_OpenBoundUDPSocket_ResponseParams_Data::Validate},
-    {&internal::DirectSocketsService_OpenTCPServerSocket_Params_Data::Validate,
+    { &internal::DirectSocketsService_OpenTCPServerSocket_Params_Data::Validate,
      &internal::DirectSocketsService_OpenTCPServerSocket_ResponseParams_Data::Validate},
 };
 
@@ -1671,24 +1688,24 @@ DirectSocketsServiceAsyncWaiter::DirectSocketsServiceAsyncWaiter(
 DirectSocketsServiceAsyncWaiter::~DirectSocketsServiceAsyncWaiter() = default;
 
 void DirectSocketsServiceAsyncWaiter::OpenTCPSocket(
-    DirectTCPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream) {
+    DirectTCPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream) {
   base::RunLoop loop;
   proxy_->OpenTCPSocket(std::move(options),std::move(receiver),std::move(observer),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_result
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr
+             std::optional<::net::IPEndPoint>* out_local_addr
 ,
-             absl::optional<::net::IPEndPoint>* out_peer_addr
+             std::optional<::net::IPEndPoint>* out_peer_addr
 ,
              ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream
 ,
              ::mojo::ScopedDataPipeProducerHandle* out_send_stream
 ,
              int32_t result,
-             const absl::optional<::net::IPEndPoint>& local_addr,
-             const absl::optional<::net::IPEndPoint>& peer_addr,
+             const std::optional<::net::IPEndPoint>& local_addr,
+             const std::optional<::net::IPEndPoint>& peer_addr,
              ::mojo::ScopedDataPipeConsumerHandle receive_stream,
              ::mojo::ScopedDataPipeProducerHandle send_stream) {*out_result = std::move(result);*out_local_addr = std::move(local_addr);*out_peer_addr = std::move(peer_addr);*out_receive_stream = std::move(receive_stream);*out_send_stream = std::move(send_stream);
             loop->Quit();
@@ -1705,20 +1722,20 @@ void DirectSocketsServiceAsyncWaiter::OpenTCPSocket(
 
 
 void DirectSocketsServiceAsyncWaiter::OpenConnectedUDPSocket(
-    DirectConnectedUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr) {
+    DirectConnectedUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr) {
   base::RunLoop loop;
   proxy_->OpenConnectedUDPSocket(std::move(options),std::move(receiver),std::move(listener),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_result
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr
+             std::optional<::net::IPEndPoint>* out_local_addr
 ,
-             absl::optional<::net::IPEndPoint>* out_peer_addr
+             std::optional<::net::IPEndPoint>* out_peer_addr
 ,
              int32_t result,
-             const absl::optional<::net::IPEndPoint>& local_addr,
-             const absl::optional<::net::IPEndPoint>& peer_addr) {*out_result = std::move(result);*out_local_addr = std::move(local_addr);*out_peer_addr = std::move(peer_addr);
+             const std::optional<::net::IPEndPoint>& local_addr,
+             const std::optional<::net::IPEndPoint>& peer_addr) {*out_result = std::move(result);*out_local_addr = std::move(local_addr);*out_peer_addr = std::move(peer_addr);
             loop->Quit();
           },
           &loop,
@@ -1731,17 +1748,17 @@ void DirectSocketsServiceAsyncWaiter::OpenConnectedUDPSocket(
 
 
 void DirectSocketsServiceAsyncWaiter::OpenBoundUDPSocket(
-    DirectBoundUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr) {
+    DirectBoundUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr) {
   base::RunLoop loop;
   proxy_->OpenBoundUDPSocket(std::move(options),std::move(receiver),std::move(listener),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_result
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr
+             std::optional<::net::IPEndPoint>* out_local_addr
 ,
              int32_t result,
-             const absl::optional<::net::IPEndPoint>& local_addr) {*out_result = std::move(result);*out_local_addr = std::move(local_addr);
+             const std::optional<::net::IPEndPoint>& local_addr) {*out_result = std::move(result);*out_local_addr = std::move(local_addr);
             loop->Quit();
           },
           &loop,
@@ -1753,17 +1770,17 @@ void DirectSocketsServiceAsyncWaiter::OpenBoundUDPSocket(
 
 
 void DirectSocketsServiceAsyncWaiter::OpenTCPServerSocket(
-    DirectTCPServerSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket> receiver, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr) {
+    DirectTCPServerSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket> receiver, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr) {
   base::RunLoop loop;
   proxy_->OpenTCPServerSocket(std::move(options),std::move(receiver),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_result
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr
+             std::optional<::net::IPEndPoint>* out_local_addr
 ,
              int32_t result,
-             const absl::optional<::net::IPEndPoint>& local_addr) {*out_result = std::move(result);*out_local_addr = std::move(local_addr);
+             const std::optional<::net::IPEndPoint>& local_addr) {*out_result = std::move(result);*out_local_addr = std::move(local_addr);
             loop->Quit();
           },
           &loop,

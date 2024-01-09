@@ -3,6 +3,23 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
+export const DisplaySettingsTypeSpec = { $: mojo.internal.Enum() };
+export var DisplaySettingsType;
+(function (DisplaySettingsType) {
+    DisplaySettingsType[DisplaySettingsType["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DisplaySettingsType[DisplaySettingsType["MAX_VALUE"] = 10] = "MAX_VALUE";
+    DisplaySettingsType[DisplaySettingsType["kResolution"] = 0] = "kResolution";
+    DisplaySettingsType[DisplaySettingsType["kRefreshRate"] = 1] = "kRefreshRate";
+    DisplaySettingsType[DisplaySettingsType["kScaling"] = 2] = "kScaling";
+    DisplaySettingsType[DisplaySettingsType["kOrientation"] = 3] = "kOrientation";
+    DisplaySettingsType[DisplaySettingsType["kOverscan"] = 4] = "kOverscan";
+    DisplaySettingsType[DisplaySettingsType["kNightLight"] = 5] = "kNightLight";
+    DisplaySettingsType[DisplaySettingsType["kNightLightSchedule"] = 6] = "kNightLightSchedule";
+    DisplaySettingsType[DisplaySettingsType["kDisplayPage"] = 7] = "kDisplayPage";
+    DisplaySettingsType[DisplaySettingsType["kMirrorMode"] = 8] = "kMirrorMode";
+    DisplaySettingsType[DisplaySettingsType["kUnifiedMode"] = 9] = "kUnifiedMode";
+    DisplaySettingsType[DisplaySettingsType["kPrimaryDisplay"] = 10] = "kPrimaryDisplay";
+})(DisplaySettingsType || (DisplaySettingsType = {}));
 export class TabletModeObserverPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -77,6 +94,78 @@ export class TabletModeObserverCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+export class DisplayConfigurationObserverPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.settings.mojom.DisplayConfigurationObserver', scope);
+    }
+}
+export class DisplayConfigurationObserverRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(DisplayConfigurationObserverPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    onDisplayConfigurationChanged() {
+        this.proxy.sendMessage(0, DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec.$, null, []);
+    }
+}
+;
+/**
+ * An object which receives request messages for the DisplayConfigurationObserver
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+export class DisplayConfigurationObserverReceiver {
+    constructor(impl) {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DisplayConfigurationObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec.$, null, impl.onDisplayConfigurationChanged.bind(impl));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+}
+export class DisplayConfigurationObserver {
+    static get $interfaceName() {
+        return "ash.settings.mojom.DisplayConfigurationObserver";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new DisplayConfigurationObserverRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+/**
+ * An object which receives request messages for the DisplayConfigurationObserver
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+export class DisplayConfigurationObserverCallbackRouter {
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DisplayConfigurationObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.onDisplayConfigurationChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec.$, null, this.onDisplayConfigurationChanged.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
 export class DisplaySettingsProviderPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -97,6 +186,17 @@ export class DisplaySettingsProviderRemote {
             observer
         ]);
     }
+    observeDisplayConfiguration(observer) {
+        this.proxy.sendMessage(1, DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec.$, null, [
+            observer
+        ]);
+    }
+    recordChangingDisplaySettings(type, value) {
+        this.proxy.sendMessage(2, DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec.$, null, [
+            type,
+            value
+        ]);
+    }
 }
 ;
 /**
@@ -109,6 +209,8 @@ export class DisplaySettingsProviderReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DisplaySettingsProviderRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, DisplaySettingsProvider_ObserveTabletMode_ParamsSpec.$, DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec.$, impl.observeTabletMode.bind(impl));
+        this.helper_internal_.registerHandler(1, DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec.$, null, impl.observeDisplayConfiguration.bind(impl));
+        this.helper_internal_.registerHandler(2, DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec.$, null, impl.recordChangingDisplaySettings.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -141,6 +243,12 @@ export class DisplaySettingsProviderCallbackRouter {
         this.observeTabletMode =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, DisplaySettingsProvider_ObserveTabletMode_ParamsSpec.$, DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec.$, this.observeTabletMode.createReceiverHandler(true /* expectsResponse */));
+        this.observeDisplayConfiguration =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec.$, null, this.observeDisplayConfiguration.createReceiverHandler(false /* expectsResponse */));
+        this.recordChangingDisplaySettings =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec.$, null, this.recordChangingDisplaySettings.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -151,15 +259,47 @@ export class DisplaySettingsProviderCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+export const DisplaySettingsValueSpec = { $: {} };
 export const TabletModeObserver_OnTabletModeChanged_ParamsSpec = { $: {} };
+export const DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec = { $: {} };
 export const DisplaySettingsProvider_ObserveTabletMode_ParamsSpec = { $: {} };
 export const DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec = { $: {} };
+export const DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec = { $: {} };
+export const DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec = { $: {} };
+mojo.internal.Struct(DisplaySettingsValueSpec.$, 'DisplaySettingsValue', [
+    mojo.internal.StructField('is_internal_display_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "is_internal_display_$value",
+        originalFieldName: "isInternalDisplay",
+    }),
+    mojo.internal.StructField('is_internal_display_$value', 0, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "isInternalDisplay",
+    }),
+    mojo.internal.StructField('display_id_$flag', 0, 2, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "display_id_$value",
+        originalFieldName: "displayId",
+    }),
+    mojo.internal.StructField('display_id_$value', 8, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "displayId",
+    }),
+], [[0, 24],]);
 mojo.internal.Struct(TabletModeObserver_OnTabletModeChanged_ParamsSpec.$, 'TabletModeObserver_OnTabletModeChanged_Params', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec.$, 'DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params', [], [[0, 8],]);
 mojo.internal.Struct(DisplaySettingsProvider_ObserveTabletMode_ParamsSpec.$, 'DisplaySettingsProvider_ObserveTabletMode_Params', [
     mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(TabletModeObserverRemote), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec.$, 'DisplaySettingsProvider_ObserveTabletMode_ResponseParams', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec.$, 'DisplaySettingsProvider_ObserveDisplayConfiguration_Params', [
+    mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(DisplayConfigurationObserverRemote), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec.$, 'DisplaySettingsProvider_RecordChangingDisplaySettings_Params', [
+    mojo.internal.StructField('type', 0, 0, DisplaySettingsTypeSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('value', 8, 0, DisplaySettingsValueSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);

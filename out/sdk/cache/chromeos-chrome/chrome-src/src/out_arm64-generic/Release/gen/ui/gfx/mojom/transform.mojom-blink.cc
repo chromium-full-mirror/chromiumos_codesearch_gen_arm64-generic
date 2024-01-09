@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,7 +49,7 @@ Transform::Transform()
     : matrix() {}
 
 Transform::Transform(
-    absl::optional<WTF::Vector<float>> matrix_in)
+    std::optional<WTF::Vector<float>> matrix_in)
     : matrix(std::move(matrix_in)) {}
 
 Transform::~Transform() = default;
@@ -60,7 +61,7 @@ void Transform::WriteIntoTrace(
     dict.AddItem(
       "matrix"), this->matrix,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<float>>&>"
+      "<value of type const std::optional<WTF::Vector<float>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

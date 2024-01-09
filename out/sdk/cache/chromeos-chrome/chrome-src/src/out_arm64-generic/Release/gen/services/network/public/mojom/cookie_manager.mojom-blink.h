@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/cookie_manager.mojom-features.h"
 #include "services/network/public/mojom/cookie_manager.mojom-shared.h"
 #include "services/network/public/mojom/cookie_manager.mojom-blink-forward.h"
 #include "components/content_settings/core/common/content_settings.mojom-blink.h"
@@ -49,150 +50,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookieAccessDelegateType>
-    : EnumHashTraits<::network::mojom::CookieAccessDelegateType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookiePriority>
-    : EnumHashTraits<::network::mojom::CookiePriority, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookieSourceScheme>
-    : EnumHashTraits<::network::mojom::CookieSourceScheme, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookieSameSite>
-    : EnumHashTraits<::network::mojom::CookieSameSite, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookieEffectiveSameSite>
-    : EnumHashTraits<::network::mojom::CookieEffectiveSameSite, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ContextType>
-    : EnumHashTraits<::network::mojom::ContextType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookieSameSiteContextMetadataDowngradeType>
-    : EnumHashTraits<::network::mojom::CookieSameSiteContextMetadataDowngradeType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::ContextRedirectTypeBug1221316>
-    : EnumHashTraits<::network::mojom::ContextRedirectTypeBug1221316, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::HttpMethod>
-    : EnumHashTraits<::network::mojom::HttpMethod, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookieAccessSemantics>
-    : EnumHashTraits<::network::mojom::CookieAccessSemantics, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookieChangeCause>
-    : EnumHashTraits<::network::mojom::CookieChangeCause, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::CookieDeletionSessionControl>
-    : EnumHashTraits<::network::mojom::CookieDeletionSessionControl, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -289,6 +146,7 @@ class BLINK_PLATFORM_EXPORT CookieManager
     kBlockThirdPartyCookiesMinVersion = 0,
     kBlockTruncatedCookiesMinVersion = 0,
     kSetMitigationsEnabledFor3pcdMinVersion = 0,
+    kSetTrackingProtectionEnabledFor3pcdMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -343,6 +201,9 @@ class BLINK_PLATFORM_EXPORT CookieManager
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetMitigationsEnabledFor3pcd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetTrackingProtectionEnabledFor3pcd_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -418,6 +279,9 @@ class BLINK_PLATFORM_EXPORT CookieManager
 
   
   virtual void SetMitigationsEnabledFor3pcd(bool enable) = 0;
+
+  
+  virtual void SetTrackingProtectionEnabledFor3pcd(bool enable) = 0;
 };
 
 
@@ -477,6 +341,8 @@ class BLINK_PLATFORM_EXPORT CookieManagerProxy
   void BlockTruncatedCookies(bool block) final;
   
   void SetMitigationsEnabledFor3pcd(bool enable) final;
+  
+  void SetTrackingProtectionEnabledFor3pcd(bool enable) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -899,17 +765,17 @@ class BLINK_PLATFORM_EXPORT CookieOrLine {
   // Construct an instance holding |cookie|.
   static CookieOrLinePtr
   NewCookie(
-      const ::net::CanonicalCookie& cookie) {
+      const ::net::CanonicalCookie& value) {
     auto result = CookieOrLinePtr(absl::in_place);
-    result->set_cookie(std::move(cookie));
+    result->set_cookie(std::move(value));
     return result;
   }
   // Construct an instance holding |cookie_string|.
   static CookieOrLinePtr
   NewCookieString(
-      const WTF::String& cookie_string) {
+      const WTF::String& value) {
     auto result = CookieOrLinePtr(absl::in_place);
-    result->set_cookie_string(std::move(cookie_string));
+    result->set_cookie_string(std::move(value));
     return result;
   }
 
@@ -1041,6 +907,7 @@ class BLINK_PLATFORM_EXPORT CookieManagerParams {
   CookieManagerParams(
       bool block_third_party_cookies,
       bool block_truncated_cookies,
+      bool tracking_protection_enabled_for_3pcd,
       bool mitigations_enabled_for_3pcd,
       WTF::HashMap<::content_settings::mojom::blink::ContentSettingsType, WTF::Vector<::content_settings::mojom::blink::ContentSettingPatternSourcePtr>> content_settings,
       WTF::Vector<WTF::String> secure_origin_cookies_allowed_schemes,
@@ -1130,6 +997,8 @@ CookieManagerParams& operator=(const CookieManagerParams&) = delete;
   bool block_third_party_cookies;
   
   bool block_truncated_cookies;
+  
+  bool tracking_protection_enabled_for_3pcd;
   
   bool mitigations_enabled_for_3pcd;
   
@@ -1523,7 +1392,6 @@ class BLINK_PLATFORM_EXPORT CanonicalCookie {
       CookieSameSite site_restrictions,
       CookiePriority priority,
       CookieSourceScheme source_scheme,
-      bool same_party,
       ::network::mojom::blink::CookiePartitionKeyPtr partition_key,
       int32_t source_port);
 
@@ -1631,8 +1499,6 @@ CanonicalCookie& operator=(const CanonicalCookie&) = delete;
   
   CookieSourceScheme source_scheme;
   
-  bool same_party;
-  
   ::network::mojom::blink::CookiePartitionKeyPtr partition_key;
   
   int32_t source_port;
@@ -1698,7 +1564,7 @@ class BLINK_PLATFORM_EXPORT CookieAndLineWithAccessResult {
   CookieAndLineWithAccessResult();
 
   CookieAndLineWithAccessResult(
-      const absl::optional<::net::CanonicalCookie>& cookie,
+      const std::optional<::net::CanonicalCookie>& cookie,
       const WTF::String& cookie_string,
       CookieAccessResultPtr access_result);
 
@@ -1780,7 +1646,7 @@ CookieAndLineWithAccessResult& operator=(const CookieAndLineWithAccessResult&) =
   }
 
   
-  absl::optional<::net::CanonicalCookie> cookie;
+  std::optional<::net::CanonicalCookie> cookie;
   
   WTF::String cookie_string;
   
@@ -2435,13 +2301,13 @@ class BLINK_PLATFORM_EXPORT CookieDeletionFilter {
   CookieDeletionFilter();
 
   CookieDeletionFilter(
-      absl::optional<::base::Time> created_after_time,
-      absl::optional<::base::Time> created_before_time,
-      absl::optional<WTF::Vector<WTF::String>> excluding_domains,
-      absl::optional<WTF::Vector<WTF::String>> including_domains,
+      std::optional<::base::Time> created_after_time,
+      std::optional<::base::Time> created_before_time,
+      std::optional<WTF::Vector<WTF::String>> excluding_domains,
+      std::optional<WTF::Vector<WTF::String>> including_domains,
       const WTF::String& cookie_name,
       const WTF::String& host_name,
-      const absl::optional<::blink::KURL>& url,
+      const std::optional<::blink::KURL>& url,
       CookieDeletionSessionControl session_control,
       ::network::mojom::blink::CookiePartitionKeyCollectionPtr cookie_partition_key_collection,
       bool partitioned_state_only);
@@ -2524,19 +2390,19 @@ CookieDeletionFilter& operator=(const CookieDeletionFilter&) = delete;
   }
 
   
-  absl::optional<::base::Time> created_after_time;
+  std::optional<::base::Time> created_after_time;
   
-  absl::optional<::base::Time> created_before_time;
+  std::optional<::base::Time> created_before_time;
   
-  absl::optional<WTF::Vector<WTF::String>> excluding_domains;
+  std::optional<WTF::Vector<WTF::String>> excluding_domains;
   
-  absl::optional<WTF::Vector<WTF::String>> including_domains;
+  std::optional<WTF::Vector<WTF::String>> including_domains;
   
   WTF::String cookie_name;
   
   WTF::String host_name;
   
-  absl::optional<::blink::KURL> url;
+  std::optional<::blink::KURL> url;
   
   CookieDeletionSessionControl session_control;
   
@@ -2607,6 +2473,7 @@ CookieManagerParamsPtr CookieManagerParams::Clone() const {
   return New(
       mojo::Clone(block_third_party_cookies),
       mojo::Clone(block_truncated_cookies),
+      mojo::Clone(tracking_protection_enabled_for_3pcd),
       mojo::Clone(mitigations_enabled_for_3pcd),
       mojo::Clone(content_settings),
       mojo::Clone(secure_origin_cookies_allowed_schemes),
@@ -2622,6 +2489,8 @@ bool CookieManagerParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->block_third_party_cookies, other_struct.block_third_party_cookies))
     return false;
   if (!mojo::Equals(this->block_truncated_cookies, other_struct.block_truncated_cookies))
+    return false;
+  if (!mojo::Equals(this->tracking_protection_enabled_for_3pcd, other_struct.tracking_protection_enabled_for_3pcd))
     return false;
   if (!mojo::Equals(this->mitigations_enabled_for_3pcd, other_struct.mitigations_enabled_for_3pcd))
     return false;
@@ -2649,6 +2518,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.block_truncated_cookies < rhs.block_truncated_cookies)
     return true;
   if (rhs.block_truncated_cookies < lhs.block_truncated_cookies)
+    return false;
+  if (lhs.tracking_protection_enabled_for_3pcd < rhs.tracking_protection_enabled_for_3pcd)
+    return true;
+  if (rhs.tracking_protection_enabled_for_3pcd < lhs.tracking_protection_enabled_for_3pcd)
     return false;
   if (lhs.mitigations_enabled_for_3pcd < rhs.mitigations_enabled_for_3pcd)
     return true;
@@ -2818,7 +2691,6 @@ CanonicalCookiePtr CanonicalCookie::Clone() const {
       mojo::Clone(site_restrictions),
       mojo::Clone(priority),
       mojo::Clone(source_scheme),
-      mojo::Clone(same_party),
       mojo::Clone(partition_key),
       mojo::Clone(source_port)
   );
@@ -2851,8 +2723,6 @@ bool CanonicalCookie::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->priority, other_struct.priority))
     return false;
   if (!mojo::Equals(this->source_scheme, other_struct.source_scheme))
-    return false;
-  if (!mojo::Equals(this->same_party, other_struct.same_party))
     return false;
   if (!mojo::Equals(this->partition_key, other_struct.partition_key))
     return false;
@@ -2914,10 +2784,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.source_scheme < rhs.source_scheme)
     return true;
   if (rhs.source_scheme < lhs.source_scheme)
-    return false;
-  if (lhs.same_party < rhs.same_party)
-    return true;
-  if (rhs.same_party < lhs.same_party)
     return false;
   if (lhs.partition_key < rhs.partition_key)
     return true;
@@ -3239,6 +3105,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::CookieManager
     return input->block_truncated_cookies;
   }
 
+  static decltype(::network::mojom::blink::CookieManagerParams::tracking_protection_enabled_for_3pcd) tracking_protection_enabled_for_3pcd(
+      const ::network::mojom::blink::CookieManagerParamsPtr& input) {
+    return input->tracking_protection_enabled_for_3pcd;
+  }
+
   static decltype(::network::mojom::blink::CookieManagerParams::mitigations_enabled_for_3pcd) mitigations_enabled_for_3pcd(
       const ::network::mojom::blink::CookieManagerParamsPtr& input) {
     return input->mitigations_enabled_for_3pcd;
@@ -3432,11 +3303,6 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::CanonicalCook
   static decltype(::network::mojom::blink::CanonicalCookie::source_scheme) source_scheme(
       const ::network::mojom::blink::CanonicalCookiePtr& input) {
     return input->source_scheme;
-  }
-
-  static decltype(::network::mojom::blink::CanonicalCookie::same_party) same_party(
-      const ::network::mojom::blink::CanonicalCookiePtr& input) {
-    return input->same_party;
   }
 
   static const decltype(::network::mojom::blink::CanonicalCookie::partition_key)& partition_key(

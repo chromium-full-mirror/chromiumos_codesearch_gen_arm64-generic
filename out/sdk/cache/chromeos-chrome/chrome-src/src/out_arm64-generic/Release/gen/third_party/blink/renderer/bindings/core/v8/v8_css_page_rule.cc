@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSPageRule>::value,
     "CSSPageRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSPageRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSPageRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPageRule.selectorText.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSPageRule* blink_receiver = V8CSSPageRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->selectorText();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSPageRule* blink_receiver = V8CSSPageRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->selectorText();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,12 +96,12 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPageRule.selectorText.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSPageRule* blink_receiver = V8CSSPageRule::ToWrappableUnsafe(v8_receiver);
+CSSPageRule* blink_receiver = V8CSSPageRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSPageRule";
@@ -127,8 +122,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPageRule.style.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSPageRule* blink_receiver = V8CSSPageRule::ToWrappableUnsafe(v8_receiver);
+CSSPageRule* blink_receiver = V8CSSPageRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->style();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

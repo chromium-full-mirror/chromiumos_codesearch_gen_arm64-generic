@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -194,14 +195,17 @@ void TracingServiceProxy::Initialize(
                         "<value of type std::vector<ClientInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingService_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -244,14 +248,17 @@ void TracingServiceProxy::AddClient(
                         "<value of type ClientInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingService_AddClient_Name, kFlags, 0, 0, nullptr);
@@ -292,14 +299,17 @@ void TracingServiceProxy::BindConsumerHost(
                         "<value of type ::mojo::PendingReceiver<::tracing::mojom::ConsumerHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingService_BindConsumerHost_Name, kFlags, 0, 0, nullptr);
@@ -433,14 +443,14 @@ bool TracingServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTracingServiceValidationInfo[] = {
-    {&internal::TracingService_Initialize_Params_Data::Validate,
+    { &internal::TracingService_Initialize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TracingService_AddClient_Params_Data::Validate,
+    { &internal::TracingService_AddClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TracingService_BindConsumerHost_Params_Data::Validate,
+    { &internal::TracingService_BindConsumerHost_Params_Data::Validate,
      nullptr /* no response */},
 };
 

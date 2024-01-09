@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -50,6 +51,7 @@ Manifest::Manifest()
       short_name(),
       description(),
       id(),
+      has_custom_id(),
       start_url(),
       display(),
       display_override(),
@@ -85,10 +87,11 @@ Manifest::Manifest()
       version() {}
 
 Manifest::Manifest(
-    const absl::optional<::std::u16string>& name_in,
-    const absl::optional<::std::u16string>& short_name_in,
-    const absl::optional<::std::u16string>& description_in,
+    const std::optional<::std::u16string>& name_in,
+    const std::optional<::std::u16string>& short_name_in,
+    const std::optional<::std::u16string>& description_in,
     const ::GURL& id_in,
+    bool has_custom_id_in,
     const ::GURL& start_url_in,
     ::blink::mojom::DisplayMode display_in,
     std::vector<::blink::mojom::DisplayMode> display_override_in,
@@ -96,7 +99,7 @@ Manifest::Manifest(
     std::vector<::blink::Manifest::ImageResource> icons_in,
     std::vector<ManifestScreenshotPtr> screenshots_in,
     std::vector<::blink::Manifest::ShortcutItem> shortcuts_in,
-    const absl::optional<::blink::Manifest::ShareTarget>& share_target_in,
+    const std::optional<::blink::Manifest::ShareTarget>& share_target_in,
     std::vector<ManifestFileHandlerPtr> file_handlers_in,
     std::vector<ManifestProtocolHandlerPtr> protocol_handlers_in,
     std::vector<ManifestUrlHandlerPtr> url_handlers_in,
@@ -109,23 +112,24 @@ Manifest::Manifest(
     uint32_t theme_color_in,
     bool has_background_color_in,
     uint32_t background_color_in,
-    const absl::optional<::std::u16string>& gcm_sender_id_in,
+    const std::optional<::std::u16string>& gcm_sender_id_in,
     const ::GURL& scope_in,
     ::blink::mojom::CaptureLinks capture_links_in,
     std::vector<::blink::ParsedPermissionsPolicyDeclaration> permissions_policy_in,
-    const absl::optional<::blink::Manifest::LaunchHandler>& launch_handler_in,
+    const std::optional<::blink::Manifest::LaunchHandler>& launch_handler_in,
     const base::flat_map<::std::u16string, ::blink::Manifest::TranslationItem>& translations_in,
     ManifestUserPreferencesPtr user_preferences_in,
     bool has_dark_theme_color_in,
     uint32_t dark_theme_color_in,
     bool has_dark_background_color_in,
     uint32_t dark_background_color_in,
-    const absl::optional<::blink::Manifest::TabStrip>& tab_strip_in,
-    const absl::optional<::std::u16string>& version_in)
+    const std::optional<::blink::Manifest::TabStrip>& tab_strip_in,
+    const std::optional<::std::u16string>& version_in)
     : name(std::move(name_in)),
       short_name(std::move(short_name_in)),
       description(std::move(description_in)),
       id(std::move(id_in)),
+      has_custom_id(std::move(has_custom_id_in)),
       start_url(std::move(start_url_in)),
       display(std::move(display_in)),
       display_override(std::move(display_override_in)),
@@ -169,7 +173,7 @@ void Manifest::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -178,7 +182,7 @@ void Manifest::WriteIntoTrace(
     dict.AddItem(
       "short_name"), this->short_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -187,7 +191,7 @@ void Manifest::WriteIntoTrace(
     dict.AddItem(
       "description"), this->description,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -197,6 +201,15 @@ void Manifest::WriteIntoTrace(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::GURL&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "has_custom_id"), this->has_custom_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -268,7 +281,7 @@ void Manifest::WriteIntoTrace(
     dict.AddItem(
       "share_target"), this->share_target,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::Manifest::ShareTarget>&>"
+      "<value of type const std::optional<::blink::Manifest::ShareTarget>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -385,7 +398,7 @@ void Manifest::WriteIntoTrace(
     dict.AddItem(
       "gcm_sender_id"), this->gcm_sender_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -421,7 +434,7 @@ void Manifest::WriteIntoTrace(
     dict.AddItem(
       "launch_handler"), this->launch_handler,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::Manifest::LaunchHandler>&>"
+      "<value of type const std::optional<::blink::Manifest::LaunchHandler>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -484,7 +497,7 @@ void Manifest::WriteIntoTrace(
     dict.AddItem(
       "tab_strip"), this->tab_strip,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::Manifest::TabStrip>&>"
+      "<value of type const std::optional<::blink::Manifest::TabStrip>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -493,7 +506,7 @@ void Manifest::WriteIntoTrace(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -514,8 +527,8 @@ ManifestShortcutItem::ManifestShortcutItem()
 
 ManifestShortcutItem::ManifestShortcutItem(
     const ::std::u16string& name_in,
-    const absl::optional<::std::u16string>& short_name_in,
-    const absl::optional<::std::u16string>& description_in,
+    const std::optional<::std::u16string>& short_name_in,
+    const std::optional<::std::u16string>& description_in,
     const ::GURL& url_in,
     std::vector<::blink::Manifest::ImageResource> icons_in)
     : name(std::move(name_in)),
@@ -542,7 +555,7 @@ void ManifestShortcutItem::WriteIntoTrace(
     dict.AddItem(
       "short_name"), this->short_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -551,7 +564,7 @@ void ManifestShortcutItem::WriteIntoTrace(
     dict.AddItem(
       "description"), this->description,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -589,7 +602,7 @@ ManifestImageResource::ManifestImageResource()
 
 ManifestImageResource::ManifestImageResource(
     const ::GURL& src_in,
-    const absl::optional<::std::u16string>& type_in,
+    const std::optional<::std::u16string>& type_in,
     std::vector<::gfx::Size> sizes_in,
     std::vector<ManifestImageResource::Purpose> purpose_in)
     : src(std::move(src_in)),
@@ -615,7 +628,7 @@ void ManifestImageResource::WriteIntoTrace(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -653,7 +666,7 @@ ManifestScreenshot::ManifestScreenshot()
 ManifestScreenshot::ManifestScreenshot(
     const ::blink::Manifest::ImageResource& image_in,
     ManifestScreenshot::FormFactor form_factor_in,
-    const absl::optional<::std::u16string>& label_in)
+    const std::optional<::std::u16string>& label_in)
     : image(std::move(image_in)),
       form_factor(std::move(form_factor_in)),
       label(std::move(label_in)) {}
@@ -685,7 +698,7 @@ void ManifestScreenshot::WriteIntoTrace(
     dict.AddItem(
       "label"), this->label,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -702,7 +715,7 @@ ManifestFileFilter::ManifestFileFilter()
       accept() {}
 
 ManifestFileFilter::ManifestFileFilter(
-    const absl::optional<::std::u16string>& name_in,
+    const std::optional<::std::u16string>& name_in,
     std::vector<::std::u16string> accept_in)
     : name(std::move(name_in)),
       accept(std::move(accept_in)) {}
@@ -716,7 +729,7 @@ void ManifestFileFilter::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -919,9 +932,9 @@ ManifestRelatedApplication::ManifestRelatedApplication()
       id() {}
 
 ManifestRelatedApplication::ManifestRelatedApplication(
-    const absl::optional<::std::u16string>& platform_in,
-    const absl::optional<::GURL>& url_in,
-    const absl::optional<::std::u16string>& id_in)
+    const std::optional<::std::u16string>& platform_in,
+    const std::optional<::GURL>& url_in,
+    const std::optional<::std::u16string>& id_in)
     : platform(std::move(platform_in)),
       url(std::move(url_in)),
       id(std::move(id_in)) {}
@@ -935,7 +948,7 @@ void ManifestRelatedApplication::WriteIntoTrace(
     dict.AddItem(
       "platform"), this->platform,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -944,7 +957,7 @@ void ManifestRelatedApplication::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -953,7 +966,7 @@ void ManifestRelatedApplication::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -972,10 +985,10 @@ ManifestShareTargetParams::ManifestShareTargetParams()
       files() {}
 
 ManifestShareTargetParams::ManifestShareTargetParams(
-    const absl::optional<::std::u16string>& title_in,
-    const absl::optional<::std::u16string>& text_in,
-    const absl::optional<::std::u16string>& url_in,
-    absl::optional<std::vector<ManifestFileFilterPtr>> files_in)
+    const std::optional<::std::u16string>& title_in,
+    const std::optional<::std::u16string>& text_in,
+    const std::optional<::std::u16string>& url_in,
+    std::optional<std::vector<ManifestFileFilterPtr>> files_in)
     : title(std::move(title_in)),
       text(std::move(text_in)),
       url(std::move(url_in)),
@@ -990,7 +1003,7 @@ void ManifestShareTargetParams::WriteIntoTrace(
     dict.AddItem(
       "title"), this->title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -999,7 +1012,7 @@ void ManifestShareTargetParams::WriteIntoTrace(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1008,7 +1021,7 @@ void ManifestShareTargetParams::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1017,7 +1030,7 @@ void ManifestShareTargetParams::WriteIntoTrace(
     dict.AddItem(
       "files"), this->files,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<ManifestFileFilterPtr>>>"
+      "<value of type std::optional<std::vector<ManifestFileFilterPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1175,9 +1188,9 @@ ManifestTranslationItem::ManifestTranslationItem()
       description() {}
 
 ManifestTranslationItem::ManifestTranslationItem(
-    const absl::optional<::std::u16string>& name_in,
-    const absl::optional<::std::u16string>& short_name_in,
-    const absl::optional<::std::u16string>& description_in)
+    const std::optional<::std::u16string>& name_in,
+    const std::optional<::std::u16string>& short_name_in,
+    const std::optional<::std::u16string>& description_in)
     : name(std::move(name_in)),
       short_name(std::move(short_name_in)),
       description(std::move(description_in)) {}
@@ -1191,7 +1204,7 @@ void ManifestTranslationItem::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1200,7 +1213,7 @@ void ManifestTranslationItem::WriteIntoTrace(
     dict.AddItem(
       "short_name"), this->short_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1209,7 +1222,7 @@ void ManifestTranslationItem::WriteIntoTrace(
     dict.AddItem(
       "description"), this->description,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1404,7 +1417,7 @@ NewTabButtonParams::NewTabButtonParams()
     : url() {}
 
 NewTabButtonParams::NewTabButtonParams(
-    const absl::optional<::GURL>& url_in)
+    const std::optional<::GURL>& url_in)
     : url(std::move(url_in)) {}
 
 NewTabButtonParams::~NewTabButtonParams() = default;
@@ -1416,7 +1429,7 @@ void NewTabButtonParams::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1609,6 +1622,8 @@ bool StructTraits<::blink::mojom::Manifest::DataView, ::blink::mojom::ManifestPt
         success = false;
       if (success && !input.ReadId(&result->id))
         success = false;
+      if (success)
+        result->has_custom_id = input.has_custom_id();
       if (success && !input.ReadStartUrl(&result->start_url))
         success = false;
       if (success && !input.ReadDisplay(&result->display))

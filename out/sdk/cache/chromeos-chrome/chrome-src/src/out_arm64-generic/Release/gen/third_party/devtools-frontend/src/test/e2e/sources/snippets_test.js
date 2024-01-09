@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../shared/mocha-extensions.js");
+const context_menu_helpers_js_1 = require("../helpers/context-menu-helpers.js");
 const sources_helpers_js_1 = require("../helpers/sources-helpers.js");
 const SNIPPETS_TAB_SELECTOR = '[aria-label="Snippets"]';
 (0, mocha_extensions_js_1.describe)('Snippets', async function () {
@@ -19,7 +20,7 @@ const SNIPPETS_TAB_SELECTOR = '[aria-label="Snippets"]';
         let treeItems = await (0, helper_js_1.$$)('.navigator-file-tree-item');
         const treeItemNames = await Promise.all(treeItems.map(x => x.evaluate(y => y.textContent)));
         chai_1.assert.deepEqual(treeItemNames, ['file@name']);
-        await (0, sources_helpers_js_1.clickOnContextMenu)('[aria-label="file@name, file"]', 'Remove');
+        await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)('[aria-label="file@name, file"]', 'Remove');
         treeItems = await (0, helper_js_1.$$)('.navigator-file-tree-item');
         chai_1.assert.strictEqual(treeItems.length, 0);
     });

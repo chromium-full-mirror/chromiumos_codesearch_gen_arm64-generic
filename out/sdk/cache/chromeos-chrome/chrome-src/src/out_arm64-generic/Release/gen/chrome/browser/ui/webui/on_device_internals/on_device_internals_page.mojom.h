@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/on_device_internals/on_device_internals_page.mojom-features.h"
 #include "chrome/browser/ui/webui/on_device_internals/on_device_internals_page.mojom-shared.h"
 #include "chrome/browser/ui/webui/on_device_internals/on_device_internals_page.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -87,9 +88,9 @@ class OnDeviceInternalsPage
   virtual ~OnDeviceInternalsPage() = default;
 
 
-  using LoadModelCallback = base::OnceCallback<void(::on_device_model::mojom::LoadModelResultPtr)>;
+  using LoadModelCallback = base::OnceCallback<void(::on_device_model::mojom::LoadModelResult)>;
   
-  virtual void LoadModel(const ::base::FilePath& model_path, LoadModelCallback callback) = 0;
+  virtual void LoadModel(const ::base::FilePath& model_path, ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> model, LoadModelCallback callback) = 0;
 
 
   using GetEstimatedPerformanceClassCallback = base::OnceCallback<void(::on_device_model::mojom::PerformanceClass)>;
@@ -106,7 +107,7 @@ class  OnDeviceInternalsPageProxy
 
   explicit OnDeviceInternalsPageProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void LoadModel(const ::base::FilePath& model_path, LoadModelCallback callback) final;
+  void LoadModel(const ::base::FilePath& model_path, ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> model, LoadModelCallback callback) final;
   
   void GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) final;
 

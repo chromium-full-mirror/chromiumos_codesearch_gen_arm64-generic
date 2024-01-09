@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLTableColElement>::value,
     "HTMLTableColElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLTableColElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLTableColElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableColElement.span.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(v8_receiver);
+HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->span();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -111,7 +107,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(v8_receiver);
+HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -128,10 +124,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableColElement.align.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -152,10 +148,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableColElement.ch.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -176,10 +172,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableColElement.chOff.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharoffAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharoffAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -200,10 +196,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableColElement.vAlign.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kValignAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kValignAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -224,10 +220,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableColElement.width.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableColElement* blink_receiver = V8HTMLTableColElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

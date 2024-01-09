@@ -57,6 +57,23 @@ class  FrameSinkBundle_SetNeedsBeginFrame_Params_Data {
 };
 static_assert(sizeof(FrameSinkBundle_SetNeedsBeginFrame_Params_Data) == 16,
               "Bad sizeof(FrameSinkBundle_SetNeedsBeginFrame_Params_Data)");
+class  FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t sink_id;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data>;
+
+  FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data();
+  ~FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data() = delete;
+};
+static_assert(sizeof(FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data) == 16,
+              "Bad sizeof(FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data)");
 class  FrameSinkBundle_Submit_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -195,6 +212,24 @@ class FrameSinkBundle_SetNeedsBeginFrame_ParamsDataView {
   }
  private:
   internal::FrameSinkBundle_SetNeedsBeginFrame_Params_Data* data_ = nullptr;
+};
+
+
+class FrameSinkBundle_SetWantsBeginFrameAcks_ParamsDataView {
+ public:
+  FrameSinkBundle_SetWantsBeginFrameAcks_ParamsDataView() = default;
+
+  FrameSinkBundle_SetWantsBeginFrameAcks_ParamsDataView(
+      internal::FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t sink_id() const {
+    return data_->sink_id;
+  }
+ private:
+  internal::FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data* data_ = nullptr;
 };
 
 
@@ -349,6 +384,8 @@ class FrameSinkBundleClient_OnCompositorFrameTransitionDirectiveProcessed_Params
  private:
   internal::FrameSinkBundleClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data* data_ = nullptr;
 };
+
+
 
 
 

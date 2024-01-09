@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, VirtualKeyboardGeometryChangeEvent>::value,
     "VirtualKeyboardGeometryChangeEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&VirtualKeyboardGeometryChangeEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "VirtualKeyboardGeometryChangeEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("VirtualKeyboardGeometryChangeEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VirtualKeyboardGeometryChangeEvent* blink_receiver = V8VirtualKeyboardGeometryChangeEvent::ToWrappableUnsafe(v8_receiver);
+VirtualKeyboardGeometryChangeEvent* blink_receiver = V8VirtualKeyboardGeometryChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

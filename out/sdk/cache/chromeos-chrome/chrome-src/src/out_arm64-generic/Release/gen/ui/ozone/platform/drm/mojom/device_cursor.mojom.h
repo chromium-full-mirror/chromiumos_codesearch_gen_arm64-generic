@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/ozone/platform/drm/mojom/device_cursor.mojom-features.h"
 #include "ui/ozone/platform/drm/mojom/device_cursor.mojom-shared.h"
 #include "ui/ozone/platform/drm/mojom/device_cursor.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -88,7 +89,7 @@ class DeviceCursor
   virtual ~DeviceCursor() = default;
 
   
-  virtual void SetCursor(::gfx::AcceleratedWidget window, const std::vector<::SkBitmap>& bitmaps, const absl::optional<::gfx::Point>& point, ::base::TimeDelta frame_delay) = 0;
+  virtual void SetCursor(::gfx::AcceleratedWidget window, const std::vector<::SkBitmap>& bitmaps, const std::optional<::gfx::Point>& point, ::base::TimeDelta frame_delay) = 0;
 
   
   virtual void MoveCursor(::gfx::AcceleratedWidget window, const ::gfx::Point& point) = 0;
@@ -103,7 +104,7 @@ class  DeviceCursorProxy
 
   explicit DeviceCursorProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void SetCursor(::gfx::AcceleratedWidget window, const std::vector<::SkBitmap>& bitmaps, const absl::optional<::gfx::Point>& point, ::base::TimeDelta frame_delay) final;
+  void SetCursor(::gfx::AcceleratedWidget window, const std::vector<::SkBitmap>& bitmaps, const std::optional<::gfx::Point>& point, ::base::TimeDelta frame_delay) final;
   
   void MoveCursor(::gfx::AcceleratedWidget window, const ::gfx::Point& point) final;
 

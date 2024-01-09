@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/spellcheck/common/spellcheck.mojom-features.h"
 #include "components/spellcheck/common/spellcheck.mojom-shared.h"
 #include "components/spellcheck/common/spellcheck.mojom-forward.h"
 #include "mojo/public/mojom/base/read_only_file.mojom.h"
@@ -93,6 +94,51 @@ class SpellChecker
   virtual void CustomDictionaryChanged(const std::vector<std::string>& words_added, const std::vector<std::string>& words_removed) = 0;
 };
 
+class SpellCheckInitializationHostProxy;
+
+template <typename ImplRefTraits>
+class SpellCheckInitializationHostStub;
+
+class SpellCheckInitializationHostRequestValidator;
+
+
+class SpellCheckInitializationHost
+    : public SpellCheckInitializationHostInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = SpellCheckInitializationHostInterfaceBase;
+  using Proxy_ = SpellCheckInitializationHostProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = SpellCheckInitializationHostStub<ImplRefTraits>;
+
+  using RequestValidator_ = SpellCheckInitializationHostRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kRequestDictionaryMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct RequestDictionary_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~SpellCheckInitializationHost() = default;
+
+  
+  virtual void RequestDictionary() = 0;
+};
+
 class SpellCheckHostProxy;
 
 template <typename ImplRefTraits>
@@ -123,7 +169,6 @@ class SpellCheckHost
   using RequestValidator_ = SpellCheckHostRequestValidator;
   using ResponseValidator_ = SpellCheckHostResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kRequestDictionaryMinVersion = 0,
     kNotifyCheckedMinVersion = 0,
     kCallSpellingServiceMinVersion = 0,
   };
@@ -131,9 +176,6 @@ class SpellCheckHost
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct RequestDictionary_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct NotifyChecked_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -142,9 +184,6 @@ class SpellCheckHost
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SpellCheckHost() = default;
-
-  
-  virtual void RequestDictionary() = 0;
 
   
   virtual void NotifyChecked(const ::std::u16string& word, bool misspelled) = 0;
@@ -174,14 +213,27 @@ class  SpellCheckerProxy
 
 
 
+class  SpellCheckInitializationHostProxy
+    : public SpellCheckInitializationHost {
+ public:
+  using InterfaceType = SpellCheckInitializationHost;
+
+  explicit SpellCheckInitializationHostProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void RequestDictionary() final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  SpellCheckHostProxy
     : public SpellCheckHost {
  public:
   using InterfaceType = SpellCheckHost;
 
   explicit SpellCheckHostProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  void RequestDictionary() final;
   
   void NotifyChecked(const ::std::u16string& word, bool misspelled) final;
   
@@ -231,6 +283,47 @@ class SpellCheckerStub
  private:
   ImplPointerType sink_;
 };
+class  SpellCheckInitializationHostStubDispatch {
+ public:
+  static bool Accept(SpellCheckInitializationHost* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      SpellCheckInitializationHost* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<SpellCheckInitializationHost>>
+class SpellCheckInitializationHostStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  SpellCheckInitializationHostStub() = default;
+  ~SpellCheckInitializationHostStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return SpellCheckInitializationHostStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return SpellCheckInitializationHostStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  SpellCheckHostStubDispatch {
  public:
   static bool Accept(SpellCheckHost* impl, mojo::Message* message);
@@ -273,6 +366,10 @@ class SpellCheckHostStub
   ImplPointerType sink_;
 };
 class  SpellCheckerRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  SpellCheckInitializationHostRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

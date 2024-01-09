@@ -88,6 +88,13 @@ export class SettingsSyncAccountControlElement extends SettingsSyncAccountContro
                 value: false,
                 reflectToAttribute: true,
             },
+            // This property should be set by the parent only and should not change
+            // after the element is created.
+            hideBanner: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
             shouldShowAvatarRow_: {
                 type: Boolean,
                 value: false,
@@ -155,13 +162,16 @@ export class SettingsSyncAccountControlElement extends SettingsSyncAccountContro
     getSubstituteLabel_(label, name) {
         return loadTimeData.substituteString(label, name);
     }
-    getAccountLabel_(label, account) {
+    getAccountLabel_(signedInLabel, syncingLabel, account) {
         if (this.syncStatus.firstSetupInProgress) {
             return this.syncStatus.statusText || account;
         }
-        return this.syncStatus.signedIn && !this.syncStatus.hasError &&
-            !this.syncStatus.disabled ?
-            loadTimeData.substituteString(label, account) :
+        if (this.syncStatus.signedIn && !this.syncStatus.hasError &&
+            !this.syncStatus.disabled) {
+            return loadTimeData.substituteString(syncingLabel, account);
+        }
+        return (this.shownAccount_ && this.shownAccount_.isPrimaryAccount) ?
+            loadTimeData.substituteString(signedInLabel, account) :
             account;
     }
     getAccountImageSrc_(image) {
@@ -230,6 +240,22 @@ export class SettingsSyncAccountControlElement extends SettingsSyncAccountContro
         return !!this.syncStatus.firstSetupInProgress ||
             !this.getPref('signin.allowed_on_next_startup').value;
     }
+    /**
+     * Determines whether the banner should be hidden, in the case where the user
+     * has sync enabled or if the property to hide the banner was explicitly set.
+     */
+    shouldHideBanner_() {
+        return this.hideBanner || (!!this.syncStatus && !!this.syncStatus.signedIn);
+    }
+    /**
+     * Determines whether the sync button should be hidden, in the case where the
+     * user has sync enabled or if the property to hide the banner was explicitly
+     * set.
+     */
+    shouldHideSyncButton_() {
+        return this.hideButtons ||
+            (!!this.syncStatus && !!this.syncStatus.signedIn);
+    }
     shouldShowTurnOffButton_() {
         // 
         if (this.syncStatus.domain) {
@@ -254,7 +280,7 @@ export class SettingsSyncAccountControlElement extends SettingsSyncAccountContro
     }
     shouldAllowAccountSwitch_() {
         // 
-        return !this.syncStatus.signedIn &&
+        return !this.syncStatus.signedIn && !this.hideButtons &&
             (!loadTimeData.getBoolean('turnOffSyncAllowedForManagedProfiles') ||
                 !this.syncStatus.domain);
     }

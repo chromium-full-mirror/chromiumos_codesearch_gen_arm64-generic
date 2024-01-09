@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -55,7 +56,7 @@ RunningAppProcessInfo::RunningAppProcessInfo(
     const std::string& process_name_in,
     uint32_t pid_in,
     ProcessState process_state_in,
-    absl::optional<std::vector<std::string>> packages_in,
+    std::optional<std::vector<std::string>> packages_in,
     bool is_focused_in,
     int64_t last_activity_time_in)
     : process_name(std::move(process_name_in)),
@@ -101,7 +102,7 @@ void RunningAppProcessInfo::WriteIntoTrace(
     dict.AddItem(
       "packages"), this->packages,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -589,14 +590,17 @@ void ProcessInstanceProxy::KillProcess(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_KillProcess_Name, kFlags, 0, 0, nullptr);
@@ -631,14 +635,17 @@ void ProcessInstanceProxy::RequestProcessList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::ProcessInstance::RequestProcessList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_RequestProcessList_Name, kFlags, 0, 0, nullptr);
@@ -662,14 +669,17 @@ void ProcessInstanceProxy::RequestApplicationProcessMemoryInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::ProcessInstance::RequestApplicationProcessMemoryInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_RequestApplicationProcessMemoryInfo_Name, kFlags, 0, 0, nullptr);
@@ -700,14 +710,17 @@ void ProcessInstanceProxy::RequestSystemProcessMemoryInfo(
                         "<value of type const std::vector<uint32_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_RequestSystemProcessMemoryInfo_Name, kFlags, 0, 0, nullptr);
@@ -754,14 +767,17 @@ void ProcessInstanceProxy::ApplyHostMemoryPressureDeprecated(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_ApplyHostMemoryPressureDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -798,14 +814,17 @@ void ProcessInstanceProxy::ApplyHostMemoryPressure(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_ApplyHostMemoryPressure_Name, kFlags, 0, 0, nullptr);
@@ -832,14 +851,17 @@ void ProcessInstanceProxy::RequestLowMemoryKillCounts(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::ProcessInstance::RequestLowMemoryKillCounts");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_RequestLowMemoryKillCounts_Name, kFlags, 0, 0, nullptr);
@@ -949,7 +971,8 @@ void ProcessInstance_RequestProcessList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_RequestProcessList_Name, kFlags, 0, 0, nullptr);
@@ -1079,7 +1102,8 @@ void ProcessInstance_RequestApplicationProcessMemoryInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_RequestApplicationProcessMemoryInfo_Name, kFlags, 0, 0, nullptr);
@@ -1209,7 +1233,8 @@ void ProcessInstance_RequestSystemProcessMemoryInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_RequestSystemProcessMemoryInfo_Name, kFlags, 0, 0, nullptr);
@@ -1346,7 +1371,8 @@ void ProcessInstance_ApplyHostMemoryPressureDeprecated_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_ApplyHostMemoryPressureDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -1472,7 +1498,8 @@ void ProcessInstance_ApplyHostMemoryPressure_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_ApplyHostMemoryPressure_Name, kFlags, 0, 0, nullptr);
@@ -1591,7 +1618,8 @@ void ProcessInstance_RequestLowMemoryKillCounts_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessInstance_RequestLowMemoryKillCounts_Name, kFlags, 0, 0, nullptr);
@@ -1870,28 +1898,28 @@ std::move(p_reclaim_target), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProcessInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::ProcessInstance_KillProcess_Params_Data::Validate,
+    { &internal::ProcessInstance_KillProcess_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::ProcessInstance_RequestProcessList_Params_Data::Validate,
+    { &internal::ProcessInstance_RequestProcessList_Params_Data::Validate,
      &internal::ProcessInstance_RequestProcessList_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::ProcessInstance_RequestApplicationProcessMemoryInfo_Params_Data::Validate,
+    { &internal::ProcessInstance_RequestApplicationProcessMemoryInfo_Params_Data::Validate,
      &internal::ProcessInstance_RequestApplicationProcessMemoryInfo_ResponseParams_Data::Validate},
-    {&internal::ProcessInstance_RequestSystemProcessMemoryInfo_Params_Data::Validate,
+    { &internal::ProcessInstance_RequestSystemProcessMemoryInfo_Params_Data::Validate,
      &internal::ProcessInstance_RequestSystemProcessMemoryInfo_ResponseParams_Data::Validate},
-    {&internal::ProcessInstance_ApplyHostMemoryPressureDeprecated_Params_Data::Validate,
+    { &internal::ProcessInstance_ApplyHostMemoryPressureDeprecated_Params_Data::Validate,
      &internal::ProcessInstance_ApplyHostMemoryPressureDeprecated_ResponseParams_Data::Validate},
-    {&internal::ProcessInstance_ApplyHostMemoryPressure_Params_Data::Validate,
+    { &internal::ProcessInstance_ApplyHostMemoryPressure_Params_Data::Validate,
      &internal::ProcessInstance_ApplyHostMemoryPressure_ResponseParams_Data::Validate},
-    {&internal::ProcessInstance_RequestLowMemoryKillCounts_Params_Data::Validate,
+    { &internal::ProcessInstance_RequestLowMemoryKillCounts_Params_Data::Validate,
      &internal::ProcessInstance_RequestLowMemoryKillCounts_ResponseParams_Data::Validate},
 };
 

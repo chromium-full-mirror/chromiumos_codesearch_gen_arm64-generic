@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -243,14 +244,17 @@ void FingerprintObserverProxy::OnRestarted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::FingerprintObserver::OnRestarted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprintObserver_OnRestarted_Name, kFlags, 0, 0, nullptr);
@@ -280,14 +284,17 @@ void FingerprintObserverProxy::OnStatusChanged(
                         "<value of type BiometricsManagerStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprintObserver_OnStatusChanged_Name, kFlags, 0, 0, nullptr);
@@ -325,14 +332,17 @@ void FingerprintObserverProxy::OnEnrollScanDone(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprintObserver_OnEnrollScanDone_Name, kFlags, 0, 0, nullptr);
@@ -369,14 +379,17 @@ void FingerprintObserverProxy::OnAuthScanDone(
                         "<value of type const base::flat_map<std::string, std::vector<std::string>>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprintObserver_OnAuthScanDone_Name, kFlags, 0, 0, nullptr);
@@ -421,14 +434,17 @@ void FingerprintObserverProxy::OnSessionFailed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::FingerprintObserver::OnSessionFailed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprintObserver_OnSessionFailed_Name, kFlags, 0, 0, nullptr);
@@ -616,18 +632,18 @@ bool FingerprintObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFingerprintObserverValidationInfo[] = {
-    {&internal::FingerprintObserver_OnRestarted_Params_Data::Validate,
+    { &internal::FingerprintObserver_OnRestarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FingerprintObserver_OnStatusChanged_Params_Data::Validate,
+    { &internal::FingerprintObserver_OnStatusChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FingerprintObserver_OnEnrollScanDone_Params_Data::Validate,
+    { &internal::FingerprintObserver_OnEnrollScanDone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FingerprintObserver_OnAuthScanDone_Params_Data::Validate,
+    { &internal::FingerprintObserver_OnAuthScanDone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FingerprintObserver_OnSessionFailed_Params_Data::Validate,
+    { &internal::FingerprintObserver_OnSessionFailed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1035,14 +1051,17 @@ void FingerprintProxy::GetRecordsForUser(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_GetRecordsForUser_Name, kFlags, 0, 0, nullptr);
@@ -1087,14 +1106,17 @@ void FingerprintProxy::StartEnrollSession(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_StartEnrollSession_Name, kFlags, 0, 0, nullptr);
@@ -1139,14 +1161,17 @@ void FingerprintProxy::CancelCurrentEnrollSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::Fingerprint::CancelCurrentEnrollSession");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_CancelCurrentEnrollSession_Name, kFlags, 0, 0, nullptr);
@@ -1177,14 +1202,17 @@ void FingerprintProxy::RequestRecordLabel(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_RequestRecordLabel_Name, kFlags, 0, 0, nullptr);
@@ -1229,14 +1257,17 @@ void FingerprintProxy::SetRecordLabel(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_SetRecordLabel_Name, kFlags, 0, 0, nullptr);
@@ -1289,14 +1320,17 @@ void FingerprintProxy::RemoveRecord(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_RemoveRecord_Name, kFlags, 0, 0, nullptr);
@@ -1331,14 +1365,17 @@ void FingerprintProxy::StartAuthSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::Fingerprint::StartAuthSession");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_StartAuthSession_Name, kFlags, 0, 0, nullptr);
@@ -1361,14 +1398,17 @@ void FingerprintProxy::EndCurrentAuthSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::Fingerprint::EndCurrentAuthSession");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_EndCurrentAuthSession_Name, kFlags, 0, 0, nullptr);
@@ -1392,14 +1432,17 @@ void FingerprintProxy::DestroyAllRecords(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::Fingerprint::DestroyAllRecords");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_DestroyAllRecords_Name, kFlags, 0, 0, nullptr);
@@ -1430,14 +1473,17 @@ void FingerprintProxy::AddFingerprintObserver(
                         "<value of type ::mojo::PendingRemote<FingerprintObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_AddFingerprintObserver_Name, kFlags, 0, 0, nullptr);
@@ -1466,14 +1512,17 @@ void FingerprintProxy::RequestType(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::Fingerprint::RequestType");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_RequestType_Name, kFlags, 0, 0, nullptr);
@@ -1590,7 +1639,8 @@ void Fingerprint_GetRecordsForUser_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_GetRecordsForUser_Name, kFlags, 0, 0, nullptr);
@@ -1721,7 +1771,8 @@ void Fingerprint_CancelCurrentEnrollSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_CancelCurrentEnrollSession_Name, kFlags, 0, 0, nullptr);
@@ -1839,7 +1890,8 @@ void Fingerprint_RequestRecordLabel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_RequestRecordLabel_Name, kFlags, 0, 0, nullptr);
@@ -1967,7 +2019,8 @@ void Fingerprint_SetRecordLabel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_SetRecordLabel_Name, kFlags, 0, 0, nullptr);
@@ -2085,7 +2138,8 @@ void Fingerprint_RemoveRecord_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_RemoveRecord_Name, kFlags, 0, 0, nullptr);
@@ -2203,7 +2257,8 @@ void Fingerprint_EndCurrentAuthSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_EndCurrentAuthSession_Name, kFlags, 0, 0, nullptr);
@@ -2321,7 +2376,8 @@ void Fingerprint_DestroyAllRecords_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_DestroyAllRecords_Name, kFlags, 0, 0, nullptr);
@@ -2439,7 +2495,8 @@ void Fingerprint_RequestType_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFingerprint_RequestType_Name, kFlags, 0, 0, nullptr);
@@ -2821,30 +2878,30 @@ std::move(p_record_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFingerprintValidationInfo[] = {
-    {&internal::Fingerprint_GetRecordsForUser_Params_Data::Validate,
+    { &internal::Fingerprint_GetRecordsForUser_Params_Data::Validate,
      &internal::Fingerprint_GetRecordsForUser_ResponseParams_Data::Validate},
-    {&internal::Fingerprint_StartEnrollSession_Params_Data::Validate,
+    { &internal::Fingerprint_StartEnrollSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Fingerprint_CancelCurrentEnrollSession_Params_Data::Validate,
+    { &internal::Fingerprint_CancelCurrentEnrollSession_Params_Data::Validate,
      &internal::Fingerprint_CancelCurrentEnrollSession_ResponseParams_Data::Validate},
-    {&internal::Fingerprint_RequestRecordLabel_Params_Data::Validate,
+    { &internal::Fingerprint_RequestRecordLabel_Params_Data::Validate,
      &internal::Fingerprint_RequestRecordLabel_ResponseParams_Data::Validate},
-    {&internal::Fingerprint_SetRecordLabel_Params_Data::Validate,
+    { &internal::Fingerprint_SetRecordLabel_Params_Data::Validate,
      &internal::Fingerprint_SetRecordLabel_ResponseParams_Data::Validate},
-    {&internal::Fingerprint_RemoveRecord_Params_Data::Validate,
+    { &internal::Fingerprint_RemoveRecord_Params_Data::Validate,
      &internal::Fingerprint_RemoveRecord_ResponseParams_Data::Validate},
-    {&internal::Fingerprint_StartAuthSession_Params_Data::Validate,
+    { &internal::Fingerprint_StartAuthSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Fingerprint_EndCurrentAuthSession_Params_Data::Validate,
+    { &internal::Fingerprint_EndCurrentAuthSession_Params_Data::Validate,
      &internal::Fingerprint_EndCurrentAuthSession_ResponseParams_Data::Validate},
-    {&internal::Fingerprint_DestroyAllRecords_Params_Data::Validate,
+    { &internal::Fingerprint_DestroyAllRecords_Params_Data::Validate,
      &internal::Fingerprint_DestroyAllRecords_ResponseParams_Data::Validate},
-    {&internal::Fingerprint_AddFingerprintObserver_Params_Data::Validate,
+    { &internal::Fingerprint_AddFingerprintObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Fingerprint_RequestType_Params_Data::Validate,
+    { &internal::Fingerprint_RequestType_Params_Data::Validate,
      &internal::Fingerprint_RequestType_ResponseParams_Data::Validate},
 };
 

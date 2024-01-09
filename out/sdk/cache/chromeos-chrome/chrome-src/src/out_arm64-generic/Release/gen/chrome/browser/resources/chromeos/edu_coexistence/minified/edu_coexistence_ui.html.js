@@ -17,7 +17,7 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
     </div>
   </span>
   <span slot="buttons" hidden$="[[!showGaiaButtons]]" class="buttons-layout">
-    <gaia-action-buttons id="gaiaNextButton" authenticator="[[controller.authExtHost]]" rounded-button="true" hidden$="[[!showGaiaNextButton]]">
+    <gaia-action-buttons id="gaiaNextButton" authenticator="[[controller.authenticator]]" rounded-button="true" hidden$="[[!showGaiaNextButton]]">
     </gaia-action-buttons>
   </span>
 </edu-coexistence-template>

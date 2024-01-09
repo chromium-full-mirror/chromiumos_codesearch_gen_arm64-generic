@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -322,14 +323,17 @@ void KeyboardObserverProxy::OnKeyEvent(
                         "<value of type KeyEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardObserver_OnKeyEvent_Name, kFlags, 0, 0, nullptr);
@@ -363,14 +367,17 @@ void KeyboardObserverProxy::OnKeyEventsPaused(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::diagnostics::mojom::KeyboardObserver::OnKeyEventsPaused");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardObserver_OnKeyEventsPaused_Name, kFlags, 0, 0, nullptr);
@@ -393,14 +400,17 @@ void KeyboardObserverProxy::OnKeyEventsResumed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::diagnostics::mojom::KeyboardObserver::OnKeyEventsResumed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kKeyboardObserver_OnKeyEventsResumed_Name, kFlags, 0, 0, nullptr);
@@ -518,14 +528,14 @@ bool KeyboardObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kKeyboardObserverValidationInfo[] = {
-    {&internal::KeyboardObserver_OnKeyEvent_Params_Data::Validate,
+    { &internal::KeyboardObserver_OnKeyEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeyboardObserver_OnKeyEventsPaused_Params_Data::Validate,
+    { &internal::KeyboardObserver_OnKeyEventsPaused_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::KeyboardObserver_OnKeyEventsResumed_Params_Data::Validate,
+    { &internal::KeyboardObserver_OnKeyEventsResumed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -605,14 +615,17 @@ void InternalDisplayPowerStateObserverProxy::OnInternalDisplayPowerStateChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInternalDisplayPowerStateObserver_OnInternalDisplayPowerStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -681,10 +694,10 @@ bool InternalDisplayPowerStateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kInternalDisplayPowerStateObserverValidationInfo[] = {
-    {&internal::InternalDisplayPowerStateObserver_OnInternalDisplayPowerStateChanged_Params_Data::Validate,
+    { &internal::InternalDisplayPowerStateObserver_OnInternalDisplayPowerStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -764,14 +777,17 @@ void TabletModeObserverProxy::OnTabletModeChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTabletModeObserver_OnTabletModeChanged_Name, kFlags, 0, 0, nullptr);
@@ -840,10 +856,10 @@ bool TabletModeObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTabletModeObserverValidationInfo[] = {
-    {&internal::TabletModeObserver_OnTabletModeChanged_Params_Data::Validate,
+    { &internal::TabletModeObserver_OnTabletModeChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -923,14 +939,17 @@ void LidStateObserverProxy::OnLidStateChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLidStateObserver_OnLidStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -999,10 +1018,10 @@ bool LidStateObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLidStateObserverValidationInfo[] = {
-    {&internal::LidStateObserver_OnLidStateChanged_Params_Data::Validate,
+    { &internal::LidStateObserver_OnLidStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1142,14 +1161,17 @@ void ConnectedDevicesObserverProxy::OnKeyboardConnected(
                         "<value of type ::ash::diagnostics::mojom::KeyboardInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectedDevicesObserver_OnKeyboardConnected_Name, kFlags, 0, 0, nullptr);
@@ -1190,14 +1212,17 @@ void ConnectedDevicesObserverProxy::OnKeyboardDisconnected(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectedDevicesObserver_OnKeyboardDisconnected_Name, kFlags, 0, 0, nullptr);
@@ -1228,14 +1253,17 @@ void ConnectedDevicesObserverProxy::OnTouchDeviceConnected(
                         "<value of type TouchDeviceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectedDevicesObserver_OnTouchDeviceConnected_Name, kFlags, 0, 0, nullptr);
@@ -1276,14 +1304,17 @@ void ConnectedDevicesObserverProxy::OnTouchDeviceDisconnected(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConnectedDevicesObserver_OnTouchDeviceDisconnected_Name, kFlags, 0, 0, nullptr);
@@ -1439,16 +1470,16 @@ bool ConnectedDevicesObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kConnectedDevicesObserverValidationInfo[] = {
-    {&internal::ConnectedDevicesObserver_OnKeyboardConnected_Params_Data::Validate,
+    { &internal::ConnectedDevicesObserver_OnKeyboardConnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConnectedDevicesObserver_OnKeyboardDisconnected_Params_Data::Validate,
+    { &internal::ConnectedDevicesObserver_OnKeyboardDisconnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConnectedDevicesObserver_OnTouchDeviceConnected_Params_Data::Validate,
+    { &internal::ConnectedDevicesObserver_OnTouchDeviceConnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ConnectedDevicesObserver_OnTouchDeviceDisconnected_Params_Data::Validate,
+    { &internal::ConnectedDevicesObserver_OnTouchDeviceDisconnected_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1729,14 +1760,17 @@ void InputDataProviderProxy::GetConnectedDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::diagnostics::mojom::InputDataProvider::GetConnectedDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_GetConnectedDevices_Name, kFlags, 0, 0, nullptr);
@@ -1767,14 +1801,17 @@ void InputDataProviderProxy::ObserveConnectedDevices(
                         "<value of type ::mojo::PendingRemote<ConnectedDevicesObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_ObserveConnectedDevices_Name, kFlags, 0, 0, nullptr);
@@ -1813,14 +1850,17 @@ void InputDataProviderProxy::ObserveKeyEvents(
                         "<value of type ::mojo::PendingRemote<KeyboardObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_ObserveKeyEvents_Name, kFlags, 0, 0, nullptr);
@@ -1857,14 +1897,17 @@ void InputDataProviderProxy::ObserveTabletMode(
                         "<value of type ::mojo::PendingRemote<TabletModeObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_ObserveTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -1901,14 +1944,17 @@ void InputDataProviderProxy::ObserveLidState(
                         "<value of type ::mojo::PendingRemote<LidStateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_ObserveLidState_Name, kFlags, 0, 0, nullptr);
@@ -1945,14 +1991,17 @@ void InputDataProviderProxy::ObserveInternalDisplayPowerState(
                         "<value of type ::mojo::PendingRemote<InternalDisplayPowerStateObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_ObserveInternalDisplayPowerState_Name, kFlags, 0, 0, nullptr);
@@ -1988,14 +2037,17 @@ void InputDataProviderProxy::MoveAppToTestingScreen(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_MoveAppToTestingScreen_Name, kFlags, 0, 0, nullptr);
@@ -2019,14 +2071,17 @@ void InputDataProviderProxy::MoveAppBackToPreviousScreen(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::diagnostics::mojom::InputDataProvider::MoveAppBackToPreviousScreen");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_MoveAppBackToPreviousScreen_Name, kFlags, 0, 0, nullptr);
@@ -2056,14 +2111,17 @@ void InputDataProviderProxy::SetA11yTouchPassthrough(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_SetA11yTouchPassthrough_Name, kFlags, 0, 0, nullptr);
@@ -2180,7 +2238,8 @@ void InputDataProvider_GetConnectedDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_GetConnectedDevices_Name, kFlags, 0, 0, nullptr);
@@ -2323,7 +2382,8 @@ void InputDataProvider_ObserveTabletMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_ObserveTabletMode_Name, kFlags, 0, 0, nullptr);
@@ -2441,7 +2501,8 @@ void InputDataProvider_ObserveLidState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputDataProvider_ObserveLidState_Name, kFlags, 0, 0, nullptr);
@@ -2765,26 +2826,26 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kInputDataProviderValidationInfo[] = {
-    {&internal::InputDataProvider_GetConnectedDevices_Params_Data::Validate,
+    { &internal::InputDataProvider_GetConnectedDevices_Params_Data::Validate,
      &internal::InputDataProvider_GetConnectedDevices_ResponseParams_Data::Validate},
-    {&internal::InputDataProvider_ObserveConnectedDevices_Params_Data::Validate,
+    { &internal::InputDataProvider_ObserveConnectedDevices_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDataProvider_ObserveKeyEvents_Params_Data::Validate,
+    { &internal::InputDataProvider_ObserveKeyEvents_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDataProvider_ObserveTabletMode_Params_Data::Validate,
+    { &internal::InputDataProvider_ObserveTabletMode_Params_Data::Validate,
      &internal::InputDataProvider_ObserveTabletMode_ResponseParams_Data::Validate},
-    {&internal::InputDataProvider_ObserveLidState_Params_Data::Validate,
+    { &internal::InputDataProvider_ObserveLidState_Params_Data::Validate,
      &internal::InputDataProvider_ObserveLidState_ResponseParams_Data::Validate},
-    {&internal::InputDataProvider_ObserveInternalDisplayPowerState_Params_Data::Validate,
+    { &internal::InputDataProvider_ObserveInternalDisplayPowerState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDataProvider_MoveAppToTestingScreen_Params_Data::Validate,
+    { &internal::InputDataProvider_MoveAppToTestingScreen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDataProvider_MoveAppBackToPreviousScreen_Params_Data::Validate,
+    { &internal::InputDataProvider_MoveAppBackToPreviousScreen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputDataProvider_SetA11yTouchPassthrough_Params_Data::Validate,
+    { &internal::InputDataProvider_SetA11yTouchPassthrough_Params_Data::Validate,
      nullptr /* no response */},
 };
 

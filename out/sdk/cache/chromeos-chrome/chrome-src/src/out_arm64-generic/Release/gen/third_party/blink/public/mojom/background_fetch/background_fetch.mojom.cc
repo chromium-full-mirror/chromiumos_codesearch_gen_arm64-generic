@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -447,14 +448,17 @@ void BackgroundFetchRegistrationObserverProxy::OnProgress(
                         "<value of type BackgroundFetchFailureReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationObserver_OnProgress_Name, kFlags, 0, 0, nullptr);
@@ -485,14 +489,17 @@ void BackgroundFetchRegistrationObserverProxy::OnRecordsUnavailable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BackgroundFetchRegistrationObserver::OnRecordsUnavailable");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationObserver_OnRecordsUnavailable_Name, kFlags, 0, 0, nullptr);
@@ -525,14 +532,17 @@ void BackgroundFetchRegistrationObserverProxy::OnRequestCompleted(
                         "<value of type ::blink::mojom::FetchAPIResponsePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationObserver_OnRequestCompleted_Name, kFlags, 0, 0, nullptr);
@@ -696,14 +706,14 @@ bool BackgroundFetchRegistrationObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBackgroundFetchRegistrationObserverValidationInfo[] = {
-    {&internal::BackgroundFetchRegistrationObserver_OnProgress_Params_Data::Validate,
+    { &internal::BackgroundFetchRegistrationObserver_OnProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BackgroundFetchRegistrationObserver_OnRecordsUnavailable_Params_Data::Validate,
+    { &internal::BackgroundFetchRegistrationObserver_OnRecordsUnavailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BackgroundFetchRegistrationObserver_OnRequestCompleted_Params_Data::Validate,
+    { &internal::BackgroundFetchRegistrationObserver_OnRequestCompleted_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -922,14 +932,17 @@ void BackgroundFetchServiceProxy::Fetch(
                         "<value of type BackgroundFetchUkmDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchService_Fetch_Name, kFlags, 0, 0, nullptr);
@@ -1017,14 +1030,17 @@ void BackgroundFetchServiceProxy::GetRegistration(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchService_GetRegistration_Name, kFlags, 0, 0, nullptr);
@@ -1067,14 +1083,17 @@ void BackgroundFetchServiceProxy::GetDeveloperIds(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchService_GetDeveloperIds_Name, kFlags, 0, 0, nullptr);
@@ -1099,14 +1118,17 @@ void BackgroundFetchServiceProxy::GetIconDisplaySize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BackgroundFetchService::GetIconDisplaySize");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchService_GetIconDisplaySize_Name, kFlags, 0, 0, nullptr);
@@ -1223,7 +1245,8 @@ void BackgroundFetchService_Fetch_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchService_Fetch_Name, kFlags, 0, 0, nullptr);
@@ -1356,7 +1379,8 @@ void BackgroundFetchService_GetRegistration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchService_GetRegistration_Name, kFlags, 0, 0, nullptr);
@@ -1489,7 +1513,8 @@ void BackgroundFetchService_GetDeveloperIds_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchService_GetDeveloperIds_Name, kFlags, 0, 0, nullptr);
@@ -1621,7 +1646,8 @@ void BackgroundFetchService_GetIconDisplaySize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchService_GetIconDisplaySize_Name, kFlags, 0, 0, nullptr);
@@ -1827,16 +1853,16 @@ std::move(p_service_worker_registration_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBackgroundFetchServiceValidationInfo[] = {
-    {&internal::BackgroundFetchService_Fetch_Params_Data::Validate,
+    { &internal::BackgroundFetchService_Fetch_Params_Data::Validate,
      &internal::BackgroundFetchService_Fetch_ResponseParams_Data::Validate},
-    {&internal::BackgroundFetchService_GetRegistration_Params_Data::Validate,
+    { &internal::BackgroundFetchService_GetRegistration_Params_Data::Validate,
      &internal::BackgroundFetchService_GetRegistration_ResponseParams_Data::Validate},
-    {&internal::BackgroundFetchService_GetDeveloperIds_Params_Data::Validate,
+    { &internal::BackgroundFetchService_GetDeveloperIds_Params_Data::Validate,
      &internal::BackgroundFetchService_GetDeveloperIds_ResponseParams_Data::Validate},
-    {&internal::BackgroundFetchService_GetIconDisplaySize_Params_Data::Validate,
+    { &internal::BackgroundFetchService_GetIconDisplaySize_Params_Data::Validate,
      &internal::BackgroundFetchService_GetIconDisplaySize_ResponseParams_Data::Validate},
 };
 
@@ -2017,7 +2043,7 @@ BackgroundFetchRegistrationServiceProxy::BackgroundFetchRegistrationServiceProxy
 }
 
 void BackgroundFetchRegistrationServiceProxy::UpdateUI(
-    const absl::optional<std::string>& in_title, const ::SkBitmap& in_icon, UpdateUICallback callback) {
+    const std::optional<std::string>& in_title, const ::SkBitmap& in_icon, UpdateUICallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::BackgroundFetchRegistrationService::UpdateUI", "input_parameters",
@@ -2025,20 +2051,23 @@ void BackgroundFetchRegistrationServiceProxy::UpdateUI(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("title"), in_title,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("icon"), in_icon,
                         "<value of type const ::SkBitmap&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationService_UpdateUI_Name, kFlags, 0, 0, nullptr);
@@ -2076,14 +2105,17 @@ void BackgroundFetchRegistrationServiceProxy::Abort(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::BackgroundFetchRegistrationService::Abort");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationService_Abort_Name, kFlags, 0, 0, nullptr);
@@ -2120,14 +2152,17 @@ void BackgroundFetchRegistrationServiceProxy::MatchRequests(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationService_MatchRequests_Name, kFlags, 0, 0, nullptr);
@@ -2173,14 +2208,17 @@ void BackgroundFetchRegistrationServiceProxy::AddRegistrationObserver(
                         "<value of type ::mojo::PendingRemote<BackgroundFetchRegistrationObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationService_AddRegistrationObserver_Name, kFlags, 0, 0, nullptr);
@@ -2295,7 +2333,8 @@ void BackgroundFetchRegistrationService_UpdateUI_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationService_UpdateUI_Name, kFlags, 0, 0, nullptr);
@@ -2414,7 +2453,8 @@ void BackgroundFetchRegistrationService_Abort_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationService_Abort_Name, kFlags, 0, 0, nullptr);
@@ -2533,7 +2573,8 @@ void BackgroundFetchRegistrationService_MatchRequests_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBackgroundFetchRegistrationService_MatchRequests_Name, kFlags, 0, 0, nullptr);
@@ -2635,7 +2676,7 @@ bool BackgroundFetchRegistrationServiceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_title{};
+      std::optional<std::string> p_title{};
       ::SkBitmap p_icon{};
       BackgroundFetchRegistrationService_UpdateUI_ParamsDataView input_data_view(params, message);
       
@@ -2728,16 +2769,16 @@ std::move(p_match_all), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBackgroundFetchRegistrationServiceValidationInfo[] = {
-    {&internal::BackgroundFetchRegistrationService_UpdateUI_Params_Data::Validate,
+    { &internal::BackgroundFetchRegistrationService_UpdateUI_Params_Data::Validate,
      &internal::BackgroundFetchRegistrationService_UpdateUI_ResponseParams_Data::Validate},
-    {&internal::BackgroundFetchRegistrationService_Abort_Params_Data::Validate,
+    { &internal::BackgroundFetchRegistrationService_Abort_Params_Data::Validate,
      &internal::BackgroundFetchRegistrationService_Abort_ResponseParams_Data::Validate},
-    {&internal::BackgroundFetchRegistrationService_MatchRequests_Params_Data::Validate,
+    { &internal::BackgroundFetchRegistrationService_MatchRequests_Params_Data::Validate,
      &internal::BackgroundFetchRegistrationService_MatchRequests_ResponseParams_Data::Validate},
-    {&internal::BackgroundFetchRegistrationService_AddRegistrationObserver_Params_Data::Validate,
+    { &internal::BackgroundFetchRegistrationService_AddRegistrationObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2985,7 +3026,7 @@ void BackgroundFetchServiceAsyncWaiter::GetIconDisplaySize(
 
 
 
-void BackgroundFetchRegistrationServiceInterceptorForTesting::UpdateUI(const absl::optional<std::string>& title, const ::SkBitmap& icon, UpdateUICallback callback) {
+void BackgroundFetchRegistrationServiceInterceptorForTesting::UpdateUI(const std::optional<std::string>& title, const ::SkBitmap& icon, UpdateUICallback callback) {
   GetForwardingInterface()->UpdateUI(std::move(title), std::move(icon), std::move(callback));
 }
 void BackgroundFetchRegistrationServiceInterceptorForTesting::Abort(AbortCallback callback) {
@@ -3003,7 +3044,7 @@ BackgroundFetchRegistrationServiceAsyncWaiter::BackgroundFetchRegistrationServic
 BackgroundFetchRegistrationServiceAsyncWaiter::~BackgroundFetchRegistrationServiceAsyncWaiter() = default;
 
 void BackgroundFetchRegistrationServiceAsyncWaiter::UpdateUI(
-    const absl::optional<std::string>& title, const ::SkBitmap& icon, BackgroundFetchError* out_error) {
+    const std::optional<std::string>& title, const ::SkBitmap& icon, BackgroundFetchError* out_error) {
   base::RunLoop loop;
   proxy_->UpdateUI(std::move(title),std::move(icon),
       base::BindOnce(
@@ -3019,7 +3060,7 @@ void BackgroundFetchRegistrationServiceAsyncWaiter::UpdateUI(
 }
 
 BackgroundFetchError BackgroundFetchRegistrationServiceAsyncWaiter::UpdateUI(
-    const absl::optional<std::string>& title, const ::SkBitmap& icon) {
+    const std::optional<std::string>& title, const ::SkBitmap& icon) {
   BackgroundFetchError async_wait_result;
   UpdateUI(std::move(title),std::move(icon),&async_wait_result);
   return async_wait_result;

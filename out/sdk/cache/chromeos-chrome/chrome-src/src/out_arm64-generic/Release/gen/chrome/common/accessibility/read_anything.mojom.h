@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/common/accessibility/read_anything.mojom-features.h"
 #include "chrome/common/accessibility/read_anything.mojom-shared.h"
 #include "chrome/common/accessibility/read_anything.mojom-forward.h"
 #include "skia/public/mojom/skcolor.mojom.h"
@@ -30,6 +31,7 @@
 #include "ui/accessibility/mojom/ax_tree_id.mojom.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom.h"
 #include "url/mojom/url.mojom.h"
+#include "mojo/public/mojom/base/values.mojom.h"
 #include <string>
 #include <vector>
 
@@ -124,6 +126,7 @@ class UntrustedPageHandler
     kOnFontSizeChangeMinVersion = 0,
     kOnColorChangeMinVersion = 0,
     kOnSpeechRateChangeMinVersion = 0,
+    kOnVoiceChangeMinVersion = 0,
     kOnHighlightGranularityChangedMinVersion = 0,
     kOnLinkClickedMinVersion = 0,
     kOnSelectionChangeMinVersion = 0,
@@ -153,6 +156,9 @@ class UntrustedPageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnSpeechRateChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnVoiceChange_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnHighlightGranularityChanged_Sym {
@@ -193,6 +199,9 @@ class UntrustedPageHandler
 
   
   virtual void OnSpeechRateChange(double rate) = 0;
+
+  
+  virtual void OnVoiceChange(const std::string& voice, const std::string& lang) = 0;
 
   
   virtual void OnHighlightGranularityChanged(HighlightGranularity granularity) = 0;
@@ -291,7 +300,7 @@ class UntrustedPage
   virtual void SetDefaultLanguageCode(const std::string& code) = 0;
 
   
-  virtual void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, HighlightGranularity granularity) = 0;
+  virtual void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) = 0;
 
   
   virtual void ScreenAIServiceReady() = 0;
@@ -335,6 +344,8 @@ class  UntrustedPageHandlerProxy
   
   void OnSpeechRateChange(double rate) final;
   
+  void OnVoiceChange(const std::string& voice, const std::string& lang) final;
+  
   void OnHighlightGranularityChanged(HighlightGranularity granularity) final;
   
   void OnLinkClicked(const ::ui::AXTreeID& target_tree_id, int32_t target_node_id) final;
@@ -368,7 +379,7 @@ class  UntrustedPageProxy
   
   void SetDefaultLanguageCode(const std::string& code) final;
   
-  void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, HighlightGranularity granularity) final;
+  void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) final;
   
   void ScreenAIServiceReady() final;
 

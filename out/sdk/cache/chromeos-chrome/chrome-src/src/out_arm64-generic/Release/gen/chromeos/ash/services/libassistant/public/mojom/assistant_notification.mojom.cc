@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -67,7 +68,7 @@ AssistantNotification::AssistantNotification(
     const std::string& opaque_token_in,
     const std::string& grouping_key_in,
     const std::string& obfuscated_gaia_id_in,
-    absl::optional<::base::Time> expiry_time_in,
+    std::optional<::base::Time> expiry_time_in,
     std::vector<AssistantNotificationButtonPtr> buttons_in,
     bool from_server_in)
     : title(std::move(title_in)),
@@ -173,7 +174,7 @@ void AssistantNotification::WriteIntoTrace(
     dict.AddItem(
       "expiry_time"), this->expiry_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

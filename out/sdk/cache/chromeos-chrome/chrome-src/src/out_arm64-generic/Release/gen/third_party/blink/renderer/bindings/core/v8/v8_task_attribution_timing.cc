@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TaskAttributionTiming>::value,
     "TaskAttributionTiming inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TaskAttributionTiming::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TaskAttributionTiming is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("TaskAttributionTiming.containerType.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->containerType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->containerType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -100,10 +95,10 @@ BLINK_BINDINGS_TRACE_EVENT("TaskAttributionTiming.containerSrc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->containerSrc();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->containerSrc();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -115,10 +110,10 @@ BLINK_BINDINGS_TRACE_EVENT("TaskAttributionTiming.containerId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->containerId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->containerId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -130,10 +125,10 @@ BLINK_BINDINGS_TRACE_EVENT("TaskAttributionTiming.containerName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->containerName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->containerName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -149,8 +144,9 @@ BLINK_BINDINGS_TRACE_EVENT("TaskAttributionTiming.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(v8_receiver);
+TaskAttributionTiming* blink_receiver = V8TaskAttributionTiming::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

@@ -210,12 +210,11 @@ class  GpuPreferences_Data {
   uint8_t enable_unsafe_webgpu : 1;
   uint8_t enable_webgpu_developer_features : 1;
   uint8_t force_webgpu_compat : 1;
-  uint8_t enable_gpu_blocked_time_metric : 1;
   uint8_t enable_perf_data_collection : 1;
   uint8_t enable_native_gpu_memory_buffers : 1;
   uint8_t enable_chromeos_direct_video_decoder : 1;
   uint8_t force_separate_egl_display_for_webgl_testing : 1;
-  uint8_t pad49_[2];
+  uint8_t pad48_[2];
   uint32_t vulkan_heap_memory_limit;
   uint32_t vulkan_sync_cpu_memory_limit;
   int32_t use_webgpu_adapter;

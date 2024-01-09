@@ -34,7 +34,5 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/libcontainer/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/libcontainer/all.stamp: stamp ./lib/libcontainer.so ./libcontainer_test
+build obj/libcontainer/all.stamp: stamp ./lib/libcontainer.so
 subninja obj/libcontainer/libcontainer.ninja
-subninja obj/libcontainer/libcontainer_test.ninja

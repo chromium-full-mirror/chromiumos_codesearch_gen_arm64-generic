@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HandwritingStroke>::value,
     "HandwritingStroke inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HandwritingStroke::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HandwritingStroke is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -126,7 +121,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HandwritingStroke* blink_receiver = V8HandwritingStroke::ToWrappableUnsafe(v8_receiver);
+HandwritingStroke* blink_receiver = V8HandwritingStroke::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_point = NativeValueTraits<HandwritingPoint>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -146,8 +141,9 @@ BLINK_BINDINGS_TRACE_EVENT("HandwritingStroke.clear");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HandwritingStroke* blink_receiver = V8HandwritingStroke::ToWrappableUnsafe(v8_receiver);
+HandwritingStroke* blink_receiver = V8HandwritingStroke::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->clear();
 
 }
@@ -168,7 +164,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HandwritingStroke* blink_receiver = V8HandwritingStroke::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+HandwritingStroke* blink_receiver = V8HandwritingStroke::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getPoints();
 if (!ToV8Traits<IDLSequence<HandwritingPoint>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

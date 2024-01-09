@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -210,14 +211,17 @@ void ReportingServiceProxyProxy::QueueInterventionReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueueInterventionReport_Name, kFlags, 0, 0, nullptr);
@@ -278,7 +282,7 @@ void ReportingServiceProxyProxy::QueueInterventionReport(
 }
 
 void ReportingServiceProxyProxy::QueueDeprecationReport(
-    const ::blink::KURL& in_url, const WTF::String& in_id, absl::optional<::base::Time> in_anticipatedRemoval, const WTF::String& in_message, const WTF::String& in_source_file, int32_t in_line_number, int32_t in_column_number) {
+    const ::blink::KURL& in_url, const WTF::String& in_id, std::optional<::base::Time> in_anticipatedRemoval, const WTF::String& in_message, const WTF::String& in_source_file, int32_t in_line_number, int32_t in_column_number) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ReportingServiceProxy::QueueDeprecationReport", "input_parameters",
@@ -292,7 +296,7 @@ void ReportingServiceProxyProxy::QueueDeprecationReport(
                         "<value of type const WTF::String&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("anticipatedRemoval"), in_anticipatedRemoval,
-                        "<value of type absl::optional<::base::Time>>");
+                        "<value of type std::optional<::base::Time>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message"), in_message,
                         "<value of type const WTF::String&>");
@@ -307,14 +311,17 @@ void ReportingServiceProxyProxy::QueueDeprecationReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueueDeprecationReport_Name, kFlags, 0, 0, nullptr);
@@ -429,14 +436,17 @@ void ReportingServiceProxyProxy::QueueCspViolationReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueueCspViolationReport_Name, kFlags, 0, 0, nullptr);
@@ -584,14 +594,17 @@ void ReportingServiceProxyProxy::QueuePermissionsPolicyViolationReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueuePermissionsPolicyViolationReport_Name, kFlags, 0, 0, nullptr);
@@ -702,14 +715,17 @@ void ReportingServiceProxyProxy::QueueDocumentPolicyViolationReport(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReportingServiceProxy_QueueDocumentPolicyViolationReport_Name, kFlags, 0, 0, nullptr);
@@ -848,7 +864,7 @@ std::move(p_column_number));
       bool success = true;
       ::blink::KURL p_url{};
       WTF::String p_id{};
-      absl::optional<::base::Time> p_anticipatedRemoval{};
+      std::optional<::base::Time> p_anticipatedRemoval{};
       WTF::String p_message{};
       WTF::String p_source_file{};
       int32_t p_line_number{};
@@ -1101,18 +1117,18 @@ bool ReportingServiceProxyStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kReportingServiceProxyValidationInfo[] = {
-    {&internal::ReportingServiceProxy_QueueInterventionReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueueInterventionReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingServiceProxy_QueueDeprecationReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueueDeprecationReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingServiceProxy_QueueCspViolationReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueueCspViolationReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingServiceProxy_QueuePermissionsPolicyViolationReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueuePermissionsPolicyViolationReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReportingServiceProxy_QueueDocumentPolicyViolationReport_Params_Data::Validate,
+    { &internal::ReportingServiceProxy_QueueDocumentPolicyViolationReport_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1141,7 +1157,7 @@ namespace blink::mojom::blink {
 void ReportingServiceProxyInterceptorForTesting::QueueInterventionReport(const ::blink::KURL& url, const WTF::String& id, const WTF::String& message, const WTF::String& source_file, int32_t line_number, int32_t column_number) {
   GetForwardingInterface()->QueueInterventionReport(std::move(url), std::move(id), std::move(message), std::move(source_file), std::move(line_number), std::move(column_number));
 }
-void ReportingServiceProxyInterceptorForTesting::QueueDeprecationReport(const ::blink::KURL& url, const WTF::String& id, absl::optional<::base::Time> anticipatedRemoval, const WTF::String& message, const WTF::String& source_file, int32_t line_number, int32_t column_number) {
+void ReportingServiceProxyInterceptorForTesting::QueueDeprecationReport(const ::blink::KURL& url, const WTF::String& id, std::optional<::base::Time> anticipatedRemoval, const WTF::String& message, const WTF::String& source_file, int32_t line_number, int32_t column_number) {
   GetForwardingInterface()->QueueDeprecationReport(std::move(url), std::move(id), std::move(anticipatedRemoval), std::move(message), std::move(source_file), std::move(line_number), std::move(column_number));
 }
 void ReportingServiceProxyInterceptorForTesting::QueueCspViolationReport(const ::blink::KURL& url, const WTF::String& group, const WTF::String& document_url, const WTF::String& referrer, const WTF::String& blocked_url, const WTF::String& effective_directive, const WTF::String& original_policy, const WTF::String& source_file, const WTF::String& script_sample, const WTF::String& disposition, uint16_t status_code, int32_t line_number, int32_t column_number) {

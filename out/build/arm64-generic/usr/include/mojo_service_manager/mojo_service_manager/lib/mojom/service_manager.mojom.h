@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "mojo_service_manager/lib/mojom/service_manager.mojom-features.h"
 #include "mojo_service_manager/lib/mojom/service_manager.mojom-shared.h"
 #include "mojo_service_manager/lib/mojom/service_manager.mojom-forward.h"
 #include "mojo_service_manager/lib/mojom/time.mojom.h"
@@ -97,7 +98,7 @@ class ServiceManager
   virtual void Register(const std::string& service_name, ::mojo::PendingRemote<ServiceProvider> service_provider) = 0;
 
   
-  virtual void Request(const std::string& service_name, absl::optional<base::TimeDelta> timeout, ::mojo::ScopedMessagePipeHandle receiver) = 0;
+  virtual void Request(const std::string& service_name, std::optional<base::TimeDelta> timeout, ::mojo::ScopedMessagePipeHandle receiver) = 0;
 
 
   using QueryCallback = base::OnceCallback<void(ErrorOrServiceStatePtr)>;
@@ -209,7 +210,7 @@ class  ServiceManagerProxy
   
   void Register(const std::string& service_name, ::mojo::PendingRemote<ServiceProvider> service_provider) final;
   
-  void Request(const std::string& service_name, absl::optional<base::TimeDelta> timeout, ::mojo::ScopedMessagePipeHandle receiver) final;
+  void Request(const std::string& service_name, std::optional<base::TimeDelta> timeout, ::mojo::ScopedMessagePipeHandle receiver) final;
   
   void Query(const std::string& service_name, QueryCallback callback) final;
   
@@ -843,25 +844,25 @@ class  ErrorOrServiceState {
   // Construct an instance holding |default_type|.
   static ErrorOrServiceStatePtr
   NewDefaultType(
-      uint8_t default_type) {
+      uint8_t value) {
     auto result = ErrorOrServiceStatePtr(absl::in_place);
-    result->set_default_type(std::move(default_type));
+    result->set_default_type(std::move(value));
     return result;
   }
   // Construct an instance holding |state|.
   static ErrorOrServiceStatePtr
   NewState(
-      ServiceStatePtr state) {
+      ServiceStatePtr value) {
     auto result = ErrorOrServiceStatePtr(absl::in_place);
-    result->set_state(std::move(state));
+    result->set_state(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ErrorOrServiceStatePtr
   NewError(
-      ErrorPtr error) {
+      ErrorPtr value) {
     auto result = ErrorOrServiceStatePtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -995,25 +996,25 @@ class  ServiceState {
   // Construct an instance holding |default_type|.
   static ServiceStatePtr
   NewDefaultType(
-      uint8_t default_type) {
+      uint8_t value) {
     auto result = ServiceStatePtr(absl::in_place);
-    result->set_default_type(std::move(default_type));
+    result->set_default_type(std::move(value));
     return result;
   }
   // Construct an instance holding |registered_state|.
   static ServiceStatePtr
   NewRegisteredState(
-      RegisteredServiceStatePtr registered_state) {
+      RegisteredServiceStatePtr value) {
     auto result = ServiceStatePtr(absl::in_place);
-    result->set_registered_state(std::move(registered_state));
+    result->set_registered_state(std::move(value));
     return result;
   }
   // Construct an instance holding |unregistered_state|.
   static ServiceStatePtr
   NewUnregisteredState(
-      UnregisteredServiceStatePtr unregistered_state) {
+      UnregisteredServiceStatePtr value) {
     auto result = ServiceStatePtr(absl::in_place);
-    result->set_unregistered_state(std::move(unregistered_state));
+    result->set_unregistered_state(std::move(value));
     return result;
   }
 

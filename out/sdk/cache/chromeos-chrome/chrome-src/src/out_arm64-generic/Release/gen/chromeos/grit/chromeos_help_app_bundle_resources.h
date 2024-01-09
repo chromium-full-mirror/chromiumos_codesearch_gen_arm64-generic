@@ -2,4 +2,4 @@
 
 #pragma once
 
-#define IDR_HELP_APP_APP_BIN_JS 30380
+#define IDR_HELP_APP_APP_BIN_JS 31530

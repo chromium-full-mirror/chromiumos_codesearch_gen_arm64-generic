@@ -108,11 +108,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, RTCPeerConnection>::value,
     "RTCPeerConnection does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&RTCPeerConnection::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCPeerConnection is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -125,8 +120,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.localDescription.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->localDescription();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -139,8 +135,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.currentLocalDescription.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentLocalDescription();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -153,8 +150,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.pendingLocalDescription.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pendingLocalDescription();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -167,8 +165,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.remoteDescription.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->remoteDescription();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -181,8 +180,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.currentRemoteDescription.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentRemoteDescription();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -195,8 +195,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.pendingRemoteDescription.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pendingRemoteDescription();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -209,10 +210,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.signalingState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->signalingState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->signalingState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -224,10 +225,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.iceGatheringState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->iceGatheringState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->iceGatheringState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -239,10 +240,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.iceConnectionState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->iceConnectionState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->iceConnectionState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -254,10 +255,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.connectionState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->connectionState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->connectionState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -269,8 +270,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.canTrickleIceCandidates.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->canTrickleIceCandidates();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -283,10 +285,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.onnegotiationneeded.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onnegotiationneeded();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onnegotiationneeded();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -299,8 +301,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnnegotiationneeded(event_handler);
 }
 
@@ -311,10 +314,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.onicecandidate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onicecandidate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onicecandidate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -327,8 +330,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnicecandidate(event_handler);
 }
 
@@ -339,10 +343,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.onsignalingstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsignalingstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsignalingstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -355,8 +359,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsignalingstatechange(event_handler);
 }
 
@@ -367,10 +372,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.oniceconnectionstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oniceconnectionstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oniceconnectionstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -383,8 +388,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOniceconnectionstatechange(event_handler);
 }
 
@@ -395,10 +401,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.onconnectionstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onconnectionstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onconnectionstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -411,8 +417,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnconnectionstatechange(event_handler);
 }
 
@@ -423,10 +430,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.onicegatheringstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onicegatheringstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onicegatheringstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -439,8 +446,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnicegatheringstatechange(event_handler);
 }
 
@@ -451,10 +459,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.onicecandidateerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onicecandidateerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onicecandidateerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -467,8 +475,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnicecandidateerror(event_handler);
 }
 
@@ -479,10 +488,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.ontrack.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontrack();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontrack();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -495,8 +504,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntrack(event_handler);
 }
 
@@ -507,8 +517,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.sctp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sctp();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -521,10 +532,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.ondatachannel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondatachannel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondatachannel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -537,8 +548,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndatachannel(event_handler);
 }
 
@@ -549,10 +561,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.onaddstream.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onaddstream();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onaddstream();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -565,8 +577,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnaddstream(event_handler);
 }
 
@@ -577,10 +590,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.onremovestream.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onremovestream();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onremovestream();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -593,8 +606,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnremovestream(event_handler);
 }
 
@@ -674,7 +688,7 @@ UseCounter::Count(current_execution_context, WebFeature::kRTCPeerConnectionAddIc
 
 
 
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -722,7 +736,7 @@ return;
 
 
 
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -786,7 +800,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -826,7 +840,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_track = NativeValueTraits<MediaStreamTrack>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -867,7 +881,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_track_or_kind = NativeValueTraits<V8UnionMediaStreamTrackOrString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -899,8 +913,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -925,7 +940,7 @@ return;
 
 
 
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -969,7 +984,7 @@ return;
 
 
 
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1029,7 +1044,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_track = NativeValueTraits<MediaStreamTrack>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1062,7 +1077,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1106,7 +1121,7 @@ return;
 
 
 
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1150,7 +1165,7 @@ return;
 
 
 
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1213,7 +1228,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getConfiguration(script_state);
 if (!ToV8Traits<RTCConfiguration>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -1242,7 +1258,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getLocalStreams();
 if (!ToV8Traits<IDLSequence<MediaStream>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -1271,7 +1287,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getReceivers();
 if (!ToV8Traits<IDLSequence<RTCRtpReceiver>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -1300,7 +1316,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getRemoteStreams();
 if (!ToV8Traits<IDLSequence<MediaStream>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -1329,7 +1345,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getSenders();
 if (!ToV8Traits<IDLSequence<RTCRtpSender>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -1360,31 +1376,18 @@ return;
 
 
 
-ScriptPromise return_value;
-do {  // Dummy loop for use of 'break'.
-  const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-if (non_undefined_argument_length <= 0) {
-  return_value = blink_receiver->getStats(script_state, exception_state);
-break;
-}
-auto&& arg1_callback_or_selector = NativeValueTraits<IDLOptional<IDLAny>>::ArgumentValue(isolate, 0, info[0], exception_state);
+decltype(NativeValueTraits<IDLNullable<MediaStreamTrack>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_selector{nullptr};
+if (!info[0]->IsUndefined()) {
+  arg1_selector = NativeValueTraits<IDLNullable<MediaStreamTrack>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (non_undefined_argument_length <= 1) {
-  return_value = blink_receiver->getStats(script_state, arg1_callback_or_selector, exception_state);
-break;
 }
-auto&& arg2_legacy_selector = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 1, info[1], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-return_value = blink_receiver->getStats(script_state, arg1_callback_or_selector, arg2_legacy_selector, exception_state);
-} while (false);
+auto&& return_value = blink_receiver->getStats(script_state, arg1_selector, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -1412,7 +1415,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getTransceivers();
 if (!ToV8Traits<IDLSequence<RTCRtpTransceiver>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -1445,7 +1448,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_stream = NativeValueTraits<MediaStream>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1482,7 +1485,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sender = NativeValueTraits<RTCRtpSender>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1505,8 +1508,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.restartIce");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->restartIce();
 
 }
@@ -1522,13 +1526,13 @@ BLINK_BINDINGS_TRACE_EVENT("RTCPeerConnection.setConfiguration");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<RTCConfiguration>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_configuration;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "RTCPeerConnection";
 const char* const property_name = "setConfiguration";
@@ -1568,7 +1572,7 @@ return;
 
 
 
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1620,7 +1624,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1693,7 +1697,7 @@ return;
 
 
 
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1740,7 +1744,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(v8_receiver);
+RTCPeerConnection* blink_receiver = V8RTCPeerConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

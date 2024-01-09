@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/accessibility/mojom/ax_action_data.mojom-features.h"
 #include "ui/accessibility/mojom/ax_action_data.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_action_data.mojom-forward.h"
 #include "ui/accessibility/ax_enums.mojom-forward.h"
@@ -113,7 +114,7 @@ class  AXActionData {
       ::ax::mojom::ScrollAlignment horizontal_scroll_alignment,
       ::ax::mojom::ScrollAlignment vertical_scroll_alignment,
       ::ax::mojom::ScrollBehavior scroll_behavior,
-      const absl::optional<::ui::AXTreeID>& child_tree_id);
+      const std::optional<::ui::AXTreeID>& child_tree_id);
 
 
   ~AXActionData();
@@ -227,7 +228,7 @@ class  AXActionData {
   
   ::ax::mojom::ScrollBehavior scroll_behavior;
   
-  absl::optional<::ui::AXTreeID> child_tree_id;
+  std::optional<::ui::AXTreeID> child_tree_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

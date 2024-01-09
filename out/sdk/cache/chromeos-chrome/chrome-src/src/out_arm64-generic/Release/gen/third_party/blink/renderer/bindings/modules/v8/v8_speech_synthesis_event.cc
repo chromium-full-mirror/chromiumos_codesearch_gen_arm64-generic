@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SpeechSynthesisEvent>::value,
     "SpeechSynthesisEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SpeechSynthesisEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SpeechSynthesisEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesisEvent.utterance.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->utterance();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesisEvent.charIndex.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->charIndex();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesisEvent.charLength.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->charLength();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -131,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesisEvent.elapsedTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->elapsedTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -145,10 +144,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesisEvent.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -160,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechSynthesisEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(v8_receiver);
+SpeechSynthesisEvent* blink_receiver = V8SpeechSynthesisEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

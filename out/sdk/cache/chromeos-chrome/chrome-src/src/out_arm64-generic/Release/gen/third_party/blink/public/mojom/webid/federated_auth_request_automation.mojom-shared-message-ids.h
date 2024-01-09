@@ -18,7 +18,7 @@ constexpr uint32_t kFederatedAuthRequestAutomation_GetDialogType_Name = 0;
 constexpr uint32_t kFederatedAuthRequestAutomation_GetFedCmDialogTitle_Name = 1;
 constexpr uint32_t kFederatedAuthRequestAutomation_SelectFedCmAccount_Name = 2;
 constexpr uint32_t kFederatedAuthRequestAutomation_DismissFedCmDialog_Name = 3;
-constexpr uint32_t kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name = 4;
+constexpr uint32_t kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name = 4;
 
 }  // namespace internal
 

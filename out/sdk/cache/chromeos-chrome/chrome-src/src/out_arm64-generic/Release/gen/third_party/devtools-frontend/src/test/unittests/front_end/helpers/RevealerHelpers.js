@@ -4,32 +4,19 @@
 import * as Common from '../../../../front_end/core/common/common.js';
 let originalReveal = null;
 export class TestRevealer {
-    #callback;
-    constructor(callback) {
-        this.#callback = callback;
-    }
-    static install(callback) {
-        if (originalReveal) {
+    static install(reveal) {
+        if (originalReveal !== null) {
             throw new Error('Test revealer already installed');
         }
         originalReveal = Common.Revealer.reveal;
-        const revealer = new TestRevealer(callback);
-        Common.Revealer.setRevealForTest((object, omitFocus) => {
-            if (!object) {
-                return Promise.resolve(undefined);
-            }
-            return revealer.reveal(object, omitFocus).then(() => undefined);
-        });
+        Common.Revealer.setRevealForTest(reveal);
     }
     static reset() {
-        if (!originalReveal) {
+        if (originalReveal === null) {
             throw new Error('No test revealer installed');
         }
         Common.Revealer.setRevealForTest(originalReveal);
         originalReveal = null;
-    }
-    reveal(object, omitFocus) {
-        return this.#callback(object, omitFocus);
     }
 }
 //# sourceMappingURL=RevealerHelpers.js.map

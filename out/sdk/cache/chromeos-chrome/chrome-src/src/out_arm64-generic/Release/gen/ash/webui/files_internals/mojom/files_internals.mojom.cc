@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -527,14 +528,17 @@ void PageHandlerProxy::GetSmbfsEnableVerboseLogging(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetSmbfsEnableVerboseLogging");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetSmbfsEnableVerboseLogging_Name, kFlags, 0, 0, nullptr);
@@ -565,14 +569,17 @@ void PageHandlerProxy::SetSmbfsEnableVerboseLogging(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetSmbfsEnableVerboseLogging_Name, kFlags, 0, 0, nullptr);
@@ -596,14 +603,17 @@ void PageHandlerProxy::GetOfficeFileHandlers(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetOfficeFileHandlers");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetOfficeFileHandlers_Name, kFlags, 0, 0, nullptr);
@@ -627,14 +637,17 @@ void PageHandlerProxy::ClearOfficeFileHandlers(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::ClearOfficeFileHandlers");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ClearOfficeFileHandlers_Name, kFlags, 0, 0, nullptr);
@@ -657,14 +670,17 @@ void PageHandlerProxy::GetMoveConfirmationShownForDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetMoveConfirmationShownForDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForDrive_Name, kFlags, 0, 0, nullptr);
@@ -688,14 +704,17 @@ void PageHandlerProxy::GetMoveConfirmationShownForOneDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetMoveConfirmationShownForOneDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -719,14 +738,17 @@ void PageHandlerProxy::GetMoveConfirmationShownForLocalToDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetMoveConfirmationShownForLocalToDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForLocalToDrive_Name, kFlags, 0, 0, nullptr);
@@ -750,14 +772,17 @@ void PageHandlerProxy::GetMoveConfirmationShownForLocalToOneDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetMoveConfirmationShownForLocalToOneDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForLocalToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -781,14 +806,17 @@ void PageHandlerProxy::GetMoveConfirmationShownForCloudToDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetMoveConfirmationShownForCloudToDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForCloudToDrive_Name, kFlags, 0, 0, nullptr);
@@ -812,14 +840,17 @@ void PageHandlerProxy::GetMoveConfirmationShownForCloudToOneDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetMoveConfirmationShownForCloudToOneDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForCloudToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -843,14 +874,17 @@ void PageHandlerProxy::GetAlwaysMoveOfficeFilesToDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetAlwaysMoveOfficeFilesToDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAlwaysMoveOfficeFilesToDrive_Name, kFlags, 0, 0, nullptr);
@@ -881,14 +915,17 @@ void PageHandlerProxy::SetAlwaysMoveOfficeFilesToDrive(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetAlwaysMoveOfficeFilesToDrive_Name, kFlags, 0, 0, nullptr);
@@ -912,14 +949,17 @@ void PageHandlerProxy::GetAlwaysMoveOfficeFilesToOneDrive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::mojom::files_internals::PageHandler::GetAlwaysMoveOfficeFilesToOneDrive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -950,14 +990,17 @@ void PageHandlerProxy::SetAlwaysMoveOfficeFilesToOneDrive(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetAlwaysMoveOfficeFilesToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -1067,7 +1110,8 @@ void PageHandler_GetSmbfsEnableVerboseLogging_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetSmbfsEnableVerboseLogging_Name, kFlags, 0, 0, nullptr);
@@ -1185,7 +1229,8 @@ void PageHandler_GetOfficeFileHandlers_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetOfficeFileHandlers_Name, kFlags, 0, 0, nullptr);
@@ -1313,7 +1358,8 @@ void PageHandler_GetMoveConfirmationShownForDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForDrive_Name, kFlags, 0, 0, nullptr);
@@ -1431,7 +1477,8 @@ void PageHandler_GetMoveConfirmationShownForOneDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -1549,7 +1596,8 @@ void PageHandler_GetMoveConfirmationShownForLocalToDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForLocalToDrive_Name, kFlags, 0, 0, nullptr);
@@ -1667,7 +1715,8 @@ void PageHandler_GetMoveConfirmationShownForLocalToOneDrive_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForLocalToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -1785,7 +1834,8 @@ void PageHandler_GetMoveConfirmationShownForCloudToDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForCloudToDrive_Name, kFlags, 0, 0, nullptr);
@@ -1903,7 +1953,8 @@ void PageHandler_GetMoveConfirmationShownForCloudToOneDrive_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMoveConfirmationShownForCloudToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -2021,7 +2072,8 @@ void PageHandler_GetAlwaysMoveOfficeFilesToDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAlwaysMoveOfficeFilesToDrive_Name, kFlags, 0, 0, nullptr);
@@ -2139,7 +2191,8 @@ void PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Name, kFlags, 0, 0, nullptr);
@@ -2579,36 +2632,36 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetSmbfsEnableVerboseLogging_Params_Data::Validate,
+    { &internal::PageHandler_GetSmbfsEnableVerboseLogging_Params_Data::Validate,
      &internal::PageHandler_GetSmbfsEnableVerboseLogging_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SetSmbfsEnableVerboseLogging_Params_Data::Validate,
+    { &internal::PageHandler_SetSmbfsEnableVerboseLogging_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetOfficeFileHandlers_Params_Data::Validate,
+    { &internal::PageHandler_GetOfficeFileHandlers_Params_Data::Validate,
      &internal::PageHandler_GetOfficeFileHandlers_ResponseParams_Data::Validate},
-    {&internal::PageHandler_ClearOfficeFileHandlers_Params_Data::Validate,
+    { &internal::PageHandler_ClearOfficeFileHandlers_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetMoveConfirmationShownForDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetMoveConfirmationShownForDrive_Params_Data::Validate,
      &internal::PageHandler_GetMoveConfirmationShownForDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetMoveConfirmationShownForOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetMoveConfirmationShownForOneDrive_Params_Data::Validate,
      &internal::PageHandler_GetMoveConfirmationShownForOneDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetMoveConfirmationShownForLocalToDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetMoveConfirmationShownForLocalToDrive_Params_Data::Validate,
      &internal::PageHandler_GetMoveConfirmationShownForLocalToDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetMoveConfirmationShownForLocalToOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetMoveConfirmationShownForLocalToOneDrive_Params_Data::Validate,
      &internal::PageHandler_GetMoveConfirmationShownForLocalToOneDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetMoveConfirmationShownForCloudToDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetMoveConfirmationShownForCloudToDrive_Params_Data::Validate,
      &internal::PageHandler_GetMoveConfirmationShownForCloudToDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetMoveConfirmationShownForCloudToOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetMoveConfirmationShownForCloudToOneDrive_Params_Data::Validate,
      &internal::PageHandler_GetMoveConfirmationShownForCloudToOneDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_Params_Data::Validate,
      &internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SetAlwaysMoveOfficeFilesToDrive_Params_Data::Validate,
+    { &internal::PageHandler_SetAlwaysMoveOfficeFilesToDrive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Params_Data::Validate,
      &internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SetAlwaysMoveOfficeFilesToOneDrive_Params_Data::Validate,
+    { &internal::PageHandler_SetAlwaysMoveOfficeFilesToOneDrive_Params_Data::Validate,
      nullptr /* no response */},
 };
 

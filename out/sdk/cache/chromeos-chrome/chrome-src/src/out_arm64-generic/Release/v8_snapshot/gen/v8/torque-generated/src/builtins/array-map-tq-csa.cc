@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-map-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -181,7 +182,7 @@ TF_BUILTIN(ArrayMapPreLoopLazyDeoptContinuation, CodeStubAssembler) {
   if (block15.is_used()) {
     ca_.Bind(&block15);
     tmp8 = kZero_0(state_);
-    tmp9 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayMapLoopContinuation), parameter0, tmp0, tmp6, parameter3, tmp2, tmp0, tmp8, tmp4);
+    tmp9 = ca_.CallBuiltin<Object>(Builtin::kArrayMapLoopContinuation, parameter0, tmp0, tmp6, parameter3, tmp2, tmp0, tmp8, tmp4);
     CodeStubAssembler(state_).Return(tmp9);
   }
 }
@@ -303,7 +304,7 @@ TF_BUILTIN(ArrayMapLoopEagerDeoptContinuation, CodeStubAssembler) {
   TNode<Object> tmp10;
   if (block19.is_used()) {
     ca_.Bind(&block19);
-    tmp10 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayMapLoopContinuation), parameter0, tmp0, tmp2, parameter3, tmp4, tmp0, tmp6, tmp8);
+    tmp10 = ca_.CallBuiltin<Object>(Builtin::kArrayMapLoopContinuation, parameter0, tmp0, tmp2, parameter3, tmp4, tmp0, tmp6, tmp8);
     CodeStubAssembler(state_).Return(tmp10);
   }
 }
@@ -430,10 +431,10 @@ TF_BUILTIN(ArrayMapLoopLazyDeoptContinuation, CodeStubAssembler) {
   TNode<Object> tmp13;
   if (block19.is_used()) {
     ca_.Bind(&block19);
-    tmp10 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kFastCreateDataProperty), parameter0, tmp4, tmp6, parameter7);
+    tmp10 = ca_.CallBuiltin<Object>(Builtin::kFastCreateDataProperty, parameter0, tmp4, tmp6, parameter7);
     tmp11 = FromConstexpr_Number_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x1ull));
     tmp12 = CodeStubAssembler(state_).NumberAdd(TNode<Number>{tmp6}, TNode<Number>{tmp11});
-    tmp13 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayMapLoopContinuation), parameter0, tmp0, tmp2, parameter3, tmp4, tmp0, tmp12, tmp8);
+    tmp13 = ca_.CallBuiltin<Object>(Builtin::kArrayMapLoopContinuation, parameter0, tmp0, tmp2, parameter3, tmp4, tmp0, tmp12, tmp8);
     CodeStubAssembler(state_).Return(tmp13);
   }
 }
@@ -497,7 +498,7 @@ TF_BUILTIN(ArrayMapLoopContinuation, CodeStubAssembler) {
     ca_.Bind(&block5, &phi_bb5_8);
     tmp4 = CodeStubAssembler(state_).GetProperty(TNode<Context>{parameter0}, TNode<Object>{parameter5}, TNode<Object>{phi_bb5_8});
     tmp5 = CodeStubAssembler(state_).Call(TNode<Context>{parameter0}, TNode<Object>{parameter2}, TNode<Object>{parameter3}, TNode<Object>{tmp4}, TNode<Object>{phi_bb5_8}, TNode<Object>{parameter5});
-    tmp6 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kFastCreateDataProperty), parameter0, parameter4, phi_bb5_8, tmp5);
+    tmp6 = ca_.CallBuiltin<Object>(Builtin::kFastCreateDataProperty, parameter0, parameter4, phi_bb5_8, tmp5);
     ca_.Goto(&block6, phi_bb5_8);
   }
 
@@ -2090,7 +2091,7 @@ TF_BUILTIN(ArrayMap, CodeStubAssembler) {
   TNode<Object> tmp22;
   if (block7.is_used()) {
     ca_.Bind(&block7, &phi_bb7_10, &phi_bb7_11);
-    tmp22 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayMapLoopContinuation), parameter0, tmp1, tmp7, tmp10, phi_bb7_10, tmp1, phi_bb7_11, tmp2);
+    tmp22 = ca_.CallBuiltin<Object>(Builtin::kArrayMapLoopContinuation, parameter0, tmp1, tmp7, tmp10, phi_bb7_10, tmp1, phi_bb7_11, tmp2);
     arguments.PopAndReturn(tmp22);
   }
 

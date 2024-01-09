@@ -518,6 +518,8 @@ class FtraceEvent::_Internal {
   static const ::perfetto::protos::SamsungTracingMarkWriteFtraceEvent& samsung_tracing_mark_write(const FtraceEvent* msg);
   static const ::perfetto::protos::BinderCommandFtraceEvent& binder_command(const FtraceEvent* msg);
   static const ::perfetto::protos::BinderReturnFtraceEvent& binder_return(const FtraceEvent* msg);
+  static const ::perfetto::protos::SchedSwitchWithCtrsFtraceEvent& sched_switch_with_ctrs(const FtraceEvent* msg);
+  static const ::perfetto::protos::GpuWorkPeriodFtraceEvent& gpu_work_period(const FtraceEvent* msg);
 };
 
 const ::perfetto::protos::PrintFtraceEvent&
@@ -2379,6 +2381,14 @@ FtraceEvent::_Internal::binder_command(const FtraceEvent* msg) {
 const ::perfetto::protos::BinderReturnFtraceEvent&
 FtraceEvent::_Internal::binder_return(const FtraceEvent* msg) {
   return *msg->event_.binder_return_;
+}
+const ::perfetto::protos::SchedSwitchWithCtrsFtraceEvent&
+FtraceEvent::_Internal::sched_switch_with_ctrs(const FtraceEvent* msg) {
+  return *msg->event_.sched_switch_with_ctrs_;
+}
+const ::perfetto::protos::GpuWorkPeriodFtraceEvent&
+FtraceEvent::_Internal::gpu_work_period(const FtraceEvent* msg) {
+  return *msg->event_.gpu_work_period_;
 }
 void FtraceEvent::set_allocated_print(::perfetto::protos::PrintFtraceEvent* print) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -13540,6 +13550,54 @@ void FtraceEvent::clear_binder_return() {
     clear_has_event();
   }
 }
+void FtraceEvent::set_allocated_sched_switch_with_ctrs(::perfetto::protos::SchedSwitchWithCtrsFtraceEvent* sched_switch_with_ctrs) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_event();
+  if (sched_switch_with_ctrs) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(sched_switch_with_ctrs));
+    if (message_arena != submessage_arena) {
+      sched_switch_with_ctrs = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, sched_switch_with_ctrs, submessage_arena);
+    }
+    set_has_sched_switch_with_ctrs();
+    event_.sched_switch_with_ctrs_ = sched_switch_with_ctrs;
+  }
+  // @@protoc_insertion_point(field_set_allocated:perfetto.protos.FtraceEvent.sched_switch_with_ctrs)
+}
+void FtraceEvent::clear_sched_switch_with_ctrs() {
+  if (_internal_has_sched_switch_with_ctrs()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete event_.sched_switch_with_ctrs_;
+    }
+    clear_has_event();
+  }
+}
+void FtraceEvent::set_allocated_gpu_work_period(::perfetto::protos::GpuWorkPeriodFtraceEvent* gpu_work_period) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_event();
+  if (gpu_work_period) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(gpu_work_period));
+    if (message_arena != submessage_arena) {
+      gpu_work_period = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, gpu_work_period, submessage_arena);
+    }
+    set_has_gpu_work_period();
+    event_.gpu_work_period_ = gpu_work_period;
+  }
+  // @@protoc_insertion_point(field_set_allocated:perfetto.protos.FtraceEvent.gpu_work_period)
+}
+void FtraceEvent::clear_gpu_work_period() {
+  if (_internal_has_gpu_work_period()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete event_.gpu_work_period_;
+    }
+    clear_has_event();
+  }
+}
 FtraceEvent::FtraceEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -15413,6 +15471,14 @@ FtraceEvent::FtraceEvent(const FtraceEvent& from)
     }
     case kBinderReturn: {
       _internal_mutable_binder_return()->::perfetto::protos::BinderReturnFtraceEvent::MergeFrom(from._internal_binder_return());
+      break;
+    }
+    case kSchedSwitchWithCtrs: {
+      _internal_mutable_sched_switch_with_ctrs()->::perfetto::protos::SchedSwitchWithCtrsFtraceEvent::MergeFrom(from._internal_sched_switch_with_ctrs());
+      break;
+    }
+    case kGpuWorkPeriod: {
+      _internal_mutable_gpu_work_period()->::perfetto::protos::GpuWorkPeriodFtraceEvent::MergeFrom(from._internal_gpu_work_period());
       break;
     }
     case EVENT_NOT_SET: {
@@ -18240,6 +18306,18 @@ void FtraceEvent::clear_event() {
     case kBinderReturn: {
       if (GetArenaForAllocation() == nullptr) {
         delete event_.binder_return_;
+      }
+      break;
+    }
+    case kSchedSwitchWithCtrs: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete event_.sched_switch_with_ctrs_;
+      }
+      break;
+    }
+    case kGpuWorkPeriod: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete event_.gpu_work_period_;
       }
       break;
     }
@@ -22022,6 +22100,22 @@ const char* FtraceEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
+      // .perfetto.protos.SchedSwitchWithCtrsFtraceEvent sched_switch_with_ctrs = 487;
+      case 487:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_sched_switch_with_ctrs(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .perfetto.protos.GpuWorkPeriodFtraceEvent gpu_work_period = 488;
+      case 488:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr = ctx->ParseMessage(_internal_mutable_gpu_work_period(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -24863,6 +24957,18 @@ uint8_t* FtraceEvent::_InternalSerialize(
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
         InternalWriteMessage(486, _Internal::binder_return(this),
           _Internal::binder_return(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kSchedSwitchWithCtrs: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(487, _Internal::sched_switch_with_ctrs(this),
+          _Internal::sched_switch_with_ctrs(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kGpuWorkPeriod: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(488, _Internal::gpu_work_period(this),
+          _Internal::gpu_work_period(this).GetCachedSize(), target, stream);
       break;
     }
     default: ;
@@ -28157,6 +28263,20 @@ size_t FtraceEvent::ByteSizeLong() const {
           *event_.binder_return_);
       break;
     }
+    // .perfetto.protos.SchedSwitchWithCtrsFtraceEvent sched_switch_with_ctrs = 487;
+    case kSchedSwitchWithCtrs: {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *event_.sched_switch_with_ctrs_);
+      break;
+    }
+    // .perfetto.protos.GpuWorkPeriodFtraceEvent gpu_work_period = 488;
+    case kGpuWorkPeriod: {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *event_.gpu_work_period_);
+      break;
+    }
     case EVENT_NOT_SET: {
       break;
     }
@@ -30053,6 +30173,14 @@ void FtraceEvent::MergeFrom(const FtraceEvent& from) {
     }
     case kBinderReturn: {
       _internal_mutable_binder_return()->::perfetto::protos::BinderReturnFtraceEvent::MergeFrom(from._internal_binder_return());
+      break;
+    }
+    case kSchedSwitchWithCtrs: {
+      _internal_mutable_sched_switch_with_ctrs()->::perfetto::protos::SchedSwitchWithCtrsFtraceEvent::MergeFrom(from._internal_sched_switch_with_ctrs());
+      break;
+    }
+    case kGpuWorkPeriod: {
+      _internal_mutable_gpu_work_period()->::perfetto::protos::GpuWorkPeriodFtraceEvent::MergeFrom(from._internal_gpu_work_period());
       break;
     }
     case EVENT_NOT_SET: {

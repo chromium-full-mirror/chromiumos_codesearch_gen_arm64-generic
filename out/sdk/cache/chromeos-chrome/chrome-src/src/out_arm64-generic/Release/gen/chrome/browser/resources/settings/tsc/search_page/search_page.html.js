@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.cr-row.search-engine{padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto}.search-engine{align-items:center;display:flex;flex-direction:row;gap:12px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">:host{--favicon-size:0}#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.default-search-engine .cr-row{--cr-section-min-height:55px;gap:12px;padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto}site-favicon{--site-favicon-border-radius:4px;--site-favicon-height:var(--favicon-size);--site-favicon-width:var(--favicon-size)}settings-search-engine-list-dialog{--search-engine-icon-size:var(--favicon-size)}</style>
 <settings-animated-pages id="pages" section="search" focus-config="[[focusConfig_]]">
   <div route-path="default">
     
@@ -20,8 +20,8 @@ export function getTemplate() {
                 prefs.default_search_provider_data.template_url_data]]">
             </cr-policy-pref-indicator>
           </template>
-          <div class="cr-row first search-engine">
-            <site-favicon favicon-url="[[defaultSearchEngine_.iconURL]]" url="[[defaultSearchEngine_.url]]">
+          <div class="cr-row first">
+            <site-favicon favicon-url="[[defaultSearchEngine_.iconURL]]" url="[[defaultSearchEngine_.url]]" icon-path="[[defaultSearchEngine_.iconPath]]">
             </site-favicon>
             <div class="search-engine-name">[[defaultSearchEngine_.name]]</div>
             <cr-button id="openDialogButton" on-click="onOpenDialogButtonClick_" disabled$="[[isDefaultSearchEngineEnforced_(

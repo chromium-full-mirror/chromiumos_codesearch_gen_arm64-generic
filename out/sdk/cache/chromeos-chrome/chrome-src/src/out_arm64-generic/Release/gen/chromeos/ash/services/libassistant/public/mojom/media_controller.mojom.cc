@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -245,14 +246,17 @@ void MediaControllerProxy::ResumeInternalMediaPlayer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::MediaController::ResumeInternalMediaPlayer");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_ResumeInternalMediaPlayer_Name, kFlags, 0, 0, nullptr);
@@ -275,14 +279,17 @@ void MediaControllerProxy::PauseInternalMediaPlayer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::MediaController::PauseInternalMediaPlayer");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_PauseInternalMediaPlayer_Name, kFlags, 0, 0, nullptr);
@@ -312,14 +319,17 @@ void MediaControllerProxy::SetExternalPlaybackState(
                         "<value of type MediaStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_SetExternalPlaybackState_Name, kFlags, 0, 0, nullptr);
@@ -448,14 +458,14 @@ bool MediaControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaControllerValidationInfo[] = {
-    {&internal::MediaController_ResumeInternalMediaPlayer_Params_Data::Validate,
+    { &internal::MediaController_ResumeInternalMediaPlayer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_PauseInternalMediaPlayer_Params_Data::Validate,
+    { &internal::MediaController_PauseInternalMediaPlayer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_SetExternalPlaybackState_Params_Data::Validate,
+    { &internal::MediaController_SetExternalPlaybackState_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -675,14 +685,17 @@ void MediaDelegateProxy::OnPlaybackStateChanged(
                         "<value of type MediaStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDelegate_OnPlaybackStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -723,14 +736,17 @@ void MediaDelegateProxy::PlayAndroidMedia(
                         "<value of type const ::ash::assistant::AndroidAppInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDelegate_PlayAndroidMedia_Name, kFlags, 0, 0, nullptr);
@@ -771,14 +787,17 @@ void MediaDelegateProxy::PlayWebMedia(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDelegate_PlayWebMedia_Name, kFlags, 0, 0, nullptr);
@@ -812,14 +831,17 @@ void MediaDelegateProxy::NextTrack(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::MediaDelegate::NextTrack");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDelegate_NextTrack_Name, kFlags, 0, 0, nullptr);
@@ -842,14 +864,17 @@ void MediaDelegateProxy::PreviousTrack(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::MediaDelegate::PreviousTrack");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDelegate_PreviousTrack_Name, kFlags, 0, 0, nullptr);
@@ -872,14 +897,17 @@ void MediaDelegateProxy::Pause(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::MediaDelegate::Pause");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDelegate_Pause_Name, kFlags, 0, 0, nullptr);
@@ -902,14 +930,17 @@ void MediaDelegateProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::MediaDelegate::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDelegate_Resume_Name, kFlags, 0, 0, nullptr);
@@ -932,14 +963,17 @@ void MediaDelegateProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::MediaDelegate::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaDelegate_Stop_Name, kFlags, 0, 0, nullptr);
@@ -1190,24 +1224,24 @@ bool MediaDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaDelegateValidationInfo[] = {
-    {&internal::MediaDelegate_OnPlaybackStateChanged_Params_Data::Validate,
+    { &internal::MediaDelegate_OnPlaybackStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDelegate_PlayAndroidMedia_Params_Data::Validate,
+    { &internal::MediaDelegate_PlayAndroidMedia_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDelegate_PlayWebMedia_Params_Data::Validate,
+    { &internal::MediaDelegate_PlayWebMedia_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDelegate_NextTrack_Params_Data::Validate,
+    { &internal::MediaDelegate_NextTrack_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDelegate_PreviousTrack_Params_Data::Validate,
+    { &internal::MediaDelegate_PreviousTrack_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDelegate_Pause_Params_Data::Validate,
+    { &internal::MediaDelegate_Pause_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDelegate_Resume_Params_Data::Validate,
+    { &internal::MediaDelegate_Resume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaDelegate_Stop_Params_Data::Validate,
+    { &internal::MediaDelegate_Stop_Params_Data::Validate,
      nullptr /* no response */},
 };
 

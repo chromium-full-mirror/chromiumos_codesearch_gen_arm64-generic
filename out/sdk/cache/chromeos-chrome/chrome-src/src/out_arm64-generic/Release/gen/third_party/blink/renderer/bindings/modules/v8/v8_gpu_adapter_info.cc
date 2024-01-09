@@ -15,8 +15,11 @@
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_memory_heap_info.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
+#include "third_party/blink/renderer/core/frame/dactyloscoper.h"
 #include "third_party/blink/renderer/modules/webgpu/gpu_adapter_info.h"
+#include "third_party/blink/renderer/modules/webgpu/gpu_memory_heap_info.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/idl_member_installer.h"
 #include "third_party/blink/renderer/platform/bindings/runtime_call_stats.h"
@@ -68,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUAdapterInfo>::value,
     "GPUAdapterInfo inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUAdapterInfo::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUAdapterInfo is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -82,13 +80,15 @@ void VendorAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_GPUAdapterInfo_vendor_Getter");
 BLINK_BINDINGS_TRACE_EVENT("GPUAdapterInfo.vendor.get");
+// [HighEntropy]
+const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("GPUAdapterInfo.vendor.get", info);
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->vendor();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->vendor();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -97,13 +97,15 @@ void ArchitectureAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>&
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_GPUAdapterInfo_architecture_Getter");
 BLINK_BINDINGS_TRACE_EVENT("GPUAdapterInfo.architecture.get");
+// [HighEntropy]
+const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("GPUAdapterInfo.architecture.get", info);
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->architecture();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->architecture();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -112,13 +114,15 @@ void DeviceAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_GPUAdapterInfo_device_Getter");
 BLINK_BINDINGS_TRACE_EVENT("GPUAdapterInfo.device.get");
+// [HighEntropy]
+const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("GPUAdapterInfo.device.get", info);
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->device();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->device();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -127,13 +131,15 @@ void DescriptionAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& 
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_GPUAdapterInfo_description_Getter");
 BLINK_BINDINGS_TRACE_EVENT("GPUAdapterInfo.description.get");
+// [HighEntropy]
+const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("GPUAdapterInfo.description.get", info);
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->description();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->description();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -145,10 +151,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUAdapterInfo.driver.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->driver();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->driver();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -160,10 +166,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUAdapterInfo.backend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->backend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->backend();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -175,11 +181,33 @@ BLINK_BINDINGS_TRACE_EVENT("GPUAdapterInfo.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
+}
+
+
+void MemoryHeapsAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_GPUAdapterInfo_memoryHeaps_Getter");
+BLINK_BINDINGS_TRACE_EVENT("GPUAdapterInfo.memoryHeaps.get");
+
+
+
+v8::Local<v8::Value> v8_return_value;
+v8::Local<v8::Object> v8_receiver = info.This();
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+v8::Isolate* isolate = info.GetIsolate();
+GPUAdapterInfo* blink_receiver = V8GPUAdapterInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->memoryHeaps();
+if (!ToV8Traits<IDLArray<GPUMemoryHeapInfo>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
+  return;
+}
+bindings::V8SetReturnValue(info, v8_return_value);
 }
 
 
@@ -240,6 +268,7 @@ if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
 {"driver", DriverAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"backend", BackendAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"type", TypeAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"memoryHeaps", MemoryHeapsAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

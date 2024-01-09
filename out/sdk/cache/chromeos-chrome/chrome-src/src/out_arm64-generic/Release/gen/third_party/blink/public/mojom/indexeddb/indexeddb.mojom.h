@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/indexeddb/indexeddb.mojom-features.h"
 #include "third_party/blink/public/mojom/indexeddb/indexeddb.mojom-shared.h"
 #include "third_party/blink/public/mojom/indexeddb/indexeddb.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -420,7 +421,6 @@ class BLINK_COMMON_EXPORT IDBDatabase
   enum MethodMinVersions : uint32_t {
     kRenameObjectStoreMinVersion = 0,
     kCreateTransactionMinVersion = 0,
-    kCloseMinVersion = 0,
     kVersionChangeIgnoredMinVersion = 0,
     kGetMinVersion = 0,
     kGetAllMinVersion = 0,
@@ -445,9 +445,6 @@ class BLINK_COMMON_EXPORT IDBDatabase
     NOINLINE static uint32_t IPCStableHash();
   };
   struct CreateTransaction_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct Close_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct VersionChangeIgnored_Sym {
@@ -503,9 +500,6 @@ class BLINK_COMMON_EXPORT IDBDatabase
 
   
   virtual void CreateTransaction(::mojo::PendingAssociatedReceiver<IDBTransaction> transaction_receiver, int64_t transaction_id, const std::vector<int64_t>& object_store_ids, IDBTransactionMode mode, IDBTransactionDurability durability) = 0;
-
-  
-  virtual void Close() = 0;
 
   
   virtual void VersionChangeIgnored() = 0;
@@ -746,8 +740,6 @@ class BLINK_COMMON_EXPORT IDBDatabaseProxy
   void RenameObjectStore(int64_t transaction_id, int64_t object_store_id, const ::std::u16string& new_name) final;
   
   void CreateTransaction(::mojo::PendingAssociatedReceiver<IDBTransaction> transaction_receiver, int64_t transaction_id, const std::vector<int64_t>& object_store_ids, IDBTransactionMode mode, IDBTransactionDurability durability) final;
-  
-  void Close() final;
   
   void VersionChangeIgnored() final;
   
@@ -1170,49 +1162,49 @@ class BLINK_COMMON_EXPORT IDBKey {
   // Construct an instance holding |key_array|.
   static IDBKeyPtr
   NewKeyArray(
-      std::vector<::blink::IndexedDBKey> key_array) {
+      std::vector<::blink::IndexedDBKey> value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_key_array(std::move(key_array));
+    result->set_key_array(std::move(value));
     return result;
   }
   // Construct an instance holding |binary|.
   static IDBKeyPtr
   NewBinary(
-      std::vector<uint8_t> binary) {
+      std::vector<uint8_t> value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_binary(std::move(binary));
+    result->set_binary(std::move(value));
     return result;
   }
   // Construct an instance holding |string|.
   static IDBKeyPtr
   NewString(
-      const ::std::u16string& string) {
+      const ::std::u16string& value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_string(std::move(string));
+    result->set_string(std::move(value));
     return result;
   }
   // Construct an instance holding |date|.
   static IDBKeyPtr
   NewDate(
-      double date) {
+      double value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_date(std::move(date));
+    result->set_date(std::move(value));
     return result;
   }
   // Construct an instance holding |number|.
   static IDBKeyPtr
   NewNumber(
-      double number) {
+      double value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_number(std::move(number));
+    result->set_number(std::move(value));
     return result;
   }
   // Construct an instance holding |other_none|.
   static IDBKeyPtr
   NewOtherNone(
-      bool other_none) {
+      bool value) {
     auto result = IDBKeyPtr(absl::in_place);
-    result->set_other_none(std::move(other_none));
+    result->set_other_none(std::move(value));
     return result;
   }
 
@@ -1384,17 +1376,17 @@ class BLINK_COMMON_EXPORT IDBKeyPathData {
   // Construct an instance holding |string|.
   static IDBKeyPathDataPtr
   NewString(
-      const ::std::u16string& string) {
+      const ::std::u16string& value) {
     auto result = IDBKeyPathDataPtr(absl::in_place);
-    result->set_string(std::move(string));
+    result->set_string(std::move(value));
     return result;
   }
   // Construct an instance holding |string_array|.
   static IDBKeyPathDataPtr
   NewStringArray(
-      std::vector<::std::u16string> string_array) {
+      std::vector<::std::u16string> value) {
     auto result = IDBKeyPathDataPtr(absl::in_place);
-    result->set_string_array(std::move(string_array));
+    result->set_string_array(std::move(value));
     return result;
   }
 
@@ -1514,17 +1506,17 @@ class BLINK_COMMON_EXPORT IDBExternalObject {
   // Construct an instance holding |blob_or_file|.
   static IDBExternalObjectPtr
   NewBlobOrFile(
-      IDBBlobInfoPtr blob_or_file) {
+      IDBBlobInfoPtr value) {
     auto result = IDBExternalObjectPtr(absl::in_place);
-    result->set_blob_or_file(std::move(blob_or_file));
+    result->set_blob_or_file(std::move(value));
     return result;
   }
   // Construct an instance holding |file_system_access_token|.
   static IDBExternalObjectPtr
   NewFileSystemAccessToken(
-      ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> file_system_access_token) {
+      ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> value) {
     auto result = IDBExternalObjectPtr(absl::in_place);
-    result->set_file_system_access_token(std::move(file_system_access_token));
+    result->set_file_system_access_token(std::move(value));
     return result;
   }
 
@@ -1644,25 +1636,25 @@ class BLINK_COMMON_EXPORT IDBCursorResult {
   // Construct an instance holding |error_result|.
   static IDBCursorResultPtr
   NewErrorResult(
-      IDBErrorPtr error_result) {
+      IDBErrorPtr value) {
     auto result = IDBCursorResultPtr(absl::in_place);
-    result->set_error_result(std::move(error_result));
+    result->set_error_result(std::move(value));
     return result;
   }
   // Construct an instance holding |empty|.
   static IDBCursorResultPtr
   NewEmpty(
-      bool empty) {
+      bool value) {
     auto result = IDBCursorResultPtr(absl::in_place);
-    result->set_empty(std::move(empty));
+    result->set_empty(std::move(value));
     return result;
   }
   // Construct an instance holding |values|.
   static IDBCursorResultPtr
   NewValues(
-      IDBCursorValuePtr values) {
+      IDBCursorValuePtr value) {
     auto result = IDBCursorResultPtr(absl::in_place);
-    result->set_values(std::move(values));
+    result->set_values(std::move(value));
     return result;
   }
 
@@ -1795,17 +1787,17 @@ class BLINK_COMMON_EXPORT IDBTransactionPutResult {
   // Construct an instance holding |error_result|.
   static IDBTransactionPutResultPtr
   NewErrorResult(
-      IDBErrorPtr error_result) {
+      IDBErrorPtr value) {
     auto result = IDBTransactionPutResultPtr(absl::in_place);
-    result->set_error_result(std::move(error_result));
+    result->set_error_result(std::move(value));
     return result;
   }
   // Construct an instance holding |key|.
   static IDBTransactionPutResultPtr
   NewKey(
-      const ::blink::IndexedDBKey& key) {
+      const ::blink::IndexedDBKey& value) {
     auto result = IDBTransactionPutResultPtr(absl::in_place);
-    result->set_key(std::move(key));
+    result->set_key(std::move(value));
     return result;
   }
 
@@ -1925,25 +1917,25 @@ class BLINK_COMMON_EXPORT IDBDatabaseGetResult {
   // Construct an instance holding |error_result|.
   static IDBDatabaseGetResultPtr
   NewErrorResult(
-      IDBErrorPtr error_result) {
+      IDBErrorPtr value) {
     auto result = IDBDatabaseGetResultPtr(absl::in_place);
-    result->set_error_result(std::move(error_result));
+    result->set_error_result(std::move(value));
     return result;
   }
   // Construct an instance holding |empty|.
   static IDBDatabaseGetResultPtr
   NewEmpty(
-      bool empty) {
+      bool value) {
     auto result = IDBDatabaseGetResultPtr(absl::in_place);
-    result->set_empty(std::move(empty));
+    result->set_empty(std::move(value));
     return result;
   }
   // Construct an instance holding |key|.
   static IDBDatabaseGetResultPtr
   NewKey(
-      const ::blink::IndexedDBKey& key) {
+      const ::blink::IndexedDBKey& value) {
     auto result = IDBDatabaseGetResultPtr(absl::in_place);
-    result->set_key(std::move(key));
+    result->set_key(std::move(value));
     return result;
   }
   // Construct an instance holding |value|.
@@ -2097,17 +2089,17 @@ class BLINK_COMMON_EXPORT IDBDatabaseOpenCursorResult {
   // Construct an instance holding |error_result|.
   static IDBDatabaseOpenCursorResultPtr
   NewErrorResult(
-      IDBErrorPtr error_result) {
+      IDBErrorPtr value) {
     auto result = IDBDatabaseOpenCursorResultPtr(absl::in_place);
-    result->set_error_result(std::move(error_result));
+    result->set_error_result(std::move(value));
     return result;
   }
   // Construct an instance holding |empty|.
   static IDBDatabaseOpenCursorResultPtr
   NewEmpty(
-      bool empty) {
+      bool value) {
     auto result = IDBDatabaseOpenCursorResultPtr(absl::in_place);
-    result->set_empty(std::move(empty));
+    result->set_empty(std::move(value));
     return result;
   }
   // Construct an instance holding |value|.

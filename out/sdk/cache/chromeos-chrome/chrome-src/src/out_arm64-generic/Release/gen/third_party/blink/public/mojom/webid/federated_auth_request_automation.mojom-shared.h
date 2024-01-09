@@ -46,6 +46,24 @@ namespace internal {
 
 
 namespace blink::test::mojom {
+
+
+enum class DialogButton : int32_t {
+  
+  kConfirmIdpLoginContinue = 0,
+  
+  kErrorGotIt = 1,
+  
+  kErrorMoreDetails = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, DialogButton value);
+inline bool IsKnownEnumValue(DialogButton value) {
+  return internal::DialogButton_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class FederatedAuthRequestAutomationInterfaceBase {};
 
@@ -63,9 +81,33 @@ using FederatedAuthRequestAutomationAssociatedRequestDataView =
 
 namespace std {
 
+template <>
+struct hash<::blink::test::mojom::DialogButton>
+    : public mojo::internal::EnumHashImpl<::blink::test::mojom::DialogButton> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::test::mojom::DialogButton, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::test::mojom::DialogButton, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::test::mojom::DialogButton>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 }  // namespace mojo
 
@@ -77,5 +119,14 @@ namespace blink::test::mojom {
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::test::mojom::DialogButton> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::test::mojom::DialogButton value);
+};
+
+} // namespace perfetto
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_MOJOM_WEBID_FEDERATED_AUTH_REQUEST_AUTOMATION_MOJOM_SHARED_H_

@@ -28,8 +28,8 @@ class  UrlHandlerAsyncWaiter {
 
   ~UrlHandlerAsyncWaiter();
   void GetExternalHandler(
-      const ::GURL& url, absl::optional<std::string>* out_name);
-  absl::optional<std::string> GetExternalHandler(const ::GURL& url);
+      const ::GURL& url, std::optional<std::string>* out_name);
+  std::optional<std::string> GetExternalHandler(const ::GURL& url);
 
  private:
   UrlHandler* const proxy_;

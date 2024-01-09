@@ -63,6 +63,8 @@ enum class SourceRegistrationError : int32_t {
   
   kFilterDataKeyTooLong = 8,
   
+  kFilterDataKeyReserved = 49,
+  
   kFilterDataListWrongType = 9,
   
   kFilterDataListTooLong = 10,
@@ -118,8 +120,48 @@ enum class SourceRegistrationError : int32_t {
   kTriggerDataMatchingWrongType = 37,
   
   kTriggerDataMatchingUnknownValue = 38,
+  
+  kTriggerSpecsWrongType = 39,
+  
+  kTriggerSpecWrongType = 40,
+  
+  kTriggerSpecTriggerDataMissing = 41,
+  
+  kTriggerSpecTriggerDataWrongType = 42,
+  
+  kTriggerSpecTriggerDataEmpty = 43,
+  
+  kTriggerSpecTriggerDataValueWrongType = 44,
+  
+  kTriggerSpecTriggerDataValueOutOfRange = 45,
+  
+  kExcessiveTriggerData = 46,
+  
+  kDuplicateTriggerData = 47,
+  
+  kInvalidTriggerDataForMatchingMode = 48,
+  
+  kSummaryWindowOperatorWrongType = 50,
+  
+  kSummaryWindowOperatorUnknownValue = 51,
+  
+  kSummaryBucketsWrongType = 52,
+  
+  kSummaryBucketsEmpty = 53,
+  
+  kSummaryBucketsTooLong = 54,
+  
+  kSummaryBucketsValueWrongType = 55,
+  
+  kSummaryBucketsValueOutOfRange = 56,
+  
+  kSummaryBucketsNonIncreasing = 57,
+  
+  kEventLevelEpsilonWrongType = 58,
+  
+  kEventLevelEpsilonValueInvalid = 59,
   kMinValue = 0,
-  kMaxValue = 38,
+  kMaxValue = 59,
 };
 
  std::ostream& operator<<(std::ostream& os, SourceRegistrationError value);

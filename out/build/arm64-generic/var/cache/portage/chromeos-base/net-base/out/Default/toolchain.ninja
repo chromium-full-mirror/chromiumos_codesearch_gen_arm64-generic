@@ -34,18 +34,15 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/net-base/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/net-base/_libnet-base-install_config.stamp: stamp
 build obj/net-base/_libnet-base_pc-install_config.stamp: stamp
-build obj/net-base/all.stamp: stamp ./lib/libnet-base.so obj/net-base/libnet-base_pc.stamp ./libnet-base-testrunner
+build obj/net-base/all.stamp: stamp ./lib/libnet-base.so obj/net-base/libnet-base_pc.stamp
 subninja obj/net-base/libnet-base.ninja
-subninja obj/net-base/libnet-base-testrunner.ninja
 rule __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/net-base/out/Default/obj/net-base/libnet-base.pc --name=libnet-base --description=Network\$ primitive\$ library --version=9999 --requires=libchrome --libs=-lnet-base
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/net-base/out/Default/obj/net-base/libnet-base.pc --name=libnet-base --description=Network\$ primitive\$ library --version=0.0.1 --requires=libchrome --libs=-lnet-base
   description = ACTION //net-base:libnet-base_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/net-base/libnet-base.pc: __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/net-base/_libnet-base_pc-install_config.stamp
+build obj/net-base/libnet-base.pc: __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/common-mk/generate-pc.py obj/net-base/_libnet-base_pc-install_config.stamp
 
 build obj/net-base/libnet-base_pc.stamp: stamp obj/net-base/libnet-base.pc
-subninja obj/net-base/net_base_test_support.ninja

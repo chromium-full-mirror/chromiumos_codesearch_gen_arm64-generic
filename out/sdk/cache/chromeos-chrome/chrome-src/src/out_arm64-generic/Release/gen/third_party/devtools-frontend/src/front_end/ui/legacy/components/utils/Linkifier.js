@@ -76,17 +76,16 @@ const infoByAnchor = new WeakMap();
 const textByAnchor = new WeakMap();
 const linkHandlers = new Map();
 let linkHandlerSettingInstance;
-export class Linkifier {
+export class Linkifier extends Common.ObjectWrapper.ObjectWrapper {
     maxLength;
     anchorsByTarget;
     locationPoolByTarget;
-    onLiveLocationUpdate;
     useLinkDecorator;
-    constructor(maxLengthForDisplayedURLs, useLinkDecorator, onLiveLocationUpdate = () => { }) {
+    constructor(maxLengthForDisplayedURLs, useLinkDecorator) {
+        super();
         this.maxLength = maxLengthForDisplayedURLs || UI.UIUtils.MaxLengthForDisplayedURLs;
         this.anchorsByTarget = new Map();
         this.locationPoolByTarget = new Map();
-        this.onLiveLocationUpdate = onLiveLocationUpdate;
         this.useLinkDecorator = Boolean(useLinkDecorator);
         instances.add(this);
         SDK.TargetManager.TargetManager.instance().observeTargets(this);
@@ -241,13 +240,15 @@ export class Linkifier {
             showColumnNumber: linkifyURLOptions.showColumnNumber ?? false,
             revealBreakpoint: options?.revealBreakpoint,
         };
-        const currentOnLiveLocationUpdate = this.onLiveLocationUpdate;
+        const updateDelegate = async (liveLocation) => {
+            await this.updateAnchor(link, linkDisplayOptions, liveLocation);
+            this.dispatchEventToListeners("liveLocationUpdated" /* Events.LiveLocationUpdated */, liveLocation);
+        };
         void Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance()
-            .createLiveLocation(rawLocation, this.updateAnchor.bind(this, link, linkDisplayOptions), pool)
+            .createLiveLocation(rawLocation, updateDelegate.bind(this), pool)
             .then(liveLocation => {
             if (liveLocation) {
                 linkInfo.liveLocation = liveLocation;
-                currentOnLiveLocationUpdate();
             }
         });
         const anchors = this.anchorsByTarget.get(rawLocation.debuggerModel.target());
@@ -313,12 +314,14 @@ export class Linkifier {
         linkInfo.enableDecorator = this.useLinkDecorator;
         linkInfo.fallback = fallbackAnchor;
         const linkDisplayOptions = { showColumnNumber: false };
-        const currentOnLiveLocationUpdate = this.onLiveLocationUpdate;
+        const updateDelegate = async (liveLocation) => {
+            await this.updateAnchor(link, linkDisplayOptions, liveLocation);
+            this.dispatchEventToListeners("liveLocationUpdated" /* Events.LiveLocationUpdated */, liveLocation);
+        };
         void Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance()
-            .createStackTraceTopFrameLiveLocation(debuggerModel.createRawLocationsByStackTrace(stackTrace), this.updateAnchor.bind(this, link, linkDisplayOptions), pool)
+            .createStackTraceTopFrameLiveLocation(debuggerModel.createRawLocationsByStackTrace(stackTrace), updateDelegate.bind(this), pool)
             .then(liveLocation => {
             linkInfo.liveLocation = liveLocation;
-            currentOnLiveLocationUpdate();
         });
         const anchors = this.anchorsByTarget.get(target);
         anchors.push(link);
@@ -335,12 +338,14 @@ export class Linkifier {
             return link;
         }
         const linkDisplayOptions = { showColumnNumber: false };
-        const currentOnLiveLocationUpdate = this.onLiveLocationUpdate;
+        const updateDelegate = async (liveLocation) => {
+            await this.updateAnchor(link, linkDisplayOptions, liveLocation);
+            this.dispatchEventToListeners("liveLocationUpdated" /* Events.LiveLocationUpdated */, liveLocation);
+        };
         void Bindings.CSSWorkspaceBinding.CSSWorkspaceBinding.instance()
-            .createLiveLocation(rawLocation, this.updateAnchor.bind(this, link, linkDisplayOptions), pool)
+            .createLiveLocation(rawLocation, updateDelegate.bind(this), pool)
             .then(liveLocation => {
             linkInfo.liveLocation = liveLocation;
-            currentOnLiveLocationUpdate();
         });
         const anchors = this.anchorsByTarget.get(rawLocation.cssModel().target());
         anchors.push(link);
@@ -381,6 +386,8 @@ export class Linkifier {
                         'style>');
                 }
             }
+            anchor.classList.add('invalid-link');
+            anchor.removeAttribute('role');
             return;
         }
         Linkifier.bindUILocation(anchor, uiLocation);
@@ -406,9 +413,6 @@ export class Linkifier {
         UI.Tooltip.Tooltip.install(anchor, titleText);
         anchor.classList.toggle('ignore-list-link', await liveLocation.isIgnoreListed());
         Linkifier.updateLinkDecorations(anchor);
-    }
-    setLiveLocationUpdateCallback(callback) {
-        this.onLiveLocationUpdate = callback;
     }
     static updateLinkDecorations(anchor) {
         const info = Linkifier.linkInfo(anchor);
@@ -441,7 +445,7 @@ export class Linkifier {
         const preventClick = options.preventClick;
         const maxLength = options.maxLength || UI.UIUtils.MaxLengthForDisplayedURLs;
         const bypassURLTrimming = options.bypassURLTrimming;
-        if (!url || url.trim().toLowerCase().startsWith('javascript:')) {
+        if (!url || Common.ParsedURL.schemeIs(url, 'javascript:')) {
             const element = document.createElement('span');
             if (className) {
                 element.className = className;
@@ -714,16 +718,8 @@ export var LinkDecorator;
         Events["LinkIconChanged"] = "LinkIconChanged";
     })(Events = LinkDecorator.Events || (LinkDecorator.Events = {}));
 })(LinkDecorator || (LinkDecorator = {}));
-let linkContextMenuProviderInstance;
 export class LinkContextMenuProvider {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!linkContextMenuProviderInstance || forceNew) {
-            linkContextMenuProviderInstance = new LinkContextMenuProvider();
-        }
-        return linkContextMenuProviderInstance;
-    }
-    appendApplicableItems(event, contextMenu, target) {
+    appendApplicableItems(_event, contextMenu, target) {
         let targetNode = target;
         while (targetNode && !infoByAnchor.get(targetNode)) {
             targetNode = targetNode.parentNodeOrShadowHost();
@@ -793,22 +789,13 @@ function listenForNewComponentLinkifierEvents() {
     });
 }
 listenForNewComponentLinkifierEvents();
-let contentProviderContextMenuProviderInstance;
 export class ContentProviderContextMenuProvider {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!contentProviderContextMenuProviderInstance || forceNew) {
-            contentProviderContextMenuProviderInstance = new ContentProviderContextMenuProvider();
-        }
-        return contentProviderContextMenuProviderInstance;
-    }
-    appendApplicableItems(event, contextMenu, target) {
-        const contentProvider = target;
+    appendApplicableItems(_event, contextMenu, contentProvider) {
         const contentUrl = contentProvider.contentURL();
         if (!contentUrl) {
             return;
         }
-        if (!contentUrl.startsWith('file://')) {
+        if (!Common.ParsedURL.schemeIs(contentUrl, 'file:')) {
             contextMenu.revealSection().appendItem(UI.UIUtils.openLinkExternallyLabel(), () => Host.InspectorFrontendHost.InspectorFrontendHostInstance.openInNewTab(contentUrl.endsWith(':formatted') ?
                 Common.ParsedURL.ParsedURL.slice(contentUrl, 0, contentUrl.lastIndexOf(':')) :
                 contentUrl));
@@ -824,7 +811,13 @@ export class ContentProviderContextMenuProvider {
             return;
         }
         contextMenu.clipboardSection().appendItem(UI.UIUtils.copyLinkAddressLabel(), () => Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(contentUrl));
-        contextMenu.clipboardSection().appendItem(UI.UIUtils.copyFileNameLabel(), () => Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(contentProvider.displayName()));
+        // TODO(bmeurer): `displayName` should be an accessor/data property consistently.
+        if (contentProvider instanceof Workspace.UISourceCode.UISourceCode) {
+            contextMenu.clipboardSection().appendItem(UI.UIUtils.copyFileNameLabel(), () => Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(contentProvider.displayName()));
+        }
+        else {
+            contextMenu.clipboardSection().appendItem(UI.UIUtils.copyFileNameLabel(), () => Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(contentProvider.displayName));
+        }
     }
 }
 //# sourceMappingURL=Linkifier.js.map

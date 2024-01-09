@@ -415,7 +415,7 @@ RecorderSelectorPickerButton = __decorate([
  * @fires RequestSelectorAttributeEvent#requestselectorattribute
  * @fires StepEditedEvent#stepedited
  */
-export let StepEditor = class StepEditor extends LitElement {
+let StepEditor = class StepEditor extends LitElement {
     static styles = [stepEditorStyles];
     #renderedAttributes = new Set();
     constructor() {
@@ -1010,4 +1010,5 @@ __decorate([
 StepEditor = __decorate([
     customElement('devtools-recorder-step-editor')
 ], StepEditor);
+export { StepEditor };
 //# sourceMappingURL=StepEditor.js.map

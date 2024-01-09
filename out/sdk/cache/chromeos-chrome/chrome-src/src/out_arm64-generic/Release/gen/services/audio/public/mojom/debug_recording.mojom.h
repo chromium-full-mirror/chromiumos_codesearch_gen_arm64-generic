@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,9 +23,11 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/audio/public/mojom/debug_recording.mojom-features.h"
 #include "services/audio/public/mojom/debug_recording.mojom-shared.h"
 #include "services/audio/public/mojom/debug_recording.mojom-forward.h"
 #include "mojo/public/mojom/base/file.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-forward.h"
 #include <string>
 #include <vector>
 

@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLDrawBuffers>::value,
     "WebGLDrawBuffers inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLDrawBuffers::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLDrawBuffers is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -130,7 +125,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLDrawBuffers* blink_receiver = V8WebGLDrawBuffers::ToWrappableUnsafe(v8_receiver);
+WebGLDrawBuffers* blink_receiver = V8WebGLDrawBuffers::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffers = NativeValueTraits<IDLSequence<IDLUnsignedLong>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

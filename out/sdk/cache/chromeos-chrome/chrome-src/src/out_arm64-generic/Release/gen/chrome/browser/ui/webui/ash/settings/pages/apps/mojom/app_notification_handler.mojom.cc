@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -51,7 +52,7 @@ App::App()
 
 App::App(
     const std::string& id_in,
-    const absl::optional<std::string>& title_in,
+    const std::optional<std::string>& title_in,
     ::apps::Readiness readiness_in,
     ::apps::PermissionPtr notification_permission_in)
     : id(std::move(id_in)),
@@ -77,7 +78,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "title"), this->title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -310,14 +311,17 @@ void AppNotificationsHandlerProxy::SetQuietMode(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsHandler_SetQuietMode_Name, kFlags, 0, 0, nullptr);
@@ -348,14 +352,17 @@ void AppNotificationsHandlerProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<AppNotificationsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsHandler_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -394,14 +401,17 @@ void AppNotificationsHandlerProxy::SetNotificationPermission(
                         "<value of type ::apps::PermissionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsHandler_SetNotificationPermission_Name, kFlags, 0, 0, nullptr);
@@ -446,14 +456,17 @@ void AppNotificationsHandlerProxy::GetApps(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::app_notification::mojom::AppNotificationsHandler::GetApps");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsHandler_GetApps_Name, kFlags, 0, 0, nullptr);
@@ -477,14 +490,17 @@ void AppNotificationsHandlerProxy::GetQuietMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::app_notification::mojom::AppNotificationsHandler::GetQuietMode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsHandler_GetQuietMode_Name, kFlags, 0, 0, nullptr);
@@ -508,14 +524,17 @@ void AppNotificationsHandlerProxy::OpenBrowserNotificationSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::settings::app_notification::mojom::AppNotificationsHandler::OpenBrowserNotificationSettings");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsHandler_OpenBrowserNotificationSettings_Name, kFlags, 0, 0, nullptr);
@@ -624,7 +643,8 @@ void AppNotificationsHandler_GetApps_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsHandler_GetApps_Name, kFlags, 0, 0, nullptr);
@@ -754,7 +774,8 @@ void AppNotificationsHandler_GetQuietMode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsHandler_GetQuietMode_Name, kFlags, 0, 0, nullptr);
@@ -976,20 +997,20 @@ bool AppNotificationsHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppNotificationsHandlerValidationInfo[] = {
-    {&internal::AppNotificationsHandler_SetQuietMode_Params_Data::Validate,
+    { &internal::AppNotificationsHandler_SetQuietMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppNotificationsHandler_AddObserver_Params_Data::Validate,
+    { &internal::AppNotificationsHandler_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppNotificationsHandler_SetNotificationPermission_Params_Data::Validate,
+    { &internal::AppNotificationsHandler_SetNotificationPermission_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppNotificationsHandler_GetApps_Params_Data::Validate,
+    { &internal::AppNotificationsHandler_GetApps_Params_Data::Validate,
      &internal::AppNotificationsHandler_GetApps_ResponseParams_Data::Validate},
-    {&internal::AppNotificationsHandler_GetQuietMode_Params_Data::Validate,
+    { &internal::AppNotificationsHandler_GetQuietMode_Params_Data::Validate,
      &internal::AppNotificationsHandler_GetQuietMode_ResponseParams_Data::Validate},
-    {&internal::AppNotificationsHandler_OpenBrowserNotificationSettings_Params_Data::Validate,
+    { &internal::AppNotificationsHandler_OpenBrowserNotificationSettings_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1093,14 +1114,17 @@ void AppNotificationsObserverProxy::OnNotificationAppChanged(
                         "<value of type AppPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsObserver_OnNotificationAppChanged_Name, kFlags, 0, 0, nullptr);
@@ -1141,14 +1165,17 @@ void AppNotificationsObserverProxy::OnQuietModeChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppNotificationsObserver_OnQuietModeChanged_Name, kFlags, 0, 0, nullptr);
@@ -1246,12 +1273,12 @@ bool AppNotificationsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppNotificationsObserverValidationInfo[] = {
-    {&internal::AppNotificationsObserver_OnNotificationAppChanged_Params_Data::Validate,
+    { &internal::AppNotificationsObserver_OnNotificationAppChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppNotificationsObserver_OnQuietModeChanged_Params_Data::Validate,
+    { &internal::AppNotificationsObserver_OnQuietModeChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 

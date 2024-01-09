@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/navigation/renderer_content_settings.mojom-features.h"
 #include "third_party/blink/public/mojom/navigation/renderer_content_settings.mojom-shared.h"
 #include "third_party/blink/public/mojom/navigation/renderer_content_settings.mojom-blink-forward.h"
 
@@ -40,9 +41,6 @@
 
 
 namespace blink::mojom::blink {
-
-
-
 
 
 
@@ -78,8 +76,7 @@ class PLATFORM_EXPORT RendererContentSettings {
       bool allow_script,
       bool allow_image,
       bool allow_popup,
-      bool allow_mixed_content,
-      bool allow_auto_dark);
+      bool allow_mixed_content);
 
 
   ~RendererContentSettings();
@@ -165,8 +162,6 @@ class PLATFORM_EXPORT RendererContentSettings {
   bool allow_popup;
   
   bool allow_mixed_content;
-  
-  bool allow_auto_dark;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -197,14 +192,16 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
 template <typename StructPtrType>
 RendererContentSettingsPtr RendererContentSettings::Clone() const {
   return New(
       mojo::Clone(allow_script),
       mojo::Clone(allow_image),
       mojo::Clone(allow_popup),
-      mojo::Clone(allow_mixed_content),
-      mojo::Clone(allow_auto_dark)
+      mojo::Clone(allow_mixed_content)
   );
 }
 
@@ -217,8 +214,6 @@ bool RendererContentSettings::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->allow_popup, other_struct.allow_popup))
     return false;
   if (!mojo::Equals(this->allow_mixed_content, other_struct.allow_mixed_content))
-    return false;
-  if (!mojo::Equals(this->allow_auto_dark, other_struct.allow_auto_dark))
     return false;
   return true;
 }
@@ -240,10 +235,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.allow_mixed_content < rhs.allow_mixed_content)
     return true;
   if (rhs.allow_mixed_content < lhs.allow_mixed_content)
-    return false;
-  if (lhs.allow_auto_dark < rhs.allow_auto_dark)
-    return true;
-  if (rhs.allow_auto_dark < lhs.allow_auto_dark)
     return false;
   return false;
 }
@@ -278,11 +269,6 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::RendererContentSettin
   static decltype(::blink::mojom::blink::RendererContentSettings::allow_mixed_content) allow_mixed_content(
       const ::blink::mojom::blink::RendererContentSettingsPtr& input) {
     return input->allow_mixed_content;
-  }
-
-  static decltype(::blink::mojom::blink::RendererContentSettings::allow_auto_dark) allow_auto_dark(
-      const ::blink::mojom::blink::RendererContentSettingsPtr& input) {
-    return input->allow_auto_dark;
   }
 
   static bool Read(::blink::mojom::blink::RendererContentSettings::DataView input, ::blink::mojom::blink::RendererContentSettingsPtr* output);

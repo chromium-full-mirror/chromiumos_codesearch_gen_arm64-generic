@@ -60,11 +60,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MathMLElement>::value,
     "MathMLElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MathMLElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MathMLElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8MathMLElement::InstallInterfaceTemplateFuncType V8MathMLElement::install_interface_template_func_ = nullptr;

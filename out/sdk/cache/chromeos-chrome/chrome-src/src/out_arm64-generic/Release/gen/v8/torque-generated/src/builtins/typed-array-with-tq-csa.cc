@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/typed-array-with-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -311,7 +312,7 @@ TF_BUILTIN(TypedArrayPrototypeWith, CodeStubAssembler) {
     ca_.Bind(&block28);
     tmp31 = CodeStubAssembler(state_).LoadElementsKind(TNode<JSTypedArray>{tmp17});
     std::tie(tmp32, tmp33, tmp34) = GetTypedArrayAccessor_0(state_, TNode<Int32T>{tmp31}).Flatten();
-tmp35 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallableFor(ca_.isolate(),ExampleBuiltinForTorqueFunctionPointerType(3)).descriptor(), tmp34, parameter0, tmp17, tmp10, phi_bb13_8));
+tmp35 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallInterfaceDescriptorFor(ExampleBuiltinForTorqueFunctionPointerType(3)), tmp34, parameter0, tmp17, tmp10, phi_bb13_8));
     tmp36 = kStoreFailureArrayDetachedOrOutOfBounds_0(state_);
     tmp37 = CodeStubAssembler(state_).SmiEqual(TNode<Smi>{tmp35}, TNode<Smi>{tmp36});
     ca_.Branch(tmp37, &block32, std::vector<compiler::Node*>{}, &block33, std::vector<compiler::Node*>{});
@@ -345,7 +346,7 @@ tmp35 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::Calla
   if (block38.is_used()) {
     ca_.Bind(&block38, &phi_bb38_20);
     tmp40 = Undefined_0(state_);
-tmp41 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallableFor(ca_.isolate(),ExampleBuiltinForTorqueFunctionPointerType(3)).descriptor(), tmp34, parameter0, tmp17, phi_bb38_20, tmp40));
+tmp41 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallInterfaceDescriptorFor(ExampleBuiltinForTorqueFunctionPointerType(3)), tmp34, parameter0, tmp17, phi_bb38_20, tmp40));
     tmp42 = kStoreFailureArrayDetachedOrOutOfBounds_0(state_);
     tmp43 = CodeStubAssembler(state_).SmiEqual(TNode<Smi>{tmp41}, TNode<Smi>{tmp42});
     ca_.Branch(tmp43, &block44, std::vector<compiler::Node*>{phi_bb38_20, phi_bb38_20, phi_bb38_20}, &block45, std::vector<compiler::Node*>{phi_bb38_20, phi_bb38_20, phi_bb38_20});

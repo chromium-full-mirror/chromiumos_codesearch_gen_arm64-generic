@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/tpm_softclear_utils-0.0.1-r912/work/tpm_softclear_utils-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -20,24 +20,18 @@ subninja toolchain.ninja
 
 build _tpm_softclear-install_config: phony obj/tpm_softclear_utils/_tpm_softclear-install_config.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build utility_library: phony ./libutility_library.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build tpm_softclear_utils$:_tpm_softclear-install_config: phony obj/tpm_softclear_utils/_tpm_softclear-install_config.stamp
 build tpm_softclear_utils$:all: phony obj/tpm_softclear_utils/all.stamp
 build tpm_softclear_utils$:tpm_softclear: phony ./tpm_softclear
-build tpm_softclear_utils$:tpm_softclear_utils_testrunner: phony ./tpm_softclear_utils_testrunner
 build tpm_softclear_utils$:utility_library: phony ./libutility_library.a
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/tpm_softclear_utils/_tpm_softclear-install_config.stamp $
     obj/tpm_softclear_utils/all.stamp $
     ./tpm_softclear $
-    ./tpm_softclear_utils_testrunner $
     ./libutility_library.a
 
 default all

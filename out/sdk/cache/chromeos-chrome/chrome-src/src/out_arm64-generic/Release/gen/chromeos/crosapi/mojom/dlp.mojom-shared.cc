@@ -51,6 +51,42 @@ std::ostream& operator<<(std::ostream& os, DlpRestrictionLevel value) {
   return os << DlpRestrictionLevelToString(value);
 }
 
+NOINLINE static const char* FileActionToStringHelper(FileAction value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case FileAction::kUnknown:
+      return "kUnknown";
+    case FileAction::kDownload:
+      return "kDownload";
+    case FileAction::kTransfer:
+      return "kTransfer";
+    case FileAction::kUpload:
+      return "kUpload";
+    case FileAction::kCopy:
+      return "kCopy";
+    case FileAction::kMove:
+      return "kMove";
+    case FileAction::kOpen:
+      return "kOpen";
+    case FileAction::kShare:
+      return "kShare";
+    default:
+      return nullptr;
+  }
+}
+
+std::string FileActionToString(FileAction value) {
+  const char *str = FileActionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown FileAction value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, FileAction value) {
+  return os << FileActionToString(value);
+}
+
 namespace internal {
 
 
@@ -441,6 +477,45 @@ bool Dlp_OnScreenShareStopped_Params_Data::Validate(
 Dlp_OnScreenShareStopped_Params_Data::Dlp_OnScreenShareStopped_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Dlp_ShowBlockedFiles_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Dlp_ShowBlockedFiles_Params_Data* object =
+      static_cast<const Dlp_ShowBlockedFiles_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->files, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& files_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->files, validation_context,
+                                         &files_validate_params)) {
+    return false;
+  }
+
+
+  if (!::crosapi::mojom::internal::FileAction_Data
+        ::Validate(object->action, validation_context))
+    return false;
+
+  return true;
+}
+
+Dlp_ShowBlockedFiles_Params_Data::Dlp_ShowBlockedFiles_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace crosapi
@@ -451,6 +526,16 @@ namespace perfetto {
 void TraceFormatTraits<::crosapi::mojom::DlpRestrictionLevel>::WriteIntoTrace(
    perfetto::TracedValue context, ::crosapi::mojom::DlpRestrictionLevel value) {
   return std::move(context).WriteString(::crosapi::mojom::DlpRestrictionLevelToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::crosapi::mojom::FileAction>::WriteIntoTrace(
+   perfetto::TracedValue context, ::crosapi::mojom::FileAction value) {
+  return std::move(context).WriteString(::crosapi::mojom::FileActionToString(value));
 }
 
 } // namespace perfetto

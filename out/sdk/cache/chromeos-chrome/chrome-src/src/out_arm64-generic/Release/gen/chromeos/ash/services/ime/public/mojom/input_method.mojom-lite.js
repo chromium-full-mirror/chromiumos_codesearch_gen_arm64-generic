@@ -502,8 +502,9 @@ ash.ime.mojom.AutocorrectSuggestionProvider = {
   kUsEnglishPrebundled: 1,
   kUsEnglishDownloaded: 2,
   kUsEnglish840: 3,
+  kUsEnglish840V2: 4,
   MIN_VALUE: 0,
-  MAX_VALUE: 3,
+  MAX_VALUE: 4,
 };
 
 

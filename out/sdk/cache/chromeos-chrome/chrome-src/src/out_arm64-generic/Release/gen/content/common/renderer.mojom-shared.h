@@ -30,7 +30,6 @@
 #include "mojo/public/mojom/base/generic_pending_receiver.mojom-shared.h"
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "services/network/public/mojom/network_types.mojom-shared.h"
-#include "services/network/public/mojom/attribution.mojom-shared.h"
 #include "skia/public/mojom/skcolor.mojom-shared.h"
 #include "third_party/blink/public/mojom/browser_interface_broker.mojom-shared.h"
 #include "third_party/blink/public/mojom/origin_trials/origin_trials_settings.mojom-shared.h"
@@ -195,7 +194,7 @@ class UpdateSystemColorInfoParamsDataView {
     return mojo::internal::Deserialize<mojo::MapDataView<::content::mojom::SystemThemeColor, uint32_t>>(
         pointer, output, message_);
   }
-  absl::optional<uint32_t> accent_color() const {
+  std::optional<uint32_t> accent_color() const {
 
     return data_->accent_color_$flag
         ? absl::make_optional(data_->accent_color_$value)

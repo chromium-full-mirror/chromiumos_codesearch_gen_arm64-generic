@@ -9,11 +9,12 @@
 
 #include <stdint.h>
 
+#include "mojo/public/cpp/bindings/struct_forward.h"
+
+#include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
-
-
-
+#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -21,12 +22,41 @@
 
 
 namespace extensions::mojom {
+class PortIdDataView;
+
+class MessagingEndpointDataView;
+
+class TabConnectionInfoDataView;
+
+class ExternalConnectionInfoDataView;
+
+class MessageDataView;
+
 
 enum class SerializationFormat : int32_t;
 
 enum class ChannelType : int32_t;
 
 enum class MessagingEndpointType : int32_t;
+class PortId;
+using PortIdPtr = mojo::StructPtr<PortId>;
+
+class MessagingEndpoint;
+using MessagingEndpointPtr = mojo::InlinedStructPtr<MessagingEndpoint>;
+
+class TabConnectionInfo;
+using TabConnectionInfoPtr = mojo::StructPtr<TabConnectionInfo>;
+
+class ExternalConnectionInfo;
+using ExternalConnectionInfoPtr = mojo::StructPtr<ExternalConnectionInfo>;
+
+class Message;
+using MessagePtr = mojo::InlinedStructPtr<Message>;
+
+class MessagePort;
+
+class MessagePortHost;
+
 
 
 

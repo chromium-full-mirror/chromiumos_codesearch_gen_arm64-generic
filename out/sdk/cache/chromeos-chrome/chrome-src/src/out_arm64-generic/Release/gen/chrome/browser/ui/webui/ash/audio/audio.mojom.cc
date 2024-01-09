@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -227,14 +228,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -322,10 +326,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -490,14 +494,17 @@ void PageHandlerProxy::GetAudioDeviceInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send audio::mojom::PageHandler::GetAudioDeviceInfo");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetAudioDeviceInfo_Name, kFlags, 0, 0, nullptr);
@@ -520,14 +527,17 @@ void PageHandlerProxy::GetActiveOutputDeviceName(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send audio::mojom::PageHandler::GetActiveOutputDeviceName");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetActiveOutputDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -551,14 +561,17 @@ void PageHandlerProxy::GetActiveInputDeviceName(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send audio::mojom::PageHandler::GetActiveInputDeviceName");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetActiveInputDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -582,14 +595,17 @@ void PageHandlerProxy::OpenFeedbackDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send audio::mojom::PageHandler::OpenFeedbackDialog");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenFeedbackDialog_Name, kFlags, 0, 0, nullptr);
@@ -652,7 +668,7 @@ class PageHandler_GetActiveOutputDeviceName_ProxyToResponder : public ::mojo::in
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_device_name);
+      const std::optional<std::string>& in_device_name);
 };
 
 bool PageHandler_GetActiveOutputDeviceName_ForwardToCallback::Accept(
@@ -665,7 +681,7 @@ bool PageHandler_GetActiveOutputDeviceName_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_device_name{};
+  std::optional<std::string> p_device_name{};
   PageHandler_GetActiveOutputDeviceName_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDeviceName(&p_device_name))
@@ -684,7 +700,7 @@ std::move(p_device_name));
 }
 
 void PageHandler_GetActiveOutputDeviceName_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_device_name) {
+    const std::optional<std::string>& in_device_name) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply audio::mojom::PageHandler::GetActiveOutputDeviceName", "async_response_parameters",
@@ -692,13 +708,14 @@ void PageHandler_GetActiveOutputDeviceName_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("device_name"), in_device_name,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetActiveOutputDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -776,7 +793,7 @@ class PageHandler_GetActiveInputDeviceName_ProxyToResponder : public ::mojo::int
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_device_name);
+      const std::optional<std::string>& in_device_name);
 };
 
 bool PageHandler_GetActiveInputDeviceName_ForwardToCallback::Accept(
@@ -789,7 +806,7 @@ bool PageHandler_GetActiveInputDeviceName_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_device_name{};
+  std::optional<std::string> p_device_name{};
   PageHandler_GetActiveInputDeviceName_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDeviceName(&p_device_name))
@@ -808,7 +825,7 @@ std::move(p_device_name));
 }
 
 void PageHandler_GetActiveInputDeviceName_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_device_name) {
+    const std::optional<std::string>& in_device_name) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply audio::mojom::PageHandler::GetActiveInputDeviceName", "async_response_parameters",
@@ -816,13 +833,14 @@ void PageHandler_GetActiveInputDeviceName_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("device_name"), in_device_name,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetActiveInputDeviceName_Name, kFlags, 0, 0, nullptr);
@@ -982,16 +1000,16 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetAudioDeviceInfo_Params_Data::Validate,
+    { &internal::PageHandler_GetAudioDeviceInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetActiveOutputDeviceName_Params_Data::Validate,
+    { &internal::PageHandler_GetActiveOutputDeviceName_Params_Data::Validate,
      &internal::PageHandler_GetActiveOutputDeviceName_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetActiveInputDeviceName_Params_Data::Validate,
+    { &internal::PageHandler_GetActiveInputDeviceName_Params_Data::Validate,
      &internal::PageHandler_GetActiveInputDeviceName_ResponseParams_Data::Validate},
-    {&internal::PageHandler_OpenFeedbackDialog_Params_Data::Validate,
+    { &internal::PageHandler_OpenFeedbackDialog_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1115,14 +1133,17 @@ void PageProxy::UpdateDeviceInfo(
                         "<value of type base::flat_map<uint64_t, DeviceDataPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_UpdateDeviceInfo_Name, kFlags, 0, 0, nullptr);
@@ -1168,14 +1189,17 @@ void PageProxy::UpdateDeviceVolume(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_UpdateDeviceVolume_Name, kFlags, 0, 0, nullptr);
@@ -1210,14 +1234,17 @@ void PageProxy::UpdateDeviceMute(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_UpdateDeviceMute_Name, kFlags, 0, 0, nullptr);
@@ -1353,14 +1380,14 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_UpdateDeviceInfo_Params_Data::Validate,
+    { &internal::Page_UpdateDeviceInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_UpdateDeviceVolume_Params_Data::Validate,
+    { &internal::Page_UpdateDeviceVolume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_UpdateDeviceMute_Params_Data::Validate,
+    { &internal::Page_UpdateDeviceMute_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1441,14 +1468,14 @@ PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
 PageHandlerAsyncWaiter::~PageHandlerAsyncWaiter() = default;
 
 void PageHandlerAsyncWaiter::GetActiveOutputDeviceName(
-    absl::optional<std::string>* out_device_name) {
+    std::optional<std::string>* out_device_name) {
   base::RunLoop loop;
   proxy_->GetActiveOutputDeviceName(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_device_name
+             std::optional<std::string>* out_device_name
 ,
-             const absl::optional<std::string>& device_name) {*out_device_name = std::move(device_name);
+             const std::optional<std::string>& device_name) {*out_device_name = std::move(device_name);
             loop->Quit();
           },
           &loop,
@@ -1456,22 +1483,22 @@ void PageHandlerAsyncWaiter::GetActiveOutputDeviceName(
   loop.Run();
 }
 
-absl::optional<std::string> PageHandlerAsyncWaiter::GetActiveOutputDeviceName(
+std::optional<std::string> PageHandlerAsyncWaiter::GetActiveOutputDeviceName(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetActiveOutputDeviceName(&async_wait_result);
   return async_wait_result;
 }
 
 void PageHandlerAsyncWaiter::GetActiveInputDeviceName(
-    absl::optional<std::string>* out_device_name) {
+    std::optional<std::string>* out_device_name) {
   base::RunLoop loop;
   proxy_->GetActiveInputDeviceName(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_device_name
+             std::optional<std::string>* out_device_name
 ,
-             const absl::optional<std::string>& device_name) {*out_device_name = std::move(device_name);
+             const std::optional<std::string>& device_name) {*out_device_name = std::move(device_name);
             loop->Quit();
           },
           &loop,
@@ -1479,9 +1506,9 @@ void PageHandlerAsyncWaiter::GetActiveInputDeviceName(
   loop.Run();
 }
 
-absl::optional<std::string> PageHandlerAsyncWaiter::GetActiveInputDeviceName(
+std::optional<std::string> PageHandlerAsyncWaiter::GetActiveInputDeviceName(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetActiveInputDeviceName(&async_wait_result);
   return async_wait_result;
 }

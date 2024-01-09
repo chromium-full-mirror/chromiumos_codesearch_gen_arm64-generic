@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -95,7 +96,7 @@ DecryptConfig::DecryptConfig(
     const std::string& key_id_in,
     const std::string& iv_in,
     std::vector<::media::SubsampleEntry> subsamples_in,
-    const absl::optional<::media::EncryptionPattern>& encryption_pattern_in)
+    const std::optional<::media::EncryptionPattern>& encryption_pattern_in)
     : encryption_scheme(std::move(encryption_scheme_in)),
       key_id(std::move(key_id_in)),
       iv(std::move(iv_in)),
@@ -147,7 +148,7 @@ void DecryptConfig::WriteIntoTrace(
     dict.AddItem(
       "encryption_pattern"), this->encryption_pattern,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::media::EncryptionPattern>&>"
+      "<value of type const std::optional<::media::EncryptionPattern>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -323,7 +324,7 @@ VideoDecoderConfig::VideoDecoderConfig(
     std::vector<uint8_t> extra_data_in,
     ::media::EncryptionScheme encryption_scheme_in,
     const ::gfx::ColorSpace& color_space_info_in,
-    const absl::optional<::gfx::HDRMetadata>& hdr_metadata_in)
+    const std::optional<::gfx::HDRMetadata>& hdr_metadata_in)
     : codec(std::move(codec_in)),
       profile(std::move(profile_in)),
       level(std::move(level_in)),
@@ -435,7 +436,7 @@ void VideoDecoderConfig::WriteIntoTrace(
     dict.AddItem(
       "hdr_metadata"), this->hdr_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::HDRMetadata>&>"
+      "<value of type const std::optional<::gfx::HDRMetadata>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -548,7 +549,7 @@ StatusData::StatusData(
     StatusCode code_in,
     const std::string& message_in,
     std::vector<::base::Value> frames_in,
-    const absl::optional<::media::internal::StatusData>& cause_in,
+    const std::optional<::media::internal::StatusData>& cause_in,
     ::base::Value data_in)
     : group(std::move(group_in)),
       code(std::move(code_in)),
@@ -602,7 +603,7 @@ void StatusData::WriteIntoTrace(
     dict.AddItem(
       "cause"), this->cause,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::media::internal::StatusData>&>"
+      "<value of type const std::optional<::media::internal::StatusData>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -627,7 +628,7 @@ Status::Status()
     : internal() {}
 
 Status::Status(
-    const absl::optional<::media::internal::StatusData>& internal_in)
+    const std::optional<::media::internal::StatusData>& internal_in)
     : internal(std::move(internal_in)) {}
 
 Status::~Status() = default;
@@ -639,7 +640,7 @@ void Status::WriteIntoTrace(
     dict.AddItem(
       "internal"), this->internal,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::media::internal::StatusData>&>"
+      "<value of type const std::optional<::media::internal::StatusData>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1048,7 +1049,7 @@ VideoFrame::VideoFrame(
     ::gfx::GpuMemoryBufferHandle gpu_memory_buffer_handle_in,
     const ::media::VideoFrameMetadata& metadata_in,
     const ::gfx::ColorSpace& color_space_in,
-    const absl::optional<::gfx::HDRMetadata>& hdr_metadata_in)
+    const std::optional<::gfx::HDRMetadata>& hdr_metadata_in)
     : format(std::move(format_in)),
       coded_size(std::move(coded_size_in)),
       visible_rect(std::move(visible_rect_in)),
@@ -1140,7 +1141,7 @@ void VideoFrame::WriteIntoTrace(
     dict.AddItem(
       "hdr_metadata"), this->hdr_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::HDRMetadata>&>"
+      "<value of type const std::optional<::gfx::HDRMetadata>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/reflect-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -305,7 +306,7 @@ TF_BUILTIN(ReflectGet, CodeStubAssembler) {
     ca_.Bind(&block3);
     tmp4 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x1ull));
     tmp5 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp4});
-    tmp6 = ca_.CallStub<Name>(Builtins::CallableFor(ca_.isolate(), Builtin::kToName), parameter0, tmp5);
+    tmp6 = ca_.CallBuiltin<Name>(Builtin::kToName, parameter0, tmp5);
     tmp7 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x2ull));
     tmp8 = CodeStubAssembler(state_).IntPtrGreaterThan(TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{tmp7});
     ca_.Branch(tmp8, &block5, std::vector<compiler::Node*>{}, &block6, std::vector<compiler::Node*>{});
@@ -331,7 +332,7 @@ TF_BUILTIN(ReflectGet, CodeStubAssembler) {
   if (block7.is_used()) {
     ca_.Bind(&block7, &phi_bb7_9);
     tmp11 = CodeStubAssembler(state_).SmiConstant(OnNonExistent::kReturnUndefined);
-    tmp12 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kGetPropertyWithReceiver), parameter0, tmp2, tmp6, phi_bb7_9, tmp11);
+    tmp12 = ca_.CallBuiltin<Object>(Builtin::kGetPropertyWithReceiver, parameter0, tmp2, tmp6, phi_bb7_9, tmp11);
     arguments.PopAndReturn(tmp12);
   }
 }
@@ -371,7 +372,7 @@ TF_BUILTIN(ReflectDeleteProperty, CodeStubAssembler) {
   if (block3.is_used()) {
     ca_.Bind(&block3);
     tmp2 = FromConstexpr_LanguageModeSmi_constexpr_LanguageMode_0(state_, LanguageMode::kSloppy);
-    tmp3 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kDeleteProperty), parameter0, tmp0, parameter2, tmp2);
+    tmp3 = ca_.CallBuiltin<Boolean>(Builtin::kDeleteProperty, parameter0, tmp0, parameter2, tmp2);
     CodeStubAssembler(state_).Return(tmp3);
   }
 }
@@ -409,7 +410,7 @@ TF_BUILTIN(ReflectHas, CodeStubAssembler) {
   TNode<Boolean> tmp2;
   if (block3.is_used()) {
     ca_.Bind(&block3);
-    tmp2 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kHasProperty), parameter0, tmp0, parameter2);
+    tmp2 = ca_.CallBuiltin<Boolean>(Builtin::kHasProperty, parameter0, tmp0, parameter2);
     CodeStubAssembler(state_).Return(tmp2);
   }
 }
@@ -449,8 +450,8 @@ TF_BUILTIN(ReflectGetOwnPropertyDescriptor, CodeStubAssembler) {
   TNode<Object> tmp4;
   if (block3.is_used()) {
     ca_.Bind(&block3);
-    tmp2 = ca_.CallStub<Name>(Builtins::CallableFor(ca_.isolate(), Builtin::kToName), parameter0, parameter2);
-    tmp3 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kGetOwnPropertyDescriptor), parameter0, tmp0, tmp2);
+    tmp2 = ca_.CallBuiltin<Name>(Builtin::kToName, parameter0, parameter2);
+    tmp3 = ca_.CallBuiltin<Object>(Builtin::kGetOwnPropertyDescriptor, parameter0, tmp0, tmp2);
     tmp4 = FromPropertyDescriptor_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp3});
     CodeStubAssembler(state_).Return(tmp4);
   }

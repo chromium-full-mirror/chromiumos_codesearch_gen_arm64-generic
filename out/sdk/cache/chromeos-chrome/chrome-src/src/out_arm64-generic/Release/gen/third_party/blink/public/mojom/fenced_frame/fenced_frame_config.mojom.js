@@ -133,6 +133,34 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var AutomaticBeaconType = {};
+  AutomaticBeaconType.kDeprecatedTopNavigation = 0;
+  AutomaticBeaconType.kTopNavigationStart = 1;
+  AutomaticBeaconType.kTopNavigationCommit = 2;
+  AutomaticBeaconType.MIN_VALUE = 0;
+  AutomaticBeaconType.MAX_VALUE = 2;
+
+  AutomaticBeaconType.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    }
+    return false;
+  };
+
+  AutomaticBeaconType.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  AutomaticBeaconType.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
 
   function AdAuctionData(values) {
     this.initDefaults_();
@@ -1721,6 +1749,7 @@
   exports.ReportingDestination = ReportingDestination;
   exports.DeprecatedFencedFrameMode = DeprecatedFencedFrameMode;
   exports.Opaque = Opaque;
+  exports.AutomaticBeaconType = AutomaticBeaconType;
   exports.AdAuctionData = AdAuctionData;
   exports.URNConfigPair = URNConfigPair;
   exports.SharedStorageBudgetMetadata = SharedStorageBudgetMetadata;

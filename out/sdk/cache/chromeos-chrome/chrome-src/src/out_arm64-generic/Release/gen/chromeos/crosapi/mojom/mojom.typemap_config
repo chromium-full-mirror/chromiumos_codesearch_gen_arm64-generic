@@ -13,6 +13,7 @@
       "chromeos/crosapi/mojom/web_app_types_mojom_traits.h",
       "components/services/app_service/public/cpp/app_launch_util.h",
       "components/services/app_service/public/cpp/app_types.h",
+      "components/services/app_service/public/cpp/shortcut/shortcut.h",
       "components/services/app_service/public/cpp/capability_access.h",
       "components/services/app_service/public/cpp/icon_types.h",
       "components/services/app_service/public/cpp/preferred_app.h"
@@ -22,6 +23,7 @@
       "//chromeos/components/certificate_provider:certificate_provider",
       "//components/policy/core/common:policy_namespace",
       "//components/services/app_service/public/cpp:app_types",
+      "//components/services/app_service/public/cpp/shortcut",
       "//components/tab_groups",
       "//components/webapps/browser:constants",
       "//ui/base:ui_data_pack",
@@ -153,6 +155,12 @@
       {
         "cpp": "::ui::ResourceScaleFactor",
         "mojom": "crosapi.mojom.ResourceScaleFactor"
+      },
+      {
+        "cpp": "::apps::ShortcutPtr",
+        "mojom": "crosapi.mojom.AppShortcut",
+        "move_only": true,
+        "nullable_is_same_type": true
       }
     ]
   }

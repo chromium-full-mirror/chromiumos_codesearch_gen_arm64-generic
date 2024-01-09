@@ -286,23 +286,72 @@ class BluetoothProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool GetRemoteAddressType(
+      const brillo::VariantDictionary& in_device,
+      uint32_t* out_address_type,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetRemoteAddressTypeAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(uint32_t /*address_type*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool GetRemoteAlias(
+      const brillo::VariantDictionary& in_device,
+      std::string* out_alias,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetRemoteAliasAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(const std::string& /*alias*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool SetRemoteAlias(
+      const brillo::VariantDictionary& in_device,
+      const std::string& in_alias,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void SetRemoteAliasAsync(
+      const brillo::VariantDictionary& in_device,
+      const std::string& in_alias,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool GetConnectionState(
+      const brillo::VariantDictionary& in_device,
+      uint32_t* out_state,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetConnectionStateAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(uint32_t /*state*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool StartDiscovery(
-      bool* out_discovering,
+      bool* out_is_success,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void StartDiscoveryAsync(
-      base::OnceCallback<void(bool /*discovering*/)> success_callback,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool CancelDiscovery(
-      bool* out_discovering,
+      bool* out_is_success,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void CancelDiscoveryAsync(
-      base::OnceCallback<void(bool /*discovering*/)> success_callback,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -313,6 +362,56 @@ class BluetoothProxyInterface {
 
   virtual void GetConnectedDevicesAsync(
       base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*devices*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool GetBondedDevices(
+      std::vector<brillo::VariantDictionary>* out_devices,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetBondedDevicesAsync(
+      base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*devices*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool CreateBond(
+      const brillo::VariantDictionary& in_device,
+      uint32_t in_transport,
+      bool* out_is_success,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void CreateBondAsync(
+      const brillo::VariantDictionary& in_device,
+      uint32_t in_transport,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool RemoveBond(
+      const brillo::VariantDictionary& in_device,
+      bool* out_is_success,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void RemoveBondAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool SetPairingConfirmation(
+      const brillo::VariantDictionary& in_device,
+      bool in_accept,
+      bool* out_is_success,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void SetPairingConfirmationAsync(
+      const brillo::VariantDictionary& in_device,
+      bool in_accept,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -717,8 +816,135 @@ class BluetoothProxy final : public BluetoothProxyInterface {
         in_device);
   }
 
+  bool GetRemoteAddressType(
+      const brillo::VariantDictionary& in_device,
+      uint32_t* out_address_type,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetRemoteAddressType",
+        error,
+        in_device);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_address_type);
+  }
+
+  void GetRemoteAddressTypeAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(uint32_t /*address_type*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetRemoteAddressType",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_device);
+  }
+
+  bool GetRemoteAlias(
+      const brillo::VariantDictionary& in_device,
+      std::string* out_alias,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetRemoteAlias",
+        error,
+        in_device);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_alias);
+  }
+
+  void GetRemoteAliasAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(const std::string& /*alias*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetRemoteAlias",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_device);
+  }
+
+  bool SetRemoteAlias(
+      const brillo::VariantDictionary& in_device,
+      const std::string& in_alias,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "SetRemoteAlias",
+        error,
+        in_device,
+        in_alias);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void SetRemoteAliasAsync(
+      const brillo::VariantDictionary& in_device,
+      const std::string& in_alias,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "SetRemoteAlias",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_device,
+        in_alias);
+  }
+
+  bool GetConnectionState(
+      const brillo::VariantDictionary& in_device,
+      uint32_t* out_state,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetConnectionState",
+        error,
+        in_device);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_state);
+  }
+
+  void GetConnectionStateAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(uint32_t /*state*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetConnectionState",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_device);
+  }
+
   bool StartDiscovery(
-      bool* out_discovering,
+      bool* out_is_success,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -728,11 +954,11 @@ class BluetoothProxy final : public BluetoothProxyInterface {
         "StartDiscovery",
         error);
     return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_discovering);
+        response.get(), error, out_is_success);
   }
 
   void StartDiscoveryAsync(
-      base::OnceCallback<void(bool /*discovering*/)> success_callback,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(
@@ -745,7 +971,7 @@ class BluetoothProxy final : public BluetoothProxyInterface {
   }
 
   bool CancelDiscovery(
-      bool* out_discovering,
+      bool* out_is_success,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -755,11 +981,11 @@ class BluetoothProxy final : public BluetoothProxyInterface {
         "CancelDiscovery",
         error);
     return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_discovering);
+        response.get(), error, out_is_success);
   }
 
   void CancelDiscoveryAsync(
-      base::OnceCallback<void(bool /*discovering*/)> success_callback,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(
@@ -796,6 +1022,134 @@ class BluetoothProxy final : public BluetoothProxyInterface {
         "GetConnectedDevices",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  bool GetBondedDevices(
+      std::vector<brillo::VariantDictionary>* out_devices,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetBondedDevices",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_devices);
+  }
+
+  void GetBondedDevicesAsync(
+      base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*devices*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetBondedDevices",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  bool CreateBond(
+      const brillo::VariantDictionary& in_device,
+      uint32_t in_transport,
+      bool* out_is_success,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "CreateBond",
+        error,
+        in_device,
+        in_transport);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_is_success);
+  }
+
+  void CreateBondAsync(
+      const brillo::VariantDictionary& in_device,
+      uint32_t in_transport,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "CreateBond",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_device,
+        in_transport);
+  }
+
+  bool RemoveBond(
+      const brillo::VariantDictionary& in_device,
+      bool* out_is_success,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "RemoveBond",
+        error,
+        in_device);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_is_success);
+  }
+
+  void RemoveBondAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "RemoveBond",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_device);
+  }
+
+  bool SetPairingConfirmation(
+      const brillo::VariantDictionary& in_device,
+      bool in_accept,
+      bool* out_is_success,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "SetPairingConfirmation",
+        error,
+        in_device,
+        in_accept);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_is_success);
+  }
+
+  void SetPairingConfirmationAsync(
+      const brillo::VariantDictionary& in_device,
+      bool in_accept,
+      base::OnceCallback<void(bool /*is_success*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "SetPairingConfirmation",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_device,
+        in_accept);
   }
 
   bool RegisterCallback(

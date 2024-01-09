@@ -18,12 +18,12 @@ constexpr uint32_t kFederatedAuthRequest_RequestToken_Name = 0;
 constexpr uint32_t kFederatedAuthRequest_RequestUserInfo_Name = 1;
 constexpr uint32_t kFederatedAuthRequest_CancelTokenRequest_Name = 2;
 constexpr uint32_t kFederatedAuthRequest_ResolveTokenRequest_Name = 3;
-constexpr uint32_t kFederatedAuthRequest_LogoutRps_Name = 4;
-constexpr uint32_t kFederatedAuthRequest_SetIdpSigninStatus_Name = 5;
-constexpr uint32_t kFederatedAuthRequest_RegisterIdP_Name = 6;
-constexpr uint32_t kFederatedAuthRequest_UnregisterIdP_Name = 7;
-constexpr uint32_t kFederatedAuthRequest_CloseModalDialogView_Name = 8;
-constexpr uint32_t kFederatedAuthRequest_PreventSilentAccess_Name = 9;
+constexpr uint32_t kFederatedAuthRequest_SetIdpSigninStatus_Name = 4;
+constexpr uint32_t kFederatedAuthRequest_RegisterIdP_Name = 5;
+constexpr uint32_t kFederatedAuthRequest_UnregisterIdP_Name = 6;
+constexpr uint32_t kFederatedAuthRequest_CloseModalDialogView_Name = 7;
+constexpr uint32_t kFederatedAuthRequest_PreventSilentAccess_Name = 8;
+constexpr uint32_t kFederatedAuthRequest_Disconnect_Name = 9;
 
 }  // namespace internal
 

@@ -29,7 +29,7 @@ class PageProcessDataView;
 
 enum class MemoryPressureLevel : int32_t;
 class MemoryPressure;
-using MemoryPressurePtr = mojo::InlinedStructPtr<MemoryPressure>;
+using MemoryPressurePtr = mojo::StructPtr<MemoryPressure>;
 
 class PageProcess;
 using PageProcessPtr = mojo::InlinedStructPtr<PageProcess>;

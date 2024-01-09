@@ -438,6 +438,11 @@ mediaSession.mojom.MediaControllerInterface = class {
    */
 
   enterAutoPictureInPicture() {}
+  
+  /**
+   */
+
+  skipAd() {}
 };
 
 /**
@@ -766,6 +771,19 @@ mediaSession.mojom.MediaControllerRemote = class {
         [
         ]);
   }
+
+  
+  /**
+   */
+
+  skipAd() {
+    this.proxy.sendMessage(
+        21,
+        mediaSession.mojom.MediaController_SkipAd_ParamsSpec.$,
+        null,
+        [
+        ]);
+  }
 };
 
 /**
@@ -895,6 +913,11 @@ mediaSession.mojom.MediaControllerReceiver = class {
         mediaSession.mojom.MediaController_EnterAutoPictureInPicture_ParamsSpec.$,
         null,
         impl.enterAutoPictureInPicture.bind(impl));
+    this.helper_internal_.registerHandler(
+        21,
+        mediaSession.mojom.MediaController_SkipAd_ParamsSpec.$,
+        null,
+        impl.skipAd.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1199,6 +1222,18 @@ mediaSession.mojom.MediaControllerCallbackRouter = class {
         mediaSession.mojom.MediaController_EnterAutoPictureInPicture_ParamsSpec.$,
         null,
         this.enterAutoPictureInPicture.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.skipAd =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        21,
+        mediaSession.mojom.MediaController_SkipAd_ParamsSpec.$,
+        null,
+        this.skipAd.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1940,6 +1975,14 @@ goog.provide('mediaSession.mojom.MediaController_EnterAutoPictureInPicture_Param
 mediaSession.mojom.MediaController_EnterAutoPictureInPicture_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('mediaSession.mojom.MediaController_SkipAd_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+mediaSession.mojom.MediaController_SkipAd_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('mediaSession.mojom.MediaControllerObserver_MediaSessionInfoChanged_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -2571,6 +2614,25 @@ goog.provide('mediaSession.mojom.MediaController_EnterAutoPictureInPicture_Param
 
 /** @record */
 mediaSession.mojom.MediaController_EnterAutoPictureInPicture_Params = class {
+  constructor() {
+  }
+};
+
+
+
+mojo.internal.Struct(
+    mediaSession.mojom.MediaController_SkipAd_ParamsSpec.$,
+    'MediaController_SkipAd_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+goog.provide('mediaSession.mojom.MediaController_SkipAd_Params');
+
+/** @record */
+mediaSession.mojom.MediaController_SkipAd_Params = class {
   constructor() {
   }
 };

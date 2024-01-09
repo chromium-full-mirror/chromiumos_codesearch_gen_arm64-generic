@@ -1,0 +1,18 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/media-libs/cros-camera-basic-ops-perf-tests-0.0.1-r2/work/cros-camera-basic-ops-perf-tests-0.0.1 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -Wno-cast-qual -Wno-cast-align
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -O2 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libtest_mojom
+
+build obj/gen/include/camera/common/basic_ops_perf_tests/mojom/libtest_mojom.mojo_perf_test.mojom-shared.o: cxx gen/include/camera/common/basic_ops_perf_tests/mojom/mojo_perf_test.mojom-shared.cc || obj/camera/common/basic_ops_perf_tests/test_mojom_gen.stamp
+  source_file_part = mojo_perf_test.mojom-shared.cc
+  source_name_part = mojo_perf_test.mojom-shared
+build obj/gen/include/camera/common/basic_ops_perf_tests/mojom/libtest_mojom.mojo_perf_test.mojom.o: cxx gen/include/camera/common/basic_ops_perf_tests/mojom/mojo_perf_test.mojom.cc || obj/camera/common/basic_ops_perf_tests/test_mojom_gen.stamp
+  source_file_part = mojo_perf_test.mojom.cc
+  source_name_part = mojo_perf_test.mojom
+
+build ./libtest_mojom.a: alink obj/gen/include/camera/common/basic_ops_perf_tests/mojom/libtest_mojom.mojo_perf_test.mojom-shared.o obj/gen/include/camera/common/basic_ops_perf_tests/mojom/libtest_mojom.mojo_perf_test.mojom.o || obj/camera/common/basic_ops_perf_tests/test_mojom_gen.stamp
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

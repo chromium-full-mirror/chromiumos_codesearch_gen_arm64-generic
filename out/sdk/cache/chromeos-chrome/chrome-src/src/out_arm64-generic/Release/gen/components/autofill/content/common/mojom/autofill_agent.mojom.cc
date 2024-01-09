@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -535,14 +536,17 @@ void AutofillAgentProxy::TriggerFormExtraction(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::AutofillAgent::TriggerFormExtraction");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_TriggerFormExtraction_Name, kFlags, 0, 0, nullptr);
@@ -565,14 +569,17 @@ void AutofillAgentProxy::TriggerFormExtractionWithResponse(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::AutofillAgent::TriggerFormExtractionWithResponse");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_TriggerFormExtractionWithResponse_Name, kFlags, 0, 0, nullptr);
@@ -592,7 +599,7 @@ void AutofillAgentProxy::TriggerFormExtractionWithResponse(
 }
 
 void AutofillAgentProxy::ApplyFormAction(
-    ::autofill::mojom::ActionType in_action_type, ::autofill::mojom::ActionPersistence in_action_persistence, const ::autofill::FormData& in_form) {
+    ::autofill::mojom::ActionType in_action_type, ::autofill::mojom::ActionPersistence in_action_persistence, ::autofill::FormRendererId in_form_renderer_id, const std::vector<::autofill::FormFieldData>& in_fields) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send autofill::mojom::AutofillAgent::ApplyFormAction", "input_parameters",
@@ -605,18 +612,24 @@ void AutofillAgentProxy::ApplyFormAction(
            dict.AddItem("action_persistence"), in_action_persistence,
                         "<value of type ::autofill::mojom::ActionPersistence>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("form"), in_form,
-                        "<value of type const ::autofill::FormData&>");
+           dict.AddItem("form_renderer_id"), in_form_renderer_id,
+                        "<value of type ::autofill::FormRendererId>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("fields"), in_fields,
+                        "<value of type const std::vector<::autofill::FormFieldData>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_ApplyFormAction_Name, kFlags, 0, 0, nullptr);
@@ -629,16 +642,29 @@ void AutofillAgentProxy::ApplyFormAction(
   mojo::internal::Serialize<::autofill::mojom::ActionPersistence>(
       in_action_persistence, &params->action_persistence);
   mojo::internal::MessageFragment<
-      typename decltype(params->form)::BaseType> form_fragment(
+      typename decltype(params->form_renderer_id)::BaseType> form_renderer_id_fragment(
           params.message());
-  mojo::internal::Serialize<::autofill::mojom::FormDataDataView>(
-      in_form, form_fragment);
-  params->form.Set(
-      form_fragment.is_null() ? nullptr : form_fragment.data());
+  mojo::internal::Serialize<::autofill::mojom::FormRendererIdDataView>(
+      in_form_renderer_id, form_renderer_id_fragment);
+  params->form_renderer_id.Set(
+      form_renderer_id_fragment.is_null() ? nullptr : form_renderer_id_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->form.is_null(),
+      params->form_renderer_id.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null form in AutofillAgent.ApplyFormAction request");
+      "null form_renderer_id in AutofillAgent.ApplyFormAction request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->fields)::BaseType>
+      fields_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& fields_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>>(
+      in_fields, fields_fragment, &fields_validate_params);
+  params->fields.Set(
+      fields_fragment.is_null() ? nullptr : fields_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->fields.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null fields in AutofillAgent.ApplyFormAction request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AutofillAgent::Name_);
@@ -650,7 +676,7 @@ void AutofillAgentProxy::ApplyFormAction(
 }
 
 void AutofillAgentProxy::ApplyFieldAction(
-    ::autofill::mojom::ActionPersistence in_action_persistence, ::autofill::FieldRendererId in_field, const ::std::u16string& in_value) {
+    ::autofill::mojom::ActionPersistence in_action_persistence, ::autofill::mojom::TextReplacement in_text_replacement, ::autofill::FieldRendererId in_field, const ::std::u16string& in_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send autofill::mojom::AutofillAgent::ApplyFieldAction", "input_parameters",
@@ -660,6 +686,9 @@ void AutofillAgentProxy::ApplyFieldAction(
            dict.AddItem("action_persistence"), in_action_persistence,
                         "<value of type ::autofill::mojom::ActionPersistence>");
       perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("text_replacement"), in_text_replacement,
+                        "<value of type ::autofill::mojom::TextReplacement>");
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("field"), in_field,
                         "<value of type ::autofill::FieldRendererId>");
       perfetto::WriteIntoTracedValueWithFallback(
@@ -667,14 +696,17 @@ void AutofillAgentProxy::ApplyFieldAction(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_ApplyFieldAction_Name, kFlags, 0, 0, nullptr);
@@ -684,6 +716,8 @@ void AutofillAgentProxy::ApplyFieldAction(
   params.Allocate();
   mojo::internal::Serialize<::autofill::mojom::ActionPersistence>(
       in_action_persistence, &params->action_persistence);
+  mojo::internal::Serialize<::autofill::mojom::TextReplacement>(
+      in_text_replacement, &params->text_replacement);
   mojo::internal::MessageFragment<
       typename decltype(params->field)::BaseType> field_fragment(
           params.message());
@@ -728,14 +762,17 @@ void AutofillAgentProxy::ExtractForm(
                         "<value of type ::autofill::FormRendererId>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_ExtractForm_Name, kFlags, 0, 0, nullptr);
@@ -777,14 +814,17 @@ void AutofillAgentProxy::FieldTypePredictionsAvailable(
                         "<value of type const std::vector<::autofill::FormDataPredictions>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_FieldTypePredictionsAvailable_Name, kFlags, 0, 0, nullptr);
@@ -820,14 +860,17 @@ void AutofillAgentProxy::ClearSection(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::AutofillAgent::ClearSection");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_ClearSection_Name, kFlags, 0, 0, nullptr);
@@ -850,14 +893,17 @@ void AutofillAgentProxy::ClearPreviewedForm(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::AutofillAgent::ClearPreviewedForm");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_ClearPreviewedForm_Name, kFlags, 0, 0, nullptr);
@@ -890,14 +936,17 @@ void AutofillAgentProxy::TriggerSuggestions(
                         "<value of type ::autofill::mojom::AutofillSuggestionTriggerSource>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_TriggerSuggestions_Name, kFlags, 0, 0, nullptr);
@@ -929,7 +978,7 @@ void AutofillAgentProxy::TriggerSuggestions(
 }
 
 void AutofillAgentProxy::SetSuggestionAvailability(
-    ::autofill::FieldRendererId in_field, ::autofill::mojom::AutofillState in_type) {
+    ::autofill::FieldRendererId in_field, ::autofill::mojom::AutofillSuggestionAvailability in_suggestion_availability) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send autofill::mojom::AutofillAgent::SetSuggestionAvailability", "input_parameters",
@@ -939,18 +988,21 @@ void AutofillAgentProxy::SetSuggestionAvailability(
            dict.AddItem("field"), in_field,
                         "<value of type ::autofill::FieldRendererId>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("type"), in_type,
-                        "<value of type ::autofill::mojom::AutofillState>");
+           dict.AddItem("suggestion_availability"), in_suggestion_availability,
+                        "<value of type ::autofill::mojom::AutofillSuggestionAvailability>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_SetSuggestionAvailability_Name, kFlags, 0, 0, nullptr);
@@ -969,8 +1021,8 @@ void AutofillAgentProxy::SetSuggestionAvailability(
       params->field.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null field in AutofillAgent.SetSuggestionAvailability request");
-  mojo::internal::Serialize<::autofill::mojom::AutofillState>(
-      in_type, &params->type);
+  mojo::internal::Serialize<::autofill::mojom::AutofillSuggestionAvailability>(
+      in_suggestion_availability, &params->suggestion_availability);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AutofillAgent::Name_);
@@ -996,14 +1048,17 @@ void AutofillAgentProxy::AcceptDataListSuggestion(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_AcceptDataListSuggestion_Name, kFlags, 0, 0, nullptr);
@@ -1058,14 +1113,17 @@ void AutofillAgentProxy::PreviewPasswordSuggestion(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_PreviewPasswordSuggestion_Name, kFlags, 0, 0, nullptr);
@@ -1117,14 +1175,17 @@ void AutofillAgentProxy::PreviewPasswordGenerationSuggestion(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_PreviewPasswordGenerationSuggestion_Name, kFlags, 0, 0, nullptr);
@@ -1165,14 +1226,17 @@ void AutofillAgentProxy::SetUserGestureRequired(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_SetUserGestureRequired_Name, kFlags, 0, 0, nullptr);
@@ -1203,14 +1267,17 @@ void AutofillAgentProxy::SetSecureContextRequired(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_SetSecureContextRequired_Name, kFlags, 0, 0, nullptr);
@@ -1241,14 +1308,17 @@ void AutofillAgentProxy::SetFocusRequiresScroll(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_SetFocusRequiresScroll_Name, kFlags, 0, 0, nullptr);
@@ -1279,14 +1349,17 @@ void AutofillAgentProxy::SetQueryPasswordSuggestion(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_SetQueryPasswordSuggestion_Name, kFlags, 0, 0, nullptr);
@@ -1310,14 +1383,17 @@ void AutofillAgentProxy::EnableHeavyFormDataScraping(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::AutofillAgent::EnableHeavyFormDataScraping");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_EnableHeavyFormDataScraping_Name, kFlags, 0, 0, nullptr);
@@ -1347,14 +1423,17 @@ void AutofillAgentProxy::SetFieldsEligibleForManualFilling(
                         "<value of type const std::vector<::autofill::FieldRendererId>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_SetFieldsEligibleForManualFilling_Name, kFlags, 0, 0, nullptr);
@@ -1390,14 +1469,17 @@ void AutofillAgentProxy::GetPotentialLastFourCombinationsForStandaloneCvc(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::AutofillAgent::GetPotentialLastFourCombinationsForStandaloneCvc");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Name, kFlags, 0, 0, nullptr);
@@ -1507,7 +1589,8 @@ void AutofillAgent_TriggerFormExtractionWithResponse_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_TriggerFormExtractionWithResponse_Name, kFlags, 0, 0, nullptr);
@@ -1579,7 +1662,7 @@ class AutofillAgent_ExtractForm_ProxyToResponder : public ::mojo::internal::Prox
 #endif
 
   void Run(
-      const absl::optional<::autofill::FormData>& in_form);
+      const std::optional<::autofill::FormData>& in_form);
 };
 
 bool AutofillAgent_ExtractForm_ForwardToCallback::Accept(
@@ -1592,7 +1675,7 @@ bool AutofillAgent_ExtractForm_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::autofill::FormData> p_form{};
+  std::optional<::autofill::FormData> p_form{};
   AutofillAgent_ExtractForm_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadForm(&p_form))
@@ -1611,7 +1694,7 @@ std::move(p_form));
 }
 
 void AutofillAgent_ExtractForm_ProxyToResponder::Run(
-    const absl::optional<::autofill::FormData>& in_form) {
+    const std::optional<::autofill::FormData>& in_form) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply autofill::mojom::AutofillAgent::ExtractForm", "async_response_parameters",
@@ -1619,13 +1702,14 @@ void AutofillAgent_ExtractForm_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("form"), in_form,
-                        "<value of type const absl::optional<::autofill::FormData>&>");
+                        "<value of type const std::optional<::autofill::FormData>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_ExtractForm_Name, kFlags, 0, 0, nullptr);
@@ -1749,7 +1833,8 @@ void AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ProxyToRespo
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Name, kFlags, 0, 0, nullptr);
@@ -1828,14 +1913,17 @@ bool AutofillAgentStubDispatch::Accept(
       bool success = true;
       ::autofill::mojom::ActionType p_action_type{};
       ::autofill::mojom::ActionPersistence p_action_persistence{};
-      ::autofill::FormData p_form{};
+      ::autofill::FormRendererId p_form_renderer_id{};
+      std::vector<::autofill::FormFieldData> p_fields{};
       AutofillAgent_ApplyFormAction_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadActionType(&p_action_type))
         success = false;
       if (success && !input_data_view.ReadActionPersistence(&p_action_persistence))
         success = false;
-      if (success && !input_data_view.ReadForm(&p_form))
+      if (success && !input_data_view.ReadFormRendererId(&p_form_renderer_id))
+        success = false;
+      if (success && !input_data_view.ReadFields(&p_fields))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1849,7 +1937,8 @@ bool AutofillAgentStubDispatch::Accept(
       impl->ApplyFormAction(
 std::move(p_action_type), 
 std::move(p_action_persistence), 
-std::move(p_form));
+std::move(p_form_renderer_id), 
+std::move(p_fields));
       return true;
     }
     case internal::kAutofillAgent_ApplyFieldAction_Name: {
@@ -1861,11 +1950,14 @@ std::move(p_form));
       
       bool success = true;
       ::autofill::mojom::ActionPersistence p_action_persistence{};
+      ::autofill::mojom::TextReplacement p_text_replacement{};
       ::autofill::FieldRendererId p_field{};
       ::std::u16string p_value{};
       AutofillAgent_ApplyFieldAction_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadActionPersistence(&p_action_persistence))
+        success = false;
+      if (success && !input_data_view.ReadTextReplacement(&p_text_replacement))
         success = false;
       if (success && !input_data_view.ReadField(&p_field))
         success = false;
@@ -1882,6 +1974,7 @@ std::move(p_form));
       DCHECK(impl);
       impl->ApplyFieldAction(
 std::move(p_action_persistence), 
+std::move(p_text_replacement), 
 std::move(p_field), 
 std::move(p_value));
       return true;
@@ -1998,12 +2091,12 @@ std::move(p_trigger_source));
       
       bool success = true;
       ::autofill::FieldRendererId p_field{};
-      ::autofill::mojom::AutofillState p_type{};
+      ::autofill::mojom::AutofillSuggestionAvailability p_suggestion_availability{};
       AutofillAgent_SetSuggestionAvailability_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadField(&p_field))
         success = false;
-      if (success && !input_data_view.ReadType(&p_type))
+      if (success && !input_data_view.ReadSuggestionAvailability(&p_suggestion_availability))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -2016,7 +2109,7 @@ std::move(p_trigger_source));
       DCHECK(impl);
       impl->SetSuggestionAvailability(
 std::move(p_field), 
-std::move(p_type));
+std::move(p_suggestion_availability));
       return true;
     }
     case internal::kAutofillAgent_AcceptDataListSuggestion_Name: {
@@ -2406,48 +2499,48 @@ std::move(p_form), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAutofillAgentValidationInfo[] = {
-    {&internal::AutofillAgent_TriggerFormExtraction_Params_Data::Validate,
+    { &internal::AutofillAgent_TriggerFormExtraction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_TriggerFormExtractionWithResponse_Params_Data::Validate,
+    { &internal::AutofillAgent_TriggerFormExtractionWithResponse_Params_Data::Validate,
      &internal::AutofillAgent_TriggerFormExtractionWithResponse_ResponseParams_Data::Validate},
-    {&internal::AutofillAgent_ApplyFormAction_Params_Data::Validate,
+    { &internal::AutofillAgent_ApplyFormAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_ApplyFieldAction_Params_Data::Validate,
+    { &internal::AutofillAgent_ApplyFieldAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_ExtractForm_Params_Data::Validate,
+    { &internal::AutofillAgent_ExtractForm_Params_Data::Validate,
      &internal::AutofillAgent_ExtractForm_ResponseParams_Data::Validate},
-    {&internal::AutofillAgent_FieldTypePredictionsAvailable_Params_Data::Validate,
+    { &internal::AutofillAgent_FieldTypePredictionsAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_ClearSection_Params_Data::Validate,
+    { &internal::AutofillAgent_ClearSection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_ClearPreviewedForm_Params_Data::Validate,
+    { &internal::AutofillAgent_ClearPreviewedForm_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_TriggerSuggestions_Params_Data::Validate,
+    { &internal::AutofillAgent_TriggerSuggestions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_SetSuggestionAvailability_Params_Data::Validate,
+    { &internal::AutofillAgent_SetSuggestionAvailability_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_AcceptDataListSuggestion_Params_Data::Validate,
+    { &internal::AutofillAgent_AcceptDataListSuggestion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_PreviewPasswordSuggestion_Params_Data::Validate,
+    { &internal::AutofillAgent_PreviewPasswordSuggestion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_PreviewPasswordGenerationSuggestion_Params_Data::Validate,
+    { &internal::AutofillAgent_PreviewPasswordGenerationSuggestion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_SetUserGestureRequired_Params_Data::Validate,
+    { &internal::AutofillAgent_SetUserGestureRequired_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_SetSecureContextRequired_Params_Data::Validate,
+    { &internal::AutofillAgent_SetSecureContextRequired_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_SetFocusRequiresScroll_Params_Data::Validate,
+    { &internal::AutofillAgent_SetFocusRequiresScroll_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data::Validate,
+    { &internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_EnableHeavyFormDataScraping_Params_Data::Validate,
+    { &internal::AutofillAgent_EnableHeavyFormDataScraping_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data::Validate,
+    { &internal::AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Params_Data::Validate,
+    { &internal::AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Params_Data::Validate,
      &internal::AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ResponseParams_Data::Validate},
 };
 
@@ -2631,14 +2724,17 @@ void PasswordAutofillAgentProxy::SetPasswordFillData(
                         "<value of type const ::autofill::PasswordFormFillData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordAutofillAgent_SetPasswordFillData_Name, kFlags, 0, 0, nullptr);
@@ -2682,14 +2778,17 @@ void PasswordAutofillAgentProxy::FillPasswordSuggestion(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordAutofillAgent_FillPasswordSuggestion_Name, kFlags, 0, 0, nullptr);
@@ -2741,14 +2840,17 @@ void PasswordAutofillAgentProxy::InformNoSavedCredentials(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordAutofillAgent_InformNoSavedCredentials_Name, kFlags, 0, 0, nullptr);
@@ -2782,14 +2884,17 @@ void PasswordAutofillAgentProxy::FillIntoFocusedField(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordAutofillAgent_FillIntoFocusedField_Name, kFlags, 0, 0, nullptr);
@@ -2831,14 +2936,17 @@ void PasswordAutofillAgentProxy::SetLoggingState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordAutofillAgent_SetLoggingState_Name, kFlags, 0, 0, nullptr);
@@ -2869,14 +2977,17 @@ void PasswordAutofillAgentProxy::AnnotateFieldsWithParsingResult(
                         "<value of type const ::autofill::ParsingResult&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordAutofillAgent_AnnotateFieldsWithParsingResult_Name, kFlags, 0, 0, nullptr);
@@ -3108,20 +3219,20 @@ bool PasswordAutofillAgentStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPasswordAutofillAgentValidationInfo[] = {
-    {&internal::PasswordAutofillAgent_SetPasswordFillData_Params_Data::Validate,
+    { &internal::PasswordAutofillAgent_SetPasswordFillData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordAutofillAgent_FillPasswordSuggestion_Params_Data::Validate,
+    { &internal::PasswordAutofillAgent_FillPasswordSuggestion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordAutofillAgent_InformNoSavedCredentials_Params_Data::Validate,
+    { &internal::PasswordAutofillAgent_InformNoSavedCredentials_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordAutofillAgent_FillIntoFocusedField_Params_Data::Validate,
+    { &internal::PasswordAutofillAgent_FillIntoFocusedField_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordAutofillAgent_SetLoggingState_Params_Data::Validate,
+    { &internal::PasswordAutofillAgent_SetLoggingState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordAutofillAgent_AnnotateFieldsWithParsingResult_Params_Data::Validate,
+    { &internal::PasswordAutofillAgent_AnnotateFieldsWithParsingResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3144,6 +3255,9 @@ PasswordGenerationAgent::IPCStableHashFunction PasswordGenerationAgent::MessageT
     case internal::kPasswordGenerationAgent_FoundFormEligibleForGeneration_Name: {
       return &PasswordGenerationAgent::FoundFormEligibleForGeneration_Sym::IPCStableHash;
     }
+    case internal::kPasswordGenerationAgent_FocusNextFieldAfterPasswords_Name: {
+      return &PasswordGenerationAgent::FocusNextFieldAfterPasswords_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -3161,6 +3275,8 @@ const char* PasswordGenerationAgent::MessageToMethodName_(mojo::Message& message
             return "Receive autofill::mojom::PasswordGenerationAgent::TriggeredGeneratePassword";
       case internal::kPasswordGenerationAgent_FoundFormEligibleForGeneration_Name:
             return "Receive autofill::mojom::PasswordGenerationAgent::FoundFormEligibleForGeneration";
+      case internal::kPasswordGenerationAgent_FocusNextFieldAfterPasswords_Name:
+            return "Receive autofill::mojom::PasswordGenerationAgent::FocusNextFieldAfterPasswords";
     }
   } else {
     switch (message.name()) {
@@ -3170,6 +3286,8 @@ const char* PasswordGenerationAgent::MessageToMethodName_(mojo::Message& message
             return "Receive reply autofill::mojom::PasswordGenerationAgent::TriggeredGeneratePassword";
       case internal::kPasswordGenerationAgent_FoundFormEligibleForGeneration_Name:
             return "Receive reply autofill::mojom::PasswordGenerationAgent::FoundFormEligibleForGeneration";
+      case internal::kPasswordGenerationAgent_FocusNextFieldAfterPasswords_Name:
+            return "Receive reply autofill::mojom::PasswordGenerationAgent::FocusNextFieldAfterPasswords";
     }
   }
   return "Receive unknown mojo message";
@@ -3223,6 +3341,19 @@ uint32_t PasswordGenerationAgent::FoundFormEligibleForGeneration_Sym::IPCStableH
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PasswordGenerationAgent::FocusNextFieldAfterPasswords_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)autofill::mojom::PasswordGenerationAgent::FocusNextFieldAfterPasswords");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class PasswordGenerationAgent_TriggeredGeneratePassword_ForwardToCallback
@@ -3257,14 +3388,17 @@ void PasswordGenerationAgentProxy::GeneratedPasswordAccepted(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationAgent_GeneratedPasswordAccepted_Name, kFlags, 0, 0, nullptr);
@@ -3298,14 +3432,17 @@ void PasswordGenerationAgentProxy::TriggeredGeneratePassword(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send autofill::mojom::PasswordGenerationAgent::TriggeredGeneratePassword");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationAgent_TriggeredGeneratePassword_Name, kFlags, 0, 0, nullptr);
@@ -3336,14 +3473,17 @@ void PasswordGenerationAgentProxy::FoundFormEligibleForGeneration(
                         "<value of type const ::autofill::PasswordFormGenerationData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationAgent_FoundFormEligibleForGeneration_Name, kFlags, 0, 0, nullptr);
@@ -3366,6 +3506,39 @@ void PasswordGenerationAgentProxy::FoundFormEligibleForGeneration(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PasswordGenerationAgent::Name_);
   message.set_method_name("FoundFormEligibleForGeneration");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PasswordGenerationAgentProxy::FocusNextFieldAfterPasswords(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send autofill::mojom::PasswordGenerationAgent::FocusNextFieldAfterPasswords");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPasswordGenerationAgent_FocusNextFieldAfterPasswords_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::autofill::mojom::internal::PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PasswordGenerationAgent::Name_);
+  message.set_method_name("FocusNextFieldAfterPasswords");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -3417,7 +3590,7 @@ class PasswordGenerationAgent_TriggeredGeneratePassword_ProxyToResponder : publi
 #endif
 
   void Run(
-      const absl::optional<::autofill::password_generation::PasswordGenerationUIData>& in_data);
+      const std::optional<::autofill::password_generation::PasswordGenerationUIData>& in_data);
 };
 
 bool PasswordGenerationAgent_TriggeredGeneratePassword_ForwardToCallback::Accept(
@@ -3430,7 +3603,7 @@ bool PasswordGenerationAgent_TriggeredGeneratePassword_ForwardToCallback::Accept
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::autofill::password_generation::PasswordGenerationUIData> p_data{};
+  std::optional<::autofill::password_generation::PasswordGenerationUIData> p_data{};
   PasswordGenerationAgent_TriggeredGeneratePassword_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadData(&p_data))
@@ -3449,7 +3622,7 @@ std::move(p_data));
 }
 
 void PasswordGenerationAgent_TriggeredGeneratePassword_ProxyToResponder::Run(
-    const absl::optional<::autofill::password_generation::PasswordGenerationUIData>& in_data) {
+    const std::optional<::autofill::password_generation::PasswordGenerationUIData>& in_data) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply autofill::mojom::PasswordGenerationAgent::TriggeredGeneratePassword", "async_response_parameters",
@@ -3457,13 +3630,14 @@ void PasswordGenerationAgent_TriggeredGeneratePassword_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data"), in_data,
-                        "<value of type const absl::optional<::autofill::password_generation::PasswordGenerationUIData>&>");
+                        "<value of type const std::optional<::autofill::password_generation::PasswordGenerationUIData>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPasswordGenerationAgent_TriggeredGeneratePassword_Name, kFlags, 0, 0, nullptr);
@@ -3556,6 +3730,28 @@ std::move(p_generated_password));
 std::move(p_form));
       return true;
     }
+    case internal::kPasswordGenerationAgent_FocusNextFieldAfterPasswords_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data* params =
+          reinterpret_cast<internal::PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PasswordGenerationAgent_FocusNextFieldAfterPasswords_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PasswordGenerationAgent::Name_, 3, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->FocusNextFieldAfterPasswords();
+      return true;
+    }
   }
   return false;
 }
@@ -3600,17 +3796,22 @@ bool PasswordGenerationAgentStubDispatch::AcceptWithResponder(
     case internal::kPasswordGenerationAgent_FoundFormEligibleForGeneration_Name: {
       break;
     }
+    case internal::kPasswordGenerationAgent_FocusNextFieldAfterPasswords_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPasswordGenerationAgentValidationInfo[] = {
-    {&internal::PasswordGenerationAgent_GeneratedPasswordAccepted_Params_Data::Validate,
+    { &internal::PasswordGenerationAgent_GeneratedPasswordAccepted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PasswordGenerationAgent_TriggeredGeneratePassword_Params_Data::Validate,
+    { &internal::PasswordGenerationAgent_TriggeredGeneratePassword_Params_Data::Validate,
      &internal::PasswordGenerationAgent_TriggeredGeneratePassword_ResponseParams_Data::Validate},
-    {&internal::PasswordGenerationAgent_FoundFormEligibleForGeneration_Params_Data::Validate,
+    { &internal::PasswordGenerationAgent_FoundFormEligibleForGeneration_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3646,11 +3847,11 @@ void AutofillAgentInterceptorForTesting::TriggerFormExtraction() {
 void AutofillAgentInterceptorForTesting::TriggerFormExtractionWithResponse(TriggerFormExtractionWithResponseCallback callback) {
   GetForwardingInterface()->TriggerFormExtractionWithResponse(std::move(callback));
 }
-void AutofillAgentInterceptorForTesting::ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, const ::autofill::FormData& form) {
-  GetForwardingInterface()->ApplyFormAction(std::move(action_type), std::move(action_persistence), std::move(form));
+void AutofillAgentInterceptorForTesting::ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, ::autofill::FormRendererId form_renderer_id, const std::vector<::autofill::FormFieldData>& fields) {
+  GetForwardingInterface()->ApplyFormAction(std::move(action_type), std::move(action_persistence), std::move(form_renderer_id), std::move(fields));
 }
-void AutofillAgentInterceptorForTesting::ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::FieldRendererId field, const ::std::u16string& value) {
-  GetForwardingInterface()->ApplyFieldAction(std::move(action_persistence), std::move(field), std::move(value));
+void AutofillAgentInterceptorForTesting::ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::mojom::TextReplacement text_replacement, ::autofill::FieldRendererId field, const ::std::u16string& value) {
+  GetForwardingInterface()->ApplyFieldAction(std::move(action_persistence), std::move(text_replacement), std::move(field), std::move(value));
 }
 void AutofillAgentInterceptorForTesting::ExtractForm(::autofill::FormRendererId form, ExtractFormCallback callback) {
   GetForwardingInterface()->ExtractForm(std::move(form), std::move(callback));
@@ -3667,8 +3868,8 @@ void AutofillAgentInterceptorForTesting::ClearPreviewedForm() {
 void AutofillAgentInterceptorForTesting::TriggerSuggestions(::autofill::FieldRendererId field, ::autofill::mojom::AutofillSuggestionTriggerSource trigger_source) {
   GetForwardingInterface()->TriggerSuggestions(std::move(field), std::move(trigger_source));
 }
-void AutofillAgentInterceptorForTesting::SetSuggestionAvailability(::autofill::FieldRendererId field, ::autofill::mojom::AutofillState type) {
-  GetForwardingInterface()->SetSuggestionAvailability(std::move(field), std::move(type));
+void AutofillAgentInterceptorForTesting::SetSuggestionAvailability(::autofill::FieldRendererId field, ::autofill::mojom::AutofillSuggestionAvailability suggestion_availability) {
+  GetForwardingInterface()->SetSuggestionAvailability(std::move(field), std::move(suggestion_availability));
 }
 void AutofillAgentInterceptorForTesting::AcceptDataListSuggestion(::autofill::FieldRendererId field, const ::std::u16string& value) {
   GetForwardingInterface()->AcceptDataListSuggestion(std::move(field), std::move(value));
@@ -3729,14 +3930,14 @@ bool AutofillAgentAsyncWaiter::TriggerFormExtractionWithResponse(
 }
 
 void AutofillAgentAsyncWaiter::ExtractForm(
-    ::autofill::FormRendererId form, absl::optional<::autofill::FormData>* out_form) {
+    ::autofill::FormRendererId form, std::optional<::autofill::FormData>* out_form) {
   base::RunLoop loop;
   proxy_->ExtractForm(std::move(form),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::autofill::FormData>* out_form
+             std::optional<::autofill::FormData>* out_form
 ,
-             const absl::optional<::autofill::FormData>& form) {*out_form = std::move(form);
+             const std::optional<::autofill::FormData>& form) {*out_form = std::move(form);
             loop->Quit();
           },
           &loop,
@@ -3744,9 +3945,9 @@ void AutofillAgentAsyncWaiter::ExtractForm(
   loop.Run();
 }
 
-absl::optional<::autofill::FormData> AutofillAgentAsyncWaiter::ExtractForm(
+std::optional<::autofill::FormData> AutofillAgentAsyncWaiter::ExtractForm(
     ::autofill::FormRendererId form) {
-  absl::optional<::autofill::FormData> async_wait_result;
+  std::optional<::autofill::FormData> async_wait_result;
   ExtractForm(std::move(form),&async_wait_result);
   return async_wait_result;
 }
@@ -3812,20 +4013,23 @@ void PasswordGenerationAgentInterceptorForTesting::TriggeredGeneratePassword(Tri
 void PasswordGenerationAgentInterceptorForTesting::FoundFormEligibleForGeneration(const ::autofill::PasswordFormGenerationData& form) {
   GetForwardingInterface()->FoundFormEligibleForGeneration(std::move(form));
 }
+void PasswordGenerationAgentInterceptorForTesting::FocusNextFieldAfterPasswords() {
+  GetForwardingInterface()->FocusNextFieldAfterPasswords();
+}
 PasswordGenerationAgentAsyncWaiter::PasswordGenerationAgentAsyncWaiter(
     PasswordGenerationAgent* proxy) : proxy_(proxy) {}
 
 PasswordGenerationAgentAsyncWaiter::~PasswordGenerationAgentAsyncWaiter() = default;
 
 void PasswordGenerationAgentAsyncWaiter::TriggeredGeneratePassword(
-    absl::optional<::autofill::password_generation::PasswordGenerationUIData>* out_data) {
+    std::optional<::autofill::password_generation::PasswordGenerationUIData>* out_data) {
   base::RunLoop loop;
   proxy_->TriggeredGeneratePassword(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::autofill::password_generation::PasswordGenerationUIData>* out_data
+             std::optional<::autofill::password_generation::PasswordGenerationUIData>* out_data
 ,
-             const absl::optional<::autofill::password_generation::PasswordGenerationUIData>& data) {*out_data = std::move(data);
+             const std::optional<::autofill::password_generation::PasswordGenerationUIData>& data) {*out_data = std::move(data);
             loop->Quit();
           },
           &loop,
@@ -3833,9 +4037,9 @@ void PasswordGenerationAgentAsyncWaiter::TriggeredGeneratePassword(
   loop.Run();
 }
 
-absl::optional<::autofill::password_generation::PasswordGenerationUIData> PasswordGenerationAgentAsyncWaiter::TriggeredGeneratePassword(
+std::optional<::autofill::password_generation::PasswordGenerationUIData> PasswordGenerationAgentAsyncWaiter::TriggeredGeneratePassword(
     ) {
-  absl::optional<::autofill::password_generation::PasswordGenerationUIData> async_wait_result;
+  std::optional<::autofill::password_generation::PasswordGenerationUIData> async_wait_result;
   TriggeredGeneratePassword(&async_wait_result);
   return async_wait_result;
 }

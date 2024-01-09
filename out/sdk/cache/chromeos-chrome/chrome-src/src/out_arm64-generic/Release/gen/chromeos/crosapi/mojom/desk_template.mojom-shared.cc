@@ -74,6 +74,7 @@ bool DeskTemplateState_Data::Validate(
     { 2, 32 },
     { 3, 40 },
     { 4, 48 },
+    { 5, 56 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -118,7 +119,7 @@ bool DeskTemplateState_Data::Validate(
 }
 
 DeskTemplateState_Data::DeskTemplateState_Data()
-    : header_({sizeof(*this), 4}) {}
+    : header_({sizeof(*this), 5}) {}
 
 
 // static

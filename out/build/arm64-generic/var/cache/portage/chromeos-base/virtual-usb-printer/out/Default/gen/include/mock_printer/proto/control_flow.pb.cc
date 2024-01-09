@@ -4,247 +4,319 @@
 #include "control_flow.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace mocking {
+template <typename>
 PROTOBUF_CONSTEXPR Cardinality_Count::Cardinality_Count(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.at_least_)*/0
-  , /*decltype(_impl_.at_most_)*/0
-  , /*decltype(_impl_.exactly_)*/0
+    /*decltype(_impl_.at_least_)*/ 0
+
+  , /*decltype(_impl_.at_most_)*/ 0
+
+  , /*decltype(_impl_.exactly_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct Cardinality_CountDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR Cardinality_CountDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR Cardinality_CountDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~Cardinality_CountDefaultTypeInternal() {}
   union {
     Cardinality_Count _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Cardinality_CountDefaultTypeInternal _Cardinality_Count_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Cardinality_CountDefaultTypeInternal _Cardinality_Count_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Cardinality::Cardinality(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.count_)*/nullptr
-  , /*decltype(_impl_.type_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.count_)*/nullptr
+  , /*decltype(_impl_.type_)*/ 0
+} {}
 struct CardinalityDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CardinalityDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CardinalityDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CardinalityDefaultTypeInternal() {}
   union {
     Cardinality _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CardinalityDefaultTypeInternal _Cardinality_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CardinalityDefaultTypeInternal _Cardinality_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Expectation::Expectation(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.ipp_matcher_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ipp_matcher_)*/nullptr} {}
 struct ExpectationDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ExpectationDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ExpectationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ExpectationDefaultTypeInternal() {}
   union {
     Expectation _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExpectationDefaultTypeInternal _Expectation_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExpectationDefaultTypeInternal _Expectation_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Response::Response(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.ipp_response_)*/nullptr
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ipp_response_)*/nullptr
   , /*decltype(_impl_.http_properties_)*/nullptr
-  , /*decltype(_impl_.pause_seconds_)*/0
-  , /*decltype(_impl_.default_response_)*/false
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+  , /*decltype(_impl_.pause_seconds_)*/ 0
+
+  , /*decltype(_impl_.default_response_)*/ false
+} {}
 struct ResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ResponseDefaultTypeInternal() {}
   union {
     Response _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResponseDefaultTypeInternal _Response_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResponseDefaultTypeInternal _Response_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ExpectationWithResponse::ExpectationWithResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.expectation_)*/nullptr
-  , /*decltype(_impl_.response_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.expectation_)*/nullptr
+  , /*decltype(_impl_.response_)*/nullptr} {}
 struct ExpectationWithResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ExpectationWithResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ExpectationWithResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ExpectationWithResponseDefaultTypeInternal() {}
   union {
     ExpectationWithResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExpectationWithResponseDefaultTypeInternal _ExpectationWithResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExpectationWithResponseDefaultTypeInternal _ExpectationWithResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR TestCaseStep::TestCaseStep(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.expectation_with_response_)*/{}
-  , /*decltype(_impl_.cardinality_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.expectation_with_response_)*/{}
+  , /*decltype(_impl_.cardinality_)*/nullptr} {}
 struct TestCaseStepDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR TestCaseStepDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TestCaseStepDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~TestCaseStepDefaultTypeInternal() {}
   union {
     TestCaseStep _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TestCaseStepDefaultTypeInternal _TestCaseStep_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TestCaseStepDefaultTypeInternal _TestCaseStep_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR TestCase::TestCase(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.steps_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct TestCaseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR TestCaseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TestCaseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~TestCaseDefaultTypeInternal() {}
   union {
     TestCase _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TestCaseDefaultTypeInternal _TestCase_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TestCaseDefaultTypeInternal _TestCase_default_instance_;
 }  // namespace mocking
 static ::_pb::Metadata file_level_metadata_control_5fflow_2eproto[7];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_control_5fflow_2eproto[1];
-static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_control_5fflow_2eproto = nullptr;
-
-const uint32_t TableStruct_control_5fflow_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::Cardinality_Count, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::Cardinality_Count, _impl_.at_least_),
-  PROTOBUF_FIELD_OFFSET(::mocking::Cardinality_Count, _impl_.at_most_),
-  PROTOBUF_FIELD_OFFSET(::mocking::Cardinality_Count, _impl_.exactly_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::Cardinality, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::Cardinality, _impl_.type_),
-  PROTOBUF_FIELD_OFFSET(::mocking::Cardinality, _impl_.count_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::Expectation, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::Expectation, _impl_.ipp_matcher_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::Response, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::Response, _impl_.pause_seconds_),
-  PROTOBUF_FIELD_OFFSET(::mocking::Response, _impl_.ipp_response_),
-  PROTOBUF_FIELD_OFFSET(::mocking::Response, _impl_.http_properties_),
-  PROTOBUF_FIELD_OFFSET(::mocking::Response, _impl_.default_response_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::ExpectationWithResponse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::ExpectationWithResponse, _impl_.expectation_),
-  PROTOBUF_FIELD_OFFSET(::mocking::ExpectationWithResponse, _impl_.response_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::TestCaseStep, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::TestCaseStep, _impl_.cardinality_),
-  PROTOBUF_FIELD_OFFSET(::mocking::TestCaseStep, _impl_.expectation_with_response_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mocking::TestCase, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mocking::TestCase, _impl_.steps_),
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_control_5fflow_2eproto = nullptr;
+const ::uint32_t TableStruct_control_5fflow_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::Cardinality_Count, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::Cardinality_Count, _impl_.at_least_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Cardinality_Count, _impl_.at_most_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Cardinality_Count, _impl_.exactly_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Cardinality, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Cardinality, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::Cardinality, _impl_.type_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Cardinality, _impl_.count_),
+    ~0u,
+    0,
+    PROTOBUF_FIELD_OFFSET(::mocking::Expectation, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Expectation, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::Expectation, _impl_.ipp_matcher_),
+    0,
+    PROTOBUF_FIELD_OFFSET(::mocking::Response, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Response, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::Response, _impl_.pause_seconds_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Response, _impl_.ipp_response_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Response, _impl_.http_properties_),
+    PROTOBUF_FIELD_OFFSET(::mocking::Response, _impl_.default_response_),
+    ~0u,
+    0,
+    1,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::mocking::ExpectationWithResponse, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::mocking::ExpectationWithResponse, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::ExpectationWithResponse, _impl_.expectation_),
+    PROTOBUF_FIELD_OFFSET(::mocking::ExpectationWithResponse, _impl_.response_),
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::mocking::TestCaseStep, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::mocking::TestCaseStep, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::TestCaseStep, _impl_.cardinality_),
+    PROTOBUF_FIELD_OFFSET(::mocking::TestCaseStep, _impl_.expectation_with_response_),
+    0,
+    ~0u,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::mocking::TestCase, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::mocking::TestCase, _impl_.steps_),
 };
-static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::mocking::Cardinality_Count)},
-  { 9, -1, -1, sizeof(::mocking::Cardinality)},
-  { 17, -1, -1, sizeof(::mocking::Expectation)},
-  { 24, -1, -1, sizeof(::mocking::Response)},
-  { 34, -1, -1, sizeof(::mocking::ExpectationWithResponse)},
-  { 42, -1, -1, sizeof(::mocking::TestCaseStep)},
-  { 50, -1, -1, sizeof(::mocking::TestCase)},
+
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        { 0, -1, -1, sizeof(::mocking::Cardinality_Count)},
+        { 11, 21, -1, sizeof(::mocking::Cardinality)},
+        { 23, 32, -1, sizeof(::mocking::Expectation)},
+        { 33, 45, -1, sizeof(::mocking::Response)},
+        { 49, 59, -1, sizeof(::mocking::ExpectationWithResponse)},
+        { 61, 71, -1, sizeof(::mocking::TestCaseStep)},
+        { 73, -1, -1, sizeof(::mocking::TestCase)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::mocking::_Cardinality_Count_default_instance_._instance,
-  &::mocking::_Cardinality_default_instance_._instance,
-  &::mocking::_Expectation_default_instance_._instance,
-  &::mocking::_Response_default_instance_._instance,
-  &::mocking::_ExpectationWithResponse_default_instance_._instance,
-  &::mocking::_TestCaseStep_default_instance_._instance,
-  &::mocking::_TestCase_default_instance_._instance,
+    &::mocking::_Cardinality_Count_default_instance_._instance,
+    &::mocking::_Cardinality_default_instance_._instance,
+    &::mocking::_Expectation_default_instance_._instance,
+    &::mocking::_Response_default_instance_._instance,
+    &::mocking::_ExpectationWithResponse_default_instance_._instance,
+    &::mocking::_TestCaseStep_default_instance_._instance,
+    &::mocking::_TestCase_default_instance_._instance,
 };
-
-const char descriptor_table_protodef_control_5fflow_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\022control_flow.proto\022\007mocking\032\nhttp.prot"
-  "o\032\tipp.proto\"\351\001\n\013Cardinality\022\'\n\004type\030\001 \001"
-  "(\0162\031.mocking.Cardinality.Type\022)\n\005count\030\002"
-  " \001(\0132\032.mocking.Cardinality.Count\032;\n\005Coun"
-  "t\022\020\n\010at_least\030\001 \001(\005\022\017\n\007at_most\030\002 \001(\005\022\017\n\007"
-  "exactly\030\003 \001(\005\"I\n\004Type\022\020\n\014ALL_IN_ORDER\020\000\022"
-  "\024\n\020ALL_IN_ANY_ORDER\020\001\022\013\n\007SOME_OF\020\002\022\014\n\010RE"
-  "PEATED\020\003\"7\n\013Expectation\022(\n\013ipp_matcher\030\003"
-  " \001(\0132\023.mocking.IppMessage\"\230\001\n\010Response\022\025"
-  "\n\rpause_seconds\030\001 \001(\005\022)\n\014ipp_response\030\002 "
-  "\001(\0132\023.mocking.IppMessage\0220\n\017http_propert"
-  "ies\030\003 \001(\0132\027.mocking.HttpProperties\022\030\n\020de"
-  "fault_response\030\004 \001(\010\"i\n\027ExpectationWithR"
-  "esponse\022)\n\013expectation\030\001 \001(\0132\024.mocking.E"
-  "xpectation\022#\n\010response\030\002 \001(\0132\021.mocking.R"
-  "esponse\"~\n\014TestCaseStep\022)\n\013cardinality\030\001"
-  " \001(\0132\024.mocking.Cardinality\022C\n\031expectatio"
-  "n_with_response\030\002 \003(\0132 .mocking.Expectat"
-  "ionWithResponse\"0\n\010TestCase\022$\n\005steps\030\001 \003"
-  "(\0132\025.mocking.TestCaseStepb\006proto3"
-  ;
-static const ::_pbi::DescriptorTable* const descriptor_table_control_5fflow_2eproto_deps[2] = {
-  &::descriptor_table_http_2eproto,
-  &::descriptor_table_ipp_2eproto,
+const char descriptor_table_protodef_control_5fflow_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\022control_flow.proto\022\007mocking\032\nhttp.prot"
+    "o\032\tipp.proto\"\351\001\n\013Cardinality\022\'\n\004type\030\001 \001"
+    "(\0162\031.mocking.Cardinality.Type\022)\n\005count\030\002"
+    " \001(\0132\032.mocking.Cardinality.Count\032;\n\005Coun"
+    "t\022\020\n\010at_least\030\001 \001(\005\022\017\n\007at_most\030\002 \001(\005\022\017\n\007"
+    "exactly\030\003 \001(\005\"I\n\004Type\022\020\n\014ALL_IN_ORDER\020\000\022"
+    "\024\n\020ALL_IN_ANY_ORDER\020\001\022\013\n\007SOME_OF\020\002\022\014\n\010RE"
+    "PEATED\020\003\"7\n\013Expectation\022(\n\013ipp_matcher\030\003"
+    " \001(\0132\023.mocking.IppMessage\"\230\001\n\010Response\022\025"
+    "\n\rpause_seconds\030\001 \001(\005\022)\n\014ipp_response\030\002 "
+    "\001(\0132\023.mocking.IppMessage\0220\n\017http_propert"
+    "ies\030\003 \001(\0132\027.mocking.HttpProperties\022\030\n\020de"
+    "fault_response\030\004 \001(\010\"i\n\027ExpectationWithR"
+    "esponse\022)\n\013expectation\030\001 \001(\0132\024.mocking.E"
+    "xpectation\022#\n\010response\030\002 \001(\0132\021.mocking.R"
+    "esponse\"~\n\014TestCaseStep\022)\n\013cardinality\030\001"
+    " \001(\0132\024.mocking.Cardinality\022C\n\031expectatio"
+    "n_with_response\030\002 \003(\0132 .mocking.Expectat"
+    "ionWithResponse\"0\n\010TestCase\022$\n\005steps\030\001 \003"
+    "(\0132\025.mocking.TestCaseStepb\006proto3"
 };
-static ::_pbi::once_flag descriptor_table_control_5fflow_2eproto_once;
+static const ::_pbi::DescriptorTable* const descriptor_table_control_5fflow_2eproto_deps[2] =
+    {
+        &::descriptor_table_http_2eproto,
+        &::descriptor_table_ipp_2eproto,
+};
+static ::absl::once_flag descriptor_table_control_5fflow_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_control_5fflow_2eproto = {
-    false, false, 793, descriptor_table_protodef_control_5fflow_2eproto,
+    false,
+    false,
+    793,
+    descriptor_table_protodef_control_5fflow_2eproto,
     "control_flow.proto",
-    &descriptor_table_control_5fflow_2eproto_once, descriptor_table_control_5fflow_2eproto_deps, 2, 7,
-    schemas, file_default_instances, TableStruct_control_5fflow_2eproto::offsets,
-    file_level_metadata_control_5fflow_2eproto, file_level_enum_descriptors_control_5fflow_2eproto,
+    &descriptor_table_control_5fflow_2eproto_once,
+    descriptor_table_control_5fflow_2eproto_deps,
+    2,
+    7,
+    schemas,
+    file_default_instances,
+    TableStruct_control_5fflow_2eproto::offsets,
+    file_level_metadata_control_5fflow_2eproto,
+    file_level_enum_descriptors_control_5fflow_2eproto,
     file_level_service_descriptors_control_5fflow_2eproto,
 };
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
 PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_control_5fflow_2eproto_getter() {
   return &descriptor_table_control_5fflow_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_control_5fflow_2eproto(&descriptor_table_control_5fflow_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_control_5fflow_2eproto(&descriptor_table_control_5fflow_2eproto);
 namespace mocking {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Cardinality_Type_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_control_5fflow_2eproto);
@@ -261,8 +333,9 @@ bool Cardinality_Type_IsValid(int value) {
       return false;
   }
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr Cardinality_Type Cardinality::ALL_IN_ORDER;
 constexpr Cardinality_Type Cardinality::ALL_IN_ANY_ORDER;
 constexpr Cardinality_Type Cardinality::SOME_OF;
@@ -270,44 +343,36 @@ constexpr Cardinality_Type Cardinality::REPEATED;
 constexpr Cardinality_Type Cardinality::Type_MIN;
 constexpr Cardinality_Type Cardinality::Type_MAX;
 constexpr int Cardinality::Type_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class Cardinality_Count::_Internal {
  public:
 };
 
-Cardinality_Count::Cardinality_Count(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Cardinality_Count::Cardinality_Count(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.Cardinality.Count)
 }
 Cardinality_Count::Cardinality_Count(const Cardinality_Count& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  Cardinality_Count* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.at_least_){}
-    , decltype(_impl_.at_most_){}
-    , decltype(_impl_.exactly_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.at_least_, &from._impl_.at_least_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.exactly_) -
-    reinterpret_cast<char*>(&_impl_.at_least_)) + sizeof(_impl_.exactly_));
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mocking.Cardinality.Count)
 }
 
-inline void Cardinality_Count::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Cardinality_Count::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.at_least_){0}
-    , decltype(_impl_.at_most_){0}
-    , decltype(_impl_.exactly_){0}
+      decltype(_impl_.at_least_) { 0 }
+
+    , decltype(_impl_.at_most_) { 0 }
+
+    , decltype(_impl_.exactly_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -322,7 +387,7 @@ Cardinality_Count::~Cardinality_Count() {
 }
 
 inline void Cardinality_Count::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void Cardinality_Count::SetCachedSize(int size) const {
@@ -331,11 +396,11 @@ void Cardinality_Count::SetCachedSize(int size) const {
 
 void Cardinality_Count::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.Cardinality.Count)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.at_least_, 0, static_cast<size_t>(
+  ::memset(&_impl_.at_least_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.exactly_) -
       reinterpret_cast<char*>(&_impl_.at_least_)) + sizeof(_impl_.exactly_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -344,32 +409,35 @@ void Cardinality_Count::Clear() {
 const char* Cardinality_Count::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 at_least = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.at_least_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 at_most = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.at_most_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 exactly = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.exactly_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -394,28 +462,31 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Cardinality_Count::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Cardinality_Count::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.Cardinality.Count)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 at_least = 1;
   if (this->_internal_at_least() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_at_least(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_at_least(), target);
   }
 
   // int32 at_most = 2;
   if (this->_internal_at_most() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_at_most(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_at_most(), target);
   }
 
   // int32 exactly = 3;
   if (this->_internal_exactly() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_exactly(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_exactly(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -426,27 +497,30 @@ uint8_t* Cardinality_Count::_InternalSerialize(
   return target;
 }
 
-size_t Cardinality_Count::ByteSizeLong() const {
+::size_t Cardinality_Count::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.Cardinality.Count)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 at_least = 1;
   if (this->_internal_at_least() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_at_least());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_at_least());
   }
 
   // int32 at_most = 2;
   if (this->_internal_at_most() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_at_most());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_at_most());
   }
 
   // int32 exactly = 3;
   if (this->_internal_exactly() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_exactly());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_exactly());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -463,8 +537,8 @@ void Cardinality_Count::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   auto* const _this = static_cast<Cardinality_Count*>(&to_msg);
   auto& from = static_cast<const Cardinality_Count&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.Cardinality.Count)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_at_least() != 0) {
@@ -506,48 +580,54 @@ void Cardinality_Count::InternalSwap(Cardinality_Count* other) {
       &descriptor_table_control_5fflow_2eproto_getter, &descriptor_table_control_5fflow_2eproto_once,
       file_level_metadata_control_5fflow_2eproto[0]);
 }
-
 // ===================================================================
 
 class Cardinality::_Internal {
  public:
+  using HasBits = decltype(std::declval<Cardinality>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Cardinality, _impl_._has_bits_);
   static const ::mocking::Cardinality_Count& count(const Cardinality* msg);
+  static void set_has_count(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::mocking::Cardinality_Count&
 Cardinality::_Internal::count(const Cardinality* msg) {
   return *msg->_impl_.count_;
 }
-Cardinality::Cardinality(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Cardinality::Cardinality(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.Cardinality)
 }
 Cardinality::Cardinality(const Cardinality& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   Cardinality* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.count_){nullptr}
-    , decltype(_impl_.type_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.count_){nullptr}
+    , decltype(_impl_.type_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_count()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.count_ = new ::mocking::Cardinality_Count(*from._impl_.count_);
   }
   _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:mocking.Cardinality)
 }
 
-inline void Cardinality::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Cardinality::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.count_){nullptr}
-    , decltype(_impl_.type_){0}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.count_){nullptr}
+    , decltype(_impl_.type_) { 0 }
+
   };
 }
 
@@ -561,7 +641,7 @@ Cardinality::~Cardinality() {
 }
 
 inline void Cardinality::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.count_;
 }
 
@@ -571,40 +651,45 @@ void Cardinality::SetCachedSize(int size) const {
 
 void Cardinality::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.Cardinality)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.count_ != nullptr) {
-    delete _impl_.count_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.count_ != nullptr);
+    _impl_.count_->Clear();
   }
-  _impl_.count_ = nullptr;
   _impl_.type_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* Cardinality::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .mocking.Cardinality.Type type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_type(static_cast<::mocking::Cardinality_Type>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.Cardinality.Count count = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_count(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -622,6 +707,7 @@ const char* Cardinality::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -629,21 +715,22 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Cardinality::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Cardinality::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.Cardinality)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .mocking.Cardinality.Type type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+        1, this->_internal_type(), target);
   }
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .mocking.Cardinality.Count count = 2;
-  if (this->_internal_has_count()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::count(this),
         _Internal::count(this).GetCachedSize(), target, stream);
@@ -657,16 +744,17 @@ uint8_t* Cardinality::_InternalSerialize(
   return target;
 }
 
-size_t Cardinality::ByteSizeLong() const {
+::size_t Cardinality::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.Cardinality)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .mocking.Cardinality.Count count = 2;
-  if (this->_internal_has_count()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.count_);
@@ -675,7 +763,7 @@ size_t Cardinality::ByteSizeLong() const {
   // .mocking.Cardinality.Type type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -692,11 +780,11 @@ void Cardinality::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   auto* const _this = static_cast<Cardinality*>(&to_msg);
   auto& from = static_cast<const Cardinality&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.Cardinality)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_count()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_count()->::mocking::Cardinality_Count::MergeFrom(
         from._internal_count());
   }
@@ -720,6 +808,7 @@ bool Cardinality::IsInitialized() const {
 void Cardinality::InternalSwap(Cardinality* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Cardinality, _impl_.type_)
       + sizeof(Cardinality::_impl_.type_)
@@ -733,12 +822,17 @@ void Cardinality::InternalSwap(Cardinality* other) {
       &descriptor_table_control_5fflow_2eproto_getter, &descriptor_table_control_5fflow_2eproto_once,
       file_level_metadata_control_5fflow_2eproto[1]);
 }
-
 // ===================================================================
 
 class Expectation::_Internal {
  public:
+  using HasBits = decltype(std::declval<Expectation>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Expectation, _impl_._has_bits_);
   static const ::mocking::IppMessage& ipp_matcher(const Expectation* msg);
+  static void set_has_ipp_matcher(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::mocking::IppMessage&
@@ -746,38 +840,35 @@ Expectation::_Internal::ipp_matcher(const Expectation* msg) {
   return *msg->_impl_.ipp_matcher_;
 }
 void Expectation::clear_ipp_matcher() {
-  if (GetArenaForAllocation() == nullptr && _impl_.ipp_matcher_ != nullptr) {
-    delete _impl_.ipp_matcher_;
-  }
-  _impl_.ipp_matcher_ = nullptr;
+  if (_impl_.ipp_matcher_ != nullptr) _impl_.ipp_matcher_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-Expectation::Expectation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Expectation::Expectation(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.Expectation)
 }
 Expectation::Expectation(const Expectation& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   Expectation* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.ipp_matcher_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ipp_matcher_){nullptr}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_ipp_matcher()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.ipp_matcher_ = new ::mocking::IppMessage(*from._impl_.ipp_matcher_);
   }
   // @@protoc_insertion_point(copy_constructor:mocking.Expectation)
 }
 
-inline void Expectation::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Expectation::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.ipp_matcher_){nullptr}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ipp_matcher_){nullptr}
   };
 }
 
@@ -791,7 +882,7 @@ Expectation::~Expectation() {
 }
 
 inline void Expectation::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.ipp_matcher_;
 }
 
@@ -801,30 +892,34 @@ void Expectation::SetCachedSize(int size) const {
 
 void Expectation::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.Expectation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.ipp_matcher_ != nullptr) {
-    delete _impl_.ipp_matcher_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.ipp_matcher_ != nullptr);
+    _impl_.ipp_matcher_->Clear();
   }
-  _impl_.ipp_matcher_ = nullptr;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* Expectation::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .mocking.IppMessage ipp_matcher = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_ipp_matcher(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -842,6 +937,7 @@ const char* Expectation::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -849,14 +945,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Expectation::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Expectation::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.Expectation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .mocking.IppMessage ipp_matcher = 3;
-  if (this->_internal_has_ipp_matcher()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::ipp_matcher(this),
         _Internal::ipp_matcher(this).GetCachedSize(), target, stream);
@@ -870,16 +967,17 @@ uint8_t* Expectation::_InternalSerialize(
   return target;
 }
 
-size_t Expectation::ByteSizeLong() const {
+::size_t Expectation::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.Expectation)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .mocking.IppMessage ipp_matcher = 3;
-  if (this->_internal_has_ipp_matcher()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.ipp_matcher_);
@@ -899,11 +997,11 @@ void Expectation::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   auto* const _this = static_cast<Expectation*>(&to_msg);
   auto& from = static_cast<const Expectation&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.Expectation)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_ipp_matcher()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_ipp_matcher()->::mocking::IppMessage::MergeFrom(
         from._internal_ipp_matcher());
   }
@@ -924,6 +1022,7 @@ bool Expectation::IsInitialized() const {
 void Expectation::InternalSwap(Expectation* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   swap(_impl_.ipp_matcher_, other->_impl_.ipp_matcher_);
 }
 
@@ -932,13 +1031,21 @@ void Expectation::InternalSwap(Expectation* other) {
       &descriptor_table_control_5fflow_2eproto_getter, &descriptor_table_control_5fflow_2eproto_once,
       file_level_metadata_control_5fflow_2eproto[2]);
 }
-
 // ===================================================================
 
 class Response::_Internal {
  public:
+  using HasBits = decltype(std::declval<Response>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Response, _impl_._has_bits_);
   static const ::mocking::IppMessage& ipp_response(const Response* msg);
+  static void set_has_ipp_response(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
   static const ::mocking::HttpProperties& http_properties(const Response* msg);
+  static void set_has_http_properties(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 const ::mocking::IppMessage&
@@ -950,56 +1057,55 @@ Response::_Internal::http_properties(const Response* msg) {
   return *msg->_impl_.http_properties_;
 }
 void Response::clear_ipp_response() {
-  if (GetArenaForAllocation() == nullptr && _impl_.ipp_response_ != nullptr) {
-    delete _impl_.ipp_response_;
-  }
-  _impl_.ipp_response_ = nullptr;
+  if (_impl_.ipp_response_ != nullptr) _impl_.ipp_response_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 void Response::clear_http_properties() {
-  if (GetArenaForAllocation() == nullptr && _impl_.http_properties_ != nullptr) {
-    delete _impl_.http_properties_;
-  }
-  _impl_.http_properties_ = nullptr;
+  if (_impl_.http_properties_ != nullptr) _impl_.http_properties_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
-Response::Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Response::Response(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.Response)
 }
 Response::Response(const Response& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   Response* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.ipp_response_){nullptr}
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ipp_response_){nullptr}
     , decltype(_impl_.http_properties_){nullptr}
-    , decltype(_impl_.pause_seconds_){}
-    , decltype(_impl_.default_response_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
+    , decltype(_impl_.pause_seconds_) {}
+
+    , decltype(_impl_.default_response_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_ipp_response()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.ipp_response_ = new ::mocking::IppMessage(*from._impl_.ipp_response_);
   }
-  if (from._internal_has_http_properties()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.http_properties_ = new ::mocking::HttpProperties(*from._impl_.http_properties_);
   }
   ::memcpy(&_impl_.pause_seconds_, &from._impl_.pause_seconds_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.default_response_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.default_response_) -
     reinterpret_cast<char*>(&_impl_.pause_seconds_)) + sizeof(_impl_.default_response_));
   // @@protoc_insertion_point(copy_constructor:mocking.Response)
 }
 
-inline void Response::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Response::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.ipp_response_){nullptr}
-    , decltype(_impl_.http_properties_){nullptr}
-    , decltype(_impl_.pause_seconds_){0}
-    , decltype(_impl_.default_response_){false}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ipp_response_){nullptr}
+    , decltype(_impl_.http_properties_){nullptr}
+    , decltype(_impl_.pause_seconds_) { 0 }
+
+    , decltype(_impl_.default_response_) { false }
+
   };
 }
 
@@ -1013,7 +1119,7 @@ Response::~Response() {
 }
 
 inline void Response::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.ipp_response_;
   if (this != internal_default_instance()) delete _impl_.http_properties_;
 }
@@ -1024,61 +1130,70 @@ void Response::SetCachedSize(int size) const {
 
 void Response::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.Response)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.ipp_response_ != nullptr) {
-    delete _impl_.ipp_response_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(_impl_.ipp_response_ != nullptr);
+      _impl_.ipp_response_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(_impl_.http_properties_ != nullptr);
+      _impl_.http_properties_->Clear();
+    }
   }
-  _impl_.ipp_response_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && _impl_.http_properties_ != nullptr) {
-    delete _impl_.http_properties_;
-  }
-  _impl_.http_properties_ = nullptr;
-  ::memset(&_impl_.pause_seconds_, 0, static_cast<size_t>(
+  ::memset(&_impl_.pause_seconds_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.default_response_) -
       reinterpret_cast<char*>(&_impl_.pause_seconds_)) + sizeof(_impl_.default_response_));
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* Response::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 pause_seconds = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.pause_seconds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.IppMessage ipp_response = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_ipp_response(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.HttpProperties http_properties = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_http_properties(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bool default_response = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.default_response_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1096,6 +1211,7 @@ const char* Response::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1103,27 +1219,29 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Response::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Response::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.Response)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 pause_seconds = 1;
   if (this->_internal_pause_seconds() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_pause_seconds(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_pause_seconds(), target);
   }
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .mocking.IppMessage ipp_response = 2;
-  if (this->_internal_has_ipp_response()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::ipp_response(this),
         _Internal::ipp_response(this).GetCachedSize(), target, stream);
   }
 
   // .mocking.HttpProperties http_properties = 3;
-  if (this->_internal_has_http_properties()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::http_properties(this),
         _Internal::http_properties(this).GetCachedSize(), target, stream);
@@ -1132,7 +1250,8 @@ uint8_t* Response::_InternalSerialize(
   // bool default_response = 4;
   if (this->_internal_default_response() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_default_response(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_default_response(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1143,36 +1262,40 @@ uint8_t* Response::_InternalSerialize(
   return target;
 }
 
-size_t Response::ByteSizeLong() const {
+::size_t Response::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.Response)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .mocking.IppMessage ipp_response = 2;
-  if (this->_internal_has_ipp_response()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.ipp_response_);
-  }
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // .mocking.IppMessage ipp_response = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.ipp_response_);
+    }
 
-  // .mocking.HttpProperties http_properties = 3;
-  if (this->_internal_has_http_properties()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.http_properties_);
-  }
+    // .mocking.HttpProperties http_properties = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.http_properties_);
+    }
 
+  }
   // int32 pause_seconds = 1;
   if (this->_internal_pause_seconds() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_pause_seconds());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_pause_seconds());
   }
 
   // bool default_response = 4;
   if (this->_internal_default_response() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1189,17 +1312,20 @@ void Response::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
   auto* const _this = static_cast<Response*>(&to_msg);
   auto& from = static_cast<const Response&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.Response)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_ipp_response()) {
-    _this->_internal_mutable_ipp_response()->::mocking::IppMessage::MergeFrom(
-        from._internal_ipp_response());
-  }
-  if (from._internal_has_http_properties()) {
-    _this->_internal_mutable_http_properties()->::mocking::HttpProperties::MergeFrom(
-        from._internal_http_properties());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_ipp_response()->::mocking::IppMessage::MergeFrom(
+          from._internal_ipp_response());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_http_properties()->::mocking::HttpProperties::MergeFrom(
+          from._internal_http_properties());
+    }
   }
   if (from._internal_pause_seconds() != 0) {
     _this->_internal_set_pause_seconds(from._internal_pause_seconds());
@@ -1224,6 +1350,7 @@ bool Response::IsInitialized() const {
 void Response::InternalSwap(Response* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Response, _impl_.default_response_)
       + sizeof(Response::_impl_.default_response_)
@@ -1237,13 +1364,21 @@ void Response::InternalSwap(Response* other) {
       &descriptor_table_control_5fflow_2eproto_getter, &descriptor_table_control_5fflow_2eproto_once,
       file_level_metadata_control_5fflow_2eproto[3]);
 }
-
 // ===================================================================
 
 class ExpectationWithResponse::_Internal {
  public:
+  using HasBits = decltype(std::declval<ExpectationWithResponse>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ExpectationWithResponse, _impl_._has_bits_);
   static const ::mocking::Expectation& expectation(const ExpectationWithResponse* msg);
+  static void set_has_expectation(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
   static const ::mocking::Response& response(const ExpectationWithResponse* msg);
+  static void set_has_response(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 const ::mocking::Expectation&
@@ -1254,38 +1389,37 @@ const ::mocking::Response&
 ExpectationWithResponse::_Internal::response(const ExpectationWithResponse* msg) {
   return *msg->_impl_.response_;
 }
-ExpectationWithResponse::ExpectationWithResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ExpectationWithResponse::ExpectationWithResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.ExpectationWithResponse)
 }
 ExpectationWithResponse::ExpectationWithResponse(const ExpectationWithResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   ExpectationWithResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.expectation_){nullptr}
-    , decltype(_impl_.response_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.expectation_){nullptr}
+    , decltype(_impl_.response_){nullptr}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_expectation()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.expectation_ = new ::mocking::Expectation(*from._impl_.expectation_);
   }
-  if (from._internal_has_response()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.response_ = new ::mocking::Response(*from._impl_.response_);
   }
   // @@protoc_insertion_point(copy_constructor:mocking.ExpectationWithResponse)
 }
 
-inline void ExpectationWithResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ExpectationWithResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.expectation_){nullptr}
-    , decltype(_impl_.response_){nullptr}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.expectation_){nullptr}
+    , decltype(_impl_.response_){nullptr}
   };
 }
 
@@ -1299,7 +1433,7 @@ ExpectationWithResponse::~ExpectationWithResponse() {
 }
 
 inline void ExpectationWithResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.expectation_;
   if (this != internal_default_instance()) delete _impl_.response_;
 }
@@ -1310,42 +1444,49 @@ void ExpectationWithResponse::SetCachedSize(int size) const {
 
 void ExpectationWithResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.ExpectationWithResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.expectation_ != nullptr) {
-    delete _impl_.expectation_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(_impl_.expectation_ != nullptr);
+      _impl_.expectation_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(_impl_.response_ != nullptr);
+      _impl_.response_->Clear();
+    }
   }
-  _impl_.expectation_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && _impl_.response_ != nullptr) {
-    delete _impl_.response_;
-  }
-  _impl_.response_ = nullptr;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* ExpectationWithResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .mocking.Expectation expectation = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_expectation(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mocking.Response response = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_response(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1363,6 +1504,7 @@ const char* ExpectationWithResponse::_InternalParse(const char* ptr, ::_pbi::Par
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1370,21 +1512,22 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ExpectationWithResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ExpectationWithResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.ExpectationWithResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .mocking.Expectation expectation = 1;
-  if (this->_internal_has_expectation()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::expectation(this),
         _Internal::expectation(this).GetCachedSize(), target, stream);
   }
 
   // .mocking.Response response = 2;
-  if (this->_internal_has_response()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::response(this),
         _Internal::response(this).GetCachedSize(), target, stream);
@@ -1398,28 +1541,31 @@ uint8_t* ExpectationWithResponse::_InternalSerialize(
   return target;
 }
 
-size_t ExpectationWithResponse::ByteSizeLong() const {
+::size_t ExpectationWithResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.ExpectationWithResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .mocking.Expectation expectation = 1;
-  if (this->_internal_has_expectation()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.expectation_);
-  }
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // .mocking.Expectation expectation = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.expectation_);
+    }
 
-  // .mocking.Response response = 2;
-  if (this->_internal_has_response()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.response_);
-  }
+    // .mocking.Response response = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.response_);
+    }
 
+  }
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -1434,17 +1580,20 @@ void ExpectationWithResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   auto* const _this = static_cast<ExpectationWithResponse*>(&to_msg);
   auto& from = static_cast<const ExpectationWithResponse&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.ExpectationWithResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_expectation()) {
-    _this->_internal_mutable_expectation()->::mocking::Expectation::MergeFrom(
-        from._internal_expectation());
-  }
-  if (from._internal_has_response()) {
-    _this->_internal_mutable_response()->::mocking::Response::MergeFrom(
-        from._internal_response());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_expectation()->::mocking::Expectation::MergeFrom(
+          from._internal_expectation());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_response()->::mocking::Response::MergeFrom(
+          from._internal_response());
+    }
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1463,6 +1612,7 @@ bool ExpectationWithResponse::IsInitialized() const {
 void ExpectationWithResponse::InternalSwap(ExpectationWithResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ExpectationWithResponse, _impl_.response_)
       + sizeof(ExpectationWithResponse::_impl_.response_)
@@ -1476,47 +1626,51 @@ void ExpectationWithResponse::InternalSwap(ExpectationWithResponse* other) {
       &descriptor_table_control_5fflow_2eproto_getter, &descriptor_table_control_5fflow_2eproto_once,
       file_level_metadata_control_5fflow_2eproto[4]);
 }
-
 // ===================================================================
 
 class TestCaseStep::_Internal {
  public:
+  using HasBits = decltype(std::declval<TestCaseStep>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(TestCaseStep, _impl_._has_bits_);
   static const ::mocking::Cardinality& cardinality(const TestCaseStep* msg);
+  static void set_has_cardinality(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::mocking::Cardinality&
 TestCaseStep::_Internal::cardinality(const TestCaseStep* msg) {
   return *msg->_impl_.cardinality_;
 }
-TestCaseStep::TestCaseStep(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+TestCaseStep::TestCaseStep(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.TestCaseStep)
 }
 TestCaseStep::TestCaseStep(const TestCaseStep& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   TestCaseStep* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.expectation_with_response_){from._impl_.expectation_with_response_}
-    , decltype(_impl_.cardinality_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.expectation_with_response_){from._impl_.expectation_with_response_}
+    , decltype(_impl_.cardinality_){nullptr}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_cardinality()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.cardinality_ = new ::mocking::Cardinality(*from._impl_.cardinality_);
   }
   // @@protoc_insertion_point(copy_constructor:mocking.TestCaseStep)
 }
 
-inline void TestCaseStep::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void TestCaseStep::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.expectation_with_response_){arena}
-    , decltype(_impl_.cardinality_){nullptr}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.expectation_with_response_){arena}
+    , decltype(_impl_.cardinality_){nullptr}
   };
 }
 
@@ -1530,8 +1684,8 @@ TestCaseStep::~TestCaseStep() {
 }
 
 inline void TestCaseStep::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.expectation_with_response_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_expectation_with_response()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.cardinality_;
 }
 
@@ -1541,35 +1695,39 @@ void TestCaseStep::SetCachedSize(int size) const {
 
 void TestCaseStep::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.TestCaseStep)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.expectation_with_response_.Clear();
-  if (GetArenaForAllocation() == nullptr && _impl_.cardinality_ != nullptr) {
-    delete _impl_.cardinality_;
+  _internal_mutable_expectation_with_response()->Clear();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.cardinality_ != nullptr);
+    _impl_.cardinality_->Clear();
   }
-  _impl_.cardinality_ = nullptr;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* TestCaseStep::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .mocking.Cardinality cardinality = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_cardinality(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .mocking.ExpectationWithResponse expectation_with_response = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1577,8 +1735,9 @@ const char* TestCaseStep::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1596,6 +1755,7 @@ const char* TestCaseStep::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1603,14 +1763,15 @@ failure:
 #undef CHK_
 }
 
-uint8_t* TestCaseStep::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* TestCaseStep::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.TestCaseStep)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .mocking.Cardinality cardinality = 1;
-  if (this->_internal_has_cardinality()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::cardinality(this),
         _Internal::cardinality(this).GetCachedSize(), target, stream);
@@ -1632,23 +1793,24 @@ uint8_t* TestCaseStep::_InternalSerialize(
   return target;
 }
 
-size_t TestCaseStep::ByteSizeLong() const {
+::size_t TestCaseStep::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.TestCaseStep)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.ExpectationWithResponse expectation_with_response = 2;
   total_size += 1UL * this->_internal_expectation_with_response_size();
-  for (const auto& msg : this->_impl_.expectation_with_response_) {
+  for (const auto& msg : this->_internal_expectation_with_response()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // .mocking.Cardinality cardinality = 1;
-  if (this->_internal_has_cardinality()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.cardinality_);
@@ -1668,12 +1830,12 @@ void TestCaseStep::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   auto* const _this = static_cast<TestCaseStep*>(&to_msg);
   auto& from = static_cast<const TestCaseStep&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.TestCaseStep)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.expectation_with_response_.MergeFrom(from._impl_.expectation_with_response_);
-  if (from._internal_has_cardinality()) {
+  _this->_internal_mutable_expectation_with_response()->MergeFrom(from._internal_expectation_with_response());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_cardinality()->::mocking::Cardinality::MergeFrom(
         from._internal_cardinality());
   }
@@ -1694,7 +1856,8 @@ bool TestCaseStep::IsInitialized() const {
 void TestCaseStep::InternalSwap(TestCaseStep* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.expectation_with_response_.InternalSwap(&other->_impl_.expectation_with_response_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _internal_mutable_expectation_with_response()->InternalSwap(other->_internal_mutable_expectation_with_response());
   swap(_impl_.cardinality_, other->_impl_.cardinality_);
 }
 
@@ -1703,17 +1866,15 @@ void TestCaseStep::InternalSwap(TestCaseStep* other) {
       &descriptor_table_control_5fflow_2eproto_getter, &descriptor_table_control_5fflow_2eproto_once,
       file_level_metadata_control_5fflow_2eproto[5]);
 }
-
 // ===================================================================
 
 class TestCase::_Internal {
  public:
 };
 
-TestCase::TestCase(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+TestCase::TestCase(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mocking.TestCase)
 }
 TestCase::TestCase(const TestCase& from)
@@ -1727,10 +1888,8 @@ TestCase::TestCase(const TestCase& from)
   // @@protoc_insertion_point(copy_constructor:mocking.TestCase)
 }
 
-inline void TestCase::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void TestCase::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.steps_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -1747,8 +1906,8 @@ TestCase::~TestCase() {
 }
 
 inline void TestCase::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.steps_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_steps()->~RepeatedPtrField();
 }
 
 void TestCase::SetCachedSize(int size) const {
@@ -1757,23 +1916,23 @@ void TestCase::SetCachedSize(int size) const {
 
 void TestCase::Clear() {
 // @@protoc_insertion_point(message_clear_start:mocking.TestCase)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.steps_.Clear();
+  _internal_mutable_steps()->Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* TestCase::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .mocking.TestCaseStep steps = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1781,8 +1940,9 @@ const char* TestCase::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1807,10 +1967,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* TestCase::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* TestCase::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mocking.TestCase)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .mocking.TestCaseStep steps = 1;
@@ -1829,17 +1989,17 @@ uint8_t* TestCase::_InternalSerialize(
   return target;
 }
 
-size_t TestCase::ByteSizeLong() const {
+::size_t TestCase::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mocking.TestCase)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .mocking.TestCaseStep steps = 1;
   total_size += 1UL * this->_internal_steps_size();
-  for (const auto& msg : this->_impl_.steps_) {
+  for (const auto& msg : this->_internal_steps()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1858,11 +2018,11 @@ void TestCase::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
   auto* const _this = static_cast<TestCase*>(&to_msg);
   auto& from = static_cast<const TestCase&>(from_msg);
   // @@protoc_insertion_point(class_specific_merge_from_start:mocking.TestCase)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.steps_.MergeFrom(from._impl_.steps_);
+  _this->_internal_mutable_steps()->MergeFrom(from._internal_steps());
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1880,7 +2040,7 @@ bool TestCase::IsInitialized() const {
 void TestCase::InternalSwap(TestCase* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.steps_.InternalSwap(&other->_impl_.steps_);
+  _internal_mutable_steps()->InternalSwap(other->_internal_mutable_steps());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TestCase::GetMetadata() const {
@@ -1888,7 +2048,6 @@ void TestCase::InternalSwap(TestCase* other) {
       &descriptor_table_control_5fflow_2eproto_getter, &descriptor_table_control_5fflow_2eproto_once,
       file_level_metadata_control_5fflow_2eproto[6]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace mocking
 PROTOBUF_NAMESPACE_OPEN
@@ -1921,6 +2080,5 @@ Arena::CreateMaybeMessage< ::mocking::TestCase >(Arena* arena) {
   return Arena::CreateMessageInternal< ::mocking::TestCase >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

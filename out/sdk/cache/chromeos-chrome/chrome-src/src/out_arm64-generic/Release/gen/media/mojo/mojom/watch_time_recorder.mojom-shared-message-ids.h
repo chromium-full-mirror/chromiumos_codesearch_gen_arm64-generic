@@ -23,7 +23,6 @@ constexpr uint32_t kWatchTimeRecorder_OnDurationChanged_Name = 5;
 constexpr uint32_t kWatchTimeRecorder_UpdateVideoDecodeStats_Name = 6;
 constexpr uint32_t kWatchTimeRecorder_UpdateUnderflowCount_Name = 7;
 constexpr uint32_t kWatchTimeRecorder_UpdateUnderflowDuration_Name = 8;
-constexpr uint32_t kWatchTimeRecorder_OnCurrentTimestampChanged_Name = 9;
 
 }  // namespace internal
 

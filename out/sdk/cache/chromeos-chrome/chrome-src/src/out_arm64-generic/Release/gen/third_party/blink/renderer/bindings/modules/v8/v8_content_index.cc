@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ContentIndex>::value,
     "ContentIndex inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ContentIndex::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ContentIndex is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -111,7 +106,7 @@ return;
 
 
 
-ContentIndex* blink_receiver = V8ContentIndex::ToWrappableUnsafe(v8_receiver);
+ContentIndex* blink_receiver = V8ContentIndex::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -157,7 +152,7 @@ return;
 
 
 
-ContentIndex* blink_receiver = V8ContentIndex::ToWrappableUnsafe(v8_receiver);
+ContentIndex* blink_receiver = V8ContentIndex::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -199,7 +194,7 @@ UseCounter::Count(current_execution_context, WebFeature::kContentIndexGet);
 
 
 
-ContentIndex* blink_receiver = V8ContentIndex::ToWrappableUnsafe(v8_receiver);
+ContentIndex* blink_receiver = V8ContentIndex::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

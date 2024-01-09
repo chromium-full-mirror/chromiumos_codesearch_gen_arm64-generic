@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/libassistant/public/mojom/audio_input_controller.mojom-features.h"
 #include "chromeos/ash/services/libassistant/public/mojom/audio_input_controller.mojom-shared.h"
 #include "chromeos/ash/services/libassistant/public/mojom/audio_input_controller.mojom-forward.h"
 #include <string>
@@ -106,10 +107,10 @@ class AudioInputController
   virtual void SetHotwordEnabled(bool enable) = 0;
 
   
-  virtual void SetDeviceId(const absl::optional<std::string>& device_id) = 0;
+  virtual void SetDeviceId(const std::optional<std::string>& device_id) = 0;
 
   
-  virtual void SetHotwordDeviceId(const absl::optional<std::string>& device_id) = 0;
+  virtual void SetHotwordDeviceId(const std::optional<std::string>& device_id) = 0;
 
   
   virtual void SetLidState(LidState new_state) = 0;
@@ -131,9 +132,9 @@ class  AudioInputControllerProxy
   
   void SetHotwordEnabled(bool enable) final;
   
-  void SetDeviceId(const absl::optional<std::string>& device_id) final;
+  void SetDeviceId(const std::optional<std::string>& device_id) final;
   
-  void SetHotwordDeviceId(const absl::optional<std::string>& device_id) final;
+  void SetHotwordDeviceId(const std::optional<std::string>& device_id) final;
   
   void SetLidState(LidState new_state) final;
   

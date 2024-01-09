@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/display/mojom/display_snapshot.mojom-features.h"
 #include "ui/display/mojom/display_snapshot.mojom-shared.h"
 #include "ui/display/mojom/display_snapshot.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -92,10 +93,9 @@ class  DisplaySnapshot {
       ::display::PrivacyScreenState privacy_screen_state,
       bool has_content_protection_key,
       bool has_color_correction_matrix,
-      bool color_correction_in_linear_space,
       const ::gfx::ColorSpace& color_space,
       uint32_t bits_per_channel,
-      const absl::optional<::gfx::HDRStaticMetadata>& hdr_static_metadata,
+      const std::optional<::gfx::HDRStaticMetadata>& hdr_static_metadata,
       const std::string& display_name,
       const ::base::FilePath& sys_path,
       std::vector<::std::unique_ptr<::display::DisplayMode>> modes,
@@ -218,13 +218,11 @@ DisplaySnapshot& operator=(const DisplaySnapshot&) = delete;
   
   bool has_color_correction_matrix;
   
-  bool color_correction_in_linear_space;
-  
   ::gfx::ColorSpace color_space;
   
   uint32_t bits_per_channel;
   
-  absl::optional<::gfx::HDRStaticMetadata> hdr_static_metadata;
+  std::optional<::gfx::HDRStaticMetadata> hdr_static_metadata;
   
   std::string display_name;
   
@@ -302,7 +300,6 @@ DisplaySnapshotPtr DisplaySnapshot::Clone() const {
       mojo::Clone(privacy_screen_state),
       mojo::Clone(has_content_protection_key),
       mojo::Clone(has_color_correction_matrix),
-      mojo::Clone(color_correction_in_linear_space),
       mojo::Clone(color_space),
       mojo::Clone(bits_per_channel),
       mojo::Clone(hdr_static_metadata),
@@ -353,8 +350,6 @@ bool DisplaySnapshot::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->has_content_protection_key, other_struct.has_content_protection_key))
     return false;
   if (!mojo::Equals(this->has_color_correction_matrix, other_struct.has_color_correction_matrix))
-    return false;
-  if (!mojo::Equals(this->color_correction_in_linear_space, other_struct.color_correction_in_linear_space))
     return false;
   if (!mojo::Equals(this->color_space, other_struct.color_space))
     return false;
@@ -452,10 +447,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.has_color_correction_matrix < rhs.has_color_correction_matrix)
     return true;
   if (rhs.has_color_correction_matrix < lhs.has_color_correction_matrix)
-    return false;
-  if (lhs.color_correction_in_linear_space < rhs.color_correction_in_linear_space)
-    return true;
-  if (rhs.color_correction_in_linear_space < lhs.color_correction_in_linear_space)
     return false;
   if (lhs.color_space < rhs.color_space)
     return true;
@@ -612,11 +603,6 @@ struct  StructTraits<::display::mojom::DisplaySnapshot::DataView,
   static decltype(::display::mojom::DisplaySnapshot::has_color_correction_matrix) has_color_correction_matrix(
       const ::display::mojom::DisplaySnapshotPtr& input) {
     return input->has_color_correction_matrix;
-  }
-
-  static decltype(::display::mojom::DisplaySnapshot::color_correction_in_linear_space) color_correction_in_linear_space(
-      const ::display::mojom::DisplaySnapshotPtr& input) {
-    return input->color_correction_in_linear_space;
   }
 
   static const decltype(::display::mojom::DisplaySnapshot::color_space)& color_space(

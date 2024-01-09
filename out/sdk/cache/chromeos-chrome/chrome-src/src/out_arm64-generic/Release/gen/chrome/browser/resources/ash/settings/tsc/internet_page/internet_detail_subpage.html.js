@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="internet-shared settings-shared iron-flex">:host{padding-bottom:40px}iron-icon{margin-inline-end:10px}cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}cr-policy-network-indicator-mojo{margin:0 var(--cr-controlled-by-spacing)}#networkState[connected]{color:var(--cros-text-color-positive)}#networkState[warning]{color:var(--cros-text-color-warning)}#networkState[error]{color:var(--cros-text-color-alert)}#preferNetworkToggleContainer:hover{background-color:var(--cr-hover-background-color)}#preferNetworkToggleContainer:active{background-color:var(--cr-active-background-color)}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}.warning{color:var(--cr-secondary-text-color);margin-inline-start:var(--cr-controlled-by-spacing)}.signin-button{margin-inline-end:8px;padding:8px 16px 8px 8px}.signin-icon{background-color:var(--text-color);margin-inline-end:4px;margin-inline-start:0}#mac-address-container{border-top:none}#hiddenToggle{margin-inline-start:var(--cr-section-padding)}cr-link-row{--cr-secondary-text-color:var(--cros-text-color-positive)}#apnSubpageButton{height:var(--cr-section-two-line-min-height)}</style>
+    return html `<!--_html_template_start_--><style include="internet-shared settings-shared iron-flex">:host{padding-bottom:40px}iron-icon{margin-inline-end:10px}cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}cr-policy-network-indicator-mojo{margin:0 var(--cr-controlled-by-spacing)}#networkState[connected]{color:var(--cros-text-color-positive)}#networkState[warning]{color:var(--cros-text-color-warning)}#networkState[error]{color:var(--cros-text-color-alert)}#preferNetworkToggleContainer:hover{background-color:var(--cr-hover-background-color)}#preferNetworkToggleContainer:active{background-color:var(--cr-active-background-color)}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}.warning{color:var(--cr-secondary-text-color);margin-inline-start:var(--cr-controlled-by-spacing)}.signin-button{margin-inline-end:8px;padding:8px 16px 8px 8px}.signin-icon{background-color:var(--text-color);margin-inline-end:4px;margin-inline-start:0}#mac-address-container{border-top:none}#hiddenToggle{margin-inline-start:var(--cr-section-padding)}cr-link-row:not([warning]){--cr-secondary-text-color:var(--cros-text-color-positive)}#apnSubpageButton{height:var(--cr-section-two-line-min-height)}</style>
 
 <div id="titleDiv" class="settings-box first">
   <div class="start layout horizontal center">
@@ -66,7 +66,7 @@ export function getTemplate() {
   <div class$="settings-box single-column
               [[messagesDividerClass_('secondary', managedProperties_,
                   globalPolicy, managedNetworkAvailable,
-                  isSecondaryUser_, isWifiSyncEnabled_)]]">
+                  isSecondaryUser_, isWifiSyncEnabled_, deviceState_)]]">
     <div class="layout horizontal center">
       <iron-icon class="policy" icon="cr:group"></iron-icon>
       <div class="settings-box-text">
@@ -83,7 +83,7 @@ export function getTemplate() {
   <div class$="settings-box settings-box-text
               [[messagesDividerClass_('shared', managedProperties_,
                   globalPolicy, managedNetworkAvailable,
-                  isSecondaryUser_, isWifiSyncEnabled_)]]">
+                  isSecondaryUser_, isWifiSyncEnabled_, deviceState_)]]">
       [[sharedString_(managedProperties_)]]
   </div>
 </template>
@@ -93,9 +93,19 @@ export function getTemplate() {
   <div class$="settings-box settings-box-text
               [[messagesDividerClass_('synced', managedProperties_,
                   globalPolicy, managedNetworkAvailable,
-                  isSecondaryUser_, isWifiSyncEnabled_)]]">
+                  isSecondaryUser_, isWifiSyncEnabled_, deviceState_)]]">
       <localized-link localized-string="[[syncedString_(managedProperties_)]]">
       </localized-link>
+  </div>
+</template>
+<template is="dom-if" if="[[isCarrierLockedActiveSim_(managedProperties_, deviceState_)]]">
+  
+  <div class$="settings-box settings-box-text
+      [[messagesDividerClass_('carrierlocked', managedProperties_,
+          globalPolicy, managedNetworkAvailable,
+          isSecondaryUser_, isWifiSyncEnabled_, deviceState_)]]">
+    <localized-link id="carrierLockedNoticeLink" localized-string="[[i18nAdvanced('networkCarrierLocked')]]">
+    </localized-link>
   </div>
 </template>
 
@@ -175,7 +185,7 @@ export function getTemplate() {
   <template is="dom-if" if="[[showConfigurableSections_]]" restamp>
     <template is="dom-if" if="[[shouldShowApnRow_(managedProperties_,
         isApnRevampEnabled_)]]">
-      <cr-link-row id="apnSubpageButton" class="hr" label="$i18n{internetApnPageTitle}" sub-label="[[getApnRowSubLabel_(managedProperties_)]]" on-click="onApnRowClicked_" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="apnSubpageButton" class="hr" label="$i18n{internetApnPageTitle}" sub-label="[[getApnRowSubLabel_(managedProperties_)]]" on-click="onApnRowClicked_" role-description="$i18n{subpageArrowRoleDescription}" warning$="[[showRestrictedConnectivity_(managedProperties_)]]">
       </cr-link-row>
     </template>
   </template>

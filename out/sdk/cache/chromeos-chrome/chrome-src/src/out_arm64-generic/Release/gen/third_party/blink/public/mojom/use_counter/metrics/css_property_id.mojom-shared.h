@@ -1348,14 +1348,6 @@ enum class CSSSampleId : int32_t {
   
   kObjectOverflow = 714,
   
-  kToggleGroup = 715,
-  
-  kToggleRoot = 716,
-  
-  kToggleTrigger = 717,
-  
-  kToggle = 718,
-  
   kAnchorName = 719,
   
   kPositionFallback = 720,
@@ -1379,8 +1371,6 @@ enum class CSSSampleId : int32_t {
   kViewTimelineInset = 730,
   
   kViewTimelineName = 731,
-  
-  kToggleVisibility = 732,
   
   kInitialLetter = 733,
   
@@ -1450,7 +1440,7 @@ enum class CSSSampleId : int32_t {
   
   kTextAutospace = 767,
   
-  kNavigationTrigger = 768,
+  kNavigation = 768,
   
   kDynamicRangeLimit = 769,
   
@@ -1471,8 +1461,14 @@ enum class CSSSampleId : int32_t {
   kMaskRepeat = 777,
   
   kMaskComposite = 778,
+  
+  kMaskPosition = 779,
+  
+  kMaskMode = 780,
+  
+  kInsetArea = 781,
   kMinValue = 0,
-  kMaxValue = 778,
+  kMaxValue = 781,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, CSSSampleId value);

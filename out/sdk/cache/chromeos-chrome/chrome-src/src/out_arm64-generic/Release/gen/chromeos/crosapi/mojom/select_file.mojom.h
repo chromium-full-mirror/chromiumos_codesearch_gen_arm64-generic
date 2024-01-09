@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/select_file.mojom-features.h"
 #include "chromeos/crosapi/mojom/select_file.mojom-shared.h"
 #include "chromeos/crosapi/mojom/select_file.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -356,7 +357,7 @@ class  SelectFileOptions {
       const ::base::FilePath& default_path,
       SelectFileTypeInfoPtr file_types,
       const std::string& owning_shell_window_id,
-      const absl::optional<::GURL>& caller);
+      const std::optional<::GURL>& caller);
 
 SelectFileOptions(const SelectFileOptions&) = delete;
 SelectFileOptions& operator=(const SelectFileOptions&) = delete;
@@ -446,7 +447,7 @@ SelectFileOptions& operator=(const SelectFileOptions&) = delete;
   
   std::string owning_shell_window_id;
   
-  absl::optional<::GURL> caller;
+  std::optional<::GURL> caller;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -511,7 +512,7 @@ class  SelectedFileInfo {
       const ::base::FilePath& file_path,
       const ::base::FilePath& local_path,
       const std::string& display_name,
-      const absl::optional<::GURL>& url);
+      const std::optional<::GURL>& url);
 
 
   ~SelectedFileInfo();
@@ -595,7 +596,7 @@ class  SelectedFileInfo {
   
   std::string display_name;
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

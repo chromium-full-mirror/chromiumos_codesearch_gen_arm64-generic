@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -489,7 +490,7 @@ GpuInfo::GpuInfo(
     std::vector<::gpu::ImageDecodeAcceleratorSupportedProfile> image_decode_accelerator_supported_profiles_in,
     bool subpixel_font_rendering_in,
     uint32_t visibility_callback_call_count_in,
-    const absl::optional<::gpu::VulkanInfo>& vulkan_info_in)
+    const std::optional<::gpu::VulkanInfo>& vulkan_info_in)
     : initialization_time(std::move(initialization_time_in)),
       optimus(std::move(optimus_in)),
       amd_switchable(std::move(amd_switchable_in)),
@@ -811,7 +812,7 @@ void GpuInfo::WriteIntoTrace(
     dict.AddItem(
       "vulkan_info"), this->vulkan_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gpu::VulkanInfo>&>"
+      "<value of type const std::optional<::gpu::VulkanInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

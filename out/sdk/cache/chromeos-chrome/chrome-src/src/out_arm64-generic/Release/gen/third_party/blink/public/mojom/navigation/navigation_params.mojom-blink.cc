@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -75,7 +76,7 @@ BeginNavigationParams::BeginNavigationParams()
       has_storage_access(false) {}
 
 BeginNavigationParams::BeginNavigationParams(
-    const absl::optional<::blink::LocalFrameToken>& initiator_frame_token_in,
+    const std::optional<::blink::LocalFrameToken>& initiator_frame_token_in,
     const WTF::String& headers_in,
     int32_t load_flags_in,
     bool skip_service_worker_in,
@@ -87,9 +88,9 @@ BeginNavigationParams::BeginNavigationParams(
     const ::blink::KURL& searchable_form_url_in,
     const WTF::String& searchable_form_encoding_in,
     const ::blink::KURL& client_side_redirect_url_in,
-    absl::optional<::base::Value::Dict> devtools_initiator_in,
+    std::optional<::base::Value::Dict> devtools_initiator_in,
     ::network::mojom::blink::TrustTokenParamsPtr trust_token_params_in,
-    const absl::optional<::blink::Impression>& impression_in,
+    const std::optional<::blink::Impression>& impression_in,
     ::base::TimeTicks before_unload_start_in,
     ::base::TimeTicks before_unload_end_in,
     ::blink::mojom::blink::NavigationInitiatorActivationAndAdStatus initiator_activation_and_ad_status_in,
@@ -127,7 +128,7 @@ void BeginNavigationParams::WriteIntoTrace(
     dict.AddItem(
       "initiator_frame_token"), this->initiator_frame_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::LocalFrameToken>&>"
+      "<value of type const std::optional<::blink::LocalFrameToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -235,7 +236,7 @@ void BeginNavigationParams::WriteIntoTrace(
     dict.AddItem(
       "devtools_initiator"), this->devtools_initiator,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Value::Dict>>"
+      "<value of type std::optional<::base::Value::Dict>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -253,7 +254,7 @@ void BeginNavigationParams::WriteIntoTrace(
     dict.AddItem(
       "impression"), this->impression,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::Impression>&>"
+      "<value of type const std::optional<::blink::Impression>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -346,7 +347,7 @@ CommonNavigationParams::CommonNavigationParams()
 CommonNavigationParams::CommonNavigationParams(
     const ::blink::KURL& url_in,
     const ::scoped_refptr<const ::blink::SecurityOrigin>& initiator_origin_in,
-    const absl::optional<::blink::KURL>& initiator_base_url_in,
+    const std::optional<::blink::KURL>& initiator_base_url_in,
     ::blink::mojom::blink::ReferrerPtr referrer_in,
     int32_t transition_in,
     NavigationType navigation_type_in,
@@ -416,7 +417,7 @@ void CommonNavigationParams::WriteIntoTrace(
     dict.AddItem(
       "initiator_base_url"), this->initiator_base_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::KURL>&>"
+      "<value of type const std::optional<::blink::KURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -772,7 +773,8 @@ CommitNavigationParams::CommitNavigationParams()
       load_with_storage_access(false),
       browsing_context_group_info(),
       lcpp_hint(),
-      content_settings() {}
+      content_settings(),
+      cookie_deprecation_label() {}
 
 CommitNavigationParams::CommitNavigationParams(
     const ::scoped_refptr<const ::blink::SecurityOrigin>& origin_to_commit_in,
@@ -818,15 +820,16 @@ CommitNavigationParams::CommitNavigationParams(
     bool ancestor_or_self_has_cspee_in,
     const WTF::String& reduced_accept_language_in,
     ::network::mojom::blink::NavigationDeliveryType navigation_delivery_type_in,
-    const absl::optional<::blink::ViewTransitionState>& view_transition_state_in,
-    absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id_in,
+    const std::optional<::blink::ViewTransitionState>& view_transition_state_in,
+    std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id_in,
     const WTF::HashMap<::blink::mojom::blink::RuntimeFeature, bool>& modified_runtime_features_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperties>& fenced_frame_properties_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperties>& fenced_frame_properties_in,
     ::blink::mojom::blink::BackForwardCacheNotRestoredReasonsPtr not_restored_reasons_in,
     bool load_with_storage_access_in,
-    const absl::optional<::blink::BrowsingContextGroupInfo>& browsing_context_group_info_in,
+    const std::optional<::blink::BrowsingContextGroupInfo>& browsing_context_group_info_in,
     ::blink::mojom::blink::LCPCriticalPathPredictorNavigationTimeHintPtr lcpp_hint_in,
-    ::blink::mojom::blink::RendererContentSettingsPtr content_settings_in)
+    ::blink::mojom::blink::RendererContentSettingsPtr content_settings_in,
+    const WTF::String& cookie_deprecation_label_in)
     : origin_to_commit(std::move(origin_to_commit_in)),
       storage_key(std::move(storage_key_in)),
       session_storage_key(std::move(session_storage_key_in)),
@@ -878,7 +881,8 @@ CommitNavigationParams::CommitNavigationParams(
       load_with_storage_access(std::move(load_with_storage_access_in)),
       browsing_context_group_info(std::move(browsing_context_group_info_in)),
       lcpp_hint(std::move(lcpp_hint_in)),
-      content_settings(std::move(content_settings_in)) {}
+      content_settings(std::move(content_settings_in)),
+      cookie_deprecation_label(std::move(cookie_deprecation_label_in)) {}
 
 CommitNavigationParams::~CommitNavigationParams() = default;
 
@@ -1276,7 +1280,7 @@ void CommitNavigationParams::WriteIntoTrace(
     dict.AddItem(
       "view_transition_state"), this->view_transition_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::ViewTransitionState>&>"
+      "<value of type const std::optional<::blink::ViewTransitionState>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1285,7 +1289,7 @@ void CommitNavigationParams::WriteIntoTrace(
     dict.AddItem(
       "soft_navigation_heuristics_task_id"), this->soft_navigation_heuristics_task_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::blink::scheduler::TaskAttributionId>>"
+      "<value of type std::optional<::blink::scheduler::TaskAttributionId>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1303,7 +1307,7 @@ void CommitNavigationParams::WriteIntoTrace(
     dict.AddItem(
       "fenced_frame_properties"), this->fenced_frame_properties,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperties>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperties>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1330,7 +1334,7 @@ void CommitNavigationParams::WriteIntoTrace(
     dict.AddItem(
       "browsing_context_group_info"), this->browsing_context_group_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::BrowsingContextGroupInfo>&>"
+      "<value of type const std::optional<::blink::BrowsingContextGroupInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1349,6 +1353,15 @@ void CommitNavigationParams::WriteIntoTrace(
       "content_settings"), this->content_settings,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::blink::mojom::blink::RendererContentSettingsPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "cookie_deprecation_label"), this->cookie_deprecation_label,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::String&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1626,6 +1639,8 @@ bool StructTraits<::blink::mojom::blink::CommitNavigationParams::DataView, ::bli
       if (success && !input.ReadLcppHint(&result->lcpp_hint))
         success = false;
       if (success && !input.ReadContentSettings(&result->content_settings))
+        success = false;
+      if (success && !input.ReadCookieDeprecationLabel(&result->cookie_deprecation_label))
         success = false;
   *output = std::move(result);
   return success;

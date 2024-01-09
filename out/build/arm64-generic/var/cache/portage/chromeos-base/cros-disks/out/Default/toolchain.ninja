@@ -34,13 +34,9 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/cros-disks/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/cros-disks/_cros-disks-install_config.stamp: stamp
-build obj/cros-disks/all.stamp: stamp ./cros-disks obj/cros-disks/install_cros_disks_config.stamp obj/cros-disks/install_dbus_config.stamp obj/cros-disks/install_minijail_config.stamp obj/cros-disks/install_powerd_prefs.stamp obj/cros-disks/install_setuid_restriction.stamp obj/cros-disks/install_tmpfilesd.stamp obj/cros-disks/install_usb_device_info.stamp ./libdisks.a obj/cros-disks/libdisks-adaptors.stamp obj/cros-disks/install_seccomp_policies.stamp ./disks_testrunner ./disks_testrunner_root
-subninja obj/cros-disks/common_test_sources.ninja
+build obj/cros-disks/all.stamp: stamp ./cros-disks obj/cros-disks/install_cros_disks_config.stamp obj/cros-disks/install_dbus_config.stamp obj/cros-disks/install_minijail_config.stamp obj/cros-disks/install_powerd_prefs.stamp obj/cros-disks/install_setuid_restriction.stamp obj/cros-disks/install_tmpfilesd.stamp obj/cros-disks/install_usb_device_info.stamp ./libdisks.a obj/cros-disks/libdisks-adaptors.stamp obj/cros-disks/install_seccomp_policies.stamp
 subninja obj/cros-disks/cros-disks.ninja
-subninja obj/cros-disks/disks_testrunner.ninja
-subninja obj/cros-disks/disks_testrunner_root.ninja
 build obj/cros-disks/install_cros_disks_config.stamp: stamp
 build obj/cros-disks/install_dbus_config.stamp: stamp
 build obj/cros-disks/install_minijail_config.stamp: stamp

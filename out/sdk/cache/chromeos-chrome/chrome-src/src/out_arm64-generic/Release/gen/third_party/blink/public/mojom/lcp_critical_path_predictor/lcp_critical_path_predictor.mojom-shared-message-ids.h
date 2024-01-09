@@ -17,6 +17,7 @@ namespace internal {
 constexpr uint32_t kLCPCriticalPathPredictorHost_SetLcpElementLocator_Name = 0;
 constexpr uint32_t kLCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Name = 1;
 constexpr uint32_t kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name = 2;
+constexpr uint32_t kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name = 3;
 
 }  // namespace internal
 

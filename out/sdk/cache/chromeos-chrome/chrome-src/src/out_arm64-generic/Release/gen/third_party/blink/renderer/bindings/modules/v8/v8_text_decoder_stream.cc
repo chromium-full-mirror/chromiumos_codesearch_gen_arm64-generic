@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TextDecoderStream>::value,
     "TextDecoderStream inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TextDecoderStream::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TextDecoderStream is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,10 +87,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextDecoderStream.encoding.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->encoding();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->encoding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -107,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextDecoderStream.fatal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(v8_receiver);
+TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fatal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -121,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextDecoderStream.ignoreBOM.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(v8_receiver);
+TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ignoreBOM();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -135,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextDecoderStream.readable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(v8_receiver);
+TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->readable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -149,8 +147,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextDecoderStream.writable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(v8_receiver);
+TextDecoderStream* blink_receiver = V8TextDecoderStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->writable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

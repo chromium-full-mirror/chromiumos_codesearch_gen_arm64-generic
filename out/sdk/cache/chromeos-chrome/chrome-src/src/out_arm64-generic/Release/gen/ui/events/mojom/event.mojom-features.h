@@ -8,6 +8,7 @@
 #define UI_EVENTS_MOJOM_EVENT_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/net-print/pwgtocanonij-0.0.1-r143/work/pwgtocanonij-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -20,21 +20,15 @@ subninja toolchain.ninja
 
 build libcanonij: phony ./libcanonij.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build pwgtocanonij$:all: phony obj/pwgtocanonij/all.stamp
 build pwgtocanonij$:libcanonij: phony ./libcanonij.a
 build pwgtocanonij$:pwgtocanonij: phony ./pwgtocanonij
-build pwgtocanonij$:pwgtocanonij_unittest: phony ./pwgtocanonij_unittest
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/pwgtocanonij/all.stamp $
     ./libcanonij.a $
-    ./pwgtocanonij $
-    ./pwgtocanonij_unittest
+    ./pwgtocanonij
 
 default all

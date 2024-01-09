@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, USBAlternateInterface>::value,
     "USBAlternateInterface inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&USBAlternateInterface::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "USBAlternateInterface is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBAlternateInterface.alternateSetting.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(v8_receiver);
+USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->alternateSetting();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBAlternateInterface.interfaceClass.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(v8_receiver);
+USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->interfaceClass();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -118,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBAlternateInterface.interfaceSubclass.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(v8_receiver);
+USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->interfaceSubclass();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -132,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBAlternateInterface.interfaceProtocol.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(v8_receiver);
+USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->interfaceProtocol();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -146,10 +145,10 @@ BLINK_BINDINGS_TRACE_EVENT("USBAlternateInterface.interfaceName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->interfaceName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->interfaceName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -166,7 +165,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+USBAlternateInterface* blink_receiver = V8USBAlternateInterface::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->endpoints();
 if (!ToV8Traits<IDLArray<USBEndpoint>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

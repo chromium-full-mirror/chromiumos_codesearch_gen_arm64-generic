@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ash/guest_os/guest_os_diagnostics.mojom-features.h"
 #include "chrome/browser/ash/guest_os/guest_os_diagnostics.mojom-shared.h"
 #include "chrome/browser/ash/guest_os/guest_os_diagnostics.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -75,7 +76,7 @@ class  DiagnosticMessage {
 
   DiagnosticMessage(
       const std::string& message,
-      const absl::optional<::GURL>& learn_more_link);
+      const std::optional<::GURL>& learn_more_link);
 
 
   ~DiagnosticMessage();
@@ -155,7 +156,7 @@ class  DiagnosticMessage {
   
   std::string message;
   
-  absl::optional<::GURL> learn_more_link;
+  std::optional<::GURL> learn_more_link;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

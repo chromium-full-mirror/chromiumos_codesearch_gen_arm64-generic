@@ -1013,15 +1013,6 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool RequestWiFiRestart(
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void RequestWiFiRestartAsync(
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool RequestScan(
       const std::string& in_1,
       brillo::ErrorPtr* error,
@@ -1203,6 +1194,26 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool GetWiFiNetworksForGeolocation(
+      brillo::VariantDictionary* out_1,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetWiFiNetworksForGeolocationAsync(
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool GetCellularNetworksForGeolocation(
+      brillo::VariantDictionary* out_1,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetCellularNetworksForGeolocationAsync(
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool ScanAndConnectToBestServices(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -1335,6 +1346,54 @@ class ManagerProxyInterface {
   virtual void SetLOHSEnabledAsync(
       bool in_1,
       base::OnceCallback<void(const std::string&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool CreateP2PGroup(
+      const brillo::VariantDictionary& in_1,
+      brillo::VariantDictionary* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void CreateP2PGroupAsync(
+      const brillo::VariantDictionary& in_1,
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool ConnectToP2PGroup(
+      const brillo::VariantDictionary& in_1,
+      brillo::VariantDictionary* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void ConnectToP2PGroupAsync(
+      const brillo::VariantDictionary& in_1,
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool DestroyP2PGroup(
+      int32_t in_1,
+      brillo::VariantDictionary* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void DestroyP2PGroupAsync(
+      int32_t in_1,
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool DisconnectFromP2PGroup(
+      int32_t in_1,
+      brillo::VariantDictionary* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void DisconnectFromP2PGroupAsync(
+      int32_t in_1,
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -1728,32 +1787,6 @@ class ManagerProxy final : public ManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.flimflam.Manager",
         "RecheckPortal",
-        std::move(success_callback),
-        std::move(error_callback));
-  }
-
-  bool RequestWiFiRestart(
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.flimflam.Manager",
-        "RequestWiFiRestart",
-        error);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error);
-  }
-
-  void RequestWiFiRestartAsync(
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.flimflam.Manager",
-        "RequestWiFiRestart",
         std::move(success_callback),
         std::move(error_callback));
   }
@@ -2239,6 +2272,60 @@ class ManagerProxy final : public ManagerProxyInterface {
         std::move(error_callback));
   }
 
+  bool GetWiFiNetworksForGeolocation(
+      brillo::VariantDictionary* out_1,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "GetWiFiNetworksForGeolocation",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_1);
+  }
+
+  void GetWiFiNetworksForGeolocationAsync(
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "GetWiFiNetworksForGeolocation",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  bool GetCellularNetworksForGeolocation(
+      brillo::VariantDictionary* out_1,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "GetCellularNetworksForGeolocation",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_1);
+  }
+
+  void GetCellularNetworksForGeolocationAsync(
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "GetCellularNetworksForGeolocation",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
   bool ScanAndConnectToBestServices(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2597,6 +2684,130 @@ class ManagerProxy final : public ManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.flimflam.Manager",
         "SetLOHSEnabled",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_1);
+  }
+
+  bool CreateP2PGroup(
+      const brillo::VariantDictionary& in_1,
+      brillo::VariantDictionary* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "CreateP2PGroup",
+        error,
+        in_1);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_2);
+  }
+
+  void CreateP2PGroupAsync(
+      const brillo::VariantDictionary& in_1,
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "CreateP2PGroup",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_1);
+  }
+
+  bool ConnectToP2PGroup(
+      const brillo::VariantDictionary& in_1,
+      brillo::VariantDictionary* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "ConnectToP2PGroup",
+        error,
+        in_1);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_2);
+  }
+
+  void ConnectToP2PGroupAsync(
+      const brillo::VariantDictionary& in_1,
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "ConnectToP2PGroup",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_1);
+  }
+
+  bool DestroyP2PGroup(
+      int32_t in_1,
+      brillo::VariantDictionary* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "DestroyP2PGroup",
+        error,
+        in_1);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_2);
+  }
+
+  void DestroyP2PGroupAsync(
+      int32_t in_1,
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "DestroyP2PGroup",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_1);
+  }
+
+  bool DisconnectFromP2PGroup(
+      int32_t in_1,
+      brillo::VariantDictionary* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "DisconnectFromP2PGroup",
+        error,
+        in_1);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_2);
+  }
+
+  void DisconnectFromP2PGroupAsync(
+      int32_t in_1,
+      base::OnceCallback<void(const brillo::VariantDictionary&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "DisconnectFromP2PGroup",
         std::move(success_callback),
         std::move(error_callback),
         in_1);

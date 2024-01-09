@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLPermissionElement>::value,
     "HTMLPermissionElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLPermissionElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLPermissionElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLPermissionElement.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTypeAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTypeAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -106,60 +101,62 @@ const char* const property_name = "type";
 bindings::PerformAttributeSetCEReactionsReflectTypeString(info, html_names::kTypeAttr, class_like_name, property_name);
 }
 
-void OnresolvedAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+void OnresolveAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLPermissionElement_onresolved_Getter");
-BLINK_BINDINGS_TRACE_EVENT("HTMLPermissionElement.onresolved.get");
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLPermissionElement_onresolve_Getter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLPermissionElement.onresolve.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresolved();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresolve();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
-void OnresolvedAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+void OnresolveAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLPermissionElement_onresolved_Setter");
-BLINK_BINDINGS_TRACE_EVENT("HTMLPermissionElement.onresolved.set");
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLPermissionElement_onresolve_Setter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLPermissionElement.onresolve.set");
 
 v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(v8_receiver);
-blink_receiver->setOnresolved(event_handler);
+HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(isolate, v8_receiver);
+blink_receiver->setOnresolve(event_handler);
 }
 
-void OndismissedAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+void OndismissAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLPermissionElement_ondismissed_Getter");
-BLINK_BINDINGS_TRACE_EVENT("HTMLPermissionElement.ondismissed.get");
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLPermissionElement_ondismiss_Getter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLPermissionElement.ondismiss.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondismissed();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondismiss();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
-void OndismissedAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+void OndismissAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLPermissionElement_ondismissed_Setter");
-BLINK_BINDINGS_TRACE_EVENT("HTMLPermissionElement.ondismissed.set");
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLPermissionElement_ondismiss_Setter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLPermissionElement.ondismiss.set");
 
 v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(v8_receiver);
-blink_receiver->setOndismissed(event_handler);
+HTMLPermissionElement* blink_receiver = V8HTMLPermissionElement::ToWrappableUnsafe(isolate, v8_receiver);
+blink_receiver->setOndismiss(event_handler);
 }
 
 void ConstructorCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -220,8 +217,8 @@ void V8HTMLPermissionElement::InstallUnconditionalProperties(v8::Isolate* isolat
 {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"type", TypeAttributeGetCallback, TypeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"onresolved", OnresolvedAttributeGetCallback, OnresolvedAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"ondismissed", OndismissedAttributeGetCallback, OndismissedAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"onresolve", OnresolveAttributeGetCallback, OnresolveAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"ondismiss", OndismissAttributeGetCallback, OndismissAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

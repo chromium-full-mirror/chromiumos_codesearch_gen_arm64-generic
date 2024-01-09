@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/opengraph/metadata.mojom-features.h"
 #include "third_party/blink/public/mojom/opengraph/metadata.mojom-shared.h"
 #include "third_party/blink/public/mojom/opengraph/metadata.mojom-blink-forward.h"
 #include "url/mojom/url.mojom-blink.h"
@@ -76,7 +77,7 @@ class PLATFORM_EXPORT OpenGraphMetadata {
   OpenGraphMetadata();
 
   explicit OpenGraphMetadata(
-      const absl::optional<::blink::KURL>& image);
+      const std::optional<::blink::KURL>& image);
 
 
   ~OpenGraphMetadata();
@@ -154,7 +155,7 @@ class PLATFORM_EXPORT OpenGraphMetadata {
   }
 
   
-  absl::optional<::blink::KURL> image;
+  std::optional<::blink::KURL> image;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

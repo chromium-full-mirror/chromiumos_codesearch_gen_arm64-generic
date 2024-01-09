@@ -46,6 +46,12 @@ struct PhishingDetectorResult_Data {
       case 2:
       case 3:
       case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
         return true;
     }
     return false;
@@ -90,6 +96,30 @@ struct PhishingImageEmbeddingResult_Data {
 };
 
 struct WebRequestProtocolType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct WebRequestContactInitiatorType_Data {
  public:
   static bool constexpr kIsExtensible = false;
 

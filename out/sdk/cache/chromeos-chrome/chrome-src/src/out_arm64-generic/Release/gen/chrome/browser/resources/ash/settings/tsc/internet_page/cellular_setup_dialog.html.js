@@ -4,15 +4,15 @@ export function getTemplate() {
 
 <cr-dialog id="dialog">
   <div slot="title">
-    <template is="dom-if" if="[[shouldShowDialogTitle_(dialogTitle_)]]" restamp>
-      <div id="title">
-        [[dialogTitle_]]
+    <template is="dom-if" if="[[shouldShowPsimBanner_(psimBanner_)]]" restamp>
+      <div id="psim-banner">
+        [[psimBanner_]]
       </div>
     </template>
     <div id="header">[[getDialogHeader_(dialogHeader_)]]</div>
   </div>
   <div slot="body">
-    <cellular-setup flow-title="{{dialogTitle_}}" flow-header="{{dialogHeader_}}" delegate="[[delegate_]]" current-page-name="[[pageName]]">
+    <cellular-setup flow-psim-banner="{{psimBanner_}}" flow-header="{{dialogHeader_}}" delegate="[[delegate_]]" current-page-name="[[pageName]]">
     </cellular-setup>
   </div>
 </cr-dialog>

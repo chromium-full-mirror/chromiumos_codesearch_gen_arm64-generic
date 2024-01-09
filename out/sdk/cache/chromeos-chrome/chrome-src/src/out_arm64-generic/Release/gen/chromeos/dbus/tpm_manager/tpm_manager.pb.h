@@ -52,6 +52,12 @@ extern ClearStoredOwnerPasswordReplyDefaultTypeInternal _ClearStoredOwnerPasswor
 class ClearStoredOwnerPasswordRequest;
 struct ClearStoredOwnerPasswordRequestDefaultTypeInternal;
 extern ClearStoredOwnerPasswordRequestDefaultTypeInternal _ClearStoredOwnerPasswordRequest_default_instance_;
+class ClearTpmReply;
+struct ClearTpmReplyDefaultTypeInternal;
+extern ClearTpmReplyDefaultTypeInternal _ClearTpmReply_default_instance_;
+class ClearTpmRequest;
+struct ClearTpmRequestDefaultTypeInternal;
+extern ClearTpmRequestDefaultTypeInternal _ClearTpmRequest_default_instance_;
 class DefineSpaceReply;
 struct DefineSpaceReplyDefaultTypeInternal;
 extern DefineSpaceReplyDefaultTypeInternal _DefineSpaceReply_default_instance_;
@@ -162,6 +168,8 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::tpm_manager::AuthDelegate* Arena::CreateMaybeMessage<::tpm_manager::AuthDelegate>(Arena*);
 template<> ::tpm_manager::ClearStoredOwnerPasswordReply* Arena::CreateMaybeMessage<::tpm_manager::ClearStoredOwnerPasswordReply>(Arena*);
 template<> ::tpm_manager::ClearStoredOwnerPasswordRequest* Arena::CreateMaybeMessage<::tpm_manager::ClearStoredOwnerPasswordRequest>(Arena*);
+template<> ::tpm_manager::ClearTpmReply* Arena::CreateMaybeMessage<::tpm_manager::ClearTpmReply>(Arena*);
+template<> ::tpm_manager::ClearTpmRequest* Arena::CreateMaybeMessage<::tpm_manager::ClearTpmRequest>(Arena*);
 template<> ::tpm_manager::DefineSpaceReply* Arena::CreateMaybeMessage<::tpm_manager::DefineSpaceReply>(Arena*);
 template<> ::tpm_manager::DefineSpaceRequest* Arena::CreateMaybeMessage<::tpm_manager::DefineSpaceRequest>(Arena*);
 template<> ::tpm_manager::DestroySpaceReply* Arena::CreateMaybeMessage<::tpm_manager::DestroySpaceReply>(Arena*);
@@ -865,6 +873,7 @@ class LocalData final :
     kLockoutPasswordFieldNumber = 5,
     kOwnerDelegateFieldNumber = 7,
     kNoSrkAuthFieldNumber = 8,
+    kResetDaLockAuthFailureFieldNumber = 9,
   };
   // repeated string owner_dependency = 3;
   int owner_dependency_size() const;
@@ -993,6 +1002,19 @@ class LocalData final :
   void _internal_set_no_srk_auth(bool value);
   public:
 
+  // optional bool reset_da_lock_auth_failure = 9;
+  bool has_reset_da_lock_auth_failure() const;
+  private:
+  bool _internal_has_reset_da_lock_auth_failure() const;
+  public:
+  void clear_reset_da_lock_auth_failure();
+  bool reset_da_lock_auth_failure() const;
+  void set_reset_da_lock_auth_failure(bool value);
+  private:
+  bool _internal_reset_da_lock_auth_failure() const;
+  void _internal_set_reset_da_lock_auth_failure(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:tpm_manager.LocalData)
  private:
   class _Internal;
@@ -1009,6 +1031,7 @@ class LocalData final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr lockout_password_;
   ::tpm_manager::AuthDelegate* owner_delegate_;
   bool no_srk_auth_;
+  bool reset_da_lock_auth_failure_;
   friend struct ::TableStruct_tpm_5fmanager_2eproto;
 };
 // -------------------------------------------------------------------
@@ -4716,6 +4739,8 @@ class GetSupportedFeaturesReply final :
     kSupportPinweaverFieldNumber = 3,
     kSupportRuntimeSelectionFieldNumber = 4,
     kIsAllowedFieldNumber = 5,
+    kSupportClearRequestFieldNumber = 6,
+    kSupportClearWithoutPromptFieldNumber = 7,
   };
   // optional .tpm_manager.TpmManagerStatus status = 1;
   bool has_status() const;
@@ -4782,6 +4807,32 @@ class GetSupportedFeaturesReply final :
   void _internal_set_is_allowed(bool value);
   public:
 
+  // optional bool support_clear_request = 6;
+  bool has_support_clear_request() const;
+  private:
+  bool _internal_has_support_clear_request() const;
+  public:
+  void clear_support_clear_request();
+  bool support_clear_request() const;
+  void set_support_clear_request(bool value);
+  private:
+  bool _internal_support_clear_request() const;
+  void _internal_set_support_clear_request(bool value);
+  public:
+
+  // optional bool support_clear_without_prompt = 7;
+  bool has_support_clear_without_prompt() const;
+  private:
+  bool _internal_has_support_clear_without_prompt() const;
+  public:
+  void clear_support_clear_without_prompt();
+  bool support_clear_without_prompt() const;
+  void set_support_clear_without_prompt(bool value);
+  private:
+  bool _internal_support_clear_without_prompt() const;
+  void _internal_set_support_clear_without_prompt(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:tpm_manager.GetSupportedFeaturesReply)
  private:
   class _Internal;
@@ -4796,6 +4847,8 @@ class GetSupportedFeaturesReply final :
   bool support_pinweaver_;
   bool support_runtime_selection_;
   bool is_allowed_;
+  bool support_clear_request_;
+  bool support_clear_without_prompt_;
   friend struct ::TableStruct_tpm_5fmanager_2eproto;
 };
 // -------------------------------------------------------------------
@@ -6492,6 +6545,266 @@ class ClearStoredOwnerPasswordReply final :
   int status_;
   friend struct ::TableStruct_tpm_5fmanager_2eproto;
 };
+// -------------------------------------------------------------------
+
+class ClearTpmRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:tpm_manager.ClearTpmRequest) */ {
+ public:
+  inline ClearTpmRequest() : ClearTpmRequest(nullptr) {}
+  ~ClearTpmRequest() override;
+  explicit PROTOBUF_CONSTEXPR ClearTpmRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ClearTpmRequest(const ClearTpmRequest& from);
+  ClearTpmRequest(ClearTpmRequest&& from) noexcept
+    : ClearTpmRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ClearTpmRequest& operator=(const ClearTpmRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ClearTpmRequest& operator=(ClearTpmRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ClearTpmRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ClearTpmRequest* internal_default_instance() {
+    return reinterpret_cast<const ClearTpmRequest*>(
+               &_ClearTpmRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    38;
+
+  friend void swap(ClearTpmRequest& a, ClearTpmRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ClearTpmRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ClearTpmRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ClearTpmRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ClearTpmRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ClearTpmRequest& from);
+  void MergeFrom(const ClearTpmRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ClearTpmRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "tpm_manager.ClearTpmRequest";
+  }
+  protected:
+  explicit ClearTpmRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:tpm_manager.ClearTpmRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_tpm_5fmanager_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ClearTpmReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:tpm_manager.ClearTpmReply) */ {
+ public:
+  inline ClearTpmReply() : ClearTpmReply(nullptr) {}
+  ~ClearTpmReply() override;
+  explicit PROTOBUF_CONSTEXPR ClearTpmReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ClearTpmReply(const ClearTpmReply& from);
+  ClearTpmReply(ClearTpmReply&& from) noexcept
+    : ClearTpmReply() {
+    *this = ::std::move(from);
+  }
+
+  inline ClearTpmReply& operator=(const ClearTpmReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ClearTpmReply& operator=(ClearTpmReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ClearTpmReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ClearTpmReply* internal_default_instance() {
+    return reinterpret_cast<const ClearTpmReply*>(
+               &_ClearTpmReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    39;
+
+  friend void swap(ClearTpmReply& a, ClearTpmReply& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ClearTpmReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ClearTpmReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ClearTpmReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ClearTpmReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ClearTpmReply& from);
+  void MergeFrom(const ClearTpmReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ClearTpmReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "tpm_manager.ClearTpmReply";
+  }
+  protected:
+  explicit ClearTpmReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStatusFieldNumber = 1,
+  };
+  // optional .tpm_manager.TpmManagerStatus status = 1;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  ::tpm_manager::TpmManagerStatus status() const;
+  void set_status(::tpm_manager::TpmManagerStatus value);
+  private:
+  ::tpm_manager::TpmManagerStatus _internal_status() const;
+  void _internal_set_status(::tpm_manager::TpmManagerStatus value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:tpm_manager.ClearTpmReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int status_;
+  friend struct ::TableStruct_tpm_5fmanager_2eproto;
+};
 // ===================================================================
 
 
@@ -7298,6 +7611,34 @@ inline void LocalData::_internal_set_no_srk_auth(bool value) {
 inline void LocalData::set_no_srk_auth(bool value) {
   _internal_set_no_srk_auth(value);
   // @@protoc_insertion_point(field_set:tpm_manager.LocalData.no_srk_auth)
+}
+
+// optional bool reset_da_lock_auth_failure = 9;
+inline bool LocalData::_internal_has_reset_da_lock_auth_failure() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool LocalData::has_reset_da_lock_auth_failure() const {
+  return _internal_has_reset_da_lock_auth_failure();
+}
+inline void LocalData::clear_reset_da_lock_auth_failure() {
+  reset_da_lock_auth_failure_ = false;
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline bool LocalData::_internal_reset_da_lock_auth_failure() const {
+  return reset_da_lock_auth_failure_;
+}
+inline bool LocalData::reset_da_lock_auth_failure() const {
+  // @@protoc_insertion_point(field_get:tpm_manager.LocalData.reset_da_lock_auth_failure)
+  return _internal_reset_da_lock_auth_failure();
+}
+inline void LocalData::_internal_set_reset_da_lock_auth_failure(bool value) {
+  _has_bits_[0] |= 0x00000020u;
+  reset_da_lock_auth_failure_ = value;
+}
+inline void LocalData::set_reset_da_lock_auth_failure(bool value) {
+  _internal_set_reset_da_lock_auth_failure(value);
+  // @@protoc_insertion_point(field_set:tpm_manager.LocalData.reset_da_lock_auth_failure)
 }
 
 // -------------------------------------------------------------------
@@ -9493,6 +9834,62 @@ inline void GetSupportedFeaturesReply::set_is_allowed(bool value) {
   // @@protoc_insertion_point(field_set:tpm_manager.GetSupportedFeaturesReply.is_allowed)
 }
 
+// optional bool support_clear_request = 6;
+inline bool GetSupportedFeaturesReply::_internal_has_support_clear_request() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool GetSupportedFeaturesReply::has_support_clear_request() const {
+  return _internal_has_support_clear_request();
+}
+inline void GetSupportedFeaturesReply::clear_support_clear_request() {
+  support_clear_request_ = false;
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline bool GetSupportedFeaturesReply::_internal_support_clear_request() const {
+  return support_clear_request_;
+}
+inline bool GetSupportedFeaturesReply::support_clear_request() const {
+  // @@protoc_insertion_point(field_get:tpm_manager.GetSupportedFeaturesReply.support_clear_request)
+  return _internal_support_clear_request();
+}
+inline void GetSupportedFeaturesReply::_internal_set_support_clear_request(bool value) {
+  _has_bits_[0] |= 0x00000020u;
+  support_clear_request_ = value;
+}
+inline void GetSupportedFeaturesReply::set_support_clear_request(bool value) {
+  _internal_set_support_clear_request(value);
+  // @@protoc_insertion_point(field_set:tpm_manager.GetSupportedFeaturesReply.support_clear_request)
+}
+
+// optional bool support_clear_without_prompt = 7;
+inline bool GetSupportedFeaturesReply::_internal_has_support_clear_without_prompt() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool GetSupportedFeaturesReply::has_support_clear_without_prompt() const {
+  return _internal_has_support_clear_without_prompt();
+}
+inline void GetSupportedFeaturesReply::clear_support_clear_without_prompt() {
+  support_clear_without_prompt_ = false;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline bool GetSupportedFeaturesReply::_internal_support_clear_without_prompt() const {
+  return support_clear_without_prompt_;
+}
+inline bool GetSupportedFeaturesReply::support_clear_without_prompt() const {
+  // @@protoc_insertion_point(field_get:tpm_manager.GetSupportedFeaturesReply.support_clear_without_prompt)
+  return _internal_support_clear_without_prompt();
+}
+inline void GetSupportedFeaturesReply::_internal_set_support_clear_without_prompt(bool value) {
+  _has_bits_[0] |= 0x00000040u;
+  support_clear_without_prompt_ = value;
+}
+inline void GetSupportedFeaturesReply::set_support_clear_without_prompt(bool value) {
+  _internal_set_support_clear_without_prompt(value);
+  // @@protoc_insertion_point(field_set:tpm_manager.GetSupportedFeaturesReply.support_clear_without_prompt)
+}
+
 // -------------------------------------------------------------------
 
 // GetDictionaryAttackInfoRequest
@@ -9980,9 +10377,50 @@ inline void ClearStoredOwnerPasswordReply::set_status(::tpm_manager::TpmManagerS
   // @@protoc_insertion_point(field_set:tpm_manager.ClearStoredOwnerPasswordReply.status)
 }
 
+// -------------------------------------------------------------------
+
+// ClearTpmRequest
+
+// -------------------------------------------------------------------
+
+// ClearTpmReply
+
+// optional .tpm_manager.TpmManagerStatus status = 1;
+inline bool ClearTpmReply::_internal_has_status() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ClearTpmReply::has_status() const {
+  return _internal_has_status();
+}
+inline void ClearTpmReply::clear_status() {
+  status_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::tpm_manager::TpmManagerStatus ClearTpmReply::_internal_status() const {
+  return static_cast< ::tpm_manager::TpmManagerStatus >(status_);
+}
+inline ::tpm_manager::TpmManagerStatus ClearTpmReply::status() const {
+  // @@protoc_insertion_point(field_get:tpm_manager.ClearTpmReply.status)
+  return _internal_status();
+}
+inline void ClearTpmReply::_internal_set_status(::tpm_manager::TpmManagerStatus value) {
+  assert(::tpm_manager::TpmManagerStatus_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  status_ = value;
+}
+inline void ClearTpmReply::set_status(::tpm_manager::TpmManagerStatus value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:tpm_manager.ClearTpmReply.status)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

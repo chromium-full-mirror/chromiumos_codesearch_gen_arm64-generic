@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/side_panel/performance_controls/performance.mojom-features.h"
 #include "chrome/browser/ui/webui/side_panel/performance_controls/performance.mojom-shared.h"
 #include "chrome/browser/ui/webui/side_panel/performance_controls/performance.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom-forward.h"
@@ -168,6 +169,248 @@ class PerformancePage
   virtual ~PerformancePage() = default;
 };
 
+class BatterySaverCardHandlerFactoryProxy;
+
+template <typename ImplRefTraits>
+class BatterySaverCardHandlerFactoryStub;
+
+class BatterySaverCardHandlerFactoryRequestValidator;
+
+
+class BatterySaverCardHandlerFactory
+    : public BatterySaverCardHandlerFactoryInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = BatterySaverCardHandlerFactoryInterfaceBase;
+  using Proxy_ = BatterySaverCardHandlerFactoryProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = BatterySaverCardHandlerFactoryStub<ImplRefTraits>;
+
+  using RequestValidator_ = BatterySaverCardHandlerFactoryRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kCreateBatterySaverCardHandlerMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct CreateBatterySaverCardHandler_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~BatterySaverCardHandlerFactory() = default;
+
+  
+  virtual void CreateBatterySaverCardHandler(::mojo::PendingRemote<BatterySaverCard> page, ::mojo::PendingReceiver<BatterySaverCardHandler> handler) = 0;
+};
+
+class BatterySaverCardHandlerProxy;
+
+template <typename ImplRefTraits>
+class BatterySaverCardHandlerStub;
+
+class BatterySaverCardHandlerRequestValidator;
+
+
+class BatterySaverCardHandler
+    : public BatterySaverCardHandlerInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = BatterySaverCardHandlerInterfaceBase;
+  using Proxy_ = BatterySaverCardHandlerProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = BatterySaverCardHandlerStub<ImplRefTraits>;
+
+  using RequestValidator_ = BatterySaverCardHandlerRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~BatterySaverCardHandler() = default;
+};
+
+class BatterySaverCardProxy;
+
+template <typename ImplRefTraits>
+class BatterySaverCardStub;
+
+class BatterySaverCardRequestValidator;
+
+
+class BatterySaverCard
+    : public BatterySaverCardInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = BatterySaverCardInterfaceBase;
+  using Proxy_ = BatterySaverCardProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = BatterySaverCardStub<ImplRefTraits>;
+
+  using RequestValidator_ = BatterySaverCardRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~BatterySaverCard() = default;
+};
+
+class MemorySaverCardHandlerFactoryProxy;
+
+template <typename ImplRefTraits>
+class MemorySaverCardHandlerFactoryStub;
+
+class MemorySaverCardHandlerFactoryRequestValidator;
+
+
+class MemorySaverCardHandlerFactory
+    : public MemorySaverCardHandlerFactoryInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = MemorySaverCardHandlerFactoryInterfaceBase;
+  using Proxy_ = MemorySaverCardHandlerFactoryProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = MemorySaverCardHandlerFactoryStub<ImplRefTraits>;
+
+  using RequestValidator_ = MemorySaverCardHandlerFactoryRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kCreateMemorySaverCardHandlerMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct CreateMemorySaverCardHandler_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~MemorySaverCardHandlerFactory() = default;
+
+  
+  virtual void CreateMemorySaverCardHandler(::mojo::PendingRemote<MemorySaverCard> page, ::mojo::PendingReceiver<MemorySaverCardHandler> handler) = 0;
+};
+
+class MemorySaverCardHandlerProxy;
+
+template <typename ImplRefTraits>
+class MemorySaverCardHandlerStub;
+
+class MemorySaverCardHandlerRequestValidator;
+
+
+class MemorySaverCardHandler
+    : public MemorySaverCardHandlerInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = MemorySaverCardHandlerInterfaceBase;
+  using Proxy_ = MemorySaverCardHandlerProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = MemorySaverCardHandlerStub<ImplRefTraits>;
+
+  using RequestValidator_ = MemorySaverCardHandlerRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~MemorySaverCardHandler() = default;
+};
+
+class MemorySaverCardProxy;
+
+template <typename ImplRefTraits>
+class MemorySaverCardStub;
+
+class MemorySaverCardRequestValidator;
+
+
+class MemorySaverCard
+    : public MemorySaverCardInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = MemorySaverCardInterfaceBase;
+  using Proxy_ = MemorySaverCardProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = MemorySaverCardStub<ImplRefTraits>;
+
+  using RequestValidator_ = MemorySaverCardRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~MemorySaverCard() = default;
+};
+
 
 
 class  PerformancePageHandlerFactoryProxy
@@ -206,6 +449,88 @@ class  PerformancePageProxy
   using InterfaceType = PerformancePage;
 
   explicit PerformancePageProxy(mojo::MessageReceiverWithResponder* receiver);
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  BatterySaverCardHandlerFactoryProxy
+    : public BatterySaverCardHandlerFactory {
+ public:
+  using InterfaceType = BatterySaverCardHandlerFactory;
+
+  explicit BatterySaverCardHandlerFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void CreateBatterySaverCardHandler(::mojo::PendingRemote<BatterySaverCard> page, ::mojo::PendingReceiver<BatterySaverCardHandler> handler) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  BatterySaverCardHandlerProxy
+    : public BatterySaverCardHandler {
+ public:
+  using InterfaceType = BatterySaverCardHandler;
+
+  explicit BatterySaverCardHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  BatterySaverCardProxy
+    : public BatterySaverCard {
+ public:
+  using InterfaceType = BatterySaverCard;
+
+  explicit BatterySaverCardProxy(mojo::MessageReceiverWithResponder* receiver);
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  MemorySaverCardHandlerFactoryProxy
+    : public MemorySaverCardHandlerFactory {
+ public:
+  using InterfaceType = MemorySaverCardHandlerFactory;
+
+  explicit MemorySaverCardHandlerFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void CreateMemorySaverCardHandler(::mojo::PendingRemote<MemorySaverCard> page, ::mojo::PendingReceiver<MemorySaverCardHandler> handler) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  MemorySaverCardHandlerProxy
+    : public MemorySaverCardHandler {
+ public:
+  using InterfaceType = MemorySaverCardHandler;
+
+  explicit MemorySaverCardHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  MemorySaverCardProxy
+    : public MemorySaverCard {
+ public:
+  using InterfaceType = MemorySaverCard;
+
+  explicit MemorySaverCardProxy(mojo::MessageReceiverWithResponder* receiver);
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -333,6 +658,252 @@ class PerformancePageStub
  private:
   ImplPointerType sink_;
 };
+class  BatterySaverCardHandlerFactoryStubDispatch {
+ public:
+  static bool Accept(BatterySaverCardHandlerFactory* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      BatterySaverCardHandlerFactory* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<BatterySaverCardHandlerFactory>>
+class BatterySaverCardHandlerFactoryStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  BatterySaverCardHandlerFactoryStub() = default;
+  ~BatterySaverCardHandlerFactoryStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return BatterySaverCardHandlerFactoryStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return BatterySaverCardHandlerFactoryStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  BatterySaverCardHandlerStubDispatch {
+ public:
+  static bool Accept(BatterySaverCardHandler* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      BatterySaverCardHandler* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<BatterySaverCardHandler>>
+class BatterySaverCardHandlerStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  BatterySaverCardHandlerStub() = default;
+  ~BatterySaverCardHandlerStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return BatterySaverCardHandlerStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return BatterySaverCardHandlerStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  BatterySaverCardStubDispatch {
+ public:
+  static bool Accept(BatterySaverCard* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      BatterySaverCard* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<BatterySaverCard>>
+class BatterySaverCardStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  BatterySaverCardStub() = default;
+  ~BatterySaverCardStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return BatterySaverCardStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return BatterySaverCardStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  MemorySaverCardHandlerFactoryStubDispatch {
+ public:
+  static bool Accept(MemorySaverCardHandlerFactory* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      MemorySaverCardHandlerFactory* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<MemorySaverCardHandlerFactory>>
+class MemorySaverCardHandlerFactoryStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  MemorySaverCardHandlerFactoryStub() = default;
+  ~MemorySaverCardHandlerFactoryStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MemorySaverCardHandlerFactoryStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MemorySaverCardHandlerFactoryStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  MemorySaverCardHandlerStubDispatch {
+ public:
+  static bool Accept(MemorySaverCardHandler* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      MemorySaverCardHandler* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<MemorySaverCardHandler>>
+class MemorySaverCardHandlerStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  MemorySaverCardHandlerStub() = default;
+  ~MemorySaverCardHandlerStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MemorySaverCardHandlerStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MemorySaverCardHandlerStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  MemorySaverCardStubDispatch {
+ public:
+  static bool Accept(MemorySaverCard* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      MemorySaverCard* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<MemorySaverCard>>
+class MemorySaverCardStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  MemorySaverCardStub() = default;
+  ~MemorySaverCardStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MemorySaverCardStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return MemorySaverCardStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  PerformancePageHandlerFactoryRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -342,6 +913,30 @@ class  PerformancePageHandlerRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  PerformancePageRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  BatterySaverCardHandlerFactoryRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  BatterySaverCardHandlerRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  BatterySaverCardRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  MemorySaverCardHandlerFactoryRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  MemorySaverCardHandlerRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  MemorySaverCardRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

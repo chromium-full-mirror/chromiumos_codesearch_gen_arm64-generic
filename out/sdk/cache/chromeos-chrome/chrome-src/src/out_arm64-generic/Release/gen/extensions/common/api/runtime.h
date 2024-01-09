@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -91,8 +92,8 @@ struct PlatformInfo {
   ~PlatformInfo();
   PlatformInfo(const PlatformInfo&) = delete;
   PlatformInfo& operator=(const PlatformInfo&) = delete;
-  PlatformInfo(PlatformInfo&& rhs);
-  PlatformInfo& operator=(PlatformInfo&& rhs);
+  PlatformInfo(PlatformInfo&& rhs) noexcept;
+  PlatformInfo& operator=(PlatformInfo&& rhs) noexcept;
 
   // Populates a PlatformInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -105,15 +106,12 @@ struct PlatformInfo {
   // Creates a deep copy of PlatformInfo.
   PlatformInfo Clone() const;
 
-  // Creates a PlatformInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PlatformInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a PlatformInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PlatformInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<PlatformInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a PlatformInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<PlatformInfo> FromValue(const base::Value& value);
+  static std::optional<PlatformInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPlatformInfo object.
@@ -199,8 +197,8 @@ struct ExtensionContext {
   ~ExtensionContext();
   ExtensionContext(const ExtensionContext&) = delete;
   ExtensionContext& operator=(const ExtensionContext&) = delete;
-  ExtensionContext(ExtensionContext&& rhs);
-  ExtensionContext& operator=(ExtensionContext&& rhs);
+  ExtensionContext(ExtensionContext&& rhs) noexcept;
+  ExtensionContext& operator=(ExtensionContext&& rhs) noexcept;
 
   // Populates a ExtensionContext object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -213,16 +211,13 @@ struct ExtensionContext {
   // Creates a deep copy of ExtensionContext.
   ExtensionContext Clone() const;
 
-  // Creates a ExtensionContext object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ExtensionContext> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionContext object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ExtensionContext> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionContext> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionContext object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ExtensionContext> FromValue(const base::Value& value);
+  static std::optional<ExtensionContext> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionContext object.
@@ -244,7 +239,7 @@ struct ExtensionContext {
 
   // A UUID for the document associated with this context, or undefined if this
   // context is hosted not in a document.
-  absl::optional<std::string> document_id;
+  std::optional<std::string> document_id;
 
   // The ID of the frame for this context, or -1 if this context is not hosted in
   // a frame.
@@ -252,11 +247,11 @@ struct ExtensionContext {
 
   // The URL of the document associated with this context, or undefined if the
   // context is not hosted in a document.
-  absl::optional<std::string> document_url;
+  std::optional<std::string> document_url;
 
   // The origin of the document associated with this context, or undefined if the
   // context is not hosted in a document.
-  absl::optional<std::string> document_origin;
+  std::optional<std::string> document_origin;
 
   // Whether the context is associated with an incognito profile.
   bool incognito;
@@ -271,8 +266,8 @@ struct ContextFilter {
   ~ContextFilter();
   ContextFilter(const ContextFilter&) = delete;
   ContextFilter& operator=(const ContextFilter&) = delete;
-  ContextFilter(ContextFilter&& rhs);
-  ContextFilter& operator=(ContextFilter&& rhs);
+  ContextFilter(ContextFilter&& rhs) noexcept;
+  ContextFilter& operator=(ContextFilter&& rhs) noexcept;
 
   // Populates a ContextFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -285,37 +280,34 @@ struct ContextFilter {
   // Creates a deep copy of ContextFilter.
   ContextFilter Clone() const;
 
-  // Creates a ContextFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ContextFilter> FromValueDeprecated(const base::Value& value);
-
   // Creates a ContextFilter object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ContextFilter> FromValue(const base::Value::Dict& value);
+  static std::optional<ContextFilter> FromValue(const base::Value::Dict& value);
 
   // Creates a ContextFilter object from a base::Value, or nullopt on failure.
-  static absl::optional<ContextFilter> FromValue(const base::Value& value);
+  static std::optional<ContextFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisContextFilter object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::vector<ContextType>> context_types;
+  std::optional<std::vector<ContextType>> context_types;
 
-  absl::optional<std::vector<std::string>> context_ids;
+  std::optional<std::vector<std::string>> context_ids;
 
-  absl::optional<std::vector<int>> tab_ids;
+  std::optional<std::vector<int>> tab_ids;
 
-  absl::optional<std::vector<int>> window_ids;
+  std::optional<std::vector<int>> window_ids;
 
-  absl::optional<std::vector<std::string>> document_ids;
+  std::optional<std::vector<std::string>> document_ids;
 
-  absl::optional<std::vector<int>> frame_ids;
+  std::optional<std::vector<int>> frame_ids;
 
-  absl::optional<std::vector<std::string>> document_urls;
+  std::optional<std::vector<std::string>> document_urls;
 
-  absl::optional<std::vector<std::string>> document_origins;
+  std::optional<std::vector<std::string>> document_origins;
 
-  absl::optional<bool> incognito;
+  std::optional<bool> incognito;
 
 };
 
@@ -334,8 +326,8 @@ struct BackgroundPage {
   ~BackgroundPage();
   BackgroundPage(const BackgroundPage&) = delete;
   BackgroundPage& operator=(const BackgroundPage&) = delete;
-  BackgroundPage(BackgroundPage&& rhs);
-  BackgroundPage& operator=(BackgroundPage&& rhs);
+  BackgroundPage(BackgroundPage&& rhs) noexcept;
+  BackgroundPage& operator=(BackgroundPage&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBackgroundPage object.
@@ -363,11 +355,11 @@ base::Value::List Create();
 namespace SetUninstallURL {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // URL to be opened after the extension is uninstalled. This URL must have an
@@ -402,8 +394,8 @@ struct Result {
   ~Result();
   Result(const Result&) = delete;
   Result& operator=(const Result&) = delete;
-  Result(Result&& rhs);
-  Result& operator=(Result&& rhs);
+  Result(Result&& rhs) noexcept;
+  Result& operator=(Result&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResult object.
@@ -413,7 +405,7 @@ struct Result {
   RequestUpdateCheckStatus status;
 
   // If an update is available, this contains the version of the available update.
-  absl::optional<std::string> version;
+  std::optional<std::string> version;
 
 };
 
@@ -432,11 +424,11 @@ namespace Restart {
 namespace RestartAfterDelay {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Time to wait in seconds before rebooting the device, or -1 to cancel a
@@ -473,8 +465,8 @@ struct DirectoryEntry {
   ~DirectoryEntry();
   DirectoryEntry(const DirectoryEntry&) = delete;
   DirectoryEntry& operator=(const DirectoryEntry&) = delete;
-  DirectoryEntry(DirectoryEntry&& rhs);
-  DirectoryEntry& operator=(DirectoryEntry&& rhs);
+  DirectoryEntry(DirectoryEntry&& rhs) noexcept;
+  DirectoryEntry& operator=(DirectoryEntry&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDirectoryEntry object.
@@ -492,11 +484,11 @@ base::Value::List Create(const DirectoryEntry& directory_entry);
 namespace GetContexts {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A filter to find matching contexts. A context matches if it matches all
@@ -537,8 +529,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -549,11 +541,11 @@ struct Details {
 
   // Indicates the previous version of the extension, which has just been updated.
   // This is present only if 'reason' is 'update'.
-  absl::optional<std::string> previous_version;
+  std::optional<std::string> previous_version;
 
   // Indicates the ID of the imported shared module extension which updated. This
   // is present only if 'reason' is 'shared_module_update'.
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
 
 };
 
@@ -585,8 +577,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.

@@ -13,9 +13,10 @@ let omniboxInput;
 let omniboxOutput;
 let exportDelegate;
 class BrowserProxy {
+    callbackRouter_ = new OmniboxPageCallbackRouter();
+    handler_;
+    lastRequest = null;
     constructor(omniboxOutput) {
-        this.callbackRouter_ = new OmniboxPageCallbackRouter();
-        this.lastRequest = null;
         this.callbackRouter_.handleNewAutocompleteResponse.addListener(this.handleNewAutocompleteResponse.bind(this));
         this.callbackRouter_.handleNewAutocompleteQuery.addListener(this.handleNewAutocompleteQuery.bind(this));
         this.callbackRouter_.handleAnswerImageData.addListener(omniboxOutput.updateAnswerImage.bind(omniboxOutput));
@@ -95,6 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
     omniboxOutput.updateDisplayInputs(omniboxInput.displayInputs);
 });
 class ExportDelegate {
+    omniboxInput_;
+    omniboxOutput_;
     constructor(omniboxOutput, omniboxInput) {
         this.omniboxInput_ = omniboxInput;
         this.omniboxOutput_ = omniboxOutput;
@@ -183,7 +186,7 @@ class ExportDelegate {
         }
     }
     exportClipboard() {
-        navigator.clipboard.writeText(JSON.stringify(this.exportData, null, 2))
+        navigator.clipboard.writeText(ExportDelegate.jsonStringify(this.exportData))
             .catch(error => console.error('unable to export to clipboard:', error));
     }
     exportFile() {
@@ -197,17 +200,22 @@ class ExportDelegate {
             versionDetails: ExportDelegate.getVersionDetails(),
             queryInputs: this.omniboxInput_.queryInputs,
             displayInputs: this.omniboxInput_.displayInputs,
-            responsesHistory: this.omniboxOutput_.responsesHistory,
+            // 20 entries will be about 7mb and 180k lines. That's small enough to
+            // attach to bugs.chromium.org which has a 10mb limit.
+            responsesHistory: this.omniboxOutput_.responsesHistory.slice(-20),
         };
     }
     static download(object, fileName) {
-        const content = JSON.stringify(object, null, 2);
+        const content = ExportDelegate.jsonStringify(object);
         const blob = new Blob([content], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = fileName;
         a.click();
+    }
+    static jsonStringify(data) {
+        return JSON.stringify(data, (_, value) => typeof value === 'bigint' ? value.toString() : value, 2);
     }
     /**
      * Returns a sortable timestamp string for use in filenames.

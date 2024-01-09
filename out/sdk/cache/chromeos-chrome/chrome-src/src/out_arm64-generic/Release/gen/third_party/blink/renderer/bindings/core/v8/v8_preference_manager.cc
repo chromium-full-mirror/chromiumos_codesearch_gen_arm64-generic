@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PreferenceManager>::value,
     "PreferenceManager inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PreferenceManager::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PreferenceManager is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("PreferenceManager.colorScheme.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(v8_receiver);
+PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->colorScheme();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("PreferenceManager.contrast.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(v8_receiver);
+PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->contrast();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -115,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("PreferenceManager.reducedMotion.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(v8_receiver);
+PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reducedMotion();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -129,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("PreferenceManager.reducedTransparency.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(v8_receiver);
+PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reducedTransparency();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -143,8 +142,9 @@ BLINK_BINDINGS_TRACE_EVENT("PreferenceManager.reducedData.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(v8_receiver);
+PreferenceManager* blink_receiver = V8PreferenceManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reducedData();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

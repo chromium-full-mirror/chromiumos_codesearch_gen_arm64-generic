@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSPropertyRule>::value,
     "CSSPropertyRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSPropertyRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSPropertyRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPropertyRule.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSPropertyRule* blink_receiver = V8CSSPropertyRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSPropertyRule* blink_receiver = V8CSSPropertyRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -100,10 +95,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPropertyRule.syntax.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSPropertyRule* blink_receiver = V8CSSPropertyRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->syntax();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSPropertyRule* blink_receiver = V8CSSPropertyRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->syntax();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -115,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPropertyRule.inherits.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSPropertyRule* blink_receiver = V8CSSPropertyRule::ToWrappableUnsafe(v8_receiver);
+CSSPropertyRule* blink_receiver = V8CSSPropertyRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inherits();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -129,10 +125,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPropertyRule.initialValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSPropertyRule* blink_receiver = V8CSSPropertyRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->initialValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSPropertyRule* blink_receiver = V8CSSPropertyRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->initialValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 

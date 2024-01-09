@@ -28,11 +28,11 @@ class  ScreenAIDownloaderAsyncWaiter {
 
   ~ScreenAIDownloaderAsyncWaiter();
   void DownloadComponentDeprecated(
-      absl::optional<::base::FilePath>* out_loaded_folder);
-  absl::optional<::base::FilePath> DownloadComponentDeprecated();
+      std::optional<::base::FilePath>* out_loaded_folder);
+  std::optional<::base::FilePath> DownloadComponentDeprecated();
   void GetComponentFolder(
-      bool download_if_needed, absl::optional<::base::FilePath>* out_component_folder);
-  absl::optional<::base::FilePath> GetComponentFolder(bool download_if_needed);
+      bool download_if_needed, std::optional<::base::FilePath>* out_component_folder);
+  std::optional<::base::FilePath> GetComponentFolder(bool download_if_needed);
 
  private:
   ScreenAIDownloader* const proxy_;

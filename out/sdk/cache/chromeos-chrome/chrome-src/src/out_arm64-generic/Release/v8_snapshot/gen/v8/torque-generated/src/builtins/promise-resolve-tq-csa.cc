@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/promise-resolve-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -85,7 +86,7 @@
 namespace v8 {
 namespace internal {
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=14&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=13&c=1
 TNode<String> kConstructorString_0(compiler::CodeAssemblerState* state_) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
@@ -129,7 +130,7 @@ TF_BUILTIN(PromiseResolveTrampoline, CodeStubAssembler) {
   TNode<Object> tmp2;
   if (block3.is_used()) {
     ca_.Bind(&block3);
-    tmp2 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kPromiseResolve), parameter0, tmp0, parameter2);
+    tmp2 = ca_.CallBuiltin<Object>(Builtin::kPromiseResolve, parameter0, tmp0, parameter2);
     CodeStubAssembler(state_).Return(tmp2);
   }
 }
@@ -203,7 +204,7 @@ TF_BUILTIN(PromiseResolve, CodeStubAssembler) {
     tmp10 = CodeStubAssembler(state_).LoadReference<JSObject>(CodeStubAssembler::Reference{tmp8, tmp9});
     tmp11 = CodeStubAssembler(state_).LoadNativeContext(TNode<Context>{parameter0});
     tmp12 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp0}, TNode<HeapObject>{tmp11});
-    CodeStubAssembler(state_).StaticAssert(TNode<BoolT>{tmp12}, "static_assert(nativeContext == LoadNativeContext(context)) at https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=45&c=5");
+    CodeStubAssembler(state_).StaticAssert(TNode<BoolT>{tmp12}, "static_assert(nativeContext == LoadNativeContext(context)) at https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=44&c=5");
     tmp13 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp14 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{tmp5, tmp13});
     tmp15 = FromConstexpr_intptr_constexpr_int31_0(state_, 16);
@@ -279,7 +280,7 @@ TF_BUILTIN(PromiseResolve, CodeStubAssembler) {
   if (block15.is_used()) {
     ca_.Bind(&block15);
     tmp24 = NewJSPromise_1(state_, TNode<Context>{parameter0});
-    tmp25 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kResolvePromise), parameter0, tmp24, parameter2);
+    tmp25 = ca_.CallBuiltin<Object>(Builtin::kResolvePromise, parameter0, tmp24, parameter2);
     CodeStubAssembler(state_).Return(tmp24);
   }
 
@@ -295,7 +296,7 @@ TF_BUILTIN(PromiseResolve, CodeStubAssembler) {
   if (block16.is_used()) {
     ca_.Bind(&block16);
     tmp26 = True_0(state_);
-    tmp27 = ca_.CallStub<PromiseCapability>(Builtins::CallableFor(ca_.isolate(), Builtin::kNewPromiseCapability), parameter0, parameter1, tmp26);
+    tmp27 = ca_.CallBuiltin<PromiseCapability>(Builtin::kNewPromiseCapability, parameter0, parameter1, tmp26);
     tmp28 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp29 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{tmp27, tmp28});
     tmp30 = UnsafeCast_Callable_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp29});
@@ -307,7 +308,7 @@ TF_BUILTIN(PromiseResolve, CodeStubAssembler) {
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=87&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=86&c=1
 TNode<String> kThenString_0(compiler::CodeAssemblerState* state_) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
@@ -399,7 +400,7 @@ TF_BUILTIN(ResolvePromise, CodeStubAssembler) {
   TNode<Undefined> tmp6;
   if (block10.is_used()) {
     ca_.Bind(&block10);
-    tmp6 = ca_.CallStub<Undefined>(Builtins::CallableFor(ca_.isolate(), Builtin::kFulfillPromise), parameter0, parameter1, parameter2);
+    tmp6 = ca_.CallBuiltin<Undefined>(Builtin::kFulfillPromise, parameter0, parameter1, parameter2);
     CodeStubAssembler(state_).Return(tmp6);
   }
 
@@ -421,7 +422,7 @@ TF_BUILTIN(ResolvePromise, CodeStubAssembler) {
   TNode<Undefined> tmp12;
   if (block12.is_used()) {
     ca_.Bind(&block12);
-    tmp12 = ca_.CallStub<Undefined>(Builtins::CallableFor(ca_.isolate(), Builtin::kFulfillPromise), parameter0, parameter1, parameter2);
+    tmp12 = ca_.CallBuiltin<Undefined>(Builtin::kFulfillPromise, parameter0, parameter1, parameter2);
     CodeStubAssembler(state_).Return(tmp12);
   }
 
@@ -477,7 +478,7 @@ TF_BUILTIN(ResolvePromise, CodeStubAssembler) {
   TNode<Undefined> tmp23;
   if (block28.is_used()) {
     ca_.Bind(&block28);
-    tmp23 = ca_.CallStub<Undefined>(Builtins::CallableFor(ca_.isolate(), Builtin::kFulfillPromise), parameter0, parameter1, parameter2);
+    tmp23 = ca_.CallBuiltin<Undefined>(Builtin::kFulfillPromise, parameter0, parameter1, parameter2);
     CodeStubAssembler(state_).Return(tmp23);
   }
 
@@ -517,7 +518,7 @@ TF_BUILTIN(ResolvePromise, CodeStubAssembler) {
     tmp34 = CodeStubAssembler(state_).LoadReference<JSFunction>(CodeStubAssembler::Reference{tmp32, tmp33});
     tmp35 = CodeStubAssembler(state_).LoadNativeContext(TNode<Context>{parameter0});
     tmp36 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp15}, TNode<HeapObject>{tmp35});
-    CodeStubAssembler(state_).StaticAssert(TNode<BoolT>{tmp36}, "static_assert(nativeContext == LoadNativeContext(context)) at https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=157&c=7");
+    CodeStubAssembler(state_).StaticAssert(TNode<BoolT>{tmp36}, "static_assert(nativeContext == LoadNativeContext(context)) at https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=156&c=7");
     ca_.Goto(&block7, tmp34);
   }
 
@@ -557,14 +558,14 @@ TF_BUILTIN(ResolvePromise, CodeStubAssembler) {
     ca_.Bind(&block35);
     tmp43 = GetAndResetPendingMessage_0(state_);
     tmp44 = False_0(state_);
-    tmp45 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRejectPromise), parameter0, parameter1, tmp40, tmp44);
+    tmp45 = ca_.CallBuiltin<Object>(Builtin::kRejectPromise, parameter0, parameter1, tmp40, tmp44);
     CodeStubAssembler(state_).Return(tmp45);
   }
 
   TNode<Undefined> tmp46;
   if (block36.is_used()) {
     ca_.Bind(&block36);
-    tmp46 = ca_.CallStub<Undefined>(Builtins::CallableFor(ca_.isolate(), Builtin::kFulfillPromise), parameter0, parameter1, parameter2);
+    tmp46 = ca_.CallBuiltin<Undefined>(Builtin::kFulfillPromise, parameter0, parameter1, parameter2);
     CodeStubAssembler(state_).Return(tmp46);
   }
 
@@ -587,12 +588,12 @@ TF_BUILTIN(ResolvePromise, CodeStubAssembler) {
     tmp49 = NewPromiseResolveThenableJobTask_0(state_, TNode<Context>{parameter0}, TNode<JSPromise>{parameter1}, TNode<JSReceiver>{tmp47}, TNode<JSReceiver>{tmp48});
     tmp50 = FromConstexpr_intptr_constexpr_int31_0(state_, 4);
     tmp51 = CodeStubAssembler(state_).LoadReference<Context>(CodeStubAssembler::Reference{tmp49, tmp50});
-    tmp52 = ca_.CallStub<Undefined>(Builtins::CallableFor(ca_.isolate(), Builtin::kEnqueueMicrotask), tmp51, tmp49);
+    tmp52 = ca_.CallBuiltin<Undefined>(Builtin::kEnqueueMicrotask, tmp51, tmp49);
     CodeStubAssembler(state_).Return(tmp52);
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=173&c=10
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-resolve.tq?l=172&c=10
 TNode<BoolT> Is_Callable_Object_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

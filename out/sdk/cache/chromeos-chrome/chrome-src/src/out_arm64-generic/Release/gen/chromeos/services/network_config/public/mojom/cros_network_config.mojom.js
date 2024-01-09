@@ -536,6 +536,34 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var SuppressionType = {};
+  SuppressionType.kUnset = 0;
+  SuppressionType.kAllow = 1;
+  SuppressionType.kSuppress = 2;
+  SuppressionType.MIN_VALUE = 0;
+  SuppressionType.MAX_VALUE = 2;
+
+  SuppressionType.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    }
+    return false;
+  };
+
+  SuppressionType.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  SuppressionType.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
   var TrafficCounterSource = {};
   TrafficCounterSource.kUnknown = 0;
   TrafficCounterSource.kChrome = 1;
@@ -1427,6 +1455,7 @@
     this.scanning = false;
     this.simAbsent = false;
     this.managedNetworkAvailable = false;
+    this.isCarrierLocked = false;
     this.inhibitReason = InhibitReason.kNotInhibited;
     this.simLockStatus = null;
     this.simInfos = null;
@@ -1517,6 +1546,7 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
     return validator.validationError.NONE;
   };
 
@@ -1539,6 +1569,7 @@
     val.scanning = (packed >> 0) & 1 ? true : false;
     val.simAbsent = (packed >> 1) & 1 ? true : false;
     val.managedNetworkAvailable = (packed >> 2) & 1 ? true : false;
+    val.isCarrierLocked = (packed >> 3) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -1569,6 +1600,7 @@
     packed |= (val.scanning & 1) << 0
     packed |= (val.simAbsent & 1) << 1
     packed |= (val.managedNetworkAvailable & 1) << 2
+    packed |= (val.isCarrierLocked & 1) << 3
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
@@ -7748,6 +7780,7 @@
     this.reportXdrEventsEnabled = false;
     this.recommendedValuesAreEphemeral = false;
     this.userCreatedNetworkConfigurationsAreEphemeral = false;
+    this.allowTextMessages = SuppressionType.kUnset;
     this.blockedHexSsids = null;
   };
   GlobalPolicy.prototype.initFields_ = function(fields) {
@@ -7786,6 +7819,12 @@
 
 
 
+
+    // validate GlobalPolicy.allowTextMessages
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, SuppressionType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
@@ -7810,10 +7849,8 @@
     val.userCreatedNetworkConfigurationsAreEphemeral = (packed >> 1) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    val.allowTextMessages =
+        decoder.decodeStruct(new codec.Enum(SuppressionType));
     val.blockedHexSsids =
         decoder.decodeArrayPointer(codec.String);
     return val;
@@ -7839,10 +7876,7 @@
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.allowTextMessages);
     encoder.encodeArrayPointer(codec.String, val.blockedHexSsids);
   };
   function VpnProvider(values) {
@@ -10846,6 +10880,73 @@
     encoder.encodeStruct(codec.String, val.networkGuid);
     encoder.encodeStructPointer(ApnProperties, val.apn);
   };
+  function CrosNetworkConfig_CreateCustomApn_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CrosNetworkConfig_CreateCustomApn_ResponseParams.prototype.initDefaults_ = function() {
+    this.success = false;
+  };
+  CrosNetworkConfig_CreateCustomApn_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CrosNetworkConfig_CreateCustomApn_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  CrosNetworkConfig_CreateCustomApn_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  CrosNetworkConfig_CreateCustomApn_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new CrosNetworkConfig_CreateCustomApn_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.success = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  CrosNetworkConfig_CreateCustomApn_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CrosNetworkConfig_CreateCustomApn_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.success & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   function CrosNetworkConfig_RemoveCustomApn_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -12634,12 +12735,22 @@
     var params_ = new CrosNetworkConfig_CreateCustomApn_Params();
     params_.networkGuid = networkGuid;
     params_.apn = apn;
-    var builder = new codec.MessageV0Builder(
-        kCrosNetworkConfig_CreateCustomApn_Name,
-        codec.align(CrosNetworkConfig_CreateCustomApn_Params.encodedSize));
-    builder.encodeStruct(CrosNetworkConfig_CreateCustomApn_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kCrosNetworkConfig_CreateCustomApn_Name,
+          codec.align(CrosNetworkConfig_CreateCustomApn_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(CrosNetworkConfig_CreateCustomApn_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(CrosNetworkConfig_CreateCustomApn_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
   };
   CrosNetworkConfigPtr.prototype.removeCustomApn = function() {
     return CrosNetworkConfigProxy.prototype.removeCustomApn
@@ -12781,10 +12892,6 @@
     case kCrosNetworkConfig_ResetTrafficCounters_Name:
       var params = reader.decodeStruct(CrosNetworkConfig_ResetTrafficCounters_Params);
       this.resetTrafficCounters(params.guid);
-      return true;
-    case kCrosNetworkConfig_CreateCustomApn_Name:
-      var params = reader.decodeStruct(CrosNetworkConfig_CreateCustomApn_Params);
-      this.createCustomApn(params.networkGuid, params.apn);
       return true;
     case kCrosNetworkConfig_RemoveCustomApn_Name:
       var params = reader.decodeStruct(CrosNetworkConfig_RemoveCustomApn_Params);
@@ -13111,6 +13218,22 @@
         responder.accept(message);
       });
       return true;
+    case kCrosNetworkConfig_CreateCustomApn_Name:
+      var params = reader.decodeStruct(CrosNetworkConfig_CreateCustomApn_Params);
+      this.createCustomApn(params.networkGuid, params.apn).then(function(response) {
+        var responseParams =
+            new CrosNetworkConfig_CreateCustomApn_ResponseParams();
+        responseParams.success = response.success;
+        var builder = new codec.MessageV1Builder(
+            kCrosNetworkConfig_CreateCustomApn_Name,
+            codec.align(CrosNetworkConfig_CreateCustomApn_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(CrosNetworkConfig_CreateCustomApn_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -13217,7 +13340,7 @@
           paramsClass = CrosNetworkConfig_SetTrafficCountersAutoReset_Params;
       break;
       case kCrosNetworkConfig_CreateCustomApn_Name:
-        if (!message.expectsResponse() && !message.isResponse())
+        if (message.expectsResponse())
           paramsClass = CrosNetworkConfig_CreateCustomApn_Params;
       break;
       case kCrosNetworkConfig_RemoveCustomApn_Name:
@@ -13313,6 +13436,10 @@
       case kCrosNetworkConfig_SetTrafficCountersAutoReset_Name:
         if (message.isResponse())
           paramsClass = CrosNetworkConfig_SetTrafficCountersAutoReset_ResponseParams;
+        break;
+      case kCrosNetworkConfig_CreateCustomApn_Name:
+        if (message.isResponse())
+          paramsClass = CrosNetworkConfig_CreateCustomApn_ResponseParams;
         break;
     }
     if (paramsClass === null)
@@ -13601,6 +13728,7 @@
   exports.ApnAuthenticationType = ApnAuthenticationType;
   exports.ApnIpType = ApnIpType;
   exports.ApnType = ApnType;
+  exports.SuppressionType = SuppressionType;
   exports.TrafficCounterSource = TrafficCounterSource;
   exports.SIMLockStatus = SIMLockStatus;
   exports.SIMInfo = SIMInfo;

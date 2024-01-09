@@ -21,7 +21,8 @@ namespace ash {
 namespace reporting {
 PROTOBUF_CONSTEXPR LogUploadEvent::LogUploadEvent(
     ::_pbi::ConstantInitialized)
-  : upload_settings_(nullptr)
+  : command_result_payload_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , upload_settings_(nullptr)
   , upload_tracker_(nullptr)
   , command_id_(int64_t{0}){}
 struct LogUploadEventDefaultTypeInternal {
@@ -45,14 +46,17 @@ class LogUploadEvent::_Internal {
   using HasBits = decltype(std::declval<LogUploadEvent>()._has_bits_);
   static const ::reporting::UploadSettings& upload_settings(const LogUploadEvent* msg);
   static void set_has_upload_settings(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
+    (*has_bits)[0] |= 2u;
   }
   static const ::reporting::UploadTracker& upload_tracker(const LogUploadEvent* msg);
   static void set_has_upload_tracker(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 4u;
   }
   static void set_has_command_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_command_result_payload(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
   }
 };
 
@@ -66,11 +70,11 @@ LogUploadEvent::_Internal::upload_tracker(const LogUploadEvent* msg) {
 }
 void LogUploadEvent::clear_upload_settings() {
   if (upload_settings_ != nullptr) upload_settings_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 void LogUploadEvent::clear_upload_tracker() {
   if (upload_tracker_ != nullptr) upload_tracker_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 LogUploadEvent::LogUploadEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -82,6 +86,14 @@ LogUploadEvent::LogUploadEvent(const LogUploadEvent& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  command_result_payload_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    command_result_payload_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_command_result_payload()) {
+    command_result_payload_.Set(from._internal_command_result_payload(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_upload_settings()) {
     upload_settings_ = new ::reporting::UploadSettings(*from.upload_settings_);
   } else {
@@ -97,6 +109,10 @@ LogUploadEvent::LogUploadEvent(const LogUploadEvent& from)
 }
 
 inline void LogUploadEvent::SharedCtor() {
+command_result_payload_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  command_result_payload_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&upload_settings_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&command_id_) -
@@ -114,6 +130,7 @@ LogUploadEvent::~LogUploadEvent() {
 
 inline void LogUploadEvent::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  command_result_payload_.Destroy();
   if (this != internal_default_instance()) delete upload_settings_;
   if (this != internal_default_instance()) delete upload_tracker_;
 }
@@ -129,12 +146,15 @@ void LogUploadEvent::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
+      command_result_payload_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(upload_settings_ != nullptr);
       upload_settings_->Clear();
     }
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(upload_tracker_ != nullptr);
       upload_tracker_->Clear();
     }
@@ -176,6 +196,15 @@ const char* LogUploadEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
+      // optional string command_result_payload = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_command_result_payload();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -208,23 +237,29 @@ uint8_t* LogUploadEvent::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .reporting.UploadSettings upload_settings = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::upload_settings(this),
         _Internal::upload_settings(this).GetCachedSize(), target, stream);
   }
 
   // optional .reporting.UploadTracker upload_tracker = 2;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::upload_tracker(this),
         _Internal::upload_tracker(this).GetCachedSize(), target, stream);
   }
 
   // optional int64 command_id = 3;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_command_id(), target);
+  }
+
+  // optional string command_result_payload = 4;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_command_result_payload(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -244,23 +279,30 @@ size_t LogUploadEvent::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional .reporting.UploadSettings upload_settings = 1;
+  if (cached_has_bits & 0x0000000fu) {
+    // optional string command_result_payload = 4;
     if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_command_result_payload());
+    }
+
+    // optional .reporting.UploadSettings upload_settings = 1;
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *upload_settings_);
     }
 
     // optional .reporting.UploadTracker upload_tracker = 2;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *upload_tracker_);
     }
 
     // optional int64 command_id = 3;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_command_id());
     }
 
@@ -286,14 +328,17 @@ void LogUploadEvent::MergeFrom(const LogUploadEvent& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_upload_settings()->::reporting::UploadSettings::MergeFrom(from._internal_upload_settings());
+      _internal_set_command_result_payload(from._internal_command_result_payload());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_upload_tracker()->::reporting::UploadTracker::MergeFrom(from._internal_upload_tracker());
+      _internal_mutable_upload_settings()->::reporting::UploadSettings::MergeFrom(from._internal_upload_settings());
     }
     if (cached_has_bits & 0x00000004u) {
+      _internal_mutable_upload_tracker()->::reporting::UploadTracker::MergeFrom(from._internal_upload_tracker());
+    }
+    if (cached_has_bits & 0x00000008u) {
       command_id_ = from.command_id_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -314,8 +359,14 @@ bool LogUploadEvent::IsInitialized() const {
 
 void LogUploadEvent::InternalSwap(LogUploadEvent* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &command_result_payload_, lhs_arena,
+      &other->command_result_payload_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(LogUploadEvent, command_id_)
       + sizeof(LogUploadEvent::command_id_)

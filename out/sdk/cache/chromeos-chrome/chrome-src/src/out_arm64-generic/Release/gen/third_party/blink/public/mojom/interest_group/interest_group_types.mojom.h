@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/interest_group/interest_group_types.mojom-features.h"
 #include "third_party/blink/public/mojom/interest_group/interest_group_types.mojom-shared.h"
 #include "third_party/blink/public/mojom/interest_group/interest_group_types.mojom-forward.h"
 #include "mojo/public/mojom/base/int128.mojom.h"
@@ -508,15 +509,15 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseJson {
   // Construct an instance holding |promise|.
   static AuctionAdConfigMaybePromiseJsonPtr
   NewPromise(
-      uint32_t promise) {
+      uint32_t value) {
     auto result = AuctionAdConfigMaybePromiseJsonPtr(absl::in_place);
-    result->set_promise(std::move(promise));
+    result->set_promise(std::move(value));
     return result;
   }
   // Construct an instance holding |value|.
   static AuctionAdConfigMaybePromiseJsonPtr
   NewValue(
-      const absl::optional<std::string>& value) {
+      const std::optional<std::string>& value) {
     auto result = AuctionAdConfigMaybePromiseJsonPtr(absl::in_place);
     result->set_value(std::move(value));
     return result;
@@ -579,14 +580,14 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseJson {
   bool is_value() const { return tag_ == Tag::kValue; }
 
   
-  absl::optional<std::string>& get_value() const {
+  std::optional<std::string>& get_value() const {
     CHECK(tag_ == Tag::kValue);
     return *(data_.value);
   }
 
   
   void set_value(
-      const absl::optional<std::string>& value);
+      const std::optional<std::string>& value);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -606,7 +607,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseJson {
     Union_() = default;
     ~Union_() = default;
     uint32_t promise;
-    absl::optional<std::string>* value;
+    std::optional<std::string>* value;
   };
 
   static bool Validate(const void* data,
@@ -638,15 +639,15 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromisePerBuyerSignals {
   // Construct an instance holding |promise|.
   static AuctionAdConfigMaybePromisePerBuyerSignalsPtr
   NewPromise(
-      uint32_t promise) {
+      uint32_t value) {
     auto result = AuctionAdConfigMaybePromisePerBuyerSignalsPtr(absl::in_place);
-    result->set_promise(std::move(promise));
+    result->set_promise(std::move(value));
     return result;
   }
   // Construct an instance holding |value|.
   static AuctionAdConfigMaybePromisePerBuyerSignalsPtr
   NewValue(
-      const absl::optional<base::flat_map<::url::Origin, std::string>>& value) {
+      const std::optional<base::flat_map<::url::Origin, std::string>>& value) {
     auto result = AuctionAdConfigMaybePromisePerBuyerSignalsPtr(absl::in_place);
     result->set_value(std::move(value));
     return result;
@@ -709,14 +710,14 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromisePerBuyerSignals {
   bool is_value() const { return tag_ == Tag::kValue; }
 
   
-  absl::optional<base::flat_map<::url::Origin, std::string>>& get_value() const {
+  std::optional<base::flat_map<::url::Origin, std::string>>& get_value() const {
     CHECK(tag_ == Tag::kValue);
     return *(data_.value);
   }
 
   
   void set_value(
-      const absl::optional<base::flat_map<::url::Origin, std::string>>& value);
+      const std::optional<base::flat_map<::url::Origin, std::string>>& value);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -736,7 +737,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromisePerBuyerSignals {
     Union_() = default;
     ~Union_() = default;
     uint32_t promise;
-    absl::optional<base::flat_map<::url::Origin, std::string>>* value;
+    std::optional<base::flat_map<::url::Origin, std::string>>* value;
   };
 
   static bool Validate(const void* data,
@@ -768,9 +769,9 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseBuyerTimeouts {
   // Construct an instance holding |promise|.
   static AuctionAdConfigMaybePromiseBuyerTimeoutsPtr
   NewPromise(
-      uint32_t promise) {
+      uint32_t value) {
     auto result = AuctionAdConfigMaybePromiseBuyerTimeoutsPtr(absl::in_place);
-    result->set_promise(std::move(promise));
+    result->set_promise(std::move(value));
     return result;
   }
   // Construct an instance holding |value|.
@@ -898,9 +899,9 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseBuyerCurrencies {
   // Construct an instance holding |promise|.
   static AuctionAdConfigMaybePromiseBuyerCurrenciesPtr
   NewPromise(
-      uint32_t promise) {
+      uint32_t value) {
     auto result = AuctionAdConfigMaybePromiseBuyerCurrenciesPtr(absl::in_place);
-    result->set_promise(std::move(promise));
+    result->set_promise(std::move(value));
     return result;
   }
   // Construct an instance holding |value|.
@@ -1028,15 +1029,15 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseDirectFromSellerSignals {
   // Construct an instance holding |promise|.
   static AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr
   NewPromise(
-      uint32_t promise) {
+      uint32_t value) {
     auto result = AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr(absl::in_place);
-    result->set_promise(std::move(promise));
+    result->set_promise(std::move(value));
     return result;
   }
   // Construct an instance holding |value|.
   static AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr
   NewValue(
-      const absl::optional<::blink::DirectFromSellerSignals>& value) {
+      const std::optional<::blink::DirectFromSellerSignals>& value) {
     auto result = AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr(absl::in_place);
     result->set_value(std::move(value));
     return result;
@@ -1099,14 +1100,14 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseDirectFromSellerSignals {
   bool is_value() const { return tag_ == Tag::kValue; }
 
   
-  absl::optional<::blink::DirectFromSellerSignals>& get_value() const {
+  std::optional<::blink::DirectFromSellerSignals>& get_value() const {
     CHECK(tag_ == Tag::kValue);
     return *(data_.value);
   }
 
   
   void set_value(
-      const absl::optional<::blink::DirectFromSellerSignals>& value);
+      const std::optional<::blink::DirectFromSellerSignals>& value);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1126,7 +1127,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseDirectFromSellerSignals {
     Union_() = default;
     ~Union_() = default;
     uint32_t promise;
-    absl::optional<::blink::DirectFromSellerSignals>* value;
+    std::optional<::blink::DirectFromSellerSignals>* value;
   };
 
   static bool Validate(const void* data,
@@ -1168,13 +1169,13 @@ class BLINK_COMMON_EXPORT InterestGroupAd {
   InterestGroupAd();
 
   InterestGroupAd(
-      const ::GURL& render_url,
-      const absl::optional<std::string>& size_group,
-      const absl::optional<std::string>& buyer_reporting_id,
-      const absl::optional<std::string>& buyer_and_seller_reporting_id,
-      const absl::optional<std::string>& metadata,
-      const absl::optional<std::string>& ad_render_id,
-      absl::optional<std::vector<::url::Origin>> allowed_reporting_origins);
+      const std::string& render_url,
+      const std::optional<std::string>& size_group,
+      const std::optional<std::string>& buyer_reporting_id,
+      const std::optional<std::string>& buyer_and_seller_reporting_id,
+      const std::optional<std::string>& metadata,
+      const std::optional<std::string>& ad_render_id,
+      std::optional<std::vector<::url::Origin>> allowed_reporting_origins);
 
 
   ~InterestGroupAd();
@@ -1252,19 +1253,19 @@ class BLINK_COMMON_EXPORT InterestGroupAd {
   }
 
   
-  ::GURL render_url;
+  std::string render_url;
   
-  absl::optional<std::string> size_group;
+  std::optional<std::string> size_group;
   
-  absl::optional<std::string> buyer_reporting_id;
+  std::optional<std::string> buyer_reporting_id;
   
-  absl::optional<std::string> buyer_and_seller_reporting_id;
+  std::optional<std::string> buyer_and_seller_reporting_id;
   
-  absl::optional<std::string> metadata;
+  std::optional<std::string> metadata;
   
-  absl::optional<std::string> ad_render_id;
+  std::optional<std::string> ad_render_id;
   
-  absl::optional<std::vector<::url::Origin>> allowed_reporting_origins;
+  std::optional<std::vector<::url::Origin>> allowed_reporting_origins;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1308,6 +1309,7 @@ class BLINK_COMMON_EXPORT InterestGroup {
   using DataView = InterestGroupDataView;
   using Data_ = internal::InterestGroup_Data;
   using ExecutionMode = InterestGroup_ExecutionMode;
+  using TrustedBiddingSignalsSlotSizeMode = InterestGroup_TrustedBiddingSignalsSlotSizeMode;
 
   template <typename... Args>
   static InterestGroupPtr New(Args&&... args) {
@@ -1334,24 +1336,25 @@ class BLINK_COMMON_EXPORT InterestGroup {
       const std::string& name,
       double priority,
       bool enable_bidding_signals_prioritization,
-      const absl::optional<base::flat_map<std::string, double>>& priority_vector,
-      const absl::optional<base::flat_map<std::string, double>>& priority_signals_overrides,
-      absl::optional<base::flat_map<::url::Origin, SellerCapabilitiesPtr>> seller_capabilities,
+      const std::optional<base::flat_map<std::string, double>>& priority_vector,
+      const std::optional<base::flat_map<std::string, double>>& priority_signals_overrides,
+      std::optional<base::flat_map<::url::Origin, SellerCapabilitiesPtr>> seller_capabilities,
       SellerCapabilitiesPtr all_sellers_capabilities,
       InterestGroup::ExecutionMode execution_mode,
-      const absl::optional<::GURL>& bidding_url,
-      const absl::optional<::GURL>& bidding_wasm_helper_url,
-      const absl::optional<::GURL>& update_url,
-      const absl::optional<::GURL>& trusted_bidding_signals_url,
-      absl::optional<std::vector<std::string>> trusted_bidding_signals_keys,
-      const absl::optional<std::string>& user_bidding_signals,
-      absl::optional<std::vector<::blink::InterestGroup::Ad>> ads,
-      absl::optional<std::vector<::blink::InterestGroup::Ad>> ad_components,
-      const absl::optional<base::flat_map<std::string, ::blink::AdSize>>& ad_sizes,
-      const absl::optional<base::flat_map<std::string, std::vector<std::string>>>& size_groups,
+      InterestGroup::TrustedBiddingSignalsSlotSizeMode trusted_bidding_signals_slot_size_mode,
+      const std::optional<::GURL>& bidding_url,
+      const std::optional<::GURL>& bidding_wasm_helper_url,
+      const std::optional<::GURL>& update_url,
+      const std::optional<::GURL>& trusted_bidding_signals_url,
+      std::optional<std::vector<std::string>> trusted_bidding_signals_keys,
+      const std::optional<std::string>& user_bidding_signals,
+      std::optional<std::vector<::blink::InterestGroup::Ad>> ads,
+      std::optional<std::vector<::blink::InterestGroup::Ad>> ad_components,
+      const std::optional<base::flat_map<std::string, ::blink::AdSize>>& ad_sizes,
+      const std::optional<base::flat_map<std::string, std::vector<std::string>>>& size_groups,
       AuctionServerRequestFlagsPtr auction_server_request_flags,
-      absl::optional<std::vector<uint8_t>> additional_bid_key,
-      const absl::optional<::url::Origin>& aggregation_coordinator_origin);
+      std::optional<std::vector<uint8_t>> additional_bid_key,
+      const std::optional<::url::Origin>& aggregation_coordinator_origin);
 
 InterestGroup(const InterestGroup&) = delete;
 InterestGroup& operator=(const InterestGroup&) = delete;
@@ -1441,41 +1444,43 @@ InterestGroup& operator=(const InterestGroup&) = delete;
   
   bool enable_bidding_signals_prioritization;
   
-  absl::optional<base::flat_map<std::string, double>> priority_vector;
+  std::optional<base::flat_map<std::string, double>> priority_vector;
   
-  absl::optional<base::flat_map<std::string, double>> priority_signals_overrides;
+  std::optional<base::flat_map<std::string, double>> priority_signals_overrides;
   
-  absl::optional<base::flat_map<::url::Origin, SellerCapabilitiesPtr>> seller_capabilities;
+  std::optional<base::flat_map<::url::Origin, SellerCapabilitiesPtr>> seller_capabilities;
   
   SellerCapabilitiesPtr all_sellers_capabilities;
   
   InterestGroup::ExecutionMode execution_mode;
   
-  absl::optional<::GURL> bidding_url;
+  InterestGroup::TrustedBiddingSignalsSlotSizeMode trusted_bidding_signals_slot_size_mode;
   
-  absl::optional<::GURL> bidding_wasm_helper_url;
+  std::optional<::GURL> bidding_url;
   
-  absl::optional<::GURL> update_url;
+  std::optional<::GURL> bidding_wasm_helper_url;
   
-  absl::optional<::GURL> trusted_bidding_signals_url;
+  std::optional<::GURL> update_url;
   
-  absl::optional<std::vector<std::string>> trusted_bidding_signals_keys;
+  std::optional<::GURL> trusted_bidding_signals_url;
   
-  absl::optional<std::string> user_bidding_signals;
+  std::optional<std::vector<std::string>> trusted_bidding_signals_keys;
   
-  absl::optional<std::vector<::blink::InterestGroup::Ad>> ads;
+  std::optional<std::string> user_bidding_signals;
   
-  absl::optional<std::vector<::blink::InterestGroup::Ad>> ad_components;
+  std::optional<std::vector<::blink::InterestGroup::Ad>> ads;
   
-  absl::optional<base::flat_map<std::string, ::blink::AdSize>> ad_sizes;
+  std::optional<std::vector<::blink::InterestGroup::Ad>> ad_components;
   
-  absl::optional<base::flat_map<std::string, std::vector<std::string>>> size_groups;
+  std::optional<base::flat_map<std::string, ::blink::AdSize>> ad_sizes;
+  
+  std::optional<base::flat_map<std::string, std::vector<std::string>>> size_groups;
   
   AuctionServerRequestFlagsPtr auction_server_request_flags;
   
-  absl::optional<std::vector<uint8_t>> additional_bid_key;
+  std::optional<std::vector<uint8_t>> additional_bid_key;
   
-  absl::optional<::url::Origin> aggregation_coordinator_origin;
+  std::optional<::url::Origin> aggregation_coordinator_origin;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1682,8 +1687,8 @@ class BLINK_COMMON_EXPORT DirectFromSellerSignals {
   DirectFromSellerSignals(
       const ::GURL& prefix,
       const base::flat_map<::url::Origin, ::blink::DirectFromSellerSignalsSubresource>& per_buyer_signals,
-      const absl::optional<::blink::DirectFromSellerSignalsSubresource>& seller_signals,
-      const absl::optional<::blink::DirectFromSellerSignalsSubresource>& auction_signals);
+      const std::optional<::blink::DirectFromSellerSignalsSubresource>& seller_signals,
+      const std::optional<::blink::DirectFromSellerSignalsSubresource>& auction_signals);
 
 
   ~DirectFromSellerSignals();
@@ -1765,9 +1770,9 @@ class BLINK_COMMON_EXPORT DirectFromSellerSignals {
   
   base::flat_map<::url::Origin, ::blink::DirectFromSellerSignalsSubresource> per_buyer_signals;
   
-  absl::optional<::blink::DirectFromSellerSignalsSubresource> seller_signals;
+  std::optional<::blink::DirectFromSellerSignalsSubresource> seller_signals;
   
-  absl::optional<::blink::DirectFromSellerSignalsSubresource> auction_signals;
+  std::optional<::blink::DirectFromSellerSignalsSubresource> auction_signals;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1829,8 +1834,8 @@ class BLINK_COMMON_EXPORT AuctionAdConfigBuyerTimeouts {
   AuctionAdConfigBuyerTimeouts();
 
   AuctionAdConfigBuyerTimeouts(
-      absl::optional<::base::TimeDelta> all_buyers_timeout,
-      const absl::optional<base::flat_map<::url::Origin, ::base::TimeDelta>>& per_buyer_timeouts);
+      std::optional<::base::TimeDelta> all_buyers_timeout,
+      const std::optional<base::flat_map<::url::Origin, ::base::TimeDelta>>& per_buyer_timeouts);
 
 
   ~AuctionAdConfigBuyerTimeouts();
@@ -1908,9 +1913,9 @@ class BLINK_COMMON_EXPORT AuctionAdConfigBuyerTimeouts {
   }
 
   
-  absl::optional<::base::TimeDelta> all_buyers_timeout;
+  std::optional<::base::TimeDelta> all_buyers_timeout;
   
-  absl::optional<base::flat_map<::url::Origin, ::base::TimeDelta>> per_buyer_timeouts;
+  std::optional<base::flat_map<::url::Origin, ::base::TimeDelta>> per_buyer_timeouts;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1973,8 +1978,8 @@ class BLINK_COMMON_EXPORT AuctionAdConfigBuyerCurrencies {
   AuctionAdConfigBuyerCurrencies();
 
   AuctionAdConfigBuyerCurrencies(
-      const absl::optional<::blink::AdCurrency>& all_buyers_currency,
-      const absl::optional<base::flat_map<::url::Origin, ::blink::AdCurrency>>& per_buyer_currencies);
+      const std::optional<::blink::AdCurrency>& all_buyers_currency,
+      const std::optional<base::flat_map<::url::Origin, ::blink::AdCurrency>>& per_buyer_currencies);
 
 
   ~AuctionAdConfigBuyerCurrencies();
@@ -2052,9 +2057,9 @@ class BLINK_COMMON_EXPORT AuctionAdConfigBuyerCurrencies {
   }
 
   
-  absl::optional<::blink::AdCurrency> all_buyers_currency;
+  std::optional<::blink::AdCurrency> all_buyers_currency;
   
-  absl::optional<base::flat_map<::url::Origin, ::blink::AdCurrency>> per_buyer_currencies;
+  std::optional<base::flat_map<::url::Origin, ::blink::AdCurrency>> per_buyer_currencies;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2400,24 +2405,25 @@ class BLINK_COMMON_EXPORT AuctionAdConfigNonSharedParams {
   AuctionAdConfigNonSharedParams();
 
   AuctionAdConfigNonSharedParams(
-      absl::optional<std::vector<::url::Origin>> interest_group_buyers,
+      std::optional<std::vector<::url::Origin>> interest_group_buyers,
       const ::blink::AuctionConfig::MaybePromiseJson& auction_signals,
       const ::blink::AuctionConfig::MaybePromiseJson& seller_signals,
-      absl::optional<::base::TimeDelta> seller_timeout,
+      std::optional<::base::TimeDelta> seller_timeout,
       const ::blink::AuctionConfig::MaybePromisePerBuyerSignals& per_buyer_signals,
       const ::blink::AuctionConfig::MaybePromiseBuyerTimeouts& buyer_timeouts,
-      const absl::optional<::blink::AdCurrency>& seller_currency,
+      const std::optional<::blink::AdCurrency>& seller_currency,
       const ::blink::AuctionConfig::MaybePromiseBuyerCurrencies& buyer_currencies,
       const ::blink::AuctionConfig::MaybePromiseBuyerTimeouts& buyer_cumulative_timeouts,
       const base::flat_map<::url::Origin, uint16_t>& per_buyer_group_limits,
-      const absl::optional<base::flat_map<::url::Origin, base::flat_map<std::string, double>>>& per_buyer_priority_signals,
-      const absl::optional<base::flat_map<std::string, double>>& all_buyers_priority_signals,
+      const std::optional<base::flat_map<::url::Origin, base::flat_map<std::string, double>>>& per_buyer_priority_signals,
+      const std::optional<base::flat_map<std::string, double>>& all_buyers_priority_signals,
       uint16_t all_buyers_group_limit,
-      absl::optional<std::vector<::absl::uint128>> auction_report_buyer_keys,
-      absl::optional<base::flat_map<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>> auction_report_buyers,
+      std::optional<std::vector<::absl::uint128>> auction_report_buyer_keys,
+      std::optional<base::flat_map<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>> auction_report_buyers,
       SellerCapabilitiesPtr required_seller_capabilities,
-      const absl::optional<::blink::AdSize>& requested_size,
-      const absl::optional<::base::Uuid>& auction_nonce,
+      const std::optional<::blink::AdSize>& requested_size,
+      std::optional<std::vector<::blink::AdSize>> all_slots_requested_sizes,
+      const std::optional<::base::Uuid>& auction_nonce,
       std::vector<::blink::AuctionConfig> component_auctions);
 
 AuctionAdConfigNonSharedParams(const AuctionAdConfigNonSharedParams&) = delete;
@@ -2498,19 +2504,19 @@ AuctionAdConfigNonSharedParams& operator=(const AuctionAdConfigNonSharedParams&)
   }
 
   
-  absl::optional<std::vector<::url::Origin>> interest_group_buyers;
+  std::optional<std::vector<::url::Origin>> interest_group_buyers;
   
   ::blink::AuctionConfig::MaybePromiseJson auction_signals;
   
   ::blink::AuctionConfig::MaybePromiseJson seller_signals;
   
-  absl::optional<::base::TimeDelta> seller_timeout;
+  std::optional<::base::TimeDelta> seller_timeout;
   
   ::blink::AuctionConfig::MaybePromisePerBuyerSignals per_buyer_signals;
   
   ::blink::AuctionConfig::MaybePromiseBuyerTimeouts buyer_timeouts;
   
-  absl::optional<::blink::AdCurrency> seller_currency;
+  std::optional<::blink::AdCurrency> seller_currency;
   
   ::blink::AuctionConfig::MaybePromiseBuyerCurrencies buyer_currencies;
   
@@ -2518,21 +2524,23 @@ AuctionAdConfigNonSharedParams& operator=(const AuctionAdConfigNonSharedParams&)
   
   base::flat_map<::url::Origin, uint16_t> per_buyer_group_limits;
   
-  absl::optional<base::flat_map<::url::Origin, base::flat_map<std::string, double>>> per_buyer_priority_signals;
+  std::optional<base::flat_map<::url::Origin, base::flat_map<std::string, double>>> per_buyer_priority_signals;
   
-  absl::optional<base::flat_map<std::string, double>> all_buyers_priority_signals;
+  std::optional<base::flat_map<std::string, double>> all_buyers_priority_signals;
   
   uint16_t all_buyers_group_limit;
   
-  absl::optional<std::vector<::absl::uint128>> auction_report_buyer_keys;
+  std::optional<std::vector<::absl::uint128>> auction_report_buyer_keys;
   
-  absl::optional<base::flat_map<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>> auction_report_buyers;
+  std::optional<base::flat_map<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>> auction_report_buyers;
   
   SellerCapabilitiesPtr required_seller_capabilities;
   
-  absl::optional<::blink::AdSize> requested_size;
+  std::optional<::blink::AdSize> requested_size;
   
-  absl::optional<::base::Uuid> auction_nonce;
+  std::optional<std::vector<::blink::AdSize>> all_slots_requested_sizes;
+  
+  std::optional<::base::Uuid> auction_nonce;
   
   std::vector<::blink::AuctionConfig> component_auctions;
 
@@ -2597,9 +2605,9 @@ class BLINK_COMMON_EXPORT AuctionAdConfig {
 
   AuctionAdConfig(
       const ::url::Origin& seller,
-      const absl::optional<::blink::AuctionConfig::ServerResponseConfig>& server_response,
-      const absl::optional<::GURL>& decision_logic_url,
-      const absl::optional<::GURL>& trusted_scoring_signals_url,
+      const std::optional<::blink::AuctionConfig::ServerResponseConfig>& server_response,
+      const std::optional<::GURL>& decision_logic_url,
+      const std::optional<::GURL>& trusted_scoring_signals_url,
       const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params,
       const ::blink::AuctionConfig::MaybePromiseDirectFromSellerSignals& direct_from_seller_signals,
       bool expects_direct_from_seller_signals_header_ad_slot,
@@ -2609,7 +2617,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfig {
       int16_t all_buyer_experiment_group_id,
       const base::flat_map<::url::Origin, uint16_t>& per_buyer_experiment_group_ids,
       bool expects_additional_bids,
-      const absl::optional<::url::Origin>& aggregation_coordinator_origin);
+      const std::optional<::url::Origin>& aggregation_coordinator_origin);
 
 
   ~AuctionAdConfig();
@@ -2689,11 +2697,11 @@ class BLINK_COMMON_EXPORT AuctionAdConfig {
   
   ::url::Origin seller;
   
-  absl::optional<::blink::AuctionConfig::ServerResponseConfig> server_response;
+  std::optional<::blink::AuctionConfig::ServerResponseConfig> server_response;
   
-  absl::optional<::GURL> decision_logic_url;
+  std::optional<::GURL> decision_logic_url;
   
-  absl::optional<::GURL> trusted_scoring_signals_url;
+  std::optional<::GURL> trusted_scoring_signals_url;
   
   ::blink::AuctionConfig::NonSharedParams auction_ad_config_non_shared_params;
   
@@ -2713,7 +2721,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfig {
   
   bool expects_additional_bids;
   
-  absl::optional<::url::Origin> aggregation_coordinator_origin;
+  std::optional<::url::Origin> aggregation_coordinator_origin;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3024,6 +3032,7 @@ InterestGroupPtr InterestGroup::Clone() const {
       mojo::Clone(seller_capabilities),
       mojo::Clone(all_sellers_capabilities),
       mojo::Clone(execution_mode),
+      mojo::Clone(trusted_bidding_signals_slot_size_mode),
       mojo::Clone(bidding_url),
       mojo::Clone(bidding_wasm_helper_url),
       mojo::Clone(update_url),
@@ -3061,6 +3070,8 @@ bool InterestGroup::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->all_sellers_capabilities, other_struct.all_sellers_capabilities))
     return false;
   if (!mojo::Equals(this->execution_mode, other_struct.execution_mode))
+    return false;
+  if (!mojo::Equals(this->trusted_bidding_signals_slot_size_mode, other_struct.trusted_bidding_signals_slot_size_mode))
     return false;
   if (!mojo::Equals(this->bidding_url, other_struct.bidding_url))
     return false;
@@ -3132,6 +3143,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.execution_mode < rhs.execution_mode)
     return true;
   if (rhs.execution_mode < lhs.execution_mode)
+    return false;
+  if (lhs.trusted_bidding_signals_slot_size_mode < rhs.trusted_bidding_signals_slot_size_mode)
+    return true;
+  if (rhs.trusted_bidding_signals_slot_size_mode < lhs.trusted_bidding_signals_slot_size_mode)
     return false;
   if (lhs.bidding_url < rhs.bidding_url)
     return true;
@@ -3410,6 +3425,7 @@ AuctionAdConfigNonSharedParamsPtr AuctionAdConfigNonSharedParams::Clone() const 
       mojo::Clone(auction_report_buyers),
       mojo::Clone(required_seller_capabilities),
       mojo::Clone(requested_size),
+      mojo::Clone(all_slots_requested_sizes),
       mojo::Clone(auction_nonce),
       mojo::Clone(component_auctions)
   );
@@ -3450,6 +3466,8 @@ bool AuctionAdConfigNonSharedParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->required_seller_capabilities, other_struct.required_seller_capabilities))
     return false;
   if (!mojo::Equals(this->requested_size, other_struct.requested_size))
+    return false;
+  if (!mojo::Equals(this->all_slots_requested_sizes, other_struct.all_slots_requested_sizes))
     return false;
   if (!mojo::Equals(this->auction_nonce, other_struct.auction_nonce))
     return false;
@@ -3527,6 +3545,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.requested_size < rhs.requested_size)
     return true;
   if (rhs.requested_size < lhs.requested_size)
+    return false;
+  if (lhs.all_slots_requested_sizes < rhs.all_slots_requested_sizes)
+    return true;
+  if (rhs.all_slots_requested_sizes < lhs.all_slots_requested_sizes)
     return false;
   if (lhs.auction_nonce < rhs.auction_nonce)
     return true;
@@ -3797,6 +3819,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::InterestGroup::DataView,
   static decltype(::blink::mojom::InterestGroup::execution_mode) execution_mode(
       const ::blink::mojom::InterestGroupPtr& input) {
     return input->execution_mode;
+  }
+
+  static decltype(::blink::mojom::InterestGroup::trusted_bidding_signals_slot_size_mode) trusted_bidding_signals_slot_size_mode(
+      const ::blink::mojom::InterestGroupPtr& input) {
+    return input->trusted_bidding_signals_slot_size_mode;
   }
 
   static const decltype(::blink::mojom::InterestGroup::bidding_url)& bidding_url(
@@ -4099,6 +4126,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::AuctionAdConfigNonShared
     return input->requested_size;
   }
 
+  static const decltype(::blink::mojom::AuctionAdConfigNonSharedParams::all_slots_requested_sizes)& all_slots_requested_sizes(
+      const ::blink::mojom::AuctionAdConfigNonSharedParamsPtr& input) {
+    return input->all_slots_requested_sizes;
+  }
+
   static const decltype(::blink::mojom::AuctionAdConfigNonSharedParams::auction_nonce)& auction_nonce(
       const ::blink::mojom::AuctionAdConfigNonSharedParamsPtr& input) {
     return input->auction_nonce;
@@ -4207,7 +4239,7 @@ struct BLINK_COMMON_EXPORT UnionTraits<::blink::mojom::AuctionAdConfigMaybePromi
     return input->get_promise();
   }
 
-  static const absl::optional<std::string>& value(const ::blink::mojom::AuctionAdConfigMaybePromiseJsonPtr& input) {
+  static const std::optional<std::string>& value(const ::blink::mojom::AuctionAdConfigMaybePromiseJsonPtr& input) {
     return input->get_value();
   }
 
@@ -4229,7 +4261,7 @@ struct BLINK_COMMON_EXPORT UnionTraits<::blink::mojom::AuctionAdConfigMaybePromi
     return input->get_promise();
   }
 
-  static const absl::optional<base::flat_map<::url::Origin, std::string>>& value(const ::blink::mojom::AuctionAdConfigMaybePromisePerBuyerSignalsPtr& input) {
+  static const std::optional<base::flat_map<::url::Origin, std::string>>& value(const ::blink::mojom::AuctionAdConfigMaybePromisePerBuyerSignalsPtr& input) {
     return input->get_value();
   }
 
@@ -4295,7 +4327,7 @@ struct BLINK_COMMON_EXPORT UnionTraits<::blink::mojom::AuctionAdConfigMaybePromi
     return input->get_promise();
   }
 
-  static const absl::optional<::blink::DirectFromSellerSignals>& value(const ::blink::mojom::AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr& input) {
+  static const std::optional<::blink::DirectFromSellerSignals>& value(const ::blink::mojom::AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr& input) {
     return input->get_value();
   }
 

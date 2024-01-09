@@ -255,6 +255,21 @@ class  CompanionPageHandler_RefreshCompanionPage_Params_Data {
 };
 static_assert(sizeof(CompanionPageHandler_RefreshCompanionPage_Params_Data) == 8,
               "Bad sizeof(CompanionPageHandler_RefreshCompanionPage_Params_Data)");
+class  CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data>;
+
+  CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data();
+  ~CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data() = delete;
+};
+static_assert(sizeof(CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data) == 8,
+              "Bad sizeof(CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data)");
 class  CompanionPage_LoadCompanionPage_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -368,6 +383,23 @@ class  CompanionPage_NotifyLinkOpen_Params_Data {
 };
 static_assert(sizeof(CompanionPage_NotifyLinkOpen_Params_Data) == 24,
               "Bad sizeof(CompanionPage_NotifyLinkOpen_Params_Data)");
+class  CompanionPage_UpdatePageContent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> page_title;
+  mojo::internal::Pointer<mojo::internal::String_Data> inner_html;
+
+ private:
+  friend class mojo::internal::MessageFragment<CompanionPage_UpdatePageContent_Params_Data>;
+
+  CompanionPage_UpdatePageContent_Params_Data();
+  ~CompanionPage_UpdatePageContent_Params_Data() = delete;
+};
+static_assert(sizeof(CompanionPage_UpdatePageContent_Params_Data) == 24,
+              "Bad sizeof(CompanionPage_UpdatePageContent_Params_Data)");
 
 }  // namespace internal
 
@@ -733,6 +765,21 @@ class CompanionPageHandler_RefreshCompanionPage_ParamsDataView {
 };
 
 
+class CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsDataView {
+ public:
+  CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsDataView() = default;
+
+  CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsDataView(
+      internal::CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data* data_ = nullptr;
+};
+
+
 class CompanionPage_LoadCompanionPage_ParamsDataView {
  public:
   CompanionPage_LoadCompanionPage_ParamsDataView() = default;
@@ -924,6 +971,42 @@ class CompanionPage_NotifyLinkOpen_ParamsDataView {
 };
 
 
+class CompanionPage_UpdatePageContent_ParamsDataView {
+ public:
+  CompanionPage_UpdatePageContent_ParamsDataView() = default;
+
+  CompanionPage_UpdatePageContent_ParamsDataView(
+      internal::CompanionPage_UpdatePageContent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPageTitleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPageTitle(UserType* output) {
+    
+    auto* pointer = data_->page_title.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetInnerHtmlDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInnerHtml(UserType* output) {
+    
+    auto* pointer = data_->inner_html.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CompanionPage_UpdatePageContent_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -965,6 +1048,8 @@ inline void CompanionPageHandler_OpenUrlInBrowser_ParamsDataView::GetUrlToOpenDa
   auto pointer = data_->url_to_open.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
 }
+
+
 
 
 
@@ -1022,6 +1107,18 @@ inline void CompanionPage_NotifyLinkOpen_ParamsDataView::GetMetadataDataView(
     LinkOpenMetadataDataView* output) {
   auto pointer = data_->metadata.Get();
   *output = LinkOpenMetadataDataView(pointer, message_);
+}
+
+
+inline void CompanionPage_UpdatePageContent_ParamsDataView::GetPageTitleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->page_title.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void CompanionPage_UpdatePageContent_ParamsDataView::GetInnerHtmlDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->inner_html.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 

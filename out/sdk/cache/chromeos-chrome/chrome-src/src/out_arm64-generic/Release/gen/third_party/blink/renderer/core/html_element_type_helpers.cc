@@ -22,7 +22,7 @@ using HTMLTypeMap = HashMap<AtomicString, HTMLElementType>;
 
 HTMLTypeMap CreateHTMLTypeMap() {
   HTMLTypeMap html_type_map;
-  html_type_map.ReserveCapacityForSize(145);
+  html_type_map.ReserveCapacityForSize(144);
   static const struct {
     const QualifiedName* name;
     HTMLElementType type;
@@ -126,7 +126,6 @@ HTMLTypeMap CreateHTMLTypeMap() {
     { &html_names::kPermissionTag, HTMLElementType::kHTMLPermissionElement },
     { &html_names::kPictureTag, HTMLElementType::kHTMLPictureElement },
     { &html_names::kPlaintextTag, HTMLElementType::kHTMLElement },
-    { &html_names::kPortalTag, HTMLElementType::kHTMLPortalElement },
     { &html_names::kPreTag, HTMLElementType::kHTMLPreElement },
     { &html_names::kProgressTag, HTMLElementType::kHTMLProgressElement },
     { &html_names::kQTag, HTMLElementType::kHTMLQuoteElement },
@@ -201,11 +200,6 @@ HTMLElementType HtmlElementTypeForTag(const AtomicString& tag_name, const Docume
   }
   if (tag_name == "permission") {
     if (!RuntimeEnabledFeatures::PermissionElementEnabled(document->GetExecutionContext())) {
-      return HTMLElementType::kHTMLUnknownElement;
-    }
-  }
-  if (tag_name == "portal") {
-    if (!RuntimeEnabledFeatures::PortalsEnabled(document->GetExecutionContext())) {
       return HTMLElementType::kHTMLUnknownElement;
     }
   }

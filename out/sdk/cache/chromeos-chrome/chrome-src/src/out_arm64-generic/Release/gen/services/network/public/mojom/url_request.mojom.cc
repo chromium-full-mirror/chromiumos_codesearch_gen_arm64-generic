@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -287,7 +288,7 @@ URLRequest::URLRequest()
       keepalive(),
       browsing_topics(),
       ad_auction_headers(),
-      shared_storage_writable(),
+      shared_storage_writable_eligible(),
       has_user_gesture(),
       enable_load_timing(),
       enable_upload_progress(),
@@ -319,6 +320,7 @@ URLRequest::URLRequest()
       attribution_reporting_eligibility(::network::mojom::AttributionReportingEligibility::kUnset),
       attribution_reporting_runtime_features(),
       attribution_reporting_src_token(),
+      is_ad_tagged(false),
       shared_dictionary_writer_enabled(false) {}
 
 URLRequest::URLRequest(
@@ -326,9 +328,9 @@ URLRequest::URLRequest(
     const ::GURL& url_in,
     const ::net::SiteForCookies& site_for_cookies_in,
     bool update_first_party_url_on_redirect_in,
-    const absl::optional<::url::Origin>& request_initiator_in,
+    const std::optional<::url::Origin>& request_initiator_in,
     std::vector<::GURL> navigation_redirect_chain_in,
-    const absl::optional<::url::Origin>& isolated_world_origin_in,
+    const std::optional<::url::Origin>& isolated_world_origin_in,
     const ::GURL& referrer_in,
     ::net::ReferrerPolicy referrer_policy_in,
     const ::net::HttpRequestHeaders& headers_in,
@@ -350,7 +352,7 @@ URLRequest::URLRequest(
     bool keepalive_in,
     bool browsing_topics_in,
     bool ad_auction_headers_in,
-    bool shared_storage_writable_in,
+    bool shared_storage_writable_eligible_in,
     bool has_user_gesture_in,
     bool enable_load_timing_in,
     bool enable_upload_progress_in,
@@ -360,28 +362,29 @@ URLRequest::URLRequest(
     int32_t previews_state_in,
     bool upgrade_if_insecure_in,
     bool is_revalidating_in,
-    const absl::optional<::base::UnguessableToken>& throttling_profile_id_in,
-    const absl::optional<::base::UnguessableToken>& fetch_window_id_in,
-    const absl::optional<std::string>& devtools_request_id_in,
-    const absl::optional<std::string>& devtools_stack_id_in,
+    const std::optional<::base::UnguessableToken>& throttling_profile_id_in,
+    const std::optional<::base::UnguessableToken>& fetch_window_id_in,
+    const std::optional<std::string>& devtools_request_id_in,
+    const std::optional<std::string>& devtools_stack_id_in,
     bool is_fetch_like_api_in,
     bool is_fetch_later_api_in,
     bool is_favicon_in,
     ::network::mojom::RequestDestination original_destination_in,
-    const absl::optional<::network::ResourceRequest::TrustedParams>& trusted_params_in,
-    const absl::optional<::base::UnguessableToken>& recursive_prefetch_token_in,
+    const std::optional<::network::ResourceRequest::TrustedParams>& trusted_params_in,
+    const std::optional<::base::UnguessableToken>& recursive_prefetch_token_in,
     ::network::mojom::TrustTokenParamsPtr trust_token_params_in,
-    const absl::optional<::network::ResourceRequest::WebBundleTokenParams>& web_bundle_token_params_in,
-    absl::optional<std::vector<::net::SourceStream::SourceType>> devtools_accepted_stream_types_in,
-    const absl::optional<::net::NetLogSource>& net_log_create_info_in,
-    const absl::optional<::net::NetLogSource>& net_log_reference_info_in,
+    const std::optional<::network::ResourceRequest::WebBundleTokenParams>& web_bundle_token_params_in,
+    std::optional<std::vector<::net::SourceStream::SourceType>> devtools_accepted_stream_types_in,
+    const std::optional<::net::NetLogSource>& net_log_create_info_in,
+    const std::optional<::net::NetLogSource>& net_log_reference_info_in,
     ::network::mojom::IPAddressSpace target_ip_address_space_in,
     ::network::mojom::IPAddressSpace required_ip_address_space_in,
     bool has_storage_access_in,
     ::network::mojom::AttributionSupport attribution_reporting_support_in,
     ::network::mojom::AttributionReportingEligibility attribution_reporting_eligibility_in,
     ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features_in,
-    const absl::optional<::base::UnguessableToken>& attribution_reporting_src_token_in,
+    const std::optional<::base::UnguessableToken>& attribution_reporting_src_token_in,
+    bool is_ad_tagged_in,
     bool shared_dictionary_writer_enabled_in)
     : method(std::move(method_in)),
       url(std::move(url_in)),
@@ -411,7 +414,7 @@ URLRequest::URLRequest(
       keepalive(std::move(keepalive_in)),
       browsing_topics(std::move(browsing_topics_in)),
       ad_auction_headers(std::move(ad_auction_headers_in)),
-      shared_storage_writable(std::move(shared_storage_writable_in)),
+      shared_storage_writable_eligible(std::move(shared_storage_writable_eligible_in)),
       has_user_gesture(std::move(has_user_gesture_in)),
       enable_load_timing(std::move(enable_load_timing_in)),
       enable_upload_progress(std::move(enable_upload_progress_in)),
@@ -443,6 +446,7 @@ URLRequest::URLRequest(
       attribution_reporting_eligibility(std::move(attribution_reporting_eligibility_in)),
       attribution_reporting_runtime_features(std::move(attribution_reporting_runtime_features_in)),
       attribution_reporting_src_token(std::move(attribution_reporting_src_token_in)),
+      is_ad_tagged(std::move(is_ad_tagged_in)),
       shared_dictionary_writer_enabled(std::move(shared_dictionary_writer_enabled_in)) {}
 
 URLRequest::~URLRequest() = default;
@@ -490,7 +494,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "request_initiator"), this->request_initiator,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -508,7 +512,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "isolated_world_origin"), this->isolated_world_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -704,7 +708,7 @@ void URLRequest::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "shared_storage_writable"), this->shared_storage_writable,
+      "shared_storage_writable_eligible"), this->shared_storage_writable_eligible,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -796,7 +800,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "throttling_profile_id"), this->throttling_profile_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -805,7 +809,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "fetch_window_id"), this->fetch_window_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -814,7 +818,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "devtools_request_id"), this->devtools_request_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -823,7 +827,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "devtools_stack_id"), this->devtools_stack_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -868,7 +872,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "trusted_params"), this->trusted_params,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::network::ResourceRequest::TrustedParams>&>"
+      "<value of type const std::optional<::network::ResourceRequest::TrustedParams>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -877,7 +881,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "recursive_prefetch_token"), this->recursive_prefetch_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -895,7 +899,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "web_bundle_token_params"), this->web_bundle_token_params,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::network::ResourceRequest::WebBundleTokenParams>&>"
+      "<value of type const std::optional<::network::ResourceRequest::WebBundleTokenParams>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -904,7 +908,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "devtools_accepted_stream_types"), this->devtools_accepted_stream_types,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::net::SourceStream::SourceType>>&>"
+      "<value of type const std::optional<std::vector<::net::SourceStream::SourceType>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -913,7 +917,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "net_log_create_info"), this->net_log_create_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::NetLogSource>&>"
+      "<value of type const std::optional<::net::NetLogSource>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -922,7 +926,7 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "net_log_reference_info"), this->net_log_reference_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::NetLogSource>&>"
+      "<value of type const std::optional<::net::NetLogSource>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -985,7 +989,16 @@ void URLRequest::WriteIntoTrace(
     dict.AddItem(
       "attribution_reporting_src_token"), this->attribution_reporting_src_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_ad_tagged"), this->is_ad_tagged,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1451,7 +1464,7 @@ bool StructTraits<::network::mojom::URLRequest::DataView, ::network::mojom::URLR
       if (success)
         result->ad_auction_headers = input.ad_auction_headers();
       if (success)
-        result->shared_storage_writable = input.shared_storage_writable();
+        result->shared_storage_writable_eligible = input.shared_storage_writable_eligible();
       if (success)
         result->has_user_gesture = input.has_user_gesture();
       if (success)
@@ -1514,6 +1527,8 @@ bool StructTraits<::network::mojom::URLRequest::DataView, ::network::mojom::URLR
         success = false;
       if (success && !input.ReadAttributionReportingSrcToken(&result->attribution_reporting_src_token))
         success = false;
+      if (success)
+        result->is_ad_tagged = input.is_ad_tagged();
       if (success)
         result->shared_dictionary_writer_enabled = input.shared_dictionary_writer_enabled();
   *output = std::move(result);

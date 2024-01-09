@@ -25,6 +25,7 @@
 
 #include "services/audio/public/mojom/audio_service.mojom-shared-internal.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-shared.h"
+#include "sandbox/policy/mojom/context.mojom-shared.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared.h"
 #include "services/audio/public/mojom/debug_recording.mojom-shared.h"
 #include "services/audio/public/mojom/device_notifications.mojom-shared.h"

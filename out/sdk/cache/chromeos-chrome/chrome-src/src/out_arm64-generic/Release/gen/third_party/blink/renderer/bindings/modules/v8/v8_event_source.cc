@@ -71,11 +71,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, EventSource>::value,
     "EventSource does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&EventSource::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "EventSource is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("EventSource.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("EventSource.withCredentials.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->withCredentials();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -117,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("EventSource.readyState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->readyState();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -131,10 +128,10 @@ BLINK_BINDINGS_TRACE_EVENT("EventSource.onopen.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onopen();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onopen();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -147,8 +144,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnopen(event_handler);
 }
 
@@ -159,10 +157,10 @@ BLINK_BINDINGS_TRACE_EVENT("EventSource.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -175,8 +173,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -187,10 +186,10 @@ BLINK_BINDINGS_TRACE_EVENT("EventSource.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -203,8 +202,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -270,8 +270,9 @@ BLINK_BINDINGS_TRACE_EVENT("EventSource.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(v8_receiver);
+EventSource* blink_receiver = V8EventSource::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }

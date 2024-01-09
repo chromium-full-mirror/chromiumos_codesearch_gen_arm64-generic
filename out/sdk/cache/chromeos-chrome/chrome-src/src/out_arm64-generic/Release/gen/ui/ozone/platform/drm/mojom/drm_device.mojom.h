@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,15 +23,16 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/ozone/platform/drm/mojom/drm_device.mojom-features.h"
 #include "ui/ozone/platform/drm/mojom/drm_device.mojom-shared.h"
 #include "ui/ozone/platform/drm/mojom/drm_device.mojom-forward.h"
 #include "mojo/public/mojom/base/file.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
+#include "ui/display/mojom/display_color_management.mojom.h"
 #include "ui/display/mojom/display_configuration_params.mojom.h"
 #include "ui/display/mojom/display_constants.mojom.h"
 #include "ui/display/mojom/display_mode.mojom-forward.h"
 #include "ui/display/mojom/display_snapshot.mojom.h"
-#include "ui/display/mojom/gamma_ramp_rgb_entry.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "ui/gfx/mojom/accelerated_widget.mojom.h"
 #include "ui/ozone/platform/drm/mojom/device_cursor.mojom-forward.h"
@@ -91,6 +92,9 @@ class DrmDevice
     kSetHdcpKeyPropMinVersion = 0,
     kGetHDCPStateMinVersion = 0,
     kSetHDCPStateMinVersion = 0,
+    kSetColorTemperatureAdjustmentMinVersion = 0,
+    kSetColorCalibrationMinVersion = 0,
+    kSetGammaAdjustmentMinVersion = 0,
     kSetColorMatrixMinVersion = 0,
     kSetGammaCorrectionMinVersion = 0,
     kSetPrivacyScreenMinVersion = 0,
@@ -137,6 +141,15 @@ class DrmDevice
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetHDCPState_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetColorTemperatureAdjustment_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetColorCalibration_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetGammaAdjustment_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetColorMatrix_Sym {
@@ -210,10 +223,19 @@ class DrmDevice
   virtual void SetHDCPState(int64_t display_id, ::display::HDCPState state, ::display::ContentProtectionMethod protection_method, SetHDCPStateCallback callback) = 0;
 
   
+  virtual void SetColorTemperatureAdjustment(int64_t display_id, const ::display::ColorTemperatureAdjustment& cta) = 0;
+
+  
+  virtual void SetColorCalibration(int64_t display_id, const ::display::ColorCalibration& calibration) = 0;
+
+  
+  virtual void SetGammaAdjustment(int64_t display_id, const ::display::GammaAdjustment& adjustment) = 0;
+
+  
   virtual void SetColorMatrix(int64_t display_id, const std::vector<float>& color_matrix) = 0;
 
   
-  virtual void SetGammaCorrection(int64_t display_id, const std::vector<::display::GammaRampRGBEntry>& degamma_lut, const std::vector<::display::GammaRampRGBEntry>& gamma_lut) = 0;
+  virtual void SetGammaCorrection(int64_t display_id, const ::display::GammaCurve& degamma, const ::display::GammaCurve& gamma) = 0;
 
 
   using SetPrivacyScreenCallback = base::OnceCallback<void(bool)>;
@@ -259,9 +281,15 @@ class  DrmDeviceProxy
   
   void SetHDCPState(int64_t display_id, ::display::HDCPState state, ::display::ContentProtectionMethod protection_method, SetHDCPStateCallback callback) final;
   
+  void SetColorTemperatureAdjustment(int64_t display_id, const ::display::ColorTemperatureAdjustment& cta) final;
+  
+  void SetColorCalibration(int64_t display_id, const ::display::ColorCalibration& calibration) final;
+  
+  void SetGammaAdjustment(int64_t display_id, const ::display::GammaAdjustment& adjustment) final;
+  
   void SetColorMatrix(int64_t display_id, const std::vector<float>& color_matrix) final;
   
-  void SetGammaCorrection(int64_t display_id, const std::vector<::display::GammaRampRGBEntry>& degamma_lut, const std::vector<::display::GammaRampRGBEntry>& gamma_lut) final;
+  void SetGammaCorrection(int64_t display_id, const ::display::GammaCurve& degamma, const ::display::GammaCurve& gamma) final;
   
   void SetPrivacyScreen(int64_t display_id, bool enabled, SetPrivacyScreenCallback callback) final;
   

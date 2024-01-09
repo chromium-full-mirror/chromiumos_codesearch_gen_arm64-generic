@@ -25,9 +25,11 @@ class  CrosapiInterceptorForTesting : public Crosapi {
   void BindBrowserAppInstanceRegistry(::mojo::PendingReceiver<::crosapi::mojom::BrowserAppInstanceRegistry> receiver) override;
   void BindBrowserVersionService(::mojo::PendingReceiver<::crosapi::mojom::BrowserVersionService> receiver) override;
   void BindBrowserServiceHost(::mojo::PendingReceiver<BrowserServiceHost> receiver) override;
+  void BindBrowserShortcutPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppShortcutPublisher> receiver) override;
   void BindBrowserCdmFactory(::mojo::GenericPendingReceiver receiver) override;
   void BindCertDatabase(::mojo::PendingReceiver<::crosapi::mojom::CertDatabase> receiver) override;
   void BindCertProvisioning(::mojo::PendingReceiver<::crosapi::mojom::CertProvisioning> receiver) override;
+  void BindChapsService(::mojo::PendingReceiver<::crosapi::mojom::ChapsService> receiver) override;
   void BindChromeAppPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) override;
   void BindChromeAppWindowTracker(::mojo::PendingReceiver<::crosapi::mojom::AppWindowTracker> receiver) override;
   void BindClipboard(::mojo::PendingReceiver<::crosapi::mojom::Clipboard> receiver) override;
@@ -35,6 +37,7 @@ class  CrosapiInterceptorForTesting : public Crosapi {
   void BindContentProtection(::mojo::PendingReceiver<::crosapi::mojom::ContentProtection> receiver) override;
   void BindCrosDisplayConfigController(::mojo::PendingReceiver<::crosapi::mojom::CrosDisplayConfigController> receiver) override;
   void BindDesk(::mojo::PendingReceiver<::crosapi::mojom::Desk> receiver) override;
+  void BindDeskProfileObserver(::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver> receiver) override;
   void BindDeskTemplate(::mojo::PendingReceiver<::crosapi::mojom::DeskTemplate> receiver) override;
   void BindDeviceAttributes(::mojo::PendingReceiver<::crosapi::mojom::DeviceAttributes> receiver) override;
   void BindDeviceOAuth2TokenService(::mojo::PendingReceiver<::crosapi::mojom::DeviceOAuth2TokenService> receiver) override;
@@ -64,10 +67,11 @@ class  CrosapiInterceptorForTesting : public Crosapi {
   void BindIdentityManager(::mojo::PendingReceiver<::crosapi::mojom::IdentityManager> receiver) override;
   void BindIdleService(::mojo::PendingReceiver<::crosapi::mojom::IdleService> receiver) override;
   void BindImageWriter(::mojo::PendingReceiver<::crosapi::mojom::ImageWriter> receiver) override;
-  void BindInSessionAuth(::mojo::PendingReceiver<::crosapi::mojom::InSessionAuth> receiver) override;
+  void BindInSessionAuth(::mojo::PendingReceiver<::chromeos::auth::mojom::InSessionAuth> receiver) override;
   void BindNetworkSettingsService(::mojo::PendingReceiver<::crosapi::mojom::NetworkSettingsService> receiver) override;
   void BindKerberosInBrowser(::mojo::PendingReceiver<::crosapi::mojom::KerberosInBrowser> receiver) override;
   void BindKeystoreService(::mojo::PendingReceiver<::crosapi::mojom::KeystoreService> receiver) override;
+  void BindLacrosShelfItemTracker(::mojo::PendingReceiver<::crosapi::mojom::LacrosShelfItemTracker> receiver) override;
   void BindLacrosAppPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) override;
   void BindLocalPrinter(::mojo::PendingReceiver<::crosapi::mojom::LocalPrinter> receiver) override;
   void BindLogin(::mojo::PendingReceiver<::crosapi::mojom::Login> receiver) override;
@@ -83,6 +87,7 @@ class  CrosapiInterceptorForTesting : public Crosapi {
   void BindNetworkChange(::mojo::PendingReceiver<::crosapi::mojom::NetworkChange> receiver) override;
   void BindNetworkingAttributes(::mojo::PendingReceiver<::crosapi::mojom::NetworkingAttributes> receiver) override;
   void BindParentAccess(::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> receiver) override;
+  void BindPasskeyAuthenticator(::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator> receiver) override;
   void BindPaymentAppInstance(::mojo::PendingReceiver<::chromeos::payments::mojom::PaymentAppInstance> receiver) override;
   void BindPolicyService(::mojo::PendingReceiver<::crosapi::mojom::PolicyService> receiver) override;
   void BindPrefs(::mojo::PendingReceiver<::crosapi::mojom::Prefs> receiver) override;
@@ -114,6 +119,7 @@ class  CrosapiInterceptorForTesting : public Crosapi {
   void BindTaskManager(::mojo::PendingReceiver<::crosapi::mojom::TaskManager> receiver) override;
   void BindTelemetryDiagnosticRoutinesService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryDiagnosticRoutinesService> receiver) override;
   void BindTelemetryEventService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryEventService> receiver) override;
+  void BindTelemetryManagementService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryManagementService> receiver) override;
   void BindTelemetryProbeService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryProbeService> receiver) override;
   void BindTestController(::mojo::PendingReceiver<::crosapi::mojom::TestController> receiver) override;
   void BindTimeZoneService(::mojo::PendingReceiver<::crosapi::mojom::TimeZoneService> receiver) override;
@@ -154,7 +160,7 @@ class  BrowserServiceInterceptorForTesting : public BrowserService {
   virtual BrowserService* GetForwardingInterface() = 0;
   void REMOVED_0(REMOVED_0Callback callback) override;
   void REMOVED_2(BrowserInitParamsPtr params) override;
-  void NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id, NewWindowCallback callback) override;
+  void NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id, std::optional<uint64_t> profile_id, NewWindowCallback callback) override;
   void NewFullscreenWindow(const ::GURL& url, int64_t target_display_id, NewFullscreenWindowCallback callback) override;
   void NewWindowForDetachingTab(const ::std::u16string& tab_id, const ::std::u16string& group_id, NewWindowForDetachingTabCallback callback) override;
   void NewGuestWindow(int64_t target_display_id, NewGuestWindowCallback callback) override;
@@ -172,7 +178,8 @@ class  BrowserServiceInterceptorForTesting : public BrowserService {
   void OpenForFullRestore(bool skip_crash_restore) override;
   void REMOVED_16(base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>> policy) override;
   void UpdateComponentPolicy(base::flat_map<::policy::PolicyNamespace, ::base::Value> component_policy) override;
-  void Launch(int64_t target_display_id, LaunchCallback callback) override;
+  void Launch(int64_t target_display_id, std::optional<uint64_t> profile_id, LaunchCallback callback) override;
+  void OpenProfileManager() override;
 };
 class  BrowserServiceAsyncWaiter {
  public:
@@ -186,8 +193,8 @@ class  BrowserServiceAsyncWaiter {
       ::mojo::PendingReceiver<Crosapi>* out_receiver);
   ::mojo::PendingReceiver<Crosapi> REMOVED_0();
   void NewWindow(
-      bool incognito, bool should_trigger_session_restore, int64_t target_display_id, CreationResult* out_result);
-  CreationResult NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id);
+      bool incognito, bool should_trigger_session_restore, int64_t target_display_id, std::optional<uint64_t> profile_id, CreationResult* out_result);
+  CreationResult NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id, std::optional<uint64_t> profile_id);
   void NewFullscreenWindow(
       const ::GURL& url, int64_t target_display_id, CreationResult* out_result);
   CreationResult NewFullscreenWindow(const ::GURL& url, int64_t target_display_id);
@@ -216,11 +223,11 @@ class  BrowserServiceAsyncWaiter {
       ::std::string* out_compressed_histograms);
   ::std::string GetHistograms();
   void GetActiveTabUrl(
-      absl::optional<::GURL>* out_url);
-  absl::optional<::GURL> GetActiveTabUrl();
+      std::optional<::GURL>* out_url);
+  std::optional<::GURL> GetActiveTabUrl();
   void Launch(
-      int64_t target_display_id, CreationResult* out_result);
-  CreationResult Launch(int64_t target_display_id);
+      int64_t target_display_id, std::optional<uint64_t> profile_id, CreationResult* out_result);
+  CreationResult Launch(int64_t target_display_id, std::optional<uint64_t> profile_id);
 
  private:
   BrowserService* const proxy_;

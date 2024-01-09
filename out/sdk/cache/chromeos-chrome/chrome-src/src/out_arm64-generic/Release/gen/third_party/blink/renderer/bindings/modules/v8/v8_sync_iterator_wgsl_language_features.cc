@@ -76,12 +76,12 @@ BLINK_BINDINGS_TRACE_EVENT("SyncIterator_WGSLLanguageFeatures.next");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SyncIterator<WGSLLanguageFeatures>* blink_receiver = V8SyncIteratorWGSLLanguageFeatures::ToWrappableUnsafe(v8_receiver);
+SyncIterator<WGSLLanguageFeatures>* blink_receiver = V8SyncIteratorWGSLLanguageFeatures::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "SyncIterator_WGSLLanguageFeatures";
 const char* const property_name = "next";

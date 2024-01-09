@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -37,11 +38,11 @@ extern const int MAX_MESSAGE_SIZE;
 namespace Register {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A list of server IDs that are allowed to send messages to the application. It
@@ -73,11 +74,11 @@ base::Value::List Create();
 namespace Send {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A message to send to the other party via FCM.
@@ -86,8 +87,8 @@ struct Params {
     ~Message();
     Message(const Message&) = delete;
     Message& operator=(const Message&) = delete;
-    Message(Message&& rhs);
-    Message& operator=(Message&& rhs);
+    Message(Message&& rhs) noexcept;
+    Message& operator=(Message&& rhs) noexcept;
 
     // Populates a Message object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -101,10 +102,10 @@ struct Params {
     Message Clone() const;
 
     // Creates a Message object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Message> FromValue(const base::Value::Dict& value);
+    static std::optional<Message> FromValue(const base::Value::Dict& value);
 
     // Creates a Message object from a base::Value, or nullopt on failure.
-    static absl::optional<Message> FromValue(const base::Value& value);
+    static std::optional<Message> FromValue(const base::Value& value);
 
     // Message data to send to the server. Case-insensitive <code>goog.</code> and
     // <code>google</code>, as well as case-sensitive <code>collapse_key</code> are
@@ -115,8 +116,8 @@ struct Params {
       ~Data();
       Data(const Data&) = delete;
       Data& operator=(const Data&) = delete;
-      Data(Data&& rhs);
-      Data& operator=(Data&& rhs);
+      Data(Data&& rhs) noexcept;
+      Data& operator=(Data&& rhs) noexcept;
 
       // Populates a Data object from a base::Value& instance. Returns whether |out|
       // was successfully populated.
@@ -130,10 +131,10 @@ struct Params {
       Data Clone() const;
 
       // Creates a Data object from a base::Value::Dict, or nullopt on failure.
-      static absl::optional<Data> FromValue(const base::Value::Dict& value);
+      static std::optional<Data> FromValue(const base::Value::Dict& value);
 
       // Creates a Data object from a base::Value, or nullopt on failure.
-      static absl::optional<Data> FromValue(const base::Value& value);
+      static std::optional<Data> FromValue(const base::Value& value);
 
       std::map<std::string, std::string> additional_properties;
     };
@@ -155,7 +156,7 @@ struct Params {
     // of 0 indicates that the message should be sent immediately or fail if it's
     // not possible. The default value of time-to-live is 86,400 seconds (1 day) and
     // the maximum value is 2,419,200 seconds (28 days).
-    absl::optional<int> time_to_live;
+    std::optional<int> time_to_live;
 
     // Message data to send to the server. Case-insensitive <code>goog.</code> and
     // <code>google</code>, as well as case-sensitive <code>collapse_key</code> are
@@ -196,8 +197,8 @@ struct Message {
   ~Message();
   Message(const Message&) = delete;
   Message& operator=(const Message&) = delete;
-  Message(Message&& rhs);
-  Message& operator=(Message&& rhs);
+  Message(Message&& rhs) noexcept;
+  Message& operator=(Message&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMessage object.
@@ -209,8 +210,8 @@ struct Message {
     ~Data();
     Data(const Data&) = delete;
     Data& operator=(const Data&) = delete;
-    Data(Data&& rhs);
-    Data& operator=(Data&& rhs);
+    Data(Data&& rhs) noexcept;
+    Data& operator=(Data&& rhs) noexcept;
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisData object.
@@ -224,11 +225,11 @@ struct Message {
   Data data;
 
   // The sender who issued the message.
-  absl::optional<std::string> from;
+  std::optional<std::string> from;
 
   // The collapse key of a message. See the <a
   // href='https://firebase.google.com/docs/cloud-messaging/concept-options#collapsible_and_non-collapsible_messages'>Non-collapsible and collapsible messages</a> for details.
-  absl::optional<std::string> collapse_key;
+  std::optional<std::string> collapse_key;
 
 };
 
@@ -256,8 +257,8 @@ struct Error {
   ~Error();
   Error(const Error&) = delete;
   Error& operator=(const Error&) = delete;
-  Error(Error&& rhs);
-  Error& operator=(Error&& rhs);
+  Error(Error&& rhs) noexcept;
+  Error& operator=(Error&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisError object.
@@ -269,8 +270,8 @@ struct Error {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisDetails object.
@@ -285,7 +286,7 @@ struct Error {
 
   // The ID of the message with this error, if error is related to a specific
   // message.
-  absl::optional<std::string> message_id;
+  std::optional<std::string> message_id;
 
   // Additional details related to the error, when available.
   Details details;

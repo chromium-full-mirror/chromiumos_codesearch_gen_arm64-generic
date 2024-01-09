@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/screen_orientation_lock_types.mojom-features.h"
 #include "services/device/public/mojom/screen_orientation_lock_types.mojom-shared.h"
 #include "services/device/public/mojom/screen_orientation_lock_types.mojom-blink-forward.h"
 
@@ -32,30 +33,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::ScreenOrientationLockResult>
-    : EnumHashTraits<::device::mojom::ScreenOrientationLockResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::ScreenOrientationLockType>
-    : EnumHashTraits<::device::mojom::ScreenOrientationLockType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device::mojom::blink {

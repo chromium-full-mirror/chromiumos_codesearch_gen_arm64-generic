@@ -21,7 +21,7 @@ export function getTemplate() {
         [[subLabel]]
       </span>
       <template is="dom-if" if="[[learnMoreUrl]]">
-        <a id="learn-more" href="[[learnMoreUrl]]" target="_blank" aria-labelledby$="[[getLearnMoreAriaLabelledBy_(learnMoreAriaLabel)]]" on-click="onLearnMoreClick_">
+        <a id="learn-more" href="[[learnMoreUrl]]" target="_blank" aria-labelledby$="[[getLearnMoreAriaLabelledBy_(learnMoreAriaLabel)]]" aria-description="$i18n{opensInNewTab}" on-click="onLearnMoreClick_">
           $i18n{learnMore}
         </a>
         <span id="learn-more-aria-label" aria-hidden="true" hidden>

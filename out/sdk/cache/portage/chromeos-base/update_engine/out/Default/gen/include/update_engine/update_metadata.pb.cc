@@ -4,136 +4,190 @@
 #include "update_metadata.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace chromeos_update_engine {
+template <typename>
 PROTOBUF_CONSTEXPR Extent::Extent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.start_block_)*/uint64_t{0u}
-  , /*decltype(_impl_.num_blocks_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.start_block_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.num_blocks_)*/ ::uint64_t{0u}
+} {}
 struct ExtentDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ExtentDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ExtentDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ExtentDefaultTypeInternal() {}
   union {
     Extent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExtentDefaultTypeInternal _Extent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExtentDefaultTypeInternal _Extent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Signatures_Signature::Signatures_Signature(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.version_)*/0u
-  , /*decltype(_impl_.unpadded_signature_size_)*/0u} {}
+  , /*decltype(_impl_.data_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.version_)*/ 0u
+
+  , /*decltype(_impl_.unpadded_signature_size_)*/ 0u
+} {}
 struct Signatures_SignatureDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR Signatures_SignatureDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR Signatures_SignatureDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~Signatures_SignatureDefaultTypeInternal() {}
   union {
     Signatures_Signature _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Signatures_SignatureDefaultTypeInternal _Signatures_Signature_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Signatures_SignatureDefaultTypeInternal _Signatures_Signature_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Signatures::Signatures(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.signatures_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SignaturesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SignaturesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SignaturesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SignaturesDefaultTypeInternal() {}
   union {
     Signatures _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignaturesDefaultTypeInternal _Signatures_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignaturesDefaultTypeInternal _Signatures_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PartitionInfo::PartitionInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.size_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.hash_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.size_)*/ ::uint64_t{0u}
+} {}
 struct PartitionInfoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PartitionInfoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PartitionInfoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PartitionInfoDefaultTypeInternal() {}
   union {
     PartitionInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PartitionInfoDefaultTypeInternal _PartitionInfo_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PartitionInfoDefaultTypeInternal _PartitionInfo_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ImageInfo::ImageInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.board_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.channel_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.build_channel_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.build_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.board_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.key_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.channel_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.version_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.build_channel_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.build_version_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct ImageInfoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ImageInfoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ImageInfoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ImageInfoDefaultTypeInternal() {}
   union {
     ImageInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ImageInfoDefaultTypeInternal _ImageInfo_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ImageInfoDefaultTypeInternal _ImageInfo_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR InstallOperation::InstallOperation(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.src_extents_)*/{}
   , /*decltype(_impl_.dst_extents_)*/{}
-  , /*decltype(_impl_.data_sha256_hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.src_sha256_hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.data_offset_)*/uint64_t{0u}
-  , /*decltype(_impl_.data_length_)*/uint64_t{0u}
-  , /*decltype(_impl_.src_length_)*/uint64_t{0u}
-  , /*decltype(_impl_.dst_length_)*/uint64_t{0u}
-  , /*decltype(_impl_.type_)*/0} {}
+  , /*decltype(_impl_.data_sha256_hash_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.src_sha256_hash_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.data_offset_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.data_length_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.src_length_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.dst_length_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.type_)*/ 0
+} {}
 struct InstallOperationDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InstallOperationDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallOperationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallOperationDefaultTypeInternal() {}
   union {
     InstallOperation _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallOperationDefaultTypeInternal _InstallOperation_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallOperationDefaultTypeInternal _InstallOperation_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CowMergeOperation::CowMergeOperation(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.src_extent_)*/nullptr
   , /*decltype(_impl_.dst_extent_)*/nullptr
-  , /*decltype(_impl_.type_)*/0} {}
+  , /*decltype(_impl_.type_)*/ 0
+} {}
 struct CowMergeOperationDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CowMergeOperationDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CowMergeOperationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CowMergeOperationDefaultTypeInternal() {}
   union {
     CowMergeOperation _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CowMergeOperationDefaultTypeInternal _CowMergeOperation_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CowMergeOperationDefaultTypeInternal _CowMergeOperation_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PartitionUpdate::PartitionUpdate(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -141,61 +195,93 @@ PROTOBUF_CONSTEXPR PartitionUpdate::PartitionUpdate(
   , /*decltype(_impl_.new_partition_signature_)*/{}
   , /*decltype(_impl_.operations_)*/{}
   , /*decltype(_impl_.merge_operations_)*/{}
-  , /*decltype(_impl_.partition_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.postinstall_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.filesystem_type_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.hash_tree_algorithm_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.hash_tree_salt_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.partition_name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.postinstall_path_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.filesystem_type_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.hash_tree_algorithm_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.hash_tree_salt_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.version_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.old_partition_info_)*/nullptr
   , /*decltype(_impl_.new_partition_info_)*/nullptr
   , /*decltype(_impl_.hash_tree_data_extent_)*/nullptr
   , /*decltype(_impl_.hash_tree_extent_)*/nullptr
   , /*decltype(_impl_.fec_data_extent_)*/nullptr
   , /*decltype(_impl_.fec_extent_)*/nullptr
-  , /*decltype(_impl_.run_postinstall_)*/false
-  , /*decltype(_impl_.postinstall_optional_)*/false
-  , /*decltype(_impl_.fec_roots_)*/2u} {}
+  , /*decltype(_impl_.run_postinstall_)*/ false
+
+  , /*decltype(_impl_.postinstall_optional_)*/ false
+
+  , /*decltype(_impl_.fec_roots_)*/ 2u
+} {}
 struct PartitionUpdateDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PartitionUpdateDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PartitionUpdateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PartitionUpdateDefaultTypeInternal() {}
   union {
     PartitionUpdate _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PartitionUpdateDefaultTypeInternal _PartitionUpdate_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PartitionUpdateDefaultTypeInternal _PartitionUpdate_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR DynamicPartitionGroup::DynamicPartitionGroup(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.partition_names_)*/{}
-  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.size_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.size_)*/ ::uint64_t{0u}
+} {}
 struct DynamicPartitionGroupDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DynamicPartitionGroupDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DynamicPartitionGroupDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DynamicPartitionGroupDefaultTypeInternal() {}
   union {
     DynamicPartitionGroup _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DynamicPartitionGroupDefaultTypeInternal _DynamicPartitionGroup_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DynamicPartitionGroupDefaultTypeInternal _DynamicPartitionGroup_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR DynamicPartitionMetadata::DynamicPartitionMetadata(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.groups_)*/{}
-  , /*decltype(_impl_.snapshot_enabled_)*/false} {}
+  , /*decltype(_impl_.snapshot_enabled_)*/ false
+} {}
 struct DynamicPartitionMetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DynamicPartitionMetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DynamicPartitionMetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DynamicPartitionMetadataDefaultTypeInternal() {}
   union {
     DynamicPartitionMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DynamicPartitionMetadataDefaultTypeInternal _DynamicPartitionMetadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DynamicPartitionMetadataDefaultTypeInternal _DynamicPartitionMetadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR DeltaArchiveManifest::DeltaArchiveManifest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -210,21 +296,28 @@ PROTOBUF_CONSTEXPR DeltaArchiveManifest::DeltaArchiveManifest(
   , /*decltype(_impl_.old_image_info_)*/nullptr
   , /*decltype(_impl_.new_image_info_)*/nullptr
   , /*decltype(_impl_.dynamic_partition_metadata_)*/nullptr
-  , /*decltype(_impl_.signatures_offset_)*/uint64_t{0u}
-  , /*decltype(_impl_.signatures_size_)*/uint64_t{0u}
-  , /*decltype(_impl_.max_timestamp_)*/int64_t{0}
-  , /*decltype(_impl_.minor_version_)*/0u
-  , /*decltype(_impl_.partial_update_)*/false
-  , /*decltype(_impl_.block_size_)*/4096u} {}
+  , /*decltype(_impl_.signatures_offset_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.signatures_size_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.max_timestamp_)*/ ::int64_t{0}
+
+  , /*decltype(_impl_.minor_version_)*/ 0u
+
+  , /*decltype(_impl_.partial_update_)*/ false
+
+  , /*decltype(_impl_.block_size_)*/ 4096u
+} {}
 struct DeltaArchiveManifestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DeltaArchiveManifestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DeltaArchiveManifestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DeltaArchiveManifestDefaultTypeInternal() {}
   union {
     DeltaArchiveManifest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeltaArchiveManifestDefaultTypeInternal _DeltaArchiveManifest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeltaArchiveManifestDefaultTypeInternal _DeltaArchiveManifest_default_instance_;
 }  // namespace chromeos_update_engine
 namespace chromeos_update_engine {
 bool InstallOperation_Type_IsValid(int value) {
@@ -245,67 +338,67 @@ bool InstallOperation_Type_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    InstallOperation_Type_strings[11] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> InstallOperation_Type_strings[11] = {};
+static const char InstallOperation_Type_names[] = {
+    "BROTLI_BSDIFF"
+    "BSDIFF"
+    "DISCARD"
+    "MOVE"
+    "PUFFDIFF"
+    "REPLACE"
+    "REPLACE_BZ"
+    "REPLACE_XZ"
+    "SOURCE_BSDIFF"
+    "SOURCE_COPY"
+    "ZERO"
+};
 
-static const char InstallOperation_Type_names[] =
-  "BROTLI_BSDIFF"
-  "BSDIFF"
-  "DISCARD"
-  "MOVE"
-  "PUFFDIFF"
-  "REPLACE"
-  "REPLACE_BZ"
-  "REPLACE_XZ"
-  "SOURCE_BSDIFF"
-  "SOURCE_COPY"
-  "ZERO";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry InstallOperation_Type_entries[] = {
-  { {InstallOperation_Type_names + 0, 13}, 10 },
-  { {InstallOperation_Type_names + 13, 6}, 3 },
-  { {InstallOperation_Type_names + 19, 7}, 7 },
-  { {InstallOperation_Type_names + 26, 4}, 2 },
-  { {InstallOperation_Type_names + 30, 8}, 9 },
-  { {InstallOperation_Type_names + 38, 7}, 0 },
-  { {InstallOperation_Type_names + 45, 10}, 1 },
-  { {InstallOperation_Type_names + 55, 10}, 8 },
-  { {InstallOperation_Type_names + 65, 13}, 5 },
-  { {InstallOperation_Type_names + 78, 11}, 4 },
-  { {InstallOperation_Type_names + 89, 4}, 6 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry InstallOperation_Type_entries[] =
+    {
+        {{&InstallOperation_Type_names[0], 13}, 10},
+        {{&InstallOperation_Type_names[13], 6}, 3},
+        {{&InstallOperation_Type_names[19], 7}, 7},
+        {{&InstallOperation_Type_names[26], 4}, 2},
+        {{&InstallOperation_Type_names[30], 8}, 9},
+        {{&InstallOperation_Type_names[38], 7}, 0},
+        {{&InstallOperation_Type_names[45], 10}, 1},
+        {{&InstallOperation_Type_names[55], 10}, 8},
+        {{&InstallOperation_Type_names[65], 13}, 5},
+        {{&InstallOperation_Type_names[78], 11}, 4},
+        {{&InstallOperation_Type_names[89], 4}, 6},
 };
 
 static const int InstallOperation_Type_entries_by_number[] = {
-  5, // 0 -> REPLACE
-  6, // 1 -> REPLACE_BZ
-  3, // 2 -> MOVE
-  1, // 3 -> BSDIFF
-  9, // 4 -> SOURCE_COPY
-  8, // 5 -> SOURCE_BSDIFF
-  10, // 6 -> ZERO
-  2, // 7 -> DISCARD
-  7, // 8 -> REPLACE_XZ
-  4, // 9 -> PUFFDIFF
-  0, // 10 -> BROTLI_BSDIFF
+    5,  // 0 -> REPLACE
+    6,  // 1 -> REPLACE_BZ
+    3,  // 2 -> MOVE
+    1,  // 3 -> BSDIFF
+    9,  // 4 -> SOURCE_COPY
+    8,  // 5 -> SOURCE_BSDIFF
+    10,  // 6 -> ZERO
+    2,  // 7 -> DISCARD
+    7,  // 8 -> REPLACE_XZ
+    4,  // 9 -> PUFFDIFF
+    0,  // 10 -> BROTLI_BSDIFF
 };
 
-const std::string& InstallOperation_Type_Name(
-    InstallOperation_Type value) {
-  static const bool dummy =
+const std::string& InstallOperation_Type_Name(InstallOperation_Type value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          InstallOperation_Type_entries,
-          InstallOperation_Type_entries_by_number,
+          InstallOperation_Type_entries, InstallOperation_Type_entries_by_number,
           11, InstallOperation_Type_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      InstallOperation_Type_entries,
-      InstallOperation_Type_entries_by_number,
-      11, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     InstallOperation_Type_strings[idx].get();
+      InstallOperation_Type_entries, InstallOperation_Type_entries_by_number, 11,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : InstallOperation_Type_strings[idx].get();
 }
-bool InstallOperation_Type_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, InstallOperation_Type* value) {
+
+bool InstallOperation_Type_Parse(absl::string_view name, InstallOperation_Type* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       InstallOperation_Type_entries, 11, name, &int_value);
@@ -314,7 +407,9 @@ bool InstallOperation_Type_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr InstallOperation_Type InstallOperation::REPLACE;
 constexpr InstallOperation_Type InstallOperation::REPLACE_BZ;
 constexpr InstallOperation_Type InstallOperation::MOVE;
@@ -329,7 +424,9 @@ constexpr InstallOperation_Type InstallOperation::PUFFDIFF;
 constexpr InstallOperation_Type InstallOperation::Type_MIN;
 constexpr InstallOperation_Type InstallOperation::Type_MAX;
 constexpr int InstallOperation::Type_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool CowMergeOperation_Type_IsValid(int value) {
   switch (value) {
     case 0:
@@ -338,37 +435,37 @@ bool CowMergeOperation_Type_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    CowMergeOperation_Type_strings[1] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CowMergeOperation_Type_strings[1] = {};
+static const char CowMergeOperation_Type_names[] = {
+    "COW_COPY"
+};
 
-static const char CowMergeOperation_Type_names[] =
-  "COW_COPY";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CowMergeOperation_Type_entries[] = {
-  { {CowMergeOperation_Type_names + 0, 8}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CowMergeOperation_Type_entries[] =
+    {
+        {{&CowMergeOperation_Type_names[0], 8}, 0},
 };
 
 static const int CowMergeOperation_Type_entries_by_number[] = {
-  0, // 0 -> COW_COPY
+    0,  // 0 -> COW_COPY
 };
 
-const std::string& CowMergeOperation_Type_Name(
-    CowMergeOperation_Type value) {
-  static const bool dummy =
+const std::string& CowMergeOperation_Type_Name(CowMergeOperation_Type value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          CowMergeOperation_Type_entries,
-          CowMergeOperation_Type_entries_by_number,
+          CowMergeOperation_Type_entries, CowMergeOperation_Type_entries_by_number,
           1, CowMergeOperation_Type_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      CowMergeOperation_Type_entries,
-      CowMergeOperation_Type_entries_by_number,
-      1, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     CowMergeOperation_Type_strings[idx].get();
+      CowMergeOperation_Type_entries, CowMergeOperation_Type_entries_by_number, 1,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : CowMergeOperation_Type_strings[idx].get();
 }
-bool CowMergeOperation_Type_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CowMergeOperation_Type* value) {
+
+bool CowMergeOperation_Type_Parse(absl::string_view name, CowMergeOperation_Type* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       CowMergeOperation_Type_entries, 1, name, &int_value);
@@ -377,18 +474,23 @@ bool CowMergeOperation_Type_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr CowMergeOperation_Type CowMergeOperation::COW_COPY;
 constexpr CowMergeOperation_Type CowMergeOperation::Type_MIN;
 constexpr CowMergeOperation_Type CowMergeOperation::Type_MAX;
 constexpr int CowMergeOperation::Type_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class Extent::_Internal {
  public:
   using HasBits = decltype(std::declval<Extent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Extent, _impl_._has_bits_);
   static void set_has_start_block(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -397,37 +499,27 @@ class Extent::_Internal {
   }
 };
 
-Extent::Extent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Extent::Extent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.Extent)
 }
 Extent::Extent(const Extent& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  Extent* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.start_block_){}
-    , decltype(_impl_.num_blocks_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.start_block_, &from._impl_.start_block_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.num_blocks_) -
-    reinterpret_cast<char*>(&_impl_.start_block_)) + sizeof(_impl_.num_blocks_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.Extent)
 }
 
-inline void Extent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Extent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.start_block_){uint64_t{0u}}
-    , decltype(_impl_.num_blocks_){uint64_t{0u}}
+    , decltype(_impl_.start_block_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.num_blocks_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -441,7 +533,7 @@ Extent::~Extent() {
 }
 
 inline void Extent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void Extent::SetCachedSize(int size) const {
@@ -450,13 +542,13 @@ void Extent::SetCachedSize(int size) const {
 
 void Extent::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.Extent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.start_block_, 0, static_cast<size_t>(
+    ::memset(&_impl_.start_block_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.num_blocks_) -
         reinterpret_cast<char*>(&_impl_.start_block_)) + sizeof(_impl_.num_blocks_));
   }
@@ -468,26 +560,28 @@ const char* Extent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 start_block = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_start_block(&has_bits);
           _impl_.start_block_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 num_blocks = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_num_blocks(&has_bits);
           _impl_.num_blocks_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -513,23 +607,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Extent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Extent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.Extent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 start_block = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_start_block(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_start_block(), target);
   }
 
   // optional uint64 num_blocks = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_num_blocks(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_num_blocks(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -540,11 +636,11 @@ uint8_t* Extent::_InternalSerialize(
   return target;
 }
 
-size_t Extent::ByteSizeLong() const {
+::size_t Extent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.Extent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -552,12 +648,14 @@ size_t Extent::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional uint64 start_block = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_start_block());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_start_block());
     }
 
     // optional uint64 num_blocks = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_num_blocks());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_num_blocks());
     }
 
   }
@@ -578,8 +676,8 @@ void Extent::CheckTypeAndMergeFrom(
 void Extent::MergeFrom(const Extent& from) {
   Extent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.Extent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -622,12 +720,13 @@ std::string Extent::GetTypeName() const {
   return "chromeos_update_engine.Extent";
 }
 
-
 // ===================================================================
 
 class Signatures_Signature::_Internal {
  public:
   using HasBits = decltype(std::declval<Signatures_Signature>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Signatures_Signature, _impl_._has_bits_);
   static void set_has_version(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -639,10 +738,9 @@ class Signatures_Signature::_Internal {
   }
 };
 
-Signatures_Signature::Signatures_Signature(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Signatures_Signature::Signatures_Signature(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.Signatures.Signature)
 }
 Signatures_Signature::Signatures_Signature(const Signatures_Signature& from)
@@ -651,40 +749,43 @@ Signatures_Signature::Signatures_Signature(const Signatures_Signature& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.data_){}
-    , decltype(_impl_.version_){}
-    , decltype(_impl_.unpadded_signature_size_){}};
+    , decltype(_impl_.data_) {}
+
+    , decltype(_impl_.version_) {}
+
+    , decltype(_impl_.unpadded_signature_size_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_data()) {
-    _this->_impl_.data_.Set(from._internal_data(), 
-      _this->GetArenaForAllocation());
+        _impl_.data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.data_.Set(from._internal_data(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.version_, &from._impl_.version_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.unpadded_signature_size_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.unpadded_signature_size_) -
     reinterpret_cast<char*>(&_impl_.version_)) + sizeof(_impl_.unpadded_signature_size_));
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.Signatures.Signature)
 }
 
-inline void Signatures_Signature::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Signatures_Signature::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.data_){}
-    , decltype(_impl_.version_){0u}
-    , decltype(_impl_.unpadded_signature_size_){0u}
+    , decltype(_impl_.data_) {}
+
+    , decltype(_impl_.version_) { 0u }
+
+    , decltype(_impl_.unpadded_signature_size_) { 0u }
+
   };
   _impl_.data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.data_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Signatures_Signature::~Signatures_Signature() {
@@ -697,7 +798,7 @@ Signatures_Signature::~Signatures_Signature() {
 }
 
 inline void Signatures_Signature::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.data_.Destroy();
 }
 
@@ -707,7 +808,7 @@ void Signatures_Signature::SetCachedSize(int size) const {
 
 void Signatures_Signature::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.Signatures.Signature)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -716,7 +817,7 @@ void Signatures_Signature::Clear() {
     _impl_.data_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&_impl_.version_, 0, static_cast<size_t>(
+    ::memset(&_impl_.version_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.unpadded_signature_size_) -
         reinterpret_cast<char*>(&_impl_.version_)) + sizeof(_impl_.unpadded_signature_size_));
   }
@@ -728,35 +829,38 @@ const char* Signatures_Signature::_InternalParse(const char* ptr, ::_pbi::ParseC
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 version = 1 [deprecated = true];
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_version(&has_bits);
           _impl_.version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes data = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_data();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional fixed32 unpadded_signature_size = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 29)) {
           _Internal::set_has_unpadded_signature_size(&has_bits);
-          _impl_.unpadded_signature_size_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint32_t>(ptr);
-          ptr += sizeof(uint32_t);
-        } else
+          _impl_.unpadded_signature_size_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<::uint32_t>(ptr);
+          ptr += sizeof(::uint32_t);
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -782,29 +886,31 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Signatures_Signature::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Signatures_Signature::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.Signatures.Signature)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 version = 1 [deprecated = true];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_version(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_version(), target);
   }
 
   // optional bytes data = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_data(), target);
+    const std::string& _s = this->_internal_data();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // optional fixed32 unpadded_signature_size = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFixed32ToArray(3, this->_internal_unpadded_signature_size(), target);
+    target = ::_pbi::WireFormatLite::WriteFixed32ToArray(
+        3, this->_internal_unpadded_signature_size(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -815,11 +921,11 @@ uint8_t* Signatures_Signature::_InternalSerialize(
   return target;
 }
 
-size_t Signatures_Signature::ByteSizeLong() const {
+::size_t Signatures_Signature::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.Signatures.Signature)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -827,19 +933,19 @@ size_t Signatures_Signature::ByteSizeLong() const {
   if (cached_has_bits & 0x00000007u) {
     // optional bytes data = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_data());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_data());
     }
 
     // optional uint32 version = 1 [deprecated = true];
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_version());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_version());
     }
 
     // optional fixed32 unpadded_signature_size = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
   }
@@ -860,8 +966,8 @@ void Signatures_Signature::CheckTypeAndMergeFrom(
 void Signatures_Signature::MergeFrom(const Signatures_Signature& from) {
   Signatures_Signature* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.Signatures.Signature)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -897,10 +1003,8 @@ void Signatures_Signature::InternalSwap(Signatures_Signature* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.data_, lhs_arena,
-      &other->_impl_.data_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.data_, lhs_arena,
+                                       &other->_impl_.data_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Signatures_Signature, _impl_.unpadded_signature_size_)
       + sizeof(Signatures_Signature::_impl_.unpadded_signature_size_)
@@ -913,17 +1017,15 @@ std::string Signatures_Signature::GetTypeName() const {
   return "chromeos_update_engine.Signatures.Signature";
 }
 
-
 // ===================================================================
 
 class Signatures::_Internal {
  public:
 };
 
-Signatures::Signatures(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Signatures::Signatures(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.Signatures)
 }
 Signatures::Signatures(const Signatures& from)
@@ -937,10 +1039,8 @@ Signatures::Signatures(const Signatures& from)
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.Signatures)
 }
 
-inline void Signatures::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Signatures::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.signatures_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -957,8 +1057,8 @@ Signatures::~Signatures() {
 }
 
 inline void Signatures::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.signatures_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_signatures()->~RepeatedPtrField();
 }
 
 void Signatures::SetCachedSize(int size) const {
@@ -967,23 +1067,23 @@ void Signatures::SetCachedSize(int size) const {
 
 void Signatures::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.Signatures)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.signatures_.Clear();
+  _internal_mutable_signatures()->Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* Signatures::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .chromeos_update_engine.Signatures.Signature signatures = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -991,8 +1091,9 @@ const char* Signatures::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1017,10 +1118,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Signatures::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Signatures::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.Signatures)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .chromeos_update_engine.Signatures.Signature signatures = 1;
@@ -1039,17 +1140,17 @@ uint8_t* Signatures::_InternalSerialize(
   return target;
 }
 
-size_t Signatures::ByteSizeLong() const {
+::size_t Signatures::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.Signatures)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .chromeos_update_engine.Signatures.Signature signatures = 1;
   total_size += 1UL * this->_internal_signatures_size();
-  for (const auto& msg : this->_impl_.signatures_) {
+  for (const auto& msg : this->_internal_signatures()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1071,11 +1172,11 @@ void Signatures::CheckTypeAndMergeFrom(
 void Signatures::MergeFrom(const Signatures& from) {
   Signatures* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.Signatures)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.signatures_.MergeFrom(from._impl_.signatures_);
+  _this->_internal_mutable_signatures()->MergeFrom(from._internal_signatures());
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -1093,19 +1194,20 @@ bool Signatures::IsInitialized() const {
 void Signatures::InternalSwap(Signatures* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.signatures_.InternalSwap(&other->_impl_.signatures_);
+  _internal_mutable_signatures()->InternalSwap(other->_internal_mutable_signatures());
 }
 
 std::string Signatures::GetTypeName() const {
   return "chromeos_update_engine.Signatures";
 }
 
-
 // ===================================================================
 
 class PartitionInfo::_Internal {
  public:
   using HasBits = decltype(std::declval<PartitionInfo>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PartitionInfo, _impl_._has_bits_);
   static void set_has_size(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -1114,10 +1216,9 @@ class PartitionInfo::_Internal {
   }
 };
 
-PartitionInfo::PartitionInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PartitionInfo::PartitionInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.PartitionInfo)
 }
 PartitionInfo::PartitionInfo(const PartitionInfo& from)
@@ -1126,36 +1227,37 @@ PartitionInfo::PartitionInfo(const PartitionInfo& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.hash_){}
-    , decltype(_impl_.size_){}};
+    , decltype(_impl_.hash_) {}
+
+    , decltype(_impl_.size_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_hash()) {
-    _this->_impl_.hash_.Set(from._internal_hash(), 
-      _this->GetArenaForAllocation());
+        _impl_.hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.hash_.Set(from._internal_hash(), _this->GetArenaForAllocation());
   }
   _this->_impl_.size_ = from._impl_.size_;
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.PartitionInfo)
 }
 
-inline void PartitionInfo::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PartitionInfo::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.hash_){}
-    , decltype(_impl_.size_){uint64_t{0u}}
+    , decltype(_impl_.hash_) {}
+
+    , decltype(_impl_.size_) { ::uint64_t{0u} }
+
   };
   _impl_.hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PartitionInfo::~PartitionInfo() {
@@ -1168,7 +1270,7 @@ PartitionInfo::~PartitionInfo() {
 }
 
 inline void PartitionInfo::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.hash_.Destroy();
 }
 
@@ -1178,7 +1280,7 @@ void PartitionInfo::SetCachedSize(int size) const {
 
 void PartitionInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.PartitionInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1186,7 +1288,7 @@ void PartitionInfo::Clear() {
   if (cached_has_bits & 0x00000001u) {
     _impl_.hash_.ClearNonDefaultToEmpty();
   }
-  _impl_.size_ = uint64_t{0u};
+  _impl_.size_ = ::uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1195,26 +1297,28 @@ const char* PartitionInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext*
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 size = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_size(&has_bits);
           _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes hash = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_hash();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1240,23 +1344,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PartitionInfo::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PartitionInfo::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.PartitionInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 size = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_size(), target);
   }
 
   // optional bytes hash = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_hash(), target);
+    const std::string& _s = this->_internal_hash();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1267,11 +1372,11 @@ uint8_t* PartitionInfo::_InternalSerialize(
   return target;
 }
 
-size_t PartitionInfo::ByteSizeLong() const {
+::size_t PartitionInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.PartitionInfo)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1279,14 +1384,14 @@ size_t PartitionInfo::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional bytes hash = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_hash());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_hash());
     }
 
     // optional uint64 size = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_size());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_size());
     }
 
   }
@@ -1307,8 +1412,8 @@ void PartitionInfo::CheckTypeAndMergeFrom(
 void PartitionInfo::MergeFrom(const PartitionInfo& from) {
   PartitionInfo* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.PartitionInfo)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1341,10 +1446,9 @@ void PartitionInfo::InternalSwap(PartitionInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.hash_, lhs_arena,
-      &other->_impl_.hash_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.hash_, lhs_arena,
+                                       &other->_impl_.hash_, rhs_arena);
+
   swap(_impl_.size_, other->_impl_.size_);
 }
 
@@ -1352,12 +1456,13 @@ std::string PartitionInfo::GetTypeName() const {
   return "chromeos_update_engine.PartitionInfo";
 }
 
-
 // ===================================================================
 
 class ImageInfo::_Internal {
  public:
   using HasBits = decltype(std::declval<ImageInfo>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ImageInfo, _impl_._has_bits_);
   static void set_has_board(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1378,10 +1483,9 @@ class ImageInfo::_Internal {
   }
 };
 
-ImageInfo::ImageInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ImageInfo::ImageInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.ImageInfo)
 }
 ImageInfo::ImageInfo(const ImageInfo& from)
@@ -1390,103 +1494,107 @@ ImageInfo::ImageInfo(const ImageInfo& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.board_){}
-    , decltype(_impl_.key_){}
-    , decltype(_impl_.channel_){}
-    , decltype(_impl_.version_){}
-    , decltype(_impl_.build_channel_){}
-    , decltype(_impl_.build_version_){}};
+    , decltype(_impl_.board_) {}
+
+    , decltype(_impl_.key_) {}
+
+    , decltype(_impl_.channel_) {}
+
+    , decltype(_impl_.version_) {}
+
+    , decltype(_impl_.build_channel_) {}
+
+    , decltype(_impl_.build_version_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.board_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.board_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_board()) {
-    _this->_impl_.board_.Set(from._internal_board(), 
-      _this->GetArenaForAllocation());
+        _impl_.board_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.board_.Set(from._internal_board(), _this->GetArenaForAllocation());
   }
   _impl_.key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_key()) {
-    _this->_impl_.key_.Set(from._internal_key(), 
-      _this->GetArenaForAllocation());
+        _impl_.key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.key_.Set(from._internal_key(), _this->GetArenaForAllocation());
   }
   _impl_.channel_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.channel_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_channel()) {
-    _this->_impl_.channel_.Set(from._internal_channel(), 
-      _this->GetArenaForAllocation());
+        _impl_.channel_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
+    _this->_impl_.channel_.Set(from._internal_channel(), _this->GetArenaForAllocation());
   }
   _impl_.version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_version()) {
-    _this->_impl_.version_.Set(from._internal_version(), 
-      _this->GetArenaForAllocation());
+        _impl_.version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
+    _this->_impl_.version_.Set(from._internal_version(), _this->GetArenaForAllocation());
   }
   _impl_.build_channel_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.build_channel_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_build_channel()) {
-    _this->_impl_.build_channel_.Set(from._internal_build_channel(), 
-      _this->GetArenaForAllocation());
+        _impl_.build_channel_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
+    _this->_impl_.build_channel_.Set(from._internal_build_channel(), _this->GetArenaForAllocation());
   }
   _impl_.build_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.build_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_build_version()) {
-    _this->_impl_.build_version_.Set(from._internal_build_version(), 
-      _this->GetArenaForAllocation());
+        _impl_.build_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000020u) != 0) {
+    _this->_impl_.build_version_.Set(from._internal_build_version(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.ImageInfo)
 }
 
-inline void ImageInfo::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ImageInfo::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.board_){}
-    , decltype(_impl_.key_){}
-    , decltype(_impl_.channel_){}
-    , decltype(_impl_.version_){}
-    , decltype(_impl_.build_channel_){}
-    , decltype(_impl_.build_version_){}
+    , decltype(_impl_.board_) {}
+
+    , decltype(_impl_.key_) {}
+
+    , decltype(_impl_.channel_) {}
+
+    , decltype(_impl_.version_) {}
+
+    , decltype(_impl_.build_channel_) {}
+
+    , decltype(_impl_.build_version_) {}
+
   };
   _impl_.board_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.board_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.board_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.key_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.channel_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.channel_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.channel_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.build_channel_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.build_channel_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.build_channel_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.build_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.build_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.build_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ImageInfo::~ImageInfo() {
@@ -1499,7 +1607,7 @@ ImageInfo::~ImageInfo() {
 }
 
 inline void ImageInfo::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.board_.Destroy();
   _impl_.key_.Destroy();
   _impl_.channel_.Destroy();
@@ -1514,7 +1622,7 @@ void ImageInfo::SetCachedSize(int size) const {
 
 void ImageInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.ImageInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1547,62 +1655,68 @@ const char* ImageInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string board = 1 [deprecated = true];
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_board();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string key = 2 [deprecated = true];
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_key();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string channel = 3 [deprecated = true];
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_channel();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string version = 4 [deprecated = true];
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_version();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string build_channel = 5 [deprecated = true];
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_build_channel();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string build_version = 6 [deprecated = true];
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_build_version();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1628,47 +1742,47 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ImageInfo::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ImageInfo::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.ImageInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string board = 1 [deprecated = true];
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_board(), target);
+    const std::string& _s = this->_internal_board();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional string key = 2 [deprecated = true];
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_key(), target);
+    const std::string& _s = this->_internal_key();
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional string channel = 3 [deprecated = true];
   if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_channel(), target);
+    const std::string& _s = this->_internal_channel();
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   // optional string version = 4 [deprecated = true];
   if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_version(), target);
+    const std::string& _s = this->_internal_version();
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   // optional string build_channel = 5 [deprecated = true];
   if (cached_has_bits & 0x00000010u) {
-    target = stream->WriteStringMaybeAliased(
-        5, this->_internal_build_channel(), target);
+    const std::string& _s = this->_internal_build_channel();
+    target = stream->WriteStringMaybeAliased(5, _s, target);
   }
 
   // optional string build_version = 6 [deprecated = true];
   if (cached_has_bits & 0x00000020u) {
-    target = stream->WriteStringMaybeAliased(
-        6, this->_internal_build_version(), target);
+    const std::string& _s = this->_internal_build_version();
+    target = stream->WriteStringMaybeAliased(6, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1679,11 +1793,11 @@ uint8_t* ImageInfo::_InternalSerialize(
   return target;
 }
 
-size_t ImageInfo::ByteSizeLong() const {
+::size_t ImageInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.ImageInfo)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1691,44 +1805,38 @@ size_t ImageInfo::ByteSizeLong() const {
   if (cached_has_bits & 0x0000003fu) {
     // optional string board = 1 [deprecated = true];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_board());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_board());
     }
 
     // optional string key = 2 [deprecated = true];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_key());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_key());
     }
 
     // optional string channel = 3 [deprecated = true];
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_channel());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_channel());
     }
 
     // optional string version = 4 [deprecated = true];
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_version());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_version());
     }
 
     // optional string build_channel = 5 [deprecated = true];
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_build_channel());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_build_channel());
     }
 
     // optional string build_version = 6 [deprecated = true];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_build_version());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_build_version());
     }
 
   }
@@ -1749,8 +1857,8 @@ void ImageInfo::CheckTypeAndMergeFrom(
 void ImageInfo::MergeFrom(const ImageInfo& from) {
   ImageInfo* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.ImageInfo)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1794,42 +1902,31 @@ void ImageInfo::InternalSwap(ImageInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.board_, lhs_arena,
-      &other->_impl_.board_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.key_, lhs_arena,
-      &other->_impl_.key_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.channel_, lhs_arena,
-      &other->_impl_.channel_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.version_, lhs_arena,
-      &other->_impl_.version_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.build_channel_, lhs_arena,
-      &other->_impl_.build_channel_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.build_version_, lhs_arena,
-      &other->_impl_.build_version_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.board_, lhs_arena,
+                                       &other->_impl_.board_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.key_, lhs_arena,
+                                       &other->_impl_.key_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.channel_, lhs_arena,
+                                       &other->_impl_.channel_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.version_, lhs_arena,
+                                       &other->_impl_.version_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.build_channel_, lhs_arena,
+                                       &other->_impl_.build_channel_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.build_version_, lhs_arena,
+                                       &other->_impl_.build_version_, rhs_arena);
 }
 
 std::string ImageInfo::GetTypeName() const {
   return "chromeos_update_engine.ImageInfo";
 }
 
-
 // ===================================================================
 
 class InstallOperation::_Internal {
  public:
   using HasBits = decltype(std::declval<InstallOperation>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(InstallOperation, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
@@ -1856,10 +1953,9 @@ class InstallOperation::_Internal {
   }
 };
 
-InstallOperation::InstallOperation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+InstallOperation::InstallOperation(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.InstallOperation)
 }
 InstallOperation::InstallOperation(const InstallOperation& from)
@@ -1870,62 +1966,72 @@ InstallOperation::InstallOperation(const InstallOperation& from)
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.src_extents_){from._impl_.src_extents_}
     , decltype(_impl_.dst_extents_){from._impl_.dst_extents_}
-    , decltype(_impl_.data_sha256_hash_){}
-    , decltype(_impl_.src_sha256_hash_){}
-    , decltype(_impl_.data_offset_){}
-    , decltype(_impl_.data_length_){}
-    , decltype(_impl_.src_length_){}
-    , decltype(_impl_.dst_length_){}
-    , decltype(_impl_.type_){}};
+    , decltype(_impl_.data_sha256_hash_) {}
+
+    , decltype(_impl_.src_sha256_hash_) {}
+
+    , decltype(_impl_.data_offset_) {}
+
+    , decltype(_impl_.data_length_) {}
+
+    , decltype(_impl_.src_length_) {}
+
+    , decltype(_impl_.dst_length_) {}
+
+    , decltype(_impl_.type_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.data_sha256_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.data_sha256_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_data_sha256_hash()) {
-    _this->_impl_.data_sha256_hash_.Set(from._internal_data_sha256_hash(), 
-      _this->GetArenaForAllocation());
+        _impl_.data_sha256_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.data_sha256_hash_.Set(from._internal_data_sha256_hash(), _this->GetArenaForAllocation());
   }
   _impl_.src_sha256_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.src_sha256_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_src_sha256_hash()) {
-    _this->_impl_.src_sha256_hash_.Set(from._internal_src_sha256_hash(), 
-      _this->GetArenaForAllocation());
+        _impl_.src_sha256_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.src_sha256_hash_.Set(from._internal_src_sha256_hash(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.data_offset_, &from._impl_.data_offset_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.type_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.type_) -
     reinterpret_cast<char*>(&_impl_.data_offset_)) + sizeof(_impl_.type_));
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.InstallOperation)
 }
 
-inline void InstallOperation::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void InstallOperation::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.src_extents_){arena}
     , decltype(_impl_.dst_extents_){arena}
-    , decltype(_impl_.data_sha256_hash_){}
-    , decltype(_impl_.src_sha256_hash_){}
-    , decltype(_impl_.data_offset_){uint64_t{0u}}
-    , decltype(_impl_.data_length_){uint64_t{0u}}
-    , decltype(_impl_.src_length_){uint64_t{0u}}
-    , decltype(_impl_.dst_length_){uint64_t{0u}}
-    , decltype(_impl_.type_){0}
+    , decltype(_impl_.data_sha256_hash_) {}
+
+    , decltype(_impl_.src_sha256_hash_) {}
+
+    , decltype(_impl_.data_offset_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.data_length_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.src_length_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.dst_length_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.type_) { 0 }
+
   };
   _impl_.data_sha256_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.data_sha256_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.data_sha256_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.src_sha256_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.src_sha256_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.src_sha256_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 InstallOperation::~InstallOperation() {
@@ -1938,9 +2044,9 @@ InstallOperation::~InstallOperation() {
 }
 
 inline void InstallOperation::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.src_extents_.~RepeatedPtrField();
-  _impl_.dst_extents_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_src_extents()->~RepeatedPtrField();
+  _internal_mutable_dst_extents()->~RepeatedPtrField();
   _impl_.data_sha256_hash_.Destroy();
   _impl_.src_sha256_hash_.Destroy();
 }
@@ -1951,12 +2057,12 @@ void InstallOperation::SetCachedSize(int size) const {
 
 void InstallOperation::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.InstallOperation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.src_extents_.Clear();
-  _impl_.dst_extents_.Clear();
+  _internal_mutable_src_extents()->Clear();
+  _internal_mutable_dst_extents()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
@@ -1967,7 +2073,7 @@ void InstallOperation::Clear() {
     }
   }
   if (cached_has_bits & 0x0000007cu) {
-    ::memset(&_impl_.data_offset_, 0, static_cast<size_t>(
+    ::memset(&_impl_.data_offset_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.type_) -
         reinterpret_cast<char*>(&_impl_.data_offset_)) + sizeof(_impl_.type_));
   }
@@ -1979,43 +2085,46 @@ const char* InstallOperation::_InternalParse(const char* ptr, ::_pbi::ParseConte
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required .chromeos_update_engine.InstallOperation.Type type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::chromeos_update_engine::InstallOperation_Type_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::chromeos_update_engine::InstallOperation_Type_IsValid(static_cast<int>(val)))) {
             _internal_set_type(static_cast<::chromeos_update_engine::InstallOperation_Type>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 data_offset = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_data_offset(&has_bits);
           _impl_.data_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 data_length = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_data_length(&has_bits);
           _impl_.data_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .chromeos_update_engine.Extent src_extents = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2023,21 +2132,23 @@ const char* InstallOperation::_InternalParse(const char* ptr, ::_pbi::ParseConte
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 src_length = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_src_length(&has_bits);
           _impl_.src_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .chromeos_update_engine.Extent dst_extents = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2045,35 +2156,39 @@ const char* InstallOperation::_InternalParse(const char* ptr, ::_pbi::ParseConte
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 dst_length = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_dst_length(&has_bits);
           _impl_.dst_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes data_sha256_hash = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           auto str = _internal_mutable_data_sha256_hash();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes src_sha256_hash = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 74)) {
           auto str = _internal_mutable_src_sha256_hash();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2099,10 +2214,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* InstallOperation::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* InstallOperation::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.InstallOperation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -2110,19 +2225,21 @@ uint8_t* InstallOperation::_InternalSerialize(
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+        1, this->_internal_type(), target);
   }
 
   // optional uint64 data_offset = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_data_offset(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_data_offset(), target);
   }
 
   // optional uint64 data_length = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_data_length(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_data_length(), target);
   }
 
   // repeated .chromeos_update_engine.Extent src_extents = 4;
@@ -2136,7 +2253,8 @@ uint8_t* InstallOperation::_InternalSerialize(
   // optional uint64 src_length = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_src_length(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_src_length(), target);
   }
 
   // repeated .chromeos_update_engine.Extent dst_extents = 6;
@@ -2150,19 +2268,20 @@ uint8_t* InstallOperation::_InternalSerialize(
   // optional uint64 dst_length = 7;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(7, this->_internal_dst_length(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        7, this->_internal_dst_length(), target);
   }
 
   // optional bytes data_sha256_hash = 8;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        8, this->_internal_data_sha256_hash(), target);
+    const std::string& _s = this->_internal_data_sha256_hash();
+    target = stream->WriteBytesMaybeAliased(8, _s, target);
   }
 
   // optional bytes src_sha256_hash = 9;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        9, this->_internal_src_sha256_hash(), target);
+    const std::string& _s = this->_internal_src_sha256_hash();
+    target = stream->WriteBytesMaybeAliased(9, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2173,29 +2292,29 @@ uint8_t* InstallOperation::_InternalSerialize(
   return target;
 }
 
-size_t InstallOperation::ByteSizeLong() const {
+::size_t InstallOperation::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.InstallOperation)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   // required .chromeos_update_engine.InstallOperation.Type type = 1;
-  if (_internal_has_type()) {
+  if ((_impl_._has_bits_[0] & 0x00000040u) != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .chromeos_update_engine.Extent src_extents = 4;
   total_size += 1UL * this->_internal_src_extents_size();
-  for (const auto& msg : this->_impl_.src_extents_) {
+  for (const auto& msg : this->_internal_src_extents()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .chromeos_update_engine.Extent dst_extents = 6;
   total_size += 1UL * this->_internal_dst_extents_size();
-  for (const auto& msg : this->_impl_.dst_extents_) {
+  for (const auto& msg : this->_internal_dst_extents()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2204,36 +2323,38 @@ size_t InstallOperation::ByteSizeLong() const {
   if (cached_has_bits & 0x0000003fu) {
     // optional bytes data_sha256_hash = 8;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_data_sha256_hash());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_data_sha256_hash());
     }
 
     // optional bytes src_sha256_hash = 9;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_src_sha256_hash());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_src_sha256_hash());
     }
 
     // optional uint64 data_offset = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_data_offset());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_data_offset());
     }
 
     // optional uint64 data_length = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_data_length());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_data_length());
     }
 
     // optional uint64 src_length = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_src_length());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_src_length());
     }
 
     // optional uint64 dst_length = 7;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_dst_length());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_dst_length());
     }
 
   }
@@ -2254,12 +2375,12 @@ void InstallOperation::CheckTypeAndMergeFrom(
 void InstallOperation::MergeFrom(const InstallOperation& from) {
   InstallOperation* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.InstallOperation)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.src_extents_.MergeFrom(from._impl_.src_extents_);
-  _this->_impl_.dst_extents_.MergeFrom(from._impl_.dst_extents_);
+  _this->_internal_mutable_src_extents()->MergeFrom(from._internal_src_extents());
+  _this->_internal_mutable_dst_extents()->MergeFrom(from._internal_dst_extents());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -2306,16 +2427,12 @@ void InstallOperation::InternalSwap(InstallOperation* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.src_extents_.InternalSwap(&other->_impl_.src_extents_);
-  _impl_.dst_extents_.InternalSwap(&other->_impl_.dst_extents_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.data_sha256_hash_, lhs_arena,
-      &other->_impl_.data_sha256_hash_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.src_sha256_hash_, lhs_arena,
-      &other->_impl_.src_sha256_hash_, rhs_arena
-  );
+  _internal_mutable_src_extents()->InternalSwap(other->_internal_mutable_src_extents());
+  _internal_mutable_dst_extents()->InternalSwap(other->_internal_mutable_dst_extents());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.data_sha256_hash_, lhs_arena,
+                                       &other->_impl_.data_sha256_hash_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.src_sha256_hash_, lhs_arena,
+                                       &other->_impl_.src_sha256_hash_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(InstallOperation, _impl_.type_)
       + sizeof(InstallOperation::_impl_.type_)
@@ -2328,12 +2445,13 @@ std::string InstallOperation::GetTypeName() const {
   return "chromeos_update_engine.InstallOperation";
 }
 
-
 // ===================================================================
 
 class CowMergeOperation::_Internal {
  public:
   using HasBits = decltype(std::declval<CowMergeOperation>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CowMergeOperation, _impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -2355,10 +2473,9 @@ const ::chromeos_update_engine::Extent&
 CowMergeOperation::_Internal::dst_extent(const CowMergeOperation* msg) {
   return *msg->_impl_.dst_extent_;
 }
-CowMergeOperation::CowMergeOperation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CowMergeOperation::CowMergeOperation(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.CowMergeOperation)
 }
 CowMergeOperation::CowMergeOperation(const CowMergeOperation& from)
@@ -2369,29 +2486,29 @@ CowMergeOperation::CowMergeOperation(const CowMergeOperation& from)
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.src_extent_){nullptr}
     , decltype(_impl_.dst_extent_){nullptr}
-    , decltype(_impl_.type_){}};
+    , decltype(_impl_.type_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_src_extent()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.src_extent_ = new ::chromeos_update_engine::Extent(*from._impl_.src_extent_);
   }
-  if (from._internal_has_dst_extent()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.dst_extent_ = new ::chromeos_update_engine::Extent(*from._impl_.dst_extent_);
   }
   _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.CowMergeOperation)
 }
 
-inline void CowMergeOperation::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CowMergeOperation::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.src_extent_){nullptr}
     , decltype(_impl_.dst_extent_){nullptr}
-    , decltype(_impl_.type_){0}
+    , decltype(_impl_.type_) { 0 }
+
   };
 }
 
@@ -2405,7 +2522,7 @@ CowMergeOperation::~CowMergeOperation() {
 }
 
 inline void CowMergeOperation::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.src_extent_;
   if (this != internal_default_instance()) delete _impl_.dst_extent_;
 }
@@ -2416,18 +2533,18 @@ void CowMergeOperation::SetCachedSize(int size) const {
 
 void CowMergeOperation::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.CowMergeOperation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.src_extent_ != nullptr);
+      ABSL_DCHECK(_impl_.src_extent_ != nullptr);
       _impl_.src_extent_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.dst_extent_ != nullptr);
+      ABSL_DCHECK(_impl_.dst_extent_ != nullptr);
       _impl_.dst_extent_->Clear();
     }
   }
@@ -2440,37 +2557,40 @@ const char* CowMergeOperation::_InternalParse(const char* ptr, ::_pbi::ParseCont
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .chromeos_update_engine.CowMergeOperation.Type type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::chromeos_update_engine::CowMergeOperation_Type_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::chromeos_update_engine::CowMergeOperation_Type_IsValid(static_cast<int>(val)))) {
             _internal_set_type(static_cast<::chromeos_update_engine::CowMergeOperation_Type>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.Extent src_extent = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_src_extent(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.Extent dst_extent = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_dst_extent(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2496,10 +2616,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CowMergeOperation::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CowMergeOperation::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.CowMergeOperation)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -2507,7 +2627,7 @@ uint8_t* CowMergeOperation::_InternalSerialize(
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+        1, this->_internal_type(), target);
   }
 
   // optional .chromeos_update_engine.Extent src_extent = 2;
@@ -2532,11 +2652,11 @@ uint8_t* CowMergeOperation::_InternalSerialize(
   return target;
 }
 
-size_t CowMergeOperation::ByteSizeLong() const {
+::size_t CowMergeOperation::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.CowMergeOperation)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2559,7 +2679,7 @@ size_t CowMergeOperation::ByteSizeLong() const {
     // optional .chromeos_update_engine.CowMergeOperation.Type type = 1;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
   }
@@ -2580,8 +2700,8 @@ void CowMergeOperation::CheckTypeAndMergeFrom(
 void CowMergeOperation::MergeFrom(const CowMergeOperation& from) {
   CowMergeOperation* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.CowMergeOperation)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2629,12 +2749,13 @@ std::string CowMergeOperation::GetTypeName() const {
   return "chromeos_update_engine.CowMergeOperation";
 }
 
-
 // ===================================================================
 
 class PartitionUpdate::_Internal {
  public:
   using HasBits = decltype(std::declval<PartitionUpdate>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PartitionUpdate, _impl_._has_bits_);
   static void set_has_partition_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2715,10 +2836,9 @@ const ::chromeos_update_engine::Extent&
 PartitionUpdate::_Internal::fec_extent(const PartitionUpdate* msg) {
   return *msg->_impl_.fec_extent_;
 }
-PartitionUpdate::PartitionUpdate(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PartitionUpdate::PartitionUpdate(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.PartitionUpdate)
 }
 PartitionUpdate::PartitionUpdate(const PartitionUpdate& from)
@@ -2730,145 +2850,155 @@ PartitionUpdate::PartitionUpdate(const PartitionUpdate& from)
     , decltype(_impl_.new_partition_signature_){from._impl_.new_partition_signature_}
     , decltype(_impl_.operations_){from._impl_.operations_}
     , decltype(_impl_.merge_operations_){from._impl_.merge_operations_}
-    , decltype(_impl_.partition_name_){}
-    , decltype(_impl_.postinstall_path_){}
-    , decltype(_impl_.filesystem_type_){}
-    , decltype(_impl_.hash_tree_algorithm_){}
-    , decltype(_impl_.hash_tree_salt_){}
-    , decltype(_impl_.version_){}
+    , decltype(_impl_.partition_name_) {}
+
+    , decltype(_impl_.postinstall_path_) {}
+
+    , decltype(_impl_.filesystem_type_) {}
+
+    , decltype(_impl_.hash_tree_algorithm_) {}
+
+    , decltype(_impl_.hash_tree_salt_) {}
+
+    , decltype(_impl_.version_) {}
+
     , decltype(_impl_.old_partition_info_){nullptr}
     , decltype(_impl_.new_partition_info_){nullptr}
     , decltype(_impl_.hash_tree_data_extent_){nullptr}
     , decltype(_impl_.hash_tree_extent_){nullptr}
     , decltype(_impl_.fec_data_extent_){nullptr}
     , decltype(_impl_.fec_extent_){nullptr}
-    , decltype(_impl_.run_postinstall_){}
-    , decltype(_impl_.postinstall_optional_){}
-    , decltype(_impl_.fec_roots_){}};
+    , decltype(_impl_.run_postinstall_) {}
+
+    , decltype(_impl_.postinstall_optional_) {}
+
+    , decltype(_impl_.fec_roots_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.partition_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.partition_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_partition_name()) {
-    _this->_impl_.partition_name_.Set(from._internal_partition_name(), 
-      _this->GetArenaForAllocation());
+        _impl_.partition_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.partition_name_.Set(from._internal_partition_name(), _this->GetArenaForAllocation());
   }
   _impl_.postinstall_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.postinstall_path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_postinstall_path()) {
-    _this->_impl_.postinstall_path_.Set(from._internal_postinstall_path(), 
-      _this->GetArenaForAllocation());
+        _impl_.postinstall_path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.postinstall_path_.Set(from._internal_postinstall_path(), _this->GetArenaForAllocation());
   }
   _impl_.filesystem_type_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.filesystem_type_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_filesystem_type()) {
-    _this->_impl_.filesystem_type_.Set(from._internal_filesystem_type(), 
-      _this->GetArenaForAllocation());
+        _impl_.filesystem_type_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
+    _this->_impl_.filesystem_type_.Set(from._internal_filesystem_type(), _this->GetArenaForAllocation());
   }
   _impl_.hash_tree_algorithm_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.hash_tree_algorithm_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_hash_tree_algorithm()) {
-    _this->_impl_.hash_tree_algorithm_.Set(from._internal_hash_tree_algorithm(), 
-      _this->GetArenaForAllocation());
+        _impl_.hash_tree_algorithm_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
+    _this->_impl_.hash_tree_algorithm_.Set(from._internal_hash_tree_algorithm(), _this->GetArenaForAllocation());
   }
   _impl_.hash_tree_salt_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.hash_tree_salt_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_hash_tree_salt()) {
-    _this->_impl_.hash_tree_salt_.Set(from._internal_hash_tree_salt(), 
-      _this->GetArenaForAllocation());
+        _impl_.hash_tree_salt_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
+    _this->_impl_.hash_tree_salt_.Set(from._internal_hash_tree_salt(), _this->GetArenaForAllocation());
   }
   _impl_.version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_version()) {
-    _this->_impl_.version_.Set(from._internal_version(), 
-      _this->GetArenaForAllocation());
+        _impl_.version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000020u) != 0) {
+    _this->_impl_.version_.Set(from._internal_version(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_old_partition_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000040u) != 0) {
     _this->_impl_.old_partition_info_ = new ::chromeos_update_engine::PartitionInfo(*from._impl_.old_partition_info_);
   }
-  if (from._internal_has_new_partition_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000080u) != 0) {
     _this->_impl_.new_partition_info_ = new ::chromeos_update_engine::PartitionInfo(*from._impl_.new_partition_info_);
   }
-  if (from._internal_has_hash_tree_data_extent()) {
+  if ((from._impl_._has_bits_[0] & 0x00000100u) != 0) {
     _this->_impl_.hash_tree_data_extent_ = new ::chromeos_update_engine::Extent(*from._impl_.hash_tree_data_extent_);
   }
-  if (from._internal_has_hash_tree_extent()) {
+  if ((from._impl_._has_bits_[0] & 0x00000200u) != 0) {
     _this->_impl_.hash_tree_extent_ = new ::chromeos_update_engine::Extent(*from._impl_.hash_tree_extent_);
   }
-  if (from._internal_has_fec_data_extent()) {
+  if ((from._impl_._has_bits_[0] & 0x00000400u) != 0) {
     _this->_impl_.fec_data_extent_ = new ::chromeos_update_engine::Extent(*from._impl_.fec_data_extent_);
   }
-  if (from._internal_has_fec_extent()) {
+  if ((from._impl_._has_bits_[0] & 0x00000800u) != 0) {
     _this->_impl_.fec_extent_ = new ::chromeos_update_engine::Extent(*from._impl_.fec_extent_);
   }
   ::memcpy(&_impl_.run_postinstall_, &from._impl_.run_postinstall_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.fec_roots_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.fec_roots_) -
     reinterpret_cast<char*>(&_impl_.run_postinstall_)) + sizeof(_impl_.fec_roots_));
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.PartitionUpdate)
 }
 
-inline void PartitionUpdate::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PartitionUpdate::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.new_partition_signature_){arena}
     , decltype(_impl_.operations_){arena}
     , decltype(_impl_.merge_operations_){arena}
-    , decltype(_impl_.partition_name_){}
-    , decltype(_impl_.postinstall_path_){}
-    , decltype(_impl_.filesystem_type_){}
-    , decltype(_impl_.hash_tree_algorithm_){}
-    , decltype(_impl_.hash_tree_salt_){}
-    , decltype(_impl_.version_){}
+    , decltype(_impl_.partition_name_) {}
+
+    , decltype(_impl_.postinstall_path_) {}
+
+    , decltype(_impl_.filesystem_type_) {}
+
+    , decltype(_impl_.hash_tree_algorithm_) {}
+
+    , decltype(_impl_.hash_tree_salt_) {}
+
+    , decltype(_impl_.version_) {}
+
     , decltype(_impl_.old_partition_info_){nullptr}
     , decltype(_impl_.new_partition_info_){nullptr}
     , decltype(_impl_.hash_tree_data_extent_){nullptr}
     , decltype(_impl_.hash_tree_extent_){nullptr}
     , decltype(_impl_.fec_data_extent_){nullptr}
     , decltype(_impl_.fec_extent_){nullptr}
-    , decltype(_impl_.run_postinstall_){false}
-    , decltype(_impl_.postinstall_optional_){false}
-    , decltype(_impl_.fec_roots_){2u}
+    , decltype(_impl_.run_postinstall_) { false }
+
+    , decltype(_impl_.postinstall_optional_) { false }
+
+    , decltype(_impl_.fec_roots_) { 2u }
+
   };
   _impl_.partition_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.partition_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.partition_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.postinstall_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.postinstall_path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.postinstall_path_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.filesystem_type_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.filesystem_type_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.filesystem_type_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.hash_tree_algorithm_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.hash_tree_algorithm_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.hash_tree_algorithm_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.hash_tree_salt_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.hash_tree_salt_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.hash_tree_salt_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PartitionUpdate::~PartitionUpdate() {
@@ -2881,10 +3011,10 @@ PartitionUpdate::~PartitionUpdate() {
 }
 
 inline void PartitionUpdate::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.new_partition_signature_.~RepeatedPtrField();
-  _impl_.operations_.~RepeatedPtrField();
-  _impl_.merge_operations_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_new_partition_signature()->~RepeatedPtrField();
+  _internal_mutable_operations()->~RepeatedPtrField();
+  _internal_mutable_merge_operations()->~RepeatedPtrField();
   _impl_.partition_name_.Destroy();
   _impl_.postinstall_path_.Destroy();
   _impl_.filesystem_type_.Destroy();
@@ -2905,13 +3035,13 @@ void PartitionUpdate::SetCachedSize(int size) const {
 
 void PartitionUpdate::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.PartitionUpdate)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.new_partition_signature_.Clear();
-  _impl_.operations_.Clear();
-  _impl_.merge_operations_.Clear();
+  _internal_mutable_new_partition_signature()->Clear();
+  _internal_mutable_operations()->Clear();
+  _internal_mutable_merge_operations()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -2933,33 +3063,33 @@ void PartitionUpdate::Clear() {
       _impl_.version_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000040u) {
-      GOOGLE_DCHECK(_impl_.old_partition_info_ != nullptr);
+      ABSL_DCHECK(_impl_.old_partition_info_ != nullptr);
       _impl_.old_partition_info_->Clear();
     }
     if (cached_has_bits & 0x00000080u) {
-      GOOGLE_DCHECK(_impl_.new_partition_info_ != nullptr);
+      ABSL_DCHECK(_impl_.new_partition_info_ != nullptr);
       _impl_.new_partition_info_->Clear();
     }
   }
   if (cached_has_bits & 0x00000f00u) {
     if (cached_has_bits & 0x00000100u) {
-      GOOGLE_DCHECK(_impl_.hash_tree_data_extent_ != nullptr);
+      ABSL_DCHECK(_impl_.hash_tree_data_extent_ != nullptr);
       _impl_.hash_tree_data_extent_->Clear();
     }
     if (cached_has_bits & 0x00000200u) {
-      GOOGLE_DCHECK(_impl_.hash_tree_extent_ != nullptr);
+      ABSL_DCHECK(_impl_.hash_tree_extent_ != nullptr);
       _impl_.hash_tree_extent_->Clear();
     }
     if (cached_has_bits & 0x00000400u) {
-      GOOGLE_DCHECK(_impl_.fec_data_extent_ != nullptr);
+      ABSL_DCHECK(_impl_.fec_data_extent_ != nullptr);
       _impl_.fec_data_extent_->Clear();
     }
     if (cached_has_bits & 0x00000800u) {
-      GOOGLE_DCHECK(_impl_.fec_extent_ != nullptr);
+      ABSL_DCHECK(_impl_.fec_extent_ != nullptr);
       _impl_.fec_extent_->Clear();
     }
   }
-  ::memset(&_impl_.run_postinstall_, 0, static_cast<size_t>(
+  ::memset(&_impl_.run_postinstall_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.postinstall_optional_) -
       reinterpret_cast<char*>(&_impl_.run_postinstall_)) + sizeof(_impl_.postinstall_optional_));
   _impl_.fec_roots_ = 2u;
@@ -2971,48 +3101,52 @@ const char* PartitionUpdate::_InternalParse(const char* ptr, ::_pbi::ParseContex
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required string partition_name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_partition_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool run_postinstall = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_run_postinstall(&has_bits);
           _impl_.run_postinstall_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string postinstall_path = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_postinstall_path();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string filesystem_type = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_filesystem_type();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .chromeos_update_engine.Signatures.Signature new_partition_signature = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3020,28 +3154,31 @@ const char* PartitionUpdate::_InternalParse(const char* ptr, ::_pbi::ParseContex
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.PartitionInfo old_partition_info = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_old_partition_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.PartitionInfo new_partition_info = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_new_partition_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .chromeos_update_engine.InstallOperation operations = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3049,89 +3186,99 @@ const char* PartitionUpdate::_InternalParse(const char* ptr, ::_pbi::ParseContex
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool postinstall_optional = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
           _Internal::set_has_postinstall_optional(&has_bits);
           _impl_.postinstall_optional_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.Extent hash_tree_data_extent = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_hash_tree_data_extent(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.Extent hash_tree_extent = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_hash_tree_extent(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string hash_tree_algorithm = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 98)) {
           auto str = _internal_mutable_hash_tree_algorithm();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes hash_tree_salt = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 106)) {
           auto str = _internal_mutable_hash_tree_salt();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.Extent fec_data_extent = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 114)) {
           ptr = ctx->ParseMessage(_internal_mutable_fec_data_extent(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.Extent fec_extent = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 122)) {
           ptr = ctx->ParseMessage(_internal_mutable_fec_extent(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 fec_roots = 16 [default = 2];
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 128)) {
           _Internal::set_has_fec_roots(&has_bits);
           _impl_.fec_roots_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string version = 17;
       case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 138)) {
           auto str = _internal_mutable_version();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .chromeos_update_engine.CowMergeOperation merge_operations = 18;
       case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 146)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -3139,8 +3286,9 @@ const char* PartitionUpdate::_InternalParse(const char* ptr, ::_pbi::ParseContex
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<146>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3166,35 +3314,36 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PartitionUpdate::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PartitionUpdate::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.PartitionUpdate)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // required string partition_name = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_partition_name(), target);
+    const std::string& _s = this->_internal_partition_name();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional bool run_postinstall = 2;
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_run_postinstall(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_run_postinstall(), target);
   }
 
   // optional string postinstall_path = 3;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_postinstall_path(), target);
+    const std::string& _s = this->_internal_postinstall_path();
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   // optional string filesystem_type = 4;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_filesystem_type(), target);
+    const std::string& _s = this->_internal_filesystem_type();
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   // repeated .chromeos_update_engine.Signatures.Signature new_partition_signature = 5;
@@ -3230,7 +3379,8 @@ uint8_t* PartitionUpdate::_InternalSerialize(
   // optional bool postinstall_optional = 9;
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_postinstall_optional(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        9, this->_internal_postinstall_optional(), target);
   }
 
   // optional .chromeos_update_engine.Extent hash_tree_data_extent = 10;
@@ -3249,14 +3399,14 @@ uint8_t* PartitionUpdate::_InternalSerialize(
 
   // optional string hash_tree_algorithm = 12;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteStringMaybeAliased(
-        12, this->_internal_hash_tree_algorithm(), target);
+    const std::string& _s = this->_internal_hash_tree_algorithm();
+    target = stream->WriteStringMaybeAliased(12, _s, target);
   }
 
   // optional bytes hash_tree_salt = 13;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->WriteBytesMaybeAliased(
-        13, this->_internal_hash_tree_salt(), target);
+    const std::string& _s = this->_internal_hash_tree_salt();
+    target = stream->WriteBytesMaybeAliased(13, _s, target);
   }
 
   // optional .chromeos_update_engine.Extent fec_data_extent = 14;
@@ -3276,13 +3426,14 @@ uint8_t* PartitionUpdate::_InternalSerialize(
   // optional uint32 fec_roots = 16 [default = 2];
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(16, this->_internal_fec_roots(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        16, this->_internal_fec_roots(), target);
   }
 
   // optional string version = 17;
   if (cached_has_bits & 0x00000020u) {
-    target = stream->WriteStringMaybeAliased(
-        17, this->_internal_version(), target);
+    const std::string& _s = this->_internal_version();
+    target = stream->WriteStringMaybeAliased(17, _s, target);
   }
 
   // repeated .chromeos_update_engine.CowMergeOperation merge_operations = 18;
@@ -3301,37 +3452,36 @@ uint8_t* PartitionUpdate::_InternalSerialize(
   return target;
 }
 
-size_t PartitionUpdate::ByteSizeLong() const {
+::size_t PartitionUpdate::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.PartitionUpdate)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   // required string partition_name = 1;
-  if (_internal_has_partition_name()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_partition_name());
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_partition_name());
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .chromeos_update_engine.Signatures.Signature new_partition_signature = 5;
   total_size += 1UL * this->_internal_new_partition_signature_size();
-  for (const auto& msg : this->_impl_.new_partition_signature_) {
+  for (const auto& msg : this->_internal_new_partition_signature()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .chromeos_update_engine.InstallOperation operations = 8;
   total_size += 1UL * this->_internal_operations_size();
-  for (const auto& msg : this->_impl_.operations_) {
+  for (const auto& msg : this->_internal_operations()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .chromeos_update_engine.CowMergeOperation merge_operations = 18;
   total_size += 2UL * this->_internal_merge_operations_size();
-  for (const auto& msg : this->_impl_.merge_operations_) {
+  for (const auto& msg : this->_internal_merge_operations()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3340,37 +3490,32 @@ size_t PartitionUpdate::ByteSizeLong() const {
   if (cached_has_bits & 0x000000feu) {
     // optional string postinstall_path = 3;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_postinstall_path());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_postinstall_path());
     }
 
     // optional string filesystem_type = 4;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_filesystem_type());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_filesystem_type());
     }
 
     // optional string hash_tree_algorithm = 12;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_hash_tree_algorithm());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_hash_tree_algorithm());
     }
 
     // optional bytes hash_tree_salt = 13;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_hash_tree_salt());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_hash_tree_salt());
     }
 
     // optional string version = 17;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_version());
+      total_size += 2 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_version());
     }
 
     // optional .chromeos_update_engine.PartitionInfo old_partition_info = 6;
@@ -3419,19 +3564,18 @@ size_t PartitionUpdate::ByteSizeLong() const {
 
     // optional bool run_postinstall = 2;
     if (cached_has_bits & 0x00001000u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool postinstall_optional = 9;
     if (cached_has_bits & 0x00002000u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional uint32 fec_roots = 16 [default = 2];
     if (cached_has_bits & 0x00004000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt32Size(
-          this->_internal_fec_roots());
+      total_size += 2 + ::_pbi::WireFormatLite::UInt32Size(
+                                      this->_internal_fec_roots());
     }
 
   }
@@ -3452,13 +3596,13 @@ void PartitionUpdate::CheckTypeAndMergeFrom(
 void PartitionUpdate::MergeFrom(const PartitionUpdate& from) {
   PartitionUpdate* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.PartitionUpdate)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.new_partition_signature_.MergeFrom(from._impl_.new_partition_signature_);
-  _this->_impl_.operations_.MergeFrom(from._impl_.operations_);
-  _this->_impl_.merge_operations_.MergeFrom(from._impl_.merge_operations_);
+  _this->_internal_mutable_new_partition_signature()->MergeFrom(from._internal_new_partition_signature());
+  _this->_internal_mutable_operations()->MergeFrom(from._internal_operations());
+  _this->_internal_mutable_merge_operations()->MergeFrom(from._internal_merge_operations());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -3528,7 +3672,7 @@ void PartitionUpdate::CopyFrom(const PartitionUpdate& from) {
 
 bool PartitionUpdate::IsInitialized() const {
   if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.operations_))
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_internal_operations()))
     return false;
   return true;
 }
@@ -3539,52 +3683,40 @@ void PartitionUpdate::InternalSwap(PartitionUpdate* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.new_partition_signature_.InternalSwap(&other->_impl_.new_partition_signature_);
-  _impl_.operations_.InternalSwap(&other->_impl_.operations_);
-  _impl_.merge_operations_.InternalSwap(&other->_impl_.merge_operations_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.partition_name_, lhs_arena,
-      &other->_impl_.partition_name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.postinstall_path_, lhs_arena,
-      &other->_impl_.postinstall_path_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.filesystem_type_, lhs_arena,
-      &other->_impl_.filesystem_type_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.hash_tree_algorithm_, lhs_arena,
-      &other->_impl_.hash_tree_algorithm_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.hash_tree_salt_, lhs_arena,
-      &other->_impl_.hash_tree_salt_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.version_, lhs_arena,
-      &other->_impl_.version_, rhs_arena
-  );
+  _internal_mutable_new_partition_signature()->InternalSwap(other->_internal_mutable_new_partition_signature());
+  _internal_mutable_operations()->InternalSwap(other->_internal_mutable_operations());
+  _internal_mutable_merge_operations()->InternalSwap(other->_internal_mutable_merge_operations());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.partition_name_, lhs_arena,
+                                       &other->_impl_.partition_name_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.postinstall_path_, lhs_arena,
+                                       &other->_impl_.postinstall_path_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.filesystem_type_, lhs_arena,
+                                       &other->_impl_.filesystem_type_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.hash_tree_algorithm_, lhs_arena,
+                                       &other->_impl_.hash_tree_algorithm_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.hash_tree_salt_, lhs_arena,
+                                       &other->_impl_.hash_tree_salt_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.version_, lhs_arena,
+                                       &other->_impl_.version_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PartitionUpdate, _impl_.postinstall_optional_)
-      + sizeof(PartitionUpdate::_impl_.postinstall_optional_)
+      PROTOBUF_FIELD_OFFSET(PartitionUpdate, _impl_.fec_roots_)
+      + sizeof(PartitionUpdate::_impl_.fec_roots_)
       - PROTOBUF_FIELD_OFFSET(PartitionUpdate, _impl_.old_partition_info_)>(
           reinterpret_cast<char*>(&_impl_.old_partition_info_),
           reinterpret_cast<char*>(&other->_impl_.old_partition_info_));
-  swap(_impl_.fec_roots_, other->_impl_.fec_roots_);
 }
 
 std::string PartitionUpdate::GetTypeName() const {
   return "chromeos_update_engine.PartitionUpdate";
 }
 
-
 // ===================================================================
 
 class DynamicPartitionGroup::_Internal {
  public:
   using HasBits = decltype(std::declval<DynamicPartitionGroup>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(DynamicPartitionGroup, _impl_._has_bits_);
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3596,10 +3728,9 @@ class DynamicPartitionGroup::_Internal {
   }
 };
 
-DynamicPartitionGroup::DynamicPartitionGroup(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+DynamicPartitionGroup::DynamicPartitionGroup(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.DynamicPartitionGroup)
 }
 DynamicPartitionGroup::DynamicPartitionGroup(const DynamicPartitionGroup& from)
@@ -3609,37 +3740,38 @@ DynamicPartitionGroup::DynamicPartitionGroup(const DynamicPartitionGroup& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.partition_names_){from._impl_.partition_names_}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.size_){}};
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.size_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_name()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   _this->_impl_.size_ = from._impl_.size_;
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.DynamicPartitionGroup)
 }
 
-inline void DynamicPartitionGroup::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void DynamicPartitionGroup::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.partition_names_){arena}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.size_){uint64_t{0u}}
+    , decltype(_impl_.name_) {}
+
+    , decltype(_impl_.size_) { ::uint64_t{0u} }
+
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DynamicPartitionGroup::~DynamicPartitionGroup() {
@@ -3652,8 +3784,8 @@ DynamicPartitionGroup::~DynamicPartitionGroup() {
 }
 
 inline void DynamicPartitionGroup::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.partition_names_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_partition_names()->~RepeatedPtrField();
   _impl_.name_.Destroy();
 }
 
@@ -3663,16 +3795,16 @@ void DynamicPartitionGroup::SetCachedSize(int size) const {
 
 void DynamicPartitionGroup::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.DynamicPartitionGroup)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.partition_names_.Clear();
+  _internal_mutable_partition_names()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     _impl_.name_.ClearNonDefaultToEmpty();
   }
-  _impl_.size_ = uint64_t{0u};
+  _impl_.size_ = ::uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -3681,30 +3813,32 @@ const char* DynamicPartitionGroup::_InternalParse(const char* ptr, ::_pbi::Parse
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 size = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_size(&has_bits);
           _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated string partition_names = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3713,8 +3847,9 @@ const char* DynamicPartitionGroup::_InternalParse(const char* ptr, ::_pbi::Parse
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3740,27 +3875,28 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DynamicPartitionGroup::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* DynamicPartitionGroup::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.DynamicPartitionGroup)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // required string name = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+    const std::string& _s = this->_internal_name();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional uint64 size = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_size(), target);
   }
 
   // repeated string partition_names = 3;
-  for (int i = 0, n = this->_internal_partition_names_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_partition_names_size(); i < n; ++i) {
     const auto& s = this->_internal_partition_names(i);
     target = stream->WriteString(3, s, target);
   }
@@ -3773,32 +3909,31 @@ uint8_t* DynamicPartitionGroup::_InternalSerialize(
   return target;
 }
 
-size_t DynamicPartitionGroup::ByteSizeLong() const {
+::size_t DynamicPartitionGroup::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.DynamicPartitionGroup)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
   // required string name = 1;
-  if (_internal_has_name()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
+  if ((_impl_._has_bits_[0] & 0x00000001u) != 0) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
   }
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated string partition_names = 3;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.partition_names_.size());
-  for (int i = 0, n = _impl_.partition_names_.size(); i < n; i++) {
+  total_size += 1 * ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_internal_partition_names().size());
+  for (int i = 0, n = _internal_partition_names().size(); i < n; ++i) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      _impl_.partition_names_.Get(i));
+        _internal_partition_names().Get(i));
   }
 
   // optional uint64 size = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000002u) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_size());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_size());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3818,11 +3953,11 @@ void DynamicPartitionGroup::CheckTypeAndMergeFrom(
 void DynamicPartitionGroup::MergeFrom(const DynamicPartitionGroup& from) {
   DynamicPartitionGroup* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.DynamicPartitionGroup)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.partition_names_.MergeFrom(from._impl_.partition_names_);
+  _this->_internal_mutable_partition_names()->MergeFrom(from._internal_partition_names());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
@@ -3854,11 +3989,11 @@ void DynamicPartitionGroup::InternalSwap(DynamicPartitionGroup* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.partition_names_.InternalSwap(&other->_impl_.partition_names_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
+  _internal_mutable_partition_names()->InternalSwap(
+      other->_internal_mutable_partition_names());
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
+
   swap(_impl_.size_, other->_impl_.size_);
 }
 
@@ -3866,21 +4001,21 @@ std::string DynamicPartitionGroup::GetTypeName() const {
   return "chromeos_update_engine.DynamicPartitionGroup";
 }
 
-
 // ===================================================================
 
 class DynamicPartitionMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<DynamicPartitionMetadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(DynamicPartitionMetadata, _impl_._has_bits_);
   static void set_has_snapshot_enabled(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-DynamicPartitionMetadata::DynamicPartitionMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+DynamicPartitionMetadata::DynamicPartitionMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.DynamicPartitionMetadata)
 }
 DynamicPartitionMetadata::DynamicPartitionMetadata(const DynamicPartitionMetadata& from)
@@ -3890,22 +4025,22 @@ DynamicPartitionMetadata::DynamicPartitionMetadata(const DynamicPartitionMetadat
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.groups_){from._impl_.groups_}
-    , decltype(_impl_.snapshot_enabled_){}};
+    , decltype(_impl_.snapshot_enabled_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.snapshot_enabled_ = from._impl_.snapshot_enabled_;
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.DynamicPartitionMetadata)
 }
 
-inline void DynamicPartitionMetadata::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void DynamicPartitionMetadata::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.groups_){arena}
-    , decltype(_impl_.snapshot_enabled_){false}
+    , decltype(_impl_.snapshot_enabled_) { false }
+
   };
 }
 
@@ -3919,8 +4054,8 @@ DynamicPartitionMetadata::~DynamicPartitionMetadata() {
 }
 
 inline void DynamicPartitionMetadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.groups_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_groups()->~RepeatedPtrField();
 }
 
 void DynamicPartitionMetadata::SetCachedSize(int size) const {
@@ -3929,11 +4064,11 @@ void DynamicPartitionMetadata::SetCachedSize(int size) const {
 
 void DynamicPartitionMetadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.DynamicPartitionMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.groups_.Clear();
+  _internal_mutable_groups()->Clear();
   _impl_.snapshot_enabled_ = false;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -3943,12 +4078,12 @@ const char* DynamicPartitionMetadata::_InternalParse(const char* ptr, ::_pbi::Pa
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .chromeos_update_engine.DynamicPartitionGroup groups = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3956,17 +4091,19 @@ const char* DynamicPartitionMetadata::_InternalParse(const char* ptr, ::_pbi::Pa
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool snapshot_enabled = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_snapshot_enabled(&has_bits);
           _impl_.snapshot_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3992,10 +4129,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DynamicPartitionMetadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* DynamicPartitionMetadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.DynamicPartitionMetadata)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .chromeos_update_engine.DynamicPartitionGroup groups = 1;
@@ -4010,7 +4147,8 @@ uint8_t* DynamicPartitionMetadata::_InternalSerialize(
   // optional bool snapshot_enabled = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_snapshot_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_snapshot_enabled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4021,17 +4159,17 @@ uint8_t* DynamicPartitionMetadata::_InternalSerialize(
   return target;
 }
 
-size_t DynamicPartitionMetadata::ByteSizeLong() const {
+::size_t DynamicPartitionMetadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.DynamicPartitionMetadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .chromeos_update_engine.DynamicPartitionGroup groups = 1;
   total_size += 1UL * this->_internal_groups_size();
-  for (const auto& msg : this->_impl_.groups_) {
+  for (const auto& msg : this->_internal_groups()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -4039,7 +4177,7 @@ size_t DynamicPartitionMetadata::ByteSizeLong() const {
   // optional bool snapshot_enabled = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4059,12 +4197,12 @@ void DynamicPartitionMetadata::CheckTypeAndMergeFrom(
 void DynamicPartitionMetadata::MergeFrom(const DynamicPartitionMetadata& from) {
   DynamicPartitionMetadata* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.DynamicPartitionMetadata)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.groups_.MergeFrom(from._impl_.groups_);
-  if (from._internal_has_snapshot_enabled()) {
+  _this->_internal_mutable_groups()->MergeFrom(from._internal_groups());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_snapshot_enabled(from._internal_snapshot_enabled());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -4078,7 +4216,7 @@ void DynamicPartitionMetadata::CopyFrom(const DynamicPartitionMetadata& from) {
 }
 
 bool DynamicPartitionMetadata::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.groups_))
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_internal_groups()))
     return false;
   return true;
 }
@@ -4087,7 +4225,8 @@ void DynamicPartitionMetadata::InternalSwap(DynamicPartitionMetadata* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.groups_.InternalSwap(&other->_impl_.groups_);
+  _internal_mutable_groups()->InternalSwap(other->_internal_mutable_groups());
+
   swap(_impl_.snapshot_enabled_, other->_impl_.snapshot_enabled_);
 }
 
@@ -4095,12 +4234,13 @@ std::string DynamicPartitionMetadata::GetTypeName() const {
   return "chromeos_update_engine.DynamicPartitionMetadata";
 }
 
-
 // ===================================================================
 
 class DeltaArchiveManifest::_Internal {
  public:
   using HasBits = decltype(std::declval<DeltaArchiveManifest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(DeltaArchiveManifest, _impl_._has_bits_);
   static void set_has_block_size(HasBits* has_bits) {
     (*has_bits)[0] |= 4096u;
   }
@@ -4177,10 +4317,9 @@ const ::chromeos_update_engine::DynamicPartitionMetadata&
 DeltaArchiveManifest::_Internal::dynamic_partition_metadata(const DeltaArchiveManifest* msg) {
   return *msg->_impl_.dynamic_partition_metadata_;
 }
-DeltaArchiveManifest::DeltaArchiveManifest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+DeltaArchiveManifest::DeltaArchiveManifest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:chromeos_update_engine.DeltaArchiveManifest)
 }
 DeltaArchiveManifest::DeltaArchiveManifest(const DeltaArchiveManifest& from)
@@ -4199,45 +4338,49 @@ DeltaArchiveManifest::DeltaArchiveManifest(const DeltaArchiveManifest& from)
     , decltype(_impl_.old_image_info_){nullptr}
     , decltype(_impl_.new_image_info_){nullptr}
     , decltype(_impl_.dynamic_partition_metadata_){nullptr}
-    , decltype(_impl_.signatures_offset_){}
-    , decltype(_impl_.signatures_size_){}
-    , decltype(_impl_.max_timestamp_){}
-    , decltype(_impl_.minor_version_){}
-    , decltype(_impl_.partial_update_){}
-    , decltype(_impl_.block_size_){}};
+    , decltype(_impl_.signatures_offset_) {}
+
+    , decltype(_impl_.signatures_size_) {}
+
+    , decltype(_impl_.max_timestamp_) {}
+
+    , decltype(_impl_.minor_version_) {}
+
+    , decltype(_impl_.partial_update_) {}
+
+    , decltype(_impl_.block_size_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_old_kernel_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.old_kernel_info_ = new ::chromeos_update_engine::PartitionInfo(*from._impl_.old_kernel_info_);
   }
-  if (from._internal_has_new_kernel_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.new_kernel_info_ = new ::chromeos_update_engine::PartitionInfo(*from._impl_.new_kernel_info_);
   }
-  if (from._internal_has_old_rootfs_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.old_rootfs_info_ = new ::chromeos_update_engine::PartitionInfo(*from._impl_.old_rootfs_info_);
   }
-  if (from._internal_has_new_rootfs_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
     _this->_impl_.new_rootfs_info_ = new ::chromeos_update_engine::PartitionInfo(*from._impl_.new_rootfs_info_);
   }
-  if (from._internal_has_old_image_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
     _this->_impl_.old_image_info_ = new ::chromeos_update_engine::ImageInfo(*from._impl_.old_image_info_);
   }
-  if (from._internal_has_new_image_info()) {
+  if ((from._impl_._has_bits_[0] & 0x00000020u) != 0) {
     _this->_impl_.new_image_info_ = new ::chromeos_update_engine::ImageInfo(*from._impl_.new_image_info_);
   }
-  if (from._internal_has_dynamic_partition_metadata()) {
+  if ((from._impl_._has_bits_[0] & 0x00000040u) != 0) {
     _this->_impl_.dynamic_partition_metadata_ = new ::chromeos_update_engine::DynamicPartitionMetadata(*from._impl_.dynamic_partition_metadata_);
   }
   ::memcpy(&_impl_.signatures_offset_, &from._impl_.signatures_offset_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.block_size_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.block_size_) -
     reinterpret_cast<char*>(&_impl_.signatures_offset_)) + sizeof(_impl_.block_size_));
   // @@protoc_insertion_point(copy_constructor:chromeos_update_engine.DeltaArchiveManifest)
 }
 
-inline void DeltaArchiveManifest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void DeltaArchiveManifest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -4251,12 +4394,18 @@ inline void DeltaArchiveManifest::SharedCtor(
     , decltype(_impl_.old_image_info_){nullptr}
     , decltype(_impl_.new_image_info_){nullptr}
     , decltype(_impl_.dynamic_partition_metadata_){nullptr}
-    , decltype(_impl_.signatures_offset_){uint64_t{0u}}
-    , decltype(_impl_.signatures_size_){uint64_t{0u}}
-    , decltype(_impl_.max_timestamp_){int64_t{0}}
-    , decltype(_impl_.minor_version_){0u}
-    , decltype(_impl_.partial_update_){false}
-    , decltype(_impl_.block_size_){4096u}
+    , decltype(_impl_.signatures_offset_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.signatures_size_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.max_timestamp_) { ::int64_t{0} }
+
+    , decltype(_impl_.minor_version_) { 0u }
+
+    , decltype(_impl_.partial_update_) { false }
+
+    , decltype(_impl_.block_size_) { 4096u }
+
   };
 }
 
@@ -4270,10 +4419,10 @@ DeltaArchiveManifest::~DeltaArchiveManifest() {
 }
 
 inline void DeltaArchiveManifest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.install_operations_.~RepeatedPtrField();
-  _impl_.kernel_install_operations_.~RepeatedPtrField();
-  _impl_.partitions_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_install_operations()->~RepeatedPtrField();
+  _internal_mutable_kernel_install_operations()->~RepeatedPtrField();
+  _internal_mutable_partitions()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.old_kernel_info_;
   if (this != internal_default_instance()) delete _impl_.new_kernel_info_;
   if (this != internal_default_instance()) delete _impl_.old_rootfs_info_;
@@ -4289,47 +4438,47 @@ void DeltaArchiveManifest::SetCachedSize(int size) const {
 
 void DeltaArchiveManifest::Clear() {
 // @@protoc_insertion_point(message_clear_start:chromeos_update_engine.DeltaArchiveManifest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.install_operations_.Clear();
-  _impl_.kernel_install_operations_.Clear();
-  _impl_.partitions_.Clear();
+  _internal_mutable_install_operations()->Clear();
+  _internal_mutable_kernel_install_operations()->Clear();
+  _internal_mutable_partitions()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.old_kernel_info_ != nullptr);
+      ABSL_DCHECK(_impl_.old_kernel_info_ != nullptr);
       _impl_.old_kernel_info_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.new_kernel_info_ != nullptr);
+      ABSL_DCHECK(_impl_.new_kernel_info_ != nullptr);
       _impl_.new_kernel_info_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.old_rootfs_info_ != nullptr);
+      ABSL_DCHECK(_impl_.old_rootfs_info_ != nullptr);
       _impl_.old_rootfs_info_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(_impl_.new_rootfs_info_ != nullptr);
+      ABSL_DCHECK(_impl_.new_rootfs_info_ != nullptr);
       _impl_.new_rootfs_info_->Clear();
     }
     if (cached_has_bits & 0x00000010u) {
-      GOOGLE_DCHECK(_impl_.old_image_info_ != nullptr);
+      ABSL_DCHECK(_impl_.old_image_info_ != nullptr);
       _impl_.old_image_info_->Clear();
     }
     if (cached_has_bits & 0x00000020u) {
-      GOOGLE_DCHECK(_impl_.new_image_info_ != nullptr);
+      ABSL_DCHECK(_impl_.new_image_info_ != nullptr);
       _impl_.new_image_info_->Clear();
     }
     if (cached_has_bits & 0x00000040u) {
-      GOOGLE_DCHECK(_impl_.dynamic_partition_metadata_ != nullptr);
+      ABSL_DCHECK(_impl_.dynamic_partition_metadata_ != nullptr);
       _impl_.dynamic_partition_metadata_->Clear();
     }
   }
-  _impl_.signatures_offset_ = uint64_t{0u};
+  _impl_.signatures_offset_ = ::uint64_t{0u};
   if (cached_has_bits & 0x00001f00u) {
-    ::memset(&_impl_.signatures_size_, 0, static_cast<size_t>(
+    ::memset(&_impl_.signatures_size_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.partial_update_) -
         reinterpret_cast<char*>(&_impl_.signatures_size_)) + sizeof(_impl_.partial_update_));
     _impl_.block_size_ = 4096u;
@@ -4342,12 +4491,12 @@ const char* DeltaArchiveManifest::_InternalParse(const char* ptr, ::_pbi::ParseC
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .chromeos_update_engine.InstallOperation install_operations = 1 [deprecated = true];
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -4355,12 +4504,13 @@ const char* DeltaArchiveManifest::_InternalParse(const char* ptr, ::_pbi::ParseC
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .chromeos_update_engine.InstallOperation kernel_install_operations = 2 [deprecated = true];
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -4368,96 +4518,107 @@ const char* DeltaArchiveManifest::_InternalParse(const char* ptr, ::_pbi::ParseC
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 block_size = 3 [default = 4096];
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_block_size(&has_bits);
           _impl_.block_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 signatures_offset = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_signatures_offset(&has_bits);
           _impl_.signatures_offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 signatures_size = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_signatures_size(&has_bits);
           _impl_.signatures_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.PartitionInfo old_kernel_info = 6 [deprecated = true];
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_old_kernel_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.PartitionInfo new_kernel_info = 7 [deprecated = true];
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_new_kernel_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.PartitionInfo old_rootfs_info = 8 [deprecated = true];
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_old_rootfs_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.PartitionInfo new_rootfs_info = 9 [deprecated = true];
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 74)) {
           ptr = ctx->ParseMessage(_internal_mutable_new_rootfs_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.ImageInfo old_image_info = 10 [deprecated = true];
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_old_image_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.ImageInfo new_image_info = 11 [deprecated = true];
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_new_image_info(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 minor_version = 12 [default = 0];
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 96)) {
           _Internal::set_has_minor_version(&has_bits);
           _impl_.minor_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .chromeos_update_engine.PartitionUpdate partitions = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 106)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -4465,34 +4626,38 @@ const char* DeltaArchiveManifest::_InternalParse(const char* ptr, ::_pbi::ParseC
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<106>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 max_timestamp = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 112)) {
           _Internal::set_has_max_timestamp(&has_bits);
           _impl_.max_timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .chromeos_update_engine.DynamicPartitionMetadata dynamic_partition_metadata = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 122)) {
           ptr = ctx->ParseMessage(_internal_mutable_dynamic_partition_metadata(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool partial_update = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 128)) {
           _Internal::set_has_partial_update(&has_bits);
           _impl_.partial_update_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -4518,10 +4683,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DeltaArchiveManifest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* DeltaArchiveManifest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:chromeos_update_engine.DeltaArchiveManifest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .chromeos_update_engine.InstallOperation install_operations = 1 [deprecated = true];
@@ -4544,19 +4709,22 @@ uint8_t* DeltaArchiveManifest::_InternalSerialize(
   // optional uint32 block_size = 3 [default = 4096];
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_block_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_block_size(), target);
   }
 
   // optional uint64 signatures_offset = 4;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_signatures_offset(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_signatures_offset(), target);
   }
 
   // optional uint64 signatures_size = 5;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_signatures_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_signatures_size(), target);
   }
 
   // optional .chromeos_update_engine.PartitionInfo old_kernel_info = 6 [deprecated = true];
@@ -4604,7 +4772,8 @@ uint8_t* DeltaArchiveManifest::_InternalSerialize(
   // optional uint32 minor_version = 12 [default = 0];
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(12, this->_internal_minor_version(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        12, this->_internal_minor_version(), target);
   }
 
   // repeated .chromeos_update_engine.PartitionUpdate partitions = 13;
@@ -4618,7 +4787,8 @@ uint8_t* DeltaArchiveManifest::_InternalSerialize(
   // optional int64 max_timestamp = 14;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(14, this->_internal_max_timestamp(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        14, this->_internal_max_timestamp(), target);
   }
 
   // optional .chromeos_update_engine.DynamicPartitionMetadata dynamic_partition_metadata = 15;
@@ -4631,7 +4801,8 @@ uint8_t* DeltaArchiveManifest::_InternalSerialize(
   // optional bool partial_update = 16;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(16, this->_internal_partial_update(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        16, this->_internal_partial_update(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4642,31 +4813,31 @@ uint8_t* DeltaArchiveManifest::_InternalSerialize(
   return target;
 }
 
-size_t DeltaArchiveManifest::ByteSizeLong() const {
+::size_t DeltaArchiveManifest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:chromeos_update_engine.DeltaArchiveManifest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .chromeos_update_engine.InstallOperation install_operations = 1 [deprecated = true];
   total_size += 1UL * this->_internal_install_operations_size();
-  for (const auto& msg : this->_impl_.install_operations_) {
+  for (const auto& msg : this->_internal_install_operations()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .chromeos_update_engine.InstallOperation kernel_install_operations = 2 [deprecated = true];
   total_size += 1UL * this->_internal_kernel_install_operations_size();
-  for (const auto& msg : this->_impl_.kernel_install_operations_) {
+  for (const auto& msg : this->_internal_kernel_install_operations()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .chromeos_update_engine.PartitionUpdate partitions = 13;
   total_size += 1UL * this->_internal_partitions_size();
-  for (const auto& msg : this->_impl_.partitions_) {
+  for (const auto& msg : this->_internal_partitions()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -4724,34 +4895,39 @@ size_t DeltaArchiveManifest::ByteSizeLong() const {
 
     // optional uint64 signatures_offset = 4;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_signatures_offset());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_signatures_offset());
     }
 
   }
   if (cached_has_bits & 0x00001f00u) {
     // optional uint64 signatures_size = 5;
     if (cached_has_bits & 0x00000100u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_signatures_size());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_signatures_size());
     }
 
     // optional int64 max_timestamp = 14;
     if (cached_has_bits & 0x00000200u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_max_timestamp());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_max_timestamp());
     }
 
     // optional uint32 minor_version = 12 [default = 0];
     if (cached_has_bits & 0x00000400u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_minor_version());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_minor_version());
     }
 
     // optional bool partial_update = 16;
     if (cached_has_bits & 0x00000800u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional uint32 block_size = 3 [default = 4096];
     if (cached_has_bits & 0x00001000u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_block_size());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_block_size());
     }
 
   }
@@ -4772,13 +4948,13 @@ void DeltaArchiveManifest::CheckTypeAndMergeFrom(
 void DeltaArchiveManifest::MergeFrom(const DeltaArchiveManifest& from) {
   DeltaArchiveManifest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:chromeos_update_engine.DeltaArchiveManifest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.install_operations_.MergeFrom(from._impl_.install_operations_);
-  _this->_impl_.kernel_install_operations_.MergeFrom(from._impl_.kernel_install_operations_);
-  _this->_impl_.partitions_.MergeFrom(from._impl_.partitions_);
+  _this->_internal_mutable_install_operations()->MergeFrom(from._internal_install_operations());
+  _this->_internal_mutable_kernel_install_operations()->MergeFrom(from._internal_kernel_install_operations());
+  _this->_internal_mutable_partitions()->MergeFrom(from._internal_partitions());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -4843,13 +5019,13 @@ void DeltaArchiveManifest::CopyFrom(const DeltaArchiveManifest& from) {
 }
 
 bool DeltaArchiveManifest::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.install_operations_))
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_internal_install_operations()))
     return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.kernel_install_operations_))
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_internal_kernel_install_operations()))
     return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.partitions_))
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_internal_partitions()))
     return false;
-  if (_internal_has_dynamic_partition_metadata()) {
+  if ((_impl_._has_bits_[0] & 0x00000040u) != 0) {
     if (!_impl_.dynamic_partition_metadata_->IsInitialized()) return false;
   }
   return true;
@@ -4859,22 +5035,20 @@ void DeltaArchiveManifest::InternalSwap(DeltaArchiveManifest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.install_operations_.InternalSwap(&other->_impl_.install_operations_);
-  _impl_.kernel_install_operations_.InternalSwap(&other->_impl_.kernel_install_operations_);
-  _impl_.partitions_.InternalSwap(&other->_impl_.partitions_);
+  _internal_mutable_install_operations()->InternalSwap(other->_internal_mutable_install_operations());
+  _internal_mutable_kernel_install_operations()->InternalSwap(other->_internal_mutable_kernel_install_operations());
+  _internal_mutable_partitions()->InternalSwap(other->_internal_mutable_partitions());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeltaArchiveManifest, _impl_.partial_update_)
-      + sizeof(DeltaArchiveManifest::_impl_.partial_update_)
+      PROTOBUF_FIELD_OFFSET(DeltaArchiveManifest, _impl_.block_size_)
+      + sizeof(DeltaArchiveManifest::_impl_.block_size_)
       - PROTOBUF_FIELD_OFFSET(DeltaArchiveManifest, _impl_.old_kernel_info_)>(
           reinterpret_cast<char*>(&_impl_.old_kernel_info_),
           reinterpret_cast<char*>(&other->_impl_.old_kernel_info_));
-  swap(_impl_.block_size_, other->_impl_.block_size_);
 }
 
 std::string DeltaArchiveManifest::GetTypeName() const {
   return "chromeos_update_engine.DeltaArchiveManifest";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace chromeos_update_engine
@@ -4924,6 +5098,5 @@ Arena::CreateMaybeMessage< ::chromeos_update_engine::DeltaArchiveManifest >(Aren
   return Arena::CreateMessageInternal< ::chromeos_update_engine::DeltaArchiveManifest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

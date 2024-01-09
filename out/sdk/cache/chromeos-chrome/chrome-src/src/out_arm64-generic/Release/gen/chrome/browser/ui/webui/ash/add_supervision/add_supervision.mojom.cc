@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -255,14 +256,17 @@ void AddSupervisionHandlerProxy::RequestClose(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send add_supervision::mojom::AddSupervisionHandler::RequestClose");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAddSupervisionHandler_RequestClose_Name, kFlags, 0, 0, nullptr);
@@ -286,14 +290,17 @@ void AddSupervisionHandlerProxy::GetInstalledArcApps(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send add_supervision::mojom::AddSupervisionHandler::GetInstalledArcApps");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAddSupervisionHandler_GetInstalledArcApps_Name, kFlags, 0, 0, nullptr);
@@ -317,14 +324,17 @@ void AddSupervisionHandlerProxy::GetOAuthToken(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send add_supervision::mojom::AddSupervisionHandler::GetOAuthToken");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAddSupervisionHandler_GetOAuthToken_Name, kFlags, 0, 0, nullptr);
@@ -348,14 +358,17 @@ void AddSupervisionHandlerProxy::LogOut(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send add_supervision::mojom::AddSupervisionHandler::LogOut");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAddSupervisionHandler_LogOut_Name, kFlags, 0, 0, nullptr);
@@ -378,14 +391,17 @@ void AddSupervisionHandlerProxy::NotifySupervisionEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send add_supervision::mojom::AddSupervisionHandler::NotifySupervisionEnabled");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAddSupervisionHandler_NotifySupervisionEnabled_Name, kFlags, 0, 0, nullptr);
@@ -415,14 +431,17 @@ void AddSupervisionHandlerProxy::SetCloseOnEscape(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAddSupervisionHandler_SetCloseOnEscape_Name, kFlags, 0, 0, nullptr);
@@ -532,7 +551,8 @@ void AddSupervisionHandler_RequestClose_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAddSupervisionHandler_RequestClose_Name, kFlags, 0, 0, nullptr);
@@ -650,7 +670,8 @@ void AddSupervisionHandler_GetInstalledArcApps_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAddSupervisionHandler_GetInstalledArcApps_Name, kFlags, 0, 0, nullptr);
@@ -787,7 +808,8 @@ void AddSupervisionHandler_GetOAuthToken_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAddSupervisionHandler_GetOAuthToken_Name, kFlags, 0, 0, nullptr);
@@ -1010,20 +1032,20 @@ bool AddSupervisionHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAddSupervisionHandlerValidationInfo[] = {
-    {&internal::AddSupervisionHandler_RequestClose_Params_Data::Validate,
+    { &internal::AddSupervisionHandler_RequestClose_Params_Data::Validate,
      &internal::AddSupervisionHandler_RequestClose_ResponseParams_Data::Validate},
-    {&internal::AddSupervisionHandler_GetInstalledArcApps_Params_Data::Validate,
+    { &internal::AddSupervisionHandler_GetInstalledArcApps_Params_Data::Validate,
      &internal::AddSupervisionHandler_GetInstalledArcApps_ResponseParams_Data::Validate},
-    {&internal::AddSupervisionHandler_GetOAuthToken_Params_Data::Validate,
+    { &internal::AddSupervisionHandler_GetOAuthToken_Params_Data::Validate,
      &internal::AddSupervisionHandler_GetOAuthToken_ResponseParams_Data::Validate},
-    {&internal::AddSupervisionHandler_LogOut_Params_Data::Validate,
+    { &internal::AddSupervisionHandler_LogOut_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AddSupervisionHandler_NotifySupervisionEnabled_Params_Data::Validate,
+    { &internal::AddSupervisionHandler_NotifySupervisionEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AddSupervisionHandler_SetCloseOnEscape_Params_Data::Validate,
+    { &internal::AddSupervisionHandler_SetCloseOnEscape_Params_Data::Validate,
      nullptr /* no response */},
 };
 

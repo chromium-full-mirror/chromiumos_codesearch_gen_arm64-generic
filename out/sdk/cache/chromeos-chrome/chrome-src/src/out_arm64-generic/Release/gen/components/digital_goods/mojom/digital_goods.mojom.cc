@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -61,10 +62,10 @@ ItemDetails::ItemDetails(
     const std::string& title_in,
     const std::string& description_in,
     ::payments::mojom::PaymentCurrencyAmountPtr price_in,
-    const absl::optional<std::string>& subscription_period_in,
-    const absl::optional<std::string>& free_trial_period_in,
+    const std::optional<std::string>& subscription_period_in,
+    const std::optional<std::string>& free_trial_period_in,
     ::payments::mojom::PaymentCurrencyAmountPtr introductory_price_in,
-    const absl::optional<std::string>& introductory_price_period_in)
+    const std::optional<std::string>& introductory_price_period_in)
     : item_id(std::move(item_id_in)),
       title(std::move(title_in)),
       description(std::move(description_in)),
@@ -82,13 +83,13 @@ ItemDetails::ItemDetails(
     const std::string& title_in,
     const std::string& description_in,
     ::payments::mojom::PaymentCurrencyAmountPtr price_in,
-    const absl::optional<std::string>& subscription_period_in,
-    const absl::optional<std::string>& free_trial_period_in,
+    const std::optional<std::string>& subscription_period_in,
+    const std::optional<std::string>& free_trial_period_in,
     ::payments::mojom::PaymentCurrencyAmountPtr introductory_price_in,
-    const absl::optional<std::string>& introductory_price_period_in,
+    const std::optional<std::string>& introductory_price_period_in,
     uint32_t introductory_price_cycles_in,
     ItemType type_in,
-    absl::optional<std::vector<::GURL>> icon_urls_in)
+    std::optional<std::vector<::GURL>> icon_urls_in)
     : item_id(std::move(item_id_in)),
       title(std::move(title_in)),
       description(std::move(description_in)),
@@ -146,7 +147,7 @@ void ItemDetails::WriteIntoTrace(
     dict.AddItem(
       "subscription_period"), this->subscription_period,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -155,7 +156,7 @@ void ItemDetails::WriteIntoTrace(
     dict.AddItem(
       "free_trial_period"), this->free_trial_period,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -173,7 +174,7 @@ void ItemDetails::WriteIntoTrace(
     dict.AddItem(
       "introductory_price_period"), this->introductory_price_period,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -200,7 +201,7 @@ void ItemDetails::WriteIntoTrace(
     dict.AddItem(
       "icon_urls"), this->icon_urls,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::GURL>>&>"
+      "<value of type const std::optional<std::vector<::GURL>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

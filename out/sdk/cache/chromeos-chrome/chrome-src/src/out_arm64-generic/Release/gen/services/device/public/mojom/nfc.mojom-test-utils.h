@@ -48,7 +48,7 @@ class  NFCAsyncWaiter {
 
 class  NFCClientInterceptorForTesting : public NFCClient {
   virtual NFCClient* GetForwardingInterface() = 0;
-  void OnWatch(const std::vector<uint32_t>& watch_ids, const absl::optional<std::string>& serial_number, NDEFMessagePtr message) override;
+  void OnWatch(const std::vector<uint32_t>& watch_ids, const std::optional<std::string>& serial_number, NDEFMessagePtr message) override;
   void OnError(NDEFErrorPtr error) override;
 };
 class  NFCClientAsyncWaiter {

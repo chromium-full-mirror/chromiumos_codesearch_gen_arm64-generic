@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/crash_collector.mojom-features.h"
 #include "ash/components/arc/mojom/crash_collector.mojom-shared.h"
 #include "ash/components/arc/mojom/crash_collector.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -93,10 +94,10 @@ class CrashCollectorHost
   virtual ~CrashCollectorHost() = default;
 
   
-  virtual void DumpCrash(const std::string& type, ::mojo::ScopedHandle pipe, absl::optional<::base::TimeDelta> uptime) = 0;
+  virtual void DumpCrash(const std::string& type, ::mojo::ScopedHandle pipe, std::optional<::base::TimeDelta> uptime) = 0;
 
   
-  virtual void SetBuildProperties(const std::string& device, const std::string& board, const std::string& cpu_abi, const absl::optional<std::string>& fingerprint) = 0;
+  virtual void SetBuildProperties(const std::string& device, const std::string& board, const std::string& cpu_abi, const std::optional<std::string>& fingerprint) = 0;
 
   
   virtual void DumpNativeCrash(const std::string& exec_name, int32_t pid, int64_t timestamp, ::mojo::ScopedHandle minidump_fd) = 0;
@@ -162,9 +163,9 @@ class  CrashCollectorHostProxy
 
   explicit CrashCollectorHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void DumpCrash(const std::string& type, ::mojo::ScopedHandle pipe, absl::optional<::base::TimeDelta> uptime) final;
+  void DumpCrash(const std::string& type, ::mojo::ScopedHandle pipe, std::optional<::base::TimeDelta> uptime) final;
   
-  void SetBuildProperties(const std::string& device, const std::string& board, const std::string& cpu_abi, const absl::optional<std::string>& fingerprint) final;
+  void SetBuildProperties(const std::string& device, const std::string& board, const std::string& cpu_abi, const std::optional<std::string>& fingerprint) final;
   
   void DumpNativeCrash(const std::string& exec_name, int32_t pid, int64_t timestamp, ::mojo::ScopedHandle minidump_fd) final;
   

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/shared_dictionary_access_observer.mojom-features.h"
 #include "services/network/public/mojom/shared_dictionary_access_observer.mojom-shared.h"
 #include "services/network/public/mojom/shared_dictionary_access_observer.mojom-blink-forward.h"
 #include "services/network/public/mojom/shared_dictionary_isolation_key.mojom-blink.h"
@@ -41,18 +42,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::SharedDictionaryAccessDetails_Type>
-    : EnumHashTraits<::network::mojom::SharedDictionaryAccessDetails_Type, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {

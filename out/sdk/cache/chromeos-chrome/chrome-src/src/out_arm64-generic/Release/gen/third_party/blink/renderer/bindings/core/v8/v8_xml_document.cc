@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XMLDocument>::value,
     "XMLDocument inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XMLDocument::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XMLDocument is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("XMLDocument.location.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XMLDocument* blink_receiver = V8XMLDocument::ToWrappableUnsafe(v8_receiver);
+XMLDocument* blink_receiver = V8XMLDocument::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->location();
 bindings::V8SetReturnValue(info, return_value, blink_receiver, bindings::V8ReturnValue::kMaybeCrossOrigin);
 }

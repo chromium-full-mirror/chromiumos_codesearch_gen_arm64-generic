@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -167,14 +168,17 @@ void DistillerJavaScriptServiceProxy::HandleDistillerOpenSettingsCall(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send dom_distiller::mojom::DistillerJavaScriptService::HandleDistillerOpenSettingsCall");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDistillerJavaScriptService_HandleDistillerOpenSettingsCall_Name, kFlags, 0, 0, nullptr);
@@ -204,14 +208,17 @@ void DistillerJavaScriptServiceProxy::HandleStoreThemePref(
                         "<value of type ::dom_distiller::mojom::Theme>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDistillerJavaScriptService_HandleStoreThemePref_Name, kFlags, 0, 0, nullptr);
@@ -243,14 +250,17 @@ void DistillerJavaScriptServiceProxy::HandleStoreFontFamilyPref(
                         "<value of type ::dom_distiller::mojom::FontFamily>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDistillerJavaScriptService_HandleStoreFontFamilyPref_Name, kFlags, 0, 0, nullptr);
@@ -282,14 +292,17 @@ void DistillerJavaScriptServiceProxy::HandleStoreFontScalingPref(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDistillerJavaScriptService_HandleStoreFontScalingPref_Name, kFlags, 0, 0, nullptr);
@@ -441,16 +454,16 @@ bool DistillerJavaScriptServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDistillerJavaScriptServiceValidationInfo[] = {
-    {&internal::DistillerJavaScriptService_HandleDistillerOpenSettingsCall_Params_Data::Validate,
+    { &internal::DistillerJavaScriptService_HandleDistillerOpenSettingsCall_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DistillerJavaScriptService_HandleStoreThemePref_Params_Data::Validate,
+    { &internal::DistillerJavaScriptService_HandleStoreThemePref_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DistillerJavaScriptService_HandleStoreFontFamilyPref_Params_Data::Validate,
+    { &internal::DistillerJavaScriptService_HandleStoreFontFamilyPref_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DistillerJavaScriptService_HandleStoreFontScalingPref_Params_Data::Validate,
+    { &internal::DistillerJavaScriptService_HandleStoreFontScalingPref_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -7,6 +7,11 @@
 import {mojo} from '../../../../mojo/public/js/bindings.js';
 
 import {
+  Origin as url_mojom_Origin,
+  OriginSpec as url_mojom_OriginSpec
+} from '../../../../url/mojom/origin.mojom.m.js';
+
+import {
   Url as url_mojom_Url,
   UrlSpec as url_mojom_UrlSpec
 } from '../../../../url/mojom/url.mojom.m.js';
@@ -15,6 +20,11 @@ import {
   CookieOrLineWithAccessResult as network_mojom_CookieOrLineWithAccessResult,
   CookieOrLineWithAccessResultSpec as network_mojom_CookieOrLineWithAccessResultSpec
 } from './cookie_manager.mojom.m.js';
+
+import {
+  CookieSettingOverrides as network_mojom_CookieSettingOverrides,
+  CookieSettingOverridesSpec as network_mojom_CookieSettingOverridesSpec
+} from './cookie_setting_overrides.mojom.m.js';
 
 import {
   SiteForCookies as network_mojom_SiteForCookies,
@@ -286,7 +296,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'siteForCookies', 16,
+        'topFrameOrigin', 16,
+        0,
+        url_mojom_OriginSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'siteForCookies', 24,
         0,
         network_mojom_SiteForCookiesSpec.$,
         null,
@@ -294,7 +312,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'cookieList', 24,
+        'cookieList', 32,
         0,
         mojo.internal.Array(network_mojom_CookieOrLineWithAccessResultSpec.$, false),
         null,
@@ -302,7 +320,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'devtoolsRequestId', 32,
+        'devtoolsRequestId', 40,
         0,
         mojo.internal.String,
         null,
@@ -317,8 +335,24 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'isAdTagged', 48,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'cookieSettingOverrides', 56,
+        0,
+        network_mojom_CookieSettingOverridesSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 48],]);
+    [[0, 72],]);
 
 
 
@@ -331,6 +365,8 @@ export class CookieAccessDetails {
     this.type;
     /** @type { !url_mojom_Url } */
     this.url;
+    /** @type { !url_mojom_Origin } */
+    this.topFrameOrigin;
     /** @type { !network_mojom_SiteForCookies } */
     this.siteForCookies;
     /** @type { !Array<!network_mojom_CookieOrLineWithAccessResult> } */
@@ -339,6 +375,10 @@ export class CookieAccessDetails {
     this.devtoolsRequestId;
     /** @type { !number } */
     this.count;
+    /** @type { !boolean } */
+    this.isAdTagged;
+    /** @type { !network_mojom_CookieSettingOverrides } */
+    this.cookieSettingOverrides;
   }
 }
 

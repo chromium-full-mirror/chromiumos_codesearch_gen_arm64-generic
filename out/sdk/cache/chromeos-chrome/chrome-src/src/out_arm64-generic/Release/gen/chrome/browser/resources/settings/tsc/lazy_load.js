@@ -64,7 +64,7 @@ export { ControlledButtonElement } from '/shared/settings/controls/controlled_bu
 export { SettingsRadioGroupElement } from '/shared/settings/controls/settings_radio_group.js';
 export { SettingsSliderElement } from '/shared/settings/controls/settings_slider.js';
 export { SettingsToggleButtonElement } from '/shared/settings/controls/settings_toggle_button.js';
-export { SettingsSecureDnsElement } from '/shared/settings/privacy_page/secure_dns.js';
+export { SecureDnsResolverType, SettingsSecureDnsElement } from '/shared/settings/privacy_page/secure_dns.js';
 // 
 export { SettingsSecureDnsDialogElement } from '/shared/settings/privacy_page/secure_dns_dialog.js';
 // 
@@ -77,6 +77,12 @@ export { CrLazyRenderElement } from 'chrome://resources/cr_elements/cr_lazy_rend
 export { CrSliderElement } from 'chrome://resources/cr_elements/cr_slider/cr_slider.js';
 export { CrTextareaElement } from 'chrome://resources/cr_elements/cr_textarea/cr_textarea.js';
 export { getToastManager } from 'chrome://resources/cr_elements/cr_toast/cr_toast_manager.js';
+export { AccessibilityBrowserProxyImpl } from './a11y_page/a11y_browser_proxy.js';
+// clang-format off
+// 
+// clang-format on
+export { SettingsA11yPageElement } from './a11y_page/a11y_page.js';
+// 
 // 
 export { SettingsAppearanceFontsPageElement } from './appearance_page/appearance_fonts_page.js';
 export { CountryDetailManagerImpl, SettingsAddressEditDialogElement } from './autofill_page/address_edit_dialog.js';
@@ -92,7 +98,7 @@ export { PaymentsManagerImpl } from './autofill_page/payments_manager_proxy.js';
 export { SettingsPaymentsSectionElement } from './autofill_page/payments_section.js';
 export { SettingsVirtualCardUnenrollDialogElement } from './autofill_page/virtual_card_unenroll_dialog.js';
 export { ClearBrowsingDataBrowserProxyImpl } from './clear_browsing_data_dialog/clear_browsing_data_browser_proxy.js';
-export { SettingsClearBrowsingDataDialogElement } from './clear_browsing_data_dialog/clear_browsing_data_dialog.js';
+export { SettingsClearBrowsingDataDialogElement, TimePeriod, TimePeriodExperiment } from './clear_browsing_data_dialog/clear_browsing_data_dialog.js';
 export { SettingsHistoryDeletionDialogElement } from './clear_browsing_data_dialog/history_deletion_dialog.js';
 export { SettingsPasswordsDeletionDialogElement } from './clear_browsing_data_dialog/passwords_deletion_dialog.js';
 export { SettingsCheckboxElement } from './controls/settings_checkbox.js';
@@ -132,7 +138,7 @@ export { CredentialManagementDialogPage, SettingsSecurityKeysCredentialManagemen
 export { SecurityKeysPhonesSubpageElement } from './privacy_page/security_keys_phones_subpage.js';
 export { ResetDialogPage, SettingsSecurityKeysResetDialogElement } from './privacy_page/security_keys_reset_dialog.js';
 export { SetPinDialogPage, SettingsSecurityKeysSetPinDialogElement } from './privacy_page/security_keys_set_pin_dialog.js';
-export { SafeBrowsingSetting, SettingsSecurityPageElement } from './privacy_page/security_page.js';
+export { HttpsFirstModeSetting, SafeBrowsingSetting, SettingsSecurityPageElement } from './privacy_page/security_page.js';
 export { SettingsPrivacySandboxAdMeasurementSubpageElement } from './privacy_sandbox/privacy_sandbox_ad_measurement_subpage.js';
 export { SettingsPrivacySandboxFledgeSubpageElement } from './privacy_sandbox/privacy_sandbox_fledge_subpage.js';
 export { PrivacySandboxInterestItemElement } from './privacy_sandbox/privacy_sandbox_interest_item.js';

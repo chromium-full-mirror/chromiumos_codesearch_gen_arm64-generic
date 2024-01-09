@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -174,7 +175,7 @@ FetchAPIRequest::FetchAPIRequest(
     ::network::mojom::blink::RedirectMode redirect_mode_in,
     const WTF::String& integrity_in,
     ::net::RequestPriority priority_in,
-    const absl::optional<::base::UnguessableToken>& fetch_window_id_in,
+    const std::optional<::base::UnguessableToken>& fetch_window_id_in,
     bool keepalive_in,
     bool is_reload_in,
     bool is_history_navigation_in,
@@ -182,7 +183,7 @@ FetchAPIRequest::FetchAPIRequest(
     ::network::mojom::blink::TrustTokenParamsPtr trust_token_params_in,
     ::network::mojom::blink::IPAddressSpace target_address_space_in,
     ::network::mojom::blink::AttributionReportingEligibility attribution_reporting_eligibility_in,
-    const absl::optional<::base::UnguessableToken>& service_worker_race_network_request_token_in)
+    const std::optional<::base::UnguessableToken>& service_worker_race_network_request_token_in)
     : mode(std::move(mode_in)),
       is_main_resource_load(std::move(is_main_resource_load_in)),
       destination(std::move(destination_in)),
@@ -372,7 +373,7 @@ void FetchAPIRequest::WriteIntoTrace(
     dict.AddItem(
       "fetch_window_id"), this->fetch_window_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -444,7 +445,7 @@ void FetchAPIRequest::WriteIntoTrace(
     dict.AddItem(
       "service_worker_race_network_request_token"), this->service_worker_race_network_request_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

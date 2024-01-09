@@ -34,15 +34,13 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/smbprovider/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/smbprovider/_smbproviderd-install_config.stamp: stamp
-build obj/smbprovider/all.stamp: stamp obj/smbprovider/install_dbus_config.stamp obj/smbprovider/install_dbus_service.stamp obj/smbprovider/install_init.stamp obj/smbprovider/install_policy.stamp ./smbproviderd ./smbprovider_test
+build obj/smbprovider/all.stamp: stamp obj/smbprovider/install_dbus_config.stamp obj/smbprovider/install_dbus_service.stamp obj/smbprovider/install_init.stamp obj/smbprovider/install_policy.stamp ./smbproviderd
 build obj/smbprovider/install_dbus_config.stamp: stamp
 build obj/smbprovider/install_dbus_service.stamp: stamp
 build obj/smbprovider/install_init.stamp: stamp
 build obj/smbprovider/install_policy.stamp: stamp
 subninja obj/smbprovider/libsmbprovider.ninja
-subninja obj/smbprovider/smbprovider_test.ninja
 subninja obj/smbprovider/smbproviderd.ninja
 rule __smbprovider_smbproviderd_adaptors___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/smbprovider/out/Default/gen/include/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/smbprovider/dbus_bindings/dbus-service-config.json ${in}

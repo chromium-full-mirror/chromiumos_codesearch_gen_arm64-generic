@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/image_annotation/public/mojom/image_annotation.mojom-features.h"
 #include "services/image_annotation/public/mojom/image_annotation.mojom-shared.h"
 #include "services/image_annotation/public/mojom/image_annotation.mojom-forward.h"
 #include <string>
@@ -537,17 +538,17 @@ class  AnnotateImageResult {
   // Construct an instance holding |error_code|.
   static AnnotateImageResultPtr
   NewErrorCode(
-      AnnotateImageError error_code) {
+      AnnotateImageError value) {
     auto result = AnnotateImageResultPtr(absl::in_place);
-    result->set_error_code(std::move(error_code));
+    result->set_error_code(std::move(value));
     return result;
   }
   // Construct an instance holding |annotations|.
   static AnnotateImageResultPtr
   NewAnnotations(
-      std::vector<AnnotationPtr> annotations) {
+      std::vector<AnnotationPtr> value) {
     auto result = AnnotateImageResultPtr(absl::in_place);
-    result->set_annotations(std::move(annotations));
+    result->set_annotations(std::move(value));
     return result;
   }
 

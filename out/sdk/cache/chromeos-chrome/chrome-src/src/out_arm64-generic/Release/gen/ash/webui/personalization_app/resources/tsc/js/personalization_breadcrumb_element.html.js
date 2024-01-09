@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-icons common cros-button-style">#container{align-items:center;box-sizing:border-box;display:flex;flex-flow:row nowrap;height:100%;padding:0 8px}#backButton{--cr-icon-button-margin-start:-12px;--cr-icon-button-margin-end:8px}#selector{align-items:center;box-sizing:border-box;color:var(--cros-text-color-secondary);display:flex;flex-flow:row nowrap;font:var(--cros-headline-1-font);height:100%;width:100%}:host-context(body.jelly-enabled) #selector{font:var(--cros-title-1-font)}:host-context(body.jelly-enabled) #homeButton{--cr-icon-button-fill-color:var(--cros-sys-secondary)}#homeButton{--cr-icon-button-fill-color:var(--cros-text-color-primary);--cr-icon-button-size:36px;margin-inline-end:6px;margin-inline-start:-10px}.breadcrumb{--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-ripple-opacity);--text-color:var(--cros-text-color-secondary);border:none;min-width:48px}.breadcrumb:not(last-of-type){flex:0 0 auto}.breadcrumb:last-of-type{--text-color:var(--cros-text-color-primary);flex:0 1 auto}iron-icon[icon='cr:chevron-right']{flex:0 0 auto}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_surface);background-color:transparent}</style>
+    return html `<!--_html_template_start_--><style include="cr-icons common cros-button-style">#container{align-items:center;box-sizing:border-box;display:flex;flex-flow:row nowrap;height:100%;padding:0 10px}#backButton{--cr-icon-button-margin-start:-12px;--cr-icon-button-margin-end:8px}#selector{align-items:center;box-sizing:border-box;color:var(--cros-text-color-secondary);display:flex;flex-flow:row nowrap;font:var(--cros-headline-1-font);height:100%;width:100%}:host-context(body.jelly-enabled) #selector{font:var(--cros-title-1-font)}:host-context(body.jelly-enabled) #homeButton{--cr-icon-button-fill-color:var(--cros-sys-secondary)}#homeButton{--cr-icon-button-fill-color:var(--cros-text-color-primary);--cr-icon-button-size:36px;margin-inline-end:6px;margin-inline-start:-10px}.breadcrumb{--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-ripple-opacity);--text-color:var(--cros-text-color-secondary);border:none;min-width:48px}.breadcrumb:not(last-of-type){flex:0 0 auto}.breadcrumb:last-of-type{--text-color:var(--cros-text-color-primary);flex:0 1 auto}iron-icon[icon='cr:chevron-right']{flex:0 0 auto}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_surface);background-color:transparent}#seaPenDropdown{margin-inline-start:6px}.dropdown-check{margin-inline-end:16px}button:not([aria-selected=true]) iron-icon.dropdown-check{visibility:hidden}button{padding:8px 32px 8px 16px}</style>
 <nav id="container">
     <iron-a11y-keys id="keys" keys="left right" on-keys-pressed="onKeysPress_">
     </iron-a11y-keys>
@@ -14,8 +14,20 @@ export function getTemplate() {
         </template>
         <cr-button class="breadcrumb selectable" role="link" aria-current$="[[getBreadcrumbAriaCurrent_(index, breadcrumbs_)]]" tabindex="-1" id="breadcrumb[[index]]" on-click="onBreadcrumbClick_">
           <div class="ellipsis" title$="[[breadcrumb]]">[[breadcrumb]]</div>
+          <template is="dom-if" if="[[shouldShowSeaPenDropdown_(path, breadcrumb)]]" restamp>
+            <cr-icon-button id="seaPenDropdown" iron-icon="cr:arrow-drop-down" role="button" on-click="onClickMenuIcon_">
+            </cr-icon-button>
+          </template>
         </cr-button>
       </template>
+      <cr-action-menu>
+        <template is="dom-repeat" items="[[seaPenTemplates_]]" as="template">
+          <button aria-selected$="[[getAriaSelected_(template.id, seaPenTemplateId)]]" class="dropdown-item" data-id$="[[template.id]]" on-click="onClickMenuItem_">
+            <iron-icon class="dropdown-check" icon="cr:check"></iron-icon>
+            [[template.title]]
+          </button>
+        </template>
+      </cr-action-menu>
     </iron-selector>
 </nav>
 <!--_html_template_end_-->`;

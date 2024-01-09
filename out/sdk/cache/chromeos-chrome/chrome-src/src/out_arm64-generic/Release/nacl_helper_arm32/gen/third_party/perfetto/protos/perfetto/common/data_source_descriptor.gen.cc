@@ -28,6 +28,7 @@ bool DataSourceDescriptor::operator==(const DataSourceDescriptor& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(will_notify_on_stop_, other.will_notify_on_stop_)
    && ::protozero::internal::gen_helpers::EqualsField(will_notify_on_start_, other.will_notify_on_start_)
    && ::protozero::internal::gen_helpers::EqualsField(handles_incremental_state_clear_, other.handles_incremental_state_clear_)
+   && ::protozero::internal::gen_helpers::EqualsField(no_flush_, other.no_flush_)
    && ::protozero::internal::gen_helpers::EqualsField(gpu_counter_descriptor_, other.gpu_counter_descriptor_)
    && ::protozero::internal::gen_helpers::EqualsField(track_event_descriptor_, other.track_event_descriptor_)
    && ::protozero::internal::gen_helpers::EqualsField(ftrace_descriptor_, other.ftrace_descriptor_);
@@ -57,6 +58,9 @@ bool DataSourceDescriptor::ParseFromArray(const void* raw, size_t size) {
         break;
       case 4 /* handles_incremental_state_clear */:
         field.get(&handles_incremental_state_clear_);
+        break;
+      case 9 /* no_flush */:
+        field.get(&no_flush_);
         break;
       case 5 /* gpu_counter_descriptor */:
         ::protozero::internal::gen_helpers::DeserializeString(field, &gpu_counter_descriptor_);
@@ -111,6 +115,11 @@ void DataSourceDescriptor::Serialize(::protozero::Message* msg) const {
   // Field 4: handles_incremental_state_clear
   if (_has_field_[4]) {
     ::protozero::internal::gen_helpers::SerializeTinyVarInt(4, handles_incremental_state_clear_, msg);
+  }
+
+  // Field 9: no_flush
+  if (_has_field_[9]) {
+    ::protozero::internal::gen_helpers::SerializeTinyVarInt(9, no_flush_, msg);
   }
 
   // Field 5: gpu_counter_descriptor

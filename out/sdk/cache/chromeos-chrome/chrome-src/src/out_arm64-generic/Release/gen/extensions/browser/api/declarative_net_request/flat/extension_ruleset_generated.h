@@ -34,6 +34,9 @@ struct EmbedderConditionsBuilder;
 struct ModifyHeaderInfo;
 struct ModifyHeaderInfoBuilder;
 
+struct HeaderCondition;
+struct HeaderConditionBuilder;
+
 struct RegexRule;
 struct RegexRuleBuilder;
 
@@ -614,13 +617,29 @@ struct EmbedderConditions FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table
   typedef EmbedderConditionsBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TAB_IDS_INCLUDED = 4,
-    VT_TAB_IDS_EXCLUDED = 6
+    VT_TAB_IDS_EXCLUDED = 6,
+    VT_RESPONSE_HEADERS = 8,
+    VT_EXCLUDED_RESPONSE_HEADERS = 10
   };
+  /// Sorted list of tab IDs to include/exclude.
   const ::flatbuffers::Vector<int32_t> *tab_ids_included() const {
     return GetPointer<const ::flatbuffers::Vector<int32_t> *>(VT_TAB_IDS_INCLUDED);
   }
   const ::flatbuffers::Vector<int32_t> *tab_ids_excluded() const {
     return GetPointer<const ::flatbuffers::Vector<int32_t> *>(VT_TAB_IDS_EXCLUDED);
+  }
+  /// Headers to include/exclude. Note that `excluded_response_headers` will
+  /// only match on header names.
+  /// TODO(crbug.com/1510018): Consider relocating these header conditions as
+  /// they apply to requests and what "embeds" the requests (such as the
+  /// browser). One potentially suitable place would be a new table in the
+  /// UrlPatternIndex for more complex conditions from requests and responses,
+  /// especially if future components may reuse these conditions.
+  const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>> *response_headers() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>> *>(VT_RESPONSE_HEADERS);
+  }
+  const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *excluded_response_headers() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *>(VT_EXCLUDED_RESPONSE_HEADERS);
   }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -628,6 +647,12 @@ struct EmbedderConditions FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table
            verifier.VerifyVector(tab_ids_included()) &&
            VerifyOffset(verifier, VT_TAB_IDS_EXCLUDED) &&
            verifier.VerifyVector(tab_ids_excluded()) &&
+           VerifyOffset(verifier, VT_RESPONSE_HEADERS) &&
+           verifier.VerifyVector(response_headers()) &&
+           verifier.VerifyVectorOfTables(response_headers()) &&
+           VerifyOffset(verifier, VT_EXCLUDED_RESPONSE_HEADERS) &&
+           verifier.VerifyVector(excluded_response_headers()) &&
+           verifier.VerifyVectorOfStrings(excluded_response_headers()) &&
            verifier.EndTable();
   }
 };
@@ -641,6 +666,12 @@ struct EmbedderConditionsBuilder {
   }
   void add_tab_ids_excluded(::flatbuffers::Offset<::flatbuffers::Vector<int32_t>> tab_ids_excluded) {
     fbb_.AddOffset(EmbedderConditions::VT_TAB_IDS_EXCLUDED, tab_ids_excluded);
+  }
+  void add_response_headers(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>>> response_headers) {
+    fbb_.AddOffset(EmbedderConditions::VT_RESPONSE_HEADERS, response_headers);
+  }
+  void add_excluded_response_headers(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> excluded_response_headers) {
+    fbb_.AddOffset(EmbedderConditions::VT_EXCLUDED_RESPONSE_HEADERS, excluded_response_headers);
   }
   explicit EmbedderConditionsBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -656,8 +687,12 @@ struct EmbedderConditionsBuilder {
 inline ::flatbuffers::Offset<EmbedderConditions> CreateEmbedderConditions(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     ::flatbuffers::Offset<::flatbuffers::Vector<int32_t>> tab_ids_included = 0,
-    ::flatbuffers::Offset<::flatbuffers::Vector<int32_t>> tab_ids_excluded = 0) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<int32_t>> tab_ids_excluded = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>>> response_headers = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> excluded_response_headers = 0) {
   EmbedderConditionsBuilder builder_(_fbb);
+  builder_.add_excluded_response_headers(excluded_response_headers);
+  builder_.add_response_headers(response_headers);
   builder_.add_tab_ids_excluded(tab_ids_excluded);
   builder_.add_tab_ids_included(tab_ids_included);
   return builder_.Finish();
@@ -666,13 +701,19 @@ inline ::flatbuffers::Offset<EmbedderConditions> CreateEmbedderConditions(
 inline ::flatbuffers::Offset<EmbedderConditions> CreateEmbedderConditionsDirect(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int32_t> *tab_ids_included = nullptr,
-    const std::vector<int32_t> *tab_ids_excluded = nullptr) {
+    const std::vector<int32_t> *tab_ids_excluded = nullptr,
+    const std::vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>> *response_headers = nullptr,
+    const std::vector<::flatbuffers::Offset<::flatbuffers::String>> *excluded_response_headers = nullptr) {
   auto tab_ids_included__ = tab_ids_included ? _fbb.CreateVector<int32_t>(*tab_ids_included) : 0;
   auto tab_ids_excluded__ = tab_ids_excluded ? _fbb.CreateVector<int32_t>(*tab_ids_excluded) : 0;
+  auto response_headers__ = response_headers ? _fbb.CreateVector<::flatbuffers::Offset<extensions::declarative_net_request::flat::HeaderCondition>>(*response_headers) : 0;
+  auto excluded_response_headers__ = excluded_response_headers ? _fbb.CreateVector<::flatbuffers::Offset<::flatbuffers::String>>(*excluded_response_headers) : 0;
   return extensions::declarative_net_request::flat::CreateEmbedderConditions(
       _fbb,
       tab_ids_included__,
-      tab_ids_excluded__);
+      tab_ids_excluded__,
+      response_headers__,
+      excluded_response_headers__);
 }
 
 /// Describes the header to be modified and operation to be performed on it.
@@ -757,6 +798,91 @@ inline ::flatbuffers::Offset<ModifyHeaderInfo> CreateModifyHeaderInfoDirect(
       operation,
       header__,
       value__);
+}
+
+/// Describes the matching condition for a header, Corresponds to
+/// extensions::api::declarative_net_request::HeaderInfo.
+struct HeaderCondition FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
+  typedef HeaderConditionBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_HEADER = 4,
+    VT_VALUES = 6,
+    VT_EXCLUDED_VALUES = 8
+  };
+  /// The name of the header to be matched on.
+  const ::flatbuffers::String *header() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_HEADER);
+  }
+  /// Header values to include or exclude for matching, if non-empty.
+  const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *values() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *>(VT_VALUES);
+  }
+  const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *excluded_values() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *>(VT_EXCLUDED_VALUES);
+  }
+  bool Verify(::flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_HEADER) &&
+           verifier.VerifyString(header()) &&
+           VerifyOffset(verifier, VT_VALUES) &&
+           verifier.VerifyVector(values()) &&
+           verifier.VerifyVectorOfStrings(values()) &&
+           VerifyOffset(verifier, VT_EXCLUDED_VALUES) &&
+           verifier.VerifyVector(excluded_values()) &&
+           verifier.VerifyVectorOfStrings(excluded_values()) &&
+           verifier.EndTable();
+  }
+};
+
+struct HeaderConditionBuilder {
+  typedef HeaderCondition Table;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_header(::flatbuffers::Offset<::flatbuffers::String> header) {
+    fbb_.AddOffset(HeaderCondition::VT_HEADER, header);
+  }
+  void add_values(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> values) {
+    fbb_.AddOffset(HeaderCondition::VT_VALUES, values);
+  }
+  void add_excluded_values(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> excluded_values) {
+    fbb_.AddOffset(HeaderCondition::VT_EXCLUDED_VALUES, excluded_values);
+  }
+  explicit HeaderConditionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ::flatbuffers::Offset<HeaderCondition> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = ::flatbuffers::Offset<HeaderCondition>(end);
+    return o;
+  }
+};
+
+inline ::flatbuffers::Offset<HeaderCondition> CreateHeaderCondition(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> header = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> values = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> excluded_values = 0) {
+  HeaderConditionBuilder builder_(_fbb);
+  builder_.add_excluded_values(excluded_values);
+  builder_.add_values(values);
+  builder_.add_header(header);
+  return builder_.Finish();
+}
+
+inline ::flatbuffers::Offset<HeaderCondition> CreateHeaderConditionDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const char *header = nullptr,
+    const std::vector<::flatbuffers::Offset<::flatbuffers::String>> *values = nullptr,
+    const std::vector<::flatbuffers::Offset<::flatbuffers::String>> *excluded_values = nullptr) {
+  auto header__ = header ? _fbb.CreateString(header) : 0;
+  auto values__ = values ? _fbb.CreateVector<::flatbuffers::Offset<::flatbuffers::String>>(*values) : 0;
+  auto excluded_values__ = excluded_values ? _fbb.CreateVector<::flatbuffers::Offset<::flatbuffers::String>>(*excluded_values) : 0;
+  return extensions::declarative_net_request::flat::CreateHeaderCondition(
+      _fbb,
+      header__,
+      values__,
+      excluded_values__);
 }
 
 /// Completely represents a rule with a regex filter.
@@ -844,17 +970,33 @@ inline ::flatbuffers::Offset<RegexRule> CreateRegexRuleDirect(
 struct ExtensionIndexedRuleset FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ExtensionIndexedRulesetBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_INDEX_LIST = 4,
-    VT_REGEX_RULES = 6,
-    VT_EXTENSION_METADATA = 8
+    VT_BEFORE_REQUEST_INDEX_LIST = 4,
+    VT_HEADERS_RECEIVED_INDEX_LIST = 6,
+    VT_BEFORE_REQUEST_REGEX_RULES = 8,
+    VT_HEADERS_RECEIVED_REGEX_RULES = 10,
+    VT_EXTENSION_METADATA = 12
   };
-  /// Vector of UrlPatternIndex. This will consist of IndexType_count
-  /// indices.
-  const ::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>> *index_list() const {
-    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>> *>(VT_INDEX_LIST);
+  /// Vector of UrlPatternIndex. This will consist of `IndexType_count` indices.
+  /// This index list is for rules that can be matched before a request is
+  /// initiated.
+  const ::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>> *before_request_index_list() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>> *>(VT_BEFORE_REQUEST_INDEX_LIST);
   }
-  const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>> *regex_rules() const {
-    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>> *>(VT_REGEX_RULES);
+  /// An index list of `IndexType_count` indices for rules that are matched
+  /// after response headers have been received from a request.
+  const ::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>> *headers_received_index_list() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>> *>(VT_HEADERS_RECEIVED_INDEX_LIST);
+  }
+  /// Regex rules are not matched by UrlPatternIndex and so we don't build an
+  /// index for them. This list is for rules that can be matched before a
+  /// request is initiated.
+  const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>> *before_request_regex_rules() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>> *>(VT_BEFORE_REQUEST_REGEX_RULES);
+  }
+  /// List of regex rules that are matched after response headers have been
+  /// received from a request.
+  const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>> *headers_received_regex_rules() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>> *>(VT_HEADERS_RECEIVED_REGEX_RULES);
   }
   /// Extension related metadata. Sorted by id, to support fast lookup.
   const ::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::UrlRuleMetadata>> *extension_metadata() const {
@@ -862,12 +1004,18 @@ struct ExtensionIndexedRuleset FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::
   }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyOffset(verifier, VT_INDEX_LIST) &&
-           verifier.VerifyVector(index_list()) &&
-           verifier.VerifyVectorOfTables(index_list()) &&
-           VerifyOffset(verifier, VT_REGEX_RULES) &&
-           verifier.VerifyVector(regex_rules()) &&
-           verifier.VerifyVectorOfTables(regex_rules()) &&
+           VerifyOffset(verifier, VT_BEFORE_REQUEST_INDEX_LIST) &&
+           verifier.VerifyVector(before_request_index_list()) &&
+           verifier.VerifyVectorOfTables(before_request_index_list()) &&
+           VerifyOffset(verifier, VT_HEADERS_RECEIVED_INDEX_LIST) &&
+           verifier.VerifyVector(headers_received_index_list()) &&
+           verifier.VerifyVectorOfTables(headers_received_index_list()) &&
+           VerifyOffset(verifier, VT_BEFORE_REQUEST_REGEX_RULES) &&
+           verifier.VerifyVector(before_request_regex_rules()) &&
+           verifier.VerifyVectorOfTables(before_request_regex_rules()) &&
+           VerifyOffset(verifier, VT_HEADERS_RECEIVED_REGEX_RULES) &&
+           verifier.VerifyVector(headers_received_regex_rules()) &&
+           verifier.VerifyVectorOfTables(headers_received_regex_rules()) &&
            VerifyOffset(verifier, VT_EXTENSION_METADATA) &&
            verifier.VerifyVector(extension_metadata()) &&
            verifier.VerifyVectorOfTables(extension_metadata()) &&
@@ -879,11 +1027,17 @@ struct ExtensionIndexedRulesetBuilder {
   typedef ExtensionIndexedRuleset Table;
   ::flatbuffers::FlatBufferBuilder &fbb_;
   ::flatbuffers::uoffset_t start_;
-  void add_index_list(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>>> index_list) {
-    fbb_.AddOffset(ExtensionIndexedRuleset::VT_INDEX_LIST, index_list);
+  void add_before_request_index_list(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>>> before_request_index_list) {
+    fbb_.AddOffset(ExtensionIndexedRuleset::VT_BEFORE_REQUEST_INDEX_LIST, before_request_index_list);
   }
-  void add_regex_rules(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>>> regex_rules) {
-    fbb_.AddOffset(ExtensionIndexedRuleset::VT_REGEX_RULES, regex_rules);
+  void add_headers_received_index_list(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>>> headers_received_index_list) {
+    fbb_.AddOffset(ExtensionIndexedRuleset::VT_HEADERS_RECEIVED_INDEX_LIST, headers_received_index_list);
+  }
+  void add_before_request_regex_rules(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>>> before_request_regex_rules) {
+    fbb_.AddOffset(ExtensionIndexedRuleset::VT_BEFORE_REQUEST_REGEX_RULES, before_request_regex_rules);
+  }
+  void add_headers_received_regex_rules(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>>> headers_received_regex_rules) {
+    fbb_.AddOffset(ExtensionIndexedRuleset::VT_HEADERS_RECEIVED_REGEX_RULES, headers_received_regex_rules);
   }
   void add_extension_metadata(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::UrlRuleMetadata>>> extension_metadata) {
     fbb_.AddOffset(ExtensionIndexedRuleset::VT_EXTENSION_METADATA, extension_metadata);
@@ -901,28 +1055,38 @@ struct ExtensionIndexedRulesetBuilder {
 
 inline ::flatbuffers::Offset<ExtensionIndexedRuleset> CreateExtensionIndexedRuleset(
     ::flatbuffers::FlatBufferBuilder &_fbb,
-    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>>> index_list = 0,
-    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>>> regex_rules = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>>> before_request_index_list = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>>> headers_received_index_list = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>>> before_request_regex_rules = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>>> headers_received_regex_rules = 0,
     ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::UrlRuleMetadata>>> extension_metadata = 0) {
   ExtensionIndexedRulesetBuilder builder_(_fbb);
   builder_.add_extension_metadata(extension_metadata);
-  builder_.add_regex_rules(regex_rules);
-  builder_.add_index_list(index_list);
+  builder_.add_headers_received_regex_rules(headers_received_regex_rules);
+  builder_.add_before_request_regex_rules(before_request_regex_rules);
+  builder_.add_headers_received_index_list(headers_received_index_list);
+  builder_.add_before_request_index_list(before_request_index_list);
   return builder_.Finish();
 }
 
 inline ::flatbuffers::Offset<ExtensionIndexedRuleset> CreateExtensionIndexedRulesetDirect(
     ::flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>> *index_list = nullptr,
-    const std::vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>> *regex_rules = nullptr,
+    const std::vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>> *before_request_index_list = nullptr,
+    const std::vector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>> *headers_received_index_list = nullptr,
+    const std::vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>> *before_request_regex_rules = nullptr,
+    const std::vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>> *headers_received_regex_rules = nullptr,
     std::vector<::flatbuffers::Offset<extensions::declarative_net_request::flat::UrlRuleMetadata>> *extension_metadata = nullptr) {
-  auto index_list__ = index_list ? _fbb.CreateVector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>>(*index_list) : 0;
-  auto regex_rules__ = regex_rules ? _fbb.CreateVector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>>(*regex_rules) : 0;
+  auto before_request_index_list__ = before_request_index_list ? _fbb.CreateVector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>>(*before_request_index_list) : 0;
+  auto headers_received_index_list__ = headers_received_index_list ? _fbb.CreateVector<::flatbuffers::Offset<url_pattern_index::flat::UrlPatternIndex>>(*headers_received_index_list) : 0;
+  auto before_request_regex_rules__ = before_request_regex_rules ? _fbb.CreateVector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>>(*before_request_regex_rules) : 0;
+  auto headers_received_regex_rules__ = headers_received_regex_rules ? _fbb.CreateVector<::flatbuffers::Offset<extensions::declarative_net_request::flat::RegexRule>>(*headers_received_regex_rules) : 0;
   auto extension_metadata__ = extension_metadata ? _fbb.CreateVectorOfSortedTables<extensions::declarative_net_request::flat::UrlRuleMetadata>(extension_metadata) : 0;
   return extensions::declarative_net_request::flat::CreateExtensionIndexedRuleset(
       _fbb,
-      index_list__,
-      regex_rules__,
+      before_request_index_list__,
+      headers_received_index_list__,
+      before_request_regex_rules__,
+      headers_received_regex_rules__,
       extension_metadata__);
 }
 

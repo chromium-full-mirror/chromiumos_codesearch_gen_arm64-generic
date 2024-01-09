@@ -1107,6 +1107,23 @@ class  AppInstance_GetAppCategory_ResponseParams_Data {
 };
 static_assert(sizeof(AppInstance_GetAppCategory_ResponseParams_Data) == 16,
               "Bad sizeof(AppInstance_GetAppCategory_ResponseParams_Data)");
+class  AppInstance_SetAppLocale_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> package_name;
+  mojo::internal::Pointer<mojo::internal::String_Data> locale_tag;
+
+ private:
+  friend class mojo::internal::MessageFragment<AppInstance_SetAppLocale_Params_Data>;
+
+  AppInstance_SetAppLocale_Params_Data();
+  ~AppInstance_SetAppLocale_Params_Data() = delete;
+};
+static_assert(sizeof(AppInstance_SetAppLocale_Params_Data) == 24,
+              "Bad sizeof(AppInstance_SetAppLocale_Params_Data)");
 
 }  // namespace internal
 
@@ -3005,6 +3022,42 @@ class AppInstance_GetAppCategory_ResponseParamsDataView {
   internal::AppInstance_GetAppCategory_ResponseParams_Data* data_ = nullptr;
 };
 
+
+class AppInstance_SetAppLocale_ParamsDataView {
+ public:
+  AppInstance_SetAppLocale_ParamsDataView() = default;
+
+  AppInstance_SetAppLocale_ParamsDataView(
+      internal::AppInstance_SetAppLocale_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPackageNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPackageName(UserType* output) {
+    
+    auto* pointer = data_->package_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLocaleTagDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocaleTag(UserType* output) {
+    
+    auto* pointer = data_->locale_tag.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::AppInstance_SetAppLocale_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void AppHost_OnAppAddedDeprecated_ParamsDataView::GetAppDataView(
     AppInfoDataView* output) {
   auto pointer = data_->app.Get();
@@ -3470,6 +3523,18 @@ inline void AppInstance_GetAppCategory_ParamsDataView::GetPackageNameDataView(
 }
 
 
+
+
+inline void AppInstance_SetAppLocale_ParamsDataView::GetPackageNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->package_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void AppInstance_SetAppLocale_ParamsDataView::GetLocaleTagDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->locale_tag.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 

@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform/graphics",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/graphics-utils-go-0.0.1-r354/work/graphics-utils-go-0.0.1"
-    }
-  ]
-}

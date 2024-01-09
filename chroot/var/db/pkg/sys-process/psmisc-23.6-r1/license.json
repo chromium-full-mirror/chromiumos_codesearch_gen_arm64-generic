@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-process", "name": "psmisc", "version": "23.6", "revision": 1, "fullname": "sys-process/psmisc", "fullnamerev": "sys-process/psmisc-23.6-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://psmisc.sourceforge.net/"], "skip": false, "tainted": false, "ebuild_path": null}

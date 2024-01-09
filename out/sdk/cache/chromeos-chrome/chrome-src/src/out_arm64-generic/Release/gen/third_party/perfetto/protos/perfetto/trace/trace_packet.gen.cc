@@ -105,6 +105,7 @@
 #include "protos/perfetto/trace/ftrace/raw_syscalls.gen.h"
 #include "protos/perfetto/trace/ftrace/printk.gen.h"
 #include "protos/perfetto/trace/ftrace/power.gen.h"
+#include "protos/perfetto/trace/ftrace/perf_trace_counters.gen.h"
 #include "protos/perfetto/trace/ftrace/panel.gen.h"
 #include "protos/perfetto/trace/ftrace/oom.gen.h"
 #include "protos/perfetto/trace/ftrace/net.gen.h"
@@ -154,6 +155,7 @@
 #include "protos/perfetto/trace/android/surfaceflinger_transactions.gen.h"
 #include "protos/perfetto/trace/android/surfaceflinger_common.gen.h"
 #include "protos/perfetto/trace/android/surfaceflinger_layers.gen.h"
+#include "protos/perfetto/trace/android/shell_transition.gen.h"
 #include "protos/perfetto/trace/android/packages_list.gen.h"
 #include "protos/perfetto/trace/android/network_trace.gen.h"
 #include "protos/perfetto/trace/android/initial_display_state.gen.h"
@@ -186,6 +188,7 @@
 #include "protos/perfetto/config/gpu/vulkan_memory_config.gen.h"
 #include "protos/perfetto/config/gpu/gpu_counter_config.gen.h"
 #include "protos/perfetto/config/ftrace/ftrace_config.gen.h"
+#include "protos/perfetto/config/etw/etw_config.gen.h"
 #include "protos/perfetto/config/chrome/chrome_config.gen.h"
 #include "protos/perfetto/config/android/surfaceflinger_transactions_config.gen.h"
 #include "protos/perfetto/config/android/surfaceflinger_layers_config.gen.h"
@@ -276,6 +279,8 @@ bool TracePacket::operator==(const TracePacket& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(track_event_range_of_interest_, other.track_event_range_of_interest_)
    && ::protozero::internal::gen_helpers::EqualsField(surfaceflinger_layers_snapshot_, other.surfaceflinger_layers_snapshot_)
    && ::protozero::internal::gen_helpers::EqualsField(surfaceflinger_transactions_, other.surfaceflinger_transactions_)
+   && ::protozero::internal::gen_helpers::EqualsField(shell_transition_, other.shell_transition_)
+   && ::protozero::internal::gen_helpers::EqualsField(shell_handler_mappings_, other.shell_handler_mappings_)
    && ::protozero::internal::gen_helpers::EqualsField(etw_events_, other.etw_events_)
    && ::protozero::internal::gen_helpers::EqualsField(for_testing_, other.for_testing_)
    && ::protozero::internal::gen_helpers::EqualsField(trusted_uid_, other.trusted_uid_)
@@ -286,7 +291,8 @@ bool TracePacket::operator==(const TracePacket& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(incremental_state_cleared_, other.incremental_state_cleared_)
    && ::protozero::internal::gen_helpers::EqualsField(trace_packet_defaults_, other.trace_packet_defaults_)
    && ::protozero::internal::gen_helpers::EqualsField(previous_packet_dropped_, other.previous_packet_dropped_)
-   && ::protozero::internal::gen_helpers::EqualsField(first_packet_on_sequence_, other.first_packet_on_sequence_);
+   && ::protozero::internal::gen_helpers::EqualsField(first_packet_on_sequence_, other.first_packet_on_sequence_)
+   && ::protozero::internal::gen_helpers::EqualsField(machine_id_, other.machine_id_);
 }
 
 bool TracePacket::ParseFromArray(const void* raw, size_t size) {
@@ -494,6 +500,12 @@ bool TracePacket::ParseFromArray(const void* raw, size_t size) {
       case 94 /* surfaceflinger_transactions */:
         (*surfaceflinger_transactions_).ParseFromArray(field.data(), field.size());
         break;
+      case 96 /* shell_transition */:
+        (*shell_transition_).ParseFromArray(field.data(), field.size());
+        break;
+      case 97 /* shell_handler_mappings */:
+        (*shell_handler_mappings_).ParseFromArray(field.data(), field.size());
+        break;
       case 95 /* etw_events */:
         (*etw_events_).ParseFromArray(field.data(), field.size());
         break;
@@ -526,6 +538,9 @@ bool TracePacket::ParseFromArray(const void* raw, size_t size) {
         break;
       case 87 /* first_packet_on_sequence */:
         field.get(&first_packet_on_sequence_);
+        break;
+      case 98 /* machine_id */:
+        field.get(&machine_id_);
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -873,6 +888,16 @@ void TracePacket::Serialize(::protozero::Message* msg) const {
     (*surfaceflinger_transactions_).Serialize(msg->BeginNestedMessage<::protozero::Message>(94));
   }
 
+  // Field 96: shell_transition
+  if (_has_field_[96]) {
+    (*shell_transition_).Serialize(msg->BeginNestedMessage<::protozero::Message>(96));
+  }
+
+  // Field 97: shell_handler_mappings
+  if (_has_field_[97]) {
+    (*shell_handler_mappings_).Serialize(msg->BeginNestedMessage<::protozero::Message>(97));
+  }
+
   // Field 95: etw_events
   if (_has_field_[95]) {
     (*etw_events_).Serialize(msg->BeginNestedMessage<::protozero::Message>(95));
@@ -926,6 +951,11 @@ void TracePacket::Serialize(::protozero::Message* msg) const {
   // Field 87: first_packet_on_sequence
   if (_has_field_[87]) {
     ::protozero::internal::gen_helpers::SerializeTinyVarInt(87, first_packet_on_sequence_, msg);
+  }
+
+  // Field 98: machine_id
+  if (_has_field_[98]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(98, machine_id_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

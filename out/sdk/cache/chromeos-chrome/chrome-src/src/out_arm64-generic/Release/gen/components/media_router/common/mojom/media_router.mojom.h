@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/media_router/common/mojom/media_router.mojom-features.h"
 #include "components/media_router/common/mojom/media_router.mojom-shared.h"
 #include "components/media_router/common/mojom/media_router.mojom-forward.h"
 #include "components/media_router/common/mojom/logger.mojom-forward.h"
@@ -143,17 +144,17 @@ class MediaRouteProvider
   virtual ~MediaRouteProvider() = default;
 
 
-  using CreateRouteCallback = base::OnceCallback<void(const absl::optional<::media_router::MediaRoute>&, RoutePresentationConnectionPtr, const absl::optional<std::string>&, ::media_router::mojom::RouteRequestResultCode)>;
+  using CreateRouteCallback = base::OnceCallback<void(const std::optional<::media_router::MediaRoute>&, RoutePresentationConnectionPtr, const std::optional<std::string>&, ::media_router::mojom::RouteRequestResultCode)>;
   
   virtual void CreateRoute(const std::string& media_source, const std::string& sink_id, const std::string& original_presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, CreateRouteCallback callback) = 0;
 
 
-  using JoinRouteCallback = base::OnceCallback<void(const absl::optional<::media_router::MediaRoute>&, RoutePresentationConnectionPtr, const absl::optional<std::string>&, ::media_router::mojom::RouteRequestResultCode)>;
+  using JoinRouteCallback = base::OnceCallback<void(const std::optional<::media_router::MediaRoute>&, RoutePresentationConnectionPtr, const std::optional<std::string>&, ::media_router::mojom::RouteRequestResultCode)>;
   
   virtual void JoinRoute(const std::string& media_source, const std::string& presentation_id, const ::url::Origin& origin, int32_t frame_tree_node_id, ::base::TimeDelta timeout, JoinRouteCallback callback) = 0;
 
 
-  using TerminateRouteCallback = base::OnceCallback<void(const absl::optional<std::string>&, ::media_router::mojom::RouteRequestResultCode)>;
+  using TerminateRouteCallback = base::OnceCallback<void(const std::optional<std::string>&, ::media_router::mojom::RouteRequestResultCode)>;
   
   virtual void TerminateRoute(const std::string& route_id, TerminateRouteCallback callback) = 0;
 
@@ -674,17 +675,17 @@ class  MediaSinkExtraData {
   // Construct an instance holding |dial_media_sink|.
   static MediaSinkExtraDataPtr
   NewDialMediaSink(
-      DialMediaSinkPtr dial_media_sink) {
+      DialMediaSinkPtr value) {
     auto result = MediaSinkExtraDataPtr(absl::in_place);
-    result->set_dial_media_sink(std::move(dial_media_sink));
+    result->set_dial_media_sink(std::move(value));
     return result;
   }
   // Construct an instance holding |cast_media_sink|.
   static MediaSinkExtraDataPtr
   NewCastMediaSink(
-      CastMediaSinkPtr cast_media_sink) {
+      CastMediaSinkPtr value) {
     auto result = MediaSinkExtraDataPtr(absl::in_place);
-    result->set_cast_media_sink(std::move(cast_media_sink));
+    result->set_cast_media_sink(std::move(value));
     return result;
   }
 
@@ -804,9 +805,9 @@ class  ProviderState {
   // Construct an instance holding |cast_provider_state|.
   static ProviderStatePtr
   NewCastProviderState(
-      CastProviderStatePtr cast_provider_state) {
+      CastProviderStatePtr value) {
     auto result = ProviderStatePtr(absl::in_place);
-    result->set_cast_provider_state(std::move(cast_provider_state));
+    result->set_cast_provider_state(std::move(value));
     return result;
   }
 
@@ -1225,7 +1226,7 @@ class  CastMediaSink {
   CastMediaSink(
       const ::net::IPEndPoint& ip_endpoint,
       const std::string& model_name,
-      uint8_t capabilities,
+      uint64_t capabilities,
       int32_t cast_channel_id);
 
 
@@ -1308,7 +1309,7 @@ class  CastMediaSink {
   
   std::string model_name;
   
-  uint8_t capabilities;
+  uint64_t capabilities;
   
   int32_t cast_channel_id;
 
@@ -1374,7 +1375,7 @@ class  MediaRoute {
   MediaRoute(
       const std::string& media_route_id,
       const std::string& presentation_id,
-      const absl::optional<std::string>& media_source,
+      const std::optional<std::string>& media_source,
       const std::string& media_sink_id,
       const std::string& media_sink_name,
       const std::string& description,
@@ -1463,7 +1464,7 @@ class  MediaRoute {
   
   std::string presentation_id;
   
-  absl::optional<std::string> media_source;
+  std::optional<std::string> media_source;
   
   std::string media_sink_id;
   
@@ -1544,7 +1545,7 @@ class  Issue {
       const std::string& sink_id,
       ::media_router::IssueInfo::Severity severity,
       const std::string& title,
-      const absl::optional<std::string>& message);
+      const std::optional<std::string>& message);
 
 
   ~Issue();
@@ -1630,7 +1631,7 @@ class  Issue {
   
   std::string title;
   
-  absl::optional<std::string> message;
+  std::optional<std::string> message;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1694,8 +1695,8 @@ class  RouteMessage {
 
   RouteMessage(
       RouteMessage::Type type,
-      const absl::optional<std::string>& message,
-      absl::optional<std::vector<uint8_t>> data);
+      const std::optional<std::string>& message,
+      std::optional<std::vector<uint8_t>> data);
 
 
   ~RouteMessage();
@@ -1775,9 +1776,9 @@ class  RouteMessage {
   
   RouteMessage::Type type;
   
-  absl::optional<std::string> message;
+  std::optional<std::string> message;
   
-  absl::optional<std::vector<uint8_t>> data;
+  std::optional<std::vector<uint8_t>> data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

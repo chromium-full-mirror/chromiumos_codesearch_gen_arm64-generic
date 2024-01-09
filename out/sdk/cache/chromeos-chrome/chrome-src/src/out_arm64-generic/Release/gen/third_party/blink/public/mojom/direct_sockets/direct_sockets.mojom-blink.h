@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/direct_sockets/direct_sockets.mojom-features.h"
 #include "third_party/blink/public/mojom/direct_sockets/direct_sockets.mojom-shared.h"
 #include "third_party/blink/public/mojom/direct_sockets/direct_sockets.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-blink-forward.h"
@@ -105,22 +106,22 @@ class PLATFORM_EXPORT DirectSocketsService
   virtual ~DirectSocketsService() = default;
 
 
-  using OpenTCPSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&, const absl::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
+  using OpenTCPSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&, const std::optional<::net::IPEndPoint>&, ::mojo::ScopedDataPipeConsumerHandle, ::mojo::ScopedDataPipeProducerHandle)>;
   
   virtual void OpenTCPSocket(DirectTCPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::SocketObserver> observer, OpenTCPSocketCallback callback) = 0;
 
 
-  using OpenConnectedUDPSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&, const absl::optional<::net::IPEndPoint>&)>;
+  using OpenConnectedUDPSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&, const std::optional<::net::IPEndPoint>&)>;
   
   virtual void OpenConnectedUDPSocket(DirectConnectedUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, OpenConnectedUDPSocketCallback callback) = 0;
 
 
-  using OpenBoundUDPSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&)>;
+  using OpenBoundUDPSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&)>;
   
   virtual void OpenBoundUDPSocket(DirectBoundUDPSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> receiver, ::mojo::PendingRemote<::network::mojom::blink::UDPSocketListener> listener, OpenBoundUDPSocketCallback callback) = 0;
 
 
-  using OpenTCPServerSocketCallback = base::OnceCallback<void(int32_t, const absl::optional<::net::IPEndPoint>&)>;
+  using OpenTCPServerSocketCallback = base::OnceCallback<void(int32_t, const std::optional<::net::IPEndPoint>&)>;
   
   virtual void OpenTCPServerSocket(DirectTCPServerSocketOptionsPtr options, ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket> receiver, OpenTCPServerSocketCallback callback) = 0;
 };
@@ -233,12 +234,12 @@ class PLATFORM_EXPORT DirectTCPSocketOptions {
 
   DirectTCPSocketOptions(
       const ::net::HostPortPair& remote_addr,
-      const absl::optional<::net::IPEndPoint>& local_addr,
-      absl::optional<int32_t> send_buffer_size,
-      absl::optional<int32_t> receive_buffer_size,
+      const std::optional<::net::IPEndPoint>& local_addr,
+      std::optional<int32_t> send_buffer_size,
+      std::optional<int32_t> receive_buffer_size,
       bool no_delay,
       ::network::mojom::blink::TCPKeepAliveOptionsPtr keep_alive_options,
-      absl::optional<::net::DnsQueryType> dns_query_type);
+      std::optional<::net::DnsQueryType> dns_query_type);
 
 DirectTCPSocketOptions(const DirectTCPSocketOptions&) = delete;
 DirectTCPSocketOptions& operator=(const DirectTCPSocketOptions&) = delete;
@@ -320,17 +321,17 @@ DirectTCPSocketOptions& operator=(const DirectTCPSocketOptions&) = delete;
   
   ::net::HostPortPair remote_addr;
   
-  absl::optional<::net::IPEndPoint> local_addr;
+  std::optional<::net::IPEndPoint> local_addr;
   
-  absl::optional<int32_t> send_buffer_size;
+  std::optional<int32_t> send_buffer_size;
   
-  absl::optional<int32_t> receive_buffer_size;
+  std::optional<int32_t> receive_buffer_size;
   
   bool no_delay;
   
   ::network::mojom::blink::TCPKeepAliveOptionsPtr keep_alive_options;
   
-  absl::optional<::net::DnsQueryType> dns_query_type;
+  std::optional<::net::DnsQueryType> dns_query_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -393,9 +394,9 @@ class PLATFORM_EXPORT DirectConnectedUDPSocketOptions {
 
   DirectConnectedUDPSocketOptions(
       const ::net::HostPortPair& remote_addr,
-      absl::optional<int32_t> send_buffer_size,
-      absl::optional<int32_t> receive_buffer_size,
-      absl::optional<::net::DnsQueryType> dns_query_type);
+      std::optional<int32_t> send_buffer_size,
+      std::optional<int32_t> receive_buffer_size,
+      std::optional<::net::DnsQueryType> dns_query_type);
 
 
   ~DirectConnectedUDPSocketOptions();
@@ -475,11 +476,11 @@ class PLATFORM_EXPORT DirectConnectedUDPSocketOptions {
   
   ::net::HostPortPair remote_addr;
   
-  absl::optional<int32_t> send_buffer_size;
+  std::optional<int32_t> send_buffer_size;
   
-  absl::optional<int32_t> receive_buffer_size;
+  std::optional<int32_t> receive_buffer_size;
   
-  absl::optional<::net::DnsQueryType> dns_query_type;
+  std::optional<::net::DnsQueryType> dns_query_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -542,9 +543,9 @@ class PLATFORM_EXPORT DirectBoundUDPSocketOptions {
 
   DirectBoundUDPSocketOptions(
       const ::net::IPEndPoint& local_addr,
-      absl::optional<int32_t> send_buffer_size,
-      absl::optional<int32_t> receive_buffer_size,
-      absl::optional<bool> ipv6_only);
+      std::optional<int32_t> send_buffer_size,
+      std::optional<int32_t> receive_buffer_size,
+      std::optional<bool> ipv6_only);
 
 
   ~DirectBoundUDPSocketOptions();
@@ -624,11 +625,11 @@ class PLATFORM_EXPORT DirectBoundUDPSocketOptions {
   
   ::net::IPEndPoint local_addr;
   
-  absl::optional<int32_t> send_buffer_size;
+  std::optional<int32_t> send_buffer_size;
   
-  absl::optional<int32_t> receive_buffer_size;
+  std::optional<int32_t> receive_buffer_size;
   
-  absl::optional<bool> ipv6_only;
+  std::optional<bool> ipv6_only;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -691,8 +692,8 @@ class PLATFORM_EXPORT DirectTCPServerSocketOptions {
 
   DirectTCPServerSocketOptions(
       const ::net::IPEndPoint& local_addr,
-      absl::optional<bool> ipv6_only,
-      absl::optional<uint32_t> backlog);
+      std::optional<bool> ipv6_only,
+      std::optional<uint32_t> backlog);
 
 
   ~DirectTCPServerSocketOptions();
@@ -772,9 +773,9 @@ class PLATFORM_EXPORT DirectTCPServerSocketOptions {
   
   ::net::IPEndPoint local_addr;
   
-  absl::optional<bool> ipv6_only;
+  std::optional<bool> ipv6_only;
   
-  absl::optional<uint32_t> backlog;
+  std::optional<uint32_t> backlog;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

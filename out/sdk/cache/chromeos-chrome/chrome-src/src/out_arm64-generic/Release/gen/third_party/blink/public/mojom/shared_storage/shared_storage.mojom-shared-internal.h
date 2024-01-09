@@ -14,6 +14,7 @@
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared-internal.h"
+#include "url/mojom/origin.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"

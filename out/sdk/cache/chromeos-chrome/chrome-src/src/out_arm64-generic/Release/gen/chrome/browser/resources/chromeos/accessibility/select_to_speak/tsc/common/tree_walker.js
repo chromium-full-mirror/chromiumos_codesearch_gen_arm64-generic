@@ -1,10 +1,6 @@
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview A tree walker over the automation tree.
- */
-import { AutomationPredicate } from './automation_predicate.js';
 import { constants } from './constants.js';
 /**
  * Defined phases of traversal from the initial node passed to an
@@ -12,23 +8,15 @@ import { constants } from './constants.js';
  * @enum {string}
  */
 export const AutomationTreeWalkerPhase = {
-    /** Walker is on the initial node. */
+    // Walker is on the initial node.
     INITIAL: 'initial',
-    /** Walker is on an ancestor of initial node. */
+    // Walker is on an ancestor of initial node.
     ANCESTOR: 'ancestor',
-    /** Walker is on a descendant of initial node. */
+    // Walker is on a descendant of initial node.
     DESCENDANT: 'descendant',
-    /** Walker is on a node not covered by any other phase. */
+    // Walker is on a node not covered by any other phase.
     OTHER: 'other',
 };
-/**
- * @typedef {{leaf: (AutomationPredicate.Unary|undefined),
- *          root: (AutomationPredicate.Unary|undefined),
- *          visit: (AutomationPredicate.Unary|undefined),
- *          skipInitialAncestry: (boolean|undefined),
- *          skipInitialSubtree: (boolean|undefined)}}
- */
-export let AutomationTreeWalkerRestriction;
 /**
  * An AutomationTreeWalker provides an incremental pre order traversal of the
  * automation tree starting at a particular node.
@@ -40,44 +28,45 @@ export let AutomationTreeWalkerRestriction;
  * moving to a node in the flattened pre-order list. If not, this walker will
  * continue to the next (directed) node in the list, looking for a predicate
  * match.
- * root: this predicate determines if a node should end upward movement in the
- * tree.
- * leaf: this predicate determines if a node should end downward movement in the
- * tree.
- * |skipInitialAncestry| skips visiting ancestor nodes of the start node for
- * multiple invokations of next when moving backward.
- * Finally, a boolean, |skipInitialSubtree|, makes the first invocation of
- * |next| skip the initial node's subtree when finding a match. This is useful
- * to establish a known initial state when the initial node may not match any of
- * the given predicates.
+ *   root: this predicate determines if a node should end upward movement in
+ *     the tree.
+ *   leaf: this predicate determines if a node should end downward movement in
+ *     the tree.
+ *   skipInitialAncestry: skips visiting ancestor nodes of the start node for
+ *     multiple invocations of next when moving backward.
+ *   skipInitialSubtree: makes the first invocation of |next| skip the initial
+ *     node's subtree when finding a match. This is useful to establish a known
+ *     initial state when the initial node may not match any of the given
+ *     predicates.
  * Given the above definitions, if supplied with a root and leaf predicate that
  * always returns false, and a visit predicate that always returns true, the
  * walker would visit all nodes in pre order. If a caller does not supply a
  * particular predicate, it will default to these "identity" predicates.
  */
 export class AutomationTreeWalker {
-    /**
-     * @param {!chrome.automation.AutomationNode} node
-     * @param {constants.Dir} dir
-     * @param {AutomationTreeWalkerRestriction=}
-     *        opt_restrictions
-     */
-    constructor(node, dir, opt_restrictions) {
-        /** @type {chrome.automation.AutomationNode} @private */
+    // TODO(b/314204374): Convert from null to undefined.
+    node_;
+    phase_;
+    dir_;
+    initialNode_;
+    // TODO(b/314204374): Convert from null to undefined.
+    backwardAncestor_;
+    visitPred_;
+    skipInitialAncestry_;
+    skipInitialSubtree_;
+    leafPred_;
+    rootPred_;
+    constructor(node, dir, optRestrictions) {
         this.node_ = node;
-        /** @type {AutomationTreeWalkerPhase} @private */
         this.phase_ = AutomationTreeWalkerPhase.INITIAL;
-        /** @const {constants.Dir} @private */
         this.dir_ = dir;
-        /** @const {!chrome.automation.AutomationNode} @private */
         this.initialNode_ = node;
         /**
          * Deepest common ancestor of initialNode and node. Valid only when moving
          * backward.
-         * @type {chrome.automation.AutomationNode} @private
          */
         this.backwardAncestor_ = node.parent || null;
-        const restrictions = opt_restrictions || {};
+        const restrictions = optRestrictions || {};
         this.visitPred_ = function (node) {
             if (this.skipInitialAncestry_ &&
                 this.phase_ === AutomationTreeWalkerPhase.ANCESTOR) {
@@ -93,37 +82,29 @@ export class AutomationTreeWalker {
             }
             return true;
         };
-        /** @type {AutomationPredicate.Unary} @private */
+        /** @private {AutomationPredicate.Unary} */
         this.leafPred_ = restrictions.leaf ? restrictions.leaf :
             AutomationTreeWalker.falsePredicate_;
-        /** @type {AutomationPredicate.Unary} @private */
+        /** @private {AutomationPredicate.Unary} */
         this.rootPred_ = restrictions.root ? restrictions.root :
             AutomationTreeWalker.falsePredicate_;
-        /** @const {boolean} @private */
+        /** @private {boolean} */
         this.skipInitialAncestry_ = restrictions.skipInitialAncestry || false;
-        /** @const {boolean} @private */
+        /** @private {boolean} */
         this.skipInitialSubtree_ = restrictions.skipInitialSubtree || false;
     }
-    /**
-     * @param {!chrome.automation.AutomationNode} node
-     * @return {boolean}
-     * @private
-     */
-    static falsePredicate_(node) {
+    static falsePredicate_(_node) {
         return false;
     }
-    /** @type {chrome.automation.AutomationNode} */
     get node() {
         return this.node_;
     }
-    /** @type {AutomationTreeWalkerPhase} */
     get phase() {
         return this.phase_;
     }
     /**
      * Moves this walker to the next node.
-     * @return {!AutomationTreeWalker} The called AutomationTreeWalker, for
-     *                                 chaining.
+     * @return The called AutomationTreeWalker, for chaining.
      */
     next() {
         if (!this.node_) {
@@ -143,10 +124,6 @@ export class AutomationTreeWalker {
         } while (this.node_ && !this.visitPred_(this.node_));
         return this;
     }
-    /**
-     * @param {!chrome.automation.AutomationNode} node
-     * @private
-     */
     forward_(node) {
         if (!this.leafPred_(node) && node.firstChild) {
             if (this.phase_ === AutomationTreeWalkerPhase.INITIAL) {
@@ -183,10 +160,6 @@ export class AutomationTreeWalker {
         }
         this.node_ = null;
     }
-    /**
-     * @param {!chrome.automation.AutomationNode} node
-     * @private
-     */
     backward_(node) {
         if (node.previousSibling) {
             this.phase_ = AutomationTreeWalkerPhase.OTHER;

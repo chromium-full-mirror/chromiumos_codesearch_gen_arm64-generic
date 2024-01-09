@@ -19,10 +19,9 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertExhaustive } from '../assert_extras.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
-import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './files_settings_card.html.js';
 import { OneDriveBrowserProxy } from './one_drive_browser_proxy.js';
@@ -41,7 +40,7 @@ export class FilesSettingsCardElement extends FilesSettingsCardElementBase {
              */
             supportedSettingIds: {
                 type: Object,
-                value: () => new Set([Setting.kGoogleDriveConnection]),
+                value: () => new Set([]),
             },
             bulkPinningPrefEnabled_: Boolean,
             driveDisabled_: Boolean,
@@ -68,13 +67,24 @@ export class FilesSettingsCardElement extends FilesSettingsCardElementBase {
                     return "loading" /* OneDriveConnectionState.LOADING */;
                 },
             },
-            shouldShowGoogleDriveSettings_: {
-                type: Boolean,
-                value: () => {
-                    return loadTimeData.getBoolean('showGoogleDriveSettingsPage') ||
-                        loadTimeData.getBoolean('enableDriveFsBulkPinning');
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            googleDrive: 'os-settings:google-drive-revamp',
+                            ms365: 'os-settings:ms365',
+                            oneDrive: 'settings20:onedrive',
+                            smbShares: 'os-settings:folder-shared',
+                        };
+                    }
+                    return {
+                        googleDrive: 'os-settings:google-drive',
+                        ms365: '',
+                        oneDrive: 'settings20:onedrive',
+                        smbShares: '',
+                    };
                 },
-                readOnly: true,
             },
             shouldShowOfficeSettings_: {
                 type: Boolean,
@@ -150,13 +160,16 @@ export class FilesSettingsCardElement extends FilesSettingsCardElementBase {
         const enabled = this.getPref('drivefs.bulk_pinning_enabled').value;
         this.bulkPinningPrefEnabled_ = enabled;
     }
-    computeGoogleDriveSublabel_() {
+    getGoogleDriveSubLabelInnerHtml_() {
         if (this.driveDisabled_) {
-            return this.i18n('googleDriveNotSignedInSublabel');
+            return this.i18nAdvanced('googleDriveNotSignedInSublabel');
+        }
+        if (this.isBulkPinningEnabled_ && this.bulkPinningPrefEnabled_) {
+            return this.i18nAdvanced('googleDriveFileSyncOnSublabel');
         }
         return (this.isBulkPinningEnabled_ && this.bulkPinningPrefEnabled_) ?
-            this.i18n('googleDriveFileSyncOnSublabel') :
-            this.i18n('googleDriveSignedInAs');
+            this.i18nAdvanced('googleDriveFileSyncOnSublabel') :
+            this.i18nAdvanced('googleDriveSignedInAs', { attrs: ['id'] });
     }
     computeOneDriveSignedInLabel_() {
         switch (this.oneDriveConnectionState_) {

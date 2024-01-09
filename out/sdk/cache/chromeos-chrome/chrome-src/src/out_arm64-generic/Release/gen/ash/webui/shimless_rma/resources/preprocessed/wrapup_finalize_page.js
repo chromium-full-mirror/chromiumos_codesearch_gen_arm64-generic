@@ -3,15 +3,16 @@
 // found in the LICENSE file.
 
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import './shimless_rma_shared_css.js';
+import './shimless_rma_shared.css.js';
 import './base_page.js';
 
 import {I18nBehavior, I18nBehaviorInterface} from 'chrome://resources/ash/common/i18n_behavior.js';
-import {html, mixinBehaviors, PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import {mixinBehaviors, PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 
 import {getShimlessRmaService} from './mojo_interface_provider.js';
-import {FinalizationError, FinalizationObserverInterface, FinalizationObserverReceiver, FinalizationStatus, RmadErrorCode, ShimlessRmaServiceInterface, StateResult} from './shimless_rma_types.js';
+import {FinalizationError, FinalizationObserverInterface, FinalizationObserverReceiver, FinalizationStatus, RmadErrorCode, ShimlessRmaServiceInterface, StateResult} from './shimless_rma.mojom-webui.js';
 import {executeThenTransitionState, focusPageTitle} from './shimless_rma_util.js';
+import {getTemplate} from './wrapup_finalize_page.html.js';
 
 /** @type {!Object<!FinalizationStatus, string>} */
 const finalizationStatusTextKeys = {
@@ -45,25 +46,7 @@ export class WrapupFinalizePage extends WrapupFinalizePageBase {
   }
 
   static get template() {
-    return html`<!--_html_template_start_-->
-<style include="cr-shared-style shimless-rma-shared">
-</style>
-
-<base-page>
-  <div slot="left-pane">
-    <h1 tabindex="-1">[[i18n('finalizePageTitleText')]]</h1>
-    <div id="finalizationMessage" class="instructions">
-      [[finalizationMessage_]]
-    </div>
-  </div>
-  <div slot="right-pane">
-    <div class="illustration-wrapper" aria-hidden="true">
-      <paper-spinner-lite active class="large-spinner">
-      </paper-spinner-lite>
-    </div>
-  </div>
-</base-page>
-<!--_html_template_end_-->`;
+    return getTemplate();
   }
 
   static get properties() {
@@ -75,7 +58,7 @@ export class WrapupFinalizePage extends WrapupFinalizePageBase {
       allButtonsDisabled: Boolean,
 
       /** @protected */
-      finalizationMessage_: {
+      finalizationMessage: {
         type: String,
         value: '',
       },
@@ -85,16 +68,16 @@ export class WrapupFinalizePage extends WrapupFinalizePageBase {
   constructor() {
     super();
     /** @private {ShimlessRmaServiceInterface} */
-    this.shimlessRmaService_ = getShimlessRmaService();
+    this.shimlessRmaService = getShimlessRmaService();
     /**
      * Receiver responsible for observing finalization progress and state.
      * @private {?FinalizationObserverReceiver}
      */
-    this.finalizationObserverReceiver_ = new FinalizationObserverReceiver(
+    this.finalizationObserverReceiver = new FinalizationObserverReceiver(
         /** @type {!FinalizationObserverInterface} */ (this));
 
-    this.shimlessRmaService_.observeFinalizationStatus(
-        this.finalizationObserverReceiver_.$.bindNewPipeAndPassRemote());
+    this.shimlessRmaService.observeFinalizationStatus(
+        this.finalizationObserverReceiver.$.bindNewPipeAndPassRemote());
   }
 
   /** @override */
@@ -121,11 +104,11 @@ export class WrapupFinalizePage extends WrapupFinalizePageBase {
         },
       }));
     } else {
-      this.finalizationMessage_ = this.i18n(finalizationStatusTextKeys[status]);
+      this.finalizationMessage = this.i18n(finalizationStatusTextKeys[status]);
 
       if (status === FinalizationStatus.kComplete) {
         executeThenTransitionState(
-            this, () => this.shimlessRmaService_.finalizationComplete());
+            this, () => this.shimlessRmaService.finalizationComplete());
         return;
       }
     }

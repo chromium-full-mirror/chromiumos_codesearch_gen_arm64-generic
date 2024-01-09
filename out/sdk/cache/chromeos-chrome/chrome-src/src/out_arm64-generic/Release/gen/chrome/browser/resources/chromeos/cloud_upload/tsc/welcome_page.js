@@ -1,7 +1,7 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { BaseSetupPageElement, CANCEL_SETUP_EVENT, NEXT_PAGE_EVENT } from './base_setup_page.js';
@@ -10,10 +10,10 @@ import { getTemplate } from './welcome_page.html.js';
  * The WelcomePageElement represents the first page in the setup flow.
  */
 export class WelcomePageElement extends BaseSetupPageElement {
+    isOfficeWebAppInstalled = false;
+    isOdfsMounted = false;
     constructor() {
         super();
-        this.isOfficeWebAppInstalled = false;
-        this.isOdfsMounted = false;
     }
     connectedCallback() {
         super.connectedCallback();

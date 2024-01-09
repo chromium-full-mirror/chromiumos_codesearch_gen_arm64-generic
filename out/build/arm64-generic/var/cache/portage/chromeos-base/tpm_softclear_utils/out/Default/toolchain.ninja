@@ -34,9 +34,7 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/tpm_softclear_utils/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/tpm_softclear_utils/_tpm_softclear-install_config.stamp: stamp
-build obj/tpm_softclear_utils/all.stamp: stamp ./tpm_softclear ./tpm_softclear_utils_testrunner
+build obj/tpm_softclear_utils/all.stamp: stamp ./tpm_softclear
 subninja obj/tpm_softclear_utils/tpm_softclear.ninja
-subninja obj/tpm_softclear_utils/tpm_softclear_utils_testrunner.ninja
 subninja obj/tpm_softclear_utils/utility_library.ninja

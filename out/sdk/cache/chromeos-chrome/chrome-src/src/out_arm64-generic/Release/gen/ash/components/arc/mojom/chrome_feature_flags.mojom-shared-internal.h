@@ -58,13 +58,16 @@ class  FeatureFlags_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint8_t qs_revamp : 1;
+  uint8_t deprecated_qs_revamp : 1;
   uint8_t jelly_colors : 1;
-  uint8_t trackpad_scroll_touchscreen_emulation : 1;
+  uint8_t deprecated_trackpad_scroll_touchscreen_emulation : 1;
   uint8_t touchscreen_emulation : 1;
   uint8_t xdg_mode : 1;
   uint8_t enable_pip_double_tap : 1;
-  uint8_t pad5_[3];
+  uint8_t render_arc_notifications_by_chrome : 1;
+  uint8_t game_dashboard : 1;
+  uint8_t resize_compat : 1;
+  uint8_t pad8_[2];
   int32_t rounded_window_compat_strategy;
   int32_t rounded_window_radius;
   uint8_t padfinal_[4];

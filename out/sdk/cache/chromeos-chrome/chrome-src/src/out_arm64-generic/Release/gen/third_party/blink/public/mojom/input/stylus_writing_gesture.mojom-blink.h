@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/input/stylus_writing_gesture.mojom-features.h"
 #include "third_party/blink/public/mojom/input/stylus_writing_gesture.mojom-shared.h"
 #include "third_party/blink/public/mojom/input/stylus_writing_gesture.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/string16.mojom-blink.h"
@@ -39,30 +40,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::StylusWritingGestureAction>
-    : EnumHashTraits<::blink::mojom::StylusWritingGestureAction, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::StylusWritingGestureGranularity>
-    : EnumHashTraits<::blink::mojom::StylusWritingGestureGranularity, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -104,7 +81,7 @@ class PLATFORM_EXPORT StylusWritingGestureData {
       StylusWritingGestureAction action,
       StylusWritingGestureGranularity granularity,
       const ::gfx::Rect& start_rect,
-      const absl::optional<::gfx::Rect>& end_rect,
+      const std::optional<::gfx::Rect>& end_rect,
       const ::WTF::String& text_alternative,
       const ::WTF::String& text_to_insert);
 
@@ -190,7 +167,7 @@ class PLATFORM_EXPORT StylusWritingGestureData {
   
   ::gfx::Rect start_rect;
   
-  absl::optional<::gfx::Rect> end_rect;
+  std::optional<::gfx::Rect> end_rect;
   
   ::WTF::String text_alternative;
   

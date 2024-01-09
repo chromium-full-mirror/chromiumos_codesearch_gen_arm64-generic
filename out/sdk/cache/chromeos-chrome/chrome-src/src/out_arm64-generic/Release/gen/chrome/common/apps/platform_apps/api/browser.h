@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct OpenTabOptions {
   ~OpenTabOptions();
   OpenTabOptions(const OpenTabOptions&) = delete;
   OpenTabOptions& operator=(const OpenTabOptions&) = delete;
-  OpenTabOptions(OpenTabOptions&& rhs);
-  OpenTabOptions& operator=(OpenTabOptions&& rhs);
+  OpenTabOptions(OpenTabOptions&& rhs) noexcept;
+  OpenTabOptions& operator=(OpenTabOptions&& rhs) noexcept;
 
   // Populates a OpenTabOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,15 +47,12 @@ struct OpenTabOptions {
   // Creates a deep copy of OpenTabOptions.
   OpenTabOptions Clone() const;
 
-  // Creates a OpenTabOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<OpenTabOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a OpenTabOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<OpenTabOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<OpenTabOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a OpenTabOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<OpenTabOptions> FromValue(const base::Value& value);
+  static std::optional<OpenTabOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOpenTabOptions object.
@@ -73,11 +71,11 @@ struct OpenTabOptions {
 namespace OpenTab {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Configures how the tab should be opened.

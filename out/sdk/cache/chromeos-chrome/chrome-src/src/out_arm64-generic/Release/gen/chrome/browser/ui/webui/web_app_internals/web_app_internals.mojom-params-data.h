@@ -116,68 +116,6 @@ class  WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Re
 };
 static_assert(sizeof(WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParams_Data) == 16,
               "Bad sizeof(WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParams_Data)");
-class  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data>;
-
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data();
-  ~WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data() = delete;
-};
-static_assert(sizeof(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data) == 8,
-              "Bad sizeof(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data)");
-class  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> result;
-
- private:
-  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data>;
-
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data();
-  ~WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data) == 16,
-              "Bad sizeof(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data)");
-class  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data>;
-
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data();
-  ~WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data() = delete;
-};
-static_assert(sizeof(WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data) == 8,
-              "Bad sizeof(WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data)");
-class  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::IwaDevProxyAppInfo_Data>>> apps;
-
- private:
-  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data>;
-
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data();
-  ~WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data) == 16,
-              "Bad sizeof(WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data)");
 class  WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -210,6 +148,100 @@ class  WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParams_Data {
 };
 static_assert(sizeof(WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParams_Data) == 16,
               "Bad sizeof(WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParams_Data)");
+class  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> app_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data>;
+
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data();
+  ~WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data() = delete;
+};
+static_assert(sizeof(WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data) == 16,
+              "Bad sizeof(WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data)");
+class  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data>;
+
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data();
+  ~WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data) == 16,
+              "Bad sizeof(WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data)");
+class  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data>;
+
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data();
+  ~WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data() = delete;
+};
+static_assert(sizeof(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data) == 8,
+              "Bad sizeof(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data)");
+class  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data>;
+
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data();
+  ~WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data) == 16,
+              "Bad sizeof(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data)");
+class  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data>;
+
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data();
+  ~WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data() = delete;
+};
+static_assert(sizeof(WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data) == 8,
+              "Bad sizeof(WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data)");
+class  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::IwaDevModeAppInfo_Data>>> apps;
+
+ private:
+  friend class mojo::internal::MessageFragment<WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data>;
+
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data();
+  ~WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data) == 16,
+              "Bad sizeof(WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -348,88 +380,6 @@ class WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Res
 };
 
 
-class WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsDataView {
- public:
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsDataView() = default;
-
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsDataView(
-      internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data* data_ = nullptr;
-};
-
-
-class WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView {
- public:
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView() = default;
-
-  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView(
-      internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetResultDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) {
-    
-    auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ParamsDataView {
- public:
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ParamsDataView() = default;
-
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ParamsDataView(
-      internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data* data_ = nullptr;
-};
-
-
-class WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsDataView {
- public:
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsDataView() = default;
-
-  WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsDataView(
-      internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetAppsDataView(
-      mojo::ArrayDataView<IwaDevProxyAppInfoDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadApps(UserType* output) {
-    
-    auto* pointer = data_->apps.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::mojom::IwaDevProxyAppInfoDataView>>(
-        pointer, output, message_);
-  }
- private:
-  internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsDataView {
  public:
   WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsDataView() = default;
@@ -482,6 +432,140 @@ class WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsDataView
 };
 
 
+class WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsDataView {
+ public:
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsDataView() = default;
+
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsDataView(
+      internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAppIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAppId(UserType* output) {
+    
+    auto* pointer = data_->app_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsDataView {
+ public:
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsDataView() = default;
+
+  WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsDataView(
+      internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsDataView {
+ public:
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsDataView() = default;
+
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsDataView(
+      internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data* data_ = nullptr;
+};
+
+
+class WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView {
+ public:
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView() = default;
+
+  WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView(
+      internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsDataView {
+ public:
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsDataView() = default;
+
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsDataView(
+      internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data* data_ = nullptr;
+};
+
+
+class WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsDataView {
+ public:
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsDataView() = default;
+
+  WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsDataView(
+      internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAppsDataView(
+      mojo::ArrayDataView<IwaDevModeAppInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadApps(UserType* output) {
+    
+    auto* pointer = data_->apps.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::mojom::IwaDevModeAppInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void WebAppInternalsHandler_GetDebugInfoAsJsonString_ResponseParamsDataView::GetResultDataView(
     mojo::StringDataView* output) {
@@ -513,24 +597,6 @@ inline void WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBund
 }
 
 
-
-
-inline void WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView::GetResultDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->result.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-
-
-
-
-inline void WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsDataView::GetAppsDataView(
-    mojo::ArrayDataView<IwaDevProxyAppInfoDataView>* output) {
-  auto pointer = data_->apps.Get();
-  *output = mojo::ArrayDataView<IwaDevProxyAppInfoDataView>(pointer, message_);
-}
-
-
 inline void WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsDataView::GetAppIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->app_id.Get();
@@ -542,6 +608,38 @@ inline void WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsDa
     mojo::StringDataView* output) {
   auto pointer = data_->result.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsDataView::GetAppIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->app_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsDataView::GetResultDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView::GetResultDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsDataView::GetAppsDataView(
+    mojo::ArrayDataView<IwaDevModeAppInfoDataView>* output) {
+  auto pointer = data_->apps.Get();
+  *output = mojo::ArrayDataView<IwaDevModeAppInfoDataView>(pointer, message_);
 }
 
 

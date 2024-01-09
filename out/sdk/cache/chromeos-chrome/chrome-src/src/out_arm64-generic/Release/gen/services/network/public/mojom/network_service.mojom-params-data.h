@@ -376,22 +376,6 @@ class  NetworkService_OnPeerToPeerConnectionsCountChange_Params_Data {
 };
 static_assert(sizeof(NetworkService_OnPeerToPeerConnectionsCountChange_Params_Data) == 16,
               "Bad sizeof(NetworkService_OnPeerToPeerConnectionsCountChange_Params_Data)");
-class  NetworkService_SetEnvironment_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::EnvironmentVariable_Data>>> environment;
-
- private:
-  friend class mojo::internal::MessageFragment<NetworkService_SetEnvironment_Params_Data>;
-
-  NetworkService_SetEnvironment_Params_Data();
-  ~NetworkService_SetEnvironment_Params_Data() = delete;
-};
-static_assert(sizeof(NetworkService_SetEnvironment_Params_Data) == 16,
-              "Bad sizeof(NetworkService_SetEnvironment_Params_Data)");
 class  NetworkService_SetTrustTokenKeyCommitments_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -461,7 +445,6 @@ class  NetworkService_UpdateCtLogList_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::CTLogInfo_Data>>> log_list;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> update_time;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkService_UpdateCtLogList_Params_Data>;
@@ -469,7 +452,7 @@ class  NetworkService_UpdateCtLogList_Params_Data {
   NetworkService_UpdateCtLogList_Params_Data();
   ~NetworkService_UpdateCtLogList_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkService_UpdateCtLogList_Params_Data) == 24,
+static_assert(sizeof(NetworkService_UpdateCtLogList_Params_Data) == 16,
               "Bad sizeof(NetworkService_UpdateCtLogList_Params_Data)");
 class  NetworkService_UpdateCtLogList_ResponseParams_Data {
  public:
@@ -698,6 +681,22 @@ class  NetworkService_SetIPv6ReachabilityOverride_Params_Data {
 };
 static_assert(sizeof(NetworkService_SetIPv6ReachabilityOverride_Params_Data) == 16,
               "Bad sizeof(NetworkService_SetIPv6ReachabilityOverride_Params_Data)");
+class  NetworkService_SetCookieEncryptionProvider_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data provider;
+
+ private:
+  friend class mojo::internal::MessageFragment<NetworkService_SetCookieEncryptionProvider_Params_Data>;
+
+  NetworkService_SetCookieEncryptionProvider_Params_Data();
+  ~NetworkService_SetCookieEncryptionProvider_Params_Data() = delete;
+};
+static_assert(sizeof(NetworkService_SetCookieEncryptionProvider_Params_Data) == 16,
+              "Bad sizeof(NetworkService_SetCookieEncryptionProvider_Params_Data)");
 
 }  // namespace internal
 
@@ -1256,32 +1255,6 @@ class NetworkService_OnPeerToPeerConnectionsCountChange_ParamsDataView {
 };
 
 
-class NetworkService_SetEnvironment_ParamsDataView {
- public:
-  NetworkService_SetEnvironment_ParamsDataView() = default;
-
-  NetworkService_SetEnvironment_ParamsDataView(
-      internal::NetworkService_SetEnvironment_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetEnvironmentDataView(
-      mojo::ArrayDataView<EnvironmentVariableDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadEnvironment(UserType* output) {
-    
-    auto* pointer = data_->environment.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::EnvironmentVariableDataView>>(
-        pointer, output, message_);
-  }
- private:
-  internal::NetworkService_SetEnvironment_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class NetworkService_SetTrustTokenKeyCommitments_ParamsDataView {
  public:
   NetworkService_SetTrustTokenKeyCommitments_ParamsDataView() = default;
@@ -1382,16 +1355,6 @@ class NetworkService_UpdateCtLogList_ParamsDataView {
     
     auto* pointer = data_->log_list.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::CTLogInfoDataView>>(
-        pointer, output, message_);
-  }
-  inline void GetUpdateTimeDataView(
-      ::mojo_base::mojom::TimeDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadUpdateTime(UserType* output) {
-    
-    auto* pointer = data_->update_time.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
         pointer, output, message_);
   }
  private:
@@ -1725,6 +1688,31 @@ class NetworkService_SetIPv6ReachabilityOverride_ParamsDataView {
   internal::NetworkService_SetIPv6ReachabilityOverride_Params_Data* data_ = nullptr;
 };
 
+
+class NetworkService_SetCookieEncryptionProvider_ParamsDataView {
+ public:
+  NetworkService_SetCookieEncryptionProvider_ParamsDataView() = default;
+
+  NetworkService_SetCookieEncryptionProvider_ParamsDataView(
+      internal::NetworkService_SetCookieEncryptionProvider_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeProvider() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::network::mojom::CookieEncryptionProviderInterfaceBase>>(
+            &data_->provider, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::NetworkService_SetCookieEncryptionProvider_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void NetworkService_SetParams_ParamsDataView::GetParamsDataView(
     NetworkServiceParamsDataView* output) {
   auto pointer = data_->params.Get();
@@ -1822,13 +1810,6 @@ inline void NetworkService_SetEncryptionKey_ParamsDataView::GetEncryptionKeyData
 
 
 
-inline void NetworkService_SetEnvironment_ParamsDataView::GetEnvironmentDataView(
-    mojo::ArrayDataView<EnvironmentVariableDataView>* output) {
-  auto pointer = data_->environment.Get();
-  *output = mojo::ArrayDataView<EnvironmentVariableDataView>(pointer, message_);
-}
-
-
 inline void NetworkService_SetTrustTokenKeyCommitments_ParamsDataView::GetRawCommitmentsDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->raw_commitments.Get();
@@ -1851,11 +1832,6 @@ inline void NetworkService_UpdateCtLogList_ParamsDataView::GetLogListDataView(
     mojo::ArrayDataView<::network::mojom::CTLogInfoDataView>* output) {
   auto pointer = data_->log_list.Get();
   *output = mojo::ArrayDataView<::network::mojom::CTLogInfoDataView>(pointer, message_);
-}
-inline void NetworkService_UpdateCtLogList_ParamsDataView::GetUpdateTimeDataView(
-    ::mojo_base::mojom::TimeDataView* output) {
-  auto pointer = data_->update_time.Get();
-  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
 }
 
 
@@ -1926,6 +1902,8 @@ inline void NetworkService_ParseHeaders_ResponseParamsDataView::GetParsedHeaders
   auto pointer = data_->parsed_headers.Get();
   *output = ::network::mojom::ParsedHeadersDataView(pointer, message_);
 }
+
+
 
 
 

@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/missive-0.0.1-r776/work/missive-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -96,20 +96,13 @@ build test_proto: phony ./libtest_proto.a
 build test_proto_gen: phony obj/missive/proto/test_proto_gen.stamp
 build test_support: phony ./libtest_support.a
 build testing_primitives: phony ./libtesting_primitives.a
-build testrunner: phony ./libtestrunner.a
 build time: phony ./libtime.a
 build upload_client: phony ./libupload_client.a
 build upload_client_impl: phony ./libupload_client_impl.a
 build upload_job: phony ./libupload_job.a
 build verification: phony ./libverification.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build featured$:all: phony obj/featured/all.stamp
-build featured$:c_fake_feature_check_example: phony ./c_fake_feature_check_example
-build featured$:c_feature_check_example: phony ./c_feature_check_example
-build featured$:cpp_feature_check_example: phony ./cpp_feature_check_example
-build featured$:feature_library_test: phony ./feature_library_test
 build featured$:featured: phony ./featured
 build featured$:featured-adaptors: phony obj/featured/featured-adaptors.stamp
 build featured$:libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
@@ -119,15 +112,11 @@ build featured$:libfeatures: phony ./lib/libfeatures.so
 build featured$:libfeatures_c: phony ./lib/libfeatures_c.so
 build featured$:libstore_impl: phony ./libstore_impl.a
 build featured$:libtmp_storage_impl: phony ./libtmp_storage_impl.a
-build featured$:service_test: phony ./service_test
-build featured$:store_impl_test: phony ./store_impl_test
 build missive$:all: phony obj/missive/all.stamp
 build missive$:libmissiveclient_pc: phony obj/missive/libmissiveclient_pc.stamp
-build missive$:missive_testing_tool: phony ./missive_testing_tool
 build missive$:missiveclientlib: phony ./libmissiveclientlib.a
 build missive$:missiveclienttestlib: phony ./libmissiveclienttestlib.a
 build missive$:missived: phony ./missived
-build missive$:missived_testrunner: phony ./missived_testrunner
 build missive/analytics$:libanalytics: phony ./libanalytics.a
 build missive/analytics$:unit_tests: phony obj/missive/analytics/unit_tests.stamp
 build missive/client$:client_test_support: phony ./libclient_test_support.a
@@ -212,12 +201,7 @@ build missive/util$:time: phony ./libtime.a
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/featured/all.stamp $
-    ./c_fake_feature_check_example $
-    ./c_feature_check_example $
-    ./cpp_feature_check_example $
-    ./feature_library_test $
     ./featured $
     obj/featured/featured-adaptors.stamp $
     ./lib/libc_fake_feature_library.so $
@@ -227,15 +211,11 @@ build all: phony $
     ./lib/libfeatures_c.so $
     ./libstore_impl.a $
     ./libtmp_storage_impl.a $
-    ./service_test $
-    ./store_impl_test $
     obj/missive/all.stamp $
     obj/missive/libmissiveclient_pc.stamp $
-    ./missive_testing_tool $
     ./libmissiveclientlib.a $
     ./libmissiveclienttestlib.a $
     ./missived $
-    ./missived_testrunner $
     ./libanalytics.a $
     obj/missive/analytics/unit_tests.stamp $
     ./libclient_test_support.a $

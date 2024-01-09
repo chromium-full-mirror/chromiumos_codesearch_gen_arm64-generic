@@ -264,8 +264,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'waitForDebugger', 40,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 48],]);
+    [[0, 56],]);
 
 
 
@@ -284,6 +292,8 @@ export class WorkletGlobalScopeCreationParams {
     this.devtoolsToken;
     /** @type { !WorkletDevToolsHostRemote } */
     this.devtoolsHost;
+    /** @type { !boolean } */
+    this.waitForDebugger;
   }
 }
 

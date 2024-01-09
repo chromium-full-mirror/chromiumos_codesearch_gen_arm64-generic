@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XSLTProcessor>::value,
     "XSLTProcessor inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XSLTProcessor::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XSLTProcessor is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -127,8 +122,9 @@ BLINK_BINDINGS_TRACE_EVENT("XSLTProcessor.clearParameters");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(v8_receiver);
+XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->clearParameters();
 
 }
@@ -154,7 +150,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(v8_receiver);
+XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -188,7 +184,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(v8_receiver);
+XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_style = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -218,7 +214,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(v8_receiver);
+XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -242,8 +238,9 @@ BLINK_BINDINGS_TRACE_EVENT("XSLTProcessor.reset");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(v8_receiver);
+XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->reset();
 
 }
@@ -269,7 +266,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(v8_receiver);
+XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -307,7 +304,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(v8_receiver);
+XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_source = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -337,7 +334,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(v8_receiver);
+XSLTProcessor* blink_receiver = V8XSLTProcessor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_source = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

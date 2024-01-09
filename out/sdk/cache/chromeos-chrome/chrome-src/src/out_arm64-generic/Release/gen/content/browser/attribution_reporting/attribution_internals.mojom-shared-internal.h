@@ -12,6 +12,7 @@
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "components/attribution_reporting/registration.mojom-shared-internal.h"
 #include "components/attribution_reporting/source_type.mojom-shared-internal.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-shared-internal.h"
 #include "content/browser/attribution_reporting/aggregatable_result.mojom-shared-internal.h"
 #include "content/browser/attribution_reporting/attribution_reporting.mojom-shared-internal.h"
 #include "content/browser/attribution_reporting/event_level_result.mojom-shared-internal.h"
@@ -608,18 +609,22 @@ class  WebUISource_Data {
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> reporting_origin;
   double source_time;
   double expiry_time;
-  mojo::internal::Pointer<::attribution_reporting::mojom::internal::EventReportWindows_Data> event_report_windows;
+  mojo::internal::Pointer<mojo::internal::String_Data> trigger_specs_json;
   double aggregatable_report_window_time;
   int32_t max_event_level_reports;
   int32_t source_type;
   int64_t priority;
-  mojo::internal::Pointer<::attribution_reporting::mojom::internal::DebugKey_Data> debug_key;
+  uint8_t debug_key_$flag : 1;
+  uint8_t debug_cookie_set : 1;
+  uint8_t pad12_[3];
+  int32_t trigger_data_matching;
+  uint64_t debug_key_$value;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint64_t>> dedup_keys;
-  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>>>> filter_data;
+  mojo::internal::Pointer<::attribution_reporting::mojom::internal::FilterData_Data> filter_data;
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::String_Data>>> aggregation_keys;
   uint64_t aggregatable_budget_consumed;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint64_t>> aggregatable_dedup_keys;
-  mojo::internal::Pointer<::attribution_reporting::mojom::internal::TriggerConfig_Data> trigger_config;
+  double event_level_epsilon;
   int32_t attributability;
   uint8_t padfinal_[4];
 
@@ -629,7 +634,7 @@ class  WebUISource_Data {
   WebUISource_Data();
   ~WebUISource_Data() = delete;
 };
-static_assert(sizeof(WebUISource_Data) == 152,
+static_assert(sizeof(WebUISource_Data) == 160,
               "Bad sizeof(WebUISource_Data)");
 // Used by WebUISource::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -673,7 +678,9 @@ class  WebUIRegistration_Data {
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> context_origin;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> reporting_origin;
   mojo::internal::Pointer<mojo::internal::String_Data> registration_json;
-  mojo::internal::Pointer<::attribution_reporting::mojom::internal::DebugKey_Data> cleared_debug_key;
+  uint8_t cleared_debug_key_$flag : 1;
+  uint8_t pad4_[7];
+  uint64_t cleared_debug_key_$value;
 
  private:
   friend class mojo::internal::MessageFragment<WebUIRegistration_Data>;
@@ -681,7 +688,7 @@ class  WebUIRegistration_Data {
   WebUIRegistration_Data();
   ~WebUIRegistration_Data() = delete;
 };
-static_assert(sizeof(WebUIRegistration_Data) == 48,
+static_assert(sizeof(WebUIRegistration_Data) == 56,
               "Bad sizeof(WebUIRegistration_Data)");
 // Used by WebUIRegistration::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

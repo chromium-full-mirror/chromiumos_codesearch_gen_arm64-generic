@@ -806,7 +806,7 @@ return;
 
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_ident;
 if (LIKELY(info[0]->IsString())) {
-  arg1_ident.Init(info[0].As<v8::String>());
+  arg1_ident.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSS";
@@ -1719,7 +1719,7 @@ ExecutionContext* current_execution_context = ExecutionContext::From(current_con
 ExecutionContext* execution_context = current_execution_context;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_property;
 if (LIKELY(info[0]->IsString())) {
-  arg1_property.Init(info[0].As<v8::String>());
+  arg1_property.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSS";
@@ -1732,7 +1732,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_value;
 if (LIKELY(info[1]->IsString())) {
-  arg2_value.Init(info[1].As<v8::String>());
+  arg2_value.Init(isolate, info[1].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSS";
@@ -1769,7 +1769,7 @@ ExecutionContext* current_execution_context = ExecutionContext::From(current_con
 ExecutionContext* execution_context = current_execution_context;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_condition_text;
 if (LIKELY(info[0]->IsString())) {
-  arg1_condition_text.Init(info[0].As<v8::String>());
+  arg1_condition_text.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSS";
@@ -2257,6 +2257,14 @@ InstallContextIndependentProperties(isolate, world, instance_template, prototype
 void V8CSS::Impl::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
+v8::Local<v8::Signature> signature;
+{
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"highlights", HighlightsAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+
 
 
 
@@ -2302,7 +2310,6 @@ void V8CSS::Impl::InstallUnconditionalProperties(v8::Isolate* isolate, const DOM
 {"vmin", VminStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"vw", VwStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
-v8::Local<v8::Signature> signature;
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }
 
@@ -2313,13 +2320,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 void V8CSS::Impl::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
-if (RuntimeEnabledFeatures::HighlightAPIEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"highlights", HighlightsAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::Signature> signature;
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
 
 
 

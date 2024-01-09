@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -66,9 +67,9 @@ Tab::Tab(
     std::vector<::TabAlertState> alert_states_in,
     bool blocked_in,
     bool crashed_in,
-    const absl::optional<::GURL>& favicon_url_in,
-    const absl::optional<::GURL>& active_favicon_url_in,
-    const absl::optional<std::string>& group_id_in,
+    const std::optional<::GURL>& favicon_url_in,
+    const std::optional<::GURL>& active_favicon_url_in,
+    const std::optional<std::string>& group_id_in,
     int32_t id_in,
     int32_t index_in,
     bool is_default_favicon_in,
@@ -140,7 +141,7 @@ void Tab::WriteIntoTrace(
     dict.AddItem(
       "favicon_url"), this->favicon_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -149,7 +150,7 @@ void Tab::WriteIntoTrace(
     dict.AddItem(
       "active_favicon_url"), this->active_favicon_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -158,7 +159,7 @@ void Tab::WriteIntoTrace(
     dict.AddItem(
       "group_id"), this->group_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -383,14 +384,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -478,10 +482,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -922,14 +926,17 @@ void PageHandlerProxy::GetGroupVisualData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_strip::mojom::PageHandler::GetGroupVisualData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetGroupVisualData_Name, kFlags, 0, 0, nullptr);
@@ -953,14 +960,17 @@ void PageHandlerProxy::GetTabs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_strip::mojom::PageHandler::GetTabs");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetTabs_Name, kFlags, 0, 0, nullptr);
@@ -994,14 +1004,17 @@ void PageHandlerProxy::CloseTab(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_CloseTab_Name, kFlags, 0, 0, nullptr);
@@ -1036,14 +1049,17 @@ void PageHandlerProxy::GroupTab(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GroupTab_Name, kFlags, 0, 0, nullptr);
@@ -1088,14 +1104,17 @@ void PageHandlerProxy::MoveGroup(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_MoveGroup_Name, kFlags, 0, 0, nullptr);
@@ -1140,14 +1159,17 @@ void PageHandlerProxy::MoveTab(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_MoveTab_Name, kFlags, 0, 0, nullptr);
@@ -1182,14 +1204,17 @@ void PageHandlerProxy::SetThumbnailTracked(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetThumbnailTracked_Name, kFlags, 0, 0, nullptr);
@@ -1221,14 +1246,17 @@ void PageHandlerProxy::UngroupTab(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_UngroupTab_Name, kFlags, 0, 0, nullptr);
@@ -1252,14 +1280,17 @@ void PageHandlerProxy::GetLayout(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_strip::mojom::PageHandler::GetLayout");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetLayout_Name, kFlags, 0, 0, nullptr);
@@ -1302,14 +1333,17 @@ void PageHandlerProxy::ShowEditDialogForGroup(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowEditDialogForGroup_Name, kFlags, 0, 0, nullptr);
@@ -1360,14 +1394,17 @@ void PageHandlerProxy::ShowTabContextMenu(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowTabContextMenu_Name, kFlags, 0, 0, nullptr);
@@ -1403,14 +1440,17 @@ void PageHandlerProxy::ShowBackgroundContextMenu(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowBackgroundContextMenu_Name, kFlags, 0, 0, nullptr);
@@ -1435,14 +1475,17 @@ void PageHandlerProxy::CloseContainer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_strip::mojom::PageHandler::CloseContainer");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_CloseContainer_Name, kFlags, 0, 0, nullptr);
@@ -1472,14 +1515,17 @@ void PageHandlerProxy::ReportTabActivationDuration(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ReportTabActivationDuration_Name, kFlags, 0, 0, nullptr);
@@ -1513,14 +1559,17 @@ void PageHandlerProxy::ReportTabDataReceivedDuration(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ReportTabDataReceivedDuration_Name, kFlags, 0, 0, nullptr);
@@ -1555,14 +1604,17 @@ void PageHandlerProxy::ReportTabCreationDuration(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ReportTabCreationDuration_Name, kFlags, 0, 0, nullptr);
@@ -1594,14 +1646,17 @@ void PageHandlerProxy::ActivateTab(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ActivateTab_Name, kFlags, 0, 0, nullptr);
@@ -1711,7 +1766,8 @@ void PageHandler_GetGroupVisualData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetGroupVisualData_Name, kFlags, 0, 0, nullptr);
@@ -1841,7 +1897,8 @@ void PageHandler_GetTabs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetTabs_Name, kFlags, 0, 0, nullptr);
@@ -1971,7 +2028,8 @@ void PageHandler_GetLayout_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetLayout_Name, kFlags, 0, 0, nullptr);
@@ -2573,42 +2631,42 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetGroupVisualData_Params_Data::Validate,
+    { &internal::PageHandler_GetGroupVisualData_Params_Data::Validate,
      &internal::PageHandler_GetGroupVisualData_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetTabs_Params_Data::Validate,
+    { &internal::PageHandler_GetTabs_Params_Data::Validate,
      &internal::PageHandler_GetTabs_ResponseParams_Data::Validate},
-    {&internal::PageHandler_CloseTab_Params_Data::Validate,
+    { &internal::PageHandler_CloseTab_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GroupTab_Params_Data::Validate,
+    { &internal::PageHandler_GroupTab_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_MoveGroup_Params_Data::Validate,
+    { &internal::PageHandler_MoveGroup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_MoveTab_Params_Data::Validate,
+    { &internal::PageHandler_MoveTab_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetThumbnailTracked_Params_Data::Validate,
+    { &internal::PageHandler_SetThumbnailTracked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_UngroupTab_Params_Data::Validate,
+    { &internal::PageHandler_UngroupTab_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetLayout_Params_Data::Validate,
+    { &internal::PageHandler_GetLayout_Params_Data::Validate,
      &internal::PageHandler_GetLayout_ResponseParams_Data::Validate},
-    {&internal::PageHandler_ShowEditDialogForGroup_Params_Data::Validate,
+    { &internal::PageHandler_ShowEditDialogForGroup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ShowTabContextMenu_Params_Data::Validate,
+    { &internal::PageHandler_ShowTabContextMenu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ShowBackgroundContextMenu_Params_Data::Validate,
+    { &internal::PageHandler_ShowBackgroundContextMenu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_CloseContainer_Params_Data::Validate,
+    { &internal::PageHandler_CloseContainer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ReportTabActivationDuration_Params_Data::Validate,
+    { &internal::PageHandler_ReportTabActivationDuration_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ReportTabDataReceivedDuration_Params_Data::Validate,
+    { &internal::PageHandler_ReportTabDataReceivedDuration_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ReportTabCreationDuration_Params_Data::Validate,
+    { &internal::PageHandler_ReportTabCreationDuration_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ActivateTab_Params_Data::Validate,
+    { &internal::PageHandler_ActivateTab_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3032,14 +3090,17 @@ void PageProxy::LayoutChanged(
                         "<value of type const base::flat_map<std::string, std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_LayoutChanged_Name, kFlags, 0, 0, nullptr);
@@ -3075,14 +3136,17 @@ void PageProxy::ReceivedKeyboardFocus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_strip::mojom::Page::ReceivedKeyboardFocus");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_ReceivedKeyboardFocus_Name, kFlags, 0, 0, nullptr);
@@ -3105,14 +3169,17 @@ void PageProxy::ContextMenuClosed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_strip::mojom::Page::ContextMenuClosed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_ContextMenuClosed_Name, kFlags, 0, 0, nullptr);
@@ -3135,14 +3202,17 @@ void PageProxy::LongPress(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_strip::mojom::Page::LongPress");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_LongPress_Name, kFlags, 0, 0, nullptr);
@@ -3175,14 +3245,17 @@ void PageProxy::TabGroupVisualsChanged(
                         "<value of type TabGroupVisualDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabGroupVisualsChanged_Name, kFlags, 0, 0, nullptr);
@@ -3237,14 +3310,17 @@ void PageProxy::TabGroupMoved(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabGroupMoved_Name, kFlags, 0, 0, nullptr);
@@ -3286,14 +3362,17 @@ void PageProxy::TabGroupClosed(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabGroupClosed_Name, kFlags, 0, 0, nullptr);
@@ -3323,7 +3402,7 @@ void PageProxy::TabGroupClosed(
 }
 
 void PageProxy::TabGroupStateChanged(
-    int32_t in_tab_id, int32_t in_index, const absl::optional<std::string>& in_group_id) {
+    int32_t in_tab_id, int32_t in_index, const std::optional<std::string>& in_group_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send tab_strip::mojom::Page::TabGroupStateChanged", "input_parameters",
@@ -3337,17 +3416,20 @@ void PageProxy::TabGroupStateChanged(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("group_id"), in_group_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabGroupStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -3386,14 +3468,17 @@ void PageProxy::TabCloseCancelled(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabCloseCancelled_Name, kFlags, 0, 0, nullptr);
@@ -3424,14 +3509,17 @@ void PageProxy::TabCreated(
                         "<value of type TabPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabCreated_Name, kFlags, 0, 0, nullptr);
@@ -3472,14 +3560,17 @@ void PageProxy::TabRemoved(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabRemoved_Name, kFlags, 0, 0, nullptr);
@@ -3516,14 +3607,17 @@ void PageProxy::TabMoved(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabMoved_Name, kFlags, 0, 0, nullptr);
@@ -3559,14 +3653,17 @@ void PageProxy::TabReplaced(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabReplaced_Name, kFlags, 0, 0, nullptr);
@@ -3598,14 +3695,17 @@ void PageProxy::TabActiveChanged(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabActiveChanged_Name, kFlags, 0, 0, nullptr);
@@ -3636,14 +3736,17 @@ void PageProxy::TabUpdated(
                         "<value of type TabPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabUpdated_Name, kFlags, 0, 0, nullptr);
@@ -3687,14 +3790,17 @@ void PageProxy::TabThumbnailUpdated(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_TabThumbnailUpdated_Name, kFlags, 0, 0, nullptr);
@@ -3729,14 +3835,17 @@ void PageProxy::ShowContextMenu(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_strip::mojom::Page::ShowContextMenu");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_ShowContextMenu_Name, kFlags, 0, 0, nullptr);
@@ -3759,14 +3868,17 @@ void PageProxy::ThemeChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tab_strip::mojom::Page::ThemeChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_ThemeChanged_Name, kFlags, 0, 0, nullptr);
@@ -3977,7 +4089,7 @@ std::move(p_group_id));
       bool success = true;
       int32_t p_tab_id{};
       int32_t p_index{};
-      absl::optional<std::string> p_group_id{};
+      std::optional<std::string> p_group_id{};
       Page_TabGroupStateChanged_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -4339,44 +4451,44 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_LayoutChanged_Params_Data::Validate,
+    { &internal::Page_LayoutChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_ReceivedKeyboardFocus_Params_Data::Validate,
+    { &internal::Page_ReceivedKeyboardFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_ContextMenuClosed_Params_Data::Validate,
+    { &internal::Page_ContextMenuClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_LongPress_Params_Data::Validate,
+    { &internal::Page_LongPress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabGroupVisualsChanged_Params_Data::Validate,
+    { &internal::Page_TabGroupVisualsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabGroupMoved_Params_Data::Validate,
+    { &internal::Page_TabGroupMoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabGroupClosed_Params_Data::Validate,
+    { &internal::Page_TabGroupClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabGroupStateChanged_Params_Data::Validate,
+    { &internal::Page_TabGroupStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabCloseCancelled_Params_Data::Validate,
+    { &internal::Page_TabCloseCancelled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabCreated_Params_Data::Validate,
+    { &internal::Page_TabCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabRemoved_Params_Data::Validate,
+    { &internal::Page_TabRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabMoved_Params_Data::Validate,
+    { &internal::Page_TabMoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabReplaced_Params_Data::Validate,
+    { &internal::Page_TabReplaced_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabActiveChanged_Params_Data::Validate,
+    { &internal::Page_TabActiveChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabUpdated_Params_Data::Validate,
+    { &internal::Page_TabUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_TabThumbnailUpdated_Params_Data::Validate,
+    { &internal::Page_TabThumbnailUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_ShowContextMenu_Params_Data::Validate,
+    { &internal::Page_ShowContextMenu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_ThemeChanged_Params_Data::Validate,
+    { &internal::Page_ThemeChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4624,7 +4736,7 @@ void PageInterceptorForTesting::TabGroupMoved(const std::string& group_id, int32
 void PageInterceptorForTesting::TabGroupClosed(const std::string& group_id) {
   GetForwardingInterface()->TabGroupClosed(std::move(group_id));
 }
-void PageInterceptorForTesting::TabGroupStateChanged(int32_t tab_id, int32_t index, const absl::optional<std::string>& group_id) {
+void PageInterceptorForTesting::TabGroupStateChanged(int32_t tab_id, int32_t index, const std::optional<std::string>& group_id) {
   GetForwardingInterface()->TabGroupStateChanged(std::move(tab_id), std::move(index), std::move(group_id));
 }
 void PageInterceptorForTesting::TabCloseCancelled(int32_t tab_id) {

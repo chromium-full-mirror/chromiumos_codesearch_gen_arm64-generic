@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -51,11 +52,11 @@ base::Value::List Create(double creation_time);
 namespace GetToken {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Parameters for getToken.
@@ -64,8 +65,8 @@ struct Params {
     ~GetTokenParams();
     GetTokenParams(const GetTokenParams&) = delete;
     GetTokenParams& operator=(const GetTokenParams&) = delete;
-    GetTokenParams(GetTokenParams&& rhs);
-    GetTokenParams& operator=(GetTokenParams&& rhs);
+    GetTokenParams(GetTokenParams&& rhs) noexcept;
+    GetTokenParams& operator=(GetTokenParams&& rhs) noexcept;
 
     // Populates a GetTokenParams object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -80,10 +81,10 @@ struct Params {
 
     // Creates a GetTokenParams object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<GetTokenParams> FromValue(const base::Value::Dict& value);
+    static std::optional<GetTokenParams> FromValue(const base::Value::Dict& value);
 
     // Creates a GetTokenParams object from a base::Value, or nullopt on failure.
-    static absl::optional<GetTokenParams> FromValue(const base::Value& value);
+    static std::optional<GetTokenParams> FromValue(const base::Value& value);
 
     // Allows including a small number of string key/value pairs that will be
     // associated with the token and may be used in processing the request.
@@ -92,8 +93,8 @@ struct Params {
       ~Options();
       Options(const Options&) = delete;
       Options& operator=(const Options&) = delete;
-      Options(Options&& rhs);
-      Options& operator=(Options&& rhs);
+      Options(Options&& rhs) noexcept;
+      Options& operator=(Options&& rhs) noexcept;
 
       // Populates a Options object from a base::Value& instance. Returns whether
       // |out| was successfully populated.
@@ -107,10 +108,10 @@ struct Params {
       Options Clone() const;
 
       // Creates a Options object from a base::Value::Dict, or nullopt on failure.
-      static absl::optional<Options> FromValue(const base::Value::Dict& value);
+      static std::optional<Options> FromValue(const base::Value::Dict& value);
 
       // Creates a Options object from a base::Value, or nullopt on failure.
-      static absl::optional<Options> FromValue(const base::Value& value);
+      static std::optional<Options> FromValue(const base::Value& value);
 
       std::map<std::string, std::string> additional_properties;
     };
@@ -127,7 +128,7 @@ struct Params {
 
     // Allows including a small number of string key/value pairs that will be
     // associated with the token and may be used in processing the request.
-    absl::optional<Options> options;
+    std::optional<Options> options;
 
   };
 
@@ -151,11 +152,11 @@ base::Value::List Create(const std::string& token);
 namespace DeleteToken {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Parameters for deleteToken.
@@ -164,8 +165,8 @@ struct Params {
     ~DeleteTokenParams();
     DeleteTokenParams(const DeleteTokenParams&) = delete;
     DeleteTokenParams& operator=(const DeleteTokenParams&) = delete;
-    DeleteTokenParams(DeleteTokenParams&& rhs);
-    DeleteTokenParams& operator=(DeleteTokenParams&& rhs);
+    DeleteTokenParams(DeleteTokenParams&& rhs) noexcept;
+    DeleteTokenParams& operator=(DeleteTokenParams&& rhs) noexcept;
 
     // Populates a DeleteTokenParams object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -180,11 +181,11 @@ struct Params {
 
     // Creates a DeleteTokenParams object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<DeleteTokenParams> FromValue(const base::Value::Dict& value);
+    static std::optional<DeleteTokenParams> FromValue(const base::Value::Dict& value);
 
     // Creates a DeleteTokenParams object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<DeleteTokenParams> FromValue(const base::Value& value);
+    static std::optional<DeleteTokenParams> FromValue(const base::Value& value);
 
     // The authorized entity that is used to obtain the token.
     std::string authorized_entity;

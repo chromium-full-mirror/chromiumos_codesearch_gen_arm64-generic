@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -62,7 +63,7 @@ SessionParameters::SessionParameters(
     const std::string& receiver_friendly_name_in,
     const std::string& source_id_in,
     const std::string& destination_id_in,
-    absl::optional<::base::TimeDelta> target_playout_delay_in,
+    std::optional<::base::TimeDelta> target_playout_delay_in,
     bool is_remote_playback_in,
     bool force_letterboxing_in,
     bool enable_rtcp_reporting_in)
@@ -140,7 +141,7 @@ void SessionParameters::WriteIntoTrace(
     dict.AddItem(
       "target_playout_delay"), this->target_playout_delay,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

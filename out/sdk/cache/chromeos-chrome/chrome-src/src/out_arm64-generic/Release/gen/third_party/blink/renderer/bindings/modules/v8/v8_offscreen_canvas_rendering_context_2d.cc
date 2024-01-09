@@ -112,11 +112,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, OffscreenCanvasRenderingContext2D>::value,
     "OffscreenCanvasRenderingContext2D does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&OffscreenCanvasRenderingContext2D::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OffscreenCanvasRenderingContext2D is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -129,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.canvas.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->offscreenCanvasForBinding();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -143,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.globalAlpha.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->globalAlpha();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -156,9 +153,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.globalAlpha.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -181,10 +178,10 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->globalCompositeOperation();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->globalCompositeOperation();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -197,9 +194,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -230,7 +227,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->filter();
 if (!ToV8Traits<IDLNullable<V8UnionCanvasFilterOrString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -259,7 +256,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -279,8 +276,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.imageSmoothingEnab
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->imageSmoothingEnabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -292,9 +290,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.imageSmoothingEnab
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -321,7 +319,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCanvas2DImageSmoothing
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->imageSmoothingQuality();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -339,7 +337,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCanvas2DImageSmoothing
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -375,8 +373,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -403,7 +402,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLAny>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -425,8 +424,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -453,7 +453,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLAny>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -475,8 +475,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->shadowOffsetX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -490,9 +491,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -515,8 +516,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->shadowOffsetY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -530,9 +532,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -555,8 +557,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->shadowBlur();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -570,9 +573,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -595,10 +598,10 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->shadowColor();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->shadowColor();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -611,9 +614,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -634,8 +637,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.lineWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lineWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -647,9 +651,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.lineWidth.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -670,10 +674,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.lineCap.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->lineCap();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->lineCap();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -684,9 +688,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.lineCap.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -707,10 +711,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.lineJoin.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->lineJoin();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->lineJoin();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -721,9 +725,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.lineJoin.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -744,8 +748,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.miterLimit.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->miterLimit();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -757,9 +762,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.miterLimit.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -780,8 +785,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.lineDashOffset.get
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lineDashOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -793,9 +799,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.lineDashOffset.set
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -818,10 +824,10 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->font();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->font();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -834,9 +840,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -857,10 +863,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.textAlign.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->textAlign();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->textAlign();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -871,9 +877,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.textAlign.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -894,10 +900,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.textBaseline.get")
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->textBaseline();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->textBaseline();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -908,9 +914,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.textBaseline.set")
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -931,10 +937,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.direction.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->direction();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->direction();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -945,9 +951,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.direction.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -968,10 +974,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.fontKerning.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fontKerning();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->fontKerning();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -982,9 +988,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.fontKerning.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -1005,10 +1011,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.fontStretch.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fontStretch();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->fontStretch();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1019,9 +1025,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.fontStretch.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -1042,10 +1048,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.fontVariantCaps.ge
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fontVariantCaps();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->fontVariantCaps();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1056,9 +1062,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.fontVariantCaps.se
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -1079,10 +1085,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.letterSpacing.get"
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->letterSpacing();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->letterSpacing();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1093,9 +1099,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.letterSpacing.set"
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -1116,10 +1122,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.textRendering.get"
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->textRendering();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->textRendering();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1130,9 +1136,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.textRendering.set"
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -1153,10 +1159,10 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.wordSpacing.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->wordSpacing();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->wordSpacing();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1167,9 +1173,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.wordSpacing.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -1231,7 +1237,7 @@ if (UNLIKELY(exception_state.HadException())) {
 void ArcOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "arc";
@@ -1285,14 +1291,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "arc";
@@ -1377,7 +1383,7 @@ if (UNLIKELY(exception_state.HadException())) {
 void ArcToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "arcTo";
@@ -1422,14 +1428,14 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.arcTo");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "arcTo";
@@ -1493,13 +1499,13 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.beginLayer");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<BeginLayerOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "beginLayer";
@@ -1531,7 +1537,7 @@ blink_receiver->beginPath();
 void BeginPathOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -1551,8 +1557,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -1563,8 +1570,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 BeginPathOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -1598,7 +1604,7 @@ blink_receiver->bezierCurveTo(arg1_cp_1_x, arg2_cp_1_y, arg3_cp_2_x, arg4_cp_2_y
 void BezierCurveToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "bezierCurveTo";
@@ -1644,14 +1650,14 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.bezierCurveTo");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "bezierCurveTo";
@@ -1721,7 +1727,7 @@ blink_receiver->clearRect(arg1_x, arg2_y, arg3_width, arg4_height);
 void ClearRectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "clearRect";
@@ -1761,14 +1767,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "clearRect";
@@ -1826,13 +1832,13 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->clip();
 break;
 }
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "clip";
@@ -1867,9 +1873,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "clip";
@@ -1926,7 +1932,7 @@ blink_receiver->closePath();
 void ClosePathOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -1946,8 +1952,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -1958,8 +1965,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 ClosePathOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -1986,8 +1992,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.commit");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->commit();
 
 }
@@ -2013,7 +2020,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_start_angle = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2048,7 +2055,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_imagedata = NativeValueTraits<ImageData>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2078,7 +2085,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sw = NativeValueTraits<IDLLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2112,7 +2119,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sw = NativeValueTraits<IDLLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2183,7 +2190,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x_0 = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2225,7 +2232,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image = NativeValueTraits<V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2262,7 +2269,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x_0 = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2312,7 +2319,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image = NativeValueTraits<V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2350,7 +2357,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image = NativeValueTraits<V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2396,7 +2403,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image = NativeValueTraits<V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2522,7 +2529,7 @@ if (UNLIKELY(exception_state.HadException())) {
 void EllipseOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "ellipse";
@@ -2584,14 +2591,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "ellipse";
@@ -2679,7 +2686,7 @@ if (UNLIKELY(exception_state.HadException())) {
 void EndLayerOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "endLayer";
@@ -2704,8 +2711,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.endLayer");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -2713,7 +2721,6 @@ return;
 
 
 
-v8::Isolate* isolate = info.GetIsolate();
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
@@ -2752,13 +2759,13 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->fill();
 break;
 }
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "fill";
@@ -2793,9 +2800,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "fill";
@@ -2856,7 +2863,7 @@ blink_receiver->fillRect(arg1_x, arg2_y, arg3_width, arg4_height);
 void FillRectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "fillRect";
@@ -2896,14 +2903,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "fillRect";
@@ -2973,9 +2980,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "fillText";
@@ -3029,7 +3036,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sx = NativeValueTraits<IDLLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3077,7 +3084,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sx = NativeValueTraits<IDLLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3148,7 +3155,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getLineDash();
 if (!ToV8Traits<IDLSequence<IDLUnrestrictedDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -3167,8 +3175,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.getTransform");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getTransform();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -3184,8 +3193,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.isContextLost");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isContextLost();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -3217,7 +3227,7 @@ bool return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "isPointInPath";
@@ -3270,7 +3280,7 @@ bool return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "isPointInPath";
@@ -3360,7 +3370,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLUnrestrictedDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3397,7 +3407,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_path = NativeValueTraits<Path2D>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3455,7 +3465,7 @@ blink_receiver->lineTo(arg1_x, arg2_y);
 void LineToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "lineTo";
@@ -3487,14 +3497,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "lineTo";
@@ -3559,10 +3569,10 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_text;
 if (LIKELY(info[0]->IsString())) {
-  arg1_text.Init(info[0].As<v8::String>());
+  arg1_text.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
@@ -3591,7 +3601,7 @@ blink_receiver->moveTo(arg1_x, arg2_y);
 void MoveToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "moveTo";
@@ -3623,14 +3633,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "moveTo";
@@ -3686,7 +3696,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_imagedata = NativeValueTraits<ImageData>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3724,7 +3734,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_imagedata = NativeValueTraits<ImageData>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -3803,7 +3813,7 @@ blink_receiver->quadraticCurveTo(arg1_cpx, arg2_cpy, arg3_x, arg4_y);
 void QuadraticCurveToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "quadraticCurveTo";
@@ -3841,14 +3851,14 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.quadraticCurveTo")
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "quadraticCurveTo";
@@ -3910,7 +3920,7 @@ blink_receiver->rect(arg1_x, arg2_y, arg3_width, arg4_height);
 void RectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "rect";
@@ -3950,14 +3960,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "rect";
@@ -4014,8 +4024,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.reset");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->reset();
 
 }
@@ -4032,7 +4043,7 @@ blink_receiver->resetTransform();
 void ResetTransformOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -4050,8 +4061,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.resetTransform");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -4062,8 +4074,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 ResetTransformOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -4099,7 +4110,7 @@ if (UNLIKELY(exception_state.HadException())) {
 void RestoreOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "restore";
@@ -4124,8 +4135,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.restore");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -4133,7 +4145,6 @@ return;
 
 
 
-v8::Isolate* isolate = info.GetIsolate();
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
@@ -4173,7 +4184,7 @@ blink_receiver->rotate(arg1_angle);
 void RotateOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "rotate";
@@ -4201,14 +4212,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "rotate";
@@ -4262,7 +4273,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLUnrestrictedDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4310,7 +4321,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLUnrestrictedDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4399,8 +4410,9 @@ BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.save");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->save();
 
 }
@@ -4428,7 +4440,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLUnrestrictedDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4462,7 +4474,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_dash = NativeValueTraits<IDLSequence<IDLUnrestrictedDouble>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4491,7 +4503,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<IDLUnrestrictedDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4528,10 +4540,10 @@ void SetTransformOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& i
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<DOMMatrixInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_transform;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<DOMMatrixInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_transform;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "setTransform";
@@ -4577,8 +4589,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->stroke();
 
 }
@@ -4603,7 +4616,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_path = NativeValueTraits<Path2D>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4641,7 +4654,7 @@ blink_receiver->strokeRect(arg1_x, arg2_y, arg3_width, arg4_height);
 void StrokeRectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "strokeRect";
@@ -4681,14 +4694,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRend
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "strokeRect";
@@ -4739,6 +4752,8 @@ void StrokeTextOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info
 BLINK_BINDINGS_TRACE_EVENT("OffscreenCanvasRenderingContext2D.strokeText");
 
 
+// [HighEntropy]
+const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("OffscreenCanvasRenderingContext2D.strokeText", info);
 
 
 
@@ -4756,9 +4771,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "OffscreenCanvasRenderingContext2D";
 const char* const property_name = "strokeText";
@@ -4811,7 +4826,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_a = NativeValueTraits<IDLUnrestrictedDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -4863,7 +4878,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
+OffscreenCanvasRenderingContext2D* blink_receiver = V8OffscreenCanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLUnrestrictedDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

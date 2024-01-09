@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/intent_helper.mojom-features.h"
 #include "ash/components/arc/mojom/intent_helper.mojom-shared.h"
 #include "ash/components/arc/mojom/intent_helper.mojom-forward.h"
 #include "ash/components/arc/mojom/app.mojom.h"
@@ -1469,42 +1470,42 @@ class  IntentInfo {
 
   IntentInfo(
       const std::string& action,
-      absl::optional<std::vector<std::string>> categories,
-      const absl::optional<std::string>& data,
-      const absl::optional<std::string>& type);
+      std::optional<std::vector<std::string>> categories,
+      const std::optional<std::string>& data,
+      const std::optional<std::string>& type);
 
   IntentInfo(
       const std::string& action,
-      absl::optional<std::vector<std::string>> categories,
-      const absl::optional<std::string>& data,
-      const absl::optional<std::string>& type,
-      const absl::optional<std::string>& clip_data_uri);
+      std::optional<std::vector<std::string>> categories,
+      const std::optional<std::string>& data,
+      const std::optional<std::string>& type,
+      const std::optional<std::string>& clip_data_uri);
 
   IntentInfo(
       const std::string& action,
-      absl::optional<std::vector<std::string>> categories,
-      const absl::optional<std::string>& data,
-      const absl::optional<std::string>& type,
-      const absl::optional<std::string>& clip_data_uri,
+      std::optional<std::vector<std::string>> categories,
+      const std::optional<std::string>& data,
+      const std::optional<std::string>& type,
+      const std::optional<std::string>& clip_data_uri,
       bool ui_bypassed);
 
   IntentInfo(
       const std::string& action,
-      absl::optional<std::vector<std::string>> categories,
-      const absl::optional<std::string>& data,
-      const absl::optional<std::string>& type,
-      const absl::optional<std::string>& clip_data_uri,
+      std::optional<std::vector<std::string>> categories,
+      const std::optional<std::string>& data,
+      const std::optional<std::string>& type,
+      const std::optional<std::string>& clip_data_uri,
       bool ui_bypassed,
-      const absl::optional<base::flat_map<std::string, std::string>>& extras);
+      const std::optional<base::flat_map<std::string, std::string>>& extras);
 
   IntentInfo(
       const std::string& action,
-      absl::optional<std::vector<std::string>> categories,
-      const absl::optional<std::string>& data,
-      const absl::optional<std::string>& type,
-      const absl::optional<std::string>& clip_data_uri,
+      std::optional<std::vector<std::string>> categories,
+      const std::optional<std::string>& data,
+      const std::optional<std::string>& type,
+      const std::optional<std::string>& clip_data_uri,
       bool ui_bypassed,
-      const absl::optional<base::flat_map<std::string, std::string>>& extras,
+      const std::optional<base::flat_map<std::string, std::string>>& extras,
       UriComponentsPtr uri_components);
 
 IntentInfo(const IntentInfo&) = delete;
@@ -1587,17 +1588,17 @@ IntentInfo& operator=(const IntentInfo&) = delete;
   
   std::string action;
   
-  absl::optional<std::vector<std::string>> categories;
+  std::optional<std::vector<std::string>> categories;
   
-  absl::optional<std::string> data;
+  std::optional<std::string> data;
   
-  absl::optional<std::string> type;
+  std::optional<std::string> type;
   
-  absl::optional<std::string> clip_data_uri;
+  std::optional<std::string> clip_data_uri;
   
   bool ui_bypassed;
   
-  absl::optional<base::flat_map<std::string, std::string>> extras;
+  std::optional<base::flat_map<std::string, std::string>> extras;
   
   UriComponentsPtr uri_components;
 
@@ -1669,51 +1670,51 @@ class  IntentFilter {
       std::vector<std::string> actions,
       std::vector<std::string> categories,
       std::vector<std::string> data_schemes,
-      absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts);
+      std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts);
 
   IntentFilter(
       std::vector<std::string> actions,
       std::vector<std::string> categories,
       std::vector<std::string> data_schemes,
-      absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts,
-      const absl::optional<std::string>& package_name);
+      std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts,
+      const std::optional<std::string>& package_name);
 
   IntentFilter(
       std::vector<std::string> actions,
       std::vector<std::string> categories,
       std::vector<std::string> data_schemes,
-      absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts,
-      const absl::optional<std::string>& package_name,
-      absl::optional<std::vector<std::string>> mime_types);
+      std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts,
+      const std::optional<std::string>& package_name,
+      std::optional<std::vector<std::string>> mime_types);
 
   IntentFilter(
       std::vector<std::string> actions,
       std::vector<std::string> categories,
       std::vector<std::string> data_schemes,
-      absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts,
-      const absl::optional<std::string>& package_name,
-      absl::optional<std::vector<std::string>> mime_types,
-      const absl::optional<std::string>& activity_name);
+      std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts,
+      const std::optional<std::string>& package_name,
+      std::optional<std::vector<std::string>> mime_types,
+      const std::optional<std::string>& activity_name);
 
   IntentFilter(
       std::vector<std::string> actions,
       std::vector<std::string> categories,
       std::vector<std::string> data_schemes,
-      absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
-      absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts,
-      const absl::optional<std::string>& package_name,
-      absl::optional<std::vector<std::string>> mime_types,
-      const absl::optional<std::string>& activity_name,
-      const absl::optional<std::string>& activity_label);
+      std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths,
+      std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts,
+      const std::optional<std::string>& package_name,
+      std::optional<std::vector<std::string>> mime_types,
+      const std::optional<std::string>& activity_name,
+      const std::optional<std::string>& activity_label);
 
 IntentFilter(const IntentFilter&) = delete;
 IntentFilter& operator=(const IntentFilter&) = delete;
@@ -1799,19 +1800,19 @@ IntentFilter& operator=(const IntentFilter&) = delete;
   
   std::vector<std::string> data_schemes;
   
-  absl::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities;
+  std::optional<std::vector<::arc::IntentFilter::AuthorityEntry>> data_authorities;
   
-  absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths;
+  std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> data_paths;
   
-  absl::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts;
+  std::optional<std::vector<::arc::IntentFilter::PatternMatcher>> deprecated_data_scheme_specific_parts;
   
-  absl::optional<std::string> package_name;
+  std::optional<std::string> package_name;
   
-  absl::optional<std::vector<std::string>> mime_types;
+  std::optional<std::vector<std::string>> mime_types;
   
-  absl::optional<std::string> activity_name;
+  std::optional<std::string> activity_name;
   
-  absl::optional<std::string> activity_label;
+  std::optional<std::string> activity_label;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1896,7 +1897,7 @@ class  IntentHandlerInfo {
       const std::string& activity_name,
       ::arc::mojom::ActionType action_type,
       bool is_preferred,
-      const absl::optional<std::string>& action);
+      const std::optional<std::string>& action);
 
   IntentHandlerInfo(
       const std::string& name,
@@ -1904,8 +1905,8 @@ class  IntentHandlerInfo {
       const std::string& activity_name,
       ::arc::mojom::ActionType action_type,
       bool is_preferred,
-      const absl::optional<std::string>& action,
-      const absl::optional<std::string>& fallback_url);
+      const std::optional<std::string>& action,
+      const std::optional<std::string>& fallback_url);
 
 
   ~IntentHandlerInfo();
@@ -1993,9 +1994,9 @@ class  IntentHandlerInfo {
   
   bool is_preferred;
   
-  absl::optional<std::string> action;
+  std::optional<std::string> action;
   
-  absl::optional<std::string> fallback_url;
+  std::optional<std::string> fallback_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2229,7 +2230,7 @@ class  TextSelectionAction {
       const std::string& title,
       IntentInfoPtr action_intent,
       bool text_classifier_action,
-      const absl::optional<::SkBitmap>& bitmap_icon);
+      const std::optional<::SkBitmap>& bitmap_icon);
 
 TextSelectionAction(const TextSelectionAction&) = delete;
 TextSelectionAction& operator=(const TextSelectionAction&) = delete;
@@ -2319,7 +2320,7 @@ TextSelectionAction& operator=(const TextSelectionAction&) = delete;
   
   bool text_classifier_action;
   
-  absl::optional<::SkBitmap> bitmap_icon;
+  std::optional<::SkBitmap> bitmap_icon;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2391,7 +2392,7 @@ class  LaunchFileInfo {
       const std::string& type,
       const std::string& removed_name,
       uint64_t size,
-      const absl::optional<::base::SafeBaseName>& name);
+      const std::optional<::base::SafeBaseName>& name);
 
 
   ~LaunchFileInfo();
@@ -2477,7 +2478,7 @@ class  LaunchFileInfo {
   
   uint64_t size;
   
-  absl::optional<::base::SafeBaseName> name;
+  std::optional<::base::SafeBaseName> name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2540,11 +2541,11 @@ class  LaunchIntent {
 
   LaunchIntent(
       const std::string& action,
-      const absl::optional<::GURL>& data,
-      const absl::optional<std::string>& type,
-      const absl::optional<std::string>& extra_subject,
-      const absl::optional<std::string>& extra_text,
-      absl::optional<std::vector<LaunchFileInfoPtr>> files);
+      const std::optional<::GURL>& data,
+      const std::optional<std::string>& type,
+      const std::optional<std::string>& extra_subject,
+      const std::optional<std::string>& extra_text,
+      std::optional<std::vector<LaunchFileInfoPtr>> files);
 
 LaunchIntent(const LaunchIntent&) = delete;
 LaunchIntent& operator=(const LaunchIntent&) = delete;
@@ -2626,15 +2627,15 @@ LaunchIntent& operator=(const LaunchIntent&) = delete;
   
   std::string action;
   
-  absl::optional<::GURL> data;
+  std::optional<::GURL> data;
   
-  absl::optional<std::string> type;
+  std::optional<std::string> type;
   
-  absl::optional<std::string> extra_subject;
+  std::optional<std::string> extra_subject;
   
-  absl::optional<std::string> extra_text;
+  std::optional<std::string> extra_text;
   
-  absl::optional<std::vector<LaunchFileInfoPtr>> files;
+  std::optional<std::vector<LaunchFileInfoPtr>> files;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2697,7 +2698,7 @@ class  SupportedLinksPackage {
 
   SupportedLinksPackage(
       const std::string& package_name,
-      absl::optional<std::vector<::arc::IntentFilter>> deprecated_filters);
+      std::optional<std::vector<::arc::IntentFilter>> deprecated_filters);
 
 SupportedLinksPackage(const SupportedLinksPackage&) = delete;
 SupportedLinksPackage& operator=(const SupportedLinksPackage&) = delete;
@@ -2779,7 +2780,7 @@ SupportedLinksPackage& operator=(const SupportedLinksPackage&) = delete;
   
   std::string package_name;
   
-  absl::optional<std::vector<::arc::IntentFilter>> deprecated_filters;
+  std::optional<std::vector<::arc::IntentFilter>> deprecated_filters;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

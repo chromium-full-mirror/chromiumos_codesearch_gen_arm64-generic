@@ -107,7 +107,7 @@ bool RendererConfiguration_SetInitialConfiguration_Params_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidateHandleOrInterface(object->bound_session_request_throttled_listener,
+  if (!mojo::internal::ValidateHandleOrInterface(object->bound_session_request_throttled_handler,
                                                  validation_context)) {
     return false;
   }

@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, AmbientLightSensor>::value,
     "AmbientLightSensor does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&AmbientLightSensor::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AmbientLightSensor is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("AmbientLightSensor.illuminance.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AmbientLightSensor* blink_receiver = V8AmbientLightSensor::ToWrappableUnsafe(v8_receiver);
+AmbientLightSensor* blink_receiver = V8AmbientLightSensor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->illuminance();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "camera/mojo/camera3.mojom-features.h"
 #include "camera/mojo/camera3.mojom-shared.h"
 #include "camera/mojo/camera3.mojom-forward.h"
 #include "camera/mojo/camera_features.mojom.h"
@@ -996,25 +997,25 @@ class  Camera3NotifyMsgMessage {
   // Construct an instance holding |error|.
   static Camera3NotifyMsgMessagePtr
   NewError(
-      Camera3ErrorMsgPtr error) {
+      Camera3ErrorMsgPtr value) {
     auto result = Camera3NotifyMsgMessagePtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
   // Construct an instance holding |shutter|.
   static Camera3NotifyMsgMessagePtr
   NewShutter(
-      Camera3ShutterMsgPtr shutter) {
+      Camera3ShutterMsgPtr value) {
     auto result = Camera3NotifyMsgMessagePtr(absl::in_place);
-    result->set_shutter(std::move(shutter));
+    result->set_shutter(std::move(value));
     return result;
   }
   // Construct an instance holding |generic|.
   static Camera3NotifyMsgMessagePtr
   NewGeneric(
-      std::vector<uint8_t> generic) {
+      std::vector<uint8_t> value) {
     auto result = Camera3NotifyMsgMessagePtr(absl::in_place);
-    result->set_generic(std::move(generic));
+    result->set_generic(std::move(value));
     return result;
   }
 
@@ -1191,7 +1192,7 @@ class  Camera3Stream {
       uint32_t data_space,
       Camera3StreamRotation rotation,
       CropRotateScaleInfoPtr crop_rotate_scale_info,
-      const absl::optional<std::string>& physical_camera_id);
+      const std::optional<std::string>& physical_camera_id);
 
   Camera3Stream(
       uint64_t id,
@@ -1204,8 +1205,8 @@ class  Camera3Stream {
       uint32_t data_space,
       Camera3StreamRotation rotation,
       CropRotateScaleInfoPtr crop_rotate_scale_info,
-      const absl::optional<std::string>& physical_camera_id,
-      absl::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>> effects);
+      const std::optional<std::string>& physical_camera_id,
+      std::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>> effects);
 
 Camera3Stream(const Camera3Stream&) = delete;
 Camera3Stream& operator=(const Camera3Stream&) = delete;
@@ -1305,9 +1306,9 @@ Camera3Stream& operator=(const Camera3Stream&) = delete;
   
   CropRotateScaleInfoPtr crop_rotate_scale_info;
   
-  absl::optional<std::string> physical_camera_id;
+  std::optional<std::string> physical_camera_id;
   
-  absl::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>> effects;
+  std::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>> effects;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1539,7 +1540,7 @@ class  CameraBufferHandle {
       uint32_t height,
       std::vector<uint32_t> strides,
       std::vector<uint32_t> offsets,
-      absl::optional<std::vector<uint32_t>> sizes);
+      std::optional<std::vector<uint32_t>> sizes);
 
   CameraBufferHandle(
       uint64_t buffer_id,
@@ -1550,7 +1551,7 @@ class  CameraBufferHandle {
       uint32_t height,
       std::vector<uint32_t> strides,
       std::vector<uint32_t> offsets,
-      absl::optional<std::vector<uint32_t>> sizes,
+      std::optional<std::vector<uint32_t>> sizes,
       bool has_modifier,
       uint64_t modifier);
 
@@ -1643,7 +1644,7 @@ CameraBufferHandle& operator=(const CameraBufferHandle&) = delete;
   
   std::vector<uint32_t> offsets;
   
-  absl::optional<std::vector<uint32_t>> sizes;
+  std::optional<std::vector<uint32_t>> sizes;
   
   bool has_modifier;
   
@@ -2018,7 +2019,7 @@ class  Camera3StreamBufferRet {
   Camera3StreamBufferRet(
       uint64_t stream_id,
       Camera3StreamBufferReqStatus status,
-      absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers);
+      std::optional<std::vector<Camera3StreamBufferPtr>> output_buffers);
 
 Camera3StreamBufferRet(const Camera3StreamBufferRet&) = delete;
 Camera3StreamBufferRet& operator=(const Camera3StreamBufferRet&) = delete;
@@ -2097,7 +2098,7 @@ Camera3StreamBufferRet& operator=(const Camera3StreamBufferRet&) = delete;
   
   Camera3StreamBufferReqStatus status;
   
-  absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers;
+  std::optional<std::vector<Camera3StreamBufferPtr>> output_buffers;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2314,7 +2315,7 @@ class  Camera3CaptureRequest {
       ::cros::mojom::CameraMetadataPtr settings,
       Camera3StreamBufferPtr input_buffer,
       std::vector<Camera3StreamBufferPtr> output_buffers,
-      absl::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_settings);
+      std::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_settings);
 
 Camera3CaptureRequest(const Camera3CaptureRequest&) = delete;
 Camera3CaptureRequest& operator=(const Camera3CaptureRequest&) = delete;
@@ -2397,7 +2398,7 @@ Camera3CaptureRequest& operator=(const Camera3CaptureRequest&) = delete;
   
   std::vector<Camera3StreamBufferPtr> output_buffers;
   
-  absl::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_settings;
+  std::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_settings;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2461,17 +2462,17 @@ class  Camera3CaptureResult {
   Camera3CaptureResult(
       uint32_t frame_number,
       ::cros::mojom::CameraMetadataPtr result,
-      absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers,
+      std::optional<std::vector<Camera3StreamBufferPtr>> output_buffers,
       Camera3StreamBufferPtr input_buffer,
       uint32_t partial_result);
 
   Camera3CaptureResult(
       uint32_t frame_number,
       ::cros::mojom::CameraMetadataPtr result,
-      absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers,
+      std::optional<std::vector<Camera3StreamBufferPtr>> output_buffers,
       Camera3StreamBufferPtr input_buffer,
       uint32_t partial_result,
-      absl::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_metadata);
+      std::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_metadata);
 
 Camera3CaptureResult(const Camera3CaptureResult&) = delete;
 Camera3CaptureResult& operator=(const Camera3CaptureResult&) = delete;
@@ -2550,13 +2551,13 @@ Camera3CaptureResult& operator=(const Camera3CaptureResult&) = delete;
   
   ::cros::mojom::CameraMetadataPtr result;
   
-  absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers;
+  std::optional<std::vector<Camera3StreamBufferPtr>> output_buffers;
   
   Camera3StreamBufferPtr input_buffer;
   
   uint32_t partial_result;
   
-  absl::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_metadata;
+  std::optional<std::vector<Camera3PhyscamMetadataPtr>> physcam_metadata;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

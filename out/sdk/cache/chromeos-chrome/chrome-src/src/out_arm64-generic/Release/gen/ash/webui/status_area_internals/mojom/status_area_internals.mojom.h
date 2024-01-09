@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/status_area_internals/mojom/status_area_internals.mojom-features.h"
 #include "ash/webui/status_area_internals/mojom/status_area_internals.mojom-shared.h"
 #include "ash/webui/status_area_internals/mojom/status_area_internals.mojom-forward.h"
 #include <string>
@@ -74,6 +75,7 @@ class PageHandler
     kToggleDictationTrayMinVersion = 0,
     kToggleVideoConferenceTrayMinVersion = 0,
     kToggleProjectorTrayMinVersion = 0,
+    kSetActiveDirectoryManagedMinVersion = 0,
     kTriggerPrivacyIndicatorsMinVersion = 0,
   };
 
@@ -99,6 +101,9 @@ class PageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ToggleProjectorTray_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetActiveDirectoryManaged_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct TriggerPrivacyIndicators_Sym {
@@ -129,6 +134,9 @@ class PageHandler
   virtual void ToggleProjectorTray(bool visible) = 0;
 
   
+  virtual void SetActiveDirectoryManaged(bool managed) = 0;
+
+  
   virtual void TriggerPrivacyIndicators(const std::string& app_id, const std::string& app_name, bool is_camera_used, bool is_microphone_used) = 0;
 };
 
@@ -154,6 +162,8 @@ class  PageHandlerProxy
   void ToggleVideoConferenceTray(bool visible) final;
   
   void ToggleProjectorTray(bool visible) final;
+  
+  void SetActiveDirectoryManaged(bool managed) final;
   
   void TriggerPrivacyIndicators(const std::string& app_id, const std::string& app_name, bool is_camera_used, bool is_microphone_used) final;
 

@@ -18,7 +18,6 @@ namespace arc {
 extern const gfx::VectorIcon icon_name;
 
 VECTOR_ICON_TEMPLATE_H(kCompatModeSplashscreenIcon)
-VECTOR_ICON_TEMPLATE_H(kResizableIcon)
 VECTOR_ICON_TEMPLATE_H(kSaveIcon)
 
 #undef VECTOR_ICON_TEMPLATE_H

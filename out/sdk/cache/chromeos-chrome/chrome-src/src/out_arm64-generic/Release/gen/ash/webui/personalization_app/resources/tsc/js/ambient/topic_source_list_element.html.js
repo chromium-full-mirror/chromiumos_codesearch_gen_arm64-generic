@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="common">topic-source-item{align-items:center;height:64px}iron-list>:not(:first-of-type){border-top:var(--cr-separator-line)}iron-list>:focus{background-color:var(--cros-sys-hover_on_subtle,--cr-focused-item-color)}</style>
+    return html `<!--_html_template_start_--><style include="common">topic-source-item{align-items:center;height:64px;margin:0 10px;width:calc(100% - 20px)}iron-list>:not(:first-of-type){border-top:var(--cr-separator-line)}iron-list>:focus{background-color:var(--cros-sys-hover_on_subtle,--cr-focused-item-color)}</style>
 
 <h3 id="topicSourceTitle" class="ambient-subpage-element-title">
   $i18n{ambientModeTopicSourceTitle}

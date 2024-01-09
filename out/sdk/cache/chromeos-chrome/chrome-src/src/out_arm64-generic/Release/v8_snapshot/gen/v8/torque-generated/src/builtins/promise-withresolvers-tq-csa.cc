@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/promise-withresolvers-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -117,7 +118,7 @@ TF_BUILTIN(PromiseWithResolvers, CodeStubAssembler) {
   if (block3.is_used()) {
     ca_.Bind(&block3);
     tmp2 = False_0(state_);
-    tmp3 = ca_.CallStub<PromiseCapability>(Builtins::CallableFor(ca_.isolate(), Builtin::kNewPromiseCapability), parameter0, tmp0, tmp2);
+    tmp3 = ca_.CallBuiltin<PromiseCapability>(Builtin::kNewPromiseCapability, parameter0, tmp0, tmp2);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 4);
     tmp5 = CodeStubAssembler(state_).LoadReference<HeapObject>(CodeStubAssembler::Reference{tmp3, tmp4});
     tmp6 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);

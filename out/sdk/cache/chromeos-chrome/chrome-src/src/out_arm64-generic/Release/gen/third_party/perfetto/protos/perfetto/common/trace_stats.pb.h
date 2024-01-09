@@ -611,6 +611,7 @@ class TraceStats_WriterStats final :
     kChunkPayloadHistogramCountsFieldNumber = 2,
     kChunkPayloadHistogramSumFieldNumber = 3,
     kSequenceIdFieldNumber = 1,
+    kBufferFieldNumber = 4,
   };
   // repeated uint64 chunk_payload_histogram_counts = 2 [packed = true];
   int chunk_payload_histogram_counts_size() const;
@@ -669,6 +670,19 @@ class TraceStats_WriterStats final :
   void _internal_set_sequence_id(uint64_t value);
   public:
 
+  // optional uint32 buffer = 4;
+  bool has_buffer() const;
+  private:
+  bool _internal_has_buffer() const;
+  public:
+  void clear_buffer();
+  uint32_t buffer() const;
+  void set_buffer(uint32_t value);
+  private:
+  uint32_t _internal_buffer() const;
+  void _internal_set_buffer(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:perfetto.protos.TraceStats.WriterStats)
  private:
   class _Internal;
@@ -683,6 +697,7 @@ class TraceStats_WriterStats final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t > chunk_payload_histogram_sum_;
   mutable std::atomic<int> _chunk_payload_histogram_sum_cached_byte_size_;
   uint64_t sequence_id_;
+  uint32_t buffer_;
   friend struct ::TableStruct_protos_2fperfetto_2fcommon_2ftrace_5fstats_2eproto;
 };
 // -------------------------------------------------------------------
@@ -797,12 +812,35 @@ class TraceStats_FilterStats final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kBytesDiscardedPerBufferFieldNumber = 20,
     kInputPacketsFieldNumber = 1,
     kInputBytesFieldNumber = 2,
     kOutputBytesFieldNumber = 3,
     kErrorsFieldNumber = 4,
     kTimeTakenNsFieldNumber = 5,
   };
+  // repeated uint64 bytes_discarded_per_buffer = 20;
+  int bytes_discarded_per_buffer_size() const;
+  private:
+  int _internal_bytes_discarded_per_buffer_size() const;
+  public:
+  void clear_bytes_discarded_per_buffer();
+  private:
+  uint64_t _internal_bytes_discarded_per_buffer(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
+      _internal_bytes_discarded_per_buffer() const;
+  void _internal_add_bytes_discarded_per_buffer(uint64_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
+      _internal_mutable_bytes_discarded_per_buffer();
+  public:
+  uint64_t bytes_discarded_per_buffer(int index) const;
+  void set_bytes_discarded_per_buffer(int index, uint64_t value);
+  void add_bytes_discarded_per_buffer(uint64_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
+      bytes_discarded_per_buffer() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
+      mutable_bytes_discarded_per_buffer();
+
   // optional uint64 input_packets = 1;
   bool has_input_packets() const;
   private:
@@ -877,6 +915,7 @@ class TraceStats_FilterStats final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t > bytes_discarded_per_buffer_;
   uint64_t input_packets_;
   uint64_t input_bytes_;
   uint64_t output_bytes_;
@@ -1894,6 +1933,34 @@ inline void TraceStats_WriterStats::set_sequence_id(uint64_t value) {
   // @@protoc_insertion_point(field_set:perfetto.protos.TraceStats.WriterStats.sequence_id)
 }
 
+// optional uint32 buffer = 4;
+inline bool TraceStats_WriterStats::_internal_has_buffer() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool TraceStats_WriterStats::has_buffer() const {
+  return _internal_has_buffer();
+}
+inline void TraceStats_WriterStats::clear_buffer() {
+  buffer_ = 0u;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline uint32_t TraceStats_WriterStats::_internal_buffer() const {
+  return buffer_;
+}
+inline uint32_t TraceStats_WriterStats::buffer() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.TraceStats.WriterStats.buffer)
+  return _internal_buffer();
+}
+inline void TraceStats_WriterStats::_internal_set_buffer(uint32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  buffer_ = value;
+}
+inline void TraceStats_WriterStats::set_buffer(uint32_t value) {
+  _internal_set_buffer(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.TraceStats.WriterStats.buffer)
+}
+
 // repeated uint64 chunk_payload_histogram_counts = 2 [packed = true];
 inline int TraceStats_WriterStats::_internal_chunk_payload_histogram_counts_size() const {
   return chunk_payload_histogram_counts_.size();
@@ -2130,6 +2197,53 @@ inline void TraceStats_FilterStats::_internal_set_time_taken_ns(uint64_t value) 
 inline void TraceStats_FilterStats::set_time_taken_ns(uint64_t value) {
   _internal_set_time_taken_ns(value);
   // @@protoc_insertion_point(field_set:perfetto.protos.TraceStats.FilterStats.time_taken_ns)
+}
+
+// repeated uint64 bytes_discarded_per_buffer = 20;
+inline int TraceStats_FilterStats::_internal_bytes_discarded_per_buffer_size() const {
+  return bytes_discarded_per_buffer_.size();
+}
+inline int TraceStats_FilterStats::bytes_discarded_per_buffer_size() const {
+  return _internal_bytes_discarded_per_buffer_size();
+}
+inline void TraceStats_FilterStats::clear_bytes_discarded_per_buffer() {
+  bytes_discarded_per_buffer_.Clear();
+}
+inline uint64_t TraceStats_FilterStats::_internal_bytes_discarded_per_buffer(int index) const {
+  return bytes_discarded_per_buffer_.Get(index);
+}
+inline uint64_t TraceStats_FilterStats::bytes_discarded_per_buffer(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.TraceStats.FilterStats.bytes_discarded_per_buffer)
+  return _internal_bytes_discarded_per_buffer(index);
+}
+inline void TraceStats_FilterStats::set_bytes_discarded_per_buffer(int index, uint64_t value) {
+  bytes_discarded_per_buffer_.Set(index, value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.TraceStats.FilterStats.bytes_discarded_per_buffer)
+}
+inline void TraceStats_FilterStats::_internal_add_bytes_discarded_per_buffer(uint64_t value) {
+  bytes_discarded_per_buffer_.Add(value);
+}
+inline void TraceStats_FilterStats::add_bytes_discarded_per_buffer(uint64_t value) {
+  _internal_add_bytes_discarded_per_buffer(value);
+  // @@protoc_insertion_point(field_add:perfetto.protos.TraceStats.FilterStats.bytes_discarded_per_buffer)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
+TraceStats_FilterStats::_internal_bytes_discarded_per_buffer() const {
+  return bytes_discarded_per_buffer_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
+TraceStats_FilterStats::bytes_discarded_per_buffer() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.TraceStats.FilterStats.bytes_discarded_per_buffer)
+  return _internal_bytes_discarded_per_buffer();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
+TraceStats_FilterStats::_internal_mutable_bytes_discarded_per_buffer() {
+  return &bytes_discarded_per_buffer_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
+TraceStats_FilterStats::mutable_bytes_discarded_per_buffer() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.TraceStats.FilterStats.bytes_discarded_per_buffer)
+  return _internal_mutable_bytes_discarded_per_buffer();
 }
 
 // -------------------------------------------------------------------

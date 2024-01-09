@@ -99,11 +99,6 @@ export class PeerConnectionManagerInterface {
   /**
    */
 
-  getLegacyStats() {}
-  
-  /**
-   */
-
   getCurrentState() {}
 }
 
@@ -227,22 +222,9 @@ export class PeerConnectionManagerRemote {
   /**
    */
 
-  getLegacyStats() {
-    this.proxy.sendMessage(
-        6,
-        PeerConnectionManager_GetLegacyStats_ParamsSpec.$,
-        null,
-        [
-        ]);
-  }
-
-  
-  /**
-   */
-
   getCurrentState() {
     this.proxy.sendMessage(
-        7,
+        6,
         PeerConnectionManager_GetCurrentState_ParamsSpec.$,
         null,
         [
@@ -302,11 +284,6 @@ export class PeerConnectionManagerReceiver {
         impl.getStandardStats.bind(impl));
     this.helper_internal_.registerHandler(
         6,
-        PeerConnectionManager_GetLegacyStats_ParamsSpec.$,
-        null,
-        impl.getLegacyStats.bind(impl));
-    this.helper_internal_.registerHandler(
-        7,
         PeerConnectionManager_GetCurrentState_ParamsSpec.$,
         null,
         impl.getCurrentState.bind(impl));
@@ -431,24 +408,12 @@ export class PeerConnectionManagerCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.getLegacyStats =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        6,
-        PeerConnectionManager_GetLegacyStats_ParamsSpec.$,
-        null,
-        this.getLegacyStats.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.getCurrentState =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
-        7,
+        6,
         PeerConnectionManager_GetCurrentState_ParamsSpec.$,
         null,
         this.getCurrentState.createReceiverHandler(false /* expectsResponse */));
@@ -1240,12 +1205,6 @@ export const PeerConnectionManager_GetStandardStats_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const PeerConnectionManager_GetLegacyStats_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
 export const PeerConnectionManager_GetCurrentState_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1547,25 +1506,6 @@ mojo.internal.Struct(
  * @record
  */
 export class PeerConnectionManager_GetStandardStats_Params {
-  constructor() {
-  }
-}
-
-
-
-mojo.internal.Struct(
-    PeerConnectionManager_GetLegacyStats_ParamsSpec.$,
-    'PeerConnectionManager_GetLegacyStats_Params',
-    [
-    ],
-    [[0, 8],]);
-
-
-
-/**
- * @record
- */
-export class PeerConnectionManager_GetLegacyStats_Params {
   constructor() {
   }
 }

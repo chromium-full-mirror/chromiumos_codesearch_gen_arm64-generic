@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGFEMergeNodeElement>::value,
     "SVGFEMergeNodeElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGFEMergeNodeElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGFEMergeNodeElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFilter);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGFEMergeNodeElement* blink_receiver = V8SVGFEMergeNodeElement::ToWrappableUnsafe(v8_receiver);
+SVGFEMergeNodeElement* blink_receiver = V8SVGFEMergeNodeElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->in1();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

@@ -142,9 +142,7 @@ export class ModulesElement extends PolymerElement {
                     if (this.dragEnabled_) {
                         moduleWrapper.addEventListener('mousedown', e => this.onDragStart_(e));
                     }
-                    if (!loadTimeData.getBoolean('modulesRedesignedEnabled')) {
-                        moduleWrapper.addEventListener('dismiss-module', e => this.onDismissModule_(e));
-                    }
+                    moduleWrapper.addEventListener('dismiss-module', e => this.onDismissModule_(e));
                     moduleWrapper.addEventListener('disable-module', e => this.onDisableModule_(e));
                     moduleWrapper.addEventListener('detect-impression', () => {
                         if (!this.moduleImpressionDetected_) {

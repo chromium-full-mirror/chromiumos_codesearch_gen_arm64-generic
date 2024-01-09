@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUSupportedLimits>::value,
     "GPUSupportedLimits inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUSupportedLimits::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUSupportedLimits is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,8 +80,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxTextureDimension1D.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxTextureDimension1D();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -99,8 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxTextureDimension2D.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxTextureDimension2D();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -113,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxTextureDimension3D.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxTextureDimension3D();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -127,8 +125,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxTextureArrayLayers.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxTextureArrayLayers();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -141,9 +140,25 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxBindGroups.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxBindGroups();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
+}
+
+
+void MaxBindGroupsPlusVertexBuffersAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_GPUSupportedLimits_maxBindGroupsPlusVertexBuffers_Getter");
+BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxBindGroupsPlusVertexBuffers.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->maxBindGroupsPlusVertexBuffers();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
 
@@ -155,8 +170,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxBindingsPerBindGroup.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxBindingsPerBindGroup();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -169,8 +185,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxDynamicUniformBuffersPerPipeli
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxDynamicUniformBuffersPerPipelineLayout();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -183,8 +200,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxDynamicStorageBuffersPerPipeli
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxDynamicStorageBuffersPerPipelineLayout();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -197,8 +215,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxSampledTexturesPerShaderStage.
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxSampledTexturesPerShaderStage();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -211,8 +230,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxSamplersPerShaderStage.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxSamplersPerShaderStage();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -225,8 +245,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxStorageBuffersPerShaderStage.g
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxStorageBuffersPerShaderStage();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -239,8 +260,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxStorageTexturesPerShaderStage.
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxStorageTexturesPerShaderStage();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -253,8 +275,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxUniformBuffersPerShaderStage.g
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxUniformBuffersPerShaderStage();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -267,8 +290,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxUniformBufferBindingSize.get")
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxUniformBufferBindingSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -281,8 +305,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxStorageBufferBindingSize.get")
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxStorageBufferBindingSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -295,8 +320,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.minUniformBufferOffsetAlignment.g
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->minUniformBufferOffsetAlignment();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -309,8 +335,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.minStorageBufferOffsetAlignment.g
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->minStorageBufferOffsetAlignment();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -323,8 +350,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxVertexBuffers.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxVertexBuffers();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -337,8 +365,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxBufferSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxBufferSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -351,8 +380,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxVertexAttributes.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxVertexAttributes();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -365,8 +395,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxVertexBufferArrayStride.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxVertexBufferArrayStride();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -379,8 +410,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxInterStageShaderComponents.get
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxInterStageShaderComponents();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -393,8 +425,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxInterStageShaderVariables.get"
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxInterStageShaderVariables();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -407,8 +440,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxColorAttachments.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxColorAttachments();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -421,8 +455,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxColorAttachmentBytesPerSample.
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxColorAttachmentBytesPerSample();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -435,8 +470,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxComputeWorkgroupStorageSize.ge
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxComputeWorkgroupStorageSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -449,8 +485,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxComputeInvocationsPerWorkgroup
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxComputeInvocationsPerWorkgroup();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -463,8 +500,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxComputeWorkgroupSizeX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxComputeWorkgroupSizeX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -477,8 +515,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxComputeWorkgroupSizeY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxComputeWorkgroupSizeY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -491,8 +530,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxComputeWorkgroupSizeZ.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxComputeWorkgroupSizeZ();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -505,9 +545,40 @@ BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxComputeWorkgroupsPerDimension.
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(v8_receiver);
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxComputeWorkgroupsPerDimension();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
+}
+
+
+void MinSubgroupSizeAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_GPUSupportedLimits_minSubgroupSize_Getter");
+BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.minSubgroupSize.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->minSubgroupSize();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
+}
+
+
+void MaxSubgroupSizeAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_GPUSupportedLimits_maxSubgroupSize_Getter");
+BLINK_BINDINGS_TRACE_EVENT("GPUSupportedLimits.maxSubgroupSize.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUSupportedLimits* blink_receiver = V8GPUSupportedLimits::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->maxSubgroupSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
 
@@ -535,6 +606,7 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
+InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8GPUSupportedLimits::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -547,6 +619,7 @@ void V8GPUSupportedLimits::InstallUnconditionalProperties(v8::Isolate* isolate, 
 {"maxTextureDimension3D", MaxTextureDimension3DAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"maxTextureArrayLayers", MaxTextureArrayLayersAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"maxBindGroups", MaxBindGroupsAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"maxBindGroupsPlusVertexBuffers", MaxBindGroupsPlusVertexBuffersAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"maxBindingsPerBindGroup", MaxBindingsPerBindGroupAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"maxDynamicUniformBuffersPerPipelineLayout", MaxDynamicUniformBuffersPerPipelineLayoutAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"maxDynamicStorageBuffersPerPipelineLayout", MaxDynamicStorageBuffersPerPipelineLayoutAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -587,6 +660,25 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 
 }
 
+void V8GPUSupportedLimits::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+  using bindings::IDLMemberInstaller;
+
+if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"minSubgroupSize", MinSubgroupSizeAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"maxSubgroupSize", MaxSubgroupSizeAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+
+
+
+
+
+
+}
 
 
 

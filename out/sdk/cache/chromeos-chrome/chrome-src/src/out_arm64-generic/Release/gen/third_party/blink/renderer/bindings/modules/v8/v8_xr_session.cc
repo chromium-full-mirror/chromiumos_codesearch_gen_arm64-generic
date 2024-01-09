@@ -90,11 +90,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, XRSession>::value,
     "XRSession does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&XRSession::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRSession is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -107,10 +102,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.environmentBlendMode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->environmentBlendMode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->environmentBlendMode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -122,10 +117,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.interactionMode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->interactionMode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->interactionMode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -137,10 +132,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.visibilityState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->visibilityState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->visibilityState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -152,8 +147,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.frameRate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->frameRate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -171,7 +167,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->supportedFrameRates();
 if (!ToV8Traits<IDLNullable<NotShared<DOMFloat32Array>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -187,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.renderState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->renderState();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -207,7 +205,7 @@ UseCounter::Count(current_execution_context, WebFeature::kXRSessionGetInputSourc
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -223,8 +221,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.domOverlayState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->domOverlayState();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -237,10 +236,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.preferredReflectionFormat.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->preferredReflectionFormat();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->preferredReflectionFormat();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -257,7 +256,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->enabledFeatures();
 if (!ToV8Traits<IDLArray<IDLString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -273,10 +273,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.onend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -289,8 +289,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnend(event_handler);
 }
 
@@ -301,10 +302,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.onselect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -317,8 +318,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselect(event_handler);
 }
 
@@ -329,10 +331,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.oninputsourceschange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oninputsourceschange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oninputsourceschange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -345,8 +347,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOninputsourceschange(event_handler);
 }
 
@@ -357,10 +360,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.onselectstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselectstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselectstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -373,8 +376,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselectstart(event_handler);
 }
 
@@ -385,10 +389,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.onselectend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselectend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselectend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -401,8 +405,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselectend(event_handler);
 }
 
@@ -413,10 +418,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.onvisibilitychange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onvisibilitychange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onvisibilitychange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -429,8 +434,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnvisibilitychange(event_handler);
 }
 
@@ -441,10 +447,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.onsqueeze.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsqueeze();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsqueeze();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -457,8 +463,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsqueeze(event_handler);
 }
 
@@ -469,10 +476,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.onsqueezestart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsqueezestart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsqueezestart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -485,8 +492,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsqueezestart(event_handler);
 }
 
@@ -497,10 +505,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.onsqueezeend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsqueezeend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsqueezeend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -513,8 +521,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsqueezeend(event_handler);
 }
 
@@ -525,10 +534,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.onframeratechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onframeratechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onframeratechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -541,8 +550,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnframeratechange(event_handler);
 }
 
@@ -553,9 +563,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.depthUsage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XRSession";
 const char* const property_name = "depthUsage";
@@ -575,9 +585,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.depthDataFormat.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XRSession";
 const char* const property_name = "depthDataFormat";
@@ -611,7 +621,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_handle = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -647,7 +657,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8XRSession_End_Method
 
 
 
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -685,7 +695,7 @@ UseCounter::Count(current_execution_context, WebFeature::kXRSessionGetTrackedIma
 
 
 
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -704,9 +714,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.requestAnimationFrame");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRSession";
 const char* const property_name = "requestAnimationFrame";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -717,13 +727,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<V8XRFrameRequestCallback>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_callback;
 if (LIKELY(info[0]->IsFunction())) {
   arg1_callback = V8XRFrameRequestCallback::Create(info[0].As<v8::Function>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRSession";
 const char* const property_name = "requestAnimationFrame";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -767,7 +776,7 @@ return;
 
 
 
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -813,7 +822,7 @@ return;
 
 
 
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -855,7 +864,7 @@ UseCounter::Count(current_execution_context, WebFeature::kXRSessionRequestLightP
 
 
 
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -902,7 +911,7 @@ return;
 
 
 
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -928,10 +937,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRSession.updateRenderState");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<XRRenderStateInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_init;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<XRRenderStateInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_init;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRSession";
 const char* const property_name = "updateRenderState";
@@ -978,7 +987,7 @@ return;
 
 
 
-XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(v8_receiver);
+XRSession* blink_receiver = V8XRSession::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_rate = NativeValueTraits<IDLFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

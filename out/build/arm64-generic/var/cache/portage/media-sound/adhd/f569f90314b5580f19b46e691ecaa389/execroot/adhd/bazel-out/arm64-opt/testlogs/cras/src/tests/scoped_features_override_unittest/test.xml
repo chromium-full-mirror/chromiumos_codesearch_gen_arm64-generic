@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.215" timestamp="2023-10-27T00:16:55.239" name="AllTests">
-  <testsuite name="ScopedFeaturesOverrideTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.195" timestamp="2023-10-27T00:16:55.249">
-    <testcase name="Override" file="cras/src/tests/scoped_features_override_unittest.cc" line="8" status="run" result="completed" time="0.186" timestamp="2023-10-27T00:16:55.250" classname="ScopedFeaturesOverrideTest" />
-  </testsuite>
-  <testsuite name="ScopedFeaturesOverrideInFixture" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2023-10-27T00:16:55.449">
-    <testcase name="Override" file="cras/src/tests/scoped_features_override_unittest.cc" line="47" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:16:55.450" classname="ScopedFeaturesOverrideInFixture" />
-  </testsuite>
-</testsuites>

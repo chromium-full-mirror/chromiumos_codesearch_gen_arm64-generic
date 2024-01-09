@@ -46,6 +46,24 @@ void setCompute(GPUProgrammableStage* value) {
 DCHECK(member_compute_);
 }
 
+bool hasRequiresFullSubgroups() const {
+  return has_requires_full_subgroups_;
+}
+bool requiresFullSubgroups() const {
+  DCHECK(hasRequiresFullSubgroups());
+return member_requires_full_subgroups_;
+}
+bool getRequiresFullSubgroupsOr(bool fallback_value) const {
+  if (!hasRequiresFullSubgroups()) {
+  return fallback_value;
+}
+return member_requires_full_subgroups_;
+}
+void setRequiresFullSubgroups(bool value) {
+  member_requires_full_subgroups_ = value;
+has_requires_full_subgroups_ = true;
+}
+
 
 
 
@@ -61,9 +79,10 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
-
+bool has_requires_full_subgroups_ = false;
 
 Member<GPUProgrammableStage> member_compute_;
+bool member_requires_full_subgroups_;
 
 
   

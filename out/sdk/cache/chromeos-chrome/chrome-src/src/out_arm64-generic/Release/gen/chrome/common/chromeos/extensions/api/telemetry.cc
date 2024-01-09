@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/chromeos/extensions/api/telemetry.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ AudioInputNodeInfo::AudioInputNodeInfo()
  {}
 
 AudioInputNodeInfo::~AudioInputNodeInfo() = default;
-AudioInputNodeInfo::AudioInputNodeInfo(AudioInputNodeInfo&& rhs) = default;
-AudioInputNodeInfo& AudioInputNodeInfo::operator=(AudioInputNodeInfo&& rhs) = default;
+AudioInputNodeInfo::AudioInputNodeInfo(AudioInputNodeInfo&& rhs) noexcept = default;
+AudioInputNodeInfo& AudioInputNodeInfo::operator=(AudioInputNodeInfo&& rhs) noexcept = default;
 AudioInputNodeInfo AudioInputNodeInfo::Clone() const {
   AudioInputNodeInfo out;
   out.id = id;
@@ -58,7 +59,7 @@ bool AudioInputNodeInfo::Populate(
     {
       auto temp = (*id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -70,7 +71,7 @@ bool AudioInputNodeInfo::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -82,7 +83,7 @@ bool AudioInputNodeInfo::Populate(
     {
       auto* temp = (*device_name_value).GetIfString();
       if (!temp) {
-        out.device_name = absl::nullopt;
+        out.device_name = std::nullopt;
         return false;
       }
       out.device_name = *temp;
@@ -94,7 +95,7 @@ bool AudioInputNodeInfo::Populate(
     {
       auto temp = (*active_value).GetIfBool();
       if (!temp.has_value()) {
-        out.active = absl::nullopt;
+        out.active = std::nullopt;
         return false;
       }
       out.active = *temp;
@@ -106,7 +107,7 @@ bool AudioInputNodeInfo::Populate(
     {
       auto temp = (*node_gain_value).GetIfInt();
       if (!temp.has_value()) {
-        out.node_gain = absl::nullopt;
+        out.node_gain = std::nullopt;
         return false;
       }
       out.node_gain = *temp;
@@ -126,34 +127,21 @@ bool AudioInputNodeInfo::Populate(
 }
 
 // static
-std::unique_ptr<AudioInputNodeInfo> AudioInputNodeInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioInputNodeInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioInputNodeInfo> AudioInputNodeInfo::FromValue(const base::Value::Dict& value) {
+  AudioInputNodeInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioInputNodeInfo> AudioInputNodeInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AudioInputNodeInfo> AudioInputNodeInfo::FromValue(const base::Value& value) {
   AudioInputNodeInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioInputNodeInfo> AudioInputNodeInfo::FromValue(const base::Value& value) {
-  AudioInputNodeInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -190,8 +178,8 @@ AudioOutputNodeInfo::AudioOutputNodeInfo()
  {}
 
 AudioOutputNodeInfo::~AudioOutputNodeInfo() = default;
-AudioOutputNodeInfo::AudioOutputNodeInfo(AudioOutputNodeInfo&& rhs) = default;
-AudioOutputNodeInfo& AudioOutputNodeInfo::operator=(AudioOutputNodeInfo&& rhs) = default;
+AudioOutputNodeInfo::AudioOutputNodeInfo(AudioOutputNodeInfo&& rhs) noexcept = default;
+AudioOutputNodeInfo& AudioOutputNodeInfo::operator=(AudioOutputNodeInfo&& rhs) noexcept = default;
 AudioOutputNodeInfo AudioOutputNodeInfo::Clone() const {
   AudioOutputNodeInfo out;
   out.id = id;
@@ -210,7 +198,7 @@ bool AudioOutputNodeInfo::Populate(
     {
       auto temp = (*id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -222,7 +210,7 @@ bool AudioOutputNodeInfo::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -234,7 +222,7 @@ bool AudioOutputNodeInfo::Populate(
     {
       auto* temp = (*device_name_value).GetIfString();
       if (!temp) {
-        out.device_name = absl::nullopt;
+        out.device_name = std::nullopt;
         return false;
       }
       out.device_name = *temp;
@@ -246,7 +234,7 @@ bool AudioOutputNodeInfo::Populate(
     {
       auto temp = (*active_value).GetIfBool();
       if (!temp.has_value()) {
-        out.active = absl::nullopt;
+        out.active = std::nullopt;
         return false;
       }
       out.active = *temp;
@@ -258,7 +246,7 @@ bool AudioOutputNodeInfo::Populate(
     {
       auto temp = (*node_volume_value).GetIfInt();
       if (!temp.has_value()) {
-        out.node_volume = absl::nullopt;
+        out.node_volume = std::nullopt;
         return false;
       }
       out.node_volume = *temp;
@@ -278,34 +266,21 @@ bool AudioOutputNodeInfo::Populate(
 }
 
 // static
-std::unique_ptr<AudioOutputNodeInfo> AudioOutputNodeInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioOutputNodeInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioOutputNodeInfo> AudioOutputNodeInfo::FromValue(const base::Value::Dict& value) {
+  AudioOutputNodeInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioOutputNodeInfo> AudioOutputNodeInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AudioOutputNodeInfo> AudioOutputNodeInfo::FromValue(const base::Value& value) {
   AudioOutputNodeInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioOutputNodeInfo> AudioOutputNodeInfo::FromValue(const base::Value& value) {
-  AudioOutputNodeInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -342,8 +317,8 @@ AudioInfo::AudioInfo()
  {}
 
 AudioInfo::~AudioInfo() = default;
-AudioInfo::AudioInfo(AudioInfo&& rhs) = default;
-AudioInfo& AudioInfo::operator=(AudioInfo&& rhs) = default;
+AudioInfo::AudioInfo(AudioInfo&& rhs) noexcept = default;
+AudioInfo& AudioInfo::operator=(AudioInfo&& rhs) noexcept = default;
 AudioInfo AudioInfo::Clone() const {
   AudioInfo out;
   out.output_mute = output_mute;
@@ -369,7 +344,7 @@ bool AudioInfo::Populate(
     {
       auto temp = (*output_mute_value).GetIfBool();
       if (!temp.has_value()) {
-        out.output_mute = absl::nullopt;
+        out.output_mute = std::nullopt;
         return false;
       }
       out.output_mute = *temp;
@@ -381,7 +356,7 @@ bool AudioInfo::Populate(
     {
       auto temp = (*input_mute_value).GetIfBool();
       if (!temp.has_value()) {
-        out.input_mute = absl::nullopt;
+        out.input_mute = std::nullopt;
         return false;
       }
       out.input_mute = *temp;
@@ -393,7 +368,7 @@ bool AudioInfo::Populate(
     {
       auto temp = (*underruns_value).GetIfInt();
       if (!temp.has_value()) {
-        out.underruns = absl::nullopt;
+        out.underruns = std::nullopt;
         return false;
       }
       out.underruns = *temp;
@@ -405,7 +380,7 @@ bool AudioInfo::Populate(
     {
       auto temp = (*severe_underruns_value).GetIfInt();
       if (!temp.has_value()) {
-        out.severe_underruns = absl::nullopt;
+        out.severe_underruns = std::nullopt;
         return false;
       }
       out.severe_underruns = *temp;
@@ -455,34 +430,21 @@ bool AudioInfo::Populate(
 }
 
 // static
-std::unique_ptr<AudioInfo> AudioInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AudioInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AudioInfo> AudioInfo::FromValue(const base::Value::Dict& value) {
+  AudioInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AudioInfo> AudioInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AudioInfo> AudioInfo::FromValue(const base::Value& value) {
   AudioInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AudioInfo> AudioInfo::FromValue(const base::Value& value) {
-  AudioInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -519,8 +481,8 @@ BatteryInfo::BatteryInfo()
  {}
 
 BatteryInfo::~BatteryInfo() = default;
-BatteryInfo::BatteryInfo(BatteryInfo&& rhs) = default;
-BatteryInfo& BatteryInfo::operator=(BatteryInfo&& rhs) = default;
+BatteryInfo::BatteryInfo(BatteryInfo&& rhs) noexcept = default;
+BatteryInfo& BatteryInfo::operator=(BatteryInfo&& rhs) noexcept = default;
 BatteryInfo BatteryInfo::Clone() const {
   BatteryInfo out;
   out.cycle_count = cycle_count;
@@ -548,7 +510,7 @@ bool BatteryInfo::Populate(
     {
       auto temp = (*cycle_count_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.cycle_count = absl::nullopt;
+        out.cycle_count = std::nullopt;
         return false;
       }
       out.cycle_count = *temp;
@@ -560,7 +522,7 @@ bool BatteryInfo::Populate(
     {
       auto temp = (*voltage_now_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.voltage_now = absl::nullopt;
+        out.voltage_now = std::nullopt;
         return false;
       }
       out.voltage_now = *temp;
@@ -572,7 +534,7 @@ bool BatteryInfo::Populate(
     {
       auto* temp = (*vendor_value).GetIfString();
       if (!temp) {
-        out.vendor = absl::nullopt;
+        out.vendor = std::nullopt;
         return false;
       }
       out.vendor = *temp;
@@ -584,7 +546,7 @@ bool BatteryInfo::Populate(
     {
       auto* temp = (*serial_number_value).GetIfString();
       if (!temp) {
-        out.serial_number = absl::nullopt;
+        out.serial_number = std::nullopt;
         return false;
       }
       out.serial_number = *temp;
@@ -596,7 +558,7 @@ bool BatteryInfo::Populate(
     {
       auto temp = (*charge_full_design_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.charge_full_design = absl::nullopt;
+        out.charge_full_design = std::nullopt;
         return false;
       }
       out.charge_full_design = *temp;
@@ -608,7 +570,7 @@ bool BatteryInfo::Populate(
     {
       auto temp = (*charge_full_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.charge_full = absl::nullopt;
+        out.charge_full = std::nullopt;
         return false;
       }
       out.charge_full = *temp;
@@ -620,7 +582,7 @@ bool BatteryInfo::Populate(
     {
       auto temp = (*voltage_min_design_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.voltage_min_design = absl::nullopt;
+        out.voltage_min_design = std::nullopt;
         return false;
       }
       out.voltage_min_design = *temp;
@@ -632,7 +594,7 @@ bool BatteryInfo::Populate(
     {
       auto* temp = (*model_name_value).GetIfString();
       if (!temp) {
-        out.model_name = absl::nullopt;
+        out.model_name = std::nullopt;
         return false;
       }
       out.model_name = *temp;
@@ -644,7 +606,7 @@ bool BatteryInfo::Populate(
     {
       auto temp = (*charge_now_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.charge_now = absl::nullopt;
+        out.charge_now = std::nullopt;
         return false;
       }
       out.charge_now = *temp;
@@ -656,7 +618,7 @@ bool BatteryInfo::Populate(
     {
       auto temp = (*current_now_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.current_now = absl::nullopt;
+        out.current_now = std::nullopt;
         return false;
       }
       out.current_now = *temp;
@@ -668,7 +630,7 @@ bool BatteryInfo::Populate(
     {
       auto* temp = (*technology_value).GetIfString();
       if (!temp) {
-        out.technology = absl::nullopt;
+        out.technology = std::nullopt;
         return false;
       }
       out.technology = *temp;
@@ -680,7 +642,7 @@ bool BatteryInfo::Populate(
     {
       auto* temp = (*status_value).GetIfString();
       if (!temp) {
-        out.status = absl::nullopt;
+        out.status = std::nullopt;
         return false;
       }
       out.status = *temp;
@@ -692,7 +654,7 @@ bool BatteryInfo::Populate(
     {
       auto* temp = (*manufacture_date_value).GetIfString();
       if (!temp) {
-        out.manufacture_date = absl::nullopt;
+        out.manufacture_date = std::nullopt;
         return false;
       }
       out.manufacture_date = *temp;
@@ -704,7 +666,7 @@ bool BatteryInfo::Populate(
     {
       auto temp = (*temperature_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.temperature = absl::nullopt;
+        out.temperature = std::nullopt;
         return false;
       }
       out.temperature = *temp;
@@ -724,34 +686,21 @@ bool BatteryInfo::Populate(
 }
 
 // static
-std::unique_ptr<BatteryInfo> BatteryInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<BatteryInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<BatteryInfo> BatteryInfo::FromValue(const base::Value::Dict& value) {
+  BatteryInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<BatteryInfo> BatteryInfo::FromValue(const base::Value::Dict& value) {
+std::optional<BatteryInfo> BatteryInfo::FromValue(const base::Value& value) {
   BatteryInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<BatteryInfo> BatteryInfo::FromValue(const base::Value& value) {
-  BatteryInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -824,8 +773,8 @@ NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo()
  {}
 
 NonRemovableBlockDeviceInfo::~NonRemovableBlockDeviceInfo() = default;
-NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(NonRemovableBlockDeviceInfo&& rhs) = default;
-NonRemovableBlockDeviceInfo& NonRemovableBlockDeviceInfo::operator=(NonRemovableBlockDeviceInfo&& rhs) = default;
+NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(NonRemovableBlockDeviceInfo&& rhs) noexcept = default;
+NonRemovableBlockDeviceInfo& NonRemovableBlockDeviceInfo::operator=(NonRemovableBlockDeviceInfo&& rhs) noexcept = default;
 NonRemovableBlockDeviceInfo NonRemovableBlockDeviceInfo::Clone() const {
   NonRemovableBlockDeviceInfo out;
   out.name = name;
@@ -842,7 +791,7 @@ bool NonRemovableBlockDeviceInfo::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -854,7 +803,7 @@ bool NonRemovableBlockDeviceInfo::Populate(
     {
       auto* temp = (*type_value).GetIfString();
       if (!temp) {
-        out.type = absl::nullopt;
+        out.type = std::nullopt;
         return false;
       }
       out.type = *temp;
@@ -866,7 +815,7 @@ bool NonRemovableBlockDeviceInfo::Populate(
     {
       auto temp = (*size_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.size = absl::nullopt;
+        out.size = std::nullopt;
         return false;
       }
       out.size = *temp;
@@ -886,34 +835,21 @@ bool NonRemovableBlockDeviceInfo::Populate(
 }
 
 // static
-std::unique_ptr<NonRemovableBlockDeviceInfo> NonRemovableBlockDeviceInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NonRemovableBlockDeviceInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NonRemovableBlockDeviceInfo> NonRemovableBlockDeviceInfo::FromValue(const base::Value::Dict& value) {
+  NonRemovableBlockDeviceInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NonRemovableBlockDeviceInfo> NonRemovableBlockDeviceInfo::FromValue(const base::Value::Dict& value) {
+std::optional<NonRemovableBlockDeviceInfo> NonRemovableBlockDeviceInfo::FromValue(const base::Value& value) {
   NonRemovableBlockDeviceInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NonRemovableBlockDeviceInfo> NonRemovableBlockDeviceInfo::FromValue(const base::Value& value) {
-  NonRemovableBlockDeviceInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -942,8 +878,8 @@ NonRemovableBlockDeviceInfoResponse::NonRemovableBlockDeviceInfoResponse()
  {}
 
 NonRemovableBlockDeviceInfoResponse::~NonRemovableBlockDeviceInfoResponse() = default;
-NonRemovableBlockDeviceInfoResponse::NonRemovableBlockDeviceInfoResponse(NonRemovableBlockDeviceInfoResponse&& rhs) = default;
-NonRemovableBlockDeviceInfoResponse& NonRemovableBlockDeviceInfoResponse::operator=(NonRemovableBlockDeviceInfoResponse&& rhs) = default;
+NonRemovableBlockDeviceInfoResponse::NonRemovableBlockDeviceInfoResponse(NonRemovableBlockDeviceInfoResponse&& rhs) noexcept = default;
+NonRemovableBlockDeviceInfoResponse& NonRemovableBlockDeviceInfoResponse::operator=(NonRemovableBlockDeviceInfoResponse&& rhs) noexcept = default;
 NonRemovableBlockDeviceInfoResponse NonRemovableBlockDeviceInfoResponse::Clone() const {
   NonRemovableBlockDeviceInfoResponse out;
   out.device_infos.reserve(device_infos.size());
@@ -984,34 +920,21 @@ bool NonRemovableBlockDeviceInfoResponse::Populate(
 }
 
 // static
-std::unique_ptr<NonRemovableBlockDeviceInfoResponse> NonRemovableBlockDeviceInfoResponse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NonRemovableBlockDeviceInfoResponse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NonRemovableBlockDeviceInfoResponse> NonRemovableBlockDeviceInfoResponse::FromValue(const base::Value::Dict& value) {
+  NonRemovableBlockDeviceInfoResponse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NonRemovableBlockDeviceInfoResponse> NonRemovableBlockDeviceInfoResponse::FromValue(const base::Value::Dict& value) {
+std::optional<NonRemovableBlockDeviceInfoResponse> NonRemovableBlockDeviceInfoResponse::FromValue(const base::Value& value) {
   NonRemovableBlockDeviceInfoResponse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NonRemovableBlockDeviceInfoResponse> NonRemovableBlockDeviceInfoResponse::FromValue(const base::Value& value) {
-  NonRemovableBlockDeviceInfoResponse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1064,8 +987,8 @@ CpuCStateInfo::CpuCStateInfo()
  {}
 
 CpuCStateInfo::~CpuCStateInfo() = default;
-CpuCStateInfo::CpuCStateInfo(CpuCStateInfo&& rhs) = default;
-CpuCStateInfo& CpuCStateInfo::operator=(CpuCStateInfo&& rhs) = default;
+CpuCStateInfo::CpuCStateInfo(CpuCStateInfo&& rhs) noexcept = default;
+CpuCStateInfo& CpuCStateInfo::operator=(CpuCStateInfo&& rhs) noexcept = default;
 CpuCStateInfo CpuCStateInfo::Clone() const {
   CpuCStateInfo out;
   out.name = name;
@@ -1081,7 +1004,7 @@ bool CpuCStateInfo::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -1093,7 +1016,7 @@ bool CpuCStateInfo::Populate(
     {
       auto temp = (*time_in_state_since_last_boot_us_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.time_in_state_since_last_boot_us = absl::nullopt;
+        out.time_in_state_since_last_boot_us = std::nullopt;
         return false;
       }
       out.time_in_state_since_last_boot_us = *temp;
@@ -1113,34 +1036,21 @@ bool CpuCStateInfo::Populate(
 }
 
 // static
-std::unique_ptr<CpuCStateInfo> CpuCStateInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CpuCStateInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CpuCStateInfo> CpuCStateInfo::FromValue(const base::Value::Dict& value) {
+  CpuCStateInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CpuCStateInfo> CpuCStateInfo::FromValue(const base::Value::Dict& value) {
+std::optional<CpuCStateInfo> CpuCStateInfo::FromValue(const base::Value& value) {
   CpuCStateInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CpuCStateInfo> CpuCStateInfo::FromValue(const base::Value& value) {
-  CpuCStateInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1165,8 +1075,8 @@ LogicalCpuInfo::LogicalCpuInfo()
  {}
 
 LogicalCpuInfo::~LogicalCpuInfo() = default;
-LogicalCpuInfo::LogicalCpuInfo(LogicalCpuInfo&& rhs) = default;
-LogicalCpuInfo& LogicalCpuInfo::operator=(LogicalCpuInfo&& rhs) = default;
+LogicalCpuInfo::LogicalCpuInfo(LogicalCpuInfo&& rhs) noexcept = default;
+LogicalCpuInfo& LogicalCpuInfo::operator=(LogicalCpuInfo&& rhs) noexcept = default;
 LogicalCpuInfo LogicalCpuInfo::Clone() const {
   LogicalCpuInfo out;
   out.max_clock_speed_khz = max_clock_speed_khz;
@@ -1189,7 +1099,7 @@ bool LogicalCpuInfo::Populate(
     {
       auto temp = (*max_clock_speed_khz_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_clock_speed_khz = absl::nullopt;
+        out.max_clock_speed_khz = std::nullopt;
         return false;
       }
       out.max_clock_speed_khz = *temp;
@@ -1201,7 +1111,7 @@ bool LogicalCpuInfo::Populate(
     {
       auto temp = (*scaling_max_frequency_khz_value).GetIfInt();
       if (!temp.has_value()) {
-        out.scaling_max_frequency_khz = absl::nullopt;
+        out.scaling_max_frequency_khz = std::nullopt;
         return false;
       }
       out.scaling_max_frequency_khz = *temp;
@@ -1213,7 +1123,7 @@ bool LogicalCpuInfo::Populate(
     {
       auto temp = (*scaling_current_frequency_khz_value).GetIfInt();
       if (!temp.has_value()) {
-        out.scaling_current_frequency_khz = absl::nullopt;
+        out.scaling_current_frequency_khz = std::nullopt;
         return false;
       }
       out.scaling_current_frequency_khz = *temp;
@@ -1225,7 +1135,7 @@ bool LogicalCpuInfo::Populate(
     {
       auto temp = (*idle_time_ms_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.idle_time_ms = absl::nullopt;
+        out.idle_time_ms = std::nullopt;
         return false;
       }
       out.idle_time_ms = *temp;
@@ -1252,7 +1162,7 @@ bool LogicalCpuInfo::Populate(
     {
       auto temp = (*core_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.core_id = absl::nullopt;
+        out.core_id = std::nullopt;
         return false;
       }
       out.core_id = *temp;
@@ -1272,34 +1182,21 @@ bool LogicalCpuInfo::Populate(
 }
 
 // static
-std::unique_ptr<LogicalCpuInfo> LogicalCpuInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LogicalCpuInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LogicalCpuInfo> LogicalCpuInfo::FromValue(const base::Value::Dict& value) {
+  LogicalCpuInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LogicalCpuInfo> LogicalCpuInfo::FromValue(const base::Value::Dict& value) {
+std::optional<LogicalCpuInfo> LogicalCpuInfo::FromValue(const base::Value& value) {
   LogicalCpuInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LogicalCpuInfo> LogicalCpuInfo::FromValue(const base::Value& value) {
-  LogicalCpuInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1338,8 +1235,8 @@ PhysicalCpuInfo::PhysicalCpuInfo()
  {}
 
 PhysicalCpuInfo::~PhysicalCpuInfo() = default;
-PhysicalCpuInfo::PhysicalCpuInfo(PhysicalCpuInfo&& rhs) = default;
-PhysicalCpuInfo& PhysicalCpuInfo::operator=(PhysicalCpuInfo&& rhs) = default;
+PhysicalCpuInfo::PhysicalCpuInfo(PhysicalCpuInfo&& rhs) noexcept = default;
+PhysicalCpuInfo& PhysicalCpuInfo::operator=(PhysicalCpuInfo&& rhs) noexcept = default;
 PhysicalCpuInfo PhysicalCpuInfo::Clone() const {
   PhysicalCpuInfo out;
   out.model_name = model_name;
@@ -1358,7 +1255,7 @@ bool PhysicalCpuInfo::Populate(
     {
       auto* temp = (*model_name_value).GetIfString();
       if (!temp) {
-        out.model_name = absl::nullopt;
+        out.model_name = std::nullopt;
         return false;
       }
       out.model_name = *temp;
@@ -1393,34 +1290,21 @@ bool PhysicalCpuInfo::Populate(
 }
 
 // static
-std::unique_ptr<PhysicalCpuInfo> PhysicalCpuInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PhysicalCpuInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PhysicalCpuInfo> PhysicalCpuInfo::FromValue(const base::Value::Dict& value) {
+  PhysicalCpuInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PhysicalCpuInfo> PhysicalCpuInfo::FromValue(const base::Value::Dict& value) {
+std::optional<PhysicalCpuInfo> PhysicalCpuInfo::FromValue(const base::Value& value) {
   PhysicalCpuInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PhysicalCpuInfo> PhysicalCpuInfo::FromValue(const base::Value& value) {
-  PhysicalCpuInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1443,8 +1327,8 @@ CpuInfo::CpuInfo()
 : architecture() {}
 
 CpuInfo::~CpuInfo() = default;
-CpuInfo::CpuInfo(CpuInfo&& rhs) = default;
-CpuInfo& CpuInfo::operator=(CpuInfo&& rhs) = default;
+CpuInfo::CpuInfo(CpuInfo&& rhs) noexcept = default;
+CpuInfo& CpuInfo::operator=(CpuInfo&& rhs) noexcept = default;
 CpuInfo CpuInfo::Clone() const {
   CpuInfo out;
   out.num_total_threads = num_total_threads;
@@ -1464,7 +1348,7 @@ bool CpuInfo::Populate(
     {
       auto temp = (*num_total_threads_value).GetIfInt();
       if (!temp.has_value()) {
-        out.num_total_threads = absl::nullopt;
+        out.num_total_threads = std::nullopt;
         return false;
       }
       out.num_total_threads = *temp;
@@ -1514,34 +1398,21 @@ bool CpuInfo::Populate(
 }
 
 // static
-std::unique_ptr<CpuInfo> CpuInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CpuInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CpuInfo> CpuInfo::FromValue(const base::Value::Dict& value) {
+  CpuInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CpuInfo> CpuInfo::FromValue(const base::Value::Dict& value) {
+std::optional<CpuInfo> CpuInfo::FromValue(const base::Value& value) {
   CpuInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CpuInfo> CpuInfo::FromValue(const base::Value& value) {
-  CpuInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1596,8 +1467,8 @@ EmbeddedDisplayInfo::EmbeddedDisplayInfo()
 : input_type() {}
 
 EmbeddedDisplayInfo::~EmbeddedDisplayInfo() = default;
-EmbeddedDisplayInfo::EmbeddedDisplayInfo(EmbeddedDisplayInfo&& rhs) = default;
-EmbeddedDisplayInfo& EmbeddedDisplayInfo::operator=(EmbeddedDisplayInfo&& rhs) = default;
+EmbeddedDisplayInfo::EmbeddedDisplayInfo(EmbeddedDisplayInfo&& rhs) noexcept = default;
+EmbeddedDisplayInfo& EmbeddedDisplayInfo::operator=(EmbeddedDisplayInfo&& rhs) noexcept = default;
 EmbeddedDisplayInfo EmbeddedDisplayInfo::Clone() const {
   EmbeddedDisplayInfo out;
   out.privacy_screen_supported = privacy_screen_supported;
@@ -1626,7 +1497,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*privacy_screen_supported_value).GetIfBool();
       if (!temp.has_value()) {
-        out.privacy_screen_supported = absl::nullopt;
+        out.privacy_screen_supported = std::nullopt;
         return false;
       }
       out.privacy_screen_supported = *temp;
@@ -1638,7 +1509,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*privacy_screen_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.privacy_screen_enabled = absl::nullopt;
+        out.privacy_screen_enabled = std::nullopt;
         return false;
       }
       out.privacy_screen_enabled = *temp;
@@ -1650,7 +1521,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*display_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.display_width = absl::nullopt;
+        out.display_width = std::nullopt;
         return false;
       }
       out.display_width = *temp;
@@ -1662,7 +1533,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*display_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.display_height = absl::nullopt;
+        out.display_height = std::nullopt;
         return false;
       }
       out.display_height = *temp;
@@ -1674,7 +1545,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*resolution_horizontal_value).GetIfInt();
       if (!temp.has_value()) {
-        out.resolution_horizontal = absl::nullopt;
+        out.resolution_horizontal = std::nullopt;
         return false;
       }
       out.resolution_horizontal = *temp;
@@ -1686,7 +1557,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*resolution_vertical_value).GetIfInt();
       if (!temp.has_value()) {
-        out.resolution_vertical = absl::nullopt;
+        out.resolution_vertical = std::nullopt;
         return false;
       }
       out.resolution_vertical = *temp;
@@ -1698,7 +1569,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*refresh_rate_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.refresh_rate = absl::nullopt;
+        out.refresh_rate = std::nullopt;
         return false;
       }
       out.refresh_rate = *temp;
@@ -1710,7 +1581,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto* temp = (*manufacturer_value).GetIfString();
       if (!temp) {
-        out.manufacturer = absl::nullopt;
+        out.manufacturer = std::nullopt;
         return false;
       }
       out.manufacturer = *temp;
@@ -1722,7 +1593,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*model_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.model_id = absl::nullopt;
+        out.model_id = std::nullopt;
         return false;
       }
       out.model_id = *temp;
@@ -1734,7 +1605,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*serial_number_value).GetIfInt();
       if (!temp.has_value()) {
-        out.serial_number = absl::nullopt;
+        out.serial_number = std::nullopt;
         return false;
       }
       out.serial_number = *temp;
@@ -1746,7 +1617,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*manufacture_week_value).GetIfInt();
       if (!temp.has_value()) {
-        out.manufacture_week = absl::nullopt;
+        out.manufacture_week = std::nullopt;
         return false;
       }
       out.manufacture_week = *temp;
@@ -1758,7 +1629,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto temp = (*manufacture_year_value).GetIfInt();
       if (!temp.has_value()) {
-        out.manufacture_year = absl::nullopt;
+        out.manufacture_year = std::nullopt;
         return false;
       }
       out.manufacture_year = *temp;
@@ -1770,7 +1641,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto* temp = (*edid_version_value).GetIfString();
       if (!temp) {
-        out.edid_version = absl::nullopt;
+        out.edid_version = std::nullopt;
         return false;
       }
       out.edid_version = *temp;
@@ -1797,7 +1668,7 @@ bool EmbeddedDisplayInfo::Populate(
     {
       auto* temp = (*display_name_value).GetIfString();
       if (!temp) {
-        out.display_name = absl::nullopt;
+        out.display_name = std::nullopt;
         return false;
       }
       out.display_name = *temp;
@@ -1817,34 +1688,21 @@ bool EmbeddedDisplayInfo::Populate(
 }
 
 // static
-std::unique_ptr<EmbeddedDisplayInfo> EmbeddedDisplayInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EmbeddedDisplayInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EmbeddedDisplayInfo> EmbeddedDisplayInfo::FromValue(const base::Value::Dict& value) {
+  EmbeddedDisplayInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EmbeddedDisplayInfo> EmbeddedDisplayInfo::FromValue(const base::Value::Dict& value) {
+std::optional<EmbeddedDisplayInfo> EmbeddedDisplayInfo::FromValue(const base::Value& value) {
   EmbeddedDisplayInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EmbeddedDisplayInfo> EmbeddedDisplayInfo::FromValue(const base::Value& value) {
-  EmbeddedDisplayInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1919,8 +1777,8 @@ ExternalDisplayInfo::ExternalDisplayInfo()
 : input_type() {}
 
 ExternalDisplayInfo::~ExternalDisplayInfo() = default;
-ExternalDisplayInfo::ExternalDisplayInfo(ExternalDisplayInfo&& rhs) = default;
-ExternalDisplayInfo& ExternalDisplayInfo::operator=(ExternalDisplayInfo&& rhs) = default;
+ExternalDisplayInfo::ExternalDisplayInfo(ExternalDisplayInfo&& rhs) noexcept = default;
+ExternalDisplayInfo& ExternalDisplayInfo::operator=(ExternalDisplayInfo&& rhs) noexcept = default;
 ExternalDisplayInfo ExternalDisplayInfo::Clone() const {
   ExternalDisplayInfo out;
   out.display_width = display_width;
@@ -1947,7 +1805,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*display_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.display_width = absl::nullopt;
+        out.display_width = std::nullopt;
         return false;
       }
       out.display_width = *temp;
@@ -1959,7 +1817,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*display_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.display_height = absl::nullopt;
+        out.display_height = std::nullopt;
         return false;
       }
       out.display_height = *temp;
@@ -1971,7 +1829,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*resolution_horizontal_value).GetIfInt();
       if (!temp.has_value()) {
-        out.resolution_horizontal = absl::nullopt;
+        out.resolution_horizontal = std::nullopt;
         return false;
       }
       out.resolution_horizontal = *temp;
@@ -1983,7 +1841,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*resolution_vertical_value).GetIfInt();
       if (!temp.has_value()) {
-        out.resolution_vertical = absl::nullopt;
+        out.resolution_vertical = std::nullopt;
         return false;
       }
       out.resolution_vertical = *temp;
@@ -1995,7 +1853,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*refresh_rate_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.refresh_rate = absl::nullopt;
+        out.refresh_rate = std::nullopt;
         return false;
       }
       out.refresh_rate = *temp;
@@ -2007,7 +1865,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto* temp = (*manufacturer_value).GetIfString();
       if (!temp) {
-        out.manufacturer = absl::nullopt;
+        out.manufacturer = std::nullopt;
         return false;
       }
       out.manufacturer = *temp;
@@ -2019,7 +1877,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*model_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.model_id = absl::nullopt;
+        out.model_id = std::nullopt;
         return false;
       }
       out.model_id = *temp;
@@ -2031,7 +1889,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*serial_number_value).GetIfInt();
       if (!temp.has_value()) {
-        out.serial_number = absl::nullopt;
+        out.serial_number = std::nullopt;
         return false;
       }
       out.serial_number = *temp;
@@ -2043,7 +1901,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*manufacture_week_value).GetIfInt();
       if (!temp.has_value()) {
-        out.manufacture_week = absl::nullopt;
+        out.manufacture_week = std::nullopt;
         return false;
       }
       out.manufacture_week = *temp;
@@ -2055,7 +1913,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto temp = (*manufacture_year_value).GetIfInt();
       if (!temp.has_value()) {
-        out.manufacture_year = absl::nullopt;
+        out.manufacture_year = std::nullopt;
         return false;
       }
       out.manufacture_year = *temp;
@@ -2067,7 +1925,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto* temp = (*edid_version_value).GetIfString();
       if (!temp) {
-        out.edid_version = absl::nullopt;
+        out.edid_version = std::nullopt;
         return false;
       }
       out.edid_version = *temp;
@@ -2094,7 +1952,7 @@ bool ExternalDisplayInfo::Populate(
     {
       auto* temp = (*display_name_value).GetIfString();
       if (!temp) {
-        out.display_name = absl::nullopt;
+        out.display_name = std::nullopt;
         return false;
       }
       out.display_name = *temp;
@@ -2114,34 +1972,21 @@ bool ExternalDisplayInfo::Populate(
 }
 
 // static
-std::unique_ptr<ExternalDisplayInfo> ExternalDisplayInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExternalDisplayInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExternalDisplayInfo> ExternalDisplayInfo::FromValue(const base::Value::Dict& value) {
+  ExternalDisplayInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExternalDisplayInfo> ExternalDisplayInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ExternalDisplayInfo> ExternalDisplayInfo::FromValue(const base::Value& value) {
   ExternalDisplayInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExternalDisplayInfo> ExternalDisplayInfo::FromValue(const base::Value& value) {
-  ExternalDisplayInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2208,8 +2053,8 @@ DisplayInfo::DisplayInfo()
  {}
 
 DisplayInfo::~DisplayInfo() = default;
-DisplayInfo::DisplayInfo(DisplayInfo&& rhs) = default;
-DisplayInfo& DisplayInfo::operator=(DisplayInfo&& rhs) = default;
+DisplayInfo::DisplayInfo(DisplayInfo&& rhs) noexcept = default;
+DisplayInfo& DisplayInfo::operator=(DisplayInfo&& rhs) noexcept = default;
 DisplayInfo DisplayInfo::Clone() const {
   DisplayInfo out;
   out.embedded_display = embedded_display.Clone();
@@ -2264,34 +2109,21 @@ bool DisplayInfo::Populate(
 }
 
 // static
-std::unique_ptr<DisplayInfo> DisplayInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DisplayInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DisplayInfo> DisplayInfo::FromValue(const base::Value::Dict& value) {
+  DisplayInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DisplayInfo> DisplayInfo::FromValue(const base::Value::Dict& value) {
+std::optional<DisplayInfo> DisplayInfo::FromValue(const base::Value& value) {
   DisplayInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DisplayInfo> DisplayInfo::FromValue(const base::Value& value) {
-  DisplayInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2312,8 +2144,8 @@ MarketingInfo::MarketingInfo()
  {}
 
 MarketingInfo::~MarketingInfo() = default;
-MarketingInfo::MarketingInfo(MarketingInfo&& rhs) = default;
-MarketingInfo& MarketingInfo::operator=(MarketingInfo&& rhs) = default;
+MarketingInfo::MarketingInfo(MarketingInfo&& rhs) noexcept = default;
+MarketingInfo& MarketingInfo::operator=(MarketingInfo&& rhs) noexcept = default;
 MarketingInfo MarketingInfo::Clone() const {
   MarketingInfo out;
   out.marketing_name = marketing_name;
@@ -2328,7 +2160,7 @@ bool MarketingInfo::Populate(
     {
       auto* temp = (*marketing_name_value).GetIfString();
       if (!temp) {
-        out.marketing_name = absl::nullopt;
+        out.marketing_name = std::nullopt;
         return false;
       }
       out.marketing_name = *temp;
@@ -2348,34 +2180,21 @@ bool MarketingInfo::Populate(
 }
 
 // static
-std::unique_ptr<MarketingInfo> MarketingInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MarketingInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MarketingInfo> MarketingInfo::FromValue(const base::Value::Dict& value) {
+  MarketingInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MarketingInfo> MarketingInfo::FromValue(const base::Value::Dict& value) {
+std::optional<MarketingInfo> MarketingInfo::FromValue(const base::Value& value) {
   MarketingInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MarketingInfo> MarketingInfo::FromValue(const base::Value& value) {
-  MarketingInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2396,8 +2215,8 @@ MemoryInfo::MemoryInfo()
  {}
 
 MemoryInfo::~MemoryInfo() = default;
-MemoryInfo::MemoryInfo(MemoryInfo&& rhs) = default;
-MemoryInfo& MemoryInfo::operator=(MemoryInfo&& rhs) = default;
+MemoryInfo::MemoryInfo(MemoryInfo&& rhs) noexcept = default;
+MemoryInfo& MemoryInfo::operator=(MemoryInfo&& rhs) noexcept = default;
 MemoryInfo MemoryInfo::Clone() const {
   MemoryInfo out;
   out.total_memory_ki_b = total_memory_ki_b;
@@ -2415,7 +2234,7 @@ bool MemoryInfo::Populate(
     {
       auto temp = (*total_memory_ki_b_value).GetIfInt();
       if (!temp.has_value()) {
-        out.total_memory_ki_b = absl::nullopt;
+        out.total_memory_ki_b = std::nullopt;
         return false;
       }
       out.total_memory_ki_b = *temp;
@@ -2427,7 +2246,7 @@ bool MemoryInfo::Populate(
     {
       auto temp = (*free_memory_ki_b_value).GetIfInt();
       if (!temp.has_value()) {
-        out.free_memory_ki_b = absl::nullopt;
+        out.free_memory_ki_b = std::nullopt;
         return false;
       }
       out.free_memory_ki_b = *temp;
@@ -2439,7 +2258,7 @@ bool MemoryInfo::Populate(
     {
       auto temp = (*available_memory_ki_b_value).GetIfInt();
       if (!temp.has_value()) {
-        out.available_memory_ki_b = absl::nullopt;
+        out.available_memory_ki_b = std::nullopt;
         return false;
       }
       out.available_memory_ki_b = *temp;
@@ -2451,7 +2270,7 @@ bool MemoryInfo::Populate(
     {
       auto temp = (*page_faults_since_last_boot_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.page_faults_since_last_boot = absl::nullopt;
+        out.page_faults_since_last_boot = std::nullopt;
         return false;
       }
       out.page_faults_since_last_boot = *temp;
@@ -2471,34 +2290,21 @@ bool MemoryInfo::Populate(
 }
 
 // static
-std::unique_ptr<MemoryInfo> MemoryInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MemoryInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MemoryInfo> MemoryInfo::FromValue(const base::Value::Dict& value) {
+  MemoryInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MemoryInfo> MemoryInfo::FromValue(const base::Value::Dict& value) {
+std::optional<MemoryInfo> MemoryInfo::FromValue(const base::Value& value) {
   MemoryInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MemoryInfo> MemoryInfo::FromValue(const base::Value& value) {
-  MemoryInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2620,8 +2426,8 @@ NetworkInfo::NetworkInfo()
 state() {}
 
 NetworkInfo::~NetworkInfo() = default;
-NetworkInfo::NetworkInfo(NetworkInfo&& rhs) = default;
-NetworkInfo& NetworkInfo::operator=(NetworkInfo&& rhs) = default;
+NetworkInfo::NetworkInfo(NetworkInfo&& rhs) noexcept = default;
+NetworkInfo& NetworkInfo::operator=(NetworkInfo&& rhs) noexcept = default;
 NetworkInfo NetworkInfo::Clone() const {
   NetworkInfo out;
   out.type = type;
@@ -2675,7 +2481,7 @@ bool NetworkInfo::Populate(
     {
       auto* temp = (*mac_address_value).GetIfString();
       if (!temp) {
-        out.mac_address = absl::nullopt;
+        out.mac_address = std::nullopt;
         return false;
       }
       out.mac_address = *temp;
@@ -2687,7 +2493,7 @@ bool NetworkInfo::Populate(
     {
       auto* temp = (*ipv4_address_value).GetIfString();
       if (!temp) {
-        out.ipv4_address = absl::nullopt;
+        out.ipv4_address = std::nullopt;
         return false;
       }
       out.ipv4_address = *temp;
@@ -2714,7 +2520,7 @@ bool NetworkInfo::Populate(
     {
       auto temp = (*signal_strength_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.signal_strength = absl::nullopt;
+        out.signal_strength = std::nullopt;
         return false;
       }
       out.signal_strength = *temp;
@@ -2734,34 +2540,21 @@ bool NetworkInfo::Populate(
 }
 
 // static
-std::unique_ptr<NetworkInfo> NetworkInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NetworkInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NetworkInfo> NetworkInfo::FromValue(const base::Value::Dict& value) {
+  NetworkInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NetworkInfo> NetworkInfo::FromValue(const base::Value::Dict& value) {
+std::optional<NetworkInfo> NetworkInfo::FromValue(const base::Value& value) {
   NetworkInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NetworkInfo> NetworkInfo::FromValue(const base::Value& value) {
-  NetworkInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2800,8 +2593,8 @@ InternetConnectivityInfo::InternetConnectivityInfo()
  {}
 
 InternetConnectivityInfo::~InternetConnectivityInfo() = default;
-InternetConnectivityInfo::InternetConnectivityInfo(InternetConnectivityInfo&& rhs) = default;
-InternetConnectivityInfo& InternetConnectivityInfo::operator=(InternetConnectivityInfo&& rhs) = default;
+InternetConnectivityInfo::InternetConnectivityInfo(InternetConnectivityInfo&& rhs) noexcept = default;
+InternetConnectivityInfo& InternetConnectivityInfo::operator=(InternetConnectivityInfo&& rhs) noexcept = default;
 InternetConnectivityInfo InternetConnectivityInfo::Clone() const {
   InternetConnectivityInfo out;
   out.networks.reserve(networks.size());
@@ -2842,34 +2635,21 @@ bool InternetConnectivityInfo::Populate(
 }
 
 // static
-std::unique_ptr<InternetConnectivityInfo> InternetConnectivityInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InternetConnectivityInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InternetConnectivityInfo> InternetConnectivityInfo::FromValue(const base::Value::Dict& value) {
+  InternetConnectivityInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InternetConnectivityInfo> InternetConnectivityInfo::FromValue(const base::Value::Dict& value) {
+std::optional<InternetConnectivityInfo> InternetConnectivityInfo::FromValue(const base::Value& value) {
   InternetConnectivityInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InternetConnectivityInfo> InternetConnectivityInfo::FromValue(const base::Value& value) {
-  InternetConnectivityInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2888,8 +2668,8 @@ OemData::OemData()
  {}
 
 OemData::~OemData() = default;
-OemData::OemData(OemData&& rhs) = default;
-OemData& OemData::operator=(OemData&& rhs) = default;
+OemData::OemData(OemData&& rhs) noexcept = default;
+OemData& OemData::operator=(OemData&& rhs) noexcept = default;
 OemData OemData::Clone() const {
   OemData out;
   out.oem_data = oem_data;
@@ -2904,7 +2684,7 @@ bool OemData::Populate(
     {
       auto* temp = (*oem_data_value).GetIfString();
       if (!temp) {
-        out.oem_data = absl::nullopt;
+        out.oem_data = std::nullopt;
         return false;
       }
       out.oem_data = *temp;
@@ -2924,34 +2704,21 @@ bool OemData::Populate(
 }
 
 // static
-std::unique_ptr<OemData> OemData::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OemData>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OemData> OemData::FromValue(const base::Value::Dict& value) {
+  OemData out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OemData> OemData::FromValue(const base::Value::Dict& value) {
+std::optional<OemData> OemData::FromValue(const base::Value& value) {
   OemData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OemData> OemData::FromValue(const base::Value& value) {
-  OemData out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2972,8 +2739,8 @@ OsVersionInfo::OsVersionInfo()
  {}
 
 OsVersionInfo::~OsVersionInfo() = default;
-OsVersionInfo::OsVersionInfo(OsVersionInfo&& rhs) = default;
-OsVersionInfo& OsVersionInfo::operator=(OsVersionInfo&& rhs) = default;
+OsVersionInfo::OsVersionInfo(OsVersionInfo&& rhs) noexcept = default;
+OsVersionInfo& OsVersionInfo::operator=(OsVersionInfo&& rhs) noexcept = default;
 OsVersionInfo OsVersionInfo::Clone() const {
   OsVersionInfo out;
   out.release_milestone = release_milestone;
@@ -2991,7 +2758,7 @@ bool OsVersionInfo::Populate(
     {
       auto* temp = (*release_milestone_value).GetIfString();
       if (!temp) {
-        out.release_milestone = absl::nullopt;
+        out.release_milestone = std::nullopt;
         return false;
       }
       out.release_milestone = *temp;
@@ -3003,7 +2770,7 @@ bool OsVersionInfo::Populate(
     {
       auto* temp = (*build_number_value).GetIfString();
       if (!temp) {
-        out.build_number = absl::nullopt;
+        out.build_number = std::nullopt;
         return false;
       }
       out.build_number = *temp;
@@ -3015,7 +2782,7 @@ bool OsVersionInfo::Populate(
     {
       auto* temp = (*patch_number_value).GetIfString();
       if (!temp) {
-        out.patch_number = absl::nullopt;
+        out.patch_number = std::nullopt;
         return false;
       }
       out.patch_number = *temp;
@@ -3027,7 +2794,7 @@ bool OsVersionInfo::Populate(
     {
       auto* temp = (*release_channel_value).GetIfString();
       if (!temp) {
-        out.release_channel = absl::nullopt;
+        out.release_channel = std::nullopt;
         return false;
       }
       out.release_channel = *temp;
@@ -3047,34 +2814,21 @@ bool OsVersionInfo::Populate(
 }
 
 // static
-std::unique_ptr<OsVersionInfo> OsVersionInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OsVersionInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OsVersionInfo> OsVersionInfo::FromValue(const base::Value::Dict& value) {
+  OsVersionInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OsVersionInfo> OsVersionInfo::FromValue(const base::Value::Dict& value) {
+std::optional<OsVersionInfo> OsVersionInfo::FromValue(const base::Value& value) {
   OsVersionInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OsVersionInfo> OsVersionInfo::FromValue(const base::Value& value) {
-  OsVersionInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3107,8 +2861,8 @@ UsbBusInterfaceInfo::UsbBusInterfaceInfo()
  {}
 
 UsbBusInterfaceInfo::~UsbBusInterfaceInfo() = default;
-UsbBusInterfaceInfo::UsbBusInterfaceInfo(UsbBusInterfaceInfo&& rhs) = default;
-UsbBusInterfaceInfo& UsbBusInterfaceInfo::operator=(UsbBusInterfaceInfo&& rhs) = default;
+UsbBusInterfaceInfo::UsbBusInterfaceInfo(UsbBusInterfaceInfo&& rhs) noexcept = default;
+UsbBusInterfaceInfo& UsbBusInterfaceInfo::operator=(UsbBusInterfaceInfo&& rhs) noexcept = default;
 UsbBusInterfaceInfo UsbBusInterfaceInfo::Clone() const {
   UsbBusInterfaceInfo out;
   out.interface_number = interface_number;
@@ -3127,7 +2881,7 @@ bool UsbBusInterfaceInfo::Populate(
     {
       auto temp = (*interface_number_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.interface_number = absl::nullopt;
+        out.interface_number = std::nullopt;
         return false;
       }
       out.interface_number = *temp;
@@ -3139,7 +2893,7 @@ bool UsbBusInterfaceInfo::Populate(
     {
       auto temp = (*class_id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.class_id = absl::nullopt;
+        out.class_id = std::nullopt;
         return false;
       }
       out.class_id = *temp;
@@ -3151,7 +2905,7 @@ bool UsbBusInterfaceInfo::Populate(
     {
       auto temp = (*subclass_id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.subclass_id = absl::nullopt;
+        out.subclass_id = std::nullopt;
         return false;
       }
       out.subclass_id = *temp;
@@ -3163,7 +2917,7 @@ bool UsbBusInterfaceInfo::Populate(
     {
       auto temp = (*protocol_id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.protocol_id = absl::nullopt;
+        out.protocol_id = std::nullopt;
         return false;
       }
       out.protocol_id = *temp;
@@ -3175,7 +2929,7 @@ bool UsbBusInterfaceInfo::Populate(
     {
       auto* temp = (*driver_value).GetIfString();
       if (!temp) {
-        out.driver = absl::nullopt;
+        out.driver = std::nullopt;
         return false;
       }
       out.driver = *temp;
@@ -3195,34 +2949,21 @@ bool UsbBusInterfaceInfo::Populate(
 }
 
 // static
-std::unique_ptr<UsbBusInterfaceInfo> UsbBusInterfaceInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UsbBusInterfaceInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UsbBusInterfaceInfo> UsbBusInterfaceInfo::FromValue(const base::Value::Dict& value) {
+  UsbBusInterfaceInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UsbBusInterfaceInfo> UsbBusInterfaceInfo::FromValue(const base::Value::Dict& value) {
+std::optional<UsbBusInterfaceInfo> UsbBusInterfaceInfo::FromValue(const base::Value& value) {
   UsbBusInterfaceInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UsbBusInterfaceInfo> UsbBusInterfaceInfo::FromValue(const base::Value& value) {
-  UsbBusInterfaceInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3325,8 +3066,8 @@ FwupdFirmwareVersionInfo::FwupdFirmwareVersionInfo()
 : version_format() {}
 
 FwupdFirmwareVersionInfo::~FwupdFirmwareVersionInfo() = default;
-FwupdFirmwareVersionInfo::FwupdFirmwareVersionInfo(FwupdFirmwareVersionInfo&& rhs) = default;
-FwupdFirmwareVersionInfo& FwupdFirmwareVersionInfo::operator=(FwupdFirmwareVersionInfo&& rhs) = default;
+FwupdFirmwareVersionInfo::FwupdFirmwareVersionInfo(FwupdFirmwareVersionInfo&& rhs) noexcept = default;
+FwupdFirmwareVersionInfo& FwupdFirmwareVersionInfo::operator=(FwupdFirmwareVersionInfo&& rhs) noexcept = default;
 FwupdFirmwareVersionInfo FwupdFirmwareVersionInfo::Clone() const {
   FwupdFirmwareVersionInfo out;
   out.version = version;
@@ -3343,7 +3084,7 @@ bool FwupdFirmwareVersionInfo::Populate(
     {
       auto* temp = (*version_value).GetIfString();
       if (!temp) {
-        out.version = absl::nullopt;
+        out.version = std::nullopt;
         return false;
       }
       out.version = *temp;
@@ -3379,34 +3120,21 @@ bool FwupdFirmwareVersionInfo::Populate(
 }
 
 // static
-std::unique_ptr<FwupdFirmwareVersionInfo> FwupdFirmwareVersionInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FwupdFirmwareVersionInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FwupdFirmwareVersionInfo> FwupdFirmwareVersionInfo::FromValue(const base::Value::Dict& value) {
+  FwupdFirmwareVersionInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FwupdFirmwareVersionInfo> FwupdFirmwareVersionInfo::FromValue(const base::Value::Dict& value) {
+std::optional<FwupdFirmwareVersionInfo> FwupdFirmwareVersionInfo::FromValue(const base::Value& value) {
   FwupdFirmwareVersionInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FwupdFirmwareVersionInfo> FwupdFirmwareVersionInfo::FromValue(const base::Value& value) {
-  FwupdFirmwareVersionInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3512,8 +3240,8 @@ UsbBusInfo::UsbBusInfo()
 spec_speed() {}
 
 UsbBusInfo::~UsbBusInfo() = default;
-UsbBusInfo::UsbBusInfo(UsbBusInfo&& rhs) = default;
-UsbBusInfo& UsbBusInfo::operator=(UsbBusInfo&& rhs) = default;
+UsbBusInfo::UsbBusInfo(UsbBusInfo&& rhs) noexcept = default;
+UsbBusInfo& UsbBusInfo::operator=(UsbBusInfo&& rhs) noexcept = default;
 UsbBusInfo UsbBusInfo::Clone() const {
   UsbBusInfo out;
   out.class_id = class_id;
@@ -3543,7 +3271,7 @@ bool UsbBusInfo::Populate(
     {
       auto temp = (*class_id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.class_id = absl::nullopt;
+        out.class_id = std::nullopt;
         return false;
       }
       out.class_id = *temp;
@@ -3555,7 +3283,7 @@ bool UsbBusInfo::Populate(
     {
       auto temp = (*subclass_id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.subclass_id = absl::nullopt;
+        out.subclass_id = std::nullopt;
         return false;
       }
       out.subclass_id = *temp;
@@ -3567,7 +3295,7 @@ bool UsbBusInfo::Populate(
     {
       auto temp = (*protocol_id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.protocol_id = absl::nullopt;
+        out.protocol_id = std::nullopt;
         return false;
       }
       out.protocol_id = *temp;
@@ -3579,7 +3307,7 @@ bool UsbBusInfo::Populate(
     {
       auto temp = (*vendor_id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.vendor_id = absl::nullopt;
+        out.vendor_id = std::nullopt;
         return false;
       }
       out.vendor_id = *temp;
@@ -3591,7 +3319,7 @@ bool UsbBusInfo::Populate(
     {
       auto temp = (*product_id_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.product_id = absl::nullopt;
+        out.product_id = std::nullopt;
         return false;
       }
       out.product_id = *temp;
@@ -3673,34 +3401,21 @@ bool UsbBusInfo::Populate(
 }
 
 // static
-std::unique_ptr<UsbBusInfo> UsbBusInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UsbBusInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UsbBusInfo> UsbBusInfo::FromValue(const base::Value::Dict& value) {
+  UsbBusInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UsbBusInfo> UsbBusInfo::FromValue(const base::Value::Dict& value) {
+std::optional<UsbBusInfo> UsbBusInfo::FromValue(const base::Value& value) {
   UsbBusInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UsbBusInfo> UsbBusInfo::FromValue(const base::Value& value) {
-  UsbBusInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3751,8 +3466,8 @@ UsbBusDevices::UsbBusDevices()
  {}
 
 UsbBusDevices::~UsbBusDevices() = default;
-UsbBusDevices::UsbBusDevices(UsbBusDevices&& rhs) = default;
-UsbBusDevices& UsbBusDevices::operator=(UsbBusDevices&& rhs) = default;
+UsbBusDevices::UsbBusDevices(UsbBusDevices&& rhs) noexcept = default;
+UsbBusDevices& UsbBusDevices::operator=(UsbBusDevices&& rhs) noexcept = default;
 UsbBusDevices UsbBusDevices::Clone() const {
   UsbBusDevices out;
   out.devices.reserve(devices.size());
@@ -3793,34 +3508,21 @@ bool UsbBusDevices::Populate(
 }
 
 // static
-std::unique_ptr<UsbBusDevices> UsbBusDevices::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UsbBusDevices>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UsbBusDevices> UsbBusDevices::FromValue(const base::Value::Dict& value) {
+  UsbBusDevices out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UsbBusDevices> UsbBusDevices::FromValue(const base::Value::Dict& value) {
+std::optional<UsbBusDevices> UsbBusDevices::FromValue(const base::Value& value) {
   UsbBusDevices out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UsbBusDevices> UsbBusDevices::FromValue(const base::Value& value) {
-  UsbBusDevices out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3839,8 +3541,8 @@ VpdInfo::VpdInfo()
  {}
 
 VpdInfo::~VpdInfo() = default;
-VpdInfo::VpdInfo(VpdInfo&& rhs) = default;
-VpdInfo& VpdInfo::operator=(VpdInfo&& rhs) = default;
+VpdInfo::VpdInfo(VpdInfo&& rhs) noexcept = default;
+VpdInfo& VpdInfo::operator=(VpdInfo&& rhs) noexcept = default;
 VpdInfo VpdInfo::Clone() const {
   VpdInfo out;
   out.activate_date = activate_date;
@@ -3858,7 +3560,7 @@ bool VpdInfo::Populate(
     {
       auto* temp = (*activate_date_value).GetIfString();
       if (!temp) {
-        out.activate_date = absl::nullopt;
+        out.activate_date = std::nullopt;
         return false;
       }
       out.activate_date = *temp;
@@ -3870,7 +3572,7 @@ bool VpdInfo::Populate(
     {
       auto* temp = (*model_name_value).GetIfString();
       if (!temp) {
-        out.model_name = absl::nullopt;
+        out.model_name = std::nullopt;
         return false;
       }
       out.model_name = *temp;
@@ -3882,7 +3584,7 @@ bool VpdInfo::Populate(
     {
       auto* temp = (*serial_number_value).GetIfString();
       if (!temp) {
-        out.serial_number = absl::nullopt;
+        out.serial_number = std::nullopt;
         return false;
       }
       out.serial_number = *temp;
@@ -3894,7 +3596,7 @@ bool VpdInfo::Populate(
     {
       auto* temp = (*sku_number_value).GetIfString();
       if (!temp) {
-        out.sku_number = absl::nullopt;
+        out.sku_number = std::nullopt;
         return false;
       }
       out.sku_number = *temp;
@@ -3914,34 +3616,21 @@ bool VpdInfo::Populate(
 }
 
 // static
-std::unique_ptr<VpdInfo> VpdInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VpdInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VpdInfo> VpdInfo::FromValue(const base::Value::Dict& value) {
+  VpdInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VpdInfo> VpdInfo::FromValue(const base::Value::Dict& value) {
+std::optional<VpdInfo> VpdInfo::FromValue(const base::Value& value) {
   VpdInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VpdInfo> VpdInfo::FromValue(const base::Value& value) {
-  VpdInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3974,8 +3663,8 @@ StatefulPartitionInfo::StatefulPartitionInfo()
  {}
 
 StatefulPartitionInfo::~StatefulPartitionInfo() = default;
-StatefulPartitionInfo::StatefulPartitionInfo(StatefulPartitionInfo&& rhs) = default;
-StatefulPartitionInfo& StatefulPartitionInfo::operator=(StatefulPartitionInfo&& rhs) = default;
+StatefulPartitionInfo::StatefulPartitionInfo(StatefulPartitionInfo&& rhs) noexcept = default;
+StatefulPartitionInfo& StatefulPartitionInfo::operator=(StatefulPartitionInfo&& rhs) noexcept = default;
 StatefulPartitionInfo StatefulPartitionInfo::Clone() const {
   StatefulPartitionInfo out;
   out.available_space = available_space;
@@ -3991,7 +3680,7 @@ bool StatefulPartitionInfo::Populate(
     {
       auto temp = (*available_space_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.available_space = absl::nullopt;
+        out.available_space = std::nullopt;
         return false;
       }
       out.available_space = *temp;
@@ -4003,7 +3692,7 @@ bool StatefulPartitionInfo::Populate(
     {
       auto temp = (*total_space_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.total_space = absl::nullopt;
+        out.total_space = std::nullopt;
         return false;
       }
       out.total_space = *temp;
@@ -4023,34 +3712,21 @@ bool StatefulPartitionInfo::Populate(
 }
 
 // static
-std::unique_ptr<StatefulPartitionInfo> StatefulPartitionInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StatefulPartitionInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StatefulPartitionInfo> StatefulPartitionInfo::FromValue(const base::Value::Dict& value) {
+  StatefulPartitionInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StatefulPartitionInfo> StatefulPartitionInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StatefulPartitionInfo> StatefulPartitionInfo::FromValue(const base::Value& value) {
   StatefulPartitionInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StatefulPartitionInfo> StatefulPartitionInfo::FromValue(const base::Value& value) {
-  StatefulPartitionInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4105,8 +3781,8 @@ TpmVersion::TpmVersion()
 : gsc_version() {}
 
 TpmVersion::~TpmVersion() = default;
-TpmVersion::TpmVersion(TpmVersion&& rhs) = default;
-TpmVersion& TpmVersion::operator=(TpmVersion&& rhs) = default;
+TpmVersion::TpmVersion(TpmVersion&& rhs) noexcept = default;
+TpmVersion& TpmVersion::operator=(TpmVersion&& rhs) noexcept = default;
 TpmVersion TpmVersion::Clone() const {
   TpmVersion out;
   out.gsc_version = gsc_version;
@@ -4144,7 +3820,7 @@ bool TpmVersion::Populate(
     {
       auto temp = (*family_value).GetIfInt();
       if (!temp.has_value()) {
-        out.family = absl::nullopt;
+        out.family = std::nullopt;
         return false;
       }
       out.family = *temp;
@@ -4156,7 +3832,7 @@ bool TpmVersion::Populate(
     {
       auto temp = (*spec_level_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.spec_level = absl::nullopt;
+        out.spec_level = std::nullopt;
         return false;
       }
       out.spec_level = *temp;
@@ -4168,7 +3844,7 @@ bool TpmVersion::Populate(
     {
       auto temp = (*manufacturer_value).GetIfInt();
       if (!temp.has_value()) {
-        out.manufacturer = absl::nullopt;
+        out.manufacturer = std::nullopt;
         return false;
       }
       out.manufacturer = *temp;
@@ -4180,7 +3856,7 @@ bool TpmVersion::Populate(
     {
       auto temp = (*tpm_model_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tpm_model = absl::nullopt;
+        out.tpm_model = std::nullopt;
         return false;
       }
       out.tpm_model = *temp;
@@ -4192,7 +3868,7 @@ bool TpmVersion::Populate(
     {
       auto temp = (*firmware_version_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.firmware_version = absl::nullopt;
+        out.firmware_version = std::nullopt;
         return false;
       }
       out.firmware_version = *temp;
@@ -4204,7 +3880,7 @@ bool TpmVersion::Populate(
     {
       auto* temp = (*vendor_specific_value).GetIfString();
       if (!temp) {
-        out.vendor_specific = absl::nullopt;
+        out.vendor_specific = std::nullopt;
         return false;
       }
       out.vendor_specific = *temp;
@@ -4224,34 +3900,21 @@ bool TpmVersion::Populate(
 }
 
 // static
-std::unique_ptr<TpmVersion> TpmVersion::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TpmVersion>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TpmVersion> TpmVersion::FromValue(const base::Value::Dict& value) {
+  TpmVersion out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TpmVersion> TpmVersion::FromValue(const base::Value::Dict& value) {
+std::optional<TpmVersion> TpmVersion::FromValue(const base::Value& value) {
   TpmVersion out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TpmVersion> TpmVersion::FromValue(const base::Value& value) {
-  TpmVersion out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4296,8 +3959,8 @@ TpmStatus::TpmStatus()
  {}
 
 TpmStatus::~TpmStatus() = default;
-TpmStatus::TpmStatus(TpmStatus&& rhs) = default;
-TpmStatus& TpmStatus::operator=(TpmStatus&& rhs) = default;
+TpmStatus::TpmStatus(TpmStatus&& rhs) noexcept = default;
+TpmStatus& TpmStatus::operator=(TpmStatus&& rhs) noexcept = default;
 TpmStatus TpmStatus::Clone() const {
   TpmStatus out;
   out.enabled = enabled;
@@ -4314,7 +3977,7 @@ bool TpmStatus::Populate(
     {
       auto temp = (*enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enabled = absl::nullopt;
+        out.enabled = std::nullopt;
         return false;
       }
       out.enabled = *temp;
@@ -4326,7 +3989,7 @@ bool TpmStatus::Populate(
     {
       auto temp = (*owned_value).GetIfBool();
       if (!temp.has_value()) {
-        out.owned = absl::nullopt;
+        out.owned = std::nullopt;
         return false;
       }
       out.owned = *temp;
@@ -4338,7 +4001,7 @@ bool TpmStatus::Populate(
     {
       auto temp = (*owner_password_is_present_value).GetIfBool();
       if (!temp.has_value()) {
-        out.owner_password_is_present = absl::nullopt;
+        out.owner_password_is_present = std::nullopt;
         return false;
       }
       out.owner_password_is_present = *temp;
@@ -4358,34 +4021,21 @@ bool TpmStatus::Populate(
 }
 
 // static
-std::unique_ptr<TpmStatus> TpmStatus::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TpmStatus>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TpmStatus> TpmStatus::FromValue(const base::Value::Dict& value) {
+  TpmStatus out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TpmStatus> TpmStatus::FromValue(const base::Value::Dict& value) {
+std::optional<TpmStatus> TpmStatus::FromValue(const base::Value& value) {
   TpmStatus out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TpmStatus> TpmStatus::FromValue(const base::Value& value) {
-  TpmStatus out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4414,8 +4064,8 @@ TpmDictionaryAttack::TpmDictionaryAttack()
  {}
 
 TpmDictionaryAttack::~TpmDictionaryAttack() = default;
-TpmDictionaryAttack::TpmDictionaryAttack(TpmDictionaryAttack&& rhs) = default;
-TpmDictionaryAttack& TpmDictionaryAttack::operator=(TpmDictionaryAttack&& rhs) = default;
+TpmDictionaryAttack::TpmDictionaryAttack(TpmDictionaryAttack&& rhs) noexcept = default;
+TpmDictionaryAttack& TpmDictionaryAttack::operator=(TpmDictionaryAttack&& rhs) noexcept = default;
 TpmDictionaryAttack TpmDictionaryAttack::Clone() const {
   TpmDictionaryAttack out;
   out.counter = counter;
@@ -4433,7 +4083,7 @@ bool TpmDictionaryAttack::Populate(
     {
       auto temp = (*counter_value).GetIfInt();
       if (!temp.has_value()) {
-        out.counter = absl::nullopt;
+        out.counter = std::nullopt;
         return false;
       }
       out.counter = *temp;
@@ -4445,7 +4095,7 @@ bool TpmDictionaryAttack::Populate(
     {
       auto temp = (*threshold_value).GetIfInt();
       if (!temp.has_value()) {
-        out.threshold = absl::nullopt;
+        out.threshold = std::nullopt;
         return false;
       }
       out.threshold = *temp;
@@ -4457,7 +4107,7 @@ bool TpmDictionaryAttack::Populate(
     {
       auto temp = (*lockout_in_effect_value).GetIfBool();
       if (!temp.has_value()) {
-        out.lockout_in_effect = absl::nullopt;
+        out.lockout_in_effect = std::nullopt;
         return false;
       }
       out.lockout_in_effect = *temp;
@@ -4469,7 +4119,7 @@ bool TpmDictionaryAttack::Populate(
     {
       auto temp = (*lockout_seconds_remaining_value).GetIfInt();
       if (!temp.has_value()) {
-        out.lockout_seconds_remaining = absl::nullopt;
+        out.lockout_seconds_remaining = std::nullopt;
         return false;
       }
       out.lockout_seconds_remaining = *temp;
@@ -4489,34 +4139,21 @@ bool TpmDictionaryAttack::Populate(
 }
 
 // static
-std::unique_ptr<TpmDictionaryAttack> TpmDictionaryAttack::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TpmDictionaryAttack>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TpmDictionaryAttack> TpmDictionaryAttack::FromValue(const base::Value::Dict& value) {
+  TpmDictionaryAttack out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TpmDictionaryAttack> TpmDictionaryAttack::FromValue(const base::Value::Dict& value) {
+std::optional<TpmDictionaryAttack> TpmDictionaryAttack::FromValue(const base::Value& value) {
   TpmDictionaryAttack out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TpmDictionaryAttack> TpmDictionaryAttack::FromValue(const base::Value& value) {
-  TpmDictionaryAttack out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4549,8 +4186,8 @@ TpmInfo::TpmInfo()
  {}
 
 TpmInfo::~TpmInfo() = default;
-TpmInfo::TpmInfo(TpmInfo&& rhs) = default;
-TpmInfo& TpmInfo::operator=(TpmInfo&& rhs) = default;
+TpmInfo::TpmInfo(TpmInfo&& rhs) noexcept = default;
+TpmInfo& TpmInfo::operator=(TpmInfo&& rhs) noexcept = default;
 TpmInfo TpmInfo::Clone() const {
   TpmInfo out;
   out.version = version.Clone();
@@ -4614,34 +4251,21 @@ bool TpmInfo::Populate(
 }
 
 // static
-std::unique_ptr<TpmInfo> TpmInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TpmInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TpmInfo> TpmInfo::FromValue(const base::Value::Dict& value) {
+  TpmInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TpmInfo> TpmInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TpmInfo> TpmInfo::FromValue(const base::Value& value) {
   TpmInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TpmInfo> TpmInfo::FromValue(const base::Value& value) {
-  TpmInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

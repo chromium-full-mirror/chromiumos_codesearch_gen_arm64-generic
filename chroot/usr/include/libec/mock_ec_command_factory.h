@@ -5,6 +5,7 @@
 #ifndef LIBEC_MOCK_EC_COMMAND_FACTORY_H_
 #define LIBEC_MOCK_EC_COMMAND_FACTORY_H_
 
+#include <array>
 #include <memory>
 #include <string>
 #include <vector>
@@ -41,15 +42,13 @@ class MockEcCommandFactory : public ec::EcCommandFactoryInterface {
               FpFrameCommand,
               (int index, uint32_t frame_size, uint16_t max_read_size),
               (override));
-  MOCK_METHOD(std::unique_ptr<ec::FpPreloadTemplateCommand>,
-              FpPreloadTemplateCommand,
-              (uint16_t fgr,
-               std::vector<uint8_t> tmpl,
-               uint16_t max_write_size),
-              (override));
   MOCK_METHOD(std::unique_ptr<ec::FpTemplateCommand>,
               FpTemplateCommand,
               (std::vector<uint8_t> tmpl, uint16_t max_write_size),
+              (override));
+  MOCK_METHOD(std::unique_ptr<ec::FpUnlockTemplateCommand>,
+              FpUnlockTemplateCommand,
+              (uint16_t finger_num),
               (override));
   MOCK_METHOD(std::unique_ptr<ec::ChargeControlSetCommand>,
               ChargeControlSetCommand,
@@ -93,9 +92,22 @@ class MockEcCommandFactory : public ec::EcCommandFactoryInterface {
                const brillo::Blob& pub_y,
                const brillo::Blob& encrypted_priv),
               (override));
+  MOCK_METHOD(std::unique_ptr<ec::LedControlQueryCommand>,
+              LedControlQueryCommand,
+              (enum ec_led_id led_id),
+              (override));
+  MOCK_METHOD(std::unique_ptr<ec::LedControlSetCommand>,
+              LedControlSetCommand,
+              (enum ec_led_id led_id,
+               (std::array<uint8_t, EC_LED_COLOR_COUNT> brightness)),
+              (override));
   MOCK_METHOD(std::unique_ptr<ec::LedControlAutoCommand>,
               LedControlAutoCommand,
               (enum ec_led_id led_id),
+              (override));
+  MOCK_METHOD(std::unique_ptr<ec::I2cReadCommand>,
+              I2cReadCommand,
+              (uint8_t port, uint8_t addr8, uint8_t offset, uint8_t read_len),
               (override));
 };
 

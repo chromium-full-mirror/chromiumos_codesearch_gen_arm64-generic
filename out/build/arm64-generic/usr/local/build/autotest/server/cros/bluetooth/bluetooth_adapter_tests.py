@@ -25,16 +25,21 @@ import time
 import common
 from autotest_lib.client.bin import utils
 from autotest_lib.client.bin.input import input_event_recorder as recorder
+from autotest_lib.client.bin.input import linux_input
 from autotest_lib.client.common_lib import error
 from autotest_lib.client.common_lib.cros.bluetooth import bluetooth_socket
 from autotest_lib.client.cros.chameleon import chameleon
 from autotest_lib.server.cros.bluetooth import bluetooth_test_utils
+from autotest_lib.client.cros.bluetooth.bluetooth_audio_test_data import (
+        CODEC_DICT, CAP_PIPEWIRE)
 from autotest_lib.server import test
 
 from autotest_lib.client.bin.input.linux_input import (
         BTN_LEFT, BTN_RIGHT, EV_KEY, EV_REL, REL_X, REL_Y, REL_WHEEL,
         REL_WHEEL_HI_RES, KEY_PLAYCD, KEY_PAUSECD, KEY_STOPCD, KEY_NEXTSONG,
-        KEY_PREVIOUSSONG)
+        KEY_PREVIOUSSONG, KEY_LEFTSHIFT, BTN_A, BTN_B, BTN_X, BTN_Y, BTN_TL,
+        BTN_TR, EV_ABS, ABS_HAT0X, ABS_HAT0Y, ABS_BRAKE, ABS_GAS, ABS_X, ABS_Y,
+        ABS_Z, ABS_RZ, BTN_THUMBL, BTN_THUMBR, BTN_START)
 from autotest_lib.server.cros.bluetooth.bluetooth_gatt_client_utils import (
         GATT_ClientFacade, GATT_Application, GATT_HIDApplication,
         Floss_GATT_HIDApplication)
@@ -61,6 +66,7 @@ RESUME_DELTA = -5
 SUPPORTED_DEVICE_TYPES = {
         'MOUSE': lambda btpeer: btpeer.get_bluetooth_hid_mouse,
         'KEYBOARD': lambda btpeer: btpeer.get_bluetooth_hid_keyboard,
+        'GAMEPAD': lambda btpeer: btpeer.get_bluetooth_hid_gamepad,
         'BLE_MOUSE': lambda btpeer: btpeer.get_ble_mouse,
         'BLE_KEYBOARD': lambda btpeer: btpeer.get_ble_keyboard,
         # Tester allows us to test DUT's discoverability, etc. from a peer
@@ -120,6 +126,15 @@ UNSUPPORTED_BT_HW_FILTERING_CHIPSETS = [
         'Realtek-RTL8852A-USB', 'Realtek-RTL8852C-USB'
 ]
 
+CHAR_TO_KEY_MAP = {
+        "'": "KEY_APOSTROPHE",
+        " ": "KEY_SPACE",
+        ".": "KEY_PERIOD",
+        "\n": "KEY_ENTER"
+}
+
+SPECIAL_CHAR_NEEDS_LEFTSHIFT = {"!": "KEY_1"}
+
 # Possible inquiry results format and code in hciconfig
 INQUIRY_MODE = {'STANDARD': 0, 'RSSI': 1, 'EIR': 2, 'ERROR': -1}
 
@@ -129,6 +144,68 @@ LE_HID_RECONNECT_TIME_MAX_SEC = 3
 
 # Defines for advertising parameters
 ADV_TX_POWER_NO_PREFERENCE = 127
+
+# Mouse movement boundaries
+MOUSE_MAX_MOVE_VALUE = 127
+MOUSE_MIN_MOVE_VALUE = -127
+
+
+def get_num_devices(cap_reqs):
+    """Get the number of devices.
+
+    cap_reqs may look like
+    - 1
+    - (('PIPEWIRE'),)
+
+    In the 1st case, one device is needed.
+    In the 2nd case, len(('PIPEWIRE'),) indicates one device,
+            which supports `PIPEWIRE`, is needed.
+
+    @param cap_reqs: capability requirements
+
+    @returns: the number of devices
+
+    """
+    return len(cap_reqs) if type(cap_reqs) is tuple else cap_reqs
+
+
+def calc_total_num_devices(devices):
+    """Compute the total number of devices.
+
+    Case 1:
+      devices={"KEYBOARD": 1, "MOUSE": 1}
+      returns 2 in this case
+
+    Case 2:
+      devices={'BLUETOOTH_AUDIO': (('PIPEWIRE'),)},
+      returns 1 in this case
+
+    @returns: the number of devices
+
+    """
+    return sum([get_num_devices(cap_reqs) for cap_reqs in devices.values()])
+
+
+def get_device_capability_requirements(cap_reqs):
+    """Get the capability requirements of devices.
+
+    cap_reqs may look like
+    - 1
+    - (('PIPEWIRE'),)
+
+    In the 1st case, 1 means one device without capability requirements.
+            returns () in this case.
+
+    In the 2nd case, len(('PIPEWIRE'),) indicates one device,
+            which supports `PIPEWIRE`, is needed.
+            returns (('PIPEWIRE'),) in this case.
+
+    @param cap_reqs: capability requirements
+
+    @returns: the number of devices
+
+    """
+    return cap_reqs if type(cap_reqs) is tuple else ()
 
 
 def method_name():
@@ -166,13 +243,15 @@ def _run_method(method, method_name, *args, **kwargs):
     return result
 
 
-def get_bluetooth_emulated_device(btpeer, device_type):
+def get_bluetooth_emulated_device(btpeer, device_type, cap_reqs):
     """Get the bluetooth emulated device object.
 
     @param btpeer: the Bluetooth peer device
     @param device_type : the bluetooth device type, e.g., 'MOUSE'
+    @param cap_reqs: capability requirements
 
-    @returns: the bluetooth device object
+    @returns: the device object if the btpeer can emulate the device type;
+              or None if the btpeer does not meet the capability requirements
 
     """
 
@@ -266,6 +345,15 @@ def get_bluetooth_emulated_device(btpeer, device_type):
 
     device.address = _retry_device_method('GetLocalBluetoothAddress')
     logging.info('address: %s', device.address)
+
+    device.cap_reqs = get_device_capability_requirements(cap_reqs)
+    if CAP_PIPEWIRE in device.cap_reqs:
+        device.pipewire = device._capabilities.get(CAP_PIPEWIRE)
+        logging.info('device pipewire: %s', device.pipewire)
+        if device.pipewire is None:
+            logging.info('%s is not supported on %s', CAP_PIPEWIRE,
+                         device.address)
+            return None
 
     pin_falsy_values = [] if device._has_pin else [None]
     device.pin = _retry_device_method('GetPinCode', pin_falsy_values)
@@ -791,6 +879,154 @@ class BluetoothAdapterTests(test.test):
             'MOUSE': 'NoInputNoOutput',
     }
 
+    dut_btmon_log_path = ""
+
+    # Regex to find HCI connection event handle for Bluetooth LE in btmon log,
+    # e.g.
+    # HCI Event: LE Meta Event (0x3e) plen 31             #509 [hci0] 37.342083
+    #       LE Enhanced Connection Complete (0x0a)
+    #         Status: Success (0x00)
+    #         Handle: 3585
+    #         Role: Central (0x00)
+    #         Peer address type: Public (0x00)
+    #         Peer address: DC:A6:32:AE:EC:13
+    LE_ACL_CONNECTION_HANDLE_REGEX = (r"HCI Event: LE Meta Event .* #\d+ \["
+                                      r"hci\d+\].*\s.*(?:LE Enhanced "
+                                      r"Connection Complete|LE Connection "
+                                      r"Complete).*\n.*Status: Success \("
+                                      r"0x00\)\n.*Handle: (\d+)(?:.|\n)*Peer "
+                                      r"address: {}")
+
+    # Regex to find HCI connection event time for Bluetooth LE in btmon log,
+    # e.g.
+    # HCI Event: LE Meta Event (0x3e) plen 31             #509 [hci0] 37.342083
+    #       LE Enhanced Connection Complete (0x0a)
+    #         Status: Success (0x00)
+    #         Handle: 3585
+    #         Role: Central (0x00)
+    #         Peer address type: Public (0x00)
+    #         Peer address: DC:A6:32:AE:EC:13
+    LE_ACL_CONNECTED_REGEX = (r"HCI Event: LE Meta Event .* #\d+ \[hci\d+\] ("
+                              r"\d+\.\d+)\s.*(?:LE Enhanced Connection "
+                              r"Complete|LE Connection Complete).*\s.*Status: "
+                              r"Success \(0x00\)(?:.|\n)*Peer address: {}")
+
+    # Regex to find HCI connection event handle for Bluetooth BR in btmon log,
+    # e.g.
+    # HCI Event: Connect Complete (0x03) plen 11          #881 [hci0] 47.119272
+    #         Status: Success (0x00)
+    #         Handle: 256
+    #         Address: DC:A6:32:AE:EC:13
+    CL_ACL_CONNECTION_HANDLE_REGEX = (
+            r"HCI Event: Connect Complete.* #\d+ \["
+            r"hci\d+\].*\n.*Status: Success \("
+            r"0x00\)\n.*Handle: (\d+)\n.*Address: {}")
+
+    # Regex to find HCI connection event time for Bluetooth BR in btmon log,
+    # e.g.
+    # HCI Event: Connect Complete (0x03) plen 11          #881 [hci0] 47.119272
+    #         Status: Success (0x00)
+    #         Handle: 256
+    #         Address: DC:A6:32:AE:EC:13
+    CL_ACL_CONNECTED_REGEX = (
+            r"HCI Event: Connect Complete.* #\d+ \[hci\d+\] ("
+            r"\d+\.\d+)\n.*Status: Success \("
+            r"0x00\)\n.*\n.*Address: {}")
+
+    def __get_chameleon_board(self, device):
+        """Gets device chameleon board object.
+
+        @param device: The Bluetooth device.
+
+        @return: Bluetooth device chameleon board.
+        """
+        for btpeer in self.host.btpeer_list:
+            if btpeer.get_bluetooth_mac_address() == device.address:
+                return btpeer
+
+    def __get_acl_connection_handle_regex(self, device):
+        """Gets ACL connection handle regex.
+
+        @param device: The Bluetooth device.
+
+        @return: ACL connection handle regex.
+        """
+        return self.LE_ACL_CONNECTION_HANDLE_REGEX if 'ble_' in device._name else (
+                self.CL_ACL_CONNECTION_HANDLE_REGEX)
+
+    def __get_acl_connection_regex(self, device):
+        """Gets ACL connection regex.
+
+        @param device: The Bluetooth device.
+
+        @return: ACL connection regex.
+        """
+        return self.LE_ACL_CONNECTED_REGEX if 'ble_' in device._name else (
+                self.CL_ACL_CONNECTED_REGEX)
+
+    # This function currently only works with public addresses.
+    # TODO(b/308882697): Make HID performance tests compatible with random
+    #  address.
+    def get_dut_protocol_notif_timestamps(self, protocol_regex, device):
+        """Gets DUT protocol notifications timestamp.
+
+        @param protocol_regex: Protocol notification message regex in btmon.
+        @param device: The Bluetooth device.
+
+        @return: List of DUT notifications timestamp.
+        """
+        connection_handle = self.bluetooth_facade.find_btmon_patterns([
+                self.__get_acl_connection_handle_regex(device).format(
+                        device.address)
+        ], self.dut_btmon_log_path)[0][0]
+
+        connect_regex = self.__get_acl_connection_regex(device)
+        notification_regex = protocol_regex.format(connection_handle)
+
+        dut_connect_times, dut_data_times = (
+                self.bluetooth_facade.find_btmon_patterns([
+                        connect_regex.format(device.address),
+                        notification_regex
+                ], self.dut_btmon_log_path))
+
+        connect_time = dut_connect_times[-1] if len(dut_connect_times) else 0
+        notification_time_stamps = []
+        if connect_time and len(dut_data_times):
+            for data_time in dut_data_times:
+                notification_time_stamps.append(
+                        float(data_time) - float(connect_time))
+        return notification_time_stamps
+
+    def get_peer_protocol_notif_timestamps(self, protocol_regex, device):
+        """Gets peer protocol notifications timestamp.
+
+        @param protocol_regex: Protocol notification message regex in btmon.
+        @param device: The Bluetooth device.
+
+        @return: List of peer notifications timestamp.
+        """
+        peer = self.__get_chameleon_board(device)
+        connection_handle = peer.find_btmon_patterns([
+                self.__get_acl_connection_handle_regex(device).format(
+                        self.bluetooth_facade.address)
+        ])[0][0]
+
+        connect_regex = self.__get_acl_connection_regex(device)
+        notification_regex = protocol_regex.format(connection_handle)
+
+        peer_connect_times, peer_data_times = (peer.find_btmon_patterns([
+                connect_regex.format(self.bluetooth_facade.address),
+                notification_regex
+        ]))
+
+        connect_time = peer_connect_times[-1] if len(peer_connect_times) else 0
+        notification_time_stamps = []
+        if connect_time and len(peer_data_times):
+            for data_time in peer_data_times:
+                notification_time_stamps.append(
+                        float(data_time) - float(connect_time))
+        return notification_time_stamps
+
     def assert_on_fail(self, result, raiseNA=False):
         """ If the called function returns a false-like value, raise an error.
 
@@ -1039,11 +1275,15 @@ class BluetoothAdapterTests(test.test):
         else:
             device.AdapterPowerOff()
 
-    def get_device_rasp(self, device_num, on_start=True):
+    def get_device_rasp(self, device_configs, on_start=True):
         """Get all bluetooth device objects from Bluetooth peer devices
         This method should be called only after group_btpeers_type
-        @param device_num : dict of {device_type:number}, to specify the number
-                            of device needed for each device_type.
+        @param device_configs: a dict which specifies either the number of
+                devices needed for each device_type, or the capability
+                requirements of the btpeer. Hence, the `key: value` pair can be
+                - `device_type: number`, or
+                - `device_type: cap_reqs`, where cap_reqs represents the
+                  capability requirements
 
         @param on_start: boolean describing whether the requested clear is for a
                             new test, or in the middle of a current one
@@ -1051,8 +1291,10 @@ class BluetoothAdapterTests(test.test):
         @returns: True if Success.
         """
 
-        logging.info("in get_device_rasp %s onstart %s", device_num, on_start)
-        total_num_devices = sum(device_num.values())
+        logging.info("in get_device_rasp %s onstart %s", device_configs,
+                     on_start)
+        total_num_devices = calc_total_num_devices(device_configs)
+        logging.info('total_num_devices: %d', total_num_devices)
         if total_num_devices > len(self.host.btpeer_list):
             logging.error(
                     'Total number of devices %s is greater than the'
@@ -1060,26 +1302,55 @@ class BluetoothAdapterTests(test.test):
                     len(self.host.btpeer_list))
             return False
 
-        for device_type, number in device_num.items():
-            total_num_devices += number
-            if len(self.btpeer_group[device_type]) < number:
-                logging.error('Number of Bluetooth peers with device type'
-                      '%s is %d, which is less then needed %d', device_type,
-                      len(self.btpeer_group[device_type]), number)
+        # TODO: the device types with special cap_reqs, i.e., capability
+        # requirements, should be allocated first.
+        for device_type, cap_reqs in device_configs.items():
+            req_num = get_num_devices(cap_reqs)
+            if len(self.btpeer_group[device_type]) < req_num:
+                logging.error(
+                        'Number of Bluetooth peers with device type'
+                        '%s is %d, which is less then needed %d', device_type,
+                        len(self.btpeer_group[device_type]), req_num)
                 return False
 
-            for btpeer in self.btpeer_group[device_type][:number]:
+            for btpeer in self.btpeer_group[device_type]:
                 logging.info("getting emulated %s", device_type)
-                device = self.reset_btpeer(btpeer, device_type, on_start)
+                device = self.reset_btpeer(btpeer, device_type, cap_reqs,
+                                           on_start)
+                # If device is None, the btpeer does not meet the
+                # capability requirements.
+                if device is None:
+                    logging.debug("btpeer could not be setup as %s",
+                                  device_type)
+                    continue
 
                 self.devices[device_type].append(device)
 
-                # Remove this btpeer from btpeer_group since it is already
-                # configured as a specific device
+                # Remove this btpeer from btpeer_group for other device types
+                # since it is already configured as a specific device
                 for temp_device in SUPPORTED_DEVICE_TYPES:
+                    if temp_device == device_type:
+                        continue
                     if btpeer in self.btpeer_group[temp_device]:
                         self.btpeer_group[temp_device].remove(btpeer)
 
+                emulated_count = len(self.devices[device_type])
+                if emulated_count == req_num:
+                    logging.debug('Got %s device of type %s', req_num,
+                                  device_type)
+                    break
+
+                logging.info("Emulated devices: %s", self.devices)
+
+            emulated_count = len(self.devices[device_type])
+            if emulated_count < req_num:
+                raise error.TestNAError(
+                        'No sufficient peers supporting %s need %s got %s' %
+                        (device_type, req_num, emulated_count))
+            logging.info("Number of emulated %s: %d", device_type,
+                         emulated_count)
+
+        logging.info("getting emulated devices %s", self.devices)
         return True
 
     def get_peer_device_type(self, device):
@@ -1101,11 +1372,11 @@ class BluetoothAdapterTests(test.test):
 
         return None
 
-    def get_device(self, device_type, on_start=True):
+    def get_device(self, device_type, cap_reqs, on_start=True):
         """Get the bluetooth device object.
 
         @param device_type : the bluetooth device type, e.g., 'MOUSE'
-
+        @param cap_reqs: capability requirements
         @param on_start: boolean describing whether the requested clear is for a
                             new test, or in the middle of a current one
 
@@ -1113,9 +1384,9 @@ class BluetoothAdapterTests(test.test):
 
         """
 
-        self.devices[device_type].append(
-                self.reset_btpeer(self.host.btpeer, device_type, on_start))
-
+        device = self.reset_btpeer(self.host.btpeer, device_type, cap_reqs,
+                                   on_start)
+        self.devices[device_type].append(device)
         return self.devices[device_type][-1]
 
 
@@ -1148,17 +1419,21 @@ class BluetoothAdapterTests(test.test):
 
         return device
 
-    def reset_btpeer(self, peer, device_type, clear_device=True):
+    def reset_btpeer(self, peer, device_type, cap_reqs, clear_device=True):
         """Reset the btpeer device in order to be used as a different type.
 
         @param peer: the btpeer device to reset with new device type
         @param device_type : the new bluetooth device type, e.g., 'MOUSE'
+        @param cap_reqs: capability requirements
         @param clear_device: whether to clear the device state
 
         @returns: the bluetooth device object
 
         """
-        device = get_bluetooth_emulated_device(peer, device_type)
+        device = get_bluetooth_emulated_device(peer, device_type, cap_reqs)
+        # If device is None, the peer does not meet the capability requirements.
+        if device is None:
+            return None
 
         return self.reset_emulated_device(device, device_type, clear_device)
 
@@ -2395,8 +2670,7 @@ class BluetoothAdapterTests(test.test):
                 self.bluetooth_facade.remove_device_object(
                         device_address, identity_address)
 
-            discovery_started, _ = self.bluetooth_facade.start_discovery(
-                    register_observer=not wait_complete)
+            discovery_started, _ = self.bluetooth_facade.start_discovery()
 
         if discovery_started:
             try:
@@ -2417,7 +2691,7 @@ class BluetoothAdapterTests(test.test):
             except:
                 logging.error('test_discover_device: unexpected error')
 
-        if start_discovery:
+        if discovery_started:
             if stop_discovery:
                 discovery_stopped, _ = self.bluetooth_facade.stop_discovery()
 
@@ -2427,6 +2701,9 @@ class BluetoothAdapterTests(test.test):
             # Waits until the inquiry command completes, unless we stop it
             # manually, to investigate the RNR behavior.
             elif wait_complete:
+                if self.floss:
+                    self.bluetooth_facade.unregister_discovery_observer()
+
                 # core specification suggested discovery time.
                 # Aligns with bluez and floss.
                 time.sleep(12.8)
@@ -2470,28 +2747,46 @@ class BluetoothAdapterTests(test.test):
         HCI_COMMAND_INQUIRY = '< HCI Command: Inquiry'
         HCI_EVENT_INQUIRY_COMPLETE = '> HCI Event: Inquiry Complete'
 
+        search_strings = [
+                HCI_COMMAND_REMOTE_NAMA_REQUEST, HCI_COMMAND_INQUIRY,
+                HCI_EVENT_INQUIRY_COMPLETE
+        ]
+
+        search_str = '|'.join(search_strings)
+
         contents = self.bluetooth_facade.btmon_get(
-                search_str=HCI_COMMAND_REMOTE_NAMA_REQUEST,
-                start_str=HCI_COMMAND_INQUIRY,
-                end_str=HCI_EVENT_INQUIRY_COMPLETE)
+                search_str=search_str, start_str=HCI_COMMAND_INQUIRY)
 
         self.results = {
                 'Inquiry command count': 0,
-                'RNR command count': 0,
+                'RNR command count during inq': 0,
                 'Inquiry command complete count': 0,
         }
 
+        is_inquirying = False
         for line in contents:
-            if line.startswith(HCI_COMMAND_INQUIRY):
-                self.results['Inquiry command count'] += 1
-            elif line.startswith(HCI_COMMAND_REMOTE_NAMA_REQUEST):
-                self.results['RNR command count'] += 1
-            elif line.startswith(HCI_EVENT_INQUIRY_COMPLETE):
-                self.results['Inquiry command complete count'] += 1
+            if is_inquirying:
+                if line.startswith(HCI_COMMAND_INQUIRY):
+                    logging.warning(
+                            "Receiving Inquiry command while it's already started."
+                    )
+                elif line.startswith(HCI_COMMAND_REMOTE_NAMA_REQUEST):
+                    self.results['RNR command count during inq'] += 1
+                elif line.startswith(HCI_EVENT_INQUIRY_COMPLETE):
+                    is_inquirying = False
+                    self.results['Inquiry command complete count'] += 1
+            else:
+                if line.startswith(HCI_COMMAND_INQUIRY):
+                    is_inquirying = True
+                    self.results['Inquiry command count'] += 1
+                elif line.startswith(HCI_COMMAND_REMOTE_NAMA_REQUEST):
+                    pass
+                elif line.startswith(HCI_EVENT_INQUIRY_COMPLETE):
+                    logging.warning(
+                            "Receiving Inquiry command complete before started."
+                    )
 
-        return (self.results['Inquiry command count'] == 1
-                and self.results['RNR command count'] == 0
-                and self.results['Inquiry command complete count'] == 1)
+        return self.results['RNR command count during inq'] == 0
 
     def _test_discover_by_device(self, device):
         return device.Discover(self.bluetooth_facade.address)
@@ -2666,6 +2961,82 @@ class BluetoothAdapterTests(test.test):
             logging.error('test_cancel_pairing: unexpected error %s', e)
 
         return False
+
+    def get_codec_from_btmon(self):
+        """Get the media codec from the recorded btmon log.
+
+        The self._get_btmon_log() should be invoked before calling this method.
+
+        An example AVDTP configuration packet for the AAC codec looks like
+        < ACL Data TX: Handle 256 flags 0x00 dlen 22   #7227 [hci0]
+          Channel: 64 len 18 [PSM 25 mode Basic (0x00)] {chan 0}
+          AVDTP: Set Configuration (0x03) Command (0x00) type 0x00 label 3 nosp
+            ACP SEID: 1
+            INT SEID: 2
+            Service Category: Media Transport (0x01)
+            Service Category: Media Codec (0x07)
+              Media Type: Audio (0x00)
+              Media Codec: MPEG-2,4 AAC (0x02)
+                Object Type: MPEG-2 AAC LC (0x80)
+                Frequency: 44100 (0x100)
+                Channels: 2 (0x04)
+                Bitrate: 320000bps
+                VBR: No
+            Service Category: Delay Reporting (0x08)
+
+        @returns: the codec number if found; None otherwise.
+
+        """
+        start_str = 'AVDTP: Set Configuration'
+        search_str = 'Media Codec:'
+        pattern = r'%s .*?\((0x[0-9a-fA-F]{2})\)' % search_str
+        config_output = self.bluetooth_facade.btmon_get(search_str, start_str)
+        for line in config_output:
+            match = re.search(pattern, line)
+            if match:
+                codec_num = int(match.group(1), 16)
+                codec = CODEC_DICT.get(codec_num)
+                logging.debug('codec: %s (codec number: %s)', codec,
+                              hex(codec_num))
+                break
+        else:
+            logging.warn('failed to find Media Codec in the btmon log')
+            codec = None
+        return codec
+
+    @test_retry_and_log(False)
+    def test_audio_codec(self, device):
+        """Test that the expected audio codec is configured successfully.
+
+        The btmon thread started at test_pairing_for_audio should be
+        stopped here.
+
+        @param device: the meta device containing a Bluetooth device
+
+        @returns: True if the expected codec is configured correctly.
+                  False otherwise.
+
+        """
+        try:
+            codec_found = utils.poll_for_condition(
+                    condition=self.get_codec_from_btmon,
+                    sleep_interval=self.ADAPTER_POLLING_DEFAULT_SLEEP_SECS,
+                    desc='get codec from btmon')
+        except utils.TimeoutError as e:
+            logging.error('get_codec_from_btmon: %s', e)
+            codec_found = None
+        except:
+            logging.error('get_codec_from_btmon: unexpected error')
+            codec_found = None
+
+        self.bluetooth_facade.btmon_stop()
+
+        codec_expected = self.get_a2dp_codec_name()
+        logging.info('codec configured: %s (expected %s)', codec_found,
+                     codec_expected)
+        self.results = dict()
+        self.results['codec'] = (codec_expected == codec_found)
+        return all(self.results.values())
 
     @test_retry_and_log
     def test_remove_pairing(self, device_address, identity_address=None):
@@ -4333,6 +4704,101 @@ class BluetoothAdapterTests(test.test):
         """
         return self._test_mouse_click(device, 'RIGHT')
 
+    def _test_mouse_bulk_actions(self, device, action_list, delay=0.2):
+        """Tests that the events of mouse bulk actions could be received
+        correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param action_list: List of tuples (action_type, action_args)
+                            representing mouse actionsList.
+        @param delay: Time in seconds between actions.
+
+        @returns: True if the report received by the host matches the
+                  expected one. False otherwise.
+        """
+        gesture = lambda: device.BulkActions(action_list, delay)
+        actual_events = self._record_input_events(
+            device, gesture, address=self._input_dev_uniq_addr(device))
+
+        expected_events = []
+        pressed_buttons = []
+        for action_type, action_args in action_list:
+            if action_type == 'MouseMove':
+                delta_x, delta_y = action_args
+                expected_events.extend([
+                    Event(EV_REL, REL_X, delta_x) if delta_x else None,
+                    Event(EV_REL, REL_Y, delta_y) if delta_y else None,
+                    recorder.SYN_EVENT
+                ])
+            elif action_type == 'PressLeftButton':
+                pressed_buttons.append('LEFT')
+                expected_events.extend([
+                    recorder.MSC_SCAN_BTN_EVENT['LEFT'],
+                    Event(EV_KEY, BTN_LEFT, 1),
+                    recorder.SYN_EVENT
+                ])
+            elif action_type == 'PressRightButton':
+                pressed_buttons.append('RIGHT')
+                expected_events.extend([
+                    recorder.MSC_SCAN_BTN_EVENT['RIGHT'],
+                    Event(EV_KEY, BTN_RIGHT, 1),
+                    recorder.SYN_EVENT
+                ])
+            elif action_type == 'ReleaseAllButtons':
+                for button in pressed_buttons:
+                    expected_events.extend([
+                        recorder.MSC_SCAN_BTN_EVENT[button],
+                        Event(
+                            EV_KEY, BTN_LEFT
+                            if button == 'LEFT' else BTN_RIGHT,
+                            0),
+                    ])
+                expected_events.extend([recorder.SYN_EVENT])
+                pressed_buttons = []
+
+        self.results = {
+            'actual_events': list(map(str, actual_events)),
+            'expected_events': list(map(str, expected_events))
+        }
+        return actual_events == expected_events
+
+    def _test_continuous_mouse_click(self, device, button, num_clicks, delay):
+        """Tests continuous mouse clicks for the specified number of times.
+
+        @param device: The meta device containing a Bluetooth HID device.
+        @param button: Which button to test, 'LEFT' or 'RIGHT'.
+        @param num_clicks: The number of clicks to perform.
+        @param delay: Time in seconds between each mouse click.
+
+        @returns: True if all clicks are successful, False otherwise.
+        """
+        action_list = [
+            ('PressLeftButton' if button == 'LEFT' else 'PressRightButton',
+             None), ('ReleaseAllButtons', None)
+        ]
+        if not self._test_mouse_bulk_actions(
+                device, action_list * num_clicks, delay=delay):
+            return False
+
+        return True
+
+    @test_retry_and_log
+    def test_continues_mouse_left_click(self,
+                                        device,
+                                        num_clicks=1000,
+                                        delay=0.01):
+        """Tests continuous mouse left click events for the specified number
+        of times.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param num_clicks: The number of clicks to perform.
+        @param delay: Time in seconds between each left mouse click.
+
+        @returns: True if all clicks are successful, False otherwise.
+        """
+        return self._test_continuous_mouse_click(device, 'LEFT', num_clicks,
+                                                 delay)
+
     def _test_mouse_move(self, device, delta_x=0, delta_y=0):
         """Test that the mouse move events could be received correctly.
 
@@ -4503,6 +4969,41 @@ class BluetoothAdapterTests(test.test):
         return actual_events == expected_events
 
 
+    @test_retry_and_log
+    def test_continuous_mouse_click_and_drag(self,
+                                             device,
+                                             delta_x,
+                                             delta_y,
+                                             num_iterations=1000,
+                                             delay=0.01):
+        """Tests continuous mouse click-and-drag events for the specified
+        times.
+
+        @param device: The meta device containing a Bluetooth HID device.
+        @param delta_x: The distance to drag in the x-axis.
+        @param delta_y: The distance to drag in the y-axis.
+        @param num_iterations: The number of click-and-drag iterations to
+                               perform.
+        @param delay: Time in seconds between mouse actions.
+
+        @returns: True if all click-and-drags are successful, False otherwise.
+        """
+        # Constrain delta_x and delta_y within the specified mouse movement
+        # boundaries.
+        delta_x = max(MOUSE_MIN_MOVE_VALUE, min(delta_x, MOUSE_MAX_MOVE_VALUE))
+        delta_y = max(MOUSE_MIN_MOVE_VALUE, min(delta_y, MOUSE_MAX_MOVE_VALUE))
+        action_list = [
+            ('PressLeftButton', None),
+            ('MouseMove', (delta_x, delta_y)),
+            ('ReleaseAllButtons', None)
+        ]
+        if not self._test_mouse_bulk_actions(
+                device, action_list * num_iterations, delay=delay):
+            return False
+
+        return True
+
+
     # -------------------------------------------------------------------
     # Bluetooth keyboard related tests
     # -------------------------------------------------------------------
@@ -4563,6 +5064,412 @@ class BluetoothAdapterTests(test.test):
 
         return all(self.results.values())
 
+    @test_retry_and_log
+    def test_keyboard_input_from_string(self,
+                                        device,
+                                        string_to_send,
+                                        delay=0.1):
+        """ Tests that keyboard events can be transmitted and received
+        correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param string_to_send: The set of keys to be pressed one-by-one.
+        @param delay: Time in seconds between sending each character.
+
+        @return: True if the recorded output matches the expected output,
+                 false otherwise.
+                """
+
+        if not string_to_send:
+            logging.info("The string is empty, return true.")
+            return True
+
+        length_correct = True
+        content_correct = True
+        holding_shift = False
+        key_events = []
+        for i, c in enumerate(string_to_send):
+            if c in SPECIAL_CHAR_NEEDS_LEFTSHIFT:
+                key_map_key = SPECIAL_CHAR_NEEDS_LEFTSHIFT[c]
+            else:
+                key_map_key = CHAR_TO_KEY_MAP.get(c, "KEY_" + c.upper())
+
+            key_map_code = getattr(linux_input, key_map_key, None)
+
+            need_shift = c.isupper() or c in SPECIAL_CHAR_NEEDS_LEFTSHIFT
+
+            if need_shift and not holding_shift:
+                # Press and hold leftshift.
+                key_events.append([EV_KEY, KEY_LEFTSHIFT, 1])
+                holding_shift = True
+            elif not need_shift and holding_shift:
+                # Release leftshift.
+                key_events.append([EV_KEY, KEY_LEFTSHIFT, 0])
+                holding_shift = False
+
+            # Press and release the current key.
+            key_events.extend([[EV_KEY, key_map_code, 1],
+                               [EV_KEY, key_map_code, 0]])
+
+        predicted_events = [Event(*event) for event in key_events]
+
+        # Create and run this input string as a gesture.
+        gesture = lambda: device.KeyboardSendString(string_to_send, delay)
+        rec_events = self._record_input_events(device,
+                                               gesture,
+                                               address=device.address)
+
+        # Filter out any input events that were not from the keyboard.
+        rec_key_events = [ev for ev in rec_events if ev.type == EV_KEY]
+
+        # Fail if we didn't record the correct number of events.
+        if len(rec_key_events) != len(predicted_events):
+            logging.error('Expected %d events, received %d',
+                          len(predicted_events), len(rec_key_events))
+            length_correct = False
+
+        for predicted, recorded in zip(predicted_events, rec_key_events):
+            if not predicted == recorded:
+                content_correct = False
+                break
+
+        self.results = {
+            'received_events': len(rec_key_events) > 0,
+            'length_correct': length_correct,
+            'content_correct': content_correct,
+        }
+
+        return all(self.results.values())
+
+    # -------------------------------------------------------------------
+    # Bluetooth gamepad related tests
+    # -------------------------------------------------------------------
+    def _test_gamepad_key_events(self, device, button, gesture):
+        """Tests that the gamepad press buttons events could be received
+        correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param button: Gamepad button, as GAMEPAD_BUTTON_* value, that will be
+                       pressed.
+        @param gesture: The gesture method to perform.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+        actual_events = self._record_input_events(device,
+                                                  gesture,
+                                                  address=device.address)
+
+        linux_input_button = {
+                'GAMEPAD_BUTTON_A': BTN_A,
+                'GAMEPAD_BUTTON_B': BTN_B,
+                'GAMEPAD_BUTTON_X': BTN_X,
+                'GAMEPAD_BUTTON_Y': BTN_Y,
+                'GAMEPAD_BUTTON_START': BTN_START,
+                'GAMEPAD_LEFT_STICK': BTN_THUMBL,
+                'GAMEPAD_RIGHT_STICK': BTN_THUMBR,
+                'GAMEPAD_BUTTON_LEFT_BUMPER': BTN_TL,
+                'GAMEPAD_BUTTON_RIGHT_BUMPER': BTN_TR
+        }
+
+        expected_events = [
+                # Button down
+                recorder.MSC_SCAN_BTN_EVENT[button],
+                Event(EV_KEY, linux_input_button[button], 1),
+                recorder.SYN_EVENT,
+                # Button up
+                recorder.MSC_SCAN_BTN_EVENT[button],
+                Event(EV_KEY, linux_input_button[button], 0),
+                recorder.SYN_EVENT
+        ]
+
+        self.results = {
+                'actual_events': list(map(str, actual_events)),
+                'expected_events': list(map(str, expected_events))
+        }
+        return actual_events == expected_events
+
+    def _test_gamepad_dpad_events(self, device, button, gesture):
+        """Tests that the gamepad press D-Pad buttons events could be received
+        correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param button: D-Pad button, as GAMEPAD_BUTTON_* value, that will be
+                       pressed.
+        @param gesture: The gesture method to perform.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+        actual_events = self._record_input_events(device,
+                                                  gesture,
+                                                  address=device.address)
+
+        linux_input_button = {
+                'GAMEPAD_BUTTON_LEFT': ABS_HAT0X,
+                'GAMEPAD_BUTTON_RIGHT': ABS_HAT0X,
+                'GAMEPAD_BUTTON_UP': ABS_HAT0Y,
+                'GAMEPAD_BUTTON_DOWN': ABS_HAT0Y
+        }
+        button_down_event_value = {
+                'GAMEPAD_BUTTON_LEFT': -1,
+                'GAMEPAD_BUTTON_RIGHT': 1,
+                'GAMEPAD_BUTTON_UP': -1,
+                'GAMEPAD_BUTTON_DOWN': 1
+        }
+
+        expected_events = [
+                # Button down
+                Event(EV_ABS, linux_input_button[button],
+                      button_down_event_value[button]),
+                recorder.SYN_EVENT,
+                # Button up
+                Event(EV_ABS, linux_input_button[button], 0),
+                recorder.SYN_EVENT
+        ]
+
+        self.results = {
+                'actual_events': list(map(str, actual_events)),
+                'expected_events': list(map(str, expected_events))
+        }
+        return actual_events == expected_events
+
+    def _test_gamepad_triggers_events(self, device, button, gesture, value):
+        """Tests that the gamepad press trigger buttons events could be
+        received correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param button: Trigger button, as LEFT_TRIGGER or RIGHT_TRIGGER value,
+                       that will be pressed.
+        @param gesture: The gesture method to perform.
+        @param value: A value between 0-1023 to press the trigger.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+
+        actual_events = self._record_input_events(device,
+                                                  gesture,
+                                                  address=device.address)
+
+        linux_input_button = {
+                'LEFT_TRIGGER': ABS_BRAKE,
+                'RIGHT_TRIGGER': ABS_GAS
+        }
+
+        expected_events = [
+                # Button down
+                Event(EV_ABS, linux_input_button[button], value),
+                recorder.SYN_EVENT,
+                # Button up
+                Event(EV_ABS, linux_input_button[button], 0),
+                recorder.SYN_EVENT
+        ]
+
+        self.results = {
+                'actual_events': list(map(str, actual_events)),
+                'expected_events': list(map(str, expected_events))
+        }
+        return actual_events == expected_events
+
+    def _test_gamepad_move_thumbstick(self,
+                                      device,
+                                      stick,
+                                      gesture,
+                                      delta_x=4095,
+                                      delta_y=4095):
+        """Tests that the events of gamepad thumbstick movement could be
+        received correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param stick: A stick type, as GAMEPAD_LEFT_STICK or
+                      GAMEPAD_RIGHT_STICK value, that will be moved.
+        @param gesture: The gesture method to perform.
+        @param delta_x: A value between 4095-65535 to move the thumbstick
+                        horizontally.
+        @param delta_y: A value between 4095-65535 to move the thumbstick
+                        vertically.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+
+        actual_events = self._record_input_events(device,
+                                                  gesture,
+                                                  address=device.address)
+
+        linux_input_button_x = {
+                'GAMEPAD_LEFT_STICK': ABS_X,
+                'GAMEPAD_RIGHT_STICK': ABS_Z
+        }
+        linux_input_button_y = {
+                'GAMEPAD_LEFT_STICK': ABS_Y,
+                'GAMEPAD_RIGHT_STICK': ABS_RZ
+        }
+
+        expected_events = [
+                # Move thumbsticks
+                Event(EV_ABS, linux_input_button_x[stick], delta_x),
+                Event(EV_ABS, linux_input_button_y[stick], delta_y),
+                recorder.SYN_EVENT,
+                # Clear thumbsticks
+                Event(EV_ABS, linux_input_button_x[stick], 0),
+                Event(EV_ABS, linux_input_button_y[stick], 0),
+                recorder.SYN_EVENT
+        ]
+
+        self.results = {
+                'actual_events': list(map(str, actual_events)),
+                'expected_events': list(map(str, expected_events))
+        }
+        return actual_events == expected_events
+
+    @test_retry_and_log
+    def test_gamepad_action_button_press(self, device, button):
+        """Tests that the gamepad press action buttons events could be received
+        correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param button: Action button, as GAMEPAD_BUTTON_* value, that will be
+                       pressed.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+        gesture = lambda: device.PressActionButton(button)
+        return self._test_gamepad_key_events(device, button, gesture)
+
+    @test_retry_and_log
+    def test_gamepad_start_button_press(self, device, button):
+        """Tests that the gamepad press start button events could be received
+        correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param button: GAMEPAD_BUTTON_START, the value of the gamepad button
+                       that will be pressed.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+         """
+        gesture = device.PressStartButton
+        return self._test_gamepad_key_events(device, button, gesture)
+
+    @test_retry_and_log
+    def test_gamepad_dpad_button_press(self, device, button):
+        """Tests that the gamepad press D-Pad buttons events could be received
+        correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param button: A D-Pad button, as GAMEPAD_BUTTON_* value, that will be
+                       pressed.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+        gesture = lambda: device.PressDPadButton(button)
+        return self._test_gamepad_dpad_events(device, button, gesture)
+
+    @test_retry_and_log
+    def test_gamepad_bumper_button_press(self, device, button):
+        """Tests that the gamepad press bumper buttons (LB, RB) events could be
+         received correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param button: A bumper button, as GAMEPAD_BUTTON_LEFT_BUMPER or
+                       GAMEPAD_BUTTON_RIGHT_BUMPER value, that will be pressed.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+        if button == 'GAMEPAD_BUTTON_LEFT_BUMPER':
+            gesture = device.PressLeftBumper
+        elif button == 'GAMEPAD_BUTTON_RIGHT_BUMPER':
+            gesture = device.PressRightBumper
+        else:
+            raise error.TestError('Button (%s) is not valid.' % button)
+        return self._test_gamepad_key_events(device, button, gesture)
+
+    @test_retry_and_log
+    def test_gamepad_trigger_button_press(self, device, button, value):
+        """Tests that the gamepad press trigger buttons (LT, RT) events could
+        be received correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param button: Trigger button, as LEFT_TRIGGER or RIGHT_TRIGGER value,
+                       that will be pressed.
+        @param value: A value between 0-1023 to press the trigger.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+        if button == 'LEFT_TRIGGER':
+            gesture = lambda: device.PressLeftTrigger(value)
+        elif button == 'RIGHT_TRIGGER':
+            gesture = lambda: device.PressRightTrigger(value)
+        else:
+            raise error.TestError('Trigger type (%s) is not valid.' % button)
+        return self._test_gamepad_triggers_events(device, button, gesture,
+                                                  value)
+
+    @test_retry_and_log
+    def test_gamepad_thumbstick_press(self, device, stick):
+        """Tests that the gamepad press thumbstick buttons events could be
+        received correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param stick: A stick type, as GAMEPAD_LEFT_STICK or
+                      GAMEPAD_RIGHT_STICK value, that will be pressed.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+        if stick == 'GAMEPAD_LEFT_STICK':
+            gesture = device.PressLeftThumbstick
+        elif stick == 'GAMEPAD_RIGHT_STICK':
+            gesture = device.PressRightThumbstick
+        else:
+            raise error.TestError('Stick type (%s) is not valid.' % stick)
+        return self._test_gamepad_key_events(device, stick, gesture)
+
+    @test_retry_and_log
+    def test_gamepad_move_thumbstick(self,
+                                     device,
+                                     stick,
+                                     delta_x=4095,
+                                     delta_y=4095):
+        """Tests that the movement of the gamepad thumbstick events could be
+        received correctly.
+
+        @param device: The meta device containing a bluetooth HID device.
+        @param stick: A stick type, as GAMEPAD_LEFT_STICK or
+                           GAMEPAD_RIGHT_STICK value, that will be moved.
+        @param delta_x: A value between 4095-65535 to move the thumbstick
+                        horizontally.
+        @param delta_y: A value between 4095-65535 to move the thumbstick
+                        vertically.
+
+        @returns: True if the report received by the host matches the expected
+                  one. False otherwise.
+
+        """
+        if stick == 'GAMEPAD_LEFT_STICK':
+            gesture = lambda: device.MoveLeftThumbstick(delta_x, delta_y)
+        elif stick == 'GAMEPAD_RIGHT_STICK':
+            gesture = lambda: device.MoveRightThumbstick(delta_x, delta_y)
+        else:
+            raise error.TestError('Stick type (%s) is not valid.' % stick)
+        return self._test_gamepad_move_thumbstick(device, stick, gesture,
+                                                  delta_x, delta_y)
 
     def is_newer_kernel_version(self, version, minimum_version):
         """ Check if given kernel version is newer than unsupported version."""
@@ -4919,6 +5826,34 @@ class BluetoothAdapterTests(test.test):
         return True
 
 
+    @test_retry_and_log(False)
+    def test_last_resume_success(self):
+        """ Check if EC reports suspend failure due to timeout.
+
+        The last_resume_result file returns the most recent response from the AP's
+        resume message to the EC. Bit 31 is set if the EC attempted to wake the
+        system due to a timeout when watching for SLP_S0 transitions.
+
+        See kernel/*/Documentation/ABI/testing/debugfs-cros-ec for more details.
+
+        @return True if resume without suspend failure
+        """
+        try:
+            last_resume_result = self.host.run_short(
+                    "cat /sys/kernel/debug/cros_ec/last_resume_result").stdout
+        except Exception as e:
+            # Skip the test if the file does not exist
+            if "No such file or directory" in str(e):
+                return True
+            else:
+                raise
+        is_timeout = (int(last_resume_result, 16) >> 31)
+        self.results = {'no timeout in EC suspend': not bool(is_timeout)}
+        # TODO: Consider this test failure NA until b/307791293 is fixed.
+        if not all(self.results.values()):
+            raise error.TestNAError("SLP_S0 timeout is considered NA.")
+        return True
+
     @test_retry_and_log(False, messages_start=False)
     def test_wait_for_resume(self,
                              boot_id,
@@ -5079,9 +6014,17 @@ class BluetoothAdapterTests(test.test):
 
         results['success'] = success
         results['suspend exit code'] = suspend.exitcode
-        self.results = results
 
         logging.info('test_wait_for_resume(): %r', results)
+
+        # Some chipsets reset on suspend so we lose client connection and need
+        # to restart it.
+        if self.floss:
+            results['floss client restarted'] = self.bluetooth_facade.restart_floss_client(
+            )
+
+        self.test_last_resume_success()
+        self.results = results
         return all([success, suspend.exitcode == 0])
 
 

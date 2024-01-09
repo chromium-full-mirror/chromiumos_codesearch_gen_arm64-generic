@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCSessionDescription>::value,
     "RTCSessionDescription inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCSessionDescription::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCSessionDescription is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCSessionDescriptio
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(v8_receiver);
+RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
@@ -121,7 +116,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(v8_receiver);
+RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<V8RTCSdpType>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -144,7 +139,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCSessionDescriptio
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(v8_receiver);
+RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sdp();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
@@ -170,7 +165,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(v8_receiver);
+RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLString>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -231,8 +226,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCSessionDescription.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(v8_receiver);
+RTCSessionDescription* blink_receiver = V8RTCSessionDescription::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

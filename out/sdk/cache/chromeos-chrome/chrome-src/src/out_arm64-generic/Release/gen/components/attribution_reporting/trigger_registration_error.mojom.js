@@ -27,6 +27,7 @@
   TriggerRegistrationError.kFiltersWrongType = 2;
   TriggerRegistrationError.kFiltersListWrongType = 5;
   TriggerRegistrationError.kFiltersValueWrongType = 7;
+  TriggerRegistrationError.kFiltersUsingReservedKey = 36;
   TriggerRegistrationError.kAggregatableValuesWrongType = 9;
   TriggerRegistrationError.kAggregatableValuesKeyTooLong = 11;
   TriggerRegistrationError.kAggregatableValuesValueWrongType = 12;
@@ -51,8 +52,10 @@
   TriggerRegistrationError.kAggregatableDedupKeyWrongType = 33;
   TriggerRegistrationError.kAggregatableSourceRegistrationTimeWrongType = 34;
   TriggerRegistrationError.kAggregatableSourceRegistrationTimeUnknownValue = 35;
+  TriggerRegistrationError.kTriggerContextIdInvalidValue = 37;
+  TriggerRegistrationError.kTriggerContextIdInvalidSourceRegistrationTimeConfig = 38;
   TriggerRegistrationError.MIN_VALUE = 0;
-  TriggerRegistrationError.MAX_VALUE = 35;
+  TriggerRegistrationError.MAX_VALUE = 38;
 
   TriggerRegistrationError.isKnownEnumValue = function(value) {
     switch (value) {
@@ -85,6 +88,9 @@
     case 33:
     case 34:
     case 35:
+    case 36:
+    case 37:
+    case 38:
       return true;
     }
     return false;

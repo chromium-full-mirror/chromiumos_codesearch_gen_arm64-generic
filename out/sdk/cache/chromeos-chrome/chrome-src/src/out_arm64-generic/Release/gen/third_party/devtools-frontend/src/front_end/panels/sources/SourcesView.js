@@ -5,7 +5,6 @@ import * as Common from '../../core/common/common.js';
 import * as Host from '../../core/host/host.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as Platform from '../../core/platform/platform.js';
-import * as Root from '../../core/root/root.js';
 import * as SDK from '../../core/sdk/sdk.js';
 import * as Bindings from '../../models/bindings/bindings.js';
 import * as Persistence from '../../models/persistence/persistence.js';
@@ -30,11 +29,11 @@ const UIStrings = {
     /**
      *@description Text in Sources View of the Sources panel. This sentence follows by a list of actions.
      */
-    workspaceDropInAFolderToSyncSources: 'To sync edits to the workspace, drop a folder with your sources here or:',
+    workspaceDropInAFolderToSyncSources: 'To sync edits to the workspace, drop a folder with your sources here or',
     /**
      *@description Text in Sources View of the Sources panel.
      */
-    selectFolder: 'select folder',
+    selectFolder: 'Select folder',
     /**
      *@description Accessible label for Sources placeholder view actions list
      */
@@ -43,7 +42,6 @@ const UIStrings = {
 const str_ = i18n.i18n.registerUIStrings('panels/sources/SourcesView.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
 export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) {
-    placeholderOptionArray;
     selectedIndex;
     searchableViewInternal;
     sourceViewByUISourceCode;
@@ -61,7 +59,6 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
         super();
         this.element.id = 'sources-panel-sources-view';
         this.setMinimumAndPreferredSizes(88, 52, 150, 100);
-        this.placeholderOptionArray = [];
         this.selectedIndex = 0;
         const workspace = Workspace.Workspace.WorkspaceImpl.instance();
         this.searchableViewInternal = new UI.SearchableView.SearchableView(this, this, 'sourcesViewSearchConfig');
@@ -114,7 +111,6 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
         this.element.addEventListener('keydown', this.handleKeyDown.bind(this), false);
     }
     placeholderElement() {
-        this.placeholderOptionArray = [];
         const shortcuts = [
             { actionId: 'quickOpen.show', description: i18nString(UIStrings.openFile) },
             { actionId: 'commandMenu.show', description: i18nString(UIStrings.runCommand) },
@@ -125,7 +121,6 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
             },
         ];
         const list = document.createElement('div');
-        list.addEventListener('keydown', this.placeholderOnKeyDown.bind(this), false);
         UI.ARIAUtils.markAsList(list);
         UI.ARIAUtils.setLabel(list, i18nString(UIStrings.sourceViewActions));
         for (const shortcut of shortcuts) {
@@ -133,8 +128,12 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
             const listItemElement = list.createChild('div', 'tabbed-pane-placeholder-row');
             UI.ARIAUtils.markAsListitem(listItemElement);
             if (shortcutKeyText) {
-                listItemElement.createChild('span').textContent = shortcutKeyText;
-                listItemElement.createChild('span').textContent = shortcut.description;
+                const title = listItemElement.createChild('span');
+                title.textContent = shortcutKeyText;
+                const button = listItemElement.createChild('button');
+                button.textContent = shortcut.description;
+                const action = UI.ActionRegistry.ActionRegistry.instance().getAction(shortcut.actionId);
+                button.addEventListener('click', () => action.execute());
             }
             if (shortcut.isWorkspace) {
                 const workspace = listItemElement.createChild('span', 'workspace');
@@ -142,15 +141,6 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
                 const browseButton = workspace.createChild('button');
                 browseButton.textContent = i18nString(UIStrings.selectFolder);
                 browseButton.addEventListener('click', this.addFileSystemClicked.bind(this));
-            }
-            const action = UI.ActionRegistry.ActionRegistry.instance().action(shortcut.actionId);
-            if (action) {
-                this.placeholderOptionArray.push({
-                    element: listItemElement,
-                    handler() {
-                        void action.execute();
-                    },
-                });
             }
         }
         return list;
@@ -160,33 +150,8 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
         if (!result) {
             return;
         }
-        Host.userMetrics.actionTaken(Host.UserMetrics.Action.WorkspaceDropFolder);
+        Host.userMetrics.actionTaken(Host.UserMetrics.Action.WorkspaceSelectFolder);
         void UI.ViewManager.ViewManager.instance().showView('navigator-files');
-    }
-    placeholderOnKeyDown(event) {
-        const keyboardEvent = event;
-        if (Platform.KeyboardUtilities.isEnterOrSpaceKey(keyboardEvent)) {
-            this.placeholderOptionArray[this.selectedIndex].handler();
-            return;
-        }
-        let offset = 0;
-        if (keyboardEvent.key === 'ArrowDown') {
-            offset = 1;
-        }
-        else if (keyboardEvent.key === 'ArrowUp') {
-            offset = -1;
-        }
-        const newIndex = Math.max(Math.min(this.placeholderOptionArray.length - 1, this.selectedIndex + offset), 0);
-        const newElement = this.placeholderOptionArray[newIndex].element;
-        const oldElement = this.placeholderOptionArray[this.selectedIndex].element;
-        if (newElement !== oldElement) {
-            oldElement.tabIndex = -1;
-            newElement.tabIndex = 0;
-            UI.ARIAUtils.setSelected(oldElement, false);
-            UI.ARIAUtils.setSelected(newElement, true);
-            this.selectedIndex = newIndex;
-            newElement.focus();
-        }
     }
     static defaultUISourceCodeScores() {
         const defaultScores = new Map();
@@ -338,7 +303,6 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
         }
     }
     createSourceView(uiSourceCode) {
-        let sourceFrame;
         let sourceView;
         const contentType = uiSourceCode.contentType();
         if (contentType === Common.ResourceType.resourceTypes.Image) {
@@ -347,20 +311,16 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
         else if (contentType === Common.ResourceType.resourceTypes.Font) {
             sourceView = new SourceFrame.FontView.FontView(uiSourceCode.mimeType(), uiSourceCode);
         }
-        else if (uiSourceCode.name() === HEADER_OVERRIDES_FILENAME &&
-            Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.HEADER_OVERRIDES)) {
+        else if (uiSourceCode.name() === HEADER_OVERRIDES_FILENAME) {
             sourceView = new Components.HeadersView.HeadersView(uiSourceCode);
         }
         else {
-            sourceFrame = new UISourceCodeFrame(uiSourceCode);
-        }
-        if (sourceFrame) {
-            this.historyManager.trackSourceFrameCursorJumps(sourceFrame);
+            sourceView = new UISourceCodeFrame(uiSourceCode);
+            this.historyManager.trackSourceFrameCursorJumps(sourceView);
         }
         uiSourceCode.addEventListener(Workspace.UISourceCode.Events.TitleChanged, this.#uiSourceCodeTitleChanged, this);
-        const widget = (sourceFrame || sourceView);
-        this.sourceViewByUISourceCode.set(uiSourceCode, widget);
-        return widget;
+        this.sourceViewByUISourceCode.set(uiSourceCode, sourceView);
+        return sourceView;
     }
     #sourceViewTypeForWidget(widget) {
         if (widget instanceof SourceFrame.ImageView.ImageView) {
@@ -375,8 +335,7 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
         return SourceViewType.SourceView;
     }
     #sourceViewTypeForUISourceCode(uiSourceCode) {
-        if (uiSourceCode.name() === HEADER_OVERRIDES_FILENAME &&
-            Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.HEADER_OVERRIDES)) {
+        if (uiSourceCode.name() === HEADER_OVERRIDES_FILENAME) {
             return SourceViewType.HeadersView;
         }
         const contentType = uiSourceCode.contentType();
@@ -573,15 +532,7 @@ export function registerEditorAction(editorAction) {
 export function getRegisteredEditorActions() {
     return registeredEditorActions.map(editorAction => editorAction());
 }
-let switchFileActionDelegateInstance;
 export class SwitchFileActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!switchFileActionDelegateInstance || forceNew) {
-            switchFileActionDelegateInstance = new SwitchFileActionDelegate();
-        }
-        return switchFileActionDelegateInstance;
-    }
     static nextFile(currentUISourceCode) {
         function fileNamePrefix(name) {
             const lastDotIndex = name.lastIndexOf('.');
@@ -606,8 +557,8 @@ export class SwitchFileActionDelegate {
         const nextUISourceCode = currentUISourceCode.project().uiSourceCodeForURL(fullURL);
         return nextUISourceCode !== currentUISourceCode ? nextUISourceCode : null;
     }
-    handleAction(_context, _actionId) {
-        const sourcesView = UI.Context.Context.instance().flavor(SourcesView);
+    handleAction(context, _actionId) {
+        const sourcesView = context.flavor(SourcesView);
         if (!sourcesView) {
             return false;
         }
@@ -623,17 +574,9 @@ export class SwitchFileActionDelegate {
         return true;
     }
 }
-let actionDelegateInstance;
 export class ActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!actionDelegateInstance || forceNew) {
-            actionDelegateInstance = new ActionDelegate();
-        }
-        return actionDelegateInstance;
-    }
     handleAction(context, actionId) {
-        const sourcesView = UI.Context.Context.instance().flavor(SourcesView);
+        const sourcesView = context.flavor(SourcesView);
         if (!sourcesView) {
             return false;
         }

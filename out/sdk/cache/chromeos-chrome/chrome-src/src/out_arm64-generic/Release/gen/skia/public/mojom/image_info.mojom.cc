@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -56,8 +57,8 @@ ImageInfo::ImageInfo(
     ::SkAlphaType alpha_type_in,
     uint32_t width_in,
     uint32_t height_in,
-    absl::optional<std::vector<float>> color_transfer_function_in,
-    absl::optional<std::vector<float>> color_to_xyz_matrix_in)
+    std::optional<std::vector<float>> color_transfer_function_in,
+    std::optional<std::vector<float>> color_to_xyz_matrix_in)
     : color_type(std::move(color_type_in)),
       alpha_type(std::move(alpha_type_in)),
       width(std::move(width_in)),
@@ -110,7 +111,7 @@ void ImageInfo::WriteIntoTrace(
     dict.AddItem(
       "color_transfer_function"), this->color_transfer_function,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<float>>&>"
+      "<value of type const std::optional<std::vector<float>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -119,7 +120,7 @@ void ImageInfo::WriteIntoTrace(
     dict.AddItem(
       "color_to_xyz_matrix"), this->color_to_xyz_matrix,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<float>>&>"
+      "<value of type const std::optional<std::vector<float>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -142,8 +143,8 @@ BitmapN32ImageInfo::BitmapN32ImageInfo(
     ::SkAlphaType alpha_type_in,
     uint32_t width_in,
     uint32_t height_in,
-    absl::optional<std::vector<float>> color_transfer_function_in,
-    absl::optional<std::vector<float>> color_to_xyz_matrix_in)
+    std::optional<std::vector<float>> color_transfer_function_in,
+    std::optional<std::vector<float>> color_to_xyz_matrix_in)
     : alpha_type(std::move(alpha_type_in)),
       width(std::move(width_in)),
       height(std::move(height_in)),
@@ -186,7 +187,7 @@ void BitmapN32ImageInfo::WriteIntoTrace(
     dict.AddItem(
       "color_transfer_function"), this->color_transfer_function,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<float>>&>"
+      "<value of type const std::optional<std::vector<float>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -195,7 +196,7 @@ void BitmapN32ImageInfo::WriteIntoTrace(
     dict.AddItem(
       "color_to_xyz_matrix"), this->color_to_xyz_matrix,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<float>>&>"
+      "<value of type const std::optional<std::vector<float>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

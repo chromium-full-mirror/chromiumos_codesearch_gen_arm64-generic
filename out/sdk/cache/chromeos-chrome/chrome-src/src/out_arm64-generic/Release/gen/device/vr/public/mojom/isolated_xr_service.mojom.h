@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "device/vr/public/mojom/isolated_xr_service.mojom-features.h"
 #include "device/vr/public/mojom/isolated_xr_service.mojom-shared.h"
 #include "device/vr/public/mojom/isolated_xr_service.mojom-forward.h"
 #include "device/vr/public/mojom/browser_test_interfaces.mojom-forward.h"
@@ -1294,7 +1295,7 @@ class COMPONENT_EXPORT(DEVICE_VR_ISOLATED_XR_SERVICE_MOJO_BINDINGS) XRRuntimeSes
   XRRuntimeSessionResult(
       ::mojo::PendingRemote<XRSessionController> controller,
       ::device::mojom::XRSessionPtr session,
-      const absl::optional<::viz::FrameSinkId>& frame_sink_id);
+      const std::optional<::viz::FrameSinkId>& frame_sink_id);
 
 XRRuntimeSessionResult(const XRRuntimeSessionResult&) = delete;
 XRRuntimeSessionResult& operator=(const XRRuntimeSessionResult&) = delete;
@@ -1373,7 +1374,7 @@ XRRuntimeSessionResult& operator=(const XRRuntimeSessionResult&) = delete;
   
   ::device::mojom::XRSessionPtr session;
   
-  absl::optional<::viz::FrameSinkId> frame_sink_id;
+  std::optional<::viz::FrameSinkId> frame_sink_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

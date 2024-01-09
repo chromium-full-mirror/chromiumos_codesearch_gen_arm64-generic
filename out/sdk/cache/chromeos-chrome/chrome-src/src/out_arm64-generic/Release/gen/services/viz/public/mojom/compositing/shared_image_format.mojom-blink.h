@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/shared_image_format.mojom-features.h"
 #include "services/viz/public/mojom/compositing/shared_image_format.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/shared_image_format.mojom-blink-forward.h"
 #include "services/viz/public/mojom/compositing/internal/singleplanar_format.mojom-blink-forward.h"
@@ -37,42 +38,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::viz::mojom::PlaneConfig>
-    : EnumHashTraits<::viz::mojom::PlaneConfig, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::viz::mojom::Subsampling>
-    : EnumHashTraits<::viz::mojom::Subsampling, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::viz::mojom::ChannelFormat>
-    : EnumHashTraits<::viz::mojom::ChannelFormat, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace viz::mojom::blink {
@@ -250,17 +215,17 @@ class  SharedImageFormat {
   // Construct an instance holding |singleplanar_format|.
   static SharedImageFormatPtr
   NewSingleplanarFormat(
-      ::viz::mojom::blink::SingleplanarFormat singleplanar_format) {
+      ::viz::mojom::blink::SingleplanarFormat value) {
     auto result = SharedImageFormatPtr(absl::in_place);
-    result->set_singleplanar_format(std::move(singleplanar_format));
+    result->set_singleplanar_format(std::move(value));
     return result;
   }
   // Construct an instance holding |multiplanar_format|.
   static SharedImageFormatPtr
   NewMultiplanarFormat(
-      MultiplanarFormatPtr multiplanar_format) {
+      MultiplanarFormatPtr value) {
     auto result = SharedImageFormatPtr(absl::in_place);
-    result->set_multiplanar_format(std::move(multiplanar_format));
+    result->set_multiplanar_format(std::move(value));
     return result;
   }
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -131,10 +132,10 @@ ParsedPermissionsPolicyDeclaration::ParsedPermissionsPolicyDeclaration()
 ParsedPermissionsPolicyDeclaration::ParsedPermissionsPolicyDeclaration(
     ::blink::mojom::PermissionsPolicyFeature feature_in,
     std::vector<::blink::OriginWithPossibleWildcards> allowed_origins_in,
-    const absl::optional<::url::Origin>& self_if_matches_in,
+    const std::optional<::url::Origin>& self_if_matches_in,
     bool matches_all_origins_in,
     bool matches_opaque_src_in,
-    const absl::optional<std::string>& reporting_endpoint_in)
+    const std::optional<std::string>& reporting_endpoint_in)
     : feature(std::move(feature_in)),
       allowed_origins(std::move(allowed_origins_in)),
       self_if_matches(std::move(self_if_matches_in)),
@@ -169,7 +170,7 @@ void ParsedPermissionsPolicyDeclaration::WriteIntoTrace(
     dict.AddItem(
       "self_if_matches"), this->self_if_matches,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -196,7 +197,7 @@ void ParsedPermissionsPolicyDeclaration::WriteIntoTrace(
     dict.AddItem(
       "reporting_endpoint"), this->reporting_endpoint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

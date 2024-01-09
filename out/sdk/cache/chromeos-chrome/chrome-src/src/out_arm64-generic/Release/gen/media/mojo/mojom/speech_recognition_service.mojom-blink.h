@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/speech_recognition_service.mojom-features.h"
 #include "media/mojo/mojom/speech_recognition_service.mojom-shared.h"
 #include "media/mojo/mojom/speech_recognition_service.mojom-blink-forward.h"
 #include "media/mojo/mojom/audio_data.mojom-blink-forward.h"
@@ -31,6 +32,7 @@
 #include "media/mojo/mojom/media_types.mojom-blink-forward.h"
 #include "media/mojo/mojom/speech_recognition.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom-blink.h"
+#include "sandbox/policy/mojom/context.mojom-blink-forward.h"
 #include "sandbox/policy/mojom/sandbox.mojom-blink-forward.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"

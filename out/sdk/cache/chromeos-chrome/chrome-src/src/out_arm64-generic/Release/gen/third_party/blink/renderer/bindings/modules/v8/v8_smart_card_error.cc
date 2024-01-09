@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SmartCardError>::value,
     "SmartCardError inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SmartCardError::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SmartCardError is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("SmartCardError.responseCode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SmartCardError* blink_receiver = V8SmartCardError::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->responseCode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SmartCardError* blink_receiver = V8SmartCardError::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->responseCode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

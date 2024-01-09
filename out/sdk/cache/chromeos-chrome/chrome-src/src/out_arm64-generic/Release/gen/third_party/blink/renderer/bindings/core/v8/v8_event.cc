@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Event>::value,
     "Event inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Event::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Event is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("Event.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("Event.target.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->target();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -119,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("Event.currentTarget.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTarget();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -133,8 +130,9 @@ BLINK_BINDINGS_TRACE_EVENT("Event.eventPhase.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->eventPhase();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -147,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("Event.bubbles.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bubbles();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -161,8 +160,9 @@ BLINK_BINDINGS_TRACE_EVENT("Event.cancelable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cancelable();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -175,8 +175,9 @@ BLINK_BINDINGS_TRACE_EVENT("Event.defaultPrevented.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->defaultPrevented();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -195,7 +196,7 @@ UseCounter::Count(current_execution_context, WebFeature::kEventComposed);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->composed();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -208,8 +209,9 @@ BLINK_BINDINGS_TRACE_EVENT("Event.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -222,8 +224,9 @@ BLINK_BINDINGS_TRACE_EVENT("Event.timeStamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -245,7 +248,7 @@ UseCounter::Count(current_execution_context, WebFeature::kEventSrcElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->srcElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -264,7 +267,7 @@ UseCounter::Count(current_execution_context, WebFeature::kEventReturnValue);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -285,7 +288,7 @@ UseCounter::Count(current_execution_context, WebFeature::kEventReturnValue);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -315,7 +318,7 @@ UseCounter::Count(current_execution_context, WebFeature::kEventCancelBubble);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -336,7 +339,7 @@ UseCounter::Count(current_execution_context, WebFeature::kEventCancelBubble);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -420,7 +423,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->composedPath(script_state);
 if (!ToV8Traits<IDLSequence<EventTarget>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -453,7 +456,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -487,8 +490,9 @@ BLINK_BINDINGS_TRACE_EVENT("Event.preventDefault");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->preventDefault();
 
 }
@@ -510,7 +514,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Event_StopImmediateP
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->stopImmediatePropagation();
 
 }
@@ -532,7 +536,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Event_StopPropagatio
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Event* blink_receiver = V8Event::ToWrappableUnsafe(v8_receiver);
+Event* blink_receiver = V8Event::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->stopPropagation();
 
 }

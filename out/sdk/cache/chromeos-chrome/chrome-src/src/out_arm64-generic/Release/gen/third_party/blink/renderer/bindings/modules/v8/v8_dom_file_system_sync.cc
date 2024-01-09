@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMFileSystemSync>::value,
     "DOMFileSystemSync inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMFileSystemSync::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMFileSystemSync is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,10 +79,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMFileSystemSync.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMFileSystemSync* blink_receiver = V8DOMFileSystemSync::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMFileSystemSync* blink_receiver = V8DOMFileSystemSync::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMFileSystemSync.root.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMFileSystemSync* blink_receiver = V8DOMFileSystemSync::ToWrappableUnsafe(v8_receiver);
+DOMFileSystemSync* blink_receiver = V8DOMFileSystemSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->root();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

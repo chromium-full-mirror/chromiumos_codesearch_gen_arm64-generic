@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ComputedAccessibleNode>::value,
     "ComputedAccessibleNode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ComputedAccessibleNode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ComputedAccessibleNode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.atomic.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->atomic();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.busy.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->busy();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -112,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.disabled.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->disabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -126,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.expanded.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->expanded();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -140,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.modal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->modal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -154,8 +154,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.multiline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->multiline();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -168,8 +169,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.multiselectable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->multiselectable();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -182,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.readOnly.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->readOnly();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -196,8 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.required.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->required();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -210,8 +214,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.selected.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->selected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -224,8 +229,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.colCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->colCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -238,8 +244,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.colIndex.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->colIndex();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -252,8 +259,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.colSpan.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->colSpan();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -266,8 +274,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.level.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->level();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -280,8 +289,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.posInSet.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->posInSet();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -294,8 +304,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.rowCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rowCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -308,8 +319,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.rowIndex.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rowIndex();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -322,8 +334,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.rowSpan.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rowSpan();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -336,8 +349,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.setSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->setSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -350,8 +364,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.valueMax.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->valueMax();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -364,8 +379,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.valueMin.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->valueMin();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -378,8 +394,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.valueNow.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->valueNow();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -392,10 +409,10 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.autocomplete.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->autocomplete();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->autocomplete();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -407,10 +424,10 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.checked.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->checked();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->checked();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -422,10 +439,10 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.keyShortcuts.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->keyShortcuts();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->keyShortcuts();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -437,10 +454,10 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -452,10 +469,10 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.placeholder.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->placeholder();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->placeholder();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -467,10 +484,10 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.role.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->role();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->role();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -482,10 +499,10 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.roleDescription.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->roleDescription();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->roleDescription();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -497,10 +514,10 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.valueText.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->valueText();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->valueText();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -512,8 +529,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.parent.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->parent();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -526,8 +544,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.firstChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firstChild();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -540,8 +559,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.lastChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastChild();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -554,8 +574,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.previousSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->previousSibling();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -568,8 +589,9 @@ BLINK_BINDINGS_TRACE_EVENT("ComputedAccessibleNode.nextSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->nextSibling();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -598,7 +620,7 @@ return;
 
 
 
-ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(v8_receiver);
+ComputedAccessibleNode* blink_receiver = V8ComputedAccessibleNode::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

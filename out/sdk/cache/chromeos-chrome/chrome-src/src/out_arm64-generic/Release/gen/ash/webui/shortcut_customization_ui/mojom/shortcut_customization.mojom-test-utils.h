@@ -68,6 +68,8 @@ class  AcceleratorConfigurationProviderInterceptorForTesting : public Accelerato
   void RestoreAllDefaults(RestoreAllDefaultsCallback callback) override;
   void RecordUserAction(UserAction user_action) override;
   void RecordMainCategoryNavigation(::ash::mojom::AcceleratorCategory category) override;
+  void RecordEditDialogCompletedActions(EditDialogCompletedActions completed_actions) override;
+  void RecordAddOrEditSubactions(bool is_add, Subactions subactions) override;
 };
 class  AcceleratorConfigurationProviderAsyncWaiter {
  public:

@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AnimationEffect>::value,
     "AnimationEffect inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AnimationEffect::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AnimationEffect is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AnimationEffect* blink_receiver = V8AnimationEffect::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+AnimationEffect* blink_receiver = V8AnimationEffect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getComputedTiming();
 if (!ToV8Traits<ComputedEffectTiming>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -120,7 +116,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AnimationEffect* blink_receiver = V8AnimationEffect::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+AnimationEffect* blink_receiver = V8AnimationEffect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getTiming();
 if (!ToV8Traits<EffectTiming>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -139,10 +136,10 @@ BLINK_BINDINGS_TRACE_EVENT("AnimationEffect.updateTiming");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AnimationEffect* blink_receiver = V8AnimationEffect::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<OptionalEffectTiming>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_timing;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AnimationEffect* blink_receiver = V8AnimationEffect::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<OptionalEffectTiming>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_timing;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "AnimationEffect";
 const char* const property_name = "updateTiming";

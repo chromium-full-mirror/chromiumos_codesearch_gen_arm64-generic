@@ -102,6 +102,48 @@ NOINLINE static const char* SourceRegistrationErrorToStringHelper(SourceRegistra
       return "kTriggerDataMatchingWrongType";
     case SourceRegistrationError::kTriggerDataMatchingUnknownValue:
       return "kTriggerDataMatchingUnknownValue";
+    case SourceRegistrationError::kTriggerSpecsWrongType:
+      return "kTriggerSpecsWrongType";
+    case SourceRegistrationError::kTriggerSpecWrongType:
+      return "kTriggerSpecWrongType";
+    case SourceRegistrationError::kTriggerSpecTriggerDataMissing:
+      return "kTriggerSpecTriggerDataMissing";
+    case SourceRegistrationError::kTriggerSpecTriggerDataWrongType:
+      return "kTriggerSpecTriggerDataWrongType";
+    case SourceRegistrationError::kTriggerSpecTriggerDataEmpty:
+      return "kTriggerSpecTriggerDataEmpty";
+    case SourceRegistrationError::kTriggerSpecTriggerDataValueWrongType:
+      return "kTriggerSpecTriggerDataValueWrongType";
+    case SourceRegistrationError::kTriggerSpecTriggerDataValueOutOfRange:
+      return "kTriggerSpecTriggerDataValueOutOfRange";
+    case SourceRegistrationError::kExcessiveTriggerData:
+      return "kExcessiveTriggerData";
+    case SourceRegistrationError::kDuplicateTriggerData:
+      return "kDuplicateTriggerData";
+    case SourceRegistrationError::kInvalidTriggerDataForMatchingMode:
+      return "kInvalidTriggerDataForMatchingMode";
+    case SourceRegistrationError::kFilterDataKeyReserved:
+      return "kFilterDataKeyReserved";
+    case SourceRegistrationError::kSummaryWindowOperatorWrongType:
+      return "kSummaryWindowOperatorWrongType";
+    case SourceRegistrationError::kSummaryWindowOperatorUnknownValue:
+      return "kSummaryWindowOperatorUnknownValue";
+    case SourceRegistrationError::kSummaryBucketsWrongType:
+      return "kSummaryBucketsWrongType";
+    case SourceRegistrationError::kSummaryBucketsEmpty:
+      return "kSummaryBucketsEmpty";
+    case SourceRegistrationError::kSummaryBucketsTooLong:
+      return "kSummaryBucketsTooLong";
+    case SourceRegistrationError::kSummaryBucketsValueWrongType:
+      return "kSummaryBucketsValueWrongType";
+    case SourceRegistrationError::kSummaryBucketsValueOutOfRange:
+      return "kSummaryBucketsValueOutOfRange";
+    case SourceRegistrationError::kSummaryBucketsNonIncreasing:
+      return "kSummaryBucketsNonIncreasing";
+    case SourceRegistrationError::kEventLevelEpsilonWrongType:
+      return "kEventLevelEpsilonWrongType";
+    case SourceRegistrationError::kEventLevelEpsilonValueInvalid:
+      return "kEventLevelEpsilonValueInvalid";
     default:
       return nullptr;
   }

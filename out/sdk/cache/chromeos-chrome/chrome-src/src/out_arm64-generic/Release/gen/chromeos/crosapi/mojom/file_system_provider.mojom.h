@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/file_system_provider.mojom-features.h"
 #include "chromeos/crosapi/mojom/file_system_provider.mojom-shared.h"
 #include "chromeos/crosapi/mojom/file_system_provider.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -118,10 +119,10 @@ class FileSystemProvider
 
   using ForwardRequestCallback = base::OnceCallback<void(FSPForwardResult)>;
   
-  virtual void ForwardRequest(const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardRequestCallback callback) = 0;
+  virtual void ForwardRequest(const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardRequestCallback callback) = 0;
 
   
-  virtual void CancelRequest(const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id) = 0;
+  virtual void CancelRequest(const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id) = 0;
 };
 
 class FileSystemProviderServiceProxy;
@@ -280,9 +281,9 @@ class  FileSystemProviderProxy
   
   void ForwardOperation(const std::string& provider, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardOperationCallback callback) final;
   
-  void ForwardRequest(const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardRequestCallback callback) final;
+  void ForwardRequest(const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardRequestCallback callback) final;
   
-  void CancelRequest(const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id) final;
+  void CancelRequest(const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/payments/payment_app.mojom-features.h"
 #include "third_party/blink/public/mojom/payments/payment_app.mojom-shared.h"
 #include "third_party/blink/public/mojom/payments/payment_app.mojom-forward.h"
 #include "components/payments/mojom/payment_request_data.mojom.h"
@@ -855,7 +856,7 @@ class BLINK_COMMON_EXPORT PaymentRequestEventData {
       std::vector<::payments::mojom::PaymentDetailsModifierPtr> modifiers,
       const std::string& instrument_key,
       ::payments::mojom::PaymentOptionsPtr payment_options,
-      absl::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options,
+      std::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options,
       ::mojo::PendingRemote<::payments::mojom::PaymentHandlerHost> payment_handler_host);
 
 PaymentRequestEventData(const PaymentRequestEventData&) = delete;
@@ -947,7 +948,7 @@ PaymentRequestEventData& operator=(const PaymentRequestEventData&) = delete;
   
   ::payments::mojom::PaymentOptionsPtr payment_options;
   
-  absl::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options;
+  std::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options;
   
   ::mojo::PendingRemote<::payments::mojom::PaymentHandlerHost> payment_handler_host;
 
@@ -1015,11 +1016,11 @@ class BLINK_COMMON_EXPORT PaymentHandlerResponse {
       const std::string& method_name,
       const std::string& stringified_details,
       PaymentEventResponseType response_type,
-      const absl::optional<std::string>& payer_name,
-      const absl::optional<std::string>& payer_email,
-      const absl::optional<std::string>& payer_phone,
+      const std::optional<std::string>& payer_name,
+      const std::optional<std::string>& payer_email,
+      const std::optional<std::string>& payer_phone,
       ::payments::mojom::PaymentAddressPtr shipping_address,
-      const absl::optional<std::string>& shipping_option);
+      const std::optional<std::string>& shipping_option);
 
 PaymentHandlerResponse(const PaymentHandlerResponse&) = delete;
 PaymentHandlerResponse& operator=(const PaymentHandlerResponse&) = delete;
@@ -1105,15 +1106,15 @@ PaymentHandlerResponse& operator=(const PaymentHandlerResponse&) = delete;
   
   PaymentEventResponseType response_type;
   
-  absl::optional<std::string> payer_name;
+  std::optional<std::string> payer_name;
   
-  absl::optional<std::string> payer_email;
+  std::optional<std::string> payer_email;
   
-  absl::optional<std::string> payer_phone;
+  std::optional<std::string> payer_phone;
   
   ::payments::mojom::PaymentAddressPtr shipping_address;
   
-  absl::optional<std::string> shipping_option;
+  std::optional<std::string> shipping_option;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

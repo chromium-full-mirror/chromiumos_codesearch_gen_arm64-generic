@@ -70,11 +70,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, HTMLAudioElement>::value,
     "HTMLAudioElement does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&HTMLAudioElement::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLAudioElement is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/surface_range.mojom-features.h"
 #include "services/viz/public/mojom/compositing/surface_range.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/surface_range.mojom-blink-forward.h"
 #include "services/viz/public/mojom/compositing/surface_id.mojom-blink.h"
@@ -76,7 +77,7 @@ class BLINK_PLATFORM_EXPORT SurfaceRange {
   SurfaceRange();
 
   SurfaceRange(
-      const absl::optional<::viz::SurfaceId>& start,
+      const std::optional<::viz::SurfaceId>& start,
       const ::viz::SurfaceId& end);
 
 
@@ -155,7 +156,7 @@ class BLINK_PLATFORM_EXPORT SurfaceRange {
   }
 
   
-  absl::optional<::viz::SurfaceId> start;
+  std::optional<::viz::SurfaceId> start;
   
   ::viz::SurfaceId end;
 

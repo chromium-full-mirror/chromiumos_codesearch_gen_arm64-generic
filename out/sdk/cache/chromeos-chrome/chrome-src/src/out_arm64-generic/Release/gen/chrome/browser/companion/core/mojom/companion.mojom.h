@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/companion/core/mojom/companion.mojom-features.h"
 #include "chrome/browser/companion/core/mojom/companion.mojom-shared.h"
 #include "chrome/browser/companion/core/mojom/companion.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -126,6 +127,7 @@ class CompanionPageHandler
     kOpenUrlInBrowserMinVersion = 0,
     kOnLoadingStateMinVersion = 0,
     kRefreshCompanionPageMinVersion = 0,
+    kOnServerSideUrlFilterEventMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -170,6 +172,9 @@ class CompanionPageHandler
   struct RefreshCompanionPage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnServerSideUrlFilterEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CompanionPageHandler() = default;
 
@@ -204,13 +209,16 @@ class CompanionPageHandler
   virtual void OnCqJumptagClicked(const std::string& text_directive) = 0;
 
   
-  virtual void OpenUrlInBrowser(const absl::optional<::GURL>& url_to_open, bool use_new_tab) = 0;
+  virtual void OpenUrlInBrowser(const std::optional<::GURL>& url_to_open, bool use_new_tab) = 0;
 
   
   virtual void OnLoadingState(LoadingState state) = 0;
 
   
   virtual void RefreshCompanionPage() = 0;
+
+  
+  virtual void OnServerSideUrlFilterEvent() = 0;
 };
 
 class CompanionPageProxy;
@@ -249,6 +257,7 @@ class CompanionPage
     kOnDeviceVisualClassificationResultMinVersion = 0,
     kOnNavigationErrorMinVersion = 0,
     kNotifyLinkOpenMinVersion = 0,
+    kUpdatePageContentMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -275,6 +284,9 @@ class CompanionPage
   struct NotifyLinkOpen_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct UpdatePageContent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CompanionPage() = default;
 
@@ -298,6 +310,9 @@ class CompanionPage
 
   
   virtual void NotifyLinkOpen(const ::GURL& opened_url, LinkOpenMetadataPtr metadata) = 0;
+
+  
+  virtual void UpdatePageContent(const std::string& page_title, const std::string& inner_html) = 0;
 };
 
 
@@ -344,11 +359,13 @@ class  CompanionPageHandlerProxy
   
   void OnCqJumptagClicked(const std::string& text_directive) final;
   
-  void OpenUrlInBrowser(const absl::optional<::GURL>& url_to_open, bool use_new_tab) final;
+  void OpenUrlInBrowser(const std::optional<::GURL>& url_to_open, bool use_new_tab) final;
   
   void OnLoadingState(LoadingState state) final;
   
   void RefreshCompanionPage() final;
+  
+  void OnServerSideUrlFilterEvent() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -376,6 +393,8 @@ class  CompanionPageProxy
   void OnNavigationError() final;
   
   void NotifyLinkOpen(const ::GURL& opened_url, LinkOpenMetadataPtr metadata) final;
+  
+  void UpdatePageContent(const std::string& page_title, const std::string& inner_html) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -31,8 +31,8 @@ var ReadAnythingSettingsChange;
 const SETTINGS_CHANGE_UMA = 'Accessibility.ReadAnything.SettingsChange';
 const moreOptionsClass = '.more-options-icon';
 const activeClass = ' active';
-const ReadAnythingToolbarBase = WebUiListenerMixin(PolymerElement);
-export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
+const ReadAnythingToolbarElementBase = WebUiListenerMixin(PolymerElement);
+export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
     constructor() {
         super(...arguments);
         this.contentPage = document.querySelector('read-anything-app');
@@ -164,7 +164,7 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
         // Hide the more options button first to calculate if we need it
         const moreOptionsButton = toolbar.querySelector('#more');
         assert(moreOptionsButton);
-        ReadAnythingToolbar.hideElement(moreOptionsButton, false);
+        ReadAnythingToolbarElement.hideElement(moreOptionsButton, false);
         // Show all the buttons that would go in the overflow menu to see if they
         // fit
         const buttons = Array.from(toolbar.querySelectorAll('.toolbar-button'));
@@ -173,15 +173,15 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
         assert(moreOptionsButtons);
         const buttonsOnToolbarToMaybeHide = buttons.slice(buttons.length - moreOptionsButtons.length);
         buttonsOnToolbarToMaybeHide.forEach(btn => {
-            ReadAnythingToolbar.showElement(btn);
+            ReadAnythingToolbarElement.showElement(btn);
         });
         // When scroll width and client width are the different, then the content
         // has overflowed.
         if (toolbar.scrollWidth !== toolbar.clientWidth) {
-            ReadAnythingToolbar.showElement(moreOptionsButton);
+            ReadAnythingToolbarElement.showElement(moreOptionsButton);
             // Hide all the buttons on the toolbar that are in the more options menu
             buttonsOnToolbarToMaybeHide.forEach(btn => {
-                ReadAnythingToolbar.hideElement(btn, true);
+                ReadAnythingToolbarElement.hideElement(btn, true);
             });
             toolbar.insertBefore(moreOptionsButton, buttonsOnToolbarToMaybeHide[0]);
             moreOptionsButtons.item(0).style.marginLeft = '16px';
@@ -227,7 +227,7 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
     onToolbarResize_(entries) {
         assert(entries.length === 1);
         const toolbar = entries[0].target;
-        ReadAnythingToolbar.maybeUpdateMoreOptions(toolbar);
+        ReadAnythingToolbarElement.maybeUpdateMoreOptions(toolbar);
     }
     restoreFontMenu_() {
         const currentFontIndex = this.fontOptions_.indexOf(chrome.readingMode.fontName);
@@ -292,7 +292,7 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
         });
         const toolbar = shadowRoot.getElementById('toolbar-container');
         assert(toolbar);
-        ReadAnythingToolbar.maybeUpdateMoreOptions(toolbar);
+        ReadAnythingToolbarElement.maybeUpdateMoreOptions(toolbar);
     }
     showVoicePreviewPlaying(voice) {
         if (!voice) {
@@ -333,7 +333,7 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
         });
         const toolbar = shadowRoot.getElementById('toolbar-container');
         assert(toolbar);
-        ReadAnythingToolbar.maybeUpdateMoreOptions(toolbar);
+        ReadAnythingToolbarElement.maybeUpdateMoreOptions(toolbar);
     }
     closeMenus_() {
         this.$.rateMenu.close();
@@ -371,9 +371,13 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
         if (this.contentPage) {
             const voices = this.contentPage.getVoices();
             const selectedVoice = this.contentPage.getSpeechSynthesisVoice();
+            // TODO(crbug.com/1474951): Use the full language code instead of
+            // splitting it once we start using page language instead of browser
+            // language.
             this.voiceSelectionOptions_ = Object.entries(voices).reduce((aggregateVoiceList, [_, voiceListForLang]) => ([
                 ...aggregateVoiceList,
-                ...(voiceListForLang).map(speechSynthesisVoice => ({
+                ...(voiceListForLang)
+                    .map(speechSynthesisVoice => ({
                     title: speechSynthesisVoice.name,
                     icon: '',
                     data: {
@@ -381,7 +385,7 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
                         selected: this.voicesAreEqual_(selectedVoice, speechSynthesisVoice),
                         previewPlaying: false,
                     },
-                    callback: () => { },
+                    callback: () => chrome.readingMode.onVoiceChange(speechSynthesisVoice.name, speechSynthesisVoice.lang.split('-')[0]),
                 })),
             ]), []);
             this.openMenu_(this.$.voiceSelectionMenu, event.target, true);
@@ -459,7 +463,7 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
         this.onTextStyleClick_(event, ReadAnythingSettingsChange.THEME_CHANGE, this.$.colorMenu, ReadAnythingElement.prototype.updateThemeFromWebUi);
     }
     onVoiceSelectClick_(event) {
-        // TODO(crbug.com/1474951): Save voice to prefs.
+        event.model.item.callback();
         if (this.contentPage) {
             const selectedVoice = event.model.item.data.voice;
             this.contentPage.setSpeechSynthesisVoice(selectedVoice);
@@ -530,10 +534,10 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
         checkMarks.forEach((element) => {
             assert(element instanceof HTMLElement);
             // TODO(crbug.com/1465029): Ensure this works with screen readers
-            ReadAnythingToolbar.hideElement(element, true);
+            ReadAnythingToolbarElement.hideElement(element, true);
         });
         const checkMark = checkMarks[index];
-        ReadAnythingToolbar.showElement(checkMark);
+        ReadAnythingToolbarElement.showElement(checkMark);
     }
     onFontSizeIncreaseClick_() {
         this.updateFontSize_(true);
@@ -655,4 +659,4 @@ export class ReadAnythingToolbar extends ReadAnythingToolbarBase {
         }
     }
 }
-customElements.define('read-anything-toolbar', ReadAnythingToolbar);
+customElements.define('read-anything-toolbar', ReadAnythingToolbarElement);

@@ -13,7 +13,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
-#include "third_party/blink/renderer/bindings/modules/v8/v8_identity_provider_config.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_identity_provider_request_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_identity_standard_claims.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/exception_state.h"
@@ -64,11 +64,11 @@ return dictionary;
 
 
 
-void IdentityCredentialRequestOptions::setProviders(const HeapVector<Member<IdentityProviderConfig>>& value) {
+void IdentityCredentialRequestOptions::setProviders(const HeapVector<Member<IdentityProviderRequestOptions>>& value) {
   member_providers_ = value;
 }
 
-void IdentityCredentialRequestOptions::setProviders(HeapVector<Member<IdentityProviderConfig>>&& value) {
+void IdentityCredentialRequestOptions::setProviders(HeapVector<Member<IdentityProviderRequestOptions>>&& value) {
   member_providers_ = std::move(value);
 }
 
@@ -79,7 +79,7 @@ void IdentityCredentialRequestOptions::Trace(Visitor* visitor) const {
   TraceIfNeeded<Member<IdentityStandardClaims>>::Trace(visitor, member_claims_);
 TraceIfNeeded<V8IdentityCredentialRequestOptionsContext>::Trace(visitor, member_context_);
 TraceIfNeeded<V8IdentityCredentialRequestOptionsMode>::Trace(visitor, member_mode_);
-TraceIfNeeded<HeapVector<Member<IdentityProviderConfig>>>::Trace(visitor, member_providers_);
+TraceIfNeeded<HeapVector<Member<IdentityProviderRequestOptions>>>::Trace(visitor, member_providers_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
@@ -107,7 +107,7 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].G
   return false;
 }
 }
-if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
+if (RuntimeEnabledFeatures::FedCmButtonModeEnabled()) {
   if (hasMode()) {
   if (!ToV8Traits<V8IdentityCredentialRequestOptionsMode>::ToV8(script_state, member_mode_).ToLocal(&v8_value)) {
   return false;
@@ -118,7 +118,7 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].G
 }
 }
 if (hasProviders()) {
-  if (!ToV8Traits<IDLSequence<IdentityProviderConfig>>::ToV8(script_state, member_providers_).ToLocal(&v8_value)) {
+  if (!ToV8Traits<IDLSequence<IdentityProviderRequestOptions>>::ToV8(script_state, member_providers_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
@@ -146,7 +146,7 @@ bool fallback_presence_var;
 if (!bindings::GetDictionaryMemberFromV8Object<V8IdentityCredentialRequestOptionsContext, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_context_, try_block, exception_state)) {
   return;
 }
-if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
+if (RuntimeEnabledFeatures::FedCmButtonModeEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("mode");
 if (!bindings::GetDictionaryMemberFromV8Object<V8IdentityCredentialRequestOptionsMode, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_mode_, try_block, exception_state)) {
   return;
@@ -154,7 +154,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8IdentityCredentialRequestOption
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("providers");
 constexpr bool is_required = true;
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IdentityProviderConfig>, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_providers_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IdentityProviderRequestOptions>, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_providers_, try_block, exception_state)) {
   return;
 }
 }

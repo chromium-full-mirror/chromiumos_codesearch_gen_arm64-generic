@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -1439,14 +1440,17 @@ void IDBFactoryClientProxy::Error(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBFactoryClient_Error_Name, kFlags, 0, 0, nullptr);
@@ -1489,14 +1493,17 @@ void IDBFactoryClientProxy::Blocked(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBFactoryClient_Blocked_Name, kFlags, 0, 0, nullptr);
@@ -1539,14 +1546,17 @@ void IDBFactoryClientProxy::UpgradeNeeded(
                         "<value of type const ::blink::IndexedDBDatabaseMetadata&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBFactoryClient_UpgradeNeeded_Name, kFlags, 0, 0, nullptr);
@@ -1610,14 +1620,17 @@ void IDBFactoryClientProxy::OpenSuccess(
                         "<value of type const ::blink::IndexedDBDatabaseMetadata&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBFactoryClient_OpenSuccess_Name, kFlags, 0, 0, nullptr);
@@ -1660,14 +1673,17 @@ void IDBFactoryClientProxy::DeleteSuccess(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBFactoryClient_DeleteSuccess_Name, kFlags, 0, 0, nullptr);
@@ -1880,18 +1896,18 @@ bool IDBFactoryClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIDBFactoryClientValidationInfo[] = {
-    {&internal::IDBFactoryClient_Error_Params_Data::Validate,
+    { &internal::IDBFactoryClient_Error_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBFactoryClient_Blocked_Params_Data::Validate,
+    { &internal::IDBFactoryClient_Blocked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBFactoryClient_UpgradeNeeded_Params_Data::Validate,
+    { &internal::IDBFactoryClient_UpgradeNeeded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBFactoryClient_OpenSuccess_Params_Data::Validate,
+    { &internal::IDBFactoryClient_OpenSuccess_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBFactoryClient_DeleteSuccess_Params_Data::Validate,
+    { &internal::IDBFactoryClient_DeleteSuccess_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2024,14 +2040,17 @@ void IDBDatabaseCallbacksProxy::ForcedClose(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::IDBDatabaseCallbacks::ForcedClose");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabaseCallbacks_ForcedClose_Name, kFlags, 0, 0, nullptr);
@@ -2064,14 +2083,17 @@ void IDBDatabaseCallbacksProxy::VersionChange(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabaseCallbacks_VersionChange_Name, kFlags, 0, 0, nullptr);
@@ -2109,14 +2131,17 @@ void IDBDatabaseCallbacksProxy::Abort(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabaseCallbacks_Abort_Name, kFlags, 0, 0, nullptr);
@@ -2160,14 +2185,17 @@ void IDBDatabaseCallbacksProxy::Complete(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabaseCallbacks_Complete_Name, kFlags, 0, 0, nullptr);
@@ -2331,16 +2359,16 @@ bool IDBDatabaseCallbacksStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIDBDatabaseCallbacksValidationInfo[] = {
-    {&internal::IDBDatabaseCallbacks_ForcedClose_Params_Data::Validate,
+    { &internal::IDBDatabaseCallbacks_ForcedClose_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabaseCallbacks_VersionChange_Params_Data::Validate,
+    { &internal::IDBDatabaseCallbacks_VersionChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabaseCallbacks_Abort_Params_Data::Validate,
+    { &internal::IDBDatabaseCallbacks_Abort_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabaseCallbacks_Complete_Params_Data::Validate,
+    { &internal::IDBDatabaseCallbacks_Complete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2528,14 +2556,17 @@ void IDBCursorProxy::Advance(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBCursor_Advance_Name, kFlags, 0, 0, nullptr);
@@ -2570,14 +2601,17 @@ void IDBCursorProxy::Continue(
                         "<value of type const ::blink::IndexedDBKey&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBCursor_Continue_Name, kFlags, 0, 0, nullptr);
@@ -2626,14 +2660,17 @@ void IDBCursorProxy::Prefetch(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBCursor_Prefetch_Name, kFlags, 0, 0, nullptr);
@@ -2665,14 +2702,17 @@ void IDBCursorProxy::PrefetchReset(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBCursor_PrefetchReset_Name, kFlags, 0, 0, nullptr);
@@ -2782,7 +2822,8 @@ void IDBCursor_Advance_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBCursor_Advance_Name, kFlags, 0, 0, nullptr);
@@ -2908,7 +2949,8 @@ void IDBCursor_Continue_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBCursor_Continue_Name, kFlags, 0, 0, nullptr);
@@ -3034,7 +3076,8 @@ void IDBCursor_Prefetch_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBCursor_Prefetch_Name, kFlags, 0, 0, nullptr);
@@ -3219,16 +3262,16 @@ std::move(p_count), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIDBCursorValidationInfo[] = {
-    {&internal::IDBCursor_Advance_Params_Data::Validate,
+    { &internal::IDBCursor_Advance_Params_Data::Validate,
      &internal::IDBCursor_Advance_ResponseParams_Data::Validate},
-    {&internal::IDBCursor_Continue_Params_Data::Validate,
+    { &internal::IDBCursor_Continue_Params_Data::Validate,
      &internal::IDBCursor_Continue_ResponseParams_Data::Validate},
-    {&internal::IDBCursor_Prefetch_Params_Data::Validate,
+    { &internal::IDBCursor_Prefetch_Params_Data::Validate,
      &internal::IDBCursor_Prefetch_ResponseParams_Data::Validate},
-    {&internal::IDBCursor_PrefetchReset_Params_Data::Validate,
+    { &internal::IDBCursor_PrefetchReset_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3397,14 +3440,17 @@ void IDBTransactionProxy::CreateObjectStore(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBTransaction_CreateObjectStore_Name, kFlags, 0, 0, nullptr);
@@ -3458,14 +3504,17 @@ void IDBTransactionProxy::DeleteObjectStore(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBTransaction_DeleteObjectStore_Name, kFlags, 0, 0, nullptr);
@@ -3508,14 +3557,17 @@ void IDBTransactionProxy::Put(
                         "<value of type const std::vector<::blink::IndexedDBIndexKeys>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBTransaction_Put_Name, kFlags, 0, 0, nullptr);
@@ -3582,14 +3634,17 @@ void IDBTransactionProxy::Commit(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBTransaction_Commit_Name, kFlags, 0, 0, nullptr);
@@ -3699,7 +3754,8 @@ void IDBTransaction_Put_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBTransaction_Put_Name, kFlags, 0, 0, nullptr);
@@ -3902,16 +3958,16 @@ std::move(p_index_keys), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIDBTransactionValidationInfo[] = {
-    {&internal::IDBTransaction_CreateObjectStore_Params_Data::Validate,
+    { &internal::IDBTransaction_CreateObjectStore_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBTransaction_DeleteObjectStore_Params_Data::Validate,
+    { &internal::IDBTransaction_DeleteObjectStore_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBTransaction_Put_Params_Data::Validate,
+    { &internal::IDBTransaction_Put_Params_Data::Validate,
      &internal::IDBTransaction_Put_ResponseParams_Data::Validate},
-    {&internal::IDBTransaction_Commit_Params_Data::Validate,
+    { &internal::IDBTransaction_Commit_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4035,14 +4091,17 @@ void IDBDatabaseGetAllResultSinkProxy::ReceiveValues(
                         "<value of type std::vector<IDBReturnValuePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabaseGetAllResultSink_ReceiveValues_Name, kFlags, 0, 0, nullptr);
@@ -4085,14 +4144,17 @@ void IDBDatabaseGetAllResultSinkProxy::ReceiveKeys(
                         "<value of type const std::vector<::blink::IndexedDBKey>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabaseGetAllResultSink_ReceiveKeys_Name, kFlags, 0, 0, nullptr);
@@ -4135,14 +4197,17 @@ void IDBDatabaseGetAllResultSinkProxy::OnError(
                         "<value of type IDBErrorPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabaseGetAllResultSink_OnError_Name, kFlags, 0, 0, nullptr);
@@ -4279,14 +4344,14 @@ bool IDBDatabaseGetAllResultSinkStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIDBDatabaseGetAllResultSinkValidationInfo[] = {
-    {&internal::IDBDatabaseGetAllResultSink_ReceiveValues_Params_Data::Validate,
+    { &internal::IDBDatabaseGetAllResultSink_ReceiveValues_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabaseGetAllResultSink_ReceiveKeys_Params_Data::Validate,
+    { &internal::IDBDatabaseGetAllResultSink_ReceiveKeys_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabaseGetAllResultSink_OnError_Params_Data::Validate,
+    { &internal::IDBDatabaseGetAllResultSink_OnError_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4305,9 +4370,6 @@ IDBDatabase::IPCStableHashFunction IDBDatabase::MessageToMethodInfo_(mojo::Messa
     }
     case internal::kIDBDatabase_CreateTransaction_Name: {
       return &IDBDatabase::CreateTransaction_Sym::IPCStableHash;
-    }
-    case internal::kIDBDatabase_Close_Name: {
-      return &IDBDatabase::Close_Sym::IPCStableHash;
     }
     case internal::kIDBDatabase_VersionChangeIgnored_Name: {
       return &IDBDatabase::VersionChangeIgnored_Sym::IPCStableHash;
@@ -4369,8 +4431,6 @@ const char* IDBDatabase::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::IDBDatabase::RenameObjectStore";
       case internal::kIDBDatabase_CreateTransaction_Name:
             return "Receive blink::mojom::IDBDatabase::CreateTransaction";
-      case internal::kIDBDatabase_Close_Name:
-            return "Receive blink::mojom::IDBDatabase::Close";
       case internal::kIDBDatabase_VersionChangeIgnored_Name:
             return "Receive blink::mojom::IDBDatabase::VersionChangeIgnored";
       case internal::kIDBDatabase_Get_Name:
@@ -4408,8 +4468,6 @@ const char* IDBDatabase::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::IDBDatabase::RenameObjectStore";
       case internal::kIDBDatabase_CreateTransaction_Name:
             return "Receive reply blink::mojom::IDBDatabase::CreateTransaction";
-      case internal::kIDBDatabase_Close_Name:
-            return "Receive reply blink::mojom::IDBDatabase::Close";
       case internal::kIDBDatabase_VersionChangeIgnored_Name:
             return "Receive reply blink::mojom::IDBDatabase::VersionChangeIgnored";
       case internal::kIDBDatabase_Get_Name:
@@ -4476,19 +4534,6 @@ uint32_t IDBDatabase::CreateTransaction_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)blink::mojom::IDBDatabase::CreateTransaction");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t IDBDatabase::Close_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::IDBDatabase::Close");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -4824,14 +4869,17 @@ void IDBDatabaseProxy::RenameObjectStore(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_RenameObjectStore_Name, kFlags, 0, 0, nullptr);
@@ -4886,14 +4934,17 @@ void IDBDatabaseProxy::CreateTransaction(
                         "<value of type IDBTransactionDurability>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_CreateTransaction_Name, kFlags, 0, 0, nullptr);
@@ -4935,49 +4986,22 @@ void IDBDatabaseProxy::CreateTransaction(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void IDBDatabaseProxy::Close(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send blink::mojom::IDBDatabase::Close");
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kIDBDatabase_Close_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::IDBDatabase_Close_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(IDBDatabase::Name_);
-  message.set_method_name("Close");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void IDBDatabaseProxy::VersionChangeIgnored(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::IDBDatabase::VersionChangeIgnored");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_VersionChangeIgnored_Name, kFlags, 0, 0, nullptr);
@@ -5019,14 +5043,17 @@ void IDBDatabaseProxy::Get(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_Get_Name, kFlags, 0, 0, nullptr);
@@ -5087,14 +5114,17 @@ void IDBDatabaseProxy::GetAll(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_GetAll_Name, kFlags, 0, 0, nullptr);
@@ -5150,14 +5180,17 @@ void IDBDatabaseProxy::SetIndexKeys(
                         "<value of type const std::vector<::blink::IndexedDBIndexKeys>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_SetIndexKeys_Name, kFlags, 0, 0, nullptr);
@@ -5217,14 +5250,17 @@ void IDBDatabaseProxy::SetIndexesReady(
                         "<value of type const std::vector<int64_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_SetIndexesReady_Name, kFlags, 0, 0, nullptr);
@@ -5287,14 +5323,17 @@ void IDBDatabaseProxy::OpenCursor(
                         "<value of type IDBTaskType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_OpenCursor_Name, kFlags, 0, 0, nullptr);
@@ -5353,14 +5392,17 @@ void IDBDatabaseProxy::Count(
                         "<value of type const ::blink::IndexedDBKeyRange&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_Count_Name, kFlags, 0, 0, nullptr);
@@ -5411,14 +5453,17 @@ void IDBDatabaseProxy::DeleteRange(
                         "<value of type const ::blink::IndexedDBKeyRange&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_DeleteRange_Name, kFlags, 0, 0, nullptr);
@@ -5465,14 +5510,17 @@ void IDBDatabaseProxy::GetKeyGeneratorCurrentNumber(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_GetKeyGeneratorCurrentNumber_Name, kFlags, 0, 0, nullptr);
@@ -5508,14 +5556,17 @@ void IDBDatabaseProxy::Clear(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_Clear_Name, kFlags, 0, 0, nullptr);
@@ -5566,14 +5617,17 @@ void IDBDatabaseProxy::CreateIndex(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_CreateIndex_Name, kFlags, 0, 0, nullptr);
@@ -5636,14 +5690,17 @@ void IDBDatabaseProxy::DeleteIndex(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_DeleteIndex_Name, kFlags, 0, 0, nullptr);
@@ -5685,14 +5742,17 @@ void IDBDatabaseProxy::RenameIndex(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_RenameIndex_Name, kFlags, 0, 0, nullptr);
@@ -5736,14 +5796,17 @@ void IDBDatabaseProxy::Abort(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_Abort_Name, kFlags, 0, 0, nullptr);
@@ -5767,14 +5830,17 @@ void IDBDatabaseProxy::DidBecomeInactive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::IDBDatabase::DidBecomeInactive");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_DidBecomeInactive_Name, kFlags, 0, 0, nullptr);
@@ -5859,7 +5925,7 @@ bool IDBDatabase_Get_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IDBDatabase::Name_, 4, true);
+        IDBDatabase::Name_, 3, true);
     return false;
   }
   if (!callback_.is_null())
@@ -5883,7 +5949,8 @@ void IDBDatabase_Get_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_Get_Name, kFlags, 0, 0, nullptr);
@@ -5987,7 +6054,7 @@ bool IDBDatabase_GetAll_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IDBDatabase::Name_, 5, true);
+        IDBDatabase::Name_, 4, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6011,7 +6078,8 @@ void IDBDatabase_GetAll_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_GetAll_Name, kFlags, 0, 0, nullptr);
@@ -6110,7 +6178,7 @@ bool IDBDatabase_OpenCursor_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IDBDatabase::Name_, 8, true);
+        IDBDatabase::Name_, 7, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6134,7 +6202,8 @@ void IDBDatabase_OpenCursor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_OpenCursor_Name, kFlags, 0, 0, nullptr);
@@ -6239,7 +6308,7 @@ bool IDBDatabase_Count_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IDBDatabase::Name_, 9, true);
+        IDBDatabase::Name_, 8, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6267,7 +6336,8 @@ void IDBDatabase_Count_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_Count_Name, kFlags, 0, 0, nullptr);
@@ -6362,7 +6432,7 @@ bool IDBDatabase_DeleteRange_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IDBDatabase::Name_, 10, true);
+        IDBDatabase::Name_, 9, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6386,7 +6456,8 @@ void IDBDatabase_DeleteRange_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_DeleteRange_Name, kFlags, 0, 0, nullptr);
@@ -6483,7 +6554,7 @@ bool IDBDatabase_GetKeyGeneratorCurrentNumber_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IDBDatabase::Name_, 11, true);
+        IDBDatabase::Name_, 10, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6511,7 +6582,8 @@ void IDBDatabase_GetKeyGeneratorCurrentNumber_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_GetKeyGeneratorCurrentNumber_Name, kFlags, 0, 0, nullptr);
@@ -6612,7 +6684,7 @@ bool IDBDatabase_Clear_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        IDBDatabase::Name_, 12, true);
+        IDBDatabase::Name_, 11, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6636,7 +6708,8 @@ void IDBDatabase_Clear_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBDatabase_Clear_Name, kFlags, 0, 0, nullptr);
@@ -6746,28 +6819,6 @@ std::move(p_mode),
 std::move(p_durability));
       return true;
     }
-    case internal::kIDBDatabase_Close_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::IDBDatabase_Close_Params_Data* params =
-          reinterpret_cast<internal::IDBDatabase_Close_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      IDBDatabase_Close_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 2, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->Close();
-      return true;
-    }
     case internal::kIDBDatabase_VersionChangeIgnored_Name: {
 
       DCHECK(message->is_serialized());
@@ -6782,7 +6833,7 @@ std::move(p_durability));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 3, false);
+            IDBDatabase::Name_, 2, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -6822,7 +6873,7 @@ std::move(p_durability));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 6, false);
+            IDBDatabase::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -6857,7 +6908,7 @@ std::move(p_index_keys));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 7, false);
+            IDBDatabase::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -6918,7 +6969,7 @@ std::move(p_index_ids));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 13, false);
+            IDBDatabase::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -6956,7 +7007,7 @@ std::move(p_multi_entry));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 14, false);
+            IDBDatabase::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -6993,7 +7044,7 @@ std::move(p_index_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 15, false);
+            IDBDatabase::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -7022,7 +7073,7 @@ std::move(p_new_name));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 16, false);
+            IDBDatabase::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -7045,7 +7096,7 @@ std::move(p_transaction_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 17, false);
+            IDBDatabase::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -7070,9 +7121,6 @@ bool IDBDatabaseStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kIDBDatabase_CreateTransaction_Name: {
-      break;
-    }
-    case internal::kIDBDatabase_Close_Name: {
       break;
     }
     case internal::kIDBDatabase_VersionChangeIgnored_Name: {
@@ -7107,7 +7155,7 @@ bool IDBDatabaseStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 4, false);
+            IDBDatabase::Name_, 3, false);
         return false;
       }
       IDBDatabase::GetCallback callback =
@@ -7155,7 +7203,7 @@ std::move(p_key_only), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 5, false);
+            IDBDatabase::Name_, 4, false);
         return false;
       }
       IDBDatabase::GetAllCallback callback =
@@ -7213,7 +7261,7 @@ std::move(p_max_count), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 8, false);
+            IDBDatabase::Name_, 7, false);
         return false;
       }
       IDBDatabase::OpenCursorCallback callback =
@@ -7257,7 +7305,7 @@ std::move(p_task_type), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 9, false);
+            IDBDatabase::Name_, 8, false);
         return false;
       }
       IDBDatabase::CountCallback callback =
@@ -7295,7 +7343,7 @@ std::move(p_key_range), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 10, false);
+            IDBDatabase::Name_, 9, false);
         return false;
       }
       IDBDatabase::DeleteRangeCallback callback =
@@ -7329,7 +7377,7 @@ std::move(p_key_range), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 11, false);
+            IDBDatabase::Name_, 10, false);
         return false;
       }
       IDBDatabase::GetKeyGeneratorCurrentNumberCallback callback =
@@ -7362,7 +7410,7 @@ std::move(p_object_store_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            IDBDatabase::Name_, 12, false);
+            IDBDatabase::Name_, 11, false);
         return false;
       }
       IDBDatabase::ClearCallback callback =
@@ -7393,44 +7441,42 @@ std::move(p_object_store_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIDBDatabaseValidationInfo[] = {
-    {&internal::IDBDatabase_RenameObjectStore_Params_Data::Validate,
+    { &internal::IDBDatabase_RenameObjectStore_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabase_CreateTransaction_Params_Data::Validate,
+    { &internal::IDBDatabase_CreateTransaction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabase_Close_Params_Data::Validate,
+    { &internal::IDBDatabase_VersionChangeIgnored_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabase_VersionChangeIgnored_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::IDBDatabase_Get_Params_Data::Validate,
+    { &internal::IDBDatabase_Get_Params_Data::Validate,
      &internal::IDBDatabase_Get_ResponseParams_Data::Validate},
-    {&internal::IDBDatabase_GetAll_Params_Data::Validate,
+    { &internal::IDBDatabase_GetAll_Params_Data::Validate,
      &internal::IDBDatabase_GetAll_ResponseParams_Data::Validate},
-    {&internal::IDBDatabase_SetIndexKeys_Params_Data::Validate,
+    { &internal::IDBDatabase_SetIndexKeys_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabase_SetIndexesReady_Params_Data::Validate,
+    { &internal::IDBDatabase_SetIndexesReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabase_OpenCursor_Params_Data::Validate,
+    { &internal::IDBDatabase_OpenCursor_Params_Data::Validate,
      &internal::IDBDatabase_OpenCursor_ResponseParams_Data::Validate},
-    {&internal::IDBDatabase_Count_Params_Data::Validate,
+    { &internal::IDBDatabase_Count_Params_Data::Validate,
      &internal::IDBDatabase_Count_ResponseParams_Data::Validate},
-    {&internal::IDBDatabase_DeleteRange_Params_Data::Validate,
+    { &internal::IDBDatabase_DeleteRange_Params_Data::Validate,
      &internal::IDBDatabase_DeleteRange_ResponseParams_Data::Validate},
-    {&internal::IDBDatabase_GetKeyGeneratorCurrentNumber_Params_Data::Validate,
+    { &internal::IDBDatabase_GetKeyGeneratorCurrentNumber_Params_Data::Validate,
      &internal::IDBDatabase_GetKeyGeneratorCurrentNumber_ResponseParams_Data::Validate},
-    {&internal::IDBDatabase_Clear_Params_Data::Validate,
+    { &internal::IDBDatabase_Clear_Params_Data::Validate,
      &internal::IDBDatabase_Clear_ResponseParams_Data::Validate},
-    {&internal::IDBDatabase_CreateIndex_Params_Data::Validate,
+    { &internal::IDBDatabase_CreateIndex_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabase_DeleteIndex_Params_Data::Validate,
+    { &internal::IDBDatabase_DeleteIndex_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabase_RenameIndex_Params_Data::Validate,
+    { &internal::IDBDatabase_RenameIndex_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabase_Abort_Params_Data::Validate,
+    { &internal::IDBDatabase_Abort_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBDatabase_DidBecomeInactive_Params_Data::Validate,
+    { &internal::IDBDatabase_DidBecomeInactive_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -7563,14 +7609,17 @@ void IDBFactoryProxy::GetDatabaseInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::IDBFactory::GetDatabaseInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBFactory_GetDatabaseInfo_Name, kFlags, 0, 0, nullptr);
@@ -7616,14 +7665,17 @@ void IDBFactoryProxy::Open(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBFactory_Open_Name, kFlags, 0, 0, nullptr);
@@ -7690,14 +7742,17 @@ void IDBFactoryProxy::DeleteDatabase(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBFactory_DeleteDatabase_Name, kFlags, 0, 0, nullptr);
@@ -7831,7 +7886,8 @@ void IDBFactory_GetDatabaseInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIDBFactory_GetDatabaseInfo_Name, kFlags, 0, 0, nullptr);
@@ -8020,14 +8076,14 @@ bool IDBFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIDBFactoryValidationInfo[] = {
-    {&internal::IDBFactory_GetDatabaseInfo_Params_Data::Validate,
+    { &internal::IDBFactory_GetDatabaseInfo_Params_Data::Validate,
      &internal::IDBFactory_GetDatabaseInfo_ResponseParams_Data::Validate},
-    {&internal::IDBFactory_Open_Params_Data::Validate,
+    { &internal::IDBFactory_Open_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IDBFactory_DeleteDatabase_Params_Data::Validate,
+    { &internal::IDBFactory_DeleteDatabase_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -8789,9 +8845,6 @@ void IDBDatabaseInterceptorForTesting::RenameObjectStore(int64_t transaction_id,
 }
 void IDBDatabaseInterceptorForTesting::CreateTransaction(::mojo::PendingAssociatedReceiver<IDBTransaction> transaction_receiver, int64_t transaction_id, const std::vector<int64_t>& object_store_ids, IDBTransactionMode mode, IDBTransactionDurability durability) {
   GetForwardingInterface()->CreateTransaction(std::move(transaction_receiver), std::move(transaction_id), std::move(object_store_ids), std::move(mode), std::move(durability));
-}
-void IDBDatabaseInterceptorForTesting::Close() {
-  GetForwardingInterface()->Close();
 }
 void IDBDatabaseInterceptorForTesting::VersionChangeIgnored() {
   GetForwardingInterface()->VersionChangeIgnored();

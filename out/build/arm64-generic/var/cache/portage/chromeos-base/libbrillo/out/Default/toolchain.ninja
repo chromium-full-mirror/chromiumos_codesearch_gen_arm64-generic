@@ -33,14 +33,6 @@ rule copy
   command = cp -af ${in} ${out}
   description = COPY ${in} ${out}
 
-rule __common-mk_external_dependencies_cloud_policy_proto_generator___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env /build/arm64-generic/usr/share/policy_tools/generate_policy_source.py --cloud-policy-protobuf=/build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/gen/common-mk/external_dependencies/proto/cloud_policy.proto --chrome-version-file=/build/arm64-generic/usr/share/policy_resources/VERSION --target-platform=chromeos --policy-templates-file=/build/arm64-generic/usr/share/policy_resources/generated_policy_templates.json
-  description = ACTION //common-mk/external_dependencies:cloud_policy_proto_generator(//common-mk/toolchain:toolchain)
-  restat = 1
-
-build gen/common-mk/external_dependencies/proto/cloud_policy.proto: __common-mk_external_dependencies_cloud_policy_proto_generator___common-mk_toolchain_toolchain__rule | ../../../../../../../usr/share/policy_tools/generate_policy_source.py ../../../../../../../usr/share/policy_resources/VERSION ../../../../../../../usr/share/policy_resources/generated_policy_templates.json
-
-build obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp: stamp gen/common-mk/external_dependencies/proto/cloud_policy.proto
 rule __common-mk_external_dependencies_dbus-proxies___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py dbusxx-xml2cpp ${in} --proxy=/build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/gen/include/dbus_proxies/${source_name_part}.h --sync --async
   description = ACTION //common-mk/external_dependencies:dbus-proxies(//common-mk/toolchain:toolchain)
@@ -163,25 +155,34 @@ build gen/go/src/chromiumos/policy/serialization.pb.go: __common-mk_external_dep
 build obj/common-mk/external_dependencies/rlwe_goprotos.stamp: stamp gen/go/src/chromiumos/policy/serialization.pb.go
 subninja obj/common-mk/external_dependencies/user_policy-protos.ninja
 rule __common-mk_external_dependencies_user_policy-protos_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc cloud_policy.proto --proto_path /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/gen/common-mk/external_dependencies/proto --proto_path /build/arm64-generic/usr/share/proto --proto_path /build/arm64-generic/usr/share/protofiles --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/gen/include/bindings
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc cloud_policy.proto --proto_path /build/arm64-generic/usr/share/protofiles --proto_path /build/arm64-generic/usr/share/proto --proto_path /build/arm64-generic/usr/share/protofiles --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/gen/include/bindings
   description = ACTION //common-mk/external_dependencies:user_policy-protos_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/bindings/cloud_policy.pb.cc gen/include/bindings/cloud_policy.pb.h: __common-mk_external_dependencies_user_policy-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py gen/common-mk/external_dependencies/proto/cloud_policy.proto obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp ./libpolicy_common_definitions-protos.a
+build gen/include/bindings/cloud_policy.pb.cc gen/include/bindings/cloud_policy.pb.h: __common-mk_external_dependencies_user_policy-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/protofiles/cloud_policy.proto ./libpolicy_common_definitions-protos.a
 
 build obj/common-mk/external_dependencies/user_policy-protos_gen.stamp: stamp gen/include/bindings/cloud_policy.pb.cc gen/include/bindings/cloud_policy.pb.h
 build obj/common-mk/gn_root/root.stamp: stamp obj/libbrillo/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/libbrillo/all.stamp: stamp obj/libbrillo/libbrillo.stamp ./libbrillo-test.a ./lib/libinstallattributes.so ./lib/libpolicy.so ./libbrillo-grpc_tests ./libbrillo_tests ./libinstallattributes_tests ./libpolicy_tests ./secure_blob_test_runner
-subninja obj/libbrillo/grpc_test_rpcs_protolib.ninja
-rule __libbrillo_grpc_test_rpcs_protolib_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc test_rpcs.proto --proto_path /mnt/host/source/src/platform2/libbrillo/brillo/grpc --proto_path /build/arm64-generic/usr/share/proto --grpc_out=/build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/gen/include --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/gen/include
-  description = ACTION //libbrillo:grpc_test_rpcs_protolib_gen(//common-mk/toolchain:toolchain)
-  restat = 1
-
-build gen/include/test_rpcs.grpc.pb.cc gen/include/test_rpcs.grpc.pb.h gen/include/test_rpcs.pb.cc gen/include/test_rpcs.pb.h: __libbrillo_grpc_test_rpcs_protolib_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/grpc/test_rpcs.proto
-
-build obj/libbrillo/grpc_test_rpcs_protolib_gen.stamp: stamp gen/include/test_rpcs.grpc.pb.cc gen/include/test_rpcs.grpc.pb.h gen/include/test_rpcs.pb.cc gen/include/test_rpcs.pb.h
+build obj/libbrillo/_libbrillo-compression-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-core-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-cryptohome-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-dbus-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-grpc-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-http-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-minijail-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-namespaces-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-protobuf-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-storage-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-streams-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-test-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-test_pc-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-udev-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-usb-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo-vboot-install_config.stamp: stamp
+build obj/libbrillo/_libbrillo_pc-install_config.stamp: stamp
+build obj/libbrillo/_libinstallattributes-install_config.stamp: stamp
+build obj/libbrillo/_libpolicy-install_config.stamp: stamp
+build obj/libbrillo/all.stamp: stamp obj/libbrillo/libbrillo.stamp ./lib/libbrillo-test.so ./lib/libinstallattributes.so ./lib/libpolicy.so
 subninja obj/libbrillo/install_attributes_proto.ninja
 rule __libbrillo_install_attributes_proto_gen___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc install_attributes.proto --proto_path /build/arm64-generic/usr/include/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/gen/include/brillo/proto_bindings
@@ -192,17 +193,18 @@ build gen/include/brillo/proto_bindings/install_attributes.pb.cc gen/include/bri
 
 build obj/libbrillo/install_attributes_proto_gen.stamp: stamp gen/include/brillo/proto_bindings/install_attributes.pb.cc gen/include/brillo/proto_bindings/install_attributes.pb.h
 rule __libbrillo_libbrillo___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/lib/libbrillo.so -- GROUP \( AS_NEEDED \( -lbrillo-core -lbrillo-storage -lbrillo-http -lbrillo-streams -lbrillo-cryptohome -lbrillo-namespaces -lbrillo-minijail -lbrillo-protobuf -lbrillo-grpc -lbrillo-vboot -lbrillo-udev -lbrillo-usb \) \)
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/lib/libbrillo.so -- GROUP \( AS_NEEDED \( -lbrillo-core -lbrillo-storage -lbrillo-http -lbrillo-streams -lbrillo-cryptohome -lbrillo-namespaces -lbrillo-minijail -lbrillo-protobuf -lbrillo-grpc -lbrillo-vboot -lbrillo-compression -lbrillo-dbus -lbrillo-udev -lbrillo-usb \) \)
   description = ACTION //libbrillo:libbrillo(//common-mk/toolchain:toolchain)
   restat = 1
 
-build lib/libbrillo.so: __libbrillo_libbrillo___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py ./lib/libbrillo-core.so ./lib/libbrillo-cryptohome.so ./lib/libbrillo-grpc.so ./lib/libbrillo-http.so ./lib/libbrillo-minijail.so ./lib/libbrillo-namespaces.so ./lib/libbrillo-protobuf.so ./lib/libbrillo-storage.so ./lib/libbrillo-streams.so ./lib/libbrillo-udev.so ./lib/libbrillo-usb.so ./lib/libbrillo-vboot.so obj/libbrillo/libbrillo_pc.stamp
+build lib/libbrillo.so: __libbrillo_libbrillo___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py ./lib/libbrillo-compression.so ./lib/libbrillo-core.so ./lib/libbrillo-cryptohome.so ./lib/libbrillo-dbus.so ./lib/libbrillo-grpc.so ./lib/libbrillo-http.so ./lib/libbrillo-minijail.so ./lib/libbrillo-namespaces.so ./lib/libbrillo-protobuf.so ./lib/libbrillo-storage.so ./lib/libbrillo-streams.so ./lib/libbrillo-udev.so ./lib/libbrillo-usb.so ./lib/libbrillo-vboot.so obj/libbrillo/libbrillo_pc.stamp
 
 build obj/libbrillo/libbrillo.stamp: stamp lib/libbrillo.so
+subninja obj/libbrillo/libbrillo-compression.ninja
 subninja obj/libbrillo/libbrillo-core.ninja
 subninja obj/libbrillo/libbrillo-cryptohome.ninja
+subninja obj/libbrillo/libbrillo-dbus.ninja
 subninja obj/libbrillo/libbrillo-grpc.ninja
-subninja obj/libbrillo/libbrillo-grpc_tests.ninja
 subninja obj/libbrillo/libbrillo-http.ninja
 subninja obj/libbrillo/libbrillo-minijail.ninja
 subninja obj/libbrillo/libbrillo-namespaces.ninja
@@ -211,40 +213,28 @@ subninja obj/libbrillo/libbrillo-storage.ninja
 subninja obj/libbrillo/libbrillo-streams.ninja
 subninja obj/libbrillo/libbrillo-test.ninja
 rule __libbrillo_libbrillo-test_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/obj/libbrillo/libbrillo-test.pc --name=libbrillo-test --description=brillo\$ test\$ library --version=1211970 --requires=libbrillo --requires=libchrome --requires=libcurl --libs=-lbrillo-test
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/obj/libbrillo/libbrillo-test.pc --name=libbrillo-test --description=brillo\$ test\$ library --version=1241304 --requires-private=libbrillo --requires-private=libchrome --libs=-lbrillo-test
   description = ACTION //libbrillo:libbrillo-test_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/libbrillo/libbrillo-test.pc: __libbrillo_libbrillo-test_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py
+build obj/libbrillo/libbrillo-test.pc: __libbrillo_libbrillo-test_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libbrillo/_libbrillo-test_pc-install_config.stamp
 
 build obj/libbrillo/libbrillo-test_pc.stamp: stamp obj/libbrillo/libbrillo-test.pc
 subninja obj/libbrillo/libbrillo-udev.ninja
 subninja obj/libbrillo/libbrillo-usb.ninja
 subninja obj/libbrillo/libbrillo-vboot.ninja
 rule __libbrillo_libbrillo_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/obj/libbrillo/libbrillo.pc --name=libbrillo --description=brillo\$ base\$ library --version=1211970 --requires-private=libchrome --requires-private=openssl --requires-private=dbus-1 --requires-private=devmapper --requires-private=libcurl --requires-private=openssl --requires-private=libminijail --requires-private=protobuf --requires-private=grpc --requires-private=grpc++ --requires-private=protobuf --requires-private=vboot_host --requires-private=libudev --requires-private=libusb-1.0 --libs=-lbrillo --cflags=-DUSE_RTTI_FOR_TYPE_TAGS=1
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/obj/libbrillo/libbrillo.pc --name=libbrillo --description=brillo\$ base\$ library --version=1241304 --requires-private=libchrome --requires-private=openssl --requires-private=devmapper --requires-private=libcurl --requires-private=openssl --requires-private=libminijail --requires-private=protobuf --requires-private=grpc --requires-private=grpc++ --requires-private=protobuf --requires-private=vboot_host --requires-private=zlib --requires-private=dbus-1 --requires-private=libudev --requires-private=libusb-1.0 --libs=-lbrillo --cflags=-DUSE_RTTI_FOR_TYPE_TAGS=1
   description = ACTION //libbrillo:libbrillo_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/libbrillo/libbrillo.pc: __libbrillo_libbrillo_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py
+build obj/libbrillo/libbrillo.pc: __libbrillo_libbrillo_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libbrillo/_libbrillo_pc-install_config.stamp
 
 build obj/libbrillo/libbrillo_pc.stamp: stamp obj/libbrillo/libbrillo.pc
-subninja obj/libbrillo/libbrillo_static.ninja
-subninja obj/libbrillo/libbrillo_tests.ninja
-subninja obj/libbrillo/libbrillo_tests_proto.ninja
-rule __libbrillo_libbrillo_tests_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc test.proto --proto_path /mnt/host/source/src/platform2/libbrillo/brillo/dbus --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/gen/include/brillo/dbus
-  description = ACTION //libbrillo:libbrillo_tests_proto_gen(//common-mk/toolchain:toolchain)
-  restat = 1
-
-build gen/include/brillo/dbus/test.pb.cc gen/include/brillo/dbus/test.pb.h: __libbrillo_libbrillo_tests_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/test.proto
-
-build obj/libbrillo/libbrillo_tests_proto_gen.stamp: stamp gen/include/brillo/dbus/test.pb.cc gen/include/brillo/dbus/test.pb.h
 subninja obj/libbrillo/libinstallattributes.ninja
 build gen/include/install_attributes/libinstallattributes.h: copy ../../../../../../../../../mnt/host/source/src/platform2/libbrillo/install_attributes/libinstallattributes.h
 
 build obj/libbrillo/libinstallattributes-includes.stamp: stamp gen/include/install_attributes/libinstallattributes.h
-subninja obj/libbrillo/libinstallattributes_tests.ninja
 subninja obj/libbrillo/libpolicy.ninja
 build gen/include/policy/device_local_account_policy_util.h: copy ../../../../../../../../../mnt/host/source/src/platform2/libbrillo/policy/device_local_account_policy_util.h
 build gen/include/policy/device_policy.h: copy ../../../../../../../../../mnt/host/source/src/platform2/libbrillo/policy/device_policy.h
@@ -256,6 +246,3 @@ build gen/include/policy/policy_util.h: copy ../../../../../../../../../mnt/host
 build gen/include/policy/resilient_policy_util.h: copy ../../../../../../../../../mnt/host/source/src/platform2/libbrillo/policy/resilient_policy_util.h
 
 build obj/libbrillo/libpolicy-includes.stamp: stamp gen/include/policy/device_local_account_policy_util.h gen/include/policy/device_policy.h gen/include/policy/device_policy_impl.h gen/include/policy/libpolicy.h gen/include/policy/mock_device_policy.h gen/include/policy/mock_libpolicy.h gen/include/policy/policy_util.h gen/include/policy/resilient_policy_util.h
-subninja obj/libbrillo/libpolicy_tests.ninja
-subninja obj/libbrillo/secure_blob_test_helper.ninja
-subninja obj/libbrillo/secure_blob_test_runner.ninja

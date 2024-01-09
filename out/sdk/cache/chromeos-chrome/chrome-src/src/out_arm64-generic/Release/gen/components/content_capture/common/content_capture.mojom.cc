@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -157,14 +158,17 @@ void ContentCaptureReceiverProxy::DidCaptureContent(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentCaptureReceiver_DidCaptureContent_Name, kFlags, 0, 0, nullptr);
@@ -206,14 +210,17 @@ void ContentCaptureReceiverProxy::DidUpdateContent(
                         "<value of type const ::content_capture::ContentCaptureData&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentCaptureReceiver_DidUpdateContent_Name, kFlags, 0, 0, nullptr);
@@ -254,14 +261,17 @@ void ContentCaptureReceiverProxy::DidRemoveContent(
                         "<value of type const std::vector<int64_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentCaptureReceiver_DidRemoveContent_Name, kFlags, 0, 0, nullptr);
@@ -404,14 +414,14 @@ bool ContentCaptureReceiverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContentCaptureReceiverValidationInfo[] = {
-    {&internal::ContentCaptureReceiver_DidCaptureContent_Params_Data::Validate,
+    { &internal::ContentCaptureReceiver_DidCaptureContent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentCaptureReceiver_DidUpdateContent_Params_Data::Validate,
+    { &internal::ContentCaptureReceiver_DidUpdateContent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentCaptureReceiver_DidRemoveContent_Params_Data::Validate,
+    { &internal::ContentCaptureReceiver_DidRemoveContent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -504,14 +514,17 @@ void ContentCaptureSenderProxy::StartCapture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content_capture::mojom::ContentCaptureSender::StartCapture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentCaptureSender_StartCapture_Name, kFlags, 0, 0, nullptr);
@@ -534,14 +547,17 @@ void ContentCaptureSenderProxy::StopCapture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content_capture::mojom::ContentCaptureSender::StopCapture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentCaptureSender_StopCapture_Name, kFlags, 0, 0, nullptr);
@@ -630,12 +646,12 @@ bool ContentCaptureSenderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContentCaptureSenderValidationInfo[] = {
-    {&internal::ContentCaptureSender_StartCapture_Params_Data::Validate,
+    { &internal::ContentCaptureSender_StartCapture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentCaptureSender_StopCapture_Params_Data::Validate,
+    { &internal::ContentCaptureSender_StopCapture_Params_Data::Validate,
      nullptr /* no response */},
 };
 

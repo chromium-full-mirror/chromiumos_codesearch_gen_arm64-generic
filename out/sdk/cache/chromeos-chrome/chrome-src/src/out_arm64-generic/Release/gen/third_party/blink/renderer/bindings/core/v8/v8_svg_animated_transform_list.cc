@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGAnimatedTransformList>::value,
     "SVGAnimatedTransformList inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGAnimatedTransformList::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGAnimatedTransformList is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,7 +89,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGAnimatedTransformLi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedTransformList* blink_receiver = V8SVGAnimatedTransformList::ToWrappableUnsafe(v8_receiver);
+SVGAnimatedTransformList* blink_receiver = V8SVGAnimatedTransformList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->baseVal();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -107,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimatedTransformList.animVal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedTransformList* blink_receiver = V8SVGAnimatedTransformList::ToWrappableUnsafe(v8_receiver);
+SVGAnimatedTransformList* blink_receiver = V8SVGAnimatedTransformList::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->animVal();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

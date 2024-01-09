@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -158,6 +159,7 @@ URLResponseHeadDevToolsInfo::URLResponseHeadDevToolsInfo()
       alternate_protocol_usage(),
       was_fetched_via_spdy(),
       service_worker_response_source(),
+      service_worker_router_info(),
       ssl_info(),
       remote_endpoint(),
       emitted_extra_info() {}
@@ -176,6 +178,7 @@ URLResponseHeadDevToolsInfo::URLResponseHeadDevToolsInfo(
     ::net::AlternateProtocolUsage alternate_protocol_usage_in,
     bool was_fetched_via_spdy_in,
     ::network::mojom::blink::FetchResponseSource service_worker_response_source_in,
+    ::network::mojom::blink::ServiceWorkerRouterInfoPtr service_worker_router_info_in,
     ::network::mojom::blink::SSLInfoPtr ssl_info_in,
     const ::net::IPEndPoint& remote_endpoint_in,
     bool emitted_extra_info_in)
@@ -192,6 +195,7 @@ URLResponseHeadDevToolsInfo::URLResponseHeadDevToolsInfo(
       alternate_protocol_usage(std::move(alternate_protocol_usage_in)),
       was_fetched_via_spdy(std::move(was_fetched_via_spdy_in)),
       service_worker_response_source(std::move(service_worker_response_source_in)),
+      service_worker_router_info(std::move(service_worker_router_info_in)),
       ssl_info(std::move(ssl_info_in)),
       remote_endpoint(std::move(remote_endpoint_in)),
       emitted_extra_info(std::move(emitted_extra_info_in)) {}
@@ -314,6 +318,15 @@ void URLResponseHeadDevToolsInfo::WriteIntoTrace(
       "service_worker_response_source"), this->service_worker_response_source,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::network::mojom::blink::FetchResponseSource>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "service_worker_router_info"), this->service_worker_router_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::network::mojom::blink::ServiceWorkerRouterInfoPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -730,14 +743,17 @@ void DevToolsObserverProxy::OnRawRequest(
                         "<value of type OtherPartitionInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnRawRequest_Name, kFlags, 0, 0, nullptr);
@@ -847,14 +863,17 @@ void DevToolsObserverProxy::OnRawResponse(
                         "<value of type ::network::mojom::blink::CookiePartitionKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnRawResponse_Name, kFlags, 0, 0, nullptr);
@@ -950,14 +969,17 @@ void DevToolsObserverProxy::OnPrivateNetworkRequest(
                         "<value of type ::network::mojom::blink::ClientSecurityStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnPrivateNetworkRequest_Name, kFlags, 0, 0, nullptr);
@@ -1031,14 +1053,17 @@ void DevToolsObserverProxy::OnCorsPreflightRequest(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorsPreflightRequest_Name, kFlags, 0, 0, nullptr);
@@ -1129,14 +1154,17 @@ void DevToolsObserverProxy::OnCorsPreflightResponse(
                         "<value of type URLResponseHeadDevToolsInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorsPreflightResponse_Name, kFlags, 0, 0, nullptr);
@@ -1202,14 +1230,17 @@ void DevToolsObserverProxy::OnCorsPreflightRequestCompleted(
                         "<value of type const ::network::URLLoaderCompletionStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorsPreflightRequestCompleted_Name, kFlags, 0, 0, nullptr);
@@ -1264,14 +1295,17 @@ void DevToolsObserverProxy::OnTrustTokenOperationDone(
                         "<value of type ::network::mojom::blink::TrustTokenOperationResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnTrustTokenOperationDone_Name, kFlags, 0, 0, nullptr);
@@ -1338,14 +1372,17 @@ void DevToolsObserverProxy::OnCorsError(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorsError_Name, kFlags, 0, 0, nullptr);
@@ -1422,14 +1459,17 @@ void DevToolsObserverProxy::OnCorbError(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnCorbError_Name, kFlags, 0, 0, nullptr);
@@ -1480,14 +1520,17 @@ void DevToolsObserverProxy::OnSubresourceWebBundleMetadata(
                         "<value of type const WTF::Vector<::blink::KURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnSubresourceWebBundleMetadata_Name, kFlags, 0, 0, nullptr);
@@ -1544,14 +1587,17 @@ void DevToolsObserverProxy::OnSubresourceWebBundleMetadataError(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnSubresourceWebBundleMetadataError_Name, kFlags, 0, 0, nullptr);
@@ -1609,14 +1655,17 @@ void DevToolsObserverProxy::OnSubresourceWebBundleInnerResponse(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnSubresourceWebBundleInnerResponse_Name, kFlags, 0, 0, nullptr);
@@ -1684,14 +1733,17 @@ void DevToolsObserverProxy::OnSubresourceWebBundleInnerResponseError(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_OnSubresourceWebBundleInnerResponseError_Name, kFlags, 0, 0, nullptr);
@@ -1761,14 +1813,17 @@ void DevToolsObserverProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<DevToolsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDevToolsObserver_Clone_Name, kFlags, 0, 0, nullptr);
@@ -2365,36 +2420,36 @@ bool DevToolsObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDevToolsObserverValidationInfo[] = {
-    {&internal::DevToolsObserver_OnRawRequest_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnRawRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnRawResponse_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnRawResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnPrivateNetworkRequest_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnPrivateNetworkRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorsPreflightRequest_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorsPreflightRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorsPreflightResponse_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorsPreflightResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorsPreflightRequestCompleted_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorsPreflightRequestCompleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnTrustTokenOperationDone_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnTrustTokenOperationDone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorsError_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorsError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnCorbError_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnCorbError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnSubresourceWebBundleMetadata_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnSubresourceWebBundleMetadata_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnSubresourceWebBundleMetadataError_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnSubresourceWebBundleMetadataError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnSubresourceWebBundleInnerResponse_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnSubresourceWebBundleInnerResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_OnSubresourceWebBundleInnerResponseError_Params_Data::Validate,
+    { &internal::DevToolsObserver_OnSubresourceWebBundleInnerResponseError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DevToolsObserver_Clone_Params_Data::Validate,
+    { &internal::DevToolsObserver_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2469,6 +2524,8 @@ bool StructTraits<::network::mojom::blink::URLResponseHeadDevToolsInfo::DataView
       if (success)
         result->was_fetched_via_spdy = input.was_fetched_via_spdy();
       if (success && !input.ReadServiceWorkerResponseSource(&result->service_worker_response_source))
+        success = false;
+      if (success && !input.ReadServiceWorkerRouterInfo(&result->service_worker_router_info))
         success = false;
       if (success && !input.ReadSslInfo(&result->ssl_info))
         success = false;

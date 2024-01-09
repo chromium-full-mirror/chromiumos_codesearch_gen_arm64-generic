@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/gfx/mojom/mask_filter_info.mojom-features.h"
 #include "ui/gfx/mojom/mask_filter_info.mojom-shared.h"
 #include "ui/gfx/mojom/mask_filter_info.mojom-forward.h"
 #include "ui/gfx/mojom/rrect_f.mojom.h"
@@ -75,7 +76,7 @@ class  MaskFilterInfo {
 
   MaskFilterInfo(
       const ::gfx::RRectF& rounded_corner_bounds,
-      const absl::optional<::gfx::LinearGradient>& gradient_mask);
+      const std::optional<::gfx::LinearGradient>& gradient_mask);
 
 
   ~MaskFilterInfo();
@@ -155,7 +156,7 @@ class  MaskFilterInfo {
   
   ::gfx::RRectF rounded_corner_bounds;
   
-  absl::optional<::gfx::LinearGradient> gradient_mask;
+  std::optional<::gfx::LinearGradient> gradient_mask;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

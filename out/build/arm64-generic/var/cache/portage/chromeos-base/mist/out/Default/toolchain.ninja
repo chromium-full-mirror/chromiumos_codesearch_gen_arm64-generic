@@ -34,9 +34,8 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/mist/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/mist/_mist-install_config.stamp: stamp
-build obj/mist/all.stamp: stamp obj/mist/install_conf.stamp obj/mist/install_udev.stamp ./mist ./mist_testrunner
+build obj/mist/all.stamp: stamp obj/mist/install_conf.stamp obj/mist/install_udev.stamp ./mist
 build obj/mist/install_conf.stamp: stamp
 build obj/mist/install_udev.stamp: stamp
 subninja obj/mist/libmist.ninja
@@ -50,4 +49,3 @@ rule __mist_mist-protos_gen___common-mk_toolchain_toolchain__rule
 build gen/include/mist/proto_bindings/config.pb.cc gen/include/mist/proto_bindings/config.pb.h gen/include/mist/proto_bindings/usb_modem_info.pb.cc gen/include/mist/proto_bindings/usb_modem_info.pb.h: __mist_mist-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/mist/proto/config.proto ../../../../../../../../../mnt/host/source/src/platform2/mist/proto/usb_modem_info.proto
 
 build obj/mist/mist-protos_gen.stamp: stamp gen/include/mist/proto_bindings/config.pb.cc gen/include/mist/proto_bindings/config.pb.h gen/include/mist/proto_bindings/usb_modem_info.pb.cc gen/include/mist/proto_bindings/usb_modem_info.pb.h
-subninja obj/mist/mist_testrunner.ninja

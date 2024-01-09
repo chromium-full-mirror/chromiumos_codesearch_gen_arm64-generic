@@ -1,1 +1,1 @@
-{"webui_js_error.rollup.js": ["../../../../../ui/webui/resources/tsc/js/assert.js", "../../../../../ui/webui/resources/tsc/js/util_ts.js", "../tsc/webui_js_error.js"]}
+{"webui_js_error.rollup.js": ["../../../../../ui/webui/resources/tsc/js/assert.js", "../../../../../ui/webui/resources/tsc/js/util.js", "../tsc/webui_js_error.js"]}

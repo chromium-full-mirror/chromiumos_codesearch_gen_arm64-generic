@@ -162,13 +162,14 @@ bool OptimizationTarget_IsValid(int value) {
     case 37:
     case 38:
     case 39:
+    case 40:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OptimizationTarget_strings[39] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OptimizationTarget_strings[40] = {};
 
 static const char OptimizationTarget_names[] =
   "OPTIMIZATION_TARGET_AUTOFILL_FIELD_CLASSIFICATION"
@@ -207,6 +208,7 @@ static const char OptimizationTarget_names[] =
   "OPTIMIZATION_TARGET_SEGMENTATION_VOICE"
   "OPTIMIZATION_TARGET_TEXT_CLASSIFIER"
   "OPTIMIZATION_TARGET_TEXT_EMBEDDER"
+  "OPTIMIZATION_TARGET_TEXT_SAFETY"
   "OPTIMIZATION_TARGET_UNKNOWN"
   "OPTIMIZATION_TARGET_VISUAL_SEARCH_CLASSIFICATION"
   "OPTIMIZATION_TARGET_WEB_APP_INSTALLATION_PROMO";
@@ -248,13 +250,14 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OptimizationTarget_ent
   { {OptimizationTarget_names + 1510, 38}, 6 },
   { {OptimizationTarget_names + 1548, 35}, 19 },
   { {OptimizationTarget_names + 1583, 33}, 33 },
-  { {OptimizationTarget_names + 1616, 27}, 0 },
-  { {OptimizationTarget_names + 1643, 48}, 34 },
-  { {OptimizationTarget_names + 1691, 46}, 32 },
+  { {OptimizationTarget_names + 1616, 31}, 40 },
+  { {OptimizationTarget_names + 1647, 27}, 0 },
+  { {OptimizationTarget_names + 1674, 48}, 34 },
+  { {OptimizationTarget_names + 1722, 46}, 32 },
 };
 
 static const int OptimizationTarget_entries_by_number[] = {
-  36, // 0 -> OPTIMIZATION_TARGET_UNKNOWN
+  37, // 0 -> OPTIMIZATION_TARGET_UNKNOWN
   15, // 1 -> OPTIMIZATION_TARGET_PAINFUL_PAGE_LOAD
   5, // 2 -> OPTIMIZATION_TARGET_LANGUAGE_DETECTION
   12, // 3 -> OPTIMIZATION_TARGET_PAGE_TOPICS
@@ -285,14 +288,15 @@ static const int OptimizationTarget_entries_by_number[] = {
   32, // 29 -> OPTIMIZATION_TARGET_SEGMENTATION_TABLET_PRODUCTIVITY_USER
   2, // 30 -> OPTIMIZATION_TARGET_CLIENT_SIDE_PHISHING_IMAGE_EMBEDDER
   7, // 31 -> OPTIMIZATION_TARGET_NEW_TAB_PAGE_HISTORY_CLUSTERS_MODULE_RANKING
-  38, // 32 -> OPTIMIZATION_TARGET_WEB_APP_INSTALLATION_PROMO
+  39, // 32 -> OPTIMIZATION_TARGET_WEB_APP_INSTALLATION_PROMO
   35, // 33 -> OPTIMIZATION_TARGET_TEXT_EMBEDDER
-  37, // 34 -> OPTIMIZATION_TARGET_VISUAL_SEARCH_CLASSIFICATION
+  38, // 34 -> OPTIMIZATION_TARGET_VISUAL_SEARCH_CLASSIFICATION
   18, // 35 -> OPTIMIZATION_TARGET_SEGMENTATION_BOTTOM_TOOLBAR
   0, // 36 -> OPTIMIZATION_TARGET_AUTOFILL_FIELD_CLASSIFICATION
   26, // 37 -> OPTIMIZATION_TARGET_SEGMENTATION_IOS_MODULE_RANKER
   22, // 38 -> OPTIMIZATION_TARGET_SEGMENTATION_DESKTOP_NTP_MODULE
   16, // 39 -> OPTIMIZATION_TARGET_PRELOADING_HEURISTICS
+  36, // 40 -> OPTIMIZATION_TARGET_TEXT_SAFETY
 };
 
 const std::string& OptimizationTarget_Name(
@@ -301,12 +305,12 @@ const std::string& OptimizationTarget_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           OptimizationTarget_entries,
           OptimizationTarget_entries_by_number,
-          39, OptimizationTarget_strings);
+          40, OptimizationTarget_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       OptimizationTarget_entries,
       OptimizationTarget_entries_by_number,
-      39, value);
+      40, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      OptimizationTarget_strings[idx].get();
 }
@@ -314,7 +318,7 @@ bool OptimizationTarget_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OptimizationTarget* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      OptimizationTarget_entries, 39, name, &int_value);
+      OptimizationTarget_entries, 40, name, &int_value);
   if (success) {
     *value = static_cast<OptimizationTarget>(int_value);
   }
@@ -336,13 +340,14 @@ bool ModelEngineVersion_IsValid(int value) {
     case 12:
     case 13:
     case 14:
+    case 15:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ModelEngineVersion_strings[14] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ModelEngineVersion_strings[15] = {};
 
 static const char ModelEngineVersion_names[] =
   "MODEL_ENGINE_VERSION_TFLITE_2_10"
@@ -351,6 +356,7 @@ static const char ModelEngineVersion_names[] =
   "MODEL_ENGINE_VERSION_TFLITE_2_13"
   "MODEL_ENGINE_VERSION_TFLITE_2_14"
   "MODEL_ENGINE_VERSION_TFLITE_2_14_1"
+  "MODEL_ENGINE_VERSION_TFLITE_2_16"
   "MODEL_ENGINE_VERSION_TFLITE_2_3_0"
   "MODEL_ENGINE_VERSION_TFLITE_2_3_0_1"
   "MODEL_ENGINE_VERSION_TFLITE_2_4"
@@ -367,31 +373,33 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ModelEngineVersion_ent
   { {ModelEngineVersion_names + 96, 32}, 12 },
   { {ModelEngineVersion_names + 128, 32}, 13 },
   { {ModelEngineVersion_names + 160, 34}, 14 },
-  { {ModelEngineVersion_names + 194, 33}, 2 },
-  { {ModelEngineVersion_names + 227, 35}, 3 },
-  { {ModelEngineVersion_names + 262, 31}, 4 },
-  { {ModelEngineVersion_names + 293, 31}, 5 },
-  { {ModelEngineVersion_names + 324, 31}, 6 },
-  { {ModelEngineVersion_names + 355, 31}, 7 },
-  { {ModelEngineVersion_names + 386, 35}, 8 },
-  { {ModelEngineVersion_names + 421, 28}, 0 },
+  { {ModelEngineVersion_names + 194, 32}, 15 },
+  { {ModelEngineVersion_names + 226, 33}, 2 },
+  { {ModelEngineVersion_names + 259, 35}, 3 },
+  { {ModelEngineVersion_names + 294, 31}, 4 },
+  { {ModelEngineVersion_names + 325, 31}, 5 },
+  { {ModelEngineVersion_names + 356, 31}, 6 },
+  { {ModelEngineVersion_names + 387, 31}, 7 },
+  { {ModelEngineVersion_names + 418, 35}, 8 },
+  { {ModelEngineVersion_names + 453, 28}, 0 },
 };
 
 static const int ModelEngineVersion_entries_by_number[] = {
-  13, // 0 -> MODEL_ENGINE_VERSION_UNKNOWN
-  6, // 2 -> MODEL_ENGINE_VERSION_TFLITE_2_3_0
-  7, // 3 -> MODEL_ENGINE_VERSION_TFLITE_2_3_0_1
-  8, // 4 -> MODEL_ENGINE_VERSION_TFLITE_2_4
-  9, // 5 -> MODEL_ENGINE_VERSION_TFLITE_2_7
-  10, // 6 -> MODEL_ENGINE_VERSION_TFLITE_2_8
-  11, // 7 -> MODEL_ENGINE_VERSION_TFLITE_2_9
-  12, // 8 -> MODEL_ENGINE_VERSION_TFLITE_2_9_0_1
+  14, // 0 -> MODEL_ENGINE_VERSION_UNKNOWN
+  7, // 2 -> MODEL_ENGINE_VERSION_TFLITE_2_3_0
+  8, // 3 -> MODEL_ENGINE_VERSION_TFLITE_2_3_0_1
+  9, // 4 -> MODEL_ENGINE_VERSION_TFLITE_2_4
+  10, // 5 -> MODEL_ENGINE_VERSION_TFLITE_2_7
+  11, // 6 -> MODEL_ENGINE_VERSION_TFLITE_2_8
+  12, // 7 -> MODEL_ENGINE_VERSION_TFLITE_2_9
+  13, // 8 -> MODEL_ENGINE_VERSION_TFLITE_2_9_0_1
   0, // 9 -> MODEL_ENGINE_VERSION_TFLITE_2_10
   1, // 10 -> MODEL_ENGINE_VERSION_TFLITE_2_11
   2, // 11 -> MODEL_ENGINE_VERSION_TFLITE_2_12
   3, // 12 -> MODEL_ENGINE_VERSION_TFLITE_2_13
   4, // 13 -> MODEL_ENGINE_VERSION_TFLITE_2_14
   5, // 14 -> MODEL_ENGINE_VERSION_TFLITE_2_14_1
+  6, // 15 -> MODEL_ENGINE_VERSION_TFLITE_2_16
 };
 
 const std::string& ModelEngineVersion_Name(
@@ -400,12 +408,12 @@ const std::string& ModelEngineVersion_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ModelEngineVersion_entries,
           ModelEngineVersion_entries_by_number,
-          14, ModelEngineVersion_strings);
+          15, ModelEngineVersion_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ModelEngineVersion_entries,
       ModelEngineVersion_entries_by_number,
-      14, value);
+      15, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ModelEngineVersion_strings[idx].get();
 }
@@ -413,7 +421,7 @@ bool ModelEngineVersion_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ModelEngineVersion* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ModelEngineVersion_entries, 14, name, &int_value);
+      ModelEngineVersion_entries, 15, name, &int_value);
   if (success) {
     *value = static_cast<ModelEngineVersion>(int_value);
   }

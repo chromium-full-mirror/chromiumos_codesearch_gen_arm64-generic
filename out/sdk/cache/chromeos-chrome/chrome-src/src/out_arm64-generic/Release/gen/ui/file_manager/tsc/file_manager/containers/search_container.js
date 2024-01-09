@@ -1,25 +1,19 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import { CrInputElement } from 'chrome://resources/cr_elements/cr_input/cr_input.js';
 import { queryRequiredElement } from '../common/js/dom_utils.js';
+import { isEntryInsideDrive } from '../common/js/entry_utils.js';
 import { recordUserAction } from '../common/js/metrics.js';
-import { str, strf } from '../common/js/util.js';
-import { VolumeManagerCommon } from '../common/js/volume_manager_types.js';
-import { PropStatus, SearchLocation, SearchRecency } from '../externs/ts/state.js';
-import '../externs/volume_manager.js';
+import { str, strf } from '../common/js/translations.js';
+import { RootType } from '../common/js/volume_manager_types.js';
+import { CurrentDirectory, PropStatus, SearchData, SearchLocation, SearchOptions, SearchRecency, State } from '../externs/ts/state.js';
 import { PathComponent } from '../foreground/js/path_component.js';
-import '../foreground/js/ui/a11y_announce.js';
 import { changeDirectory } from '../state/ducks/current_directory.js';
 import { clearSearch, getDefaultSearchOptions, isSearchEmpty, updateSearch } from '../state/ducks/search.js';
 import { getStore } from '../state/store.js';
 import { XfBreadcrumb } from '../widgets/xf_breadcrumb.js';
-import { OptionKind, SEARCH_OPTIONS_CHANGED } from '../widgets/xf_search_options.js';
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
+import { OptionKind, SEARCH_OPTIONS_CHANGED, XfSearchOptionsElement } from '../widgets/xf_search_options.js';
 /**
  * Defines the possible states of the query input widget. This is a widget with
  * a search button, text input and clear button. By default, the widget is
@@ -36,7 +30,7 @@ var SearchInputState;
  * directory.
  */
 function isInRecent(dir) {
-    return dir?.rootType == VolumeManagerCommon.RootType.RECENT;
+    return dir?.rootType == RootType.RECENT;
 }
 /**
  * Creates location options. These always consist of 'Everywhere' and the
@@ -53,8 +47,8 @@ function createLocationOptions(state) {
             default: !dirPath,
         },
     ];
-    if (dirPath) {
-        if (dir?.rootType === VolumeManagerCommon.RootType.DRIVE) {
+    if (dirPath.length > 0) {
+        if (dir && isEntryInsideDrive(dir)) {
             // For Google Drive we currently do not have the ability to search a
             // specific folder. Thus the only options shown, when the user is
             // triggering search from a location in Drive, is Everywhere (set up
@@ -134,8 +128,8 @@ function createRecencyOptions(state) {
 function createFileCategoryOptions(state) {
     let fileCategory = chrome.fileManagerPrivate.FileCategory.ALL;
     if (isInRecent(state.currentDirectory)) {
-        fileCategory =
-            state.allEntries[state.currentDirectory.key].entry.fileCategory;
+        const entry = state.allEntries[state.currentDirectory.key].entry;
+        fileCategory = entry.fileCategory;
     }
     return [
         {
@@ -486,7 +480,7 @@ export class SearchContainer extends EventTarget {
         updateRecencyOptionsVisibility(state, this.getSearchOptionsElement_(), this.currentOptions_);
         this.store_.dispatch(updateSearch({
             query: this.getQuery(),
-            status: undefined,
+            status: undefined, // do not change
             options: this.currentOptions_,
         }));
     }
@@ -607,7 +601,7 @@ export class SearchContainer extends EventTarget {
         this.updateClearButton_(query);
         this.store_.dispatch(updateSearch({
             query: query,
-            status: undefined,
+            status: undefined, // do not change
             options: this.currentOptions_,
         }));
     }

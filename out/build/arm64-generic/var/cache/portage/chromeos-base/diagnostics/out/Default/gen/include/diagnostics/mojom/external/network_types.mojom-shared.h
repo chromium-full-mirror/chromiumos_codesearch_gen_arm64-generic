@@ -87,6 +87,22 @@ inline bool IsKnownEnumValue(DeviceStateType value) {
 }
 
 
+enum class IPConfigType : int32_t {
+  
+  kIPv4 = 0,
+  
+  kIPv6 = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, IPConfigType value);
+inline bool IsKnownEnumValue(IPConfigType value) {
+  return internal::IPConfigType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class NetworkType : int32_t {
   
   kAll = 0,
@@ -198,6 +214,10 @@ struct hash<::chromeos::network_config::mojom::DeviceStateType>
     : public mojo::internal::EnumHashImpl<::chromeos::network_config::mojom::DeviceStateType> {};
 
 template <>
+struct hash<::chromeos::network_config::mojom::IPConfigType>
+    : public mojo::internal::EnumHashImpl<::chromeos::network_config::mojom::IPConfigType> {};
+
+template <>
 struct hash<::chromeos::network_config::mojom::NetworkType>
     : public mojo::internal::EnumHashImpl<::chromeos::network_config::mojom::NetworkType> {};
 
@@ -252,6 +272,26 @@ struct Serializer<::chromeos::network_config::mojom::DeviceStateType, MaybeConst
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::chromeos::network_config::mojom::DeviceStateType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::chromeos::network_config::mojom::IPConfigType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::chromeos::network_config::mojom::IPConfigType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::chromeos::network_config::mojom::IPConfigType>(input)), output);
   }
 };
 
@@ -362,6 +402,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::chromeos::network_config::mojom::DeviceStateType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::network_config::mojom::DeviceStateType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::chromeos::network_config::mojom::IPConfigType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::network_config::mojom::IPConfigType value);
 };
 
 } // namespace perfetto

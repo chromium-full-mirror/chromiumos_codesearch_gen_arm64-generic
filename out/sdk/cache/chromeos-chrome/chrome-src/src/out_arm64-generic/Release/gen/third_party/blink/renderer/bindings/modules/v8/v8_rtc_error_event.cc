@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCErrorEvent>::value,
     "RTCErrorEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCErrorEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCErrorEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCErrorEvent.error.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCErrorEvent* blink_receiver = V8RTCErrorEvent::ToWrappableUnsafe(v8_receiver);
+RTCErrorEvent* blink_receiver = V8RTCErrorEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->error();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCErrorEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCErrorEvent* blink_receiver = V8RTCErrorEvent::ToWrappableUnsafe(v8_receiver);
+RTCErrorEvent* blink_receiver = V8RTCErrorEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

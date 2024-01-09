@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,8 @@ struct EntryDescription {
   ~EntryDescription();
   EntryDescription(const EntryDescription&) = delete;
   EntryDescription& operator=(const EntryDescription&) = delete;
-  EntryDescription(EntryDescription&& rhs);
-  EntryDescription& operator=(EntryDescription&& rhs);
+  EntryDescription(EntryDescription&& rhs) noexcept;
+  EntryDescription& operator=(EntryDescription&& rhs) noexcept;
 
   // Populates a EntryDescription object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -49,16 +50,13 @@ struct EntryDescription {
   // Creates a deep copy of EntryDescription.
   EntryDescription Clone() const;
 
-  // Creates a EntryDescription object from a base::Value, or NULL on failure.
-  static std::unique_ptr<EntryDescription> FromValueDeprecated(const base::Value& value);
-
   // Creates a EntryDescription object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<EntryDescription> FromValue(const base::Value::Dict& value);
+  static std::optional<EntryDescription> FromValue(const base::Value::Dict& value);
 
   // Creates a EntryDescription object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<EntryDescription> FromValue(const base::Value& value);
+  static std::optional<EntryDescription> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEntryDescription object.
@@ -79,8 +77,8 @@ struct IOTaskParams {
   ~IOTaskParams();
   IOTaskParams(const IOTaskParams&) = delete;
   IOTaskParams& operator=(const IOTaskParams&) = delete;
-  IOTaskParams(IOTaskParams&& rhs);
-  IOTaskParams& operator=(IOTaskParams&& rhs);
+  IOTaskParams(IOTaskParams&& rhs) noexcept;
+  IOTaskParams& operator=(IOTaskParams&& rhs) noexcept;
 
   // Populates a IOTaskParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -93,25 +91,22 @@ struct IOTaskParams {
   // Creates a deep copy of IOTaskParams.
   IOTaskParams Clone() const;
 
-  // Creates a IOTaskParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<IOTaskParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a IOTaskParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<IOTaskParams> FromValue(const base::Value::Dict& value);
+  static std::optional<IOTaskParams> FromValue(const base::Value::Dict& value);
 
   // Creates a IOTaskParams object from a base::Value, or nullopt on failure.
-  static absl::optional<IOTaskParams> FromValue(const base::Value& value);
+  static std::optional<IOTaskParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIOTaskParams object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> destination_folder_url;
+  std::optional<std::string> destination_folder_url;
 
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
-  absl::optional<bool> show_notification;
+  std::optional<bool> show_notification;
 
 };
 
@@ -120,8 +115,8 @@ struct ParsedTrashInfoFile {
   ~ParsedTrashInfoFile();
   ParsedTrashInfoFile(const ParsedTrashInfoFile&) = delete;
   ParsedTrashInfoFile& operator=(const ParsedTrashInfoFile&) = delete;
-  ParsedTrashInfoFile(ParsedTrashInfoFile&& rhs);
-  ParsedTrashInfoFile& operator=(ParsedTrashInfoFile&& rhs);
+  ParsedTrashInfoFile(ParsedTrashInfoFile&& rhs) noexcept;
+  ParsedTrashInfoFile& operator=(ParsedTrashInfoFile&& rhs) noexcept;
 
   // Populates a ParsedTrashInfoFile object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -134,17 +129,13 @@ struct ParsedTrashInfoFile {
   // Creates a deep copy of ParsedTrashInfoFile.
   ParsedTrashInfoFile Clone() const;
 
-  // Creates a ParsedTrashInfoFile object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ParsedTrashInfoFile> FromValueDeprecated(const base::Value& value);
-
   // Creates a ParsedTrashInfoFile object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ParsedTrashInfoFile> FromValue(const base::Value::Dict& value);
+  static std::optional<ParsedTrashInfoFile> FromValue(const base::Value::Dict& value);
 
   // Creates a ParsedTrashInfoFile object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ParsedTrashInfoFile> FromValue(const base::Value& value);
+  static std::optional<ParsedTrashInfoFile> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisParsedTrashInfoFile object.
@@ -163,8 +154,8 @@ struct SearchFilesParams {
   ~SearchFilesParams();
   SearchFilesParams(const SearchFilesParams&) = delete;
   SearchFilesParams& operator=(const SearchFilesParams&) = delete;
-  SearchFilesParams(SearchFilesParams&& rhs);
-  SearchFilesParams& operator=(SearchFilesParams&& rhs);
+  SearchFilesParams(SearchFilesParams&& rhs) noexcept;
+  SearchFilesParams& operator=(SearchFilesParams&& rhs) noexcept;
 
   // Populates a SearchFilesParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -177,22 +168,19 @@ struct SearchFilesParams {
   // Creates a deep copy of SearchFilesParams.
   SearchFilesParams Clone() const;
 
-  // Creates a SearchFilesParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SearchFilesParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a SearchFilesParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SearchFilesParams> FromValue(const base::Value::Dict& value);
+  static std::optional<SearchFilesParams> FromValue(const base::Value::Dict& value);
 
   // Creates a SearchFilesParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SearchFilesParams> FromValue(const base::Value& value);
+  static std::optional<SearchFilesParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSearchFilesParams object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> root_url;
+  std::optional<std::string> root_url;
 
   std::string query;
 
@@ -206,6 +194,43 @@ struct SearchFilesParams {
 
 };
 
+struct CrostiniSharedPathResponse {
+  CrostiniSharedPathResponse();
+  ~CrostiniSharedPathResponse();
+  CrostiniSharedPathResponse(const CrostiniSharedPathResponse&) = delete;
+  CrostiniSharedPathResponse& operator=(const CrostiniSharedPathResponse&) = delete;
+  CrostiniSharedPathResponse(CrostiniSharedPathResponse&& rhs) noexcept;
+  CrostiniSharedPathResponse& operator=(CrostiniSharedPathResponse&& rhs) noexcept;
+
+  // Populates a CrostiniSharedPathResponse object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, CrostiniSharedPathResponse& out);
+
+  // Populates a CrostiniSharedPathResponse object from a Dict& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, CrostiniSharedPathResponse& out);
+
+  // Creates a deep copy of CrostiniSharedPathResponse.
+  CrostiniSharedPathResponse Clone() const;
+
+  // Creates a CrostiniSharedPathResponse object from a base::Value::Dict, or
+  // nullopt on failure.
+  static std::optional<CrostiniSharedPathResponse> FromValue(const base::Value::Dict& value);
+
+  // Creates a CrostiniSharedPathResponse object from a base::Value, or nullopt
+  // on failure.
+  static std::optional<CrostiniSharedPathResponse> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisCrostiniSharedPathResponse object.
+  base::Value::Dict ToValue() const;
+
+  std::vector<EntryDescription> entries;
+
+  bool first_for_session;
+
+};
+
 
 //
 // Functions
@@ -214,11 +239,11 @@ struct SearchFilesParams {
 namespace ResolveIsolatedEntries {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> urls;
@@ -238,11 +263,11 @@ base::Value::List Create(const std::vector<EntryDescription>& entries);
 namespace GetEntryProperties {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> urls;
@@ -264,11 +289,11 @@ base::Value::List Create(const std::vector<extensions::api::file_manager_private
 namespace AddFileWatch {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -288,11 +313,11 @@ base::Value::List Create(bool success);
 namespace RemoveFileWatch {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -312,11 +337,11 @@ base::Value::List Create(bool success);
 namespace GetCustomActions {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> urls;
@@ -336,11 +361,11 @@ base::Value::List Create(const std::vector<extensions::api::file_system_provider
 namespace ExecuteCustomAction {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> urls;
@@ -362,11 +387,11 @@ base::Value::List Create();
 namespace ComputeChecksum {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -386,11 +411,11 @@ base::Value::List Create(const std::string& checksum);
 namespace GetMimeType {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -410,11 +435,11 @@ base::Value::List Create(const std::string& result);
 namespace GetContentMimeType {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string blob_uuid;
@@ -434,11 +459,11 @@ base::Value::List Create(const std::string& result);
 namespace GetContentMetadata {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string blob_uuid;
@@ -462,11 +487,11 @@ base::Value::List Create(const extensions::api::file_manager_private::MediaMetad
 namespace PinDriveFile {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -488,11 +513,11 @@ base::Value::List Create();
 namespace ExecuteTask {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   extensions::api::file_manager_private::FileTaskDescriptor descriptor;
@@ -514,11 +539,11 @@ base::Value::List Create(const extensions::api::file_manager_private::TaskResult
 namespace SearchFiles {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   SearchFilesParams search_params;
@@ -538,11 +563,11 @@ base::Value::List Create(const std::vector<EntryDescription>& entries);
 namespace SetDefaultTask {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   extensions::api::file_manager_private::FileTaskDescriptor descriptor;
@@ -566,11 +591,11 @@ base::Value::List Create();
 namespace GetFileTasks {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> urls;
@@ -592,11 +617,11 @@ base::Value::List Create(const extensions::api::file_manager_private::ResultingT
 namespace GetDisallowedTransfers {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> entries;
@@ -620,11 +645,11 @@ base::Value::List Create(const std::vector<EntryDescription>& entries);
 namespace GetDlpMetadata {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> entries;
@@ -644,11 +669,11 @@ base::Value::List Create(const std::vector<extensions::api::file_manager_private
 namespace GetDriveQuotaMetadata {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -668,11 +693,11 @@ base::Value::List Create(const extensions::api::file_manager_private::DriveQuota
 namespace ValidatePathNameLength {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string parent_url;
@@ -694,11 +719,11 @@ base::Value::List Create(bool result);
 namespace GetDirectorySize {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -718,11 +743,11 @@ base::Value::List Create(double size);
 namespace GetVolumeRoot {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   extensions::api::file_manager_private::GetVolumeRootOptions options;
@@ -742,14 +767,18 @@ base::Value::List Create(const EntryDescription& root_dir);
 namespace GetRecentFiles {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   extensions::api::file_manager_private::SourceRestriction restriction;
+
+  std::string query;
+
+  int cutoff_days;
 
   extensions::api::file_manager_private::FileCategory file_category;
 
@@ -770,11 +799,11 @@ base::Value::List Create(const std::vector<EntryDescription>& entries);
 namespace SharePathsWithCrostini {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string vm_name;
@@ -798,11 +827,11 @@ base::Value::List Create();
 namespace UnsharePathWithCrostini {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string vm_name;
@@ -824,11 +853,11 @@ base::Value::List Create();
 namespace GetCrostiniSharedPaths {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool observe_first_for_session;
@@ -842,7 +871,7 @@ struct Params {
 
 namespace Results {
 
-base::Value::List Create(const std::vector<EntryDescription>& entries, bool first_for_session);
+base::Value::List Create(const CrostiniSharedPathResponse& response);
 }  // namespace Results
 
 }  // namespace GetCrostiniSharedPaths
@@ -850,11 +879,11 @@ base::Value::List Create(const std::vector<EntryDescription>& entries, bool firs
 namespace GetLinuxPackageInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -874,11 +903,11 @@ base::Value::List Create(const extensions::api::file_manager_private::LinuxPacka
 namespace InstallLinuxPackage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -890,7 +919,7 @@ struct Params {
 
 namespace Results {
 
-base::Value::List Create(const extensions::api::file_manager_private::InstallLinuxPackageResponse& response);
+base::Value::List Create(const extensions::api::file_manager_private::InstallLinuxPackageStatus& status);
 }  // namespace Results
 
 }  // namespace InstallLinuxPackage
@@ -898,11 +927,11 @@ base::Value::List Create(const extensions::api::file_manager_private::InstallLin
 namespace ImportCrostiniImage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -917,11 +946,11 @@ struct Params {
 namespace SharesheetHasTargets {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> urls;
@@ -941,11 +970,11 @@ base::Value::List Create(bool result);
 namespace InvokeSharesheet {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> urls;
@@ -969,11 +998,11 @@ base::Value::List Create();
 namespace ToggleAddedToHoldingSpace {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> urls;
@@ -995,11 +1024,11 @@ base::Value::List Create();
 namespace StartIOTask {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   extensions::api::file_manager_private::IOTaskType type;
@@ -1023,11 +1052,11 @@ base::Value::List Create(int task_id);
 namespace ParseTrashInfoFiles {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> urls;

@@ -65,7 +65,7 @@ class  PageHandler_AcceptTabOrganization_Params_Data {
   mojo::internal::StructHeader header_;
   int32_t session_id;
   int32_t organization_id;
-  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> name;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Tab_Data>>> tabs;
 
  private:
@@ -203,6 +203,39 @@ class  PageHandler_RequestTabOrganization_Params_Data {
 };
 static_assert(sizeof(PageHandler_RequestTabOrganization_Params_Data) == 8,
               "Bad sizeof(PageHandler_RequestTabOrganization_Params_Data)");
+class  PageHandler_RemoveTabFromOrganization_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t session_id;
+  int32_t organization_id;
+  mojo::internal::Pointer<internal::Tab_Data> tab;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_RemoveTabFromOrganization_Params_Data>;
+
+  PageHandler_RemoveTabFromOrganization_Params_Data();
+  ~PageHandler_RemoveTabFromOrganization_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_RemoveTabFromOrganization_Params_Data) == 24,
+              "Bad sizeof(PageHandler_RemoveTabFromOrganization_Params_Data)");
+class  PageHandler_ResetSession_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_ResetSession_Params_Data>;
+
+  PageHandler_ResetSession_Params_Data();
+  ~PageHandler_ResetSession_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_ResetSession_Params_Data) == 8,
+              "Bad sizeof(PageHandler_ResetSession_Params_Data)");
 class  PageHandler_SaveRecentlyClosedExpandedPref_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -237,6 +270,117 @@ class  PageHandler_SetTabIndex_Params_Data {
 };
 static_assert(sizeof(PageHandler_SetTabIndex_Params_Data) == 16,
               "Bad sizeof(PageHandler_SetTabIndex_Params_Data)");
+class  PageHandler_StartTabGroupTutorial_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_StartTabGroupTutorial_Params_Data>;
+
+  PageHandler_StartTabGroupTutorial_Params_Data();
+  ~PageHandler_StartTabGroupTutorial_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_StartTabGroupTutorial_Params_Data) == 8,
+              "Bad sizeof(PageHandler_StartTabGroupTutorial_Params_Data)");
+class  PageHandler_TriggerFeedback_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t session_id;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_TriggerFeedback_Params_Data>;
+
+  PageHandler_TriggerFeedback_Params_Data();
+  ~PageHandler_TriggerFeedback_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_TriggerFeedback_Params_Data) == 16,
+              "Bad sizeof(PageHandler_TriggerFeedback_Params_Data)");
+class  PageHandler_TriggerSync_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_TriggerSync_Params_Data>;
+
+  PageHandler_TriggerSync_Params_Data();
+  ~PageHandler_TriggerSync_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_TriggerSync_Params_Data) == 8,
+              "Bad sizeof(PageHandler_TriggerSync_Params_Data)");
+class  PageHandler_TriggerSignIn_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_TriggerSignIn_Params_Data>;
+
+  PageHandler_TriggerSignIn_Params_Data();
+  ~PageHandler_TriggerSignIn_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_TriggerSignIn_Params_Data) == 8,
+              "Bad sizeof(PageHandler_TriggerSignIn_Params_Data)");
+class  PageHandler_OpenHelpPage_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_OpenHelpPage_Params_Data>;
+
+  PageHandler_OpenHelpPage_Params_Data();
+  ~PageHandler_OpenHelpPage_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_OpenHelpPage_Params_Data) == 8,
+              "Bad sizeof(PageHandler_OpenHelpPage_Params_Data)");
+class  PageHandler_OpenSyncSettings_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_OpenSyncSettings_Params_Data>;
+
+  PageHandler_OpenSyncSettings_Params_Data();
+  ~PageHandler_OpenSyncSettings_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_OpenSyncSettings_Params_Data) == 8,
+              "Bad sizeof(PageHandler_OpenSyncSettings_Params_Data)");
+class  PageHandler_SetUserFeedback_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t session_id;
+  int32_t organization_id;
+  int32_t feedback;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_SetUserFeedback_Params_Data>;
+
+  PageHandler_SetUserFeedback_Params_Data();
+  ~PageHandler_SetUserFeedback_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_SetUserFeedback_Params_Data) == 24,
+              "Bad sizeof(PageHandler_SetUserFeedback_Params_Data)");
 class  PageHandler_ShowUI_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -389,13 +533,13 @@ class PageHandler_AcceptTabOrganization_ParamsDataView {
     return data_->organization_id;
   }
   inline void GetNameDataView(
-      mojo::StringDataView* output);
+      ::mojo_base::mojom::String16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadName(UserType* output) {
     
     auto* pointer = data_->name.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
         pointer, output, message_);
   }
   inline void GetTabsDataView(
@@ -576,6 +720,53 @@ class PageHandler_RequestTabOrganization_ParamsDataView {
 };
 
 
+class PageHandler_RemoveTabFromOrganization_ParamsDataView {
+ public:
+  PageHandler_RemoveTabFromOrganization_ParamsDataView() = default;
+
+  PageHandler_RemoveTabFromOrganization_ParamsDataView(
+      internal::PageHandler_RemoveTabFromOrganization_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  int32_t session_id() const {
+    return data_->session_id;
+  }
+  int32_t organization_id() const {
+    return data_->organization_id;
+  }
+  inline void GetTabDataView(
+      TabDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTab(UserType* output) {
+    
+    auto* pointer = data_->tab.Get();
+    return mojo::internal::Deserialize<::tab_search::mojom::TabDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_RemoveTabFromOrganization_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_ResetSession_ParamsDataView {
+ public:
+  PageHandler_ResetSession_ParamsDataView() = default;
+
+  PageHandler_ResetSession_ParamsDataView(
+      internal::PageHandler_ResetSession_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_ResetSession_Params_Data* data_ = nullptr;
+};
+
+
 class PageHandler_SaveRecentlyClosedExpandedPref_ParamsDataView {
  public:
   PageHandler_SaveRecentlyClosedExpandedPref_ParamsDataView() = default;
@@ -609,6 +800,130 @@ class PageHandler_SetTabIndex_ParamsDataView {
   }
  private:
   internal::PageHandler_SetTabIndex_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_StartTabGroupTutorial_ParamsDataView {
+ public:
+  PageHandler_StartTabGroupTutorial_ParamsDataView() = default;
+
+  PageHandler_StartTabGroupTutorial_ParamsDataView(
+      internal::PageHandler_StartTabGroupTutorial_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_StartTabGroupTutorial_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_TriggerFeedback_ParamsDataView {
+ public:
+  PageHandler_TriggerFeedback_ParamsDataView() = default;
+
+  PageHandler_TriggerFeedback_ParamsDataView(
+      internal::PageHandler_TriggerFeedback_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int32_t session_id() const {
+    return data_->session_id;
+  }
+ private:
+  internal::PageHandler_TriggerFeedback_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_TriggerSync_ParamsDataView {
+ public:
+  PageHandler_TriggerSync_ParamsDataView() = default;
+
+  PageHandler_TriggerSync_ParamsDataView(
+      internal::PageHandler_TriggerSync_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_TriggerSync_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_TriggerSignIn_ParamsDataView {
+ public:
+  PageHandler_TriggerSignIn_ParamsDataView() = default;
+
+  PageHandler_TriggerSignIn_ParamsDataView(
+      internal::PageHandler_TriggerSignIn_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_TriggerSignIn_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_OpenHelpPage_ParamsDataView {
+ public:
+  PageHandler_OpenHelpPage_ParamsDataView() = default;
+
+  PageHandler_OpenHelpPage_ParamsDataView(
+      internal::PageHandler_OpenHelpPage_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_OpenHelpPage_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_OpenSyncSettings_ParamsDataView {
+ public:
+  PageHandler_OpenSyncSettings_ParamsDataView() = default;
+
+  PageHandler_OpenSyncSettings_ParamsDataView(
+      internal::PageHandler_OpenSyncSettings_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_OpenSyncSettings_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_SetUserFeedback_ParamsDataView {
+ public:
+  PageHandler_SetUserFeedback_ParamsDataView() = default;
+
+  PageHandler_SetUserFeedback_ParamsDataView(
+      internal::PageHandler_SetUserFeedback_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int32_t session_id() const {
+    return data_->session_id;
+  }
+  int32_t organization_id() const {
+    return data_->organization_id;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadFeedback(UserType* output) const {
+    auto data_value = data_->feedback;
+    return mojo::internal::Deserialize<::tab_search::mojom::UserFeedback>(
+        data_value, output);
+  }
+  UserFeedback feedback() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::tab_search::mojom::UserFeedback>(data_->feedback));
+  }
+ private:
+  internal::PageHandler_SetUserFeedback_Params_Data* data_ = nullptr;
 };
 
 
@@ -735,9 +1050,9 @@ class Page_TabsRemoved_ParamsDataView {
 
 
 inline void PageHandler_AcceptTabOrganization_ParamsDataView::GetNameDataView(
-    mojo::StringDataView* output) {
+    ::mojo_base::mojom::String16DataView* output) {
   auto pointer = data_->name.Get();
-  *output = mojo::StringDataView(pointer, message_);
+  *output = ::mojo_base::mojom::String16DataView(pointer, message_);
 }
 inline void PageHandler_AcceptTabOrganization_ParamsDataView::GetTabsDataView(
     mojo::ArrayDataView<TabDataView>* output) {
@@ -771,6 +1086,29 @@ inline void PageHandler_SwitchToTab_ParamsDataView::GetSwitchToTabInfoDataView(
   auto pointer = data_->switch_to_tab_info.Get();
   *output = SwitchToTabInfoDataView(pointer, message_);
 }
+
+
+
+
+
+
+inline void PageHandler_RemoveTabFromOrganization_ParamsDataView::GetTabDataView(
+    TabDataView* output) {
+  auto pointer = data_->tab.Get();
+  *output = TabDataView(pointer, message_);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

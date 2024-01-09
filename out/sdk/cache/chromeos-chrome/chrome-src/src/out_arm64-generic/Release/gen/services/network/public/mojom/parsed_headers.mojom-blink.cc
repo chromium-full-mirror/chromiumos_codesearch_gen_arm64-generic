@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -69,16 +70,16 @@ ParsedHeaders::ParsedHeaders(
     const ::network::CrossOriginEmbedderPolicy& cross_origin_embedder_policy_in,
     const ::network::CrossOriginOpenerPolicy& cross_origin_opener_policy_in,
     OriginAgentClusterValue origin_agent_cluster_in,
-    absl::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> accept_ch_in,
-    absl::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> critical_ch_in,
+    std::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> accept_ch_in,
+    std::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>> critical_ch_in,
     bool client_hints_ignored_due_to_clear_site_data_header_in,
     ::network::mojom::blink::XFrameOptionsValue xfo_in,
     WTF::Vector<::network::mojom::blink::LinkHeaderPtr> link_headers_in,
     ::network::mojom::blink::TimingAllowOriginPtr timing_allow_origin_in,
     WTF::Vector<::network::mojom::blink::LoadingMode> supports_loading_mode_in,
-    const absl::optional<WTF::HashMap<WTF::String, WTF::String>>& reporting_endpoints_in,
-    absl::optional<WTF::Vector<::network::mojom::blink::VariantsHeaderPtr>> variants_headers_in,
-    absl::optional<WTF::Vector<WTF::String>> content_language_in,
+    const std::optional<WTF::HashMap<WTF::String, WTF::String>>& reporting_endpoints_in,
+    std::optional<WTF::Vector<::network::mojom::blink::VariantsHeaderPtr>> variants_headers_in,
+    std::optional<WTF::Vector<WTF::String>> content_language_in,
     ::network::mojom::blink::NoVarySearchWithParseErrorPtr no_vary_search_with_parse_error_in,
     bool observe_browsing_topics_in)
     : content_security_policy(std::move(content_security_policy_in)),
@@ -153,7 +154,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "accept_ch"), this->accept_ch,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>>&>"
+      "<value of type const std::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -162,7 +163,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "critical_ch"), this->critical_ch,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>>&>"
+      "<value of type const std::optional<WTF::Vector<::network::mojom::blink::WebClientHintsType>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -216,7 +217,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "reporting_endpoints"), this->reporting_endpoints,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::HashMap<WTF::String, WTF::String>>&>"
+      "<value of type const std::optional<WTF::HashMap<WTF::String, WTF::String>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -225,7 +226,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "variants_headers"), this->variants_headers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<WTF::Vector<::network::mojom::blink::VariantsHeaderPtr>>>"
+      "<value of type std::optional<WTF::Vector<::network::mojom::blink::VariantsHeaderPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -234,7 +235,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "content_language"), this->content_language,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<WTF::String>>&>"
+      "<value of type const std::optional<WTF::Vector<WTF::String>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

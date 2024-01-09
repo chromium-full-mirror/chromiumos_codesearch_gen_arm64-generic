@@ -13,6 +13,7 @@
 #include "media/mojo/mojom/audio_stream_factory.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/big_string.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
+#include "sandbox/policy/mojom/context.mojom-shared-internal.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared-internal.h"
 #include "services/viz/privileged/mojom/compositing/frame_sink_video_capture.mojom-shared-internal.h"
 #include "services/viz/public/mojom/compositing/frame_sink_id.mojom-shared-internal.h"

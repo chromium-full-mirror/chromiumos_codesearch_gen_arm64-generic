@@ -116,11 +116,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUDevice>::value,
     "GPUDevice inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUDevice::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUDevice is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -133,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.features.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->features();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -147,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.limits.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->limits();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -173,7 +170,7 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.lost.get");
 
 
 
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -189,8 +186,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.queue.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->queue();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -203,10 +201,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.onuncapturederror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onuncapturederror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onuncapturederror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -219,8 +217,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnuncapturederror(event_handler);
 }
 
@@ -231,10 +230,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -245,9 +244,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPUDevice";
@@ -282,7 +281,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPUBindGroupDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -315,7 +314,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPUBindGroupLayoutDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -348,7 +347,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPUBufferDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -371,14 +370,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.createCommandEncoder");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<GPUCommandEncoderDescriptor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_descriptor;
 if (info[0]->IsUndefined()) {
   arg1_descriptor = GPUCommandEncoderDescriptor::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUDevice";
 const char* const property_name = "createCommandEncoder";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -412,7 +411,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPUComputePipelineDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -451,7 +450,7 @@ return;
 
 
 
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -484,7 +483,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPUPipelineLayoutDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -514,7 +513,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPUQuerySetDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -547,7 +546,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPURenderBundleEncoderDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -580,7 +579,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -619,7 +618,7 @@ return;
 
 
 
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -642,14 +641,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.createSampler");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<GPUSamplerDescriptor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_descriptor;
 if (info[0]->IsUndefined()) {
   arg1_descriptor = GPUSamplerDescriptor::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUDevice";
 const char* const property_name = "createSampler";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -683,7 +682,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPUShaderModuleDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -716,7 +715,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPUTextureDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -739,9 +738,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.destroy");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->destroy(isolate);
 
 }
@@ -767,7 +766,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPUExternalTextureDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -802,7 +801,7 @@ return;
 
 
 
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -831,7 +830,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(v8_receiver);
+GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_filter = NativeValueTraits<V8GPUErrorFilter>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

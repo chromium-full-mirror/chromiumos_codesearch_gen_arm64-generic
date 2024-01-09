@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -170,7 +171,7 @@ PoseFrameData::PoseFrameData()
     : device_to_origin() {}
 
 PoseFrameData::PoseFrameData(
-    const absl::optional<::gfx::Transform>& device_to_origin_in)
+    const std::optional<::gfx::Transform>& device_to_origin_in)
     : device_to_origin(std::move(device_to_origin_in)) {}
 
 PoseFrameData::~PoseFrameData() = default;
@@ -182,7 +183,7 @@ void PoseFrameData::WriteIntoTrace(
     dict.AddItem(
       "device_to_origin"), this->device_to_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Transform>&>"
+      "<value of type const std::optional<::gfx::Transform>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -495,11 +496,11 @@ bool ControllerFrameData::Validate(
 }
 EventData::EventData()
     : type(EventType::kNoEvent),
-      interaction_profile(InteractionProfileType::kInvalid) {}
+      interaction_profile(::device::mojom::OpenXrInteractionProfileType::kInvalid) {}
 
 EventData::EventData(
     EventType type_in,
-    InteractionProfileType interaction_profile_in)
+    ::device::mojom::OpenXrInteractionProfileType interaction_profile_in)
     : type(std::move(type_in)),
       interaction_profile(std::move(interaction_profile_in)) {}
 
@@ -526,7 +527,7 @@ void EventData::WriteIntoTrace(
     dict.AddItem(
       "interaction_profile"), this->interaction_profile,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type InteractionProfileType>"
+      "<value of type ::device::mojom::OpenXrInteractionProfileType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1093,15 +1094,18 @@ bool XRTestHookProxy::OnFrameSubmitted(
 #else
   TRACE_EVENT0("mojom", "XRTestHook::OnFrameSubmitted");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_OnFrameSubmitted_Name, kFlags, 0, 0, nullptr);
@@ -1151,14 +1155,17 @@ void XRTestHookProxy::OnFrameSubmitted(
                         "<value of type std::vector<ViewDataPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_OnFrameSubmitted_Name, kFlags, 0, 0, nullptr);
@@ -1196,15 +1203,18 @@ bool XRTestHookProxy::WaitGetDeviceConfig(
 #else
   TRACE_EVENT0("mojom", "XRTestHook::WaitGetDeviceConfig");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetDeviceConfig_Name, kFlags, 0, 0, nullptr);
@@ -1241,14 +1251,17 @@ void XRTestHookProxy::WaitGetDeviceConfig(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device_test::mojom::XRTestHook::WaitGetDeviceConfig");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetDeviceConfig_Name, kFlags, 0, 0, nullptr);
@@ -1273,15 +1286,18 @@ bool XRTestHookProxy::WaitGetPresentingPose(
 #else
   TRACE_EVENT0("mojom", "XRTestHook::WaitGetPresentingPose");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetPresentingPose_Name, kFlags, 0, 0, nullptr);
@@ -1318,14 +1334,17 @@ void XRTestHookProxy::WaitGetPresentingPose(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device_test::mojom::XRTestHook::WaitGetPresentingPose");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetPresentingPose_Name, kFlags, 0, 0, nullptr);
@@ -1350,15 +1369,18 @@ bool XRTestHookProxy::WaitGetMagicWindowPose(
 #else
   TRACE_EVENT0("mojom", "XRTestHook::WaitGetMagicWindowPose");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetMagicWindowPose_Name, kFlags, 0, 0, nullptr);
@@ -1395,14 +1417,17 @@ void XRTestHookProxy::WaitGetMagicWindowPose(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device_test::mojom::XRTestHook::WaitGetMagicWindowPose");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetMagicWindowPose_Name, kFlags, 0, 0, nullptr);
@@ -1434,15 +1459,18 @@ bool XRTestHookProxy::WaitGetControllerRoleForTrackedDeviceIndex(
 #else
   TRACE_EVENT0("mojom", "XRTestHook::WaitGetControllerRoleForTrackedDeviceIndex");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_Name, kFlags, 0, 0, nullptr);
@@ -1487,14 +1515,17 @@ void XRTestHookProxy::WaitGetControllerRoleForTrackedDeviceIndex(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_Name, kFlags, 0, 0, nullptr);
@@ -1527,15 +1558,18 @@ bool XRTestHookProxy::WaitGetTrackedDeviceClass(
 #else
   TRACE_EVENT0("mojom", "XRTestHook::WaitGetTrackedDeviceClass");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetTrackedDeviceClass_Name, kFlags, 0, 0, nullptr);
@@ -1580,14 +1614,17 @@ void XRTestHookProxy::WaitGetTrackedDeviceClass(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetTrackedDeviceClass_Name, kFlags, 0, 0, nullptr);
@@ -1620,15 +1657,18 @@ bool XRTestHookProxy::WaitGetControllerData(
 #else
   TRACE_EVENT0("mojom", "XRTestHook::WaitGetControllerData");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetControllerData_Name, kFlags, 0, 0, nullptr);
@@ -1673,14 +1713,17 @@ void XRTestHookProxy::WaitGetControllerData(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetControllerData_Name, kFlags, 0, 0, nullptr);
@@ -1706,15 +1749,18 @@ bool XRTestHookProxy::WaitGetEventData(
 #else
   TRACE_EVENT0("mojom", "XRTestHook::WaitGetEventData");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetEventData_Name, kFlags, 0, 0, nullptr);
@@ -1751,14 +1797,17 @@ void XRTestHookProxy::WaitGetEventData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device_test::mojom::XRTestHook::WaitGetEventData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetEventData_Name, kFlags, 0, 0, nullptr);
@@ -1783,15 +1832,18 @@ bool XRTestHookProxy::WaitGetCanCreateSession(
 #else
   TRACE_EVENT0("mojom", "XRTestHook::WaitGetCanCreateSession");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetCanCreateSession_Name, kFlags, 0, 0, nullptr);
@@ -1828,14 +1880,17 @@ void XRTestHookProxy::WaitGetCanCreateSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device_test::mojom::XRTestHook::WaitGetCanCreateSession");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetCanCreateSession_Name, kFlags, 0, 0, nullptr);
@@ -1934,7 +1989,8 @@ void XRTestHook_OnFrameSubmitted_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_OnFrameSubmitted_Name, kFlags, 0, 0, nullptr);
@@ -2072,7 +2128,8 @@ void XRTestHook_WaitGetDeviceConfig_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetDeviceConfig_Name, kFlags, 0, 0, nullptr);
@@ -2225,7 +2282,8 @@ void XRTestHook_WaitGetPresentingPose_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetPresentingPose_Name, kFlags, 0, 0, nullptr);
@@ -2378,7 +2436,8 @@ void XRTestHook_WaitGetMagicWindowPose_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetMagicWindowPose_Name, kFlags, 0, 0, nullptr);
@@ -2531,7 +2590,8 @@ void XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_Name, kFlags, 0, 0, nullptr);
@@ -2675,7 +2735,8 @@ void XRTestHook_WaitGetTrackedDeviceClass_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetTrackedDeviceClass_Name, kFlags, 0, 0, nullptr);
@@ -2819,7 +2880,8 @@ void XRTestHook_WaitGetControllerData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetControllerData_Name, kFlags, 0, 0, nullptr);
@@ -2972,7 +3034,8 @@ void XRTestHook_WaitGetEventData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetEventData_Name, kFlags, 0, 0, nullptr);
@@ -3125,7 +3188,8 @@ void XRTestHook_WaitGetCanCreateSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRTestHook_WaitGetCanCreateSession_Name, kFlags, 0, 0, nullptr);
@@ -3466,26 +3530,26 @@ std::move(p_index), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRTestHookValidationInfo[] = {
-    {&internal::XRTestHook_OnFrameSubmitted_Params_Data::Validate,
+    { &internal::XRTestHook_OnFrameSubmitted_Params_Data::Validate,
      &internal::XRTestHook_OnFrameSubmitted_ResponseParams_Data::Validate},
-    {&internal::XRTestHook_WaitGetDeviceConfig_Params_Data::Validate,
+    { &internal::XRTestHook_WaitGetDeviceConfig_Params_Data::Validate,
      &internal::XRTestHook_WaitGetDeviceConfig_ResponseParams_Data::Validate},
-    {&internal::XRTestHook_WaitGetPresentingPose_Params_Data::Validate,
+    { &internal::XRTestHook_WaitGetPresentingPose_Params_Data::Validate,
      &internal::XRTestHook_WaitGetPresentingPose_ResponseParams_Data::Validate},
-    {&internal::XRTestHook_WaitGetMagicWindowPose_Params_Data::Validate,
+    { &internal::XRTestHook_WaitGetMagicWindowPose_Params_Data::Validate,
      &internal::XRTestHook_WaitGetMagicWindowPose_ResponseParams_Data::Validate},
-    {&internal::XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_Params_Data::Validate,
+    { &internal::XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_Params_Data::Validate,
      &internal::XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_ResponseParams_Data::Validate},
-    {&internal::XRTestHook_WaitGetTrackedDeviceClass_Params_Data::Validate,
+    { &internal::XRTestHook_WaitGetTrackedDeviceClass_Params_Data::Validate,
      &internal::XRTestHook_WaitGetTrackedDeviceClass_ResponseParams_Data::Validate},
-    {&internal::XRTestHook_WaitGetControllerData_Params_Data::Validate,
+    { &internal::XRTestHook_WaitGetControllerData_Params_Data::Validate,
      &internal::XRTestHook_WaitGetControllerData_ResponseParams_Data::Validate},
-    {&internal::XRTestHook_WaitGetEventData_Params_Data::Validate,
+    { &internal::XRTestHook_WaitGetEventData_Params_Data::Validate,
      &internal::XRTestHook_WaitGetEventData_ResponseParams_Data::Validate},
-    {&internal::XRTestHook_WaitGetCanCreateSession_Params_Data::Validate,
+    { &internal::XRTestHook_WaitGetCanCreateSession_Params_Data::Validate,
      &internal::XRTestHook_WaitGetCanCreateSession_ResponseParams_Data::Validate},
 };
 
@@ -3660,15 +3724,18 @@ bool XRServiceTestHookProxy::SetTestHook(
 #else
   TRACE_EVENT0("mojom", "XRServiceTestHook::SetTestHook");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRServiceTestHook_SetTestHook_Name, kFlags, 0, 0, nullptr);
@@ -3707,14 +3774,17 @@ void XRServiceTestHookProxy::SetTestHook(
                         "<value of type ::mojo::PendingRemote<XRTestHook>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRServiceTestHook_SetTestHook_Name, kFlags, 0, 0, nullptr);
@@ -3741,15 +3811,18 @@ bool XRServiceTestHookProxy::TerminateDeviceServiceProcessForTesting(
 #else
   TRACE_EVENT0("mojom", "XRServiceTestHook::TerminateDeviceServiceProcessForTesting");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRServiceTestHook_TerminateDeviceServiceProcessForTesting_Name, kFlags, 0, 0, nullptr);
@@ -3779,14 +3852,17 @@ void XRServiceTestHookProxy::TerminateDeviceServiceProcessForTesting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device_test::mojom::XRServiceTestHook::TerminateDeviceServiceProcessForTesting");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRServiceTestHook_TerminateDeviceServiceProcessForTesting_Name, kFlags, 0, 0, nullptr);
@@ -3885,7 +3961,8 @@ void XRServiceTestHook_SetTestHook_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRServiceTestHook_SetTestHook_Name, kFlags, 0, 0, nullptr);
@@ -4012,7 +4089,8 @@ void XRServiceTestHook_TerminateDeviceServiceProcessForTesting_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRServiceTestHook_TerminateDeviceServiceProcessForTesting_Name, kFlags, 0, 0, nullptr);
@@ -4142,12 +4220,12 @@ std::move(p_hook), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRServiceTestHookValidationInfo[] = {
-    {&internal::XRServiceTestHook_SetTestHook_Params_Data::Validate,
+    { &internal::XRServiceTestHook_SetTestHook_Params_Data::Validate,
      &internal::XRServiceTestHook_SetTestHook_ResponseParams_Data::Validate},
-    {&internal::XRServiceTestHook_TerminateDeviceServiceProcessForTesting_Params_Data::Validate,
+    { &internal::XRServiceTestHook_TerminateDeviceServiceProcessForTesting_Params_Data::Validate,
      &internal::XRServiceTestHook_TerminateDeviceServiceProcessForTesting_ResponseParams_Data::Validate},
 };
 

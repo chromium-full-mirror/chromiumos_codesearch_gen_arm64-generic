@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/app_current_window_internal.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ Bounds::Bounds()
  {}
 
 Bounds::~Bounds() = default;
-Bounds::Bounds(Bounds&& rhs) = default;
-Bounds& Bounds::operator=(Bounds&& rhs) = default;
+Bounds::Bounds(Bounds&& rhs) noexcept = default;
+Bounds& Bounds::operator=(Bounds&& rhs) noexcept = default;
 Bounds Bounds::Clone() const {
   Bounds out;
   out.left = left;
@@ -55,7 +56,7 @@ bool Bounds::Populate(
     {
       auto temp = (*left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.left = absl::nullopt;
+        out.left = std::nullopt;
         return false;
       }
       out.left = *temp;
@@ -67,7 +68,7 @@ bool Bounds::Populate(
     {
       auto temp = (*top_value).GetIfInt();
       if (!temp.has_value()) {
-        out.top = absl::nullopt;
+        out.top = std::nullopt;
         return false;
       }
       out.top = *temp;
@@ -79,7 +80,7 @@ bool Bounds::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -91,7 +92,7 @@ bool Bounds::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -111,34 +112,21 @@ bool Bounds::Populate(
 }
 
 // static
-std::unique_ptr<Bounds> Bounds::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Bounds>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Bounds> Bounds::FromValue(const base::Value::Dict& value) {
+  Bounds out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Bounds> Bounds::FromValue(const base::Value::Dict& value) {
+std::optional<Bounds> Bounds::FromValue(const base::Value& value) {
   Bounds out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Bounds> Bounds::FromValue(const base::Value& value) {
-  Bounds out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -171,8 +159,8 @@ SizeConstraints::SizeConstraints()
  {}
 
 SizeConstraints::~SizeConstraints() = default;
-SizeConstraints::SizeConstraints(SizeConstraints&& rhs) = default;
-SizeConstraints& SizeConstraints::operator=(SizeConstraints&& rhs) = default;
+SizeConstraints::SizeConstraints(SizeConstraints&& rhs) noexcept = default;
+SizeConstraints& SizeConstraints::operator=(SizeConstraints&& rhs) noexcept = default;
 SizeConstraints SizeConstraints::Clone() const {
   SizeConstraints out;
   out.min_width = min_width;
@@ -190,7 +178,7 @@ bool SizeConstraints::Populate(
     {
       auto temp = (*min_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.min_width = absl::nullopt;
+        out.min_width = std::nullopt;
         return false;
       }
       out.min_width = *temp;
@@ -202,7 +190,7 @@ bool SizeConstraints::Populate(
     {
       auto temp = (*min_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.min_height = absl::nullopt;
+        out.min_height = std::nullopt;
         return false;
       }
       out.min_height = *temp;
@@ -214,7 +202,7 @@ bool SizeConstraints::Populate(
     {
       auto temp = (*max_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_width = absl::nullopt;
+        out.max_width = std::nullopt;
         return false;
       }
       out.max_width = *temp;
@@ -226,7 +214,7 @@ bool SizeConstraints::Populate(
     {
       auto temp = (*max_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.max_height = absl::nullopt;
+        out.max_height = std::nullopt;
         return false;
       }
       out.max_height = *temp;
@@ -246,34 +234,21 @@ bool SizeConstraints::Populate(
 }
 
 // static
-std::unique_ptr<SizeConstraints> SizeConstraints::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SizeConstraints>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SizeConstraints> SizeConstraints::FromValue(const base::Value::Dict& value) {
+  SizeConstraints out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SizeConstraints> SizeConstraints::FromValue(const base::Value::Dict& value) {
+std::optional<SizeConstraints> SizeConstraints::FromValue(const base::Value& value) {
   SizeConstraints out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SizeConstraints> SizeConstraints::FromValue(const base::Value& value) {
-  SizeConstraints out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -309,8 +284,8 @@ width(0),
 height(0) {}
 
 RegionRect::~RegionRect() = default;
-RegionRect::RegionRect(RegionRect&& rhs) = default;
-RegionRect& RegionRect::operator=(RegionRect&& rhs) = default;
+RegionRect::RegionRect(RegionRect&& rhs) noexcept = default;
+RegionRect& RegionRect::operator=(RegionRect&& rhs) noexcept = default;
 RegionRect RegionRect::Clone() const {
   RegionRect out;
   out.left = left;
@@ -384,34 +359,21 @@ bool RegionRect::Populate(
 }
 
 // static
-std::unique_ptr<RegionRect> RegionRect::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RegionRect>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RegionRect> RegionRect::FromValue(const base::Value::Dict& value) {
+  RegionRect out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RegionRect> RegionRect::FromValue(const base::Value::Dict& value) {
+std::optional<RegionRect> RegionRect::FromValue(const base::Value& value) {
   RegionRect out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RegionRect> RegionRect::FromValue(const base::Value& value) {
-  RegionRect out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -436,8 +398,8 @@ Region::Region()
  {}
 
 Region::~Region() = default;
-Region::Region(Region&& rhs) = default;
-Region& Region::operator=(Region&& rhs) = default;
+Region::Region(Region&& rhs) noexcept = default;
+Region& Region::operator=(Region&& rhs) noexcept = default;
 Region Region::Clone() const {
   Region out;
   if (rects) {
@@ -480,34 +442,21 @@ bool Region::Populate(
 }
 
 // static
-std::unique_ptr<Region> Region::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Region>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Region> Region::FromValue(const base::Value::Dict& value) {
+  Region out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Region> Region::FromValue(const base::Value::Dict& value) {
+std::optional<Region> Region::FromValue(const base::Value& value) {
   Region out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Region> Region::FromValue(const base::Value& value) {
-  Region out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -561,13 +510,13 @@ namespace Show {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -577,8 +526,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = focused_value.GetIfBool();
       if (!temp.has_value()) {
-        params.focused = absl::nullopt;
-        return absl::nullopt;
+        params.focused = std::nullopt;
+        return std::nullopt;
       }
       params.focused = *temp;
     }
@@ -598,13 +547,13 @@ namespace SetBounds {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -614,13 +563,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = bounds_type_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.bounds_type = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -628,15 +577,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& bounds_value = args[1];
     {
       if (!bounds_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Bounds::Populate(bounds_value.GetDict(), params.bounds)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -649,13 +598,13 @@ namespace SetSizeConstraints {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -665,13 +614,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = bounds_type_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.bounds_type = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -679,15 +628,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& constraints_value = args[1];
     {
       if (!constraints_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SizeConstraints::Populate(constraints_value.GetDict(), params.constraints)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -700,13 +649,13 @@ namespace SetIcon {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -716,13 +665,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = icon_url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.icon_url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -735,13 +684,13 @@ namespace SetShape {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -750,15 +699,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& region_value = args[0];
     {
       if (!region_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Region::Populate(region_value.GetDict(), params.region)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -771,13 +720,13 @@ namespace SetAlwaysOnTop {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -787,13 +736,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = always_on_top_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.always_on_top = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -806,13 +755,13 @@ namespace SetVisibleOnAllWorkspaces {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -822,13 +771,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = always_visible_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.always_visible = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -841,13 +790,13 @@ namespace SetActivateOnPointer {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -857,13 +806,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = activate_on_pointer_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.activate_on_pointer = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

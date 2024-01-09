@@ -80,11 +80,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FormData>::value,
     "FormData inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FormData::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FormData is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -155,7 +150,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -187,12 +182,12 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FormData";
 const char* const property_name = "append";
@@ -269,7 +264,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -303,7 +298,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -340,7 +335,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -373,7 +368,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -400,7 +395,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -432,9 +427,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FormData";
 const char* const property_name = "set";
@@ -501,12 +496,12 @@ BLINK_BINDINGS_TRACE_EVENT("FormData.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FormData";
 const char* const property_name = "entries";
@@ -539,7 +534,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -574,12 +569,12 @@ BLINK_BINDINGS_TRACE_EVENT("FormData.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FormData";
 const char* const property_name = "keys";
@@ -602,12 +597,12 @@ BLINK_BINDINGS_TRACE_EVENT("FormData.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FormData* blink_receiver = V8FormData::ToWrappableUnsafe(v8_receiver);
+FormData* blink_receiver = V8FormData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FormData";
 const char* const property_name = "values";

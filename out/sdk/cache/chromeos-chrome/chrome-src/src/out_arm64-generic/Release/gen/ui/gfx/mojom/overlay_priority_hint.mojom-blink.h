@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/gfx/mojom/overlay_priority_hint.mojom-features.h"
 #include "ui/gfx/mojom/overlay_priority_hint.mojom-shared.h"
 #include "ui/gfx/mojom/overlay_priority_hint.mojom-blink-forward.h"
 
@@ -31,18 +32,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gfx::mojom::OverlayPriorityHint>
-    : EnumHashTraits<::gfx::mojom::OverlayPriorityHint, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace gfx::mojom::blink {

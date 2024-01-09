@@ -29,15 +29,29 @@ use serde::Serializer;
 pub mod gen {
     include!(env!("GEN_FILE"));
 }
-use gen::{
-    _snd_pcm_format, audio_dev_debug_info, audio_message, audio_stream_debug_info,
-    cras_audio_format_packed, cras_iodev_info, cras_ionode_info, cras_ionode_info__bindgen_ty_1,
-    cras_timespec, snd_pcm_format_t, CRAS_AUDIO_MESSAGE_ID, CRAS_CHANNEL, CRAS_CLIENT_TYPE,
-    CRAS_IODEV_LAST_OPEN_RESULT, CRAS_IODEV_VISIBILITY, CRAS_NODE_TYPE, CRAS_SCREEN_ROTATION,
-    CRAS_STREAM_DIRECTION, CRAS_STREAM_EFFECT, CRAS_STREAM_TYPE,
-};
-
-use audio_streams::{SampleFormat, StreamDirection, StreamEffect};
+use audio_streams::SampleFormat;
+use audio_streams::StreamDirection;
+use audio_streams::StreamEffect;
+use gen::_snd_pcm_format;
+use gen::audio_dev_debug_info;
+use gen::audio_message;
+use gen::audio_stream_debug_info;
+use gen::cras_audio_format_packed;
+use gen::cras_iodev_info;
+use gen::cras_ionode_info;
+use gen::cras_ionode_info__bindgen_ty_1;
+use gen::cras_timespec;
+use gen::snd_pcm_format_t;
+use gen::CRAS_AUDIO_MESSAGE_ID;
+use gen::CRAS_CHANNEL;
+use gen::CRAS_CLIENT_TYPE;
+use gen::CRAS_IODEV_LAST_OPEN_RESULT;
+use gen::CRAS_IODEV_VISIBILITY;
+use gen::CRAS_NODE_TYPE;
+use gen::CRAS_SCREEN_ROTATION;
+use gen::CRAS_STREAM_DIRECTION;
+use gen::CRAS_STREAM_EFFECT;
+use gen::CRAS_STREAM_TYPE;
 
 unsafe impl data_model::DataInit for gen::audio_message {}
 unsafe impl data_model::DataInit for gen::audio_debug_info {}
@@ -153,7 +167,8 @@ impl cras_audio_format_packed {
         num_channels: usize,
         direction: CRAS_STREAM_DIRECTION,
     ) -> [i8; CRAS_CHANNEL::CRAS_CH_MAX as usize] {
-        use {CRAS_CHANNEL::*, CRAS_STREAM_DIRECTION::*};
+        use CRAS_CHANNEL::*;
+        use CRAS_STREAM_DIRECTION::*;
 
         let mut channel_layout = [-1; CRAS_CH_MAX as usize];
         match (num_channels, direction) {
@@ -378,7 +393,7 @@ impl Default for audio_dev_debug_info {
             runtime_nsec: 0,
             longest_wake_sec: 0,
             longest_wake_nsec: 0,
-            software_gain_scaler: 0.0,
+            internal_gain_scaler: 0.0,
             dev_idx: 0,
         }
     }
@@ -408,7 +423,7 @@ pub struct AudioDevDebugInfo {
         serialize_with = "serialize_duration_secs"
     )]
     pub longest_wake: Duration,
-    pub software_gain_scaler: f64,
+    pub internal_gain_scaler: f64,
 }
 
 impl From<audio_dev_debug_info> for AudioDevDebugInfo {
@@ -429,7 +444,7 @@ impl From<audio_dev_debug_info> for AudioDevDebugInfo {
             highest_hw_level: info.highest_hw_level,
             runtime: Duration::new(info.runtime_sec.into(), info.runtime_nsec),
             longest_wake: Duration::new(info.longest_wake_sec.into(), info.longest_wake_nsec),
-            software_gain_scaler: info.software_gain_scaler,
+            internal_gain_scaler: info.internal_gain_scaler,
         }
     }
 }
@@ -455,7 +470,7 @@ impl fmt::Display for AudioDevDebugInfo {
         writeln!(f, "  Highest hardware level: {}", self.highest_hw_level)?;
         writeln!(f, "  Runtime: {:?}", self.runtime)?;
         writeln!(f, "  Longest wake: {:?}", self.longest_wake)?;
-        writeln!(f, "  Software gain scaler: {}", self.software_gain_scaler)?;
+        writeln!(f, "  Internal gain scaler: {}", self.internal_gain_scaler)?;
         Ok(())
     }
 }

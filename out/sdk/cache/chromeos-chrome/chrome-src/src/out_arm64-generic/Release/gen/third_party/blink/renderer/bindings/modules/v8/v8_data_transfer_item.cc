@@ -52,10 +52,10 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransferItem.kind.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->kind();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->kind();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -67,10 +67,10 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransferItem.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -86,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransferItem.getAsFile");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(v8_receiver);
+DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getAsFile();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -122,7 +123,7 @@ UseCounter::Count(current_execution_context, WebFeature::kFileSystemAccessDragAn
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(v8_receiver);
+DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DataTransferItemFileSystemAccess::getAsFileSystemHandle(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -151,7 +152,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(v8_receiver);
+DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -183,7 +184,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(v8_receiver);
+DataTransferItem* blink_receiver = V8DataTransferItem::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DataTransferItemFileSystem::webkitGetAsEntry(script_state, *blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

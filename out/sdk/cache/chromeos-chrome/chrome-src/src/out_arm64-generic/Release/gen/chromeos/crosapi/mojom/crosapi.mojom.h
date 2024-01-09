@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/crosapi.mojom-features.h"
 #include "chromeos/crosapi/mojom/crosapi.mojom-shared.h"
 #include "chromeos/crosapi/mojom/crosapi.mojom-forward.h"
+#include "chromeos/components/in_session_auth/mojom/in_session_auth.mojom-forward.h"
 #include "chromeos/components/payments/mojom/payment_app.mojom-forward.h"
 #include "chromeos/components/remote_apps/mojom/remote_apps.mojom-forward.h"
 #include "chromeos/components/sensors/mojom/cros_sensor_service.mojom-forward.h"
@@ -40,12 +42,14 @@
 #include "chromeos/crosapi/mojom/guest_os_sk_forwarder.mojom-forward.h"
 #include "chromeos/crosapi/mojom/cert_database.mojom-forward.h"
 #include "chromeos/crosapi/mojom/cert_provisioning.mojom-forward.h"
+#include "chromeos/crosapi/mojom/chaps_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/chrome_app_kiosk_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/clipboard.mojom-forward.h"
 #include "chromeos/crosapi/mojom/clipboard_history.mojom-forward.h"
 #include "chromeos/crosapi/mojom/content_protection.mojom-forward.h"
 #include "chromeos/crosapi/mojom/cros_display_config.mojom-forward.h"
 #include "chromeos/crosapi/mojom/desk.mojom-forward.h"
+#include "chromeos/crosapi/mojom/desk_profiles.mojom-forward.h"
 #include "chromeos/crosapi/mojom/desk_template.mojom-forward.h"
 #include "chromeos/crosapi/mojom/device_attributes.mojom-forward.h"
 #include "chromeos/crosapi/mojom/device_local_account_extension_service.mojom-forward.h"
@@ -77,9 +81,9 @@
 #include "chromeos/crosapi/mojom/identity_manager.mojom-forward.h"
 #include "chromeos/crosapi/mojom/idle_service.mojom.h"
 #include "chromeos/crosapi/mojom/image_writer.mojom-forward.h"
-#include "chromeos/crosapi/mojom/in_session_auth.mojom-forward.h"
 #include "chromeos/crosapi/mojom/kerberos_in_browser.mojom-forward.h"
 #include "chromeos/crosapi/mojom/keystore_service.mojom-forward.h"
+#include "chromeos/crosapi/mojom/lacros_shelf_item_tracker.mojom-forward.h"
 #include "chromeos/crosapi/mojom/launcher_search.mojom-forward.h"
 #include "chromeos/crosapi/mojom/local_printer.mojom-forward.h"
 #include "chromeos/crosapi/mojom/login.mojom-forward.h"
@@ -98,6 +102,7 @@
 #include "chromeos/crosapi/mojom/power.mojom-forward.h"
 #include "chromeos/crosapi/mojom/network_settings_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/parent_access.mojom-forward.h"
+#include "chromeos/crosapi/mojom/passkeys.mojom-forward.h"
 #include "chromeos/crosapi/mojom/prefs.mojom-forward.h"
 #include "chromeos/crosapi/mojom/printing_metrics.mojom-forward.h"
 #include "chromeos/crosapi/mojom/probe_service.mojom-forward.h"
@@ -115,6 +120,7 @@
 #include "chromeos/crosapi/mojom/task_manager.mojom-forward.h"
 #include "chromeos/crosapi/mojom/telemetry_diagnostic_routine_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/telemetry_event_service.mojom-forward.h"
+#include "chromeos/crosapi/mojom/telemetry_management_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/test_controller.mojom-forward.h"
 #include "chromeos/crosapi/mojom/timezone.mojom-forward.h"
 #include "chromeos/crosapi/mojom/tts.mojom-forward.h"
@@ -176,7 +182,7 @@ class Crosapi
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 10050278788261495961ULL,
                                       10924238995165686814ULL };
-  static constexpr uint32_t Version_ = 121;
+  static constexpr uint32_t Version_ = 127;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -199,9 +205,11 @@ class Crosapi
     kBindBrowserAppInstanceRegistryMinVersion = 50,
     kBindBrowserVersionServiceMinVersion = 45,
     kBindBrowserServiceHostMinVersion = 15,
+    kBindBrowserShortcutPublisherMinVersion = 123,
     kBindBrowserCdmFactoryMinVersion = 42,
     kBindCertDatabaseMinVersion = 7,
     kBindCertProvisioningMinVersion = 83,
+    kBindChapsServiceMinVersion = 125,
     kBindChromeAppPublisherMinVersion = 38,
     kBindChromeAppWindowTrackerMinVersion = 44,
     kBindClipboardMinVersion = 10,
@@ -209,6 +217,7 @@ class Crosapi
     kBindContentProtectionMinVersion = 26,
     kBindCrosDisplayConfigControllerMinVersion = 89,
     kBindDeskMinVersion = 99,
+    kBindDeskProfileObserverMinVersion = 122,
     kBindDeskTemplateMinVersion = 68,
     kBindDeviceAttributesMinVersion = 12,
     kBindDeviceOAuth2TokenServiceMinVersion = 91,
@@ -242,6 +251,7 @@ class Crosapi
     kBindNetworkSettingsServiceMinVersion = 41,
     kBindKerberosInBrowserMinVersion = 108,
     kBindKeystoreServiceMinVersion = 0,
+    kBindLacrosShelfItemTrackerMinVersion = 126,
     kBindLacrosAppPublisherMinVersion = 116,
     kBindLocalPrinterMinVersion = 25,
     kBindLoginMinVersion = 63,
@@ -257,6 +267,7 @@ class Crosapi
     kBindNetworkChangeMinVersion = 88,
     kBindNetworkingAttributesMinVersion = 39,
     kBindParentAccessMinVersion = 97,
+    kBindPasskeyAuthenticatorMinVersion = 124,
     kBindPaymentAppInstanceMinVersion = 113,
     kBindPolicyServiceMinVersion = 56,
     kBindPrefsMinVersion = 11,
@@ -288,6 +299,7 @@ class Crosapi
     kBindTaskManagerMinVersion = 19,
     kBindTelemetryDiagnosticRoutinesServiceMinVersion = 112,
     kBindTelemetryEventServiceMinVersion = 106,
+    kBindTelemetryManagementServiceMinVersion = 127,
     kBindTelemetryProbeServiceMinVersion = 93,
     kBindTestControllerMinVersion = 9,
     kBindTimeZoneServiceMinVersion = 61,
@@ -344,6 +356,9 @@ class Crosapi
   struct BindBrowserServiceHost_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct BindBrowserShortcutPublisher_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct BindBrowserCdmFactory_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -351,6 +366,9 @@ class Crosapi
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindCertProvisioning_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindChapsService_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindChromeAppPublisher_Sym {
@@ -372,6 +390,9 @@ class Crosapi
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindDesk_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindDeskProfileObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindDeskTemplate_Sym {
@@ -473,6 +494,9 @@ class Crosapi
   struct BindKeystoreService_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct BindLacrosShelfItemTracker_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct BindLacrosAppPublisher_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -516,6 +540,9 @@ class Crosapi
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindParentAccess_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindPasskeyAuthenticator_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindPaymentAppInstance_Sym {
@@ -609,6 +636,9 @@ class Crosapi
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindTelemetryEventService_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindTelemetryManagementService_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindTelemetryProbeService_Sym {
@@ -708,6 +738,9 @@ class Crosapi
   virtual void BindBrowserServiceHost(::mojo::PendingReceiver<BrowserServiceHost> receiver) = 0;
 
   
+  virtual void BindBrowserShortcutPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppShortcutPublisher> receiver) = 0;
+
+  
   virtual void BindBrowserCdmFactory(::mojo::GenericPendingReceiver receiver) = 0;
 
   
@@ -715,6 +748,9 @@ class Crosapi
 
   
   virtual void BindCertProvisioning(::mojo::PendingReceiver<::crosapi::mojom::CertProvisioning> receiver) = 0;
+
+  
+  virtual void BindChapsService(::mojo::PendingReceiver<::crosapi::mojom::ChapsService> receiver) = 0;
 
   
   virtual void BindChromeAppPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) = 0;
@@ -736,6 +772,9 @@ class Crosapi
 
   
   virtual void BindDesk(::mojo::PendingReceiver<::crosapi::mojom::Desk> receiver) = 0;
+
+  
+  virtual void BindDeskProfileObserver(::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver> receiver) = 0;
 
   
   virtual void BindDeskTemplate(::mojo::PendingReceiver<::crosapi::mojom::DeskTemplate> receiver) = 0;
@@ -825,7 +864,7 @@ class Crosapi
   virtual void BindImageWriter(::mojo::PendingReceiver<::crosapi::mojom::ImageWriter> receiver) = 0;
 
   
-  virtual void BindInSessionAuth(::mojo::PendingReceiver<::crosapi::mojom::InSessionAuth> receiver) = 0;
+  virtual void BindInSessionAuth(::mojo::PendingReceiver<::chromeos::auth::mojom::InSessionAuth> receiver) = 0;
 
   
   virtual void BindNetworkSettingsService(::mojo::PendingReceiver<::crosapi::mojom::NetworkSettingsService> receiver) = 0;
@@ -835,6 +874,9 @@ class Crosapi
 
   
   virtual void BindKeystoreService(::mojo::PendingReceiver<::crosapi::mojom::KeystoreService> receiver) = 0;
+
+  
+  virtual void BindLacrosShelfItemTracker(::mojo::PendingReceiver<::crosapi::mojom::LacrosShelfItemTracker> receiver) = 0;
 
   
   virtual void BindLacrosAppPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) = 0;
@@ -880,6 +922,9 @@ class Crosapi
 
   
   virtual void BindParentAccess(::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> receiver) = 0;
+
+  
+  virtual void BindPasskeyAuthenticator(::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator> receiver) = 0;
 
   
   virtual void BindPaymentAppInstance(::mojo::PendingReceiver<::chromeos::payments::mojom::PaymentAppInstance> receiver) = 0;
@@ -973,6 +1018,9 @@ class Crosapi
 
   
   virtual void BindTelemetryEventService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryEventService> receiver) = 0;
+
+  
+  virtual void BindTelemetryManagementService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryManagementService> receiver) = 0;
 
   
   virtual void BindTelemetryProbeService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryProbeService> receiver) = 0;
@@ -1091,6 +1139,7 @@ class BrowserService
     kREMOVED_16MinVersion = 67,
     kUpdateComponentPolicyMinVersion = 67,
     kLaunchMinVersion = 70,
+    kOpenProfileManagerMinVersion = 74,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -1159,6 +1208,9 @@ class BrowserService
   struct Launch_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OpenProfileManager_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~BrowserService() = default;
 
@@ -1173,7 +1225,7 @@ class BrowserService
 
   using NewWindowCallback = base::OnceCallback<void(CreationResult)>;
   
-  virtual void NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id, NewWindowCallback callback) = 0;
+  virtual void NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id, std::optional<uint64_t> profile_id, NewWindowCallback callback) = 0;
 
 
   using NewFullscreenWindowCallback = base::OnceCallback<void(CreationResult)>;
@@ -1224,7 +1276,7 @@ class BrowserService
   virtual void GetHistograms(GetHistogramsCallback callback) = 0;
 
 
-  using GetActiveTabUrlCallback = base::OnceCallback<void(const absl::optional<::GURL>&)>;
+  using GetActiveTabUrlCallback = base::OnceCallback<void(const std::optional<::GURL>&)>;
   
   virtual void GetActiveTabUrl(GetActiveTabUrlCallback callback) = 0;
 
@@ -1249,7 +1301,10 @@ class BrowserService
 
   using LaunchCallback = base::OnceCallback<void(CreationResult)>;
   
-  virtual void Launch(int64_t target_display_id, LaunchCallback callback) = 0;
+  virtual void Launch(int64_t target_display_id, std::optional<uint64_t> profile_id, LaunchCallback callback) = 0;
+
+  
+  virtual void OpenProfileManager() = 0;
 };
 
 class BrowserServiceHostProxy;
@@ -1335,11 +1390,15 @@ class  CrosapiProxy
   
   void BindBrowserServiceHost(::mojo::PendingReceiver<BrowserServiceHost> receiver) final;
   
+  void BindBrowserShortcutPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppShortcutPublisher> receiver) final;
+  
   void BindBrowserCdmFactory(::mojo::GenericPendingReceiver receiver) final;
   
   void BindCertDatabase(::mojo::PendingReceiver<::crosapi::mojom::CertDatabase> receiver) final;
   
   void BindCertProvisioning(::mojo::PendingReceiver<::crosapi::mojom::CertProvisioning> receiver) final;
+  
+  void BindChapsService(::mojo::PendingReceiver<::crosapi::mojom::ChapsService> receiver) final;
   
   void BindChromeAppPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) final;
   
@@ -1354,6 +1413,8 @@ class  CrosapiProxy
   void BindCrosDisplayConfigController(::mojo::PendingReceiver<::crosapi::mojom::CrosDisplayConfigController> receiver) final;
   
   void BindDesk(::mojo::PendingReceiver<::crosapi::mojom::Desk> receiver) final;
+  
+  void BindDeskProfileObserver(::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver> receiver) final;
   
   void BindDeskTemplate(::mojo::PendingReceiver<::crosapi::mojom::DeskTemplate> receiver) final;
   
@@ -1413,13 +1474,15 @@ class  CrosapiProxy
   
   void BindImageWriter(::mojo::PendingReceiver<::crosapi::mojom::ImageWriter> receiver) final;
   
-  void BindInSessionAuth(::mojo::PendingReceiver<::crosapi::mojom::InSessionAuth> receiver) final;
+  void BindInSessionAuth(::mojo::PendingReceiver<::chromeos::auth::mojom::InSessionAuth> receiver) final;
   
   void BindNetworkSettingsService(::mojo::PendingReceiver<::crosapi::mojom::NetworkSettingsService> receiver) final;
   
   void BindKerberosInBrowser(::mojo::PendingReceiver<::crosapi::mojom::KerberosInBrowser> receiver) final;
   
   void BindKeystoreService(::mojo::PendingReceiver<::crosapi::mojom::KeystoreService> receiver) final;
+  
+  void BindLacrosShelfItemTracker(::mojo::PendingReceiver<::crosapi::mojom::LacrosShelfItemTracker> receiver) final;
   
   void BindLacrosAppPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) final;
   
@@ -1450,6 +1513,8 @@ class  CrosapiProxy
   void BindNetworkingAttributes(::mojo::PendingReceiver<::crosapi::mojom::NetworkingAttributes> receiver) final;
   
   void BindParentAccess(::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> receiver) final;
+  
+  void BindPasskeyAuthenticator(::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator> receiver) final;
   
   void BindPaymentAppInstance(::mojo::PendingReceiver<::chromeos::payments::mojom::PaymentAppInstance> receiver) final;
   
@@ -1513,6 +1578,8 @@ class  CrosapiProxy
   
   void BindTelemetryEventService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryEventService> receiver) final;
   
+  void BindTelemetryManagementService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryManagementService> receiver) final;
+  
   void BindTelemetryProbeService(::mojo::PendingReceiver<::crosapi::mojom::TelemetryProbeService> receiver) final;
   
   void BindTestController(::mojo::PendingReceiver<::crosapi::mojom::TestController> receiver) final;
@@ -1572,7 +1639,7 @@ class  BrowserServiceProxy
   
   void REMOVED_2(BrowserInitParamsPtr params) final;
   
-  void NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id, NewWindowCallback callback) final;
+  void NewWindow(bool incognito, bool should_trigger_session_restore, int64_t target_display_id, std::optional<uint64_t> profile_id, NewWindowCallback callback) final;
   
   void NewFullscreenWindow(const ::GURL& url, int64_t target_display_id, NewFullscreenWindowCallback callback) final;
   
@@ -1608,7 +1675,9 @@ class  BrowserServiceProxy
   
   void UpdateComponentPolicy(base::flat_map<::policy::PolicyNamespace, ::base::Value> component_policy) final;
   
-  void Launch(int64_t target_display_id, LaunchCallback callback) final;
+  void Launch(int64_t target_display_id, std::optional<uint64_t> profile_id, LaunchCallback callback) final;
+  
+  void OpenProfileManager() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1772,6 +1841,153 @@ class  BrowserServiceResponseValidator : public mojo::MessageReceiver {
 
 
 
+
+
+
+
+
+class  EntropySource {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<EntropySource, T>::value>;
+  using DataView = EntropySourceDataView;
+  using Data_ = internal::EntropySource_Data;
+
+  template <typename... Args>
+  static EntropySourcePtr New(Args&&... args) {
+    return EntropySourcePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static EntropySourcePtr From(const U& u) {
+    return mojo::TypeConverter<EntropySourcePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, EntropySource>::Convert(*this);
+  }
+
+
+  EntropySource();
+
+  EntropySource(
+      int32_t low_entropy,
+      int32_t old_low_entropy,
+      int32_t pseudo_low_entropy);
+
+
+  ~EntropySource();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = EntropySourcePtr>
+  EntropySourcePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, EntropySource::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, EntropySource::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, EntropySource::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        EntropySource::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        EntropySource::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::EntropySource_UnserializedMessageContext<
+            UserType, EntropySource::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<EntropySource::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return EntropySource::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::EntropySource_UnserializedMessageContext<
+            UserType, EntropySource::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<EntropySource::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  int32_t low_entropy;
+  
+  int32_t old_low_entropy;
+  
+  int32_t pseudo_low_entropy;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, EntropySource::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, EntropySource::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, EntropySource::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, EntropySource::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -1968,7 +2184,7 @@ class  BrowserInfo {
 
   BrowserInfo(
       const std::string& browser_version,
-      absl::optional<std::vector<std::string>> lacros_workarounds);
+      std::optional<std::vector<std::string>> lacros_workarounds);
 
 
   ~BrowserInfo();
@@ -2048,7 +2264,7 @@ class  BrowserInfo {
   
   std::string browser_version;
   
-  absl::optional<std::vector<std::string>> lacros_workarounds;
+  std::optional<std::vector<std::string>> lacros_workarounds;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2116,56 +2332,56 @@ class  DefaultPaths {
   DefaultPaths(
       const ::base::FilePath& documents,
       const ::base::FilePath& downloads,
-      const absl::optional<::base::FilePath>& drivefs);
+      const std::optional<::base::FilePath>& drivefs);
 
   DefaultPaths(
       const ::base::FilePath& documents,
       const ::base::FilePath& downloads,
-      const absl::optional<::base::FilePath>& drivefs,
-      const absl::optional<::base::FilePath>& user_nss_database);
+      const std::optional<::base::FilePath>& drivefs,
+      const std::optional<::base::FilePath>& user_nss_database);
 
   DefaultPaths(
       const ::base::FilePath& documents,
       const ::base::FilePath& downloads,
-      const absl::optional<::base::FilePath>& drivefs,
-      const absl::optional<::base::FilePath>& user_nss_database,
-      const absl::optional<::base::FilePath>& removable_media,
-      const absl::optional<::base::FilePath>& android_files,
-      const absl::optional<::base::FilePath>& linux_files);
+      const std::optional<::base::FilePath>& drivefs,
+      const std::optional<::base::FilePath>& user_nss_database,
+      const std::optional<::base::FilePath>& removable_media,
+      const std::optional<::base::FilePath>& android_files,
+      const std::optional<::base::FilePath>& linux_files);
 
   DefaultPaths(
       const ::base::FilePath& documents,
       const ::base::FilePath& downloads,
-      const absl::optional<::base::FilePath>& drivefs,
-      const absl::optional<::base::FilePath>& user_nss_database,
-      const absl::optional<::base::FilePath>& removable_media,
-      const absl::optional<::base::FilePath>& android_files,
-      const absl::optional<::base::FilePath>& linux_files,
-      const absl::optional<::base::FilePath>& ash_resources);
+      const std::optional<::base::FilePath>& drivefs,
+      const std::optional<::base::FilePath>& user_nss_database,
+      const std::optional<::base::FilePath>& removable_media,
+      const std::optional<::base::FilePath>& android_files,
+      const std::optional<::base::FilePath>& linux_files,
+      const std::optional<::base::FilePath>& ash_resources);
 
   DefaultPaths(
       const ::base::FilePath& documents,
       const ::base::FilePath& downloads,
-      const absl::optional<::base::FilePath>& drivefs,
-      const absl::optional<::base::FilePath>& user_nss_database,
-      const absl::optional<::base::FilePath>& removable_media,
-      const absl::optional<::base::FilePath>& android_files,
-      const absl::optional<::base::FilePath>& linux_files,
-      const absl::optional<::base::FilePath>& ash_resources,
-      const absl::optional<::base::FilePath>& share_cache);
+      const std::optional<::base::FilePath>& drivefs,
+      const std::optional<::base::FilePath>& user_nss_database,
+      const std::optional<::base::FilePath>& removable_media,
+      const std::optional<::base::FilePath>& android_files,
+      const std::optional<::base::FilePath>& linux_files,
+      const std::optional<::base::FilePath>& ash_resources,
+      const std::optional<::base::FilePath>& share_cache);
 
   DefaultPaths(
       const ::base::FilePath& documents,
       const ::base::FilePath& downloads,
-      const absl::optional<::base::FilePath>& drivefs,
-      const absl::optional<::base::FilePath>& user_nss_database,
-      const absl::optional<::base::FilePath>& removable_media,
-      const absl::optional<::base::FilePath>& android_files,
-      const absl::optional<::base::FilePath>& linux_files,
-      const absl::optional<::base::FilePath>& ash_resources,
-      const absl::optional<::base::FilePath>& share_cache,
-      const absl::optional<::base::FilePath>& preinstalled_web_app_config,
-      const absl::optional<::base::FilePath>& preinstalled_web_app_extra_config);
+      const std::optional<::base::FilePath>& drivefs,
+      const std::optional<::base::FilePath>& user_nss_database,
+      const std::optional<::base::FilePath>& removable_media,
+      const std::optional<::base::FilePath>& android_files,
+      const std::optional<::base::FilePath>& linux_files,
+      const std::optional<::base::FilePath>& ash_resources,
+      const std::optional<::base::FilePath>& share_cache,
+      const std::optional<::base::FilePath>& preinstalled_web_app_config,
+      const std::optional<::base::FilePath>& preinstalled_web_app_extra_config);
 
 
   ~DefaultPaths();
@@ -2247,23 +2463,23 @@ class  DefaultPaths {
   
   ::base::FilePath downloads;
   
-  absl::optional<::base::FilePath> drivefs;
+  std::optional<::base::FilePath> drivefs;
   
-  absl::optional<::base::FilePath> user_nss_database;
+  std::optional<::base::FilePath> user_nss_database;
   
-  absl::optional<::base::FilePath> removable_media;
+  std::optional<::base::FilePath> removable_media;
   
-  absl::optional<::base::FilePath> android_files;
+  std::optional<::base::FilePath> android_files;
   
-  absl::optional<::base::FilePath> linux_files;
+  std::optional<::base::FilePath> linux_files;
   
-  absl::optional<::base::FilePath> ash_resources;
+  std::optional<::base::FilePath> ash_resources;
   
-  absl::optional<::base::FilePath> share_cache;
+  std::optional<::base::FilePath> share_cache;
   
-  absl::optional<::base::FilePath> preinstalled_web_app_config;
+  std::optional<::base::FilePath> preinstalled_web_app_config;
   
-  absl::optional<::base::FilePath> preinstalled_web_app_extra_config;
+  std::optional<::base::FilePath> preinstalled_web_app_extra_config;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2329,36 +2545,36 @@ class  DeviceProperties {
 
   DeviceProperties(
       const std::string& device_dm_token,
-      absl::optional<std::vector<std::string>> device_affiliation_ids);
+      std::optional<std::vector<std::string>> device_affiliation_ids);
 
   DeviceProperties(
       const std::string& device_dm_token,
-      absl::optional<std::vector<std::string>> device_affiliation_ids,
+      std::optional<std::vector<std::string>> device_affiliation_ids,
       bool is_arc_available,
       bool is_tablet_form_factor);
 
   DeviceProperties(
       const std::string& device_dm_token,
-      absl::optional<std::vector<std::string>> device_affiliation_ids,
+      std::optional<std::vector<std::string>> device_affiliation_ids,
       bool is_arc_available,
       bool is_tablet_form_factor,
-      const absl::optional<std::string>& directory_device_id,
-      const absl::optional<std::string>& serial_number,
-      const absl::optional<std::string>& annotated_asset_id,
-      const absl::optional<std::string>& annotated_location,
-      const absl::optional<std::string>& hostname);
+      const std::optional<std::string>& directory_device_id,
+      const std::optional<std::string>& serial_number,
+      const std::optional<std::string>& annotated_asset_id,
+      const std::optional<std::string>& annotated_location,
+      const std::optional<std::string>& hostname);
 
   DeviceProperties(
       const std::string& device_dm_token,
-      absl::optional<std::vector<std::string>> device_affiliation_ids,
+      std::optional<std::vector<std::string>> device_affiliation_ids,
       bool is_arc_available,
       bool is_tablet_form_factor,
-      const absl::optional<std::string>& directory_device_id,
-      const absl::optional<std::string>& serial_number,
-      const absl::optional<std::string>& annotated_asset_id,
-      const absl::optional<std::string>& annotated_location,
-      const absl::optional<std::string>& hostname,
-      absl::optional<bool> has_stylus_enabled_touchscreen);
+      const std::optional<std::string>& directory_device_id,
+      const std::optional<std::string>& serial_number,
+      const std::optional<std::string>& annotated_asset_id,
+      const std::optional<std::string>& annotated_location,
+      const std::optional<std::string>& hostname,
+      std::optional<bool> has_stylus_enabled_touchscreen);
 
 
   ~DeviceProperties();
@@ -2438,23 +2654,23 @@ class  DeviceProperties {
   
   std::string device_dm_token;
   
-  absl::optional<std::vector<std::string>> device_affiliation_ids;
+  std::optional<std::vector<std::string>> device_affiliation_ids;
   
   bool is_arc_available;
   
   bool is_tablet_form_factor;
   
-  absl::optional<std::string> directory_device_id;
+  std::optional<std::string> directory_device_id;
   
-  absl::optional<std::string> serial_number;
+  std::optional<std::string> serial_number;
   
-  absl::optional<std::string> annotated_asset_id;
+  std::optional<std::string> annotated_asset_id;
   
-  absl::optional<std::string> annotated_location;
+  std::optional<std::string> annotated_location;
   
-  absl::optional<std::string> hostname;
+  std::optional<std::string> hostname;
   
-  absl::optional<bool> has_stylus_enabled_touchscreen;
+  std::optional<bool> has_stylus_enabled_touchscreen;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2484,6 +2700,7 @@ template <typename T, DeviceProperties::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -2546,7 +2763,7 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions);
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2554,7 +2771,7 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths);
 
   BrowserInitParams(
@@ -2563,9 +2780,9 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7);
+      const std::optional<std::string>& REMOVED_7);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2573,9 +2790,9 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed);
 
   BrowserInitParams(
@@ -2584,9 +2801,9 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support);
 
@@ -2596,12 +2813,12 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash);
+      const std::optional<std::string>& cros_user_id_hash);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2609,13 +2826,13 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy);
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2623,13 +2840,13 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info);
 
   BrowserInitParams(
@@ -2638,13 +2855,13 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13);
 
@@ -2654,13 +2871,13 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14);
@@ -2671,13 +2888,13 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
@@ -2689,13 +2906,13 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
@@ -2708,19 +2925,19 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled);
+      bool REMOVED_17);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2728,19 +2945,19 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18);
 
   BrowserInitParams(
@@ -2749,21 +2966,21 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary);
+      bool REMOVED_19);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2771,21 +2988,21 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info);
 
   BrowserInitParams(
@@ -2794,21 +3011,21 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties);
 
@@ -2818,21 +3035,21 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support);
@@ -2843,25 +3060,25 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags);
+      std::optional<std::vector<BuildFlag>> build_flags);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2869,26 +3086,26 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24);
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2896,26 +3113,26 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings);
 
   BrowserInitParams(
@@ -2924,28 +3141,28 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id);
+      const std::optional<std::string>& metrics_service_client_id);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2953,29 +3170,29 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser);
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -2983,29 +3200,29 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser,
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27,
       bool publish_chrome_apps);
 
   BrowserInitParams(
@@ -3014,29 +3231,29 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser,
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive);
 
@@ -3046,29 +3263,29 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser,
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled);
@@ -3079,33 +3296,33 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser,
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities);
+      std::optional<std::vector<std::string>> ash_capabilities);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -3113,34 +3330,34 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser,
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls);
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -3148,34 +3365,34 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser,
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated);
 
@@ -3185,34 +3402,34 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser,
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed);
@@ -3223,35 +3440,35 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser,
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed);
@@ -3262,35 +3479,35 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
-      bool standalone_browser_is_only_browser,
+      const std::optional<std::string>& metrics_service_client_id,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
@@ -3302,36 +3519,36 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
@@ -3343,37 +3560,37 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
@@ -3385,37 +3602,37 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
@@ -3428,43 +3645,43 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41);
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -3472,44 +3689,44 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41);
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -3517,45 +3734,45 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy);
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -3563,46 +3780,46 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version);
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -3610,46 +3827,46 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing);
 
   BrowserInitParams(
@@ -3658,46 +3875,46 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth);
 
@@ -3707,46 +3924,46 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner);
@@ -3757,46 +3974,46 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
@@ -3808,46 +4025,46 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
@@ -3860,46 +4077,46 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
@@ -3913,53 +4130,53 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu);
+      bool REMOVED_51);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -3967,53 +4184,53 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device);
 
   BrowserInitParams(
@@ -4022,53 +4239,53 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode);
 
@@ -4078,53 +4295,53 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list);
@@ -4135,57 +4352,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated);
+      bool REMOVED_55);
 
   BrowserInitParams(
       uint32_t crosapi_version,
@@ -4193,57 +4410,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled);
 
   BrowserInitParams(
@@ -4252,57 +4469,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist);
 
@@ -4312,57 +4529,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers);
@@ -4373,57 +4590,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -4435,57 +4652,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -4498,57 +4715,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -4562,57 +4779,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -4627,57 +4844,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -4693,57 +4910,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -4760,57 +4977,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -4828,57 +5045,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -4897,57 +5114,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -4967,57 +5184,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -5038,57 +5255,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -5110,57 +5327,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -5183,57 +5400,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -5257,57 +5474,57 @@ class  BrowserInitParams {
       bool ash_metrics_enabled,
       SessionType session_type,
       DeviceMode device_mode,
-      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_7,
+      const std::optional<std::string>& REMOVED_7,
       MetricsReportingManaged ash_metrics_managed,
       ExoImeSupport exo_ime_support,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       ::crosapi::mojom::IdleInfoPtr idle_info,
       bool REMOVED_13,
       bool REMOVED_14,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
+      bool REMOVED_17,
       bool REMOVED_18,
-      bool standalone_browser_is_primary,
+      bool REMOVED_19,
       ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
       DevicePropertiesPtr device_properties,
       OndeviceHandwritingSupport ondevice_handwriting_support,
-      absl::optional<std::vector<BuildFlag>> build_flags,
+      std::optional<std::vector<BuildFlag>> build_flags,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_24,
+      std::optional<std::vector<::GURL>> REMOVED_24,
       ::crosapi::mojom::DeviceSettingsPtr device_settings,
-      const absl::optional<std::string>& metrics_service_client_id,
+      const std::optional<std::string>& metrics_service_client_id,
       uint64_t ukm_client_id,
-      bool standalone_browser_is_only_browser,
+      bool REMOVED_27,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
       BrowserInitParams::InitialKeepAlive initial_keep_alive,
       bool is_unfiltered_bluetooth_device_enabled,
-      absl::optional<std::vector<std::string>> ash_capabilities,
-      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
       bool is_holding_space_incognito_profile_integration_enabled_deprecated,
       bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
       bool is_device_enterprised_managed,
       BrowserInitParams::DeviceType device_type,
       bool is_ondevice_speech_supported,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
-      const absl::optional<std::string>& ash_chrome_version,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
       bool use_cups_for_printing,
       bool use_floss_bluetooth,
       bool is_current_user_device_owner,
       bool REMOVED_48,
       bool enable_lacros_tts_support,
       BrowserInitParams::LacrosSelection lacros_selection,
-      bool enable_window_layout_menu,
+      bool REMOVED_51,
       bool is_cloud_gaming_device,
       BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
       ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
-      bool enable_partial_split_deprecated,
+      bool REMOVED_55,
       bool vc_controls_ui_enabled,
       ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
       bool enable_cpu_mappable_native_gpu_memory_buffers,
@@ -5325,6 +5542,237 @@ class  BrowserInitParams {
       bool is_app_install_service_uri_enabled,
       bool is_desk_profiles_enabled,
       bool is_cros_web_app_shortcut_ui_update_enabled);
+
+  BrowserInitParams(
+      uint32_t crosapi_version,
+      bool deprecated_ash_metrics_enabled_has_value,
+      bool ash_metrics_enabled,
+      SessionType session_type,
+      DeviceMode device_mode,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      DefaultPathsPtr default_paths,
+      const std::optional<std::string>& REMOVED_7,
+      MetricsReportingManaged ash_metrics_managed,
+      ExoImeSupport exo_ime_support,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
+      uint64_t last_policy_fetch_attempt_timestamp,
+      ::crosapi::mojom::IdleInfoPtr idle_info,
+      bool REMOVED_13,
+      bool REMOVED_14,
+      InitialBrowserAction initial_browser_action,
+      ::crosapi::mojom::AccountPtr device_account,
+      bool REMOVED_17,
+      bool REMOVED_18,
+      bool REMOVED_19,
+      ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
+      DevicePropertiesPtr device_properties,
+      OndeviceHandwritingSupport ondevice_handwriting_support,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      OpenUrlFrom startup_urls_from,
+      std::optional<std::vector<::GURL>> REMOVED_24,
+      ::crosapi::mojom::DeviceSettingsPtr device_settings,
+      const std::optional<std::string>& metrics_service_client_id,
+      uint64_t ukm_client_id,
+      bool REMOVED_27,
+      bool publish_chrome_apps,
+      bool publish_hosted_apps,
+      BrowserInitParams::InitialKeepAlive initial_keep_alive,
+      bool is_unfiltered_bluetooth_device_enabled,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      bool is_holding_space_incognito_profile_integration_enabled_deprecated,
+      bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
+      bool is_device_enterprised_managed,
+      BrowserInitParams::DeviceType device_type,
+      bool is_ondevice_speech_supported,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
+      bool use_cups_for_printing,
+      bool use_floss_bluetooth,
+      bool is_current_user_device_owner,
+      bool REMOVED_48,
+      bool enable_lacros_tts_support,
+      BrowserInitParams::LacrosSelection lacros_selection,
+      bool REMOVED_51,
+      bool is_cloud_gaming_device,
+      BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
+      ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
+      bool REMOVED_55,
+      bool vc_controls_ui_enabled,
+      ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
+      bool enable_cpu_mappable_native_gpu_memory_buffers,
+      bool oop_video_decoding_enabled,
+      bool is_upload_office_to_cloud_enabled,
+      bool enable_clipboard_history_refresh,
+      bool is_variable_refresh_rate_always_on,
+      bool is_current_user_ephemeral,
+      bool is_pdf_ocr_enabled,
+      bool is_drivefs_bulk_pinning_available,
+      bool is_floss_available,
+      bool is_sys_ui_downloads_integration_v2_enabled,
+      bool is_cros_battery_saver_available,
+      bool is_floss_availability_check_needed,
+      bool is_app_install_service_uri_enabled,
+      bool is_desk_profiles_enabled,
+      bool is_cros_web_app_shortcut_ui_update_enabled,
+      EntropySourcePtr entropy_source);
+
+  BrowserInitParams(
+      uint32_t crosapi_version,
+      bool deprecated_ash_metrics_enabled_has_value,
+      bool ash_metrics_enabled,
+      SessionType session_type,
+      DeviceMode device_mode,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      DefaultPathsPtr default_paths,
+      const std::optional<std::string>& REMOVED_7,
+      MetricsReportingManaged ash_metrics_managed,
+      ExoImeSupport exo_ime_support,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
+      uint64_t last_policy_fetch_attempt_timestamp,
+      ::crosapi::mojom::IdleInfoPtr idle_info,
+      bool REMOVED_13,
+      bool REMOVED_14,
+      InitialBrowserAction initial_browser_action,
+      ::crosapi::mojom::AccountPtr device_account,
+      bool REMOVED_17,
+      bool REMOVED_18,
+      bool REMOVED_19,
+      ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
+      DevicePropertiesPtr device_properties,
+      OndeviceHandwritingSupport ondevice_handwriting_support,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      OpenUrlFrom startup_urls_from,
+      std::optional<std::vector<::GURL>> REMOVED_24,
+      ::crosapi::mojom::DeviceSettingsPtr device_settings,
+      const std::optional<std::string>& metrics_service_client_id,
+      uint64_t ukm_client_id,
+      bool REMOVED_27,
+      bool publish_chrome_apps,
+      bool publish_hosted_apps,
+      BrowserInitParams::InitialKeepAlive initial_keep_alive,
+      bool is_unfiltered_bluetooth_device_enabled,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      bool is_holding_space_incognito_profile_integration_enabled_deprecated,
+      bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
+      bool is_device_enterprised_managed,
+      BrowserInitParams::DeviceType device_type,
+      bool is_ondevice_speech_supported,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
+      bool use_cups_for_printing,
+      bool use_floss_bluetooth,
+      bool is_current_user_device_owner,
+      bool REMOVED_48,
+      bool enable_lacros_tts_support,
+      BrowserInitParams::LacrosSelection lacros_selection,
+      bool REMOVED_51,
+      bool is_cloud_gaming_device,
+      BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
+      ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
+      bool REMOVED_55,
+      bool vc_controls_ui_enabled,
+      ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
+      bool enable_cpu_mappable_native_gpu_memory_buffers,
+      bool oop_video_decoding_enabled,
+      bool is_upload_office_to_cloud_enabled,
+      bool enable_clipboard_history_refresh,
+      bool is_variable_refresh_rate_always_on,
+      bool is_current_user_ephemeral,
+      bool is_pdf_ocr_enabled,
+      bool is_drivefs_bulk_pinning_available,
+      bool is_floss_available,
+      bool is_sys_ui_downloads_integration_v2_enabled,
+      bool is_cros_battery_saver_available,
+      bool is_floss_availability_check_needed,
+      bool is_app_install_service_uri_enabled,
+      bool is_desk_profiles_enabled,
+      bool is_cros_web_app_shortcut_ui_update_enabled,
+      EntropySourcePtr entropy_source,
+      bool is_cros_shortstand_enabled);
+
+  BrowserInitParams(
+      uint32_t crosapi_version,
+      bool deprecated_ash_metrics_enabled_has_value,
+      bool ash_metrics_enabled,
+      SessionType session_type,
+      DeviceMode device_mode,
+      const std::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      DefaultPathsPtr default_paths,
+      const std::optional<std::string>& REMOVED_7,
+      MetricsReportingManaged ash_metrics_managed,
+      ExoImeSupport exo_ime_support,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
+      uint64_t last_policy_fetch_attempt_timestamp,
+      ::crosapi::mojom::IdleInfoPtr idle_info,
+      bool REMOVED_13,
+      bool REMOVED_14,
+      InitialBrowserAction initial_browser_action,
+      ::crosapi::mojom::AccountPtr device_account,
+      bool REMOVED_17,
+      bool REMOVED_18,
+      bool REMOVED_19,
+      ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
+      DevicePropertiesPtr device_properties,
+      OndeviceHandwritingSupport ondevice_handwriting_support,
+      std::optional<std::vector<BuildFlag>> build_flags,
+      OpenUrlFrom startup_urls_from,
+      std::optional<std::vector<::GURL>> REMOVED_24,
+      ::crosapi::mojom::DeviceSettingsPtr device_settings,
+      const std::optional<std::string>& metrics_service_client_id,
+      uint64_t ukm_client_id,
+      bool REMOVED_27,
+      bool publish_chrome_apps,
+      bool publish_hosted_apps,
+      BrowserInitParams::InitialKeepAlive initial_keep_alive,
+      bool is_unfiltered_bluetooth_device_enabled,
+      std::optional<std::vector<std::string>> ash_capabilities,
+      std::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      bool is_holding_space_incognito_profile_integration_enabled_deprecated,
+      bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
+      bool is_device_enterprised_managed,
+      BrowserInitParams::DeviceType device_type,
+      bool is_ondevice_speech_supported,
+      std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const std::optional<std::string>& ash_chrome_version,
+      bool use_cups_for_printing,
+      bool use_floss_bluetooth,
+      bool is_current_user_device_owner,
+      bool REMOVED_48,
+      bool enable_lacros_tts_support,
+      BrowserInitParams::LacrosSelection lacros_selection,
+      bool REMOVED_51,
+      bool is_cloud_gaming_device,
+      BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
+      ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
+      bool REMOVED_55,
+      bool vc_controls_ui_enabled,
+      ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
+      bool enable_cpu_mappable_native_gpu_memory_buffers,
+      bool oop_video_decoding_enabled,
+      bool is_upload_office_to_cloud_enabled,
+      bool enable_clipboard_history_refresh,
+      bool is_variable_refresh_rate_always_on,
+      bool is_current_user_ephemeral,
+      bool is_pdf_ocr_enabled,
+      bool is_drivefs_bulk_pinning_available,
+      bool is_floss_available,
+      bool is_sys_ui_downloads_integration_v2_enabled,
+      bool is_cros_battery_saver_available,
+      bool is_floss_availability_check_needed,
+      bool is_app_install_service_uri_enabled,
+      bool is_desk_profiles_enabled,
+      bool is_cros_web_app_shortcut_ui_update_enabled,
+      EntropySourcePtr entropy_source,
+      bool is_cros_shortstand_enabled,
+      bool should_disable_chrome_compose_on_chromeos);
 
 BrowserInitParams(const BrowserInitParams&) = delete;
 BrowserInitParams& operator=(const BrowserInitParams&) = delete;
@@ -5414,19 +5862,19 @@ BrowserInitParams& operator=(const BrowserInitParams&) = delete;
   
   DeviceMode device_mode;
   
-  absl::optional<base::flat_map<::base::Token, uint32_t>> interface_versions;
+  std::optional<base::flat_map<::base::Token, uint32_t>> interface_versions;
   
   DefaultPathsPtr default_paths;
   
-  absl::optional<std::string> REMOVED_7;
+  std::optional<std::string> REMOVED_7;
   
   MetricsReportingManaged ash_metrics_managed;
   
   ExoImeSupport exo_ime_support;
   
-  absl::optional<std::string> cros_user_id_hash;
+  std::optional<std::string> cros_user_id_hash;
   
-  absl::optional<std::vector<uint8_t>> device_account_policy;
+  std::optional<std::vector<uint8_t>> device_account_policy;
   
   uint64_t last_policy_fetch_attempt_timestamp;
   
@@ -5440,11 +5888,11 @@ BrowserInitParams& operator=(const BrowserInitParams&) = delete;
   
   ::crosapi::mojom::AccountPtr device_account;
   
-  bool web_apps_enabled;
+  bool REMOVED_17;
   
   bool REMOVED_18;
   
-  bool standalone_browser_is_primary;
+  bool REMOVED_19;
   
   ::crosapi::mojom::NativeThemeInfoPtr native_theme_info;
   
@@ -5452,19 +5900,19 @@ BrowserInitParams& operator=(const BrowserInitParams&) = delete;
   
   OndeviceHandwritingSupport ondevice_handwriting_support;
   
-  absl::optional<std::vector<BuildFlag>> build_flags;
+  std::optional<std::vector<BuildFlag>> build_flags;
   
   OpenUrlFrom startup_urls_from;
   
-  absl::optional<std::vector<::GURL>> REMOVED_24;
+  std::optional<std::vector<::GURL>> REMOVED_24;
   
   ::crosapi::mojom::DeviceSettingsPtr device_settings;
   
-  absl::optional<std::string> metrics_service_client_id;
+  std::optional<std::string> metrics_service_client_id;
   
   uint64_t ukm_client_id;
   
-  bool standalone_browser_is_only_browser;
+  bool REMOVED_27;
   
   bool publish_chrome_apps;
   
@@ -5474,9 +5922,9 @@ BrowserInitParams& operator=(const BrowserInitParams&) = delete;
   
   bool is_unfiltered_bluetooth_device_enabled;
   
-  absl::optional<std::vector<std::string>> ash_capabilities;
+  std::optional<std::vector<std::string>> ash_capabilities;
   
-  absl::optional<std::vector<::GURL>> accepted_internal_ash_urls;
+  std::optional<std::vector<::GURL>> accepted_internal_ash_urls;
   
   bool is_holding_space_incognito_profile_integration_enabled_deprecated;
   
@@ -5488,11 +5936,11 @@ BrowserInitParams& operator=(const BrowserInitParams&) = delete;
   
   bool is_ondevice_speech_supported;
   
-  absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41;
+  std::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41;
   
-  absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy;
+  std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy;
   
-  absl::optional<std::string> ash_chrome_version;
+  std::optional<std::string> ash_chrome_version;
   
   bool use_cups_for_printing;
   
@@ -5506,7 +5954,7 @@ BrowserInitParams& operator=(const BrowserInitParams&) = delete;
   
   BrowserInitParams::LacrosSelection lacros_selection;
   
-  bool enable_window_layout_menu;
+  bool REMOVED_51;
   
   bool is_cloud_gaming_device;
   
@@ -5514,7 +5962,7 @@ BrowserInitParams& operator=(const BrowserInitParams&) = delete;
   
   ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list;
   
-  bool enable_partial_split_deprecated;
+  bool REMOVED_55;
   
   bool vc_controls_ui_enabled;
   
@@ -5549,6 +5997,12 @@ BrowserInitParams& operator=(const BrowserInitParams&) = delete;
   bool is_desk_profiles_enabled;
   
   bool is_cros_web_app_shortcut_ui_update_enabled;
+  
+  EntropySourcePtr entropy_source;
+  
+  bool is_cros_shortstand_enabled;
+  
+  bool should_disable_chrome_compose_on_chromeos;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -5612,20 +6066,20 @@ class  BrowserPostLoginParams {
   BrowserPostLoginParams(
       SessionType session_type,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_2,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& REMOVED_2,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
-      bool standalone_browser_is_primary,
+      bool REMOVED_8,
+      bool REMOVED_9,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_11,
-      bool standalone_browser_is_only_browser,
+      std::optional<std::vector<::GURL>> REMOVED_11,
+      bool REMOVED_12,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
       bool is_current_user_device_owner,
       bool REMOVED_17,
       bool enable_lacros_tts_support);
@@ -5633,20 +6087,20 @@ class  BrowserPostLoginParams {
   BrowserPostLoginParams(
       SessionType session_type,
       DefaultPathsPtr default_paths,
-      const absl::optional<std::string>& REMOVED_2,
-      const absl::optional<std::string>& cros_user_id_hash,
-      absl::optional<std::vector<uint8_t>> device_account_policy,
+      const std::optional<std::string>& REMOVED_2,
+      const std::optional<std::string>& cros_user_id_hash,
+      std::optional<std::vector<uint8_t>> device_account_policy,
       uint64_t last_policy_fetch_attempt_timestamp,
       InitialBrowserAction initial_browser_action,
       ::crosapi::mojom::AccountPtr device_account,
-      bool web_apps_enabled,
-      bool standalone_browser_is_primary,
+      bool REMOVED_8,
+      bool REMOVED_9,
       OpenUrlFrom startup_urls_from,
-      absl::optional<std::vector<::GURL>> REMOVED_11,
-      bool standalone_browser_is_only_browser,
+      std::optional<std::vector<::GURL>> REMOVED_11,
+      bool REMOVED_12,
       bool publish_chrome_apps,
       bool publish_hosted_apps,
-      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
       bool is_current_user_device_owner,
       bool REMOVED_17,
       bool enable_lacros_tts_support,
@@ -5734,11 +6188,11 @@ BrowserPostLoginParams& operator=(const BrowserPostLoginParams&) = delete;
   
   DefaultPathsPtr default_paths;
   
-  absl::optional<std::string> REMOVED_2;
+  std::optional<std::string> REMOVED_2;
   
-  absl::optional<std::string> cros_user_id_hash;
+  std::optional<std::string> cros_user_id_hash;
   
-  absl::optional<std::vector<uint8_t>> device_account_policy;
+  std::optional<std::vector<uint8_t>> device_account_policy;
   
   uint64_t last_policy_fetch_attempt_timestamp;
   
@@ -5746,21 +6200,21 @@ BrowserPostLoginParams& operator=(const BrowserPostLoginParams&) = delete;
   
   ::crosapi::mojom::AccountPtr device_account;
   
-  bool web_apps_enabled;
+  bool REMOVED_8;
   
-  bool standalone_browser_is_primary;
+  bool REMOVED_9;
   
   OpenUrlFrom startup_urls_from;
   
-  absl::optional<std::vector<::GURL>> REMOVED_11;
+  std::optional<std::vector<::GURL>> REMOVED_11;
   
-  bool standalone_browser_is_only_browser;
+  bool REMOVED_12;
   
   bool publish_chrome_apps;
   
   bool publish_hosted_apps;
   
-  absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy;
+  std::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy;
   
   bool is_current_user_device_owner;
   
@@ -6007,6 +6461,42 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+EntropySourcePtr EntropySource::Clone() const {
+  return New(
+      mojo::Clone(low_entropy),
+      mojo::Clone(old_low_entropy),
+      mojo::Clone(pseudo_low_entropy)
+  );
+}
+
+template <typename T, EntropySource::EnableIfSame<T>*>
+bool EntropySource::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->low_entropy, other_struct.low_entropy))
+    return false;
+  if (!mojo::Equals(this->old_low_entropy, other_struct.old_low_entropy))
+    return false;
+  if (!mojo::Equals(this->pseudo_low_entropy, other_struct.pseudo_low_entropy))
+    return false;
+  return true;
+}
+
+template <typename T, EntropySource::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.low_entropy < rhs.low_entropy)
+    return true;
+  if (rhs.low_entropy < lhs.low_entropy)
+    return false;
+  if (lhs.old_low_entropy < rhs.old_low_entropy)
+    return true;
+  if (rhs.old_low_entropy < lhs.old_low_entropy)
+    return false;
+  if (lhs.pseudo_low_entropy < rhs.pseudo_low_entropy)
+    return true;
+  if (rhs.pseudo_low_entropy < lhs.pseudo_low_entropy)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 BrowserInitParamsPtr BrowserInitParams::Clone() const {
   return New(
       mojo::Clone(crosapi_version),
@@ -6027,9 +6517,9 @@ BrowserInitParamsPtr BrowserInitParams::Clone() const {
       mojo::Clone(REMOVED_14),
       mojo::Clone(initial_browser_action),
       mojo::Clone(device_account),
-      mojo::Clone(web_apps_enabled),
+      mojo::Clone(REMOVED_17),
       mojo::Clone(REMOVED_18),
-      mojo::Clone(standalone_browser_is_primary),
+      mojo::Clone(REMOVED_19),
       mojo::Clone(native_theme_info),
       mojo::Clone(device_properties),
       mojo::Clone(ondevice_handwriting_support),
@@ -6039,7 +6529,7 @@ BrowserInitParamsPtr BrowserInitParams::Clone() const {
       mojo::Clone(device_settings),
       mojo::Clone(metrics_service_client_id),
       mojo::Clone(ukm_client_id),
-      mojo::Clone(standalone_browser_is_only_browser),
+      mojo::Clone(REMOVED_27),
       mojo::Clone(publish_chrome_apps),
       mojo::Clone(publish_hosted_apps),
       mojo::Clone(initial_keep_alive),
@@ -6060,11 +6550,11 @@ BrowserInitParamsPtr BrowserInitParams::Clone() const {
       mojo::Clone(REMOVED_48),
       mojo::Clone(enable_lacros_tts_support),
       mojo::Clone(lacros_selection),
-      mojo::Clone(enable_window_layout_menu),
+      mojo::Clone(REMOVED_51),
       mojo::Clone(is_cloud_gaming_device),
       mojo::Clone(gpu_sandbox_start_mode),
       mojo::Clone(extension_keep_list),
-      mojo::Clone(enable_partial_split_deprecated),
+      mojo::Clone(REMOVED_55),
       mojo::Clone(vc_controls_ui_enabled),
       mojo::Clone(standalone_browser_app_service_blocklist),
       mojo::Clone(enable_cpu_mappable_native_gpu_memory_buffers),
@@ -6081,7 +6571,10 @@ BrowserInitParamsPtr BrowserInitParams::Clone() const {
       mojo::Clone(is_floss_availability_check_needed),
       mojo::Clone(is_app_install_service_uri_enabled),
       mojo::Clone(is_desk_profiles_enabled),
-      mojo::Clone(is_cros_web_app_shortcut_ui_update_enabled)
+      mojo::Clone(is_cros_web_app_shortcut_ui_update_enabled),
+      mojo::Clone(entropy_source),
+      mojo::Clone(is_cros_shortstand_enabled),
+      mojo::Clone(should_disable_chrome_compose_on_chromeos)
   );
 }
 
@@ -6123,11 +6616,11 @@ bool BrowserInitParams::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->device_account, other_struct.device_account))
     return false;
-  if (!mojo::Equals(this->web_apps_enabled, other_struct.web_apps_enabled))
+  if (!mojo::Equals(this->REMOVED_17, other_struct.REMOVED_17))
     return false;
   if (!mojo::Equals(this->REMOVED_18, other_struct.REMOVED_18))
     return false;
-  if (!mojo::Equals(this->standalone_browser_is_primary, other_struct.standalone_browser_is_primary))
+  if (!mojo::Equals(this->REMOVED_19, other_struct.REMOVED_19))
     return false;
   if (!mojo::Equals(this->native_theme_info, other_struct.native_theme_info))
     return false;
@@ -6147,7 +6640,7 @@ bool BrowserInitParams::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->ukm_client_id, other_struct.ukm_client_id))
     return false;
-  if (!mojo::Equals(this->standalone_browser_is_only_browser, other_struct.standalone_browser_is_only_browser))
+  if (!mojo::Equals(this->REMOVED_27, other_struct.REMOVED_27))
     return false;
   if (!mojo::Equals(this->publish_chrome_apps, other_struct.publish_chrome_apps))
     return false;
@@ -6189,7 +6682,7 @@ bool BrowserInitParams::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->lacros_selection, other_struct.lacros_selection))
     return false;
-  if (!mojo::Equals(this->enable_window_layout_menu, other_struct.enable_window_layout_menu))
+  if (!mojo::Equals(this->REMOVED_51, other_struct.REMOVED_51))
     return false;
   if (!mojo::Equals(this->is_cloud_gaming_device, other_struct.is_cloud_gaming_device))
     return false;
@@ -6197,7 +6690,7 @@ bool BrowserInitParams::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->extension_keep_list, other_struct.extension_keep_list))
     return false;
-  if (!mojo::Equals(this->enable_partial_split_deprecated, other_struct.enable_partial_split_deprecated))
+  if (!mojo::Equals(this->REMOVED_55, other_struct.REMOVED_55))
     return false;
   if (!mojo::Equals(this->vc_controls_ui_enabled, other_struct.vc_controls_ui_enabled))
     return false;
@@ -6232,6 +6725,12 @@ bool BrowserInitParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->is_desk_profiles_enabled, other_struct.is_desk_profiles_enabled))
     return false;
   if (!mojo::Equals(this->is_cros_web_app_shortcut_ui_update_enabled, other_struct.is_cros_web_app_shortcut_ui_update_enabled))
+    return false;
+  if (!mojo::Equals(this->entropy_source, other_struct.entropy_source))
+    return false;
+  if (!mojo::Equals(this->is_cros_shortstand_enabled, other_struct.is_cros_shortstand_enabled))
+    return false;
+  if (!mojo::Equals(this->should_disable_chrome_compose_on_chromeos, other_struct.should_disable_chrome_compose_on_chromeos))
     return false;
   return true;
 }
@@ -6310,17 +6809,17 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.device_account < lhs.device_account)
     return false;
-  if (lhs.web_apps_enabled < rhs.web_apps_enabled)
+  if (lhs.REMOVED_17 < rhs.REMOVED_17)
     return true;
-  if (rhs.web_apps_enabled < lhs.web_apps_enabled)
+  if (rhs.REMOVED_17 < lhs.REMOVED_17)
     return false;
   if (lhs.REMOVED_18 < rhs.REMOVED_18)
     return true;
   if (rhs.REMOVED_18 < lhs.REMOVED_18)
     return false;
-  if (lhs.standalone_browser_is_primary < rhs.standalone_browser_is_primary)
+  if (lhs.REMOVED_19 < rhs.REMOVED_19)
     return true;
-  if (rhs.standalone_browser_is_primary < lhs.standalone_browser_is_primary)
+  if (rhs.REMOVED_19 < lhs.REMOVED_19)
     return false;
   if (lhs.native_theme_info < rhs.native_theme_info)
     return true;
@@ -6358,9 +6857,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.ukm_client_id < lhs.ukm_client_id)
     return false;
-  if (lhs.standalone_browser_is_only_browser < rhs.standalone_browser_is_only_browser)
+  if (lhs.REMOVED_27 < rhs.REMOVED_27)
     return true;
-  if (rhs.standalone_browser_is_only_browser < lhs.standalone_browser_is_only_browser)
+  if (rhs.REMOVED_27 < lhs.REMOVED_27)
     return false;
   if (lhs.publish_chrome_apps < rhs.publish_chrome_apps)
     return true;
@@ -6442,9 +6941,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.lacros_selection < lhs.lacros_selection)
     return false;
-  if (lhs.enable_window_layout_menu < rhs.enable_window_layout_menu)
+  if (lhs.REMOVED_51 < rhs.REMOVED_51)
     return true;
-  if (rhs.enable_window_layout_menu < lhs.enable_window_layout_menu)
+  if (rhs.REMOVED_51 < lhs.REMOVED_51)
     return false;
   if (lhs.is_cloud_gaming_device < rhs.is_cloud_gaming_device)
     return true;
@@ -6458,9 +6957,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.extension_keep_list < lhs.extension_keep_list)
     return false;
-  if (lhs.enable_partial_split_deprecated < rhs.enable_partial_split_deprecated)
+  if (lhs.REMOVED_55 < rhs.REMOVED_55)
     return true;
-  if (rhs.enable_partial_split_deprecated < lhs.enable_partial_split_deprecated)
+  if (rhs.REMOVED_55 < lhs.REMOVED_55)
     return false;
   if (lhs.vc_controls_ui_enabled < rhs.vc_controls_ui_enabled)
     return true;
@@ -6530,6 +7029,18 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.is_cros_web_app_shortcut_ui_update_enabled < lhs.is_cros_web_app_shortcut_ui_update_enabled)
     return false;
+  if (lhs.entropy_source < rhs.entropy_source)
+    return true;
+  if (rhs.entropy_source < lhs.entropy_source)
+    return false;
+  if (lhs.is_cros_shortstand_enabled < rhs.is_cros_shortstand_enabled)
+    return true;
+  if (rhs.is_cros_shortstand_enabled < lhs.is_cros_shortstand_enabled)
+    return false;
+  if (lhs.should_disable_chrome_compose_on_chromeos < rhs.should_disable_chrome_compose_on_chromeos)
+    return true;
+  if (rhs.should_disable_chrome_compose_on_chromeos < lhs.should_disable_chrome_compose_on_chromeos)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -6543,11 +7054,11 @@ BrowserPostLoginParamsPtr BrowserPostLoginParams::Clone() const {
       mojo::Clone(last_policy_fetch_attempt_timestamp),
       mojo::Clone(initial_browser_action),
       mojo::Clone(device_account),
-      mojo::Clone(web_apps_enabled),
-      mojo::Clone(standalone_browser_is_primary),
+      mojo::Clone(REMOVED_8),
+      mojo::Clone(REMOVED_9),
       mojo::Clone(startup_urls_from),
       mojo::Clone(REMOVED_11),
-      mojo::Clone(standalone_browser_is_only_browser),
+      mojo::Clone(REMOVED_12),
       mojo::Clone(publish_chrome_apps),
       mojo::Clone(publish_hosted_apps),
       mojo::Clone(device_account_component_policy),
@@ -6576,15 +7087,15 @@ bool BrowserPostLoginParams::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->device_account, other_struct.device_account))
     return false;
-  if (!mojo::Equals(this->web_apps_enabled, other_struct.web_apps_enabled))
+  if (!mojo::Equals(this->REMOVED_8, other_struct.REMOVED_8))
     return false;
-  if (!mojo::Equals(this->standalone_browser_is_primary, other_struct.standalone_browser_is_primary))
+  if (!mojo::Equals(this->REMOVED_9, other_struct.REMOVED_9))
     return false;
   if (!mojo::Equals(this->startup_urls_from, other_struct.startup_urls_from))
     return false;
   if (!mojo::Equals(this->REMOVED_11, other_struct.REMOVED_11))
     return false;
-  if (!mojo::Equals(this->standalone_browser_is_only_browser, other_struct.standalone_browser_is_only_browser))
+  if (!mojo::Equals(this->REMOVED_12, other_struct.REMOVED_12))
     return false;
   if (!mojo::Equals(this->publish_chrome_apps, other_struct.publish_chrome_apps))
     return false;
@@ -6637,13 +7148,13 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.device_account < lhs.device_account)
     return false;
-  if (lhs.web_apps_enabled < rhs.web_apps_enabled)
+  if (lhs.REMOVED_8 < rhs.REMOVED_8)
     return true;
-  if (rhs.web_apps_enabled < lhs.web_apps_enabled)
+  if (rhs.REMOVED_8 < lhs.REMOVED_8)
     return false;
-  if (lhs.standalone_browser_is_primary < rhs.standalone_browser_is_primary)
+  if (lhs.REMOVED_9 < rhs.REMOVED_9)
     return true;
-  if (rhs.standalone_browser_is_primary < lhs.standalone_browser_is_primary)
+  if (rhs.REMOVED_9 < lhs.REMOVED_9)
     return false;
   if (lhs.startup_urls_from < rhs.startup_urls_from)
     return true;
@@ -6653,9 +7164,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.REMOVED_11 < lhs.REMOVED_11)
     return false;
-  if (lhs.standalone_browser_is_only_browser < rhs.standalone_browser_is_only_browser)
+  if (lhs.REMOVED_12 < rhs.REMOVED_12)
     return true;
-  if (rhs.standalone_browser_is_only_browser < lhs.standalone_browser_is_only_browser)
+  if (rhs.REMOVED_12 < lhs.REMOVED_12)
     return false;
   if (lhs.publish_chrome_apps < rhs.publish_chrome_apps)
     return true;
@@ -6876,6 +7387,31 @@ struct  StructTraits<::crosapi::mojom::DeviceProperties::DataView,
 
 
 template <>
+struct  StructTraits<::crosapi::mojom::EntropySource::DataView,
+                                         ::crosapi::mojom::EntropySourcePtr> {
+  static bool IsNull(const ::crosapi::mojom::EntropySourcePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::EntropySourcePtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::EntropySource::low_entropy) low_entropy(
+      const ::crosapi::mojom::EntropySourcePtr& input) {
+    return input->low_entropy;
+  }
+
+  static decltype(::crosapi::mojom::EntropySource::old_low_entropy) old_low_entropy(
+      const ::crosapi::mojom::EntropySourcePtr& input) {
+    return input->old_low_entropy;
+  }
+
+  static decltype(::crosapi::mojom::EntropySource::pseudo_low_entropy) pseudo_low_entropy(
+      const ::crosapi::mojom::EntropySourcePtr& input) {
+    return input->pseudo_low_entropy;
+  }
+
+  static bool Read(::crosapi::mojom::EntropySource::DataView input, ::crosapi::mojom::EntropySourcePtr* output);
+};
+
+
+template <>
 struct  StructTraits<::crosapi::mojom::BrowserInitParams::DataView,
                                          ::crosapi::mojom::BrowserInitParamsPtr> {
   static bool IsNull(const ::crosapi::mojom::BrowserInitParamsPtr& input) { return !input; }
@@ -6971,9 +7507,9 @@ struct  StructTraits<::crosapi::mojom::BrowserInitParams::DataView,
     return input->device_account;
   }
 
-  static decltype(::crosapi::mojom::BrowserInitParams::web_apps_enabled) web_apps_enabled(
+  static decltype(::crosapi::mojom::BrowserInitParams::REMOVED_17) REMOVED_17(
       const ::crosapi::mojom::BrowserInitParamsPtr& input) {
-    return input->web_apps_enabled;
+    return input->REMOVED_17;
   }
 
   static decltype(::crosapi::mojom::BrowserInitParams::REMOVED_18) REMOVED_18(
@@ -6981,9 +7517,9 @@ struct  StructTraits<::crosapi::mojom::BrowserInitParams::DataView,
     return input->REMOVED_18;
   }
 
-  static decltype(::crosapi::mojom::BrowserInitParams::standalone_browser_is_primary) standalone_browser_is_primary(
+  static decltype(::crosapi::mojom::BrowserInitParams::REMOVED_19) REMOVED_19(
       const ::crosapi::mojom::BrowserInitParamsPtr& input) {
-    return input->standalone_browser_is_primary;
+    return input->REMOVED_19;
   }
 
   static const decltype(::crosapi::mojom::BrowserInitParams::native_theme_info)& native_theme_info(
@@ -7031,9 +7567,9 @@ struct  StructTraits<::crosapi::mojom::BrowserInitParams::DataView,
     return input->ukm_client_id;
   }
 
-  static decltype(::crosapi::mojom::BrowserInitParams::standalone_browser_is_only_browser) standalone_browser_is_only_browser(
+  static decltype(::crosapi::mojom::BrowserInitParams::REMOVED_27) REMOVED_27(
       const ::crosapi::mojom::BrowserInitParamsPtr& input) {
-    return input->standalone_browser_is_only_browser;
+    return input->REMOVED_27;
   }
 
   static decltype(::crosapi::mojom::BrowserInitParams::publish_chrome_apps) publish_chrome_apps(
@@ -7136,9 +7672,9 @@ struct  StructTraits<::crosapi::mojom::BrowserInitParams::DataView,
     return input->lacros_selection;
   }
 
-  static decltype(::crosapi::mojom::BrowserInitParams::enable_window_layout_menu) enable_window_layout_menu(
+  static decltype(::crosapi::mojom::BrowserInitParams::REMOVED_51) REMOVED_51(
       const ::crosapi::mojom::BrowserInitParamsPtr& input) {
-    return input->enable_window_layout_menu;
+    return input->REMOVED_51;
   }
 
   static decltype(::crosapi::mojom::BrowserInitParams::is_cloud_gaming_device) is_cloud_gaming_device(
@@ -7156,9 +7692,9 @@ struct  StructTraits<::crosapi::mojom::BrowserInitParams::DataView,
     return input->extension_keep_list;
   }
 
-  static decltype(::crosapi::mojom::BrowserInitParams::enable_partial_split_deprecated) enable_partial_split_deprecated(
+  static decltype(::crosapi::mojom::BrowserInitParams::REMOVED_55) REMOVED_55(
       const ::crosapi::mojom::BrowserInitParamsPtr& input) {
-    return input->enable_partial_split_deprecated;
+    return input->REMOVED_55;
   }
 
   static decltype(::crosapi::mojom::BrowserInitParams::vc_controls_ui_enabled) vc_controls_ui_enabled(
@@ -7246,6 +7782,21 @@ struct  StructTraits<::crosapi::mojom::BrowserInitParams::DataView,
     return input->is_cros_web_app_shortcut_ui_update_enabled;
   }
 
+  static const decltype(::crosapi::mojom::BrowserInitParams::entropy_source)& entropy_source(
+      const ::crosapi::mojom::BrowserInitParamsPtr& input) {
+    return input->entropy_source;
+  }
+
+  static decltype(::crosapi::mojom::BrowserInitParams::is_cros_shortstand_enabled) is_cros_shortstand_enabled(
+      const ::crosapi::mojom::BrowserInitParamsPtr& input) {
+    return input->is_cros_shortstand_enabled;
+  }
+
+  static decltype(::crosapi::mojom::BrowserInitParams::should_disable_chrome_compose_on_chromeos) should_disable_chrome_compose_on_chromeos(
+      const ::crosapi::mojom::BrowserInitParamsPtr& input) {
+    return input->should_disable_chrome_compose_on_chromeos;
+  }
+
   static bool Read(::crosapi::mojom::BrowserInitParams::DataView input, ::crosapi::mojom::BrowserInitParamsPtr* output);
 };
 
@@ -7296,14 +7847,14 @@ struct  StructTraits<::crosapi::mojom::BrowserPostLoginParams::DataView,
     return input->device_account;
   }
 
-  static decltype(::crosapi::mojom::BrowserPostLoginParams::web_apps_enabled) web_apps_enabled(
+  static decltype(::crosapi::mojom::BrowserPostLoginParams::REMOVED_8) REMOVED_8(
       const ::crosapi::mojom::BrowserPostLoginParamsPtr& input) {
-    return input->web_apps_enabled;
+    return input->REMOVED_8;
   }
 
-  static decltype(::crosapi::mojom::BrowserPostLoginParams::standalone_browser_is_primary) standalone_browser_is_primary(
+  static decltype(::crosapi::mojom::BrowserPostLoginParams::REMOVED_9) REMOVED_9(
       const ::crosapi::mojom::BrowserPostLoginParamsPtr& input) {
-    return input->standalone_browser_is_primary;
+    return input->REMOVED_9;
   }
 
   static decltype(::crosapi::mojom::BrowserPostLoginParams::startup_urls_from) startup_urls_from(
@@ -7316,9 +7867,9 @@ struct  StructTraits<::crosapi::mojom::BrowserPostLoginParams::DataView,
     return input->REMOVED_11;
   }
 
-  static decltype(::crosapi::mojom::BrowserPostLoginParams::standalone_browser_is_only_browser) standalone_browser_is_only_browser(
+  static decltype(::crosapi::mojom::BrowserPostLoginParams::REMOVED_12) REMOVED_12(
       const ::crosapi::mojom::BrowserPostLoginParamsPtr& input) {
-    return input->standalone_browser_is_only_browser;
+    return input->REMOVED_12;
   }
 
   static decltype(::crosapi::mojom::BrowserPostLoginParams::publish_chrome_apps) publish_chrome_apps(

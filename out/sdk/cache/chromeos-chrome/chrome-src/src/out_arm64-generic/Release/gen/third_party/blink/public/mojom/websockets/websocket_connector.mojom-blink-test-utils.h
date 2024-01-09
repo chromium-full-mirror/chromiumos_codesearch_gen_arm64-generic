@@ -16,7 +16,7 @@ namespace blink::mojom::blink {
 
 class PLATFORM_EXPORT WebSocketConnectorInterceptorForTesting : public WebSocketConnector {
   virtual WebSocketConnector* GetForwardingInterface() = 0;
-  void Connect(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const WTF::String& user_agent, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, const absl::optional<::base::UnguessableToken>& throttling_profile_id) override;
+  void Connect(const ::blink::KURL& url, const WTF::Vector<WTF::String>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const WTF::String& user_agent, bool has_storage_access, ::mojo::PendingRemote<::network::mojom::blink::WebSocketHandshakeClient> handshake_client, const std::optional<::base::UnguessableToken>& throttling_profile_id) override;
 };
 class PLATFORM_EXPORT WebSocketConnectorAsyncWaiter {
  public:

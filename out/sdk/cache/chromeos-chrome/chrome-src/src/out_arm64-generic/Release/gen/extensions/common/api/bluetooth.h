@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -99,8 +100,8 @@ struct AdapterState {
   ~AdapterState();
   AdapterState(const AdapterState&) = delete;
   AdapterState& operator=(const AdapterState&) = delete;
-  AdapterState(AdapterState&& rhs);
-  AdapterState& operator=(AdapterState&& rhs);
+  AdapterState(AdapterState&& rhs) noexcept;
+  AdapterState& operator=(AdapterState&& rhs) noexcept;
 
   // Populates a AdapterState object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -113,15 +114,12 @@ struct AdapterState {
   // Creates a deep copy of AdapterState.
   AdapterState Clone() const;
 
-  // Creates a AdapterState object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AdapterState> FromValueDeprecated(const base::Value& value);
-
   // Creates a AdapterState object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AdapterState> FromValue(const base::Value::Dict& value);
+  static std::optional<AdapterState> FromValue(const base::Value::Dict& value);
 
   // Creates a AdapterState object from a base::Value, or nullopt on failure.
-  static absl::optional<AdapterState> FromValue(const base::Value& value);
+  static std::optional<AdapterState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAdapterState object.
@@ -149,8 +147,8 @@ struct Device {
   ~Device();
   Device(const Device&) = delete;
   Device& operator=(const Device&) = delete;
-  Device(Device&& rhs);
-  Device& operator=(Device&& rhs);
+  Device(Device&& rhs) noexcept;
+  Device& operator=(Device&& rhs) noexcept;
 
   // Populates a Device object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -163,14 +161,11 @@ struct Device {
   // Creates a deep copy of Device.
   Device Clone() const;
 
-  // Creates a Device object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Device> FromValueDeprecated(const base::Value& value);
-
   // Creates a Device object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Device> FromValue(const base::Value::Dict& value);
+  static std::optional<Device> FromValue(const base::Value::Dict& value);
 
   // Creates a Device object from a base::Value, or nullopt on failure.
-  static absl::optional<Device> FromValue(const base::Value& value);
+  static std::optional<Device> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDevice object.
@@ -180,20 +175,20 @@ struct Device {
   std::string address;
 
   // The human-readable name of the device.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // The class of the device, a bit-field defined by
   // http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband.
-  absl::optional<int> device_class;
+  std::optional<int> device_class;
 
   // The Device ID record of the device, where available.
   VendorIdSource vendor_id_source;
 
-  absl::optional<int> vendor_id;
+  std::optional<int> vendor_id;
 
-  absl::optional<int> product_id;
+  std::optional<int> product_id;
 
-  absl::optional<int> device_id;
+  std::optional<int> device_id;
 
   // The type of the device, if recognized by Chrome. This is obtained from the
   // |deviceClass| field and only represents a small fraction of the possible
@@ -201,36 +196,36 @@ struct Device {
   DeviceType type;
 
   // Indicates whether or not the device is paired with the system.
-  absl::optional<bool> paired;
+  std::optional<bool> paired;
 
   // Indicates whether the device is currently connected to the system.
-  absl::optional<bool> connected;
+  std::optional<bool> connected;
 
   // Indicates whether the device is currently connecting to the system.
-  absl::optional<bool> connecting;
+  std::optional<bool> connecting;
 
   // Indicates whether the device is connectable.
-  absl::optional<bool> connectable;
+  std::optional<bool> connectable;
 
   // UUIDs of protocols, profiles and services advertised by the device. For
   // classic Bluetooth devices, this list is obtained from EIR data and SDP
   // tables. For Low Energy devices, this list is obtained from AD and GATT
   // primary services. For dual mode devices this may be obtained from both.
-  absl::optional<std::vector<std::string>> uuids;
+  std::optional<std::vector<std::string>> uuids;
 
   // The received signal strength, in dBm. This field is avaliable and valid only
   // during discovery. Outside of discovery it's value is not specified.
-  absl::optional<int> inquiry_rssi;
+  std::optional<int> inquiry_rssi;
 
   // The transmitted power level. This field is avaliable only for LE devices that
   // include this field in AD. It is avaliable and valid only during discovery.
-  absl::optional<int> inquiry_tx_power;
+  std::optional<int> inquiry_tx_power;
 
   // The transport type of the bluetooth device.
   Transport transport;
 
   // The remaining battery of the device.
-  absl::optional<int> battery_percentage;
+  std::optional<int> battery_percentage;
 
 };
 
@@ -239,8 +234,8 @@ struct BluetoothFilter {
   ~BluetoothFilter();
   BluetoothFilter(const BluetoothFilter&) = delete;
   BluetoothFilter& operator=(const BluetoothFilter&) = delete;
-  BluetoothFilter(BluetoothFilter&& rhs);
-  BluetoothFilter& operator=(BluetoothFilter&& rhs);
+  BluetoothFilter(BluetoothFilter&& rhs) noexcept;
+  BluetoothFilter& operator=(BluetoothFilter&& rhs) noexcept;
 
   // Populates a BluetoothFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -253,15 +248,12 @@ struct BluetoothFilter {
   // Creates a deep copy of BluetoothFilter.
   BluetoothFilter Clone() const;
 
-  // Creates a BluetoothFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<BluetoothFilter> FromValueDeprecated(const base::Value& value);
-
   // Creates a BluetoothFilter object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<BluetoothFilter> FromValue(const base::Value::Dict& value);
+  static std::optional<BluetoothFilter> FromValue(const base::Value::Dict& value);
 
   // Creates a BluetoothFilter object from a base::Value, or nullopt on failure.
-  static absl::optional<BluetoothFilter> FromValue(const base::Value& value);
+  static std::optional<BluetoothFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBluetoothFilter object.
@@ -272,7 +264,7 @@ struct BluetoothFilter {
 
   // Maximum number of bluetoth devices to return. Default is 0 (no limit) if
   // unspecified.
-  absl::optional<int> limit;
+  std::optional<int> limit;
 
 };
 
@@ -294,11 +286,11 @@ base::Value::List Create(const AdapterState& adapter_info);
 namespace GetDevice {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Address of device to get.
@@ -320,18 +312,18 @@ base::Value::List Create(const Device& device_info);
 namespace GetDevices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Some criteria to filter the list of returned bluetooth devices. If the filter
   // is not set or set to <code>{}</code>, returned device list will contain all
   // bluetooth devices. Right now this is only supported in ChromeOS, for other
   // platforms, a full list is returned.
-  absl::optional<BluetoothFilter> filter;
+  std::optional<BluetoothFilter> filter;
 
 
  private:

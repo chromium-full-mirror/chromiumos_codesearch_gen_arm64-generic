@@ -8,6 +8,7 @@
 #define SERVICES_VIZ_PUBLIC_MOJOM_COMPOSITING_FRAME_SINK_BUNDLE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

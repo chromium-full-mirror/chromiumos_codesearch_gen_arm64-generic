@@ -1666,6 +1666,12 @@ export const MediaImageSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const ChapterInformationSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const MediaMetadataSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1956,6 +1962,55 @@ export class MediaImage {
     this.type;
     /** @type { !Array<!gfx_mojom_Size> } */
     this.sizes;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    ChapterInformationSpec.$,
+    'ChapterInformation',
+    [
+      mojo.internal.StructField(
+        'title', 0,
+        0,
+        mojoBase_mojom_String16Spec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'startTime', 8,
+        0,
+        mojoBase_mojom_TimeDeltaSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'artwork', 16,
+        0,
+        mojo.internal.Array(MediaImageSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+/**
+ * @record
+ */
+export class ChapterInformation {
+  constructor() {
+    /** @type { !mojoBase_mojom_String16 } */
+    this.title;
+    /** @type { !mojoBase_mojom_TimeDelta } */
+    this.startTime;
+    /** @type { !Array<!MediaImage> } */
+    this.artwork;
   }
 }
 

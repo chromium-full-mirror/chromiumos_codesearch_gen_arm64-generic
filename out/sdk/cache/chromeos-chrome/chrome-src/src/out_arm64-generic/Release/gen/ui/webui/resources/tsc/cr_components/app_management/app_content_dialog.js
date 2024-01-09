@@ -20,5 +20,21 @@ export class AppManagementAppContentDialogElement extends AppManagementAppConten
             app: Object,
         };
     }
+    ready() {
+        super.ready();
+        this.addEventListener('keydown', e => this.trapFocus_(e));
+    }
+    // The close button is the only tabbable element in the dialog, so focus
+    // should stay on it.
+    trapFocus_(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            const dialogElement = this.shadowRoot?.getElementById('dialog');
+            const buttonElement = dialogElement?.shadowRoot?.querySelector('#close');
+            if (buttonElement) {
+                buttonElement.focus();
+            }
+        }
+    }
 }
 customElements.define(AppManagementAppContentDialogElement.is, AppManagementAppContentDialogElement);

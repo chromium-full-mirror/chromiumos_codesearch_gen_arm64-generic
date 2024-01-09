@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/metrics/structured/mojom/event.mojom-features.h"
 #include "components/metrics/structured/mojom/event.mojom-shared.h"
 #include "components/metrics/structured/mojom/event.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -63,49 +64,49 @@ class  MetricValue {
   // Construct an instance holding |hmac_value|.
   static MetricValuePtr
   NewHmacValue(
-      const std::string& hmac_value) {
+      const std::string& value) {
     auto result = MetricValuePtr(absl::in_place);
-    result->set_hmac_value(std::move(hmac_value));
+    result->set_hmac_value(std::move(value));
     return result;
   }
   // Construct an instance holding |long_value|.
   static MetricValuePtr
   NewLongValue(
-      int64_t long_value) {
+      int64_t value) {
     auto result = MetricValuePtr(absl::in_place);
-    result->set_long_value(std::move(long_value));
+    result->set_long_value(std::move(value));
     return result;
   }
   // Construct an instance holding |int_value|.
   static MetricValuePtr
   NewIntValue(
-      int32_t int_value) {
+      int32_t value) {
     auto result = MetricValuePtr(absl::in_place);
-    result->set_int_value(std::move(int_value));
+    result->set_int_value(std::move(value));
     return result;
   }
   // Construct an instance holding |double_value|.
   static MetricValuePtr
   NewDoubleValue(
-      double double_value) {
+      double value) {
     auto result = MetricValuePtr(absl::in_place);
-    result->set_double_value(std::move(double_value));
+    result->set_double_value(std::move(value));
     return result;
   }
   // Construct an instance holding |raw_str_value|.
   static MetricValuePtr
   NewRawStrValue(
-      const std::string& raw_str_value) {
+      const std::string& value) {
     auto result = MetricValuePtr(absl::in_place);
-    result->set_raw_str_value(std::move(raw_str_value));
+    result->set_raw_str_value(std::move(value));
     return result;
   }
   // Construct an instance holding |bool_value|.
   static MetricValuePtr
   NewBoolValue(
-      bool bool_value) {
+      bool value) {
     auto result = MetricValuePtr(absl::in_place);
-    result->set_bool_value(std::move(bool_value));
+    result->set_bool_value(std::move(value));
     return result;
   }
 
@@ -296,7 +297,7 @@ class  Event {
       const std::string& project_name,
       const std::string& event_name,
       base::flat_map<std::string, MetricValuePtr> metrics,
-      absl::optional<::base::TimeDelta> system_uptime,
+      std::optional<::base::TimeDelta> system_uptime,
       bool is_event_sequence);
 
 Event(const Event&) = delete;
@@ -383,7 +384,7 @@ Event& operator=(const Event&) = delete;
   
   base::flat_map<std::string, MetricValuePtr> metrics;
   
-  absl::optional<::base::TimeDelta> system_uptime;
+  std::optional<::base::TimeDelta> system_uptime;
   
   bool is_event_sequence;
 

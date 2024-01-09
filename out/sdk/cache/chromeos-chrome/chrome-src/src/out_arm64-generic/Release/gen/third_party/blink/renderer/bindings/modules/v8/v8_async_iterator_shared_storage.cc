@@ -88,7 +88,7 @@ return;
 
 
 
-AsyncIterator<SharedStorage>* blink_receiver = V8AsyncIteratorSharedStorage::ToWrappableUnsafe(v8_receiver);
+AsyncIterator<SharedStorage>* blink_receiver = V8AsyncIteratorSharedStorage::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

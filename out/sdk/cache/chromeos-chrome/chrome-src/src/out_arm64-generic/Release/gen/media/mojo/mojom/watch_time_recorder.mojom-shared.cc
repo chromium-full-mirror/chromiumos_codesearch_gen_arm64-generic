@@ -384,36 +384,6 @@ bool WatchTimeRecorder_UpdateUnderflowDuration_Params_Data::Validate(
 WatchTimeRecorder_UpdateUnderflowDuration_Params_Data::WatchTimeRecorder_UpdateUnderflowDuration_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
-
-// static
-bool WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data* object =
-      static_cast<const WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->last_timestamp, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->last_timestamp, validation_context))
-    return false;
-
-  return true;
-}
-
-WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data::WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
 }  // namespace internal
 }  // namespace mojom
 }  // namespace media

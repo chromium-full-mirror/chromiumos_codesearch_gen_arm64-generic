@@ -29,7 +29,6 @@
  */
 import * as Common from '../../core/common/common.js';
 import * as Host from '../../core/host/host.js';
-import * as Root from '../../core/root/root.js';
 import * as FormatterActions from '../../entrypoints/formatter_worker/FormatterActions.js'; // eslint-disable-line rulesdir/es_modules_import
 import * as IssuesManager from '../../models/issues_manager/issues_manager.js';
 import * as Persistence from '../../models/persistence/persistence.js';
@@ -40,6 +39,7 @@ import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as IssueCounter from '../../ui/components/issue_counter/issue_counter.js';
 import * as SourceFrame from '../../ui/legacy/components/source_frame/source_frame.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import { CoveragePlugin } from './CoveragePlugin.js';
 import { CSSPlugin } from './CSSPlugin.js';
 import { DebuggerPlugin } from './DebuggerPlugin.js';
@@ -74,6 +74,7 @@ export class UISourceCodeFrame extends Common.ObjectWrapper.eventMixin(SourceFra
     #sourcesPanelOpenedMetricsRecorded = false;
     constructor(uiSourceCode) {
         super(() => this.workingCopy());
+        this.element.setAttribute('jslog', `${VisualLogging.pane().context('source-code-frame')}`);
         this.uiSourceCodeInternal = uiSourceCode;
         this.muteSourceCodeEvents = false;
         this.persistenceBinding = Persistence.Persistence.PersistenceImpl.instance().binding(uiSourceCode);
@@ -170,8 +171,7 @@ export class UISourceCodeFrame extends Common.ObjectWrapper.eventMixin(SourceFra
         const canPrettyPrint = FormatterActions.FORMATTABLE_MEDIA_TYPES.includes(this.contentType) &&
             !this.uiSourceCodeInternal.project().canSetFileContent() &&
             Persistence.Persistence.PersistenceImpl.instance().binding(this.uiSourceCodeInternal) === null;
-        const autoPrettyPrint = Root.Runtime.experiments.isEnabled('sourcesPrettyPrint') &&
-            !this.uiSourceCodeInternal.contentType().isFromSourceMap();
+        const autoPrettyPrint = !this.uiSourceCodeInternal.contentType().isFromSourceMap();
         this.setCanPrettyPrint(canPrettyPrint, autoPrettyPrint);
     }
     wasShown() {
@@ -628,7 +628,7 @@ class RowMessageDecorations {
     static create(messages, doc) {
         const builder = new CodeMirror.RangeSetBuilder();
         for (const row of messages.rows) {
-            const line = doc.line(row[0].lineNumber() + 1);
+            const line = doc.line(Math.min(doc.lines, row[0].lineNumber() + 1));
             const minCol = row.reduce((col, msg) => Math.min(col, msg.columnNumber() || 0), line.length);
             if (minCol < line.length) {
                 builder.add(line.from + minCol, line.to, underlineMark);

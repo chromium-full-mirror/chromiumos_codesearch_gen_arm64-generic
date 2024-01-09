@@ -1,0 +1,26 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}settings-dropdown-menu{--md-select-width:100%}</style>
+
+
+<div id="geolocationDropdownDiv" class="settings-box first">
+  <settings-dropdown-menu id="geolocationDropdown" label="Label here" menu-options="[[geolocationMapTargets_]]" on-settings-control-change="recordMetric_" pref="{{prefs.ash.user.geolocation_access_level}}">
+  </settings-dropdown-menu>
+</div>
+<div class="settings-box">
+  <h2>
+    Apps
+  </h2>
+</div>
+<div class="settings-box">
+  <h2>
+    Websites
+  </h2>
+</div>
+<div class="settings-box">
+  <h2>
+    System services
+  </h2>
+</div>
+<!--_html_template_end_-->`;
+}

@@ -28,16 +28,16 @@ class  SafeBrowsing_CreateCheckerAndCheck_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t render_frame_id;
+  mojo::internal::Pointer<::blink::mojom::internal::LocalFrameToken_Data> frame_token;
   mojo::internal::Handle_Data receiver;
+  int32_t load_flags;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
   mojo::internal::Pointer<mojo::internal::String_Data> method;
   mojo::internal::Pointer<::network::mojom::internal::HttpRequestHeaders_Data> headers;
-  int32_t load_flags;
   int32_t request_destination;
   uint8_t has_user_gesture : 1;
   uint8_t originated_from_service_worker : 1;
-  uint8_t padfinal_[7];
+  uint8_t padfinal_[3];
 
  private:
   friend class mojo::internal::MessageFragment<SafeBrowsing_CreateCheckerAndCheck_Params_Data>;
@@ -303,7 +303,7 @@ class  ExtensionWebRequestReporter_SendWebRequestData_Params_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> origin_extension_id;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> telemetry_url;
   int32_t protocol_type;
-  uint8_t padfinal_[4];
+  int32_t contact_initiator_type;
 
  private:
   friend class mojo::internal::MessageFragment<ExtensionWebRequestReporter_SendWebRequestData_Params_Data>;
@@ -344,8 +344,25 @@ class SafeBrowsing_CreateCheckerAndCheck_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  int32_t render_frame_id() const {
-    return data_->render_frame_id;
+  inline void GetFrameTokenDataView(
+      ::blink::mojom::LocalFrameTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFrameToken(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::LocalFrameTokenDataView, UserType>(),
+    "Attempting to read the optional `frame_token` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadFrameToken` instead "
+    "of `ReadFrameToken if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->frame_token.Get();
+    return mojo::internal::Deserialize<::blink::mojom::LocalFrameTokenDataView>(
+        pointer, output, message_);
   }
   template <typename UserType>
   UserType TakeReceiver() {
@@ -890,6 +907,16 @@ class ExtensionWebRequestReporter_SendWebRequestData_ParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::safe_browsing::mojom::WebRequestProtocolType>(data_->protocol_type));
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadContactInitiatorType(UserType* output) const {
+    auto data_value = data_->contact_initiator_type;
+    return mojo::internal::Deserialize<::safe_browsing::mojom::WebRequestContactInitiatorType>(
+        data_value, output);
+  }
+  WebRequestContactInitiatorType contact_initiator_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::safe_browsing::mojom::WebRequestContactInitiatorType>(data_->contact_initiator_type));
+  }
  private:
   internal::ExtensionWebRequestReporter_SendWebRequestData_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -920,6 +947,11 @@ class ExtensionWebRequestReporter_Clone_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+inline void SafeBrowsing_CreateCheckerAndCheck_ParamsDataView::GetFrameTokenDataView(
+    ::blink::mojom::LocalFrameTokenDataView* output) {
+  auto pointer = data_->frame_token.Get();
+  *output = ::blink::mojom::LocalFrameTokenDataView(pointer, message_);
+}
 inline void SafeBrowsing_CreateCheckerAndCheck_ParamsDataView::GetUrlDataView(
     ::url::mojom::UrlDataView* output) {
   auto pointer = data_->url.Get();

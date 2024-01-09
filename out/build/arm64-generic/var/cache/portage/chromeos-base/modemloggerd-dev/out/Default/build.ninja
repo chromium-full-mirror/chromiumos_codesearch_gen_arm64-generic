@@ -1,0 +1,51 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r12/work/modemloggerd-dev-0.0.1 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _modemloggerd_client-install_config: phony obj/modemloggerd/_modemloggerd_client-install_config.stamp
+build libmodemloggerd: phony ./libmodemloggerd.a
+build modemloggerd-protos: phony ./libmodemloggerd-protos.a
+build modemloggerd-protos_gen: phony obj/modemloggerd/modemloggerd-protos_gen.stamp
+build modemloggerd_adaptors: phony obj/modemloggerd/modemloggerd_adaptors.stamp
+build modemloggerd_proxies: phony obj/modemloggerd/modemloggerd_proxies.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build modemloggerd$:_modemloggerd_client-install_config: phony obj/modemloggerd/_modemloggerd_client-install_config.stamp
+build modemloggerd$:all: phony obj/modemloggerd/all.stamp
+build modemloggerd$:libmodemloggerd: phony ./libmodemloggerd.a
+build modemloggerd$:modemloggerd: phony ./modemloggerd
+build modemloggerd$:modemloggerd-protos: phony ./libmodemloggerd-protos.a
+build modemloggerd$:modemloggerd-protos_gen: phony obj/modemloggerd/modemloggerd-protos_gen.stamp
+build modemloggerd$:modemloggerd_adaptors: phony obj/modemloggerd/modemloggerd_adaptors.stamp
+build modemloggerd$:modemloggerd_client: phony ./modemloggerd_client
+build modemloggerd$:modemloggerd_proxies: phony obj/modemloggerd/modemloggerd_proxies.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/modemloggerd/_modemloggerd_client-install_config.stamp $
+    obj/modemloggerd/all.stamp $
+    ./libmodemloggerd.a $
+    ./modemloggerd $
+    ./libmodemloggerd-protos.a $
+    obj/modemloggerd/modemloggerd-protos_gen.stamp $
+    obj/modemloggerd/modemloggerd_adaptors.stamp $
+    ./modemloggerd_client $
+    obj/modemloggerd/modemloggerd_proxies.stamp
+
+default all

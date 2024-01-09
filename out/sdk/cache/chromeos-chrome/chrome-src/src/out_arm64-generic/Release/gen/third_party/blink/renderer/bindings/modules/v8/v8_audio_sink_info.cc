@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AudioSinkInfo>::value,
     "AudioSinkInfo inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AudioSinkInfo::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioSinkInfo is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("AudioSinkInfo.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-AudioSinkInfo* blink_receiver = V8AudioSinkInfo::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+AudioSinkInfo* blink_receiver = V8AudioSinkInfo::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

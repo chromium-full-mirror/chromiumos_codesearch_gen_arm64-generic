@@ -631,9 +631,18 @@ class Job(ndb.Model):
             self.project,
     }
 
-  def _CanSandwich(self):
+  def _CanSandwich(self, differences=None):
     if not self.user or 'appspot.gserviceaccount.com' not in self.user:
       return False
+    # When a culprit is a non-chromium CL, culprit verification will use the
+    # first commit in the roll, which sets up an A/A experiment. Any culprit CL
+    # that is part of a roll will fail to verify. This issue occurs about 30% of
+    # the time.
+    # TODO(crbug/1507128): Re-enable culprit verification for non-chromium culprits.
+    if differences:
+      for _, change_b in differences:
+        if change_b.last_commit.repository != "chromium":
+          return False
     sandwich_subscription = ''
     if self.bug_id:
       issue = perf_issue_service_client.GetIssue(self.bug_id, self.project)
@@ -786,7 +795,7 @@ class Job(ndb.Model):
 
     # If the job is CABE-compatible:
     # call verification workflow for each difference.
-    if self._CanSandwich():
+    if self._CanSandwich(differences):
       regression_cnt, wf_executions = self._StartSandwichAndUpdateWorkflowGroup(
           improvement_dir, differences, result_values)
       if regression_cnt == 0:

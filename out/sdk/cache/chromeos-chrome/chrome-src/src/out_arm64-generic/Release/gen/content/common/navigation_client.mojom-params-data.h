@@ -46,6 +46,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) NavigationClient_CommitNavig
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::blink::mojom::internal::ParsedPermissionsPolicyDeclaration_Data>>> permissions_policy;
   mojo::internal::Pointer<::blink::mojom::internal::PolicyContainer_Data> policy_container;
   mojo::internal::Interface_Data code_cache_host;
+  mojo::internal::Interface_Data code_cache_host_for_background;
   mojo::internal::Interface_Data resource_cache;
   mojo::internal::Pointer<internal::CookieManagerInfo_Data> cookie_manager_info;
   mojo::internal::Pointer<internal::StorageInfo_Data> storage_info;
@@ -56,7 +57,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) NavigationClient_CommitNavig
   NavigationClient_CommitNavigation_Params_Data();
   ~NavigationClient_CommitNavigation_Params_Data() = delete;
 };
-static_assert(sizeof(NavigationClient_CommitNavigation_Params_Data) == 168,
+static_assert(sizeof(NavigationClient_CommitNavigation_Params_Data) == 176,
               "Bad sizeof(NavigationClient_CommitNavigation_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) NavigationClient_CommitNavigation_ResponseParams_Data {
  public:
@@ -355,6 +356,15 @@ static_assert(
     bool ret =
         mojo::internal::Deserialize<mojo::InterfacePtrDataView<::blink::mojom::CodeCacheHostInterfaceBase>>(
             &data_->code_cache_host, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeCodeCacheHostForBackground() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::blink::mojom::CodeCacheHostInterfaceBase>>(
+            &data_->code_cache_host_for_background, &result, message_);
     DCHECK(ret);
     return result;
   }

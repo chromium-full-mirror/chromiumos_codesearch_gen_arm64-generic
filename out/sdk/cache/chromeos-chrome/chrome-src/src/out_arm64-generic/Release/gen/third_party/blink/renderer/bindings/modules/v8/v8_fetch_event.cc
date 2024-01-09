@@ -72,11 +72,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, FetchEvent>::value,
     "FetchEvent does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&FetchEvent::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FetchEvent is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("FetchEvent.request.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(v8_receiver);
+FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->request();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,10 +99,10 @@ BLINK_BINDINGS_TRACE_EVENT("FetchEvent.clientId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->clientId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->clientId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -118,10 +114,10 @@ BLINK_BINDINGS_TRACE_EVENT("FetchEvent.resultingClientId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->resultingClientId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->resultingClientId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -133,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("FetchEvent.isReload.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(v8_receiver);
+FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isReload();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -159,7 +156,7 @@ BLINK_BINDINGS_TRACE_EVENT("FetchEvent.preloadResponse.get");
 
 
 
-FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(v8_receiver);
+FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -187,7 +184,7 @@ BLINK_BINDINGS_TRACE_EVENT("FetchEvent.handled.get");
 
 
 
-FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(v8_receiver);
+FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -203,8 +200,9 @@ BLINK_BINDINGS_TRACE_EVENT("FetchEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(v8_receiver);
+FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -271,7 +269,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(v8_receiver);
+FetchEvent* blink_receiver = V8FetchEvent::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

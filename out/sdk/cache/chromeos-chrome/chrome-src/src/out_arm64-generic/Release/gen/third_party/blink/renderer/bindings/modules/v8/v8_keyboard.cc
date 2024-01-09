@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Keyboard>::value,
     "Keyboard inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Keyboard::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Keyboard is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -110,7 +105,7 @@ UseCounter::Count(current_execution_context, WebFeature::kKeyboardApiGetLayoutMa
 
 
 
-Keyboard* blink_receiver = V8Keyboard::ToWrappableUnsafe(v8_receiver);
+Keyboard* blink_receiver = V8Keyboard::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -148,7 +143,7 @@ UseCounter::Count(current_execution_context, WebFeature::kKeyboardApiLock);
 
 
 
-Keyboard* blink_receiver = V8Keyboard::ToWrappableUnsafe(v8_receiver);
+Keyboard* blink_receiver = V8Keyboard::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -183,7 +178,7 @@ UseCounter::Count(current_execution_context, WebFeature::kKeyboardApiUnlock);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Keyboard* blink_receiver = V8Keyboard::ToWrappableUnsafe(v8_receiver);
+Keyboard* blink_receiver = V8Keyboard::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

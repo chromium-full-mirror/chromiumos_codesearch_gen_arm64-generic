@@ -52,12 +52,13 @@ CORE_EXPORT extern const WTF::AtomicString& kTextTrackList;
 CORE_EXPORT extern const WTF::AtomicString& kTrustedTypePolicyFactory;
 CORE_EXPORT extern const WTF::AtomicString& kVideoTrackList;
 CORE_EXPORT extern const WTF::AtomicString& kVisualViewport;
+CORE_EXPORT extern const WTF::AtomicString& kWebPrintJob;
 CORE_EXPORT extern const WTF::AtomicString& kWindow;
 CORE_EXPORT extern const WTF::AtomicString& kWorker;
 CORE_EXPORT extern const WTF::AtomicString& kXMLHttpRequest;
 CORE_EXPORT extern const WTF::AtomicString& kXMLHttpRequestUpload;
 
-constexpr unsigned kNamesCount = 39;
+constexpr unsigned kNamesCount = 40;
 
 CORE_EXPORT void Init();
 

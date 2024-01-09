@@ -760,8 +760,16 @@ mojo.internal.Struct(
         false /* nullable */,
         5,
       ),
+      mojo.internal.StructField(
+        'includeLoggingOutput', 40,
+        2,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        6,
+      ),
     ],
-    [[0, 40],[2, 48],[3, 48],[4, 56],[5, 56],]);
+    [[0, 40],[2, 48],[3, 48],[4, 56],[5, 56],[6, 56],]);
 
 
 
@@ -788,6 +796,8 @@ export class SodaConfig {
     this.maskOffensiveWords;
     /** @type { !boolean } */
     this.speakerChangeDetection;
+    /** @type { !boolean } */
+    this.includeLoggingOutput;
   }
 }
 

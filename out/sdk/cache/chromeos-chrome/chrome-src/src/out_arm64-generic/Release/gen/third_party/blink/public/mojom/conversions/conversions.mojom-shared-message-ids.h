@@ -16,6 +16,7 @@ namespace internal {
 
 constexpr uint32_t kAttributionHost_RegisterDataHost_Name = 0;
 constexpr uint32_t kAttributionHost_RegisterNavigationDataHost_Name = 1;
+constexpr uint32_t kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name = 2;
 
 }  // namespace internal
 

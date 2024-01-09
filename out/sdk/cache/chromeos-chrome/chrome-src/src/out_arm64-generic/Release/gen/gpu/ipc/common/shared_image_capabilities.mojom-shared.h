@@ -78,6 +78,9 @@ class SharedImageCapabilitiesDataView {
   bool disable_r8_shared_images() const {
     return data_->disable_r8_shared_images;
   }
+  bool disable_webgpu_shared_images() const {
+    return data_->disable_webgpu_shared_images;
+  }
   bool shared_image_d3d() const {
     return data_->shared_image_d3d;
   }
@@ -115,6 +118,7 @@ struct Serializer<::gpu::mojom::SharedImageCapabilitiesDataView, MaybeConstUserT
     fragment->supports_luminance_shared_images = Traits::supports_luminance_shared_images(input);
     fragment->supports_r16_shared_images = Traits::supports_r16_shared_images(input);
     fragment->disable_r8_shared_images = Traits::disable_r8_shared_images(input);
+    fragment->disable_webgpu_shared_images = Traits::disable_webgpu_shared_images(input);
     fragment->shared_image_d3d = Traits::shared_image_d3d(input);
     fragment->shared_image_swap_chain = Traits::shared_image_swap_chain(input);
   }

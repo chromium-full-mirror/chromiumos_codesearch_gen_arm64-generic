@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSPositionValue>::value,
     "CSSPositionValue inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSPositionValue::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSPositionValue is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPositionValue.x.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSPositionValue* blink_receiver = V8CSSPositionValue::ToWrappableUnsafe(v8_receiver);
+CSSPositionValue* blink_receiver = V8CSSPositionValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -101,9 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPositionValue.x.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSPositionValue* blink_receiver = V8CSSPositionValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSPositionValue* blink_receiver = V8CSSPositionValue::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSPositionValue";
@@ -127,8 +123,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPositionValue.y.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSPositionValue* blink_receiver = V8CSSPositionValue::ToWrappableUnsafe(v8_receiver);
+CSSPositionValue* blink_receiver = V8CSSPositionValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -140,9 +137,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSPositionValue.y.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSPositionValue* blink_receiver = V8CSSPositionValue::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSPositionValue* blink_receiver = V8CSSPositionValue::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSPositionValue";

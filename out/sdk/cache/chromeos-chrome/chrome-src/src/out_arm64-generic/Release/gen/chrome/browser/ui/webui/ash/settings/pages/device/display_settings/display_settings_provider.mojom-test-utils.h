@@ -31,9 +31,29 @@ class  TabletModeObserverAsyncWaiter {
 };
 
 
+class  DisplayConfigurationObserverInterceptorForTesting : public DisplayConfigurationObserver {
+  virtual DisplayConfigurationObserver* GetForwardingInterface() = 0;
+  void OnDisplayConfigurationChanged() override;
+};
+class  DisplayConfigurationObserverAsyncWaiter {
+ public:
+  explicit DisplayConfigurationObserverAsyncWaiter(DisplayConfigurationObserver* proxy);
+
+  DisplayConfigurationObserverAsyncWaiter(const DisplayConfigurationObserverAsyncWaiter&) = delete;
+  DisplayConfigurationObserverAsyncWaiter& operator=(const DisplayConfigurationObserverAsyncWaiter&) = delete;
+
+  ~DisplayConfigurationObserverAsyncWaiter();
+
+ private:
+  DisplayConfigurationObserver* const proxy_;
+};
+
+
 class  DisplaySettingsProviderInterceptorForTesting : public DisplaySettingsProvider {
   virtual DisplaySettingsProvider* GetForwardingInterface() = 0;
   void ObserveTabletMode(::mojo::PendingRemote<TabletModeObserver> observer, ObserveTabletModeCallback callback) override;
+  void ObserveDisplayConfiguration(::mojo::PendingRemote<DisplayConfigurationObserver> observer) override;
+  void RecordChangingDisplaySettings(DisplaySettingsType type, DisplaySettingsValuePtr value) override;
 };
 class  DisplaySettingsProviderAsyncWaiter {
  public:

@@ -48,6 +48,9 @@ struct ScryptAuthBlockStateBuilder;
 struct RevocationState;
 struct RevocationStateBuilder;
 
+struct RecoverableKeyStoreState;
+struct RecoverableKeyStoreStateBuilder;
+
 struct AuthBlockState;
 struct AuthBlockStateBuilder;
 
@@ -1040,12 +1043,64 @@ inline ::flatbuffers::Offset<RevocationState> CreateRevocationState(
   return builder_.Finish();
 }
 
+struct RecoverableKeyStoreState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
+  typedef RecoverableKeyStoreStateBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_KEY_STORE_PROTO = 4
+  };
+  const ::flatbuffers::Vector<uint8_t> *key_store_proto() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_KEY_STORE_PROTO);
+  }
+  bool Verify(::flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_KEY_STORE_PROTO) &&
+           verifier.VerifyVector(key_store_proto()) &&
+           verifier.EndTable();
+  }
+};
+
+struct RecoverableKeyStoreStateBuilder {
+  typedef RecoverableKeyStoreState Table;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_key_store_proto(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> key_store_proto) {
+    fbb_.AddOffset(RecoverableKeyStoreState::VT_KEY_STORE_PROTO, key_store_proto);
+  }
+  explicit RecoverableKeyStoreStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ::flatbuffers::Offset<RecoverableKeyStoreState> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = ::flatbuffers::Offset<RecoverableKeyStoreState>(end);
+    return o;
+  }
+};
+
+inline ::flatbuffers::Offset<RecoverableKeyStoreState> CreateRecoverableKeyStoreState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> key_store_proto = 0) {
+  RecoverableKeyStoreStateBuilder builder_(_fbb);
+  builder_.add_key_store_proto(key_store_proto);
+  return builder_.Finish();
+}
+
+inline ::flatbuffers::Offset<RecoverableKeyStoreState> CreateRecoverableKeyStoreStateDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<uint8_t> *key_store_proto = nullptr) {
+  auto key_store_proto__ = key_store_proto ? _fbb.CreateVector<uint8_t>(*key_store_proto) : 0;
+  return cryptohome::_serialized_::CreateRecoverableKeyStoreState(
+      _fbb,
+      key_store_proto__);
+}
+
 struct AuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_STATE_TYPE = 4,
     VT_STATE = 6,
-    VT_REVOCATION_STATE = 8
+    VT_REVOCATION_STATE = 8,
+    VT_RECOVERABLE_KEY_STORE_STATE = 10
   };
   cryptohome::_serialized_::AuthBlockStateUnion state_type() const {
     return static_cast<cryptohome::_serialized_::AuthBlockStateUnion>(GetField<uint8_t>(VT_STATE_TYPE, 0));
@@ -1084,6 +1139,9 @@ struct AuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   const cryptohome::_serialized_::RevocationState *revocation_state() const {
     return GetPointer<const cryptohome::_serialized_::RevocationState *>(VT_REVOCATION_STATE);
   }
+  const cryptohome::_serialized_::RecoverableKeyStoreState *recoverable_key_store_state() const {
+    return GetPointer<const cryptohome::_serialized_::RecoverableKeyStoreState *>(VT_RECOVERABLE_KEY_STORE_STATE);
+  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint8_t>(verifier, VT_STATE_TYPE, 1) &&
@@ -1091,6 +1149,8 @@ struct AuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
            VerifyAuthBlockStateUnion(verifier, state(), state_type()) &&
            VerifyOffset(verifier, VT_REVOCATION_STATE) &&
            verifier.VerifyTable(revocation_state()) &&
+           VerifyOffset(verifier, VT_RECOVERABLE_KEY_STORE_STATE) &&
+           verifier.VerifyTable(recoverable_key_store_state()) &&
            verifier.EndTable();
   }
 };
@@ -1144,6 +1204,9 @@ struct AuthBlockStateBuilder {
   void add_revocation_state(::flatbuffers::Offset<cryptohome::_serialized_::RevocationState> revocation_state) {
     fbb_.AddOffset(AuthBlockState::VT_REVOCATION_STATE, revocation_state);
   }
+  void add_recoverable_key_store_state(::flatbuffers::Offset<cryptohome::_serialized_::RecoverableKeyStoreState> recoverable_key_store_state) {
+    fbb_.AddOffset(AuthBlockState::VT_RECOVERABLE_KEY_STORE_STATE, recoverable_key_store_state);
+  }
   explicit AuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -1159,8 +1222,10 @@ inline ::flatbuffers::Offset<AuthBlockState> CreateAuthBlockState(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     cryptohome::_serialized_::AuthBlockStateUnion state_type = cryptohome::_serialized_::AuthBlockStateUnion::NONE,
     ::flatbuffers::Offset<void> state = 0,
-    ::flatbuffers::Offset<cryptohome::_serialized_::RevocationState> revocation_state = 0) {
+    ::flatbuffers::Offset<cryptohome::_serialized_::RevocationState> revocation_state = 0,
+    ::flatbuffers::Offset<cryptohome::_serialized_::RecoverableKeyStoreState> recoverable_key_store_state = 0) {
   AuthBlockStateBuilder builder_(_fbb);
+  builder_.add_recoverable_key_store_state(recoverable_key_store_state);
   builder_.add_revocation_state(revocation_state);
   builder_.add_state(state);
   builder_.add_state_type(state_type);

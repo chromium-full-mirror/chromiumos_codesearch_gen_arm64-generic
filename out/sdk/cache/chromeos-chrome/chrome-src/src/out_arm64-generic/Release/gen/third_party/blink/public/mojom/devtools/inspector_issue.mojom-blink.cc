@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -510,7 +511,7 @@ ContentSecurityPolicyIssueDetails::ContentSecurityPolicyIssueDetails()
       violating_node_id(0) {}
 
 ContentSecurityPolicyIssueDetails::ContentSecurityPolicyIssueDetails(
-    const absl::optional<::blink::KURL>& blocked_url_in,
+    const std::optional<::blink::KURL>& blocked_url_in,
     const WTF::String& violated_directive_in,
     bool is_report_only_in,
     ContentSecurityPolicyViolationType content_security_policy_violation_type_in,
@@ -534,7 +535,7 @@ void ContentSecurityPolicyIssueDetails::WriteIntoTrace(
     dict.AddItem(
       "blocked_url"), this->blocked_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::KURL>&>"
+      "<value of type const std::optional<::blink::KURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -614,8 +615,8 @@ CookieIssueDetails::CookieIssueDetails(
     WTF::Vector<CookieExclusionReason> exclusion_reason_in,
     WTF::Vector<CookieWarningReason> warning_reason_in,
     CookieOperation operation_in,
-    const absl::optional<::blink::KURL>& site_for_cookies_in,
-    const absl::optional<::blink::KURL>& cookie_url_in,
+    const std::optional<::blink::KURL>& site_for_cookies_in,
+    const std::optional<::blink::KURL>& cookie_url_in,
     AffectedRequestPtr request_in)
     : cookie(std::move(cookie_in)),
       exclusion_reason(std::move(exclusion_reason_in)),
@@ -670,7 +671,7 @@ void CookieIssueDetails::WriteIntoTrace(
     dict.AddItem(
       "site_for_cookies"), this->site_for_cookies,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::KURL>&>"
+      "<value of type const std::optional<::blink::KURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -679,7 +680,7 @@ void CookieIssueDetails::WriteIntoTrace(
     dict.AddItem(
       "cookie_url"), this->cookie_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::KURL>&>"
+      "<value of type const std::optional<::blink::KURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1118,7 +1119,7 @@ InspectorIssueDetails::InspectorIssueDetails(
     GenericIssueDetailsPtr generic_issue_details_in,
     DeprecationIssueDetailsPtr deprecation_issue_details_in,
     FederatedAuthUserInfoRequestIssueDetailsPtr federated_auth_user_info_request_details_in,
-    const absl::optional<::base::UnguessableToken>& issue_id_in)
+    const std::optional<::base::UnguessableToken>& issue_id_in)
     : cookie_issue_details(std::move(cookie_issue_details_in)),
       mixed_content_issue_details(std::move(mixed_content_issue_details_in)),
       blocked_by_response_issue_details(std::move(blocked_by_response_issue_details_in)),
@@ -1270,7 +1271,7 @@ void InspectorIssueDetails::WriteIntoTrace(
     dict.AddItem(
       "issue_id"), this->issue_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

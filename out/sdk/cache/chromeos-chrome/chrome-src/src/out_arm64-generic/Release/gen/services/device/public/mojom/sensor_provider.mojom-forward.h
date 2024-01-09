@@ -24,10 +24,6 @@
 namespace device::mojom {
 class SensorInitParamsDataView;
 
-class NullableDoubleDataView;
-
-class NullableReportingModeDataView;
-
 class VirtualSensorMetadataDataView;
 
 class VirtualSensorInformationDataView;
@@ -44,14 +40,8 @@ enum class GetVirtualSensorInformationError : int32_t;
 class SensorInitParams;
 using SensorInitParamsPtr = mojo::StructPtr<SensorInitParams>;
 
-class NullableDouble;
-using NullableDoublePtr = mojo::InlinedStructPtr<NullableDouble>;
-
-class NullableReportingMode;
-using NullableReportingModePtr = mojo::InlinedStructPtr<NullableReportingMode>;
-
 class VirtualSensorMetadata;
-using VirtualSensorMetadataPtr = mojo::StructPtr<VirtualSensorMetadata>;
+using VirtualSensorMetadataPtr = mojo::InlinedStructPtr<VirtualSensorMetadata>;
 
 class VirtualSensorInformation;
 using VirtualSensorInformationPtr = mojo::InlinedStructPtr<VirtualSensorInformation>;

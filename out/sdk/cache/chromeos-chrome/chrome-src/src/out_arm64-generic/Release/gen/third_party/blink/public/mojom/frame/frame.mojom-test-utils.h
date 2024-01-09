@@ -19,9 +19,6 @@ class BLINK_COMMON_EXPORT LocalFrameHostInterceptorForTesting : public LocalFram
   void EnterFullscreen(::blink::mojom::FullscreenOptionsPtr options, EnterFullscreenCallback callback) override;
   void ExitFullscreen() override;
   void FullscreenStateChanged(bool is_fullscreen, ::blink::mojom::FullscreenOptionsPtr options) override;
-  void Maximize() override;
-  void Minimize() override;
-  void Restore() override;
   void RegisterProtocolHandler(const std::string& scheme, const ::GURL& url, bool user_gesture) override;
   void UnregisterProtocolHandler(const std::string& scheme, const ::GURL& url, bool user_gesture) override;
   void DidDisplayInsecureContent() override;
@@ -30,7 +27,7 @@ class BLINK_COMMON_EXPORT LocalFrameHostInterceptorForTesting : public LocalFram
   void SetNeedsOcclusionTracking(bool needs_tracking) override;
   void SetVirtualKeyboardMode(::ui::mojom::VirtualKeyboardMode type) override;
   void VisibilityChanged(::blink::mojom::FrameVisibility visibility) override;
-  void DidChangeThemeColor(absl::optional<::SkColor> theme_color) override;
+  void DidChangeThemeColor(std::optional<::SkColor> theme_color) override;
   void DidChangeBackgroundColor(const ::SkColor4f& background_color, bool color_adjust) override;
   void DidFailLoadWithError(const ::GURL& url, int32_t error_code) override;
   void DidFocusFrame() override;
@@ -46,10 +43,10 @@ class BLINK_COMMON_EXPORT LocalFrameHostInterceptorForTesting : public LocalFram
   void DidChangeLoadProgress(double load_progress) override;
   void DidFinishLoad(const ::GURL& validated_url) override;
   void DispatchLoad() override;
-  void GoToEntryAtOffset(int32_t offset, bool has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) override;
-  void NavigateToNavigationApiKey(const std::string& key, bool has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) override;
+  void GoToEntryAtOffset(int32_t offset, bool has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) override;
+  void NavigateToNavigationApiKey(const std::string& key, bool has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) override;
   void NavigateEventHandlerPresenceChanged(bool present) override;
-  void UpdateTitle(const absl::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) override;
+  void UpdateTitle(const std::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) override;
   void UpdateUserActivationState(::blink::mojom::UserActivationUpdateType update_type, ::blink::mojom::UserActivationNotificationType notification_type) override;
   void DidConsumeHistoryUserActivation() override;
   void HandleAccessibilityFindInPageResult(FindInPageResultAXParamsPtr params) override;
@@ -70,25 +67,24 @@ class BLINK_COMMON_EXPORT LocalFrameHostInterceptorForTesting : public LocalFram
   void ShowContextMenu(::mojo::PendingAssociatedRemote<::blink::mojom::ContextMenuClient> client, const ::blink::UntrustworthyContextMenuParams& params) override;
   void DidLoadResourceFromMemoryCache(const ::GURL& url, const std::string& http_method, const std::string& mime_type, ::network::mojom::RequestDestination request_destination, bool include_credentials) override;
   void DidChangeFrameOwnerProperties(const ::blink::FrameToken& child_frame_token, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties) override;
-  void DidChangeOpener(const absl::optional<::blink::LocalFrameToken>& opener_frame) override;
+  void DidChangeOpener(const std::optional<::blink::LocalFrameToken>& opener_frame) override;
   void DidChangeFramePolicy(const ::blink::FrameToken& child_frame_token, const ::blink::FramePolicy& frame_policy) override;
   void DidChangeIframeAttributes(const ::blink::FrameToken& child_frame_token, IframeAttributesPtr attributes) override;
   void CapturePaintPreviewOfSubframe(const ::gfx::Rect& clip_rect, const ::base::UnguessableToken& guid) override;
   void SetCloseListener(::mojo::PendingRemote<::blink::mojom::CloseListener> listener) override;
   void Detach() override;
   void GetKeepAliveHandleFactory(::mojo::PendingReceiver<::blink::mojom::KeepAliveHandleFactory> factory) override;
-  void DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const ::std::u16string& msg, uint32_t line_number, const absl::optional<::std::u16string>& source_id, const absl::optional<::std::u16string>& untrusted_stack_trace) override;
+  void DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const ::std::u16string& msg, uint32_t line_number, const std::optional<::std::u16string>& source_id, const std::optional<::std::u16string>& untrusted_stack_trace) override;
   void FrameSizeChanged(const ::gfx::Size& size) override;
   void DidInferColorScheme(::blink::mojom::PreferredColorScheme color_scheme) override;
   void DidChangeSrcDoc(const ::blink::FrameToken& child_frame_token, const std::string& srcdoc_value) override;
   void ReceivedDelegatedCapability(::blink::mojom::DelegatedCapability delegated_capability) override;
-  void SendFencedFrameReportingBeacon(const std::string& event_data, const std::string& event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features) override;
-  void SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features) override;
+  void SendFencedFrameReportingBeacon(const std::string& event_data, const std::string& event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations) override;
+  void SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url) override;
   void SendLegacyTechEvent(const std::string& type, LegacyTechEventCodeLocationPtr code_location) override;
-  void SetFencedFrameAutomaticBeaconReportEventData(const std::string& event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features, bool once) override;
+  void SetFencedFrameAutomaticBeaconReportEventData(::blink::mojom::AutomaticBeaconType event_type, const std::string& event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, bool once, bool cross_origin_exposed) override;
   void SendPrivateAggregationRequestsForFencedFrameEvent(const std::string& event_type) override;
-  void CreatePortal(::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, CreatePortalCallback callback) override;
-  void AdoptPortal(const ::blink::PortalToken& portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, AdoptPortalCallback callback) override;
+  void SetAttributionReportingRuntimeFeatures(::network::AttributionReportingRuntimeFeatures features) override;
   void CreateFencedFrame(::mojo::PendingAssociatedReceiver<::blink::mojom::FencedFrameOwnerHost> fenced_frame, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, const ::blink::RemoteFrameToken& frame_token, const ::base::UnguessableToken& devtools_frame_token) override;
   void OnViewTransitionOptInChanged(ViewTransitionSameOriginOptIn view_transition_opt_in) override;
   void StartDragging(::blink::mojom::DragDataPtr drag_data, ::blink::DragOperationsMask operations_allowed, const ::SkBitmap& image, const ::gfx::Vector2d& cursor_offset_in_dip, const ::gfx::Rect& drag_obj_rect_in_dip, ::blink::mojom::DragEventSourceInfoPtr event_info) override;
@@ -116,12 +112,6 @@ class BLINK_COMMON_EXPORT LocalFrameHostAsyncWaiter {
   void RunBeforeUnloadConfirm(
       bool is_reload, bool* out_success);
   bool RunBeforeUnloadConfirm(bool is_reload);
-  void CreatePortal(
-      ::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_initial_replicated_state, ::blink::PortalToken* out_portal_token, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token);
-  
-  void AdoptPortal(
-      const ::blink::PortalToken& portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_replicated_state, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token);
-  
 
  private:
   LocalFrameHost* const proxy_;
@@ -154,7 +144,6 @@ class BLINK_COMMON_EXPORT LocalFrameInterceptorForTesting : public LocalFrame {
   void NotifyUserActivation(::blink::mojom::UserActivationNotificationType notification_type) override;
   void NotifyVirtualKeyboardOverlayRect(const ::gfx::Rect& keyboard_rect) override;
   void AddMessageToConsole(::blink::mojom::ConsoleMessageLevel level, const std::string& message, bool discard_duplicates) override;
-  void AddInspectorIssue(::blink::mojom::InspectorIssueInfoPtr info) override;
   void SwapInImmediately() override;
   void CheckCompleted() override;
   void StopLoading() override;
@@ -168,29 +157,31 @@ class BLINK_COMMON_EXPORT LocalFrameInterceptorForTesting : public LocalFrame {
   void RenderFallbackContent() override;
   void BeforeUnload(bool is_reload, BeforeUnloadCallback callback) override;
   void MediaPlayerActionAt(const ::gfx::Point& location, ::blink::mojom::MediaPlayerActionPtr action) override;
+  void RequestVideoFrameAt(const ::gfx::Point& location, const ::gfx::Size& max_size, int32_t max_area, RequestVideoFrameAtCallback callback) override;
   void PluginActionAt(const ::gfx::Point& location, PluginActionType action) override;
-  void AdvanceFocusInFrame(::blink::mojom::FocusType focus_type, const absl::optional<::blink::RemoteFrameToken>& source_frame_token) override;
+  void AdvanceFocusInFrame(::blink::mojom::FocusType focus_type, const std::optional<::blink::RemoteFrameToken>& source_frame_token) override;
   void AdvanceFocusForIME(::blink::mojom::FocusType focus_type) override;
   void ReportContentSecurityPolicyViolation(::network::mojom::CSPViolationPtr violation) override;
   void DidUpdateFramePolicy(const ::blink::FramePolicy& frame_policy) override;
-  void PostMessageEvent(const absl::optional<::blink::RemoteFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) override;
+  void PostMessageEvent(const std::optional<::blink::RemoteFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) override;
   void JavaScriptMethodExecuteRequest(const ::std::u16string& object_name, const ::std::u16string& method_name, ::base::Value::List arguments, bool wants_result, JavaScriptMethodExecuteRequestCallback callback) override;
   void JavaScriptExecuteRequest(const ::std::u16string& javascript, bool wants_result, JavaScriptExecuteRequestCallback callback) override;
   void JavaScriptExecuteRequestForTests(const ::std::u16string& javascript, bool has_user_gesture, bool resolve_promises, int32_t world_id, JavaScriptExecuteRequestForTestsCallback callback) override;
   void JavaScriptExecuteRequestInIsolatedWorld(const ::std::u16string& javascript, bool wants_result, int32_t world_id, JavaScriptExecuteRequestInIsolatedWorldCallback callback) override;
   void BindReportingObserver(::mojo::PendingReceiver<::blink::mojom::ReportingObserver> receiver) override;
-  void UpdateOpener(const absl::optional<::blink::FrameToken>& opener_frame_token) override;
+  void UpdateOpener(const std::optional<::blink::FrameToken>& opener_frame_token) override;
   void GetSavableResourceLinks(GetSavableResourceLinksCallback callback) override;
   void MixedContentFound(const ::GURL& main_resource_url, const ::GURL& mixed_content_url, ::blink::mojom::RequestContextType request_context, bool was_allowed, const ::GURL& url_before_redirects, bool had_redirect, ::network::mojom::SourceLocationPtr source_location) override;
   void BindDevToolsAgent(::mojo::PendingAssociatedRemote<::blink::mojom::DevToolsAgentHost> agent_host, ::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> agent) override;
   void HandleRendererDebugURL(const ::GURL& url) override;
   void GetCanonicalUrlForSharing(GetCanonicalUrlForSharingCallback callback) override;
   void GetOpenGraphMetadata(GetOpenGraphMetadataCallback callback) override;
-  void SetNavigationApiHistoryEntriesForRestore(::blink::mojom::NavigationApiHistoryEntryArraysPtr entry_arrays) override;
+  void SetNavigationApiHistoryEntriesForRestore(::blink::mojom::NavigationApiHistoryEntryArraysPtr entry_arrays, NavigationApiEntryRestoreReason restore_reason) override;
   void NotifyNavigationApiOfDisposedEntries(const std::vector<std::string>& keys) override;
   void TraverseCancelled(const std::string& navigation_api_key, TraverseCancelledReason reason) override;
+  void DispatchNavigateEventForCrossDocumentTraversal(const ::GURL& url, const std::string& page_state, bool is_browser_initiated) override;
   void SnapshotDocumentForViewTransition(SnapshotDocumentForViewTransitionCallback callback) override;
-  void AddResourceTimingEntryForFailedSubframeNavigation(const ::blink::FrameToken& subframe_token, const ::GURL& initial_url, ::base::TimeTicks start_time, ::base::TimeTicks redirect_time, ::base::TimeTicks request_start, ::base::TimeTicks response_start, uint32_t response_code, const std::string& mime_type, const ::net::LoadTimingInfo& load_timing_info, ::net::HttpResponseInfo::ConnectionInfo connection_info, const std::string& alpn_negotiated_protocol, bool is_secure_transport, bool is_validated, const std::string& normalized_server_timing, const ::network::URLLoaderCompletionStatus& completion_status) override;
+  void AddResourceTimingEntryForFailedSubframeNavigation(const ::blink::FrameToken& subframe_token, const ::GURL& initial_url, ::base::TimeTicks start_time, ::base::TimeTicks redirect_time, ::base::TimeTicks request_start, ::base::TimeTicks response_start, uint32_t response_code, const std::string& mime_type, const ::net::LoadTimingInfo& load_timing_info, ::net::HttpConnectionInfo connection_info, const std::string& alpn_negotiated_protocol, bool is_secure_transport, bool is_validated, const std::string& normalized_server_timing, const ::network::URLLoaderCompletionStatus& completion_status) override;
   void RequestFullscreenDocumentElement() override;
 };
 class BLINK_COMMON_EXPORT LocalFrameAsyncWaiter {
@@ -207,6 +198,9 @@ class BLINK_COMMON_EXPORT LocalFrameAsyncWaiter {
   void BeforeUnload(
       bool is_reload, bool* out_proceed, ::base::TimeTicks* out_before_unload_start_time, ::base::TimeTicks* out_before_unload_end_time);
   
+  void RequestVideoFrameAt(
+      const ::gfx::Point& location, const ::gfx::Size& max_size, int32_t max_area, ::gfx::ImageSkia* out_image);
+  ::gfx::ImageSkia RequestVideoFrameAt(const ::gfx::Point& location, const ::gfx::Size& max_size, int32_t max_area);
   void JavaScriptMethodExecuteRequest(
       const ::std::u16string& object_name, const ::std::u16string& method_name, ::base::Value::List arguments, bool wants_result, ::base::Value* out_result);
   ::base::Value JavaScriptMethodExecuteRequest(const ::std::u16string& object_name, const ::std::u16string& method_name, ::base::Value::List arguments, bool wants_result);
@@ -223,8 +217,8 @@ class BLINK_COMMON_EXPORT LocalFrameAsyncWaiter {
       GetSavableResourceLinksReplyPtr* out_reply);
   GetSavableResourceLinksReplyPtr GetSavableResourceLinks();
   void GetCanonicalUrlForSharing(
-      absl::optional<::GURL>* out_canonical_url);
-  absl::optional<::GURL> GetCanonicalUrlForSharing();
+      std::optional<::GURL>* out_canonical_url);
+  std::optional<::GURL> GetCanonicalUrlForSharing();
   void GetOpenGraphMetadata(
       ::blink::mojom::OpenGraphMetadataPtr* out_metadata);
   ::blink::mojom::OpenGraphMetadataPtr GetOpenGraphMetadata();
@@ -268,8 +262,6 @@ class BLINK_COMMON_EXPORT LocalMainFrameInterceptorForTesting : public LocalMain
   void EnablePreferredSizeChangedMode() override;
   void ZoomToFindInPageRect(const ::gfx::Rect& rect_in_root_frame) override;
   void InstallCoopAccessMonitor(const ::blink::FrameToken& accessed_window, ::network::mojom::CrossOriginOpenerPolicyReporterParamsPtr coop_reporter_info, bool is_in_same_virtual_coop_related_group) override;
-  void OnPortalActivated(const ::blink::PortalToken& portal_token, ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> portal_client, ::blink::TransferableMessage data, uint64_t trace_id, OnPortalActivatedCallback callback) override;
-  void ForwardMessageFromHost(::blink::TransferableMessage message, const ::url::Origin& source_origin) override;
   void UpdateBrowserControlsState(::cc::BrowserControlsState constraints, ::cc::BrowserControlsState current, bool animate) override;
   void SetV8CompileHints(::base::ReadOnlySharedMemoryRegion data) override;
 };
@@ -287,9 +279,6 @@ class BLINK_COMMON_EXPORT LocalMainFrameAsyncWaiter {
   void GetFullPageSize(
       ::gfx::Size* out_full_page_size);
   ::gfx::Size GetFullPageSize();
-  void OnPortalActivated(
-      const ::blink::PortalToken& portal_token, ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> portal_client, ::blink::TransferableMessage data, uint64_t trace_id, ::blink::mojom::PortalActivateResult* out_result);
-  ::blink::mojom::PortalActivateResult OnPortalActivated(const ::blink::PortalToken& portal_token, ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> portal_client, ::blink::TransferableMessage data, uint64_t trace_id);
 
  private:
   LocalMainFrame* const proxy_;
@@ -309,6 +298,9 @@ class BLINK_COMMON_EXPORT LocalMainFrameHostInterceptorForTesting : public Local
   void SetWindowRect(const ::gfx::Rect& bounds, SetWindowRectCallback callback) override;
   void DidFirstVisuallyNonEmptyPaint() override;
   void DidAccessInitialMainDocument() override;
+  void Maximize() override;
+  void Minimize() override;
+  void Restore() override;
   void SetResizable(bool resizable) override;
 };
 class BLINK_COMMON_EXPORT LocalMainFrameHostAsyncWaiter {

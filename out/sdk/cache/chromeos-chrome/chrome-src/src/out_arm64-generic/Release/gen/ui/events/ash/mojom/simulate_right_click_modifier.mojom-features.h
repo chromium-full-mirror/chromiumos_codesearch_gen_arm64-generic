@@ -8,6 +8,7 @@
 #define UI_EVENTS_ASH_MOJOM_SIMULATE_RIGHT_CLICK_MODIFIER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

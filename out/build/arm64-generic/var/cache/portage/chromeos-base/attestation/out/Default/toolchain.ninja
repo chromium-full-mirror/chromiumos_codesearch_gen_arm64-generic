@@ -38,9 +38,8 @@ build obj/attestation/_attestationd-install_config.stamp: stamp
 build obj/attestation/_libattestation-install_config.stamp: stamp
 build obj/attestation/_pca_agent_client-install_config.stamp: stamp
 build obj/attestation/_pca_agentd-install_config.stamp: stamp
-build obj/attestation/all.stamp: stamp ./attestation_client ./attestationd obj/attestation/install_init.stamp obj/attestation/install_minijail_conf.stamp obj/attestation/install_policy.stamp obj/attestation/install_systemd.stamp ./lib/libattestation.so ./pca_agent_client ./pca_agentd ./attestation_testrunner
+build obj/attestation/all.stamp: stamp ./attestation_client ./attestationd obj/attestation/install_init.stamp obj/attestation/install_minijail_conf.stamp obj/attestation/install_policy.stamp obj/attestation/install_systemd.stamp ./lib/libattestation.so ./pca_agent_client ./pca_agentd
 subninja obj/attestation/attestation_client.ninja
-subninja obj/attestation/attestation_testrunner.ninja
 subninja obj/attestation/attestationd.ninja
 subninja obj/attestation/common_library.ninja
 build obj/attestation/install_init.stamp: stamp

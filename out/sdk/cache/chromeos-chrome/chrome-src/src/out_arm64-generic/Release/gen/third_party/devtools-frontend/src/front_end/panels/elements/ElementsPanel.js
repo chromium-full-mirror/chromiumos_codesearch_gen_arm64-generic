@@ -40,7 +40,6 @@ import * as Extensions from '../../models/extensions/extensions.js';
 import * as Buttons from '../../ui/components/buttons/buttons.js';
 import * as TreeOutline from '../../ui/components/tree_outline/tree_outline.js';
 import * as UI from '../../ui/legacy/legacy.js';
-import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import { AccessibilityTreeView } from './AccessibilityTreeView.js';
 import { ColorSwatchPopoverIcon } from './ColorSwatchPopoverIcon.js';
 import * as ElementsComponents from './components/components.js';
@@ -180,14 +179,20 @@ export class ElementsPanel extends UI.Panel.Panel {
     notFirstInspectElement;
     sidebarPaneView;
     stylesViewToReveal;
+    nodeInsertedTaskRunner = {
+        queue: Promise.resolve(),
+        run(task) {
+            this.queue = this.queue.then(task);
+        },
+    };
     cssStyleTrackerByCSSModel;
     constructor() {
         super('elements');
-        this.element.setAttribute('jslog', `${VisualLogging.elementsPanel()}`);
         this.splitWidget = new UI.SplitWidget.SplitWidget(true, true, 'elementsPanelSplitViewState', 325, 325);
         this.splitWidget.addEventListener(UI.SplitWidget.Events.SidebarSizeChanged, this.updateTreeOutlineVisibleWidth.bind(this));
         this.splitWidget.show(this.element);
         this.searchableViewInternal = new UI.SearchableView.SearchableView(this, null);
+        this.searchableViewInternal.setMinimalSearchQuerySize(0);
         this.searchableViewInternal.setMinimumSize(25, 28);
         this.searchableViewInternal.setPlaceholder(i18nString(UIStrings.findByStringSelectorOrXpath));
         const stackElement = this.searchableViewInternal.element;
@@ -311,9 +316,34 @@ export class ElementsPanel extends UI.Panel.Panel {
             treeOutline.focus();
         }
         domModel.addEventListener(SDK.DOMModel.Events.DocumentUpdated, this.documentUpdatedEvent, this);
+        domModel.addEventListener(SDK.DOMModel.Events.NodeInserted, this.handleNodeInserted, this);
+    }
+    handleNodeInserted(event) {
+        // Queue the task for the case when all the view transitions are added
+        // around the same time. Otherwise there is a race condition on
+        // accessing `cssText` of inspector stylesheet causing some rules
+        // to be not added.
+        this.nodeInsertedTaskRunner.run(async () => {
+            const node = event.data;
+            if (!node.isViewTransitionPseudoNode()) {
+                return;
+            }
+            const cssModel = node.domModel().cssModel();
+            const styleSheetHeader = await cssModel.requestViaInspectorStylesheet(node);
+            if (!styleSheetHeader) {
+                return;
+            }
+            const cssText = await cssModel.getStyleSheetText(styleSheetHeader.id);
+            // Do not add a rule for the view transition pseudo if there already is a rule for it.
+            if (cssText?.includes(`${node.simpleSelector()} {`)) {
+                return;
+            }
+            await cssModel.setStyleSheetText(styleSheetHeader.id, `${cssText}\n${node.simpleSelector()} {}`, false);
+        });
     }
     modelRemoved(domModel) {
         domModel.removeEventListener(SDK.DOMModel.Events.DocumentUpdated, this.documentUpdatedEvent, this);
+        domModel.removeEventListener(SDK.DOMModel.Events.NodeInserted, this.handleNodeInserted, this);
         const treeOutline = ElementsTreeOutline.forDOMModel(domModel);
         if (!treeOutline) {
             return;
@@ -872,7 +902,7 @@ export class ElementsPanel extends UI.Panel.Panel {
                 skippedInitialTabSelectedEvent = true;
             }
         };
-        this.sidebarPaneView = UI.ViewManager.ViewManager.instance().createTabbedLocation(() => UI.ViewManager.ViewManager.instance().showView('elements'), 'Styles-pane-sidebar', false, true);
+        this.sidebarPaneView = UI.ViewManager.ViewManager.instance().createTabbedLocation(() => UI.ViewManager.ViewManager.instance().showView('elements'), 'Styles-pane-sidebar', true, true);
         const tabbedPane = this.sidebarPaneView.tabbedPane();
         if (this.splitMode !== "Vertical" /* _splitMode.Vertical */) {
             this.splitWidget.installResizer(tabbedPane.headerElement());
@@ -1044,11 +1074,9 @@ const TrackedCSSProperties = [
         value: 'size',
     },
 ];
-let contextMenuProviderInstance;
 export class ContextMenuProvider {
     appendApplicableItems(event, contextMenu, object) {
-        if (!(object instanceof SDK.RemoteObject.RemoteObject && object.isNode()) &&
-            !(object instanceof SDK.DOMModel.DOMNode) && !(object instanceof SDK.DOMModel.DeferredDOMNode)) {
+        if (object instanceof SDK.RemoteObject.RemoteObject && !object.isNode()) {
             return;
         }
         if (ElementsPanel.instance().element.isAncestor(event.target)) {
@@ -1056,22 +1084,8 @@ export class ContextMenuProvider {
         }
         contextMenu.revealSection().appendItem(i18nString(UIStrings.revealInElementsPanel), () => Common.Revealer.reveal(object));
     }
-    static instance() {
-        if (!contextMenuProviderInstance) {
-            contextMenuProviderInstance = new ContextMenuProvider();
-        }
-        return contextMenuProviderInstance;
-    }
 }
-let dOMNodeRevealerInstance;
 export class DOMNodeRevealer {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!dOMNodeRevealerInstance || forceNew) {
-            dOMNodeRevealerInstance = new DOMNodeRevealer();
-        }
-        return dOMNodeRevealerInstance;
-    }
     reveal(node, omitFocus) {
         const panel = ElementsPanel.instance();
         panel.pendingNodeReveal = true;
@@ -1095,7 +1109,7 @@ export class DOMNodeRevealer {
             else if (node instanceof SDK.DOMModel.DeferredDOMNode) {
                 node.resolve(checkDeferredDOMNodeThenReveal);
             }
-            else if (node instanceof SDK.RemoteObject.RemoteObject) {
+            else {
                 const domModel = node.runtimeModel().target().model(SDK.DOMModel.DOMModel);
                 if (domModel) {
                     void domModel.pushObjectAsNodeToFrontend(node).then(checkRemoteObjectThenReveal);
@@ -1104,11 +1118,6 @@ export class DOMNodeRevealer {
                     const msg = i18nString(UIStrings.nodeCannotBeFoundInTheCurrent);
                     reject(new Platform.UserVisibleError.UserVisibleError(msg));
                 }
-            }
-            else {
-                const msg = i18nString(UIStrings.theRemoteObjectCouldNotBe);
-                reject(new Platform.UserVisibleError.UserVisibleError(msg));
-                panel.pendingNodeReveal = false;
             }
             function onNodeResolved(resolvedNode) {
                 panel.pendingNodeReveal = false;
@@ -1153,24 +1162,15 @@ export class DOMNodeRevealer {
         }
     }
 }
-let cSSPropertyRevealerInstance;
 export class CSSPropertyRevealer {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!cSSPropertyRevealerInstance || forceNew) {
-            cSSPropertyRevealerInstance = new CSSPropertyRevealer();
-        }
-        return cSSPropertyRevealerInstance;
-    }
     reveal(property) {
         const panel = ElementsPanel.instance();
         return panel.revealProperty(property);
     }
 }
-let elementsActionDelegateInstance;
 export class ElementsActionDelegate {
     handleAction(context, actionId) {
-        const node = UI.Context.Context.instance().flavor(SDK.DOMModel.DOMNode);
+        const node = context.flavor(SDK.DOMModel.DOMNode);
         if (!node) {
             return true;
         }
@@ -1214,13 +1214,6 @@ export class ElementsActionDelegate {
             }
         }
         return false;
-    }
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!elementsActionDelegateInstance || forceNew) {
-            elementsActionDelegateInstance = new ElementsActionDelegate();
-        }
-        return elementsActionDelegateInstance;
     }
 }
 let pseudoStateMarkerDecoratorInstance;

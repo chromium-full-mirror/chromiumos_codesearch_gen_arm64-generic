@@ -134,7 +134,9 @@ let XfSplitter = XfSplitter_1 = class XfSplitter extends XfBase {
     onTouchstart_(event) {
         if (event.touches.length === 1) {
             this.setupDrag_(event.touches[0].clientX, true);
-            event.preventDefault();
+            if (event.cancelable) {
+                event.preventDefault();
+            }
         }
     }
     onTouchMove_(event) {

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/storage/public/mojom/service_worker_storage_control.mojom-features.h"
 #include "components/services/storage/public/mojom/service_worker_storage_control.mojom-shared.h"
 #include "components/services/storage/public/mojom/service_worker_storage_control.mojom-forward.h"
 #include "components/services/storage/public/mojom/service_worker_database.mojom.h"
@@ -135,7 +136,7 @@ class ServiceWorkerResourceReader
   virtual ~ServiceWorkerResourceReader() = default;
 
 
-  using ReadResponseHeadCallback = base::OnceCallback<void(int32_t, ::network::mojom::URLResponseHeadPtr, absl::optional<::mojo_base::BigBuffer>)>;
+  using ReadResponseHeadCallback = base::OnceCallback<void(int32_t, ::network::mojom::URLResponseHeadPtr, std::optional<::mojo_base::BigBuffer>)>;
   
   virtual void ReadResponseHead(ReadResponseHeadCallback callback) = 0;
 
@@ -482,7 +483,7 @@ class ServiceWorkerStorageControl
   virtual void GetRegisteredStorageKeys(GetRegisteredStorageKeysCallback callback) = 0;
 
 
-  using FindRegistrationForClientUrlCallback = base::OnceCallback<void(::storage::mojom::ServiceWorkerDatabaseStatus, ServiceWorkerFindRegistrationResultPtr, const absl::optional<std::vector<::GURL>>&)>;
+  using FindRegistrationForClientUrlCallback = base::OnceCallback<void(::storage::mojom::ServiceWorkerDatabaseStatus, ServiceWorkerFindRegistrationResultPtr, const std::optional<std::vector<::GURL>>&)>;
   
   virtual void FindRegistrationForClientUrl(const ::GURL& client_url, const ::blink::StorageKey& key, FindRegistrationForClientUrlCallback callback) = 0;
 
@@ -494,7 +495,7 @@ class ServiceWorkerStorageControl
 
   using FindRegistrationForIdCallback = base::OnceCallback<void(::storage::mojom::ServiceWorkerDatabaseStatus, ServiceWorkerFindRegistrationResultPtr)>;
   
-  virtual void FindRegistrationForId(int64_t registration_id, const absl::optional<::blink::StorageKey>& key, FindRegistrationForIdCallback callback) = 0;
+  virtual void FindRegistrationForId(int64_t registration_id, const std::optional<::blink::StorageKey>& key, FindRegistrationForIdCallback callback) = 0;
 
 
   using GetRegistrationsForStorageKeyCallback = base::OnceCallback<void(::storage::mojom::ServiceWorkerDatabaseStatus, std::vector<ServiceWorkerFindRegistrationResultPtr>)>;
@@ -751,7 +752,7 @@ class  ServiceWorkerStorageControlProxy
   
   void FindRegistrationForScope(const ::GURL& scope, const ::blink::StorageKey& key, FindRegistrationForScopeCallback callback) final;
   
-  void FindRegistrationForId(int64_t registration_id, const absl::optional<::blink::StorageKey>& key, FindRegistrationForIdCallback callback) final;
+  void FindRegistrationForId(int64_t registration_id, const std::optional<::blink::StorageKey>& key, FindRegistrationForIdCallback callback) final;
   
   void GetRegistrationsForStorageKey(const ::blink::StorageKey& key, GetRegistrationsForStorageKeyCallback callback) final;
   

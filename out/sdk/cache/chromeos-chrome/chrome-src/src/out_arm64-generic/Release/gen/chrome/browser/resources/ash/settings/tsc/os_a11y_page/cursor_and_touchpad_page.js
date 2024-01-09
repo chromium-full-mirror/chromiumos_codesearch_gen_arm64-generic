@@ -19,10 +19,10 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { DevicePageBrowserProxyImpl } from '../device_page/device_page_browser_proxy.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './cursor_and_touchpad_page.html.js';
 import { CursorAndTouchpadPageBrowserProxyImpl } from './cursor_and_touchpad_page_browser_proxy.js';
@@ -109,31 +109,31 @@ export class SettingsCursorAndTouchpadPageElement extends SettingsCursorAndTouch
                             name: loadTimeData.getString('cursorColorBlack'),
                         },
                         {
-                            value: 0xd93025,
+                            value: 0xd93025, // Red 600
                             name: loadTimeData.getString('cursorColorRed'),
                         },
                         {
-                            value: 0xf29900,
+                            value: 0xf29900, //  Yellow 700
                             name: loadTimeData.getString('cursorColorYellow'),
                         },
                         {
-                            value: 0x1e8e3e,
+                            value: 0x1e8e3e, // Green 600
                             name: loadTimeData.getString('cursorColorGreen'),
                         },
                         {
-                            value: 0x03b6be,
+                            value: 0x03b6be, // Cyan 600
                             name: loadTimeData.getString('cursorColorCyan'),
                         },
                         {
-                            value: 0x1a73e8,
+                            value: 0x1a73e8, // Blue 600
                             name: loadTimeData.getString('cursorColorBlue'),
                         },
                         {
-                            value: 0xc61ad9,
+                            value: 0xc61ad9, // Magenta 600
                             name: loadTimeData.getString('cursorColorMagenta'),
                         },
                         {
-                            value: 0xf50057,
+                            value: 0xf50057, // Pink A400
                             name: loadTimeData.getString('cursorColorPink'),
                         },
                     ];
@@ -184,10 +184,23 @@ export class SettingsCursorAndTouchpadPageElement extends SettingsCursorAndTouch
              * Whether the face movements mouse cursor and keyboard control feature is
              * enabled.
              */
-            isAccessibilityFaceTrackingEnabled_: {
+            isAccessibilityFaceGazeEnabled_: {
                 type: Boolean,
                 value() {
-                    return loadTimeData.getBoolean('isAccessibilityGameFaceIntegrationEnabled');
+                    return loadTimeData.getBoolean('isAccessibilityFaceGazeEnabled');
+                },
+            },
+            /**
+             * The maximum size in density-independent pixels of the large mouse
+             * cursor. Note that this has no effect if it is larger than the maximum
+             * set in CursorWindowController.
+             */
+            largeCursorMaxSize_: {
+                type: Number,
+                value() {
+                    return loadTimeData.getBoolean('isAccessibilityExtraLargeCursorEnabled') ?
+                        128 :
+                        64;
                 },
             },
             /**

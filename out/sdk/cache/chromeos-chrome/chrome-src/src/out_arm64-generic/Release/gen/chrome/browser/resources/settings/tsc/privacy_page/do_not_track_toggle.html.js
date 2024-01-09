@@ -12,7 +12,11 @@ export function getTemplate() {
     <template is="dom-if" if="[[showDialog_]]" on-dom-change="onDomChange_" restamp>
       <cr-dialog id="confirmDialog" close-text="$i18n{close}" on-cancel="onDialogCancel_" on-close="onDialogClosed_">
         <div slot="title">$i18n{doNotTrackDialogTitle}</div>
-        <div slot="body">$i18nRaw{doNotTrackDialogMessage}</div>
+        <div slot="body">$i18n{doNotTrackDialogMessage}
+          <a href="$i18nRaw{doNotTrackLearnMoreURL}" target="_blank" aria-description="$i18n{opensInNewTab}" aria-label="$i18n{doNotTrackDialogLearnMoreA11yLabel}">
+            $i18n{learnMore}
+          </a>
+        </div>
         <div slot="button-container">
           <cr-button class="cancel-button" on-click="onDialogCancel_">
             $i18n{cancel}

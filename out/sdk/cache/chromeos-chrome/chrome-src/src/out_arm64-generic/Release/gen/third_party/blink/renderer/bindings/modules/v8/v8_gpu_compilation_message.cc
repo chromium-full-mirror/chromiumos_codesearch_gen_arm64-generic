@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUCompilationMessage>::value,
     "GPUCompilationMessage inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUCompilationMessage::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUCompilationMessage is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCompilationMessage.message.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->message();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->message();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,10 +96,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCompilationMessage.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -116,8 +111,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCompilationMessage.lineNum.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(v8_receiver);
+GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lineNum();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -130,8 +126,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCompilationMessage.linePos.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(v8_receiver);
+GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->linePos();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -144,8 +141,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCompilationMessage.offset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(v8_receiver);
+GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->offset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -158,8 +156,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCompilationMessage.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(v8_receiver);
+GPUCompilationMessage* blink_receiver = V8GPUCompilationMessage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }

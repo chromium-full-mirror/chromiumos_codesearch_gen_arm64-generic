@@ -47,10 +47,9 @@ class  DisplaySnapshot_Data {
   uint8_t has_overscan : 1;
   uint8_t has_content_protection_key : 1;
   uint8_t has_color_correction_matrix : 1;
-  uint8_t color_correction_in_linear_space : 1;
   uint8_t has_current_mode : 1;
   uint8_t has_native_mode : 1;
-  uint8_t pad10_[1];
+  uint8_t pad9_[1];
   int32_t type;
   mojo::internal::Pointer<::gfx::mojom::internal::Point_Data> origin;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> physical_size;
@@ -72,7 +71,7 @@ class  DisplaySnapshot_Data {
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> maximum_cursor_size;
   int32_t variable_refresh_rate_state;
   uint16_t vsync_rate_min;
-  uint8_t pad31_[2];
+  uint8_t pad30_[2];
   mojo::internal::Pointer<mojo::internal::Map_Data<uint32_t, mojo::internal::Pointer<mojo::internal::Array_Data<uint64_t>>>> drm_formats_and_modifiers;
 
  private:

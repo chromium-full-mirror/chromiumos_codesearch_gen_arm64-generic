@@ -7,6 +7,7 @@ import './suggest_tile.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import '../../../discount.mojom-webui.js';
 import { assert } from 'chrome://resources/js/assert.js';
+import { listenOnce } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { InteractionState } from '../../../history_cluster_types.mojom-webui.js';
 import { LayoutType } from '../../../history_clusters_layout_type.mojom-webui.js';
@@ -17,6 +18,18 @@ import { HistoryClustersProxyImpl } from './history_clusters_proxy.js';
 import { getTemplate } from './module.html.js';
 export const MAX_MODULE_ELEMENT_INSTANCES = 3;
 const CLUSTER_MIN_REQUIRED_URL_VISITS = 3;
+/**
+ * The overall image presence state of the visit tiles on unloading the page.
+ * This enum must match the numbering for NTPHistoryClustersImageDisplayState in
+ * enums.xml. These values are persisted to logs. Entries should not be
+ * renumbered, removed or reused.
+ */
+export var HistoryClusterImageDisplayState;
+(function (HistoryClusterImageDisplayState) {
+    HistoryClusterImageDisplayState[HistoryClusterImageDisplayState["NONE"] = 0] = "NONE";
+    HistoryClusterImageDisplayState[HistoryClusterImageDisplayState["SOME"] = 1] = "SOME";
+    HistoryClusterImageDisplayState[HistoryClusterImageDisplayState["ALL"] = 2] = "ALL";
+})(HistoryClusterImageDisplayState || (HistoryClusterImageDisplayState = {}));
 export class HistoryClustersModuleElement extends I18nMixin(PolymerElement) {
     constructor() {
         super(...arguments);
@@ -90,6 +103,17 @@ export class HistoryClustersModuleElement extends I18nMixin(PolymerElement) {
     ready() {
         super.ready();
         HistoryClustersProxyImpl.getInstance().handler.recordLayoutTypeShown(this.imagesEnabled_ ? LayoutType.kImages : LayoutType.kTextOnly, this.cluster.id);
+        // The `pagehide` event fires with the same timing as `unload` and is safe
+        // to use since NTP never enters back/forward-cache.
+        listenOnce(window, 'pagehide', () => {
+            const visitTiles = Array.from(this.shadowRoot.querySelectorAll('ntp-history-clusters-visit-tile'));
+            const count = visitTiles.reduce((acc, tile) => acc + (tile.hasImageUrl() ? 1 : 0), 0);
+            const state = (visitTiles.length === count) ?
+                HistoryClusterImageDisplayState.ALL :
+                (count === 0) ? HistoryClusterImageDisplayState.NONE :
+                    HistoryClusterImageDisplayState.SOME;
+            chrome.metricsPrivate.recordEnumerationValue(`NewTabPage.HistoryClusters.ImageDisplayState`, state, Object.keys(HistoryClusterImageDisplayState).length);
+        });
     }
     computeShowRelatedSearches() {
         return this.cluster.relatedSearches.length > 1;
@@ -192,32 +216,27 @@ async function createElement(cluster) {
         element.cart = cart;
     }
     element.discounts = [];
-    if (loadTimeData.getBoolean('historyClustersModuleDiscountsEnabled')) {
-        const { discounts } = await HistoryClustersProxyImpl.getInstance()
-            .handler.getDiscountsForCluster(cluster);
-        for (const visit of cluster.visits) {
-            let discountInValue = '';
-            for (const [url, urlDiscounts] of discounts) {
-                if (url.url === visit.normalizedUrl.url && urlDiscounts.length > 0) {
-                    // API is designed to support multiple discounts, but for now we only
-                    // have one.
-                    discountInValue = urlDiscounts[0].valueInText;
-                    visit.normalizedUrl.url = urlDiscounts[0].annotatedVisitUrl.url;
-                }
+    const { discounts } = await HistoryClustersProxyImpl.getInstance()
+        .handler.getDiscountsForCluster(cluster);
+    for (const visit of cluster.visits) {
+        let discountInValue = '';
+        for (const [url, urlDiscounts] of discounts) {
+            if (url.url === visit.normalizedUrl.url && urlDiscounts.length > 0) {
+                // API is designed to support multiple discounts, but for now we only
+                // have one.
+                discountInValue = urlDiscounts[0].valueInText;
+                visit.normalizedUrl.url = urlDiscounts[0].annotatedVisitUrl.url;
             }
-            element.discounts.push(discountInValue);
         }
-        // For visits without discounts, discount string in corresponding index in
-        // `discounts` array is empty.
-        // Only interested in the discounts for the first two visits (first three
-        // elements in the array) since they are the only visible ones.
-        const hasDiscount = element.discounts.slice(0, CLUSTER_MIN_REQUIRED_URL_VISITS)
-            .some((discount) => discount.length > 0);
-        chrome.metricsPrivate.recordBoolean(`NewTabPage.HistoryClusters.HasDiscount`, hasDiscount);
+        element.discounts.push(discountInValue);
     }
-    else {
-        element.discounts = Array(cluster.visits.length).fill('');
-    }
+    // For visits without discounts, discount string in corresponding index in
+    // `discounts` array is empty.
+    // Only interested in the discounts for the first two visits (first three
+    // elements in the array) since they are the only visible ones.
+    const hasDiscount = element.discounts.slice(0, CLUSTER_MIN_REQUIRED_URL_VISITS)
+        .some((discount) => discount.length > 0);
+    chrome.metricsPrivate.recordBoolean(`NewTabPage.HistoryClusters.HasDiscount`, hasDiscount);
     return element;
 }
 async function createElements() {

@@ -51,6 +51,10 @@ class BluetoothCallbackInterface {
       uint32_t in_cod,
       uint32_t in_bt_ssp_variant,
       uint32_t in_passkey) = 0;
+  virtual void OnSdpSearchComplete(
+      const brillo::VariantDictionary& in_device,
+      const std::vector<uint8_t>& in_searched_uuid,
+      const std::vector<brillo::VariantDictionary>& in_sdp_records) = 0;
 };
 
 // Interface adaptor for org::chromium::bluetooth::BluetoothCallback.
@@ -104,6 +108,10 @@ class BluetoothCallbackAdaptor {
         "OnSspRequest",
         base::Unretained(interface_),
         &BluetoothCallbackInterface::OnSspRequest);
+    itf->AddSimpleMethodHandler(
+        "OnSdpSearchComplete",
+        base::Unretained(interface_),
+        &BluetoothCallbackInterface::OnSdpSearchComplete);
   }
 
   static const char* GetIntrospectionXml() {
@@ -144,6 +152,11 @@ class BluetoothCallbackAdaptor {
         "      <arg name=\"cod\" type=\"u\" direction=\"in\"/>\n"
         "      <arg name=\"bt_ssp_variant\" type=\"u\" direction=\"in\"/>\n"
         "      <arg name=\"passkey\" type=\"u\" direction=\"in\"/>\n"
+        "    </method>\n"
+        "    <method name=\"OnSdpSearchComplete\">\n"
+        "      <arg name=\"device\" type=\"a{sv}\" direction=\"in\"/>\n"
+        "      <arg name=\"searched_uuid\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"sdp_records\" type=\"aa{sv}\" direction=\"in\"/>\n"
         "    </method>\n"
         "  </interface>\n";
   }

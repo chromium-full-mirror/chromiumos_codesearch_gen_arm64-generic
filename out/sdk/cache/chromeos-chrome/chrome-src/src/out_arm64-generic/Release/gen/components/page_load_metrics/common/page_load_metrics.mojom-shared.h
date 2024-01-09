@@ -1358,9 +1358,6 @@ class ResourceDataUpdateDataView {
   bool proxy_used() const {
     return data_->proxy_used;
   }
-  bool completed_before_fcp() const {
-    return data_->completed_before_fcp;
-  }
  private:
   internal::ResourceDataUpdate_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1512,6 +1509,19 @@ class UserInteractionLatencyDataView {
   UserInteractionType interaction_type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::page_load_metrics::mojom::UserInteractionType>(data_->interaction_type));
+  }
+  uint64_t interaction_offset() const {
+    return data_->interaction_offset;
+  }
+  inline void GetInteractionTimeDataView(
+      ::mojo_base::mojom::TimeTicksDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInteractionTime(UserType* output) {
+    
+    auto* pointer = data_->interaction_time.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeTicksDataView>(
+        pointer, output, message_);
   }
  private:
   internal::UserInteractionLatency_Data* data_ = nullptr;
@@ -2458,7 +2468,6 @@ struct Serializer<::page_load_metrics::mojom::ResourceDataUpdateDataView, MaybeC
         "null mime_type in ResourceDataUpdate struct");
     fragment->is_secure_scheme = Traits::is_secure_scheme(input);
     fragment->proxy_used = Traits::proxy_used(input);
-    fragment->completed_before_fcp = Traits::completed_before_fcp(input);
   }
 
   static bool Deserialize(::page_load_metrics::mojom::internal::ResourceDataUpdate_Data* input,
@@ -2670,6 +2679,19 @@ struct Serializer<::page_load_metrics::mojom::UserInteractionLatencyDataView, Ma
         "null interaction_latency in UserInteractionLatency struct");
     mojo::internal::Serialize<::page_load_metrics::mojom::UserInteractionType>(
         Traits::interaction_type(input), &fragment->interaction_type);
+    fragment->interaction_offset = Traits::interaction_offset(input);
+    decltype(Traits::interaction_time(input)) in_interaction_time = Traits::interaction_time(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->interaction_time)::BaseType> interaction_time_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeTicksDataView>(
+        in_interaction_time, interaction_time_fragment);
+    fragment->interaction_time.Set(
+        interaction_time_fragment.is_null() ? nullptr : interaction_time_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->interaction_time.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null interaction_time in UserInteractionLatency struct");
   }
 
   static bool Deserialize(::page_load_metrics::mojom::internal::UserInteractionLatency_Data* input,
@@ -3166,6 +3188,11 @@ inline void UserInteractionLatencyDataView::GetInteractionLatencyDataView(
     ::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->interaction_latency.Get();
   *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+inline void UserInteractionLatencyDataView::GetInteractionTimeDataView(
+    ::mojo_base::mojom::TimeTicksDataView* output) {
+  auto pointer = data_->interaction_time.Get();
+  *output = ::mojo_base::mojom::TimeTicksDataView(pointer, message_);
 }
 
 

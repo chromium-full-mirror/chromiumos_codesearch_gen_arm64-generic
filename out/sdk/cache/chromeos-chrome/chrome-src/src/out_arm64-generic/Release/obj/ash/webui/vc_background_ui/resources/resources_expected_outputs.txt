@@ -1,0 +1,4 @@
+gen/ash/webui/grit/ash_vc_background_resources.h
+gen/ash/webui/grit/ash_vc_background_resources_map.cc
+gen/ash/webui/grit/ash_vc_background_resources_map.h
+gen/ash/webui/ash_vc_background_resources.pak

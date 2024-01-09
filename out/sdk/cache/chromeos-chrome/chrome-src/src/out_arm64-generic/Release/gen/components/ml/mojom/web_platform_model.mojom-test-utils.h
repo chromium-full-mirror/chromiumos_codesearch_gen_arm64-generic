@@ -47,7 +47,7 @@ class  ModelAsyncWaiter {
 
   ~ModelAsyncWaiter();
   void Compute(
-      const base::flat_map<std::string, std::vector<uint8_t>>& input_tensors, ComputeResult* out_result, absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>* out_output_tensors);
+      const base::flat_map<std::string, std::vector<uint8_t>>& input_tensors, ComputeResult* out_result, std::optional<base::flat_map<std::string, std::vector<uint8_t>>>* out_output_tensors);
   
 
  private:

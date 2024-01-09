@@ -94,7 +94,8 @@ async function searchForWasmCall() {
             chai_1.assert.isAbove(totalTime, 0, 'mainWasm function execution time is displayed incorrectly');
         });
     });
-    (0, mocha_extensions_js_1.it)('is able to inspect the call stack for a wasm function from the bottom up', async () => {
+    // Flaky test
+    mocha_extensions_js_1.it.skipOnPlatforms(['mac'], '[crbug.com/1510890]: is able to inspect the call stack for a wasm function from the bottom up', async () => {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         const expectedActivities = ['mainWasm', 'js-to-wasm::i', '(anonymous)', 'Run Microtasks'];
         await (0, helper_js_1.step)('navigate to the Bottom Up tab', async () => {
@@ -110,7 +111,8 @@ async function searchForWasmCall() {
             await expandAndCheckActivityTree(frontend, expectedActivities);
         });
     });
-    (0, mocha_extensions_js_1.it)('is able to inspect the call stack for a wasm function from the call tree', async () => {
+    // Flaky test
+    mocha_extensions_js_1.it.skipOnPlatforms(['mac'], '[crbug.com/1510890]: is able to inspect the call stack for a wasm function from the call tree', async () => {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         const expectedActivities = [
             'Run Microtasks',

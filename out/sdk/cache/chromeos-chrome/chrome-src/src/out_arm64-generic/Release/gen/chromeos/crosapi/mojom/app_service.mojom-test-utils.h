@@ -47,6 +47,7 @@ class  AppControllerInterceptorForTesting : public AppController {
   void ExecuteContextMenuCommand(const std::string& app_id, const std::string& id, ExecuteContextMenuCommandCallback callback) override;
   void StopApp(const std::string& app_id) override;
   void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) override;
+  void UpdateAppSize(const std::string& app_id) override;
 };
 class  AppControllerAsyncWaiter {
  public:
@@ -87,6 +88,7 @@ class  AppServiceProxyInterceptorForTesting : public AppServiceProxy {
   void ShowAppManagementPage(const std::string& app_id) override;
   void SetSupportedLinksPreference(const std::string& app_id) override;
   void UninstallSilently(const std::string& app_id, ::apps::UninstallSource uninstall_source) override;
+  void InstallApp(::crosapi::mojom::InstallAppParamsPtr params, InstallAppCallback callback) override;
 };
 class  AppServiceProxyAsyncWaiter {
  public:
@@ -102,6 +104,9 @@ class  AppServiceProxyAsyncWaiter {
   void LoadIcon(
       const std::string& app_id, ::apps::IconKeyPtr icon_key, ::apps::IconType icon_type, int32_t size_hint_in_dip, ::apps::IconValuePtr* out_icon_value);
   ::apps::IconValuePtr LoadIcon(const std::string& app_id, ::apps::IconKeyPtr icon_key, ::apps::IconType icon_type, int32_t size_hint_in_dip);
+  void InstallApp(
+      ::crosapi::mojom::InstallAppParamsPtr params, ::crosapi::mojom::AppInstallResultPtr* out_result);
+  ::crosapi::mojom::AppInstallResultPtr InstallApp(::crosapi::mojom::InstallAppParamsPtr params);
 
  private:
   AppServiceProxy* const proxy_;
@@ -125,6 +130,64 @@ class  AppServiceSubscriberAsyncWaiter {
 
  private:
   AppServiceSubscriber* const proxy_;
+};
+
+
+class  AppShortcutPublisherInterceptorForTesting : public AppShortcutPublisher {
+  virtual AppShortcutPublisher* GetForwardingInterface() = 0;
+  void PublishShortcuts(std::vector<::apps::ShortcutPtr> deltas, PublishShortcutsCallback callback) override;
+  void RegisterAppShortcutController(::mojo::PendingRemote<AppShortcutController> controller, RegisterAppShortcutControllerCallback callback) override;
+  void ShortcutRemoved(const std::string& shortcut_id, ShortcutRemovedCallback callback) override;
+};
+class  AppShortcutPublisherAsyncWaiter {
+ public:
+  explicit AppShortcutPublisherAsyncWaiter(AppShortcutPublisher* proxy);
+
+  AppShortcutPublisherAsyncWaiter(const AppShortcutPublisherAsyncWaiter&) = delete;
+  AppShortcutPublisherAsyncWaiter& operator=(const AppShortcutPublisherAsyncWaiter&) = delete;
+
+  ~AppShortcutPublisherAsyncWaiter();
+  void PublishShortcuts(
+      std::vector<::apps::ShortcutPtr> deltas);
+  
+  void RegisterAppShortcutController(
+      ::mojo::PendingRemote<AppShortcutController> controller, ::crosapi::mojom::ControllerRegistrationResult* out_result);
+  ::crosapi::mojom::ControllerRegistrationResult RegisterAppShortcutController(::mojo::PendingRemote<AppShortcutController> controller);
+  void ShortcutRemoved(
+      const std::string& shortcut_id);
+  
+
+ private:
+  AppShortcutPublisher* const proxy_;
+};
+
+
+class  AppShortcutControllerInterceptorForTesting : public AppShortcutController {
+  virtual AppShortcutController* GetForwardingInterface() = 0;
+  void LaunchShortcut(const std::string& host_app_id, const std::string& local_shortcut_id, int64_t display_id, LaunchShortcutCallback callback) override;
+  void GetCompressedIcon(const std::string& host_app_id, const std::string& local_shortcut_id, int32_t size_in_dip, ::ui::ResourceScaleFactor scale_factor, GetCompressedIconCallback callback) override;
+  void RemoveShortcut(const std::string& host_app_id, const std::string& local_shortcut_id, ::apps::UninstallSource uninstall_source, RemoveShortcutCallback callback) override;
+};
+class  AppShortcutControllerAsyncWaiter {
+ public:
+  explicit AppShortcutControllerAsyncWaiter(AppShortcutController* proxy);
+
+  AppShortcutControllerAsyncWaiter(const AppShortcutControllerAsyncWaiter&) = delete;
+  AppShortcutControllerAsyncWaiter& operator=(const AppShortcutControllerAsyncWaiter&) = delete;
+
+  ~AppShortcutControllerAsyncWaiter();
+  void LaunchShortcut(
+      const std::string& host_app_id, const std::string& local_shortcut_id, int64_t display_id);
+  
+  void GetCompressedIcon(
+      const std::string& host_app_id, const std::string& local_shortcut_id, int32_t size_in_dip, ::ui::ResourceScaleFactor scale_factor, ::apps::IconValuePtr* out_icon_value);
+  ::apps::IconValuePtr GetCompressedIcon(const std::string& host_app_id, const std::string& local_shortcut_id, int32_t size_in_dip, ::ui::ResourceScaleFactor scale_factor);
+  void RemoveShortcut(
+      const std::string& host_app_id, const std::string& local_shortcut_id, ::apps::UninstallSource uninstall_source);
+  
+
+ private:
+  AppShortcutController* const proxy_;
 };
 
 

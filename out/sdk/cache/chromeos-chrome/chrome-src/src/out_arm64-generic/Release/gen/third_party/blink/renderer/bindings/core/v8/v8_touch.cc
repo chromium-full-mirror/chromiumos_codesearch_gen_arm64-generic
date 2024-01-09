@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Touch>::value,
     "Touch inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Touch::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Touch is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.identifier.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->identifier();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -105,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.target.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->target();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -119,8 +116,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.screenX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->screenX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -133,8 +131,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.screenY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->screenY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -147,8 +146,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.clientX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->clientX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -161,8 +161,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.clientY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->clientY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -175,8 +176,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.pageX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pageX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -189,8 +191,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.pageY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pageY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -203,8 +206,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.radiusX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->radiusX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -217,8 +221,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.radiusY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->radiusY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -231,8 +236,9 @@ BLINK_BINDINGS_TRACE_EVENT("Touch.rotationAngle.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rotationAngle();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -253,7 +259,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Touch_Force_Attribut
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Touch* blink_receiver = V8Touch::ToWrappableUnsafe(v8_receiver);
+Touch* blink_receiver = V8Touch::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->force();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 // [HighEntropy=Direct]

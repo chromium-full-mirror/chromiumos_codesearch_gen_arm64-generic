@@ -730,6 +730,15 @@ class AlertGroupWorkflow:
       cc = list(set(e for s in subscriptions for e in s.bug_cc_emails))
       labels = list(set(l for s in subscriptions for l in s.bug_labels))
 
+    if any(r for r in regressions if r.source and r.source == 'skia'):
+      # If any priority is specified in the labels, let's remove it
+      # since we want the skia bugs to be low priority.
+      for l in labels:
+        if l.startswith('Pri-'):
+          labels.remove(l)
+      labels.append('DoNotNotify')
+      labels.append('Pri-3')
+
     labels.append('Chromeperf-Auto-Triaged')
     # We layer on some default labels if they don't conflict with any of the
     # provided ones.
@@ -1022,7 +1031,7 @@ class AlertGroupWorkflow:
 
     try:
       # Add the public url only if at least one of the anomalies in the group are public
-      if any(not r.internal_only for r in regressions):
+      if any(not r.test.get().internal_only for r in regressions):
         skia_url_public = skia_helper.GetSkiaUrlForAlertGroup(
             self._group.key.string_id(), False, self._group.project_id)
         template_args['skia_url_text_public'] = skia_url_public
@@ -1106,12 +1115,17 @@ class AlertGroupWorkflow:
     # 2. has a valid bug_id
     # 3. hasn't start a bisection
     # 4. is not a summary metric (has story)
-    regressions = [
-        r for r in regressions or []
-        if (r.auto_bisect_enable and r.bug_id > 0
-            and not set(r.pinpoint_bisects) & set(self._group.bisection_ids)
-            and r.test.get().unescaped_story_name)
-    ]
+    filtered_regressions = []
+    for r in regressions:
+      if not r.bug_id:
+        logging.error('No bug_id found in anomaly %s', r.key.id())
+        continue
+      if (r.auto_bisect_enable and r.bug_id > 0
+          and not set(r.pinpoint_bisects) & set(self._group.bisection_ids)
+          and r.test.get().unescaped_story_name):
+        filtered_regressions.append(r)
+    regressions = filtered_regressions
+
     if not regressions:
       return None
 

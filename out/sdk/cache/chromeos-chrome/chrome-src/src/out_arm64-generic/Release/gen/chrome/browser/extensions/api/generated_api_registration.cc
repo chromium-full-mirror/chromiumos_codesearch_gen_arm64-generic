@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -93,6 +93,7 @@
 #if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
 #include "chrome/browser/chromeos/extensions/login_screen/login_state/login_state_api.h"
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#include "chrome/browser/chromeos/extensions/odfs_config_private/odfs_config_private_api.h"
 #include "chrome/browser/extensions/api/platform_keys/platform_keys_api.h"
 #include "chrome/browser/extensions/api/platform_keys/platform_keys_api.h"
 #if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
@@ -124,6 +125,9 @@
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
 #if BUILDFLAG(IS_CHROMEOS_ASH)
 #include "chrome/browser/accessibility/accessibility_extension_api_ash.h"
+#endif  // BUILDFLAG(IS_CHROMEOS_ASH)
+#if BUILDFLAG(IS_CHROMEOS_ASH)
+#include "chrome/browser/extensions/api/enterprise_kiosk_input/enterprise_kiosk_input_api.h"
 #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
 #include "chrome/browser/extensions/api/enterprise_platform_keys_private/enterprise_platform_keys_private_api.h"
 #if BUILDFLAG(IS_CHROMEOS_ASH)
@@ -293,6 +297,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       &NewExtensionFunction<AutofillPrivateCheckIfDeviceAuthAvailableFunction>,
       AutofillPrivateCheckIfDeviceAuthAvailableFunction::static_function_name(),
       AutofillPrivateCheckIfDeviceAuthAvailableFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<AutofillPrivateBulkDeleteAllCvcsFunction>,
+      AutofillPrivateBulkDeleteAllCvcsFunction::static_function_name(),
+      AutofillPrivateBulkDeleteAllCvcsFunction::static_histogram_value(),
     },
     #if BUILDFLAG(IS_CHROMEOS_ASH)
     {
@@ -619,6 +628,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       &NewExtensionFunction<AutotestPrivateSetAllowedPrefFunction>,
       AutotestPrivateSetAllowedPrefFunction::static_function_name(),
       AutotestPrivateSetAllowedPrefFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<AutotestPrivateClearAllowedPrefFunction>,
+      AutotestPrivateClearAllowedPrefFunction::static_function_name(),
+      AutotestPrivateClearAllowedPrefFunction::static_histogram_value(),
     },
     {
       &NewExtensionFunction<AutotestPrivateSetWhitelistedPrefFunction>,
@@ -976,6 +990,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       AutotestPrivateGetCurrentInputMethodDescriptorFunction::static_histogram_value(),
     },
     {
+      &NewExtensionFunction<AutotestPrivateOverrideOrcaResponseForTestingFunction>,
+      AutotestPrivateOverrideOrcaResponseForTestingFunction::static_function_name(),
+      AutotestPrivateOverrideOrcaResponseForTestingFunction::static_histogram_value(),
+    },
+    {
       &NewExtensionFunction<AutotestPrivateSetArcInteractiveStateFunction>,
       AutotestPrivateSetArcInteractiveStateFunction::static_function_name(),
       AutotestPrivateSetArcInteractiveStateFunction::static_histogram_value(),
@@ -984,6 +1003,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       &NewExtensionFunction<AutotestPrivateIsFieldTrialActiveFunction>,
       AutotestPrivateIsFieldTrialActiveFunction::static_function_name(),
       AutotestPrivateIsFieldTrialActiveFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<AutotestPrivateGetArcWakefulnessModeFunction>,
+      AutotestPrivateGetArcWakefulnessModeFunction::static_function_name(),
+      AutotestPrivateGetArcWakefulnessModeFunction::static_histogram_value(),
     },
     #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
     {
@@ -2688,6 +2712,46 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       DocumentScanScanFunction::static_function_name(),
       DocumentScanScanFunction::static_histogram_value(),
     },
+    {
+      &NewExtensionFunction<DocumentScanGetScannerListFunction>,
+      DocumentScanGetScannerListFunction::static_function_name(),
+      DocumentScanGetScannerListFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<DocumentScanOpenScannerFunction>,
+      DocumentScanOpenScannerFunction::static_function_name(),
+      DocumentScanOpenScannerFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<DocumentScanGetOptionGroupsFunction>,
+      DocumentScanGetOptionGroupsFunction::static_function_name(),
+      DocumentScanGetOptionGroupsFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<DocumentScanCloseScannerFunction>,
+      DocumentScanCloseScannerFunction::static_function_name(),
+      DocumentScanCloseScannerFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<DocumentScanSetOptionsFunction>,
+      DocumentScanSetOptionsFunction::static_function_name(),
+      DocumentScanSetOptionsFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<DocumentScanStartScanFunction>,
+      DocumentScanStartScanFunction::static_function_name(),
+      DocumentScanStartScanFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<DocumentScanCancelScanFunction>,
+      DocumentScanCancelScanFunction::static_function_name(),
+      DocumentScanCancelScanFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<DocumentScanReadScanDataFunction>,
+      DocumentScanReadScanDataFunction::static_function_name(),
+      DocumentScanReadScanDataFunction::static_histogram_value(),
+    },
     #endif  // BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
     {
       &NewExtensionFunction<EchoPrivateSetOfferInfoFunction>,
@@ -2966,6 +3030,16 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       LoginStateGetSessionStateFunction::static_histogram_value(),
     },
     #endif  // BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+    {
+      &NewExtensionFunction<OdfsConfigPrivateGetMountFunction>,
+      OdfsConfigPrivateGetMountFunction::static_function_name(),
+      OdfsConfigPrivateGetMountFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<OdfsConfigPrivateGetAccountRestrictionsFunction>,
+      OdfsConfigPrivateGetAccountRestrictionsFunction::static_function_name(),
+      OdfsConfigPrivateGetAccountRestrictionsFunction::static_histogram_value(),
+    },
     {
       &NewExtensionFunction<PlatformKeysInternalSelectClientCertificatesFunction>,
       PlatformKeysInternalSelectClientCertificatesFunction::static_function_name(),
@@ -3314,6 +3388,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       AccessibilityPrivateEnableMouseEventsFunction::static_histogram_value(),
     },
     {
+      &NewExtensionFunction<AccessibilityPrivateSetCursorPositionFunction>,
+      AccessibilityPrivateSetCursorPositionFunction::static_function_name(),
+      AccessibilityPrivateSetCursorPositionFunction::static_histogram_value(),
+    },
+    {
       &NewExtensionFunction<AccessibilityPrivateSendSyntheticMouseEventFunction>,
       AccessibilityPrivateSendSyntheticMouseEventFunction::static_function_name(),
       AccessibilityPrivateSendSyntheticMouseEventFunction::static_histogram_value(),
@@ -3399,6 +3478,16 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       AccessibilityPrivateGetDlcContentsFunction::static_histogram_value(),
     },
     {
+      &NewExtensionFunction<AccessibilityPrivateGetTtsDlcContentsFunction>,
+      AccessibilityPrivateGetTtsDlcContentsFunction::static_function_name(),
+      AccessibilityPrivateGetTtsDlcContentsFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<AccessibilityPrivateGetDisplayBoundsFunction>,
+      AccessibilityPrivateGetDisplayBoundsFunction::static_function_name(),
+      AccessibilityPrivateGetDisplayBoundsFunction::static_histogram_value(),
+    },
+    {
       &NewExtensionFunction<AccessibilityPrivateIsLacrosPrimaryFunction>,
       AccessibilityPrivateIsLacrosPrimaryFunction::static_function_name(),
       AccessibilityPrivateIsLacrosPrimaryFunction::static_histogram_value(),
@@ -3407,6 +3496,13 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       &NewExtensionFunction<AccessibilityPrivateShowToastFunction>,
       AccessibilityPrivateShowToastFunction::static_function_name(),
       AccessibilityPrivateShowToastFunction::static_histogram_value(),
+    },
+    #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
+    #if BUILDFLAG(IS_CHROMEOS_ASH)
+    {
+      &NewExtensionFunction<EnterpriseKioskInputSetCurrentInputMethodFunction>,
+      EnterpriseKioskInputSetCurrentInputMethodFunction::static_function_name(),
+      EnterpriseKioskInputSetCurrentInputMethodFunction::static_histogram_value(),
     },
     #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
     {
@@ -4053,11 +4149,6 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
     },
     #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
     {
-      &NewExtensionFunction<InputMethodPrivateGetTextFieldBoundsFunction>,
-      InputMethodPrivateGetTextFieldBoundsFunction::static_function_name(),
-      InputMethodPrivateGetTextFieldBoundsFunction::static_histogram_value(),
-    },
-    {
       &NewExtensionFunction<InputMethodPrivateNotifyInputMethodReadyForTestingFunction>,
       InputMethodPrivateNotifyInputMethodReadyForTestingFunction::static_function_name(),
       InputMethodPrivateNotifyInputMethodReadyForTestingFunction::static_histogram_value(),
@@ -4194,6 +4285,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       MdnsForceDiscoveryFunction::static_histogram_value(),
     },
     {
+      &NewExtensionFunction<PdfViewerPrivateGetStreamInfoFunction>,
+      PdfViewerPrivateGetStreamInfoFunction::static_function_name(),
+      PdfViewerPrivateGetStreamInfoFunction::static_histogram_value(),
+    },
+    {
       &NewExtensionFunction<PdfViewerPrivateIsAllowedLocalFileAccessFunction>,
       PdfViewerPrivateIsAllowedLocalFileAccessFunction::static_function_name(),
       PdfViewerPrivateIsAllowedLocalFileAccessFunction::static_histogram_value(),
@@ -4207,6 +4303,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       &NewExtensionFunction<PdfViewerPrivateSetPdfOcrPrefFunction>,
       PdfViewerPrivateSetPdfOcrPrefFunction::static_function_name(),
       PdfViewerPrivateSetPdfOcrPrefFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<PdfViewerPrivateSetPdfPluginAttributesFunction>,
+      PdfViewerPrivateSetPdfPluginAttributesFunction::static_function_name(),
+      PdfViewerPrivateSetPdfPluginAttributesFunction::static_histogram_value(),
     },
     {
       &NewExtensionFunction<ActionSetTitleFunction>,

@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGStyleElement>::value,
     "SVGStyleElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGStyleElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGStyleElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGStyleElement.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,9 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGStyleElement.type.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGStyleElement";
@@ -126,10 +121,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGStyleElement.media.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->media();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->media();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -140,9 +135,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGStyleElement.media.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGStyleElement";
@@ -169,7 +164,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGStyleElementTitle);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(v8_receiver);
+SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->title();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -187,7 +182,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGStyleElementTitle);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(v8_receiver);
+SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGStyleElement";
@@ -208,8 +203,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGStyleElement.sheet.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(v8_receiver);
+SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sheet();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -228,7 +224,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGStyleElement_Disa
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(v8_receiver);
+SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->disabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -246,7 +242,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGStyleElement_Disa
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(v8_receiver);
+SVGStyleElement* blink_receiver = V8SVGStyleElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGStyleElement";

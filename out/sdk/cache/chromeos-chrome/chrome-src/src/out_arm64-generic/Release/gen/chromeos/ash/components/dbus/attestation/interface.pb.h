@@ -7393,7 +7393,6 @@ class SignEnterpriseChallengeRequest final :
     kChallengeFieldNumber = 6,
     kKeyNameForSpkacFieldNumber = 8,
     kDeviceTrustSignalsJsonFieldNumber = 10,
-    kDeviceTrustSignalsFieldNumber = 9,
     kVaTypeFieldNumber = 7,
     kIncludeSignedPublicKeyFieldNumber = 5,
     kIncludeCustomerIdFieldNumber = 11,
@@ -7526,24 +7525,6 @@ class SignEnterpriseChallengeRequest final :
   std::string* _internal_mutable_device_trust_signals_json();
   public:
 
-  // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
-  PROTOBUF_DEPRECATED bool has_device_trust_signals() const;
-  private:
-  bool _internal_has_device_trust_signals() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_device_trust_signals();
-  PROTOBUF_DEPRECATED const ::attestation::DeviceTrustSignals& device_trust_signals() const;
-  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::attestation::DeviceTrustSignals* release_device_trust_signals();
-  PROTOBUF_DEPRECATED ::attestation::DeviceTrustSignals* mutable_device_trust_signals();
-  PROTOBUF_DEPRECATED void set_allocated_device_trust_signals(::attestation::DeviceTrustSignals* device_trust_signals);
-  private:
-  const ::attestation::DeviceTrustSignals& _internal_device_trust_signals() const;
-  ::attestation::DeviceTrustSignals* _internal_mutable_device_trust_signals();
-  public:
-  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_device_trust_signals(
-      ::attestation::DeviceTrustSignals* device_trust_signals);
-  PROTOBUF_DEPRECATED ::attestation::DeviceTrustSignals* unsafe_arena_release_device_trust_signals();
-
   // optional .attestation.VAType va_type = 7;
   bool has_va_type() const;
   private:
@@ -7625,7 +7606,6 @@ class SignEnterpriseChallengeRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr challenge_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr key_name_for_spkac_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_trust_signals_json_;
-  ::attestation::DeviceTrustSignals* device_trust_signals_;
   int va_type_;
   bool include_signed_public_key_;
   bool include_customer_id_;
@@ -15726,7 +15706,7 @@ inline void SignEnterpriseChallengeRequest::set_allocated_device_id(std::string*
 
 // optional bool include_signed_public_key = 5;
 inline bool SignEnterpriseChallengeRequest::_internal_has_include_signed_public_key() const {
-  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool SignEnterpriseChallengeRequest::has_include_signed_public_key() const {
@@ -15734,7 +15714,7 @@ inline bool SignEnterpriseChallengeRequest::has_include_signed_public_key() cons
 }
 inline void SignEnterpriseChallengeRequest::clear_include_signed_public_key() {
   include_signed_public_key_ = false;
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline bool SignEnterpriseChallengeRequest::_internal_include_signed_public_key() const {
   return include_signed_public_key_;
@@ -15744,7 +15724,7 @@ inline bool SignEnterpriseChallengeRequest::include_signed_public_key() const {
   return _internal_include_signed_public_key();
 }
 inline void SignEnterpriseChallengeRequest::_internal_set_include_signed_public_key(bool value) {
-  _has_bits_[0] |= 0x00000200u;
+  _has_bits_[0] |= 0x00000100u;
   include_signed_public_key_ = value;
 }
 inline void SignEnterpriseChallengeRequest::set_include_signed_public_key(bool value) {
@@ -15822,7 +15802,7 @@ inline void SignEnterpriseChallengeRequest::set_allocated_challenge(std::string*
 
 // optional .attestation.VAType va_type = 7;
 inline bool SignEnterpriseChallengeRequest::_internal_has_va_type() const {
-  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool SignEnterpriseChallengeRequest::has_va_type() const {
@@ -15830,7 +15810,7 @@ inline bool SignEnterpriseChallengeRequest::has_va_type() const {
 }
 inline void SignEnterpriseChallengeRequest::clear_va_type() {
   va_type_ = 0;
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline ::attestation::VAType SignEnterpriseChallengeRequest::_internal_va_type() const {
   return static_cast< ::attestation::VAType >(va_type_);
@@ -15841,7 +15821,7 @@ inline ::attestation::VAType SignEnterpriseChallengeRequest::va_type() const {
 }
 inline void SignEnterpriseChallengeRequest::_internal_set_va_type(::attestation::VAType value) {
   assert(::attestation::VAType_IsValid(value));
-  _has_bits_[0] |= 0x00000100u;
+  _has_bits_[0] |= 0x00000080u;
   va_type_ = value;
 }
 inline void SignEnterpriseChallengeRequest::set_va_type(::attestation::VAType value) {
@@ -15917,93 +15897,6 @@ inline void SignEnterpriseChallengeRequest::set_allocated_key_name_for_spkac(std
   // @@protoc_insertion_point(field_set_allocated:attestation.SignEnterpriseChallengeRequest.key_name_for_spkac)
 }
 
-// optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
-inline bool SignEnterpriseChallengeRequest::_internal_has_device_trust_signals() const {
-  bool value = (_has_bits_[0] & 0x00000080u) != 0;
-  PROTOBUF_ASSUME(!value || device_trust_signals_ != nullptr);
-  return value;
-}
-inline bool SignEnterpriseChallengeRequest::has_device_trust_signals() const {
-  return _internal_has_device_trust_signals();
-}
-inline const ::attestation::DeviceTrustSignals& SignEnterpriseChallengeRequest::_internal_device_trust_signals() const {
-  const ::attestation::DeviceTrustSignals* p = device_trust_signals_;
-  return p != nullptr ? *p : reinterpret_cast<const ::attestation::DeviceTrustSignals&>(
-      ::attestation::_DeviceTrustSignals_default_instance_);
-}
-inline const ::attestation::DeviceTrustSignals& SignEnterpriseChallengeRequest::device_trust_signals() const {
-  // @@protoc_insertion_point(field_get:attestation.SignEnterpriseChallengeRequest.device_trust_signals)
-  return _internal_device_trust_signals();
-}
-inline void SignEnterpriseChallengeRequest::unsafe_arena_set_allocated_device_trust_signals(
-    ::attestation::DeviceTrustSignals* device_trust_signals) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_trust_signals_);
-  }
-  device_trust_signals_ = device_trust_signals;
-  if (device_trust_signals) {
-    _has_bits_[0] |= 0x00000080u;
-  } else {
-    _has_bits_[0] &= ~0x00000080u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:attestation.SignEnterpriseChallengeRequest.device_trust_signals)
-}
-inline ::attestation::DeviceTrustSignals* SignEnterpriseChallengeRequest::release_device_trust_signals() {
-  _has_bits_[0] &= ~0x00000080u;
-  ::attestation::DeviceTrustSignals* temp = device_trust_signals_;
-  device_trust_signals_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::attestation::DeviceTrustSignals* SignEnterpriseChallengeRequest::unsafe_arena_release_device_trust_signals() {
-  // @@protoc_insertion_point(field_release:attestation.SignEnterpriseChallengeRequest.device_trust_signals)
-  _has_bits_[0] &= ~0x00000080u;
-  ::attestation::DeviceTrustSignals* temp = device_trust_signals_;
-  device_trust_signals_ = nullptr;
-  return temp;
-}
-inline ::attestation::DeviceTrustSignals* SignEnterpriseChallengeRequest::_internal_mutable_device_trust_signals() {
-  _has_bits_[0] |= 0x00000080u;
-  if (device_trust_signals_ == nullptr) {
-    auto* p = CreateMaybeMessage<::attestation::DeviceTrustSignals>(GetArenaForAllocation());
-    device_trust_signals_ = p;
-  }
-  return device_trust_signals_;
-}
-inline ::attestation::DeviceTrustSignals* SignEnterpriseChallengeRequest::mutable_device_trust_signals() {
-  ::attestation::DeviceTrustSignals* _msg = _internal_mutable_device_trust_signals();
-  // @@protoc_insertion_point(field_mutable:attestation.SignEnterpriseChallengeRequest.device_trust_signals)
-  return _msg;
-}
-inline void SignEnterpriseChallengeRequest::set_allocated_device_trust_signals(::attestation::DeviceTrustSignals* device_trust_signals) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_trust_signals_);
-  }
-  if (device_trust_signals) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_trust_signals));
-    if (message_arena != submessage_arena) {
-      device_trust_signals = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, device_trust_signals, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000080u;
-  } else {
-    _has_bits_[0] &= ~0x00000080u;
-  }
-  device_trust_signals_ = device_trust_signals;
-  // @@protoc_insertion_point(field_set_allocated:attestation.SignEnterpriseChallengeRequest.device_trust_signals)
-}
-
 // optional string device_trust_signals_json = 10;
 inline bool SignEnterpriseChallengeRequest::_internal_has_device_trust_signals_json() const {
   bool value = (_has_bits_[0] & 0x00000040u) != 0;
@@ -16074,7 +15967,7 @@ inline void SignEnterpriseChallengeRequest::set_allocated_device_trust_signals_j
 
 // optional bool include_customer_id = 11;
 inline bool SignEnterpriseChallengeRequest::_internal_has_include_customer_id() const {
-  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
   return value;
 }
 inline bool SignEnterpriseChallengeRequest::has_include_customer_id() const {
@@ -16082,7 +15975,7 @@ inline bool SignEnterpriseChallengeRequest::has_include_customer_id() const {
 }
 inline void SignEnterpriseChallengeRequest::clear_include_customer_id() {
   include_customer_id_ = false;
-  _has_bits_[0] &= ~0x00000400u;
+  _has_bits_[0] &= ~0x00000200u;
 }
 inline bool SignEnterpriseChallengeRequest::_internal_include_customer_id() const {
   return include_customer_id_;
@@ -16092,7 +15985,7 @@ inline bool SignEnterpriseChallengeRequest::include_customer_id() const {
   return _internal_include_customer_id();
 }
 inline void SignEnterpriseChallengeRequest::_internal_set_include_customer_id(bool value) {
-  _has_bits_[0] |= 0x00000400u;
+  _has_bits_[0] |= 0x00000200u;
   include_customer_id_ = value;
 }
 inline void SignEnterpriseChallengeRequest::set_include_customer_id(bool value) {
@@ -16102,7 +15995,7 @@ inline void SignEnterpriseChallengeRequest::set_include_customer_id(bool value) 
 
 // optional .attestation.VerifiedAccessFlow flow_type = 12;
 inline bool SignEnterpriseChallengeRequest::_internal_has_flow_type() const {
-  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
   return value;
 }
 inline bool SignEnterpriseChallengeRequest::has_flow_type() const {
@@ -16110,7 +16003,7 @@ inline bool SignEnterpriseChallengeRequest::has_flow_type() const {
 }
 inline void SignEnterpriseChallengeRequest::clear_flow_type() {
   flow_type_ = 0;
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00000800u;
 }
 inline ::attestation::VerifiedAccessFlow SignEnterpriseChallengeRequest::_internal_flow_type() const {
   return static_cast< ::attestation::VerifiedAccessFlow >(flow_type_);
@@ -16121,7 +16014,7 @@ inline ::attestation::VerifiedAccessFlow SignEnterpriseChallengeRequest::flow_ty
 }
 inline void SignEnterpriseChallengeRequest::_internal_set_flow_type(::attestation::VerifiedAccessFlow value) {
   assert(::attestation::VerifiedAccessFlow_IsValid(value));
-  _has_bits_[0] |= 0x00001000u;
+  _has_bits_[0] |= 0x00000800u;
   flow_type_ = value;
 }
 inline void SignEnterpriseChallengeRequest::set_flow_type(::attestation::VerifiedAccessFlow value) {
@@ -16131,7 +16024,7 @@ inline void SignEnterpriseChallengeRequest::set_flow_type(::attestation::Verifie
 
 // optional bool include_certificate = 13;
 inline bool SignEnterpriseChallengeRequest::_internal_has_include_certificate() const {
-  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
   return value;
 }
 inline bool SignEnterpriseChallengeRequest::has_include_certificate() const {
@@ -16139,7 +16032,7 @@ inline bool SignEnterpriseChallengeRequest::has_include_certificate() const {
 }
 inline void SignEnterpriseChallengeRequest::clear_include_certificate() {
   include_certificate_ = false;
-  _has_bits_[0] &= ~0x00000800u;
+  _has_bits_[0] &= ~0x00000400u;
 }
 inline bool SignEnterpriseChallengeRequest::_internal_include_certificate() const {
   return include_certificate_;
@@ -16149,7 +16042,7 @@ inline bool SignEnterpriseChallengeRequest::include_certificate() const {
   return _internal_include_certificate();
 }
 inline void SignEnterpriseChallengeRequest::_internal_set_include_certificate(bool value) {
-  _has_bits_[0] |= 0x00000800u;
+  _has_bits_[0] |= 0x00000400u;
   include_certificate_ = value;
 }
 inline void SignEnterpriseChallengeRequest::set_include_certificate(bool value) {

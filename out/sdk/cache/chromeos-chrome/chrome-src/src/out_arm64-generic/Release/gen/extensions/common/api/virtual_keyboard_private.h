@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -47,8 +48,8 @@ struct VirtualKeyboardEvent {
   ~VirtualKeyboardEvent();
   VirtualKeyboardEvent(const VirtualKeyboardEvent&) = delete;
   VirtualKeyboardEvent& operator=(const VirtualKeyboardEvent&) = delete;
-  VirtualKeyboardEvent(VirtualKeyboardEvent&& rhs);
-  VirtualKeyboardEvent& operator=(VirtualKeyboardEvent&& rhs);
+  VirtualKeyboardEvent(VirtualKeyboardEvent&& rhs) noexcept;
+  VirtualKeyboardEvent& operator=(VirtualKeyboardEvent&& rhs) noexcept;
 
   // Populates a VirtualKeyboardEvent object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -61,17 +62,13 @@ struct VirtualKeyboardEvent {
   // Creates a deep copy of VirtualKeyboardEvent.
   VirtualKeyboardEvent Clone() const;
 
-  // Creates a VirtualKeyboardEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<VirtualKeyboardEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a VirtualKeyboardEvent object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<VirtualKeyboardEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<VirtualKeyboardEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a VirtualKeyboardEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<VirtualKeyboardEvent> FromValue(const base::Value& value);
+  static std::optional<VirtualKeyboardEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVirtualKeyboardEvent object.
@@ -91,7 +88,7 @@ struct VirtualKeyboardEvent {
 
   // Flag for modifiers that are active. None = 0, Shift = 2, Control = 4, Alt =
   // 8.
-  absl::optional<int> modifiers;
+  std::optional<int> modifiers;
 
 };
 
@@ -127,8 +124,8 @@ struct Bounds {
   ~Bounds();
   Bounds(const Bounds&) = delete;
   Bounds& operator=(const Bounds&) = delete;
-  Bounds(Bounds&& rhs);
-  Bounds& operator=(Bounds&& rhs);
+  Bounds(Bounds&& rhs) noexcept;
+  Bounds& operator=(Bounds&& rhs) noexcept;
 
   // Populates a Bounds object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -141,14 +138,11 @@ struct Bounds {
   // Creates a deep copy of Bounds.
   Bounds Clone() const;
 
-  // Creates a Bounds object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Bounds> FromValueDeprecated(const base::Value& value);
-
   // Creates a Bounds object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value::Dict& value);
+  static std::optional<Bounds> FromValue(const base::Value::Dict& value);
 
   // Creates a Bounds object from a base::Value, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value& value);
+  static std::optional<Bounds> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBounds object.
@@ -173,8 +167,8 @@ struct KeyboardConfig {
   ~KeyboardConfig();
   KeyboardConfig(const KeyboardConfig&) = delete;
   KeyboardConfig& operator=(const KeyboardConfig&) = delete;
-  KeyboardConfig(KeyboardConfig&& rhs);
-  KeyboardConfig& operator=(KeyboardConfig&& rhs);
+  KeyboardConfig(KeyboardConfig&& rhs) noexcept;
+  KeyboardConfig& operator=(KeyboardConfig&& rhs) noexcept;
 
   // Populates a KeyboardConfig object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -187,15 +181,12 @@ struct KeyboardConfig {
   // Creates a deep copy of KeyboardConfig.
   KeyboardConfig Clone() const;
 
-  // Creates a KeyboardConfig object from a base::Value, or NULL on failure.
-  static std::unique_ptr<KeyboardConfig> FromValueDeprecated(const base::Value& value);
-
   // Creates a KeyboardConfig object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<KeyboardConfig> FromValue(const base::Value::Dict& value);
+  static std::optional<KeyboardConfig> FromValue(const base::Value::Dict& value);
 
   // Creates a KeyboardConfig object from a base::Value, or nullopt on failure.
-  static absl::optional<KeyboardConfig> FromValue(const base::Value& value);
+  static std::optional<KeyboardConfig> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisKeyboardConfig object.
@@ -220,8 +211,8 @@ struct ContainerBehaviorOptions {
   ~ContainerBehaviorOptions();
   ContainerBehaviorOptions(const ContainerBehaviorOptions&) = delete;
   ContainerBehaviorOptions& operator=(const ContainerBehaviorOptions&) = delete;
-  ContainerBehaviorOptions(ContainerBehaviorOptions&& rhs);
-  ContainerBehaviorOptions& operator=(ContainerBehaviorOptions&& rhs);
+  ContainerBehaviorOptions(ContainerBehaviorOptions&& rhs) noexcept;
+  ContainerBehaviorOptions& operator=(ContainerBehaviorOptions&& rhs) noexcept;
 
   // Populates a ContainerBehaviorOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -234,17 +225,13 @@ struct ContainerBehaviorOptions {
   // Creates a deep copy of ContainerBehaviorOptions.
   ContainerBehaviorOptions Clone() const;
 
-  // Creates a ContainerBehaviorOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ContainerBehaviorOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ContainerBehaviorOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ContainerBehaviorOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ContainerBehaviorOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ContainerBehaviorOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ContainerBehaviorOptions> FromValue(const base::Value& value);
+  static std::optional<ContainerBehaviorOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisContainerBehaviorOptions object.
@@ -278,8 +265,8 @@ struct ClipboardItem {
   ~ClipboardItem();
   ClipboardItem(const ClipboardItem&) = delete;
   ClipboardItem& operator=(const ClipboardItem&) = delete;
-  ClipboardItem(ClipboardItem&& rhs);
-  ClipboardItem& operator=(ClipboardItem&& rhs);
+  ClipboardItem(ClipboardItem&& rhs) noexcept;
+  ClipboardItem& operator=(ClipboardItem&& rhs) noexcept;
 
   // Populates a ClipboardItem object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -292,15 +279,12 @@ struct ClipboardItem {
   // Creates a deep copy of ClipboardItem.
   ClipboardItem Clone() const;
 
-  // Creates a ClipboardItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ClipboardItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a ClipboardItem object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ClipboardItem> FromValue(const base::Value::Dict& value);
+  static std::optional<ClipboardItem> FromValue(const base::Value::Dict& value);
 
   // Creates a ClipboardItem object from a base::Value, or nullopt on failure.
-  static absl::optional<ClipboardItem> FromValue(const base::Value& value);
+  static std::optional<ClipboardItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisClipboardItem object.
@@ -310,10 +294,10 @@ struct ClipboardItem {
   std::string id;
 
   // The image data associated with this item.
-  absl::optional<std::string> image_data;
+  std::optional<std::string> image_data;
 
   // The text data associated with this item.
-  absl::optional<std::string> text_data;
+  std::optional<std::string> text_data;
 
   // The display format associated with this item.
   DisplayFormat display_format;
@@ -332,11 +316,11 @@ struct ClipboardItem {
 namespace InsertText {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The text that will be inserted.
@@ -357,11 +341,11 @@ base::Value::List Create();
 namespace SendKeyEvent {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   VirtualKeyboardEvent key_event;
@@ -390,11 +374,11 @@ base::Value::List Create();
 namespace SetHotrodKeyboard {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool enable;
@@ -409,11 +393,11 @@ struct Params {
 namespace LockKeyboard {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool lock;
@@ -454,11 +438,11 @@ namespace OpenSuggestionSettings {
 namespace SetContainerBehavior {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Optional parameters for new container behavior.
@@ -480,11 +464,11 @@ base::Value::List Create(bool success);
 namespace SetDraggableArea {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The value of draggable rect area of floating keyboard.
@@ -500,11 +484,11 @@ struct Params {
 namespace SetKeyboardState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The value of the virtual keyboard state to change to.
@@ -520,11 +504,11 @@ struct Params {
 namespace SetOccludedBounds {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // List of rectangles representing regions occluded by the keyboard.
@@ -540,11 +524,11 @@ struct Params {
 namespace SetHitTestBounds {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // List of rectangles representing regions where events targeting the keyboard
@@ -561,11 +545,11 @@ struct Params {
 namespace SetAreaToRemainOnScreen {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The bounds of the area inside the keyboard window, relative to the window
@@ -583,11 +567,11 @@ struct Params {
 namespace SetWindowBoundsInScreen {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A rectangle defining the new bounds of the window in screen coordinates.
@@ -603,11 +587,11 @@ struct Params {
 namespace GetClipboardHistory {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Options {
@@ -615,8 +599,8 @@ struct Params {
     ~Options();
     Options(const Options&) = delete;
     Options& operator=(const Options&) = delete;
-    Options(Options&& rhs);
-    Options& operator=(Options&& rhs);
+    Options(Options&& rhs) noexcept;
+    Options& operator=(Options&& rhs) noexcept;
 
     // Populates a Options object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -630,15 +614,15 @@ struct Params {
     Options Clone() const;
 
     // Creates a Options object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Options> FromValue(const base::Value::Dict& value);
+    static std::optional<Options> FromValue(const base::Value::Dict& value);
 
     // Creates a Options object from a base::Value, or nullopt on failure.
-    static absl::optional<Options> FromValue(const base::Value& value);
+    static std::optional<Options> FromValue(const base::Value& value);
 
     // A filter represented as a list of clipboard item ids. getClipboardHistory
     // will only return the items in this list. If this list is empty,
     // getClipboardHistory will return all clipboard items in the history.
-    absl::optional<std::vector<std::string>> item_ids;
+    std::optional<std::vector<std::string>> item_ids;
 
   };
 
@@ -662,11 +646,11 @@ base::Value::List Create(const std::vector<ClipboardItem>& clipboard_history);
 namespace PasteClipboardItem {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The unique id which identifies this clipboard item.
@@ -682,11 +666,11 @@ struct Params {
 namespace DeleteClipboardItem {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The unique id which identifies this clipboard item.

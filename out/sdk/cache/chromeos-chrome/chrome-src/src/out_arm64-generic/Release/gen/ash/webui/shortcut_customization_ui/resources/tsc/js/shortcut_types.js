@@ -24,6 +24,19 @@ export var Modifier;
     Modifier[Modifier["ALT"] = 8] = "ALT";
     Modifier[Modifier["COMMAND"] = 16] = "COMMAND";
 })(Modifier || (Modifier = {}));
+/**
+ * The actions that can be done in the accelerator edit dialog. These should
+ * be consistent with the representation in
+ * `ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom`.
+ */
+export var EditAction;
+(function (EditAction) {
+    EditAction[EditAction["NONE"] = 0] = "NONE";
+    EditAction[EditAction["ADD"] = 1] = "ADD";
+    EditAction[EditAction["EDIT"] = 2] = "EDIT";
+    EditAction[EditAction["REMOVE"] = 4] = "REMOVE";
+    EditAction[EditAction["RESET"] = 8] = "RESET";
+})(EditAction || (EditAction = {}));
 export const TextAcceleratorPartType = AcceleratorInfoTypes.TextAcceleratorPartType;
 export const AcceleratorSource = AcceleratorInfoTypes.AcceleratorSource;
 export const AcceleratorType = AcceleratorInfoTypes.AcceleratorType;

@@ -385,6 +385,15 @@ const char UnspecifiedReason[] = "unspecifiedReason";
 } // namespace AlternateProtocolUsageEnum
 
 
+CRDTP_BEGIN_DESERIALIZER(ServiceWorkerRouterInfo)
+    CRDTP_DESERIALIZE_FIELD("ruleIdMatched", m_ruleIdMatched),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(ServiceWorkerRouterInfo)
+    CRDTP_SERIALIZE_FIELD("ruleIdMatched", m_ruleIdMatched);
+CRDTP_END_SERIALIZER();
+
+
 CRDTP_BEGIN_DESERIALIZER(Response)
     CRDTP_DESERIALIZE_FIELD_OPT("alternateProtocolUsage", m_alternateProtocolUsage),
     CRDTP_DESERIALIZE_FIELD_OPT("cacheStorageCacheName", m_cacheStorageCacheName),
@@ -406,6 +415,7 @@ CRDTP_BEGIN_DESERIALIZER(Response)
     CRDTP_DESERIALIZE_FIELD_OPT("securityDetails", m_securityDetails),
     CRDTP_DESERIALIZE_FIELD("securityState", m_securityState),
     CRDTP_DESERIALIZE_FIELD_OPT("serviceWorkerResponseSource", m_serviceWorkerResponseSource),
+    CRDTP_DESERIALIZE_FIELD_OPT("serviceWorkerRouterInfo", m_serviceWorkerRouterInfo),
     CRDTP_DESERIALIZE_FIELD("status", m_status),
     CRDTP_DESERIALIZE_FIELD("statusText", m_statusText),
     CRDTP_DESERIALIZE_FIELD_OPT("timing", m_timing),
@@ -428,6 +438,7 @@ CRDTP_BEGIN_SERIALIZER(Response)
     CRDTP_SERIALIZE_FIELD("fromDiskCache", m_fromDiskCache);
     CRDTP_SERIALIZE_FIELD("fromServiceWorker", m_fromServiceWorker);
     CRDTP_SERIALIZE_FIELD("fromPrefetchCache", m_fromPrefetchCache);
+    CRDTP_SERIALIZE_FIELD("serviceWorkerRouterInfo", m_serviceWorkerRouterInfo);
     CRDTP_SERIALIZE_FIELD("encodedDataLength", m_encodedDataLength);
     CRDTP_SERIALIZE_FIELD("timing", m_timing);
     CRDTP_SERIALIZE_FIELD("serviceWorkerResponseSource", m_serviceWorkerResponseSource);

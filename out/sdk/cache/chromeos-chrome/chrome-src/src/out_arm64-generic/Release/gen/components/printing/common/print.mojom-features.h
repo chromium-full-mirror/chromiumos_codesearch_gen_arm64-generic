@@ -8,6 +8,7 @@
 #define COMPONENTS_PRINTING_COMMON_PRINT_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

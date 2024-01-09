@@ -33,7 +33,7 @@ namespace blink {
 
 bool V8RestrictionTarget::IsExposed(ExecutionContext* execution_context) {
   
-return (execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()) && RuntimeEnabledFeatures::ElementCaptureEnabled();
+return (execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()) && RuntimeEnabledFeatures::ElementCaptureEnabled(execution_context);
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -70,11 +70,6 @@ const WrapperTypeInfo& RestrictionTarget::wrapper_type_info_ =
 static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RestrictionTarget>::value,
     "RestrictionTarget inherits from ActiveScriptWrappable<> without "
-    "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RestrictionTarget::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RestrictionTarget is overriding hasPendingActivity() without "
     "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
@@ -152,7 +147,7 @@ void V8RestrictionTarget::InstallContextDependentProperties(v8::Local<v8::Contex
 
 ScriptState* script_state = ScriptState::From(context);
 ExecutionContext* execution_context = ExecutionContext::From(script_state);
-if (execution_context->IsWindow() && (feature_selector.IsAll() && RuntimeEnabledFeatures::ElementCaptureEnabled())) {
+if (execution_context->IsWindow() && ((feature_selector.IsAll() && RuntimeEnabledFeatures::ElementCaptureEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kElementCapture))) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"fromElement", FromElementStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };

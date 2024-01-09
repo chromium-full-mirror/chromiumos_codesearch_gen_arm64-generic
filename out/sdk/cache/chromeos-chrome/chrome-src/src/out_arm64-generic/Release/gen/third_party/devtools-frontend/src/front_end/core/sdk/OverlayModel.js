@@ -7,8 +7,8 @@ import * as Root from '../root/root.js';
 import { DebuggerModel, Events as DebuggerModelEvents } from './DebuggerModel.js';
 import { DeferredDOMNode, DOMModel, Events as DOMModelEvents } from './DOMModel.js';
 import { OverlayPersistentHighlighter } from './OverlayPersistentHighlighter.js';
-import { Capability } from './Target.js';
 import { SDKModel } from './SDKModel.js';
+import { Capability } from './Target.js';
 import { TargetManager } from './TargetManager.js';
 const UIStrings = {
     /**
@@ -18,6 +18,11 @@ const UIStrings = {
 };
 const str_ = i18n.i18n.registerUIStrings('core/sdk/OverlayModel.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
+const platformOverlayDimensions = {
+    mac: { x: 85, y: 0, width: 185, height: 40 },
+    linux: { x: 0, y: 0, width: 196, height: 34 },
+    windows: { x: 0, y: 0, width: 238, height: 33 },
+};
 export class OverlayModel extends SDKModel {
     #domModel;
     overlayAgent;
@@ -38,6 +43,7 @@ export class OverlayModel extends SDKModel {
     #persistentHighlighter;
     #sourceOrderHighlighter;
     #sourceOrderModeActiveInternal;
+    #windowControls;
     constructor(target) {
         super(target);
         this.#domModel = target.model(DOMModel);
@@ -96,6 +102,7 @@ export class OverlayModel extends SDKModel {
         });
         this.#sourceOrderHighlighter = new SourceOrderHighlighter(this);
         this.#sourceOrderModeActiveInternal = false;
+        this.#windowControls = new WindowControls(this.#domModel.cssModel());
     }
     static highlightObjectAsDOMNode(object) {
         const domModel = object.runtimeModel().target().model(DOMModel);
@@ -394,6 +401,22 @@ export class OverlayModel extends SDKModel {
             void this.overlayAgent.invoke_setShowHinge({});
         }
     }
+    setWindowControlsPlatform(selectedPlatform) {
+        this.#windowControls.selectedPlatform = selectedPlatform;
+    }
+    setWindowControlsThemeColor(themeColor) {
+        this.#windowControls.themeColor = themeColor;
+    }
+    getWindowControlsConfig() {
+        return this.#windowControls.config;
+    }
+    async toggleWindowControlsToolbar(show) {
+        const wcoConfigObj = show ? { windowControlsOverlayConfig: this.#windowControls.config } : {};
+        const setWindowControlsOverlayOperation = this.overlayAgent.invoke_setShowWindowControlsOverlay(wcoConfigObj);
+        const toggleStylesheetOperation = this.#windowControls.toggleEmulatedOverlay(show);
+        await Promise.all([setWindowControlsOverlayOperation, toggleStylesheetOperation]);
+        this.setShowViewportSizeOnResize(!show);
+    }
     buildHighlightConfig(mode = 'all', showDetailedToolip = false) {
         const showRulers = Common.Settings.Settings.instance().moduleSetting('showMetricsRulers').get();
         const highlightConfig = {
@@ -629,6 +652,103 @@ export class OverlayModel extends SDKModel {
     static inspectNodeHandler = null;
     getOverlayAgent() {
         return this.overlayAgent;
+    }
+    async hasStyleSheetText(url) {
+        return this.#windowControls.initializeStyleSheetText(url);
+    }
+}
+export class WindowControls {
+    #cssModel;
+    #originalStylesheetText;
+    #stylesheetId;
+    #currentUrl;
+    #config = {
+        showCSS: false,
+        selectedPlatform: "Windows" /* EmulatedOSType.WindowsOS */,
+        themeColor: '#ffffff',
+    };
+    constructor(cssModel) {
+        this.#cssModel = cssModel;
+    }
+    get selectedPlatform() {
+        return this.#config.selectedPlatform;
+    }
+    set selectedPlatform(osType) {
+        this.#config.selectedPlatform = osType;
+    }
+    get themeColor() {
+        return this.#config.themeColor;
+    }
+    set themeColor(color) {
+        this.#config.themeColor = color;
+    }
+    get config() {
+        return this.#config;
+    }
+    async initializeStyleSheetText(url) {
+        if (this.#originalStylesheetText && url === this.#currentUrl) {
+            return true;
+        }
+        const cssSourceUrl = this.#fetchCssSourceUrl(url);
+        if (!cssSourceUrl) {
+            return false;
+        }
+        this.#stylesheetId = this.#fetchCurrentStyleSheet(cssSourceUrl);
+        if (!this.#stylesheetId) {
+            return false;
+        }
+        const stylesheetText = await this.#cssModel.getStyleSheetText(this.#stylesheetId);
+        if (!stylesheetText) {
+            return false;
+        }
+        this.#originalStylesheetText = stylesheetText;
+        this.#currentUrl = url;
+        return true;
+    }
+    async toggleEmulatedOverlay(showOverlay) {
+        if (!this.#stylesheetId || !this.#originalStylesheetText) {
+            return;
+        }
+        if (showOverlay) {
+            const styleSheetText = WindowControls.#getStyleSheetForPlatform(this.#config.selectedPlatform.toLowerCase(), this.#originalStylesheetText);
+            if (styleSheetText) {
+                await this.#cssModel.setStyleSheetText(this.#stylesheetId, styleSheetText, false);
+            }
+        }
+        else {
+            // Restore the original stylesheet
+            await this.#cssModel.setStyleSheetText(this.#stylesheetId, this.#originalStylesheetText, false);
+        }
+    }
+    static #getStyleSheetForPlatform(platform, originalStyleSheet) {
+        const overlayDimensions = platformOverlayDimensions[platform];
+        return WindowControls.#transformStyleSheet(overlayDimensions.x, overlayDimensions.y, overlayDimensions.width, overlayDimensions.height, originalStyleSheet);
+    }
+    #fetchCssSourceUrl(url) {
+        const parentURL = Common.ParsedURL.ParsedURL.extractOrigin(url);
+        const cssHeaders = this.#cssModel.styleSheetHeaders();
+        const header = cssHeaders.find(header => header.sourceURL && header.sourceURL.includes(parentURL));
+        return header?.sourceURL;
+    }
+    #fetchCurrentStyleSheet(cssSourceUrl) {
+        const stylesheetIds = this.#cssModel.getStyleSheetIdsForURL(cssSourceUrl);
+        return stylesheetIds.length > 0 ? stylesheetIds[0] : undefined;
+    }
+    // The primary objective of this function is to adjust certain CSS environment variables within the existing stylesheet
+    // and provide it as the style sheet for the emulated overlay.
+    static #transformStyleSheet(x, y, width, height, originalStyleSheet) {
+        if (!originalStyleSheet) {
+            return undefined;
+        }
+        const stylesheetText = originalStyleSheet;
+        const updatedStylesheet = stylesheetText.replace(/: env\(titlebar-area-x(?:,[^)]*)?\);/g, `: env(titlebar-area-x, ${x}px);`)
+            .replace(/: env\(titlebar-area-y(?:,[^)]*)?\);/g, `: env(titlebar-area-y, ${y}px);`)
+            .replace(/: env\(titlebar-area-width(?:,[^)]*)?\);/g, `: env(titlebar-area-width, calc(100% - ${width}px));`)
+            .replace(/: env\(titlebar-area-height(?:,[^)]*)?\);/g, `: env(titlebar-area-height, ${height}px);`);
+        return updatedStylesheet;
+    }
+    transformStyleSheetforTesting(x, y, width, height, originalStyleSheet) {
+        return WindowControls.#transformStyleSheet(x, y, width, height, originalStyleSheet);
     }
 }
 // TODO(crbug.com/1167717): Make this a const enum again

@@ -130,7 +130,6 @@
     padding-inline-start: var(--emoji-picker-side-padding);
     position: sticky;
     top:0;
-    width: var(--search-content-width);
   }
 
   :host([gif-support]) #searchShadow {
@@ -211,7 +210,9 @@
     </div>
     <div id="search-results">
       <template is="dom-repeat" items="[[searchResults]]">
-        <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" jelly-support$="[[jellySupport]]">
+        <emoji-group data="[[item.emoji]]" category$="[[item.category]]"
+          gif-support$="[[gifSupport]]" jelly-support$="[[jellySupport]]"
+          global-tone="[[globalTone]]" global-gender="[[globalGender]]">
         </emoji-group>
       </template>
     </div>

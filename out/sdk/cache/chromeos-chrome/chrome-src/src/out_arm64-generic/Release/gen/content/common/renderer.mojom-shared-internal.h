@@ -16,7 +16,6 @@
 #include "mojo/public/mojom/base/generic_pending_receiver.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "services/network/public/mojom/network_types.mojom-shared-internal.h"
-#include "services/network/public/mojom/attribution.mojom-shared-internal.h"
 #include "skia/public/mojom/skcolor.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/browser_interface_broker.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/origin_trials/origin_trials_settings.mojom-shared-internal.h"

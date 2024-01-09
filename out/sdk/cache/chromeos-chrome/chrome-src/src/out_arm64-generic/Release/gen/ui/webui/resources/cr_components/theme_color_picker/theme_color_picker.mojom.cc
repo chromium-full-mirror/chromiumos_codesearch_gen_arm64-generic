@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -61,12 +62,12 @@ Theme::Theme()
 Theme::Theme(
     bool has_background_image_in,
     bool has_third_party_theme_in,
-    absl::optional<::SkColor> background_image_main_color_in,
+    std::optional<::SkColor> background_image_main_color_in,
     bool is_dark_mode_in,
     ::SkColor seed_color_in,
     float seed_color_hue_in,
     ::SkColor background_color_in,
-    absl::optional<::SkColor> foreground_color_in,
+    std::optional<::SkColor> foreground_color_in,
     ::SkColor color_picker_icon_color_in,
     bool colors_managed_by_policy_in,
     bool is_grey_baseline_in,
@@ -113,7 +114,7 @@ void Theme::WriteIntoTrace(
     dict.AddItem(
       "background_image_main_color"), this->background_image_main_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -158,7 +159,7 @@ void Theme::WriteIntoTrace(
     dict.AddItem(
       "foreground_color"), this->foreground_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -228,7 +229,7 @@ ChromeColor::ChromeColor(
     ::SkColor seed_in,
     ::SkColor background_in,
     ::SkColor foreground_in,
-    absl::optional<::SkColor> base_in,
+    std::optional<::SkColor> base_in,
     ::ui::mojom::BrowserColorVariant variant_in)
     : name(std::move(name_in)),
       seed(std::move(seed_in)),
@@ -282,7 +283,7 @@ void ChromeColor::WriteIntoTrace(
     dict.AddItem(
       "base"), this->base,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -377,14 +378,17 @@ void ThemeColorPickerHandlerFactoryProxy::CreateThemeColorPickerHandler(
                         "<value of type ::mojo::PendingRemote<ThemeColorPickerClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerHandlerFactory_CreateThemeColorPickerHandler_Name, kFlags, 0, 0, nullptr);
@@ -472,10 +476,10 @@ bool ThemeColorPickerHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kThemeColorPickerHandlerFactoryValidationInfo[] = {
-    {&internal::ThemeColorPickerHandlerFactory_CreateThemeColorPickerHandler_Params_Data::Validate,
+    { &internal::ThemeColorPickerHandlerFactory_CreateThemeColorPickerHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -694,14 +698,17 @@ void ThemeColorPickerHandlerProxy::GetChromeColors(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerHandler_GetChromeColors_Name, kFlags, 0, 0, nullptr);
@@ -727,14 +734,17 @@ void ThemeColorPickerHandlerProxy::UpdateTheme(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send theme_color_picker::mojom::ThemeColorPickerHandler::UpdateTheme");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerHandler_UpdateTheme_Name, kFlags, 0, 0, nullptr);
@@ -757,14 +767,17 @@ void ThemeColorPickerHandlerProxy::SetDefaultColor(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send theme_color_picker::mojom::ThemeColorPickerHandler::SetDefaultColor");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerHandler_SetDefaultColor_Name, kFlags, 0, 0, nullptr);
@@ -787,14 +800,17 @@ void ThemeColorPickerHandlerProxy::SetGreyDefaultColor(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send theme_color_picker::mojom::ThemeColorPickerHandler::SetGreyDefaultColor");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerHandler_SetGreyDefaultColor_Name, kFlags, 0, 0, nullptr);
@@ -827,14 +843,17 @@ void ThemeColorPickerHandlerProxy::SetSeedColor(
                         "<value of type ::ui::mojom::BrowserColorVariant>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerHandler_SetSeedColor_Name, kFlags, 0, 0, nullptr);
@@ -877,14 +896,17 @@ void ThemeColorPickerHandlerProxy::SetSeedColorFromHue(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerHandler_SetSeedColorFromHue_Name, kFlags, 0, 0, nullptr);
@@ -908,14 +930,17 @@ void ThemeColorPickerHandlerProxy::RemoveBackgroundImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send theme_color_picker::mojom::ThemeColorPickerHandler::RemoveBackgroundImage");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerHandler_RemoveBackgroundImage_Name, kFlags, 0, 0, nullptr);
@@ -1024,7 +1049,8 @@ void ThemeColorPickerHandler_GetChromeColors_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerHandler_GetChromeColors_Name, kFlags, 0, 0, nullptr);
@@ -1282,22 +1308,22 @@ std::move(p_extended_list), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kThemeColorPickerHandlerValidationInfo[] = {
-    {&internal::ThemeColorPickerHandler_GetChromeColors_Params_Data::Validate,
+    { &internal::ThemeColorPickerHandler_GetChromeColors_Params_Data::Validate,
      &internal::ThemeColorPickerHandler_GetChromeColors_ResponseParams_Data::Validate},
-    {&internal::ThemeColorPickerHandler_UpdateTheme_Params_Data::Validate,
+    { &internal::ThemeColorPickerHandler_UpdateTheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeColorPickerHandler_SetDefaultColor_Params_Data::Validate,
+    { &internal::ThemeColorPickerHandler_SetDefaultColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeColorPickerHandler_SetGreyDefaultColor_Params_Data::Validate,
+    { &internal::ThemeColorPickerHandler_SetGreyDefaultColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeColorPickerHandler_SetSeedColor_Params_Data::Validate,
+    { &internal::ThemeColorPickerHandler_SetSeedColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeColorPickerHandler_SetSeedColorFromHue_Params_Data::Validate,
+    { &internal::ThemeColorPickerHandler_SetSeedColorFromHue_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ThemeColorPickerHandler_RemoveBackgroundImage_Params_Data::Validate,
+    { &internal::ThemeColorPickerHandler_RemoveBackgroundImage_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1381,14 +1407,17 @@ void ThemeColorPickerClientProxy::SetTheme(
                         "<value of type ThemePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kThemeColorPickerClient_SetTheme_Name, kFlags, 0, 0, nullptr);
@@ -1467,10 +1496,10 @@ bool ThemeColorPickerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kThemeColorPickerClientValidationInfo[] = {
-    {&internal::ThemeColorPickerClient_SetTheme_Params_Data::Validate,
+    { &internal::ThemeColorPickerClient_SetTheme_Params_Data::Validate,
      nullptr /* no response */},
 };
 

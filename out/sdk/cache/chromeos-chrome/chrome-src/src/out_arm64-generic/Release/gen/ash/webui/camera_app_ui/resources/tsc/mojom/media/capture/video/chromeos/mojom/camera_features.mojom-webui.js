@@ -3,6 +3,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
+export const PortraitModeSegResultSpec = { $: mojo.internal.Enum() };
+export var PortraitModeSegResult;
+(function (PortraitModeSegResult) {
+    PortraitModeSegResult[PortraitModeSegResult["MIN_VALUE"] = 0] = "MIN_VALUE";
+    PortraitModeSegResult[PortraitModeSegResult["MAX_VALUE"] = 4] = "MAX_VALUE";
+    PortraitModeSegResult[PortraitModeSegResult["kSuccess"] = 0] = "kSuccess";
+    PortraitModeSegResult[PortraitModeSegResult["kFailure"] = 1] = "kFailure";
+    PortraitModeSegResult[PortraitModeSegResult["kTimeout"] = 2] = "kTimeout";
+    PortraitModeSegResult[PortraitModeSegResult["kNoFaces"] = 3] = "kNoFaces";
+    PortraitModeSegResult[PortraitModeSegResult["kUnknown"] = 4] = "kUnknown";
+})(PortraitModeSegResult || (PortraitModeSegResult = {}));
 export const PortraitModeConfigSpec = { $: {} };
 export const Camera3StreamEffectSpec = { $: {} };
 mojo.internal.Struct(PortraitModeConfigSpec.$, 'PortraitModeConfig', [

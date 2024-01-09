@@ -20,7 +20,7 @@ export function getTemplate() {
     </cr-toggle>
   </div>
 </template>
-<template is="dom-if" if="[[hasIpConfigFields_(ipConfig_)]]">
+<template is="dom-if" if="[[hasIpConfigFields_(ipConfig_, ipConfig_.*)]]">
   <div class$="[[getFieldsClassList_(shouldShowAutoIpConfigToggle_)]]">
     <network-property-list-mojo fields="[[ipConfigFields_]]"
         all-fields-read-only="[[automatic_]]"

@@ -81,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.error.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->error();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -95,10 +96,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.src.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -118,7 +119,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -135,10 +136,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.currentSrc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->currentSrc();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->currentSrc();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -150,8 +151,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.crossOrigin.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kCrossoriginAttr);
 
 // [ReflectOnly]
@@ -165,7 +167,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = keywords::kAnonymous;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -186,8 +187,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.networkState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getNetworkState();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -200,10 +202,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.preload.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->preload();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->preload();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -223,7 +225,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -240,8 +242,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.buffered.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->buffered();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -254,8 +257,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.readyState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getReadyState();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -268,8 +272,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.seeking.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->seeking();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -282,8 +287,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.currentTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -295,9 +301,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.currentTime.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMediaElement";
@@ -318,8 +324,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.duration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->duration();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -332,8 +339,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.paused.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->paused();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -346,8 +354,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.defaultPlaybackRate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->defaultPlaybackRate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -359,9 +368,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.defaultPlaybackRate.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMediaElement";
@@ -382,8 +391,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.playbackRate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->playbackRate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -395,9 +405,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.playbackRate.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMediaElement";
@@ -421,8 +431,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.played.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->played();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -435,8 +446,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.seekable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->seekable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -449,8 +461,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.ended.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ended();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -463,8 +476,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.autoplay.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kAutoplayAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -486,8 +500,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.loop.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kLoopAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -509,8 +524,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.latencyHint.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->latencyHint();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -531,7 +547,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLDouble>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -548,8 +564,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.preservesPitch.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->preservesPitch();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -561,9 +578,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.preservesPitch.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMediaElement";
@@ -584,8 +601,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.controls.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kControlsAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -607,8 +625,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.controlsList.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->controlsList();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -656,8 +675,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.volume.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->volume();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -669,9 +689,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.volume.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMediaElement";
@@ -695,8 +715,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.muted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->muted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -708,9 +729,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.muted.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLMediaElement";
@@ -731,8 +752,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.defaultMuted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kMutedAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -754,8 +776,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.audioTracks.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->audioTracks();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -768,8 +791,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.videoTracks.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->videoTracks();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -782,8 +806,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.textTracks.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->textTracks();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -802,7 +827,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedAudioDecodedBy
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->webkitAudioDecodedByteCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -821,7 +846,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedVideoDecodedBy
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->webkitVideoDecodedByteCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -834,10 +859,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.sinkId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = HTMLMediaElementAudioOutputDevice::sinkId(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = HTMLMediaElementAudioOutputDevice::sinkId(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -849,8 +874,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.mediaKeys.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLMediaElementEncryptedMedia::mediaKeys(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -863,10 +889,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.onencrypted.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = HTMLMediaElementEncryptedMedia::onencrypted(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = HTMLMediaElementEncryptedMedia::onencrypted(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -879,8 +905,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 HTMLMediaElementEncryptedMedia::setOnencrypted(*blink_receiver, event_handler);
 }
 
@@ -891,10 +918,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.onwaitingforkey.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = HTMLMediaElementEncryptedMedia::onwaitingforkey(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = HTMLMediaElementEncryptedMedia::onwaitingforkey(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -907,8 +934,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 HTMLMediaElementEncryptedMedia::setOnwaitingforkey(*blink_receiver, event_handler);
 }
 
@@ -925,7 +953,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLMediaElement_Rem
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLMediaElementRemotePlayback::remote(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -938,8 +966,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.disableRemotePlayback.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLMediaElementRemotePlayback::FastHasAttribute(*blink_receiver, html_names::kDisableremoteplaybackAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -971,7 +1000,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLMediaElementSrcObject::srcObject(*blink_receiver);
 if (!ToV8Traits<IDLNullable<V8UnionMediaSourceHandleOrMediaStream>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -1000,7 +1029,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<V8UnionMediaSourceHandleOrMediaStream>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1040,7 +1069,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_kind = NativeValueTraits<V8TextTrackKind>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1097,10 +1126,10 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
 if (LIKELY(info[0]->IsString())) {
-  arg1_type.Init(info[0].As<v8::String>());
+  arg1_type.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLMediaElement";
@@ -1135,7 +1164,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLMediaElement";
 const char* const property_name = "captureStream";
@@ -1158,8 +1187,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.load");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->load();
 
 }
@@ -1175,8 +1205,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.pause");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->pause();
 
 }
@@ -1204,7 +1235,7 @@ return;
 
 
 
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1242,7 +1273,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_keys = NativeValueTraits<IDLNullable<MediaKeys>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1288,7 +1319,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(v8_receiver);
+HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sink_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

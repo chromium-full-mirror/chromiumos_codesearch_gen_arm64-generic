@@ -33,7 +33,7 @@ class FontCustomPlatformData;
 class FontFace;
 class HTMLDocumentParser;
 class HTMLInputElement;
-class HTMLPortalElement;
+class JSBasedEventListener;
 class PerformanceEntry;
 class Script;
 class ScriptState;
@@ -307,12 +307,12 @@ inline void PrepareRequest(CoreProbeSink* param_core_probe_sink, DocumentLoader*
   PrepareRequestImpl(param_core_probe_sink, param_document_loader, param_resource_request, param_resource_loader_options, param_resource_type);
 }
 
-CORE_EXPORT void WillSendRequestImpl(CoreProbeSink*, DocumentLoader*, const KURL&, const ResourceRequest&, const ResourceResponse&, const ResourceLoaderOptions&, ResourceType, RenderBlockingBehavior, base::TimeTicks);
-inline void WillSendRequest(CoreProbeSink* param_core_probe_sink, DocumentLoader* param_document_loader, const KURL& fetch_context_url, const ResourceRequest& param_resource_request, const ResourceResponse& redirect_response, const ResourceLoaderOptions& param_resource_loader_options, ResourceType param_resource_type, RenderBlockingBehavior param_render_blocking_behavior, base::TimeTicks timestamp) {
+CORE_EXPORT void WillSendRequestImpl(ExecutionContext*, DocumentLoader*, const KURL&, const ResourceRequest&, const ResourceResponse&, const ResourceLoaderOptions&, ResourceType, RenderBlockingBehavior, base::TimeTicks);
+inline void WillSendRequest(ExecutionContext* param_execution_context, DocumentLoader* param_document_loader, const KURL& fetch_context_url, const ResourceRequest& param_resource_request, const ResourceResponse& redirect_response, const ResourceLoaderOptions& param_resource_loader_options, ResourceType param_resource_type, RenderBlockingBehavior param_render_blocking_behavior, base::TimeTicks timestamp) {
   if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorNetworkAgent | CoreProbeSink::kInspectorTraceEvents))
     return;
 
-  WillSendRequestImpl(param_core_probe_sink, param_document_loader, fetch_context_url, param_resource_request, redirect_response, param_resource_loader_options, param_resource_type, param_render_blocking_behavior, timestamp);
+  WillSendRequestImpl(param_execution_context, param_document_loader, fetch_context_url, param_resource_request, redirect_response, param_resource_loader_options, param_resource_type, param_render_blocking_behavior, timestamp);
 }
 
 CORE_EXPORT void WillSendNavigationRequestImpl(CoreProbeSink*, uint64_t, DocumentLoader*, const KURL&, const AtomicString&, EncodedFormData*);
@@ -835,12 +835,13 @@ class CORE_EXPORT EvaluateScriptBlock : public ProbeBase {
   STACK_ALLOCATED();
 
  public:
-  explicit EvaluateScriptBlock(ExecutionContext*, std::reference_wrapper<std::remove_reference_t<const KURL&>>, bool);
+  explicit EvaluateScriptBlock(ScriptState*, std::reference_wrapper<std::remove_reference_t<const KURL&>>, bool, bool);
   ~EvaluateScriptBlock();
   CoreProbeSink* probe_sink = nullptr;
-  ExecutionContext* context;
+  ScriptState* script_state;
   const KURL& source_url;
   bool is_module;
+  bool sanitize;
 };
 
 class CORE_EXPORT ExecuteScript : public ProbeBase {
@@ -889,10 +890,10 @@ class CORE_EXPORT InvokeCallback : public ProbeBase {
   STACK_ALLOCATED();
 
  public:
-  explicit InvokeCallback(ExecutionContext*, const char*, CallbackFunctionBase*, v8::MaybeLocal<v8::Value> = v8::MaybeLocal<v8::Value>());
+  explicit InvokeCallback(ScriptState*, const char*, CallbackFunctionBase*, v8::MaybeLocal<v8::Value> = v8::MaybeLocal<v8::Value>());
   ~InvokeCallback();
   CoreProbeSink* probe_sink = nullptr;
-  ExecutionContext* context;
+  ScriptState* script_state;
   const char* name;
   CallbackFunctionBase* callback;
   v8::MaybeLocal<v8::Value> function;
@@ -902,13 +903,12 @@ class CORE_EXPORT InvokeEventHandler : public ProbeBase {
   STACK_ALLOCATED();
 
  public:
-  explicit InvokeEventHandler(ExecutionContext*, EventTarget* = nullptr, Event* = nullptr, EventListener* = nullptr);
+  explicit InvokeEventHandler(ScriptState*, Event* = nullptr, JSBasedEventListener* = nullptr);
   ~InvokeEventHandler();
   CoreProbeSink* probe_sink = nullptr;
-  ExecutionContext* context;
-  EventTarget* event_target;
+  ScriptState* script_state;
   Event* event;
-  EventListener* listener;
+  JSBasedEventListener* listener;
 };
 
 class CORE_EXPORT V8Compile : public ProbeBase {
@@ -1063,14 +1063,6 @@ inline void NodeCreated(Node* node) {
   NodeCreatedImpl(node);
 }
 
-CORE_EXPORT void PortalRemoteFrameCreatedImpl(Document*, HTMLPortalElement*);
-inline void PortalRemoteFrameCreated(Document* param_document, HTMLPortalElement* portal_element) {
-  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorDOMAgent))
-    return;
-
-  PortalRemoteFrameCreatedImpl(param_document, portal_element);
-}
-
 CORE_EXPORT void FileChooserOpenedImpl(LocalFrame*, HTMLInputElement*, bool, bool*);
 inline void FileChooserOpened(LocalFrame* frame, HTMLInputElement* element, bool multiple, bool* intercepted) {
   if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorPageAgent))
@@ -1133,6 +1125,14 @@ inline void DidMutateStyleSheet(Document* param_document, CSSStyleSheet* style_s
     return;
 
   DidMutateStyleSheetImpl(param_document, style_sheet);
+}
+
+CORE_EXPORT void DidReplaceStyleSheetTextImpl(Document*, CSSStyleSheet*, const String&);
+inline void DidReplaceStyleSheetText(Document* param_document, CSSStyleSheet* style_sheet, const String& text) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorCSSAgent))
+    return;
+
+  DidReplaceStyleSheetTextImpl(param_document, style_sheet, text);
 }
 
 CORE_EXPORT void GetTextPositionImpl(Document*, wtf_size_t, const String*, TextPosition*);

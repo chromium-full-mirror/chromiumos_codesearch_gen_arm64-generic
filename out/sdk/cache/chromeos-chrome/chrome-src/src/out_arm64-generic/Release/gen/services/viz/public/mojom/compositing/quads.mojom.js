@@ -615,6 +615,7 @@
     this.secureOutputOnly = false;
     this.isStreamVideo = false;
     this.isVideoFrame = false;
+    this.forceRgbx = false;
     this.protectedVideoType = 0;
     this.uvTopLeft = null;
     this.uvBottomRight = null;
@@ -688,6 +689,7 @@
 
 
 
+
     // validate TextureQuadState.protectedVideoType
     err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 20, ProtectedVideoState);
     if (err !== validator.validationError.NONE)
@@ -738,6 +740,7 @@
     val.secureOutputOnly = (packed >> 3) & 1 ? true : false;
     val.isStreamVideo = (packed >> 4) & 1 ? true : false;
     val.isVideoFrame = (packed >> 5) & 1 ? true : false;
+    val.forceRgbx = (packed >> 6) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -779,6 +782,7 @@
     packed |= (val.secureOutputOnly & 1) << 3
     packed |= (val.isStreamVideo & 1) << 4
     packed |= (val.isVideoFrame & 1) << 5
+    packed |= (val.forceRgbx & 1) << 6
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

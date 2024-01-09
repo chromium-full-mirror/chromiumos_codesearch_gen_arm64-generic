@@ -1,10 +1,10 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/tpm_manager-client-0.0.1-r772/work/tpm_manager-client-0.0.1/libhwsec-foundation/utility/proto_print.py
 // --subdir common --proto-include tpm_manager/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/tpm_manager-client/out/Default/gen/tpm_manager/client/../common
 // /build/arm64-generic/usr/include/chromeos/dbus/tpm_manager/tpm_manager.proto
@@ -181,6 +181,12 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const ClearStoredOwnerPasswordReply& value);
+std::string GetProtoDebugStringWithIndent(const ClearTpmRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const ClearTpmRequest& value);
+std::string GetProtoDebugStringWithIndent(const ClearTpmReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const ClearTpmReply& value);
 
 }  // namespace tpm_manager
 

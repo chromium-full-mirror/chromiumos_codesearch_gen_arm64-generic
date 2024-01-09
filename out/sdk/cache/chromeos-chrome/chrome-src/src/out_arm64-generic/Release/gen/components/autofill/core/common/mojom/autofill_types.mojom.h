@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/autofill/core/common/mojom/autofill_types.mojom-features.h"
 #include "components/autofill/core/common/mojom/autofill_types.mojom-shared.h"
 #include "components/autofill/core/common/mojom/autofill_types.mojom-forward.h"
 #include "mojo/public/mojom/base/text_direction.mojom.h"
@@ -653,25 +654,25 @@ class  SectionValue {
   // Construct an instance holding |default_section|.
   static SectionValuePtr
   NewDefaultSection(
-      bool default_section) {
+      bool value) {
     auto result = SectionValuePtr(absl::in_place);
-    result->set_default_section(std::move(default_section));
+    result->set_default_section(std::move(value));
     return result;
   }
   // Construct an instance holding |autocomplete|.
   static SectionValuePtr
   NewAutocomplete(
-      SectionAutocompletePtr autocomplete) {
+      SectionAutocompletePtr value) {
     auto result = SectionValuePtr(absl::in_place);
-    result->set_autocomplete(std::move(autocomplete));
+    result->set_autocomplete(std::move(value));
     return result;
   }
   // Construct an instance holding |field_identifier|.
   static SectionValuePtr
   NewFieldIdentifier(
-      SectionFieldIdentifierPtr field_identifier) {
+      SectionFieldIdentifierPtr value) {
     auto result = SectionValuePtr(absl::in_place);
-    result->set_field_identifier(std::move(field_identifier));
+    result->set_field_identifier(std::move(value));
     return result;
   }
 
@@ -1545,8 +1546,7 @@ class  FormFieldData {
       const ::std::u16string& id_attribute,
       const ::std::u16string& name_attribute,
       const ::std::u16string& value,
-      uint32_t selection_start,
-      uint32_t selection_end,
+      const ::std::u16string& selected_text,
       FormControlType form_control_type,
       const std::string& autocomplete_attribute,
       AutocompleteParsingResultPtr parsed_autocomplete,
@@ -1559,6 +1559,7 @@ class  FormFieldData {
       uint32_t properties_mask,
       int32_t form_control_ax_id,
       uint64_t max_length,
+      bool is_user_edited,
       bool is_autofilled,
       const ::autofill::Section& section,
       FormFieldData::CheckStatus check_status,
@@ -1664,9 +1665,7 @@ FormFieldData& operator=(const FormFieldData&) = delete;
   
   ::std::u16string value;
   
-  uint32_t selection_start;
-  
-  uint32_t selection_end;
+  ::std::u16string selected_text;
   
   FormControlType form_control_type;
   
@@ -1691,6 +1690,8 @@ FormFieldData& operator=(const FormFieldData&) = delete;
   int32_t form_control_ax_id;
   
   uint64_t max_length;
+  
+  bool is_user_edited;
   
   bool is_autofilled;
   
@@ -2109,6 +2110,7 @@ class  FormFieldDataPredictions {
       const std::string& signature,
       const std::string& heuristic_type,
       const std::string& server_type,
+      const std::string& html_type,
       const std::string& overall_type,
       const std::string& parseable_name,
       const std::string& section,
@@ -2200,6 +2202,8 @@ class  FormFieldDataPredictions {
   std::string heuristic_type;
   
   std::string server_type;
+  
+  std::string html_type;
   
   std::string overall_type;
   
@@ -2883,7 +2887,8 @@ class  PasswordGenerationUIData {
       ::autofill::FieldRendererId generation_element_id,
       bool is_generation_element_password_type,
       ::base::i18n::TextDirection text_direction,
-      const ::autofill::FormData& form_data);
+      const ::autofill::FormData& form_data,
+      bool input_field_empty);
 
 
   ~PasswordGenerationUIData();
@@ -2974,6 +2979,8 @@ class  PasswordGenerationUIData {
   ::base::i18n::TextDirection text_direction;
   
   ::autofill::FormData form_data;
+  
+  bool input_field_empty;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3449,8 +3456,7 @@ FormFieldDataPtr FormFieldData::Clone() const {
       mojo::Clone(id_attribute),
       mojo::Clone(name_attribute),
       mojo::Clone(value),
-      mojo::Clone(selection_start),
-      mojo::Clone(selection_end),
+      mojo::Clone(selected_text),
       mojo::Clone(form_control_type),
       mojo::Clone(autocomplete_attribute),
       mojo::Clone(parsed_autocomplete),
@@ -3463,6 +3469,7 @@ FormFieldDataPtr FormFieldData::Clone() const {
       mojo::Clone(properties_mask),
       mojo::Clone(form_control_ax_id),
       mojo::Clone(max_length),
+      mojo::Clone(is_user_edited),
       mojo::Clone(is_autofilled),
       mojo::Clone(section),
       mojo::Clone(check_status),
@@ -3494,9 +3501,7 @@ bool FormFieldData::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->value, other_struct.value))
     return false;
-  if (!mojo::Equals(this->selection_start, other_struct.selection_start))
-    return false;
-  if (!mojo::Equals(this->selection_end, other_struct.selection_end))
+  if (!mojo::Equals(this->selected_text, other_struct.selected_text))
     return false;
   if (!mojo::Equals(this->form_control_type, other_struct.form_control_type))
     return false;
@@ -3521,6 +3526,8 @@ bool FormFieldData::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->form_control_ax_id, other_struct.form_control_ax_id))
     return false;
   if (!mojo::Equals(this->max_length, other_struct.max_length))
+    return false;
+  if (!mojo::Equals(this->is_user_edited, other_struct.is_user_edited))
     return false;
   if (!mojo::Equals(this->is_autofilled, other_struct.is_autofilled))
     return false;
@@ -3579,13 +3586,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.value < lhs.value)
     return false;
-  if (lhs.selection_start < rhs.selection_start)
+  if (lhs.selected_text < rhs.selected_text)
     return true;
-  if (rhs.selection_start < lhs.selection_start)
-    return false;
-  if (lhs.selection_end < rhs.selection_end)
-    return true;
-  if (rhs.selection_end < lhs.selection_end)
+  if (rhs.selected_text < lhs.selected_text)
     return false;
   if (lhs.form_control_type < rhs.form_control_type)
     return true;
@@ -3634,6 +3637,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.max_length < rhs.max_length)
     return true;
   if (rhs.max_length < lhs.max_length)
+    return false;
+  if (lhs.is_user_edited < rhs.is_user_edited)
+    return true;
+  if (rhs.is_user_edited < lhs.is_user_edited)
     return false;
   if (lhs.is_autofilled < rhs.is_autofilled)
     return true;
@@ -3843,6 +3850,7 @@ FormFieldDataPredictionsPtr FormFieldDataPredictions::Clone() const {
       mojo::Clone(signature),
       mojo::Clone(heuristic_type),
       mojo::Clone(server_type),
+      mojo::Clone(html_type),
       mojo::Clone(overall_type),
       mojo::Clone(parseable_name),
       mojo::Clone(section),
@@ -3862,6 +3870,8 @@ bool FormFieldDataPredictions::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->heuristic_type, other_struct.heuristic_type))
     return false;
   if (!mojo::Equals(this->server_type, other_struct.server_type))
+    return false;
+  if (!mojo::Equals(this->html_type, other_struct.html_type))
     return false;
   if (!mojo::Equals(this->overall_type, other_struct.overall_type))
     return false;
@@ -3897,6 +3907,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.server_type < rhs.server_type)
     return true;
   if (rhs.server_type < lhs.server_type)
+    return false;
+  if (lhs.html_type < rhs.html_type)
+    return true;
+  if (rhs.html_type < lhs.html_type)
     return false;
   if (lhs.overall_type < rhs.overall_type)
     return true;
@@ -4123,7 +4137,8 @@ PasswordGenerationUIDataPtr PasswordGenerationUIData::Clone() const {
       mojo::Clone(generation_element_id),
       mojo::Clone(is_generation_element_password_type),
       mojo::Clone(text_direction),
-      mojo::Clone(form_data)
+      mojo::Clone(form_data),
+      mojo::Clone(input_field_empty)
   );
 }
 
@@ -4142,6 +4157,8 @@ bool PasswordGenerationUIData::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->text_direction, other_struct.text_direction))
     return false;
   if (!mojo::Equals(this->form_data, other_struct.form_data))
+    return false;
+  if (!mojo::Equals(this->input_field_empty, other_struct.input_field_empty))
     return false;
   return true;
 }
@@ -4175,6 +4192,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.form_data < rhs.form_data)
     return true;
   if (rhs.form_data < lhs.form_data)
+    return false;
+  if (lhs.input_field_empty < rhs.input_field_empty)
+    return true;
+  if (rhs.input_field_empty < lhs.input_field_empty)
     return false;
   return false;
 }
@@ -4434,14 +4455,9 @@ struct  StructTraits<::autofill::mojom::FormFieldData::DataView,
     return input->value;
   }
 
-  static decltype(::autofill::mojom::FormFieldData::selection_start) selection_start(
+  static const decltype(::autofill::mojom::FormFieldData::selected_text)& selected_text(
       const ::autofill::mojom::FormFieldDataPtr& input) {
-    return input->selection_start;
-  }
-
-  static decltype(::autofill::mojom::FormFieldData::selection_end) selection_end(
-      const ::autofill::mojom::FormFieldDataPtr& input) {
-    return input->selection_end;
+    return input->selected_text;
   }
 
   static decltype(::autofill::mojom::FormFieldData::form_control_type) form_control_type(
@@ -4502,6 +4518,11 @@ struct  StructTraits<::autofill::mojom::FormFieldData::DataView,
   static decltype(::autofill::mojom::FormFieldData::max_length) max_length(
       const ::autofill::mojom::FormFieldDataPtr& input) {
     return input->max_length;
+  }
+
+  static decltype(::autofill::mojom::FormFieldData::is_user_edited) is_user_edited(
+      const ::autofill::mojom::FormFieldDataPtr& input) {
+    return input->is_user_edited;
   }
 
   static decltype(::autofill::mojom::FormFieldData::is_autofilled) is_autofilled(
@@ -4707,6 +4728,11 @@ struct  StructTraits<::autofill::mojom::FormFieldDataPredictions::DataView,
   static const decltype(::autofill::mojom::FormFieldDataPredictions::server_type)& server_type(
       const ::autofill::mojom::FormFieldDataPredictionsPtr& input) {
     return input->server_type;
+  }
+
+  static const decltype(::autofill::mojom::FormFieldDataPredictions::html_type)& html_type(
+      const ::autofill::mojom::FormFieldDataPredictionsPtr& input) {
+    return input->html_type;
   }
 
   static const decltype(::autofill::mojom::FormFieldDataPredictions::overall_type)& overall_type(
@@ -4917,6 +4943,11 @@ struct  StructTraits<::autofill::mojom::PasswordGenerationUIData::DataView,
   static const decltype(::autofill::mojom::PasswordGenerationUIData::form_data)& form_data(
       const ::autofill::mojom::PasswordGenerationUIDataPtr& input) {
     return input->form_data;
+  }
+
+  static decltype(::autofill::mojom::PasswordGenerationUIData::input_field_empty) input_field_empty(
+      const ::autofill::mojom::PasswordGenerationUIDataPtr& input) {
+    return input->input_field_empty;
   }
 
   static bool Read(::autofill::mojom::PasswordGenerationUIData::DataView input, ::autofill::mojom::PasswordGenerationUIDataPtr* output);

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/mediastream/media_stream.mojom-features.h"
 #include "third_party/blink/public/mojom/mediastream/media_stream.mojom-shared.h"
 #include "third_party/blink/public/mojom/mediastream/media_stream.mojom-forward.h"
 #include "media/capture/mojom/video_capture_types.mojom.h"
@@ -141,7 +142,7 @@ class BLINK_COMMON_EXPORT MediaStreamDispatcherHost
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    9
+    12
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -163,6 +164,9 @@ class BLINK_COMMON_EXPORT MediaStreamDispatcherHost
     kSetCapturingLinkSecuredMinVersion = 0,
     kOnStreamStartedMinVersion = 0,
     kApplySubCaptureTargetMinVersion = 0,
+    kSendWheelMinVersion = 0,
+    kGetZoomLevelMinVersion = 0,
+    kSetZoomLevelMinVersion = 0,
     kGetOpenDeviceMinVersion = 0,
     kKeepDeviceAliveForTransferMinVersion = 0,
   };
@@ -197,6 +201,15 @@ class BLINK_COMMON_EXPORT MediaStreamDispatcherHost
   struct ApplySubCaptureTarget_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SendWheel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetZoomLevel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetZoomLevel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct GetOpenDevice_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -218,7 +231,7 @@ class BLINK_COMMON_EXPORT MediaStreamDispatcherHost
   virtual void CancelRequest(int32_t request_id) = 0;
 
   
-  virtual void StopStreamDevice(const std::string& device_id, const absl::optional<::base::UnguessableToken>& session_id) = 0;
+  virtual void StopStreamDevice(const std::string& device_id, const std::optional<::base::UnguessableToken>& session_id) = 0;
 
 
   using OpenDeviceCallback = base::OnceCallback<void(bool, const std::string&, const ::blink::MediaStreamDevice&)>;
@@ -229,7 +242,7 @@ class BLINK_COMMON_EXPORT MediaStreamDispatcherHost
   virtual void CloseDevice(const std::string& label) = 0;
 
   
-  virtual void SetCapturingLinkSecured(const absl::optional<::base::UnguessableToken>& session_id, MediaStreamType type, bool is_secure) = 0;
+  virtual void SetCapturingLinkSecured(const std::optional<::base::UnguessableToken>& session_id, MediaStreamType type, bool is_secure) = 0;
 
   
   virtual void OnStreamStarted(const std::string& label) = 0;
@@ -237,7 +250,22 @@ class BLINK_COMMON_EXPORT MediaStreamDispatcherHost
 
   using ApplySubCaptureTargetCallback = base::OnceCallback<void(::media::mojom::ApplySubCaptureTargetResult)>;
   
-  virtual void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) = 0;
+  virtual void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::media::mojom::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) = 0;
+
+
+  using SendWheelCallback = base::OnceCallback<void(CapturedSurfaceControlResult)>;
+  
+  virtual void SendWheel(const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action, SendWheelCallback callback) = 0;
+
+
+  using GetZoomLevelCallback = base::OnceCallback<void(std::optional<int32_t>, CapturedSurfaceControlResult)>;
+  
+  virtual void GetZoomLevel(const ::base::UnguessableToken& device_id, GetZoomLevelCallback callback) = 0;
+
+
+  using SetZoomLevelCallback = base::OnceCallback<void(CapturedSurfaceControlResult)>;
+  
+  virtual void SetZoomLevel(const ::base::UnguessableToken& device_id, int32_t zoom_level, SetZoomLevelCallback callback) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
@@ -344,17 +372,23 @@ class BLINK_COMMON_EXPORT MediaStreamDispatcherHostProxy
   
   void CancelRequest(int32_t request_id) final;
   
-  void StopStreamDevice(const std::string& device_id, const absl::optional<::base::UnguessableToken>& session_id) final;
+  void StopStreamDevice(const std::string& device_id, const std::optional<::base::UnguessableToken>& session_id) final;
   
   void OpenDevice(int32_t request_id, const std::string& device_id, MediaStreamType type, OpenDeviceCallback callback) final;
   
   void CloseDevice(const std::string& label) final;
   
-  void SetCapturingLinkSecured(const absl::optional<::base::UnguessableToken>& session_id, MediaStreamType type, bool is_secure) final;
+  void SetCapturingLinkSecured(const std::optional<::base::UnguessableToken>& session_id, MediaStreamType type, bool is_secure) final;
   
   void OnStreamStarted(const std::string& label) final;
   
-  void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) final;
+  void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::media::mojom::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) final;
+  
+  void SendWheel(const ::base::UnguessableToken& device_id, CapturedWheelActionPtr action, SendWheelCallback callback) final;
+  
+  void GetZoomLevel(const ::base::UnguessableToken& device_id, GetZoomLevelCallback callback) final;
+  
+  void SetZoomLevel(const ::base::UnguessableToken& device_id, int32_t zoom_level, SetZoomLevelCallback callback) final;
   
   bool GetOpenDevice(int32_t request_id, const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, MediaStreamRequestResult* out_result, GetOpenDeviceResponsePtr* out_response) final;
   
@@ -673,6 +707,156 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class BLINK_COMMON_EXPORT CapturedWheelAction {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CapturedWheelAction, T>::value>;
+  using DataView = CapturedWheelActionDataView;
+  using Data_ = internal::CapturedWheelAction_Data;
+
+  template <typename... Args>
+  static CapturedWheelActionPtr New(Args&&... args) {
+    return CapturedWheelActionPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CapturedWheelActionPtr From(const U& u) {
+    return mojo::TypeConverter<CapturedWheelActionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CapturedWheelAction>::Convert(*this);
+  }
+
+
+  CapturedWheelAction();
+
+  CapturedWheelAction(
+      int32_t x,
+      int32_t y,
+      int32_t wheel_delta_x,
+      int32_t wheel_delta_y);
+
+
+  ~CapturedWheelAction();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CapturedWheelActionPtr>
+  CapturedWheelActionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CapturedWheelAction::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CapturedWheelAction::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CapturedWheelAction::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CapturedWheelAction::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CapturedWheelAction::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CapturedWheelAction_UnserializedMessageContext<
+            UserType, CapturedWheelAction::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CapturedWheelAction::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CapturedWheelAction::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CapturedWheelAction_UnserializedMessageContext<
+            UserType, CapturedWheelAction::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CapturedWheelAction::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  int32_t x;
+  
+  int32_t y;
+  
+  int32_t wheel_delta_x;
+  
+  int32_t wheel_delta_y;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CapturedWheelAction::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CapturedWheelAction::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CapturedWheelAction::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CapturedWheelAction::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 
 
@@ -705,7 +889,7 @@ class BLINK_COMMON_EXPORT StreamSelectionInfo {
 
   StreamSelectionInfo(
       StreamSelectionStrategy strategy,
-      const absl::optional<::base::UnguessableToken>& session_id);
+      const std::optional<::base::UnguessableToken>& session_id);
 
 
   ~StreamSelectionInfo();
@@ -785,7 +969,7 @@ class BLINK_COMMON_EXPORT StreamSelectionInfo {
   
   StreamSelectionStrategy strategy;
   
-  absl::optional<::base::UnguessableToken> session_id;
+  std::optional<::base::UnguessableToken> session_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -851,11 +1035,11 @@ class BLINK_COMMON_EXPORT MediaStreamDevice {
       const std::string& id,
       int64_t display_id,
       ::media::VideoFacingMode video_facing,
-      const absl::optional<std::string>& group_id,
-      const absl::optional<std::string>& matched_output_device_id,
+      const std::optional<std::string>& group_id,
+      const std::optional<std::string>& matched_output_device_id,
       const std::string& name,
       const ::media::AudioParameters& input,
-      const absl::optional<::base::UnguessableToken>& session_id,
+      const std::optional<::base::UnguessableToken>& session_id,
       ::media::mojom::DisplayMediaInformationPtr display_media_info);
 
 MediaStreamDevice(const MediaStreamDevice&) = delete;
@@ -944,15 +1128,15 @@ MediaStreamDevice& operator=(const MediaStreamDevice&) = delete;
   
   ::media::VideoFacingMode video_facing;
   
-  absl::optional<std::string> group_id;
+  std::optional<std::string> group_id;
   
-  absl::optional<std::string> matched_output_device_id;
+  std::optional<std::string> matched_output_device_id;
   
   std::string name;
   
   ::media::AudioParameters input;
   
-  absl::optional<::base::UnguessableToken> session_id;
+  std::optional<::base::UnguessableToken> session_id;
   
   ::media::mojom::DisplayMediaInformationPtr display_media_info;
 
@@ -1309,6 +1493,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class BLINK_COMMON_EXPORT StreamDevices {
  public:
   template <typename T>
@@ -1336,8 +1521,8 @@ class BLINK_COMMON_EXPORT StreamDevices {
   StreamDevices();
 
   StreamDevices(
-      const absl::optional<::blink::MediaStreamDevice>& audio_device,
-      const absl::optional<::blink::MediaStreamDevice>& video_device);
+      const std::optional<::blink::MediaStreamDevice>& audio_device,
+      const std::optional<::blink::MediaStreamDevice>& video_device);
 
 
   ~StreamDevices();
@@ -1415,9 +1600,9 @@ class BLINK_COMMON_EXPORT StreamDevices {
   }
 
   
-  absl::optional<::blink::MediaStreamDevice> audio_device;
+  std::optional<::blink::MediaStreamDevice> audio_device;
   
-  absl::optional<::blink::MediaStreamDevice> video_device;
+  std::optional<::blink::MediaStreamDevice> video_device;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1869,6 +2054,49 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+CapturedWheelActionPtr CapturedWheelAction::Clone() const {
+  return New(
+      mojo::Clone(x),
+      mojo::Clone(y),
+      mojo::Clone(wheel_delta_x),
+      mojo::Clone(wheel_delta_y)
+  );
+}
+
+template <typename T, CapturedWheelAction::EnableIfSame<T>*>
+bool CapturedWheelAction::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->x, other_struct.x))
+    return false;
+  if (!mojo::Equals(this->y, other_struct.y))
+    return false;
+  if (!mojo::Equals(this->wheel_delta_x, other_struct.wheel_delta_x))
+    return false;
+  if (!mojo::Equals(this->wheel_delta_y, other_struct.wheel_delta_y))
+    return false;
+  return true;
+}
+
+template <typename T, CapturedWheelAction::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.x < rhs.x)
+    return true;
+  if (rhs.x < lhs.x)
+    return false;
+  if (lhs.y < rhs.y)
+    return true;
+  if (rhs.y < lhs.y)
+    return false;
+  if (lhs.wheel_delta_x < rhs.wheel_delta_x)
+    return true;
+  if (rhs.wheel_delta_x < lhs.wheel_delta_x)
+    return false;
+  if (lhs.wheel_delta_y < rhs.wheel_delta_y)
+    return true;
+  if (rhs.wheel_delta_y < lhs.wheel_delta_y)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 StreamDevicesPtr StreamDevices::Clone() const {
   return New(
       mojo::Clone(audio_device),
@@ -2118,6 +2346,36 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::GetOpenDeviceResponse::D
   }
 
   static bool Read(::blink::mojom::GetOpenDeviceResponse::DataView input, ::blink::mojom::GetOpenDeviceResponsePtr* output);
+};
+
+
+template <>
+struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::CapturedWheelAction::DataView,
+                                         ::blink::mojom::CapturedWheelActionPtr> {
+  static bool IsNull(const ::blink::mojom::CapturedWheelActionPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::CapturedWheelActionPtr* output) { output->reset(); }
+
+  static decltype(::blink::mojom::CapturedWheelAction::x) x(
+      const ::blink::mojom::CapturedWheelActionPtr& input) {
+    return input->x;
+  }
+
+  static decltype(::blink::mojom::CapturedWheelAction::y) y(
+      const ::blink::mojom::CapturedWheelActionPtr& input) {
+    return input->y;
+  }
+
+  static decltype(::blink::mojom::CapturedWheelAction::wheel_delta_x) wheel_delta_x(
+      const ::blink::mojom::CapturedWheelActionPtr& input) {
+    return input->wheel_delta_x;
+  }
+
+  static decltype(::blink::mojom::CapturedWheelAction::wheel_delta_y) wheel_delta_y(
+      const ::blink::mojom::CapturedWheelActionPtr& input) {
+    return input->wheel_delta_y;
+  }
+
+  static bool Read(::blink::mojom::CapturedWheelAction::DataView input, ::blink::mojom::CapturedWheelActionPtr* output);
 };
 
 

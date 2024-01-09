@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chrome/browser/ui/webui/web_app_internals/web_app_internals.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/file_path.mojom-shared.h"
 #include "url/mojom/origin.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -37,8 +38,9 @@
 namespace mojom {
 class InstallIsolatedWebAppResultDataView;
 
-class IwaDevProxyAppInfoDataView;
+class IwaDevModeAppInfoDataView;
 
+class IwaDevModeLocationDataView;
 
 
 }  // mojom
@@ -54,10 +56,17 @@ struct MojomTypeTraits<::mojom::InstallIsolatedWebAppResultDataView> {
 };
 
 template <>
-struct MojomTypeTraits<::mojom::IwaDevProxyAppInfoDataView> {
-  using Data = ::mojom::internal::IwaDevProxyAppInfo_Data;
+struct MojomTypeTraits<::mojom::IwaDevModeAppInfoDataView> {
+  using Data = ::mojom::internal::IwaDevModeAppInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::mojom::IwaDevModeLocationDataView> {
+  using Data = ::mojom::internal::IwaDevModeLocation_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 }  // namespace internal
@@ -107,12 +116,12 @@ class InstallIsolatedWebAppResultDataView {
 };
 
 
-class IwaDevProxyAppInfoDataView {
+class IwaDevModeAppInfoDataView {
  public:
-  IwaDevProxyAppInfoDataView() = default;
+  IwaDevModeAppInfoDataView() = default;
 
-  IwaDevProxyAppInfoDataView(
-      internal::IwaDevProxyAppInfo_Data* data,
+  IwaDevModeAppInfoDataView(
+      internal::IwaDevModeAppInfo_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -137,14 +146,14 @@ class IwaDevProxyAppInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  inline void GetProxyOriginDataView(
-      ::url::mojom::OriginDataView* output);
+  inline void GetLocationDataView(
+      IwaDevModeLocationDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadProxyOrigin(UserType* output) {
+  [[nodiscard]] bool ReadLocation(UserType* output) {
     
-    auto* pointer = data_->proxy_origin.Get();
-    return mojo::internal::Deserialize<::url::mojom::OriginDataView>(
+    auto* pointer = !data_->location.is_null() ? &data_->location : nullptr;
+    return mojo::internal::Deserialize<::mojom::IwaDevModeLocationDataView>(
         pointer, output, message_);
   }
   inline void GetInstalledVersionDataView(
@@ -158,9 +167,57 @@ class IwaDevProxyAppInfoDataView {
         pointer, output, message_);
   }
  private:
-  internal::IwaDevProxyAppInfo_Data* data_ = nullptr;
+  internal::IwaDevModeAppInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
+class IwaDevModeLocationDataView {
+ public:
+  using Tag = internal::IwaDevModeLocation_Data::IwaDevModeLocation_Tag;
+
+  IwaDevModeLocationDataView() = default;
+
+  IwaDevModeLocationDataView(
+      internal::IwaDevModeLocation_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_proxy_origin() const { return data_->tag == Tag::kProxyOrigin; }
+  inline void GetProxyOriginDataView(
+      ::url::mojom::OriginDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProxyOrigin(UserType* output) const {
+    
+    CHECK(is_proxy_origin());
+    return mojo::internal::Deserialize<::url::mojom::OriginDataView>(
+        data_->data.f_proxy_origin.Get(), output, message_);
+  }
+  bool is_bundle_path() const { return data_->tag == Tag::kBundlePath; }
+  inline void GetBundlePathDataView(
+      ::mojo_base::mojom::FilePathDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBundlePath(UserType* output) const {
+    
+    CHECK(is_bundle_path());
+    return mojo::internal::Deserialize<::mojo_base::mojom::FilePathDataView>(
+        data_->data.f_bundle_path.Get(), output, message_);
+  }
+
+ private:
+  internal::IwaDevModeLocation_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 
 
 }  // mojom
@@ -217,13 +274,13 @@ struct Serializer<::mojom::InstallIsolatedWebAppResultDataView, MaybeConstUserTy
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::mojom::IwaDevProxyAppInfoDataView, MaybeConstUserType> {
+struct Serializer<::mojom::IwaDevModeAppInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::mojom::IwaDevProxyAppInfoDataView, UserType>;
+  using Traits = StructTraits<::mojom::IwaDevModeAppInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::mojom::internal::IwaDevProxyAppInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::mojom::internal::IwaDevModeAppInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -238,7 +295,7 @@ struct Serializer<::mojom::IwaDevProxyAppInfoDataView, MaybeConstUserType> {
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->app_id.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null app_id in IwaDevProxyAppInfo struct");
+        "null app_id in IwaDevModeAppInfo struct");
     decltype(Traits::name(input)) in_name = Traits::name(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->name)::BaseType> name_fragment(
@@ -250,19 +307,17 @@ struct Serializer<::mojom::IwaDevProxyAppInfoDataView, MaybeConstUserType> {
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null name in IwaDevProxyAppInfo struct");
-    decltype(Traits::proxy_origin(input)) in_proxy_origin = Traits::proxy_origin(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->proxy_origin)::BaseType> proxy_origin_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::url::mojom::OriginDataView>(
-        in_proxy_origin, proxy_origin_fragment);
-    fragment->proxy_origin.Set(
-        proxy_origin_fragment.is_null() ? nullptr : proxy_origin_fragment.data());
+        "null name in IwaDevModeAppInfo struct");
+    decltype(Traits::location(input)) in_location = Traits::location(input);
+    mojo::internal::MessageFragment<decltype(fragment->location)>
+        location_fragment(fragment.message());
+    location_fragment.Claim(&fragment->location);
+    mojo::internal::Serialize<::mojom::IwaDevModeLocationDataView>(
+        in_location, location_fragment, true);
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->proxy_origin.is_null(),
+        fragment->location.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null proxy_origin in IwaDevProxyAppInfo struct");
+        "null location in IwaDevModeAppInfo struct");
     decltype(Traits::installed_version(input)) in_installed_version = Traits::installed_version(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->installed_version)::BaseType> installed_version_fragment(
@@ -274,16 +329,89 @@ struct Serializer<::mojom::IwaDevProxyAppInfoDataView, MaybeConstUserType> {
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->installed_version.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null installed_version in IwaDevProxyAppInfo struct");
+        "null installed_version in IwaDevModeAppInfo struct");
   }
 
-  static bool Deserialize(::mojom::internal::IwaDevProxyAppInfo_Data* input,
+  static bool Deserialize(::mojom::internal::IwaDevModeAppInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::mojom::IwaDevProxyAppInfoDataView data_view(input, message);
+    ::mojom::IwaDevModeAppInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::mojom::IwaDevModeLocationDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::mojom::IwaDevModeLocationDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::mojom::internal::IwaDevModeLocation_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::mojom::IwaDevModeLocationDataView::Tag::kProxyOrigin: {
+        decltype(Traits::proxy_origin(input))
+            in_proxy_origin = Traits::proxy_origin(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_proxy_origin)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::url::mojom::OriginDataView>(
+            in_proxy_origin, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null proxy_origin in IwaDevModeLocation union");
+        fragment->data.f_proxy_origin.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::mojom::IwaDevModeLocationDataView::Tag::kBundlePath: {
+        decltype(Traits::bundle_path(input))
+            in_bundle_path = Traits::bundle_path(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bundle_path)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::mojo_base::mojom::FilePathDataView>(
+            in_bundle_path, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bundle_path in IwaDevModeLocation union");
+        fragment->data.f_bundle_path.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::mojom::internal::IwaDevModeLocation_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::mojom::IwaDevModeLocationDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -302,27 +430,38 @@ inline void InstallIsolatedWebAppResultDataView::GetErrorDataView(
 }
 
 
-inline void IwaDevProxyAppInfoDataView::GetAppIdDataView(
+inline void IwaDevModeAppInfoDataView::GetAppIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->app_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void IwaDevProxyAppInfoDataView::GetNameDataView(
+inline void IwaDevModeAppInfoDataView::GetNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void IwaDevProxyAppInfoDataView::GetProxyOriginDataView(
-    ::url::mojom::OriginDataView* output) {
-  auto pointer = data_->proxy_origin.Get();
-  *output = ::url::mojom::OriginDataView(pointer, message_);
+inline void IwaDevModeAppInfoDataView::GetLocationDataView(
+    IwaDevModeLocationDataView* output) {
+  auto pointer = &data_->location;
+  *output = IwaDevModeLocationDataView(pointer, message_);
 }
-inline void IwaDevProxyAppInfoDataView::GetInstalledVersionDataView(
+inline void IwaDevModeAppInfoDataView::GetInstalledVersionDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->installed_version.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 
+
+inline void IwaDevModeLocationDataView::GetProxyOriginDataView(
+    ::url::mojom::OriginDataView* output) const {
+  CHECK(is_proxy_origin());
+  *output = ::url::mojom::OriginDataView(data_->data.f_proxy_origin.Get(), message_);
+}
+inline void IwaDevModeLocationDataView::GetBundlePathDataView(
+    ::mojo_base::mojom::FilePathDataView* output) const {
+  CHECK(is_bundle_path());
+  *output = ::mojo_base::mojom::FilePathDataView(data_->data.f_bundle_path.Get(), message_);
+}
 
 
 }  // mojom

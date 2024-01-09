@@ -300,17 +300,19 @@ bool AnonymousTokensUseCase_IsValid(int value) {
     case 7:
     case 8:
     case 9:
+    case 10:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AnonymousTokensUseCase_strings[10] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AnonymousTokensUseCase_strings[11] = {};
 
 static const char AnonymousTokensUseCase_names[] =
   "ANONYMOUS_TOKENS_USE_CASE_UNDEFINED"
   "CHROME_IP_BLINDING"
+  "CHROME_IP_BLINDING_DARKLAUNCH"
   "NOCTOGRAM_PPISSUER"
   "PROVABLY_PRIVATE_NETWORK"
   "TEST_USE_CASE"
@@ -323,27 +325,29 @@ static const char AnonymousTokensUseCase_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AnonymousTokensUseCase_entries[] = {
   { {AnonymousTokensUseCase_names + 0, 35}, 0 },
   { {AnonymousTokensUseCase_names + 35, 18}, 7 },
-  { {AnonymousTokensUseCase_names + 53, 18}, 8 },
-  { {AnonymousTokensUseCase_names + 71, 24}, 3 },
-  { {AnonymousTokensUseCase_names + 95, 13}, 1 },
-  { {AnonymousTokensUseCase_names + 108, 15}, 2 },
-  { {AnonymousTokensUseCase_names + 123, 15}, 4 },
-  { {AnonymousTokensUseCase_names + 138, 15}, 5 },
-  { {AnonymousTokensUseCase_names + 153, 15}, 6 },
-  { {AnonymousTokensUseCase_names + 168, 15}, 9 },
+  { {AnonymousTokensUseCase_names + 53, 29}, 10 },
+  { {AnonymousTokensUseCase_names + 82, 18}, 8 },
+  { {AnonymousTokensUseCase_names + 100, 24}, 3 },
+  { {AnonymousTokensUseCase_names + 124, 13}, 1 },
+  { {AnonymousTokensUseCase_names + 137, 15}, 2 },
+  { {AnonymousTokensUseCase_names + 152, 15}, 4 },
+  { {AnonymousTokensUseCase_names + 167, 15}, 5 },
+  { {AnonymousTokensUseCase_names + 182, 15}, 6 },
+  { {AnonymousTokensUseCase_names + 197, 15}, 9 },
 };
 
 static const int AnonymousTokensUseCase_entries_by_number[] = {
   0, // 0 -> ANONYMOUS_TOKENS_USE_CASE_UNDEFINED
-  4, // 1 -> TEST_USE_CASE
-  5, // 2 -> TEST_USE_CASE_2
-  3, // 3 -> PROVABLY_PRIVATE_NETWORK
-  6, // 4 -> TEST_USE_CASE_3
-  7, // 5 -> TEST_USE_CASE_4
-  8, // 6 -> TEST_USE_CASE_5
+  5, // 1 -> TEST_USE_CASE
+  6, // 2 -> TEST_USE_CASE_2
+  4, // 3 -> PROVABLY_PRIVATE_NETWORK
+  7, // 4 -> TEST_USE_CASE_3
+  8, // 5 -> TEST_USE_CASE_4
+  9, // 6 -> TEST_USE_CASE_5
   1, // 7 -> CHROME_IP_BLINDING
-  2, // 8 -> NOCTOGRAM_PPISSUER
-  9, // 9 -> TEST_USE_CASE_6
+  3, // 8 -> NOCTOGRAM_PPISSUER
+  10, // 9 -> TEST_USE_CASE_6
+  2, // 10 -> CHROME_IP_BLINDING_DARKLAUNCH
 };
 
 const std::string& AnonymousTokensUseCase_Name(
@@ -352,12 +356,12 @@ const std::string& AnonymousTokensUseCase_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           AnonymousTokensUseCase_entries,
           AnonymousTokensUseCase_entries_by_number,
-          10, AnonymousTokensUseCase_strings);
+          11, AnonymousTokensUseCase_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       AnonymousTokensUseCase_entries,
       AnonymousTokensUseCase_entries_by_number,
-      10, value);
+      11, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      AnonymousTokensUseCase_strings[idx].get();
 }
@@ -365,7 +369,7 @@ bool AnonymousTokensUseCase_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AnonymousTokensUseCase* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AnonymousTokensUseCase_entries, 10, name, &int_value);
+      AnonymousTokensUseCase_entries, 11, name, &int_value);
   if (success) {
     *value = static_cast<AnonymousTokensUseCase>(int_value);
   }

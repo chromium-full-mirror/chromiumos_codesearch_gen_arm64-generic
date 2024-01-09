@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRTransientInputHitTestResult>::value,
     "XRTransientInputHitTestResult inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRTransientInputHitTestResult::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRTransientInputHitTestResult is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRTransientInputHitTestResult.inputSource.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRTransientInputHitTestResult* blink_receiver = V8XRTransientInputHitTestResult::ToWrappableUnsafe(v8_receiver);
+XRTransientInputHitTestResult* blink_receiver = V8XRTransientInputHitTestResult::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inputSource();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -108,7 +104,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRTransientInputHitTestResult* blink_receiver = V8XRTransientInputHitTestResult::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+XRTransientInputHitTestResult* blink_receiver = V8XRTransientInputHitTestResult::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->results();
 if (!ToV8Traits<IDLArray<XRHitTestResult>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

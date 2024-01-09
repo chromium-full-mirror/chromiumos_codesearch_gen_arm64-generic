@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/base/ime/mojom/text_input_state.mojom-features.h"
 #include "ui/base/ime/mojom/text_input_state.mojom-shared.h"
 #include "ui/base/ime/mojom/text_input_state.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -227,15 +228,15 @@ class  TextInputState {
       ::ui::TextInputMode mode,
       ::ui::TextInputAction action,
       uint32_t flags,
-      const absl::optional<::std::u16string>& value,
+      const std::optional<::std::u16string>& value,
       const ::gfx::Range& selection,
-      const absl::optional<::gfx::Range>& composition,
+      const std::optional<::gfx::Range>& composition,
       bool can_compose_inline,
       bool show_ime_if_needed,
       bool always_hide_ime,
       bool reply_to_request,
-      const absl::optional<::gfx::Rect>& edit_context_control_bounds,
-      const absl::optional<::gfx::Rect>& edit_context_selection_bounds,
+      const std::optional<::gfx::Rect>& edit_context_control_bounds,
+      const std::optional<::gfx::Rect>& edit_context_selection_bounds,
       ::ui::mojom::VirtualKeyboardPolicy vk_policy,
       ::ui::mojom::VirtualKeyboardVisibilityRequest last_vk_visibility_request,
       std::vector<ImeTextSpanInfoPtr> ime_text_spans_info);
@@ -323,11 +324,11 @@ TextInputState& operator=(const TextInputState&) = delete;
   
   uint32_t flags;
   
-  absl::optional<::std::u16string> value;
+  std::optional<::std::u16string> value;
   
   ::gfx::Range selection;
   
-  absl::optional<::gfx::Range> composition;
+  std::optional<::gfx::Range> composition;
   
   bool can_compose_inline;
   
@@ -337,9 +338,9 @@ TextInputState& operator=(const TextInputState&) = delete;
   
   bool reply_to_request;
   
-  absl::optional<::gfx::Rect> edit_context_control_bounds;
+  std::optional<::gfx::Rect> edit_context_control_bounds;
   
-  absl::optional<::gfx::Rect> edit_context_selection_bounds;
+  std::optional<::gfx::Rect> edit_context_selection_bounds;
   
   ::ui::mojom::VirtualKeyboardPolicy vk_policy;
   

@@ -80,26 +80,30 @@ bool Layer_EntropyMode_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Layer_EntropyMode_strings[2] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Layer_EntropyMode_strings[3] = {};
 
 static const char Layer_EntropyMode_names[] =
   "DEFAULT"
+  "LIMITED"
   "LOW";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Layer_EntropyMode_entries[] = {
   { {Layer_EntropyMode_names + 0, 7}, 0 },
-  { {Layer_EntropyMode_names + 7, 3}, 1 },
+  { {Layer_EntropyMode_names + 7, 7}, 2 },
+  { {Layer_EntropyMode_names + 14, 3}, 1 },
 };
 
 static const int Layer_EntropyMode_entries_by_number[] = {
   0, // 0 -> DEFAULT
-  1, // 1 -> LOW
+  2, // 1 -> LOW
+  1, // 2 -> LIMITED
 };
 
 const std::string& Layer_EntropyMode_Name(
@@ -108,12 +112,12 @@ const std::string& Layer_EntropyMode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Layer_EntropyMode_entries,
           Layer_EntropyMode_entries_by_number,
-          2, Layer_EntropyMode_strings);
+          3, Layer_EntropyMode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Layer_EntropyMode_entries,
       Layer_EntropyMode_entries_by_number,
-      2, value);
+      3, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Layer_EntropyMode_strings[idx].get();
 }
@@ -121,7 +125,7 @@ bool Layer_EntropyMode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Layer_EntropyMode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Layer_EntropyMode_entries, 2, name, &int_value);
+      Layer_EntropyMode_entries, 3, name, &int_value);
   if (success) {
     *value = static_cast<Layer_EntropyMode>(int_value);
   }
@@ -130,6 +134,7 @@ bool Layer_EntropyMode_Parse(
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr Layer_EntropyMode Layer::DEFAULT;
 constexpr Layer_EntropyMode Layer::LOW;
+constexpr Layer_EntropyMode Layer::LIMITED;
 constexpr Layer_EntropyMode Layer::EntropyMode_MIN;
 constexpr Layer_EntropyMode Layer::EntropyMode_MAX;
 constexpr int Layer::EntropyMode_ARRAYSIZE;

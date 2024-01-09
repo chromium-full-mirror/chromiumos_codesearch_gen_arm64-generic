@@ -83,7 +83,7 @@ export function getTemplate() {
       <div id="audioInputNoiseCancellationLabel" class="settings-box-text start" aria-hidden="true">
         $i18n{audioInputNoiseCancellationTitle}
       </div>
-      <cr-toggle id="audioInputNoiseCancellationToggle" checked="{{isNoiseCancellationEnabled_}}" aria-labelledby="audioInputNoiseCancellationLabel">
+      <cr-toggle id="audioInputNoiseCancellationToggle" checked="{{isNoiseCancellationEnabled_}}" aria-labelledby="audioInputNoiseCancellationLabel" on-change="toggleNoiseCancellationEnabled_">
       </cr-toggle>
     </div>
     <div id="audioInputAllowAGCSubsection" class="settings-box" hidden="[[!showAllowAGC]]">

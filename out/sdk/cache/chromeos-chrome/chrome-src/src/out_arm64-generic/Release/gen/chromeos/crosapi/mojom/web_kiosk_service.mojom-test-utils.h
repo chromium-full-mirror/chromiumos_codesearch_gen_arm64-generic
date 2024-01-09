@@ -27,11 +27,11 @@ class  WebKioskInstallerAsyncWaiter {
 
   ~WebKioskInstallerAsyncWaiter();
   void GetWebKioskInstallState(
-      const ::GURL& url, WebKioskInstallState* out_state, absl::optional<std::string>* out_app_id);
+      const ::GURL& url, WebKioskInstallState* out_state, std::optional<std::string>* out_app_id);
   
   void InstallWebKiosk(
-      const ::GURL& url, absl::optional<std::string>* out_app_id);
-  absl::optional<std::string> InstallWebKiosk(const ::GURL& url);
+      const ::GURL& url, std::optional<std::string>* out_app_id);
+  std::optional<std::string> InstallWebKiosk(const ::GURL& url);
 
  private:
   WebKioskInstaller* const proxy_;

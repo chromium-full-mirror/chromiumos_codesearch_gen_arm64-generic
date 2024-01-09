@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -343,14 +344,17 @@ void DeviceSyncObserverProxy::OnEnrollmentFinished(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSyncObserver::OnEnrollmentFinished");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSyncObserver_OnEnrollmentFinished_Name, kFlags, 0, 0, nullptr);
@@ -373,14 +377,17 @@ void DeviceSyncObserverProxy::OnNewDevicesSynced(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSyncObserver::OnNewDevicesSynced");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSyncObserver_OnNewDevicesSynced_Name, kFlags, 0, 0, nullptr);
@@ -469,12 +476,12 @@ bool DeviceSyncObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceSyncObserverValidationInfo[] = {
-    {&internal::DeviceSyncObserver_OnEnrollmentFinished_Params_Data::Validate,
+    { &internal::DeviceSyncObserver_OnEnrollmentFinished_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceSyncObserver_OnNewDevicesSynced_Params_Data::Validate,
+    { &internal::DeviceSyncObserver_OnNewDevicesSynced_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1042,14 +1049,17 @@ void DeviceSyncProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<DeviceSyncObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1080,15 +1090,18 @@ bool DeviceSyncProxy::ForceEnrollmentNow(
 #else
   TRACE_EVENT0("mojom", "DeviceSync::ForceEnrollmentNow");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_ForceEnrollmentNow_Name, kFlags, 0, 0, nullptr);
@@ -1125,14 +1138,17 @@ void DeviceSyncProxy::ForceEnrollmentNow(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSync::ForceEnrollmentNow");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_ForceEnrollmentNow_Name, kFlags, 0, 0, nullptr);
@@ -1157,15 +1173,18 @@ bool DeviceSyncProxy::ForceSyncNow(
 #else
   TRACE_EVENT0("mojom", "DeviceSync::ForceSyncNow");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_ForceSyncNow_Name, kFlags, 0, 0, nullptr);
@@ -1202,14 +1221,17 @@ void DeviceSyncProxy::ForceSyncNow(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSync::ForceSyncNow");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_ForceSyncNow_Name, kFlags, 0, 0, nullptr);
@@ -1233,14 +1255,17 @@ void DeviceSyncProxy::GetGroupPrivateKeyStatus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSync::GetGroupPrivateKeyStatus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetGroupPrivateKeyStatus_Name, kFlags, 0, 0, nullptr);
@@ -1264,14 +1289,17 @@ void DeviceSyncProxy::GetBetterTogetherMetadataStatus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSync::GetBetterTogetherMetadataStatus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetBetterTogetherMetadataStatus_Name, kFlags, 0, 0, nullptr);
@@ -1295,14 +1323,17 @@ void DeviceSyncProxy::GetSyncedDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSync::GetSyncedDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetSyncedDevices_Name, kFlags, 0, 0, nullptr);
@@ -1326,14 +1357,17 @@ void DeviceSyncProxy::GetLocalDeviceMetadata(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSync::GetLocalDeviceMetadata");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetLocalDeviceMetadata_Name, kFlags, 0, 0, nullptr);
@@ -1373,14 +1407,17 @@ void DeviceSyncProxy::SetSoftwareFeatureState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_SetSoftwareFeatureState_Name, kFlags, 0, 0, nullptr);
@@ -1432,14 +1469,17 @@ void DeviceSyncProxy::SetFeatureStatus(
                         "<value of type ::ash::device_sync::FeatureStatusChange>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_SetFeatureStatus_Name, kFlags, 0, 0, nullptr);
@@ -1485,14 +1525,17 @@ void DeviceSyncProxy::FindEligibleDevices(
                         "<value of type ::ash::multidevice::SoftwareFeature>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_FindEligibleDevices_Name, kFlags, 0, 0, nullptr);
@@ -1531,14 +1574,17 @@ void DeviceSyncProxy::NotifyDevices(
                         "<value of type ::ash::multidevice::SoftwareFeature>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_NotifyDevices_Name, kFlags, 0, 0, nullptr);
@@ -1579,14 +1625,17 @@ void DeviceSyncProxy::GetDevicesActivityStatus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSync::GetDevicesActivityStatus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetDevicesActivityStatus_Name, kFlags, 0, 0, nullptr);
@@ -1610,14 +1659,17 @@ void DeviceSyncProxy::GetDebugInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::device_sync::mojom::DeviceSync::GetDebugInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetDebugInfo_Name, kFlags, 0, 0, nullptr);
@@ -1716,7 +1768,8 @@ void DeviceSync_AddObserver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1833,7 +1886,8 @@ void DeviceSync_ForceEnrollmentNow_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_ForceEnrollmentNow_Name, kFlags, 0, 0, nullptr);
@@ -1976,7 +2030,8 @@ void DeviceSync_ForceSyncNow_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_ForceSyncNow_Name, kFlags, 0, 0, nullptr);
@@ -2119,7 +2174,8 @@ void DeviceSync_GetGroupPrivateKeyStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetGroupPrivateKeyStatus_Name, kFlags, 0, 0, nullptr);
@@ -2238,7 +2294,8 @@ void DeviceSync_GetBetterTogetherMetadataStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetBetterTogetherMetadataStatus_Name, kFlags, 0, 0, nullptr);
@@ -2311,7 +2368,7 @@ class DeviceSync_GetSyncedDevices_ProxyToResponder : public ::mojo::internal::Pr
 #endif
 
   void Run(
-      const absl::optional<std::vector<::ash::multidevice::RemoteDevice>>& in_devices);
+      const std::optional<std::vector<::ash::multidevice::RemoteDevice>>& in_devices);
 };
 
 bool DeviceSync_GetSyncedDevices_ForwardToCallback::Accept(
@@ -2324,7 +2381,7 @@ bool DeviceSync_GetSyncedDevices_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<::ash::multidevice::RemoteDevice>> p_devices{};
+  std::optional<std::vector<::ash::multidevice::RemoteDevice>> p_devices{};
   DeviceSync_GetSyncedDevices_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDevices(&p_devices))
@@ -2343,7 +2400,7 @@ std::move(p_devices));
 }
 
 void DeviceSync_GetSyncedDevices_ProxyToResponder::Run(
-    const absl::optional<std::vector<::ash::multidevice::RemoteDevice>>& in_devices) {
+    const std::optional<std::vector<::ash::multidevice::RemoteDevice>>& in_devices) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::device_sync::mojom::DeviceSync::GetSyncedDevices", "async_response_parameters",
@@ -2351,13 +2408,14 @@ void DeviceSync_GetSyncedDevices_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("devices"), in_devices,
-                        "<value of type const absl::optional<std::vector<::ash::multidevice::RemoteDevice>>&>");
+                        "<value of type const std::optional<std::vector<::ash::multidevice::RemoteDevice>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetSyncedDevices_Name, kFlags, 0, 0, nullptr);
@@ -2437,7 +2495,7 @@ class DeviceSync_GetLocalDeviceMetadata_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      const absl::optional<::ash::multidevice::RemoteDevice>& in_local_device);
+      const std::optional<::ash::multidevice::RemoteDevice>& in_local_device);
 };
 
 bool DeviceSync_GetLocalDeviceMetadata_ForwardToCallback::Accept(
@@ -2450,7 +2508,7 @@ bool DeviceSync_GetLocalDeviceMetadata_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::ash::multidevice::RemoteDevice> p_local_device{};
+  std::optional<::ash::multidevice::RemoteDevice> p_local_device{};
   DeviceSync_GetLocalDeviceMetadata_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadLocalDevice(&p_local_device))
@@ -2469,7 +2527,7 @@ std::move(p_local_device));
 }
 
 void DeviceSync_GetLocalDeviceMetadata_ProxyToResponder::Run(
-    const absl::optional<::ash::multidevice::RemoteDevice>& in_local_device) {
+    const std::optional<::ash::multidevice::RemoteDevice>& in_local_device) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::device_sync::mojom::DeviceSync::GetLocalDeviceMetadata", "async_response_parameters",
@@ -2477,13 +2535,14 @@ void DeviceSync_GetLocalDeviceMetadata_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_device"), in_local_device,
-                        "<value of type const absl::optional<::ash::multidevice::RemoteDevice>&>");
+                        "<value of type const std::optional<::ash::multidevice::RemoteDevice>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetLocalDeviceMetadata_Name, kFlags, 0, 0, nullptr);
@@ -2607,7 +2666,8 @@ void DeviceSync_SetSoftwareFeatureState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_SetSoftwareFeatureState_Name, kFlags, 0, 0, nullptr);
@@ -2726,7 +2786,8 @@ void DeviceSync_SetFeatureStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_SetFeatureStatus_Name, kFlags, 0, 0, nullptr);
@@ -2852,7 +2913,8 @@ void DeviceSync_FindEligibleDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_FindEligibleDevices_Name, kFlags, 0, 0, nullptr);
@@ -2978,7 +3040,8 @@ void DeviceSync_NotifyDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_NotifyDevices_Name, kFlags, 0, 0, nullptr);
@@ -3051,7 +3114,7 @@ class DeviceSync_GetDevicesActivityStatus_ProxyToResponder : public ::mojo::inte
 #endif
 
   void Run(
-      NetworkRequestResult in_result_code, absl::optional<std::vector<DeviceActivityStatusPtr>> in_device_activity_statuses);
+      NetworkRequestResult in_result_code, std::optional<std::vector<DeviceActivityStatusPtr>> in_device_activity_statuses);
 };
 
 bool DeviceSync_GetDevicesActivityStatus_ForwardToCallback::Accept(
@@ -3065,7 +3128,7 @@ bool DeviceSync_GetDevicesActivityStatus_ForwardToCallback::Accept(
   
   bool success = true;
   NetworkRequestResult p_result_code{};
-  absl::optional<std::vector<DeviceActivityStatusPtr>> p_device_activity_statuses{};
+  std::optional<std::vector<DeviceActivityStatusPtr>> p_device_activity_statuses{};
   DeviceSync_GetDevicesActivityStatus_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResultCode(&p_result_code))
@@ -3087,7 +3150,7 @@ std::move(p_device_activity_statuses));
 }
 
 void DeviceSync_GetDevicesActivityStatus_ProxyToResponder::Run(
-    NetworkRequestResult in_result_code, absl::optional<std::vector<DeviceActivityStatusPtr>> in_device_activity_statuses) {
+    NetworkRequestResult in_result_code, std::optional<std::vector<DeviceActivityStatusPtr>> in_device_activity_statuses) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::device_sync::mojom::DeviceSync::GetDevicesActivityStatus", "async_response_parameters",
@@ -3098,13 +3161,14 @@ void DeviceSync_GetDevicesActivityStatus_ProxyToResponder::Run(
                         "<value of type NetworkRequestResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("device_activity_statuses"), in_device_activity_statuses,
-                        "<value of type absl::optional<std::vector<DeviceActivityStatusPtr>>>");
+                        "<value of type std::optional<std::vector<DeviceActivityStatusPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetDevicesActivityStatus_Name, kFlags, 0, 0, nullptr);
@@ -3232,7 +3296,8 @@ void DeviceSync_GetDebugInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSync_GetDebugInfo_Name, kFlags, 0, 0, nullptr);
@@ -3700,34 +3765,34 @@ std::move(p_feature), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceSyncValidationInfo[] = {
-    {&internal::DeviceSync_AddObserver_Params_Data::Validate,
+    { &internal::DeviceSync_AddObserver_Params_Data::Validate,
      &internal::DeviceSync_AddObserver_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_ForceEnrollmentNow_Params_Data::Validate,
+    { &internal::DeviceSync_ForceEnrollmentNow_Params_Data::Validate,
      &internal::DeviceSync_ForceEnrollmentNow_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_ForceSyncNow_Params_Data::Validate,
+    { &internal::DeviceSync_ForceSyncNow_Params_Data::Validate,
      &internal::DeviceSync_ForceSyncNow_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_GetGroupPrivateKeyStatus_Params_Data::Validate,
+    { &internal::DeviceSync_GetGroupPrivateKeyStatus_Params_Data::Validate,
      &internal::DeviceSync_GetGroupPrivateKeyStatus_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_GetBetterTogetherMetadataStatus_Params_Data::Validate,
+    { &internal::DeviceSync_GetBetterTogetherMetadataStatus_Params_Data::Validate,
      &internal::DeviceSync_GetBetterTogetherMetadataStatus_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_GetSyncedDevices_Params_Data::Validate,
+    { &internal::DeviceSync_GetSyncedDevices_Params_Data::Validate,
      &internal::DeviceSync_GetSyncedDevices_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_GetLocalDeviceMetadata_Params_Data::Validate,
+    { &internal::DeviceSync_GetLocalDeviceMetadata_Params_Data::Validate,
      &internal::DeviceSync_GetLocalDeviceMetadata_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_SetSoftwareFeatureState_Params_Data::Validate,
+    { &internal::DeviceSync_SetSoftwareFeatureState_Params_Data::Validate,
      &internal::DeviceSync_SetSoftwareFeatureState_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_SetFeatureStatus_Params_Data::Validate,
+    { &internal::DeviceSync_SetFeatureStatus_Params_Data::Validate,
      &internal::DeviceSync_SetFeatureStatus_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_FindEligibleDevices_Params_Data::Validate,
+    { &internal::DeviceSync_FindEligibleDevices_Params_Data::Validate,
      &internal::DeviceSync_FindEligibleDevices_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_NotifyDevices_Params_Data::Validate,
+    { &internal::DeviceSync_NotifyDevices_Params_Data::Validate,
      &internal::DeviceSync_NotifyDevices_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_GetDevicesActivityStatus_Params_Data::Validate,
+    { &internal::DeviceSync_GetDevicesActivityStatus_Params_Data::Validate,
      &internal::DeviceSync_GetDevicesActivityStatus_ResponseParams_Data::Validate},
-    {&internal::DeviceSync_GetDebugInfo_Params_Data::Validate,
+    { &internal::DeviceSync_GetDebugInfo_Params_Data::Validate,
      &internal::DeviceSync_GetDebugInfo_ResponseParams_Data::Validate},
 };
 
@@ -3986,14 +4051,14 @@ void DeviceSyncAsyncWaiter::GetBetterTogetherMetadataStatus(
 }
 
 void DeviceSyncAsyncWaiter::GetSyncedDevices(
-    absl::optional<std::vector<::ash::multidevice::RemoteDevice>>* out_devices) {
+    std::optional<std::vector<::ash::multidevice::RemoteDevice>>* out_devices) {
   base::RunLoop loop;
   proxy_->GetSyncedDevices(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<::ash::multidevice::RemoteDevice>>* out_devices
+             std::optional<std::vector<::ash::multidevice::RemoteDevice>>* out_devices
 ,
-             const absl::optional<std::vector<::ash::multidevice::RemoteDevice>>& devices) {*out_devices = std::move(devices);
+             const std::optional<std::vector<::ash::multidevice::RemoteDevice>>& devices) {*out_devices = std::move(devices);
             loop->Quit();
           },
           &loop,
@@ -4001,22 +4066,22 @@ void DeviceSyncAsyncWaiter::GetSyncedDevices(
   loop.Run();
 }
 
-absl::optional<std::vector<::ash::multidevice::RemoteDevice>> DeviceSyncAsyncWaiter::GetSyncedDevices(
+std::optional<std::vector<::ash::multidevice::RemoteDevice>> DeviceSyncAsyncWaiter::GetSyncedDevices(
     ) {
-  absl::optional<std::vector<::ash::multidevice::RemoteDevice>> async_wait_result;
+  std::optional<std::vector<::ash::multidevice::RemoteDevice>> async_wait_result;
   GetSyncedDevices(&async_wait_result);
   return async_wait_result;
 }
 
 void DeviceSyncAsyncWaiter::GetLocalDeviceMetadata(
-    absl::optional<::ash::multidevice::RemoteDevice>* out_local_device) {
+    std::optional<::ash::multidevice::RemoteDevice>* out_local_device) {
   base::RunLoop loop;
   proxy_->GetLocalDeviceMetadata(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::ash::multidevice::RemoteDevice>* out_local_device
+             std::optional<::ash::multidevice::RemoteDevice>* out_local_device
 ,
-             const absl::optional<::ash::multidevice::RemoteDevice>& local_device) {*out_local_device = std::move(local_device);
+             const std::optional<::ash::multidevice::RemoteDevice>& local_device) {*out_local_device = std::move(local_device);
             loop->Quit();
           },
           &loop,
@@ -4024,9 +4089,9 @@ void DeviceSyncAsyncWaiter::GetLocalDeviceMetadata(
   loop.Run();
 }
 
-absl::optional<::ash::multidevice::RemoteDevice> DeviceSyncAsyncWaiter::GetLocalDeviceMetadata(
+std::optional<::ash::multidevice::RemoteDevice> DeviceSyncAsyncWaiter::GetLocalDeviceMetadata(
     ) {
-  absl::optional<::ash::multidevice::RemoteDevice> async_wait_result;
+  std::optional<::ash::multidevice::RemoteDevice> async_wait_result;
   GetLocalDeviceMetadata(&async_wait_result);
   return async_wait_result;
 }
@@ -4123,17 +4188,17 @@ NetworkRequestResult DeviceSyncAsyncWaiter::NotifyDevices(
 }
 
 void DeviceSyncAsyncWaiter::GetDevicesActivityStatus(
-    NetworkRequestResult* out_result_code, absl::optional<std::vector<DeviceActivityStatusPtr>>* out_device_activity_statuses) {
+    NetworkRequestResult* out_result_code, std::optional<std::vector<DeviceActivityStatusPtr>>* out_device_activity_statuses) {
   base::RunLoop loop;
   proxy_->GetDevicesActivityStatus(
       base::BindOnce(
           [](base::RunLoop* loop,
              NetworkRequestResult* out_result_code
 ,
-             absl::optional<std::vector<DeviceActivityStatusPtr>>* out_device_activity_statuses
+             std::optional<std::vector<DeviceActivityStatusPtr>>* out_device_activity_statuses
 ,
              NetworkRequestResult result_code,
-             absl::optional<std::vector<DeviceActivityStatusPtr>> device_activity_statuses) {*out_result_code = std::move(result_code);*out_device_activity_statuses = std::move(device_activity_statuses);
+             std::optional<std::vector<DeviceActivityStatusPtr>> device_activity_statuses) {*out_result_code = std::move(result_code);*out_device_activity_statuses = std::move(device_activity_statuses);
             loop->Quit();
           },
           &loop,

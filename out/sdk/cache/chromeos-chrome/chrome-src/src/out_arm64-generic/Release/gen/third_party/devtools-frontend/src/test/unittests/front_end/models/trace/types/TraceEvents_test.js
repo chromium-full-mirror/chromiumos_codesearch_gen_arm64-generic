@@ -59,7 +59,7 @@ describeWithEnvironment('TraceEvent types', function () {
         const traceParsedData = await TraceLoader.traceEngine(this, 'lcp-images.json.gz');
         const networkEvent = traceParsedData.NetworkRequests.byTime[0];
         assert.isTrue(TraceEngine.Types.TraceEvents.isSyntheticNetworkRequestDetailsEvent(networkEvent));
-        const otherEvent = traceParsedData.Renderer.allRendererEvents[0];
+        const otherEvent = traceParsedData.Renderer.allTraceEntries[0];
         assert.isFalse(TraceEngine.Types.TraceEvents.isSyntheticNetworkRequestDetailsEvent(otherEvent));
     });
     it('is able to determine that an event is a synthetic layout shift event', async function () {

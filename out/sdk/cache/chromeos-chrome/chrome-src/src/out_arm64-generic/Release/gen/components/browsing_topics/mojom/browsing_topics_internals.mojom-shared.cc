@@ -163,21 +163,21 @@ bool WebUIBrowsingTopicsConfiguration_Data::Validate(
       static_cast<const WebUIBrowsingTopicsConfiguration_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->time_period_per_epoch, 11, validation_context)) {
+          object->time_period_per_epoch, 9, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->time_period_per_epoch, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->max_epoch_introduction_delay, 14, validation_context)) {
+          object->max_epoch_introduction_delay, 12, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->max_epoch_introduction_delay, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->disabled_topics_list, 20, validation_context)) {
+          object->disabled_topics_list, 18, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& disabled_topics_list_validate_params =

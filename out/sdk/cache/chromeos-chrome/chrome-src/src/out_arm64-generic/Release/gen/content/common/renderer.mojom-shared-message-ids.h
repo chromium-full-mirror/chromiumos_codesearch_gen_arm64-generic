@@ -25,12 +25,12 @@ constexpr uint32_t kRenderer_UpdateSystemColorInfo_Name = 7;
 constexpr uint32_t kRenderer_PurgePluginListCache_Name = 8;
 constexpr uint32_t kRenderer_PurgeResourceCache_Name = 9;
 constexpr uint32_t kRenderer_SetProcessState_Name = 10;
-constexpr uint32_t kRenderer_SetIsLockedToSite_Name = 11;
-constexpr uint32_t kRenderer_SetIsCrossOriginIsolated_Name = 12;
-constexpr uint32_t kRenderer_SetIsWebSecurityDisabled_Name = 13;
-constexpr uint32_t kRenderer_SetIsIsolatedContext_Name = 14;
-constexpr uint32_t kRenderer_InitializeRenderer_Name = 15;
-constexpr uint32_t kRenderer_SetAttributionReportingSupport_Name = 16;
+constexpr uint32_t kRenderer_SetBatterySaverMode_Name = 11;
+constexpr uint32_t kRenderer_SetIsLockedToSite_Name = 12;
+constexpr uint32_t kRenderer_SetIsCrossOriginIsolated_Name = 13;
+constexpr uint32_t kRenderer_SetIsWebSecurityDisabled_Name = 14;
+constexpr uint32_t kRenderer_SetIsIsolatedContext_Name = 15;
+constexpr uint32_t kRenderer_InitializeRenderer_Name = 16;
 
 }  // namespace internal
 

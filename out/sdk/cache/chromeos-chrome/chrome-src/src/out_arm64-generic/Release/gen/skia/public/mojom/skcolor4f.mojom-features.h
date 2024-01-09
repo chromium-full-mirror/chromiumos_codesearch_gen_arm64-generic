@@ -8,6 +8,7 @@
 #define SKIA_PUBLIC_MOJOM_SKCOLOR4F_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

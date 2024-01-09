@@ -1,0 +1,64 @@
+{
+  "user.name": [
+    "chrome-bot"
+  ],
+  "user.email": [
+    "chrome-bot@chromium.org"
+  ],
+  "core.autocrlf": [
+    "false"
+  ],
+  "core.filemode": [
+    "false"
+  ],
+  "core.deltabasecachelimit": [
+    "2g"
+  ],
+  "gc.autodetach": [
+    "false"
+  ],
+  "http.version": [
+    "HTTP/1.1"
+  ],
+  "http.cookiefile": [
+    "/home/chrome-bot/.gitcookies"
+  ],
+  "init.defaultbranch": [
+    "main"
+  ],
+  "transfer.fsckobjects": [
+    "false"
+  ],
+  "url.https://android.googlesource.com/a/.insteadof": [
+    "https://android.googlesource.com/",
+    "https://android.googlesource.com/a/"
+  ],
+  "url.https://boringssl.googlesource.com/a/.insteadof": [
+    "https://boringssl.googlesource.com/",
+    "https://boringssl.googlesource.com/a/"
+  ],
+  "url.https://chrome-internal.googlesource.com/a.insteadof": [
+    "ssh://gerrit-int.chromium.org:29419"
+  ],
+  "url.https://chromium.googlesource.com/a/.insteadof": [
+    "http://git.chromium.org",
+    "http://git.chromium.org/git",
+    "https://chromium.googlesource.com/",
+    "https://chromium.googlesource.com/a/",
+    "https://git.chromium.org",
+    "https://git.chromium.org/git",
+    "ssh://gerrit.chromium.org:29418"
+  ],
+  "url.https://llvm.googlesource.com/a/.insteadof": [
+    "https://llvm.googlesource.com/",
+    "https://llvm.googlesource.com/a/"
+  ],
+  "url.https://pdfium.googlesource.com/a/.insteadof": [
+    "https://pdfium.googlesource.com/",
+    "https://pdfium.googlesource.com/a/"
+  ],
+  "url.https://skia.googlesource.com/a/.insteadof": [
+    "https://skia.googlesource.com/",
+    "https://skia.googlesource.com/a/"
+  ]
+}

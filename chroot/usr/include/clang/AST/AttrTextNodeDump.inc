@@ -424,9 +424,6 @@
     case HLSLShaderAttr::Compute:
       OS << " Compute";
       break;
-    case HLSLShaderAttr::Library:
-      OS << " Library";
-      break;
     case HLSLShaderAttr::RayGeneration:
       OS << " RayGeneration";
       break;

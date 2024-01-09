@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="internet-shared iron-flex">.settings-box{border-top:var(--network-summary-item-border-top,var(--cr-separator-line))}#outerBox{padding:0 var(--cr-section-padding)}#details{align-items:center;display:flex;flex:auto}.network-state{color:var(--cr-secondary-text-color);font-size:inherit}.warning-message{color:var(--cros-text-color-warning);font-size:inherit}</style>
+    return html `<!--_html_template_start_--><style include="internet-shared iron-flex">.settings-box{border-top:var(--network-summary-item-border-top,var(--cr-separator-line))}#outerBox{padding:0 var(--cr-section-padding)}#details{align-items:center;display:flex;flex:auto}.network-state{color:var(--cr-secondary-text-color);font-size:inherit}.warning-message{color:var(--cros-text-color-warning);font-size:inherit}:host-context(body.revamp-wayfinding-enabled) network-icon{padding-inline-end:16px;padding-inline-start:0;--network-icon-fill-color:var(--cros-sys-primary)}</style>
 <div class="settings-box two-line no-padding">
   <div id="networkSummaryItemRow" actionable$="[[isItemActionable_(activeNetworkState,
                         deviceState, networkStateList)]]" class="flex layout horizontal center link-wrapper" on-click="onShowDetailsClick_">

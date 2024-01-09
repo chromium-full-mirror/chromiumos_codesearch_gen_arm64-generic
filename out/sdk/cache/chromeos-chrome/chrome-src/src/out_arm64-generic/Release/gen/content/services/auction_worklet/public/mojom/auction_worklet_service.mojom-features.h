@@ -8,6 +8,7 @@
 #define CONTENT_SERVICES_AUCTION_WORKLET_PUBLIC_MOJOM_AUCTION_WORKLET_SERVICE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

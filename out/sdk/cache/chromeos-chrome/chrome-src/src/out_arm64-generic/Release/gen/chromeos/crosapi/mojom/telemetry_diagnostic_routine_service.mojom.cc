@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -47,7 +48,7 @@ TelemetryDiagnosticMemoryRoutineArgument::TelemetryDiagnosticMemoryRoutineArgume
     : max_testing_mem_kib() {}
 
 TelemetryDiagnosticMemoryRoutineArgument::TelemetryDiagnosticMemoryRoutineArgument(
-    absl::optional<uint32_t> max_testing_mem_kib_in)
+    std::optional<uint32_t> max_testing_mem_kib_in)
     : max_testing_mem_kib(std::move(max_testing_mem_kib_in)) {}
 
 TelemetryDiagnosticMemoryRoutineArgument::~TelemetryDiagnosticMemoryRoutineArgument() = default;
@@ -59,7 +60,7 @@ void TelemetryDiagnosticMemoryRoutineArgument::WriteIntoTrace(
     dict.AddItem(
       "max_testing_mem_kib"), this->max_testing_mem_kib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<uint32_t>>"
+      "<value of type std::optional<uint32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -67,6 +68,63 @@ void TelemetryDiagnosticMemoryRoutineArgument::WriteIntoTrace(
 }
 
 bool TelemetryDiagnosticMemoryRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TelemetryDiagnosticVolumeButtonRoutineArgument::TelemetryDiagnosticVolumeButtonRoutineArgument()
+    : type(),
+      timeout() {}
+
+TelemetryDiagnosticVolumeButtonRoutineArgument::TelemetryDiagnosticVolumeButtonRoutineArgument(
+    TelemetryDiagnosticVolumeButtonRoutineArgument::ButtonType type_in,
+    ::base::TimeDelta timeout_in)
+    : type(std::move(type_in)),
+      timeout(std::move(timeout_in)) {}
+
+TelemetryDiagnosticVolumeButtonRoutineArgument::~TelemetryDiagnosticVolumeButtonRoutineArgument() = default;
+
+void TelemetryDiagnosticVolumeButtonRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type TelemetryDiagnosticVolumeButtonRoutineArgument::ButtonType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "timeout"), this->timeout,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::TimeDelta>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TelemetryDiagnosticVolumeButtonRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TelemetryDiagnosticFanRoutineArgument::TelemetryDiagnosticFanRoutineArgument() {}
+
+TelemetryDiagnosticFanRoutineArgument::~TelemetryDiagnosticFanRoutineArgument() = default;
+size_t TelemetryDiagnosticFanRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void TelemetryDiagnosticFanRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool TelemetryDiagnosticFanRoutineArgument::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -230,6 +288,75 @@ bool TelemetryDiagnosticMemoryRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+TelemetryDiagnosticVolumeButtonRoutineDetail::TelemetryDiagnosticVolumeButtonRoutineDetail() {}
+
+TelemetryDiagnosticVolumeButtonRoutineDetail::~TelemetryDiagnosticVolumeButtonRoutineDetail() = default;
+size_t TelemetryDiagnosticVolumeButtonRoutineDetail::Hash(size_t seed) const {
+  return seed;
+}
+
+void TelemetryDiagnosticVolumeButtonRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool TelemetryDiagnosticVolumeButtonRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TelemetryDiagnosticFanRoutineDetail::TelemetryDiagnosticFanRoutineDetail()
+    : passed_fan_ids(),
+      failed_fan_ids(),
+      fan_count_status() {}
+
+TelemetryDiagnosticFanRoutineDetail::TelemetryDiagnosticFanRoutineDetail(
+    std::vector<uint8_t> passed_fan_ids_in,
+    std::vector<uint8_t> failed_fan_ids_in,
+    TelemetryDiagnosticHardwarePresenceStatus fan_count_status_in)
+    : passed_fan_ids(std::move(passed_fan_ids_in)),
+      failed_fan_ids(std::move(failed_fan_ids_in)),
+      fan_count_status(std::move(fan_count_status_in)) {}
+
+TelemetryDiagnosticFanRoutineDetail::~TelemetryDiagnosticFanRoutineDetail() = default;
+
+void TelemetryDiagnosticFanRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "passed_fan_ids"), this->passed_fan_ids,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<uint8_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "failed_fan_ids"), this->failed_fan_ids,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<uint8_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "fan_count_status"), this->fan_count_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type TelemetryDiagnosticHardwarePresenceStatus>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TelemetryDiagnosticFanRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 TelemetryDiagnosticRoutineStateFinished::TelemetryDiagnosticRoutineStateFinished()
     : has_passed(),
       detail() {}
@@ -338,6 +465,28 @@ void TelemetryDiagnosticRoutineArgument::set_memory(
         std::move(memory));
   }
 }
+void TelemetryDiagnosticRoutineArgument::set_volume_button(
+    TelemetryDiagnosticVolumeButtonRoutineArgumentPtr volume_button) {
+  if (tag_ == Tag::kVolumeButton) {
+    *(data_.volume_button) = std::move(volume_button);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kVolumeButton;
+    data_.volume_button = new TelemetryDiagnosticVolumeButtonRoutineArgumentPtr(
+        std::move(volume_button));
+  }
+}
+void TelemetryDiagnosticRoutineArgument::set_fan(
+    TelemetryDiagnosticFanRoutineArgumentPtr fan) {
+  if (tag_ == Tag::kFan) {
+    *(data_.fan) = std::move(fan);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFan;
+    data_.fan = new TelemetryDiagnosticFanRoutineArgumentPtr(
+        std::move(fan));
+  }
+}
 
 void TelemetryDiagnosticRoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -348,6 +497,14 @@ void TelemetryDiagnosticRoutineArgument::DestroyActive() {
     case Tag::kMemory:
 
       delete data_.memory;
+      break;
+    case Tag::kVolumeButton:
+
+      delete data_.volume_button;
+      break;
+    case Tag::kFan:
+
+      delete data_.fan;
       break;
   }
 }
@@ -385,6 +542,28 @@ void TelemetryDiagnosticRoutineDetail::set_memory(
         std::move(memory));
   }
 }
+void TelemetryDiagnosticRoutineDetail::set_volume_button(
+    TelemetryDiagnosticVolumeButtonRoutineDetailPtr volume_button) {
+  if (tag_ == Tag::kVolumeButton) {
+    *(data_.volume_button) = std::move(volume_button);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kVolumeButton;
+    data_.volume_button = new TelemetryDiagnosticVolumeButtonRoutineDetailPtr(
+        std::move(volume_button));
+  }
+}
+void TelemetryDiagnosticRoutineDetail::set_fan(
+    TelemetryDiagnosticFanRoutineDetailPtr fan) {
+  if (tag_ == Tag::kFan) {
+    *(data_.fan) = std::move(fan);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFan;
+    data_.fan = new TelemetryDiagnosticFanRoutineDetailPtr(
+        std::move(fan));
+  }
+}
 
 void TelemetryDiagnosticRoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -395,6 +574,14 @@ void TelemetryDiagnosticRoutineDetail::DestroyActive() {
     case Tag::kMemory:
 
       delete data_.memory;
+      break;
+    case Tag::kVolumeButton:
+
+      delete data_.volume_button;
+      break;
+    case Tag::kFan:
+
+      delete data_.fan;
       break;
   }
 }
@@ -596,14 +783,17 @@ void TelemetryDiagnosticRoutineControlProxy::GetState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TelemetryDiagnosticRoutineControl::GetState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTelemetryDiagnosticRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
@@ -627,14 +817,17 @@ void TelemetryDiagnosticRoutineControlProxy::Start(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::TelemetryDiagnosticRoutineControl::Start");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTelemetryDiagnosticRoutineControl_Start_Name, kFlags, 0, 0, nullptr);
@@ -743,7 +936,8 @@ void TelemetryDiagnosticRoutineControl_GetState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTelemetryDiagnosticRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
@@ -854,12 +1048,12 @@ bool TelemetryDiagnosticRoutineControlStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTelemetryDiagnosticRoutineControlValidationInfo[] = {
-    {&internal::TelemetryDiagnosticRoutineControl_GetState_Params_Data::Validate,
+    { &internal::TelemetryDiagnosticRoutineControl_GetState_Params_Data::Validate,
      &internal::TelemetryDiagnosticRoutineControl_GetState_ResponseParams_Data::Validate},
-    {&internal::TelemetryDiagnosticRoutineControl_Start_Params_Data::Validate,
+    { &internal::TelemetryDiagnosticRoutineControl_Start_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -943,14 +1137,17 @@ void TelemetryDiagnosticRoutineObserverProxy::OnRoutineStateChange(
                         "<value of type TelemetryDiagnosticRoutineStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTelemetryDiagnosticRoutineObserver_OnRoutineStateChange_Name, kFlags, 0, 0, nullptr);
@@ -1029,10 +1226,10 @@ bool TelemetryDiagnosticRoutineObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTelemetryDiagnosticRoutineObserverValidationInfo[] = {
-    {&internal::TelemetryDiagnosticRoutineObserver_OnRoutineStateChange_Params_Data::Validate,
+    { &internal::TelemetryDiagnosticRoutineObserver_OnRoutineStateChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1155,14 +1352,17 @@ void TelemetryDiagnosticRoutinesServiceProxy::CreateRoutine(
                         "<value of type ::mojo::PendingRemote<TelemetryDiagnosticRoutineObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTelemetryDiagnosticRoutinesService_CreateRoutine_Name, kFlags, 0, 0, nullptr);
@@ -1209,14 +1409,17 @@ void TelemetryDiagnosticRoutinesServiceProxy::IsRoutineArgumentSupported(
                         "<value of type TelemetryDiagnosticRoutineArgumentPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
@@ -1335,7 +1538,8 @@ void TelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_ProxyToRespon
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
@@ -1464,12 +1668,12 @@ std::move(p_routine_argument), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTelemetryDiagnosticRoutinesServiceValidationInfo[] = {
-    {&internal::TelemetryDiagnosticRoutinesService_CreateRoutine_Params_Data::Validate,
+    { &internal::TelemetryDiagnosticRoutinesService_CreateRoutine_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_Params_Data::Validate,
+    { &internal::TelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_Params_Data::Validate,
      &internal::TelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data::Validate},
 };
 
@@ -1500,6 +1704,34 @@ bool StructTraits<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineArgument::Da
       if (success) {
         result->max_testing_mem_kib = input.max_testing_mem_kib();
       }
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument::DataView, ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr>::Read(
+    ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument::DataView input,
+    ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr result(::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadTimeout(&result->timeout))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::TelemetryDiagnosticFanRoutineArgument::DataView, ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentPtr>::Read(
+    ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgument::DataView input,
+    ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentPtr result(::crosapi::mojom::TelemetryDiagnosticFanRoutineArgument::New());
+  
   *output = std::move(result);
   return success;
 }
@@ -1578,6 +1810,36 @@ bool StructTraits<::crosapi::mojom::TelemetryDiagnosticMemoryRoutineDetail::Data
 
 
 // static
+bool StructTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetail::DataView, ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailPtr>::Read(
+    ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetail::DataView input,
+    ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailPtr result(::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetail::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::TelemetryDiagnosticFanRoutineDetail::DataView, ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr>::Read(
+    ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetail::DataView input,
+    ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr result(::crosapi::mojom::TelemetryDiagnosticFanRoutineDetail::New());
+  
+      if (success && !input.ReadPassedFanIds(&result->passed_fan_ids))
+        success = false;
+      if (success && !input.ReadFailedFanIds(&result->failed_fan_ids))
+        success = false;
+      if (success && !input.ReadFanCountStatus(&result->fan_count_status))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::crosapi::mojom::TelemetryDiagnosticRoutineStateFinished::DataView, ::crosapi::mojom::TelemetryDiagnosticRoutineStateFinishedPtr>::Read(
     ::crosapi::mojom::TelemetryDiagnosticRoutineStateFinished::DataView input,
     ::crosapi::mojom::TelemetryDiagnosticRoutineStateFinishedPtr* output) {
@@ -1629,6 +1891,24 @@ bool UnionTraits<::crosapi::mojom::TelemetryDiagnosticRoutineArgument::DataView,
           std::move(result_memory));
       break;
     }
+    case Tag::kVolumeButton: {
+      ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgumentPtr result_volume_button;
+      if (!input.ReadVolumeButton(&result_volume_button))
+        return false;
+
+      *output = UnionType::NewVolumeButton(
+          std::move(result_volume_button));
+      break;
+    }
+    case Tag::kFan: {
+      ::crosapi::mojom::TelemetryDiagnosticFanRoutineArgumentPtr result_fan;
+      if (!input.ReadFan(&result_fan))
+        return false;
+
+      *output = UnionType::NewFan(
+          std::move(result_fan));
+      break;
+    }
     default:
 
       *output = UnionType::NewUnrecognizedArgument({});
@@ -1658,9 +1938,28 @@ bool UnionTraits<::crosapi::mojom::TelemetryDiagnosticRoutineDetail::DataView, :
           std::move(result_memory));
       break;
     }
+    case Tag::kVolumeButton: {
+      ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineDetailPtr result_volume_button;
+      if (!input.ReadVolumeButton(&result_volume_button))
+        return false;
+
+      *output = UnionType::NewVolumeButton(
+          std::move(result_volume_button));
+      break;
+    }
+    case Tag::kFan: {
+      ::crosapi::mojom::TelemetryDiagnosticFanRoutineDetailPtr result_fan;
+      if (!input.ReadFan(&result_fan))
+        return false;
+
+      *output = UnionType::NewFan(
+          std::move(result_fan));
+      break;
+    }
     default:
 
-      return false;
+      *output = UnionType::NewUnrecognizedArgument({});
+      return true;
   }
   return true;
 }

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/message_center.mojom-features.h"
 #include "chromeos/crosapi/mojom/message_center.mojom-shared.h"
 #include "chromeos/crosapi/mojom/message_center.mojom-forward.h"
 #include "chromeos/crosapi/mojom/notification.mojom-forward.h"
@@ -171,7 +172,7 @@ class NotificationDelegate
   virtual void OnNotificationClicked() = 0;
 
   
-  virtual void OnNotificationButtonClicked(uint32_t button_index, const absl::optional<::std::u16string>& reply) = 0;
+  virtual void OnNotificationButtonClicked(uint32_t button_index, const std::optional<::std::u16string>& reply) = 0;
 
   
   virtual void OnNotificationSettingsButtonClicked() = 0;
@@ -212,7 +213,7 @@ class  NotificationDelegateProxy
   
   void OnNotificationClicked() final;
   
-  void OnNotificationButtonClicked(uint32_t button_index, const absl::optional<::std::u16string>& reply) final;
+  void OnNotificationButtonClicked(uint32_t button_index, const std::optional<::std::u16string>& reply) final;
   
   void OnNotificationSettingsButtonClicked() final;
   

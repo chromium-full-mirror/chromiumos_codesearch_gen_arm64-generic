@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -382,14 +383,17 @@ void SystemInfoProxy::GetInputStreamParameters(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetInputStreamParameters_Name, kFlags, 0, 0, nullptr);
@@ -431,14 +435,17 @@ void SystemInfoProxy::GetOutputStreamParameters(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetOutputStreamParameters_Name, kFlags, 0, 0, nullptr);
@@ -473,14 +480,17 @@ void SystemInfoProxy::HasInputDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send audio::mojom::SystemInfo::HasInputDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_HasInputDevices_Name, kFlags, 0, 0, nullptr);
@@ -504,14 +514,17 @@ void SystemInfoProxy::HasOutputDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send audio::mojom::SystemInfo::HasOutputDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_HasOutputDevices_Name, kFlags, 0, 0, nullptr);
@@ -535,14 +548,17 @@ void SystemInfoProxy::GetInputDeviceDescriptions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send audio::mojom::SystemInfo::GetInputDeviceDescriptions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetInputDeviceDescriptions_Name, kFlags, 0, 0, nullptr);
@@ -566,14 +582,17 @@ void SystemInfoProxy::GetOutputDeviceDescriptions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send audio::mojom::SystemInfo::GetOutputDeviceDescriptions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetOutputDeviceDescriptions_Name, kFlags, 0, 0, nullptr);
@@ -604,14 +623,17 @@ void SystemInfoProxy::GetAssociatedOutputDeviceID(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetAssociatedOutputDeviceID_Name, kFlags, 0, 0, nullptr);
@@ -653,14 +675,17 @@ void SystemInfoProxy::GetInputDeviceInfo(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetInputDeviceInfo_Name, kFlags, 0, 0, nullptr);
@@ -735,7 +760,7 @@ class SystemInfo_GetInputStreamParameters_ProxyToResponder : public ::mojo::inte
 #endif
 
   void Run(
-      const absl::optional<::media::AudioParameters>& in_params);
+      const std::optional<::media::AudioParameters>& in_params);
 };
 
 bool SystemInfo_GetInputStreamParameters_ForwardToCallback::Accept(
@@ -748,7 +773,7 @@ bool SystemInfo_GetInputStreamParameters_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::media::AudioParameters> p_params{};
+  std::optional<::media::AudioParameters> p_params{};
   SystemInfo_GetInputStreamParameters_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadParams(&p_params))
@@ -767,7 +792,7 @@ std::move(p_params));
 }
 
 void SystemInfo_GetInputStreamParameters_ProxyToResponder::Run(
-    const absl::optional<::media::AudioParameters>& in_params) {
+    const std::optional<::media::AudioParameters>& in_params) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply audio::mojom::SystemInfo::GetInputStreamParameters", "async_response_parameters",
@@ -775,13 +800,14 @@ void SystemInfo_GetInputStreamParameters_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("params"), in_params,
-                        "<value of type const absl::optional<::media::AudioParameters>&>");
+                        "<value of type const std::optional<::media::AudioParameters>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetInputStreamParameters_Name, kFlags, 0, 0, nullptr);
@@ -859,7 +885,7 @@ class SystemInfo_GetOutputStreamParameters_ProxyToResponder : public ::mojo::int
 #endif
 
   void Run(
-      const absl::optional<::media::AudioParameters>& in_params);
+      const std::optional<::media::AudioParameters>& in_params);
 };
 
 bool SystemInfo_GetOutputStreamParameters_ForwardToCallback::Accept(
@@ -872,7 +898,7 @@ bool SystemInfo_GetOutputStreamParameters_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::media::AudioParameters> p_params{};
+  std::optional<::media::AudioParameters> p_params{};
   SystemInfo_GetOutputStreamParameters_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadParams(&p_params))
@@ -891,7 +917,7 @@ std::move(p_params));
 }
 
 void SystemInfo_GetOutputStreamParameters_ProxyToResponder::Run(
-    const absl::optional<::media::AudioParameters>& in_params) {
+    const std::optional<::media::AudioParameters>& in_params) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply audio::mojom::SystemInfo::GetOutputStreamParameters", "async_response_parameters",
@@ -899,13 +925,14 @@ void SystemInfo_GetOutputStreamParameters_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("params"), in_params,
-                        "<value of type const absl::optional<::media::AudioParameters>&>");
+                        "<value of type const std::optional<::media::AudioParameters>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetOutputStreamParameters_Name, kFlags, 0, 0, nullptr);
@@ -1029,7 +1056,8 @@ void SystemInfo_HasInputDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_HasInputDevices_Name, kFlags, 0, 0, nullptr);
@@ -1147,7 +1175,8 @@ void SystemInfo_HasOutputDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_HasOutputDevices_Name, kFlags, 0, 0, nullptr);
@@ -1265,7 +1294,8 @@ void SystemInfo_GetInputDeviceDescriptions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetInputDeviceDescriptions_Name, kFlags, 0, 0, nullptr);
@@ -1395,7 +1425,8 @@ void SystemInfo_GetOutputDeviceDescriptions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetOutputDeviceDescriptions_Name, kFlags, 0, 0, nullptr);
@@ -1479,7 +1510,7 @@ class SystemInfo_GetAssociatedOutputDeviceID_ProxyToResponder : public ::mojo::i
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_associated_output_device_id);
+      const std::optional<std::string>& in_associated_output_device_id);
 };
 
 bool SystemInfo_GetAssociatedOutputDeviceID_ForwardToCallback::Accept(
@@ -1492,7 +1523,7 @@ bool SystemInfo_GetAssociatedOutputDeviceID_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_associated_output_device_id{};
+  std::optional<std::string> p_associated_output_device_id{};
   SystemInfo_GetAssociatedOutputDeviceID_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadAssociatedOutputDeviceId(&p_associated_output_device_id))
@@ -1511,7 +1542,7 @@ std::move(p_associated_output_device_id));
 }
 
 void SystemInfo_GetAssociatedOutputDeviceID_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_associated_output_device_id) {
+    const std::optional<std::string>& in_associated_output_device_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply audio::mojom::SystemInfo::GetAssociatedOutputDeviceID", "async_response_parameters",
@@ -1519,13 +1550,14 @@ void SystemInfo_GetAssociatedOutputDeviceID_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("associated_output_device_id"), in_associated_output_device_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetAssociatedOutputDeviceID_Name, kFlags, 0, 0, nullptr);
@@ -1603,7 +1635,7 @@ class SystemInfo_GetInputDeviceInfo_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      const absl::optional<::media::AudioParameters>& in_input_params, const absl::optional<std::string>& in_associated_output_device_id);
+      const std::optional<::media::AudioParameters>& in_input_params, const std::optional<std::string>& in_associated_output_device_id);
 };
 
 bool SystemInfo_GetInputDeviceInfo_ForwardToCallback::Accept(
@@ -1616,8 +1648,8 @@ bool SystemInfo_GetInputDeviceInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::media::AudioParameters> p_input_params{};
-  absl::optional<std::string> p_associated_output_device_id{};
+  std::optional<::media::AudioParameters> p_input_params{};
+  std::optional<std::string> p_associated_output_device_id{};
   SystemInfo_GetInputDeviceInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadInputParams(&p_input_params))
@@ -1639,7 +1671,7 @@ std::move(p_associated_output_device_id));
 }
 
 void SystemInfo_GetInputDeviceInfo_ProxyToResponder::Run(
-    const absl::optional<::media::AudioParameters>& in_input_params, const absl::optional<std::string>& in_associated_output_device_id) {
+    const std::optional<::media::AudioParameters>& in_input_params, const std::optional<std::string>& in_associated_output_device_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply audio::mojom::SystemInfo::GetInputDeviceInfo", "async_response_parameters",
@@ -1647,16 +1679,17 @@ void SystemInfo_GetInputDeviceInfo_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("input_params"), in_input_params,
-                        "<value of type const absl::optional<::media::AudioParameters>&>");
+                        "<value of type const std::optional<::media::AudioParameters>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("associated_output_device_id"), in_associated_output_device_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemInfo_GetInputDeviceInfo_Name, kFlags, 0, 0, nullptr);
@@ -1957,24 +1990,24 @@ std::move(p_input_device_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSystemInfoValidationInfo[] = {
-    {&internal::SystemInfo_GetInputStreamParameters_Params_Data::Validate,
+    { &internal::SystemInfo_GetInputStreamParameters_Params_Data::Validate,
      &internal::SystemInfo_GetInputStreamParameters_ResponseParams_Data::Validate},
-    {&internal::SystemInfo_GetOutputStreamParameters_Params_Data::Validate,
+    { &internal::SystemInfo_GetOutputStreamParameters_Params_Data::Validate,
      &internal::SystemInfo_GetOutputStreamParameters_ResponseParams_Data::Validate},
-    {&internal::SystemInfo_HasInputDevices_Params_Data::Validate,
+    { &internal::SystemInfo_HasInputDevices_Params_Data::Validate,
      &internal::SystemInfo_HasInputDevices_ResponseParams_Data::Validate},
-    {&internal::SystemInfo_HasOutputDevices_Params_Data::Validate,
+    { &internal::SystemInfo_HasOutputDevices_Params_Data::Validate,
      &internal::SystemInfo_HasOutputDevices_ResponseParams_Data::Validate},
-    {&internal::SystemInfo_GetInputDeviceDescriptions_Params_Data::Validate,
+    { &internal::SystemInfo_GetInputDeviceDescriptions_Params_Data::Validate,
      &internal::SystemInfo_GetInputDeviceDescriptions_ResponseParams_Data::Validate},
-    {&internal::SystemInfo_GetOutputDeviceDescriptions_Params_Data::Validate,
+    { &internal::SystemInfo_GetOutputDeviceDescriptions_Params_Data::Validate,
      &internal::SystemInfo_GetOutputDeviceDescriptions_ResponseParams_Data::Validate},
-    {&internal::SystemInfo_GetAssociatedOutputDeviceID_Params_Data::Validate,
+    { &internal::SystemInfo_GetAssociatedOutputDeviceID_Params_Data::Validate,
      &internal::SystemInfo_GetAssociatedOutputDeviceID_ResponseParams_Data::Validate},
-    {&internal::SystemInfo_GetInputDeviceInfo_Params_Data::Validate,
+    { &internal::SystemInfo_GetInputDeviceInfo_Params_Data::Validate,
      &internal::SystemInfo_GetInputDeviceInfo_ResponseParams_Data::Validate},
 };
 
@@ -2034,14 +2067,14 @@ SystemInfoAsyncWaiter::SystemInfoAsyncWaiter(
 SystemInfoAsyncWaiter::~SystemInfoAsyncWaiter() = default;
 
 void SystemInfoAsyncWaiter::GetInputStreamParameters(
-    const std::string& device_id, absl::optional<::media::AudioParameters>* out_params) {
+    const std::string& device_id, std::optional<::media::AudioParameters>* out_params) {
   base::RunLoop loop;
   proxy_->GetInputStreamParameters(std::move(device_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::media::AudioParameters>* out_params
+             std::optional<::media::AudioParameters>* out_params
 ,
-             const absl::optional<::media::AudioParameters>& params) {*out_params = std::move(params);
+             const std::optional<::media::AudioParameters>& params) {*out_params = std::move(params);
             loop->Quit();
           },
           &loop,
@@ -2049,22 +2082,22 @@ void SystemInfoAsyncWaiter::GetInputStreamParameters(
   loop.Run();
 }
 
-absl::optional<::media::AudioParameters> SystemInfoAsyncWaiter::GetInputStreamParameters(
+std::optional<::media::AudioParameters> SystemInfoAsyncWaiter::GetInputStreamParameters(
     const std::string& device_id) {
-  absl::optional<::media::AudioParameters> async_wait_result;
+  std::optional<::media::AudioParameters> async_wait_result;
   GetInputStreamParameters(std::move(device_id),&async_wait_result);
   return async_wait_result;
 }
 
 void SystemInfoAsyncWaiter::GetOutputStreamParameters(
-    const std::string& device_id, absl::optional<::media::AudioParameters>* out_params) {
+    const std::string& device_id, std::optional<::media::AudioParameters>* out_params) {
   base::RunLoop loop;
   proxy_->GetOutputStreamParameters(std::move(device_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::media::AudioParameters>* out_params
+             std::optional<::media::AudioParameters>* out_params
 ,
-             const absl::optional<::media::AudioParameters>& params) {*out_params = std::move(params);
+             const std::optional<::media::AudioParameters>& params) {*out_params = std::move(params);
             loop->Quit();
           },
           &loop,
@@ -2072,9 +2105,9 @@ void SystemInfoAsyncWaiter::GetOutputStreamParameters(
   loop.Run();
 }
 
-absl::optional<::media::AudioParameters> SystemInfoAsyncWaiter::GetOutputStreamParameters(
+std::optional<::media::AudioParameters> SystemInfoAsyncWaiter::GetOutputStreamParameters(
     const std::string& device_id) {
-  absl::optional<::media::AudioParameters> async_wait_result;
+  std::optional<::media::AudioParameters> async_wait_result;
   GetOutputStreamParameters(std::move(device_id),&async_wait_result);
   return async_wait_result;
 }
@@ -2172,14 +2205,14 @@ std::vector<::media::AudioDeviceDescription> SystemInfoAsyncWaiter::GetOutputDev
 }
 
 void SystemInfoAsyncWaiter::GetAssociatedOutputDeviceID(
-    const std::string& input_device_id, absl::optional<std::string>* out_associated_output_device_id) {
+    const std::string& input_device_id, std::optional<std::string>* out_associated_output_device_id) {
   base::RunLoop loop;
   proxy_->GetAssociatedOutputDeviceID(std::move(input_device_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_associated_output_device_id
+             std::optional<std::string>* out_associated_output_device_id
 ,
-             const absl::optional<std::string>& associated_output_device_id) {*out_associated_output_device_id = std::move(associated_output_device_id);
+             const std::optional<std::string>& associated_output_device_id) {*out_associated_output_device_id = std::move(associated_output_device_id);
             loop->Quit();
           },
           &loop,
@@ -2187,25 +2220,25 @@ void SystemInfoAsyncWaiter::GetAssociatedOutputDeviceID(
   loop.Run();
 }
 
-absl::optional<std::string> SystemInfoAsyncWaiter::GetAssociatedOutputDeviceID(
+std::optional<std::string> SystemInfoAsyncWaiter::GetAssociatedOutputDeviceID(
     const std::string& input_device_id) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetAssociatedOutputDeviceID(std::move(input_device_id),&async_wait_result);
   return async_wait_result;
 }
 
 void SystemInfoAsyncWaiter::GetInputDeviceInfo(
-    const std::string& input_device_id, absl::optional<::media::AudioParameters>* out_input_params, absl::optional<std::string>* out_associated_output_device_id) {
+    const std::string& input_device_id, std::optional<::media::AudioParameters>* out_input_params, std::optional<std::string>* out_associated_output_device_id) {
   base::RunLoop loop;
   proxy_->GetInputDeviceInfo(std::move(input_device_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::media::AudioParameters>* out_input_params
+             std::optional<::media::AudioParameters>* out_input_params
 ,
-             absl::optional<std::string>* out_associated_output_device_id
+             std::optional<std::string>* out_associated_output_device_id
 ,
-             const absl::optional<::media::AudioParameters>& input_params,
-             const absl::optional<std::string>& associated_output_device_id) {*out_input_params = std::move(input_params);*out_associated_output_device_id = std::move(associated_output_device_id);
+             const std::optional<::media::AudioParameters>& input_params,
+             const std::optional<std::string>& associated_output_device_id) {*out_input_params = std::move(input_params);*out_associated_output_device_id = std::move(associated_output_device_id);
             loop->Quit();
           },
           &loop,

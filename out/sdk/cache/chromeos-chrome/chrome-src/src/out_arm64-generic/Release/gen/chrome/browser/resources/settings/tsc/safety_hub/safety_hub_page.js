@@ -13,16 +13,19 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { PasswordManagerImpl, PasswordManagerPage } from '../autofill_page/password_manager_proxy.js';
+import { MetricsBrowserProxyImpl, SafetyHubModuleType, SafetyHubSurfaces } from '../metrics_browser_proxy.js';
 import { RelaunchMixin, RestartType } from '../relaunch_mixin.js';
 import { routes } from '../route.js';
-import { Router } from '../router.js';
+import { RouteObserverMixin, Router } from '../router.js';
 import { CardState, SafetyHubBrowserProxyImpl, SafetyHubEvent } from './safety_hub_browser_proxy.js';
 import { getTemplate } from './safety_hub_page.html.js';
-const SettingsSafetyHubPageElementBase = RelaunchMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));
+const SettingsSafetyHubPageElementBase = RouteObserverMixin(RelaunchMixin(WebUiListenerMixin(I18nMixin(PolymerElement))));
 export class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
     constructor() {
         super(...arguments);
+        this.shouldRecordMetric_ = false;
         this.browserProxy_ = SafetyHubBrowserProxyImpl.getInstance();
+        this.metricsBrowserProxy_ = MetricsBrowserProxyImpl.getInstance();
     }
     static get is() {
         return 'settings-safety-hub-page';
@@ -58,16 +61,40 @@ export class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBa
                 computed: 'computeShowNoRecommendationsState_(showUnusedSitePermissions_.*, showExtensions_.*, showNotificationPermissions_.*)',
             },
             userEducationItemList_: Array,
+            // Whether the data for notification permissions is ready.
+            hasDataForNotificationPermissions_: Boolean,
+            // Whether the data for unused site permissions is ready.
+            hasDataForUnusedPermissions_: Boolean,
+            // Whether the data for extensions is ready.
+            hasDataForExtensions_: Boolean,
         };
     }
+    static get observers() {
+        return [
+            'onAllModulesLoaded_(passwordCardData_, versionCardData_, safeBrowsingCardData_, hasDataForUnusedPermissions_, hasDataForNotificationPermissions_, hasDataForExtensions_)',
+        ];
+    }
     connectedCallback() {
-        super.connectedCallback();
         this.initializeCards_();
         this.initializeModules_();
         this.initializeUserEducation_();
+        super.connectedCallback();
+    }
+    currentRouteChanged() {
+        if (Router.getInstance().getCurrentRoute() !== routes.SAFETY_HUB) {
+            return;
+        }
+        // When the user navigates to the Safety Hub page, any active menu
+        // notification is dismissed.
+        this.browserProxy_.dismissActiveMenuNotification();
+        this.metricsBrowserProxy_.recordSafetyHubImpression(SafetyHubSurfaces.SAFETY_HUB_PAGE);
+        this.metricsBrowserProxy_.recordSafetyHubInteraction(SafetyHubSurfaces.SAFETY_HUB_PAGE);
+        // Only record the metrics when the user navigates to the Safety Hub page.
+        this.shouldRecordMetric_ = true;
+        this.onAllModulesLoaded_();
     }
     initializeCards_() {
-        // TODO(1443466): Add listeners for cards.
+        // TODO(crbug.com/1443466): Add listeners for cards.
         this.browserProxy_.getPasswordCardData().then((data) => {
             this.passwordCardData_ = data;
         });
@@ -106,6 +133,7 @@ export class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBa
         ];
     }
     onPasswordsClick_() {
+        this.metricsBrowserProxy_.recordSafetyHubCardStateClicked('Settings.SafetyHub.PasswordsCard.StatusOnClick', this.passwordCardData_.state);
         PasswordManagerImpl.getInstance().showPasswordManager(PasswordManagerPage.CHECKUP);
     }
     onPasswordsKeyPress_(e) {
@@ -115,6 +143,7 @@ export class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBa
         }
     }
     onVersionClick_() {
+        this.metricsBrowserProxy_.recordSafetyHubCardStateClicked('Settings.SafetyHub.VersionCard.StatusOnClick', this.versionCardData_.state);
         if (this.versionCardData_.state === CardState.WARNING) {
             this.performRestart(RestartType.RELAUNCH);
         }
@@ -130,6 +159,7 @@ export class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBa
         }
     }
     onSafeBrowsingClick_() {
+        this.metricsBrowserProxy_.recordSafetyHubCardStateClicked('Settings.SafetyHub.SafeBrowsingCard.StatusOnClick', this.safeBrowsingCardData_.state);
         Router.getInstance().navigateTo(routes.SECURITY, /* dynamicParams= */ undefined, 
         /* removeSearch= */ true);
     }
@@ -144,12 +174,14 @@ export class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBa
         // there is no item on the list but the list was shown before.
         this.showNotificationPermissions_ =
             permissions.length > 0 || this.showNotificationPermissions_;
+        this.hasDataForNotificationPermissions_ = true;
     }
     onUnusedSitePermissionListChanged_(permissions) {
         // The module should be visible if there is any item on the list, or if
         // there is no item on the list but the list was shown before.
         this.showUnusedSitePermissions_ =
             permissions.length > 0 || this.showUnusedSitePermissions_;
+        this.hasDataForUnusedPermissions_ = true;
     }
     computeShowNoRecommendationsState_() {
         return !(this.showUnusedSitePermissions_ || this.showNotificationPermissions_ ||
@@ -157,9 +189,55 @@ export class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBa
     }
     onExtensionsChanged_(numberOfExtensions) {
         this.showExtensions_ = !!numberOfExtensions;
+        this.hasDataForExtensions_ = true;
     }
     isEnterOrSpaceClicked_(e) {
         return e.key === 'Enter' || e.key === ' ';
+    }
+    onAllModulesLoaded_() {
+        // If the metrics are recorded already, don't record again.
+        if (!this.shouldRecordMetric_) {
+            return;
+        }
+        // Wait till the data of the cards be ready.
+        if (!this.passwordCardData_ || !this.safeBrowsingCardData_ ||
+            !this.versionCardData_) {
+            return;
+        }
+        // Wait till the data of the modules be ready.
+        if (!this.hasDataForUnusedPermissions_ ||
+            !this.hasDataForNotificationPermissions_ ||
+            !this.hasDataForExtensions_) {
+            return;
+        }
+        this.shouldRecordMetric_ = false;
+        let hasAnyWarning = false;
+        // TODO(crbug.com/1443466): Iterate over the cards/modules with for loop.
+        if (this.passwordCardData_.state !== CardState.SAFE) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.PASSWORDS);
+            hasAnyWarning = true;
+        }
+        if (this.safeBrowsingCardData_.state !== CardState.SAFE) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.SAFE_BROWSING);
+            hasAnyWarning = true;
+        }
+        if (this.versionCardData_.state !== CardState.SAFE) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.VERSION);
+            hasAnyWarning = true;
+        }
+        if (this.showNotificationPermissions_) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.NOTIFICATIONS);
+            hasAnyWarning = true;
+        }
+        if (this.showUnusedSitePermissions_) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.PERMISSIONS);
+            hasAnyWarning = true;
+        }
+        if (this.showExtensions_) {
+            this.metricsBrowserProxy_.recordSafetyHubModuleWarningImpression(SafetyHubModuleType.EXTENSIONS);
+            hasAnyWarning = true;
+        }
+        this.metricsBrowserProxy_.recordSafetyHubDashboardAnyWarning(hasAnyWarning);
     }
 }
 customElements.define(SettingsSafetyHubPageElement.is, SettingsSafetyHubPageElement);

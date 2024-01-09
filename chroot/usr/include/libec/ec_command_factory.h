@@ -5,6 +5,7 @@
 #ifndef LIBEC_EC_COMMAND_FACTORY_H_
 #define LIBEC_EC_COMMAND_FACTORY_H_
 
+#include <array>
 #include <memory>
 #include <string>
 #include <vector>
@@ -20,12 +21,13 @@
 #include "libec/fingerprint/fp_pairing_key_keygen_command.h"
 #include "libec/fingerprint/fp_pairing_key_load_command.h"
 #include "libec/fingerprint/fp_pairing_key_wrap_command.h"
-#include "libec/fingerprint/fp_preload_template_command.h"
 #include "libec/fingerprint/fp_read_match_secret_with_pubkey_command.h"
 #include "libec/fingerprint/fp_seed_command.h"
 #include "libec/fingerprint/fp_set_nonce_context_command.h"
 #include "libec/fingerprint/fp_template_command.h"
+#include "libec/fingerprint/fp_unlock_template_command.h"
 #include "libec/flash_protect_command.h"
+#include "libec/i2c_read_command.h"
 #include "libec/led_control_command.h"
 
 namespace ec {
@@ -63,19 +65,17 @@ class EcCommandFactoryInterface {
                 "All commands created by this class should derive from "
                 "EcCommandInterface");
 
-  virtual std::unique_ptr<ec::FpPreloadTemplateCommand>
-  FpPreloadTemplateCommand(uint16_t fgr,
-                           std::vector<uint8_t> tmpl,
-                           uint16_t max_write_size) = 0;
-  static_assert(
-      std::is_base_of<EcCommandInterface, ec::FpPreloadTemplateCommand>::value,
-      "All commands created by this class should derive from "
-      "EcCommandInterface");
-
   virtual std::unique_ptr<ec::FpTemplateCommand> FpTemplateCommand(
       std::vector<uint8_t> tmpl, uint16_t max_write_size) = 0;
   static_assert(
       std::is_base_of<EcCommandInterface, ec::FpTemplateCommand>::value,
+      "All commands created by this class should derive from "
+      "EcCommandInterface");
+
+  virtual std::unique_ptr<ec::FpUnlockTemplateCommand> FpUnlockTemplateCommand(
+      uint16_t finger_num) = 0;
+  static_assert(
+      std::is_base_of<EcCommandInterface, ec::FpUnlockTemplateCommand>::value,
       "All commands created by this class should derive from "
       "EcCommandInterface");
 
@@ -147,12 +147,33 @@ class EcCommandFactoryInterface {
       "All commands created by this class should derive from "
       "EcCommandInterface");
 
+  virtual std::unique_ptr<ec::LedControlQueryCommand> LedControlQueryCommand(
+      enum ec_led_id led_id) = 0;
+  static_assert(
+      std::is_base_of<EcCommandInterface, ec::LedControlQueryCommand>::value,
+      "All commands created by this class should derive from "
+      "EcCommandInterface");
+
+  virtual std::unique_ptr<ec::LedControlSetCommand> LedControlSetCommand(
+      enum ec_led_id led_id,
+      std::array<uint8_t, EC_LED_COLOR_COUNT> brightness) = 0;
+  static_assert(
+      std::is_base_of<EcCommandInterface, ec::LedControlSetCommand>::value,
+      "All commands created by this class should derive from "
+      "EcCommandInterface");
+
   virtual std::unique_ptr<ec::LedControlAutoCommand> LedControlAutoCommand(
       enum ec_led_id led_id) = 0;
   static_assert(
       std::is_base_of<EcCommandInterface, ec::LedControlAutoCommand>::value,
       "All commands created by this class should derive from "
       "EcCommandInterface");
+
+  virtual std::unique_ptr<ec::I2cReadCommand> I2cReadCommand(
+      uint8_t port, uint8_t addr8, uint8_t offset, uint8_t read_len) = 0;
+  static_assert(std::is_base_of<EcCommandInterface, ec::I2cReadCommand>::value,
+                "All commands created by this class should derive from "
+                "EcCommandInterface");
 
   // TODO(b/144956297): Add factory methods for all of the EC
   // commands we use so that we can easily mock them for testing.
@@ -182,13 +203,11 @@ class BRILLO_EXPORT EcCommandFactory : public EcCommandFactoryInterface {
   std::unique_ptr<ec::FpFrameCommand> FpFrameCommand(
       int index, uint32_t frame_size, uint16_t max_read_size) override;
 
-  std::unique_ptr<ec::FpPreloadTemplateCommand> FpPreloadTemplateCommand(
-      uint16_t fgr,
-      std::vector<uint8_t> tmpl,
-      uint16_t max_write_size) override;
-
   std::unique_ptr<ec::FpTemplateCommand> FpTemplateCommand(
       std::vector<uint8_t> tmpl, uint16_t max_write_size) override;
+
+  std::unique_ptr<ec::FpUnlockTemplateCommand> FpUnlockTemplateCommand(
+      uint16_t finger_num) override;
 
   std::unique_ptr<ec::ChargeControlSetCommand> ChargeControlSetCommand(
       uint32_t mode, uint8_t lower, uint8_t upper) override;
@@ -221,6 +240,18 @@ class BRILLO_EXPORT EcCommandFactory : public EcCommandFactoryInterface {
       const brillo::Blob& pub_x,
       const brillo::Blob& pub_y,
       const brillo::Blob& encrypted_priv) override;
+
+  std::unique_ptr<ec::I2cReadCommand> I2cReadCommand(uint8_t port,
+                                                     uint8_t addr8,
+                                                     uint8_t offset,
+                                                     uint8_t read_len) override;
+
+  std::unique_ptr<ec::LedControlQueryCommand> LedControlQueryCommand(
+      enum ec_led_id led_id) override;
+
+  std::unique_ptr<ec::LedControlSetCommand> LedControlSetCommand(
+      enum ec_led_id led_id,
+      std::array<uint8_t, EC_LED_COLOR_COUNT> brightness) override;
 
   std::unique_ptr<ec::LedControlAutoCommand> LedControlAutoCommand(
       enum ec_led_id led_id) override;

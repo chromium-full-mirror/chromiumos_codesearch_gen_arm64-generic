@@ -2,9 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { isFakeEntry } from '../../common/js/entry_utils.js';
-import { str, util } from '../../common/js/util.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import { FakeEntry, FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
+import { getEntryLabel, getRootTypeLabel, str } from '../../common/js/translations.js';
+import { COMPUTERS_DIRECTORY_PATH, RootType, SHARED_DRIVES_DIRECTORY_PATH } from '../../common/js/volume_manager_types.js';
 /**
  * File path component.
  *
@@ -16,24 +15,23 @@ import { FakeEntry, FilesAppEntry } from '../../externs/files_app_entry_interfac
  */
 export class PathComponent {
     /**
-     * @param {string} name Name.
-     * @param {string} url Url.
-     * @param {FilesAppEntry=} opt_fakeEntry Fake entry should be set when
-     *     this component represents fake entry.
+     * @param name Name.
+     * @param url Url.
+     * @param fakeEntry Fake entry should be set when this component represents
+     *     fake entry.
      */
-    constructor(name, url, opt_fakeEntry) {
+    constructor(name, url_, fakeEntry_) {
         this.name = name;
-        this.url_ = url;
-        this.fakeEntry_ = opt_fakeEntry || null;
+        this.url_ = url_;
+        this.fakeEntry_ = fakeEntry_;
     }
     /**
      * Resolve an entry of the component.
-     * @return {!Promise<!Entry|!FilesAppEntry>} A promise which is
-     *     resolved with an entry.
+     * @return A promise which is resolved with an entry.
      */
     resolveEntry() {
         if (this.fakeEntry_) {
-            return /** @type {!Promise<!Entry|!FilesAppEntry>} */ (Promise.resolve(this.fakeEntry_));
+            return Promise.resolve(this.fakeEntry_);
         }
         else {
             return new Promise(window.webkitResolveLocalFileSystemURL.bind(null, this.url_));
@@ -47,11 +45,9 @@ export class PathComponent {
     }
     /**
      * Computes path components for the path of entry.
-     * @param {!Entry|!FilesAppEntry} entry An entry.
-     * @return {!Array<!PathComponent>} Components.
+     * @param entry An entry.
+     * @return Components.
      */
-    // @ts-ignore: error TS7006: Parameter 'volumeManager' implicitly has an 'any'
-    // type.
     static computeComponentsFromEntry(entry, volumeManager) {
         /**
          * Replace the root directory name at the end of a url.
@@ -60,40 +56,37 @@ export class PathComponent {
          * The output is like:
          * filesystem:chrome-extension://....foo.com-hash/other
          *
-         * @param {string} url which points to a volume display root
-         * @param {string} newRoot new root directory name
-         * @return {string} new URL with the new root directory name
+         * @param url which points to a volume display root
+         * @param newRoot new root directory name
+         * @return new URL with the new root directory name
          */
         const replaceRootName = (url, newRoot) => {
             return url.slice(0, url.length - '/root'.length) + newRoot;
         };
-        // @ts-ignore: error TS7034: Variable 'components' implicitly has type
-        // 'any[]' in some locations where its type cannot be determined.
         const components = [];
         const locationInfo = volumeManager.getLocationInfo(entry);
         if (!locationInfo) {
-            // @ts-ignore: error TS7005: Variable 'components' implicitly has an
-            // 'any[]' type.
             return components;
         }
         if (isFakeEntry(entry)) {
-            components.push(new PathComponent(util.getEntryLabel(locationInfo, entry), entry.toURL(), 
-            /** @type {!FakeEntry} */ (entry)));
+            components.push(new PathComponent(getEntryLabel(locationInfo, entry), entry.toURL(), entry));
             return components;
         }
         // Add volume component.
-        let displayRootUrl = locationInfo.volumeInfo.displayRoot.toURL();
-        let displayRootFullPath = locationInfo.volumeInfo.displayRoot.fullPath;
-        const prefixEntry = locationInfo.volumeInfo.prefixEntry;
+        const volumeInfo = locationInfo.volumeInfo;
+        if (!volumeInfo) {
+            return components;
+        }
+        let displayRootUrl = volumeInfo.displayRoot.toURL();
+        let displayRootFullPath = volumeInfo.displayRoot.fullPath;
+        const prefixEntry = volumeInfo.prefixEntry;
         // Directories under Drive Fake Root can return the fake root entry list as
         // prefix entry, but we will never show "Google Drive" as the prefix in the
         // breadcrumb.
-        if (prefixEntry &&
-            prefixEntry.rootType !== VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT) {
+        if (prefixEntry && prefixEntry.rootType !== RootType.DRIVE_FAKE_ROOT) {
             components.push(new PathComponent(prefixEntry.name, prefixEntry.toURL(), prefixEntry));
         }
-        if (locationInfo.rootType ===
-            VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME) {
+        if (locationInfo.rootType === RootType.DRIVE_SHARED_WITH_ME) {
             // DriveFS shared items are in either of:
             // <drivefs>/.files-by-id/<id>/<item>
             // <drivefs>/.shortcut-targets-by-id/<id>/<item>
@@ -105,28 +98,31 @@ export class PathComponent {
                 console.warn('Unexpected shared DriveFS path: ', entry.fullPath);
             }
             displayRootUrl = replaceRootName(displayRootUrl, displayRootFullPath);
-            const sharedWithMeFakeEntry = locationInfo.volumeInfo
-                .fakeEntries[VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME];
-            components.push(new PathComponent(str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL'), sharedWithMeFakeEntry.toURL(), sharedWithMeFakeEntry));
+            const sharedWithMeFakeEntry = volumeInfo.fakeEntries[RootType.DRIVE_SHARED_WITH_ME];
+            if (sharedWithMeFakeEntry) {
+                components.push(new PathComponent(str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL'), sharedWithMeFakeEntry.toURL(), sharedWithMeFakeEntry));
+            }
         }
-        else if (locationInfo.rootType === VolumeManagerCommon.RootType.SHARED_DRIVE) {
-            displayRootUrl = replaceRootName(displayRootUrl, VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH);
-            components.push(new PathComponent(util.getRootTypeLabel(locationInfo), displayRootUrl));
+        else if (locationInfo.rootType === RootType.SHARED_DRIVE) {
+            displayRootUrl =
+                replaceRootName(displayRootUrl, SHARED_DRIVES_DIRECTORY_PATH);
+            components.push(new PathComponent(getRootTypeLabel(locationInfo), displayRootUrl));
         }
-        else if (locationInfo.rootType === VolumeManagerCommon.RootType.COMPUTER) {
-            displayRootUrl = replaceRootName(displayRootUrl, VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH);
-            components.push(new PathComponent(util.getRootTypeLabel(locationInfo), displayRootUrl));
+        else if (locationInfo.rootType === RootType.COMPUTER) {
+            displayRootUrl =
+                replaceRootName(displayRootUrl, COMPUTERS_DIRECTORY_PATH);
+            components.push(new PathComponent(getRootTypeLabel(locationInfo), displayRootUrl));
         }
         else {
-            components.push(new PathComponent(util.getRootTypeLabel(locationInfo), displayRootUrl));
+            components.push(new PathComponent(getRootTypeLabel(locationInfo), displayRootUrl));
         }
         // Get relative path to display root (e.g. /root/foo/bar -> foo/bar).
         let relativePath = entry.fullPath.slice(displayRootFullPath.length);
-        if (entry.fullPath.startsWith(VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH)) {
-            relativePath = entry.fullPath.slice(VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH.length);
+        if (entry.fullPath.startsWith(SHARED_DRIVES_DIRECTORY_PATH)) {
+            relativePath = entry.fullPath.slice(SHARED_DRIVES_DIRECTORY_PATH.length);
         }
-        else if (entry.fullPath.startsWith(VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH)) {
-            relativePath = entry.fullPath.slice(VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH.length);
+        else if (entry.fullPath.startsWith(COMPUTERS_DIRECTORY_PATH)) {
+            relativePath = entry.fullPath.slice(COMPUTERS_DIRECTORY_PATH.length);
         }
         if (relativePath.indexOf('/') === 0) {
             relativePath = relativePath.slice(1);
@@ -141,12 +137,9 @@ export class PathComponent {
         // Add directory components to the target path.
         const paths = relativePath.split('/');
         for (let i = 0; i < paths.length; i++) {
-            // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
-            // assignable to parameter of type 'string | number | boolean'.
             currentUrl += '/' + encodeURIComponent(paths[i]);
             let path = paths[i];
-            if (i === 0 &&
-                locationInfo.rootType === VolumeManagerCommon.RootType.DOWNLOADS) {
+            if (i === 0 && locationInfo.rootType === RootType.DOWNLOADS) {
                 if (path === 'Downloads') {
                     path = str('DOWNLOADS_DIRECTORY_LABEL');
                 }
@@ -157,8 +150,6 @@ export class PathComponent {
                     path = str('CAMERA_DIRECTORY_LABEL');
                 }
             }
-            // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
-            // assignable to parameter of type 'string'.
             components.push(new PathComponent(path, currentUrl));
         }
         return components;

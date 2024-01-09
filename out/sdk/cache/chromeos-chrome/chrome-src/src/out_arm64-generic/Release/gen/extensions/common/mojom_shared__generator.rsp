@@ -3,6 +3,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/extensions/common/mojom/automation_registry.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/extensions/common/mojom/channel.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/extensions/common/mojom/code_injection.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/extensions/common/mojom/context_type.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/extensions/common/mojom/css_origin.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/extensions/common/mojom/event_dispatcher.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/extensions/common/mojom/event_router.mojom

@@ -364,6 +364,7 @@ class  GlobalFirstPartySets_Data {
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<::network::mojom::internal::SchemefulSite_Data>, mojo::internal::Pointer<internal::FirstPartySetEntry_Data>>> sets;
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<::network::mojom::internal::SchemefulSite_Data>, mojo::internal::Pointer<::network::mojom::internal::SchemefulSite_Data>>> aliases;
   mojo::internal::Pointer<internal::FirstPartySetsContextConfig_Data> manual_config;
+  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<::network::mojom::internal::SchemefulSite_Data>, mojo::internal::Pointer<::network::mojom::internal::SchemefulSite_Data>>> manual_aliases;
 
  private:
   friend class mojo::internal::MessageFragment<GlobalFirstPartySets_Data>;
@@ -371,7 +372,7 @@ class  GlobalFirstPartySets_Data {
   GlobalFirstPartySets_Data();
   ~GlobalFirstPartySets_Data() = delete;
 };
-static_assert(sizeof(GlobalFirstPartySets_Data) == 40,
+static_assert(sizeof(GlobalFirstPartySets_Data) == 48,
               "Bad sizeof(GlobalFirstPartySets_Data)");
 // Used by GlobalFirstPartySets::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

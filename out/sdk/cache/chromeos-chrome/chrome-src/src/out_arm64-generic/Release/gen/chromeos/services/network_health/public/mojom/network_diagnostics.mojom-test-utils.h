@@ -28,7 +28,7 @@ class  NetworkDiagnosticsRoutinesInterceptorForTesting : public NetworkDiagnosti
   void RunHttpFirewall(RunHttpFirewallCallback callback) override;
   void RunHttpsFirewall(RunHttpsFirewallCallback callback) override;
   void RunHttpsLatency(RunHttpsLatencyCallback callback) override;
-  void RunVideoConferencing(const absl::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) override;
+  void RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) override;
   void RunArcHttp(RunArcHttpCallback callback) override;
   void RunArcPing(RunArcPingCallback callback) override;
   void RunArcDnsResolution(RunArcDnsResolutionCallback callback) override;
@@ -81,8 +81,8 @@ class  NetworkDiagnosticsRoutinesAsyncWaiter {
       RoutineResultPtr* out_result);
   RoutineResultPtr RunHttpsLatency();
   void RunVideoConferencing(
-      const absl::optional<std::string>& stun_server_hostname, RoutineResultPtr* out_result);
-  RoutineResultPtr RunVideoConferencing(const absl::optional<std::string>& stun_server_hostname);
+      const std::optional<std::string>& stun_server_hostname, RoutineResultPtr* out_result);
+  RoutineResultPtr RunVideoConferencing(const std::optional<std::string>& stun_server_hostname);
   void RunArcHttp(
       RoutineResultPtr* out_result);
   RoutineResultPtr RunArcHttp();

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -107,42 +108,30 @@ bool CommonCredentialInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-DevicePublicKeyResponse::DevicePublicKeyResponse()
-    : authenticator_output(),
-      signature() {}
+SupplementalPubKeysResponse::SupplementalPubKeysResponse()
+    : signatures() {}
 
-DevicePublicKeyResponse::DevicePublicKeyResponse(
-    std::vector<uint8_t> authenticator_output_in,
-    std::vector<uint8_t> signature_in)
-    : authenticator_output(std::move(authenticator_output_in)),
-      signature(std::move(signature_in)) {}
+SupplementalPubKeysResponse::SupplementalPubKeysResponse(
+    std::vector<std::vector<uint8_t>> signatures_in)
+    : signatures(std::move(signatures_in)) {}
 
-DevicePublicKeyResponse::~DevicePublicKeyResponse() = default;
+SupplementalPubKeysResponse::~SupplementalPubKeysResponse() = default;
 
-void DevicePublicKeyResponse::WriteIntoTrace(
+void SupplementalPubKeysResponse::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "authenticator_output"), this->authenticator_output,
+      "signatures"), this->signatures,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<uint8_t>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "signature"), this->signature,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<uint8_t>&>"
+      "<value of type const std::vector<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
 }
 
-bool DevicePublicKeyResponse::Validate(
+bool SupplementalPubKeysResponse::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -166,7 +155,7 @@ MakeCredentialAuthenticatorResponse::MakeCredentialAuthenticatorResponse()
       cred_props_rk(),
       echo_large_blob(),
       supports_large_blob(),
-      device_public_key() {}
+      supplemental_pub_keys() {}
 
 MakeCredentialAuthenticatorResponse::MakeCredentialAuthenticatorResponse(
     CommonCredentialInfoPtr info_in,
@@ -180,14 +169,14 @@ MakeCredentialAuthenticatorResponse::MakeCredentialAuthenticatorResponse(
     PRFValuesPtr prf_results_in,
     bool echo_cred_blob_in,
     bool cred_blob_in,
-    absl::optional<std::vector<uint8_t>> public_key_der_in,
+    std::optional<std::vector<uint8_t>> public_key_der_in,
     int32_t public_key_algo_in,
     bool echo_cred_props_in,
     bool has_cred_props_rk_in,
     bool cred_props_rk_in,
     bool echo_large_blob_in,
     bool supports_large_blob_in,
-    DevicePublicKeyResponsePtr device_public_key_in)
+    SupplementalPubKeysResponsePtr supplemental_pub_keys_in)
     : info(std::move(info_in)),
       authenticator_attachment(std::move(authenticator_attachment_in)),
       attestation_object(std::move(attestation_object_in)),
@@ -206,7 +195,7 @@ MakeCredentialAuthenticatorResponse::MakeCredentialAuthenticatorResponse(
       cred_props_rk(std::move(cred_props_rk_in)),
       echo_large_blob(std::move(echo_large_blob_in)),
       supports_large_blob(std::move(supports_large_blob_in)),
-      device_public_key(std::move(device_public_key_in)) {}
+      supplemental_pub_keys(std::move(supplemental_pub_keys_in)) {}
 
 MakeCredentialAuthenticatorResponse::~MakeCredentialAuthenticatorResponse() = default;
 
@@ -316,7 +305,7 @@ void MakeCredentialAuthenticatorResponse::WriteIntoTrace(
     dict.AddItem(
       "public_key_der"), this->public_key_der,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -377,9 +366,9 @@ void MakeCredentialAuthenticatorResponse::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "device_public_key"), this->device_public_key,
+      "supplemental_pub_keys"), this->supplemental_pub_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type DevicePublicKeyResponsePtr>"
+      "<value of type SupplementalPubKeysResponsePtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -402,7 +391,7 @@ GetAssertionAuthenticatorResponse::GetAssertionAuthenticatorResponse(
     CommonCredentialInfoPtr info_in,
     ::device::AuthenticatorAttachment authenticator_attachment_in,
     std::vector<uint8_t> signature_in,
-    absl::optional<std::vector<uint8_t>> user_handle_in,
+    std::optional<std::vector<uint8_t>> user_handle_in,
     AuthenticationExtensionsClientOutputsPtr extensions_in)
     : info(std::move(info_in)),
       authenticator_attachment(std::move(authenticator_attachment_in)),
@@ -446,7 +435,7 @@ void GetAssertionAuthenticatorResponse::WriteIntoTrace(
     dict.AddItem(
       "user_handle"), this->user_handle,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -478,7 +467,7 @@ AuthenticationExtensionsClientOutputs::AuthenticationExtensionsClientOutputs()
       echo_large_blob_written(),
       large_blob_written(),
       get_cred_blob(),
-      device_public_key() {}
+      supplemental_pub_keys() {}
 
 AuthenticationExtensionsClientOutputs::AuthenticationExtensionsClientOutputs(
     bool echo_appid_extension_in,
@@ -487,11 +476,11 @@ AuthenticationExtensionsClientOutputs::AuthenticationExtensionsClientOutputs(
     PRFValuesPtr prf_results_in,
     bool prf_not_evaluated_in,
     bool echo_large_blob_in,
-    absl::optional<std::vector<uint8_t>> large_blob_in,
+    std::optional<std::vector<uint8_t>> large_blob_in,
     bool echo_large_blob_written_in,
     bool large_blob_written_in,
-    absl::optional<std::vector<uint8_t>> get_cred_blob_in,
-    DevicePublicKeyResponsePtr device_public_key_in)
+    std::optional<std::vector<uint8_t>> get_cred_blob_in,
+    SupplementalPubKeysResponsePtr supplemental_pub_keys_in)
     : echo_appid_extension(std::move(echo_appid_extension_in)),
       appid_extension(std::move(appid_extension_in)),
       echo_prf(std::move(echo_prf_in)),
@@ -502,7 +491,7 @@ AuthenticationExtensionsClientOutputs::AuthenticationExtensionsClientOutputs(
       echo_large_blob_written(std::move(echo_large_blob_written_in)),
       large_blob_written(std::move(large_blob_written_in)),
       get_cred_blob(std::move(get_cred_blob_in)),
-      device_public_key(std::move(device_public_key_in)) {}
+      supplemental_pub_keys(std::move(supplemental_pub_keys_in)) {}
 
 AuthenticationExtensionsClientOutputs::~AuthenticationExtensionsClientOutputs() = default;
 
@@ -567,7 +556,7 @@ void AuthenticationExtensionsClientOutputs::WriteIntoTrace(
     dict.AddItem(
       "large_blob"), this->large_blob,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -594,16 +583,16 @@ void AuthenticationExtensionsClientOutputs::WriteIntoTrace(
     dict.AddItem(
       "get_cred_blob"), this->get_cred_blob,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "device_public_key"), this->device_public_key,
+      "supplemental_pub_keys"), this->supplemental_pub_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type DevicePublicKeyResponsePtr>"
+      "<value of type SupplementalPubKeysResponsePtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -757,11 +746,11 @@ CableAuthentication::CableAuthentication()
 
 CableAuthentication::CableAuthentication(
     uint8_t version_in,
-    absl::optional<std::vector<uint8_t>> client_eid_in,
-    absl::optional<std::vector<uint8_t>> authenticator_eid_in,
-    absl::optional<std::vector<uint8_t>> session_pre_key_in,
-    absl::optional<std::vector<uint8_t>> server_link_data_in,
-    absl::optional<std::vector<uint8_t>> experiments_in)
+    std::optional<std::vector<uint8_t>> client_eid_in,
+    std::optional<std::vector<uint8_t>> authenticator_eid_in,
+    std::optional<std::vector<uint8_t>> session_pre_key_in,
+    std::optional<std::vector<uint8_t>> server_link_data_in,
+    std::optional<std::vector<uint8_t>> experiments_in)
     : version(std::move(version_in)),
       client_eid(std::move(client_eid_in)),
       authenticator_eid(std::move(authenticator_eid_in)),
@@ -787,7 +776,7 @@ void CableAuthentication::WriteIntoTrace(
     dict.AddItem(
       "client_eid"), this->client_eid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -796,7 +785,7 @@ void CableAuthentication::WriteIntoTrace(
     dict.AddItem(
       "authenticator_eid"), this->authenticator_eid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -805,7 +794,7 @@ void CableAuthentication::WriteIntoTrace(
     dict.AddItem(
       "session_pre_key"), this->session_pre_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -814,7 +803,7 @@ void CableAuthentication::WriteIntoTrace(
     dict.AddItem(
       "server_link_data"), this->server_link_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -823,7 +812,7 @@ void CableAuthentication::WriteIntoTrace(
     dict.AddItem(
       "experiments"), this->experiments,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -841,9 +830,9 @@ PRFValues::PRFValues()
       second() {}
 
 PRFValues::PRFValues(
-    absl::optional<std::vector<uint8_t>> id_in,
+    std::optional<std::vector<uint8_t>> id_in,
     std::vector<uint8_t> first_in,
-    absl::optional<std::vector<uint8_t>> second_in)
+    std::optional<std::vector<uint8_t>> second_in)
     : id(std::move(id_in)),
       first(std::move(first_in)),
       second(std::move(second_in)) {}
@@ -857,7 +846,7 @@ void PRFValues::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -875,7 +864,7 @@ void PRFValues::WriteIntoTrace(
     dict.AddItem(
       "second"), this->second,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -896,8 +885,8 @@ PaymentOptions::PaymentOptions()
 PaymentOptions::PaymentOptions(
     ::payments::mojom::PaymentCurrencyAmountPtr total_in,
     PaymentCredentialInstrumentPtr instrument_in,
-    const absl::optional<std::string>& payee_name_in,
-    const absl::optional<::url::Origin>& payee_origin_in)
+    const std::optional<std::string>& payee_name_in,
+    const std::optional<::url::Origin>& payee_origin_in)
     : total(std::move(total_in)),
       instrument(std::move(instrument_in)),
       payee_name(std::move(payee_name_in)),
@@ -930,7 +919,7 @@ void PaymentOptions::WriteIntoTrace(
     dict.AddItem(
       "payee_name"), this->payee_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -939,7 +928,7 @@ void PaymentOptions::WriteIntoTrace(
     dict.AddItem(
       "payee_origin"), this->payee_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1043,21 +1032,45 @@ bool RemoteDesktopClientOverride::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-DevicePublicKeyRequest::DevicePublicKeyRequest()
-    : attestation(),
+SupplementalPubKeysRequest::SupplementalPubKeysRequest()
+    : device_scope_requested(),
+      provider_scope_requested(),
+      attestation(),
       attestation_formats() {}
 
-DevicePublicKeyRequest::DevicePublicKeyRequest(
+SupplementalPubKeysRequest::SupplementalPubKeysRequest(
+    bool device_scope_requested_in,
+    bool provider_scope_requested_in,
     ::device::AttestationConveyancePreference attestation_in,
     std::vector<std::string> attestation_formats_in)
-    : attestation(std::move(attestation_in)),
+    : device_scope_requested(std::move(device_scope_requested_in)),
+      provider_scope_requested(std::move(provider_scope_requested_in)),
+      attestation(std::move(attestation_in)),
       attestation_formats(std::move(attestation_formats_in)) {}
 
-DevicePublicKeyRequest::~DevicePublicKeyRequest() = default;
+SupplementalPubKeysRequest::~SupplementalPubKeysRequest() = default;
 
-void DevicePublicKeyRequest::WriteIntoTrace(
+void SupplementalPubKeysRequest::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_scope_requested"), this->device_scope_requested,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "provider_scope_requested"), this->provider_scope_requested,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "attestation"), this->attestation,
@@ -1078,7 +1091,7 @@ void DevicePublicKeyRequest::WriteIntoTrace(
     );
 }
 
-bool DevicePublicKeyRequest::Validate(
+bool SupplementalPubKeysRequest::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1089,15 +1102,17 @@ PublicKeyCredentialRequestOptions::PublicKeyCredentialRequestOptions()
       timeout(),
       relying_party_id(),
       allow_credentials(),
+      hints(),
       user_verification(),
       extensions() {}
 
 PublicKeyCredentialRequestOptions::PublicKeyCredentialRequestOptions(
     bool is_conditional_in,
     std::vector<uint8_t> challenge_in,
-    absl::optional<::base::TimeDelta> timeout_in,
+    std::optional<::base::TimeDelta> timeout_in,
     const std::string& relying_party_id_in,
     std::vector<::device::PublicKeyCredentialDescriptor> allow_credentials_in,
+    std::vector<Hint> hints_in,
     ::device::UserVerificationRequirement user_verification_in,
     AuthenticationExtensionsClientInputsPtr extensions_in)
     : is_conditional(std::move(is_conditional_in)),
@@ -1105,6 +1120,7 @@ PublicKeyCredentialRequestOptions::PublicKeyCredentialRequestOptions(
       timeout(std::move(timeout_in)),
       relying_party_id(std::move(relying_party_id_in)),
       allow_credentials(std::move(allow_credentials_in)),
+      hints(std::move(hints_in)),
       user_verification(std::move(user_verification_in)),
       extensions(std::move(extensions_in)) {}
 
@@ -1135,7 +1151,7 @@ void PublicKeyCredentialRequestOptions::WriteIntoTrace(
     dict.AddItem(
       "timeout"), this->timeout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1154,6 +1170,15 @@ void PublicKeyCredentialRequestOptions::WriteIntoTrace(
       "allow_credentials"), this->allow_credentials,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<::device::PublicKeyCredentialDescriptor>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "hints"), this->hints,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<Hint>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1193,19 +1218,19 @@ AuthenticationExtensionsClientInputs::AuthenticationExtensionsClientInputs()
       large_blob_write(),
       get_cred_blob(),
       remote_desktop_client_override(),
-      device_public_key() {}
+      supplemental_pub_keys() {}
 
 AuthenticationExtensionsClientInputs::AuthenticationExtensionsClientInputs(
-    const absl::optional<std::string>& appid_in,
+    const std::optional<std::string>& appid_in,
     std::vector<::device::CableDiscoveryData> cable_authentication_data_in,
     bool prf_in,
     std::vector<PRFValuesPtr> prf_inputs_in,
     bool prf_inputs_hashed_in,
     bool large_blob_read_in,
-    absl::optional<std::vector<uint8_t>> large_blob_write_in,
+    std::optional<std::vector<uint8_t>> large_blob_write_in,
     bool get_cred_blob_in,
     RemoteDesktopClientOverridePtr remote_desktop_client_override_in,
-    DevicePublicKeyRequestPtr device_public_key_in)
+    SupplementalPubKeysRequestPtr supplemental_pub_keys_in)
     : appid(std::move(appid_in)),
       cable_authentication_data(std::move(cable_authentication_data_in)),
       prf(std::move(prf_in)),
@@ -1215,7 +1240,7 @@ AuthenticationExtensionsClientInputs::AuthenticationExtensionsClientInputs(
       large_blob_write(std::move(large_blob_write_in)),
       get_cred_blob(std::move(get_cred_blob_in)),
       remote_desktop_client_override(std::move(remote_desktop_client_override_in)),
-      device_public_key(std::move(device_public_key_in)) {}
+      supplemental_pub_keys(std::move(supplemental_pub_keys_in)) {}
 
 AuthenticationExtensionsClientInputs::~AuthenticationExtensionsClientInputs() = default;
 
@@ -1226,7 +1251,7 @@ void AuthenticationExtensionsClientInputs::WriteIntoTrace(
     dict.AddItem(
       "appid"), this->appid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1280,7 +1305,7 @@ void AuthenticationExtensionsClientInputs::WriteIntoTrace(
     dict.AddItem(
       "large_blob_write"), this->large_blob_write,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1305,9 +1330,9 @@ void AuthenticationExtensionsClientInputs::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "device_public_key"), this->device_public_key,
+      "supplemental_pub_keys"), this->supplemental_pub_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type DevicePublicKeyRequestPtr>"
+      "<value of type SupplementalPubKeysRequestPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1379,6 +1404,7 @@ PublicKeyCredentialCreationOptions::PublicKeyCredentialCreationOptions()
       timeout(),
       exclude_credentials(),
       authenticator_selection(),
+      hints(),
       attestation(),
       hmac_create_secret(),
       prf_enable(),
@@ -1392,30 +1418,31 @@ PublicKeyCredentialCreationOptions::PublicKeyCredentialCreationOptions()
       cred_blob(),
       min_pin_length_requested(false),
       remote_desktop_client_override(),
-      device_public_key() {}
+      supplemental_pub_keys() {}
 
 PublicKeyCredentialCreationOptions::PublicKeyCredentialCreationOptions(
     const ::device::PublicKeyCredentialRpEntity& relying_party_in,
     const ::device::PublicKeyCredentialUserEntity& user_in,
     std::vector<uint8_t> challenge_in,
     std::vector<::device::PublicKeyCredentialParams::CredentialInfo> public_key_parameters_in,
-    absl::optional<::base::TimeDelta> timeout_in,
+    std::optional<::base::TimeDelta> timeout_in,
     std::vector<::device::PublicKeyCredentialDescriptor> exclude_credentials_in,
-    const absl::optional<::device::AuthenticatorSelectionCriteria>& authenticator_selection_in,
+    const std::optional<::device::AuthenticatorSelectionCriteria>& authenticator_selection_in,
+    std::vector<Hint> hints_in,
     ::device::AttestationConveyancePreference attestation_in,
     bool hmac_create_secret_in,
     bool prf_enable_in,
     PRFValuesPtr prf_input_in,
     ProtectionPolicy protection_policy_in,
     bool enforce_protection_policy_in,
-    const absl::optional<std::string>& appid_exclude_in,
+    const std::optional<std::string>& appid_exclude_in,
     bool cred_props_in,
     ::device::LargeBlobSupport large_blob_enable_in,
     bool is_payment_credential_creation_in,
-    absl::optional<std::vector<uint8_t>> cred_blob_in,
+    std::optional<std::vector<uint8_t>> cred_blob_in,
     bool min_pin_length_requested_in,
     RemoteDesktopClientOverridePtr remote_desktop_client_override_in,
-    DevicePublicKeyRequestPtr device_public_key_in)
+    SupplementalPubKeysRequestPtr supplemental_pub_keys_in)
     : relying_party(std::move(relying_party_in)),
       user(std::move(user_in)),
       challenge(std::move(challenge_in)),
@@ -1423,6 +1450,7 @@ PublicKeyCredentialCreationOptions::PublicKeyCredentialCreationOptions(
       timeout(std::move(timeout_in)),
       exclude_credentials(std::move(exclude_credentials_in)),
       authenticator_selection(std::move(authenticator_selection_in)),
+      hints(std::move(hints_in)),
       attestation(std::move(attestation_in)),
       hmac_create_secret(std::move(hmac_create_secret_in)),
       prf_enable(std::move(prf_enable_in)),
@@ -1436,7 +1464,7 @@ PublicKeyCredentialCreationOptions::PublicKeyCredentialCreationOptions(
       cred_blob(std::move(cred_blob_in)),
       min_pin_length_requested(std::move(min_pin_length_requested_in)),
       remote_desktop_client_override(std::move(remote_desktop_client_override_in)),
-      device_public_key(std::move(device_public_key_in)) {}
+      supplemental_pub_keys(std::move(supplemental_pub_keys_in)) {}
 
 PublicKeyCredentialCreationOptions::~PublicKeyCredentialCreationOptions() = default;
 
@@ -1483,7 +1511,7 @@ void PublicKeyCredentialCreationOptions::WriteIntoTrace(
     dict.AddItem(
       "timeout"), this->timeout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1501,7 +1529,16 @@ void PublicKeyCredentialCreationOptions::WriteIntoTrace(
     dict.AddItem(
       "authenticator_selection"), this->authenticator_selection,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::device::AuthenticatorSelectionCriteria>&>"
+      "<value of type const std::optional<::device::AuthenticatorSelectionCriteria>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "hints"), this->hints,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<Hint>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1564,7 +1601,7 @@ void PublicKeyCredentialCreationOptions::WriteIntoTrace(
     dict.AddItem(
       "appid_exclude"), this->appid_exclude,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1600,7 +1637,7 @@ void PublicKeyCredentialCreationOptions::WriteIntoTrace(
     dict.AddItem(
       "cred_blob"), this->cred_blob,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1625,9 +1662,9 @@ void PublicKeyCredentialCreationOptions::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "device_public_key"), this->device_public_key,
+      "supplemental_pub_keys"), this->supplemental_pub_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type DevicePublicKeyRequestPtr>"
+      "<value of type SupplementalPubKeysRequestPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1951,14 +1988,17 @@ void AuthenticatorProxy::MakeCredential(
                         "<value of type PublicKeyCredentialCreationOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthenticator_MakeCredential_Name, kFlags, 0, 0, nullptr);
@@ -2000,14 +2040,17 @@ void AuthenticatorProxy::GetAssertion(
                         "<value of type PublicKeyCredentialRequestOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthenticator_GetAssertion_Name, kFlags, 0, 0, nullptr);
@@ -2042,14 +2085,17 @@ void AuthenticatorProxy::IsUserVerifyingPlatformAuthenticatorAvailable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::Authenticator::IsUserVerifyingPlatformAuthenticatorAvailable");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthenticator_IsUserVerifyingPlatformAuthenticatorAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2073,14 +2119,17 @@ void AuthenticatorProxy::IsConditionalMediationAvailable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::Authenticator::IsConditionalMediationAvailable");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthenticator_IsConditionalMediationAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2104,14 +2153,17 @@ void AuthenticatorProxy::Cancel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::Authenticator::Cancel");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthenticator_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -2234,7 +2286,8 @@ void Authenticator_MakeCredential_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthenticator_MakeCredential_Name, kFlags, 0, 0, nullptr);
@@ -2381,7 +2434,8 @@ void Authenticator_GetAssertion_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthenticator_GetAssertion_Name, kFlags, 0, 0, nullptr);
@@ -2514,7 +2568,8 @@ void Authenticator_IsUserVerifyingPlatformAuthenticatorAvailable_ProxyToResponde
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthenticator_IsUserVerifyingPlatformAuthenticatorAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2632,7 +2687,8 @@ void Authenticator_IsConditionalMediationAvailable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthenticator_IsConditionalMediationAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2825,18 +2881,18 @@ std::move(p_options), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAuthenticatorValidationInfo[] = {
-    {&internal::Authenticator_MakeCredential_Params_Data::Validate,
+    { &internal::Authenticator_MakeCredential_Params_Data::Validate,
      &internal::Authenticator_MakeCredential_ResponseParams_Data::Validate},
-    {&internal::Authenticator_GetAssertion_Params_Data::Validate,
+    { &internal::Authenticator_GetAssertion_Params_Data::Validate,
      &internal::Authenticator_GetAssertion_ResponseParams_Data::Validate},
-    {&internal::Authenticator_IsUserVerifyingPlatformAuthenticatorAvailable_Params_Data::Validate,
+    { &internal::Authenticator_IsUserVerifyingPlatformAuthenticatorAvailable_Params_Data::Validate,
      &internal::Authenticator_IsUserVerifyingPlatformAuthenticatorAvailable_ResponseParams_Data::Validate},
-    {&internal::Authenticator_IsConditionalMediationAvailable_Params_Data::Validate,
+    { &internal::Authenticator_IsConditionalMediationAvailable_Params_Data::Validate,
      &internal::Authenticator_IsConditionalMediationAvailable_ResponseParams_Data::Validate},
-    {&internal::Authenticator_Cancel_Params_Data::Validate,
+    { &internal::Authenticator_Cancel_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2878,15 +2934,13 @@ bool StructTraits<::blink::mojom::CommonCredentialInfo::DataView, ::blink::mojom
 
 
 // static
-bool StructTraits<::blink::mojom::DevicePublicKeyResponse::DataView, ::blink::mojom::DevicePublicKeyResponsePtr>::Read(
-    ::blink::mojom::DevicePublicKeyResponse::DataView input,
-    ::blink::mojom::DevicePublicKeyResponsePtr* output) {
+bool StructTraits<::blink::mojom::SupplementalPubKeysResponse::DataView, ::blink::mojom::SupplementalPubKeysResponsePtr>::Read(
+    ::blink::mojom::SupplementalPubKeysResponse::DataView input,
+    ::blink::mojom::SupplementalPubKeysResponsePtr* output) {
   bool success = true;
-  ::blink::mojom::DevicePublicKeyResponsePtr result(::blink::mojom::DevicePublicKeyResponse::New());
+  ::blink::mojom::SupplementalPubKeysResponsePtr result(::blink::mojom::SupplementalPubKeysResponse::New());
   
-      if (success && !input.ReadAuthenticatorOutput(&result->authenticator_output))
-        success = false;
-      if (success && !input.ReadSignature(&result->signature))
+      if (success && !input.ReadSignatures(&result->signatures))
         success = false;
   *output = std::move(result);
   return success;
@@ -2936,7 +2990,7 @@ bool StructTraits<::blink::mojom::MakeCredentialAuthenticatorResponse::DataView,
         result->echo_large_blob = input.echo_large_blob();
       if (success)
         result->supports_large_blob = input.supports_large_blob();
-      if (success && !input.ReadDevicePublicKey(&result->device_public_key))
+      if (success && !input.ReadSupplementalPubKeys(&result->supplemental_pub_keys))
         success = false;
   *output = std::move(result);
   return success;
@@ -2992,7 +3046,7 @@ bool StructTraits<::blink::mojom::AuthenticationExtensionsClientOutputs::DataVie
         result->large_blob_written = input.large_blob_written();
       if (success && !input.ReadGetCredBlob(&result->get_cred_blob))
         success = false;
-      if (success && !input.ReadDevicePublicKey(&result->device_public_key))
+      if (success && !input.ReadSupplementalPubKeys(&result->supplemental_pub_keys))
         success = false;
   *output = std::move(result);
   return success;
@@ -3146,12 +3200,16 @@ bool StructTraits<::blink::mojom::RemoteDesktopClientOverride::DataView, ::blink
 
 
 // static
-bool StructTraits<::blink::mojom::DevicePublicKeyRequest::DataView, ::blink::mojom::DevicePublicKeyRequestPtr>::Read(
-    ::blink::mojom::DevicePublicKeyRequest::DataView input,
-    ::blink::mojom::DevicePublicKeyRequestPtr* output) {
+bool StructTraits<::blink::mojom::SupplementalPubKeysRequest::DataView, ::blink::mojom::SupplementalPubKeysRequestPtr>::Read(
+    ::blink::mojom::SupplementalPubKeysRequest::DataView input,
+    ::blink::mojom::SupplementalPubKeysRequestPtr* output) {
   bool success = true;
-  ::blink::mojom::DevicePublicKeyRequestPtr result(::blink::mojom::DevicePublicKeyRequest::New());
+  ::blink::mojom::SupplementalPubKeysRequestPtr result(::blink::mojom::SupplementalPubKeysRequest::New());
   
+      if (success)
+        result->device_scope_requested = input.device_scope_requested();
+      if (success)
+        result->provider_scope_requested = input.provider_scope_requested();
       if (success && !input.ReadAttestation(&result->attestation))
         success = false;
       if (success && !input.ReadAttestationFormats(&result->attestation_formats))
@@ -3177,6 +3235,8 @@ bool StructTraits<::blink::mojom::PublicKeyCredentialRequestOptions::DataView, :
       if (success && !input.ReadRelyingPartyId(&result->relying_party_id))
         success = false;
       if (success && !input.ReadAllowCredentials(&result->allow_credentials))
+        success = false;
+      if (success && !input.ReadHints(&result->hints))
         success = false;
       if (success && !input.ReadUserVerification(&result->user_verification))
         success = false;
@@ -3212,7 +3272,7 @@ bool StructTraits<::blink::mojom::AuthenticationExtensionsClientInputs::DataView
         result->get_cred_blob = input.get_cred_blob();
       if (success && !input.ReadRemoteDesktopClientOverride(&result->remote_desktop_client_override))
         success = false;
-      if (success && !input.ReadDevicePublicKey(&result->device_public_key))
+      if (success && !input.ReadSupplementalPubKeys(&result->supplemental_pub_keys))
         success = false;
   *output = std::move(result);
   return success;
@@ -3258,6 +3318,8 @@ bool StructTraits<::blink::mojom::PublicKeyCredentialCreationOptions::DataView, 
         success = false;
       if (success && !input.ReadAuthenticatorSelection(&result->authenticator_selection))
         success = false;
+      if (success && !input.ReadHints(&result->hints))
+        success = false;
       if (success && !input.ReadAttestation(&result->attestation))
         success = false;
       if (success)
@@ -3284,7 +3346,7 @@ bool StructTraits<::blink::mojom::PublicKeyCredentialCreationOptions::DataView, 
         result->min_pin_length_requested = input.min_pin_length_requested();
       if (success && !input.ReadRemoteDesktopClientOverride(&result->remote_desktop_client_override))
         success = false;
-      if (success && !input.ReadDevicePublicKey(&result->device_public_key))
+      if (success && !input.ReadSupplementalPubKeys(&result->supplemental_pub_keys))
         success = false;
   *output = std::move(result);
   return success;

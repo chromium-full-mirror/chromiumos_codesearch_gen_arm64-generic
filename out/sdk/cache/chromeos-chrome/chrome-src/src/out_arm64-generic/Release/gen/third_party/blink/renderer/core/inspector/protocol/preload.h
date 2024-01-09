@@ -25,6 +25,7 @@ class PreloadingAttemptSource;
 using PrerenderFinalStatus = String;
 using PreloadingStatus = String;
 using PrefetchStatus = String;
+class PrerenderMismatchedHeaders;
 
 // ------------- Forward and enum declarations.
 
@@ -128,7 +129,8 @@ CORE_EXPORT extern const char PrefetchFailedMIMENotSupported[];
 CORE_EXPORT extern const char PrefetchFailedNetError[];
 CORE_EXPORT extern const char PrefetchFailedNon2XX[];
 CORE_EXPORT extern const char PrefetchFailedPerPageLimitExceeded[];
-CORE_EXPORT extern const char PrefetchEvicted[];
+CORE_EXPORT extern const char PrefetchEvictedAfterCandidateRemoved[];
+CORE_EXPORT extern const char PrefetchEvictedForNewerPrefetch[];
 CORE_EXPORT extern const char PrefetchHeldback[];
 CORE_EXPORT extern const char PrefetchIneligibleRetryAfter[];
 CORE_EXPORT extern const char PrefetchIsPrivacyDecoy[];
@@ -476,6 +478,89 @@ private:
 };
 
 
+class CORE_EXPORT PrerenderMismatchedHeaders : public ::crdtp::ProtocolObject<PrerenderMismatchedHeaders> {
+public:
+    ~PrerenderMismatchedHeaders() override { }
+
+    String getHeaderName() { return m_headerName; }
+    void setHeaderName(const String& value) { m_headerName = value; }
+
+    bool hasInitialValue() { return m_initialValue.has_value(); }
+    String getInitialValue(const String& defaultValue) const {
+       return m_initialValue.value_or(defaultValue);
+    }
+    void setInitialValue(const String& value) { m_initialValue = value; }
+
+    bool hasActivationValue() { return m_activationValue.has_value(); }
+    String getActivationValue(const String& defaultValue) const {
+       return m_activationValue.value_or(defaultValue);
+    }
+    void setActivationValue(const String& value) { m_activationValue = value; }
+
+    template<int STATE>
+    class PrerenderMismatchedHeadersBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            HeaderNameSet = 1 << 1,
+            AllFieldsSet = (HeaderNameSet | 0)};
+
+
+        PrerenderMismatchedHeadersBuilder<STATE | HeaderNameSet>& setHeaderName(const String& value)
+        {
+            static_assert(!(STATE & HeaderNameSet), "property headerName should not be set yet");
+            m_result->setHeaderName(value);
+            return castState<HeaderNameSet>();
+        }
+
+        PrerenderMismatchedHeadersBuilder<STATE>& setInitialValue(const String& value)
+        {
+            m_result->setInitialValue(value);
+            return *this;
+        }
+
+        PrerenderMismatchedHeadersBuilder<STATE>& setActivationValue(const String& value)
+        {
+            m_result->setActivationValue(value);
+            return *this;
+        }
+
+        std::unique_ptr<PrerenderMismatchedHeaders> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class PrerenderMismatchedHeaders;
+        PrerenderMismatchedHeadersBuilder() : m_result(new PrerenderMismatchedHeaders()) { }
+
+        template<int STEP> PrerenderMismatchedHeadersBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<PrerenderMismatchedHeadersBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Preload::PrerenderMismatchedHeaders> m_result;
+    };
+
+    static PrerenderMismatchedHeadersBuilder<0> create()
+    {
+        return PrerenderMismatchedHeadersBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    PrerenderMismatchedHeaders()
+    {
+    }
+
+    String m_headerName;
+    Maybe<String> m_initialValue;
+    Maybe<String> m_activationValue;
+};
+
+
 // ------------- Backend interface.
 
 class CORE_EXPORT Backend {
@@ -496,7 +581,7 @@ public:
     void ruleSetRemoved(const String& id);
     void preloadEnabledStateUpdated(bool disabledByPreference, bool disabledByDataSaver, bool disabledByBatterySaver, bool disabledByHoldbackPrefetchSpeculationRules, bool disabledByHoldbackPrerenderSpeculationRules);
     void prefetchStatusUpdated(std::unique_ptr<protocol::Preload::PreloadingAttemptKey> key, const String& initiatingFrameId, const String& prefetchUrl, const String& status, const String& prefetchStatus, const String& requestId);
-    void prerenderStatusUpdated(std::unique_ptr<protocol::Preload::PreloadingAttemptKey> key, const String& status, Maybe<String> prerenderStatus = Maybe<String>(), Maybe<String> disallowedMojoInterface = Maybe<String>());
+    void prerenderStatusUpdated(std::unique_ptr<protocol::Preload::PreloadingAttemptKey> key, const String& status, Maybe<String> prerenderStatus = Maybe<String>(), Maybe<String> disallowedMojoInterface = Maybe<String>(), Maybe<protocol::Array<protocol::Preload::PrerenderMismatchedHeaders>> mismatchedHeaders = Maybe<protocol::Array<protocol::Preload::PrerenderMismatchedHeaders>>());
     void preloadingAttemptSourcesUpdated(const String& loaderId, std::unique_ptr<protocol::Array<protocol::Preload::PreloadingAttemptSource>> preloadingAttemptSources);
 
   void flush();

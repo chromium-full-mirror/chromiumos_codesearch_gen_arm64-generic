@@ -2,7 +2,6 @@
 #define V8_GEN_TORQUE_GENERATED_VISITOR_LISTS_H_
 
 #define TORQUE_INSTANCE_TYPE_TO_BODY_DESCRIPTOR_LIST(V)\
-V(WEAK_FIXED_ARRAY_TYPE,WeakFixedArray)\
 V(WEAK_ARRAY_LIST_TYPE,WeakArrayList)\
 V(SCOPE_INFO_TYPE,ScopeInfo)\
 V(DESCRIPTOR_ARRAY_TYPE,DescriptorArray)\
@@ -41,8 +40,6 @@ V(SORT_STATE_TYPE,SortState)\
 V(WASM_STRING_VIEW_ITER_TYPE,WasmStringViewIter)\
 
 #define TORQUE_DATA_ONLY_VISITOR_ID_LIST(V)\
-V(SeqOneByteString)\
-V(SeqTwoByteString)\
 V(TurbofanBitsetType)\
 V(TurbofanRangeType)\
 V(TurbofanOtherNumberConstantType)\
@@ -60,7 +57,6 @@ V(AbstractInternalClassSubclass2)\
 
 #define TORQUE_POINTER_VISITOR_ID_LIST(V)\
 V(Context)\
-V(WeakFixedArray)\
 V(WeakArrayList)\
 V(ScopeInfo)\
 V(DescriptorArray)\
@@ -72,9 +68,6 @@ V(UncompiledDataWithPreparseData)\
 V(UncompiledDataWithoutPreparseDataWithJob)\
 V(UncompiledDataWithPreparseDataAndJob)\
 V(OnHeapBasicBlockProfilerData)\
-V(ConsString)\
-V(SlicedString)\
-V(ThinString)\
 V(TurbofanUnionType)\
 V(TurbofanHeapConstantType)\
 V(InternalClass)\

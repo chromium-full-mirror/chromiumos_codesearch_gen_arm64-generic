@@ -157,8 +157,10 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_device_lost_info.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_error.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_external_texture.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_heap_property.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_internal_error.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_map_mode.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_memory_heap_info.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_out_of_memory_error.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_pipeline_error.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_pipeline_layout.h"
@@ -324,10 +326,10 @@ BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -363,10 +365,10 @@ BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -379,8 +381,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -391,10 +394,10 @@ BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.onmessageerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessageerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessageerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -407,8 +410,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessageerror(event_handler);
 }
 
@@ -953,6 +957,13 @@ BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.GPUExternalTexture");
 bindings::V8SetReturnValue(info, V8GPUExternalTexture::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
+void GPUHeapPropertyExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DedicatedWorkerGlobalScope_GPUHeapProperty_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.GPUHeapProperty");
+
+bindings::V8SetReturnValue(info, V8GPUHeapProperty::GetWrapperTypeInfo(), bindings::V8ReturnValue::kNamespaceObject);
+}
+
 void GPUInternalErrorExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DedicatedWorkerGlobalScope_GPUInternalError_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.GPUInternalError");
@@ -965,6 +976,13 @@ void GPUMapModeExposedConstructCallback(v8::Local<v8::Name> v8_property_name, co
 BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.GPUMapMode");
 
 bindings::V8SetReturnValue(info, V8GPUMapMode::GetWrapperTypeInfo(), bindings::V8ReturnValue::kNamespaceObject);
+}
+
+void GPUMemoryHeapInfoExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DedicatedWorkerGlobalScope_GPUMemoryHeapInfo_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.GPUMemoryHeapInfo");
+
+bindings::V8SetReturnValue(info, V8GPUMemoryHeapInfo::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void GPUOutOfMemoryErrorExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -2290,7 +2308,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_handle = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2310,8 +2328,9 @@ BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -2334,7 +2353,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -2371,7 +2390,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -2460,7 +2479,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_callback = NativeValueTraits<V8FrameRequestCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2497,7 +2516,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLUnsignedShort>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2549,7 +2568,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLUnsignedShort>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2586,7 +2605,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2619,7 +2638,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+DedicatedWorkerGlobalScope* blink_receiver = V8DedicatedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2985,14 +3004,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::ElementCaptureEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"RestrictionTarget", RestrictionTargetExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::WebSocketStreamEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"WebSocketStream", WebSocketStreamExposedConstructCallback}, 
@@ -3078,6 +3089,7 @@ if (is_in_secure_context && feature_selector.IsAll()) {
 {"GPUTextureView", GPUTextureViewExposedConstructCallback}, 
 {"GPUUncapturedErrorEvent", GPUUncapturedErrorEventExposedConstructCallback}, 
 {"GPUValidationError", GPUValidationErrorExposedConstructCallback}, 
+{"IdleDetector", IdleDetectorExposedConstructCallback}, 
 {"ImageDecoder", ImageDecoderExposedConstructCallback}, 
 {"Lock", LockExposedConstructCallback}, 
 {"LockManager", LockManagerExposedConstructCallback}, 
@@ -3138,9 +3150,10 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::IdleDetectionEnabled())) {
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"IdleDetector", IdleDetectorExposedConstructCallback}, 
+{"GPUHeapProperty", GPUHeapPropertyExposedConstructCallback}, 
+{"GPUMemoryHeapInfo", GPUMemoryHeapInfoExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -3172,6 +3185,15 @@ if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"PressureObserver", PressureObserverExposedConstructCallback}, 
 {"PressureRecord", PressureRecordExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if ((feature_selector.IsAll() && RuntimeEnabledFeatures::ElementCaptureEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kElementCapture)) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"RestrictionTarget", RestrictionTargetExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

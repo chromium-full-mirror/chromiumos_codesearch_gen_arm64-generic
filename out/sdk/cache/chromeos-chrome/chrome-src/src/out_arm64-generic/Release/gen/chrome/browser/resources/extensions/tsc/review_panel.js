@@ -9,6 +9,7 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { ExtensionsHatsBrowserProxyImpl } from './extension_hats_browser_proxy.js';
 import { getTemplate } from './review_panel.html.js';
 const ExtensionsReviewPanelElementBase = I18nMixin(PolymerElement);
 export class ExtensionsReviewPanelElement extends ExtensionsReviewPanelElementBase {
@@ -132,6 +133,7 @@ export class ExtensionsReviewPanelElement extends ExtensionsReviewPanelElementBa
         }
     }
     computeShouldShowUnsafeExtensions_() {
+        ExtensionsHatsBrowserProxyImpl.getInstance().triggerSurvey();
         const updatedUnsafeExtensions = this.getUnsafeExtensions_(this.extensions) || [];
         if (updatedUnsafeExtensions.length !== 0) {
             if (!this.shouldShowUnsafeExtensions_) {
@@ -164,6 +166,7 @@ export class ExtensionsReviewPanelElement extends ExtensionsReviewPanelElementBa
      */
     onKeepExtensionClick_() {
         chrome.metricsPrivate.recordUserAction('SafetyCheck.ReviewPanelKeepClicked');
+        ExtensionsHatsBrowserProxyImpl.getInstance().extensionKeptAction();
         this.$.makeExceptionMenu.close();
         if (this.lastClickedExtensionId_) {
             this.delegate.setItemSafetyCheckWarningAcknowledged(this.lastClickedExtensionId_);
@@ -177,23 +180,25 @@ export class ExtensionsReviewPanelElement extends ExtensionsReviewPanelElementBa
     }
     async onRemoveExtensionClick_(e) {
         chrome.metricsPrivate.recordUserAction('SafetyCheck.ReviewPanelRemoveClicked');
+        ExtensionsHatsBrowserProxyImpl.getInstance().extensionRemovedAction();
         try {
             await this.delegate.uninstallItem(e.model.item.id);
         }
         catch (_) {
-            // The error was almost certainly the user canceling the dialog.
+            // The error was almost certainly the user cancelling the dialog.
             // Do nothing.
         }
     }
     async onRemoveAllClick_(event) {
         chrome.metricsPrivate.recordUserAction('SafetyCheck.ReviewPanelRemoveAllClicked');
+        ExtensionsHatsBrowserProxyImpl.getInstance().removeAllAction(this.unsafeExtensions_.length);
         event.stopPropagation();
         try {
             this.numberOfExtensionsChanged_ = this.unsafeExtensions_.length;
             await this.delegate.deleteItems(this.unsafeExtensions_.map(extension => extension.id));
         }
         catch (_) {
-            // The error was almost certainly the user canceling the dialog.
+            // The error was almost certainly the user cancelling the dialog.
             // Reset `numberOfExtensionsChanged_`.
             this.numberOfExtensionsChanged_ = 1;
         }

@@ -3,11 +3,13 @@
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/js/assert.js';
 import { CustomElement } from 'chrome://resources/js/custom_element.js';
-import { clamp, createEl, signalNames } from '../omnibox_util.js';
+import { clamp, createEl, setFormattedClipboardForMl, signalNames } from '../omnibox_util.js';
 // @ts-ignore:next-line
 import sheet from './ml_calculator.css' assert { type: 'css' };
 import { getTemplate } from './ml_calculator.html.js';
 export class MlCalculatorElement extends CustomElement {
+    mlBrowserProxy_;
+    signalInputs;
     static get template() {
         return getTemplate();
     }
@@ -25,14 +27,8 @@ export class MlCalculatorElement extends CustomElement {
             return input;
         });
         this.getRequiredElement('#copy').addEventListener('click', async () => {
-            const copyObj = {
-                url: window.location.href,
-                version: (await this.mlBrowserProxy_.modelVersion).string,
-                signals: this.signals,
-                score: this.score,
-            };
-            navigator.clipboard.writeText(JSON.stringify(copyObj, null, 2))
-                .catch(error => console.error('unable to export to clipboard:', error));
+            const promise = setFormattedClipboardForMl({ score: this.score }, this.signals, window.location.href, await this.mlBrowserProxy_.modelVersion);
+            this.dispatchEvent(new CustomEvent('copied', { detail: promise }));
         });
         this.getRequiredElement('#clear').addEventListener('click', () => {
             this.signalInputs.forEach(el => el.value = el.placeholder);
@@ -50,8 +46,10 @@ export class MlCalculatorElement extends CustomElement {
     }
     set mlBrowserProxy(mlBrowserProxy) {
         this.mlBrowserProxy_ = mlBrowserProxy;
-        mlBrowserProxy.modelVersion.then(version => createEl('a', this.getRequiredElement('#version'), [], version.string)
-            .href = version.url);
+        mlBrowserProxy.modelVersion.then(version => {
+            createEl('a', this.getRequiredElement('#version'), [], version.string)
+                .href = version.url;
+        });
         this.update();
     }
     static parseSignalStrings(signalStrings) {
@@ -74,7 +72,9 @@ export class MlCalculatorElement extends CustomElement {
         return MlCalculatorElement.parseSignalStrings(this.signalInputs.map(input => input.value));
     }
     set signals(signals) {
-        Object.values(signals).forEach((signal, i) => this.signalInputs[i].value = signal);
+        // Signals can be numbers, booleans, or null.
+        Object.values(signals).forEach((signal, i) => this.signalInputs[i].value =
+            signal === null ? '' : String(Number(signal)));
         this.update();
     }
     get score() {
@@ -90,6 +90,7 @@ export class MlCalculatorElement extends CustomElement {
         this.signalInputs.forEach(input => input.classList.toggle('empty', !!input.textContent));
         this.score = await this.mlBrowserProxy_.makeMlRequest(this.signals);
         window.history.replaceState(null, '', `?signals=${Object.values(this.signals)}`);
+        this.dispatchEvent(new CustomEvent('updated'));
     }
 }
 customElements.define('ml-calculator', MlCalculatorElement);

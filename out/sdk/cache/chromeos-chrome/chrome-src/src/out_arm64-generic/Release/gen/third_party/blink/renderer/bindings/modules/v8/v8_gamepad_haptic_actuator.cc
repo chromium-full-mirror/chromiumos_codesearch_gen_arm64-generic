@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GamepadHapticActuator>::value,
     "GamepadHapticActuator inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GamepadHapticActuator::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GamepadHapticActuator is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("GamepadHapticActuator.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GamepadHapticActuator* blink_receiver = V8GamepadHapticActuator::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GamepadHapticActuator* blink_receiver = V8GamepadHapticActuator::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -116,7 +111,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GamepadHapticActuator* blink_receiver = V8GamepadHapticActuator::ToWrappableUnsafe(v8_receiver);
+GamepadHapticActuator* blink_receiver = V8GamepadHapticActuator::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<V8GamepadHapticEffectType>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -152,7 +147,7 @@ return;
 
 
 
-GamepadHapticActuator* blink_receiver = V8GamepadHapticActuator::ToWrappableUnsafe(v8_receiver);
+GamepadHapticActuator* blink_receiver = V8GamepadHapticActuator::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -191,7 +186,7 @@ return;
 
 
 
-GamepadHapticActuator* blink_receiver = V8GamepadHapticActuator::ToWrappableUnsafe(v8_receiver);
+GamepadHapticActuator* blink_receiver = V8GamepadHapticActuator::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

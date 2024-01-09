@@ -34,6 +34,18 @@ static SharedStoragePrivateAggregationConfig* Create(v8::Isolate* isolate, v8::L
 explicit  SharedStoragePrivateAggregationConfig();
 explicit  SharedStoragePrivateAggregationConfig(v8::Isolate* isolate);
 
+bool hasAggregationCoordinatorOrigin() const {
+  return has_aggregation_coordinator_origin_;
+}
+const String& aggregationCoordinatorOrigin() const {
+  DCHECK(hasAggregationCoordinatorOrigin());
+return member_aggregation_coordinator_origin_;
+}
+String getAggregationCoordinatorOriginOr(const String& fallback_value) const;
+String getAggregationCoordinatorOriginOr(String&& fallback_value) const;
+void setAggregationCoordinatorOrigin(const String& value);
+void setAggregationCoordinatorOrigin(String&& value);
+
 bool hasContextId() const {
   return has_context_id_;
 }
@@ -61,8 +73,10 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
+bool has_aggregation_coordinator_origin_ = false;
 bool has_context_id_ = false;
 
+String member_aggregation_coordinator_origin_;
 String member_context_id_;
 
 

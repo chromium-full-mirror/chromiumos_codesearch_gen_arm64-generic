@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/regexp-exec-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -189,7 +190,7 @@ TF_BUILTIN(RegExpPrototypeExec, CodeStubAssembler) {
   TNode<Object> tmp6;
   if (block6.is_used()) {
     ca_.Bind(&block6);
-    tmp6 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRegExpPrototypeExecSlow), parameter0, tmp0, tmp3);
+    tmp6 = ca_.CallBuiltin<Object>(Builtin::kRegExpPrototypeExecSlow, parameter0, tmp0, tmp3);
     ca_.Goto(&block7, tmp6);
   }
 

@@ -1,38 +1,32 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes|moduleLoad|lintChecks}
- */
 import { ImageLoaderClient } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/image_loader_client.js';
-import { LoadImageRequest, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
+import { LoadImageRequest, LoadImageResponse, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { isModal } from '../../common/js/dialog_type.js';
 import { isSameEntry } from '../../common/js/entry_utils.js';
 import { parseActionId } from '../../common/js/file_tasks.js';
-import { FileType } from '../../common/js/file_type.js';
-import { str, util } from '../../common/js/util.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import '../../externs/command_handler_deps.js';
-import '../../externs/volume_manager.js';
-import '../elements/files_quick_view.js';
-import { CommandHandler } from './file_manager_commands.js';
-import { FileSelectionHandler } from './file_selection.js';
-import './file_tasks.js';
-import './metadata/metadata_item.js';
-import './metadata/metadata_model.js';
-import './metadata_box_controller.js';
-import './quick_view_model.js';
-import './quick_view_uma.js';
-import './task_controller.js';
-import { ThumbnailLoader } from './thumbnail_loader.js';
-import './ui/command.js';
-import './ui/file_list_selection_model.js';
+import { getType } from '../../common/js/file_type.js';
+import { getEntryLabel, str } from '../../common/js/translations.js';
+import { VolumeType } from '../../common/js/volume_manager_types.js';
+import { CommandHandlerDeps } from '../../externs/command_handler_deps.js';
+import { DialogType } from '../../externs/ts/state.js';
+import { FilesQuickView } from '../elements/files_quick_view.js';
+import { CommandHandler } from './command_handler.js';
+import { EventType, FileSelectionHandler } from './file_selection.js';
+import { FileTasks } from './file_tasks.js';
+import { MetadataItem } from './metadata/metadata_item.js';
+import { MetadataModel } from './metadata/metadata_model.js';
+import { MetadataBoxController } from './metadata_box_controller.js';
+import { QuickViewModel } from './quick_view_model.js';
+import { QuickViewUma, WayToOpen } from './quick_view_uma.js';
+import { TaskController } from './task_controller.js';
+import { THUMBNAIL_MAX_HEIGHT, THUMBNAIL_MAX_WIDTH } from './thumbnail_loader.js';
+import { FileListSelectionModel, FileListSingleSelectionModel } from './ui/file_list_selection_model.js';
 import { FilesConfirmDialog } from './ui/files_confirm_dialog.js';
-import './ui/list_container.js';
-import './ui/multi_menu_button.js';
+import { ListContainer } from './ui/list_container.js';
+import { MultiMenuButton } from './ui/multi_menu_button.js';
 /**
  * Controller for QuickView.
  */
@@ -70,29 +64,19 @@ export class QuickViewController {
          * Stores whether we are in check-select mode or not.
          */
         this.checkSelectMode_ = false;
-        this.selectionHandler_.addEventListener(FileSelectionHandler.EventType.CHANGE, this.onFileSelectionChanged_.bind(this));
+        this.selectionHandler_.addEventListener(EventType.CHANGE, this.onFileSelectionChanged_.bind(this));
         this.listContainer_.element.addEventListener('keydown', this.onKeyDownToOpen_.bind(this));
-        dialogDom.addEventListener('command', ((event) => {
-            // Selection menu command can be triggered with focus
-            // outside of file list or button e.g.: from the directory
-            // tree.
-            if (event.command.id === 'get-info') {
-                event.stopPropagation();
-                this.display_("selectionMenu" /* WayToOpen.SELECTION_MENU */);
-            }
-        }));
-        this.listContainer_.element.addEventListener('command', ((event) => {
-            if (event.command.id === 'get-info') {
-                event.stopPropagation();
-                this.display_("contextMenu" /* WayToOpen.CONTEXT_MENU */);
-            }
-        }));
-        selectionMenuButton.addEventListener('command', ((event) => {
-            if (event.command.id === 'get-info') {
-                event.stopPropagation();
-                this.display_("selectionMenu" /* WayToOpen.SELECTION_MENU */);
-            }
-        }));
+        // Selection menu command can be triggered with focus outside of file list
+        // or button e.g.: from the directory tree.
+        dialogDom.addEventListener('command', this.onCommad_.bind(this, WayToOpen.SELECTION_MENU));
+        this.listContainer_.element.addEventListener('command', this.onCommad_.bind(this, WayToOpen.CONTEXT_MENU));
+        selectionMenuButton.addEventListener('command', this.onCommad_.bind(this, WayToOpen.SELECTION_MENU));
+    }
+    onCommad_(wayToOpen, event) {
+        if (event.detail.command.id === 'get-info') {
+            event.stopPropagation();
+            this.display_(wayToOpen);
+        }
     }
     /**
      * Initialize the controller with quick view which will be lazily loaded.
@@ -150,7 +134,7 @@ export class QuickViewController {
             event.preventDefault();
             event.stopImmediatePropagation();
             if (this.entries_.length > 0) {
-                this.display_("spaceKey" /* WayToOpen.SPACE_KEY */);
+                this.display_(WayToOpen.SPACE_KEY);
             }
         }
     }
@@ -391,10 +375,10 @@ export class QuickViewController {
     }
     async getQuickViewParameters_(entry, items, tasks, canDelete) {
         const firstItem = items[0];
-        const typeInfo = FileType.getType(entry, firstItem?.contentMimeType);
+        const typeInfo = getType(entry, firstItem?.contentMimeType);
         const type = typeInfo.type;
         const locationInfo = this.volumeManager_.getLocationInfo(entry);
-        const label = util.getEntryLabel(locationInfo, entry);
+        const label = getEntryLabel(locationInfo, entry);
         const entryIsOnDrive = locationInfo && locationInfo.isDriveBased;
         const thumbnailUrl = firstItem ? firstItem.thumbnailUrl : undefined;
         const modificationTime = firstItem ? firstItem.modificationTime : undefined;
@@ -580,8 +564,8 @@ export class QuickViewController {
         return new Promise((resolve, reject) => {
             entry.file(function requestFileThumbnail(file) {
                 const request = LoadImageRequest.createForUrl(entry.toURL());
-                request.maxWidth = ThumbnailLoader.THUMBNAIL_MAX_WIDTH;
-                request.maxHeight = ThumbnailLoader.THUMBNAIL_MAX_HEIGHT;
+                request.maxWidth = THUMBNAIL_MAX_WIDTH;
+                request.maxHeight = THUMBNAIL_MAX_HEIGHT;
                 request.timestamp = file.lastModified;
                 request.cache = true;
                 request.priority = 0;
@@ -603,15 +587,15 @@ export class QuickViewController {
  * Drive).
  */
 const LOCAL_VOLUME_TYPES_ = [
-    VolumeManagerCommon.VolumeType.ARCHIVE,
-    VolumeManagerCommon.VolumeType.DOWNLOADS,
-    VolumeManagerCommon.VolumeType.REMOVABLE,
-    VolumeManagerCommon.VolumeType.ANDROID_FILES,
-    VolumeManagerCommon.VolumeType.CROSTINI,
-    VolumeManagerCommon.VolumeType.GUEST_OS,
-    VolumeManagerCommon.VolumeType.MEDIA_VIEW,
-    VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER,
-    VolumeManagerCommon.VolumeType.SMB,
+    VolumeType.ARCHIVE,
+    VolumeType.DOWNLOADS,
+    VolumeType.REMOVABLE,
+    VolumeType.ANDROID_FILES,
+    VolumeType.CROSTINI,
+    VolumeType.GUEST_OS,
+    VolumeType.MEDIA_VIEW,
+    VolumeType.DOCUMENTS_PROVIDER,
+    VolumeType.SMB,
 ];
 /**
  * List of unsupported image subtypes excluded from being displayed in

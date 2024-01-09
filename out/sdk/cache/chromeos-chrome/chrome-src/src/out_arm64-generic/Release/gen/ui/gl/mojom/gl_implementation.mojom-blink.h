@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/gl/mojom/gl_implementation.mojom-features.h"
 #include "ui/gl/mojom/gl_implementation.mojom-shared.h"
 #include "ui/gl/mojom/gl_implementation.mojom-blink-forward.h"
 
@@ -37,30 +38,6 @@
 #include "base/component_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gl::mojom::GLImplementation>
-    : EnumHashTraits<::gl::mojom::GLImplementation, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gl::mojom::ANGLEImplementation>
-    : EnumHashTraits<::gl::mojom::ANGLEImplementation, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace gl::mojom::blink {

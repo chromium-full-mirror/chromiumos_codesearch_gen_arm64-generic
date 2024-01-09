@@ -13,7 +13,7 @@ export function getTemplate() {
     --button-fill-color: var(--cros-sys-on_surface);
   }
 
-  :host(:not([is-edit-view])) #container {
+  #container {
     padding-block: 8px;
   }
 
@@ -64,11 +64,7 @@ export function getTemplate() {
     flex: 1;
   }
 
-  #acceleratorInfoText {
-    padding-block-start: 8px
-  }
-
-  :host([has-error]) #acceleratorInfoText {
+  :host([has-error]:not([has-warning])) #acceleratorInfoText {
     color: var(--error-info-text-color);
   }
 
@@ -101,7 +97,7 @@ export function getTemplate() {
     padding-inline: 10px;
   }
 
-  :host([is-edit-view][has-error]) #acceleratorView {
+  :host([is-edit-view][has-error]:not([has-warning])) #acceleratorView {
     border-color: var(--edit-border-error-color);
   }
 </style>
@@ -111,6 +107,7 @@ export function getTemplate() {
     <accelerator-view id="acceleratorItem"
         accelerator-info="[[acceleratorInfo]]" view-state="{{viewState}}"
         status-message="{{statusMessage}}" has-error="{{hasError}}"
+        recorded-error="{{recordedError}}"
         action="[[action]]" source="[[source]]">
     </accelerator-view>
   </div>

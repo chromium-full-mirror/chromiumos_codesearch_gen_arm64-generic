@@ -84,11 +84,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPURenderPassEncoder>::value,
     "GPURenderPassEncoder inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPURenderPassEncoder::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPURenderPassEncoder is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -101,10 +96,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -115,9 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPURenderPassEncoder";
@@ -144,7 +139,7 @@ blink_receiver->beginOcclusionQuery(arg1_query_index);
 void BeginOcclusionQueryOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "beginOcclusionQuery";
@@ -170,14 +165,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.beginOcclusionQuery");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "beginOcclusionQuery";
@@ -263,7 +258,7 @@ blink_receiver->draw(arg1_vertex_count, arg2_instance_count, arg3_first_vertex, 
 void DrawOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "draw";
@@ -310,14 +305,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.draw");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "draw";
@@ -441,7 +436,7 @@ blink_receiver->drawIndexed(arg1_index_count, arg2_instance_count, arg3_first_in
 void DrawIndexedOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "drawIndexed";
@@ -495,14 +490,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.drawIndexed");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "drawIndexed";
@@ -586,7 +581,7 @@ blink_receiver->drawIndexedIndirect(arg1_indirect_buffer, arg2_indirect_offset);
 void DrawIndexedIndirectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "drawIndexedIndirect";
@@ -616,14 +611,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.drawIndexedIndirect");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "drawIndexedIndirect";
@@ -683,7 +678,7 @@ blink_receiver->drawIndirect(arg1_indirect_buffer, arg2_indirect_offset);
 void DrawIndirectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "drawIndirect";
@@ -713,14 +708,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.drawIndirect");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "drawIndirect";
@@ -770,7 +765,7 @@ blink_receiver->end();
 void EndOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -788,8 +783,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.end");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -800,8 +796,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 EndOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -829,7 +824,7 @@ blink_receiver->endOcclusionQuery();
 void EndOcclusionQueryOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -847,8 +842,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.endOcclusionQuery");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -859,8 +855,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 EndOcclusionQueryOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -897,7 +892,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_bundles = NativeValueTraits<IDLSequence<GPURenderBundle>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -927,7 +922,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_marker_label = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -948,7 +943,7 @@ blink_receiver->popDebugGroup();
 void PopDebugGroupOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -966,8 +961,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.popDebugGroup");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -978,8 +974,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 PopDebugGroupOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -1016,7 +1011,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_group_label = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1044,9 +1039,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setBindGroup";
@@ -1090,7 +1085,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1169,7 +1164,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_color = NativeValueTraits<V8UnionDoubleSequenceOrGPUColorDict>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1203,9 +1198,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setIndexBuffer";
@@ -1259,7 +1254,7 @@ blink_receiver->setPipeline(arg1_pipeline);
 void SetPipelineOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setPipeline";
@@ -1285,14 +1280,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.setPipeline");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setPipeline";
@@ -1342,7 +1337,7 @@ blink_receiver->setScissorRect(arg1_x, arg2_y, arg3_width, arg4_height);
 void SetScissorRectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setScissorRect";
@@ -1380,14 +1375,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.setScissorRect");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setScissorRect";
@@ -1446,7 +1441,7 @@ blink_receiver->setStencilReference(arg1_reference);
 void SetStencilReferenceOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setStencilReference";
@@ -1472,14 +1467,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.setStencilReference");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setStencilReference";
@@ -1577,7 +1572,7 @@ void SetVertexBufferOperationNoAllocDirectCallForTesting(const v8::FunctionCallb
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setVertexBuffer";
@@ -1627,16 +1622,16 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.setVertexBuffer");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setVertexBuffer";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -1648,8 +1643,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 SetVertexBufferOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -1663,7 +1657,6 @@ if (!v8_fast_api_callback_options.fallback) {
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setVertexBuffer";
@@ -1714,7 +1707,7 @@ blink_receiver->setViewport(arg1_x, arg2_y, arg3_width, arg4_height, arg5_min_de
 void SetViewportOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setViewport";
@@ -1760,14 +1753,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderPassEncoder.setViewport");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderPassEncoder";
 const char* const property_name = "setViewport";
@@ -1842,7 +1835,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderPassEncoder* blink_receiver = V8GPURenderPassEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_query_set = NativeValueTraits<GPUQuerySet>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1932,28 +1925,28 @@ static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"setViewport", SetViewportOperationCallback, 6, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 // Disable compiler warnings for unused functions.
-(void)BeginOcclusionQueryOperationNoAllocDirectCallArg1;
-(void)DrawOperationNoAllocDirectCallArg4;
-(void)DrawOperationNoAllocDirectCallArg3;
-(void)DrawOperationNoAllocDirectCallArg2;
-(void)DrawOperationNoAllocDirectCallArg1;
-(void)DrawIndexedOperationNoAllocDirectCallArg5;
-(void)DrawIndexedOperationNoAllocDirectCallArg4;
-(void)DrawIndexedOperationNoAllocDirectCallArg3;
-(void)DrawIndexedOperationNoAllocDirectCallArg2;
-(void)DrawIndexedOperationNoAllocDirectCallArg1;
-(void)DrawIndexedIndirectOperationNoAllocDirectCallArg2;
-(void)DrawIndirectOperationNoAllocDirectCallArg2;
-(void)EndOperationNoAllocDirectCallArg0;
-(void)EndOcclusionQueryOperationNoAllocDirectCallArg0;
-(void)PopDebugGroupOperationNoAllocDirectCallArg0;
-(void)SetPipelineOperationNoAllocDirectCallArg1;
-(void)SetScissorRectOperationNoAllocDirectCallArg4;
-(void)SetStencilReferenceOperationNoAllocDirectCallArg1;
-(void)SetVertexBufferOperationNoAllocDirectCallArg4;
-(void)SetVertexBufferOperationNoAllocDirectCallArg3;
-(void)SetVertexBufferOperationNoAllocDirectCallArg2;
-(void)SetViewportOperationNoAllocDirectCallArg6;
+std::ignore = BeginOcclusionQueryOperationNoAllocDirectCallArg1;
+std::ignore = DrawOperationNoAllocDirectCallArg4;
+std::ignore = DrawOperationNoAllocDirectCallArg3;
+std::ignore = DrawOperationNoAllocDirectCallArg2;
+std::ignore = DrawOperationNoAllocDirectCallArg1;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg5;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg4;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg3;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg2;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg1;
+std::ignore = DrawIndexedIndirectOperationNoAllocDirectCallArg2;
+std::ignore = DrawIndirectOperationNoAllocDirectCallArg2;
+std::ignore = EndOperationNoAllocDirectCallArg0;
+std::ignore = EndOcclusionQueryOperationNoAllocDirectCallArg0;
+std::ignore = PopDebugGroupOperationNoAllocDirectCallArg0;
+std::ignore = SetPipelineOperationNoAllocDirectCallArg1;
+std::ignore = SetScissorRectOperationNoAllocDirectCallArg4;
+std::ignore = SetStencilReferenceOperationNoAllocDirectCallArg1;
+std::ignore = SetVertexBufferOperationNoAllocDirectCallArg4;
+std::ignore = SetVertexBufferOperationNoAllocDirectCallArg3;
+std::ignore = SetVertexBufferOperationNoAllocDirectCallArg2;
+std::ignore = SetViewportOperationNoAllocDirectCallArg6;
 #else   // defined(ARCH_CPU_X86)
 static const v8::CFunction kNoAllocDirectCallOverloadsOfBeginOcclusionQuery[] = {
 v8::CFunctionBuilder().Fn(BeginOcclusionQueryOperationNoAllocDirectCallArg1).Arg<1, v8::CTypeInfo::Flags::kEnforceRangeBit>().Build(),

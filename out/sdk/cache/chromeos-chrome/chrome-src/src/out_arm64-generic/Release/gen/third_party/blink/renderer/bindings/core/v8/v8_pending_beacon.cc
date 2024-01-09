@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PendingBeacon>::value,
     "PendingBeacon inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PendingBeacon::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PendingBeacon is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,7 +89,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PendingBeacon_Url_At
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(v8_receiver);
+PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -113,7 +108,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PendingBeacon_Method
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(v8_receiver);
+PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->method();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -132,7 +127,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PendingBeacon_Backgr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(v8_receiver);
+PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->backgroundTimeout();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -150,7 +145,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PendingBeacon_Backgr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(v8_receiver);
+PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PendingBeacon";
@@ -177,7 +172,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PendingBeacon_Timeou
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(v8_receiver);
+PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timeout();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -195,7 +190,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PendingBeacon_Timeou
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(v8_receiver);
+PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PendingBeacon";
@@ -222,7 +217,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PendingBeacon_Pendin
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(v8_receiver);
+PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pending();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -245,7 +240,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PendingBeacon_Deacti
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(v8_receiver);
+PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->deactivate();
 
 }
@@ -267,7 +262,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PendingBeacon_SendNo
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(v8_receiver);
+PendingBeacon* blink_receiver = V8PendingBeacon::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->sendNow();
 
 }

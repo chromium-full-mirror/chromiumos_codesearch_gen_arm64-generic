@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/system_dns_resolution.mojom-features.h"
 #include "services/network/public/mojom/system_dns_resolution.mojom-shared.h"
 #include "services/network/public/mojom/system_dns_resolution.mojom-forward.h"
 #include "services/network/public/mojom/address_family.mojom.h"
@@ -85,7 +86,7 @@ class SystemDnsResolver
 
   using ResolveCallback = base::OnceCallback<void(const ::net::AddressList&, int32_t, int32_t)>;
   
-  virtual void Resolve(const absl::optional<std::string>& hostname, ::net::AddressFamily addr_family, int32_t flags, uint64_t network, ResolveCallback callback) = 0;
+  virtual void Resolve(const std::optional<std::string>& hostname, ::net::AddressFamily addr_family, int32_t flags, uint64_t network, ResolveCallback callback) = 0;
 };
 
 
@@ -97,7 +98,7 @@ class  SystemDnsResolverProxy
 
   explicit SystemDnsResolverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void Resolve(const absl::optional<std::string>& hostname, ::net::AddressFamily addr_family, int32_t flags, uint64_t network, ResolveCallback callback) final;
+  void Resolve(const std::optional<std::string>& hostname, ::net::AddressFamily addr_family, int32_t flags, uint64_t network, ResolveCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

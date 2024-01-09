@@ -34,10 +34,9 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/imageloader/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/imageloader/_imageloader-install_config.stamp: stamp
 build obj/imageloader/_libimageloader-manifest-install_config.stamp: stamp
-build obj/imageloader/all.stamp: stamp ./imageloader obj/imageloader/imageloader-adaptors.stamp obj/imageloader/install_dbus_config.stamp obj/imageloader/install_dbus_service.stamp obj/imageloader/install_header.stamp obj/imageloader/install_init.stamp obj/imageloader/install_pkgconfig.stamp obj/imageloader/install_seccomp_policy.stamp ./libimageloader_static.a ./libprotos.a ./run_tests
+build obj/imageloader/all.stamp: stamp ./imageloader obj/imageloader/imageloader-adaptors.stamp obj/imageloader/install_header.stamp obj/imageloader/install_init.stamp obj/imageloader/install_pkgconfig.stamp obj/imageloader/install_seccomp_policy.stamp ./libimageloader_static.a ./libprotos.a obj/imageloader/install_dbus_config.stamp obj/imageloader/install_dbus_service.stamp
 subninja obj/imageloader/imageloader.ninja
 rule __imageloader_imageloader-adaptors___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/imageloader/out/Default/gen/include/imageloader/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/imageloader/dbus/dbus-service-config.json ${in}
@@ -65,4 +64,3 @@ rule __imageloader_protos_gen___common-mk_toolchain_toolchain__rule
 build gen/include/imageloader/ipc.pb.cc gen/include/imageloader/ipc.pb.h: __imageloader_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/imageloader/ipc.proto
 
 build obj/imageloader/protos_gen.stamp: stamp gen/include/imageloader/ipc.pb.cc gen/include/imageloader/ipc.pb.h
-subninja obj/imageloader/run_tests.ninja

@@ -80,11 +80,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IDBObjectStore>::value,
     "IDBObjectStore inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IDBObjectStore::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IDBObjectStore is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,10 +92,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBObjectStore.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -111,9 +106,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBObjectStore.name.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "IDBObjectStore";
@@ -138,7 +133,7 @@ BLINK_BINDINGS_TRACE_EVENT("IDBObjectStore.keyPath.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -172,8 +167,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBObjectStore.indexNames.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->indexNames();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -186,8 +182,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBObjectStore.transaction.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->transaction();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -200,8 +197,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBObjectStore.autoIncrement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->autoIncrement();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -233,7 +231,7 @@ return;
 
 IDBRequest* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
@@ -276,7 +274,7 @@ UseCounter::Count(current_execution_context, WebFeature::kIndexedDBWrite);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -308,7 +306,7 @@ UseCounter::Count(current_execution_context, WebFeature::kIndexedDBRead);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -357,7 +355,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -410,7 +408,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -450,7 +448,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -487,7 +485,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -520,7 +518,7 @@ UseCounter::Count(current_execution_context, WebFeature::kIndexedDBRead);
 
 IDBRequest* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IDBObjectStore";
 const char* const property_name = "getAll";
@@ -573,7 +571,7 @@ UseCounter::Count(current_execution_context, WebFeature::kIndexedDBRead);
 
 IDBRequest* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IDBObjectStore";
 const char* const property_name = "getAllKeys";
@@ -633,7 +631,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -673,7 +671,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -702,7 +700,7 @@ UseCounter::Count(current_execution_context, WebFeature::kIndexedDBRead);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -750,7 +748,7 @@ UseCounter::Count(current_execution_context, WebFeature::kIndexedDBRead);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -807,7 +805,7 @@ return;
 
 IDBRequest* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(v8_receiver);
+IDBObjectStore* blink_receiver = V8IDBObjectStore::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();

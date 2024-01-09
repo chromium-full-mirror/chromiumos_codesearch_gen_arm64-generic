@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="common cr-shared-style cr-radio-button-style">#container{align-items:center;display:flex;flex:1;flex-flow:row nowrap;height:100%;justify-content:space-between;padding-inline-end:var(--cr-icon-ripple-padding);padding-inline-start:var(--cr-section-padding)}#labelWrapper{margin-inline-start:var(--cr-radio-button-label-spacing,20px)}.primary-text{color:var(--cros-text-color-primary);font:var(--cros-body-2-font)}iron-icon{height:20px;width:20px}</style>
+    return html `<!--_html_template_start_--><style include="common cr-shared-style cr-radio-button-style">#container{align-items:center;display:flex;flex:1;flex-flow:row nowrap;height:100%;justify-content:space-between;padding-inline-end:var(--cr-icon-ripple-padding);padding-inline-start:14px}#labelWrapper{margin-inline-start:var(--cr-radio-button-label-spacing,20px)}.primary-text{color:var(--cros-text-color-primary);font:var(--cros-body-2-font)}iron-icon{height:20px;width:20px}</style>
 
 <div id="container">
   

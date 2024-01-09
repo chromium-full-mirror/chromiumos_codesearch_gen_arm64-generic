@@ -34,7 +34,7 @@ enum class AtRuleDescriptorID {
   Pad = 18,
   Prefix = 19,
   Range = 20,
-  NavigationTrigger = 21,
+  Navigation = 21,
   SizeAdjust = 22,
   SpeakAs = 23,
   Src = 24,

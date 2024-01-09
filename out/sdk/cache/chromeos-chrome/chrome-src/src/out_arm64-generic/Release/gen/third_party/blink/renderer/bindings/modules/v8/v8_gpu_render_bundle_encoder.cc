@@ -81,11 +81,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPURenderBundleEncoder>::value,
     "GPURenderBundleEncoder inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPURenderBundleEncoder::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPURenderBundleEncoder is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,10 +93,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -112,9 +107,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPURenderBundleEncoder";
@@ -180,7 +175,7 @@ blink_receiver->draw(arg1_vertex_count, arg2_instance_count, arg3_first_vertex, 
 void DrawOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "draw";
@@ -227,14 +222,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.draw");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "draw";
@@ -358,7 +353,7 @@ blink_receiver->drawIndexed(arg1_index_count, arg2_instance_count, arg3_first_in
 void DrawIndexedOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "drawIndexed";
@@ -412,14 +407,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.drawIndexed");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "drawIndexed";
@@ -503,7 +498,7 @@ blink_receiver->drawIndexedIndirect(arg1_indirect_buffer, arg2_indirect_offset);
 void DrawIndexedIndirectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "drawIndexedIndirect";
@@ -533,14 +528,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.drawIndexedIndirect");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "drawIndexedIndirect";
@@ -600,7 +595,7 @@ blink_receiver->drawIndirect(arg1_indirect_buffer, arg2_indirect_offset);
 void DrawIndirectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "drawIndirect";
@@ -630,14 +625,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.drawIndirect");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "drawIndirect";
@@ -686,14 +681,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.finish");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<GPURenderBundleDescriptor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_descriptor;
 if (info[0]->IsUndefined()) {
   arg1_descriptor = GPURenderBundleDescriptor::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "finish";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -727,7 +722,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_marker_label = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -748,7 +743,7 @@ blink_receiver->popDebugGroup();
 void PopDebugGroupOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -766,8 +761,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.popDebugGroup");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -778,8 +774,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 PopDebugGroupOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -816,7 +811,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_group_label = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -844,9 +839,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "setBindGroup";
@@ -890,7 +885,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -970,9 +965,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "setIndexBuffer";
@@ -1026,7 +1021,7 @@ blink_receiver->setPipeline(arg1_pipeline);
 void SetPipelineOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "setPipeline";
@@ -1052,14 +1047,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.setPipeline");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "setPipeline";
@@ -1157,7 +1152,7 @@ void SetVertexBufferOperationNoAllocDirectCallForTesting(const v8::FunctionCallb
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "setVertexBuffer";
@@ -1207,16 +1202,16 @@ BLINK_BINDINGS_TRACE_EVENT("GPURenderBundleEncoder.setVertexBuffer");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(v8_receiver);
+GPURenderBundleEncoder* blink_receiver = V8GPURenderBundleEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "setVertexBuffer";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -1228,8 +1223,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 SetVertexBufferOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -1243,7 +1237,6 @@ if (!v8_fast_api_callback_options.fallback) {
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPURenderBundleEncoder";
 const char* const property_name = "setVertexBuffer";
@@ -1342,22 +1335,22 @@ static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"setVertexBuffer", SetVertexBufferOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 // Disable compiler warnings for unused functions.
-(void)DrawOperationNoAllocDirectCallArg4;
-(void)DrawOperationNoAllocDirectCallArg3;
-(void)DrawOperationNoAllocDirectCallArg2;
-(void)DrawOperationNoAllocDirectCallArg1;
-(void)DrawIndexedOperationNoAllocDirectCallArg5;
-(void)DrawIndexedOperationNoAllocDirectCallArg4;
-(void)DrawIndexedOperationNoAllocDirectCallArg3;
-(void)DrawIndexedOperationNoAllocDirectCallArg2;
-(void)DrawIndexedOperationNoAllocDirectCallArg1;
-(void)DrawIndexedIndirectOperationNoAllocDirectCallArg2;
-(void)DrawIndirectOperationNoAllocDirectCallArg2;
-(void)PopDebugGroupOperationNoAllocDirectCallArg0;
-(void)SetPipelineOperationNoAllocDirectCallArg1;
-(void)SetVertexBufferOperationNoAllocDirectCallArg4;
-(void)SetVertexBufferOperationNoAllocDirectCallArg3;
-(void)SetVertexBufferOperationNoAllocDirectCallArg2;
+std::ignore = DrawOperationNoAllocDirectCallArg4;
+std::ignore = DrawOperationNoAllocDirectCallArg3;
+std::ignore = DrawOperationNoAllocDirectCallArg2;
+std::ignore = DrawOperationNoAllocDirectCallArg1;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg5;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg4;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg3;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg2;
+std::ignore = DrawIndexedOperationNoAllocDirectCallArg1;
+std::ignore = DrawIndexedIndirectOperationNoAllocDirectCallArg2;
+std::ignore = DrawIndirectOperationNoAllocDirectCallArg2;
+std::ignore = PopDebugGroupOperationNoAllocDirectCallArg0;
+std::ignore = SetPipelineOperationNoAllocDirectCallArg1;
+std::ignore = SetVertexBufferOperationNoAllocDirectCallArg4;
+std::ignore = SetVertexBufferOperationNoAllocDirectCallArg3;
+std::ignore = SetVertexBufferOperationNoAllocDirectCallArg2;
 #else   // defined(ARCH_CPU_X86)
 static const v8::CFunction kNoAllocDirectCallOverloadsOfDraw[] = {
 v8::CFunctionBuilder().Fn(DrawOperationNoAllocDirectCallArg4).Arg<1, v8::CTypeInfo::Flags::kEnforceRangeBit>().Arg<2, v8::CTypeInfo::Flags::kEnforceRangeBit>().Arg<3, v8::CTypeInfo::Flags::kEnforceRangeBit>().Arg<4, v8::CTypeInfo::Flags::kEnforceRangeBit>().Build(),

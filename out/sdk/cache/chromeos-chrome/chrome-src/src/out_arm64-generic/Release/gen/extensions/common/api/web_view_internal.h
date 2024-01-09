@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -46,8 +47,8 @@ struct DataTypeSet {
   ~DataTypeSet();
   DataTypeSet(const DataTypeSet&) = delete;
   DataTypeSet& operator=(const DataTypeSet&) = delete;
-  DataTypeSet(DataTypeSet&& rhs);
-  DataTypeSet& operator=(DataTypeSet&& rhs);
+  DataTypeSet(DataTypeSet&& rhs) noexcept;
+  DataTypeSet& operator=(DataTypeSet&& rhs) noexcept;
 
   // Populates a DataTypeSet object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -60,47 +61,44 @@ struct DataTypeSet {
   // Creates a deep copy of DataTypeSet.
   DataTypeSet Clone() const;
 
-  // Creates a DataTypeSet object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DataTypeSet> FromValueDeprecated(const base::Value& value);
-
   // Creates a DataTypeSet object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DataTypeSet> FromValue(const base::Value::Dict& value);
+  static std::optional<DataTypeSet> FromValue(const base::Value::Dict& value);
 
   // Creates a DataTypeSet object from a base::Value, or nullopt on failure.
-  static absl::optional<DataTypeSet> FromValue(const base::Value& value);
+  static std::optional<DataTypeSet> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDataTypeSet object.
   base::Value::Dict ToValue() const;
 
   // Websites' appcaches.
-  absl::optional<bool> appcache;
+  std::optional<bool> appcache;
 
   // The Websites' cookies. This will remove both session and persistent cookies
-  absl::optional<bool> cookies;
+  std::optional<bool> cookies;
 
   // The Websites' session cookies.
-  absl::optional<bool> session_cookies;
+  std::optional<bool> session_cookies;
 
   // The Websites' persistent cookies.
-  absl::optional<bool> persistent_cookies;
+  std::optional<bool> persistent_cookies;
 
   // Websites' file systems.
-  absl::optional<bool> file_systems;
+  std::optional<bool> file_systems;
 
   // Websites' IndexedDB data.
-  absl::optional<bool> indexed_db;
+  std::optional<bool> indexed_db;
 
   // Websites' local storage data.
-  absl::optional<bool> local_storage;
+  std::optional<bool> local_storage;
 
   // Websites' WebSQL data.
-  absl::optional<bool> web_sql;
+  std::optional<bool> web_sql;
 
   // The Websites' cache data. Note: when removing data, this clears the
   // <em>entire</em> cache: it is not limited to the range you specify.
-  absl::optional<bool> cache;
+  std::optional<bool> cache;
 
 };
 
@@ -110,8 +108,8 @@ struct RemovalOptions {
   ~RemovalOptions();
   RemovalOptions(const RemovalOptions&) = delete;
   RemovalOptions& operator=(const RemovalOptions&) = delete;
-  RemovalOptions(RemovalOptions&& rhs);
-  RemovalOptions& operator=(RemovalOptions&& rhs);
+  RemovalOptions(RemovalOptions&& rhs) noexcept;
+  RemovalOptions& operator=(RemovalOptions&& rhs) noexcept;
 
   // Populates a RemovalOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -124,15 +122,12 @@ struct RemovalOptions {
   // Creates a deep copy of RemovalOptions.
   RemovalOptions Clone() const;
 
-  // Creates a RemovalOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RemovalOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a RemovalOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RemovalOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<RemovalOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a RemovalOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<RemovalOptions> FromValue(const base::Value& value);
+  static std::optional<RemovalOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRemovalOptions object.
@@ -142,7 +137,7 @@ struct RemovalOptions {
   // since the epoch (accessible via the <code>getTime</code> method of the
   // JavaScript <code>Date</code> object). If absent, defaults to 0 (which would
   // remove all browsing data).
-  absl::optional<double> since;
+  std::optional<double> since;
 
 };
 
@@ -196,8 +191,8 @@ struct InjectionItems {
   ~InjectionItems();
   InjectionItems(const InjectionItems&) = delete;
   InjectionItems& operator=(const InjectionItems&) = delete;
-  InjectionItems(InjectionItems&& rhs);
-  InjectionItems& operator=(InjectionItems&& rhs);
+  InjectionItems(InjectionItems&& rhs) noexcept;
+  InjectionItems& operator=(InjectionItems&& rhs) noexcept;
 
   // Populates a InjectionItems object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -210,26 +205,23 @@ struct InjectionItems {
   // Creates a deep copy of InjectionItems.
   InjectionItems Clone() const;
 
-  // Creates a InjectionItems object from a base::Value, or NULL on failure.
-  static std::unique_ptr<InjectionItems> FromValueDeprecated(const base::Value& value);
-
   // Creates a InjectionItems object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<InjectionItems> FromValue(const base::Value::Dict& value);
+  static std::optional<InjectionItems> FromValue(const base::Value::Dict& value);
 
   // Creates a InjectionItems object from a base::Value, or nullopt on failure.
-  static absl::optional<InjectionItems> FromValue(const base::Value& value);
+  static std::optional<InjectionItems> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInjectionItems object.
   base::Value::Dict ToValue() const;
 
   // JavaScript code or CSS to be injected into matching pages.
-  absl::optional<std::string> code;
+  std::optional<std::string> code;
 
   // The list of JavaScript or CSS files to be injected into matching pages. These
   // are injected in the order they appear in this array.
-  absl::optional<std::vector<std::string>> files;
+  std::optional<std::vector<std::string>> files;
 
 };
 
@@ -239,8 +231,8 @@ struct ContentScriptDetails {
   ~ContentScriptDetails();
   ContentScriptDetails(const ContentScriptDetails&) = delete;
   ContentScriptDetails& operator=(const ContentScriptDetails&) = delete;
-  ContentScriptDetails(ContentScriptDetails&& rhs);
-  ContentScriptDetails& operator=(ContentScriptDetails&& rhs);
+  ContentScriptDetails(ContentScriptDetails&& rhs) noexcept;
+  ContentScriptDetails& operator=(ContentScriptDetails&& rhs) noexcept;
 
   // Populates a ContentScriptDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -253,17 +245,13 @@ struct ContentScriptDetails {
   // Creates a deep copy of ContentScriptDetails.
   ContentScriptDetails Clone() const;
 
-  // Creates a ContentScriptDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ContentScriptDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a ContentScriptDetails object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ContentScriptDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<ContentScriptDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a ContentScriptDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ContentScriptDetails> FromValue(const base::Value& value);
+  static std::optional<ContentScriptDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisContentScriptDetails object.
@@ -276,23 +264,23 @@ struct ContentScriptDetails {
   std::vector<std::string> matches;
 
   // Excludes pages that this content script would otherwise be injected into.
-  absl::optional<std::vector<std::string>> exclude_matches;
+  std::optional<std::vector<std::string>> exclude_matches;
 
   // Whether to insert the content script on about:blank and about:srcdoc. Content
   // scripts will only be injected on pages when their inherit URL is matched by
   // one of the declared patterns in the matches field. The inherit URL is the URL
   // of the document that created the frame or window. Content scripts cannot be
   // inserted in sandboxed frames.
-  absl::optional<bool> match_about_blank;
+  std::optional<bool> match_about_blank;
 
   // The CSS code or a list of CSS files to be injected into matching pages. These
   // are injected in the order they appear, before any DOM is constructed or
   // displayed for the page.
-  absl::optional<InjectionItems> css;
+  std::optional<InjectionItems> css;
 
   // The JavaScript code or a list of JavaScript files to be injected into
   // matching pages. These are injected in the order they appear.
-  absl::optional<InjectionItems> js;
+  std::optional<InjectionItems> js;
 
   // The soonest that the JavaScript or CSS will be injected into the tab.
   // Defaults to "document_idle".
@@ -301,15 +289,15 @@ struct ContentScriptDetails {
   // If allFrames is <code>true</code>, implies that the JavaScript or CSS should
   // be injected into all frames of current page. By default, it's
   // <code>false</code> and is only injected into the top frame.
-  absl::optional<bool> all_frames;
+  std::optional<bool> all_frames;
 
   // Applied after matches to include only those URLs that also match this glob.
   // Intended to emulate the @include Greasemonkey keyword.
-  absl::optional<std::vector<std::string>> include_globs;
+  std::optional<std::vector<std::string>> include_globs;
 
   // Applied after matches to exclude URLs that match this glob. Intended to
   // emulate the @exclude Greasemonkey keyword.
-  absl::optional<std::vector<std::string>> exclude_globs;
+  std::optional<std::vector<std::string>> exclude_globs;
 
 };
 
@@ -321,11 +309,11 @@ struct ContentScriptDetails {
 namespace GetAudioState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -346,11 +334,11 @@ base::Value::List Create(bool audible);
 namespace SetAudioMuted {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -369,11 +357,11 @@ struct Params {
 namespace IsAudioMuted {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -394,11 +382,11 @@ base::Value::List Create(bool muted);
 namespace ExecuteScript {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -426,11 +414,11 @@ base::Value::List Create(const base::Value::List& result);
 namespace InsertCSS {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -457,11 +445,11 @@ base::Value::List Create();
 namespace AddContentScripts {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -480,11 +468,11 @@ struct Params {
 namespace RemoveContentScripts {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -492,7 +480,7 @@ struct Params {
 
   // A list of names of content scripts that will be removed. If the list is
   // empty, all the content scripts added to the <webview> page will be removed.
-  absl::optional<std::vector<std::string>> script_name_list;
+  std::optional<std::vector<std::string>> script_name_list;
 
 
  private:
@@ -504,11 +492,11 @@ struct Params {
 namespace SetZoom {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -532,11 +520,11 @@ base::Value::List Create();
 namespace GetZoom {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -558,11 +546,11 @@ base::Value::List Create(double zoom_factor);
 namespace SetZoomMode {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -586,11 +574,11 @@ base::Value::List Create();
 namespace GetZoomMode {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -612,11 +600,11 @@ base::Value::List Create(const ZoomMode& zoom_mode);
 namespace Find {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct Options {
@@ -624,8 +612,8 @@ struct Params {
     ~Options();
     Options(const Options&) = delete;
     Options& operator=(const Options&) = delete;
-    Options(Options&& rhs);
-    Options& operator=(Options&& rhs);
+    Options(Options&& rhs) noexcept;
+    Options& operator=(Options&& rhs) noexcept;
 
     // Populates a Options object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -639,16 +627,16 @@ struct Params {
     Options Clone() const;
 
     // Creates a Options object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Options> FromValue(const base::Value::Dict& value);
+    static std::optional<Options> FromValue(const base::Value::Dict& value);
 
     // Creates a Options object from a base::Value, or nullopt on failure.
-    static absl::optional<Options> FromValue(const base::Value& value);
+    static std::optional<Options> FromValue(const base::Value& value);
 
     // Flag to find matches in reverse order.
-    absl::optional<bool> backward;
+    std::optional<bool> backward;
 
     // Flag to match |searchText| with case-sensitivity.
-    absl::optional<bool> match_case;
+    std::optional<bool> match_case;
 
   };
 
@@ -659,7 +647,7 @@ struct Params {
   // The string to find in the page.
   std::string search_text;
 
-  absl::optional<Options> options;
+  std::optional<Options> options;
 
 
  private:
@@ -673,8 +661,8 @@ struct Results {
   ~Results();
   Results(const Results&) = delete;
   Results& operator=(const Results&) = delete;
-  Results(Results&& rhs);
-  Results& operator=(Results&& rhs);
+  Results(Results&& rhs) noexcept;
+  Results& operator=(Results&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResults object.
@@ -686,8 +674,8 @@ struct Results {
     ~SelectionRect();
     SelectionRect(const SelectionRect&) = delete;
     SelectionRect& operator=(const SelectionRect&) = delete;
-    SelectionRect(SelectionRect&& rhs);
-    SelectionRect& operator=(SelectionRect&& rhs);
+    SelectionRect(SelectionRect&& rhs) noexcept;
+    SelectionRect& operator=(SelectionRect&& rhs) noexcept;
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisSelectionRect object.
@@ -727,11 +715,11 @@ base::Value::List Create(const Results& results);
 namespace StopFinding {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -750,11 +738,11 @@ struct Params {
 namespace LoadDataWithBaseUrl {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -767,7 +755,7 @@ struct Params {
   std::string base_url;
 
   // The URL that will be displayed to the user.
-  absl::optional<std::string> virtual_url;
+  std::optional<std::string> virtual_url;
 
 
  private:
@@ -784,11 +772,11 @@ base::Value::List Create();
 namespace Go {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -811,11 +799,11 @@ base::Value::List Create(bool success);
 namespace OverrideUserAgent {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -832,11 +820,11 @@ struct Params {
 namespace Reload {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -851,11 +839,11 @@ struct Params {
 namespace SetAllowTransparency {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -872,11 +860,11 @@ struct Params {
 namespace SetAllowScaling {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -893,11 +881,11 @@ struct Params {
 namespace SetName {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -914,11 +902,11 @@ struct Params {
 namespace SetPermission {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -927,7 +915,7 @@ struct Params {
 
   SetPermissionAction action;
 
-  absl::optional<std::string> user_input;
+  std::optional<std::string> user_input;
 
 
  private:
@@ -944,11 +932,11 @@ base::Value::List Create(bool allowed);
 namespace Navigate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -965,11 +953,11 @@ struct Params {
 namespace Stop {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -984,11 +972,11 @@ struct Params {
 namespace Terminate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int instance_id;
@@ -1003,17 +991,17 @@ struct Params {
 namespace CaptureVisibleRegion {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
   int instance_id;
 
-  absl::optional<extensions::api::extension_types::ImageDetails> options;
+  std::optional<extensions::api::extension_types::ImageDetails> options;
 
 
  private:
@@ -1032,11 +1020,11 @@ base::Value::List Create(const std::string& data_url);
 namespace SetSpatialNavigationEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -1055,11 +1043,11 @@ struct Params {
 namespace IsSpatialNavigationEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.
@@ -1080,11 +1068,11 @@ base::Value::List Create(bool spatial_nav_enabled);
 namespace ClearData {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The instance ID of the guest <webview> process.

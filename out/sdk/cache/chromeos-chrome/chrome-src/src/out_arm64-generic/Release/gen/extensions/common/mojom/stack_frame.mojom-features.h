@@ -8,6 +8,7 @@
 #define EXTENSIONS_COMMON_MOJOM_STACK_FRAME_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

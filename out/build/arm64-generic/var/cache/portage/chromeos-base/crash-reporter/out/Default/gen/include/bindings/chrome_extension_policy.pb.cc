@@ -4,43 +4,50 @@
 #include "chrome_extension_policy.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace enterprise_management {
+template <typename>
 PROTOBUF_CONSTEXPR ExternalPolicyData::ExternalPolicyData(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.download_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.secure_hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.download_url_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.secure_hash_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct ExternalPolicyDataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ExternalPolicyDataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ExternalPolicyDataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ExternalPolicyDataDefaultTypeInternal() {}
   union {
     ExternalPolicyData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExternalPolicyDataDefaultTypeInternal _ExternalPolicyData_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExternalPolicyDataDefaultTypeInternal _ExternalPolicyData_default_instance_;
 }  // namespace enterprise_management
 namespace enterprise_management {
-
 // ===================================================================
 
 class ExternalPolicyData::_Internal {
  public:
   using HasBits = decltype(std::declval<ExternalPolicyData>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ExternalPolicyData, _impl_._has_bits_);
   static void set_has_download_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -49,10 +56,9 @@ class ExternalPolicyData::_Internal {
   }
 };
 
-ExternalPolicyData::ExternalPolicyData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ExternalPolicyData::ExternalPolicyData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:enterprise_management.ExternalPolicyData)
 }
 ExternalPolicyData::ExternalPolicyData(const ExternalPolicyData& from)
@@ -61,47 +67,47 @@ ExternalPolicyData::ExternalPolicyData(const ExternalPolicyData& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.download_url_){}
-    , decltype(_impl_.secure_hash_){}};
+    , decltype(_impl_.download_url_) {}
+
+    , decltype(_impl_.secure_hash_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.download_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.download_url_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_download_url()) {
-    _this->_impl_.download_url_.Set(from._internal_download_url(), 
-      _this->GetArenaForAllocation());
+        _impl_.download_url_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.download_url_.Set(from._internal_download_url(), _this->GetArenaForAllocation());
   }
   _impl_.secure_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.secure_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_secure_hash()) {
-    _this->_impl_.secure_hash_.Set(from._internal_secure_hash(), 
-      _this->GetArenaForAllocation());
+        _impl_.secure_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.secure_hash_.Set(from._internal_secure_hash(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ExternalPolicyData)
 }
 
-inline void ExternalPolicyData::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ExternalPolicyData::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.download_url_){}
-    , decltype(_impl_.secure_hash_){}
+    , decltype(_impl_.download_url_) {}
+
+    , decltype(_impl_.secure_hash_) {}
+
   };
   _impl_.download_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.download_url_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.download_url_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.secure_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.secure_hash_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.secure_hash_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ExternalPolicyData::~ExternalPolicyData() {
@@ -114,7 +120,7 @@ ExternalPolicyData::~ExternalPolicyData() {
 }
 
 inline void ExternalPolicyData::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.download_url_.Destroy();
   _impl_.secure_hash_.Destroy();
 }
@@ -125,7 +131,7 @@ void ExternalPolicyData::SetCachedSize(int size) const {
 
 void ExternalPolicyData::Clear() {
 // @@protoc_insertion_point(message_clear_start:enterprise_management.ExternalPolicyData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -146,26 +152,28 @@ const char* ExternalPolicyData::_InternalParse(const char* ptr, ::_pbi::ParseCon
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string download_url = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_download_url();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bytes secure_hash = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_secure_hash();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -191,23 +199,23 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ExternalPolicyData::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ExternalPolicyData::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.ExternalPolicyData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string download_url = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_download_url(), target);
+    const std::string& _s = this->_internal_download_url();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional bytes secure_hash = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_secure_hash(), target);
+    const std::string& _s = this->_internal_secure_hash();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -218,11 +226,11 @@ uint8_t* ExternalPolicyData::_InternalSerialize(
   return target;
 }
 
-size_t ExternalPolicyData::ByteSizeLong() const {
+::size_t ExternalPolicyData::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:enterprise_management.ExternalPolicyData)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -230,16 +238,14 @@ size_t ExternalPolicyData::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional string download_url = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_download_url());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_download_url());
     }
 
     // optional bytes secure_hash = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_secure_hash());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_secure_hash());
     }
 
   }
@@ -260,8 +266,8 @@ void ExternalPolicyData::CheckTypeAndMergeFrom(
 void ExternalPolicyData::MergeFrom(const ExternalPolicyData& from) {
   ExternalPolicyData* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.ExternalPolicyData)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -293,20 +299,15 @@ void ExternalPolicyData::InternalSwap(ExternalPolicyData* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.download_url_, lhs_arena,
-      &other->_impl_.download_url_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.secure_hash_, lhs_arena,
-      &other->_impl_.secure_hash_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.download_url_, lhs_arena,
+                                       &other->_impl_.download_url_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.secure_hash_, lhs_arena,
+                                       &other->_impl_.secure_hash_, rhs_arena);
 }
 
 std::string ExternalPolicyData::GetTypeName() const {
   return "enterprise_management.ExternalPolicyData";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace enterprise_management
@@ -316,6 +317,5 @@ Arena::CreateMaybeMessage< ::enterprise_management::ExternalPolicyData >(Arena* 
   return Arena::CreateMessageInternal< ::enterprise_management::ExternalPolicyData >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

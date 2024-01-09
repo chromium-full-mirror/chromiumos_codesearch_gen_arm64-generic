@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUBindGroup>::value,
     "GPUBindGroup inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUBindGroup::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUBindGroup is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUBindGroup.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUBindGroup* blink_receiver = V8GPUBindGroup::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUBindGroup* blink_receiver = V8GPUBindGroup::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,9 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUBindGroup.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUBindGroup* blink_receiver = V8GPUBindGroup::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUBindGroup* blink_receiver = V8GPUBindGroup::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPUBindGroup";

@@ -19,7 +19,7 @@ class  AutomationInterceptorForTesting : public Automation {
   void DispatchActionResult(const ::ui::AXActionData& data, bool result) override;
   void DispatchAccessibilityEvents(const ::ui::AXTreeID& tree_id, const std::vector<::ui::AXTreeUpdate>& updates, const ::gfx::Point& mouse_location, const std::vector<::ui::AXEvent>& events) override;
   void DispatchAccessibilityLocationChange(const ::ui::AXTreeID& tree_id, int32_t node_id, const ::ui::AXRelativeBounds& bounds) override;
-  void DispatchGetTextLocationResult(const ::ui::AXActionData& data, const absl::optional<::gfx::Rect>& rect) override;
+  void DispatchGetTextLocationResult(const ::ui::AXActionData& data, const std::optional<::gfx::Rect>& rect) override;
 };
 class  AutomationAsyncWaiter {
  public:
@@ -32,23 +32,6 @@ class  AutomationAsyncWaiter {
 
  private:
   Automation* const proxy_;
-};
-
-
-class  AutomationClientInterceptorForTesting : public AutomationClient {
-  virtual AutomationClient* GetForwardingInterface() = 0;
-};
-class  AutomationClientAsyncWaiter {
- public:
-  explicit AutomationClientAsyncWaiter(AutomationClient* proxy);
-
-  AutomationClientAsyncWaiter(const AutomationClientAsyncWaiter&) = delete;
-  AutomationClientAsyncWaiter& operator=(const AutomationClientAsyncWaiter&) = delete;
-
-  ~AutomationClientAsyncWaiter();
-
- private:
-  AutomationClient* const proxy_;
 };
 
 

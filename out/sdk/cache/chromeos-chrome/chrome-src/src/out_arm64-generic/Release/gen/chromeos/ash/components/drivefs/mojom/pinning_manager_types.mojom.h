@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/components/drivefs/mojom/pinning_manager_types.mojom-features.h"
 #include "chromeos/ash/components/drivefs/mojom/pinning_manager_types.mojom-shared.h"
 #include "chromeos/ash/components/drivefs/mojom/pinning_manager_types.mojom-forward.h"
 #include <string>

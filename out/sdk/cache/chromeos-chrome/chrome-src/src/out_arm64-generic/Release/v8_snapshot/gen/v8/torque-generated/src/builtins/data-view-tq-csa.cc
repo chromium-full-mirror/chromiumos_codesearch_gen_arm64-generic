@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/data-view-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -88,7 +89,7 @@ const char* kBuiltinNameByteLength_0(compiler::CodeAssemblerState* state_) {
     ca_.Goto(&block0);
 
     ca_.Bind(&block0);
-  return "DataView.prototype.byteLength";}
+  return "get DataView.prototype.byteLength";}
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/data-view.tq?l=11&c=1
 const char* kBuiltinNameByteOffset_0(compiler::CodeAssemblerState* state_) {
@@ -97,7 +98,7 @@ const char* kBuiltinNameByteOffset_0(compiler::CodeAssemblerState* state_) {
     ca_.Goto(&block0);
 
     ca_.Bind(&block0);
-  return "DataView.prototype.byteOffset";}
+  return "get DataView.prototype.byteOffset";}
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/data-view.tq?l=14&c=1
 TNode<String> MakeDataViewGetterNameString_0(compiler::CodeAssemblerState* state_, ElementsKind p_kind) {
@@ -651,7 +652,7 @@ TF_BUILTIN(DataViewPrototypeGetByteLength, CodeStubAssembler) {
   TNode<BoolT> tmp2;
   if (block0.is_used()) {
     ca_.Bind(&block0);
-    tmp0 = FromConstexpr_String_constexpr_string_0(state_, "get DataView.prototype.byte_length");
+    tmp0 = FromConstexpr_String_constexpr_string_0(state_, "get DataView.prototype.byteLength");
     tmp1 = ValidateDataView_0(state_, TNode<Context>{parameter0}, TNode<Object>{parameter1}, TNode<String>{tmp0});
     tmp2 = IsVariableLengthJSArrayBufferView_0(state_, TNode<JSArrayBufferView>{tmp1});
     ca_.Branch(tmp2, &block1, std::vector<compiler::Node*>{}, &block2, std::vector<compiler::Node*>{});
@@ -727,7 +728,7 @@ TF_BUILTIN(DataViewPrototypeGetByteOffset, CodeStubAssembler) {
   TNode<JSDataViewOrRabGsabDataView> tmp1;
   if (block0.is_used()) {
     ca_.Bind(&block0);
-    tmp0 = FromConstexpr_String_constexpr_string_0(state_, "get DataView.prototype.byte_offset");
+    tmp0 = FromConstexpr_String_constexpr_string_0(state_, "get DataView.prototype.byteOffset");
     tmp1 = ValidateDataView_0(state_, TNode<Context>{parameter0}, TNode<Object>{parameter1}, TNode<String>{tmp0});
     compiler::CodeAssemblerLabel label2(&ca_);
     compiler::CodeAssemblerLabel label3(&ca_);

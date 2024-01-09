@@ -447,6 +447,7 @@
   CookieManagerParams.prototype.initDefaults_ = function() {
     this.blockThirdPartyCookies = false;
     this.blockTruncatedCookies = true;
+    this.trackingProtectionEnabledFor3pcd = false;
     this.mitigationsEnabledFor3pcd = false;
     this.allowFileSchemeCookies = false;
     this.cookieAccessDelegateType = CookieAccessDelegateType.USE_CONTENT_SETTINGS;
@@ -474,6 +475,7 @@
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
+
 
 
 
@@ -522,8 +524,9 @@
     packed = decoder.readUint8();
     val.blockThirdPartyCookies = (packed >> 0) & 1 ? true : false;
     val.blockTruncatedCookies = (packed >> 1) & 1 ? true : false;
-    val.mitigationsEnabledFor3pcd = (packed >> 2) & 1 ? true : false;
-    val.allowFileSchemeCookies = (packed >> 3) & 1 ? true : false;
+    val.trackingProtectionEnabledFor3pcd = (packed >> 2) & 1 ? true : false;
+    val.mitigationsEnabledFor3pcd = (packed >> 3) & 1 ? true : false;
+    val.allowFileSchemeCookies = (packed >> 4) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -547,8 +550,9 @@
     packed = 0;
     packed |= (val.blockThirdPartyCookies & 1) << 0
     packed |= (val.blockTruncatedCookies & 1) << 1
-    packed |= (val.mitigationsEnabledFor3pcd & 1) << 2
-    packed |= (val.allowFileSchemeCookies & 1) << 3
+    packed |= (val.trackingProtectionEnabledFor3pcd & 1) << 2
+    packed |= (val.mitigationsEnabledFor3pcd & 1) << 3
+    packed |= (val.allowFileSchemeCookies & 1) << 4
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
@@ -831,7 +835,6 @@
     this.lastUpdate = null;
     this.secure = false;
     this.httponly = false;
-    this.sameParty = false;
     this.siteRestrictions = CookieSameSite.NO_RESTRICTION;
     this.priority = CookiePriority.MEDIUM;
     this.sourceScheme = CookieSourceScheme.kUnset;
@@ -927,7 +930,6 @@
         return err;
 
 
-
     // validate CanonicalCookie.partitionKey
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, cookie_partition_key$.CookiePartitionKey, true);
     if (err !== validator.validationError.NONE)
@@ -963,7 +965,6 @@
     packed = decoder.readUint8();
     val.secure = (packed >> 0) & 1 ? true : false;
     val.httponly = (packed >> 1) & 1 ? true : false;
-    val.sameParty = (packed >> 2) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -999,7 +1000,6 @@
     packed = 0;
     packed |= (val.secure & 1) << 0
     packed |= (val.httponly & 1) << 1
-    packed |= (val.sameParty & 1) << 2
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
@@ -3284,6 +3284,73 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function CookieManager_SetTrackingProtectionEnabledFor3pcd_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CookieManager_SetTrackingProtectionEnabledFor3pcd_Params.prototype.initDefaults_ = function() {
+    this.enable = false;
+  };
+  CookieManager_SetTrackingProtectionEnabledFor3pcd_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CookieManager_SetTrackingProtectionEnabledFor3pcd_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  CookieManager_SetTrackingProtectionEnabledFor3pcd_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CookieManager_SetTrackingProtectionEnabledFor3pcd_Params.decode = function(decoder) {
+    var packed;
+    var val = new CookieManager_SetTrackingProtectionEnabledFor3pcd_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.enable = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  CookieManager_SetTrackingProtectionEnabledFor3pcd_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CookieManager_SetTrackingProtectionEnabledFor3pcd_Params.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.enable & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
 
   function CookieOrLine(value) {
     this.initDefault_();
@@ -3547,6 +3614,7 @@
   var kCookieManager_BlockThirdPartyCookies_Name = 14;
   var kCookieManager_BlockTruncatedCookies_Name = 15;
   var kCookieManager_SetMitigationsEnabledFor3pcd_Name = 16;
+  var kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name = 17;
 
   function CookieManagerPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(CookieManager,
@@ -3923,6 +3991,21 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  CookieManagerPtr.prototype.setTrackingProtectionEnabledFor3pcd = function() {
+    return CookieManagerProxy.prototype.setTrackingProtectionEnabledFor3pcd
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CookieManagerProxy.prototype.setTrackingProtectionEnabledFor3pcd = function(enable) {
+    var params_ = new CookieManager_SetTrackingProtectionEnabledFor3pcd_Params();
+    params_.enable = enable;
+    var builder = new codec.MessageV0Builder(
+        kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name,
+        codec.align(CookieManager_SetTrackingProtectionEnabledFor3pcd_Params.encodedSize));
+    builder.encodeStruct(CookieManager_SetTrackingProtectionEnabledFor3pcd_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function CookieManagerStub(delegate) {
     this.delegate_ = delegate;
@@ -3978,6 +4061,9 @@
   CookieManagerStub.prototype.setMitigationsEnabledFor3pcd = function(enable) {
     return this.delegate_ && this.delegate_.setMitigationsEnabledFor3pcd && this.delegate_.setMitigationsEnabledFor3pcd(enable);
   }
+  CookieManagerStub.prototype.setTrackingProtectionEnabledFor3pcd = function(enable) {
+    return this.delegate_ && this.delegate_.setTrackingProtectionEnabledFor3pcd && this.delegate_.setTrackingProtectionEnabledFor3pcd(enable);
+  }
 
   CookieManagerStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
@@ -4009,6 +4095,10 @@
     case kCookieManager_SetMitigationsEnabledFor3pcd_Name:
       var params = reader.decodeStruct(CookieManager_SetMitigationsEnabledFor3pcd_Params);
       this.setMitigationsEnabledFor3pcd(params.enable);
+      return true;
+    case kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name:
+      var params = reader.decodeStruct(CookieManager_SetTrackingProtectionEnabledFor3pcd_Params);
+      this.setTrackingProtectionEnabledFor3pcd(params.enable);
       return true;
     default:
       return false;
@@ -4255,6 +4345,10 @@
       case kCookieManager_SetMitigationsEnabledFor3pcd_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = CookieManager_SetMitigationsEnabledFor3pcd_Params;
+      break;
+      case kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = CookieManager_SetTrackingProtectionEnabledFor3pcd_Params;
       break;
     }
     if (paramsClass === null)

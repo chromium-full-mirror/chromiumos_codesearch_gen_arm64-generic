@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/test.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ Results::TestConfig::FtpServer::FtpServer()
 : port(0) {}
 
 Results::TestConfig::FtpServer::~FtpServer() = default;
-Results::TestConfig::FtpServer::FtpServer(FtpServer&& rhs) = default;
-Results::TestConfig::FtpServer& Results::TestConfig::FtpServer::operator=(FtpServer&& rhs) = default;
+Results::TestConfig::FtpServer::FtpServer(FtpServer&& rhs) noexcept = default;
+Results::TestConfig::FtpServer& Results::TestConfig::FtpServer::operator=(FtpServer&& rhs) noexcept = default;
 base::Value::Dict Results::TestConfig::FtpServer::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -54,8 +55,8 @@ Results::TestConfig::TestServer::TestServer()
 : port(0) {}
 
 Results::TestConfig::TestServer::~TestServer() = default;
-Results::TestConfig::TestServer::TestServer(TestServer&& rhs) = default;
-Results::TestConfig::TestServer& Results::TestConfig::TestServer::operator=(TestServer&& rhs) = default;
+Results::TestConfig::TestServer::TestServer(TestServer&& rhs) noexcept = default;
+Results::TestConfig::TestServer& Results::TestConfig::TestServer::operator=(TestServer&& rhs) noexcept = default;
 base::Value::Dict Results::TestConfig::TestServer::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -70,8 +71,8 @@ Results::TestConfig::LoginStatus::LoginStatus()
  {}
 
 Results::TestConfig::LoginStatus::~LoginStatus() = default;
-Results::TestConfig::LoginStatus::LoginStatus(LoginStatus&& rhs) = default;
-Results::TestConfig::LoginStatus& Results::TestConfig::LoginStatus::operator=(LoginStatus&& rhs) = default;
+Results::TestConfig::LoginStatus::LoginStatus(LoginStatus&& rhs) noexcept = default;
+Results::TestConfig::LoginStatus& Results::TestConfig::LoginStatus::operator=(LoginStatus&& rhs) noexcept = default;
 base::Value::Dict Results::TestConfig::LoginStatus::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -93,8 +94,8 @@ Results::TestConfig::TestConfig()
  {}
 
 Results::TestConfig::~TestConfig() = default;
-Results::TestConfig::TestConfig(TestConfig&& rhs) = default;
-Results::TestConfig& Results::TestConfig::operator=(TestConfig&& rhs) = default;
+Results::TestConfig::TestConfig(TestConfig&& rhs) noexcept = default;
+Results::TestConfig& Results::TestConfig::operator=(TestConfig&& rhs) noexcept = default;
 base::Value::Dict Results::TestConfig::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -144,13 +145,13 @@ namespace NotifyFail {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -160,13 +161,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = message_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.message = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -179,13 +180,13 @@ namespace NotifyPass {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -195,8 +196,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = message_value.GetIfString();
       if (!temp) {
-        params.message = absl::nullopt;
-        return absl::nullopt;
+        params.message = std::nullopt;
+        return std::nullopt;
       }
       params.message = *temp;
     }
@@ -212,13 +213,13 @@ namespace Log {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -228,13 +229,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = message_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.message = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -247,13 +248,13 @@ namespace OpenFileUrl {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -263,13 +264,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -282,13 +283,13 @@ namespace PassMessage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -298,13 +299,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = message_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.message = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -324,13 +325,13 @@ namespace SendScriptResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -342,7 +343,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -360,13 +361,13 @@ namespace WaitForRoundTrip {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -376,13 +377,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = message_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.message = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -410,8 +411,8 @@ Info::Info()
 : last_message(false) {}
 
 Info::~Info() = default;
-Info::Info(Info&& rhs) = default;
-Info& Info::operator=(Info&& rhs) = default;
+Info::Info(Info&& rhs) noexcept = default;
+Info& Info::operator=(Info&& rhs) noexcept = default;
 base::Value::Dict Info::ToValue() const {
   base::Value::Dict to_value_result;
 

@@ -91,6 +91,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) NavigationApiHistoryEnt
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::NavigationApiHistoryEntry_Data>>> back_entries;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::NavigationApiHistoryEntry_Data>>> forward_entries;
+  mojo::internal::Pointer<internal::NavigationApiHistoryEntry_Data> previous_entry;
 
  private:
   friend class mojo::internal::MessageFragment<NavigationApiHistoryEntryArrays_Data>;
@@ -98,7 +99,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) NavigationApiHistoryEnt
   NavigationApiHistoryEntryArrays_Data();
   ~NavigationApiHistoryEntryArrays_Data() = delete;
 };
-static_assert(sizeof(NavigationApiHistoryEntryArrays_Data) == 24,
+static_assert(sizeof(NavigationApiHistoryEntryArrays_Data) == 32,
               "Bad sizeof(NavigationApiHistoryEntryArrays_Data)");
 // Used by NavigationApiHistoryEntryArrays::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

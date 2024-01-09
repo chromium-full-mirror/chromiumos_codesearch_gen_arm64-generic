@@ -34,10 +34,8 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/diagnostics/cros_minidiag/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/diagnostics/cros_minidiag/_cros-minidiag-tool-install_config.stamp: stamp
-build obj/diagnostics/cros_minidiag/all.stamp: stamp ./cros-minidiag-tool obj/diagnostics/cros_minidiag/install_upstart_config.stamp ./cros_minidiag_test
+build obj/diagnostics/cros_minidiag/all.stamp: stamp ./cros-minidiag-tool obj/diagnostics/cros_minidiag/install_upstart_config.stamp
 subninja obj/diagnostics/cros_minidiag/cros-minidiag-tool.ninja
-subninja obj/diagnostics/cros_minidiag/cros_minidiag_test.ninja
 build obj/diagnostics/cros_minidiag/install_upstart_config.stamp: stamp
 subninja obj/diagnostics/cros_minidiag/libcros-minidiag-tool.ninja

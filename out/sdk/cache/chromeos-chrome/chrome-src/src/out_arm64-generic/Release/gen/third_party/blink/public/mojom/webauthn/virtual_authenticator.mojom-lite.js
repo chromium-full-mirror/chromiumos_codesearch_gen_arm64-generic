@@ -1052,6 +1052,22 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'defaultBackupEligibility', 16,
+        7,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'defaultBackupState', 17,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
     [[0, 32],]);
 
@@ -1084,6 +1100,10 @@ blink.test.mojom.VirtualAuthenticatorOptions = class {
     this.hasMinPinLength;
     /** @export { !boolean } */
     this.hasPrf;
+    /** @export { !boolean } */
+    this.defaultBackupEligibility;
+    /** @export { !boolean } */
+    this.defaultBackupState;
   }
 };
 

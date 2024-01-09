@@ -33,6 +33,8 @@ enum class StreamSelectionStrategy : int32_t;
 enum class MediaStreamStateChange : int32_t;
 
 enum class PreferredDisplaySurface : int32_t;
+
+enum class CapturedSurfaceControlResult : int32_t;
 class MediaStreamDeviceObserverInterfaceBase;
 class MediaStreamDispatcherHostInterfaceBase;
 class MediaStreamTrackMetricsHostInterfaceBase;
@@ -48,6 +50,7 @@ using MediaStreamRequestResult = MediaStreamRequestResult;
 using StreamSelectionStrategy = StreamSelectionStrategy;
 using MediaStreamStateChange = MediaStreamStateChange;
 using PreferredDisplaySurface = PreferredDisplaySurface;
+using CapturedSurfaceControlResult = CapturedSurfaceControlResult;
 using MediaStreamDeviceObserverInterfaceBase = MediaStreamDeviceObserverInterfaceBase;
 using MediaStreamDispatcherHostInterfaceBase = MediaStreamDispatcherHostInterfaceBase;
 using MediaStreamTrackMetricsHostInterfaceBase = MediaStreamTrackMetricsHostInterfaceBase;
@@ -65,6 +68,9 @@ using StreamControlsPtr = mojo::StructPtr<StreamControls>;
 
 class GetOpenDeviceResponse;
 using GetOpenDeviceResponsePtr = mojo::StructPtr<GetOpenDeviceResponse>;
+
+class CapturedWheelAction;
+using CapturedWheelActionPtr = mojo::InlinedStructPtr<CapturedWheelAction>;
 
 class StreamDevices;
 using StreamDevicesPtr = mojo::StructPtr<StreamDevices>;

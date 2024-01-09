@@ -101,6 +101,8 @@ enum class MethodType : int32_t {
   
   kRefreshCompanionPage = 12,
   
+  kServerSideUrlFilterEvent = 13,
+  
   kUpdateCompanionPage = 31,
   
   kOnCqFindTextResultsAvailable = 32,
@@ -108,8 +110,10 @@ enum class MethodType : int32_t {
   kOnDeviceVisualClassificationResult = 33,
   
   kNotifyLinkOpen = 34,
+  
+  kUpdatePageContent = 35,
   kMinValue = 1,
-  kMaxValue = 34,
+  kMaxValue = 35,
 };
 
  std::ostream& operator<<(std::ostream& os, MethodType value);

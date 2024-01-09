@@ -63,8 +63,8 @@ export class ShortcutRegistry {
         if (keyNode) {
             for (const actionId of Object.keys(handlers)) {
                 if (keyNode.actions().indexOf(actionId) >= 0) {
-                    const action = this.actionRegistry.action(actionId);
-                    if (action) {
+                    if (this.actionRegistry.hasAction(actionId)) {
+                        const action = this.actionRegistry.getAction(actionId);
                         applicableActions.push(action);
                     }
                 }
@@ -245,8 +245,7 @@ export class ShortcutRegistry {
             }
         }
         for (const otherShortcut of this.actionToShortcut.get(shortcut.action)) {
-            if (otherShortcut.descriptorsMatch(shortcut.descriptors) &&
-                otherShortcut.hasKeybindSet(this.keybindSetSetting.get())) {
+            if (otherShortcut.descriptorsMatch(shortcut.descriptors)) {
                 // don't allow duplicate shortcuts
                 return;
             }
@@ -419,7 +418,7 @@ export const ForwardedActions = new Set([
     'debugger.toggle-breakpoints-active',
     'debugger.toggle-pause',
     'commandMenu.show',
-    'console.show',
+    'console.toggle',
 ]);
 export const KeyTimeout = 1000;
 export const DefaultShortcutSetting = 'devToolsDefault';

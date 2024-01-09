@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -117,14 +118,17 @@ void DomStorageProviderProxy::BindDomStorage(
                         "<value of type ::mojo::PendingRemote<DomStorageClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDomStorageProvider_BindDomStorage_Name, kFlags, 0, 0, nullptr);
@@ -212,10 +216,10 @@ bool DomStorageProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDomStorageProviderValidationInfo[] = {
-    {&internal::DomStorageProvider_BindDomStorage_Params_Data::Validate,
+    { &internal::DomStorageProvider_BindDomStorage_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -341,14 +345,17 @@ void DomStorageProxy::OpenLocalStorage(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::StorageArea>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDomStorage_OpenLocalStorage_Name, kFlags, 0, 0, nullptr);
@@ -409,14 +416,17 @@ void DomStorageProxy::BindSessionStorageNamespace(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::SessionStorageNamespace>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDomStorage_BindSessionStorageNamespace_Name, kFlags, 0, 0, nullptr);
@@ -472,14 +482,17 @@ void DomStorageProxy::BindSessionStorageArea(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::StorageArea>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDomStorage_BindSessionStorageArea_Name, kFlags, 0, 0, nullptr);
@@ -674,14 +687,14 @@ bool DomStorageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDomStorageValidationInfo[] = {
-    {&internal::DomStorage_OpenLocalStorage_Params_Data::Validate,
+    { &internal::DomStorage_OpenLocalStorage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DomStorage_BindSessionStorageNamespace_Params_Data::Validate,
+    { &internal::DomStorage_BindSessionStorageNamespace_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DomStorage_BindSessionStorageArea_Params_Data::Validate,
+    { &internal::DomStorage_BindSessionStorageArea_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -754,14 +767,17 @@ void DomStorageClientProxy::ResetStorageAreaAndNamespaceConnections(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::DomStorageClient::ResetStorageAreaAndNamespaceConnections");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDomStorageClient_ResetStorageAreaAndNamespaceConnections_Name, kFlags, 0, 0, nullptr);
@@ -825,10 +841,10 @@ bool DomStorageClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDomStorageClientValidationInfo[] = {
-    {&internal::DomStorageClient_ResetStorageAreaAndNamespaceConnections_Params_Data::Validate,
+    { &internal::DomStorageClient_ResetStorageAreaAndNamespaceConnections_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -3,9 +3,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
+import { FilePathSpec as mojoBase_mojom_FilePathSpec } from '//resources/mojo/mojo/public/mojom/base/file_path.mojom-webui.js';
 import { OriginSpec as url_mojom_OriginSpec } from '//resources/mojo/url/mojom/origin.mojom-webui.js';
 import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 export class WebAppInternalsHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -14,6 +16,9 @@ export class WebAppInternalsHandlerPendingReceiver {
     }
 }
 export class WebAppInternalsHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(WebAppInternalsHandlerPendingReceiver, handle);
@@ -31,16 +36,21 @@ export class WebAppInternalsHandlerRemote {
     selectFileAndInstallIsolatedWebAppFromDevBundle() {
         return this.proxy.sendMessage(2, WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ParamsSpec.$, WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParamsSpec.$, []);
     }
-    searchForIsolatedWebAppUpdates() {
-        return this.proxy.sendMessage(3, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec.$, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec.$, []);
-    }
-    getIsolatedWebAppDevModeProxyAppInfo() {
-        return this.proxy.sendMessage(4, WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ParamsSpec.$, WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsSpec.$, []);
-    }
     updateDevProxyIsolatedWebApp(appId) {
-        return this.proxy.sendMessage(5, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsSpec.$, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsSpec.$, [
+        return this.proxy.sendMessage(3, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsSpec.$, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsSpec.$, [
             appId
         ]);
+    }
+    selectFileAndUpdateIsolatedWebAppFromDevBundle(appId) {
+        return this.proxy.sendMessage(4, WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsSpec.$, WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsSpec.$, [
+            appId
+        ]);
+    }
+    searchForIsolatedWebAppUpdates() {
+        return this.proxy.sendMessage(5, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec.$, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec.$, []);
+    }
+    getIsolatedWebAppDevModeAppInfo() {
+        return this.proxy.sendMessage(6, WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsSpec.$, WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsSpec.$, []);
     }
 }
 ;
@@ -50,15 +60,19 @@ export class WebAppInternalsHandlerRemote {
  * interface.
  */
 export class WebAppInternalsHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(WebAppInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, WebAppInternalsHandler_GetDebugInfoAsJsonString_ParamsSpec.$, WebAppInternalsHandler_GetDebugInfoAsJsonString_ResponseParamsSpec.$, impl.getDebugInfoAsJsonString.bind(impl));
         this.helper_internal_.registerHandler(1, WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ParamsSpec.$, WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ResponseParamsSpec.$, impl.installIsolatedWebAppFromDevProxy.bind(impl));
         this.helper_internal_.registerHandler(2, WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ParamsSpec.$, WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParamsSpec.$, impl.selectFileAndInstallIsolatedWebAppFromDevBundle.bind(impl));
-        this.helper_internal_.registerHandler(3, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec.$, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec.$, impl.searchForIsolatedWebAppUpdates.bind(impl));
-        this.helper_internal_.registerHandler(4, WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ParamsSpec.$, WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsSpec.$, impl.getIsolatedWebAppDevModeProxyAppInfo.bind(impl));
-        this.helper_internal_.registerHandler(5, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsSpec.$, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsSpec.$, impl.updateDevProxyIsolatedWebApp.bind(impl));
+        this.helper_internal_.registerHandler(3, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsSpec.$, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsSpec.$, impl.updateDevProxyIsolatedWebApp.bind(impl));
+        this.helper_internal_.registerHandler(4, WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsSpec.$, WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsSpec.$, impl.selectFileAndUpdateIsolatedWebAppFromDevBundle.bind(impl));
+        this.helper_internal_.registerHandler(5, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec.$, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec.$, impl.searchForIsolatedWebAppUpdates.bind(impl));
+        this.helper_internal_.registerHandler(6, WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsSpec.$, WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsSpec.$, impl.getIsolatedWebAppDevModeAppInfo.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -84,6 +98,17 @@ export class WebAppInternalsHandler {
  * receiver can have any number of listeners added to it.
  */
 export class WebAppInternalsHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getDebugInfoAsJsonString;
+    installIsolatedWebAppFromDevProxy;
+    selectFileAndInstallIsolatedWebAppFromDevBundle;
+    updateDevProxyIsolatedWebApp;
+    selectFileAndUpdateIsolatedWebAppFromDevBundle;
+    searchForIsolatedWebAppUpdates;
+    getIsolatedWebAppDevModeAppInfo;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(WebAppInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -97,15 +122,18 @@ export class WebAppInternalsHandlerCallbackRouter {
         this.selectFileAndInstallIsolatedWebAppFromDevBundle =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(2, WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ParamsSpec.$, WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParamsSpec.$, this.selectFileAndInstallIsolatedWebAppFromDevBundle.createReceiverHandler(true /* expectsResponse */));
-        this.searchForIsolatedWebAppUpdates =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(3, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec.$, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec.$, this.searchForIsolatedWebAppUpdates.createReceiverHandler(true /* expectsResponse */));
-        this.getIsolatedWebAppDevModeProxyAppInfo =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(4, WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ParamsSpec.$, WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsSpec.$, this.getIsolatedWebAppDevModeProxyAppInfo.createReceiverHandler(true /* expectsResponse */));
         this.updateDevProxyIsolatedWebApp =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(5, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsSpec.$, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsSpec.$, this.updateDevProxyIsolatedWebApp.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(3, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsSpec.$, WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsSpec.$, this.updateDevProxyIsolatedWebApp.createReceiverHandler(true /* expectsResponse */));
+        this.selectFileAndUpdateIsolatedWebAppFromDevBundle =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(4, WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsSpec.$, WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsSpec.$, this.selectFileAndUpdateIsolatedWebAppFromDevBundle.createReceiverHandler(true /* expectsResponse */));
+        this.searchForIsolatedWebAppUpdates =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec.$, WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec.$, this.searchForIsolatedWebAppUpdates.createReceiverHandler(true /* expectsResponse */));
+        this.getIsolatedWebAppDevModeAppInfo =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(6, WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsSpec.$, WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsSpec.$, this.getIsolatedWebAppDevModeAppInfo.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -117,29 +145,32 @@ export class WebAppInternalsHandlerCallbackRouter {
     }
 }
 export const InstallIsolatedWebAppResultSpec = { $: {} };
-export const IwaDevProxyAppInfoSpec = { $: {} };
+export const IwaDevModeAppInfoSpec = { $: {} };
 export const WebAppInternalsHandler_GetDebugInfoAsJsonString_ParamsSpec = { $: {} };
 export const WebAppInternalsHandler_GetDebugInfoAsJsonString_ResponseParamsSpec = { $: {} };
 export const WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ParamsSpec = { $: {} };
 export const WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ResponseParamsSpec = { $: {} };
 export const WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ParamsSpec = { $: {} };
 export const WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParamsSpec = { $: {} };
-export const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec = { $: {} };
-export const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec = { $: {} };
-export const WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ParamsSpec = { $: {} };
-export const WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsSpec = { $: {} };
 export const WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsSpec = { $: {} };
 export const WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsSpec = { $: {} };
+export const WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsSpec = { $: {} };
+export const WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsSpec = { $: {} };
+export const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec = { $: {} };
+export const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec = { $: {} };
+export const WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsSpec = { $: {} };
+export const WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsSpec = { $: {} };
+export const IwaDevModeLocationSpec = { $: {} };
 mojo.internal.Struct(InstallIsolatedWebAppResultSpec.$, 'InstallIsolatedWebAppResult', [
     mojo.internal.StructField('success', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('error', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 24],]);
-mojo.internal.Struct(IwaDevProxyAppInfoSpec.$, 'IwaDevProxyAppInfo', [
+mojo.internal.Struct(IwaDevModeAppInfoSpec.$, 'IwaDevModeAppInfo', [
     mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('name', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('proxyOrigin', 16, 0, url_mojom_OriginSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('installedVersion', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 40],]);
+    mojo.internal.StructField('location', 16, 0, IwaDevModeLocationSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('installedVersion', 32, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 48],]);
 mojo.internal.Struct(WebAppInternalsHandler_GetDebugInfoAsJsonString_ParamsSpec.$, 'WebAppInternalsHandler_GetDebugInfoAsJsonString_Params', [], [[0, 8],]);
 mojo.internal.Struct(WebAppInternalsHandler_GetDebugInfoAsJsonString_ResponseParamsSpec.$, 'WebAppInternalsHandler_GetDebugInfoAsJsonString_ResponseParams', [
     mojo.internal.StructField('result', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
@@ -154,17 +185,33 @@ mojo.internal.Struct(WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFr
 mojo.internal.Struct(WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParamsSpec.$, 'WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParams', [
     mojo.internal.StructField('result', 0, 0, InstallIsolatedWebAppResultSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
-mojo.internal.Struct(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec.$, 'WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params', [], [[0, 8],]);
-mojo.internal.Struct(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec.$, 'WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams', [
-    mojo.internal.StructField('result', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ParamsSpec.$, 'WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params', [], [[0, 8],]);
-mojo.internal.Struct(WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParamsSpec.$, 'WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams', [
-    mojo.internal.StructField('apps', 0, 0, mojo.internal.Array(IwaDevProxyAppInfoSpec.$, false), null, false /* nullable */, 0),
-], [[0, 16],]);
 mojo.internal.Struct(WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsSpec.$, 'WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Params', [
     mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsSpec.$, 'WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParams', [
     mojo.internal.StructField('result', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsSpec.$, 'WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params', [
+    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsSpec.$, 'WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams', [
+    mojo.internal.StructField('result', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsSpec.$, 'WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params', [], [[0, 8],]);
+mojo.internal.Struct(WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsSpec.$, 'WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams', [
+    mojo.internal.StructField('result', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsSpec.$, 'WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params', [], [[0, 8],]);
+mojo.internal.Struct(WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsSpec.$, 'WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams', [
+    mojo.internal.StructField('apps', 0, 0, mojo.internal.Array(IwaDevModeAppInfoSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Union(IwaDevModeLocationSpec.$, 'IwaDevModeLocation', {
+    'proxyOrigin': {
+        'ordinal': 0,
+        'type': url_mojom_OriginSpec.$,
+    },
+    'bundlePath': {
+        'ordinal': 1,
+        'type': mojoBase_mojom_FilePathSpec.$,
+    },
+});

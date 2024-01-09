@@ -35,6 +35,7 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   virtual PageHandler* GetForwardingInterface() = 0;
   void DisplayDialog() override;
   void HandleSearchEngineChoiceSelected(int32_t prepopulate_id) override;
+  void HandleLearnMoreLinkClicked() override;
 };
 class  PageHandlerAsyncWaiter {
  public:

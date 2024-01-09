@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCDTMFSender>::value,
     "RTCDTMFSender inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCDTMFSender::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCDTMFSender is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDTMFSender.ontonechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontonechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontonechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -102,8 +97,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(v8_receiver);
+RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntonechange(event_handler);
 }
 
@@ -114,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDTMFSender.canInsertDTMF.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(v8_receiver);
+RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->canInsertDTMF();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -128,10 +125,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDTMFSender.toneBuffer.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toneBuffer();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toneBuffer();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -159,7 +156,7 @@ return;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(v8_receiver);
+RTCDTMFSender* blink_receiver = V8RTCDTMFSender::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_tones = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

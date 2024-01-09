@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -181,8 +182,8 @@ struct RequestFilter {
   ~RequestFilter();
   RequestFilter(const RequestFilter&) = delete;
   RequestFilter& operator=(const RequestFilter&) = delete;
-  RequestFilter(RequestFilter&& rhs);
-  RequestFilter& operator=(RequestFilter&& rhs);
+  RequestFilter(RequestFilter&& rhs) noexcept;
+  RequestFilter& operator=(RequestFilter&& rhs) noexcept;
 
   // Populates a RequestFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -195,15 +196,12 @@ struct RequestFilter {
   // Creates a deep copy of RequestFilter.
   RequestFilter Clone() const;
 
-  // Creates a RequestFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RequestFilter> FromValueDeprecated(const base::Value& value);
-
   // Creates a RequestFilter object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RequestFilter> FromValue(const base::Value::Dict& value);
+  static std::optional<RequestFilter> FromValue(const base::Value::Dict& value);
 
   // Creates a RequestFilter object from a base::Value, or nullopt on failure.
-  static absl::optional<RequestFilter> FromValue(const base::Value& value);
+  static std::optional<RequestFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequestFilter object.
@@ -215,11 +213,11 @@ struct RequestFilter {
 
   // A list of request types. Requests that cannot match any of the types will be
   // filtered out.
-  absl::optional<std::vector<ResourceType>> types;
+  std::optional<std::vector<ResourceType>> types;
 
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
-  absl::optional<int> window_id;
+  std::optional<int> window_id;
 
 };
 
@@ -229,8 +227,8 @@ struct UploadData {
   ~UploadData();
   UploadData(const UploadData&) = delete;
   UploadData& operator=(const UploadData&) = delete;
-  UploadData(UploadData&& rhs);
-  UploadData& operator=(UploadData&& rhs);
+  UploadData(UploadData&& rhs) noexcept;
+  UploadData& operator=(UploadData&& rhs) noexcept;
 
   // Populates a UploadData object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -243,25 +241,22 @@ struct UploadData {
   // Creates a deep copy of UploadData.
   UploadData Clone() const;
 
-  // Creates a UploadData object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UploadData> FromValueDeprecated(const base::Value& value);
-
   // Creates a UploadData object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UploadData> FromValue(const base::Value::Dict& value);
+  static std::optional<UploadData> FromValue(const base::Value::Dict& value);
 
   // Creates a UploadData object from a base::Value, or nullopt on failure.
-  static absl::optional<UploadData> FromValue(const base::Value& value);
+  static std::optional<UploadData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUploadData object.
   base::Value::Dict ToValue() const;
 
   // An ArrayBuffer with a copy of the data.
-  absl::optional<base::Value> bytes;
+  std::optional<base::Value> bytes;
 
   // A string with the file's path and name.
-  absl::optional<std::string> file;
+  std::optional<std::string> file;
 
 };
 
@@ -274,8 +269,8 @@ struct FormDataItem {
   ~FormDataItem();
   FormDataItem(const FormDataItem&) = delete;
   FormDataItem& operator=(const FormDataItem&) = delete;
-  FormDataItem(FormDataItem&& rhs);
-  FormDataItem& operator=(FormDataItem&& rhs);
+  FormDataItem(FormDataItem&& rhs) noexcept;
+  FormDataItem& operator=(FormDataItem&& rhs) noexcept;
 
   // Populates a FormDataItem object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -284,18 +279,15 @@ struct FormDataItem {
   // Creates a deep copy of FormDataItem.
   FormDataItem Clone() const;
 
-  // Creates a FormDataItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FormDataItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a FormDataItem object from a base::Value, or nullopt on failure.
-  static absl::optional<FormDataItem> FromValue(const base::Value& value);
+  static std::optional<FormDataItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value representing the serialized form of
   // thisFormDataItem object.
   base::Value ToValue() const;
   // Choices:
-  absl::optional<std::vector<uint8_t>> as_binary;
-  absl::optional<std::string> as_string;
+  std::optional<std::vector<uint8_t>> as_binary;
+  std::optional<std::string> as_string;
 };
 
 enum class IgnoredActionType {
@@ -339,8 +331,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -353,8 +345,8 @@ struct Details {
     ~RequestBody();
     RequestBody(const RequestBody&) = delete;
     RequestBody& operator=(const RequestBody&) = delete;
-    RequestBody(RequestBody&& rhs);
-    RequestBody& operator=(RequestBody&& rhs);
+    RequestBody(RequestBody&& rhs) noexcept;
+    RequestBody& operator=(RequestBody&& rhs) noexcept;
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisRequestBody object.
@@ -371,8 +363,8 @@ struct Details {
       ~FormData();
       FormData(const FormData&) = delete;
       FormData& operator=(const FormData&) = delete;
-      FormData(FormData&& rhs);
-      FormData& operator=(FormData&& rhs);
+      FormData(FormData&& rhs) noexcept;
+      FormData& operator=(FormData&& rhs) noexcept;
 
       // Returns a new base::Value::Dict representing the serialized form of
       // thisFormData object.
@@ -383,7 +375,7 @@ struct Details {
 
 
     // Errors when obtaining request body data.
-    absl::optional<std::string> error;
+    std::optional<std::string> error;
 
     // If the request method is POST and the body is a sequence of key-value pairs
     // encoded in UTF8, encoded as either multipart/form-data, or
@@ -391,12 +383,12 @@ struct Details {
     // key contains the list of all values for that key. If the data is of another
     // media type, or if it is malformed, the dictionary is not present. An example
     // value of this dictionary is {'key': ['value1', 'value2']}.
-    absl::optional<FormData> form_data;
+    std::optional<FormData> form_data;
 
     // If the request method is PUT or POST, and the body is not already parsed in
     // formData, then the unparsed request body elements are contained in this
     // array.
-    absl::optional<std::vector<UploadData>> raw;
+    std::optional<std::vector<UploadData>> raw;
 
   };
 
@@ -423,11 +415,11 @@ struct Details {
   int parent_frame_id;
 
   // The UUID of the document making the request.
-  absl::optional<std::string> document_id;
+  std::optional<std::string> document_id;
 
   // The UUID of the parent document owning this frame. This is not set if there
   // is no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -437,7 +429,7 @@ struct Details {
 
   // Contains the HTTP request body data. Only provided if extraInfoSpec contains
   // 'requestBody'.
-  absl::optional<RequestBody> request_body;
+  std::optional<RequestBody> request_body;
 
   // The ID of the tab in which the request takes place. Set to -1 if the request
   // isn't related to a tab.
@@ -448,7 +440,7 @@ struct Details {
 
   // The origin where the request was initiated. This does not change through
   // redirects. If this is an opaque origin, the string 'null' will be used.
-  absl::optional<std::string> initiator;
+  std::optional<std::string> initiator;
 
   // The time when this signal is triggered, in milliseconds since the epoch.
   double time_stamp;
@@ -468,8 +460,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -502,7 +494,7 @@ struct Details {
 
   // The UUID of the parent document owning this frame. This is not set if there
   // is no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -519,14 +511,14 @@ struct Details {
 
   // The origin where the request was initiated. This does not change through
   // redirects. If this is an opaque origin, the string 'null' will be used.
-  absl::optional<std::string> initiator;
+  std::optional<std::string> initiator;
 
   // The time when this signal is triggered, in milliseconds since the epoch.
   double time_stamp;
 
   // The server IP address that the request was actually sent to. Note that it may
   // be a literal IPv6 address.
-  absl::optional<std::string> ip;
+  std::optional<std::string> ip;
 
   // Indicates if this response was fetched from disk cache.
   bool from_cache;
@@ -551,8 +543,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.

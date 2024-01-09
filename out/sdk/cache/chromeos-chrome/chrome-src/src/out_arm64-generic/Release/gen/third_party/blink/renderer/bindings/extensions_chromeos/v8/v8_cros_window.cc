@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CrosWindow>::value,
     "CrosWindow inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CrosWindow::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CrosWindow is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,10 +79,10 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,10 +94,10 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.title.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->title();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->title();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -114,10 +109,10 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.appId.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->appId();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->appId();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -129,10 +124,10 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.windowState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->windowState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->windowState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -144,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.isFocused.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isFocused();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -158,10 +154,10 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.visibilityState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->visibilityState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->visibilityState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -173,8 +169,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.screenLeft.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->screenLeft();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -187,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.screenX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->screenLeft();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -201,8 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.screenTop.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->screenTop();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -215,8 +214,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.screenY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->screenTop();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -229,8 +229,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -243,8 +244,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosWindow.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -273,7 +275,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -304,7 +306,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -335,7 +337,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -366,7 +368,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -401,7 +403,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -444,7 +446,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -487,7 +489,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -530,7 +532,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -569,7 +571,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -604,7 +606,7 @@ return;
 
 
 
-CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(v8_receiver);
+CrosWindow* blink_receiver = V8CrosWindow::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

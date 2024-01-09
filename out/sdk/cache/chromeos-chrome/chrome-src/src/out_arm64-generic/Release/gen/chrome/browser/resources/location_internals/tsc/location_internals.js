@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './diagnose_info_view.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { GeolocationInternalsObserverReceiver, GeolocationInternalsRemote } from './geolocation_internals.mojom-webui.js';
 import { LocationInternalsHandler } from './location_internals.mojom-webui.js';
 export const WATCH_BUTTON_ID = 'watch-btn';

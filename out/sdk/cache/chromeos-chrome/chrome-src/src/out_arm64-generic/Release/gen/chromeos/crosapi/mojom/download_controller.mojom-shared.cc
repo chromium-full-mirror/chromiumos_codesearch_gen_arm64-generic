@@ -97,7 +97,11 @@ NOINLINE static const char* DownloadDangerTypeToStringHelper(DownloadDangerType 
     case DownloadDangerType::kDownloadDangerTypeDangerousAccountCompromise:
       return "kDownloadDangerTypeDangerousAccountCompromise";
     case DownloadDangerType::kDownloadDangerTypeDeepScannedFailed:
-      return "{kDownloadDangerTypeDeepScannedFailed, kDownloadDangerTypePromptForLocalPasswordScanning}";
+      return "kDownloadDangerTypeDeepScannedFailed";
+    case DownloadDangerType::kDownloadDangerTypePromptForLocalPasswordScanning:
+      return "kDownloadDangerTypePromptForLocalPasswordScanning";
+    case DownloadDangerType::kDownloadDangerTypeAsyncLocalPasswordScanning:
+      return "kDownloadDangerTypeAsyncLocalPasswordScanning";
     default:
       return nullptr;
   }

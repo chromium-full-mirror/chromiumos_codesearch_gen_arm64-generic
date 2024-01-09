@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -144,7 +145,9 @@ PhotoState::PhotoState()
       supported_background_blur_modes(),
       background_blur_mode(),
       supported_face_framing_modes(),
-      current_face_framing_mode() {}
+      current_face_framing_mode(),
+      supported_eye_gaze_correction_modes(),
+      current_eye_gaze_correction_mode() {}
 
 PhotoState::PhotoState(
     WTF::Vector<MeteringMode> supported_white_balance_modes_in,
@@ -200,7 +203,9 @@ PhotoState::PhotoState(
       supported_background_blur_modes(),
       background_blur_mode(),
       supported_face_framing_modes(),
-      current_face_framing_mode() {}
+      current_face_framing_mode(),
+      supported_eye_gaze_correction_modes(),
+      current_eye_gaze_correction_mode() {}
 
 PhotoState::PhotoState(
     WTF::Vector<MeteringMode> supported_white_balance_modes_in,
@@ -228,7 +233,7 @@ PhotoState::PhotoState(
     RangePtr height_in,
     RangePtr width_in,
     WTF::Vector<FillLightMode> fill_light_mode_in,
-    absl::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes_in,
+    std::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes_in,
     BackgroundBlurMode background_blur_mode_in)
     : supported_white_balance_modes(std::move(supported_white_balance_modes_in)),
       current_white_balance_mode(std::move(current_white_balance_mode_in)),
@@ -258,7 +263,9 @@ PhotoState::PhotoState(
       supported_background_blur_modes(std::move(supported_background_blur_modes_in)),
       background_blur_mode(std::move(background_blur_mode_in)),
       supported_face_framing_modes(),
-      current_face_framing_mode() {}
+      current_face_framing_mode(),
+      supported_eye_gaze_correction_modes(),
+      current_eye_gaze_correction_mode() {}
 
 PhotoState::PhotoState(
     WTF::Vector<MeteringMode> supported_white_balance_modes_in,
@@ -286,9 +293,9 @@ PhotoState::PhotoState(
     RangePtr height_in,
     RangePtr width_in,
     WTF::Vector<FillLightMode> fill_light_mode_in,
-    absl::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes_in,
+    std::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes_in,
     BackgroundBlurMode background_blur_mode_in,
-    absl::optional<WTF::Vector<MeteringMode>> supported_face_framing_modes_in,
+    std::optional<WTF::Vector<MeteringMode>> supported_face_framing_modes_in,
     MeteringMode current_face_framing_mode_in)
     : supported_white_balance_modes(std::move(supported_white_balance_modes_in)),
       current_white_balance_mode(std::move(current_white_balance_mode_in)),
@@ -318,7 +325,73 @@ PhotoState::PhotoState(
       supported_background_blur_modes(std::move(supported_background_blur_modes_in)),
       background_blur_mode(std::move(background_blur_mode_in)),
       supported_face_framing_modes(std::move(supported_face_framing_modes_in)),
-      current_face_framing_mode(std::move(current_face_framing_mode_in)) {}
+      current_face_framing_mode(std::move(current_face_framing_mode_in)),
+      supported_eye_gaze_correction_modes(),
+      current_eye_gaze_correction_mode() {}
+
+PhotoState::PhotoState(
+    WTF::Vector<MeteringMode> supported_white_balance_modes_in,
+    MeteringMode current_white_balance_mode_in,
+    WTF::Vector<MeteringMode> supported_exposure_modes_in,
+    MeteringMode current_exposure_mode_in,
+    WTF::Vector<MeteringMode> supported_focus_modes_in,
+    MeteringMode current_focus_mode_in,
+    WTF::Vector<Point2DPtr> points_of_interest_in,
+    RangePtr exposure_compensation_in,
+    RangePtr exposure_time_in,
+    RangePtr color_temperature_in,
+    RangePtr iso_in,
+    RangePtr brightness_in,
+    RangePtr contrast_in,
+    RangePtr saturation_in,
+    RangePtr sharpness_in,
+    RangePtr focus_distance_in,
+    RangePtr pan_in,
+    RangePtr tilt_in,
+    RangePtr zoom_in,
+    bool supports_torch_in,
+    bool torch_in,
+    RedEyeReduction red_eye_reduction_in,
+    RangePtr height_in,
+    RangePtr width_in,
+    WTF::Vector<FillLightMode> fill_light_mode_in,
+    std::optional<WTF::Vector<BackgroundBlurMode>> supported_background_blur_modes_in,
+    BackgroundBlurMode background_blur_mode_in,
+    std::optional<WTF::Vector<MeteringMode>> supported_face_framing_modes_in,
+    MeteringMode current_face_framing_mode_in,
+    std::optional<WTF::Vector<EyeGazeCorrectionMode>> supported_eye_gaze_correction_modes_in,
+    EyeGazeCorrectionMode current_eye_gaze_correction_mode_in)
+    : supported_white_balance_modes(std::move(supported_white_balance_modes_in)),
+      current_white_balance_mode(std::move(current_white_balance_mode_in)),
+      supported_exposure_modes(std::move(supported_exposure_modes_in)),
+      current_exposure_mode(std::move(current_exposure_mode_in)),
+      supported_focus_modes(std::move(supported_focus_modes_in)),
+      current_focus_mode(std::move(current_focus_mode_in)),
+      points_of_interest(std::move(points_of_interest_in)),
+      exposure_compensation(std::move(exposure_compensation_in)),
+      exposure_time(std::move(exposure_time_in)),
+      color_temperature(std::move(color_temperature_in)),
+      iso(std::move(iso_in)),
+      brightness(std::move(brightness_in)),
+      contrast(std::move(contrast_in)),
+      saturation(std::move(saturation_in)),
+      sharpness(std::move(sharpness_in)),
+      focus_distance(std::move(focus_distance_in)),
+      pan(std::move(pan_in)),
+      tilt(std::move(tilt_in)),
+      zoom(std::move(zoom_in)),
+      supports_torch(std::move(supports_torch_in)),
+      torch(std::move(torch_in)),
+      red_eye_reduction(std::move(red_eye_reduction_in)),
+      height(std::move(height_in)),
+      width(std::move(width_in)),
+      fill_light_mode(std::move(fill_light_mode_in)),
+      supported_background_blur_modes(std::move(supported_background_blur_modes_in)),
+      background_blur_mode(std::move(background_blur_mode_in)),
+      supported_face_framing_modes(std::move(supported_face_framing_modes_in)),
+      current_face_framing_mode(std::move(current_face_framing_mode_in)),
+      supported_eye_gaze_correction_modes(std::move(supported_eye_gaze_correction_modes_in)),
+      current_eye_gaze_correction_mode(std::move(current_eye_gaze_correction_mode_in)) {}
 
 PhotoState::~PhotoState() = default;
 
@@ -554,7 +627,7 @@ void PhotoState::WriteIntoTrace(
     dict.AddItem(
       "supported_background_blur_modes"), this->supported_background_blur_modes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<BackgroundBlurMode>>&>"
+      "<value of type const std::optional<WTF::Vector<BackgroundBlurMode>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -572,7 +645,7 @@ void PhotoState::WriteIntoTrace(
     dict.AddItem(
       "supported_face_framing_modes"), this->supported_face_framing_modes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<MeteringMode>>&>"
+      "<value of type const std::optional<WTF::Vector<MeteringMode>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -582,6 +655,24 @@ void PhotoState::WriteIntoTrace(
       "current_face_framing_mode"), this->current_face_framing_mode,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type MeteringMode>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "supported_eye_gaze_correction_modes"), this->supported_eye_gaze_correction_modes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<WTF::Vector<EyeGazeCorrectionMode>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "current_eye_gaze_correction_mode"), this->current_eye_gaze_correction_mode,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type EyeGazeCorrectionMode>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -683,7 +774,8 @@ PhotoSettings::PhotoSettings()
       has_background_blur_mode(),
       background_blur_mode(),
       has_face_framing_mode(),
-      face_framing_mode() {}
+      face_framing_mode(),
+      eye_gaze_correction_mode() {}
 
 PhotoSettings::PhotoSettings(
     bool has_white_balance_mode_in,
@@ -771,7 +863,8 @@ PhotoSettings::PhotoSettings(
       has_background_blur_mode(),
       background_blur_mode(),
       has_face_framing_mode(),
-      face_framing_mode() {}
+      face_framing_mode(),
+      eye_gaze_correction_mode() {}
 
 PhotoSettings::PhotoSettings(
     bool has_white_balance_mode_in,
@@ -861,7 +954,8 @@ PhotoSettings::PhotoSettings(
       has_background_blur_mode(std::move(has_background_blur_mode_in)),
       background_blur_mode(std::move(background_blur_mode_in)),
       has_face_framing_mode(),
-      face_framing_mode() {}
+      face_framing_mode(),
+      eye_gaze_correction_mode() {}
 
 PhotoSettings::PhotoSettings(
     bool has_white_balance_mode_in,
@@ -953,7 +1047,102 @@ PhotoSettings::PhotoSettings(
       has_background_blur_mode(std::move(has_background_blur_mode_in)),
       background_blur_mode(std::move(background_blur_mode_in)),
       has_face_framing_mode(std::move(has_face_framing_mode_in)),
-      face_framing_mode(std::move(face_framing_mode_in)) {}
+      face_framing_mode(std::move(face_framing_mode_in)),
+      eye_gaze_correction_mode() {}
+
+PhotoSettings::PhotoSettings(
+    bool has_white_balance_mode_in,
+    MeteringMode white_balance_mode_in,
+    bool has_exposure_mode_in,
+    MeteringMode exposure_mode_in,
+    bool has_focus_mode_in,
+    MeteringMode focus_mode_in,
+    WTF::Vector<Point2DPtr> points_of_interest_in,
+    bool has_exposure_compensation_in,
+    double exposure_compensation_in,
+    bool has_exposure_time_in,
+    double exposure_time_in,
+    bool has_color_temperature_in,
+    double color_temperature_in,
+    bool has_iso_in,
+    double iso_in,
+    bool has_brightness_in,
+    double brightness_in,
+    bool has_contrast_in,
+    double contrast_in,
+    bool has_saturation_in,
+    double saturation_in,
+    bool has_sharpness_in,
+    double sharpness_in,
+    bool has_focus_distance_in,
+    double focus_distance_in,
+    bool has_pan_in,
+    double pan_in,
+    bool has_tilt_in,
+    double tilt_in,
+    bool has_zoom_in,
+    double zoom_in,
+    bool has_torch_in,
+    bool torch_in,
+    bool has_fill_light_mode_in,
+    FillLightMode fill_light_mode_in,
+    bool has_width_in,
+    double width_in,
+    bool has_height_in,
+    double height_in,
+    bool has_red_eye_reduction_in,
+    bool red_eye_reduction_in,
+    bool has_background_blur_mode_in,
+    BackgroundBlurMode background_blur_mode_in,
+    bool has_face_framing_mode_in,
+    MeteringMode face_framing_mode_in,
+    std::optional<EyeGazeCorrectionMode> eye_gaze_correction_mode_in)
+    : has_white_balance_mode(std::move(has_white_balance_mode_in)),
+      white_balance_mode(std::move(white_balance_mode_in)),
+      has_exposure_mode(std::move(has_exposure_mode_in)),
+      exposure_mode(std::move(exposure_mode_in)),
+      has_focus_mode(std::move(has_focus_mode_in)),
+      focus_mode(std::move(focus_mode_in)),
+      points_of_interest(std::move(points_of_interest_in)),
+      has_exposure_compensation(std::move(has_exposure_compensation_in)),
+      exposure_compensation(std::move(exposure_compensation_in)),
+      has_exposure_time(std::move(has_exposure_time_in)),
+      exposure_time(std::move(exposure_time_in)),
+      has_color_temperature(std::move(has_color_temperature_in)),
+      color_temperature(std::move(color_temperature_in)),
+      has_iso(std::move(has_iso_in)),
+      iso(std::move(iso_in)),
+      has_brightness(std::move(has_brightness_in)),
+      brightness(std::move(brightness_in)),
+      has_contrast(std::move(has_contrast_in)),
+      contrast(std::move(contrast_in)),
+      has_saturation(std::move(has_saturation_in)),
+      saturation(std::move(saturation_in)),
+      has_sharpness(std::move(has_sharpness_in)),
+      sharpness(std::move(sharpness_in)),
+      has_focus_distance(std::move(has_focus_distance_in)),
+      focus_distance(std::move(focus_distance_in)),
+      has_pan(std::move(has_pan_in)),
+      pan(std::move(pan_in)),
+      has_tilt(std::move(has_tilt_in)),
+      tilt(std::move(tilt_in)),
+      has_zoom(std::move(has_zoom_in)),
+      zoom(std::move(zoom_in)),
+      has_torch(std::move(has_torch_in)),
+      torch(std::move(torch_in)),
+      has_fill_light_mode(std::move(has_fill_light_mode_in)),
+      fill_light_mode(std::move(fill_light_mode_in)),
+      has_width(std::move(has_width_in)),
+      width(std::move(width_in)),
+      has_height(std::move(has_height_in)),
+      height(std::move(height_in)),
+      has_red_eye_reduction(std::move(has_red_eye_reduction_in)),
+      red_eye_reduction(std::move(red_eye_reduction_in)),
+      has_background_blur_mode(std::move(has_background_blur_mode_in)),
+      background_blur_mode(std::move(background_blur_mode_in)),
+      has_face_framing_mode(std::move(has_face_framing_mode_in)),
+      face_framing_mode(std::move(face_framing_mode_in)),
+      eye_gaze_correction_mode(std::move(eye_gaze_correction_mode_in)) {}
 
 PhotoSettings::~PhotoSettings() = default;
 
@@ -1365,6 +1554,15 @@ void PhotoSettings::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "eye_gaze_correction_mode"), this->eye_gaze_correction_mode,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<EyeGazeCorrectionMode>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool PhotoSettings::Validate(
@@ -1571,14 +1769,17 @@ void ImageCaptureProxy::GetPhotoState(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageCapture_GetPhotoState_Name, kFlags, 0, 0, nullptr);
@@ -1623,14 +1824,17 @@ void ImageCaptureProxy::SetPhotoOptions(
                         "<value of type PhotoSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageCapture_SetPhotoOptions_Name, kFlags, 0, 0, nullptr);
@@ -1683,14 +1887,17 @@ void ImageCaptureProxy::TakePhoto(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageCapture_TakePhoto_Name, kFlags, 0, 0, nullptr);
@@ -1811,7 +2018,8 @@ void ImageCapture_GetPhotoState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageCapture_GetPhotoState_Name, kFlags, 0, 0, nullptr);
@@ -1939,7 +2147,8 @@ void ImageCapture_SetPhotoOptions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageCapture_SetPhotoOptions_Name, kFlags, 0, 0, nullptr);
@@ -2057,7 +2266,8 @@ void ImageCapture_TakePhoto_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImageCapture_TakePhoto_Name, kFlags, 0, 0, nullptr);
@@ -2215,14 +2425,14 @@ std::move(p_source_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kImageCaptureValidationInfo[] = {
-    {&internal::ImageCapture_GetPhotoState_Params_Data::Validate,
+    { &internal::ImageCapture_GetPhotoState_Params_Data::Validate,
      &internal::ImageCapture_GetPhotoState_ResponseParams_Data::Validate},
-    {&internal::ImageCapture_SetPhotoOptions_Params_Data::Validate,
+    { &internal::ImageCapture_SetPhotoOptions_Params_Data::Validate,
      &internal::ImageCapture_SetPhotoOptions_ResponseParams_Data::Validate},
-    {&internal::ImageCapture_TakePhoto_Params_Data::Validate,
+    { &internal::ImageCapture_TakePhoto_Params_Data::Validate,
      &internal::ImageCapture_TakePhoto_ResponseParams_Data::Validate},
 };
 
@@ -2327,6 +2537,10 @@ bool StructTraits<::media::mojom::blink::PhotoState::DataView, ::media::mojom::b
       if (success && !input.ReadSupportedFaceFramingModes(&result->supported_face_framing_modes))
         success = false;
       if (success && !input.ReadCurrentFaceFramingMode(&result->current_face_framing_mode))
+        success = false;
+      if (success && !input.ReadSupportedEyeGazeCorrectionModes(&result->supported_eye_gaze_correction_modes))
+        success = false;
+      if (success && !input.ReadCurrentEyeGazeCorrectionMode(&result->current_eye_gaze_correction_mode))
         success = false;
   *output = std::move(result);
   return success;
@@ -2446,6 +2660,9 @@ bool StructTraits<::media::mojom::blink::PhotoSettings::DataView, ::media::mojom
         result->has_face_framing_mode = input.has_face_framing_mode();
       if (success && !input.ReadFaceFramingMode(&result->face_framing_mode))
         success = false;
+      if (success && !input.ReadEyeGazeCorrectionMode(&result->eye_gaze_correction_mode)) {
+        success = false;
+      }
   *output = std::move(result);
   return success;
 }

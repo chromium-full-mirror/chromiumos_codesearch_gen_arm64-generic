@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/nearby_share.mojom-features.h"
 #include "ash/components/arc/mojom/nearby_share.mojom-shared.h"
 #include "ash/components/arc/mojom/nearby_share.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -650,8 +651,8 @@ class  ShareIntentInfo {
   ShareIntentInfo(
       const std::string& title,
       const std::string& mime_type,
-      const absl::optional<base::flat_map<std::string, std::string>>& extras,
-      absl::optional<std::vector<FileInfoPtr>> files);
+      const std::optional<base::flat_map<std::string, std::string>>& extras,
+      std::optional<std::vector<FileInfoPtr>> files);
 
 ShareIntentInfo(const ShareIntentInfo&) = delete;
 ShareIntentInfo& operator=(const ShareIntentInfo&) = delete;
@@ -735,9 +736,9 @@ ShareIntentInfo& operator=(const ShareIntentInfo&) = delete;
   
   std::string mime_type;
   
-  absl::optional<base::flat_map<std::string, std::string>> extras;
+  std::optional<base::flat_map<std::string, std::string>> extras;
   
-  absl::optional<std::vector<FileInfoPtr>> files;
+  std::optional<std::vector<FileInfoPtr>> files;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

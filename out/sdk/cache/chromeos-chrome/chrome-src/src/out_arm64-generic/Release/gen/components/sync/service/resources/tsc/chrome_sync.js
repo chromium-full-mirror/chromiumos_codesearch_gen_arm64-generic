@@ -6,6 +6,8 @@ import { sendWithPromise } from 'chrome://resources/js/cr.js';
  * A simple timer to measure elapsed time.
  */
 export class Timer {
+    /* The time that this Timer was created. */
+    start_;
     constructor() {
         this.start_ = Date.now();
     }

@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRAnchor>::value,
     "XRAnchor inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRAnchor::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRAnchor is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,9 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRAnchor.anchorSpace.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRAnchor* blink_receiver = V8XRAnchor::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRAnchor* blink_receiver = V8XRAnchor::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XRAnchor";
 const char* const property_name = "anchorSpace";
@@ -113,8 +108,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRAnchor.delete");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRAnchor* blink_receiver = V8XRAnchor::ToWrappableUnsafe(v8_receiver);
+XRAnchor* blink_receiver = V8XRAnchor::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->Delete();
 
 }

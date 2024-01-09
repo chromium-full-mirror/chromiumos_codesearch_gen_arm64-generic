@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-cluster", "name": "libqb", "version": "2.0.4", "revision": 0, "fullname": "sys-cluster/libqb", "fullnamerev": "sys-cluster/libqb-2.0.4", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://github.com/ClusterLabs/libqb"], "skip": false, "tainted": false, "ebuild_path": null}

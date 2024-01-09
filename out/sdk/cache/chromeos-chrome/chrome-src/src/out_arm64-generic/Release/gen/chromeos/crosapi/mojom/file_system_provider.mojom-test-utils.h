@@ -18,8 +18,8 @@ class  FileSystemProviderInterceptorForTesting : public FileSystemProvider {
   void DeprecatedDeprecatedForwardOperation(const std::string& provider, int32_t histogram_value, const std::string& event_name, std::vector<::base::Value> args) override;
   void DeprecatedForwardOperation(const std::string& provider, int32_t histogram_value, const std::string& event_name, std::vector<::base::Value> args, DeprecatedForwardOperationCallback callback) override;
   void ForwardOperation(const std::string& provider, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardOperationCallback callback) override;
-  void ForwardRequest(const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardRequestCallback callback) override;
-  void CancelRequest(const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id) override;
+  void ForwardRequest(const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardRequestCallback callback) override;
+  void CancelRequest(const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id) override;
 };
 class  FileSystemProviderAsyncWaiter {
  public:
@@ -36,8 +36,8 @@ class  FileSystemProviderAsyncWaiter {
       const std::string& provider, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, bool* out_delivery_failure);
   bool ForwardOperation(const std::string& provider, int32_t histogram_value, const std::string& event_name, ::base::Value::List args);
   void ForwardRequest(
-      const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, FSPForwardResult* out_result);
-  FSPForwardResult ForwardRequest(const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args);
+      const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, FSPForwardResult* out_result);
+  FSPForwardResult ForwardRequest(const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args);
 
  private:
   FileSystemProvider* const proxy_;

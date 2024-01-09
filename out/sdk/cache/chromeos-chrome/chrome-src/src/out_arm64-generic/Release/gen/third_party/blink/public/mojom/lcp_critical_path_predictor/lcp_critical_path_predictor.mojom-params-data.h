@@ -29,6 +29,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredicto
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::ByteString_Data> lcp_element_locator;
+  uint8_t predicted_lcp_index_$flag : 1;
+  uint8_t pad1_[3];
+  uint32_t predicted_lcp_index_$value;
 
  private:
   friend class mojo::internal::MessageFragment<LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data>;
@@ -36,7 +39,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredicto
   LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data();
   ~LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data() = delete;
 };
-static_assert(sizeof(LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data) == 16,
+static_assert(sizeof(LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data) == 24,
               "Bad sizeof(LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params_Data {
  public:
@@ -70,6 +73,23 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredicto
 };
 static_assert(sizeof(LCPCriticalPathPredictorHost_NotifyFetchedFont_Params_Data) == 16,
               "Bad sizeof(LCPCriticalPathPredictorHost_NotifyFetchedFont_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::url::mojom::internal::Url_Data> subresource_url;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> subresource_load_start;
+
+ private:
+  friend class mojo::internal::MessageFragment<LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data>;
+
+  LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data();
+  ~LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data() = delete;
+};
+static_assert(sizeof(LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data) == 24,
+              "Bad sizeof(LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data)");
 
 }  // namespace internal
 
@@ -93,6 +113,12 @@ class LCPCriticalPathPredictorHost_SetLcpElementLocator_ParamsDataView {
     auto* pointer = data_->lcp_element_locator.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::ByteStringDataView>(
         pointer, output, message_);
+  }
+  std::optional<uint32_t> predicted_lcp_index() const {
+
+    return data_->predicted_lcp_index_$flag
+        ? absl::make_optional(data_->predicted_lcp_index_$value)
+        : absl::nullopt;
   }
  private:
   internal::LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data* data_ = nullptr;
@@ -151,6 +177,42 @@ class LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsDataView {
+ public:
+  LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsDataView() = default;
+
+  LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsDataView(
+      internal::LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSubresourceUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubresourceUrl(UserType* output) {
+    
+    auto* pointer = data_->subresource_url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSubresourceLoadStartDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubresourceLoadStart(UserType* output) {
+    
+    auto* pointer = data_->subresource_load_start.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void LCPCriticalPathPredictorHost_SetLcpElementLocator_ParamsDataView::GetLcpElementLocatorDataView(
     ::mojo_base::mojom::ByteStringDataView* output) {
   auto pointer = data_->lcp_element_locator.Get();
@@ -169,6 +231,18 @@ inline void LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsDataView::GetFo
     ::url::mojom::UrlDataView* output) {
   auto pointer = data_->font_url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+
+
+inline void LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsDataView::GetSubresourceUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->subresource_url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+inline void LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsDataView::GetSubresourceLoadStartDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->subresource_load_start.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
 
 

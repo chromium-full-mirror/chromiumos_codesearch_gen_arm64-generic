@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/events/mojom/event.mojom-features.h"
 #include "ui/events/mojom/event.mojom-shared.h"
 #include "ui/events/mojom/event.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -516,17 +517,17 @@ class  GestureDataDetails {
   // Construct an instance holding |pinch|.
   static GestureDataDetailsPtr
   NewPinch(
-      GesturePinchDataPtr pinch) {
+      GesturePinchDataPtr value) {
     auto result = GestureDataDetailsPtr(absl::in_place);
-    result->set_pinch(std::move(pinch));
+    result->set_pinch(std::move(value));
     return result;
   }
   // Construct an instance holding |swipe|.
   static GestureDataDetailsPtr
   NewSwipe(
-      GestureSwipeDataPtr swipe) {
+      GestureSwipeDataPtr value) {
     auto result = GestureDataDetailsPtr(absl::in_place);
-    result->set_swipe(std::move(swipe));
+    result->set_swipe(std::move(value));
     return result;
   }
 
@@ -1598,7 +1599,7 @@ class  Event {
       ScrollDataPtr scroll_data,
       TouchDataPtr touch_data,
       MouseDataPtr mouse_data,
-      const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>& properties);
+      const std::optional<base::flat_map<std::string, std::vector<uint8_t>>>& properties);
 
 Event(const Event&) = delete;
 Event& operator=(const Event&) = delete;
@@ -1696,7 +1697,7 @@ Event& operator=(const Event&) = delete;
   
   MouseDataPtr mouse_data;
   
-  absl::optional<base::flat_map<std::string, std::vector<uint8_t>>> properties;
+  std::optional<base::flat_map<std::string, std::vector<uint8_t>>> properties;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

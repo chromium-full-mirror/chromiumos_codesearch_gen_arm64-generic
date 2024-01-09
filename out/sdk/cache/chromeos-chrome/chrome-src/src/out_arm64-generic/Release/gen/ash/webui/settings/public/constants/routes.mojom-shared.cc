@@ -213,6 +213,8 @@ NOINLINE static const char* SubpageToStringHelper(Subpage value) {
       return "kPrivacyHub";
     case Subpage::kPrivacyHubMicrophone:
       return "kPrivacyHubMicrophone";
+    case Subpage::kPrivacyHubCamera:
+      return "kPrivacyHubCamera";
     case Subpage::kPrivacyHubGeolocation:
       return "kPrivacyHubGeolocation";
     case Subpage::kInputMethodOptions:
@@ -225,6 +227,8 @@ NOINLINE static const char* SubpageToStringHelper(Subpage value) {
       return "kEditDictionary";
     case Subpage::kJapaneseManageUserDictionary:
       return "kJapaneseManageUserDictionary";
+    case Subpage::kAppLanguages:
+      return "kAppLanguages";
     case Subpage::kNetworkFileShares:
       return "kNetworkFileShares";
     case Subpage::kOfficeFiles:

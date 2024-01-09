@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,11 +23,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-features.h"
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-shared.h"
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-forward.h"
-#include "mojo/public/mojom/base/file_path.mojom.h"
-#include "mojo/public/mojom/base/read_only_file.mojom.h"
-#include "sandbox/policy/mojom/sandbox.mojom-forward.h"
 #include "skia/public/mojom/bitmap.mojom.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom.h"
@@ -300,64 +298,6 @@ class MainContentExtractionService
   virtual void BindMainContentExtractor(::mojo::PendingReceiver<Screen2xMainContentExtractor> main_content_extractor) = 0;
 };
 
-class ScreenAIServiceFactoryProxy;
-
-template <typename ImplRefTraits>
-class ScreenAIServiceFactoryStub;
-
-class ScreenAIServiceFactoryRequestValidator;
-class ScreenAIServiceFactoryResponseValidator;
-
-
-class ScreenAIServiceFactory
-    : public ScreenAIServiceFactoryInterfaceBase {
- public:
-  using IPCStableHashFunction = uint32_t(*)();
-
-  static const char Name_[];
-  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
-  static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr auto kServiceSandbox = sandbox::mojom::Sandbox::kScreenAI;
-  static constexpr uint32_t Version_ = 0;
-  static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasUninterruptableMethods_ = false;
-
-  using Base_ = ScreenAIServiceFactoryInterfaceBase;
-  using Proxy_ = ScreenAIServiceFactoryProxy;
-
-  template <typename ImplRefTraits>
-  using Stub_ = ScreenAIServiceFactoryStub<ImplRefTraits>;
-
-  using RequestValidator_ = ScreenAIServiceFactoryRequestValidator;
-  using ResponseValidator_ = ScreenAIServiceFactoryResponseValidator;
-  enum MethodMinVersions : uint32_t {
-    kInitializeOCRMinVersion = 0,
-    kInitializeMainContentExtractionMinVersion = 0,
-  };
-
-// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
-// with not having this data in traces there.
-#if !BUILDFLAG(IS_FUCHSIA)
-  struct InitializeOCR_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct InitializeMainContentExtraction_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-#endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~ScreenAIServiceFactory() = default;
-
-
-  using InitializeOCRCallback = base::OnceCallback<void(bool)>;
-  
-  virtual void InitializeOCR(const ::base::FilePath& library_path, ::mojo::PendingReceiver<OCRService> ocr_service_receiver, InitializeOCRCallback callback) = 0;
-
-
-  using InitializeMainContentExtractionCallback = base::OnceCallback<void(bool)>;
-  
-  virtual void InitializeMainContentExtraction(const ::base::FilePath& library_path, base::flat_map<std::string, ::base::File> model_files, ::mojo::PendingReceiver<MainContentExtractionService> main_content_extractor_service, InitializeMainContentExtractionCallback callback) = 0;
-};
-
 
 
 class  ScreenAIAnnotatorProxy
@@ -434,23 +374,6 @@ class  MainContentExtractionServiceProxy
   explicit MainContentExtractionServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void BindMainContentExtractor(::mojo::PendingReceiver<Screen2xMainContentExtractor> main_content_extractor) final;
-
- private:
-  mojo::MessageReceiverWithResponder* receiver_;
-};
-
-
-
-class  ScreenAIServiceFactoryProxy
-    : public ScreenAIServiceFactory {
- public:
-  using InterfaceType = ScreenAIServiceFactory;
-
-  explicit ScreenAIServiceFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  void InitializeOCR(const ::base::FilePath& library_path, ::mojo::PendingReceiver<OCRService> ocr_service_receiver, InitializeOCRCallback callback) final;
-  
-  void InitializeMainContentExtraction(const ::base::FilePath& library_path, base::flat_map<std::string, ::base::File> model_files, ::mojo::PendingReceiver<MainContentExtractionService> main_content_extractor_service, InitializeMainContentExtractionCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -660,47 +583,6 @@ class MainContentExtractionServiceStub
  private:
   ImplPointerType sink_;
 };
-class  ScreenAIServiceFactoryStubDispatch {
- public:
-  static bool Accept(ScreenAIServiceFactory* impl, mojo::Message* message);
-  static bool AcceptWithResponder(
-      ScreenAIServiceFactory* impl,
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
-};
-
-template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<ScreenAIServiceFactory>>
-class ScreenAIServiceFactoryStub
-    : public mojo::MessageReceiverWithResponderStatus {
- public:
-  using ImplPointerType = typename ImplRefTraits::PointerType;
-
-  ScreenAIServiceFactoryStub() = default;
-  ~ScreenAIServiceFactoryStub() override = default;
-
-  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
-  ImplPointerType& sink() { return sink_; }
-
-  bool Accept(mojo::Message* message) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return ScreenAIServiceFactoryStubDispatch::Accept(
-        ImplRefTraits::GetRawPointer(&sink_), message);
-  }
-
-  bool AcceptWithResponder(
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return ScreenAIServiceFactoryStubDispatch::AcceptWithResponder(
-        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
-  }
-
- private:
-  ImplPointerType sink_;
-};
 class  ScreenAIAnnotatorRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -721,19 +603,11 @@ class  MainContentExtractionServiceRequestValidator : public mojo::MessageReceiv
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  ScreenAIServiceFactoryRequestValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
 class  ScreenAIAnnotatorResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
 class  Screen2xMainContentExtractorResponseValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
-class  ScreenAIServiceFactoryResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -773,7 +647,8 @@ class  WordBox {
   WordBox(
       const std::string& word,
       bool dictionary_word,
-      const std::string& language);
+      const std::string& language,
+      bool has_space_after);
 
 
   ~WordBox();
@@ -857,6 +732,8 @@ class  WordBox {
   bool dictionary_word;
   
   std::string language;
+  
+  bool has_space_after;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1263,7 +1140,8 @@ WordBoxPtr WordBox::Clone() const {
   return New(
       mojo::Clone(word),
       mojo::Clone(dictionary_word),
-      mojo::Clone(language)
+      mojo::Clone(language),
+      mojo::Clone(has_space_after)
   );
 }
 
@@ -1274,6 +1152,8 @@ bool WordBox::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->dictionary_word, other_struct.dictionary_word))
     return false;
   if (!mojo::Equals(this->language, other_struct.language))
+    return false;
+  if (!mojo::Equals(this->has_space_after, other_struct.has_space_after))
     return false;
   return true;
 }
@@ -1291,6 +1171,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.language < rhs.language)
     return true;
   if (rhs.language < lhs.language)
+    return false;
+  if (lhs.has_space_after < rhs.has_space_after)
+    return true;
+  if (rhs.has_space_after < lhs.has_space_after)
     return false;
   return false;
 }
@@ -1370,6 +1254,11 @@ struct  StructTraits<::screen_ai::mojom::WordBox::DataView,
   static const decltype(::screen_ai::mojom::WordBox::language)& language(
       const ::screen_ai::mojom::WordBoxPtr& input) {
     return input->language;
+  }
+
+  static decltype(::screen_ai::mojom::WordBox::has_space_after) has_space_after(
+      const ::screen_ai::mojom::WordBoxPtr& input) {
+    return input->has_space_after;
   }
 
   static bool Read(::screen_ai::mojom::WordBox::DataView input, ::screen_ai::mojom::WordBoxPtr* output);

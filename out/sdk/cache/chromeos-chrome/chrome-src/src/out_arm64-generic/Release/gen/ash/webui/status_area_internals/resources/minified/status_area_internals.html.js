@@ -72,7 +72,21 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
         </span>
       </div>
     </li>
-
+  </ol>
+  <ol>
+    <h2>Quick Settings</h2>
+    <h3>Enterprise Managed UI</h3>
+    <li>
+      <div class="row">
+        <cr-toggle aria-label="active-directory-managed" on-change="onActiveDirectoryManagedToggled">
+        </cr-toggle>
+        <span aria-hidden="true" class="padded-text">
+          Active Directory Managed
+        </span>
+      </div>
+    </li>
+  </ol>
+  <ol>
     <h2>Privacy Indicators</h2>
     <privacy-indicator-app-manager></privacy-indicator-app-manager>
   </ol>

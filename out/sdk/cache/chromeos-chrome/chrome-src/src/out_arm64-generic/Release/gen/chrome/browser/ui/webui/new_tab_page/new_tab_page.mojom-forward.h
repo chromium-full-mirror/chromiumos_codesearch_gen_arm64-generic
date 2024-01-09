@@ -54,6 +54,8 @@ class PromoPartDataView;
 
 enum class NtpBackgroundImageSource : int32_t;
 
+enum class IphFeature : int32_t;
+
 enum class DoodleImageType : int32_t;
 
 enum class DoodleShareChannel : int32_t;

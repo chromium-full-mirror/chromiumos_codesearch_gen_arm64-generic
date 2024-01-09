@@ -57,6 +57,24 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AttributionHost_Registe
 };
 static_assert(sizeof(AttributionHost_RegisterNavigationDataHost_Params_Data) == 24,
               "Bad sizeof(AttributionHost_RegisterNavigationDataHost_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::blink::mojom::internal::AttributionSrcToken_Data> attribution_src_token;
+  uint32_t expected_registrations;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data>;
+
+  AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data();
+  ~AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data() = delete;
+};
+static_assert(sizeof(AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data) == 24,
+              "Bad sizeof(AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data)");
 
 }  // namespace internal
 
@@ -131,8 +149,44 @@ class AttributionHost_RegisterNavigationDataHost_ParamsDataView {
 };
 
 
+class AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsDataView {
+ public:
+  AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsDataView() = default;
+
+  AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsDataView(
+      internal::AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAttributionSrcTokenDataView(
+      ::blink::mojom::AttributionSrcTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAttributionSrcToken(UserType* output) {
+    
+    auto* pointer = data_->attribution_src_token.Get();
+    return mojo::internal::Deserialize<::blink::mojom::AttributionSrcTokenDataView>(
+        pointer, output, message_);
+  }
+  uint32_t expected_registrations() const {
+    return data_->expected_registrations;
+  }
+ private:
+  internal::AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void AttributionHost_RegisterNavigationDataHost_ParamsDataView::GetAttributionSrcTokenDataView(
+    ::blink::mojom::AttributionSrcTokenDataView* output) {
+  auto pointer = data_->attribution_src_token.Get();
+  *output = ::blink::mojom::AttributionSrcTokenDataView(pointer, message_);
+}
+
+
+inline void AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_ParamsDataView::GetAttributionSrcTokenDataView(
     ::blink::mojom::AttributionSrcTokenDataView* output) {
   auto pointer = data_->attribution_src_token.Get();
   *output = ::blink::mojom::AttributionSrcTokenDataView(pointer, message_);

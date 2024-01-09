@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -339,14 +340,17 @@ void IndexProxy::GetSize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::local_search_service::mojom::Index::GetSize");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_GetSize_Name, kFlags, 0, 0, nullptr);
@@ -377,14 +381,17 @@ void IndexProxy::AddOrUpdate(
                         "<value of type const std::vector<::ash::local_search_service::Data>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_AddOrUpdate_Name, kFlags, 0, 0, nullptr);
@@ -428,14 +435,17 @@ void IndexProxy::Delete(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_Delete_Name, kFlags, 0, 0, nullptr);
@@ -479,14 +489,17 @@ void IndexProxy::UpdateDocuments(
                         "<value of type const std::vector<::ash::local_search_service::Data>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_UpdateDocuments_Name, kFlags, 0, 0, nullptr);
@@ -533,14 +546,17 @@ void IndexProxy::Find(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_Find_Name, kFlags, 0, 0, nullptr);
@@ -576,14 +592,17 @@ void IndexProxy::ClearIndex(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::local_search_service::mojom::Index::ClearIndex");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_ClearIndex_Name, kFlags, 0, 0, nullptr);
@@ -614,14 +633,17 @@ void IndexProxy::SetSearchParams(
                         "<value of type const ::ash::local_search_service::SearchParams&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_SetSearchParams_Name, kFlags, 0, 0, nullptr);
@@ -742,7 +764,8 @@ void Index_GetSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_GetSize_Name, kFlags, 0, 0, nullptr);
@@ -849,7 +872,8 @@ void Index_AddOrUpdate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_AddOrUpdate_Name, kFlags, 0, 0, nullptr);
@@ -966,7 +990,8 @@ void Index_Delete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_Delete_Name, kFlags, 0, 0, nullptr);
@@ -1084,7 +1109,8 @@ void Index_UpdateDocuments_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_UpdateDocuments_Name, kFlags, 0, 0, nullptr);
@@ -1156,7 +1182,7 @@ class Index_Find_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
 #endif
 
   void Run(
-      ::ash::local_search_service::ResponseStatus in_status, const absl::optional<std::vector<::ash::local_search_service::Result>>& in_results);
+      ::ash::local_search_service::ResponseStatus in_status, const std::optional<std::vector<::ash::local_search_service::Result>>& in_results);
 };
 
 bool Index_Find_ForwardToCallback::Accept(
@@ -1170,7 +1196,7 @@ bool Index_Find_ForwardToCallback::Accept(
   
   bool success = true;
   ::ash::local_search_service::ResponseStatus p_status{};
-  absl::optional<std::vector<::ash::local_search_service::Result>> p_results{};
+  std::optional<std::vector<::ash::local_search_service::Result>> p_results{};
   Index_Find_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -1192,7 +1218,7 @@ std::move(p_results));
 }
 
 void Index_Find_ProxyToResponder::Run(
-    ::ash::local_search_service::ResponseStatus in_status, const absl::optional<std::vector<::ash::local_search_service::Result>>& in_results) {
+    ::ash::local_search_service::ResponseStatus in_status, const std::optional<std::vector<::ash::local_search_service::Result>>& in_results) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::local_search_service::mojom::Index::Find", "async_response_parameters",
@@ -1203,13 +1229,14 @@ void Index_Find_ProxyToResponder::Run(
                         "<value of type ::ash::local_search_service::ResponseStatus>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("results"), in_results,
-                        "<value of type const absl::optional<std::vector<::ash::local_search_service::Result>>&>");
+                        "<value of type const std::optional<std::vector<::ash::local_search_service::Result>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_Find_Name, kFlags, 0, 0, nullptr);
@@ -1326,7 +1353,8 @@ void Index_ClearIndex_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_ClearIndex_Name, kFlags, 0, 0, nullptr);
@@ -1432,7 +1460,8 @@ void Index_SetSearchParams_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIndex_SetSearchParams_Name, kFlags, 0, 0, nullptr);
@@ -1699,22 +1728,22 @@ std::move(p_search_params), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIndexValidationInfo[] = {
-    {&internal::Index_GetSize_Params_Data::Validate,
+    { &internal::Index_GetSize_Params_Data::Validate,
      &internal::Index_GetSize_ResponseParams_Data::Validate},
-    {&internal::Index_AddOrUpdate_Params_Data::Validate,
+    { &internal::Index_AddOrUpdate_Params_Data::Validate,
      &internal::Index_AddOrUpdate_ResponseParams_Data::Validate},
-    {&internal::Index_Delete_Params_Data::Validate,
+    { &internal::Index_Delete_Params_Data::Validate,
      &internal::Index_Delete_ResponseParams_Data::Validate},
-    {&internal::Index_UpdateDocuments_Params_Data::Validate,
+    { &internal::Index_UpdateDocuments_Params_Data::Validate,
      &internal::Index_UpdateDocuments_ResponseParams_Data::Validate},
-    {&internal::Index_Find_Params_Data::Validate,
+    { &internal::Index_Find_Params_Data::Validate,
      &internal::Index_Find_ResponseParams_Data::Validate},
-    {&internal::Index_ClearIndex_Params_Data::Validate,
+    { &internal::Index_ClearIndex_Params_Data::Validate,
      &internal::Index_ClearIndex_ResponseParams_Data::Validate},
-    {&internal::Index_SetSearchParams_Params_Data::Validate,
+    { &internal::Index_SetSearchParams_Params_Data::Validate,
      &internal::Index_SetSearchParams_ResponseParams_Data::Validate},
 };
 
@@ -1854,17 +1883,17 @@ uint32_t IndexAsyncWaiter::UpdateDocuments(
 }
 
 void IndexAsyncWaiter::Find(
-    const ::std::u16string& query, uint32_t max_results, ::ash::local_search_service::ResponseStatus* out_status, absl::optional<std::vector<::ash::local_search_service::Result>>* out_results) {
+    const ::std::u16string& query, uint32_t max_results, ::ash::local_search_service::ResponseStatus* out_status, std::optional<std::vector<::ash::local_search_service::Result>>* out_results) {
   base::RunLoop loop;
   proxy_->Find(std::move(query),std::move(max_results),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::local_search_service::ResponseStatus* out_status
 ,
-             absl::optional<std::vector<::ash::local_search_service::Result>>* out_results
+             std::optional<std::vector<::ash::local_search_service::Result>>* out_results
 ,
              ::ash::local_search_service::ResponseStatus status,
-             const absl::optional<std::vector<::ash::local_search_service::Result>>& results) {*out_status = std::move(status);*out_results = std::move(results);
+             const std::optional<std::vector<::ash::local_search_service::Result>>& results) {*out_status = std::move(status);*out_results = std::move(results);
             loop->Quit();
           },
           &loop,

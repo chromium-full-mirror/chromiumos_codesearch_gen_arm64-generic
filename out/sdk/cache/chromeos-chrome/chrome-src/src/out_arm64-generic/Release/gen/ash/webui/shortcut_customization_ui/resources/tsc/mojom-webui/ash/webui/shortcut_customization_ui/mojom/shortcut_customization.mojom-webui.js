@@ -21,6 +21,38 @@ export var UserAction;
     UserAction[UserAction["kResetAction"] = 5] = "kResetAction";
     UserAction[UserAction["kResetAll"] = 6] = "kResetAll";
 })(UserAction || (UserAction = {}));
+export const EditDialogCompletedActionsSpec = { $: mojo.internal.Enum() };
+export var EditDialogCompletedActions;
+(function (EditDialogCompletedActions) {
+    EditDialogCompletedActions[EditDialogCompletedActions["MIN_VALUE"] = 0] = "MIN_VALUE";
+    EditDialogCompletedActions[EditDialogCompletedActions["MAX_VALUE"] = 15] = "MAX_VALUE";
+    EditDialogCompletedActions[EditDialogCompletedActions["kNoAction"] = 0] = "kNoAction";
+    EditDialogCompletedActions[EditDialogCompletedActions["kAdd"] = 1] = "kAdd";
+    EditDialogCompletedActions[EditDialogCompletedActions["kEdit"] = 2] = "kEdit";
+    EditDialogCompletedActions[EditDialogCompletedActions["kEditAdd"] = 3] = "kEditAdd";
+    EditDialogCompletedActions[EditDialogCompletedActions["kRemove"] = 4] = "kRemove";
+    EditDialogCompletedActions[EditDialogCompletedActions["kRemoveAdd"] = 5] = "kRemoveAdd";
+    EditDialogCompletedActions[EditDialogCompletedActions["kRemoveEdit"] = 6] = "kRemoveEdit";
+    EditDialogCompletedActions[EditDialogCompletedActions["kRemoveEditAdd"] = 7] = "kRemoveEditAdd";
+    EditDialogCompletedActions[EditDialogCompletedActions["kReset"] = 8] = "kReset";
+    EditDialogCompletedActions[EditDialogCompletedActions["kResetAdd"] = 9] = "kResetAdd";
+    EditDialogCompletedActions[EditDialogCompletedActions["kResetEdit"] = 10] = "kResetEdit";
+    EditDialogCompletedActions[EditDialogCompletedActions["kResetEditAdd"] = 11] = "kResetEditAdd";
+    EditDialogCompletedActions[EditDialogCompletedActions["kResetRemove"] = 12] = "kResetRemove";
+    EditDialogCompletedActions[EditDialogCompletedActions["kResetRemoveAdd"] = 13] = "kResetRemoveAdd";
+    EditDialogCompletedActions[EditDialogCompletedActions["kResetRemoveEdit"] = 14] = "kResetRemoveEdit";
+    EditDialogCompletedActions[EditDialogCompletedActions["kResetRemoveEditAdd"] = 15] = "kResetRemoveEditAdd";
+})(EditDialogCompletedActions || (EditDialogCompletedActions = {}));
+export const SubactionsSpec = { $: mojo.internal.Enum() };
+export var Subactions;
+(function (Subactions) {
+    Subactions[Subactions["MIN_VALUE"] = 0] = "MIN_VALUE";
+    Subactions[Subactions["MAX_VALUE"] = 3] = "MAX_VALUE";
+    Subactions[Subactions["kNoErrorCancel"] = 0] = "kNoErrorCancel";
+    Subactions[Subactions["kNoErrorSuccess"] = 1] = "kNoErrorSuccess";
+    Subactions[Subactions["kErrorCancel"] = 2] = "kErrorCancel";
+    Subactions[Subactions["kErrorSuccess"] = 3] = "kErrorSuccess";
+})(Subactions || (Subactions = {}));
 export class AcceleratorsUpdatedObserverPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -267,6 +299,17 @@ export class AcceleratorConfigurationProviderRemote {
             category
         ]);
     }
+    recordEditDialogCompletedActions(completedActions) {
+        this.proxy.sendMessage(17, AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsSpec.$, null, [
+            completedActions
+        ]);
+    }
+    recordAddOrEditSubactions(isAdd, subactions) {
+        this.proxy.sendMessage(18, AcceleratorConfigurationProvider_RecordAddOrEditSubactions_ParamsSpec.$, null, [
+            isAdd,
+            subactions
+        ]);
+    }
 }
 ;
 /**
@@ -295,6 +338,8 @@ export class AcceleratorConfigurationProviderReceiver {
         this.helper_internal_.registerHandler(14, AcceleratorConfigurationProvider_RestoreAllDefaults_ParamsSpec.$, AcceleratorConfigurationProvider_RestoreAllDefaults_ResponseParamsSpec.$, impl.restoreAllDefaults.bind(impl));
         this.helper_internal_.registerHandler(15, AcceleratorConfigurationProvider_RecordUserAction_ParamsSpec.$, null, impl.recordUserAction.bind(impl));
         this.helper_internal_.registerHandler(16, AcceleratorConfigurationProvider_RecordMainCategoryNavigation_ParamsSpec.$, null, impl.recordMainCategoryNavigation.bind(impl));
+        this.helper_internal_.registerHandler(17, AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsSpec.$, null, impl.recordEditDialogCompletedActions.bind(impl));
+        this.helper_internal_.registerHandler(18, AcceleratorConfigurationProvider_RecordAddOrEditSubactions_ParamsSpec.$, null, impl.recordAddOrEditSubactions.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -375,6 +420,12 @@ export class AcceleratorConfigurationProviderCallbackRouter {
         this.recordMainCategoryNavigation =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(16, AcceleratorConfigurationProvider_RecordMainCategoryNavigation_ParamsSpec.$, null, this.recordMainCategoryNavigation.createReceiverHandler(false /* expectsResponse */));
+        this.recordEditDialogCompletedActions =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(17, AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsSpec.$, null, this.recordEditDialogCompletedActions.createReceiverHandler(false /* expectsResponse */));
+        this.recordAddOrEditSubactions =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(18, AcceleratorConfigurationProvider_RecordAddOrEditSubactions_ParamsSpec.$, null, this.recordAddOrEditSubactions.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -419,6 +470,8 @@ export const AcceleratorConfigurationProvider_RestoreAllDefaults_ParamsSpec = { 
 export const AcceleratorConfigurationProvider_RestoreAllDefaults_ResponseParamsSpec = { $: {} };
 export const AcceleratorConfigurationProvider_RecordUserAction_ParamsSpec = { $: {} };
 export const AcceleratorConfigurationProvider_RecordMainCategoryNavigation_ParamsSpec = { $: {} };
+export const AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsSpec = { $: {} };
+export const AcceleratorConfigurationProvider_RecordAddOrEditSubactions_ParamsSpec = { $: {} };
 mojo.internal.Struct(AcceleratorResultDataSpec.$, 'AcceleratorResultData', [
     mojo.internal.StructField('shortcutName', 0, 0, mojoBase_mojom_String16Spec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('result', 8, 0, ash_mojom_AcceleratorConfigResultSpec.$, 0, false /* nullable */, 0),
@@ -519,4 +572,11 @@ mojo.internal.Struct(AcceleratorConfigurationProvider_RecordUserAction_ParamsSpe
 ], [[0, 16],]);
 mojo.internal.Struct(AcceleratorConfigurationProvider_RecordMainCategoryNavigation_ParamsSpec.$, 'AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params', [
     mojo.internal.StructField('category', 0, 0, ash_mojom_AcceleratorCategorySpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsSpec.$, 'AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params', [
+    mojo.internal.StructField('completedActions', 0, 0, EditDialogCompletedActionsSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AcceleratorConfigurationProvider_RecordAddOrEditSubactions_ParamsSpec.$, 'AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params', [
+    mojo.internal.StructField('isAdd', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('subactions', 4, 0, SubactionsSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);

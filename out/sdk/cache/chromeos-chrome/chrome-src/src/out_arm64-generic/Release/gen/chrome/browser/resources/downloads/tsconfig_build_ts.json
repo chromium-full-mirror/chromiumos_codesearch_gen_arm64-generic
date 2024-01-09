@@ -49,6 +49,7 @@
     }
   },
   "files": [
+    "preprocessed/bypass_warning_confirmation_dialog.ts",
     "preprocessed/item.ts",
     "preprocessed/manager.ts",
     "preprocessed/toolbar.ts",
@@ -57,6 +58,7 @@
     "preprocessed/downloads.ts",
     "preprocessed/icon_loader.ts",
     "preprocessed/search_service.ts",
+    "preprocessed/bypass_warning_confirmation_dialog.html.ts",
     "preprocessed/item.html.ts",
     "preprocessed/manager.html.ts",
     "preprocessed/toolbar.html.ts",

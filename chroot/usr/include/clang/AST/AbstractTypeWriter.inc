@@ -379,6 +379,8 @@ public:
                     ? node->getExtParameterInfos()
                     : llvm::ArrayRef<FunctionProtoType::ExtParameterInfo>() );
     W.find("extParameterInfo").writeArray(extParameterInfo);
+    uint32_t AArch64SMEAttributes = ( node->getAArch64SMEAttributes() );
+    W.find("AArch64SMEAttributes").writeUInt32(AArch64SMEAttributes);
     QualType returnType = ( node->getReturnType() );
     W.find("returnType").writeQualType(returnType);
     bool noReturn = ( node->getExtInfo().getNoReturn() );

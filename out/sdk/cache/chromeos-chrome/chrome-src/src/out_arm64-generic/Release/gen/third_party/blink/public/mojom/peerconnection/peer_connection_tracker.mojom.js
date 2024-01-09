@@ -480,52 +480,6 @@
     encoder.writeUint32(PeerConnectionManager_GetStandardStats_Params.encodedSize);
     encoder.writeUint32(0);
   };
-  function PeerConnectionManager_GetLegacyStats_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  PeerConnectionManager_GetLegacyStats_Params.prototype.initDefaults_ = function() {
-  };
-  PeerConnectionManager_GetLegacyStats_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  PeerConnectionManager_GetLegacyStats_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 8}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  PeerConnectionManager_GetLegacyStats_Params.encodedSize = codec.kStructHeaderSize + 0;
-
-  PeerConnectionManager_GetLegacyStats_Params.decode = function(decoder) {
-    var packed;
-    var val = new PeerConnectionManager_GetLegacyStats_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    return val;
-  };
-
-  PeerConnectionManager_GetLegacyStats_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(PeerConnectionManager_GetLegacyStats_Params.encodedSize);
-    encoder.writeUint32(0);
-  };
   function PeerConnectionManager_GetCurrentState_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1560,8 +1514,7 @@
   var kPeerConnectionManager_StartEventLog_Name = 3;
   var kPeerConnectionManager_StopEventLog_Name = 4;
   var kPeerConnectionManager_GetStandardStats_Name = 5;
-  var kPeerConnectionManager_GetLegacyStats_Name = 6;
-  var kPeerConnectionManager_GetCurrentState_Name = 7;
+  var kPeerConnectionManager_GetCurrentState_Name = 6;
 
   function PeerConnectionManagerPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(PeerConnectionManager,
@@ -1670,20 +1623,6 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  PeerConnectionManagerPtr.prototype.getLegacyStats = function() {
-    return PeerConnectionManagerProxy.prototype.getLegacyStats
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  PeerConnectionManagerProxy.prototype.getLegacyStats = function() {
-    var params_ = new PeerConnectionManager_GetLegacyStats_Params();
-    var builder = new codec.MessageV0Builder(
-        kPeerConnectionManager_GetLegacyStats_Name,
-        codec.align(PeerConnectionManager_GetLegacyStats_Params.encodedSize));
-    builder.encodeStruct(PeerConnectionManager_GetLegacyStats_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
   PeerConnectionManagerPtr.prototype.getCurrentState = function() {
     return PeerConnectionManagerProxy.prototype.getCurrentState
         .apply(this.ptr.getProxy(), arguments);
@@ -1720,9 +1659,6 @@
   PeerConnectionManagerStub.prototype.getStandardStats = function() {
     return this.delegate_ && this.delegate_.getStandardStats && this.delegate_.getStandardStats();
   }
-  PeerConnectionManagerStub.prototype.getLegacyStats = function() {
-    return this.delegate_ && this.delegate_.getLegacyStats && this.delegate_.getLegacyStats();
-  }
   PeerConnectionManagerStub.prototype.getCurrentState = function() {
     return this.delegate_ && this.delegate_.getCurrentState && this.delegate_.getCurrentState();
   }
@@ -1753,10 +1689,6 @@
     case kPeerConnectionManager_GetStandardStats_Name:
       var params = reader.decodeStruct(PeerConnectionManager_GetStandardStats_Params);
       this.getStandardStats();
-      return true;
-    case kPeerConnectionManager_GetLegacyStats_Name:
-      var params = reader.decodeStruct(PeerConnectionManager_GetLegacyStats_Params);
-      this.getLegacyStats();
       return true;
     case kPeerConnectionManager_GetCurrentState_Name:
       var params = reader.decodeStruct(PeerConnectionManager_GetCurrentState_Params);
@@ -1803,10 +1735,6 @@
       case kPeerConnectionManager_GetStandardStats_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = PeerConnectionManager_GetStandardStats_Params;
-      break;
-      case kPeerConnectionManager_GetLegacyStats_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = PeerConnectionManager_GetLegacyStats_Params;
       break;
       case kPeerConnectionManager_GetCurrentState_Name:
         if (!message.expectsResponse() && !message.isResponse())

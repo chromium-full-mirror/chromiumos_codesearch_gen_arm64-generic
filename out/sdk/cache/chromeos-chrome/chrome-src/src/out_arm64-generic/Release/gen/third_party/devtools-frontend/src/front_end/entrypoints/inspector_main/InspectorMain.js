@@ -95,16 +95,8 @@ export class InspectorMainImpl {
     }
 }
 Common.Runnable.registerEarlyInitializationRunnable(InspectorMainImpl.instance);
-let reloadActionDelegateInstance;
 export class ReloadActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!reloadActionDelegateInstance || forceNew) {
-            reloadActionDelegateInstance = new ReloadActionDelegate();
-        }
-        return reloadActionDelegateInstance;
-    }
-    handleAction(context, actionId) {
+    handleAction(_context, actionId) {
         switch (actionId) {
             case 'inspector_main.reload':
                 SDK.ResourceTreeModel.ResourceTreeModel.reloadAllPages(false);
@@ -116,15 +108,7 @@ export class ReloadActionDelegate {
         return false;
     }
 }
-let focusDebuggeeActionDelegateInstance;
 export class FocusDebuggeeActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!focusDebuggeeActionDelegateInstance || forceNew) {
-            focusDebuggeeActionDelegateInstance = new FocusDebuggeeActionDelegate();
-        }
-        return focusDebuggeeActionDelegateInstance;
-    }
     handleAction(_context, _actionId) {
         const mainTarget = SDK.TargetManager.TargetManager.instance().primaryPageTarget();
         if (!mainTarget) {

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/autofill/content/common/mojom/autofill_driver.mojom-features.h"
 #include "components/autofill/content/common/mojom/autofill_driver.mojom-shared.h"
 #include "components/autofill/content/common/mojom/autofill_driver.mojom-forward.h"
 #include "components/autofill/core/common/mojom/autofill_types.mojom.h"
@@ -138,7 +139,7 @@ class AutofillDriver
   virtual ~AutofillDriver() = default;
 
   
-  virtual void SetFormToBeProbablySubmitted(const absl::optional<::autofill::FormData>& form) = 0;
+  virtual void SetFormToBeProbablySubmitted(const std::optional<::autofill::FormData>& form) = 0;
 
   
   virtual void FormsSeen(const std::vector<::autofill::FormData>& updated_forms, const std::vector<::autofill::FormRendererId>& removed_forms) = 0;
@@ -405,7 +406,7 @@ class  AutofillDriverProxy
 
   explicit AutofillDriverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void SetFormToBeProbablySubmitted(const absl::optional<::autofill::FormData>& form) final;
+  void SetFormToBeProbablySubmitted(const std::optional<::autofill::FormData>& form) final;
   
   void FormsSeen(const std::vector<::autofill::FormData>& updated_forms, const std::vector<::autofill::FormRendererId>& removed_forms) final;
   

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/privileged/mojom/compositing/frame_sink_manager.mojom-features.h"
 #include "services/viz/privileged/mojom/compositing/frame_sink_manager.mojom-shared.h"
 #include "services/viz/privileged/mojom/compositing/frame_sink_manager.mojom-forward.h"
 #include "gpu/ipc/common/surface_handle.mojom.h"
@@ -196,7 +197,7 @@ class FrameSinkManager
   virtual void CreateFrameSinkBundle(const ::viz::FrameSinkBundleId& bundle_id, ::mojo::PendingReceiver<::viz::mojom::FrameSinkBundle> receiver, ::mojo::PendingRemote<::viz::mojom::FrameSinkBundleClient> client) = 0;
 
   
-  virtual void CreateCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, const absl::optional<::viz::FrameSinkBundleId>& bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> compositor_frame_sink_client) = 0;
+  virtual void CreateCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, const std::optional<::viz::FrameSinkBundleId>& bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> compositor_frame_sink_client) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
@@ -336,7 +337,7 @@ class  FrameSinkManagerProxy
   
   void CreateFrameSinkBundle(const ::viz::FrameSinkBundleId& bundle_id, ::mojo::PendingReceiver<::viz::mojom::FrameSinkBundle> receiver, ::mojo::PendingRemote<::viz::mojom::FrameSinkBundleClient> client) final;
   
-  void CreateCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, const absl::optional<::viz::FrameSinkBundleId>& bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> compositor_frame_sink_client) final;
+  void CreateCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id, const std::optional<::viz::FrameSinkBundleId>& bundle_id, ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink> compositor_frame_sink, ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> compositor_frame_sink_client) final;
   
   bool DestroyCompositorFrameSink(const ::viz::FrameSinkId& frame_sink_id) final;
   

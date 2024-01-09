@@ -34,12 +34,5 @@ describe('Runtime', () => {
         const experiments = Root.Runtime.experiments.allConfigurableExperiments();
         assert.deepStrictEqual(experiments.map(experiment => experiment.name), ['example', 'configurable']);
     });
-    it('allConfigurableExperiments do not return nonConfigurableExperiments', () => {
-        Root.Runtime.experiments.register('example', 'example');
-        Root.Runtime.experiments.register('nonConfigurable', 'nonConfigurable');
-        Root.Runtime.experiments.setNonConfigurableExperiments(['nonConfigurable']);
-        const experiments = Root.Runtime.experiments.allConfigurableExperiments();
-        assert.deepStrictEqual(experiments.map(experiment => experiment.name), ['example']);
-    });
 });
 //# sourceMappingURL=Runtime_test.js.map

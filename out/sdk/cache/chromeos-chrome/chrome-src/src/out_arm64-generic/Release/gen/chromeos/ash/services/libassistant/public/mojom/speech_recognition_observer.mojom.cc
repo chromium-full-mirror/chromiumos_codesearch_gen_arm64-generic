@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -194,14 +195,17 @@ void SpeechRecognitionObserverProxy::OnSpeechLevelUpdated(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionObserver_OnSpeechLevelUpdated_Name, kFlags, 0, 0, nullptr);
@@ -225,14 +229,17 @@ void SpeechRecognitionObserverProxy::OnSpeechRecognitionStart(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::SpeechRecognitionObserver::OnSpeechRecognitionStart");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionObserver_OnSpeechRecognitionStart_Name, kFlags, 0, 0, nullptr);
@@ -265,14 +272,17 @@ void SpeechRecognitionObserverProxy::OnIntermediateResult(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionObserver_OnIntermediateResult_Name, kFlags, 0, 0, nullptr);
@@ -317,14 +327,17 @@ void SpeechRecognitionObserverProxy::OnSpeechRecognitionEnd(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::SpeechRecognitionObserver::OnSpeechRecognitionEnd");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionObserver_OnSpeechRecognitionEnd_Name, kFlags, 0, 0, nullptr);
@@ -354,14 +367,17 @@ void SpeechRecognitionObserverProxy::OnFinalResult(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionObserver_OnFinalResult_Name, kFlags, 0, 0, nullptr);
@@ -552,18 +568,18 @@ bool SpeechRecognitionObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeechRecognitionObserverValidationInfo[] = {
-    {&internal::SpeechRecognitionObserver_OnSpeechLevelUpdated_Params_Data::Validate,
+    { &internal::SpeechRecognitionObserver_OnSpeechLevelUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionObserver_OnSpeechRecognitionStart_Params_Data::Validate,
+    { &internal::SpeechRecognitionObserver_OnSpeechRecognitionStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionObserver_OnIntermediateResult_Params_Data::Validate,
+    { &internal::SpeechRecognitionObserver_OnIntermediateResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionObserver_OnSpeechRecognitionEnd_Params_Data::Validate,
+    { &internal::SpeechRecognitionObserver_OnSpeechRecognitionEnd_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionObserver_OnFinalResult_Params_Data::Validate,
+    { &internal::SpeechRecognitionObserver_OnFinalResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 

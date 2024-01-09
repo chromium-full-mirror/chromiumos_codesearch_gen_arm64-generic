@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/data_decoder/public/mojom/cbor_parser.mojom-features.h"
 #include "services/data_decoder/public/mojom/cbor_parser.mojom-shared.h"
 #include "services/data_decoder/public/mojom/cbor_parser.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -83,7 +84,7 @@ class CborParser
   virtual ~CborParser() = default;
 
 
-  using ParseCallback = base::OnceCallback<void(absl::optional<::base::Value>, const absl::optional<std::string>&)>;
+  using ParseCallback = base::OnceCallback<void(std::optional<::base::Value>, const std::optional<std::string>&)>;
   
   virtual void Parse(::mojo_base::BigBuffer cbor, ParseCallback callback) = 0;
 };

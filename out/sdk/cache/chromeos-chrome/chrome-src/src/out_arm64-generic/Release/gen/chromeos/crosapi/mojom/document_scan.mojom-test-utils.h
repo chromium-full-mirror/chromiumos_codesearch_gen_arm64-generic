@@ -17,6 +17,14 @@ class  DocumentScanInterceptorForTesting : public DocumentScan {
   virtual DocumentScan* GetForwardingInterface() = 0;
   void GetScannerNames(GetScannerNamesCallback callback) override;
   void ScanFirstPage(const std::string& scanner_name, ScanFirstPageCallback callback) override;
+  void GetScannerList(const std::string& client_id, ScannerEnumFilterPtr filter, GetScannerListCallback callback) override;
+  void OpenScanner(const std::string& client_id, const std::string& scanner_id, OpenScannerCallback callback) override;
+  void CloseScanner(const std::string& scanner_handle, CloseScannerCallback callback) override;
+  void StartPreparedScan(const std::string& scanner_handle, StartScanOptionsPtr options, StartPreparedScanCallback callback) override;
+  void ReadScanData(const std::string& job_handle, ReadScanDataCallback callback) override;
+  void SetOptions(const std::string& scanner_handle, std::vector<OptionSettingPtr> options, SetOptionsCallback callback) override;
+  void GetOptionGroups(const std::string& scanner_handle, GetOptionGroupsCallback callback) override;
+  void CancelScan(const std::string& job_handle, CancelScanCallback callback) override;
 };
 class  DocumentScanAsyncWaiter {
  public:
@@ -30,8 +38,32 @@ class  DocumentScanAsyncWaiter {
       std::vector<std::string>* out_scanner_names);
   std::vector<std::string> GetScannerNames();
   void ScanFirstPage(
-      const std::string& scanner_name, ScanFailureMode* out_failure_mode, absl::optional<std::string>* out_scan_data);
+      const std::string& scanner_name, ScanFailureMode* out_failure_mode, std::optional<std::string>* out_scan_data);
   
+  void GetScannerList(
+      const std::string& client_id, ScannerEnumFilterPtr filter, GetScannerListResponsePtr* out_response);
+  GetScannerListResponsePtr GetScannerList(const std::string& client_id, ScannerEnumFilterPtr filter);
+  void OpenScanner(
+      const std::string& client_id, const std::string& scanner_id, OpenScannerResponsePtr* out_response);
+  OpenScannerResponsePtr OpenScanner(const std::string& client_id, const std::string& scanner_id);
+  void CloseScanner(
+      const std::string& scanner_handle, CloseScannerResponsePtr* out_response);
+  CloseScannerResponsePtr CloseScanner(const std::string& scanner_handle);
+  void StartPreparedScan(
+      const std::string& scanner_handle, StartScanOptionsPtr options, StartPreparedScanResponsePtr* out_response);
+  StartPreparedScanResponsePtr StartPreparedScan(const std::string& scanner_handle, StartScanOptionsPtr options);
+  void ReadScanData(
+      const std::string& job_handle, ReadScanDataResponsePtr* out_response);
+  ReadScanDataResponsePtr ReadScanData(const std::string& job_handle);
+  void SetOptions(
+      const std::string& scanner_handle, std::vector<OptionSettingPtr> options, SetOptionsResponsePtr* out_response);
+  SetOptionsResponsePtr SetOptions(const std::string& scanner_handle, std::vector<OptionSettingPtr> options);
+  void GetOptionGroups(
+      const std::string& scanner_handle, GetOptionGroupsResponsePtr* out_response);
+  GetOptionGroupsResponsePtr GetOptionGroups(const std::string& scanner_handle);
+  void CancelScan(
+      const std::string& job_handle, CancelScanResponsePtr* out_response);
+  CancelScanResponsePtr CancelScan(const std::string& job_handle);
 
  private:
   DocumentScan* const proxy_;

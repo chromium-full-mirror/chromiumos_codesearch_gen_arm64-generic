@@ -10,9 +10,9 @@ function timeToMojo(mark) {
     return { microseconds: mark };
 }
 export class MetricsReporterImpl {
+    marks_ = new Map();
+    browserProxy_ = BrowserProxyImpl.getInstance();
     constructor() {
-        this.marks_ = new Map();
-        this.browserProxy_ = BrowserProxyImpl.getInstance();
         const callbackRouter = this.browserProxy_.getCallbackRouter();
         callbackRouter.onGetMark.addListener((name) => ({
             markedTime: this.marks_.has(name) ? timeToMojo(this.marks_.get(name)) : null,

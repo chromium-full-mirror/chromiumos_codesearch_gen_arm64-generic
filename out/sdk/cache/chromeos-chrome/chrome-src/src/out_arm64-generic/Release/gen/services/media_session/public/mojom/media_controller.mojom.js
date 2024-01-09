@@ -1299,6 +1299,52 @@
     encoder.writeUint32(MediaController_EnterAutoPictureInPicture_Params.encodedSize);
     encoder.writeUint32(0);
   };
+  function MediaController_SkipAd_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MediaController_SkipAd_Params.prototype.initDefaults_ = function() {
+  };
+  MediaController_SkipAd_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MediaController_SkipAd_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MediaController_SkipAd_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  MediaController_SkipAd_Params.decode = function(decoder) {
+    var packed;
+    var val = new MediaController_SkipAd_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  MediaController_SkipAd_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MediaController_SkipAd_Params.encodedSize);
+    encoder.writeUint32(0);
+  };
   function MediaControllerObserver_MediaSessionInfoChanged_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1821,6 +1867,7 @@
   var kMediaController_SetMute_Name = 18;
   var kMediaController_RequestMediaRemoting_Name = 19;
   var kMediaController_EnterAutoPictureInPicture_Name = 20;
+  var kMediaController_SkipAd_Name = 21;
 
   function MediaControllerPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(MediaController,
@@ -2144,6 +2191,20 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  MediaControllerPtr.prototype.skipAd = function() {
+    return MediaControllerProxy.prototype.skipAd
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  MediaControllerProxy.prototype.skipAd = function() {
+    var params_ = new MediaController_SkipAd_Params();
+    var builder = new codec.MessageV0Builder(
+        kMediaController_SkipAd_Name,
+        codec.align(MediaController_SkipAd_Params.encodedSize));
+    builder.encodeStruct(MediaController_SkipAd_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function MediaControllerStub(delegate) {
     this.delegate_ = delegate;
@@ -2210,6 +2271,9 @@
   }
   MediaControllerStub.prototype.enterAutoPictureInPicture = function() {
     return this.delegate_ && this.delegate_.enterAutoPictureInPicture && this.delegate_.enterAutoPictureInPicture();
+  }
+  MediaControllerStub.prototype.skipAd = function() {
+    return this.delegate_ && this.delegate_.skipAd && this.delegate_.skipAd();
   }
 
   MediaControllerStub.prototype.accept = function(message) {
@@ -2298,6 +2362,10 @@
     case kMediaController_EnterAutoPictureInPicture_Name:
       var params = reader.decodeStruct(MediaController_EnterAutoPictureInPicture_Params);
       this.enterAutoPictureInPicture();
+      return true;
+    case kMediaController_SkipAd_Name:
+      var params = reader.decodeStruct(MediaController_SkipAd_Params);
+      this.skipAd();
       return true;
     default:
       return false;
@@ -2401,6 +2469,10 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = MediaController_EnterAutoPictureInPicture_Params;
       break;
+      case kMediaController_SkipAd_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = MediaController_SkipAd_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -2413,7 +2485,7 @@
 
   var MediaController = {
     name: 'media_session.mojom.MediaController',
-    kVersion: 5,
+    kVersion: 6,
     ptrClass: MediaControllerPtr,
     proxyClass: MediaControllerProxy,
     stubClass: MediaControllerStub,

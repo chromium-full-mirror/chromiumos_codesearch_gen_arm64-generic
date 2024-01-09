@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct MetaDataEntry {
   ~MetaDataEntry();
   MetaDataEntry(const MetaDataEntry&) = delete;
   MetaDataEntry& operator=(const MetaDataEntry&) = delete;
-  MetaDataEntry(MetaDataEntry&& rhs);
-  MetaDataEntry& operator=(MetaDataEntry&& rhs);
+  MetaDataEntry(MetaDataEntry&& rhs) noexcept;
+  MetaDataEntry& operator=(MetaDataEntry&& rhs) noexcept;
 
   // Populates a MetaDataEntry object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,15 +47,12 @@ struct MetaDataEntry {
   // Creates a deep copy of MetaDataEntry.
   MetaDataEntry Clone() const;
 
-  // Creates a MetaDataEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MetaDataEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a MetaDataEntry object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MetaDataEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<MetaDataEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a MetaDataEntry object from a base::Value, or nullopt on failure.
-  static absl::optional<MetaDataEntry> FromValue(const base::Value& value);
+  static std::optional<MetaDataEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMetaDataEntry object.
@@ -73,8 +71,8 @@ struct UploadResult {
   ~UploadResult();
   UploadResult(const UploadResult&) = delete;
   UploadResult& operator=(const UploadResult&) = delete;
-  UploadResult(UploadResult&& rhs);
-  UploadResult& operator=(UploadResult&& rhs);
+  UploadResult(UploadResult&& rhs) noexcept;
+  UploadResult& operator=(UploadResult&& rhs) noexcept;
 
   // Populates a UploadResult object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -87,15 +85,12 @@ struct UploadResult {
   // Creates a deep copy of UploadResult.
   UploadResult Clone() const;
 
-  // Creates a UploadResult object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UploadResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a UploadResult object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UploadResult> FromValue(const base::Value::Dict& value);
+  static std::optional<UploadResult> FromValue(const base::Value::Dict& value);
 
   // Creates a UploadResult object from a base::Value, or nullopt on failure.
-  static absl::optional<UploadResult> FromValue(const base::Value& value);
+  static std::optional<UploadResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUploadResult object.
@@ -111,8 +106,8 @@ struct RequestInfo {
   ~RequestInfo();
   RequestInfo(const RequestInfo&) = delete;
   RequestInfo& operator=(const RequestInfo&) = delete;
-  RequestInfo(RequestInfo&& rhs);
-  RequestInfo& operator=(RequestInfo&& rhs);
+  RequestInfo(RequestInfo&& rhs) noexcept;
+  RequestInfo& operator=(RequestInfo&& rhs) noexcept;
 
   // Populates a RequestInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -125,30 +120,27 @@ struct RequestInfo {
   // Creates a deep copy of RequestInfo.
   RequestInfo Clone() const;
 
-  // Creates a RequestInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RequestInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a RequestInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RequestInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<RequestInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a RequestInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<RequestInfo> FromValue(const base::Value& value);
+  static std::optional<RequestInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequestInfo object.
   base::Value::Dict ToValue() const;
 
   // The tab identifier from the chrome.tabs API, if the request is from a tab.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
   // The guest process id for the requester, if the request is from a webview.
-  absl::optional<int> guest_process_id;
+  std::optional<int> guest_process_id;
 
   // Use the render process of the webview in the current page. This allows an app
   // to make a request for a webview it contains. If there are more or less than 1
   // webview, this will fail with a runtime error.
-  absl::optional<bool> target_webview;
+  std::optional<bool> target_webview;
 
 };
 
@@ -157,8 +149,8 @@ struct RecordingInfo {
   ~RecordingInfo();
   RecordingInfo(const RecordingInfo&) = delete;
   RecordingInfo& operator=(const RecordingInfo&) = delete;
-  RecordingInfo(RecordingInfo&& rhs);
-  RecordingInfo& operator=(RecordingInfo&& rhs);
+  RecordingInfo(RecordingInfo&& rhs) noexcept;
+  RecordingInfo& operator=(RecordingInfo&& rhs) noexcept;
 
   // Populates a RecordingInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -171,15 +163,12 @@ struct RecordingInfo {
   // Creates a deep copy of RecordingInfo.
   RecordingInfo Clone() const;
 
-  // Creates a RecordingInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RecordingInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a RecordingInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<RecordingInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<RecordingInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a RecordingInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<RecordingInfo> FromValue(const base::Value& value);
+  static std::optional<RecordingInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRecordingInfo object.
@@ -203,8 +192,8 @@ struct StartEventLoggingResult {
   ~StartEventLoggingResult();
   StartEventLoggingResult(const StartEventLoggingResult&) = delete;
   StartEventLoggingResult& operator=(const StartEventLoggingResult&) = delete;
-  StartEventLoggingResult(StartEventLoggingResult&& rhs);
-  StartEventLoggingResult& operator=(StartEventLoggingResult&& rhs);
+  StartEventLoggingResult(StartEventLoggingResult&& rhs) noexcept;
+  StartEventLoggingResult& operator=(StartEventLoggingResult&& rhs) noexcept;
 
   // Populates a StartEventLoggingResult object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -217,17 +206,13 @@ struct StartEventLoggingResult {
   // Creates a deep copy of StartEventLoggingResult.
   StartEventLoggingResult Clone() const;
 
-  // Creates a StartEventLoggingResult object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<StartEventLoggingResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a StartEventLoggingResult object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<StartEventLoggingResult> FromValue(const base::Value::Dict& value);
+  static std::optional<StartEventLoggingResult> FromValue(const base::Value::Dict& value);
 
   // Creates a StartEventLoggingResult object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<StartEventLoggingResult> FromValue(const base::Value& value);
+  static std::optional<StartEventLoggingResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStartEventLoggingResult object.
@@ -246,11 +231,11 @@ struct StartEventLoggingResult {
 namespace SetMetaData {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -274,11 +259,11 @@ base::Value::List Create();
 namespace Start {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -300,11 +285,11 @@ base::Value::List Create();
 namespace SetUploadOnRenderClose {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -323,11 +308,11 @@ struct Params {
 namespace Stop {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -349,11 +334,11 @@ base::Value::List Create();
 namespace Store {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -377,11 +362,11 @@ base::Value::List Create();
 namespace UploadStored {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -405,11 +390,11 @@ base::Value::List Create(const UploadResult& result);
 namespace Upload {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -431,11 +416,11 @@ base::Value::List Create(const UploadResult& result);
 namespace Discard {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -457,11 +442,11 @@ base::Value::List Create();
 namespace StartRtpDump {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -487,11 +472,11 @@ base::Value::List Create();
 namespace StopRtpDump {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -517,11 +502,11 @@ base::Value::List Create();
 namespace StartAudioDebugRecordings {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -545,11 +530,11 @@ base::Value::List Create(const RecordingInfo& info);
 namespace StopAudioDebugRecordings {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -571,11 +556,11 @@ base::Value::List Create(const RecordingInfo& info);
 namespace StartEventLogging {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   RequestInfo request;
@@ -611,8 +596,8 @@ struct Entry {
   ~Entry();
   Entry(const Entry&) = delete;
   Entry& operator=(const Entry&) = delete;
-  Entry(Entry&& rhs);
-  Entry& operator=(Entry&& rhs);
+  Entry(Entry&& rhs) noexcept;
+  Entry& operator=(Entry&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEntry object.

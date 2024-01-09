@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/search_engine_choice/search_engine_choice.mojom-features.h"
 #include "chrome/browser/ui/webui/search_engine_choice/search_engine_choice.mojom-shared.h"
 #include "chrome/browser/ui/webui/search_engine_choice/search_engine_choice.mojom-forward.h"
 #include <string>
@@ -114,6 +115,7 @@ class PageHandler
   enum MethodMinVersions : uint32_t {
     kDisplayDialogMinVersion = 0,
     kHandleSearchEngineChoiceSelectedMinVersion = 0,
+    kHandleLearnMoreLinkClickedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -125,6 +127,9 @@ class PageHandler
   struct HandleSearchEngineChoiceSelected_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct HandleLearnMoreLinkClicked_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~PageHandler() = default;
 
@@ -133,6 +138,9 @@ class PageHandler
 
   
   virtual void HandleSearchEngineChoiceSelected(int32_t prepopulate_id) = 0;
+
+  
+  virtual void HandleLearnMoreLinkClicked() = 0;
 };
 
 
@@ -162,6 +170,8 @@ class  PageHandlerProxy
   void DisplayDialog() final;
   
   void HandleSearchEngineChoiceSelected(int32_t prepopulate_id) final;
+  
+  void HandleLearnMoreLinkClicked() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

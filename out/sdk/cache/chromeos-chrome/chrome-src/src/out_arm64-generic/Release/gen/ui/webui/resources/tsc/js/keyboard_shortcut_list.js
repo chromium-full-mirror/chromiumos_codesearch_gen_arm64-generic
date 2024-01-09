@@ -3,15 +3,15 @@
 // found in the LICENSE file.
 /** This is used to identify keyboard shortcuts. */
 class KeyboardShortcut {
+    useKeyCode_ = false;
+    mods_ = {};
+    key_ = null;
+    keyCode_ = null;
     /**
      * @param shortcut The text used to describe the keys for this
      *     keyboard shortcut.
      */
     constructor(shortcut) {
-        this.useKeyCode_ = false;
-        this.mods_ = {};
-        this.key_ = null;
-        this.keyCode_ = null;
         shortcut.split('|').forEach((part) => {
             const partLc = part.toLowerCase();
             switch (partLc) {
@@ -55,6 +55,7 @@ class KeyboardShortcut {
 }
 /** A list of keyboard shortcuts which all perform one command. */
 export class KeyboardShortcutList {
+    shortcuts_;
     /**
      * @param shortcuts Text-based representation of one or more
      *     keyboard shortcuts, separated by spaces.

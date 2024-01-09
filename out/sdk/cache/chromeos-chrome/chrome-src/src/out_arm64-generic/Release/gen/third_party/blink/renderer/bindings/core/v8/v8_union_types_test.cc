@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, UnionTypesTest>::value,
     "UnionTypesTest inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&UnionTypesTest::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "UnionTypesTest is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->doubleOrStringOrStringSequenceAttribute();
 if (!ToV8Traits<V8UnionDoubleOrStringOrStringSequence>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -111,9 +107,9 @@ BLINK_BINDINGS_TRACE_EVENT("UnionTypesTest.doubleOrStringOrStringSequenceAttribu
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "UnionTypesTest";
@@ -148,7 +144,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<V8UnionDoubleOrInternalEnum>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -178,7 +174,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<V8UnionDoubleOrString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -198,10 +194,10 @@ BLINK_BINDINGS_TRACE_EVENT("UnionTypesTest.doubleOrStringDefaultDoubleArg");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<V8UnionDoubleOrString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_arg;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<V8UnionDoubleOrString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_arg;
 if (info[0]->IsUndefined()) {
   arg1_arg = MakeGarbageCollected<V8UnionDoubleOrString>(3.14);
 } else {
@@ -229,10 +225,10 @@ BLINK_BINDINGS_TRACE_EVENT("UnionTypesTest.doubleOrStringDefaultNullArg");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLNullable<V8UnionDoubleOrString>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_arg{nullptr};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLNullable<V8UnionDoubleOrString>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_arg{nullptr};
 if (!info[0]->IsUndefined()) {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "UnionTypesTest";
@@ -258,10 +254,10 @@ BLINK_BINDINGS_TRACE_EVENT("UnionTypesTest.doubleOrStringDefaultStringArg");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<V8UnionDoubleOrString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_arg;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<V8UnionDoubleOrString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_arg;
 if (info[0]->IsUndefined()) {
   arg1_arg = MakeGarbageCollected<V8UnionDoubleOrString>("foo");
 } else {
@@ -299,7 +295,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<V8UnionDoubleOrStringOrStringSequence>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -329,7 +325,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLNullable<V8UnionDoubleOrStringOrStringSequence>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -359,7 +355,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLSequence<V8UnionDoubleOrString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -389,7 +385,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<V8UnionElementOrNodeList>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -419,7 +415,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(v8_receiver);
+UnionTypesTest* blink_receiver = V8UnionTypesTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLNullable<V8UnionElementOrNodeList>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

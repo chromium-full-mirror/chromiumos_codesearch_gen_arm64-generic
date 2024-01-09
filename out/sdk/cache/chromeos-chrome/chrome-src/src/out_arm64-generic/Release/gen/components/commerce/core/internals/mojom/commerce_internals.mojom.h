@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/commerce/core/internals/mojom/commerce_internals.mojom-features.h"
 #include "components/commerce/core/internals/mojom/commerce_internals.mojom-shared.h"
 #include "components/commerce/core/internals/mojom/commerce_internals.mojom-forward.h"
 #include <string>
@@ -565,7 +566,6 @@ class  ShoppingListEligibleDetail {
       EligibleEntryPtr is_signed_in,
       EligibleEntryPtr is_syncing_bookmarks,
       EligibleEntryPtr is_anonymized_url_data_collection_enabled,
-      EligibleEntryPtr is_web_and_app_activity_enabled,
       EligibleEntryPtr is_subject_to_parental_controls);
 
 ShoppingListEligibleDetail(const ShoppingListEligibleDetail&) = delete;
@@ -659,8 +659,6 @@ ShoppingListEligibleDetail& operator=(const ShoppingListEligibleDetail&) = delet
   
   EligibleEntryPtr is_anonymized_url_data_collection_enabled;
   
-  EligibleEntryPtr is_web_and_app_activity_enabled;
-  
   EligibleEntryPtr is_subject_to_parental_controls;
 
   // Serialise this struct into a trace.
@@ -730,7 +728,6 @@ ShoppingListEligibleDetailPtr ShoppingListEligibleDetail::Clone() const {
       mojo::Clone(is_signed_in),
       mojo::Clone(is_syncing_bookmarks),
       mojo::Clone(is_anonymized_url_data_collection_enabled),
-      mojo::Clone(is_web_and_app_activity_enabled),
       mojo::Clone(is_subject_to_parental_controls)
   );
 }
@@ -748,8 +745,6 @@ bool ShoppingListEligibleDetail::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->is_syncing_bookmarks, other_struct.is_syncing_bookmarks))
     return false;
   if (!mojo::Equals(this->is_anonymized_url_data_collection_enabled, other_struct.is_anonymized_url_data_collection_enabled))
-    return false;
-  if (!mojo::Equals(this->is_web_and_app_activity_enabled, other_struct.is_web_and_app_activity_enabled))
     return false;
   if (!mojo::Equals(this->is_subject_to_parental_controls, other_struct.is_subject_to_parental_controls))
     return false;
@@ -781,10 +776,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_anonymized_url_data_collection_enabled < rhs.is_anonymized_url_data_collection_enabled)
     return true;
   if (rhs.is_anonymized_url_data_collection_enabled < lhs.is_anonymized_url_data_collection_enabled)
-    return false;
-  if (lhs.is_web_and_app_activity_enabled < rhs.is_web_and_app_activity_enabled)
-    return true;
-  if (rhs.is_web_and_app_activity_enabled < lhs.is_web_and_app_activity_enabled)
     return false;
   if (lhs.is_subject_to_parental_controls < rhs.is_subject_to_parental_controls)
     return true;
@@ -853,11 +844,6 @@ struct  StructTraits<::commerce::mojom::ShoppingListEligibleDetail::DataView,
   static const decltype(::commerce::mojom::ShoppingListEligibleDetail::is_anonymized_url_data_collection_enabled)& is_anonymized_url_data_collection_enabled(
       const ::commerce::mojom::ShoppingListEligibleDetailPtr& input) {
     return input->is_anonymized_url_data_collection_enabled;
-  }
-
-  static const decltype(::commerce::mojom::ShoppingListEligibleDetail::is_web_and_app_activity_enabled)& is_web_and_app_activity_enabled(
-      const ::commerce::mojom::ShoppingListEligibleDetailPtr& input) {
-    return input->is_web_and_app_activity_enabled;
   }
 
   static const decltype(::commerce::mojom::ShoppingListEligibleDetail::is_subject_to_parental_controls)& is_subject_to_parental_controls(

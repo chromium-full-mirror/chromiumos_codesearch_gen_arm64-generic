@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/gcm.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -42,13 +43,13 @@ namespace Register {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -57,17 +58,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& sender_ids_value = args[0];
     {
       if (!sender_ids_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(sender_ids_value.GetList(), params.sender_ids)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -98,8 +99,8 @@ Params::Message::Data::Data()
  {}
 
 Params::Message::Data::~Data() = default;
-Params::Message::Data::Data(Data&& rhs) = default;
-Params::Message::Data& Params::Message::Data::operator=(Data&& rhs) = default;
+Params::Message::Data::Data(Data&& rhs) noexcept = default;
+Params::Message::Data& Params::Message::Data::operator=(Data&& rhs) noexcept = default;
 Params::Message::Data Params::Message::Data::Clone() const {
   Data out;
   return out;
@@ -132,21 +133,21 @@ bool Params::Message::Data::Populate(
 }
 
 // static
-absl::optional<Params::Message::Data> Params::Message::Data::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Message::Data> Params::Message::Data::FromValue(const base::Value::Dict& value) {
   Data out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Message::Data> Params::Message::Data::FromValue(const base::Value& value) {
+std::optional<Params::Message::Data> Params::Message::Data::FromValue(const base::Value& value) {
   Data out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -157,8 +158,8 @@ Params::Message::Message()
  {}
 
 Params::Message::~Message() = default;
-Params::Message::Message(Message&& rhs) = default;
-Params::Message& Params::Message::operator=(Message&& rhs) = default;
+Params::Message::Message(Message&& rhs) noexcept = default;
+Params::Message& Params::Message::operator=(Message&& rhs) noexcept = default;
 Params::Message Params::Message::Clone() const {
   Message out;
   out.destination_id = destination_id;
@@ -200,7 +201,7 @@ bool Params::Message::Populate(
     {
       auto temp = (*time_to_live_value).GetIfInt();
       if (!temp.has_value()) {
-        out.time_to_live = absl::nullopt;
+        out.time_to_live = std::nullopt;
         return false;
       }
       out.time_to_live = *temp;
@@ -233,21 +234,21 @@ bool Params::Message::Populate(
 }
 
 // static
-absl::optional<Params::Message> Params::Message::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Message> Params::Message::FromValue(const base::Value::Dict& value) {
   Message out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Message> Params::Message::FromValue(const base::Value& value) {
+std::optional<Params::Message> Params::Message::FromValue(const base::Value& value) {
   Message out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -255,13 +256,13 @@ absl::optional<Params::Message> Params::Message::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -270,15 +271,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& message_value = args[0];
     {
       if (!message_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Message::Populate(message_value.GetDict(), params.message)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -306,8 +307,8 @@ Message::Data::Data()
  {}
 
 Message::Data::~Data() = default;
-Message::Data::Data(Data&& rhs) = default;
-Message::Data& Message::Data::operator=(Data&& rhs) = default;
+Message::Data::Data(Data&& rhs) noexcept = default;
+Message::Data& Message::Data::operator=(Data&& rhs) noexcept = default;
 base::Value::Dict Message::Data::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -325,8 +326,8 @@ Message::Message()
  {}
 
 Message::~Message() = default;
-Message::Message(Message&& rhs) = default;
-Message& Message::operator=(Message&& rhs) = default;
+Message::Message(Message&& rhs) noexcept = default;
+Message& Message::operator=(Message&& rhs) noexcept = default;
 base::Value::Dict Message::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -375,8 +376,8 @@ Error::Details::Details()
  {}
 
 Error::Details::~Details() = default;
-Error::Details::Details(Details&& rhs) = default;
-Error::Details& Error::Details::operator=(Details&& rhs) = default;
+Error::Details::Details(Details&& rhs) noexcept = default;
+Error::Details& Error::Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Error::Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -394,8 +395,8 @@ Error::Error()
  {}
 
 Error::~Error() = default;
-Error::Error(Error&& rhs) = default;
-Error& Error::operator=(Error&& rhs) = default;
+Error::Error(Error&& rhs) noexcept = default;
+Error& Error::operator=(Error&& rhs) noexcept = default;
 base::Value::Dict Error::ToValue() const {
   base::Value::Dict to_value_result;
 

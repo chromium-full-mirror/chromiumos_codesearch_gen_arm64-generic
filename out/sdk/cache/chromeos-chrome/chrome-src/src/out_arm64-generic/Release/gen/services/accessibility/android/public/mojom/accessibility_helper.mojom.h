@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/accessibility/android/public/mojom/accessibility_helper.mojom-features.h"
 #include "services/accessibility/android/public/mojom/accessibility_helper.mojom-shared.h"
 #include "services/accessibility/android/public/mojom/accessibility_helper.mojom-forward.h"
 #include <string>
@@ -181,7 +182,7 @@ class AccessibilityHelperInstance
   virtual void SetExploreByTouchEnabled(bool enabled) = 0;
 
 
-  using RefreshWithExtraDataCallback = base::OnceCallback<void(const absl::optional<::gfx::Rect>&)>;
+  using RefreshWithExtraDataCallback = base::OnceCallback<void(const std::optional<::gfx::Rect>&)>;
   
   virtual void RefreshWithExtraData(AccessibilityActionDataPtr refresh_data, RefreshWithExtraDataCallback callback) = 0;
 
@@ -963,7 +964,7 @@ class  AccessibilityActionInAndroid {
 
   AccessibilityActionInAndroid(
       int32_t id,
-      const absl::optional<std::string>& label);
+      const std::optional<std::string>& label);
 
 
   ~AccessibilityActionInAndroid();
@@ -1043,7 +1044,7 @@ class  AccessibilityActionInAndroid {
   
   int32_t id;
   
-  absl::optional<std::string> label;
+  std::optional<std::string> label;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1101,17 +1102,17 @@ class  AccessibilityWindowKey {
   // Construct an instance holding |window_id|.
   static AccessibilityWindowKeyPtr
   NewWindowId(
-      uint32_t window_id) {
+      uint32_t value) {
     auto result = AccessibilityWindowKeyPtr(absl::in_place);
-    result->set_window_id(std::move(window_id));
+    result->set_window_id(std::move(value));
     return result;
   }
   // Construct an instance holding |task_id|.
   static AccessibilityWindowKeyPtr
   NewTaskId(
-      uint32_t task_id) {
+      uint32_t value) {
     auto result = AccessibilityWindowKeyPtr(absl::in_place);
-    result->set_task_id(std::move(task_id));
+    result->set_task_id(std::move(value));
     return result;
   }
 
@@ -1404,29 +1405,29 @@ class  AccessibilityNodeInfoData {
   AccessibilityNodeInfoData(
       const ::gfx::Rect& bounds_in_screen,
       int32_t id,
-      const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
-      const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
-      const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
-      const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties);
+      const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
+      const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
+      const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
+      const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties);
 
   AccessibilityNodeInfoData(
       const ::gfx::Rect& bounds_in_screen,
       int32_t id,
-      const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
-      const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
-      const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
-      const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
-      const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties);
+      const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
+      const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
+      const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
+      const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
+      const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties);
 
   AccessibilityNodeInfoData(
       const ::gfx::Rect& bounds_in_screen,
       int32_t id,
-      const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
-      const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
-      const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
-      const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
-      const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties,
-      absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties,
+      const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
+      const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
+      const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
+      const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
+      const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties,
+      std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties,
       AccessibilityCollectionInfoDataPtr collection_info,
       AccessibilityCollectionItemInfoDataPtr collection_item_info,
       AccessibilityRangeInfoDataPtr range_info);
@@ -1434,12 +1435,12 @@ class  AccessibilityNodeInfoData {
   AccessibilityNodeInfoData(
       const ::gfx::Rect& bounds_in_screen,
       int32_t id,
-      const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
-      const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
-      const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
-      const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
-      const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties,
-      absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties,
+      const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
+      const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
+      const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
+      const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
+      const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties,
+      std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties,
       AccessibilityCollectionInfoDataPtr collection_info,
       AccessibilityCollectionItemInfoDataPtr collection_item_info,
       AccessibilityRangeInfoDataPtr range_info,
@@ -1448,12 +1449,12 @@ class  AccessibilityNodeInfoData {
   AccessibilityNodeInfoData(
       const ::gfx::Rect& bounds_in_screen,
       int32_t id,
-      const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
-      const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
-      const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
-      const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
-      const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties,
-      absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties,
+      const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
+      const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
+      const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
+      const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
+      const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties,
+      std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties,
       AccessibilityCollectionInfoDataPtr collection_info,
       AccessibilityCollectionItemInfoDataPtr collection_item_info,
       AccessibilityRangeInfoDataPtr range_info,
@@ -1463,19 +1464,19 @@ class  AccessibilityNodeInfoData {
   AccessibilityNodeInfoData(
       const ::gfx::Rect& bounds_in_screen,
       int32_t id,
-      const absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
-      const absl::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
-      const absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
-      const absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
-      const absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties,
-      absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties,
+      const std::optional<base::flat_map<AccessibilityBooleanProperty, bool>>& boolean_properties,
+      const std::optional<base::flat_map<AccessibilityStringProperty, std::string>>& string_properties,
+      const std::optional<base::flat_map<AccessibilityIntProperty, int32_t>>& int_properties,
+      const std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>>& int_list_properties,
+      const std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>>& string_list_properties,
+      std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties,
       AccessibilityCollectionInfoDataPtr collection_info,
       AccessibilityCollectionItemInfoDataPtr collection_item_info,
       AccessibilityRangeInfoDataPtr range_info,
       int32_t window_id,
       bool is_virtual_node,
-      absl::optional<std::vector<AccessibilityActionInAndroidPtr>> standard_actions,
-      absl::optional<std::vector<AccessibilityActionInAndroidPtr>> custom_actions);
+      std::optional<std::vector<AccessibilityActionInAndroidPtr>> standard_actions,
+      std::optional<std::vector<AccessibilityActionInAndroidPtr>> custom_actions);
 
 AccessibilityNodeInfoData(const AccessibilityNodeInfoData&) = delete;
 AccessibilityNodeInfoData& operator=(const AccessibilityNodeInfoData&) = delete;
@@ -1559,17 +1560,17 @@ AccessibilityNodeInfoData& operator=(const AccessibilityNodeInfoData&) = delete;
   
   int32_t id;
   
-  absl::optional<base::flat_map<AccessibilityBooleanProperty, bool>> boolean_properties;
+  std::optional<base::flat_map<AccessibilityBooleanProperty, bool>> boolean_properties;
   
-  absl::optional<base::flat_map<AccessibilityStringProperty, std::string>> string_properties;
+  std::optional<base::flat_map<AccessibilityStringProperty, std::string>> string_properties;
   
-  absl::optional<base::flat_map<AccessibilityIntProperty, int32_t>> int_properties;
+  std::optional<base::flat_map<AccessibilityIntProperty, int32_t>> int_properties;
   
-  absl::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>> int_list_properties;
+  std::optional<base::flat_map<AccessibilityIntListProperty, std::vector<int32_t>>> int_list_properties;
   
-  absl::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>> string_list_properties;
+  std::optional<base::flat_map<AccessibilityStringListProperty, std::vector<std::string>>> string_list_properties;
   
-  absl::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties;
+  std::optional<base::flat_map<AccessibilityStringProperty, std::vector<SpanEntryPtr>>> spannable_string_properties;
   
   AccessibilityCollectionInfoDataPtr collection_info;
   
@@ -1581,9 +1582,9 @@ AccessibilityNodeInfoData& operator=(const AccessibilityNodeInfoData&) = delete;
   
   bool is_virtual_node;
   
-  absl::optional<std::vector<AccessibilityActionInAndroidPtr>> standard_actions;
+  std::optional<std::vector<AccessibilityActionInAndroidPtr>> standard_actions;
   
-  absl::optional<std::vector<AccessibilityActionInAndroidPtr>> custom_actions;
+  std::optional<std::vector<AccessibilityActionInAndroidPtr>> custom_actions;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1649,10 +1650,10 @@ class  AccessibilityWindowInfoData {
       int32_t root_node_id,
       const ::gfx::Rect& bounds_in_screen,
       AccessibilityWindowType window_type,
-      const absl::optional<base::flat_map<AccessibilityWindowBooleanProperty, bool>>& boolean_properties,
-      const absl::optional<base::flat_map<AccessibilityWindowStringProperty, std::string>>& string_properties,
-      const absl::optional<base::flat_map<AccessibilityWindowIntProperty, int32_t>>& int_properties,
-      const absl::optional<base::flat_map<AccessibilityWindowIntListProperty, std::vector<int32_t>>>& int_list_properties);
+      const std::optional<base::flat_map<AccessibilityWindowBooleanProperty, bool>>& boolean_properties,
+      const std::optional<base::flat_map<AccessibilityWindowStringProperty, std::string>>& string_properties,
+      const std::optional<base::flat_map<AccessibilityWindowIntProperty, int32_t>>& int_properties,
+      const std::optional<base::flat_map<AccessibilityWindowIntListProperty, std::vector<int32_t>>>& int_list_properties);
 
 
   ~AccessibilityWindowInfoData();
@@ -1738,13 +1739,13 @@ class  AccessibilityWindowInfoData {
   
   AccessibilityWindowType window_type;
   
-  absl::optional<base::flat_map<AccessibilityWindowBooleanProperty, bool>> boolean_properties;
+  std::optional<base::flat_map<AccessibilityWindowBooleanProperty, bool>> boolean_properties;
   
-  absl::optional<base::flat_map<AccessibilityWindowStringProperty, std::string>> string_properties;
+  std::optional<base::flat_map<AccessibilityWindowStringProperty, std::string>> string_properties;
   
-  absl::optional<base::flat_map<AccessibilityWindowIntProperty, int32_t>> int_properties;
+  std::optional<base::flat_map<AccessibilityWindowIntProperty, int32_t>> int_properties;
   
-  absl::optional<base::flat_map<AccessibilityWindowIntListProperty, std::vector<int32_t>>> int_list_properties;
+  std::optional<base::flat_map<AccessibilityWindowIntListProperty, std::vector<int32_t>>> int_list_properties;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1814,14 +1815,14 @@ class  AccessibilityEventData {
       AccessibilityEventType event_type,
       int32_t source_id,
       std::vector<AccessibilityNodeInfoDataPtr> node_data,
-      const absl::optional<std::string>& notification_key,
+      const std::optional<std::string>& notification_key,
       int32_t window_id);
 
   AccessibilityEventData(
       AccessibilityEventType event_type,
       int32_t source_id,
       std::vector<AccessibilityNodeInfoDataPtr> node_data,
-      const absl::optional<std::string>& notification_key,
+      const std::optional<std::string>& notification_key,
       int32_t window_id,
       int32_t task_id);
 
@@ -1829,58 +1830,58 @@ class  AccessibilityEventData {
       AccessibilityEventType event_type,
       int32_t source_id,
       std::vector<AccessibilityNodeInfoDataPtr> node_data,
-      const absl::optional<std::string>& notification_key,
+      const std::optional<std::string>& notification_key,
       int32_t window_id,
       int32_t task_id,
-      absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data);
+      std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data);
 
   AccessibilityEventData(
       AccessibilityEventType event_type,
       int32_t source_id,
       std::vector<AccessibilityNodeInfoDataPtr> node_data,
-      const absl::optional<std::string>& notification_key,
+      const std::optional<std::string>& notification_key,
       int32_t window_id,
       int32_t task_id,
-      absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data,
+      std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data,
       bool is_input_method_window);
 
   AccessibilityEventData(
       AccessibilityEventType event_type,
       int32_t source_id,
       std::vector<AccessibilityNodeInfoDataPtr> node_data,
-      const absl::optional<std::string>& notification_key,
+      const std::optional<std::string>& notification_key,
       int32_t window_id,
       int32_t task_id,
-      absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data,
+      std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data,
       bool is_input_method_window,
-      absl::optional<std::vector<std::string>> event_text);
+      std::optional<std::vector<std::string>> event_text);
 
   AccessibilityEventData(
       AccessibilityEventType event_type,
       int32_t source_id,
       std::vector<AccessibilityNodeInfoDataPtr> node_data,
-      const absl::optional<std::string>& notification_key,
+      const std::optional<std::string>& notification_key,
       int32_t window_id,
       int32_t task_id,
-      absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data,
+      std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data,
       bool is_input_method_window,
-      absl::optional<std::vector<std::string>> event_text,
-      const absl::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>& int_properties,
-      const absl::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>& string_properties);
+      std::optional<std::vector<std::string>> event_text,
+      const std::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>& int_properties,
+      const std::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>& string_properties);
 
   AccessibilityEventData(
       AccessibilityEventType event_type,
       int32_t source_id,
       std::vector<AccessibilityNodeInfoDataPtr> node_data,
-      const absl::optional<std::string>& notification_key,
+      const std::optional<std::string>& notification_key,
       int32_t window_id,
       int32_t task_id,
-      absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data,
+      std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data,
       bool is_input_method_window,
-      absl::optional<std::vector<std::string>> event_text,
-      const absl::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>& int_properties,
-      const absl::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>& string_properties,
-      const absl::optional<base::flat_map<AccessibilityEventIntListProperty, std::vector<int32_t>>>& int_list_properties);
+      std::optional<std::vector<std::string>> event_text,
+      const std::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>>& int_properties,
+      const std::optional<base::flat_map<AccessibilityEventStringProperty, std::string>>& string_properties,
+      const std::optional<base::flat_map<AccessibilityEventIntListProperty, std::vector<int32_t>>>& int_list_properties);
 
 AccessibilityEventData(const AccessibilityEventData&) = delete;
 AccessibilityEventData& operator=(const AccessibilityEventData&) = delete;
@@ -1966,23 +1967,23 @@ AccessibilityEventData& operator=(const AccessibilityEventData&) = delete;
   
   std::vector<AccessibilityNodeInfoDataPtr> node_data;
   
-  absl::optional<std::string> notification_key;
+  std::optional<std::string> notification_key;
   
   int32_t window_id;
   
   int32_t task_id;
   
-  absl::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data;
+  std::optional<std::vector<AccessibilityWindowInfoDataPtr>> window_data;
   
   bool is_input_method_window;
   
-  absl::optional<std::vector<std::string>> event_text;
+  std::optional<std::vector<std::string>> event_text;
   
-  absl::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>> int_properties;
+  std::optional<base::flat_map<AccessibilityEventIntProperty, int32_t>> int_properties;
   
-  absl::optional<base::flat_map<AccessibilityEventStringProperty, std::string>> string_properties;
+  std::optional<base::flat_map<AccessibilityEventStringProperty, std::string>> string_properties;
   
-  absl::optional<base::flat_map<AccessibilityEventIntListProperty, std::vector<int32_t>>> int_list_properties;
+  std::optional<base::flat_map<AccessibilityEventIntListProperty, std::vector<int32_t>>> int_list_properties;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2069,9 +2070,9 @@ class  AccessibilityActionData {
       int32_t window_id,
       int32_t start_index,
       int32_t end_index,
-      const absl::optional<base::flat_map<ActionIntArgumentType, int32_t>>& int_parameters,
-      const absl::optional<base::flat_map<ActionStringArgumentType, std::string>>& string_parameters,
-      const absl::optional<base::flat_map<ActionFloatArgumentType, float>>& float_parameters);
+      const std::optional<base::flat_map<ActionIntArgumentType, int32_t>>& int_parameters,
+      const std::optional<base::flat_map<ActionStringArgumentType, std::string>>& string_parameters,
+      const std::optional<base::flat_map<ActionFloatArgumentType, float>>& float_parameters);
 
 
   ~AccessibilityActionData();
@@ -2161,11 +2162,11 @@ class  AccessibilityActionData {
   
   int32_t end_index;
   
-  absl::optional<base::flat_map<ActionIntArgumentType, int32_t>> int_parameters;
+  std::optional<base::flat_map<ActionIntArgumentType, int32_t>> int_parameters;
   
-  absl::optional<base::flat_map<ActionStringArgumentType, std::string>> string_parameters;
+  std::optional<base::flat_map<ActionStringArgumentType, std::string>> string_parameters;
   
-  absl::optional<base::flat_map<ActionFloatArgumentType, float>> float_parameters;
+  std::optional<base::flat_map<ActionFloatArgumentType, float>> float_parameters;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -21,28 +21,6 @@
 namespace network {
 namespace mojom {
 
-NOINLINE static const char* TrustTokenMajorVersionToStringHelper(TrustTokenMajorVersion value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case TrustTokenMajorVersion::kPrivateStateTokenV1:
-      return "kPrivateStateTokenV1";
-    default:
-      return nullptr;
-  }
-}
-
-std::string TrustTokenMajorVersionToString(TrustTokenMajorVersion value) {
-  const char *str = TrustTokenMajorVersionToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown TrustTokenMajorVersion value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, TrustTokenMajorVersion value) {
-  return os << TrustTokenMajorVersionToString(value);
-}
-
 NOINLINE static const char* TrustTokenProtocolVersionToStringHelper(TrustTokenProtocolVersion value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -301,7 +279,7 @@ bool TrustTokenParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -309,11 +287,6 @@ bool TrustTokenParams_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const TrustTokenParams_Data* object =
       static_cast<const TrustTokenParams_Data*>(data);
-
-
-  if (!::network::mojom::internal::TrustTokenMajorVersion_Data
-        ::Validate(object->version, validation_context))
-    return false;
 
 
   if (!::network::mojom::internal::TrustTokenOperationType_Data
@@ -341,7 +314,7 @@ bool TrustTokenParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->issuers, 8, validation_context)) {
+          object->issuers, 7, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& issuers_validate_params =
@@ -352,7 +325,7 @@ bool TrustTokenParams_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->additional_signed_headers, 9, validation_context)) {
+          object->additional_signed_headers, 8, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& additional_signed_headers_validate_params =
@@ -480,7 +453,7 @@ bool TrustTokenKeyCommitmentResult_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -490,17 +463,12 @@ bool TrustTokenKeyCommitmentResult_Data::Validate(
       static_cast<const TrustTokenKeyCommitmentResult_Data*>(data);
 
 
-  if (!::network::mojom::internal::TrustTokenMajorVersion_Data
-        ::Validate(object->version, validation_context))
-    return false;
-
-
   if (!::network::mojom::internal::TrustTokenProtocolVersion_Data
         ::Validate(object->protocol_version, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->keys, 5, validation_context)) {
+          object->keys, 4, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& keys_validate_params =
@@ -511,7 +479,7 @@ bool TrustTokenKeyCommitmentResult_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->request_issuance_locally_on, 6, validation_context)) {
+          object->request_issuance_locally_on, 5, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& request_issuance_locally_on_validate_params =
@@ -804,16 +772,6 @@ TrustTokenQueryAnswerer_HasRedemptionRecord_ResponseParams_Data::TrustTokenQuery
 }  // namespace internal
 }  // namespace mojom
 }  // namespace network
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::network::mojom::TrustTokenMajorVersion>::WriteIntoTrace(
-   perfetto::TracedValue context, ::network::mojom::TrustTokenMajorVersion value) {
-  return std::move(context).WriteString(::network::mojom::TrustTokenMajorVersionToString(value));
-}
-
-} // namespace perfetto
 
 namespace perfetto {
 

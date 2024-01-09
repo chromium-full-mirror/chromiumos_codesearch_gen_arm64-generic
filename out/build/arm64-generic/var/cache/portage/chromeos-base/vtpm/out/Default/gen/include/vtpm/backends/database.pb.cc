@@ -4,34 +4,38 @@
 #include "database.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace vtpm {
+template <typename>
 PROTOBUF_CONSTEXPR BlobData::BlobData(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.blob_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.version_)*/0
+    /*decltype(_impl_.blob_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.version_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct BlobDataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR BlobDataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR BlobDataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~BlobDataDefaultTypeInternal() {}
   union {
     BlobData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BlobDataDefaultTypeInternal _BlobData_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BlobDataDefaultTypeInternal _BlobData_default_instance_;
 }  // namespace vtpm
 namespace vtpm {
 bool Version_IsValid(int value) {
@@ -42,37 +46,37 @@ bool Version_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    Version_strings[1] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Version_strings[1] = {};
+static const char Version_names[] = {
+    "V0"
+};
 
-static const char Version_names[] =
-  "V0";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Version_entries[] = {
-  { {Version_names + 0, 2}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Version_entries[] =
+    {
+        {{&Version_names[0], 2}, 0},
 };
 
 static const int Version_entries_by_number[] = {
-  0, // 0 -> V0
+    0,  // 0 -> V0
 };
 
-const std::string& Version_Name(
-    Version value) {
-  static const bool dummy =
+const std::string& Version_Name(Version value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          Version_entries,
-          Version_entries_by_number,
+          Version_entries, Version_entries_by_number,
           1, Version_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      Version_entries,
-      Version_entries_by_number,
-      1, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     Version_strings[idx].get();
+      Version_entries, Version_entries_by_number, 1,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : Version_strings[idx].get();
 }
-bool Version_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Version* value) {
+
+bool Version_Parse(absl::string_view name, Version* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       Version_entries, 1, name, &int_value);
@@ -81,53 +85,52 @@ bool Version_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class BlobData::_Internal {
  public:
 };
 
-BlobData::BlobData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+BlobData::BlobData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:vtpm.BlobData)
 }
 BlobData::BlobData(const BlobData& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   BlobData* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.blob_){}
-    , decltype(_impl_.version_){}
+      decltype(_impl_.blob_) {}
+
+    , decltype(_impl_.version_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.blob_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.blob_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_blob().empty()) {
-    _this->_impl_.blob_.Set(from._internal_blob(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.blob_.Set(from._internal_blob(), _this->GetArenaForAllocation());
   }
   _this->_impl_.version_ = from._impl_.version_;
   // @@protoc_insertion_point(copy_constructor:vtpm.BlobData)
 }
 
-inline void BlobData::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void BlobData::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.blob_){}
-    , decltype(_impl_.version_){0}
+      decltype(_impl_.blob_) {}
+
+    , decltype(_impl_.version_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.blob_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.blob_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 BlobData::~BlobData() {
@@ -140,7 +143,7 @@ BlobData::~BlobData() {
 }
 
 inline void BlobData::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.blob_.Destroy();
 }
 
@@ -150,7 +153,7 @@ void BlobData::SetCachedSize(int size) const {
 
 void BlobData::Clear() {
 // @@protoc_insertion_point(message_clear_start:vtpm.BlobData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -162,26 +165,28 @@ void BlobData::Clear() {
 const char* BlobData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vtpm.Version version = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_version(static_cast<::vtpm::Version>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes blob = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_blob();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -206,23 +211,23 @@ failure:
 #undef CHK_
 }
 
-uint8_t* BlobData::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* BlobData::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vtpm.BlobData)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vtpm.Version version = 1;
   if (this->_internal_version() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_version(), target);
+        1, this->_internal_version(), target);
   }
 
   // bytes blob = 2;
   if (!this->_internal_blob().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_blob(), target);
+    const std::string& _s = this->_internal_blob();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -233,25 +238,24 @@ uint8_t* BlobData::_InternalSerialize(
   return target;
 }
 
-size_t BlobData::ByteSizeLong() const {
+::size_t BlobData::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vtpm.BlobData)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bytes blob = 2;
   if (!this->_internal_blob().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_blob());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_blob());
   }
 
   // .vtpm.Version version = 1;
   if (this->_internal_version() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_version());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_version());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -271,8 +275,8 @@ void BlobData::CheckTypeAndMergeFrom(
 void BlobData::MergeFrom(const BlobData& from) {
   BlobData* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:vtpm.BlobData)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_blob().empty()) {
@@ -300,17 +304,14 @@ void BlobData::InternalSwap(BlobData* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.blob_, lhs_arena,
-      &other->_impl_.blob_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.blob_, lhs_arena,
+                                       &other->_impl_.blob_, rhs_arena);
   swap(_impl_.version_, other->_impl_.version_);
 }
 
 std::string BlobData::GetTypeName() const {
   return "vtpm.BlobData";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace vtpm
@@ -320,6 +321,5 @@ Arena::CreateMaybeMessage< ::vtpm::BlobData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vtpm::BlobData >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

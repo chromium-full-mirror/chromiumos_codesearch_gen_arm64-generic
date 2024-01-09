@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/service_manager/public/mojom/connector.mojom-features.h"
 #include "services/service_manager/public/mojom/connector.mojom-shared.h"
 #include "services/service_manager/public/mojom/connector.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/process_id.mojom-blink-forward.h"
@@ -43,30 +44,6 @@
 #include "base/component_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::service_manager::mojom::ConnectResult>
-    : EnumHashTraits<::service_manager::mojom::ConnectResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::service_manager::mojom::BindInterfacePriority>
-    : EnumHashTraits<::service_manager::mojom::BindInterfacePriority, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace service_manager::mojom::blink {

@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLShaderPixelLocalStorage>::value,
     "WebGLShaderPixelLocalStorage inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLShaderPixelLocalStorage::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLShaderPixelLocalStorage is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -114,7 +109,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_loadops = NativeValueTraits<IDLSequence<IDLUnsignedLong>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -144,7 +139,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_storeops = NativeValueTraits<IDLSequence<IDLUnsignedLong>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -171,7 +166,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_plane = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -209,7 +204,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_plane = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -294,7 +289,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_plane = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -332,7 +327,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_plane = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -417,7 +412,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_plane = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -455,7 +450,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_plane = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -543,7 +538,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_plane = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -585,7 +580,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -612,8 +607,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLShaderPixelLocalStorage.isCoherent");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isCoherent();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -629,8 +625,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLShaderPixelLocalStorage.pixelLocalStorageBarrie
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(v8_receiver);
+WebGLShaderPixelLocalStorage* blink_receiver = V8WebGLShaderPixelLocalStorage::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->pixelLocalStorageBarrierWEBGL();
 
 }

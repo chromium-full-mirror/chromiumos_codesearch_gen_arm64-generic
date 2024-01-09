@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/isolation_info.mojom-features.h"
 #include "services/network/public/mojom/isolation_info.mojom-shared.h"
 #include "services/network/public/mojom/isolation_info.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -77,9 +78,9 @@ class  IsolationInfo {
 
   IsolationInfo(
       IsolationInfoRequestType request_type,
-      const absl::optional<::url::Origin>& top_frame_origin,
-      const absl::optional<::url::Origin>& frame_origin,
-      const absl::optional<::base::UnguessableToken>& nonce,
+      const std::optional<::url::Origin>& top_frame_origin,
+      const std::optional<::url::Origin>& frame_origin,
+      const std::optional<::base::UnguessableToken>& nonce,
       const ::net::SiteForCookies& site_for_cookies);
 
 
@@ -160,11 +161,11 @@ class  IsolationInfo {
   
   IsolationInfoRequestType request_type;
   
-  absl::optional<::url::Origin> top_frame_origin;
+  std::optional<::url::Origin> top_frame_origin;
   
-  absl::optional<::url::Origin> frame_origin;
+  std::optional<::url::Origin> frame_origin;
   
-  absl::optional<::base::UnguessableToken> nonce;
+  std::optional<::base::UnguessableToken> nonce;
   
   ::net::SiteForCookies site_for_cookies;
 

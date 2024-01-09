@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/bluetooth_low_energy.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -180,8 +181,8 @@ Device::Device()
  {}
 
 Device::~Device() = default;
-Device::Device(Device&& rhs) = default;
-Device& Device::operator=(Device&& rhs) = default;
+Device::Device(Device&& rhs) noexcept = default;
+Device& Device::operator=(Device&& rhs) noexcept = default;
 Device Device::Clone() const {
   Device out;
   out.address = address;
@@ -210,7 +211,7 @@ bool Device::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -222,7 +223,7 @@ bool Device::Populate(
     {
       auto temp = (*device_class_value).GetIfInt();
       if (!temp.has_value()) {
-        out.device_class = absl::nullopt;
+        out.device_class = std::nullopt;
         return false;
       }
       out.device_class = *temp;
@@ -242,34 +243,21 @@ bool Device::Populate(
 }
 
 // static
-std::unique_ptr<Device> Device::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Device>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Device> Device::FromValue(const base::Value::Dict& value) {
+  Device out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Device> Device::FromValue(const base::Value::Dict& value) {
+std::optional<Device> Device::FromValue(const base::Value& value) {
   Device out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Device> Device::FromValue(const base::Value& value) {
-  Device out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -296,8 +284,8 @@ Service::Service()
 : is_primary(false) {}
 
 Service::~Service() = default;
-Service::Service(Service&& rhs) = default;
-Service& Service::operator=(Service&& rhs) = default;
+Service::Service(Service&& rhs) noexcept = default;
+Service& Service::operator=(Service&& rhs) noexcept = default;
 Service Service::Clone() const {
   Service out;
   out.uuid = uuid;
@@ -339,7 +327,7 @@ bool Service::Populate(
     {
       auto* temp = (*instance_id_value).GetIfString();
       if (!temp) {
-        out.instance_id = absl::nullopt;
+        out.instance_id = std::nullopt;
         return false;
       }
       out.instance_id = *temp;
@@ -351,7 +339,7 @@ bool Service::Populate(
     {
       auto* temp = (*device_address_value).GetIfString();
       if (!temp) {
-        out.device_address = absl::nullopt;
+        out.device_address = std::nullopt;
         return false;
       }
       out.device_address = *temp;
@@ -371,34 +359,21 @@ bool Service::Populate(
 }
 
 // static
-std::unique_ptr<Service> Service::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Service>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Service> Service::FromValue(const base::Value::Dict& value) {
+  Service out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Service> Service::FromValue(const base::Value::Dict& value) {
+std::optional<Service> Service::FromValue(const base::Value& value) {
   Service out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Service> Service::FromValue(const base::Value& value) {
-  Service out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -427,8 +402,8 @@ Characteristic::Characteristic()
  {}
 
 Characteristic::~Characteristic() = default;
-Characteristic::Characteristic(Characteristic&& rhs) = default;
-Characteristic& Characteristic::operator=(Characteristic&& rhs) = default;
+Characteristic::Characteristic(Characteristic&& rhs) noexcept = default;
+Characteristic& Characteristic::operator=(Characteristic&& rhs) noexcept = default;
 Characteristic Characteristic::Clone() const {
   Characteristic out;
   out.uuid = uuid;
@@ -500,7 +475,7 @@ bool Characteristic::Populate(
     {
       auto* temp = (*instance_id_value).GetIfString();
       if (!temp) {
-        out.instance_id = absl::nullopt;
+        out.instance_id = std::nullopt;
         return false;
       }
       out.instance_id = *temp;
@@ -532,34 +507,21 @@ bool Characteristic::Populate(
 }
 
 // static
-std::unique_ptr<Characteristic> Characteristic::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Characteristic>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Characteristic> Characteristic::FromValue(const base::Value::Dict& value) {
+  Characteristic out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Characteristic> Characteristic::FromValue(const base::Value::Dict& value) {
+std::optional<Characteristic> Characteristic::FromValue(const base::Value& value) {
   Characteristic out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Characteristic> Characteristic::FromValue(const base::Value& value) {
-  Characteristic out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -598,8 +560,8 @@ Descriptor::Descriptor()
  {}
 
 Descriptor::~Descriptor() = default;
-Descriptor::Descriptor(Descriptor&& rhs) = default;
-Descriptor& Descriptor::operator=(Descriptor&& rhs) = default;
+Descriptor::Descriptor(Descriptor&& rhs) noexcept = default;
+Descriptor& Descriptor::operator=(Descriptor&& rhs) noexcept = default;
 Descriptor Descriptor::Clone() const {
   Descriptor out;
   out.uuid = uuid;
@@ -671,7 +633,7 @@ bool Descriptor::Populate(
     {
       auto* temp = (*instance_id_value).GetIfString();
       if (!temp) {
-        out.instance_id = absl::nullopt;
+        out.instance_id = std::nullopt;
         return false;
       }
       out.instance_id = *temp;
@@ -703,34 +665,21 @@ bool Descriptor::Populate(
 }
 
 // static
-std::unique_ptr<Descriptor> Descriptor::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Descriptor>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Descriptor> Descriptor::FromValue(const base::Value::Dict& value) {
+  Descriptor out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Descriptor> Descriptor::FromValue(const base::Value::Dict& value) {
+std::optional<Descriptor> Descriptor::FromValue(const base::Value& value) {
   Descriptor out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Descriptor> Descriptor::FromValue(const base::Value& value) {
-  Descriptor out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -769,8 +718,8 @@ ConnectProperties::ConnectProperties()
 : persistent(false) {}
 
 ConnectProperties::~ConnectProperties() = default;
-ConnectProperties::ConnectProperties(ConnectProperties&& rhs) = default;
-ConnectProperties& ConnectProperties::operator=(ConnectProperties&& rhs) = default;
+ConnectProperties::ConnectProperties(ConnectProperties&& rhs) noexcept = default;
+ConnectProperties& ConnectProperties::operator=(ConnectProperties&& rhs) noexcept = default;
 ConnectProperties ConnectProperties::Clone() const {
   ConnectProperties out;
   out.persistent = persistent;
@@ -805,34 +754,21 @@ bool ConnectProperties::Populate(
 }
 
 // static
-std::unique_ptr<ConnectProperties> ConnectProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ConnectProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ConnectProperties> ConnectProperties::FromValue(const base::Value::Dict& value) {
+  ConnectProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ConnectProperties> ConnectProperties::FromValue(const base::Value::Dict& value) {
+std::optional<ConnectProperties> ConnectProperties::FromValue(const base::Value& value) {
   ConnectProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ConnectProperties> ConnectProperties::FromValue(const base::Value& value) {
-  ConnectProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -851,8 +787,8 @@ NotificationProperties::NotificationProperties()
 : persistent(false) {}
 
 NotificationProperties::~NotificationProperties() = default;
-NotificationProperties::NotificationProperties(NotificationProperties&& rhs) = default;
-NotificationProperties& NotificationProperties::operator=(NotificationProperties&& rhs) = default;
+NotificationProperties::NotificationProperties(NotificationProperties&& rhs) noexcept = default;
+NotificationProperties& NotificationProperties::operator=(NotificationProperties&& rhs) noexcept = default;
 NotificationProperties NotificationProperties::Clone() const {
   NotificationProperties out;
   out.persistent = persistent;
@@ -887,34 +823,21 @@ bool NotificationProperties::Populate(
 }
 
 // static
-std::unique_ptr<NotificationProperties> NotificationProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NotificationProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NotificationProperties> NotificationProperties::FromValue(const base::Value::Dict& value) {
+  NotificationProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NotificationProperties> NotificationProperties::FromValue(const base::Value::Dict& value) {
+std::optional<NotificationProperties> NotificationProperties::FromValue(const base::Value& value) {
   NotificationProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NotificationProperties> NotificationProperties::FromValue(const base::Value& value) {
-  NotificationProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -933,8 +856,8 @@ ManufacturerData::ManufacturerData()
 : id(0) {}
 
 ManufacturerData::~ManufacturerData() = default;
-ManufacturerData::ManufacturerData(ManufacturerData&& rhs) = default;
-ManufacturerData& ManufacturerData::operator=(ManufacturerData&& rhs) = default;
+ManufacturerData::ManufacturerData(ManufacturerData&& rhs) noexcept = default;
+ManufacturerData& ManufacturerData::operator=(ManufacturerData&& rhs) noexcept = default;
 ManufacturerData ManufacturerData::Clone() const {
   ManufacturerData out;
   out.id = id;
@@ -985,34 +908,21 @@ bool ManufacturerData::Populate(
 }
 
 // static
-std::unique_ptr<ManufacturerData> ManufacturerData::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ManufacturerData>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ManufacturerData> ManufacturerData::FromValue(const base::Value::Dict& value) {
+  ManufacturerData out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ManufacturerData> ManufacturerData::FromValue(const base::Value::Dict& value) {
+std::optional<ManufacturerData> ManufacturerData::FromValue(const base::Value& value) {
   ManufacturerData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ManufacturerData> ManufacturerData::FromValue(const base::Value& value) {
-  ManufacturerData out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1033,8 +943,8 @@ ServiceData::ServiceData()
  {}
 
 ServiceData::~ServiceData() = default;
-ServiceData::ServiceData(ServiceData&& rhs) = default;
-ServiceData& ServiceData::operator=(ServiceData&& rhs) = default;
+ServiceData::ServiceData(ServiceData&& rhs) noexcept = default;
+ServiceData& ServiceData::operator=(ServiceData&& rhs) noexcept = default;
 ServiceData ServiceData::Clone() const {
   ServiceData out;
   out.uuid = uuid;
@@ -1085,34 +995,21 @@ bool ServiceData::Populate(
 }
 
 // static
-std::unique_ptr<ServiceData> ServiceData::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ServiceData>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ServiceData> ServiceData::FromValue(const base::Value::Dict& value) {
+  ServiceData out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ServiceData> ServiceData::FromValue(const base::Value::Dict& value) {
+std::optional<ServiceData> ServiceData::FromValue(const base::Value& value) {
   ServiceData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ServiceData> ServiceData::FromValue(const base::Value& value) {
-  ServiceData out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1133,8 +1030,8 @@ Advertisement::Advertisement()
 : type() {}
 
 Advertisement::~Advertisement() = default;
-Advertisement::Advertisement(Advertisement&& rhs) = default;
-Advertisement& Advertisement::operator=(Advertisement&& rhs) = default;
+Advertisement::Advertisement(Advertisement&& rhs) noexcept = default;
+Advertisement& Advertisement::operator=(Advertisement&& rhs) noexcept = default;
 Advertisement Advertisement::Clone() const {
   Advertisement out;
   out.type = type;
@@ -1244,34 +1141,21 @@ bool Advertisement::Populate(
 }
 
 // static
-std::unique_ptr<Advertisement> Advertisement::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Advertisement>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Advertisement> Advertisement::FromValue(const base::Value::Dict& value) {
+  Advertisement out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Advertisement> Advertisement::FromValue(const base::Value::Dict& value) {
+std::optional<Advertisement> Advertisement::FromValue(const base::Value& value) {
   Advertisement out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Advertisement> Advertisement::FromValue(const base::Value& value) {
-  Advertisement out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1306,8 +1190,8 @@ Request::Request()
 : request_id(0) {}
 
 Request::~Request() = default;
-Request::Request(Request&& rhs) = default;
-Request& Request::operator=(Request&& rhs) = default;
+Request::Request(Request&& rhs) noexcept = default;
+Request& Request::operator=(Request&& rhs) noexcept = default;
 Request Request::Clone() const {
   Request out;
   out.request_id = request_id;
@@ -1369,34 +1253,21 @@ bool Request::Populate(
 }
 
 // static
-std::unique_ptr<Request> Request::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Request>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Request> Request::FromValue(const base::Value::Dict& value) {
+  Request out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Request> Request::FromValue(const base::Value::Dict& value) {
+std::optional<Request> Request::FromValue(const base::Value& value) {
   Request out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Request> Request::FromValue(const base::Value& value) {
-  Request out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1422,8 +1293,8 @@ Response::Response()
 is_error(false) {}
 
 Response::~Response() = default;
-Response::Response(Response&& rhs) = default;
-Response& Response::operator=(Response&& rhs) = default;
+Response::Response(Response&& rhs) noexcept = default;
+Response& Response::operator=(Response&& rhs) noexcept = default;
 Response Response::Clone() const {
   Response out;
   out.request_id = request_id;
@@ -1484,34 +1355,21 @@ bool Response::Populate(
 }
 
 // static
-std::unique_ptr<Response> Response::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Response>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Response> Response::FromValue(const base::Value::Dict& value) {
+  Response out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Response> Response::FromValue(const base::Value::Dict& value) {
+std::optional<Response> Response::FromValue(const base::Value& value) {
   Response out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Response> Response::FromValue(const base::Value& value) {
-  Response out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1536,8 +1394,8 @@ Notification::Notification()
  {}
 
 Notification::~Notification() = default;
-Notification::Notification(Notification&& rhs) = default;
-Notification& Notification::operator=(Notification&& rhs) = default;
+Notification::Notification(Notification&& rhs) noexcept = default;
+Notification& Notification::operator=(Notification&& rhs) noexcept = default;
 Notification Notification::Clone() const {
   Notification out;
   out.value = value;
@@ -1566,7 +1424,7 @@ bool Notification::Populate(
     {
       auto temp = (*should_indicate_value).GetIfBool();
       if (!temp.has_value()) {
-        out.should_indicate = absl::nullopt;
+        out.should_indicate = std::nullopt;
         return false;
       }
       out.should_indicate = *temp;
@@ -1586,34 +1444,21 @@ bool Notification::Populate(
 }
 
 // static
-std::unique_ptr<Notification> Notification::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Notification>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Notification> Notification::FromValue(const base::Value::Dict& value) {
+  Notification out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Notification> Notification::FromValue(const base::Value::Dict& value) {
+std::optional<Notification> Notification::FromValue(const base::Value& value) {
   Notification out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Notification> Notification::FromValue(const base::Value& value) {
-  Notification out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1641,13 +1486,13 @@ namespace Connect {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1657,13 +1502,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = device_address_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.device_address = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1671,12 +1516,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[1];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         ConnectProperties temp;
         if (!ConnectProperties::Populate(properties_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.properties = std::move(temp);
       }
     }
@@ -1697,13 +1542,13 @@ namespace Disconnect {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1713,13 +1558,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = device_address_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.device_address = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1737,13 +1582,13 @@ namespace GetService {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1753,13 +1598,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = service_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.service_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1779,13 +1624,13 @@ namespace CreateService {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1794,15 +1639,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& service_value = args[0];
     {
       if (!service_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Service::Populate(service_value.GetDict(), params.service)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1822,13 +1667,13 @@ namespace GetServices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1838,13 +1683,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = device_address_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.device_address = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1864,13 +1709,13 @@ namespace GetCharacteristic {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1880,13 +1725,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = characteristic_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.characteristic_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1906,13 +1751,13 @@ namespace CreateCharacteristic {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1921,15 +1766,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& characteristic_value = args[0];
     {
       if (!characteristic_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Characteristic::Populate(characteristic_value.GetDict(), params.characteristic)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1938,13 +1783,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = service_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.service_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1964,13 +1809,13 @@ namespace GetCharacteristics {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1980,13 +1825,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = service_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.service_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2006,13 +1851,13 @@ namespace GetIncludedServices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2022,13 +1867,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = service_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.service_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2048,13 +1893,13 @@ namespace GetDescriptor {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2064,13 +1909,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = descriptor_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.descriptor_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2090,13 +1935,13 @@ namespace CreateDescriptor {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2105,15 +1950,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& descriptor_value = args[0];
     {
       if (!descriptor_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Descriptor::Populate(descriptor_value.GetDict(), params.descriptor)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2122,13 +1967,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = characteristic_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.characteristic_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2148,13 +1993,13 @@ namespace GetDescriptors {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2164,13 +2009,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = characteristic_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.characteristic_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2190,13 +2035,13 @@ namespace ReadCharacteristicValue {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2206,13 +2051,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = characteristic_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.characteristic_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2232,13 +2077,13 @@ namespace WriteCharacteristicValue {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2248,13 +2093,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = characteristic_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.characteristic_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2262,7 +2107,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& value_value = args[1];
     {
       if (!value_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.value = value_value.GetBlob();
@@ -2270,7 +2115,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2288,13 +2133,13 @@ namespace StartCharacteristicNotifications {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2304,13 +2149,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = characteristic_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.characteristic_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2318,12 +2163,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& properties_value = args[1];
     {
       if (!properties_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         NotificationProperties temp;
         if (!NotificationProperties::Populate(properties_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.properties = std::move(temp);
       }
     }
@@ -2344,13 +2189,13 @@ namespace StopCharacteristicNotifications {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2360,13 +2205,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = characteristic_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.characteristic_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2384,13 +2229,13 @@ namespace NotifyCharacteristicValueChanged {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2400,13 +2245,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = characteristic_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.characteristic_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2414,15 +2259,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& notification_value = args[1];
     {
       if (!notification_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Notification::Populate(notification_value.GetDict(), params.notification)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2440,13 +2285,13 @@ namespace ReadDescriptorValue {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2456,13 +2301,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = descriptor_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.descriptor_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2482,13 +2327,13 @@ namespace WriteDescriptorValue {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2498,13 +2343,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = descriptor_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.descriptor_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2512,7 +2357,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& value_value = args[1];
     {
       if (!value_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.value = value_value.GetBlob();
@@ -2520,7 +2365,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2538,13 +2383,13 @@ namespace RegisterService {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2554,13 +2399,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = service_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.service_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2578,13 +2423,13 @@ namespace UnregisterService {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2594,13 +2439,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = service_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.service_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2618,13 +2463,13 @@ namespace RemoveService {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2634,13 +2479,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = service_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.service_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2658,13 +2503,13 @@ namespace RegisterAdvertisement {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2673,15 +2518,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& advertisement_value = args[0];
     {
       if (!advertisement_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Advertisement::Populate(advertisement_value.GetDict(), params.advertisement)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2701,13 +2546,13 @@ namespace UnregisterAdvertisement {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2717,13 +2562,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = advertisement_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.advertisement_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2750,13 +2595,13 @@ namespace SetAdvertisingInterval {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2766,13 +2611,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = min_interval_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.min_interval = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2781,13 +2626,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = max_interval_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.max_interval = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2805,13 +2650,13 @@ namespace SendRequestResponse {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2820,15 +2665,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& response_value = args[0];
     {
       if (!response_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Response::Populate(response_value.GetDict(), params.response)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

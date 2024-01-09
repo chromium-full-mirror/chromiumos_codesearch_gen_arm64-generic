@@ -21,6 +21,34 @@
   var exports = mojo.internal.exposeNamespace('blink.test.mojom');
 
 
+  var DialogButton = {};
+  DialogButton.kConfirmIdpLoginContinue = 0;
+  DialogButton.kErrorGotIt = 1;
+  DialogButton.kErrorMoreDetails = 2;
+  DialogButton.MIN_VALUE = 0;
+  DialogButton.MAX_VALUE = 2;
+
+  DialogButton.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    }
+    return false;
+  };
+
+  DialogButton.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  DialogButton.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
 
   function FederatedAuthRequestAutomation_GetDialogType_Params(values) {
     this.initDefaults_();
@@ -465,69 +493,87 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function FederatedAuthRequestAutomation_ConfirmIdpLogin_Params(values) {
+  function FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_Params.prototype.initDefaults_ = function() {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params.prototype.initDefaults_ = function() {
+    this.dialogButton = 0;
   };
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_Params.prototype.initFields_ = function(fields) {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_Params.validate = function(messageValidator, offset) {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params.dialogButton
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, DialogButton);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_Params.encodedSize = codec.kStructHeaderSize + 0;
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_Params.decode = function(decoder) {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params.decode = function(decoder) {
     var packed;
-    var val = new FederatedAuthRequestAutomation_ConfirmIdpLogin_Params();
+    var val = new FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    val.dialogButton =
+        decoder.decodeStruct(new codec.Enum(DialogButton));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     return val;
   };
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_Params.encode = function(encoder, val) {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(FederatedAuthRequestAutomation_ConfirmIdpLogin_Params.encodedSize);
+    encoder.writeUint32(FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params.encodedSize);
     encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.dialogButton);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
   };
-  function FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams(values) {
+  function FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams.prototype.initDefaults_ = function() {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams.prototype.initDefaults_ = function() {
     this.success = false;
   };
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams.prototype.initFields_ = function(fields) {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams.validate = function(messageValidator, offset) {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -544,11 +590,11 @@
     return validator.validationError.NONE;
   };
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams.decode = function(decoder) {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams.decode = function(decoder) {
     var packed;
-    var val = new FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams();
+    var val = new FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     packed = decoder.readUint8();
@@ -563,9 +609,9 @@
     return val;
   };
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams.encode = function(encoder, val) {
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams.encodedSize);
+    encoder.writeUint32(FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams.encodedSize);
     encoder.writeUint32(0);
     packed = 0;
     packed |= (val.success & 1) << 0
@@ -582,7 +628,7 @@
   var kFederatedAuthRequestAutomation_GetFedCmDialogTitle_Name = 1;
   var kFederatedAuthRequestAutomation_SelectFedCmAccount_Name = 2;
   var kFederatedAuthRequestAutomation_DismissFedCmDialog_Name = 3;
-  var kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name = 4;
+  var kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name = 4;
 
   function FederatedAuthRequestAutomationPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(FederatedAuthRequestAutomation,
@@ -699,24 +745,25 @@
       });
     }.bind(this));
   };
-  FederatedAuthRequestAutomationPtr.prototype.confirmIdpLogin = function() {
-    return FederatedAuthRequestAutomationProxy.prototype.confirmIdpLogin
+  FederatedAuthRequestAutomationPtr.prototype.clickFedCmDialogButton = function() {
+    return FederatedAuthRequestAutomationProxy.prototype.clickFedCmDialogButton
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  FederatedAuthRequestAutomationProxy.prototype.confirmIdpLogin = function() {
-    var params_ = new FederatedAuthRequestAutomation_ConfirmIdpLogin_Params();
+  FederatedAuthRequestAutomationProxy.prototype.clickFedCmDialogButton = function(dialogButton) {
+    var params_ = new FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params();
+    params_.dialogButton = dialogButton;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
-          kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name,
-          codec.align(FederatedAuthRequestAutomation_ConfirmIdpLogin_Params.encodedSize),
+          kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name,
+          codec.align(FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params.encodedSize),
           codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(FederatedAuthRequestAutomation_ConfirmIdpLogin_Params, params_);
+      builder.encodeStruct(FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params, params_);
       var message = builder.finish();
       this.receiver_.acceptAndExpectResponse(message).then(function(message) {
         var reader = new codec.MessageReader(message);
         var responseParams =
-            reader.decodeStruct(FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams);
+            reader.decodeStruct(FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams);
         resolve(responseParams);
       }).catch(function(result) {
         reject(Error("Connection error: " + result));
@@ -739,8 +786,8 @@
   FederatedAuthRequestAutomationStub.prototype.dismissFedCmDialog = function() {
     return this.delegate_ && this.delegate_.dismissFedCmDialog && this.delegate_.dismissFedCmDialog();
   }
-  FederatedAuthRequestAutomationStub.prototype.confirmIdpLogin = function() {
-    return this.delegate_ && this.delegate_.confirmIdpLogin && this.delegate_.confirmIdpLogin();
+  FederatedAuthRequestAutomationStub.prototype.clickFedCmDialogButton = function(dialogButton) {
+    return this.delegate_ && this.delegate_.clickFedCmDialogButton && this.delegate_.clickFedCmDialogButton(dialogButton);
   }
 
   FederatedAuthRequestAutomationStub.prototype.accept = function(message) {
@@ -819,17 +866,17 @@
         responder.accept(message);
       });
       return true;
-    case kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name:
-      var params = reader.decodeStruct(FederatedAuthRequestAutomation_ConfirmIdpLogin_Params);
-      this.confirmIdpLogin().then(function(response) {
+    case kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name:
+      var params = reader.decodeStruct(FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params);
+      this.clickFedCmDialogButton(params.dialogButton).then(function(response) {
         var responseParams =
-            new FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams();
+            new FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams();
         responseParams.success = response.success;
         var builder = new codec.MessageV1Builder(
-            kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name,
-            codec.align(FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams.encodedSize),
+            kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name,
+            codec.align(FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams.encodedSize),
             codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams,
+        builder.encodeStruct(FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams,
                              responseParams);
         var message = builder.finish();
         responder.accept(message);
@@ -860,9 +907,9 @@
         if (message.expectsResponse())
           paramsClass = FederatedAuthRequestAutomation_DismissFedCmDialog_Params;
       break;
-      case kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name:
+      case kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name:
         if (message.expectsResponse())
-          paramsClass = FederatedAuthRequestAutomation_ConfirmIdpLogin_Params;
+          paramsClass = FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params;
       break;
     }
     if (paramsClass === null)
@@ -890,9 +937,9 @@
         if (message.isResponse())
           paramsClass = FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParams;
         break;
-      case kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name:
+      case kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name:
         if (message.isResponse())
-          paramsClass = FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams;
+          paramsClass = FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams;
         break;
     }
     if (paramsClass === null)
@@ -911,6 +958,7 @@
   };
   FederatedAuthRequestAutomationStub.prototype.validator = validateFederatedAuthRequestAutomationRequest;
   FederatedAuthRequestAutomationProxy.prototype.validator = validateFederatedAuthRequestAutomationResponse;
+  exports.DialogButton = DialogButton;
   exports.FederatedAuthRequestAutomation = FederatedAuthRequestAutomation;
   exports.FederatedAuthRequestAutomationPtr = FederatedAuthRequestAutomationPtr;
   exports.FederatedAuthRequestAutomationAssociatedPtr = FederatedAuthRequestAutomationAssociatedPtr;

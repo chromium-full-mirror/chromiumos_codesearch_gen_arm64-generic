@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TextMetrics>::value,
     "TextMetrics inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TextMetrics::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TextMetrics is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -103,7 +99,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->advances();
 if (!ToV8Traits<IDLArray<IDLDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -119,8 +116,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.actualBoundingBoxLeft.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->actualBoundingBoxLeft();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -133,8 +131,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.actualBoundingBoxRight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->actualBoundingBoxRight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -147,8 +146,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.fontBoundingBoxAscent.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fontBoundingBoxAscent();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -161,8 +161,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.fontBoundingBoxDescent.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fontBoundingBoxDescent();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -175,8 +176,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.actualBoundingBoxAscent.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->actualBoundingBoxAscent();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -189,8 +191,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.actualBoundingBoxDescent.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->actualBoundingBoxDescent();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -203,8 +206,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.hangingBaseline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hangingBaseline();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -217,8 +221,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.alphabeticBaseline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->alphabeticBaseline();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -231,8 +236,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.ideographicBaseline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ideographicBaseline();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -245,8 +251,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.emHeightAscent.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->emHeightAscent();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -259,8 +266,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextMetrics.emHeightDescent.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(v8_receiver);
+TextMetrics* blink_receiver = V8TextMetrics::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->emHeightDescent();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }

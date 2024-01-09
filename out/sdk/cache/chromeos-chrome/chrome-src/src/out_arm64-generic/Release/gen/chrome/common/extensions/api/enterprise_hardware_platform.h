@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct HardwarePlatformInfo {
   ~HardwarePlatformInfo();
   HardwarePlatformInfo(const HardwarePlatformInfo&) = delete;
   HardwarePlatformInfo& operator=(const HardwarePlatformInfo&) = delete;
-  HardwarePlatformInfo(HardwarePlatformInfo&& rhs);
-  HardwarePlatformInfo& operator=(HardwarePlatformInfo&& rhs);
+  HardwarePlatformInfo(HardwarePlatformInfo&& rhs) noexcept;
+  HardwarePlatformInfo& operator=(HardwarePlatformInfo&& rhs) noexcept;
 
   // Populates a HardwarePlatformInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -46,17 +47,13 @@ struct HardwarePlatformInfo {
   // Creates a deep copy of HardwarePlatformInfo.
   HardwarePlatformInfo Clone() const;
 
-  // Creates a HardwarePlatformInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<HardwarePlatformInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a HardwarePlatformInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<HardwarePlatformInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<HardwarePlatformInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a HardwarePlatformInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<HardwarePlatformInfo> FromValue(const base::Value& value);
+  static std::optional<HardwarePlatformInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHardwarePlatformInfo object.

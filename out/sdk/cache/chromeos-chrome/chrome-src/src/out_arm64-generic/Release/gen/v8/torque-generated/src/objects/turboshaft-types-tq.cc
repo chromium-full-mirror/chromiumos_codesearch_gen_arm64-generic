@@ -6,7 +6,7 @@
 namespace v8 {
 namespace internal {
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=13&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=17&c=1
 bool IsTurboshaftType_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftType(o);
 }
@@ -20,7 +20,7 @@ void TorqueGeneratedTurboshaftType<TurboshaftType, HeapObject>::TurboshaftTypeVe
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=16&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=20&c=1
 bool IsTurboshaftWord32Type_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftWord32Type(o);
 }
@@ -34,7 +34,7 @@ void TorqueGeneratedTurboshaftWord32Type<TurboshaftWord32Type, TurboshaftType>::
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=21&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=25&c=1
 bool IsTurboshaftWord32RangeType_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftWord32RangeType(o);
 }
@@ -48,7 +48,7 @@ void TorqueGeneratedTurboshaftWord32RangeType<TurboshaftWord32RangeType, Turbosh
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=29&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=33&c=1
 bool IsTurboshaftWord32SetType_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftWord32SetType(o);
 }
@@ -62,7 +62,7 @@ void TorqueGeneratedTurboshaftWord32SetType<TurboshaftWord32SetType, TurboshaftW
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=37&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=41&c=1
 bool IsTurboshaftWord64Type_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftWord64Type(o);
 }
@@ -76,7 +76,7 @@ void TorqueGeneratedTurboshaftWord64Type<TurboshaftWord64Type, TurboshaftType>::
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=42&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=46&c=1
 bool IsTurboshaftWord64RangeType_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftWord64RangeType(o);
 }
@@ -90,7 +90,7 @@ void TorqueGeneratedTurboshaftWord64RangeType<TurboshaftWord64RangeType, Turbosh
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=52&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=56&c=1
 bool IsTurboshaftWord64SetType_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftWord64SetType(o);
 }
@@ -104,7 +104,7 @@ void TorqueGeneratedTurboshaftWord64SetType<TurboshaftWord64SetType, TurboshaftW
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=61&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=65&c=1
 bool IsTurboshaftFloat64Type_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftFloat64Type(o);
 }
@@ -118,7 +118,7 @@ void TorqueGeneratedTurboshaftFloat64Type<TurboshaftFloat64Type, TurboshaftType>
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=68&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=72&c=1
 bool IsTurboshaftFloat64RangeType_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftFloat64RangeType(o);
 }
@@ -132,7 +132,7 @@ void TorqueGeneratedTurboshaftFloat64RangeType<TurboshaftFloat64RangeType, Turbo
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=77&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=81&c=1
 bool IsTurboshaftFloat64SetType_NonInline(Tagged<HeapObject> o) {
   return IsTurboshaftFloat64SetType(o);
 }

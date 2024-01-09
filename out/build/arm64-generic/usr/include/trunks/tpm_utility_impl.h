@@ -51,7 +51,6 @@ class TRUNKS_EXPORT TpmUtilityImpl : public TpmUtility {
   TPM_RC CheckState() override;
   TPM_RC InitializeTpm() override;
   TPM_RC AllocatePCR(const std::string& platform_password) override;
-  TPM_RC PrepareForPinWeaver() override;
   TPM_RC PrepareForOwnership() override;
   TPM_RC TakeOwnership(const std::string& owner_password,
                        const std::string& endorsement_password,
@@ -66,10 +65,7 @@ class TRUNKS_EXPORT TpmUtilityImpl : public TpmUtility {
   TPM_RC ExtendPCR(int pcr_index,
                    const std::string& extend_data,
                    AuthorizationDelegate* delegate) override;
-  TPM_RC ExtendPCRForCSME(int pcr_index,
-                          const std::string& extend_data) override;
   TPM_RC ReadPCR(int pcr_index, std::string* pcr_value) override;
-  TPM_RC ReadPCRFromCSME(int pcr_index, std::string* pcr_value) override;
   TPM_RC AsymmetricEncrypt(TPM_HANDLE key_handle,
                            TPM_ALG_ID scheme,
                            TPM_ALG_ID hash_alg,
@@ -379,6 +375,8 @@ class TRUNKS_EXPORT TpmUtilityImpl : public TpmUtility {
                    const brillo::Blob& data,
                    brillo::Blob* sig_r,
                    brillo::Blob* sig_s) override;
+  TPM_RC U2fGetFipsStatus(bool* is_active) override;
+  TPM_RC ActivateFips() override;
   TPM_RC GetRsuDeviceId(std::string* device_id) override;
   TPM_RC GetRoVerificationStatus(ap_ro_status* status) override;
 
@@ -388,14 +386,13 @@ class TRUNKS_EXPORT TpmUtilityImpl : public TpmUtility {
 
   TPM_RC CreateSaltingKey(TPM_HANDLE* key, TPM2B_NAME* key_name) override;
 
-  TPM_RC GetTi50Stats(uint32_t* fs_init_time,
-                      uint32_t* fs_size,
-                      uint32_t* aprov_time,
-                      uint32_t* aprov_status) override;
+  TPM_RC GetTi50Stats(Ti50Stats* stats) override;
 
   TPM_RC GetRwVersion(uint32_t* epoch,
                       uint32_t* major,
                       uint32_t* minor) override;
+
+  TPM_RC GetConsoleLogs(std::string* logs) override;
 
  private:
   friend class TpmUtilityTest;
@@ -411,16 +408,8 @@ class TRUNKS_EXPORT TpmUtilityImpl : public TpmUtility {
     kUnknown,
     kNotSupported,
     kGsc,
-    kCsme,
   };
   PinWeaverBackendType pinweaver_backend_type_ = PinWeaverBackendType::kUnknown;
-
-  // Creates the CSME salting key and calls `InitOwner()` API of CSME to
-  // initialize the necessary TPM resources for pinweaver-csme. Returns
-  // `TPM_RC_SUCCESS` if the operations succeed; otherwise, return
-  // `TPM_RC_FAILURE`. If the pinweaver is supported natively by GCS (e.g.,
-  // cr50, ti50), performs no-ops and return `TPM_RC_SUCCESS`.
-  TPM_RC InitializeOwnerForCsme();
 
   // This methods sets the well-known owner authorization and creates SRK and
   // the salting key with it. Only succeeds if owner authorization was not set
@@ -442,10 +431,6 @@ class TRUNKS_EXPORT TpmUtilityImpl : public TpmUtility {
   // sessions. This method also makes the salting key permanent under the
   // storage hierarchy.
   TPM_RC CreatePersistentSaltingKey(const std::string& owner_password);
-
-  // Creates and persists the salting key for CSME. If the key is already
-  // persisted, performs no-ops.
-  TPM_RC CreateCsmeSaltingKey();
 
   // This method returns a partially filled TPMT_PUBLIC structure,
   // which can then be modified by other methods to create the public
@@ -583,9 +568,6 @@ class TRUNKS_EXPORT TpmUtilityImpl : public TpmUtility {
 
   // Obrains RSU device id from GSC.
   TPM_RC GetRsuDeviceIdInternal(std::string* device_id);
-
-  // Sends pinweaver command to CSME instead of GSC.
-  TPM_RC PinWeaverCsmeCommand(const std::string& in, std::string* out);
 
   PinWeaverBackendType GetPinwWeaverBackendType();
 

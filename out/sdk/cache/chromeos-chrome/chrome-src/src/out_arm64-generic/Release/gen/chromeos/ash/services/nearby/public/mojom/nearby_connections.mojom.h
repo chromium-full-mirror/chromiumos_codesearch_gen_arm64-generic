@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,9 +23,11 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/nearby_connections.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections.mojom-forward.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections_types.mojom-forward.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom-forward.h"
 #include "mojo/public/mojom/base/file.mojom.h"
 #include "mojo/public/mojom/base/read_only_file.mojom.h"
 #include <string>
@@ -218,6 +220,96 @@ class PayloadListener
   virtual void OnPayloadTransferUpdate(const std::string& endpoint_id, ::nearby::connections::mojom::PayloadTransferUpdatePtr update) = 0;
 };
 
+class ConnectionListenerV3Proxy;
+
+template <typename ImplRefTraits>
+class ConnectionListenerV3Stub;
+
+class ConnectionListenerV3RequestValidator;
+
+
+class ConnectionListenerV3
+    : public ConnectionListenerV3InterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = ConnectionListenerV3InterfaceBase;
+  using Proxy_ = ConnectionListenerV3Proxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = ConnectionListenerV3Stub<ImplRefTraits>;
+
+  using RequestValidator_ = ConnectionListenerV3RequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnConnectionInitiatedMinVersion = 0,
+    kOnDisconnectedMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnConnectionInitiated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnDisconnected_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~ConnectionListenerV3() = default;
+
+  
+  virtual void OnConnectionInitiated(::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::InitialConnectionInfoV3Ptr info) = 0;
+
+  
+  virtual void OnDisconnected(::ash::nearby::presence::mojom::PresenceDevicePtr remote_device) = 0;
+};
+
+class PayloadListenerV3Proxy;
+
+template <typename ImplRefTraits>
+class PayloadListenerV3Stub;
+
+class PayloadListenerV3RequestValidator;
+
+
+class PayloadListenerV3
+    : public PayloadListenerV3InterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = PayloadListenerV3InterfaceBase;
+  using Proxy_ = PayloadListenerV3Proxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = PayloadListenerV3Stub<ImplRefTraits>;
+
+  using RequestValidator_ = PayloadListenerV3RequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~PayloadListenerV3() = default;
+};
+
 class NearbyConnectionsProxy;
 
 template <typename ImplRefTraits>
@@ -262,6 +354,10 @@ class NearbyConnections
     kStopAllEndpointsMinVersion = 0,
     kInitiateBandwidthUpgradeMinVersion = 0,
     kRegisterPayloadFileMinVersion = 0,
+    kRequestConnectionV3MinVersion = 0,
+    kAcceptConnectionV3MinVersion = 0,
+    kRejectConnectionV3MinVersion = 0,
+    kDisconnectFromDeviceV3MinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -307,6 +403,18 @@ class NearbyConnections
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RegisterPayloadFile_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RequestConnectionV3_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct AcceptConnectionV3_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RejectConnectionV3_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct DisconnectFromDeviceV3_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -381,6 +489,26 @@ class NearbyConnections
   using RegisterPayloadFileCallback = base::OnceCallback<void(::nearby::connections::mojom::Status)>;
   
   virtual void RegisterPayloadFile(const std::string& service_id, int64_t payload_id, ::base::File input_file, ::base::File output_file, RegisterPayloadFileCallback callback) = 0;
+
+
+  using RequestConnectionV3Callback = base::OnceCallback<void(::nearby::connections::mojom::Status)>;
+  
+  virtual void RequestConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::ConnectionOptionsPtr connection_options, ::mojo::PendingRemote<ConnectionListenerV3> listener, RequestConnectionV3Callback callback) = 0;
+
+
+  using AcceptConnectionV3Callback = base::OnceCallback<void(::nearby::connections::mojom::Status)>;
+  
+  virtual void AcceptConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::mojo::PendingRemote<PayloadListenerV3> listener, AcceptConnectionV3Callback callback) = 0;
+
+
+  using RejectConnectionV3Callback = base::OnceCallback<void(::nearby::connections::mojom::Status)>;
+  
+  virtual void RejectConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, RejectConnectionV3Callback callback) = 0;
+
+
+  using DisconnectFromDeviceV3Callback = base::OnceCallback<void(::nearby::connections::mojom::Status)>;
+  
+  virtual void DisconnectFromDeviceV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, DisconnectFromDeviceV3Callback callback) = 0;
 };
 
 
@@ -442,6 +570,36 @@ class  PayloadListenerProxy
 
 
 
+class  ConnectionListenerV3Proxy
+    : public ConnectionListenerV3 {
+ public:
+  using InterfaceType = ConnectionListenerV3;
+
+  explicit ConnectionListenerV3Proxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnConnectionInitiated(::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::InitialConnectionInfoV3Ptr info) final;
+  
+  void OnDisconnected(::ash::nearby::presence::mojom::PresenceDevicePtr remote_device) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  PayloadListenerV3Proxy
+    : public PayloadListenerV3 {
+ public:
+  using InterfaceType = PayloadListenerV3;
+
+  explicit PayloadListenerV3Proxy(mojo::MessageReceiverWithResponder* receiver);
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  NearbyConnectionsProxy
     : public NearbyConnections {
  public:
@@ -476,6 +634,14 @@ class  NearbyConnectionsProxy
   void InitiateBandwidthUpgrade(const std::string& service_id, const std::string& endpoint_id, InitiateBandwidthUpgradeCallback callback) final;
   
   void RegisterPayloadFile(const std::string& service_id, int64_t payload_id, ::base::File input_file, ::base::File output_file, RegisterPayloadFileCallback callback) final;
+  
+  void RequestConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::nearby::connections::mojom::ConnectionOptionsPtr connection_options, ::mojo::PendingRemote<ConnectionListenerV3> listener, RequestConnectionV3Callback callback) final;
+  
+  void AcceptConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, ::mojo::PendingRemote<PayloadListenerV3> listener, AcceptConnectionV3Callback callback) final;
+  
+  void RejectConnectionV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, RejectConnectionV3Callback callback) final;
+  
+  void DisconnectFromDeviceV3(const std::string& service_id, ::ash::nearby::presence::mojom::PresenceDevicePtr remote_device, DisconnectFromDeviceV3Callback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -603,6 +769,88 @@ class PayloadListenerStub
  private:
   ImplPointerType sink_;
 };
+class  ConnectionListenerV3StubDispatch {
+ public:
+  static bool Accept(ConnectionListenerV3* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      ConnectionListenerV3* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<ConnectionListenerV3>>
+class ConnectionListenerV3Stub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  ConnectionListenerV3Stub() = default;
+  ~ConnectionListenerV3Stub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ConnectionListenerV3StubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ConnectionListenerV3StubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  PayloadListenerV3StubDispatch {
+ public:
+  static bool Accept(PayloadListenerV3* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      PayloadListenerV3* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<PayloadListenerV3>>
+class PayloadListenerV3Stub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  PayloadListenerV3Stub() = default;
+  ~PayloadListenerV3Stub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return PayloadListenerV3StubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return PayloadListenerV3StubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  NearbyConnectionsStubDispatch {
  public:
   static bool Accept(NearbyConnections* impl, mojo::Message* message);
@@ -653,6 +901,14 @@ class  ConnectionLifecycleListenerRequestValidator : public mojo::MessageReceive
   bool Accept(mojo::Message* message) override;
 };
 class  PayloadListenerRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  ConnectionListenerV3RequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  PayloadListenerV3RequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

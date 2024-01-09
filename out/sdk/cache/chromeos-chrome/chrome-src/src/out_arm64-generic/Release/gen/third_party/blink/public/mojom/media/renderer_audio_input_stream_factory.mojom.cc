@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -149,14 +150,17 @@ void RendererAudioInputStreamFactoryProxy::CreateStream(
                         "<value of type ::media::mojom::AudioProcessingConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererAudioInputStreamFactory_CreateStream_Name, kFlags, 0, 0, nullptr);
@@ -226,14 +230,17 @@ void RendererAudioInputStreamFactoryProxy::AssociateInputAndOutputForAec(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererAudioInputStreamFactory_AssociateInputAndOutputForAec_Name, kFlags, 0, 0, nullptr);
@@ -378,12 +385,12 @@ bool RendererAudioInputStreamFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRendererAudioInputStreamFactoryValidationInfo[] = {
-    {&internal::RendererAudioInputStreamFactory_CreateStream_Params_Data::Validate,
+    { &internal::RendererAudioInputStreamFactory_CreateStream_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RendererAudioInputStreamFactory_AssociateInputAndOutputForAec_Params_Data::Validate,
+    { &internal::RendererAudioInputStreamFactory_AssociateInputAndOutputForAec_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -452,7 +459,7 @@ RendererAudioInputStreamFactoryClientProxy::RendererAudioInputStreamFactoryClien
 }
 
 void RendererAudioInputStreamFactoryClientProxy::StreamCreated(
-    ::mojo::PendingRemote<::media::mojom::AudioInputStream> in_stream, ::mojo::PendingReceiver<::media::mojom::AudioInputStreamClient> in_client_request, ::media::mojom::ReadOnlyAudioDataPipePtr in_data_pipe, bool in_initially_muted, const absl::optional<::base::UnguessableToken>& in_stream_id) {
+    ::mojo::PendingRemote<::media::mojom::AudioInputStream> in_stream, ::mojo::PendingReceiver<::media::mojom::AudioInputStreamClient> in_client_request, ::media::mojom::ReadOnlyAudioDataPipePtr in_data_pipe, bool in_initially_muted, const std::optional<::base::UnguessableToken>& in_stream_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::RendererAudioInputStreamFactoryClient::StreamCreated", "input_parameters",
@@ -472,17 +479,20 @@ void RendererAudioInputStreamFactoryClientProxy::StreamCreated(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("stream_id"), in_stream_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRendererAudioInputStreamFactoryClient_StreamCreated_Name, kFlags, 0, 0, nullptr);
@@ -548,7 +558,7 @@ bool RendererAudioInputStreamFactoryClientStubDispatch::Accept(
       ::mojo::PendingReceiver<::media::mojom::AudioInputStreamClient> p_client_request{};
       ::media::mojom::ReadOnlyAudioDataPipePtr p_data_pipe{};
       bool p_initially_muted{};
-      absl::optional<::base::UnguessableToken> p_stream_id{};
+      std::optional<::base::UnguessableToken> p_stream_id{};
       RendererAudioInputStreamFactoryClient_StreamCreated_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -601,10 +611,10 @@ bool RendererAudioInputStreamFactoryClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRendererAudioInputStreamFactoryClientValidationInfo[] = {
-    {&internal::RendererAudioInputStreamFactoryClient_StreamCreated_Params_Data::Validate,
+    { &internal::RendererAudioInputStreamFactoryClient_StreamCreated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -644,7 +654,7 @@ RendererAudioInputStreamFactoryAsyncWaiter::~RendererAudioInputStreamFactoryAsyn
 
 
 
-void RendererAudioInputStreamFactoryClientInterceptorForTesting::StreamCreated(::mojo::PendingRemote<::media::mojom::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::AudioInputStreamClient> client_request, ::media::mojom::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const absl::optional<::base::UnguessableToken>& stream_id) {
+void RendererAudioInputStreamFactoryClientInterceptorForTesting::StreamCreated(::mojo::PendingRemote<::media::mojom::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::AudioInputStreamClient> client_request, ::media::mojom::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const std::optional<::base::UnguessableToken>& stream_id) {
   GetForwardingInterface()->StreamCreated(std::move(stream), std::move(client_request), std::move(data_pipe), std::move(initially_muted), std::move(stream_id));
 }
 RendererAudioInputStreamFactoryClientAsyncWaiter::RendererAudioInputStreamFactoryClientAsyncWaiter(

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,8 +49,8 @@ DocumentTiming::DocumentTiming()
       load_event_start() {}
 
 DocumentTiming::DocumentTiming(
-    absl::optional<::base::TimeDelta> dom_content_loaded_event_start_in,
-    absl::optional<::base::TimeDelta> load_event_start_in)
+    std::optional<::base::TimeDelta> dom_content_loaded_event_start_in,
+    std::optional<::base::TimeDelta> load_event_start_in)
     : dom_content_loaded_event_start(std::move(dom_content_loaded_event_start_in)),
       load_event_start(std::move(load_event_start_in)) {}
 
@@ -62,7 +63,7 @@ void DocumentTiming::WriteIntoTrace(
     dict.AddItem(
       "dom_content_loaded_event_start"), this->dom_content_loaded_event_start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -71,7 +72,7 @@ void DocumentTiming::WriteIntoTrace(
     dict.AddItem(
       "load_event_start"), this->load_event_start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -99,12 +100,12 @@ LargestContentfulPaintTiming::LargestContentfulPaintTiming()
       is_preloaded_with_early_hints(false) {}
 
 LargestContentfulPaintTiming::LargestContentfulPaintTiming(
-    absl::optional<::base::TimeDelta> largest_image_paint_in,
-    absl::optional<::base::TimeDelta> largest_image_discovery_time_in,
-    absl::optional<::base::TimeDelta> largest_image_load_start_in,
-    absl::optional<::base::TimeDelta> largest_image_load_end_in,
+    std::optional<::base::TimeDelta> largest_image_paint_in,
+    std::optional<::base::TimeDelta> largest_image_discovery_time_in,
+    std::optional<::base::TimeDelta> largest_image_load_start_in,
+    std::optional<::base::TimeDelta> largest_image_load_end_in,
     uint64_t largest_image_paint_size_in,
-    absl::optional<::base::TimeDelta> largest_text_paint_in,
+    std::optional<::base::TimeDelta> largest_text_paint_in,
     uint64_t largest_text_paint_size_in,
     uint64_t type_in,
     double image_bpp_in,
@@ -135,7 +136,7 @@ void LargestContentfulPaintTiming::WriteIntoTrace(
     dict.AddItem(
       "largest_image_paint"), this->largest_image_paint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -144,7 +145,7 @@ void LargestContentfulPaintTiming::WriteIntoTrace(
     dict.AddItem(
       "largest_image_discovery_time"), this->largest_image_discovery_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -153,7 +154,7 @@ void LargestContentfulPaintTiming::WriteIntoTrace(
     dict.AddItem(
       "largest_image_load_start"), this->largest_image_load_start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -162,7 +163,7 @@ void LargestContentfulPaintTiming::WriteIntoTrace(
     dict.AddItem(
       "largest_image_load_end"), this->largest_image_load_end,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -180,7 +181,7 @@ void LargestContentfulPaintTiming::WriteIntoTrace(
     dict.AddItem(
       "largest_text_paint"), this->largest_text_paint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -267,15 +268,15 @@ PaintTiming::PaintTiming()
       portal_activated_paint() {}
 
 PaintTiming::PaintTiming(
-    absl::optional<::base::TimeDelta> first_paint_in,
-    absl::optional<::base::TimeDelta> first_image_paint_in,
-    absl::optional<::base::TimeDelta> first_contentful_paint_in,
-    absl::optional<::base::TimeDelta> first_meaningful_paint_in,
+    std::optional<::base::TimeDelta> first_paint_in,
+    std::optional<::base::TimeDelta> first_image_paint_in,
+    std::optional<::base::TimeDelta> first_contentful_paint_in,
+    std::optional<::base::TimeDelta> first_meaningful_paint_in,
     LargestContentfulPaintTimingPtr largest_contentful_paint_in,
     LargestContentfulPaintTimingPtr experimental_largest_contentful_paint_in,
-    absl::optional<::base::TimeDelta> first_eligible_to_paint_in,
-    absl::optional<::base::TimeDelta> first_input_or_scroll_notified_timestamp_in,
-    absl::optional<::base::TimeTicks> portal_activated_paint_in)
+    std::optional<::base::TimeDelta> first_eligible_to_paint_in,
+    std::optional<::base::TimeDelta> first_input_or_scroll_notified_timestamp_in,
+    std::optional<::base::TimeTicks> portal_activated_paint_in)
     : first_paint(std::move(first_paint_in)),
       first_image_paint(std::move(first_image_paint_in)),
       first_contentful_paint(std::move(first_contentful_paint_in)),
@@ -295,7 +296,7 @@ void PaintTiming::WriteIntoTrace(
     dict.AddItem(
       "first_paint"), this->first_paint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -304,7 +305,7 @@ void PaintTiming::WriteIntoTrace(
     dict.AddItem(
       "first_image_paint"), this->first_image_paint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -313,7 +314,7 @@ void PaintTiming::WriteIntoTrace(
     dict.AddItem(
       "first_contentful_paint"), this->first_contentful_paint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -322,7 +323,7 @@ void PaintTiming::WriteIntoTrace(
     dict.AddItem(
       "first_meaningful_paint"), this->first_meaningful_paint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -349,7 +350,7 @@ void PaintTiming::WriteIntoTrace(
     dict.AddItem(
       "first_eligible_to_paint"), this->first_eligible_to_paint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -358,7 +359,7 @@ void PaintTiming::WriteIntoTrace(
     dict.AddItem(
       "first_input_or_scroll_notified_timestamp"), this->first_input_or_scroll_notified_timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -367,7 +368,7 @@ void PaintTiming::WriteIntoTrace(
     dict.AddItem(
       "portal_activated_paint"), this->portal_activated_paint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeTicks>>"
+      "<value of type std::optional<::base::TimeTicks>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -388,12 +389,12 @@ ParseTiming::ParseTiming()
       parse_blocked_on_script_execution_from_document_write_duration() {}
 
 ParseTiming::ParseTiming(
-    absl::optional<::base::TimeDelta> parse_start_in,
-    absl::optional<::base::TimeDelta> parse_stop_in,
-    absl::optional<::base::TimeDelta> parse_blocked_on_script_load_duration_in,
-    absl::optional<::base::TimeDelta> parse_blocked_on_script_load_from_document_write_duration_in,
-    absl::optional<::base::TimeDelta> parse_blocked_on_script_execution_duration_in,
-    absl::optional<::base::TimeDelta> parse_blocked_on_script_execution_from_document_write_duration_in)
+    std::optional<::base::TimeDelta> parse_start_in,
+    std::optional<::base::TimeDelta> parse_stop_in,
+    std::optional<::base::TimeDelta> parse_blocked_on_script_load_duration_in,
+    std::optional<::base::TimeDelta> parse_blocked_on_script_load_from_document_write_duration_in,
+    std::optional<::base::TimeDelta> parse_blocked_on_script_execution_duration_in,
+    std::optional<::base::TimeDelta> parse_blocked_on_script_execution_from_document_write_duration_in)
     : parse_start(std::move(parse_start_in)),
       parse_stop(std::move(parse_stop_in)),
       parse_blocked_on_script_load_duration(std::move(parse_blocked_on_script_load_duration_in)),
@@ -410,7 +411,7 @@ void ParseTiming::WriteIntoTrace(
     dict.AddItem(
       "parse_start"), this->parse_start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -419,7 +420,7 @@ void ParseTiming::WriteIntoTrace(
     dict.AddItem(
       "parse_stop"), this->parse_stop,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -428,7 +429,7 @@ void ParseTiming::WriteIntoTrace(
     dict.AddItem(
       "parse_blocked_on_script_load_duration"), this->parse_blocked_on_script_load_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -437,7 +438,7 @@ void ParseTiming::WriteIntoTrace(
     dict.AddItem(
       "parse_blocked_on_script_load_from_document_write_duration"), this->parse_blocked_on_script_load_from_document_write_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -446,7 +447,7 @@ void ParseTiming::WriteIntoTrace(
     dict.AddItem(
       "parse_blocked_on_script_execution_duration"), this->parse_blocked_on_script_execution_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -455,7 +456,7 @@ void ParseTiming::WriteIntoTrace(
     dict.AddItem(
       "parse_blocked_on_script_execution_from_document_write_duration"), this->parse_blocked_on_script_execution_from_document_write_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -474,10 +475,10 @@ InteractiveTiming::InteractiveTiming()
       first_scroll_timestamp() {}
 
 InteractiveTiming::InteractiveTiming(
-    absl::optional<::base::TimeDelta> first_input_delay_in,
-    absl::optional<::base::TimeDelta> first_input_timestamp_in,
-    absl::optional<::base::TimeDelta> first_scroll_delay_in,
-    absl::optional<::base::TimeDelta> first_scroll_timestamp_in)
+    std::optional<::base::TimeDelta> first_input_delay_in,
+    std::optional<::base::TimeDelta> first_input_timestamp_in,
+    std::optional<::base::TimeDelta> first_scroll_delay_in,
+    std::optional<::base::TimeDelta> first_scroll_timestamp_in)
     : first_input_delay(std::move(first_input_delay_in)),
       first_input_timestamp(std::move(first_input_timestamp_in)),
       first_scroll_delay(std::move(first_scroll_delay_in)),
@@ -492,7 +493,7 @@ void InteractiveTiming::WriteIntoTrace(
     dict.AddItem(
       "first_input_delay"), this->first_input_delay,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -501,7 +502,7 @@ void InteractiveTiming::WriteIntoTrace(
     dict.AddItem(
       "first_input_timestamp"), this->first_input_timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -510,7 +511,7 @@ void InteractiveTiming::WriteIntoTrace(
     dict.AddItem(
       "first_scroll_delay"), this->first_scroll_delay,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -519,7 +520,7 @@ void InteractiveTiming::WriteIntoTrace(
     dict.AddItem(
       "first_scroll_timestamp"), this->first_scroll_timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -547,17 +548,17 @@ PageLoadTiming::PageLoadTiming()
 
 PageLoadTiming::PageLoadTiming(
     ::base::Time navigation_start_in,
-    absl::optional<::base::TimeDelta> response_start_in,
+    std::optional<::base::TimeDelta> response_start_in,
     DocumentTimingPtr document_timing_in,
     InteractiveTimingPtr interactive_timing_in,
     PaintTimingPtr paint_timing_in,
     ParseTimingPtr parse_timing_in,
     std::vector<BackForwardCacheTimingPtr> back_forward_cache_timings_in,
-    absl::optional<::base::TimeDelta> activation_start_in,
-    absl::optional<::base::TimeDelta> input_to_navigation_start_in,
-    absl::optional<::base::TimeDelta> user_timing_mark_fully_loaded_in,
-    absl::optional<::base::TimeDelta> user_timing_mark_fully_visible_in,
-    absl::optional<::base::TimeDelta> user_timing_mark_interactive_in)
+    std::optional<::base::TimeDelta> activation_start_in,
+    std::optional<::base::TimeDelta> input_to_navigation_start_in,
+    std::optional<::base::TimeDelta> user_timing_mark_fully_loaded_in,
+    std::optional<::base::TimeDelta> user_timing_mark_fully_visible_in,
+    std::optional<::base::TimeDelta> user_timing_mark_interactive_in)
     : navigation_start(std::move(navigation_start_in)),
       response_start(std::move(response_start_in)),
       document_timing(std::move(document_timing_in)),
@@ -589,7 +590,7 @@ void PageLoadTiming::WriteIntoTrace(
     dict.AddItem(
       "response_start"), this->response_start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -643,7 +644,7 @@ void PageLoadTiming::WriteIntoTrace(
     dict.AddItem(
       "activation_start"), this->activation_start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -652,7 +653,7 @@ void PageLoadTiming::WriteIntoTrace(
     dict.AddItem(
       "input_to_navigation_start"), this->input_to_navigation_start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -661,7 +662,7 @@ void PageLoadTiming::WriteIntoTrace(
     dict.AddItem(
       "user_timing_mark_fully_loaded"), this->user_timing_mark_fully_loaded,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -670,7 +671,7 @@ void PageLoadTiming::WriteIntoTrace(
     dict.AddItem(
       "user_timing_mark_fully_visible"), this->user_timing_mark_fully_visible,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -679,7 +680,7 @@ void PageLoadTiming::WriteIntoTrace(
     dict.AddItem(
       "user_timing_mark_interactive"), this->user_timing_mark_interactive,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -700,8 +701,8 @@ FrameMetadata::FrameMetadata()
 
 FrameMetadata::FrameMetadata(
     int32_t behavior_flags_in,
-    const absl::optional<::gfx::Rect>& main_frame_intersection_rect_in,
-    const absl::optional<::gfx::Rect>& main_frame_viewport_rect_in,
+    const std::optional<::gfx::Rect>& main_frame_intersection_rect_in,
+    const std::optional<::gfx::Rect>& main_frame_viewport_rect_in,
     const base::flat_map<int32_t, ::gfx::Rect>& main_frame_image_ad_rects_in,
     const ::blink::JavaScriptFrameworkDetectionResult& framework_detection_result_in)
     : behavior_flags(std::move(behavior_flags_in)),
@@ -728,7 +729,7 @@ void FrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "main_frame_intersection_rect"), this->main_frame_intersection_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -737,7 +738,7 @@ void FrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "main_frame_viewport_rect"), this->main_frame_viewport_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -775,7 +776,7 @@ SubresourceLoadMetrics::SubresourceLoadMetrics()
 SubresourceLoadMetrics::SubresourceLoadMetrics(
     uint32_t number_of_subresources_loaded_in,
     uint32_t number_of_subresource_loads_handled_by_service_worker_in,
-    const absl::optional<::blink::ServiceWorkerSubresourceLoadMetrics>& service_worker_subresource_load_metrics_in)
+    const std::optional<::blink::ServiceWorkerSubresourceLoadMetrics>& service_worker_subresource_load_metrics_in)
     : number_of_subresources_loaded(std::move(number_of_subresources_loaded_in)),
       number_of_subresource_loads_handled_by_service_worker(std::move(number_of_subresource_loads_handled_by_service_worker_in)),
       service_worker_subresource_load_metrics(std::move(service_worker_subresource_load_metrics_in)) {}
@@ -807,7 +808,7 @@ void SubresourceLoadMetrics::WriteIntoTrace(
     dict.AddItem(
       "service_worker_subresource_load_metrics"), this->service_worker_subresource_load_metrics,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::ServiceWorkerSubresourceLoadMetrics>&>"
+      "<value of type const std::optional<::blink::ServiceWorkerSubresourceLoadMetrics>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1208,8 +1209,7 @@ ResourceDataUpdate::ResourceDataUpdate()
       is_primary_frame_resource(),
       mime_type(),
       is_secure_scheme(),
-      proxy_used(),
-      completed_before_fcp() {}
+      proxy_used() {}
 
 ResourceDataUpdate::ResourceDataUpdate(
     int32_t request_id_in,
@@ -1224,8 +1224,7 @@ ResourceDataUpdate::ResourceDataUpdate(
     bool is_primary_frame_resource_in,
     const std::string& mime_type_in,
     bool is_secure_scheme_in,
-    bool proxy_used_in,
-    bool completed_before_fcp_in)
+    bool proxy_used_in)
     : request_id(std::move(request_id_in)),
       delta_bytes(std::move(delta_bytes_in)),
       received_data_length(std::move(received_data_length_in)),
@@ -1238,8 +1237,7 @@ ResourceDataUpdate::ResourceDataUpdate(
       is_primary_frame_resource(std::move(is_primary_frame_resource_in)),
       mime_type(std::move(mime_type_in)),
       is_secure_scheme(std::move(is_secure_scheme_in)),
-      proxy_used(std::move(proxy_used_in)),
-      completed_before_fcp(std::move(completed_before_fcp_in)) {}
+      proxy_used(std::move(proxy_used_in)) {}
 
 ResourceDataUpdate::~ResourceDataUpdate() = default;
 size_t ResourceDataUpdate::Hash(size_t seed) const {
@@ -1256,7 +1254,6 @@ size_t ResourceDataUpdate::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->mime_type);
   seed = mojo::internal::Hash(seed, this->is_secure_scheme);
   seed = mojo::internal::Hash(seed, this->proxy_used);
-  seed = mojo::internal::Hash(seed, this->completed_before_fcp);
   return seed;
 }
 
@@ -1374,15 +1371,6 @@ void ResourceDataUpdate::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "proxy_used"), this->proxy_used,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "completed_before_fcp"), this->completed_before_fcp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -1558,13 +1546,19 @@ bool InputTiming::Validate(
 }
 UserInteractionLatency::UserInteractionLatency()
     : interaction_latency(),
-      interaction_type() {}
+      interaction_type(),
+      interaction_offset(),
+      interaction_time() {}
 
 UserInteractionLatency::UserInteractionLatency(
     ::base::TimeDelta interaction_latency_in,
-    UserInteractionType interaction_type_in)
+    UserInteractionType interaction_type_in,
+    uint64_t interaction_offset_in,
+    ::base::TimeTicks interaction_time_in)
     : interaction_latency(std::move(interaction_latency_in)),
-      interaction_type(std::move(interaction_type_in)) {}
+      interaction_type(std::move(interaction_type_in)),
+      interaction_offset(std::move(interaction_offset_in)),
+      interaction_time(std::move(interaction_time_in)) {}
 
 UserInteractionLatency::~UserInteractionLatency() = default;
 
@@ -1589,6 +1583,24 @@ void UserInteractionLatency::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "interaction_offset"), this->interaction_offset,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "interaction_time"), this->interaction_time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::TimeTicks>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool UserInteractionLatency::Validate(
@@ -1604,7 +1616,7 @@ BackForwardCacheTiming::BackForwardCacheTiming()
 BackForwardCacheTiming::BackForwardCacheTiming(
     ::base::TimeDelta first_paint_after_back_forward_cache_restore_in,
     std::vector<::base::TimeDelta> request_animation_frames_after_back_forward_cache_restore_in,
-    absl::optional<::base::TimeDelta> first_input_delay_after_back_forward_cache_restore_in)
+    std::optional<::base::TimeDelta> first_input_delay_after_back_forward_cache_restore_in)
     : first_paint_after_back_forward_cache_restore(std::move(first_paint_after_back_forward_cache_restore_in)),
       request_animation_frames_after_back_forward_cache_restore(std::move(request_animation_frames_after_back_forward_cache_restore_in)),
       first_input_delay_after_back_forward_cache_restore(std::move(first_input_delay_after_back_forward_cache_restore_in)) {}
@@ -1636,7 +1648,7 @@ void BackForwardCacheTiming::WriteIntoTrace(
     dict.AddItem(
       "first_input_delay_after_back_forward_cache_restore"), this->first_input_delay_after_back_forward_cache_restore,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1843,7 +1855,7 @@ PageLoadMetricsProxy::PageLoadMetricsProxy(mojo::MessageReceiverWithResponder* r
 }
 
 void PageLoadMetricsProxy::UpdateTiming(
-    PageLoadTimingPtr in_page_load_timing, FrameMetadataPtr in_frame_metadata, const std::vector<::blink::UseCounterFeature>& in_new_features, std::vector<ResourceDataUpdatePtr> in_resources, FrameRenderDataUpdatePtr in_render_data, CpuTimingPtr in_cpu_load_timing, InputTimingPtr in_input_timing_delta, const absl::optional<::blink::SubresourceLoadMetrics>& in_subresource_load_metrics, SoftNavigationMetricsPtr in_soft_navigation_metrics) {
+    PageLoadTimingPtr in_page_load_timing, FrameMetadataPtr in_frame_metadata, const std::vector<::blink::UseCounterFeature>& in_new_features, std::vector<ResourceDataUpdatePtr> in_resources, FrameRenderDataUpdatePtr in_render_data, CpuTimingPtr in_cpu_load_timing, InputTimingPtr in_input_timing_delta, const std::optional<::blink::SubresourceLoadMetrics>& in_subresource_load_metrics, SoftNavigationMetricsPtr in_soft_navigation_metrics) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send page_load_metrics::mojom::PageLoadMetrics::UpdateTiming", "input_parameters",
@@ -1872,20 +1884,23 @@ void PageLoadMetricsProxy::UpdateTiming(
                         "<value of type InputTimingPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("subresource_load_metrics"), in_subresource_load_metrics,
-                        "<value of type const absl::optional<::blink::SubresourceLoadMetrics>&>");
+                        "<value of type const std::optional<::blink::SubresourceLoadMetrics>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("soft_navigation_metrics"), in_soft_navigation_metrics,
                         "<value of type SoftNavigationMetricsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageLoadMetrics_UpdateTiming_Name, kFlags, 0, 0, nullptr);
@@ -2014,14 +2029,17 @@ void PageLoadMetricsProxy::SetUpSharedMemoryForSmoothness(
                         "<value of type ::base::ReadOnlySharedMemoryRegion>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageLoadMetrics_SetUpSharedMemoryForSmoothness_Name, kFlags, 0, 0, nullptr);
@@ -2070,7 +2088,7 @@ bool PageLoadMetricsStubDispatch::Accept(
       FrameRenderDataUpdatePtr p_render_data{};
       CpuTimingPtr p_cpu_load_timing{};
       InputTimingPtr p_input_timing_delta{};
-      absl::optional<::blink::SubresourceLoadMetrics> p_subresource_load_metrics{};
+      std::optional<::blink::SubresourceLoadMetrics> p_subresource_load_metrics{};
       SoftNavigationMetricsPtr p_soft_navigation_metrics{};
       PageLoadMetrics_UpdateTiming_ParamsDataView input_data_view(params, message);
       
@@ -2161,12 +2179,12 @@ bool PageLoadMetricsStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageLoadMetricsValidationInfo[] = {
-    {&internal::PageLoadMetrics_UpdateTiming_Params_Data::Validate,
+    { &internal::PageLoadMetrics_UpdateTiming_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageLoadMetrics_SetUpSharedMemoryForSmoothness_Params_Data::Validate,
+    { &internal::PageLoadMetrics_SetUpSharedMemoryForSmoothness_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2492,8 +2510,6 @@ bool StructTraits<::page_load_metrics::mojom::ResourceDataUpdate::DataView, ::pa
         result->is_secure_scheme = input.is_secure_scheme();
       if (success)
         result->proxy_used = input.proxy_used();
-      if (success)
-        result->completed_before_fcp = input.completed_before_fcp();
   *output = std::move(result);
   return success;
 }
@@ -2573,6 +2589,10 @@ bool StructTraits<::page_load_metrics::mojom::UserInteractionLatency::DataView, 
       if (success && !input.ReadInteractionLatency(&result->interaction_latency))
         success = false;
       if (success && !input.ReadInteractionType(&result->interaction_type))
+        success = false;
+      if (success)
+        result->interaction_offset = input.interaction_offset();
+      if (success && !input.ReadInteractionTime(&result->interaction_time))
         success = false;
   *output = std::move(result);
   return success;
@@ -2659,7 +2679,7 @@ bool UnionTraits<::page_load_metrics::mojom::UserInteractionLatencies::DataView,
 namespace page_load_metrics::mojom {
 
 
-void PageLoadMetricsInterceptorForTesting::UpdateTiming(PageLoadTimingPtr page_load_timing, FrameMetadataPtr frame_metadata, const std::vector<::blink::UseCounterFeature>& new_features, std::vector<ResourceDataUpdatePtr> resources, FrameRenderDataUpdatePtr render_data, CpuTimingPtr cpu_load_timing, InputTimingPtr input_timing_delta, const absl::optional<::blink::SubresourceLoadMetrics>& subresource_load_metrics, SoftNavigationMetricsPtr soft_navigation_metrics) {
+void PageLoadMetricsInterceptorForTesting::UpdateTiming(PageLoadTimingPtr page_load_timing, FrameMetadataPtr frame_metadata, const std::vector<::blink::UseCounterFeature>& new_features, std::vector<ResourceDataUpdatePtr> resources, FrameRenderDataUpdatePtr render_data, CpuTimingPtr cpu_load_timing, InputTimingPtr input_timing_delta, const std::optional<::blink::SubresourceLoadMetrics>& subresource_load_metrics, SoftNavigationMetricsPtr soft_navigation_metrics) {
   GetForwardingInterface()->UpdateTiming(std::move(page_load_timing), std::move(frame_metadata), std::move(new_features), std::move(resources), std::move(render_data), std::move(cpu_load_timing), std::move(input_timing_delta), std::move(subresource_load_metrics), std::move(soft_navigation_metrics));
 }
 void PageLoadMetricsInterceptorForTesting::SetUpSharedMemoryForSmoothness(::base::ReadOnlySharedMemoryRegion shared_memory) {

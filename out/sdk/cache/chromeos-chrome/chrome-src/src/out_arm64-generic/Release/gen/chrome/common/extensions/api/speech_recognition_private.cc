@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/speech_recognition_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,11 +37,11 @@ namespace speech_recognition_private {
 
 const char* ToString(SpeechRecognitionType enum_param) {
   switch (enum_param) {
-    case SPEECH_RECOGNITION_TYPE_ONDEVICE:
+    case SpeechRecognitionType::kOnDevice:
       return "onDevice";
-    case SPEECH_RECOGNITION_TYPE_NETWORK:
+    case SpeechRecognitionType::kNetwork:
       return "network";
-    case SPEECH_RECOGNITION_TYPE_NONE:
+    case SpeechRecognitionType::kNone:
       return "";
   }
   NOTREACHED();
@@ -49,10 +50,10 @@ const char* ToString(SpeechRecognitionType enum_param) {
 
 SpeechRecognitionType ParseSpeechRecognitionType(base::StringPiece enum_string) {
   if (enum_string == "onDevice")
-    return SPEECH_RECOGNITION_TYPE_ONDEVICE;
+    return SpeechRecognitionType::kOnDevice;
   if (enum_string == "network")
-    return SPEECH_RECOGNITION_TYPE_NETWORK;
-  return SPEECH_RECOGNITION_TYPE_NONE;
+    return SpeechRecognitionType::kNetwork;
+  return SpeechRecognitionType::kNone;
 }
 
 std::u16string GetSpeechRecognitionTypeParseError(base::StringPiece enum_string) {
@@ -64,8 +65,8 @@ SpeechRecognitionStopEvent::SpeechRecognitionStopEvent()
  {}
 
 SpeechRecognitionStopEvent::~SpeechRecognitionStopEvent() = default;
-SpeechRecognitionStopEvent::SpeechRecognitionStopEvent(SpeechRecognitionStopEvent&& rhs) = default;
-SpeechRecognitionStopEvent& SpeechRecognitionStopEvent::operator=(SpeechRecognitionStopEvent&& rhs) = default;
+SpeechRecognitionStopEvent::SpeechRecognitionStopEvent(SpeechRecognitionStopEvent&& rhs) noexcept = default;
+SpeechRecognitionStopEvent& SpeechRecognitionStopEvent::operator=(SpeechRecognitionStopEvent&& rhs) noexcept = default;
 SpeechRecognitionStopEvent SpeechRecognitionStopEvent::Clone() const {
   SpeechRecognitionStopEvent out;
   out.client_id = client_id;
@@ -80,7 +81,7 @@ bool SpeechRecognitionStopEvent::Populate(
     {
       auto temp = (*client_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.client_id = absl::nullopt;
+        out.client_id = std::nullopt;
         return false;
       }
       out.client_id = *temp;
@@ -100,34 +101,21 @@ bool SpeechRecognitionStopEvent::Populate(
 }
 
 // static
-std::unique_ptr<SpeechRecognitionStopEvent> SpeechRecognitionStopEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SpeechRecognitionStopEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SpeechRecognitionStopEvent> SpeechRecognitionStopEvent::FromValue(const base::Value::Dict& value) {
+  SpeechRecognitionStopEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SpeechRecognitionStopEvent> SpeechRecognitionStopEvent::FromValue(const base::Value::Dict& value) {
+std::optional<SpeechRecognitionStopEvent> SpeechRecognitionStopEvent::FromValue(const base::Value& value) {
   SpeechRecognitionStopEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SpeechRecognitionStopEvent> SpeechRecognitionStopEvent::FromValue(const base::Value& value) {
-  SpeechRecognitionStopEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -148,8 +136,8 @@ SpeechRecognitionResultEvent::SpeechRecognitionResultEvent()
 : is_final(false) {}
 
 SpeechRecognitionResultEvent::~SpeechRecognitionResultEvent() = default;
-SpeechRecognitionResultEvent::SpeechRecognitionResultEvent(SpeechRecognitionResultEvent&& rhs) = default;
-SpeechRecognitionResultEvent& SpeechRecognitionResultEvent::operator=(SpeechRecognitionResultEvent&& rhs) = default;
+SpeechRecognitionResultEvent::SpeechRecognitionResultEvent(SpeechRecognitionResultEvent&& rhs) noexcept = default;
+SpeechRecognitionResultEvent& SpeechRecognitionResultEvent::operator=(SpeechRecognitionResultEvent&& rhs) noexcept = default;
 SpeechRecognitionResultEvent SpeechRecognitionResultEvent::Clone() const {
   SpeechRecognitionResultEvent out;
   out.client_id = client_id;
@@ -166,7 +154,7 @@ bool SpeechRecognitionResultEvent::Populate(
     {
       auto temp = (*client_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.client_id = absl::nullopt;
+        out.client_id = std::nullopt;
         return false;
       }
       out.client_id = *temp;
@@ -210,34 +198,21 @@ bool SpeechRecognitionResultEvent::Populate(
 }
 
 // static
-std::unique_ptr<SpeechRecognitionResultEvent> SpeechRecognitionResultEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SpeechRecognitionResultEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SpeechRecognitionResultEvent> SpeechRecognitionResultEvent::FromValue(const base::Value::Dict& value) {
+  SpeechRecognitionResultEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SpeechRecognitionResultEvent> SpeechRecognitionResultEvent::FromValue(const base::Value::Dict& value) {
+std::optional<SpeechRecognitionResultEvent> SpeechRecognitionResultEvent::FromValue(const base::Value& value) {
   SpeechRecognitionResultEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SpeechRecognitionResultEvent> SpeechRecognitionResultEvent::FromValue(const base::Value& value) {
-  SpeechRecognitionResultEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -262,8 +237,8 @@ SpeechRecognitionErrorEvent::SpeechRecognitionErrorEvent()
  {}
 
 SpeechRecognitionErrorEvent::~SpeechRecognitionErrorEvent() = default;
-SpeechRecognitionErrorEvent::SpeechRecognitionErrorEvent(SpeechRecognitionErrorEvent&& rhs) = default;
-SpeechRecognitionErrorEvent& SpeechRecognitionErrorEvent::operator=(SpeechRecognitionErrorEvent&& rhs) = default;
+SpeechRecognitionErrorEvent::SpeechRecognitionErrorEvent(SpeechRecognitionErrorEvent&& rhs) noexcept = default;
+SpeechRecognitionErrorEvent& SpeechRecognitionErrorEvent::operator=(SpeechRecognitionErrorEvent&& rhs) noexcept = default;
 SpeechRecognitionErrorEvent SpeechRecognitionErrorEvent::Clone() const {
   SpeechRecognitionErrorEvent out;
   out.client_id = client_id;
@@ -279,7 +254,7 @@ bool SpeechRecognitionErrorEvent::Populate(
     {
       auto temp = (*client_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.client_id = absl::nullopt;
+        out.client_id = std::nullopt;
         return false;
       }
       out.client_id = *temp;
@@ -311,34 +286,21 @@ bool SpeechRecognitionErrorEvent::Populate(
 }
 
 // static
-std::unique_ptr<SpeechRecognitionErrorEvent> SpeechRecognitionErrorEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SpeechRecognitionErrorEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SpeechRecognitionErrorEvent> SpeechRecognitionErrorEvent::FromValue(const base::Value::Dict& value) {
+  SpeechRecognitionErrorEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SpeechRecognitionErrorEvent> SpeechRecognitionErrorEvent::FromValue(const base::Value::Dict& value) {
+std::optional<SpeechRecognitionErrorEvent> SpeechRecognitionErrorEvent::FromValue(const base::Value& value) {
   SpeechRecognitionErrorEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SpeechRecognitionErrorEvent> SpeechRecognitionErrorEvent::FromValue(const base::Value& value) {
-  SpeechRecognitionErrorEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -361,8 +323,8 @@ StartOptions::StartOptions()
  {}
 
 StartOptions::~StartOptions() = default;
-StartOptions::StartOptions(StartOptions&& rhs) = default;
-StartOptions& StartOptions::operator=(StartOptions&& rhs) = default;
+StartOptions::StartOptions(StartOptions&& rhs) noexcept = default;
+StartOptions& StartOptions::operator=(StartOptions&& rhs) noexcept = default;
 StartOptions StartOptions::Clone() const {
   StartOptions out;
   out.client_id = client_id;
@@ -379,7 +341,7 @@ bool StartOptions::Populate(
     {
       auto temp = (*client_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.client_id = absl::nullopt;
+        out.client_id = std::nullopt;
         return false;
       }
       out.client_id = *temp;
@@ -391,7 +353,7 @@ bool StartOptions::Populate(
     {
       auto* temp = (*locale_value).GetIfString();
       if (!temp) {
-        out.locale = absl::nullopt;
+        out.locale = std::nullopt;
         return false;
       }
       out.locale = *temp;
@@ -403,7 +365,7 @@ bool StartOptions::Populate(
     {
       auto temp = (*interim_results_value).GetIfBool();
       if (!temp.has_value()) {
-        out.interim_results = absl::nullopt;
+        out.interim_results = std::nullopt;
         return false;
       }
       out.interim_results = *temp;
@@ -423,34 +385,21 @@ bool StartOptions::Populate(
 }
 
 // static
-std::unique_ptr<StartOptions> StartOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StartOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StartOptions> StartOptions::FromValue(const base::Value::Dict& value) {
+  StartOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StartOptions> StartOptions::FromValue(const base::Value::Dict& value) {
+std::optional<StartOptions> StartOptions::FromValue(const base::Value& value) {
   StartOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StartOptions> StartOptions::FromValue(const base::Value& value) {
-  StartOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -479,8 +428,8 @@ StopOptions::StopOptions()
  {}
 
 StopOptions::~StopOptions() = default;
-StopOptions::StopOptions(StopOptions&& rhs) = default;
-StopOptions& StopOptions::operator=(StopOptions&& rhs) = default;
+StopOptions::StopOptions(StopOptions&& rhs) noexcept = default;
+StopOptions& StopOptions::operator=(StopOptions&& rhs) noexcept = default;
 StopOptions StopOptions::Clone() const {
   StopOptions out;
   out.client_id = client_id;
@@ -495,7 +444,7 @@ bool StopOptions::Populate(
     {
       auto temp = (*client_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.client_id = absl::nullopt;
+        out.client_id = std::nullopt;
         return false;
       }
       out.client_id = *temp;
@@ -515,34 +464,21 @@ bool StopOptions::Populate(
 }
 
 // static
-std::unique_ptr<StopOptions> StopOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StopOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StopOptions> StopOptions::FromValue(const base::Value::Dict& value) {
+  StopOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StopOptions> StopOptions::FromValue(const base::Value::Dict& value) {
+std::optional<StopOptions> StopOptions::FromValue(const base::Value& value) {
   StopOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StopOptions> StopOptions::FromValue(const base::Value& value) {
-  StopOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -568,13 +504,13 @@ namespace Start {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -583,15 +519,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!StartOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -611,13 +547,13 @@ namespace Stop {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -626,15 +562,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!StopOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -135,14 +136,17 @@ void EyeDropperListenerProxy::ColorSelected(
                         "<value of type ::SkColor>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEyeDropperListener_ColorSelected_Name, kFlags, 0, 0, nullptr);
@@ -176,14 +180,17 @@ void EyeDropperListenerProxy::ColorSelectionCanceled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::EyeDropperListener::ColorSelectionCanceled");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEyeDropperListener_ColorSelectionCanceled_Name, kFlags, 0, 0, nullptr);
@@ -276,12 +283,12 @@ bool EyeDropperListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEyeDropperListenerValidationInfo[] = {
-    {&internal::EyeDropperListener_ColorSelected_Params_Data::Validate,
+    { &internal::EyeDropperListener_ColorSelected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EyeDropperListener_ColorSelectionCanceled_Params_Data::Validate,
+    { &internal::EyeDropperListener_ColorSelectionCanceled_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -362,14 +369,17 @@ void EyeDropperProxy::ShowEyeDropper(
                         "<value of type ::mojo::PendingRemote<EyeDropperListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEyeDropper_ShowEyeDropper_Name, kFlags, 0, 0, nullptr);
@@ -445,10 +455,10 @@ bool EyeDropperStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEyeDropperValidationInfo[] = {
-    {&internal::EyeDropper_ShowEyeDropper_Params_Data::Validate,
+    { &internal::EyeDropper_ShowEyeDropper_Params_Data::Validate,
      nullptr /* no response */},
 };
 

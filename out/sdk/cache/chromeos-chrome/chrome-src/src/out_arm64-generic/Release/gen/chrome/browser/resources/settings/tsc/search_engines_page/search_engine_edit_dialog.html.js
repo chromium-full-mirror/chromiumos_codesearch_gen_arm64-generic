@@ -4,16 +4,16 @@ export function getTemplate() {
     <cr-dialog id="dialog" close-text="$i18n{close}">
       <div slot="title">[[dialogTitle_]]</div>
       <div slot="body" spellcheck="false">
-         <cr-input id="searchEngine" label="$i18n{searchEnginesSearchEngine}" error-message="$i18n{notValid}" value="{{searchEngine_}}" on-input="validate_" autofocus>
+         <cr-input id="searchEngine" label="$i18n{searchEnginesSearchEngine}" readonly="[[readonly_]]" error-message="$i18n{notValid}" value="{{searchEngine_}}" on-input="validate_" autofocus>
         </cr-input>
-        <cr-input id="keyword" label="$i18n{searchEnginesShortcut}" error-message="$i18n{notValid}" value="{{keyword_}}" on-focus="validate_" on-input="validate_">
+        <cr-input id="keyword" label="$i18n{searchEnginesShortcut}" readonly="[[readonly_]]" error-message="$i18n{notValid}" value="{{keyword_}}" on-focus="validate_" on-input="validate_">
         </cr-input>
-        <cr-input id="queryUrl" label="$i18n{searchEnginesQueryURLExplanation}" error-message="$i18n{notValid}" value="{{queryUrl_}}" on-focus="validate_" on-input="validate_" disabled$="[[model.urlLocked]]">
+        <cr-input id="queryUrl" label="$i18n{searchEnginesQueryURLExplanation}" readonly="[[urlIsReadonly_]]" error-message="$i18n{notValid}" value="{{queryUrl_}}" on-focus="validate_" on-input="validate_">
         </cr-input>
       </div>
       <div slot="button-container">
-        <cr-button class="cancel-button" on-click="cancel_" id="cancel">
-            $i18n{cancel}</cr-button>
+        <cr-button class="cancel-button" on-click="cancel_" id="cancel" hidden="[[cancelButtonHidden_]]">
+          $i18n{cancel}</cr-button>
         <cr-button id="actionButton" class="action-button" on-click="onActionButtonClick_">
           [[actionButtonText_]]
         </cr-button>

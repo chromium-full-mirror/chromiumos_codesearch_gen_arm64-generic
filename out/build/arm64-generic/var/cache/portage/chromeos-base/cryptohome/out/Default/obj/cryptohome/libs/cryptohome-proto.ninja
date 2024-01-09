@@ -1,5 +1,5 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include/cryptohome -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2 -I/build/arm64-generic/usr/include -Igen -I/build/arm64-generic/usr/include/cryptohome/proto_bindings
+include_dirs = -Igen/include/cryptohome -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5635/work/cryptohome-0.0.2/platform2 -I/build/arm64-generic/usr/include -Igen -I/build/arm64-generic/usr/include/cryptohome/proto_bindings
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE
 cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
@@ -11,9 +11,6 @@ build obj/gen/include/cryptohome/cryptorecovery/libcryptohome-proto.cryptorecove
 build obj/gen/include/cryptohome/cryptorecovery/libcryptohome-proto.recovery_id_container.pb.o: cxx gen/include/cryptohome/cryptorecovery/recovery_id_container.pb.cc || obj/cryptohome/libs/cryptohome-proto_gen.stamp
   source_file_part = recovery_id_container.pb.cc
   source_name_part = recovery_id_container.pb
-build obj/gen/include/cryptohome/libcryptohome-proto.hash_tree_leaf_data.pb.o: cxx gen/include/cryptohome/hash_tree_leaf_data.pb.cc || obj/cryptohome/libs/cryptohome-proto_gen.stamp
-  source_file_part = hash_tree_leaf_data.pb.cc
-  source_name_part = hash_tree_leaf_data.pb
 build obj/gen/include/cryptohome/libcryptohome-proto.signature_sealed_data.pb.o: cxx gen/include/cryptohome/signature_sealed_data.pb.cc || obj/cryptohome/libs/cryptohome-proto_gen.stamp
   source_file_part = signature_sealed_data.pb.cc
   source_name_part = signature_sealed_data.pb
@@ -24,7 +21,7 @@ build obj/gen/include/cryptohome/libcryptohome-proto.vault_keyset.pb.o: cxx gen/
   source_file_part = vault_keyset.pb.cc
   source_name_part = vault_keyset.pb
 
-build ./libcryptohome-proto.a: alink obj/gen/include/cryptohome/cryptorecovery/libcryptohome-proto.cryptorecovery.pb.o obj/gen/include/cryptohome/cryptorecovery/libcryptohome-proto.recovery_id_container.pb.o obj/gen/include/cryptohome/libcryptohome-proto.hash_tree_leaf_data.pb.o obj/gen/include/cryptohome/libcryptohome-proto.signature_sealed_data.pb.o obj/gen/include/cryptohome/libcryptohome-proto.timestamp.pb.o obj/gen/include/cryptohome/libcryptohome-proto.vault_keyset.pb.o || obj/cryptohome/libs/cryptohome-proto_gen.stamp
+build ./libcryptohome-proto.a: alink obj/gen/include/cryptohome/cryptorecovery/libcryptohome-proto.cryptorecovery.pb.o obj/gen/include/cryptohome/cryptorecovery/libcryptohome-proto.recovery_id_container.pb.o obj/gen/include/cryptohome/libcryptohome-proto.signature_sealed_data.pb.o obj/gen/include/cryptohome/libcryptohome-proto.timestamp.pb.o obj/gen/include/cryptohome/libcryptohome-proto.vault_keyset.pb.o || obj/cryptohome/libs/cryptohome-proto_gen.stamp
   arflags = rcsT
   output_extension = .a
   output_dir = 

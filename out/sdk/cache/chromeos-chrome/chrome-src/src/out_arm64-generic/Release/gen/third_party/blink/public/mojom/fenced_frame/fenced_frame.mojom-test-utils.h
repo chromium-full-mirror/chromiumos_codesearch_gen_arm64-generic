@@ -16,7 +16,7 @@ namespace blink::mojom {
 
 class BLINK_COMMON_EXPORT FencedFrameOwnerHostInterceptorForTesting : public FencedFrameOwnerHost {
   virtual FencedFrameOwnerHost* GetForwardingInterface() = 0;
-  void Navigate(const ::GURL& url, ::base::TimeTicks navigation_start_time, const absl::optional<::std::u16string>& embedder_shared_storage_context) override;
+  void Navigate(const ::GURL& url, ::base::TimeTicks navigation_start_time, const std::optional<::std::u16string>& embedder_shared_storage_context) override;
   void DidChangeFramePolicy(const ::blink::FramePolicy& frame_policy) override;
 };
 class BLINK_COMMON_EXPORT FencedFrameOwnerHostAsyncWaiter {

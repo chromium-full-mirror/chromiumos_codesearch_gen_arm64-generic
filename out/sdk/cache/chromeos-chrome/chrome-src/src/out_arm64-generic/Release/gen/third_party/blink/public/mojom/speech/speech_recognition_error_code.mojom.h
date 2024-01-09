@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/speech/speech_recognition_error_code.mojom-features.h"
 #include "third_party/blink/public/mojom/speech/speech_recognition_error_code.mojom-shared.h"
 #include "third_party/blink/public/mojom/speech/speech_recognition_error_code.mojom-forward.h"
 #include <string>

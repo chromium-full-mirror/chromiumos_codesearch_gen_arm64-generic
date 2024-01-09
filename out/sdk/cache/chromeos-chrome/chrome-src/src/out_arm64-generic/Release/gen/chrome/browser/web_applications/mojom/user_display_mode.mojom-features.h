@@ -8,6 +8,7 @@
 #define CHROME_BROWSER_WEB_APPLICATIONS_MOJOM_USER_DISPLAY_MODE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

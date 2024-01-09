@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/networking_attributes.mojom-features.h"
 #include "chromeos/crosapi/mojom/networking_attributes.mojom-shared.h"
 #include "chromeos/crosapi/mojom/networking_attributes.mojom-forward.h"
 #include "services/network/public/mojom/ip_address.mojom.h"
@@ -178,17 +179,17 @@ class  GetNetworkDetailsResult {
   // Construct an instance holding |error_message|.
   static GetNetworkDetailsResultPtr
   NewErrorMessage(
-      const std::string& error_message) {
+      const std::string& value) {
     auto result = GetNetworkDetailsResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
   // Construct an instance holding |network_details|.
   static GetNetworkDetailsResultPtr
   NewNetworkDetails(
-      NetworkDetailsPtr network_details) {
+      NetworkDetailsPtr value) {
     auto result = GetNetworkDetailsResultPtr(absl::in_place);
-    result->set_network_details(std::move(network_details));
+    result->set_network_details(std::move(value));
     return result;
   }
 
@@ -319,8 +320,8 @@ class  NetworkDetails {
 
   NetworkDetails(
       const std::string& mac_address,
-      const absl::optional<::net::IPAddress>& ipv4_address,
-      const absl::optional<::net::IPAddress>& ipv6_address);
+      const std::optional<::net::IPAddress>& ipv4_address,
+      const std::optional<::net::IPAddress>& ipv6_address);
 
 
   ~NetworkDetails();
@@ -400,9 +401,9 @@ class  NetworkDetails {
   
   std::string mac_address;
   
-  absl::optional<::net::IPAddress> ipv4_address;
+  std::optional<::net::IPAddress> ipv4_address;
   
-  absl::optional<::net::IPAddress> ipv6_address;
+  std::optional<::net::IPAddress> ipv6_address;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

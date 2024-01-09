@@ -23,6 +23,8 @@ constexpr uint32_t kConnectionLifecycleListener_OnDisconnected_Name = 3;
 constexpr uint32_t kConnectionLifecycleListener_OnBandwidthChanged_Name = 4;
 constexpr uint32_t kPayloadListener_OnPayloadReceived_Name = 0;
 constexpr uint32_t kPayloadListener_OnPayloadTransferUpdate_Name = 1;
+constexpr uint32_t kConnectionListenerV3_OnConnectionInitiated_Name = 0;
+constexpr uint32_t kConnectionListenerV3_OnDisconnected_Name = 1;
 constexpr uint32_t kNearbyConnections_StartAdvertising_Name = 0;
 constexpr uint32_t kNearbyConnections_StopAdvertising_Name = 1;
 constexpr uint32_t kNearbyConnections_StartDiscovery_Name = 2;
@@ -37,6 +39,10 @@ constexpr uint32_t kNearbyConnections_CancelPayload_Name = 10;
 constexpr uint32_t kNearbyConnections_StopAllEndpoints_Name = 11;
 constexpr uint32_t kNearbyConnections_InitiateBandwidthUpgrade_Name = 12;
 constexpr uint32_t kNearbyConnections_RegisterPayloadFile_Name = 13;
+constexpr uint32_t kNearbyConnections_RequestConnectionV3_Name = 14;
+constexpr uint32_t kNearbyConnections_AcceptConnectionV3_Name = 15;
+constexpr uint32_t kNearbyConnections_RejectConnectionV3_Name = 16;
+constexpr uint32_t kNearbyConnections_DisconnectFromDeviceV3_Name = 17;
 
 }  // namespace internal
 

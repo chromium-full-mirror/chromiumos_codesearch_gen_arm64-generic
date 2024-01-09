@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/demuxer_stream.mojom-features.h"
 #include "media/mojo/mojom/demuxer_stream.mojom-shared.h"
 #include "media/mojo/mojom/demuxer_stream.mojom-forward.h"
 #include "media/mojo/mojom/media_types.mojom.h"
@@ -97,12 +98,12 @@ class DemuxerStream
   virtual ~DemuxerStream() = default;
 
 
-  using InitializeCallback = base::OnceCallback<void(::media::DemuxerStream::Type, ::mojo::ScopedDataPipeConsumerHandle, const absl::optional<::media::AudioDecoderConfig>&, const absl::optional<::media::VideoDecoderConfig>&)>;
+  using InitializeCallback = base::OnceCallback<void(::media::DemuxerStream::Type, ::mojo::ScopedDataPipeConsumerHandle, const std::optional<::media::AudioDecoderConfig>&, const std::optional<::media::VideoDecoderConfig>&)>;
   
   virtual void Initialize(InitializeCallback callback) = 0;
 
 
-  using ReadCallback = base::OnceCallback<void(::media::DemuxerStream::Status, std::vector<::media::mojom::DecoderBufferPtr>, const absl::optional<::media::AudioDecoderConfig>&, const absl::optional<::media::VideoDecoderConfig>&)>;
+  using ReadCallback = base::OnceCallback<void(::media::DemuxerStream::Status, std::vector<::media::mojom::DecoderBufferPtr>, const std::optional<::media::AudioDecoderConfig>&, const std::optional<::media::VideoDecoderConfig>&)>;
   
   virtual void Read(uint32_t count, ReadCallback callback) = 0;
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/dlp_internals/dlp_internals.mojom-features.h"
 #include "chrome/browser/ui/webui/dlp_internals/dlp_internals.mojom-shared.h"
 #include "chrome/browser/ui/webui/dlp_internals/dlp_internals.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -38,6 +39,51 @@
 
 
 namespace dlp_internals::mojom {
+
+class ReportingObserverProxy;
+
+template <typename ImplRefTraits>
+class ReportingObserverStub;
+
+class ReportingObserverRequestValidator;
+
+
+class ReportingObserver
+    : public ReportingObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = ReportingObserverInterfaceBase;
+  using Proxy_ = ReportingObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = ReportingObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = ReportingObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnReportEventMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnReportEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~ReportingObserver() = default;
+
+  
+  virtual void OnReportEvent(DlpEventPtr event) = 0;
+};
 
 class PageHandlerProxy;
 
@@ -71,6 +117,9 @@ class PageHandler
   enum MethodMinVersions : uint32_t {
     kGetClipboardDataSourceMinVersion = 0,
     kGetContentRestrictionsInfoMinVersion = 0,
+    kObserveReportingMinVersion = 0,
+    kGetFilesDatabaseEntriesMinVersion = 0,
+    kGetFileInodeMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -80,6 +129,15 @@ class PageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetContentRestrictionsInfo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ObserveReporting_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetFilesDatabaseEntries_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetFileInode_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -94,6 +152,34 @@ class PageHandler
   using GetContentRestrictionsInfoCallback = base::OnceCallback<void(std::vector<WebContentsInfoPtr>)>;
   
   virtual void GetContentRestrictionsInfo(GetContentRestrictionsInfoCallback callback) = 0;
+
+  
+  virtual void ObserveReporting(::mojo::PendingRemote<ReportingObserver> observer) = 0;
+
+
+  using GetFilesDatabaseEntriesCallback = base::OnceCallback<void(std::vector<FileDatabaseEntryPtr>)>;
+  
+  virtual void GetFilesDatabaseEntries(GetFilesDatabaseEntriesCallback callback) = 0;
+
+
+  using GetFileInodeCallback = base::OnceCallback<void(uint64_t)>;
+  
+  virtual void GetFileInode(const std::string& file_name, GetFileInodeCallback callback) = 0;
+};
+
+
+
+class  ReportingObserverProxy
+    : public ReportingObserver {
+ public:
+  using InterfaceType = ReportingObserver;
+
+  explicit ReportingObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnReportEvent(DlpEventPtr event) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
 };
 
 
@@ -108,9 +194,56 @@ class  PageHandlerProxy
   void GetClipboardDataSource(GetClipboardDataSourceCallback callback) final;
   
   void GetContentRestrictionsInfo(GetContentRestrictionsInfoCallback callback) final;
+  
+  void ObserveReporting(::mojo::PendingRemote<ReportingObserver> observer) final;
+  
+  void GetFilesDatabaseEntries(GetFilesDatabaseEntriesCallback callback) final;
+  
+  void GetFileInode(const std::string& file_name, GetFileInodeCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
+};
+class  ReportingObserverStubDispatch {
+ public:
+  static bool Accept(ReportingObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      ReportingObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<ReportingObserver>>
+class ReportingObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  ReportingObserverStub() = default;
+  ~ReportingObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ReportingObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ReportingObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
 };
 class  PageHandlerStubDispatch {
  public:
@@ -153,6 +286,10 @@ class PageHandlerStub
  private:
   ImplPointerType sink_;
 };
+class  ReportingObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 class  PageHandlerRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -165,6 +302,300 @@ class  PageHandlerResponseValidator : public mojo::MessageReceiver {
 
 
 
+
+
+
+
+
+class  EventDestination {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<EventDestination, T>::value>;
+  using DataView = EventDestinationDataView;
+  using Data_ = internal::EventDestination_Data;
+  using Component = EventDestination_Component;
+
+  template <typename... Args>
+  static EventDestinationPtr New(Args&&... args) {
+    return EventDestinationPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static EventDestinationPtr From(const U& u) {
+    return mojo::TypeConverter<EventDestinationPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, EventDestination>::Convert(*this);
+  }
+
+
+  EventDestination();
+
+  EventDestination(
+      const std::optional<std::string>& url_pattern,
+      std::optional<EventDestination::Component> component);
+
+
+  ~EventDestination();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = EventDestinationPtr>
+  EventDestinationPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, EventDestination::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, EventDestination::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, EventDestination::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        EventDestination::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        EventDestination::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::EventDestination_UnserializedMessageContext<
+            UserType, EventDestination::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<EventDestination::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return EventDestination::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::EventDestination_UnserializedMessageContext<
+            UserType, EventDestination::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<EventDestination::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::optional<std::string> url_pattern;
+  
+  std::optional<EventDestination::Component> component;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, EventDestination::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, EventDestination::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, EventDestination::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, EventDestination::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  FileDatabaseEntry {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FileDatabaseEntry, T>::value>;
+  using DataView = FileDatabaseEntryDataView;
+  using Data_ = internal::FileDatabaseEntry_Data;
+
+  template <typename... Args>
+  static FileDatabaseEntryPtr New(Args&&... args) {
+    return FileDatabaseEntryPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FileDatabaseEntryPtr From(const U& u) {
+    return mojo::TypeConverter<FileDatabaseEntryPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FileDatabaseEntry>::Convert(*this);
+  }
+
+
+  FileDatabaseEntry();
+
+  FileDatabaseEntry(
+      std::optional<uint64_t> inode,
+      std::optional<uint64_t> crtime,
+      const std::optional<std::string>& source_url,
+      const std::optional<std::string>& referrer_url);
+
+
+  ~FileDatabaseEntry();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FileDatabaseEntryPtr>
+  FileDatabaseEntryPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FileDatabaseEntry::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FileDatabaseEntry::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FileDatabaseEntry::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FileDatabaseEntry::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FileDatabaseEntry::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FileDatabaseEntry_UnserializedMessageContext<
+            UserType, FileDatabaseEntry::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FileDatabaseEntry::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FileDatabaseEntry::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FileDatabaseEntry_UnserializedMessageContext<
+            UserType, FileDatabaseEntry::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FileDatabaseEntry::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::optional<uint64_t> inode;
+  
+  std::optional<uint64_t> crtime;
+  
+  std::optional<std::string> source_url;
+  
+  std::optional<std::string> referrer_url;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FileDatabaseEntry::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FileDatabaseEntry::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FileDatabaseEntry::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FileDatabaseEntry::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -200,7 +631,7 @@ class  DataTransferEndpoint {
 
   DataTransferEndpoint(
       EndpointType type,
-      const absl::optional<::GURL>& url);
+      const std::optional<::GURL>& url);
 
 
   ~DataTransferEndpoint();
@@ -280,7 +711,7 @@ class  DataTransferEndpoint {
   
   EndpointType type;
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -750,6 +1181,177 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+
+class  DlpEvent {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<DlpEvent, T>::value>;
+  using DataView = DlpEventDataView;
+  using Data_ = internal::DlpEvent_Data;
+  using Restriction = DlpEvent_Restriction;
+  using Mode = DlpEvent_Mode;
+  using UserType = DlpEvent_UserType;
+
+  template <typename... Args>
+  static DlpEventPtr New(Args&&... args) {
+    return DlpEventPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static DlpEventPtr From(const U& u) {
+    return mojo::TypeConverter<DlpEventPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DlpEvent>::Convert(*this);
+  }
+
+
+  DlpEvent();
+
+  DlpEvent(
+      const std::optional<std::string>& source_pattern,
+      EventDestinationPtr destination,
+      std::optional<DlpEvent::Restriction> restriction,
+      std::optional<DlpEvent::Mode> mode,
+      std::optional<int64_t> timestamp_micro,
+      std::optional<DlpEvent::UserType> user_type,
+      const std::optional<std::string>& content_name,
+      const std::optional<std::string>& triggered_rule_name,
+      const std::optional<std::string>& triggered_rule_id);
+
+DlpEvent(const DlpEvent&) = delete;
+DlpEvent& operator=(const DlpEvent&) = delete;
+
+  ~DlpEvent();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = DlpEventPtr>
+  DlpEventPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, DlpEvent::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, DlpEvent::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, DlpEvent::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        DlpEvent::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DlpEvent::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::DlpEvent_UnserializedMessageContext<
+            UserType, DlpEvent::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<DlpEvent::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return DlpEvent::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::DlpEvent_UnserializedMessageContext<
+            UserType, DlpEvent::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<DlpEvent::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::optional<std::string> source_pattern;
+  
+  EventDestinationPtr destination;
+  
+  std::optional<DlpEvent::Restriction> restriction;
+  
+  std::optional<DlpEvent::Mode> mode;
+  
+  std::optional<int64_t> timestamp_micro;
+  
+  std::optional<DlpEvent::UserType> user_type;
+  
+  std::optional<std::string> content_name;
+  
+  std::optional<std::string> triggered_rule_name;
+  
+  std::optional<std::string> triggered_rule_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, DlpEvent::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, DlpEvent::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, DlpEvent::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, DlpEvent::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
 template <typename StructPtrType>
 DataTransferEndpointPtr DataTransferEndpoint::Clone() const {
   return New(
@@ -880,6 +1482,156 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+EventDestinationPtr EventDestination::Clone() const {
+  return New(
+      mojo::Clone(url_pattern),
+      mojo::Clone(component)
+  );
+}
+
+template <typename T, EventDestination::EnableIfSame<T>*>
+bool EventDestination::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->url_pattern, other_struct.url_pattern))
+    return false;
+  if (!mojo::Equals(this->component, other_struct.component))
+    return false;
+  return true;
+}
+
+template <typename T, EventDestination::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.url_pattern < rhs.url_pattern)
+    return true;
+  if (rhs.url_pattern < lhs.url_pattern)
+    return false;
+  if (lhs.component < rhs.component)
+    return true;
+  if (rhs.component < lhs.component)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+DlpEventPtr DlpEvent::Clone() const {
+  return New(
+      mojo::Clone(source_pattern),
+      mojo::Clone(destination),
+      mojo::Clone(restriction),
+      mojo::Clone(mode),
+      mojo::Clone(timestamp_micro),
+      mojo::Clone(user_type),
+      mojo::Clone(content_name),
+      mojo::Clone(triggered_rule_name),
+      mojo::Clone(triggered_rule_id)
+  );
+}
+
+template <typename T, DlpEvent::EnableIfSame<T>*>
+bool DlpEvent::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->source_pattern, other_struct.source_pattern))
+    return false;
+  if (!mojo::Equals(this->destination, other_struct.destination))
+    return false;
+  if (!mojo::Equals(this->restriction, other_struct.restriction))
+    return false;
+  if (!mojo::Equals(this->mode, other_struct.mode))
+    return false;
+  if (!mojo::Equals(this->timestamp_micro, other_struct.timestamp_micro))
+    return false;
+  if (!mojo::Equals(this->user_type, other_struct.user_type))
+    return false;
+  if (!mojo::Equals(this->content_name, other_struct.content_name))
+    return false;
+  if (!mojo::Equals(this->triggered_rule_name, other_struct.triggered_rule_name))
+    return false;
+  if (!mojo::Equals(this->triggered_rule_id, other_struct.triggered_rule_id))
+    return false;
+  return true;
+}
+
+template <typename T, DlpEvent::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.source_pattern < rhs.source_pattern)
+    return true;
+  if (rhs.source_pattern < lhs.source_pattern)
+    return false;
+  if (lhs.destination < rhs.destination)
+    return true;
+  if (rhs.destination < lhs.destination)
+    return false;
+  if (lhs.restriction < rhs.restriction)
+    return true;
+  if (rhs.restriction < lhs.restriction)
+    return false;
+  if (lhs.mode < rhs.mode)
+    return true;
+  if (rhs.mode < lhs.mode)
+    return false;
+  if (lhs.timestamp_micro < rhs.timestamp_micro)
+    return true;
+  if (rhs.timestamp_micro < lhs.timestamp_micro)
+    return false;
+  if (lhs.user_type < rhs.user_type)
+    return true;
+  if (rhs.user_type < lhs.user_type)
+    return false;
+  if (lhs.content_name < rhs.content_name)
+    return true;
+  if (rhs.content_name < lhs.content_name)
+    return false;
+  if (lhs.triggered_rule_name < rhs.triggered_rule_name)
+    return true;
+  if (rhs.triggered_rule_name < lhs.triggered_rule_name)
+    return false;
+  if (lhs.triggered_rule_id < rhs.triggered_rule_id)
+    return true;
+  if (rhs.triggered_rule_id < lhs.triggered_rule_id)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+FileDatabaseEntryPtr FileDatabaseEntry::Clone() const {
+  return New(
+      mojo::Clone(inode),
+      mojo::Clone(crtime),
+      mojo::Clone(source_url),
+      mojo::Clone(referrer_url)
+  );
+}
+
+template <typename T, FileDatabaseEntry::EnableIfSame<T>*>
+bool FileDatabaseEntry::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->inode, other_struct.inode))
+    return false;
+  if (!mojo::Equals(this->crtime, other_struct.crtime))
+    return false;
+  if (!mojo::Equals(this->source_url, other_struct.source_url))
+    return false;
+  if (!mojo::Equals(this->referrer_url, other_struct.referrer_url))
+    return false;
+  return true;
+}
+
+template <typename T, FileDatabaseEntry::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.inode < rhs.inode)
+    return true;
+  if (rhs.inode < lhs.inode)
+    return false;
+  if (lhs.crtime < rhs.crtime)
+    return true;
+  if (rhs.crtime < lhs.crtime)
+    return false;
+  if (lhs.source_url < rhs.source_url)
+    return true;
+  if (rhs.source_url < lhs.source_url)
+    return false;
+  if (lhs.referrer_url < rhs.referrer_url)
+    return true;
+  if (rhs.referrer_url < lhs.referrer_url)
+    return false;
+  return false;
+}
 
 
 }  // dlp_internals::mojom
@@ -974,6 +1726,111 @@ struct  StructTraits<::dlp_internals::mojom::WebContentsInfo::DataView,
   }
 
   static bool Read(::dlp_internals::mojom::WebContentsInfo::DataView input, ::dlp_internals::mojom::WebContentsInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::dlp_internals::mojom::EventDestination::DataView,
+                                         ::dlp_internals::mojom::EventDestinationPtr> {
+  static bool IsNull(const ::dlp_internals::mojom::EventDestinationPtr& input) { return !input; }
+  static void SetToNull(::dlp_internals::mojom::EventDestinationPtr* output) { output->reset(); }
+
+  static const decltype(::dlp_internals::mojom::EventDestination::url_pattern)& url_pattern(
+      const ::dlp_internals::mojom::EventDestinationPtr& input) {
+    return input->url_pattern;
+  }
+
+  static decltype(::dlp_internals::mojom::EventDestination::component) component(
+      const ::dlp_internals::mojom::EventDestinationPtr& input) {
+    return input->component;
+  }
+
+  static bool Read(::dlp_internals::mojom::EventDestination::DataView input, ::dlp_internals::mojom::EventDestinationPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::dlp_internals::mojom::DlpEvent::DataView,
+                                         ::dlp_internals::mojom::DlpEventPtr> {
+  static bool IsNull(const ::dlp_internals::mojom::DlpEventPtr& input) { return !input; }
+  static void SetToNull(::dlp_internals::mojom::DlpEventPtr* output) { output->reset(); }
+
+  static const decltype(::dlp_internals::mojom::DlpEvent::source_pattern)& source_pattern(
+      const ::dlp_internals::mojom::DlpEventPtr& input) {
+    return input->source_pattern;
+  }
+
+  static const decltype(::dlp_internals::mojom::DlpEvent::destination)& destination(
+      const ::dlp_internals::mojom::DlpEventPtr& input) {
+    return input->destination;
+  }
+
+  static decltype(::dlp_internals::mojom::DlpEvent::restriction) restriction(
+      const ::dlp_internals::mojom::DlpEventPtr& input) {
+    return input->restriction;
+  }
+
+  static decltype(::dlp_internals::mojom::DlpEvent::mode) mode(
+      const ::dlp_internals::mojom::DlpEventPtr& input) {
+    return input->mode;
+  }
+
+  static decltype(::dlp_internals::mojom::DlpEvent::timestamp_micro) timestamp_micro(
+      const ::dlp_internals::mojom::DlpEventPtr& input) {
+    return input->timestamp_micro;
+  }
+
+  static decltype(::dlp_internals::mojom::DlpEvent::user_type) user_type(
+      const ::dlp_internals::mojom::DlpEventPtr& input) {
+    return input->user_type;
+  }
+
+  static const decltype(::dlp_internals::mojom::DlpEvent::content_name)& content_name(
+      const ::dlp_internals::mojom::DlpEventPtr& input) {
+    return input->content_name;
+  }
+
+  static const decltype(::dlp_internals::mojom::DlpEvent::triggered_rule_name)& triggered_rule_name(
+      const ::dlp_internals::mojom::DlpEventPtr& input) {
+    return input->triggered_rule_name;
+  }
+
+  static const decltype(::dlp_internals::mojom::DlpEvent::triggered_rule_id)& triggered_rule_id(
+      const ::dlp_internals::mojom::DlpEventPtr& input) {
+    return input->triggered_rule_id;
+  }
+
+  static bool Read(::dlp_internals::mojom::DlpEvent::DataView input, ::dlp_internals::mojom::DlpEventPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::dlp_internals::mojom::FileDatabaseEntry::DataView,
+                                         ::dlp_internals::mojom::FileDatabaseEntryPtr> {
+  static bool IsNull(const ::dlp_internals::mojom::FileDatabaseEntryPtr& input) { return !input; }
+  static void SetToNull(::dlp_internals::mojom::FileDatabaseEntryPtr* output) { output->reset(); }
+
+  static decltype(::dlp_internals::mojom::FileDatabaseEntry::inode) inode(
+      const ::dlp_internals::mojom::FileDatabaseEntryPtr& input) {
+    return input->inode;
+  }
+
+  static decltype(::dlp_internals::mojom::FileDatabaseEntry::crtime) crtime(
+      const ::dlp_internals::mojom::FileDatabaseEntryPtr& input) {
+    return input->crtime;
+  }
+
+  static const decltype(::dlp_internals::mojom::FileDatabaseEntry::source_url)& source_url(
+      const ::dlp_internals::mojom::FileDatabaseEntryPtr& input) {
+    return input->source_url;
+  }
+
+  static const decltype(::dlp_internals::mojom::FileDatabaseEntry::referrer_url)& referrer_url(
+      const ::dlp_internals::mojom::FileDatabaseEntryPtr& input) {
+    return input->referrer_url;
+  }
+
+  static bool Read(::dlp_internals::mojom::FileDatabaseEntry::DataView input, ::dlp_internals::mojom::FileDatabaseEntryPtr* output);
 };
 
 }  // namespace mojo

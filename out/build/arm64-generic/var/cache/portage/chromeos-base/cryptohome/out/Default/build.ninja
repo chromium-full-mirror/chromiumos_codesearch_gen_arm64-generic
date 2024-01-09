@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5635/work/cryptohome-0.0.2/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -22,6 +22,7 @@ build _libcryptohome_data_migrator-install_config: phony obj/cryptohome/libs/_li
 build _libcryptohome_data_migrator_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp
 build _libcryptohome_platform-install_config: phony obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp
 build _libcryptohome_platform_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_platform_pc-install_config.stamp
+build _lockbox-cache-manager-install_config: phony obj/cryptohome/_lockbox-cache-manager-install_config.stamp
 build auth-block-state-flatbuffers-binding-binary: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary.stamp
 build auth-block-state-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary_gen.stamp
 build auth-block-state-flatbuffers-binding-generate: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-generate.stamp
@@ -34,12 +35,15 @@ build cryptohome-flatbuffers_gen: phony obj/cryptohome/libs/cryptohome-flatbuffe
 build cryptohome-key-delegate-proxies: phony obj/cryptohome/libs/cryptohome-key-delegate-proxies.stamp
 build cryptohome-proto: phony ./libcryptohome-proto.a
 build cryptohome-proto_gen: phony obj/cryptohome/libs/cryptohome-proto_gen.stamp
+build dbus-proxies: phony obj/common-mk/external_dependencies/dbus-proxies.stamp
+build enterprise_management_goprotos: phony obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp
 build enumerations-flatbuffers-binding-binary: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-binary.stamp
 build enumerations-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-binary_gen.stamp
 build enumerations-flatbuffers-binding-generate: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-generate.stamp
 build error_location_check: phony obj/cryptohome/error_location_check.stamp
-build fake_platform-static: phony ./libfake_platform-static.a
 build flatbuffers-binding-generator: phony obj/cryptohome/libs/flatbuffers-binding-generator.stamp
+build install_attributes-proto: phony ./libinstall_attributes-proto.a
+build install_attributes-proto_gen: phony obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp
 build install_data_migrator_headers: phony obj/cryptohome/libs/install_data_migrator_headers.stamp
 build install_platform_headers: phony obj/cryptohome/libs/install_platform_headers.stamp
 build install_tmpfilesd: phony obj/cryptohome/install_tmpfilesd.stamp
@@ -51,50 +55,68 @@ build libcryptohome_data_migrator_pc: phony obj/cryptohome/libs/libcryptohome_da
 build libcryptohome_platform: phony ./lib/libcryptohome_platform.so
 build libcryptohome_platform_pc: phony obj/cryptohome/libs/libcryptohome_platform_pc.stamp
 build libfido: phony ./libfido.a
+build modemmanager-dbus-adaptors: phony obj/common-mk/external_dependencies/modemmanager-dbus-adaptors.stamp
 build mount_encrypted_lib: phony ./libmount_encrypted_lib.a
 build namespace-mounter-ipc-proto: phony ./libnamespace-mounter-ipc-proto.a
 build namespace-mounter-ipc-proto_gen: phony obj/cryptohome/libs/namespace-mounter-ipc-proto_gen.stamp
+build policy-goprotos: phony obj/common-mk/external_dependencies/policy-goprotos.stamp
+build policy-protos: phony ./libpolicy-protos.a
+build policy-protos_gen: phony obj/common-mk/external_dependencies/policy-protos_gen.stamp
+build policy_common_definitions-protos: phony ./libpolicy_common_definitions-protos.a
+build policy_common_definitions-protos_gen: phony obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp
 build print_proto_library: phony obj/cryptohome/print_proto_library.stamp
+build private_membership_goprotos: phony obj/common-mk/external_dependencies/private_membership_goprotos.stamp
+build private_membership_rlwe_goprotos: phony obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp
 build python-flatbuffers-reflection: phony obj/cryptohome/libs/python-flatbuffers-reflection.stamp
 build python-flatbuffers-reflection_gen: phony obj/cryptohome/libs/python-flatbuffers-reflection_gen.stamp
+build rlwe_goprotos: phony obj/common-mk/external_dependencies/rlwe_goprotos.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build stateful_recovery_lib: phony ./libstateful_recovery_lib.a
 build structures-flatbuffers-binding-binary: phony obj/cryptohome/libs/structures-flatbuffers-binding-binary.stamp
 build structures-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/structures-flatbuffers-binding-binary_gen.stamp
 build structures-flatbuffers-binding-generate: phony obj/cryptohome/libs/structures-flatbuffers-binding-generate.stamp
-build test_utils-static: phony ./libtest_utils-static.a
-build testrunner: phony ./libtestrunner.a
 build user-policy-flatbuffers-binding-binary: phony obj/cryptohome/libs/user-policy-flatbuffers-binding-binary.stamp
 build user-policy-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/user-policy-flatbuffers-binding-binary_gen.stamp
 build user-policy-flatbuffers-binding-generate: phony obj/cryptohome/libs/user-policy-flatbuffers-binding-generate.stamp
 build user-secret-stash-flatbuffers-binding-binary: phony obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-binary.stamp
 build user-secret-stash-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-binary_gen.stamp
 build user-secret-stash-flatbuffers-binding-generate: phony obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-generate.stamp
+build user_policy-protos: phony ./libuser_policy-protos.a
+build user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
 build userdataauth_adaptors: phony obj/cryptohome/libs/userdataauth_adaptors.stamp
+build common-mk/external_dependencies$:dbus-proxies: phony obj/common-mk/external_dependencies/dbus-proxies.stamp
+build common-mk/external_dependencies$:enterprise_management_goprotos: phony obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp
+build common-mk/external_dependencies$:install_attributes-proto: phony ./libinstall_attributes-proto.a
+build common-mk/external_dependencies$:install_attributes-proto_gen: phony obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp
+build common-mk/external_dependencies$:modemmanager-dbus-adaptors: phony obj/common-mk/external_dependencies/modemmanager-dbus-adaptors.stamp
+build common-mk/external_dependencies$:policy-goprotos: phony obj/common-mk/external_dependencies/policy-goprotos.stamp
+build common-mk/external_dependencies$:policy-protos: phony ./libpolicy-protos.a
+build common-mk/external_dependencies$:policy-protos_gen: phony obj/common-mk/external_dependencies/policy-protos_gen.stamp
+build common-mk/external_dependencies$:policy_common_definitions-protos: phony ./libpolicy_common_definitions-protos.a
+build common-mk/external_dependencies$:policy_common_definitions-protos_gen: phony obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp
+build common-mk/external_dependencies$:private_membership_goprotos: phony obj/common-mk/external_dependencies/private_membership_goprotos.stamp
+build common-mk/external_dependencies$:private_membership_rlwe_goprotos: phony obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp
+build common-mk/external_dependencies$:rlwe_goprotos: phony obj/common-mk/external_dependencies/rlwe_goprotos.stamp
+build common-mk/external_dependencies$:user_policy-protos: phony ./libuser_policy-protos.a
+build common-mk/external_dependencies$:user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
+build cryptohome$:_lockbox-cache-manager-install_config: phony obj/cryptohome/_lockbox-cache-manager-install_config.stamp
 build cryptohome$:all: phony obj/cryptohome/all.stamp
 build cryptohome$:cryptohome: phony ./cryptohome
 build cryptohome$:cryptohome-namespace-mounter: phony ./cryptohome-namespace-mounter
 build cryptohome$:cryptohome-path: phony ./cryptohome-path
-build cryptohome$:cryptohome_testrunner: phony ./cryptohome_testrunner
 build cryptohome$:cryptohomed: phony ./cryptohomed
 build cryptohome$:encrypted-reboot-vault: phony ./encrypted-reboot-vault
 build cryptohome$:error_location_check: phony obj/cryptohome/error_location_check.stamp
-build cryptohome$:fake_platform-static: phony ./libfake_platform-static.a
-build cryptohome$:fake_platform_unittest: phony ./fake_platform_unittest
 build cryptohome$:homedirs_initializer: phony ./homedirs_initializer
 build cryptohome$:install_tmpfilesd: phony obj/cryptohome/install_tmpfilesd.stamp
 build cryptohome$:lockbox-cache: phony ./lockbox-cache
+build cryptohome$:lockbox-cache-manager: phony ./lockbox-cache-manager
 build cryptohome$:mount-encrypted: phony ./mount-encrypted
 build cryptohome$:mount_encrypted_lib: phony ./libmount_encrypted_lib.a
-build cryptohome$:mount_encrypted_unittests: phony ./mount_encrypted_unittests
 build cryptohome$:print_proto_library: phony obj/cryptohome/print_proto_library.stamp
 build cryptohome$:stateful-recovery: phony ./stateful-recovery
 build cryptohome$:stateful_recovery_lib: phony ./libstateful_recovery_lib.a
-build cryptohome$:stateful_recovery_unittests: phony ./stateful_recovery_unittests
-build cryptohome$:test_utils-static: phony ./libtest_utils-static.a
 build cryptohome/libs$:_libcryptohome_data_migrator-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator-install_config.stamp
 build cryptohome/libs$:_libcryptohome_data_migrator_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp
 build cryptohome/libs$:_libcryptohome_platform-install_config: phony obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp
@@ -141,29 +163,39 @@ build cryptohome/libs$:user-secret-stash-flatbuffers-binding-generate: phony obj
 build cryptohome/libs$:userdataauth_adaptors: phony obj/cryptohome/libs/userdataauth_adaptors.stamp
 
 build all: phony $
+    obj/common-mk/external_dependencies/dbus-proxies.stamp $
+    obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp $
+    ./libinstall_attributes-proto.a $
+    obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp $
+    obj/common-mk/external_dependencies/modemmanager-dbus-adaptors.stamp $
+    obj/common-mk/external_dependencies/policy-goprotos.stamp $
+    ./libpolicy-protos.a $
+    obj/common-mk/external_dependencies/policy-protos_gen.stamp $
+    ./libpolicy_common_definitions-protos.a $
+    obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp $
+    obj/common-mk/external_dependencies/private_membership_goprotos.stamp $
+    obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp $
+    obj/common-mk/external_dependencies/rlwe_goprotos.stamp $
+    ./libuser_policy-protos.a $
+    obj/common-mk/external_dependencies/user_policy-protos_gen.stamp $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
+    obj/cryptohome/_lockbox-cache-manager-install_config.stamp $
     obj/cryptohome/all.stamp $
     ./cryptohome $
     ./cryptohome-namespace-mounter $
     ./cryptohome-path $
-    ./cryptohome_testrunner $
     ./cryptohomed $
     ./encrypted-reboot-vault $
     obj/cryptohome/error_location_check.stamp $
-    ./libfake_platform-static.a $
-    ./fake_platform_unittest $
     ./homedirs_initializer $
     obj/cryptohome/install_tmpfilesd.stamp $
     ./lockbox-cache $
+    ./lockbox-cache-manager $
     ./mount-encrypted $
     ./libmount_encrypted_lib.a $
-    ./mount_encrypted_unittests $
     obj/cryptohome/print_proto_library.stamp $
     ./stateful-recovery $
     ./libstateful_recovery_lib.a $
-    ./stateful_recovery_unittests $
-    ./libtest_utils-static.a $
     obj/cryptohome/libs/_libcryptohome_data_migrator-install_config.stamp $
     obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp $
     obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp $

@@ -57,7 +57,7 @@ bool BackgroundImage_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -80,8 +80,11 @@ bool BackgroundImage_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->snapshot_url, validation_context))
     return false;
 
+  if (!mojo::internal::ValidateStruct(object->local_background_id, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->title, 4, validation_context)) {
+          object->title, 5, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& title_validate_params =
@@ -92,7 +95,7 @@ bool BackgroundImage_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->collection_id, 5, validation_context)) {
+          object->collection_id, 6, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& collection_id_validate_params =
@@ -364,193 +367,6 @@ bool ModuleSettings_Data::Validate(
 }
 
 ModuleSettings_Data::ModuleSettings_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool DescriptorA_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const DescriptorA_Data* object =
-      static_cast<const DescriptorA_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->category, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& category_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->category, validation_context,
-                                         &category_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->labels, 2, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& labels_validate_params =
-      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-  if (!mojo::internal::ValidateContainer(object->labels, validation_context,
-                                         &labels_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-DescriptorA_Data::DescriptorA_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool DescriptorB_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const DescriptorB_Data* object =
-      static_cast<const DescriptorB_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->label, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& label_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->label, validation_context,
-                                         &label_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->image_path, 2, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& image_path_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->image_path, validation_context,
-                                         &image_path_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-DescriptorB_Data::DescriptorB_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Descriptors_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Descriptors_Data* object =
-      static_cast<const Descriptors_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->descriptor_a, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_a_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_a, validation_context,
-                                         &descriptor_a_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->descriptor_b, 2, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_b_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_b, validation_context,
-                                         &descriptor_b_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->descriptor_c, 3, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_c_validate_params =
-      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_c, validation_context,
-                                         &descriptor_c_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-Descriptors_Data::Descriptors_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool WallpaperSearchResult_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const WallpaperSearchResult_Data* object =
-      static_cast<const WallpaperSearchResult_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->id, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->id, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->image, 2, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& image_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->image, validation_context,
-                                         &image_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-WallpaperSearchResult_Data::WallpaperSearchResult_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1172,174 +988,6 @@ bool CustomizeChromePageHandler_UpdateScrollToSection_Params_Data::Validate(
 }
 
 CustomizeChromePageHandler_UpdateScrollToSection_Params_Data::CustomizeChromePageHandler_UpdateScrollToSection_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CustomizeChromePageHandler_GetDescriptors_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CustomizeChromePageHandler_GetDescriptors_Params_Data* object =
-      static_cast<const CustomizeChromePageHandler_GetDescriptors_Params_Data*>(data);
-
-  return true;
-}
-
-CustomizeChromePageHandler_GetDescriptors_Params_Data::CustomizeChromePageHandler_GetDescriptors_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CustomizeChromePageHandler_GetDescriptors_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CustomizeChromePageHandler_GetDescriptors_ResponseParams_Data* object =
-      static_cast<const CustomizeChromePageHandler_GetDescriptors_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidateStruct(object->descriptors, validation_context))
-    return false;
-
-  return true;
-}
-
-CustomizeChromePageHandler_GetDescriptors_ResponseParams_Data::CustomizeChromePageHandler_GetDescriptors_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CustomizeChromePageHandler_GetWallpaperSearchResults_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CustomizeChromePageHandler_GetWallpaperSearchResults_Params_Data* object =
-      static_cast<const CustomizeChromePageHandler_GetWallpaperSearchResults_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->descriptor_a, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_a_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_a, validation_context,
-                                         &descriptor_a_validate_params)) {
-    return false;
-  }
-
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_b_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_b, validation_context,
-                                         &descriptor_b_validate_params)) {
-    return false;
-  }
-
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_c_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_c, validation_context,
-                                         &descriptor_c_validate_params)) {
-    return false;
-  }
-
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_d_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_d, validation_context,
-                                         &descriptor_d_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-CustomizeChromePageHandler_GetWallpaperSearchResults_Params_Data::CustomizeChromePageHandler_GetWallpaperSearchResults_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams_Data* object =
-      static_cast<const CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->results, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& results_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->results, validation_context,
-                                         &results_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams_Data::CustomizeChromePageHandler_GetWallpaperSearchResults_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params_Data* object =
-      static_cast<const CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->result_id, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->result_id, validation_context))
-    return false;
-
-  return true;
-}
-
-CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params_Data::CustomizeChromePageHandler_SetBackgroundToWallpaperSearchResult_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

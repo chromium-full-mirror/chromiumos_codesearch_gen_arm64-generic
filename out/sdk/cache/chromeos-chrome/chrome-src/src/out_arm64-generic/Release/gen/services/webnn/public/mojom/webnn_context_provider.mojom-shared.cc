@@ -101,10 +101,6 @@ bool CreateGraphResult_Data::Validate(
 
     case CreateGraphResult_Tag::kGraphRemote: {
 
-      if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-              object->data.f_graph_remote, 1, validation_context)) {
-        return false;
-      }
       if (!mojo::internal::ValidateHandleOrInterface(object->data.f_graph_remote,
                                                      validation_context)) {
         return false;
@@ -160,10 +156,6 @@ bool CreateContextResult_Data::Validate(
 
     case CreateContextResult_Tag::kContextRemote: {
 
-      if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-              object->data.f_context_remote, 1, validation_context)) {
-        return false;
-      }
       if (!mojo::internal::ValidateHandleOrInterface(object->data.f_context_remote,
                                                      validation_context)) {
         return false;

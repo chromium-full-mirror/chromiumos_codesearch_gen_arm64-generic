@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/editor_panel.mojom-features.h"
 #include "chromeos/crosapi/mojom/editor_panel.mojom-shared.h"
 #include "chromeos/crosapi/mojom/editor_panel.mojom-forward.h"
 #include <string>
@@ -58,7 +59,7 @@ class EditorPanelManager
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 11950150873325652124ULL,
                                       11174934738693572679ULL };
-  static constexpr uint32_t Version_ = 1;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -78,6 +79,7 @@ class EditorPanelManager
     kStartEditingFlowWithPresetMinVersion = 0,
     kStartEditingFlowWithFreeformMinVersion = 0,
     kOnEditorMenuVisibilityChangedMinVersion = 1,
+    kLogEditorModeMinVersion = 2,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -102,6 +104,9 @@ class EditorPanelManager
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnEditorMenuVisibilityChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LogEditorMode_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -129,6 +134,9 @@ class EditorPanelManager
 
   
   virtual void OnEditorMenuVisibilityChanged(bool visible) = 0;
+
+  
+  virtual void LogEditorMode(EditorPanelMode mode) = 0;
 };
 
 
@@ -153,6 +161,8 @@ class  EditorPanelManagerProxy
   void StartEditingFlowWithFreeform(const std::string& text) final;
   
   void OnEditorMenuVisibilityChanged(bool visible) final;
+  
+  void LogEditorMode(EditorPanelMode mode) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

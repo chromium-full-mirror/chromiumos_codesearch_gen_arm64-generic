@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct AccountInfo {
   ~AccountInfo();
   AccountInfo(const AccountInfo&) = delete;
   AccountInfo& operator=(const AccountInfo&) = delete;
-  AccountInfo(AccountInfo&& rhs);
-  AccountInfo& operator=(AccountInfo&& rhs);
+  AccountInfo(AccountInfo&& rhs) noexcept;
+  AccountInfo& operator=(AccountInfo&& rhs) noexcept;
 
   // Populates a AccountInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -48,15 +49,12 @@ struct AccountInfo {
   // Creates a deep copy of AccountInfo.
   AccountInfo Clone() const;
 
-  // Creates a AccountInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AccountInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a AccountInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AccountInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<AccountInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a AccountInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<AccountInfo> FromValue(const base::Value& value);
+  static std::optional<AccountInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAccountInfo object.
@@ -68,11 +66,11 @@ struct AccountInfo {
 
 };
 
-enum  AccountStatus {
-  ACCOUNT_STATUS_NONE = 0,
-  ACCOUNT_STATUS_SYNC,
-  ACCOUNT_STATUS_ANY,
-  ACCOUNT_STATUS_LAST = ACCOUNT_STATUS_ANY,
+enum class AccountStatus {
+  kNone = 0,
+  kSync,
+  kAny,
+  kMaxValue = kAny,
 };
 
 
@@ -85,8 +83,8 @@ struct ProfileDetails {
   ~ProfileDetails();
   ProfileDetails(const ProfileDetails&) = delete;
   ProfileDetails& operator=(const ProfileDetails&) = delete;
-  ProfileDetails(ProfileDetails&& rhs);
-  ProfileDetails& operator=(ProfileDetails&& rhs);
+  ProfileDetails(ProfileDetails&& rhs) noexcept;
+  ProfileDetails& operator=(ProfileDetails&& rhs) noexcept;
 
   // Populates a ProfileDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -99,15 +97,12 @@ struct ProfileDetails {
   // Creates a deep copy of ProfileDetails.
   ProfileDetails Clone() const;
 
-  // Creates a ProfileDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProfileDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProfileDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProfileDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<ProfileDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a ProfileDetails object from a base::Value, or nullopt on failure.
-  static absl::optional<ProfileDetails> FromValue(const base::Value& value);
+  static std::optional<ProfileDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProfileDetails object.
@@ -125,8 +120,8 @@ struct ProfileUserInfo {
   ~ProfileUserInfo();
   ProfileUserInfo(const ProfileUserInfo&) = delete;
   ProfileUserInfo& operator=(const ProfileUserInfo&) = delete;
-  ProfileUserInfo(ProfileUserInfo&& rhs);
-  ProfileUserInfo& operator=(ProfileUserInfo&& rhs);
+  ProfileUserInfo(ProfileUserInfo&& rhs) noexcept;
+  ProfileUserInfo& operator=(ProfileUserInfo&& rhs) noexcept;
 
   // Populates a ProfileUserInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -139,15 +134,12 @@ struct ProfileUserInfo {
   // Creates a deep copy of ProfileUserInfo.
   ProfileUserInfo Clone() const;
 
-  // Creates a ProfileUserInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProfileUserInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProfileUserInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProfileUserInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ProfileUserInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ProfileUserInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ProfileUserInfo> FromValue(const base::Value& value);
+  static std::optional<ProfileUserInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProfileUserInfo object.
@@ -170,8 +162,8 @@ struct TokenDetails {
   ~TokenDetails();
   TokenDetails(const TokenDetails&) = delete;
   TokenDetails& operator=(const TokenDetails&) = delete;
-  TokenDetails(TokenDetails&& rhs);
-  TokenDetails& operator=(TokenDetails&& rhs);
+  TokenDetails(TokenDetails&& rhs) noexcept;
+  TokenDetails& operator=(TokenDetails&& rhs) noexcept;
 
   // Populates a TokenDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -184,15 +176,12 @@ struct TokenDetails {
   // Creates a deep copy of TokenDetails.
   TokenDetails Clone() const;
 
-  // Creates a TokenDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TokenDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a TokenDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<TokenDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<TokenDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a TokenDetails object from a base::Value, or nullopt on failure.
-  static absl::optional<TokenDetails> FromValue(const base::Value& value);
+  static std::optional<TokenDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTokenDetails object.
@@ -203,22 +192,22 @@ struct TokenDetails {
   // <code>getAuthToken</code> will prompt the user as necessary. When the flag is
   // <code>false</code> or omitted, <code>getAuthToken</code> will return failure
   // any time a prompt would be required.
-  absl::optional<bool> interactive;
+  std::optional<bool> interactive;
 
   // The account ID whose token should be returned. If not specified, the function
   // will use an account from the Chrome profile: the Sync account if there is
   // one, or otherwise the first Google web account.
-  absl::optional<AccountInfo> account;
+  std::optional<AccountInfo> account;
 
   // <p>A list of OAuth2 scopes to request.</p><p>When the <code>scopes</code>
   // field is present, it overrides the list of scopes specified in
   // manifest.json.</p>
-  absl::optional<std::vector<std::string>> scopes;
+  std::optional<std::vector<std::string>> scopes;
 
   // The <code>enableGranularPermissions</code> flag allows extensions to opt-in
   // early to the granular permissions consent screen, in which requested
   // permissions are granted or denied individually.
-  absl::optional<bool> enable_granular_permissions;
+  std::optional<bool> enable_granular_permissions;
 
 };
 
@@ -227,8 +216,8 @@ struct InvalidTokenDetails {
   ~InvalidTokenDetails();
   InvalidTokenDetails(const InvalidTokenDetails&) = delete;
   InvalidTokenDetails& operator=(const InvalidTokenDetails&) = delete;
-  InvalidTokenDetails(InvalidTokenDetails&& rhs);
-  InvalidTokenDetails& operator=(InvalidTokenDetails&& rhs);
+  InvalidTokenDetails(InvalidTokenDetails&& rhs) noexcept;
+  InvalidTokenDetails& operator=(InvalidTokenDetails&& rhs) noexcept;
 
   // Populates a InvalidTokenDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -241,17 +230,13 @@ struct InvalidTokenDetails {
   // Creates a deep copy of InvalidTokenDetails.
   InvalidTokenDetails Clone() const;
 
-  // Creates a InvalidTokenDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<InvalidTokenDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a InvalidTokenDetails object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<InvalidTokenDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<InvalidTokenDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a InvalidTokenDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<InvalidTokenDetails> FromValue(const base::Value& value);
+  static std::optional<InvalidTokenDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInvalidTokenDetails object.
@@ -267,8 +252,8 @@ struct WebAuthFlowDetails {
   ~WebAuthFlowDetails();
   WebAuthFlowDetails(const WebAuthFlowDetails&) = delete;
   WebAuthFlowDetails& operator=(const WebAuthFlowDetails&) = delete;
-  WebAuthFlowDetails(WebAuthFlowDetails&& rhs);
-  WebAuthFlowDetails& operator=(WebAuthFlowDetails&& rhs);
+  WebAuthFlowDetails(WebAuthFlowDetails&& rhs) noexcept;
+  WebAuthFlowDetails& operator=(WebAuthFlowDetails&& rhs) noexcept;
 
   // Populates a WebAuthFlowDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -281,16 +266,13 @@ struct WebAuthFlowDetails {
   // Creates a deep copy of WebAuthFlowDetails.
   WebAuthFlowDetails Clone() const;
 
-  // Creates a WebAuthFlowDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<WebAuthFlowDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a WebAuthFlowDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<WebAuthFlowDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<WebAuthFlowDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a WebAuthFlowDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<WebAuthFlowDetails> FromValue(const base::Value& value);
+  static std::optional<WebAuthFlowDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWebAuthFlowDetails object.
@@ -311,7 +293,7 @@ struct WebAuthFlowDetails {
   // <code>abortOnLoadForNonInteractive</code> can be set to <code>false</code> in
   // combination with setting <code>timeoutMsForNonInteractive</code> to give the
   // page a chance to perform any redirects.</p>
-  absl::optional<bool> interactive;
+  std::optional<bool> interactive;
 
   // <p>Whether to terminate <code>launchWebAuthFlow</code> for non-interactive
   // requests after the page loads. This parameter does not affect interactive
@@ -320,12 +302,12 @@ struct WebAuthFlowDetails {
   // will only terminate after the <code>timeoutMsForNonInteractive</code> passes.
   // This is useful for identity providers that use JavaScript to perform
   // redirections after the page loads.</p>
-  absl::optional<bool> abort_on_load_for_non_interactive;
+  std::optional<bool> abort_on_load_for_non_interactive;
 
   // The maximum amount of time, in miliseconds, <code>launchWebAuthFlow</code> is
   // allowed to run in non-interactive mode in total. Only has an effect if
   // <code>interactive</code> is <code>false</code>.
-  absl::optional<int> timeout_ms_for_non_interactive;
+  std::optional<int> timeout_ms_for_non_interactive;
 
 };
 
@@ -334,8 +316,8 @@ struct GetAuthTokenResult {
   ~GetAuthTokenResult();
   GetAuthTokenResult(const GetAuthTokenResult&) = delete;
   GetAuthTokenResult& operator=(const GetAuthTokenResult&) = delete;
-  GetAuthTokenResult(GetAuthTokenResult&& rhs);
-  GetAuthTokenResult& operator=(GetAuthTokenResult&& rhs);
+  GetAuthTokenResult(GetAuthTokenResult&& rhs) noexcept;
+  GetAuthTokenResult& operator=(GetAuthTokenResult&& rhs) noexcept;
 
   // Populates a GetAuthTokenResult object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -348,26 +330,23 @@ struct GetAuthTokenResult {
   // Creates a deep copy of GetAuthTokenResult.
   GetAuthTokenResult Clone() const;
 
-  // Creates a GetAuthTokenResult object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetAuthTokenResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetAuthTokenResult object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetAuthTokenResult> FromValue(const base::Value::Dict& value);
+  static std::optional<GetAuthTokenResult> FromValue(const base::Value::Dict& value);
 
   // Creates a GetAuthTokenResult object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetAuthTokenResult> FromValue(const base::Value& value);
+  static std::optional<GetAuthTokenResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetAuthTokenResult object.
   base::Value::Dict ToValue() const;
 
   // The specific token associated with the request.
-  absl::optional<std::string> token;
+  std::optional<std::string> token;
 
   // A list of OAuth2 scopes granted to the extension.
-  absl::optional<std::vector<std::string>> granted_scopes;
+  std::optional<std::vector<std::string>> granted_scopes;
 
 };
 
@@ -388,15 +367,15 @@ base::Value::List Create(const std::vector<AccountInfo>& accounts);
 namespace GetAuthToken {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Token options.
-  absl::optional<TokenDetails> details;
+  std::optional<TokenDetails> details;
 
 
  private:
@@ -413,15 +392,15 @@ base::Value::List Create(const GetAuthTokenResult& result);
 namespace GetProfileUserInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Profile options.
-  absl::optional<ProfileDetails> details;
+  std::optional<ProfileDetails> details;
 
 
  private:
@@ -438,11 +417,11 @@ base::Value::List Create(const ProfileUserInfo& user_info);
 namespace RemoveCachedAuthToken {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Token information.
@@ -472,11 +451,11 @@ base::Value::List Create();
 namespace LaunchWebAuthFlow {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // WebAuth flow options.

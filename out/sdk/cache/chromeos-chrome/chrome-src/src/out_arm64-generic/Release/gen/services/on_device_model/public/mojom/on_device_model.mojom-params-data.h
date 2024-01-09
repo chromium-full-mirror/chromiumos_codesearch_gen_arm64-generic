@@ -44,6 +44,8 @@ class  StreamingResponder_OnComplete_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t status;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<StreamingResponder_OnComplete_Params_Data>;
@@ -51,89 +53,76 @@ class  StreamingResponder_OnComplete_Params_Data {
   StreamingResponder_OnComplete_Params_Data();
   ~StreamingResponder_OnComplete_Params_Data() = delete;
 };
-static_assert(sizeof(StreamingResponder_OnComplete_Params_Data) == 8,
+static_assert(sizeof(StreamingResponder_OnComplete_Params_Data) == 16,
               "Bad sizeof(StreamingResponder_OnComplete_Params_Data)");
-class  OnDeviceModel_Execute_Params_Data {
+class  ContextClient_OnComplete_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> input;
-  mojo::internal::Interface_Data response;
-
- private:
-  friend class mojo::internal::MessageFragment<OnDeviceModel_Execute_Params_Data>;
-
-  OnDeviceModel_Execute_Params_Data();
-  ~OnDeviceModel_Execute_Params_Data() = delete;
-};
-static_assert(sizeof(OnDeviceModel_Execute_Params_Data) == 24,
-              "Bad sizeof(OnDeviceModel_Execute_Params_Data)");
-class  OnDeviceModelService_LoadModel_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::ModelAssets_Data> assets;
-
- private:
-  friend class mojo::internal::MessageFragment<OnDeviceModelService_LoadModel_Params_Data>;
-
-  OnDeviceModelService_LoadModel_Params_Data();
-  ~OnDeviceModelService_LoadModel_Params_Data() = delete;
-};
-static_assert(sizeof(OnDeviceModelService_LoadModel_Params_Data) == 16,
-              "Bad sizeof(OnDeviceModelService_LoadModel_Params_Data)");
-class  OnDeviceModelService_LoadModel_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  internal::LoadModelResult_Data result;
-
- private:
-  friend class mojo::internal::MessageFragment<OnDeviceModelService_LoadModel_ResponseParams_Data>;
-
-  OnDeviceModelService_LoadModel_ResponseParams_Data();
-  ~OnDeviceModelService_LoadModel_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(OnDeviceModelService_LoadModel_ResponseParams_Data) == 24,
-              "Bad sizeof(OnDeviceModelService_LoadModel_ResponseParams_Data)");
-class  OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data>;
-
-  OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data();
-  ~OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data() = delete;
-};
-static_assert(sizeof(OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data) == 8,
-              "Bad sizeof(OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data)");
-class  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t performance_class;
+  uint32_t tokens_processed;
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<ContextClient_OnComplete_Params_Data>;
 
-  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data();
-  ~OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data() = delete;
+  ContextClient_OnComplete_Params_Data();
+  ~ContextClient_OnComplete_Params_Data() = delete;
 };
-static_assert(sizeof(OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data) == 16,
-              "Bad sizeof(OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data)");
+static_assert(sizeof(ContextClient_OnComplete_Params_Data) == 16,
+              "Bad sizeof(ContextClient_OnComplete_Params_Data)");
+class  Session_AddContext_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::InputOptions_Data> input;
+  mojo::internal::Interface_Data client;
+
+ private:
+  friend class mojo::internal::MessageFragment<Session_AddContext_Params_Data>;
+
+  Session_AddContext_Params_Data();
+  ~Session_AddContext_Params_Data() = delete;
+};
+static_assert(sizeof(Session_AddContext_Params_Data) == 24,
+              "Bad sizeof(Session_AddContext_Params_Data)");
+class  Session_Execute_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::InputOptions_Data> input;
+  mojo::internal::Interface_Data response;
+
+ private:
+  friend class mojo::internal::MessageFragment<Session_Execute_Params_Data>;
+
+  Session_Execute_Params_Data();
+  ~Session_Execute_Params_Data() = delete;
+};
+static_assert(sizeof(Session_Execute_Params_Data) == 24,
+              "Bad sizeof(Session_Execute_Params_Data)");
+class  OnDeviceModel_StartSession_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data session;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<OnDeviceModel_StartSession_Params_Data>;
+
+  OnDeviceModel_StartSession_Params_Data();
+  ~OnDeviceModel_StartSession_Params_Data() = delete;
+};
+static_assert(sizeof(OnDeviceModel_StartSession_Params_Data) == 16,
+              "Bad sizeof(OnDeviceModel_StartSession_Params_Data)");
 
 }  // namespace internal
 
@@ -174,29 +163,92 @@ class StreamingResponder_OnComplete_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::on_device_model::mojom::ResponseStatus>(
+        data_value, output);
+  }
+  ResponseStatus status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::on_device_model::mojom::ResponseStatus>(data_->status));
+  }
  private:
   internal::StreamingResponder_OnComplete_Params_Data* data_ = nullptr;
 };
 
 
-class OnDeviceModel_Execute_ParamsDataView {
+class ContextClient_OnComplete_ParamsDataView {
  public:
-  OnDeviceModel_Execute_ParamsDataView() = default;
+  ContextClient_OnComplete_ParamsDataView() = default;
 
-  OnDeviceModel_Execute_ParamsDataView(
-      internal::OnDeviceModel_Execute_Params_Data* data,
+  ContextClient_OnComplete_ParamsDataView(
+      internal::ContextClient_OnComplete_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t tokens_processed() const {
+    return data_->tokens_processed;
+  }
+ private:
+  internal::ContextClient_OnComplete_Params_Data* data_ = nullptr;
+};
+
+
+class Session_AddContext_ParamsDataView {
+ public:
+  Session_AddContext_ParamsDataView() = default;
+
+  Session_AddContext_ParamsDataView(
+      internal::Session_AddContext_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
   inline void GetInputDataView(
-      mojo::StringDataView* output);
+      InputOptionsDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadInput(UserType* output) {
     
     auto* pointer = data_->input.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    return mojo::internal::Deserialize<::on_device_model::mojom::InputOptionsDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakeClient() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::on_device_model::mojom::ContextClientInterfaceBase>>(
+            &data_->client, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Session_AddContext_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Session_Execute_ParamsDataView {
+ public:
+  Session_Execute_ParamsDataView() = default;
+
+  Session_Execute_ParamsDataView(
+      internal::Session_Execute_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetInputDataView(
+      InputOptionsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInput(UserType* output) {
+    
+    auto* pointer = data_->input.Get();
+    return mojo::internal::Deserialize<::on_device_model::mojom::InputOptionsDataView>(
         pointer, output, message_);
   }
   template <typename UserType>
@@ -209,100 +261,33 @@ class OnDeviceModel_Execute_ParamsDataView {
     return result;
   }
  private:
-  internal::OnDeviceModel_Execute_Params_Data* data_ = nullptr;
+  internal::Session_Execute_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class OnDeviceModelService_LoadModel_ParamsDataView {
+class OnDeviceModel_StartSession_ParamsDataView {
  public:
-  OnDeviceModelService_LoadModel_ParamsDataView() = default;
+  OnDeviceModel_StartSession_ParamsDataView() = default;
 
-  OnDeviceModelService_LoadModel_ParamsDataView(
-      internal::OnDeviceModelService_LoadModel_Params_Data* data,
+  OnDeviceModel_StartSession_ParamsDataView(
+      internal::OnDeviceModel_StartSession_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetAssetsDataView(
-      ModelAssetsDataView* output);
-
   template <typename UserType>
-  [[nodiscard]] bool ReadAssets(UserType* output) {
-    
-    auto* pointer = data_->assets.Get();
-    return mojo::internal::Deserialize<::on_device_model::mojom::ModelAssetsDataView>(
-        pointer, output, message_);
+  UserType TakeSession() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::on_device_model::mojom::SessionInterfaceBase>>(
+            &data_->session, &result, message_);
+    DCHECK(ret);
+    return result;
   }
  private:
-  internal::OnDeviceModelService_LoadModel_Params_Data* data_ = nullptr;
+  internal::OnDeviceModel_StartSession_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-class OnDeviceModelService_LoadModel_ResponseParamsDataView {
- public:
-  OnDeviceModelService_LoadModel_ResponseParamsDataView() = default;
-
-  OnDeviceModelService_LoadModel_ResponseParamsDataView(
-      internal::OnDeviceModelService_LoadModel_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetResultDataView(
-      LoadModelResultDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) {
-    
-    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
-    return mojo::internal::Deserialize<::on_device_model::mojom::LoadModelResultDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::OnDeviceModelService_LoadModel_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class OnDeviceModelService_GetEstimatedPerformanceClass_ParamsDataView {
- public:
-  OnDeviceModelService_GetEstimatedPerformanceClass_ParamsDataView() = default;
-
-  OnDeviceModelService_GetEstimatedPerformanceClass_ParamsDataView(
-      internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data* data_ = nullptr;
-};
-
-
-class OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsDataView {
- public:
-  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsDataView() = default;
-
-  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsDataView(
-      internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadPerformanceClass(UserType* output) const {
-    auto data_value = data_->performance_class;
-    return mojo::internal::Deserialize<::on_device_model::mojom::PerformanceClass>(
-        data_value, output);
-  }
-  PerformanceClass performance_class() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::on_device_model::mojom::PerformanceClass>(data_->performance_class));
-  }
- private:
-  internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data* data_ = nullptr;
 };
 
 inline void StreamingResponder_OnResponse_ParamsDataView::GetTextDataView(
@@ -314,27 +299,20 @@ inline void StreamingResponder_OnResponse_ParamsDataView::GetTextDataView(
 
 
 
-inline void OnDeviceModel_Execute_ParamsDataView::GetInputDataView(
-    mojo::StringDataView* output) {
+
+
+inline void Session_AddContext_ParamsDataView::GetInputDataView(
+    InputOptionsDataView* output) {
   auto pointer = data_->input.Get();
-  *output = mojo::StringDataView(pointer, message_);
+  *output = InputOptionsDataView(pointer, message_);
 }
 
 
-inline void OnDeviceModelService_LoadModel_ParamsDataView::GetAssetsDataView(
-    ModelAssetsDataView* output) {
-  auto pointer = data_->assets.Get();
-  *output = ModelAssetsDataView(pointer, message_);
+inline void Session_Execute_ParamsDataView::GetInputDataView(
+    InputOptionsDataView* output) {
+  auto pointer = data_->input.Get();
+  *output = InputOptionsDataView(pointer, message_);
 }
-
-
-inline void OnDeviceModelService_LoadModel_ResponseParamsDataView::GetResultDataView(
-    LoadModelResultDataView* output) {
-  auto pointer = &data_->result;
-  *output = LoadModelResultDataView(pointer, message_);
-}
-
-
 
 
 

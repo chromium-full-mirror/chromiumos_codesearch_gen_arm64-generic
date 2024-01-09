@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}</style>
-<settings-toggle-button icon="os-settings:chromevox" pref="{{prefs.settings.accessibility}}" label="$i18n{chromeVoxLabel}" sub-label="[[getChromeVoxDescription_(prefs.settings.accessibility.value)]]" deep-link-focus-id$="[[Setting.kChromeVox]]">
+<settings-toggle-button icon="os-settings:text-to-speech" pref="{{prefs.settings.accessibility}}" label="$i18n{chromeVoxLabel}" sub-label="[[getChromeVoxDescription_(prefs.settings.accessibility.value)]]" deep-link-focus-id$="[[Setting.kChromeVox]]">
 </settings-toggle-button>
 <iron-collapse opened="[[prefs.settings.accessibility.value]]">
   <div class="sub-item">

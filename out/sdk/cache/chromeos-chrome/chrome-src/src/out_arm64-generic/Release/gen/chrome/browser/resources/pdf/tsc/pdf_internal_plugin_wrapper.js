@@ -184,8 +184,9 @@ document.addEventListener('keydown', e => {
             }
             return;
         case 'a':
-            // Take over Ctrl+A (but not Ctrl-Shift-A or Ctrl-Alt-A).
-            if (hasCtrlModifier(e) && !e.shiftKey && !e.altKey) {
+            // Take over Ctrl+A (but not other combinations like Ctrl-Shift-A).
+            // Note that on macOS, "Ctrl" is Command.
+            if (hasCtrlModifierOnly(e)) {
                 e.preventDefault();
                 break;
             }
@@ -229,7 +230,13 @@ function hasCtrlModifier(e) {
     // 
     return hasModifier;
 }
-// TODO(crbug.com/1252096): Load from chrome://resources/js/util_ts.js instead.
+// TODO(crbug.com/1252096): Load from pdf_viewer_utils.js instead.
+function hasCtrlModifierOnly(e) {
+    let metaModifier = e.metaKey;
+    // 
+    return hasCtrlModifier(e) && !e.shiftKey && !e.altKey && !metaModifier;
+}
+// TODO(crbug.com/1252096): Load from chrome://resources/js/util.js instead.
 function hasKeyModifiers(e) {
     return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
 }

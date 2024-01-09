@@ -13,9 +13,10 @@
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_union_urlpatterninit_usvstring.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_union_urlpattern_urlpatterninit_usvstring.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_url_pattern_init.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_router_condition.h"
+#include "third_party/blink/renderer/core/url_pattern/url_pattern.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/exception_state.h"
 #include "third_party/blink/renderer/platform/bindings/v8_per_isolate_data.h"
@@ -139,7 +140,7 @@ TraceIfNeeded<V8RequestDestination>::Trace(visitor, member_request_destination_)
 TraceIfNeeded<String>::Trace(visitor, member_request_method_);
 TraceIfNeeded<V8RequestMode>::Trace(visitor, member_request_mode_);
 TraceIfNeeded<V8RunningStatusEnum>::Trace(visitor, member_running_status_);
-TraceIfNeeded<Member<V8UnionURLPatternInitOrUSVString>>::Trace(visitor, member_url_pattern_);
+TraceIfNeeded<Member<V8UnionURLPatternOrURLPatternInitOrUSVString>>::Trace(visitor, member_url_pattern_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
@@ -190,7 +191,7 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].G
 }
 }
 if (hasUrlPattern()) {
-  if (!ToV8Traits<V8UnionURLPatternInitOrUSVString>::ToV8(script_state, member_url_pattern_.Get()).ToLocal(&v8_value)) {
+  if (!ToV8Traits<V8UnionURLPatternOrURLPatternInitOrUSVString>::ToV8(script_state, member_url_pattern_.Get()).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
@@ -228,7 +229,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8RunningStatusEnum, is_optional>
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("urlPattern");
-if (!bindings::GetDictionaryMemberFromV8Object<V8UnionURLPatternInitOrUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_url_pattern_, member_url_pattern_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8UnionURLPatternOrURLPatternInitOrUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_url_pattern_, member_url_pattern_, try_block, exception_state)) {
   return;
 }
 }

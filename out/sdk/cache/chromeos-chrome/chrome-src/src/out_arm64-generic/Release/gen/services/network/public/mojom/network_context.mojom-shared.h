@@ -104,8 +104,6 @@ class CustomProxyConfigDataView;
 
 class CertVerifierServiceRemoteParamsDataView;
 
-class AdditionalCertificatesDataView;
-
 class HttpAuthStaticNetworkContextParamsDataView;
 
 class CTPolicyDataView;
@@ -143,13 +141,6 @@ struct MojomTypeTraits<::network::mojom::CustomProxyConfigDataView> {
 template <>
 struct MojomTypeTraits<::network::mojom::CertVerifierServiceRemoteParamsDataView> {
   using Data = ::network::mojom::internal::CertVerifierServiceRemoteParams_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::network::mojom::AdditionalCertificatesDataView> {
-  using Data = ::network::mojom::internal::AdditionalCertificates_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -443,42 +434,6 @@ class CertVerifierServiceRemoteParamsDataView {
   }
  private:
   internal::CertVerifierServiceRemoteParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class AdditionalCertificatesDataView {
- public:
-  AdditionalCertificatesDataView() = default;
-
-  AdditionalCertificatesDataView(
-      internal::AdditionalCertificates_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetAllCertificatesDataView(
-      mojo::ArrayDataView<::network::mojom::X509CertificateDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadAllCertificates(UserType* output) {
-    
-    auto* pointer = data_->all_certificates.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
-        pointer, output, message_);
-  }
-  inline void GetTrustAnchorsDataView(
-      mojo::ArrayDataView<::network::mojom::X509CertificateDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadTrustAnchors(UserType* output) {
-    
-    auto* pointer = data_->trust_anchors.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
-        pointer, output, message_);
-  }
- private:
-  internal::AdditionalCertificates_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1020,26 +975,6 @@ static_assert(
     
     auto* pointer = data_->cert_verifier_params.Get();
     return mojo::internal::Deserialize<::network::mojom::CertVerifierServiceRemoteParamsDataView>(
-        pointer, output, message_);
-  }
-  inline void GetInitialAdditionalCertificatesDataView(
-      AdditionalCertificatesDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadInitialAdditionalCertificates(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::network::mojom::AdditionalCertificatesDataView, UserType>(),
-    "Attempting to read the optional `initial_additional_certificates` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadInitialAdditionalCertificates` instead "
-    "of `ReadInitialAdditionalCertificates if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->initial_additional_certificates.Get();
-    return mojo::internal::Deserialize<::network::mojom::AdditionalCertificatesDataView>(
         pointer, output, message_);
   }
   inline void GetCookieManagerParamsDataView(
@@ -1987,63 +1922,6 @@ struct Serializer<::network::mojom::CertVerifierServiceRemoteParamsDataView, May
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::network::mojom::AdditionalCertificatesDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::network::mojom::AdditionalCertificatesDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::network::mojom::internal::AdditionalCertificates_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    decltype(Traits::all_certificates(input)) in_all_certificates = Traits::all_certificates(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->all_certificates)::BaseType>
-        all_certificates_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& all_certificates_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
-        in_all_certificates, all_certificates_fragment, &all_certificates_validate_params);
-    fragment->all_certificates.Set(
-        all_certificates_fragment.is_null() ? nullptr : all_certificates_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->all_certificates.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null all_certificates in AdditionalCertificates struct");
-    decltype(Traits::trust_anchors(input)) in_trust_anchors = Traits::trust_anchors(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->trust_anchors)::BaseType>
-        trust_anchors_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& trust_anchors_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
-        in_trust_anchors, trust_anchors_fragment, &trust_anchors_validate_params);
-    fragment->trust_anchors.Set(
-        trust_anchors_fragment.is_null() ? nullptr : trust_anchors_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->trust_anchors.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null trust_anchors in AdditionalCertificates struct");
-  }
-
-  static bool Deserialize(::network::mojom::internal::AdditionalCertificates_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::network::mojom::AdditionalCertificatesDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
 struct Serializer<::network::mojom::HttpAuthStaticNetworkContextParamsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::network::mojom::HttpAuthStaticNetworkContextParamsDataView, UserType>;
@@ -2377,14 +2255,6 @@ struct Serializer<::network::mojom::NetworkContextParamsDataView, MaybeConstUser
         fragment->cert_verifier_params.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null cert_verifier_params in NetworkContextParams struct");
-    decltype(Traits::initial_additional_certificates(input)) in_initial_additional_certificates = Traits::initial_additional_certificates(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->initial_additional_certificates)::BaseType> initial_additional_certificates_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::network::mojom::AdditionalCertificatesDataView>(
-        in_initial_additional_certificates, initial_additional_certificates_fragment);
-    fragment->initial_additional_certificates.Set(
-        initial_additional_certificates_fragment.is_null() ? nullptr : initial_additional_certificates_fragment.data());
     decltype(Traits::cookie_manager_params(input)) in_cookie_manager_params = Traits::cookie_manager_params(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->cookie_manager_params)::BaseType> cookie_manager_params_fragment(
@@ -3045,18 +2915,6 @@ inline void CustomProxyConfigDataView::GetConnectTunnelHeadersDataView(
 
 
 
-inline void AdditionalCertificatesDataView::GetAllCertificatesDataView(
-    mojo::ArrayDataView<::network::mojom::X509CertificateDataView>* output) {
-  auto pointer = data_->all_certificates.Get();
-  *output = mojo::ArrayDataView<::network::mojom::X509CertificateDataView>(pointer, message_);
-}
-inline void AdditionalCertificatesDataView::GetTrustAnchorsDataView(
-    mojo::ArrayDataView<::network::mojom::X509CertificateDataView>* output) {
-  auto pointer = data_->trust_anchors.Get();
-  *output = mojo::ArrayDataView<::network::mojom::X509CertificateDataView>(pointer, message_);
-}
-
-
 
 
 inline void CTPolicyDataView::GetExcludedHostsDataView(
@@ -3162,11 +3020,6 @@ inline void NetworkContextParamsDataView::GetCertVerifierParamsDataView(
     CertVerifierServiceRemoteParamsDataView* output) {
   auto pointer = data_->cert_verifier_params.Get();
   *output = CertVerifierServiceRemoteParamsDataView(pointer, message_);
-}
-inline void NetworkContextParamsDataView::GetInitialAdditionalCertificatesDataView(
-    AdditionalCertificatesDataView* output) {
-  auto pointer = data_->initial_additional_certificates.Get();
-  *output = AdditionalCertificatesDataView(pointer, message_);
 }
 inline void NetworkContextParamsDataView::GetCookieManagerParamsDataView(
     ::network::mojom::CookieManagerParamsDataView* output) {

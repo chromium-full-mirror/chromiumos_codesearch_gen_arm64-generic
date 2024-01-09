@@ -33,6 +33,7 @@ using HttpResponseHeaders_Data = mojo::native::internal::NativeStruct_Data;
 class HttpVersion_Data;
 class HostPortPair_Data;
 class ProxyServer_Data;
+class ProxyChain_Data;
 class ResolveErrorInfo_Data;
 class SSLCertRequestInfo_Data;
 using SSLInfo_Data = mojo::native::internal::NativeStruct_Data;
@@ -273,6 +274,56 @@ struct ProxyServer_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ProxyServer_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ProxyChain_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ProxyServer_Data>>> proxy_servers;
+  uint8_t is_for_ip_protection : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<ProxyChain_Data>;
+
+  ProxyChain_Data();
+  ~ProxyChain_Data() = delete;
+};
+static_assert(sizeof(ProxyChain_Data) == 24,
+              "Bad sizeof(ProxyChain_Data)");
+// Used by ProxyChain::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ProxyChain_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ProxyChain_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ProxyChain_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ProxyChain_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ProxyChain_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  ResolveErrorInfo_Data {
  public:
   static bool Validate(const void* data,

@@ -1,10 +1,10 @@
 import { html, Polymer, dom, mixinBehaviors, PolymerElement, Base, useShadow, dashToCamelCase } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
+import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { MultiDeviceSetup } from 'chrome://resources/mojo/chromeos/ash/services/multidevice_setup/public/mojom/multidevice_setup.mojom-webui.js';
 import { sendWithPromise as sendWithPromise$1, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import { LitElement, css, html as html$1 } from 'chrome://resources/mwc/lit/index.js';
-import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { ConnectivityStatus } from 'chrome://resources/mojo/chromeos/ash/services/device_sync/public/mojom/device_sync.mojom-webui.js';
 import { loadTimeData as loadTimeData$1 } from 'chrome://resources/js/load_time_data.js';
 
@@ -186,8 +186,7 @@ template$3.setAttribute('style', 'display: none;');
 document.head.appendChild(template$3.content);
 
 const template$2 = html `
-<custom-style>
-  <style>
+<style>
 html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-rgb));--google-blue-100-rgb:210,227,252;--google-blue-100:rgb(var(--google-blue-100-rgb));--google-blue-200-rgb:174,203,250;--google-blue-200:rgb(var(--google-blue-200-rgb));--google-blue-300-rgb:138,180,248;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-blue-400-rgb:102,157,246;--google-blue-400:rgb(var(--google-blue-400-rgb));--google-blue-500-rgb:66,133,244;--google-blue-500:rgb(var(--google-blue-500-rgb));--google-blue-600-rgb:26,115,232;--google-blue-600:rgb(var(--google-blue-600-rgb));--google-blue-700-rgb:25,103,210;--google-blue-700:rgb(var(--google-blue-700-rgb));--google-blue-800-rgb:24,90,188;--google-blue-800:rgb(var(--google-blue-800-rgb));--google-blue-900-rgb:23,78,166;--google-blue-900:rgb(var(--google-blue-900-rgb));--google-green-50-rgb:230,244,234;--google-green-50:rgb(var(--google-green-50-rgb));--google-green-200-rgb:168,218,181;--google-green-200:rgb(var(--google-green-200-rgb));--google-green-300-rgb:129,201,149;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-400-rgb:91,185,116;--google-green-400:rgb(var(--google-green-400-rgb));--google-green-500-rgb:52,168,83;--google-green-500:rgb(var(--google-green-500-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-green-700-rgb:24,128,56;--google-green-700:rgb(var(--google-green-700-rgb));--google-green-800-rgb:19,115,51;--google-green-800:rgb(var(--google-green-800-rgb));--google-green-900-rgb:13,101,45;--google-green-900:rgb(var(--google-green-900-rgb));--google-grey-50-rgb:248,249,250;--google-grey-50:rgb(var(--google-grey-50-rgb));--google-grey-100-rgb:241,243,244;--google-grey-100:rgb(var(--google-grey-100-rgb));--google-grey-200-rgb:232,234,237;--google-grey-200:rgb(var(--google-grey-200-rgb));--google-grey-300-rgb:218,220,224;--google-grey-300:rgb(var(--google-grey-300-rgb));--google-grey-400-rgb:189,193,198;--google-grey-400:rgb(var(--google-grey-400-rgb));--google-grey-500-rgb:154,160,166;--google-grey-500:rgb(var(--google-grey-500-rgb));--google-grey-600-rgb:128,134,139;--google-grey-600:rgb(var(--google-grey-600-rgb));--google-grey-700-rgb:95,99,104;--google-grey-700:rgb(var(--google-grey-700-rgb));--google-grey-800-rgb:60,64,67;--google-grey-800:rgb(var(--google-grey-800-rgb));--google-grey-900-rgb:32,33,36;--google-grey-900:rgb(var(--google-grey-900-rgb));--google-grey-900-white-4-percent:#292a2d;--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-900-rgb:104,29,168;--google-purple-900:rgb(var(--google-purple-900-rgb));--google-red-300-rgb:242,139,130;--google-red-300:rgb(var(--google-red-300-rgb));--google-red-500-rgb:234,67,53;--google-red-500:rgb(var(--google-red-500-rgb));--google-red-600-rgb:217,48,37;--google-red-600:rgb(var(--google-red-600-rgb));--google-yellow-50-rgb:254,247,224;--google-yellow-50:rgb(var(--google-yellow-50-rgb));--google-yellow-100-rgb:254,239,195;--google-yellow-100:rgb(var(--google-yellow-100-rgb));--google-yellow-200-rgb:253,226,147;--google-yellow-200:rgb(var(--google-yellow-200-rgb));--google-yellow-300-rgb:253,214,51;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-400-rgb:252,201,52;--google-yellow-400:rgb(var(--google-yellow-400-rgb));--google-yellow-500-rgb:251,188,4;--google-yellow-500:rgb(var(--google-yellow-500-rgb));--cr-primary-text-color:var(--google-grey-900);--cr-secondary-text-color:var(--google-grey-700);--cr-card-background-color:white;--cr-shadow-color:var(--google-grey-800);--cr-shadow-key-color_:color-mix(in srgb, var(--cr-shadow-color) 30%, transparent);--cr-shadow-ambient-color_:color-mix(in srgb, var(--cr-shadow-color) 15%, transparent);--cr-elevation-1:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 1px 3px 1px;--cr-elevation-2:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 2px 6px 2px;--cr-elevation-3:var(--cr-shadow-key-color_) 0 1px 3px 0,var(--cr-shadow-ambient-color_) 0 4px 8px 3px;--cr-elevation-4:var(--cr-shadow-key-color_) 0 2px 3px 0,var(--cr-shadow-ambient-color_) 0 6px 10px 4px;--cr-elevation-5:var(--cr-shadow-key-color_) 0 4px 4px 0,var(--cr-shadow-ambient-color_) 0 8px 12px 6px;--cr-card-shadow:var(--cr-elevation-2);--cr-checked-color:var(--google-blue-600);--cr-focused-item-color:var(--google-grey-300);--cr-form-field-label-color:var(--google-grey-700);--cr-hairline-rgb:0,0,0;--cr-iph-anchor-highlight-color:rgba(var(--google-blue-600-rgb), 0.1);--cr-link-color:var(--google-blue-700);--cr-menu-background-color:white;--cr-menu-background-focus-color:var(--google-grey-400);--cr-menu-shadow:0 2px 6px var(--paper-grey-500);--cr-separator-color:rgba(0, 0, 0, .06);--cr-title-text-color:rgb(90, 90, 90);--cr-toolbar-background-color:white;--cr-hover-background-color:rgba(var(--google-grey-900-rgb), .1);--cr-active-background-color:rgba(var(--google-grey-900-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-600-rgb), .4)}@media (prefers-color-scheme:dark){html{--cr-primary-text-color:var(--google-grey-200);--cr-secondary-text-color:var(--google-grey-500);--cr-card-background-color:var(--google-grey-900-white-4-percent);--cr-card-shadow-color-rgb:0,0,0;--cr-checked-color:var(--google-blue-300);--cr-focused-item-color:var(--google-grey-800);--cr-form-field-label-color:var(--dark-secondary-color);--cr-hairline-rgb:255,255,255;--cr-iph-anchor-highlight-color:rgba(var(--google-grey-100-rgb), 0.1);--cr-link-color:var(--google-blue-300);--cr-menu-background-color:var(--google-grey-900);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-separator-color:rgba(255, 255, 255, .1);--cr-title-text-color:var(--cr-primary-text-color);--cr-toolbar-background-color:var(--google-grey-900-white-4-percent);--cr-hover-background-color:rgba(255, 255, 255, .1);--cr-active-background-color:rgba(var(--google-grey-200-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-300-rgb), .4)}}@media (forced-colors:active){html{--cr-focus-outline-hcm:2px solid transparent;--cr-border-hcm:2px solid transparent}}html{--cr-button-edge-spacing:12px;--cr-button-height:32px;--cr-controlled-by-spacing:24px;--cr-default-input-max-width:264px;--cr-icon-ripple-size:36px;--cr-icon-ripple-padding:8px;--cr-icon-size:20px;--cr-icon-button-margin-start:16px;--cr-icon-ripple-margin:calc(var(--cr-icon-ripple-padding) * -1);--cr-section-min-height:48px;--cr-section-two-line-min-height:64px;--cr-section-padding:20px;--cr-section-vertical-padding:12px;--cr-section-indent-width:40px;--cr-section-indent-padding:calc(
       var(--cr-section-padding) + var(--cr-section-indent-width));--cr-section-vertical-margin:21px;--cr-centered-card-max-width:680px;--cr-centered-card-width-percentage:0.96;--cr-hairline:1px solid rgba(var(--cr-hairline-rgb), .14);--cr-separator-height:1px;--cr-separator-line:var(--cr-separator-height) solid var(--cr-separator-color);--cr-toolbar-overlay-animation-duration:150ms;--cr-toolbar-height:56px;--cr-container-shadow-height:6px;--cr-container-shadow-margin:calc(-1 * var(--cr-container-shadow-height));--cr-container-shadow-max-opacity:1;--cr-card-border-radius:8px;--cr-disabled-opacity:.38;--cr-form-field-bottom-spacing:16px;--cr-form-field-label-font-size:.625rem;--cr-form-field-label-height:1em;--cr-form-field-label-line-height:1}html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(116, 119, 117);--cr-fallback-color-primary:rgb(11, 87, 208);--cr-fallback-color-on-primary:rgb(255, 255, 255);--cr-fallback-color-primary-container:rgb(211, 227, 253);--cr-fallback-color-on-primary-container:rgb(4, 30, 73);--cr-fallback-color-secondary-container:rgb(194, 231, 255);--cr-fallback-color-on-secondary-container:rgb(0, 29, 53);--cr-fallback-color-neutral-container:rgb(242, 242, 242);--cr-fallback-color-neutral-outline:rgb(199, 199, 199);--cr-fallback-color-surface:rgb(255, 255, 255);--cr-fallback-color-on-surface-rgb:31,31,31;--cr-fallback-color-on-surface:rgb(var(--cr-fallback-color-on-surface-rgb));--cr-fallback-color-surface-variant:rgb(225, 227, 225);--cr-fallback-color-on-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-subtle:rgb(71, 71, 71);--cr-fallback-color-inverse-primary:rgb(168, 199, 250);--cr-fallback-color-inverse-surface:rgb(48, 48, 48);--cr-fallback-color-inverse-on-surface:rgb(242, 242, 242);--cr-fallback-color-tonal-container:rgb(211, 227, 253);--cr-fallback-color-on-tonal-container:rgb(4, 30, 73);--cr-fallback-color-tonal-outline:rgb(168, 199, 250);--cr-fallback-color-error:rgb(179, 38, 30);--cr-fallback-color-divider:rgb(211, 227, 253);--cr-fallback-color-state-hover-on-prominent_:rgba(253, 252, 251, .1);--cr-fallback-color-state-on-subtle-rgb_:31,31,31;--cr-fallback-color-state-hover-on-subtle_:rgba(
       var(--cr-fallback-color-state-on-subtle-rgb_), .06);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
@@ -211,8 +210,7 @@ html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-
       var(--cr-fallback-color-primary));--cr-button-height:36px;--cr-shadow-color:var(--color-sys-shadow, rgb(0, 0, 0))}@media (prefers-color-scheme:dark){html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(142, 145, 143);--cr-fallback-color-primary:rgb(168, 199, 250);--cr-fallback-color-on-primary:rgb(6, 46, 111);--cr-fallback-color-primary-container:rgb(8, 66, 160);--cr-fallback-color-on-primary-container:rgb(211, 227, 253);--cr-fallback-color-secondary-container:rgb(0, 74, 119);--cr-fallback-color-on-secondary-container:rgb(194, 231, 255);--cr-fallback-color-neutral-container:rgb(42, 42, 42);--cr-fallback-color-neutral-outline:rgb(117, 117, 117);--cr-fallback-color-surface:rgb(26, 27, 30);--cr-fallback-color-on-surface-rgb:227,227,227;--cr-fallback-color-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-variant:rgb(196, 199, 197);--cr-fallback-color-on-surface-subtle:rgb(199, 199, 199);--cr-fallback-color-inverse-primary:rgb(11, 87, 208);--cr-fallback-color-inverse-surface:rgb(227, 227, 227);--cr-fallback-color-inverse-on-surface:rgb(31, 31, 31);--cr-fallback-color-tonal-container:rgb(0, 74, 119);--cr-fallback-color-on-tonal-container:rgb(194, 231, 255);--cr-fallback-color-tonal-outline:rgb(0, 99, 155);--cr-fallback-color-error:rgb(242, 184, 181);--cr-fallback-color-divider:rgb(71, 71, 71);--cr-fallback-color-state-hover-on-prominent_:rgba(31, 31, 31, .06);--cr-fallback-color-state-on-subtle-rgb_:253,252,251;--cr-fallback-color-state-hover-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .10);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .16);--cr-fallback-color-state-ripple-primary-rgb_:76,141,246;--cr-fallback-color-base-container:rgba(40, 40, 40, 1)}}@media (forced-colors:active){html[chrome-refresh-2023]{--cr-fallback-color-disabled-background:Canvas;--cr-fallback-color-disabled-foreground:GrayText}}
-  </style>
-</custom-style>
+</style>
 `;
 document.head.appendChild(template$2.content);
 
@@ -239,19 +237,26 @@ const docsToManager = new Map();
  *
  */
 class FocusOutlineManager {
+    // Whether focus change is triggered by a keyboard event.
+    focusByKeyboard_ = true;
+    classList_;
     /**
      * @param doc The document to attach the focus outline manager to.
      */
     constructor(doc) {
-        // Whether focus change is triggered by a keyboard event.
-        this.focusByKeyboard_ = true;
         this.classList_ = doc.documentElement.classList;
-        doc.addEventListener('keydown', () => this.onEvent_(true), true);
-        doc.addEventListener('mousedown', () => this.onEvent_(false), true);
+        doc.addEventListener('keydown', (e) => this.onEvent_(true, e), true);
+        doc.addEventListener('mousedown', (e) => this.onEvent_(false, e), true);
         this.updateVisibility();
     }
-    onEvent_(focusByKeyboard) {
+    onEvent_(focusByKeyboard, e) {
         if (this.focusByKeyboard_ === focusByKeyboard) {
+            return;
+        }
+        if (e instanceof KeyboardEvent && e.repeat) {
+            // A repeated keydown should not trigger the focus state. For example,
+            // there is a repeated ALT keydown if ALT+CLICK is used to open the
+            // context menu and ALT is not released.
             return;
         }
         this.focusByKeyboard_ = focusByKeyboard;
@@ -1558,31 +1563,706 @@ const styleMod$5 = document.createElement('dom-module');
 styleMod$5.appendChild(html `
   <template>
     <style>
-.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
+:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) .primary-toggle{color:var(--cros-text-color-secondary)}:host-context([cros]) .primary-toggle[checked]{color:var(--cros-text-color-prominent)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
     </style>
   </template>
 `.content);
-styleMod$5.register('cr-icons');
+styleMod$5.register('cros-color-overrides');
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Verify |value| is truthy.
+ * @param value A value to check for truthiness. Note that this
+ *     may be used to test whether |value| is defined or not, and we don't want
+ *     to force a cast to boolean.
+ */
+function assert$1(value, message) {
+    if (value) {
+        return;
+    }
+    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
+}
+
+// ui/webui/resources/cr_components/color_change_listener/color_change_listener.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class PageHandlerPendingReceiver {
+    handle;
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.PageHandler', scope);
+    }
+}
+class PageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    setPage(page) {
+        this.proxy.sendMessage(0, PageHandler_SetPage_ParamsSpec.$, null, [
+            page
+        ]);
+    }
+}
+class PageHandler {
+    static get $interfaceName() {
+        return "color_change_listener.mojom.PageHandler";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new PageHandlerRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+class PagePendingReceiver {
+    handle;
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.Page', scope);
+    }
+}
+class PageRemote {
+    proxy;
+    $;
+    onConnectionError;
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    onColorProviderChanged() {
+        this.proxy.sendMessage(0, Page_OnColorProviderChanged_ParamsSpec.$, null, []);
+    }
+}
+/**
+ * An object which receives request messages for the Page
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+class PageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onColorProviderChanged;
+    onConnectionError;
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.onColorProviderChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, Page_OnColorProviderChanged_ParamsSpec.$, null, this.onColorProviderChanged.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
+const PageHandler_SetPage_ParamsSpec = { $: {} };
+const Page_OnColorProviderChanged_ParamsSpec = { $: {} };
+mojo.internal.Struct(PageHandler_SetPage_ParamsSpec.$, 'PageHandler_SetPage_Params', [
+    mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(PageRemote), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Page_OnColorProviderChanged_ParamsSpec.$, 'Page_OnColorProviderChanged_Params', [], [[0, 8],]);
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview This file provides a singleton class that exposes the Mojo
+ * handler interface used for one way communication between the JS and the
+ * browser.
+ * TODO(tluk): Convert this into typescript once all dependencies have been
+ * fully migrated.
+ */
+let instance$2 = null;
+class BrowserProxy {
+    callbackRouter;
+    constructor() {
+        this.callbackRouter = new PageCallbackRouter();
+        const pageHandlerRemote = PageHandler.getRemote();
+        pageHandlerRemote.setPage(this.callbackRouter.$.bindNewPipeAndPassRemote());
+    }
+    static getInstance() {
+        return instance$2 || (instance$2 = new BrowserProxy());
+    }
+    static setInstance(newInstance) {
+        instance$2 = newInstance;
+    }
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview This file holds the functions that allow WebUI to update its
+ * colors CSS stylesheet when a ColorProvider change in the browser is detected.
+ */
+/**
+ * The CSS selector used to get the <link> node with the colors.css stylesheet.
+ * The wildcard is needed since the URL ends with a timestamp.
+ */
+const COLORS_CSS_SELECTOR = 'link[href*=\'//theme/colors.css\']';
+let documentInstance = null;
+// 
+// Event fired after updated colors have been fetched and applied.
+const COLOR_PROVIDER_CHANGED = 'color-provider-changed';
+// 
+class ColorChangeUpdater {
+    listenerId_ = null;
+    root_;
+    // 
+    eventTarget = new EventTarget();
+    // 
+    constructor(root) {
+        assert$1(documentInstance === null || root !== document);
+        this.root_ = root;
+    }
+    /**
+     * Starts listening for ColorProvider changes from the browser and updates the
+     * `root_` whenever changes occur.
+     */
+    start() {
+        if (this.listenerId_ !== null) {
+            return;
+        }
+        this.listenerId_ = BrowserProxy.getInstance()
+            .callbackRouter.onColorProviderChanged.addListener(this.onColorProviderChanged.bind(this));
+    }
+    // TODO(dpapad): Figure out how to properly trigger
+    // `callbackRouter.onColorProviderChanged` listeners from tests and make this
+    // method private.
+    async onColorProviderChanged() {
+        await this.refreshColorsCss();
+        // 
+        this.eventTarget.dispatchEvent(new CustomEvent(COLOR_PROVIDER_CHANGED));
+        // 
+    }
+    /**
+     * Forces `root_` to refresh its colors.css stylesheet. This is used to
+     * fetch an updated stylesheet when the ColorProvider associated with the
+     * WebUI has changed.
+     * @return A promise which resolves to true once the new colors are loaded and
+     *     installed into the DOM. In the case of an error returns false. When a
+     *     new colors.css is loaded, this will always freshly query the existing
+     *     colors.css, allowing multiple calls to successfully remove existing,
+     *     outdated CSS.
+     */
+    async refreshColorsCss() {
+        const colorCssNode = this.root_.querySelector(COLORS_CSS_SELECTOR);
+        if (!colorCssNode) {
+            return false;
+        }
+        const href = colorCssNode.getAttribute('href');
+        if (!href) {
+            return false;
+        }
+        const hrefURL = new URL(href, location.href);
+        const params = new URLSearchParams(hrefURL.search);
+        params.set('version', new Date().getTime().toString());
+        const newHref = `${hrefURL.origin}${hrefURL.pathname}?${params.toString()}`;
+        // A flickering effect may take place when setting the href property of
+        // the existing color css node with a new value. In order to avoid
+        // flickering, we create a new link element and once it is loaded we
+        // remove the old one. See crbug.com/1365320 for additional details.
+        const newColorsCssLink = document.createElement('link');
+        newColorsCssLink.setAttribute('href', newHref);
+        newColorsCssLink.rel = 'stylesheet';
+        newColorsCssLink.type = 'text/css';
+        const newColorsLoaded = new Promise(resolve => {
+            newColorsCssLink.onload = resolve;
+        });
+        if (this.root_ === document) {
+            document.getElementsByTagName('body')[0].appendChild(newColorsCssLink);
+        }
+        else {
+            this.root_.appendChild(newColorsCssLink);
+        }
+        await newColorsLoaded;
+        const oldColorCssNode = document.querySelector(COLORS_CSS_SELECTOR);
+        if (oldColorCssNode) {
+            oldColorCssNode.remove();
+        }
+        return true;
+    }
+    static forDocument() {
+        return documentInstance ||
+            (documentInstance = new ColorChangeUpdater(document));
+    }
+}
+
+// Copyright 2013 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/**
+ * @fileoverview Assertion support.
+ */
+
+/**
+ * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
+ * instead.
+ * Verify |condition| is truthy and return |condition| if so.
+ * @template T
+ * @param {T} condition A condition to check for truthiness.  Note that this
+ *     may be used to test whether a value is defined or not, and we don't want
+ *     to force a cast to Boolean.
+ * @param {string=} opt_message A message to show on failure.
+ * @return {T} A non-null |condition|.
+ * @closurePrimitive {asserts.truthy}
+ * @suppress {reportUnknownTypes} because T is not sufficiently constrained.
+ */
+function assert(condition, opt_message) {
+  if (!condition) {
+    let message = 'Assertion failed';
+    if (opt_message) {
+      message = message + ': ' + opt_message;
+    }
+    const error = new Error(message);
+    const global = function() {
+      const thisOrSelf = this || self;
+      /** @type {boolean} */
+      thisOrSelf.traceAssertionsForTesting;
+      return thisOrSelf;
+    }();
+    if (global.traceAssertionsForTesting) {
+      console.warn(error.stack);
+    }
+    throw error;
+  }
+  return condition;
+}
+
+/**
+ * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
+ * instead.
+ * Call this from places in the code that should never be reached.
+ *
+ * For example, handling all the values of enum with a switch() like this:
+ *
+ *   function getValueFromEnum(enum) {
+ *     switch (enum) {
+ *       case ENUM_FIRST_OF_TWO:
+ *         return first
+ *       case ENUM_LAST_OF_TWO:
+ *         return last;
+ *     }
+ *     assertNotReached();
+ *     return document;
+ *   }
+ *
+ * This code should only be hit in the case of serious programmer error or
+ * unexpected input.
+ *
+ * @param {string=} message A message to show when this is hit.
+ * @closurePrimitive {asserts.fail}
+ */
+function assertNotReached(message) {
+  assert(false, message || 'Unreachable code hit');
+}
+
+// Copyright 2012 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+/**
+ * Make a string safe for Polymer bindings that are inner-h-t-m-l or other
+ * innerHTML use.
+ * @param {string} rawString The unsanitized string
+ * @param {SanitizeInnerHtmlOpts=} opts Optional additional allowed tags and
+ *     attributes.
+ * @return {string}
+ */
+const sanitizeInnerHtmlInternal = function(rawString, opts) {
+  opts = opts || {};
+  return parseHtmlSubset(`<b>${rawString}</b>`, opts.tags, opts.attrs)
+      .firstChild.innerHTML;
+};
+
+let sanitizedPolicy = null;
+
+/**
+ * Same as |sanitizeInnerHtmlInternal|, but it passes through sanitizedPolicy
+ * to create a TrustedHTML.
+ * TrustedTypePolicy: createHTML() takes an optional array but our usage for
+ * sanitizeInnerHtml uses a singular opt argument. We specify the first element.
+ * @param {string} rawString The unsanitized string
+ * @param {SanitizeInnerHtmlOpts=} opts Optional additional allowed tags and
+ *     attributes.
+ * @return {TrustedHTML}
+ */
+function sanitizeInnerHtml(rawString, opts) {
+  assert(window.trustedTypes);
+  if (sanitizedPolicy === null) {
+    // Initialize |sanitizedPolicy| lazily.
+    sanitizedPolicy =
+        window.trustedTypes.createPolicy('ash-deprecated-sanitize-inner-html', {
+          createHTML: (string, ...opts) =>
+              sanitizeInnerHtmlInternal(string, opts[0]),
+          createScript: (message) => assertNotReached(message),
+          createScriptURL: (message) => assertNotReached(message),
+        });
+  }
+  return sanitizedPolicy.createHTML(rawString, opts);
+}
+
+/**
+ * Parses a very small subset of HTML. This ensures that insecure HTML /
+ * javascript cannot be injected into WebUI.
+ * @param {string} s The string to parse.
+ * @param {!Array<string>=} extraTags Optional extra allowed tags.
+ * @param {!Array<string>=} extraAttrs
+ *     Optional extra allowed attributes (all tags are run through these).
+ * @throws {Error} In case of non supported markup.
+ * @return {DocumentFragment} A document fragment containing the DOM tree.
+ */
+const parseHtmlSubset = (function() {
+
+  /** @type {!AllowFunction} */
+  const allowAttribute = (node, value) => true;
+
+  /**
+   * Allow-list of attributes in parseHtmlSubset.
+   * @type {!Map<string, !AllowFunction>}
+   * @const
+   */
+  const allowedAttributes = new Map([
+    [
+      'href',
+      (node, value) => {
+        // Only allow a[href] starting with chrome:// or https:// or equaling
+        // to #.
+        return node.tagName === 'A' &&
+            (value.startsWith('chrome://') || value.startsWith('https://') ||
+             value === '#');
+      },
+    ],
+    [
+      'target',
+      (node, value) => {
+        // Only allow a[target='_blank'].
+        // TODO(dbeam): are there valid use cases for target !== '_blank'?
+        return node.tagName === 'A' && value === '_blank';
+      },
+    ],
+  ]);
+
+  /**
+   * Allow-list of optional attributes in parseHtmlSubset.
+   * @type {!Map<string, !AllowFunction>}
+   * @const
+   */
+  const allowedOptionalAttributes = new Map([
+    ['class', allowAttribute],
+    ['id', allowAttribute],
+    ['is', (node, value) => value === 'action-link' || value === ''],
+    ['role', (node, value) => value === 'link'],
+    [
+      'src',
+      (node, value) => {
+        // Only allow img[src] starting with chrome://
+        return node.tagName === 'IMG' && value.startsWith('chrome://');
+      },
+    ],
+    ['tabindex', allowAttribute],
+    ['aria-hidden', allowAttribute],
+    ['aria-labelledby', allowAttribute],
+  ]);
+
+  /**
+   * Allow-list of tag names in parseHtmlSubset.
+   * @type {!Set<string>}
+   * @const
+   */
+  const allowedTags = new Set(
+      ['A', 'B', 'I', 'BR', 'DIV', 'EM', 'KBD', 'P', 'PRE', 'SPAN', 'STRONG']);
+
+  /**
+   * Allow-list of optional tag names in parseHtmlSubset.
+   * @type {!Set<string>}
+   * @const
+   */
+  const allowedOptionalTags = new Set(['IMG', 'LI', 'UL']);
+
+  /**
+   * This policy maps a given string to a `TrustedHTML` object
+   * without performing any validation. Callsites must ensure
+   * that the resulting object will only be used in inert
+   * documents. Initialized lazily.
+   * @type {!TrustedTypePolicy}
+   */
+  let unsanitizedPolicy;
+
+  /**
+   * @param {!Array<string>} optTags an Array to merge.
+   * @return {!Set<string>} Set of allowed tags.
+   */
+  function mergeTags(optTags) {
+    const clone = new Set(allowedTags);
+    optTags.forEach(str => {
+      const tag = str.toUpperCase();
+      if (allowedOptionalTags.has(tag)) {
+        clone.add(tag);
+      }
+    });
+    return clone;
+  }
+
+  /**
+   * @param {!Array<string>} optAttrs an Array to merge.
+   * @return {!Map<string, !AllowFunction>} Map of allowed
+   *     attributes.
+   */
+  function mergeAttrs(optAttrs) {
+    const clone = new Map([...allowedAttributes]);
+    optAttrs.forEach(key => {
+      if (allowedOptionalAttributes.has(key)) {
+        clone.set(key, allowedOptionalAttributes.get(key));
+      }
+    });
+    return clone;
+  }
+
+  function walk(n, f) {
+    f(n);
+    for (let i = 0; i < n.childNodes.length; i++) {
+      walk(n.childNodes[i], f);
+    }
+  }
+
+  function assertElement(tags, node) {
+    if (!tags.has(node.tagName)) {
+      throw Error(node.tagName + ' is not supported');
+    }
+  }
+
+  function assertAttribute(attrs, attrNode, node) {
+    const n = attrNode.nodeName;
+    const v = attrNode.nodeValue;
+    if (!attrs.has(n) || !attrs.get(n)(node, v)) {
+      throw Error(node.tagName + '[' + n + '="' + v + '"] is not supported');
+    }
+  }
+
+  return function(s, extraTags, extraAttrs) {
+    const tags = extraTags ? mergeTags(extraTags) : allowedTags;
+    const attrs = extraAttrs ? mergeAttrs(extraAttrs) : allowedAttributes;
+
+    const doc = document.implementation.createHTMLDocument('');
+    const r = doc.createRange();
+    r.selectNode(doc.body);
+
+    if (window.trustedTypes) {
+      if (!unsanitizedPolicy) {
+        unsanitizedPolicy = trustedTypes.createPolicy(
+            'ash-deprecated-parse-html-subset',
+            {createHTML: untrustedHTML => untrustedHTML});
+      }
+      s = unsanitizedPolicy.createHTML(s);
+    }
+
+    // This does not execute any scripts because the document has no view.
+    const df = r.createContextualFragment(s);
+    walk(df, function(node) {
+      switch (node.nodeType) {
+        case Node.ELEMENT_NODE:
+          assertElement(tags, node);
+          const nodeAttrs = node.attributes;
+          for (let i = 0; i < nodeAttrs.length; ++i) {
+            assertAttribute(attrs, nodeAttrs[i], node);
+          }
+          break;
+
+        case Node.COMMENT_NODE:
+        case Node.DOCUMENT_FRAGMENT_NODE:
+        case Node.TEXT_NODE:
+          break;
+
+        default:
+          throw Error('Node type ' + node.nodeType + ' is not supported');
+      }
+    });
+    return df;
+  };
+})();
+
+// Copyright 2015 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+/** @polymerBehavior */
+const I18nBehavior = {
+  // 
+  // Dynamic locale changes are only relevant in ChromeOS OOBE/Login flows.
+  // On other platforms Chrome process is restarted upon locale changes.
+  // TODO(crbug.com/955194): move it to OobeI18nBehavior.
+  properties: {
+    /**
+     * The locale the UI is presented in. Used to signal dynamic locale
+     * change.
+     */
+    locale: {
+      type: String,
+      value: '',
+    },
+  },
+
+  /**
+   * Call this when UI strings may have changed. This will send an update to
+   * any data bindings to i18nDynamic(locale, ...).
+   * @suppress {checkTypes}
+   */
+  i18nUpdateLocale() {
+    this.locale = loadTimeData.getString('app_locale');
+  },
+  // 
+
+  /**
+   * Returns a translated string where $1 to $9 are replaced by the given
+   * values.
+   * @param {string} id The ID of the string to translate.
+   * @param {...string} varArgs Values to replace the placeholders $1 to $9
+   *     in the string.
+   * @return {string} A translated, substituted string.
+   * @private
+   */
+  i18nRaw_(id, varArgs) {
+    return arguments.length === 1 ?
+        loadTimeData.getString(id) :
+        loadTimeData.getStringF.apply(loadTimeData, arguments);
+  },
+
+  /**
+   * Returns a translated string where $1 to $9 are replaced by the given
+   * values. Also sanitizes the output to filter out dangerous HTML/JS.
+   * Use with Polymer bindings that are *not* inner-h-t-m-l.
+   * NOTE: This is not related to $i18n{foo} in HTML, see file overview.
+   * @param {string} id The ID of the string to translate.
+   * @param {...string|number} varArgs Values to replace the placeholders $1
+   *     to $9 in the string.
+   * @return {string} A translated, sanitized, substituted string.
+   */
+  i18n(id, varArgs) {
+    const rawString = this.i18nRaw_.apply(this, arguments);
+    return parseHtmlSubset('<b>' + rawString + '</b>').firstChild.textContent;
+  },
+
+  /**
+   * Similar to 'i18n', returns a translated, sanitized, substituted string.
+   * It receives the string ID and a dictionary containing the substitutions
+   * as well as optional additional allowed tags and attributes. Use with
+   * Polymer bindings that are inner-h-t-m-l, for example.
+   * @param {string} id The ID of the string to translate.
+   * @param {SanitizeInnerHtmlOpts=} opts
+   * @return {TrustedHTML}
+   */
+  i18nAdvanced(id, opts) {
+    opts = opts || {};
+    const args = [id].concat(opts.substitutions || []);
+    const rawString = this.i18nRaw_.apply(this, args);
+    return sanitizeInnerHtml(rawString, opts);
+  },
+
+  /**
+   * Similar to 'i18n', with an unused |locale| parameter used to trigger
+   * updates when |this.locale| changes.
+   * @param {string} locale The UI language used.
+   * @param {string} id The ID of the string to translate.
+   * @param {...string} varArgs Values to replace the placeholders $1 to $9
+   *     in the string.
+   * @return {string} A translated, sanitized, substituted string.
+   */
+  i18nDynamic(locale, id, varArgs) {
+    return this.i18n.apply(this, Array.prototype.slice.call(arguments, 1));
+  },
+
+  /**
+   * Similar to 'i18nDynamic', but varArgs valus are interpreted as keys in
+   * loadTimeData. This allows generation of strings that take other localized
+   * strings as parameters.
+   * @param {string} locale The UI language used.
+   * @param {string} id The ID of the string to translate.
+   * @param {...string} varArgs Values to replace the placeholders $1 to $9
+   *     in the string. Values are interpreted as strings IDs if found in the
+   *     list of localized strings.
+   * @return {string} A translated, sanitized, substituted string.
+   */
+  i18nRecursive(locale, id, varArgs) {
+    let args = Array.prototype.slice.call(arguments, 2);
+    if (args.length > 0) {
+      // Try to replace IDs with localized values.
+      const self = this;
+      args = args.map(function(str) {
+        return self.i18nExists(str) ? loadTimeData.getString(str) : str;
+      });
+    }
+    return this.i18nDynamic.apply(this, [locale, id].concat(args));
+  },
+
+  /**
+   * Returns true if a translation exists for |id|.
+   * @param {string} id
+   * @return {boolean}
+   */
+  i18nExists(id) {
+    return loadTimeData.valueExists(id);
+  },
+};
 
 const styleMod$4 = document.createElement('dom-module');
 styleMod$4.appendChild(html `
+  <template>
+    <style>
+.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
+    </style>
+  </template>
+`.content);
+styleMod$4.register('cr-icons');
+
+const styleMod$3 = document.createElement('dom-module');
+styleMod$3.appendChild(html `
   <template>
     <style include="cr-hidden-style cr-icons">
 :host,html{--scrollable-border-color:var(--google-grey-300)}@media (prefers-color-scheme:dark){:host,html{--scrollable-border-color:var(--google-grey-700)}}[actionable]{cursor:pointer}.hr{border-top:var(--cr-separator-line)}iron-list.cr-separators>:not([first]){border-top:var(--cr-separator-line)}[scrollable]{border-color:transparent;border-style:solid;border-width:1px 0;overflow-y:auto}[scrollable].is-scrolled{border-top-color:var(--scrollable-border-color)}[scrollable].can-scroll:not(.scrolled-to-bottom){border-bottom-color:var(--scrollable-border-color)}[scrollable] iron-list>:not(.no-outline):focus,[selectable]:focus,[selectable]>:focus{background-color:var(--cr-focused-item-color);outline:0}.scroll-container{display:flex;flex-direction:column;min-height:1px}[selectable]>*{cursor:pointer}.cr-centered-card-container{box-sizing:border-box;display:block;height:inherit;margin:0 auto;max-width:var(--cr-centered-card-max-width);min-width:550px;position:relative;width:calc(100% * var(--cr-centered-card-width-percentage))}.cr-container-shadow{box-shadow:inset 0 5px 6px -3px rgba(0,0,0,.4);height:var(--cr-container-shadow-height);left:0;margin:0 0 var(--cr-container-shadow-margin);opacity:0;pointer-events:none;position:relative;right:0;top:0;transition:opacity .5s;z-index:1}#cr-container-shadow-bottom{margin-bottom:0;margin-top:var(--cr-container-shadow-margin);transform:scaleY(-1)}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{opacity:var(--cr-container-shadow-max-opacity)}.cr-row{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.cr-row.continuation,.cr-row.first{border-top:none}.cr-row-gap{padding-inline-start:16px}.cr-button-gap{margin-inline-start:8px}paper-tooltip::part(tooltip){border-radius:var(--paper-tooltip-border-radius,2px);font-size:92.31%;font-weight:500;max-width:330px;min-width:var(--paper-tooltip-min-width,200px);padding:var(--paper-tooltip-padding,10px 8px)}.cr-padded-text{padding-block-end:var(--cr-section-vertical-padding);padding-block-start:var(--cr-section-vertical-padding)}.cr-title-text{color:var(--cr-title-text-color);font-size:107.6923%;font-weight:500}.cr-secondary-text{color:var(--cr-secondary-text-color);font-weight:400}.cr-form-field-label{color:var(--cr-form-field-label-color);display:block;font-size:var(--cr-form-field-label-font-size);font-weight:500;letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-bottom:8px}.cr-vertical-tab{align-items:center;display:flex}.cr-vertical-tab::before{border-radius:0 3px 3px 0;content:'';display:block;flex-shrink:0;height:var(--cr-vertical-tab-height,100%);width:4px}.cr-vertical-tab.selected::before{background:var(--cr-vertical-tab-selected-color,var(--cr-checked-color))}:host-context([dir=rtl]) .cr-vertical-tab::before{transform:scaleX(-1)}.iph-anchor-highlight{background-color:var(--cr-iph-anchor-highlight-color)}
     </style>
   </template>
 `.content);
-styleMod$4.register('cr-shared-style');
+styleMod$3.register('cr-shared-style');
 
-const styleMod$3 = document.createElement('dom-module');
-styleMod$3.appendChild(html `
+const styleMod$2 = document.createElement('dom-module');
+styleMod$2.appendChild(html `
   <template>
     <style>
 .md-select{--md-arrow-width:10px;--md-select-bg-color:var(--google-grey-100);--md-select-focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--md-select-option-bg-color:white;--md-select-side-padding:8px;--md-select-text-color:var(--cr-primary-text-color);-webkit-appearance:none;background:url(//resources/images/arrow_down.svg) calc(100% - var(--md-select-side-padding)) center no-repeat;background-color:var(--md-select-bg-color);background-size:var(--md-arrow-width);border:none;border-radius:4px;color:var(--md-select-text-color);cursor:pointer;font-family:inherit;font-size:inherit;line-height:inherit;max-width:100%;outline:0;padding-bottom:6px;padding-inline-end:calc(var(--md-select-side-padding) + var(--md-arrow-width) + 3px);padding-inline-start:var(--md-select-side-padding);padding-top:6px;width:var(--md-select-width,200px)}@media (prefers-color-scheme:dark){.md-select{--md-select-bg-color:rgba(0, 0, 0, .3);--md-select-focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--md-select-option-bg-color:var(--google-grey-900-white-4-percent);background-image:url(//resources/images/dark/arrow_down.svg)}}:host-context([chrome-refresh-2023]) .md-select{--md-select-bg-color:transparent;--md-arrow-width:7px;--md-select-side-padding:10px;--md-select-text-color:inherit;border:solid 1px var(--color-combobox-container-outline,var(--cr-fallback-color-neutral-outline));border-radius:8px;box-sizing:border-box;font-size:12px;height:36px;line-height:36px;padding-bottom:0;padding-top:0}:host-context([chrome-refresh-2023]) .md-select:hover{background-color:var(--color-comboxbox-ink-drop-hovered,var(--cr-hover-on-subtle-background-color))}.md-select :-webkit-any(option,optgroup){background-color:var(--md-select-option-bg-color)}.md-select[disabled]{opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]) .md-select[disabled]{background-color:var(--color-combobox-background-disabled,var(--cr-fallback-color-disabled-background));border-color:transparent;color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));opacity:1}.md-select:focus{box-shadow:0 0 0 2px var(--md-select-focus-shadow-color)}:host-context([chrome-refresh-2023]) .md-select:focus{box-shadow:none;outline:solid 2px var(--cr-focus-outline-color);outline-offset:-1px}@media (forced-colors:active){.md-select:focus{outline:var(--cr-focus-outline-hcm)}}.md-select:active{box-shadow:none}:host-context([dir=rtl]) .md-select{background-position-x:var(--md-select-side-padding)}
     </style>
   </template>
 `.content);
-styleMod$3.register('md-select');
+styleMod$2.register('md-select');
 
 /**
 @license
@@ -1927,451 +2607,21 @@ const template$1 = html`
 template$1.setAttribute('style', 'display: none;');
 document.head.appendChild(template$1.content);
 
-const styleMod$2 = document.createElement('dom-module');
-styleMod$2.appendChild(html`
+const styleMod$1 = document.createElement('dom-module');
+styleMod$1.appendChild(html`
   <template>
     <style include="iron-flex cr-shared-style md-select">
 
 @import 'ui/webui/resources/cr_elements/chromeos/cros_color_overrides.css';
 
 a {
-  color: var(--cros-link-color);
+  color: var(--cros-sys-primary);
   text-decoration: none;
 }
     </style>
   </template>
 `.content);
-styleMod$2.register('multidevice-setup-shared');
-
-const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html `
-  <template>
-    <style>
-:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) .primary-toggle{color:var(--cros-text-color-secondary)}:host-context([cros]) .primary-toggle[checked]{color:var(--cros-text-color-prominent)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}
-    </style>
-  </template>
-`.content);
-styleMod$1.register('cros-color-overrides');
-
-// Copyright 2013 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-/**
- * @fileoverview Assertion support.
- */
-
-/**
- * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
- * instead.
- * Verify |condition| is truthy and return |condition| if so.
- * @template T
- * @param {T} condition A condition to check for truthiness.  Note that this
- *     may be used to test whether a value is defined or not, and we don't want
- *     to force a cast to Boolean.
- * @param {string=} opt_message A message to show on failure.
- * @return {T} A non-null |condition|.
- * @closurePrimitive {asserts.truthy}
- * @suppress {reportUnknownTypes} because T is not sufficiently constrained.
- */
-function assert$1(condition, opt_message) {
-  if (!condition) {
-    let message = 'Assertion failed';
-    if (opt_message) {
-      message = message + ': ' + opt_message;
-    }
-    const error = new Error(message);
-    const global = function() {
-      const thisOrSelf = this || self;
-      /** @type {boolean} */
-      thisOrSelf.traceAssertionsForTesting;
-      return thisOrSelf;
-    }();
-    if (global.traceAssertionsForTesting) {
-      console.warn(error.stack);
-    }
-    throw error;
-  }
-  return condition;
-}
-
-/**
- * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
- * instead.
- * Call this from places in the code that should never be reached.
- *
- * For example, handling all the values of enum with a switch() like this:
- *
- *   function getValueFromEnum(enum) {
- *     switch (enum) {
- *       case ENUM_FIRST_OF_TWO:
- *         return first
- *       case ENUM_LAST_OF_TWO:
- *         return last;
- *     }
- *     assertNotReached();
- *     return document;
- *   }
- *
- * This code should only be hit in the case of serious programmer error or
- * unexpected input.
- *
- * @param {string=} message A message to show when this is hit.
- * @closurePrimitive {asserts.fail}
- */
-function assertNotReached(message) {
-  assert$1(false, message || 'Unreachable code hit');
-}
-
-// Copyright 2012 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-
-/**
- * Make a string safe for Polymer bindings that are inner-h-t-m-l or other
- * innerHTML use.
- * @param {string} rawString The unsanitized string
- * @param {SanitizeInnerHtmlOpts=} opts Optional additional allowed tags and
- *     attributes.
- * @return {string}
- */
-const sanitizeInnerHtmlInternal = function(rawString, opts) {
-  opts = opts || {};
-  return parseHtmlSubset(`<b>${rawString}</b>`, opts.tags, opts.attrs)
-      .firstChild.innerHTML;
-};
-
-let sanitizedPolicy = null;
-
-/**
- * Same as |sanitizeInnerHtmlInternal|, but it passes through sanitizedPolicy
- * to create a TrustedHTML.
- * TrustedTypePolicy: createHTML() takes an optional array but our usage for
- * sanitizeInnerHtml uses a singular opt argument. We specify the first element.
- * @param {string} rawString The unsanitized string
- * @param {SanitizeInnerHtmlOpts=} opts Optional additional allowed tags and
- *     attributes.
- * @return {TrustedHTML}
- */
-function sanitizeInnerHtml(rawString, opts) {
-  assert$1(window.trustedTypes);
-  if (sanitizedPolicy === null) {
-    // Initialize |sanitizedPolicy| lazily.
-    sanitizedPolicy =
-        window.trustedTypes.createPolicy('ash-deprecated-sanitize-inner-html', {
-          createHTML: (string, ...opts) =>
-              sanitizeInnerHtmlInternal(string, opts[0]),
-          createScript: (message) => assertNotReached(message),
-          createScriptURL: (message) => assertNotReached(message),
-        });
-  }
-  return sanitizedPolicy.createHTML(rawString, opts);
-}
-
-/**
- * Parses a very small subset of HTML. This ensures that insecure HTML /
- * javascript cannot be injected into WebUI.
- * @param {string} s The string to parse.
- * @param {!Array<string>=} extraTags Optional extra allowed tags.
- * @param {!Array<string>=} extraAttrs
- *     Optional extra allowed attributes (all tags are run through these).
- * @throws {Error} In case of non supported markup.
- * @return {DocumentFragment} A document fragment containing the DOM tree.
- */
-const parseHtmlSubset = (function() {
-
-  /** @type {!AllowFunction} */
-  const allowAttribute = (node, value) => true;
-
-  /**
-   * Allow-list of attributes in parseHtmlSubset.
-   * @type {!Map<string, !AllowFunction>}
-   * @const
-   */
-  const allowedAttributes = new Map([
-    [
-      'href',
-      (node, value) => {
-        // Only allow a[href] starting with chrome:// or https:// or equaling
-        // to #.
-        return node.tagName === 'A' &&
-            (value.startsWith('chrome://') || value.startsWith('https://') ||
-             value === '#');
-      },
-    ],
-    [
-      'target',
-      (node, value) => {
-        // Only allow a[target='_blank'].
-        // TODO(dbeam): are there valid use cases for target !== '_blank'?
-        return node.tagName === 'A' && value === '_blank';
-      },
-    ],
-  ]);
-
-  /**
-   * Allow-list of optional attributes in parseHtmlSubset.
-   * @type {!Map<string, !AllowFunction>}
-   * @const
-   */
-  const allowedOptionalAttributes = new Map([
-    ['class', allowAttribute],
-    ['id', allowAttribute],
-    ['is', (node, value) => value === 'action-link' || value === ''],
-    ['role', (node, value) => value === 'link'],
-    [
-      'src',
-      (node, value) => {
-        // Only allow img[src] starting with chrome://
-        return node.tagName === 'IMG' && value.startsWith('chrome://');
-      },
-    ],
-    ['tabindex', allowAttribute],
-    ['aria-hidden', allowAttribute],
-    ['aria-labelledby', allowAttribute],
-  ]);
-
-  /**
-   * Allow-list of tag names in parseHtmlSubset.
-   * @type {!Set<string>}
-   * @const
-   */
-  const allowedTags = new Set(
-      ['A', 'B', 'I', 'BR', 'DIV', 'EM', 'KBD', 'P', 'PRE', 'SPAN', 'STRONG']);
-
-  /**
-   * Allow-list of optional tag names in parseHtmlSubset.
-   * @type {!Set<string>}
-   * @const
-   */
-  const allowedOptionalTags = new Set(['IMG', 'LI', 'UL']);
-
-  /**
-   * This policy maps a given string to a `TrustedHTML` object
-   * without performing any validation. Callsites must ensure
-   * that the resulting object will only be used in inert
-   * documents. Initialized lazily.
-   * @type {!TrustedTypePolicy}
-   */
-  let unsanitizedPolicy;
-
-  /**
-   * @param {!Array<string>} optTags an Array to merge.
-   * @return {!Set<string>} Set of allowed tags.
-   */
-  function mergeTags(optTags) {
-    const clone = new Set(allowedTags);
-    optTags.forEach(str => {
-      const tag = str.toUpperCase();
-      if (allowedOptionalTags.has(tag)) {
-        clone.add(tag);
-      }
-    });
-    return clone;
-  }
-
-  /**
-   * @param {!Array<string>} optAttrs an Array to merge.
-   * @return {!Map<string, !AllowFunction>} Map of allowed
-   *     attributes.
-   */
-  function mergeAttrs(optAttrs) {
-    const clone = new Map([...allowedAttributes]);
-    optAttrs.forEach(key => {
-      if (allowedOptionalAttributes.has(key)) {
-        clone.set(key, allowedOptionalAttributes.get(key));
-      }
-    });
-    return clone;
-  }
-
-  function walk(n, f) {
-    f(n);
-    for (let i = 0; i < n.childNodes.length; i++) {
-      walk(n.childNodes[i], f);
-    }
-  }
-
-  function assertElement(tags, node) {
-    if (!tags.has(node.tagName)) {
-      throw Error(node.tagName + ' is not supported');
-    }
-  }
-
-  function assertAttribute(attrs, attrNode, node) {
-    const n = attrNode.nodeName;
-    const v = attrNode.nodeValue;
-    if (!attrs.has(n) || !attrs.get(n)(node, v)) {
-      throw Error(node.tagName + '[' + n + '="' + v + '"] is not supported');
-    }
-  }
-
-  return function(s, extraTags, extraAttrs) {
-    const tags = extraTags ? mergeTags(extraTags) : allowedTags;
-    const attrs = extraAttrs ? mergeAttrs(extraAttrs) : allowedAttributes;
-
-    const doc = document.implementation.createHTMLDocument('');
-    const r = doc.createRange();
-    r.selectNode(doc.body);
-
-    if (window.trustedTypes) {
-      if (!unsanitizedPolicy) {
-        unsanitizedPolicy = trustedTypes.createPolicy(
-            'ash-deprecated-parse-html-subset',
-            {createHTML: untrustedHTML => untrustedHTML});
-      }
-      s = unsanitizedPolicy.createHTML(s);
-    }
-
-    // This does not execute any scripts because the document has no view.
-    const df = r.createContextualFragment(s);
-    walk(df, function(node) {
-      switch (node.nodeType) {
-        case Node.ELEMENT_NODE:
-          assertElement(tags, node);
-          const nodeAttrs = node.attributes;
-          for (let i = 0; i < nodeAttrs.length; ++i) {
-            assertAttribute(attrs, nodeAttrs[i], node);
-          }
-          break;
-
-        case Node.COMMENT_NODE:
-        case Node.DOCUMENT_FRAGMENT_NODE:
-        case Node.TEXT_NODE:
-          break;
-
-        default:
-          throw Error('Node type ' + node.nodeType + ' is not supported');
-      }
-    });
-    return df;
-  };
-})();
-
-// Copyright 2015 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-
-/** @polymerBehavior */
-const I18nBehavior = {
-  // 
-  // Dynamic locale changes are only relevant in ChromeOS OOBE/Login flows.
-  // On other platforms Chrome process is restarted upon locale changes.
-  // TODO(crbug.com/955194): move it to OobeI18nBehavior.
-  properties: {
-    /**
-     * The locale the UI is presented in. Used to signal dynamic locale
-     * change.
-     */
-    locale: {
-      type: String,
-      value: '',
-    },
-  },
-
-  /**
-   * Call this when UI strings may have changed. This will send an update to
-   * any data bindings to i18nDynamic(locale, ...).
-   * @suppress {checkTypes}
-   */
-  i18nUpdateLocale() {
-    this.locale = loadTimeData.getString('app_locale');
-  },
-  // 
-
-  /**
-   * Returns a translated string where $1 to $9 are replaced by the given
-   * values.
-   * @param {string} id The ID of the string to translate.
-   * @param {...string} varArgs Values to replace the placeholders $1 to $9
-   *     in the string.
-   * @return {string} A translated, substituted string.
-   * @private
-   */
-  i18nRaw_(id, varArgs) {
-    return arguments.length === 1 ?
-        loadTimeData.getString(id) :
-        loadTimeData.getStringF.apply(loadTimeData, arguments);
-  },
-
-  /**
-   * Returns a translated string where $1 to $9 are replaced by the given
-   * values. Also sanitizes the output to filter out dangerous HTML/JS.
-   * Use with Polymer bindings that are *not* inner-h-t-m-l.
-   * NOTE: This is not related to $i18n{foo} in HTML, see file overview.
-   * @param {string} id The ID of the string to translate.
-   * @param {...string|number} varArgs Values to replace the placeholders $1
-   *     to $9 in the string.
-   * @return {string} A translated, sanitized, substituted string.
-   */
-  i18n(id, varArgs) {
-    const rawString = this.i18nRaw_.apply(this, arguments);
-    return parseHtmlSubset('<b>' + rawString + '</b>').firstChild.textContent;
-  },
-
-  /**
-   * Similar to 'i18n', returns a translated, sanitized, substituted string.
-   * It receives the string ID and a dictionary containing the substitutions
-   * as well as optional additional allowed tags and attributes. Use with
-   * Polymer bindings that are inner-h-t-m-l, for example.
-   * @param {string} id The ID of the string to translate.
-   * @param {SanitizeInnerHtmlOpts=} opts
-   * @return {TrustedHTML}
-   */
-  i18nAdvanced(id, opts) {
-    opts = opts || {};
-    const args = [id].concat(opts.substitutions || []);
-    const rawString = this.i18nRaw_.apply(this, args);
-    return sanitizeInnerHtml(rawString, opts);
-  },
-
-  /**
-   * Similar to 'i18n', with an unused |locale| parameter used to trigger
-   * updates when |this.locale| changes.
-   * @param {string} locale The UI language used.
-   * @param {string} id The ID of the string to translate.
-   * @param {...string} varArgs Values to replace the placeholders $1 to $9
-   *     in the string.
-   * @return {string} A translated, sanitized, substituted string.
-   */
-  i18nDynamic(locale, id, varArgs) {
-    return this.i18n.apply(this, Array.prototype.slice.call(arguments, 1));
-  },
-
-  /**
-   * Similar to 'i18nDynamic', but varArgs valus are interpreted as keys in
-   * loadTimeData. This allows generation of strings that take other localized
-   * strings as parameters.
-   * @param {string} locale The UI language used.
-   * @param {string} id The ID of the string to translate.
-   * @param {...string} varArgs Values to replace the placeholders $1 to $9
-   *     in the string. Values are interpreted as strings IDs if found in the
-   *     list of localized strings.
-   * @return {string} A translated, sanitized, substituted string.
-   */
-  i18nRecursive(locale, id, varArgs) {
-    let args = Array.prototype.slice.call(arguments, 2);
-    if (args.length > 0) {
-      // Try to replace IDs with localized values.
-      const self = this;
-      args = args.map(function(str) {
-        return self.i18nExists(str) ? loadTimeData.getString(str) : str;
-      });
-    }
-    return this.i18nDynamic.apply(this, [locale, id].concat(args));
-  },
-
-  /**
-   * Returns true if a translation exists for |id|.
-   * @param {string} id
-   * @return {boolean}
-   */
-  i18nExists(id) {
-    return loadTimeData.valueExists(id);
-  },
-};
+styleMod$1.register('multidevice-setup-shared');
 
 function getTemplate$6() {
   return html`<!--_html_template_start_--><style include="multidevice-setup-shared cros-color-overrides">
@@ -3222,6 +3472,20 @@ const template = html`<iron-iconset-svg name="multidevice-setup-icons-32" size="
       <g id="image" fill-rule="evenodd">
         <path d="M15 3H5C3.9 3 3 3.9 3 5V15C3 16.1 3.9 17 5 17H15C16.1 17 17 16.1 17 15V5C17 3.9 16.1 3 15 3ZM15 15H5V5H15V15ZM11.3333 9L9.5 12L8 10.6L6 14H14L11.3333 9Z"></path>
       </g>
+      <g id="wifi-sync" viewBox="0 0 24 18" fill-rule="evenodd">
+        <path d="M12 17.5C11.3 17.5 10.7083 17.2583 10.225 16.775C9.74167 16.2917 9.5 15.7 9.5 15C9.5 14.3 9.74167 13.7083 10.225 13.225C10.7083 12.7417 11.3 12.5 12 12.5C12.7 12.5 13.2917 12.7417 13.775 13.225C14.2583 13.7083 14.5 14.3 14.5 15C14.5 15.7 14.2583 16.2917 13.775 16.775C13.2917 17.2583 12.7 17.5 12 17.5ZM6.35 11.85L4.25 9.7C5.23333 8.71667 6.38333 7.94167 7.7 7.375C9.03333 6.79167 10.4667 6.5 12 6.5C13.5333 6.5 14.9583 6.79167 16.275 7.375C17.6083 7.95833 18.7667 8.75 19.75 9.75L17.65 11.85C16.9167 11.1167 16.0667 10.5417 15.1 10.125C14.1333 9.70833 13.1 9.5 12 9.5C10.9 9.5 9.86667 9.70833 8.9 10.125C7.93333 10.5417 7.08333 11.1167 6.35 11.85ZM2.1 7.6L0 5.5C1.53333 3.93333 3.325 2.70833 5.375 1.825C7.425 0.941666 9.63333 0.499999 12 0.499999C14.3667 0.499999 16.575 0.941666 18.625 1.825C20.675 2.70833 22.4667 3.93333 24 5.5L21.9 7.6C20.6167 6.31667 19.125 5.31667 17.425 4.6C15.7417 3.86667 13.9333 3.5 12 3.5C10.0667 3.5 8.25 3.86667 6.55 4.6C4.86667 5.31667 3.38333 6.31667 2.1 7.6Z"></path>
+      </g>
+      <g id="smart-lock" viewBox="0 0 22 24">
+        <path d="M18,9 L17,9 L17,7 C17,4.24 14.76,2 12,2 C9.24,2 7,4.24 7,7 L7,9 L6,9 C4.9,9 4,9.9 4,11 L4,21 C4,22.1 4.9,23 6,23 L18,23 C19.1,23 20,22.1 20,21 L20,11 C20,9.9 19.1,9 18,9 Z M9,7 C9,5.34 10.34,4 12,4 C13.66,4 15,5.34 15,7 L15,9 L9,9 L9,7 Z M18,21 L6,21 L6,11 L18,11 L18,21 Z M12,18 C13.1,18 14,17.1 14,16 C14,14.9 13.1,14 12,14 C10.9,14 10,14.9 10,16 C10,17.1 10.9,18 12,18 Z"></path>
+      </g>
+      <g id="phonehub" viewBox="0 0 12 19">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10 0.51L2 0.5C0.9 0.5 0 1.4 0 2.5V16.5C0 17.6 0.9 18.5 2 18.5H10C11.1 18.5 12 17.6 12 16.5V2.5C12 1.4 11.1 0.51 10 0.51ZM10 16.5H2V15.5H10V16.5ZM10 13.5H2V5.5H10V13.5ZM2 3.5V2.5H10V3.5H2Z"></path>
+      </g>
+      <g id="instant-tethering" viewBox="0 0 18 16">
+        <path d="M0 8.5C0 3.84343 3.808 0 8.5 0C13.192 0 17 3.84343 17 8.5C17 11.7534 15.2915 14.5158 13 16L12 14.5C13.9315 13.3233 15.3 11.1185 15.5 8.5C15.3 4.78713 12.257 1.71582 8.5 1.5C4.743 1.71582 1.7 4.78713 1.5 8.5C1.7 11.1185 3.0685 13.3233 5 14.5L4 16C1.7085 14.5158 0 11.7534 0 8.5Z"></path>
+        <path d="M13.5 8.5C13.5 5.78374 11.2583 3.5 8.5 3.5C5.74167 3.5 3.5 5.78374 3.5 8.5C3.5 10.4786 4.50833 12.1171 6 13L7 11.5C5.84167 10.9285 5.16667 9.85031 5 8.5C5.16667 6.71761 6.65833 5.19794 8.5 5C10.3417 5.19794 11.8333 6.71761 12 8.5C11.8333 9.85031 11.1583 10.9285 10 11.5L11 13C12.4917 12.1171 13.5 10.4786 13.5 8.5Z"></path>
+        <path d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"></path>
+      </g>
     </defs>
   </svg>
 </iron-iconset-svg>
@@ -3269,10 +3533,10 @@ function getTemplate$5() {
   }
 
   h1 {
-    color: var(--cros-text-color-primary);
+    color: var(--cros-sys-on_surface);
     font-size: 28px;
     font-weight: normal;
-    line-height: 28px;
+    line-height: 36px;
     margin: 0;
     padding-top: 40px;
     text-align: var(--multidevice-setup-text-alignment);
@@ -3288,7 +3552,7 @@ function getTemplate$5() {
   }
 
   #message-container {
-    color: var(--cros-text-color-secondary);
+    color: var(--cros-sys-on_surface_variant);
     line-height: 18px;
     min-height: 32px;
     overflow-wrap: break-word;
@@ -3411,8 +3675,9 @@ styleMod.appendChild(html `
             var(--cr-fallback-color-surface-variant));--cr-input-border-bottom:1px solid var(--color-textfield-filled-underline,
                 var(--cr-fallback-color-outline));--cr-input-border-radius:8px 8px 0 0;--cr-input-error-color:var(--color-textfield-filled-error,
             var(--cr-fallback-color-error));--cr-input-focus-color:var(--color-textfield-filled-underline-focused,
-            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
-                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--color-textfield-foreground-label,var(--cr-fallback-color-on-surface-subtle));font-size:11px;line-height:16px}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
+            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-label-color:var(--color-textfield-foreground-label,
+            var(--cr-fallback-color-on-surface-subtle));--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
+                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--cr-input-label-color);font-size:11px;line-height:16px}:host-context([chrome-refresh-2023]):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-label-color,var(--cr-input-label-color))}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}:host-context([chrome-refresh-2023]):host([focused_]) #input-container{outline:var(--cr-input-focus-outline,none)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle));--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;--cr-icon-button-margin-start:0;--cr-icon-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle))}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-prefix]){--cr-icon-button-margin-start:-8px}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-suffix]){--cr-icon-button-margin-end:-4px}:host-context([chrome-refresh-2023]):host([invalid]) #inner-input-content ::slotted(*){--cr-icon-color:var(--cr-input-error-color);--cr-icon-button-fill-color:var(--cr-input-error-color)}#hover-layer{display:none}:host-context([chrome-refresh-2023]) #hover-layer{background-color:var(--cr-input-hover-background-color);inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:not([readonly]):not([disabled])) #input-container:hover #hover-layer{display:block}#input{-webkit-appearance:none;background-color:transparent;border:none;box-sizing:border-box;caret-color:var(--cr-input-focus-color);color:var(--cr-input-color);font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;min-height:var(--cr-input-min-height,auto);outline:0;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px);text-align:inherit;text-overflow:ellipsis;width:100%}:host-context([chrome-refresh-2023]) #input{font-size:12px;line-height:16px;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#underline{border-bottom:2px solid var(--cr-input-focus-color);border-radius:var(--cr-input-underline-border-radius,0);bottom:0;box-sizing:border-box;display:var(--cr-input-underline-display);height:var(--cr-input-underline-height,0);left:0;margin:auto;opacity:0;position:absolute;right:0;transition:opacity 120ms ease-out,width 0s linear 180ms;width:0}:host([focused_]) #underline,:host([force-underline]) #underline,:host([invalid]) #underline{opacity:1;transition:opacity 120ms ease-in,width 180ms ease-out;width:100%}#underline-base{display:none}:host-context([chrome-refresh-2023]):host([readonly]) #underline{display:none}:host-context([chrome-refresh-2023]):host(:not([readonly])) #underline-base{border-bottom:var(--cr-input-border-bottom);bottom:0;display:block;left:0;position:absolute;right:0}:host-context([chrome-refresh-2023]):host([disabled]){color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));--cr-input-border-bottom:1px solid currentColor;--cr-input-placeholder-color:currentColor;--cr-input-color:currentColor;--cr-input-background-color:var(--color-textfield-background-disabled,
             var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}
@@ -3420,22 +3685,6 @@ styleMod.appendChild(html `
   </template>
 `.content);
 styleMod.register('cr-input-style');
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Verify |value| is truthy.
- * @param value A value to check for truthiness. Note that this
- *     may be used to test whether |value| is defined or not, and we don't want
- *     to force a cast to boolean.
- */
-function assert(value, message) {
-    if (value) {
-        return;
-    }
-    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
-}
 
 function getTemplate$4() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
@@ -3586,17 +3835,17 @@ class CrInputElement extends PolymerElement {
     ready() {
         super.ready();
         // Use inputTabindex instead.
-        assert(!this.hasAttribute('tabindex'));
+        assert$1(!this.hasAttribute('tabindex'));
     }
     onInputTabindexChanged_() {
         // CrInput only supports 0 or -1 values for the input's tabindex to allow
         // having the input in tab order or not. Values greater than 0 will not work
         // as the shadow root encapsulates tabindices.
-        assert(this.inputTabindex === 0 || this.inputTabindex === -1);
+        assert$1(this.inputTabindex === 0 || this.inputTabindex === -1);
     }
     onTypeChanged_() {
         // Check that the 'type' is one of the supported types.
-        assert(SUPPORTED_INPUT_TYPES.has(this.type));
+        assert$1(SUPPORTED_INPUT_TYPES.has(this.type));
     }
     get inputElement() {
         return this.$.input;
@@ -3620,7 +3869,7 @@ class CrInputElement extends PolymerElement {
         // is an error, triggers VoiceOver to consistently announce.
         const ERROR_ID = 'error';
         const errorElement = this.shadowRoot.querySelector(`#${ERROR_ID}`);
-        assert(errorElement);
+        assert$1(errorElement);
         if (this.invalid) {
             errorElement.setAttribute('role', 'alert');
             this.inputElement.setAttribute('aria-errormessage', ERROR_ID);
@@ -3695,7 +3944,7 @@ class CrInputElement extends PolymerElement {
         }
         else {
             // Can't just pass one param.
-            assert(start === undefined && end === undefined);
+            assert$1(start === undefined && end === undefined);
             this.inputElement.select();
         }
     }
@@ -3766,23 +4015,23 @@ class BrowserProxyImpl {
 
   /** @return {!BrowserProxy} */
   static getInstance() {
-    return instance$2 || (instance$2 = new BrowserProxyImpl());
+    return instance$1 || (instance$1 = new BrowserProxyImpl());
   }
 
   /** @param {!BrowserProxy} obj */
   static setInstance(obj) {
-    instance$2 = obj;
+    instance$1 = obj;
   }
 }
 
 /** @type {?BrowserProxy} */
-let instance$2 = null;
+let instance$1 = null;
 
 function getTemplate$3() {
   return html`<!--_html_template_start_--><style include="multidevice-setup-shared">
   #user-info-container  {
     align-items: center;
-    color: var(--cros-text-color-secondary);
+    color: var(--cros-sys-on_surface_variant);
     display: flex;
     padding-top: 32px;
   }
@@ -4359,17 +4608,17 @@ class MojoInterfaceProviderImpl {
 
   /** @return {!MojoInterfaceProvider} */
   static getInstance() {
-    return instance$1 || (instance$1 = new MojoInterfaceProviderImpl());
+    return instance || (instance = new MojoInterfaceProviderImpl());
   }
 
   /** @param {!MojoInterfaceProvider} obj */
   static setInstance(obj) {
-    instance$1 = obj;
+    instance = obj;
   }
 }
 
 /** @type {?MojoInterfaceProvider} */
-let instance$1 = null;
+let instance = null;
 
 /**
  * @license
@@ -4417,220 +4666,6 @@ function hexToRgb(hexString) {
         Number(`0x${gHex}`),
         Number(`0x${bHex}`),
     ];
-}
-
-// ui/webui/resources/cr_components/color_change_listener/color_change_listener.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-class PageHandlerPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.PageHandler', scope);
-    }
-}
-class PageHandlerRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    setPage(page) {
-        this.proxy.sendMessage(0, PageHandler_SetPage_ParamsSpec.$, null, [
-            page
-        ]);
-    }
-}
-class PageHandler {
-    static get $interfaceName() {
-        return "color_change_listener.mojom.PageHandler";
-    }
-    /**
-     * Returns a remote for this interface which sends messages to the browser.
-     * The browser must have an interface request binder registered for this
-     * interface and accessible to the calling document's frame.
-     */
-    static getRemote() {
-        let remote = new PageHandlerRemote;
-        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-        return remote;
-    }
-}
-class PagePendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.Page', scope);
-    }
-}
-class PageRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    onColorProviderChanged() {
-        this.proxy.sendMessage(0, Page_OnColorProviderChanged_ParamsSpec.$, null, []);
-    }
-}
-/**
- * An object which receives request messages for the Page
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
- */
-class PageCallbackRouter {
-    constructor() {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-        this.onColorProviderChanged =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(0, Page_OnColorProviderChanged_ParamsSpec.$, null, this.onColorProviderChanged.createReceiverHandler(false /* expectsResponse */));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
-    /**
-     * @param id An ID returned by a prior call to addListener.
-     * @return True iff the identified listener was found and removed.
-     */
-    removeListener(id) {
-        return this.router_.removeListener(id);
-    }
-}
-const PageHandler_SetPage_ParamsSpec = { $: {} };
-const Page_OnColorProviderChanged_ParamsSpec = { $: {} };
-mojo.internal.Struct(PageHandler_SetPage_ParamsSpec.$, 'PageHandler_SetPage_Params', [
-    mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(PageRemote), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(Page_OnColorProviderChanged_ParamsSpec.$, 'Page_OnColorProviderChanged_Params', [], [[0, 8],]);
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file provides a singleton class that exposes the Mojo
- * handler interface used for one way communication between the JS and the
- * browser.
- * TODO(tluk): Convert this into typescript once all dependencies have been
- * fully migrated.
- */
-let instance = null;
-class BrowserProxy {
-    constructor() {
-        this.callbackRouter = new PageCallbackRouter();
-        const pageHandlerRemote = PageHandler.getRemote();
-        pageHandlerRemote.setPage(this.callbackRouter.$.bindNewPipeAndPassRemote());
-    }
-    static getInstance() {
-        return instance || (instance = new BrowserProxy());
-    }
-    static setInstance(newInstance) {
-        instance = newInstance;
-    }
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file holds the functions that allow WebUI to update its
- * colors CSS stylesheet when a ColorProvider change in the browser is detected.
- */
-/**
- * The CSS selector used to get the <link> node with the colors.css stylesheet.
- * The wildcard is needed since the URL ends with a timestamp.
- */
-const COLORS_CSS_SELECTOR = 'link[href*=\'//theme/colors.css\']';
-let documentInstance = null;
-// 
-// Event fired after updated colors have been fetched and applied.
-const COLOR_PROVIDER_CHANGED = 'color-provider-changed';
-// 
-class ColorChangeUpdater {
-    // 
-    constructor(root) {
-        this.listenerId_ = null;
-        // 
-        this.eventTarget = new EventTarget();
-        assert(documentInstance === null || root !== document);
-        this.root_ = root;
-    }
-    /**
-     * Starts listening for ColorProvider changes from the browser and updates the
-     * `root_` whenever changes occur.
-     */
-    start() {
-        if (this.listenerId_ !== null) {
-            return;
-        }
-        this.listenerId_ = BrowserProxy.getInstance()
-            .callbackRouter.onColorProviderChanged.addListener(this.onColorProviderChanged.bind(this));
-    }
-    // TODO(dpapad): Figure out how to properly trigger
-    // `callbackRouter.onColorProviderChanged` listeners from tests and make this
-    // method private.
-    async onColorProviderChanged() {
-        await this.refreshColorsCss();
-        // 
-        this.eventTarget.dispatchEvent(new CustomEvent(COLOR_PROVIDER_CHANGED));
-        // 
-    }
-    /**
-     * Forces `root_` to refresh its colors.css stylesheet. This is used to
-     * fetch an updated stylesheet when the ColorProvider associated with the
-     * WebUI has changed.
-     * @return A promise which resolves to true once the new colors are loaded and
-     *     installed into the DOM. In the case of an error returns false. When a
-     *     new colors.css is loaded, this will always freshly query the existing
-     *     colors.css, allowing multiple calls to successfully remove existing,
-     *     outdated CSS.
-     */
-    async refreshColorsCss() {
-        const colorCssNode = this.root_.querySelector(COLORS_CSS_SELECTOR);
-        if (!colorCssNode) {
-            return false;
-        }
-        const href = colorCssNode.getAttribute('href');
-        if (!href) {
-            return false;
-        }
-        const hrefURL = new URL(href, location.href);
-        const params = new URLSearchParams(hrefURL.search);
-        params.set('version', new Date().getTime().toString());
-        const newHref = `${hrefURL.origin}${hrefURL.pathname}?${params.toString()}`;
-        // A flickering effect may take place when setting the href property of
-        // the existing color css node with a new value. In order to avoid
-        // flickering, we create a new link element and once it is loaded we
-        // remove the old one. See crbug.com/1365320 for additional details.
-        const newColorsCssLink = document.createElement('link');
-        newColorsCssLink.setAttribute('href', newHref);
-        newColorsCssLink.rel = 'stylesheet';
-        newColorsCssLink.type = 'text/css';
-        const newColorsLoaded = new Promise(resolve => {
-            newColorsCssLink.onload = resolve;
-        });
-        if (this.root_ === document) {
-            document.getElementsByTagName('body')[0].appendChild(newColorsCssLink);
-        }
-        else {
-            this.root_.appendChild(newColorsCssLink);
-        }
-        await newColorsLoaded;
-        const oldColorCssNode = document.querySelector(COLORS_CSS_SELECTOR);
-        if (oldColorCssNode) {
-            oldColorCssNode.remove();
-        }
-        return true;
-    }
-    static forDocument() {
-        return documentInstance ||
-            (documentInstance = new ColorChangeUpdater(document));
-    }
 }
 
 /**
@@ -4748,10 +4783,26 @@ const LOTTIE_NAME_KEY = 'nm';
 /** The CustomEvent names that LottieRenderer can fire. */
 var CrosLottieEvent;
 (function (CrosLottieEvent) {
+    /**
+     * Fired when the animation has been loaded on the worker thread and is
+     * ready to play.
+     */
     CrosLottieEvent["INITIALIZED"] = "cros-lottie-initialized";
+    /**
+     * Fired when the animation has been paused on the worker thread.
+     */
     CrosLottieEvent["PAUSED"] = "cros-lottie-paused";
+    /**
+     * Fired when the animation has begun playing on the worker thread.
+     */
     CrosLottieEvent["PLAYING"] = "cros-lottie-playing";
+    /**
+     * Fired when the animation has been resized on the worker thread.
+     */
     CrosLottieEvent["RESIZED"] = "cros-lottie-resized";
+    /**
+     * Fired when the animation has begun playing on the worker thread.
+     */
     CrosLottieEvent["STOPPED"] = "cros-lottie-stopped";
 })(CrosLottieEvent || (CrosLottieEvent = {}));
 /**
@@ -4839,6 +4890,10 @@ class LottieRenderer extends LitElement {
         loop: { type: Boolean, attribute: true },
         dynamic: { type: Boolean, attribute: true },
     }; }
+    /** @nocollapse */
+    static { this.events = {
+        ...CrosLottieEvent,
+    }; }
     constructor() {
         super();
         /**
@@ -4854,11 +4909,6 @@ class LottieRenderer extends LitElement {
          * @export
          */
         this.getWorker = defaultGetWorker;
-        /**
-         * Temporary public API to ensure component color resolution works.
-         * TODO: b/274998765 - Remove legacy usages of this function and then make
-         * private.
-         */
         this.onColorSchemeChanged = () => {
             if (!this.dynamic)
                 return;
@@ -5234,16 +5284,12 @@ var WebUIListenerBehavior = {
 
 function getTemplate$1() {
   return html`<!--_html_template_start_--><style include="multidevice-setup-shared">
-  #multidevice-summary-message a {
-    display: inline-block;
-  }
-
   #singleDeviceName {
-    color: var(--cros-text-color-primary);
+    color: var(--cros-sys-on_surface);
   }
 
   .offline-device-name {
-    color: var(--cros-text-color-secondary);
+    color: var(--cros-sys-on_surface_variant);
   }
 
   :host-context(body.jelly-enabled) #singleDeviceName,
@@ -5287,11 +5333,23 @@ function getTemplate$1() {
     box-sizing: border-box;
     display: flex;
     min-height: 48px;
-    padding: 12px 0;
+    padding: 18px 0;
+    gap: 20px;
   }
 
   #feature-details-container-header {
     margin-bottom: 16px;
+  }
+
+  .feature-detail-text {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    max-width: 60%;
+  }
+
+  .feature-detail-text > span:first-of-type {
+    font-weight: bold;
   }
 
   :host-context([orientation=horizontal]) #additional-content-container {
@@ -5301,7 +5359,7 @@ function getTemplate$1() {
   }
 
   #feature-details-container {
-    color: var(--cros-text-color-primary);
+    color: var(--cros-sys-on_surface);
     padding-top: 40px;
   }
 
@@ -5310,16 +5368,15 @@ function getTemplate$1() {
     font-family: var(--cros-font-family-google-sans);
   }
 
-  .feature-detail:not(:last-child) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  .feature-detail:not(:last-of-type) {
+    border-bottom: 1px solid var(--cros-sys-separator);
   }
 
   .feature-detail iron-icon {
-    --iron-icon-fill-color: var(--cros-icon-color-prominent);
+    --iron-icon-fill-color: var(--cros-sys-primary);
     --iron-icon-height: 20px;
     --iron-icon-width: 20px;
     min-width: 20px;
-    padding: 0 20px;
   }
 
   /* Hide the animation when not enough space in vertical mode. */
@@ -5340,9 +5397,6 @@ function getTemplate$1() {
 
 <ui-page header-text="[[i18nDynamic(locale, headerTextId)]]"
     icon-name="google-g">
-  <span slot="message" id="multidevice-summary-message" inner-h-t-m-l=
-      "[[i18nAdvancedDynamic_(locale, 'startSetupPageMessage')]]">
-  </span>
   <span slot="message">
     <div id="animation-container">
       <!-- TODO(b/279667779): Remove iron-media-query and dark mode check when
@@ -5386,29 +5440,45 @@ function getTemplate$1() {
         <div id="feature-details-container-header">
           [[i18nDynamic(locale, 'startSetupPageFeatureListHeader')]]
         </div>
+        <!-- Feature: Phone Hub -->
+        <template is="dom-if" if="[[phoneHubEnabled_]]">
+          <div class="feature-detail">
+            <iron-icon icon="multidevice-setup-icons-20:phonehub">
+            </iron-icon>
+            <div class="feature-detail-text">
+              <span>[[i18nDynamic(locale, 'startSetupPageFeaturePhoneHubTitle')]]</span>
+              <span>[[i18nDynamic(locale, 'startSetupPageFeaturePhoneHubDescription')]]</span>
+            </div>
+          </div>
+        </template>
+        <!-- Feature: Smart Lock -->
+        <div class="feature-detail">
+          <iron-icon icon="multidevice-setup-icons-20:smart-lock">
+          </iron-icon>
+          <div class="feature-detail-text">
+            <span>[[i18nDynamic(locale, 'startSetupPageFeatureSmartLockTitle')]]</span>
+            <span>[[i18nDynamic(locale, 'startSetupPageFeatureSmartLockDescription')]]</span>
+          </div>
+        </div>
+        <!-- Feature: Wifi Sync -->
         <template is="dom-if" if="[[wifiSyncEnabled_]]">
           <div class="feature-detail">
-            <iron-icon icon="multidevice-setup-icons-20:wifi">
+            <iron-icon icon="multidevice-setup-icons-20:wifi-sync">
             </iron-icon>
-            <span>
-              [[i18nDynamic(locale, 'startSetupPageFeatureWifiSync')]]
-            </span>
+            <div class="feature-detail-text">
+              <span>[[i18nDynamic(locale, 'startSetupPageFeatureWifiSyncTitle')]]</span>
+              <span>[[i18nDynamic(locale, 'startSetupPageFeatureWifiSyncDescription')]]</span>
+            </div>
           </div>
         </template>
-        <template is="dom-if" if="[[phoneHubCameraRollEnabled_]]">
-          <div class="feature-detail">
-            <iron-icon icon="multidevice-setup-icons-20:image">
-            </iron-icon>
-            <span>
-              [[i18nDynamic(locale, 'startSetupPageFeatureCameraRoll')]]
-            </span>
-          </div>
-        </template>
+        <!-- Feature: Instant Tethering -->
         <div class="feature-detail">
-          <iron-icon icon="multidevice-setup-icons-20:features"></iron-icon>
-          <span>
-            [[i18nDynamic(locale, 'startSetupPageFeatureListAddFeatures')]]
-          </span>
+          <iron-icon icon="multidevice-setup-icons-20:instant-tethering">
+          </iron-icon>
+          <div class="feature-detail-text">
+            <span>[[i18nDynamic(locale, 'startSetupPageFeatureInstantTetheringTitle')]]</span>
+            <span>[[i18nDynamic(locale, 'startSetupPageFeatureInstantTetheringDescription')]]</span>
+          </div>
         </div>
       </div>
       <div class="footnote">
@@ -5520,11 +5590,11 @@ Polymer({
     },
 
     /** @private */
-    phoneHubCameraRollEnabled_: {
+    phoneHubEnabled_: {
       type: Boolean,
       value() {
-        return loadTimeData.valueExists('phoneHubCameraRollEnabled') &&
-            loadTimeData.getBoolean('phoneHubCameraRollEnabled');
+        return loadTimeData.valueExists('phoneHubEnabled') &&
+            loadTimeData.getBoolean('phoneHubEnabled');
       },
     },
 
@@ -5578,8 +5648,6 @@ Polymer({
     this.addWebUIListener(
         'multidevice_setup.initializeSetupFlow',
         () => this.initializeSetupFlow_());
-
-    this.addAccessibilityLabel_();
   },
 
   /**
@@ -5595,23 +5663,11 @@ Polymer({
   },
 
   /**
-   * Since web links cannot be opened in OOBE as there is no web browser, this
-   * attaches a listener to open a webview modal in OOBE when "Learn More" links
-   * are clicked.
+   * If the user used Quick Start, this method retrieves and sets the ID of the
+   * phone a user used to complete the flow earlier in OOBE.
    * @private
    */
   initializeSetupFlow_() {
-    // The "Learn More" links are inside a grdp string, so we cannot actually
-    // add an onclick handler directly to the html. Instead, grab the two and
-    // manaully add onclick handlers.
-    const helpArticleLinks = [
-      this.$$('#multidevice-summary-message a'),
-    ];
-    for (let i = 0; i < helpArticleLinks.length; i++) {
-      helpArticleLinks[i].onclick = this.fire.bind(
-          this, 'open-learn-more-webview-requested', helpArticleLinks[i].href);
-    }
-
     this.mojoInterfaceProvider_.getMojoServiceRemote()
         .getQuickStartPhoneInstanceID()
         .then(({qsPhoneInstanceId}) => {
@@ -5624,23 +5680,6 @@ Polymer({
         .catch((error) => {
           console.warn('Mojo service failure: ' + error);
         });
-  },
-
-  /**
-   * Adds ARIA description to "Learn More" links since the link tag is embedded
-   * in the grdp string without additional attributes.
-   * @private
-   */
-  addAccessibilityLabel_() {
-    // Since the "Learn More" links are inside a grdp string, we add the
-    // attribute here.
-    const helpArticleLinks = [
-      this.$$('#multidevice-summary-message a'),
-    ];
-    for (let i = 0; i < helpArticleLinks.length; i++) {
-      helpArticleLinks[i].setAttribute(
-          'aria-describedby', 'multidevice-summary-message');
-    }
   },
 
   /**
@@ -6660,9 +6699,9 @@ function getTemplate() {
   }
 
   #container {
-    background-color: var(--cr-card-background-color);
+    background-color: var(--cros-sys-app_base);
     box-sizing: border-box;
-    color: var(--cros-text-color-secondary);
+    color: var(--cros-sys-on_surface_variant);
     display: flex;
     flex-direction: column;
     font-size: 13px;
@@ -6894,18 +6933,6 @@ Polymer({
     this.addWebUIListener(
         'multidevice_setup.initializeSetupFlow',
         this.initializeSetupFlow.bind(this));
-
-    if (this.isJellyEnabled) {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'chrome://theme/colors.css?sets=legacy,sys';
-      document.head.appendChild(link);
-      document.body.classList.add('jelly-enabled');
-      /** @suppress {checkTypes} */
-      (function() {
-        ColorChangeUpdater.forDocument().start();
-      })();
-    }
   },
 
   /** @override */
@@ -6971,7 +6998,7 @@ Polymer({
   /** @private */
   onBackwardNavigationRequested_() {
     // The back button is only visible on the password page.
-    assert$1(this.visiblePageName === PageName.PASSWORD);
+    assert(this.visiblePageName === PageName.PASSWORD);
 
     this.$$('password-page').clearPasswordTextInput();
     this.visiblePageName = PageName.START;
@@ -7016,7 +7043,7 @@ Polymer({
   /** @private */
   setHostDevice_() {
     // An authentication token must be set if a password is required.
-    assert$1(this.delegate.isPasswordRequiredToSetHost() === !!this.authToken_);
+    assert(this.delegate.isPasswordRequiredToSetHost() === !!this.authToken_);
 
     const instanceIdOrLegacyDeviceId =
         /** @type {string} */ (this.selectedInstanceIdOrLegacyDeviceId_);
@@ -7136,7 +7163,7 @@ class PostOobeDelegate {
   /** @override */
   setHostDevice(hostInstanceIdOrLegacyDeviceId, opt_authToken) {
     // An authentication token is required to set the host device post-OOBE.
-    assert$1(!!opt_authToken);
+    assert(!!opt_authToken);
 
     // Note: A cast is needed here because currently all Mojo functions which
     // return a promise are typed only as {Promise}. The setHostDevice()
@@ -7185,7 +7212,7 @@ Polymer({
   is: 'multidevice-setup-post-oobe',
 
   _template: html`<!--_html_template_start_-->
-<style include="multidevice-setup-shared">
+<style include="multidevice-setup-shared cros-color-overrides">
   :host {
     width: 100%;
   }
@@ -7271,6 +7298,14 @@ Polymer({
   /** @override */
   ready() {
     this.onWindowSizeUpdated_();
+
+    document.body.classList.add('jelly-enabled');
+
+    // Start listening for color changes in 'chrome://theme/colors.css'.
+    /** @suppress {checkTypes} */
+    (function() {
+      ColorChangeUpdater.forDocument().start();
+    })();
   },
 
   /** @override */

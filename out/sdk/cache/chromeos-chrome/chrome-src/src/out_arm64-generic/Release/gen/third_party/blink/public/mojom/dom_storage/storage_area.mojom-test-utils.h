@@ -16,9 +16,9 @@ namespace blink::mojom {
 
 class BLINK_COMMON_EXPORT StorageAreaObserverInterceptorForTesting : public StorageAreaObserver {
   virtual StorageAreaObserver* GetForwardingInterface() = 0;
-  void KeyChanged(const std::vector<uint8_t>& key, const std::vector<uint8_t>& new_value, const absl::optional<std::vector<uint8_t>>& old_value, const std::string& source) override;
+  void KeyChanged(const std::vector<uint8_t>& key, const std::vector<uint8_t>& new_value, const std::optional<std::vector<uint8_t>>& old_value, const std::string& source) override;
   void KeyChangeFailed(const std::vector<uint8_t>& key, const std::string& source) override;
-  void KeyDeleted(const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& old_value, const std::string& source) override;
+  void KeyDeleted(const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& old_value, const std::string& source) override;
   void AllDeleted(bool was_nonempty, const std::string& source) override;
   void ShouldSendOldValueOnMutations(bool value) override;
 };
@@ -39,8 +39,8 @@ class BLINK_COMMON_EXPORT StorageAreaObserverAsyncWaiter {
 class BLINK_COMMON_EXPORT StorageAreaInterceptorForTesting : public StorageArea {
   virtual StorageArea* GetForwardingInterface() = 0;
   void AddObserver(::mojo::PendingRemote<StorageAreaObserver> observer) override;
-  void Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, PutCallback callback) override;
-  void Delete(const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, DeleteCallback callback) override;
+  void Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, PutCallback callback) override;
+  void Delete(const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, DeleteCallback callback) override;
   void DeleteAll(const std::string& source, ::mojo::PendingRemote<StorageAreaObserver> new_observer, DeleteAllCallback callback) override;
   void Get(const std::vector<uint8_t>& key, GetCallback callback) override;
   void GetAll(::mojo::PendingRemote<StorageAreaObserver> new_observer, GetAllCallback callback) override;
@@ -54,11 +54,11 @@ class BLINK_COMMON_EXPORT StorageAreaAsyncWaiter {
 
   ~StorageAreaAsyncWaiter();
   void Put(
-      const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, bool* out_success);
-  bool Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source);
+      const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, bool* out_success);
+  bool Put(const std::vector<uint8_t>& key, const std::vector<uint8_t>& value, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source);
   void Delete(
-      const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, bool* out_success);
-  bool Delete(const std::vector<uint8_t>& key, const absl::optional<std::vector<uint8_t>>& client_old_value, const std::string& source);
+      const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source, bool* out_success);
+  bool Delete(const std::vector<uint8_t>& key, const std::optional<std::vector<uint8_t>>& client_old_value, const std::string& source);
   void DeleteAll(
       const std::string& source, ::mojo::PendingRemote<StorageAreaObserver> new_observer, bool* out_success);
   bool DeleteAll(const std::string& source, ::mojo::PendingRemote<StorageAreaObserver> new_observer);

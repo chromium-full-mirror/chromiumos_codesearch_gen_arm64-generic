@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 export class ProcessInternalsHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -13,6 +14,9 @@ export class ProcessInternalsHandlerPendingReceiver {
     }
 }
 export class ProcessInternalsHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(ProcessInternalsHandlerPendingReceiver, handle);
@@ -45,6 +49,9 @@ export class ProcessInternalsHandlerRemote {
  * interface.
  */
 export class ProcessInternalsHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ProcessInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -79,6 +86,16 @@ export class ProcessInternalsHandler {
  * receiver can have any number of listeners added to it.
  */
 export class ProcessInternalsHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getProcessCountInfo;
+    getIsolationMode;
+    getUserTriggeredIsolatedOrigins;
+    getWebTriggeredIsolatedOrigins;
+    getGloballyIsolatedOrigins;
+    getAllWebContentsInfo;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ProcessInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

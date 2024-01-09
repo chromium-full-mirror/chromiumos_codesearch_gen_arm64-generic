@@ -15,7 +15,7 @@ namespace ash::quick_start::mojom {
 
 class  QuickStartDecoderInterceptorForTesting : public QuickStartDecoder {
   virtual QuickStartDecoder* GetForwardingInterface() = 0;
-  void DecodeQuickStartMessage(const absl::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) override;
+  void DecodeQuickStartMessage(const std::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) override;
 };
 class  QuickStartDecoderAsyncWaiter {
  public:
@@ -26,7 +26,7 @@ class  QuickStartDecoderAsyncWaiter {
 
   ~QuickStartDecoderAsyncWaiter();
   void DecodeQuickStartMessage(
-      const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::QuickStartMessagePtr* out_result, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
+      const std::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::QuickStartMessagePtr* out_result, std::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
   
 
  private:

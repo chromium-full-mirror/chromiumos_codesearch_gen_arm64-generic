@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chrome/browser/ui/webui/tab_search/tab_search.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/string16.mojom-shared.h"
 #include "components/tab_groups/public/mojom/tab_group_types.mojom-shared.h"
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "mojo/public/mojom/base/token.mojom-shared.h"
@@ -185,6 +186,24 @@ enum class TabOrganizationError : int32_t {
  std::ostream& operator<<(std::ostream& os, TabOrganizationError value);
 inline bool IsKnownEnumValue(TabOrganizationError value) {
   return internal::TabOrganizationError_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class UserFeedback : int32_t {
+  
+  kUserFeedBackUnspecified = 0,
+  
+  kUserFeedBackPositive = 1,
+  
+  kUserFeedBackNegative = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, UserFeedback value);
+inline bool IsKnownEnumValue(UserFeedback value) {
+  return internal::UserFeedback_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
@@ -674,13 +693,13 @@ class TabOrganizationDataView {
         pointer, output, message_);
   }
   inline void GetNameDataView(
-      mojo::StringDataView* output);
+      ::mojo_base::mojom::String16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadName(UserType* output) {
     
     auto* pointer = data_->name.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
         pointer, output, message_);
   }
  private:
@@ -815,6 +834,10 @@ template <>
 struct hash<::tab_search::mojom::TabOrganizationError>
     : public mojo::internal::EnumHashImpl<::tab_search::mojom::TabOrganizationError> {};
 
+template <>
+struct hash<::tab_search::mojom::UserFeedback>
+    : public mojo::internal::EnumHashImpl<::tab_search::mojom::UserFeedback> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -854,6 +877,26 @@ struct Serializer<::tab_search::mojom::TabOrganizationError, MaybeConstUserType>
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::tab_search::mojom::TabOrganizationError>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::tab_search::mojom::UserFeedback, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::tab_search::mojom::UserFeedback, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::tab_search::mojom::UserFeedback>(input)), output);
   }
 };
 
@@ -1388,7 +1431,7 @@ struct Serializer<::tab_search::mojom::TabOrganizationDataView, MaybeConstUserTy
     mojo::internal::MessageFragment<
         typename decltype(fragment->name)::BaseType> name_fragment(
             fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
+    mojo::internal::Serialize<::mojo_base::mojom::String16DataView>(
         in_name, name_fragment);
     fragment->name.Set(
         name_fragment.is_null() ? nullptr : name_fragment.data());
@@ -1698,9 +1741,9 @@ inline void TabOrganizationDataView::GetTabsDataView(
   *output = mojo::ArrayDataView<TabDataView>(pointer, message_);
 }
 inline void TabOrganizationDataView::GetNameDataView(
-    mojo::StringDataView* output) {
+    ::mojo_base::mojom::String16DataView* output) {
   auto pointer = data_->name.Get();
-  *output = mojo::StringDataView(pointer, message_);
+  *output = ::mojo_base::mojom::String16DataView(pointer, message_);
 }
 
 
@@ -1750,6 +1793,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::tab_search::mojom::TabOrganizationError> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::tab_search::mojom::TabOrganizationError value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::tab_search::mojom::UserFeedback> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::tab_search::mojom::UserFeedback value);
 };
 
 } // namespace perfetto

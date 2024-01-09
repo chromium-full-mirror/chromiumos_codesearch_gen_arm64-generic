@@ -15,7 +15,7 @@ namespace crosapi::mojom {
 
 class  SearchResultsPublisherInterceptorForTesting : public SearchResultsPublisher {
   virtual SearchResultsPublisher* GetForwardingInterface() = 0;
-  void OnSearchResultsReceived(SearchStatus status, absl::optional<std::vector<SearchResultPtr>> result) override;
+  void OnSearchResultsReceived(SearchStatus status, std::optional<std::vector<SearchResultPtr>> result) override;
 };
 class  SearchResultsPublisherAsyncWaiter {
  public:

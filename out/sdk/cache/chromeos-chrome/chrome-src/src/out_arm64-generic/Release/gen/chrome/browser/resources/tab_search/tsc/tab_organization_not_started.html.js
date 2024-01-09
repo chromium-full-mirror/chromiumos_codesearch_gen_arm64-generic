@@ -1,14 +1,29 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">cr-button{align-self:flex-end;width:fit-content}</style>
+    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--avatar-size:40px}cr-button{align-self:flex-end;width:fit-content}.account-email{font-size:12px}.account-image{border-radius:var(--avatar-size);height:var(--avatar-size);width:var(--avatar-size)}.account-row{align-items:center;display:flex;gap:10px}.account-text{display:flex;flex-direction:column;gap:4px}</style>
 
 <div class="tab-organization-container">
+  <tab-organization-not-started-image></tab-organization-not-started-image>
   <div class="tab-organization-text-container">
-    <div class="tab-organization-header">[[getTitle_(showFRE_)]]</div>
-    <div class="tab-organization-body">[[getBody_(showFRE_)]]</div>
+    <div class="tab-organization-header">[[getTitle_(showFre)]]</div>
+    <div class="tab-organization-body">
+      [[getBody_(showFre, sync_, account_)]]
+    </div>
   </div>
-  <cr-button class="action-button" on-click="onOrganizeTabsClick_">
-    $i18n{notStartedButton}
+  <template is="dom-if" if="[[shouldShowAccountInfo_(sync_, account_)]]">
+    <div class="account-row">
+      
+      <img class="account-image" alt="" src="[[getAccountImageSrc_(account_.avatarImage)]]">
+      <div class="account-text">
+        <div class="tab-organization-header">[[account_.name]]</div>
+        <div class="tab-organization-body account-email">
+          [[account_.email]]
+        </div>
+      </div>
+    </div>
+  </template>
+  <cr-button class="action-button" on-click="onButtonClick_">
+    [[getButtonText_(sync_, account_)]]
   </cr-button>
 </div>
 <!--_html_template_end_-->`;

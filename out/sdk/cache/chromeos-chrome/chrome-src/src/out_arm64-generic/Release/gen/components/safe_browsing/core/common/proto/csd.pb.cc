@@ -135,7 +135,7 @@ struct ClientPhishingRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClientPhishingRequestDefaultTypeInternal _ClientPhishingRequest_default_instance_;
 PROTOBUF_CONSTEXPR ClientPhishingResponse::ClientPhishingResponse(
     ::_pbi::ConstantInitialized)
-  : obsolete_whitelist_expression_()
+  : obsolete_allowlist_expression_()
   , phishy_(false){}
 struct ClientPhishingResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ClientPhishingResponseDefaultTypeInternal()
@@ -604,6 +604,7 @@ PROTOBUF_CONSTEXPR ClientDownloadRequest::ClientDownloadRequest(
   , locale_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , udif_code_signature_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , access_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , previous_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , digests_(nullptr)
   , signature_(nullptr)
   , image_headers_(nullptr)
@@ -719,7 +720,8 @@ PROTOBUF_CONSTEXPR ClientDownloadResponse::ClientDownloadResponse(
   , verdict_(0)
 
   , upload_(false)
-  , request_deep_scan_(false){}
+  , request_deep_scan_(false)
+  , is_suspicious_encrypted_archive_(false){}
 struct ClientDownloadResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ClientDownloadResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1358,6 +1360,20 @@ struct ClientSafeBrowsingReportRequest_PhishySiteInteractionDefaultTypeInternal 
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClientSafeBrowsingReportRequest_PhishySiteInteractionDefaultTypeInternal _ClientSafeBrowsingReportRequest_PhishySiteInteraction_default_instance_;
+PROTOBUF_CONSTEXPR ClientSafeBrowsingReportRequest_WarningShownInfo::ClientSafeBrowsingReportRequest_WarningShownInfo(
+    ::_pbi::ConstantInitialized)
+  : post_data_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , warning_type_(0)
+{}
+struct ClientSafeBrowsingReportRequest_WarningShownInfoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ClientSafeBrowsingReportRequest_WarningShownInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ClientSafeBrowsingReportRequest_WarningShownInfoDefaultTypeInternal() {}
+  union {
+    ClientSafeBrowsingReportRequest_WarningShownInfo _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClientSafeBrowsingReportRequest_WarningShownInfoDefaultTypeInternal _ClientSafeBrowsingReportRequest_WarningShownInfo_default_instance_;
 PROTOBUF_CONSTEXPR ClientSafeBrowsingReportRequest::ClientSafeBrowsingReportRequest(
     ::_pbi::ConstantInitialized)
   : resources_()
@@ -1377,6 +1393,7 @@ PROTOBUF_CONSTEXPR ClientSafeBrowsingReportRequest::ClientSafeBrowsingReportRequ
   , download_item_info_(nullptr)
   , population_(nullptr)
   , hash_real_time_experiment_details_(nullptr)
+  , warning_shown_info_(nullptr)
   , type_(0)
 
   , complete_(false)
@@ -2779,32 +2796,36 @@ bool ClientDownloadRequest_ArchiveSummary_Status_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientDownloadRequest_ArchiveSummary_Status_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientDownloadRequest_ArchiveSummary_Status_strings[5] = {};
 
 static const char ClientDownloadRequest_ArchiveSummary_Status_names[] =
+  "DISK_ERROR"
   "PARSER_TIMED_OUT"
   "TOO_LARGE"
   "UNKNOWN"
   "VALID";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientDownloadRequest_ArchiveSummary_Status_entries[] = {
-  { {ClientDownloadRequest_ArchiveSummary_Status_names + 0, 16}, 2 },
-  { {ClientDownloadRequest_ArchiveSummary_Status_names + 16, 9}, 3 },
-  { {ClientDownloadRequest_ArchiveSummary_Status_names + 25, 7}, 0 },
-  { {ClientDownloadRequest_ArchiveSummary_Status_names + 32, 5}, 1 },
+  { {ClientDownloadRequest_ArchiveSummary_Status_names + 0, 10}, 4 },
+  { {ClientDownloadRequest_ArchiveSummary_Status_names + 10, 16}, 2 },
+  { {ClientDownloadRequest_ArchiveSummary_Status_names + 26, 9}, 3 },
+  { {ClientDownloadRequest_ArchiveSummary_Status_names + 35, 7}, 0 },
+  { {ClientDownloadRequest_ArchiveSummary_Status_names + 42, 5}, 1 },
 };
 
 static const int ClientDownloadRequest_ArchiveSummary_Status_entries_by_number[] = {
-  2, // 0 -> UNKNOWN
-  3, // 1 -> VALID
-  0, // 2 -> PARSER_TIMED_OUT
-  1, // 3 -> TOO_LARGE
+  3, // 0 -> UNKNOWN
+  4, // 1 -> VALID
+  1, // 2 -> PARSER_TIMED_OUT
+  2, // 3 -> TOO_LARGE
+  0, // 4 -> DISK_ERROR
 };
 
 const std::string& ClientDownloadRequest_ArchiveSummary_Status_Name(
@@ -2813,12 +2834,12 @@ const std::string& ClientDownloadRequest_ArchiveSummary_Status_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ClientDownloadRequest_ArchiveSummary_Status_entries,
           ClientDownloadRequest_ArchiveSummary_Status_entries_by_number,
-          4, ClientDownloadRequest_ArchiveSummary_Status_strings);
+          5, ClientDownloadRequest_ArchiveSummary_Status_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ClientDownloadRequest_ArchiveSummary_Status_entries,
       ClientDownloadRequest_ArchiveSummary_Status_entries_by_number,
-      4, value);
+      5, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ClientDownloadRequest_ArchiveSummary_Status_strings[idx].get();
 }
@@ -2826,7 +2847,7 @@ bool ClientDownloadRequest_ArchiveSummary_Status_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ClientDownloadRequest_ArchiveSummary_Status* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ClientDownloadRequest_ArchiveSummary_Status_entries, 4, name, &int_value);
+      ClientDownloadRequest_ArchiveSummary_Status_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<ClientDownloadRequest_ArchiveSummary_Status>(int_value);
   }
@@ -2837,6 +2858,7 @@ constexpr ClientDownloadRequest_ArchiveSummary_Status ClientDownloadRequest_Arch
 constexpr ClientDownloadRequest_ArchiveSummary_Status ClientDownloadRequest_ArchiveSummary::VALID;
 constexpr ClientDownloadRequest_ArchiveSummary_Status ClientDownloadRequest_ArchiveSummary::PARSER_TIMED_OUT;
 constexpr ClientDownloadRequest_ArchiveSummary_Status ClientDownloadRequest_ArchiveSummary::TOO_LARGE;
+constexpr ClientDownloadRequest_ArchiveSummary_Status ClientDownloadRequest_ArchiveSummary::DISK_ERROR;
 constexpr ClientDownloadRequest_ArchiveSummary_Status ClientDownloadRequest_ArchiveSummary::Status_MIN;
 constexpr ClientDownloadRequest_ArchiveSummary_Status ClientDownloadRequest_ArchiveSummary::Status_MAX;
 constexpr int ClientDownloadRequest_ArchiveSummary::Status_ARRAYSIZE;
@@ -4045,13 +4067,15 @@ bool ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_IsValid(int va
     case 6:
     case 7:
     case 8:
+    case 9:
+    case 10:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_strings[9] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_strings[11] = {};
 
 static const char ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names[] =
   "ACTION_UNSPECIFIED"
@@ -4061,8 +4085,10 @@ static const char ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_n
   "DISCARD"
   "DISMISS"
   "KEEP"
+  "OPEN_LEARN_MORE_LINK"
   "OPEN_SUBPAGE"
-  "PROCEED";
+  "PROCEED"
+  "PROCEED_DEEP_SCAN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_entries[] = {
   { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 0, 18}, 0 },
@@ -4072,20 +4098,24 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientSafeBrowsingRepo
   { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 33, 7}, 2 },
   { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 40, 7}, 6 },
   { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 47, 4}, 3 },
-  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 51, 12}, 8 },
-  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 63, 7}, 1 },
+  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 51, 20}, 10 },
+  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 71, 12}, 8 },
+  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 83, 7}, 1 },
+  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_names + 90, 17}, 9 },
 };
 
 static const int ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_entries_by_number[] = {
   0, // 0 -> ACTION_UNSPECIFIED
-  8, // 1 -> PROCEED
+  9, // 1 -> PROCEED
   4, // 2 -> DISCARD
   6, // 3 -> KEEP
   3, // 4 -> CLOSE
   2, // 5 -> CANCEL
   5, // 6 -> DISMISS
   1, // 7 -> BACK
-  7, // 8 -> OPEN_SUBPAGE
+  8, // 8 -> OPEN_SUBPAGE
+  10, // 9 -> PROCEED_DEEP_SCAN
+  7, // 10 -> OPEN_LEARN_MORE_LINK
 };
 
 const std::string& ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_Name(
@@ -4094,12 +4124,12 @@ const std::string& ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_entries,
           ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_entries_by_number,
-          9, ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_strings);
+          11, ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_entries,
       ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_entries_by_number,
-      9, value);
+      11, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_strings[idx].get();
 }
@@ -4107,7 +4137,7 @@ bool ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ClientSafeBrowsingReportRequest_DownloadWarningAction_Action* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_entries, 9, name, &int_value);
+      ClientSafeBrowsingReportRequest_DownloadWarningAction_Action_entries, 11, name, &int_value);
   if (success) {
     *value = static_cast<ClientSafeBrowsingReportRequest_DownloadWarningAction_Action>(int_value);
   }
@@ -4123,6 +4153,8 @@ constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Action ClientSaf
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Action ClientSafeBrowsingReportRequest_DownloadWarningAction::DISMISS;
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Action ClientSafeBrowsingReportRequest_DownloadWarningAction::BACK;
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Action ClientSafeBrowsingReportRequest_DownloadWarningAction::OPEN_SUBPAGE;
+constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Action ClientSafeBrowsingReportRequest_DownloadWarningAction::PROCEED_DEEP_SCAN;
+constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Action ClientSafeBrowsingReportRequest_DownloadWarningAction::OPEN_LEARN_MORE_LINK;
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Action ClientSafeBrowsingReportRequest_DownloadWarningAction::Action_MIN;
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Action ClientSafeBrowsingReportRequest_DownloadWarningAction::Action_MAX;
 constexpr int ClientSafeBrowsingReportRequest_DownloadWarningAction::Action_ARRAYSIZE;
@@ -4396,6 +4428,89 @@ constexpr ClientSafeBrowsingReportRequest_PhishySiteInteraction_PhishySiteIntera
 constexpr ClientSafeBrowsingReportRequest_PhishySiteInteraction_PhishySiteInteractionType ClientSafeBrowsingReportRequest_PhishySiteInteraction::PhishySiteInteractionType_MAX;
 constexpr int ClientSafeBrowsingReportRequest_PhishySiteInteraction::PhishySiteInteractionType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_strings[7] = {};
+
+static const char ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_names[] =
+  "BILLING_INTERSTITIAL"
+  "BINARY_MALWARE_DOWNLOAD_WARNING"
+  "CLIENT_SIDE_PHISHING_INTERSTITIAL"
+  "MALWARE_INTERSTITIAL"
+  "PHISHING_INTERSTITIAL"
+  "UNKNOWN"
+  "UWS_INTERSTITIAL";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_entries[] = {
+  { {ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_names + 0, 20}, 5 },
+  { {ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_names + 20, 31}, 6 },
+  { {ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_names + 51, 33}, 2 },
+  { {ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_names + 84, 20}, 3 },
+  { {ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_names + 104, 21}, 1 },
+  { {ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_names + 125, 7}, 0 },
+  { {ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_names + 132, 16}, 4 },
+};
+
+static const int ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_entries_by_number[] = {
+  5, // 0 -> UNKNOWN
+  4, // 1 -> PHISHING_INTERSTITIAL
+  2, // 2 -> CLIENT_SIDE_PHISHING_INTERSTITIAL
+  3, // 3 -> MALWARE_INTERSTITIAL
+  6, // 4 -> UWS_INTERSTITIAL
+  0, // 5 -> BILLING_INTERSTITIAL
+  1, // 6 -> BINARY_MALWARE_DOWNLOAD_WARNING
+};
+
+const std::string& ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_Name(
+    ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_entries,
+          ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_entries_by_number,
+          7, ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_entries,
+      ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_strings[idx].get();
+}
+bool ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType ClientSafeBrowsingReportRequest_WarningShownInfo::UNKNOWN;
+constexpr ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType ClientSafeBrowsingReportRequest_WarningShownInfo::PHISHING_INTERSTITIAL;
+constexpr ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType ClientSafeBrowsingReportRequest_WarningShownInfo::CLIENT_SIDE_PHISHING_INTERSTITIAL;
+constexpr ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType ClientSafeBrowsingReportRequest_WarningShownInfo::MALWARE_INTERSTITIAL;
+constexpr ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType ClientSafeBrowsingReportRequest_WarningShownInfo::UWS_INTERSTITIAL;
+constexpr ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType ClientSafeBrowsingReportRequest_WarningShownInfo::BILLING_INTERSTITIAL;
+constexpr ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType ClientSafeBrowsingReportRequest_WarningShownInfo::BINARY_MALWARE_DOWNLOAD_WARNING;
+constexpr ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType ClientSafeBrowsingReportRequest_WarningShownInfo::WarningUXType_MIN;
+constexpr ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType ClientSafeBrowsingReportRequest_WarningShownInfo::WarningUXType_MAX;
+constexpr int ClientSafeBrowsingReportRequest_WarningShownInfo::WarningUXType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool ClientSafeBrowsingReportRequest_ReportType_IsValid(int value) {
   switch (value) {
     case 0:
@@ -4417,13 +4532,14 @@ bool ClientSafeBrowsingReportRequest_ReportType_IsValid(int value) {
     case 20:
     case 21:
     case 22:
+    case 23:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_ReportType_strings[19] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_ReportType_strings[20] = {};
 
 static const char ClientSafeBrowsingReportRequest_ReportType_names[] =
   "AD_SAMPLE"
@@ -4444,7 +4560,8 @@ static const char ClientSafeBrowsingReportRequest_ReportType_names[] =
   "URL_PASSWORD_PROTECTION_PHISHING"
   "URL_PHISHING"
   "URL_SUSPICIOUS"
-  "URL_UNWANTED";
+  "URL_UNWANTED"
+  "WARNING_SHOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientSafeBrowsingReportRequest_ReportType_entries[] = {
   { {ClientSafeBrowsingReportRequest_ReportType_names + 0, 9}, 14 },
@@ -4466,6 +4583,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientSafeBrowsingRepo
   { {ClientSafeBrowsingReportRequest_ReportType_names + 319, 12}, 1 },
   { {ClientSafeBrowsingReportRequest_ReportType_names + 331, 14}, 15 },
   { {ClientSafeBrowsingReportRequest_ReportType_names + 345, 12}, 3 },
+  { {ClientSafeBrowsingReportRequest_ReportType_names + 357, 13}, 23 },
 };
 
 static const int ClientSafeBrowsingReportRequest_ReportType_entries_by_number[] = {
@@ -4488,6 +4606,7 @@ static const int ClientSafeBrowsingReportRequest_ReportType_entries_by_number[] 
   3, // 20 -> BLOCKED_AD_POPUP
   9, // 21 -> HASH_PREFIX_REAL_TIME_EXPERIMENT
   10, // 22 -> PHISHY_SITE_INTERACTIONS
+  19, // 23 -> WARNING_SHOWN
 };
 
 const std::string& ClientSafeBrowsingReportRequest_ReportType_Name(
@@ -4496,12 +4615,12 @@ const std::string& ClientSafeBrowsingReportRequest_ReportType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ClientSafeBrowsingReportRequest_ReportType_entries,
           ClientSafeBrowsingReportRequest_ReportType_entries_by_number,
-          19, ClientSafeBrowsingReportRequest_ReportType_strings);
+          20, ClientSafeBrowsingReportRequest_ReportType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ClientSafeBrowsingReportRequest_ReportType_entries,
       ClientSafeBrowsingReportRequest_ReportType_entries_by_number,
-      19, value);
+      20, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ClientSafeBrowsingReportRequest_ReportType_strings[idx].get();
 }
@@ -4509,7 +4628,7 @@ bool ClientSafeBrowsingReportRequest_ReportType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ClientSafeBrowsingReportRequest_ReportType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ClientSafeBrowsingReportRequest_ReportType_entries, 19, name, &int_value);
+      ClientSafeBrowsingReportRequest_ReportType_entries, 20, name, &int_value);
   if (success) {
     *value = static_cast<ClientSafeBrowsingReportRequest_ReportType>(int_value);
   }
@@ -4535,6 +4654,7 @@ constexpr ClientSafeBrowsingReportRequest_ReportType ClientSafeBrowsingReportReq
 constexpr ClientSafeBrowsingReportRequest_ReportType ClientSafeBrowsingReportRequest::BLOCKED_AD_POPUP;
 constexpr ClientSafeBrowsingReportRequest_ReportType ClientSafeBrowsingReportRequest::HASH_PREFIX_REAL_TIME_EXPERIMENT;
 constexpr ClientSafeBrowsingReportRequest_ReportType ClientSafeBrowsingReportRequest::PHISHY_SITE_INTERACTIONS;
+constexpr ClientSafeBrowsingReportRequest_ReportType ClientSafeBrowsingReportRequest::WARNING_SHOWN;
 constexpr ClientSafeBrowsingReportRequest_ReportType ClientSafeBrowsingReportRequest::ReportType_MIN;
 constexpr ClientSafeBrowsingReportRequest_ReportType ClientSafeBrowsingReportRequest::ReportType_MAX;
 constexpr int ClientSafeBrowsingReportRequest::ReportType_ARRAYSIZE;
@@ -4660,13 +4780,14 @@ bool ClientSafeBrowsingReportRequest_UrlRequestDestination_IsValid(int value) {
     case 23:
     case 24:
     case 25:
+    case 26:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_UrlRequestDestination_strings[26] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_UrlRequestDestination_strings[27] = {};
 
 static const char ClientSafeBrowsingReportRequest_UrlRequestDestination_names[] =
   "AUDIO"
@@ -4688,6 +4809,7 @@ static const char ClientSafeBrowsingReportRequest_UrlRequestDestination_names[] 
   "SCRIPT"
   "SERVICE_WORKER"
   "SHARED_WORKER"
+  "SPECULATION_RULES"
   "STYLE"
   "TRACK"
   "VIDEO"
@@ -4716,13 +4838,14 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientSafeBrowsingRepo
   { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 142, 6}, 14 },
   { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 148, 14}, 15 },
   { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 162, 13}, 16 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 175, 5}, 17 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 180, 5}, 18 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 185, 5}, 19 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 190, 10}, 20 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 200, 12}, 24 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 212, 6}, 21 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 218, 4}, 22 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 175, 17}, 26 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 192, 5}, 17 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 197, 5}, 18 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 202, 5}, 19 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 207, 10}, 20 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 217, 12}, 24 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 229, 6}, 21 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 235, 4}, 22 },
 };
 
 static const int ClientSafeBrowsingReportRequest_UrlRequestDestination_entries_by_number[] = {
@@ -4743,15 +4866,16 @@ static const int ClientSafeBrowsingReportRequest_UrlRequestDestination_entries_b
   16, // 14 -> SCRIPT
   17, // 15 -> SERVICE_WORKER
   18, // 16 -> SHARED_WORKER
-  19, // 17 -> STYLE
-  20, // 18 -> TRACK
-  21, // 19 -> VIDEO
-  22, // 20 -> WEB_BUNDLE
-  24, // 21 -> WORKER
-  25, // 22 -> XSLT
+  20, // 17 -> STYLE
+  21, // 18 -> TRACK
+  22, // 19 -> VIDEO
+  23, // 20 -> WEB_BUNDLE
+  25, // 21 -> WORKER
+  26, // 22 -> XSLT
   6, // 23 -> FENCED_FRAME
-  23, // 24 -> WEB_IDENTITY
+  24, // 24 -> WEB_IDENTITY
   2, // 25 -> DICTIONARY
+  19, // 26 -> SPECULATION_RULES
 };
 
 const std::string& ClientSafeBrowsingReportRequest_UrlRequestDestination_Name(
@@ -4760,12 +4884,12 @@ const std::string& ClientSafeBrowsingReportRequest_UrlRequestDestination_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ClientSafeBrowsingReportRequest_UrlRequestDestination_entries,
           ClientSafeBrowsingReportRequest_UrlRequestDestination_entries_by_number,
-          26, ClientSafeBrowsingReportRequest_UrlRequestDestination_strings);
+          27, ClientSafeBrowsingReportRequest_UrlRequestDestination_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ClientSafeBrowsingReportRequest_UrlRequestDestination_entries,
       ClientSafeBrowsingReportRequest_UrlRequestDestination_entries_by_number,
-      26, value);
+      27, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ClientSafeBrowsingReportRequest_UrlRequestDestination_strings[idx].get();
 }
@@ -4773,7 +4897,7 @@ bool ClientSafeBrowsingReportRequest_UrlRequestDestination_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ClientSafeBrowsingReportRequest_UrlRequestDestination* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ClientSafeBrowsingReportRequest_UrlRequestDestination_entries, 26, name, &int_value);
+      ClientSafeBrowsingReportRequest_UrlRequestDestination_entries, 27, name, &int_value);
   if (success) {
     *value = static_cast<ClientSafeBrowsingReportRequest_UrlRequestDestination>(int_value);
   }
@@ -4806,6 +4930,7 @@ constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsi
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::FENCED_FRAME;
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::WEB_IDENTITY;
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::DICTIONARY;
+constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::SPECULATION_RULES;
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::UrlRequestDestination_MIN;
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::UrlRequestDestination_MAX;
 constexpr int ClientSafeBrowsingReportRequest::UrlRequestDestination_ARRAYSIZE;
@@ -8003,14 +8128,14 @@ class ClientPhishingResponse::_Internal {
 ClientPhishingResponse::ClientPhishingResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  obsolete_whitelist_expression_(arena) {
+  obsolete_allowlist_expression_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:safe_browsing.ClientPhishingResponse)
 }
 ClientPhishingResponse::ClientPhishingResponse(const ClientPhishingResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
-      obsolete_whitelist_expression_(from.obsolete_whitelist_expression_) {
+      obsolete_allowlist_expression_(from.obsolete_allowlist_expression_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   phishy_ = from.phishy_;
   // @@protoc_insertion_point(copy_constructor:safe_browsing.ClientPhishingResponse)
@@ -8043,7 +8168,7 @@ void ClientPhishingResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  obsolete_whitelist_expression_.Clear();
+  obsolete_allowlist_expression_.Clear();
   phishy_ = false;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -8065,13 +8190,13 @@ const char* ClientPhishingResponse::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
-      // repeated string OBSOLETE_whitelist_expression = 2;
+      // repeated string OBSOLETE_allowlist_expression = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
-            auto str = _internal_add_obsolete_whitelist_expression();
+            auto str = _internal_add_obsolete_allowlist_expression();
             ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
@@ -8116,9 +8241,9 @@ uint8_t* ClientPhishingResponse::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_phishy(), target);
   }
 
-  // repeated string OBSOLETE_whitelist_expression = 2;
-  for (int i = 0, n = this->_internal_obsolete_whitelist_expression_size(); i < n; i++) {
-    const auto& s = this->_internal_obsolete_whitelist_expression(i);
+  // repeated string OBSOLETE_allowlist_expression = 2;
+  for (int i = 0, n = this->_internal_obsolete_allowlist_expression_size(); i < n; i++) {
+    const auto& s = this->_internal_obsolete_allowlist_expression(i);
     target = stream->WriteString(2, s, target);
   }
 
@@ -8142,12 +8267,12 @@ size_t ClientPhishingResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated string OBSOLETE_whitelist_expression = 2;
+  // repeated string OBSOLETE_allowlist_expression = 2;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(obsolete_whitelist_expression_.size());
-  for (int i = 0, n = obsolete_whitelist_expression_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(obsolete_allowlist_expression_.size());
+  for (int i = 0, n = obsolete_allowlist_expression_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      obsolete_whitelist_expression_.Get(i));
+      obsolete_allowlist_expression_.Get(i));
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -8170,7 +8295,7 @@ void ClientPhishingResponse::MergeFrom(const ClientPhishingResponse& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  obsolete_whitelist_expression_.MergeFrom(from.obsolete_whitelist_expression_);
+  obsolete_allowlist_expression_.MergeFrom(from.obsolete_allowlist_expression_);
   if (from._internal_has_phishy()) {
     _internal_set_phishy(from._internal_phishy());
   }
@@ -8193,7 +8318,7 @@ void ClientPhishingResponse::InternalSwap(ClientPhishingResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  obsolete_whitelist_expression_.InternalSwap(&other->obsolete_whitelist_expression_);
+  obsolete_allowlist_expression_.InternalSwap(&other->obsolete_allowlist_expression_);
   swap(phishy_, other->phishy_);
 }
 
@@ -17031,80 +17156,83 @@ class ClientDownloadRequest::_Internal {
   }
   static const ::safe_browsing::ClientDownloadRequest_Digests& digests(const ClientDownloadRequest* msg);
   static void set_has_digests(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
+    (*has_bits)[0] |= 64u;
   }
   static void set_has_length(HasBits* has_bits) {
-    (*has_bits)[0] |= 8192u;
+    (*has_bits)[0] |= 16384u;
   }
   static const ::safe_browsing::ClientDownloadRequest_SignatureInfo& signature(const ClientDownloadRequest* msg);
   static void set_has_signature(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
+    (*has_bits)[0] |= 128u;
   }
   static void set_has_user_initiated(HasBits* has_bits) {
-    (*has_bits)[0] |= 32768u;
+    (*has_bits)[0] |= 65536u;
   }
   static void set_has_file_basename(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_download_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 16384u;
+    (*has_bits)[0] |= 32768u;
   }
   static void set_has_locale(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
   static const ::safe_browsing::ClientDownloadRequest_ImageHeaders& image_headers(const ClientDownloadRequest* msg);
   static void set_has_image_headers(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
+    (*has_bits)[0] |= 256u;
   }
   static const ::safe_browsing::ChromeUserPopulation& population(const ClientDownloadRequest* msg);
   static void set_has_population(HasBits* has_bits) {
-    (*has_bits)[0] |= 256u;
+    (*has_bits)[0] |= 512u;
   }
   static void set_has_deprecated_archive_valid(HasBits* has_bits) {
-    (*has_bits)[0] |= 65536u;
-  }
-  static void set_has_skipped_url_allowlist(HasBits* has_bits) {
     (*has_bits)[0] |= 131072u;
   }
-  static void set_has_skipped_certificate_allowlist(HasBits* has_bits) {
+  static void set_has_skipped_url_allowlist(HasBits* has_bits) {
     (*has_bits)[0] |= 262144u;
+  }
+  static void set_has_skipped_certificate_allowlist(HasBits* has_bits) {
+    (*has_bits)[0] |= 524288u;
   }
   static const ::safe_browsing::ReferrerChainOptions& referrer_chain_options(const ClientDownloadRequest* msg);
   static void set_has_referrer_chain_options(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
+    (*has_bits)[0] |= 1024u;
   }
   static void set_has_deprecated_download_attribution_finch_enabled(HasBits* has_bits) {
-    (*has_bits)[0] |= 524288u;
+    (*has_bits)[0] |= 1048576u;
   }
   static void set_has_udif_code_signature(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
   static void set_has_request_ap_verdicts(HasBits* has_bits) {
-    (*has_bits)[0] |= 1048576u;
-  }
-  static void set_has_deprecated_archive_file_count(HasBits* has_bits) {
     (*has_bits)[0] |= 2097152u;
   }
-  static void set_has_deprecated_archive_directory_count(HasBits* has_bits) {
+  static void set_has_deprecated_archive_file_count(HasBits* has_bits) {
     (*has_bits)[0] |= 4194304u;
+  }
+  static void set_has_deprecated_archive_directory_count(HasBits* has_bits) {
+    (*has_bits)[0] |= 8388608u;
   }
   static void set_has_access_token(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
   static const ::safe_browsing::ClientDownloadRequest_DocumentSummary& document_summary(const ClientDownloadRequest* msg);
   static void set_has_document_summary(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
+    (*has_bits)[0] |= 2048u;
   }
   static const ::safe_browsing::ClientDownloadRequest_ArchiveSummary& archive_summary(const ClientDownloadRequest* msg);
   static void set_has_archive_summary(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
+    (*has_bits)[0] |= 4096u;
   }
   static const ::safe_browsing::ClientDownloadRequest_TailoredInfo& tailored_info(const ClientDownloadRequest* msg);
   static void set_has_tailored_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
+    (*has_bits)[0] |= 8192u;
+  }
+  static void set_has_previous_token(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00002021) ^ 0x00002021) != 0;
+    return ((has_bits[0] & 0x00004041) ^ 0x00004041) != 0;
   }
 };
 
@@ -17200,6 +17328,14 @@ ClientDownloadRequest::ClientDownloadRequest(const ClientDownloadRequest& from)
     access_token_.Set(from._internal_access_token(), 
       GetArenaForAllocation());
   }
+  previous_token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    previous_token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_previous_token()) {
+    previous_token_.Set(from._internal_previous_token(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_digests()) {
     digests_ = new ::safe_browsing::ClientDownloadRequest_Digests(*from.digests_);
   } else {
@@ -17267,6 +17403,10 @@ access_token_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   access_token_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+previous_token_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  previous_token_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&digests_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&deprecated_archive_directory_count_) -
@@ -17289,6 +17429,7 @@ inline void ClientDownloadRequest::SharedDtor() {
   locale_.Destroy();
   udif_code_signature_.Destroy();
   access_token_.Destroy();
+  previous_token_.Destroy();
   if (this != internal_default_instance()) delete digests_;
   if (this != internal_default_instance()) delete signature_;
   if (this != internal_default_instance()) delete image_headers_;
@@ -17332,49 +17473,52 @@ void ClientDownloadRequest::Clear() {
       access_token_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000020u) {
+      previous_token_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000040u) {
       GOOGLE_DCHECK(digests_ != nullptr);
       digests_->Clear();
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000080u) {
       GOOGLE_DCHECK(signature_ != nullptr);
       signature_->Clear();
     }
-    if (cached_has_bits & 0x00000080u) {
+  }
+  if (cached_has_bits & 0x00003f00u) {
+    if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(image_headers_ != nullptr);
       image_headers_->Clear();
     }
-  }
-  if (cached_has_bits & 0x00001f00u) {
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000200u) {
       GOOGLE_DCHECK(population_ != nullptr);
       population_->Clear();
     }
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000400u) {
       GOOGLE_DCHECK(referrer_chain_options_ != nullptr);
       referrer_chain_options_->Clear();
     }
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000800u) {
       GOOGLE_DCHECK(document_summary_ != nullptr);
       document_summary_->Clear();
     }
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00001000u) {
       GOOGLE_DCHECK(archive_summary_ != nullptr);
       archive_summary_->Clear();
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00002000u) {
       GOOGLE_DCHECK(tailored_info_ != nullptr);
       tailored_info_->Clear();
     }
   }
-  if (cached_has_bits & 0x0000e000u) {
+  if (cached_has_bits & 0x0000c000u) {
     ::memset(&length_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&user_initiated_) -
-        reinterpret_cast<char*>(&length_)) + sizeof(user_initiated_));
+        reinterpret_cast<char*>(&download_type_) -
+        reinterpret_cast<char*>(&length_)) + sizeof(download_type_));
   }
-  if (cached_has_bits & 0x007f0000u) {
-    ::memset(&deprecated_archive_valid_, 0, static_cast<size_t>(
+  if (cached_has_bits & 0x00ff0000u) {
+    ::memset(&user_initiated_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&deprecated_archive_directory_count_) -
-        reinterpret_cast<char*>(&deprecated_archive_valid_)) + sizeof(deprecated_archive_directory_count_));
+        reinterpret_cast<char*>(&user_initiated_)) + sizeof(deprecated_archive_directory_count_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -17656,6 +17800,15 @@ const char* ClientDownloadRequest::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
+      // optional bytes previous_token = 90;
+      case 90:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 210)) {
+          auto str = _internal_mutable_previous_token();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -17694,14 +17847,14 @@ uint8_t* ClientDownloadRequest::_InternalSerialize(
   }
 
   // required .safe_browsing.ClientDownloadRequest.Digests digests = 2;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::digests(this),
         _Internal::digests(this).GetCachedSize(), target, stream);
   }
 
   // required int64 length = 3;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_length(), target);
   }
@@ -17715,14 +17868,14 @@ uint8_t* ClientDownloadRequest::_InternalSerialize(
   }
 
   // optional .safe_browsing.ClientDownloadRequest.SignatureInfo signature = 5;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(5, _Internal::signature(this),
         _Internal::signature(this).GetCachedSize(), target, stream);
   }
 
   // optional bool user_initiated = 6;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_user_initiated(), target);
   }
@@ -17734,7 +17887,7 @@ uint8_t* ClientDownloadRequest::_InternalSerialize(
   }
 
   // optional .safe_browsing.ClientDownloadRequest.DownloadType download_type = 10 [default = WIN_EXECUTABLE];
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       10, this->_internal_download_type(), target);
@@ -17747,7 +17900,7 @@ uint8_t* ClientDownloadRequest::_InternalSerialize(
   }
 
   // optional .safe_browsing.ClientDownloadRequest.ImageHeaders image_headers = 18;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(18, _Internal::image_headers(this),
         _Internal::image_headers(this).GetCachedSize(), target, stream);
@@ -17762,26 +17915,26 @@ uint8_t* ClientDownloadRequest::_InternalSerialize(
   }
 
   // optional .safe_browsing.ChromeUserPopulation population = 24;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000200u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(24, _Internal::population(this),
         _Internal::population(this).GetCachedSize(), target, stream);
   }
 
   // optional bool DEPRECATED_archive_valid = 26 [deprecated = true];
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(26, this->_internal_deprecated_archive_valid(), target);
   }
 
   // optional bool skipped_url_allowlist = 28;
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(28, this->_internal_skipped_url_allowlist(), target);
   }
 
   // optional bool skipped_certificate_allowlist = 31;
-  if (cached_has_bits & 0x00040000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(31, this->_internal_skipped_certificate_allowlist(), target);
   }
@@ -17801,7 +17954,7 @@ uint8_t* ClientDownloadRequest::_InternalSerialize(
   }
 
   // optional bool DEPRECATED_download_attribution_finch_enabled = 39 [deprecated = true];
-  if (cached_has_bits & 0x00080000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(39, this->_internal_deprecated_download_attribution_finch_enabled(), target);
   }
@@ -17813,7 +17966,7 @@ uint8_t* ClientDownloadRequest::_InternalSerialize(
   }
 
   // optional .safe_browsing.ReferrerChainOptions referrer_chain_options = 50;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000400u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(50, _Internal::referrer_chain_options(this),
         _Internal::referrer_chain_options(this).GetCachedSize(), target, stream);
@@ -17828,19 +17981,19 @@ uint8_t* ClientDownloadRequest::_InternalSerialize(
   }
 
   // optional bool request_ap_verdicts = 67;
-  if (cached_has_bits & 0x00100000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(67, this->_internal_request_ap_verdicts(), target);
   }
 
   // optional int32 DEPRECATED_archive_file_count = 68 [deprecated = true];
-  if (cached_has_bits & 0x00200000u) {
+  if (cached_has_bits & 0x00400000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(68, this->_internal_deprecated_archive_file_count(), target);
   }
 
   // optional int32 DEPRECATED_archive_directory_count = 69 [deprecated = true];
-  if (cached_has_bits & 0x00400000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(69, this->_internal_deprecated_archive_directory_count(), target);
   }
@@ -17852,24 +18005,30 @@ uint8_t* ClientDownloadRequest::_InternalSerialize(
   }
 
   // optional .safe_browsing.ClientDownloadRequest.DocumentSummary document_summary = 84;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000800u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(84, _Internal::document_summary(this),
         _Internal::document_summary(this).GetCachedSize(), target, stream);
   }
 
   // optional .safe_browsing.ClientDownloadRequest.ArchiveSummary archive_summary = 85;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00001000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(85, _Internal::archive_summary(this),
         _Internal::archive_summary(this).GetCachedSize(), target, stream);
   }
 
   // optional .safe_browsing.ClientDownloadRequest.TailoredInfo tailored_info = 86;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(86, _Internal::tailored_info(this),
         _Internal::tailored_info(this).GetCachedSize(), target, stream);
+  }
+
+  // optional bytes previous_token = 90;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->WriteBytesMaybeAliased(
+        90, this->_internal_previous_token(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -17909,7 +18068,7 @@ size_t ClientDownloadRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:safe_browsing.ClientDownloadRequest)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00002021) ^ 0x00002021) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x00004041) ^ 0x00004041) == 0) {  // All required fields are present.
     // required string url = 1;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -17967,7 +18126,7 @@ size_t ClientDownloadRequest::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001eu) {
+  if (cached_has_bits & 0x0000003eu) {
     // optional string file_basename = 9;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
@@ -17996,108 +18155,111 @@ size_t ClientDownloadRequest::ByteSizeLong() const {
           this->_internal_access_token());
     }
 
-  }
-  if (cached_has_bits & 0x000000c0u) {
-    // optional .safe_browsing.ClientDownloadRequest.SignatureInfo signature = 5;
-    if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *signature_);
+    // optional bytes previous_token = 90;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_previous_token());
     }
 
+  }
+  // optional .safe_browsing.ClientDownloadRequest.SignatureInfo signature = 5;
+  if (cached_has_bits & 0x00000080u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *signature_);
+  }
+
+  if (cached_has_bits & 0x00003f00u) {
     // optional .safe_browsing.ClientDownloadRequest.ImageHeaders image_headers = 18;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *image_headers_);
     }
 
-  }
-  if (cached_has_bits & 0x00001f00u) {
     // optional .safe_browsing.ChromeUserPopulation population = 24;
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000200u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *population_);
     }
 
     // optional .safe_browsing.ReferrerChainOptions referrer_chain_options = 50;
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *referrer_chain_options_);
     }
 
     // optional .safe_browsing.ClientDownloadRequest.DocumentSummary document_summary = 84;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *document_summary_);
     }
 
     // optional .safe_browsing.ClientDownloadRequest.ArchiveSummary archive_summary = 85;
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *archive_summary_);
     }
 
     // optional .safe_browsing.ClientDownloadRequest.TailoredInfo tailored_info = 86;
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00002000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *tailored_info_);
     }
 
   }
-  if (cached_has_bits & 0x0000c000u) {
-    // optional .safe_browsing.ClientDownloadRequest.DownloadType download_type = 10 [default = WIN_EXECUTABLE];
-    if (cached_has_bits & 0x00004000u) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_download_type());
-    }
+  // optional .safe_browsing.ClientDownloadRequest.DownloadType download_type = 10 [default = WIN_EXECUTABLE];
+  if (cached_has_bits & 0x00008000u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_download_type());
+  }
 
+  if (cached_has_bits & 0x00ff0000u) {
     // optional bool user_initiated = 6;
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00010000u) {
       total_size += 1 + 1;
     }
 
-  }
-  if (cached_has_bits & 0x007f0000u) {
     // optional bool DEPRECATED_archive_valid = 26 [deprecated = true];
-    if (cached_has_bits & 0x00010000u) {
-      total_size += 2 + 1;
-    }
-
-    // optional bool skipped_url_allowlist = 28;
     if (cached_has_bits & 0x00020000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool skipped_certificate_allowlist = 31;
+    // optional bool skipped_url_allowlist = 28;
     if (cached_has_bits & 0x00040000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool DEPRECATED_download_attribution_finch_enabled = 39 [deprecated = true];
+    // optional bool skipped_certificate_allowlist = 31;
     if (cached_has_bits & 0x00080000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool request_ap_verdicts = 67;
+    // optional bool DEPRECATED_download_attribution_finch_enabled = 39 [deprecated = true];
     if (cached_has_bits & 0x00100000u) {
       total_size += 2 + 1;
     }
 
-    // optional int32 DEPRECATED_archive_file_count = 68 [deprecated = true];
+    // optional bool request_ap_verdicts = 67;
     if (cached_has_bits & 0x00200000u) {
+      total_size += 2 + 1;
+    }
+
+    // optional int32 DEPRECATED_archive_file_count = 68 [deprecated = true];
+    if (cached_has_bits & 0x00400000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_deprecated_archive_file_count());
     }
 
     // optional int32 DEPRECATED_archive_directory_count = 69 [deprecated = true];
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00800000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_deprecated_archive_directory_count());
@@ -18147,62 +18309,65 @@ void ClientDownloadRequest::MergeFrom(const ClientDownloadRequest& from) {
       _internal_set_access_token(from._internal_access_token());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_mutable_digests()->::safe_browsing::ClientDownloadRequest_Digests::MergeFrom(from._internal_digests());
+      _internal_set_previous_token(from._internal_previous_token());
     }
     if (cached_has_bits & 0x00000040u) {
-      _internal_mutable_signature()->::safe_browsing::ClientDownloadRequest_SignatureInfo::MergeFrom(from._internal_signature());
+      _internal_mutable_digests()->::safe_browsing::ClientDownloadRequest_Digests::MergeFrom(from._internal_digests());
     }
     if (cached_has_bits & 0x00000080u) {
-      _internal_mutable_image_headers()->::safe_browsing::ClientDownloadRequest_ImageHeaders::MergeFrom(from._internal_image_headers());
+      _internal_mutable_signature()->::safe_browsing::ClientDownloadRequest_SignatureInfo::MergeFrom(from._internal_signature());
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      _internal_mutable_population()->::safe_browsing::ChromeUserPopulation::MergeFrom(from._internal_population());
+      _internal_mutable_image_headers()->::safe_browsing::ClientDownloadRequest_ImageHeaders::MergeFrom(from._internal_image_headers());
     }
     if (cached_has_bits & 0x00000200u) {
-      _internal_mutable_referrer_chain_options()->::safe_browsing::ReferrerChainOptions::MergeFrom(from._internal_referrer_chain_options());
+      _internal_mutable_population()->::safe_browsing::ChromeUserPopulation::MergeFrom(from._internal_population());
     }
     if (cached_has_bits & 0x00000400u) {
-      _internal_mutable_document_summary()->::safe_browsing::ClientDownloadRequest_DocumentSummary::MergeFrom(from._internal_document_summary());
+      _internal_mutable_referrer_chain_options()->::safe_browsing::ReferrerChainOptions::MergeFrom(from._internal_referrer_chain_options());
     }
     if (cached_has_bits & 0x00000800u) {
-      _internal_mutable_archive_summary()->::safe_browsing::ClientDownloadRequest_ArchiveSummary::MergeFrom(from._internal_archive_summary());
+      _internal_mutable_document_summary()->::safe_browsing::ClientDownloadRequest_DocumentSummary::MergeFrom(from._internal_document_summary());
     }
     if (cached_has_bits & 0x00001000u) {
-      _internal_mutable_tailored_info()->::safe_browsing::ClientDownloadRequest_TailoredInfo::MergeFrom(from._internal_tailored_info());
+      _internal_mutable_archive_summary()->::safe_browsing::ClientDownloadRequest_ArchiveSummary::MergeFrom(from._internal_archive_summary());
     }
     if (cached_has_bits & 0x00002000u) {
-      length_ = from.length_;
+      _internal_mutable_tailored_info()->::safe_browsing::ClientDownloadRequest_TailoredInfo::MergeFrom(from._internal_tailored_info());
     }
     if (cached_has_bits & 0x00004000u) {
-      download_type_ = from.download_type_;
+      length_ = from.length_;
     }
     if (cached_has_bits & 0x00008000u) {
-      user_initiated_ = from.user_initiated_;
+      download_type_ = from.download_type_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x007f0000u) {
+  if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      deprecated_archive_valid_ = from.deprecated_archive_valid_;
+      user_initiated_ = from.user_initiated_;
     }
     if (cached_has_bits & 0x00020000u) {
-      skipped_url_allowlist_ = from.skipped_url_allowlist_;
+      deprecated_archive_valid_ = from.deprecated_archive_valid_;
     }
     if (cached_has_bits & 0x00040000u) {
-      skipped_certificate_allowlist_ = from.skipped_certificate_allowlist_;
+      skipped_url_allowlist_ = from.skipped_url_allowlist_;
     }
     if (cached_has_bits & 0x00080000u) {
-      deprecated_download_attribution_finch_enabled_ = from.deprecated_download_attribution_finch_enabled_;
+      skipped_certificate_allowlist_ = from.skipped_certificate_allowlist_;
     }
     if (cached_has_bits & 0x00100000u) {
-      request_ap_verdicts_ = from.request_ap_verdicts_;
+      deprecated_download_attribution_finch_enabled_ = from.deprecated_download_attribution_finch_enabled_;
     }
     if (cached_has_bits & 0x00200000u) {
-      deprecated_archive_file_count_ = from.deprecated_archive_file_count_;
+      request_ap_verdicts_ = from.request_ap_verdicts_;
     }
     if (cached_has_bits & 0x00400000u) {
+      deprecated_archive_file_count_ = from.deprecated_archive_file_count_;
+    }
+    if (cached_has_bits & 0x00800000u) {
       deprecated_archive_directory_count_ = from.deprecated_archive_directory_count_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -18264,6 +18429,10 @@ void ClientDownloadRequest::InternalSwap(ClientDownloadRequest* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &access_token_, lhs_arena,
       &other->access_token_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &previous_token_, lhs_arena,
+      &other->previous_token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ClientDownloadRequest, deprecated_archive_directory_count_)
@@ -19843,6 +20012,9 @@ class ClientDownloadResponse::_Internal {
   static void set_has_tailored_verdict(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_is_suspicious_encrypted_archive(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
 };
 
 const ::safe_browsing::ClientDownloadResponse_MoreInfo&
@@ -19882,8 +20054,8 @@ ClientDownloadResponse::ClientDownloadResponse(const ClientDownloadResponse& fro
     tailored_verdict_ = nullptr;
   }
   ::memcpy(&verdict_, &from.verdict_,
-    static_cast<size_t>(reinterpret_cast<char*>(&request_deep_scan_) -
-    reinterpret_cast<char*>(&verdict_)) + sizeof(request_deep_scan_));
+    static_cast<size_t>(reinterpret_cast<char*>(&is_suspicious_encrypted_archive_) -
+    reinterpret_cast<char*>(&verdict_)) + sizeof(is_suspicious_encrypted_archive_));
   // @@protoc_insertion_point(copy_constructor:safe_browsing.ClientDownloadResponse)
 }
 
@@ -19894,8 +20066,8 @@ token_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&more_info_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&request_deep_scan_) -
-    reinterpret_cast<char*>(&more_info_)) + sizeof(request_deep_scan_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&is_suspicious_encrypted_archive_) -
+    reinterpret_cast<char*>(&more_info_)) + sizeof(is_suspicious_encrypted_archive_));
 }
 
 ClientDownloadResponse::~ClientDownloadResponse() {
@@ -19938,10 +20110,10 @@ void ClientDownloadResponse::Clear() {
       tailored_verdict_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000038u) {
+  if (cached_has_bits & 0x00000078u) {
     ::memset(&verdict_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&request_deep_scan_) -
-        reinterpret_cast<char*>(&verdict_)) + sizeof(request_deep_scan_));
+        reinterpret_cast<char*>(&is_suspicious_encrypted_archive_) -
+        reinterpret_cast<char*>(&verdict_)) + sizeof(is_suspicious_encrypted_archive_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -20006,6 +20178,15 @@ const char* ClientDownloadResponse::_InternalParse(const char* ptr, ::_pbi::Pars
       case 20:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
           ptr = ctx->ParseMessage(_internal_mutable_tailored_verdict(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool is_suspicious_encrypted_archive = 21;
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+          _Internal::set_has_is_suspicious_encrypted_archive(&has_bits);
+          is_suspicious_encrypted_archive_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -20080,6 +20261,12 @@ uint8_t* ClientDownloadResponse::_InternalSerialize(
         _Internal::tailored_verdict(this).GetCachedSize(), target, stream);
   }
 
+  // optional bool is_suspicious_encrypted_archive = 21;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(21, this->_internal_is_suspicious_encrypted_archive(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -20097,7 +20284,7 @@ size_t ClientDownloadResponse::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional bytes token = 3;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -20135,6 +20322,11 @@ size_t ClientDownloadResponse::ByteSizeLong() const {
       total_size += 2 + 1;
     }
 
+    // optional bool is_suspicious_encrypted_archive = 21;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 2 + 1;
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -20157,7 +20349,7 @@ void ClientDownloadResponse::MergeFrom(const ClientDownloadResponse& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_token(from._internal_token());
     }
@@ -20175,6 +20367,9 @@ void ClientDownloadResponse::MergeFrom(const ClientDownloadResponse& from) {
     }
     if (cached_has_bits & 0x00000020u) {
       request_deep_scan_ = from.request_deep_scan_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      is_suspicious_encrypted_archive_ = from.is_suspicious_encrypted_archive_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -20203,8 +20398,8 @@ void ClientDownloadResponse::InternalSwap(ClientDownloadResponse* other) {
       &other->token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ClientDownloadResponse, request_deep_scan_)
-      + sizeof(ClientDownloadResponse::request_deep_scan_)
+      PROTOBUF_FIELD_OFFSET(ClientDownloadResponse, is_suspicious_encrypted_archive_)
+      + sizeof(ClientDownloadResponse::is_suspicious_encrypted_archive_)
       - PROTOBUF_FIELD_OFFSET(ClientDownloadResponse, more_info_)>(
           reinterpret_cast<char*>(&more_info_),
           reinterpret_cast<char*>(&other->more_info_));
@@ -33266,14 +33461,257 @@ std::string ClientSafeBrowsingReportRequest_PhishySiteInteraction::GetTypeName()
 
 // ===================================================================
 
+class ClientSafeBrowsingReportRequest_WarningShownInfo::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ClientSafeBrowsingReportRequest_WarningShownInfo>()._has_bits_);
+  static void set_has_warning_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_post_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ClientSafeBrowsingReportRequest_WarningShownInfo::ClientSafeBrowsingReportRequest_WarningShownInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo)
+}
+ClientSafeBrowsingReportRequest_WarningShownInfo::ClientSafeBrowsingReportRequest_WarningShownInfo(const ClientSafeBrowsingReportRequest_WarningShownInfo& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  post_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    post_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_post_data()) {
+    post_data_.Set(from._internal_post_data(), 
+      GetArenaForAllocation());
+  }
+  warning_type_ = from.warning_type_;
+  // @@protoc_insertion_point(copy_constructor:safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo)
+}
+
+inline void ClientSafeBrowsingReportRequest_WarningShownInfo::SharedCtor() {
+post_data_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  post_data_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+warning_type_ = 0;
+}
+
+ClientSafeBrowsingReportRequest_WarningShownInfo::~ClientSafeBrowsingReportRequest_WarningShownInfo() {
+  // @@protoc_insertion_point(destructor:safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ClientSafeBrowsingReportRequest_WarningShownInfo::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  post_data_.Destroy();
+}
+
+void ClientSafeBrowsingReportRequest_WarningShownInfo::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ClientSafeBrowsingReportRequest_WarningShownInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    post_data_.ClearNonDefaultToEmpty();
+  }
+  warning_type_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ClientSafeBrowsingReportRequest_WarningShownInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo.WarningUXType warning_type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::safe_browsing::ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType_IsValid(val))) {
+            _internal_set_warning_type(static_cast<::safe_browsing::ClientSafeBrowsingReportRequest_WarningShownInfo_WarningUXType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string post_data = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_post_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ClientSafeBrowsingReportRequest_WarningShownInfo::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo.WarningUXType warning_type = 1;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_warning_type(), target);
+  }
+
+  // optional string post_data = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_post_data(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo)
+  return target;
+}
+
+size_t ClientSafeBrowsingReportRequest_WarningShownInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string post_data = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_post_data());
+    }
+
+    // optional .safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo.WarningUXType warning_type = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_warning_type());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ClientSafeBrowsingReportRequest_WarningShownInfo::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ClientSafeBrowsingReportRequest_WarningShownInfo*>(
+      &from));
+}
+
+void ClientSafeBrowsingReportRequest_WarningShownInfo::MergeFrom(const ClientSafeBrowsingReportRequest_WarningShownInfo& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_post_data(from._internal_post_data());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      warning_type_ = from.warning_type_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ClientSafeBrowsingReportRequest_WarningShownInfo::CopyFrom(const ClientSafeBrowsingReportRequest_WarningShownInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ClientSafeBrowsingReportRequest_WarningShownInfo::IsInitialized() const {
+  return true;
+}
+
+void ClientSafeBrowsingReportRequest_WarningShownInfo::InternalSwap(ClientSafeBrowsingReportRequest_WarningShownInfo* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &post_data_, lhs_arena,
+      &other->post_data_, rhs_arena
+  );
+  swap(warning_type_, other->warning_type_);
+}
+
+std::string ClientSafeBrowsingReportRequest_WarningShownInfo::GetTypeName() const {
+  return "safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo";
+}
+
+
+// ===================================================================
+
 class ClientSafeBrowsingReportRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<ClientSafeBrowsingReportRequest>()._has_bits_);
   static void set_has_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
+    (*has_bits)[0] |= 2048u;
   }
   static void set_has_download_verdict(HasBits* has_bits) {
-    (*has_bits)[0] |= 32768u;
+    (*has_bits)[0] |= 65536u;
   }
   static void set_has_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -33285,16 +33723,16 @@ class ClientSafeBrowsingReportRequest::_Internal {
     (*has_bits)[0] |= 4u;
   }
   static void set_has_complete(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
+    (*has_bits)[0] |= 4096u;
   }
   static void set_has_client_country(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
   static void set_has_did_proceed(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
+    (*has_bits)[0] |= 8192u;
   }
   static void set_has_repeat_visit(HasBits* has_bits) {
-    (*has_bits)[0] |= 8192u;
+    (*has_bits)[0] |= 16384u;
   }
   static void set_has_token(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
@@ -33304,7 +33742,7 @@ class ClientSafeBrowsingReportRequest::_Internal {
     (*has_bits)[0] |= 64u;
   }
   static void set_has_show_download_in_folder(HasBits* has_bits) {
-    (*has_bits)[0] |= 16384u;
+    (*has_bits)[0] |= 32768u;
   }
   static const ::safe_browsing::ClientSafeBrowsingReportRequest_DownloadItemInfo& download_item_info(const ClientSafeBrowsingReportRequest* msg);
   static void set_has_download_item_info(HasBits* has_bits) {
@@ -33322,10 +33760,14 @@ class ClientSafeBrowsingReportRequest::_Internal {
     (*has_bits)[0] |= 512u;
   }
   static void set_has_url_request_destination(HasBits* has_bits) {
-    (*has_bits)[0] |= 65536u;
+    (*has_bits)[0] |= 131072u;
   }
   static void set_has_warning_shown_timestamp_msec(HasBits* has_bits) {
-    (*has_bits)[0] |= 131072u;
+    (*has_bits)[0] |= 262144u;
+  }
+  static const ::safe_browsing::ClientSafeBrowsingReportRequest_WarningShownInfo& warning_shown_info(const ClientSafeBrowsingReportRequest* msg);
+  static void set_has_warning_shown_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 1024u;
   }
 };
 
@@ -33344,6 +33786,10 @@ ClientSafeBrowsingReportRequest::_Internal::population(const ClientSafeBrowsingR
 const ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails&
 ClientSafeBrowsingReportRequest::_Internal::hash_real_time_experiment_details(const ClientSafeBrowsingReportRequest* msg) {
   return *msg->hash_real_time_experiment_details_;
+}
+const ::safe_browsing::ClientSafeBrowsingReportRequest_WarningShownInfo&
+ClientSafeBrowsingReportRequest::_Internal::warning_shown_info(const ClientSafeBrowsingReportRequest* msg) {
+  return *msg->warning_shown_info_;
 }
 ClientSafeBrowsingReportRequest::ClientSafeBrowsingReportRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -33437,6 +33883,11 @@ ClientSafeBrowsingReportRequest::ClientSafeBrowsingReportRequest(const ClientSaf
   } else {
     hash_real_time_experiment_details_ = nullptr;
   }
+  if (from._internal_has_warning_shown_info()) {
+    warning_shown_info_ = new ::safe_browsing::ClientSafeBrowsingReportRequest_WarningShownInfo(*from.warning_shown_info_);
+  } else {
+    warning_shown_info_ = nullptr;
+  }
   ::memcpy(&type_, &from.type_,
     static_cast<size_t>(reinterpret_cast<char*>(&warning_shown_timestamp_msec_) -
     reinterpret_cast<char*>(&type_)) + sizeof(warning_shown_timestamp_msec_));
@@ -33495,6 +33946,7 @@ inline void ClientSafeBrowsingReportRequest::SharedDtor() {
   if (this != internal_default_instance()) delete download_item_info_;
   if (this != internal_default_instance()) delete population_;
   if (this != internal_default_instance()) delete hash_real_time_experiment_details_;
+  if (this != internal_default_instance()) delete warning_shown_info_;
 }
 
 void ClientSafeBrowsingReportRequest::SetCachedSize(int size) const {
@@ -33543,7 +33995,7 @@ void ClientSafeBrowsingReportRequest::Clear() {
       download_item_info_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000300u) {
+  if (cached_has_bits & 0x00000700u) {
     if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(population_ != nullptr);
       population_->Clear();
@@ -33552,16 +34004,20 @@ void ClientSafeBrowsingReportRequest::Clear() {
       GOOGLE_DCHECK(hash_real_time_experiment_details_ != nullptr);
       hash_real_time_experiment_details_->Clear();
     }
+    if (cached_has_bits & 0x00000400u) {
+      GOOGLE_DCHECK(warning_shown_info_ != nullptr);
+      warning_shown_info_->Clear();
+    }
   }
-  if (cached_has_bits & 0x0000fc00u) {
+  if (cached_has_bits & 0x0000f800u) {
     ::memset(&type_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&download_verdict_) -
-        reinterpret_cast<char*>(&type_)) + sizeof(download_verdict_));
+        reinterpret_cast<char*>(&show_download_in_folder_) -
+        reinterpret_cast<char*>(&type_)) + sizeof(show_download_in_folder_));
   }
-  if (cached_has_bits & 0x00030000u) {
-    ::memset(&url_request_destination_, 0, static_cast<size_t>(
+  if (cached_has_bits & 0x00070000u) {
+    ::memset(&download_verdict_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&warning_shown_timestamp_msec_) -
-        reinterpret_cast<char*>(&url_request_destination_)) + sizeof(warning_shown_timestamp_msec_));
+        reinterpret_cast<char*>(&download_verdict_)) + sizeof(warning_shown_timestamp_msec_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -33836,6 +34292,14 @@ const char* ClientSafeBrowsingReportRequest::_InternalParse(const char* ptr, ::_
         } else
           goto handle_unusual;
         continue;
+      // optional .safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo warning_shown_info = 33;
+      case 33:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_warning_shown_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -33894,7 +34358,7 @@ uint8_t* ClientSafeBrowsingReportRequest::_InternalSerialize(
   }
 
   // optional bool complete = 5;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_complete(), target);
   }
@@ -33912,26 +34376,26 @@ uint8_t* ClientSafeBrowsingReportRequest::_InternalSerialize(
   }
 
   // optional bool did_proceed = 8;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_did_proceed(), target);
   }
 
   // optional bool repeat_visit = 9;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_repeat_visit(), target);
   }
 
   // optional .safe_browsing.ClientSafeBrowsingReportRequest.ReportType type = 10;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       10, this->_internal_type(), target);
   }
 
   // optional .safe_browsing.ClientDownloadResponse.Verdict download_verdict = 11;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       11, this->_internal_download_verdict(), target);
@@ -33959,7 +34423,7 @@ uint8_t* ClientSafeBrowsingReportRequest::_InternalSerialize(
   }
 
   // optional bool show_download_in_folder = 18;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(18, this->_internal_show_download_in_folder(), target);
   }
@@ -34008,7 +34472,7 @@ uint8_t* ClientSafeBrowsingReportRequest::_InternalSerialize(
   }
 
   // optional .safe_browsing.ClientSafeBrowsingReportRequest.UrlRequestDestination url_request_destination = 29;
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       29, this->_internal_url_request_destination(), target);
@@ -34031,9 +34495,16 @@ uint8_t* ClientSafeBrowsingReportRequest::_InternalSerialize(
   }
 
   // optional int64 warning_shown_timestamp_msec = 32;
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(32, this->_internal_warning_shown_timestamp_msec(), target);
+  }
+
+  // optional .safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo warning_shown_info = 33;
+  if (cached_has_bits & 0x00000400u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(33, _Internal::warning_shown_info(this),
+        _Internal::warning_shown_info(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -34176,48 +34647,55 @@ size_t ClientSafeBrowsingReportRequest::ByteSizeLong() const {
           *hash_real_time_experiment_details_);
     }
 
-    // optional .safe_browsing.ClientSafeBrowsingReportRequest.ReportType type = 10;
+    // optional .safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo warning_shown_info = 33;
     if (cached_has_bits & 0x00000400u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *warning_shown_info_);
+    }
+
+    // optional .safe_browsing.ClientSafeBrowsingReportRequest.ReportType type = 10;
+    if (cached_has_bits & 0x00000800u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
     // optional bool complete = 5;
-    if (cached_has_bits & 0x00000800u) {
-      total_size += 1 + 1;
-    }
-
-    // optional bool did_proceed = 8;
     if (cached_has_bits & 0x00001000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool repeat_visit = 9;
+    // optional bool did_proceed = 8;
     if (cached_has_bits & 0x00002000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool show_download_in_folder = 18;
+    // optional bool repeat_visit = 9;
     if (cached_has_bits & 0x00004000u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool show_download_in_folder = 18;
+    if (cached_has_bits & 0x00008000u) {
       total_size += 2 + 1;
     }
 
+  }
+  if (cached_has_bits & 0x00070000u) {
     // optional .safe_browsing.ClientDownloadResponse.Verdict download_verdict = 11;
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00010000u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_download_verdict());
     }
 
-  }
-  if (cached_has_bits & 0x00030000u) {
     // optional .safe_browsing.ClientSafeBrowsingReportRequest.UrlRequestDestination url_request_destination = 29;
-    if (cached_has_bits & 0x00010000u) {
+    if (cached_has_bits & 0x00020000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_url_request_destination());
     }
 
     // optional int64 warning_shown_timestamp_msec = 32;
-    if (cached_has_bits & 0x00020000u) {
+    if (cached_has_bits & 0x00040000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_warning_shown_timestamp_msec());
@@ -34286,30 +34764,33 @@ void ClientSafeBrowsingReportRequest::MergeFrom(const ClientSafeBrowsingReportRe
       _internal_mutable_hash_real_time_experiment_details()->::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails::MergeFrom(from._internal_hash_real_time_experiment_details());
     }
     if (cached_has_bits & 0x00000400u) {
-      type_ = from.type_;
+      _internal_mutable_warning_shown_info()->::safe_browsing::ClientSafeBrowsingReportRequest_WarningShownInfo::MergeFrom(from._internal_warning_shown_info());
     }
     if (cached_has_bits & 0x00000800u) {
-      complete_ = from.complete_;
+      type_ = from.type_;
     }
     if (cached_has_bits & 0x00001000u) {
-      did_proceed_ = from.did_proceed_;
+      complete_ = from.complete_;
     }
     if (cached_has_bits & 0x00002000u) {
-      repeat_visit_ = from.repeat_visit_;
+      did_proceed_ = from.did_proceed_;
     }
     if (cached_has_bits & 0x00004000u) {
-      show_download_in_folder_ = from.show_download_in_folder_;
+      repeat_visit_ = from.repeat_visit_;
     }
     if (cached_has_bits & 0x00008000u) {
-      download_verdict_ = from.download_verdict_;
+      show_download_in_folder_ = from.show_download_in_folder_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00030000u) {
+  if (cached_has_bits & 0x00070000u) {
     if (cached_has_bits & 0x00010000u) {
-      url_request_destination_ = from.url_request_destination_;
+      download_verdict_ = from.download_verdict_;
     }
     if (cached_has_bits & 0x00020000u) {
+      url_request_destination_ = from.url_request_destination_;
+    }
+    if (cached_has_bits & 0x00040000u) {
       warning_shown_timestamp_msec_ = from.warning_shown_timestamp_msec_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -42712,6 +43193,10 @@ Arena::CreateMaybeMessage< ::safe_browsing::ClientSafeBrowsingReportRequest_Inte
 template<> PROTOBUF_NOINLINE ::safe_browsing::ClientSafeBrowsingReportRequest_PhishySiteInteraction*
 Arena::CreateMaybeMessage< ::safe_browsing::ClientSafeBrowsingReportRequest_PhishySiteInteraction >(Arena* arena) {
   return Arena::CreateMessageInternal< ::safe_browsing::ClientSafeBrowsingReportRequest_PhishySiteInteraction >(arena);
+}
+template<> PROTOBUF_NOINLINE ::safe_browsing::ClientSafeBrowsingReportRequest_WarningShownInfo*
+Arena::CreateMaybeMessage< ::safe_browsing::ClientSafeBrowsingReportRequest_WarningShownInfo >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::safe_browsing::ClientSafeBrowsingReportRequest_WarningShownInfo >(arena);
 }
 template<> PROTOBUF_NOINLINE ::safe_browsing::ClientSafeBrowsingReportRequest*
 Arena::CreateMaybeMessage< ::safe_browsing::ClientSafeBrowsingReportRequest >(Arena* arena) {

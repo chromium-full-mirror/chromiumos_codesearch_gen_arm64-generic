@@ -10,13 +10,13 @@ import { clearChildren, createEl } from './omnibox_util.js';
 // @ts-ignore:next-line
 import outputResultsGroupSheet from './output_results_group.css' assert { type: 'css' };
 export class OmniboxOutput extends OmniboxElement {
+    selectedResponseIndex = 0;
+    responsesHistory = [];
+    resultsGroups = [];
+    displayInputs = OmniboxInput.defaultDisplayInputs;
+    filterText = '';
     constructor() {
         super('omnibox-output-template');
-        this.selectedResponseIndex = 0;
-        this.responsesHistory = [];
-        this.resultsGroups = [];
-        this.displayInputs = OmniboxInput.defaultDisplayInputs;
-        this.filterText = '';
     }
     updateDisplayInputs(displayInputs) {
         this.displayInputs = displayInputs;
@@ -123,6 +123,11 @@ export class OmniboxOutput extends OmniboxElement {
  * below.
  */
 class OutputResultsGroup extends OmniboxElement {
+    details;
+    headers;
+    combinedResults;
+    individualResultsList;
+    innerHeaders;
     static create(resultsGroup) {
         const outputResultsGroup = new OutputResultsGroup();
         outputResultsGroup.setResultsGroup(resultsGroup);
@@ -236,6 +241,8 @@ class OutputResultsDetails extends OmniboxElement {
  * rendered by OutputMatch below.
  */
 class OutputResultsTable extends HTMLTableSectionElement {
+    autocompleteMatches;
+    outputMatches;
     constructor(matches) {
         super();
         this.autocompleteMatches = matches;
@@ -249,6 +256,7 @@ class OutputResultsTable extends HTMLTableSectionElement {
 }
 /** Helps track and render a single match. */
 class OutputMatch extends HTMLTableRowElement {
+    contentsAndDescription;
     constructor(match) {
         super();
         this.addEventListener('click', () => !document.getSelection()?.toString() &&
@@ -306,12 +314,14 @@ class OutputHeader extends HTMLTableCellElement {
     }
 }
 class OutputProperty extends HTMLTableCellElement {
+    filterText;
     constructor(filterText) {
         super();
         this.filterText = filterText;
     }
 }
 class FlexWrappingOutputProperty extends OutputProperty {
+    container;
     constructor(filterText) {
         super(filterText);
         // margin-right is used on .pair-item's to separate them. To compensate,
@@ -344,6 +354,8 @@ class OutputOverlappingPairProperty extends OutputPairProperty {
     }
 }
 class OutputAnswerProperty extends FlexWrappingOutputProperty {
+    image;
+    imageElement;
     constructor(image, contents, description, answer, contentsClassification, descriptionClassification) {
         super([image, contents, description, answer].join('.'));
         this.image = image;
@@ -385,6 +397,7 @@ class OutputBooleanProperty extends OutputProperty {
     }
 }
 class OutputDictionaryProperty extends OutputProperty {
+    container;
     constructor(value) {
         super(value.map(({ key, value }) => `${key}: ${value}`).join('\n'));
         this.container = createEl('div', this);
@@ -483,6 +496,12 @@ class FilterUtil {
     }
 }
 class Column {
+    headerText;
+    url;
+    hyphenatedName;
+    displayAlways;
+    tooltip;
+    create;
     constructor(headerText, url, hyphenatedName, displayAlways, tooltip, create) {
         this.headerText = headerText;
         this.url = url;

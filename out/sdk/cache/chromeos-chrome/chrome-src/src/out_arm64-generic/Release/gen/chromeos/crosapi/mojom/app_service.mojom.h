@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/app_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/app_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/app_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/app_service_types.mojom.h"
@@ -121,7 +122,7 @@ class AppController
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 2319817888959774993ULL,
                                       9905664730364120247ULL };
-  static constexpr uint32_t Version_ = 20;
+  static constexpr uint32_t Version_ = 21;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -146,6 +147,7 @@ class AppController
     kExecuteContextMenuCommandMinVersion = 12,
     kStopAppMinVersion = 13,
     kSetPermissionMinVersion = 14,
+    kUpdateAppSizeMinVersion = 21,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -185,6 +187,9 @@ class AppController
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetPermission_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct UpdateAppSize_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -235,6 +240,9 @@ class AppController
 
   
   virtual void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) = 0;
+
+  
+  virtual void UpdateAppSize(const std::string& app_id) = 0;
 };
 
 class AppServiceProxyProxy;
@@ -256,7 +264,7 @@ class AppServiceProxy
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 12148339211839949865ULL,
                                       13593582523407362551ULL };
-  static constexpr uint32_t Version_ = 19;
+  static constexpr uint32_t Version_ = 20;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -277,6 +285,7 @@ class AppServiceProxy
     kShowAppManagementPageMinVersion = 16,
     kSetSupportedLinksPreferenceMinVersion = 17,
     kUninstallSilentlyMinVersion = 18,
+    kInstallAppMinVersion = 20,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -304,6 +313,9 @@ class AppServiceProxy
     NOINLINE static uint32_t IPCStableHash();
   };
   struct UninstallSilently_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct InstallApp_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -336,6 +348,11 @@ class AppServiceProxy
 
   
   virtual void UninstallSilently(const std::string& app_id, ::apps::UninstallSource uninstall_source) = 0;
+
+
+  using InstallAppCallback = base::OnceCallback<void(::crosapi::mojom::AppInstallResultPtr)>;
+  
+  virtual void InstallApp(::crosapi::mojom::InstallAppParamsPtr params, InstallAppCallback callback) = 0;
 };
 
 class AppServiceSubscriberProxy;
@@ -399,6 +416,142 @@ class AppServiceSubscriber
   virtual void InitializePreferredApps(std::vector<::apps::PreferredAppPtr> preferred_apps) = 0;
 };
 
+class AppShortcutPublisherProxy;
+
+template <typename ImplRefTraits>
+class AppShortcutPublisherStub;
+
+class AppShortcutPublisherRequestValidator;
+class AppShortcutPublisherResponseValidator;
+
+
+class AppShortcutPublisher
+    : public AppShortcutPublisherInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr base::Token Uuid_{ 17613302968949293936ULL,
+                                      12468201209761563288ULL };
+  static constexpr uint32_t Version_ = 2;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = AppShortcutPublisherInterfaceBase;
+  using Proxy_ = AppShortcutPublisherProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = AppShortcutPublisherStub<ImplRefTraits>;
+
+  using RequestValidator_ = AppShortcutPublisherRequestValidator;
+  using ResponseValidator_ = AppShortcutPublisherResponseValidator;
+  enum MethodMinVersions : uint32_t {
+    kPublishShortcutsMinVersion = 0,
+    kRegisterAppShortcutControllerMinVersion = 1,
+    kShortcutRemovedMinVersion = 2,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct PublishShortcuts_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RegisterAppShortcutController_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ShortcutRemoved_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~AppShortcutPublisher() = default;
+
+
+  using PublishShortcutsCallback = base::OnceCallback<void()>;
+  
+  virtual void PublishShortcuts(std::vector<::apps::ShortcutPtr> deltas, PublishShortcutsCallback callback) = 0;
+
+
+  using RegisterAppShortcutControllerCallback = base::OnceCallback<void(::crosapi::mojom::ControllerRegistrationResult)>;
+  
+  virtual void RegisterAppShortcutController(::mojo::PendingRemote<AppShortcutController> controller, RegisterAppShortcutControllerCallback callback) = 0;
+
+
+  using ShortcutRemovedCallback = base::OnceCallback<void()>;
+  
+  virtual void ShortcutRemoved(const std::string& shortcut_id, ShortcutRemovedCallback callback) = 0;
+};
+
+class AppShortcutControllerProxy;
+
+template <typename ImplRefTraits>
+class AppShortcutControllerStub;
+
+class AppShortcutControllerRequestValidator;
+class AppShortcutControllerResponseValidator;
+
+
+class AppShortcutController
+    : public AppShortcutControllerInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr base::Token Uuid_{ 12259000405135412756ULL,
+                                      12902477945801402700ULL };
+  static constexpr uint32_t Version_ = 3;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = AppShortcutControllerInterfaceBase;
+  using Proxy_ = AppShortcutControllerProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = AppShortcutControllerStub<ImplRefTraits>;
+
+  using RequestValidator_ = AppShortcutControllerRequestValidator;
+  using ResponseValidator_ = AppShortcutControllerResponseValidator;
+  enum MethodMinVersions : uint32_t {
+    kLaunchShortcutMinVersion = 1,
+    kGetCompressedIconMinVersion = 2,
+    kRemoveShortcutMinVersion = 3,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct LaunchShortcut_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetCompressedIcon_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RemoveShortcut_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~AppShortcutController() = default;
+
+
+  using LaunchShortcutCallback = base::OnceCallback<void()>;
+  
+  virtual void LaunchShortcut(const std::string& host_app_id, const std::string& local_shortcut_id, int64_t display_id, LaunchShortcutCallback callback) = 0;
+
+
+  using GetCompressedIconCallback = base::OnceCallback<void(::apps::IconValuePtr)>;
+  
+  virtual void GetCompressedIcon(const std::string& host_app_id, const std::string& local_shortcut_id, int32_t size_in_dip, ::ui::ResourceScaleFactor scale_factor, GetCompressedIconCallback callback) = 0;
+
+
+  using RemoveShortcutCallback = base::OnceCallback<void()>;
+  
+  virtual void RemoveShortcut(const std::string& host_app_id, const std::string& local_shortcut_id, ::apps::UninstallSource uninstall_source, RemoveShortcutCallback callback) = 0;
+};
+
 
 
 class  AppPublisherProxy
@@ -450,6 +603,8 @@ class  AppControllerProxy
   void StopApp(const std::string& app_id) final;
   
   void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) final;
+  
+  void UpdateAppSize(const std::string& app_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -479,6 +634,8 @@ class  AppServiceProxyProxy
   void SetSupportedLinksPreference(const std::string& app_id) final;
   
   void UninstallSilently(const std::string& app_id, ::apps::UninstallSource uninstall_source) final;
+  
+  void InstallApp(::crosapi::mojom::InstallAppParamsPtr params, InstallAppCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -498,6 +655,44 @@ class  AppServiceSubscriberProxy
   void OnPreferredAppsChanged(::apps::PreferredAppChangesPtr changes) final;
   
   void InitializePreferredApps(std::vector<::apps::PreferredAppPtr> preferred_apps) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  AppShortcutPublisherProxy
+    : public AppShortcutPublisher {
+ public:
+  using InterfaceType = AppShortcutPublisher;
+
+  explicit AppShortcutPublisherProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void PublishShortcuts(std::vector<::apps::ShortcutPtr> deltas, PublishShortcutsCallback callback) final;
+  
+  void RegisterAppShortcutController(::mojo::PendingRemote<AppShortcutController> controller, RegisterAppShortcutControllerCallback callback) final;
+  
+  void ShortcutRemoved(const std::string& shortcut_id, ShortcutRemovedCallback callback) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  AppShortcutControllerProxy
+    : public AppShortcutController {
+ public:
+  using InterfaceType = AppShortcutController;
+
+  explicit AppShortcutControllerProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void LaunchShortcut(const std::string& host_app_id, const std::string& local_shortcut_id, int64_t display_id, LaunchShortcutCallback callback) final;
+  
+  void GetCompressedIcon(const std::string& host_app_id, const std::string& local_shortcut_id, int32_t size_in_dip, ::ui::ResourceScaleFactor scale_factor, GetCompressedIconCallback callback) final;
+  
+  void RemoveShortcut(const std::string& host_app_id, const std::string& local_shortcut_id, ::apps::UninstallSource uninstall_source, RemoveShortcutCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -666,6 +861,88 @@ class AppServiceSubscriberStub
  private:
   ImplPointerType sink_;
 };
+class  AppShortcutPublisherStubDispatch {
+ public:
+  static bool Accept(AppShortcutPublisher* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      AppShortcutPublisher* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<AppShortcutPublisher>>
+class AppShortcutPublisherStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  AppShortcutPublisherStub() = default;
+  ~AppShortcutPublisherStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return AppShortcutPublisherStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return AppShortcutPublisherStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  AppShortcutControllerStubDispatch {
+ public:
+  static bool Accept(AppShortcutController* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      AppShortcutController* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<AppShortcutController>>
+class AppShortcutControllerStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  AppShortcutControllerStub() = default;
+  ~AppShortcutControllerStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return AppShortcutControllerStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return AppShortcutControllerStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  AppPublisherRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -682,11 +959,27 @@ class  AppServiceSubscriberRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+class  AppShortcutPublisherRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  AppShortcutControllerRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 class  AppControllerResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
 class  AppServiceProxyResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  AppShortcutPublisherResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  AppShortcutControllerResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

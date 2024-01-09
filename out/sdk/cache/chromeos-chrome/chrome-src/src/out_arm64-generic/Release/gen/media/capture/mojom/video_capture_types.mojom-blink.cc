@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -276,7 +277,7 @@ VideoCaptureFeedback::VideoCaptureFeedback(
     float max_framerate_fps_in,
     int32_t max_pixels_in,
     bool require_mapped_frame_in,
-    absl::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes_in)
+    std::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes_in)
     : resource_utilization(std::move(resource_utilization_in)),
       max_framerate_fps(std::move(max_framerate_fps_in)),
       max_pixels(std::move(max_pixels_in)),
@@ -290,7 +291,7 @@ VideoCaptureFeedback::VideoCaptureFeedback(
     float max_framerate_fps_in,
     int32_t max_pixels_in,
     bool require_mapped_frame_in,
-    absl::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes_in,
+    std::optional<WTF::Vector<::gfx::Size>> DEPRECATED_mapped_sizes_in,
     int32_t frame_id_in,
     bool has_frame_id_in)
     : resource_utilization(std::move(resource_utilization_in)),
@@ -346,7 +347,7 @@ void VideoCaptureFeedback::WriteIntoTrace(
     dict.AddItem(
       "DEPRECATED_mapped_sizes"), this->DEPRECATED_mapped_sizes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<::gfx::Size>>&>"
+      "<value of type const std::optional<WTF::Vector<::gfx::Size>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -411,7 +412,8 @@ VideoCaptureDeviceDescriptor::VideoCaptureDeviceDescriptor()
       facing_mode(),
       capture_api(),
       control_support(),
-      transport_type() {}
+      transport_type(),
+      availability() {}
 
 VideoCaptureDeviceDescriptor::VideoCaptureDeviceDescriptor(
     const WTF::String& display_name_in,
@@ -427,7 +429,26 @@ VideoCaptureDeviceDescriptor::VideoCaptureDeviceDescriptor(
       facing_mode(std::move(facing_mode_in)),
       capture_api(std::move(capture_api_in)),
       control_support(std::move(control_support_in)),
-      transport_type(std::move(transport_type_in)) {}
+      transport_type(std::move(transport_type_in)),
+      availability() {}
+
+VideoCaptureDeviceDescriptor::VideoCaptureDeviceDescriptor(
+    const WTF::String& display_name_in,
+    const WTF::String& device_id_in,
+    const WTF::String& model_id_in,
+    ::media::VideoFacingMode facing_mode_in,
+    VideoCaptureApi capture_api_in,
+    const ::media::VideoCaptureControlSupport& control_support_in,
+    VideoCaptureTransportType transport_type_in,
+    std::optional<CameraAvailability> availability_in)
+    : display_name(std::move(display_name_in)),
+      device_id(std::move(device_id_in)),
+      model_id(std::move(model_id_in)),
+      facing_mode(std::move(facing_mode_in)),
+      capture_api(std::move(capture_api_in)),
+      control_support(std::move(control_support_in)),
+      transport_type(std::move(transport_type_in)),
+      availability(std::move(availability_in)) {}
 
 VideoCaptureDeviceDescriptor::~VideoCaptureDeviceDescriptor() = default;
 
@@ -493,6 +514,15 @@ void VideoCaptureDeviceDescriptor::WriteIntoTrace(
       "transport_type"), this->transport_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type VideoCaptureTransportType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "availability"), this->availability,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<CameraAvailability>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -673,6 +703,9 @@ bool StructTraits<::media::mojom::blink::VideoCaptureDeviceDescriptor::DataView,
         success = false;
       if (success && !input.ReadTransportType(&result->transport_type))
         success = false;
+      if (success && !input.ReadAvailability(&result->availability)) {
+        success = false;
+      }
   *output = std::move(result);
   return success;
 }

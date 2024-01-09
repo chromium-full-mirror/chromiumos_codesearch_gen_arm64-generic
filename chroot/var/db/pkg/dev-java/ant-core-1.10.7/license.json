@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-java", "name": "ant-core", "version": "1.10.7", "revision": 0, "fullname": "dev-java/ant-core", "fullnamerev": "dev-java/ant-core-1.10.7", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://ant.apache.org/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -6,15 +6,17 @@
  * delegates event handling to |delegate|.
  */
 export class DragWrapper {
+    /**
+     * The number of un-paired dragenter events that have fired on |this|.
+     * This is incremented by |onDragEnter_| and decremented by
+     * |onDragLeave_|. This is necessary because dragging over child widgets
+     * will fire additional enter and leave events on |this|. A non-zero value
+     * does not necessarily indicate that |isCurrentDragTarget()| is true.
+     */
+    dragEnters_ = 0;
+    target_;
+    delegate_;
     constructor(target, delegate) {
-        /**
-         * The number of un-paired dragenter events that have fired on |this|.
-         * This is incremented by |onDragEnter_| and decremented by
-         * |onDragLeave_|. This is necessary because dragging over child widgets
-         * will fire additional enter and leave events on |this|. A non-zero value
-         * does not necessarily indicate that |isCurrentDragTarget()| is true.
-         */
-        this.dragEnters_ = 0;
         this.target_ = target;
         this.delegate_ = delegate;
         target.addEventListener('dragenter', e => this.onDragEnter_(e));

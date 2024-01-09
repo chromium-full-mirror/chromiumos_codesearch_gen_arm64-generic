@@ -1,8 +1,0 @@
-# SPDX-License-Identifier: Apache-2.0
-
-add_subdirectory(ap_pwrseq)
-add_subdirectory(emul)
-add_subdirectory(usb_dc)
-add_subdirectory(usb_pd)
-add_subdirectory_ifdef(CONFIG_HOST_SERVICE host_service)
-add_subdirectory_ifdef(CONFIG_PLATFORM_EC_ROLLBACK rollback)

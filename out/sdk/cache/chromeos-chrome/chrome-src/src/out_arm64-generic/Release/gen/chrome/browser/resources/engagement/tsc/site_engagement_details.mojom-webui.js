@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 export class SiteEngagementDetailsProviderPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -13,6 +14,9 @@ export class SiteEngagementDetailsProviderPendingReceiver {
     }
 }
 export class SiteEngagementDetailsProviderRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(SiteEngagementDetailsProviderPendingReceiver, handle);
@@ -36,6 +40,9 @@ export class SiteEngagementDetailsProviderRemote {
  * interface.
  */
 export class SiteEngagementDetailsProviderReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(SiteEngagementDetailsProviderRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -66,6 +73,12 @@ export class SiteEngagementDetailsProvider {
  * receiver can have any number of listeners added to it.
  */
 export class SiteEngagementDetailsProviderCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getSiteEngagementDetails;
+    setSiteEngagementBaseScoreForUrl;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(SiteEngagementDetailsProviderRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -118,14 +119,17 @@ void EmbeddedSearchConnectorProxy::Connect(
                         "<value of type ::mojo::PendingAssociatedRemote<EmbeddedSearchClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearchConnector_Connect_Name, kFlags, 0, 0, nullptr);
@@ -213,10 +217,10 @@ bool EmbeddedSearchConnectorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEmbeddedSearchConnectorValidationInfo[] = {
-    {&internal::EmbeddedSearchConnector_Connect_Params_Data::Validate,
+    { &internal::EmbeddedSearchConnector_Connect_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -359,14 +363,17 @@ void EmbeddedSearchProxy::FocusOmnibox(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearch_FocusOmnibox_Name, kFlags, 0, 0, nullptr);
@@ -401,14 +408,17 @@ void EmbeddedSearchProxy::DeleteMostVisitedItem(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearch_DeleteMostVisitedItem_Name, kFlags, 0, 0, nullptr);
@@ -450,14 +460,17 @@ void EmbeddedSearchProxy::UndoAllMostVisitedDeletions(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearch_UndoAllMostVisitedDeletions_Name, kFlags, 0, 0, nullptr);
@@ -491,14 +504,17 @@ void EmbeddedSearchProxy::UndoMostVisitedDeletion(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearch_UndoMostVisitedDeletion_Name, kFlags, 0, 0, nullptr);
@@ -677,16 +693,16 @@ bool EmbeddedSearchStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEmbeddedSearchValidationInfo[] = {
-    {&internal::EmbeddedSearch_FocusOmnibox_Params_Data::Validate,
+    { &internal::EmbeddedSearch_FocusOmnibox_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedSearch_DeleteMostVisitedItem_Params_Data::Validate,
+    { &internal::EmbeddedSearch_DeleteMostVisitedItem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedSearch_UndoAllMostVisitedDeletions_Params_Data::Validate,
+    { &internal::EmbeddedSearch_UndoAllMostVisitedDeletions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedSearch_UndoMostVisitedDeletion_Params_Data::Validate,
+    { &internal::EmbeddedSearch_UndoMostVisitedDeletion_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -846,14 +862,17 @@ void EmbeddedSearchClientProxy::SetPageSequenceNumber(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearchClient_SetPageSequenceNumber_Name, kFlags, 0, 0, nullptr);
@@ -887,14 +906,17 @@ void EmbeddedSearchClientProxy::FocusChanged(
                         "<value of type ::OmniboxFocusChangeReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearchClient_FocusChanged_Name, kFlags, 0, 0, nullptr);
@@ -928,14 +950,17 @@ void EmbeddedSearchClientProxy::MostVisitedInfoChanged(
                         "<value of type const ::InstantMostVisitedInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearchClient_MostVisitedInfoChanged_Name, kFlags, 0, 0, nullptr);
@@ -976,14 +1001,17 @@ void EmbeddedSearchClientProxy::SetInputInProgress(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearchClient_SetInputInProgress_Name, kFlags, 0, 0, nullptr);
@@ -1014,14 +1042,17 @@ void EmbeddedSearchClientProxy::ThemeChanged(
                         "<value of type const ::NtpTheme&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedSearchClient_ThemeChanged_Name, kFlags, 0, 0, nullptr);
@@ -1220,18 +1251,18 @@ bool EmbeddedSearchClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEmbeddedSearchClientValidationInfo[] = {
-    {&internal::EmbeddedSearchClient_SetPageSequenceNumber_Params_Data::Validate,
+    { &internal::EmbeddedSearchClient_SetPageSequenceNumber_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedSearchClient_FocusChanged_Params_Data::Validate,
+    { &internal::EmbeddedSearchClient_FocusChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedSearchClient_MostVisitedInfoChanged_Params_Data::Validate,
+    { &internal::EmbeddedSearchClient_MostVisitedInfoChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedSearchClient_SetInputInProgress_Params_Data::Validate,
+    { &internal::EmbeddedSearchClient_SetInputInProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedSearchClient_ThemeChanged_Params_Data::Validate,
+    { &internal::EmbeddedSearchClient_ThemeChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 

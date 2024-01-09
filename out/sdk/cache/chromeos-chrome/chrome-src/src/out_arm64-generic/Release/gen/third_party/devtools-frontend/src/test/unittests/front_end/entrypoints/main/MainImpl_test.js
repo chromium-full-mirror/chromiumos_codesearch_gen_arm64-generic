@@ -17,15 +17,18 @@ describeWithMockConnection('MainMenuItem', () => {
                 shortcutsForAction: () => [],
             });
             targetFactory();
+            sinon.stub(UI.ActionRegistry.ActionRegistry.instance(), 'hasAction')
+                .withArgs(sinon.match(/inspector_main.focus-debuggee|main.toggle-drawer/))
+                .returns(true);
+            sinon.stub(UI.ActionRegistry.ActionRegistry.instance(), 'getAction')
+                .withArgs(sinon.match(/inspector_main.focus-debuggee|main.toggle-drawer/))
+                .returns(sinon.createStubInstance(UI.ActionRegistration.Action));
         });
         it('includes focus debuggee item when undocked', async () => {
             UI.DockController.DockController.instance().setDockSide("undocked" /* UI.DockController.DockState.UNDOCKED */);
             const item = Main.MainImpl.MainMenuItem.instance({ forceNew: true }).item();
             assertNotNullOrUndefined(item);
             const contextMenuShow = sinon.stub(UI.ContextMenu.ContextMenu.prototype, 'show').resolves();
-            sinon.stub(UI.ActionRegistry.ActionRegistry.instance(), 'action')
-                .withArgs(sinon.match(/inspector_main.focus-debuggee|main.toggle-drawer/))
-                .returns({ execute: () => { } });
             item.clicked(new MouseEvent('click', {
                 bubbles: true,
                 cancelable: true,
@@ -38,9 +41,6 @@ describeWithMockConnection('MainMenuItem', () => {
             const item = Main.MainImpl.MainMenuItem.instance({ forceNew: true }).item();
             assertNotNullOrUndefined(item);
             const contextMenuShow = sinon.stub(UI.ContextMenu.ContextMenu.prototype, 'show').resolves();
-            sinon.stub(UI.ActionRegistry.ActionRegistry.instance(), 'action').withArgs('main.toggle-drawer').returns({
-                execute: () => { },
-            });
             item.clicked(new MouseEvent('click', {
                 bubbles: true,
                 cancelable: true,

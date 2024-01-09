@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/audio/audio.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/audio/audio.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/audio/audio.mojom-forward.h"
 #include <string>
@@ -141,12 +142,12 @@ class PageHandler
   virtual void GetAudioDeviceInfo() = 0;
 
 
-  using GetActiveOutputDeviceNameCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetActiveOutputDeviceNameCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetActiveOutputDeviceName(GetActiveOutputDeviceNameCallback callback) = 0;
 
 
-  using GetActiveInputDeviceNameCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetActiveInputDeviceNameCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetActiveInputDeviceName(GetActiveInputDeviceNameCallback callback) = 0;
 

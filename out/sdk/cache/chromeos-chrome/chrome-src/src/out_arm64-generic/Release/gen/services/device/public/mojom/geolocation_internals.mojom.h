@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/geolocation_internals.mojom-features.h"
 #include "services/device/public/mojom/geolocation_internals.mojom-shared.h"
 #include "services/device/public/mojom/geolocation_internals.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -313,7 +314,7 @@ class  NetworkLocationResponse {
   NetworkLocationResponse(
       double latitude,
       double longitude,
-      absl::optional<double> accuracy);
+      std::optional<double> accuracy);
 
 
   ~NetworkLocationResponse();
@@ -395,7 +396,7 @@ class  NetworkLocationResponse {
   
   double longitude;
   
-  absl::optional<double> accuracy;
+  std::optional<double> accuracy;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -463,7 +464,7 @@ class  AccessPointData {
       int32_t radio_signal_strength,
       int32_t channel,
       int32_t signal_to_noise,
-      absl::optional<::base::Time> timestamp);
+      std::optional<::base::Time> timestamp);
 
 
   ~AccessPointData();
@@ -549,7 +550,7 @@ class  AccessPointData {
   
   int32_t signal_to_noise;
   
-  absl::optional<::base::Time> timestamp;
+  std::optional<::base::Time> timestamp;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -612,7 +613,7 @@ class  NetworkLocationDiagnostics {
 
   NetworkLocationDiagnostics(
       std::vector<AccessPointDataPtr> access_point_data,
-      absl::optional<::base::Time> wifi_timestamp);
+      std::optional<::base::Time> wifi_timestamp);
 
 NetworkLocationDiagnostics(const NetworkLocationDiagnostics&) = delete;
 NetworkLocationDiagnostics& operator=(const NetworkLocationDiagnostics&) = delete;
@@ -694,7 +695,7 @@ NetworkLocationDiagnostics& operator=(const NetworkLocationDiagnostics&) = delet
   
   std::vector<AccessPointDataPtr> access_point_data;
   
-  absl::optional<::base::Time> wifi_timestamp;
+  std::optional<::base::Time> wifi_timestamp;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -757,9 +758,9 @@ class  PositionCacheDiagnostics {
 
   PositionCacheDiagnostics(
       uint32_t cache_size,
-      absl::optional<::base::Time> last_hit,
-      absl::optional<::base::Time> last_miss,
-      absl::optional<double> hit_rate,
+      std::optional<::base::Time> last_hit,
+      std::optional<::base::Time> last_miss,
+      std::optional<double> hit_rate,
       ::device::mojom::GeopositionResultPtr last_network_result);
 
 PositionCacheDiagnostics(const PositionCacheDiagnostics&) = delete;
@@ -842,11 +843,11 @@ PositionCacheDiagnostics& operator=(const PositionCacheDiagnostics&) = delete;
   
   uint32_t cache_size;
   
-  absl::optional<::base::Time> last_hit;
+  std::optional<::base::Time> last_hit;
   
-  absl::optional<::base::Time> last_miss;
+  std::optional<::base::Time> last_miss;
   
-  absl::optional<double> hit_rate;
+  std::optional<double> hit_rate;
   
   ::device::mojom::GeopositionResultPtr last_network_result;
 
@@ -910,7 +911,7 @@ class  WifiPollingPolicyDiagnostics {
   WifiPollingPolicyDiagnostics();
 
   WifiPollingPolicyDiagnostics(
-      absl::optional<::base::Time> interval_start,
+      std::optional<::base::Time> interval_start,
       ::base::TimeDelta interval_duration,
       ::base::TimeDelta polling_interval,
       ::base::TimeDelta default_interval,
@@ -994,7 +995,7 @@ class  WifiPollingPolicyDiagnostics {
   }
 
   
-  absl::optional<::base::Time> interval_start;
+  std::optional<::base::Time> interval_start;
   
   ::base::TimeDelta interval_duration;
   

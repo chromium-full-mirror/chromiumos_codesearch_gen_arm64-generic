@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/scripts_internal.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -41,6 +42,8 @@ const char* ToString(Source enum_param) {
       return "DYNAMIC_CONTENT_SCRIPT";
     case Source::kDynamicUserScript:
       return "DYNAMIC_USER_SCRIPT";
+    case Source::kManifestContentScript:
+      return "MANIFEST_CONTENT_SCRIPT";
     case Source::kNone:
       return "";
   }
@@ -53,11 +56,13 @@ Source ParseSource(base::StringPiece enum_string) {
     return Source::kDynamicContentScript;
   if (enum_string == "DYNAMIC_USER_SCRIPT")
     return Source::kDynamicUserScript;
+  if (enum_string == "MANIFEST_CONTENT_SCRIPT")
+    return Source::kManifestContentScript;
   return Source::kNone;
 }
 
 std::u16string GetSourceParseError(base::StringPiece enum_string) {
-  return u"expected \"DYNAMIC_CONTENT_SCRIPT\" or \"DYNAMIC_USER_SCRIPT\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+  return u"expected \"DYNAMIC_CONTENT_SCRIPT\" or \"DYNAMIC_USER_SCRIPT\" or \"MANIFEST_CONTENT_SCRIPT\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
@@ -65,8 +70,8 @@ ScriptSource::ScriptSource()
  {}
 
 ScriptSource::~ScriptSource() = default;
-ScriptSource::ScriptSource(ScriptSource&& rhs) = default;
-ScriptSource& ScriptSource::operator=(ScriptSource&& rhs) = default;
+ScriptSource::ScriptSource(ScriptSource&& rhs) noexcept = default;
+ScriptSource& ScriptSource::operator=(ScriptSource&& rhs) noexcept = default;
 ScriptSource ScriptSource::Clone() const {
   ScriptSource out;
   out.code = code;
@@ -82,7 +87,7 @@ bool ScriptSource::Populate(
     {
       auto* temp = (*code_value).GetIfString();
       if (!temp) {
-        out.code = absl::nullopt;
+        out.code = std::nullopt;
         return false;
       }
       out.code = *temp;
@@ -94,7 +99,7 @@ bool ScriptSource::Populate(
     {
       auto* temp = (*file_value).GetIfString();
       if (!temp) {
-        out.file = absl::nullopt;
+        out.file = std::nullopt;
         return false;
       }
       out.file = *temp;
@@ -114,34 +119,21 @@ bool ScriptSource::Populate(
 }
 
 // static
-std::unique_ptr<ScriptSource> ScriptSource::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ScriptSource>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ScriptSource> ScriptSource::FromValue(const base::Value::Dict& value) {
+  ScriptSource out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ScriptSource> ScriptSource::FromValue(const base::Value::Dict& value) {
+std::optional<ScriptSource> ScriptSource::FromValue(const base::Value& value) {
   ScriptSource out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ScriptSource> ScriptSource::FromValue(const base::Value& value) {
-  ScriptSource out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -168,8 +160,8 @@ source(),
 world() {}
 
 SerializedUserScript::~SerializedUserScript() = default;
-SerializedUserScript::SerializedUserScript(SerializedUserScript&& rhs) = default;
-SerializedUserScript& SerializedUserScript::operator=(SerializedUserScript&& rhs) = default;
+SerializedUserScript::SerializedUserScript(SerializedUserScript&& rhs) noexcept = default;
+SerializedUserScript& SerializedUserScript::operator=(SerializedUserScript&& rhs) noexcept = default;
 SerializedUserScript SerializedUserScript::Clone() const {
   SerializedUserScript out;
   out.all_frames = all_frames;
@@ -208,7 +200,7 @@ bool SerializedUserScript::Populate(
     {
       auto temp = (*all_frames_value).GetIfBool();
       if (!temp.has_value()) {
-        out.all_frames = absl::nullopt;
+        out.all_frames = std::nullopt;
         return false;
       }
       out.all_frames = *temp;
@@ -317,7 +309,7 @@ bool SerializedUserScript::Populate(
     {
       auto temp = (*match_origin_as_fallback_value).GetIfBool();
       if (!temp.has_value()) {
-        out.match_origin_as_fallback = absl::nullopt;
+        out.match_origin_as_fallback = std::nullopt;
         return false;
       }
       out.match_origin_as_fallback = *temp;
@@ -383,34 +375,21 @@ bool SerializedUserScript::Populate(
 }
 
 // static
-std::unique_ptr<SerializedUserScript> SerializedUserScript::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SerializedUserScript>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SerializedUserScript> SerializedUserScript::FromValue(const base::Value::Dict& value) {
+  SerializedUserScript out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SerializedUserScript> SerializedUserScript::FromValue(const base::Value::Dict& value) {
+std::optional<SerializedUserScript> SerializedUserScript::FromValue(const base::Value& value) {
   SerializedUserScript out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SerializedUserScript> SerializedUserScript::FromValue(const base::Value& value) {
-  SerializedUserScript out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

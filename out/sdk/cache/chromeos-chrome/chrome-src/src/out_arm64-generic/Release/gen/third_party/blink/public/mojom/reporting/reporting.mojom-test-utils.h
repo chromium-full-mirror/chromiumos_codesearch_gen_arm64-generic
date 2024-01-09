@@ -16,11 +16,11 @@ namespace blink::mojom {
 
 class BLINK_COMMON_EXPORT ReportingServiceProxyInterceptorForTesting : public ReportingServiceProxy {
   virtual ReportingServiceProxy* GetForwardingInterface() = 0;
-  void QueueInterventionReport(const ::GURL& url, const std::string& id, const std::string& message, const absl::optional<std::string>& source_file, int32_t line_number, int32_t column_number) override;
-  void QueueDeprecationReport(const ::GURL& url, const std::string& id, absl::optional<::base::Time> anticipatedRemoval, const std::string& message, const absl::optional<std::string>& source_file, int32_t line_number, int32_t column_number) override;
-  void QueueCspViolationReport(const ::GURL& url, const std::string& group, const std::string& document_url, const absl::optional<std::string>& referrer, const absl::optional<std::string>& blocked_url, const std::string& effective_directive, const std::string& original_policy, const absl::optional<std::string>& source_file, const absl::optional<std::string>& script_sample, const std::string& disposition, uint16_t status_code, int32_t line_number, int32_t column_number) override;
-  void QueuePermissionsPolicyViolationReport(const ::GURL& url, const std::string& endpoint, const std::string& policy_id, const std::string& disposition, const absl::optional<std::string>& message, const absl::optional<std::string>& source_file, int32_t line_number, int32_t column_number) override;
-  void QueueDocumentPolicyViolationReport(const ::GURL& url, const std::string& group, const std::string& policy_id, const std::string& disposition, const absl::optional<std::string>& message, const absl::optional<std::string>& source_file, int32_t line_number, int32_t column_number) override;
+  void QueueInterventionReport(const ::GURL& url, const std::string& id, const std::string& message, const std::optional<std::string>& source_file, int32_t line_number, int32_t column_number) override;
+  void QueueDeprecationReport(const ::GURL& url, const std::string& id, std::optional<::base::Time> anticipatedRemoval, const std::string& message, const std::optional<std::string>& source_file, int32_t line_number, int32_t column_number) override;
+  void QueueCspViolationReport(const ::GURL& url, const std::string& group, const std::string& document_url, const std::optional<std::string>& referrer, const std::optional<std::string>& blocked_url, const std::string& effective_directive, const std::string& original_policy, const std::optional<std::string>& source_file, const std::optional<std::string>& script_sample, const std::string& disposition, uint16_t status_code, int32_t line_number, int32_t column_number) override;
+  void QueuePermissionsPolicyViolationReport(const ::GURL& url, const std::string& endpoint, const std::string& policy_id, const std::string& disposition, const std::optional<std::string>& message, const std::optional<std::string>& source_file, int32_t line_number, int32_t column_number) override;
+  void QueueDocumentPolicyViolationReport(const ::GURL& url, const std::string& group, const std::string& policy_id, const std::string& disposition, const std::optional<std::string>& message, const std::optional<std::string>& source_file, int32_t line_number, int32_t column_number) override;
 };
 class BLINK_COMMON_EXPORT ReportingServiceProxyAsyncWaiter {
  public:

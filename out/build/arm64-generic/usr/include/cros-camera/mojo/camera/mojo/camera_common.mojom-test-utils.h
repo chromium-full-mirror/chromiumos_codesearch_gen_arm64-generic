@@ -55,11 +55,11 @@ class  VendorTagOpsAsyncWaiter {
       std::vector<uint32_t>* out_tag_array);
   std::vector<uint32_t> GetAllTags();
   void GetSectionName(
-      uint32_t tag, absl::optional<std::string>* out_name);
-  absl::optional<std::string> GetSectionName(uint32_t tag);
+      uint32_t tag, std::optional<std::string>* out_name);
+  std::optional<std::string> GetSectionName(uint32_t tag);
   void GetTagName(
-      uint32_t tag, absl::optional<std::string>* out_name);
-  absl::optional<std::string> GetTagName(uint32_t tag);
+      uint32_t tag, std::optional<std::string>* out_name);
+  std::optional<std::string> GetTagName(uint32_t tag);
   void GetTagType(
       uint32_t tag, int32_t* out_type);
   int32_t GetTagType(uint32_t tag);

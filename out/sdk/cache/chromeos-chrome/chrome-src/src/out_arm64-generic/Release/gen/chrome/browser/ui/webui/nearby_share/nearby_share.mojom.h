@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/nearby_share/nearby_share.mojom-features.h"
 #include "chrome/browser/ui/webui/nearby_share/nearby_share.mojom-shared.h"
 #include "chrome/browser/ui/webui/nearby_share/nearby_share.mojom-forward.h"
 #include "chrome/browser/ui/webui/nearby_share/nearby_share_share_type.mojom-forward.h"
@@ -137,7 +138,7 @@ class TransferUpdateListener
   virtual ~TransferUpdateListener() = default;
 
   
-  virtual void OnTransferUpdate(TransferStatus status, const absl::optional<std::string>& token) = 0;
+  virtual void OnTransferUpdate(TransferStatus status, const std::optional<std::string>& token) = 0;
 };
 
 class DiscoveryObserverProxy;
@@ -530,7 +531,7 @@ class  TransferUpdateListenerProxy
 
   explicit TransferUpdateListenerProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnTransferUpdate(TransferStatus status, const absl::optional<std::string>& token) final;
+  void OnTransferUpdate(TransferStatus status, const std::optional<std::string>& token) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1156,7 +1157,7 @@ class  ShareTarget {
       const ::base::UnguessableToken& id,
       const std::string& name,
       ::nearby_share::mojom::ShareTargetType type,
-      const absl::optional<::GURL>& image_url,
+      const std::optional<::GURL>& image_url,
       PayloadPreviewPtr payload_preview,
       bool for_self_share);
 
@@ -1244,7 +1245,7 @@ ShareTarget& operator=(const ShareTarget&) = delete;
   
   ::nearby_share::mojom::ShareTargetType type;
   
-  absl::optional<::GURL> image_url;
+  std::optional<::GURL> image_url;
   
   PayloadPreviewPtr payload_preview;
   
@@ -1312,7 +1313,7 @@ class  TransferMetadata {
   TransferMetadata(
       TransferStatus status,
       float progress,
-      const absl::optional<std::string>& token,
+      const std::optional<std::string>& token,
       bool is_original,
       bool is_final_status);
 
@@ -1396,7 +1397,7 @@ class  TransferMetadata {
   
   float progress;
   
-  absl::optional<std::string> token;
+  std::optional<std::string> token;
   
   bool is_original;
   

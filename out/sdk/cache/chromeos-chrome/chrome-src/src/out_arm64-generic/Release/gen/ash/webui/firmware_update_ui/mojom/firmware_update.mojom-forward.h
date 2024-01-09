@@ -26,17 +26,28 @@ class FirmwareUpdateDataView;
 
 class InstallationProgressDataView;
 
+class DeviceRequestDataView;
+
 
 enum class UpdatePriority : int32_t;
 
 enum class UpdateState : int32_t;
+
+enum class DeviceRequestId : int32_t;
+
+enum class DeviceRequestKind : int32_t;
 class FirmwareUpdate;
 using FirmwareUpdatePtr = mojo::StructPtr<FirmwareUpdate>;
 
 class InstallationProgress;
 using InstallationProgressPtr = mojo::InlinedStructPtr<InstallationProgress>;
 
+class DeviceRequest;
+using DeviceRequestPtr = mojo::InlinedStructPtr<DeviceRequest>;
+
 class UpdateObserver;
+
+class DeviceRequestObserver;
 
 class UpdateProgressObserver;
 

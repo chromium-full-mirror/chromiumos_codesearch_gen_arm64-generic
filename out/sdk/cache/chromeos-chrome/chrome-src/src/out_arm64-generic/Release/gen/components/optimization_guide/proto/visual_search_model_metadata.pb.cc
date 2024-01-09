@@ -136,13 +136,15 @@ bool FeatureLibrary_ImageLevelFeatureName_IsValid(int value) {
     case 11:
     case 12:
     case 13:
+    case 14:
+    case 15:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FeatureLibrary_ImageLevelFeatureName_strings[14] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FeatureLibrary_ImageLevelFeatureName_strings[16] = {};
 
 static const char FeatureLibrary_ImageLevelFeatureName_names[] =
   "IMAGE_DISTANCE_TO_VIEWPORT_CENTER"
@@ -157,6 +159,8 @@ static const char FeatureLibrary_ImageLevelFeatureName_names[] =
   "IMAGE_ORIGINAL_HEIGHT"
   "IMAGE_ORIGINAL_WIDTH"
   "IMAGE_VISIBLE_AREA"
+  "NAT_WORLD_CLASSIFIER_SCORE"
+  "PUB_FIGURES_CLASSIFIER_SCORE"
   "SENS_CLASSIFIER_SCORE"
   "SHOPPING_CLASSIFIER_SCORE";
 
@@ -173,8 +177,10 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FeatureLibrary_ImageLe
   { {FeatureLibrary_ImageLevelFeatureName_names + 203, 21}, 11 },
   { {FeatureLibrary_ImageLevelFeatureName_names + 224, 20}, 12 },
   { {FeatureLibrary_ImageLevelFeatureName_names + 244, 18}, 5 },
-  { {FeatureLibrary_ImageLevelFeatureName_names + 262, 21}, 8 },
-  { {FeatureLibrary_ImageLevelFeatureName_names + 283, 25}, 7 },
+  { {FeatureLibrary_ImageLevelFeatureName_names + 262, 26}, 14 },
+  { {FeatureLibrary_ImageLevelFeatureName_names + 288, 28}, 15 },
+  { {FeatureLibrary_ImageLevelFeatureName_names + 316, 21}, 8 },
+  { {FeatureLibrary_ImageLevelFeatureName_names + 337, 25}, 7 },
 };
 
 static const int FeatureLibrary_ImageLevelFeatureName_entries_by_number[] = {
@@ -185,13 +191,15 @@ static const int FeatureLibrary_ImageLevelFeatureName_entries_by_number[] = {
   4, // 4 -> IMAGE_ONPAGE_ASPECT_RATIO
   11, // 5 -> IMAGE_VISIBLE_AREA
   1, // 6 -> IMAGE_FRACTION_VISIBLE
-  13, // 7 -> SHOPPING_CLASSIFIER_SCORE
-  12, // 8 -> SENS_CLASSIFIER_SCORE
+  15, // 7 -> SHOPPING_CLASSIFIER_SCORE
+  14, // 8 -> SENS_CLASSIFIER_SCORE
   5, // 9 -> IMAGE_ONPAGE_HEIGHT
   6, // 10 -> IMAGE_ONPAGE_WIDTH
   9, // 11 -> IMAGE_ORIGINAL_HEIGHT
   10, // 12 -> IMAGE_ORIGINAL_WIDTH
   0, // 13 -> IMAGE_DISTANCE_TO_VIEWPORT_CENTER
+  12, // 14 -> NAT_WORLD_CLASSIFIER_SCORE
+  13, // 15 -> PUB_FIGURES_CLASSIFIER_SCORE
 };
 
 const std::string& FeatureLibrary_ImageLevelFeatureName_Name(
@@ -200,12 +208,12 @@ const std::string& FeatureLibrary_ImageLevelFeatureName_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           FeatureLibrary_ImageLevelFeatureName_entries,
           FeatureLibrary_ImageLevelFeatureName_entries_by_number,
-          14, FeatureLibrary_ImageLevelFeatureName_strings);
+          16, FeatureLibrary_ImageLevelFeatureName_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       FeatureLibrary_ImageLevelFeatureName_entries,
       FeatureLibrary_ImageLevelFeatureName_entries_by_number,
-      14, value);
+      16, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      FeatureLibrary_ImageLevelFeatureName_strings[idx].get();
 }
@@ -213,7 +221,7 @@ bool FeatureLibrary_ImageLevelFeatureName_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FeatureLibrary_ImageLevelFeatureName* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      FeatureLibrary_ImageLevelFeatureName_entries, 14, name, &int_value);
+      FeatureLibrary_ImageLevelFeatureName_entries, 16, name, &int_value);
   if (success) {
     *value = static_cast<FeatureLibrary_ImageLevelFeatureName>(int_value);
   }
@@ -234,6 +242,8 @@ constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary::IMAGE_FRACTION_VI
 constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary::IMAGE_DISTANCE_TO_VIEWPORT_CENTER;
 constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary::SHOPPING_CLASSIFIER_SCORE;
 constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary::SENS_CLASSIFIER_SCORE;
+constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary::NAT_WORLD_CLASSIFIER_SCORE;
+constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary::PUB_FIGURES_CLASSIFIER_SCORE;
 constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary::ImageLevelFeatureName_MIN;
 constexpr FeatureLibrary_ImageLevelFeatureName FeatureLibrary::ImageLevelFeatureName_MAX;
 constexpr int FeatureLibrary::ImageLevelFeatureName_ARRAYSIZE;

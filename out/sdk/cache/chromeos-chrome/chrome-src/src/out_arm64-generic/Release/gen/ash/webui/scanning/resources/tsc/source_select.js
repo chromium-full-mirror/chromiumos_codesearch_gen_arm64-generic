@@ -4,7 +4,7 @@
 import './scan_settings_section.js';
 import './strings.m.js';
 import { assert } from 'chrome://resources/ash/common/assert.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { SourceType } from './scanning.mojom-webui.js';
 import { alphabeticalCompare, getSourceTypeString } from './scanning_app_util.js';
@@ -16,7 +16,7 @@ const DEFAULT_SOURCE_TYPE = SourceType.kFlatbed;
  * 'source-select' displays the available scanner sources in a dropdown.
  */
 const SourceSelectElementBase = SelectMixin(I18nMixin(PolymerElement));
-class SourceSelectElement extends SourceSelectElementBase {
+export class SourceSelectElement extends SourceSelectElementBase {
     static get is() {
         return 'source-select';
     }

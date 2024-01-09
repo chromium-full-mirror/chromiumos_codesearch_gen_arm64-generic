@@ -57,7 +57,7 @@ describeWithLocale('CommandMenu', () => {
         const callback = sinon.fake((_object, _omitFocus) => Promise.resolve());
         TestRevealer.install(callback);
         command.execute();
-        assert.isTrue(callback.calledOnceWithExactly(setting, undefined), 'Revealer was either not called or was called with unexpected arguments');
+        assert.isTrue(callback.calledOnceWithExactly(setting), 'Revealer was either not called or was called with unexpected arguments');
         TestRevealer.reset();
     });
 });

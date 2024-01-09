@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/new_tab_page/modules/history_clusters/history_clusters.mojom-features.h"
 #include "chrome/browser/new_tab_page/modules/history_clusters/history_clusters.mojom-shared.h"
 #include "chrome/browser/new_tab_page/modules/history_clusters/history_clusters.mojom-forward.h"
 #include "chrome/browser/new_tab_page/modules/history_clusters/cart/cart.mojom-forward.h"
@@ -136,7 +137,7 @@ class PageHandler
   virtual void ShowJourneysSidePanel(const std::string& query) = 0;
 
   
-  virtual void OpenUrlsInTabGroup(const std::vector<::GURL>& urls, const absl::optional<std::string>& tab_group_name) = 0;
+  virtual void OpenUrlsInTabGroup(const std::vector<::GURL>& urls, const std::optional<std::string>& tab_group_name) = 0;
 
   
   virtual void DismissCluster(std::vector<::history_clusters::mojom::URLVisitPtr> visits, int64_t cluster_id) = 0;
@@ -168,7 +169,7 @@ class  PageHandlerProxy
   
   void ShowJourneysSidePanel(const std::string& query) final;
   
-  void OpenUrlsInTabGroup(const std::vector<::GURL>& urls, const absl::optional<std::string>& tab_group_name) final;
+  void OpenUrlsInTabGroup(const std::vector<::GURL>& urls, const std::optional<std::string>& tab_group_name) final;
   
   void DismissCluster(std::vector<::history_clusters::mojom::URLVisitPtr> visits, int64_t cluster_id) final;
   

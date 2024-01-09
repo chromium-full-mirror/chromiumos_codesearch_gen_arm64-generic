@@ -69,6 +69,9 @@ export class EventBreakpointsManager {
             "scriptFirstStatement" /* InstrumentationNames.ScriptFirstStatement */,
             "scriptBlockedByCSP" /* InstrumentationNames.ScriptBlockedByCSP */,
         ]);
+        this.createInstrumentationBreakpoints("SharedStorageWorklet" /* Category.SharedStorageWorklet */, [
+            "sharedStorageWorkletScriptFirstStatement" /* InstrumentationNames.SharedStorageWorkletScriptFirstStatement */,
+        ]);
         this.createInstrumentationBreakpoints("Timer" /* Category.Timer */, [
             "setTimeout" /* InstrumentationNames.SetTimeout */,
             "clearTimeout" /* InstrumentationNames.ClearTimeout */,

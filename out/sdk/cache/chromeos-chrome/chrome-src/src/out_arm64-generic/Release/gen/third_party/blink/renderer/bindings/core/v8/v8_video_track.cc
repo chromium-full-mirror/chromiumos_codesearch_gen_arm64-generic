@@ -59,11 +59,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, VideoTrack>::value,
     "VideoTrack inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&VideoTrack::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "VideoTrack is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8VideoTrack::InstallInterfaceTemplateFuncType V8VideoTrack::install_interface_template_func_ = nullptr;

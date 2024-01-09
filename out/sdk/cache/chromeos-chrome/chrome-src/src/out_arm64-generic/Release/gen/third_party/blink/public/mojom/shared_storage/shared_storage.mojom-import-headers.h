@@ -14,6 +14,8 @@
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom.h"
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-import-headers.h"
+#include "url/mojom/origin.mojom.h"
+#include "url/mojom/origin.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"
 #include "url/mojom/url.mojom-import-headers.h"
 

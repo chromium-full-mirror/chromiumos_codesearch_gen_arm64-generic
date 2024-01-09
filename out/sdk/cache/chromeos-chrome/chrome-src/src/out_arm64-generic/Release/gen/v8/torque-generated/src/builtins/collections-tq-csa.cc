@@ -66,12 +66,13 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/collections-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
 #include "torque-generated/src/builtins/array-findindex-tq-csa.h"
+#include "torque-generated/src/builtins/array-flat-tq-csa.h"
 #include "torque-generated/src/builtins/array-reverse-tq-csa.h"
-#include "torque-generated/src/builtins/array-slice-tq-csa.h"
 #include "torque-generated/src/builtins/array-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
 #include "torque-generated/src/builtins/cast-tq-csa.h"
@@ -769,7 +770,7 @@ void CheckSetRecordHasJSSetMethods_0(compiler::CodeAssemblerState* state_, Torqu
     ca_.Bind(&block11);
     tmp8 = FromConstexpr_intptr_constexpr_int31_0(state_, 16);
     tmp9 = CodeStubAssembler(state_).LoadReference<SharedFunctionInfo>(CodeStubAssembler::Reference{tmp2, tmp8});
-    tmp10 = FromConstexpr_intptr_constexpr_int31_0(state_, 4);
+    tmp10 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp11 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{tmp9, tmp10});
     tmp12 = CodeStubAssembler(state_).SmiConstant(Builtin::kSetPrototypeValues);
     tmp13 = CodeStubAssembler(state_).TaggedEqual(TNode<MaybeObject>{tmp11}, TNode<MaybeObject>{tmp12});
@@ -786,7 +787,7 @@ void CheckSetRecordHasJSSetMethods_0(compiler::CodeAssemblerState* state_, Torqu
     ca_.Bind(&block15);
     tmp14 = FromConstexpr_intptr_constexpr_int31_0(state_, 16);
     tmp15 = CodeStubAssembler(state_).LoadReference<SharedFunctionInfo>(CodeStubAssembler::Reference{tmp6, tmp14});
-    tmp16 = FromConstexpr_intptr_constexpr_int31_0(state_, 4);
+    tmp16 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp17 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{tmp15, tmp16});
     tmp18 = CodeStubAssembler(state_).SmiConstant(Builtin::kSetPrototypeHas);
     tmp19 = CodeStubAssembler(state_).TaggedEqual(TNode<MaybeObject>{tmp17}, TNode<MaybeObject>{tmp18});
@@ -926,7 +927,7 @@ void CheckSetRecordHasJSMapMethods_0(compiler::CodeAssemblerState* state_, Torqu
     ca_.Bind(&block11);
     tmp8 = FromConstexpr_intptr_constexpr_int31_0(state_, 16);
     tmp9 = CodeStubAssembler(state_).LoadReference<SharedFunctionInfo>(CodeStubAssembler::Reference{tmp2, tmp8});
-    tmp10 = FromConstexpr_intptr_constexpr_int31_0(state_, 4);
+    tmp10 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp11 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{tmp9, tmp10});
     tmp12 = CodeStubAssembler(state_).SmiConstant(Builtin::kMapPrototypeKeys);
     tmp13 = CodeStubAssembler(state_).TaggedEqual(TNode<MaybeObject>{tmp11}, TNode<MaybeObject>{tmp12});
@@ -943,7 +944,7 @@ void CheckSetRecordHasJSMapMethods_0(compiler::CodeAssemblerState* state_, Torqu
     ca_.Bind(&block15);
     tmp14 = FromConstexpr_intptr_constexpr_int31_0(state_, 16);
     tmp15 = CodeStubAssembler(state_).LoadReference<SharedFunctionInfo>(CodeStubAssembler::Reference{tmp6, tmp14});
-    tmp16 = FromConstexpr_intptr_constexpr_int31_0(state_, 4);
+    tmp16 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp17 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{tmp15, tmp16});
     tmp18 = CodeStubAssembler(state_).SmiConstant(Builtin::kMapPrototypeHas);
     tmp19 = CodeStubAssembler(state_).TaggedEqual(TNode<MaybeObject>{tmp17}, TNode<MaybeObject>{tmp18});
@@ -1023,6 +1024,262 @@ TNode<OrderedHashSet> ShrinkOrderedHashSetIfNeeded_0(compiler::CodeAssemblerStat
 
     ca_.Bind(&block8);
   return TNode<OrderedHashSet>{phi_bb7_3};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=420&c=1
+TorqueStructStableJSSetBackingTableWitness_0 NewStableBackingTableWitness_0(compiler::CodeAssemblerState* state_, TNode<JSSet> p_o) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block9(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block8(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block3(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block10(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<IntPtrT> tmp0;
+  TNode<Object> tmp1;
+  TNode<HeapObject> tmp2;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 12);
+    tmp1 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{p_o, tmp0});
+    compiler::CodeAssemblerLabel label3(&ca_);
+    tmp2 = CodeStubAssembler(state_).TaggedToHeapObject(TNode<Object>{tmp1}, &label3);
+    ca_.Goto(&block5);
+    if (label3.is_used()) {
+      ca_.Bind(&label3);
+      ca_.Goto(&block6);
+    }
+  }
+
+  if (block6.is_used()) {
+    ca_.Bind(&block6);
+    ca_.Goto(&block3);
+  }
+
+  TNode<OrderedHashSet> tmp4;
+  if (block5.is_used()) {
+    ca_.Bind(&block5);
+    compiler::CodeAssemblerLabel label5(&ca_);
+    tmp4 = Cast_OrderedHashSet_0(state_, TNode<HeapObject>{tmp2}, &label5);
+    ca_.Goto(&block8);
+    if (label5.is_used()) {
+      ca_.Bind(&label5);
+      ca_.Goto(&block9);
+    }
+  }
+
+  if (block9.is_used()) {
+    ca_.Bind(&block9);
+    ca_.Goto(&block3);
+  }
+
+  TNode<OrderedHashSet> tmp6;
+  if (block8.is_used()) {
+    ca_.Bind(&block8);
+    tmp6 = (TNode<OrderedHashSet>{tmp4});
+    ca_.Goto(&block10);
+  }
+
+  if (block3.is_used()) {
+    ca_.Bind(&block3);
+    CodeStubAssembler(state_).Unreachable();
+  }
+
+    ca_.Bind(&block10);
+  return TorqueStructStableJSSetBackingTableWitness_0{TNode<JSSet>{p_o}, TNode<OrderedHashSet>{tmp6}};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=428&c=1
+TorqueStructStableJSMapBackingTableWitness_0 NewStableBackingTableWitness_1(compiler::CodeAssemblerState* state_, TNode<JSMap> p_o) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block9(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block8(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block3(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block10(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<IntPtrT> tmp0;
+  TNode<Object> tmp1;
+  TNode<HeapObject> tmp2;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 12);
+    tmp1 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{p_o, tmp0});
+    compiler::CodeAssemblerLabel label3(&ca_);
+    tmp2 = CodeStubAssembler(state_).TaggedToHeapObject(TNode<Object>{tmp1}, &label3);
+    ca_.Goto(&block5);
+    if (label3.is_used()) {
+      ca_.Bind(&label3);
+      ca_.Goto(&block6);
+    }
+  }
+
+  if (block6.is_used()) {
+    ca_.Bind(&block6);
+    ca_.Goto(&block3);
+  }
+
+  TNode<OrderedHashMap> tmp4;
+  if (block5.is_used()) {
+    ca_.Bind(&block5);
+    compiler::CodeAssemblerLabel label5(&ca_);
+    tmp4 = Cast_OrderedHashMap_0(state_, TNode<HeapObject>{tmp2}, &label5);
+    ca_.Goto(&block8);
+    if (label5.is_used()) {
+      ca_.Bind(&label5);
+      ca_.Goto(&block9);
+    }
+  }
+
+  if (block9.is_used()) {
+    ca_.Bind(&block9);
+    ca_.Goto(&block3);
+  }
+
+  TNode<OrderedHashMap> tmp6;
+  if (block8.is_used()) {
+    ca_.Bind(&block8);
+    tmp6 = (TNode<OrderedHashMap>{tmp4});
+    ca_.Goto(&block10);
+  }
+
+  if (block3.is_used()) {
+    ca_.Bind(&block3);
+    CodeStubAssembler(state_).Unreachable();
+  }
+
+    ca_.Bind(&block10);
+  return TorqueStructStableJSMapBackingTableWitness_0{TNode<JSMap>{p_o}, TNode<OrderedHashMap>{tmp6}};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=424&c=15
+TNode<OrderedHashSet> Cast_StableOrderedHashSet_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block4(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block3(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block1(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block7(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<HeapObject> tmp0;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    compiler::CodeAssemblerLabel label1(&ca_);
+    tmp0 = CodeStubAssembler(state_).TaggedToHeapObject(TNode<Object>{p_o}, &label1);
+    ca_.Goto(&block3);
+    if (label1.is_used()) {
+      ca_.Bind(&label1);
+      ca_.Goto(&block4);
+    }
+  }
+
+  if (block4.is_used()) {
+    ca_.Bind(&block4);
+    ca_.Goto(&block1);
+  }
+
+  TNode<OrderedHashSet> tmp2;
+  if (block3.is_used()) {
+    ca_.Bind(&block3);
+    compiler::CodeAssemblerLabel label3(&ca_);
+    tmp2 = Cast_StableOrderedHashSet_0(state_, TNode<Context>{p_context}, TNode<HeapObject>{tmp0}, &label3);
+    ca_.Goto(&block5);
+    if (label3.is_used()) {
+      ca_.Bind(&label3);
+      ca_.Goto(&block6);
+    }
+  }
+
+  if (block6.is_used()) {
+    ca_.Bind(&block6);
+    ca_.Goto(&block1);
+  }
+
+  if (block5.is_used()) {
+    ca_.Bind(&block5);
+    ca_.Goto(&block7);
+  }
+
+  if (block1.is_used()) {
+    ca_.Bind(&block1);
+    ca_.Goto(label_CastError);
+  }
+
+    ca_.Bind(&block7);
+  return TNode<OrderedHashSet>{tmp2};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=432&c=15
+TNode<OrderedHashMap> Cast_StableOrderedHashMap_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block4(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block3(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block1(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block7(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<HeapObject> tmp0;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    compiler::CodeAssemblerLabel label1(&ca_);
+    tmp0 = CodeStubAssembler(state_).TaggedToHeapObject(TNode<Object>{p_o}, &label1);
+    ca_.Goto(&block3);
+    if (label1.is_used()) {
+      ca_.Bind(&label1);
+      ca_.Goto(&block4);
+    }
+  }
+
+  if (block4.is_used()) {
+    ca_.Bind(&block4);
+    ca_.Goto(&block1);
+  }
+
+  TNode<OrderedHashMap> tmp2;
+  if (block3.is_used()) {
+    ca_.Bind(&block3);
+    compiler::CodeAssemblerLabel label3(&ca_);
+    tmp2 = Cast_StableOrderedHashMap_0(state_, TNode<Context>{p_context}, TNode<HeapObject>{tmp0}, &label3);
+    ca_.Goto(&block5);
+    if (label3.is_used()) {
+      ca_.Bind(&label3);
+      ca_.Goto(&block6);
+    }
+  }
+
+  if (block6.is_used()) {
+    ca_.Bind(&block6);
+    ca_.Goto(&block1);
+  }
+
+  if (block5.is_used()) {
+    ca_.Bind(&block5);
+    ca_.Goto(&block7);
+  }
+
+  if (block1.is_used()) {
+    ca_.Bind(&block1);
+    ca_.Goto(label_CastError);
+  }
+
+    ca_.Bind(&block7);
+  return TNode<OrderedHashMap>{tmp2};
 }
 
 } // namespace internal

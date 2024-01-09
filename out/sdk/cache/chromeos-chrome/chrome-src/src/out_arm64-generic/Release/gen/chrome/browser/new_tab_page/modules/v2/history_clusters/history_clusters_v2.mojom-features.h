@@ -8,6 +8,7 @@
 #define CHROME_BROWSER_NEW_TAB_PAGE_MODULES_V2_HISTORY_CLUSTERS_HISTORY_CLUSTERS_V2_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

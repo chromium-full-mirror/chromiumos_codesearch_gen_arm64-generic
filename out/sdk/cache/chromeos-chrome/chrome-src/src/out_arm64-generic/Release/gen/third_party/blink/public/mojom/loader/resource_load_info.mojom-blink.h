@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/loader/resource_load_info.mojom-features.h"
 #include "third_party/blink/public/mojom/loader/resource_load_info.mojom-shared.h"
 #include "third_party/blink/public/mojom/loader/resource_load_info.mojom-blink-forward.h"
 #include "services/network/public/mojom/fetch_api.mojom-blink-forward.h"
@@ -45,18 +46,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ResourceType>
-    : EnumHashTraits<::blink::mojom::ResourceType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -99,7 +88,7 @@ class PLATFORM_EXPORT CommonNetworkInfo {
   CommonNetworkInfo(
       bool network_accessed,
       bool always_access_network,
-      const absl::optional<::net::IPEndPoint>& remote_endpoint);
+      const std::optional<::net::IPEndPoint>& remote_endpoint);
 
 
   ~CommonNetworkInfo();
@@ -181,7 +170,7 @@ class PLATFORM_EXPORT CommonNetworkInfo {
   
   bool always_access_network;
   
-  absl::optional<::net::IPEndPoint> remote_endpoint;
+  std::optional<::net::IPEndPoint> remote_endpoint;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -403,7 +392,8 @@ class PLATFORM_EXPORT ResourceLoadInfo {
       ::network::mojom::blink::LoadTimingInfoPtr load_timing_info,
       int64_t raw_body_bytes,
       int64_t total_received_bytes,
-      WTF::Vector<RedirectInfoPtr> redirect_info_chain);
+      WTF::Vector<RedirectInfoPtr> redirect_info_chain,
+      int32_t http_status_code);
 
 ResourceLoadInfo(const ResourceLoadInfo&) = delete;
 ResourceLoadInfo& operator=(const ResourceLoadInfo&) = delete;
@@ -514,6 +504,8 @@ ResourceLoadInfo& operator=(const ResourceLoadInfo&) = delete;
   int64_t total_received_bytes;
   
   WTF::Vector<RedirectInfoPtr> redirect_info_chain;
+  
+  int32_t http_status_code;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -627,7 +619,8 @@ ResourceLoadInfoPtr ResourceLoadInfo::Clone() const {
       mojo::Clone(load_timing_info),
       mojo::Clone(raw_body_bytes),
       mojo::Clone(total_received_bytes),
-      mojo::Clone(redirect_info_chain)
+      mojo::Clone(redirect_info_chain),
+      mojo::Clone(http_status_code)
   );
 }
 
@@ -664,6 +657,8 @@ bool ResourceLoadInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->total_received_bytes, other_struct.total_received_bytes))
     return false;
   if (!mojo::Equals(this->redirect_info_chain, other_struct.redirect_info_chain))
+    return false;
+  if (!mojo::Equals(this->http_status_code, other_struct.http_status_code))
     return false;
   return true;
 }
@@ -733,6 +728,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.redirect_info_chain < rhs.redirect_info_chain)
     return true;
   if (rhs.redirect_info_chain < lhs.redirect_info_chain)
+    return false;
+  if (lhs.http_status_code < rhs.http_status_code)
+    return true;
+  if (rhs.http_status_code < lhs.http_status_code)
     return false;
   return false;
 }
@@ -872,6 +871,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::ResourceLoadInfo::Dat
   static const decltype(::blink::mojom::blink::ResourceLoadInfo::redirect_info_chain)& redirect_info_chain(
       const ::blink::mojom::blink::ResourceLoadInfoPtr& input) {
     return input->redirect_info_chain;
+  }
+
+  static decltype(::blink::mojom::blink::ResourceLoadInfo::http_status_code) http_status_code(
+      const ::blink::mojom::blink::ResourceLoadInfoPtr& input) {
+    return input->http_status_code;
   }
 
   static bool Read(::blink::mojom::blink::ResourceLoadInfo::DataView input, ::blink::mojom::blink::ResourceLoadInfoPtr* output);

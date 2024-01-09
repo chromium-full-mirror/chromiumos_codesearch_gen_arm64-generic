@@ -581,6 +581,14 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
+        'forceRgbx', 16,
+        6,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
         'protectedVideoType', 20,
         0,
         ProtectedVideoStateSpec.$,
@@ -654,6 +662,8 @@ export class TextureQuadState {
     this.isStreamVideo;
     /** @type { !boolean } */
     this.isVideoFrame;
+    /** @type { !boolean } */
+    this.forceRgbx;
     /** @type { !ProtectedVideoState } */
     this.protectedVideoType;
     /** @type { !gfx_mojom_HDRMetadata } */

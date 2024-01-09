@@ -111,14 +111,14 @@ class  NetworkingPrivateAsyncWaiter {
       const std::string& guid, const std::string& network_id, std::string* out_error_or_empty);
   std::string SelectCellularMobileNetwork(const std::string& guid, const std::string& network_id);
   void GetEnabledNetworkTypes(
-      absl::optional<::base::Value::List>* out_network_types);
-  absl::optional<::base::Value::List> GetEnabledNetworkTypes();
+      std::optional<::base::Value::List>* out_network_types);
+  std::optional<::base::Value::List> GetEnabledNetworkTypes();
   void GetDeviceStateList(
-      absl::optional<std::vector<absl::optional<::base::Value::Dict>>>* out_device_list);
-  absl::optional<std::vector<absl::optional<::base::Value::Dict>>> GetDeviceStateList();
+      std::optional<std::vector<std::optional<::base::Value::Dict>>>* out_device_list);
+  std::optional<std::vector<std::optional<::base::Value::Dict>>> GetDeviceStateList();
   void GetGlobalPolicy(
-      absl::optional<::base::Value::Dict>* out_policies);
-  absl::optional<::base::Value::Dict> GetGlobalPolicy();
+      std::optional<::base::Value::Dict>* out_policies);
+  std::optional<::base::Value::Dict> GetGlobalPolicy();
   void GetCertificateLists(
       ::base::Value::Dict* out_certificates);
   ::base::Value::Dict GetCertificateLists();

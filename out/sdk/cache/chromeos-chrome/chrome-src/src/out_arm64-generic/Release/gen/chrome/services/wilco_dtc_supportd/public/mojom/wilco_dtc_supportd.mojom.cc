@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -133,14 +134,17 @@ void WilcoDtcSupportdServiceFactoryProxy::GetService(
                         "<value of type ::mojo::PendingRemote<WilcoDtcSupportdClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdServiceFactory_GetService_Name, kFlags, 0, 0, nullptr);
@@ -251,7 +255,8 @@ void WilcoDtcSupportdServiceFactory_GetService_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdServiceFactory_GetService_Name, kFlags, 0, 0, nullptr);
@@ -338,10 +343,10 @@ std::move(p_client), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWilcoDtcSupportdServiceFactoryValidationInfo[] = {
-    {&internal::WilcoDtcSupportdServiceFactory_GetService_Params_Data::Validate,
+    { &internal::WilcoDtcSupportdServiceFactory_GetService_Params_Data::Validate,
      &internal::WilcoDtcSupportdServiceFactory_GetService_ResponseParams_Data::Validate},
 };
 
@@ -461,14 +466,17 @@ void WilcoDtcSupportdServiceProxy::SendUiMessageToWilcoDtc(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdService_SendUiMessageToWilcoDtc_Name, kFlags, 0, 0, nullptr);
@@ -498,14 +506,17 @@ void WilcoDtcSupportdServiceProxy::NotifyConfigurationDataChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdService::NotifyConfigurationDataChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdService_NotifyConfigurationDataChanged_Name, kFlags, 0, 0, nullptr);
@@ -614,7 +625,8 @@ void WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdService_SendUiMessageToWilcoDtc_Name, kFlags, 0, 0, nullptr);
@@ -720,12 +732,12 @@ std::move(p_json_message), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWilcoDtcSupportdServiceValidationInfo[] = {
-    {&internal::WilcoDtcSupportdService_SendUiMessageToWilcoDtc_Params_Data::Validate,
+    { &internal::WilcoDtcSupportdService_SendUiMessageToWilcoDtc_Params_Data::Validate,
      &internal::WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ResponseParams_Data::Validate},
-    {&internal::WilcoDtcSupportdService_NotifyConfigurationDataChanged_Params_Data::Validate,
+    { &internal::WilcoDtcSupportdService_NotifyConfigurationDataChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -966,14 +978,17 @@ void WilcoDtcSupportdClientProxy::PerformWebRequest(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdClient_PerformWebRequest_Name, kFlags, 0, 0, nullptr);
@@ -1027,14 +1042,17 @@ void WilcoDtcSupportdClientProxy::SendWilcoDtcMessageToUi(
                         "<value of type ::mojo::ScopedHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdClient_SendWilcoDtcMessageToUi_Name, kFlags, 0, 0, nullptr);
@@ -1064,14 +1082,17 @@ void WilcoDtcSupportdClientProxy::GetConfigurationData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetConfigurationData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdClient_GetConfigurationData_Name, kFlags, 0, 0, nullptr);
@@ -1102,14 +1123,17 @@ void WilcoDtcSupportdClientProxy::HandleEvent(
                         "<value of type WilcoDtcSupportdEvent>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdClient_HandleEvent_Name, kFlags, 0, 0, nullptr);
@@ -1141,14 +1165,17 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
                         "<value of type ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_Name, kFlags, 0, 0, nullptr);
@@ -1184,14 +1211,17 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdProbeService(
                         "<value of type ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdClient_GetCrosHealthdProbeService_Name, kFlags, 0, 0, nullptr);
@@ -1320,7 +1350,8 @@ void WilcoDtcSupportdClient_PerformWebRequest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdClient_PerformWebRequest_Name, kFlags, 0, 0, nullptr);
@@ -1442,7 +1473,8 @@ void WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdClient_SendWilcoDtcMessageToUi_Name, kFlags, 0, 0, nullptr);
@@ -1561,7 +1593,8 @@ void WilcoDtcSupportdClient_GetConfigurationData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoDtcSupportdClient_GetConfigurationData_Name, kFlags, 0, 0, nullptr);
@@ -1814,20 +1847,20 @@ std::move(p_json_message), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWilcoDtcSupportdClientValidationInfo[] = {
-    {&internal::WilcoDtcSupportdClient_PerformWebRequest_Params_Data::Validate,
+    { &internal::WilcoDtcSupportdClient_PerformWebRequest_Params_Data::Validate,
      &internal::WilcoDtcSupportdClient_PerformWebRequest_ResponseParams_Data::Validate},
-    {&internal::WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_Params_Data::Validate,
+    { &internal::WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_Params_Data::Validate,
      &internal::WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ResponseParams_Data::Validate},
-    {&internal::WilcoDtcSupportdClient_GetConfigurationData_Params_Data::Validate,
+    { &internal::WilcoDtcSupportdClient_GetConfigurationData_Params_Data::Validate,
      &internal::WilcoDtcSupportdClient_GetConfigurationData_ResponseParams_Data::Validate},
-    {&internal::WilcoDtcSupportdClient_HandleEvent_Params_Data::Validate,
+    { &internal::WilcoDtcSupportdClient_HandleEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_Params_Data::Validate,
+    { &internal::WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WilcoDtcSupportdClient_GetCrosHealthdProbeService_Params_Data::Validate,
+    { &internal::WilcoDtcSupportdClient_GetCrosHealthdProbeService_Params_Data::Validate,
      nullptr /* no response */},
 };
 

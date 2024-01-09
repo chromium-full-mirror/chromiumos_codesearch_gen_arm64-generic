@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -137,14 +138,17 @@ void TrayActionProxy::SetClient(
                         "<value of type TrayActionState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrayAction_SetClient_Name, kFlags, 0, 0, nullptr);
@@ -182,14 +186,17 @@ void TrayActionProxy::UpdateLockScreenNoteState(
                         "<value of type TrayActionState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrayAction_UpdateLockScreenNoteState_Name, kFlags, 0, 0, nullptr);
@@ -294,12 +301,12 @@ bool TrayActionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTrayActionValidationInfo[] = {
-    {&internal::TrayAction_SetClient_Params_Data::Validate,
+    { &internal::TrayAction_SetClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TrayAction_UpdateLockScreenNoteState_Params_Data::Validate,
+    { &internal::TrayAction_UpdateLockScreenNoteState_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -399,14 +406,17 @@ void TrayActionClientProxy::RequestNewLockScreenNote(
                         "<value of type LockScreenNoteOrigin>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrayActionClient_RequestNewLockScreenNote_Name, kFlags, 0, 0, nullptr);
@@ -438,14 +448,17 @@ void TrayActionClientProxy::CloseLockScreenNote(
                         "<value of type CloseLockScreenNoteReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrayActionClient_CloseLockScreenNote_Name, kFlags, 0, 0, nullptr);
@@ -544,12 +557,12 @@ bool TrayActionClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTrayActionClientValidationInfo[] = {
-    {&internal::TrayActionClient_RequestNewLockScreenNote_Params_Data::Validate,
+    { &internal::TrayActionClient_RequestNewLockScreenNote_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TrayActionClient_CloseLockScreenNote_Params_Data::Validate,
+    { &internal::TrayActionClient_CloseLockScreenNote_Params_Data::Validate,
      nullptr /* no response */},
 };
 

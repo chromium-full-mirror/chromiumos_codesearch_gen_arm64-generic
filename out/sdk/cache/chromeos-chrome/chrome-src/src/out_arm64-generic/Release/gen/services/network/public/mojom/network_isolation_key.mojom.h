@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/network_isolation_key.mojom-features.h"
 #include "services/network/public/mojom/network_isolation_key.mojom-shared.h"
 #include "services/network/public/mojom/network_isolation_key.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -200,17 +201,17 @@ class  NetworkIsolationKey {
   // Construct an instance holding |empty|.
   static NetworkIsolationKeyPtr
   NewEmpty(
-      EmptyNetworkIsolationKeyPtr empty) {
+      EmptyNetworkIsolationKeyPtr value) {
     auto result = NetworkIsolationKeyPtr(absl::in_place);
-    result->set_empty(std::move(empty));
+    result->set_empty(std::move(value));
     return result;
   }
   // Construct an instance holding |non_empty|.
   static NetworkIsolationKeyPtr
   NewNonEmpty(
-      NonEmptyNetworkIsolationKeyPtr non_empty) {
+      NonEmptyNetworkIsolationKeyPtr value) {
     auto result = NetworkIsolationKeyPtr(absl::in_place);
-    result->set_non_empty(std::move(non_empty));
+    result->set_non_empty(std::move(value));
     return result;
   }
 
@@ -343,7 +344,7 @@ class  NonEmptyNetworkIsolationKey {
   NonEmptyNetworkIsolationKey(
       const ::net::SchemefulSite& top_frame_site,
       const ::net::SchemefulSite& frame_site,
-      const absl::optional<::base::UnguessableToken>& nonce);
+      const std::optional<::base::UnguessableToken>& nonce);
 
 
   ~NonEmptyNetworkIsolationKey();
@@ -425,7 +426,7 @@ class  NonEmptyNetworkIsolationKey {
   
   ::net::SchemefulSite frame_site;
   
-  absl::optional<::base::UnguessableToken> nonce;
+  std::optional<::base::UnguessableToken> nonce;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

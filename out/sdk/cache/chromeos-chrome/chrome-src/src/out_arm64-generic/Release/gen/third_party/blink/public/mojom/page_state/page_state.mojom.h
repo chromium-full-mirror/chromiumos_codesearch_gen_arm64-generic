@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/page_state/page_state.mojom-features.h"
 #include "third_party/blink/public/mojom/page_state/page_state.mojom-shared.h"
 #include "third_party/blink/public/mojom/page_state/page_state.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -73,33 +74,33 @@ class BLINK_COMMON_EXPORT Element {
   // Construct an instance holding |blob_uuid|.
   static ElementPtr
   NewBlobUuid(
-      const std::string& blob_uuid) {
+      const std::string& value) {
     auto result = ElementPtr(absl::in_place);
-    result->set_blob_uuid(std::move(blob_uuid));
+    result->set_blob_uuid(std::move(value));
     return result;
   }
   // Construct an instance holding |bytes|.
   static ElementPtr
   NewBytes(
-      std::vector<uint8_t> bytes) {
+      std::vector<uint8_t> value) {
     auto result = ElementPtr(absl::in_place);
-    result->set_bytes(std::move(bytes));
+    result->set_bytes(std::move(value));
     return result;
   }
   // Construct an instance holding |file|.
   static ElementPtr
   NewFile(
-      FilePtr file) {
+      FilePtr value) {
     auto result = ElementPtr(absl::in_place);
-    result->set_file(std::move(file));
+    result->set_file(std::move(value));
     return result;
   }
   // Construct an instance holding |DEPRECATED_file_system_file|.
   static ElementPtr
   NewDeprecatedFileSystemFile(
-      DEPRECATED_FileSystemFilePtr DEPRECATED_file_system_file) {
+      DEPRECATED_FileSystemFilePtr value) {
     auto result = ElementPtr(absl::in_place);
-    result->set_DEPRECATED_file_system_file(std::move(DEPRECATED_file_system_file));
+    result->set_DEPRECATED_file_system_file(std::move(value));
     return result;
   }
 
@@ -701,7 +702,7 @@ class BLINK_COMMON_EXPORT HttpBody {
   HttpBody();
 
   HttpBody(
-      const absl::optional<::std::u16string>& http_content_type,
+      const std::optional<::std::u16string>& http_content_type,
       RequestBodyPtr request_body,
       bool contains_passwords);
 
@@ -783,7 +784,7 @@ HttpBody& operator=(const HttpBody&) = delete;
   }
 
   
-  absl::optional<::std::u16string> http_content_type;
+  std::optional<::std::u16string> http_content_type;
   
   RequestBodyPtr request_body;
   
@@ -857,8 +858,8 @@ class BLINK_COMMON_EXPORT ViewState {
       const ::gfx::PointF& visual_viewport_scroll_offset,
       const ::gfx::Point& scroll_offset,
       double page_scale_factor,
-      const absl::optional<::std::u16string>& scroll_anchor_selector,
-      const absl::optional<::gfx::PointF>& scroll_anchor_offset,
+      const std::optional<::std::u16string>& scroll_anchor_selector,
+      const std::optional<::gfx::PointF>& scroll_anchor_offset,
       uint64_t scroll_anchor_simhash);
 
 
@@ -943,9 +944,9 @@ class BLINK_COMMON_EXPORT ViewState {
   
   double page_scale_factor;
   
-  absl::optional<::std::u16string> scroll_anchor_selector;
+  std::optional<::std::u16string> scroll_anchor_selector;
   
-  absl::optional<::gfx::PointF> scroll_anchor_offset;
+  std::optional<::gfx::PointF> scroll_anchor_offset;
   
   uint64_t scroll_anchor_simhash;
 
@@ -1009,11 +1010,11 @@ class BLINK_COMMON_EXPORT FrameState {
   FrameState();
 
   FrameState(
-      const absl::optional<::std::u16string>& url_string,
-      const absl::optional<::std::u16string>& referrer,
-      const absl::optional<::std::u16string>& target,
-      const absl::optional<::std::u16string>& state_object,
-      std::vector<absl::optional<::std::u16string>> document_state,
+      const std::optional<::std::u16string>& url_string,
+      const std::optional<::std::u16string>& referrer,
+      const std::optional<::std::u16string>& target,
+      const std::optional<::std::u16string>& state_object,
+      std::vector<std::optional<::std::u16string>> document_state,
       ScrollRestorationType scroll_restoration_type,
       ViewStatePtr view_state,
       int64_t item_sequence_number,
@@ -1023,11 +1024,11 @@ class BLINK_COMMON_EXPORT FrameState {
       std::vector<FrameStatePtr> children);
 
   FrameState(
-      const absl::optional<::std::u16string>& url_string,
-      const absl::optional<::std::u16string>& referrer,
-      const absl::optional<::std::u16string>& target,
-      const absl::optional<::std::u16string>& state_object,
-      std::vector<absl::optional<::std::u16string>> document_state,
+      const std::optional<::std::u16string>& url_string,
+      const std::optional<::std::u16string>& referrer,
+      const std::optional<::std::u16string>& target,
+      const std::optional<::std::u16string>& state_object,
+      std::vector<std::optional<::std::u16string>> document_state,
       ScrollRestorationType scroll_restoration_type,
       ViewStatePtr view_state,
       int64_t item_sequence_number,
@@ -1035,14 +1036,14 @@ class BLINK_COMMON_EXPORT FrameState {
       ::network::mojom::ReferrerPolicy referrer_policy,
       HttpBodyPtr http_body,
       std::vector<FrameStatePtr> children,
-      const absl::optional<std::string>& initiator_origin);
+      const std::optional<std::string>& initiator_origin);
 
   FrameState(
-      const absl::optional<::std::u16string>& url_string,
-      const absl::optional<::std::u16string>& referrer,
-      const absl::optional<::std::u16string>& target,
-      const absl::optional<::std::u16string>& state_object,
-      std::vector<absl::optional<::std::u16string>> document_state,
+      const std::optional<::std::u16string>& url_string,
+      const std::optional<::std::u16string>& referrer,
+      const std::optional<::std::u16string>& target,
+      const std::optional<::std::u16string>& state_object,
+      std::vector<std::optional<::std::u16string>> document_state,
       ScrollRestorationType scroll_restoration_type,
       ViewStatePtr view_state,
       int64_t item_sequence_number,
@@ -1050,16 +1051,16 @@ class BLINK_COMMON_EXPORT FrameState {
       ::network::mojom::ReferrerPolicy referrer_policy,
       HttpBodyPtr http_body,
       std::vector<FrameStatePtr> children,
-      const absl::optional<std::string>& initiator_origin,
-      const absl::optional<::std::u16string>& navigation_api_key,
-      const absl::optional<::std::u16string>& navigation_api_id);
+      const std::optional<std::string>& initiator_origin,
+      const std::optional<::std::u16string>& navigation_api_key,
+      const std::optional<::std::u16string>& navigation_api_id);
 
   FrameState(
-      const absl::optional<::std::u16string>& url_string,
-      const absl::optional<::std::u16string>& referrer,
-      const absl::optional<::std::u16string>& target,
-      const absl::optional<::std::u16string>& state_object,
-      std::vector<absl::optional<::std::u16string>> document_state,
+      const std::optional<::std::u16string>& url_string,
+      const std::optional<::std::u16string>& referrer,
+      const std::optional<::std::u16string>& target,
+      const std::optional<::std::u16string>& state_object,
+      std::vector<std::optional<::std::u16string>> document_state,
       ScrollRestorationType scroll_restoration_type,
       ViewStatePtr view_state,
       int64_t item_sequence_number,
@@ -1067,17 +1068,17 @@ class BLINK_COMMON_EXPORT FrameState {
       ::network::mojom::ReferrerPolicy referrer_policy,
       HttpBodyPtr http_body,
       std::vector<FrameStatePtr> children,
-      const absl::optional<std::string>& initiator_origin,
-      const absl::optional<::std::u16string>& navigation_api_key,
-      const absl::optional<::std::u16string>& navigation_api_id,
-      const absl::optional<::std::u16string>& navigation_api_state);
+      const std::optional<std::string>& initiator_origin,
+      const std::optional<::std::u16string>& navigation_api_key,
+      const std::optional<::std::u16string>& navigation_api_id,
+      const std::optional<::std::u16string>& navigation_api_state);
 
   FrameState(
-      const absl::optional<::std::u16string>& url_string,
-      const absl::optional<::std::u16string>& referrer,
-      const absl::optional<::std::u16string>& target,
-      const absl::optional<::std::u16string>& state_object,
-      std::vector<absl::optional<::std::u16string>> document_state,
+      const std::optional<::std::u16string>& url_string,
+      const std::optional<::std::u16string>& referrer,
+      const std::optional<::std::u16string>& target,
+      const std::optional<::std::u16string>& state_object,
+      std::vector<std::optional<::std::u16string>> document_state,
       ScrollRestorationType scroll_restoration_type,
       ViewStatePtr view_state,
       int64_t item_sequence_number,
@@ -1085,18 +1086,18 @@ class BLINK_COMMON_EXPORT FrameState {
       ::network::mojom::ReferrerPolicy referrer_policy,
       HttpBodyPtr http_body,
       std::vector<FrameStatePtr> children,
-      const absl::optional<std::string>& initiator_origin,
-      const absl::optional<::std::u16string>& navigation_api_key,
-      const absl::optional<::std::u16string>& navigation_api_id,
-      const absl::optional<::std::u16string>& navigation_api_state,
+      const std::optional<std::string>& initiator_origin,
+      const std::optional<::std::u16string>& navigation_api_key,
+      const std::optional<::std::u16string>& navigation_api_id,
+      const std::optional<::std::u16string>& navigation_api_state,
       bool protect_url_in_navigation_api);
 
   FrameState(
-      const absl::optional<::std::u16string>& url_string,
-      const absl::optional<::std::u16string>& referrer,
-      const absl::optional<::std::u16string>& target,
-      const absl::optional<::std::u16string>& state_object,
-      std::vector<absl::optional<::std::u16string>> document_state,
+      const std::optional<::std::u16string>& url_string,
+      const std::optional<::std::u16string>& referrer,
+      const std::optional<::std::u16string>& target,
+      const std::optional<::std::u16string>& state_object,
+      std::vector<std::optional<::std::u16string>> document_state,
       ScrollRestorationType scroll_restoration_type,
       ViewStatePtr view_state,
       int64_t item_sequence_number,
@@ -1104,12 +1105,12 @@ class BLINK_COMMON_EXPORT FrameState {
       ::network::mojom::ReferrerPolicy referrer_policy,
       HttpBodyPtr http_body,
       std::vector<FrameStatePtr> children,
-      const absl::optional<std::string>& initiator_origin,
-      const absl::optional<::std::u16string>& navigation_api_key,
-      const absl::optional<::std::u16string>& navigation_api_id,
-      const absl::optional<::std::u16string>& navigation_api_state,
+      const std::optional<std::string>& initiator_origin,
+      const std::optional<::std::u16string>& navigation_api_key,
+      const std::optional<::std::u16string>& navigation_api_id,
+      const std::optional<::std::u16string>& navigation_api_state,
       bool protect_url_in_navigation_api,
-      const absl::optional<::std::u16string>& initiator_base_url_string);
+      const std::optional<::std::u16string>& initiator_base_url_string);
 
 FrameState(const FrameState&) = delete;
 FrameState& operator=(const FrameState&) = delete;
@@ -1189,15 +1190,15 @@ FrameState& operator=(const FrameState&) = delete;
   }
 
   
-  absl::optional<::std::u16string> url_string;
+  std::optional<::std::u16string> url_string;
   
-  absl::optional<::std::u16string> referrer;
+  std::optional<::std::u16string> referrer;
   
-  absl::optional<::std::u16string> target;
+  std::optional<::std::u16string> target;
   
-  absl::optional<::std::u16string> state_object;
+  std::optional<::std::u16string> state_object;
   
-  std::vector<absl::optional<::std::u16string>> document_state;
+  std::vector<std::optional<::std::u16string>> document_state;
   
   ScrollRestorationType scroll_restoration_type;
   
@@ -1213,17 +1214,17 @@ FrameState& operator=(const FrameState&) = delete;
   
   std::vector<FrameStatePtr> children;
   
-  absl::optional<std::string> initiator_origin;
+  std::optional<std::string> initiator_origin;
   
-  absl::optional<::std::u16string> navigation_api_key;
+  std::optional<::std::u16string> navigation_api_key;
   
-  absl::optional<::std::u16string> navigation_api_id;
+  std::optional<::std::u16string> navigation_api_id;
   
-  absl::optional<::std::u16string> navigation_api_state;
+  std::optional<::std::u16string> navigation_api_state;
   
   bool protect_url_in_navigation_api;
   
-  absl::optional<::std::u16string> initiator_base_url_string;
+  std::optional<::std::u16string> initiator_base_url_string;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1285,7 +1286,7 @@ class BLINK_COMMON_EXPORT PageState {
   PageState();
 
   PageState(
-      std::vector<absl::optional<::std::u16string>> referenced_files,
+      std::vector<std::optional<::std::u16string>> referenced_files,
       FrameStatePtr top);
 
 PageState(const PageState&) = delete;
@@ -1366,7 +1367,7 @@ PageState& operator=(const PageState&) = delete;
   }
 
   
-  std::vector<absl::optional<::std::u16string>> referenced_files;
+  std::vector<std::optional<::std::u16string>> referenced_files;
   
   FrameStatePtr top;
 

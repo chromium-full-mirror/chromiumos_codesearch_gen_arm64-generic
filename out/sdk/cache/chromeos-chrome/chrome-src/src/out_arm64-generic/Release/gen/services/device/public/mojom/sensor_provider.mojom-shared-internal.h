@@ -27,8 +27,6 @@ class ValidationContext;
 namespace device::mojom {
 namespace internal {
 class SensorInitParams_Data;
-class NullableDouble_Data;
-class NullableReportingMode_Data;
 class VirtualSensorMetadata_Data;
 class VirtualSensorInformation_Data;
 class GetVirtualSensorInformationResult_Data;
@@ -237,103 +235,6 @@ struct SensorInitParams_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SensorInitParams_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  NullableDouble_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  double value;
-
- private:
-  friend class mojo::internal::MessageFragment<NullableDouble_Data>;
-
-  NullableDouble_Data();
-  ~NullableDouble_Data() = delete;
-};
-static_assert(sizeof(NullableDouble_Data) == 16,
-              "Bad sizeof(NullableDouble_Data)");
-// Used by NullableDouble::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct NullableDouble_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  NullableDouble_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~NullableDouble_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<NullableDouble_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    NullableDouble_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  NullableReportingMode_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t value;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<NullableReportingMode_Data>;
-
-  NullableReportingMode_Data();
-  ~NullableReportingMode_Data() = delete;
-};
-static_assert(sizeof(NullableReportingMode_Data) == 16,
-              "Bad sizeof(NullableReportingMode_Data)");
-// Used by NullableReportingMode::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct NullableReportingMode_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  NullableReportingMode_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~NullableReportingMode_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<NullableReportingMode_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    NullableReportingMode_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  VirtualSensorMetadata_Data {
  public:
   static bool Validate(const void* data,
@@ -341,10 +242,13 @@ class  VirtualSensorMetadata_Data {
 
   mojo::internal::StructHeader header_;
   uint8_t available : 1;
-  uint8_t pad0_[7];
-  mojo::internal::Pointer<internal::NullableDouble_Data> maximum_frequency;
-  mojo::internal::Pointer<internal::NullableDouble_Data> minimum_frequency;
-  mojo::internal::Pointer<internal::NullableReportingMode_Data> reporting_mode;
+  uint8_t maximum_frequency_$flag : 1;
+  uint8_t minimum_frequency_$flag : 1;
+  uint8_t reporting_mode_$flag : 1;
+  uint8_t pad3_[3];
+  int32_t reporting_mode_$value;
+  double maximum_frequency_$value;
+  double minimum_frequency_$value;
 
  private:
   friend class mojo::internal::MessageFragment<VirtualSensorMetadata_Data>;
@@ -352,7 +256,7 @@ class  VirtualSensorMetadata_Data {
   VirtualSensorMetadata_Data();
   ~VirtualSensorMetadata_Data() = delete;
 };
-static_assert(sizeof(VirtualSensorMetadata_Data) == 40,
+static_assert(sizeof(VirtualSensorMetadata_Data) == 32,
               "Bad sizeof(VirtualSensorMetadata_Data)");
 // Used by VirtualSensorMetadata::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

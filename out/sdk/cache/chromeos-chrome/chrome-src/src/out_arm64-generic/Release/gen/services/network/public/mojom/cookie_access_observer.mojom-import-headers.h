@@ -6,11 +6,15 @@
 
 #ifndef SERVICES_NETWORK_PUBLIC_MOJOM_COOKIE_ACCESS_OBSERVER_MOJOM_IMPORT_HEADERS_H_
 #define SERVICES_NETWORK_PUBLIC_MOJOM_COOKIE_ACCESS_OBSERVER_MOJOM_IMPORT_HEADERS_H_
+#include "url/mojom/origin.mojom.h"
+#include "url/mojom/origin.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"
 #include "url/mojom/url.mojom-import-headers.h"
 #include "services/network/public/mojom/site_for_cookies.mojom.h"
 #include "services/network/public/mojom/site_for_cookies.mojom-import-headers.h"
 #include "services/network/public/mojom/cookie_manager.mojom.h"
 #include "services/network/public/mojom/cookie_manager.mojom-import-headers.h"
+#include "services/network/public/mojom/cookie_setting_overrides.mojom.h"
+#include "services/network/public/mojom/cookie_setting_overrides.mojom-import-headers.h"
 
 #endif  // SERVICES_NETWORK_PUBLIC_MOJOM_COOKIE_ACCESS_OBSERVER_MOJOM_IMPORT_HEADERS_H_

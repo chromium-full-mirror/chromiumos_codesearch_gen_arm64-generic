@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/network_service.mojom-features.h"
 #include "services/network/public/mojom/network_service.mojom-shared.h"
 #include "services/network/public/mojom/network_service.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/byte_string.mojom-blink.h"
@@ -43,6 +44,7 @@
 #include "services/network/public/mojom/network_context.mojom-blink-forward.h"
 #include "services/network/public/mojom/ip_address_space.mojom-blink-forward.h"
 #include "services/network/public/mojom/network_interface.mojom-blink.h"
+#include "services/network/public/mojom/proxy_config.mojom-blink-forward.h"
 #include "services/network/public/mojom/network_interface_change_listener.mojom-blink-forward.h"
 #include "services/network/public/mojom/network_param.mojom-blink-forward.h"
 #include "services/network/public/mojom/network_quality_estimator_manager.mojom-blink-forward.h"
@@ -54,6 +56,7 @@
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom-blink-forward.h"
 #include "services/network/public/mojom/url_response_head.mojom-blink-forward.h"
 #include "services/network/public/mojom/client_security_state.mojom-blink-forward.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom-blink-forward.h"
 #include "url/mojom/origin.mojom-blink.h"
 #include "url/mojom/url.mojom-blink.h"
 #include "services/network/public/mojom/ct_log_info.mojom-blink-forward.h"
@@ -125,7 +128,6 @@ class BLINK_PLATFORM_EXPORT NetworkService
     kSetEncryptionKeyMinVersion = 0,
     kOnMemoryPressureMinVersion = 0,
     kOnPeerToPeerConnectionsCountChangeMinVersion = 0,
-    kSetEnvironmentMinVersion = 0,
     kSetTrustTokenKeyCommitmentsMinVersion = 0,
     kClearSCTAuditingCacheMinVersion = 0,
     kConfigureSCTAuditingMinVersion = 0,
@@ -140,6 +142,7 @@ class BLINK_PLATFORM_EXPORT NetworkService
     kParseHeadersMinVersion = 0,
     kEnableDataUseUpdatesMinVersion = 0,
     kSetIPv6ReachabilityOverrideMinVersion = 0,
+    kSetCookieEncryptionProviderMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -205,9 +208,6 @@ class BLINK_PLATFORM_EXPORT NetworkService
   struct OnPeerToPeerConnectionsCountChange_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetEnvironment_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct SetTrustTokenKeyCommitments_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -248,6 +248,9 @@ class BLINK_PLATFORM_EXPORT NetworkService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetIPv6ReachabilityOverride_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetCookieEncryptionProvider_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -296,7 +299,7 @@ class BLINK_PLATFORM_EXPORT NetworkService
   virtual void GetDnsConfigChangeManager(::mojo::PendingReceiver<::network::mojom::blink::DnsConfigChangeManager> receiver) = 0;
 
 
-  using GetNetworkListCallback = base::OnceCallback<void(const absl::optional<WTF::Vector<::net::NetworkInterface>>&)>;
+  using GetNetworkListCallback = base::OnceCallback<void(const std::optional<WTF::Vector<::net::NetworkInterface>>&)>;
   
   virtual void GetNetworkList(uint32_t policy, GetNetworkListCallback callback) = 0;
 
@@ -315,9 +318,6 @@ class BLINK_PLATFORM_EXPORT NetworkService
   
   virtual void OnPeerToPeerConnectionsCountChange(uint32_t count) = 0;
 
-  
-  virtual void SetEnvironment(WTF::Vector<EnvironmentVariablePtr> environment) = 0;
-
 
   using SetTrustTokenKeyCommitmentsCallback = base::OnceCallback<void()>;
   
@@ -332,7 +332,7 @@ class BLINK_PLATFORM_EXPORT NetworkService
 
   using UpdateCtLogListCallback = base::OnceCallback<void()>;
   
-  virtual void UpdateCtLogList(WTF::Vector<::network::mojom::blink::CTLogInfoPtr> log_list, ::base::Time update_time, UpdateCtLogListCallback callback) = 0;
+  virtual void UpdateCtLogList(WTF::Vector<::network::mojom::blink::CTLogInfoPtr> log_list, UpdateCtLogListCallback callback) = 0;
 
 
   using UpdateCtKnownPopularSCTsCallback = base::OnceCallback<void()>;
@@ -369,6 +369,9 @@ class BLINK_PLATFORM_EXPORT NetworkService
 
   
   virtual void SetIPv6ReachabilityOverride(bool reachability_override) = 0;
+
+  
+  virtual void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::blink::CookieEncryptionProvider> provider) = 0;
 };
 
 
@@ -420,15 +423,13 @@ class BLINK_PLATFORM_EXPORT NetworkServiceProxy
   
   void OnPeerToPeerConnectionsCountChange(uint32_t count) final;
   
-  void SetEnvironment(WTF::Vector<EnvironmentVariablePtr> environment) final;
-  
   void SetTrustTokenKeyCommitments(const WTF::String& raw_commitments, SetTrustTokenKeyCommitmentsCallback callback) final;
   
   void ClearSCTAuditingCache() final;
   
   void ConfigureSCTAuditing(SCTAuditingConfigurationPtr configuration) final;
   
-  void UpdateCtLogList(WTF::Vector<::network::mojom::blink::CTLogInfoPtr> log_list, ::base::Time update_time, UpdateCtLogListCallback callback) final;
+  void UpdateCtLogList(WTF::Vector<::network::mojom::blink::CTLogInfoPtr> log_list, UpdateCtLogListCallback callback) final;
   
   void UpdateCtKnownPopularSCTs(const WTF::Vector<WTF::Vector<uint8_t>>& sct_hashes, UpdateCtKnownPopularSCTsCallback callback) final;
   
@@ -449,6 +450,8 @@ class BLINK_PLATFORM_EXPORT NetworkServiceProxy
   void EnableDataUseUpdates(bool enable) final;
   
   void SetIPv6ReachabilityOverride(bool reachability_override) final;
+  
+  void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::blink::CookieEncryptionProvider> provider) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -825,7 +828,7 @@ class BLINK_PLATFORM_EXPORT HttpAuthDynamicParams {
   HttpAuthDynamicParams();
 
   HttpAuthDynamicParams(
-      absl::optional<WTF::Vector<WTF::String>> allowed_schemes,
+      std::optional<WTF::Vector<WTF::String>> allowed_schemes,
       WTF::Vector<WTF::String> patterns_allowed_to_use_all_schemes,
       const WTF::String& server_allowlist,
       const WTF::String& delegate_allowlist,
@@ -913,7 +916,7 @@ class BLINK_PLATFORM_EXPORT HttpAuthDynamicParams {
   }
 
   
-  absl::optional<WTF::Vector<WTF::String>> allowed_schemes;
+  std::optional<WTF::Vector<WTF::String>> allowed_schemes;
   
   WTF::Vector<WTF::String> patterns_allowed_to_use_all_schemes;
   
@@ -1001,7 +1004,8 @@ class BLINK_PLATFORM_EXPORT NetworkServiceParams {
       WTF::Vector<EnvironmentVariablePtr> environment,
       ::mojo::PendingRemote<::network::mojom::blink::URLLoaderNetworkServiceObserver> default_observer,
       bool first_party_sets_enabled,
-      ::mojo::PendingRemote<::network::mojom::blink::SystemDnsResolver> system_dns_resolver);
+      ::mojo::PendingRemote<::network::mojom::blink::SystemDnsResolver> system_dns_resolver,
+      ::network::mojom::blink::IpProtectionProxyBypassPolicy ip_protection_proxy_bypass_policy);
 
 NetworkServiceParams(const NetworkServiceParams&) = delete;
 NetworkServiceParams& operator=(const NetworkServiceParams&) = delete;
@@ -1087,6 +1091,8 @@ NetworkServiceParams& operator=(const NetworkServiceParams&) = delete;
   bool first_party_sets_enabled;
   
   ::mojo::PendingRemote<::network::mojom::blink::SystemDnsResolver> system_dns_resolver;
+  
+  ::network::mojom::blink::IpProtectionProxyBypassPolicy ip_protection_proxy_bypass_policy;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1426,7 +1432,8 @@ NetworkServiceParamsPtr NetworkServiceParams::Clone() const {
       mojo::Clone(environment),
       mojo::Clone(default_observer),
       mojo::Clone(first_party_sets_enabled),
-      mojo::Clone(system_dns_resolver)
+      mojo::Clone(system_dns_resolver),
+      mojo::Clone(ip_protection_proxy_bypass_policy)
   );
 }
 
@@ -1443,6 +1450,8 @@ bool NetworkServiceParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->first_party_sets_enabled, other_struct.first_party_sets_enabled))
     return false;
   if (!mojo::Equals(this->system_dns_resolver, other_struct.system_dns_resolver))
+    return false;
+  if (!mojo::Equals(this->ip_protection_proxy_bypass_policy, other_struct.ip_protection_proxy_bypass_policy))
     return false;
   return true;
 }
@@ -1472,6 +1481,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.system_dns_resolver < rhs.system_dns_resolver)
     return true;
   if (rhs.system_dns_resolver < lhs.system_dns_resolver)
+    return false;
+  if (lhs.ip_protection_proxy_bypass_policy < rhs.ip_protection_proxy_bypass_policy)
+    return true;
+  if (rhs.ip_protection_proxy_bypass_policy < lhs.ip_protection_proxy_bypass_policy)
     return false;
   return false;
 }
@@ -1680,6 +1693,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::NetworkServic
   static  decltype(::network::mojom::blink::NetworkServiceParams::system_dns_resolver)& system_dns_resolver(
        ::network::mojom::blink::NetworkServiceParamsPtr& input) {
     return input->system_dns_resolver;
+  }
+
+  static decltype(::network::mojom::blink::NetworkServiceParams::ip_protection_proxy_bypass_policy) ip_protection_proxy_bypass_policy(
+      const ::network::mojom::blink::NetworkServiceParamsPtr& input) {
+    return input->ip_protection_proxy_bypass_policy;
   }
 
   static bool Read(::network::mojom::blink::NetworkServiceParams::DataView input, ::network::mojom::blink::NetworkServiceParamsPtr* output);

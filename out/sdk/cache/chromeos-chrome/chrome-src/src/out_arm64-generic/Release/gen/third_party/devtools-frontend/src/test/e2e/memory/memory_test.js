@@ -133,7 +133,8 @@ const memory_helpers_js_1 = require("../helpers/memory-helpers.js");
         // iframe window is not detached.
         await (0, memory_helpers_js_1.waitUntilRetainerChainSatisfies)(retainerChain => retainerChain.some(({ propertyName, retainerClassName }) => propertyName === 'aUniqueName' && retainerClassName === 'Window'));
     });
-    (0, mocha_extensions_js_1.it)('Correctly shows multiple retainer paths for an object', async () => {
+    // Flaky on win and linux
+    mocha_extensions_js_1.it.skip('[crbug.com/1363150] Correctly shows multiple retainer paths for an object', async () => {
         await (0, helper_js_1.goToResource)('memory/multiple-retainers.html');
         await (0, memory_helpers_js_1.navigateToMemoryTab)();
         await (0, memory_helpers_js_1.takeHeapSnapshot)();

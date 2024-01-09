@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "gpu/ipc/common/gpu_preferences.mojom-features.h"
 #include "gpu/ipc/common/gpu_preferences.mojom-shared.h"
 #include "gpu/ipc/common/gpu_preferences.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/message_pump_type.mojom-blink-forward.h"
@@ -38,66 +39,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gpu::mojom::VulkanImplementationName>
-    : EnumHashTraits<::gpu::mojom::VulkanImplementationName, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gpu::mojom::WebGPUAdapterName>
-    : EnumHashTraits<::gpu::mojom::WebGPUAdapterName, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gpu::mojom::WebGPUPowerPreference>
-    : EnumHashTraits<::gpu::mojom::WebGPUPowerPreference, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gpu::mojom::GrContextType>
-    : EnumHashTraits<::gpu::mojom::GrContextType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gpu::mojom::DawnBackendValidationLevel>
-    : EnumHashTraits<::gpu::mojom::DawnBackendValidationLevel, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace gpu::mojom::blink {
@@ -188,7 +129,6 @@ class  GpuPreferences {
       DawnBackendValidationLevel enable_dawn_backend_validation,
       WTF::Vector<WTF::String> enabled_dawn_features_list,
       WTF::Vector<WTF::String> disabled_dawn_features_list,
-      bool enable_gpu_blocked_time_metric,
       bool enable_perf_data_collection,
       ::mojo_base::mojom::blink::MessagePumpType message_pump_type,
       bool enable_native_gpu_memory_buffers,
@@ -375,8 +315,6 @@ class  GpuPreferences {
   
   WTF::Vector<WTF::String> disabled_dawn_features_list;
   
-  bool enable_gpu_blocked_time_metric;
-  
   bool enable_perf_data_collection;
   
   ::mojo_base::mojom::blink::MessagePumpType message_pump_type;
@@ -471,7 +409,6 @@ GpuPreferencesPtr GpuPreferences::Clone() const {
       mojo::Clone(enable_dawn_backend_validation),
       mojo::Clone(enabled_dawn_features_list),
       mojo::Clone(disabled_dawn_features_list),
-      mojo::Clone(enable_gpu_blocked_time_metric),
       mojo::Clone(enable_perf_data_collection),
       mojo::Clone(message_pump_type),
       mojo::Clone(enable_native_gpu_memory_buffers),
@@ -585,8 +522,6 @@ bool GpuPreferences::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->enabled_dawn_features_list, other_struct.enabled_dawn_features_list))
     return false;
   if (!mojo::Equals(this->disabled_dawn_features_list, other_struct.disabled_dawn_features_list))
-    return false;
-  if (!mojo::Equals(this->enable_gpu_blocked_time_metric, other_struct.enable_gpu_blocked_time_metric))
     return false;
   if (!mojo::Equals(this->enable_perf_data_collection, other_struct.enable_perf_data_collection))
     return false;
@@ -810,10 +745,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.disabled_dawn_features_list < rhs.disabled_dawn_features_list)
     return true;
   if (rhs.disabled_dawn_features_list < lhs.disabled_dawn_features_list)
-    return false;
-  if (lhs.enable_gpu_blocked_time_metric < rhs.enable_gpu_blocked_time_metric)
-    return true;
-  if (rhs.enable_gpu_blocked_time_metric < lhs.enable_gpu_blocked_time_metric)
     return false;
   if (lhs.enable_perf_data_collection < rhs.enable_perf_data_collection)
     return true;
@@ -1108,11 +1039,6 @@ struct  StructTraits<::gpu::mojom::blink::GpuPreferences::DataView,
   static const decltype(::gpu::mojom::blink::GpuPreferences::disabled_dawn_features_list)& disabled_dawn_features_list(
       const ::gpu::mojom::blink::GpuPreferencesPtr& input) {
     return input->disabled_dawn_features_list;
-  }
-
-  static decltype(::gpu::mojom::blink::GpuPreferences::enable_gpu_blocked_time_metric) enable_gpu_blocked_time_metric(
-      const ::gpu::mojom::blink::GpuPreferencesPtr& input) {
-    return input->enable_gpu_blocked_time_metric;
   }
 
   static decltype(::gpu::mojom::blink::GpuPreferences::enable_perf_data_collection) enable_perf_data_collection(

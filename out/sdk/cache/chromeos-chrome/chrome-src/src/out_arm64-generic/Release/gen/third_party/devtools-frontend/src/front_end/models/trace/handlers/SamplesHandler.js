@@ -44,7 +44,6 @@ function buildProfileCalls() {
                 finalizedData.profileCalls.push(profileCall);
                 indexStack.push(finalizedData.profileCalls.length - 1);
                 const traceEntryNode = Helpers.TreeHelpers.makeEmptyTraceEntryNode(profileCall, nodeId);
-                finalizedData.profileTree?.nodes.set(nodeId, traceEntryNode);
                 entryToNode.set(profileCall, traceEntryNode);
                 traceEntryNode.depth = depth;
                 if (indexStack.length === 1) {
@@ -74,8 +73,8 @@ function buildProfileCalls() {
                 if (!parentNode) {
                     return;
                 }
-                traceEntryNode.parentId = parentNode.id;
-                parentNode.children.add(traceEntryNode);
+                traceEntryNode.parent = parentNode;
+                parentNode.children.push(traceEntryNode);
             }
         }
     }

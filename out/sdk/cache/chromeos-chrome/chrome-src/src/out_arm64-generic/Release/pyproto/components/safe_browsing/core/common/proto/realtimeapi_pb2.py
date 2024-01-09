@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from components.safe_browsing.core.common.proto import csd_pb2 as components_dot_safe__browsing_dot_core_dot_common_dot_proto_dot_csd__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n<components/safe_browsing/core/common/proto/realtimeapi.proto\x12\rsafe_browsing\x1a\x34\x63omponents/safe_browsing/core/common/proto/csd.proto\"\xe9\x06\n\x0fRTLookupRequest\x12\x0b\n\x03url\x18\x01 \x01(\t\x12>\n\x0blookup_type\x18\x02 \x01(\x0e\x32).safe_browsing.RTLookupRequest.LookupType\x12\x37\n\npopulation\x18\x03 \x01(\x0b\x32#.safe_browsing.ChromeUserPopulation\x12)\n\x1d\x44\x45PRECATED_scoped_oauth_token\x18\x04 \x01(\tB\x02\x18\x01\x12\x10\n\x08\x64m_token\x18\x05 \x01(\t\x12\x12\n\x07version\x18\x06 \x01(\x05:\x01\x30\x12\x36\n\x07os_type\x18\x07 \x01(\x0e\x32%.safe_browsing.RTLookupRequest.OSType\x12\x39\n\x0ereferrer_chain\x18\x08 \x03(\x0b\x32!.safe_browsing.ReferrerChainEntry\x12>\n\x0breport_type\x18\t \x01(\x0e\x32).safe_browsing.RTLookupRequest.ReportType\x12<\n\nframe_type\x18\n \x01(\x0e\x32(.safe_browsing.RTLookupRequest.FrameType\"G\n\nLookupType\x12\x1b\n\x17LOOKUP_TYPE_UNSPECIFIED\x10\x00\x12\x0e\n\nNAVIGATION\x10\x01\x12\x0c\n\x08\x44OWNLOAD\x10\x02\"\xac\x01\n\x06OSType\x12\x17\n\x13OS_TYPE_UNSPECIFIED\x10\x00\x12\x13\n\x0fOS_TYPE_ANDROID\x10\x01\x12\x15\n\x11OS_TYPE_CHROME_OS\x10\x02\x12\x13\n\x0fOS_TYPE_FUCHSIA\x10\x03\x12\x0f\n\x0bOS_TYPE_IOS\x10\x04\x12\x11\n\rOS_TYPE_LINUX\x10\x05\x12\x0f\n\x0bOS_TYPE_MAC\x10\x06\x12\x13\n\x0fOS_TYPE_WINDOWS\x10\x07\"N\n\nReportType\x12\x1b\n\x17REPORT_TYPE_UNSPECIFIED\x10\x00\x12\x0f\n\x0b\x46ULL_REPORT\x10\x01\x12\x12\n\x0eSAMPLED_REPORT\x10\x02\"F\n\tFrameType\x12\x1a\n\x16\x46RAME_TYPE_UNSPECIFIED\x10\x00\x12\x0e\n\nMAIN_FRAME\x10\x01\x12\r\n\tSUB_FRAME\x10\x02\"\xbd\x07\n\x10RTLookupResponse\x12?\n\x0bthreat_info\x18\x01 \x03(\x0b\x32*.safe_browsing.RTLookupResponse.ThreatInfo\x12J\n\x1a\x63lient_side_detection_type\x18\x02 \x01(\x0e\x32&.safe_browsing.ClientSideDetectionType\x1a\x9b\x06\n\nThreatInfo\x12J\n\x0bthreat_type\x18\x01 \x01(\x0e\x32\x35.safe_browsing.RTLookupResponse.ThreatInfo.ThreatType\x12\x1a\n\x12\x63\x61\x63he_duration_sec\x18\x02 \x01(\x03\x12\x1c\n\x10\x63\x61\x63he_expression\x18\x03 \x01(\tB\x02\x18\x01\x12L\n\x0cverdict_type\x18\x04 \x01(\x0e\x32\x36.safe_browsing.RTLookupResponse.ThreatInfo.VerdictType\x12h\n\x1b\x63\x61\x63he_expression_match_type\x18\x05 \x01(\x0e\x32\x43.safe_browsing.RTLookupResponse.ThreatInfo.CacheExpressionMatchType\x12)\n!cache_expression_using_match_type\x18\x06 \x01(\t\x12L\n\x1bmatched_url_navigation_rule\x18\x07 \x01(\x0b\x32\'.safe_browsing.MatchedUrlNavigationRule\"\x98\x01\n\nThreatType\x12\x1b\n\x17THREAT_TYPE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bWEB_MALWARE\x10\x01\x12\x16\n\x12SOCIAL_ENGINEERING\x10\x03\x12\x15\n\x11UNWANTED_SOFTWARE\x10\x04\x12\x13\n\x0fUNCLEAR_BILLING\x10\x05\x12\x12\n\x0eMANAGED_POLICY\x10\x06\"\x04\x08\x02\x10\x02\"^\n\x0bVerdictType\x12\x1c\n\x18VERDICT_TYPE_UNSPECIFIED\x10\x00\x12\x08\n\x04SAFE\x10\x01\x12\x0e\n\nSUSPICIOUS\x10\x32\x12\x08\n\x04WARN\x10K\x12\r\n\tDANGEROUS\x10\x64\"[\n\x18\x43\x61\x63heExpressionMatchType\x12\x1a\n\x16MATCH_TYPE_UNSPECIFIED\x10\x00\x12\x12\n\x0e\x43OVERING_MATCH\x10\x01\x12\x0f\n\x0b\x45XACT_MATCH\x10\x02\"\\\n\x18MatchedUrlNavigationRule\x12\x0f\n\x07rule_id\x18\x01 \x01(\t\x12\x11\n\trule_name\x18\x02 \x01(\t\x12\x1c\n\x14matched_url_category\x18\x03 \x01(\tB\x02H\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n<components/safe_browsing/core/common/proto/realtimeapi.proto\x12\rsafe_browsing\x1a\x34\x63omponents/safe_browsing/core/common/proto/csd.proto\"\xe9\x06\n\x0fRTLookupRequest\x12\x0b\n\x03url\x18\x01 \x01(\t\x12>\n\x0blookup_type\x18\x02 \x01(\x0e\x32).safe_browsing.RTLookupRequest.LookupType\x12\x37\n\npopulation\x18\x03 \x01(\x0b\x32#.safe_browsing.ChromeUserPopulation\x12)\n\x1d\x44\x45PRECATED_scoped_oauth_token\x18\x04 \x01(\tB\x02\x18\x01\x12\x10\n\x08\x64m_token\x18\x05 \x01(\t\x12\x12\n\x07version\x18\x06 \x01(\x05:\x01\x30\x12\x36\n\x07os_type\x18\x07 \x01(\x0e\x32%.safe_browsing.RTLookupRequest.OSType\x12\x39\n\x0ereferrer_chain\x18\x08 \x03(\x0b\x32!.safe_browsing.ReferrerChainEntry\x12>\n\x0breport_type\x18\t \x01(\x0e\x32).safe_browsing.RTLookupRequest.ReportType\x12<\n\nframe_type\x18\n \x01(\x0e\x32(.safe_browsing.RTLookupRequest.FrameType\"G\n\nLookupType\x12\x1b\n\x17LOOKUP_TYPE_UNSPECIFIED\x10\x00\x12\x0e\n\nNAVIGATION\x10\x01\x12\x0c\n\x08\x44OWNLOAD\x10\x02\"\xac\x01\n\x06OSType\x12\x17\n\x13OS_TYPE_UNSPECIFIED\x10\x00\x12\x13\n\x0fOS_TYPE_ANDROID\x10\x01\x12\x15\n\x11OS_TYPE_CHROME_OS\x10\x02\x12\x13\n\x0fOS_TYPE_FUCHSIA\x10\x03\x12\x0f\n\x0bOS_TYPE_IOS\x10\x04\x12\x11\n\rOS_TYPE_LINUX\x10\x05\x12\x0f\n\x0bOS_TYPE_MAC\x10\x06\x12\x13\n\x0fOS_TYPE_WINDOWS\x10\x07\"N\n\nReportType\x12\x1b\n\x17REPORT_TYPE_UNSPECIFIED\x10\x00\x12\x0f\n\x0b\x46ULL_REPORT\x10\x01\x12\x12\n\x0eSAMPLED_REPORT\x10\x02\"F\n\tFrameType\x12\x1a\n\x16\x46RAME_TYPE_UNSPECIFIED\x10\x00\x12\x0e\n\nMAIN_FRAME\x10\x01\x12\r\n\tSUB_FRAME\x10\x02\"\xd5\x07\n\x10RTLookupResponse\x12?\n\x0bthreat_info\x18\x01 \x03(\x0b\x32*.safe_browsing.RTLookupResponse.ThreatInfo\x12J\n\x1a\x63lient_side_detection_type\x18\x02 \x01(\x0e\x32&.safe_browsing.ClientSideDetectionType\x12\x16\n\x0eurl_categories\x18\x03 \x03(\t\x1a\x9b\x06\n\nThreatInfo\x12J\n\x0bthreat_type\x18\x01 \x01(\x0e\x32\x35.safe_browsing.RTLookupResponse.ThreatInfo.ThreatType\x12\x1a\n\x12\x63\x61\x63he_duration_sec\x18\x02 \x01(\x03\x12\x1c\n\x10\x63\x61\x63he_expression\x18\x03 \x01(\tB\x02\x18\x01\x12L\n\x0cverdict_type\x18\x04 \x01(\x0e\x32\x36.safe_browsing.RTLookupResponse.ThreatInfo.VerdictType\x12h\n\x1b\x63\x61\x63he_expression_match_type\x18\x05 \x01(\x0e\x32\x43.safe_browsing.RTLookupResponse.ThreatInfo.CacheExpressionMatchType\x12)\n!cache_expression_using_match_type\x18\x06 \x01(\t\x12L\n\x1bmatched_url_navigation_rule\x18\x07 \x01(\x0b\x32\'.safe_browsing.MatchedUrlNavigationRule\"\x98\x01\n\nThreatType\x12\x1b\n\x17THREAT_TYPE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bWEB_MALWARE\x10\x01\x12\x16\n\x12SOCIAL_ENGINEERING\x10\x03\x12\x15\n\x11UNWANTED_SOFTWARE\x10\x04\x12\x13\n\x0fUNCLEAR_BILLING\x10\x05\x12\x12\n\x0eMANAGED_POLICY\x10\x06\"\x04\x08\x02\x10\x02\"^\n\x0bVerdictType\x12\x1c\n\x18VERDICT_TYPE_UNSPECIFIED\x10\x00\x12\x08\n\x04SAFE\x10\x01\x12\x0e\n\nSUSPICIOUS\x10\x32\x12\x08\n\x04WARN\x10K\x12\r\n\tDANGEROUS\x10\x64\"[\n\x18\x43\x61\x63heExpressionMatchType\x12\x1a\n\x16MATCH_TYPE_UNSPECIFIED\x10\x00\x12\x12\n\x0e\x43OVERING_MATCH\x10\x01\x12\x0f\n\x0b\x45XACT_MATCH\x10\x02\"\xb7\x03\n\x18MatchedUrlNavigationRule\x12\x0f\n\x07rule_id\x18\x01 \x01(\t\x12\x11\n\trule_name\x18\x02 \x01(\t\x12\x1c\n\x14matched_url_category\x18\x03 \x01(\t\x12M\n\x0e\x63ustom_message\x18\x05 \x01(\x0b\x32\x35.safe_browsing.MatchedUrlNavigationRule.CustomMessage\x1a\x36\n\x18\x43ustomRuleMessageSegment\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\x1a\xcb\x01\n\rCustomMessage\x12\x1a\n\x0e\x63ustom_message\x18\x01 \x01(\tB\x02\x18\x01\x12\x1b\n\x0flearn_more_link\x18\x02 \x01(\tB\x02\x18\x01\x12%\n\x19\x63ustom_message_with_links\x18\x03 \x01(\tB\x02\x18\x01\x12Z\n\x10message_segments\x18\x04 \x03(\x0b\x32@.safe_browsing.MatchedUrlNavigationRule.CustomRuleMessageSegmentJ\x04\x08\x04\x10\x05\x42\x02H\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'components.safe_browsing.core.common.proto.realtimeapi_pb2', globals())
@@ -26,6 +26,12 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _RTLOOKUPREQUEST.fields_by_name['DEPRECATED_scoped_oauth_token']._serialized_options = b'\030\001'
   _RTLOOKUPRESPONSE_THREATINFO.fields_by_name['cache_expression']._options = None
   _RTLOOKUPRESPONSE_THREATINFO.fields_by_name['cache_expression']._serialized_options = b'\030\001'
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMMESSAGE.fields_by_name['custom_message']._options = None
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMMESSAGE.fields_by_name['custom_message']._serialized_options = b'\030\001'
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMMESSAGE.fields_by_name['learn_more_link']._options = None
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMMESSAGE.fields_by_name['learn_more_link']._serialized_options = b'\030\001'
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMMESSAGE.fields_by_name['custom_message_with_links']._options = None
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMMESSAGE.fields_by_name['custom_message_with_links']._serialized_options = b'\030\001'
   _RTLOOKUPREQUEST._serialized_start=134
   _RTLOOKUPREQUEST._serialized_end=1007
   _RTLOOKUPREQUEST_LOOKUPTYPE._serialized_start=609
@@ -37,15 +43,19 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _RTLOOKUPREQUEST_FRAMETYPE._serialized_start=937
   _RTLOOKUPREQUEST_FRAMETYPE._serialized_end=1007
   _RTLOOKUPRESPONSE._serialized_start=1010
-  _RTLOOKUPRESPONSE._serialized_end=1967
-  _RTLOOKUPRESPONSE_THREATINFO._serialized_start=1172
-  _RTLOOKUPRESPONSE_THREATINFO._serialized_end=1967
-  _RTLOOKUPRESPONSE_THREATINFO_THREATTYPE._serialized_start=1626
-  _RTLOOKUPRESPONSE_THREATINFO_THREATTYPE._serialized_end=1778
-  _RTLOOKUPRESPONSE_THREATINFO_VERDICTTYPE._serialized_start=1780
-  _RTLOOKUPRESPONSE_THREATINFO_VERDICTTYPE._serialized_end=1874
-  _RTLOOKUPRESPONSE_THREATINFO_CACHEEXPRESSIONMATCHTYPE._serialized_start=1876
-  _RTLOOKUPRESPONSE_THREATINFO_CACHEEXPRESSIONMATCHTYPE._serialized_end=1967
-  _MATCHEDURLNAVIGATIONRULE._serialized_start=1969
-  _MATCHEDURLNAVIGATIONRULE._serialized_end=2061
+  _RTLOOKUPRESPONSE._serialized_end=1991
+  _RTLOOKUPRESPONSE_THREATINFO._serialized_start=1196
+  _RTLOOKUPRESPONSE_THREATINFO._serialized_end=1991
+  _RTLOOKUPRESPONSE_THREATINFO_THREATTYPE._serialized_start=1650
+  _RTLOOKUPRESPONSE_THREATINFO_THREATTYPE._serialized_end=1802
+  _RTLOOKUPRESPONSE_THREATINFO_VERDICTTYPE._serialized_start=1804
+  _RTLOOKUPRESPONSE_THREATINFO_VERDICTTYPE._serialized_end=1898
+  _RTLOOKUPRESPONSE_THREATINFO_CACHEEXPRESSIONMATCHTYPE._serialized_start=1900
+  _RTLOOKUPRESPONSE_THREATINFO_CACHEEXPRESSIONMATCHTYPE._serialized_end=1991
+  _MATCHEDURLNAVIGATIONRULE._serialized_start=1994
+  _MATCHEDURLNAVIGATIONRULE._serialized_end=2433
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMRULEMESSAGESEGMENT._serialized_start=2167
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMRULEMESSAGESEGMENT._serialized_end=2221
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMMESSAGE._serialized_start=2224
+  _MATCHEDURLNAVIGATIONRULE_CUSTOMMESSAGE._serialized_end=2427
 # @@protoc_insertion_point(module_scope)

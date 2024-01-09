@@ -60,11 +60,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, HTMLMediaElement>::value,
     "HTMLMediaElement does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&HTMLMediaElement::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLMediaElement is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8HTMLMediaElement::InstallInterfaceTemplateFuncType V8HTMLMediaElement::install_interface_template_func_ = nullptr;

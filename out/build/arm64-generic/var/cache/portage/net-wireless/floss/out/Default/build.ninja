@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4573/work/floss-0.0.2/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5123/work/floss-0.0.2/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -20,7 +20,6 @@ subninja toolchain.ninja
 
 build BluetoothAttSources: phony obj/bt/system/gd/att/BluetoothAttSources.stamp
 build BluetoothCommonSources: phony obj/bt/system/gd/common/BluetoothCommonSources.stamp
-build BluetoothCryptoToolboxSources: phony obj/bt/system/gd/crypto_toolbox/BluetoothCryptoToolboxSources.stamp
 build BluetoothDumpsysSources: phony obj/bt/system/gd/dumpsys/BluetoothDumpsysSources.stamp
 build BluetoothGeneratedBundlerSchema_h_bfbs: phony obj/bt/system/gd/dumpsys/bundler/BluetoothGeneratedBundlerSchema_h_bfbs.stamp
 build BluetoothGeneratedBundlerSchema_h_bfbs_gen: phony obj/bt/system/gd/dumpsys/bundler/BluetoothGeneratedBundlerSchema_h_bfbs_gen.stamp
@@ -137,19 +136,14 @@ build bt/system/bta$:install_audio_set_configurations_bfbs: phony obj/bt/system/
 build bt/system/bta$:install_audio_set_configurations_json: phony obj/bt/system/bta/install_audio_set_configurations_json.stamp
 build bt/system/bta$:install_audio_set_scenarios_bfbs: phony obj/bt/system/bta/install_audio_set_scenarios_bfbs.stamp
 build bt/system/bta$:install_audio_set_scenarios_json: phony obj/bt/system/bta/install_audio_set_scenarios_json.stamp
-build bt/system/bta$:net_test_bta: phony ./net_test_bta
 build bt/system/btcore$:btcore: phony ./libbtcore.a
 build bt/system/btcore: phony ./libbtcore.a
-build bt/system/btcore$:net_test_btcore: phony ./net_test_btcore
 build bt/system/btif$:btif: phony ./libbtif.a
 build bt/system/btif: phony ./libbtif.a
-build bt/system/common$:bluetooth_test_common: phony ./bluetooth_test_common
 build bt/system/common$:common: phony ./libcommon.a
 build bt/system/common: phony ./libcommon.a
 build bt/system/device$:device: phony ./libdevice.a
 build bt/system/device: phony ./libdevice.a
-build bt/system/device$:net_test_device: phony ./net_test_device
-build bt/system/device$:net_test_device_iot_config: phony ./net_test_device_iot_config
 build bt/system/embdrv/g722$:g722: phony ./libg722.a
 build bt/system/embdrv/g722: phony ./libg722.a
 build bt/system/embdrv/sbc$:sbc: phony ./libsbc.a
@@ -164,7 +158,8 @@ build bt/system/gd$:gd_default_deps: phony obj/bt/system/gd/gd_default_deps.stam
 build bt/system/gd$:libbluetooth_gd: phony ./libbluetooth_gd.a
 build bt/system/gd/att$:BluetoothAttSources: phony obj/bt/system/gd/att/BluetoothAttSources.stamp
 build bt/system/gd/common$:BluetoothCommonSources: phony obj/bt/system/gd/common/BluetoothCommonSources.stamp
-build bt/system/gd/crypto_toolbox$:BluetoothCryptoToolboxSources: phony obj/bt/system/gd/crypto_toolbox/BluetoothCryptoToolboxSources.stamp
+build bt/system/gd/crypto_toolbox$:crypto_toolbox: phony ./libcrypto_toolbox.a
+build bt/system/gd/crypto_toolbox: phony ./libcrypto_toolbox.a
 build bt/system/gd/dumpsys$:BluetoothDumpsysSources: phony obj/bt/system/gd/dumpsys/BluetoothDumpsysSources.stamp
 build bt/system/gd/dumpsys$:libbluetooth-dumpsys: phony obj/bt/system/gd/dumpsys/libbluetooth-dumpsys.stamp
 build bt/system/gd/dumpsys$:libbluetooth-dumpsys_gen: phony obj/bt/system/gd/dumpsys/libbluetooth-dumpsys_gen.stamp
@@ -174,7 +169,6 @@ build bt/system/gd/dumpsys/bundler$:bluetooth_flatbuffer_bundler: phony ./blueto
 build bt/system/gd/hal$:BluetoothHalSources: phony obj/bt/system/gd/hal/BluetoothHalSources.stamp
 build bt/system/gd/hal$:BluetoothHalSources_hci_host: phony obj/bt/system/gd/hal/BluetoothHalSources_hci_host.stamp
 build bt/system/gd/hci$:BluetoothHciSources: phony obj/bt/system/gd/hci/BluetoothHciSources.stamp
-build bt/system/gd/hci$:hci_tests: phony ./hci_tests
 build bt/system/gd/l2cap$:BluetoothL2capSources: phony obj/bt/system/gd/l2cap/BluetoothL2capSources.stamp
 build bt/system/gd/metrics$:BluetoothMetricsSources: phony obj/bt/system/gd/metrics/BluetoothMetricsSources.stamp
 build bt/system/gd/metrics$:BluetoothMetricsSources_chromeos: phony obj/bt/system/gd/metrics/BluetoothMetricsSources_chromeos.stamp
@@ -220,29 +214,21 @@ build bt/system/gd/storage$:BluetoothStorageSources: phony obj/bt/system/gd/stor
 build bt/system/gd/sysprops$:BluetoothSyspropsSources: phony obj/bt/system/gd/sysprops/BluetoothSyspropsSources.stamp
 build bt/system/hci$:hci: phony ./libhci.a
 build bt/system/hci: phony ./libhci.a
-build bt/system/hci$:net_test_hci: phony ./net_test_hci
 build bt/system/main$:bluetooth: phony ./libbluetooth.a
 build bt/system/main$:bluetooth-static: phony ./libbluetooth-static.a
 build bt/system/main/shim$:LibBluetoothShimSources: phony obj/bt/system/main/shim/LibBluetoothShimSources.stamp
-build bt/system/osi$:net_test_osi: phony ./net_test_osi
 build bt/system/osi$:osi: phony ./libosi.a
 build bt/system/osi: phony ./libosi.a
-build bt/system/packet$:net_test_btpackets: phony ./net_test_btpackets
 build bt/system/packet$:packet: phony ./libpacket.a
 build bt/system/packet: phony ./libpacket.a
 build bt/system/pdl$:BluetoothGeneratedPackets_h: phony obj/bt/system/pdl/BluetoothGeneratedPackets_h.stamp
-build bt/system/profile/avrcp$:net_test_avrcp: phony ./net_test_avrcp
 build bt/system/profile/avrcp$:profile_avrcp: phony ./libprofile_avrcp.a
 build bt/system/rust$:core_rs: phony ./libcore_rs.a
 build bt/system/rust$:cxxlibheader: phony obj/bt/system/rust/cxxlibheader.stamp
 build bt/system/rust$:cxxlibheader_gen: phony obj/bt/system/rust/cxxlibheader_gen.stamp
-build bt/system/stack$:crypto_toolbox: phony ./libcrypto_toolbox.a
-build bt/system/stack$:net_test_btm_iso: phony ./net_test_btm_iso
 build bt/system/stack$:nonstandard_codecs: phony obj/bt/system/stack/nonstandard_codecs.stamp
 build bt/system/stack$:stack: phony obj/bt/system/stack/stack.stamp
 build bt/system/stack: phony obj/bt/system/stack/stack.stamp
-build bt/system/stack/mmc$:hfp_lc3_mmc_decoder_test: phony ./hfp_lc3_mmc_decoder_test
-build bt/system/stack/mmc$:hfp_lc3_mmc_encoder_test: phony ./hfp_lc3_mmc_encoder_test
 build bt/system/stack/mmc$:install_dbus_config: phony obj/bt/system/stack/mmc/install_dbus_config.stamp
 build bt/system/stack/mmc$:install_init: phony obj/bt/system/stack/mmc/install_init.stamp
 build bt/system/stack/mmc$:install_minijail_config: phony obj/bt/system/stack/mmc/install_minijail_config.stamp
@@ -260,7 +246,6 @@ build bt/system/stack/mmc/proto$:mmc_config_proto: phony ./libmmc_config_proto.a
 build bt/system/stack/mmc/proto$:mmc_config_proto_gen: phony obj/bt/system/stack/mmc/proto/mmc_config_proto_gen.stamp
 build bt/system/stack/mmc/proto$:mmc_service_proto: phony ./libmmc_service_proto.a
 build bt/system/stack/mmc/proto$:mmc_service_proto_gen: phony obj/bt/system/stack/mmc/proto/mmc_service_proto_gen.stamp
-build bt/system/types$:net_test_types: phony ./net_test_types
 build bt/system/types$:types: phony ./libtypes.a
 build bt/system/types: phony ./libtypes.a
 build bt/system/udrv$:udrv: phony obj/bt/system/udrv/udrv.stamp
@@ -285,15 +270,10 @@ build all: phony $
     obj/bt/system/bta/install_audio_set_configurations_json.stamp $
     obj/bt/system/bta/install_audio_set_scenarios_bfbs.stamp $
     obj/bt/system/bta/install_audio_set_scenarios_json.stamp $
-    ./net_test_bta $
     ./libbtcore.a $
-    ./net_test_btcore $
     ./libbtif.a $
-    ./bluetooth_test_common $
     ./libcommon.a $
     ./libdevice.a $
-    ./net_test_device $
-    ./net_test_device_iot_config $
     ./libg722.a $
     ./libsbc.a $
     obj/bt/system/embdrv/sbc/sbc_decoder.stamp $
@@ -306,7 +286,7 @@ build all: phony $
     ./libbluetooth_gd.a $
     obj/bt/system/gd/att/BluetoothAttSources.stamp $
     obj/bt/system/gd/common/BluetoothCommonSources.stamp $
-    obj/bt/system/gd/crypto_toolbox/BluetoothCryptoToolboxSources.stamp $
+    ./libcrypto_toolbox.a $
     obj/bt/system/gd/dumpsys/BluetoothDumpsysSources.stamp $
     obj/bt/system/gd/dumpsys/libbluetooth-dumpsys.stamp $
     obj/bt/system/gd/dumpsys/libbluetooth-dumpsys_gen.stamp $
@@ -316,7 +296,6 @@ build all: phony $
     obj/bt/system/gd/hal/BluetoothHalSources.stamp $
     obj/bt/system/gd/hal/BluetoothHalSources_hci_host.stamp $
     obj/bt/system/gd/hci/BluetoothHciSources.stamp $
-    ./hci_tests $
     obj/bt/system/gd/l2cap/BluetoothL2capSources.stamp $
     obj/bt/system/gd/metrics/BluetoothMetricsSources.stamp $
     obj/bt/system/gd/metrics/BluetoothMetricsSources_chromeos.stamp $
@@ -361,26 +340,18 @@ build all: phony $
     obj/bt/system/gd/storage/BluetoothStorageSources.stamp $
     obj/bt/system/gd/sysprops/BluetoothSyspropsSources.stamp $
     ./libhci.a $
-    ./net_test_hci $
     ./libbluetooth.a $
     ./libbluetooth-static.a $
     obj/bt/system/main/shim/LibBluetoothShimSources.stamp $
-    ./net_test_osi $
     ./libosi.a $
-    ./net_test_btpackets $
     ./libpacket.a $
     obj/bt/system/pdl/BluetoothGeneratedPackets_h.stamp $
-    ./net_test_avrcp $
     ./libprofile_avrcp.a $
     ./libcore_rs.a $
     obj/bt/system/rust/cxxlibheader.stamp $
     obj/bt/system/rust/cxxlibheader_gen.stamp $
-    ./libcrypto_toolbox.a $
-    ./net_test_btm_iso $
     obj/bt/system/stack/nonstandard_codecs.stamp $
     obj/bt/system/stack/stack.stamp $
-    ./hfp_lc3_mmc_decoder_test $
-    ./hfp_lc3_mmc_encoder_test $
     obj/bt/system/stack/mmc/install_dbus_config.stamp $
     obj/bt/system/stack/mmc/install_init.stamp $
     obj/bt/system/stack/mmc/install_minijail_config.stamp $
@@ -397,7 +368,6 @@ build all: phony $
     obj/bt/system/stack/mmc/proto/mmc_config_proto_gen.stamp $
     ./libmmc_service_proto.a $
     obj/bt/system/stack/mmc/proto/mmc_service_proto_gen.stamp $
-    ./net_test_types $
     ./libtypes.a $
     obj/bt/system/udrv/udrv.stamp $
     obj/common-mk/gn_root/root.stamp $

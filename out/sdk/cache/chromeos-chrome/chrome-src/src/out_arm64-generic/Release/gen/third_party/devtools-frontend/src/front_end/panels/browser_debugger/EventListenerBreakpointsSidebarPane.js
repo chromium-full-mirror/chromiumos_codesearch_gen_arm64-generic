@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import * as SDK from '../../core/sdk/sdk.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import { CategorizedBreakpointsSidebarPane } from './CategorizedBreakpointsSidebarPane.js';
 let eventListenerBreakpointsSidebarPaneInstance;
 export class EventListenerBreakpointsSidebarPane extends CategorizedBreakpointsSidebarPane {
@@ -10,6 +11,7 @@ export class EventListenerBreakpointsSidebarPane extends CategorizedBreakpointsS
         const nonDomBreakpoints = SDK.EventBreakpointsModel.EventBreakpointsManager.instance().eventListenerBreakpoints();
         breakpoints = breakpoints.concat(nonDomBreakpoints);
         super(breakpoints, 'sources.eventListenerBreakpoints', "EventListener" /* Protocol.Debugger.PausedEventReason.EventListener */);
+        this.contentElement.setAttribute('jslog', `${VisualLogging.pane().context('debugger-event-breakpoints')}`);
     }
     static instance() {
         if (!eventListenerBreakpointsSidebarPaneInstance) {

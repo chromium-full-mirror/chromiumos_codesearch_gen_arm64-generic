@@ -6,5 +6,7 @@
 
 #ifndef SERVICES_ACCESSIBILITY_PUBLIC_MOJOM_SPEECH_RECOGNITION_MOJOM_IMPORT_HEADERS_H_
 #define SERVICES_ACCESSIBILITY_PUBLIC_MOJOM_SPEECH_RECOGNITION_MOJOM_IMPORT_HEADERS_H_
+#include "services/accessibility/public/mojom/assistive_technology_type.mojom.h"
+#include "services/accessibility/public/mojom/assistive_technology_type.mojom-import-headers.h"
 
 #endif  // SERVICES_ACCESSIBILITY_PUBLIC_MOJOM_SPEECH_RECOGNITION_MOJOM_IMPORT_HEADERS_H_

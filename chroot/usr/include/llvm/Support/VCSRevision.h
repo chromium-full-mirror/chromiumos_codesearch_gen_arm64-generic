@@ -1,2 +1,2 @@
-#define LLVM_REVISION "14f0776550b5a49e1c42f49a00213f7f3fa047bf"
+#define LLVM_REVISION "82e851a407c52d65ce65e7aa58453127e67d42a0"
 #define LLVM_REPOSITORY "/mnt/host/source/src/third_party/llvm-project"

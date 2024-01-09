@@ -9,14 +9,17 @@ export class EduCoexistenceBrowserProxyImpl {
     initializeEduArgs() {
         return sendWithPromise('initializeEduArgs');
     }
-    authExtensionReady() {
-        chrome.send('authExtensionReady');
+    authenticatorReady() {
+        chrome.send('authenticatorReady');
     }
     completeLogin(credentials) {
         chrome.send('completeLogin', [credentials]);
     }
     getAccounts() {
         return sendWithPromise('getAccounts');
+    }
+    getDeviceId() {
+        return sendWithPromise('getDeviceId');
     }
     consentValid() {
         chrome.send('consentValid');

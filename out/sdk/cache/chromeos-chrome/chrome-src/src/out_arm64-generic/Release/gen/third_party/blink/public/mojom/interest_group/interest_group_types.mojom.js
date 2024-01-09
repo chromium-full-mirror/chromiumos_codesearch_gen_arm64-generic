@@ -103,7 +103,7 @@
 
 
     // validate InterestGroupAd.renderUrl
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, url$.Url, false);
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -154,7 +154,7 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.renderUrl =
-        decoder.decodeStructPointer(url$.Url);
+        decoder.decodeStruct(codec.String);
     val.sizeGroup =
         decoder.decodeStruct(codec.NullableString);
     val.buyerReportingId =
@@ -174,7 +174,7 @@
     var packed;
     encoder.writeUint32(InterestGroupAd.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStructPointer(url$.Url, val.renderUrl);
+    encoder.encodeStruct(codec.String, val.renderUrl);
     encoder.encodeStruct(codec.NullableString, val.sizeGroup);
     encoder.encodeStruct(codec.NullableString, val.buyerReportingId);
     encoder.encodeStruct(codec.NullableString, val.buyerAndSellerReportingId);
@@ -360,6 +360,37 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode = {};
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode.kNone = 0;
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode.kSlotSize = 1;
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode.kAllSlotsRequestedSizes = 2;
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode.MIN_VALUE = 0;
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode.MAX_VALUE = 2;
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode.DEFAULT_VALUE = 0;
+
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    }
+    return false;
+  };
+
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode.toKnownEnumValue = function(value) {
+    if (this.isKnownEnumValue(value))
+      return value;
+    return this.DEFAULT_VALUE;
+  };
+
+  InterestGroup.TrustedBiddingSignalsSlotSizeMode.validate = function(enumValue) {
+    const isExtensible = true;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
 
   InterestGroup.prototype.initDefaults_ = function() {
     this.expiry = null;
@@ -372,6 +403,7 @@
     this.prioritySignalsOverrides = null;
     this.sellerCapabilities = null;
     this.allSellersCapabilities = null;
+    this.trustedBiddingSignalsSlotSizeMode = InterestGroup.TrustedBiddingSignalsSlotSizeMode.kNone;
     this.biddingUrl = null;
     this.biddingWasmHelperUrl = null;
     this.updateUrl = null;
@@ -400,7 +432,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 184}
+      {version: 0, numBytes: 192}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -457,87 +489,93 @@
         return err;
 
 
-    // validate InterestGroup.biddingUrl
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 72, url$.Url, true);
+    // validate InterestGroup.trustedBiddingSignalsSlotSizeMode
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 72, InterestGroup.TrustedBiddingSignalsSlotSizeMode);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate InterestGroup.biddingWasmHelperUrl
+    // validate InterestGroup.biddingUrl
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, url$.Url, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate InterestGroup.updateUrl
+    // validate InterestGroup.biddingWasmHelperUrl
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 88, url$.Url, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate InterestGroup.trustedBiddingSignalsUrl
+    // validate InterestGroup.updateUrl
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 96, url$.Url, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
+    // validate InterestGroup.trustedBiddingSignalsUrl
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 104, url$.Url, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate InterestGroup.trustedBiddingSignalsKeys
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 104, 8, codec.String, true, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 112, 8, codec.String, true, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate InterestGroup.userBiddingSignals
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 112, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 120, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate InterestGroup.ads
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 120, 8, new codec.PointerTo(InterestGroupAd), true, [0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate InterestGroup.adComponents
     err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 128, 8, new codec.PointerTo(InterestGroupAd), true, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
+    // validate InterestGroup.adComponents
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 136, 8, new codec.PointerTo(InterestGroupAd), true, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate InterestGroup.adSizes
-    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 136, true, codec.String, new codec.PointerTo(ad_display_size$.AdSize), false);
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 144, true, codec.String, new codec.PointerTo(ad_display_size$.AdSize), false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate InterestGroup.sizeGroups
-    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 144, true, codec.String, new codec.ArrayOf(codec.String), false);
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 152, true, codec.String, new codec.ArrayOf(codec.String), false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate InterestGroup.auctionServerRequestFlags
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 152, AuctionServerRequestFlags, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 160, AuctionServerRequestFlags, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate InterestGroup.additionalBidKey
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 160, 1, codec.Uint8, true, [32], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 168, 1, codec.Uint8, true, [32], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate InterestGroup.aggregationCoordinatorOrigin
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 168, origin$.Origin, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 176, origin$.Origin, true);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  InterestGroup.encodedSize = codec.kStructHeaderSize + 176;
+  InterestGroup.encodedSize = codec.kStructHeaderSize + 184;
 
   InterestGroup.decode = function(decoder) {
     var packed;
@@ -567,6 +605,12 @@
         decoder.decodeMapPointer(new codec.PointerTo(origin$.Origin), new codec.PointerTo(SellerCapabilities));
     val.allSellersCapabilities =
         decoder.decodeStructPointer(SellerCapabilities);
+    val.trustedBiddingSignalsSlotSizeMode =
+        decoder.decodeStruct(new codec.Enum(InterestGroup.TrustedBiddingSignalsSlotSizeMode));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     val.biddingUrl =
         decoder.decodeStructPointer(url$.Url);
     val.biddingWasmHelperUrl =
@@ -615,6 +659,11 @@
     encoder.encodeMapPointer(codec.String, codec.Double, val.prioritySignalsOverrides);
     encoder.encodeMapPointer(new codec.PointerTo(origin$.Origin), new codec.PointerTo(SellerCapabilities), val.sellerCapabilities);
     encoder.encodeStructPointer(SellerCapabilities, val.allSellersCapabilities);
+    encoder.encodeStruct(codec.Int32, val.trustedBiddingSignalsSlotSizeMode);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.encodeStructPointer(url$.Url, val.biddingUrl);
     encoder.encodeStructPointer(url$.Url, val.biddingWasmHelperUrl);
     encoder.encodeStructPointer(url$.Url, val.updateUrl);
@@ -1140,6 +1189,7 @@
     this.auctionReportBuyers = null;
     this.requiredSellerCapabilities = null;
     this.requestedSize = null;
+    this.allSlotsRequestedSizes = null;
     this.auctionNonce = null;
     this.componentAuctions = null;
   };
@@ -1157,7 +1207,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 208}
+      {version: 0, numBytes: 216}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1261,21 +1311,27 @@
         return err;
 
 
+    // validate AuctionAdConfigNonSharedParams.allSlotsRequestedSizes
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 184, 8, new codec.PointerTo(ad_display_size$.AdSize), true, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate AuctionAdConfigNonSharedParams.auctionNonce
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 184, uuid$.Uuid, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 192, uuid$.Uuid, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate AuctionAdConfigNonSharedParams.componentAuctions
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 192, 8, new codec.PointerTo(AuctionAdConfig), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 200, 8, new codec.PointerTo(AuctionAdConfig), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  AuctionAdConfigNonSharedParams.encodedSize = codec.kStructHeaderSize + 200;
+  AuctionAdConfigNonSharedParams.encodedSize = codec.kStructHeaderSize + 208;
 
   AuctionAdConfigNonSharedParams.decode = function(decoder) {
     var packed;
@@ -1322,6 +1378,8 @@
         decoder.decodeStructPointer(SellerCapabilities);
     val.requestedSize =
         decoder.decodeStructPointer(ad_display_size$.AdSize);
+    val.allSlotsRequestedSizes =
+        decoder.decodeArrayPointer(new codec.PointerTo(ad_display_size$.AdSize));
     val.auctionNonce =
         decoder.decodeStructPointer(uuid$.Uuid);
     val.componentAuctions =
@@ -1356,6 +1414,7 @@
     encoder.encodeMapPointer(new codec.Enum(AuctionAdConfigNonSharedParams.BuyerReportType), new codec.PointerTo(AuctionReportBuyersConfig), val.auctionReportBuyers);
     encoder.encodeStructPointer(SellerCapabilities, val.requiredSellerCapabilities);
     encoder.encodeStructPointer(ad_display_size$.AdSize, val.requestedSize);
+    encoder.encodeArrayPointer(new codec.PointerTo(ad_display_size$.AdSize), val.allSlotsRequestedSizes);
     encoder.encodeStructPointer(uuid$.Uuid, val.auctionNonce);
     encoder.encodeArrayPointer(new codec.PointerTo(AuctionAdConfig), val.componentAuctions);
   };

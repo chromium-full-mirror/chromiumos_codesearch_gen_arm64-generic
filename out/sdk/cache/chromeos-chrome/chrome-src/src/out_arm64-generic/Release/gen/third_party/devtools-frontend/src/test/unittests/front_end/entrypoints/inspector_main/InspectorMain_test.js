@@ -11,7 +11,7 @@ import { describeWithMockConnection, setMockConnectionResponseHandler, } from '.
 describeWithMockConnection('FocusDebuggeeActionDelegate', () => {
     it('uses main frame without tab tatget', async () => {
         const target = createTarget();
-        const delegate = InspectorMain.InspectorMain.FocusDebuggeeActionDelegate.instance({ forceNew: true });
+        const delegate = new InspectorMain.InspectorMain.FocusDebuggeeActionDelegate();
         const bringToFront = sinon.spy(target.pageAgent(), 'invoke_bringToFront');
         delegate.handleAction({}, 'foo');
         assert.isTrue(bringToFront.calledOnce);
@@ -20,7 +20,7 @@ describeWithMockConnection('FocusDebuggeeActionDelegate', () => {
         const tabTarget = createTarget({ type: SDK.Target.Type.Tab });
         createTarget({ parentTarget: tabTarget, subtype: 'prerender' });
         const frameTarget = createTarget({ parentTarget: tabTarget });
-        const delegate = InspectorMain.InspectorMain.FocusDebuggeeActionDelegate.instance({ forceNew: true });
+        const delegate = new InspectorMain.InspectorMain.FocusDebuggeeActionDelegate();
         const bringToFront = sinon.spy(frameTarget.pageAgent(), 'invoke_bringToFront');
         delegate.handleAction({}, 'foo');
         assert.isTrue(bringToFront.calledOnce);

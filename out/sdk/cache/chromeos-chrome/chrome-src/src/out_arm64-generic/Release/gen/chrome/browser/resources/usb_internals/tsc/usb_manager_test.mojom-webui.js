@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 export class UsbDeviceManagerTestPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -13,6 +14,9 @@ export class UsbDeviceManagerTestPendingReceiver {
     }
 }
 export class UsbDeviceManagerTestRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(UsbDeviceManagerTestPendingReceiver, handle);
@@ -42,6 +46,9 @@ export class UsbDeviceManagerTestRemote {
  * interface.
  */
 export class UsbDeviceManagerTestReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(UsbDeviceManagerTestRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -73,6 +80,13 @@ export class UsbDeviceManagerTest {
  * receiver can have any number of listeners added to it.
  */
 export class UsbDeviceManagerTestCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    addDeviceForTesting;
+    removeDeviceForTesting;
+    getTestDevices;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(UsbDeviceManagerTestRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

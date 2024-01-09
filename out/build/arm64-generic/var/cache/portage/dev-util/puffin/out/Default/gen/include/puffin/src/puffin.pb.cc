@@ -4,104 +4,103 @@
 #include "puffin.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace puffin {
 namespace metadata {
+template <typename>
 PROTOBUF_CONSTEXPR BitExtent::BitExtent(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.offset_)*/uint64_t{0u}
-  , /*decltype(_impl_.length_)*/uint64_t{0u}
+    /*decltype(_impl_.offset_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.length_)*/ ::uint64_t{0u}
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct BitExtentDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR BitExtentDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR BitExtentDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~BitExtentDefaultTypeInternal() {}
   union {
     BitExtent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BitExtentDefaultTypeInternal _BitExtent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BitExtentDefaultTypeInternal _BitExtent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR StreamInfo::StreamInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.deflates_)*/{}
   , /*decltype(_impl_.puffs_)*/{}
-  , /*decltype(_impl_.puff_length_)*/uint64_t{0u}
+  , /*decltype(_impl_.puff_length_)*/ ::uint64_t{0u}
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StreamInfoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR StreamInfoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StreamInfoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StreamInfoDefaultTypeInternal() {}
   union {
     StreamInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StreamInfoDefaultTypeInternal _StreamInfo_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StreamInfoDefaultTypeInternal _StreamInfo_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PatchHeader::PatchHeader(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.src_)*/nullptr
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.src_)*/nullptr
   , /*decltype(_impl_.dst_)*/nullptr
-  , /*decltype(_impl_.version_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+  , /*decltype(_impl_.version_)*/ 0
+} {}
 struct PatchHeaderDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PatchHeaderDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PatchHeaderDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PatchHeaderDefaultTypeInternal() {}
   union {
     PatchHeader _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PatchHeaderDefaultTypeInternal _PatchHeader_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PatchHeaderDefaultTypeInternal _PatchHeader_default_instance_;
 }  // namespace metadata
 }  // namespace puffin
 namespace puffin {
 namespace metadata {
-
 // ===================================================================
 
 class BitExtent::_Internal {
  public:
 };
 
-BitExtent::BitExtent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+BitExtent::BitExtent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:puffin.metadata.BitExtent)
 }
 BitExtent::BitExtent(const BitExtent& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  BitExtent* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.offset_){}
-    , decltype(_impl_.length_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.offset_, &from._impl_.offset_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.length_) -
-    reinterpret_cast<char*>(&_impl_.offset_)) + sizeof(_impl_.length_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:puffin.metadata.BitExtent)
 }
 
-inline void BitExtent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void BitExtent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.offset_){uint64_t{0u}}
-    , decltype(_impl_.length_){uint64_t{0u}}
+      decltype(_impl_.offset_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.length_) { ::uint64_t{0u} }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -116,7 +115,7 @@ BitExtent::~BitExtent() {
 }
 
 inline void BitExtent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void BitExtent::SetCachedSize(int size) const {
@@ -125,11 +124,11 @@ void BitExtent::SetCachedSize(int size) const {
 
 void BitExtent::Clear() {
 // @@protoc_insertion_point(message_clear_start:puffin.metadata.BitExtent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.offset_, 0, static_cast<size_t>(
+  ::memset(&_impl_.offset_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.length_) -
       reinterpret_cast<char*>(&_impl_.offset_)) + sizeof(_impl_.length_));
   _internal_metadata_.Clear<std::string>();
@@ -138,24 +137,26 @@ void BitExtent::Clear() {
 const char* BitExtent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint64 offset = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint64 length = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -180,22 +181,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* BitExtent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* BitExtent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:puffin.metadata.BitExtent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint64 offset = 1;
   if (this->_internal_offset() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_offset(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_offset(), target);
   }
 
   // uint64 length = 2;
   if (this->_internal_length() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_length(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_length(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -206,22 +209,24 @@ uint8_t* BitExtent::_InternalSerialize(
   return target;
 }
 
-size_t BitExtent::ByteSizeLong() const {
+::size_t BitExtent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:puffin.metadata.BitExtent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // uint64 offset = 1;
   if (this->_internal_offset() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_offset());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_offset());
   }
 
   // uint64 length = 2;
   if (this->_internal_length() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_length());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_length());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -241,8 +246,8 @@ void BitExtent::CheckTypeAndMergeFrom(
 void BitExtent::MergeFrom(const BitExtent& from) {
   BitExtent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:puffin.metadata.BitExtent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_offset() != 0) {
@@ -280,17 +285,15 @@ std::string BitExtent::GetTypeName() const {
   return "puffin.metadata.BitExtent";
 }
 
-
 // ===================================================================
 
 class StreamInfo::_Internal {
  public:
 };
 
-StreamInfo::StreamInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+StreamInfo::StreamInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:puffin.metadata.StreamInfo)
 }
 StreamInfo::StreamInfo(const StreamInfo& from)
@@ -299,7 +302,8 @@ StreamInfo::StreamInfo(const StreamInfo& from)
   new (&_impl_) Impl_{
       decltype(_impl_.deflates_){from._impl_.deflates_}
     , decltype(_impl_.puffs_){from._impl_.puffs_}
-    , decltype(_impl_.puff_length_){}
+    , decltype(_impl_.puff_length_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -307,14 +311,13 @@ StreamInfo::StreamInfo(const StreamInfo& from)
   // @@protoc_insertion_point(copy_constructor:puffin.metadata.StreamInfo)
 }
 
-inline void StreamInfo::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void StreamInfo::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.deflates_){arena}
     , decltype(_impl_.puffs_){arena}
-    , decltype(_impl_.puff_length_){uint64_t{0u}}
+    , decltype(_impl_.puff_length_) { ::uint64_t{0u} }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -329,9 +332,9 @@ StreamInfo::~StreamInfo() {
 }
 
 inline void StreamInfo::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.deflates_.~RepeatedPtrField();
-  _impl_.puffs_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_deflates()->~RepeatedPtrField();
+  _internal_mutable_puffs()->~RepeatedPtrField();
 }
 
 void StreamInfo::SetCachedSize(int size) const {
@@ -340,25 +343,25 @@ void StreamInfo::SetCachedSize(int size) const {
 
 void StreamInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:puffin.metadata.StreamInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.deflates_.Clear();
-  _impl_.puffs_.Clear();
-  _impl_.puff_length_ = uint64_t{0u};
+  _internal_mutable_deflates()->Clear();
+  _internal_mutable_puffs()->Clear();
+  _impl_.puff_length_ = ::uint64_t{0u};
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* StreamInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .puffin.metadata.BitExtent deflates = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -366,12 +369,13 @@ const char* StreamInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .puffin.metadata.BitExtent puffs = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -379,16 +383,18 @@ const char* StreamInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // uint64 puff_length = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.puff_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -413,10 +419,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* StreamInfo::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* StreamInfo::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:puffin.metadata.StreamInfo)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .puffin.metadata.BitExtent deflates = 1;
@@ -438,7 +444,8 @@ uint8_t* StreamInfo::_InternalSerialize(
   // uint64 puff_length = 3;
   if (this->_internal_puff_length() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_puff_length(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_puff_length(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -449,31 +456,32 @@ uint8_t* StreamInfo::_InternalSerialize(
   return target;
 }
 
-size_t StreamInfo::ByteSizeLong() const {
+::size_t StreamInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:puffin.metadata.StreamInfo)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .puffin.metadata.BitExtent deflates = 1;
   total_size += 1UL * this->_internal_deflates_size();
-  for (const auto& msg : this->_impl_.deflates_) {
+  for (const auto& msg : this->_internal_deflates()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .puffin.metadata.BitExtent puffs = 2;
   total_size += 1UL * this->_internal_puffs_size();
-  for (const auto& msg : this->_impl_.puffs_) {
+  for (const auto& msg : this->_internal_puffs()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // uint64 puff_length = 3;
   if (this->_internal_puff_length() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_puff_length());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_puff_length());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -493,12 +501,12 @@ void StreamInfo::CheckTypeAndMergeFrom(
 void StreamInfo::MergeFrom(const StreamInfo& from) {
   StreamInfo* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:puffin.metadata.StreamInfo)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.deflates_.MergeFrom(from._impl_.deflates_);
-  _this->_impl_.puffs_.MergeFrom(from._impl_.puffs_);
+  _this->_internal_mutable_deflates()->MergeFrom(from._internal_deflates());
+  _this->_internal_mutable_puffs()->MergeFrom(from._internal_puffs());
   if (from._internal_puff_length() != 0) {
     _this->_internal_set_puff_length(from._internal_puff_length());
   }
@@ -519,8 +527,9 @@ bool StreamInfo::IsInitialized() const {
 void StreamInfo::InternalSwap(StreamInfo* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.deflates_.InternalSwap(&other->_impl_.deflates_);
-  _impl_.puffs_.InternalSwap(&other->_impl_.puffs_);
+  _internal_mutable_deflates()->InternalSwap(other->_internal_mutable_deflates());
+  _internal_mutable_puffs()->InternalSwap(other->_internal_mutable_puffs());
+
   swap(_impl_.puff_length_, other->_impl_.puff_length_);
 }
 
@@ -528,13 +537,21 @@ std::string StreamInfo::GetTypeName() const {
   return "puffin.metadata.StreamInfo";
 }
 
-
 // ===================================================================
 
 class PatchHeader::_Internal {
  public:
+  using HasBits = decltype(std::declval<PatchHeader>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PatchHeader, _impl_._has_bits_);
   static const ::puffin::metadata::StreamInfo& src(const PatchHeader* msg);
+  static void set_has_src(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
   static const ::puffin::metadata::StreamInfo& dst(const PatchHeader* msg);
+  static void set_has_dst(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 const ::puffin::metadata::StreamInfo&
@@ -545,41 +562,42 @@ const ::puffin::metadata::StreamInfo&
 PatchHeader::_Internal::dst(const PatchHeader* msg) {
   return *msg->_impl_.dst_;
 }
-PatchHeader::PatchHeader(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PatchHeader::PatchHeader(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:puffin.metadata.PatchHeader)
 }
 PatchHeader::PatchHeader(const PatchHeader& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   PatchHeader* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.src_){nullptr}
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.src_){nullptr}
     , decltype(_impl_.dst_){nullptr}
-    , decltype(_impl_.version_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
+    , decltype(_impl_.version_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_src()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.src_ = new ::puffin::metadata::StreamInfo(*from._impl_.src_);
   }
-  if (from._internal_has_dst()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.dst_ = new ::puffin::metadata::StreamInfo(*from._impl_.dst_);
   }
   _this->_impl_.version_ = from._impl_.version_;
   // @@protoc_insertion_point(copy_constructor:puffin.metadata.PatchHeader)
 }
 
-inline void PatchHeader::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PatchHeader::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.src_){nullptr}
-    , decltype(_impl_.dst_){nullptr}
-    , decltype(_impl_.version_){0}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.src_){nullptr}
+    , decltype(_impl_.dst_){nullptr}
+    , decltype(_impl_.version_) { 0 }
+
   };
 }
 
@@ -593,7 +611,7 @@ PatchHeader::~PatchHeader() {
 }
 
 inline void PatchHeader::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.src_;
   if (this != internal_default_instance()) delete _impl_.dst_;
 }
@@ -604,51 +622,59 @@ void PatchHeader::SetCachedSize(int size) const {
 
 void PatchHeader::Clear() {
 // @@protoc_insertion_point(message_clear_start:puffin.metadata.PatchHeader)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.src_ != nullptr) {
-    delete _impl_.src_;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(_impl_.src_ != nullptr);
+      _impl_.src_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(_impl_.dst_ != nullptr);
+      _impl_.dst_->Clear();
+    }
   }
-  _impl_.src_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && _impl_.dst_ != nullptr) {
-    delete _impl_.dst_;
-  }
-  _impl_.dst_ = nullptr;
   _impl_.version_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* PatchHeader::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 version = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .puffin.metadata.StreamInfo src = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_src(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .puffin.metadata.StreamInfo dst = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_dst(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -666,6 +692,7 @@ const char* PatchHeader::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -673,27 +700,29 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PatchHeader::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PatchHeader::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:puffin.metadata.PatchHeader)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 version = 1;
   if (this->_internal_version() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_version(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_version(), target);
   }
 
+  cached_has_bits = _impl_._has_bits_[0];
   // .puffin.metadata.StreamInfo src = 2;
-  if (this->_internal_has_src()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::src(this),
         _Internal::src(this).GetCachedSize(), target, stream);
   }
 
   // .puffin.metadata.StreamInfo dst = 3;
-  if (this->_internal_has_dst()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::dst(this),
         _Internal::dst(this).GetCachedSize(), target, stream);
@@ -707,31 +736,35 @@ uint8_t* PatchHeader::_InternalSerialize(
   return target;
 }
 
-size_t PatchHeader::ByteSizeLong() const {
+::size_t PatchHeader::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:puffin.metadata.PatchHeader)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .puffin.metadata.StreamInfo src = 2;
-  if (this->_internal_has_src()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.src_);
-  }
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // .puffin.metadata.StreamInfo src = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.src_);
+    }
 
-  // .puffin.metadata.StreamInfo dst = 3;
-  if (this->_internal_has_dst()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.dst_);
-  }
+    // .puffin.metadata.StreamInfo dst = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.dst_);
+    }
 
+  }
   // int32 version = 1;
   if (this->_internal_version() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_version());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_version());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -751,17 +784,20 @@ void PatchHeader::CheckTypeAndMergeFrom(
 void PatchHeader::MergeFrom(const PatchHeader& from) {
   PatchHeader* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:puffin.metadata.PatchHeader)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_src()) {
-    _this->_internal_mutable_src()->::puffin::metadata::StreamInfo::MergeFrom(
-        from._internal_src());
-  }
-  if (from._internal_has_dst()) {
-    _this->_internal_mutable_dst()->::puffin::metadata::StreamInfo::MergeFrom(
-        from._internal_dst());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_src()->::puffin::metadata::StreamInfo::MergeFrom(
+          from._internal_src());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_dst()->::puffin::metadata::StreamInfo::MergeFrom(
+          from._internal_dst());
+    }
   }
   if (from._internal_version() != 0) {
     _this->_internal_set_version(from._internal_version());
@@ -783,6 +819,7 @@ bool PatchHeader::IsInitialized() const {
 void PatchHeader::InternalSwap(PatchHeader* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PatchHeader, _impl_.version_)
       + sizeof(PatchHeader::_impl_.version_)
@@ -794,7 +831,6 @@ void PatchHeader::InternalSwap(PatchHeader* other) {
 std::string PatchHeader::GetTypeName() const {
   return "puffin.metadata.PatchHeader";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace metadata
@@ -813,6 +849,5 @@ Arena::CreateMaybeMessage< ::puffin::metadata::PatchHeader >(Arena* arena) {
   return Arena::CreateMessageInternal< ::puffin::metadata::PatchHeader >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

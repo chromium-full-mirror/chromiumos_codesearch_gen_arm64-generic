@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom-features.h"
 #include "chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom-forward.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
@@ -338,7 +339,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) ImageAnnotationScore {
       int32_t id,
       uint8_t confidence,
       const std::string& mid,
-      const absl::optional<std::string>& name);
+      const std::optional<std::string>& name);
 
 
   ~ImageAnnotationScore();
@@ -422,7 +423,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) ImageAnnotationScore {
   
   std::string mid;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

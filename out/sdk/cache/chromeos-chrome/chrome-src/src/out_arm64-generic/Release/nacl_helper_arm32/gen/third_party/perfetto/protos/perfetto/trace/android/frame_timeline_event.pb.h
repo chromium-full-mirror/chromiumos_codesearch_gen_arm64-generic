@@ -104,6 +104,27 @@ inline const std::string& FrameTimelineEvent_JankType_Name(T enum_t_value) {
 }
 bool FrameTimelineEvent_JankType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FrameTimelineEvent_JankType* value);
+enum FrameTimelineEvent_JankSeverityType : int {
+  FrameTimelineEvent_JankSeverityType_SEVERITY_UNKNOWN = 0,
+  FrameTimelineEvent_JankSeverityType_SEVERITY_NONE = 1,
+  FrameTimelineEvent_JankSeverityType_SEVERITY_PARTIAL = 2,
+  FrameTimelineEvent_JankSeverityType_SEVERITY_FULL = 3
+};
+bool FrameTimelineEvent_JankSeverityType_IsValid(int value);
+constexpr FrameTimelineEvent_JankSeverityType FrameTimelineEvent_JankSeverityType_JankSeverityType_MIN = FrameTimelineEvent_JankSeverityType_SEVERITY_UNKNOWN;
+constexpr FrameTimelineEvent_JankSeverityType FrameTimelineEvent_JankSeverityType_JankSeverityType_MAX = FrameTimelineEvent_JankSeverityType_SEVERITY_FULL;
+constexpr int FrameTimelineEvent_JankSeverityType_JankSeverityType_ARRAYSIZE = FrameTimelineEvent_JankSeverityType_JankSeverityType_MAX + 1;
+
+const std::string& FrameTimelineEvent_JankSeverityType_Name(FrameTimelineEvent_JankSeverityType value);
+template<typename T>
+inline const std::string& FrameTimelineEvent_JankSeverityType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, FrameTimelineEvent_JankSeverityType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function FrameTimelineEvent_JankSeverityType_Name.");
+  return FrameTimelineEvent_JankSeverityType_Name(static_cast<FrameTimelineEvent_JankSeverityType>(enum_t_value));
+}
+bool FrameTimelineEvent_JankSeverityType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FrameTimelineEvent_JankSeverityType* value);
 enum FrameTimelineEvent_PresentType : int {
   FrameTimelineEvent_PresentType_PRESENT_UNSPECIFIED = 0,
   FrameTimelineEvent_PresentType_PRESENT_ON_TIME = 1,
@@ -475,6 +496,7 @@ class FrameTimelineEvent_ActualSurfaceFrameStart final :
     kIsBufferFieldNumber = 11,
     kJankTypeFieldNumber = 9,
     kPredictionTypeFieldNumber = 10,
+    kJankSeverityTypeFieldNumber = 12,
   };
   // optional string layer_name = 5;
   bool has_layer_name() const;
@@ -624,6 +646,19 @@ class FrameTimelineEvent_ActualSurfaceFrameStart final :
   void _internal_set_prediction_type(::perfetto::protos::FrameTimelineEvent_PredictionType value);
   public:
 
+  // optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 12;
+  bool has_jank_severity_type() const;
+  private:
+  bool _internal_has_jank_severity_type() const;
+  public:
+  void clear_jank_severity_type();
+  ::perfetto::protos::FrameTimelineEvent_JankSeverityType jank_severity_type() const;
+  void set_jank_severity_type(::perfetto::protos::FrameTimelineEvent_JankSeverityType value);
+  private:
+  ::perfetto::protos::FrameTimelineEvent_JankSeverityType _internal_jank_severity_type() const;
+  void _internal_set_jank_severity_type(::perfetto::protos::FrameTimelineEvent_JankSeverityType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:perfetto.protos.FrameTimelineEvent.ActualSurfaceFrameStart)
  private:
   class _Internal;
@@ -644,6 +679,7 @@ class FrameTimelineEvent_ActualSurfaceFrameStart final :
   bool is_buffer_;
   int32_t jank_type_;
   int prediction_type_;
+  int jank_severity_type_;
   friend struct ::TableStruct_protos_2fperfetto_2ftrace_2fandroid_2fframe_5ftimeline_5fevent_2eproto;
 };
 // -------------------------------------------------------------------
@@ -935,6 +971,7 @@ class FrameTimelineEvent_ActualDisplayFrameStart final :
     kGpuCompositionFieldNumber = 6,
     kJankTypeFieldNumber = 7,
     kPredictionTypeFieldNumber = 8,
+    kJankSeverityTypeFieldNumber = 9,
   };
   // optional int64 cookie = 1;
   bool has_cookie() const;
@@ -1040,6 +1077,19 @@ class FrameTimelineEvent_ActualDisplayFrameStart final :
   void _internal_set_prediction_type(::perfetto::protos::FrameTimelineEvent_PredictionType value);
   public:
 
+  // optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 9;
+  bool has_jank_severity_type() const;
+  private:
+  bool _internal_has_jank_severity_type() const;
+  public:
+  void clear_jank_severity_type();
+  ::perfetto::protos::FrameTimelineEvent_JankSeverityType jank_severity_type() const;
+  void set_jank_severity_type(::perfetto::protos::FrameTimelineEvent_JankSeverityType value);
+  private:
+  ::perfetto::protos::FrameTimelineEvent_JankSeverityType _internal_jank_severity_type() const;
+  void _internal_set_jank_severity_type(::perfetto::protos::FrameTimelineEvent_JankSeverityType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:perfetto.protos.FrameTimelineEvent.ActualDisplayFrameStart)
  private:
   class _Internal;
@@ -1057,6 +1107,7 @@ class FrameTimelineEvent_ActualDisplayFrameStart final :
   bool gpu_composition_;
   int32_t jank_type_;
   int prediction_type_;
+  int jank_severity_type_;
   friend struct ::TableStruct_protos_2fperfetto_2ftrace_2fandroid_2fframe_5ftimeline_5fevent_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1366,6 +1417,36 @@ class FrameTimelineEvent final :
   static inline bool JankType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
       JankType* value) {
     return FrameTimelineEvent_JankType_Parse(name, value);
+  }
+
+  typedef FrameTimelineEvent_JankSeverityType JankSeverityType;
+  static constexpr JankSeverityType SEVERITY_UNKNOWN =
+    FrameTimelineEvent_JankSeverityType_SEVERITY_UNKNOWN;
+  static constexpr JankSeverityType SEVERITY_NONE =
+    FrameTimelineEvent_JankSeverityType_SEVERITY_NONE;
+  static constexpr JankSeverityType SEVERITY_PARTIAL =
+    FrameTimelineEvent_JankSeverityType_SEVERITY_PARTIAL;
+  static constexpr JankSeverityType SEVERITY_FULL =
+    FrameTimelineEvent_JankSeverityType_SEVERITY_FULL;
+  static inline bool JankSeverityType_IsValid(int value) {
+    return FrameTimelineEvent_JankSeverityType_IsValid(value);
+  }
+  static constexpr JankSeverityType JankSeverityType_MIN =
+    FrameTimelineEvent_JankSeverityType_JankSeverityType_MIN;
+  static constexpr JankSeverityType JankSeverityType_MAX =
+    FrameTimelineEvent_JankSeverityType_JankSeverityType_MAX;
+  static constexpr int JankSeverityType_ARRAYSIZE =
+    FrameTimelineEvent_JankSeverityType_JankSeverityType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& JankSeverityType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, JankSeverityType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function JankSeverityType_Name.");
+    return FrameTimelineEvent_JankSeverityType_Name(enum_t_value);
+  }
+  static inline bool JankSeverityType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      JankSeverityType* value) {
+    return FrameTimelineEvent_JankSeverityType_Parse(name, value);
   }
 
   typedef FrameTimelineEvent_PresentType PresentType;
@@ -2107,6 +2188,35 @@ inline void FrameTimelineEvent_ActualSurfaceFrameStart::set_is_buffer(bool value
   // @@protoc_insertion_point(field_set:perfetto.protos.FrameTimelineEvent.ActualSurfaceFrameStart.is_buffer)
 }
 
+// optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 12;
+inline bool FrameTimelineEvent_ActualSurfaceFrameStart::_internal_has_jank_severity_type() const {
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  return value;
+}
+inline bool FrameTimelineEvent_ActualSurfaceFrameStart::has_jank_severity_type() const {
+  return _internal_has_jank_severity_type();
+}
+inline void FrameTimelineEvent_ActualSurfaceFrameStart::clear_jank_severity_type() {
+  jank_severity_type_ = 0;
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline ::perfetto::protos::FrameTimelineEvent_JankSeverityType FrameTimelineEvent_ActualSurfaceFrameStart::_internal_jank_severity_type() const {
+  return static_cast< ::perfetto::protos::FrameTimelineEvent_JankSeverityType >(jank_severity_type_);
+}
+inline ::perfetto::protos::FrameTimelineEvent_JankSeverityType FrameTimelineEvent_ActualSurfaceFrameStart::jank_severity_type() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.FrameTimelineEvent.ActualSurfaceFrameStart.jank_severity_type)
+  return _internal_jank_severity_type();
+}
+inline void FrameTimelineEvent_ActualSurfaceFrameStart::_internal_set_jank_severity_type(::perfetto::protos::FrameTimelineEvent_JankSeverityType value) {
+  assert(::perfetto::protos::FrameTimelineEvent_JankSeverityType_IsValid(value));
+  _has_bits_[0] |= 0x00000800u;
+  jank_severity_type_ = value;
+}
+inline void FrameTimelineEvent_ActualSurfaceFrameStart::set_jank_severity_type(::perfetto::protos::FrameTimelineEvent_JankSeverityType value) {
+  _internal_set_jank_severity_type(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.FrameTimelineEvent.ActualSurfaceFrameStart.jank_severity_type)
+}
+
 // -------------------------------------------------------------------
 
 // FrameTimelineEvent_ExpectedDisplayFrameStart
@@ -2423,6 +2533,35 @@ inline void FrameTimelineEvent_ActualDisplayFrameStart::_internal_set_prediction
 inline void FrameTimelineEvent_ActualDisplayFrameStart::set_prediction_type(::perfetto::protos::FrameTimelineEvent_PredictionType value) {
   _internal_set_prediction_type(value);
   // @@protoc_insertion_point(field_set:perfetto.protos.FrameTimelineEvent.ActualDisplayFrameStart.prediction_type)
+}
+
+// optional .perfetto.protos.FrameTimelineEvent.JankSeverityType jank_severity_type = 9;
+inline bool FrameTimelineEvent_ActualDisplayFrameStart::_internal_has_jank_severity_type() const {
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
+inline bool FrameTimelineEvent_ActualDisplayFrameStart::has_jank_severity_type() const {
+  return _internal_has_jank_severity_type();
+}
+inline void FrameTimelineEvent_ActualDisplayFrameStart::clear_jank_severity_type() {
+  jank_severity_type_ = 0;
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline ::perfetto::protos::FrameTimelineEvent_JankSeverityType FrameTimelineEvent_ActualDisplayFrameStart::_internal_jank_severity_type() const {
+  return static_cast< ::perfetto::protos::FrameTimelineEvent_JankSeverityType >(jank_severity_type_);
+}
+inline ::perfetto::protos::FrameTimelineEvent_JankSeverityType FrameTimelineEvent_ActualDisplayFrameStart::jank_severity_type() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.FrameTimelineEvent.ActualDisplayFrameStart.jank_severity_type)
+  return _internal_jank_severity_type();
+}
+inline void FrameTimelineEvent_ActualDisplayFrameStart::_internal_set_jank_severity_type(::perfetto::protos::FrameTimelineEvent_JankSeverityType value) {
+  assert(::perfetto::protos::FrameTimelineEvent_JankSeverityType_IsValid(value));
+  _has_bits_[0] |= 0x00000100u;
+  jank_severity_type_ = value;
+}
+inline void FrameTimelineEvent_ActualDisplayFrameStart::set_jank_severity_type(::perfetto::protos::FrameTimelineEvent_JankSeverityType value) {
+  _internal_set_jank_severity_type(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.FrameTimelineEvent.ActualDisplayFrameStart.jank_severity_type)
 }
 
 // -------------------------------------------------------------------
@@ -2862,6 +3001,7 @@ inline FrameTimelineEvent::EventCase FrameTimelineEvent::event_case() const {
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::perfetto::protos::FrameTimelineEvent_JankType> : ::std::true_type {};
+template <> struct is_proto_enum< ::perfetto::protos::FrameTimelineEvent_JankSeverityType> : ::std::true_type {};
 template <> struct is_proto_enum< ::perfetto::protos::FrameTimelineEvent_PresentType> : ::std::true_type {};
 template <> struct is_proto_enum< ::perfetto::protos::FrameTimelineEvent_PredictionType> : ::std::true_type {};
 

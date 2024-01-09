@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -275,14 +276,17 @@ void DeviceSettingsDelegateProxy::GetScreenBrightnessLevel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::DeviceSettingsDelegate::GetScreenBrightnessLevel");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsDelegate_GetScreenBrightnessLevel_Name, kFlags, 0, 0, nullptr);
@@ -313,14 +317,17 @@ void DeviceSettingsDelegateProxy::SetBluetoothEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsDelegate_SetBluetoothEnabled_Name, kFlags, 0, 0, nullptr);
@@ -351,14 +358,17 @@ void DeviceSettingsDelegateProxy::SetDoNotDisturbEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsDelegate_SetDoNotDisturbEnabled_Name, kFlags, 0, 0, nullptr);
@@ -389,14 +399,17 @@ void DeviceSettingsDelegateProxy::SetNightLightEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsDelegate_SetNightLightEnabled_Name, kFlags, 0, 0, nullptr);
@@ -430,14 +443,17 @@ void DeviceSettingsDelegateProxy::SetScreenBrightnessLevel(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsDelegate_SetScreenBrightnessLevel_Name, kFlags, 0, 0, nullptr);
@@ -469,14 +485,17 @@ void DeviceSettingsDelegateProxy::SetSwitchAccessEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsDelegate_SetSwitchAccessEnabled_Name, kFlags, 0, 0, nullptr);
@@ -507,14 +526,17 @@ void DeviceSettingsDelegateProxy::SetWifiEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsDelegate_SetWifiEnabled_Name, kFlags, 0, 0, nullptr);
@@ -624,7 +646,8 @@ void DeviceSettingsDelegate_GetScreenBrightnessLevel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceSettingsDelegate_GetScreenBrightnessLevel_Name, kFlags, 0, 0, nullptr);
@@ -884,22 +907,22 @@ bool DeviceSettingsDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceSettingsDelegateValidationInfo[] = {
-    {&internal::DeviceSettingsDelegate_GetScreenBrightnessLevel_Params_Data::Validate,
+    { &internal::DeviceSettingsDelegate_GetScreenBrightnessLevel_Params_Data::Validate,
      &internal::DeviceSettingsDelegate_GetScreenBrightnessLevel_ResponseParams_Data::Validate},
-    {&internal::DeviceSettingsDelegate_SetBluetoothEnabled_Params_Data::Validate,
+    { &internal::DeviceSettingsDelegate_SetBluetoothEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceSettingsDelegate_SetDoNotDisturbEnabled_Params_Data::Validate,
+    { &internal::DeviceSettingsDelegate_SetDoNotDisturbEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceSettingsDelegate_SetNightLightEnabled_Params_Data::Validate,
+    { &internal::DeviceSettingsDelegate_SetNightLightEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceSettingsDelegate_SetScreenBrightnessLevel_Params_Data::Validate,
+    { &internal::DeviceSettingsDelegate_SetScreenBrightnessLevel_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceSettingsDelegate_SetSwitchAccessEnabled_Params_Data::Validate,
+    { &internal::DeviceSettingsDelegate_SetSwitchAccessEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceSettingsDelegate_SetWifiEnabled_Params_Data::Validate,
+    { &internal::DeviceSettingsDelegate_SetWifiEnabled_Params_Data::Validate,
      nullptr /* no response */},
 };
 

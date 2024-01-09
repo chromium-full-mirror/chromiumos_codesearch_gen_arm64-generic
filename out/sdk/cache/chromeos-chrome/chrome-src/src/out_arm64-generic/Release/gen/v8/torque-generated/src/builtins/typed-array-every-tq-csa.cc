@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/typed-array-every-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -181,7 +182,7 @@ TNode<Boolean> EveryAllElements_0(compiler::CodeAssemblerState* state_, TNode<Co
   if (block14.is_used()) {
     ca_.Bind(&block14, &phi_bb14_6, &phi_bb14_8, &phi_bb14_10, &phi_bb14_11);
     tmp8 = (TNode<JSTypedArray>{tmp0});
-tmp9 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallableFor(ca_.isolate(),ExampleBuiltinForTorqueFunctionPointerType(1)).descriptor(), tmp2, TNode<Object>(), tmp8, phi_bb14_8));
+tmp9 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallInterfaceDescriptorFor(ExampleBuiltinForTorqueFunctionPointerType(1)), tmp2, TNode<Object>(), tmp8, phi_bb14_8));
     ca_.Goto(&block6, tmp8, phi_bb14_8, tmp9);
   }
 

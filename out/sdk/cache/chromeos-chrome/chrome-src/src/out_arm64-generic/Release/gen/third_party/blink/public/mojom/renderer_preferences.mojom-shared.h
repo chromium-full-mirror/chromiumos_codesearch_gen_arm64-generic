@@ -184,9 +184,6 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
-  bool webrtc_allow_legacy_tls_protocols() const {
-    return data_->webrtc_allow_legacy_tls_protocols;
-  }
   inline void GetUserAgentOverrideDataView(
       ::blink::mojom::UserAgentOverrideDataView* output);
 
@@ -323,7 +320,6 @@ struct Serializer<::blink::mojom::RendererPreferencesDataView, MaybeConstUserTyp
         fragment->webrtc_local_ips_allowed_urls.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null webrtc_local_ips_allowed_urls in RendererPreferences struct");
-    fragment->webrtc_allow_legacy_tls_protocols = Traits::webrtc_allow_legacy_tls_protocols(input);
     decltype(Traits::user_agent_override(input)) in_user_agent_override = Traits::user_agent_override(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->user_agent_override)::BaseType> user_agent_override_fragment(

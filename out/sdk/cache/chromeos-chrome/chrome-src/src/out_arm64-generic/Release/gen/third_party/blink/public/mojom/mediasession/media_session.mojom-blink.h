@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/mediasession/media_session.mojom-features.h"
 #include "third_party/blink/public/mojom/mediasession/media_session.mojom-shared.h"
 #include "third_party/blink/public/mojom/mediasession/media_session.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -41,18 +42,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::MediaSessionPlaybackState>
-    : EnumHashTraits<::blink::mojom::MediaSessionPlaybackState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -355,9 +344,9 @@ class PLATFORM_EXPORT MediaSessionActionDetails {
   // Construct an instance holding |seek_to|.
   static MediaSessionActionDetailsPtr
   NewSeekTo(
-      MediaSessionSeekToDetailsPtr seek_to) {
+      MediaSessionSeekToDetailsPtr value) {
     auto result = MediaSessionActionDetailsPtr(absl::in_place);
-    result->set_seek_to(std::move(seek_to));
+    result->set_seek_to(std::move(value));
     return result;
   }
 
@@ -620,7 +609,8 @@ class PLATFORM_EXPORT SpecMediaMetadata {
       const ::WTF::String& title,
       const ::WTF::String& artist,
       const ::WTF::String& album,
-      WTF::Vector<::media_session::mojom::blink::MediaImagePtr> artwork);
+      WTF::Vector<::media_session::mojom::blink::MediaImagePtr> artwork,
+      WTF::Vector<::media_session::mojom::blink::ChapterInformationPtr> chapterInfo);
 
 SpecMediaMetadata(const SpecMediaMetadata&) = delete;
 SpecMediaMetadata& operator=(const SpecMediaMetadata&) = delete;
@@ -707,6 +697,8 @@ SpecMediaMetadata& operator=(const SpecMediaMetadata&) = delete;
   ::WTF::String album;
   
   WTF::Vector<::media_session::mojom::blink::MediaImagePtr> artwork;
+  
+  WTF::Vector<::media_session::mojom::blink::ChapterInformationPtr> chapterInfo;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -796,7 +788,8 @@ SpecMediaMetadataPtr SpecMediaMetadata::Clone() const {
       mojo::Clone(title),
       mojo::Clone(artist),
       mojo::Clone(album),
-      mojo::Clone(artwork)
+      mojo::Clone(artwork),
+      mojo::Clone(chapterInfo)
   );
 }
 
@@ -809,6 +802,8 @@ bool SpecMediaMetadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->album, other_struct.album))
     return false;
   if (!mojo::Equals(this->artwork, other_struct.artwork))
+    return false;
+  if (!mojo::Equals(this->chapterInfo, other_struct.chapterInfo))
     return false;
   return true;
 }
@@ -830,6 +825,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.artwork < rhs.artwork)
     return true;
   if (rhs.artwork < lhs.artwork)
+    return false;
+  if (lhs.chapterInfo < rhs.chapterInfo)
+    return true;
+  if (rhs.chapterInfo < lhs.chapterInfo)
     return false;
   return false;
 }
@@ -884,6 +883,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::SpecMediaMetadata::Da
   static const decltype(::blink::mojom::blink::SpecMediaMetadata::artwork)& artwork(
       const ::blink::mojom::blink::SpecMediaMetadataPtr& input) {
     return input->artwork;
+  }
+
+  static const decltype(::blink::mojom::blink::SpecMediaMetadata::chapterInfo)& chapterInfo(
+      const ::blink::mojom::blink::SpecMediaMetadataPtr& input) {
+    return input->chapterInfo;
   }
 
   static bool Read(::blink::mojom::blink::SpecMediaMetadata::DataView input, ::blink::mojom::blink::SpecMediaMetadataPtr* output);

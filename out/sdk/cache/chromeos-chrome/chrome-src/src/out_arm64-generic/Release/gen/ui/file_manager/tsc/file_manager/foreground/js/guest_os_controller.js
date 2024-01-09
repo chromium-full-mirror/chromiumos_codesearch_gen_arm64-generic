@@ -4,32 +4,21 @@
 import { listMountableGuests } from '../../common/js/api.js';
 import { GuestOsPlaceholder } from '../../common/js/files_app_entry_types.js';
 import { isGuestOsEnabled, isNewDirectoryTreeEnabled } from '../../common/js/flags.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import { VolumeManager } from '../../externs/volume_manager.js';
+import { VolumeType } from '../../common/js/volume_manager_types.js';
 import { addUiEntry, removeUiEntry } from '../../state/ducks/ui_entries.js';
 import { getEntry, getStore } from '../../state/store.js';
-import { DirectoryModel } from './directory_model.js';
 import { NavigationModelFakeItem, NavigationModelItemType } from './navigation_list_model.js';
 import { DirectoryTree } from './ui/directory_tree.js';
 /**
  * GuestOsController handles the foreground UI relating to Guest OSs.
  */
 export class GuestOsController {
-    /**
-     * @param {!DirectoryModel} directoryModel DirectoryModel.
-     * @param {!DirectoryTree} directoryTree DirectoryTree.
-     * @param {!VolumeManager} volumeManager VolumeManager.
-     */
-    constructor(directoryModel, directoryTree, volumeManager) {
+    constructor(directoryTree_, volumeManager_) {
+        this.directoryTree_ = directoryTree_;
+        this.volumeManager_ = volumeManager_;
         if (!isGuestOsEnabled()) {
             console.warn('Created a guest os controller when it\'s not enabled');
         }
-        /** @private @const */
-        this.directoryModel_ = directoryModel;
-        /** @private @const */
-        this.directoryTree_ = directoryTree;
-        /** @private @const @type {!VolumeManager} */
-        this.volumeManager_ = volumeManager;
         chrome.fileManagerPrivate.onMountableGuestsChanged.addListener(this.onMountableGuestsChanged.bind(this));
     }
     /**
@@ -44,7 +33,6 @@ export class GuestOsController {
      * Updates the list of Guest OSs when we receive an event for the list of
      * registered guests changing, by adding them to the directory tree and
      * triggering a redraw.
-     * @param {!Array<!chrome.fileManagerPrivate.MountableGuest>} guests
      */
     async onMountableGuestsChanged(guests) {
         const store = getStore();
@@ -54,20 +42,18 @@ export class GuestOsController {
         for (const uiEntryKey of state.uiEntries) {
             const uiEntry = getEntry(state, uiEntryKey);
             if (uiEntry && 'guest_id' in uiEntry &&
-                // @ts-ignore: error TS2345: Argument of type 'unknown' is not
-                // assignable to parameter of type 'number'.
                 !newGuestIdSet.has(uiEntry.guest_id)) {
-                store.dispatch(removeUiEntry({ key: uiEntryKey }));
+                store.dispatch(removeUiEntry(uiEntryKey));
             }
         }
         const newGuestOsPlaceholders = guests.map(guest => {
             const guestOsEntry = new GuestOsPlaceholder(guest.displayName, guest.id, guest.vmType);
             const navigationModelItem = new NavigationModelFakeItem(guest.displayName, NavigationModelItemType.GUEST_OS, guestOsEntry);
             const volumeType = guest.vmType == chrome.fileManagerPrivate.VmType.ARCVM ?
-                VolumeManagerCommon.VolumeType.ANDROID_FILES :
-                VolumeManagerCommon.VolumeType.GUEST_OS;
+                VolumeType.ANDROID_FILES :
+                VolumeType.GUEST_OS;
             navigationModelItem.disabled = this.volumeManager_.isDisabled(volumeType);
-            store.dispatch(addUiEntry({ entry: guestOsEntry }));
+            store.dispatch(addUiEntry(guestOsEntry));
             return navigationModelItem;
         });
         if (!isNewDirectoryTreeEnabled()) {

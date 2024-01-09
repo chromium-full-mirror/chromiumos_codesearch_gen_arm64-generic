@@ -696,7 +696,7 @@ bool UserInteractionLatency_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -715,6 +715,13 @@ bool UserInteractionLatency_Data::Validate(
 
   if (!::page_load_metrics::mojom::internal::UserInteractionType_Data
         ::Validate(object->interaction_type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->interaction_time, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->interaction_time, validation_context))
     return false;
 
   return true;

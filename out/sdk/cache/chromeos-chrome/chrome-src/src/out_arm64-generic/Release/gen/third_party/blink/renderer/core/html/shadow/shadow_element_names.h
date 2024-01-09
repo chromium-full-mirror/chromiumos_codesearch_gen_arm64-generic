@@ -39,6 +39,7 @@ CORE_EXPORT extern const WTF::AtomicString& kPseudoFileUploadButton;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoInputPlaceholder;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoInternalDatetimeContainer;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoInternalInputSuggested;
+CORE_EXPORT extern const WTF::AtomicString& kPseudoInternalPermissionTextSpan;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoMediaControlsSegmentedTrack;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoMediaSliderContainer;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoMediaSliderThumb;
@@ -49,7 +50,7 @@ CORE_EXPORT extern const WTF::AtomicString& kPseudoSliderTrack;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoTextFieldDecorationContainer;
 CORE_EXPORT extern const WTF::AtomicString& kPseudoWebKitDetailsMarker;
 
-constexpr unsigned kNamesCount = 31;
+constexpr unsigned kNamesCount = 32;
 
 CORE_EXPORT void Init();
 

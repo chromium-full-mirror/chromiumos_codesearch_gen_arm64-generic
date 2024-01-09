@@ -15,14 +15,13 @@ import * as Bindings from '../../models/bindings/bindings.js';
 import * as PublicExtensions from '../../models/extensions/extensions.js';
 import * as Emulation from '../../panels/emulation/emulation.js';
 import * as Timeline from '../../panels/timeline/timeline.js';
+import * as Tracing from '../../services/tracing/tracing.js';
 import * as Buttons from '../../ui/components/buttons/buttons.js';
+import * as Dialogs from '../../ui/components/dialogs/dialogs.js';
 import * as ComponentHelpers from '../../ui/components/helpers/helpers.js';
-import * as IconButton from '../../ui/components/icon_button/icon_button.js';
+import * as Menus from '../../ui/components/menus/menus.js';
 import * as UI from '../../ui/legacy/legacy.js';
 import * as LitHtml from '../../ui/lit-html/lit-html.js';
-import * as Tracing from '../../services/tracing/tracing.js';
-import * as Menus from '../../ui/components/menus/menus.js';
-import * as Dialogs from '../../ui/components/dialogs/dialogs.js';
 import * as Components from './components/components.js';
 import * as Converters from './converters/converters.js';
 import * as Extensions from './extensions/extensions.js';
@@ -44,6 +43,15 @@ const UIStrings = {
      * @description The title of the button that deletes the recording
      */
     deleteRecording: 'Delete recording',
+    /**
+     * @description The title of the select if user has no saved recordings
+     */
+    noRecordings: 'No recordings',
+    /**
+     * @description The title of the select option for one or more recording
+     * number followed by this text - `1 recording(s)` or `4 recording(s)`
+     */
+    numberOfRecordings: 'recording(s)',
     /**
      * @description The title of the button that continues the replay
      */
@@ -103,7 +111,7 @@ const CONVERTER_ID_TO_METRIC = {
     ["puppeteer" /* Models.ConverterIds.ConverterIds.Puppeteer */]: Host.UserMetrics.RecordingExported.ToPuppeteer,
     ["lighthouse" /* Models.ConverterIds.ConverterIds.Lighthouse */]: Host.UserMetrics.RecordingExported.ToLighthouse,
 };
-export let RecorderController = class RecorderController extends LitElement {
+let RecorderController = class RecorderController extends LitElement {
     static styles = [recorderControllerStyles];
     #storage = Models.RecordingStorage.RecordingStorage.instance();
     #screenshotStorage = Models.ScreenshotStorage.ScreenshotStorage.instance();
@@ -970,12 +978,12 @@ export let RecorderController = class RecorderController extends LitElement {
             recordings.length === 0
                 ? {
                     value: "StartPage" /* Pages.StartPage */,
-                    name: 'No recordings',
+                    name: i18nString(UIStrings.noRecordings),
                     selected: selectValue === "StartPage" /* Pages.StartPage */,
                 }
                 : {
                     value: "AllRecordingsPage" /* Pages.AllRecordingsPage */,
-                    name: `${recordings.length} recording(s)`,
+                    name: `${recordings.length} ${i18nString(UIStrings.numberOfRecordings)}`,
                     selected: selectValue === "AllRecordingsPage" /* Pages.AllRecordingsPage */,
                 },
             ...recordings.map(recording => ({
@@ -1077,18 +1085,16 @@ export let RecorderController = class RecorderController extends LitElement {
         }}
             ></${Buttons.Button.Button.litTagName}>
             <div class="separator"></div>
-            <button class="continue-button"
-              .disabled=${!this.recordingPlayer ||
-            !this.#replayState.isPausedOnBreakpoint}
-              title=${i18nString(UIStrings.continueReplay)}
-              @click=${() => this.recordingPlayer?.continue()}>
-                <${IconButton.Icon.Icon.litTagName}
-                  .data=${{
+            <${Buttons.Button.Button.litTagName}
+              @click=${() => this.recordingPlayer?.continue()}
+              .data=${{
+            variant: "primary_toolbar" /* Buttons.Button.Variant.PRIMARY_TOOLBAR */,
             iconName: 'resume',
-            color: 'var(--icon-color)',
+            disabled: !this.recordingPlayer ||
+                !this.#replayState.isPausedOnBreakpoint,
+            title: i18nString(UIStrings.continueReplay),
         }}
-                ></${IconButton.Icon.Icon.litTagName}>
-            </button>
+            ></${Buttons.Button.Button.litTagName}>
             <${Buttons.Button.Button.litTagName}
               @click=${() => this.recordingPlayer?.stepOver()}
               .data=${{
@@ -1172,4 +1178,5 @@ __decorate([
 RecorderController = __decorate([
     customElement('devtools-recorder-controller')
 ], RecorderController);
+export { RecorderController };
 //# sourceMappingURL=RecorderController.js.map

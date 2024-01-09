@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -53,11 +54,11 @@ ExecutableMetadata::ExecutableMetadata()
 
 ExecutableMetadata::ExecutableMetadata(
     bool is_running_in,
-    absl::optional<std::vector<std::string>> public_keys_hashes_in,
-    const absl::optional<std::string>& product_name_in,
-    const absl::optional<std::string>& version_in,
+    std::optional<std::vector<std::string>> public_keys_hashes_in,
+    const std::optional<std::string>& product_name_in,
+    const std::optional<std::string>& version_in,
     bool is_os_verified_in,
-    const absl::optional<std::string>& subject_name_in)
+    const std::optional<std::string>& subject_name_in)
     : is_running(std::move(is_running_in)),
       public_keys_hashes(std::move(public_keys_hashes_in)),
       product_name(std::move(product_name_in)),
@@ -83,7 +84,7 @@ void ExecutableMetadata::WriteIntoTrace(
     dict.AddItem(
       "public_keys_hashes"), this->public_keys_hashes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -92,7 +93,7 @@ void ExecutableMetadata::WriteIntoTrace(
     dict.AddItem(
       "product_name"), this->product_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -101,7 +102,7 @@ void ExecutableMetadata::WriteIntoTrace(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -119,7 +120,7 @@ void ExecutableMetadata::WriteIntoTrace(
     dict.AddItem(
       "subject_name"), this->subject_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -140,8 +141,8 @@ FileSystemItem::FileSystemItem()
 FileSystemItem::FileSystemItem(
     const ::base::FilePath& file_path_in,
     ::device_signals::PresenceValue presence_in,
-    const absl::optional<std::string>& sha256_hash_in,
-    const absl::optional<::device_signals::ExecutableMetadata>& executable_metadata_in)
+    const std::optional<std::string>& sha256_hash_in,
+    const std::optional<::device_signals::ExecutableMetadata>& executable_metadata_in)
     : file_path(std::move(file_path_in)),
       presence(std::move(presence_in)),
       sha256_hash(std::move(sha256_hash_in)),
@@ -174,7 +175,7 @@ void FileSystemItem::WriteIntoTrace(
     dict.AddItem(
       "sha256_hash"), this->sha256_hash,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -183,7 +184,7 @@ void FileSystemItem::WriteIntoTrace(
     dict.AddItem(
       "executable_metadata"), this->executable_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::device_signals::ExecutableMetadata>&>"
+      "<value of type const std::optional<::device_signals::ExecutableMetadata>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -334,14 +335,17 @@ void SystemSignalsServiceProxy::GetFileSystemSignals(
                         "<value of type const std::vector<::device_signals::GetFileSystemInfoOptions>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemSignalsService_GetFileSystemSignals_Name, kFlags, 0, 0, nullptr);
@@ -464,7 +468,8 @@ void SystemSignalsService_GetFileSystemSignals_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSystemSignalsService_GetFileSystemSignals_Name, kFlags, 0, 0, nullptr);
@@ -556,10 +561,10 @@ std::move(p_requests), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSystemSignalsServiceValidationInfo[] = {
-    {&internal::SystemSignalsService_GetFileSystemSignals_Params_Data::Validate,
+    { &internal::SystemSignalsService_GetFileSystemSignals_Params_Data::Validate,
      &internal::SystemSignalsService_GetFileSystemSignals_ResponseParams_Data::Validate},
 };
 

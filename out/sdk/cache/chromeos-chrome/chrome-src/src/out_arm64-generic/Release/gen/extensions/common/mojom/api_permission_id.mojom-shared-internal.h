@@ -282,6 +282,9 @@ struct APIPermissionID_Data {
       case 252:
       case 253:
       case 254:
+      case 255:
+      case 256:
+      case 257:
         return true;
     }
     return false;

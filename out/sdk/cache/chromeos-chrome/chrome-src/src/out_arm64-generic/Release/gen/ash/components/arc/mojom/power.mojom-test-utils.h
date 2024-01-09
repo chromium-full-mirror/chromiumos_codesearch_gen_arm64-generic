@@ -47,7 +47,7 @@ class  PowerHostAsyncWaiter {
 class  PowerInstanceInterceptorForTesting : public PowerInstance {
   virtual PowerInstance* GetForwardingInterface() = 0;
   void Init(::mojo::PendingRemote<PowerHost> host_remote, InitCallback callback) override;
-  void SetInteractive(bool enabled) override;
+  void SetInteractiveDeprecated(bool enabled) override;
   void Suspend(SuspendCallback callback) override;
   void Resume() override;
   void UpdateScreenBrightnessSettings(double percent) override;
@@ -55,6 +55,7 @@ class  PowerInstanceInterceptorForTesting : public PowerInstance {
   void GetWakefulnessMode(GetWakefulnessModeCallback callback) override;
   void OnCpuRestrictionChanged(CpuRestrictionState state) override;
   void OnBatterySaverModeStateChanged(BatterySaverModeStatePtr state) override;
+  void SetIdleState(IdleState state) override;
 };
 class  PowerInstanceAsyncWaiter {
  public:

@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WheelEvent>::value,
     "WheelEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WheelEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WheelEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("WheelEvent.deltaX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(v8_receiver);
+WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deltaX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("WheelEvent.deltaY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(v8_receiver);
+WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deltaY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -118,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("WheelEvent.deltaZ.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(v8_receiver);
+WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deltaZ();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -140,7 +138,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8WheelEvent_DeltaMode
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(v8_receiver);
+WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deltaMode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 // [HighEntropy=Direct]
@@ -163,7 +161,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWheelEventWheelDeltaX)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(v8_receiver);
+WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->wheelDeltaX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -186,7 +184,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWheelEventWheelDeltaY)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(v8_receiver);
+WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->wheelDeltaY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -209,7 +207,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWheelEventWheelDelta);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(v8_receiver);
+WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->wheelDelta();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -224,8 +222,9 @@ BLINK_BINDINGS_TRACE_EVENT("WheelEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(v8_receiver);
+WheelEvent* blink_receiver = V8WheelEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

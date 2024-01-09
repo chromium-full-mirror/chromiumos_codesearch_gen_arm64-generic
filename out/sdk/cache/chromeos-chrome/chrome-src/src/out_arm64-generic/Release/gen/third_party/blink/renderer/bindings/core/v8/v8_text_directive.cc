@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TextDirective>::value,
     "TextDirective inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TextDirective::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TextDirective is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextDirective.prefix.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextDirective* blink_receiver = V8TextDirective::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->prefix();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextDirective* blink_receiver = V8TextDirective::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->prefix();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,10 +97,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextDirective.textStart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextDirective* blink_receiver = V8TextDirective::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->textStart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextDirective* blink_receiver = V8TextDirective::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->textStart();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -117,10 +112,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextDirective.textEnd.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextDirective* blink_receiver = V8TextDirective::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->textEnd();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextDirective* blink_receiver = V8TextDirective::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->textEnd();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -132,10 +127,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextDirective.suffix.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextDirective* blink_receiver = V8TextDirective::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->suffix();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextDirective* blink_receiver = V8TextDirective::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->suffix();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

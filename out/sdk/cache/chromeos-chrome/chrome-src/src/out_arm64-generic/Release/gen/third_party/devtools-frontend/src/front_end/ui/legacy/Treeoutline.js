@@ -80,6 +80,7 @@ export class TreeOutline extends Common.ObjectWrapper.ObjectWrapper {
         this.focusable = true;
         this.setFocusable(true);
         this.element = this.contentElement;
+        this.element.setAttribute('jslog', `${VisualLogging.tree()}`);
         ARIAUtils.markAsTree(this.element);
         this.useLightSelectionColor = false;
         this.treeElementToScrollIntoView = null;
@@ -386,6 +387,7 @@ export class TreeElement {
     titleInternal;
     childrenInternal;
     childrenListNode;
+    expandLoggable = {};
     hiddenInternal;
     selectableInternal;
     expanded;
@@ -401,7 +403,7 @@ export class TreeElement {
     trailingIconsElement;
     selectionElementInternal;
     disableSelectFocus;
-    constructor(title, expandable) {
+    constructor(title, expandable, jslogContext) {
         this.treeOutline = null;
         this.parent = null;
         this.previousSibling = null;
@@ -418,7 +420,7 @@ export class TreeElement {
         this.listItemNode.addEventListener('mousedown', this.handleMouseDown.bind(this), false);
         this.listItemNode.addEventListener('click', this.treeElementToggled.bind(this), false);
         this.listItemNode.addEventListener('dblclick', this.handleDoubleClick.bind(this), false);
-        this.listItemNode.setAttribute('jslog', `${VisualLogging.treeItem().track({ click: true }).parent('parentTreeItem').context('disclosureTriangle')}`);
+        this.listItemNode.setAttribute('jslog', `${VisualLogging.treeItem().parent('parentTreeItem').context(jslogContext)}`);
         ARIAUtils.markAsTreeitem(this.listItemNode);
         this.childrenInternal = null;
         this.childrenListNode = document.createElement('ol');
@@ -740,6 +742,7 @@ export class TreeElement {
             ARIAUtils.unsetExpandable(this.listItemNode);
         }
         else {
+            VisualLogging.registerLoggable(this.expandLoggable, `${VisualLogging.treeItemExpand()}`, this.listItemNode);
             ARIAUtils.setExpanded(this.listItemNode, false);
         }
     }
@@ -823,6 +826,7 @@ export class TreeElement {
                 this.expand();
             }
         }
+        void VisualLogging.logClick(this.expandLoggable, event);
         event.consume();
     }
     handleMouseDown(event) {
@@ -1104,6 +1108,14 @@ export class TreeElement {
         // Overridden by subclasses.
     }
     onenter() {
+        if (this.expandable && !this.expanded) {
+            this.expand();
+            return true;
+        }
+        if (this.collapsible && this.expanded) {
+            this.collapse();
+            return true;
+        }
         return false;
     }
     ondelete() {
@@ -1199,22 +1211,10 @@ export class TreeElement {
         this.disableSelectFocus = toggle;
     }
 }
-function disclosureTriangleLoggingContextProvider(e) {
-    if (e instanceof Element) {
-        return Promise.resolve(e.classList.contains('parent') ? 1 : 0);
-    }
-    if (e instanceof MouseEvent && e.currentTarget instanceof Node) {
-        const treeElement = TreeElement.getTreeElementBylistItemNode(e.currentTarget);
-        if (treeElement) {
-            return Promise.resolve(treeElement.isEventWithinDisclosureTriangle(e) ? 1 : 0);
-        }
-    }
-    return Promise.resolve(undefined);
-}
 function loggingParentProvider(e) {
     const treeElement = TreeElement.getTreeElementBylistItemNode(e);
-    return treeElement?.parent?.listItemElement;
+    const parentElement = treeElement?.parent?.listItemElement;
+    return parentElement?.isConnected && parentElement || treeElement?.treeOutline?.contentElement;
 }
-VisualLogging.registerContextProvider('disclosureTriangle', disclosureTriangleLoggingContextProvider);
 VisualLogging.registerParentProvider('parentTreeItem', loggingParentProvider);
 //# sourceMappingURL=Treeoutline.js.map

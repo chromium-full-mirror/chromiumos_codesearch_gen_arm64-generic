@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AbstractRange>::value,
     "AbstractRange inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AbstractRange::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AbstractRange is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("AbstractRange.startContainer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(v8_receiver);
+AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->startContainer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -100,8 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("AbstractRange.startOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(v8_receiver);
+AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->startOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -114,8 +111,9 @@ BLINK_BINDINGS_TRACE_EVENT("AbstractRange.endContainer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(v8_receiver);
+AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->endContainer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -128,8 +126,9 @@ BLINK_BINDINGS_TRACE_EVENT("AbstractRange.endOffset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(v8_receiver);
+AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->endOffset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -142,8 +141,9 @@ BLINK_BINDINGS_TRACE_EVENT("AbstractRange.collapsed.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(v8_receiver);
+AbstractRange* blink_receiver = V8AbstractRange::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->collapsed();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

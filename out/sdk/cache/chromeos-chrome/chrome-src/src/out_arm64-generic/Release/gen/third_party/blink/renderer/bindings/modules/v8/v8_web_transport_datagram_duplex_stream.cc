@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DatagramDuplexStream>::value,
     "DatagramDuplexStream inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DatagramDuplexStream::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DatagramDuplexStream is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransportDatagramDuplexStream.readable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->readable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransportDatagramDuplexStream.writable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->writable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransportDatagramDuplexStream.maxDatagramSize.get
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxDatagramSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -131,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransportDatagramDuplexStream.incomingMaxAge.get"
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->incomingMaxAge();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -154,7 +153,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLDouble>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -171,8 +170,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransportDatagramDuplexStream.outgoingMaxAge.get"
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->outgoingMaxAge();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -194,7 +194,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLDouble>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -211,8 +211,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransportDatagramDuplexStream.incomingHighWaterMa
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->incomingHighWaterMark();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -224,9 +225,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransportDatagramDuplexStream.incomingHighWaterMa
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "WebTransportDatagramDuplexStream";
@@ -247,8 +248,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransportDatagramDuplexStream.outgoingHighWaterMa
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->outgoingHighWaterMark();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -260,9 +262,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransportDatagramDuplexStream.outgoingHighWaterMa
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DatagramDuplexStream* blink_receiver = V8WebTransportDatagramDuplexStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "WebTransportDatagramDuplexStream";

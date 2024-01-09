@@ -21,6 +21,32 @@
 namespace tracing {
 namespace mojom {
 
+NOINLINE static const char* ConsoleOutputToStringHelper(ConsoleOutput value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ConsoleOutput::kOutputUnspecified:
+      return "kOutputUnspecified";
+    case ConsoleOutput::kOutputStdOut:
+      return "kOutputStdOut";
+    case ConsoleOutput::kOutputStdErr:
+      return "kOutputStdErr";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ConsoleOutputToString(ConsoleOutput value) {
+  const char *str = ConsoleOutputToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ConsoleOutput value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ConsoleOutput value) {
+  return os << ConsoleOutputToString(value);
+}
+
 NOINLINE static const char* BufferFillPolicyToStringHelper(BufferFillPolicy value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -252,13 +278,78 @@ ChromeConfig_Data::ChromeConfig_Data()
 
 
 // static
+bool ConsoleConfig_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ConsoleConfig_Data* object =
+      static_cast<const ConsoleConfig_Data*>(data);
+
+
+  if (!::tracing::mojom::internal::ConsoleOutput_Data
+        ::Validate(object->output, validation_context))
+    return false;
+
+  return true;
+}
+
+ConsoleConfig_Data::ConsoleConfig_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool InterceptorConfig_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const InterceptorConfig_Data* object =
+      static_cast<const InterceptorConfig_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->console_config, validation_context))
+    return false;
+
+  return true;
+}
+
+InterceptorConfig_Data::InterceptorConfig_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool DataSourceConfig_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -285,8 +376,11 @@ bool DataSourceConfig_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->chrome_config, validation_context))
     return false;
 
+  if (!mojo::internal::ValidateStruct(object->interceptor_config, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->legacy_config, 6, validation_context)) {
+          object->legacy_config, 7, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& legacy_config_validate_params =
@@ -297,7 +391,7 @@ bool DataSourceConfig_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->track_event_config_raw, 7, validation_context)) {
+          object->track_event_config_raw, 8, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& track_event_config_raw_validate_params =
@@ -470,7 +564,7 @@ bool TraceConfig_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -513,6 +607,9 @@ bool TraceConfig_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->incremental_state_config, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->trace_uuid, validation_context))
     return false;
 
   return true;
@@ -1197,6 +1294,16 @@ TracingSessionClient_OnTracingDisabled_Params_Data::TracingSessionClient_OnTraci
 }  // namespace internal
 }  // namespace mojom
 }  // namespace tracing
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::tracing::mojom::ConsoleOutput>::WriteIntoTrace(
+   perfetto::TracedValue context, ::tracing::mojom::ConsoleOutput value) {
+  return std::move(context).WriteString(::tracing::mojom::ConsoleOutputToString(value));
+}
+
+} // namespace perfetto
 
 namespace perfetto {
 

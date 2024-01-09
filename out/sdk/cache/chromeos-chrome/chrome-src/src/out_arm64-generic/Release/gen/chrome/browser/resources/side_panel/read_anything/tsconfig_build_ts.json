@@ -63,6 +63,9 @@
   ],
   "references": [
     {
+      "path": "../shared/tsconfig_build_ts.json"
+    },
+    {
       "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
     },
     {

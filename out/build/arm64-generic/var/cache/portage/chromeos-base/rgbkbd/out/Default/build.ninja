@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/rgbkbd-0.0.1-r496/work/rgbkbd-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -27,10 +27,7 @@ build install_upstart_config: phony obj/rgbkbd/install_upstart_config.stamp
 build librgbkbd: phony ./librgbkbd.a
 build rgbkbd-adaptor: phony obj/rgbkbd/rgbkbd-adaptor.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build rgbkbd$:_rgbkbd-install_config: phony obj/rgbkbd/_rgbkbd-install_config.stamp
 build rgbkbd$:all: phony obj/rgbkbd/all.stamp
 build rgbkbd$:install_dbus_activation: phony obj/rgbkbd/install_dbus_activation.stamp
@@ -41,11 +38,9 @@ build rgbkbd$:install_upstart_config: phony obj/rgbkbd/install_upstart_config.st
 build rgbkbd$:librgbkbd: phony ./librgbkbd.a
 build rgbkbd$:rgbkbd: phony ./rgbkbd
 build rgbkbd$:rgbkbd-adaptor: phony obj/rgbkbd/rgbkbd-adaptor.stamp
-build rgbkbd$:rgbkbd_test: phony ./rgbkbd_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/rgbkbd/_rgbkbd-install_config.stamp $
     obj/rgbkbd/all.stamp $
     obj/rgbkbd/install_dbus_activation.stamp $
@@ -55,7 +50,6 @@ build all: phony $
     obj/rgbkbd/install_upstart_config.stamp $
     ./librgbkbd.a $
     ./rgbkbd $
-    obj/rgbkbd/rgbkbd-adaptor.stamp $
-    ./rgbkbd_test
+    obj/rgbkbd/rgbkbd-adaptor.stamp
 
 default all

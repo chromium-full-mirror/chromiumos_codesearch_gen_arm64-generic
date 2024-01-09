@@ -113,6 +113,7 @@ export var UsbTransferStatus;
     UsbTransferStatus[UsbTransferStatus["PERMISSION_DENIED"] = 8] = "PERMISSION_DENIED";
 })(UsbTransferStatus || (UsbTransferStatus = {}));
 export class UsbDevicePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -121,6 +122,9 @@ export class UsbDevicePendingReceiver {
     }
 }
 export class UsbDeviceRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(UsbDevicePendingReceiver, handle);
@@ -214,6 +218,9 @@ export class UsbDeviceRemote {
  * interface.
  */
 export class UsbDeviceReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(UsbDeviceRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -256,6 +263,24 @@ export class UsbDevice {
  * receiver can have any number of listeners added to it.
  */
 export class UsbDeviceCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    open;
+    close;
+    setConfiguration;
+    claimInterface;
+    releaseInterface;
+    setInterfaceAlternateSetting;
+    reset;
+    clearHalt;
+    controlTransferIn;
+    controlTransferOut;
+    genericTransferIn;
+    genericTransferOut;
+    isochronousTransferIn;
+    isochronousTransferOut;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(UsbDeviceRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -313,6 +338,7 @@ export class UsbDeviceCallbackRouter {
     }
 }
 export class UsbDeviceClientPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -321,6 +347,9 @@ export class UsbDeviceClientPendingReceiver {
     }
 }
 export class UsbDeviceClientRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(UsbDeviceClientPendingReceiver, handle);
@@ -341,6 +370,9 @@ export class UsbDeviceClientRemote {
  * interface.
  */
 export class UsbDeviceClientReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(UsbDeviceClientRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -371,6 +403,12 @@ export class UsbDeviceClient {
  * receiver can have any number of listeners added to it.
  */
 export class UsbDeviceClientCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onDeviceOpened;
+    onDeviceClosed;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(UsbDeviceClientRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

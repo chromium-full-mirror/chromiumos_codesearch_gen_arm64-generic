@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/login_state.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,11 +37,11 @@ namespace login_state {
 
 const char* ToString(ProfileType enum_param) {
   switch (enum_param) {
-    case PROFILE_TYPE_SIGNIN_PROFILE:
+    case ProfileType::kSigninProfile:
       return "SIGNIN_PROFILE";
-    case PROFILE_TYPE_USER_PROFILE:
+    case ProfileType::kUserProfile:
       return "USER_PROFILE";
-    case PROFILE_TYPE_NONE:
+    case ProfileType::kNone:
       return "";
   }
   NOTREACHED();
@@ -49,10 +50,10 @@ const char* ToString(ProfileType enum_param) {
 
 ProfileType ParseProfileType(base::StringPiece enum_string) {
   if (enum_string == "SIGNIN_PROFILE")
-    return PROFILE_TYPE_SIGNIN_PROFILE;
+    return ProfileType::kSigninProfile;
   if (enum_string == "USER_PROFILE")
-    return PROFILE_TYPE_USER_PROFILE;
-  return PROFILE_TYPE_NONE;
+    return ProfileType::kUserProfile;
+  return ProfileType::kNone;
 }
 
 std::u16string GetProfileTypeParseError(base::StringPiece enum_string) {
@@ -62,19 +63,19 @@ std::u16string GetProfileTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(SessionState enum_param) {
   switch (enum_param) {
-    case SESSION_STATE_UNKNOWN:
+    case SessionState::kUnknown:
       return "UNKNOWN";
-    case SESSION_STATE_IN_OOBE_SCREEN:
+    case SessionState::kInOobeScreen:
       return "IN_OOBE_SCREEN";
-    case SESSION_STATE_IN_LOGIN_SCREEN:
+    case SessionState::kInLoginScreen:
       return "IN_LOGIN_SCREEN";
-    case SESSION_STATE_IN_SESSION:
+    case SessionState::kInSession:
       return "IN_SESSION";
-    case SESSION_STATE_IN_LOCK_SCREEN:
+    case SessionState::kInLockScreen:
       return "IN_LOCK_SCREEN";
-    case SESSION_STATE_IN_RMA_SCREEN:
+    case SessionState::kInRmaScreen:
       return "IN_RMA_SCREEN";
-    case SESSION_STATE_NONE:
+    case SessionState::kNone:
       return "";
   }
   NOTREACHED();
@@ -83,18 +84,18 @@ const char* ToString(SessionState enum_param) {
 
 SessionState ParseSessionState(base::StringPiece enum_string) {
   if (enum_string == "UNKNOWN")
-    return SESSION_STATE_UNKNOWN;
+    return SessionState::kUnknown;
   if (enum_string == "IN_OOBE_SCREEN")
-    return SESSION_STATE_IN_OOBE_SCREEN;
+    return SessionState::kInOobeScreen;
   if (enum_string == "IN_LOGIN_SCREEN")
-    return SESSION_STATE_IN_LOGIN_SCREEN;
+    return SessionState::kInLoginScreen;
   if (enum_string == "IN_SESSION")
-    return SESSION_STATE_IN_SESSION;
+    return SessionState::kInSession;
   if (enum_string == "IN_LOCK_SCREEN")
-    return SESSION_STATE_IN_LOCK_SCREEN;
+    return SessionState::kInLockScreen;
   if (enum_string == "IN_RMA_SCREEN")
-    return SESSION_STATE_IN_RMA_SCREEN;
-  return SESSION_STATE_NONE;
+    return SessionState::kInRmaScreen;
+  return SessionState::kNone;
 }
 
 std::u16string GetSessionStateParseError(base::StringPiece enum_string) {

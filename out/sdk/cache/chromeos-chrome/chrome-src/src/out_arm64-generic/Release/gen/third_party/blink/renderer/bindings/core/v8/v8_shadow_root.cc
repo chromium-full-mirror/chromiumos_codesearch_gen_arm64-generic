@@ -90,11 +90,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ShadowRoot>::value,
     "ShadowRoot inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ShadowRoot::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ShadowRoot is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -107,10 +102,10 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.mode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->mode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->mode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -122,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.host.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->host();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -136,10 +132,10 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.onslotchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onslotchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onslotchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -152,8 +148,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnslotchange(event_handler);
 }
 
@@ -164,10 +161,10 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.innerHTML.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->innerHTML();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->innerHTML();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -187,7 +184,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_value = NativeValueTraits<IDLStringLegacyNullToEmptyStringStringContextTrustedHTML>::NativeValue(isolate, v8_property_value, exception_state, execution_context_of_document_tree);
@@ -208,8 +205,9 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.delegatesFocus.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->delegatesFocus();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -222,10 +220,10 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.slotAssignment.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->slotAssignment();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->slotAssignment();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -237,8 +235,9 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.registry.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->registry();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -251,8 +250,9 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.activeElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->activeElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -265,8 +265,9 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.styleSheets.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->styleSheets();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -279,8 +280,9 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.pointerLockElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pointerLockElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -293,8 +295,9 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.fullscreenElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fullscreenElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -316,7 +319,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAdoptedStyleSheets);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->adoptedStyleSheets();
 bindings::V8SetReturnValue(info, return_value->GetExoticObject(), blink_receiver);
 }
@@ -334,7 +337,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAdoptedStyleSheets);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& observable_array = blink_receiver->adoptedStyleSheets();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
@@ -360,7 +363,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ShadowRoot_PictureIn
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pictureInPictureElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -387,7 +390,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -420,7 +423,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -488,7 +491,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -521,7 +524,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -589,7 +592,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -626,7 +629,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -702,7 +705,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -744,7 +747,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -781,7 +784,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getAnimations();
 if (!ToV8Traits<IDLSequence<Animation>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -806,7 +809,7 @@ UseCounter::Count(current_execution_context, WebFeature::kElementGetInnerHTML);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<GetInnerHTMLOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
   arg1_options = GetInnerHTMLOptions::Create();
@@ -835,8 +838,9 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.getSelection");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getSelection();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -864,9 +868,12 @@ return;
 }
 
 
+// [CEReactions]
+CEReactionsScope ce_reactions_scope;
+
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(v8_receiver);
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_string = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -935,6 +942,7 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"elementFromPoint", ElementFromPointOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"elementsFromPoint", ElementsFromPointOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"getAnimations", GetAnimationsOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"getInnerHTML", GetInnerHTMLOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
 {"getSelection", GetSelectionOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
 };
@@ -965,14 +973,6 @@ if (RuntimeEnabledFeatures::ScopedCustomElementRegistryEnabled()) {
 {"createElement", CreateElementOperationCallbackForMainWorld, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kMainWorld), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"createElement", CreateElementOperationCallbackForNonMainWorlds, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kNonMainWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"createElementNS", CreateElementNSOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
-}
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"getAnimations", GetAnimationsOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

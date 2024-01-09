@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/payments/payment_request.mojom-features.h"
 #include "third_party/blink/public/mojom/payments/payment_request.mojom-shared.h"
 #include "third_party/blink/public/mojom/payments/payment_request.mojom-blink-forward.h"
 #include "components/payments/mojom/payment_request_data.mojom-blink.h"
@@ -44,90 +45,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::PaymentErrorReason>
-    : EnumHashTraits<::payments::mojom::PaymentErrorReason, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::CanMakePaymentQueryResult>
-    : EnumHashTraits<::payments::mojom::CanMakePaymentQueryResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::HasEnrolledInstrumentQueryResult>
-    : EnumHashTraits<::payments::mojom::HasEnrolledInstrumentQueryResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::AndroidPayEnvironment>
-    : EnumHashTraits<::payments::mojom::AndroidPayEnvironment, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::BasicCardNetwork>
-    : EnumHashTraits<::payments::mojom::BasicCardNetwork, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::PaymentShippingType>
-    : EnumHashTraits<::payments::mojom::PaymentShippingType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::PaymentComplete>
-    : EnumHashTraits<::payments::mojom::PaymentComplete, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace payments::mojom::blink {
@@ -871,7 +788,7 @@ class PLATFORM_EXPORT SecurePaymentConfirmationResponse {
       ::blink::mojom::blink::CommonCredentialInfoPtr credential_info,
       WTF::Vector<uint8_t> signature,
       ::blink::mojom::blink::AuthenticatorAttachment authenticator_attachment,
-      absl::optional<WTF::Vector<uint8_t>> user_handle);
+      std::optional<WTF::Vector<uint8_t>> user_handle);
 
 SecurePaymentConfirmationResponse(const SecurePaymentConfirmationResponse&) = delete;
 SecurePaymentConfirmationResponse& operator=(const SecurePaymentConfirmationResponse&) = delete;
@@ -957,7 +874,7 @@ SecurePaymentConfirmationResponse& operator=(const SecurePaymentConfirmationResp
   
   ::blink::mojom::blink::AuthenticatorAttachment authenticator_attachment;
   
-  absl::optional<WTF::Vector<uint8_t>> user_handle;
+  std::optional<WTF::Vector<uint8_t>> user_handle;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1324,7 +1241,7 @@ class PLATFORM_EXPORT SecurePaymentConfirmationRequest {
       WTF::Vector<WTF::Vector<uint8_t>> credential_ids,
       WTF::Vector<uint8_t> challenge,
       ::blink::mojom::blink::PaymentCredentialInstrumentPtr instrument,
-      absl::optional<::base::TimeDelta> timeout,
+      std::optional<::base::TimeDelta> timeout,
       const ::scoped_refptr<const ::blink::SecurityOrigin>& payee_origin,
       const WTF::String& payee_name,
       const WTF::String& rp_id,
@@ -1415,7 +1332,7 @@ SecurePaymentConfirmationRequest& operator=(const SecurePaymentConfirmationReque
   
   ::blink::mojom::blink::PaymentCredentialInstrumentPtr instrument;
   
-  absl::optional<::base::TimeDelta> timeout;
+  std::optional<::base::TimeDelta> timeout;
   
   ::scoped_refptr<const ::blink::SecurityOrigin> payee_origin;
   
@@ -1796,9 +1713,9 @@ class PLATFORM_EXPORT PaymentDetails {
 
   PaymentDetails(
       PaymentItemPtr total,
-      absl::optional<WTF::Vector<PaymentItemPtr>> display_items,
-      absl::optional<WTF::Vector<PaymentShippingOptionPtr>> shipping_options,
-      absl::optional<WTF::Vector<PaymentDetailsModifierPtr>> modifiers,
+      std::optional<WTF::Vector<PaymentItemPtr>> display_items,
+      std::optional<WTF::Vector<PaymentShippingOptionPtr>> shipping_options,
+      std::optional<WTF::Vector<PaymentDetailsModifierPtr>> modifiers,
       const WTF::String& error,
       ::payments::mojom::blink::AddressErrorsPtr shipping_address_errors,
       const WTF::String& id,
@@ -1885,11 +1802,11 @@ PaymentDetails& operator=(const PaymentDetails&) = delete;
   
   PaymentItemPtr total;
   
-  absl::optional<WTF::Vector<PaymentItemPtr>> display_items;
+  std::optional<WTF::Vector<PaymentItemPtr>> display_items;
   
-  absl::optional<WTF::Vector<PaymentShippingOptionPtr>> shipping_options;
+  std::optional<WTF::Vector<PaymentShippingOptionPtr>> shipping_options;
   
-  absl::optional<WTF::Vector<PaymentDetailsModifierPtr>> modifiers;
+  std::optional<WTF::Vector<PaymentDetailsModifierPtr>> modifiers;
   
   WTF::String error;
   

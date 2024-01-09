@@ -73,8 +73,6 @@ class GetAppIdParams;
 class GetAppIdResult;
 class GetAdScriptIdParams;
 class GetAdScriptIdResult;
-class GetCookiesParams;
-class GetCookiesResult;
 class GetFrameTreeParams;
 class GetFrameTreeResult;
 class GetLayoutMetricsParams;
@@ -228,6 +226,7 @@ enum class PermissionsPolicyFeature {
   BLUETOOTH,
   BROWSING_TOPICS,
   CAMERA,
+  CAPTURED_SURFACE_CONTROL,
   CH_DPR,
   CH_DEVICE_MEMORY,
   CH_DOWNLINK,
@@ -283,6 +282,7 @@ enum class PermissionsPolicyFeature {
   PRIVATE_AGGREGATION,
   PRIVATE_STATE_TOKEN_ISSUANCE,
   PRIVATE_STATE_TOKEN_REDEMPTION,
+  PUBLICKEY_CREDENTIALS_CREATE,
   PUBLICKEY_CREDENTIALS_GET,
   RUN_AD_AUCTION,
   SCREEN_WAKE_LOCK,
@@ -292,10 +292,13 @@ enum class PermissionsPolicyFeature {
   SHARED_STORAGE_SELECT_URL,
   SMART_CARD,
   STORAGE_ACCESS,
+  SUB_APPS,
   SYNC_XHR,
   UNLOAD,
   USB,
+  USB_UNRESTRICTED,
   VERTICAL_SCROLL,
+  WEB_PRINTING,
   WEB_SHARE,
   WINDOW_MANAGEMENT,
   WINDOW_PLACEMENT,
@@ -504,6 +507,8 @@ enum class BackForwardCacheNotRestoredReason {
   WEBRTC_STICKY,
   WEB_TRANSPORT_STICKY,
   WEB_SOCKET_STICKY,
+  SMART_CARD,
+  LIVE_MEDIA_STREAM_TRACK,
   CONTENT_SECURITY_HANDLER,
   CONTENT_WEB_AUTHENTICATIONAPI,
   CONTENT_FILE_CHOOSER,

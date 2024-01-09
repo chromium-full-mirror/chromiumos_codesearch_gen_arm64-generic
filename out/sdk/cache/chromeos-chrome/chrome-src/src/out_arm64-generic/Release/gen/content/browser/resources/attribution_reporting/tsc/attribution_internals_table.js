@@ -31,14 +31,11 @@ function setSortAttrs(th, sortDesc) {
  * optionally sort rows of type T by that value.
  */
 export class AttributionInternalsTableElement extends CustomElement {
-    constructor() {
-        super(...arguments);
-        this.model_ = null;
-        this.sortDesc_ = false;
-    }
     static get template() {
         return getTemplate();
     }
+    model_ = null;
+    sortDesc_ = false;
     setModel(model) {
         this.model_ = model;
         this.sortDesc_ = false;

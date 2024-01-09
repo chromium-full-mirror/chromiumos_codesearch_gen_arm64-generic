@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -237,7 +238,7 @@ UserAgentOverride::UserAgentOverride()
 
 UserAgentOverride::UserAgentOverride(
     const std::string& ua_string_override_in,
-    const absl::optional<::blink::UserAgentMetadata>& ua_metadata_override_in)
+    const std::optional<::blink::UserAgentMetadata>& ua_metadata_override_in)
     : ua_string_override(std::move(ua_string_override_in)),
       ua_metadata_override(std::move(ua_metadata_override_in)) {}
 
@@ -259,7 +260,7 @@ void UserAgentOverride::WriteIntoTrace(
     dict.AddItem(
       "ua_metadata_override"), this->ua_metadata_override,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::UserAgentMetadata>&>"
+      "<value of type const std::optional<::blink::UserAgentMetadata>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

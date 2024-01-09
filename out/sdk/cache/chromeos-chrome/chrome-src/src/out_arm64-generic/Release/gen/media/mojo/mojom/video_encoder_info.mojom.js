@@ -123,6 +123,7 @@
     this.supportsSimulcast = false;
     this.reportsAverageQp = false;
     this.applyAlignmentToAllSimulcastLayers = false;
+    this.supportsFrameSizeChange = false;
     this.frameDelay = 0;
     this.inputCapacity = 0;
     this.requestedResolutionAlignment = 0;
@@ -154,6 +155,7 @@
     err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
     if (err !== validator.validationError.NONE)
         return err;
+
 
 
 
@@ -199,7 +201,8 @@
     val.supportsSimulcast = (packed >> 5) & 1 ? true : false;
     val.reportsAverageQp = (packed >> 6) & 1 ? true : false;
     val.applyAlignmentToAllSimulcastLayers = (packed >> 7) & 1 ? true : false;
-    decoder.skip(1);
+    packed = decoder.readUint8();
+    val.supportsFrameSizeChange = (packed >> 0) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     val.frameDelay =
@@ -230,7 +233,9 @@
     packed |= (val.reportsAverageQp & 1) << 6
     packed |= (val.applyAlignmentToAllSimulcastLayers & 1) << 7
     encoder.writeUint8(packed);
-    encoder.skip(1);
+    packed = 0;
+    packed |= (val.supportsFrameSizeChange & 1) << 0
+    encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.frameDelay);

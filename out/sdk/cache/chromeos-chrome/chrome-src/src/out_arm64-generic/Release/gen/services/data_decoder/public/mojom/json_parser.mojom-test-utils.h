@@ -26,7 +26,7 @@ class  JsonParserAsyncWaiter {
 
   ~JsonParserAsyncWaiter();
   void Parse(
-      const std::string& json, uint32_t options, absl::optional<::base::Value>* out_result, absl::optional<std::string>* out_error);
+      const std::string& json, uint32_t options, std::optional<::base::Value>* out_result, std::optional<std::string>* out_error);
   
 
  private:

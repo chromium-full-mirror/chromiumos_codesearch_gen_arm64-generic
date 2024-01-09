@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/requirements.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -71,8 +72,8 @@ ManifestKeys::Requirements::Plugins::Plugins()
  {}
 
 ManifestKeys::Requirements::Plugins::~Plugins() = default;
-ManifestKeys::Requirements::Plugins::Plugins(Plugins&& rhs) = default;
-ManifestKeys::Requirements::Plugins& ManifestKeys::Requirements::Plugins::operator=(Plugins&& rhs) = default;
+ManifestKeys::Requirements::Plugins::Plugins(Plugins&& rhs) noexcept = default;
+ManifestKeys::Requirements::Plugins& ManifestKeys::Requirements::Plugins::operator=(Plugins&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::Requirements::Plugins::kNpapi[];
 
@@ -97,8 +98,8 @@ ManifestKeys::Requirements::_3D::_3D()
  {}
 
 ManifestKeys::Requirements::_3D::~_3D() = default;
-ManifestKeys::Requirements::_3D::_3D(_3D&& rhs) = default;
-ManifestKeys::Requirements::_3D& ManifestKeys::Requirements::_3D::operator=(_3D&& rhs) = default;
+ManifestKeys::Requirements::_3D::_3D(_3D&& rhs) noexcept = default;
+ManifestKeys::Requirements::_3D& ManifestKeys::Requirements::_3D::operator=(_3D&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::Requirements::_3D::kFeatures[];
 
@@ -123,8 +124,8 @@ ManifestKeys::Requirements::Window::Window()
  {}
 
 ManifestKeys::Requirements::Window::~Window() = default;
-ManifestKeys::Requirements::Window::Window(Window&& rhs) = default;
-ManifestKeys::Requirements::Window& ManifestKeys::Requirements::Window::operator=(Window&& rhs) = default;
+ManifestKeys::Requirements::Window::Window(Window&& rhs) noexcept = default;
+ManifestKeys::Requirements::Window& ManifestKeys::Requirements::Window::operator=(Window&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::Requirements::Window::kShape[];
 
@@ -150,8 +151,8 @@ ManifestKeys::Requirements::Requirements()
  {}
 
 ManifestKeys::Requirements::~Requirements() = default;
-ManifestKeys::Requirements::Requirements(Requirements&& rhs) = default;
-ManifestKeys::Requirements& ManifestKeys::Requirements::operator=(Requirements&& rhs) = default;
+ManifestKeys::Requirements::Requirements(Requirements&& rhs) noexcept = default;
+ManifestKeys::Requirements& ManifestKeys::Requirements::operator=(Requirements&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::Requirements::kPlugins[];
 // static
@@ -191,8 +192,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kRequirements[];
 

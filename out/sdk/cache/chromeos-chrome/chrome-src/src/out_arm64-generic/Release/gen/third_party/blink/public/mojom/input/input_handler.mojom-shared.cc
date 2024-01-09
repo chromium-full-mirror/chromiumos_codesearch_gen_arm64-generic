@@ -801,32 +801,6 @@ SelectAroundCaretResult_Data::SelectAroundCaretResult_Data()
 
 
 // static
-bool ScrollResultData_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const ScrollResultData_Data* object =
-      static_cast<const ScrollResultData_Data*>(data);
-
-  if (!mojo::internal::ValidateStruct(object->root_scroll_offset, validation_context))
-    return false;
-
-  return true;
-}
-
-ScrollResultData_Data::ScrollResultData_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool WidgetInputHandlerHost_SetTouchActionFromMain_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1022,6 +996,29 @@ bool WidgetInputHandlerHost_SetMouseCapture_Params_Data::Validate(
 }
 
 WidgetInputHandlerHost_SetMouseCapture_Params_Data::WidgetInputHandlerHost_SetMouseCapture_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data* object =
+      static_cast<const WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data*>(data);
+
+  return true;
+}
+
+WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data::WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2311,7 +2308,7 @@ bool WidgetInputHandler_DispatchEvent_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -2341,9 +2338,6 @@ bool WidgetInputHandler_DispatchEvent_ResponseParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidateStruct(object->touch_action, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidateStruct(object->scroll_result_data, validation_context))
     return false;
 
   return true;

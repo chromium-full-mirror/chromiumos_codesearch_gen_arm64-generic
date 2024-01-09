@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -163,7 +164,7 @@ XRRuntimeSessionResult::XRRuntimeSessionResult()
 XRRuntimeSessionResult::XRRuntimeSessionResult(
     ::mojo::PendingRemote<XRSessionController> controller_in,
     ::device::mojom::XRSessionPtr session_in,
-    const absl::optional<::viz::FrameSinkId>& frame_sink_id_in)
+    const std::optional<::viz::FrameSinkId>& frame_sink_id_in)
     : controller(std::move(controller_in)),
       session(std::move(session_in)),
       frame_sink_id(std::move(frame_sink_id_in)) {}
@@ -195,7 +196,7 @@ void XRRuntimeSessionResult::WriteIntoTrace(
     dict.AddItem(
       "frame_sink_id"), this->frame_sink_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::viz::FrameSinkId>&>"
+      "<value of type const std::optional<::viz::FrameSinkId>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -370,14 +371,17 @@ void XRSessionControllerProxy::SetFrameDataRestricted(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRSessionController_SetFrameDataRestricted_Name, kFlags, 0, 0, nullptr);
@@ -446,10 +450,10 @@ bool XRSessionControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRSessionControllerValidationInfo[] = {
-    {&internal::XRSessionController_SetFrameDataRestricted_Params_Data::Validate,
+    { &internal::XRSessionController_SetFrameDataRestricted_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -549,14 +553,17 @@ void XRRuntimeEventListenerProxy::OnVisibilityStateChanged(
                         "<value of type ::device::mojom::XRVisibilityState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRRuntimeEventListener_OnVisibilityStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -581,14 +588,17 @@ void XRRuntimeEventListenerProxy::OnExitPresent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::XRRuntimeEventListener::OnExitPresent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRRuntimeEventListener_OnExitPresent_Name, kFlags, 0, 0, nullptr);
@@ -681,12 +691,12 @@ bool XRRuntimeEventListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRRuntimeEventListenerValidationInfo[] = {
-    {&internal::XRRuntimeEventListener_OnVisibilityStateChanged_Params_Data::Validate,
+    { &internal::XRRuntimeEventListener_OnVisibilityStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::XRRuntimeEventListener_OnExitPresent_Params_Data::Validate,
+    { &internal::XRRuntimeEventListener_OnExitPresent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -838,14 +848,17 @@ void XRRuntimeProxy::RequestSession(
                         "<value of type XRRuntimeSessionOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRRuntime_RequestSession_Name, kFlags, 0, 0, nullptr);
@@ -880,14 +893,17 @@ void XRRuntimeProxy::ShutdownSession(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::XRRuntime::ShutdownSession");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRRuntime_ShutdownSession_Name, kFlags, 0, 0, nullptr);
@@ -918,14 +934,17 @@ void XRRuntimeProxy::ListenToDeviceChanges(
                         "<value of type ::mojo::PendingAssociatedRemote<XRRuntimeEventListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRRuntime_ListenToDeviceChanges_Name, kFlags, 0, 0, nullptr);
@@ -1040,7 +1059,8 @@ void XRRuntime_RequestSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRRuntime_RequestSession_Name, kFlags, 0, 0, nullptr);
@@ -1153,7 +1173,8 @@ void XRRuntime_ShutdownSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRRuntime_ShutdownSession_Name, kFlags, 0, 0, nullptr);
@@ -1291,14 +1312,14 @@ std::move(p_options), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRRuntimeValidationInfo[] = {
-    {&internal::XRRuntime_RequestSession_Params_Data::Validate,
+    { &internal::XRRuntime_RequestSession_Params_Data::Validate,
      &internal::XRRuntime_RequestSession_ResponseParams_Data::Validate},
-    {&internal::XRRuntime_ShutdownSession_Params_Data::Validate,
+    { &internal::XRRuntime_ShutdownSession_Params_Data::Validate,
      &internal::XRRuntime_ShutdownSession_ResponseParams_Data::Validate},
-    {&internal::XRRuntime_ListenToDeviceChanges_Params_Data::Validate,
+    { &internal::XRRuntime_ListenToDeviceChanges_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1483,14 +1504,17 @@ void ImmersiveOverlayProxy::RequestNextOverlayPose(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::ImmersiveOverlay::RequestNextOverlayPose");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImmersiveOverlay_RequestNextOverlayPose_Name, kFlags, 0, 0, nullptr);
@@ -1533,14 +1557,17 @@ void ImmersiveOverlayProxy::SubmitOverlayTexture(
                         "<value of type const ::gfx::RectF&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImmersiveOverlay_SubmitOverlayTexture_Name, kFlags, 0, 0, nullptr);
@@ -1614,14 +1641,17 @@ void ImmersiveOverlayProxy::SetOverlayAndWebXRVisibility(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImmersiveOverlay_SetOverlayAndWebXRVisibility_Name, kFlags, 0, 0, nullptr);
@@ -1646,14 +1676,17 @@ void ImmersiveOverlayProxy::RequestNotificationOnWebXrSubmitted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::ImmersiveOverlay::RequestNotificationOnWebXrSubmitted");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImmersiveOverlay_RequestNotificationOnWebXrSubmitted_Name, kFlags, 0, 0, nullptr);
@@ -1763,7 +1796,8 @@ void ImmersiveOverlay_RequestNextOverlayPose_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImmersiveOverlay_RequestNextOverlayPose_Name, kFlags, 0, 0, nullptr);
@@ -1891,7 +1925,8 @@ void ImmersiveOverlay_SubmitOverlayTexture_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImmersiveOverlay_SubmitOverlayTexture_Name, kFlags, 0, 0, nullptr);
@@ -1998,7 +2033,8 @@ void ImmersiveOverlay_RequestNotificationOnWebXrSubmitted_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kImmersiveOverlay_RequestNotificationOnWebXrSubmitted_Name, kFlags, 0, 0, nullptr);
@@ -2182,16 +2218,16 @@ std::move(p_right_bounds), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kImmersiveOverlayValidationInfo[] = {
-    {&internal::ImmersiveOverlay_RequestNextOverlayPose_Params_Data::Validate,
+    { &internal::ImmersiveOverlay_RequestNextOverlayPose_Params_Data::Validate,
      &internal::ImmersiveOverlay_RequestNextOverlayPose_ResponseParams_Data::Validate},
-    {&internal::ImmersiveOverlay_SubmitOverlayTexture_Params_Data::Validate,
+    { &internal::ImmersiveOverlay_SubmitOverlayTexture_Params_Data::Validate,
      &internal::ImmersiveOverlay_SubmitOverlayTexture_ResponseParams_Data::Validate},
-    {&internal::ImmersiveOverlay_SetOverlayAndWebXRVisibility_Params_Data::Validate,
+    { &internal::ImmersiveOverlay_SetOverlayAndWebXRVisibility_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ImmersiveOverlay_RequestNotificationOnWebXrSubmitted_Params_Data::Validate,
+    { &internal::ImmersiveOverlay_RequestNotificationOnWebXrSubmitted_Params_Data::Validate,
      &internal::ImmersiveOverlay_RequestNotificationOnWebXrSubmitted_ResponseParams_Data::Validate},
 };
 
@@ -2275,14 +2311,17 @@ void XRCompositorHostProxy::CreateImmersiveOverlay(
                         "<value of type ::mojo::PendingReceiver<ImmersiveOverlay>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRCompositorHost_CreateImmersiveOverlay_Name, kFlags, 0, 0, nullptr);
@@ -2358,10 +2397,10 @@ bool XRCompositorHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRCompositorHostValidationInfo[] = {
-    {&internal::XRCompositorHost_CreateImmersiveOverlay_Params_Data::Validate,
+    { &internal::XRCompositorHost_CreateImmersiveOverlay_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2490,14 +2529,17 @@ void IsolatedXRRuntimeProviderClientProxy::OnDeviceAdded(
                         "<value of type ::device::mojom::XRDeviceId>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIsolatedXRRuntimeProviderClient_OnDeviceAdded_Name, kFlags, 0, 0, nullptr);
@@ -2552,14 +2594,17 @@ void IsolatedXRRuntimeProviderClientProxy::OnDeviceRemoved(
                         "<value of type ::device::mojom::XRDeviceId>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIsolatedXRRuntimeProviderClient_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr);
@@ -2584,14 +2629,17 @@ void IsolatedXRRuntimeProviderClientProxy::OnDevicesEnumerated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::IsolatedXRRuntimeProviderClient::OnDevicesEnumerated");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIsolatedXRRuntimeProviderClient_OnDevicesEnumerated_Name, kFlags, 0, 0, nullptr);
@@ -2729,14 +2777,14 @@ bool IsolatedXRRuntimeProviderClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIsolatedXRRuntimeProviderClientValidationInfo[] = {
-    {&internal::IsolatedXRRuntimeProviderClient_OnDeviceAdded_Params_Data::Validate,
+    { &internal::IsolatedXRRuntimeProviderClient_OnDeviceAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IsolatedXRRuntimeProviderClient_OnDeviceRemoved_Params_Data::Validate,
+    { &internal::IsolatedXRRuntimeProviderClient_OnDeviceRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::IsolatedXRRuntimeProviderClient_OnDevicesEnumerated_Params_Data::Validate,
+    { &internal::IsolatedXRRuntimeProviderClient_OnDevicesEnumerated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2816,14 +2864,17 @@ void IsolatedXRRuntimeProviderProxy::RequestDevices(
                         "<value of type ::mojo::PendingRemote<IsolatedXRRuntimeProviderClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kIsolatedXRRuntimeProvider_RequestDevices_Name, kFlags, 0, 0, nullptr);
@@ -2899,10 +2950,10 @@ bool IsolatedXRRuntimeProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kIsolatedXRRuntimeProviderValidationInfo[] = {
-    {&internal::IsolatedXRRuntimeProvider_RequestDevices_Params_Data::Validate,
+    { &internal::IsolatedXRRuntimeProvider_RequestDevices_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3005,14 +3056,17 @@ void XRDeviceServiceProxy::BindRuntimeProvider(
                         "<value of type ::mojo::PendingRemote<XRDeviceServiceHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRDeviceService_BindRuntimeProvider_Name, kFlags, 0, 0, nullptr);
@@ -3054,14 +3108,17 @@ void XRDeviceServiceProxy::BindTestHook(
                         "<value of type ::mojo::PendingReceiver<::device_test::mojom::XRServiceTestHook>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRDeviceService_BindTestHook_Name, kFlags, 0, 0, nullptr);
@@ -3174,12 +3231,12 @@ bool XRDeviceServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRDeviceServiceValidationInfo[] = {
-    {&internal::XRDeviceService_BindRuntimeProvider_Params_Data::Validate,
+    { &internal::XRDeviceService_BindRuntimeProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::XRDeviceService_BindTestHook_Params_Data::Validate,
+    { &internal::XRDeviceService_BindTestHook_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3259,14 +3316,17 @@ void XRDeviceServiceHostProxy::BindGpu(
                         "<value of type ::mojo::PendingReceiver<::viz::mojom::Gpu>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kXRDeviceServiceHost_BindGpu_Name, kFlags, 0, 0, nullptr);
@@ -3342,10 +3402,10 @@ bool XRDeviceServiceHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kXRDeviceServiceHostValidationInfo[] = {
-    {&internal::XRDeviceServiceHost_BindGpu_Params_Data::Validate,
+    { &internal::XRDeviceServiceHost_BindGpu_Params_Data::Validate,
      nullptr /* no response */},
 };
 

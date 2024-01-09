@@ -75,11 +75,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ImageDecoderExternal>::value,
     "ImageDecoderExternal does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ImageDecoderExternal::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ImageDecoderExternal is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,10 +87,10 @@ BLINK_BINDINGS_TRACE_EVENT("ImageDecoder.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -107,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageDecoder.complete.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(v8_receiver);
+ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->complete();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -133,7 +129,7 @@ BLINK_BINDINGS_TRACE_EVENT("ImageDecoder.completed.get");
 
 
 
-ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(v8_receiver);
+ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -149,8 +145,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageDecoder.tracks.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(v8_receiver);
+ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->tracks();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -209,8 +206,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageDecoder.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(v8_receiver);
+ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -241,7 +239,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(v8_receiver);
+ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = blink_receiver->decode();
 break;
@@ -271,8 +269,9 @@ BLINK_BINDINGS_TRACE_EVENT("ImageDecoder.reset");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(v8_receiver);
+ImageDecoderExternal* blink_receiver = V8ImageDecoder::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->reset();
 
 }

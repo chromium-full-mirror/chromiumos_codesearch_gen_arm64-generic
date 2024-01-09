@@ -669,11 +669,14 @@ class PrintParamsDataView {
   uint32_t pages_per_sheet() const {
     return data_->pages_per_sheet;
   }
-  absl::optional<bool> generate_tagged_pdf() const {
+  std::optional<bool> generate_tagged_pdf() const {
 
     return data_->generate_tagged_pdf_$flag
         ? absl::make_optional(!!data_->generate_tagged_pdf_$value)
         : absl::nullopt;
+  }
+  bool generate_document_outline() const {
+    return data_->generate_document_outline;
   }
  private:
   internal::PrintParams_Data* data_ = nullptr;
@@ -1401,6 +1404,7 @@ struct Serializer<::printing::mojom::PrintParamsDataView, MaybeConstUserType> {
     if (Traits::generate_tagged_pdf(input).has_value()) {
       fragment->generate_tagged_pdf_$value = Traits::generate_tagged_pdf(input).value();
     }
+    fragment->generate_document_outline = Traits::generate_document_outline(input);
   }
 
   static bool Deserialize(::printing::mojom::internal::PrintParams_Data* input,

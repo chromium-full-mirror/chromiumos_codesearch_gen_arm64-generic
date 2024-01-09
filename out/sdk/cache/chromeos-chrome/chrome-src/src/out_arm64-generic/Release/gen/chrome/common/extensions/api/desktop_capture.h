@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,13 +33,13 @@ namespace desktop_capture {
 
 // Enum used to define set of desktop media sources used in
 // chooseDesktopMedia().
-enum  DesktopCaptureSourceType {
-  DESKTOP_CAPTURE_SOURCE_TYPE_NONE = 0,
-  DESKTOP_CAPTURE_SOURCE_TYPE_SCREEN,
-  DESKTOP_CAPTURE_SOURCE_TYPE_WINDOW,
-  DESKTOP_CAPTURE_SOURCE_TYPE_TAB,
-  DESKTOP_CAPTURE_SOURCE_TYPE_AUDIO,
-  DESKTOP_CAPTURE_SOURCE_TYPE_LAST = DESKTOP_CAPTURE_SOURCE_TYPE_AUDIO,
+enum class DesktopCaptureSourceType {
+  kNone = 0,
+  kScreen,
+  kWindow,
+  kTab,
+  kAudio,
+  kMaxValue = kAudio,
 };
 
 
@@ -48,11 +49,11 @@ std::u16string GetDesktopCaptureSourceTypeParseError(base::StringPiece as_string
 
 // Mirrors <a
 // href="https://w3c.github.io/mediacapture-screen-share/#dom-systemaudiopreferenceenum">SystemAudioPreferenceEnum</a>.
-enum  SystemAudioPreferenceEnum {
-  SYSTEM_AUDIO_PREFERENCE_ENUM_NONE = 0,
-  SYSTEM_AUDIO_PREFERENCE_ENUM_INCLUDE,
-  SYSTEM_AUDIO_PREFERENCE_ENUM_EXCLUDE,
-  SYSTEM_AUDIO_PREFERENCE_ENUM_LAST = SYSTEM_AUDIO_PREFERENCE_ENUM_EXCLUDE,
+enum class SystemAudioPreferenceEnum {
+  kNone = 0,
+  kInclude,
+  kExclude,
+  kMaxValue = kExclude,
 };
 
 
@@ -62,11 +63,11 @@ std::u16string GetSystemAudioPreferenceEnumParseError(base::StringPiece as_strin
 
 // Mirrors <a
 // href="https://w3c.github.io/mediacapture-screen-share/#dom-selfcapturepreferenceenum">SelfCapturePreferenceEnum</a>.
-enum  SelfCapturePreferenceEnum {
-  SELF_CAPTURE_PREFERENCE_ENUM_NONE = 0,
-  SELF_CAPTURE_PREFERENCE_ENUM_INCLUDE,
-  SELF_CAPTURE_PREFERENCE_ENUM_EXCLUDE,
-  SELF_CAPTURE_PREFERENCE_ENUM_LAST = SELF_CAPTURE_PREFERENCE_ENUM_EXCLUDE,
+enum class SelfCapturePreferenceEnum {
+  kNone = 0,
+  kInclude,
+  kExclude,
+  kMaxValue = kExclude,
 };
 
 
@@ -82,11 +83,11 @@ std::u16string GetSelfCapturePreferenceEnumParseError(base::StringPiece as_strin
 namespace ChooseDesktopMedia {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Mirrors members of <a
@@ -96,8 +97,8 @@ struct Params {
     ~Options();
     Options(const Options&) = delete;
     Options& operator=(const Options&) = delete;
-    Options(Options&& rhs);
-    Options& operator=(Options&& rhs);
+    Options(Options&& rhs) noexcept;
+    Options& operator=(Options&& rhs) noexcept;
 
     // Populates a Options object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -111,10 +112,10 @@ struct Params {
     Options Clone() const;
 
     // Creates a Options object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Options> FromValue(const base::Value::Dict& value);
+    static std::optional<Options> FromValue(const base::Value::Dict& value);
 
     // Creates a Options object from a base::Value, or nullopt on failure.
-    static absl::optional<Options> FromValue(const base::Value& value);
+    static std::optional<Options> FromValue(const base::Value& value);
 
     // Mirrors <a
     // href="https://w3c.github.io/mediacapture-screen-share/#dom-displaymediastreamconstraints-systemaudio">systemAudio</a>.
@@ -127,7 +128,7 @@ struct Params {
     // Indicates that the caller intends to perform local audio suppression, and
     // that the media picker shown to the user should therefore reflect that with
     // the appropriate warnings, as it does when getDisplayMedia() is invoked.
-    absl::optional<bool> suppress_local_audio_playback_intended;
+    std::optional<bool> suppress_local_audio_playback_intended;
 
   };
 
@@ -140,11 +141,11 @@ struct Params {
   // resulting stream can be used only by the calling extension. The stream can
   // only be used by frames in the given tab whose security origin matches
   // <code>tab.url</code>. The tab's origin must be a secure origin, e.g. HTTPS.
-  absl::optional<extensions::api::tabs::Tab> target_tab;
+  std::optional<extensions::api::tabs::Tab> target_tab;
 
   // Mirrors members of <a
   // href="https://w3c.github.io/mediacapture-screen-share/#dom-displaymediastreamconstraints">DisplayMediaStreamConstraints</a> which need to be applied before the user makes their selection, and must therefore be provided to chooseDesktopMedia() rather than be deferred to getUserMedia().
-  absl::optional<Options> options;
+  std::optional<Options> options;
 
 
  private:
@@ -159,8 +160,8 @@ struct Options {
   ~Options();
   Options(const Options&) = delete;
   Options& operator=(const Options&) = delete;
-  Options(Options&& rhs);
-  Options& operator=(Options&& rhs);
+  Options(Options&& rhs) noexcept;
+  Options& operator=(Options&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOptions object.
@@ -188,11 +189,11 @@ base::Value::List Create(const std::string& stream_id, const Options& options);
 namespace CancelChooseDesktopMedia {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Id returned by chooseDesktopMedia()

@@ -42,6 +42,10 @@ class PayloadDataView;
 
 class PayloadTransferUpdateDataView;
 
+class InitialConnectionInfoV3DataView;
+
+class BandwidthInfoDataView;
+
 class PayloadContentDataView;
 
 enum class Status : int32_t;
@@ -55,6 +59,8 @@ enum class BandwidthQuality : int32_t;
 enum class Medium : int32_t;
 
 enum class LogSeverity : int32_t;
+
+enum class AuthenticationStatus : int32_t;
 class ConnectionInfo;
 using ConnectionInfoPtr = mojo::StructPtr<ConnectionInfo>;
 
@@ -84,6 +90,12 @@ using PayloadPtr = mojo::StructPtr<Payload>;
 
 class PayloadTransferUpdate;
 using PayloadTransferUpdatePtr = mojo::InlinedStructPtr<PayloadTransferUpdate>;
+
+class InitialConnectionInfoV3;
+using InitialConnectionInfoV3Ptr = mojo::InlinedStructPtr<InitialConnectionInfoV3>;
+
+class BandwidthInfo;
+using BandwidthInfoPtr = mojo::InlinedStructPtr<BandwidthInfo>;
 
 class PayloadContent;
 

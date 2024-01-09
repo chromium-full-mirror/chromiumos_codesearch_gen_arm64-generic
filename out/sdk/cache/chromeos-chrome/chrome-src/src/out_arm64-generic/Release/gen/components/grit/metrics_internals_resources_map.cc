@@ -14,6 +14,7 @@ const webui::ResourcePath kMetricsInternalsResources[] = {
   {"browser_proxy.js", IDR_METRICS_INTERNALS_BROWSER_PROXY_JS},
   {"log_utils.js", IDR_METRICS_INTERNALS_LOG_UTILS_JS},
   {"metrics_internals.js", IDR_METRICS_INTERNALS_METRICS_INTERNALS_JS},
+  {"structured/structured_utils.js", IDR_METRICS_INTERNALS_STRUCTURED_STRUCTURED_UTILS_JS},
   {"app.html.js", IDR_METRICS_INTERNALS_APP_HTML_JS},
 };
 

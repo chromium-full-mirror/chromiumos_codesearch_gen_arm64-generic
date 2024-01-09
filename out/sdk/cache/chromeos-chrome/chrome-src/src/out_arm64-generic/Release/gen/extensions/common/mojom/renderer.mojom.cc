@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -69,7 +70,7 @@ ExtensionLoadedParams::ExtensionLoadedParams(
     ::extensions::URLPatternSet policy_allowed_hosts_in,
     bool uses_default_policy_blocked_allowed_hosts_in,
     const std::string& id_in,
-    const absl::optional<::base::UnguessableToken>& worker_activation_token_in,
+    const std::optional<::base::UnguessableToken>& worker_activation_token_in,
     int32_t creation_flags_in,
     const std::string& guid_in)
     : manifest(std::move(manifest_in)),
@@ -185,7 +186,7 @@ void ExtensionLoadedParams::WriteIntoTrace(
     dict.AddItem(
       "worker_activation_token"), this->worker_activation_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -222,7 +223,7 @@ UserScriptWorldInfo::UserScriptWorldInfo()
 
 UserScriptWorldInfo::UserScriptWorldInfo(
     const std::string& extension_id_in,
-    const absl::optional<std::string>& csp_in,
+    const std::optional<std::string>& csp_in,
     bool enable_messaging_in)
     : extension_id(std::move(extension_id_in)),
       csp(std::move(csp_in)),
@@ -246,7 +247,7 @@ void UserScriptWorldInfo::WriteIntoTrace(
     dict.AddItem(
       "csp"), this->csp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -786,14 +787,17 @@ void RendererProxy::ActivateExtension(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_ActivateExtension_Name, kFlags, 0, 0, nullptr);
@@ -834,14 +838,17 @@ void RendererProxy::SetActivityLoggingEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetActivityLoggingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -872,14 +879,17 @@ void RendererProxy::LoadExtensions(
                         "<value of type std::vector<ExtensionLoadedParamsPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_LoadExtensions_Name, kFlags, 0, 0, nullptr);
@@ -922,14 +932,17 @@ void RendererProxy::UnloadExtension(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_UnloadExtension_Name, kFlags, 0, 0, nullptr);
@@ -970,14 +983,17 @@ void RendererProxy::SuspendExtension(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SuspendExtension_Name, kFlags, 0, 0, nullptr);
@@ -1019,14 +1035,17 @@ void RendererProxy::CancelSuspendExtension(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_CancelSuspendExtension_Name, kFlags, 0, 0, nullptr);
@@ -1067,14 +1086,17 @@ void RendererProxy::SetDeveloperMode(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetDeveloperMode_Name, kFlags, 0, 0, nullptr);
@@ -1111,14 +1133,17 @@ void RendererProxy::SetSessionInfo(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetSessionInfo_Name, kFlags, 0, 0, nullptr);
@@ -1156,14 +1181,17 @@ void RendererProxy::SetSystemFont(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetSystemFont_Name, kFlags, 0, 0, nullptr);
@@ -1215,14 +1243,17 @@ void RendererProxy::SetWebViewPartitionID(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetWebViewPartitionID_Name, kFlags, 0, 0, nullptr);
@@ -1263,14 +1294,17 @@ void RendererProxy::SetScriptingAllowlist(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SetScriptingAllowlist_Name, kFlags, 0, 0, nullptr);
@@ -1313,14 +1347,17 @@ void RendererProxy::UpdateUserScriptWorld(
                         "<value of type UserScriptWorldInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_UpdateUserScriptWorld_Name, kFlags, 0, 0, nullptr);
@@ -1354,14 +1391,17 @@ void RendererProxy::ShouldSuspend(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send extensions::mojom::Renderer::ShouldSuspend");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_ShouldSuspend_Name, kFlags, 0, 0, nullptr);
@@ -1385,14 +1425,17 @@ void RendererProxy::TransferBlobs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send extensions::mojom::Renderer::TransferBlobs");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_TransferBlobs_Name, kFlags, 0, 0, nullptr);
@@ -1438,14 +1481,17 @@ void RendererProxy::UpdatePermissions(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_UpdatePermissions_Name, kFlags, 0, 0, nullptr);
@@ -1534,14 +1580,17 @@ void RendererProxy::UpdateDefaultPolicyHostRestrictions(
                         "<value of type ::extensions::URLPatternSet>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_UpdateDefaultPolicyHostRestrictions_Name, kFlags, 0, 0, nullptr);
@@ -1596,14 +1645,17 @@ void RendererProxy::UpdateUserHostRestrictions(
                         "<value of type ::extensions::URLPatternSet>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_UpdateUserHostRestrictions_Name, kFlags, 0, 0, nullptr);
@@ -1664,14 +1716,17 @@ void RendererProxy::UpdateTabSpecificPermissions(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_UpdateTabSpecificPermissions_Name, kFlags, 0, 0, nullptr);
@@ -1728,14 +1783,17 @@ void RendererProxy::UpdateUserScripts(
                         "<value of type ::extensions::mojom::HostIDPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_UpdateUserScripts_Name, kFlags, 0, 0, nullptr);
@@ -1793,14 +1851,17 @@ void RendererProxy::ClearTabSpecificPermissions(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_ClearTabSpecificPermissions_Name, kFlags, 0, 0, nullptr);
@@ -1845,14 +1906,17 @@ void RendererProxy::WatchPages(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_WatchPages_Name, kFlags, 0, 0, nullptr);
@@ -1963,7 +2027,8 @@ void Renderer_SuspendExtension_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_SuspendExtension_Name, kFlags, 0, 0, nullptr);
@@ -2069,7 +2134,8 @@ void Renderer_ShouldSuspend_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_ShouldSuspend_Name, kFlags, 0, 0, nullptr);
@@ -2175,7 +2241,8 @@ void Renderer_TransferBlobs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderer_TransferBlobs_Name, kFlags, 0, 0, nullptr);
@@ -2896,50 +2963,50 @@ std::move(p_extension_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRendererValidationInfo[] = {
-    {&internal::Renderer_ActivateExtension_Params_Data::Validate,
+    { &internal::Renderer_ActivateExtension_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetActivityLoggingEnabled_Params_Data::Validate,
+    { &internal::Renderer_SetActivityLoggingEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_LoadExtensions_Params_Data::Validate,
+    { &internal::Renderer_LoadExtensions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_UnloadExtension_Params_Data::Validate,
+    { &internal::Renderer_UnloadExtension_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SuspendExtension_Params_Data::Validate,
+    { &internal::Renderer_SuspendExtension_Params_Data::Validate,
      &internal::Renderer_SuspendExtension_ResponseParams_Data::Validate},
-    {&internal::Renderer_CancelSuspendExtension_Params_Data::Validate,
+    { &internal::Renderer_CancelSuspendExtension_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetDeveloperMode_Params_Data::Validate,
+    { &internal::Renderer_SetDeveloperMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetSessionInfo_Params_Data::Validate,
+    { &internal::Renderer_SetSessionInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetSystemFont_Params_Data::Validate,
+    { &internal::Renderer_SetSystemFont_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetWebViewPartitionID_Params_Data::Validate,
+    { &internal::Renderer_SetWebViewPartitionID_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_SetScriptingAllowlist_Params_Data::Validate,
+    { &internal::Renderer_SetScriptingAllowlist_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_UpdateUserScriptWorld_Params_Data::Validate,
+    { &internal::Renderer_UpdateUserScriptWorld_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_ShouldSuspend_Params_Data::Validate,
+    { &internal::Renderer_ShouldSuspend_Params_Data::Validate,
      &internal::Renderer_ShouldSuspend_ResponseParams_Data::Validate},
-    {&internal::Renderer_TransferBlobs_Params_Data::Validate,
+    { &internal::Renderer_TransferBlobs_Params_Data::Validate,
      &internal::Renderer_TransferBlobs_ResponseParams_Data::Validate},
-    {&internal::Renderer_UpdatePermissions_Params_Data::Validate,
+    { &internal::Renderer_UpdatePermissions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_UpdateDefaultPolicyHostRestrictions_Params_Data::Validate,
+    { &internal::Renderer_UpdateDefaultPolicyHostRestrictions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_UpdateUserHostRestrictions_Params_Data::Validate,
+    { &internal::Renderer_UpdateUserHostRestrictions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_UpdateTabSpecificPermissions_Params_Data::Validate,
+    { &internal::Renderer_UpdateTabSpecificPermissions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_UpdateUserScripts_Params_Data::Validate,
+    { &internal::Renderer_UpdateUserScripts_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_ClearTabSpecificPermissions_Params_Data::Validate,
+    { &internal::Renderer_ClearTabSpecificPermissions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Renderer_WatchPages_Params_Data::Validate,
+    { &internal::Renderer_WatchPages_Params_Data::Validate,
      nullptr /* no response */},
 };
 

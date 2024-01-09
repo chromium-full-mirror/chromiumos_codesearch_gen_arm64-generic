@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/renderer.mojom-features.h"
 #include "media/mojo/mojom/renderer.mojom-shared.h"
 #include "media/mojo/mojom/renderer.mojom-forward.h"
 #include "media/mojo/mojom/demuxer_stream.mojom-forward.h"
@@ -111,7 +112,7 @@ class Renderer
 
   using InitializeCallback = base::OnceCallback<void(bool)>;
   
-  virtual void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) = 0;
+  virtual void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) = 0;
 
 
   using FlushCallback = base::OnceCallback<void()>;
@@ -130,7 +131,7 @@ class Renderer
 
   using SetCdmCallback = base::OnceCallback<void(bool)>;
   
-  virtual void SetCdm(const absl::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) = 0;
+  virtual void SetCdm(const std::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) = 0;
 };
 
 class RendererClientProxy;
@@ -250,7 +251,7 @@ class  RendererProxy
 
   explicit RendererProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) final;
+  void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<std::vector<::mojo::PendingRemote<::media::mojom::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) final;
   
   void Flush(FlushCallback callback) final;
   
@@ -260,7 +261,7 @@ class  RendererProxy
   
   void SetVolume(float volume) final;
   
-  void SetCdm(const absl::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) final;
+  void SetCdm(const std::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -432,7 +433,8 @@ class  MediaUrlParams {
       const ::url::Origin& top_frame_origin,
       bool has_storage_access,
       bool allow_credentials,
-      bool is_hls);
+      bool is_hls,
+      const base::flat_map<std::string, std::string>& headers);
 
 
   ~MediaUrlParams();
@@ -521,6 +523,8 @@ class  MediaUrlParams {
   bool allow_credentials;
   
   bool is_hls;
+  
+  base::flat_map<std::string, std::string> headers;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -559,7 +563,8 @@ MediaUrlParamsPtr MediaUrlParams::Clone() const {
       mojo::Clone(top_frame_origin),
       mojo::Clone(has_storage_access),
       mojo::Clone(allow_credentials),
-      mojo::Clone(is_hls)
+      mojo::Clone(is_hls),
+      mojo::Clone(headers)
   );
 }
 
@@ -576,6 +581,8 @@ bool MediaUrlParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->allow_credentials, other_struct.allow_credentials))
     return false;
   if (!mojo::Equals(this->is_hls, other_struct.is_hls))
+    return false;
+  if (!mojo::Equals(this->headers, other_struct.headers))
     return false;
   return true;
 }
@@ -605,6 +612,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_hls < rhs.is_hls)
     return true;
   if (rhs.is_hls < lhs.is_hls)
+    return false;
+  if (lhs.headers < rhs.headers)
+    return true;
+  if (rhs.headers < lhs.headers)
     return false;
   return false;
 }
@@ -649,6 +660,11 @@ struct  StructTraits<::media::mojom::MediaUrlParams::DataView,
   static decltype(::media::mojom::MediaUrlParams::is_hls) is_hls(
       const ::media::mojom::MediaUrlParamsPtr& input) {
     return input->is_hls;
+  }
+
+  static const decltype(::media::mojom::MediaUrlParams::headers)& headers(
+      const ::media::mojom::MediaUrlParamsPtr& input) {
+    return input->headers;
   }
 
   static bool Read(::media::mojom::MediaUrlParams::DataView input, ::media::mojom::MediaUrlParamsPtr* output);

@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 import { PageMetricsCallbackRouter, PageMetricsHost } from '../metrics_reporter.mojom-webui.js';
 export class BrowserProxyImpl {
+    callbackRouter;
+    host;
     constructor() {
         this.callbackRouter = new PageMetricsCallbackRouter();
         this.host = PageMetricsHost.getRemote();

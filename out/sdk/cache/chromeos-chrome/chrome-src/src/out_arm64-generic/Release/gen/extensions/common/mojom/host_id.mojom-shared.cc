@@ -28,6 +28,8 @@ NOINLINE static const char* HostID_HostTypeToStringHelper(HostID_HostType value)
       return "kExtensions";
     case HostID_HostType::kWebUi:
       return "kWebUi";
+    case HostID_HostType::kControlledFrameEmbedder:
+      return "kControlledFrameEmbedder";
     default:
       return nullptr;
   }

@@ -48,7 +48,8 @@ struct ChromeSpecificPhaseLatenciesMetadata_Phase_ImageDownscaleDataDefaultTypeI
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChromeSpecificPhaseLatenciesMetadata_Phase_ImageDownscaleDataDefaultTypeInternal _ChromeSpecificPhaseLatenciesMetadata_Phase_ImageDownscaleData_default_instance_;
 PROTOBUF_CONSTEXPR ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData(
     ::_pbi::ConstantInitialized)
-  : original_image_type_(0)
+  : encoded_image_size_bytes_(int64_t{0})
+  , original_image_type_(0)
 {}
 struct ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeDataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeDataDefaultTypeInternal()
@@ -699,6 +700,9 @@ class ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::_Internal {
  public:
   using HasBits = decltype(std::declval<ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData>()._has_bits_);
   static void set_has_original_image_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_encoded_image_size_bytes(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
@@ -713,12 +717,17 @@ ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::ChromeSpecificPhaseL
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  original_image_type_ = from.original_image_type_;
+  ::memcpy(&encoded_image_size_bytes_, &from.encoded_image_size_bytes_,
+    static_cast<size_t>(reinterpret_cast<char*>(&original_image_type_) -
+    reinterpret_cast<char*>(&encoded_image_size_bytes_)) + sizeof(original_image_type_));
   // @@protoc_insertion_point(copy_constructor:lens.proto.lens_latencies_metadata.ChromeSpecificPhaseLatenciesMetadata.Phase.ImageEncodeData)
 }
 
 inline void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::SharedCtor() {
-original_image_type_ = 0;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&encoded_image_size_bytes_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&original_image_type_) -
+    reinterpret_cast<char*>(&encoded_image_size_bytes_)) + sizeof(original_image_type_));
 }
 
 ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::~ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData() {
@@ -744,7 +753,12 @@ void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  original_image_type_ = 0;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&encoded_image_size_bytes_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&original_image_type_) -
+        reinterpret_cast<char*>(&encoded_image_size_bytes_)) + sizeof(original_image_type_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -766,6 +780,15 @@ const char* ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::_Interna
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int64 encoded_image_size_bytes = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_encoded_image_size_bytes(&has_bits);
+          encoded_image_size_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -801,10 +824,16 @@ uint8_t* ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::_InternalSe
 
   cached_has_bits = _has_bits_[0];
   // optional .lens.proto.lens_latencies_metadata.ChromeSpecificPhaseLatenciesMetadata.ImageType original_image_type = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_original_image_type(), target);
+  }
+
+  // optional int64 encoded_image_size_bytes = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_encoded_image_size_bytes(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -823,13 +852,20 @@ size_t ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::ByteSizeLong(
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .lens.proto.lens_latencies_metadata.ChromeSpecificPhaseLatenciesMetadata.ImageType original_image_type = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_original_image_type());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional int64 encoded_image_size_bytes = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_encoded_image_size_bytes());
+    }
 
+    // optional .lens.proto.lens_latencies_metadata.ChromeSpecificPhaseLatenciesMetadata.ImageType original_image_type = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_original_image_type());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -850,8 +886,15 @@ void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::MergeFrom(const
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_original_image_type()) {
-    _internal_set_original_image_type(from._internal_original_image_type());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      encoded_image_size_bytes_ = from.encoded_image_size_bytes_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      original_image_type_ = from.original_image_type_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -871,7 +914,12 @@ void ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::InternalSwap(Ch
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(original_image_type_, other->original_image_type_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData, original_image_type_)
+      + sizeof(ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::original_image_type_)
+      - PROTOBUF_FIELD_OFFSET(ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData, encoded_image_size_bytes_)>(
+          reinterpret_cast<char*>(&encoded_image_size_bytes_),
+          reinterpret_cast<char*>(&other->encoded_image_size_bytes_));
 }
 
 std::string ChromeSpecificPhaseLatenciesMetadata_Phase_ImageEncodeData::GetTypeName() const {

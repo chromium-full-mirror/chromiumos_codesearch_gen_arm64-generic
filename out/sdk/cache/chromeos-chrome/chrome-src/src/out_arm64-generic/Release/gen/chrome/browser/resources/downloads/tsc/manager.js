@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './strings.m.js';
+import './bypass_warning_confirmation_dialog.js';
 import './item.js';
 import './toolbar.js';
 import 'chrome://resources/cr_components/managed_footnote/managed_footnote.js';
@@ -56,6 +57,10 @@ export class DownloadsManagerElement extends DownloadsManagerElementBase {
                 type: Boolean,
                 notify: true,
             },
+            bypassDialogItemId_: {
+                type: String,
+                value: '',
+            },
             lastFocused_: Object,
             listBlurred_: Boolean,
         };
@@ -80,7 +85,6 @@ export class DownloadsManagerElement extends DownloadsManagerElementBase {
             window.history.replaceState(undefined /* stateObject */, '', '/');
         }
     }
-    /** @override */
     connectedCallback() {
         super.connectedCallback();
         // TODO(dbeam): this should use a class instead.
@@ -106,11 +110,43 @@ export class DownloadsManagerElement extends DownloadsManagerElementBase {
         toastManager.shadowRoot.querySelector('#toast').onclick =
             e => this.onToastClicked_(e);
     }
-    /** @override */
     disconnectedCallback() {
         super.disconnectedCallback();
         this.listenerIds_.forEach(id => assert(this.mojoEventTarget_.removeListener(id)));
         this.eventTracker_.removeAll();
+    }
+    onSaveDangerousClick_(e) {
+        const bypassItem = this.items_.find(item => item.id === e.detail.id);
+        if (bypassItem) {
+            this.bypassDialogItemId_ = bypassItem.id;
+            assert(!!this.mojoHandler_);
+            this.mojoHandler_.recordOpenBypassWarningPrompt(this.bypassDialogItemId_);
+        }
+    }
+    shouldShowBypassWarningDialog_() {
+        return this.bypassDialogItemId_ !== '';
+    }
+    computeBypassWarningDialogFileName_() {
+        const bypassItem = this.items_.find(item => item.id === this.bypassDialogItemId_);
+        return bypassItem?.fileName || '';
+    }
+    hideBypassWarningDialog_() {
+        this.bypassDialogItemId_ = '';
+    }
+    onBypassWarningConfirmationDialogClose_() {
+        const dialog = this.shadowRoot.querySelector('download-bypass-warning-confirmation-dialog');
+        assert(dialog);
+        assert(this.bypassDialogItemId_ !== '');
+        assert(!!this.mojoHandler_);
+        if (dialog.wasConfirmed()) {
+            this.mojoHandler_.saveDangerousFromPromptRequiringGesture(this.bypassDialogItemId_);
+        }
+        else {
+            // Closing the dialog by clicking cancel is treated the same as closing
+            // the dialog by pressing Esc. Both are treated as CANCEL, not CLOSE.
+            this.mojoHandler_.recordCancelBypassWarningPrompt(this.bypassDialogItemId_);
+        }
+        this.hideBypassWarningDialog_();
     }
     clearAll_() {
         this.set('items_', []);
@@ -223,6 +259,9 @@ export class DownloadsManagerElement extends DownloadsManagerElementBase {
     removeItem_(index) {
         const removed = this.items_.splice(index, 1);
         this.updateHideDates_(index, index);
+        if (removed.some(item => item.id === this.bypassDialogItemId_)) {
+            this.hideBypassWarningDialog_();
+        }
         this.notifySplices('items_', [{
                 index: index,
                 addedCount: 0,

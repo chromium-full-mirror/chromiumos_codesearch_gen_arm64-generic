@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-features.h"
 #include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-shared.h"
 #include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-forward.h"
 #include "arc/vm/libvda/gpu/mojom/gfx.mojom.h"
@@ -323,17 +324,17 @@ class  DecoderBuffer {
   // Construct an instance holding |buffer|.
   static DecoderBufferPtr
   NewBuffer(
-      BufferPtr buffer) {
+      BufferPtr value) {
     auto result = DecoderBufferPtr(absl::in_place);
-    result->set_buffer(std::move(buffer));
+    result->set_buffer(std::move(value));
     return result;
   }
   // Construct an instance holding |end_of_stream|.
   static DecoderBufferPtr
   NewEndOfStream(
-      uint8_t end_of_stream) {
+      uint8_t value) {
     auto result = DecoderBufferPtr(absl::in_place);
-    result->set_end_of_stream(std::move(end_of_stream));
+    result->set_end_of_stream(std::move(value));
     return result;
   }
 

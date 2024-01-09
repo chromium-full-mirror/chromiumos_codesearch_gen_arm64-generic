@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x64\x62_trial_token.proto\x12\x10origin_trials_pb\"\x8a\x01\n\x11TrialTokenDbEntry\x12\x12\n\ntrial_name\x18\x01 \x01(\t\x12\x14\n\x0ctoken_expiry\x18\x02 \x01(\x04\x12\x19\n\x11usage_restriction\x18\x03 \x01(\r\x12\x17\n\x0ftoken_signature\x18\x04 \x01(\x0c\x12\x17\n\x0fpartition_sites\x18\x05 \x03(\t\";\n\rOriginMessage\x12\x0e\n\x06scheme\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\r\"{\n\x13TrialTokenDbEntries\x12/\n\x06origin\x18\x01 \x01(\x0b\x32\x1f.origin_trials_pb.OriginMessage\x12\x33\n\x06tokens\x18\x02 \x03(\x0b\x32#.origin_trials_pb.TrialTokenDbEntryB\x02H\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x64\x62_trial_token.proto\x12\x10origin_trials_pb\"\xa4\x01\n\x11TrialTokenDbEntry\x12\x12\n\ntrial_name\x18\x01 \x01(\t\x12\x14\n\x0ctoken_expiry\x18\x02 \x01(\x04\x12\x19\n\x11usage_restriction\x18\x03 \x01(\r\x12\x17\n\x0ftoken_signature\x18\x04 \x01(\x0c\x12\x17\n\x0fpartition_sites\x18\x05 \x03(\t\x12\x18\n\x10match_subdomains\x18\x06 \x01(\x08\";\n\rOriginMessage\x12\x0e\n\x06scheme\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\r\"{\n\x13TrialTokenDbEntries\x12/\n\x06origin\x18\x01 \x01(\x0b\x32\x1f.origin_trials_pb.OriginMessage\x12\x33\n\x06tokens\x18\x02 \x03(\x0b\x32#.origin_trials_pb.TrialTokenDbEntryB\x02H\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'db_trial_token_pb2', globals())
@@ -22,9 +22,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003'
   _TRIALTOKENDBENTRY._serialized_start=43
-  _TRIALTOKENDBENTRY._serialized_end=181
-  _ORIGINMESSAGE._serialized_start=183
-  _ORIGINMESSAGE._serialized_end=242
-  _TRIALTOKENDBENTRIES._serialized_start=244
-  _TRIALTOKENDBENTRIES._serialized_end=367
+  _TRIALTOKENDBENTRY._serialized_end=207
+  _ORIGINMESSAGE._serialized_start=209
+  _ORIGINMESSAGE._serialized_end=268
+  _TRIALTOKENDBENTRIES._serialized_start=270
+  _TRIALTOKENDBENTRIES._serialized_end=393
 # @@protoc_insertion_point(module_scope)

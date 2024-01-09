@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCDTMFToneChangeEvent>::value,
     "RTCDTMFToneChangeEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCDTMFToneChangeEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCDTMFToneChangeEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDTMFToneChangeEvent.tone.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCDTMFToneChangeEvent* blink_receiver = V8RTCDTMFToneChangeEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->tone();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCDTMFToneChangeEvent* blink_receiver = V8RTCDTMFToneChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->tone();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCDTMFToneChangeEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCDTMFToneChangeEvent* blink_receiver = V8RTCDTMFToneChangeEvent::ToWrappableUnsafe(v8_receiver);
+RTCDTMFToneChangeEvent* blink_receiver = V8RTCDTMFToneChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

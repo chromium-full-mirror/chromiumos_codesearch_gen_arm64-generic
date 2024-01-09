@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -134,6 +135,22 @@ const char* ToString(AppReadiness as_enum);
 AppReadiness ParseAppReadiness(base::StringPiece as_string);
 std::u16string GetAppReadinessParseError(base::StringPiece as_string);
 
+// A mapping of arc::mojom::WakefulnessMode
+enum class WakefulnessMode {
+  kNone = 0,
+  kUnknown,
+  kAsleep,
+  kAwake,
+  kDreaming,
+  kDozing,
+  kMaxValue = kDozing,
+};
+
+
+const char* ToString(WakefulnessMode as_enum);
+WakefulnessMode ParseWakefulnessMode(base::StringPiece as_string);
+std::u16string GetWakefulnessModeParseError(base::StringPiece as_string);
+
 // A subset of Window State types in ash::WindowStateType. We may add more into
 // the set in the future.
 enum class WindowStateType {
@@ -234,8 +251,8 @@ struct WindowStateChangeDict {
   ~WindowStateChangeDict();
   WindowStateChangeDict(const WindowStateChangeDict&) = delete;
   WindowStateChangeDict& operator=(const WindowStateChangeDict&) = delete;
-  WindowStateChangeDict(WindowStateChangeDict&& rhs);
-  WindowStateChangeDict& operator=(WindowStateChangeDict&& rhs);
+  WindowStateChangeDict(WindowStateChangeDict&& rhs) noexcept;
+  WindowStateChangeDict& operator=(WindowStateChangeDict&& rhs) noexcept;
 
   // Populates a WindowStateChangeDict object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -248,17 +265,13 @@ struct WindowStateChangeDict {
   // Creates a deep copy of WindowStateChangeDict.
   WindowStateChangeDict Clone() const;
 
-  // Creates a WindowStateChangeDict object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<WindowStateChangeDict> FromValueDeprecated(const base::Value& value);
-
   // Creates a WindowStateChangeDict object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<WindowStateChangeDict> FromValue(const base::Value::Dict& value);
+  static std::optional<WindowStateChangeDict> FromValue(const base::Value::Dict& value);
 
   // Creates a WindowStateChangeDict object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<WindowStateChangeDict> FromValue(const base::Value& value);
+  static std::optional<WindowStateChangeDict> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWindowStateChangeDict object.
@@ -269,7 +282,7 @@ struct WindowStateChangeDict {
 
   // If the initial state is already same as the expected state, should we treat
   // this case as a failure? Default value is false.
-  absl::optional<bool> fail_if_no_change;
+  std::optional<bool> fail_if_no_change;
 
 };
 
@@ -278,8 +291,8 @@ struct LoginStatusDict {
   ~LoginStatusDict();
   LoginStatusDict(const LoginStatusDict&) = delete;
   LoginStatusDict& operator=(const LoginStatusDict&) = delete;
-  LoginStatusDict(LoginStatusDict&& rhs);
-  LoginStatusDict& operator=(LoginStatusDict&& rhs);
+  LoginStatusDict(LoginStatusDict&& rhs) noexcept;
+  LoginStatusDict& operator=(LoginStatusDict&& rhs) noexcept;
 
   // Populates a LoginStatusDict object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -292,15 +305,12 @@ struct LoginStatusDict {
   // Creates a deep copy of LoginStatusDict.
   LoginStatusDict Clone() const;
 
-  // Creates a LoginStatusDict object from a base::Value, or NULL on failure.
-  static std::unique_ptr<LoginStatusDict> FromValueDeprecated(const base::Value& value);
-
   // Creates a LoginStatusDict object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<LoginStatusDict> FromValue(const base::Value::Dict& value);
+  static std::optional<LoginStatusDict> FromValue(const base::Value::Dict& value);
 
   // Creates a LoginStatusDict object from a base::Value, or nullopt on failure.
-  static absl::optional<LoginStatusDict> FromValue(const base::Value& value);
+  static std::optional<LoginStatusDict> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLoginStatusDict object.
@@ -325,28 +335,28 @@ struct LoginStatusDict {
   bool are_all_user_images_loaded;
 
   // Is the logged-in user a regular user? Set only if `isLoggedIn`.
-  absl::optional<bool> is_regular_user;
+  std::optional<bool> is_regular_user;
 
   // Are we logged into the guest account? Set only if `isLoggedIn`.
-  absl::optional<bool> is_guest;
+  std::optional<bool> is_guest;
 
   // Are we logged into kiosk-app mode? Set only if `isLoggedIn`.
-  absl::optional<bool> is_kiosk;
+  std::optional<bool> is_kiosk;
 
   // User email. Set only if `isLoggedIn`.
-  absl::optional<std::string> email;
+  std::optional<std::string> email;
 
   // User display email. Set only if `isLoggedIn`.
-  absl::optional<std::string> display_email;
+  std::optional<std::string> display_email;
 
   // User display name. Set only if `isLoggedIn`.
-  absl::optional<std::string> display_name;
+  std::optional<std::string> display_name;
 
   // User image: 'file', 'profile' or a number. Set only if `isLoggedIn`.
-  absl::optional<std::string> user_image;
+  std::optional<std::string> user_image;
 
   // Whether the user has a valid oauth2 token. Only set for gaia user.
-  absl::optional<bool> has_valid_oauth2_token;
+  std::optional<bool> has_valid_oauth2_token;
 
 };
 
@@ -355,8 +365,8 @@ struct ExtensionInfoDict {
   ~ExtensionInfoDict();
   ExtensionInfoDict(const ExtensionInfoDict&) = delete;
   ExtensionInfoDict& operator=(const ExtensionInfoDict&) = delete;
-  ExtensionInfoDict(ExtensionInfoDict&& rhs);
-  ExtensionInfoDict& operator=(ExtensionInfoDict&& rhs);
+  ExtensionInfoDict(ExtensionInfoDict&& rhs) noexcept;
+  ExtensionInfoDict& operator=(ExtensionInfoDict&& rhs) noexcept;
 
   // Populates a ExtensionInfoDict object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -369,16 +379,13 @@ struct ExtensionInfoDict {
   // Creates a deep copy of ExtensionInfoDict.
   ExtensionInfoDict Clone() const;
 
-  // Creates a ExtensionInfoDict object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ExtensionInfoDict> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionInfoDict object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ExtensionInfoDict> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionInfoDict> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionInfoDict object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ExtensionInfoDict> FromValue(const base::Value& value);
+  static std::optional<ExtensionInfoDict> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionInfoDict object.
@@ -423,8 +430,8 @@ struct ExtensionsInfoArray {
   ~ExtensionsInfoArray();
   ExtensionsInfoArray(const ExtensionsInfoArray&) = delete;
   ExtensionsInfoArray& operator=(const ExtensionsInfoArray&) = delete;
-  ExtensionsInfoArray(ExtensionsInfoArray&& rhs);
-  ExtensionsInfoArray& operator=(ExtensionsInfoArray&& rhs);
+  ExtensionsInfoArray(ExtensionsInfoArray&& rhs) noexcept;
+  ExtensionsInfoArray& operator=(ExtensionsInfoArray&& rhs) noexcept;
 
   // Populates a ExtensionsInfoArray object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -437,17 +444,13 @@ struct ExtensionsInfoArray {
   // Creates a deep copy of ExtensionsInfoArray.
   ExtensionsInfoArray Clone() const;
 
-  // Creates a ExtensionsInfoArray object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ExtensionsInfoArray> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionsInfoArray object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ExtensionsInfoArray> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionsInfoArray> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionsInfoArray object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ExtensionsInfoArray> FromValue(const base::Value& value);
+  static std::optional<ExtensionsInfoArray> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionsInfoArray object.
@@ -462,8 +465,8 @@ struct Notification {
   ~Notification();
   Notification(const Notification&) = delete;
   Notification& operator=(const Notification&) = delete;
-  Notification(Notification&& rhs);
-  Notification& operator=(Notification&& rhs);
+  Notification(Notification&& rhs) noexcept;
+  Notification& operator=(Notification&& rhs) noexcept;
 
   // Populates a Notification object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -476,15 +479,12 @@ struct Notification {
   // Creates a deep copy of Notification.
   Notification Clone() const;
 
-  // Creates a Notification object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Notification> FromValueDeprecated(const base::Value& value);
-
   // Creates a Notification object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Notification> FromValue(const base::Value::Dict& value);
+  static std::optional<Notification> FromValue(const base::Value::Dict& value);
 
   // Creates a Notification object from a base::Value, or nullopt on failure.
-  static absl::optional<Notification> FromValue(const base::Value& value);
+  static std::optional<Notification> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNotification object.
@@ -509,8 +509,8 @@ struct Printer {
   ~Printer();
   Printer(const Printer&) = delete;
   Printer& operator=(const Printer&) = delete;
-  Printer(Printer&& rhs);
-  Printer& operator=(Printer&& rhs);
+  Printer(Printer&& rhs) noexcept;
+  Printer& operator=(Printer&& rhs) noexcept;
 
   // Populates a Printer object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -523,14 +523,11 @@ struct Printer {
   // Creates a deep copy of Printer.
   Printer Clone() const;
 
-  // Creates a Printer object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Printer> FromValueDeprecated(const base::Value& value);
-
   // Creates a Printer object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Printer> FromValue(const base::Value::Dict& value);
+  static std::optional<Printer> FromValue(const base::Value::Dict& value);
 
   // Creates a Printer object from a base::Value, or nullopt on failure.
-  static absl::optional<Printer> FromValue(const base::Value& value);
+  static std::optional<Printer> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrinter object.
@@ -538,17 +535,17 @@ struct Printer {
 
   std::string printer_name;
 
-  absl::optional<std::string> printer_id;
+  std::optional<std::string> printer_id;
 
-  absl::optional<std::string> printer_type;
+  std::optional<std::string> printer_type;
 
-  absl::optional<std::string> printer_desc;
+  std::optional<std::string> printer_desc;
 
-  absl::optional<std::string> printer_make_and_model;
+  std::optional<std::string> printer_make_and_model;
 
-  absl::optional<std::string> printer_uri;
+  std::optional<std::string> printer_uri;
 
-  absl::optional<std::string> printer_ppd;
+  std::optional<std::string> printer_ppd;
 
 };
 
@@ -557,8 +554,8 @@ struct ArcState {
   ~ArcState();
   ArcState(const ArcState&) = delete;
   ArcState& operator=(const ArcState&) = delete;
-  ArcState(ArcState&& rhs);
-  ArcState& operator=(ArcState&& rhs);
+  ArcState(ArcState&& rhs) noexcept;
+  ArcState& operator=(ArcState&& rhs) noexcept;
 
   // Populates a ArcState object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -571,14 +568,11 @@ struct ArcState {
   // Creates a deep copy of ArcState.
   ArcState Clone() const;
 
-  // Creates a ArcState object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ArcState> FromValueDeprecated(const base::Value& value);
-
   // Creates a ArcState object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<ArcState> FromValue(const base::Value::Dict& value);
+  static std::optional<ArcState> FromValue(const base::Value::Dict& value);
 
   // Creates a ArcState object from a base::Value, or nullopt on failure.
-  static absl::optional<ArcState> FromValue(const base::Value& value);
+  static std::optional<ArcState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisArcState object.
@@ -603,8 +597,8 @@ struct PlayStoreState {
   ~PlayStoreState();
   PlayStoreState(const PlayStoreState&) = delete;
   PlayStoreState& operator=(const PlayStoreState&) = delete;
-  PlayStoreState(PlayStoreState&& rhs);
-  PlayStoreState& operator=(PlayStoreState&& rhs);
+  PlayStoreState(PlayStoreState&& rhs) noexcept;
+  PlayStoreState& operator=(PlayStoreState&& rhs) noexcept;
 
   // Populates a PlayStoreState object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -617,15 +611,12 @@ struct PlayStoreState {
   // Creates a deep copy of PlayStoreState.
   PlayStoreState Clone() const;
 
-  // Creates a PlayStoreState object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PlayStoreState> FromValueDeprecated(const base::Value& value);
-
   // Creates a PlayStoreState object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PlayStoreState> FromValue(const base::Value::Dict& value);
+  static std::optional<PlayStoreState> FromValue(const base::Value::Dict& value);
 
   // Creates a PlayStoreState object from a base::Value, or nullopt on failure.
-  static absl::optional<PlayStoreState> FromValue(const base::Value& value);
+  static std::optional<PlayStoreState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPlayStoreState object.
@@ -635,10 +626,10 @@ struct PlayStoreState {
   bool allowed;
 
   // Whether the Play Store currently enabled.
-  absl::optional<bool> enabled;
+  std::optional<bool> enabled;
 
   // Whether the Play Store managed by policy.
-  absl::optional<bool> managed;
+  std::optional<bool> managed;
 
 };
 
@@ -647,8 +638,8 @@ struct AssistantQueryResponse {
   ~AssistantQueryResponse();
   AssistantQueryResponse(const AssistantQueryResponse&) = delete;
   AssistantQueryResponse& operator=(const AssistantQueryResponse&) = delete;
-  AssistantQueryResponse(AssistantQueryResponse&& rhs);
-  AssistantQueryResponse& operator=(AssistantQueryResponse&& rhs);
+  AssistantQueryResponse(AssistantQueryResponse&& rhs) noexcept;
+  AssistantQueryResponse& operator=(AssistantQueryResponse&& rhs) noexcept;
 
   // Populates a AssistantQueryResponse object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -661,33 +652,29 @@ struct AssistantQueryResponse {
   // Creates a deep copy of AssistantQueryResponse.
   AssistantQueryResponse Clone() const;
 
-  // Creates a AssistantQueryResponse object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<AssistantQueryResponse> FromValueDeprecated(const base::Value& value);
-
   // Creates a AssistantQueryResponse object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<AssistantQueryResponse> FromValue(const base::Value::Dict& value);
+  static std::optional<AssistantQueryResponse> FromValue(const base::Value::Dict& value);
 
   // Creates a AssistantQueryResponse object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AssistantQueryResponse> FromValue(const base::Value& value);
+  static std::optional<AssistantQueryResponse> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAssistantQueryResponse object.
   base::Value::Dict ToValue() const;
 
   // Text response returned from server.
-  absl::optional<std::string> text;
+  std::optional<std::string> text;
 
   // HTML response returned from server.
-  absl::optional<std::string> html_response;
+  std::optional<std::string> html_response;
 
   // Open URL response returned from server.
-  absl::optional<std::string> open_url;
+  std::optional<std::string> open_url;
 
   // Open Android app response returned from server.
-  absl::optional<std::string> open_app_response;
+  std::optional<std::string> open_app_response;
 
 };
 
@@ -696,8 +683,8 @@ struct AssistantQueryStatus {
   ~AssistantQueryStatus();
   AssistantQueryStatus(const AssistantQueryStatus&) = delete;
   AssistantQueryStatus& operator=(const AssistantQueryStatus&) = delete;
-  AssistantQueryStatus(AssistantQueryStatus&& rhs);
-  AssistantQueryStatus& operator=(AssistantQueryStatus&& rhs);
+  AssistantQueryStatus(AssistantQueryStatus&& rhs) noexcept;
+  AssistantQueryStatus& operator=(AssistantQueryStatus&& rhs) noexcept;
 
   // Populates a AssistantQueryStatus object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -710,17 +697,13 @@ struct AssistantQueryStatus {
   // Creates a deep copy of AssistantQueryStatus.
   AssistantQueryStatus Clone() const;
 
-  // Creates a AssistantQueryStatus object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<AssistantQueryStatus> FromValueDeprecated(const base::Value& value);
-
   // Creates a AssistantQueryStatus object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<AssistantQueryStatus> FromValue(const base::Value::Dict& value);
+  static std::optional<AssistantQueryStatus> FromValue(const base::Value::Dict& value);
 
   // Creates a AssistantQueryStatus object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AssistantQueryStatus> FromValue(const base::Value& value);
+  static std::optional<AssistantQueryStatus> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAssistantQueryStatus object.
@@ -746,7 +729,8 @@ enum class LacrosState {
   kMounting,
   kUnavailable,
   kStopped,
-  kCreatingLogFile,
+  kPreparingForLaunch,
+  kWaitingOwnerFetch,
   kPreLaunched,
   kStarting,
   kRunning,
@@ -777,8 +761,8 @@ struct LacrosInfo {
   ~LacrosInfo();
   LacrosInfo(const LacrosInfo&) = delete;
   LacrosInfo& operator=(const LacrosInfo&) = delete;
-  LacrosInfo(LacrosInfo&& rhs);
-  LacrosInfo& operator=(LacrosInfo&& rhs);
+  LacrosInfo(LacrosInfo&& rhs) noexcept;
+  LacrosInfo& operator=(LacrosInfo&& rhs) noexcept;
 
   // Populates a LacrosInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -791,15 +775,12 @@ struct LacrosInfo {
   // Creates a deep copy of LacrosInfo.
   LacrosInfo Clone() const;
 
-  // Creates a LacrosInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<LacrosInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a LacrosInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<LacrosInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<LacrosInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a LacrosInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<LacrosInfo> FromValue(const base::Value& value);
+  static std::optional<LacrosInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLacrosInfo object.
@@ -816,8 +797,12 @@ struct LacrosInfo {
   std::string lacros_path;
 
   // Specifies the mode Lacros is currently running. For a full list of supported
-  // mode, see LacrosMode enum definition.
+  // mode, see LacrosMode enum definition. DEPRECATED: please use isEnabled.
+  // TODO(crbug.com/1494005): Remove this field after tests are fixed.
   LacrosMode mode;
+
+  // True iff Lacros is enabled for the current user session's primary user.
+  bool is_enabled;
 
 };
 
@@ -826,8 +811,8 @@ struct ArcAppDict {
   ~ArcAppDict();
   ArcAppDict(const ArcAppDict&) = delete;
   ArcAppDict& operator=(const ArcAppDict&) = delete;
-  ArcAppDict(ArcAppDict&& rhs);
-  ArcAppDict& operator=(ArcAppDict&& rhs);
+  ArcAppDict(ArcAppDict&& rhs) noexcept;
+  ArcAppDict& operator=(ArcAppDict&& rhs) noexcept;
 
   // Populates a ArcAppDict object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -840,15 +825,12 @@ struct ArcAppDict {
   // Creates a deep copy of ArcAppDict.
   ArcAppDict Clone() const;
 
-  // Creates a ArcAppDict object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ArcAppDict> FromValueDeprecated(const base::Value& value);
-
   // Creates a ArcAppDict object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ArcAppDict> FromValue(const base::Value::Dict& value);
+  static std::optional<ArcAppDict> FromValue(const base::Value::Dict& value);
 
   // Creates a ArcAppDict object from a base::Value, or nullopt on failure.
-  static absl::optional<ArcAppDict> FromValue(const base::Value& value);
+  static std::optional<ArcAppDict> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisArcAppDict object.
@@ -889,8 +871,8 @@ struct ArcAppKillsDict {
   ~ArcAppKillsDict();
   ArcAppKillsDict(const ArcAppKillsDict&) = delete;
   ArcAppKillsDict& operator=(const ArcAppKillsDict&) = delete;
-  ArcAppKillsDict(ArcAppKillsDict&& rhs);
-  ArcAppKillsDict& operator=(ArcAppKillsDict&& rhs);
+  ArcAppKillsDict(ArcAppKillsDict&& rhs) noexcept;
+  ArcAppKillsDict& operator=(ArcAppKillsDict&& rhs) noexcept;
 
   // Populates a ArcAppKillsDict object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -903,15 +885,12 @@ struct ArcAppKillsDict {
   // Creates a deep copy of ArcAppKillsDict.
   ArcAppKillsDict Clone() const;
 
-  // Creates a ArcAppKillsDict object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ArcAppKillsDict> FromValueDeprecated(const base::Value& value);
-
   // Creates a ArcAppKillsDict object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ArcAppKillsDict> FromValue(const base::Value::Dict& value);
+  static std::optional<ArcAppKillsDict> FromValue(const base::Value::Dict& value);
 
   // Creates a ArcAppKillsDict object from a base::Value, or nullopt on failure.
-  static absl::optional<ArcAppKillsDict> FromValue(const base::Value& value);
+  static std::optional<ArcAppKillsDict> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisArcAppKillsDict object.
@@ -938,8 +917,8 @@ struct ArcPackageDict {
   ~ArcPackageDict();
   ArcPackageDict(const ArcPackageDict&) = delete;
   ArcPackageDict& operator=(const ArcPackageDict&) = delete;
-  ArcPackageDict(ArcPackageDict&& rhs);
-  ArcPackageDict& operator=(ArcPackageDict&& rhs);
+  ArcPackageDict(ArcPackageDict&& rhs) noexcept;
+  ArcPackageDict& operator=(ArcPackageDict&& rhs) noexcept;
 
   // Populates a ArcPackageDict object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -952,15 +931,12 @@ struct ArcPackageDict {
   // Creates a deep copy of ArcPackageDict.
   ArcPackageDict Clone() const;
 
-  // Creates a ArcPackageDict object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ArcPackageDict> FromValueDeprecated(const base::Value& value);
-
   // Creates a ArcPackageDict object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ArcPackageDict> FromValue(const base::Value::Dict& value);
+  static std::optional<ArcPackageDict> FromValue(const base::Value::Dict& value);
 
   // Creates a ArcPackageDict object from a base::Value, or nullopt on failure.
-  static absl::optional<ArcPackageDict> FromValue(const base::Value& value);
+  static std::optional<ArcPackageDict> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisArcPackageDict object.
@@ -985,8 +961,8 @@ struct Location {
   ~Location();
   Location(const Location&) = delete;
   Location& operator=(const Location&) = delete;
-  Location(Location&& rhs);
-  Location& operator=(Location&& rhs);
+  Location(Location&& rhs) noexcept;
+  Location& operator=(Location&& rhs) noexcept;
 
   // Populates a Location object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -999,14 +975,11 @@ struct Location {
   // Creates a deep copy of Location.
   Location Clone() const;
 
-  // Creates a Location object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Location> FromValueDeprecated(const base::Value& value);
-
   // Creates a Location object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Location> FromValue(const base::Value::Dict& value);
+  static std::optional<Location> FromValue(const base::Value::Dict& value);
 
   // Creates a Location object from a base::Value, or nullopt on failure.
-  static absl::optional<Location> FromValue(const base::Value& value);
+  static std::optional<Location> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLocation object.
@@ -1023,8 +996,8 @@ struct Bounds {
   ~Bounds();
   Bounds(const Bounds&) = delete;
   Bounds& operator=(const Bounds&) = delete;
-  Bounds(Bounds&& rhs);
-  Bounds& operator=(Bounds&& rhs);
+  Bounds(Bounds&& rhs) noexcept;
+  Bounds& operator=(Bounds&& rhs) noexcept;
 
   // Populates a Bounds object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1037,14 +1010,11 @@ struct Bounds {
   // Creates a deep copy of Bounds.
   Bounds Clone() const;
 
-  // Creates a Bounds object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Bounds> FromValueDeprecated(const base::Value& value);
-
   // Creates a Bounds object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value::Dict& value);
+  static std::optional<Bounds> FromValue(const base::Value::Dict& value);
 
   // Creates a Bounds object from a base::Value, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value& value);
+  static std::optional<Bounds> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBounds object.
@@ -1065,8 +1035,8 @@ struct ArcAppTracingInfo {
   ~ArcAppTracingInfo();
   ArcAppTracingInfo(const ArcAppTracingInfo&) = delete;
   ArcAppTracingInfo& operator=(const ArcAppTracingInfo&) = delete;
-  ArcAppTracingInfo(ArcAppTracingInfo&& rhs);
-  ArcAppTracingInfo& operator=(ArcAppTracingInfo&& rhs);
+  ArcAppTracingInfo(ArcAppTracingInfo&& rhs) noexcept;
+  ArcAppTracingInfo& operator=(ArcAppTracingInfo&& rhs) noexcept;
 
   // Populates a ArcAppTracingInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1079,16 +1049,13 @@ struct ArcAppTracingInfo {
   // Creates a deep copy of ArcAppTracingInfo.
   ArcAppTracingInfo Clone() const;
 
-  // Creates a ArcAppTracingInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ArcAppTracingInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ArcAppTracingInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ArcAppTracingInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ArcAppTracingInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ArcAppTracingInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ArcAppTracingInfo> FromValue(const base::Value& value);
+  static std::optional<ArcAppTracingInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisArcAppTracingInfo object.
@@ -1098,7 +1065,11 @@ struct ArcAppTracingInfo {
 
   double fps;
 
+  double perceived_fps;
+
   double commit_deviation;
+
+  double present_deviation;
 
   double render_quality;
 
@@ -1125,8 +1096,8 @@ struct App {
   ~App();
   App(const App&) = delete;
   App& operator=(const App&) = delete;
-  App(App&& rhs);
-  App& operator=(App&& rhs);
+  App(App&& rhs) noexcept;
+  App& operator=(App&& rhs) noexcept;
 
   // Populates a App object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -1139,14 +1110,11 @@ struct App {
   // Creates a deep copy of App.
   App Clone() const;
 
-  // Creates a App object from a base::Value, or NULL on failure.
-  static std::unique_ptr<App> FromValueDeprecated(const base::Value& value);
-
   // Creates a App object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<App> FromValue(const base::Value::Dict& value);
+  static std::optional<App> FromValue(const base::Value::Dict& value);
 
   // Creates a App object from a base::Value, or nullopt on failure.
-  static absl::optional<App> FromValue(const base::Value& value);
+  static std::optional<App> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of thisApp
   // object.
@@ -1168,9 +1136,9 @@ struct App {
 
   std::vector<std::string> additional_search_terms;
 
-  absl::optional<bool> show_in_launcher;
+  std::optional<bool> show_in_launcher;
 
-  absl::optional<bool> show_in_search;
+  std::optional<bool> show_in_search;
 
 };
 
@@ -1179,8 +1147,8 @@ struct SystemWebApp {
   ~SystemWebApp();
   SystemWebApp(const SystemWebApp&) = delete;
   SystemWebApp& operator=(const SystemWebApp&) = delete;
-  SystemWebApp(SystemWebApp&& rhs);
-  SystemWebApp& operator=(SystemWebApp&& rhs);
+  SystemWebApp(SystemWebApp&& rhs) noexcept;
+  SystemWebApp& operator=(SystemWebApp&& rhs) noexcept;
 
   // Populates a SystemWebApp object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1193,15 +1161,12 @@ struct SystemWebApp {
   // Creates a deep copy of SystemWebApp.
   SystemWebApp Clone() const;
 
-  // Creates a SystemWebApp object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SystemWebApp> FromValueDeprecated(const base::Value& value);
-
   // Creates a SystemWebApp object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SystemWebApp> FromValue(const base::Value::Dict& value);
+  static std::optional<SystemWebApp> FromValue(const base::Value::Dict& value);
 
   // Creates a SystemWebApp object from a base::Value, or nullopt on failure.
-  static absl::optional<SystemWebApp> FromValue(const base::Value& value);
+  static std::optional<SystemWebApp> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSystemWebApp object.
@@ -1230,8 +1195,8 @@ struct ShelfItem {
   ~ShelfItem();
   ShelfItem(const ShelfItem&) = delete;
   ShelfItem& operator=(const ShelfItem&) = delete;
-  ShelfItem(ShelfItem&& rhs);
-  ShelfItem& operator=(ShelfItem&& rhs);
+  ShelfItem(ShelfItem&& rhs) noexcept;
+  ShelfItem& operator=(ShelfItem&& rhs) noexcept;
 
   // Populates a ShelfItem object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1244,14 +1209,11 @@ struct ShelfItem {
   // Creates a deep copy of ShelfItem.
   ShelfItem Clone() const;
 
-  // Creates a ShelfItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ShelfItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a ShelfItem object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<ShelfItem> FromValue(const base::Value::Dict& value);
+  static std::optional<ShelfItem> FromValue(const base::Value::Dict& value);
 
   // Creates a ShelfItem object from a base::Value, or nullopt on failure.
-  static absl::optional<ShelfItem> FromValue(const base::Value& value);
+  static std::optional<ShelfItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisShelfItem object.
@@ -1328,8 +1290,8 @@ struct OverviewInfo {
   ~OverviewInfo();
   OverviewInfo(const OverviewInfo&) = delete;
   OverviewInfo& operator=(const OverviewInfo&) = delete;
-  OverviewInfo(OverviewInfo&& rhs);
-  OverviewInfo& operator=(OverviewInfo&& rhs);
+  OverviewInfo(OverviewInfo&& rhs) noexcept;
+  OverviewInfo& operator=(OverviewInfo&& rhs) noexcept;
 
   // Populates a OverviewInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1342,15 +1304,12 @@ struct OverviewInfo {
   // Creates a deep copy of OverviewInfo.
   OverviewInfo Clone() const;
 
-  // Creates a OverviewInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<OverviewInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a OverviewInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<OverviewInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<OverviewInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a OverviewInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<OverviewInfo> FromValue(const base::Value& value);
+  static std::optional<OverviewInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOverviewInfo object.
@@ -1369,8 +1328,8 @@ struct ShelfIconPinUpdateParam {
   ~ShelfIconPinUpdateParam();
   ShelfIconPinUpdateParam(const ShelfIconPinUpdateParam&) = delete;
   ShelfIconPinUpdateParam& operator=(const ShelfIconPinUpdateParam&) = delete;
-  ShelfIconPinUpdateParam(ShelfIconPinUpdateParam&& rhs);
-  ShelfIconPinUpdateParam& operator=(ShelfIconPinUpdateParam&& rhs);
+  ShelfIconPinUpdateParam(ShelfIconPinUpdateParam&& rhs) noexcept;
+  ShelfIconPinUpdateParam& operator=(ShelfIconPinUpdateParam&& rhs) noexcept;
 
   // Populates a ShelfIconPinUpdateParam object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1383,17 +1342,13 @@ struct ShelfIconPinUpdateParam {
   // Creates a deep copy of ShelfIconPinUpdateParam.
   ShelfIconPinUpdateParam Clone() const;
 
-  // Creates a ShelfIconPinUpdateParam object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ShelfIconPinUpdateParam> FromValueDeprecated(const base::Value& value);
-
   // Creates a ShelfIconPinUpdateParam object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ShelfIconPinUpdateParam> FromValue(const base::Value::Dict& value);
+  static std::optional<ShelfIconPinUpdateParam> FromValue(const base::Value::Dict& value);
 
   // Creates a ShelfIconPinUpdateParam object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ShelfIconPinUpdateParam> FromValue(const base::Value& value);
+  static std::optional<ShelfIconPinUpdateParam> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisShelfIconPinUpdateParam object.
@@ -1412,8 +1367,8 @@ struct AppWindowInfo {
   ~AppWindowInfo();
   AppWindowInfo(const AppWindowInfo&) = delete;
   AppWindowInfo& operator=(const AppWindowInfo&) = delete;
-  AppWindowInfo(AppWindowInfo&& rhs);
-  AppWindowInfo& operator=(AppWindowInfo&& rhs);
+  AppWindowInfo(AppWindowInfo&& rhs) noexcept;
+  AppWindowInfo& operator=(AppWindowInfo&& rhs) noexcept;
 
   // Populates a AppWindowInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1426,15 +1381,12 @@ struct AppWindowInfo {
   // Creates a deep copy of AppWindowInfo.
   AppWindowInfo Clone() const;
 
-  // Creates a AppWindowInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AppWindowInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a AppWindowInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AppWindowInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<AppWindowInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a AppWindowInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<AppWindowInfo> FromValue(const base::Value& value);
+  static std::optional<AppWindowInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAppWindowInfo object.
@@ -1507,17 +1459,17 @@ struct AppWindowInfo {
   // The bitset of the caption buttons which are visible on the frame.
   int caption_button_visible_status;
 
-  absl::optional<std::string> arc_package_name;
+  std::optional<std::string> arc_package_name;
 
-  absl::optional<OverviewInfo> overview_info;
+  std::optional<OverviewInfo> overview_info;
 
   // The identifier of the app associated with the window that was launched from
   // full restore. This should be same as |appId| when the window was restored
   // from full restore, otherwise null.
-  absl::optional<std::string> full_restore_window_app_id;
+  std::optional<std::string> full_restore_window_app_id;
 
   // The identifier of the app associated with the window.
-  absl::optional<std::string> app_id;
+  std::optional<std::string> app_id;
 
 };
 
@@ -1526,8 +1478,8 @@ struct Accelerator {
   ~Accelerator();
   Accelerator(const Accelerator&) = delete;
   Accelerator& operator=(const Accelerator&) = delete;
-  Accelerator(Accelerator&& rhs);
-  Accelerator& operator=(Accelerator&& rhs);
+  Accelerator(Accelerator&& rhs) noexcept;
+  Accelerator& operator=(Accelerator&& rhs) noexcept;
 
   // Populates a Accelerator object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1540,15 +1492,12 @@ struct Accelerator {
   // Creates a deep copy of Accelerator.
   Accelerator Clone() const;
 
-  // Creates a Accelerator object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Accelerator> FromValueDeprecated(const base::Value& value);
-
   // Creates a Accelerator object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Accelerator> FromValue(const base::Value::Dict& value);
+  static std::optional<Accelerator> FromValue(const base::Value::Dict& value);
 
   // Creates a Accelerator object from a base::Value, or nullopt on failure.
-  static absl::optional<Accelerator> FromValue(const base::Value& value);
+  static std::optional<Accelerator> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAccelerator object.
@@ -1573,8 +1522,8 @@ struct ScrollableShelfState {
   ~ScrollableShelfState();
   ScrollableShelfState(const ScrollableShelfState&) = delete;
   ScrollableShelfState& operator=(const ScrollableShelfState&) = delete;
-  ScrollableShelfState(ScrollableShelfState&& rhs);
-  ScrollableShelfState& operator=(ScrollableShelfState&& rhs);
+  ScrollableShelfState(ScrollableShelfState&& rhs) noexcept;
+  ScrollableShelfState& operator=(ScrollableShelfState&& rhs) noexcept;
 
   // Populates a ScrollableShelfState object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1587,23 +1536,19 @@ struct ScrollableShelfState {
   // Creates a deep copy of ScrollableShelfState.
   ScrollableShelfState Clone() const;
 
-  // Creates a ScrollableShelfState object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ScrollableShelfState> FromValueDeprecated(const base::Value& value);
-
   // Creates a ScrollableShelfState object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ScrollableShelfState> FromValue(const base::Value::Dict& value);
+  static std::optional<ScrollableShelfState> FromValue(const base::Value::Dict& value);
 
   // Creates a ScrollableShelfState object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ScrollableShelfState> FromValue(const base::Value& value);
+  static std::optional<ScrollableShelfState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisScrollableShelfState object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<double> scroll_distance;
+  std::optional<double> scroll_distance;
 
 };
 
@@ -1612,8 +1557,8 @@ struct ShelfState {
   ~ShelfState();
   ShelfState(const ShelfState&) = delete;
   ShelfState& operator=(const ShelfState&) = delete;
-  ShelfState(ShelfState&& rhs);
-  ShelfState& operator=(ShelfState&& rhs);
+  ShelfState(ShelfState&& rhs) noexcept;
+  ShelfState& operator=(ShelfState&& rhs) noexcept;
 
   // Populates a ShelfState object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1626,21 +1571,18 @@ struct ShelfState {
   // Creates a deep copy of ShelfState.
   ShelfState Clone() const;
 
-  // Creates a ShelfState object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ShelfState> FromValueDeprecated(const base::Value& value);
-
   // Creates a ShelfState object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ShelfState> FromValue(const base::Value::Dict& value);
+  static std::optional<ShelfState> FromValue(const base::Value::Dict& value);
 
   // Creates a ShelfState object from a base::Value, or nullopt on failure.
-  static absl::optional<ShelfState> FromValue(const base::Value& value);
+  static std::optional<ShelfState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisShelfState object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<double> scroll_distance;
+  std::optional<double> scroll_distance;
 
 };
 
@@ -1649,8 +1591,8 @@ struct ScrollableShelfInfo {
   ~ScrollableShelfInfo();
   ScrollableShelfInfo(const ScrollableShelfInfo&) = delete;
   ScrollableShelfInfo& operator=(const ScrollableShelfInfo&) = delete;
-  ScrollableShelfInfo(ScrollableShelfInfo&& rhs);
-  ScrollableShelfInfo& operator=(ScrollableShelfInfo&& rhs);
+  ScrollableShelfInfo(ScrollableShelfInfo&& rhs) noexcept;
+  ScrollableShelfInfo& operator=(ScrollableShelfInfo&& rhs) noexcept;
 
   // Populates a ScrollableShelfInfo object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1663,17 +1605,13 @@ struct ScrollableShelfInfo {
   // Creates a deep copy of ScrollableShelfInfo.
   ScrollableShelfInfo Clone() const;
 
-  // Creates a ScrollableShelfInfo object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ScrollableShelfInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ScrollableShelfInfo object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ScrollableShelfInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ScrollableShelfInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ScrollableShelfInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ScrollableShelfInfo> FromValue(const base::Value& value);
+  static std::optional<ScrollableShelfInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisScrollableShelfInfo object.
@@ -1683,7 +1621,7 @@ struct ScrollableShelfInfo {
 
   double page_offset;
 
-  absl::optional<double> target_main_axis_offset;
+  std::optional<double> target_main_axis_offset;
 
   Bounds left_arrow_bounds;
 
@@ -1706,8 +1644,8 @@ struct HotseatSwipeDescriptor {
   ~HotseatSwipeDescriptor();
   HotseatSwipeDescriptor(const HotseatSwipeDescriptor&) = delete;
   HotseatSwipeDescriptor& operator=(const HotseatSwipeDescriptor&) = delete;
-  HotseatSwipeDescriptor(HotseatSwipeDescriptor&& rhs);
-  HotseatSwipeDescriptor& operator=(HotseatSwipeDescriptor&& rhs);
+  HotseatSwipeDescriptor(HotseatSwipeDescriptor&& rhs) noexcept;
+  HotseatSwipeDescriptor& operator=(HotseatSwipeDescriptor&& rhs) noexcept;
 
   // Populates a HotseatSwipeDescriptor object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1720,17 +1658,13 @@ struct HotseatSwipeDescriptor {
   // Creates a deep copy of HotseatSwipeDescriptor.
   HotseatSwipeDescriptor Clone() const;
 
-  // Creates a HotseatSwipeDescriptor object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<HotseatSwipeDescriptor> FromValueDeprecated(const base::Value& value);
-
   // Creates a HotseatSwipeDescriptor object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<HotseatSwipeDescriptor> FromValue(const base::Value::Dict& value);
+  static std::optional<HotseatSwipeDescriptor> FromValue(const base::Value::Dict& value);
 
   // Creates a HotseatSwipeDescriptor object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<HotseatSwipeDescriptor> FromValue(const base::Value& value);
+  static std::optional<HotseatSwipeDescriptor> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHotseatSwipeDescriptor object.
@@ -1747,8 +1681,8 @@ struct HotseatInfo {
   ~HotseatInfo();
   HotseatInfo(const HotseatInfo&) = delete;
   HotseatInfo& operator=(const HotseatInfo&) = delete;
-  HotseatInfo(HotseatInfo&& rhs);
-  HotseatInfo& operator=(HotseatInfo&& rhs);
+  HotseatInfo(HotseatInfo&& rhs) noexcept;
+  HotseatInfo& operator=(HotseatInfo&& rhs) noexcept;
 
   // Populates a HotseatInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1761,15 +1695,12 @@ struct HotseatInfo {
   // Creates a deep copy of HotseatInfo.
   HotseatInfo Clone() const;
 
-  // Creates a HotseatInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HotseatInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a HotseatInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HotseatInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<HotseatInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a HotseatInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<HotseatInfo> FromValue(const base::Value& value);
+  static std::optional<HotseatInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHotseatInfo object.
@@ -1791,8 +1722,8 @@ struct ShelfUIInfo {
   ~ShelfUIInfo();
   ShelfUIInfo(const ShelfUIInfo&) = delete;
   ShelfUIInfo& operator=(const ShelfUIInfo&) = delete;
-  ShelfUIInfo(ShelfUIInfo&& rhs);
-  ShelfUIInfo& operator=(ShelfUIInfo&& rhs);
+  ShelfUIInfo(ShelfUIInfo&& rhs) noexcept;
+  ShelfUIInfo& operator=(ShelfUIInfo&& rhs) noexcept;
 
   // Populates a ShelfUIInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1805,15 +1736,12 @@ struct ShelfUIInfo {
   // Creates a deep copy of ShelfUIInfo.
   ShelfUIInfo Clone() const;
 
-  // Creates a ShelfUIInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ShelfUIInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ShelfUIInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ShelfUIInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ShelfUIInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ShelfUIInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ShelfUIInfo> FromValue(const base::Value& value);
+  static std::optional<ShelfUIInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisShelfUIInfo object.
@@ -1830,8 +1758,8 @@ struct DesksInfo {
   ~DesksInfo();
   DesksInfo(const DesksInfo&) = delete;
   DesksInfo& operator=(const DesksInfo&) = delete;
-  DesksInfo(DesksInfo&& rhs);
-  DesksInfo& operator=(DesksInfo&& rhs);
+  DesksInfo(DesksInfo&& rhs) noexcept;
+  DesksInfo& operator=(DesksInfo&& rhs) noexcept;
 
   // Populates a DesksInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1844,14 +1772,11 @@ struct DesksInfo {
   // Creates a deep copy of DesksInfo.
   DesksInfo Clone() const;
 
-  // Creates a DesksInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DesksInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a DesksInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<DesksInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<DesksInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a DesksInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<DesksInfo> FromValue(const base::Value& value);
+  static std::optional<DesksInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDesksInfo object.
@@ -1872,8 +1797,8 @@ struct LauncherSearchBoxState {
   ~LauncherSearchBoxState();
   LauncherSearchBoxState(const LauncherSearchBoxState&) = delete;
   LauncherSearchBoxState& operator=(const LauncherSearchBoxState&) = delete;
-  LauncherSearchBoxState(LauncherSearchBoxState&& rhs);
-  LauncherSearchBoxState& operator=(LauncherSearchBoxState&& rhs);
+  LauncherSearchBoxState(LauncherSearchBoxState&& rhs) noexcept;
+  LauncherSearchBoxState& operator=(LauncherSearchBoxState&& rhs) noexcept;
 
   // Populates a LauncherSearchBoxState object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1886,17 +1811,13 @@ struct LauncherSearchBoxState {
   // Creates a deep copy of LauncherSearchBoxState.
   LauncherSearchBoxState Clone() const;
 
-  // Creates a LauncherSearchBoxState object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<LauncherSearchBoxState> FromValueDeprecated(const base::Value& value);
-
   // Creates a LauncherSearchBoxState object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<LauncherSearchBoxState> FromValue(const base::Value::Dict& value);
+  static std::optional<LauncherSearchBoxState> FromValue(const base::Value::Dict& value);
 
   // Creates a LauncherSearchBoxState object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<LauncherSearchBoxState> FromValue(const base::Value& value);
+  static std::optional<LauncherSearchBoxState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLauncherSearchBoxState object.
@@ -1911,8 +1832,8 @@ struct FrameCountingPerSinkData {
   ~FrameCountingPerSinkData();
   FrameCountingPerSinkData(const FrameCountingPerSinkData&) = delete;
   FrameCountingPerSinkData& operator=(const FrameCountingPerSinkData&) = delete;
-  FrameCountingPerSinkData(FrameCountingPerSinkData&& rhs);
-  FrameCountingPerSinkData& operator=(FrameCountingPerSinkData&& rhs);
+  FrameCountingPerSinkData(FrameCountingPerSinkData&& rhs) noexcept;
+  FrameCountingPerSinkData& operator=(FrameCountingPerSinkData&& rhs) noexcept;
 
   // Populates a FrameCountingPerSinkData object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1925,17 +1846,13 @@ struct FrameCountingPerSinkData {
   // Creates a deep copy of FrameCountingPerSinkData.
   FrameCountingPerSinkData Clone() const;
 
-  // Creates a FrameCountingPerSinkData object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<FrameCountingPerSinkData> FromValueDeprecated(const base::Value& value);
-
   // Creates a FrameCountingPerSinkData object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<FrameCountingPerSinkData> FromValue(const base::Value::Dict& value);
+  static std::optional<FrameCountingPerSinkData> FromValue(const base::Value::Dict& value);
 
   // Creates a FrameCountingPerSinkData object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<FrameCountingPerSinkData> FromValue(const base::Value& value);
+  static std::optional<FrameCountingPerSinkData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFrameCountingPerSinkData object.
@@ -1961,8 +1878,8 @@ struct SetWindowBoundsResult {
   ~SetWindowBoundsResult();
   SetWindowBoundsResult(const SetWindowBoundsResult&) = delete;
   SetWindowBoundsResult& operator=(const SetWindowBoundsResult&) = delete;
-  SetWindowBoundsResult(SetWindowBoundsResult&& rhs);
-  SetWindowBoundsResult& operator=(SetWindowBoundsResult&& rhs);
+  SetWindowBoundsResult(SetWindowBoundsResult&& rhs) noexcept;
+  SetWindowBoundsResult& operator=(SetWindowBoundsResult&& rhs) noexcept;
 
   // Populates a SetWindowBoundsResult object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1975,17 +1892,13 @@ struct SetWindowBoundsResult {
   // Creates a deep copy of SetWindowBoundsResult.
   SetWindowBoundsResult Clone() const;
 
-  // Creates a SetWindowBoundsResult object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SetWindowBoundsResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a SetWindowBoundsResult object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<SetWindowBoundsResult> FromValue(const base::Value::Dict& value);
+  static std::optional<SetWindowBoundsResult> FromValue(const base::Value::Dict& value);
 
   // Creates a SetWindowBoundsResult object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SetWindowBoundsResult> FromValue(const base::Value& value);
+  static std::optional<SetWindowBoundsResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSetWindowBoundsResult object.
@@ -2004,8 +1917,8 @@ struct DisplaySmoothnessData {
   ~DisplaySmoothnessData();
   DisplaySmoothnessData(const DisplaySmoothnessData&) = delete;
   DisplaySmoothnessData& operator=(const DisplaySmoothnessData&) = delete;
-  DisplaySmoothnessData(DisplaySmoothnessData&& rhs);
-  DisplaySmoothnessData& operator=(DisplaySmoothnessData&& rhs);
+  DisplaySmoothnessData(DisplaySmoothnessData&& rhs) noexcept;
+  DisplaySmoothnessData& operator=(DisplaySmoothnessData&& rhs) noexcept;
 
   // Populates a DisplaySmoothnessData object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2018,17 +1931,13 @@ struct DisplaySmoothnessData {
   // Creates a deep copy of DisplaySmoothnessData.
   DisplaySmoothnessData Clone() const;
 
-  // Creates a DisplaySmoothnessData object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DisplaySmoothnessData> FromValueDeprecated(const base::Value& value);
-
   // Creates a DisplaySmoothnessData object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<DisplaySmoothnessData> FromValue(const base::Value::Dict& value);
+  static std::optional<DisplaySmoothnessData> FromValue(const base::Value::Dict& value);
 
   // Creates a DisplaySmoothnessData object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DisplaySmoothnessData> FromValue(const base::Value& value);
+  static std::optional<DisplaySmoothnessData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDisplaySmoothnessData object.
@@ -2054,8 +1963,8 @@ struct ThroughputTrackerAnimationData {
   ~ThroughputTrackerAnimationData();
   ThroughputTrackerAnimationData(const ThroughputTrackerAnimationData&) = delete;
   ThroughputTrackerAnimationData& operator=(const ThroughputTrackerAnimationData&) = delete;
-  ThroughputTrackerAnimationData(ThroughputTrackerAnimationData&& rhs);
-  ThroughputTrackerAnimationData& operator=(ThroughputTrackerAnimationData&& rhs);
+  ThroughputTrackerAnimationData(ThroughputTrackerAnimationData&& rhs) noexcept;
+  ThroughputTrackerAnimationData& operator=(ThroughputTrackerAnimationData&& rhs) noexcept;
 
   // Populates a ThroughputTrackerAnimationData object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -2068,17 +1977,13 @@ struct ThroughputTrackerAnimationData {
   // Creates a deep copy of ThroughputTrackerAnimationData.
   ThroughputTrackerAnimationData Clone() const;
 
-  // Creates a ThroughputTrackerAnimationData object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<ThroughputTrackerAnimationData> FromValueDeprecated(const base::Value& value);
-
   // Creates a ThroughputTrackerAnimationData object from a base::Value::Dict,
   // or nullopt on failure.
-  static absl::optional<ThroughputTrackerAnimationData> FromValue(const base::Value::Dict& value);
+  static std::optional<ThroughputTrackerAnimationData> FromValue(const base::Value::Dict& value);
 
   // Creates a ThroughputTrackerAnimationData object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<ThroughputTrackerAnimationData> FromValue(const base::Value& value);
+  static std::optional<ThroughputTrackerAnimationData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisThroughputTrackerAnimationData object.
@@ -2109,8 +2014,8 @@ struct ResetHoldingSpaceOptions {
   ~ResetHoldingSpaceOptions();
   ResetHoldingSpaceOptions(const ResetHoldingSpaceOptions&) = delete;
   ResetHoldingSpaceOptions& operator=(const ResetHoldingSpaceOptions&) = delete;
-  ResetHoldingSpaceOptions(ResetHoldingSpaceOptions&& rhs);
-  ResetHoldingSpaceOptions& operator=(ResetHoldingSpaceOptions&& rhs);
+  ResetHoldingSpaceOptions(ResetHoldingSpaceOptions&& rhs) noexcept;
+  ResetHoldingSpaceOptions& operator=(ResetHoldingSpaceOptions&& rhs) noexcept;
 
   // Populates a ResetHoldingSpaceOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2123,17 +2028,13 @@ struct ResetHoldingSpaceOptions {
   // Creates a deep copy of ResetHoldingSpaceOptions.
   ResetHoldingSpaceOptions Clone() const;
 
-  // Creates a ResetHoldingSpaceOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ResetHoldingSpaceOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ResetHoldingSpaceOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ResetHoldingSpaceOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ResetHoldingSpaceOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ResetHoldingSpaceOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ResetHoldingSpaceOptions> FromValue(const base::Value& value);
+  static std::optional<ResetHoldingSpaceOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResetHoldingSpaceOptions object.
@@ -2151,8 +2052,8 @@ struct LoginEventRecorderData {
   ~LoginEventRecorderData();
   LoginEventRecorderData(const LoginEventRecorderData&) = delete;
   LoginEventRecorderData& operator=(const LoginEventRecorderData&) = delete;
-  LoginEventRecorderData(LoginEventRecorderData&& rhs);
-  LoginEventRecorderData& operator=(LoginEventRecorderData&& rhs);
+  LoginEventRecorderData(LoginEventRecorderData&& rhs) noexcept;
+  LoginEventRecorderData& operator=(LoginEventRecorderData&& rhs) noexcept;
 
   // Populates a LoginEventRecorderData object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2165,17 +2066,13 @@ struct LoginEventRecorderData {
   // Creates a deep copy of LoginEventRecorderData.
   LoginEventRecorderData Clone() const;
 
-  // Creates a LoginEventRecorderData object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<LoginEventRecorderData> FromValueDeprecated(const base::Value& value);
-
   // Creates a LoginEventRecorderData object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<LoginEventRecorderData> FromValue(const base::Value::Dict& value);
+  static std::optional<LoginEventRecorderData> FromValue(const base::Value::Dict& value);
 
   // Creates a LoginEventRecorderData object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<LoginEventRecorderData> FromValue(const base::Value& value);
+  static std::optional<LoginEventRecorderData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLoginEventRecorderData object.
@@ -2194,8 +2091,8 @@ struct GetAccessTokenParams {
   ~GetAccessTokenParams();
   GetAccessTokenParams(const GetAccessTokenParams&) = delete;
   GetAccessTokenParams& operator=(const GetAccessTokenParams&) = delete;
-  GetAccessTokenParams(GetAccessTokenParams&& rhs);
-  GetAccessTokenParams& operator=(GetAccessTokenParams&& rhs);
+  GetAccessTokenParams(GetAccessTokenParams&& rhs) noexcept;
+  GetAccessTokenParams& operator=(GetAccessTokenParams&& rhs) noexcept;
 
   // Populates a GetAccessTokenParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2208,17 +2105,13 @@ struct GetAccessTokenParams {
   // Creates a deep copy of GetAccessTokenParams.
   GetAccessTokenParams Clone() const;
 
-  // Creates a GetAccessTokenParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetAccessTokenParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetAccessTokenParams object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<GetAccessTokenParams> FromValue(const base::Value::Dict& value);
+  static std::optional<GetAccessTokenParams> FromValue(const base::Value::Dict& value);
 
   // Creates a GetAccessTokenParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetAccessTokenParams> FromValue(const base::Value& value);
+  static std::optional<GetAccessTokenParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetAccessTokenParams object.
@@ -2231,7 +2124,7 @@ struct GetAccessTokenParams {
   std::vector<std::string> scopes;
 
   // An optional timeout in milliseconds for the request. Default: 90 seconds
-  absl::optional<int> timeout_ms;
+  std::optional<int> timeout_ms;
 
 };
 
@@ -2240,8 +2133,8 @@ struct GetAccessTokenData {
   ~GetAccessTokenData();
   GetAccessTokenData(const GetAccessTokenData&) = delete;
   GetAccessTokenData& operator=(const GetAccessTokenData&) = delete;
-  GetAccessTokenData(GetAccessTokenData&& rhs);
-  GetAccessTokenData& operator=(GetAccessTokenData&& rhs);
+  GetAccessTokenData(GetAccessTokenData&& rhs) noexcept;
+  GetAccessTokenData& operator=(GetAccessTokenData&& rhs) noexcept;
 
   // Populates a GetAccessTokenData object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2254,16 +2147,13 @@ struct GetAccessTokenData {
   // Creates a deep copy of GetAccessTokenData.
   GetAccessTokenData Clone() const;
 
-  // Creates a GetAccessTokenData object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetAccessTokenData> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetAccessTokenData object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetAccessTokenData> FromValue(const base::Value::Dict& value);
+  static std::optional<GetAccessTokenData> FromValue(const base::Value::Dict& value);
 
   // Creates a GetAccessTokenData object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetAccessTokenData> FromValue(const base::Value& value);
+  static std::optional<GetAccessTokenData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetAccessTokenData object.
@@ -2282,8 +2172,8 @@ struct MakeFuseboxTempDirData {
   ~MakeFuseboxTempDirData();
   MakeFuseboxTempDirData(const MakeFuseboxTempDirData&) = delete;
   MakeFuseboxTempDirData& operator=(const MakeFuseboxTempDirData&) = delete;
-  MakeFuseboxTempDirData(MakeFuseboxTempDirData&& rhs);
-  MakeFuseboxTempDirData& operator=(MakeFuseboxTempDirData&& rhs);
+  MakeFuseboxTempDirData(MakeFuseboxTempDirData&& rhs) noexcept;
+  MakeFuseboxTempDirData& operator=(MakeFuseboxTempDirData&& rhs) noexcept;
 
   // Populates a MakeFuseboxTempDirData object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2296,17 +2186,13 @@ struct MakeFuseboxTempDirData {
   // Creates a deep copy of MakeFuseboxTempDirData.
   MakeFuseboxTempDirData Clone() const;
 
-  // Creates a MakeFuseboxTempDirData object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MakeFuseboxTempDirData> FromValueDeprecated(const base::Value& value);
-
   // Creates a MakeFuseboxTempDirData object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<MakeFuseboxTempDirData> FromValue(const base::Value::Dict& value);
+  static std::optional<MakeFuseboxTempDirData> FromValue(const base::Value::Dict& value);
 
   // Creates a MakeFuseboxTempDirData object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MakeFuseboxTempDirData> FromValue(const base::Value& value);
+  static std::optional<MakeFuseboxTempDirData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMakeFuseboxTempDirData object.
@@ -2323,8 +2209,8 @@ struct GetCurrentInputMethodDescriptorData {
   ~GetCurrentInputMethodDescriptorData();
   GetCurrentInputMethodDescriptorData(const GetCurrentInputMethodDescriptorData&) = delete;
   GetCurrentInputMethodDescriptorData& operator=(const GetCurrentInputMethodDescriptorData&) = delete;
-  GetCurrentInputMethodDescriptorData(GetCurrentInputMethodDescriptorData&& rhs);
-  GetCurrentInputMethodDescriptorData& operator=(GetCurrentInputMethodDescriptorData&& rhs);
+  GetCurrentInputMethodDescriptorData(GetCurrentInputMethodDescriptorData&& rhs) noexcept;
+  GetCurrentInputMethodDescriptorData& operator=(GetCurrentInputMethodDescriptorData&& rhs) noexcept;
 
   // Populates a GetCurrentInputMethodDescriptorData object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -2337,23 +2223,54 @@ struct GetCurrentInputMethodDescriptorData {
   // Creates a deep copy of GetCurrentInputMethodDescriptorData.
   GetCurrentInputMethodDescriptorData Clone() const;
 
-  // Creates a GetCurrentInputMethodDescriptorData object from a base::Value, or
-  // NULL on failure.
-  static std::unique_ptr<GetCurrentInputMethodDescriptorData> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetCurrentInputMethodDescriptorData object from a
   // base::Value::Dict, or nullopt on failure.
-  static absl::optional<GetCurrentInputMethodDescriptorData> FromValue(const base::Value::Dict& value);
+  static std::optional<GetCurrentInputMethodDescriptorData> FromValue(const base::Value::Dict& value);
 
   // Creates a GetCurrentInputMethodDescriptorData object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<GetCurrentInputMethodDescriptorData> FromValue(const base::Value& value);
+  static std::optional<GetCurrentInputMethodDescriptorData> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetCurrentInputMethodDescriptorData object.
   base::Value::Dict ToValue() const;
 
   std::string keyboard_layout;
+
+};
+
+struct OrcaResponseArray {
+  OrcaResponseArray();
+  ~OrcaResponseArray();
+  OrcaResponseArray(const OrcaResponseArray&) = delete;
+  OrcaResponseArray& operator=(const OrcaResponseArray&) = delete;
+  OrcaResponseArray(OrcaResponseArray&& rhs) noexcept;
+  OrcaResponseArray& operator=(OrcaResponseArray&& rhs) noexcept;
+
+  // Populates a OrcaResponseArray object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, OrcaResponseArray& out);
+
+  // Populates a OrcaResponseArray object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, OrcaResponseArray& out);
+
+  // Creates a deep copy of OrcaResponseArray.
+  OrcaResponseArray Clone() const;
+
+  // Creates a OrcaResponseArray object from a base::Value::Dict, or nullopt on
+  // failure.
+  static std::optional<OrcaResponseArray> FromValue(const base::Value::Dict& value);
+
+  // Creates a OrcaResponseArray object from a base::Value, or nullopt on
+  // failure.
+  static std::optional<OrcaResponseArray> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisOrcaResponseArray object.
+  base::Value::Dict ToValue() const;
+
+  std::vector<std::string> responses;
 
 };
 
@@ -2377,11 +2294,11 @@ namespace Restart {
 namespace Shutdown {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // if set, ignore ongoing downloads and onunbeforeunload handlers.
@@ -2450,11 +2367,11 @@ namespace SimulateAsanMemoryBug {
 namespace SetTouchpadSensitivity {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the pointer sensitivity setting index.
@@ -2470,11 +2387,11 @@ struct Params {
 namespace SetTapToClick {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // if set, enable tap-to-click.
@@ -2490,11 +2407,11 @@ struct Params {
 namespace SetThreeFingerClick {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // if set, enable three finger click.
@@ -2510,11 +2427,11 @@ struct Params {
 namespace SetTapDragging {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // if set, enable tap dragging.
@@ -2530,11 +2447,11 @@ struct Params {
 namespace SetNaturalScroll {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // if set, enable Australian scrolling.
@@ -2550,11 +2467,11 @@ struct Params {
 namespace SetMouseSensitivity {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the pointer sensitivity setting index.
@@ -2570,11 +2487,11 @@ struct Params {
 namespace SetPrimaryButtonRight {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // if set, swap the primary mouse button.
@@ -2590,11 +2507,11 @@ struct Params {
 namespace SetMouseReverseScroll {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // if set, enable reverse scrolling.
@@ -2664,11 +2581,11 @@ base::Value::List Create(const std::vector<Printer>& printers);
 namespace IsAppShown {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string app_id;
@@ -2706,11 +2623,11 @@ base::Value::List Create(const LacrosInfo& info);
 namespace GetArcApp {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string app_id;
@@ -2739,11 +2656,11 @@ base::Value::List Create(const ArcAppKillsDict& counts);
 namespace GetArcPackage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string package_name;
@@ -2790,11 +2707,11 @@ base::Value::List Create(const std::vector<SystemWebApp>& system_web_apps);
 namespace IsSystemWebAppOpen {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string app_id;
@@ -2814,11 +2731,11 @@ base::Value::List Create(bool is_open);
 namespace LaunchApp {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string app_id;
@@ -2838,11 +2755,11 @@ base::Value::List Create();
 namespace LaunchSystemWebApp {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string app_name;
@@ -2864,11 +2781,11 @@ base::Value::List Create();
 namespace LaunchFilesAppToPath {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string absolute_path;
@@ -2888,11 +2805,11 @@ base::Value::List Create();
 namespace CloseApp {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string app_id;
@@ -2912,11 +2829,11 @@ base::Value::List Create();
 namespace UpdatePrinter {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   Printer printer;
@@ -2931,11 +2848,11 @@ struct Params {
 namespace RemovePrinter {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string printer_id;
@@ -2968,11 +2885,11 @@ base::Value::List Create();
 namespace SetPlayStoreEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // if set, enable the Play Store.
@@ -3002,11 +2919,11 @@ base::Value::List Create(const std::string& data);
 namespace SetClipboardTextData {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string data;
@@ -3044,11 +2961,11 @@ base::Value::List Create();
 namespace SetCrostiniEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Enable Crostini.
@@ -3069,11 +2986,11 @@ base::Value::List Create();
 namespace ExportCrostini {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The path in Downloads to save the export.
@@ -3094,11 +3011,11 @@ base::Value::List Create();
 namespace ImportCrostini {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The path in Downloads to read the import.
@@ -3128,11 +3045,11 @@ base::Value::List Create(bool can_be_allowed);
 namespace SetPluginVMPolicy {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // URL to the image to install.
@@ -3167,11 +3084,11 @@ base::Value::List Create();
 namespace RegisterComponent {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The name of the component.
@@ -3199,11 +3116,11 @@ base::Value::List Create(const std::string& base64_png);
 namespace TakeScreenshotForDisplay {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the display id of the display.
@@ -3233,11 +3150,11 @@ base::Value::List Create();
 namespace SetAssistantEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool enabled;
@@ -3268,11 +3185,11 @@ base::Value::List Create();
 namespace SendAssistantTextQuery {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string query;
@@ -3294,11 +3211,11 @@ base::Value::List Create(const AssistantQueryStatus& status);
 namespace WaitForAssistantQueryStatus {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int timeout_s;
@@ -3327,11 +3244,11 @@ base::Value::List Create(bool refreshed);
 namespace SetAllowedPref {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string pref_name;
@@ -3350,14 +3267,38 @@ base::Value::List Create();
 
 }  // namespace SetAllowedPref
 
+namespace ClearAllowedPref {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  std::string pref_name;
+
+
+ private:
+  Params();
+};
+
+namespace Results {
+
+base::Value::List Create();
+}  // namespace Results
+
+}  // namespace ClearAllowedPref
+
 namespace SetWhitelistedPref {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string pref_name;
@@ -3379,11 +3320,11 @@ base::Value::List Create();
 namespace SetCrostiniAppScaled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The Crostini application ID.
@@ -3426,11 +3367,11 @@ base::Value::List Create(bool enabled);
 namespace SetTabletModeEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // if set, enable tablet mode.
@@ -3478,11 +3419,11 @@ base::Value::List Create(const LauncherSearchBoxState& state);
 namespace GetShelfAutoHideBehavior {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // display that contains the shelf. |callback| is invoked with the shelf auto
@@ -3504,11 +3445,11 @@ base::Value::List Create(const std::string& behavior);
 namespace SetShelfAutoHideBehavior {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // display that contains the shelf.
@@ -3532,11 +3473,11 @@ base::Value::List Create();
 namespace GetShelfAlignment {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // display that contains the shelf. |callback| is invoked with the shelf
@@ -3558,11 +3499,11 @@ base::Value::List Create(const ShelfAlignmentType& alignment);
 namespace SetShelfAlignment {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // display that contains the shelf.
@@ -3586,11 +3527,11 @@ base::Value::List Create();
 namespace PinShelfIcon {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string app_id;
@@ -3610,11 +3551,11 @@ base::Value::List Create();
 namespace SetShelfIconPin {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<ShelfIconPinUpdateParam> update_params;
@@ -3634,11 +3575,11 @@ base::Value::List Create(const std::vector<std::string>& results);
 namespace SetOverviewModeState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // whether entering to or exiting from the overview mode.
@@ -3663,11 +3604,11 @@ namespace ShowVirtualKeyboardIfEnabled {
 namespace SendArcOverlayColor {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the int color of the system ui.
@@ -3718,11 +3659,11 @@ base::Value::List Create();
 namespace SetArcAppWindowFocus {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the package name of the ARC app window.
@@ -3743,11 +3684,11 @@ base::Value::List Create();
 namespace WaitForDisplayRotation {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // display that contains the shelf.
@@ -3780,11 +3721,11 @@ base::Value::List Create(const std::vector<AppWindowInfo>& window_list);
 namespace SetAppWindowState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the id of the window
@@ -3795,7 +3736,7 @@ struct Params {
 
   // whether the method should wait for the window state to change before
   // returning.
-  absl::optional<bool> wait;
+  std::optional<bool> wait;
 
 
  private:
@@ -3812,11 +3753,11 @@ base::Value::List Create(const WindowStateType& current_type);
 namespace ActivateAppWindow {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the id of the window
@@ -3837,11 +3778,11 @@ base::Value::List Create();
 namespace CloseAppWindow {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the id of the window
@@ -3862,11 +3803,11 @@ base::Value::List Create();
 namespace InstallPWAForCurrentURL {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Timeout in milliseconds for the operation to complete.
@@ -3887,11 +3828,11 @@ base::Value::List Create(const std::string& app_id);
 namespace ActivateAccelerator {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the accelerator to activate.
@@ -3912,11 +3853,11 @@ base::Value::List Create(bool success);
 namespace WaitForLauncherState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the target launcher state.
@@ -3937,11 +3878,11 @@ base::Value::List Create();
 namespace WaitForOverviewState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the target overview state.
@@ -3971,11 +3912,11 @@ base::Value::List Create(bool success);
 namespace ActivateDeskAtIndex {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the zero-based index of the desk desired to be activated.
@@ -4005,11 +3946,11 @@ base::Value::List Create(bool success);
 namespace ActivateAdjacentDesksToTargetIndex {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the zero-based index of the desk desired to be activated.
@@ -4048,11 +3989,11 @@ base::Value::List Create(const DesksInfo& desks);
 namespace MouseClick {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the mouse button for the click event.
@@ -4073,11 +4014,11 @@ base::Value::List Create();
 namespace MousePress {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the mouse button to be pressed.
@@ -4098,11 +4039,11 @@ base::Value::List Create();
 namespace MouseRelease {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the mouse button to be released.
@@ -4123,11 +4064,11 @@ base::Value::List Create();
 namespace MouseMove {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the target location (in screen coordinate).
@@ -4152,11 +4093,11 @@ base::Value::List Create();
 namespace SetMetricsEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Enable metrics reporting.
@@ -4177,11 +4118,11 @@ base::Value::List Create();
 namespace SetArcTouchMode {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool enabled;
@@ -4201,11 +4142,11 @@ base::Value::List Create();
 namespace GetScrollableShelfInfoForState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ScrollableShelfState state;
@@ -4225,11 +4166,11 @@ base::Value::List Create(const ScrollableShelfInfo& info);
 namespace GetShelfUIInfoForState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ShelfState state;
@@ -4249,11 +4190,11 @@ base::Value::List Create(const ShelfUIInfo& info);
 namespace SetWindowBounds {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the id of the window.
@@ -4280,16 +4221,16 @@ base::Value::List Create(const SetWindowBoundsResult& result);
 namespace StartSmoothnessTracking {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<std::string> display_id;
+  std::optional<std::string> display_id;
 
-  absl::optional<int> throughput_interval_ms;
+  std::optional<int> throughput_interval_ms;
 
 
  private:
@@ -4306,14 +4247,14 @@ base::Value::List Create();
 namespace StopSmoothnessTracking {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<std::string> display_id;
+  std::optional<std::string> display_id;
 
 
  private:
@@ -4334,11 +4275,11 @@ namespace DisableSwitchAccessDialog {
 namespace WaitForAmbientPhotoAnimation {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // number of completions of the animation.
@@ -4362,11 +4303,11 @@ base::Value::List Create();
 namespace WaitForAmbientVideo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // the timeout in seconds.
@@ -4423,14 +4364,14 @@ base::Value::List Create(const std::vector<ThroughputTrackerAnimationData>& data
 namespace GetDisplaySmoothness {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<std::string> display_id;
+  std::optional<std::string> display_id;
 
 
  private:
@@ -4447,14 +4388,14 @@ base::Value::List Create(int smoothness);
 namespace ResetHoldingSpace {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<ResetHoldingSpaceOptions> options;
+  std::optional<ResetHoldingSpaceOptions> options;
 
 
  private:
@@ -4498,11 +4439,11 @@ base::Value::List Create();
 namespace ForceAutoThemeMode {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool dark_mode_enabled;
@@ -4522,11 +4463,11 @@ base::Value::List Create();
 namespace GetAccessToken {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   GetAccessTokenParams access_token_params;
@@ -4564,11 +4505,11 @@ base::Value::List Create(const MakeFuseboxTempDirData& data);
 namespace RemoveFuseboxTempDir {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string fusebox_file_path;
@@ -4588,11 +4529,11 @@ base::Value::List Create();
 namespace RemoveComponentExtension {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string extension_id;
@@ -4612,11 +4553,11 @@ base::Value::List Create();
 namespace StartFrameCounting {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int bucket_size_in_seconds;
@@ -4645,11 +4586,11 @@ base::Value::List Create(const std::vector<FrameCountingPerSinkData>& data);
 namespace InstallBruschetta {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string vm_name;
@@ -4669,11 +4610,11 @@ base::Value::List Create();
 namespace RemoveBruschetta {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string vm_name;
@@ -4693,11 +4634,11 @@ base::Value::List Create();
 namespace IsFeatureEnabled {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string feature_name;
@@ -4723,14 +4664,38 @@ base::Value::List Create(const GetCurrentInputMethodDescriptorData& data);
 
 }  // namespace GetCurrentInputMethodDescriptor
 
+namespace OverrideOrcaResponseForTesting {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  OrcaResponseArray array;
+
+
+ private:
+  Params();
+};
+
+namespace Results {
+
+base::Value::List Create(bool success);
+}  // namespace Results
+
+}  // namespace OverrideOrcaResponseForTesting
+
 namespace SetArcInteractiveState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Enable ARC interactive.
@@ -4751,14 +4716,16 @@ base::Value::List Create();
 namespace IsFieldTrialActive {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  std::string feature_name;
+  std::string trial_name;
+
+  std::string group_name;
 
 
  private:
@@ -4771,6 +4738,15 @@ base::Value::List Create(bool active);
 }  // namespace Results
 
 }  // namespace IsFieldTrialActive
+
+namespace GetArcWakefulnessMode {
+
+namespace Results {
+
+base::Value::List Create(const WakefulnessMode& mode);
+}  // namespace Results
+
+}  // namespace GetArcWakefulnessMode
 
 //
 // Events

@@ -29,9 +29,9 @@ export class UserEducationInternalsPageHandlerRemote {
     getFeaturePromos() {
         return this.proxy.sendMessage(2, UserEducationInternalsPageHandler_GetFeaturePromos_ParamsSpec.$, UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsSpec.$, []);
     }
-    showFeaturePromo(title) {
+    showFeaturePromo(featureName) {
         return this.proxy.sendMessage(3, UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSpec.$, UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec.$, [
-            title
+            featureName
         ]);
     }
 }
@@ -114,10 +114,11 @@ mojo.internal.Struct(FeaturePromoDemoPageInfoSpec.$, 'FeaturePromoDemoPageInfo',
     mojo.internal.StructField('displayDescription', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('internalName', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('type', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('addedTimestampMs', 32, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0),
+    mojo.internal.StructField('addedMilestone', 32, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('supportedPlatforms', 40, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
     mojo.internal.StructField('instructions', 48, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
-], [[0, 64],]);
+    mojo.internal.StructField('followedByInternalName', 56, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 72],]);
 mojo.internal.Struct(UserEducationInternalsPageHandler_GetTutorials_ParamsSpec.$, 'UserEducationInternalsPageHandler_GetTutorials_Params', [], [[0, 8],]);
 mojo.internal.Struct(UserEducationInternalsPageHandler_GetTutorials_ResponseParamsSpec.$, 'UserEducationInternalsPageHandler_GetTutorials_ResponseParams', [
     mojo.internal.StructField('tutorialInfos', 0, 0, mojo.internal.Array(FeaturePromoDemoPageInfoSpec.$, false), null, false /* nullable */, 0),
@@ -133,7 +134,7 @@ mojo.internal.Struct(UserEducationInternalsPageHandler_GetFeaturePromos_Response
     mojo.internal.StructField('featurePromos', 0, 0, mojo.internal.Array(FeaturePromoDemoPageInfoSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSpec.$, 'UserEducationInternalsPageHandler_ShowFeaturePromo_Params', [
-    mojo.internal.StructField('title', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('featureName', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec.$, 'UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams', [
     mojo.internal.StructField('errorMessage', 0, 0, mojo.internal.String, null, false /* nullable */, 0),

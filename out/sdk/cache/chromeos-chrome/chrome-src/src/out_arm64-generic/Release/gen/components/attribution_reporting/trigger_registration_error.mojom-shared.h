@@ -51,6 +51,8 @@ enum class TriggerRegistrationError : int32_t {
   
   kFiltersValueWrongType = 7,
   
+  kFiltersUsingReservedKey = 36,
+  
   kAggregatableValuesWrongType = 9,
   
   kAggregatableValuesKeyTooLong = 11,
@@ -98,8 +100,12 @@ enum class TriggerRegistrationError : int32_t {
   kAggregatableSourceRegistrationTimeWrongType = 34,
   
   kAggregatableSourceRegistrationTimeUnknownValue = 35,
+  
+  kTriggerContextIdInvalidValue = 37,
+  
+  kTriggerContextIdInvalidSourceRegistrationTimeConfig = 38,
   kMinValue = 0,
-  kMaxValue = 35,
+  kMaxValue = 38,
 };
 
  std::ostream& operator<<(std::ostream& os, TriggerRegistrationError value);

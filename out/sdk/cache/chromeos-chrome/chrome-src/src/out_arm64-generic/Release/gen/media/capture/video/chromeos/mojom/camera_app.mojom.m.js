@@ -9,6 +9,8 @@ import {mojo} from '../../../../../mojo/public/js/bindings.js';
 import {
   PointF as gfx_mojom_PointF,
   PointFSpec as gfx_mojom_PointFSpec,
+  Rect as gfx_mojom_Rect,
+  RectSpec as gfx_mojom_RectSpec,
   Size as gfx_mojom_Size,
   SizeSpec as gfx_mojom_SizeSpec
 } from '../../../../../ui/gfx/geometry/mojom/geometry.mojom.m.js';
@@ -827,6 +829,19 @@ export class CameraAppDeviceInterface {
    */
 
   registerCameraInfoObserver(observer) {}
+  
+  /**
+   * @param { !gfx_mojom_Rect } cropRegion
+   * @return {!Promise}
+   */
+
+  setCropRegion(cropRegion) {}
+  
+  /**
+   * @return {!Promise}
+   */
+
+  resetCropRegion() {}
 }
 
 /**
@@ -1044,6 +1059,37 @@ export class CameraAppDeviceRemote {
           observer
         ]);
   }
+
+  
+  /**
+   * @param { !gfx_mojom_Rect } cropRegion
+   * @return {!Promise}
+   */
+
+  setCropRegion(
+      cropRegion) {
+    return this.proxy.sendMessage(
+        11,
+        CameraAppDevice_SetCropRegion_ParamsSpec.$,
+        CameraAppDevice_SetCropRegion_ResponseParamsSpec.$,
+        [
+          cropRegion
+        ]);
+  }
+
+  
+  /**
+   * @return {!Promise}
+   */
+
+  resetCropRegion() {
+    return this.proxy.sendMessage(
+        12,
+        CameraAppDevice_ResetCropRegion_ParamsSpec.$,
+        CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$,
+        [
+        ]);
+  }
 }
 
 /**
@@ -1121,6 +1167,16 @@ export class CameraAppDeviceReceiver {
         CameraAppDevice_RegisterCameraInfoObserver_ParamsSpec.$,
         CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec.$,
         impl.registerCameraInfoObserver.bind(impl));
+    this.helper_internal_.registerHandler(
+        11,
+        CameraAppDevice_SetCropRegion_ParamsSpec.$,
+        CameraAppDevice_SetCropRegion_ResponseParamsSpec.$,
+        impl.setCropRegion.bind(impl));
+    this.helper_internal_.registerHandler(
+        12,
+        CameraAppDevice_ResetCropRegion_ParamsSpec.$,
+        CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$,
+        impl.resetCropRegion.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1299,6 +1355,30 @@ export class CameraAppDeviceCallbackRouter {
         CameraAppDevice_RegisterCameraInfoObserver_ParamsSpec.$,
         CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec.$,
         this.registerCameraInfoObserver.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setCropRegion =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        11,
+        CameraAppDevice_SetCropRegion_ParamsSpec.$,
+        CameraAppDevice_SetCropRegion_ResponseParamsSpec.$,
+        this.setCropRegion.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.resetCropRegion =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        12,
+        CameraAppDevice_ResetCropRegion_ParamsSpec.$,
+        CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$,
+        this.resetCropRegion.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -2377,6 +2457,30 @@ export const CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const CameraAppDevice_SetCropRegion_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const CameraAppDevice_SetCropRegion_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const CameraAppDevice_ResetCropRegion_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const CameraAppDevice_ResetCropRegion_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const ResultMetadataObserver_OnMetadataAvailable_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -3443,6 +3547,92 @@ mojo.internal.Struct(
  * @record
  */
 export class CameraAppDevice_RegisterCameraInfoObserver_ResponseParams {
+  constructor() {
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CameraAppDevice_SetCropRegion_ParamsSpec.$,
+    'CameraAppDevice_SetCropRegion_Params',
+    [
+      mojo.internal.StructField(
+        'cropRegion', 0,
+        0,
+        gfx_mojom_RectSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CameraAppDevice_SetCropRegion_Params {
+  constructor() {
+    /** @type { !gfx_mojom_Rect } */
+    this.cropRegion;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CameraAppDevice_SetCropRegion_ResponseParamsSpec.$,
+    'CameraAppDevice_SetCropRegion_ResponseParams',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+/**
+ * @record
+ */
+export class CameraAppDevice_SetCropRegion_ResponseParams {
+  constructor() {
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CameraAppDevice_ResetCropRegion_ParamsSpec.$,
+    'CameraAppDevice_ResetCropRegion_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+/**
+ * @record
+ */
+export class CameraAppDevice_ResetCropRegion_Params {
+  constructor() {
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CameraAppDevice_ResetCropRegion_ResponseParamsSpec.$,
+    'CameraAppDevice_ResetCropRegion_ResponseParams',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+/**
+ * @record
+ */
+export class CameraAppDevice_ResetCropRegion_ResponseParams {
   constructor() {
   }
 }

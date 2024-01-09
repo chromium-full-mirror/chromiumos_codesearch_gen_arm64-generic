@@ -14,7 +14,7 @@ const settings_shortcuts_helpers_js_1 = require("../helpers/settings-shortcuts-h
         await (0, settings_helpers_js_1.openSettingsTab)('Shortcuts');
         await (0, settings_shortcuts_helpers_js_1.selectKeyboardShortcutPreset)('vsCode');
         await (0, settings_shortcuts_helpers_js_1.waitForVSCodeShortcutPreset)();
-        const shortcutsShortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Shortcuts');
+        const shortcutsShortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Show Shortcuts');
         const settingsShortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Settings');
         const pauseShortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Pause script execution');
         chai_1.assert.deepStrictEqual(shortcutsShortcuts, settings_shortcuts_helpers_js_1.VS_CODE_SHORTCUTS_SHORTCUTS);
@@ -32,20 +32,20 @@ const settings_shortcuts_helpers_js_1 = require("../helpers/settings-shortcuts-h
         await frontend.keyboard.press('F1');
         await (0, helper_js_1.waitFor)(quick_open_helpers_js_1.QUICK_OPEN_SELECTOR);
         // make sure the command menu reflects the new shortcuts
-        await frontend.keyboard.type('Shortcuts');
+        await frontend.keyboard.type('Show Shortcuts');
         const shortcutsItemText = await (0, quick_open_helpers_js_1.getSelectedItemText)();
         chai_1.assert.strictEqual(shortcutsItemText, settings_shortcuts_helpers_js_1.VS_CODE_SHORTCUTS_QUICK_OPEN_TEXT);
     });
     (0, mocha_extensions_js_1.it)('should allow users to open the shortcut editor and view the current shortcut', async () => {
         await (0, settings_helpers_js_1.openSettingsTab)('Shortcuts');
-        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Show Console');
+        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Toggle Console');
         const shortcutInputsText = await (0, settings_shortcuts_helpers_js_1.shortcutInputValues)();
         chai_1.assert.deepStrictEqual(shortcutInputsText, settings_shortcuts_helpers_js_1.CONSOLE_SHORTCUT_INPUT_TEXT);
     });
     (0, mocha_extensions_js_1.it)('should allow users to open the shortcut editor and change and add shortcuts', async () => {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         await (0, settings_helpers_js_1.openSettingsTab)('Shortcuts');
-        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Show Console');
+        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Toggle Console');
         await frontend.keyboard.down('Control');
         await frontend.keyboard.press('1');
         await frontend.keyboard.up('Control');
@@ -58,13 +58,37 @@ const settings_shortcuts_helpers_js_1 = require("../helpers/settings-shortcuts-h
         chai_1.assert.deepStrictEqual(shortcutInputsText, settings_shortcuts_helpers_js_1.CONTROL_1_CONTROL_2_SHORTCUT_INPUTS_TEXT);
         await (0, settings_shortcuts_helpers_js_1.clickShortcutConfirmButton)();
         await (0, helper_js_1.waitForNoElementsWithTextContent)(settings_shortcuts_helpers_js_1.ADD_SHORTCUT_LINK_TEXT);
-        const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Show Console');
+        const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Toggle Console');
         chai_1.assert.deepStrictEqual(shortcuts, settings_shortcuts_helpers_js_1.CONTROL_1_CONTROL_2_SHORTCUT_DISPLAY_TEXT);
+    });
+    (0, mocha_extensions_js_1.it)('should allow users to open shortcut editor and change and reset shortcuts', async () => {
+        const { frontend } = (0, helper_js_1.getBrowserAndPages)();
+        await (0, settings_helpers_js_1.openSettingsTab)('Shortcuts');
+        const defaultShortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Start recording events');
+        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Start recording events');
+        await frontend.keyboard.down('Control');
+        await frontend.keyboard.press('1');
+        await frontend.keyboard.up('Control');
+        await (0, settings_shortcuts_helpers_js_1.clickAddShortcutLink)();
+        await (0, settings_shortcuts_helpers_js_1.waitForEmptyShortcutInput)();
+        await frontend.keyboard.down('Control');
+        await frontend.keyboard.press('2');
+        await frontend.keyboard.up('Control');
+        await (0, settings_shortcuts_helpers_js_1.clickShortcutConfirmButton)();
+        await (0, helper_js_1.waitForNoElementsWithTextContent)(settings_shortcuts_helpers_js_1.ADD_SHORTCUT_LINK_TEXT);
+        const modifiedShortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Start recording events');
+        chai_1.assert.deepStrictEqual(modifiedShortcuts, settings_shortcuts_helpers_js_1.CONTROL_1_CONTROL_2_SHORTCUT_DISPLAY_TEXT);
+        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Start recording events');
+        await (0, settings_shortcuts_helpers_js_1.clickShortcutResetButton)();
+        await (0, settings_shortcuts_helpers_js_1.clickShortcutConfirmButton)();
+        await (0, helper_js_1.waitForNoElementsWithTextContent)(settings_shortcuts_helpers_js_1.ADD_SHORTCUT_LINK_TEXT);
+        const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Start recording events');
+        chai_1.assert.deepStrictEqual(shortcuts, defaultShortcuts, 'Default shortcuts weren\'t restored correctly');
     });
     (0, mocha_extensions_js_1.it)('should allow users to open the shortcut editor and delete and reset shortcuts', async () => {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         await (0, settings_helpers_js_1.openSettingsTab)('Shortcuts');
-        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Show Console');
+        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Toggle Console');
         await frontend.keyboard.down('Control');
         await frontend.keyboard.press('1');
         await frontend.keyboard.up('Control');
@@ -87,13 +111,13 @@ const settings_shortcuts_helpers_js_1 = require("../helpers/settings-shortcuts-h
         chai_1.assert.deepStrictEqual(shortcutInputTextAfterReset, settings_shortcuts_helpers_js_1.CONSOLE_SHORTCUT_INPUT_TEXT);
         await (0, settings_shortcuts_helpers_js_1.clickShortcutConfirmButton)();
         await (0, helper_js_1.waitForNoElementsWithTextContent)(settings_shortcuts_helpers_js_1.ADD_SHORTCUT_LINK_TEXT);
-        const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Show Console');
+        const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Toggle Console');
         chai_1.assert.deepStrictEqual(shortcuts, settings_shortcuts_helpers_js_1.CONSOLE_SHORTCUT_DISPLAY_TEXT);
     });
     (0, mocha_extensions_js_1.it)('should allow users to cancel an edit and discard their changes to shortcuts', async () => {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         await (0, settings_helpers_js_1.openSettingsTab)('Shortcuts');
-        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Show Console');
+        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Toggle Console');
         await frontend.keyboard.down('Control');
         await frontend.keyboard.press('1');
         await frontend.keyboard.up('Control');
@@ -106,13 +130,13 @@ const settings_shortcuts_helpers_js_1 = require("../helpers/settings-shortcuts-h
         chai_1.assert.deepStrictEqual(shortcutInputsText, settings_shortcuts_helpers_js_1.CONTROL_1_CONTROL_2_SHORTCUT_INPUTS_TEXT);
         await (0, settings_shortcuts_helpers_js_1.clickShortcutCancelButton)();
         await (0, helper_js_1.waitForNoElementsWithTextContent)(settings_shortcuts_helpers_js_1.ADD_SHORTCUT_LINK_TEXT);
-        const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Show Console');
+        const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Toggle Console');
         chai_1.assert.deepStrictEqual(shortcuts, settings_shortcuts_helpers_js_1.CONSOLE_SHORTCUT_DISPLAY_TEXT);
     });
     (0, mocha_extensions_js_1.it)('should allow users to set a multi-keypress shortcut (chord)', async () => {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         await (0, settings_helpers_js_1.openSettingsTab)('Shortcuts');
-        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Show Console');
+        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Toggle Console');
         await frontend.keyboard.down('Control');
         await frontend.keyboard.press('1');
         await frontend.keyboard.up('Control');
@@ -123,13 +147,13 @@ const settings_shortcuts_helpers_js_1 = require("../helpers/settings-shortcuts-h
         chai_1.assert.deepStrictEqual(shortcutInputsText, settings_shortcuts_helpers_js_1.CONTROL_1_CONTROL_2_CHORD_INPUT_TEXT);
         await (0, settings_shortcuts_helpers_js_1.clickShortcutConfirmButton)();
         await (0, helper_js_1.waitForNoElementsWithTextContent)(settings_shortcuts_helpers_js_1.ADD_SHORTCUT_LINK_TEXT);
-        const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Show Console');
+        const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Toggle Console');
         chai_1.assert.deepStrictEqual(shortcuts, settings_shortcuts_helpers_js_1.CONTROL_1_CONTROL_2_CHORD_DISPLAY_TEXT);
     });
     (0, mocha_extensions_js_1.it)('should display the physical key that is pressed rather than special characters', async () => {
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         await (0, settings_helpers_js_1.openSettingsTab)('Shortcuts');
-        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Show Console');
+        await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Toggle Console');
         await frontend.keyboard.down('Control');
         await frontend.keyboard.down('Alt');
         await frontend.keyboard.press('c');
@@ -143,7 +167,7 @@ const settings_shortcuts_helpers_js_1 = require("../helpers/settings-shortcuts-h
         (0, mocha_extensions_js_1.it)('should allow users to set a new shortcut after the chord timeout', async function () {
             const { frontend } = (0, helper_js_1.getBrowserAndPages)();
             await (0, settings_helpers_js_1.openSettingsTab)('Shortcuts');
-            await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Show Console');
+            await (0, settings_shortcuts_helpers_js_1.editShortcutListItem)('Toggle Console');
             await frontend.keyboard.down('Control');
             await frontend.keyboard.press('1');
             await frontend.keyboard.up('Control');
@@ -155,7 +179,7 @@ const settings_shortcuts_helpers_js_1 = require("../helpers/settings-shortcuts-h
             chai_1.assert.deepStrictEqual(shortcutInputsText, settings_shortcuts_helpers_js_1.CONTROL_2_SHORTCUT_INPUT_TEXT);
             await (0, settings_shortcuts_helpers_js_1.clickShortcutConfirmButton)();
             await (0, helper_js_1.waitForNoElementsWithTextContent)(settings_shortcuts_helpers_js_1.ADD_SHORTCUT_LINK_TEXT);
-            const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Show Console');
+            const shortcuts = await (0, settings_shortcuts_helpers_js_1.shortcutsForAction)('Toggle Console');
             chai_1.assert.deepStrictEqual(shortcuts, settings_shortcuts_helpers_js_1.CONTROL_2_SHORTCUT_DISPLAY_TEXT);
         });
     });

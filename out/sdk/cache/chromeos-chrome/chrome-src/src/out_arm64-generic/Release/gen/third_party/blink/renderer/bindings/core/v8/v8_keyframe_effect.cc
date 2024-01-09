@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, KeyframeEffect>::value,
     "KeyframeEffect inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&KeyframeEffect::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "KeyframeEffect is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,8 +88,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyframeEffect.target.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(v8_receiver);
+KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->target();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,7 +112,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(v8_receiver);
+KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<Element>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -133,10 +129,10 @@ BLINK_BINDINGS_TRACE_EVENT("KeyframeEffect.pseudoElement.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->pseudoElement();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->pseudoElement();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -157,7 +153,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(v8_receiver);
+KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLString>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -177,10 +173,10 @@ BLINK_BINDINGS_TRACE_EVENT("KeyframeEffect.composite.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->composite();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->composite();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -191,9 +187,9 @@ BLINK_BINDINGS_TRACE_EVENT("KeyframeEffect.composite.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "KeyframeEffect";
@@ -349,7 +345,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getKeyframes(script_state);
 if (!ToV8Traits<IDLSequence<IDLObject>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -378,7 +375,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(v8_receiver);
+KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -419,57 +416,38 @@ interface_function_template->SetLength(1);
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
-InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8KeyframeEffect::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"target", TargetAttributeGetCallback, TargetAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
-
-
-
-
-
-
-
-}
-
-void V8KeyframeEffect::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
-  using bindings::IDLMemberInstaller;
-
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"pseudoElement", PseudoElementAttributeGetCallback, PseudoElementAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"composite", CompositeAttributeGetCallback, CompositeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
 
 
 
 
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
+
+{
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"getKeyframes", GetKeyframesOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setKeyframes", SetKeyframesOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }
 
 
+
 }
+
 
 
 

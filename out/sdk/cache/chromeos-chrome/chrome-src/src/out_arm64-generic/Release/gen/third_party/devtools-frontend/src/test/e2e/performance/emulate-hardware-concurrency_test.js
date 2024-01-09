@@ -41,8 +41,7 @@ async function waitForChangedConcurrency(lastConcurrency) {
         }
         // Check that the warning is shown on the settings gear:
         const gear = await (0, helper_js_1.waitForAria)('- Hardware concurrency override is enabled');
-        const gearColor = await gear.evaluate(e => e.firstElementChild && getComputedStyle(e.firstElementChild).getPropertyValue('background-color'));
-        chai_1.assert.deepEqual(gearColor, 'rgb(220, 54, 46)');
+        chai_1.assert.isTrue(await (0, helper_js_1.hasClass)(gear, 'toolbar-toggle-with-red-color'), 'Performance settings toggle icon should be shown in red');
         // Check that the concurrency input shows the correct value:
         const input = await (0, helper_js_1.waitFor)('input[aria-label="Override the value reported by navigator.hardwareConcurrency on the page"]');
         const initialValue = Number(await input.evaluate(input => {

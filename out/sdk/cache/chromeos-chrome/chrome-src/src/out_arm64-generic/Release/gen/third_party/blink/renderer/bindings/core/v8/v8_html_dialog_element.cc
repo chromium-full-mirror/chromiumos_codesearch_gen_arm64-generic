@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLDialogElement>::value,
     "HTMLDialogElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLDialogElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLDialogElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLDialogElement.open.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(v8_receiver);
+HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kOpenAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -114,10 +110,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLDialogElement.returnValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->returnValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->returnValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -128,9 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLDialogElement.returnValue.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLDialogElement";
@@ -190,14 +186,14 @@ CEReactionsScope ce_reactions_scope;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(v8_receiver);
+HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->close();
 break;
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_return_value;
 if (LIKELY(info[0]->IsString())) {
-  arg1_return_value.Init(info[0].As<v8::String>());
+  arg1_return_value.Init(isolate, info[0].As<v8::String>());
 } else {
   arg1_return_value = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -233,7 +229,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(v8_receiver);
+HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->show(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -265,7 +261,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(v8_receiver);
+HTMLDialogElement* blink_receiver = V8HTMLDialogElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->showModal(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

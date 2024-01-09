@@ -29,6 +29,7 @@
 #include "ui/accessibility/mojom/ax_tree_id.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
+#include "mojo/public/mojom/base/values.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

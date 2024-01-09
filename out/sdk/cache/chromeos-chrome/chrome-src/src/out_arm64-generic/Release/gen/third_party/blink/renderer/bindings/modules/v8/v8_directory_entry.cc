@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DirectoryEntry>::value,
     "DirectoryEntry inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DirectoryEntry::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DirectoryEntry is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,8 +91,9 @@ BLINK_BINDINGS_TRACE_EVENT("DirectoryEntry.createReader");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DirectoryEntry* blink_receiver = V8DirectoryEntry::ToWrappableUnsafe(v8_receiver);
+DirectoryEntry* blink_receiver = V8DirectoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createReader();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -124,9 +120,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-DirectoryEntry* blink_receiver = V8DirectoryEntry::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DirectoryEntry* blink_receiver = V8DirectoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DirectoryEntry";
 const char* const property_name = "getDirectory";
@@ -187,9 +183,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-DirectoryEntry* blink_receiver = V8DirectoryEntry::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DirectoryEntry* blink_receiver = V8DirectoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DirectoryEntry";
 const char* const property_name = "getFile";
@@ -255,7 +251,7 @@ return;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-DirectoryEntry* blink_receiver = V8DirectoryEntry::ToWrappableUnsafe(v8_receiver);
+DirectoryEntry* blink_receiver = V8DirectoryEntry::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DirectoryEntry";
 const char* const property_name = "removeRecursively";

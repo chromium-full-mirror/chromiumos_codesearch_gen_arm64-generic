@@ -1,12 +1,12 @@
 rule host_for_rust_host_build_tools_rust_staticlib
-  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS RUSTENV ${rustenv}
+  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../../../../../../usr/bin/x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS RUSTENV ${rustenv}
   description = RUST(STATICLIB) ${out}
   rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
   rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
   depfile = ${output_dir}/${target_output_name}${output_extension}.d
   deps = gcc
 rule host_for_rust_host_build_tools_rust_bin
-  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS ${ldflags}   --unwindlib=libgcc RUSTENV ${rustenv}
+  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../../../../../../usr/bin/x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS ${ldflags}   --unwindlib=libgcc RUSTENV ${rustenv}
   description = RUST(BIN) ${out}
   rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
   rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
@@ -14,7 +14,7 @@ rule host_for_rust_host_build_tools_rust_bin
   deps = gcc
   pool = build_toolchain_link_pool
 rule host_for_rust_host_build_tools_rust_macro
-  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS ${ldflags}   --unwindlib=libgcc RUSTENV ${rustenv}
+  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../../../../../../usr/bin/x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS ${ldflags}   --unwindlib=libgcc RUSTENV ${rustenv}
   description = RUST(MACRO) ${out}
   rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
   rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
@@ -28,14 +28,14 @@ rule host_for_rust_host_build_tools_link
   rspfile_content = ${in}
   pool = build_toolchain_link_pool
 rule host_for_rust_host_build_tools_rust_rlib
-  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/lib${target_output_name}${output_extension}.d --rsp=${output_dir}/lib${target_output_name}${output_extension}.rsp -- -Clinker="x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/lib${target_output_name}${output_extension}.d,link -o ${output_dir}/lib${target_output_name}${output_extension} LDFLAGS RUSTENV ${rustenv}
+  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/lib${target_output_name}${output_extension}.d --rsp=${output_dir}/lib${target_output_name}${output_extension}.rsp -- -Clinker="../../../../../../../usr/bin/x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/lib${target_output_name}${output_extension}.d,link -o ${output_dir}/lib${target_output_name}${output_extension} LDFLAGS RUSTENV ${rustenv}
   description = RUST ${out}
   rspfile = ${output_dir}/lib${target_output_name}${output_extension}.rsp
   rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
   depfile = ${output_dir}/lib${target_output_name}${output_extension}.d
   deps = gcc
 rule host_for_rust_host_build_tools_cxx
-  command = /home/chrome-bot/goma/gomacc x86_64-pc-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc}  -B/usr/bin -Wno-unknown-warning-option -c ${in} -o ${out}
+  command = /home/chrome-bot/goma/gomacc ../../../../../../../usr/bin/x86_64-pc-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc}  -B/usr/bin -Wno-unknown-warning-option -c ${in} -o ${out}
   description = CXX ${out}
   depfile = ${out}.d
   deps = gcc
@@ -56,7 +56,7 @@ rule host_for_rust_host_build_tools_solink_module
   rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs} ${rlibs}
   pool = build_toolchain_link_pool
 rule host_for_rust_host_build_tools_rust_cdylib
-  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS ${ldflags}   --unwindlib=libgcc RUSTENV ${rustenv}
+  command = "python3" "../../../../../../../home/chrome-bot/chrome_root/src/build/rust/rustc_wrapper.py" --rustc=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../../../../../../usr/bin/x86_64-pc-linux-gnu-clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS ${ldflags}   --unwindlib=libgcc RUSTENV ${rustenv}
   description = RUST(CDYLIB) ${out}
   rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
   rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
@@ -69,12 +69,12 @@ rule host_for_rust_host_build_tools_alink
   rspfile = ${out}.rsp
   rspfile_content = ${in}
 rule host_for_rust_host_build_tools_cc
-  command = /home/chrome-bot/goma/gomacc x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c}  -B/usr/bin -Wno-unknown-warning-option -c ${in} -o ${out}
+  command = /home/chrome-bot/goma/gomacc ../../../../../../../usr/bin/x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c}  -B/usr/bin -Wno-unknown-warning-option -c ${in} -o ${out}
   description = CC ${out}
   depfile = ${out}.d
   deps = gcc
 rule host_for_rust_host_build_tools_asm
-  command = x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  command = ../../../../../../../usr/bin/x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
   description = ASM ${out}
   depfile = ${out}.d
   deps = gcc
@@ -83,8 +83,12 @@ rule host_for_rust_host_build_tools_copy
   description = COPY ${in} ${out}
 
 build host_for_rust_host_build_tools/obj/build/config/executable_deps.stamp: host_for_rust_host_build_tools_stamp
+build host_for_rust_host_build_tools/obj/build/rust/chromium_prelude/chromium_prelude.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/build/rust/chromium_prelude/libchromium.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+subninja host_for_rust_host_build_tools/obj/build/rust/chromium_prelude/chromium_prelude__rlib.ninja
+build host_for_rust_host_build_tools/obj/build/rust/chromium_prelude/import_attribute.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/libimport_attribute.so host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+subninja host_for_rust_host_build_tools/obj/build/rust/chromium_prelude/import_attributeimport_attribute__proc_macro.ninja
 rule __build_rust_std_find_stdlib___build_toolchain_cros_host_for_rust_host_build_tools__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/std/find_std_rlibs.py --rust-bin-dir ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin --output host_for_rust_host_build_tools/obj/build/rust/std --depfile host_for_rust_host_build_tools/obj/build/rust/std/stdlib.d --depfile-target std --rustc-revision 49691b1f70d71dd7b8349c332b7f277ee527bf08-2-llvmorg-18-init-8676-g11d07d9e --target x86_64-unknown-linux-gnu
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/std/find_std_rlibs.py --rust-bin-dir ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin --output host_for_rust_host_build_tools/obj/build/rust/std --depfile host_for_rust_host_build_tools/obj/build/rust/std/stdlib.d --depfile-target std --rustc-revision df0295f07175acc7325ce3ca4152eb05752af1f2-4-llvmorg-18-init-14420-gea3a3b25 --target x86_64-unknown-linux-gnu
   description = ACTION //build/rust/std:find_stdlib(//build/toolchain/cros:host_for_rust_host_build_tools)
   restat = 1
   pool = build_toolchain_action_pool
@@ -140,30 +144,30 @@ build host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate/test_r
 subninja host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate/test_rlib_crate_target1_v0_2_build_script__rlib.ninja
 build host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate/test_rlib_crate_target2_v0_2_build_script.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/test_rlib_crate_target2_v0_2_build_script host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate/test_rlib_crate_target2_v0_2_build_script__rlib.ninja
+build host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly/testonly_build_dep.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly/testonly_build_dep/libtest_only_build_dep_testonly_build_dep.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+subninja host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly/testonly_build_dep__rlib.ninja
+build host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly/testonly_target_testonly_target_vunknown_build_script.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/testonly_target_testonly_target_vunknown_build_script host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+subninja host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly/testonly_target_testonly_target_vunknown_build_script__rlib.ninja
 subninja host_for_rust_host_build_tools/obj/testing/rust_gtest_interop/gtest_attributegtest_attribute__proc_macro.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/anstyle/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/anstyle/v1/lib/libanstyle-anstyle-1.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/anstyle/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/anstyle/v1/lib/libanstyle_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/anstyle/v1/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/clap/v4/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/clap/v4/lib/libclap-clap-4.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/clap/v4/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/clap/v4/lib/libclap_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/clap/v4/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/clap_builder/v4/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/clap_builder/v4/lib/libclap_builder-clap_builder-4.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/clap_builder/v4/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/clap_builder/v4/lib/libclap_builder_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/clap_builder/v4/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/clap_lex/v0_5/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/clap_lex/v0_5/lib/libclap_lex-clap_lex-0.5.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
-subninja host_for_rust_host_build_tools/obj/third_party/rust/clap_lex/v0_5/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/codespan_reporting/v0_11/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/codespan_reporting/v0_11/lib/libcodespan_reporting-codespan_reporting-0.11.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/clap_lex/v0_6/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/clap_lex/v0_6/lib/libclap_lex_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+subninja host_for_rust_host_build_tools/obj/third_party/rust/clap_lex/v0_6/lib__rlib.ninja
+build host_for_rust_host_build_tools/obj/third_party/rust/codespan_reporting/v0_11/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/codespan_reporting/v0_11/lib/libcodespan_reporting_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/codespan_reporting/v0_11/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/cxx/v1/cxx_lib_v1_build_script.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/cxx_lib_v1_build_script host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
-subninja host_for_rust_host_build_tools/obj/third_party/rust/cxx/v1/cxx_lib_v1_build_script__rlib.ninja
 build host_for_rust_host_build_tools/obj/third_party/rust/cxxbridge_cmd/v1/cxxbridge.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/cxxbridge host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/cxxbridge_cmd/v1/cxxbridge__rlib.ninja
 subninja host_for_rust_host_build_tools/obj/third_party/rust/cxxbridge_macro/v1/liblib__proc_macro.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/link_cplusplus/v1/link_cplusplus_lib_v1_build_script.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/link_cplusplus_lib_v1_build_script host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
-subninja host_for_rust_host_build_tools/obj/third_party/rust/link_cplusplus/v1/link_cplusplus_lib_v1_build_script__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/lib/libproc_macro2-proc_macro2-1.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/lib/libproc_macro2_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/lib__rlib.ninja
 build host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/proc_macro2_lib_v1_build_script host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script__rlib.ninja
 rule __third_party_rust_proc_macro2_v1_proc_macro2_lib_v1_build_script_output___build_toolchain_cros_host_for_rust_host_build_tools__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/run_build_script.py --build-script host_for_rust_host_build_tools/proc_macro2_lib_v1_build_script --output host_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/cargo_flags.rs --rust-prefix ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin --out-dir host_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib --src-dir ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust/proc_macro2/v1/crate --target x86_64-unknown-linux-gnu --features proc-macro span-locations --env CARGO_PKG_AUTHORS=David\$ Tolnay\$ \<dtolnay@gmail.com\>,\$ Alex\$ Crichton\$ \<alex@alexcrichton.com\> CARGO_PKG_VERSION=1.0.66 CARGO_PKG_NAME=proc-macro2 CARGO_PKG_DESCRIPTION=A\$ substitute\$ implementation\$ of\$ the\$ compiler\'s\$ \`proc_macro\`\$ API\$ to\$ decouple\$ token-based\$ libraries\$ from\$ the\$ procedural\$ macro\$ use\$ case. CARGO_MANIFEST_DIR=/home/chrome-bot/chrome_root/src/third_party/rust/proc_macro2/v1/crate
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/run_build_script.py --build-script host_for_rust_host_build_tools/proc_macro2_lib_v1_build_script --output host_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/cargo_flags.rs --rust-prefix ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin --out-dir host_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib --src-dir ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust/chromium_crates_io/vendor/proc-macro2-1.0.69 --target x86_64-unknown-linux-gnu --features proc-macro span-locations --env CARGO_PKG_AUTHORS=David\$ Tolnay\$ \<dtolnay@gmail.com\>,\$ Alex\$ Crichton\$ \<alex@alexcrichton.com\> CARGO_PKG_VERSION=1.0.69 CARGO_PKG_NAME=proc-macro2 CARGO_PKG_DESCRIPTION=A\$ substitute\$ implementation\$ of\$ the\$ compiler\'s\$ \`proc_macro\`\$ API\$ to\$ decouple\$ token-based\$ libraries\$ from\$ the\$ procedural\$ macro\$ use\$ case. CARGO_MANIFEST_DIR=/home/chrome-bot/chrome_root/src/third_party/rust/chromium_crates_io/vendor/proc-macro2-1.0.69
   description = ACTION //third_party/rust/proc_macro2/v1:proc_macro2_lib_v1_build_script_output(//build/toolchain/cros:host_for_rust_host_build_tools)
   restat = 1
   pool = build_toolchain_action_pool
@@ -171,23 +175,21 @@ rule __third_party_rust_proc_macro2_v1_proc_macro2_lib_v1_build_script_output___
 build host_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/cargo_flags.rs: __third_party_rust_proc_macro2_v1_proc_macro2_lib_v1_build_script_output___build_toolchain_cros_host_for_rust_host_build_tools__rule | ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/run_build_script.py host_for_rust_host_build_tools/proc_macro2_lib_v1_build_script host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script.stamp
 
 build host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script_output.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/cargo_flags.rs
-build host_for_rust_host_build_tools/obj/third_party/rust/quote/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/quote/v1/lib/libquote-quote-1.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/quote/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/quote/v1/lib/libquote_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/quote/v1/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/ryu/v1/ryu_lib_v1_build_script.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/ryu_lib_v1_build_script host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
-subninja host_for_rust_host_build_tools/obj/third_party/rust/ryu/v1/ryu_lib_v1_build_script__rlib.ninja
 build host_for_rust_host_build_tools/obj/third_party/rust/serde/v1/serde_lib_v1_build_script.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/serde_lib_v1_build_script host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/serde/v1/serde_lib_v1_build_script__rlib.ninja
 subninja host_for_rust_host_build_tools/obj/third_party/rust/serde_derive/v1/liblib__proc_macro.ninja
 build host_for_rust_host_build_tools/obj/third_party/rust/serde_json_lenient/v0_1/serde_json_lenient_lib_v0_1_build_script.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/serde_json_lenient_lib_v0_1_build_script host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/serde_json_lenient/v0_1/serde_json_lenient_lib_v0_1_build_script__rlib.ninja
 subninja host_for_rust_host_build_tools/obj/third_party/rust/small_ctor/v0_1/liblib__proc_macro.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/strsim/v0_10/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/strsim/v0_10/lib/libstrsim-strsim-0.10.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/strsim/v0_10/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/strsim/v0_10/lib/libstrsim_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/strsim/v0_10/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/syn/v2/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/syn/v2/lib/libsyn-syn-2.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/syn/v2/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/syn/v2/lib/libsyn_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/syn/v2/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/termcolor/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/termcolor/v1/lib/libtermcolor-termcolor-1.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/termcolor/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/termcolor/v1/lib/libtermcolor_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/termcolor/v1/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/unicode_ident/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/unicode_ident/v1/lib/libunicode_ident-unicode_ident-1.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/unicode_ident/v1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/unicode_ident/v1/lib/libunicode_ident_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/unicode_ident/v1/lib__rlib.ninja
-build host_for_rust_host_build_tools/obj/third_party/rust/unicode_width/v0_1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/unicode_width/v0_1/lib/libunicode_width-unicode_width-0.1.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
+build host_for_rust_host_build_tools/obj/third_party/rust/unicode_width/v0_1/lib.stamp: host_for_rust_host_build_tools_stamp host_for_rust_host_build_tools/obj/third_party/rust/unicode_width/v0_1/lib/libunicode_width_lib.rlib host_for_rust_host_build_tools/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host_for_rust_host_build_tools/obj/third_party/rust/unicode_width/v0_1/lib__rlib.ninja

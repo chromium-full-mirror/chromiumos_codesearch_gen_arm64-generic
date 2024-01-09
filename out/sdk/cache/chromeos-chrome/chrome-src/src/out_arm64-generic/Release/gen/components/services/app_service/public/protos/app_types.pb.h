@@ -52,7 +52,6 @@ enum ApplicationType : int {
   APPLICATION_TYPE_CROSTINI = 3,
   APPLICATION_TYPE_CHROME_APP = 4,
   APPLICATION_TYPE_WEB = 5,
-  APPLICATION_TYPE_MAC_OS = 6,
   APPLICATION_TYPE_PLUGIN_VM = 7,
   APPLICATION_TYPE_STANDALONE_BROWSER = 8,
   APPLICATION_TYPE_REMOTE = 9,
@@ -185,11 +184,12 @@ enum ApplicationLaunchSource : int {
   APPLICATION_LAUNCH_SOURCE_APP_HOME_PAGE = 33,
   APPLICATION_LAUNCH_SOURCE_REPARENTING = 34,
   APPLICATION_LAUNCH_SOURCE_PROFILE_MENU = 35,
-  APPLICATION_LAUNCH_SOURCE_SYSTEM_TRAY_CALENDAR = 36
+  APPLICATION_LAUNCH_SOURCE_SYSTEM_TRAY_CALENDAR = 36,
+  APPLICATION_LAUNCH_SOURCE_INSTALLER = 37
 };
 bool ApplicationLaunchSource_IsValid(int value);
 constexpr ApplicationLaunchSource ApplicationLaunchSource_MIN = APPLICATION_LAUNCH_SOURCE_UNKNOWN;
-constexpr ApplicationLaunchSource ApplicationLaunchSource_MAX = APPLICATION_LAUNCH_SOURCE_SYSTEM_TRAY_CALENDAR;
+constexpr ApplicationLaunchSource ApplicationLaunchSource_MAX = APPLICATION_LAUNCH_SOURCE_INSTALLER;
 constexpr int ApplicationLaunchSource_ARRAYSIZE = ApplicationLaunchSource_MAX + 1;
 
 const std::string& ApplicationLaunchSource_Name(ApplicationLaunchSource value);

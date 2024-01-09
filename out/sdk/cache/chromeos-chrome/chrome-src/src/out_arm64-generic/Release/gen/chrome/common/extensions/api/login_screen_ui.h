@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct ShowOptions {
   ~ShowOptions();
   ShowOptions(const ShowOptions&) = delete;
   ShowOptions& operator=(const ShowOptions&) = delete;
-  ShowOptions(ShowOptions&& rhs);
-  ShowOptions& operator=(ShowOptions&& rhs);
+  ShowOptions(ShowOptions&& rhs) noexcept;
+  ShowOptions& operator=(ShowOptions&& rhs) noexcept;
 
   // Populates a ShowOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,15 +47,12 @@ struct ShowOptions {
   // Creates a deep copy of ShowOptions.
   ShowOptions Clone() const;
 
-  // Creates a ShowOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ShowOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ShowOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ShowOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ShowOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ShowOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<ShowOptions> FromValue(const base::Value& value);
+  static std::optional<ShowOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisShowOptions object.
@@ -64,7 +62,7 @@ struct ShowOptions {
   std::string url;
 
   // Whether the user can close the window, defaults to false.
-  absl::optional<bool> user_can_close;
+  std::optional<bool> user_can_close;
 
 };
 
@@ -76,11 +74,11 @@ struct ShowOptions {
 namespace Show {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Options for the custom login UI window.

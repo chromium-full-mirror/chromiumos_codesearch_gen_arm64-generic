@@ -8,6 +8,7 @@
 #define CHROMEOS_ASH_SERVICES_AUTH_FACTOR_CONFIG_PUBLIC_MOJOM_AUTH_FACTOR_CONFIG_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

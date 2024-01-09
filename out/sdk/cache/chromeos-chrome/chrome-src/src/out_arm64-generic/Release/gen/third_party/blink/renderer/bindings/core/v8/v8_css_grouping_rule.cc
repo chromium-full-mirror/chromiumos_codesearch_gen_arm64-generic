@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSGroupingRule>::value,
     "CSSGroupingRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSGroupingRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSGroupingRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSGroupingRule.cssRules.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSGroupingRule* blink_receiver = V8CSSGroupingRule::ToWrappableUnsafe(v8_receiver);
+CSSGroupingRule* blink_receiver = V8CSSGroupingRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cssRules();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -115,7 +111,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSGroupingRule* blink_receiver = V8CSSGroupingRule::ToWrappableUnsafe(v8_receiver);
+CSSGroupingRule* blink_receiver = V8CSSGroupingRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -140,15 +136,15 @@ const ExceptionContextType exception_context_type = ExceptionContextType::kOpera
 const char* const class_like_name = "CSSGroupingRule";
 const char* const property_name = "insertRule";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 2)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(2, info.Length()));
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
 return;
 }
 
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSGroupingRule* blink_receiver = V8CSSGroupingRule::ToWrappableUnsafe(v8_receiver);
+CSSGroupingRule* blink_receiver = V8CSSGroupingRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -156,9 +152,12 @@ auto&& arg1_rule = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-auto&& arg2_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 1, info[1], exception_state);
+decltype(NativeValueTraits<IDLUnsignedLong>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_index{0};
+if (!info[1]->IsUndefined()) {
+  arg2_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 1, info[1], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
+}
 }
 auto&& return_value = blink_receiver->insertRule(execution_context, arg1_rule, arg2_index, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -211,7 +210,7 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"deleteRule", DeleteRuleOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"insertRule", InsertRuleOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"insertRule", InsertRuleOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }

@@ -36,10 +36,7 @@ export class BaseCardElement extends HTMLElement {
  * "Other apps" accordion.
  */
 export class AccordionTopCardElement extends BaseCardElement {
-    constructor() {
-        super(...arguments);
-        this.expanded_ = false;
-    }
+    expanded_ = false;
     addStyles() {
         super.addStyles();
         this.$('#icon').style.display = 'none';
@@ -73,9 +70,9 @@ export class AccordionTopCardElement extends BaseCardElement {
  * local handler cards.
  */
 export class FileHandlerCardElement extends BaseCardElement {
+    selected_ = false;
     constructor() {
         super();
-        this.selected_ = false;
         this.ariaSelected = 'false';
         this.ariaCurrent = 'false';
         this.role = 'option';
@@ -104,10 +101,7 @@ export var CloudProviderType;
     CloudProviderType[CloudProviderType["ONE_DRIVE"] = 2] = "ONE_DRIVE";
 })(CloudProviderType || (CloudProviderType = {}));
 export class CloudProviderCardElement extends FileHandlerCardElement {
-    constructor() {
-        super(...arguments);
-        this.type_ = CloudProviderType.NONE;
-    }
+    type_ = CloudProviderType.NONE;
     setParameters(type, name, description) {
         this.type_ = type;
         this.$('#title').textContent = name;
@@ -121,10 +115,7 @@ export class CloudProviderCardElement extends FileHandlerCardElement {
     }
 }
 export class LocalHandlerCardElement extends FileHandlerCardElement {
-    constructor() {
-        super(...arguments);
-        this.taskPosition_ = -1;
-    }
+    taskPosition_ = -1;
     addStyles() { }
     setParameters(taskPosition, name) {
         this.taskPosition_ = taskPosition;

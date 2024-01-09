@@ -99,11 +99,13 @@ enum Thread : int {
   AUDIO_DEVICE_THREAD = 23,
   AUDIO_THREAD = 24,
   DAV1D_WORKER_THREAD = 25,
+  STACK_SAMPLING_THREAD = 26,
+  VIDEO_FRAME_COMPOSITOR_THREAD = 27,
   OTHER_THREAD = 12
 };
 bool Thread_IsValid(int value);
 constexpr Thread Thread_MIN = UNKNOWN_THREAD;
-constexpr Thread Thread_MAX = DAV1D_WORKER_THREAD;
+constexpr Thread Thread_MAX = VIDEO_FRAME_COMPOSITOR_THREAD;
 constexpr int Thread_ARRAYSIZE = Thread_MAX + 1;
 
 const std::string& Thread_Name(Thread value);

@@ -66,10 +66,11 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/regexp-match-tq-csa.h"
+#include "torque-generated/src/builtins/array-flat-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
-#include "torque-generated/src/builtins/array-slice-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
 #include "torque-generated/src/builtins/boolean-tq-csa.h"
 #include "torque-generated/src/builtins/cast-tq-csa.h"
@@ -447,7 +448,7 @@ TNode<Object> RegExpPrototypeMatchBody_0(compiler::CodeAssemblerState* state_, T
     tmp53 = Method_RegExpMatchInfo_GetEndOfCapture_0(state_, TNode<RegExpMatchInfo>{tmp50}, (FromConstexpr_constexpr_int31_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull))));
     tmp54 = UnsafeCast_Smi_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp52});
     tmp55 = UnsafeCast_Smi_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp53});
-    tmp56 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kSubString), p_context, p_string, tmp54, tmp55);
+    tmp56 = ca_.CallBuiltin<String>(Builtin::kSubString, p_context, p_string, tmp54, tmp55);
     ca_.Goto(&block57, phi_bb56_5, phi_bb56_6, phi_bb56_7, phi_bb56_8, phi_bb56_9, tmp56);
   }
 
@@ -551,18 +552,20 @@ TNode<Object> RegExpPrototypeMatchBody_0(compiler::CodeAssemblerState* state_, T
   TNode<NativeContext> tmp67;
   TNode<Map> tmp68;
   TNode<IntPtrT> tmp69;
-  TNode<FixedArray> tmp70;
-  TNode<Smi> tmp71;
-  TNode<JSArray> tmp72;
+  TNode<Hole> tmp70;
+  TNode<FixedArray> tmp71;
+  TNode<Smi> tmp72;
+  TNode<JSArray> tmp73;
   if (block65.is_used()) {
     ca_.Bind(&block65, &phi_bb65_5, &phi_bb65_6, &phi_bb65_7, &phi_bb65_8, &phi_bb65_9);
     tmp67 = CodeStubAssembler(state_).LoadNativeContext(TNode<Context>{p_context});
     tmp68 = CodeStubAssembler(state_).LoadJSArrayElementsMap(ElementsKind::PACKED_ELEMENTS, TNode<NativeContext>{tmp67});
     tmp69 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
-    tmp70 = ExtractFixedArray_0(state_, TNode<FixedArray>{phi_bb65_5}, TNode<IntPtrT>{tmp69}, TNode<IntPtrT>{phi_bb65_7}, TNode<IntPtrT>{phi_bb65_7});
-    tmp71 = Convert_Smi_intptr_0(state_, TNode<IntPtrT>{phi_bb65_7});
-    tmp72 = CodeStubAssembler(state_).AllocateJSArray(TNode<Map>{tmp68}, TNode<FixedArrayBase>{tmp70}, TNode<Smi>{tmp71});
-    ca_.Goto(&block66, phi_bb65_5, phi_bb65_6, phi_bb65_7, phi_bb65_8, phi_bb65_9, tmp72);
+    tmp70 = TheHole_0(state_);
+    tmp71 = ExtractFixedArray_0(state_, TNode<FixedArray>{phi_bb65_5}, TNode<IntPtrT>{tmp69}, TNode<IntPtrT>{phi_bb65_7}, TNode<IntPtrT>{phi_bb65_7}, TNode<Hole>{tmp70});
+    tmp72 = Convert_Smi_intptr_0(state_, TNode<IntPtrT>{phi_bb65_7});
+    tmp73 = CodeStubAssembler(state_).AllocateJSArray(TNode<Map>{tmp68}, TNode<FixedArrayBase>{tmp71}, TNode<Smi>{tmp72});
+    ca_.Goto(&block66, phi_bb65_5, phi_bb65_6, phi_bb65_7, phi_bb65_8, phi_bb65_9, tmp73);
   }
 
   TNode<FixedArray> phi_bb66_5;
@@ -584,23 +587,25 @@ TNode<Object> RegExpPrototypeMatchBody_0(compiler::CodeAssemblerState* state_, T
   TNode<String> phi_bb88_10;
   TNode<String> phi_bb88_11;
   TNode<Object> phi_bb88_12;
-  TNode<IntPtrT> tmp73;
   TNode<IntPtrT> tmp74;
   TNode<IntPtrT> tmp75;
   TNode<IntPtrT> tmp76;
   TNode<IntPtrT> tmp77;
   TNode<IntPtrT> tmp78;
-  TNode<FixedArray> tmp79;
+  TNode<IntPtrT> tmp79;
+  TNode<Hole> tmp80;
+  TNode<FixedArray> tmp81;
   if (block88.is_used()) {
     ca_.Bind(&block88, &phi_bb88_5, &phi_bb88_6, &phi_bb88_7, &phi_bb88_8, &phi_bb88_9, &phi_bb88_10, &phi_bb88_11, &phi_bb88_12);
-    tmp73 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x1ull));
-    tmp74 = CodeStubAssembler(state_).WordSar(TNode<IntPtrT>{phi_bb88_6}, TNode<IntPtrT>{tmp73});
-    tmp75 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{phi_bb88_6}, TNode<IntPtrT>{tmp74});
-    tmp76 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x10ull));
-    tmp77 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{tmp75}, TNode<IntPtrT>{tmp76});
-    tmp78 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
-    tmp79 = ExtractFixedArray_0(state_, TNode<FixedArray>{phi_bb88_5}, TNode<IntPtrT>{tmp78}, TNode<IntPtrT>{phi_bb88_7}, TNode<IntPtrT>{tmp77});
-    ca_.Goto(&block89, tmp79, tmp77, phi_bb88_7, phi_bb88_8, phi_bb88_9, phi_bb88_10, phi_bb88_11, phi_bb88_12);
+    tmp74 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x1ull));
+    tmp75 = CodeStubAssembler(state_).WordSar(TNode<IntPtrT>{phi_bb88_6}, TNode<IntPtrT>{tmp74});
+    tmp76 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{phi_bb88_6}, TNode<IntPtrT>{tmp75});
+    tmp77 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x10ull));
+    tmp78 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{tmp76}, TNode<IntPtrT>{tmp77});
+    tmp79 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
+    tmp80 = TheHole_0(state_);
+    tmp81 = ExtractFixedArray_0(state_, TNode<FixedArray>{phi_bb88_5}, TNode<IntPtrT>{tmp79}, TNode<IntPtrT>{phi_bb88_7}, TNode<IntPtrT>{tmp78}, TNode<Hole>{tmp80});
+    ca_.Goto(&block89, tmp81, tmp78, phi_bb88_7, phi_bb88_8, phi_bb88_9, phi_bb88_10, phi_bb88_11, phi_bb88_12);
   }
 
   TNode<FixedArray> phi_bb89_5;
@@ -611,23 +616,23 @@ TNode<Object> RegExpPrototypeMatchBody_0(compiler::CodeAssemblerState* state_, T
   TNode<String> phi_bb89_10;
   TNode<String> phi_bb89_11;
   TNode<Object> phi_bb89_12;
-  TNode<Object> tmp80;
-  TNode<IntPtrT> tmp81;
-  TNode<IntPtrT> tmp82;
+  TNode<Object> tmp82;
   TNode<IntPtrT> tmp83;
   TNode<IntPtrT> tmp84;
-  TNode<UintPtrT> tmp85;
-  TNode<UintPtrT> tmp86;
-  TNode<BoolT> tmp87;
+  TNode<IntPtrT> tmp85;
+  TNode<IntPtrT> tmp86;
+  TNode<UintPtrT> tmp87;
+  TNode<UintPtrT> tmp88;
+  TNode<BoolT> tmp89;
   if (block89.is_used()) {
     ca_.Bind(&block89, &phi_bb89_5, &phi_bb89_6, &phi_bb89_7, &phi_bb89_8, &phi_bb89_9, &phi_bb89_10, &phi_bb89_11, &phi_bb89_12);
-    std::tie(tmp80, tmp81, tmp82) = FieldSliceFixedArrayObjects_0(state_, TNode<FixedArray>{phi_bb89_5}).Flatten();
-    tmp83 = FromConstexpr_intptr_constexpr_int31_0(state_, 1);
-    tmp84 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{phi_bb89_7}, TNode<IntPtrT>{tmp83});
-    tmp85 = Convert_uintptr_intptr_0(state_, TNode<IntPtrT>{phi_bb89_7});
-    tmp86 = Convert_uintptr_intptr_0(state_, TNode<IntPtrT>{tmp82});
-    tmp87 = CodeStubAssembler(state_).UintPtrLessThan(TNode<UintPtrT>{tmp85}, TNode<UintPtrT>{tmp86});
-    ca_.Branch(tmp87, &block107, std::vector<compiler::Node*>{phi_bb89_8, phi_bb89_9, phi_bb89_10, phi_bb89_11, phi_bb89_12, phi_bb89_7, phi_bb89_7, phi_bb89_7, phi_bb89_7}, &block108, std::vector<compiler::Node*>{phi_bb89_8, phi_bb89_9, phi_bb89_10, phi_bb89_11, phi_bb89_12, phi_bb89_7, phi_bb89_7, phi_bb89_7, phi_bb89_7});
+    std::tie(tmp82, tmp83, tmp84) = FieldSliceFixedArrayObjects_0(state_, TNode<FixedArray>{phi_bb89_5}).Flatten();
+    tmp85 = FromConstexpr_intptr_constexpr_int31_0(state_, 1);
+    tmp86 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{phi_bb89_7}, TNode<IntPtrT>{tmp85});
+    tmp87 = Convert_uintptr_intptr_0(state_, TNode<IntPtrT>{phi_bb89_7});
+    tmp88 = Convert_uintptr_intptr_0(state_, TNode<IntPtrT>{tmp84});
+    tmp89 = CodeStubAssembler(state_).UintPtrLessThan(TNode<UintPtrT>{tmp87}, TNode<UintPtrT>{tmp88});
+    ca_.Branch(tmp89, &block107, std::vector<compiler::Node*>{phi_bb89_8, phi_bb89_9, phi_bb89_10, phi_bb89_11, phi_bb89_12, phi_bb89_7, phi_bb89_7, phi_bb89_7, phi_bb89_7}, &block108, std::vector<compiler::Node*>{phi_bb89_8, phi_bb89_9, phi_bb89_10, phi_bb89_11, phi_bb89_12, phi_bb89_7, phi_bb89_7, phi_bb89_7, phi_bb89_7});
   }
 
   TNode<BoolT> phi_bb107_8;
@@ -639,23 +644,23 @@ TNode<Object> RegExpPrototypeMatchBody_0(compiler::CodeAssemblerState* state_, T
   TNode<IntPtrT> phi_bb107_18;
   TNode<IntPtrT> phi_bb107_22;
   TNode<IntPtrT> phi_bb107_23;
-  TNode<IntPtrT> tmp88;
-  TNode<IntPtrT> tmp89;
-  TNode<Object> tmp90;
+  TNode<IntPtrT> tmp90;
   TNode<IntPtrT> tmp91;
-  TNode<Smi> tmp92;
-  TNode<Smi> tmp93;
-  TNode<BoolT> tmp94;
+  TNode<Object> tmp92;
+  TNode<IntPtrT> tmp93;
+  TNode<Smi> tmp94;
+  TNode<Smi> tmp95;
+  TNode<BoolT> tmp96;
   if (block107.is_used()) {
     ca_.Bind(&block107, &phi_bb107_8, &phi_bb107_9, &phi_bb107_10, &phi_bb107_11, &phi_bb107_12, &phi_bb107_17, &phi_bb107_18, &phi_bb107_22, &phi_bb107_23);
-    tmp88 = TimesSizeOf_Object_0(state_, TNode<IntPtrT>{phi_bb107_23});
-    tmp89 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{tmp81}, TNode<IntPtrT>{tmp88});
-    std::tie(tmp90, tmp91) = NewReference_Object_0(state_, TNode<Object>{tmp80}, TNode<IntPtrT>{tmp89}).Flatten();
-    CodeStubAssembler(state_).StoreReference<Object>(CodeStubAssembler::Reference{tmp90, tmp91}, phi_bb107_12);
-    tmp92 = CodeStubAssembler(state_).LoadStringLengthAsSmi(TNode<String>{phi_bb107_10});
-    tmp93 = FromConstexpr_Smi_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
-    tmp94 = CodeStubAssembler(state_).SmiNotEqual(TNode<Smi>{tmp92}, TNode<Smi>{tmp93});
-    ca_.Branch(tmp94, &block111, std::vector<compiler::Node*>{phi_bb107_8, phi_bb107_9, phi_bb107_10}, &block112, std::vector<compiler::Node*>{phi_bb107_8, phi_bb107_9, phi_bb107_10});
+    tmp90 = TimesSizeOf_Object_0(state_, TNode<IntPtrT>{phi_bb107_23});
+    tmp91 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{tmp83}, TNode<IntPtrT>{tmp90});
+    std::tie(tmp92, tmp93) = NewReference_Object_0(state_, TNode<Object>{tmp82}, TNode<IntPtrT>{tmp91}).Flatten();
+    CodeStubAssembler(state_).StoreReference<Object>(CodeStubAssembler::Reference{tmp92, tmp93}, phi_bb107_12);
+    tmp94 = CodeStubAssembler(state_).LoadStringLengthAsSmi(TNode<String>{phi_bb107_10});
+    tmp95 = FromConstexpr_Smi_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
+    tmp96 = CodeStubAssembler(state_).SmiNotEqual(TNode<Smi>{tmp94}, TNode<Smi>{tmp95});
+    ca_.Branch(tmp96, &block111, std::vector<compiler::Node*>{phi_bb107_8, phi_bb107_9, phi_bb107_10}, &block112, std::vector<compiler::Node*>{phi_bb107_8, phi_bb107_9, phi_bb107_10});
   }
 
   TNode<BoolT> phi_bb108_8;
@@ -677,16 +682,16 @@ TNode<Object> RegExpPrototypeMatchBody_0(compiler::CodeAssemblerState* state_, T
   TNode<String> phi_bb111_10;
   if (block111.is_used()) {
     ca_.Bind(&block111, &phi_bb111_8, &phi_bb111_9, &phi_bb111_10);
-    ca_.Goto(&block45, phi_bb89_5, phi_bb89_6, tmp84, phi_bb111_8, phi_bb111_9);
+    ca_.Goto(&block45, phi_bb89_5, phi_bb89_6, tmp86, phi_bb111_8, phi_bb111_9);
   }
 
   TNode<BoolT> phi_bb112_8;
   TNode<String> phi_bb112_9;
   TNode<String> phi_bb112_10;
-  TNode<Object> tmp95;
+  TNode<Object> tmp97;
   if (block112.is_used()) {
     ca_.Bind(&block112, &phi_bb112_8, &phi_bb112_9, &phi_bb112_10);
-    tmp95 = LoadLastIndex_0(state_, TNode<Context>{p_context}, TNode<Object>{p_regexp}, p_isFastPath);
+    tmp97 = LoadLastIndex_0(state_, TNode<Context>{p_context}, TNode<Object>{p_regexp}, p_isFastPath);
     if ((p_isFastPath)) {
       ca_.Goto(&block113, phi_bb112_8, phi_bb112_9, phi_bb112_10);
     } else {
@@ -699,29 +704,29 @@ TNode<Object> RegExpPrototypeMatchBody_0(compiler::CodeAssemblerState* state_, T
   TNode<String> phi_bb113_10;
   if (block113.is_used()) {
     ca_.Bind(&block113, &phi_bb113_8, &phi_bb113_9, &phi_bb113_10);
-    ca_.Goto(&block115, phi_bb113_8, phi_bb113_9, phi_bb113_10, tmp95);
+    ca_.Goto(&block115, phi_bb113_8, phi_bb113_9, phi_bb113_10, tmp97);
   }
 
   TNode<BoolT> phi_bb114_8;
   TNode<String> phi_bb114_9;
   TNode<String> phi_bb114_10;
-  TNode<Number> tmp96;
+  TNode<Number> tmp98;
   if (block114.is_used()) {
     ca_.Bind(&block114, &phi_bb114_8, &phi_bb114_9, &phi_bb114_10);
-    tmp96 = CodeStubAssembler(state_).ToLength_Inline(TNode<Context>{p_context}, TNode<Object>{tmp95});
-    ca_.Goto(&block115, phi_bb114_8, phi_bb114_9, phi_bb114_10, tmp96);
+    tmp98 = CodeStubAssembler(state_).ToLength_Inline(TNode<Context>{p_context}, TNode<Object>{tmp97});
+    ca_.Goto(&block115, phi_bb114_8, phi_bb114_9, phi_bb114_10, tmp98);
   }
 
   TNode<BoolT> phi_bb115_8;
   TNode<String> phi_bb115_9;
   TNode<String> phi_bb115_10;
   TNode<Object> phi_bb115_12;
-  TNode<Number> tmp97;
-  TNode<Number> tmp98;
+  TNode<Number> tmp99;
+  TNode<Number> tmp100;
   if (block115.is_used()) {
     ca_.Bind(&block115, &phi_bb115_8, &phi_bb115_9, &phi_bb115_10, &phi_bb115_12);
-    tmp97 = UnsafeCast_Number_0(state_, TNode<Context>{p_context}, TNode<Object>{phi_bb115_12});
-    tmp98 = RegExpBuiltinsAssembler(state_).AdvanceStringIndex(TNode<String>{p_string}, TNode<Number>{tmp97}, TNode<BoolT>{phi_bb21_5}, p_isFastPath);
+    tmp99 = UnsafeCast_Number_0(state_, TNode<Context>{p_context}, TNode<Object>{phi_bb115_12});
+    tmp100 = RegExpBuiltinsAssembler(state_).AdvanceStringIndex(TNode<String>{p_string}, TNode<Number>{tmp99}, TNode<BoolT>{phi_bb21_5}, p_isFastPath);
     if ((p_isFastPath)) {
       ca_.Goto(&block120, phi_bb115_8, phi_bb115_9, phi_bb115_10);
     } else {
@@ -751,8 +756,8 @@ TNode<Object> RegExpPrototypeMatchBody_0(compiler::CodeAssemblerState* state_, T
   TNode<String> phi_bb122_10;
   if (block122.is_used()) {
     ca_.Bind(&block122, &phi_bb122_8, &phi_bb122_9, &phi_bb122_10);
-    StoreLastIndex_0(state_, TNode<Context>{p_context}, TNode<Object>{p_regexp}, TNode<Number>{tmp98}, p_isFastPath);
-    ca_.Goto(&block45, phi_bb89_5, phi_bb89_6, tmp84, phi_bb122_8, phi_bb122_9);
+    StoreLastIndex_0(state_, TNode<Context>{p_context}, TNode<Object>{p_regexp}, TNode<Number>{tmp100}, p_isFastPath);
+    ca_.Goto(&block45, phi_bb89_5, phi_bb89_6, tmp86, phi_bb122_8, phi_bb122_9);
   }
 
   TNode<FixedArray> phi_bb44_5;
@@ -873,7 +878,7 @@ TF_BUILTIN(RegExpPrototypeMatch, CodeStubAssembler) {
   TNode<Object> tmp5;
   if (block3.is_used()) {
     ca_.Bind(&block3);
-    tmp5 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kRegExpMatchFast), parameter0, tmp2, tmp1);
+    tmp5 = ca_.CallBuiltin<Object>(Builtin::kRegExpMatchFast, parameter0, tmp2, tmp1);
     CodeStubAssembler(state_).Return(tmp5);
   }
 }

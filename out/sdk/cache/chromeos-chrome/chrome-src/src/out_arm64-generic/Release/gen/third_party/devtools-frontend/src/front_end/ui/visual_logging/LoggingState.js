@@ -1,27 +1,29 @@
-// Copyright 2023 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import { getLoggingConfig } from './LoggingConfig.js';
 const state = new WeakMap();
-let nextVeId = 0;
-export function resetStateForTesting() {
-    nextVeId = 0;
+function nextVeId() {
+    const result = new Uint32Array(1);
+    crypto.getRandomValues(result);
+    return result[0];
 }
-export function getLoggingState(element, parent) {
-    const config = getLoggingConfig(element);
-    if (config.parent && parentProviders.has(config.parent)) {
-        parent = parentProviders.get(config.parent)?.(element);
+export function getOrCreateLoggingState(loggable, config, parent) {
+    if (state.has(loggable)) {
+        return state.get(loggable);
     }
-    const elementState = state.get(element) || {
+    if (config.parent && parentProviders.has(config.parent) && loggable instanceof Element) {
+        parent = parentProviders.get(config.parent)?.(loggable);
+    }
+    const loggableState = {
         impressionLogged: false,
         processed: false,
         config,
         context: resolveContext(config.context),
-        veid: ++nextVeId,
+        veid: nextVeId(),
         parent: parent ? getLoggingState(parent) : null,
     };
-    state.set(element, elementState);
-    return elementState;
+    state.set(loggable, loggableState);
+    return loggableState;
+}
+export function getLoggingState(loggable) {
+    return state.get(loggable) || null;
 }
 const contextProviders = new Map();
 export function registerContextProvider(name, provider) {

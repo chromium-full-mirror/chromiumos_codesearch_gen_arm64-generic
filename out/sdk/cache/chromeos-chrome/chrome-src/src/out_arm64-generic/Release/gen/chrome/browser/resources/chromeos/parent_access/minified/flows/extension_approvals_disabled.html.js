@@ -1,4 +1,4 @@
-import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="common">.disabled-screen-content{color:var(--cros-color-primary)}.title{font-family:var(--cros-font-family-google-sans);font-size:24px;font-weight:500;margin-bottom:0;margin-top:16px}.subtitle{align-items:center;color:var(--cros-color-secondary);display:flex;font:var(--cros-body-1-font);margin-top:16px}</style>
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style>.disabled-screen-content{color:var(--cros-color-primary)}.title{font-family:var(--cros-font-family-google-sans);font-size:24px;font-weight:500;margin-bottom:0;margin-top:16px}.subtitle{align-items:center;color:var(--cros-color-secondary);display:flex;font:var(--cros-body-1-font);margin-top:16px}</style>
 
 <div class="disabled-screen-content">
   <h2 class="title">$i18n{extensionApprovalsDisabledTitle}</h2>

@@ -63,93 +63,125 @@ enum class SearchResultIcon : int32_t {
   
   kCellular = 10,
   
-  kChrome = 11,
+  kCheckForUpdate = 11,
   
-  kChromeVox = 12,
+  kChrome = 12,
   
   kClock = 13,
   
   kContrast = 14,
   
-  kDeveloperTags = 15,
+  kCursorClick = 15,
   
-  kDictation = 16,
+  kDetailedBuild = 16,
   
-  kDisplay = 17,
+  kDeveloperTags = 17,
   
-  kDockedMagnifier = 18,
+  kDiagnostics = 18,
   
-  kDrive = 19,
+  kDictation = 19,
   
-  kEthernet = 20,
+  kDisplay = 20,
   
-  kFingerprint = 21,
+  kDockedMagnifier = 21,
   
-  kFolder = 22,
+  kEthernet = 22,
   
-  kFullscreenMagnifier = 23,
+  kFingerprint = 23,
   
-  kGeolocation = 24,
+  kFirmwareUpdates = 24,
   
-  kGlobe = 25,
+  kFolder = 25,
   
-  kGooglePlay = 26,
+  kFolderShared = 26,
   
-  kHardDrive = 27,
+  kFullscreenMagnifier = 27,
   
-  kHotspot = 28,
+  kGeolocation = 28,
   
-  kInstantTethering = 29,
+  kGoogleDrive = 29,
   
-  kKeyboard = 30,
+  kGooglePlay = 30,
   
-  kLaptop = 31,
+  kHearing = 31,
   
-  kLock = 32,
+  kHelp = 32,
   
-  kMagnifyingGlass = 33,
+  kHotspot = 33,
   
-  kMicrophone = 34,
+  kInstantTethering = 34,
   
-  kMouse = 35,
+  kKeyboard = 35,
   
-  kNearbyShare = 36,
+  kLanguage = 36,
   
-  kOnScreenKeyboard = 37,
+  kLaptop = 37,
   
-  kPaintbrush = 38,
+  kLock = 38,
   
-  kPenguin = 39,
+  kMicrophone = 39,
   
-  kPhone = 40,
+  kMouse = 40,
   
-  kPluginVm = 41,
+  kNearbyShare = 41,
   
-  kPower = 42,
+  kNotifications = 42,
   
-  kPrinter = 43,
+  kOneDrive = 43,
   
-  kReset = 44,
+  kOnScreenKeyboard = 44,
   
-  kSelectToSpeak = 45,
+  kPaintbrush = 45,
   
-  kShield = 46,
+  kPenguin = 46,
   
-  kStartup = 47,
+  kPhone = 47,
   
-  kStylus = 48,
+  kPluginVm = 48,
   
-  kSwitchAccess = 49,
+  kPointingStick = 49,
   
-  kSync = 50,
+  kPower = 50,
   
-  kSystemPreferences = 51,
+  kPrinter = 51,
   
-  kWallpaper = 52,
+  kPrivacyControls = 52,
   
-  kWifi = 53,
+  kReleaseNotes = 53,
+  
+  kReset = 54,
+  
+  kRestore = 55,
+  
+  kScanner = 56,
+  
+  kSearch = 57,
+  
+  kSelectToSpeak = 58,
+  
+  kShield = 59,
+  
+  kStorage = 60,
+  
+  kStylus = 61,
+  
+  kSwitchAccess = 62,
+  
+  kSync = 63,
+  
+  kSystemPreferences = 64,
+  
+  kTextToSpeech = 65,
+  
+  kTouchpad = 66,
+  
+  kWallpaper = 67,
+  
+  kWifi = 68,
+  
+  kZoomIn = 69,
   kMinValue = 0,
-  kMaxValue = 53,
+  kMaxValue = 69,
 };
 
  std::ostream& operator<<(std::ostream& os, SearchResultIcon value);

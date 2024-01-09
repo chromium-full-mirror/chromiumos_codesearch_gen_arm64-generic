@@ -122,7 +122,7 @@ class  UserEducationInternalsPageHandler_ShowFeaturePromo_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> title;
+  mojo::internal::Pointer<mojo::internal::String_Data> feature_name;
 
  private:
   friend class mojo::internal::MessageFragment<UserEducationInternalsPageHandler_ShowFeaturePromo_Params_Data>;
@@ -296,13 +296,13 @@ class UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetTitleDataView(
+  inline void GetFeatureNameDataView(
       mojo::StringDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadTitle(UserType* output) {
+  [[nodiscard]] bool ReadFeatureName(UserType* output) {
     
-    auto* pointer = data_->title.Get();
+    auto* pointer = data_->feature_name.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
@@ -369,9 +369,9 @@ inline void UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsDat
 }
 
 
-inline void UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsDataView::GetTitleDataView(
+inline void UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsDataView::GetFeatureNameDataView(
     mojo::StringDataView* output) {
-  auto pointer = data_->title.Get();
+  auto pointer = data_->feature_name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

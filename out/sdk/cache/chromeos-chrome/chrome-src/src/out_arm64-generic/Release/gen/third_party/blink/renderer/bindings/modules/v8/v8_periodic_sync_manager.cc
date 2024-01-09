@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PeriodicSyncManager>::value,
     "PeriodicSyncManager inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PeriodicSyncManager::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PeriodicSyncManager is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -107,7 +102,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPeriodicBackgroundSync
 
 
 
-PeriodicSyncManager* blink_receiver = V8PeriodicSyncManager::ToWrappableUnsafe(v8_receiver);
+PeriodicSyncManager* blink_receiver = V8PeriodicSyncManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -146,7 +141,7 @@ return;
 
 
 
-PeriodicSyncManager* blink_receiver = V8PeriodicSyncManager::ToWrappableUnsafe(v8_receiver);
+PeriodicSyncManager* blink_receiver = V8PeriodicSyncManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -201,7 +196,7 @@ return;
 
 
 
-PeriodicSyncManager* blink_receiver = V8PeriodicSyncManager::ToWrappableUnsafe(v8_receiver);
+PeriodicSyncManager* blink_receiver = V8PeriodicSyncManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

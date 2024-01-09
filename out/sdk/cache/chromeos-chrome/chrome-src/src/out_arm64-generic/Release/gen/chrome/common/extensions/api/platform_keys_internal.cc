@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/platform_keys_internal.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,13 +39,13 @@ namespace SelectClientCertificates {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -53,15 +54,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!extensions::api::platform_keys::SelectDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -81,13 +82,13 @@ namespace Sign {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 5) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -97,13 +98,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = token_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.token_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -111,7 +112,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& public_key_value = args[1];
     {
       if (!public_key_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.public_key = public_key_value.GetBlob();
@@ -119,7 +120,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -128,13 +129,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = algorithm_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.algorithm_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (3 < args.size() &&
@@ -143,13 +144,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = hash_algorithm_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.hash_algorithm_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (4 < args.size() &&
@@ -157,7 +158,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& data_value = args[4];
     {
       if (!data_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.data = data_value.GetBlob();
@@ -165,7 +166,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -185,13 +186,13 @@ namespace GetPublicKey {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -200,7 +201,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& certificate_value = args[0];
     {
       if (!certificate_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.certificate = certificate_value.GetBlob();
@@ -208,7 +209,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -217,13 +218,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = algorithm_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.algorithm_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -234,8 +235,8 @@ Results::Algorithm::Algorithm()
  {}
 
 Results::Algorithm::~Algorithm() = default;
-Results::Algorithm::Algorithm(Algorithm&& rhs) = default;
-Results::Algorithm& Results::Algorithm::operator=(Algorithm&& rhs) = default;
+Results::Algorithm::Algorithm(Algorithm&& rhs) noexcept = default;
+Results::Algorithm& Results::Algorithm::operator=(Algorithm&& rhs) noexcept = default;
 base::Value::Dict Results::Algorithm::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -260,13 +261,13 @@ namespace GetPublicKeyBySpki {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -275,7 +276,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& public_key_spki_der_value = args[0];
     {
       if (!public_key_spki_der_value.is_blob()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         params.public_key_spki_der = public_key_spki_der_value.GetBlob();
@@ -283,7 +284,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -292,13 +293,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = algorithm_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.algorithm_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -309,8 +310,8 @@ Results::Algorithm::Algorithm()
  {}
 
 Results::Algorithm::~Algorithm() = default;
-Results::Algorithm::Algorithm(Algorithm&& rhs) = default;
-Results::Algorithm& Results::Algorithm::operator=(Algorithm&& rhs) = default;
+Results::Algorithm::Algorithm(Algorithm&& rhs) noexcept = default;
+Results::Algorithm& Results::Algorithm::operator=(Algorithm&& rhs) noexcept = default;
 base::Value::Dict Results::Algorithm::ToValue() const {
   base::Value::Dict to_value_result;
 

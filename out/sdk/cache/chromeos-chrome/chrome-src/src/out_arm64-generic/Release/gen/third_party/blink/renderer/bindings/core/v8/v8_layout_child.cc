@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CustomLayoutChild>::value,
     "CustomLayoutChild inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CustomLayoutChild::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CustomLayoutChild is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("LayoutChild.styleMap.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomLayoutChild* blink_receiver = V8LayoutChild::ToWrappableUnsafe(v8_receiver);
+CustomLayoutChild* blink_receiver = V8LayoutChild::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->styleMap();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -117,7 +113,7 @@ return;
 
 
 
-CustomLayoutChild* blink_receiver = V8LayoutChild::ToWrappableUnsafe(v8_receiver);
+CustomLayoutChild* blink_receiver = V8LayoutChild::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -151,7 +147,7 @@ return;
 
 
 
-CustomLayoutChild* blink_receiver = V8LayoutChild::ToWrappableUnsafe(v8_receiver);
+CustomLayoutChild* blink_receiver = V8LayoutChild::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

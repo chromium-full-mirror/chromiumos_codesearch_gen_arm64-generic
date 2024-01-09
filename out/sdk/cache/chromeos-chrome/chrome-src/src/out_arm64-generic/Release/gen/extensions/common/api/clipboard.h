@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -59,8 +60,8 @@ struct AdditionalDataItem {
   ~AdditionalDataItem();
   AdditionalDataItem(const AdditionalDataItem&) = delete;
   AdditionalDataItem& operator=(const AdditionalDataItem&) = delete;
-  AdditionalDataItem(AdditionalDataItem&& rhs);
-  AdditionalDataItem& operator=(AdditionalDataItem&& rhs);
+  AdditionalDataItem(AdditionalDataItem&& rhs) noexcept;
+  AdditionalDataItem& operator=(AdditionalDataItem&& rhs) noexcept;
 
   // Populates a AdditionalDataItem object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -73,16 +74,13 @@ struct AdditionalDataItem {
   // Creates a deep copy of AdditionalDataItem.
   AdditionalDataItem Clone() const;
 
-  // Creates a AdditionalDataItem object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AdditionalDataItem> FromValueDeprecated(const base::Value& value);
-
   // Creates a AdditionalDataItem object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AdditionalDataItem> FromValue(const base::Value::Dict& value);
+  static std::optional<AdditionalDataItem> FromValue(const base::Value::Dict& value);
 
   // Creates a AdditionalDataItem object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AdditionalDataItem> FromValue(const base::Value& value);
+  static std::optional<AdditionalDataItem> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAdditionalDataItem object.
@@ -106,11 +104,11 @@ struct AdditionalDataItem {
 namespace SetImageData {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The encoded image data.
@@ -122,7 +120,7 @@ struct Params {
   // Additional data items for describing image data. The callback is called with
   // <code>chrome.runtime.lastError</code> set to error code if there is an error.
   // Requires clipboard and clipboardWrite permissions.
-  absl::optional<std::vector<AdditionalDataItem>> additional_items;
+  std::optional<std::vector<AdditionalDataItem>> additional_items;
 
 
  private:

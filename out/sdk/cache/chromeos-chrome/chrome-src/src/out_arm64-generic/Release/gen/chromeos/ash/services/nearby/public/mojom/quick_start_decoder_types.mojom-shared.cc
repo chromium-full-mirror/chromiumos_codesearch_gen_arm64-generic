@@ -229,7 +229,7 @@ bool BootstrapConfigurations_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -246,6 +246,17 @@ bool BootstrapConfigurations_Data::Validate(
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->instance_id, validation_context,
                                          &instance_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->email, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& email_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->email, validation_context,
+                                         &email_validate_params)) {
     return false;
   }
 

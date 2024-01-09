@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/omnibox/browser/omnibox.mojom-features.h"
 #include "components/omnibox/browser/omnibox.mojom-shared.h"
 #include "components/omnibox/browser/omnibox.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -975,6 +976,7 @@ class  AutocompleteMatch {
       const ::GURL& destination_url,
       const ::std::u16string& inline_autocompletion,
       const ::std::u16string& fill_into_edit,
+      std::optional<bool> is_weather_answer_suggestion,
       const std::string& icon_url,
       const std::string& image_dominant_color,
       const std::string& image_url,
@@ -985,7 +987,7 @@ class  AutocompleteMatch {
       bool swap_contents_and_description,
       int32_t suggestion_group_id,
       bool supports_deletion,
-      const absl::optional<::std::u16string>& tail_suggest_common_prefix);
+      const std::optional<::std::u16string>& tail_suggest_common_prefix);
 
 AutocompleteMatch(const AutocompleteMatch&) = delete;
 AutocompleteMatch& operator=(const AutocompleteMatch&) = delete;
@@ -1087,6 +1089,8 @@ AutocompleteMatch& operator=(const AutocompleteMatch&) = delete;
   
   ::std::u16string fill_into_edit;
   
+  std::optional<bool> is_weather_answer_suggestion;
+  
   std::string icon_url;
   
   std::string image_dominant_color;
@@ -1107,7 +1111,7 @@ AutocompleteMatch& operator=(const AutocompleteMatch&) = delete;
   
   bool supports_deletion;
   
-  absl::optional<::std::u16string> tail_suggest_common_prefix;
+  std::optional<::std::u16string> tail_suggest_common_prefix;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1554,6 +1558,7 @@ AutocompleteMatchPtr AutocompleteMatch::Clone() const {
       mojo::Clone(destination_url),
       mojo::Clone(inline_autocompletion),
       mojo::Clone(fill_into_edit),
+      mojo::Clone(is_weather_answer_suggestion),
       mojo::Clone(icon_url),
       mojo::Clone(image_dominant_color),
       mojo::Clone(image_url),
@@ -1591,6 +1596,8 @@ bool AutocompleteMatch::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->inline_autocompletion, other_struct.inline_autocompletion))
     return false;
   if (!mojo::Equals(this->fill_into_edit, other_struct.fill_into_edit))
+    return false;
+  if (!mojo::Equals(this->is_weather_answer_suggestion, other_struct.is_weather_answer_suggestion))
     return false;
   if (!mojo::Equals(this->icon_url, other_struct.icon_url))
     return false;
@@ -1662,6 +1669,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.fill_into_edit < rhs.fill_into_edit)
     return true;
   if (rhs.fill_into_edit < lhs.fill_into_edit)
+    return false;
+  if (lhs.is_weather_answer_suggestion < rhs.is_weather_answer_suggestion)
+    return true;
+  if (rhs.is_weather_answer_suggestion < lhs.is_weather_answer_suggestion)
     return false;
   if (lhs.icon_url < rhs.icon_url)
     return true;
@@ -1967,6 +1978,11 @@ struct  StructTraits<::omnibox::mojom::AutocompleteMatch::DataView,
   static const decltype(::omnibox::mojom::AutocompleteMatch::fill_into_edit)& fill_into_edit(
       const ::omnibox::mojom::AutocompleteMatchPtr& input) {
     return input->fill_into_edit;
+  }
+
+  static decltype(::omnibox::mojom::AutocompleteMatch::is_weather_answer_suggestion) is_weather_answer_suggestion(
+      const ::omnibox::mojom::AutocompleteMatchPtr& input) {
+    return input->is_weather_answer_suggestion;
   }
 
   static const decltype(::omnibox::mojom::AutocompleteMatch::icon_url)& icon_url(

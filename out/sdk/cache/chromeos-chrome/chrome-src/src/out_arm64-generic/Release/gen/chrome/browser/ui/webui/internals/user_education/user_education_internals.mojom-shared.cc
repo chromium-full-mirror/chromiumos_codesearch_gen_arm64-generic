@@ -31,7 +31,7 @@ bool FeaturePromoDemoPageInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 64, validation_context)) {
+          data, 72, validation_context)) {
     return false;
   }
 
@@ -103,6 +103,17 @@ bool FeaturePromoDemoPageInfo_Data::Validate(
       mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->instructions, validation_context,
                                          &instructions_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->followed_by_internal_name, 8, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& followed_by_internal_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->followed_by_internal_name, validation_context,
+                                         &followed_by_internal_name_validate_params)) {
     return false;
   }
 
@@ -312,13 +323,13 @@ bool UserEducationInternalsPageHandler_ShowFeaturePromo_Params_Data::Validate(
       static_cast<const UserEducationInternalsPageHandler_ShowFeaturePromo_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->title, 1, validation_context)) {
+          object->feature_name, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& title_validate_params =
+  constexpr const mojo::internal::ContainerValidateParams& feature_name_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->title, validation_context,
-                                         &title_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->feature_name, validation_context,
+                                         &feature_name_validate_params)) {
     return false;
   }
 

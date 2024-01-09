@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/libsar-0.0.1-r134/work/libsar-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -28,10 +28,7 @@ build libsar_pkg_config: phony obj/libsar/libsar_pkg_config.stamp
 build libsar_test_support: phony ./lib/libsar_test_support.so
 build libsar_test_support_pkg_config: phony obj/libsar/libsar_test_support_pkg_config.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build libsar$:_libsar-install_config: phony obj/libsar/_libsar-install_config.stamp
 build libsar$:_libsar_pkg_config-install_config: phony obj/libsar/_libsar_pkg_config-install_config.stamp
 build libsar$:_libsar_test_support-install_config: phony obj/libsar/_libsar_test_support-install_config.stamp
@@ -42,11 +39,9 @@ build libsar$:libsar: phony ./lib/libsar.so
 build libsar$:libsar_pkg_config: phony obj/libsar/libsar_pkg_config.stamp
 build libsar$:libsar_test_support: phony ./lib/libsar_test_support.so
 build libsar$:libsar_test_support_pkg_config: phony obj/libsar/libsar_test_support_pkg_config.stamp
-build libsar$:libsar_testrunner: phony ./libsar_testrunner
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/libsar/_libsar-install_config.stamp $
     obj/libsar/_libsar_pkg_config-install_config.stamp $
     obj/libsar/_libsar_test_support-install_config.stamp $
@@ -56,7 +51,6 @@ build all: phony $
     ./lib/libsar.so $
     obj/libsar/libsar_pkg_config.stamp $
     ./lib/libsar_test_support.so $
-    obj/libsar/libsar_test_support_pkg_config.stamp $
-    ./libsar_testrunner
+    obj/libsar/libsar_test_support_pkg_config.stamp
 
 default all

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -177,14 +178,17 @@ void PartitionProxy::BindOriginContext(
                         "<value of type ::mojo::PendingReceiver<::storage::mojom::OriginContext>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPartition_BindOriginContext_Name, kFlags, 0, 0, nullptr);
@@ -231,14 +235,17 @@ void PartitionProxy::BindSessionStorageControl(
                         "<value of type ::mojo::PendingReceiver<::storage::mojom::SessionStorageControl>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPartition_BindSessionStorageControl_Name, kFlags, 0, 0, nullptr);
@@ -274,14 +281,17 @@ void PartitionProxy::BindLocalStorageControl(
                         "<value of type ::mojo::PendingReceiver<::storage::mojom::LocalStorageControl>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPartition_BindLocalStorageControl_Name, kFlags, 0, 0, nullptr);
@@ -317,14 +327,17 @@ void PartitionProxy::BindServiceWorkerStorageControl(
                         "<value of type ::mojo::PendingReceiver<::storage::mojom::ServiceWorkerStorageControl>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPartition_BindServiceWorkerStorageControl_Name, kFlags, 0, 0, nullptr);
@@ -497,16 +510,16 @@ bool PartitionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPartitionValidationInfo[] = {
-    {&internal::Partition_BindOriginContext_Params_Data::Validate,
+    { &internal::Partition_BindOriginContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Partition_BindSessionStorageControl_Params_Data::Validate,
+    { &internal::Partition_BindSessionStorageControl_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Partition_BindLocalStorageControl_Params_Data::Validate,
+    { &internal::Partition_BindLocalStorageControl_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Partition_BindServiceWorkerStorageControl_Params_Data::Validate,
+    { &internal::Partition_BindServiceWorkerStorageControl_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PressureRecord>::value,
     "PressureRecord inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PressureRecord::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PressureRecord is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("PressureRecord.source.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PressureRecord* blink_receiver = V8PressureRecord::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->source();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PressureRecord* blink_receiver = V8PressureRecord::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->source();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,10 +97,10 @@ BLINK_BINDINGS_TRACE_EVENT("PressureRecord.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PressureRecord* blink_receiver = V8PressureRecord::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PressureRecord* blink_receiver = V8PressureRecord::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -117,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("PressureRecord.time.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PressureRecord* blink_receiver = V8PressureRecord::ToWrappableUnsafe(v8_receiver);
+PressureRecord* blink_receiver = V8PressureRecord::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->time();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -135,8 +131,9 @@ BLINK_BINDINGS_TRACE_EVENT("PressureRecord.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PressureRecord* blink_receiver = V8PressureRecord::ToWrappableUnsafe(v8_receiver);
+PressureRecord* blink_receiver = V8PressureRecord::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

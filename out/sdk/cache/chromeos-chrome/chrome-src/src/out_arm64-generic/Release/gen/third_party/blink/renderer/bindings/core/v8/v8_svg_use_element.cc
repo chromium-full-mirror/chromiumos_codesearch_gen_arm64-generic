@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGUseElement>::value,
     "SVGUseElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGUseElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGUseElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUseElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(v8_receiver);
+SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,7 +111,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUseElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(v8_receiver);
+SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -135,7 +130,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUseElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(v8_receiver);
+SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -154,7 +149,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUseElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(v8_receiver);
+SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -173,7 +168,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUriReference);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(v8_receiver);
+SVGUseElement* blink_receiver = V8SVGUseElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

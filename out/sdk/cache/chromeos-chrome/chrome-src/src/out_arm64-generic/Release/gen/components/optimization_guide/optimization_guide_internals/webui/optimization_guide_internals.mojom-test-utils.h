@@ -17,6 +17,7 @@ class  PageHandlerFactoryInterceptorForTesting : public PageHandlerFactory {
   virtual PageHandlerFactory* GetForwardingInterface() = 0;
   void CreatePageHandler(::mojo::PendingRemote<Page> page) override;
   void RequestDownloadedModelsInfo(RequestDownloadedModelsInfoCallback callback) override;
+  void RequestLoggedModelQualityClientIds(RequestLoggedModelQualityClientIdsCallback callback) override;
 };
 class  PageHandlerFactoryAsyncWaiter {
  public:
@@ -29,6 +30,9 @@ class  PageHandlerFactoryAsyncWaiter {
   void RequestDownloadedModelsInfo(
       std::vector<DownloadedModelInfoPtr>* out_downloaded_models_info);
   std::vector<DownloadedModelInfoPtr> RequestDownloadedModelsInfo();
+  void RequestLoggedModelQualityClientIds(
+      std::vector<LoggedClientIdsPtr>* out_logged_client_ids);
+  std::vector<LoggedClientIdsPtr> RequestLoggedModelQualityClientIds();
 
  private:
   PageHandlerFactory* const proxy_;

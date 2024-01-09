@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CrosAcceleratorEvent>::value,
     "CrosAcceleratorEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CrosAcceleratorEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CrosAcceleratorEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("CrosAcceleratorEvent.acceleratorName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CrosAcceleratorEvent* blink_receiver = V8CrosAcceleratorEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->acceleratorName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CrosAcceleratorEvent* blink_receiver = V8CrosAcceleratorEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->acceleratorName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -100,8 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosAcceleratorEvent.repeat.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosAcceleratorEvent* blink_receiver = V8CrosAcceleratorEvent::ToWrappableUnsafe(v8_receiver);
+CrosAcceleratorEvent* blink_receiver = V8CrosAcceleratorEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->repeat();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -114,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosAcceleratorEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosAcceleratorEvent* blink_receiver = V8CrosAcceleratorEvent::ToWrappableUnsafe(v8_receiver);
+CrosAcceleratorEvent* blink_receiver = V8CrosAcceleratorEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

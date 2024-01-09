@@ -22,23 +22,24 @@
 
 
 namespace on_device_model::mojom {
-class ModelAssetsDataView;
+class InputOptionsDataView;
 
-class LoadModelResultDataView;
+
+enum class ResponseStatus : int32_t;
 
 enum class PerformanceClass : int32_t;
-class ModelAssets;
-using ModelAssetsPtr = mojo::StructPtr<ModelAssets>;
 
-class LoadModelResult;
-
-using LoadModelResultPtr = mojo::StructPtr<LoadModelResult>;
+enum class LoadModelResult : int32_t;
+class InputOptions;
+using InputOptionsPtr = mojo::StructPtr<InputOptions>;
 
 class StreamingResponder;
 
-class OnDeviceModel;
+class ContextClient;
 
-class OnDeviceModelService;
+class Session;
+
+class OnDeviceModel;
 
 
 

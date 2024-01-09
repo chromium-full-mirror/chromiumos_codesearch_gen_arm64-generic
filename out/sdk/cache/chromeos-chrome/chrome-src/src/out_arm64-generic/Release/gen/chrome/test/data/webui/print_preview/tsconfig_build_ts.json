@@ -1,0 +1,125 @@
+{
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://print/print_preview.js": [
+        "./../../../../browser/resources/print_preview/tsc/print_preview.d.ts"
+      ],
+      "chrome://print/pdf/*": [
+        "./../../../../browser/resources/pdf/tsc/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/advanced_dialog_test.ts",
+    "preprocessed/advanced_item_test.ts",
+    "preprocessed/button_strip_interactive_test.ts",
+    "preprocessed/button_strip_test.ts",
+    "preprocessed/color_settings_test.ts",
+    "preprocessed/copies_settings_test.ts",
+    "preprocessed/custom_margins_test.ts",
+    "preprocessed/destination_dialog_test.ts",
+    "preprocessed/destination_item_test.ts",
+    "preprocessed/destination_list_test.ts",
+    "preprocessed/destination_settings_test.ts",
+    "preprocessed/destination_store_test.ts",
+    "preprocessed/dpi_settings_test.ts",
+    "preprocessed/duplex_settings_test.ts",
+    "preprocessed/header_test.ts",
+    "preprocessed/invalid_settings_test.ts",
+    "preprocessed/key_event_test.ts",
+    "preprocessed/layout_settings_test.ts",
+    "preprocessed/margins_settings_test.ts",
+    "preprocessed/media_size_settings_test.ts",
+    "preprocessed/media_type_settings_test.ts",
+    "preprocessed/model_settings_availability_test.ts",
+    "preprocessed/model_settings_policy_test.ts",
+    "preprocessed/model_test.ts",
+    "preprocessed/native_layer_stub.ts",
+    "preprocessed/number_settings_section_interactive_test.ts",
+    "preprocessed/number_settings_section_test.ts",
+    "preprocessed/other_options_settings_test.ts",
+    "preprocessed/pages_per_sheet_settings_test.ts",
+    "preprocessed/pages_settings_test.ts",
+    "preprocessed/pdf_toolbar_manager_test.ts",
+    "preprocessed/pdf_viewer_test.ts",
+    "preprocessed/pdf_zoom_toolbar_test.ts",
+    "preprocessed/policy_test.ts",
+    "preprocessed/preview_area_test.ts",
+    "preprocessed/preview_generation_test.ts",
+    "preprocessed/print_button_test.ts",
+    "preprocessed/print_preview_app_test.ts",
+    "preprocessed/print_preview_sidebar_test.ts",
+    "preprocessed/print_preview_test_utils.ts",
+    "preprocessed/restore_state_test.ts",
+    "preprocessed/scaling_settings_interactive_test.ts",
+    "preprocessed/scaling_settings_test.ts",
+    "preprocessed/select_mixin_test.ts",
+    "preprocessed/settings_select_test.ts",
+    "preprocessed/test_plugin_proxy.ts",
+    "preprocessed/destination_dialog_cros_interactive_test.ts",
+    "preprocessed/destination_dialog_cros_test.ts",
+    "preprocessed/destination_dropdown_cros_test.ts",
+    "preprocessed/destination_item_test_cros.ts",
+    "preprocessed/destination_search_test_chromeos.ts",
+    "preprocessed/native_layer_cros_stub.ts",
+    "preprocessed/pin_settings_test.ts",
+    "preprocessed/print_server_store_test.ts",
+    "preprocessed/printer_setup_info_cros_test.ts",
+    "preprocessed/printer_status_test.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/mime_handler_private.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../browser/resources/pdf/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../browser/resources/print_preview/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

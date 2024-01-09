@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -565,14 +566,17 @@ void TtsProxy::RegisterTtsClient(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_RegisterTtsClient_Name, kFlags, 0, 0, nullptr);
@@ -623,14 +627,17 @@ void TtsProxy::VoicesChanged(
                         "<value of type std::vector<TtsVoicePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_VoicesChanged_Name, kFlags, 0, 0, nullptr);
@@ -687,14 +694,17 @@ void TtsProxy::SpeakOrEnqueue(
                         "<value of type ::mojo::PendingRemote<TtsUtteranceClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_SpeakOrEnqueue_Name, kFlags, 0, 0, nullptr);
@@ -741,14 +751,17 @@ void TtsProxy::Stop(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_Stop_Name, kFlags, 0, 0, nullptr);
@@ -782,14 +795,17 @@ void TtsProxy::Pause(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Tts::Pause");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_Pause_Name, kFlags, 0, 0, nullptr);
@@ -812,14 +828,17 @@ void TtsProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Tts::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_Resume_Name, kFlags, 0, 0, nullptr);
@@ -842,14 +861,17 @@ void TtsProxy::IsSpeaking(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::Tts::IsSpeaking");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_IsSpeaking_Name, kFlags, 0, 0, nullptr);
@@ -959,7 +981,8 @@ void Tts_IsSpeaking_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTts_IsSpeaking_Name, kFlags, 0, 0, nullptr);
@@ -1221,22 +1244,22 @@ bool TtsStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTtsValidationInfo[] = {
-    {&internal::Tts_RegisterTtsClient_Params_Data::Validate,
+    { &internal::Tts_RegisterTtsClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Tts_VoicesChanged_Params_Data::Validate,
+    { &internal::Tts_VoicesChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Tts_SpeakOrEnqueue_Params_Data::Validate,
+    { &internal::Tts_SpeakOrEnqueue_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Tts_Stop_Params_Data::Validate,
+    { &internal::Tts_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Tts_Pause_Params_Data::Validate,
+    { &internal::Tts_Pause_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Tts_Resume_Params_Data::Validate,
+    { &internal::Tts_Resume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Tts_IsSpeaking_Params_Data::Validate,
+    { &internal::Tts_IsSpeaking_Params_Data::Validate,
      &internal::Tts_IsSpeaking_ResponseParams_Data::Validate},
 };
 
@@ -1401,14 +1424,17 @@ void TtsClientProxy::VoicesChanged(
                         "<value of type std::vector<TtsVoicePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsClient_VoicesChanged_Name, kFlags, 0, 0, nullptr);
@@ -1457,14 +1483,17 @@ void TtsClientProxy::SpeakWithLacrosVoice(
                         "<value of type ::mojo::PendingRemote<TtsUtteranceClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsClient_SpeakWithLacrosVoice_Name, kFlags, 0, 0, nullptr);
@@ -1518,14 +1547,17 @@ void TtsClientProxy::Stop(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsClient_Stop_Name, kFlags, 0, 0, nullptr);
@@ -1566,14 +1598,17 @@ void TtsClientProxy::Pause(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsClient_Pause_Name, kFlags, 0, 0, nullptr);
@@ -1614,14 +1649,17 @@ void TtsClientProxy::Resume(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsClient_Resume_Name, kFlags, 0, 0, nullptr);
@@ -1826,18 +1864,18 @@ bool TtsClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTtsClientValidationInfo[] = {
-    {&internal::TtsClient_VoicesChanged_Params_Data::Validate,
+    { &internal::TtsClient_VoicesChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsClient_SpeakWithLacrosVoice_Params_Data::Validate,
+    { &internal::TtsClient_SpeakWithLacrosVoice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsClient_Stop_Params_Data::Validate,
+    { &internal::TtsClient_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsClient_Pause_Params_Data::Validate,
+    { &internal::TtsClient_Pause_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TtsClient_Resume_Params_Data::Validate,
+    { &internal::TtsClient_Resume_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1927,14 +1965,17 @@ void TtsUtteranceClientProxy::OnTtsEvent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTtsUtteranceClient_OnTtsEvent_Name, kFlags, 0, 0, nullptr);
@@ -2029,10 +2070,10 @@ bool TtsUtteranceClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTtsUtteranceClientValidationInfo[] = {
-    {&internal::TtsUtteranceClient_OnTtsEvent_Params_Data::Validate,
+    { &internal::TtsUtteranceClient_OnTtsEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 

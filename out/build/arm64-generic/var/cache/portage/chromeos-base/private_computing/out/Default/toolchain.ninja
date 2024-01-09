@@ -34,15 +34,14 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/private_computing/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/private_computing/_private_computingd-install_config.stamp: stamp
-build obj/private_computing/all.stamp: stamp obj/private_computing/dbus_adaptors_generator.stamp obj/private_computing/install_init.stamp obj/private_computing/install_minijail_conf.stamp obj/private_computing/install_service.stamp obj/private_computing/install_systemd.stamp ./private_computingd ./private_computing_test
+build obj/private_computing/all.stamp: stamp obj/private_computing/dbus_adaptors_generator.stamp obj/private_computing/install_init.stamp obj/private_computing/install_minijail_conf.stamp obj/private_computing/install_service.stamp obj/private_computing/install_systemd.stamp ./private_computingd
 rule __private_computing_dbus_adaptors_generator___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/private_computing/out/Default/gen/include/private_computing/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/private_computing/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/private_computing-0.0.1-r171/work/private_computing-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/private_computing/out/Default/gen/include/private_computing/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/private_computing-0.0.1-r171/work/private_computing-0.0.1/private_computing/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //private_computing:dbus_adaptors_generator(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/private_computing/org.chromium.PrivateComputing.h: __private_computing_dbus_adaptors_generator___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/private_computing/dbus_bindings/org.chromium.PrivateComputing.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+build gen/include/private_computing/org.chromium.PrivateComputing.h: __private_computing_dbus_adaptors_generator___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/private_computing-0.0.1-r171/work/private_computing-0.0.1/private_computing/dbus_bindings/org.chromium.PrivateComputing.xml | ../../../../../../../tmp/portage/chromeos-base/private_computing-0.0.1-r171/work/private_computing-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.PrivateComputing
 
 build obj/private_computing/dbus_adaptors_generator.stamp: stamp gen/include/private_computing/org.chromium.PrivateComputing.h
@@ -51,5 +50,4 @@ build obj/private_computing/install_minijail_conf.stamp: stamp
 build obj/private_computing/install_service.stamp: stamp
 build obj/private_computing/install_systemd.stamp: stamp
 subninja obj/private_computing/private_computing_lib.ninja
-subninja obj/private_computing/private_computing_test.ninja
 subninja obj/private_computing/private_computingd.ninja

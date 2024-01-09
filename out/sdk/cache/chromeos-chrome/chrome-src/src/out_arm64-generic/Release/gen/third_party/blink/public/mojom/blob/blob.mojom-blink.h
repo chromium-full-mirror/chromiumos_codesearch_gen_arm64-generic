@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/blob/blob.mojom-features.h"
 #include "third_party/blink/public/mojom/blob/blob.mojom-shared.h"
 #include "third_party/blink/public/mojom/blob/blob.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom-blink.h"
@@ -188,16 +189,16 @@ class PLATFORM_EXPORT Blob
   virtual void Load(::mojo::PendingReceiver<::network::mojom::blink::URLLoader> loader, const WTF::String& request_method, const ::net::HttpRequestHeaders& headers, ::mojo::PendingRemote<::network::mojom::blink::URLLoaderClient> client) = 0;
 
 
-  using ReadSideDataCallback = base::OnceCallback<void(absl::optional<::mojo_base::BigBuffer>)>;
+  using ReadSideDataCallback = base::OnceCallback<void(std::optional<::mojo_base::BigBuffer>)>;
   
   virtual void ReadSideData(ReadSideDataCallback callback) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool CaptureSnapshot(uint64_t* out_length, absl::optional<::base::Time>* out_modification_time);
+  virtual bool CaptureSnapshot(uint64_t* out_length, std::optional<::base::Time>* out_modification_time);
 
-  using CaptureSnapshotCallback = base::OnceCallback<void(uint64_t, absl::optional<::base::Time>)>;
+  using CaptureSnapshotCallback = base::OnceCallback<void(uint64_t, std::optional<::base::Time>)>;
   
   virtual void CaptureSnapshot(CaptureSnapshotCallback callback) = 0;
 
@@ -245,7 +246,7 @@ class PLATFORM_EXPORT BlobProxy
   
   void ReadSideData(ReadSideDataCallback callback) final;
   
-  bool CaptureSnapshot(uint64_t* out_length, absl::optional<::base::Time>* out_modification_time) final;
+  bool CaptureSnapshot(uint64_t* out_length, std::optional<::base::Time>* out_modification_time) final;
   
   void CaptureSnapshot(CaptureSnapshotCallback callback) final;
   

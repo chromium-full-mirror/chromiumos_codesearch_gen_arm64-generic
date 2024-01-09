@@ -29,8 +29,6 @@ enum class TrackedDeviceClass : int32_t;
 enum class ControllerRole : int32_t;
 
 enum class EventType : int32_t;
-
-enum class InteractionProfileType : int32_t;
 class XRTestHookInterfaceBase;
 class XRServiceTestHookInterfaceBase;
 
@@ -44,7 +42,6 @@ using Eye = Eye;
 using TrackedDeviceClass = TrackedDeviceClass;
 using ControllerRole = ControllerRole;
 using EventType = EventType;
-using InteractionProfileType = InteractionProfileType;
 using XRTestHookInterfaceBase = XRTestHookInterfaceBase;
 using XRServiceTestHookInterfaceBase = XRServiceTestHookInterfaceBase;
 class Color;

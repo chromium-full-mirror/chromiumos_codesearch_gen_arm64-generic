@@ -21,7 +21,7 @@ import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_eleme
 import { CrScrollableMixin } from 'chrome://resources/cr_elements/cr_scrollable_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './user_list.html.js';
 const SettingsUserListElementBase = RouteObserverMixin(I18nMixin(CrScrollableMixin(PolymerElement)));
@@ -83,7 +83,7 @@ export class SettingsUserListElement extends SettingsUserListElementBase {
     }
     setUsers_(users) {
         this.users_ = users;
-        this.users_.sort(function (a, b) {
+        this.users_.sort((a, b) => {
             if (a.isOwner !== b.isOwner) {
                 return b.isOwner ? 1 : -1;
             }

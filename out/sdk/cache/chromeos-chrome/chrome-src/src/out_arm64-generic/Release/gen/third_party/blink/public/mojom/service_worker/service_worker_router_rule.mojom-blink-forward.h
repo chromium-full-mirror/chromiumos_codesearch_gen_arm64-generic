@@ -36,11 +36,11 @@ using ServiceWorkerRouterRunningStatusConditionPtr = mojo::InlinedStructPtr<Serv
 class ServiceWorkerRouterRequestCondition;
 using ServiceWorkerRouterRequestConditionPtr = mojo::StructPtr<ServiceWorkerRouterRequestCondition>;
 
-class ServiceWorkerRouterConditionObject;
-using ServiceWorkerRouterConditionObjectPtr = mojo::StructPtr<ServiceWorkerRouterConditionObject>;
-
 class ServiceWorkerRouterOrCondition;
 using ServiceWorkerRouterOrConditionPtr = mojo::StructPtr<ServiceWorkerRouterOrCondition>;
+
+class ServiceWorkerRouterCondition;
+using ServiceWorkerRouterConditionPtr = mojo::StructPtr<ServiceWorkerRouterCondition>;
 
 class ServiceWorkerRouterNetworkSource;
 using ServiceWorkerRouterNetworkSourcePtr = mojo::InlinedStructPtr<ServiceWorkerRouterNetworkSource>;
@@ -59,10 +59,6 @@ using ServiceWorkerRouterRulePtr = mojo::StructPtr<ServiceWorkerRouterRule>;
 
 class ServiceWorkerRouterRules;
 using ServiceWorkerRouterRulesPtr = mojo::StructPtr<ServiceWorkerRouterRules>;
-
-class ServiceWorkerRouterCondition;
-
-using ServiceWorkerRouterConditionPtr = mojo::StructPtr<ServiceWorkerRouterCondition>;
 
 class ServiceWorkerRouterSource;
 

@@ -4,6 +4,8 @@
 import { assert, assertEnumVariant, assertExists, assertInstanceof, } from '../assert.js';
 import { TIME_LAPSE_INITIAL_SPEED } from '../device/mode/video.js';
 import * as dom from '../dom.js';
+import { GalleryButton } from '../lit/components/gallery-button.js';
+import { ModeSelector } from '../lit/components/mode-selector.js';
 import * as localStorage from '../models/local_storage.js';
 import { TIME_LAPSE_MAX_DURATION, TimeLapseSaver, } from '../models/video_saver.js';
 import { ChromeHelper } from '../mojo/chrome_helper.js';
@@ -127,6 +129,21 @@ export class CCATest {
         }
         this.visitedFocusedElementSet.add(focused);
         return false;
+    }
+    /**
+     * Chooses a video resolution with the specified resolution for the camera
+     * with |facing| facing. Throws an error if there is no specified resolution.
+     */
+    static chooseVideoResolution(facing, resolution) {
+        const { width, height } = resolution;
+        const selector = `#view-video-resolution-settings .menu-item>input[data-facing="${facing}"][data-width="${width}"][data-height="${height}"]`;
+        try {
+            const resolutionPicker = dom.get(selector, HTMLInputElement);
+            resolutionPicker.click();
+        }
+        catch {
+            throw new Error(`Cannot find a resolution`);
+        }
     }
     /**
      * Returns aria-label of the focused element. Throws an error if a focused
@@ -305,6 +322,13 @@ export class CCATest {
         return duration;
     }
     /**
+     * Gets the cover image URL of the gallery button.
+     */
+    static getGalleryButtonCoverURL() {
+        const galleryButton = assertInstanceof(resolveElement('galleryButton'), GalleryButton);
+        return galleryButton.getCoverURLForTesting();
+    }
+    /**
      * Performs mouse hold by sending pointerdown and pointerup events.
      */
     static async hold(component, ms, index) {
@@ -403,9 +427,9 @@ export class CCATest {
      */
     static switchMode(mode) {
         assertEnumVariant(Mode, mode);
-        const modeSelector = dom.get(`.mode-item>input[data-mode="${mode}"]`, HTMLInputElement);
+        const modeSelector = dom.get(SELECTOR_MAP.modeSelector, ModeSelector);
         assert(isVisibleElement(modeSelector), 'Mode selector is not visible');
-        modeSelector.click();
+        modeSelector.changeModeForTesting(mode);
     }
     /**
      * Removes all the cached data in chrome.storage.local.

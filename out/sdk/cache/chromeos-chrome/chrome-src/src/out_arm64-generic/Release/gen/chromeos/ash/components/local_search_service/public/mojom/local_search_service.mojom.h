@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/components/local_search_service/public/mojom/local_search_service.mojom-features.h"
 #include "chromeos/ash/components/local_search_service/public/mojom/local_search_service.mojom-shared.h"
 #include "chromeos/ash/components/local_search_service/public/mojom/local_search_service.mojom-forward.h"
 #include "chromeos/ash/components/local_search_service/public/mojom/index.mojom-forward.h"
@@ -134,7 +135,7 @@ class LocalSearchService
   virtual ~LocalSearchService() = default;
 
 
-  using BindIndexCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using BindIndexCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void BindIndex(::ash::local_search_service::IndexId index_id, ::ash::local_search_service::Backend backend, ::mojo::PendingReceiver<::ash::local_search_service::mojom::Index> index_receiver, ::mojo::PendingRemote<SearchMetricsReporter> reporter_remote, BindIndexCallback callback) = 0;
 };

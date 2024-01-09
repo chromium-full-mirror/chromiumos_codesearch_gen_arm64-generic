@@ -1,13 +1,8 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
-import { VolumeManagerCommon } from '../../../../common/js/volume_manager_types.js';
-import { HoldingSpaceUtil } from '../../holding_space_util.js';
+import { RootType, VolumeType } from '../../../../common/js/volume_manager_types.js';
+import { getAllowedVolumeTypes, maybeStoreTimeOfFirstWelcomeBannerShow } from '../../holding_space_util.js';
 import { EducationalBanner } from './educational_banner.js';
 import { getTemplate } from './holding_space_welcome_banner.html.js';
 /**
@@ -34,11 +29,11 @@ export class HoldingSpaceWelcomeBanner extends EducationalBanner {
      * at HoldingSpaceUtil.
      */
     allowedVolumes() {
-        return HoldingSpaceUtil.getAllowedVolumeTypes().map((type) => {
-            if (type === VolumeManagerCommon.VolumeType.DRIVE) {
+        return getAllowedVolumeTypes().map((type) => {
+            if (type === VolumeType.DRIVE) {
                 return {
-                    type: VolumeManagerCommon.VolumeType.DRIVE,
-                    root: VolumeManagerCommon.RootType.DRIVE,
+                    type: VolumeType.DRIVE,
+                    root: RootType.DRIVE,
                 };
             }
             return { type: type };
@@ -48,7 +43,7 @@ export class HoldingSpaceWelcomeBanner extends EducationalBanner {
      * Store the time the banner was first shown.
      */
     onShow() {
-        HoldingSpaceUtil.maybeStoreTimeOfFirstWelcomeBannerShow();
+        maybeStoreTimeOfFirstWelcomeBannerShow();
     }
 }
 customElements.define(TAG_NAME, HoldingSpaceWelcomeBanner);

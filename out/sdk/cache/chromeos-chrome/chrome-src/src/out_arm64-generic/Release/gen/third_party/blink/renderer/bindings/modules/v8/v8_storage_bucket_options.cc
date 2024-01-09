@@ -68,11 +68,19 @@ return dictionary;
 
 
 
+
+
+
+
+
+
+
+
 void StorageBucketOptions::Trace(Visitor* visitor) const {
-  TraceIfNeeded<absl::optional<V8StorageBucketDurability>>::Trace(visitor, member_durability_);
-TraceIfNeeded<absl::optional<double>>::Trace(visitor, member_expires_);
-TraceIfNeeded<absl::optional<bool>>::Trace(visitor, member_persisted_);
-TraceIfNeeded<absl::optional<uint64_t>>::Trace(visitor, member_quota_);
+  TraceIfNeeded<V8StorageBucketDurability>::Trace(visitor, member_durability_);
+TraceIfNeeded<double>::Trace(visitor, member_expires_);
+TraceIfNeeded<bool>::Trace(visitor, member_persisted_);
+TraceIfNeeded<uint64_t>::Trace(visitor, member_quota_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
@@ -84,7 +92,7 @@ const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 bool was_property_created;
 if (RuntimeEnabledFeatures::StorageBucketsDurabilityEnabled()) {
   if (hasDurability()) {
-  if (!ToV8Traits<IDLNullable<V8StorageBucketDurability>>::ToV8(script_state, member_durability_).ToLocal(&v8_value)) {
+  if (!ToV8Traits<V8StorageBucketDurability>::ToV8(script_state, member_durability_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
@@ -93,7 +101,7 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].G
 }
 }
 if (hasExpires()) {
-  if (!ToV8Traits<IDLNullable<IDLDouble>>::ToV8(script_state, member_expires_).ToLocal(&v8_value)) {
+  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_expires_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
@@ -101,7 +109,7 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].G
 }
 }
 if (hasPersisted()) {
-  if (!ToV8Traits<IDLNullable<IDLBoolean>>::ToV8(script_state, member_persisted_).ToLocal(&v8_value)) {
+  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_persisted_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
@@ -109,7 +117,7 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].G
 }
 }
 if (hasQuota()) {
-  if (!ToV8Traits<IDLNullable<IDLUnsignedLongLongEnforceRange>>::ToV8(script_state, member_quota_).ToLocal(&v8_value)) {
+  if (!ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_quota_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
@@ -125,24 +133,23 @@ ExceptionState::ContextScope exception_context_scope(ExceptionContext(ExceptionC
 constexpr bool is_optional = false;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool fallback_presence_var;
 v8::TryCatch try_block(isolate);
 if (RuntimeEnabledFeatures::StorageBucketsDurabilityEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("durability");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<V8StorageBucketDurability>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), fallback_presence_var, member_durability_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8StorageBucketDurability, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_durability_, member_durability_, try_block, exception_state)) {
   return;
 }
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("expires");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<IDLDouble>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_expires_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_expires_, member_expires_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("persisted");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<IDLBoolean>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_persisted_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_persisted_, member_persisted_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("quota");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<IDLUnsignedLongLongEnforceRange>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_quota_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLongLongEnforceRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_quota_, member_quota_, try_block, exception_state)) {
   return;
 }
 }

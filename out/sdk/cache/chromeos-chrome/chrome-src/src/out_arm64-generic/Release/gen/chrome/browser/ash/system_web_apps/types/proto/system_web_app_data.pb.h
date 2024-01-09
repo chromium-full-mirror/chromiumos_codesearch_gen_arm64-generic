@@ -75,11 +75,12 @@ enum SystemWebAppDataProto_SystemWebAppType : int {
   SystemWebAppDataProto_SystemWebAppType_OS_URL_HANDLER = 21,
   SystemWebAppDataProto_SystemWebAppType_FIRMWARE_UPDATE = 22,
   SystemWebAppDataProto_SystemWebAppType_OS_FLAGS = 23,
-  SystemWebAppDataProto_SystemWebAppType_FACE_ML = 24
+  SystemWebAppDataProto_SystemWebAppType_FACE_ML = 24,
+  SystemWebAppDataProto_SystemWebAppType_VC_BACKGROUND = 25
 };
 bool SystemWebAppDataProto_SystemWebAppType_IsValid(int value);
 constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto_SystemWebAppType_SystemWebAppType_MIN = SystemWebAppDataProto_SystemWebAppType_FILE_MANAGER;
-constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto_SystemWebAppType_SystemWebAppType_MAX = SystemWebAppDataProto_SystemWebAppType_FACE_ML;
+constexpr SystemWebAppDataProto_SystemWebAppType SystemWebAppDataProto_SystemWebAppType_SystemWebAppType_MAX = SystemWebAppDataProto_SystemWebAppType_VC_BACKGROUND;
 constexpr int SystemWebAppDataProto_SystemWebAppType_SystemWebAppType_ARRAYSIZE = SystemWebAppDataProto_SystemWebAppType_SystemWebAppType_MAX + 1;
 
 const std::string& SystemWebAppDataProto_SystemWebAppType_Name(SystemWebAppDataProto_SystemWebAppType value);
@@ -248,6 +249,8 @@ class SystemWebAppDataProto final :
     SystemWebAppDataProto_SystemWebAppType_OS_FLAGS;
   static constexpr SystemWebAppType FACE_ML =
     SystemWebAppDataProto_SystemWebAppType_FACE_ML;
+  static constexpr SystemWebAppType VC_BACKGROUND =
+    SystemWebAppDataProto_SystemWebAppType_VC_BACKGROUND;
   static inline bool SystemWebAppType_IsValid(int value) {
     return SystemWebAppDataProto_SystemWebAppType_IsValid(value);
   }

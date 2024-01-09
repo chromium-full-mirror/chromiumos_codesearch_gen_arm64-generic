@@ -12,17 +12,17 @@ const console_helpers_js_1 = require("../helpers/console-helpers.js");
         await (0, console_helpers_js_1.navigateToConsoleTab)();
         await (0, helper_js_1.goToResource)('issues/cors-issue-2.html');
         const issueLinkIcon = await (0, helper_js_1.waitFor)('devtools-issue-link-icon');
-        const devtoolsIcon = await (0, helper_js_1.waitFor)('devtools-icon', issueLinkIcon);
+        const button = await (0, helper_js_1.waitFor)('button', issueLinkIcon);
         // There are several TypeErrors in the console, we don't care which one we get.
         const issueTitleFromLink = await (0, helper_js_1.waitForFunction)(async () => {
-            const title = await devtoolsIcon.evaluate(el => el.title);
+            const title = await button.evaluate(el => el.title);
             const titleStart = 'Click to open the issue tab and show issue: ';
             if (title.startsWith(titleStart)) {
                 return title.substr(titleStart.length);
             }
             return undefined;
         });
-        await (0, helper_js_1.click)('devtools-issue-link-icon');
+        await (0, helper_js_1.click)('button', { root: issueLinkIcon });
         const selectedIssueTitleElement = await (0, helper_js_1.waitFor)('li.issue.expanded.selected');
         const selectedIssueTitle = await selectedIssueTitleElement.evaluate(el => el.textContent);
         // The '1' is the number of issues aggregated.

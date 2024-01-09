@@ -45,6 +45,8 @@ enum class ReportingDestination : int32_t;
 enum class DeprecatedFencedFrameMode : int32_t;
 
 enum class Opaque : int32_t;
+
+enum class AutomaticBeaconType : int32_t;
 class AdAuctionData;
 using AdAuctionDataPtr = mojo::StructPtr<AdAuctionData>;
 

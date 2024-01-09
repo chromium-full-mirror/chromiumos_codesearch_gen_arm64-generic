@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLBaseElement>::value,
     "HTMLBaseElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLBaseElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLBaseElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLBaseElement.href.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLBaseElement* blink_receiver = V8HTMLBaseElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->href();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLBaseElement* blink_receiver = V8HTMLBaseElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -112,7 +107,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLBaseElement* blink_receiver = V8HTMLBaseElement::ToWrappableUnsafe(v8_receiver);
+HTMLBaseElement* blink_receiver = V8HTMLBaseElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -129,10 +124,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLBaseElement.target.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLBaseElement* blink_receiver = V8HTMLBaseElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTargetAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLBaseElement* blink_receiver = V8HTMLBaseElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kTargetAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

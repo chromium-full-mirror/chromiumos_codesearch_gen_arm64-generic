@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/common/pepper_plugin.mojom-features.h"
 #include "content/common/pepper_plugin.mojom-shared.h"
 #include "content/common/pepper_plugin.mojom-forward.h"
 #include "content/public/common/webplugininfo.mojom.h"
@@ -155,11 +156,11 @@ class CONTENT_EXPORT PepperHost
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const absl::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id);
+  virtual bool OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const std::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id);
 
   using OpenChannelToPepperPluginCallback = base::OnceCallback<void(::mojo::ScopedMessagePipeHandle, ::base::ProcessId, int32_t)>;
   
-  virtual void OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const absl::optional<::url::Origin>& origin_lock, OpenChannelToPepperPluginCallback callback) = 0;
+  virtual void OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const std::optional<::url::Origin>& origin_lock, OpenChannelToPepperPluginCallback callback) = 0;
 };
 
 class PepperHungDetectorHostProxy;
@@ -338,9 +339,9 @@ class CONTENT_EXPORT PepperHostProxy
   
   void DidDeleteOutOfProcessPepperInstance(int32_t plugin_child_id, int32_t pp_instance, bool is_external) final;
   
-  bool OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const absl::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id) final;
+  bool OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const std::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id) final;
   
-  void OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const absl::optional<::url::Origin>& origin_lock, OpenChannelToPepperPluginCallback callback) final;
+  void OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const std::optional<::url::Origin>& origin_lock, OpenChannelToPepperPluginCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

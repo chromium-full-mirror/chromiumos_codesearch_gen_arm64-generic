@@ -15,7 +15,7 @@ namespace page_load_metrics::mojom {
 
 class  PageLoadMetricsInterceptorForTesting : public PageLoadMetrics {
   virtual PageLoadMetrics* GetForwardingInterface() = 0;
-  void UpdateTiming(PageLoadTimingPtr page_load_timing, FrameMetadataPtr frame_metadata, const std::vector<::blink::UseCounterFeature>& new_features, std::vector<ResourceDataUpdatePtr> resources, FrameRenderDataUpdatePtr render_data, CpuTimingPtr cpu_load_timing, InputTimingPtr input_timing_delta, const absl::optional<::blink::SubresourceLoadMetrics>& subresource_load_metrics, SoftNavigationMetricsPtr soft_navigation_metrics) override;
+  void UpdateTiming(PageLoadTimingPtr page_load_timing, FrameMetadataPtr frame_metadata, const std::vector<::blink::UseCounterFeature>& new_features, std::vector<ResourceDataUpdatePtr> resources, FrameRenderDataUpdatePtr render_data, CpuTimingPtr cpu_load_timing, InputTimingPtr input_timing_delta, const std::optional<::blink::SubresourceLoadMetrics>& subresource_load_metrics, SoftNavigationMetricsPtr soft_navigation_metrics) override;
   void SetUpSharedMemoryForSmoothness(::base::ReadOnlySharedMemoryRegion shared_memory) override;
 };
 class  PageLoadMetricsAsyncWaiter {

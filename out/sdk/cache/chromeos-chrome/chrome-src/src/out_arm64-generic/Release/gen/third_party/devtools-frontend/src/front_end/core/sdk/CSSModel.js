@@ -254,6 +254,7 @@ export class CSSModel extends SDKModel {
             positionFallbackRules: response.cssPositionFallbackRules || [],
             propertyRules: response.cssPropertyRules ?? [],
             cssPropertyRegistrations: response.cssPropertyRegistrations ?? [],
+            fontPaletteValuesRule: response.cssFontPaletteValuesRule,
         });
     }
     async getClassNames(styleSheetId) {

@@ -5,15 +5,24 @@
  * @fileoverview A polymer component that displays user input to search for
  * SeaPen wallpapers.
  */
+import 'chrome://resources/ash/common/sea_pen/sea_pen_icons.html.js';
+import 'chrome://resources/ash/common/personalization_shared_icons.html.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
+import 'chrome://resources/polymer/v3_0/iron-iconset-svg/iron-iconset-svg.js';
+import '../../../css/wallpaper.css.js';
+import '../../../css/cros_button_style.css.js';
+import { MAXIMUM_SEARCH_WALLPAPER_TEXT_BYTES } from 'chrome://resources/ash/common/sea_pen/sea_pen.mojom-webui.js';
 import { assert } from 'chrome://resources/js/assert.js';
-import { PersonalizationRouterElement } from '../../personalization_router_element.js';
-import { WithPersonalizationStore } from '../../personalization_store.js';
-import { QUERY } from '../utils.js';
-import { searchImageThumbnails } from '../wallpaper_controller.js';
+import { QUERY } from './constants.js';
+import { isSeaPenTextInputEnabled } from './load_time_booleans.js';
+import { searchSeaPenThumbnails } from './sea_pen_controller.js';
 import { getTemplate } from './sea_pen_input_query_element.html.js';
-export class SeaPenInputQueryElement extends WithPersonalizationStore {
+import { getSeaPenProvider } from './sea_pen_interface_provider.js';
+import { SeaPenPaths, SeaPenRouterElement } from './sea_pen_router_element.js';
+import { WithSeaPenStore } from './sea_pen_store.js';
+export class SeaPenInputQueryElement extends WithSeaPenStore {
     static get is() {
         return 'sea-pen-input-query';
     }
@@ -22,21 +31,46 @@ export class SeaPenInputQueryElement extends WithPersonalizationStore {
     }
     static get properties() {
         return {
+            path: String,
             textValue_: String,
-            query_: String,
             thumbnailsLoading_: Boolean,
+            maxTextLength_: {
+                type: Number,
+                value: Math.floor(MAXIMUM_SEARCH_WALLPAPER_TEXT_BYTES / 3),
+            },
         };
     }
     connectedCallback() {
+        assert(isSeaPenTextInputEnabled(), 'sea pen text input must be enabled');
         super.connectedCallback();
-        this.watch('query_', state => state.wallpaper.seaPen.query);
-        this.watch('thumbnailsLoading_', state => state.wallpaper.seaPen.thumbnailsLoading);
+        this.watch('thumbnailsLoading_', state => state.loading.thumbnails);
         this.updateFromStore();
     }
     onClickInputQuerySearchButton_() {
         assert(this.textValue_, 'input query should not be empty.');
-        searchImageThumbnails(this.textValue_, this.getStore());
-        PersonalizationRouterElement.instance().selectSeaPenTemplate(QUERY);
+        const query = {
+            textQuery: this.textValue_,
+        };
+        searchSeaPenThumbnails(query, getSeaPenProvider(), this.getStore());
+        SeaPenRouterElement.instance().goToRoute(SeaPenPaths.RESULTS, { seaPenTemplateId: QUERY });
+    }
+    getSearchButtonText_(path) {
+        switch (path) {
+            case SeaPenPaths.RESULTS:
+                return this.i18n('seaPenRecreateButton');
+            case SeaPenPaths.ROOT:
+            default:
+                return this.i18n('seaPenCreateButton');
+        }
+    }
+    getSearchButtonIcon_(path) {
+        switch (path) {
+            case SeaPenPaths.RESULTS:
+                return 'personalization-shared:refresh';
+            case SeaPenPaths.ROOT:
+            default:
+                return 'sea-pen:photo-spark';
+        }
     }
 }
 customElements.define(SeaPenInputQueryElement.is, SeaPenInputQueryElement);

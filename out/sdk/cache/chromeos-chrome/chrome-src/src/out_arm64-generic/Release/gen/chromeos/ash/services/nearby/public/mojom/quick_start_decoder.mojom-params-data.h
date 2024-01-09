@@ -137,7 +137,7 @@ static_assert(
     return mojo::internal::Deserialize<::ash::quick_start::mojom::QuickStartDecoderError>(
         data_->error_$value, &output->emplace());
   }
-  absl::optional<::ash::quick_start::mojom::QuickStartDecoderError> error() const {
+  std::optional<::ash::quick_start::mojom::QuickStartDecoderError> error() const {
     if (!data_->error_$flag) {
       return absl::nullopt;
     }

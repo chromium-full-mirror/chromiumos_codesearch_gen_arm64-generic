@@ -15,7 +15,7 @@ namespace autofill::mojom {
 
 class  AutofillDriverInterceptorForTesting : public AutofillDriver {
   virtual AutofillDriver* GetForwardingInterface() = 0;
-  void SetFormToBeProbablySubmitted(const absl::optional<::autofill::FormData>& form) override;
+  void SetFormToBeProbablySubmitted(const std::optional<::autofill::FormData>& form) override;
   void FormsSeen(const std::vector<::autofill::FormData>& updated_forms, const std::vector<::autofill::FormRendererId>& removed_forms) override;
   void FormSubmitted(const ::autofill::FormData& form, bool known_success, ::autofill::mojom::SubmissionSource source) override;
   void TextFieldDidChange(const ::autofill::FormData& form, const ::autofill::FormFieldData& field, const ::gfx::RectF& bounding_box, ::base::TimeTicks timestamp) override;

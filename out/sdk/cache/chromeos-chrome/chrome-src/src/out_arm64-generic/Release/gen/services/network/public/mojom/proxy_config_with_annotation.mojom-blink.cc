@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -191,14 +192,17 @@ void ProxyConfigClientProxy::OnProxyConfigUpdated(
                         "<value of type ProxyConfigWithAnnotationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyConfigClient_OnProxyConfigUpdated_Name, kFlags, 0, 0, nullptr);
@@ -232,14 +236,17 @@ void ProxyConfigClientProxy::FlushProxyConfig(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::ProxyConfigClient::FlushProxyConfig");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyConfigClient_FlushProxyConfig_Name, kFlags, 0, 0, nullptr);
@@ -338,7 +345,8 @@ void ProxyConfigClient_FlushProxyConfig_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyConfigClient_FlushProxyConfig_Name, kFlags, 0, 0, nullptr);
@@ -442,12 +450,12 @@ bool ProxyConfigClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyConfigClientValidationInfo[] = {
-    {&internal::ProxyConfigClient_OnProxyConfigUpdated_Params_Data::Validate,
+    { &internal::ProxyConfigClient_OnProxyConfigUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProxyConfigClient_FlushProxyConfig_Params_Data::Validate,
+    { &internal::ProxyConfigClient_FlushProxyConfig_Params_Data::Validate,
      &internal::ProxyConfigClient_FlushProxyConfig_ResponseParams_Data::Validate},
 };
 
@@ -524,14 +532,17 @@ void ProxyConfigPollerClientProxy::OnLazyProxyConfigPoll(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::ProxyConfigPollerClient::OnLazyProxyConfigPoll");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyConfigPollerClient_OnLazyProxyConfigPoll_Name, kFlags, 0, 0, nullptr);
@@ -595,10 +606,10 @@ bool ProxyConfigPollerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyConfigPollerClientValidationInfo[] = {
-    {&internal::ProxyConfigPollerClient_OnLazyProxyConfigPoll_Params_Data::Validate,
+    { &internal::ProxyConfigPollerClient_OnLazyProxyConfigPoll_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -701,14 +712,17 @@ void ProxyErrorClientProxy::OnPACScriptError(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyErrorClient_OnPACScriptError_Name, kFlags, 0, 0, nullptr);
@@ -750,14 +764,17 @@ void ProxyErrorClientProxy::OnRequestMaybeFailedDueToProxySettings(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyErrorClient_OnRequestMaybeFailedDueToProxySettings_Name, kFlags, 0, 0, nullptr);
@@ -859,12 +876,12 @@ bool ProxyErrorClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyErrorClientValidationInfo[] = {
-    {&internal::ProxyErrorClient_OnPACScriptError_Params_Data::Validate,
+    { &internal::ProxyErrorClient_OnPACScriptError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProxyErrorClient_OnRequestMaybeFailedDueToProxySettings_Params_Data::Validate,
+    { &internal::ProxyErrorClient_OnRequestMaybeFailedDueToProxySettings_Params_Data::Validate,
      nullptr /* no response */},
 };
 

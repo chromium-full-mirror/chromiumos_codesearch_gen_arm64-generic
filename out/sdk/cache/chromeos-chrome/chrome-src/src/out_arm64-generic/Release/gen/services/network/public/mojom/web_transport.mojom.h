@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/web_transport.mojom-features.h"
 #include "services/network/public/mojom/web_transport.mojom-shared.h"
 #include "services/network/public/mojom/web_transport.mojom-forward.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom.h"
@@ -290,7 +291,7 @@ class WebTransportHandshakeClient
   virtual void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers) = 0;
 
   
-  virtual void OnHandshakeFailed(const absl::optional<::net::WebTransportError>& error) = 0;
+  virtual void OnHandshakeFailed(const std::optional<::net::WebTransportError>& error) = 0;
 };
 
 
@@ -362,7 +363,7 @@ class  WebTransportHandshakeClientProxy
   
   void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers) final;
   
-  void OnHandshakeFailed(const absl::optional<::net::WebTransportError>& error) final;
+  void OnHandshakeFailed(const std::optional<::net::WebTransportError>& error) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

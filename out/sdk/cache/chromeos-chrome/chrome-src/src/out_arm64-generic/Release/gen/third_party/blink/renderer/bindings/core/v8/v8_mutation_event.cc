@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MutationEvent>::value,
     "MutationEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MutationEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MutationEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("MutationEvent.relatedNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(v8_receiver);
+MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->relatedNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,10 +99,10 @@ BLINK_BINDINGS_TRACE_EVENT("MutationEvent.prevValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->prevValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->prevValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -118,10 +114,10 @@ BLINK_BINDINGS_TRACE_EVENT("MutationEvent.newValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->newValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->newValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -133,10 +129,10 @@ BLINK_BINDINGS_TRACE_EVENT("MutationEvent.attrName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->attrName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->attrName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -148,8 +144,9 @@ BLINK_BINDINGS_TRACE_EVENT("MutationEvent.attrChange.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(v8_receiver);
+MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->attrChange();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -162,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("MutationEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(v8_receiver);
+MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -189,7 +187,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MutationEvent_InitMu
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(v8_receiver);
+MutationEvent* blink_receiver = V8MutationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MutationEvent";

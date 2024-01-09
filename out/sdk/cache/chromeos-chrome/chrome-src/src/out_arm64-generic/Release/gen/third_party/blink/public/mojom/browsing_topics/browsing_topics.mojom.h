@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/browsing_topics/browsing_topics.mojom-features.h"
 #include "third_party/blink/public/mojom/browsing_topics/browsing_topics.mojom-shared.h"
 #include "third_party/blink/public/mojom/browsing_topics/browsing_topics.mojom-forward.h"
 #include <string>
@@ -175,17 +176,17 @@ class BLINK_COMMON_EXPORT GetBrowsingTopicsResult {
   // Construct an instance holding |error_message|.
   static GetBrowsingTopicsResultPtr
   NewErrorMessage(
-      const std::string& error_message) {
+      const std::string& value) {
     auto result = GetBrowsingTopicsResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
   // Construct an instance holding |browsing_topics|.
   static GetBrowsingTopicsResultPtr
   NewBrowsingTopics(
-      std::vector<EpochTopicPtr> browsing_topics) {
+      std::vector<EpochTopicPtr> value) {
     auto result = GetBrowsingTopicsResultPtr(absl::in_place);
-    result->set_browsing_topics(std::move(browsing_topics));
+    result->set_browsing_topics(std::move(value));
     return result;
   }
 

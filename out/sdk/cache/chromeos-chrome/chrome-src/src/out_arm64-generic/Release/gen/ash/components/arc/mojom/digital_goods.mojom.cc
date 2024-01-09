@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -404,14 +405,17 @@ void DigitalGoodsInstanceProxy::GetDetails(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_GetDetails_Name, kFlags, 0, 0, nullptr);
@@ -486,14 +490,17 @@ void DigitalGoodsInstanceProxy::Acknowledge(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_Acknowledge_Name, kFlags, 0, 0, nullptr);
@@ -561,14 +568,17 @@ void DigitalGoodsInstanceProxy::DeprecatedListPurchases(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_DeprecatedListPurchases_Name, kFlags, 0, 0, nullptr);
@@ -624,14 +634,17 @@ void DigitalGoodsInstanceProxy::ListPurchases(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_ListPurchases_Name, kFlags, 0, 0, nullptr);
@@ -687,14 +700,17 @@ void DigitalGoodsInstanceProxy::ListPurchaseHistory(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_ListPurchaseHistory_Name, kFlags, 0, 0, nullptr);
@@ -753,14 +769,17 @@ void DigitalGoodsInstanceProxy::Consume(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_Consume_Name, kFlags, 0, 0, nullptr);
@@ -910,7 +929,8 @@ void DigitalGoodsInstance_GetDetails_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_GetDetails_Name, kFlags, 0, 0, nullptr);
@@ -1042,7 +1062,8 @@ void DigitalGoodsInstance_Acknowledge_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_Acknowledge_Name, kFlags, 0, 0, nullptr);
@@ -1168,7 +1189,8 @@ void DigitalGoodsInstance_DeprecatedListPurchases_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_DeprecatedListPurchases_Name, kFlags, 0, 0, nullptr);
@@ -1307,7 +1329,8 @@ void DigitalGoodsInstance_ListPurchases_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_ListPurchases_Name, kFlags, 0, 0, nullptr);
@@ -1446,7 +1469,8 @@ void DigitalGoodsInstance_ListPurchaseHistory_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_ListPurchaseHistory_Name, kFlags, 0, 0, nullptr);
@@ -1578,7 +1602,8 @@ void DigitalGoodsInstance_Consume_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDigitalGoodsInstance_Consume_Name, kFlags, 0, 0, nullptr);
@@ -1859,20 +1884,20 @@ std::move(p_purchase_token), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDigitalGoodsInstanceValidationInfo[] = {
-    {&internal::DigitalGoodsInstance_GetDetails_Params_Data::Validate,
+    { &internal::DigitalGoodsInstance_GetDetails_Params_Data::Validate,
      &internal::DigitalGoodsInstance_GetDetails_ResponseParams_Data::Validate},
-    {&internal::DigitalGoodsInstance_Acknowledge_Params_Data::Validate,
+    { &internal::DigitalGoodsInstance_Acknowledge_Params_Data::Validate,
      &internal::DigitalGoodsInstance_Acknowledge_ResponseParams_Data::Validate},
-    {&internal::DigitalGoodsInstance_DeprecatedListPurchases_Params_Data::Validate,
+    { &internal::DigitalGoodsInstance_DeprecatedListPurchases_Params_Data::Validate,
      &internal::DigitalGoodsInstance_DeprecatedListPurchases_ResponseParams_Data::Validate},
-    {&internal::DigitalGoodsInstance_ListPurchases_Params_Data::Validate,
+    { &internal::DigitalGoodsInstance_ListPurchases_Params_Data::Validate,
      &internal::DigitalGoodsInstance_ListPurchases_ResponseParams_Data::Validate},
-    {&internal::DigitalGoodsInstance_ListPurchaseHistory_Params_Data::Validate,
+    { &internal::DigitalGoodsInstance_ListPurchaseHistory_Params_Data::Validate,
      &internal::DigitalGoodsInstance_ListPurchaseHistory_ResponseParams_Data::Validate},
-    {&internal::DigitalGoodsInstance_Consume_Params_Data::Validate,
+    { &internal::DigitalGoodsInstance_Consume_Params_Data::Validate,
      &internal::DigitalGoodsInstance_Consume_ResponseParams_Data::Validate},
 };
 

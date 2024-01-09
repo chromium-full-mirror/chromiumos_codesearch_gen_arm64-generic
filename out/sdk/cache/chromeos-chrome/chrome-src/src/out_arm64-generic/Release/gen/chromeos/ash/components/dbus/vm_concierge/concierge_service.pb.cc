@@ -170,7 +170,6 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
   , enable_broadcast_anr_prenotify_(false)
   , logd_config_size_(0)
   , vm_memory_psi_period_(0)
-  , guest_zram_size_(0)
   , guest_swappiness_(0)
   , mglru_reclaim_interval_(0)
   , mglru_reclaim_swappiness_(0)
@@ -186,7 +185,8 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
 
   , guest_zram_mib_(0u)
   , enable_vmm_swap_(false)
-  , rootfs_o_direct_(false){}
+  , rootfs_o_direct_(false)
+  , enable_s2idle_(false){}
 struct StartArcVmRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartArcVmRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -4304,7 +4304,7 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
-      // bool enable_vulkan = 18;
+      // bool enable_vulkan = 18 [deprecated = true];
       case 18:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
           enable_vulkan_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -4531,7 +4531,7 @@ uint8_t* StartVmRequest::_InternalSerialize(
     target = stream->WriteString(17, s, target);
   }
 
-  // bool enable_vulkan = 18;
+  // bool enable_vulkan = 18 [deprecated = true];
   if (this->_internal_enable_vulkan() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(18, this->_internal_enable_vulkan(), target);
@@ -4745,7 +4745,7 @@ size_t StartVmRequest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // bool enable_vulkan = 18;
+  // bool enable_vulkan = 18 [deprecated = true];
   if (this->_internal_enable_vulkan() != 0) {
     total_size += 2 + 1;
   }
@@ -5430,8 +5430,8 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     mini_instance_request_ = nullptr;
   }
   ::memcpy(&cpus_, &from.cpus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&rootfs_o_direct_) -
-    reinterpret_cast<char*>(&cpus_)) + sizeof(rootfs_o_direct_));
+    static_cast<size_t>(reinterpret_cast<char*>(&enable_s2idle_) -
+    reinterpret_cast<char*>(&cpus_)) + sizeof(enable_s2idle_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartArcVmRequest)
 }
 
@@ -5450,8 +5450,8 @@ fstab_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&rootfs_o_direct_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(rootfs_o_direct_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&enable_s2idle_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(enable_s2idle_));
 }
 
 StartArcVmRequest::~StartArcVmRequest() {
@@ -5495,8 +5495,8 @@ void StartArcVmRequest::Clear() {
   }
   mini_instance_request_ = nullptr;
   ::memset(&cpus_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&rootfs_o_direct_) -
-      reinterpret_cast<char*>(&cpus_)) + sizeof(rootfs_o_direct_));
+      reinterpret_cast<char*>(&enable_s2idle_) -
+      reinterpret_cast<char*>(&cpus_)) + sizeof(enable_s2idle_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5678,14 +5678,6 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // int32 guest_zram_size = 32 [deprecated = true];
-      case 32:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
-          guest_zram_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // int32 guest_swappiness = 33;
       case 33:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
@@ -5789,6 +5781,14 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 45:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
           rootfs_o_direct_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool enable_s2idle = 46;
+      case 46:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+          enable_s2idle_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5958,12 +5958,6 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(28, this->_internal_vm_memory_psi_period(), target);
   }
 
-  // int32 guest_zram_size = 32 [deprecated = true];
-  if (this->_internal_guest_zram_size() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(32, this->_internal_guest_zram_size(), target);
-  }
-
   // int32 guest_swappiness = 33;
   if (this->_internal_guest_swappiness() != 0) {
     target = stream->EnsureSpace(target);
@@ -6044,6 +6038,12 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
   if (this->_internal_rootfs_o_direct() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(45, this->_internal_rootfs_o_direct(), target);
+  }
+
+  // bool enable_s2idle = 46;
+  if (this->_internal_enable_s2idle() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(46, this->_internal_enable_s2idle(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6179,13 +6179,6 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_vm_memory_psi_period());
   }
 
-  // int32 guest_zram_size = 32 [deprecated = true];
-  if (this->_internal_guest_zram_size() != 0) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::Int32Size(
-        this->_internal_guest_zram_size());
-  }
-
   // int32 guest_swappiness = 33;
   if (this->_internal_guest_swappiness() != 0) {
     total_size += 2 +
@@ -6259,6 +6252,11 @@ size_t StartArcVmRequest::ByteSizeLong() const {
 
   // bool rootfs_o_direct = 45;
   if (this->_internal_rootfs_o_direct() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool enable_s2idle = 46;
+  if (this->_internal_enable_s2idle() != 0) {
     total_size += 2 + 1;
   }
 
@@ -6340,9 +6338,6 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_vm_memory_psi_period() != 0) {
     _internal_set_vm_memory_psi_period(from._internal_vm_memory_psi_period());
   }
-  if (from._internal_guest_zram_size() != 0) {
-    _internal_set_guest_zram_size(from._internal_guest_zram_size());
-  }
   if (from._internal_guest_swappiness() != 0) {
     _internal_set_guest_swappiness(from._internal_guest_swappiness());
   }
@@ -6382,6 +6377,9 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_rootfs_o_direct() != 0) {
     _internal_set_rootfs_o_direct(from._internal_rootfs_o_direct());
   }
+  if (from._internal_enable_s2idle() != 0) {
+    _internal_set_enable_s2idle(from._internal_enable_s2idle());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -6415,8 +6413,8 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
       &other->fstab_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, rootfs_o_direct_)
-      + sizeof(StartArcVmRequest::rootfs_o_direct_)
+      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, enable_s2idle_)
+      + sizeof(StartArcVmRequest::enable_s2idle_)
       - PROTOBUF_FIELD_OFFSET(StartArcVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));

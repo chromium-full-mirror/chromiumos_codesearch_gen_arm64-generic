@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/webui/projector_app/mojom/untrusted_projector.mojom-features.h"
 #include "ash/webui/projector_app/mojom/untrusted_projector.mojom-shared.h"
 #include "ash/webui/projector_app/mojom/untrusted_projector.mojom-forward.h"
 #include "ash/webui/projector_app/public/mojom/projector_types.mojom.h"
@@ -167,7 +168,7 @@ class UntrustedProjectorPageHandler
 
   using SendXhrCallback = base::OnceCallback<void(::ash::projector::mojom::XhrResponsePtr)>;
   
-  virtual void SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const absl::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const absl::optional<base::flat_map<std::string, std::string>>& headers, const absl::optional<std::string>& account_email, SendXhrCallback callback) = 0;
+  virtual void SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const std::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const std::optional<base::flat_map<std::string, std::string>>& headers, const std::optional<std::string>& account_email, SendXhrCallback callback) = 0;
 
 
   using GetAccountsCallback = base::OnceCallback<void(std::vector<::ash::projector::mojom::AccountPtr>)>;
@@ -177,7 +178,7 @@ class UntrustedProjectorPageHandler
 
   using GetVideoCallback = base::OnceCallback<void(::ash::projector::mojom::GetVideoResultPtr)>;
   
-  virtual void GetVideo(const std::string& video_file_id, const absl::optional<std::string>& resource_key, GetVideoCallback callback) = 0;
+  virtual void GetVideo(const std::string& video_file_id, const std::optional<std::string>& resource_key, GetVideoCallback callback) = 0;
 };
 
 class UntrustedProjectorPageProxy;
@@ -323,11 +324,11 @@ class  UntrustedProjectorPageHandlerProxy
   
   void StartProjectorSession(const ::base::SafeBaseName& storage_dir_name, StartProjectorSessionCallback callback) final;
   
-  void SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const absl::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const absl::optional<base::flat_map<std::string, std::string>>& headers, const absl::optional<std::string>& account_email, SendXhrCallback callback) final;
+  void SendXhr(const ::GURL& url, ::ash::projector::mojom::RequestType method, const std::optional<std::string>& request_body, bool use_credentials, bool use_api_key, const std::optional<base::flat_map<std::string, std::string>>& headers, const std::optional<std::string>& account_email, SendXhrCallback callback) final;
   
   void GetAccounts(GetAccountsCallback callback) final;
   
-  void GetVideo(const std::string& video_file_id, const absl::optional<std::string>& resource_key, GetVideoCallback callback) final;
+  void GetVideo(const std::string& video_file_id, const std::optional<std::string>& resource_key, GetVideoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

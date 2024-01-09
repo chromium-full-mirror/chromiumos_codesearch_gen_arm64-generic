@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/frame/remote_frame.mojom-features.h"
 #include "third_party/blink/public/mojom/frame/remote_frame.mojom-shared.h"
 #include "third_party/blink/public/mojom/frame/remote_frame.mojom-forward.h"
 #include "cc/mojom/render_frame_metadata.mojom.h"
@@ -198,13 +199,13 @@ class BLINK_COMMON_EXPORT RemoteFrameHost
   virtual void SetIsInert(bool inert) = 0;
 
   
-  virtual void DidChangeOpener(const absl::optional<::blink::LocalFrameToken>& opener_frame) = 0;
+  virtual void DidChangeOpener(const std::optional<::blink::LocalFrameToken>& opener_frame) = 0;
 
   
   virtual void AdvanceFocus(::blink::mojom::FocusType focus_type, const ::blink::LocalFrameToken& source_frame_token) = 0;
 
   
-  virtual void RouteMessageEvent(const absl::optional<::blink::LocalFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) = 0;
+  virtual void RouteMessageEvent(const std::optional<::blink::LocalFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) = 0;
 
   
   virtual void PrintCrossProcessSubframe(const ::gfx::Rect& frame_content_rect, int32_t document_cookie) = 0;
@@ -213,7 +214,7 @@ class BLINK_COMMON_EXPORT RemoteFrameHost
   virtual void Detach() = 0;
 
   
-  virtual void UpdateViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const absl::optional<::blink::FrameVisualProperties>& visual_properties) = 0;
+  virtual void UpdateViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const std::optional<::blink::FrameVisualProperties>& visual_properties) = 0;
 
   
   virtual void SynchronizeVisualProperties(const ::blink::FrameVisualProperties& properties) = 0;
@@ -464,7 +465,7 @@ class BLINK_COMMON_EXPORT RemoteFrame
   virtual void DidUpdateFramePolicy(const ::blink::FramePolicy& frame_policy) = 0;
 
   
-  virtual void UpdateOpener(const absl::optional<::blink::FrameToken>& opener_frame_token) = 0;
+  virtual void UpdateOpener(const std::optional<::blink::FrameToken>& opener_frame_token) = 0;
 
   
   virtual void DetachAndDispose() = 0;
@@ -485,7 +486,7 @@ class BLINK_COMMON_EXPORT RemoteFrame
   virtual void ChildProcessGone() = 0;
 
   
-  virtual void CreateRemoteChild(const ::blink::RemoteFrameToken& token, const absl::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::TreeScopeType tree_scope_type, ::blink::mojom::FrameReplicationStatePtr replication_state, ::blink::mojom::FrameOwnerPropertiesPtr owner_properties, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces) = 0;
+  virtual void CreateRemoteChild(const ::blink::RemoteFrameToken& token, const std::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::TreeScopeType tree_scope_type, ::blink::mojom::FrameReplicationStatePtr replication_state, ::blink::mojom::FrameOwnerPropertiesPtr owner_properties, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces) = 0;
 
   
   virtual void CreateRemoteChildren(std::vector<CreateRemoteChildParamsPtr> params) = 0;
@@ -628,17 +629,17 @@ class BLINK_COMMON_EXPORT RemoteFrameHostProxy
   
   void SetIsInert(bool inert) final;
   
-  void DidChangeOpener(const absl::optional<::blink::LocalFrameToken>& opener_frame) final;
+  void DidChangeOpener(const std::optional<::blink::LocalFrameToken>& opener_frame) final;
   
   void AdvanceFocus(::blink::mojom::FocusType focus_type, const ::blink::LocalFrameToken& source_frame_token) final;
   
-  void RouteMessageEvent(const absl::optional<::blink::LocalFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) final;
+  void RouteMessageEvent(const std::optional<::blink::LocalFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) final;
   
   void PrintCrossProcessSubframe(const ::gfx::Rect& frame_content_rect, int32_t document_cookie) final;
   
   void Detach() final;
   
-  void UpdateViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const absl::optional<::blink::FrameVisualProperties>& visual_properties) final;
+  void UpdateViewportIntersection(::blink::mojom::ViewportIntersectionStatePtr intersection_state, const std::optional<::blink::FrameVisualProperties>& visual_properties) final;
   
   void SynchronizeVisualProperties(const ::blink::FrameVisualProperties& properties) final;
   
@@ -705,7 +706,7 @@ class BLINK_COMMON_EXPORT RemoteFrameProxy
   
   void DidUpdateFramePolicy(const ::blink::FramePolicy& frame_policy) final;
   
-  void UpdateOpener(const absl::optional<::blink::FrameToken>& opener_frame_token) final;
+  void UpdateOpener(const std::optional<::blink::FrameToken>& opener_frame_token) final;
   
   void DetachAndDispose() final;
   
@@ -719,7 +720,7 @@ class BLINK_COMMON_EXPORT RemoteFrameProxy
   
   void ChildProcessGone() final;
   
-  void CreateRemoteChild(const ::blink::RemoteFrameToken& token, const absl::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::TreeScopeType tree_scope_type, ::blink::mojom::FrameReplicationStatePtr replication_state, ::blink::mojom::FrameOwnerPropertiesPtr owner_properties, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces) final;
+  void CreateRemoteChild(const ::blink::RemoteFrameToken& token, const std::optional<::blink::FrameToken>& opener_frame_token, ::blink::mojom::TreeScopeType tree_scope_type, ::blink::mojom::FrameReplicationStatePtr replication_state, ::blink::mojom::FrameOwnerPropertiesPtr owner_properties, bool is_loading, const ::base::UnguessableToken& devtools_frame_token, RemoteFrameInterfacesFromBrowserPtr remote_frame_interfaces) final;
   
   void CreateRemoteChildren(std::vector<CreateRemoteChildParamsPtr> params) final;
 
@@ -1406,7 +1407,7 @@ class BLINK_COMMON_EXPORT CreateRemoteChildParams {
 
   CreateRemoteChildParams(
       const ::blink::RemoteFrameToken& token,
-      const absl::optional<::blink::FrameToken>& opener_frame_token,
+      const std::optional<::blink::FrameToken>& opener_frame_token,
       ::blink::mojom::TreeScopeType tree_scope_type,
       ::blink::mojom::FrameReplicationStatePtr replication_state,
       ::blink::mojom::FrameOwnerPropertiesPtr owner_properties,
@@ -1490,7 +1491,7 @@ CreateRemoteChildParams& operator=(const CreateRemoteChildParams&) = delete;
   
   ::blink::RemoteFrameToken token;
   
-  absl::optional<::blink::FrameToken> opener_frame_token;
+  std::optional<::blink::FrameToken> opener_frame_token;
   
   ::blink::mojom::TreeScopeType tree_scope_type;
   
@@ -1568,8 +1569,8 @@ class BLINK_COMMON_EXPORT OpenURLParams {
   OpenURLParams(
       const ::GURL& url,
       const ::url::Origin& initiator_origin,
-      const absl::optional<::GURL>& initiator_base_url,
-      const absl::optional<::blink::LocalFrameToken>& initiator_frame_token,
+      const std::optional<::GURL>& initiator_base_url,
+      const std::optional<::blink::LocalFrameToken>& initiator_frame_token,
       ::scoped_refptr<::network::ResourceRequestBody> post_body,
       const std::string& extra_headers,
       ::blink::mojom::ReferrerPtr referrer,
@@ -1581,7 +1582,7 @@ class BLINK_COMMON_EXPORT OpenURLParams {
       ::blink::mojom::TriggeringEventInfo triggering_event_info,
       ::mojo::PendingRemote<::blink::mojom::BlobURLToken> blob_url_token,
       const std::string& href_translate,
-      const absl::optional<::blink::Impression>& impression,
+      const std::optional<::blink::Impression>& impression,
       const ::blink::NavigationDownloadPolicy& download_policy,
       ::network::mojom::SourceLocationPtr source_location,
       ::mojo::PendingRemote<::blink::mojom::PolicyContainerHostKeepAliveHandle> initiator_policy_container_keep_alive_handle,
@@ -1665,9 +1666,9 @@ OpenURLParams& operator=(const OpenURLParams&) = delete;
   
   ::url::Origin initiator_origin;
   
-  absl::optional<::GURL> initiator_base_url;
+  std::optional<::GURL> initiator_base_url;
   
-  absl::optional<::blink::LocalFrameToken> initiator_frame_token;
+  std::optional<::blink::LocalFrameToken> initiator_frame_token;
   
   ::scoped_refptr<::network::ResourceRequestBody> post_body;
   
@@ -1691,7 +1692,7 @@ OpenURLParams& operator=(const OpenURLParams&) = delete;
   
   std::string href_translate;
   
-  absl::optional<::blink::Impression> impression;
+  std::optional<::blink::Impression> impression;
   
   ::blink::NavigationDownloadPolicy download_policy;
   

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -254,14 +255,17 @@ void DataDecoderServiceProxy::BindImageDecoder(
                         "<value of type ::mojo::PendingReceiver<::data_decoder::mojom::ImageDecoder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDataDecoderService_BindImageDecoder_Name, kFlags, 0, 0, nullptr);
@@ -297,14 +301,17 @@ void DataDecoderServiceProxy::BindJsonParser(
                         "<value of type ::mojo::PendingReceiver<::data_decoder::mojom::JsonParser>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDataDecoderService_BindJsonParser_Name, kFlags, 0, 0, nullptr);
@@ -340,14 +347,17 @@ void DataDecoderServiceProxy::BindXmlParser(
                         "<value of type ::mojo::PendingReceiver<::data_decoder::mojom::XmlParser>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDataDecoderService_BindXmlParser_Name, kFlags, 0, 0, nullptr);
@@ -383,14 +393,17 @@ void DataDecoderServiceProxy::BindWebBundleParserFactory(
                         "<value of type ::mojo::PendingReceiver<::web_package::mojom::WebBundleParserFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDataDecoderService_BindWebBundleParserFactory_Name, kFlags, 0, 0, nullptr);
@@ -426,14 +439,17 @@ void DataDecoderServiceProxy::BindGzipper(
                         "<value of type ::mojo::PendingReceiver<::data_decoder::mojom::Gzipper>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDataDecoderService_BindGzipper_Name, kFlags, 0, 0, nullptr);
@@ -469,14 +485,17 @@ void DataDecoderServiceProxy::BindBleScanParser(
                         "<value of type ::mojo::PendingReceiver<::data_decoder::mojom::BleScanParser>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDataDecoderService_BindBleScanParser_Name, kFlags, 0, 0, nullptr);
@@ -512,14 +531,17 @@ void DataDecoderServiceProxy::BindStructuredHeadersParser(
                         "<value of type ::mojo::PendingReceiver<::data_decoder::mojom::StructuredHeadersParser>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDataDecoderService_BindStructuredHeadersParser_Name, kFlags, 0, 0, nullptr);
@@ -555,14 +577,17 @@ void DataDecoderServiceProxy::BindCborParser(
                         "<value of type ::mojo::PendingReceiver<::data_decoder::mojom::CborParser>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDataDecoderService_BindCborParser_Name, kFlags, 0, 0, nullptr);
@@ -855,24 +880,24 @@ bool DataDecoderServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDataDecoderServiceValidationInfo[] = {
-    {&internal::DataDecoderService_BindImageDecoder_Params_Data::Validate,
+    { &internal::DataDecoderService_BindImageDecoder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DataDecoderService_BindJsonParser_Params_Data::Validate,
+    { &internal::DataDecoderService_BindJsonParser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DataDecoderService_BindXmlParser_Params_Data::Validate,
+    { &internal::DataDecoderService_BindXmlParser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DataDecoderService_BindWebBundleParserFactory_Params_Data::Validate,
+    { &internal::DataDecoderService_BindWebBundleParserFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DataDecoderService_BindGzipper_Params_Data::Validate,
+    { &internal::DataDecoderService_BindGzipper_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DataDecoderService_BindBleScanParser_Params_Data::Validate,
+    { &internal::DataDecoderService_BindBleScanParser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DataDecoderService_BindStructuredHeadersParser_Params_Data::Validate,
+    { &internal::DataDecoderService_BindStructuredHeadersParser_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DataDecoderService_BindCborParser_Params_Data::Validate,
+    { &internal::DataDecoderService_BindCborParser_Params_Data::Validate,
      nullptr /* no response */},
 };
 

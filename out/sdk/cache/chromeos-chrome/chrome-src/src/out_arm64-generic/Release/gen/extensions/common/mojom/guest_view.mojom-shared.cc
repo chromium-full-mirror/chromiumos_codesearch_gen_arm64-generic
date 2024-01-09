@@ -54,7 +54,7 @@ bool GuestView_CanExecuteContentScript_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -64,7 +64,7 @@ bool GuestView_CanExecuteContentScript_Params_Data::Validate(
       static_cast<const GuestView_CanExecuteContentScript_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->script_id, 2, validation_context)) {
+          object->script_id, 1, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& script_id_validate_params =

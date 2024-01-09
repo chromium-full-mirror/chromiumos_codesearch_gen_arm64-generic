@@ -10,7 +10,6 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
-#include "iioservice/mojo/cros_sensor_service.mojom-shared-internal.h"
 #include "camera/mojo/camera_common.mojom-shared-internal.h"
 #include "camera/mojo/effects/effects_pipeline.mojom-shared-internal.h"
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-shared-internal.h"

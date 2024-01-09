@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -163,14 +164,17 @@ void WallpaperHostProxy::GetWallpaper(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::WallpaperHost::GetWallpaper");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperHost_GetWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -204,14 +208,17 @@ void WallpaperHostProxy::SetWallpaper(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperHost_SetWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -248,14 +255,17 @@ void WallpaperHostProxy::SetDefaultWallpaper(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::WallpaperHost::SetDefaultWallpaper");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperHost_SetDefaultWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -364,7 +374,8 @@ void WallpaperHost_GetWallpaper_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperHost_GetWallpaper_Name, kFlags, 0, 0, nullptr);
@@ -510,14 +521,14 @@ bool WallpaperHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWallpaperHostValidationInfo[] = {
-    {&internal::WallpaperHost_GetWallpaper_Params_Data::Validate,
+    { &internal::WallpaperHost_GetWallpaper_Params_Data::Validate,
      &internal::WallpaperHost_GetWallpaper_ResponseParams_Data::Validate},
-    {&internal::WallpaperHost_SetWallpaper_Params_Data::Validate,
+    { &internal::WallpaperHost_SetWallpaper_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WallpaperHost_SetDefaultWallpaper_Params_Data::Validate,
+    { &internal::WallpaperHost_SetDefaultWallpaper_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -637,14 +648,17 @@ void WallpaperInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<WallpaperHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -681,14 +695,17 @@ void WallpaperInstanceProxy::OnWallpaperChanged(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperInstance_OnWallpaperChanged_Name, kFlags, 0, 0, nullptr);
@@ -787,7 +804,8 @@ void WallpaperInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWallpaperInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -897,14 +915,14 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWallpaperInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::WallpaperInstance_OnWallpaperChanged_Params_Data::Validate,
+    { &internal::WallpaperInstance_OnWallpaperChanged_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::WallpaperInstance_Init_Params_Data::Validate,
+    { &internal::WallpaperInstance_Init_Params_Data::Validate,
      &internal::WallpaperInstance_Init_ResponseParams_Data::Validate},
 };
 

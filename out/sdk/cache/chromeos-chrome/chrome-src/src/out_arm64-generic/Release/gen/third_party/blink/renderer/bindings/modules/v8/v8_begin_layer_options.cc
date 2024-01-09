@@ -13,7 +13,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_union_object_objectarray.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_union_object_objectarray_string.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/exception_state.h"
 #include "third_party/blink/renderer/platform/bindings/v8_per_isolate_data.h"
@@ -55,14 +55,14 @@ return dictionary;
 
 
 void BeginLayerOptions::Trace(Visitor* visitor) const {
-  TraceIfNeeded<Member<V8UnionObjectOrObjectArray>>::Trace(visitor, member_filter_);
+  TraceIfNeeded<Member<V8UnionObjectOrObjectArrayOrString>>::Trace(visitor, member_filter_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
 bool BeginLayerOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
   if (hasFilter()) {
   v8::Local<v8::Value> v8_value;
-if (!ToV8Traits<IDLNullable<V8UnionObjectOrObjectArray>>::ToV8(script_state, member_filter_.Get()).ToLocal(&v8_value)) {
+if (!ToV8Traits<IDLNullable<V8UnionObjectOrObjectArrayOrString>>::ToV8(script_state, member_filter_.Get()).ToLocal(&v8_value)) {
   return false;
 }
 v8::Isolate* isolate = script_state->GetIsolate();
@@ -85,7 +85,7 @@ v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 bool fallback_presence_var;
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<V8UnionObjectOrObjectArray>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), fallback_presence_var, member_filter_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<V8UnionObjectOrObjectArrayOrString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), fallback_presence_var, member_filter_, try_block, exception_state)) {
   return;
 }
 }

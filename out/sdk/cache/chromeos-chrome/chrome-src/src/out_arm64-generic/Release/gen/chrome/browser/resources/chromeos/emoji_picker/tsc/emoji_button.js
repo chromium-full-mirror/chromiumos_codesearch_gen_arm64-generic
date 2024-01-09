@@ -12,6 +12,11 @@ import { getTemplate } from './emoji_button.html.js';
 import { createCustomEvent, EMOJI_IMG_BUTTON_CLICK, EMOJI_TEXT_BUTTON_CLICK, EMOJI_VARIANTS_SHOWN } from './events.js';
 import { CategoryEnum } from './types.js';
 export class EmojiButton extends PolymerElement {
+    constructor() {
+        super(...arguments);
+        this.groupedTone = false;
+        this.groupedGender = false;
+    }
     static get is() {
         return 'emoji-button';
     }
@@ -22,6 +27,10 @@ export class EmojiButton extends PolymerElement {
         return {
             emoji: { type: String, readonly: true },
             variant: { type: Boolean, value: false, readonly: true },
+            tone: { type: Number, readonly: true },
+            gender: { type: Number, readonly: true },
+            groupedTone: { type: Boolean, readonly: true },
+            groupedGender: { type: Boolean, readonly: true },
             disabled: { type: Boolean, value: false, readonly: true },
             base: { type: String },
             allVariants: { type: Array, readonly: true },
@@ -33,12 +42,16 @@ export class EmojiButton extends PolymerElement {
             return;
         }
         this.dispatchEvent(createCustomEvent(EMOJI_TEXT_BUTTON_CLICK, {
-            text: this.emoji,
-            isVariant: this.variant,
-            baseEmoji: this.base,
-            allVariants: this.allVariants ? this.allVariants : [],
             name: this.tooltip,
             category: CategoryEnum.EMOJI,
+            text: this.emoji,
+            baseEmoji: this.base,
+            isVariant: this.variant,
+            tone: this.tone,
+            gender: this.gender,
+            groupedTone: this.groupedTone,
+            groupedGender: this.groupedGender,
+            alternates: this.allVariants ?? [],
         }));
     }
     getLabel() {

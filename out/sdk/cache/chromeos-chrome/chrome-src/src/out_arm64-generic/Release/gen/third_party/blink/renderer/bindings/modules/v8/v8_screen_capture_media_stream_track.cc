@@ -70,11 +70,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ScreenCaptureMediaStreamTrack>::value,
     "ScreenCaptureMediaStreamTrack does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ScreenCaptureMediaStreamTrack::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ScreenCaptureMediaStreamTrack is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,12 +86,12 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenCaptureMediaStreamTrack.screenDetailed");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenCaptureMediaStreamTrack* blink_receiver = V8ScreenCaptureMediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+ScreenCaptureMediaStreamTrack* blink_receiver = V8ScreenCaptureMediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "ScreenCaptureMediaStreamTrack";
 const char* const property_name = "screenDetailed";

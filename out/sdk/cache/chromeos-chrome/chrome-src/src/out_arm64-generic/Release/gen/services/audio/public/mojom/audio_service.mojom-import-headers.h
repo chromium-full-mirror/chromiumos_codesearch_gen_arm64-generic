@@ -8,6 +8,8 @@
 #define SERVICES_AUDIO_PUBLIC_MOJOM_AUDIO_SERVICE_MOJOM_IMPORT_HEADERS_H_
 #include "media/mojo/mojom/audio_stream_factory.mojom.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-import-headers.h"
+#include "sandbox/policy/mojom/context.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-import-headers.h"
 #include "sandbox/policy/mojom/sandbox.mojom.h"
 #include "sandbox/policy/mojom/sandbox.mojom-import-headers.h"
 #include "services/audio/public/mojom/debug_recording.mojom.h"

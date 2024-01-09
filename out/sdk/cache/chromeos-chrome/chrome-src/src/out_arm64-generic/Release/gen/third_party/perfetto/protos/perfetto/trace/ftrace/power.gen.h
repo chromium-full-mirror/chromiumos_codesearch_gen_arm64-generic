@@ -15,6 +15,7 @@
 namespace perfetto {
 namespace protos {
 namespace gen {
+class GpuWorkPeriodFtraceEvent;
 class WakeupSourceDeactivateFtraceEvent;
 class WakeupSourceActivateFtraceEvent;
 class GpuFrequencyFtraceEvent;
@@ -36,6 +37,65 @@ class Message;
 namespace perfetto {
 namespace protos {
 namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT GpuWorkPeriodFtraceEvent : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kGpuIdFieldNumber = 1,
+    kUidFieldNumber = 2,
+    kStartTimeNsFieldNumber = 3,
+    kEndTimeNsFieldNumber = 4,
+    kTotalActiveDurationNsFieldNumber = 5,
+  };
+
+  GpuWorkPeriodFtraceEvent();
+  ~GpuWorkPeriodFtraceEvent() override;
+  GpuWorkPeriodFtraceEvent(GpuWorkPeriodFtraceEvent&&) noexcept;
+  GpuWorkPeriodFtraceEvent& operator=(GpuWorkPeriodFtraceEvent&&);
+  GpuWorkPeriodFtraceEvent(const GpuWorkPeriodFtraceEvent&);
+  GpuWorkPeriodFtraceEvent& operator=(const GpuWorkPeriodFtraceEvent&);
+  bool operator==(const GpuWorkPeriodFtraceEvent&) const;
+  bool operator!=(const GpuWorkPeriodFtraceEvent& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_gpu_id() const { return _has_field_[1]; }
+  uint32_t gpu_id() const { return gpu_id_; }
+  void set_gpu_id(uint32_t value) { gpu_id_ = value; _has_field_.set(1); }
+
+  bool has_uid() const { return _has_field_[2]; }
+  uint32_t uid() const { return uid_; }
+  void set_uid(uint32_t value) { uid_ = value; _has_field_.set(2); }
+
+  bool has_start_time_ns() const { return _has_field_[3]; }
+  uint64_t start_time_ns() const { return start_time_ns_; }
+  void set_start_time_ns(uint64_t value) { start_time_ns_ = value; _has_field_.set(3); }
+
+  bool has_end_time_ns() const { return _has_field_[4]; }
+  uint64_t end_time_ns() const { return end_time_ns_; }
+  void set_end_time_ns(uint64_t value) { end_time_ns_ = value; _has_field_.set(4); }
+
+  bool has_total_active_duration_ns() const { return _has_field_[5]; }
+  uint64_t total_active_duration_ns() const { return total_active_duration_ns_; }
+  void set_total_active_duration_ns(uint64_t value) { total_active_duration_ns_ = value; _has_field_.set(5); }
+
+ private:
+  uint32_t gpu_id_{};
+  uint32_t uid_{};
+  uint64_t start_time_ns_{};
+  uint64_t end_time_ns_{};
+  uint64_t total_active_duration_ns_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<6> _has_field_{};
+};
+
 
 class PERFETTO_EXPORT_COMPONENT WakeupSourceDeactivateFtraceEvent : public ::protozero::CppMessageObj {
  public:

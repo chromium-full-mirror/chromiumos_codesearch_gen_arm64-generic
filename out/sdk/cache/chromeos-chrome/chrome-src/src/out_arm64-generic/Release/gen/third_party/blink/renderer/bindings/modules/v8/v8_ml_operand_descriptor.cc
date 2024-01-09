@@ -45,6 +45,11 @@ return dictionary;
 
 
 
+
+
+
+
+
 Vector<uint32_t> MLOperandDescriptor::getDimensionsOr(const Vector<uint32_t>& fallback_value) const {
   if (!hasDimensions()) {
   return fallback_value;
@@ -72,14 +77,9 @@ has_dimensions_ = true;
 
 
 
-
-
-
-
-
 void MLOperandDescriptor::Trace(Visitor* visitor) const {
-  TraceIfNeeded<Vector<uint32_t>>::Trace(visitor, member_dimensions_);
-TraceIfNeeded<V8MLOperandType>::Trace(visitor, member_type_);
+  TraceIfNeeded<V8MLOperandDataType>::Trace(visitor, member_data_type_);
+TraceIfNeeded<Vector<uint32_t>>::Trace(visitor, member_dimensions_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
@@ -89,16 +89,16 @@ v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 bool was_property_created;
-if (hasDimensions()) {
-  if (!ToV8Traits<IDLSequence<IDLUnsignedLongEnforceRange>>::ToV8(script_state, member_dimensions_).ToLocal(&v8_value)) {
+if (hasDataType()) {
+  if (!ToV8Traits<V8MLOperandDataType>::ToV8(script_state, member_data_type_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
-if (hasType()) {
-  if (!ToV8Traits<V8MLOperandType>::ToV8(script_state, member_type_).ToLocal(&v8_value)) {
+if (hasDimensions()) {
+  if (!ToV8Traits<IDLSequence<IDLUnsignedLongEnforceRange>>::ToV8(script_state, member_dimensions_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
@@ -111,26 +111,26 @@ return true;
 void MLOperandDescriptor::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
   const char* const class_like_name = "MLOperandDescriptor";
 ExceptionState::ContextScope exception_context_scope(ExceptionContext(ExceptionContextType::kDictionaryMemberGet, class_like_name, ""), exception_state);
-exception_context_scope.ChangePropertyNameAsOptimizationHack("dimensions");
-constexpr bool is_optional = false;
+exception_context_scope.ChangePropertyNameAsOptimizationHack("dataType");
+constexpr bool is_required = true;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+bool fallback_presence_var;
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLUnsignedLongEnforceRange>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_dimensions_, member_dimensions_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8MLOperandDataType, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), fallback_presence_var, member_data_type_, try_block, exception_state)) {
   return;
 }
-exception_context_scope.ChangePropertyNameAsOptimizationHack("type");
-constexpr bool is_required = true;
-bool fallback_presence_var;
-if (!bindings::GetDictionaryMemberFromV8Object<V8MLOperandType, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_type_, try_block, exception_state)) {
+exception_context_scope.ChangePropertyNameAsOptimizationHack("dimensions");
+constexpr bool is_optional = false;
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLUnsignedLongEnforceRange>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_dimensions_, member_dimensions_, try_block, exception_state)) {
   return;
 }
 }
 
 const base::span<const v8::Eternal<v8::Name>> MLOperandDescriptor::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
+"dataType",
 "dimensions",
-"type",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
 }

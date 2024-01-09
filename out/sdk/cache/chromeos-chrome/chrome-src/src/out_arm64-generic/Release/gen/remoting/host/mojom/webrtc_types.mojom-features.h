@@ -8,6 +8,7 @@
 #define REMOTING_HOST_MOJOM_WEBRTC_TYPES_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

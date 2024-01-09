@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/messaging/transferable_message.mojom-features.h"
 #include "third_party/blink/public/mojom/messaging/transferable_message.mojom-shared.h"
 #include "third_party/blink/public/mojom/messaging/transferable_message.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/array_buffer/array_buffer_contents.mojom-blink.h"
@@ -92,7 +93,7 @@ class CORE_EXPORT TransferableMessage {
       WTF::Vector<::blink::mojom::blink::SerializedStaticBitmapImagePtr> image_bitmap_contents_array,
       ::blink::mojom::blink::UserActivationSnapshotPtr user_activation,
       ::blink::mojom::blink::DelegatedCapability delegated_capability,
-      absl::optional<::blink::scheduler::TaskAttributionId> parent_task_id);
+      std::optional<::blink::scheduler::TaskAttributionId> parent_task_id);
 
 TransferableMessage(const TransferableMessage&) = delete;
 TransferableMessage& operator=(const TransferableMessage&) = delete;
@@ -181,7 +182,7 @@ TransferableMessage& operator=(const TransferableMessage&) = delete;
   
   ::blink::mojom::blink::DelegatedCapability delegated_capability;
   
-  absl::optional<::blink::scheduler::TaskAttributionId> parent_task_id;
+  std::optional<::blink::scheduler::TaskAttributionId> parent_task_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

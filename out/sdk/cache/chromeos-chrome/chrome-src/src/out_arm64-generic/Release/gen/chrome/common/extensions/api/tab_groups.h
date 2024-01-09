@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -37,18 +38,18 @@ extern const int TAB_GROUP_ID_NONE;
 //
 
 // The group's color.
-enum  Color {
-  COLOR_NONE = 0,
-  COLOR_GREY,
-  COLOR_BLUE,
-  COLOR_RED,
-  COLOR_YELLOW,
-  COLOR_GREEN,
-  COLOR_PINK,
-  COLOR_PURPLE,
-  COLOR_CYAN,
-  COLOR_ORANGE,
-  COLOR_LAST = COLOR_ORANGE,
+enum class Color {
+  kNone = 0,
+  kGrey,
+  kBlue,
+  kRed,
+  kYellow,
+  kGreen,
+  kPink,
+  kPurple,
+  kCyan,
+  kOrange,
+  kMaxValue = kOrange,
 };
 
 
@@ -61,8 +62,8 @@ struct TabGroup {
   ~TabGroup();
   TabGroup(const TabGroup&) = delete;
   TabGroup& operator=(const TabGroup&) = delete;
-  TabGroup(TabGroup&& rhs);
-  TabGroup& operator=(TabGroup&& rhs);
+  TabGroup(TabGroup&& rhs) noexcept;
+  TabGroup& operator=(TabGroup&& rhs) noexcept;
 
   // Populates a TabGroup object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -75,14 +76,11 @@ struct TabGroup {
   // Creates a deep copy of TabGroup.
   TabGroup Clone() const;
 
-  // Creates a TabGroup object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TabGroup> FromValueDeprecated(const base::Value& value);
-
   // Creates a TabGroup object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<TabGroup> FromValue(const base::Value::Dict& value);
+  static std::optional<TabGroup> FromValue(const base::Value::Dict& value);
 
   // Creates a TabGroup object from a base::Value, or nullopt on failure.
-  static absl::optional<TabGroup> FromValue(const base::Value& value);
+  static std::optional<TabGroup> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTabGroup object.
@@ -99,7 +97,7 @@ struct TabGroup {
   Color color;
 
   // The title of the group.
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
   // The ID of the window that contains the group.
   int window_id;
@@ -114,11 +112,11 @@ struct TabGroup {
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int group_id;
@@ -138,11 +136,11 @@ base::Value::List Create(const TabGroup& group);
 namespace Query {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct QueryInfo {
@@ -150,8 +148,8 @@ struct Params {
     ~QueryInfo();
     QueryInfo(const QueryInfo&) = delete;
     QueryInfo& operator=(const QueryInfo&) = delete;
-    QueryInfo(QueryInfo&& rhs);
-    QueryInfo& operator=(QueryInfo&& rhs);
+    QueryInfo(QueryInfo&& rhs) noexcept;
+    QueryInfo& operator=(QueryInfo&& rhs) noexcept;
 
     // Populates a QueryInfo object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -165,23 +163,23 @@ struct Params {
     QueryInfo Clone() const;
 
     // Creates a QueryInfo object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<QueryInfo> FromValue(const base::Value::Dict& value);
+    static std::optional<QueryInfo> FromValue(const base::Value::Dict& value);
 
     // Creates a QueryInfo object from a base::Value, or nullopt on failure.
-    static absl::optional<QueryInfo> FromValue(const base::Value& value);
+    static std::optional<QueryInfo> FromValue(const base::Value& value);
 
     // Whether the groups are collapsed.
-    absl::optional<bool> collapsed;
+    std::optional<bool> collapsed;
 
     // The color of the groups.
     Color color;
 
     // Match group titles against a pattern.
-    absl::optional<std::string> title;
+    std::optional<std::string> title;
 
     // The ID of the parent window, or $(ref:windows.WINDOW_ID_CURRENT) for the <a
     // href='windows#current-window'>current window</a>.
-    absl::optional<int> window_id;
+    std::optional<int> window_id;
 
   };
 
@@ -203,11 +201,11 @@ base::Value::List Create(const std::vector<TabGroup>& result);
 namespace Update {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct UpdateProperties {
@@ -215,8 +213,8 @@ struct Params {
     ~UpdateProperties();
     UpdateProperties(const UpdateProperties&) = delete;
     UpdateProperties& operator=(const UpdateProperties&) = delete;
-    UpdateProperties(UpdateProperties&& rhs);
-    UpdateProperties& operator=(UpdateProperties&& rhs);
+    UpdateProperties(UpdateProperties&& rhs) noexcept;
+    UpdateProperties& operator=(UpdateProperties&& rhs) noexcept;
 
     // Populates a UpdateProperties object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -231,20 +229,20 @@ struct Params {
 
     // Creates a UpdateProperties object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<UpdateProperties> FromValue(const base::Value::Dict& value);
+    static std::optional<UpdateProperties> FromValue(const base::Value::Dict& value);
 
     // Creates a UpdateProperties object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<UpdateProperties> FromValue(const base::Value& value);
+    static std::optional<UpdateProperties> FromValue(const base::Value& value);
 
     // Whether the group should be collapsed.
-    absl::optional<bool> collapsed;
+    std::optional<bool> collapsed;
 
     // The color of the group.
     Color color;
 
     // The title of the group.
-    absl::optional<std::string> title;
+    std::optional<std::string> title;
 
   };
 
@@ -270,11 +268,11 @@ base::Value::List Create(const TabGroup& group);
 namespace Move {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct MoveProperties {
@@ -282,8 +280,8 @@ struct Params {
     ~MoveProperties();
     MoveProperties(const MoveProperties&) = delete;
     MoveProperties& operator=(const MoveProperties&) = delete;
-    MoveProperties(MoveProperties&& rhs);
-    MoveProperties& operator=(MoveProperties&& rhs);
+    MoveProperties(MoveProperties&& rhs) noexcept;
+    MoveProperties& operator=(MoveProperties&& rhs) noexcept;
 
     // Populates a MoveProperties object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -298,15 +296,15 @@ struct Params {
 
     // Creates a MoveProperties object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<MoveProperties> FromValue(const base::Value::Dict& value);
+    static std::optional<MoveProperties> FromValue(const base::Value::Dict& value);
 
     // Creates a MoveProperties object from a base::Value, or nullopt on failure.
-    static absl::optional<MoveProperties> FromValue(const base::Value& value);
+    static std::optional<MoveProperties> FromValue(const base::Value& value);
 
     // The window to move the group to. Defaults to the window the group is
     // currently in. Note that groups can only be moved to and from windows with
     // $(ref:windows.WindowType) type <code>"normal"</code>.
-    absl::optional<int> window_id;
+    std::optional<int> window_id;
 
     // The position to move the group to. Use <code>-1</code> to place the group at
     // the end of the window.

@@ -28,6 +28,8 @@ NOINLINE static const char* MediaPlayerActionTypeToStringHelper(MediaPlayerActio
       return "kLoop";
     case MediaPlayerActionType::kControls:
       return "kControls";
+    case MediaPlayerActionType::kSaveVideoFrameAs:
+      return "kSaveVideoFrameAs";
     case MediaPlayerActionType::kCopyVideoFrame:
       return "kCopyVideoFrame";
     case MediaPlayerActionType::kPictureInPicture:

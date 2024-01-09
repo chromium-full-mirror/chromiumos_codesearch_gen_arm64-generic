@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/ui_constants.mojom-features.h"
 #include "chromeos/crosapi/mojom/ui_constants.mojom-shared.h"
 #include "chromeos/crosapi/mojom/ui_constants.mojom-forward.h"
 #include <string>
@@ -41,6 +42,7 @@
 #include "components/services/app_service/public/cpp/capability_access.h"
 #include "components/services/app_service/public/cpp/icon_types.h"
 #include "components/services/app_service/public/cpp/preferred_app.h"
+#include "components/services/app_service/public/cpp/shortcut/shortcut.h"
 
 
 

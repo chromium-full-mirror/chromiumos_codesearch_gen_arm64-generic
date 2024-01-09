@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { entriesToURLs } from '../../../common/js/entry_utils.js';
-import { VolumeManager } from '../../../externs/volume_manager.js';
+import { FilesAppEntry } from '../../../externs/files_app_entry_interfaces.js';
 import { getStore } from '../../../state/store.js';
 import { ContentMetadataProvider } from './content_metadata_provider.js';
 import { DlpMetadataProvider } from './dlp_metadata_provider.js';
@@ -14,70 +14,50 @@ import { MetadataProvider } from './metadata_provider.js';
 import { MultiMetadataProvider } from './multi_metadata_provider.js';
 /**
  * Stats collected about Metadata handling for tests.
- * @final
  */
 export class MetadataStats {
     constructor() {
-        /** @public @type {number} Total of entries fulfilled from cache. */
+        /** Total of entries fulfilled from cache. */
         this.fromCache = 0;
-        /** @public @type {number} Total of entries that requested to backends. */
+        /** Total of entries that requested to backends. */
         this.fullFetch = 0;
-        /** @public @type {number} Total of entries that called to invalidate. */
+        /** Total of entries that called to invalidate. */
         this.invalidateCount = 0;
-        /** @public @type {number} Total of entries that called to clear. */
+        /** Total of entries that called to clear. */
         this.clearCacheCount = 0;
-        /** @public @type {number} Total of calls to function clearAllCache. */
+        /** Total of calls to function clearAllCache. */
         this.clearAllCount = 0;
     }
 }
 export class MetadataModel {
-    /**
-     * @param {!MetadataProvider} rawProvider
-     */
-    constructor(rawProvider) {
-        /** @private @const @type {!MetadataProvider} */
-        this.rawProvider_ = rawProvider;
-        /** @private @const @type {!MetadataCacheSet} */
+    constructor(rawProvider_) {
+        this.rawProvider_ = rawProvider_;
         this.cache_ = new MetadataCacheSet();
-        /** @private @const @type {!Array<!MetadataProviderCallbackRequest>} */
         this.callbackRequests_ = [];
-        /**
-         * @private @const @type {?MetadataStats} record stats about Metadata when
-         *     in tests.
-         */
+        /** Record stats about Metadata when in tests. */
         this.stats_ = window.IN_TEST ? new MetadataStats() : null;
     }
-    /**
-     * @param {!VolumeManager} volumeManager
-     * @return {!MetadataModel}
-     */
     static create(volumeManager) {
         return new MetadataModel(new MultiMetadataProvider(new FileSystemMetadataProvider(), new ExternalMetadataProvider(), new ContentMetadataProvider(), new DlpMetadataProvider(), volumeManager));
     }
-    /**
-     * @return {!MetadataProvider}
-     */
     getProvider() {
         return this.rawProvider_;
     }
     /**
      * Obtains metadata for entries.
-     * @param {!Array<!Entry>} entries Entries.
-     * @param {!Array<string>} names Metadata property names to be obtained.
-     * @return {!Promise<!Array<!MetadataItem>>}
+     * @param entries Entries.
+     * @param names Metadata property names to be obtained.
      */
     get(entries, names) {
         this.rawProvider_.checkPropertyNames(names);
         // Check if the results are cached or not.
         if (this.cache_.hasFreshCache(entries, names)) {
-            if (window.IN_TEST) {
-                // @ts-ignore: error TS2531: Object is possibly 'null'.
+            if (this.stats_) {
                 this.stats_.fromCache += entries.length;
             }
             return Promise.resolve(this.getCache(entries, names));
         }
-        if (window.IN_TEST) {
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
+        if (this.stats_) {
             this.stats_.fullFetch += entries.length;
         }
         // The LRU cache may be cached out when the callback is completed.
@@ -89,11 +69,7 @@ export class MetadataModel {
         this.cache_.startRequests(requestId, requests);
         // Register callback.
         const promise = new Promise(fulfill => {
-            this.callbackRequests_.push(new MetadataProviderCallbackRequest(
-            // @ts-ignore: error TS2345: Argument of type '(value: any) => void'
-            // is not assignable to parameter of type '(arg0: MetadataItem[]) =>
-            // undefined'.
-            entries, names, snapshot, fulfill));
+            this.callbackRequests_.push(new MetadataProviderCallbackRequest(entries, names, snapshot, fulfill));
         });
         // If the requests are not empty, call the requests.
         if (requests.length) {
@@ -101,35 +77,18 @@ export class MetadataModel {
                 // Obtain requested entries and ensure all the requested properties are
                 // contained in the result.
                 const requestedEntries = [];
-                for (let i = 0; i < requests.length; i++) {
-                    // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-                    requestedEntries.push(requests[i].entry);
-                    // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-                    for (let j = 0; j < requests[i].names.length; j++) {
-                        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-                        const name = requests[i].names[j];
-                        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
+                for (const [i, request] of requests.entries()) {
+                    requestedEntries.push(request.entry);
+                    for (const name of request.names) {
                         if (!(name in list[i])) {
-                            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an
-                            // index type.
                             list[i][name] = undefined;
                         }
                     }
                 }
                 // Store cache.
                 this.cache_.storeProperties(requestId, requestedEntries, list, names);
-                // Invoke callbacks.
-                let i = 0;
-                while (i < this.callbackRequests_.length) {
-                    // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-                    if (this.callbackRequests_[i].storeProperties(requestId, requestedEntries, list)) {
-                        // Callback was called.
-                        this.callbackRequests_.splice(i, 1);
-                    }
-                    else {
-                        i++;
-                    }
-                }
+                // Invoke callbacks and remove the ones that were successful.
+                this.callbackRequests_.filter(request => !request.storeProperties(requestId, requestedEntries, list));
             });
         }
         return promise;
@@ -137,26 +96,26 @@ export class MetadataModel {
     /**
      * Updates the metadata of the given fileUrls with the provided values for
      * each specified metadata name.
-     * @param {!Array<!string>} fileUrls FileURLs to have their metadata updated
-     * @param {!Array<string>} names Metadata property names to be updated.
-     * @param {!Array<!Array<string|number|boolean>>} values
+     * @param fileUrls FileURLs to have their metadata updated
+     * @param names Metadata property names to be updated.
+     * @param values Contains an array for each file, where the array contains a
+     *     new value for each metadata property passed in `names`.
      */
     update(fileUrls, names, values) {
         const { allEntries } = getStore().getState();
         // Only update corresponding entries that are available in the store.
         const itemsToUpdate = [];
         const entriesToUpdate = [];
-        for (let i = 0; i < fileUrls.length; i++) {
-            const url = fileUrls[i];
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
+        for (const [i, url] of fileUrls.entries()) {
             const entry = allEntries[url]?.entry;
             if (!entry) {
                 continue;
             }
             entriesToUpdate.push(entry);
             const item = new MetadataItem();
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
+            // TODO(austinct): Change the function call signature and update all
+            // callers to allow this statement to be well typed without the type
+            // assertions.
             names.forEach((key, j) => item[key] = values[i][j]);
             itemsToUpdate.push(item);
         }
@@ -168,9 +127,8 @@ export class MetadataModel {
     }
     /**
      * Obtains metadata cache for entries.
-     * @param {!Array<!Entry>} entries Entries.
-     * @param {!Array<string>} names Metadata property names to be obtained.
-     * @return {!Array<!MetadataItem>}
+     * @param entries Entries.
+     * @param names Metadata property names to be obtained.
      */
     getCache(entries, names) {
         // Check if the property name is correct or not.
@@ -179,9 +137,8 @@ export class MetadataModel {
     }
     /**
      * Obtains metadata cache for file URLs.
-     * @param {!Array<!string>} urls File URLs.
-     * @param {!Array<string>} names Metadata property names to be obtained.
-     * @return {!Array<!MetadataItem>}
+     * @param urls File URLs.
+     * @param names Metadata property names to be obtained.
      */
     getCacheByUrls(urls, names) {
         // Check if the property name is correct or not.
@@ -190,35 +147,30 @@ export class MetadataModel {
     }
     /**
      * Clears old metadata for newly created entries.
-     * @param {!Array<!Entry>} entries
      */
     notifyEntriesCreated(entries) {
         this.cache_.clear(entriesToURLs(entries));
-        if (window.IN_TEST) {
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
+        if (this.stats_) {
             this.stats_.clearCacheCount += entries.length;
         }
     }
     /**
      * Clears metadata for deleted entries.
-     * @param {!Array<string>} urls Note it is not an entry list because we cannot
+     * @param urls Note it is not an entry list because we cannot
      *     obtain entries after removing them from the file system.
      */
     notifyEntriesRemoved(urls) {
         this.cache_.clear(urls);
-        if (window.IN_TEST) {
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
+        if (this.stats_) {
             this.stats_.clearCacheCount += urls.length;
         }
     }
     /**
      * Invalidates metadata for updated entries.
-     * @param {!Array<!Entry>} entries
      */
     notifyEntriesChanged(entries) {
         this.cache_.invalidate(this.cache_.generateRequestId(), entries);
-        if (window.IN_TEST) {
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
+        if (this.stats_) {
             this.stats_.invalidateCount += entries.length;
         }
     }
@@ -227,71 +179,33 @@ export class MetadataModel {
      */
     clearAllCache() {
         this.cache_.clearAll();
-        if (window.IN_TEST) {
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
+        if (this.stats_) {
             this.stats_.clearAllCount++;
         }
     }
-    /** @return {MetadataStats} */
     getStats() {
-        // @ts-ignore: error TS2322: Type 'MetadataStats | null' is not assignable
-        // to type 'MetadataStats'.
         return this.stats_;
     }
-    /**
-     * Adds event listener to internal cache object.
-     * @param {string} type
-     * @param {function(Event):void} callback
-     */
-    addEventListener(type, callback) {
-        this.cache_.addEventListener(type, callback);
+    /** Adds event listener to internal cache object. */
+    addEventListener(type, listener) {
+        this.cache_.addEventListener(type, listener);
     }
-    /**
-     * Removes event listener from internal cache object.
-     * @param {string} type Name of the event to removed.
-     * @param {function(Event):void} callback Event listener.
-     */
-    removeEventListener(type, callback) {
-        this.cache_.removeEventListener(type, callback);
+    /** Removes event listener from internal cache object. */
+    removeEventListener(type, listener) {
+        this.cache_.removeEventListener(type, listener);
     }
 }
-/** @final */
 class MetadataProviderCallbackRequest {
-    /**
-     * @param {!Array<!Entry>} entries
-     * @param {!Array<string>} names
-     * @param {!MetadataCacheSet} cache
-     * @param {function(!Array<MetadataItem>):undefined} fulfill
-     */
-    constructor(entries, names, cache, fulfill) {
-        /**
-         * @private @type {!Array<!Entry>}
-         * @const
-         */
-        this.entries_ = entries;
-        /**
-         * @private @type {!Array<string>}
-         * @const
-         */
-        this.names_ = names;
-        /**
-         * @private @type {!MetadataCacheSet}
-         * @const
-         */
-        this.cache_ = cache;
-        /**
-         * @private @type {function(!Array<MetadataItem>):undefined}
-         * @const
-         */
-        this.fulfill_ = fulfill;
+    constructor(entries_, names_, cache_, fulfill_) {
+        this.entries_ = entries_;
+        this.names_ = names_;
+        this.cache_ = cache_;
+        this.fulfill_ = fulfill_;
     }
     /**
      * Stores properties to snapshot cache of the callback request.
      * If all the requested property are served, it invokes the callback.
-     * @param {number} requestId
-     * @param {!Array<!Entry>} entries
-     * @param {!Array<!MetadataItem>} objects
-     * @return {boolean} Whether the callback is invoked or not.
+     * @return Whether the callback is invoked or not.
      */
     storeProperties(requestId, entries, objects) {
         this.cache_.storeProperties(requestId, entries, objects, this.names_);

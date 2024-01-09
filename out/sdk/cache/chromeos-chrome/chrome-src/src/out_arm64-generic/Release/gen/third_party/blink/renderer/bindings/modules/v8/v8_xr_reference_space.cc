@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRReferenceSpace>::value,
     "XRReferenceSpace inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRReferenceSpace::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRReferenceSpace is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRReferenceSpace.onreset.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRReferenceSpace* blink_receiver = V8XRReferenceSpace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onreset();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRReferenceSpace* blink_receiver = V8XRReferenceSpace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onreset();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -107,8 +102,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRReferenceSpace* blink_receiver = V8XRReferenceSpace::ToWrappableUnsafe(v8_receiver);
+XRReferenceSpace* blink_receiver = V8XRReferenceSpace::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnreset(event_handler);
 }
 
@@ -137,7 +133,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRReferenceSpace* blink_receiver = V8XRReferenceSpace::ToWrappableUnsafe(v8_receiver);
+XRReferenceSpace* blink_receiver = V8XRReferenceSpace::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_origin_offset = NativeValueTraits<XRRigidTransform>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

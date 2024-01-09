@@ -18,7 +18,6 @@ import { TopicSource } from '../../personalization_app.mojom-webui.js';
 import { isAmbientModeAllowed, isPersonalizationJellyEnabled, isScreenSaverDurationEnabled } from '../load_time_booleans.js';
 import { Paths, ScrollableTarget } from '../personalization_router_element.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
-import { getZerosArray } from '../utils.js';
 import { dismissTimeOfDayBanner, setAmbientModeEnabled } from './ambient_controller.js';
 import { getAmbientProvider } from './ambient_interface_provider.js';
 import { AmbientObserver } from './ambient_observer.js';
@@ -192,7 +191,7 @@ export class AmbientSubpageElement extends WithPersonalizationStore {
             !this.isOnline_;
     }
     getPlaceholders_(x) {
-        return getZerosArray(x);
+        return new Array(x).fill(0);
     }
 }
 customElements.define(AmbientSubpageElement.is, AmbientSubpageElement);

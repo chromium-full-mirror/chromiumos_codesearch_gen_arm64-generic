@@ -35,7 +35,15 @@ namespace DialogTypeEnum {
 const char AccountChooser[] = "AccountChooser";
 const char AutoReauthn[] = "AutoReauthn";
 const char ConfirmIdpLogin[] = "ConfirmIdpLogin";
+const char Error[] = "Error";
 } // namespace DialogTypeEnum
+
+
+namespace DialogButtonEnum {
+const char ConfirmIdpLoginContinue[] = "ConfirmIdpLoginContinue";
+const char ErrorGotIt[] = "ErrorGotIt";
+const char ErrorMoreDetails[] = "ErrorMoreDetails";
+} // namespace DialogButtonEnum
 
 
 CRDTP_BEGIN_DESERIALIZER(Account)
@@ -83,6 +91,15 @@ void Frontend::DialogShown(const String& dialogId, const String& dialogType, std
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("FedCm.dialogShown", serializer.Finish()));
 }
 
+void Frontend::DialogClosed(const String& dialogId)
+{
+    if (!frontend_channel_)
+        return;
+    crdtp::ObjectSerializer serializer;
+    serializer.AddField(crdtp::MakeSpan("dialogId"), dialogId);
+    frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("FedCm.dialogClosed", serializer.Finish()));
+}
+
 void Frontend::flush()
 {
     frontend_channel_->FlushProtocolNotifications();
@@ -109,7 +126,7 @@ public:
     void enable(const crdtp::Dispatchable& dispatchable);
     void disable(const crdtp::Dispatchable& dispatchable);
     void selectAccount(const crdtp::Dispatchable& dispatchable);
-    void confirmIdpLogin(const crdtp::Dispatchable& dispatchable);
+    void clickDialogButton(const crdtp::Dispatchable& dispatchable);
     void dismissDialog(const crdtp::Dispatchable& dispatchable);
     void resetCooldown(const crdtp::Dispatchable& dispatchable);
  protected:
@@ -125,8 +142,8 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     auto* commands = new std::vector<std::pair<crdtp::span<uint8_t>,
                               DomainDispatcherImpl::CallHandler>>{
     {
-          crdtp::SpanFrom("confirmIdpLogin"),
-          &DomainDispatcherImpl::confirmIdpLogin
+          crdtp::SpanFrom("clickDialogButton"),
+          &DomainDispatcherImpl::clickDialogButton
     },
     {
           crdtp::SpanFrom("disable"),
@@ -257,31 +274,33 @@ void DomainDispatcherImpl::selectAccount(const crdtp::Dispatchable& dispatchable
 
 namespace {
 
-struct confirmIdpLoginParams : public crdtp::DeserializableProtocolObject<confirmIdpLoginParams> {
+struct clickDialogButtonParams : public crdtp::DeserializableProtocolObject<clickDialogButtonParams> {
     String dialogId;
+    String dialogButton;
     DECLARE_DESERIALIZATION_SUPPORT();
 };
 
-CRDTP_BEGIN_DESERIALIZER(confirmIdpLoginParams)
+CRDTP_BEGIN_DESERIALIZER(clickDialogButtonParams)
+    CRDTP_DESERIALIZE_FIELD("dialogButton", dialogButton),
     CRDTP_DESERIALIZE_FIELD("dialogId", dialogId),
 CRDTP_END_DESERIALIZER()
 
 }  // namespace
 
-void DomainDispatcherImpl::confirmIdpLogin(const crdtp::Dispatchable& dispatchable)
+void DomainDispatcherImpl::clickDialogButton(const crdtp::Dispatchable& dispatchable)
 {
     // Prepare input parameters.
     auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
-    confirmIdpLoginParams params;
-    if (!confirmIdpLoginParams::Deserialize(&deserializer, &params)) {
+    clickDialogButtonParams params;
+    if (!clickDialogButtonParams::Deserialize(&deserializer, &params)) {
       ReportInvalidParams(dispatchable, deserializer);
       return;
     }
 
     std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
-    DispatchResponse response = m_backend->ConfirmIdpLogin(params.dialogId);
+    DispatchResponse response = m_backend->ClickDialogButton(params.dialogId, params.dialogButton);
     if (response.IsFallThrough()) {
-        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("FedCm.confirmIdpLogin"), dispatchable.Serialized());
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("FedCm.clickDialogButton"), dispatchable.Serialized());
         return;
     }
     if (weak->get())

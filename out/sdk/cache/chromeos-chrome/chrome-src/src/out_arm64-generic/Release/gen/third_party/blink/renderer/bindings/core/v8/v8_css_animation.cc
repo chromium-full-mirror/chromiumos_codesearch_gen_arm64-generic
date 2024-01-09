@@ -30,7 +30,7 @@ namespace blink {
 
 bool V8CSSAnimation::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::WebAnimationsAPIEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -68,11 +68,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, CSSAnimation>::value,
     "CSSAnimation does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&CSSAnimation::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSAnimation is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSAnimation.animationName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSAnimation* blink_receiver = V8CSSAnimation::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->animationName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSAnimation* blink_receiver = V8CSSAnimation::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->animationName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

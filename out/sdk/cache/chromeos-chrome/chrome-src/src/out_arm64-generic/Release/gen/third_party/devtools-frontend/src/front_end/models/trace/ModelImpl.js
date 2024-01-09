@@ -29,9 +29,6 @@ export class Model extends EventTarget {
     static createWithAllHandlers(config) {
         return new Model(Handlers.ModelHandlers, config);
     }
-    static createWithRequiredHandlersForMigration(config) {
-        return new Model(Handlers.Migration.ENABLED_TRACE_HANDLERS, config);
-    }
     constructor(handlers, config) {
         super();
         if (config) {

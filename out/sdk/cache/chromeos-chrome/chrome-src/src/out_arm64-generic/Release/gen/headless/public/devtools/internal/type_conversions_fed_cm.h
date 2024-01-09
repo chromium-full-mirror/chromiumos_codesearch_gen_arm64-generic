@@ -55,6 +55,8 @@ struct FromValue<fed_cm::DialogType> {
       return fed_cm::DialogType::AUTO_REAUTHN;
     if (value.GetString() == "ConfirmIdpLogin")
       return fed_cm::DialogType::CONFIRM_IDP_LOGIN;
+    if (value.GetString() == "Error")
+      return fed_cm::DialogType::ERROR;
     errors->AddError("invalid enum value");
     return fed_cm::DialogType::ACCOUNT_CHOOSER;
   }
@@ -69,6 +71,39 @@ inline base::Value ToValue(const fed_cm::DialogType& value) {
       return base::Value("AutoReauthn");
     case fed_cm::DialogType::CONFIRM_IDP_LOGIN:
       return base::Value("ConfirmIdpLogin");
+    case fed_cm::DialogType::ERROR:
+      return base::Value("Error");
+  };
+  NOTREACHED();
+  return base::Value();
+}
+template <>
+struct FromValue<fed_cm::DialogButton> {
+  static fed_cm::DialogButton Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return fed_cm::DialogButton::CONFIRM_IDP_LOGIN_CONTINUE;
+    }
+    if (value.GetString() == "ConfirmIdpLoginContinue")
+      return fed_cm::DialogButton::CONFIRM_IDP_LOGIN_CONTINUE;
+    if (value.GetString() == "ErrorGotIt")
+      return fed_cm::DialogButton::ERROR_GOT_IT;
+    if (value.GetString() == "ErrorMoreDetails")
+      return fed_cm::DialogButton::ERROR_MORE_DETAILS;
+    errors->AddError("invalid enum value");
+    return fed_cm::DialogButton::CONFIRM_IDP_LOGIN_CONTINUE;
+  }
+};
+
+template <>
+inline base::Value ToValue(const fed_cm::DialogButton& value) {
+  switch (value) {
+    case fed_cm::DialogButton::CONFIRM_IDP_LOGIN_CONTINUE:
+      return base::Value("ConfirmIdpLoginContinue");
+    case fed_cm::DialogButton::ERROR_GOT_IT:
+      return base::Value("ErrorGotIt");
+    case fed_cm::DialogButton::ERROR_MORE_DETAILS:
+      return base::Value("ErrorMoreDetails");
   };
   NOTREACHED();
   return base::Value();
@@ -166,27 +201,27 @@ inline base::Value ToValue(const fed_cm::SelectAccountResult& value) {
 
 
 template <>
-struct FromValue<fed_cm::ConfirmIdpLoginParams> {
-  static std::unique_ptr<fed_cm::ConfirmIdpLoginParams> Parse(const base::Value& value, ErrorReporter* errors) {
-    return fed_cm::ConfirmIdpLoginParams::Parse(value, errors);
+struct FromValue<fed_cm::ClickDialogButtonParams> {
+  static std::unique_ptr<fed_cm::ClickDialogButtonParams> Parse(const base::Value& value, ErrorReporter* errors) {
+    return fed_cm::ClickDialogButtonParams::Parse(value, errors);
   }
 };
 
 template <>
-inline base::Value ToValue(const fed_cm::ConfirmIdpLoginParams& value) {
+inline base::Value ToValue(const fed_cm::ClickDialogButtonParams& value) {
   return value.Serialize();
 }
 
 
 template <>
-struct FromValue<fed_cm::ConfirmIdpLoginResult> {
-  static std::unique_ptr<fed_cm::ConfirmIdpLoginResult> Parse(const base::Value& value, ErrorReporter* errors) {
-    return fed_cm::ConfirmIdpLoginResult::Parse(value, errors);
+struct FromValue<fed_cm::ClickDialogButtonResult> {
+  static std::unique_ptr<fed_cm::ClickDialogButtonResult> Parse(const base::Value& value, ErrorReporter* errors) {
+    return fed_cm::ClickDialogButtonResult::Parse(value, errors);
   }
 };
 
 template <>
-inline base::Value ToValue(const fed_cm::ConfirmIdpLoginResult& value) {
+inline base::Value ToValue(const fed_cm::ClickDialogButtonResult& value) {
   return value.Serialize();
 }
 
@@ -252,6 +287,19 @@ struct FromValue<fed_cm::DialogShownParams> {
 
 template <>
 inline base::Value ToValue(const fed_cm::DialogShownParams& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<fed_cm::DialogClosedParams> {
+  static std::unique_ptr<fed_cm::DialogClosedParams> Parse(const base::Value& value, ErrorReporter* errors) {
+    return fed_cm::DialogClosedParams::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const fed_cm::DialogClosedParams& value) {
   return value.Serialize();
 }
 

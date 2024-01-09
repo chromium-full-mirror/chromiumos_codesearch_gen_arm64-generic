@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/compositor_frame_sink.mojom-features.h"
 #include "services/viz/public/mojom/compositing/compositor_frame_sink.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/compositor_frame_sink.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom-forward.h"
@@ -147,16 +148,16 @@ class CompositorFrameSink
   virtual void SetAutoNeedsBeginFrame() = 0;
 
   
-  virtual void SubmitCompositorFrame(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) = 0;
+  virtual void SubmitCompositorFrame(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources);
+  virtual bool SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources);
 
   using SubmitCompositorFrameSyncCallback = base::OnceCallback<void(std::vector<::viz::ReturnedResource>)>;
   
-  virtual void SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, SubmitCompositorFrameSyncCallback callback) = 0;
+  virtual void SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, SubmitCompositorFrameSyncCallback callback) = 0;
 
   
   virtual void DidNotProduceFrame(const ::viz::BeginFrameAck& ack) = 0;
@@ -208,6 +209,7 @@ class CompositorFrameSinkClient
     kOnBeginFramePausedChangedMinVersion = 0,
     kReclaimResourcesMinVersion = 0,
     kOnCompositorFrameTransitionDirectiveProcessedMinVersion = 0,
+    kOnSurfaceEvictedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -228,6 +230,9 @@ class CompositorFrameSinkClient
   struct OnCompositorFrameTransitionDirectiveProcessed_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnSurfaceEvicted_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CompositorFrameSinkClient() = default;
 
@@ -245,6 +250,9 @@ class CompositorFrameSinkClient
 
   
   virtual void OnCompositorFrameTransitionDirectiveProcessed(uint32_t sequence_id) = 0;
+
+  
+  virtual void OnSurfaceEvicted(const ::viz::LocalSurfaceId& local_surface_id) = 0;
 };
 
 
@@ -264,11 +272,11 @@ class  CompositorFrameSinkProxy
   
   void SetAutoNeedsBeginFrame() final;
   
-  void SubmitCompositorFrame(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) final;
+  void SubmitCompositorFrame(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) final;
   
-  bool SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources) final;
+  bool SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources) final;
   
-  void SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, SubmitCompositorFrameSyncCallback callback) final;
+  void SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, SubmitCompositorFrameSyncCallback callback) final;
   
   void DidNotProduceFrame(const ::viz::BeginFrameAck& ack) final;
   
@@ -302,6 +310,8 @@ class  CompositorFrameSinkClientProxy
   void ReclaimResources(std::vector<::viz::ReturnedResource> resources) final;
   
   void OnCompositorFrameTransitionDirectiveProcessed(uint32_t sequence_id) final;
+  
+  void OnSurfaceEvicted(const ::viz::LocalSurfaceId& local_surface_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

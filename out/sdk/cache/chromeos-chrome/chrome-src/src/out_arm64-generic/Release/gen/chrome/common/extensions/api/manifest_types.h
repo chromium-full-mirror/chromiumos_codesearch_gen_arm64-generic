@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -36,8 +37,8 @@ struct ChromeSettingsOverrides {
   ~ChromeSettingsOverrides();
   ChromeSettingsOverrides(const ChromeSettingsOverrides&) = delete;
   ChromeSettingsOverrides& operator=(const ChromeSettingsOverrides&) = delete;
-  ChromeSettingsOverrides(ChromeSettingsOverrides&& rhs);
-  ChromeSettingsOverrides& operator=(ChromeSettingsOverrides&& rhs);
+  ChromeSettingsOverrides(ChromeSettingsOverrides&& rhs) noexcept;
+  ChromeSettingsOverrides& operator=(ChromeSettingsOverrides&& rhs) noexcept;
 
   // Populates a ChromeSettingsOverrides object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -49,10 +50,6 @@ struct ChromeSettingsOverrides {
 
   // Creates a deep copy of ChromeSettingsOverrides.
   ChromeSettingsOverrides Clone() const;
-
-  // Creates a ChromeSettingsOverrides object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ChromeSettingsOverrides> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a ChromeSettingsOverrides object from a base::Value::Dict, or
   // unexpected on failure.
@@ -72,8 +69,8 @@ struct ChromeSettingsOverrides {
     ~SearchProvider();
     SearchProvider(const SearchProvider&) = delete;
     SearchProvider& operator=(const SearchProvider&) = delete;
-    SearchProvider(SearchProvider&& rhs);
-    SearchProvider& operator=(SearchProvider&& rhs);
+    SearchProvider(SearchProvider&& rhs) noexcept;
+    SearchProvider& operator=(SearchProvider&& rhs) noexcept;
 
     // Populates a SearchProvider object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -100,43 +97,43 @@ struct ChromeSettingsOverrides {
 
     // Name of the search engine displayed to user. This may only be omitted if
     // <em>prepopulated_id</em> is set.
-    absl::optional<std::string> name;
+    std::optional<std::string> name;
 
     // Omnibox keyword for the search engine. This may only be omitted if
     // <em>prepopulated_id</em> is set.
-    absl::optional<std::string> keyword;
+    std::optional<std::string> keyword;
 
     // An icon URL for the search engine. This may only be omitted if
     // <em>prepopulated_id</em> is set.
-    absl::optional<std::string> favicon_url;
+    std::optional<std::string> favicon_url;
 
     // An search URL used by the search engine.
     std::string search_url;
 
     // Encoding of the search term. This may only be omitted if
     // <em>prepopulated_id</em> is set.
-    absl::optional<std::string> encoding;
+    std::optional<std::string> encoding;
 
     // If omitted, this engine does not support suggestions.
-    absl::optional<std::string> suggest_url;
+    std::optional<std::string> suggest_url;
 
     // If omitted, this engine does not support image search.
-    absl::optional<std::string> image_url;
+    std::optional<std::string> image_url;
 
     // The string of post parameters to search_url
-    absl::optional<std::string> search_url_post_params;
+    std::optional<std::string> search_url_post_params;
 
     // The string of post parameters to suggest_url
-    absl::optional<std::string> suggest_url_post_params;
+    std::optional<std::string> suggest_url_post_params;
 
     // The string of post parameters to image_url
-    absl::optional<std::string> image_url_post_params;
+    std::optional<std::string> image_url_post_params;
 
     // A list of URL patterns that can be used, in addition to |search_url|.
-    absl::optional<std::vector<std::string>> alternate_urls;
+    std::optional<std::vector<std::string>> alternate_urls;
 
     // An ID of the built-in search engine in Chrome.
-    absl::optional<int> prepopulated_id;
+    std::optional<int> prepopulated_id;
 
     // Specifies if the search provider should be default.
     bool is_default;
@@ -145,13 +142,13 @@ struct ChromeSettingsOverrides {
 
 
   // New value for the homepage.
-  absl::optional<std::string> homepage;
+  std::optional<std::string> homepage;
 
   // A search engine
-  absl::optional<SearchProvider> search_provider;
+  std::optional<SearchProvider> search_provider;
 
   // An array of length one containing a URL to be used as the startup page.
-  absl::optional<std::vector<std::string>> startup_pages;
+  std::optional<std::vector<std::string>> startup_pages;
 
 };
 
@@ -160,12 +157,12 @@ struct ChromeSettingsOverrides {
 // from an external device (eg. plugged via USB), without using
 // <code>file_handlers</code>. Finally, for <code>"network"</code> source,
 // contents should be fetched via network.
-enum  FileSystemProviderSource {
-  FILE_SYSTEM_PROVIDER_SOURCE_NONE = 0,
-  FILE_SYSTEM_PROVIDER_SOURCE_FILE,
-  FILE_SYSTEM_PROVIDER_SOURCE_DEVICE,
-  FILE_SYSTEM_PROVIDER_SOURCE_NETWORK,
-  FILE_SYSTEM_PROVIDER_SOURCE_LAST = FILE_SYSTEM_PROVIDER_SOURCE_NETWORK,
+enum class FileSystemProviderSource {
+  kNone = 0,
+  kFile,
+  kDevice,
+  kNetwork,
+  kMaxValue = kNetwork,
 };
 
 
@@ -179,8 +176,8 @@ struct FileSystemProviderCapabilities {
   ~FileSystemProviderCapabilities();
   FileSystemProviderCapabilities(const FileSystemProviderCapabilities&) = delete;
   FileSystemProviderCapabilities& operator=(const FileSystemProviderCapabilities&) = delete;
-  FileSystemProviderCapabilities(FileSystemProviderCapabilities&& rhs);
-  FileSystemProviderCapabilities& operator=(FileSystemProviderCapabilities&& rhs);
+  FileSystemProviderCapabilities(FileSystemProviderCapabilities&& rhs) noexcept;
+  FileSystemProviderCapabilities& operator=(FileSystemProviderCapabilities&& rhs) noexcept;
 
   // Populates a FileSystemProviderCapabilities object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -192,10 +189,6 @@ struct FileSystemProviderCapabilities {
 
   // Creates a deep copy of FileSystemProviderCapabilities.
   FileSystemProviderCapabilities Clone() const;
-
-  // Creates a FileSystemProviderCapabilities object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<FileSystemProviderCapabilities> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a FileSystemProviderCapabilities object from a base::Value::Dict,
   // or unexpected on failure.
@@ -211,15 +204,15 @@ struct FileSystemProviderCapabilities {
 
   // Whether configuring via <code>onConfigureRequested</code> is supported. By
   // default: <code>false</code>.
-  absl::optional<bool> configurable;
+  std::optional<bool> configurable;
 
   // Whether multiple (more than one) mounted file systems are supported. By
   // default: <code>false</code>.
-  absl::optional<bool> multiple_mounts;
+  std::optional<bool> multiple_mounts;
 
   // Whether setting watchers and notifying about changes is supported. By
   // default: <code>false</code>.
-  absl::optional<bool> watchable;
+  std::optional<bool> watchable;
 
   // Source of data for mounted file systems.
   FileSystemProviderSource source;

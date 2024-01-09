@@ -14,8 +14,12 @@ namespace dlp_internals::mojom {
 namespace internal {
 
 
+constexpr uint32_t kReportingObserver_OnReportEvent_Name = 0;
 constexpr uint32_t kPageHandler_GetClipboardDataSource_Name = 0;
 constexpr uint32_t kPageHandler_GetContentRestrictionsInfo_Name = 1;
+constexpr uint32_t kPageHandler_ObserveReporting_Name = 2;
+constexpr uint32_t kPageHandler_GetFilesDatabaseEntries_Name = 3;
+constexpr uint32_t kPageHandler_GetFileInode_Name = 4;
 
 }  // namespace internal
 

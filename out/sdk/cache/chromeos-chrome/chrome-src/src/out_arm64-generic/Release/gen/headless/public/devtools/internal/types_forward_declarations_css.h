@@ -42,6 +42,7 @@ class CSSTryRule;
 class CSSPositionFallbackRule;
 class CSSKeyframesRule;
 class CSSPropertyRegistration;
+class CSSFontPaletteValuesRule;
 class CSSPropertyRule;
 class CSSKeyframeRule;
 class StyleDeclarationEdit;

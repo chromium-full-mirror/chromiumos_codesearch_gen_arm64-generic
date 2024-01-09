@@ -25,7 +25,7 @@ namespace blink::mojom {
 class RendererContentSettingsDataView;
 
 class RendererContentSettings;
-using RendererContentSettingsPtr = mojo::StructPtr<RendererContentSettings>;
+using RendererContentSettingsPtr = mojo::InlinedStructPtr<RendererContentSettings>;
 
 
 

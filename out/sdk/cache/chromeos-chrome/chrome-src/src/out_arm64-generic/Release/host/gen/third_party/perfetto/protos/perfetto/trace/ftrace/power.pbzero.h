@@ -17,6 +17,127 @@ namespace protos {
 namespace pbzero {
 
 
+class GpuWorkPeriodFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  GpuWorkPeriodFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit GpuWorkPeriodFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit GpuWorkPeriodFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_gpu_id() const { return at<1>().valid(); }
+  uint32_t gpu_id() const { return at<1>().as_uint32(); }
+  bool has_uid() const { return at<2>().valid(); }
+  uint32_t uid() const { return at<2>().as_uint32(); }
+  bool has_start_time_ns() const { return at<3>().valid(); }
+  uint64_t start_time_ns() const { return at<3>().as_uint64(); }
+  bool has_end_time_ns() const { return at<4>().valid(); }
+  uint64_t end_time_ns() const { return at<4>().as_uint64(); }
+  bool has_total_active_duration_ns() const { return at<5>().valid(); }
+  uint64_t total_active_duration_ns() const { return at<5>().as_uint64(); }
+};
+
+class GpuWorkPeriodFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = GpuWorkPeriodFtraceEvent_Decoder;
+  enum : int32_t {
+    kGpuIdFieldNumber = 1,
+    kUidFieldNumber = 2,
+    kStartTimeNsFieldNumber = 3,
+    kEndTimeNsFieldNumber = 4,
+    kTotalActiveDurationNsFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.GpuWorkPeriodFtraceEvent"; }
+
+
+  using FieldMetadata_GpuId =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      GpuWorkPeriodFtraceEvent>;
+
+  static constexpr FieldMetadata_GpuId kGpuId{};
+  void set_gpu_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_GpuId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Uid =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      GpuWorkPeriodFtraceEvent>;
+
+  static constexpr FieldMetadata_Uid kUid{};
+  void set_uid(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Uid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_StartTimeNs =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      GpuWorkPeriodFtraceEvent>;
+
+  static constexpr FieldMetadata_StartTimeNs kStartTimeNs{};
+  void set_start_time_ns(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_StartTimeNs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_EndTimeNs =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      GpuWorkPeriodFtraceEvent>;
+
+  static constexpr FieldMetadata_EndTimeNs kEndTimeNs{};
+  void set_end_time_ns(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_EndTimeNs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TotalActiveDurationNs =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      GpuWorkPeriodFtraceEvent>;
+
+  static constexpr FieldMetadata_TotalActiveDurationNs kTotalActiveDurationNs{};
+  void set_total_active_duration_ns(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TotalActiveDurationNs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+};
+
 class WakeupSourceDeactivateFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   WakeupSourceDeactivateFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}

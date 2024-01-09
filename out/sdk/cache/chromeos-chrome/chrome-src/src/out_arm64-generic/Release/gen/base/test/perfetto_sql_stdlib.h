@@ -33,25 +33,28 @@ const char kChromeScrolls[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Autho
 -- Defines slices for all of the individual scrolls in a trace based on the
 -- LatencyInfo-based scroll definition.
 --
--- @column id                          The unique identifier of the scroll.
--- @column ts                          The start timestamp of the scroll.
--- @column dur                         The duration of the scroll.
--- @column gesture_scroll_begin_ts     The earliest timestamp of the
---                                     InputLatency::GestureScrollBegin for the
---                                     corresponding scroll id.
--- @column gesture_scroll_end_ts       The earliest timestamp of the
---                                     InputLatency::GestureScrollEnd for the
---                                     corresponding scroll id.
---
 -- NOTE: this view of top level scrolls is based on the LatencyInfo definition
 -- of a scroll, which differs subtly from the definition based on
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- EventLatencies.
+-- EventLatencies.
 -- TODO(b/278684408): add support for tracking scrolls across multiple Chrome/
 -- WebView instances. Currently gesture_scroll_id unique within an instance, but
 -- is not unique across multiple instances. Switching to an EventLatency based
 -- definition of scrolls should resolve this.
-CREATE PERFETTO TABLE chrome_scrolls AS
+CREATE PERFETTO TABLE chrome_scrolls(
+  -- The unique identifier of the scroll.
+  id INT,
+  -- The start timestamp of the scroll.
+  ts INT,
+  -- The duration of the scroll.
+  dur INT,
+  -- The earliest timestamp of the InputLatency::GestureScrollBegin for the
+  -- corresponding scroll id.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  gesture_scroll_begin_ts INT,
+  -- The earliest timestamp of the InputLatency::GestureScrollEnd for the
+  -- corresponding scroll id.
+  gesture_scroll_end_ts INT
+) AS
 WITH all_scrolls AS (
   SELECT
     name,
@@ -79,12 +82,12 @@ scroll_starts AS (
 )
 SELECT
   sa.scroll_id AS id,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  MIN(ts) AS ts,
+  MIN(ts) AS ts,
   CAST(MAX(ts + dur) - MIN(ts) AS INT) AS dur,
   ss.gesture_scroll_begin_ts AS gesture_scroll_begin_ts,
   se.gesture_scroll_end_ts AS gesture_scroll_end_ts
-FROM all_scrolls sa
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(FROM all_scrolls sa
   LEFT JOIN scroll_starts ss ON
     sa.scroll_id = ss.scroll_id
   LEFT JOIN scroll_ends se ON
@@ -95,24 +98,28 @@ GROUP BY sa.scroll_id;
 -- definition in chrome_scrolls. Note that scrolls may overlap (particularly in
 -- cases of jank/broken traces, etc); so scrolling intervals are not exactly the
 -- same as individual scrolls.
---
--- @column id            The unique identifier of the scroll interval. This may
---                       span multiple scrolls if they overlap.
--- @column ts            The start timestamp of the scroll interval.
--- @column dur           The duration of the scroll interval.
-CREATE VIEW chrome_scrolling_intervals AS
+CREATE PERFETTO VIEW chrome_scrolling_intervals(
+  -- The unique identifier of the scroll interval. This may span multiple scrolls if they overlap.
+  id INT,
+  -- Comma-separated list of scroll ids that are included in this interval.
+  scroll_ids STRING,
+  -- The start timestamp of the scroll interval.
+  ts INT,
+  -- The duration of the scroll interval.
+  dur INT
+) AS
 WITH all_scrolls AS (
   SELECT
     id AS scroll_id,
     s.ts AS start_ts,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    s.ts + s.dur AS end_ts
+    s.ts + s.dur AS end_ts
   FROM chrome_scrolls s),
 ordered_end_ts AS (
   SELECT
     *,
     MAX(end_ts) OVER (ORDER BY start_ts) AS max_end_ts_so_far
-  FROM all_scrolls),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  FROM all_scrolls),
 range_starts AS (
   SELECT
     *,
@@ -157,23 +164,27 @@ const char kCpuPowerups[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
 --      slices that ran after a CPU power-up.
 
 -- The CPU power transitions in the trace.
---
--- @column ts            The timestamp at the start of the slice.
--- @column dur           The duration of the slice.
--- @column cpu           The CPU on which the transition occurred
--- @column power_state   The power state that the CPU was in at time 'ts' for
---                       duration 'dur'.
--- @column previous_power_state The power state that the CPU was previously in.
--- @column powerup_id    A unique ID for the CPU power-up.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(--
 -- Power states are encoded as non-negative integers, with zero representing
 -- full-power operation and positive values representing increasingly deep
 -- sleep states.
 --
 -- On ARM systems, power state 1 represents the WFI (Wait For Interrupt) sleep
 -- state that the CPU enters while idle.
-CREATE VIEW chrome_cpu_power_slice AS
+CREATE PERFETTO VIEW chrome_cpu_power_slice(
+  -- The timestamp at the start of the slice.
+  ts INT,
+  -- The duration of the slice.
+  dur INT,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  -- The CPU on which the transition occurred
+  cpu INT,
+  -- The power state that the CPU was in at time 'ts' for duration 'dur'.
+  power_state INT,
+  -- The power state that the CPU was previously in.
+  previous_power_state INT,
+  -- A unique ID for the CPU power-up.
+  powerup_id INT
+) AS
   WITH cpu_power_states AS (
     SELECT
       c.id AS id,
@@ -201,14 +212,14 @@ CREATE VIEW chrome_cpu_power_slice AS
     FROM cpu_power_states
   )
   WHERE dur IS NOT NULL
+    AND previous_power_state IS NOT NULL
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    AND previous_power_state IS NOT NULL
-    AND power_state = 0                      -- Track full-power states.
+R"_d3l1m1t3r_(    AND power_state = 0                      -- Track full-power states.
     AND power_state != previous_power_state  -- Skip missing spans.
     ORDER BY ts ASC;
 
 -- We do not want scheduler slices with utid = 0 (the 'swapper' kernel thread).
-CREATE VIEW internal_cpu_power_valid_sched_slice AS
+CREATE PERFETTO VIEW internal_cpu_power_valid_sched_slice AS
   SELECT *
   FROM sched_slice
   WHERE utid != 0;
@@ -235,29 +246,37 @@ R"_d3l1m1t3r_(USING
 
 -- The Linux scheduler slices that executed immediately after a
 -- CPU power up.
---
--- @column ts          The timestamp at the start of the slice.
--- @column dur         The duration of the slice.
--- @column cpu         The cpu on which the slice executed.
--- @column sched_id    Id for the sched_slice table.
--- @column utid        Unique id for the thread that ran within the slice.
--- @column previous_power_state   The CPU's power state before this slice.
-CREATE PERFETTO TABLE chrome_cpu_power_first_sched_slice_after_powerup AS
-  SELECT
-    ts,
-    dur,
-    cpu,
-    id AS sched_id,
-    utid,
-    previous_power_state,
-    powerup_id
-  FROM internal_cpu_power_and_sched_slice
-  WHERE power_state = 0     -- Power-ups only.
-  GROUP BY cpu, powerup_id
-  HAVING ts = MIN(ts)       -- There will only be one MIN sched slice
-                            -- per CPU power up.
+CREATE PERFETTO TABLE chrome_cpu_power_first_sched_slice_after_powerup(
+  -- The timestamp at the start of the slice.
+  ts INT,
+  -- The duration of the slice.
+  dur INT,
+  -- The cpu on which the slice executed.
+  cpu INT,
+  -- Id for the sched_slice table.
+  sched_id INT,
+  -- Unique id for the thread that ran within the slice.
+  utid INT,
+  -- The CPU's power state before this slice.
+  previous_power_state INT,
+  -- A unique ID for the CPU power-up.
+  powerup_id INT
+) AS
+SELECT
+  ts,
+  dur,
+  cpu,
+  id AS sched_id,
+  utid,
+  previous_power_state,
+  powerup_id
+FROM internal_cpu_power_and_sched_slice
+WHERE power_state = 0     -- Power-ups only.
+GROUP BY cpu, powerup_id
+HAVING ts = MIN(ts)       -- There will only be one MIN sched slice
+                          -- per CPU power up.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  ORDER BY ts ASC;
+R"_d3l1m1t3r_(ORDER BY ts ASC;
 
 -- A view joining thread tracks and top-level slices.
 --
@@ -268,7 +287,7 @@ R"_d3l1m1t3r_(  ORDER BY ts ASC;
 --   slice_id  The slice_id for the top-level slice.
 --   ts        Starting timestamp for the slice.
 --   dur       The duration for the slice.
-CREATE VIEW internal_cpu_power_thread_and_toplevel_slice AS
+CREATE PERFETTO VIEW internal_cpu_power_thread_and_toplevel_slice AS
   SELECT
     t.utid AS utid,
     s.id AS slice_id,
@@ -299,15 +318,213 @@ USING
             internal_cpu_power_thread_and_toplevel_slice PARTITIONED utid);
 
 -- The first top-level slice that ran after a CPU power-up.
---
--- @column slice_id              ID of the slice in the slice table.
--- @column previous_power_state  The power state of the CPU prior to power-up.
-CREATE VIEW chrome_cpu_power_first_toplevel_slice_after_powerup AS
+CREATE PERFETTO VIEW chrome_cpu_power_first_toplevel_slice_after_powerup(
+  -- ID of the slice in the slice table.
+  slice_id INT,
+  -- The power state of the CPU prior to power-up.
+  previous_power_state INT
+) AS
   SELECT slice_id, previous_power_state
   FROM chrome_cpu_power_post_powerup_slice
   GROUP BY cpu, powerup_id
   HAVING ts = MIN(ts)
   ORDER BY ts ASC;
+
+)_d3l1m1t3r_"
+;
+
+const char kEventLatencyDescription[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
+-- Use of this source code is governed by a BSD-style license that can be
+-- found in the LICENSE file.
+
+-- Source of truth of the descriptions of EventLatency stages.
+CREATE PERFETTO TABLE chrome_event_latency_stage_descriptions (
+    -- The name of the EventLatency stage.
+    name STRING,
+    -- A description of the EventLatency stage.
+    description STRING
+) AS
+WITH event_latency_descriptions(
+  name,
+  description)
+AS (
+VALUES
+  ('TouchRendererHandlingToBrowserMain',
+    'Interval between when the website handled blocking touch move to when ' ||
+    'the browser UI thread started processing the input. Blocking touch ' ||
+    'move happens when a touch event has to be handled by the website ' ||
+    'before being converted to a scroll.'),
+  ('GenerationToBrowserMain',
+    'Interval between OS-provided hardware input timestamp to when the ' ||
+    'browser UI thread began processing the input.'),
+  ('GenerationToRendererCompositor',
+    'Interval between OS-provided hardware input timestamp to when the ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'renderer compositor thread starts handling the artificial TOUCH_PRESS ' ||
+    'browser injects in the kTouchScrollStarted event. See ' ||
+    'PrependTouchScrollNotification for more info.'),
+  ('BrowserMainToRendererCompositor',
+    'Interval between when Browser UI thread starts to process the input to ' ||
+    'renderer compositor thread starting to process it. This stage includes ' ||
+    'browser UI thread processing, and task queueing times on the IO and ' ||
+    'renderer compositor threads.'),
+  ('RendererCompositorQueueingDelay',
+    'Interval between when the input event is queued in the renderer ' ||
+    'compositor and start of the BeginImplFrame producing a frame ' ||
+    'containing this input.'),
+  ('RendererCompositorToMain',
+    'Interval between when the Renderer Compositor finishes processing the ' ||
+    'event and when the Renderer Main (CrRendererMain) starts processing ' ||
+    'the event, only seen when the compositor thread cannot handle the ' ||
+    'scroll event by itself (known as "slow path"), usually caused by the ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'presence of blocking JS event listeners or complex page layout.'),
+  ('RendererCompositorProcessing',
+    'Interval corresponding to the Renderer Compositor thread processing ' ||
+    'the frame updates.'),
+  ('RendererMainProcessing',
+    'Interval corresponding to the Renderer Main thread processing the ' ||
+    'frame updates.'),
+  ('EndActivateToSubmitCompositorFrame',
+    'Interval that the Renderer Compositor waits for the GPU to flush a ' ||
+    'frame to submit a new one.'),
+  ('SubmitCompositorFrameToPresentationCompositorFrame',
+    'Interval between the first Renderer Frame received to when the system ' ||
+    'presented the fully composited frame on the screen. Note that on some ' ||
+    'systems/apps this is incomplete/inaccurate due to lack of feedback ' ||
+    'timestamps from the platform (Mac, iOS, Android Webview, etc).'),
+  ('ArrivedInRendererCompositorToTermination',
+    'Interval between when Renderer Compositor received the frame to when ' ||
+    'this input was decided to either be ignored or merged into another ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'frame being produced. This could be a dropped frame, or just a normal ' ||
+    'coalescing.'),
+  ('RendererCompositorStartedToTermination',
+    'Interval between when Renderer Compositor started processing the frame ' ||
+    'to when this input was decided to either be ignored or merged into ' ||
+    'another frame being produced. This could be a dropped frame, or just a ' ||
+    'normal coalescing.'),
+  ('RendererMainFinishedToTermination',
+    'Interval between when Renderer Main finished processing the frame ' ||
+    'to when this input was decided to either be ignored or merged into ' ||
+    'another frame being produced. This could be a dropped frame, or just a ' ||
+    'normal coalescing.'),
+  ('RendererCompositorFinishedToTermination',
+    'Interval between when Renderer Compositor finished processing the ' ||
+    'frame to when this input was decided to either be ignored or merged ' ||
+    'into another frame being produced. This could be just a normal ' ||
+    'coalescing.'),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  ('RendererMainStartedToTermination',
+    'Interval between when Renderer Main started processing the frame ' ||
+    'to when this input was decided to either be ignored or merged into ' ||
+    'another frame being produced. This could be a dropped frame, or just a ' ||
+    'normal coalescing.'),
+  ('RendererCompositorFinishedToBeginImplFrame',
+    'Interval when Renderer Compositor has finished processing a vsync ' ||
+    '(with input), but did not end up producing a CompositorFrame due to ' ||
+    'reasons such as waiting on main thread, and is now waiting for the ' ||
+    'next BeginFrame from the GPU VizCompositor.'),
+  ('RendererCompositorFinishedToCommit',
+    'Interval between when the Renderer Compositor has finished its work ' ||
+    'and the current tree state will be committed from the Renderer Main ' ||
+    '(CrRendererMain) thread.'),
+  ('RendererCompositorFinishedToEndCommit',
+    'Interval between when the Renderer Compositor finishing processing to ' ||
+    'the Renderer Main (CrRendererMain) both starting and finishing the ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'commit.'),
+  ('RendererCompositorFinishedToActivation',
+    'Interval of activation without a previous commit (not as a stage with ' ||
+    'ToEndCommit). Activation occurs on the Renderer Compositor Thread ' ||
+    'after it has been notified of a fully committed RendererMain tree.'),
+  ('RendererCompositorFinishedToEndActivate',
+    'Interval when the Renderer Compositor has finished processing and ' ||
+    'activating the Tree.'),
+  ('RendererCompositorFinishedToSubmitCompositorFrame',
+    'Interval when processing does not need to wait for a commit (can do an ' ||
+    'early out) for activation and can go straight to providing the frame ' ||
+    'to the GPU VizCompositor. The Renderer Compositor is waiting for the ' ||
+    'GPU to flush a frame so that it can then submit a new frame.'),
+  ('RendererMainFinishedToBeginImplFrame',
+    'Interval when the input was sent first to the RendererMain thread and ' ||
+    'now requires the Renderer Compositor to react, aka it is is waiting ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'for a BeginFrame signal.'),
+  ('RendererMainFinishedToSendBeginMainFrame',
+    'Interval during which the Renderer Main (CrRendererMain) thread is ' ||
+    'waiting for BeginMainFrame.'),
+  ('RendererMainFinishedToCommit',
+    'Interval when the Renderer Main (CrRendererMain) is ready to commit ' ||
+    'its work to the Renderer Compositor.'),
+  ('BeginImplFrameToSendBeginMainFrame',
+    'Interval during which the Renderer Compositor has received the ' ||
+    'BeginFrame signal from the GPU VizCompositor, and now needs to send it ' ||
+    'to the Renderer Main thread (CrRendererMain).'),
+  ('RendererCompositorFinishedToSendBeginMainFrame',
+    'Interval during which the Renderer Compositor is waiting for a ' ||
+    'BeginFrame from the GPU VizCompositor, and it expects to have to do ' ||
+    'work on the Renderer Main thread (CrRendererMain), so we are waiting ' ||
+    'for a BeginMainFrame'),
+  ('SendBeginMainFrameToCommit',
+    'Interval when updates (such as HandleInputEvents, Animate, StyleUpdate ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'and LayoutUpdate) are updatedon the Renderer Main thread ' ||
+    '(CrRendererMain).'),
+  ('Commit',
+    'Interval during which the Renderer Main thread (CrRendererMain) ' ||
+    'commits updates back to Renderer Compositor for activation. ' ||
+    'Specifically, the main thread copies its own version of layer tree ' ||
+    'onto the pending tree on the compositor thread. The main thread is ' ||
+    'blocked during the copying process.'),
+  ('EndCommitToActivation',
+    'Interval when the commit is ready and waiting for activation.'),
+  ('Activation',
+    'Interval when the layer trees and properties are on the pending tree ' ||
+    'is pused to the active tree on the Renderer Compositor.'),
+  ('SubmitToReceiveCompositorFrame',
+    'Interval of the delay b/w Renderer Compositor thread sending ' ||
+    'CompositorFrame and then GPU VizCompositorThread receiving the ' ||
+    'CompositorFrame.'),
+  ('ReceiveCompositorFrameToStartDraw',
+    'Interval between the first frame received to when all frames (or ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'timeouts have occured) and we start drawing. It can be blocked by ' ||
+    'other processes (e.g to draw a toolbar it waiting for information from ' ||
+    'the Browser) as it waits for timeouts or frames to be provided. This ' ||
+    'is the tree of dependencies that the GPU VizCompositor is waiting for ' ||
+    'things to arrive. That is creating a single frame for multiple ' ||
+    'compositor frames. '),
+  ('StartDrawToSwapStart',
+    'Interval when all compositing sources are done, or compositing ' ||
+    'deadline passes - the viz thread takes all the latest composited ' ||
+    'surfaces and issues the software draw instructions to layer the ' ||
+    'composited tiles, this substage ends when the swap starts on Gpu ' ||
+    'CompositorGpuThread.'),
+  ('SwapStartToBufferAvailable',
+    'Interval that is a substage of stage "Swap" when the framebuffer ' ||
+    'is prepared by the system and the fence Chrome waits on before ' ||
+    'writing is signalled, and Chrome can start transferring the new frame.'),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  ('BufferAvailableToBufferReady',
+    'Interval that is a Ssubstage of stage "Swap" when Chrome is ' ||
+    'transferring a new frame to when it has finished completely sending a ' ||
+    'frame to the framebuffer.'),
+  ('BufferReadyToLatch',
+    'Interval that is a substage of stage "Swap", when the system latches ' ||
+    'and is ready to use the frame, and then it can get to work producing ' ||
+    'the final frame.'),
+  ('LatchToSwapEnd',
+    'Intereval that is a substage of stage "Swap", when the latch has ' ||
+    'finished until the frame is fully swapped and in the queue of frames ' ||
+    'to be presented.'),
+  ('SwapEndToPresentationCompositorFrame',
+    'Interval that the frame is presented on the screen (and pixels became ' ||
+    'visible).'))
+SELECT
+  name,
+  description
+FROM event_latency_descriptions;
 
 )_d3l1m1t3r_"
 ;
@@ -320,17 +537,26 @@ DROP VIEW IF EXISTS chrome_histograms;
 
 -- A helper view on top of the histogram events emitted by Chrome.
 -- Requires "disabled-by-default-histogram_samples" Chrome category.
---
--- @column name          The name of the histogram.
--- @column value         The value of the histogram sample.
--- @column ts            Alias of |slice.ts|.
--- @column thread_name   Thread name.
--- @column utid          Utid of the thread.
--- @column tid           Tid of the thread.
--- @column process_name  Process name.
--- @column upid          Upid of the process.
--- @column pid           Pid of the process.
-CREATE VIEW chrome_histograms AS
+CREATE PERFETTO TABLE chrome_histograms(
+  -- The name of the histogram.
+  name STRING,
+  -- The value of the histogram sample.
+  value INT,
+  -- Alias of |slice.ts|.
+  ts INT,
+  -- Thread name.
+  thread_name STRING,
+  -- Utid of the thread.
+  utid INT,
+  -- Tid of the thread.
+  tid INT,
+  -- Process name.
+  process_name STRING,
+  -- Upid of the process.
+  upid INT,
+  -- Pid of the process.
+  pid INT
+) AS
 SELECT
   extract_arg(slice.arg_set_id, "chrome_histogram_sample.name") as name,
   extract_arg(slice.arg_set_id, "chrome_histogram_sample.sample") as value,
@@ -338,10 +564,10 @@ SELECT
   thread.name as thread_name,
   thread.utid as utid,
   thread.tid as tid,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  process.name as process_name,
+  process.name as process_name,
   process.upid as upid,
-  process.pid as pid
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  process.pid as pid
 FROM slice
 JOIN thread_track ON thread_track.id = slice.track_id
 JOIN thread USING (utid)
@@ -352,19 +578,203 @@ WHERE
 )_d3l1m1t3r_"
 ;
 
+const char kInteractions[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
+-- Use of this source code is governed by a BSD-style license that can be
+-- found in the LICENSE file.
+
+-- This file specifies common metrics/tables for critical user interactions. It
+-- is expected to be in flux as metrics are added across different CUI types.
+-- Currently we only track Chrome page loads and their associated metrics.
+
+INCLUDE PERFETTO MODULE chrome.page_loads;
+INCLUDE PERFETTO MODULE chrome.startups;
+INCLUDE PERFETTO MODULE chrome.web_content_interactions;
+
+-- All critical user interaction events, including type and table with
+-- associated metrics.
+CREATE PERFETTO TABLE chrome_interactions(
+  -- Identifier of the interaction; this is not guaranteed to be unique to the table -
+  -- rather, it is unique within an individual interaction type. Combine with type to get
+  -- a unique identifier in this table.
+  scoped_id INT,
+  -- Type of this interaction, which together with scoped_id uniquely identifies this
+  -- interaction. Also corresponds to a SQL table name containing more details specific
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  -- to this type of interaction.
+  type STRING,
+  -- Interaction name - e.g. 'PageLoad', 'Tap', etc. Interactions will have unique metrics
+  -- stored in other tables.
+  name STRING,
+  -- Timestamp of the CUI event.
+  ts INT,
+  -- Duration of the CUI event.
+  dur INT
+) AS
+SELECT
+  id AS scoped_id,
+  'chrome_page_loads' AS type,
+  'PageLoad' AS name,
+  navigation_start_ts AS ts,
+  IFNULL(lcp, fcp) AS dur
+FROM chrome_page_loads
+UNION ALL
+SELECT
+  id AS scoped_id,
+  'chrome_startups' AS type,
+  name,
+  startup_begin_ts AS ts,
+  CASE
+    WHEN first_visible_content_ts IS NOT NULL
+      THEN first_visible_content_ts - startup_begin_ts
+    ELSE 0
+  END AS dur
+FROM chrome_startups
+UNION ALL
+SELECT
+  id AS scoped_id,
+  'chrome_web_content_interactions' AS type,
+  'InteractionToFirstPaint' AS name,
+  ts,
+  dur
+FROM chrome_web_content_interactions;
+
+)_d3l1m1t3r_"
+;
+
 const char kMetadata[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
 -- Use of this source code is governed by a BSD-style license that can be
 -- found in the LICENSE file.
 
 -- Returns hardware class of the device, often use to find device brand
 -- and model.
--- @ret STRING Hardware class name.
 CREATE PERFETTO FUNCTION chrome_hardware_class()
+-- Hardware class name.
 RETURNS STRING AS
 SELECT
   str_value
   FROM metadata
 WHERE name = "cr-hardware-class";
+)_d3l1m1t3r_"
+;
+
+const char kPageLoads[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
+-- Use of this source code is governed by a BSD-style license that can be
+-- found in the LICENSE file.
+
+-- TODO(b/306300843): The recorded navigation ids are not guaranteed to be
+-- unique within a trace; they are only guaranteed to be unique within a single
+-- chrome instance. Chrome instance id needs to be recorded, and used here in
+-- combination with navigation id to uniquely identify page load metrics.
+
+INCLUDE PERFETTO MODULE common.slices;
+
+CREATE PERFETTO VIEW internal_fcp_metrics AS
+SELECT
+  ts,
+  dur,
+  EXTRACT_ARG(arg_set_id, 'page_load.navigation_id') AS navigation_id,
+  EXTRACT_ARG(arg_set_id, 'page_load.url') AS url,
+  upid AS browser_upid
+FROM process_slice
+WHERE name = 'PageLoadMetrics.NavigationToFirstContentfulPaint';
+
+CREATE PERFETTO FUNCTION internal_page_load_metrics(event_name STRING)
+RETURNS TABLE(
+  ts LONG,
+  dur LONG,
+  navigation_id INT,
+  browser_upid INT
+) AS
+SELECT
+  ts,
+  dur,
+  EXTRACT_ARG(arg_set_id, 'page_load.navigation_id')
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    AS navigation_id,
+  upid AS browser_upid
+FROM process_slice
+WHERE name = $event_name;
+
+-- Chrome page loads, including associated high-level metrics and properties.
+CREATE PERFETTO TABLE chrome_page_loads(
+  -- ID of the navigation and Chrome browser process; this combination is
+  -- unique to every individual navigation.
+  id INT,
+  -- ID of the navigation associated with the page load (i.e. the cross-document
+  -- navigation in primary main frame which created this page's main document).
+  -- Also note that navigation_id is specific to a given Chrome browser process,
+  -- and not globally unique.
+  navigation_id INT,
+  -- Timestamp of the start of navigation.
+  navigation_start_ts INT,
+  -- Duration between the navigation start and the first contentful paint event
+  -- (web.dev/fcp).
+  fcp INT,
+  -- Timestamp of the first contentful paint.
+  fcp_ts INT,
+  -- Duration between the navigation start and the largest contentful paint event
+  -- (web.dev/lcp).
+  lcp INT,
+  -- Timestamp of the largest contentful paint.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  lcp_ts INT,
+  -- Timestamp of the DomContentLoaded event:
+  -- https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+  dom_content_loaded_event_ts INT,
+  -- Timestamp of the window load event:
+  -- https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+  load_event_ts INT,
+  -- Timestamp of the page self-reporting as fully loaded through the
+  -- performance.mark('mark_fully_loaded') API.
+  mark_fully_loaded_ts INT,
+  -- Timestamp of the page self-reporting as fully visible through the
+  -- performance.mark('mark_fully_visible') API.
+  mark_fully_visible_ts INT,
+  -- Timestamp of the page self-reporting as fully interactive through the
+  -- performance.mark('mark_interactive') API.
+  mark_interactive_ts INT,
+  -- URL at the page load event.
+  url STRING,
+  -- The unique process id (upid) of the browser process where the page load occurred.
+  browser_upid INT
+) AS
+SELECT
+  ROW_NUMBER() OVER(ORDER BY fcp.ts) AS id,
+  fcp.navigation_id,
+  fcp.ts AS navigation_start_ts,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  fcp.dur AS fcp,
+  fcp.ts + fcp.dur AS fcp_ts,
+  lcp.dur AS lcp,
+  lcp.dur + lcp.ts AS lcp_ts,
+  load_fired.ts AS dom_content_loaded_event_ts,
+  start_load.ts AS load_event_ts,
+  timing_loaded.ts AS mark_fully_loaded_ts,
+  timing_visible.ts AS mark_fully_visible_ts,
+  timing_interactive.ts AS mark_interactive_ts,
+  fcp.url,
+  fcp.browser_upid
+FROM internal_fcp_metrics fcp
+LEFT JOIN
+  internal_page_load_metrics('PageLoadMetrics.NavigationToLargestContentfulPaint') lcp
+    USING (navigation_id, browser_upid)
+LEFT JOIN
+  internal_page_load_metrics('PageLoadMetrics.NavigationToDOMContentLoadedEventFired') load_fired
+    USING (navigation_id, browser_upid)
+LEFT JOIN
+  internal_page_load_metrics('PageLoadMetrics.NavigationToMainFrameOnLoad') start_load
+    USING (navigation_id, browser_upid)
+LEFT JOIN
+  internal_page_load_metrics('PageLoadMetrics.UserTimingMarkFullyLoaded') timing_loaded
+    USING (navigation_id, browser_upid)
+LEFT JOIN
+  internal_page_load_metrics('PageLoadMetrics.UserTimingMarkFullyVisible') timing_visible
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    USING (navigation_id, browser_upid)
+LEFT JOIN
+  internal_page_load_metrics('PageLoadMetrics.UserTimingMarkInteractive') timing_interactive
+    USING (navigation_id, browser_upid);
+
 )_d3l1m1t3r_"
 ;
 
@@ -404,7 +814,7 @@ R"_d3l1m1t3r_(--       over all iterations you get the final Speedometer score f
 -- @column suite_name    Suite name
 -- @column test_name     Test name
 -- @column mark_type     Type of mark (start, sync-end, async-end)
-CREATE VIEW internal_chrome_speedometer_mark
+CREATE PERFETTO VIEW internal_chrome_speedometer_mark
 AS
 WITH
   speedometer_21_suite_name(suite_name) AS (
@@ -421,9 +831,9 @@ WITH
       ('Angular2-TypeScript-TodoMVC'),
       ('VueJS-TodoMVC'),
       ('jQuery-TodoMVC'),
-      ('Preact-TodoMVC'),
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(      ('Inferno-TodoMVC'),
+R"_d3l1m1t3r_(      ('Preact-TodoMVC'),
+      ('Inferno-TodoMVC'),
       ('Elm-TodoMVC'),
       ('Flight-TodoMVC')
   ),
@@ -457,10 +867,10 @@ R"_d3l1m1t3r_(      ('Inferno-TodoMVC'),
 SELECT
   s.id AS slice_id,
   RANK() OVER (PARTITION BY name ORDER BY ts ASC) AS iteration,
-  m.suite_name,
-  m.test_name,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  m.mark_type
+R"_d3l1m1t3r_(  m.suite_name,
+  m.test_name,
+  m.mark_type
 FROM slice AS s
 JOIN speedometer_mark_name AS m
   USING (name)
@@ -471,14 +881,20 @@ WHERE category = 'blink.user_timing';
 -- There are two intervals that are measured for every test: sync and async
 -- sync is the time between the start and sync-end marks, async is the time
 -- between the sync-end and async-end marks.
---
--- @column iteration     Speedometer iteration the mark belongs to.
--- @column suite_name    Suite name
--- @column test_name     Test name
--- @column measure_type  Type of the measure (sync or async)
--- @column ts            Start timestamp of the measure
--- @column dur           Duration of the measure
-CREATE VIEW chrome_speedometer_measure
+CREATE PERFETTO TABLE chrome_speedometer_measure(
+  -- Speedometer iteration the mark belongs to.
+  iteration INT,
+  -- Suite name
+  suite_name STRING,
+  -- Test name
+  test_name STRING,
+  -- Type of the measure (sync or async)
+  measure_type STRING,
+  -- Start timestamp of the measure
+  ts INT,
+  -- Duration of the measure
+  dur INT
+)
 AS
 WITH
   -- Get the 3 test timestamps (start, sync-end, async-end) in one row. Using a
@@ -536,22 +952,27 @@ FROM filtered;
 -- Speedometer would output, but note we use ns precision (Speedometer uses
 -- ~100us) so the actual values might differ a bit. Also note Speedometer
 -- returns the values in ms these here and in ns.
---
--- @column iteration Speedometer iteration.
--- @column ts        Start timestamp of the iteration
--- @column dur       Duration of the iteration
--- @column total     Total duration of the measures in this iteration
--- @column mean      Average suite duration for this iteration.
--- @column geomean   Geometric mean of the suite durations for this iteration.
--- @column score     Speedometer score for this iteration (The total score for a
---                   run in the average of all iteration scores).
-CREATE VIEW chrome_speedometer_iteration
-AS
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT
+CREATE PERFETTO TABLE chrome_speedometer_iteration(
+  -- Speedometer iteration.
+  iteration INT,
+  -- Start timestamp of the iteration
+  ts INT,
+  -- Duration of the iteration
+  dur INT,
+  -- Total duration of the measures in this iteration
+  total INT,
+  -- Average suite duration for this iteration.
+  mean INT,
+  -- Geometric mean of the suite durations for this iteration.
+  geomean INT,
+  -- Speedometer score for this iteration (The total score for a run in the average of all iteration scores).
+  score INT
+) AS
+SELECT
   iteration,
   MIN(start) AS ts,
-  MAX(end) - MIN(start) AS dur,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  MAX(end) - MIN(start) AS dur,
   SUM(suite_total) AS total,
   AVG(suite_total)AS mean,
   -- Compute geometric mean using LN instead of multiplication to prevent
@@ -566,6 +987,110 @@ FROM
     GROUP BY suite_name, iteration
   )
 GROUP BY iteration;
+
+)_d3l1m1t3r_"
+;
+
+const char kStartups[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
+-- Use of this source code is governed by a BSD-style license that can be
+-- found in the LICENSE file.
+
+INCLUDE PERFETTO MODULE common.slices;
+
+-- Access all startups, including those that don't lead to any visible content.
+-- If TimeToFirstVisibleContent is available, then this event will be the
+-- main event of the startup. Otherwise, the event for the start timestamp will
+-- be used.
+CREATE PERFETTO VIEW internal_startup_start_events AS
+WITH
+starts AS (
+  SELECT
+    name,
+    EXTRACT_ARG(arg_set_id, 'startup.activity_id') AS activity_id,
+    ts,
+    dur,
+    upid AS browser_upid
+  FROM thread_slice
+  WHERE name = 'Startup.ActivityStart'
+),
+times_to_first_visible_content AS (
+  SELECT
+    name,
+    EXTRACT_ARG(arg_set_id, 'startup.activity_id') AS activity_id,
+    ts,
+    dur,
+    upid AS browser_upid
+  FROM process_slice
+  WHERE name = 'Startup.TimeToFirstVisibleContent2'
+),
+all_activity_ids AS (
+  SELECT
+    DISTINCT activity_id,
+    browser_upid
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  FROM starts
+  UNION ALL
+  SELECT
+    DISTINCT activity_id,
+    browser_upid
+  FROM times_to_first_visible_content
+),
+activity_ids AS (
+  SELECT
+    DISTINCT activity_id,
+    browser_upid
+  FROM all_activity_ids
+)
+SELECT
+  activity_ids.activity_id,
+  'Startup' AS name,
+  IFNULL(times_to_first_visible_content.ts, starts.ts) AS startup_begin_ts,
+  times_to_first_visible_content.ts +
+    times_to_first_visible_content.dur AS first_visible_content_ts,
+  activity_ids.browser_upid
+FROM activity_ids
+  LEFT JOIN times_to_first_visible_content using(activity_id, browser_upid)
+  LEFT JOIN starts using(activity_id, browser_upid);
+
+-- Chrome launch causes, not recorded at start time; use the activity id to
+-- join with the actual startup events.
+CREATE PERFETTO VIEW internal_launch_causes AS
+SELECT
+  EXTRACT_ARG(arg_set_id, 'startup.activity_id') AS activity_id,
+  EXTRACT_ARG(arg_set_id, 'startup.launch_cause') AS launch_cause,
+  upid AS browser_upid
+FROM thread_slice
+WHERE name = 'Startup.LaunchCause';
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
+-- Chrome startups, including launch cause.
+CREATE PERFETTO TABLE chrome_startups(
+  -- Unique ID
+  id INT,
+  -- Chrome Activity event id of the launch.
+  activity_id INT,
+  -- Name of the launch start event.
+  name STRING,
+  -- Timestamp that the startup occurred.
+  startup_begin_ts INT,
+  -- Timestamp to the first visible content.
+  first_visible_content_ts INT,
+  -- Launch cause. See Startup.LaunchCauseType in chrome_track_event.proto.
+  launch_cause STRING,
+  -- Process ID of the Browser where the startup occurred.
+  browser_upid INT
+) AS
+SELECT
+  ROW_NUMBER() OVER (ORDER BY start_events.startup_begin_ts) AS id,
+  start_events.activity_id,
+  start_events.name,
+  start_events.startup_begin_ts,
+  start_events.first_visible_content_ts,
+  launches.launch_cause,
+  start_events.browser_upid
+FROM internal_startup_start_events start_events
+  LEFT JOIN internal_launch_causes launches
+  USING(activity_id, browser_upid);
 
 )_d3l1m1t3r_"
 ;
@@ -829,25 +1354,29 @@ WHERE (SELECT count()
 -- Chrome Java views. The view is considered interested if it's not a system
 -- (ContentFrameLayout) or generic library (CompositorViewHolder) views.
 --
--- @column filtered_name                Name of the view.
--- @column is_software_screenshot BOOL  Whether this slice is a part of non-accelerated
---                                      capture toolbar screenshot.
--- @column is_hardware_screenshot BOOL  Whether this slice is a part of accelerated
---                                      capture toolbar screenshot.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- TODO(altimin): Add "columns_from slice" annotation.
+-- TODO(altimin): Add "columns_from slice" annotation.
 -- TODO(altimin): convert this to EXTEND_TABLE when it becomes available.
-CREATE VIEW chrome_java_views AS
+CREATE PERFETTO VIEW chrome_java_views(
+  -- Name of the view.
+  filtered_name STRING,
+  -- Whether this slice is a part of non-accelerated capture toolbar screenshot.
+  is_software_screenshot BOOL,
+  -- Whether this slice is a part of accelerated capture toolbar screenshot.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  is_hardware_screenshot BOOL,
+  -- Slice id.
+  slice_id INT
+) AS
 SELECT
   java_view.name AS filtered_name,
   java_view.is_software_screenshot,
   java_view.is_hardware_screenshot,
-  slice.*
+  slice.id as slice_id
 FROM internal_chrome_java_views java_view
 JOIN slice USING (id);
 
 -- A list of Choreographer tasks (Android frame generation) in Chrome.
-CREATE VIEW internal_chrome_choreographer_tasks
+CREATE PERFETTO VIEW internal_chrome_choreographer_tasks
 AS
 SELECT
   id,
@@ -867,11 +1396,11 @@ WITH posted_from as (
     EXTRACT_ARG($arg_set_id, "task.posted_from.function_name") AS function_name
 )
 SELECT file_name || ":" || function_name as posted_from
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM posted_from;
+FROM posted_from;
 
 -- Selects the BeginMainFrame slices (which as posted from ScheduledActionSendBeginMainFrame),
--- used for root-level processing. In top-level/Java based slices, these will correspond to the
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- used for root-level processing. In top-level/Java based slices, these will correspond to the
 -- ancestor of descendant slices; in long-task tracking, these tasks will be
 -- on a custom track and will need to be associated with children by timestamp
 -- and duration. Corresponds with the Choreographer root slices in
@@ -896,14 +1425,14 @@ WHERE
   (name = $name
     AND internal_get_posted_from(arg_set_id) =
         "cc/trees/single_thread_proxy.cc:ScheduledActionSendBeginMainFrame");
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+
 -- A list of Chrome tasks which were performing operations with Java views,
--- together with the names of the these views.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- together with the names of these views.
 -- @column id INT            Slice id.
 -- @column kind STRING       Type of the task.
 -- @column java_views STRING Concatenated names of Java views used by the task.
-CREATE VIEW internal_chrome_slices_with_java_views AS
+CREATE PERFETTO VIEW internal_chrome_slices_with_java_views AS
 WITH
   -- Select UI thread BeginMainFrames (which are Chrome scheduler tasks) and
   -- Choreographer frames (which are looper tasks).
@@ -921,12 +1450,12 @@ WITH
     JOIN descendant_slice(root.id) child
     JOIN internal_chrome_java_views java_view ON java_view.id = child.id
   )
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT
+SELECT
   root.id,
   root.kind,
   GROUP_CONCAT(DISTINCT java_view.java_view_name) AS java_views
-FROM root_slices root
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(FROM root_slices root
 LEFT JOIN root_slice_and_java_view_not_grouped java_view USING (id)
 GROUP BY root.id;
 
@@ -941,24 +1470,43 @@ WHERE
 ORDER BY id;
 
 -- A list of tasks executed by Chrome scheduler.
---
--- @column id                    Slice id.
--- @column name                  Name of the task.
--- @column ts                    Timestamp.
--- @column dur                   Duration.
--- @column utid                  Utid of the thread this task run on.
--- @column thread_name           Name of the thread this task run on.
--- @column upid                  Upid of the process of this task.
--- @column process_name          Name of the process of this task.
--- @column track_id              Same as slice.track_id.
+CREATE PERFETTO VIEW chrome_scheduler_tasks(
+  -- Slice id.
+  id INT,
+  -- Type.
+  type STRING,
+  -- Name of the task.
+  name STRING,
+  -- Timestamp.
+  ts INT,
+  -- Duration.
+  dur INT,
+  -- Utid of the thread this task run on.
+  utid INT,
+  -- Name of the thread this task run on.
+  thread_name STRING,
+  -- Upid of the process of this task.
+  upid INT,
+  -- Name of the process of this task.
+  process_name STRING,
+  -- Same as slice.track_id.
+  track_id INT,
+  -- Same as slice.category.
+  category STRING,
+  -- Same as slice.depth.
+  depth INT,
+  -- Same as slice.parent_id.
+  parent_id INT,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- @column depth                 Same as slice.depth.
--- @column parent_id             Same as slice.parent_id.
--- @column arg_set_id            Same as slice.arg_set_id.
--- @column thread_ts             Same as slice.thread_ts.
--- @column thread_dur            Same as slice.thread_dur.
--- @column posted_from           Source location where the PostTask was called.
-CREATE VIEW chrome_scheduler_tasks AS
+R"_d3l1m1t3r_(  -- Same as slice.arg_set_id.
+  arg_set_id INT,
+  -- Same as slice.thread_ts.
+  thread_ts INT,
+  -- Same as slice.thread_dur.
+  thread_dur INT,
+  -- Source location where the PostTask was called.
+  posted_from STRING
+) AS
 SELECT
   task.id,
   "chrome_scheduler_tasks" as type,
@@ -982,14 +1530,14 @@ FROM internal_chrome_scheduler_tasks task
 JOIN slice using (id)
 JOIN thread_track ON slice.track_id = thread_track.id
 JOIN thread using (utid)
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(JOIN process using (upid)
+JOIN process using (upid)
 ORDER BY task.id;
 
 -- Select the slice that might be the descendant mojo slice for the given task
 -- slice if it exists.
 CREATE PERFETTO FUNCTION internal_get_descendant_mojo_slice_candidate(
-  slice_id INT
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  slice_id INT
 )
 RETURNS INT AS
 SELECT
@@ -1015,14 +1563,14 @@ RETURNS TABLE(task_name STRING) AS
 SELECT
   printf("%s %s (hash=%d)",
     mojo.interface_name, mojo.message_type, mojo.ipc_hash) AS task_name
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM slice task
+FROM slice task
 JOIN internal_chrome_mojo_slices mojo
   ON mojo.id = internal_get_descendant_mojo_slice_candidate($slice_id)
 WHERE task.id = $slice_id;
 
 -- A list of "Chrome tasks": top-level execution units (e.g. scheduler tasks /
--- IPCs / system callbacks) run by Chrome. For a given thread, the tasks
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- IPCs / system callbacks) run by Chrome. For a given thread, the tasks
 -- will not intersect.
 --
 -- @column task_name STRING  Name for the given task.
@@ -1040,12 +1588,12 @@ non_embedded_toplevel_slices AS (
     internal_any_top_level_category(category)
     AND (SELECT count() FROM ancestor_slice(slice.id) anc
       WHERE anc.category GLOB "*toplevel*" or anc.category GLOB "*toplevel.viz*") = 0
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(),
+),
 -- Select slices from "Java" category which do not have another "Java" or
 -- "toplevel" slice as parent. In the longer term they should probably belong
 -- to "toplevel" category as well, but for now this will have to do. Ensure
--- that "Java" slices do not include "toplevel" slices as those would be
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- that "Java" slices do not include "toplevel" slices as those would be
 -- handled elsewhere.
 non_embedded_java_slices AS (
   SELECT
@@ -1073,13 +1621,13 @@ scheduler_tasks AS (
     name as task_name,
     "scheduler" as task_type
   FROM chrome_scheduler_tasks
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(),
+),
 -- Select scheduler tasks which are used to run mojo messages and use the mojo names
 -- as full names for these slices.
 -- We restrict this to specific scheduler tasks which are expected to run mojo
 -- tasks due to sync mojo events, which also emit similar events.
-scheduler_tasks_with_mojo AS (
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(scheduler_tasks_with_mojo AS (
   SELECT
     -- We use the "RunTask" as the task, and pick up the name from its child
     -- "Receive mojo message" event.
@@ -1101,8 +1649,7 @@ navigation_tasks AS (
     SELECT
       id,
       internal_human_readable_navigation_task_name(task_name) as readable_name,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(      IFNULL(internal_extract_frame_type(id), 'unknown frame type') as frame_type
+      IFNULL(internal_extract_frame_type(id), 'unknown frame type') as frame_type
     FROM
       scheduler_tasks_with_mojo
   )
@@ -1110,7 +1657,8 @@ R"_d3l1m1t3r_(      IFNULL(internal_extract_frame_type(id), 'unknown frame type'
     id,
     printf("%s (%s)", readable_name, frame_type) as task_name,
     'navigation_task' AS task_type
-  FROM tasks_with_readable_names
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  FROM tasks_with_readable_names
   WHERE readable_name IS NOT NULL
 ),
 -- Add scheduler and mojo full names to non-embedded slices from
@@ -1135,38 +1683,52 @@ non_embedded_toplevel_slices_with_task_name AS (
   FROM non_embedded_toplevel_slices task
   LEFT JOIN scheduler_tasks_with_mojo mojo ON mojo.id = task.id
   LEFT JOIN scheduler_tasks scheduler ON scheduler.id = task.id
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  LEFT JOIN java_views_tasks java_views ON java_views.id = task.id
+  LEFT JOIN java_views_tasks java_views ON java_views.id = task.id
   LEFT JOIN navigation_tasks navigation ON navigation.id = task.id
 )
 -- Merge slices from toplevel and Java categories.
 SELECT * FROM non_embedded_toplevel_slices_with_task_name
-UNION ALL
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(UNION ALL
 SELECT * FROM non_embedded_java_slices
 ORDER BY id;
 
 -- A list of "Chrome tasks": top-level execution units (e.g. scheduler tasks /
 -- IPCs / system callbacks) run by Chrome. For a given thread, the slices
 -- corresponding to these tasks will not intersect.
---
--- @column id INT              Id for the given task, also the id of the slice this task corresponds to.
--- @column name STRING         Name for the given task.
--- @column task_type STRING    Type of the task (e.g. "scheduler").
--- @column thread_name STRING  Thread name.
--- @column utid INT            Utid.
--- @column process_name STRING Process name.
--- @column upid INT            Upid.
--- @column full_name STRING    Legacy alias for |task_name|.
--- @column ts INT              Alias of |slice.ts|.
+CREATE PERFETTO VIEW chrome_tasks(
+  -- Id for the given task, also the id of the slice this task corresponds to.
+  id INT,
+  -- Name for the given task.
+  name STRING,
+  -- Type of the task (e.g. "scheduler").
+  task_type STRING,
+  -- Thread name.
+  thread_name STRING,
+  -- Utid.
+  utid INT,
+  -- Process name.
+  process_name STRING,
+  -- Upid.
+  upid INT,
+  -- Alias of |slice.ts|.
+  ts INT,
+  -- Alias of |slice.dur|.
+  dur INT,
+  -- Alias of |slice.track_id|.
+  track_id INT,
+  -- Alias of |slice.category|.
+  category INT,
+  -- Alias of |slice.arg_set_id|.
+  arg_set_id INT,
+  -- Alias of |slice.thread_ts|.
+  thread_ts INT,
+  -- Alias of |slice.thread_dur|.
+  thread_dur INT,
+  -- STRING    Legacy alias for |name|.
+  full_name STRING
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- @column dur INT             Alias of |slice.dur|.
--- @column track_id INT        Alias of |slice.track_id|.
--- @column category STRING     Alias of |slice.category|.
--- @column arg_set_id INT      Alias of |slice.arg_set_id|.
--- @column thread_ts INT       Alias of |slice.thread_ts|.
--- @column thread_dur INT      Alias of |slice.thread_dur|.
--- @column full_name STRING    Legacy alias for |name|.
-CREATE VIEW chrome_tasks AS
+R"_d3l1m1t3r_() AS
 SELECT
   cti.id,
   cti.name,
@@ -1196,14 +1758,23 @@ const char kVsyncIntervals[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Auth
 -- Use of this source code is governed by a BSD-style license that can be
 -- found in the LICENSE file.
 
-DROP TABLE IF EXISTS chrome_vsync_intervals;
-
 -- A simple table that checks the time between VSync (this can be used to
 -- determine if we're refreshing at 90 FPS or 60 FPS).
 --
 -- Note: In traces without the "Java" category there will be no VSync
 --       TraceEvents and this table will be empty.
-CREATE PERFETTO TABLE chrome_vsync_intervals AS
+CREATE PERFETTO TABLE chrome_vsync_intervals(
+  -- Slice id of the vsync slice.
+  slice_id INT,
+  -- Timestamp of the vsync slice.
+  ts INT,
+  -- Duration of the vsync slice.
+  dur INT,
+  -- Track id of the vsync slice.
+  track_id INT,
+  -- Duration until next vsync arrives.
+  time_to_next_vsync INT
+) AS
 SELECT
   slice_id,
   ts,
@@ -1216,20 +1787,19 @@ ORDER BY track_id, ts;
 
 -- Function: compute the average Vysnc interval of the
 -- gesture (hopefully this would be either 60 FPS for the whole gesture or 90
--- FPS but that isn't always the case) on the given time segment.
--- If the trace doesn't contain the VSync TraceEvent we just fall back on
--- assuming its 60 FPS (this is the 1.6e+7 in the COALESCE which
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- corresponds to 16 ms or 60 FPS).
---
--- begin_ts: segment start time
--- end_ts: segment end time
-CREATE PERFETTO FUNCTION calculate_avg_vsync_interval(
+R"_d3l1m1t3r_(-- FPS but that isnt always the case) on the given time segment.
+-- If the trace doesnt contain the VSync TraceEvent we just fall back on
+-- assuming its 60 FPS (this is the 1.6e+7 in the COALESCE which
+-- corresponds to 16 ms or 60 FPS).
+CREATE PERFETTO FUNCTION chrome_calculate_avg_vsync_interval(
+  -- Interval start time.
   begin_ts LONG,
+  -- Interval end time.
   end_ts LONG
 )
--- Returns: the average Vysnc interval on this time segment
--- or 1.6e+7, if trace doesnt contain the VSync TraceEvent.
+-- The average vsync interval on this time segment
+-- or 1.6e+7, if trace doesn't contain the VSync TraceEvent.
 RETURNS FLOAT AS
 SELECT
   COALESCE((
@@ -1245,6 +1815,376 @@ SELECT
 )_d3l1m1t3r_"
 ;
 
+const char kWebContentInteractions[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
+-- Use of this source code is governed by a BSD-style license that can be
+-- found in the LICENSE file.
+
+INCLUDE PERFETTO MODULE common.slices;
+
+-- Chrome web content interactions (InteractionToFirstPaint), including
+-- associated high-level metrics and properties.
+--
+-- Multiple events may occur for the same interaction; each row in this table
+-- represents the primary (longest) event for the interaction.
+--
+-- Web content interactions are discrete, as opposed to sustained (e.g.
+-- scrolling); and only occur with the web content itself, as opposed to other
+-- parts of Chrome (e.g. omnibox). Interaction events include taps, clicks,
+-- keyboard input (typing), and drags.
+CREATE PERFETTO TABLE chrome_web_content_interactions(
+  -- Unique id for this interaction.
+  id INT,
+  -- Start timestamp of the event. Because multiple events may occur for the
+  -- same interaction, this is the start timestamp of the longest event.
+  ts INT,
+  -- Duration of the event. Because multiple events may occur for the same
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  -- interaction, this is the duration of the longest event.
+  dur INT,
+  -- The interaction type.
+  interaction_type STRING,
+  -- The total duration of all events that occurred for the same interaction.
+  total_duration_ms INT,
+  -- The process id this event occurred on.
+  renderer_upid INT
+) AS
+SELECT
+  id,
+  ts,
+  dur,
+  EXTRACT_ARG(arg_set_id, 'web_content_interaction.type') AS interaction_type,
+  EXTRACT_ARG(
+    arg_set_id,
+    'web_content_interaction.total_duration_ms'
+  ) AS total_duration_ms,
+  upid AS renderer_upid
+FROM process_slice
+WHERE name = 'Web Interaction';
+
+)_d3l1m1t3r_"
+;
+
+const char kScrollJankScrollJankCauseMap[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
+-- Use of this source code is governed by a BSD-style license that can be
+-- found in the LICENSE file.
+
+INCLUDE PERFETTO MODULE chrome.event_latency_description;
+
+-- Source of truth of the descriptions of EventLatency-based scroll jank causes.
+CREATE PERFETTO TABLE chrome_scroll_jank_cause_descriptions (
+  -- The name of the EventLatency stage.
+  event_latency_stage STRING,
+  -- The process where the cause of scroll jank occurred.
+  cause_process STRING,
+  -- The thread where the cause of scroll jank occurred.
+  cause_thread STRING,
+  -- A description of the cause of scroll jank.
+  cause_description STRING
+) AS
+WITH cause_descriptions(
+  event_latency_stage,
+  cause_process,
+  cause_thread,
+  cause_description)
+AS (
+VALUES
+  ('GenerationToBrowserMain', 'Browser', 'CrBrowserMain',
+    'This also corresponds to a matching InputLatency::TouchMove. Key ' ||
+    'things to look for: Browser Main thread (CrBrowserMain) is busy, often ' ||
+    'running tasks. The true cause can be confirmed by checking which tasks ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'are being run on CrBrowserMain, or checking any ScopedBlockingCall ' ||
+    'slices during this stage from a ThreadPoolForegroundWorker, or ' ||
+    'checking if the NetworkService is busy. Common causes may include page' ||
+    'navigations (same document and new pages), slow BeginMainFrames, and ' ||
+    'Java Choreographer slowdowns.'),
+  ('RendererCompositorQueueingDelay', 'Renderer', 'Compositor',
+    'The renderer needs to decide to produce a frame in response to a ' ||
+    'BeginFrame signal. Sometimes it can not because it is waiting on the ' ||
+    'RendererMain thread to do touch targeting or javascript handling or ' ||
+    'other such things causing a long queuing delay after it has already ' ||
+    'started the scroll (so the TouchStart has been processed).'),
+  ('RendererCompositorQueueingDelay', 'GPU', 'VizCompositorThread',
+    'Waiting for a BeginFrame to be sent. Key things to look for: check if ' ||
+    'a fling occurred before or during the scroll; flings produce a single ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'input and result in multiple inputs coalescing into a single frame.'),
+  ('ReceiveCompositorFrameToStartDraw', 'GPU', 'VizCompositorThread',
+    'A delay when the VizCompositor is waiting for the frame, but may be ' ||
+    'connected to other processes and threads. Key things to look for: ' ||
+    'check the BeginFrame task that finished during this EventLatency. The ' ||
+    'VizCompositor holds onto the frame/does not send it on. Alternately ' ||
+    'the system may be holding on to the buffer.'),
+  ('ReceiveCompositorFrameToStartDraw', 'GPU', 'CrGpuMain',
+    'Key things to look for: if the GPU Main thread is busy, and does not ' ||
+    'release the buffer; specific causes will be on the GPU Main thread. If ' ||
+    'this thread is not busy, the buffer may be held by the system instead.'),
+  ('ReceiveCompositorFrameToStartDraw', 'Browser', 'CrBrowserMain',
+    'Key things to look for: the toolbar on the Browser may be blocked by ' ||
+    'other tasks.'),
+  ('BufferReadyToLatch', 'GPU', 'VizCompositorThread',
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'Often a scheduling issue. The frame was submitted, but missed the ' ||
+    'latch in the system that was received from the previous frame. The ' ||
+    'system only latches a buffer once per frame; when the latch deadline ' ||
+    'is missed, the system is forced to wait for another vsync interval to ' ||
+    'latch again. Key things to look for: whether the event duration before ' ||
+    'BufferReadyToLatch stage of the previous EventLatency is longer or ' ||
+    'shorter than the event duration before BufferReadyToLatch in the ' ||
+    'current EventLatency. If this duration is longer, then this is a ' ||
+    'System problem. If this duration is shorter, then it is a Chrome ' ||
+    'problem. The previous frame may have been drawn too quickly, or the ' ||
+    'GPU may be delayed.'),
+  ('SwapEndToPresentationCompositorFrame', 'GPU', 'VizCompositorThread',
+    'May be attributed to a scheduling issue as with BufferReadyToLatch. ' ||
+    'The frame was submitted, but missed the latch in the system that was ' ||
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    'received from the previous frame. The system only latches a buffer ' ||
+    'once per frame; when the latch deadline is missed, the system is ' ||
+    'forced to wait for another vsync interval to latch again. Key things ' ||
+    'to look for: whether the event duration before BufferReadyToLatch ' ||
+    'stage of the previous EventLatency is longer or shorter than the event ' ||
+    'duration before BufferReadyToLatch in the current EventLatency. If ' ||
+    'this duration is longer, then this is a System problem. If this ' ||
+    'duration is shorter, then it is a Chrome problem. The previous frame ' ||
+    'may have been drawn too quickly, or the GPU may be delayed.'),
+  ('SwapEndToPresentationCompositorFrame', 'GPU', 'CrGpuMain',
+    'Key things to look for: whether StartDrawToBufferAvailable is also ' ||
+    'present during this EventLatency. If so, then the GPU main thread may ' ||
+    'be descheduled or busy. If surfaceflinger is available, check there as ' ||
+    'well.'),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  ('SwapEndToPresentationCompositorFrame', 'GPU', 'surfaceflinger',
+    'Key things to look for: whether StartDrawToBufferAvailable is also ' ||
+    'present during this EventLatency. If so, then the VizCompositor has ' ||
+    'not received a signal from surfaceflinger to start writing into the ' ||
+    'buffer.'))
+SELECT
+  event_latency_stage,
+  cause_process,
+  cause_thread,
+  cause_description
+FROM cause_descriptions;
+
+-- Combined description of scroll jank cause and associated event latency stage.
+CREATE PERFETTO VIEW chrome_scroll_jank_causes_with_event_latencies(
+  -- The name of the EventLatency stage.
+  name STRING,
+  -- Description of the EventLatency stage.
+  description STRING,
+  -- The process name that may cause scroll jank.
+  cause_process STRING,
+  -- The thread name that may cause scroll jank. The thread will be on the
+  -- cause_process.
+  cause_thread STRING,
+  -- Description of the cause of scroll jank on this process and thread.
+  cause_description STRING
+) AS
+SELECT
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  stages.name,
+  stages.description,
+  causes.cause_process,
+  causes.cause_thread,
+  causes.cause_description
+FROM chrome_event_latency_stage_descriptions stages
+LEFT JOIN chrome_scroll_jank_cause_descriptions causes
+    ON causes.event_latency_stage = stages.name;
+
+)_d3l1m1t3r_"
+;
+
+const char kScrollJankScrollJankCauseUtils[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
+-- Use of this source code is governed by a BSD-style license that can be
+-- found in the LICENSE file.
+
+-- Function to retrieve the upid for a surfaceflinger, as these are attributed
+-- to the GPU but are recorded on a different data source (and track group).
+CREATE PERFETTO FUNCTION internal_get_process_id_for_surfaceflinger()
+-- The process id for surfaceflinger.
+RETURNS INT AS
+SELECT
+ upid
+FROM process
+WHERE name GLOB '*surfaceflinger*'
+LIMIT 1;
+
+-- Map a generic process type to a specific name or substring of a name that
+-- can be found in the trace process table.
+CREATE PERFETTO TABLE internal_process_type_to_name (
+  -- The process type: one of 'Browser' or 'GPU'.
+  process_type STRING,
+  -- The process name for Chrome traces.
+  process_name STRING,
+  -- Substring identifying the process for system traces.
+  process_glob STRING
+) AS
+WITH process_names (
+  process_type,
+  process_name,
+  process_glob
+  )
+AS (
+VALUES
+  ('Browser', 'Browser', '*.chrome'),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  ('GPU', 'Gpu', '*.chrome*:privileged_process*'))
+SELECT
+  process_type,
+  process_name,
+  process_glob
+FROM process_names;
+
+CREATE PERFETTO FUNCTION internal_get_process_name(
+  -- The process type: one of 'Browser' or 'GPU'.
+  type STRING
+)
+-- The process name
+RETURNS STRING AS
+SELECT
+    process_name
+FROM internal_process_type_to_name
+WHERE process_type = $type
+LIMIT 1;
+
+CREATE PERFETTO FUNCTION internal_get_process_glob(
+  -- The process type: one of 'Browser' or 'GPU'.
+  type STRING
+)
+-- A substring of the process name that can be used in GLOB calculations.
+RETURNS STRING AS
+SELECT
+    process_glob
+FROM internal_process_type_to_name
+WHERE process_type = $type
+LIMIT 1;
+
+-- TODO(b/309937901): Add chrome instance id for multiple chromes/webviews in a
+-- trace, as this may result in  multiple browser and GPU processes.
+-- Function to retrieve the chrome process ID for a specific process type. Does
+-- not retrieve the Renderer process, as this is determined when the
+-- EventLatency is known. See function
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- internal_get_renderer_upid_for_event_latency below.
+CREATE PERFETTO FUNCTION internal_get_process_id_by_type(
+  -- The process type: one of 'Browser' or 'GPU'.
+  type STRING
+)
+RETURNS TABLE (
+    -- The process id for the process type.
+    upid INT
+) AS
+SELECT
+  upid
+FROM process
+WHERE name = internal_get_process_name($type)
+  OR name GLOB internal_get_process_glob($type);
+
+-- Function to retrieve the chrome process ID that a given EventLatency slice
+-- occurred on. This is the Renderer process.
+CREATE PERFETTO FUNCTION internal_get_renderer_upid_for_event_latency(
+  -- The slice id for an EventLatency slice.
+  id INT
+)
+-- The process id for an EventLatency slice. This is the Renderer process.
+RETURNS INT AS
+SELECT
+  upid
+FROM process_slice
+WHERE id = $id;
+
+-- Helper function to retrieve all of the upids for a given process, thread,
+-- or EventLatency.
+CREATE PERFETTO FUNCTION internal_processes_by_type_for_event_latency(
+  -- The process type that the thread is on: one of 'Browser', 'Renderer' or
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  -- 'GPU'.
+  type STRING,
+  -- The name of the thread.
+  thread STRING,
+  -- The slice id of an EventLatency slice.
+  event_latency_id INT)
+RETURNS TABLE (
+    upid INT
+) AS
+WITH all_upids AS (
+  -- Renderer process upids
+  SELECT
+    $type AS process,
+    $thread AS thread,
+    $event_latency_id AS event_latency_id,
+    internal_get_renderer_upid_for_event_latency($event_latency_id) AS upid
+  WHERE $type = 'Renderer'
+  UNION ALL
+  -- surfaceflinger upids
+  SELECT
+    $type AS process,
+    $thread AS thread,
+    $event_latency_id AS event_latency_id,
+    internal_get_process_id_for_surfaceflinger() AS upid
+  WHERE $type = 'GPU' AND $thread = 'surfaceflinger'
+  UNION ALL
+  -- Generic Browser and GPU process upids
+  SELECT
+    $type AS process,
+    $thread AS thread,
+    $event_latency_id AS event_latency_id,
+    upid
+  FROM internal_get_process_id_by_type($type)
+  WHERE $type = 'Browser'
+    OR ($type = 'GPU' AND $thread != 'surfaceflinger')
+)
+SELECT
+  upid
+FROM all_upids;
+
+-- Function to retrieve the thread id of the thread on a particular process if
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- there are any slices during a particular EventLatency slice duration; this
+-- upid/thread combination refers to a cause of Scroll Jank.
+CREATE PERFETTO FUNCTION chrome_select_scroll_jank_cause_thread(
+  -- The slice id of an EventLatency slice.
+  event_latency_id INT,
+  -- The process type that the thread is on: one of 'Browser', 'Renderer' or
+  -- 'GPU'.
+  process_type STRING,
+  -- The name of the thread.
+  thread_name STRING)
+RETURNS TABLE (
+  -- The utid associated with |thread| on the process with |upid|.
+  utid INT
+) AS
+WITH threads AS (
+  SELECT
+    utid
+  FROM thread
+  WHERE upid IN
+    (
+      SELECT DISTINCT
+        upid
+      FROM internal_processes_by_type_for_event_latency(
+        $process_type,
+        $thread_name,
+        $event_latency_id)
+    )
+    AND name = $thread_name
+)
+SELECT
+ DISTINCT utid
+FROM thread_slice
+WHERE utid IN
+  (
+    SELECT
+      utid
+    FROM threads
+  )
+  AND ts >= (SELECT ts FROM slice WHERE id = $event_latency_id LIMIT 1)
+  AND ts <= (SELECT ts + dur FROM slice WHERE id = $event_latency_id LIMIT 1);
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
+)_d3l1m1t3r_"
+;
+
 const char kScrollJankScrollJankIntervals[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
 -- Use of this source code is governed by a BSD-style license that can be
 -- found in the LICENSE file.
@@ -1255,24 +2195,29 @@ INCLUDE PERFETTO MODULE common.slices;
 
 -- Selects EventLatency slices that correspond with janks in a scroll. This is
 -- based on the V3 version of scroll jank metrics.
---
--- @column id INT                     The slice id.
--- @column ts INT                     The start timestamp of the slice.
--- @column dur INT                    The duration of the slice.
--- @column track_id INT               The track_id for the slice.
--- @column name STRING                The name of the slice (EventLatency).
--- @column cause_of_jank STRING       The stage of EventLatency that the caused
---                                    the jank.
--- @column sub_cause_of_jank STRING   The stage of cause_of_jank that caused the
---                                    jank.
+CREATE PERFETTO TABLE chrome_janky_event_latencies_v3(
+  -- The slice id.
+  id INT,
+  -- The start timestamp of the slice.
+  ts INT,
+  -- The duration of the slice.
+  dur INT,
+  -- The track_id for the slice.
+  track_id INT,
+  -- The name of the slice (EventLatency).
+  name STRING,
+  -- The stage of EventLatency that the caused the jank.
+  cause_of_jank STRING,
+  -- The stage of cause_of_jank that caused the jank.
+  sub_cause_of_jank STRING,
+  -- How many vsyncs this frame missed its deadline by.
+  delayed_frame_count INT,
+  -- The start timestamp where frame presentation was delayed.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- @column delayed_frame_count INT    How many vsyncs this frame missed its
---                                    deadline by.
--- @column frame_jank_ts INT          The start timestamp where frame
---                                    frame presentation was delayed.
--- @column frame_jank_dur INT         The duration in ms of the delay in frame
---                                    presentation.
-CREATE PERFETTO TABLE chrome_janky_event_latencies_v3 AS
+R"_d3l1m1t3r_(  frame_jank_ts INT,
+  -- The duration in ms of the delay in frame presentation.
+  frame_jank_dur INT
+) AS
 SELECT
   s.id,
   s.ts,
@@ -1290,20 +2235,23 @@ JOIN chrome_janky_frames e
 
 -- Frame presentation interval is the delta between when the frame was supposed
 -- to be presented and when it was actually presented.
+CREATE PERFETTO VIEW chrome_janky_frame_presentation_intervals(
+  -- Unique id.
+  id INT,
+  -- The start timestamp of the slice.
+  ts INT,
+  -- The duration of the slice.
+  dur INT,
+  -- How many vsyncs this frame missed its deadline by.
+  delayed_frame_count INT,
+  -- The stage of EventLatency that the caused the jank.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(--
--- @column id INT                     Unique id.
--- @column ts INT                     The start timestamp of the slice.
--- @column dur INT                    The duration of the slice.
--- @column delayed_frame_count INT    How many vsyncs this frame missed its
---                                    deadline by.
--- @column cause_of_jank STRING       The stage of EventLatency that the caused
---                                    the jank.
--- @column sub_cause_of_jank STRING   The stage of cause_of_jank that caused the
---                                    jank.
--- @column event_latency_id STRING    The id of the associated event latency in
---                                    the slice table.
-CREATE VIEW chrome_janky_frame_presentation_intervals AS
+R"_d3l1m1t3r_(  cause_of_jank INT,
+  -- The stage of cause_of_jank that caused the jank.
+  sub_cause_of_jank INT,
+  -- The id of the associated event latency in the slice table.
+  event_latency_id INT
+) AS
 SELECT
   ROW_NUMBER() OVER(ORDER BY frame_jank_ts) AS id,
   frame_jank_ts AS ts,
@@ -1315,19 +2263,25 @@ SELECT
 FROM chrome_janky_event_latencies_v3;
 
 -- Scroll jank frame presentation stats for individual scrolls.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(--
--- @column scroll_id INT              Id of the individual scroll.
--- @column missed_vsyncs INT          The number of missed vsyncs in the scroll.
--- @column frame_count INT            The number of frames in the scroll.
--- @column presented_frame_count INT  The number presented frames in the scroll.
--- @column janky_frame_count INT      The number of janky frames in the scroll.
--- @column janky_frame_percent FLOAT  The % of frames that janked in the scroll.
-CREATE VIEW chrome_scroll_stats AS
+CREATE PERFETTO VIEW chrome_scroll_stats(
+  -- Id of the individual scroll.
+  scroll_id INT,
+  -- The number of frames in the scroll.
+  frame_count INT,
+  -- The number of missed vsyncs in the scroll.
+  missed_vsyncs INT,
+  -- The number presented frames in the scroll.
+  presented_frame_count INT,
+  -- The number of janky frames in the scroll.
+  janky_frame_count INT,
+  -- The % of frames that janked in the scroll.
+  janky_frame_percent FLOAT
+) AS
 WITH vsyncs AS (
   SELECT
     COUNT() AS presented_vsync_count,
-    scroll.id AS scroll_id
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    scroll.id AS scroll_id
   FROM chrome_unique_frame_presentation_ts frame
   JOIN chrome_scrolls scroll
     ON frame.presentation_timestamp >= scroll.ts
@@ -1340,8 +2294,7 @@ missed_vsyncs AS (
   FROM chrome_janky_frames
   GROUP BY scroll_id),
 frame_stats AS (
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  SELECT
+  SELECT
     scroll_id,
     num_frames AS presented_frame_count,
     IFNULL(num_janky_frames, 0) AS janky_frame_count,
@@ -1362,16 +2315,19 @@ LEFT JOIN frame_stats
   USING (scroll_id);
 
 -- Defines slices for all of janky scrolling intervals in a trace.
---
--- @column id            The unique identifier of the janky interval.
--- @column ts            The start timestamp of the janky interval.
--- @column dur           The duration of the janky interval.
-CREATE PERFETTO TABLE chrome_scroll_jank_intervals_v3 AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(CREATE PERFETTO TABLE chrome_scroll_jank_intervals_v3(
+  -- The unique identifier of the janky interval.
+  id INT,
+  -- The start timestamp of the janky interval.
+  ts INT,
+  -- The duration of the janky interval.
+  dur INT
+) AS
 -- Sub-table to retrieve all janky slice timestamps. Ordering calculations are
 -- based on timestamps rather than durations.
 WITH janky_latencies AS (
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  SELECT
+  SELECT
     s.frame_jank_ts AS start_ts,
     s.frame_jank_ts + s.frame_jank_dur AS end_ts
   FROM chrome_janky_event_latencies_v3 s),
@@ -1388,7 +2344,8 @@ ordered_jank_end_ts AS (
 -- us to coalesce all later events up to the nearest local maximum.
 range_starts AS (
   SELECT
-    *,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    *,
     CASE
       -- This is a two-pass calculation to calculate the first event in the
       -- group. An event is considered the first event in a group if all events
@@ -1397,8 +2354,7 @@ range_starts AS (
       ELSE 1
     END AS range_start
   FROM ordered_jank_end_ts),
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- Assign an id to allow coalescing of individual slices.
+-- Assign an id to allow coalescing of individual slices.
 range_groups AS (
   SELECT
     *,
@@ -1430,18 +2386,15 @@ INCLUDE PERFETTO MODULE common.slices;
 -- and slice B has children named (X, Y) with durations of (9, 9), the function will return
 -- the slice id of the slice named Z that is A's child, as no matching slice named Z was found
 -- under B, making 5 - 0 = 5 the maximum delta between both slice's direct children
---
--- @arg janky_slice_id LONG The slice id of the parent slice that we want to
---                          cause among it's children.
--- @arg prev_slice_id  LONG The slice id of the parent slice that's the reference
---                          in comparison to |janky_slice_id|.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- @ret breakdown_id   LONG The slice id of the breakdown that has the maximum
---                          duration delta.
-CREATE PERFETTO FUNCTION get_v3_jank_cause_id(
+CREATE PERFETTO FUNCTION chrome_get_v3_jank_cause_id(
+  -- The slice id of the parent slice that we want to cause among it's children.
   janky_slice_id LONG,
+  -- The slice id of the parent slice that's the reference in comparison to
+  -- |janky_slice_id|.
   prev_slice_id LONG
-)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_()
+-- The slice id of the breakdown that has the maximum duration delta.
 RETURNS LONG AS
 WITH
   current_breakdowns AS (
@@ -1488,22 +2441,28 @@ INCLUDE PERFETTO MODULE chrome.scroll_jank.scroll_jank_v3_cause;
 
 -- Grabs all gesture updates with respective scroll ids and start/end
 -- timestamps, regardless of being coalesced.
---
--- @column ts                       The start timestamp of the scroll.
--- @column dur                      The duration of the scroll.
--- @column id                       Slice id for the scroll.
--- @column scroll_update_id         The id of the scroll update event.
--- @column scroll_id                The id of the scroll.
--- @column is_coalesced             Whether this input event was coalesced.
-CREATE PERFETTO TABLE chrome_gesture_scroll_updates AS
+CREATE PERFETTO TABLE chrome_gesture_scroll_updates(
+  -- The start timestamp of the scroll.
+  ts INT,
+  -- The duration of the scroll.
+  dur INT,
+  -- Slice id for the scroll.
+  id INT,
+  -- The id of the scroll update event.
+  scroll_update_id INT,
+  -- The id of the scroll.
+  scroll_id INT,
+  -- Whether this input event was coalesced.
+  is_coalesced BOOL
+) AS
 SELECT
   ts,
   dur,
   id,
   -- TODO(b/250089570) Add trace_id to EventLatency and update this script to use it.
+  EXTRACT_ARG(arg_set_id, 'chrome_latency_info.trace_id') AS scroll_update_id,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  EXTRACT_ARG(arg_set_id, 'chrome_latency_info.trace_id') AS scroll_update_id,
-  EXTRACT_ARG(arg_set_id, 'chrome_latency_info.gesture_scroll_id') AS scroll_id,
+R"_d3l1m1t3r_(  EXTRACT_ARG(arg_set_id, 'chrome_latency_info.gesture_scroll_id') AS scroll_id,
   EXTRACT_ARG(arg_set_id, 'chrome_latency_info.is_coalesced') AS is_coalesced
 FROM slice
 WHERE name = "InputLatency::GestureScrollUpdate" AND dur != -1;
@@ -1521,19 +2480,21 @@ ORDER BY ts ASC;
 
 -- Scroll updates, corresponding to all input events that were converted to a
 -- presented scroll update.
---
--- @column id                       Minimum slice id for input presented in this
---                                  frame, the non coalesced input.
--- @column ts                       The start timestamp for producing the frame.
--- @column dur                      The duration between producing and
---                                  presenting the frame.
--- @column last_coalesced_input_ts  The timestamp of the last input that arrived
+CREATE PERFETTO TABLE chrome_presented_gesture_scrolls(
+  -- Minimum slice id for input presented in this frame, the non coalesced input.
+  id INT,
+  -- The start timestamp for producing the frame.
+  ts INT,
+  -- The duration between producing and presenting the frame.
+  dur INT,
+  -- The timestamp of the last input that arrived and got coalesced into the frame.
+  last_coalesced_input_ts INT,
+  -- The id of the scroll update event, a unique identifier to the gesture.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(--                                  and got coalesced into the frame.
--- @column scroll_update_id         The id of the scroll update event, a unique
---                                  identifier to the gesture.
--- @column scroll_id                The id of the ongoing scroll.
-CREATE PERFETTO TABLE chrome_presented_gesture_scrolls AS
+R"_d3l1m1t3r_(  scroll_update_id INT,
+  -- The id of the ongoing scroll.
+  scroll_id INT
+) AS
 WITH
 scroll_updates_with_coalesce_info as MATERIALIZED (
   SELECT
@@ -1557,15 +2518,15 @@ SELECT
   ts,
   dur,
   -- Find the latest input that was coalesced into this scroll update.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  (
+  (
     SELECT coalesce_info.ts
     FROM scroll_updates_with_coalesce_info coalesce_info
     WHERE
       coalesce_info.coalesced_to_scroll_update_slice_id =
         internal_non_coalesced_gesture_scrolls.id
     ORDER BY ts DESC
-    LIMIT 1
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    LIMIT 1
   ) as last_coalesced_input_ts,
   scroll_update_id,
   scroll_id
@@ -1573,11 +2534,12 @@ FROM internal_non_coalesced_gesture_scrolls;
 
 -- Associate every trace_id with it's perceived delta_y on the screen after
 -- prediction.
---
--- @column scroll_update_id         The id of the scroll update event.
--- @column delta_y                  The perceived delta_y on the screen post
---                                  prediction.
-CREATE PERFETTO TABLE chrome_scroll_updates_with_deltas AS
+CREATE PERFETTO TABLE chrome_scroll_updates_with_deltas(
+  -- The id of the scroll update event.
+  scroll_update_id INT,
+  -- The perceived delta_y on the screen post prediction.
+  delta_y INT
+) AS
 SELECT
   EXTRACT_ARG(arg_set_id, 'scroll_deltas.trace_id') AS scroll_update_id,
   EXTRACT_ARG(arg_set_id, 'scroll_deltas.provided_to_compositor_delta_y') AS delta_y
@@ -1585,29 +2547,30 @@ FROM slice
 WHERE name = "InputHandlerProxy::HandleGestureScrollUpdate_Result";
 
 -- Extract event latency timestamps, to later use it for joining
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- with gesture scroll updates, as event latencies don't have trace
+-- with gesture scroll updates, as event latencies don't have trace
 -- ids associated with it.
---
--- @column ts                           Start timestamp for the EventLatency.
--- @column event_latency_id             Slice id of the EventLatency.
--- @column dur                          Duration of the EventLatency.
--- @column input_latency_end_ts         End timestamp for input aka the
---                                      timestamp of the LatchToSwapEnd
---                                      substage.
--- @column presentation_timestamp       Frame presentation timestamp aka the
---                                      timestamp of the
---                                      SwapEndToPresentationCompositorFrame
---                                      substage.
--- @column event_type                   EventLatency event type.
-CREATE PERFETTO TABLE chrome_gesture_scroll_event_latencies AS
+CREATE PERFETTO TABLE chrome_gesture_scroll_event_latencies(
+  -- Start timestamp for the EventLatency.
+  ts INT,
+  -- Slice id of the EventLatency.
+  event_latency_id INT,
+  -- Duration of the EventLatency.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  dur INT,
+  -- End timestamp for input aka the timestamp of the LatchToSwapEnd substage.
+  input_latency_end_ts INT,
+  -- Frame presentation timestamp aka the timestamp of the
+  -- SwapEndToPresentationCompositorFrame substage.
+  presentation_timestamp INT,
+  -- EventLatency event type.
+  event_type INT
+) AS
 SELECT
   slice.ts,
   slice.id AS event_latency_id,
   slice.dur AS dur,
   descendant_slice_end(slice.id, "LatchToSwapEnd") AS input_latency_end_ts,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  descendant_slice_end(slice.id, "SwapEndToPresentationCompositorFrame") AS presentation_timestamp,
+  descendant_slice_end(slice.id, "SwapEndToPresentationCompositorFrame") AS presentation_timestamp,
   EXTRACT_ARG(arg_set_id, 'event_latency.event_type') AS event_type
 FROM slice
 WHERE name = "EventLatency"
@@ -1619,20 +2582,27 @@ WHERE name = "EventLatency"
 
 -- Join presented gesture scrolls with their respective event
 -- latencies based on |LatchToSwapEnd| timestamp, as it's the
--- end timestamp for both the gesture scroll update slice and
--- the LatchToSwapEnd slice.
---
--- @column id                           ID of the frame.
--- @column ts                           Start timestamp of the frame.
--- @column last_coalesced_input_ts      The timestamp of the last coalesced
---                                      input.
--- @column scroll_id                    ID of the associated scroll.
--- @column scroll_update_id             ID of the associated scroll update.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- @column event_latency_id             ID of the associated EventLatency.
--- @column dur                          Duration of the associated EventLatency.
--- @column presentation_timestamp       Frame presentation timestamp.
-CREATE PERFETTO TABLE chrome_full_frame_view AS
+R"_d3l1m1t3r_(-- end timestamp for both the gesture scroll update slice and
+-- the LatchToSwapEnd slice.
+CREATE PERFETTO TABLE chrome_full_frame_view(
+  -- ID of the frame.
+  id INT,
+  -- Start timestamp of the frame.
+  ts INT,
+  -- The timestamp of the last coalesced input.
+  last_coalesced_input_ts INT,
+  -- ID of the associated scroll.
+  scroll_id INT,
+  -- ID of the associated scroll update.
+  scroll_update_id INT,
+  -- ID of the associated EventLatency.
+  event_latency_id INT,
+  -- Duration of the associated EventLatency.
+  dur INT,
+  -- Frame presentation timestamp.
+  presentation_timestamp INT
+) AS
 SELECT
   frames.id,
   frames.ts,
@@ -1648,20 +2618,27 @@ JOIN chrome_gesture_scroll_event_latencies events
   AND events.input_latency_end_ts = (frames.ts + frames.dur);
 
 -- Join deltas with EventLatency data.
---
--- @column id                           ID of the frame.
--- @column ts                           Start timestamp of the frame.
--- @column scroll_id                    ID of the associated scroll.
--- @column scroll_update_id             ID of the associated scroll update.
--- @column last_coalesced_input_ts      The timestamp of the last coalesced
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(--                                      input.
--- @column delta_y                      The perceived delta_y on the screen post
--- --                                   prediction.
--- @column event_latency_id             ID of the associated EventLatency.
--- @column dur                          Duration of the associated EventLatency.
--- @column presentation_timestamp       Frame presentation timestamp.
-CREATE PERFETTO TABLE chrome_full_frame_delta_view AS
+R"_d3l1m1t3r_(CREATE PERFETTO TABLE chrome_full_frame_delta_view(
+  -- ID of the frame.
+  id INT,
+  -- Start timestamp of the frame.
+  ts INT,
+  -- ID of the associated scroll.
+  scroll_id INT,
+  -- ID of the associated scroll update.
+  scroll_update_id INT,
+  -- The timestamp of the last coalesced input.
+  last_coalesced_input_ts INT,
+  -- The perceived delta_y on the screen post prediction.
+  delta_y INT,
+  -- ID of the associated EventLatency.
+  event_latency_id INT,
+  -- Duration of the associated EventLatency.
+  dur INT,
+  -- Frame presentation timestamp.
+  presentation_timestamp INT
+) AS
 SELECT
   frames.id,
   frames.ts,
@@ -1677,28 +2654,32 @@ LEFT JOIN chrome_scroll_updates_with_deltas deltas
   ON deltas.scroll_update_id = frames.scroll_update_id;
 
 -- Group all gestures presented at the same timestamp together in
--- a single row.
---
--- @column id                           ID of the frame.
--- @column max_start_ts                 The timestamp of the last coalesced
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(--                                      input.
--- @column min_start_ts                 The earliest frame start timestamp.
--- @column scroll_id                    ID of the associated scroll.
--- @column scroll_update_id             ID of the associated scroll update.
--- @column encapsulated_scroll_ids      All scroll updates associated with the
---                                      frame presentation timestamp.
--- @column total_delta                  Sum of all perceived delta_y values at
---                                      the frame presentation timestamp.
--- @column segregated_delta_y           Lists all of the perceived delta_y
---                                      values at the frame presentation
---                                      timestamp.
--- @column event_latency_id             ID of the associated EventLatency.
--- @column dur                          Maximum duration of the associated
---                                      EventLatency.
--- @column presentation_timestamp       Frame presentation timestamp.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW chrome_merged_frame_view AS
+R"_d3l1m1t3r_(-- a single row.
+CREATE PERFETTO VIEW chrome_merged_frame_view(
+  -- ID of the frame.
+  id INT,
+  -- The timestamp of the last coalesced input.
+  max_start_ts INT,
+  -- The earliest frame start timestamp.
+  min_start_ts INT,
+  -- ID of the associated scroll.
+  scroll_id INT,
+  -- ID of the associated scroll update.
+  scroll_update_id INT,
+  -- All scroll updates associated with the frame presentation timestamp.
+  encapsulated_scroll_ids INT,
+  -- Sum of all perceived delta_y values at the frame presentation timestamp.
+  total_delta INT,
+  -- Lists all of the perceived delta_y values at the frame presentation timestamp.
+  segregated_delta_y INT,
+  -- ID of the associated EventLatency.
+  event_latency_id INT,
+  -- Maximum duration of the associated EventLatency.
+  dur INT,
+  -- Frame presentation timestamp.
+  presentation_timestamp INT
+) AS
 SELECT
   id,
   MAX(last_coalesced_input_ts) AS max_start_ts,
@@ -1706,7 +2687,8 @@ SELECT
   scroll_id,
   scroll_update_id,
   GROUP_CONCAT(scroll_update_id,',') AS encapsulated_scroll_ids,
-  SUM(delta_y) AS total_delta,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  SUM(delta_y) AS total_delta,
   GROUP_CONCAT(delta_y, ',') AS segregated_delta_y,
   event_latency_id,
   MAX(dur) AS dur,
@@ -1718,33 +2700,39 @@ ORDER BY presentation_timestamp;
 -- View contains all chrome presented frames during gesture updates
 -- while calculating delay since last presented which usually should
 -- equal to |VSYNC_INTERVAL| if no jank is present.
---
--- @column id                      gesture scroll slice id.
--- @column min_start_ts            OS timestamp of the first touch move arrival
---                                 within a frame.
--- @column max_start_ts            OS timestamp of the last touch move arrival
---                                 within a frame.
--- @column scroll_id               The scroll which the touch belongs to.
+CREATE PERFETTO VIEW chrome_frame_info_with_delay(
+  -- gesture scroll slice id.
+  id INT,
+  -- OS timestamp of the last touch move arrival within a frame.
+  max_start_ts INT,
+  -- OS timestamp of the first touch move arrival within a frame.
+  min_start_ts INT,
+  -- The scroll which the touch belongs to.
+  scroll_id INT,
+  -- ID of the associated scroll update.
+  scroll_update_id INT,
+  -- Trace ids of all frames presented in at this vsync.
+  encapsulated_scroll_ids INT,
+  -- Summation of all delta_y of all gesture scrolls in this frame.
+  total_delta INT,
+  -- All delta y of all gesture scrolls comma separated, summing those gives |total_delta|.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- @column encapsulated_scroll_ids Trace ids of all frames presented in at this
---                                 vsync.
--- @column total_delta             Summation of all delta_y of all gesture
---                                 scrolls in this frame.
--- @column segregated_delta_y      All delta y of all gesture scrolls comma
---                                 separated, summing those gives |total_delta|.
--- @column event_latency_id        Event latency id of the presented frame.
--- @column dur                     Duration of the EventLatency.
--- @column presentation_timestamp  Timestamp at which the frame was shown on the
---                                 screen.
--- @column delay_since_last_frame  Time elapsed since the previous frame was
---                                 presented, usually equals |VSYNC| if no frame
---                                 drops happened.
--- @column delay_since_last_input  Difference in OS timestamps of inputs in the
---                                 current and the previous frame.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- @column prev_event_latency_id   The event latency id that will be used as a
---                                 reference to determine the jank cause.
-CREATE VIEW chrome_frame_info_with_delay AS
+R"_d3l1m1t3r_(  segregated_delta_y INT,
+  -- Event latency id of the presented frame.
+  event_latency_id INT,
+  -- Duration of the EventLatency.
+  dur INT,
+  -- Timestamp at which the frame was shown on the screen.
+  presentation_timestamp INT,
+  -- Time elapsed since the previous frame was presented, usually equals |VSYNC|
+  -- if no frame drops happened.
+  delay_since_last_frame INT,
+  -- Difference in OS timestamps of inputs in the current and the previous frame.
+  delay_since_last_input INT,
+  -- The event latency id that will be used as a reference to determine the
+  -- jank cause.
+  prev_event_latency_id INT
+) AS
 SELECT
   *,
   (presentation_timestamp -
@@ -1754,86 +2742,95 @@ SELECT
   LAG(max_start_ts, 1, min_start_ts)
   OVER (PARTITION BY scroll_id ORDER BY min_start_ts)) / 1e6 AS delay_since_last_input,
   LAG(event_latency_id, 1, -1) OVER (PARTITION BY scroll_id ORDER BY min_start_ts) AS prev_event_latency_id
-FROM chrome_merged_frame_view;
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(FROM chrome_merged_frame_view;
 
 -- Calculate |VSYNC_INTERVAL| as the lowest delay between frames larger than
 -- zero.
 -- TODO(b/286222128): Emit this data from Chrome instead of calculating it.
---
--- @column vsync_interval           The lowest delay between frames larger than
---                                  zero.
-CREATE VIEW chrome_vsyncs AS
+CREATE PERFETTO VIEW chrome_vsyncs(
+  -- The lowest delay between frames larger than zero.
+  vsync_interval INT
+) AS
 SELECT
   MIN(delay_since_last_frame) AS vsync_interval
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM chrome_frame_info_with_delay
+FROM chrome_frame_info_with_delay
 WHERE delay_since_last_frame > 0;
 
 -- Filter the frame view only to frames that had missed vsyncs.
---
--- @column delay_since_last_frame Time elapsed since the previous frame was
---                                presented, will be more than |VSYNC| in this
---                                view.
--- @column event_latency_id       Event latency id of the presented frame.
--- @column vsync_interval         Vsync interval at the time of recording the
---                                trace.
--- @column hardware_class         Device brand and model.
--- @column scroll_id              The scroll corresponding to this frame.
--- @column prev_event_latency_id  The event latency id that will be used as a
---                                reference to determine the jank cause.
-CREATE VIEW chrome_janky_frames_no_cause AS
+CREATE PERFETTO VIEW chrome_janky_frames_no_cause(
+  -- Time elapsed since the previous frame was presented, will be more than |VSYNC| in this view.
+  delay_since_last_frame INT,
+  -- Event latency id of the presented frame.
+  event_latency_id INT,
+  -- Vsync interval at the time of recording the trace.
+  vsync_interval INT,
+  -- Device brand and model.
+  hardware_class STRING,
+  -- The scroll corresponding to this frame.
+  scroll_id INT,
+  -- The event latency id that will be used as a reference to determine the jank cause.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  prev_event_latency_id INT
+) AS
 SELECT
   delay_since_last_frame,
   event_latency_id,
   (SELECT vsync_interval FROM chrome_vsyncs) AS vsync_interval,
   chrome_hardware_class() AS hardware_class,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  scroll_id,
+  scroll_id,
   prev_event_latency_id
 FROM chrome_frame_info_with_delay
 WHERE delay_since_last_frame > (select vsync_interval + vsync_interval / 2 from chrome_vsyncs)
       AND delay_since_last_input < (select vsync_interval + vsync_interval / 2 from chrome_vsyncs);
 
 -- Janky frame information including the jank cause.
--- @column delay_since_last_frame Time elapsed since the previous frame was
---                                presented, will be more than |VSYNC| in this
---                                view.
--- @column event_latency_id       Event latency id of the presented frame.
--- @column vsync_interval         Vsync interval at the time of recording the
---                                trace.
--- @column hardware_class         Device brand and model.
--- @column scroll_id              The scroll corresponding to this frame.
--- @column prev_event_latency_id  The event latency id that will be used as a
---                                reference to determine the jank cause.
--- @column cause_id               Id of the slice corresponding to the offending stage.
+CREATE PERFETTO VIEW chrome_janky_frames_no_subcause(
+  -- Time elapsed since the previous frame was presented, will be more than |VSYNC| in this view.
+  delay_since_last_frame INT,
+  -- Event latency id of the presented frame.
+  event_latency_id INT,
+  -- Vsync interval at the time of recording the trace.
+  vsync_interval INT,
+  -- Device brand and model.
+  hardware_class STRING,
+  -- The scroll corresponding to this frame.
+  scroll_id INT,
+  -- The event latency id that will be used as a reference to determine the jank cause.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE VIEW chrome_janky_frames_no_subcause AS
+R"_d3l1m1t3r_(  prev_event_latency_id INT,
+  -- Id of the slice corresponding to the offending stage.
+  cause_id INT
+) AS
 SELECT
   *,
-  get_v3_jank_cause_id(event_latency_id, prev_event_latency_id) AS cause_id
+  chrome_get_v3_jank_cause_id(event_latency_id, prev_event_latency_id) AS cause_id
 FROM chrome_janky_frames_no_cause;
 
 -- Finds all causes of jank for all janky frames, and a cause of sub jank
 -- if the cause of jank was GPU related.
---
--- @column cause_of_jank          The reason the Vsync was missed.
--- @column sub_cause_of_jank      Further breakdown if the root cause was GPU
---                                related.
--- @column delay_since_last_frame Time elapsed since the previous frame was
---                                presented, will be more than |VSYNC| in this
---                                view.
--- @column event_latency_id       Event latency id of the presented frame.
--- @column vsync_interval         Vsync interval at the time of recording the
---                                trace.
--- @column hardware_class         Device brand and model.
--- @column scroll_id              The scroll corresponding to this frame.
-CREATE VIEW chrome_janky_frames AS
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(SELECT
+CREATE PERFETTO VIEW chrome_janky_frames(
+  -- The reason the Vsync was missed.
+  cause_of_jank INT,
+  -- Further breakdown if the root cause was GPU related.
+  sub_cause_of_jank INT,
+  -- Time elapsed since the previous frame was presented, will be more than |VSYNC| in this view.
+  delay_since_last_frame INT,
+  -- Event latency id of the presented frame.
+  event_latency_id INT,
+  -- Vsync interval at the time of recording the trace.
+  vsync_interval INT,
+  -- Device brand and model.
+  hardware_class STRING,
+  -- The scroll corresponding to this frame.
+  scroll_id INT
+) AS
+SELECT
   slice_name_from_id(cause_id) AS cause_of_jank,
   slice_name_from_id(
-    -- Getting sub-cause
-    get_v3_jank_cause_id(
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    -- Getting sub-cause
+    chrome_get_v3_jank_cause_id(
       -- Here the cause itself is the parent.
       cause_id,
       -- Get the previous cause id as a child to the previous |EventLatency|.
@@ -1851,9 +2848,10 @@ R"_d3l1m1t3r_(SELECT
 FROM chrome_janky_frames_no_subcause;
 
 -- Counting all unique frame presentation timestamps.
---
--- @column presentation_timestamp     The unique frame presentation timestamp.
-CREATE VIEW chrome_unique_frame_presentation_ts AS
+CREATE PERFETTO VIEW chrome_unique_frame_presentation_ts(
+  -- The unique frame presentation timestamp.
+  presentation_timestamp INT
+) AS
 SELECT DISTINCT
 presentation_timestamp
 FROM chrome_gesture_scroll_event_latencies;
@@ -1861,12 +2859,11 @@ FROM chrome_gesture_scroll_event_latencies;
 -- Dividing missed frames over total frames to get janky frame percentage.
 -- This represents the v3 scroll jank metrics.
 -- Reflects Event.Jank.DelayedFramesPercentage UMA metric.
+CREATE PERFETTO VIEW chrome_janky_frames_percentage(
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(--
--- @column delayed_frame_percentage       The percent of missed frames relative
---                                        to total frames - aka the percent of
---                                        janky frames.
-CREATE VIEW chrome_janky_frames_percentage AS
+R"_d3l1m1t3r_(  -- The percent of missed frames relative to total frames - aka the percent of janky frames.
+  delayed_frame_percentage FLOAT
+) AS
 SELECT
 (SELECT
   COUNT()
@@ -1876,13 +2873,16 @@ SELECT
   FROM chrome_unique_frame_presentation_ts) * 100 AS delayed_frame_percentage;
 
 -- Number of frames and janky frames per scroll.
---
--- @column scroll_id                  The ID of the scroll.
--- @column num_frames                 The number of frames in the scroll.
--- @column num_janky_frames           The number of delayed/janky frames.
--- @column scroll_jank_percentage     The percentage of janky frames relative to
---                                    total frames.
-CREATE VIEW chrome_frames_per_scroll AS
+CREATE PERFETTO VIEW chrome_frames_per_scroll(
+  -- The ID of the scroll.
+  scroll_id INT,
+  -- The number of frames in the scroll.
+  num_frames INT,
+  -- The number of delayed/janky frames.
+  num_janky_frames INT,
+  -- The percentage of janky frames relative to total frames.
+  scroll_jank_percentage INT
+) AS
 WITH
   frames AS (
     SELECT scroll_id, COUNT(*) AS num_frames
@@ -1891,8 +2891,7 @@ WITH
     GROUP BY scroll_id
   ),
   janky_frames AS (
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    SELECT scroll_id, COUNT(*) AS num_janky_frames
+    SELECT scroll_id, COUNT(*) AS num_janky_frames
     FROM
       chrome_janky_frames
     GROUP BY scroll_id
@@ -1901,25 +2900,26 @@ SELECT
   frames.scroll_id AS scroll_id,
   frames.num_frames AS num_frames,
   janky_frames.num_janky_frames AS num_janky_frames,
-  100.0 * janky_frames.num_janky_frames / frames.num_frames
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  100.0 * janky_frames.num_janky_frames / frames.num_frames
     AS scroll_jank_percentage
 FROM frames
 LEFT JOIN janky_frames
   ON frames.scroll_id = janky_frames.scroll_id;
 
 -- Scroll jank causes per scroll.
---
--- @column scroll_id                   The ID of the scroll.
--- @column max_delay_since_last_frame  The maximum time a frame was delayed
---                                     after the presentation of the previous
---                                     frame.
--- @column vsync_interval              The expected vsync interval.
--- @column scroll_jank_causes          A proto amalgamation of each scroll
---                                     jank cause including cause name, sub
---                                     cause and the duration of the delay
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(--                                     since the previous frame was presented.
-CREATE VIEW chrome_causes_per_scroll AS
+CREATE PERFETTO VIEW chrome_causes_per_scroll(
+  -- The ID of the scroll.
+  scroll_id INT,
+  -- The maximum time a frame was delayed after the presentation of the previous
+  -- frame.
+  max_delay_since_last_frame INT,
+  -- The expected vsync interval.
+  vsync_interval INT,
+  -- A proto amalgamation of each scroll jank cause including cause name, sub
+  -- cause and the duration of the delay since the previous frame was presented.
+  scroll_jank_causes BYTES
+) AS
 SELECT
   scroll_id,
   MAX(1.0 * delay_since_last_frame / vsync_interval)
@@ -1930,7 +2930,8 @@ SELECT
   RepeatedField(
     ChromeScrollJankV3_Scroll_ScrollJankCause(
       'cause',
-      cause_of_jank,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      cause_of_jank,
       'sub_cause',
       sub_cause_of_jank,
       'delay_since_last_frame',
@@ -1977,7 +2978,7 @@ R"_d3l1m1t3r_(-- Offsets are calculated by summing all of the deltas, ordered by
 INCLUDE PERFETTO MODULE chrome.scroll_jank.scroll_jank_v3;
 
 -- Non-coalesced scroll update events and their timestamps.
-CREATE VIEW internal_non_coalesced_scrolls AS
+CREATE PERFETTO VIEW internal_non_coalesced_scrolls AS
 SELECT
   scroll_update_id,
   ts
@@ -2004,7 +3005,7 @@ WHERE name = "TranslateAndScaleWebInputEvent";
 -- (internal_non_coalesced_scroll_updates) to get the timestamp of the event
 -- those deltas. This allows for ordering delta recordings to track them over
 -- time.
-CREATE VIEW internal_non_coalesced_deltas AS
+CREATE PERFETTO VIEW internal_non_coalesced_deltas AS
 SELECT
   scroll_update_id,
   ts,
@@ -2032,23 +3033,25 @@ WHERE name = "WebCoalescedInputEvent::CoalesceWith" AND
 -- to get the timestamp of the event those deltas were coalesced into. This
 -- allows us to get the scaled coordinates for all of the input events
 -- (original input coordinates can't be used due to scaling).
-CREATE VIEW internal_coalesced_deltas AS
+CREATE PERFETTO VIEW internal_coalesced_deltas AS
 SELECT
   internal_scroll_update_coalesce_info.coalesced_to_scroll_update_id AS scroll_update_id,
   ts,
   internal_scroll_deltas.delta_y AS delta_y,
   TRUE AS is_coalesced
-FROM internal_scroll_update_coalesce_info
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(LEFT JOIN internal_scroll_deltas
+R"_d3l1m1t3r_(FROM internal_scroll_update_coalesce_info
+LEFT JOIN internal_scroll_deltas
   USING (scroll_update_id);
 
 -- All of the presented frame scroll update ids.
--- @column arg_set_id                ID slice of the presented frame.
--- @column scroll_update_id          A scroll update id that was included in the
---                                   presented frame. There may be zero, one, or
---                                   more.
-CREATE VIEW chrome_deltas_presented_frame_scroll_update_ids AS
+CREATE PERFETTO VIEW chrome_deltas_presented_frame_scroll_update_ids(
+  -- A scroll update id that was included in the presented frame.
+  -- There may be zero, one, or more.
+  scroll_update_id INT,
+  -- Slice id
+  id INT
+) AS
 SELECT
   args.int_value AS scroll_update_id,
   slice.id
@@ -2061,7 +3064,7 @@ AND args.flat_key GLOB 'scroll_deltas.trace_ids_in_gpu_frame*';;
 -- When every GestureScrollUpdate event is processed, the offset set by the
 -- compositor is recorded. This offset is scaled to the device screen size, and
 -- can be used to calculate deltas.
-CREATE VIEW internal_presented_frame_offsets AS
+CREATE PERFETTO VIEW internal_presented_frame_offsets AS
 SELECT
   EXTRACT_ARG(arg_set_id, 'scroll_deltas.trace_id') AS scroll_update_id,
   EXTRACT_ARG(arg_set_id, 'scroll_deltas.visual_offset_y') AS visual_offset_y
@@ -2073,25 +3076,27 @@ WHERE name = 'InputHandlerProxy::HandleGestureScrollUpdate_Result';
 -- a scroll. This includes input events that were converted to scroll events
 -- which were presented (internal_non_coalesced_scrolls) and scroll events which
 -- were coalesced (internal_coalesced_deltas).
---
--- @column scroll_update_id          Trace Id associated with the scroll.
--- @column ts                        Timestamp the of the scroll input event.
--- @column delta_y                   The delta in raw coordinates between this
---                                   scroll update event and the previous.
--- @column offset_y                  The pixel offset of this scroll update
---                                   event compared to the previous one.
-CREATE PERFETTO TABLE chrome_scroll_input_offsets AS
+CREATE PERFETTO TABLE chrome_scroll_input_offsets(
+  -- Trace id associated with the scroll.
+  scroll_update_id INT,
+  -- Timestamp the of the scroll input event.
+  ts INT,
+  -- The delta in raw coordinates between this scroll update event and the previous.
+  delta_y INT,
+  -- The pixel offset of this scroll update event compared to the previous one.
+  offset_y INT
+) AS
 -- First collect all coalesced and non-coalesced deltas so that the offsets
 -- can be calculated from them in order of timestamp.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(WITH all_deltas AS (
+WITH all_deltas AS (
   SELECT
     scroll_update_id,
     ts,
     delta_y
   FROM internal_non_coalesced_deltas
   WHERE delta_y IS NOT NULL
-  UNION
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  UNION
   SELECT
     scroll_update_id,
     ts,
@@ -2111,16 +3116,17 @@ FROM all_deltas;
 -- Calculate the total visual offset for all presented frames (non-coalesced
 -- scroll updates) that have raw deltas recorded. These visual offsets
 -- correspond with the inverse of the deltas for the presented frame.
-CREATE VIEW internal_preprocessed_presented_frame_offsets AS
+CREATE PERFETTO VIEW internal_preprocessed_presented_frame_offsets AS
 SELECT
-  internal_non_coalesced_scrolls.scroll_update_id,
-  internal_non_coalesced_scrolls.ts,
+  chrome_full_frame_view.scroll_update_id,
+  chrome_full_frame_view.presentation_timestamp AS ts,
   chrome_deltas_presented_frame_scroll_update_ids.id,
   internal_presented_frame_offsets.visual_offset_y -
     LAG(internal_presented_frame_offsets.visual_offset_y)
+    OVER (ORDER BY chrome_full_frame_view.presentation_timestamp)
+      AS presented_frame_visual_offset_y
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    OVER (ORDER BY internal_non_coalesced_scrolls.ts) AS presented_frame_visual_offset_y
-FROM internal_non_coalesced_scrolls
+R"_d3l1m1t3r_(FROM chrome_full_frame_view
 LEFT JOIN internal_scroll_deltas
   USING (scroll_update_id)
 LEFT JOIN chrome_deltas_presented_frame_scroll_update_ids
@@ -2132,24 +3138,26 @@ WHERE internal_scroll_deltas.delta_y IS NOT NULL;
 -- The scrolling offsets for the actual (applied) scroll events. These are not
 -- necessarily inclusive of all user scroll events, rather those scroll events
 -- that are actually processed.
---
--- @column scroll_update_id          Trace Id associated with the scroll.
--- @column ts                        Presentation timestamp.
--- @column delta_y                   The delta in coordinates as processed by
---                                   Chrome between this scroll update event and
---                                   the previous.
--- @column offset_y                  The pixel offset of this scroll update (the
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(--                                   presented frame) compared to the previous
---                                   one.
-CREATE PERFETTO TABLE chrome_presented_scroll_offsets AS
+CREATE PERFETTO TABLE chrome_presented_scroll_offsets(
+  -- Trace Id associated with the scroll.
+  scroll_update_id INT,
+  -- Presentation timestamp.
+  ts INT,
+  -- The delta in coordinates as processed by Chrome between this scroll update
+  -- event and the previous.
+  delta_y INT,
+  -- The pixel offset of this scroll update (the presented frame) compared to
+  -- the previous one.
+  offset_y INT
+) AS
 WITH all_deltas AS (
   SELECT
     scroll_update_id,
     id,
     MAX(ts) AS ts,
     SUM(presented_frame_visual_offset_y) * -1 AS delta_y
-  FROM internal_preprocessed_presented_frame_offsets
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  FROM internal_preprocessed_presented_frame_offsets
   GROUP BY id
   ORDER BY ts)
 SELECT
@@ -2184,7 +3192,7 @@ const char kScrollJankUtils[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Aut
 -- the same scroll, and makes sure the frame ts occured within the scroll
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(-- timestamp of the neighbour and computes whether the frame was janky or not.
-CREATE PERFETTO FUNCTION is_janky_frame(cur_gesture_id LONG,
+CREATE PERFETTO FUNCTION internal_is_janky_frame(cur_gesture_id LONG,
                                       neighbour_gesture_id LONG,
                                       neighbour_ts LONG,
                                       cur_gesture_begin_ts LONG,
@@ -2213,7 +3221,7 @@ R"_d3l1m1t3r_(-- frame.
 --
 -- Returns the jank budget in percentage (i.e. 0.75) of vsync interval
 -- percentage.
-CREATE PERFETTO FUNCTION jank_budget(
+CREATE PERFETTO FUNCTION internal_jank_budget(
   cur_frame_exact FLOAT,
   prev_frame_exact FLOAT,
   next_frame_exact FLOAT
@@ -2231,9 +3239,9 @@ RETURNS FLOAT AS
 -- we want to output minimum amount required.
 SELECT
   COALESCE(
-    -- Could be null if next or previous is null.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    MAX(
+R"_d3l1m1t3r_(    -- Could be null if next or previous is null.
+    MAX(
       ($cur_frame_exact - $prev_frame_exact),
       ($cur_frame_exact - $next_frame_exact)
     ),
@@ -2247,23 +3255,23 @@ R"_d3l1m1t3r_(    MAX(
 -- names. For example, LongTaskTracker slices may have associated IPC
 -- metadata, or InterestingTask slices for input may have associated IPC to
 -- determine whether the task is fling/etc.
---
--- @arg name STRING            The name of slice.
--- @column interface_name      Name of the interface of the IPC call.
--- @column ipc_hash            Hash of the IPC call.
--- @column message_type        Message type (e.g. reply).
--- @column id                  The slice ID.
-CREATE PERFETTO FUNCTION chrome_select_long_task_slices(name STRING)
+CREATE PERFETTO FUNCTION chrome_select_long_task_slices(
+  -- The name of slice.
+  name STRING)
 RETURNS TABLE(
+  -- Name of the interface of the IPC call.
   interface_name STRING,
+  -- Hash of the IPC call.
   ipc_hash INT,
+  -- Message type (e.g. reply).
   message_type STRING,
+  -- The slice id.
   id INT
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_() AS
+) AS
 SELECT
   EXTRACT_ARG(s.arg_set_id, "chrome_mojo_event_info.mojo_interface_tag") AS interface_name,
-  EXTRACT_ARG(arg_set_id, "chrome_mojo_event_info.ipc_hash") AS ipc_hash,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  EXTRACT_ARG(arg_set_id, "chrome_mojo_event_info.ipc_hash") AS ipc_hash,
   CASE
     WHEN EXTRACT_ARG(arg_set_id, "chrome_mojo_event_info.is_reply") THEN "reply"
     ELSE "message"
@@ -2287,15 +3295,29 @@ const FileToSql kFileToSql[] = {
 
   {"cpu_powerups.sql", kCpuPowerups},
 
+  {"event_latency_description.sql", kEventLatencyDescription},
+
   {"histograms.sql", kHistograms},
+
+  {"interactions.sql", kInteractions},
 
   {"metadata.sql", kMetadata},
 
+  {"page_loads.sql", kPageLoads},
+
   {"speedometer.sql", kSpeedometer},
+
+  {"startups.sql", kStartups},
 
   {"tasks.sql", kTasks},
 
   {"vsync_intervals.sql", kVsyncIntervals},
+
+  {"web_content_interactions.sql", kWebContentInteractions},
+
+  {"scroll_jank/scroll_jank_cause_map.sql", kScrollJankScrollJankCauseMap},
+
+  {"scroll_jank/scroll_jank_cause_utils.sql", kScrollJankScrollJankCauseUtils},
 
   {"scroll_jank/scroll_jank_intervals.sql", kScrollJankScrollJankIntervals},
 

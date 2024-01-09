@@ -50,8 +50,12 @@ function getDefaultTabData() {
     };
 }
 class DragSession {
+    delegate_;
+    element_;
+    srcIndex;
+    srcGroup;
+    tabsProxy_ = TabsApiProxyImpl.getInstance();
     constructor(delegate, element, srcIndex, srcGroup) {
-        this.tabsProxy_ = TabsApiProxyImpl.getInstance();
         this.delegate_ = delegate;
         this.element_ = element;
         this.srcIndex = srcIndex;
@@ -302,8 +306,9 @@ class DragSession {
     }
 }
 export class DragManager {
+    delegate_;
+    dragSession_ = null;
     constructor(delegate) {
-        this.dragSession_ = null;
         this.delegate_ = delegate;
     }
     onDragLeave_(event) {

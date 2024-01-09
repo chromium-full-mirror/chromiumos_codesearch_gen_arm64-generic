@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/drag/drag.mojom-features.h"
 #include "third_party/blink/public/mojom/drag/drag.mojom-shared.h"
 #include "third_party/blink/public/mojom/drag/drag.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -223,33 +224,33 @@ class BLINK_COMMON_EXPORT DragItem {
   // Construct an instance holding |string|.
   static DragItemPtr
   NewString(
-      DragItemStringPtr string) {
+      DragItemStringPtr value) {
     auto result = DragItemPtr(absl::in_place);
-    result->set_string(std::move(string));
+    result->set_string(std::move(value));
     return result;
   }
   // Construct an instance holding |file|.
   static DragItemPtr
   NewFile(
-      ::blink::mojom::DataTransferFilePtr file) {
+      ::blink::mojom::DataTransferFilePtr value) {
     auto result = DragItemPtr(absl::in_place);
-    result->set_file(std::move(file));
+    result->set_file(std::move(value));
     return result;
   }
   // Construct an instance holding |binary|.
   static DragItemPtr
   NewBinary(
-      DragItemBinaryPtr binary) {
+      DragItemBinaryPtr value) {
     auto result = DragItemPtr(absl::in_place);
-    result->set_binary(std::move(binary));
+    result->set_binary(std::move(value));
     return result;
   }
   // Construct an instance holding |file_system_file|.
   static DragItemPtr
   NewFileSystemFile(
-      DragItemFileSystemFilePtr file_system_file) {
+      DragItemFileSystemFilePtr value) {
     auto result = DragItemPtr(absl::in_place);
-    result->set_file_system_file(std::move(file_system_file));
+    result->set_file_system_file(std::move(value));
     return result;
   }
 
@@ -408,8 +409,8 @@ class BLINK_COMMON_EXPORT DragItemString {
   DragItemString(
       const std::string& string_type,
       const ::std::u16string& string_data,
-      const absl::optional<::std::u16string>& title,
-      const absl::optional<::GURL>& base_url);
+      const std::optional<::std::u16string>& title,
+      const std::optional<::GURL>& base_url);
 
 
   ~DragItemString();
@@ -486,9 +487,9 @@ class BLINK_COMMON_EXPORT DragItemString {
   
   ::std::u16string string_data;
   
-  absl::optional<::std::u16string> title;
+  std::optional<::std::u16string> title;
   
-  absl::optional<::GURL> base_url;
+  std::optional<::GURL> base_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -554,7 +555,7 @@ class BLINK_COMMON_EXPORT DragItemBinary {
       bool is_image_accessible,
       const ::GURL& source_url,
       const ::base::FilePath& filename_extension,
-      const absl::optional<std::string>& content_disposition);
+      const std::optional<std::string>& content_disposition);
 
 DragItemBinary(const DragItemBinary&) = delete;
 DragItemBinary& operator=(const DragItemBinary&) = delete;
@@ -637,7 +638,7 @@ DragItemBinary& operator=(const DragItemBinary&) = delete;
   
   ::base::FilePath filename_extension;
   
-  absl::optional<std::string> content_disposition;
+  std::optional<std::string> content_disposition;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -701,7 +702,7 @@ class BLINK_COMMON_EXPORT DragItemFileSystemFile {
   DragItemFileSystemFile(
       const ::GURL& url,
       int64_t size,
-      const absl::optional<std::string>& file_system_id,
+      const std::optional<std::string>& file_system_id,
       ::blink::mojom::SerializedBlobPtr serialized_blob);
 
 DragItemFileSystemFile(const DragItemFileSystemFile&) = delete;
@@ -781,7 +782,7 @@ DragItemFileSystemFile& operator=(const DragItemFileSystemFile&) = delete;
   
   int64_t size;
   
-  absl::optional<std::string> file_system_id;
+  std::optional<std::string> file_system_id;
   
   ::blink::mojom::SerializedBlobPtr serialized_blob;
 
@@ -846,7 +847,7 @@ class BLINK_COMMON_EXPORT DragData {
 
   DragData(
       std::vector<DragItemPtr> items,
-      const absl::optional<std::string>& file_system_id,
+      const std::optional<std::string>& file_system_id,
       bool force_default_action,
       ::network::mojom::ReferrerPolicy referrer_policy);
 
@@ -925,7 +926,7 @@ DragData& operator=(const DragData&) = delete;
   
   std::vector<DragItemPtr> items;
   
-  absl::optional<std::string> file_system_id;
+  std::optional<std::string> file_system_id;
   
   bool force_default_action;
   

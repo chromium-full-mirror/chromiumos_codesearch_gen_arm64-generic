@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/js-to-wasm-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
@@ -81,6 +82,7 @@
 #include "torque-generated/src/objects/contexts-tq-csa.h"
 #include "torque-generated/src/objects/fixed-array-tq-csa.h"
 #include "torque-generated/test/torque/test-torque-tq-csa.h"
+#include "torque-generated/src/builtins/js-to-js-tq-csa.h"
 #include "torque-generated/src/builtins/js-to-wasm-tq-csa.h"
 #include "torque-generated/src/builtins/wasm-tq-csa.h"
 #include "torque-generated/src/builtins/wasm-to-js-tq-csa.h"
@@ -89,7 +91,7 @@
 namespace v8 {
 namespace internal {
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=61&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
 TNode<Int32T> FromConstexpr_ValueKind_constexpr_kRef_0(compiler::CodeAssemblerState* state_, wasm::ValueKind p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -110,7 +112,7 @@ TNode<Int32T> FromConstexpr_ValueKind_constexpr_kRef_0(compiler::CodeAssemblerSt
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=61&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
 TNode<Int32T> FromConstexpr_ValueKind_constexpr_kRefNull_0(compiler::CodeAssemblerState* state_, wasm::ValueKind p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -131,7 +133,7 @@ TNode<Int32T> FromConstexpr_ValueKind_constexpr_kRefNull_0(compiler::CodeAssembl
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kExtern_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -152,7 +154,7 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kExtern_0(compiler::CodeAssembler
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kNoExtern_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -173,7 +175,7 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kNoExtern_0(compiler::CodeAssembl
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kString_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -194,7 +196,7 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kString_0(compiler::CodeAssembler
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kEq_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -215,7 +217,7 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kEq_0(compiler::CodeAssemblerStat
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kI31_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -236,7 +238,7 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kI31_0(compiler::CodeAssemblerSta
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kStruct_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -257,7 +259,7 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kStruct_0(compiler::CodeAssembler
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kArray_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -278,7 +280,7 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kArray_0(compiler::CodeAssemblerS
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kAny_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -299,7 +301,7 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kAny_0(compiler::CodeAssemblerSta
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kNone_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -320,7 +322,28 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kNone_0(compiler::CodeAssemblerSt
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=67&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
+TNode<Int32T> FromConstexpr_HeapType_constexpr_kFunc_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block2(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<Int32T> tmp0;
+  TNode<Int32T> tmp1;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = ca_.Int32Constant(CastToUnderlyingTypeIfEnum(p_o));
+    tmp1 = (TNode<Int32T>{tmp0});
+    ca_.Goto(&block2);
+  }
+
+    ca_.Bind(&block2);
+  return TNode<Int32T>{tmp1};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
 TNode<Int32T> FromConstexpr_HeapType_constexpr_kNoFunc_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -341,7 +364,49 @@ TNode<Int32T> FromConstexpr_HeapType_constexpr_kNoFunc_0(compiler::CodeAssembler
   return TNode<Int32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=129&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
+TNode<Int32T> FromConstexpr_HeapType_constexpr_kExn_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block2(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<Int32T> tmp0;
+  TNode<Int32T> tmp1;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = ca_.Int32Constant(CastToUnderlyingTypeIfEnum(p_o));
+    tmp1 = (TNode<Int32T>{tmp0});
+    ca_.Goto(&block2);
+  }
+
+    ca_.Bind(&block2);
+  return TNode<Int32T>{tmp1};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=73&c=1
+TNode<Int32T> FromConstexpr_HeapType_constexpr_kNoExn_0(compiler::CodeAssemblerState* state_, wasm::HeapType::Representation p_o) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block2(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<Int32T> tmp0;
+  TNode<Int32T> tmp1;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = ca_.Int32Constant(CastToUnderlyingTypeIfEnum(p_o));
+    tmp1 = (TNode<Int32T>{tmp0});
+    ca_.Goto(&block2);
+  }
+
+    ca_.Bind(&block2);
+  return TNode<Int32T>{tmp1};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=139&c=1
 TNode<Uint32T> Bitcast_uint32_float32_0(compiler::CodeAssemblerState* state_, TNode<Float32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -360,7 +425,7 @@ TNode<Uint32T> Bitcast_uint32_float32_0(compiler::CodeAssemblerState* state_, TN
   return TNode<Uint32T>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=138&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=148&c=1
 TNode<IntPtrT> TruncateBigIntToI64_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_input) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -437,7 +502,7 @@ TNode<IntPtrT> TruncateBigIntToI64_0(compiler::CodeAssemblerState* state_, TNode
   return TNode<IntPtrT>{phi_bb10_2};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=240&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=250&c=1
 TorqueStructReturnSlotAllocator_0 NewReturnSlotAllocator_0(compiler::CodeAssemblerState* state_) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -464,7 +529,7 @@ TorqueStructReturnSlotAllocator_0 NewReturnSlotAllocator_0(compiler::CodeAssembl
   return TorqueStructReturnSlotAllocator_0{TNode<IntPtrT>{tmp0}, TNode<IntPtrT>{tmp1}, TNode<BoolT>{tmp3}, TNode<BoolT>{tmp4}, TNode<IntPtrT>{tmp2}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=362&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=376&c=1
 TorqueStructLocationAllocator_0 LocationAllocatorForParams_0(compiler::CodeAssemblerState* state_, TorqueStructReference_intptr_0 p_paramBuffer) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -530,7 +595,7 @@ TorqueStructLocationAllocator_0 LocationAllocatorForParams_0(compiler::CodeAssem
   return TorqueStructLocationAllocator_0{TNode<Object>{p_paramBuffer.object}, TNode<IntPtrT>{tmp0}, TNode<IntPtrT>{tmp1}, TNode<IntPtrT>{p_paramBuffer.offset}, TNode<IntPtrT>{tmp7}, TNode<IntPtrT>{tmp10}, TNode<IntPtrT>{tmp10}, TNode<IntPtrT>{tmp11}, TNode<BoolT>{tmp12}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=383&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=397&c=1
 TorqueStructLocationAllocator_0 LocationAllocatorForReturns_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_gpRegs, TNode<RawPtrT> p_fpRegs, TNode<RawPtrT> p_stack) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -575,7 +640,7 @@ TorqueStructLocationAllocator_0 LocationAllocatorForReturns_0(compiler::CodeAsse
   return TorqueStructLocationAllocator_0{TNode<Object>{tmp0}, TNode<IntPtrT>{tmp1}, TNode<IntPtrT>{tmp2}, TNode<IntPtrT>{tmp5}, TNode<IntPtrT>{tmp8}, TNode<IntPtrT>{tmp11}, TNode<IntPtrT>{tmp11}, TNode<IntPtrT>{tmp12}, TNode<BoolT>{tmp13}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=398&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=412&c=1
 TNode<Object> JSToWasmObject_0(compiler::CodeAssemblerState* state_, TNode<NativeContext> p_context, TNode<HeapObject> p_instanceOrUndefined, TNode<Int32T> p_targetType, TNode<Object> p_value) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -778,7 +843,7 @@ TNode<Object> JSToWasmObject_0(compiler::CodeAssemblerState* state_, TNode<Nativ
   return TNode<Object>{phi_bb23_4};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=430&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=444&c=1
 void JSToWasmWrapperHelper_0(compiler::CodeAssemblerState* state_, TNode<NativeContext> p_context, TNode<Object> p__receiver, TNode<JSFunction> p_target, TorqueStructArguments p_arguments, bool p_switchStack) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -992,7 +1057,7 @@ void JSToWasmWrapperHelper_0(compiler::CodeAssemblerState* state_, TNode<NativeC
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 16);
     tmp1 = CodeStubAssembler(state_).LoadReference<SharedFunctionInfo>(CodeStubAssembler::Reference{p_target, tmp0});
-    tmp2 = FromConstexpr_intptr_constexpr_int31_0(state_, 4);
+    tmp2 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp3 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{tmp1, tmp2});
     tmp4 = UnsafeCast_WasmExportedFunctionData_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp3});
     if (((CodeStubAssembler(state_).ConstexprBoolNot(p_switchStack)))) {
@@ -1103,7 +1168,7 @@ void JSToWasmWrapperHelper_0(compiler::CodeAssemblerState* state_, TNode<NativeC
   if (block6.is_used()) {
     ca_.Bind(&block6);
     tmp40 = Convert_Smi_int32_0(state_, TNode<Int32T>{tmp24});
-    tmp41 = ca_.CallStub<JSArray>(Builtins::CallableFor(ca_.isolate(), Builtin::kWasmAllocateJSArray), p_context, tmp40);
+    tmp41 = ca_.CallBuiltin<JSArray>(Builtin::kWasmAllocateJSArray, p_context, tmp40);
     tmp42 = Convert_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
     tmp43 = Convert_intptr_int32_0(state_, TNode<Int32T>{tmp24});
     compiler::CodeAssemblerLabel label47(&ca_);
@@ -2568,7 +2633,7 @@ void JSToWasmWrapperHelper_0(compiler::CodeAssemblerState* state_, TNode<NativeC
   TNode<IntPtrT> tmp228;
   if (block129.is_used()) {
     ca_.Bind(&block129, &phi_bb129_15, &phi_bb129_16, &phi_bb129_17, &phi_bb129_25, &phi_bb129_26, &phi_bb129_27, &phi_bb129_28, &phi_bb129_30, &phi_bb129_31, &phi_bb129_32, &phi_bb129_34, &phi_bb129_37, &phi_bb129_38);
-    tmp226 = ca_.CallStub<Int32T>(Builtins::CallableFor(ca_.isolate(), Builtin::kWasmTaggedNonSmiToInt32), p_context, ca_.UncheckedCast<HeapObject>(tmp188));
+    tmp226 = ca_.CallBuiltin<Int32T>(Builtin::kWasmTaggedNonSmiToInt32, p_context, ca_.UncheckedCast<HeapObject>(tmp188));
     tmp227 = CodeStubAssembler(state_).Unsigned(TNode<Int32T>{tmp226});
     tmp228 = Convert_intptr_uint32_0(state_, TNode<Uint32T>{tmp227});
     CodeStubAssembler(state_).StoreReference<IntPtrT>(CodeStubAssembler::Reference{phi_bb129_37, phi_bb129_38}, tmp228);
@@ -2838,7 +2903,7 @@ void JSToWasmWrapperHelper_0(compiler::CodeAssemblerState* state_, TNode<NativeC
   TNode<IntPtrT> tmp261;
   if (block133.is_used()) {
     ca_.Bind(&block133, &phi_bb133_15, &phi_bb133_16, &phi_bb133_17, &phi_bb133_24, &phi_bb133_26, &phi_bb133_27, &phi_bb133_28, &phi_bb133_30, &phi_bb133_31, &phi_bb133_32, &phi_bb133_34, &phi_bb133_37, &phi_bb133_38);
-    tmp259 = ca_.CallStub<Float32T>(Builtins::CallableFor(ca_.isolate(), Builtin::kWasmTaggedToFloat32), p_context, tmp188);
+    tmp259 = ca_.CallBuiltin<Float32T>(Builtin::kWasmTaggedToFloat32, p_context, tmp188);
     tmp260 = Bitcast_uint32_float32_0(state_, TNode<Float32T>{tmp259});
     tmp261 = Convert_intptr_uint32_0(state_, TNode<Uint32T>{tmp260});
     CodeStubAssembler(state_).StoreReference<IntPtrT>(CodeStubAssembler::Reference{phi_bb133_37, phi_bb133_38}, tmp261);
@@ -4684,7 +4749,7 @@ void JSToWasmWrapperHelper_0(compiler::CodeAssemblerState* state_, TNode<NativeC
   if (block228.is_used()) {
     ca_.Bind(&block228, &phi_bb228_15, &phi_bb228_16, &phi_bb228_17, &phi_bb228_24, &phi_bb228_25, &phi_bb228_26, &phi_bb228_27, &phi_bb228_28, &phi_bb228_30, &phi_bb228_31, &phi_bb228_32, &phi_bb228_33, &phi_bb228_35);
     tmp475 = CodeStubAssembler(state_).GCUnsafeReferenceToRawPtr(TNode<Object>{tmp171}, TNode<IntPtrT>{phi_bb228_35});
-    tmp476 = FromConstexpr_intptr_constexpr_int31_0(state_, 4);
+    tmp476 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp477 = CodeStubAssembler(state_).LoadReference<WasmInternalFunction>(CodeStubAssembler::Reference{tmp4, tmp476});
     tmp478 = CodeStubAssembler(state_).LoadWasmInternalFunctionCallTargetPtr(TNode<WasmInternalFunction>{tmp477});
     tmp479 = FromConstexpr_intptr_constexpr_int31_0(state_, 16);
@@ -4734,7 +4799,7 @@ void JSToWasmWrapperHelper_0(compiler::CodeAssemblerState* state_, TNode<NativeC
   TNode<Object> tmp504;
   if (block229.is_used()) {
     ca_.Bind(&block229, &phi_bb229_15, &phi_bb229_16, &phi_bb229_17, &phi_bb229_24, &phi_bb229_25, &phi_bb229_26, &phi_bb229_27, &phi_bb229_28, &phi_bb229_30, &phi_bb229_31, &phi_bb229_32, &phi_bb229_33);
-    tmp504 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kWasmReturnPromiseOnSuspendAsm), TNode<Object>(), tmp482, tmp480, phi_bb229_15);
+    tmp504 = ca_.CallBuiltin<Object>(Builtin::kWasmReturnPromiseOnSuspendAsm, TNode<Object>(), tmp482, tmp480, phi_bb229_15);
     ca_.Goto(&block231, phi_bb229_15, phi_bb229_16, phi_bb229_17, phi_bb229_24, phi_bb229_25, phi_bb229_26, phi_bb229_27, phi_bb229_28, phi_bb229_30, phi_bb229_31, phi_bb229_32, phi_bb229_33, tmp504);
   }
 
@@ -4753,7 +4818,7 @@ void JSToWasmWrapperHelper_0(compiler::CodeAssemblerState* state_, TNode<NativeC
   TNode<Object> tmp505;
   if (block230.is_used()) {
     ca_.Bind(&block230, &phi_bb230_15, &phi_bb230_16, &phi_bb230_17, &phi_bb230_24, &phi_bb230_25, &phi_bb230_26, &phi_bb230_27, &phi_bb230_28, &phi_bb230_30, &phi_bb230_31, &phi_bb230_32, &phi_bb230_33);
-    tmp505 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kJSToWasmWrapperAsm), TNode<Object>(), tmp482, tmp480, phi_bb230_15);
+    tmp505 = ca_.CallBuiltin<Object>(Builtin::kJSToWasmWrapperAsm, TNode<Object>(), tmp482, tmp480, phi_bb230_15);
     ca_.Goto(&block231, phi_bb230_15, phi_bb230_16, phi_bb230_17, phi_bb230_24, phi_bb230_25, phi_bb230_26, phi_bb230_27, phi_bb230_28, phi_bb230_30, phi_bb230_31, phi_bb230_32, phi_bb230_33, tmp505);
   }
 
@@ -4781,7 +4846,7 @@ void JSToWasmWrapperHelper_0(compiler::CodeAssemblerState* state_, TNode<NativeC
     ca_.Bind(&block231, &phi_bb231_15, &phi_bb231_16, &phi_bb231_17, &phi_bb231_24, &phi_bb231_25, &phi_bb231_26, &phi_bb231_27, &phi_bb231_28, &phi_bb231_30, &phi_bb231_31, &phi_bb231_32, &phi_bb231_33, &phi_bb231_40);
     tmp506 = FromConstexpr_intptr_constexpr_int31_0(state_, 16);
     tmp507 = CodeStubAssembler(state_).LoadReference<SharedFunctionInfo>(CodeStubAssembler::Reference{p_target, tmp506});
-    tmp508 = FromConstexpr_intptr_constexpr_int31_0(state_, 20);
+    tmp508 = FromConstexpr_intptr_constexpr_int31_0(state_, 24);
     tmp509 = CodeStubAssembler(state_).LoadReference<Int16T>(CodeStubAssembler::Reference{tmp507, tmp508});
     tmp510 = Convert_int32_int16_0(state_, TNode<Int16T>{tmp509});
     tmp511 = Convert_intptr_int32_0(state_, TNode<Int32T>{tmp510});
@@ -4873,7 +4938,7 @@ USE(parameter2);
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=696&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=710&c=1
 TNode<Object> WasmToJSObject_0(compiler::CodeAssemblerState* state_, TNode<NativeContext> p_context, TNode<Object> p_value, TNode<Int32T> p_retType) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -4906,35 +4971,47 @@ TNode<Object> WasmToJSObject_0(compiler::CodeAssemblerState* state_, TNode<Nativ
   compiler::CodeAssemblerParameterizedLabel<> block31(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block32(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<BoolT> block33(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block34(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block35(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block36(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block37(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block38(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block39(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block3(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block40(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block41(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<BoolT> block42(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block38(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block39(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block43(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block44(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block46(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block47(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block48(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<BoolT> block49(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block48(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block49(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block50(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block51(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<BoolT> block52(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block51(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block52(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block53(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block54(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<BoolT> block55(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block54(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block44(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block45(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block55(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block56(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block57(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<BoolT> block58(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block59(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block60(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<BoolT> block61(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block45(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block46(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block62(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block63(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block64(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block65(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block66(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block67(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block68(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block69(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block70(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block71(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block72(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block73(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block57(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block58(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<Object> block1(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<Object> block62(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<Object> block74(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
     ca_.Goto(&block0);
 
   TNode<Int32T> tmp0;
@@ -5162,172 +5239,172 @@ TNode<Object> WasmToJSObject_0(compiler::CodeAssemblerState* state_, TNode<Nativ
   TNode<BoolT> phi_bb33_6;
   if (block33.is_used()) {
     ca_.Bind(&block33, &phi_bb33_6);
-    ca_.Branch(phi_bb33_6, &block5, std::vector<compiler::Node*>{}, &block6, std::vector<compiler::Node*>{});
+    ca_.Branch(phi_bb33_6, &block34, std::vector<compiler::Node*>{}, &block35, std::vector<compiler::Node*>{});
   }
 
-  TNode<Object> tmp37;
+  TNode<BoolT> tmp37;
+  if (block34.is_used()) {
+    ca_.Bind(&block34);
+    tmp37 = FromConstexpr_bool_constexpr_bool_0(state_, true);
+    ca_.Goto(&block36, tmp37);
+  }
+
+  TNode<Int32T> tmp38;
+  TNode<BoolT> tmp39;
+  if (block35.is_used()) {
+    ca_.Bind(&block35);
+    tmp38 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kExn);
+    tmp39 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp38});
+    ca_.Goto(&block36, tmp39);
+  }
+
+  TNode<BoolT> phi_bb36_6;
+  if (block36.is_used()) {
+    ca_.Bind(&block36, &phi_bb36_6);
+    ca_.Branch(phi_bb36_6, &block37, std::vector<compiler::Node*>{}, &block38, std::vector<compiler::Node*>{});
+  }
+
+  TNode<BoolT> tmp40;
+  if (block37.is_used()) {
+    ca_.Bind(&block37);
+    tmp40 = FromConstexpr_bool_constexpr_bool_0(state_, true);
+    ca_.Goto(&block39, tmp40);
+  }
+
+  TNode<Int32T> tmp41;
+  TNode<BoolT> tmp42;
+  if (block38.is_used()) {
+    ca_.Bind(&block38);
+    tmp41 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kNoExn);
+    tmp42 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp41});
+    ca_.Goto(&block39, tmp42);
+  }
+
+  TNode<BoolT> phi_bb39_6;
+  if (block39.is_used()) {
+    ca_.Bind(&block39, &phi_bb39_6);
+    ca_.Branch(phi_bb39_6, &block5, std::vector<compiler::Node*>{}, &block6, std::vector<compiler::Node*>{});
+  }
+
+  TNode<Object> tmp43;
   if (block5.is_used()) {
     ca_.Bind(&block5);
-    tmp37 = UnsafeCast_JSAny_0(state_, TNode<Context>{p_context}, TNode<Object>{p_value});
-    ca_.Goto(&block1, tmp37);
-  }
-
-  TNode<Object> tmp38;
-  if (block6.is_used()) {
-    ca_.Bind(&block6);
-    tmp38 = CodeStubAssembler(state_).CallRuntime(Runtime::kWasmGenericWasmToJSObject, p_context, p_value); 
-    ca_.Goto(&block1, tmp38);
-  }
-
-  TNode<Int32T> tmp39;
-  TNode<BoolT> tmp40;
-  if (block3.is_used()) {
-    ca_.Bind(&block3);
-    tmp39 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kExtern);
-    tmp40 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp39});
-    ca_.Branch(tmp40, &block40, std::vector<compiler::Node*>{}, &block41, std::vector<compiler::Node*>{});
-  }
-
-  TNode<BoolT> tmp41;
-  if (block40.is_used()) {
-    ca_.Bind(&block40);
-    tmp41 = FromConstexpr_bool_constexpr_bool_0(state_, true);
-    ca_.Goto(&block42, tmp41);
-  }
-
-  TNode<Int32T> tmp42;
-  TNode<BoolT> tmp43;
-  if (block41.is_used()) {
-    ca_.Bind(&block41);
-    tmp42 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kNoExtern);
-    tmp43 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp42});
-    ca_.Goto(&block42, tmp43);
-  }
-
-  TNode<BoolT> phi_bb42_6;
-  if (block42.is_used()) {
-    ca_.Bind(&block42, &phi_bb42_6);
-    ca_.Branch(phi_bb42_6, &block38, std::vector<compiler::Node*>{}, &block39, std::vector<compiler::Node*>{});
+    tmp43 = UnsafeCast_JSAny_0(state_, TNode<Context>{p_context}, TNode<Object>{p_value});
+    ca_.Goto(&block1, tmp43);
   }
 
   TNode<Object> tmp44;
-  if (block38.is_used()) {
-    ca_.Bind(&block38);
-    tmp44 = UnsafeCast_JSAny_0(state_, TNode<Context>{p_context}, TNode<Object>{p_value});
+  if (block6.is_used()) {
+    ca_.Bind(&block6);
+    tmp44 = CodeStubAssembler(state_).CallRuntime(Runtime::kWasmGenericWasmToJSObject, p_context, p_value); 
     ca_.Goto(&block1, tmp44);
   }
 
-  TNode<WasmNull> tmp45;
+  TNode<Int32T> tmp45;
   TNode<BoolT> tmp46;
-  if (block39.is_used()) {
-    ca_.Bind(&block39);
-    tmp45 = kWasmNull_0(state_);
-    tmp46 = CodeStubAssembler(state_).TaggedEqual(TNode<Object>{p_value}, TNode<HeapObject>{tmp45});
-    ca_.Branch(tmp46, &block43, std::vector<compiler::Node*>{}, &block44, std::vector<compiler::Node*>{});
+  if (block3.is_used()) {
+    ca_.Bind(&block3);
+    tmp45 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kExtern);
+    tmp46 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp45});
+    ca_.Branch(tmp46, &block46, std::vector<compiler::Node*>{}, &block47, std::vector<compiler::Node*>{});
   }
 
-  TNode<Null> tmp47;
-  if (block43.is_used()) {
-    ca_.Bind(&block43);
-    tmp47 = Null_0(state_);
-    ca_.Goto(&block1, tmp47);
+  TNode<BoolT> tmp47;
+  if (block46.is_used()) {
+    ca_.Bind(&block46);
+    tmp47 = FromConstexpr_bool_constexpr_bool_0(state_, true);
+    ca_.Goto(&block48, tmp47);
   }
 
   TNode<Int32T> tmp48;
   TNode<BoolT> tmp49;
-  if (block44.is_used()) {
-    ca_.Bind(&block44);
-    tmp48 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kEq);
+  if (block47.is_used()) {
+    ca_.Bind(&block47);
+    tmp48 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kNoExtern);
     tmp49 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp48});
-    ca_.Branch(tmp49, &block47, std::vector<compiler::Node*>{}, &block48, std::vector<compiler::Node*>{});
+    ca_.Goto(&block48, tmp49);
+  }
+
+  TNode<BoolT> phi_bb48_6;
+  if (block48.is_used()) {
+    ca_.Bind(&block48, &phi_bb48_6);
+    ca_.Branch(phi_bb48_6, &block49, std::vector<compiler::Node*>{}, &block50, std::vector<compiler::Node*>{});
   }
 
   TNode<BoolT> tmp50;
-  if (block47.is_used()) {
-    ca_.Bind(&block47);
+  if (block49.is_used()) {
+    ca_.Bind(&block49);
     tmp50 = FromConstexpr_bool_constexpr_bool_0(state_, true);
-    ca_.Goto(&block49, tmp50);
+    ca_.Goto(&block51, tmp50);
   }
 
   TNode<Int32T> tmp51;
   TNode<BoolT> tmp52;
-  if (block48.is_used()) {
-    ca_.Bind(&block48);
-    tmp51 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kStruct);
+  if (block50.is_used()) {
+    ca_.Bind(&block50);
+    tmp51 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kExn);
     tmp52 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp51});
-    ca_.Goto(&block49, tmp52);
+    ca_.Goto(&block51, tmp52);
   }
 
-  TNode<BoolT> phi_bb49_6;
-  if (block49.is_used()) {
-    ca_.Bind(&block49, &phi_bb49_6);
-    ca_.Branch(phi_bb49_6, &block50, std::vector<compiler::Node*>{}, &block51, std::vector<compiler::Node*>{});
+  TNode<BoolT> phi_bb51_6;
+  if (block51.is_used()) {
+    ca_.Bind(&block51, &phi_bb51_6);
+    ca_.Branch(phi_bb51_6, &block52, std::vector<compiler::Node*>{}, &block53, std::vector<compiler::Node*>{});
   }
 
   TNode<BoolT> tmp53;
-  if (block50.is_used()) {
-    ca_.Bind(&block50);
+  if (block52.is_used()) {
+    ca_.Bind(&block52);
     tmp53 = FromConstexpr_bool_constexpr_bool_0(state_, true);
-    ca_.Goto(&block52, tmp53);
+    ca_.Goto(&block54, tmp53);
   }
 
   TNode<Int32T> tmp54;
   TNode<BoolT> tmp55;
-  if (block51.is_used()) {
-    ca_.Bind(&block51);
-    tmp54 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kArray);
-    tmp55 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp54});
-    ca_.Goto(&block52, tmp55);
-  }
-
-  TNode<BoolT> phi_bb52_6;
-  if (block52.is_used()) {
-    ca_.Bind(&block52, &phi_bb52_6);
-    ca_.Branch(phi_bb52_6, &block53, std::vector<compiler::Node*>{}, &block54, std::vector<compiler::Node*>{});
-  }
-
-  TNode<BoolT> tmp56;
   if (block53.is_used()) {
     ca_.Bind(&block53);
-    tmp56 = FromConstexpr_bool_constexpr_bool_0(state_, true);
-    ca_.Goto(&block55, tmp56);
+    tmp54 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kNoExn);
+    tmp55 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp54});
+    ca_.Goto(&block54, tmp55);
   }
 
-  TNode<Int32T> tmp57;
-  TNode<BoolT> tmp58;
+  TNode<BoolT> phi_bb54_6;
   if (block54.is_used()) {
-    ca_.Bind(&block54);
-    tmp57 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kString);
-    tmp58 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp57});
-    ca_.Goto(&block55, tmp58);
+    ca_.Bind(&block54, &phi_bb54_6);
+    ca_.Branch(phi_bb54_6, &block44, std::vector<compiler::Node*>{}, &block45, std::vector<compiler::Node*>{});
   }
 
-  TNode<BoolT> phi_bb55_6;
+  TNode<Object> tmp56;
+  if (block44.is_used()) {
+    ca_.Bind(&block44);
+    tmp56 = UnsafeCast_JSAny_0(state_, TNode<Context>{p_context}, TNode<Object>{p_value});
+    ca_.Goto(&block1, tmp56);
+  }
+
+  TNode<WasmNull> tmp57;
+  TNode<BoolT> tmp58;
+  if (block45.is_used()) {
+    ca_.Bind(&block45);
+    tmp57 = kWasmNull_0(state_);
+    tmp58 = CodeStubAssembler(state_).TaggedEqual(TNode<Object>{p_value}, TNode<HeapObject>{tmp57});
+    ca_.Branch(tmp58, &block55, std::vector<compiler::Node*>{}, &block56, std::vector<compiler::Node*>{});
+  }
+
+  TNode<Null> tmp59;
   if (block55.is_used()) {
-    ca_.Bind(&block55, &phi_bb55_6);
-    ca_.Branch(phi_bb55_6, &block56, std::vector<compiler::Node*>{}, &block57, std::vector<compiler::Node*>{});
-  }
-
-  TNode<BoolT> tmp59;
-  if (block56.is_used()) {
-    ca_.Bind(&block56);
-    tmp59 = FromConstexpr_bool_constexpr_bool_0(state_, true);
-    ca_.Goto(&block58, tmp59);
+    ca_.Bind(&block55);
+    tmp59 = Null_0(state_);
+    ca_.Goto(&block1, tmp59);
   }
 
   TNode<Int32T> tmp60;
   TNode<BoolT> tmp61;
-  if (block57.is_used()) {
-    ca_.Bind(&block57);
-    tmp60 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kI31);
+  if (block56.is_used()) {
+    ca_.Bind(&block56);
+    tmp60 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kEq);
     tmp61 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp60});
-    ca_.Goto(&block58, tmp61);
-  }
-
-  TNode<BoolT> phi_bb58_6;
-  if (block58.is_used()) {
-    ca_.Bind(&block58, &phi_bb58_6);
-    ca_.Branch(phi_bb58_6, &block59, std::vector<compiler::Node*>{}, &block60, std::vector<compiler::Node*>{});
+    ca_.Branch(tmp61, &block59, std::vector<compiler::Node*>{}, &block60, std::vector<compiler::Node*>{});
   }
 
   TNode<BoolT> tmp62;
@@ -5341,7 +5418,7 @@ TNode<Object> WasmToJSObject_0(compiler::CodeAssemblerState* state_, TNode<Nativ
   TNode<BoolT> tmp64;
   if (block60.is_used()) {
     ca_.Bind(&block60);
-    tmp63 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kAny);
+    tmp63 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kStruct);
     tmp64 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp63});
     ca_.Goto(&block61, tmp64);
   }
@@ -5349,32 +5426,120 @@ TNode<Object> WasmToJSObject_0(compiler::CodeAssemblerState* state_, TNode<Nativ
   TNode<BoolT> phi_bb61_6;
   if (block61.is_used()) {
     ca_.Bind(&block61, &phi_bb61_6);
-    ca_.Branch(phi_bb61_6, &block45, std::vector<compiler::Node*>{}, &block46, std::vector<compiler::Node*>{});
+    ca_.Branch(phi_bb61_6, &block62, std::vector<compiler::Node*>{}, &block63, std::vector<compiler::Node*>{});
   }
 
-  TNode<Object> tmp65;
-  if (block45.is_used()) {
-    ca_.Bind(&block45);
-    tmp65 = UnsafeCast_JSAny_0(state_, TNode<Context>{p_context}, TNode<Object>{p_value});
-    ca_.Goto(&block1, tmp65);
+  TNode<BoolT> tmp65;
+  if (block62.is_used()) {
+    ca_.Bind(&block62);
+    tmp65 = FromConstexpr_bool_constexpr_bool_0(state_, true);
+    ca_.Goto(&block64, tmp65);
   }
 
-  TNode<Object> tmp66;
-  if (block46.is_used()) {
-    ca_.Bind(&block46);
-    tmp66 = CodeStubAssembler(state_).CallRuntime(Runtime::kWasmGenericWasmToJSObject, p_context, p_value); 
-    ca_.Goto(&block1, tmp66);
+  TNode<Int32T> tmp66;
+  TNode<BoolT> tmp67;
+  if (block63.is_used()) {
+    ca_.Bind(&block63);
+    tmp66 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kArray);
+    tmp67 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp66});
+    ca_.Goto(&block64, tmp67);
+  }
+
+  TNode<BoolT> phi_bb64_6;
+  if (block64.is_used()) {
+    ca_.Bind(&block64, &phi_bb64_6);
+    ca_.Branch(phi_bb64_6, &block65, std::vector<compiler::Node*>{}, &block66, std::vector<compiler::Node*>{});
+  }
+
+  TNode<BoolT> tmp68;
+  if (block65.is_used()) {
+    ca_.Bind(&block65);
+    tmp68 = FromConstexpr_bool_constexpr_bool_0(state_, true);
+    ca_.Goto(&block67, tmp68);
+  }
+
+  TNode<Int32T> tmp69;
+  TNode<BoolT> tmp70;
+  if (block66.is_used()) {
+    ca_.Bind(&block66);
+    tmp69 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kString);
+    tmp70 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp69});
+    ca_.Goto(&block67, tmp70);
+  }
+
+  TNode<BoolT> phi_bb67_6;
+  if (block67.is_used()) {
+    ca_.Bind(&block67, &phi_bb67_6);
+    ca_.Branch(phi_bb67_6, &block68, std::vector<compiler::Node*>{}, &block69, std::vector<compiler::Node*>{});
+  }
+
+  TNode<BoolT> tmp71;
+  if (block68.is_used()) {
+    ca_.Bind(&block68);
+    tmp71 = FromConstexpr_bool_constexpr_bool_0(state_, true);
+    ca_.Goto(&block70, tmp71);
+  }
+
+  TNode<Int32T> tmp72;
+  TNode<BoolT> tmp73;
+  if (block69.is_used()) {
+    ca_.Bind(&block69);
+    tmp72 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kI31);
+    tmp73 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp72});
+    ca_.Goto(&block70, tmp73);
+  }
+
+  TNode<BoolT> phi_bb70_6;
+  if (block70.is_used()) {
+    ca_.Bind(&block70, &phi_bb70_6);
+    ca_.Branch(phi_bb70_6, &block71, std::vector<compiler::Node*>{}, &block72, std::vector<compiler::Node*>{});
+  }
+
+  TNode<BoolT> tmp74;
+  if (block71.is_used()) {
+    ca_.Bind(&block71);
+    tmp74 = FromConstexpr_bool_constexpr_bool_0(state_, true);
+    ca_.Goto(&block73, tmp74);
+  }
+
+  TNode<Int32T> tmp75;
+  TNode<BoolT> tmp76;
+  if (block72.is_used()) {
+    ca_.Bind(&block72);
+    tmp75 = FromConstexpr_int32_constexpr_int32_0(state_, wasm::HeapType::Representation::kAny);
+    tmp76 = CodeStubAssembler(state_).Word32Equal(TNode<Int32T>{tmp5}, TNode<Int32T>{tmp75});
+    ca_.Goto(&block73, tmp76);
+  }
+
+  TNode<BoolT> phi_bb73_6;
+  if (block73.is_used()) {
+    ca_.Bind(&block73, &phi_bb73_6);
+    ca_.Branch(phi_bb73_6, &block57, std::vector<compiler::Node*>{}, &block58, std::vector<compiler::Node*>{});
+  }
+
+  TNode<Object> tmp77;
+  if (block57.is_used()) {
+    ca_.Bind(&block57);
+    tmp77 = UnsafeCast_JSAny_0(state_, TNode<Context>{p_context}, TNode<Object>{p_value});
+    ca_.Goto(&block1, tmp77);
+  }
+
+  TNode<Object> tmp78;
+  if (block58.is_used()) {
+    ca_.Bind(&block58);
+    tmp78 = CodeStubAssembler(state_).CallRuntime(Runtime::kWasmGenericWasmToJSObject, p_context, p_value); 
+    ca_.Goto(&block1, tmp78);
   }
 
   TNode<Object> phi_bb1_3;
   if (block1.is_used()) {
     ca_.Bind(&block1, &phi_bb1_3);
-    ca_.Goto(&block62, phi_bb1_3);
+    ca_.Goto(&block74, phi_bb1_3);
   }
 
-  TNode<Object> phi_bb62_3;
-    ca_.Bind(&block62, &phi_bb62_3);
-  return TNode<Object>{phi_bb62_3};
+  TNode<Object> phi_bb74_3;
+    ca_.Bind(&block74, &phi_bb74_3);
+  return TNode<Object>{phi_bb74_3};
 }
 
 TF_BUILTIN(JSToWasmHandleReturns, CodeStubAssembler) {
@@ -5707,7 +5872,7 @@ TF_BUILTIN(JSToWasmHandleReturns, CodeStubAssembler) {
     tmp40 = FromConstexpr_intptr_constexpr_intptr_0(state_, JSToWasmWrapperFrameConstants::kWrapperBufferGPReturnRegister1);
     std::tie(tmp41, tmp42) = GetRefAt_intptr_RawPtr_intptr_0(state_, TNode<RawPtrT>{parameter2}, TNode<IntPtrT>{tmp40}).Flatten();
     tmp43 = CodeStubAssembler(state_).LoadReference<IntPtrT>(CodeStubAssembler::Reference{tmp41, tmp42});
-    tmp44 = ca_.CallStub<BigInt>(Builtins::CallableFor(ca_.isolate(), Builtin::kI64ToBigInt), TNode<Object>(), tmp43);
+    tmp44 = ca_.CallBuiltin<BigInt>(Builtin::kI64ToBigInt, TNode<Object>(), tmp43);
     CodeStubAssembler(state_).Return(tmp44);
   }
 
@@ -5728,7 +5893,7 @@ TF_BUILTIN(JSToWasmHandleReturns, CodeStubAssembler) {
     tmp49 = FromConstexpr_intptr_constexpr_intptr_0(state_, JSToWasmWrapperFrameConstants::kWrapperBufferGPReturnRegister2);
     std::tie(tmp50, tmp51) = GetRefAt_intptr_RawPtr_intptr_0(state_, TNode<RawPtrT>{parameter2}, TNode<IntPtrT>{tmp49}).Flatten();
     tmp52 = CodeStubAssembler(state_).LoadReference<IntPtrT>(CodeStubAssembler::Reference{tmp50, tmp51});
-    tmp53 = ca_.CallStub<BigInt>(Builtins::CallableFor(ca_.isolate(), Builtin::kI32PairToBigInt), TNode<Object>(), tmp48, tmp52);
+    tmp53 = ca_.CallBuiltin<BigInt>(Builtin::kI32PairToBigInt, TNode<Object>(), tmp48, tmp52);
     CodeStubAssembler(state_).Return(tmp53);
   }
 
@@ -7861,7 +8026,7 @@ TF_BUILTIN(JSToWasmHandleReturns, CodeStubAssembler) {
     tmp421 = TimesSizeOf_Object_0(state_, TNode<IntPtrT>{phi_bb184_35});
     tmp422 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{tmp416}, TNode<IntPtrT>{tmp421});
     std::tie(tmp423, tmp424) = NewReference_Object_0(state_, TNode<Object>{tmp415}, TNode<IntPtrT>{tmp422}).Flatten();
-    tmp425 = ca_.CallStub<BigInt>(Builtins::CallableFor(ca_.isolate(), Builtin::kI64ToBigInt), TNode<Object>(), tmp414);
+    tmp425 = ca_.CallBuiltin<BigInt>(Builtin::kI64ToBigInt, TNode<Object>(), tmp414);
     CodeStubAssembler(state_).StoreReference<Object>(CodeStubAssembler::Reference{tmp423, tmp424}, tmp425);
     ca_.Goto(&block170, tmp390, phi_bb184_8, phi_bb184_9, phi_bb184_10, phi_bb184_11, phi_bb184_13, phi_bb184_14, phi_bb184_20);
   }
@@ -8252,7 +8417,7 @@ TF_BUILTIN(JSToWasmHandleReturns, CodeStubAssembler) {
     tmp484 = TimesSizeOf_Object_0(state_, TNode<IntPtrT>{phi_bb210_38});
     tmp485 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{tmp479}, TNode<IntPtrT>{tmp484});
     std::tie(tmp486, tmp487) = NewReference_Object_0(state_, TNode<Object>{tmp478}, TNode<IntPtrT>{tmp485}).Flatten();
-    tmp488 = ca_.CallStub<BigInt>(Builtins::CallableFor(ca_.isolate(), Builtin::kI32PairToBigInt), TNode<Object>(), tmp476, tmp477);
+    tmp488 = ca_.CallBuiltin<BigInt>(Builtin::kI32PairToBigInt, TNode<Object>(), tmp476, tmp477);
     CodeStubAssembler(state_).StoreReference<Object>(CodeStubAssembler::Reference{tmp486, tmp487}, tmp488);
     ca_.Goto(&block170, tmp452, phi_bb210_8, phi_bb210_9, phi_bb210_10, phi_bb210_11, phi_bb210_13, phi_bb210_14, phi_bb210_20);
   }
@@ -8906,7 +9071,7 @@ TF_BUILTIN(JSToWasmHandleReturns, CodeStubAssembler) {
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=368&c=47
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=382&c=47
 int31_t SizeOf_intptr_0(compiler::CodeAssemblerState* state_) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -8923,7 +9088,7 @@ int31_t SizeOf_intptr_0(compiler::CodeAssemblerState* state_) {
   return kIntptrSize;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=376&c=32
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=390&c=32
 int31_t SizeOf_float64_0(compiler::CodeAssemblerState* state_) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -8940,7 +9105,7 @@ int31_t SizeOf_float64_0(compiler::CodeAssemblerState* state_) {
   return kDoubleSize;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=433&c=24
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=447&c=24
 TNode<WasmExportedFunctionData> UnsafeCast_WasmExportedFunctionData_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -8959,7 +9124,7 @@ TNode<WasmExportedFunctionData> UnsafeCast_WasmExportedFunctionData_0(compiler::
   return TNode<WasmExportedFunctionData>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=446&c=23
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=460&c=23
 TorqueStructReference_int32_0 GetRefAt_int32_RawPtr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -8983,7 +9148,7 @@ TorqueStructReference_int32_0 GetRefAt_int32_RawPtr_0(compiler::CodeAssemblerSta
   return TorqueStructReference_int32_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=450&c=17
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=464&c=17
 TorqueStructReference_RawPtr_0 GetRefAt_RawPtr_RawPtr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9007,7 +9172,7 @@ TorqueStructReference_RawPtr_0 GetRefAt_RawPtr_RawPtr_0(compiler::CodeAssemblerS
   return TorqueStructReference_RawPtr_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=452&c=20
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=466&c=20
 TorqueStructSlice_int32_ConstReference_int32_0 NewOffHeapConstSlice_int32_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_startPointer, TNode<IntPtrT> p_length) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9038,76 +9203,7 @@ TorqueStructSlice_int32_ConstReference_int32_0 NewOffHeapConstSlice_int32_0(comp
   return TorqueStructSlice_int32_ConstReference_int32_0{TNode<Object>{tmp5}, TNode<IntPtrT>{tmp6}, TNode<IntPtrT>{tmp7}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=470&c=9
-TorqueStructSlice_int32_ConstReference_int32_0 Subslice_int32_0(compiler::CodeAssemblerState* state_, TorqueStructSlice_int32_ConstReference_int32_0 p_slice, TNode<IntPtrT> p_start, TNode<IntPtrT> p_length, compiler::CodeAssemblerLabel* label_OutOfBounds) {
-  compiler::CodeAssembler ca_(state_);
-  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
-  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block3(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block4(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block1(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block7(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-    ca_.Goto(&block0);
-
-  TNode<UintPtrT> tmp0;
-  TNode<UintPtrT> tmp1;
-  TNode<BoolT> tmp2;
-  if (block0.is_used()) {
-    ca_.Bind(&block0);
-    tmp0 = CodeStubAssembler(state_).Unsigned(TNode<IntPtrT>{p_length});
-    tmp1 = CodeStubAssembler(state_).Unsigned(TNode<IntPtrT>{p_slice.length});
-    tmp2 = CodeStubAssembler(state_).UintPtrGreaterThan(TNode<UintPtrT>{tmp0}, TNode<UintPtrT>{tmp1});
-    ca_.Branch(tmp2, &block3, std::vector<compiler::Node*>{}, &block4, std::vector<compiler::Node*>{});
-  }
-
-  if (block3.is_used()) {
-    ca_.Bind(&block3);
-    ca_.Goto(&block1);
-  }
-
-  TNode<UintPtrT> tmp3;
-  TNode<IntPtrT> tmp4;
-  TNode<UintPtrT> tmp5;
-  TNode<BoolT> tmp6;
-  if (block4.is_used()) {
-    ca_.Bind(&block4);
-    tmp3 = CodeStubAssembler(state_).Unsigned(TNode<IntPtrT>{p_start});
-    tmp4 = CodeStubAssembler(state_).IntPtrSub(TNode<IntPtrT>{p_slice.length}, TNode<IntPtrT>{p_length});
-    tmp5 = CodeStubAssembler(state_).Unsigned(TNode<IntPtrT>{tmp4});
-    tmp6 = CodeStubAssembler(state_).UintPtrGreaterThan(TNode<UintPtrT>{tmp3}, TNode<UintPtrT>{tmp5});
-    ca_.Branch(tmp6, &block5, std::vector<compiler::Node*>{}, &block6, std::vector<compiler::Node*>{});
-  }
-
-  if (block5.is_used()) {
-    ca_.Bind(&block5);
-    ca_.Goto(&block1);
-  }
-
-  TNode<IntPtrT> tmp7;
-  TNode<IntPtrT> tmp8;
-  TNode<Object> tmp9;
-  TNode<IntPtrT> tmp10;
-  TNode<IntPtrT> tmp11;
-  if (block6.is_used()) {
-    ca_.Bind(&block6);
-    tmp7 = TimesSizeOf_int32_0(state_, TNode<IntPtrT>{p_start});
-    tmp8 = CodeStubAssembler(state_).IntPtrAdd(TNode<IntPtrT>{p_slice.offset}, TNode<IntPtrT>{tmp7});
-    std::tie(tmp9, tmp10, tmp11) = NewConstSlice_int32_0(state_, TNode<Object>{p_slice.object}, TNode<IntPtrT>{tmp8}, TNode<IntPtrT>{p_length}).Flatten();
-    ca_.Goto(&block7);
-  }
-
-  if (block1.is_used()) {
-    ca_.Bind(&block1);
-    ca_.Goto(label_OutOfBounds);
-  }
-
-    ca_.Bind(&block7);
-  return TorqueStructSlice_int32_ConstReference_int32_0{TNode<Object>{tmp9}, TNode<IntPtrT>{tmp10}, TNode<IntPtrT>{tmp11}, TorqueStructUnsafe_0{}};
-}
-
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=520&c=19
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=534&c=19
 TorqueStructReference_intptr_0 NewOffHeapReference_intptr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_ptr) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9137,7 +9233,7 @@ TorqueStructReference_intptr_0 NewOffHeapReference_intptr_0(compiler::CodeAssemb
   return TorqueStructReference_intptr_0{TNode<Object>{tmp5}, TNode<IntPtrT>{tmp6}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=537&c=19
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=551&c=19
 TorqueStructReference_intptr_0 NewReference_intptr_0(compiler::CodeAssemblerState* state_, TNode<Object> p_object, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9157,7 +9253,7 @@ TorqueStructReference_intptr_0 NewReference_intptr_0(compiler::CodeAssemblerStat
   return TorqueStructReference_intptr_0{TNode<Object>{tmp0}, TNode<IntPtrT>{tmp1}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=571&c=8
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=585&c=8
 TorqueStructReference_float64_0 RefCast_float64_0(compiler::CodeAssemblerState* state_, TorqueStructReference_intptr_0 p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9177,7 +9273,7 @@ TorqueStructReference_float64_0 RefCast_float64_0(compiler::CodeAssemblerState* 
   return TorqueStructReference_float64_0{TNode<Object>{tmp0}, TNode<IntPtrT>{tmp1}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=645&c=4
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=659&c=4
 TorqueStructReference_int32_0 GetRefAt_int32_RawPtr_intptr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9201,7 +9297,7 @@ TorqueStructReference_int32_0 GetRefAt_int32_RawPtr_intptr_0(compiler::CodeAssem
   return TorqueStructReference_int32_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=646&c=4
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=660&c=4
 TorqueStructReference_bool_0 GetRefAt_bool_RawPtr_intptr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9225,7 +9321,7 @@ TorqueStructReference_bool_0 GetRefAt_bool_RawPtr_intptr_0(compiler::CodeAssembl
   return TorqueStructReference_bool_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=647&c=4
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=661&c=4
 TorqueStructReference_RawPtr_0 GetRefAt_RawPtr_RawPtr_intptr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9249,7 +9345,7 @@ TorqueStructReference_RawPtr_0 GetRefAt_RawPtr_RawPtr_intptr_0(compiler::CodeAss
   return TorqueStructReference_RawPtr_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=648&c=4
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=662&c=4
 TorqueStructReference_intptr_0 GetRefAt_intptr_RawPtr_intptr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9273,7 +9369,7 @@ TorqueStructReference_intptr_0 GetRefAt_intptr_RawPtr_intptr_0(compiler::CodeAss
   return TorqueStructReference_intptr_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=651&c=4
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=665&c=4
 TorqueStructReference_RawPtr_intptr_0 GetRefAt_RawPtr_intptr_RawPtr_intptr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9297,7 +9393,7 @@ TorqueStructReference_RawPtr_intptr_0 GetRefAt_RawPtr_intptr_RawPtr_intptr_0(com
   return TorqueStructReference_RawPtr_intptr_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=676&c=23
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=690&c=23
 TNode<Int32T> Convert_int32_int16_0(compiler::CodeAssemblerState* state_, TNode<Int16T> p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9314,7 +9410,7 @@ TNode<Int32T> Convert_int32_int16_0(compiler::CodeAssemblerState* state_, TNode<
   return TNode<Int32T>{p_i};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=753&c=11
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=769&c=11
 TorqueStructReference_float32_0 GetRefAt_float32_RawPtr_intptr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9338,7 +9434,7 @@ TorqueStructReference_float32_0 GetRefAt_float32_RawPtr_intptr_0(compiler::CodeA
   return TorqueStructReference_float32_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=757&c=11
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=773&c=11
 TorqueStructReference_float64_0 GetRefAt_float64_RawPtr_intptr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9362,7 +9458,7 @@ TorqueStructReference_float64_0 GetRefAt_float64_RawPtr_intptr_0(compiler::CodeA
   return TorqueStructReference_float64_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=774&c=23
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=790&c=23
 TorqueStructReference_uintptr_0 GetRefAt_uintptr_RawPtr_uintptr_0(compiler::CodeAssemblerState* state_, TNode<RawPtrT> p_base, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9386,7 +9482,7 @@ TorqueStructReference_uintptr_0 GetRefAt_uintptr_RawPtr_uintptr_0(compiler::Code
   return TorqueStructReference_uintptr_0{TNode<Object>{tmp2}, TNode<IntPtrT>{tmp3}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=836&c=20
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=852&c=20
 TorqueStructReference_int32_0 RefCast_int32_0(compiler::CodeAssemblerState* state_, TorqueStructReference_intptr_0 p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9406,7 +9502,7 @@ TorqueStructReference_int32_0 RefCast_int32_0(compiler::CodeAssemblerState* stat
   return TorqueStructReference_int32_0{TNode<Object>{tmp0}, TNode<IntPtrT>{tmp1}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=840&c=20
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=856&c=20
 TorqueStructReference_float32_0 RefCast_float32_0(compiler::CodeAssemblerState* state_, TorqueStructReference_intptr_0 p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9426,7 +9522,7 @@ TorqueStructReference_float32_0 RefCast_float32_0(compiler::CodeAssemblerState* 
   return TorqueStructReference_float32_0{TNode<Object>{tmp0}, TNode<IntPtrT>{tmp1}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=135&c=10
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=145&c=10
 TorqueStructReference_float32_0 NewReference_float32_0(compiler::CodeAssemblerState* state_, TNode<Object> p_object, TNode<IntPtrT> p_offset) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -9444,6 +9540,26 @@ TorqueStructReference_float32_0 NewReference_float32_0(compiler::CodeAssemblerSt
 
     ca_.Bind(&block2);
   return TorqueStructReference_float32_0{TNode<Object>{tmp0}, TNode<IntPtrT>{tmp1}, TorqueStructUnsafe_0{}};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/js-to-wasm.tq?l=145&c=10
+TorqueStructReference_int64_0 NewReference_int64_0(compiler::CodeAssemblerState* state_, TNode<Object> p_object, TNode<IntPtrT> p_offset) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block2(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<Object> tmp0;
+  TNode<IntPtrT> tmp1;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    std::tie(tmp0, tmp1) = (TorqueStructReference_int64_0{TNode<Object>{p_object}, TNode<IntPtrT>{p_offset}, TorqueStructUnsafe_0{}}).Flatten();
+    ca_.Goto(&block2);
+  }
+
+    ca_.Bind(&block2);
+  return TorqueStructReference_int64_0{TNode<Object>{tmp0}, TNode<IntPtrT>{tmp1}, TorqueStructUnsafe_0{}};
 }
 
 } // namespace internal

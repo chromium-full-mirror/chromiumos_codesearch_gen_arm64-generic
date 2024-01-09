@@ -1,0 +1,48 @@
+{
+  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "../tsc_preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "../tsc_preprocessed/common/array_util.ts",
+    "../tsc_preprocessed/common/chrome_event_handler.ts",
+    "../tsc_preprocessed/common/constants.ts",
+    "../tsc_preprocessed/common/cursors/cursor.ts",
+    "../tsc_preprocessed/common/cursors/range.ts",
+    "../tsc_preprocessed/common/cursors/recovery_strategy.ts",
+    "../tsc_preprocessed/common/event_generator.ts",
+    "../tsc_preprocessed/common/event_handler.ts",
+    "../tsc_preprocessed/common/flags.ts",
+    "../tsc_preprocessed/common/instance_checker.ts",
+    "../tsc_preprocessed/common/local_storage.ts",
+    "../tsc_preprocessed/common/paragraph_utils.ts",
+    "../tsc_preprocessed/common/automation_util.ts",
+    "../tsc_preprocessed/common/node_navigation_utils.ts",
+    "../tsc_preprocessed/common/node_utils.ts",
+    "../tsc_preprocessed/common/tree_walker.ts",
+    "../tsc_preprocessed/common/word_utils.ts",
+    "../tsc_preprocessed/common/repeated_event_handler.ts",
+    "../tsc_preprocessed/common/repeated_tree_change_handler.ts",
+    "../tsc_preprocessed/common/settings.ts",
+    "../tsc_preprocessed/common/string_util.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/accessibility_private_mv2.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/automation.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/command_line_private.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/extensions.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/extension_types.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/i18n.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/runtime.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/settings_private_mv2.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/storage_mv2.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/tabs.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/tts.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/windows.d.ts",
+    "../tsc_preprocessed/definitions/chrome_event.d.ts"
+  ]
+}

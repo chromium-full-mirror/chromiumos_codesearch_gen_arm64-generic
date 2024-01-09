@@ -8,6 +8,7 @@
 #define CONTENT_BROWSER_INDEXED_DB_INDEXED_DB_INTERNALS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

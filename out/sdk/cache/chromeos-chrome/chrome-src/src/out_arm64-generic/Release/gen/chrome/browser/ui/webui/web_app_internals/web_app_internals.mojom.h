@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/web_app_internals/web_app_internals.mojom-features.h"
 #include "chrome/browser/ui/webui/web_app_internals/web_app_internals.mojom-shared.h"
 #include "chrome/browser/ui/webui/web_app_internals/web_app_internals.mojom-forward.h"
+#include "mojo/public/mojom/base/file_path.mojom.h"
 #include "url/mojom/origin.mojom.h"
 #include "url/mojom/url.mojom.h"
 #include <string>
@@ -73,9 +75,10 @@ class WebAppInternalsHandler
     kGetDebugInfoAsJsonStringMinVersion = 0,
     kInstallIsolatedWebAppFromDevProxyMinVersion = 0,
     kSelectFileAndInstallIsolatedWebAppFromDevBundleMinVersion = 0,
-    kSearchForIsolatedWebAppUpdatesMinVersion = 0,
-    kGetIsolatedWebAppDevModeProxyAppInfoMinVersion = 0,
     kUpdateDevProxyIsolatedWebAppMinVersion = 0,
+    kSelectFileAndUpdateIsolatedWebAppFromDevBundleMinVersion = 0,
+    kSearchForIsolatedWebAppUpdatesMinVersion = 0,
+    kGetIsolatedWebAppDevModeAppInfoMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -90,13 +93,16 @@ class WebAppInternalsHandler
   struct SelectFileAndInstallIsolatedWebAppFromDevBundle_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct UpdateDevProxyIsolatedWebApp_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SelectFileAndUpdateIsolatedWebAppFromDevBundle_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct SearchForIsolatedWebAppUpdates_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct GetIsolatedWebAppDevModeProxyAppInfo_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct UpdateDevProxyIsolatedWebApp_Sym {
+  struct GetIsolatedWebAppDevModeAppInfo_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -118,19 +124,24 @@ class WebAppInternalsHandler
   virtual void SelectFileAndInstallIsolatedWebAppFromDevBundle(SelectFileAndInstallIsolatedWebAppFromDevBundleCallback callback) = 0;
 
 
+  using UpdateDevProxyIsolatedWebAppCallback = base::OnceCallback<void(const std::string&)>;
+  
+  virtual void UpdateDevProxyIsolatedWebApp(const std::string& app_id, UpdateDevProxyIsolatedWebAppCallback callback) = 0;
+
+
+  using SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback = base::OnceCallback<void(const std::string&)>;
+  
+  virtual void SelectFileAndUpdateIsolatedWebAppFromDevBundle(const std::string& app_id, SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback callback) = 0;
+
+
   using SearchForIsolatedWebAppUpdatesCallback = base::OnceCallback<void(const std::string&)>;
   
   virtual void SearchForIsolatedWebAppUpdates(SearchForIsolatedWebAppUpdatesCallback callback) = 0;
 
 
-  using GetIsolatedWebAppDevModeProxyAppInfoCallback = base::OnceCallback<void(std::vector<IwaDevProxyAppInfoPtr>)>;
+  using GetIsolatedWebAppDevModeAppInfoCallback = base::OnceCallback<void(std::vector<IwaDevModeAppInfoPtr>)>;
   
-  virtual void GetIsolatedWebAppDevModeProxyAppInfo(GetIsolatedWebAppDevModeProxyAppInfoCallback callback) = 0;
-
-
-  using UpdateDevProxyIsolatedWebAppCallback = base::OnceCallback<void(const std::string&)>;
-  
-  virtual void UpdateDevProxyIsolatedWebApp(const std::string& app_id, UpdateDevProxyIsolatedWebAppCallback callback) = 0;
+  virtual void GetIsolatedWebAppDevModeAppInfo(GetIsolatedWebAppDevModeAppInfoCallback callback) = 0;
 };
 
 
@@ -148,11 +159,13 @@ class  WebAppInternalsHandlerProxy
   
   void SelectFileAndInstallIsolatedWebAppFromDevBundle(SelectFileAndInstallIsolatedWebAppFromDevBundleCallback callback) final;
   
+  void UpdateDevProxyIsolatedWebApp(const std::string& app_id, UpdateDevProxyIsolatedWebAppCallback callback) final;
+  
+  void SelectFileAndUpdateIsolatedWebAppFromDevBundle(const std::string& app_id, SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback callback) final;
+  
   void SearchForIsolatedWebAppUpdates(SearchForIsolatedWebAppUpdatesCallback callback) final;
   
-  void GetIsolatedWebAppDevModeProxyAppInfo(GetIsolatedWebAppDevModeProxyAppInfoCallback callback) final;
-  
-  void UpdateDevProxyIsolatedWebApp(const std::string& app_id, UpdateDevProxyIsolatedWebAppCallback callback) final;
+  void GetIsolatedWebAppDevModeAppInfo(GetIsolatedWebAppDevModeAppInfoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -356,71 +369,203 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
-
-
-class  IwaDevProxyAppInfo {
+class  IwaDevModeLocation {
  public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<IwaDevProxyAppInfo, T>::value>;
-  using DataView = IwaDevProxyAppInfoDataView;
-  using Data_ = internal::IwaDevProxyAppInfo_Data;
+  using DataView = IwaDevModeLocationDataView;
+  using Data_ = internal::IwaDevModeLocation_Data;
+  using Tag = Data_::IwaDevModeLocation_Tag;
 
   template <typename... Args>
-  static IwaDevProxyAppInfoPtr New(Args&&... args) {
-    return IwaDevProxyAppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+  static IwaDevModeLocationPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |proxy_origin|.
+  static IwaDevModeLocationPtr
+  NewProxyOrigin(
+      const ::url::Origin& value) {
+    auto result = IwaDevModeLocationPtr(absl::in_place);
+    result->set_proxy_origin(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |bundle_path|.
+  static IwaDevModeLocationPtr
+  NewBundlePath(
+      const ::base::FilePath& value) {
+    auto result = IwaDevModeLocationPtr(absl::in_place);
+    result->set_bundle_path(std::move(value));
+    return result;
   }
 
   template <typename U>
-  static IwaDevProxyAppInfoPtr From(const U& u) {
-    return mojo::TypeConverter<IwaDevProxyAppInfoPtr, U>::Convert(u);
+  static IwaDevModeLocationPtr From(const U& u) {
+    return mojo::TypeConverter<IwaDevModeLocationPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, IwaDevProxyAppInfo>::Convert(*this);
+    return mojo::TypeConverter<U, IwaDevModeLocation>::Convert(*this);
   }
 
-
-  IwaDevProxyAppInfo();
-
-  IwaDevProxyAppInfo(
-      const std::string& app_id,
-      const std::string& name,
-      const ::url::Origin& proxy_origin,
-      const std::string& installed_version);
-
-
-  ~IwaDevProxyAppInfo();
+  IwaDevModeLocation();
+  ~IwaDevModeLocation();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  IwaDevModeLocation(const IwaDevModeLocation& other) = delete;
+  IwaDevModeLocation& operator=(const IwaDevModeLocation& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = IwaDevProxyAppInfoPtr>
-  IwaDevProxyAppInfoPtr Clone() const;
+  template <typename UnionPtrType = IwaDevModeLocationPtr>
+  IwaDevModeLocationPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, IwaDevProxyAppInfo::EnableIfSame<T>* = nullptr>
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, IwaDevModeLocation>::value>::type* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, IwaDevProxyAppInfo::EnableIfSame<T>* = nullptr>
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, IwaDevModeLocation>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, IwaDevProxyAppInfo::EnableIfSame<T>* = nullptr>
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_proxy_origin() const { return tag_ == Tag::kProxyOrigin; }
+
+  
+  ::url::Origin& get_proxy_origin() const {
+    CHECK(tag_ == Tag::kProxyOrigin);
+    return *(data_.proxy_origin);
+  }
+
+  
+  void set_proxy_origin(
+      const ::url::Origin& proxy_origin);
+  
+  bool is_bundle_path() const { return tag_ == Tag::kBundlePath; }
+
+  
+  ::base::FilePath& get_bundle_path() const {
+    CHECK(tag_ == Tag::kBundlePath);
+    return *(data_.bundle_path);
+  }
+
+  
+  void set_bundle_path(
+      const ::base::FilePath& bundle_path);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        IwaDevModeLocation::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<IwaDevModeLocation::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    ::url::Origin* proxy_origin;
+    ::base::FilePath* bundle_path;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+
+
+
+class  IwaDevModeAppInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<IwaDevModeAppInfo, T>::value>;
+  using DataView = IwaDevModeAppInfoDataView;
+  using Data_ = internal::IwaDevModeAppInfo_Data;
+
+  template <typename... Args>
+  static IwaDevModeAppInfoPtr New(Args&&... args) {
+    return IwaDevModeAppInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static IwaDevModeAppInfoPtr From(const U& u) {
+    return mojo::TypeConverter<IwaDevModeAppInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, IwaDevModeAppInfo>::Convert(*this);
+  }
+
+
+  IwaDevModeAppInfo();
+
+  IwaDevModeAppInfo(
+      const std::string& app_id,
+      const std::string& name,
+      IwaDevModeLocationPtr location,
+      const std::string& installed_version);
+
+IwaDevModeAppInfo(const IwaDevModeAppInfo&) = delete;
+IwaDevModeAppInfo& operator=(const IwaDevModeAppInfo&) = delete;
+
+  ~IwaDevModeAppInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = IwaDevModeAppInfoPtr>
+  IwaDevModeAppInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, IwaDevModeAppInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, IwaDevModeAppInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, IwaDevModeAppInfo::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        IwaDevProxyAppInfo::DataView, std::vector<uint8_t>>(input);
+        IwaDevModeAppInfo::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        IwaDevProxyAppInfo::DataView>(input);
+        IwaDevModeAppInfo::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -430,8 +575,8 @@ class  IwaDevProxyAppInfo {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::IwaDevProxyAppInfo_UnserializedMessageContext<
-            UserType, IwaDevProxyAppInfo::DataView>>(0, 0, std::move(input)),
+        internal::IwaDevModeAppInfo_UnserializedMessageContext<
+            UserType, IwaDevModeAppInfo::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -440,14 +585,14 @@ class  IwaDevProxyAppInfo {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<IwaDevProxyAppInfo::DataView>(
+    return mojo::internal::DeserializeImpl<IwaDevModeAppInfo::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return IwaDevProxyAppInfo::Deserialize(
+    return IwaDevModeAppInfo::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -455,14 +600,14 @@ class  IwaDevProxyAppInfo {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::IwaDevProxyAppInfo_UnserializedMessageContext<
-            UserType, IwaDevProxyAppInfo::DataView>>();
+        internal::IwaDevModeAppInfo_UnserializedMessageContext<
+            UserType, IwaDevModeAppInfo::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<IwaDevProxyAppInfo::DataView>(
+    return mojo::internal::DeserializeImpl<IwaDevModeAppInfo::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
@@ -471,7 +616,7 @@ class  IwaDevProxyAppInfo {
   
   std::string name;
   
-  ::url::Origin proxy_origin;
+  IwaDevModeLocationPtr location;
   
   std::string installed_version;
 
@@ -486,24 +631,53 @@ class  IwaDevProxyAppInfo {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, IwaDevProxyAppInfo::EnableIfSame<T>* = nullptr>
+template <typename T, IwaDevModeAppInfo::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, IwaDevProxyAppInfo::EnableIfSame<T>* = nullptr>
+template <typename T, IwaDevModeAppInfo::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, IwaDevProxyAppInfo::EnableIfSame<T>* = nullptr>
+template <typename T, IwaDevModeAppInfo::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, IwaDevProxyAppInfo::EnableIfSame<T>* = nullptr>
+template <typename T, IwaDevModeAppInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+template <typename UnionPtrType>
+IwaDevModeLocationPtr IwaDevModeLocation::Clone() const {
+  switch (tag_) {
+    case Tag::kProxyOrigin:
+      return NewProxyOrigin(
+          mojo::Clone(*data_.proxy_origin));
+    case Tag::kBundlePath:
+      return NewBundlePath(
+          mojo::Clone(*data_.bundle_path));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, IwaDevModeLocation>::value>::type*>
+bool IwaDevModeLocation::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kProxyOrigin:
+      return mojo::Equals(*(data_.proxy_origin), *(other.data_.proxy_origin));
+    case Tag::kBundlePath:
+      return mojo::Equals(*(data_.bundle_path), *(other.data_.bundle_path));
+  }
+
+  return false;
+}
 template <typename StructPtrType>
 InstallIsolatedWebAppResultPtr InstallIsolatedWebAppResult::Clone() const {
   return New(
@@ -534,29 +708,29 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-IwaDevProxyAppInfoPtr IwaDevProxyAppInfo::Clone() const {
+IwaDevModeAppInfoPtr IwaDevModeAppInfo::Clone() const {
   return New(
       mojo::Clone(app_id),
       mojo::Clone(name),
-      mojo::Clone(proxy_origin),
+      mojo::Clone(location),
       mojo::Clone(installed_version)
   );
 }
 
-template <typename T, IwaDevProxyAppInfo::EnableIfSame<T>*>
-bool IwaDevProxyAppInfo::Equals(const T& other_struct) const {
+template <typename T, IwaDevModeAppInfo::EnableIfSame<T>*>
+bool IwaDevModeAppInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->app_id, other_struct.app_id))
     return false;
   if (!mojo::Equals(this->name, other_struct.name))
     return false;
-  if (!mojo::Equals(this->proxy_origin, other_struct.proxy_origin))
+  if (!mojo::Equals(this->location, other_struct.location))
     return false;
   if (!mojo::Equals(this->installed_version, other_struct.installed_version))
     return false;
   return true;
 }
 
-template <typename T, IwaDevProxyAppInfo::EnableIfSame<T>*>
+template <typename T, IwaDevModeAppInfo::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.app_id < rhs.app_id)
     return true;
@@ -566,9 +740,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.name < lhs.name)
     return false;
-  if (lhs.proxy_origin < rhs.proxy_origin)
+  if (lhs.location < rhs.location)
     return true;
-  if (rhs.proxy_origin < lhs.proxy_origin)
+  if (rhs.location < lhs.location)
     return false;
   if (lhs.installed_version < rhs.installed_version)
     return true;
@@ -604,32 +778,54 @@ struct  StructTraits<::mojom::InstallIsolatedWebAppResult::DataView,
 
 
 template <>
-struct  StructTraits<::mojom::IwaDevProxyAppInfo::DataView,
-                                         ::mojom::IwaDevProxyAppInfoPtr> {
-  static bool IsNull(const ::mojom::IwaDevProxyAppInfoPtr& input) { return !input; }
-  static void SetToNull(::mojom::IwaDevProxyAppInfoPtr* output) { output->reset(); }
+struct  StructTraits<::mojom::IwaDevModeAppInfo::DataView,
+                                         ::mojom::IwaDevModeAppInfoPtr> {
+  static bool IsNull(const ::mojom::IwaDevModeAppInfoPtr& input) { return !input; }
+  static void SetToNull(::mojom::IwaDevModeAppInfoPtr* output) { output->reset(); }
 
-  static const decltype(::mojom::IwaDevProxyAppInfo::app_id)& app_id(
-      const ::mojom::IwaDevProxyAppInfoPtr& input) {
+  static const decltype(::mojom::IwaDevModeAppInfo::app_id)& app_id(
+      const ::mojom::IwaDevModeAppInfoPtr& input) {
     return input->app_id;
   }
 
-  static const decltype(::mojom::IwaDevProxyAppInfo::name)& name(
-      const ::mojom::IwaDevProxyAppInfoPtr& input) {
+  static const decltype(::mojom::IwaDevModeAppInfo::name)& name(
+      const ::mojom::IwaDevModeAppInfoPtr& input) {
     return input->name;
   }
 
-  static const decltype(::mojom::IwaDevProxyAppInfo::proxy_origin)& proxy_origin(
-      const ::mojom::IwaDevProxyAppInfoPtr& input) {
-    return input->proxy_origin;
+  static const decltype(::mojom::IwaDevModeAppInfo::location)& location(
+      const ::mojom::IwaDevModeAppInfoPtr& input) {
+    return input->location;
   }
 
-  static const decltype(::mojom::IwaDevProxyAppInfo::installed_version)& installed_version(
-      const ::mojom::IwaDevProxyAppInfoPtr& input) {
+  static const decltype(::mojom::IwaDevModeAppInfo::installed_version)& installed_version(
+      const ::mojom::IwaDevModeAppInfoPtr& input) {
     return input->installed_version;
   }
 
-  static bool Read(::mojom::IwaDevProxyAppInfo::DataView input, ::mojom::IwaDevProxyAppInfoPtr* output);
+  static bool Read(::mojom::IwaDevModeAppInfo::DataView input, ::mojom::IwaDevModeAppInfoPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::mojom::IwaDevModeLocation::DataView,
+                                        ::mojom::IwaDevModeLocationPtr> {
+  static bool IsNull(const ::mojom::IwaDevModeLocationPtr& input) { return !input; }
+  static void SetToNull(::mojom::IwaDevModeLocationPtr* output) { output->reset(); }
+
+  static ::mojom::IwaDevModeLocation::Tag GetTag(const ::mojom::IwaDevModeLocationPtr& input) {
+    return input->which();
+  }
+
+  static const ::url::Origin& proxy_origin(const ::mojom::IwaDevModeLocationPtr& input) {
+    return input->get_proxy_origin();
+  }
+
+  static const ::base::FilePath& bundle_path(const ::mojom::IwaDevModeLocationPtr& input) {
+    return input->get_bundle_path();
+  }
+
+  static bool Read(::mojom::IwaDevModeLocation::DataView input, ::mojom::IwaDevModeLocationPtr* output);
 };
 
 }  // namespace mojo

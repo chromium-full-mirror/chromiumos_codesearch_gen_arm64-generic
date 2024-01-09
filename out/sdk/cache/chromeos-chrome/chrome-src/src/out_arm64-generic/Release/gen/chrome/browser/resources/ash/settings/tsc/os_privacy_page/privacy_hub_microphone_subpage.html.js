@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}#onOffText[on]{color:var(--cros-text-color-prominent)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}h2{padding-inline-start:var(--cr-section-padding)}</style>
-<div class="settings-box first">
+    return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}#onOffText[on]{color:var(--cros-text-color-prominent)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}h2{padding-inline-start:var(--cr-section-padding)}#accessStatusRow[actionable]:hover{background-color:var(--cr-hover-background-color)}</style>
+<div id="accessStatusRow" class="settings-box first" actionable$="[[!shouldDisableMicrophoneToggle_]]" on-click="onAccessStatusRowClick_">
   <div class="start settings-box-text" aria-hidden="true">
     <div id="onOffText" on$="[[prefs.ash.user.microphone_allowed.value]]">
       [[computeOnOffText_(prefs.ash.user.microphone_allowed.value)]]
@@ -11,7 +11,7 @@ export function getTemplate() {
     </div>
   </div>
   <div id="microphoneToggleWrapper">
-    <cr-toggle id="microphoneToggle" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]">
+    <cr-toggle id="microphoneToggle" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]" on-click="onMicrophoneToggleClick_">
     </cr-toggle>
   </div>
   <paper-tooltip id="microphoneToggleTooltip" hidden="[[!microphoneHardwareToggleActive_]]" aria-hidden="true" for="microphoneToggleWrapper" fit-to-visible-bounds>
@@ -36,20 +36,20 @@ export function getTemplate() {
 </template>
 <div class="hr"></div>
 <div id="appsSection">
-  <h2 id="appsSectionTitle">
-    $i18n{privacyHubAppsSectionTitle}
-  </h2>
-  <div id="appList" class="list-frame">
-    <template is="dom-repeat" items="[[appList_]]" as="app">
-      <div class="settings-box">
-        <div class="list-item start settings-box-text">
-          [[app.name]]
-        </div>
-        <cr-toggle checked="[[isMicrophonePermissionEnabled_(app)]]">
-        </cr-toggle>
-      </div>
-    </template>
-  </div>
+  <h2 id="appsSectionTitle">$i18n{privacyHubAppsSectionTitle}</h2>
+  <template is="dom-if" if="[[prefs.ash.user.microphone_allowed.value]]" restamp>
+    <div class="list-frame">
+      <template id="appList" is="dom-repeat" items="[[appList_]]" as="app">
+          <settings-privacy-hub-app-permission-row class="list-item" app="[[app]]" permission-type="kMicrophone">
+          </settings-privacy-hub-app-permission-row>
+      </template>
+    </div>
+  </template>
+  <template is="dom-if" if="[[!prefs.ash.user.microphone_allowed.value]]" restamp>
+    <div id="noAppHasAccessText" class="settings-box-text subsection">
+      $i18n{noAppCanUseMicText}
+    </div>
+  </template>
 </div>
 <div class="hr"></div>
 <div id="websitesSection">

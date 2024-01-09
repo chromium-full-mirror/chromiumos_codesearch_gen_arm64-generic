@@ -14,10 +14,10 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { UpdateProgressObserverReceiver, UpdateState } from './firmware_update.mojom-webui.js';
+import { DeviceRequestId, DeviceRequestKind, DeviceRequestObserverReceiver, UpdateProgressObserverReceiver, UpdateState } from './firmware_update.mojom-webui.js';
 import { getTemplate } from './firmware_update_dialog.html.js';
+import { isAppV2Enabled } from './firmware_update_utils.js';
 import { getUpdateProvider } from './mojo_interface_provider.js';
-const inactiveDialogStates = [UpdateState.kUnknown, UpdateState.kIdle];
 const initialDialogContent = {
     title: '',
     body: '',
@@ -27,6 +27,14 @@ const initialInstallationProgress = {
     percentage: 0,
     state: UpdateState.kIdle,
 };
+const deviceRequestIdToStringId = new Map([
+    [DeviceRequestId.kDoNotPowerOff, 'requestIdDoNotPowerOff'],
+    [DeviceRequestId.kReplugInstall, 'requestIdReplugInstall'],
+    [DeviceRequestId.kInsertUSBCable, 'requestIdInsertUsbCable'],
+    [DeviceRequestId.kRemoveUSBCable, 'requestIdRemoveUsbCable'],
+    [DeviceRequestId.kPressUnlock, 'requestIdPressUnlock'],
+    [DeviceRequestId.kRemoveReplug, 'requestIdRemoveReplug'],
+]);
 /**
  * @fileoverview
  * 'firmware-update-dialog' displays information related to a firmware update.
@@ -37,10 +45,13 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
         super(...arguments);
         this.update = null;
         this.isInitiallyInflight = false;
+        this.lastDeviceRequestId = null;
         this.dialogContent = initialDialogContent;
         this.updateProvider = getUpdateProvider();
         this.installController = null;
         this.updateProgressObserverReceiver = null;
+        this.deviceRequestObserverReceiver = null;
+        this.inactiveDialogStates = [UpdateState.kUnknown, UpdateState.kIdle];
     }
     static get is() {
         return 'firmware-update-dialog';
@@ -65,16 +76,52 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
                 type: Object,
                 value: initialDialogContent,
                 computed: 'computeDialogContent(installationProgress.*,' +
-                    'isInitiallyInflight)',
+                    'isInitiallyInflight, lastDeviceRequestId)',
+            },
+            /**
+             * This property is used to keep track of the ID of the last-received
+             * DeviceRequest. If this property is not null, it means there is a
+             * pending request. If the property is null, it means there are no pending
+             * requests.
+             */
+            lastDeviceRequestId: {
+                type: Object,
+                value: null,
             },
         };
     }
     connectedCallback() {
         super.connectedCallback();
+        // When v2 of the app is not enabled, treat "kWaitingForUser" as an inactive
+        // state. This gracefully handles an unexpected edge case where fwupd sends
+        // a kWaitingForUser status even though the v2 flag is disabled (which
+        // shouldn't normally happen).
+        if (!isAppV2Enabled()) {
+            this.inactiveDialogStates.push(UpdateState.kWaitingForUser);
+        }
         window.addEventListener('open-update-dialog', (e) => this.onOpenUpdateDialog(e));
+    }
+    /** Implements DeviceRequestObserver.onDeviceRequest */
+    onDeviceRequest(request) {
+        // OnDeviceRequest should only be triggered when the v2 flag is enabled.
+        assert(isAppV2Enabled());
+        if (request.kind !== DeviceRequestKind.kImmediate) {
+            // Ignore non-immediate requests.
+            return;
+        }
+        this.lastDeviceRequestId = request.id;
     }
     /** Implements UpdateProgressObserver.onStatusChanged */
     onStatusChanged(update) {
+        // If the update switched *away* from kWaitingForUser, hide any requests.
+        // This can happen as part of the normal flow (i.e. the request was executed
+        // by the user) or as part of an error flow (e.g. the instruction timed out,
+        // or some other error occurred). In either case, we want to reset
+        // lastDeviceRequestId so that the app knows the hide the request.
+        if (isAppV2Enabled() && update.state !== UpdateState.kWaitingForUser &&
+            this.installationProgress.state === UpdateState.kWaitingForUser) {
+            this.lastDeviceRequestId = null;
+        }
         if (update.state === UpdateState.kSuccess ||
             update.state === UpdateState.kFailed) {
             // Install is completed, reset inflight state.
@@ -122,7 +169,13 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
         this.updateProgressObserverReceiver =
             new UpdateProgressObserverReceiver(this);
         assert(this.installController);
-        this.installController.addObserver(this.updateProgressObserverReceiver.$.bindNewPipeAndPassRemote());
+        this.installController.addUpdateProgressObserver(this.updateProgressObserverReceiver.$.bindNewPipeAndPassRemote());
+        // Listen for device requests if v2 of the app is enabled.
+        if (isAppV2Enabled()) {
+            this.deviceRequestObserverReceiver =
+                new DeviceRequestObserverReceiver(this);
+            this.installController.addDeviceRequestObserver(this.deviceRequestObserverReceiver.$.bindNewPipeAndPassRemote());
+        }
         // Only start new updates, inflight updates will be observed instead.
         if (!this.isInitiallyInflight) {
             assert(this.update);
@@ -144,6 +197,9 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
             UpdateState.kFailed,
             UpdateState.kSuccess,
         ];
+        if (isAppV2Enabled()) {
+            activeDialogStates.push(UpdateState.kWaitingForUser);
+        }
         // Show dialog is there is an update in progress.
         return activeDialogStates.includes(this.installationProgress.state) ||
             this.installationProgress.percentage > 0;
@@ -155,8 +211,7 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
         return 0;
     }
     isUpdateInProgress() {
-        const inactiveDialogStates = [UpdateState.kUnknown, UpdateState.kIdle];
-        if (inactiveDialogStates.includes(this.installationProgress.state)) {
+        if (this.inactiveDialogStates.includes(this.installationProgress.state)) {
             return this.installationProgress.percentage > 0;
         }
         return this.installationProgress.state === UpdateState.kUpdating;
@@ -165,7 +220,8 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
         return this.installationProgress.state === UpdateState.kRestarting;
     }
     shouldShowProgressBar() {
-        const res = this.isUpdateInProgress() || this.isDeviceRestarting() ||
+        const showProgressBar = this.isUpdateInProgress() ||
+            this.isDeviceRestarting() || this.isWaitingForUserAction() ||
             this.isInitiallyInflight;
         assert(this.shadowRoot);
         const progressIsActiveEl = this.shadowRoot.activeElement ==
@@ -174,14 +230,27 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
         // active and set to be hidden. This case is reached when the dialog state
         // moves from restarting to completed.
         const dialogTitle = this.shadowRoot.querySelector('#updateDialogTitle');
-        if (progressIsActiveEl && !res && dialogTitle) {
+        if (progressIsActiveEl && !showProgressBar && dialogTitle) {
             dialogTitle.focus();
         }
-        return res;
+        return showProgressBar;
     }
     isUpdateDone() {
         return this.installationProgress.state === UpdateState.kSuccess ||
             this.installationProgress.state === UpdateState.kFailed;
+    }
+    createRequestDialogContent() {
+        assert(this.update);
+        const { deviceName } = this.update;
+        const { percentage } = this.installationProgress;
+        assert(this.lastDeviceRequestId !== null);
+        const requestStringId = deviceRequestIdToStringId.get(this.lastDeviceRequestId);
+        assert(!!requestStringId);
+        return {
+            title: this.i18n('updating', mojoString16ToString(deviceName)),
+            body: this.i18n(requestStringId),
+            footer: this.i18n('waitingFooterText', percentage),
+        };
     }
     createDialogContentObj(state) {
         assert(this.update);
@@ -229,7 +298,7 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
         if (!this.isInitiallyInflight && !this.update) {
             return initialDialogContent;
         }
-        if (inactiveDialogStates.includes(this.installationProgress.state) ||
+        if (this.inactiveDialogStates.includes(this.installationProgress.state) ||
             this.isDeviceRestarting()) {
             return this.createDialogContentObj(UpdateState.kRestarting);
         }
@@ -240,6 +309,16 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
         if (this.isInitiallyInflight || this.isUpdateInProgress()) {
             return this.createDialogContentObj(UpdateState.kUpdating);
         }
+        if (isAppV2Enabled() &&
+            this.installationProgress.state === UpdateState.kWaitingForUser) {
+            if (this.lastDeviceRequestId === null) {
+                // Show normal update flow until onDeviceRequest is called.
+                return this.createDialogContentObj(UpdateState.kUpdating);
+            }
+            else {
+                return this.createRequestDialogContent();
+            }
+        }
         if (this.isUpdateDone()) {
             return this.createDialogContentObj(this.installationProgress.state);
         }
@@ -247,10 +326,13 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
     }
     isInIndeterminateState() {
         if (this.installationProgress) {
-            return inactiveDialogStates.includes(this.installationProgress.state) ||
+            return this.inactiveDialogStates.includes(this.installationProgress.state) ||
                 this.isDeviceRestarting();
         }
         return false;
+    }
+    isProgressBarDisabled() {
+        return this.isWaitingForUserAction();
     }
     computeButtonText() {
         if (!this.isUpdateDone()) {
@@ -272,6 +354,10 @@ export class FirmwareUpdateDialogElement extends FirmwareUpdateDialogElementBase
     }
     setIsInitiallyInflightForTesting(isInitiallyInflight) {
         this.isInitiallyInflight = isInitiallyInflight;
+    }
+    isWaitingForUserAction() {
+        return isAppV2Enabled() && this.lastDeviceRequestId !== null &&
+            this.installationProgress.state === UpdateState.kWaitingForUser;
     }
 }
 customElements.define(FirmwareUpdateDialogElement.is, FirmwareUpdateDialogElement);

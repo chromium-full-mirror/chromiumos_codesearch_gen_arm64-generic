@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/video_encode_accelerator.mojom-features.h"
 #include "media/mojo/mojom/video_encode_accelerator.mojom-shared.h"
 #include "media/mojo/mojom/video_encode_accelerator.mojom-forward.h"
 #include "media/mojo/mojom/media_log.mojom-forward.h"
@@ -238,10 +239,10 @@ class VideoEncodeAccelerator
   virtual void UseOutputBitstreamBuffer(int32_t bitstream_buffer_id, ::base::UnsafeSharedMemoryRegion region) = 0;
 
   
-  virtual void RequestEncodingParametersChangeWithLayers(const ::media::VideoBitrateAllocation& bitrate_allocation, uint32_t framerate) = 0;
+  virtual void RequestEncodingParametersChangeWithLayers(const ::media::VideoBitrateAllocation& bitrate_allocation, uint32_t framerate, const std::optional<::gfx::Size>& size) = 0;
 
   
-  virtual void RequestEncodingParametersChangeWithBitrate(const ::media::Bitrate& bitrate, uint32_t framerate) = 0;
+  virtual void RequestEncodingParametersChangeWithBitrate(const ::media::Bitrate& bitrate, uint32_t framerate, const std::optional<::gfx::Size>& size) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
@@ -373,9 +374,9 @@ class  VideoEncodeAcceleratorProxy
   
   void UseOutputBitstreamBuffer(int32_t bitstream_buffer_id, ::base::UnsafeSharedMemoryRegion region) final;
   
-  void RequestEncodingParametersChangeWithLayers(const ::media::VideoBitrateAllocation& bitrate_allocation, uint32_t framerate) final;
+  void RequestEncodingParametersChangeWithLayers(const ::media::VideoBitrateAllocation& bitrate_allocation, uint32_t framerate, const std::optional<::gfx::Size>& size) final;
   
-  void RequestEncodingParametersChangeWithBitrate(const ::media::Bitrate& bitrate, uint32_t framerate) final;
+  void RequestEncodingParametersChangeWithBitrate(const ::media::Bitrate& bitrate, uint32_t framerate, const std::optional<::gfx::Size>& size) final;
   
   bool IsFlushSupported(bool* out_result) final;
   
@@ -1900,25 +1901,25 @@ class  Bitrate {
   // Construct an instance holding |constant|.
   static BitratePtr
   NewConstant(
-      const ::media::Bitrate& constant) {
+      const ::media::Bitrate& value) {
     auto result = BitratePtr(absl::in_place);
-    result->set_constant(std::move(constant));
+    result->set_constant(std::move(value));
     return result;
   }
   // Construct an instance holding |variable|.
   static BitratePtr
   NewVariable(
-      const ::media::Bitrate& variable) {
+      const ::media::Bitrate& value) {
     auto result = BitratePtr(absl::in_place);
-    result->set_variable(std::move(variable));
+    result->set_variable(std::move(value));
     return result;
   }
   // Construct an instance holding |external|.
   static BitratePtr
   NewExternal(
-      ExternalBitratePtr external) {
+      ExternalBitratePtr value) {
     auto result = BitratePtr(absl::in_place);
-    result->set_external(std::move(external));
+    result->set_external(std::move(value));
     return result;
   }
 
@@ -2051,41 +2052,41 @@ class  CodecMetadata {
   // Construct an instance holding |h264|.
   static CodecMetadataPtr
   NewH264(
-      H264MetadataPtr h264) {
+      H264MetadataPtr value) {
     auto result = CodecMetadataPtr(absl::in_place);
-    result->set_h264(std::move(h264));
+    result->set_h264(std::move(value));
     return result;
   }
   // Construct an instance holding |h265|.
   static CodecMetadataPtr
   NewH265(
-      H265MetadataPtr h265) {
+      H265MetadataPtr value) {
     auto result = CodecMetadataPtr(absl::in_place);
-    result->set_h265(std::move(h265));
+    result->set_h265(std::move(value));
     return result;
   }
   // Construct an instance holding |vp8|.
   static CodecMetadataPtr
   NewVp8(
-      const ::media::Vp8Metadata& vp8) {
+      const ::media::Vp8Metadata& value) {
     auto result = CodecMetadataPtr(absl::in_place);
-    result->set_vp8(std::move(vp8));
+    result->set_vp8(std::move(value));
     return result;
   }
   // Construct an instance holding |vp9|.
   static CodecMetadataPtr
   NewVp9(
-      const ::media::Vp9Metadata& vp9) {
+      const ::media::Vp9Metadata& value) {
     auto result = CodecMetadataPtr(absl::in_place);
-    result->set_vp9(std::move(vp9));
+    result->set_vp9(std::move(value));
     return result;
   }
   // Construct an instance holding |av1|.
   static CodecMetadataPtr
   NewAv1(
-      Av1MetadataPtr av1) {
+      Av1MetadataPtr value) {
     auto result = CodecMetadataPtr(absl::in_place);
-    result->set_av1(std::move(av1));
+    result->set_av1(std::move(value));
     return result;
   }
 
@@ -2736,6 +2737,7 @@ class  VideoEncodeAcceleratorConfig {
       VideoEncodeAcceleratorConfig::StorageType storage_type,
       bool has_storage_type,
       VideoEncodeAcceleratorConfig::ContentType content_type,
+      uint8_t drop_frame_thresh_percentage,
       std::vector<::media::VideoEncodeAccelerator::Config::SpatialLayer> spatial_layers,
       ::media::SVCInterLayerPredMode inter_layer_pred,
       bool require_low_delay,
@@ -2844,6 +2846,8 @@ class  VideoEncodeAcceleratorConfig {
   bool has_storage_type;
   
   VideoEncodeAcceleratorConfig::ContentType content_type;
+  
+  uint8_t drop_frame_thresh_percentage;
   
   std::vector<::media::VideoEncodeAccelerator::Config::SpatialLayer> spatial_layers;
   
@@ -3093,8 +3097,8 @@ class  BitstreamBufferMetadata {
       ::base::TimeDelta timestamp,
       int32_t qp,
       CodecMetadataPtr codec_metadata,
-      const absl::optional<::gfx::Size>& encoded_size,
-      const absl::optional<::gfx::ColorSpace>& encoded_color_space);
+      const std::optional<::gfx::Size>& encoded_size,
+      const std::optional<::gfx::ColorSpace>& encoded_color_space);
 
 BitstreamBufferMetadata(const BitstreamBufferMetadata&) = delete;
 BitstreamBufferMetadata& operator=(const BitstreamBufferMetadata&) = delete;
@@ -3184,9 +3188,9 @@ BitstreamBufferMetadata& operator=(const BitstreamBufferMetadata&) = delete;
   
   CodecMetadataPtr codec_metadata;
   
-  absl::optional<::gfx::Size> encoded_size;
+  std::optional<::gfx::Size> encoded_size;
   
-  absl::optional<::gfx::ColorSpace> encoded_color_space;
+  std::optional<::gfx::ColorSpace> encoded_color_space;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3557,6 +3561,7 @@ VideoEncodeAcceleratorConfigPtr VideoEncodeAcceleratorConfig::Clone() const {
       mojo::Clone(storage_type),
       mojo::Clone(has_storage_type),
       mojo::Clone(content_type),
+      mojo::Clone(drop_frame_thresh_percentage),
       mojo::Clone(spatial_layers),
       mojo::Clone(inter_layer_pred),
       mojo::Clone(require_low_delay),
@@ -3593,6 +3598,8 @@ bool VideoEncodeAcceleratorConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->has_storage_type, other_struct.has_storage_type))
     return false;
   if (!mojo::Equals(this->content_type, other_struct.content_type))
+    return false;
+  if (!mojo::Equals(this->drop_frame_thresh_percentage, other_struct.drop_frame_thresh_percentage))
     return false;
   if (!mojo::Equals(this->spatial_layers, other_struct.spatial_layers))
     return false;
@@ -3662,6 +3669,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.content_type < rhs.content_type)
     return true;
   if (rhs.content_type < lhs.content_type)
+    return false;
+  if (lhs.drop_frame_thresh_percentage < rhs.drop_frame_thresh_percentage)
+    return true;
+  if (rhs.drop_frame_thresh_percentage < lhs.drop_frame_thresh_percentage)
     return false;
   if (lhs.spatial_layers < rhs.spatial_layers)
     return true;
@@ -4226,6 +4237,11 @@ struct  StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView,
   static decltype(::media::mojom::VideoEncodeAcceleratorConfig::content_type) content_type(
       const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
     return input->content_type;
+  }
+
+  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::drop_frame_thresh_percentage) drop_frame_thresh_percentage(
+      const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
+    return input->drop_frame_thresh_percentage;
   }
 
   static const decltype(::media::mojom::VideoEncodeAcceleratorConfig::spatial_layers)& spatial_layers(

@@ -78,11 +78,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, SVGImageElement>::value,
     "SVGImageElement does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&SVGImageElement::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGImageElement is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -101,7 +96,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMImageElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(v8_receiver);
+SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -120,7 +115,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMImageElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(v8_receiver);
+SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -139,7 +134,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMImageElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(v8_receiver);
+SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -158,7 +153,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMImageElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(v8_receiver);
+SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -177,7 +172,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMImageElement);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(v8_receiver);
+SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->preserveAspectRatio();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -190,8 +185,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGImageElement.decoding.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(v8_receiver);
+SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(svg_names::kDecodingAttr);
 
 // [ReflectOnly]
@@ -203,7 +199,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = keywords::kAuto;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -224,8 +219,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGImageElement.crossOrigin.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(v8_receiver);
+SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(svg_names::kCrossoriginAttr);
 
 // [ReflectOnly]
@@ -239,7 +235,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = keywords::kAnonymous;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -266,7 +261,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUriReference);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(v8_receiver);
+SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -295,7 +290,7 @@ return;
 
 
 
-SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(v8_receiver);
+SVGImageElement* blink_receiver = V8SVGImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

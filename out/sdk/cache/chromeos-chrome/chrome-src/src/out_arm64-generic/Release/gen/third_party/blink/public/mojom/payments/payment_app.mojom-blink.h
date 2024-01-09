@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/payments/payment_app.mojom-features.h"
 #include "third_party/blink/public/mojom/payments/payment_app.mojom-shared.h"
 #include "third_party/blink/public/mojom/payments/payment_app.mojom-blink-forward.h"
 #include "components/payments/mojom/payment_request_data.mojom-blink.h"
@@ -43,54 +44,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::PaymentHandlerStatus>
-    : EnumHashTraits<::payments::mojom::PaymentHandlerStatus, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::CanMakePaymentEventResponseType>
-    : EnumHashTraits<::payments::mojom::CanMakePaymentEventResponseType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::PaymentEventResponseType>
-    : EnumHashTraits<::payments::mojom::PaymentEventResponseType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::PaymentDelegation>
-    : EnumHashTraits<::payments::mojom::PaymentDelegation, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace payments::mojom::blink {
@@ -908,7 +861,7 @@ class PLATFORM_EXPORT PaymentRequestEventData {
       WTF::Vector<::payments::mojom::blink::PaymentDetailsModifierPtr> modifiers,
       const WTF::String& instrument_key,
       ::payments::mojom::blink::PaymentOptionsPtr payment_options,
-      absl::optional<WTF::Vector<::payments::mojom::blink::PaymentShippingOptionPtr>> shipping_options,
+      std::optional<WTF::Vector<::payments::mojom::blink::PaymentShippingOptionPtr>> shipping_options,
       ::mojo::PendingRemote<::payments::mojom::blink::PaymentHandlerHost> payment_handler_host);
 
 PaymentRequestEventData(const PaymentRequestEventData&) = delete;
@@ -1000,7 +953,7 @@ PaymentRequestEventData& operator=(const PaymentRequestEventData&) = delete;
   
   ::payments::mojom::blink::PaymentOptionsPtr payment_options;
   
-  absl::optional<WTF::Vector<::payments::mojom::blink::PaymentShippingOptionPtr>> shipping_options;
+  std::optional<WTF::Vector<::payments::mojom::blink::PaymentShippingOptionPtr>> shipping_options;
   
   ::mojo::PendingRemote<::payments::mojom::blink::PaymentHandlerHost> payment_handler_host;
 

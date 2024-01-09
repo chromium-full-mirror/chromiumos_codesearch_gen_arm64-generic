@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -61,8 +62,8 @@ FederatedAuthRequestAutomation::IPCStableHashFunction FederatedAuthRequestAutoma
     case internal::kFederatedAuthRequestAutomation_DismissFedCmDialog_Name: {
       return &FederatedAuthRequestAutomation::DismissFedCmDialog_Sym::IPCStableHash;
     }
-    case internal::kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name: {
-      return &FederatedAuthRequestAutomation::ConfirmIdpLogin_Sym::IPCStableHash;
+    case internal::kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name: {
+      return &FederatedAuthRequestAutomation::ClickFedCmDialogButton_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -83,8 +84,8 @@ const char* FederatedAuthRequestAutomation::MessageToMethodName_(mojo::Message& 
             return "Receive blink::test::mojom::FederatedAuthRequestAutomation::SelectFedCmAccount";
       case internal::kFederatedAuthRequestAutomation_DismissFedCmDialog_Name:
             return "Receive blink::test::mojom::FederatedAuthRequestAutomation::DismissFedCmDialog";
-      case internal::kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name:
-            return "Receive blink::test::mojom::FederatedAuthRequestAutomation::ConfirmIdpLogin";
+      case internal::kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name:
+            return "Receive blink::test::mojom::FederatedAuthRequestAutomation::ClickFedCmDialogButton";
     }
   } else {
     switch (message.name()) {
@@ -96,8 +97,8 @@ const char* FederatedAuthRequestAutomation::MessageToMethodName_(mojo::Message& 
             return "Receive reply blink::test::mojom::FederatedAuthRequestAutomation::SelectFedCmAccount";
       case internal::kFederatedAuthRequestAutomation_DismissFedCmDialog_Name:
             return "Receive reply blink::test::mojom::FederatedAuthRequestAutomation::DismissFedCmDialog";
-      case internal::kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name:
-            return "Receive reply blink::test::mojom::FederatedAuthRequestAutomation::ConfirmIdpLogin";
+      case internal::kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name:
+            return "Receive reply blink::test::mojom::FederatedAuthRequestAutomation::ClickFedCmDialogButton";
     }
   }
   return "Receive unknown mojo message";
@@ -164,7 +165,7 @@ uint32_t FederatedAuthRequestAutomation::DismissFedCmDialog_Sym::IPCStableHash()
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t FederatedAuthRequestAutomation::ConfirmIdpLogin_Sym::IPCStableHash() {
+uint32_t FederatedAuthRequestAutomation::ClickFedCmDialogButton_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -172,7 +173,7 @@ uint32_t FederatedAuthRequestAutomation::ConfirmIdpLogin_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::test::mojom::FederatedAuthRequestAutomation::ConfirmIdpLogin");
+          "(Impl)blink::test::mojom::FederatedAuthRequestAutomation::ClickFedCmDialogButton");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -243,20 +244,20 @@ class FederatedAuthRequestAutomation_DismissFedCmDialog_ForwardToCallback
   FederatedAuthRequestAutomation::DismissFedCmDialogCallback callback_;
 };
 
-class FederatedAuthRequestAutomation_ConfirmIdpLogin_ForwardToCallback
+class FederatedAuthRequestAutomation_ClickFedCmDialogButton_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ForwardToCallback(
-      FederatedAuthRequestAutomation::ConfirmIdpLoginCallback callback
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ForwardToCallback(
+      FederatedAuthRequestAutomation::ClickFedCmDialogButtonCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ForwardToCallback(const FederatedAuthRequestAutomation_ConfirmIdpLogin_ForwardToCallback&) = delete;
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ForwardToCallback& operator=(const FederatedAuthRequestAutomation_ConfirmIdpLogin_ForwardToCallback&) = delete;
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ForwardToCallback(const FederatedAuthRequestAutomation_ClickFedCmDialogButton_ForwardToCallback&) = delete;
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ForwardToCallback& operator=(const FederatedAuthRequestAutomation_ClickFedCmDialogButton_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  FederatedAuthRequestAutomation::ConfirmIdpLoginCallback callback_;
+  FederatedAuthRequestAutomation::ClickFedCmDialogButtonCallback callback_;
 };
 
 FederatedAuthRequestAutomationProxy::FederatedAuthRequestAutomationProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -268,14 +269,17 @@ void FederatedAuthRequestAutomationProxy::GetDialogType(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::test::mojom::FederatedAuthRequestAutomation::GetDialogType");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequestAutomation_GetDialogType_Name, kFlags, 0, 0, nullptr);
@@ -299,14 +303,17 @@ void FederatedAuthRequestAutomationProxy::GetFedCmDialogTitle(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::test::mojom::FederatedAuthRequestAutomation::GetFedCmDialogTitle");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequestAutomation_GetFedCmDialogTitle_Name, kFlags, 0, 0, nullptr);
@@ -337,14 +344,17 @@ void FederatedAuthRequestAutomationProxy::SelectFedCmAccount(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequestAutomation_SelectFedCmAccount_Name, kFlags, 0, 0, nullptr);
@@ -369,14 +379,17 @@ void FederatedAuthRequestAutomationProxy::DismissFedCmDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::test::mojom::FederatedAuthRequestAutomation::DismissFedCmDialog");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequestAutomation_DismissFedCmDialog_Name, kFlags, 0, 0, nullptr);
@@ -395,33 +408,45 @@ void FederatedAuthRequestAutomationProxy::DismissFedCmDialog(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void FederatedAuthRequestAutomationProxy::ConfirmIdpLogin(
-    ConfirmIdpLoginCallback callback) {
+void FederatedAuthRequestAutomationProxy::ClickFedCmDialogButton(
+    DialogButton in_dialog_button, ClickFedCmDialogButtonCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send blink::test::mojom::FederatedAuthRequestAutomation::ConfirmIdpLogin");
+  TRACE_EVENT1(
+    "mojom", "Send blink::test::mojom::FederatedAuthRequestAutomation::ClickFedCmDialogButton", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("dialog_button"), in_dialog_button,
+                        "<value of type DialogButton>");
+   });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name, kFlags, 0, 0, nullptr);
+      internal::kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::blink::test::mojom::internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data> params(
+      ::blink::test::mojom::internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::Serialize<::blink::test::mojom::DialogButton>(
+      in_dialog_button, &params->dialog_button);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(FederatedAuthRequestAutomation::Name_);
-  message.set_method_name("ConfirmIdpLogin");
+  message.set_method_name("ClickFedCmDialogButton");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new FederatedAuthRequestAutomation_ConfirmIdpLogin_ForwardToCallback(
+      new FederatedAuthRequestAutomation_ClickFedCmDialogButton_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -517,7 +542,8 @@ void FederatedAuthRequestAutomation_GetDialogType_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequestAutomation_GetDialogType_Name, kFlags, 0, 0, nullptr);
@@ -641,7 +667,8 @@ void FederatedAuthRequestAutomation_GetFedCmDialogTitle_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequestAutomation_GetFedCmDialogTitle_Name, kFlags, 0, 0, nullptr);
@@ -765,7 +792,8 @@ void FederatedAuthRequestAutomation_SelectFedCmAccount_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequestAutomation_SelectFedCmAccount_Name, kFlags, 0, 0, nullptr);
@@ -883,7 +911,8 @@ void FederatedAuthRequestAutomation_DismissFedCmDialog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFederatedAuthRequestAutomation_DismissFedCmDialog_Name, kFlags, 0, 0, nullptr);
@@ -909,19 +938,19 @@ void FederatedAuthRequestAutomation_DismissFedCmDialog_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class FederatedAuthRequestAutomation_ClickFedCmDialogButton_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static FederatedAuthRequestAutomation::ConfirmIdpLoginCallback CreateCallback(
+  static FederatedAuthRequestAutomation::ClickFedCmDialogButtonCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder> proxy(
-        new FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder(
+    std::unique_ptr<FederatedAuthRequestAutomation_ClickFedCmDialogButton_ProxyToResponder> proxy(
+        new FederatedAuthRequestAutomation_ClickFedCmDialogButton_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder::Run,
+    return base::BindOnce(&FederatedAuthRequestAutomation_ClickFedCmDialogButton_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder() {
+  ~FederatedAuthRequestAutomation_ClickFedCmDialogButton_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -938,7 +967,7 @@ class FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder : public :
   }
 
  private:
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder(
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -947,7 +976,7 @@ class FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder : public :
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "FederatedAuthRequestAutomation::ConfirmIdpLoginCallback was destroyed without "
+        << "FederatedAuthRequestAutomation::ClickFedCmDialogButtonCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -958,18 +987,18 @@ class FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder : public :
       bool in_success);
 };
 
-bool FederatedAuthRequestAutomation_ConfirmIdpLogin_ForwardToCallback::Accept(
+bool FederatedAuthRequestAutomation_ClickFedCmDialogButton_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data* params =
+  internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data*>(
+          internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   bool p_success{};
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsDataView input_data_view(params, message);
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
     p_success = input_data_view.success();
@@ -986,11 +1015,11 @@ std::move(p_success));
   return true;
 }
 
-void FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder::Run(
+void FederatedAuthRequestAutomation_ClickFedCmDialogButton_ProxyToResponder::Run(
     bool in_success) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply blink::test::mojom::FederatedAuthRequestAutomation::ConfirmIdpLogin", "async_response_parameters",
+    "mojom", "Send reply blink::test::mojom::FederatedAuthRequestAutomation::ClickFedCmDialogButton", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -1001,19 +1030,20 @@ void FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name, kFlags, 0, 0, nullptr);
+      internal::kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::blink::test::mojom::internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data> params(
+      ::blink::test::mojom::internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data> params(
           message);
   params.Allocate();
   params->success = in_success;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(FederatedAuthRequestAutomation::Name_);
-  message.set_method_name("ConfirmIdpLogin");
+  message.set_method_name("ClickFedCmDialogButton");
 #endif
 
   message.set_request_id(request_id_);
@@ -1045,7 +1075,7 @@ bool FederatedAuthRequestAutomationStubDispatch::Accept(
     case internal::kFederatedAuthRequestAutomation_DismissFedCmDialog_Name: {
       break;
     }
-    case internal::kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name: {
+    case internal::kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name: {
       break;
     }
   }
@@ -1165,16 +1195,19 @@ std::move(p_account_index), std::move(callback));
       impl->DismissFedCmDialog(std::move(callback));
       return true;
     }
-    case internal::kFederatedAuthRequestAutomation_ConfirmIdpLogin_Name: {
+    case internal::kFederatedAuthRequestAutomation_ClickFedCmDialogButton_Name: {
 
-      internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data* params =
+      internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data* params =
           reinterpret_cast<
-              internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data*>(
+              internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
-      FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsDataView input_data_view(params, message);
+      DialogButton p_dialog_button{};
+      FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadDialogButton(&p_dialog_button))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1182,30 +1215,31 @@ std::move(p_account_index), std::move(callback));
             FederatedAuthRequestAutomation::Name_, 4, false);
         return false;
       }
-      FederatedAuthRequestAutomation::ConfirmIdpLoginCallback callback =
-          FederatedAuthRequestAutomation_ConfirmIdpLogin_ProxyToResponder::CreateCallback(
+      FederatedAuthRequestAutomation::ClickFedCmDialogButtonCallback callback =
+          FederatedAuthRequestAutomation_ClickFedCmDialogButton_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfirmIdpLogin(std::move(callback));
+      impl->ClickFedCmDialogButton(
+std::move(p_dialog_button), std::move(callback));
       return true;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFederatedAuthRequestAutomationValidationInfo[] = {
-    {&internal::FederatedAuthRequestAutomation_GetDialogType_Params_Data::Validate,
+    { &internal::FederatedAuthRequestAutomation_GetDialogType_Params_Data::Validate,
      &internal::FederatedAuthRequestAutomation_GetDialogType_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequestAutomation_GetFedCmDialogTitle_Params_Data::Validate,
+    { &internal::FederatedAuthRequestAutomation_GetFedCmDialogTitle_Params_Data::Validate,
      &internal::FederatedAuthRequestAutomation_GetFedCmDialogTitle_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequestAutomation_SelectFedCmAccount_Params_Data::Validate,
+    { &internal::FederatedAuthRequestAutomation_SelectFedCmAccount_Params_Data::Validate,
      &internal::FederatedAuthRequestAutomation_SelectFedCmAccount_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequestAutomation_DismissFedCmDialog_Params_Data::Validate,
+    { &internal::FederatedAuthRequestAutomation_DismissFedCmDialog_Params_Data::Validate,
      &internal::FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParams_Data::Validate},
-    {&internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data::Validate,
-     &internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data::Validate},
+    { &internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data::Validate,
+     &internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data::Validate},
 };
 
 bool FederatedAuthRequestAutomationRequestValidator::Accept(mojo::Message* message) {
@@ -1246,8 +1280,8 @@ void FederatedAuthRequestAutomationInterceptorForTesting::SelectFedCmAccount(uin
 void FederatedAuthRequestAutomationInterceptorForTesting::DismissFedCmDialog(DismissFedCmDialogCallback callback) {
   GetForwardingInterface()->DismissFedCmDialog(std::move(callback));
 }
-void FederatedAuthRequestAutomationInterceptorForTesting::ConfirmIdpLogin(ConfirmIdpLoginCallback callback) {
-  GetForwardingInterface()->ConfirmIdpLogin(std::move(callback));
+void FederatedAuthRequestAutomationInterceptorForTesting::ClickFedCmDialogButton(DialogButton dialog_button, ClickFedCmDialogButtonCallback callback) {
+  GetForwardingInterface()->ClickFedCmDialogButton(std::move(dialog_button), std::move(callback));
 }
 FederatedAuthRequestAutomationAsyncWaiter::FederatedAuthRequestAutomationAsyncWaiter(
     FederatedAuthRequestAutomation* proxy) : proxy_(proxy) {}
@@ -1346,10 +1380,10 @@ bool FederatedAuthRequestAutomationAsyncWaiter::DismissFedCmDialog(
   return async_wait_result;
 }
 
-void FederatedAuthRequestAutomationAsyncWaiter::ConfirmIdpLogin(
-    bool* out_success) {
+void FederatedAuthRequestAutomationAsyncWaiter::ClickFedCmDialogButton(
+    DialogButton dialog_button, bool* out_success) {
   base::RunLoop loop;
-  proxy_->ConfirmIdpLogin(
+  proxy_->ClickFedCmDialogButton(std::move(dialog_button),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_success
@@ -1362,10 +1396,10 @@ void FederatedAuthRequestAutomationAsyncWaiter::ConfirmIdpLogin(
   loop.Run();
 }
 
-bool FederatedAuthRequestAutomationAsyncWaiter::ConfirmIdpLogin(
-    ) {
+bool FederatedAuthRequestAutomationAsyncWaiter::ClickFedCmDialogButton(
+    DialogButton dialog_button) {
   bool async_wait_result;
-  ConfirmIdpLogin(&async_wait_result);
+  ClickFedCmDialogButton(std::move(dialog_button),&async_wait_result);
   return async_wait_result;
 }
 

@@ -12,9 +12,9 @@ export var CloseTabAction;
     CloseTabAction[CloseTabAction["SWIPED_TO_CLOSE"] = 1] = "SWIPED_TO_CLOSE";
 })(CloseTabAction || (CloseTabAction = {}));
 export class TabsApiProxyImpl {
+    callbackRouter = new PageCallbackRouter();
+    handler = new PageHandlerRemote();
     constructor() {
-        this.callbackRouter = new PageCallbackRouter();
-        this.handler = new PageHandlerRemote();
         const factory = PageHandlerFactory.getRemote();
         factory.createPageHandler(this.callbackRouter.$.bindNewPipeAndPassRemote(), this.handler.$.bindNewPipeAndPassReceiver());
     }

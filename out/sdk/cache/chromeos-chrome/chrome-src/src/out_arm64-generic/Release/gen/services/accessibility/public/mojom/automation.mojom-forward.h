@@ -23,8 +23,6 @@
 namespace ax::mojom {
 class Automation;
 
-class AutomationClient;
-
 
 
 

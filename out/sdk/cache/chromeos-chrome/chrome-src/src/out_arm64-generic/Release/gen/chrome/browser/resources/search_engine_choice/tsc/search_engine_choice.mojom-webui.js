@@ -100,6 +100,9 @@ export class PageHandlerRemote {
             prepopulateId
         ]);
     }
+    handleLearnMoreLinkClicked() {
+        this.proxy.sendMessage(2, PageHandler_HandleLearnMoreLinkClicked_ParamsSpec.$, null, []);
+    }
 }
 ;
 /**
@@ -113,6 +116,7 @@ export class PageHandlerReceiver {
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, PageHandler_DisplayDialog_ParamsSpec.$, null, impl.displayDialog.bind(impl));
         this.helper_internal_.registerHandler(1, PageHandler_HandleSearchEngineChoiceSelected_ParamsSpec.$, null, impl.handleSearchEngineChoiceSelected.bind(impl));
+        this.helper_internal_.registerHandler(2, PageHandler_HandleLearnMoreLinkClicked_ParamsSpec.$, null, impl.handleLearnMoreLinkClicked.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -148,6 +152,9 @@ export class PageHandlerCallbackRouter {
         this.handleSearchEngineChoiceSelected =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(1, PageHandler_HandleSearchEngineChoiceSelected_ParamsSpec.$, null, this.handleSearchEngineChoiceSelected.createReceiverHandler(false /* expectsResponse */));
+        this.handleLearnMoreLinkClicked =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, PageHandler_HandleLearnMoreLinkClicked_ParamsSpec.$, null, this.handleLearnMoreLinkClicked.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -161,6 +168,7 @@ export class PageHandlerCallbackRouter {
 export const PageHandlerFactory_CreatePageHandler_ParamsSpec = { $: {} };
 export const PageHandler_DisplayDialog_ParamsSpec = { $: {} };
 export const PageHandler_HandleSearchEngineChoiceSelected_ParamsSpec = { $: {} };
+export const PageHandler_HandleLearnMoreLinkClicked_ParamsSpec = { $: {} };
 mojo.internal.Struct(PageHandlerFactory_CreatePageHandler_ParamsSpec.$, 'PageHandlerFactory_CreatePageHandler_Params', [
     mojo.internal.StructField('handler', 0, 0, mojo.internal.InterfaceRequest(PageHandlerPendingReceiver), null, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -168,3 +176,4 @@ mojo.internal.Struct(PageHandler_DisplayDialog_ParamsSpec.$, 'PageHandler_Displa
 mojo.internal.Struct(PageHandler_HandleSearchEngineChoiceSelected_ParamsSpec.$, 'PageHandler_HandleSearchEngineChoiceSelected_Params', [
     mojo.internal.StructField('prepopulateId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(PageHandler_HandleLearnMoreLinkClicked_ParamsSpec.$, 'PageHandler_HandleLearnMoreLinkClicked_Params', [], [[0, 8],]);

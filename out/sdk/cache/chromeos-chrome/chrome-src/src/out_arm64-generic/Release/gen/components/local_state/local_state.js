@@ -7,7 +7,7 @@
  */
 // 
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 // When the page loads, request the JSON local state data from C++.
 document.addEventListener('DOMContentLoaded', function () {
     sendWithPromise('requestJson').then((localState) => {

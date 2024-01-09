@@ -22,8 +22,6 @@
 
 namespace network::mojom {
 
-enum class TrustTokenMajorVersion : int32_t;
-
 enum class TrustTokenProtocolVersion : int32_t;
 
 enum class TrustTokenOperationStatus : int32_t;
@@ -49,7 +47,6 @@ class TrustTokenQueryAnswererInterfaceBase;
 
 namespace network::mojom::blink {
 // Aliases for definition in the parent namespace.
-using TrustTokenMajorVersion = TrustTokenMajorVersion;
 using TrustTokenProtocolVersion = TrustTokenProtocolVersion;
 using TrustTokenOperationStatus = TrustTokenOperationStatus;
 using TrustTokenOperationType = TrustTokenOperationType;

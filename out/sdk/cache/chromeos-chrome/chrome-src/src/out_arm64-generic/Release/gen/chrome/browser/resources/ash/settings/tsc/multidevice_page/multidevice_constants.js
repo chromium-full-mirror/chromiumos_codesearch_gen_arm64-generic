@@ -45,13 +45,14 @@ export var MultiDeviceFeatureState;
     MultiDeviceFeatureState[MultiDeviceFeatureState["ENABLED_BY_USER"] = 2] = "ENABLED_BY_USER";
     MultiDeviceFeatureState[MultiDeviceFeatureState["NOT_SUPPORTED_BY_CHROMEBOOK"] = 3] = "NOT_SUPPORTED_BY_CHROMEBOOK";
     MultiDeviceFeatureState[MultiDeviceFeatureState["NOT_SUPPORTED_BY_PHONE"] = 4] = "NOT_SUPPORTED_BY_PHONE";
-    MultiDeviceFeatureState[MultiDeviceFeatureState["UNAVAILABLE_NO_VERIFIED_HOST"] = 5] = "UNAVAILABLE_NO_VERIFIED_HOST";
+    // UNAVAILABLE_NO_VERIFIED_HOST (5) is deprecated.
     MultiDeviceFeatureState[MultiDeviceFeatureState["UNAVAILABLE_INSUFFICIENT_SECURITY"] = 6] = "UNAVAILABLE_INSUFFICIENT_SECURITY";
     MultiDeviceFeatureState[MultiDeviceFeatureState["UNAVAILABLE_SUITE_DISABLED"] = 7] = "UNAVAILABLE_SUITE_DISABLED";
     MultiDeviceFeatureState[MultiDeviceFeatureState["FURTHER_SETUP_REQUIRED"] = 8] = "FURTHER_SETUP_REQUIRED";
     MultiDeviceFeatureState[MultiDeviceFeatureState["UNAVAILABLE_TOP_LEVEL_FEATURE_DISABLED"] = 9] = "UNAVAILABLE_TOP_LEVEL_FEATURE_DISABLED";
     MultiDeviceFeatureState[MultiDeviceFeatureState["UNAVAILABLE_NO_VERIFIED_HOST_CLIENT_NOT_READY"] = 10] = "UNAVAILABLE_NO_VERIFIED_HOST_CLIENT_NOT_READY";
     MultiDeviceFeatureState[MultiDeviceFeatureState["UNAVAILABLE_NO_VERIFIED_HOST_NO_ELIGIBLE_HOST"] = 11] = "UNAVAILABLE_NO_VERIFIED_HOST_NO_ELIGIBLE_HOST";
+    MultiDeviceFeatureState[MultiDeviceFeatureState["UNAVAILABLE_NO_VERIFIED_HOST_HOST_EXISTS_BUT_NOT_SET_AND_VERIFIED"] = 12] = "UNAVAILABLE_NO_VERIFIED_HOST_HOST_EXISTS_BUT_NOT_SET_AND_VERIFIED";
 })(MultiDeviceFeatureState || (MultiDeviceFeatureState = {}));
 /**
  * Possible states of Phone Hub's feature access. Access can be

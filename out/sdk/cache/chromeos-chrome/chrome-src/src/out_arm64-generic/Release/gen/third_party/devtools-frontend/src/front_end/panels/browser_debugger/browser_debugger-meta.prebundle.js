@@ -106,7 +106,7 @@ UI.ViewManager.registerViewExtension({
 UI.ViewManager.registerViewExtension({
     async loadView() {
         const BrowserDebugger = await loadBrowserDebuggerModule();
-        return BrowserDebugger.CSPViolationBreakpointsSidebarPane.CSPViolationBreakpointsSidebarPane.instance();
+        return new BrowserDebugger.CSPViolationBreakpointsSidebarPane.CSPViolationBreakpointsSidebarPane();
     },
     id: 'sources.cspViolationBreakpoints',
     location: "sources.sidebar-bottom" /* UI.ViewManager.ViewLocationValues.SOURCES_SIDEBAR_BOTTOM */,
@@ -198,7 +198,7 @@ UI.ViewManager.registerViewExtension({
     persistence: "permanent" /* UI.ViewManager.ViewPersistence.PERMANENT */,
     async loadView() {
         const Sources = await loadSourcesModule();
-        return Sources.SourcesNavigator.ContentScriptsNavigatorView.instance();
+        return new Sources.SourcesNavigator.ContentScriptsNavigatorView();
     },
 });
 UI.ContextMenu.registerProvider({
@@ -209,7 +209,7 @@ UI.ContextMenu.registerProvider({
     },
     async loadProvider() {
         const BrowserDebugger = await loadBrowserDebuggerModule();
-        return BrowserDebugger.DOMBreakpointsSidebarPane.ContextMenuProvider.instance();
+        return new BrowserDebugger.DOMBreakpointsSidebarPane.ContextMenuProvider();
     },
     experiment: undefined,
 });

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { getTrustedHTML } from 'chrome://resources/js/static_types.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { SegmentationInternalsBrowserProxy } from './segmentation_internals_browser_proxy.js';
 function getProxy() {
     return SegmentationInternalsBrowserProxy.getInstance();

@@ -1,0 +1,74 @@
+{
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://history/history.js": [
+        "./../../../../browser/resources/history/tsc/history.d.ts"
+      ],
+      "chrome://history/lazy_load.ts": [
+        "./../../../../browser/resources/history/tsc/lazy_load.d.ts"
+      ],
+      "chrome://webui-test/*": [
+        "./../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/history_clusters/utils.ts",
+    "preprocessed/history_drawer_test.ts",
+    "preprocessed/history_item_focus_test.ts",
+    "preprocessed/history_item_test.ts",
+    "preprocessed/history_list_focus_test.ts",
+    "preprocessed/history_list_test.ts",
+    "preprocessed/history_metrics_test.ts",
+    "preprocessed/history_overflow_menu_test.ts",
+    "preprocessed/history_routing_test.ts",
+    "preprocessed/history_routing_with_query_param_test.ts",
+    "preprocessed/history_supervised_user_test.ts",
+    "preprocessed/history_synced_device_manager_focus_test.ts",
+    "preprocessed/history_synced_tabs_test.ts",
+    "preprocessed/history_toolbar_focus_test.ts",
+    "preprocessed/history_toolbar_test.ts",
+    "preprocessed/link_click_test.ts",
+    "preprocessed/searched_label_test.ts",
+    "preprocessed/test_browser_service.ts",
+    "preprocessed/test_util.ts"
+  ],
+  "references": [
+    {
+      "path": "../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../browser/resources/history/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

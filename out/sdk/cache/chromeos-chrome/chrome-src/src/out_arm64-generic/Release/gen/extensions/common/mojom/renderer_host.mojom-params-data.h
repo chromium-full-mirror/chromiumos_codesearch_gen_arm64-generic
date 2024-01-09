@@ -82,6 +82,71 @@ class  RendererHost_AddDOMActionToActivityLog_Params_Data {
 };
 static_assert(sizeof(RendererHost_AddDOMActionToActivityLog_Params_Data) == 56,
               "Bad sizeof(RendererHost_AddDOMActionToActivityLog_Params_Data)");
+class  RendererHost_WakeEventPage_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> extension_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<RendererHost_WakeEventPage_Params_Data>;
+
+  RendererHost_WakeEventPage_Params_Data();
+  ~RendererHost_WakeEventPage_Params_Data() = delete;
+};
+static_assert(sizeof(RendererHost_WakeEventPage_Params_Data) == 16,
+              "Bad sizeof(RendererHost_WakeEventPage_Params_Data)");
+class  RendererHost_WakeEventPage_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<RendererHost_WakeEventPage_ResponseParams_Data>;
+
+  RendererHost_WakeEventPage_ResponseParams_Data();
+  ~RendererHost_WakeEventPage_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(RendererHost_WakeEventPage_ResponseParams_Data) == 16,
+              "Bad sizeof(RendererHost_WakeEventPage_ResponseParams_Data)");
+class  RendererHost_GetMessageBundle_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> extension_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<RendererHost_GetMessageBundle_Params_Data>;
+
+  RendererHost_GetMessageBundle_Params_Data();
+  ~RendererHost_GetMessageBundle_Params_Data() = delete;
+};
+static_assert(sizeof(RendererHost_GetMessageBundle_Params_Data) == 16,
+              "Bad sizeof(RendererHost_GetMessageBundle_Params_Data)");
+class  RendererHost_GetMessageBundle_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::String_Data>>> message_map;
+
+ private:
+  friend class mojo::internal::MessageFragment<RendererHost_GetMessageBundle_ResponseParams_Data>;
+
+  RendererHost_GetMessageBundle_ResponseParams_Data();
+  ~RendererHost_GetMessageBundle_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(RendererHost_GetMessageBundle_ResponseParams_Data) == 16,
+              "Bad sizeof(RendererHost_GetMessageBundle_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -266,6 +331,102 @@ class RendererHost_AddDOMActionToActivityLog_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class RendererHost_WakeEventPage_ParamsDataView {
+ public:
+  RendererHost_WakeEventPage_ParamsDataView() = default;
+
+  RendererHost_WakeEventPage_ParamsDataView(
+      internal::RendererHost_WakeEventPage_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExtensionIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExtensionId(UserType* output) {
+    
+    auto* pointer = data_->extension_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RendererHost_WakeEventPage_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class RendererHost_WakeEventPage_ResponseParamsDataView {
+ public:
+  RendererHost_WakeEventPage_ResponseParamsDataView() = default;
+
+  RendererHost_WakeEventPage_ResponseParamsDataView(
+      internal::RendererHost_WakeEventPage_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::RendererHost_WakeEventPage_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class RendererHost_GetMessageBundle_ParamsDataView {
+ public:
+  RendererHost_GetMessageBundle_ParamsDataView() = default;
+
+  RendererHost_GetMessageBundle_ParamsDataView(
+      internal::RendererHost_GetMessageBundle_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExtensionIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExtensionId(UserType* output) {
+    
+    auto* pointer = data_->extension_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RendererHost_GetMessageBundle_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class RendererHost_GetMessageBundle_ResponseParamsDataView {
+ public:
+  RendererHost_GetMessageBundle_ResponseParamsDataView() = default;
+
+  RendererHost_GetMessageBundle_ResponseParamsDataView(
+      internal::RendererHost_GetMessageBundle_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetMessageMapDataView(
+      mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMessageMap(UserType* output) {
+    
+    auto* pointer = data_->message_map.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RendererHost_GetMessageBundle_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void RendererHost_AddAPIActionToActivityLog_ParamsDataView::GetExtensionIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->extension_id.Get();
@@ -334,6 +495,29 @@ inline void RendererHost_AddDOMActionToActivityLog_ParamsDataView::GetUrlTitleDa
     ::mojo_base::mojom::String16DataView* output) {
   auto pointer = data_->url_title.Get();
   *output = ::mojo_base::mojom::String16DataView(pointer, message_);
+}
+
+
+inline void RendererHost_WakeEventPage_ParamsDataView::GetExtensionIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->extension_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void RendererHost_GetMessageBundle_ParamsDataView::GetExtensionIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->extension_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void RendererHost_GetMessageBundle_ResponseParamsDataView::GetMessageMapDataView(
+    mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output) {
+  auto pointer = data_->message_map.Get();
+  *output = mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>(pointer, message_);
 }
 
 

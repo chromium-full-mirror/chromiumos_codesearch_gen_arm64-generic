@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/system_storage.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -69,8 +70,8 @@ StorageUnitInfo::StorageUnitInfo()
 capacity(0.0) {}
 
 StorageUnitInfo::~StorageUnitInfo() = default;
-StorageUnitInfo::StorageUnitInfo(StorageUnitInfo&& rhs) = default;
-StorageUnitInfo& StorageUnitInfo::operator=(StorageUnitInfo&& rhs) = default;
+StorageUnitInfo::StorageUnitInfo(StorageUnitInfo&& rhs) noexcept = default;
+StorageUnitInfo& StorageUnitInfo::operator=(StorageUnitInfo&& rhs) noexcept = default;
 StorageUnitInfo StorageUnitInfo::Clone() const {
   StorageUnitInfo out;
   out.id = id;
@@ -147,34 +148,21 @@ bool StorageUnitInfo::Populate(
 }
 
 // static
-std::unique_ptr<StorageUnitInfo> StorageUnitInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StorageUnitInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StorageUnitInfo> StorageUnitInfo::FromValue(const base::Value::Dict& value) {
+  StorageUnitInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StorageUnitInfo> StorageUnitInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StorageUnitInfo> StorageUnitInfo::FromValue(const base::Value& value) {
   StorageUnitInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StorageUnitInfo> StorageUnitInfo::FromValue(const base::Value& value) {
-  StorageUnitInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -199,8 +187,8 @@ StorageAvailableCapacityInfo::StorageAvailableCapacityInfo()
 : available_capacity(0.0) {}
 
 StorageAvailableCapacityInfo::~StorageAvailableCapacityInfo() = default;
-StorageAvailableCapacityInfo::StorageAvailableCapacityInfo(StorageAvailableCapacityInfo&& rhs) = default;
-StorageAvailableCapacityInfo& StorageAvailableCapacityInfo::operator=(StorageAvailableCapacityInfo&& rhs) = default;
+StorageAvailableCapacityInfo::StorageAvailableCapacityInfo(StorageAvailableCapacityInfo&& rhs) noexcept = default;
+StorageAvailableCapacityInfo& StorageAvailableCapacityInfo::operator=(StorageAvailableCapacityInfo&& rhs) noexcept = default;
 StorageAvailableCapacityInfo StorageAvailableCapacityInfo::Clone() const {
   StorageAvailableCapacityInfo out;
   out.id = id;
@@ -248,34 +236,21 @@ bool StorageAvailableCapacityInfo::Populate(
 }
 
 // static
-std::unique_ptr<StorageAvailableCapacityInfo> StorageAvailableCapacityInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StorageAvailableCapacityInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StorageAvailableCapacityInfo> StorageAvailableCapacityInfo::FromValue(const base::Value::Dict& value) {
+  StorageAvailableCapacityInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StorageAvailableCapacityInfo> StorageAvailableCapacityInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StorageAvailableCapacityInfo> StorageAvailableCapacityInfo::FromValue(const base::Value& value) {
   StorageAvailableCapacityInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StorageAvailableCapacityInfo> StorageAvailableCapacityInfo::FromValue(const base::Value& value) {
-  StorageAvailableCapacityInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -346,13 +321,13 @@ namespace EjectDevice {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -362,13 +337,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -388,13 +363,13 @@ namespace GetAvailableCapacity {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -404,13 +379,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

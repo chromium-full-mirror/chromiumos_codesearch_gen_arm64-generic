@@ -36,6 +36,27 @@ media.mojom.BackgroundBlurMode = {
   MAX_VALUE: 1,
 };
 
+goog.provide('media.mojom.EyeGazeCorrectionMode');
+goog.provide('media.mojom.EyeGazeCorrectionModeSpec');
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+media.mojom.EyeGazeCorrectionModeSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+media.mojom.EyeGazeCorrectionMode = {
+  
+  OFF: 0,
+  ON: 1,
+  STARE: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
 goog.provide('media.mojom.MeteringMode');
 goog.provide('media.mojom.MeteringModeSpec');
 /**
@@ -775,8 +796,24 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'supportedEyeGazeCorrectionModes', 200,
+        0,
+        mojo.internal.Array(media.mojom.EyeGazeCorrectionModeSpec.$, false),
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'currentEyeGazeCorrectionMode', 196,
+        0,
+        media.mojom.EyeGazeCorrectionModeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 184],[1, 192],[2, 208],]);
+    [[0, 184],[1, 192],[2, 208],[3, 216],]);
 
 
 
@@ -843,6 +880,10 @@ media.mojom.PhotoState = class {
     this.supportedFaceFramingModes;
     /** @export { !media.mojom.MeteringMode } */
     this.currentFaceFramingMode;
+    /** @export { (Array<!media.mojom.EyeGazeCorrectionMode>|undefined) } */
+    this.supportedEyeGazeCorrectionModes;
+    /** @export { !media.mojom.EyeGazeCorrectionMode } */
+    this.currentEyeGazeCorrectionMode;
   }
 };
 
@@ -1251,8 +1292,33 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'eye_gaze_correction_mode_$flag', 3,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "eye_gaze_correction_mode_$value",
+          originalFieldName: "eyeGazeCorrectionMode",
+        }
+      ),
+      mojo.internal.StructField(
+        'eye_gaze_correction_mode_$value', 148,
+        0,
+        media.mojom.EyeGazeCorrectionModeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "eyeGazeCorrectionMode",
+        }
+      ),
     ],
-    [[0, 152],[1, 152],[2, 160],]);
+    [[0, 152],[1, 152],[2, 160],[3, 160],]);
 
 
 
@@ -1351,6 +1417,8 @@ media.mojom.PhotoSettings = class {
     this.hasFaceFramingMode;
     /** @export { !media.mojom.MeteringMode } */
     this.faceFramingMode;
+    /** @export { (media.mojom.EyeGazeCorrectionMode|undefined) } */
+    this.eyeGazeCorrectionMode;
   }
 };
 

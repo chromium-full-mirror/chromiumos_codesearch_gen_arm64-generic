@@ -13,10 +13,31 @@
 namespace dlp_internals::mojom {
 
 
+class  ReportingObserverInterceptorForTesting : public ReportingObserver {
+  virtual ReportingObserver* GetForwardingInterface() = 0;
+  void OnReportEvent(DlpEventPtr event) override;
+};
+class  ReportingObserverAsyncWaiter {
+ public:
+  explicit ReportingObserverAsyncWaiter(ReportingObserver* proxy);
+
+  ReportingObserverAsyncWaiter(const ReportingObserverAsyncWaiter&) = delete;
+  ReportingObserverAsyncWaiter& operator=(const ReportingObserverAsyncWaiter&) = delete;
+
+  ~ReportingObserverAsyncWaiter();
+
+ private:
+  ReportingObserver* const proxy_;
+};
+
+
 class  PageHandlerInterceptorForTesting : public PageHandler {
   virtual PageHandler* GetForwardingInterface() = 0;
   void GetClipboardDataSource(GetClipboardDataSourceCallback callback) override;
   void GetContentRestrictionsInfo(GetContentRestrictionsInfoCallback callback) override;
+  void ObserveReporting(::mojo::PendingRemote<ReportingObserver> observer) override;
+  void GetFilesDatabaseEntries(GetFilesDatabaseEntriesCallback callback) override;
+  void GetFileInode(const std::string& file_name, GetFileInodeCallback callback) override;
 };
 class  PageHandlerAsyncWaiter {
  public:
@@ -32,6 +53,12 @@ class  PageHandlerAsyncWaiter {
   void GetContentRestrictionsInfo(
       std::vector<WebContentsInfoPtr>* out_web_contents_info);
   std::vector<WebContentsInfoPtr> GetContentRestrictionsInfo();
+  void GetFilesDatabaseEntries(
+      std::vector<FileDatabaseEntryPtr>* out_db_entries);
+  std::vector<FileDatabaseEntryPtr> GetFilesDatabaseEntries();
+  void GetFileInode(
+      const std::string& file_name, uint64_t* out_inode);
+  uint64_t GetFileInode(const std::string& file_name);
 
  private:
   PageHandler* const proxy_;

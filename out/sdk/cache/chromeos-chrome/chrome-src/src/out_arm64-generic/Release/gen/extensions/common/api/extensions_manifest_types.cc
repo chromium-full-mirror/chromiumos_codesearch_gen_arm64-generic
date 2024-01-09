@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/extensions_manifest_types.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ Automation::Object::Object()
  {}
 
 Automation::Object::~Object() = default;
-Automation::Object::Object(Object&& rhs) = default;
-Automation::Object& Automation::Object::operator=(Object&& rhs) = default;
+Automation::Object::Object(Object&& rhs) noexcept = default;
+Automation::Object& Automation::Object::operator=(Object&& rhs) noexcept = default;
 Automation::Object Automation::Object::Clone() const {
   Object out;
   out.desktop = desktop;
@@ -58,7 +59,7 @@ bool Automation::Object::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'desktop': expected desktop, got " + UTF8ToUTF16(base::Value::GetTypeName((*desktop_value).type()));
-        out.desktop = absl::nullopt;
+        out.desktop = std::nullopt;
         return false;
       }
       out.desktop = *temp;
@@ -92,7 +93,7 @@ bool Automation::Object::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'interact': expected interact, got " + UTF8ToUTF16(base::Value::GetTypeName((*interact_value).type()));
-        out.interact = absl::nullopt;
+        out.interact = std::nullopt;
         return false;
       }
       out.interact = *temp;
@@ -162,8 +163,8 @@ Automation::Automation()
  {}
 
 Automation::~Automation() = default;
-Automation::Automation(Automation&& rhs) = default;
-Automation& Automation::operator=(Automation&& rhs) = default;
+Automation::Automation(Automation&& rhs) noexcept = default;
+Automation& Automation::operator=(Automation&& rhs) noexcept = default;
 Automation Automation::Clone() const {
   Automation out;
   out.as_boolean = as_boolean;
@@ -182,7 +183,7 @@ bool Automation::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'boolean': expected boolean, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-        out.as_boolean = absl::nullopt;
+        out.as_boolean = std::nullopt;
         return false;
       }
       out.as_boolean = *temp;
@@ -208,19 +209,6 @@ bool Automation::Populate(
   DCHECK(error.empty());
   error = u"expected boolean or object, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
   return false;
-}
-
-// static
-std::unique_ptr<Automation> Automation::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<Automation>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  bool result = Populate(value, *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -256,8 +244,8 @@ ContentCapabilities::ContentCapabilities()
  {}
 
 ContentCapabilities::~ContentCapabilities() = default;
-ContentCapabilities::ContentCapabilities(ContentCapabilities&& rhs) = default;
-ContentCapabilities& ContentCapabilities::operator=(ContentCapabilities&& rhs) = default;
+ContentCapabilities::ContentCapabilities(ContentCapabilities&& rhs) noexcept = default;
+ContentCapabilities& ContentCapabilities::operator=(ContentCapabilities&& rhs) noexcept = default;
 ContentCapabilities ContentCapabilities::Clone() const {
   ContentCapabilities out;
   out.matches = matches;
@@ -329,24 +317,6 @@ bool ContentCapabilities::Populate(
 }
 
 // static
-std::unique_ptr<ContentCapabilities> ContentCapabilities::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<ContentCapabilities>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<ContentCapabilities, std::u16string> ContentCapabilities::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   ContentCapabilities out;
@@ -386,8 +356,8 @@ ExternallyConnectable::ExternallyConnectable()
  {}
 
 ExternallyConnectable::~ExternallyConnectable() = default;
-ExternallyConnectable::ExternallyConnectable(ExternallyConnectable&& rhs) = default;
-ExternallyConnectable& ExternallyConnectable::operator=(ExternallyConnectable&& rhs) = default;
+ExternallyConnectable::ExternallyConnectable(ExternallyConnectable&& rhs) noexcept = default;
+ExternallyConnectable& ExternallyConnectable::operator=(ExternallyConnectable&& rhs) noexcept = default;
 ExternallyConnectable ExternallyConnectable::Clone() const {
   ExternallyConnectable out;
   out.ids = ids;
@@ -446,7 +416,7 @@ bool ExternallyConnectable::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'accepts_tls_channel_id': expected accepts_tls_channel_id, got " + UTF8ToUTF16(base::Value::GetTypeName((*accepts_tls_channel_id_value).type()));
-        out.accepts_tls_channel_id = absl::nullopt;
+        out.accepts_tls_channel_id = std::nullopt;
         return false;
       }
       out.accepts_tls_channel_id = *temp;
@@ -465,24 +435,6 @@ bool ExternallyConnectable::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<ExternallyConnectable> ExternallyConnectable::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<ExternallyConnectable>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -533,8 +485,8 @@ OptionsUI::OptionsUI()
  {}
 
 OptionsUI::~OptionsUI() = default;
-OptionsUI::OptionsUI(OptionsUI&& rhs) = default;
-OptionsUI& OptionsUI::operator=(OptionsUI&& rhs) = default;
+OptionsUI::OptionsUI(OptionsUI&& rhs) noexcept = default;
+OptionsUI& OptionsUI::operator=(OptionsUI&& rhs) noexcept = default;
 OptionsUI OptionsUI::Clone() const {
   OptionsUI out;
   out.page = page;
@@ -569,7 +521,7 @@ bool OptionsUI::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'chrome_style': expected chrome_style, got " + UTF8ToUTF16(base::Value::GetTypeName((*chrome_style_value).type()));
-        out.chrome_style = absl::nullopt;
+        out.chrome_style = std::nullopt;
         return false;
       }
       out.chrome_style = *temp;
@@ -583,7 +535,7 @@ bool OptionsUI::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'open_in_tab': expected open_in_tab, got " + UTF8ToUTF16(base::Value::GetTypeName((*open_in_tab_value).type()));
-        out.open_in_tab = absl::nullopt;
+        out.open_in_tab = std::nullopt;
         return false;
       }
       out.open_in_tab = *temp;
@@ -602,24 +554,6 @@ bool OptionsUI::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<OptionsUI> OptionsUI::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<OptionsUI>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -668,8 +602,8 @@ SocketHostPatterns::SocketHostPatterns()
  {}
 
 SocketHostPatterns::~SocketHostPatterns() = default;
-SocketHostPatterns::SocketHostPatterns(SocketHostPatterns&& rhs) = default;
-SocketHostPatterns& SocketHostPatterns::operator=(SocketHostPatterns&& rhs) = default;
+SocketHostPatterns::SocketHostPatterns(SocketHostPatterns&& rhs) noexcept = default;
+SocketHostPatterns& SocketHostPatterns::operator=(SocketHostPatterns&& rhs) noexcept = default;
 SocketHostPatterns SocketHostPatterns::Clone() const {
   SocketHostPatterns out;
   out.as_string = as_string;
@@ -686,7 +620,7 @@ bool SocketHostPatterns::Populate(
       if (!temp) {
         DCHECK(error.empty());
         error = u"'string': expected string, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-        out.as_string = absl::nullopt;
+        out.as_string = std::nullopt;
         return false;
       }
       out.as_string = *temp;
@@ -715,19 +649,6 @@ bool SocketHostPatterns::Populate(
   DCHECK(error.empty());
   error = u"expected string or strings, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
   return false;
-}
-
-// static
-std::unique_ptr<SocketHostPatterns> SocketHostPatterns::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<SocketHostPatterns>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  bool result = Populate(value, *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -763,8 +684,8 @@ Sockets::Udp::Udp()
  {}
 
 Sockets::Udp::~Udp() = default;
-Sockets::Udp::Udp(Udp&& rhs) = default;
-Sockets::Udp& Sockets::Udp::operator=(Udp&& rhs) = default;
+Sockets::Udp::Udp(Udp&& rhs) noexcept = default;
+Sockets::Udp& Sockets::Udp::operator=(Udp&& rhs) noexcept = default;
 Sockets::Udp Sockets::Udp::Clone() const {
   Udp out;
   if (bind) {
@@ -874,8 +795,8 @@ Sockets::Tcp::Tcp()
  {}
 
 Sockets::Tcp::~Tcp() = default;
-Sockets::Tcp::Tcp(Tcp&& rhs) = default;
-Sockets::Tcp& Sockets::Tcp::operator=(Tcp&& rhs) = default;
+Sockets::Tcp::Tcp(Tcp&& rhs) noexcept = default;
+Sockets::Tcp& Sockets::Tcp::operator=(Tcp&& rhs) noexcept = default;
 Sockets::Tcp Sockets::Tcp::Clone() const {
   Tcp out;
   if (connect) {
@@ -951,8 +872,8 @@ Sockets::TcpServer::TcpServer()
  {}
 
 Sockets::TcpServer::~TcpServer() = default;
-Sockets::TcpServer::TcpServer(TcpServer&& rhs) = default;
-Sockets::TcpServer& Sockets::TcpServer::operator=(TcpServer&& rhs) = default;
+Sockets::TcpServer::TcpServer(TcpServer&& rhs) noexcept = default;
+Sockets::TcpServer& Sockets::TcpServer::operator=(TcpServer&& rhs) noexcept = default;
 Sockets::TcpServer Sockets::TcpServer::Clone() const {
   TcpServer out;
   if (listen) {
@@ -1029,8 +950,8 @@ Sockets::Sockets()
  {}
 
 Sockets::~Sockets() = default;
-Sockets::Sockets(Sockets&& rhs) = default;
-Sockets& Sockets::operator=(Sockets&& rhs) = default;
+Sockets::Sockets(Sockets&& rhs) noexcept = default;
+Sockets& Sockets::operator=(Sockets&& rhs) noexcept = default;
 Sockets Sockets::Clone() const {
   Sockets out;
   if (udp) {
@@ -1114,24 +1035,6 @@ bool Sockets::Populate(
 }
 
 // static
-std::unique_ptr<Sockets> Sockets::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<Sockets>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<Sockets, std::u16string> Sockets::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   Sockets out;
@@ -1179,8 +1082,8 @@ Bluetooth::Bluetooth()
  {}
 
 Bluetooth::~Bluetooth() = default;
-Bluetooth::Bluetooth(Bluetooth&& rhs) = default;
-Bluetooth& Bluetooth::operator=(Bluetooth&& rhs) = default;
+Bluetooth::Bluetooth(Bluetooth&& rhs) noexcept = default;
+Bluetooth& Bluetooth::operator=(Bluetooth&& rhs) noexcept = default;
 Bluetooth Bluetooth::Clone() const {
   Bluetooth out;
   out.uuids = uuids;
@@ -1220,7 +1123,7 @@ bool Bluetooth::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'socket': expected socket, got " + UTF8ToUTF16(base::Value::GetTypeName((*socket_value).type()));
-        out.socket = absl::nullopt;
+        out.socket = std::nullopt;
         return false;
       }
       out.socket = *temp;
@@ -1234,7 +1137,7 @@ bool Bluetooth::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'low_energy': expected low_energy, got " + UTF8ToUTF16(base::Value::GetTypeName((*low_energy_value).type()));
-        out.low_energy = absl::nullopt;
+        out.low_energy = std::nullopt;
         return false;
       }
       out.low_energy = *temp;
@@ -1248,7 +1151,7 @@ bool Bluetooth::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'peripheral': expected peripheral, got " + UTF8ToUTF16(base::Value::GetTypeName((*peripheral_value).type()));
-        out.peripheral = absl::nullopt;
+        out.peripheral = std::nullopt;
         return false;
       }
       out.peripheral = *temp;
@@ -1267,24 +1170,6 @@ bool Bluetooth::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<Bluetooth> Bluetooth::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<Bluetooth>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static
@@ -1339,8 +1224,8 @@ UsbPrinters::FiltersType::FiltersType()
 : vendor_id(0) {}
 
 UsbPrinters::FiltersType::~FiltersType() = default;
-UsbPrinters::FiltersType::FiltersType(FiltersType&& rhs) = default;
-UsbPrinters::FiltersType& UsbPrinters::FiltersType::operator=(FiltersType&& rhs) = default;
+UsbPrinters::FiltersType::FiltersType(FiltersType&& rhs) noexcept = default;
+UsbPrinters::FiltersType& UsbPrinters::FiltersType::operator=(FiltersType&& rhs) noexcept = default;
 UsbPrinters::FiltersType UsbPrinters::FiltersType::Clone() const {
   FiltersType out;
   out.vendor_id = vendor_id;
@@ -1377,7 +1262,7 @@ bool UsbPrinters::FiltersType::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'productId': expected productId, got " + UTF8ToUTF16(base::Value::GetTypeName((*product_id_value).type()));
-        out.product_id = absl::nullopt;
+        out.product_id = std::nullopt;
         return false;
       }
       out.product_id = *temp;
@@ -1391,7 +1276,7 @@ bool UsbPrinters::FiltersType::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'interfaceClass': expected interfaceClass, got " + UTF8ToUTF16(base::Value::GetTypeName((*interface_class_value).type()));
-        out.interface_class = absl::nullopt;
+        out.interface_class = std::nullopt;
         return false;
       }
       out.interface_class = *temp;
@@ -1405,7 +1290,7 @@ bool UsbPrinters::FiltersType::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'interfaceSubclass': expected interfaceSubclass, got " + UTF8ToUTF16(base::Value::GetTypeName((*interface_subclass_value).type()));
-        out.interface_subclass = absl::nullopt;
+        out.interface_subclass = std::nullopt;
         return false;
       }
       out.interface_subclass = *temp;
@@ -1419,7 +1304,7 @@ bool UsbPrinters::FiltersType::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'interfaceProtocol': expected interfaceProtocol, got " + UTF8ToUTF16(base::Value::GetTypeName((*interface_protocol_value).type()));
-        out.interface_protocol = absl::nullopt;
+        out.interface_protocol = std::nullopt;
         return false;
       }
       out.interface_protocol = *temp;
@@ -1496,8 +1381,8 @@ UsbPrinters::UsbPrinters()
  {}
 
 UsbPrinters::~UsbPrinters() = default;
-UsbPrinters::UsbPrinters(UsbPrinters&& rhs) = default;
-UsbPrinters& UsbPrinters::operator=(UsbPrinters&& rhs) = default;
+UsbPrinters::UsbPrinters(UsbPrinters&& rhs) noexcept = default;
+UsbPrinters& UsbPrinters::operator=(UsbPrinters&& rhs) noexcept = default;
 UsbPrinters UsbPrinters::Clone() const {
   UsbPrinters out;
   out.filters.reserve(filters.size());
@@ -1548,24 +1433,6 @@ bool UsbPrinters::Populate(
 }
 
 // static
-std::unique_ptr<UsbPrinters> UsbPrinters::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<UsbPrinters>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
-}
-
-// static
 base::expected<UsbPrinters, std::u16string> UsbPrinters::FromValue(const base::Value::Dict& value) {
   std::u16string error;
   UsbPrinters out;
@@ -1603,8 +1470,8 @@ KioskSecondaryAppsType::KioskSecondaryAppsType()
  {}
 
 KioskSecondaryAppsType::~KioskSecondaryAppsType() = default;
-KioskSecondaryAppsType::KioskSecondaryAppsType(KioskSecondaryAppsType&& rhs) = default;
-KioskSecondaryAppsType& KioskSecondaryAppsType::operator=(KioskSecondaryAppsType&& rhs) = default;
+KioskSecondaryAppsType::KioskSecondaryAppsType(KioskSecondaryAppsType&& rhs) noexcept = default;
+KioskSecondaryAppsType& KioskSecondaryAppsType::operator=(KioskSecondaryAppsType&& rhs) noexcept = default;
 KioskSecondaryAppsType KioskSecondaryAppsType::Clone() const {
   KioskSecondaryAppsType out;
   out.id = id;
@@ -1638,7 +1505,7 @@ bool KioskSecondaryAppsType::Populate(
       if (!temp.has_value()) {
         DCHECK(error.empty());
         error = u"'enabled_on_launch': expected enabled_on_launch, got " + UTF8ToUTF16(base::Value::GetTypeName((*enabled_on_launch_value).type()));
-        out.enabled_on_launch = absl::nullopt;
+        out.enabled_on_launch = std::nullopt;
         return false;
       }
       out.enabled_on_launch = *temp;
@@ -1657,24 +1524,6 @@ bool KioskSecondaryAppsType::Populate(
     return false;
   }
   return Populate(value.GetDict(), out, error);
-}
-
-// static
-std::unique_ptr<KioskSecondaryAppsType> KioskSecondaryAppsType::FromValueDeprecated(const base::Value& value, std::u16string* error_ptr) {
-  auto out = std::make_unique<KioskSecondaryAppsType>();
-  DCHECK(error_ptr);
-  auto& error = *error_ptr;
-  if (!value.is_dict()) {
-    DCHECK(error.empty());
-    error = u"expected dictionary, got " + UTF8ToUTF16(base::Value::GetTypeName(value.type()));
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out, error);
-  DCHECK_EQ(result, error.empty());
-  if (!result) {
-    return nullptr;
-  }
-  return out;
 }
 
 // static

@@ -19,7 +19,6 @@ build build.ninja: phony build.ninja.stamp
 subninja toolchain.ninja
 
 build _cros-disks-install_config: phony obj/cros-disks/_cros-disks-install_config.stamp
-build common_test_sources: phony obj/cros-disks/common_test_sources.stamp
 build install_cros_disks_config: phony obj/cros-disks/install_cros_disks_config.stamp
 build install_dbus_config: phony obj/cros-disks/install_dbus_config.stamp
 build install_minijail_config: phony obj/cros-disks/install_minijail_config.stamp
@@ -31,16 +30,10 @@ build install_usb_device_info: phony obj/cros-disks/install_usb_device_info.stam
 build libdisks: phony ./libdisks.a
 build libdisks-adaptors: phony obj/cros-disks/libdisks-adaptors.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build cros-disks$:_cros-disks-install_config: phony obj/cros-disks/_cros-disks-install_config.stamp
 build cros-disks$:all: phony obj/cros-disks/all.stamp
-build cros-disks$:common_test_sources: phony obj/cros-disks/common_test_sources.stamp
 build cros-disks$:cros-disks: phony ./cros-disks
-build cros-disks$:disks_testrunner: phony ./disks_testrunner
-build cros-disks$:disks_testrunner_root: phony ./disks_testrunner_root
 build cros-disks$:install_cros_disks_config: phony obj/cros-disks/install_cros_disks_config.stamp
 build cros-disks$:install_dbus_config: phony obj/cros-disks/install_dbus_config.stamp
 build cros-disks$:install_minijail_config: phony obj/cros-disks/install_minijail_config.stamp
@@ -54,13 +47,9 @@ build cros-disks$:libdisks-adaptors: phony obj/cros-disks/libdisks-adaptors.stam
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/cros-disks/_cros-disks-install_config.stamp $
     obj/cros-disks/all.stamp $
-    obj/cros-disks/common_test_sources.stamp $
     ./cros-disks $
-    ./disks_testrunner $
-    ./disks_testrunner_root $
     obj/cros-disks/install_cros_disks_config.stamp $
     obj/cros-disks/install_dbus_config.stamp $
     obj/cros-disks/install_minijail_config.stamp $

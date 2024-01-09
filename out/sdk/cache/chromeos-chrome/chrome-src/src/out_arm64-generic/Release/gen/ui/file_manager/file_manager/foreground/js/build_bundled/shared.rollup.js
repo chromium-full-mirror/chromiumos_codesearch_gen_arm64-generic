@@ -1,4 +1,4 @@
-import { LitElement, isServer, property, css, customElement, state, query, html, classMap, svg, styleMap, queryAssignedElements, literal, staticHtml, nothing } from 'chrome://resources/mwc/lit/index.js';
+import { isServer, property, LitElement, css, customElement, state, query, html, classMap, svg, styleMap, queryAssignedElements, nothing } from 'chrome://resources/mwc/lit/index.js';
 import { html as html$1, Polymer, dom, mixinBehaviors, PolymerElement, Base, dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 
@@ -168,51 +168,1271 @@ function recordEnum(name, value, validValues) {
     callAPI('recordValue', [metricDescr, index]);
 }
 
-// Copyright 2013 The Chromium Authors
+// Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
 /**
- * @fileoverview Assertion support.
+ * Calls the `fn` function which should expect the callback as last argument.
+ *
+ * Resolves with the result of the `fn`.
+ *
+ * Rejects if there is `chrome.runtime.lastError`.
  */
-
+async function promisify(fn, ...args) {
+    return new Promise((resolve, reject) => {
+        const callback = (result) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError.message);
+            }
+            else {
+                resolve(result);
+            }
+        };
+        fn(...args, callback);
+    });
+}
+function iconSetToCSSBackgroundImageValue(iconSet) {
+    let lowDpiPart = null;
+    let highDpiPart = null;
+    if (iconSet.icon16x16Url) {
+        lowDpiPart = 'url(' + iconSet.icon16x16Url + ') 1x';
+    }
+    if (iconSet.icon32x32Url) {
+        highDpiPart = 'url(' + iconSet.icon32x32Url + ') 2x';
+    }
+    if (lowDpiPart && highDpiPart) {
+        return 'image-set(' + lowDpiPart + ', ' + highDpiPart + ')';
+    }
+    else if (lowDpiPart) {
+        return 'image-set(' + lowDpiPart + ')';
+    }
+    else if (highDpiPart) {
+        return 'image-set(' + highDpiPart + ')';
+    }
+    return 'none';
+}
 /**
- * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
- * instead.
- * Verify |condition| is truthy and return |condition| if so.
- * @template T
- * @param {T} condition A condition to check for truthiness.  Note that this
- *     may be used to test whether a value is defined or not, and we don't want
- *     to force a cast to Boolean.
- * @param {string=} opt_message A message to show on failure.
- * @return {T} A non-null |condition|.
- * @closurePrimitive {asserts.truthy}
- * @suppress {reportUnknownTypes} because T is not sufficiently constrained.
+ * Mapping table for FileError.code style enum to DOMError.name string.
  */
-function assert$1(condition, opt_message) {
-  if (!condition) {
-    let message = 'Assertion failed';
-    if (opt_message) {
-      message = message + ': ' + opt_message;
+var FileErrorToDomError;
+(function (FileErrorToDomError) {
+    FileErrorToDomError["ABORT_ERR"] = "AbortError";
+    FileErrorToDomError["INVALID_MODIFICATION_ERR"] = "InvalidModificationError";
+    FileErrorToDomError["INVALID_STATE_ERR"] = "InvalidStateError";
+    FileErrorToDomError["NO_MODIFICATION_ALLOWED_ERR"] = "NoModificationAllowedError";
+    FileErrorToDomError["NOT_FOUND_ERR"] = "NotFoundError";
+    FileErrorToDomError["NOT_READABLE_ERR"] = "NotReadable";
+    FileErrorToDomError["PATH_EXISTS_ERR"] = "PathExistsError";
+    FileErrorToDomError["QUOTA_EXCEEDED_ERR"] = "QuotaExceededError";
+    FileErrorToDomError["TYPE_MISMATCH_ERR"] = "TypeMismatchError";
+    FileErrorToDomError["ENCODING_ERR"] = "EncodingError";
+})(FileErrorToDomError || (FileErrorToDomError = {}));
+/**
+ * Extracts path from filesystem: URL.
+ * @return The path if it can be parsed, null if it cannot.
+ */
+function extractFilePath(url) {
+    const match = /^filesystem:[\w-]*:\/\/[\w-]*\/(external|persistent|temporary)(\/.*)$/
+        .exec(url || '');
+    const path = match && match[2];
+    if (!path) {
+        return null;
     }
-    const error = new Error(message);
-    const global = function() {
-      const thisOrSelf = this || self;
-      /** @type {boolean} */
-      thisOrSelf.traceAssertionsForTesting;
-      return thisOrSelf;
-    }();
-    if (global.traceAssertionsForTesting) {
-      console.warn(error.stack);
+    return decodeURIComponent(path);
+}
+/**
+ * @return True if the Files app is running as an open files or a
+ *     select folder dialog. False otherwise.
+ */
+function runningInBrowser() {
+    return !window.appID;
+}
+/**
+ * The last URL with visitURL().
+ */
+let lastVisitedURL;
+/**
+ * Visit the URL.
+ *
+ * If the browser is opening, the url is opened in a new tab, otherwise the url
+ * is opened in a new window.
+ */
+function visitURL(url) {
+    lastVisitedURL = url;
+    // openURL opens URLs in the primary browser (ash vs lacros) as opposed to
+    // window.open which always opens URLs in ash-chrome.
+    chrome.fileManagerPrivate.openURL(url);
+}
+/**
+ * Return the last URL visited with visitURL().
+ */
+function getLastVisitedURL() {
+    return lastVisitedURL;
+}
+/**
+ * Returns whether the window is teleported or not.
+ */
+function isTeleported() {
+    return new Promise(onFulfilled => {
+        chrome.fileManagerPrivate.getProfiles((response) => {
+            onFulfilled(response.currentProfileId !== response.displayedProfileId);
+        });
+    });
+}
+/**
+ * Runs chrome.test.sendMessage in test environment. Does nothing if running
+ * in production environment.
+ */
+function testSendMessage(message) {
+    if (chrome.test) {
+        chrome.test.sendMessage(message);
     }
-    throw error;
-  }
-  return condition;
+}
+/**
+ * Extracts the extension of the path.
+ *
+ * Examples:
+ * splitExtension('abc.ext') -> ['abc', '.ext']
+ * splitExtension('a/b/abc.ext') -> ['a/b/abc', '.ext']
+ * splitExtension('a/b') -> ['a/b', '']
+ * splitExtension('.cshrc') -> ['', '.cshrc']
+ * splitExtension('a/b.backup/hoge') -> ['a/b.backup/hoge', '']
+ */
+function splitExtension(path) {
+    let dotPosition = path.lastIndexOf('.');
+    if (dotPosition <= path.lastIndexOf('/')) {
+        dotPosition = -1;
+    }
+    const filename = dotPosition != -1 ? path.substr(0, dotPosition) : path;
+    const extension = dotPosition != -1 ? path.substr(dotPosition) : '';
+    return [filename, extension];
+}
+/**
+ * Checks if an API call returned an error, and if yes then prints it.
+ */
+function checkAPIError() {
+    if (chrome.runtime.lastError) {
+        console.warn(chrome.runtime.lastError.message);
+    }
+}
+/**
+ * Makes a promise which will be fulfilled |ms| milliseconds later.
+ */
+function delay(ms) {
+    return new Promise(resolve => {
+        setTimeout(resolve, ms);
+    });
+}
+/**
+ * Makes a promise which will be rejected if the given |promise| is not resolved
+ * or rejected for |ms| milliseconds.
+ */
+function timeoutPromise(promise, ms, message) {
+    return Promise.race([
+        promise,
+        delay(ms).then(() => {
+            throw new Error(message || 'Operation timed out.');
+        }),
+    ]);
+}
+/**
+ * Returns the Files app modal dialog used to embed any files app dialog
+ * that derives from cr.ui.dialogs.
+ */
+function getFilesAppModalDialogInstance() {
+    let dialogElement = document.querySelector('#files-app-modal-dialog');
+    if (!dialogElement) { // Lazily create the files app dialog instance.
+        dialogElement = document.createElement('dialog');
+        dialogElement.id = 'files-app-modal-dialog';
+        document.body.appendChild(dialogElement);
+    }
+    return dialogElement;
+}
+function descriptorEqual(left, right) {
+    return left.appId === right.appId && left.taskType === right.taskType &&
+        left.actionId === right.actionId;
+}
+/**
+ * Create a taskID which is a string unique-ID for a task. This is temporary
+ * and will be removed once we use task.descriptor everywhere instead.
+ */
+function makeTaskID({ appId, taskType, actionId }) {
+    return `${appId}|${taskType}|${actionId}`;
+}
+/**
+ * Returns a new promise which, when fulfilled carries a boolean indicating
+ * whether the app is in the guest mode. Typical use:
+ *
+ * isInGuestMode().then(
+ *     (guest) => { if (guest) { ... in guest mode } }
+ */
+async function isInGuestMode() {
+    const response = await promisify(chrome.fileManagerPrivate.getProfiles);
+    const profiles = response.profiles;
+    return profiles.length > 0 && profiles[0]?.profileId === '$guest';
+}
+/**
+ * A kind of error that represents user electing to cancel an operation. We use
+ * this specialization to differentiate between system errors and errors
+ * generated through legitimate user actions.
+ */
+class UserCanceledError extends Error {
+}
+/**
+ * Returns whether the given value is null or undefined.
+ */
+const isNullOrUndefined = (value) => value === null || value === undefined;
+/**
+ * Bulk pinning should only show visible UI elements when in progress or
+ * continuing to sync.
+ */
+function canBulkPinningCloudPanelShow(stage, enabled) {
+    const BulkPinStage = chrome.fileManagerPrivate.BulkPinStage;
+    // If the stage is in progress and the bulk pinning preference is enabled,
+    // then the cloud panel should not be visible.
+    if (enabled &&
+        (stage === BulkPinStage.GETTING_FREE_SPACE ||
+            stage === BulkPinStage.LISTING_FILES ||
+            stage === BulkPinStage.SYNCING)) {
+        return true;
+    }
+    // For the PAUSED... states the preference should still be enabled, however,
+    // for the latter the preference will have been disabled.
+    if ((stage === BulkPinStage.PAUSED_OFFLINE && enabled) ||
+        (stage === BulkPinStage.PAUSED_BATTERY_SAVER && enabled) ||
+        stage === BulkPinStage.NOT_ENOUGH_SPACE) {
+        return true;
+    }
+    return false;
+}
+/**
+ * Check if the DEBUG_STORE is set or not. When it's set, action data will be
+ * logged in the console for debugging purpose.
+ *
+ * Run `localStorage.setItem('DEBUG_STORE', '1')` in the console to enable it.
+ */
+function isDebugStoreEnabled() {
+    return localStorage.getItem('DEBUG_STORE') === '1';
+}
+
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+
+function __decorate$1(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
 /**
- * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
- * instead.
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A key to retrieve an `Attachable` element's `AttachableController` from a
+ * global `MutationObserver`.
+ */
+const ATTACHABLE_CONTROLLER = Symbol('attachableController');
+let FOR_ATTRIBUTE_OBSERVER;
+if (!isServer) {
+    /**
+     * A global `MutationObserver` that reacts to `for` attribute changes on
+     * `Attachable` elements. If the `for` attribute changes, the controller will
+     * re-attach to the new referenced element.
+     */
+    FOR_ATTRIBUTE_OBSERVER = new MutationObserver((records) => {
+        for (const record of records) {
+            // When a control's `for` attribute changes, inform its
+            // `AttachableController` to update to a new control.
+            record.target[ATTACHABLE_CONTROLLER]?.hostConnected();
+        }
+    });
+}
+/**
+ * A controller that provides an implementation for `Attachable` elements.
+ *
+ * @example
+ * ```ts
+ * class MyElement extends LitElement implements Attachable {
+ *   get control() { return this.attachableController.control; }
+ *
+ *   private readonly attachableController = new AttachableController(
+ *     this,
+ *     (previousControl, newControl) => {
+ *       previousControl?.removeEventListener('click', this.handleClick);
+ *       newControl?.addEventListener('click', this.handleClick);
+ *     }
+ *   );
+ *
+ *   // Implement remaining `Attachable` properties/methods that call the
+ *   // controller's properties/methods.
+ * }
+ * ```
+ */
+class AttachableController {
+    get htmlFor() {
+        return this.host.getAttribute('for');
+    }
+    set htmlFor(htmlFor) {
+        if (htmlFor === null) {
+            this.host.removeAttribute('for');
+        }
+        else {
+            this.host.setAttribute('for', htmlFor);
+        }
+    }
+    get control() {
+        if (this.host.hasAttribute('for')) {
+            if (!this.htmlFor || !this.host.isConnected) {
+                return null;
+            }
+            return this.host.getRootNode().querySelector(`#${this.htmlFor}`);
+        }
+        return this.currentControl || this.host.parentElement;
+    }
+    set control(control) {
+        if (control) {
+            this.attach(control);
+        }
+        else {
+            this.detach();
+        }
+    }
+    /**
+     * Creates a new controller for an `Attachable` element.
+     *
+     * @param host The `Attachable` element.
+     * @param onControlChange A callback with two parameters for the previous and
+     *     next control. An `Attachable` element may perform setup or teardown
+     *     logic whenever the control changes.
+     */
+    constructor(host, onControlChange) {
+        this.host = host;
+        this.onControlChange = onControlChange;
+        this.currentControl = null;
+        host.addController(this);
+        host[ATTACHABLE_CONTROLLER] = this;
+        FOR_ATTRIBUTE_OBSERVER?.observe(host, { attributeFilter: ['for'] });
+    }
+    attach(control) {
+        if (control === this.currentControl) {
+            return;
+        }
+        this.setCurrentControl(control);
+        // When imperatively attaching, remove the `for` attribute so
+        // that the attached control is used instead of a referenced one.
+        this.host.removeAttribute('for');
+    }
+    detach() {
+        this.setCurrentControl(null);
+        // When imperatively detaching, add an empty `for=""` attribute. This will
+        // ensure the control is `null` rather than the `parentElement`.
+        this.host.setAttribute('for', '');
+    }
+    /** @private */
+    hostConnected() {
+        this.setCurrentControl(this.control);
+    }
+    /** @private */
+    hostDisconnected() {
+        this.setCurrentControl(null);
+    }
+    setCurrentControl(control) {
+        this.onControlChange(this.currentControl, control);
+        this.currentControl = control;
+    }
+}
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Events that the focus ring listens to.
+ */
+const EVENTS$1 = ['focusin', 'focusout', 'pointerdown'];
+/**
+ * A focus ring component.
+ *
+ * @fires visibility-changed {Event} Fired whenever `visible` changes.
+ */
+class FocusRing extends LitElement {
+    constructor() {
+        super(...arguments);
+        /**
+         * Makes the focus ring visible.
+         */
+        this.visible = false;
+        /**
+         * Makes the focus ring animate inwards instead of outwards.
+         */
+        this.inward = false;
+        this.attachableController = new AttachableController(this, this.onControlChange.bind(this));
+    }
+    get htmlFor() {
+        return this.attachableController.htmlFor;
+    }
+    set htmlFor(htmlFor) {
+        this.attachableController.htmlFor = htmlFor;
+    }
+    get control() {
+        return this.attachableController.control;
+    }
+    set control(control) {
+        this.attachableController.control = control;
+    }
+    attach(control) {
+        this.attachableController.attach(control);
+    }
+    detach() {
+        this.attachableController.detach();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        // Needed for VoiceOver, which will create a "group" if the element is a
+        // sibling to other content.
+        this.setAttribute('aria-hidden', 'true');
+    }
+    /** @private */
+    handleEvent(event) {
+        if (event[HANDLED_BY_FOCUS_RING]) {
+            // This ensures the focus ring does not activate when multiple focus rings
+            // are used within a single component.
+            return;
+        }
+        switch (event.type) {
+            default:
+                return;
+            case 'focusin':
+                this.visible = this.control?.matches(':focus-visible') ?? false;
+                break;
+            case 'focusout':
+            case 'pointerdown':
+                this.visible = false;
+                break;
+        }
+        event[HANDLED_BY_FOCUS_RING] = true;
+    }
+    onControlChange(prev, next) {
+        if (isServer)
+            return;
+        for (const event of EVENTS$1) {
+            prev?.removeEventListener(event, this);
+            next?.addEventListener(event, this);
+        }
+    }
+    update(changed) {
+        if (changed.has('visible')) {
+            // This logic can be removed once the `:has` selector has been introduced
+            // to Firefox. This is necessary to allow correct submenu styles.
+            this.dispatchEvent(new Event('visibility-changed'));
+        }
+        super.update(changed);
+    }
+}
+__decorate$1([
+    property({ type: Boolean, reflect: true })
+], FocusRing.prototype, "visible", void 0);
+__decorate$1([
+    property({ type: Boolean, reflect: true })
+], FocusRing.prototype, "inward", void 0);
+const HANDLED_BY_FOCUS_RING = Symbol('handledByFocusRing');
+
+/**
+  * @license
+  * Copyright 2022 Google LLC
+  * SPDX-License-Identifier: Apache-2.0
+  */
+const styles$6 = css `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}/*# sourceMappingURL=focus-ring-styles.css.map */
+`;
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * TODO(b/267336424): add docs
+ *
+ * @final
+ * @suppress {visibility}
+ */
+let MdFocusRing = class MdFocusRing extends FocusRing {
+};
+MdFocusRing.styles = [styles$6];
+MdFocusRing = __decorate$1([
+    customElement('md-focus-ring')
+], MdFocusRing);
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Easing functions to use for web animations.
+ *
+ * **NOTE:** `EASING.EMPHASIZED` is approximated with unknown accuracy.
+ *
+ * TODO(b/241113345): replace with tokens
+ */
+const EASING = {
+    STANDARD: 'cubic-bezier(0.2, 0, 0, 1)',
+    STANDARD_ACCELERATE: 'cubic-bezier(.3,0,1,1)',
+    STANDARD_DECELERATE: 'cubic-bezier(0,0,0,1)',
+    EMPHASIZED: 'cubic-bezier(.3,0,0,1)',
+    EMPHASIZED_ACCELERATE: 'cubic-bezier(.3,0,.8,.15)',
+    EMPHASIZED_DECELERATE: 'cubic-bezier(.05,.7,.1,1)',
+};
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+const PRESS_GROW_MS = 450;
+const MINIMUM_PRESS_MS = 225;
+const INITIAL_ORIGIN_SCALE = 0.2;
+const PADDING = 10;
+const SOFT_EDGE_MINIMUM_SIZE = 75;
+const SOFT_EDGE_CONTAINER_RATIO = 0.35;
+const PRESS_PSEUDO = '::after';
+const ANIMATION_FILL = 'forwards';
+/**
+ * Interaction states for the ripple.
+ *
+ * On Touch:
+ *  - `INACTIVE -> TOUCH_DELAY -> WAITING_FOR_CLICK -> INACTIVE`
+ *  - `INACTIVE -> TOUCH_DELAY -> HOLDING -> WAITING_FOR_CLICK -> INACTIVE`
+ *
+ * On Mouse or Pen:
+ *   - `INACTIVE -> WAITING_FOR_CLICK -> INACTIVE`
+ */
+var State;
+(function (State) {
+    /**
+     * Initial state of the control, no touch in progress.
+     *
+     * Transitions:
+     *   - on touch down: transition to `TOUCH_DELAY`.
+     *   - on mouse down: transition to `WAITING_FOR_CLICK`.
+     */
+    State[State["INACTIVE"] = 0] = "INACTIVE";
+    /**
+     * Touch down has been received, waiting to determine if it's a swipe or
+     * scroll.
+     *
+     * Transitions:
+     *   - on touch up: begin press; transition to `WAITING_FOR_CLICK`.
+     *   - on cancel: transition to `INACTIVE`.
+     *   - after `TOUCH_DELAY_MS`: begin press; transition to `HOLDING`.
+     */
+    State[State["TOUCH_DELAY"] = 1] = "TOUCH_DELAY";
+    /**
+     * A touch has been deemed to be a press
+     *
+     * Transitions:
+     *  - on up: transition to `WAITING_FOR_CLICK`.
+     */
+    State[State["HOLDING"] = 2] = "HOLDING";
+    /**
+     * The user touch has finished, transition into rest state.
+     *
+     * Transitions:
+     *   - on click end press; transition to `INACTIVE`.
+     */
+    State[State["WAITING_FOR_CLICK"] = 3] = "WAITING_FOR_CLICK";
+})(State || (State = {}));
+/**
+ * Events that the ripple listens to.
+ */
+const EVENTS = [
+    'click',
+    'contextmenu',
+    'pointercancel',
+    'pointerdown',
+    'pointerenter',
+    'pointerleave',
+    'pointerup',
+];
+/**
+ * Delay reacting to touch so that we do not show the ripple for a swipe or
+ * scroll interaction.
+ */
+const TOUCH_DELAY_MS = 150;
+/**
+ * Used to detect if HCM is active. Events do not process during HCM when the
+ * ripple is not displayed.
+ */
+const FORCED_COLORS = isServer
+    ? null
+    : window.matchMedia('(forced-colors: active)');
+/**
+ * A ripple component.
+ */
+class Ripple extends LitElement {
+    constructor() {
+        super(...arguments);
+        /**
+         * Disables the ripple.
+         */
+        this.disabled = false;
+        this.hovered = false;
+        this.pressed = false;
+        this.rippleSize = '';
+        this.rippleScale = '';
+        this.initialSize = 0;
+        this.state = State.INACTIVE;
+        this.checkBoundsAfterContextMenu = false;
+        this.attachableController = new AttachableController(this, this.onControlChange.bind(this));
+    }
+    get htmlFor() {
+        return this.attachableController.htmlFor;
+    }
+    set htmlFor(htmlFor) {
+        this.attachableController.htmlFor = htmlFor;
+    }
+    get control() {
+        return this.attachableController.control;
+    }
+    set control(control) {
+        this.attachableController.control = control;
+    }
+    attach(control) {
+        this.attachableController.attach(control);
+    }
+    detach() {
+        this.attachableController.detach();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        // Needed for VoiceOver, which will create a "group" if the element is a
+        // sibling to other content.
+        this.setAttribute('aria-hidden', 'true');
+    }
+    render() {
+        const classes = {
+            'hovered': this.hovered,
+            'pressed': this.pressed,
+        };
+        return html `<div class="surface ${classMap(classes)}"></div>`;
+    }
+    update(changedProps) {
+        if (changedProps.has('disabled') && this.disabled) {
+            this.hovered = false;
+            this.pressed = false;
+        }
+        super.update(changedProps);
+    }
+    /**
+     * TODO(b/269799771): make private
+     * @private only public for slider
+     */
+    handlePointerenter(event) {
+        if (!this.shouldReactToEvent(event)) {
+            return;
+        }
+        this.hovered = true;
+    }
+    /**
+     * TODO(b/269799771): make private
+     * @private only public for slider
+     */
+    handlePointerleave(event) {
+        if (!this.shouldReactToEvent(event)) {
+            return;
+        }
+        this.hovered = false;
+        // release a held mouse or pen press that moves outside the element
+        if (this.state !== State.INACTIVE) {
+            this.endPressAnimation();
+        }
+    }
+    handlePointerup(event) {
+        if (!this.shouldReactToEvent(event)) {
+            return;
+        }
+        if (this.state === State.HOLDING) {
+            this.state = State.WAITING_FOR_CLICK;
+            return;
+        }
+        if (this.state === State.TOUCH_DELAY) {
+            this.state = State.WAITING_FOR_CLICK;
+            this.startPressAnimation(this.rippleStartEvent);
+            return;
+        }
+    }
+    async handlePointerdown(event) {
+        if (!this.shouldReactToEvent(event)) {
+            return;
+        }
+        this.rippleStartEvent = event;
+        if (!this.isTouch(event)) {
+            this.state = State.WAITING_FOR_CLICK;
+            this.startPressAnimation(event);
+            return;
+        }
+        // after a longpress contextmenu event, an extra `pointerdown` can be
+        // dispatched to the pressed element. Check that the down is within
+        // bounds of the element in this case.
+        if (this.checkBoundsAfterContextMenu && !this.inBounds(event)) {
+            return;
+        }
+        this.checkBoundsAfterContextMenu = false;
+        // Wait for a hold after touch delay
+        this.state = State.TOUCH_DELAY;
+        await new Promise((resolve) => {
+            setTimeout(resolve, TOUCH_DELAY_MS);
+        });
+        if (this.state !== State.TOUCH_DELAY) {
+            return;
+        }
+        this.state = State.HOLDING;
+        this.startPressAnimation(event);
+    }
+    handleClick() {
+        // Click is a MouseEvent in Firefox and Safari, so we cannot use
+        // `shouldReactToEvent`
+        if (this.disabled) {
+            return;
+        }
+        if (this.state === State.WAITING_FOR_CLICK) {
+            this.endPressAnimation();
+            return;
+        }
+        if (this.state === State.INACTIVE) {
+            // keyboard synthesized click event
+            this.startPressAnimation();
+            this.endPressAnimation();
+        }
+    }
+    handlePointercancel(event) {
+        if (!this.shouldReactToEvent(event)) {
+            return;
+        }
+        this.endPressAnimation();
+    }
+    handleContextmenu() {
+        if (this.disabled) {
+            return;
+        }
+        this.checkBoundsAfterContextMenu = true;
+        this.endPressAnimation();
+    }
+    determineRippleSize() {
+        const { height, width } = this.getBoundingClientRect();
+        const maxDim = Math.max(height, width);
+        const softEdgeSize = Math.max(SOFT_EDGE_CONTAINER_RATIO * maxDim, SOFT_EDGE_MINIMUM_SIZE);
+        const initialSize = Math.floor(maxDim * INITIAL_ORIGIN_SCALE);
+        const hypotenuse = Math.sqrt(width ** 2 + height ** 2);
+        const maxRadius = hypotenuse + PADDING;
+        this.initialSize = initialSize;
+        this.rippleScale = `${(maxRadius + softEdgeSize) / initialSize}`;
+        this.rippleSize = `${initialSize}px`;
+    }
+    getNormalizedPointerEventCoords(pointerEvent) {
+        const { scrollX, scrollY } = window;
+        const { left, top } = this.getBoundingClientRect();
+        const documentX = scrollX + left;
+        const documentY = scrollY + top;
+        const { pageX, pageY } = pointerEvent;
+        return { x: pageX - documentX, y: pageY - documentY };
+    }
+    getTranslationCoordinates(positionEvent) {
+        const { height, width } = this.getBoundingClientRect();
+        // end in the center
+        const endPoint = {
+            x: (width - this.initialSize) / 2,
+            y: (height - this.initialSize) / 2,
+        };
+        let startPoint;
+        if (positionEvent instanceof PointerEvent) {
+            startPoint = this.getNormalizedPointerEventCoords(positionEvent);
+        }
+        else {
+            startPoint = {
+                x: width / 2,
+                y: height / 2,
+            };
+        }
+        // center around start point
+        startPoint = {
+            x: startPoint.x - this.initialSize / 2,
+            y: startPoint.y - this.initialSize / 2,
+        };
+        return { startPoint, endPoint };
+    }
+    startPressAnimation(positionEvent) {
+        if (!this.mdRoot) {
+            return;
+        }
+        this.pressed = true;
+        this.growAnimation?.cancel();
+        this.determineRippleSize();
+        const { startPoint, endPoint } = this.getTranslationCoordinates(positionEvent);
+        const translateStart = `${startPoint.x}px, ${startPoint.y}px`;
+        const translateEnd = `${endPoint.x}px, ${endPoint.y}px`;
+        this.growAnimation = this.mdRoot.animate({
+            top: [0, 0],
+            left: [0, 0],
+            height: [this.rippleSize, this.rippleSize],
+            width: [this.rippleSize, this.rippleSize],
+            transform: [
+                `translate(${translateStart}) scale(1)`,
+                `translate(${translateEnd}) scale(${this.rippleScale})`,
+            ],
+        }, {
+            pseudoElement: PRESS_PSEUDO,
+            duration: PRESS_GROW_MS,
+            easing: EASING.STANDARD,
+            fill: ANIMATION_FILL,
+        });
+    }
+    async endPressAnimation() {
+        this.state = State.INACTIVE;
+        const animation = this.growAnimation;
+        let pressAnimationPlayState = Infinity;
+        if (typeof animation?.currentTime === 'number') {
+            pressAnimationPlayState = animation.currentTime;
+        }
+        else if (animation?.currentTime) {
+            pressAnimationPlayState = animation.currentTime.to('ms').value;
+        }
+        if (pressAnimationPlayState >= MINIMUM_PRESS_MS) {
+            this.pressed = false;
+            return;
+        }
+        await new Promise((resolve) => {
+            setTimeout(resolve, MINIMUM_PRESS_MS - pressAnimationPlayState);
+        });
+        if (this.growAnimation !== animation) {
+            // A new press animation was started. The old animation was canceled and
+            // should not finish the pressed state.
+            return;
+        }
+        this.pressed = false;
+    }
+    /**
+     * Returns `true` if
+     *  - the ripple element is enabled
+     *  - the pointer is primary for the input type
+     *  - the pointer is the pointer that started the interaction, or will start
+     * the interaction
+     *  - the pointer is a touch, or the pointer state has the primary button
+     * held, or the pointer is hovering
+     */
+    shouldReactToEvent(event) {
+        if (this.disabled || !event.isPrimary) {
+            return false;
+        }
+        if (this.rippleStartEvent &&
+            this.rippleStartEvent.pointerId !== event.pointerId) {
+            return false;
+        }
+        if (event.type === 'pointerenter' || event.type === 'pointerleave') {
+            return !this.isTouch(event);
+        }
+        const isPrimaryButton = event.buttons === 1;
+        return this.isTouch(event) || isPrimaryButton;
+    }
+    /**
+     * Check if the event is within the bounds of the element.
+     *
+     * This is only needed for the "stuck" contextmenu longpress on Chrome.
+     */
+    inBounds({ x, y }) {
+        const { top, left, bottom, right } = this.getBoundingClientRect();
+        return x >= left && x <= right && y >= top && y <= bottom;
+    }
+    isTouch({ pointerType }) {
+        return pointerType === 'touch';
+    }
+    /** @private */
+    async handleEvent(event) {
+        if (FORCED_COLORS?.matches) {
+            // Skip event logic since the ripple is `display: none`.
+            return;
+        }
+        switch (event.type) {
+            case 'click':
+                this.handleClick();
+                break;
+            case 'contextmenu':
+                this.handleContextmenu();
+                break;
+            case 'pointercancel':
+                this.handlePointercancel(event);
+                break;
+            case 'pointerdown':
+                await this.handlePointerdown(event);
+                break;
+            case 'pointerenter':
+                this.handlePointerenter(event);
+                break;
+            case 'pointerleave':
+                this.handlePointerleave(event);
+                break;
+            case 'pointerup':
+                this.handlePointerup(event);
+                break;
+        }
+    }
+    onControlChange(prev, next) {
+        if (isServer)
+            return;
+        for (const event of EVENTS) {
+            prev?.removeEventListener(event, this);
+            next?.addEventListener(event, this);
+        }
+    }
+}
+__decorate$1([
+    property({ type: Boolean, reflect: true })
+], Ripple.prototype, "disabled", void 0);
+__decorate$1([
+    state()
+], Ripple.prototype, "hovered", void 0);
+__decorate$1([
+    state()
+], Ripple.prototype, "pressed", void 0);
+__decorate$1([
+    query('.surface')
+], Ripple.prototype, "mdRoot", void 0);
+
+/**
+  * @license
+  * Copyright 2022 Google LLC
+  * SPDX-License-Identifier: Apache-2.0
+  */
+const styles$5 = css `:host{--_hover-color: var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-opacity: var(--md-ripple-hover-opacity, 0.08);--_pressed-color: var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-opacity: var(--md-ripple-pressed-opacity, 0.12);display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--_hover-color);inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--_pressed-color) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--_hover-color);opacity:var(--_hover-opacity)}.pressed::after{opacity:var(--_pressed-opacity);transition-duration:105ms}/*# sourceMappingURL=ripple-styles.css.map */
+`;
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @summary Ripples, also known as state layers, are visual indicators used to
+ * communicate the status of a component or interactive element.
+ *
+ * @description A state layer is a semi-transparent covering on an element that
+ * indicates its state. State layers provide a systematic approach to
+ * visualizing states by using opacity. A layer can be applied to an entire
+ * element or in a circular shape and only one state layer can be applied at a
+ * given time.
+ *
+ * @final
+ * @suppress {visibility}
+ */
+let MdRipple = class MdRipple extends Ripple {
+};
+MdRipple.styles = [styles$5];
+MdRipple = __decorate$1([
+    customElement('md-ripple')
+], MdRipple);
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Accessibility Object Model reflective aria properties.
+ */
+const ARIA_PROPERTIES = [
+    'ariaAtomic',
+    'ariaAutoComplete',
+    'ariaBusy',
+    'ariaChecked',
+    'ariaColCount',
+    'ariaColIndex',
+    'ariaColSpan',
+    'ariaCurrent',
+    'ariaDisabled',
+    'ariaExpanded',
+    'ariaHasPopup',
+    'ariaHidden',
+    'ariaInvalid',
+    'ariaKeyShortcuts',
+    'ariaLabel',
+    'ariaLevel',
+    'ariaLive',
+    'ariaModal',
+    'ariaMultiLine',
+    'ariaMultiSelectable',
+    'ariaOrientation',
+    'ariaPlaceholder',
+    'ariaPosInSet',
+    'ariaPressed',
+    'ariaReadOnly',
+    'ariaRequired',
+    'ariaRoleDescription',
+    'ariaRowCount',
+    'ariaRowIndex',
+    'ariaRowSpan',
+    'ariaSelected',
+    'ariaSetSize',
+    'ariaSort',
+    'ariaValueMax',
+    'ariaValueMin',
+    'ariaValueNow',
+    'ariaValueText',
+];
+/**
+ * Accessibility Object Model aria attributes.
+ */
+ARIA_PROPERTIES.map(ariaPropertyToAttribute);
+/**
+ * Converts an AOM aria property into its corresponding attribute.
+ *
+ * @example
+ * ariaPropertyToAttribute('ariaLabel'); // 'aria-label'
+ *
+ * @param property The aria property.
+ * @return The aria attribute.
+ */
+function ariaPropertyToAttribute(property) {
+    return property
+        .replace('aria', 'aria-')
+        // IDREF attributes also include an "Element" or "Elements" suffix
+        .replace(/Elements?/g, '')
+        .toLowerCase();
+}
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Sets up a `ReactiveElement` constructor to enable updates when delegating
+ * aria attributes. Elements may bind `this.aria*` properties to `aria-*`
+ * attributes in their render functions.
+ *
+ * This function will:
+ * - Call `requestUpdate()` when an aria attribute changes.
+ * - Add `role="presentation"` to the host.
+ *
+ * NOTE: The following features are not currently supported:
+ * - Delegating IDREF attributes (ex: `aria-labelledby`, `aria-controls`)
+ * - Delegating the `role` attribute
+ *
+ * @example
+ * class XButton extends LitElement {
+ *   static {
+ *     requestUpdateOnAriaChange(XButton);
+ *   }
+ *
+ *   protected override render() {
+ *     return html`
+ *       <button aria-label=${this.ariaLabel || nothing}>
+ *         <slot></slot>
+ *       </button>
+ *     `;
+ *   }
+ * }
+ *
+ * @param ctor The `ReactiveElement` constructor to patch.
+ */
+function requestUpdateOnAriaChange(ctor) {
+    for (const ariaProperty of ARIA_PROPERTIES) {
+        ctor.createProperty(ariaProperty, {
+            attribute: ariaPropertyToAttribute(ariaProperty),
+            reflect: true,
+        });
+    }
+    ctor.addInitializer((element) => {
+        const controller = {
+            hostConnected() {
+                element.setAttribute('role', 'presentation');
+            },
+        };
+        element.addController(controller);
+    });
+}
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Dispatches a click event to the given element that triggers a native action,
+ * but is not composed and therefore is not seen outside the element.
+ *
+ * This is useful for responding to an external click event on the host element
+ * that should trigger an internal action like a button click.
+ *
+ * Note, a helper is provided because setting this up correctly is a bit tricky.
+ * In particular, calling `click` on an element creates a composed event, which
+ * is not desirable, and a manually dispatched event must specifically be a
+ * `MouseEvent` to trigger a native action.
+ *
+ * @example
+ * hostClickListener = (event: MouseEvent) {
+ *   if (isActivationClick(event)) {
+ *     this.dispatchActivationClick(this.buttonElement);
+ *   }
+ * }
+ *
+ */
+function dispatchActivationClick(element) {
+    const event = new MouseEvent('click', { bubbles: true });
+    element.dispatchEvent(event);
+    return event;
+}
+/**
+ * Returns true if the click event should trigger an activation behavior. The
+ * behavior is defined by the element and is whatever it should do when
+ * clicked.
+ *
+ * Typically when an element needs to handle a click, the click is generated
+ * from within the element and an event listener within the element implements
+ * the needed behavior; however, it's possible to fire a click directly
+ * at the element that the element should handle. This method helps
+ * distinguish these "external" clicks.
+ *
+ * An "external" click can be triggered in a number of ways: via a click
+ * on an associated label for a form  associated element, calling
+ * `element.click()`, or calling
+ * `element.dispatchEvent(new MouseEvent('click', ...))`.
+ *
+ * Also works around Firefox issue
+ * https://bugzilla.mozilla.org/show_bug.cgi?id=1804576 by squelching
+ * events for a microtask after called.
+ *
+ * @example
+ * hostClickListener = (event: MouseEvent) {
+ *   if (isActivationClick(event)) {
+ *     this.dispatchActivationClick(this.buttonElement);
+ *   }
+ * }
+ *
+ */
+function isActivationClick(event) {
+    // Event must start at the event target.
+    if (event.currentTarget !== event.target) {
+        return false;
+    }
+    // Event must not be retargeted from shadowRoot.
+    if (event.composedPath()[0] !== event.target) {
+        return false;
+    }
+    // Target must not be disabled; this should only occur for a synthetically
+    // dispatched click.
+    if (event.target.disabled) {
+        return false;
+    }
+    // This is an activation if the event should not be squelched.
+    return !squelchEvent(event);
+}
+// TODO(https://bugzilla.mozilla.org/show_bug.cgi?id=1804576)
+//  Remove when Firefox bug is addressed.
+function squelchEvent(event) {
+    const squelched = isSquelchingEvents;
+    if (squelched) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }
+    squelchEventsForMicrotask();
+    return squelched;
+}
+// Ignore events for one microtask only.
+let isSquelchingEvents = false;
+async function squelchEventsForMicrotask() {
+    isSquelchingEvents = true;
+    // Need to pause for just one microtask.
+    // tslint:disable-next-line
+    await null;
+    isSquelchingEvents = false;
+}
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A unique symbol used for protected access to an instance's
+ * `ElementInternals`.
+ *
+ * @example
+ * ```ts
+ * class MyElement extends mixinElementInternals(LitElement) {
+ *   constructor() {
+ *     super();
+ *     this[internals].role = 'button';
+ *   }
+ * }
+ * ```
+ */
+const internals = Symbol('internals');
+// Private symbols
+const privateInternals = Symbol('privateInternals');
+/**
+ * Mixes in an attached `ElementInternals` instance.
+ *
+ * This mixin is only needed when other shared code needs access to a
+ * component's `ElementInternals`, such as form-associated mixins.
+ *
+ * @param base The class to mix functionality into.
+ * @return The provided class with `WithElementInternals` mixed in.
+ */
+function mixinElementInternals(base) {
+    class WithElementInternalsElement extends base {
+        get [internals]() {
+            // Create internals in getter so that it can be used in methods called on
+            // construction in `ReactiveElement`, such as `requestUpdate()`.
+            if (!this[privateInternals]) {
+                // Cast needed for closure
+                this[privateInternals] = this.attachInternals();
+            }
+            return this[privateInternals];
+        }
+    }
+    return WithElementInternalsElement;
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Verify |value| is truthy.
+ * @param value A value to check for truthiness. Note that this
+ *     may be used to test whether |value| is defined or not, and we don't want
+ *     to force a cast to boolean.
+ */
+function assert$1(value, message) {
+    if (value) {
+        return;
+    }
+    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
+}
+function assertInstanceof$1(value, type, message) {
+    if (value instanceof type) {
+        return;
+    }
+    throw new Error(message || `Value ${value} is not of type ${type.name || typeof type}`);
+}
+/**
  * Call this from places in the code that should never be reached.
  *
  * For example, handling all the values of enum with a switch() like this:
@@ -225,459 +1445,559 @@ function assert$1(condition, opt_message) {
  *         return last;
  *     }
  *     assertNotReached();
- *     return document;
  *   }
  *
  * This code should only be hit in the case of serious programmer error or
  * unexpected input.
- *
- * @param {string=} message A message to show when this is hit.
- * @closurePrimitive {asserts.fail}
  */
-function assertNotReached$1(message) {
-  assert$1(false, message || 'Unreachable code hit');
-}
-
-/**
- * @param {*} value The value to check.
- * @param {function(new: T, ...)} type A user-defined constructor.
- * @param {string=} message A message to show when this is hit.
- * @return {T}
- * @template T
- */
-function assertInstanceof$1(value, type, message) {
-  // We don't use assert immediately here so that we avoid constructing an error
-  // message if we don't have to.
-  if (!(value instanceof type)) {
-    assertNotReached$1(
-        message ||
-        'Value ' + value + ' is not a[n] ' + (type.name || typeof type));
-  }
-  return value;
+function assertNotReached$1(message = 'Unreachable code hit') {
+    assert$1(false, message);
 }
 
 // Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * Namespace for common types.
- */
-const VolumeManagerCommon = {};
-/**
- * Paths that can be handled by the dialog opener in native code.
- * @enum {string}
- * @const
- */
-const AllowedPaths = {
-    NATIVE_PATH: 'nativePath',
-    ANY_PATH: 'anyPath',
-    ANY_PATH_OR_URL: 'anyPathOrUrl',
-};
-/**
- * Type of a file system.
- * @enum {string}
- * @const
- */
-VolumeManagerCommon.FileSystemType = {
-    UNKNOWN: '',
-    VFAT: 'vfat',
-    EXFAT: 'exfat',
-    NTFS: 'ntfs',
-    HFSPLUS: 'hfsplus',
-    EXT2: 'ext2',
-    EXT3: 'ext3',
-    EXT4: 'ext4',
-    ISO9660: 'iso9660',
-    UDF: 'udf',
-};
-/**
- * Volume name length limits by file system type
- * @enum {number}
- * @const
- */
-VolumeManagerCommon.FileSystemTypeVolumeNameLengthLimit = {
-    'vfat': 11,
-    'exfat': 15,
-    'ntfs': 32,
+/** Paths that can be handled by the dialog opener in native code. */
+var AllowedPaths;
+(function (AllowedPaths) {
+    AllowedPaths["NATIVE_PATH"] = "nativePath";
+    AllowedPaths["ANY_PATH"] = "anyPath";
+    AllowedPaths["ANY_PATH_OR_URL"] = "anyPathOrUrl";
+})(AllowedPaths || (AllowedPaths = {}));
+/** Type of a file system. */
+var FileSystemType;
+(function (FileSystemType) {
+    FileSystemType["UNKNOWN"] = "";
+    FileSystemType["VFAT"] = "vfat";
+    FileSystemType["EXFAT"] = "exfat";
+    FileSystemType["NTFS"] = "ntfs";
+    FileSystemType["HFSPLUS"] = "hfsplus";
+    FileSystemType["EXT2"] = "ext2";
+    FileSystemType["EXT3"] = "ext3";
+    FileSystemType["EXT4"] = "ext4";
+    FileSystemType["ISO9660"] = "iso9660";
+    FileSystemType["UDF"] = "udf";
+    FileSystemType["FUSEBOX"] = "fusebox";
+})(FileSystemType || (FileSystemType = {}));
+/** Volume name length limits by file system type. */
+const FileSystemTypeVolumeNameLengthLimit = {
+    [FileSystemType.VFAT]: 11,
+    [FileSystemType.EXFAT]: 15,
+    [FileSystemType.NTFS]: 32,
 };
 /**
  * Type of a navigation root.
  *
- * Navigation root are the top-level entries in the navigation tree, in the left
- * hand side.
+ * Navigation root are the top-level entries in the navigation tree, in the
+ * left hand side.
  *
  * This must be kept synchronised with the VolumeManagerRootType variant in
  * tools/metrics/histograms/metadata/file/histograms.xml.
- *
- * @enum {string}
- * @const
  */
-VolumeManagerCommon.RootType = {
+var RootType;
+(function (RootType) {
     // Root for a downloads directory.
-    DOWNLOADS: 'downloads',
+    RootType["DOWNLOADS"] = "downloads";
     // Root for a mounted archive volume.
-    ARCHIVE: 'archive',
+    RootType["ARCHIVE"] = "archive";
     // Root for a removable volume.
-    REMOVABLE: 'removable',
+    RootType["REMOVABLE"] = "removable";
     // Root for a drive volume.
-    DRIVE: 'drive',
+    RootType["DRIVE"] = "drive";
     // The grand root entry of Shared Drives in Drive volume.
-    SHARED_DRIVES_GRAND_ROOT: 'shared_drives_grand_root',
+    RootType["SHARED_DRIVES_GRAND_ROOT"] = "shared_drives_grand_root";
     // Root directory of a Shared Drive.
-    SHARED_DRIVE: 'team_drive',
+    RootType["SHARED_DRIVE"] = "team_drive";
     // Root for a MTP volume.
-    MTP: 'mtp',
+    RootType["MTP"] = "mtp";
     // Root for a provided volume.
-    PROVIDED: 'provided',
+    RootType["PROVIDED"] = "provided";
     // Fake root for offline available files on the drive.
-    DRIVE_OFFLINE: 'drive_offline',
+    RootType["DRIVE_OFFLINE"] = "drive_offline";
     // Fake root for shared files on the drive.
-    DRIVE_SHARED_WITH_ME: 'drive_shared_with_me',
+    RootType["DRIVE_SHARED_WITH_ME"] = "drive_shared_with_me";
     // Fake root for recent files on the drive.
-    DRIVE_RECENT: 'drive_recent',
+    RootType["DRIVE_RECENT"] = "drive_recent";
     // Root for media views.
-    MEDIA_VIEW: 'media_view',
+    RootType["MEDIA_VIEW"] = "media_view";
     // Root for documents providers.
-    DOCUMENTS_PROVIDER: 'documents_provider',
+    RootType["DOCUMENTS_PROVIDER"] = "documents_provider";
     // Fake root for the mixed "Recent" view.
-    RECENT: 'recent',
+    RootType["RECENT"] = "recent";
     // 'Google Drive' fake parent entry of 'My Drive', 'Shared with me' and
     // 'Offline'.
-    DRIVE_FAKE_ROOT: 'drive_fake_root',
+    RootType["DRIVE_FAKE_ROOT"] = "drive_fake_root";
     // Root for crostini 'Linux files'.
-    CROSTINI: 'crostini',
+    RootType["CROSTINI"] = "crostini";
     // Root for mountable Guest OSs.
-    GUEST_OS: 'guest_os',
+    RootType["GUEST_OS"] = "guest_os";
     // Root for android files.
-    ANDROID_FILES: 'android_files',
+    RootType["ANDROID_FILES"] = "android_files";
     // My Files root, which aggregates DOWNLOADS, ANDROID_FILES and CROSTINI.
-    MY_FILES: 'my_files',
+    RootType["MY_FILES"] = "my_files";
     // The grand root entry of My Computers in Drive volume.
-    COMPUTERS_GRAND_ROOT: 'computers_grand_root',
+    RootType["COMPUTERS_GRAND_ROOT"] = "computers_grand_root";
     // Root directory of a Computer.
-    COMPUTER: 'computer',
+    RootType["COMPUTER"] = "computer";
     // Root directory of an external media folder under computers grand root.
-    EXTERNAL_MEDIA: 'external_media',
+    RootType["EXTERNAL_MEDIA"] = "external_media";
     // Root directory of an SMB file share.
-    SMB: 'smb',
+    RootType["SMB"] = "smb";
     // Trash.
-    TRASH: 'trash',
-};
-Object.freeze(VolumeManagerCommon.RootType);
+    RootType["TRASH"] = "trash";
+})(RootType || (RootType = {}));
 /**
  * Keep the order of this in sync with FileManagerRootType in
  * tools/metrics/histograms/enums.xml.
- * The array indices will be recorded in UMA as enum values. The index for each
- * root type should never be renumbered nor reused in this array.
- *
- * @type {!Array<VolumeManagerCommon.RootType>}
- * @const
+ * The array indices will be recorded in UMA as enum values. The index for
+ * each root type should never be renumbered nor reused in this array.
  */
-VolumeManagerCommon.RootTypesForUMA = [
-    VolumeManagerCommon.RootType.DOWNLOADS,
-    VolumeManagerCommon.RootType.ARCHIVE,
-    VolumeManagerCommon.RootType.REMOVABLE,
-    VolumeManagerCommon.RootType.DRIVE,
-    VolumeManagerCommon.RootType.SHARED_DRIVES_GRAND_ROOT,
-    VolumeManagerCommon.RootType.SHARED_DRIVE,
-    VolumeManagerCommon.RootType.MTP,
-    VolumeManagerCommon.RootType.PROVIDED,
-    'DEPRECATED_DRIVE_OTHER',
-    VolumeManagerCommon.RootType.DRIVE_OFFLINE,
-    VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME,
-    VolumeManagerCommon.RootType.DRIVE_RECENT,
-    VolumeManagerCommon.RootType.MEDIA_VIEW,
-    VolumeManagerCommon.RootType.RECENT,
-    VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT,
-    'DEPRECATED_ADD_NEW_SERVICES_MENU',
-    VolumeManagerCommon.RootType.CROSTINI,
-    VolumeManagerCommon.RootType.ANDROID_FILES,
-    VolumeManagerCommon.RootType.MY_FILES,
-    VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT,
-    VolumeManagerCommon.RootType.COMPUTER,
-    VolumeManagerCommon.RootType.EXTERNAL_MEDIA,
-    VolumeManagerCommon.RootType.DOCUMENTS_PROVIDER,
-    VolumeManagerCommon.RootType.SMB,
-    'DEPRECATED_RECENT_AUDIO',
-    'DEPRECATED_RECENT_IMAGES',
-    'DEPRECATED_RECENT_VIDEOS',
-    VolumeManagerCommon.RootType.TRASH,
-    VolumeManagerCommon.RootType.GUEST_OS, // 28
+const RootTypesForUMA = [
+    RootType.DOWNLOADS, // 0
+    RootType.ARCHIVE, // 1
+    RootType.REMOVABLE, // 2
+    RootType.DRIVE, // 3
+    RootType.SHARED_DRIVES_GRAND_ROOT, // 4
+    RootType.SHARED_DRIVE, // 5
+    RootType.MTP, // 6
+    RootType.PROVIDED, // 7
+    'DEPRECATED_DRIVE_OTHER', // 8
+    RootType.DRIVE_OFFLINE, // 9
+    RootType.DRIVE_SHARED_WITH_ME, // 10
+    RootType.DRIVE_RECENT, // 11
+    RootType.MEDIA_VIEW, // 12
+    RootType.RECENT, // 13
+    RootType.DRIVE_FAKE_ROOT, // 14
+    'DEPRECATED_ADD_NEW_SERVICES_MENU', // 15
+    RootType.CROSTINI, // 16
+    RootType.ANDROID_FILES, // 17
+    RootType.MY_FILES, // 18
+    RootType.COMPUTERS_GRAND_ROOT, // 19
+    RootType.COMPUTER, // 20
+    RootType.EXTERNAL_MEDIA, // 21
+    RootType.DOCUMENTS_PROVIDER, // 22
+    RootType.SMB, // 23
+    'DEPRECATED_RECENT_AUDIO', // 24
+    'DEPRECATED_RECENT_IMAGES', // 25
+    'DEPRECATED_RECENT_VIDEOS', // 26
+    RootType.TRASH, // 27
+    RootType.GUEST_OS, // 28
 ];
-/**
- * Error type of VolumeManager.
- * @enum {string}
- * @const
- */
-VolumeManagerCommon.VolumeError = {
+/** Error type of VolumeManager. */
+var VolumeError;
+(function (VolumeError) {
     /* Internal errors */
-    TIMEOUT: 'timeout',
+    VolumeError["TIMEOUT"] = "timeout";
     /* System events */
-    UNKNOWN_ERROR: chrome.fileManagerPrivate.MountError.UNKNOWN_ERROR,
-    INTERNAL_ERROR: chrome.fileManagerPrivate.MountError.INTERNAL_ERROR,
-    INVALID_ARGUMENT: chrome.fileManagerPrivate.MountError.INVALID_ARGUMENT,
-    INVALID_PATH: chrome.fileManagerPrivate.MountError.INVALID_PATH,
-    PATH_ALREADY_MOUNTED: chrome.fileManagerPrivate.MountError.PATH_ALREADY_MOUNTED,
-    PATH_NOT_MOUNTED: chrome.fileManagerPrivate.MountError.PATH_NOT_MOUNTED,
-    DIRECTORY_CREATION_FAILED: chrome.fileManagerPrivate.MountError.DIRECTORY_CREATION_FAILED,
-    INVALID_MOUNT_OPTIONS: chrome.fileManagerPrivate.MountError.INVALID_MOUNT_OPTIONS,
-    INSUFFICIENT_PERMISSIONS: chrome.fileManagerPrivate.MountError.INSUFFICIENT_PERMISSIONS,
-    MOUNT_PROGRAM_NOT_FOUND: chrome.fileManagerPrivate.MountError.MOUNT_PROGRAM_NOT_FOUND,
-    MOUNT_PROGRAM_FAILED: chrome.fileManagerPrivate.MountError.MOUNT_PROGRAM_FAILED,
-    INVALID_DEVICE_PATH: chrome.fileManagerPrivate.MountError.INVALID_DEVICE_PATH,
-    UNKNOWN_FILESYSTEM: chrome.fileManagerPrivate.MountError.UNKNOWN_FILESYSTEM,
-    UNSUPPORTED_FILESYSTEM: chrome.fileManagerPrivate.MountError.UNSUPPORTED_FILESYSTEM,
-    NEED_PASSWORD: chrome.fileManagerPrivate.MountError.NEED_PASSWORD,
-    CANCELLED: chrome.fileManagerPrivate.MountError.CANCELLED,
-    BUSY: chrome.fileManagerPrivate.MountError.BUSY,
-};
-Object.freeze(VolumeManagerCommon.VolumeError);
+    VolumeError["SUCCESS"] = "success";
+    VolumeError["IN_PROGRESS"] = "in_progress";
+    VolumeError["UNKNOWN_ERROR"] = "unknown_error";
+    VolumeError["INTERNAL_ERROR"] = "internal_error";
+    VolumeError["INVALID_ARGUMENT"] = "invalid_argument";
+    VolumeError["INVALID_PATH"] = "invalid_path";
+    VolumeError["PATH_ALREADY_MOUNTED"] = "path_already_mounted";
+    VolumeError["PATH_NOT_MOUNTED"] = "path_not_mounted";
+    VolumeError["DIRECTORY_CREATION_FAILED"] = "directory_creation_failed";
+    VolumeError["INVALID_MOUNT_OPTIONS"] = "invalid_mount_options";
+    VolumeError["INSUFFICIENT_PERMISSIONS"] = "insufficient_permissions";
+    VolumeError["MOUNT_PROGRAM_NOT_FOUND"] = "mount_program_not_found";
+    VolumeError["MOUNT_PROGRAM_FAILED"] = "mount_program_failed";
+    VolumeError["INVALID_DEVICE_PATH"] = "invalid_device_path";
+    VolumeError["UNKNOWN_FILESYSTEM"] = "unknown_filesystem";
+    VolumeError["UNSUPPORTED_FILESYSTEM"] = "unsupported_filesystem";
+    VolumeError["NEED_PASSWORD"] = "need_password";
+    VolumeError["CANCELLED"] = "cancelled";
+    VolumeError["BUSY"] = "busy";
+})(VolumeError || (VolumeError = {}));
+/** The type of each volume. */
+var VolumeType;
+(function (VolumeType) {
+    VolumeType["DRIVE"] = "drive";
+    VolumeType["DOWNLOADS"] = "downloads";
+    VolumeType["REMOVABLE"] = "removable";
+    VolumeType["ARCHIVE"] = "archive";
+    VolumeType["MTP"] = "mtp";
+    VolumeType["PROVIDED"] = "provided";
+    VolumeType["MEDIA_VIEW"] = "media_view";
+    VolumeType["DOCUMENTS_PROVIDER"] = "documents_provider";
+    VolumeType["CROSTINI"] = "crostini";
+    VolumeType["GUEST_OS"] = "guest_os";
+    VolumeType["ANDROID_FILES"] = "android_files";
+    VolumeType["MY_FILES"] = "my_files";
+    VolumeType["SMB"] = "smb";
+    VolumeType["SYSTEM_INTERNAL"] = "system_internal";
+    VolumeType["TRASH"] = "trash";
+})(VolumeType || (VolumeType = {}));
+/** Source of each volume's data. */
+var Source;
+(function (Source) {
+    Source["FILE"] = "file";
+    Source["DEVICE"] = "device";
+    Source["NETWORK"] = "network";
+    Source["SYSTEM"] = "system";
+})(Source || (Source = {}));
 /**
- * The type of each volume.
- * @enum {string}
- * @const
- */
-VolumeManagerCommon.VolumeType = {
-    DRIVE: 'drive',
-    DOWNLOADS: 'downloads',
-    REMOVABLE: 'removable',
-    ARCHIVE: 'archive',
-    MTP: 'mtp',
-    PROVIDED: 'provided',
-    MEDIA_VIEW: 'media_view',
-    DOCUMENTS_PROVIDER: 'documents_provider',
-    CROSTINI: 'crostini',
-    GUEST_OS: 'guest_os',
-    ANDROID_FILES: 'android_files',
-    MY_FILES: 'my_files',
-    SMB: 'smb',
-    SYSTEM_INTERNAL: 'system_internal',
-    TRASH: 'trash',
-};
-/**
- * Source of each volume's data.
- * @enum {string}
- * @const
- */
-VolumeManagerCommon.Source = {
-    FILE: 'file',
-    DEVICE: 'device',
-    NETWORK: 'network',
-    SYSTEM: 'system',
-};
-/**
- * Returns if the volume is linux native file system or not. Non-native file
+ * @returns if the volume is linux native file system or not. Non-native file
  * system does not support few operations (e.g. load unpacked extension).
- * @param {VolumeManagerCommon.VolumeType} type
- * @return {boolean}
  */
 function isNative(type) {
-    return type === VolumeManagerCommon.VolumeType.DOWNLOADS ||
-        type === VolumeManagerCommon.VolumeType.DRIVE ||
-        type === VolumeManagerCommon.VolumeType.ANDROID_FILES ||
-        type === VolumeManagerCommon.VolumeType.CROSTINI ||
-        type === VolumeManagerCommon.VolumeType.GUEST_OS ||
-        type === VolumeManagerCommon.VolumeType.REMOVABLE ||
-        type === VolumeManagerCommon.VolumeType.ARCHIVE ||
-        type === VolumeManagerCommon.VolumeType.SMB;
+    return type === VolumeType.DOWNLOADS || type === VolumeType.DRIVE ||
+        type === VolumeType.ANDROID_FILES || type === VolumeType.CROSTINI ||
+        type === VolumeType.GUEST_OS || type === VolumeType.REMOVABLE ||
+        type === VolumeType.ARCHIVE || type === VolumeType.SMB;
 }
-Object.freeze(VolumeManagerCommon.VolumeType);
-/**
- * Obtains volume type from root type.
- * @param {VolumeManagerCommon.RootType} rootType RootType
-// @ts-ignore: error TS2366: Function lacks ending return statement and return
-type does not include 'undefined'.
- * @return {VolumeManagerCommon.VolumeType}
- */
-VolumeManagerCommon.getVolumeTypeFromRootType = rootType => {
+/** Gets volume type from root type. */
+function getVolumeTypeFromRootType(rootType) {
     switch (rootType) {
-        case VolumeManagerCommon.RootType.DOWNLOADS:
-            return VolumeManagerCommon.VolumeType.DOWNLOADS;
-        case VolumeManagerCommon.RootType.ARCHIVE:
-            return VolumeManagerCommon.VolumeType.ARCHIVE;
-        case VolumeManagerCommon.RootType.REMOVABLE:
-            return VolumeManagerCommon.VolumeType.REMOVABLE;
-        case VolumeManagerCommon.RootType.DRIVE:
-        case VolumeManagerCommon.RootType.SHARED_DRIVES_GRAND_ROOT:
-        case VolumeManagerCommon.RootType.SHARED_DRIVE:
-        case VolumeManagerCommon.RootType.DRIVE_OFFLINE:
-        case VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME:
-        case VolumeManagerCommon.RootType.DRIVE_RECENT:
-        case VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT:
-        case VolumeManagerCommon.RootType.COMPUTER:
-        case VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT:
-        case VolumeManagerCommon.RootType.EXTERNAL_MEDIA:
-            return VolumeManagerCommon.VolumeType.DRIVE;
-        case VolumeManagerCommon.RootType.MTP:
-            return VolumeManagerCommon.VolumeType.MTP;
-        case VolumeManagerCommon.RootType.PROVIDED:
-            return VolumeManagerCommon.VolumeType.PROVIDED;
-        case VolumeManagerCommon.RootType.MEDIA_VIEW:
-            return VolumeManagerCommon.VolumeType.MEDIA_VIEW;
-        case VolumeManagerCommon.RootType.DOCUMENTS_PROVIDER:
-            return VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER;
-        case VolumeManagerCommon.RootType.CROSTINI:
-            return VolumeManagerCommon.VolumeType.CROSTINI;
-        case VolumeManagerCommon.RootType.GUEST_OS:
-            return VolumeManagerCommon.VolumeType.GUEST_OS;
-        case VolumeManagerCommon.RootType.ANDROID_FILES:
-            return VolumeManagerCommon.VolumeType.ANDROID_FILES;
-        case VolumeManagerCommon.RootType.MY_FILES:
-            return VolumeManagerCommon.VolumeType.MY_FILES;
-        case VolumeManagerCommon.RootType.SMB:
-            return VolumeManagerCommon.VolumeType.SMB;
-        case VolumeManagerCommon.RootType.TRASH:
-            return VolumeManagerCommon.VolumeType.TRASH;
+        case RootType.DOWNLOADS:
+            return VolumeType.DOWNLOADS;
+        case RootType.ARCHIVE:
+            return VolumeType.ARCHIVE;
+        case RootType.REMOVABLE:
+            return VolumeType.REMOVABLE;
+        case RootType.DRIVE:
+        case RootType.SHARED_DRIVES_GRAND_ROOT:
+        case RootType.SHARED_DRIVE:
+        case RootType.DRIVE_OFFLINE:
+        case RootType.DRIVE_SHARED_WITH_ME:
+        case RootType.DRIVE_RECENT:
+        case RootType.COMPUTERS_GRAND_ROOT:
+        case RootType.COMPUTER:
+        case RootType.DRIVE_FAKE_ROOT:
+        case RootType.EXTERNAL_MEDIA:
+            return VolumeType.DRIVE;
+        case RootType.MTP:
+            return VolumeType.MTP;
+        case RootType.PROVIDED:
+            return VolumeType.PROVIDED;
+        case RootType.MEDIA_VIEW:
+            return VolumeType.MEDIA_VIEW;
+        case RootType.DOCUMENTS_PROVIDER:
+            return VolumeType.DOCUMENTS_PROVIDER;
+        case RootType.CROSTINI:
+            return VolumeType.CROSTINI;
+        case RootType.GUEST_OS:
+            return VolumeType.GUEST_OS;
+        case RootType.ANDROID_FILES:
+            return VolumeType.ANDROID_FILES;
+        case RootType.MY_FILES:
+            return VolumeType.MY_FILES;
+        case RootType.SMB:
+            return VolumeType.SMB;
+        case RootType.TRASH:
+            return VolumeType.TRASH;
     }
     assertNotReached$1('Unknown root type: ' + rootType);
-    return VolumeManagerCommon.VolumeType.DOWNLOADS;
-};
-/**
- * Obtains root type from volume type.
- * @param {VolumeManagerCommon.VolumeType} volumeType .
-// @ts-ignore: error TS2366: Function lacks ending return statement and return
-type does not include 'undefined'.
- * @return {VolumeManagerCommon.RootType}
- */
-VolumeManagerCommon.getRootTypeFromVolumeType = volumeType => {
+}
+/** Gets root type from volume type. */
+function getRootTypeFromVolumeType(volumeType) {
     switch (volumeType) {
-        case VolumeManagerCommon.VolumeType.ANDROID_FILES:
-            return VolumeManagerCommon.RootType.ANDROID_FILES;
-        case VolumeManagerCommon.VolumeType.ARCHIVE:
-            return VolumeManagerCommon.RootType.ARCHIVE;
-        case VolumeManagerCommon.VolumeType.CROSTINI:
-            return VolumeManagerCommon.RootType.CROSTINI;
-        case VolumeManagerCommon.VolumeType.GUEST_OS:
-            return VolumeManagerCommon.RootType.GUEST_OS;
-        case VolumeManagerCommon.VolumeType.DOWNLOADS:
-            return VolumeManagerCommon.RootType.DOWNLOADS;
-        case VolumeManagerCommon.VolumeType.DRIVE:
-            return VolumeManagerCommon.RootType.DRIVE;
-        case VolumeManagerCommon.VolumeType.MEDIA_VIEW:
-            return VolumeManagerCommon.RootType.MEDIA_VIEW;
-        case VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER:
-            return VolumeManagerCommon.RootType.DOCUMENTS_PROVIDER;
-        case VolumeManagerCommon.VolumeType.MTP:
-            return VolumeManagerCommon.RootType.MTP;
-        case VolumeManagerCommon.VolumeType.MY_FILES:
-            return VolumeManagerCommon.RootType.MY_FILES;
-        case VolumeManagerCommon.VolumeType.PROVIDED:
-            return VolumeManagerCommon.RootType.PROVIDED;
-        case VolumeManagerCommon.VolumeType.REMOVABLE:
-            return VolumeManagerCommon.RootType.REMOVABLE;
-        case VolumeManagerCommon.VolumeType.SMB:
-            return VolumeManagerCommon.RootType.SMB;
-        case VolumeManagerCommon.VolumeType.TRASH:
-            return VolumeManagerCommon.RootType.TRASH;
+        case VolumeType.ANDROID_FILES:
+            return RootType.ANDROID_FILES;
+        case VolumeType.ARCHIVE:
+            return RootType.ARCHIVE;
+        case VolumeType.CROSTINI:
+            return RootType.CROSTINI;
+        case VolumeType.GUEST_OS:
+            return RootType.GUEST_OS;
+        case VolumeType.DOWNLOADS:
+            return RootType.DOWNLOADS;
+        case VolumeType.DRIVE:
+            return RootType.DRIVE;
+        case VolumeType.MEDIA_VIEW:
+            return RootType.MEDIA_VIEW;
+        case VolumeType.DOCUMENTS_PROVIDER:
+            return RootType.DOCUMENTS_PROVIDER;
+        case VolumeType.MTP:
+            return RootType.MTP;
+        case VolumeType.MY_FILES:
+            return RootType.MY_FILES;
+        case VolumeType.PROVIDED:
+            return RootType.PROVIDED;
+        case VolumeType.REMOVABLE:
+            return RootType.REMOVABLE;
+        case VolumeType.SMB:
+            return RootType.SMB;
+        case VolumeType.TRASH:
+            return RootType.TRASH;
     }
     assertNotReached$1('Unknown volume type: ' + volumeType);
-    return VolumeManagerCommon.VolumeType.DOWNLOADS;
-};
+}
 /**
- * Returns true if the given |volumeType| is expected to provide third party
+ * @returns whether the given `volumeType` is expected to provide third party
  * icons in the iconSet property of the volume.
- * @param {VolumeManagerCommon.VolumeType} volumeType
- * @return {boolean}
  */
-VolumeManagerCommon.shouldProvideIcons = volumeType => {
+function shouldProvideIcons(volumeType) {
     switch (volumeType) {
-        case VolumeManagerCommon.VolumeType.ANDROID_FILES:
+        case VolumeType.ANDROID_FILES:
+        case VolumeType.DOCUMENTS_PROVIDER:
+        case VolumeType.PROVIDED:
             return true;
-        case VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER:
-            return true;
-        case VolumeManagerCommon.VolumeType.PROVIDED:
-            return true;
-    }
-    if (!volumeType) {
-        assertNotReached$1('Invalid volume type: ' + volumeType);
     }
     return false;
-};
+}
 /**
  * List of media view root types.
- *
  * Keep this in sync with constants in arc_media_view_util.cc.
- *
- * @enum {string}
- * @const
  */
-VolumeManagerCommon.MediaViewRootType = {
-    IMAGES: 'images_root',
-    VIDEOS: 'videos_root',
-    AUDIO: 'audio_root',
-    DOCUMENTS: 'documents_root',
-};
-Object.freeze(VolumeManagerCommon.MediaViewRootType);
+var MediaViewRootType;
+(function (MediaViewRootType) {
+    MediaViewRootType["IMAGES"] = "images_root";
+    MediaViewRootType["VIDEOS"] = "videos_root";
+    MediaViewRootType["AUDIO"] = "audio_root";
+    MediaViewRootType["DOCUMENTS"] = "documents_root";
+})(MediaViewRootType || (MediaViewRootType = {}));
+/** Gets volume type from root type. */
+function getMediaViewRootTypeFromVolumeId(volumeId) {
+    return volumeId.split(':', 2)[1];
+}
 /**
- * Obtains volume type from root type.
- * @param {string} volumeId Volume ID.
- * @return {VolumeManagerCommon.MediaViewRootType}
- */
-VolumeManagerCommon.getMediaViewRootTypeFromVolumeId = volumeId => {
-    return /** @type {VolumeManagerCommon.MediaViewRootType} */ (volumeId.split(':', 2)[1]);
-};
-/**
- * An event name trigerred when a user tries to mount the volume which is
+ * An event name triggered when a user tries to mount the volume which is
  * already mounted. The event object must have a volumeId property.
- * @const @type {string}
  */
-VolumeManagerCommon.VOLUME_ALREADY_MOUNTED = 'volume_already_mounted';
-VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME = 'team_drives';
-VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH =
-    '/' + VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME;
+const VOLUME_ALREADY_MOUNTED = 'volume_already_mounted';
+const SHARED_DRIVES_DIRECTORY_NAME = 'team_drives';
+const SHARED_DRIVES_DIRECTORY_PATH = '/' + SHARED_DRIVES_DIRECTORY_NAME;
 /**
  * This is the top level directory name for Computers in drive that are using
  * the backup and sync feature.
- * @const @type {string}
  */
-VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME = 'Computers';
-VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH =
-    '/' + VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME;
-/**
- * @const
- */
-VolumeManagerCommon.ARCHIVE_OPENED_EVENT_TYPE = 'archive_opened';
-/**
- * ID of the Google Photos DocumentsProvider volume.
- * @const @type {string}
- */
-VolumeManagerCommon.PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID =
-    'documents_provider:com.google.android.apps.photos.photoprovider/com.google.android.apps.photos';
+const COMPUTERS_DIRECTORY_NAME = 'Computers';
+const COMPUTERS_DIRECTORY_PATH = '/' + COMPUTERS_DIRECTORY_NAME;
+const ARCHIVE_OPENED_EVENT_TYPE = 'archive_opened';
+/** ID of the Google Photos DocumentsProvider volume. */
+const PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID = 'documents_provider:com.google.android.apps.photos.photoprovider/com.google.android.apps.photos';
 /**
  * ID of the MediaDocumentsProvider. All the files returned by ARC source in
  * Recents have this ID prefix in their filesystem.
- * @const @type {string}
  */
-VolumeManagerCommon.MEDIA_DOCUMENTS_PROVIDER_ID =
-    'com.android.providers.media.documents';
+const MEDIA_DOCUMENTS_PROVIDER_ID = 'com.android.providers.media.documents';
+/** Checks if a file entry is a Recent entry coming from ARC source. */
+function isRecentArcEntry(entry) {
+    return !!entry &&
+        entry.filesystem.name.startsWith(MEDIA_DOCUMENTS_PROVIDER_ID);
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 /**
- * Creates an CustomEvent object for changing current directory when an archive
- * file is newly mounted, or when opened a one already mounted.
- * @param {!DirectoryEntry} mountPoint The root directory of the mounted
- *     volume.
- * @return {!CustomEvent<!DirectoryEntry>}
+ * @fileoverview Interfaces for the Files app Entry Types.
  */
-VolumeManagerCommon.createArchiveOpenedEvent = mountPoint => {
-    // @ts-ignore: error TS2322: Type 'CustomEvent<{ mountPoint:
-    // FileSystemDirectoryEntry; }>' is not assignable to type
-    // 'CustomEvent<FileSystemDirectoryEntry>'.
-    return new CustomEvent(VolumeManagerCommon.ARCHIVE_OPENED_EVENT_TYPE, { detail: { mountPoint: mountPoint } });
-};
 /**
- * Checks if a file entry is a Recent entry coming from ARC source.
- * @param {?Entry} entry
- * @return {boolean}
+ * FilesAppEntry represents a single Entry (file, folder or root) in the Files
+ * app. Previously, we used the Entry type directly, but this limits the code to
+ * only work with native Entry type which can't be instantiated in JS.
+ * For now, Entry and FilesAppEntry should be used interchangeably.
+ * See also FilesAppDirEntry for a folder-like interface.
+ *
+ * TODO(lucmult): Replace uses of Entry with FilesAppEntry implementations.
  */
-VolumeManagerCommon.isRecentArcEntry = entry => {
-    if (!entry) {
+class FilesAppEntry {
+    constructor(rootType = null) {
+        this.rootType = rootType;
+    }
+    /**
+     * @returns the class name of this object. It's a workaround for the fact that
+     * an instance created in the foreground page and sent to the background page
+     * can't be checked with `instanceof`.
+     */
+    get typeName() {
+        return 'FilesAppEntry';
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return true if this entry represents a Directory-like entry, as
+     * in have sub-entries and implements {createReader} method.
+     */
+    get isDirectory() {
         return false;
     }
-    return entry.filesystem.name.startsWith(VolumeManagerCommon.MEDIA_DOCUMENTS_PROVIDER_ID);
-};
+    /**
+     * This attribute is defined on Entry.
+     * @return true if this entry represents a File-like entry.
+     * Implementations of FilesAppEntry are expected to have this as true.
+     * Whereas implementations of FilesAppDirEntry are expected to have this as
+     * false.
+     */
+    get isFile() {
+        return true;
+    }
+    get filesystem() {
+        return null;
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return absolute path from the file system's root to the entry. It can also
+     * be thought of as a path which is relative to the root directory, prepended
+     * with a "/" character.
+     */
+    get fullPath() {
+        return '';
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return the name of the entry (the final part of the path, after the last.
+     */
+    get name() {
+        return '';
+    }
+    /** This method is defined on Entry. */
+    getParent(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    /** Gets metadata, such as "modificationTime" and "contentMimeType". */
+    getMetadata(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    /**
+     * Returns true if this entry object has a native representation such as Entry
+     * or DirectoryEntry, this means it can interact with VolumeManager.
+     */
+    get isNativeType() {
+        return false;
+    }
+    /**
+     * Returns a FileSystemEntry if this instance has one, returns null if it
+     * doesn't have or the entry hasn't been resolved yet. It's used to unwrap a
+     * FilesAppEntry to be able to send to FileSystem API or fileManagerPrivate.
+     */
+    getNativeEntry() {
+        return null;
+    }
+    copyTo(_newParent, _newName, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    moveTo(_newParent, _newName, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    remove(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+}
+/**
+ * Interface with minimal API shared among different types of FilesAppDirEntry
+ * and native DirectoryEntry. UI components should be able to display any
+ * implementation of FilesAppEntry.
+ *
+ * FilesAppDirEntry represents a DirectoryEntry-like (folder or root) in the
+ * Files app. It's a specialization of FilesAppEntry extending the behavior for
+ * folder, which is basically the method createReader.
+ * As in FilesAppEntry, FilesAppDirEntry should be interchangeable with Entry
+ * and DirectoryEntry.
+ */
+class FilesAppDirEntry extends FilesAppEntry {
+    get typeName() {
+        return 'FilesAppDirEntry';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
+    }
+    /**
+     * @return Returns a reader compatible with DirectoryEntry.createReader (from
+     * Web Standards) that reads the children of this instance.
+     *
+     * This method is defined on DirectoryEntry.
+     */
+    createReader() {
+        return {};
+    }
+    getFile(_path, _options, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    getDirectory(_path, _options, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    removeRecursively(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+}
+/**
+ * FakeEntry is used for entries that used only for UI, that weren't generated
+ * by FileSystem API, like Drive, Downloads or Provided.
+ */
+class FakeEntry extends FilesAppDirEntry {
+    /**
+     * @param label Translated text to be displayed to user.
+     * @param rootType Root type of this entry. Used on Recents to filter the
+     *    source of recent files/directories. Used on Recents to filter recent
+     *    files by their file types.
+     * @param sourceRestriction Used to communicate restrictions about sources to
+     *   chrome.fileManagerPrivate.getRecentFiles API.
+     * @param fileCategory Used to communicate category filter to
+     *   chrome.fileManagerPrivate.getRecentFiles API.
+     */
+    constructor(label, rootType, sourceRestriction, fileCategory) {
+        super(rootType);
+        this.label = label;
+        this.sourceRestriction = sourceRestriction;
+        this.fileCategory = fileCategory;
+        /**
+         * FakeEntry can be disabled if it represents the placeholder of the real
+         * volume.
+         */
+        this.disabled = false;
+    }
+    get typeName() {
+        return 'FakeEntry';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
+    }
+    /** String used to determine the icon. */
+    get iconName() {
+        return '';
+    }
+    /**
+     * FakeEntry can be a placeholder for the real volume, if so
+     * this field will be the volume type of the volume it
+     * represents.
+     */
+    get volumeType() {
+        return null;
+    }
+}
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+/**
+ * List of dialog types.
+ *
+ * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
+ * FULL_PAGE which is specific to this code.
+ * @enum {string}
+ */
+const DialogType = {
+    SELECT_FOLDER: 'folder',
+    SELECT_UPLOAD_FOLDER: 'upload-folder',
+    SELECT_SAVEAS_FILE: 'saveas-file',
+    SELECT_OPEN_FILE: 'open-file',
+    SELECT_OPEN_MULTI_FILE: 'open-multi-file',
+    FULL_PAGE: 'full-page',
+};
 /**
  * @enum {string}
  */
@@ -773,41 +2093,16 @@ const NavigationType = {
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * Namespace for common constants used in Files app.
- * @namespace
- */
-const constants = {};
-/**
- * @const @type {!Array<string>}
- */
-constants.ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES = [
+const ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES = [
     'canPin',
     'hosted',
     'pinned',
 ];
 /**
- * The list of executable file extensions.
- *
- * @const
- * @type {Array<string>}
- */
-// @ts-ignore: error TS4104: The type 'readonly string[]' is 'readonly' and
-// cannot be assigned to the mutable type 'string[]'.
-constants.EXECUTABLE_EXTENSIONS = Object.freeze([
-    '.exe',
-    '.lnk',
-    '.deb',
-    '.dmg',
-    '.jar',
-    '.msi',
-]);
-/**
  * These metadata is expected to be cached to accelerate computeAdditional.
  * See: crbug.com/458915.
- * @const @type {!Array<string>}
  */
-constants.FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
+const FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
     'availableOffline',
     'contentMimeType',
     'hosted',
@@ -819,9 +2114,8 @@ constants.FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
  * TODO(sashab): Store capabilities as a set of flags to save memory. See
  * https://crbug.com/849997
  *
- * @const @type {!Array<string>}
  */
-constants.LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
+const LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
     'availableOffline',
     'contentMimeType',
     'customIconUrl',
@@ -844,57 +2138,47 @@ constants.LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
 /**
  * Metadata properties used to inform the user about DLP (Data Leak Prevention)
  * Files restrictions. These metadata is expected to be cached.
- *
- * @const @type {!Array<string>}
  */
-constants.DLP_METADATA_PREFETCH_PROPERTY_NAMES = [
+const DLP_METADATA_PREFETCH_PROPERTY_NAMES = [
     'isDlpRestricted',
     'sourceUrl',
     'isRestrictedForDestination',
 ];
 /**
  * Name of the default crostini VM: crostini::kCrostiniDefaultVmName
- * @const
  */
-constants.DEFAULT_CROSTINI_VM = 'termina';
+const DEFAULT_CROSTINI_VM = 'termina';
 /**
  * Name of the Plugin VM: plugin_vm::kPluginVmName.
- * @const
  */
-constants.PLUGIN_VM = 'PvmDefault';
+const PLUGIN_VM = 'PvmDefault';
 /**
  * Name of the default bruschetta VM: bruschetta::kBruschettaVmName
- * @const
  */
-constants.DEFAULT_BRUSCHETTA_VM = 'bru';
+const DEFAULT_BRUSCHETTA_VM = 'bru';
 /**
  * DOMError type for crostini connection failure.
- * @const @type {string}
  */
-constants.CROSTINI_CONNECT_ERR = 'CrostiniConnectErr';
+const CROSTINI_CONNECT_ERR = 'CrostiniConnectErr';
 /**
  * ID of the fake fileSystemProvider custom action containing OneDrive document
  * URLs.
- * @const @type {string}
  */
-constants.FSP_ACTION_HIDDEN_ONEDRIVE_URL = 'HIDDEN_ONEDRIVE_URL';
+const FSP_ACTION_HIDDEN_ONEDRIVE_URL = 'HIDDEN_ONEDRIVE_URL';
 /**
  * ID of the fake fileSystemProvider custom action containing OneDrive document
  * User Emails.
- * @const @type {string}
  */
-constants.FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL = 'HIDDEN_ONEDRIVE_USER_EMAIL';
+const FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL = 'HIDDEN_ONEDRIVE_USER_EMAIL';
 /**
  * ID of the fake fileSystemProvider custom action containing OneDrive document
  * Reauthentication Required state.
- * @const @type {string}
  */
-constants.FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED =
-    'HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED';
+const FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED = 'HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED';
 /**
  * All icon types.
  */
-constants.ICON_TYPES = {
+const ICON_TYPES = {
     ANDROID_FILES: 'android_files',
     ARCHIVE: 'archive',
     AUDIO: 'audio',
@@ -970,10 +2254,8 @@ constants.ICON_TYPES = {
 };
 /**
  * Extension ID for OneDrive FSP, also used as ProviderId.
- * @const
- * @type {string}
  */
-constants.ODFS_EXTENSION_ID = 'gnnndjlaomemikopnjhhnoombakkkkdg';
+const ODFS_EXTENSION_ID = 'gnnndjlaomemikopnjhhnoombakkkkdg';
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -989,11 +2271,11 @@ function vmTypeToIconName(vmType) {
     }
     switch (vmType) {
         case chrome.fileManagerPrivate.VmType.BRUSCHETTA:
-            return constants.ICON_TYPES.BRUSCHETTA;
+            return ICON_TYPES.BRUSCHETTA;
         case chrome.fileManagerPrivate.VmType.ARCVM:
-            return constants.ICON_TYPES.ANDROID_FILES;
+            return ICON_TYPES.ANDROID_FILES;
         case chrome.fileManagerPrivate.VmType.TERMINA:
-            return constants.ICON_TYPES.CROSTINI;
+            return ICON_TYPES.CROSTINI;
         default:
             console.error('Unable to determine icon for vmType: ' + vmType);
             return '';
@@ -1012,6 +2294,7 @@ function vmTypeToIconName(vmType) {
  * (aka Entry) and FileSystemDirectoryEntry (aka DirectoryEntry), providing an
  * unified API for Files app UI components. UI components should be able to
  * display any implementation of FilesAppEntry.
+ *
  * The main intention of those types is to be able to provide alternative
  * implementations and from other sources for "entries", as well as be able to
  * extend the native "entry" types.
@@ -1027,24 +2310,23 @@ function vmTypeToIconName(vmType) {
  * https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryReader
  * It can be used by DirectoryEntry-like such as EntryList to return its
  * entries.
- * @extends {DirectoryReader}
  */
 class StaticReader {
     /**
-     * @param {!Array<!Entry|!FilesAppEntry>} entries: Array of Entry-like
-     * instances that will be returned/read by this reader.
+     * @param entries_ Array of Entry-like instances that will be returned/read by
+     * this reader.
      */
-    constructor(entries) {
-        this.entries_ = entries;
+    constructor(entries_) {
+        this.entries_ = entries_;
     }
     /**
      * Reads array of entries via |success| callback.
      *
-     * @param {function(!Array<!Entry>):void} success: A callback that
-     *     will be called multiple times with the entries, last call will be
-     *     called with an empty array indicating that no more entries available.
-     * @param {function(!FileError)=} _error: A callback that's never
-     *     called, it's here to match the signature from the Web Standards.
+     * @param success A callback that will be called multiple times with the
+     * entries, last call will be called with an empty array indicating that no
+     * more entries available.
+     * @param _error A callback that's never called, it's here to match the
+     * signature from the Web Standards.
      */
     readEntries(success, _error) {
         const entries = this.entries_;
@@ -1052,38 +2334,29 @@ class StaticReader {
         // files to return, so we clear the entries_ attribute for next call.
         this.entries_ = [];
         // Triggers callback asynchronously.
-        setTimeout(success, 0, entries);
+        setTimeout(() => success(entries), 0);
     }
 }
 /**
  * A reader compatible with DirectoryEntry.createReader (from Web Standards),
  * It chains entries from one reader to another, creating a combined set of
  * entries from all readers.
- * @extends {DirectoryReader}
  */
 class CombinedReaders {
     /**
-     * @param {!Array<!DirectoryReader>} readers Array of all readers that will
-     * have their entries combined.
+     * @param readers_ Array of all readers that will have their entries combined.
      */
-    constructor(readers) {
-        /**
-         * @private @type {!Array<!DirectoryReader>} Reversed readers so the
-         *     readEntries can just use pop() to get the next
-         */
-        this.readers_ = readers.reverse();
-        /** @private @type {!DirectoryReader} */
-        // @ts-ignore: error TS2322: Type 'DirectoryReader | undefined' is not
-        // assignable to type 'DirectoryReader'.
-        this.currentReader_ = readers.pop();
+    constructor(readers_) {
+        this.readers_ = readers_;
+        // Reverse readers_ so the readEntries can just use pop() to get the next.
+        this.readers_.reverse();
+        this.currentReader_ = this.readers_.pop();
     }
     /**
-     * @param {function(!Array<!Entry>):void} success returning entries
-     *     of all readers, it's called with empty Array when there is no more
-     *     entries to return.
-     * @param {function(!FileError)=} error called when error happens when reading
-     *    from readers.
-     * for this implementation.
+     * @param success returning entries of all readers, it's called with empty
+     * Array when there is no more entries to return.
+     * @param error called when error happens when reading from readers for this
+     * implementation.
      */
     readEntries(success, error) {
         if (!this.currentReader_) {
@@ -1104,14 +2377,9 @@ class CombinedReaders {
                     return;
                 }
                 // Move to next reader and start consuming it.
-                // @ts-ignore: error TS2322: Type 'DirectoryReader | undefined' is not
-                // assignable to type 'DirectoryReader'.
                 this.currentReader_ = this.readers_.pop();
                 this.readEntries(success, error);
             }
-            // @ts-ignore: error TS2345: Argument of type '((arg0: FileError) => any)
-            // | undefined' is not assignable to parameter of type 'ErrorCallback |
-            // undefined'.
         }, error);
     }
 }
@@ -1119,102 +2387,73 @@ class CombinedReaders {
  * EntryList, a DirectoryEntry-like object that contains entries. Initially used
  * to implement "My Files" containing VolumeEntry for "Downloads", "Linux
  * Files" and "Play Files".
- *
- * @implements FilesAppDirEntry
  */
-class EntryList {
+class EntryList extends FilesAppDirEntry {
     /**
-     * @param {string} label: Label to be used when displaying to user, it should
+     * @param label: Label to be used when displaying to user, it should
      *    already translated.
-     * @param {VolumeManagerCommon.RootType} rootType root type.
-     * @param {string} devicePath Device path
+     * @param rootType root type.
+     * @param devicePath Path belonging to the external media device. Partitions
+     * on the same external drive have the same device path.
      */
     constructor(label, rootType, devicePath = '') {
-        /**
-         * @private @type {string} label: Label to be used when displaying to user,
-         *     it
-         *      should be already translated.
-         */
-        this.label_ = label;
-        /** @private @type {VolumeManagerCommon.RootType} rootType root type. */
-        this.rootType_ = rootType;
-        /**
-         * @private @type {string} devicePath Path belonging to the external media
-         * device. Partitions on the same external drive have the same device path.
-         */
-        this.devicePath_ = devicePath;
-        /**
-         * @private @type {!Array<!Entry|!FilesAppEntry>} children entries of
-         * this EntryList instance.
-         */
+        super(rootType);
+        this.label = label;
+        this.devicePath = devicePath;
+        /** Children entries of this EntryList instance. */
         this.children_ = [];
-        this.isDirectory = true;
-        this.isFile = false;
-        this.type_name = 'EntryList';
-        this.fullPath = '/';
         /**
-         * @type {?FileSystem}
-         */
-        this.filesystem = null;
-        /**
-         * @public @type {boolean} EntryList can be a placeholder of a real volume
-         * (e.g. MyFiles or DriveFakeRootEntryList), it can be disabled if the
-         * corresponding volume type is disabled.
+         * EntryList can be a placeholder of a real volume (e.g. MyFiles or
+         * DriveFakeRootEntryList). It can be disabled if the corresponding volume
+         * type is disabled.
          */
         this.disabled = false;
     }
+    get typeName() {
+        return 'EntryList';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
+    }
+    get fullPath() {
+        return '/';
+    }
     /**
-     * @return {!Array<!Entry|!FilesAppEntry>} List of entries that are shown as
+     * @return List of entries that are shown as
      *     children of this Volume in the UI, but are not actually entries of the
      *     Volume.  E.g. 'Play files' is shown as a child of 'My files'.
      */
-    getUIChildren() {
+    getUiChildren() {
         return this.children_;
     }
-    get label() {
-        return this.label_;
-    }
-    get rootType() {
-        return this.rootType_;
-    }
     get name() {
-        return this.label_;
-    }
-    get devicePath() {
-        return this.devicePath_;
+        return this.label;
     }
     get isNativeType() {
         return false;
     }
-    /**
-     * @param {function({modificationTime: Date, size: number}): void} success
-     * @param {function(FileError)=} _error
-     */
     getMetadata(success, _error) {
         // Defaults modificationTime to current time just to have a valid value.
-        setTimeout(() => success({ modificationTime: new Date(), size: 0 }));
+        setTimeout(() => success({ modificationTime: new Date(), size: 0 }), 0);
     }
-    /**
-     * @return {string} used to compare entries.
-     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     toURL() {
-        // There may be multiple entry lists. Append the device path to return
-        // a unique identifiable URL for the entry list.
-        if (this.devicePath_) {
-            return 'entry-list://' + this.rootType + '/' + this.devicePath_;
+        let url = `entry-list://${this.rootType}`;
+        if (this.devicePath) {
+            url += `/${this.devicePath}`;
         }
-        return 'entry-list://' + this.rootType;
+        return url;
     }
-    /**
-     * @param {(function((DirectoryEntry|FilesAppDirEntry)):void)=} success
-     * @param {function(Error)=} _error callback.
-     */
     getParent(success, _error) {
-        const self = /** @type {!FilesAppDirEntry} */ (this);
-        setTimeout(() => success && success(self), 0, this);
+        if (success) {
+            setTimeout(() => success(this), 0);
+        }
     }
     /**
-     * @param {!Entry|!FilesAppEntry} entry that should be added as
+     * @param entry that should be added as
      * child of this EntryList.
      * This method is specific to EntryList instance.
      */
@@ -1222,13 +2461,13 @@ class EntryList {
         this.children_.push(entry);
         // Only VolumeEntry can have prefix set because it sets on VolumeInfo,
         // which is then used on LocationInfo/PathComponent.
-        if ( /** @type{FilesAppEntry} */(entry).type_name == 'VolumeEntry') {
-            const volumeEntry = /** @type {VolumeEntry} */ (entry);
+        const volumeEntry = entry;
+        if (volumeEntry.typeName == 'VolumeEntry') {
             volumeEntry.setPrefix(this);
         }
     }
     /**
-     * @return {!DirectoryReader} Returns a reader compatible with
+     * @return Returns a reader compatible with
      * DirectoryEntry.createReader (from Web Standards) that reads the children of
      * this EntryList instance.
      * This method is defined on DirectoryEntry.
@@ -1237,30 +2476,27 @@ class EntryList {
         return new StaticReader(this.children_);
     }
     /**
-     * @param {!import('../../externs/volume_info.js').VolumeInfo} volumeInfo
-     *     that's desired to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      * Note: we compare the volumeId instead of the whole volumeInfo reference
      * because the same volume could be mounted multiple times and every time a
      * new volumeInfo is created.
-     * @return {number} index of entry on this EntryList or -1 if not found.
+     * @return index of entry on this EntryList or -1 if not found.
      */
     findIndexByVolumeInfo(volumeInfo) {
-        return this.children_.findIndex(childEntry => 
-        /** @type {VolumeEntry} */ (childEntry).volumeInfo ?
-            /** @type {VolumeEntry} */ (childEntry).volumeInfo.volumeId ===
+        return this.children_.findIndex(childEntry => childEntry.volumeInfo ?
+            childEntry.volumeInfo.volumeId ===
                 volumeInfo.volumeId :
             false);
     }
     /**
      * Removes the first volume with the given type.
-     * @param {!VolumeManagerCommon.VolumeType} volumeType desired type.
+     * @param volumeType desired type.
      * This method is specific to VolumeEntry/EntryList instance.
-     * @return {boolean} if entry was removed.
+     * @return if entry was removed.
      */
     removeByVolumeType(volumeType) {
         const childIndex = this.children_.findIndex(childEntry => {
-            const volumeInfo = /** @type {VolumeEntry} */ (childEntry).volumeInfo;
+            const volumeInfo = childEntry.volumeInfo;
             return volumeInfo && volumeInfo.volumeType === volumeType;
         });
         if (childIndex !== -1) {
@@ -1271,28 +2507,28 @@ class EntryList {
     }
     /**
      * Removes all entries that match the rootType.
-     * @param {!VolumeManagerCommon.RootType} rootType to be removed.
+     * @param rootType to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      */
     removeAllByRootType(rootType) {
-        this.children_ = this.children_.filter(entry => /** @type{FilesAppEntry} */ (entry).rootType !== rootType);
+        this.children_ = this.children_.filter(entry => entry.rootType !== rootType);
     }
     /**
      * Removes all entries that match the volumeType.
-     * @param {!VolumeManagerCommon.VolumeType} volumeType to be removed.
+     * @param volumeType to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      */
     removeAllByVolumeType(volumeType) {
-        this.children_ = this.children_.filter(entry => /** @type {VolumeEntry} */ (entry).volumeType !== volumeType);
+        this.children_ = this.children_.filter(entry => entry.volumeType !== volumeType);
     }
     /**
      * Removes the entry.
-     * @param {!Entry|FilesAppEntry} entry to be removed.
+     * @param entry to be removed.
      * This method is specific to EntryList and VolumeEntry instance.
-     * @return {boolean} if entry was removed.
+     * @return true if entry was removed.
      */
     removeChildEntry(entry) {
-        const childIndex = this.children_.findIndex(childEntry => childEntry === entry);
+        const childIndex = this.children_.findIndex(childEntry => isSameEntry(childEntry, entry));
         if (childIndex !== -1) {
             this.children_.splice(childIndex, 1);
             return true;
@@ -1306,62 +2542,17 @@ class EntryList {
      * EntryList can be a placeholder for the real volume (e.g. MyFiles or
      * DriveFakeRootEntryList), if so this field will be the volume type of the
      * volume it represents.
-     * @return {VolumeManagerCommon.VolumeType|null}
      */
     get volumeType() {
         switch (this.rootType) {
-            case VolumeManagerCommon.RootType.MY_FILES:
-                return VolumeManagerCommon.VolumeType.DOWNLOADS;
-            case VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT:
-                return VolumeManagerCommon.VolumeType.DRIVE;
+            case RootType.MY_FILES:
+                return VolumeType.DOWNLOADS;
+            case RootType.DRIVE_FAKE_ROOT:
+                return VolumeType.DRIVE;
             default:
                 return null;
         }
     }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string=} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    copyTo(newParent, newName, success, error) { }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    moveTo(newParent, newName, success, error) { }
-    /**
-     * @param {function(Entry):void|function(FilesAppEntry):void} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    remove(success, error) { }
-    /**
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {(function(!FileEntry)|function(!FilesAppEntry))=} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    getFile(path, options, success, error) { }
-    /**
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {(function(!DirectoryEntry)|function(!FilesAppDirEntry))=} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    getDirectory(path, options, success, error) { }
-    /**
-     * @param {function():void} success
-     * @param {function(!Error)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    removeRecursively(success, error) { }
 }
 /**
  * A DirectoryEntry-like which represents a Volume, based on VolumeInfo.
@@ -1371,177 +2562,106 @@ class EntryList {
  *
  * It's used to be able to add a volume as child of |EntryList| and make volume
  * displayable on file list.
- *
- * @implements FilesAppDirEntry
  */
-class VolumeEntry {
-    /**
-     * @param {!import('../../externs/volume_info.js').VolumeInfo} volumeInfo:
-     *     VolumeInfo for this entry.
-     */
+class VolumeEntry extends FilesAppDirEntry {
+    /** @param volumeInfo VolumeInfo for this entry. */
     constructor(volumeInfo) {
+        super();
+        this.volumeInfo = volumeInfo;
         /**
-         * @private @type {!import('../../externs/volume_info.js').VolumeInfo} holds
-         *     a reference to VolumeInfo to delegate some
-         * method calls to it.
-         */
-        this.volumeInfo_ = volumeInfo;
-        /**
-         * @private @type{!Array<!Entry|!FilesAppEntry>} additional entries that
-         *     will be displayed together with this Volume's entries.
+         * Additional entries that will be displayed together with this Volume's
+         * entries.
          */
         this.children_ = [];
-        /** @type {DirectoryEntry} from Volume's root. */
-        this.rootEntry_ = volumeInfo.displayRoot;
-        if (!volumeInfo.displayRoot) {
-            volumeInfo.resolveDisplayRoot(displayRoot => {
+        this.disabled = false;
+        this.rootEntry_ = this.volumeInfo.displayRoot;
+        if (!this.rootEntry_) {
+            this.volumeInfo.resolveDisplayRoot((displayRoot) => {
                 this.rootEntry_ = displayRoot;
             });
         }
-        this.type_name = 'VolumeEntry';
-        // TODO(b/271485133): consider deriving this from volumeInfo. Setting
-        // rootType here breaks some integration tests, e.g.
-        // saveAsDlpRestrictedAndroid.
-        /** @type {?VolumeManagerCommon.RootType} */
-        this.rootType = null;
-        this.disabled_ = false;
     }
-    /**
-     * @return {!import('../../externs/volume_info.js').VolumeInfo} for this
-     *     entry. This method is only valid for
-     * VolumeEntry instances.
-     */
-    get volumeInfo() {
-        return this.volumeInfo_;
+    get typeName() {
+        return 'VolumeEntry';
     }
-    /** @return {!VolumeManagerCommon.VolumeType} */
     get volumeType() {
-        return this.volumeInfo_.volumeType;
+        return this.volumeInfo.volumeType;
     }
-    /**
-     * @return {?FileSystem} FileSystem for this volume.
-     * This method is defined on Entry.
-     */
     get filesystem() {
         return this.rootEntry_ ? this.rootEntry_.filesystem : null;
     }
     /**
-     * @return {!Array<!Entry|!FilesAppEntry>} List of entries that are shown as
-     *     children of this Volume in the UI, but are not actually entries of the
-     *     Volume.  E.g. 'Play files' is shown as a child of 'My files'.  Use
-     *     createReader to find real child entries of the Volume's filesystem.
+     * @return List of entries that are shown as
+     *     children of this Volume in the UI, but are not
+     * actually entries of the Volume.  E.g. 'Play files' is
+     * shown as a child of 'My files'.  Use createReader to find
+     * real child entries of the Volume's filesystem.
      */
-    getUIChildren() {
+    getUiChildren() {
         return this.children_;
     }
-    /**
-     * @return {string} Full path for this volume.
-     * This method is defined on Entry.
-     */
     get fullPath() {
         return this.rootEntry_ ? this.rootEntry_.fullPath : '';
     }
     get isDirectory() {
-        // Defaults to true if root entry isn't resolved yet, because a VolumeEntry
-        // is like a directory.
         return this.rootEntry_ ? this.rootEntry_.isDirectory : true;
     }
     get isFile() {
-        // Defaults to false if root entry isn't resolved yet.
         return this.rootEntry_ ? this.rootEntry_.isFile : false;
     }
     /**
-     * @return {boolean} if this entry is disabled. This method is only valid for
-     * VolumeEntry instances.
-     */
-    get disabled() {
-        return this.disabled_;
-    }
-    /**
-     * Sets the disabled property. This method is only valid for
-     * VolumeEntry instances.
-     * @param {boolean} disabled
-     */
-    set disabled(disabled) {
-        this.disabled_ = disabled;
-    }
-    /**
      * @see https://github.com/google/closure-compiler/blob/mastexterns/browser/fileapi.js
-     * @param {string} path Entry fullPath.
-     * @param {!FileSystemFlags=} options
-     * @param {function(!DirectoryEntry):void=} success
-     * @param {function(!FileError):void=} error
+     * @param path Entry fullPath.
      */
     getDirectory(path, options, success, error) {
         if (!this.rootEntry_) {
-            error && setTimeout(error, 0, new Error('root entry not resolved yet.'));
+            if (error) {
+                setTimeout(() => error(new Error('Root entry not resolved yet')), 0);
+            }
             return;
         }
-        // @ts-ignore: error TS2769: No overload matches this call.
         this.rootEntry_.getDirectory(path, options, success, error);
     }
     /**
      * @see https://github.com/google/closure-compiler/blob/mastexterns/browser/fileapi.js
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {function(!FileEntry):void=} success
-     * @param {function(!FileError):void=} error
-     * @return {undefined}
      */
     getFile(path, options, success, error) {
         if (!this.rootEntry_) {
-            error && setTimeout(error, 0, new Error('root entry not resolved yet.'));
+            if (error) {
+                setTimeout(() => error(new Error('Root entry not resolved yet')), 0);
+            }
             return;
         }
-        // @ts-ignore: error TS2769: No overload matches this call.
         this.rootEntry_.getFile(path, options, success, error);
     }
-    /**
-     * @return {string} Name for this volume.
-     */
     get name() {
-        return this.volumeInfo_.label;
+        return this.volumeInfo.label;
     }
-    /**
-     * @return {string}
-     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     toURL() {
-        return this.rootEntry_ ? this.rootEntry_.toURL() : '';
+        return this.rootEntry_?.toURL() ?? '';
     }
-    /**
-     * String used to determine the icon.
-     * @return {string}
-     */
+    /** String used to determine the icon. */
     get iconName() {
-        if (this.volumeInfo_.volumeType ==
-            VolumeManagerCommon.VolumeType.GUEST_OS) {
-            return vmTypeToIconName(this.volumeInfo_.vmType);
+        if (this.volumeInfo.volumeType == VolumeType.GUEST_OS) {
+            return vmTypeToIconName(this.volumeInfo.vmType);
         }
-        if (this.volumeInfo_.volumeType ==
-            VolumeManagerCommon.VolumeType.DOWNLOADS) {
-            return /** @type {string} */ (VolumeManagerCommon.VolumeType.MY_FILES);
+        if (this.volumeInfo.volumeType == VolumeType.DOWNLOADS) {
+            return VolumeType.MY_FILES;
         }
-        return /** @type {string} */ (this.volumeInfo_.volumeType);
+        return this.volumeInfo.volumeType;
     }
     /**
-     * @param {function((DirectoryEntry|FilesAppDirEntry)):void=} success
-     *     callback, it returns itself since EntryList is intended to be used as
+     * callback, it returns itself since EntryList is intended to be used as
      * root node and the Web Standard says to do so.
-     * @param {function(Error)=} _error callback, not used for this
-     *     implementation.
+     * @param _error callback, not used for this implementation.
      */
     getParent(success, _error) {
-        const self = /** @type {!FilesAppDirEntry} */ (this);
-        setTimeout(() => success && success(self), 0, this);
+        if (success) {
+            setTimeout(() => success(this), 0);
+        }
     }
-    /**
-     * @param {function({modificationTime: Date, size: number}): void} success
-     * @param {function(FileError)=} error
-     */
     getMetadata(success, error) {
-        // @ts-ignore: error TS2345: Argument of type '((arg0: FileError) => any) |
-        // undefined' is not assignable to parameter of type 'ErrorCallback |
-        // undefined'.
         this.rootEntry_.getMetadata(success, error);
     }
     get isNativeType() {
@@ -1551,9 +2671,9 @@ class VolumeEntry {
         return this.rootEntry_;
     }
     /**
-     * @return {!DirectoryReader} Returns a reader from root entry, which is
-     * compatible with DirectoryEntry.createReader (from Web Standards).
-     * This method is defined on DirectoryEntry.
+     * @return Returns a reader from root entry, which is compatible with
+     * DirectoryEntry.createReader (from Web Standards). This method is defined on
+     * DirectoryEntry.
      */
     createReader() {
         const readers = [];
@@ -1566,53 +2686,49 @@ class VolumeEntry {
         return new CombinedReaders(readers);
     }
     /**
-     * @param {!FilesAppEntry} entry An entry to be used as prefix of this
-     *     instance on breadcrumbs path, e.g. "My Files > Downloads", "My Files"
-     *     is a prefixEntry on "Downloads" VolumeInfo.
+     * @param entry An entry to be used as prefix of this instance on breadcrumbs
+     *     path, e.g. "My Files > Downloads", "My Files" is a prefixEntry on
+     *     "Downloads" VolumeInfo.
      */
     setPrefix(entry) {
-        this.volumeInfo_.prefixEntry = entry;
+        this.volumeInfo.prefixEntry = entry;
     }
     /**
-     * @param {!Entry|!FilesAppEntry} entry that should be added as
-     * child of this VolumeEntry.
-     * This method is specific to VolumeEntry instance.
+     * @param entry that should be added as child of this VolumeEntry. This method
+     * is specific to VolumeEntry instance.
      */
     addEntry(entry) {
         this.children_.push(entry);
-        // Only VolumeEntry can have prefix set because it sets on VolumeInfo,
-        // which is then used on LocationInfo/PathComponent.
-        if ( /** @type {!FilesAppEntry} */(entry).type_name == 'VolumeEntry') {
-            const volumeEntry = /** @type {VolumeEntry} */ (entry);
+        // Only VolumeEntry can have prefix set because it sets on
+        // VolumeInfo, which is then used on
+        // LocationInfo/PathComponent.
+        const volumeEntry = entry;
+        if (volumeEntry.typeName == 'VolumeEntry') {
             volumeEntry.setPrefix(this);
         }
     }
     /**
-     * @param {!import('../../externs/volume_info.js').VolumeInfo} volumeInfo
      *     that's desired to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      * Note: we compare the volumeId instead of the whole volumeInfo reference
      * because the same volume could be mounted multiple times and every time a
      * new volumeInfo is created.
-     * @return {number} index of entry within VolumeEntry or -1 if not found.
+     * @return index of entry within VolumeEntry or -1 if not found.
      */
     findIndexByVolumeInfo(volumeInfo) {
-        return this.children_.findIndex(childEntry => 
-        /** @type {VolumeEntry} */ (childEntry).volumeInfo ?
-            /** @type {VolumeEntry} */ (childEntry).volumeInfo.volumeId ===
-                volumeInfo.volumeId :
-            false);
+        return this.children_.findIndex(childEntry => childEntry.volumeInfo?.volumeId ===
+            volumeInfo.volumeId);
     }
     /**
      * Removes the first volume with the given type.
-     * @param {!VolumeManagerCommon.VolumeType} volumeType desired type.
+     * @param volumeType desired type.
      * This method is specific to VolumeEntry/EntryList instance.
-     * @return {boolean} if entry was removed.
+     * @return if entry was removed.
      */
     removeByVolumeType(volumeType) {
         const childIndex = this.children_.findIndex(childEntry => {
-            const entry = /** @type {VolumeEntry} */ (childEntry);
-            return entry.volumeInfo && entry.volumeInfo.volumeType === volumeType;
+            return childEntry.volumeInfo?.volumeType ===
+                volumeType;
         });
         if (childIndex !== -1) {
             this.children_.splice(childIndex, 1);
@@ -1622,167 +2738,97 @@ class VolumeEntry {
     }
     /**
      * Removes all entries that match the rootType.
-     * @param {!VolumeManagerCommon.RootType} rootType to be removed.
+     * @param rootType to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      */
     removeAllByRootType(rootType) {
-        this.children_ = this.children_.filter(entry => /** @type {!FilesAppEntry} */ (entry).rootType !== rootType);
+        this.children_ = this.children_.filter(entry => entry.rootType !== rootType);
     }
     /**
      * Removes all entries that match the volumeType.
-     * @param {!VolumeManagerCommon.VolumeType} volumeType to be removed.
+     * @param volumeType to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      */
     removeAllByVolumeType(volumeType) {
-        this.children_ = this.children_.filter(entry => /** @type {VolumeEntry} */ (entry).volumeType !== volumeType);
+        this.children_ = this.children_.filter(entry => entry.volumeType !== volumeType);
     }
     /**
      * Removes the entry.
-     * @param {!Entry|FilesAppEntry} entry to be removed.
+     * @param entry to be removed.
      * This method is specific to EntryList and VolumeEntry instance.
-     * @return {boolean} if entry was removed.
+     * @return if entry was removed.
      */
     removeChildEntry(entry) {
-        const childIndex = this.children_.findIndex(childEntry => childEntry === entry);
+        const childIndex = this.children_.findIndex(childEntry => isSameEntry(childEntry, entry));
         if (childIndex !== -1) {
             this.children_.splice(childIndex, 1);
             return true;
         }
         return false;
     }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string=} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    copyTo(newParent, newName, success, error) { }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string} newName
-     * @param {(function(!Entry)|function(!FilesAppEntry))=} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    moveTo(newParent, newName, success, error) { }
-    /**
-     * @param {function(!Entry):void|function(!FilesAppEntry):void} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    remove(success, error) { }
-    /**
-     * @param {function():void} success
-     * @param {function(!Error)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    removeRecursively(success, error) { }
 }
 /**
  * FakeEntry is used for entries that used only for UI, that weren't generated
  * by FileSystem API, like Drive, Downloads or Provided.
- *
- * @implements FakeEntry
  */
-class FakeEntryImpl {
+class FakeEntryImpl extends FakeEntry {
     /**
-     * @param {string} label Translated text to be displayed to user.
-     * @param {!VolumeManagerCommon.RootType} rootType Root type of this entry.
-     * @param {chrome.fileManagerPrivate.SourceRestriction=} opt_sourceRestriction
-     *    used on Recents to filter the source of recent files/directories.
-     * @param {chrome.fileManagerPrivate.FileCategory=} opt_fileCategory
-     *    used on Recents to filter recent files by their file types.
+     * @param label Translated text to be displayed to user.
+     * @param rootType Root type of this entry. used on Recents to filter the
+     *    source of recent files/directories. used on Recents to filter recent
+     *    files by their file types.
+     * @param sourceRestriction Used to communicate restrictions about sources to
+     * chrome.fileManagerPrivate.getRecentFiles API.
+     * @param fileCategory Used to communicate file-type filter to
+     * chrome.fileManagerPrivate.getRecentFiles API.
      */
-    constructor(label, rootType, opt_sourceRestriction, opt_fileCategory) {
-        /**
-         * @public @type {string} label: Label to be used when displaying to user,
-         * it should be already translated.
-         */
-        this.label = label;
-        /** @public @type {string} Name for this volume. */
-        this.name = label;
-        /** @public @type {!VolumeManagerCommon.RootType} */
-        this.rootType = rootType;
-        /** @public @type {boolean} true FakeEntry are always directory-like. */
-        this.isDirectory = true;
-        /** @public @type {boolean} false FakeEntry are always directory-like. */
-        this.isFile = false;
-        /**
-         * @public @type {boolean} false FakeEntry can be disabled if it represents
-         * the placeholder of the real volume.
-         */
-        this.disabled = false;
-        /**
-         * @public @type {chrome.fileManagerPrivate.SourceRestriction|undefined}
-         * It's used to communicate restrictions about sources to
-         * chrome.fileManagerPrivate.getRecentFiles API.
-         */
-        this.sourceRestriction = opt_sourceRestriction;
-        /**
-         * @public @type {chrome.fileManagerPrivate.FileCategory|undefined} It's
-         * used to communicate file-type filter to
-         * chrome.fileManagerPrivate.getRecentFiles API.
-         */
-        this.fileCategory = opt_fileCategory;
-        /**
-         * @public @type {string} the class name for this class. It's workaround for
-         * the fact that an instance created on foreground page and sent to
-         * background page can't be checked with "instanceof".
-         */
-        this.type_name = 'FakeEntry';
-        this.fullPath = '/';
-        /**
-         * @type {?FileSystem}
-         */
-        this.filesystem = null;
+    constructor(label, rootType, sourceRestriction, fileCategory) {
+        super(label, rootType, sourceRestriction, fileCategory);
+    }
+    get name() {
+        return this.label;
+    }
+    get fullPath() {
+        return '/';
     }
     /**
      * FakeEntry is used as root, so doesn't have a parent and should return
-     * itself.
-     * @param {(function((DirectoryEntry|FilesAppDirEntry)):void)=} success
-     *     callback, it returns itself since EntryList is intended to be used as
-     * root node and the Web Standard says to do so.
-     * @param {function(Error)=} _error callback, not used for this
-     *     implementation.
+     * itself. callback, it returns itself since EntryList is intended to be used
+     * as root node and the Web Standard says to do so.
+     * @param _error callback, not used for this implementation.
      */
     getParent(success, _error) {
-        const self = /** @type {!FilesAppDirEntry} */ (this);
-        setTimeout(() => success && success(self), 0, this);
+        if (success) {
+            setTimeout(() => success(this), 0);
+        }
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     toURL() {
-        let url = 'fake-entry://' + this.rootType;
+        let url = `fake-entry://${this.rootType}`;
         if (this.fileCategory) {
-            url += '/' + this.fileCategory;
+            url += `/${this.fileCategory}`;
         }
         return url;
     }
     /**
-     * @return {!Array<!Entry|!FilesAppEntry>} List of entries that are shown as
-     *     children of this Volume in the UI, but are not actually entries of the
-     *     Volume.  E.g. 'Play files' is shown as a child of 'My files'.
+     * @return List of entries that are shown as children of this Volume in the
+     *     UI, but are not actually entries of the Volume.  E.g. 'Play files' is
+     *     shown as a child of 'My files'.
      */
-    getUIChildren() {
+    getUiChildren() {
         return [];
     }
-    /**
-     * String used to determine the icon.
-     * @return {string}
-     */
+    /** String used to determine the icon. */
     get iconName() {
-        // When Drive volume isn't available yet, the FakeEntry should show the
-        // "drive" icon.
-        if (this.rootType === VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT) {
-            return /** @type {string}  */ (VolumeManagerCommon.RootType.DRIVE);
+        // When Drive volume isn't available yet, the
+        // FakeEntry should show the "drive" icon.
+        if (this.rootType === RootType.DRIVE_FAKE_ROOT) {
+            return RootType.DRIVE;
         }
-        return /** @type{string} */ (this.rootType);
+        return this.rootType ?? '';
     }
-    /**
-     * @param {function({modificationTime: Date, size: number}): void} success
-     * @param {function(FileError)=} _error
-     */
     getMetadata(success, _error) {
-        setTimeout(() => success({ modificationTime: new Date(), size: 0 }));
+        setTimeout(() => success({ modificationTime: new Date(), size: 0 }), 0);
     }
     get isNativeType() {
         return false;
@@ -1791,8 +2837,8 @@ class FakeEntryImpl {
         return null;
     }
     /**
-     * @return {!DirectoryReader} Returns a reader compatible with
-     * DirectoryEntry.createReader (from Web Standards) that reads 0 entries.
+     * @return Returns a reader compatible with DirectoryEntry.createReader (from
+     * Web Standards) that reads 0 entries.
      */
     createReader() {
         return new StaticReader([]);
@@ -1800,107 +2846,49 @@ class FakeEntryImpl {
     /**
      * FakeEntry can be a placeholder for the real volume, if so this field will
      * be the volume type of the volume it represents.
-     * @return {VolumeManagerCommon.VolumeType|null}
      */
     get volumeType() {
-        // Recent rootType has no corresponding volume type, and it will throw error
-        // in the below getVolumeTypeFromRootType() call, we need to return null
-        // here.
-        if (this.rootType === VolumeManagerCommon.RootType.RECENT) {
+        // Recent rootType has no corresponding volume
+        // type, and it will throw error in the below
+        // getVolumeTypeFromRootType() call, we need to
+        // return null here.
+        if (this.rootType === RootType.RECENT) {
             return null;
         }
-        return VolumeManagerCommon.getVolumeTypeFromRootType(this.rootType);
+        return getVolumeTypeFromRootType(this.rootType);
     }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string=} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    copyTo(newParent, newName, success, error) { }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    moveTo(newParent, newName, success, error) { }
-    /**
-     * @param {function(Entry):void|function(FilesAppEntry):void} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    remove(success, error) { }
-    /**
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {(function(!FileEntry)|function(!FilesAppEntry))=} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    getFile(path, options, success, error) { }
-    /**
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {(function(!DirectoryEntry)|function(!FilesAppDirEntry))=} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    getDirectory(path, options, success, error) { }
-    /**
-     * @param {function():void} success
-     * @param {function(!Error)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    removeRecursively(success, error) { }
 }
 /**
  * GuestOsPlaceholder is used for placeholder entries in the UI, representing
  * Guest OSs (e.g. Crostini) that could be mounted but aren't yet.
- *
- * @implements FakeEntry
  */
 class GuestOsPlaceholder extends FakeEntryImpl {
     /**
-     * @param {string} label Translated text to be displayed to user.
-     * @param {number} guest_id Id of the guest
-     * @param {!chrome.fileManagerPrivate.VmType} vm_type Type of the underlying
-     *     VM
+     * @param label Translated text to be displayed to user.
+     * @param guest_id Id of the guest
+     * @param vm_type Type of the underlying VM
      */
     constructor(label, guest_id, vm_type) {
-        super(label, VolumeManagerCommon.RootType.GUEST_OS, undefined, undefined);
-        /**
-         * @public @type {number} The id of this guest
-         */
+        super(label, RootType.GUEST_OS);
         this.guest_id = guest_id;
-        /**
-         * @public @type {string} the class name for this class. It's workaround for
-         * the fact that an instance created on foreground page and sent to
-         * background page can't be checked with "instanceof".
-         */
-        this.type_name = 'GuestOsPlaceholder';
         this.vm_type = vm_type;
     }
-    /**
-     * String used to determine the icon.
-     * @return {string}
-     * @override
-     */
+    get typeName() {
+        return 'GuestOsPlaceholder';
+    }
+    /** String used to determine the icon. */
     get iconName() {
         return vmTypeToIconName(this.vm_type);
     }
-    /** @override */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     toURL() {
         return `fake-entry://guest-os/${this.guest_id}`;
     }
-    /** @override */
     get volumeType() {
         if (this.vm_type === chrome.fileManagerPrivate.VmType.ARCVM) {
-            return VolumeManagerCommon.VolumeType.ANDROID_FILES;
+            return VolumeType.ANDROID_FILES;
         }
-        return VolumeManagerCommon.VolumeType.GUEST_OS;
+        return VolumeType.GUEST_OS;
     }
 }
 
@@ -1930,12 +2918,6 @@ function isGuestOsEnabled() {
     return isFlagEnabled('GUEST_OS');
 }
 /**
- * Returns true if Jelly flag is enabled.
- */
-function isJellyEnabled() {
-    return isFlagEnabled('JELLY');
-}
-/**
  * Returns true if the cros-components flag is enabled.
  */
 function isCrosComponentsEnabled() {
@@ -1957,18 +2939,6 @@ function isSinglePartitionFormatEnabled() {
     return isFlagEnabled('FILES_SINGLE_PARTITION_FORMAT_ENABLED');
 }
 /**
- * Returns true if InlineSyncStatus feature flag is enabled.
- */
-function isInlineSyncStatusEnabled() {
-    return isFlagEnabled('INLINE_SYNC_STATUS');
-}
-/**
- * Returns true if FilesDriveShortcuts flag is enabled.
- */
-function isDriveShortcutsEnabled() {
-    return isFlagEnabled('DRIVE_SHORTCUTS');
-}
-/**
  * Returns whether the DriveFsBulkPinning feature flag is enabled.
  */
 function isDriveFsBulkPinningEnabled() {
@@ -1985,6 +2955,253 @@ function isArcVmEnabled() {
 }
 function isPluginVmEnabled() {
     return isFlagEnabled('PLUGIN_VM_ENABLED');
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Returns a translated string.
+ *
+ * Wrapper function to make dealing with translated strings more concise.
+ * Equivalent to loadTimeData.getString(id).
+ */
+function str(id) {
+    try {
+        return loadTimeData.getString(id);
+    }
+    catch (e) {
+        console.warn('Failed to get string for', id);
+        return id;
+    }
+}
+/**
+ * Returns a translated string with arguments replaced.
+ *
+ * Wrapper function to make dealing with translated strings more concise.
+ * Equivalent to loadTimeData.getStringF(id, ...).
+ */
+function strf(id, ...args) {
+    return loadTimeData.getStringF.apply(loadTimeData, [id, ...args]);
+}
+/**
+ * Collator for sorting.
+ */
+const collator = new Intl.Collator([], { usage: 'sort', numeric: true, sensitivity: 'base' });
+/**
+ * Returns normalized current locale, or default locale - 'en'.
+ */
+function getCurrentLocaleOrDefault() {
+    const locale = str('UI_LOCALE') || 'en';
+    return locale.replace(/_/g, '-');
+}
+/**
+ * Convert a number of bytes into a human friendly format, using the correct
+ * number separators.
+ */
+function bytesToString(bytes, addedPrecision = 0) {
+    // Translation identifiers for size units.
+    const UNITS = [
+        'SIZE_BYTES',
+        'SIZE_KB',
+        'SIZE_MB',
+        'SIZE_GB',
+        'SIZE_TB',
+        'SIZE_PB',
+    ];
+    // Minimum values for the units above.
+    const STEPS = [
+        0,
+        Math.pow(2, 10),
+        Math.pow(2, 20),
+        Math.pow(2, 30),
+        Math.pow(2, 40),
+        Math.pow(2, 50),
+    ];
+    // Rounding with precision.
+    const round = (value, decimals) => {
+        const scale = Math.pow(10, decimals);
+        return Math.round(value * scale) / scale;
+    };
+    const str = (n, u) => {
+        return strf(u, n.toLocaleString());
+    };
+    const fmt = (s, u) => {
+        const rounded = round(bytes / s, 1 + addedPrecision);
+        return str(rounded, u);
+    };
+    // Less than 1KB is displayed like '80 bytes'.
+    if (bytes < STEPS[1]) {
+        return str(bytes, UNITS[0]);
+    }
+    // Up to 1MB is displayed as rounded up number of KBs, or with the desired
+    // number of precision digits.
+    if (bytes < STEPS[2]) {
+        const rounded = addedPrecision ? round(bytes / STEPS[1], addedPrecision) :
+            Math.ceil(bytes / STEPS[1]);
+        return str(rounded, UNITS[1]);
+    }
+    // This loop index is used outside the loop if it turns out |bytes|
+    // requires the largest unit.
+    let i;
+    for (i = 2 /* MB */; i < UNITS.length - 1; i++) {
+        if (bytes < STEPS[i + 1]) {
+            return fmt(STEPS[i], UNITS[i]);
+        }
+    }
+    return fmt(STEPS[i], UNITS[i]);
+}
+/**
+ * Returns the localized name of the root type.
+ */
+function getRootTypeLabel(locationInfo) {
+    const volumeInfoLabel = locationInfo.volumeInfo?.label || '';
+    switch (locationInfo.rootType) {
+        case RootType.DOWNLOADS:
+            return volumeInfoLabel;
+        case RootType.DRIVE:
+            return str('DRIVE_MY_DRIVE_LABEL');
+        // |locationInfo| points to either the root directory of an individual Team
+        // Drive or sub-directory under it, but not the Shared Drives grand
+        // directory. Every Shared Drive and its sub-directories always have
+        // individual names (locationInfo.hasFixedLabel is false). So
+        // getRootTypeLabel() is used by PathComponent.computeComponentsFromEntry()
+        // to display the ancestor name in the breadcrumb like this:
+        //   Shared Drives > ABC Shared Drive > Folder1
+        //   ^^^^^^^^^^^
+        // By this reason, we return the label of the Shared Drives grand root here.
+        case RootType.SHARED_DRIVE:
+        case RootType.SHARED_DRIVES_GRAND_ROOT:
+            return str('DRIVE_SHARED_DRIVES_LABEL');
+        case RootType.COMPUTER:
+        case RootType.COMPUTERS_GRAND_ROOT:
+            return str('DRIVE_COMPUTERS_LABEL');
+        case RootType.DRIVE_OFFLINE:
+            return str('DRIVE_OFFLINE_COLLECTION_LABEL');
+        case RootType.DRIVE_SHARED_WITH_ME:
+            return str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL');
+        case RootType.DRIVE_RECENT:
+            return str('DRIVE_RECENT_COLLECTION_LABEL');
+        case RootType.DRIVE_FAKE_ROOT:
+            return str('DRIVE_DIRECTORY_LABEL');
+        case RootType.RECENT:
+            return str('RECENT_ROOT_LABEL');
+        case RootType.CROSTINI:
+            return str('LINUX_FILES_ROOT_LABEL');
+        case RootType.MY_FILES:
+            return str('MY_FILES_ROOT_LABEL');
+        case RootType.TRASH:
+            return str('TRASH_ROOT_LABEL');
+        case RootType.MEDIA_VIEW:
+            const mediaViewRootType = getMediaViewRootTypeFromVolumeId(locationInfo.volumeInfo?.volumeId || '');
+            switch (mediaViewRootType) {
+                case MediaViewRootType.IMAGES:
+                    return str('MEDIA_VIEW_IMAGES_ROOT_LABEL');
+                case MediaViewRootType.VIDEOS:
+                    return str('MEDIA_VIEW_VIDEOS_ROOT_LABEL');
+                case MediaViewRootType.AUDIO:
+                    return str('MEDIA_VIEW_AUDIO_ROOT_LABEL');
+                case MediaViewRootType.DOCUMENTS:
+                    return str('MEDIA_VIEW_DOCUMENTS_ROOT_LABEL');
+                default:
+                    console.error('Unsupported media view root type: ' + mediaViewRootType);
+                    return volumeInfoLabel;
+            }
+        case RootType.ARCHIVE:
+        case RootType.REMOVABLE:
+        case RootType.MTP:
+        case RootType.PROVIDED:
+        case RootType.ANDROID_FILES:
+        case RootType.DOCUMENTS_PROVIDER:
+        case RootType.SMB:
+        case RootType.GUEST_OS:
+            return volumeInfoLabel;
+        default:
+            console.error('Unsupported root type: ' + locationInfo.rootType);
+            return volumeInfoLabel;
+    }
+}
+/**
+ * Returns the localized/i18n name of the entry.
+ */
+function getEntryLabel(locationInfo, entry) {
+    if (locationInfo) {
+        if (locationInfo.hasFixedLabel) {
+            return getRootTypeLabel(locationInfo);
+        }
+        if (entry.filesystem && entry.filesystem.root === entry) {
+            return getRootTypeLabel(locationInfo);
+        }
+    }
+    // Special case for MyFiles/Downloads, MyFiles/PvmDefault and MyFiles/Camera.
+    if (locationInfo && locationInfo.rootType == RootType.DOWNLOADS) {
+        if (entry.fullPath == '/Downloads') {
+            return str('DOWNLOADS_DIRECTORY_LABEL');
+        }
+        if (entry.fullPath == '/PvmDefault') {
+            return str('PLUGIN_VM_DIRECTORY_LABEL');
+        }
+        if (entry.fullPath == '/Camera') {
+            return str('CAMERA_DIRECTORY_LABEL');
+        }
+    }
+    return entry.name;
+}
+/**
+ * Get the locale based week start from the load time data.
+ */
+function getLocaleBasedWeekStart() {
+    return loadTimeData.valueExists('WEEK_START_FROM') ?
+        loadTimeData.getInteger('WEEK_START_FROM') :
+        0;
+}
+/**
+ * Converts seconds into a time remaining string.
+ */
+function secondsToRemainingTimeString(seconds) {
+    const locale = getCurrentLocaleOrDefault();
+    let minutes = Math.ceil(seconds / 60);
+    if (minutes <= 1) {
+        // Less than one minute. Display remaining time in seconds.
+        const formatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'second', unitDisplay: 'long' });
+        return strf('TIME_REMAINING_ESTIMATE', formatter.format(Math.ceil(seconds)));
+    }
+    const minuteFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'minute', unitDisplay: 'long' });
+    const hours = Math.floor(minutes / 60);
+    if (hours == 0) {
+        // Less than one hour. Display remaining time in minutes.
+        return strf('TIME_REMAINING_ESTIMATE', minuteFormatter.format(minutes));
+    }
+    minutes -= hours * 60;
+    const hourFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'hour', unitDisplay: 'long' });
+    if (minutes == 0) {
+        // Hours but no minutes.
+        return strf('TIME_REMAINING_ESTIMATE', hourFormatter.format(hours));
+    }
+    // Hours and minutes.
+    return strf('TIME_REMAINING_ESTIMATE_2', hourFormatter.format(hours), minuteFormatter.format(minutes));
+}
+/**
+ * Mapping table of file error name to i18n localized error name.
+ */
+const FileErrorLocalizedName = {
+    'InvalidModificationError': 'FILE_ERROR_INVALID_MODIFICATION',
+    'InvalidStateError': 'FILE_ERROR_INVALID_STATE',
+    'NoModificationAllowedError': 'FILE_ERROR_NO_MODIFICATION_ALLOWED',
+    'NotFoundError': 'FILE_ERROR_NOT_FOUND',
+    'NotReadableError': 'FILE_ERROR_NOT_READABLE',
+    'PathExistsError': 'FILE_ERROR_PATH_EXISTS',
+    'QuotaExceededError': 'FILE_ERROR_QUOTA_EXCEEDED',
+    'SecurityError': 'FILE_ERROR_SECURITY',
+};
+/**
+ * Returns i18n localized error name for file error |name|.
+ */
+function getFileErrorString(name) {
+    const error = name && name in FileErrorLocalizedName ?
+        FileErrorLocalizedName[name] :
+        'FILE_ERROR_GENERIC';
+    return loadTimeData.getString(error);
 }
 
 // Copyright 2022 The Chromium Authors
@@ -2007,10 +3224,6 @@ function isActionsProducer(value) {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview A Selector implementation for redux, bundled with a
- * SelectorEmitter helper class that allows selectors to be efficiently updated.
- */
 /**
  * A class implementing ReactiveController in order to provide an ergonomic
  * way to update Lit elements based on selected data.
@@ -2053,10 +3266,10 @@ class SelectorNode {
      *     selector node is constructed. The arguments of select() must match the
      *     order and type of what is emitted by the parents. This typing match is
      *     not enforced here because SelectorNodes are only meant to be created by
-     *     the Store. Users of the Store should use `combineXSelectors()` to combine
-     *     selectors.
+     *     the Store. Users of the Store should use `combineXSelectors()` to
+     * combine selectors.
      * @param name An optional human-readable name used for debugging purposes.
-     *     Named selectors will log to the console when window.DEBUG_STORE is set,
+     *     Named selectors will log to the console when DEBUG_STORE is set,
      *     whenever they emit a new value.
      */
     constructor(parents, select, name) {
@@ -2090,11 +3303,11 @@ class SelectorNode {
      *
      * Slice's default selectors are then connected to the store's source node,
      * and additional selector nodes can then be created from store and slices'
-     * default selectors using `combineXSelectors()` (and resulting selectors can be
-     * further combined using `combineXSelectors()`).
+     * default selectors using `combineXSelectors()` (and resulting selectors can
+     * be further combined using `combineXSelectors()`).
      */
-    static createSourceNode(select) {
-        return new SelectorNode([], select);
+    static createSourceNode(select, name) {
+        return new SelectorNode([], select, name);
     }
     /**
      * Creates a selector node that doesn't have parents or select function. Used
@@ -2154,7 +3367,7 @@ class SelectorNode {
         if (newValue === this.value_) {
             return false;
         }
-        if (window.DEBUG_STORE && this.name) {
+        if (isDebugStoreEnabled() && this.name) {
             console.log(`Selector '${this.name}' emitted a new value:`);
             console.log(newValue);
         }
@@ -2292,10 +3505,9 @@ class Slice {
         }
         this.reducers.set(type, reducer);
         const actionFactory = (payload) => ({ type, payload });
-        // Include action type and payload typing so different slices can register
-        // reducers for the same action type.
+        // Include action type so different slices can register reducers for the
+        // same action type.
         actionFactory.type = type;
-        actionFactory.PAYLOAD = null;
         return actionFactory;
     }
 }
@@ -2340,7 +3552,7 @@ class BaseStore {
                 [...sliceNames].join(', '));
         }
         // Connect the default root selector to the Selector Emitter.
-        const rootSelector = SelectorNode.createSourceNode(() => this.state_);
+        const rootSelector = SelectorNode.createSourceNode(() => this.state_, 'root');
         this.selectorEmitter_.addSource(rootSelector);
         this.selector = rootSelector;
         for (const slice of slices) {
@@ -2369,7 +3581,12 @@ class BaseStore {
     init(initialState) {
         this.state_ = initialState;
         this.queuedActions_.forEach((action) => {
-            this.dispatchInternal_(action);
+            if (isActionsProducer(action)) {
+                this.consumeProducedActions_(action);
+            }
+            else {
+                this.dispatchInternal_(action);
+            }
         });
         this.initialized_ = true;
         this.selectorEmitter_.processChange();
@@ -2425,15 +3642,16 @@ class BaseStore {
      * reducers during the initialization.
      */
     dispatch(action) {
-        if (isActionsProducer(action)) {
-            this.consumeProducedActions_(action);
-            return;
-        }
         if (!this.initialized_) {
             this.queuedActions_.push(action);
             return;
         }
-        this.dispatchInternal_(action);
+        if (isActionsProducer(action)) {
+            this.consumeProducedActions_(action);
+        }
+        else {
+            this.dispatchInternal_(action);
+        }
     }
     /** Synchronously call apply the `action` by calling the reducer.  */
     dispatchInternal_(action) {
@@ -2469,7 +3687,8 @@ class BaseStore {
     }
     /** Apply the `action` to the Store by calling the reducer.  */
     reduce(action) {
-        if (window.DEBUG_STORE) {
+        const isDebugStore = isDebugStoreEnabled();
+        if (isDebugStore) {
             console.groupCollapsed(`Action: ${action.type}`);
             console.dir(action.payload);
         }
@@ -2487,7 +3706,7 @@ class BaseStore {
         if (this.selector.get() !== this.state_) {
             this.selectorEmitter_.processChange();
         }
-        if (window.DEBUG_STORE) {
+        if (isDebugStore) {
             console.groupEnd();
         }
     }
@@ -2519,36 +3738,6 @@ function isInvalidationError(error) {
         return true;
     }
     return false;
-}
-
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * List of dialog types.
- *
- * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
- * FULL_PAGE which is specific to this code.
- */
-var DialogType;
-(function (DialogType) {
-    DialogType["SELECT_FOLDER"] = "folder";
-    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
-    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
-    DialogType["SELECT_OPEN_FILE"] = "open-file";
-    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
-    DialogType["FULL_PAGE"] = "full-page";
-})(DialogType || (DialogType = {}));
-function isModal(type) {
-    return type == DialogType.SELECT_FOLDER ||
-        type == DialogType.SELECT_UPLOAD_FOLDER ||
-        type == DialogType.SELECT_SAVEAS_FILE ||
-        type == DialogType.SELECT_OPEN_FILE ||
-        type == DialogType.SELECT_OPEN_MULTI_FILE;
-}
-function isFolderDialogType(type) {
-    return type == DialogType.SELECT_FOLDER ||
-        type == DialogType.SELECT_UPLOAD_FOLDER;
 }
 
 // Copyright 2022 The Chromium Authors
@@ -4440,225 +5629,392 @@ function getFileTypeForName(name) {
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * Namespace object for file type utility functions.
- */
-function FileType() { }
 // All supported file types are now defined in
 // ui/file_manager/base/gn/file_types.json5.
-/**
- * A special type for directory.
- * @type{!FileExtensionType}
- * @const
- */
-// @ts-ignore: error TS2739: Type '{ translationKey: string; type: string; icon:
-// string; subtype: string; }' is missing the following properties from type
-// 'FileExtensionType': extensions, mime, encrypted, originalMimeType
-FileType.DIRECTORY = {
+/** A special type for directory. */
+const DIRECTORY = {
     translationKey: 'FOLDER',
     type: '.folder',
     icon: 'folder',
     subtype: '',
+    extensions: undefined,
+    mime: undefined,
+    encrypted: undefined,
+    originalMimeType: undefined,
 };
 /**
  * Returns the file path extension for a given file.
  *
- * @param {Entry|FilesAppEntry} entry Reference to the file.
- * @return {string} The extension including a leading '.', or empty string if
- *     not found.
+ * @param entry Reference to the file.
+ * @return The extension including a leading '.', or empty string if not found.
  */
-FileType.getExtension = entry => {
+function getExtension(entry) {
     // No extension for a directory.
     if (entry.isDirectory) {
         return '';
     }
     return getFinalExtension(entry.name);
-};
+}
 /**
  * Gets the file type object for a given entry. If mime type is provided, then
  * uses it with higher priority than the extension.
  *
- * @param {(Entry|FilesAppEntry)} entry Reference to the entry.
- * @param {string=} opt_mimeType Optional mime type for the entry.
- * @return {!FileExtensionType} The matching descriptor or a placeholder.
+ * @param entry Reference to the entry.
+ * @param mimeType Optional mime type for the entry.
+ * @return The matching descriptor or a placeholder.
  */
-FileType.getType = (entry, opt_mimeType) => {
+function getType(entry, mimeType) {
     if (entry.isDirectory) {
+        const volumeInfo = entry.volumeInfo;
         // For removable partitions, use the file system type.
-        if ( /** @type {VolumeEntry}*/(entry).volumeInfo &&
-            /** @type {VolumeEntry}*/ (entry).volumeInfo.diskFileSystemType) {
-            // @ts-ignore: error TS2739: Type '{ translationKey: string; type: string;
-            // subtype: string; icon: string; }' is missing the following properties
-            // from type 'FileExtensionType': extensions, mime, encrypted,
-            // originalMimeType
+        if (volumeInfo && volumeInfo.diskFileSystemType) {
             return {
                 translationKey: '',
                 type: 'partition',
-                subtype: assert$1(
-                /** @type {VolumeEntry}*/ (entry).volumeInfo.diskFileSystemType),
+                subtype: volumeInfo.diskFileSystemType,
                 icon: '',
+                extensions: undefined,
+                mime: undefined,
+                encrypted: undefined,
+                originalMimeType: undefined,
             };
         }
-        return FileType.DIRECTORY;
+        return DIRECTORY;
     }
-    if (opt_mimeType) {
-        const cseMatch = opt_mimeType.match(/^application\/vnd.google-gsuite.encrypted; content="([a-z\/.-]+)"$/);
+    if (mimeType) {
+        const cseMatch = mimeType.match(/^application\/vnd.google-gsuite.encrypted; content="([a-z\/.-]+)"$/);
         if (cseMatch) {
-            const type = /** @type {FileExtensionType} */ ({ ...FileType.getType(entry, cseMatch[1]) });
+            const type = { ...getType(entry, cseMatch[1]) };
             type.encrypted = true;
             type.originalMimeType = cseMatch[1];
             return type;
         }
     }
-    if (opt_mimeType && MIME_TO_TYPE.has(opt_mimeType)) {
-        // @ts-ignore: error TS2322: Type '{ extensions: string[]; mime: string;
-        // subtype: string; translationKey: string; type: string; icon?: undefined;
-        // } | { extensions: string[]; icon: string; mime: string; subtype: string;
-        // translationKey: string; type: string; } | undefined' is not assignable to
-        // type 'FileExtensionType'.
-        return MIME_TO_TYPE.get(opt_mimeType);
+    if (mimeType && MIME_TO_TYPE.has(mimeType)) {
+        return MIME_TO_TYPE.get(mimeType);
     }
     return getFileTypeForName(entry.name);
-};
+}
 /**
  * Gets the media type for a given file.
  *
- * @param {Entry|FilesAppEntry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {string} The value of 'type' property from one of the elements in
- *     the knows file types (file_types.json5) or undefined.
+ * @param entry Reference to the file.
+ * @param mimeType Optional mime type for the file.
+ * @return The value of 'type' property from one of the elements in the knows
+ *     file types (file_types.json5) or undefined.
  */
-FileType.getMediaType = (entry, opt_mimeType) => {
-    return FileType.getType(entry, opt_mimeType).type;
-};
+function getMediaType(entry, mimeType) {
+    return getType(entry, mimeType).type;
+}
 /**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if audio file.
+ * @param entry Reference to the file.
+ * @param mimeType Optional mime type for the file.
+ * @return True if audio file.
  */
-FileType.isAudio = (entry, opt_mimeType) => {
-    return FileType.getMediaType(entry, opt_mimeType) === 'audio';
-};
+function isAudio(entry, mimeType) {
+    return getMediaType(entry, mimeType) === 'audio';
+}
 /**
  * Returns whether the |entry| is image file that can be opened in browser.
  * Note that it returns false for RAW images.
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if image file.
+ * @param entry Reference to the file.
+ * @param mimeType Optional mime type for the file.
+ * @return True if image file.
  */
-FileType.isImage = (entry, opt_mimeType) => {
-    return FileType.getMediaType(entry, opt_mimeType) === 'image';
-};
+function isImage(entry, mimeType) {
+    return getMediaType(entry, mimeType) === 'image';
+}
 /**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if video file.
+ * @param entry Reference to the file.
+ * @param mimeType Optional mime type for the file.
+ * @return True if video file.
  */
-FileType.isVideo = (entry, opt_mimeType) => {
-    return FileType.getMediaType(entry, opt_mimeType) === 'video';
-};
+function isVideo(entry, mimeType) {
+    return getMediaType(entry, mimeType) === 'video';
+}
 /**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if document file.
+ * @param entry Reference to the file.
+ * @param mimeType Optional mime type for the file.
+ * @return True if raw file.
  */
-FileType.isDocument = (entry, opt_mimeType) => {
-    const type = FileType.getMediaType(entry, opt_mimeType);
-    return type === 'document' || type === 'hosted' || type === 'text';
-};
+function isRaw(entry, mimeType) {
+    return getMediaType(entry, mimeType) === 'raw';
+}
 /**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if raw file.
+ * @param entry Reference to the file
+ * @param mimeType Optional mime type for this file.
+ * @return Whether or not this is a PDF file.
  */
-FileType.isRaw = (entry, opt_mimeType) => {
-    return FileType.getMediaType(entry, opt_mimeType) === 'raw';
-};
-/**
- * @param {Entry} entry Reference to the file
- * @param {string=} opt_mimeType Optional mime type for this file.
- * @return {boolean} Whether or not this is a PDF file.
- */
-FileType.isPDF = (entry, opt_mimeType) => {
-    return FileType.getType(entry, opt_mimeType).subtype === 'PDF';
-};
+function isPDF(entry, mimeType) {
+    return getType(entry, mimeType).subtype === 'PDF';
+}
 /**
  * Files with more pixels won't have preview.
- * @param {!Array<string>} types
- * @param {Entry|FilesAppEntry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if type is in specified set
+ * @param entry Reference to the file.
+ * @param mimeType Optional mime type for the file.
+ * @return True if type is in specified set.
  */
-FileType.isType = (types, entry, opt_mimeType) => {
-    const type = FileType.getMediaType(entry, opt_mimeType);
+function isType(types, entry, mimeType) {
+    const type = getMediaType(entry, mimeType);
     return !!type && types.indexOf(type) !== -1;
-};
+}
 /**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} Returns true if the file is hosted.
+ * @param entry Reference to the file.
+ * @param mimeType Optional mime type for the file.
+ * @return Returns true if the file is encrypted with CSE.
  */
-FileType.isHosted = (entry, opt_mimeType) => {
-    return FileType.getType(entry, opt_mimeType).type === 'hosted';
-};
-/**
- * @param {Entry|FilesAppEntry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} Returns true if the file is encrypted with CSE.
- */
-FileType.isEncrypted = (entry, opt_mimeType) => {
-    const type = FileType.getType(entry, opt_mimeType);
+function isEncrypted(entry, mimeType) {
+    const type = getType(entry, mimeType);
     return type.encrypted !== undefined && type.encrypted;
-};
+}
 /**
- * @param {Entry|VolumeEntry|FileData} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @param {VolumeManagerCommon.RootType=} opt_rootType The root type of the
- *     entry.
- * @return {string} Returns string that represents the file icon.
- *     It refers to a file 'images/filetype_' + icon + '.png'.
+ * @param entry Reference to the file.
+ * @param mimeType Optional mime type for the file.
+ * @param rootType The root type of the entry.
+ * @return Returns string that represents the file icon. It refers to a file
+ *     'images/filetype_' + icon + '.png'.
  */
-FileType.getIcon = (entry, opt_mimeType, opt_rootType) => {
-    let icon;
+function getIcon(entry, mimeType, rootType) {
     // Handles the FileData and FilesAppEntry types.
-    // @ts-ignore: error TS2339: Property 'iconName' does not exist on type
-    // 'FileSystemEntry | FileData | VolumeEntry'.
-    if (entry && entry.iconName) {
-        // @ts-ignore: error TS2339: Property 'iconName' does not exist on type
-        // 'FileSystemEntry | FileData | VolumeEntry'.
+    if (entry && 'iconName' in entry) {
         return entry.iconName;
     }
+    let icon;
     // Handles other types of entries.
     if (entry) {
-        entry = /** @type {!Entry|!VolumeEntry} */ (entry);
-        const fileType = FileType.getType(entry, opt_mimeType);
-        const overridenIcon = FileType.getIconOverrides(entry, opt_rootType);
+        const ventry = entry;
+        const fileType = getType(ventry, mimeType);
+        const overridenIcon = getIconOverrides(ventry, rootType);
         icon = overridenIcon || fileType.icon || fileType.type;
     }
     return icon || 'unknown';
-};
+}
 /**
  * Returns a string to be used as an attribute value to customize the entry
  * icon.
  *
- * @param {Entry|FilesAppEntry} entry
- * @param {VolumeManagerCommon.RootType=} opt_rootType The root type of the
- *     entry.
- * @return {string}
+ * @param rootType The root type of the entry.
  */
-FileType.getIconOverrides = (entry, opt_rootType) => {
+function getIconOverrides(entry, rootType) {
+    if (!rootType) {
+        return '';
+    }
     // Overrides per RootType and defined by fullPath.
     const overrides = {
-        [VolumeManagerCommon.RootType.DOWNLOADS]: {
+        [RootType.DOWNLOADS]: {
             '/Camera': 'camera-folder',
-            '/Downloads': VolumeManagerCommon.VolumeType.DOWNLOADS,
+            '/Downloads': VolumeType.DOWNLOADS,
             '/PvmDefault': 'plugin_vm',
         },
     };
-    // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index type.
-    const root = overrides[opt_rootType];
-    return root ? root[entry.fullPath] : '';
-};
+    const root = overrides[rootType];
+    if (!root) {
+        return '';
+    }
+    return root[entry.fullPath] ?? '';
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Wraps the Actions Producer and enforces the Keep Last concurrency model.
+ *
+ * Assigns an `actionId` for each action call.
+ * This consumes the generator from the Actions Producer.
+ * In between each yield it might throw an exception if the actionId
+ * isn't the latest action anymore. This effectively cancels any pending
+ * generator()/action.
+ *
+ * @template T Type of the action yielded by the Actions Producer.
+ * @template Args the inferred type for all the args for foo().
+ *
+ * @param actionsProducer This will be the `foo` above.
+ */
+function keepLatest(actionsProducer) {
+    // Scope #1: Initial setup.
+    let counter = 0;
+    async function* wrap(...args) {
+        // Scope #2: Per-call to the ActionsProducer.
+        const actionId = ++counter;
+        const generator = actionsProducer(...args);
+        for await (const producedAction of generator) {
+            // Scope #3: The generated action.
+            if (actionId !== counter) {
+                await generator.throw(new ConcurrentActionInvalidatedError(`ActionsProducer invalidated running id: ${actionId} current: ${counter}:`));
+                break;
+            }
+            // The generator is still valid, send the action to the store.
+            yield producedAction;
+        }
+    }
+    return wrap;
+}
+/**
+ * While the key is the same it doesn't start a new Actions Producer (AP).
+ *
+ * If the key changes, then it cancels the previous one and starts a new one.
+ *
+ * If there is no other running AP, then it just starts a new one.
+ */
+function keyedKeepFirst(actionsProducer, generateKey) {
+    // Scope #1: Initial setup.
+    // Key for the current AP.
+    let inFlightKey = null;
+    async function* wrap(...args) {
+        // Scope #2: Per-call to the ActionsProducer.
+        const key = generateKey(...args);
+        // One already exists, just leave that finish.
+        if (inFlightKey && inFlightKey === key) {
+            return;
+        }
+        // This will force the previously running AP to cancel when yielding.
+        inFlightKey = key;
+        const generator = actionsProducer(...args);
+        try {
+            for await (const producedAction of generator) {
+                // Scope #3: The generated action.
+                if (inFlightKey && inFlightKey !== key) {
+                    const error = new ConcurrentActionInvalidatedError(`ActionsProducer invalidated running key: ${key} current: ${inFlightKey}:`);
+                    await generator.throw(error);
+                    throw error;
+                }
+                yield producedAction;
+            }
+        }
+        catch (error) {
+            if (!(error instanceof ConcurrentActionInvalidatedError)) {
+                // This error we don't want to clear the `inFlightKey`, because it's
+                // pointing to the actually valid AP instance.
+                inFlightKey = null;
+            }
+            throw error;
+        }
+        // Clear the key if it wasn't invalidated.
+        inFlightKey = null;
+    }
+    return wrap;
+}
+/**
+ * While the key is the same it cancels the previous pending Actions
+ * Producer (AP).
+ * Note: APs with different keys can happen simultaneously, e.g. `key-2` won't
+ * cancel a pending `key-1`.
+ */
+function keyedKeepLatest(actionsProducer, generateKey) {
+    // Scope #1: Initial setup.
+    let counter = 0;
+    // Key->index map for all in-flight AP.
+    const inFlightKeyToActionId = new Map();
+    async function* wrap(...args) {
+        // Scope #2: Per-call to the ActionsProducer.
+        const key = generateKey(...args);
+        const actionId = ++counter;
+        inFlightKeyToActionId.set(key, actionId);
+        const generator = actionsProducer(...args);
+        for await (const producedAction of generator) {
+            // Scope #3: The generated action.
+            const latestActionId = inFlightKeyToActionId.get(key);
+            if (latestActionId === undefined || actionId < latestActionId) {
+                const error = new ConcurrentActionInvalidatedError(`A new ActionProducer with the same key ${key} is started, invalidate this one.`);
+                await generator.throw(error);
+                // We rely on the above throw to break the loop.
+            }
+            yield producedAction;
+        }
+        // If the action producer finishes without being cancelled, remove the key.
+        inFlightKeyToActionId.delete(key);
+    }
+    return wrap;
+}
+
+// Copyright 2013 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/**
+ * @fileoverview Assertion support.
+ */
+
+/**
+ * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
+ * instead.
+ * Verify |condition| is truthy and return |condition| if so.
+ * @template T
+ * @param {T} condition A condition to check for truthiness.  Note that this
+ *     may be used to test whether a value is defined or not, and we don't want
+ *     to force a cast to Boolean.
+ * @param {string=} opt_message A message to show on failure.
+ * @return {T} A non-null |condition|.
+ * @closurePrimitive {asserts.truthy}
+ * @suppress {reportUnknownTypes} because T is not sufficiently constrained.
+ */
+function assert(condition, opt_message) {
+  if (!condition) {
+    let message = 'Assertion failed';
+    if (opt_message) {
+      message = message + ': ' + opt_message;
+    }
+    const error = new Error(message);
+    const global = function() {
+      const thisOrSelf = this || self;
+      /** @type {boolean} */
+      thisOrSelf.traceAssertionsForTesting;
+      return thisOrSelf;
+    }();
+    if (global.traceAssertionsForTesting) {
+      console.warn(error.stack);
+    }
+    throw error;
+  }
+  return condition;
+}
+
+/**
+ * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
+ * instead.
+ * Call this from places in the code that should never be reached.
+ *
+ * For example, handling all the values of enum with a switch() like this:
+ *
+ *   function getValueFromEnum(enum) {
+ *     switch (enum) {
+ *       case ENUM_FIRST_OF_TWO:
+ *         return first
+ *       case ENUM_LAST_OF_TWO:
+ *         return last;
+ *     }
+ *     assertNotReached();
+ *     return document;
+ *   }
+ *
+ * This code should only be hit in the case of serious programmer error or
+ * unexpected input.
+ *
+ * @param {string=} message A message to show when this is hit.
+ * @closurePrimitive {asserts.fail}
+ */
+function assertNotReached(message) {
+  assert(false, message || 'Unreachable code hit');
+}
+
+/**
+ * @param {*} value The value to check.
+ * @param {function(new: T, ...)} type A user-defined constructor.
+ * @param {string=} message A message to show when this is hit.
+ * @return {T}
+ * @template T
+ */
+function assertInstanceof(value, type, message) {
+  // We don't use assert immediately here so that we avoid constructing an error
+  // message if we don't have to.
+  if (!(value instanceof type)) {
+    assertNotReached(
+        message ||
+        'Value ' + value + ' is not a[n] ' + (type.name || typeof type));
+  }
+  return value;
+}
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -4762,7 +6118,7 @@ function getGetter(name, kind) {
       };
   }
 
-  assertNotReached$1();
+  assertNotReached();
 }
 
 /**
@@ -4827,7 +6183,7 @@ function getSetter(name, kind, setHook) {
       };
   }
 
-  assertNotReached$1();
+  assertNotReached();
 }
 
 /**
@@ -4866,8 +6222,6 @@ const NativeEventTarget = self['EventTarget'];
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// namespace
-const storage = {};
 /**
  * Class used to emit window.localStorage change events to event listeners.
  * This class does 3 things:
@@ -4881,93 +6235,58 @@ const storage = {};
  * current clients of `onChanged` don't need it.
  */
 class StorageChangeTracker {
-    // @ts-ignore: error TS7006: Parameter 'storageNamespace' implicitly has an
-    // 'any' type.
-    constructor(storageNamespace) {
-        /**
-         * Storage onChanged event listeners for the current window.
-         * @private @type {!Array<OnChangedListener>}
-         * */
-        // @ts-ignore: error TS7008: Member 'listeners_' implicitly has an 'any[]'
-        // type.
+    /**
+     * @param storageNamespace_ Storage namespace argument added when calling
+     *     listeners.
+     */
+    constructor(storageNamespace_) {
+        this.storageNamespace_ = storageNamespace_;
+        /** Storage onChanged event listeners for the current window. */
         this.listeners_ = [];
-        /**
-         * Storage namespace argument added when calling listeners.
-         * @private @type {string}
-         */
-        this.storageNamespace_ = storageNamespace;
-        /**
-         * Event to send local storage changes to all window listeners.
-         */
+        /** Event to send local storage changes to all window listeners. */
         window.addEventListener('storage', this.onStorageEvent_.bind(this));
     }
-    /**
-     * Resets for testing: removes all listeners.
-     */
+    /** Resets for testing: removes all listeners. */
     resetForTesting() {
         this.listeners_ = [];
     }
-    /**
-     * Adds an onChanged event listener for the current window.
-     * @param {function(!Object<string, !ValueChanged>, string):void} callback
-     */
+    /** Adds an onChanged event listener for the current window. */
     addListener(callback) {
         this.listeners_.push(callback);
     }
-    /**
-     * Notifies listeners_ of key value changes.
-     * @param {!Object<string, *>} changedValues changed.
-     */
+    /** Notifies listeners of key value changes. */
     keysChanged(changedValues) {
-        /** @type {!Object<string, !ValueChanged>} */
         const changedKeys = {};
         for (const [k, v] of Object.entries(changedValues)) {
             // `oldValue` isn't necessary for the current use case.
-            const key = /** @type {string} */ (k);
-            changedKeys[key] = { newValue: v };
+            changedKeys[k] = { newValue: v };
         }
         this.notifyLocally_(changedKeys);
     }
-    /**
-     * Process localStorage `storage` event and notify listeners_.
-     * @private
-     */
-    // @ts-ignore: error TS7006: Parameter 'event' implicitly has an 'any' type.
+    /** Processes storage event and notifies listeners. */
     onStorageEvent_(event) {
-        if (!event.key) {
+        const { key, newValue } = event;
+        if (key == null || newValue == null) {
             return;
         }
-        const key = /** @type {string} */ (event.key);
-        const newValue = /** @type {string} */ (event.newValue);
         const changedKeys = {};
         try {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
             changedKeys[key] = { newValue: JSON.parse(newValue) };
         }
         catch (error) {
-            console.warn(`Failed to JSON parse localStorage value from key: "${key}" ` +
-                `returning the raw value.`, error);
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
+            console.warn(`Cannot parse local storage value from key '${key}' as JSON`, error);
             changedKeys[key] = { newValue };
         }
-        // @ts-ignore: error TS2345: Argument of type '{}' is not assignable to
-        // parameter of type '{ [x: string]: ValueChanged; }'.
         this.notifyLocally_(changedKeys);
     }
-    /**
-     * Notifies local (current window) listeners_ of key value changes.
-     * @param {!Object<string, ValueChanged>} keys
-     * @private
-     */
+    /** Notifies local (current window) listeners of key value changes. */
     notifyLocally_(keys) {
         for (const listener of this.listeners_) {
             try {
                 listener(keys, this.storageNamespace_);
             }
             catch (error) {
-                console.error(`Error calling storage.onChanged listener: ${error}`);
+                console.error('Error calling storage.onChanged listener', error);
             }
         }
     }
@@ -4976,35 +6295,21 @@ class StorageChangeTracker {
  * StorageAreaImpl using window.localStorage as the storage area.
  */
 class StorageAreaImpl {
-    /**
-     * @param {string} type
-     */
     constructor(type) {
-        /** @private @type {!StorageChangeTracker} */
-        this.storageChangeTracker_ = new StorageChangeTracker(type);
+        this.storageChangeTracker = new StorageChangeTracker(type);
     }
-    /**
-     * Gets values of |keys| and return them in the callback.
-     * @param {string|!Array<string>} keys
-     * @param {!function(!Object):void} callback
-     */
+    /** Gets values of `keys` and returns them in the callback. */
     get(keys, callback) {
         const keyList = Array.isArray(keys) ? keys : [keys];
         const result = {};
         for (const key of keyList) {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
             result[key] = this.getValue_(key);
         }
         callback(result);
     }
-    /**
-     * Gets the value of |key| from local storage.
-     * @param {string} key
-     * @private
-     */
+    /** Gets the value of `key` from local storage. */
     getValue_(key) {
-        const value = /** @type {string} */ (window.localStorage.getItem(key));
+        const value = window.localStorage.getItem(key);
         try {
             return JSON.parse(value);
         }
@@ -5014,54 +6319,31 @@ class StorageAreaImpl {
             return value;
         }
     }
-    /**
-     * Async version of this.get() storage method.
-     * @param {string|!Array<string>} keys
-     * @returns {!Promise<!Object<string, *>>}
-     */
+    /** Async version of `this.get()`. */
     async getAsync(keys) {
-        // @ts-ignore: error TS6133: 'reject' is declared but its value is never
-        // read.
-        return new Promise((resolve, reject) => {
-            this.get(keys, (values) => {
-                resolve(values);
-            });
-        });
+        return new Promise(resolve => this.get(keys, resolve));
     }
     /**
      * Stores items in local storage.
-     * @param {!Object<string, *>} items The items to store.
-     * @param {?function()=} opt_callback Optional callback to be called when
-     *   the items have been stored.
+     * @param items The items to store.
+     * @param callback Callback to be called when the items have been stored.
      */
-    set(items, opt_callback) {
+    set(items, callback) {
         for (const key in items) {
             const value = JSON.stringify(items[key]);
             window.localStorage.setItem(key, value);
         }
         this.notifyChange_(Object.keys(items));
-        if (opt_callback) {
-            opt_callback();
-        }
+        callback?.();
     }
     /**
-     * Async version of this.set() storage method.
-     * @param {!Object<string, *>} items The items to store.
-     * @returns {!Promise<void>}
+     * Async version of `this.set()`.
+     * @param items The items to store.
      */
     async setAsync(items) {
-        // @ts-ignore: error TS6133: 'reject' is declared but its value is never
-        // read.
-        return new Promise((resolve, reject) => {
-            this.set(items, () => {
-                resolve();
-            });
-        });
+        return new Promise(resolve => this.set(items, resolve));
     }
-    /**
-     * Removes the given |keys| from local storage.
-     * @param {string|!Array<string>} keys
-     */
+    /** Removes the given `keys` from local storage. */
     remove(keys) {
         const keyList = Array.isArray(keys) ? keys : [keys];
         for (const key of keyList) {
@@ -5069,56 +6351,36 @@ class StorageAreaImpl {
         }
         this.notifyChange_(keyList);
     }
-    /**
-     * Clears local storage.
-     */
+    /** Clears local storage. */
     clear() {
         window.localStorage.clear();
         this.notifyChange_([]);
     }
-    /**
-     * Notifies key changes to storage change tracker listeners.
-     * @param {!Array<string>} keys
-     * @private
-     */
+    /** Notifies key changes to storage change tracker listeners. */
     notifyChange_(keys) {
         const values = {};
         for (const k of keys) {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
             values[k] = this.getValue_(k);
         }
-        this.getStorageChangeTracker_().keysChanged(values);
-    }
-    /**
-     * Gets storage change tracker.
-     * @returns {!StorageChangeTracker}
-     * @private
-     */
-    getStorageChangeTracker_() {
-        return this.storageChangeTracker_;
+        this.storageChangeTracker.keysChanged(values);
     }
 }
-/**
- * @type {!StorageAreaImpl}
- */
-storage.local = new StorageAreaImpl('local');
-/**
- * NOTE: Here we only expose StorageChangeTracker APIs addListener() and
- * resetForTesting().
- *
- * @type {{
- *   addListener: function(OnChangedListener):void,
- *   resetForTesting: function():void,
- * }}
- */
-// @ts-ignore: error TS2341: Property 'getStorageChangeTracker_' is private and
-// only accessible within class 'StorageAreaImpl'.
-storage.onChanged = storage.local.getStorageChangeTracker_();
+var storage;
+(function (storage) {
+    storage.local = new StorageAreaImpl('local');
+    storage.onChanged = storage.local.storageChangeTracker;
+})(storage || (storage = {}));
 
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+var EventType;
+(function (EventType) {
+    EventType["UPDATE"] = "update";
+})(EventType || (EventType = {}));
+/** Key used to store the task history in local storage. */
+const STORAGE_KEY_LAST_EXECUTED_TIME = 'task-last-executed-time';
+const LAST_EXECUTED_TIME_HISTORY_MAX = 100;
 /**
  * TaskHistory object keeps track of the history of task executions. Recent
  * history is stored in local storage.
@@ -5129,18 +6391,14 @@ class TaskHistory extends NativeEventTarget {
         /**
          * The recent history of task executions. Key is task ID and value is time
          * stamp of the latest execution of the task.
-         * @type {!Object<string, number>}
          */
         this.lastExecutedTime_ = {};
         storage.onChanged.addListener(this.onLocalStorageChanged_.bind(this));
         this.load_();
     }
-    /**
-     * Records the timing of task execution.
-     * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor
-     */
+    /** Records the timing of task execution. */
     recordTaskExecuted(descriptor) {
-        const taskId = util.makeTaskID(descriptor);
+        const taskId = makeTaskID(descriptor);
         this.lastExecutedTime_[taskId] = Date.now();
         this.truncate_();
         this.save_();
@@ -5148,156 +6406,88 @@ class TaskHistory extends NativeEventTarget {
     /**
      * Gets the time stamp of last execution of given task. If the record is not
      * found, returns 0.
-     * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor
-     * @return {number}
      */
     getLastExecutedTime(descriptor) {
-        const taskId = util.makeTaskID(descriptor);
-        // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable to
-        // type 'number'.
-        return this.lastExecutedTime_[taskId] ? this.lastExecutedTime_[taskId] : 0;
+        const taskId = makeTaskID(descriptor);
+        return this.lastExecutedTime_[taskId] ?? 0;
     }
-    /**
-     * Loads the current history from local storage.
-     * @private
-     */
+    /** Loads the current history from local storage. */
     load_() {
-        storage.local.get(TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME, value => {
-            this.lastExecutedTime_ =
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'string' can't be used to index type
-                // 'Object'.
-                value[TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME] || {};
+        storage.local.get(STORAGE_KEY_LAST_EXECUTED_TIME, (value) => {
+            this.lastExecutedTime_ = value[STORAGE_KEY_LAST_EXECUTED_TIME] ?? {};
         });
     }
-    /**
-     * Saves the current history to local storage.
-     * @private
-     */
+    /** Saves the current history to local storage. */
     save_() {
-        const objectToSave = {};
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
-        objectToSave[TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME] =
-            this.lastExecutedTime_;
-        storage.local.set(objectToSave);
+        storage.local.set({ [STORAGE_KEY_LAST_EXECUTED_TIME]: this.lastExecutedTime_ });
     }
-    /**
-     * Handles local storage change event to update the current history.
-     * @param {!Object<string, !ValueChanged>} changes
-     * @param {string} areaName
-     * @private
-     */
+    /** Handles local storage change event to update the current history. */
     onLocalStorageChanged_(changes, areaName) {
         if (areaName !== 'local') {
             return;
         }
         for (const key in changes) {
-            if (key == TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME) {
+            if (key == STORAGE_KEY_LAST_EXECUTED_TIME) {
                 this.lastExecutedTime_ = changes[key]?.newValue;
-                dispatchSimpleEvent(this, TaskHistory.EventType.UPDATE);
+                dispatchSimpleEvent(this, EventType.UPDATE);
             }
         }
     }
     /**
-     * Trancates current history so that the size of history does not exceed
+     * Truncates current history so that the size of history does not exceed
      * STORAGE_KEY_LAST_EXECUTED_TIME.
-     * @private
      */
     truncate_() {
         const keys = Object.keys(this.lastExecutedTime_);
-        if (keys.length <= TaskHistory.LAST_EXECUTED_TIME_HISTORY_MAX) {
+        if (keys.length <= LAST_EXECUTED_TIME_HISTORY_MAX) {
             return;
         }
         let items = [];
-        for (let i = 0; i < keys.length; i++) {
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
-            items.push({ id: keys[i], timestamp: this.lastExecutedTime_[keys[i]] });
+        for (const key of keys) {
+            items.push({ id: key, timestamp: this.lastExecutedTime_[key] });
         }
         items.sort((a, b) => b.timestamp - a.timestamp);
-        items = items.slice(0, TaskHistory.LAST_EXECUTED_TIME_HISTORY_MAX);
+        items = items.slice(0, LAST_EXECUTED_TIME_HISTORY_MAX);
         const newObject = {};
-        for (let i = 0; i < items.length; i++) {
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            newObject[items[i].id] = items[i].timestamp;
+        for (const item of items) {
+            newObject[item.id] = item.timestamp;
         }
-        // @ts-ignore: error TS2322: Type '{}' is not assignable to type '{ [x:
-        // string]: number; }'.
         this.lastExecutedTime_ = newObject;
     }
 }
-/**
- * @enum {string}
- */
-TaskHistory.EventType = {
-    UPDATE: 'update',
-};
-/**
- * Key used to store the task history in local storage.
- * @const @type {string}
- */
-TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME = 'task-last-executed-time';
-/**
- * @const @type {number}
- */
-TaskHistory.LAST_EXECUTED_TIME_HISTORY_MAX = 100;
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/** @const @type {string} */
 const LEGACY_FILES_EXTENSION_ID = 'hhaomjibdihmijegdhdafkllkbggdgoj';
-/**
- * App ID generated by the SWA framework.
- * @const @type {string}
- */
+/** App ID generated by the SWA framework. */
 const SWA_APP_ID = 'fkiggjmkendpmbegkagpmagjepfkpmeb';
-/** @const @type {string} */
 const SWA_FILES_APP_HOST = 'file-manager';
 /**
  * Special key for when we are showing search results. Search results do not
  * have a corresponding entry in the directory tree. As a result we need to
  * fake the PathComponent that represents the "current" directory. This constant
  * corresponds to the key field of the PathComponent object.
- * @const @type {string}
  */
 const SEARCH_RESULTS_KEY = 'fake-entry://search/';
-/**
- * The URL of the legacy version of File Manager.
- * @const @type {!URL}
- */
+/** The URL of the legacy version of File Manager. */
 new URL(`chrome-extension://${LEGACY_FILES_EXTENSION_ID}`);
-/**
- * The URL of the System Web App version of File Manager.
- * @const @type {!URL}
- */
+/** The URL of the System Web App version of File Manager. */
 const SWA_FILES_APP_URL = new URL(`chrome://${SWA_FILES_APP_HOST}`);
 /**
- * The path to the File Manager icon.
- * @const @type {string}
- */
-const FILES_APP_ICON_PATH = 'common/images/icon96.png';
-/**
- * @param {string=} path relative to the Files app root.
- * @return {!URL} The absolute URL for a path within the Files app.
+ * @param path relative to the Files app root.
+ * @return The absolute URL for a path within the Files app.
  */
 function toFilesAppURL(path = '') {
     return new URL(path, SWA_FILES_APP_URL);
 }
 /**
- * @param {string=} path relative to the sandboxed page origin.
- * @return {!URL} The absolute URL.
+ * @param path relative to the sandboxed page origin.
+ * @return The absolute URL.
  */
 function toSandboxedURL(path = '') {
     const SANDBOXED_URL = new URL(`chrome-untrusted://${SWA_FILES_APP_HOST}`);
     return new URL(path, SANDBOXED_URL);
-}
-/**
- * @return {!URL} The URL of the file that holds Files App icon.
- */
-function getFilesAppIconURL() {
-    return toFilesAppURL(FILES_APP_ICON_PATH);
 }
 
 // Copyright 2023 The Chromium Authors
@@ -5383,7 +6573,7 @@ function annotateTasks(tasks, entries) {
                     annotateTask.iconType = 'generic';
                 }
                 else { // Use specific icon.
-                    annotateTask.iconType = FileType.getIcon(entries[0]);
+                    annotateTask.iconType = getIcon(entries[0]);
                 }
                 annotateTask.title = str('TASK_OPEN');
             }
@@ -5466,24 +6656,23 @@ function annotateTasks(tasks, entries) {
  */
 class PathComponent {
     /**
-     * @param {string} name Name.
-     * @param {string} url Url.
-     * @param {FilesAppEntry=} opt_fakeEntry Fake entry should be set when
-     *     this component represents fake entry.
+     * @param name Name.
+     * @param url Url.
+     * @param fakeEntry Fake entry should be set when this component represents
+     *     fake entry.
      */
-    constructor(name, url, opt_fakeEntry) {
+    constructor(name, url_, fakeEntry_) {
         this.name = name;
-        this.url_ = url;
-        this.fakeEntry_ = opt_fakeEntry || null;
+        this.url_ = url_;
+        this.fakeEntry_ = fakeEntry_;
     }
     /**
      * Resolve an entry of the component.
-     * @return {!Promise<!Entry|!FilesAppEntry>} A promise which is
-     *     resolved with an entry.
+     * @return A promise which is resolved with an entry.
      */
     resolveEntry() {
         if (this.fakeEntry_) {
-            return /** @type {!Promise<!Entry|!FilesAppEntry>} */ (Promise.resolve(this.fakeEntry_));
+            return Promise.resolve(this.fakeEntry_);
         }
         else {
             return new Promise(window.webkitResolveLocalFileSystemURL.bind(null, this.url_));
@@ -5497,11 +6686,9 @@ class PathComponent {
     }
     /**
      * Computes path components for the path of entry.
-     * @param {!Entry|!FilesAppEntry} entry An entry.
-     * @return {!Array<!PathComponent>} Components.
+     * @param entry An entry.
+     * @return Components.
      */
-    // @ts-ignore: error TS7006: Parameter 'volumeManager' implicitly has an 'any'
-    // type.
     static computeComponentsFromEntry(entry, volumeManager) {
         /**
          * Replace the root directory name at the end of a url.
@@ -5510,40 +6697,37 @@ class PathComponent {
          * The output is like:
          * filesystem:chrome-extension://....foo.com-hash/other
          *
-         * @param {string} url which points to a volume display root
-         * @param {string} newRoot new root directory name
-         * @return {string} new URL with the new root directory name
+         * @param url which points to a volume display root
+         * @param newRoot new root directory name
+         * @return new URL with the new root directory name
          */
         const replaceRootName = (url, newRoot) => {
             return url.slice(0, url.length - '/root'.length) + newRoot;
         };
-        // @ts-ignore: error TS7034: Variable 'components' implicitly has type
-        // 'any[]' in some locations where its type cannot be determined.
         const components = [];
         const locationInfo = volumeManager.getLocationInfo(entry);
         if (!locationInfo) {
-            // @ts-ignore: error TS7005: Variable 'components' implicitly has an
-            // 'any[]' type.
             return components;
         }
         if (isFakeEntry(entry)) {
-            components.push(new PathComponent(util.getEntryLabel(locationInfo, entry), entry.toURL(), 
-            /** @type {!FakeEntry} */ (entry)));
+            components.push(new PathComponent(getEntryLabel(locationInfo, entry), entry.toURL(), entry));
             return components;
         }
         // Add volume component.
-        let displayRootUrl = locationInfo.volumeInfo.displayRoot.toURL();
-        let displayRootFullPath = locationInfo.volumeInfo.displayRoot.fullPath;
-        const prefixEntry = locationInfo.volumeInfo.prefixEntry;
+        const volumeInfo = locationInfo.volumeInfo;
+        if (!volumeInfo) {
+            return components;
+        }
+        let displayRootUrl = volumeInfo.displayRoot.toURL();
+        let displayRootFullPath = volumeInfo.displayRoot.fullPath;
+        const prefixEntry = volumeInfo.prefixEntry;
         // Directories under Drive Fake Root can return the fake root entry list as
         // prefix entry, but we will never show "Google Drive" as the prefix in the
         // breadcrumb.
-        if (prefixEntry &&
-            prefixEntry.rootType !== VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT) {
+        if (prefixEntry && prefixEntry.rootType !== RootType.DRIVE_FAKE_ROOT) {
             components.push(new PathComponent(prefixEntry.name, prefixEntry.toURL(), prefixEntry));
         }
-        if (locationInfo.rootType ===
-            VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME) {
+        if (locationInfo.rootType === RootType.DRIVE_SHARED_WITH_ME) {
             // DriveFS shared items are in either of:
             // <drivefs>/.files-by-id/<id>/<item>
             // <drivefs>/.shortcut-targets-by-id/<id>/<item>
@@ -5555,28 +6739,31 @@ class PathComponent {
                 console.warn('Unexpected shared DriveFS path: ', entry.fullPath);
             }
             displayRootUrl = replaceRootName(displayRootUrl, displayRootFullPath);
-            const sharedWithMeFakeEntry = locationInfo.volumeInfo
-                .fakeEntries[VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME];
-            components.push(new PathComponent(str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL'), sharedWithMeFakeEntry.toURL(), sharedWithMeFakeEntry));
+            const sharedWithMeFakeEntry = volumeInfo.fakeEntries[RootType.DRIVE_SHARED_WITH_ME];
+            if (sharedWithMeFakeEntry) {
+                components.push(new PathComponent(str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL'), sharedWithMeFakeEntry.toURL(), sharedWithMeFakeEntry));
+            }
         }
-        else if (locationInfo.rootType === VolumeManagerCommon.RootType.SHARED_DRIVE) {
-            displayRootUrl = replaceRootName(displayRootUrl, VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH);
-            components.push(new PathComponent(util.getRootTypeLabel(locationInfo), displayRootUrl));
+        else if (locationInfo.rootType === RootType.SHARED_DRIVE) {
+            displayRootUrl =
+                replaceRootName(displayRootUrl, SHARED_DRIVES_DIRECTORY_PATH);
+            components.push(new PathComponent(getRootTypeLabel(locationInfo), displayRootUrl));
         }
-        else if (locationInfo.rootType === VolumeManagerCommon.RootType.COMPUTER) {
-            displayRootUrl = replaceRootName(displayRootUrl, VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH);
-            components.push(new PathComponent(util.getRootTypeLabel(locationInfo), displayRootUrl));
+        else if (locationInfo.rootType === RootType.COMPUTER) {
+            displayRootUrl =
+                replaceRootName(displayRootUrl, COMPUTERS_DIRECTORY_PATH);
+            components.push(new PathComponent(getRootTypeLabel(locationInfo), displayRootUrl));
         }
         else {
-            components.push(new PathComponent(util.getRootTypeLabel(locationInfo), displayRootUrl));
+            components.push(new PathComponent(getRootTypeLabel(locationInfo), displayRootUrl));
         }
         // Get relative path to display root (e.g. /root/foo/bar -> foo/bar).
         let relativePath = entry.fullPath.slice(displayRootFullPath.length);
-        if (entry.fullPath.startsWith(VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH)) {
-            relativePath = entry.fullPath.slice(VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH.length);
+        if (entry.fullPath.startsWith(SHARED_DRIVES_DIRECTORY_PATH)) {
+            relativePath = entry.fullPath.slice(SHARED_DRIVES_DIRECTORY_PATH.length);
         }
-        else if (entry.fullPath.startsWith(VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH)) {
-            relativePath = entry.fullPath.slice(VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH.length);
+        else if (entry.fullPath.startsWith(COMPUTERS_DIRECTORY_PATH)) {
+            relativePath = entry.fullPath.slice(COMPUTERS_DIRECTORY_PATH.length);
         }
         if (relativePath.indexOf('/') === 0) {
             relativePath = relativePath.slice(1);
@@ -5591,12 +6778,9 @@ class PathComponent {
         // Add directory components to the target path.
         const paths = relativePath.split('/');
         for (let i = 0; i < paths.length; i++) {
-            // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
-            // assignable to parameter of type 'string | number | boolean'.
             currentUrl += '/' + encodeURIComponent(paths[i]);
             let path = paths[i];
-            if (i === 0 &&
-                locationInfo.rootType === VolumeManagerCommon.RootType.DOWNLOADS) {
+            if (i === 0 && locationInfo.rootType === RootType.DOWNLOADS) {
                 if (path === 'Downloads') {
                     path = str('DOWNLOADS_DIRECTORY_LABEL');
                 }
@@ -5607,61 +6791,1051 @@ class PathComponent {
                     path = str('CAMERA_DIRECTORY_LABEL');
                 }
             }
-            // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
-            // assignable to parameter of type 'string'.
             components.push(new PathComponent(path, currentUrl));
         }
         return components;
     }
 }
 
-// Copyright 2022 The Chromium Authors
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * While the key is the same it doesn't start a new Actions Producer (AP).
- *
- * If the key changes, then it cancels the previous one and starts a new one.
- *
- * If there is no other running AP, then it just starts a new one.
+ * @fileoverview Current directory slice of the store.
  */
-function keyedKeepFirst(actionsProducer, generateKey) {
-    // Scope #1: Initial setup.
-    // Key for the current AP.
-    let inFlightKey = null;
-    async function* wrap(...args) {
-        // Scope #2: Per-call to the ActionsProducer.
-        const key = generateKey(...args);
-        // One already exists, just leave that finish.
-        if (inFlightKey && inFlightKey === key) {
+const slice$c = new Slice('currentDirectory');
+function getEmptySelection(keys = []) {
+    return {
+        keys,
+        dirCount: 0,
+        fileCount: 0,
+        // hostedCount might be updated to undefined in the for loop below.
+        hostedCount: 0,
+        // offlineCachedCount might be updated to undefined in the for loop below.
+        offlineCachedCount: 0,
+        fileTasks: {
+            tasks: [],
+            defaultTask: undefined,
+            policyDefaultHandlerStatus: undefined,
+            status: PropStatus.STARTED,
+        },
+    };
+}
+/**
+ * Returns true if any of the entries in `currentDirectory` are DLP disabled,
+ * and false otherwise.
+ */
+function hasDlpDisabledFiles(currentState) {
+    const content = currentState.currentDirectory?.content;
+    if (!content) {
+        return false;
+    }
+    for (const key of content.keys) {
+        const fileData = currentState.allEntries[key];
+        if (!fileData) {
+            console.warn(`Missing entry: ${key}`);
+            continue;
+        }
+        if (fileData.metadata.isRestrictedForDestination) {
+            return true;
+        }
+    }
+    return false;
+}
+/** Create action to change the Current Directory. */
+const changeDirectory = slice$c.addReducer('set', changeDirectoryReducer);
+function changeDirectoryReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    if (payload.to) {
+        cacheEntries(currentState, [payload.to]);
+    }
+    const { to, toKey } = payload;
+    const key = toKey || to.toURL();
+    const status = payload.status || PropStatus.STARTED;
+    const fileData = currentState.allEntries[key];
+    let selection = currentState.currentDirectory?.selection;
+    // Use an empty selection when a selection isn't defined or it's navigating to
+    // a new directory.
+    if (!selection || currentState.currentDirectory?.key !== key) {
+        selection = {
+            keys: [],
+            dirCount: 0,
+            fileCount: 0,
+            hostedCount: undefined,
+            offlineCachedCount: 0,
+            fileTasks: {
+                tasks: [],
+                policyDefaultHandlerStatus: undefined,
+                defaultTask: undefined,
+                status: PropStatus.SUCCESS,
+            },
+        };
+    }
+    let content = currentState.currentDirectory?.content;
+    let hasDlpDisabledFiles = currentState.currentDirectory?.hasDlpDisabledFiles || false;
+    // Use empty content when it isn't defined or it's navigating to a new
+    // directory. The content will be updated again after a successful scan.
+    if (!content || currentState.currentDirectory?.key !== key) {
+        content = {
+            keys: [],
+        };
+        hasDlpDisabledFiles = false;
+    }
+    let currentDirectory = {
+        key,
+        status,
+        pathComponents: [],
+        content: content,
+        rootType: undefined,
+        selection,
+        hasDlpDisabledFiles: hasDlpDisabledFiles,
+    };
+    // The new directory might not be in the allEntries yet, this might happen
+    // when starting to change the directory for a entry that isn't cached.
+    // At the end of the change directory, DirectoryContents will send an Action
+    // with the Entry to be cached.
+    if (fileData) {
+        const { volumeManager } = window.fileManager;
+        if (!volumeManager) {
+            console.debug(`VolumeManager not available yet.`);
+            currentDirectory = currentState.currentDirectory || currentDirectory;
+        }
+        else {
+            const components = PathComponent.computeComponentsFromEntry(fileData.entry, volumeManager);
+            currentDirectory.pathComponents = components.map(c => {
+                return {
+                    name: c.name,
+                    label: c.name,
+                    key: c.getKey(),
+                };
+            });
+            const locationInfo = volumeManager.getLocationInfo(fileData.entry);
+            currentDirectory.rootType = locationInfo?.rootType;
+        }
+    }
+    return {
+        ...currentState,
+        currentDirectory,
+    };
+}
+/** Create action to update currently selected files/folders. */
+const updateSelection = slice$c.addReducer('set-selection', updateSelectionReducer);
+function updateSelectionReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, payload.entries);
+    const updatingToEmpty = (payload.entries.length === 0 && payload.selectedKeys.length === 0);
+    if (!currentState.currentDirectory) {
+        if (!updatingToEmpty) {
+            console.warn('Missing `currentDirectory`');
+            console.debug('Dropping action:', payload);
+        }
+        return currentState;
+    }
+    if (!currentState.currentDirectory.content) {
+        if (!updatingToEmpty) {
+            console.warn('Missing `currentDirectory.content`');
+            console.debug('Dropping action:', payload);
+        }
+        return currentState;
+    }
+    const selectedKeys = payload.selectedKeys;
+    const contentKeys = new Set(currentState.currentDirectory.content.keys);
+    const missingKeys = selectedKeys.filter(k => !contentKeys.has(k));
+    if (missingKeys.length > 0) {
+        console.warn('Got selected keys that are not in current directory, ' +
+            'continuing anyway');
+        console.debug(`Missing keys: ${missingKeys.join('\n')} \nexisting keys:\n ${(currentState.currentDirectory?.content?.keys ?? []).join('\n')}`);
+    }
+    const selection = getEmptySelection(selectedKeys);
+    for (const key of selectedKeys) {
+        const fileData = currentState.allEntries[key];
+        if (!fileData) {
+            console.warn(`Missing entry: ${key}`);
+            continue;
+        }
+        if (fileData.isDirectory) {
+            selection.dirCount++;
+        }
+        else {
+            selection.fileCount++;
+        }
+        const metadata = fileData.metadata;
+        // Update hostedCount to undefined if any entry doesn't have the metadata
+        // yet.
+        const isHosted = metadata?.hosted;
+        if (isHosted === undefined) {
+            selection.hostedCount = undefined;
+        }
+        else {
+            if (selection.hostedCount !== undefined && isHosted) {
+                selection.hostedCount++;
+            }
+        }
+        // If no availableOffline property, then assume it's available.
+        const isOfflineCached = (metadata?.availableOffline === undefined ||
+            metadata?.availableOffline);
+        if (isOfflineCached) {
+            selection.offlineCachedCount++;
+        }
+    }
+    const currentDirectory = {
+        ...currentState.currentDirectory,
+        selection,
+    };
+    return {
+        ...currentState,
+        currentDirectory,
+    };
+}
+/** Create action to update FileTasks for the current selection. */
+const updateFileTasks = slice$c.addReducer('set-file-tasks', updateFileTasksReducer);
+function updateFileTasksReducer(currentState, payload) {
+    const initialSelection = currentState.currentDirectory?.selection ?? getEmptySelection();
+    // Apply the changes over the current selection.
+    const fileTasks = {
+        ...initialSelection.fileTasks,
+        ...payload,
+    };
+    // Update the selection and current directory objects.
+    const selection = {
+        ...initialSelection,
+        fileTasks,
+    };
+    const currentDirectory = {
+        ...currentState.currentDirectory,
+        selection,
+    };
+    return {
+        ...currentState,
+        currentDirectory,
+    };
+}
+/** Create action to update the current directory's content. */
+const updateDirectoryContent = slice$c.addReducer('update-content', updateDirectoryContentReducer);
+function updateDirectoryContentReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, payload.entries);
+    if (!currentState.currentDirectory) {
+        console.warn('Missing `currentDirectory`');
+        return currentState;
+    }
+    const initialContent = currentState.currentDirectory?.content ?? { keys: [] };
+    const keys = payload.entries.map(e => e.toURL());
+    const content = {
+        ...initialContent,
+        keys,
+    };
+    let currentDirectory = {
+        ...currentState.currentDirectory,
+        content,
+    };
+    const newState = {
+        ...currentState,
+        currentDirectory,
+    };
+    currentDirectory = {
+        ...currentDirectory,
+        hasDlpDisabledFiles: hasDlpDisabledFiles(newState),
+    };
+    return {
+        ...newState,
+        currentDirectory,
+    };
+}
+/**
+ * Linux package installation is currently only supported for a single file
+ * which is inside the Linux container, or in a shareable volume.
+ * TODO(timloh): Instead of filtering these out, we probably should show a
+ * dialog with an error message, similar to when attempting to run Crostini
+ * tasks with non-Crostini entries.
+ */
+function allowCrostiniTask(filesData) {
+    if (filesData.length !== 1) {
+        return false;
+    }
+    const fileData = filesData[0];
+    const rootType = fileData.entry.rootType;
+    if (rootType !== RootType.CROSTINI) {
+        return false;
+    }
+    const crostini = window.fileManager.crostini;
+    return crostini.canSharePath(DEFAULT_CROSTINI_VM, fileData.entry, 
+    /*persiste=*/ false);
+}
+const emptyAction = (status) => updateFileTasks({
+    tasks: [],
+    policyDefaultHandlerStatus: undefined,
+    defaultTask: undefined,
+    status,
+});
+async function* fetchFileTasksInternal(filesData) {
+    // Filters out the non-native entries.
+    filesData = filesData.filter(getNativeEntry);
+    const state = getStore().getState();
+    const currentRootType = state.currentDirectory?.rootType;
+    const dialogType = window.fileManager.dialogType;
+    const shouldDisableTasks = (
+    // File Picker/Save As doesn't show the "Open" button.
+    dialogType !== DialogType.FULL_PAGE ||
+        // The list of available tasks should not be available to trashed items.
+        currentRootType === RootType.TRASH || filesData.length === 0);
+    if (shouldDisableTasks) {
+        yield emptyAction(PropStatus.SUCCESS);
+        return;
+    }
+    const selectionHandler = window.fileManager.selectionHandler;
+    const selection = selectionHandler.selection;
+    await selection.computeAdditional(window.fileManager.metadataModel);
+    yield;
+    try {
+        const resultingTasks = await getFileTasks(filesData.map(fd => fd.entry), filesData.map(fd => fd.metadata.sourceUrl || ''));
+        if (!resultingTasks || !resultingTasks.tasks) {
             return;
         }
-        // This will force the previously running AP to cancel when yielding.
-        inFlightKey = key;
-        const generator = actionsProducer(...args);
-        try {
-            for await (const producedAction of generator) {
-                // Scope #3: The generated action.
-                if (inFlightKey && inFlightKey !== key) {
-                    const error = new ConcurrentActionInvalidatedError(`ActionsProducer invalidated running key: ${key} current: ${inFlightKey}:`);
-                    await generator.throw(error);
-                    throw error;
-                }
-                yield producedAction;
-            }
+        yield;
+        if (filesData.length === 0 || resultingTasks.tasks.length === 0) {
+            yield emptyAction(PropStatus.SUCCESS);
+            return;
         }
-        catch (error) {
-            if (!(error instanceof ConcurrentActionInvalidatedError)) {
-                // This error we don't want to clear the `inFlightKey`, because it's
-                // pointing to the actually valid AP instance.
-                inFlightKey = null;
-            }
-            throw error;
+        if (!allowCrostiniTask(filesData)) {
+            resultingTasks.tasks = resultingTasks.tasks.filter((task) => !descriptorEqual(task.descriptor, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR));
         }
-        // Clear the key if it wasn't invalidated.
-        inFlightKey = null;
+        const tasks = annotateTasks(resultingTasks.tasks, filesData);
+        resultingTasks.tasks = tasks;
+        // TODO: Migrate TaskHistory to the store.
+        const taskHistory = window.fileManager.taskController.taskHistory;
+        const defaultTask = getDefaultTask(tasks, resultingTasks.policyDefaultHandlerStatus, taskHistory) ??
+            undefined;
+        yield updateFileTasks({
+            tasks: tasks,
+            policyDefaultHandlerStatus: resultingTasks.policyDefaultHandlerStatus,
+            defaultTask: defaultTask,
+            status: PropStatus.SUCCESS,
+        });
     }
-    return wrap;
+    catch (error) {
+        yield emptyAction(PropStatus.ERROR);
+    }
+}
+/** Generates key based on each FileKey (entry.toURL()). */
+function getSelectionKey(filesData) {
+    return filesData.map(f => f?.entry.toURL()).join('|');
+}
+const fetchFileTasks = keyedKeepFirst(fetchFileTasksInternal, getSelectionKey);
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Entries slice of the store.
+ */
+const slice$b = new Slice('allEntries');
+/**
+ * Create action to scan `allEntries` and remove its stale entries.
+ */
+const clearCachedEntries = slice$b.addReducer('clear-stale-cache', clearCachedEntriesReducer);
+function clearCachedEntriesReducer(state) {
+    const entries = state.allEntries;
+    const currentDirectoryKey = state.currentDirectory?.key;
+    const entriesToKeep = new Set();
+    if (currentDirectoryKey) {
+        entriesToKeep.add(currentDirectoryKey);
+        for (const component of state.currentDirectory.pathComponents) {
+            entriesToKeep.add(component.key);
+        }
+        for (const key of state.currentDirectory.content.keys) {
+            entriesToKeep.add(key);
+        }
+    }
+    const selectionKeys = state.currentDirectory?.selection.keys ?? [];
+    if (selectionKeys) {
+        for (const key of selectionKeys) {
+            entriesToKeep.add(key);
+        }
+    }
+    for (const volume of Object.values(state.volumes)) {
+        if (!volume.rootKey) {
+            continue;
+        }
+        entriesToKeep.add(volume.rootKey);
+        if (volume.prefixKey) {
+            entriesToKeep.add(volume.prefixKey);
+        }
+    }
+    for (const key of state.uiEntries) {
+        entriesToKeep.add(key);
+    }
+    for (const key of state.folderShortcuts) {
+        entriesToKeep.add(key);
+    }
+    for (const root of state.navigation.roots) {
+        entriesToKeep.add(root.key);
+    }
+    // For all expanded entries, we need to keep them and all their direct
+    // children.
+    for (const [key, fileData] of Object.entries(entries)) {
+        if (fileData.expanded) {
+            entriesToKeep.add(key);
+            if (fileData.children) {
+                for (const child of fileData.children) {
+                    entriesToKeep.add(child);
+                }
+            }
+        }
+    }
+    // For all kept entries, we also need to keep their children so we can decide
+    // if we need to show the expand icon or not.
+    for (const key of entriesToKeep) {
+        const fileData = entries[key];
+        if (fileData?.children) {
+            for (const child of fileData.children) {
+                entriesToKeep.add(child);
+            }
+        }
+    }
+    const isDebugStore = isDebugStoreEnabled();
+    for (const key of Object.keys(entries)) {
+        if (entriesToKeep.has(key)) {
+            continue;
+        }
+        delete entries[key];
+        if (isDebugStore) {
+            console.log(`Clear entry: ${key}`);
+        }
+    }
+    return state;
+}
+/**
+ * Schedules the routine to remove stale entries from `allEntries`.
+ */
+function scheduleClearCachedEntries() {
+    if (clearCachedEntriesRequestId === 0) {
+        clearCachedEntriesRequestId = requestIdleCallback(startClearCache);
+    }
+}
+/** ID for the current scheduled `clearCachedEntries`. */
+let clearCachedEntriesRequestId = 0;
+/** Starts the action CLEAR_STALE_CACHED_ENTRIES.  */
+function startClearCache() {
+    const store = getStore();
+    store.dispatch(clearCachedEntries());
+    clearCachedEntriesRequestId = 0;
+}
+const prefetchPropertyNames = Array.from(new Set([
+    ...LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES,
+    ...ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES,
+    ...FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES,
+    ...DLP_METADATA_PREFETCH_PROPERTY_NAMES,
+]));
+/** Get the icon for an entry. */
+function getEntryIcon(entry, locationInfo, volumeType) {
+    const url = entry.toURL();
+    // Pre-defined icons based on the URL.
+    const urlToIconPath = {
+        [recentRootKey]: ICON_TYPES.RECENT,
+        [myFilesEntryListKey]: ICON_TYPES.MY_FILES,
+        [driveRootEntryListKey]: ICON_TYPES.SERVICE_DRIVE,
+    };
+    if (urlToIconPath[url]) {
+        return urlToIconPath[url];
+    }
+    // Handle icons for grand roots ("Shared drives" and "Computers") in Drive.
+    // Here we can't just use `fullPath` to check if an entry is a grand root or
+    // not, because normal directory can also have the same full path. We also
+    // need to check if the entry is a direct child of the drive root entry list.
+    const grandRootPathToIconMap = {
+        [COMPUTERS_DIRECTORY_PATH]: ICON_TYPES.COMPUTERS_GRAND_ROOT,
+        [SHARED_DRIVES_DIRECTORY_PATH]: ICON_TYPES.SHARED_DRIVES_GRAND_ROOT,
+    };
+    if (volumeType === VolumeType.DRIVE &&
+        grandRootPathToIconMap[entry.fullPath]) {
+        return grandRootPathToIconMap[entry.fullPath];
+    }
+    // For grouped removable devices, its parent folder is an entry list, we
+    // should use USB icon for it.
+    if ('rootType' in entry && entry.rootType === RootType.REMOVABLE) {
+        return ICON_TYPES.USB;
+    }
+    if (isVolumeEntry(entry) && entry.volumeInfo) {
+        switch (entry.volumeInfo.volumeType) {
+            case VolumeType.DOWNLOADS:
+                return ICON_TYPES.MY_FILES;
+            case VolumeType.SMB:
+                return ICON_TYPES.SMB;
+            case VolumeType.PROVIDED:
+            // Fallthrough
+            case VolumeType.DOCUMENTS_PROVIDER: {
+                // Only return IconSet if there's valid background image generated.
+                const iconSet = entry.volumeInfo.iconSet;
+                if (iconSet) {
+                    const backgroundImage = iconSetToCSSBackgroundImageValue(entry.volumeInfo.iconSet);
+                    if (backgroundImage !== 'none') {
+                        return iconSet;
+                    }
+                }
+                // If no background is generated from IconSet, set the icon to the
+                // generic one for certain volume type.
+                if (volumeType && shouldProvideIcons(volumeType)) {
+                    return ICON_TYPES.GENERIC;
+                }
+                return '';
+            }
+            case VolumeType.MTP:
+                return ICON_TYPES.MTP;
+            case VolumeType.ARCHIVE:
+                return ICON_TYPES.ARCHIVE;
+            case VolumeType.REMOVABLE:
+                // For sub-partition from a removable volume, its children icon should
+                // be UNKNOWN_REMOVABLE.
+                return entry.volumeInfo.prefixEntry ? ICON_TYPES.UNKNOWN_REMOVABLE :
+                    ICON_TYPES.USB;
+            case VolumeType.DRIVE:
+                return ICON_TYPES.DRIVE;
+        }
+    }
+    return getIcon(entry, undefined, locationInfo?.rootType);
+}
+/**
+ * Given an entry, check if its loading children should be delayed.
+ * We are doing this for SMB to avoid potentially hanging whilst scanning a
+ * large SMB file share and causing performance issues.
+ */
+function shouldDelayLoadingChildren(entry) {
+    const { volumeManager } = window.fileManager;
+    // When this function is triggered when mounting new volumes, volumeInfo is
+    // not available in the VolumeManager yet, we need to get volumeInfo from the
+    // entry itself.
+    const volumeInfo = isVolumeEntry(entry) ? entry.volumeInfo :
+        volumeManager.getVolumeInfo(entry);
+    return volumeInfo?.source === Source.NETWORK &&
+        volumeInfo.volumeType === VolumeType.SMB;
+}
+/**
+ * Converts the entry to the Store representation of an Entry: FileData.
+ */
+function convertEntryToFileData(entry) {
+    const { volumeManager, metadataModel } = window.fileManager;
+    // When this function is triggered when mounting new volumes, volumeInfo is
+    // not available in the VolumeManager yet, we need to get volumeInfo from the
+    // entry itself.
+    const volumeInfo = isVolumeEntry(entry) ? entry.volumeInfo :
+        volumeManager.getVolumeInfo(entry);
+    const locationInfo = volumeManager.getLocationInfo(entry);
+    const label = getEntryLabel(locationInfo, entry);
+    // For FakeEntry, we need to read from entry.volumeType because it doesn't
+    // have volumeInfo in the volume manager.
+    const volumeType = 'volumeType' in entry && entry.volumeType ?
+        entry.volumeType :
+        (volumeInfo?.volumeType || null);
+    const volumeId = volumeInfo?.volumeId || null;
+    const icon = getEntryIcon(entry, locationInfo, volumeType);
+    /**
+     * Update disabled attribute if entry supports disabled attribute and has a
+     * non-null volumeType.
+     */
+    if ('disabled' in entry && volumeType) {
+        entry.disabled = volumeManager.isDisabled(volumeType);
+    }
+    const metadata = metadataModel ?
+        metadataModel.getCache([entry], prefetchPropertyNames)[0] :
+        {};
+    return {
+        entry,
+        icon,
+        type: getEntryType(entry),
+        isDirectory: entry.isDirectory,
+        label,
+        volumeId,
+        rootType: locationInfo?.rootType ?? null,
+        metadata,
+        expanded: false,
+        disabled: 'disabled' in entry ? entry.disabled : false,
+        isRootEntry: !!locationInfo?.isRootEntry,
+        // `isEjectable` is determined by its corresponding volume, will be updated
+        // when volume is added.
+        isEjectable: false,
+        canExpand: shouldDelayLoadingChildren(entry),
+        children: [],
+    };
+}
+/**
+ * Appends the entry to the Store.
+ */
+function appendEntry(state, entry) {
+    const allEntries = state.allEntries || {};
+    const key = entry.toURL();
+    const existingFileData = allEntries[key] || {};
+    // Some client code might dispatch actions based on
+    // `volume.resolveDisplayRoot()` which is a DirectoryEntry instead of a
+    // VolumeEntry. It's safe to ignore this entry because the data will be the
+    // same as `existingFileData` and we don't want to convert from VolumeEntry to
+    // DirectoryEntry.
+    if (existingFileData.type === EntryType.VOLUME_ROOT &&
+        getEntryType(entry) !== EntryType.VOLUME_ROOT) {
+        return;
+    }
+    const fileData = convertEntryToFileData(entry);
+    allEntries[key] = {
+        ...fileData,
+        // For existing entries already in the store, we want to keep the existing
+        // value for the following fields. For example, for "expanded" entries with
+        // expanded=true, we don't want to override it with expanded=false derived
+        // from `convertEntryToFileData` function above.
+        expanded: existingFileData.expanded ?? fileData.expanded,
+        isEjectable: existingFileData.isEjectable ?? fileData.isEjectable,
+        canExpand: existingFileData.canExpand ?? fileData.canExpand,
+        // Keep children to prevent sudden removal of the children items on the UI.
+        children: existingFileData.children ?? fileData.children,
+    };
+    state.allEntries = allEntries;
+}
+/**
+ * Updates `FileData` from a `FileKey`.
+ *
+ * Note: the state will be updated in place.
+ */
+function updateFileDataInPlace(state, key, changes) {
+    if (!state.allEntries[key]) {
+        console.warn(`Entry FileData not found in the store: ${key}`);
+        return;
+    }
+    const newFileData = {
+        ...state.allEntries[key],
+        ...changes,
+    };
+    state.allEntries[key] = newFileData;
+    return newFileData;
+}
+/** Caches the Action's entry in the `allEntries` attribute. */
+function cacheEntries(currentState, entries) {
+    scheduleClearCachedEntries();
+    for (const entry of entries) {
+        appendEntry(currentState, entry);
+    }
+}
+function getEntryType(entry) {
+    // Entries from FilesAppEntry have the `typeName` property.
+    if (!('typeName' in entry)) {
+        return EntryType.FS_API;
+    }
+    switch (entry.typeName) {
+        case 'EntryList':
+            return EntryType.ENTRY_LIST;
+        case 'VolumeEntry':
+            return EntryType.VOLUME_ROOT;
+        case 'FakeEntry':
+            switch (entry.rootType) {
+                case RootType.RECENT:
+                    return EntryType.RECENT;
+                case RootType.TRASH:
+                    return EntryType.TRASH;
+                case RootType.DRIVE_FAKE_ROOT:
+                    return EntryType.ENTRY_LIST;
+                case RootType.CROSTINI:
+                case RootType.ANDROID_FILES:
+                    return EntryType.PLACEHOLDER;
+                case RootType.DRIVE_OFFLINE:
+                case RootType.DRIVE_SHARED_WITH_ME:
+                    // TODO(lucmult): This isn't really Recent but it's the closest.
+                    return EntryType.RECENT;
+            }
+            console.warn(`Invalid fakeEntry.rootType='${entry.rootType} rootType`);
+            return EntryType.PLACEHOLDER;
+        case 'GuestOsPlaceholder':
+            return EntryType.PLACEHOLDER;
+        case 'TrashEntry':
+            return EntryType.TRASH;
+        default:
+            console.warn(`Invalid entry.typeName='${entry.typeName}`);
+            return EntryType.FS_API;
+    }
+}
+/** Create action to update entries metadata. */
+const updateMetadata = slice$b.addReducer('update-metadata', updateMetadataReducer);
+function updateMetadataReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, payload.metadata.map(m => m.entry));
+    for (const entryMetadata of payload.metadata) {
+        const key = entryMetadata.entry.toURL();
+        const fileData = currentState.allEntries[key];
+        const metadata = { ...fileData.metadata, ...entryMetadata.metadata };
+        currentState.allEntries[key] = {
+            ...fileData,
+            metadata,
+        };
+    }
+    if (!currentState.currentDirectory) {
+        console.warn('Missing `currentDirectory`');
+        return currentState;
+    }
+    const currentDirectory = {
+        ...currentState.currentDirectory,
+        hasDlpDisabledFiles: hasDlpDisabledFiles(currentState),
+    };
+    return {
+        ...currentState,
+        currentDirectory,
+    };
+}
+function findVolumeByType(volumes, volumeType) {
+    return Object.values(volumes).find(v => {
+        // If the volume isn't resolved yet, we just ignore here.
+        return v.rootKey && v.volumeType === volumeType;
+    }) ??
+        null;
+}
+/**
+ * Returns the MyFiles entry and volume, the entry can either be a fake one
+ * (EntryList) or a real one (VolumeEntry) depends on if the MyFiles volume is
+ * mounted or not.
+ * Note: it will create a fake EntryList in the store if there's no
+ * MyFiles entry in the store (e.g. no EntryList and no VolumeEntry).
+ */
+function getMyFiles(state) {
+    const { volumes } = state;
+    const myFilesVolume = findVolumeByType(volumes, VolumeType.DOWNLOADS);
+    const myFilesVolumeEntry = myFilesVolume ?
+        getEntry$1(state, myFilesVolume.rootKey) :
+        null;
+    let myFilesEntryList = getEntry$1(state, myFilesEntryListKey);
+    if (!myFilesVolumeEntry && !myFilesEntryList) {
+        myFilesEntryList =
+            new EntryList(str('MY_FILES_ROOT_LABEL'), RootType.MY_FILES);
+        appendEntry(state, myFilesEntryList);
+        state.uiEntries = [...state.uiEntries, myFilesEntryList.toURL()];
+    }
+    return {
+        myFilesEntry: myFilesVolumeEntry || myFilesEntryList,
+        myFilesVolume,
+    };
+}
+/**  Create action to add child entries to a parent entry. */
+const addChildEntries = slice$b.addReducer('add-children', addChildEntriesReducer);
+function addChildEntriesReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, payload.entries);
+    const { parentKey, entries } = payload;
+    const { allEntries } = currentState;
+    // The corresponding parent entry item has been removed somehow, do nothing.
+    if (!allEntries[parentKey]) {
+        return currentState;
+    }
+    const newEntryKeys = entries.map(entry => entry.toURL());
+    // Add children to the parent entry item.
+    const parentFileData = {
+        ...allEntries[parentKey],
+        children: newEntryKeys,
+    };
+    return {
+        ...currentState,
+        allEntries: {
+            ...allEntries,
+            [parentKey]: parentFileData,
+        },
+    };
+}
+/**
+ * Read sub directories for a given entry.
+ */
+async function* readSubDirectoriesInternal(entry, recursive = false, metricNameForTracking = '') {
+    if (!isEntryScannable(entry)) {
+        return;
+    }
+    // Track time for reading sub directories if metric for tracking is passed.
+    if (metricNameForTracking) {
+        startInterval(metricNameForTracking);
+    }
+    const childEntriesToReadDeeper = [];
+    if (isDriveRootEntryList(entry)) {
+        for await (const action of readSubDirectoriesForDriveRootEntryList(entry)) {
+            yield action;
+            if (action) {
+                childEntriesToReadDeeper.push(...action.payload.entries);
+            }
+        }
+    }
+    else {
+        const childEntries = await readChildEntriesByFullScan(entry);
+        // Only dispatch directories.
+        const subDirectories = childEntries.filter(childEntry => childEntry.isDirectory);
+        yield addChildEntries({ parentKey: entry.toURL(), entries: subDirectories });
+        childEntriesToReadDeeper.push(...subDirectories);
+        // Fetch metadata if the entry supports Drive specific share icon.
+        const state = getStore().getState();
+        const parentFileData = getFileData(state, entry.toURL());
+        if (parentFileData && isEntryInsideDrive(parentFileData)) {
+            const entriesNeedMetadata = subDirectories.filter(subDirectory => {
+                const fileData = getFileData(state, subDirectory.toURL());
+                return fileData && shouldSupportDriveSpecificIcons(fileData);
+            });
+            if (entriesNeedMetadata.length > 0) {
+                window.fileManager.metadataModel.get(entriesNeedMetadata, [
+                    ...LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES,
+                    ...DLP_METADATA_PREFETCH_PROPERTY_NAMES,
+                ]);
+            }
+        }
+    }
+    // Track time for reading sub directories if metric for tracking is passed.
+    if (metricNameForTracking) {
+        recordInterval(metricNameForTracking);
+    }
+    // Read sub directories for children when recursive is true.
+    if (recursive) {
+        const state = getStore().getState();
+        // We only read deeper if the parent entry is expanded in the tree.
+        const fileData = getFileData(state, entry.toURL());
+        if (!fileData?.expanded) {
+            return;
+        }
+        for (const childEntry of childEntriesToReadDeeper) {
+            const childFileData = getFileData(state, childEntry.toURL());
+            if (childFileData?.expanded) {
+                // If child item is expanded, we need to do a full scan for it.
+                for await (const action of readSubDirectories(childEntry, /* recursive= */ true)) {
+                    yield action;
+                }
+            }
+            else if (childFileData?.canExpand) {
+                // If we already know the child item can be expanded, no partial scan is
+                // required.
+                continue;
+            }
+            else {
+                // If the child item is not expanded, we do a partial scan to check if
+                // it has children or not (so we know if we need to show expand icon
+                // or not).
+                for await (const action of readSubDirectoriesToCheckDirectoryChildren(childEntry)) {
+                    yield action;
+                }
+            }
+        }
+    }
+}
+/**
+ * When there are multiple `readSubDirectories` actions with the same key being
+ * dispatched at the same time, we only keep the latest one.
+ */
+const readSubDirectories = keyedKeepLatest(readSubDirectoriesInternal, (entry, recursive, _metricNameForTracking) => entry ? `${entry.toURL()}${recursive ? '-recursive' : ''}` : '');
+/**
+ * Read entries for Drive root entry list (aka "Google Drive"), there are some
+ * differences compared to the `readSubDirectoriesForDirectoryEntry`:
+ * * We don't need to call readEntries to get its child entries. Instead, all
+ * its children are from its entry.getUiChildren().
+ * * For fake entries children (e.g. Shared with me and Offline), we only show
+ * them based on the dialog type.
+ * * For curtain children (e.g. team drives and computers grand root), we only
+ * show them when there's at least one child entries inside. So we need to read
+ * their children (grand children of drive fake root) first before we can decide
+ * if we need to show them or not.
+ */
+async function* readSubDirectoriesForDriveRootEntryList(entry) {
+    const metricNameMap = {
+        [SHARED_DRIVES_DIRECTORY_PATH]: 'TeamDrivesCount',
+        [COMPUTERS_DIRECTORY_PATH]: 'ComputerCount',
+    };
+    const driveChildren = entry.getUiChildren();
+    /**
+     * Store the filtered children, for fake entries or grand roots we might need
+     * to hide them based on curtain conditions.
+     */
+    const filteredChildren = [];
+    const isFakeEntryVisible = window.fileManager.dialogType !== DialogType.SELECT_SAVEAS_FILE;
+    for (const childEntry of driveChildren) {
+        // For fake entries ("Shared with me" and)
+        if (isFakeEntryInDrives(childEntry)) {
+            if (isFakeEntryVisible) {
+                filteredChildren.push(childEntry);
+            }
+            continue;
+        }
+        // For non grand roots (also not fake entries), we put them in the children
+        // directly and dispatch an action to read the it later.
+        if (!isGrandRootEntryInDrives(childEntry)) {
+            filteredChildren.push(childEntry);
+            continue;
+        }
+        // For grand roots ("Shared drives" and "Computers") inside Drive, we only
+        // show them when there's at least one child entries inside.
+        const grandChildEntries = await readChildEntriesByFullScan(childEntry);
+        recordSmallCount(metricNameMap[childEntry.fullPath], grandChildEntries.length);
+        if (grandChildEntries.length > 0) {
+            filteredChildren.push(childEntry);
+        }
+    }
+    yield addChildEntries({ parentKey: entry.toURL(), entries: filteredChildren });
+}
+/**
+ * Read a given directory entry to get all child entries.
+ *
+ * @param entry The parent directory entry to read.
+ */
+async function readChildEntriesByFullScan(entry) {
+    const childEntries = [];
+    for await (const partialEntries of readEntries(entry)) {
+        childEntries.push(...partialEntries);
+    }
+    return sortEntries(entry, childEntries);
+}
+/**
+ * Read a given directory entry to check if it has directory child entries or
+ * not. It won't do full scanning, the scan stops immediately after finding a
+ * child directory entry.
+ *
+ * @param entry The parent directory entry to read.
+ */
+async function checkDirectoryChildByPartialScan(entry) {
+    const { directoryModel } = window.fileManager;
+    const fileFilter = directoryModel.getFileFilter();
+    const isDirectoryChild = (childEntry) => childEntry.isDirectory && fileFilter.filter(childEntry);
+    for await (const partialEntries of readEntries(entry)) {
+        if (partialEntries.some(isDirectoryChild)) {
+            return true;
+        }
+    }
+    return false;
+}
+/**
+ * Read sub directories for a given entry to check if it has directory children
+ * or not.
+ */
+async function* readSubDirectoriesToCheckDirectoryChildrenInternal(entry) {
+    if (!isEntryScannable(entry)) {
+        return;
+    }
+    const state = getStore().getState();
+    const fileData = getFileData(state, entry.toURL());
+    // Do nothing because we already know it has children.
+    if (fileData && (fileData.children.length > 0 || fileData.canExpand)) {
+        return;
+    }
+    const { directoryModel } = window.fileManager;
+    const fileFilter = directoryModel.getFileFilter();
+    const isDirectoryChild = (childEntry) => childEntry.isDirectory && fileFilter.filter(childEntry);
+    // The entry has UIChildren but has no FileData.children, we know it can be
+    // expanded.
+    if (isEntrySupportUiChildren(entry) && entry.getUiChildren().length > 0) {
+        const uiChildrenDirectories = entry.getUiChildren().filter(isDirectoryChild);
+        if (uiChildrenDirectories.length > 0) {
+            yield updateFileData({ key: entry.toURL(), partialFileData: { canExpand: true } });
+        }
+        return;
+    }
+    const hasDirectoryChild = await checkDirectoryChildByPartialScan(entry);
+    if (hasDirectoryChild) {
+        yield updateFileData({ key: entry.toURL(), partialFileData: { canExpand: true } });
+    }
+}
+/**
+ * When there are multiple `readSubDirectoriesToCheckDirectoryChildren`
+ * actions with the same key being dispatched at the same time, we only keep
+ * the latest one.
+ */
+const readSubDirectoriesToCheckDirectoryChildren = keyedKeepLatest(readSubDirectoriesToCheckDirectoryChildrenInternal, (entry) => entry ? entry.toURL() : '');
+/**
+ * Read child entries for the newly renamed directory entry.
+ * We need to read its parent's children first before reading its own
+ * children, because the newly renamed entry might not be in the store yet
+ * after renaming.
+ */
+async function* readSubDirectoriesForRenamedEntry(newEntry) {
+    const parentDirectory = await getParentEntry(newEntry);
+    // Read the children of the parent first to make sure the newly added entry
+    // appears in the store.
+    for await (const action of readSubDirectories(parentDirectory)) {
+        yield action;
+    }
+    // Read the children of the newly renamed entry.
+    for await (const action of readSubDirectories(newEntry, /* recursive= */ true)) {
+        yield action;
+    }
+}
+/**
+ * Traverse each entry in the `pathEntryKeys`: if the entry doesn't exist in
+ * the store, read sub directories for its parent. After all entries exist in
+ * the store, expand all parent entries.
+ *
+ * @param pathEntryKeys An array of FileKey starts from ancestor to child,
+ *     e.g. [A, B, C] A is the parent entry of B, B is the parent entry of C.
+ */
+async function* traverseAndExpandPathEntriesInternal(pathEntryKeys) {
+    if (pathEntryKeys.length === 0) {
+        return;
+    }
+    const childEntryKey = pathEntryKeys[pathEntryKeys.length - 1];
+    const state = getStore().getState();
+    const childEntryFileData = getFileData(state, childEntryKey);
+    if (!childEntryFileData) {
+        console.warn(`Can not find the child entry: ${childEntryKey}`);
+        return;
+    }
+    const volume = getVolume(state, childEntryFileData);
+    if (!volume) {
+        console.warn(`Can not find the volume root for the child entry: ${childEntryKey}`);
+        return;
+    }
+    const volumeEntry = getEntry$1(state, volume.rootKey);
+    if (!volumeEntry) {
+        console.warn(`Can not find the volume root entry: ${volume.rootKey}`);
+        return;
+    }
+    for (let i = 1; i < pathEntryKeys.length; i++) {
+        // We need to getStore() for each loop because the below `yield action`
+        // will add new entries to the store.
+        const state = getStore().getState();
+        const currentEntryKey = pathEntryKeys[i];
+        const parentEntryKey = pathEntryKeys[i - 1];
+        const parentEntry = getEntry$1(state, parentEntryKey);
+        const parentFileData = getFileData(state, parentEntryKey);
+        const fileData = getFileData(state, currentEntryKey);
+        // Read sub directories if the child entry doesn't exist or it's not in
+        // parent entry's children.
+        if (!fileData || !parentFileData.children.includes(currentEntryKey)) {
+            let foundCurrentEntry = false;
+            for await (const action of readSubDirectories(parentEntry)) {
+                yield action;
+                const childEntries = action?.payload.entries || [];
+                foundCurrentEntry =
+                    !!childEntries.find(entry => entry.toURL() === currentEntryKey);
+                if (foundCurrentEntry) {
+                    break;
+                }
+            }
+            if (!foundCurrentEntry) {
+                console.warn(`Failed to find entry "${currentEntryKey}" from its parent "${parentEntryKey}"`);
+                return;
+            }
+        }
+    }
+    // Now all entries on `pathEntryKeys` are found, we can expand all of them
+    // now. Note: if any entry on the path can't be found, we don't expand
+    // anything because we don't want to expand half-way, e.g. if `pathEntryKeys
+    // = [entryA, entryB, entryC]` but somehow entryB doesn't exist, we don't
+    // want to expand `entryA`.
+    for (let i = 0; i < pathEntryKeys.length - 1; i++) {
+        yield updateFileData({ key: pathEntryKeys[i], partialFileData: { expanded: true } });
+    }
+}
+/**
+ * `traverseAndExpandPathEntries` is mainly used to traverse and expand the
+ * `pathComponent` for current directory, if concurrent requests happen (e.g.
+ * current directory changes too quickly while we are still resolving the
+ * previous one), we just ditch the previous request and only keep the latest.
+ */
+const traverseAndExpandPathEntries = keepLatest(traverseAndExpandPathEntriesInternal);
+/** Create action to update FileData for a given entry. */
+const updateFileData = slice$b.addReducer('update-file-data', updateFileDataReducer);
+function updateFileDataReducer(currentState, payload) {
+    const { key, partialFileData } = payload;
+    const fileData = getFileData(currentState, key);
+    if (!fileData) {
+        return currentState;
+    }
+    currentState.allEntries[key] = {
+        ...fileData,
+        ...partialFileData,
+    };
+    return { ...currentState };
 }
 
 // Copyright 2023 The Chromium Authors
@@ -5669,23 +7843,22 @@ function keyedKeepFirst(actionsProducer, generateKey) {
 // found in the LICENSE file.
 /**
  * @fileoverview Android apps slice of the store.
- * @suppress {checkTypes}
  *
  * Android App is something we get from private API
  * `chrome.fileManagerPrivate.getAndroidPickerApps`, it will be shown as a
  * directory item in FilePicker mode.
  */
-const slice$b = new Slice('androidApps');
+const slice$a = new Slice('androidApps');
 /** Action factory to add all android app config to the store. */
-const addAndroidApps = slice$b.addReducer('add', addAndroidAppsReducer);
+const addAndroidApps = slice$a.addReducer('add', addAndroidAppsReducer);
 function addAndroidAppsReducer(currentState, payload) {
     const androidApps = {};
     for (const app of payload.apps) {
         // For android app item, if no icon is derived from IconSet, set the icon to
         // the generic one.
-        let icon = constants.ICON_TYPES.GENERIC;
+        let icon = ICON_TYPES.GENERIC;
         if (app.iconSet) {
-            const backgroundImage = util.iconSetToCSSBackgroundImageValue(app.iconSet);
+            const backgroundImage = iconSetToCSSBackgroundImageValue(app.iconSet);
             if (backgroundImage !== 'none') {
                 icon = app.iconSet;
             }
@@ -5706,7 +7879,6 @@ function addAndroidAppsReducer(currentState, payload) {
 // found in the LICENSE file.
 /**
  * @fileoverview Bulk pinning slice of the store.
- * @suppress {checkTypes}
  *
  * BulkPinProgress is the current state of files that are being pinned when the
  * BulkPinning feature is enabled. During bulk pinning, all the users items in
@@ -5714,9 +7886,9 @@ function addAndroidAppsReducer(currentState, payload) {
  * both the initial operation and any subsequent updates along with any error
  * states that may occur.
  */
-const slice$a = new Slice('bulkPinning');
+const slice$9 = new Slice('bulkPinning');
 /** Create action to update the bulk pin progress. */
-const updateBulkPinProgress = slice$a.addReducer('set-progress', (state, bulkPinning) => ({
+const updateBulkPinProgress = slice$9.addReducer('set-progress', (state, bulkPinning) => ({
     ...state,
     bulkPinning,
 }));
@@ -5726,10 +7898,9 @@ const updateBulkPinProgress = slice$a.addReducer('set-progress', (state, bulkPin
 // found in the LICENSE file.
 /**
  * @fileoverview Device slice of the store.
- * @suppress {checkTypes}
  */
-const slice$9 = new Slice('device');
-const updateDeviceConnectionState = slice$9.addReducer('set-connection-state', updateDeviceConnectionStateReducer$1);
+const slice$8 = new Slice('device');
+const updateDeviceConnectionState = slice$8.addReducer('set-connection-state', updateDeviceConnectionStateReducer$1);
 function updateDeviceConnectionStateReducer$1(currentState, payload) {
     let device;
     // Device connection.
@@ -5747,10 +7918,9 @@ function updateDeviceConnectionStateReducer$1(currentState, payload) {
 // found in the LICENSE file.
 /**
  * @fileoverview Drive slice of the store.
- * @suppress {checkTypes}
  */
-const slice$8 = new Slice('drive');
-const updateDriveConnectionStatus = slice$8.addReducer('set-drive-connection-status', updateDriveConnectionStatusReducer);
+const slice$7 = new Slice('drive');
+const updateDriveConnectionStatus = slice$7.addReducer('set-drive-connection-status', updateDriveConnectionStatusReducer);
 function updateDriveConnectionStatusReducer(currentState, payload) {
     const drive = { ...currentState.drive };
     if (payload.type !== currentState.drive.connectionType) {
@@ -5770,13 +7940,9 @@ function updateDriveConnectionStatusReducer(currentState, payload) {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Folder shortcuts slice of the store.
- * @suppress {checkTypes}
- */
-const slice$7 = new Slice('folderShortcuts');
+const slice$6 = new Slice('folderShortcuts');
 /** Create action to refresh all folder shortcuts with provided ones. */
-const refreshFolderShortcut = slice$7.addReducer('refresh', refreshFolderShortcutReducer);
+const refreshFolderShortcut = slice$6.addReducer('refresh', refreshFolderShortcutReducer);
 function refreshFolderShortcutReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, payload.entries);
@@ -5786,7 +7952,7 @@ function refreshFolderShortcutReducer(currentState, payload) {
     };
 }
 /** Create action to add a folder shortcut. */
-const addFolderShortcut = slice$7.addReducer('add', addFolderShortcutReducer);
+const addFolderShortcut = slice$6.addReducer('add', addFolderShortcutReducer);
 function addFolderShortcutReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, [payload.entry]);
@@ -5819,7 +7985,7 @@ function addFolderShortcutReducer(currentState, payload) {
     };
 }
 /** Create action to remove a folder shortcut. */
-const removeFolderShortcut = slice$7.addReducer('remove', removeFolderShortcutReducer);
+const removeFolderShortcut = slice$6.addReducer('remove', removeFolderShortcutReducer);
 function removeFolderShortcutReducer(currentState, payload) {
     const { key } = payload;
     const { folderShortcuts } = currentState;
@@ -5837,31 +8003,45 @@ function removeFolderShortcutReducer(currentState, payload) {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+const slice$5 = new Slice('launchParams');
+function launchParamsReducer(state, launchParams) {
+    const storedLaunchParams = state.launchParams || {};
+    if (launchParams.dialogType !== storedLaunchParams.dialogType) {
+        return { ...state, launchParams };
+    }
+    return state;
+}
+/**
+ * Updates the stored launch parameters in the store based on the supplied data.
+ */
+const setLaunchParameters = slice$5.addReducer('set', launchParamsReducer);
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 /**
  * @fileoverview Navigation slice of the store.
- * @suppress {checkTypes}
  */
-const slice$6 = new Slice('navigation');
-const VolumeType$1 = VolumeManagerCommon.VolumeType;
+const slice$4 = new Slice('navigation');
 const sections = new Map();
 // My Files.
-sections.set(VolumeType$1.DOWNLOADS, NavigationSection.MY_FILES);
+sections.set(VolumeType.DOWNLOADS, NavigationSection.MY_FILES);
 // Cloud.
-sections.set(VolumeType$1.DRIVE, NavigationSection.CLOUD);
-sections.set(VolumeType$1.SMB, NavigationSection.CLOUD);
-sections.set(VolumeType$1.PROVIDED, NavigationSection.CLOUD);
-sections.set(VolumeType$1.DOCUMENTS_PROVIDER, NavigationSection.CLOUD);
+sections.set(VolumeType.DRIVE, NavigationSection.CLOUD);
+sections.set(VolumeType.SMB, NavigationSection.CLOUD);
+sections.set(VolumeType.PROVIDED, NavigationSection.CLOUD);
+sections.set(VolumeType.DOCUMENTS_PROVIDER, NavigationSection.CLOUD);
 // Removable.
-sections.set(VolumeType$1.REMOVABLE, NavigationSection.REMOVABLE);
-sections.set(VolumeType$1.MTP, NavigationSection.REMOVABLE);
-sections.set(VolumeType$1.ARCHIVE, NavigationSection.REMOVABLE);
+sections.set(VolumeType.REMOVABLE, NavigationSection.REMOVABLE);
+sections.set(VolumeType.MTP, NavigationSection.REMOVABLE);
+sections.set(VolumeType.ARCHIVE, NavigationSection.REMOVABLE);
 /** Returns the entry for the volume's top-most prefix or the volume itself. */
 function getPrefixEntryOrEntry(state, volume) {
     if (volume.prefixKey) {
         const entry = getEntry$1(state, volume.prefixKey);
         return entry;
     }
-    if (volume.volumeType === VolumeType$1.DOWNLOADS) {
+    if (volume.volumeType === VolumeType.DOWNLOADS) {
         return getMyFiles(state).myFilesEntry;
     }
     const entry = getEntry$1(state, volume.rootKey);
@@ -5884,7 +8064,7 @@ function getPrefixEntryOrEntry(state, volume) {
  *  9. Android apps.
  *  10. Trash.
  */
-const refreshNavigationRoots = slice$6.addReducer('refresh-roots', refreshNavigationRootsReducer);
+const refreshNavigationRoots = slice$4.addReducer('refresh-roots', refreshNavigationRootsReducer);
 function refreshNavigationRootsReducer(currentState) {
     const { navigation: { roots: previousRoots }, folderShortcuts, androidApps, } = currentState;
     /** Roots in the desired order. */
@@ -5935,8 +8115,14 @@ function refreshNavigationRootsReducer(currentState) {
     });
     processedEntryKeys.add(myFilesEntry.toURL());
     // 4. Add Google Drive - the only Drive.
+    // When drive pref changes from enabled to disabled, we remove the drive root
+    // key from the `state.uiEntries` immediately, but the drive root entry itself
+    // is removed asynchronously, so here we need to check both, if the key
+    // doesn't exist any more, we shouldn't render Drive item even if the drive
+    // root entry is still available.
+    const driveEntryKeyExist = currentState.uiEntries.includes(driveRootEntryListKey);
     const driveEntry = getEntry$1(currentState, driveRootEntryListKey);
-    if (driveEntry) {
+    if (driveEntryKeyExist && driveEntry) {
         roots.push({
             key: driveEntry.toURL(),
             section: NavigationSection.GOOGLE_DRIVE,
@@ -5947,15 +8133,15 @@ function refreshNavigationRootsReducer(currentState) {
     }
     // 5/6/7/8 Other volumes.
     const volumesOrder = {
-        // ODFS is a PROVIDED volume type but is a special case to be directly below
-        // Drive.
+        // ODFS is a PROVIDED volume type but is a special case to be directly
+        // below Drive.
         // ODFS : 0
-        [VolumeType$1.SMB]: 1,
-        [VolumeType$1.PROVIDED]: 2,
-        [VolumeType$1.DOCUMENTS_PROVIDER]: 3,
-        [VolumeType$1.REMOVABLE]: 4,
-        [VolumeType$1.ARCHIVE]: 5,
-        [VolumeType$1.MTP]: 6,
+        [VolumeType.SMB]: 1,
+        [VolumeType.PROVIDED]: 2, // FSP.
+        [VolumeType.DOCUMENTS_PROVIDER]: 3,
+        [VolumeType.REMOVABLE]: 4,
+        [VolumeType.ARCHIVE]: 5,
+        [VolumeType.MTP]: 6,
     };
     // Filter volumes based on the volumeInfoList in volumeManager.
     const { volumeManager } = window.fileManager;
@@ -5976,9 +8162,9 @@ function refreshNavigationRootsReducer(currentState) {
         v.rootKey &&
             // MyFiles and Drive is already displayed above.
             // MediaView volumeType isn't displayed.
-            !(v.volumeType === VolumeType$1.DOWNLOADS ||
-                v.volumeType === VolumeType$1.DRIVE ||
-                v.volumeType === VolumeType$1.MEDIA_VIEW));
+            !(v.volumeType === VolumeType.DOWNLOADS ||
+                v.volumeType === VolumeType.DRIVE ||
+                v.volumeType === VolumeType.MEDIA_VIEW));
     })
         .sort((v1, v2) => {
         const v1Order = getVolumeOrder(v1);
@@ -6020,8 +8206,22 @@ function refreshNavigationRootsReducer(currentState) {
         processedEntryKeys.add(app.packageName);
     });
     // 10. Trash
+    // Trash should only show when Files app is open as a standalone app. The ARC
+    // file selector, however, opens Files app as a standalone app but passes a
+    // query parameter to indicate the mode. As Trash is a fake volume, it is
+    // not filtered out in the filtered volume manager so perform it here
+    // instead.
+    const { dialogType } = window.fileManager;
+    const shouldShowTrash = dialogType === DialogType.FULL_PAGE &&
+        !volumeManager.getMediaStoreFilesOnlyFilterEnabled();
+    // When trash pref changes from enabled to disabled, we remove the trash root
+    // key from the `state.uiEntries` immediately, but the trash entry itself is
+    // removed asynchronously, so here we need to check both, if the key doesn't
+    // exist any more, we shouldn't render Trash item even if the trash entry is
+    // still available.
+    const trashEntryKeyExist = currentState.uiEntries.includes(trashRootKey);
     const trashEntry = getEntry$1(currentState, trashRootKey);
-    if (trashEntry) {
+    if (shouldShowTrash && trashEntryKeyExist && trashEntry) {
         roots.push({
             key: trashRootKey,
             section: NavigationSection.TRASH,
@@ -6037,33 +8237,18 @@ function refreshNavigationRootsReducer(currentState) {
         },
     };
 }
-/** Create action to update navigation data in FileData for a given entry. */
-const updateNavigationEntry = slice$6.addReducer('update-entry', updateNavigationEntryReducer);
-function updateNavigationEntryReducer(currentState, payload) {
-    const { key, expanded } = payload;
-    const fileData = getFileData(currentState, key);
-    if (!fileData) {
-        return currentState;
-    }
-    currentState.allEntries[key] = {
-        ...fileData,
-        expanded,
-    };
-    return { ...currentState };
-}
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
  * @fileoverview Chrome preferences slice of the store.
- * @suppress {checkTypes}
  *
  * Chrome preferences store user data that is persisted to disk OR across
  * profiles, this takes care of initially populating these values then keeping
  * them updated on dynamic changes.
  */
-const slice$5 = new Slice('preferences');
+const slice$3 = new Slice('preferences');
 /**
  * A type guard to see if the payload supplied is a change of preferences or the
  * entire preferences object. Useful in ensuring subsequent type checks are done
@@ -6099,7 +8284,7 @@ function updateIfDefined(updatedPreferences, newPreferences, key) {
     return true;
 }
 /** Create action to update user preferences. */
-const updatePreferences = slice$5.addReducer('set', updatePreferencesReducer);
+const updatePreferences = slice$3.addReducer('set', updatePreferencesReducer);
 function updatePreferencesReducer(currentState, payload) {
     const preferences = payload;
     // This action takes two potential payloads:
@@ -6144,9 +8329,8 @@ function updatePreferencesReducer(currentState, payload) {
 // found in the LICENSE file.
 /**
  * @fileoverview Search slice of the store.
- * @suppress {checkTypes}
  */
-const slice$4 = new Slice('search');
+const slice$2 = new Slice('search');
 /**
  * Returns if the given search data represents empty (cleared) search.
  */
@@ -6169,7 +8353,7 @@ function optionsChanged(stored, fresh) {
         fresh.recency !== stored.recency ||
         fresh.fileCategory !== stored.fileCategory;
 }
-const setSearchParameters = slice$4.addReducer('set', searchReducer);
+const setSearchParameters = slice$2.addReducer('set', searchReducer);
 function searchReducer(state, payload) {
     const blankSearch = {
         query: undefined,
@@ -6241,92 +8425,114 @@ function getDefaultSearchOptions() {
 // found in the LICENSE file.
 /**
  * @fileoverview UI entries slice of the store.
- * @suppress {checkTypes}
  *
  * UI entries represents entries shown on UI only (aka FakeEntry, e.g.
  * Recents/Trash/Google Drive wrapper), they don't have a real entry backup in
  * the file system.
  */
-const slice$3 = new Slice('uiEntries');
+const slice$1 = new Slice('uiEntries');
 const uiEntryRootTypesInMyFiles = new Set([
-    VolumeManagerCommon.RootType.ANDROID_FILES,
-    VolumeManagerCommon.RootType.CROSTINI,
-    VolumeManagerCommon.RootType.GUEST_OS,
+    RootType.ANDROID_FILES,
+    RootType.CROSTINI,
+    RootType.GUEST_OS,
 ]);
 /** Create action to add an UI entry to the store. */
-const addUiEntry = slice$3.addReducer('add', addUiEntryReducer);
+const addUiEntryInternal = slice$1.addReducer('add', addUiEntryReducer);
 function addUiEntryReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, [payload.entry]);
     const { entry } = payload;
     const key = entry.toURL();
-    let isVolumeEntryExistedInMyFiles = false;
-    if (uiEntryRootTypesInMyFiles.has(entry.rootType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        const children = myFilesEntry.getUIChildren();
-        // Check if the the ui entry already has a corresponding volume entry.
-        isVolumeEntryExistedInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && childEntry.name === entry.name);
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
-        // We only add the UI entry here if:
-        // 1. it is not existed in MyFiles entry
-        // 2. its corresponding volume (which ui entry is a placeholder for) is not
-        // existed in MyFiles entry
-        const shouldAddUiEntry = !isUiEntryExistedInMyFiles && !isVolumeEntryExistedInMyFiles;
-        if (shouldAddUiEntry) {
-            myFilesEntry.addEntry(entry);
-            // Push the new entry to the children of FileData and sort them.
-            const fileData = getFileData(currentState, myFilesEntry.toURL());
-            if (fileData) {
-                const newChildren = fileData.children.concat(entry.toURL());
-                const childEntries = newChildren.map(childKey => getEntry$1(currentState, childKey));
-                const sortedChildren = sortEntries(myFilesEntry, childEntries).map(entry => entry.toURL());
-                currentState.allEntries[myFilesEntry.toURL()] = {
-                    ...fileData,
-                    children: sortedChildren,
-                };
-            }
-        }
-    }
-    // If the corresponding volume entry exists, we don't add the ui entry here.
-    if (!currentState.uiEntries.find(k => k === key) &&
-        !isVolumeEntryExistedInMyFiles) {
-        // Shallow copy.
-        currentState.uiEntries = currentState.uiEntries.slice();
-        currentState.uiEntries.push(key);
-    }
+    const uiEntries = [...currentState.uiEntries, key];
     return {
         ...currentState,
+        uiEntries,
     };
 }
+/**
+ * Add UI entry to the store and re-scan MyFiles if the newly added UI entry is
+ * under MyFiles.
+ */
+async function* addUiEntry(entry) {
+    const state = getStore().getState();
+    const exists = state.uiEntries.find(key => key === entry.toURL());
+    if (exists) {
+        return;
+    }
+    // If the UI entry to be added is under MyFiles, we also need to update
+    // MyFiles's UI children.
+    let isVolumeEntryInMyFiles = false;
+    if (entry.rootType && uiEntryRootTypesInMyFiles.has(entry.rootType)) {
+        const { myFilesEntry } = getMyFiles(state);
+        const children = myFilesEntry.getUiChildren();
+        // Check if the the ui entry already has a corresponding volume entry.
+        isVolumeEntryInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && childEntry.name === entry.name);
+        const isUiEntryInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
+        // We only add the UI entry here if:
+        // 1. it does not exist in MyFiles entry's UI children.
+        // 2. its corresponding volume (which ui entry is a placeholder for) does
+        // not exist in MyFiles entry's UI children.
+        const shouldAddUiEntry = !isUiEntryInMyFiles && !isVolumeEntryInMyFiles;
+        if (shouldAddUiEntry) {
+            myFilesEntry.addEntry(entry);
+            yield addUiEntryInternal({ entry });
+            // Get MyFiles again from the latest state after yield because yield pause
+            // the execution of this function and between the pause MyFiles might
+            // change from EntryList to Volume (e.g. MyFiles volume mounts during the
+            // pause).
+            const { myFilesEntry: updatedMyFiles } = getMyFiles(getStore().getState());
+            // Trigger a re-scan for MyFiles to make FileData.children in the store
+            // has this newly added children.
+            for await (const action of readSubDirectories(updatedMyFiles)) {
+                yield action;
+            }
+            return;
+        }
+    }
+    if (!isVolumeEntryInMyFiles) {
+        yield addUiEntryInternal({ entry });
+    }
+}
 /** Create action to remove an UI entry from the store. */
-const removeUiEntry = slice$3.addReducer('remove', removeUiEntryReducer);
+const removeUiEntryInternal = slice$1.addReducer('remove', removeUiEntryReducer);
 function removeUiEntryReducer(currentState, payload) {
     const { key } = payload;
-    const entry = getEntry$1(currentState, key);
-    if (currentState.uiEntries.find(k => k === key)) {
-        // Shallow copy.
-        currentState.uiEntries = currentState.uiEntries.filter(k => k !== key);
+    const uiEntries = currentState.uiEntries.filter(k => k !== key);
+    return {
+        ...currentState,
+        uiEntries,
+    };
+}
+/**
+ * Remove UI entry from the store and re-scan MyFiles if the removed UI entry is
+ * under MyFiles.
+ */
+async function* removeUiEntry(key) {
+    const state = getStore().getState();
+    const exists = state.uiEntries.find(uiEntryKey => uiEntryKey === key);
+    if (!exists) {
+        return;
     }
+    yield removeUiEntryInternal({ key });
+    const entry = getEntry$1(state, key);
     // We also need to remove it from the children of MyFiles if it's existed
     // there.
-    if (entry && uiEntryRootTypesInMyFiles.has(entry.rootType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        const children = myFilesEntry.getUIChildren();
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
-        if (isUiEntryExistedInMyFiles) {
+    if (entry?.rootType && uiEntryRootTypesInMyFiles.has(entry.rootType)) {
+        // Get MyFiles from the latest state after yield because yield pause
+        // the execution of this function and between the pause MyFiles might
+        // change.
+        const { myFilesEntry } = getMyFiles(getStore().getState());
+        const children = myFilesEntry.getUiChildren();
+        const isUiEntryInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
+        if (isUiEntryInMyFiles) {
             myFilesEntry.removeChildEntry(entry);
-            const fileData = getFileData(currentState, myFilesEntry.toURL());
-            if (fileData) {
-                currentState.allEntries[myFilesEntry.toURL()] = {
-                    ...fileData,
-                    children: fileData.children.filter(child => child !== key),
-                };
+            // Trigger a re-scan for MyFiles to make FileData.children in the store
+            // removes this children.
+            for await (const action of readSubDirectories(myFilesEntry)) {
+                yield action;
             }
         }
     }
-    return {
-        ...currentState,
-    };
 }
 
 // Copyright 2022 The Chromium Authors
@@ -6350,18 +8556,19 @@ function getStore() {
     // twice.
     if (!window.store) {
         window.store = new BaseStore(getEmptyState(), [
-            slice$4,
-            slice,
-            slice$a,
-            slice$3,
-            slice$b,
-            slice$7,
-            slice$6,
-            slice$5,
-            slice$9,
-            slice$8,
             slice$2,
+            slice,
+            slice$9,
             slice$1,
+            slice$a,
+            slice$6,
+            slice$4,
+            slice$3,
+            slice$8,
+            slice$7,
+            slice$c,
+            slice$b,
+            slice$5,
         ]);
     }
     return window.store;
@@ -6389,9 +8596,12 @@ function getEmptyState() {
         volumes: {},
         uiEntries: [],
         folderShortcuts: [],
-        androidApps: [],
+        androidApps: {},
         bulkPinning: undefined,
         preferences: undefined,
+        launchParams: {
+            dialogType: undefined,
+        },
     };
 }
 /**
@@ -6460,1085 +8670,21 @@ function getVolumeType(state, fileData) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview Current directory slice of the store.
- * @suppress {checkTypes}
- */
-const slice$2 = new Slice('currentDirectory');
-function getEmptySelection(keys = []) {
-    return {
-        keys,
-        dirCount: 0,
-        fileCount: 0,
-        // hostedCount might be updated to undefined in the for loop below.
-        hostedCount: 0,
-        // offlineCachedCount might be updated to undefined in the for loop below.
-        offlineCachedCount: 0,
-        fileTasks: {
-            tasks: [],
-            defaultTask: undefined,
-            policyDefaultHandlerStatus: undefined,
-            status: PropStatus.STARTED,
-        },
-    };
-}
-/**
- * Returns true if any of the entries in `currentDirectory` are DLP disabled,
- * and false otherwise.
- */
-function hasDlpDisabledFiles(currentState) {
-    const content = currentState.currentDirectory?.content;
-    if (!content) {
-        return false;
-    }
-    for (const key of content.keys) {
-        const fileData = currentState.allEntries[key];
-        if (!fileData) {
-            console.warn(`Missing entry: ${key}`);
-            continue;
-        }
-        if (fileData.metadata.isRestrictedForDestination) {
-            return true;
-        }
-    }
-    return false;
-}
-/** Create action to change the Current Directory. */
-const changeDirectory = slice$2.addReducer('set', changeDirectoryReducer);
-function changeDirectoryReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    if (payload.to) {
-        cacheEntries(currentState, [payload.to]);
-    }
-    const { to, toKey } = payload;
-    const key = toKey || to.toURL();
-    const status = payload.status || PropStatus.STARTED;
-    const fileData = currentState.allEntries[key];
-    let selection = currentState.currentDirectory?.selection;
-    // Use an empty selection when a selection isn't defined or it's navigating to
-    // a new directory.
-    if (!selection || currentState.currentDirectory?.key !== key) {
-        selection = {
-            keys: [],
-            dirCount: 0,
-            fileCount: 0,
-            hostedCount: undefined,
-            offlineCachedCount: undefined,
-            fileTasks: {
-                tasks: [],
-                policyDefaultHandlerStatus: undefined,
-                defaultTask: undefined,
-                status: PropStatus.SUCCESS,
-            },
-        };
-    }
-    let content = currentState.currentDirectory?.content;
-    let hasDlpDisabledFiles = currentState.currentDirectory?.hasDlpDisabledFiles || false;
-    // Use empty content when it isn't defined or it's navigating to a new
-    // directory. The content will be updated again after a successful scan.
-    if (!content || currentState.currentDirectory?.key !== key) {
-        content = {
-            keys: [],
-        };
-        hasDlpDisabledFiles = false;
-    }
-    let currentDirectory = {
-        key,
-        status,
-        pathComponents: [],
-        content: content,
-        rootType: undefined,
-        selection,
-        hasDlpDisabledFiles: hasDlpDisabledFiles,
-    };
-    // The new directory might not be in the allEntries yet, this might happen
-    // when starting to change the directory for a entry that isn't cached.
-    // At the end of the change directory, DirectoryContents will send an Action
-    // with the Entry to be cached.
-    if (fileData) {
-        const { volumeManager } = window.fileManager;
-        if (!volumeManager) {
-            console.debug(`VolumeManager not available yet.`);
-            currentDirectory = currentState.currentDirectory || currentDirectory;
-        }
-        else {
-            const components = PathComponent.computeComponentsFromEntry(fileData.entry, volumeManager);
-            currentDirectory.pathComponents = components.map(c => {
-                return {
-                    name: c.name,
-                    label: c.name,
-                    key: c.url_,
-                };
-            });
-            const locationInfo = volumeManager.getLocationInfo(fileData.entry);
-            currentDirectory.rootType = locationInfo?.rootType;
-        }
-    }
-    return {
-        ...currentState,
-        currentDirectory,
-    };
-}
-/** Create action to update currently selected files/folders. */
-const updateSelection = slice$2.addReducer('set-selection', updateSelectionReducer);
-function updateSelectionReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, payload.entries);
-    const updatingToEmpty = (payload.entries.length === 0 && payload.selectedKeys.length === 0);
-    if (!currentState.currentDirectory) {
-        if (!updatingToEmpty) {
-            console.warn('Missing `currentDirectory`');
-            console.debug('Dropping action:', payload);
-        }
-        return currentState;
-    }
-    if (!currentState.currentDirectory.content) {
-        if (!updatingToEmpty) {
-            console.warn('Missing `currentDirectory.content`');
-            console.debug('Dropping action:', payload);
-        }
-        return currentState;
-    }
-    const selectedKeys = payload.selectedKeys;
-    const contentKeys = new Set(currentState.currentDirectory.content.keys);
-    const missingKeys = selectedKeys.filter(k => !contentKeys.has(k));
-    if (missingKeys.length > 0) {
-        console.warn('Got selected keys that are not in current directory, ' +
-            'continuing anyway');
-        console.debug(`Missing keys: ${missingKeys.join('\n')} \nexisting keys:\n ${(currentState.currentDirectory?.content?.keys ?? []).join('\n')}`);
-    }
-    const selection = getEmptySelection(selectedKeys);
-    for (const key of selectedKeys) {
-        const fileData = currentState.allEntries[key];
-        if (!fileData) {
-            console.warn(`Missing entry: ${key}`);
-            continue;
-        }
-        if (fileData.isDirectory) {
-            selection.dirCount++;
-        }
-        else {
-            selection.fileCount++;
-        }
-        // Update hostedCount to undefined if any entry doesn't have the metadata
-        // yet.
-        const isHosted = fileData.metadata?.hosted;
-        if (isHosted === undefined) {
-            selection.hostedCount = undefined;
-        }
-        else {
-            if (selection.hostedCount !== undefined && isHosted) {
-                selection.hostedCount++;
-            }
-        }
-        // Update offlineCachedCount to undefined if any entry doesn't have the
-        // metadata yet.
-        const isOfflineCached = fileData.metadata?.offlineCached;
-        if (isOfflineCached === undefined) {
-            selection.offlineCachedCount = undefined;
-        }
-        else {
-            if (selection.offlineCachedCount !== undefined && isOfflineCached) {
-                selection.offlineCachedCount++;
-            }
-        }
-    }
-    const currentDirectory = {
-        ...currentState.currentDirectory,
-        selection,
-    };
-    return {
-        ...currentState,
-        currentDirectory,
-    };
-}
-/** Create action to update FileTasks for the current selection. */
-const updateFileTasks = slice$2.addReducer('set-file-tasks', updateFileTasksReducer);
-function updateFileTasksReducer(currentState, payload) {
-    const initialSelection = currentState.currentDirectory?.selection ?? getEmptySelection();
-    // Apply the changes over the current selection.
-    const fileTasks = {
-        ...initialSelection.fileTasks,
-        ...payload,
-    };
-    // Update the selection and current directory objects.
-    const selection = {
-        ...initialSelection,
-        fileTasks,
-    };
-    const currentDirectory = {
-        ...currentState.currentDirectory,
-        selection,
-    };
-    return {
-        ...currentState,
-        currentDirectory,
-    };
-}
-/** Create action to update the current directory's content. */
-const updateDirectoryContent = slice$2.addReducer('update-content', updateDirectoryContentReducer);
-function updateDirectoryContentReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, payload.entries);
-    if (!currentState.currentDirectory) {
-        console.warn('Missing `currentDirectory`');
-        return currentState;
-    }
-    const initialContent = currentState.currentDirectory?.content ?? { keys: [] };
-    const keys = payload.entries.map(e => e.toURL());
-    const content = {
-        ...initialContent,
-        keys,
-    };
-    let currentDirectory = {
-        ...currentState.currentDirectory,
-        content,
-    };
-    const newState = {
-        ...currentState,
-        currentDirectory,
-    };
-    currentDirectory = {
-        ...currentDirectory,
-        hasDlpDisabledFiles: hasDlpDisabledFiles(newState),
-    };
-    return {
-        ...newState,
-        currentDirectory,
-    };
-}
-/**
- * Linux package installation is currently only supported for a single file
- * which is inside the Linux container, or in a shareable volume.
- * TODO(timloh): Instead of filtering these out, we probably should show a
- * dialog with an error message, similar to when attempting to run Crostini
- * tasks with non-Crostini entries.
- */
-function allowCrostiniTask(filesData) {
-    if (filesData.length !== 1) {
-        return false;
-    }
-    const fileData = filesData[0];
-    const rootType = fileData.entry.rootType;
-    if (rootType !== VolumeManagerCommon.RootType.CROSTINI) {
-        return false;
-    }
-    const crostini = window.fileManager.crostini;
-    return crostini.canSharePath(constants.DEFAULT_CROSTINI_VM, fileData.entry, 
-    /*persiste=*/ false);
-}
-const emptyAction = (status) => updateFileTasks({
-    tasks: [],
-    policyDefaultHandlerStatus: undefined,
-    defaultTask: undefined,
-    status,
-});
-async function* fetchFileTasksInternal(filesData) {
-    // Filters out the non-native entries.
-    filesData = filesData.filter(getNativeEntry);
-    const state = getStore().getState();
-    const currentRootType = state.currentDirectory?.rootType;
-    const dialogType = window.fileManager.dialogType;
-    const shouldDisableTasks = (
-    // File Picker/Save As doesn't show the "Open" button.
-    dialogType !== DialogType.FULL_PAGE ||
-        // The list of available tasks should not be available to trashed items.
-        currentRootType === VolumeManagerCommon.RootType.TRASH ||
-        filesData.length === 0);
-    if (shouldDisableTasks) {
-        yield emptyAction(PropStatus.SUCCESS);
-        return;
-    }
-    const selectionHandler = window.fileManager.selectionHandler;
-    const selection = selectionHandler.selection;
-    await selection.computeAdditional(window.fileManager.metadataModel);
-    yield;
-    try {
-        const resultingTasks = await getFileTasks(filesData.map(fd => fd.entry), filesData.map(fd => fd.metadata.sourceUrl || ''));
-        if (!resultingTasks || !resultingTasks.tasks) {
-            return;
-        }
-        yield;
-        if (filesData.length === 0 || resultingTasks.tasks.length === 0) {
-            yield emptyAction(PropStatus.SUCCESS);
-            return;
-        }
-        if (!allowCrostiniTask(filesData)) {
-            resultingTasks.tasks = resultingTasks.tasks.filter((task) => !util.descriptorEqual(task.descriptor, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR));
-        }
-        const tasks = annotateTasks(resultingTasks.tasks, filesData);
-        resultingTasks.tasks = tasks;
-        // TODO: Migrate TaskHistory to the store.
-        const taskHistory = window.fileManager.taskController.taskHistory;
-        const defaultTask = getDefaultTask(tasks, resultingTasks.policyDefaultHandlerStatus, taskHistory) ??
-            undefined;
-        yield updateFileTasks({
-            tasks,
-            policyDefaultHandlerStatus: resultingTasks.policyDefaultHandlerStatus,
-            defaultTask: defaultTask,
-            status: PropStatus.SUCCESS,
-        });
-    }
-    catch (error) {
-        yield emptyAction(PropStatus.ERROR);
-    }
-}
-/** Generates key based on each FileKey (entry.toURL()). */
-function getSelectionKey(filesData) {
-    return filesData.map(f => f?.entry.toURL()).join('|');
-}
-const fetchFileTasks = keyedKeepFirst(fetchFileTasksInternal, getSelectionKey);
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Entries slice of the store.
- * @suppress {checkTypes} TS already checks this file.
- */
-const slice$1 = new Slice('allEntries');
-/**
- * Create action to scan `allEntries` and remove its stale entries.
- */
-const clearCachedEntries = slice$1.addReducer('clear-stale-cache', clearCachedEntriesReducer);
-function clearCachedEntriesReducer(state) {
-    const entries = state.allEntries;
-    const currentDirectoryKey = state.currentDirectory?.key;
-    const entriesToKeep = new Set();
-    if (currentDirectoryKey) {
-        entriesToKeep.add(currentDirectoryKey);
-        for (const component of state.currentDirectory.pathComponents) {
-            entriesToKeep.add(component.key);
-        }
-        for (const key of state.currentDirectory.content.keys) {
-            entriesToKeep.add(key);
-        }
-    }
-    const selectionKeys = state.currentDirectory?.selection.keys ?? [];
-    if (selectionKeys) {
-        for (const key of selectionKeys) {
-            entriesToKeep.add(key);
-        }
-    }
-    for (const volume of Object.values(state.volumes)) {
-        if (!volume.rootKey) {
-            continue;
-        }
-        entriesToKeep.add(volume.rootKey);
-        if (volume.prefixKey) {
-            entriesToKeep.add(volume.prefixKey);
-        }
-    }
-    for (const key of state.uiEntries) {
-        entriesToKeep.add(key);
-    }
-    for (const key of state.folderShortcuts) {
-        entriesToKeep.add(key);
-    }
-    for (const root of state.navigation.roots) {
-        entriesToKeep.add(root.key);
-    }
-    // For all expanded entries, we need to keep them and all their direct
-    // children.
-    for (const key of Object.keys(entries)) {
-        const fileData = entries[key];
-        if (fileData.expanded) {
-            entriesToKeep.add(key);
-            if (fileData.children) {
-                for (const child of fileData.children) {
-                    entriesToKeep.add(child);
-                }
-            }
-        }
-    }
-    // For all kept entries, we also need to keep their children so we can decide
-    // if we need to show the expand icon or not.
-    for (const key of entriesToKeep) {
-        const fileData = entries[key];
-        if (fileData?.children) {
-            for (const child of fileData.children) {
-                entriesToKeep.add(child);
-            }
-        }
-    }
-    for (const key of Object.keys(entries)) {
-        if (entriesToKeep.has(key)) {
-            continue;
-        }
-        delete entries[key];
-    }
-    return state;
-}
-/**
- * Schedules the routine to remove stale entries from `allEntries`.
- */
-function scheduleClearCachedEntries() {
-    if (clearCachedEntriesRequestId === 0) {
-        clearCachedEntriesRequestId = requestIdleCallback(startClearCache);
-    }
-}
-/** ID for the current scheduled `clearCachedEntries`. */
-let clearCachedEntriesRequestId = 0;
-/** Starts the action CLEAR_STALE_CACHED_ENTRIES.  */
-function startClearCache() {
-    const store = getStore();
-    store.dispatch(clearCachedEntries());
-    clearCachedEntriesRequestId = 0;
-}
-const prefetchPropertyNames = Array.from(new Set([
-    ...constants.LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES,
-    ...constants.ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES,
-    ...constants.FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES,
-    ...constants.DLP_METADATA_PREFETCH_PROPERTY_NAMES,
-]));
-/** Get the icon for an entry. */
-function getEntryIcon(entry, locationInfo, volumeType) {
-    const url = entry.toURL();
-    // Pre-defined icons based on the URL.
-    const urlToIconPath = {
-        [recentRootKey]: constants.ICON_TYPES.RECENT,
-        [myFilesEntryListKey]: constants.ICON_TYPES.MY_FILES,
-        [driveRootEntryListKey]: constants.ICON_TYPES.SERVICE_DRIVE,
-    };
-    if (urlToIconPath[url]) {
-        return urlToIconPath[url];
-    }
-    // Handle icons for grand roots ("Shared drives" and "Computers") in Drive.
-    // Here we can't just use `fullPath` to check if an entry is a grand root or
-    // not, because normal directory can also have the same full path. We also
-    // need to check if the entry is a direct child of the drive root entry list.
-    const grandRootPathToIconMap = {
-        [VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH]: constants.ICON_TYPES.COMPUTERS_GRAND_ROOT,
-        [VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH]: constants.ICON_TYPES.SHARED_DRIVES_GRAND_ROOT,
-    };
-    if (volumeType === VolumeManagerCommon.VolumeType.DRIVE &&
-        grandRootPathToIconMap[entry.fullPath]) {
-        return grandRootPathToIconMap[entry.fullPath];
-    }
-    // For grouped removable devices, its parent folder is an entry list, we
-    // should use USB icon for it.
-    if ('rootType' in entry &&
-        entry.rootType === VolumeManagerCommon.VolumeType.REMOVABLE) {
-        return constants.ICON_TYPES.USB;
-    }
-    if (isVolumeEntry(entry) && entry.volumeInfo) {
-        switch (entry.volumeInfo.volumeType) {
-            case VolumeManagerCommon.VolumeType.DOWNLOADS:
-                return constants.ICON_TYPES.MY_FILES;
-            case VolumeManagerCommon.VolumeType.SMB:
-                return constants.ICON_TYPES.SMB;
-            case VolumeManagerCommon.VolumeType.PROVIDED:
-            // Fallthrough
-            case VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER: {
-                // Only return IconSet if there's valid background image generated.
-                const iconSet = entry.volumeInfo.iconSet;
-                if (iconSet) {
-                    const backgroundImage = util.iconSetToCSSBackgroundImageValue(entry.volumeInfo.iconSet);
-                    if (backgroundImage !== 'none') {
-                        return iconSet;
-                    }
-                }
-                // If no background is generated from IconSet, set the icon to the
-                // generic one for certain volume type.
-                if (volumeType && VolumeManagerCommon.shouldProvideIcons(volumeType)) {
-                    return constants.ICON_TYPES.GENERIC;
-                }
-                return '';
-            }
-            case VolumeManagerCommon.VolumeType.MTP:
-                return constants.ICON_TYPES.MTP;
-            case VolumeManagerCommon.VolumeType.ARCHIVE:
-                return constants.ICON_TYPES.ARCHIVE;
-            case VolumeManagerCommon.VolumeType.REMOVABLE:
-                // For sub-partition from a removable volume, its children icon should
-                // be UNKNOWN_REMOVABLE.
-                return entry.volumeInfo.prefixEntry ?
-                    constants.ICON_TYPES.UNKNOWN_REMOVABLE :
-                    constants.ICON_TYPES.USB;
-            case VolumeManagerCommon.VolumeType.DRIVE:
-                return constants.ICON_TYPES.DRIVE;
-        }
-    }
-    return FileType.getIcon(entry, undefined, locationInfo?.rootType);
-}
-function appendChildIfNotExisted(parentEntry, childEntry) {
-    if (!parentEntry.getUIChildren().find((entry) => isSameEntry(entry, childEntry))) {
-        parentEntry.addEntry(childEntry);
-        return true;
-    }
-    return false;
-}
-/**
- * Converts the entry to the Store representation of an Entry: FileData.
- */
-function convertEntryToFileData(entry) {
-    const { volumeManager, metadataModel } = window.fileManager;
-    // When this function is triggered when mounting new volumes, volumeInfo is
-    // not available in the VolumeManager yet, we need to get volumeInfo from the
-    // entry itself.
-    const volumeInfo = 'volumeInfo' in entry ? entry.volumeInfo :
-        volumeManager.getVolumeInfo(entry);
-    const locationInfo = volumeManager.getLocationInfo(entry);
-    // getEntryLabel() can accept locationInfo=null, but TS doesn't recognize the
-    // type definition in closure, hence the ! here.
-    const label = util.getEntryLabel(locationInfo, entry);
-    // For FakeEntry, we need to read from entry.volumeType because it doesn't
-    // have volumeInfo in the volume manager.
-    const volumeType = 'volumeType' in entry && entry.volumeType ?
-        entry.volumeType :
-        (volumeInfo?.volumeType || null);
-    const volumeId = volumeInfo?.volumeId || null;
-    const icon = getEntryIcon(entry, locationInfo, volumeType);
-    /**
-     * Update disabled attribute if entry supports disabled attribute and has a
-     * non-null volumeType.
-     */
-    if ('disabled' in entry && volumeType) {
-        entry.disabled = volumeManager.isDisabled(volumeType);
-    }
-    const metadata = metadataModel ?
-        metadataModel.getCache([entry], prefetchPropertyNames)[0] :
-        {};
-    return {
-        entry,
-        icon,
-        type: getEntryType(entry),
-        isDirectory: entry.isDirectory,
-        label,
-        volumeId,
-        rootType: locationInfo?.rootType ?? null,
-        metadata,
-        expanded: false,
-        disabled: 'disabled' in entry ? entry.disabled : false,
-        isRootEntry: !!locationInfo?.isRootEntry,
-        // `isEjectable/shouldDelayLoadingChildren` is determined by its
-        // corresponding volume, will be updated when volume is added.
-        isEjectable: false,
-        shouldDelayLoadingChildren: false,
-        children: [],
-    };
-}
-/**
- * Appends the entry to the Store.
- */
-function appendEntry(state, entry) {
-    const allEntries = state.allEntries || {};
-    const key = entry.toURL();
-    const existingFileData = allEntries[key] || {};
-    // Some client code might dispatch actions based on
-    // `volume.resolveDisplayRoot()` which is a DirectoryEntry instead of a
-    // VolumeEntry. It's safe to ignore this entry because the data will be the
-    // same as `existingFileData` and we don't want to convert from VolumeEntry to
-    // DirectoryEntry.
-    if (existingFileData.type === EntryType.VOLUME_ROOT &&
-        getEntryType(entry) !== EntryType.VOLUME_ROOT) {
-        return;
-    }
-    const fileData = convertEntryToFileData(entry);
-    allEntries[key] = {
-        ...fileData,
-        // For existing entries already in the store, we want to keep the existing
-        // value for the following fields. For example, for "expanded" entries with
-        // expanded=true, we don't want to override it with expanded=false derived
-        // from `convertEntryToFileData` function above.
-        expanded: existingFileData.expanded || fileData.expanded,
-        isEjectable: existingFileData.isEjectable || fileData.isEjectable,
-        shouldDelayLoadingChildren: existingFileData.shouldDelayLoadingChildren ||
-            fileData.shouldDelayLoadingChildren,
-        // Keep children to prevent sudden removal of the children items on the UI.
-        children: existingFileData.children || fileData.children,
-    };
-    state.allEntries = allEntries;
-}
-/**
- * Updates `FileData` from a `FileKey`.
- */
-function updateFileData(state, key, changes) {
-    if (!state.allEntries[key]) {
-        console.warn(`Entry FileData not found in the store: ${key}`);
-        return;
-    }
-    const newFileData = {
-        ...state.allEntries[key],
-        ...changes,
-    };
-    state.allEntries[key] = newFileData;
-    return newFileData;
-}
-/** Caches the Action's entry in the `allEntries` attribute. */
-function cacheEntries(currentState, entries) {
-    scheduleClearCachedEntries();
-    for (const entry of entries) {
-        appendEntry(currentState, entry);
-    }
-}
-function getEntryType(entry) {
-    // Entries from FilesAppEntry have the `type_name` property.
-    if (!('type_name' in entry)) {
-        return EntryType.FS_API;
-    }
-    switch (entry.type_name) {
-        case 'EntryList':
-            return EntryType.ENTRY_LIST;
-        case 'VolumeEntry':
-            return EntryType.VOLUME_ROOT;
-        case 'FakeEntry':
-            switch (entry.rootType) {
-                case VolumeManagerCommon.RootType.RECENT:
-                    return EntryType.RECENT;
-                case VolumeManagerCommon.RootType.TRASH:
-                    return EntryType.TRASH;
-                case VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT:
-                    return EntryType.ENTRY_LIST;
-                case VolumeManagerCommon.RootType.CROSTINI:
-                case VolumeManagerCommon.RootType.ANDROID_FILES:
-                    return EntryType.PLACEHOLDER;
-                case VolumeManagerCommon.RootType.DRIVE_OFFLINE:
-                case VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME:
-                    // TODO(lucmult): This isn't really Recent but it's the closest.
-                    return EntryType.RECENT;
-            }
-            console.warn(`Invalid fakeEntry.rootType='${entry.rootType} rootType`);
-            return EntryType.PLACEHOLDER;
-        case 'GuestOsPlaceholder':
-            return EntryType.PLACEHOLDER;
-        case 'TrashEntry':
-            return EntryType.TRASH;
-        default:
-            console.warn(`Invalid entry.type_name='${entry.type_name}`);
-            return EntryType.FS_API;
-    }
-}
-/** Create action to update entries metadata. */
-const updateMetadata = slice$1.addReducer('update-metadata', updateMetadataReducer);
-function updateMetadataReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, payload.metadata.map(m => m.entry));
-    for (const entryMetadata of payload.metadata) {
-        const key = entryMetadata.entry.toURL();
-        const fileData = currentState.allEntries[key];
-        const metadata = { ...fileData.metadata, ...entryMetadata.metadata };
-        currentState.allEntries[key] = {
-            ...fileData,
-            metadata,
-        };
-    }
-    if (!currentState.currentDirectory) {
-        console.warn('Missing `currentDirectory`');
-        return currentState;
-    }
-    const currentDirectory = {
-        ...currentState.currentDirectory,
-        hasDlpDisabledFiles: hasDlpDisabledFiles(currentState),
-    };
-    return {
-        ...currentState,
-        currentDirectory,
-    };
-}
-function findVolumeByType(volumes, volumeType) {
-    return Object.values(volumes).find(v => {
-        // If the volume isn't resolved yet, we just ignore here.
-        return v.rootKey && v.volumeType === volumeType;
-    }) ??
-        null;
-}
-/**
- * Returns the MyFiles entry and volume, the entry can either be a fake one
- * (EntryList) or a real one (VolumeEntry) depends on if the MyFiles volume is
- * mounted or not.
- * Note: it will create a fake EntryList in the store if there's no
- * MyFiles entry in the store (e.g. no EntryList and no VolumeEntry).
- */
-function getMyFiles(state) {
-    const { volumes } = state;
-    const myFilesVolume = findVolumeByType(volumes, VolumeManagerCommon.VolumeType.DOWNLOADS);
-    const myFilesVolumeEntry = myFilesVolume ?
-        getEntry$1(state, myFilesVolume.rootKey) :
-        null;
-    let myFilesEntryList = getEntry$1(state, myFilesEntryListKey);
-    if (!myFilesVolumeEntry && !myFilesEntryList) {
-        myFilesEntryList = new EntryList(str('MY_FILES_ROOT_LABEL'), VolumeManagerCommon.RootType.MY_FILES);
-        appendEntry(state, myFilesEntryList);
-        state.uiEntries = [...state.uiEntries, myFilesEntryList.toURL()];
-    }
-    return {
-        myFilesEntry: myFilesVolumeEntry || myFilesEntryList,
-        myFilesVolume,
-    };
-}
-/**
- * It nests the Android, Crostini & GuestOSes inside MyFiles.
- * It creates a placeholder for MyFiles if MyFiles volume isn't mounted yet.
- *
- * It nests the Drive root (aka MyDrive) inside a EntryList for "Google Drive".
- * It nests the fake entries for "Offline" and "Shared with me" in "Google
- * Drive".
- *
- * For removables, it may nest in a EntryList if one device has multiple
- * partitions.
- */
-function volumeNestingEntries(state, volumeInfo, volumeMetadata) {
-    const VolumeType = VolumeManagerCommon.VolumeType;
-    const myFilesNestedVolumeTypes = getVolumeTypesNestedInMyFiles();
-    const volumeRootKey = volumeInfo.displayRoot?.toURL();
-    const newVolumeEntry = getEntry$1(state, volumeRootKey);
-    // Do nothing if the volume is not resolved.
-    if (!volumeInfo || !newVolumeEntry) {
-        return;
-    }
-    // For volumes which are supposed to be nested inside MyFiles (e.g. Android,
-    // Crostini, GuestOS), we need to nest them into MyFiles and remove the
-    // placeholder fake entry if existed.
-    const { myFilesEntry } = getMyFiles(state);
-    if (myFilesNestedVolumeTypes.has(volumeInfo.volumeType)) {
-        const myFilesEntryKey = myFilesEntry.toURL();
-        // Shallow copy here because we will update this object directly below, and
-        // the same object might be referenced in the UI.
-        const myFilesFileData = { ...getFileData(state, myFilesEntryKey) };
-        // Nest the entry for the new volume info in MyFiles.
-        const uiEntryPlaceholder = myFilesEntry.getUIChildren().find(childEntry => childEntry.name === newVolumeEntry.name);
-        // Remove a placeholder for the currently mounting volume.
-        if (uiEntryPlaceholder) {
-            myFilesEntry.removeChildEntry(uiEntryPlaceholder);
-            // Also remove it from the children field.
-            myFilesFileData.children = myFilesFileData.children.filter(childKey => childKey !== uiEntryPlaceholder.toURL());
-            // Do not remove the placeholder ui entry from the store. Removing it from
-            // the MyFiles is sufficient to prevent it from showing in the directory
-            // tree. We keep it in the store (`state["uiEntries"]`) because when
-            // the corresponding volume unmounts, we need to use its existence to
-            // decide if we need to re-add the placeholder back to MyFiles.
-        }
-        appendChildIfNotExisted(myFilesEntry, newVolumeEntry);
-        // Push the new entry to the children of FileData and sort them.
-        if (!myFilesFileData.children.find(childKey => childKey === volumeRootKey)) {
-            const newChildren = [...myFilesFileData.children, volumeRootKey];
-            const childEntries = newChildren.map(childKey => getEntry$1(state, childKey));
-            myFilesFileData.children =
-                sortEntries(myFilesEntry, childEntries).map(entry => entry.toURL());
-        }
-        state.allEntries[myFilesEntryKey] = myFilesFileData;
-    }
-    // When mounting MyFiles replace the temporary placeholder entry.
-    if (volumeInfo.volumeType === VolumeType.DOWNLOADS) {
-        // Do not use myFilesEntry above, because at this moment both fake MyFiles
-        // and real MyFiles are in the store.
-        const myFilesEntryList = getEntry$1(state, myFilesEntryListKey);
-        const myFilesVolumeEntry = newVolumeEntry;
-        if (myFilesEntryList) {
-            // We need to copy the children of the entry list to the real volume
-            // entry.
-            const uiChildren = [...myFilesEntryList.getUIChildren()];
-            for (const childEntry of uiChildren) {
-                appendChildIfNotExisted(myFilesVolumeEntry, childEntry);
-                myFilesEntryList.removeChildEntry(childEntry);
-            }
-            // Remove MyFiles entry list from the uiEntries.
-            state.uiEntries = state.uiEntries.filter(uiEntryKey => uiEntryKey !== myFilesEntryListKey);
-        }
-    }
-    // Drive fake entries for root for: Shared Drives, Computers and the parent
-    // Google Drive.
-    if (volumeInfo.volumeType === VolumeType.DRIVE) {
-        const myDrive = newVolumeEntry;
-        let googleDrive = getEntry$1(state, driveRootEntryListKey);
-        if (!googleDrive) {
-            googleDrive = new EntryList(str('DRIVE_DIRECTORY_LABEL'), VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT);
-            appendEntry(state, googleDrive);
-            state.uiEntries = [...state.uiEntries, googleDrive.toURL()];
-        }
-        appendChildIfNotExisted(googleDrive, myDrive);
-        // We want the order to be
-        // - My Drive
-        // - Shared Drives (if the user has any)
-        // - Computers (if the user has any)
-        // - Shared with me
-        // - Offline
-        const { sharedDriveDisplayRoot, computersDisplayRoot, fakeEntries } = volumeInfo;
-        // Add "Shared drives" (team drives) grand root into Drive. It's guaranteed
-        // to be resolved at this moment because ADD_VOLUME action will only be
-        // triggered after resolving all roots.
-        if (sharedDriveDisplayRoot) {
-            appendEntry(state, sharedDriveDisplayRoot);
-            appendChildIfNotExisted(googleDrive, sharedDriveDisplayRoot);
-        }
-        // Add "Computer" grand root into Drive. It's guaranteed to be resolved at
-        // this moment because ADD_VOLUME action will only be triggered after
-        // resolving all roots.
-        if (computersDisplayRoot) {
-            appendEntry(state, computersDisplayRoot);
-            appendChildIfNotExisted(googleDrive, computersDisplayRoot);
-        }
-        // Add "Shared with me" into Drive.
-        const fakeSharedWithMe = fakeEntries[VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME];
-        if (fakeSharedWithMe) {
-            appendEntry(state, fakeSharedWithMe);
-            state.uiEntries = [...state.uiEntries, fakeSharedWithMe.toURL()];
-            appendChildIfNotExisted(googleDrive, fakeSharedWithMe);
-        }
-        // Add "Offline" into Drive.
-        const fakeOffline = fakeEntries[VolumeManagerCommon.RootType.DRIVE_OFFLINE];
-        if (fakeOffline) {
-            appendEntry(state, fakeOffline);
-            state.uiEntries = [...state.uiEntries, fakeOffline.toURL()];
-            appendChildIfNotExisted(googleDrive, fakeOffline);
-        }
-    }
-    state.allEntries[volumeRootKey].isEjectable =
-        (volumeInfo.source === VolumeManagerCommon.Source.DEVICE &&
-            volumeInfo.volumeType !== VolumeManagerCommon.VolumeType.MTP) ||
-            volumeInfo.source === VolumeManagerCommon.Source.FILE;
-    if (volumeInfo.volumeType === VolumeType.REMOVABLE) {
-        const groupingKey = removableGroupKey(volumeMetadata);
-        // When the flag is on, we always group removable volume even there's only 1
-        // partition, otherwise the group only happens when there are more than 1
-        // partition in the same device.
-        const shouldGroup = isSinglePartitionFormatEnabled() ?
-            true :
-            Object.values(state.volumes).some(v => {
-                return (v.volumeType === VolumeType.REMOVABLE &&
-                    removableGroupKey(v) === groupingKey &&
-                    v.volumeId != volumeInfo.volumeId);
-            });
-        if (shouldGroup) {
-            const parentKey = makeRemovableParentKey(volumeMetadata);
-            let parentEntry = getEntry$1(state, parentKey);
-            if (!parentEntry) {
-                parentEntry = new EntryList(volumeMetadata.driveLabel || '', VolumeManagerCommon.RootType.REMOVABLE, volumeMetadata.devicePath);
-                appendEntry(state, parentEntry);
-                state.uiEntries = [...state.uiEntries, parentEntry.toURL()];
-                // Removable devices with group, its parent should always be ejectable.
-                state.allEntries[parentKey].isEjectable = true;
-            }
-            // Update the siblings too.
-            for (const v of Object.values(state.volumes)) {
-                // Ignore the partitions that are already nested via `prefixKey`. Note:
-                // `prefixKey` field is handled by `addVolumeReducer`.
-                if (v.volumeType === VolumeType.REMOVABLE &&
-                    removableGroupKey(v) === groupingKey && !v.prefixKey) {
-                    const fileData = getFileData(state, v.rootKey);
-                    if (fileData?.entry) {
-                        appendChildIfNotExisted(parentEntry, fileData.entry);
-                        // For sub-partition from a removable volume, its children icon
-                        // should be UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
-                        state.allEntries[v.rootKey] = {
-                            ...fileData,
-                            icon: constants.ICON_TYPES.UNKNOWN_REMOVABLE,
-                            isEjectable: false,
-                        };
-                    }
-                }
-            }
-            // At this point the current `newVolumeEntry` is not in state.volumes,
-            // we need to add that to that group.
-            appendChildIfNotExisted(parentEntry, newVolumeEntry);
-            // For sub-partition from a removable volume, its children icon should be
-            // UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
-            const fileData = getFileData(state, volumeRootKey);
-            state.allEntries[volumeRootKey] = {
-                ...fileData,
-                icon: constants.ICON_TYPES.UNKNOWN_REMOVABLE,
-                isEjectable: false,
-            };
-        }
-    }
-    // Update the shouldDelayLoadingChildren field in the FileData.
-    state.allEntries[volumeRootKey].shouldDelayLoadingChildren =
-        volumeInfo.source === VolumeManagerCommon.Source.NETWORK &&
-            (volumeInfo.volumeType === VolumeManagerCommon.VolumeType.PROVIDED ||
-                volumeInfo.volumeType === VolumeManagerCommon.VolumeType.SMB);
-}
-/**  Create action to add child entries to a parent entry. */
-const addChildEntries = slice$1.addReducer('add-children', addChildEntriesReducer);
-function addChildEntriesReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, payload.entries);
-    const { parentKey, entries } = payload;
-    const { allEntries } = currentState;
-    // The corresponding parent entry item has been removed somehow, do nothing.
-    if (!allEntries[parentKey]) {
-        return currentState;
-    }
-    const newEntryKeys = entries.map(entry => entry.toURL());
-    // Add children to the parent entry item.
-    const parentFileData = {
-        ...allEntries[parentKey],
-        children: newEntryKeys,
-    };
-    // We mark all the children's shouldDelayLoadingChildren if the parent entry
-    // has been delayed.
-    if (parentFileData.shouldDelayLoadingChildren) {
-        for (const entryKey of newEntryKeys) {
-            allEntries[entryKey] = {
-                ...allEntries[entryKey],
-                shouldDelayLoadingChildren: true,
-            };
-        }
-    }
-    return {
-        ...currentState,
-        allEntries: {
-            ...allEntries,
-            [parentKey]: parentFileData,
-        },
-    };
-}
-/**
- * Read sub directories for a given entry.
- * TODO(b/271485133): Remove successCallback/errorCallback.
- */
-async function* readSubDirectories(entry, recursive = false, metricNameForTracking = '') {
-    if (!entry || !entry.isDirectory || ('disabled' in entry && entry.disabled)) {
-        return;
-    }
-    // Track time for reading sub directories if metric for tracking is passed.
-    if (metricNameForTracking) {
-        startInterval(metricNameForTracking);
-    }
-    // Type casting here because TS can't exclude the invalid entry types via the
-    // above if checks.
-    const validEntry = entry;
-    const childEntriesToReadDeeper = [];
-    if (isDriveRootEntryList(validEntry)) {
-        for await (const action of readSubDirectoriesForDriveRootEntryList(validEntry)) {
-            yield action;
-            if (action) {
-                childEntriesToReadDeeper.push(...action.payload.entries);
-            }
-        }
-    }
-    else {
-        const childEntries = await readChildEntriesForDirectoryEntry(validEntry);
-        // Only dispatch directories.
-        const subDirectories = childEntries.filter(childEntry => childEntry.isDirectory);
-        yield addChildEntries({ parentKey: entry.toURL(), entries: subDirectories });
-        childEntriesToReadDeeper.push(...subDirectories);
-    }
-    // Track time for reading sub directories if metric for tracking is passed.
-    if (metricNameForTracking) {
-        recordInterval(metricNameForTracking);
-    }
-    // Read sub directories for children when recursive is true.
-    if (recursive) {
-        // We only read deeper if the parent entry is expanded in the tree.
-        const fileData = getFileData(getStore().getState(), entry.toURL());
-        if (fileData?.expanded) {
-            for (const childEntry of childEntriesToReadDeeper) {
-                for await (const action of readSubDirectories(childEntry, /* recursive */ true)) {
-                    yield action;
-                }
-            }
-        }
-    }
-}
-/**
- * Read entries for Drive root entry list (aka "Google Drive"), there are some
- * differences compared to the `readSubDirectoriesForDirectoryEntry`:
- * * We don't need to call readEntries to get its child entries. Instead, all
- * its children are from its entry.getUIChildren().
- * * For fake entries children (e.g. Shared with me and Offline), we only show
- * them based on the dialog type.
- * * For curtain children (e.g. team drives and computers grand root), we only
- * show them when there's at least one child entries inside. So we need to read
- * their children (grand children of drive fake root) first before we can decide
- * if we need to show them or not.
- */
-async function* readSubDirectoriesForDriveRootEntryList(entry) {
-    const metricNameMap = {
-        [VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH]: 'TeamDrivesCount',
-        [VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH]: 'ComputerCount',
-    };
-    const driveChildren = entry.getUIChildren();
-    /**
-     * Store the filtered children, for fake entries or grand roots we might need
-     * to hide them based on curtain conditions.
-     */
-    const filteredChildren = [];
-    const isFakeEntryVisible = window.fileManager.dialogType !== DialogType.SELECT_SAVEAS_FILE;
-    for (const childEntry of driveChildren) {
-        // For fake entries ("Shared with me" and)
-        if (isFakeEntryInDrives(childEntry)) {
-            if (isFakeEntryVisible) {
-                filteredChildren.push(childEntry);
-            }
-            continue;
-        }
-        // For non grand roots (also not fake entries), we put them in the children
-        // directly and dispatch an action to read the it later.
-        if (!isGrandRootEntryInDrives(childEntry)) {
-            filteredChildren.push(childEntry);
-            continue;
-        }
-        // For grand roots ("Shared drives" and "Computers") inside Drive, we only
-        // show them when there's at least one child entries inside.
-        const grandChildEntries = await readChildEntriesForDirectoryEntry(childEntry);
-        recordSmallCount(metricNameMap[childEntry.fullPath], grandChildEntries.length);
-        if (grandChildEntries.length > 0) {
-            filteredChildren.push(childEntry);
-        }
-    }
-    yield addChildEntries({ parentKey: entry.toURL(), entries: filteredChildren });
-}
-/**
- * Read child entries for a given directory entry.
- */
-async function readChildEntriesForDirectoryEntry(entry) {
-    return new Promise(resolve => {
-        const reader = entry.createReader();
-        const subEntries = [];
-        const readEntry = () => {
-            reader.readEntries((entries) => {
-                if (entries.length === 0) {
-                    resolve(sortEntries(entry, subEntries));
-                    return;
-                }
-                for (const subEntry of entries) {
-                    subEntries.push(subEntry);
-                }
-                readEntry();
-            });
-        };
-        readEntry();
-    });
-}
-/**
- * Read child entries for the newly renamed directory entry.
- * We need to read its parent's children first before reading its own children,
- * because the newly renamed entry might not be in the store yet after renaming.
- */
-async function* readSubDirectoriesForRenamedEntry(newEntry) {
-    const parentDirectory = await getParentEntry(newEntry);
-    // Read the children of the parent first to make sure the newly added entry
-    // appears in the store.
-    for await (const action of readSubDirectories(parentDirectory)) {
-        yield action;
-    }
-    // Read the children of the newly renamed entry.
-    for await (const action of readSubDirectories(newEntry, /* recursive= */ true)) {
-        yield action;
-    }
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
  * @fileoverview Volumes slice of the store.
- * @suppress {checkTypes}
  */
 const slice = new Slice('volumes');
-const VolumeType = VolumeManagerCommon.VolumeType;
-const myFilesEntryListKey = `entry-list://${VolumeManagerCommon.RootType.MY_FILES}`;
-const crostiniPlaceHolderKey = `fake-entry://${VolumeManagerCommon.RootType.CROSTINI}`;
-`fake-entry://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
-const recentRootKey = `fake-entry://${VolumeManagerCommon.RootType.RECENT}/all`;
-const trashRootKey = `fake-entry://${VolumeManagerCommon.RootType.TRASH}`;
-const driveRootEntryListKey = `entry-list://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
+const myFilesEntryListKey = `entry-list://${RootType.MY_FILES}`;
+const crostiniPlaceHolderKey = `fake-entry://${RootType.CROSTINI}`;
+`fake-entry://${RootType.DRIVE_FAKE_ROOT}`;
+const recentRootKey = `fake-entry://${RootType.RECENT}/all`;
+const trashRootKey = `fake-entry://${RootType.TRASH}`;
+const driveRootEntryListKey = `entry-list://${RootType.DRIVE_FAKE_ROOT}`;
 const makeRemovableParentKey = (volume) => {
     // Should be consistent with EntryList's toURL() method.
     if (volume.devicePath) {
-        return `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}/${volume.devicePath}`;
+        return `entry-list://${RootType.REMOVABLE}/${volume.devicePath}`;
     }
-    return `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}`;
+    return `entry-list://${RootType.REMOVABLE}`;
 };
 const removableGroupKey = (volume) => `${volume.devicePath}/${volume.driveLabel}`;
 function getVolumeTypesNestedInMyFiles() {
@@ -7591,156 +8737,319 @@ function convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata) {
  * Updates a volume from the store.
  */
 function updateVolume(state, volumeId, changes) {
-    if (!state.volumes[volumeId]) {
+    const volume = state.volumes[volumeId];
+    if (!volume) {
         console.warn(`Volume not found in the store: ${volumeId}`);
         return;
     }
     return {
-        ...state.volumes[volumeId],
+        ...volume,
         ...changes,
     };
 }
 /** Create action to add a volume. */
 const addVolume = slice.addReducer('add', addVolumeReducer);
 function addVolumeReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, [new VolumeEntry(payload.volumeInfo)]);
-    volumeNestingEntries(currentState, payload.volumeInfo, payload.volumeMetadata);
-    const volumeMetadata = payload.volumeMetadata;
-    const volumeInfo = payload.volumeInfo;
+    const { volumeMetadata, volumeInfo } = payload;
     if (!volumeInfo.fileSystem) {
         console.error('Only add to the store volumes that have successfully resolved.');
         return currentState;
     }
-    const volumes = {
-        ...currentState.volumes,
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    const newVolumeEntry = new VolumeEntry(payload.volumeInfo);
+    cacheEntries(currentState, [newVolumeEntry]);
+    const volumeRootKey = newVolumeEntry.toURL();
+    // Update isEjectable fields in the FileData.
+    currentState.allEntries[volumeRootKey] = {
+        ...currentState.allEntries[volumeRootKey],
+        isEjectable: (volumeInfo.source === Source.DEVICE &&
+            volumeInfo.volumeType !== VolumeType.MTP) ||
+            volumeInfo.source === Source.FILE,
     };
     const volume = convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata);
-    const volumeEntry = getEntry$1(currentState, volume.rootKey);
     // Use volume entry's disabled property because that one is derived from
     // volume manager.
-    if (volumeEntry) {
-        volume.isDisabled = !!volumeEntry.disabled;
-    }
-    // Nested in MyFiles.
+    volume.isDisabled = !!newVolumeEntry.disabled;
+    // Handles volumes nested inside MyFiles.
+    // It creates a placeholder for MyFiles if MyFiles volume isn't mounted yet.
     const myFilesNestedVolumeTypes = getVolumeTypesNestedInMyFiles();
-    // When mounting MyFiles replace the temporary placeholder in nested volumes.
+    const { myFilesEntry } = getMyFiles(currentState);
+    // For volumes which are supposed to be nested inside MyFiles (e.g. Android,
+    // Crostini, GuestOS), we need to nest them into MyFiles and remove the
+    // placeholder fake entry if existed.
+    if (myFilesNestedVolumeTypes.has(volume.volumeType)) {
+        volume.prefixKey = myFilesEntry.toURL();
+        const myFilesEntryKey = myFilesEntry.toURL();
+        // Shallow copy here because we will update this object directly below, and
+        // the same object might be referenced in the UI.
+        const myFilesFileData = { ...getFileData(currentState, myFilesEntryKey) };
+        // Nest the entry for the new volume info in MyFiles.
+        const uiEntryPlaceholder = myFilesEntry.getUiChildren().find(childEntry => childEntry.name === newVolumeEntry.name);
+        // Remove a placeholder for the currently mounting volume.
+        if (uiEntryPlaceholder) {
+            myFilesEntry.removeChildEntry(uiEntryPlaceholder);
+            // Also remove it from the children field.
+            myFilesFileData.children = myFilesFileData.children.filter(childKey => childKey !== uiEntryPlaceholder.toURL());
+            // Do not remove the placeholder ui entry from the store. Removing it from
+            // the MyFiles is sufficient to prevent it from showing in the directory
+            // tree. We keep it in the store (`currentState["uiEntries"]`) because
+            // when the corresponding volume unmounts, we need to use its existence to
+            // decide if we need to re-add the placeholder back to MyFiles.
+        }
+        appendChildIfNotExisted(myFilesEntry, newVolumeEntry);
+        // Push the new entry to the children of FileData and sort them.
+        if (!myFilesFileData.children.find(childKey => childKey === volumeRootKey)) {
+            const newChildren = [...myFilesFileData.children, volumeRootKey];
+            const childEntries = newChildren.map(childKey => getEntry$1(currentState, childKey));
+            myFilesFileData.children =
+                sortEntries(myFilesEntry, childEntries).map(entry => entry.toURL());
+        }
+        currentState.allEntries[myFilesEntryKey] = myFilesFileData;
+    }
+    // When we manipulate the children below, we need to update both
+    // `entry.children_` (usually via `appendChildIfNotExisted/removeChildEntry`)
+    // and also `FileData.children`. This is specific for the purpose of Directory
+    // tree rendering, the tree item only fetch its sub directories on the first
+    // render or when it's being expanded, if a volume mount introduces new
+    // children (e.g. Drive volume and its children), the Tree UI doesn't know it
+    // needs to be re-fetch sub directories because no file watcher event is
+    // triggered for certain cases, hence updating the `FileData.children` here.
+    // Handles MyFiles volume.
+    // It nests the Android, Crostini & GuestOSes inside MyFiles.
     if (volume.volumeType === VolumeType.DOWNLOADS) {
-        for (const v of Object.values(volumes)) {
+        for (const v of Object.values(currentState.volumes)) {
             if (myFilesNestedVolumeTypes.has(v.volumeType)) {
-                v.prefixKey = volume.rootKey;
+                v.prefixKey = volumeRootKey;
             }
         }
-    }
-    // When mounting a nested volume, set the prefixKey.
-    if (myFilesNestedVolumeTypes.has(volume.volumeType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        volume.prefixKey = myFilesEntry.toURL();
-    }
-    // When mounting Drive.
-    if (volume.volumeType === VolumeType.DRIVE) {
-        const drive = getEntry$1(currentState, driveRootEntryListKey);
-        assert$1(drive);
-        volume.prefixKey = drive.toURL();
-    }
-    // When mounting Removable.
-    if (volume.volumeType === VolumeType.REMOVABLE) {
-        // Should it it be nested or not?
-        const groupingKey = removableGroupKey(volume);
-        const parentKey = makeRemovableParentKey(volume);
-        const groupParentEntry = getEntry$1(currentState, parentKey);
-        if (groupParentEntry) {
-            const volumesInSameGroup = Object.values(volumes).filter(v => {
-                if (v.volumeType === VolumeType.REMOVABLE &&
-                    removableGroupKey(v) === groupingKey) {
-                    v.prefixKey = parentKey;
-                    return true;
-                }
-                return false;
-            });
-            // At this point the current `volume` is not in the above `volumes`, we
-            // need to update the prefixKey separately.
-            volume.prefixKey =
-                volumesInSameGroup.length > 0 ? groupParentEntry.toURL() : undefined;
+        // Do not use myFilesEntry above, because at this moment both fake MyFiles
+        // and real MyFiles are in the store.
+        const myFilesEntryList = getEntry$1(currentState, myFilesEntryListKey);
+        if (myFilesEntryList) {
+            // We need to copy the children of the entry list to the real volume
+            // entry.
+            const uiChildren = [...myFilesEntryList.getUiChildren()];
+            for (const childEntry of uiChildren) {
+                appendChildIfNotExisted(newVolumeEntry, childEntry);
+                myFilesEntryList.removeChildEntry(childEntry);
+            }
+            // Also copy the FileData children of the entry list to the real volume
+            // entry.
+            const myFilesEntryListFileData = getFileData(currentState, myFilesEntryListKey);
+            const myFilesVolumeEntryFileData = getFileData(currentState, volumeRootKey);
+            currentState.allEntries[volumeRootKey] = {
+                ...myFilesVolumeEntryFileData,
+                children: [...myFilesEntryListFileData.children],
+            };
+            // Remove MyFiles entry list from the uiEntries.
+            currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== myFilesEntryListKey);
         }
-        if (isSinglePartitionFormatEnabled()) {
-            // If the flag is on, we always group removable volume even if there is
-            // only one, hence always adding the prefixKey here.
-            volume.prefixKey = parentKey;
+    }
+    // Handles Drive volume.
+    // It nests the Drive root (aka MyDrive) inside a EntryList for "Google
+    // Drive", and also the fake entries for "Offline" and "Shared with me".
+    if (volume.volumeType === VolumeType.DRIVE) {
+        let driveFakeRoot = getEntry$1(currentState, driveRootEntryListKey);
+        if (!driveFakeRoot) {
+            driveFakeRoot =
+                new EntryList(str('DRIVE_DIRECTORY_LABEL'), RootType.DRIVE_FAKE_ROOT);
+            cacheEntries(currentState, [driveFakeRoot]);
+            currentState.uiEntries =
+                [...currentState.uiEntries, driveFakeRoot.toURL()];
+        }
+        const driveRootFileDataChildren = [];
+        appendChildIfNotExisted(driveFakeRoot, newVolumeEntry);
+        driveRootFileDataChildren.push(volumeRootKey);
+        // We want the order to be
+        // - My Drive
+        // - Shared Drives (if the user has any)
+        // - Computers (if the user has any)
+        // - Shared with me
+        // - Offline
+        const { sharedDriveDisplayRoot, computersDisplayRoot, fakeEntries } = volumeInfo;
+        // Add "Shared drives" (team drives) grand root into Drive. It's guaranteed
+        // to be resolved at this moment because ADD_VOLUME action will only be
+        // triggered after resolving all roots.
+        if (sharedDriveDisplayRoot) {
+            cacheEntries(currentState, [sharedDriveDisplayRoot]);
+            appendChildIfNotExisted(driveFakeRoot, sharedDriveDisplayRoot);
+            // Do not add Shared drives to the FileData children, as we should only
+            // show it in the navigation when it has children inside.
+        }
+        // Add "Computer" grand root into Drive. It's guaranteed to be resolved at
+        // this moment because ADD_VOLUME action will only be triggered after
+        // resolving all roots.
+        if (computersDisplayRoot) {
+            cacheEntries(currentState, [computersDisplayRoot]);
+            appendChildIfNotExisted(driveFakeRoot, computersDisplayRoot);
+            // Do not add Computers to the FileData children, as we should only show
+            // it in the navigation when it has children inside.
+        }
+        // Add "Shared with me" into Drive.
+        const fakeSharedWithMe = fakeEntries[RootType.DRIVE_SHARED_WITH_ME];
+        if (fakeSharedWithMe) {
+            cacheEntries(currentState, [fakeSharedWithMe]);
+            currentState.uiEntries =
+                [...currentState.uiEntries, fakeSharedWithMe.toURL()];
+            appendChildIfNotExisted(driveFakeRoot, fakeSharedWithMe);
+            driveRootFileDataChildren.push(fakeSharedWithMe.toURL());
+        }
+        // Add "Offline" into Drive.
+        const fakeOffline = fakeEntries[RootType.DRIVE_OFFLINE];
+        if (fakeOffline) {
+            cacheEntries(currentState, [fakeOffline]);
+            currentState.uiEntries = [...currentState.uiEntries, fakeOffline.toURL()];
+            appendChildIfNotExisted(driveFakeRoot, fakeOffline);
+            driveRootFileDataChildren.push(fakeOffline.toURL());
+        }
+        currentState.allEntries[driveRootEntryListKey] = {
+            ...getFileData(currentState, driveRootEntryListKey),
+            children: driveRootFileDataChildren,
+        };
+        volume.prefixKey = driveFakeRoot.toURL();
+    }
+    // Handles Removable volume.
+    // It may nest in a EntryList if one device has multiple partitions.
+    if (volume.volumeType === VolumeType.REMOVABLE) {
+        const groupingKey = removableGroupKey(volumeMetadata);
+        // When the flag is on, we always group removable volume even there's only 1
+        // partition, otherwise the group only happens when there are more than 1
+        // partition in the same device.
+        const shouldGroup = isSinglePartitionFormatEnabled() ?
+            true :
+            Object.values(currentState.volumes).some(v => {
+                return (v.volumeType === VolumeType.REMOVABLE &&
+                    removableGroupKey(v) === groupingKey &&
+                    v.volumeId != volumeInfo.volumeId);
+            });
+        if (shouldGroup) {
+            const parentKey = makeRemovableParentKey(volumeMetadata);
+            let parentEntry = getEntry$1(currentState, parentKey);
+            if (!parentEntry) {
+                parentEntry = new EntryList(volumeMetadata.driveLabel || '', RootType.REMOVABLE, volumeMetadata.devicePath);
+                cacheEntries(currentState, [parentEntry]);
+                currentState.uiEntries =
+                    [...currentState.uiEntries, parentEntry.toURL()];
+            }
+            const partitionChildEntries = [];
+            // Update the siblings too.
+            Object.values(currentState.volumes)
+                .filter(v => v.volumeType === VolumeType.REMOVABLE &&
+                removableGroupKey(v) === groupingKey)
+                .forEach(v => {
+                const fileData = getFileData(currentState, v.rootKey);
+                if (!fileData) {
+                    return;
+                }
+                // Volume with `prefixKey` has already been processed, however,
+                // regardless of processed or not we always need to put it in
+                // `partitionChildEntries` because we are trying to construct the
+                // full children array here, at the end we will use
+                // `partitionChildEntries` to replace the current
+                // `FileData.children`.
+                partitionChildEntries.push(fileData.entry);
+                if (!v.prefixKey) {
+                    v.prefixKey = parentEntry.toURL();
+                    appendChildIfNotExisted(parentEntry, fileData.entry);
+                    // For sub-partition from a removable volume, its children icon
+                    // should be UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
+                    currentState.allEntries[v.rootKey] = {
+                        ...fileData,
+                        icon: ICON_TYPES.UNKNOWN_REMOVABLE,
+                        isEjectable: false,
+                    };
+                }
+            });
+            // At this point the current `newVolumeEntry` is not in `parentEntry`, we
+            // need to add that to that group.
+            appendChildIfNotExisted(parentEntry, newVolumeEntry);
+            partitionChildEntries.push(newVolumeEntry);
+            volume.prefixKey = parentEntry.toURL();
+            // For sub-partition from a removable volume, its children icon should be
+            // UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
+            const fileData = getFileData(currentState, volumeRootKey);
+            currentState.allEntries[volumeRootKey] = {
+                ...fileData,
+                icon: ICON_TYPES.UNKNOWN_REMOVABLE,
+                isEjectable: false,
+            };
+            currentState.allEntries[parentKey] = {
+                ...getFileData(currentState, parentKey),
+                // Removable devices with group, its parent should always be ejectable.
+                isEjectable: true,
+                children: sortEntries(parentEntry, partitionChildEntries)
+                    .map(entry => entry.toURL()),
+            };
         }
     }
     return {
         ...currentState,
         volumes: {
-            ...volumes,
+            ...currentState.volumes,
             [volume.volumeId]: volume,
         },
     };
+}
+function appendChildIfNotExisted(parentEntry, childEntry) {
+    if (!parentEntry.getUiChildren().find((entry) => isSameEntry(entry, childEntry))) {
+        parentEntry.addEntry(childEntry);
+        return true;
+    }
+    return false;
 }
 /** Create action to remove a volume. */
 const removeVolume = slice.addReducer('remove', removeVolumeReducer);
 function removeVolumeReducer(currentState, payload) {
     const volumeToRemove = currentState.volumes[payload.volumeId];
+    if (!volumeToRemove) {
+        // Somehow the volume is already removed from the store, do nothing.
+        return currentState;
+    }
     const volumeEntry = getEntry$1(currentState, volumeToRemove.rootKey);
     delete currentState.volumes[payload.volumeId];
     currentState.volumes = {
         ...currentState.volumes,
     };
-    // We also need to check if the removed volume is a child of My files and if
-    // the volume is a grouped removable device.
-    const volumeTypesNestedInMyFiles = getVolumeTypesNestedInMyFiles();
-    const isGroupedRemovable = volumeToRemove.volumeType === VolumeManagerCommon.VolumeType.REMOVABLE &&
-        volumeToRemove.prefixKey;
-    if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        const children = myFilesEntry.getUIChildren();
-        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && isSameEntry(childEntry, volumeEntry));
-        if (volumeEntryExistsInMyFiles) {
-            // Remove it from the MyFiles UI children.
-            myFilesEntry.removeChildEntry(volumeEntry);
-            // Re-add the corresponding placeholder ui entry to the UI children.
-            const uiEntryKey = currentState.uiEntries.find(entryKey => {
-                const uiEntry = getEntry$1(currentState, entryKey);
-                return uiEntry.name === volumeEntry.name;
-            });
-            if (uiEntryKey) {
-                const uiEntry = getEntry$1(currentState, uiEntryKey);
-                myFilesEntry.addEntry(uiEntry);
-            }
-            // Remove it from the MyFiles file data.
-            const fileData = getFileData(currentState, myFilesEntry.toURL());
-            if (fileData) {
-                let newChildren = fileData.children.filter(child => child !== volumeEntry.toURL());
-                // Re-add the corresponding placeholder ui entry to the file data.
-                if (uiEntryKey) {
-                    newChildren = newChildren.concat(uiEntryKey);
-                    const childEntries = newChildren.map(childKey => getEntry$1(currentState, childKey));
-                    newChildren = sortEntries(myFilesEntry, childEntries)
-                        .map(entry => entry.toURL());
-                }
-                currentState.allEntries[myFilesEntry.toURL()] = {
-                    ...fileData,
-                    children: newChildren,
-                };
-            }
-        }
+    if (!volumeToRemove.prefixKey) {
+        return { ...currentState };
     }
-    else if (isGroupedRemovable) {
-        const fileData = getFileData(currentState, volumeToRemove.prefixKey);
-        if (fileData) {
-            // Remove it from the parent UI entry's UI children.
-            fileData.entry.removeChildEntry(volumeEntry);
-            // Remove it from the parent UI entry's file data.
-            const newChildren = fileData.children.filter(child => child !== volumeEntry.toURL());
-            currentState.allEntries[volumeToRemove.prefixKey] = {
-                ...fileData,
-                children: newChildren,
-            };
-            // If this is the last child, remove the parent UI entry.
-            if (newChildren.length === 0) {
-                currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== volumeToRemove.prefixKey);
-            }
+    // We also need to remove it from its prefix entry if there is one.
+    const prefixEntryFileData = getFileData(currentState, volumeToRemove.prefixKey);
+    if (prefixEntryFileData) {
+        const prefixEntry = prefixEntryFileData.entry;
+        // Remove it from the prefix entry's UI children.
+        prefixEntry.removeChildEntry(volumeEntry);
+        // Remove it from the prefix entry's file data.
+        let newChildren = prefixEntryFileData.children.filter(child => child !== volumeEntry.toURL());
+        // If the prefix entry is an entry list for removable partitions, and this
+        // is the last child, remove the prefix entry.
+        if (prefixEntry.rootType === RootType.REMOVABLE &&
+            newChildren.length === 0) {
+            currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== volumeToRemove.prefixKey);
         }
+        // If the volume entry is under MyFiles, we need to add the placeholder
+        // entry back after the corresponding volume is removed (e.g. Crostini/Play
+        // files).
+        const volumeTypesNestedInMyFiles = getVolumeTypesNestedInMyFiles();
+        const uiEntryKey = currentState.uiEntries.find(entryKey => {
+            const uiEntry = getEntry$1(currentState, entryKey);
+            return uiEntry.name === volumeEntry.name;
+        });
+        if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType) &&
+            uiEntryKey) {
+            // Re-add the corresponding placeholder ui entry to the UI children.
+            const uiEntry = getEntry$1(currentState, uiEntryKey);
+            prefixEntry.addEntry(uiEntry);
+            // Re-add the corresponding placeholder ui entry to the file data.
+            newChildren = newChildren.concat(uiEntryKey);
+            const childEntries = newChildren.map(childKey => getEntry$1(currentState, childKey));
+            newChildren =
+                sortEntries(prefixEntry, childEntries).map(entry => entry.toURL());
+        }
+        currentState.allEntries[volumeToRemove.prefixKey] = {
+            ...prefixEntryFileData,
+            children: newChildren,
+        };
     }
     return {
         ...currentState,
@@ -7788,7 +9097,7 @@ function updateDeviceConnectionStateReducer(currentState, payload) {
         }
         // Make the ODFS FileData/VolumeEntry consistent with its volume in the
         // store.
-        updateFileData(currentState, volume.rootKey, { disabled: disableODFS });
+        updateFileDataInPlace(currentState, volume.rootKey, { disabled: disableODFS });
         const odfsVolumeEntry = getEntry$1(currentState, volume.rootKey);
         if (odfsVolumeEntry) {
             odfsVolumeEntry.disabled = disableODFS;
@@ -7800,52 +9109,9 @@ function updateDeviceConnectionStateReducer(currentState, payload) {
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * Verify |value| is truthy.
- * @param value A value to check for truthiness. Note that this
- *     may be used to test whether |value| is defined or not, and we don't want
- *     to force a cast to boolean.
- */
-function assert(value, message) {
-    if (value) {
-        return;
-    }
-    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
-}
-function assertInstanceof(value, type, message) {
-    if (value instanceof type) {
-        return;
-    }
-    throw new Error(message || `Value ${value} is not of type ${type.name || typeof type}`);
-}
-/**
- * Call this from places in the code that should never be reached.
- *
- * For example, handling all the values of enum with a switch() like this:
- *
- *   function getValueFromEnum(enum) {
- *     switch (enum) {
- *       case ENUM_FIRST_OF_TWO:
- *         return first
- *       case ENUM_LAST_OF_TWO:
- *         return last;
- *     }
- *     assertNotReached();
- *   }
- *
- * This code should only be hit in the case of serious programmer error or
- * unexpected input.
- */
-function assertNotReached(message = 'Unreachable code hit') {
-    assert(false, message);
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 /** Check if an `Element` is a tree or not. */
-function isTree(element) {
-    return element.tagName === 'XF-TREE';
+function isXfTree(element) {
+    return !!element && element.tagName === 'XF-TREE';
 }
 /** Check if an `Element` is a tree item or not. */
 function isTreeItem(element) {
@@ -7875,225 +9141,85 @@ function handleTreeSlotChange(tree, oldItems, newItems) {
     }
 }
 
-// Copyright 2012 The Chromium Authors
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// NOTE: ui.js and the autogenerated ui.m.js module version are deprecated.
-// These files and files that depend on them should only be used by legacy UIs
-// that have not yet been updated to new patterns. Use Web Components in any new
-// code.
 /**
- * Decorates elements as an instance of a class.
- * @param {string|!Element} source The way to find the element(s) to decorate.
- *     If this is a string then {@code querySeletorAll} is used to find the
- *     elements to decorate.
- * @param {!Function} constr The constructor to decorate with. The constr
- *     needs to have a {@code decorate} function.
- * @closurePrimitive {asserts.matchesReturn}
+ * Setter used by the deprecated cr.ui elements.
+ * It sets the value of type T in the private `${name}_`.
+ *
+ * It also dispatches the event `${name}Changed` when the value actually
+ * changes.
  */
-function decorate(source, constr) {
-    let elements;
-    if (typeof source === 'string') {
-        elements = document.querySelectorAll(source);
+function jsSetter(self, name, value) {
+    const privateName = `${name}_`;
+    const oldValue = self[name];
+    if (value !== oldValue) {
+        self[privateName] = value;
+        dispatchPropertyChange(self, name, value, oldValue);
     }
-    else {
-        elements = [source];
-    }
-    for (let i = 0, el; el = elements[i]; i++) {
-        if (!(el instanceof constr)) {
-            // @ts-ignore: error TS2339: Property 'decorate' does not exist on type
-            // 'Function'.
-            constr.decorate(el);
+}
+/** Converts camelCase to DOM style casing: myName => my-name. */
+function convertToKebabCase(jsName) {
+    return jsName.replace(/([A-Z])/g, '-$1').toLowerCase();
+}
+/**
+ * Setter used by the deprecated cr.ui elements.
+ * It sets or removes the DOM attribute, the attribute name is converted
+ * from the camelCase to DOM style case myName => my-name.
+ *
+ * It also dispatches the event `${name}Changed` when the value actually
+ * changes.
+ */
+function boolAttrSetter(self, name, value) {
+    const attributeName = convertToKebabCase(name);
+    const oldValue = self[name];
+    if (value !== oldValue) {
+        if (value) {
+            self.setAttribute(attributeName, name);
         }
+        else {
+            self.removeAttribute(attributeName);
+        }
+        dispatchPropertyChange(self, name, value, oldValue);
     }
 }
 /**
- * Helper function for creating new element for define.
+ * Setter used by the deprecated cr.ui elements.
+ * It sets the value of type T in the DOM `${name}`. NOTE: Name is converted
+ * from the camelCase to DOM style case myName => my-name.
+ *
+ * It also dispatches the event `${name}Changed` when the value actually
+ * changes.
  */
-// @ts-ignore: error TS7006: Parameter 'opt_bag' implicitly has an 'any' type.
-function createElementHelper(tagName, opt_bag) {
-    // Allow passing in ownerDocument to create in a different document.
-    let doc;
-    if (opt_bag && opt_bag.ownerDocument) {
-        doc = opt_bag.ownerDocument;
+function domAttrSetter(self, name, value) {
+    const attributeName = convertToKebabCase(name);
+    const oldValue = self[name];
+    if (value === undefined) {
+        self.removeAttribute(attributeName);
     }
     else {
-        doc = document;
+        self.setAttribute(attributeName, value);
     }
-    return doc.createElement(tagName);
+    dispatchPropertyChange(self, name, value, oldValue);
 }
 /**
- * Creates the constructor for a UI element class.
+ * Used by the deprecated cr.ui elements. It receives a regular DOM element
+ * (like a <div>) and injects the cr.ui element implementation methods in that
+ * instance.
  *
- * Usage:
- * <pre>
- * var List = cr.ui.define('list');
- * List.prototype = {
- *   __proto__: HTMLUListElement.prototype,
- *   decorate() {
- *     ...
- *   },
- *   ...
- * };
- * </pre>
- *
- * @param {string|Function} tagNameOrFunction The tagName or
- *     function to use for newly created elements. If this is a function it
- *     needs to return a new element when called.
- * @return {function(Object=):Element} The constructor function which takes
- *     an optional property bag. The function also has a static
- *     {@code decorate} method added to it.
+ * It then calls the cr.ui element's `decorate()` which is the initializer for
+ * its state, since it cannot run the constructor().
  */
-function define(tagNameOrFunction) {
-    // @ts-ignore: error TS7034: Variable 'createFunction' implicitly has type
-    // 'any' in some locations where its type cannot be determined.
-    let createFunction;
-    // @ts-ignore: error TS7034: Variable 'tagName' implicitly has type 'any' in
-    // some locations where its type cannot be determined.
-    let tagName;
-    if (typeof tagNameOrFunction === 'function') {
-        createFunction = tagNameOrFunction;
-        tagName = '';
-    }
-    else {
-        createFunction = createElementHelper;
-        tagName = tagNameOrFunction;
-    }
-    /**
-     * Creates a new UI element constructor.
-     * @param {Object=} opt_propertyBag Optional bag of properties to set on the
-     *     object after created. The property {@code ownerDocument} is special
-     *     cased and it allows you to create the element in a different
-     *     document than the default.
-     * @constructor
-     */
-    function f(opt_propertyBag) {
-        // @ts-ignore: error TS7005: Variable 'tagName' implicitly has an 'any'
-        // type.
-        const el = createFunction(tagName, opt_propertyBag);
-        f.decorate(el);
-        for (const propertyName in opt_propertyBag) {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-            // because expression of type 'string' can't be used to index type
-            // 'Object'.
-            el[propertyName] = opt_propertyBag[propertyName];
-        }
+function crInjectTypeAndInit(el, implementationClass) {
+    if (implementationClass.prototype.isPrototypeOf(el)) {
         return el;
     }
-    /**
-     * Decorates an element as a UI element class.
-     * @param {!Element} el The element to decorate.
-     */
-    f.decorate = function (el) {
-        // @ts-ignore: error TS2339: Property '__proto__' does not exist on type
-        // 'Element'.
-        el.__proto__ = f.prototype;
-        // @ts-ignore: error TS2339: Property 'decorate' does not exist on type
-        // 'Element'.
-        if (el.decorate) {
-            // @ts-ignore: error TS2339: Property 'decorate' does not exist on type
-            // 'Element'.
-            el.decorate();
-        }
-    };
-    // @ts-ignore: error TS2322: Type 'typeof f' is not assignable to type
-    // '(arg0?: Object | undefined) => Element'.
-    return f;
-}
-/**
- * Input elements do not grow and shrink with their content. This is a simple
- * (and not very efficient) way of handling shrinking to content with support
- * for min width and limited by the width of the parent element.
- * @param {!HTMLElement} el The element to limit the width for.
- * @param {!HTMLElement} parentEl The parent element that should limit the
- *     size.
- * @param {number} min The minimum width.
- * @param {number=} opt_scale Optional scale factor to apply to the width.
- */
-function limitInputWidth(el, parentEl, min, opt_scale) {
-    // Needs a size larger than borders
-    el.style.width = '10px';
-    const doc = el.ownerDocument;
-    const win = doc.defaultView;
-    // @ts-ignore: error TS18047: 'win' is possibly 'null'.
-    const computedStyle = win.getComputedStyle(el);
-    // @ts-ignore: error TS18047: 'win' is possibly 'null'.
-    const parentComputedStyle = win.getComputedStyle(parentEl);
-    const rtl = computedStyle.direction === 'rtl';
-    // To get the max width we get the width of the treeItem minus the position
-    // of the input.
-    const inputRect = el.getBoundingClientRect(); // box-sizing
-    const parentRect = parentEl.getBoundingClientRect();
-    const startPos = rtl ? parentRect.right - inputRect.right :
-        inputRect.left - parentRect.left;
-    // Add up border and padding of the input.
-    const inner = parseInt(computedStyle.borderLeftWidth, 10) +
-        parseInt(computedStyle.paddingLeft, 10) +
-        parseInt(computedStyle.paddingRight, 10) +
-        parseInt(computedStyle.borderRightWidth, 10);
-    // We also need to subtract the padding of parent to prevent it to overflow.
-    const parentPadding = rtl ? parseInt(parentComputedStyle.paddingLeft, 10) :
-        parseInt(parentComputedStyle.paddingRight, 10);
-    let max = parentEl.clientWidth - startPos - inner - parentPadding;
-    if (opt_scale) {
-        max *= opt_scale;
-    }
-    function limit() {
-        if (el.scrollWidth > max) {
-            el.style.width = max + 'px';
-        }
-        else {
-            // @ts-ignore: error TS2322: Type 'number' is not assignable to type
-            // 'string'.
-            el.style.width = 0;
-            const sw = el.scrollWidth;
-            if (sw < min) {
-                el.style.width = min + 'px';
-            }
-            else {
-                el.style.width = sw + 'px';
-            }
-        }
-    }
-    el.addEventListener('input', limit);
-    limit();
-}
-/**
- * Users complain they occasionaly use doubleclicks instead of clicks
- * (http://crbug.com/140364). To fix it we freeze click handling for
- * the doubleclick time interval.
- * @param {MouseEvent} e Initial click event.
- */
-function swallowDoubleClick(e) {
-    // @ts-ignore: error TS2339: Property 'ownerDocument' does not exist on type
-    // 'EventTarget'.
-    const doc = e.target.ownerDocument;
-    let counter = Math.min(1, e.detail);
-    // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
-    function swallow(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    }
-    // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
-    function onclick(e) {
-        if (e.detail > counter) {
-            counter = e.detail;
-            // Swallow the click since it's a click inside the doubleclick timeout.
-            swallow(e);
-        }
-        else {
-            // Stop tracking clicks and let regular handling.
-            doc.removeEventListener('dblclick', swallow, true);
-            doc.removeEventListener('click', onclick, true);
-        }
-    }
-    // The following 'click' event (if e.type === 'mouseup') mustn't be taken
-    // into account (it mustn't stop tracking clicks). Start event listening
-    // after zero timeout.
-    setTimeout(function () {
-        doc.addEventListener('click', onclick, true);
-        doc.addEventListener('dblclick', swallow, true);
-    }, 0);
+    // Inject the methods of the DecoratableElement in the HTMLElement.
+    Object.setPrototypeOf(el, implementationClass.prototype);
+    // Initialize since it doesn't run the constructor.
+    el.initialize();
+    return el;
 }
 
 // Copyright 2022 The Chromium Authors
@@ -8184,7 +9310,7 @@ function createChild(parent, className, tag) {
  */
 function queryRequiredElement(selectors, context) {
     const element = (context || document).querySelector(selectors);
-    assertInstanceof(element, HTMLElement, 'Missing required element: ' + selectors);
+    assertInstanceof$1(element, HTMLElement, 'Missing required element: ' + selectors);
     return element;
 }
 /**
@@ -8195,22 +9321,8 @@ function queryRequiredElement(selectors, context) {
  */
 function queryDecoratedElement(query, type) {
     const element = queryRequiredElement(query);
-    decorate(element, type);
+    crInjectTypeAndInit(element, type);
     return element;
-}
-/**
- * Returns an array of elements, based on the `selectors`. Exactly one of these
- *  elements is required to exist. The rest will be null.
- * @param selectors A list of CSS selectors to query for elements.
- * @param {(!Document|!DocumentFragment|!Element)=} context An optional
- *     context object for querySelector.
- * @returns A list of query results, with the same indices as the provided
- *     `selectors`. One element will exist, and the rest will be null padding.
- */
-function queryRequiredExactlyOne(selectors, context = document) {
-    const elements = selectors.map(selector => context.querySelector(selector));
-    assert(elements.filter(el => !!el).length === 1, 'Exactly one of the elements should exist.');
-    return elements;
 }
 /**
  * Creates an instance of UserDomError subtype of DOMError because DOMError is
@@ -8231,7 +9343,6 @@ class UserDomError extends DOMError {
     /**
      * @param name Error name for the file error.
      * @param {string=} message Optional message for this error.
-     * @suppress {checkTypes} Closure externs for DOMError doesn't have
      * constructor with 1 arg.
      */
     constructor(name, message) {
@@ -8283,7 +9394,7 @@ function getCrActionMenuTop(triggerElement, marginTop) {
  * TODO(b/285977941): Remove the old tree support.
  */
 function isDirectoryTree(element) {
-    return element.typeName === 'directory_tree' || isTree(element);
+    return element.typeName === 'directory_tree' || isXfTree(element);
 }
 function isDirectoryTreeItem(element) {
     return element.typeName === 'directory_item' || isTreeItem(element);
@@ -8292,7 +9403,7 @@ function getFocusedTreeItem(tree) {
     if (tree.typeName === 'directory_tree') {
         return tree.selectedItem;
     }
-    if (isTree(tree)) {
+    if (isXfTree(tree)) {
         return tree.focusedItem;
     }
     return null;
@@ -8345,8 +9456,7 @@ function isMyFilesEntry(entry) {
     if (entry instanceof EntryList && entry.toURL() === myFilesEntryListKey) {
         return true;
     }
-    if (isVolumeEntry(entry) &&
-        entry.volumeType === VolumeManagerCommon.VolumeType.DOWNLOADS) {
+    if (isVolumeEntry(entry) && entry.volumeType === VolumeType.DOWNLOADS) {
         return true;
     }
     return false;
@@ -8370,8 +9480,8 @@ function isDriveRootEntryList(entry) {
  */
 function isGrandRootEntryInDrives(entry) {
     const { fullPath } = entry;
-    return fullPath === VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH ||
-        fullPath === VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH;
+    return fullPath === SHARED_DRIVES_DIRECTORY_PATH ||
+        fullPath === COMPUTERS_DIRECTORY_PATH;
 }
 /**
  * Given an entry, check if it's a fake entry ("Shared with me" and "Offline")
@@ -8382,15 +9492,15 @@ function isFakeEntryInDrives(entry) {
         return false;
     }
     const { rootType } = entry;
-    return rootType === VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME ||
-        rootType === VolumeManagerCommon.RootType.DRIVE_OFFLINE;
+    return rootType === RootType.DRIVE_SHARED_WITH_ME ||
+        rootType === RootType.DRIVE_OFFLINE;
 }
 /**
  * Returns true if fileData's entry is inside any part of Drive 'My Drive'.
  */
 function isEntryInsideMyDrive(fileData) {
     const { rootType } = fileData;
-    return !!rootType && rootType === VolumeManagerCommon.RootType.DRIVE;
+    return !!rootType && rootType === RootType.DRIVE;
 }
 /**
  * Returns true if fileData's entry is inside any part of Drive 'Computers'.
@@ -8398,23 +9508,28 @@ function isEntryInsideMyDrive(fileData) {
 function isEntryInsideComputers(fileData) {
     const { rootType } = fileData;
     return !!rootType &&
-        (rootType === VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT ||
-            rootType === VolumeManagerCommon.RootType.COMPUTER);
+        (rootType === RootType.COMPUTERS_GRAND_ROOT ||
+            rootType === RootType.COMPUTER);
 }
 /**
  * Returns true if fileData's entry is inside any part of Drive.
  */
 function isEntryInsideDrive(fileData) {
     const { rootType } = fileData;
+    return isDriveRootType(rootType);
+}
+/**
+ * Returns whether or not the root type is one of Google Drive root types.
+ */
+function isDriveRootType(rootType) {
     return !!rootType &&
-        (rootType === VolumeManagerCommon.RootType.DRIVE ||
-            rootType === VolumeManagerCommon.RootType.SHARED_DRIVES_GRAND_ROOT ||
-            rootType === VolumeManagerCommon.RootType.SHARED_DRIVE ||
-            rootType === VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT ||
-            rootType === VolumeManagerCommon.RootType.COMPUTER ||
-            rootType === VolumeManagerCommon.RootType.DRIVE_OFFLINE ||
-            rootType === VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME ||
-            rootType === VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT);
+        (rootType === RootType.DRIVE ||
+            rootType === RootType.SHARED_DRIVES_GRAND_ROOT ||
+            rootType === RootType.SHARED_DRIVE ||
+            rootType === RootType.COMPUTERS_GRAND_ROOT ||
+            rootType === RootType.COMPUTER || rootType === RootType.DRIVE_OFFLINE ||
+            rootType === RootType.DRIVE_SHARED_WITH_ME ||
+            rootType === RootType.DRIVE_FAKE_ROOT);
 }
 /** Sort the entries based on the filter and the names. */
 function sortEntries(parentEntry, entries) {
@@ -8434,7 +9549,7 @@ function sortEntries(parentEntry, entries) {
         if (locationInfo) {
             const compareFunction = compareLabelAndGroupBottomEntries(locationInfo, 
             // Only Linux/Play/GuestOS files are in the UI children.
-            parentEntry.getUIChildren());
+            parentEntry.getUiChildren());
             return entries.filter(entry => fileFilter.filter(entry))
                 .sort(compareFunction);
         }
@@ -8487,12 +9602,11 @@ function isSharedDriveEntry(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree[0] == '' &&
-        tree[1] == VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME;
+    return tree[0] == '' && tree[1] == SHARED_DRIVES_DIRECTORY_NAME;
 }
 /**
  * Extracts Shared Drive name from entry path.
- * @return {string} The name of Shared Drive. Empty string if |entry| is not
+ * @return The name of Shared Drive. Empty string if |entry| is not
  *     under Shared Drives.
  */
 function getTeamDriveName(entry) {
@@ -8509,7 +9623,7 @@ function getTeamDriveName(entry) {
  * Returns true if the given root type is for a container of recent files.
  */
 function isRecentRootType(rootType) {
-    return rootType == VolumeManagerCommon.RootType.RECENT;
+    return rootType == RootType.RECENT;
 }
 /**
  * Returns true if the given entry is the root folder of recent files.
@@ -8538,14 +9652,13 @@ function isComputersEntry(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree[0] == '' &&
-        tree[1] == VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME;
+    return tree[0] == '' && tree[1] == COMPUTERS_DIRECTORY_NAME;
 }
 /**
  * Returns true if the given root type is Trash.
  */
 function isTrashRootType(rootType) {
-    return rootType == VolumeManagerCommon.RootType.TRASH;
+    return rootType == RootType.TRASH;
 }
 /**
  * Returns true if the given entry is the root folder of Trash.
@@ -8561,7 +9674,7 @@ function isTrashEntry(entry) {
 }
 /**
  * Compares two entries.
- * @return {boolean} True if the both entry represents a same file or
+ * @return True if the both entry represents a same file or
  *     directory. Returns true if both entries are null.
  */
 function isSameEntry(entry1, entry2) {
@@ -8575,7 +9688,7 @@ function isSameEntry(entry1, entry2) {
 }
 /**
  * Compares two file systems.
- * @return {boolean} True if the both file systems are equal. Also, returns true
+ * @return True if the both file systems are equal. Also, returns true
  *     if both file systems are null.
  */
 function isSameFileSystem(fileSystem1, fileSystem2) {
@@ -8589,7 +9702,7 @@ function isSameFileSystem(fileSystem1, fileSystem2) {
 }
 /**
  * Checks if given two entries are in the same directory.
- * @return {boolean} True if given entries are in the same directory.
+ * @return True if given entries are in the same directory.
  */
 function isSiblingEntry(entry1, entry2) {
     const path1 = entry1.fullPath.split('/');
@@ -8608,28 +9721,27 @@ function isSiblingEntry(entry1, entry2) {
  * Checks if the child entry is a descendant of another entry. If the entries
  * point to the same file or directory, then returns false.
  *
- * @param {!DirectoryEntry|!FilesAppEntry} ancestorEntry The ancestor
+ * @param ancestorEntry The ancestor
  *     directory entry. Can be a fake.
- * @param {!Entry|!FilesAppEntry} childEntry The child entry. Can be a fake.
- * @return {boolean} True if the child entry is contained in the ancestor path.
+ * @param childEntry The child entry. Can be a fake.
+ * @return True if the child entry is contained in the ancestor path.
  */
 function isDescendantEntry(ancestorEntry, childEntry) {
     if (!ancestorEntry.isDirectory) {
         return false;
     }
     // For EntryList and VolumeEntry they can contain entries from different
-    // files systems, so we should check its getUIChildren.
-    if ('getUIChildren' in ancestorEntry) {
-        const volumeOrEntryList = ancestorEntry;
+    // files systems, so we should check its getUiChildren.
+    if (isEntrySupportUiChildren(ancestorEntry)) {
         // VolumeEntry has to check to root entry descendant entry.
-        if ('getNativeEntry' in volumeOrEntryList) {
-            const nativeEntry = volumeOrEntryList.getNativeEntry();
+        if ('getNativeEntry' in ancestorEntry) {
+            const nativeEntry = ancestorEntry.getNativeEntry();
             if (nativeEntry &&
                 isSameFileSystem(nativeEntry.filesystem, childEntry.filesystem)) {
                 return isDescendantEntry(nativeEntry, childEntry);
             }
         }
-        return volumeOrEntryList.getUIChildren().some((ancestorChild) => {
+        return ancestorEntry.getUiChildren().some((ancestorChild) => {
             if (isSameEntry(ancestorChild, childEntry)) {
                 return true;
             }
@@ -8668,19 +9780,19 @@ function isDescendantEntry(ancestorEntry, childEntry) {
  * Compare by name. The 2 entries must be in same directory.
  */
 function compareName(entry1, entry2) {
-    return util.collator.compare(entry1.name, entry2.name);
+    return collator.compare(entry1.name, entry2.name);
 }
 /**
  * Compare by label (i18n name). The 2 entries must be in same directory.
  */
 function compareLabel(locationInfo, entry1, entry2) {
-    return util.collator.compare(util.getEntryLabel(locationInfo, entry1), util.getEntryLabel(locationInfo, entry2));
+    return collator.compare(getEntryLabel(locationInfo, entry1), getEntryLabel(locationInfo, entry2));
 }
 /**
  * Compare by path.
  */
 function comparePath(entry1, entry2) {
-    return util.collator.compare(entry1.fullPath, entry2.fullPath);
+    return collator.compare(entry1.fullPath, entry2.fullPath);
 }
 /**
  * @param bottomEntries entries that should be grouped in the bottom, used for
@@ -8700,13 +9812,13 @@ function compareLabelAndGroupBottomEntries(locationInfo, bottomEntries) {
     function compare(entry1, entry2) {
         // Bottom entry here means Linux or Play files, which should appear after
         // all native entries.
-        const isBottomlEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
-        const isBottomlEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
+        const isBottomEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
+        const isBottomEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
         // When there are the same type, just compare by label.
-        if (isBottomlEntry1 === isBottomlEntry2) {
+        if (isBottomEntry1 === isBottomEntry2) {
             return compareLabel(locationInfo, entry1, entry2);
         }
-        return isBottomlEntry1 - isBottomlEntry2;
+        return isBottomEntry1 - isBottomEntry2;
     }
     return compare;
 }
@@ -8802,7 +9914,7 @@ function isNonModifiable(volumeManager, entry) {
         return false;
     }
     const volumeType = volumeInfo.volumeType;
-    if (volumeType === VolumeManagerCommon.RootType.DOWNLOADS) {
+    if (volumeType === VolumeType.DOWNLOADS) {
         if (!entry.isDirectory) {
             return false;
         }
@@ -8818,7 +9930,7 @@ function isNonModifiable(volumeManager, entry) {
         }
         return false;
     }
-    if (volumeType === VolumeManagerCommon.RootType.ANDROID_FILES) {
+    if (volumeType === VolumeType.ANDROID_FILES) {
         if (!entry.isDirectory) {
             return false;
         }
@@ -8835,10 +9947,10 @@ function isNonModifiable(volumeManager, entry) {
         }
         return false;
     }
-    if (volumeType === VolumeManagerCommon.RootType.CROSTINI) {
+    if (volumeType === VolumeType.CROSTINI) {
         return entry.fullPath === '/';
     }
-    if (volumeType === VolumeManagerCommon.RootType.GUEST_OS) {
+    if (volumeType === VolumeType.GUEST_OS) {
         return entry.fullPath === '/';
     }
     return false;
@@ -8863,7 +9975,7 @@ function readEntriesRecursively(rootEntry, entriesCallback, successCallback, err
     const maybeRunCallback = () => {
         if (numRunningTasks === 0) {
             if (shouldStop()) {
-                errorCallback(createDOMError(util.FileError.ABORT_ERR));
+                errorCallback(createDOMError(FileErrorToDomError.ABORT_ERR));
             }
             else if (error) {
                 errorCallback(error);
@@ -8909,23 +10021,14 @@ function readEntriesRecursively(rootEntry, entriesCallback, successCallback, err
  * returns false if it's FakeEntry or any one of the FilesAppEntry types.
  */
 function isNativeEntry(entry) {
-    return !('type_name' in entry);
+    return !('typeName' in entry);
 }
 function unwrapEntry(entry) {
     if (!entry) {
         return entry;
     }
     const nativeEntry = 'getNativeEntry' in entry && entry.getNativeEntry();
-    if (nativeEntry) {
-        if (isDirectoryEntry(nativeEntry)) {
-            return nativeEntry;
-        }
-        return nativeEntry;
-    }
-    if (isDirectoryEntry(entry)) {
-        return entry;
-    }
-    return entry;
+    return nativeEntry || entry;
 }
 /**
  * Returns true if all entries belong to the same volume. If there are no
@@ -8965,19 +10068,14 @@ function getODFSMetadataQueryEntry(odfsVolumeInfo) {
  */
 function isInteractiveVolume(volumeInfo) {
     const state = getStore().getState();
-    const volumes = state.volumes;
-    if (!volumes) {
-        console.error('Expected volumes to exist in the store.');
-        return true;
-    }
-    const volume = volumes[volumeInfo.volumeId];
+    const volume = state.volumes[volumeInfo.volumeId];
     if (!volume) {
-        console.error('Expected volume to be in the store.');
+        console.warn('Expected volume to be in the store.');
         return true;
     }
     return volume.isInteractive;
 }
-const isOneDriveId = (providerId) => providerId === constants.ODFS_EXTENSION_ID;
+const isOneDriveId = (providerId) => providerId === ODFS_EXTENSION_ID;
 function isOneDrive(volumeInfo) {
     return isOneDriveId(volumeInfo?.providerId);
 }
@@ -8986,9 +10084,95 @@ function isOneDrive(volumeInfo) {
  * ANDROID_FILES type volume can also be a GuestOs volume if ARCVM is enabled.
  */
 function isGuestOs(type) {
-    return type === VolumeManagerCommon.VolumeType.GUEST_OS ||
-        (type === VolumeManagerCommon.VolumeType.ANDROID_FILES &&
-            isArcVmEnabled());
+    return type === VolumeType.GUEST_OS ||
+        (type === VolumeType.ANDROID_FILES && isArcVmEnabled());
+}
+/**
+ * Returns true if fileData's entry supports the "shared" feature, as in,
+ * displays a shared icon. It's only supported inside "My Drive" or
+ * "Computers", even Shared Drive does not support it, the "My Drive" and
+ * "Computers" itself don't support it either, only their children.
+ *
+ * Note: if the return value is true, fileData's entry is guaranteed to be
+ * native Entry type.
+ */
+function shouldSupportDriveSpecificIcons(fileData) {
+    return (isEntryInsideMyDrive(fileData) && !isVolumeEntry(fileData.entry)) ||
+        (isEntryInsideComputers(fileData) &&
+            !isGrandRootEntryInDrives(fileData.entry));
+}
+/**
+ * Extracts the `entry` from the supplied `treeItem` depending on if the new
+ * directory tree is enabled or not.
+ */
+function getTreeItemEntry(treeItem) {
+    if (!treeItem) {
+        return null;
+    }
+    if (isNewDirectoryTreeEnabled()) {
+        const item = treeItem;
+        const state = getStore().getState();
+        return getEntry$1(state, item.dataset['navigationKey']);
+    }
+    const item = treeItem;
+    return item.entry;
+}
+/**
+ * Check if the entry support `getUiChildren()` method.
+ */
+function isEntrySupportUiChildren(entry) {
+    return 'getUiChildren' in entry;
+}
+/**
+ * A generator version of `entry.readEntries`.
+ *
+ * Example usage:
+ * ```
+ * const childEntries = []
+ * for await (const partialEntries of readEntries(...)) {
+     childEntries.push(...partialEntries);
+  }
+ * ```
+ */
+async function* readEntries(entry) {
+    const ls = (reader) => {
+        return new Promise((resolve, reject) => {
+            reader.readEntries(results => resolve(results), error => reject(error));
+        });
+    };
+    const reader = entry.createReader();
+    while (true) {
+        const entries = await ls(reader);
+        if (entries.length === 0) {
+            break;
+        }
+        yield entries;
+    }
+    // The final return here is void.
+}
+/**
+ * Check if the given entry is scannable or not, e.g. can we call `readEntries`
+ * on it. If the return value is true, its type is guaranteed to be a Directory
+ * like entry.
+ */
+function isEntryScannable(entry) {
+    if (!entry) {
+        return false;
+    }
+    if (!entry.isDirectory) {
+        return false;
+    }
+    if ('disabled' in entry && entry.disabled) {
+        return false;
+    }
+    const entryKeysWithoutChildren = new Set([
+        recentRootKey,
+        trashRootKey,
+    ]);
+    if (entryKeysWithoutChildren.has(entry.toURL())) {
+        return false;
+    }
+    return true;
 }
 
 // Copyright 2021 The Chromium Authors
@@ -8997,26 +10181,6 @@ function isGuestOs(type) {
 /**
  * @fileoverview Helpers for APIs used within Files app.
  */
-/**
- * Calls the `fn` function which should expect the callback as last argument.
- *
- * Resolves with the result of the `fn`.
- *
- * Rejects if there is `chrome.runtime.lastError`.
- */
-async function promisify(fn, ...args) {
-    return new Promise((resolve, reject) => {
-        const callback = (result) => {
-            if (chrome.runtime.lastError) {
-                reject(chrome.runtime.lastError.message);
-            }
-            else {
-                resolve(result);
-            }
-        };
-        fn(...args, callback);
-    });
-}
 /**
  * Opens a new window for Files SWA.
  */
@@ -9171,1625 +10335,11 @@ async function getDriveConnectionState() {
 async function grantAccess(entries) {
     return promisify(chrome.fileManagerPrivate.grantAccess, entries);
 }
-
-// Copyright 2012 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file should contain utility functions used only by the
- * files app. Other shared utility functions can be found in base/*_util.js,
- * which allows finer-grained control over introducing dependencies.
- */
-/**
- * Namespace for utility functions.
- */
-const util = {};
-/**
- * @param {!chrome.fileManagerPrivate.IconSet} iconSet Set of icons.
- * @return {string} CSS value.
- */
-util.iconSetToCSSBackgroundImageValue = iconSet => {
-    let lowDpiPart = null;
-    let highDpiPart = null;
-    if (iconSet.icon16x16Url) {
-        lowDpiPart = 'url(' + iconSet.icon16x16Url + ') 1x';
-    }
-    if (iconSet.icon32x32Url) {
-        highDpiPart = 'url(' + iconSet.icon32x32Url + ') 2x';
-    }
-    if (lowDpiPart && highDpiPart) {
-        return '-webkit-image-set(' + lowDpiPart + ', ' + highDpiPart + ')';
-    }
-    else if (lowDpiPart) {
-        return '-webkit-image-set(' + lowDpiPart + ')';
-    }
-    else if (highDpiPart) {
-        return '-webkit-image-set(' + highDpiPart + ')';
-    }
-    return 'none';
-};
-/**
- * Mapping table of file error name to i18n localized error name.
- *
- * @const @enum {string}
- */
-util.FileErrorLocalizedName = {
-    'InvalidModificationError': 'FILE_ERROR_INVALID_MODIFICATION',
-    'InvalidStateError': 'FILE_ERROR_INVALID_STATE',
-    'NoModificationAllowedError': 'FILE_ERROR_NO_MODIFICATION_ALLOWED',
-    'NotFoundError': 'FILE_ERROR_NOT_FOUND',
-    'NotReadableError': 'FILE_ERROR_NOT_READABLE',
-    'PathExistsError': 'FILE_ERROR_PATH_EXISTS',
-    'QuotaExceededError': 'FILE_ERROR_QUOTA_EXCEEDED',
-    'SecurityError': 'FILE_ERROR_SECURITY',
-};
-Object.freeze(util.FileErrorLocalizedName);
-/**
- * Returns i18n localized error name for file error |name|.
- *
- * @param {?string|undefined} name File error name.
- * @return {string} Translated file error string.
- */
-util.getFileErrorString = name => {
-    // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index type.
-    const error = util.FileErrorLocalizedName[name] || 'FILE_ERROR_GENERIC';
-    return loadTimeData.getString(error);
-};
-/**
- * Mapping table for FileError.code style enum to DOMError.name string.
- *
- * @const @enum {string}
- */
-util.FileError = {
-    ABORT_ERR: 'AbortError',
-    INVALID_MODIFICATION_ERR: 'InvalidModificationError',
-    INVALID_STATE_ERR: 'InvalidStateError',
-    NO_MODIFICATION_ALLOWED_ERR: 'NoModificationAllowedError',
-    NOT_FOUND_ERR: 'NotFoundError',
-    NOT_READABLE_ERR: 'NotReadable',
-    PATH_EXISTS_ERR: 'PathExistsError',
-    QUOTA_EXCEEDED_ERR: 'QuotaExceededError',
-    TYPE_MISMATCH_ERR: 'TypeMismatchError',
-    ENCODING_ERR: 'EncodingError',
-};
-Object.freeze(util.FileError);
-/**
- * Convert a number of bytes into a human friendly format, using the correct
- * number separators.
- *
- * @param {number} bytes The number of bytes.
- * @param {number=} addedPrecision The number of precision digits to add.
- * @return {string} Localized string.
- */
-util.bytesToString = (bytes, addedPrecision = 0) => {
-    // Translation identifiers for size units.
-    const UNITS = [
-        'SIZE_BYTES',
-        'SIZE_KB',
-        'SIZE_MB',
-        'SIZE_GB',
-        'SIZE_TB',
-        'SIZE_PB',
-    ];
-    // Minimum values for the units above.
-    const STEPS = [
-        0,
-        Math.pow(2, 10),
-        Math.pow(2, 20),
-        Math.pow(2, 30),
-        Math.pow(2, 40),
-        Math.pow(2, 50),
-    ];
-    // Rounding with precision.
-    // @ts-ignore: error TS7006: Parameter 'decimals' implicitly has an 'any'
-    // type.
-    const round = (value, decimals) => {
-        const scale = Math.pow(10, decimals);
-        return Math.round(value * scale) / scale;
-    };
-    // @ts-ignore: error TS7006: Parameter 'u' implicitly has an 'any' type.
-    const str = (n, u) => {
-        return strf(u, n.toLocaleString());
-    };
-    // @ts-ignore: error TS7006: Parameter 'u' implicitly has an 'any' type.
-    const fmt = (s, u) => {
-        const rounded = round(bytes / s, 1 + addedPrecision);
-        return str(rounded, u);
-    };
-    // Less than 1KB is displayed like '80 bytes'.
-    // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-    if (bytes < STEPS[1]) {
-        return str(bytes, UNITS[0]);
-    }
-    // Up to 1MB is displayed as rounded up number of KBs, or with the desired
-    // number of precision digits.
-    // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-    if (bytes < STEPS[2]) {
-        const rounded = addedPrecision ?
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            round(bytes / STEPS[1], addedPrecision) :
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            Math.ceil(bytes / STEPS[1]);
-        return str(rounded, UNITS[1]);
-    }
-    // This loop index is used outside the loop if it turns out |bytes|
-    // requires the largest unit.
-    let i;
-    for (i = 2 /* MB */; i < UNITS.length - 1; i++) {
-        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-        if (bytes < STEPS[i + 1]) {
-            return fmt(STEPS[i], UNITS[i]);
-        }
-    }
-    return fmt(STEPS[i], UNITS[i]);
-};
-/**
- * Extracts path from filesystem: URL.
- * @param {?string=} url Filesystem URL.
- * @return {?string} The path if it can be parsed, null if it cannot.
- */
-util.extractFilePath = url => {
-    const match = /^filesystem:[\w-]*:\/\/[\w-]*\/(external|persistent|temporary)(\/.*)$/
-        .exec(url || '');
-    const path = match && match[2];
-    if (!path) {
-        return null;
-    }
-    return decodeURIComponent(path);
-};
-/**
- * Returns a translated string.
- *
- * Wrapper function to make dealing with translated strings more concise.
- * Equivalent to loadTimeData.getString(id).
- *
- * @param {string} id The id of the string to return.
- * @return {string} The translated string.
- */
-function str(id) {
-    try {
-        return loadTimeData.getString(id);
-    }
-    catch (e) {
-        console.warn('Failed to get string for', id);
-        return id;
-    }
+async function getContentMimeType(fileEntry) {
+    return promisify(chrome.fileManagerPrivate.getContentMimeType, fileEntry);
 }
-/**
- * Returns a translated string with arguments replaced.
- *
- * Wrapper function to make dealing with translated strings more concise.
- * Equivalent to loadTimeData.getStringF(id, ...).
- *
- * @param {string} id The id of the string to return.
- * @param {...*} var_args The values to replace into the string.
- * @return {string} The translated string with replaced values.
- */
-// @ts-ignore: error TS6133: 'var_args' is declared but its value is never read.
-function strf(id, var_args) {
-    // @ts-ignore: error TS2345: Argument of type 'IArguments' is not assignable
-    // to parameter of type '[id: string, ...args: (string | number)[]]'.
-    return loadTimeData.getStringF.apply(loadTimeData, arguments);
-}
-// Export strf() into the util namespace.
-util.strf = strf;
-/**
- * @return {boolean} True if the Files app is running as an open files or a
- *     select folder dialog. False otherwise.
- */
-util.runningInBrowser = () => {
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type 'Window &
-    // typeof globalThis'.
-    return !window.appID;
-};
-/**
- * The type of a file operation.
- * @enum {string}
- * @const
- */
-util.FileOperationType = {
-    COPY: 'COPY',
-    DELETE: 'DELETE',
-    MOVE: 'MOVE',
-    RESTORE: 'RESTORE',
-    RESTORE_TO_DESTINATION: 'RESTORE_TO_DESTINATION',
-    ZIP: 'ZIP',
-};
-Object.freeze(util.FileOperationType);
-/**
- * The type of a file operation error.
- * @enum {number}
- * @const
- */
-util.FileOperationErrorType = {
-    UNEXPECTED_SOURCE_FILE: 0,
-    TARGET_EXISTS: 1,
-    FILESYSTEM_ERROR: 2,
-};
-Object.freeze(util.FileOperationErrorType);
-/**
- * Collator for sorting.
- * @type {Intl.Collator}
- */
-util.collator =
-    new Intl.Collator([], { usage: 'sort', numeric: true, sensitivity: 'base' });
-/**
- * The last URL with visitURL().
- * @private @type {string}
- */
-// @ts-ignore: error TS7034: Variable 'lastVisitedURL' implicitly has type 'any'
-// in some locations where its type cannot be determined.
-let lastVisitedURL;
-/**
- * Visit the URL.
- *
- * If the browser is opening, the url is opened in a new tab, otherwise the url
- * is opened in a new window.
- *
- * @param {!string} url URL to visit.
- */
-util.visitURL = url => {
-    lastVisitedURL = url;
-    // openURL opens URLs in the primary browser (ash vs lacros) as opposed to
-    // window.open which always opens URLs in ash-chrome.
-    chrome.fileManagerPrivate.openURL(url);
-};
-/**
- * Return the last URL visited with visitURL().
- *
- * @return {string} The last URL visited.
- */
-util.getLastVisitedURL = () => {
-    // @ts-ignore: error TS7005: Variable 'lastVisitedURL' implicitly has an 'any'
-    // type.
-    return lastVisitedURL;
-};
-/**
- * Returns normalized current locale, or default locale - 'en'.
- * @return {string} Current locale
- */
-util.getCurrentLocaleOrDefault = () => {
-    const locale = str('UI_LOCALE') || 'en';
-    return locale.replace(/_/g, '-');
-};
-/**
- * Returns whether the window is teleported or not.
- * @param {Window} window Window.
- * @return {Promise<boolean>} Whether the window is teleported or not.
- */
-util.isTeleported = window => {
-    return new Promise(onFulfilled => {
-        // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-        // 'Window'.
-        window.chrome.fileManagerPrivate.getProfiles(
-        // @ts-ignore: error TS7006: Parameter 'displayedId' implicitly has an
-        // 'any' type.
-        (profiles, currentId, displayedId) => {
-            onFulfilled(currentId !== displayedId);
-        });
-    });
-};
-/**
- * Runs chrome.test.sendMessage in test environment. Does nothing if running
- * in production environment.
- *
- * @param {string} message Test message to send.
- */
-util.testSendMessage = message => {
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
-    const test = chrome.test || window.top.chrome.test;
-    if (test) {
-        test.sendMessage(message);
-    }
-};
-/**
- * Extracts the extension of the path.
- *
- * Examples:
- * util.splitExtension('abc.ext') -> ['abc', '.ext']
- * util.splitExtension('a/b/abc.ext') -> ['a/b/abc', '.ext']
- * util.splitExtension('a/b') -> ['a/b', '']
- * util.splitExtension('.cshrc') -> ['', '.cshrc']
- * util.splitExtension('a/b.backup/hoge') -> ['a/b.backup/hoge', '']
- *
- * @param {string} path Path to be extracted.
- * @return {Array<string>} Filename and extension of the given path.
- */
-util.splitExtension = path => {
-    let dotPosition = path.lastIndexOf('.');
-    if (dotPosition <= path.lastIndexOf('/')) {
-        dotPosition = -1;
-    }
-    const filename = dotPosition != -1 ? path.substr(0, dotPosition) : path;
-    const extension = dotPosition != -1 ? path.substr(dotPosition) : '';
-    return [filename, extension];
-};
-/**
- * Returns the localized name of the root type.
- * @param {!EntryLocation} locationInfo Location info.
- * @return {string} The localized name.
- */
-util.getRootTypeLabel = locationInfo => {
-    switch (locationInfo.rootType) {
-        case VolumeManagerCommon.RootType.DOWNLOADS:
-            return locationInfo.volumeInfo.label;
-        case VolumeManagerCommon.RootType.DRIVE:
-            return str('DRIVE_MY_DRIVE_LABEL');
-        case VolumeManagerCommon.RootType.SHARED_DRIVE:
-        // |locationInfo| points to either the root directory of an individual Team
-        // Drive or sub-directory under it, but not the Shared Drives grand
-        // directory. Every Shared Drive and its sub-directories always have
-        // individual names (locationInfo.hasFixedLabel is false). So
-        // getRootTypeLabel() is used by PathComponent.computeComponentsFromEntry()
-        // to display the ancestor name in the breadcrumb like this:
-        //   Shared Drives > ABC Shared Drive > Folder1
-        //   ^^^^^^^^^^^
-        // By this reason, we return the label of the Shared Drives grand root here.
-        case VolumeManagerCommon.RootType.SHARED_DRIVES_GRAND_ROOT:
-            return str('DRIVE_SHARED_DRIVES_LABEL');
-        case VolumeManagerCommon.RootType.COMPUTER:
-        case VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT:
-            return str('DRIVE_COMPUTERS_LABEL');
-        case VolumeManagerCommon.RootType.DRIVE_OFFLINE:
-            return str('DRIVE_OFFLINE_COLLECTION_LABEL');
-        case VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME:
-            return str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL');
-        case VolumeManagerCommon.RootType.DRIVE_RECENT:
-            return str('DRIVE_RECENT_COLLECTION_LABEL');
-        case VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT:
-            return str('DRIVE_DIRECTORY_LABEL');
-        case VolumeManagerCommon.RootType.RECENT:
-            return str('RECENT_ROOT_LABEL');
-        case VolumeManagerCommon.RootType.CROSTINI:
-            return str('LINUX_FILES_ROOT_LABEL');
-        case VolumeManagerCommon.RootType.MY_FILES:
-            return str('MY_FILES_ROOT_LABEL');
-        case VolumeManagerCommon.RootType.TRASH:
-            return str('TRASH_ROOT_LABEL');
-        case VolumeManagerCommon.RootType.MEDIA_VIEW:
-            const mediaViewRootType = VolumeManagerCommon.getMediaViewRootTypeFromVolumeId(locationInfo.volumeInfo.volumeId);
-            switch (mediaViewRootType) {
-                case VolumeManagerCommon.MediaViewRootType.IMAGES:
-                    return str('MEDIA_VIEW_IMAGES_ROOT_LABEL');
-                case VolumeManagerCommon.MediaViewRootType.VIDEOS:
-                    return str('MEDIA_VIEW_VIDEOS_ROOT_LABEL');
-                case VolumeManagerCommon.MediaViewRootType.AUDIO:
-                    return str('MEDIA_VIEW_AUDIO_ROOT_LABEL');
-                case VolumeManagerCommon.MediaViewRootType.DOCUMENTS:
-                    return str('MEDIA_VIEW_DOCUMENTS_ROOT_LABEL');
-            }
-            console.error('Unsupported media view root type: ' + mediaViewRootType);
-            return locationInfo.volumeInfo.label;
-        case VolumeManagerCommon.RootType.ARCHIVE:
-        case VolumeManagerCommon.RootType.REMOVABLE:
-        case VolumeManagerCommon.RootType.MTP:
-        case VolumeManagerCommon.RootType.PROVIDED:
-        case VolumeManagerCommon.RootType.ANDROID_FILES:
-        case VolumeManagerCommon.RootType.DOCUMENTS_PROVIDER:
-        case VolumeManagerCommon.RootType.SMB:
-        case VolumeManagerCommon.RootType.GUEST_OS:
-            return locationInfo.volumeInfo.label;
-        default:
-            console.error('Unsupported root type: ' + locationInfo.rootType);
-            return locationInfo.volumeInfo.label;
-    }
-};
-/**
- * Returns the localized/i18n name of the entry.
- *
- * @param {?EntryLocation} locationInfo
- * @param {!Entry|!FilesAppEntry} entry The entry to be retrieve the name of.
- * @return {string} The localized name.
- */
-util.getEntryLabel = (locationInfo, entry) => {
-    if (locationInfo) {
-        if (locationInfo.hasFixedLabel) {
-            return util.getRootTypeLabel(locationInfo);
-        }
-        if (entry.filesystem && entry.filesystem.root === entry) {
-            return util.getRootTypeLabel(locationInfo);
-        }
-    }
-    // Special case for MyFiles/Downloads, MyFiles/PvmDefault and MyFiles/Camera.
-    if (locationInfo &&
-        locationInfo.rootType == VolumeManagerCommon.RootType.DOWNLOADS) {
-        if (entry.fullPath == '/Downloads') {
-            return str('DOWNLOADS_DIRECTORY_LABEL');
-        }
-        if (entry.fullPath == '/PvmDefault') {
-            return str('PLUGIN_VM_DIRECTORY_LABEL');
-        }
-        if (entry.fullPath == '/Camera') {
-            return str('CAMERA_DIRECTORY_LABEL');
-        }
-    }
-    return entry.name;
-};
-/**
- * Checks if an API call returned an error, and if yes then prints it.
- */
-util.checkAPIError = () => {
-    if (chrome.runtime.lastError) {
-        console.warn(chrome.runtime.lastError.message);
-    }
-};
-/**
- * Makes a promise which will be fulfilled |ms| milliseconds later.
- * @param {number} ms The delay in milliseconds.
- * @return {!Promise<void>}
- */
-// @ts-ignore: error TS2314: Generic type 'Promise<T>' requires 1 type
-// argument(s).
-util.delay = ms => {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
-};
-/**
- * Makes a promise which will be rejected if the given |promise| is not resolved
- * or rejected for |ms| milliseconds.
- * @param {!Promise<*>} promise A promise which needs to be timed out.
- * @param {number} ms Delay for the timeout in milliseconds.
- * @param {string=} opt_message Error message for the timeout.
-// @ts-ignore: error TS2314: Generic type 'Promise<T>' requires 1 type
-argument(s).
- * @return {!Promise<*>} A promise which can be rejected by timeout.
- */
-util.timeoutPromise = (promise, ms, opt_message) => {
-    return Promise.race([
-        // @ts-ignore: error TS2314: Generic type 'Promise<T>' requires 1 type
-        // argument(s).
-        promise,
-        util.delay(ms).then(() => {
-            throw new Error(opt_message || 'Operation timed out.');
-        }),
-    ]);
-};
-/**
- * Executes a functions only when the context is not the incognito one in a
- * regular session. Returns a promise that when fulfilled informs us whether or
- * not the callback was invoked.
- * @param {function():void} callback
- * @return {!Promise<boolean>}
- */
-util.doIfPrimaryContext = async (callback) => {
-    const guestMode = await util.isInGuestMode();
-    if (guestMode) {
-        callback();
-        return true;
-    }
-    return false;
-};
-/**
- * Returns the Files app modal dialog used to embed any files app dialog
- * that derives from cr.ui.dialogs.
- *
- * @return {!HTMLDialogElement}
- */
-util.getFilesAppModalDialogInstance = () => {
-    let dialogElement = document.querySelector('#files-app-modal-dialog');
-    if (!dialogElement) { // Lazily create the files app dialog instance.
-        dialogElement = document.createElement('dialog');
-        dialogElement.id = 'files-app-modal-dialog';
-        document.body.appendChild(dialogElement);
-    }
-    return /** @type {!HTMLDialogElement} */ (dialogElement);
-};
-/**
- *
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} left
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} right
- * @returns {boolean}
- */
-util.descriptorEqual = function (left, right) {
-    return left.appId === right.appId && left.taskType === right.taskType &&
-        left.actionId === right.actionId;
-};
-/**
- * Create a taskID which is a string unique-ID for a task. This is temporary
- * and will be removed once we use task.descriptor everywhere instead.
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor
- * @returns {string}
- */
-util.makeTaskID = function ({ appId, taskType, actionId }) {
-    return `${appId}|${taskType}|${actionId}`;
-};
-/**
- * Returns a new promise which, when fulfilled carries a boolean indicating
- * whether the app is in the guest mode. Typical use:
- *
- * util.isInGuestMode().then(
- *     (guest) => { if (guest) { ... in guest mode } }
- * );
- * @return {Promise<boolean>}
- */
-util.isInGuestMode = async () => {
-    const profiles = await promisify(chrome.fileManagerPrivate.getProfiles);
-    return profiles.length > 0 && profiles[0].profileId === '$guest';
-};
-/**
- * Get the locale based week start from the load time data.
- * @returns {number}
- */
-util.getLocaleBasedWeekStart = () => {
-    return loadTimeData.valueExists('WEEK_START_FROM') ?
-        loadTimeData.getInteger('WEEK_START_FROM') :
-        0;
-};
-/**
- * A kind of error that represents user electing to cancel an operation. We use
- * this specialization to differentiate between system errors and errors
- * generated through legitimate user actions.
- */
-class UserCanceledError extends Error {
-}
-/**
- * Returns whether the given value is null or undefined.
- * @param {*} value
- * @returns {boolean}
- */
-util.isNullOrUndefined = (value) => value === null || value === undefined;
-/**
- * Bulk pinning should only show visible UI elements when in progress or
- * continuing to sync.
- * @param {chrome.fileManagerPrivate.BulkPinStage|undefined} stage
- * @param {boolean|undefined} pref
- * @returns {boolean}
- */
-util.canBulkPinningCloudPanelShow = (stage, pref) => {
-    if (!isDriveFsBulkPinningEnabled()) {
-        return false;
-    }
-    const BulkPinStage = chrome.fileManagerPrivate.BulkPinStage;
-    // If the stage is in progress and the bulk pinning preference is enabled,
-    // then the cloud panel should not be visible.
-    if (pref &&
-        (stage === BulkPinStage.GETTING_FREE_SPACE ||
-            stage === BulkPinStage.LISTING_FILES ||
-            stage === BulkPinStage.SYNCING)) {
-        return true;
-    }
-    // For the PAUSED... states the preference should still be enabled, however,
-    // for the latter the preference will have been disabled.
-    if ((stage === BulkPinStage.PAUSED_OFFLINE && pref) ||
-        (stage === BulkPinStage.PAUSED_BATTERY_SAVER && pref) ||
-        stage === BulkPinStage.NOT_ENOUGH_SPACE) {
-        return true;
-    }
-    return false;
-};
-/**
- * Converts seconds into a time remaining string.
- * @param {number} seconds
- * @returns {string}
- */
-util.secondsToRemainingTimeString = (seconds) => {
-    const locale = util.getCurrentLocaleOrDefault();
-    let minutes = Math.ceil(seconds / 60);
-    if (minutes <= 1) {
-        // Less than one minute. Display remaining time in seconds.
-        const formatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'second', unitDisplay: 'long' });
-        return strf('TIME_REMAINING_ESTIMATE', formatter.format(Math.ceil(seconds)));
-    }
-    const minuteFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'minute', unitDisplay: 'long' });
-    const hours = Math.floor(minutes / 60);
-    if (hours == 0) {
-        // Less than one hour. Display remaining time in minutes.
-        return strf('TIME_REMAINING_ESTIMATE', minuteFormatter.format(minutes));
-    }
-    minutes -= hours * 60;
-    const hourFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'hour', unitDisplay: 'long' });
-    if (minutes == 0) {
-        // Hours but no minutes.
-        return strf('TIME_REMAINING_ESTIMATE', hourFormatter.format(hours));
-    }
-    // Hours and minutes.
-    return strf('TIME_REMAINING_ESTIMATE_2', hourFormatter.format(hours), minuteFormatter.format(minutes));
-};
-
-/******************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-
-function __decorate$1(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * This file serves as a shim to tslib. Using experimental features like
- * decorator will make TS generates compiled JS code like "import 'tslib'",
- * but our existing build toolchain can't handle that import correctly. To
- * mitigate that, we use "noEmitHelpers: true" in the tsconfig to make sure
- * it won't generate "import 'tslib'", but this configuration requires the
- * functions from tslib are available in the global space, hence the assignment
- * below.
- *
- * Note: for any functions we expose here, we also need to add function
- * type declaration to closure type externs in app_window_common.js.
- */
-globalThis.__decorate = __decorate$1;
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview A base class for all Files app(xf) widgets.
- * @suppress {checkTypes} closure can't recognize LitElement
- */
-/**
- * A base class for all Files app(xf) widgets.
- */
-class XfBase extends LitElement {
-}
-// Expose shadowRootOptions so child classes can use this from XfBase directly.
-XfBase.shadowRootOptions = LitElement.shadowRootOptions;
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * A key to retrieve an `Attachable` element's `AttachableController` from a
- * global `MutationObserver`.
- */
-const ATTACHABLE_CONTROLLER = Symbol('attachableController');
-let FOR_ATTRIBUTE_OBSERVER;
-if (!isServer) {
-    /**
-     * A global `MutationObserver` that reacts to `for` attribute changes on
-     * `Attachable` elements. If the `for` attribute changes, the controller will
-     * re-attach to the new referenced element.
-     */
-    FOR_ATTRIBUTE_OBSERVER = new MutationObserver(records => {
-        for (const record of records) {
-            // When a control's `for` attribute changes, inform its
-            // `AttachableController` to update to a new control.
-            record.target[ATTACHABLE_CONTROLLER]
-                ?.hostConnected();
-        }
-    });
-}
-/**
- * A controller that provides an implementation for `Attachable` elements.
- *
- * @example
- * ```ts
- * class MyElement extends LitElement implements Attachable {
- *   get control() { return this.attachableController.control; }
- *
- *   private readonly attachableController = new AttachableController(
- *     this,
- *     (previousControl, newControl) => {
- *       previousControl?.removeEventListener('click', this.handleClick);
- *       newControl?.addEventListener('click', this.handleClick);
- *     }
- *   );
- *
- *   // Implement remaining `Attachable` properties/methods that call the
- *   // controller's properties/methods.
- * }
- * ```
- */
-class AttachableController {
-    get htmlFor() {
-        return this.host.getAttribute('for');
-    }
-    set htmlFor(htmlFor) {
-        if (htmlFor === null) {
-            this.host.removeAttribute('for');
-        }
-        else {
-            this.host.setAttribute('for', htmlFor);
-        }
-    }
-    get control() {
-        if (this.host.hasAttribute('for')) {
-            if (!this.htmlFor || !this.host.isConnected) {
-                return null;
-            }
-            return this.host.getRootNode()
-                .querySelector(`#${this.htmlFor}`);
-        }
-        return this.currentControl || this.host.parentElement;
-    }
-    set control(control) {
-        if (control) {
-            this.attach(control);
-        }
-        else {
-            this.detach();
-        }
-    }
-    /**
-     * Creates a new controller for an `Attachable` element.
-     *
-     * @param host The `Attachable` element.
-     * @param onControlChange A callback with two parameters for the previous and
-     *     next control. An `Attachable` element may perform setup or teardown
-     *     logic whenever the control changes.
-     */
-    constructor(host, onControlChange) {
-        this.host = host;
-        this.onControlChange = onControlChange;
-        this.currentControl = null;
-        host.addController(this);
-        host[ATTACHABLE_CONTROLLER] = this;
-        FOR_ATTRIBUTE_OBSERVER?.observe(host, { attributeFilter: ['for'] });
-    }
-    attach(control) {
-        if (control === this.currentControl) {
-            return;
-        }
-        this.setCurrentControl(control);
-        // When imperatively attaching, remove the `for` attribute so
-        // that the attached control is used instead of a referenced one.
-        this.host.removeAttribute('for');
-    }
-    detach() {
-        this.setCurrentControl(null);
-        // When imperatively detaching, add an empty `for=""` attribute. This will
-        // ensure the control is `null` rather than the `parentElement`.
-        this.host.setAttribute('for', '');
-    }
-    /** @private */
-    hostConnected() {
-        this.setCurrentControl(this.control);
-    }
-    /** @private */
-    hostDisconnected() {
-        this.setCurrentControl(null);
-    }
-    setCurrentControl(control) {
-        this.onControlChange(this.currentControl, control);
-        this.currentControl = control;
-    }
-}
-
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * Events that the focus ring listens to.
- *
- * @fires visibility-changed Fired whenever `visible` changes.
- */
-const EVENTS$1 = ['focusin', 'focusout', 'pointerdown'];
-/**
- * A focus ring component.
- */
-class FocusRing extends LitElement {
-    constructor() {
-        super(...arguments);
-        /**
-         * Makes the focus ring visible.
-         */
-        this.visible = false;
-        /**
-         * Makes the focus ring animate inwards instead of outwards.
-         */
-        this.inward = false;
-        this.attachableController = new AttachableController(this, this.onControlChange.bind(this));
-    }
-    get htmlFor() {
-        return this.attachableController.htmlFor;
-    }
-    set htmlFor(htmlFor) {
-        this.attachableController.htmlFor = htmlFor;
-    }
-    get control() {
-        return this.attachableController.control;
-    }
-    set control(control) {
-        this.attachableController.control = control;
-    }
-    attach(control) {
-        this.attachableController.attach(control);
-    }
-    detach() {
-        this.attachableController.detach();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        // Needed for VoiceOver, which will create a "group" if the element is a
-        // sibling to other content.
-        this.setAttribute('aria-hidden', 'true');
-    }
-    /** @private */
-    handleEvent(event) {
-        if (event[HANDLED_BY_FOCUS_RING]) {
-            // This ensures the focus ring does not activate when multiple focus rings
-            // are used within a single component.
-            return;
-        }
-        switch (event.type) {
-            default:
-                return;
-            case 'focusin':
-                this.visible = this.control?.matches(':focus-visible') ?? false;
-                break;
-            case 'focusout':
-            case 'pointerdown':
-                this.visible = false;
-                break;
-        }
-        event[HANDLED_BY_FOCUS_RING] = true;
-    }
-    onControlChange(prev, next) {
-        if (isServer)
-            return;
-        for (const event of EVENTS$1) {
-            prev?.removeEventListener(event, this);
-            next?.addEventListener(event, this);
-        }
-    }
-    update(changed) {
-        if (changed.has('visible')) {
-            // This logic can be removed once the `:has` selector has been introduced
-            // to Firefox. This is necessary to allow correct submenu styles.
-            this.dispatchEvent(new Event('visibility-changed'));
-        }
-        super.update(changed);
-    }
-}
-__decorate$1([
-    property({ type: Boolean, reflect: true })
-], FocusRing.prototype, "visible", void 0);
-__decorate$1([
-    property({ type: Boolean, reflect: true })
-], FocusRing.prototype, "inward", void 0);
-const HANDLED_BY_FOCUS_RING = Symbol('handledByFocusRing');
-
-/**
-  * @license
-  * Copyright 2022 Google LLC
-  * SPDX-License-Identifier: Apache-2.0
-  */
-const styles$6 = css `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}/*# sourceMappingURL=focus-ring-styles.css.map */
-`;
-
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * TODO(b/267336424): add docs
- *
- * @final
- * @suppress {visibility}
- */
-let MdFocusRing = class MdFocusRing extends FocusRing {
-};
-MdFocusRing.styles = [styles$6];
-MdFocusRing = __decorate$1([
-    customElement('md-focus-ring')
-], MdFocusRing);
-
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * Easing functions to use for web animations.
- *
- * **NOTE:** `EASING.EMPHASIZED` is approximated with unknown accuracy.
- *
- * TODO(b/241113345): replace with tokens
- */
-const EASING = {
-    STANDARD: 'cubic-bezier(0.2, 0, 0, 1)',
-    STANDARD_ACCELERATE: 'cubic-bezier(.3,0,1,1)',
-    STANDARD_DECELERATE: 'cubic-bezier(0,0,0,1)',
-    EMPHASIZED: 'cubic-bezier(.3,0,0,1)',
-    EMPHASIZED_ACCELERATE: 'cubic-bezier(.3,0,.8,.15)',
-    EMPHASIZED_DECELERATE: 'cubic-bezier(.05,.7,.1,1)',
-};
-
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-const PRESS_GROW_MS = 450;
-const MINIMUM_PRESS_MS = 225;
-const INITIAL_ORIGIN_SCALE = 0.2;
-const PADDING = 10;
-const SOFT_EDGE_MINIMUM_SIZE = 75;
-const SOFT_EDGE_CONTAINER_RATIO = 0.35;
-const PRESS_PSEUDO = '::after';
-const ANIMATION_FILL = 'forwards';
-/**
- * Interaction states for the ripple.
- *
- * On Touch:
- *  - `INACTIVE -> TOUCH_DELAY -> WAITING_FOR_CLICK -> INACTIVE`
- *  - `INACTIVE -> TOUCH_DELAY -> HOLDING -> WAITING_FOR_CLICK -> INACTIVE`
- *
- * On Mouse or Pen:
- *   - `INACTIVE -> WAITING_FOR_CLICK -> INACTIVE`
- */
-var State;
-(function (State) {
-    /**
-     * Initial state of the control, no touch in progress.
-     *
-     * Transitions:
-     *   - on touch down: transition to `TOUCH_DELAY`.
-     *   - on mouse down: transition to `WAITING_FOR_CLICK`.
-     */
-    State[State["INACTIVE"] = 0] = "INACTIVE";
-    /**
-     * Touch down has been received, waiting to determine if it's a swipe or
-     * scroll.
-     *
-     * Transitions:
-     *   - on touch up: begin press; transition to `WAITING_FOR_CLICK`.
-     *   - on cancel: transition to `INACTIVE`.
-     *   - after `TOUCH_DELAY_MS`: begin press; transition to `HOLDING`.
-     */
-    State[State["TOUCH_DELAY"] = 1] = "TOUCH_DELAY";
-    /**
-     * A touch has been deemed to be a press
-     *
-     * Transitions:
-     *  - on up: transition to `WAITING_FOR_CLICK`.
-     */
-    State[State["HOLDING"] = 2] = "HOLDING";
-    /**
-     * The user touch has finished, transition into rest state.
-     *
-     * Transitions:
-     *   - on click end press; transition to `INACTIVE`.
-     */
-    State[State["WAITING_FOR_CLICK"] = 3] = "WAITING_FOR_CLICK";
-})(State || (State = {}));
-/**
- * Events that the ripple listens to.
- */
-const EVENTS = [
-    'click', 'contextmenu', 'pointercancel', 'pointerdown', 'pointerenter',
-    'pointerleave', 'pointerup'
-];
-/**
- * Delay reacting to touch so that we do not show the ripple for a swipe or
- * scroll interaction.
- */
-const TOUCH_DELAY_MS = 150;
-/**
- * A ripple component.
- */
-class Ripple extends LitElement {
-    constructor() {
-        super(...arguments);
-        /**
-         * Disables the ripple.
-         */
-        this.disabled = false;
-        this.hovered = false;
-        this.pressed = false;
-        this.rippleSize = '';
-        this.rippleScale = '';
-        this.initialSize = 0;
-        this.state = State.INACTIVE;
-        this.checkBoundsAfterContextMenu = false;
-        this.attachableController = new AttachableController(this, this.onControlChange.bind(this));
-    }
-    get htmlFor() {
-        return this.attachableController.htmlFor;
-    }
-    set htmlFor(htmlFor) {
-        this.attachableController.htmlFor = htmlFor;
-    }
-    get control() {
-        return this.attachableController.control;
-    }
-    set control(control) {
-        this.attachableController.control = control;
-    }
-    attach(control) {
-        this.attachableController.attach(control);
-    }
-    detach() {
-        this.attachableController.detach();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        // Needed for VoiceOver, which will create a "group" if the element is a
-        // sibling to other content.
-        this.setAttribute('aria-hidden', 'true');
-    }
-    render() {
-        const classes = {
-            'hovered': this.hovered,
-            'pressed': this.pressed,
-        };
-        return html `<div class="surface ${classMap(classes)}"></div>`;
-    }
-    update(changedProps) {
-        if (changedProps.has('disabled') && this.disabled) {
-            this.hovered = false;
-            this.pressed = false;
-        }
-        super.update(changedProps);
-    }
-    /**
-     * TODO(b/269799771): make private
-     * @private only public for slider
-     */
-    handlePointerenter(event) {
-        if (!this.shouldReactToEvent(event)) {
-            return;
-        }
-        this.hovered = true;
-    }
-    /**
-     * TODO(b/269799771): make private
-     * @private only public for slider
-     */
-    handlePointerleave(event) {
-        if (!this.shouldReactToEvent(event)) {
-            return;
-        }
-        this.hovered = false;
-        // release a held mouse or pen press that moves outside the element
-        if (this.state !== State.INACTIVE) {
-            this.endPressAnimation();
-        }
-    }
-    handlePointerup(event) {
-        if (!this.shouldReactToEvent(event)) {
-            return;
-        }
-        if (this.state === State.HOLDING) {
-            this.state = State.WAITING_FOR_CLICK;
-            return;
-        }
-        if (this.state === State.TOUCH_DELAY) {
-            this.state = State.WAITING_FOR_CLICK;
-            this.startPressAnimation(this.rippleStartEvent);
-            return;
-        }
-    }
-    async handlePointerdown(event) {
-        if (!this.shouldReactToEvent(event)) {
-            return;
-        }
-        this.rippleStartEvent = event;
-        if (!this.isTouch(event)) {
-            this.state = State.WAITING_FOR_CLICK;
-            this.startPressAnimation(event);
-            return;
-        }
-        // after a longpress contextmenu event, an extra `pointerdown` can be
-        // dispatched to the pressed element. Check that the down is within
-        // bounds of the element in this case.
-        if (this.checkBoundsAfterContextMenu && !this.inBounds(event)) {
-            return;
-        }
-        this.checkBoundsAfterContextMenu = false;
-        // Wait for a hold after touch delay
-        this.state = State.TOUCH_DELAY;
-        await new Promise(resolve => {
-            setTimeout(resolve, TOUCH_DELAY_MS);
-        });
-        if (this.state !== State.TOUCH_DELAY) {
-            return;
-        }
-        this.state = State.HOLDING;
-        this.startPressAnimation(event);
-    }
-    handleClick() {
-        // Click is a MouseEvent in Firefox and Safari, so we cannot use
-        // `shouldReactToEvent`
-        if (this.disabled) {
-            return;
-        }
-        if (this.state === State.WAITING_FOR_CLICK) {
-            this.endPressAnimation();
-            return;
-        }
-        if (this.state === State.INACTIVE) {
-            // keyboard synthesized click event
-            this.startPressAnimation();
-            this.endPressAnimation();
-        }
-    }
-    handlePointercancel(event) {
-        if (!this.shouldReactToEvent(event)) {
-            return;
-        }
-        this.endPressAnimation();
-    }
-    handleContextmenu() {
-        if (this.disabled) {
-            return;
-        }
-        this.checkBoundsAfterContextMenu = true;
-        this.endPressAnimation();
-    }
-    determineRippleSize() {
-        const { height, width } = this.getBoundingClientRect();
-        const maxDim = Math.max(height, width);
-        const softEdgeSize = Math.max(SOFT_EDGE_CONTAINER_RATIO * maxDim, SOFT_EDGE_MINIMUM_SIZE);
-        const initialSize = Math.floor(maxDim * INITIAL_ORIGIN_SCALE);
-        const hypotenuse = Math.sqrt(width ** 2 + height ** 2);
-        const maxRadius = hypotenuse + PADDING;
-        this.initialSize = initialSize;
-        this.rippleScale = `${(maxRadius + softEdgeSize) / initialSize}`;
-        this.rippleSize = `${initialSize}px`;
-    }
-    getNormalizedPointerEventCoords(pointerEvent) {
-        const { scrollX, scrollY } = window;
-        const { left, top } = this.getBoundingClientRect();
-        const documentX = scrollX + left;
-        const documentY = scrollY + top;
-        const { pageX, pageY } = pointerEvent;
-        return { x: pageX - documentX, y: pageY - documentY };
-    }
-    getTranslationCoordinates(positionEvent) {
-        const { height, width } = this.getBoundingClientRect();
-        // end in the center
-        const endPoint = {
-            x: (width - this.initialSize) / 2,
-            y: (height - this.initialSize) / 2,
-        };
-        let startPoint;
-        if (positionEvent instanceof PointerEvent) {
-            startPoint = this.getNormalizedPointerEventCoords(positionEvent);
-        }
-        else {
-            startPoint = {
-                x: width / 2,
-                y: height / 2,
-            };
-        }
-        // center around start point
-        startPoint = {
-            x: startPoint.x - (this.initialSize / 2),
-            y: startPoint.y - (this.initialSize / 2),
-        };
-        return { startPoint, endPoint };
-    }
-    startPressAnimation(positionEvent) {
-        if (!this.mdRoot) {
-            return;
-        }
-        this.pressed = true;
-        this.growAnimation?.cancel();
-        this.determineRippleSize();
-        const { startPoint, endPoint } = this.getTranslationCoordinates(positionEvent);
-        const translateStart = `${startPoint.x}px, ${startPoint.y}px`;
-        const translateEnd = `${endPoint.x}px, ${endPoint.y}px`;
-        this.growAnimation = this.mdRoot.animate({
-            top: [0, 0],
-            left: [0, 0],
-            height: [this.rippleSize, this.rippleSize],
-            width: [this.rippleSize, this.rippleSize],
-            transform: [
-                `translate(${translateStart}) scale(1)`,
-                `translate(${translateEnd}) scale(${this.rippleScale})`
-            ],
-        }, {
-            pseudoElement: PRESS_PSEUDO,
-            duration: PRESS_GROW_MS,
-            easing: EASING.STANDARD,
-            fill: ANIMATION_FILL
-        });
-    }
-    async endPressAnimation() {
-        this.state = State.INACTIVE;
-        const animation = this.growAnimation;
-        const pressAnimationPlayState = animation?.currentTime ?? Infinity;
-        // TODO: go/ts51upgrade - Auto-added to unblock TS5.1 migration.
-        //   TS2365: Operator '>=' cannot be applied to types 'CSSNumberish' and
-        //   'number'.
-        // @ts-ignore
-        if (pressAnimationPlayState >= MINIMUM_PRESS_MS) {
-            this.pressed = false;
-            return;
-        }
-        await new Promise(resolve => {
-            // TODO: go/ts51upgrade - Auto-added to unblock TS5.1 migration.
-            //   TS2363: The right-hand side of an arithmetic operation must be of
-            //   type 'any', 'number', 'bigint' or an enum type.
-            // @ts-ignore
-            setTimeout(resolve, MINIMUM_PRESS_MS - pressAnimationPlayState);
-        });
-        if (this.growAnimation !== animation) {
-            // A new press animation was started. The old animation was canceled and
-            // should not finish the pressed state.
-            return;
-        }
-        this.pressed = false;
-    }
-    /**
-     * Returns `true` if
-     *  - the ripple element is enabled
-     *  - the pointer is primary for the input type
-     *  - the pointer is the pointer that started the interaction, or will start
-     * the interaction
-     *  - the pointer is a touch, or the pointer state has the primary button
-     * held, or the pointer is hovering
-     */
-    shouldReactToEvent(event) {
-        if (this.disabled || !event.isPrimary) {
-            return false;
-        }
-        if (this.rippleStartEvent &&
-            this.rippleStartEvent.pointerId !== event.pointerId) {
-            return false;
-        }
-        if (event.type === 'pointerenter' || event.type === 'pointerleave') {
-            return !this.isTouch(event);
-        }
-        const isPrimaryButton = event.buttons === 1;
-        return this.isTouch(event) || isPrimaryButton;
-    }
-    /**
-     * Check if the event is within the bounds of the element.
-     *
-     * This is only needed for the "stuck" contextmenu longpress on Chrome.
-     */
-    inBounds({ x, y }) {
-        const { top, left, bottom, right } = this.getBoundingClientRect();
-        return x >= left && x <= right && y >= top && y <= bottom;
-    }
-    isTouch({ pointerType }) {
-        return pointerType === 'touch';
-    }
-    /** @private */
-    async handleEvent(event) {
-        switch (event.type) {
-            case 'click':
-                this.handleClick();
-                break;
-            case 'contextmenu':
-                this.handleContextmenu();
-                break;
-            case 'pointercancel':
-                this.handlePointercancel(event);
-                break;
-            case 'pointerdown':
-                await this.handlePointerdown(event);
-                break;
-            case 'pointerenter':
-                this.handlePointerenter(event);
-                break;
-            case 'pointerleave':
-                this.handlePointerleave(event);
-                break;
-            case 'pointerup':
-                this.handlePointerup(event);
-                break;
-        }
-    }
-    onControlChange(prev, next) {
-        if (isServer)
-            return;
-        for (const event of EVENTS) {
-            prev?.removeEventListener(event, this);
-            next?.addEventListener(event, this);
-        }
-    }
-}
-__decorate$1([
-    property({ type: Boolean, reflect: true })
-], Ripple.prototype, "disabled", void 0);
-__decorate$1([
-    state()
-], Ripple.prototype, "hovered", void 0);
-__decorate$1([
-    state()
-], Ripple.prototype, "pressed", void 0);
-__decorate$1([
-    query('.surface')
-], Ripple.prototype, "mdRoot", void 0);
-
-/**
-  * @license
-  * Copyright 2022 Google LLC
-  * SPDX-License-Identifier: Apache-2.0
-  */
-const styles$5 = css `:host{--_hover-color: var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-opacity: var(--md-ripple-hover-opacity, 0.08);--_pressed-color: var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-opacity: var(--md-ripple-pressed-opacity, 0.12);display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--_hover-color);inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--_pressed-color) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--_hover-color);opacity:var(--_hover-opacity)}.pressed::after{opacity:var(--_pressed-opacity);transition-duration:105ms}/*# sourceMappingURL=ripple-styles.css.map */
-`;
-
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * @summary Ripples, also known as state layers, are visual indicators used to
- * communicate the status of a component or interactive element.
- *
- * @description A state layer is a semi-transparent covering on an element that
- * indicates its state. State layers provide a systematic approach to
- * visualizing states by using opacity. A layer can be applied to an entire
- * element or in a circular shape and only one state layer can be applied at a
- * given time.
- *
- * @final
- * @suppress {visibility}
- */
-let MdRipple = class MdRipple extends Ripple {
-};
-MdRipple.styles = [styles$5];
-MdRipple = __decorate$1([
-    customElement('md-ripple')
-], MdRipple);
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * Accessibility Object Model reflective aria properties.
- */
-const ARIA_PROPERTIES = [
-    'ariaAtomic',
-    'ariaAutoComplete',
-    'ariaBusy',
-    'ariaChecked',
-    'ariaColCount',
-    'ariaColIndex',
-    'ariaColSpan',
-    'ariaCurrent',
-    'ariaDisabled',
-    'ariaExpanded',
-    'ariaHasPopup',
-    'ariaHidden',
-    'ariaInvalid',
-    'ariaKeyShortcuts',
-    'ariaLabel',
-    'ariaLevel',
-    'ariaLive',
-    'ariaModal',
-    'ariaMultiLine',
-    'ariaMultiSelectable',
-    'ariaOrientation',
-    'ariaPlaceholder',
-    'ariaPosInSet',
-    'ariaPressed',
-    'ariaReadOnly',
-    'ariaRequired',
-    'ariaRoleDescription',
-    'ariaRowCount',
-    'ariaRowIndex',
-    'ariaRowSpan',
-    'ariaSelected',
-    'ariaSetSize',
-    'ariaSort',
-    'ariaValueMax',
-    'ariaValueMin',
-    'ariaValueNow',
-    'ariaValueText',
-];
-/**
- * Accessibility Object Model aria attributes.
- */
-ARIA_PROPERTIES.map(ariaPropertyToAttribute);
-/**
- * Converts an AOM aria property into its corresponding attribute.
- *
- * @example
- * ariaPropertyToAttribute('ariaLabel'); // 'aria-label'
- *
- * @param property The aria property.
- * @return The aria attribute.
- */
-function ariaPropertyToAttribute(property) {
-    return property
-        .replace('aria', 'aria-')
-        // IDREF attributes also include an "Element" or "Elements" suffix
-        .replace(/Elements?/g, '')
-        .toLowerCase();
-}
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * Sets up a `ReactiveElement` constructor to enable updates when delegating
- * aria attributes. Elements may bind `this.aria*` properties to `aria-*`
- * attributes in their render functions.
- *
- * This function will:
- * - Call `requestUpdate()` when an aria attribute changes.
- * - Add `role="presentation"` to the host.
- *
- * NOTE: The following features are not currently supported:
- * - Delegating IDREF attributes (ex: `aria-labelledby`, `aria-controls`)
- * - Delegating the `role` attribute
- *
- * @example
- * class XButton extends LitElement {
- *   static {
- *     requestUpdateOnAriaChange(XButton);
- *   }
- *
- *   protected override render() {
- *     return html`
- *       <button aria-label=${this.ariaLabel || nothing}>
- *         <slot></slot>
- *       </button>
- *     `;
- *   }
- * }
- *
- * @param ctor The `ReactiveElement` constructor to patch.
- */
-function requestUpdateOnAriaChange(ctor) {
-    for (const ariaProperty of ARIA_PROPERTIES) {
-        ctor.createProperty(ariaProperty, {
-            attribute: ariaPropertyToAttribute(ariaProperty),
-            reflect: true,
-        });
-    }
-    ctor.addInitializer(element => {
-        const controller = {
-            hostConnected() {
-                element.setAttribute('role', 'presentation');
-            }
-        };
-        element.addController(controller);
-    });
-}
-
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * Re-dispatches an event from the provided element.
- *
- * This function is useful for forwarding non-composed events, such as `change`
- * events.
- *
- * @example
- * class MyInput extends LitElement {
- *   render() {
- *     return html`<input @change=${this.redispatchEvent}>`;
- *   }
- *
- *   protected redispatchEvent(event: Event) {
- *     redispatchEvent(this, event);
- *   }
- * }
- *
- * @param element The element to dispatch the event from.
- * @param event The event to re-dispatch.
- * @return Whether or not the event was dispatched (if cancelable).
- */
-function redispatchEvent(element, event) {
-    // For bubbling events in SSR light DOM (or composed), stop their propagation
-    // and dispatch the copy.
-    if (event.bubbles && (!element.shadowRoot || event.composed)) {
-        event.stopPropagation();
-    }
-    const copy = Reflect.construct(event.constructor, [event.type, event]);
-    const dispatched = element.dispatchEvent(copy);
-    if (!dispatched) {
-        event.preventDefault();
-    }
-    return dispatched;
-}
-/**
- * Dispatches a click event to the given element that triggers a native action,
- * but is not composed and therefore is not seen outside the element.
- *
- * This is useful for responding to an external click event on the host element
- * that should trigger an internal action like a button click.
- *
- * Note, a helper is provided because setting this up correctly is a bit tricky.
- * In particular, calling `click` on an element creates a composed event, which
- * is not desirable, and a manually dispatched event must specifically be a
- * `MouseEvent` to trigger a native action.
- *
- * @example
- * hostClickListener = (event: MouseEvent) {
- *   if (isActivationClick(event)) {
- *     this.dispatchActivationClick(this.buttonElement);
- *   }
- * }
- *
- */
-function dispatchActivationClick(element) {
-    const event = new MouseEvent('click', { bubbles: true });
-    element.dispatchEvent(event);
-    return event;
-}
-/**
- * Returns true if the click event should trigger an activation behavior. The
- * behavior is defined by the element and is whatever it should do when
- * clicked.
- *
- * Typically when an element needs to handle a click, the click is generated
- * from within the element and an event listener within the element implements
- * the needed behavior; however, it's possible to fire a click directly
- * at the element that the element should handle. This method helps
- * distinguish these "external" clicks.
- *
- * An "external" click can be triggered in a number of ways: via a click
- * on an associated label for a form  associated element, calling
- * `element.click()`, or calling
- * `element.dispatchEvent(new MouseEvent('click', ...))`.
- *
- * Also works around Firefox issue
- * https://bugzilla.mozilla.org/show_bug.cgi?id=1804576 by squelching
- * events for a microtask after called.
- *
- * @example
- * hostClickListener = (event: MouseEvent) {
- *   if (isActivationClick(event)) {
- *     this.dispatchActivationClick(this.buttonElement);
- *   }
- * }
- *
- */
-function isActivationClick(event) {
-    // Event must start at the event target.
-    if (event.currentTarget !== event.target) {
-        return false;
-    }
-    // Event must not be retargeted from shadowRoot.
-    if (event.composedPath()[0] !== event.target) {
-        return false;
-    }
-    // Target must not be disabled; this should only occur for a synthetically
-    // dispatched click.
-    if (event.target.disabled) {
-        return false;
-    }
-    // This is an activation if the event should not be squelched.
-    return !squelchEvent(event);
-}
-// TODO(https://bugzilla.mozilla.org/show_bug.cgi?id=1804576)
-//  Remove when Firefox bug is addressed.
-function squelchEvent(event) {
-    const squelched = isSquelchingEvents;
-    if (squelched) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-    }
-    squelchEventsForMicrotask();
-    return squelched;
-}
-// Ignore events for one microtask only.
-let isSquelchingEvents = false;
-async function squelchEventsForMicrotask() {
-    isSquelchingEvents = true;
-    // Need to pause for just one microtask.
-    // tslint:disable-next-line
-    await null;
-    isSquelchingEvents = false;
+async function getContentMetadata(fileEntry, mimeType, includeImages) {
+    return promisify(chrome.fileManagerPrivate.getContentMetadata, fileEntry, mimeType, includeImages);
 }
 
 // Copyright 2013 The Chromium Authors
@@ -10801,34 +10351,23 @@ async function squelchEventsForMicrotask() {
  * concurrently. At most, |limit| jobs will be run at the same time.
  */
 class ConcurrentQueue {
-    /**
-     * @param {number} limit The number of tasks to run at the same time.
-     */
-    constructor(limit) {
-        console.assert(limit > 0, '|limit| must be larger than 0');
-        this.limit_ = limit;
-        // @ts-ignore: error TS7008: Member 'added_' implicitly has an 'any[]' type.
+    /** @param limit_ The number of tasks to run at the same time. */
+    constructor(limit_) {
+        this.limit_ = limit_;
         this.added_ = [];
-        // @ts-ignore: error TS7008: Member 'running_' implicitly has an 'any[]'
-        // type.
         this.running_ = [];
         this.cancelled_ = false;
+        console.assert(this.limit_ > 0, 'limit_ must be larger than 0');
     }
-    /**
-     * @return {boolean} True when a task is running, otherwise false.
-     */
+    /** @return whether a task is running. */
     isRunning() {
         return this.running_.length !== 0;
     }
-    /**
-     * @return {number} Number of waiting tasks.
-     */
+    /** @return the number of waiting tasks. */
     getWaitingTasksCount() {
         return this.added_.length;
     }
-    /**
-     * @return {number} Number of running tasks.
-     */
+    /** @return the number of running tasks. */
     getRunningTasksCount() {
         return this.running_.length;
     }
@@ -10836,12 +10375,10 @@ class ConcurrentQueue {
      * Enqueues a task for running as soon as possible. If there is already the
      * maximum number of tasks running, the run of this task is delayed until less
      * than the limit given at the construction time of tasks are running.
-     * @param {function(function():void):void} task The task to be enqueued for
-     *     execution.
      */
     run(task) {
         if (this.cancelled_) {
-            console.warn('Queue is cancelled. Cannot add a new task.');
+            console.warn('Cannot add a new task: Queue is cancelled');
         }
         else {
             this.added_.push(task);
@@ -10854,12 +10391,9 @@ class ConcurrentQueue {
      */
     cancel() {
         this.cancelled_ = true;
-        this.added_ = [];
+        this.added_.length = 0;
     }
-    /**
-     * @return {boolean} True when the queue have been requested to cancel or is
-     *      already cancelled. Otherwise false.
-     */
+    /** @return whether the queue is cancelling or is already cancelled. */
     isCancelled() {
         return this.cancelled_;
     }
@@ -10876,10 +10410,8 @@ class ConcurrentQueue {
         }
     }
     /**
-     * Executes the given task. The task is placed in the list of running tasks
+     * Executes the given `task`. The task is placed in the list of running tasks
      * and immediately executed.
-     * @param {function(function():void):void} task The task to be immediately
-     *     executed.
      */
     execute_(task) {
         this.running_.push(task);
@@ -10889,30 +10421,24 @@ class ConcurrentQueue {
             // schedule a next run.
         }
         catch (e) {
-            console.warn('Failed to execute a task', e);
+            console.warn('Cannot execute a task', e);
             // If the task fails we call the callback explicitly.
             this.onTaskFinished_(task);
         }
     }
-    /**
-     * Handles a task being finished.
-     */
-    // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any' type.
+    /** Handles a task being finished. */
     onTaskFinished_(task) {
         this.removeTask_(task);
         this.scheduleNext_();
     }
-    /**
-     * Attempts to remove the task that was running.
-     */
-    // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any' type.
+    /** Attempts to remove the task that was running. */
     removeTask_(task) {
         const index = this.running_.indexOf(task);
         if (index >= 0) {
             this.running_.splice(index, 1);
         }
         else {
-            console.warn('Failed to find a finished task among running');
+            console.warn('Cannot find a finished task among the running ones');
         }
     }
     /**
@@ -10923,11 +10449,7 @@ class ConcurrentQueue {
         // TODO(1350885): Use setTimeout(()=>{this.maybeExecute();});
         this.maybeExecute_();
     }
-    /**
-     * Returns string representation of current ConcurrentQueue
-     * instance.
-     * @return {string} String representation of the instance.
-     */
+    /** @return a string representation of the instance. */
     toString() {
         return 'ConcurrentQueue\n' +
             '- WaitingTasksCount: ' + this.getWaitingTasksCount() + '\n' +
@@ -10955,32 +10477,25 @@ class AsyncQueue extends ConcurrentQueue {
      *     unlock();
      *   }
      *
-     * @return {!Promise<function()>} Completion callback to run when finished.
+     * @return Completion callback to run when finished.
      */
     async lock() {
         return new Promise(resolve => this.run(unlock => resolve(unlock)));
     }
 }
-/**
- * A task which is executed by Group.
- */
+/** A task which is executed by Group. */
 class GroupTask {
     /**
-     * @param {!function(function():void):void} closure Closure with a completion
-  callback
-     *     to be executed.
-     * @param {!Array<string>} dependencies Array of dependencies.
-     * @param {!string} name Task identifier. Specify to use in dependencies.
+     * @param closure Closure with a completion callback to be executed.
+     * @param dependencies Array of dependencies.
+     * @param name Task identifier. Specify to use in dependencies.
      */
     constructor(closure, dependencies, name) {
         this.closure = closure;
         this.dependencies = dependencies;
         this.name = name;
     }
-    /**
-     * Returns string representation of GroupTask instance.
-     * @return {string} String representation of the instance.
-     */
+    /** @return a string representation of the instance. */
     toString() {
         return 'GroupTask\n' +
             '- name: ' + this.name + '\n' +
@@ -10988,102 +10503,73 @@ class GroupTask {
     }
 }
 /**
- * Creates a class for executing several asynchronous closures in a group in
- * a dependency order.
+ * Creates a class for executing several asynchronous closures in a group in a
+ * dependency order.
  */
 class Group {
     constructor() {
         this.addedTasks_ = {};
         this.pendingTasks_ = {};
         this.finishedTasks_ = {};
-        // @ts-ignore: error TS7008: Member 'completionCallbacks_' implicitly has an
-        // 'any[]' type.
         this.completionCallbacks_ = [];
     }
-    /**
-     * @return {!Record<string, GroupTask>} Pending tasks
-     */
+    /** @return the pending tasks. */
     get pendingTasks() {
         return this.pendingTasks_;
     }
     /**
      * Enqueues a closure to be executed after dependencies are completed.
      *
-     * @param {function(function():void):void} closure Closure with a completion
-     *     callback to be executed.
-     * @param {Array<string>=} opt_dependencies Array of dependencies. If no
-     *     dependencies, then the the closure will be executed immediately.
-     * @param {string=} opt_name Task identifier. Specify to use in dependencies.
+     * @param closure Closure with a completion callback to be executed.
+     * @param dependencies Array of dependencies. If no dependencies, then the
+     *     the closure will be executed immediately.
+     * @param maybeName Task identifier. Specify to use in dependencies.
      */
-    add(closure, opt_dependencies, opt_name) {
-        const length = Object.keys(this.addedTasks_).length;
-        const name = opt_name || ('(unnamed#' + (length + 1) + ')');
-        const task = new GroupTask(closure, opt_dependencies || [], name);
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
+    add(closure, dependencies = [], maybeName) {
+        const name = maybeName || (`(unnamed#${Object.keys(this.addedTasks_).length + 1})`);
+        const task = new GroupTask(closure, dependencies, name);
         this.addedTasks_[name] = task;
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
         this.pendingTasks_[name] = task;
     }
     /**
-     * Runs the enqueued closured in order of dependencies.
-     *
-     * @param {function()=} opt_onCompletion Completion callback.
+     * Runs the enqueued closure in order of dependencies.
+     * @param onCompletion Completion callback.
      */
-    run(opt_onCompletion) {
-        if (opt_onCompletion) {
-            this.completionCallbacks_.push(opt_onCompletion);
+    run(onCompletion) {
+        if (onCompletion) {
+            this.completionCallbacks_.push(onCompletion);
         }
         this.continue_();
     }
-    /**
-     * Runs enqueued pending tasks whose dependencies are completed.
-     * @private
-     */
+    /** Runs enqueued pending tasks whose dependencies are completed. */
     continue_() {
         // If all of the added tasks have finished, then call completion callbacks.
         if (Object.keys(this.addedTasks_).length ==
             Object.keys(this.finishedTasks_).length) {
-            for (let index = 0; index < this.completionCallbacks_.length; index++) {
-                const callback = this.completionCallbacks_[index];
+            for (const callback of this.completionCallbacks_) {
                 callback();
             }
-            this.completionCallbacks_ = [];
+            this.completionCallbacks_.length = 0;
             return;
         }
         for (const name in this.pendingTasks_) {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
             const task = this.pendingTasks_[name];
             let dependencyMissing = false;
-            for (let index = 0; index < task.dependencies.length; index++) {
-                const dependency = task.dependencies[index];
+            for (const dependency of task.dependencies) {
                 // Check if the dependency has finished.
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'any' can't be used to index type '{}'.
                 if (!this.finishedTasks_[dependency]) {
                     dependencyMissing = true;
                 }
             }
             // All dependences finished, therefore start the task.
             if (!dependencyMissing) {
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'any' can't be used to index type '{}'.
                 delete this.pendingTasks_[task.name];
                 task.closure(this.finish_.bind(this, task));
             }
         }
     }
-    /**
-     * Finishes the passed task and continues executing enqueued closures.
-     *
-     * @param {Object} task Task object.
-     * @private
-     */
+    /** Finishes the passed task and continues executing enqueued closures. */
     finish_(task) {
-        // @ts-ignore: error TS2339: Property 'name' does not exist on type
-        // 'Object'.
         this.finishedTasks_[task.name] = task;
         this.continue_();
     }
@@ -11096,30 +10582,13 @@ class Group {
  */
 class Aggregator {
     /**
-     * @param {function():void} closure Closure to be aggregated.
-     * @param {number=} opt_delay Minimum aggregation time in milliseconds.
-     *     Default is 50 milliseconds.
+     * @param closure_ Closure to be aggregated.
+     * @param delay_ Minimum aggregation time in milliseconds.
      */
-    constructor(closure, opt_delay) {
-        /**
-         * @type {number}
-         * @private
-         */
-        this.delay_ = opt_delay || 50;
-        /**
-         * @type {function():void}
-         * @private
-         */
-        this.closure_ = closure;
-        /**
-         * @type {number?}
-         * @private
-         */
+    constructor(closure_, delay_ = 50) {
+        this.closure_ = closure_;
+        this.delay_ = delay_;
         this.scheduledRunsTimer_ = null;
-        /**
-         * @type {number}
-         * @private
-         */
         this.lastRunTime_ = 0;
     }
     /**
@@ -11138,19 +10607,13 @@ class Aggregator {
         // Otherwise, run immediately.
         this.runImmediately_();
     }
-    /**
-     * Calls the schedule immediately and cancels any scheduled calls.
-     * @private
-     */
+    /** Calls the schedule immediately and cancels any scheduled calls. */
     runImmediately_() {
         this.cancelScheduledRuns_();
         this.closure_();
         this.lastRunTime_ = Date.now();
     }
-    /**
-     * Cancels all scheduled runs (if any).
-     * @private
-     */
+    /** Cancels all scheduled runs (if any). */
     cancelScheduledRuns_() {
         if (this.scheduledRunsTimer_) {
             clearTimeout(this.scheduledRunsTimer_);
@@ -11159,43 +10622,25 @@ class Aggregator {
     }
 }
 /**
- * Samples calls so that they are not called too frequently.
- * The first call is always called immediately, and the following calls may
- * be skipped or delayed to keep each interval no less than |minInterval_|.
+ * Samples calls so that they are not called too frequently. The first call is
+ * always called immediately, and the following calls may be skipped or delayed
+ * to keep each interval no less than `minInterval_`.
  */
 class RateLimiter {
     /**
-     * @param {function():void} closure Closure to be called.
-     * @param {number=} opt_minInterval Minimum interval between each call in
-     *     milliseconds. Default is 200 milliseconds.
+     * @param closure_ Closure to be called.
+     * @param minInterval_ Minimum interval between each call in milliseconds.
      */
-    constructor(closure, opt_minInterval) {
-        /**
-         * @type {function():void}
-         * @private
-         */
-        this.closure_ = closure;
-        /**
-         * @type {number}
-         * @private
-         */
-        this.minInterval_ = opt_minInterval || 200;
-        /**
-         * @type {number}
-         * @private
-         */
+    constructor(closure_, minInterval_ = 200) {
+        this.closure_ = closure_;
+        this.minInterval_ = minInterval_;
         this.scheduledRunsTimer_ = 0;
-        /**
-         * This variable remembers the last time the closure is called.
-         * @type {number}
-         * @private
-         */
+        /** Last time the closure is called. */
         this.lastRunTime_ = 0;
     }
     /**
-     * Requests to run the closure.
-     * Skips or delays calls so that the intervals between calls are no less than
-     * |minInterval_| milliseconds.
+     * Requests to run the closure. Skips or delays calls so that the intervals
+     * between calls are no less than `minInterval_` milliseconds.
      */
     run() {
         const now = Date.now();
@@ -11212,18 +10657,13 @@ class RateLimiter {
         // Otherwise, run immediately
         this.runImmediately();
     }
-    /**
-     * Calls the scheduled run immediately and cancels any scheduled calls.
-     */
+    /** Calls the scheduled run immediately and cancels any scheduled calls. */
     runImmediately() {
         this.cancelScheduledRuns_();
         this.lastRunTime_ = Date.now();
         this.closure_();
     }
-    /**
-     * Cancels all scheduled runs (if any).
-     * @private
-     */
+    /** Cancels all scheduled runs (if any). */
     cancelScheduledRuns_() {
         if (this.scheduledRunsTimer_) {
             clearTimeout(this.scheduledRunsTimer_);
@@ -11231,6 +10671,37 @@ class RateLimiter {
         }
     }
 }
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * This file serves as a shim to tslib. Using experimental features like
+ * decorator will make TS generates compiled JS code like "import 'tslib'",
+ * but our existing build toolchain can't handle that import correctly. To
+ * mitigate that, we use "noEmitHelpers: true" in the tsconfig to make sure
+ * it won't generate "import 'tslib'", but this configuration requires the
+ * functions from tslib are available in the global space, hence the assignment
+ * below.
+ *
+ * Note: for any functions we expose here, we also need to add function
+ * type declaration to closure type externs in app_window_common.js.
+ */
+globalThis.__decorate = __decorate$1;
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview A base class for all Files app(xf) widgets.
+ */
+/**
+ * A base class for all Files app(xf) widgets.
+ */
+class XfBase extends LitElement {
+}
+// Expose shadowRootOptions so child classes can use this from XfBase directly.
+XfBase.shadowRootOptions = LitElement.shadowRootOptions;
 
 const styleMod$3 = document.createElement('dom-module');
 styleMod$3.appendChild(html$1 `
@@ -11410,8 +10881,7 @@ template$1.setAttribute('style', 'display: none;');
 document.head.appendChild(template$1.content);
 
 const template = html$1 `
-<custom-style>
-  <style>
+<style>
 html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-rgb));--google-blue-100-rgb:210,227,252;--google-blue-100:rgb(var(--google-blue-100-rgb));--google-blue-200-rgb:174,203,250;--google-blue-200:rgb(var(--google-blue-200-rgb));--google-blue-300-rgb:138,180,248;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-blue-400-rgb:102,157,246;--google-blue-400:rgb(var(--google-blue-400-rgb));--google-blue-500-rgb:66,133,244;--google-blue-500:rgb(var(--google-blue-500-rgb));--google-blue-600-rgb:26,115,232;--google-blue-600:rgb(var(--google-blue-600-rgb));--google-blue-700-rgb:25,103,210;--google-blue-700:rgb(var(--google-blue-700-rgb));--google-blue-800-rgb:24,90,188;--google-blue-800:rgb(var(--google-blue-800-rgb));--google-blue-900-rgb:23,78,166;--google-blue-900:rgb(var(--google-blue-900-rgb));--google-green-50-rgb:230,244,234;--google-green-50:rgb(var(--google-green-50-rgb));--google-green-200-rgb:168,218,181;--google-green-200:rgb(var(--google-green-200-rgb));--google-green-300-rgb:129,201,149;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-400-rgb:91,185,116;--google-green-400:rgb(var(--google-green-400-rgb));--google-green-500-rgb:52,168,83;--google-green-500:rgb(var(--google-green-500-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-green-700-rgb:24,128,56;--google-green-700:rgb(var(--google-green-700-rgb));--google-green-800-rgb:19,115,51;--google-green-800:rgb(var(--google-green-800-rgb));--google-green-900-rgb:13,101,45;--google-green-900:rgb(var(--google-green-900-rgb));--google-grey-50-rgb:248,249,250;--google-grey-50:rgb(var(--google-grey-50-rgb));--google-grey-100-rgb:241,243,244;--google-grey-100:rgb(var(--google-grey-100-rgb));--google-grey-200-rgb:232,234,237;--google-grey-200:rgb(var(--google-grey-200-rgb));--google-grey-300-rgb:218,220,224;--google-grey-300:rgb(var(--google-grey-300-rgb));--google-grey-400-rgb:189,193,198;--google-grey-400:rgb(var(--google-grey-400-rgb));--google-grey-500-rgb:154,160,166;--google-grey-500:rgb(var(--google-grey-500-rgb));--google-grey-600-rgb:128,134,139;--google-grey-600:rgb(var(--google-grey-600-rgb));--google-grey-700-rgb:95,99,104;--google-grey-700:rgb(var(--google-grey-700-rgb));--google-grey-800-rgb:60,64,67;--google-grey-800:rgb(var(--google-grey-800-rgb));--google-grey-900-rgb:32,33,36;--google-grey-900:rgb(var(--google-grey-900-rgb));--google-grey-900-white-4-percent:#292a2d;--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-900-rgb:104,29,168;--google-purple-900:rgb(var(--google-purple-900-rgb));--google-red-300-rgb:242,139,130;--google-red-300:rgb(var(--google-red-300-rgb));--google-red-500-rgb:234,67,53;--google-red-500:rgb(var(--google-red-500-rgb));--google-red-600-rgb:217,48,37;--google-red-600:rgb(var(--google-red-600-rgb));--google-yellow-50-rgb:254,247,224;--google-yellow-50:rgb(var(--google-yellow-50-rgb));--google-yellow-100-rgb:254,239,195;--google-yellow-100:rgb(var(--google-yellow-100-rgb));--google-yellow-200-rgb:253,226,147;--google-yellow-200:rgb(var(--google-yellow-200-rgb));--google-yellow-300-rgb:253,214,51;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-400-rgb:252,201,52;--google-yellow-400:rgb(var(--google-yellow-400-rgb));--google-yellow-500-rgb:251,188,4;--google-yellow-500:rgb(var(--google-yellow-500-rgb));--cr-primary-text-color:var(--google-grey-900);--cr-secondary-text-color:var(--google-grey-700);--cr-card-background-color:white;--cr-shadow-color:var(--google-grey-800);--cr-shadow-key-color_:color-mix(in srgb, var(--cr-shadow-color) 30%, transparent);--cr-shadow-ambient-color_:color-mix(in srgb, var(--cr-shadow-color) 15%, transparent);--cr-elevation-1:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 1px 3px 1px;--cr-elevation-2:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 2px 6px 2px;--cr-elevation-3:var(--cr-shadow-key-color_) 0 1px 3px 0,var(--cr-shadow-ambient-color_) 0 4px 8px 3px;--cr-elevation-4:var(--cr-shadow-key-color_) 0 2px 3px 0,var(--cr-shadow-ambient-color_) 0 6px 10px 4px;--cr-elevation-5:var(--cr-shadow-key-color_) 0 4px 4px 0,var(--cr-shadow-ambient-color_) 0 8px 12px 6px;--cr-card-shadow:var(--cr-elevation-2);--cr-checked-color:var(--google-blue-600);--cr-focused-item-color:var(--google-grey-300);--cr-form-field-label-color:var(--google-grey-700);--cr-hairline-rgb:0,0,0;--cr-iph-anchor-highlight-color:rgba(var(--google-blue-600-rgb), 0.1);--cr-link-color:var(--google-blue-700);--cr-menu-background-color:white;--cr-menu-background-focus-color:var(--google-grey-400);--cr-menu-shadow:0 2px 6px var(--paper-grey-500);--cr-separator-color:rgba(0, 0, 0, .06);--cr-title-text-color:rgb(90, 90, 90);--cr-toolbar-background-color:white;--cr-hover-background-color:rgba(var(--google-grey-900-rgb), .1);--cr-active-background-color:rgba(var(--google-grey-900-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-600-rgb), .4)}@media (prefers-color-scheme:dark){html{--cr-primary-text-color:var(--google-grey-200);--cr-secondary-text-color:var(--google-grey-500);--cr-card-background-color:var(--google-grey-900-white-4-percent);--cr-card-shadow-color-rgb:0,0,0;--cr-checked-color:var(--google-blue-300);--cr-focused-item-color:var(--google-grey-800);--cr-form-field-label-color:var(--dark-secondary-color);--cr-hairline-rgb:255,255,255;--cr-iph-anchor-highlight-color:rgba(var(--google-grey-100-rgb), 0.1);--cr-link-color:var(--google-blue-300);--cr-menu-background-color:var(--google-grey-900);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-separator-color:rgba(255, 255, 255, .1);--cr-title-text-color:var(--cr-primary-text-color);--cr-toolbar-background-color:var(--google-grey-900-white-4-percent);--cr-hover-background-color:rgba(255, 255, 255, .1);--cr-active-background-color:rgba(var(--google-grey-200-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-300-rgb), .4)}}@media (forced-colors:active){html{--cr-focus-outline-hcm:2px solid transparent;--cr-border-hcm:2px solid transparent}}html{--cr-button-edge-spacing:12px;--cr-button-height:32px;--cr-controlled-by-spacing:24px;--cr-default-input-max-width:264px;--cr-icon-ripple-size:36px;--cr-icon-ripple-padding:8px;--cr-icon-size:20px;--cr-icon-button-margin-start:16px;--cr-icon-ripple-margin:calc(var(--cr-icon-ripple-padding) * -1);--cr-section-min-height:48px;--cr-section-two-line-min-height:64px;--cr-section-padding:20px;--cr-section-vertical-padding:12px;--cr-section-indent-width:40px;--cr-section-indent-padding:calc(
       var(--cr-section-padding) + var(--cr-section-indent-width));--cr-section-vertical-margin:21px;--cr-centered-card-max-width:680px;--cr-centered-card-width-percentage:0.96;--cr-hairline:1px solid rgba(var(--cr-hairline-rgb), .14);--cr-separator-height:1px;--cr-separator-line:var(--cr-separator-height) solid var(--cr-separator-color);--cr-toolbar-overlay-animation-duration:150ms;--cr-toolbar-height:56px;--cr-container-shadow-height:6px;--cr-container-shadow-margin:calc(-1 * var(--cr-container-shadow-height));--cr-container-shadow-max-opacity:1;--cr-card-border-radius:8px;--cr-disabled-opacity:.38;--cr-form-field-bottom-spacing:16px;--cr-form-field-label-font-size:.625rem;--cr-form-field-label-height:1em;--cr-form-field-label-line-height:1}html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(116, 119, 117);--cr-fallback-color-primary:rgb(11, 87, 208);--cr-fallback-color-on-primary:rgb(255, 255, 255);--cr-fallback-color-primary-container:rgb(211, 227, 253);--cr-fallback-color-on-primary-container:rgb(4, 30, 73);--cr-fallback-color-secondary-container:rgb(194, 231, 255);--cr-fallback-color-on-secondary-container:rgb(0, 29, 53);--cr-fallback-color-neutral-container:rgb(242, 242, 242);--cr-fallback-color-neutral-outline:rgb(199, 199, 199);--cr-fallback-color-surface:rgb(255, 255, 255);--cr-fallback-color-on-surface-rgb:31,31,31;--cr-fallback-color-on-surface:rgb(var(--cr-fallback-color-on-surface-rgb));--cr-fallback-color-surface-variant:rgb(225, 227, 225);--cr-fallback-color-on-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-subtle:rgb(71, 71, 71);--cr-fallback-color-inverse-primary:rgb(168, 199, 250);--cr-fallback-color-inverse-surface:rgb(48, 48, 48);--cr-fallback-color-inverse-on-surface:rgb(242, 242, 242);--cr-fallback-color-tonal-container:rgb(211, 227, 253);--cr-fallback-color-on-tonal-container:rgb(4, 30, 73);--cr-fallback-color-tonal-outline:rgb(168, 199, 250);--cr-fallback-color-error:rgb(179, 38, 30);--cr-fallback-color-divider:rgb(211, 227, 253);--cr-fallback-color-state-hover-on-prominent_:rgba(253, 252, 251, .1);--cr-fallback-color-state-on-subtle-rgb_:31,31,31;--cr-fallback-color-state-hover-on-subtle_:rgba(
       var(--cr-fallback-color-state-on-subtle-rgb_), .06);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
@@ -11435,8 +10905,7 @@ html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-
       var(--cr-fallback-color-primary));--cr-button-height:36px;--cr-shadow-color:var(--color-sys-shadow, rgb(0, 0, 0))}@media (prefers-color-scheme:dark){html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(142, 145, 143);--cr-fallback-color-primary:rgb(168, 199, 250);--cr-fallback-color-on-primary:rgb(6, 46, 111);--cr-fallback-color-primary-container:rgb(8, 66, 160);--cr-fallback-color-on-primary-container:rgb(211, 227, 253);--cr-fallback-color-secondary-container:rgb(0, 74, 119);--cr-fallback-color-on-secondary-container:rgb(194, 231, 255);--cr-fallback-color-neutral-container:rgb(42, 42, 42);--cr-fallback-color-neutral-outline:rgb(117, 117, 117);--cr-fallback-color-surface:rgb(26, 27, 30);--cr-fallback-color-on-surface-rgb:227,227,227;--cr-fallback-color-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-variant:rgb(196, 199, 197);--cr-fallback-color-on-surface-subtle:rgb(199, 199, 199);--cr-fallback-color-inverse-primary:rgb(11, 87, 208);--cr-fallback-color-inverse-surface:rgb(227, 227, 227);--cr-fallback-color-inverse-on-surface:rgb(31, 31, 31);--cr-fallback-color-tonal-container:rgb(0, 74, 119);--cr-fallback-color-on-tonal-container:rgb(194, 231, 255);--cr-fallback-color-tonal-outline:rgb(0, 99, 155);--cr-fallback-color-error:rgb(242, 184, 181);--cr-fallback-color-divider:rgb(71, 71, 71);--cr-fallback-color-state-hover-on-prominent_:rgba(31, 31, 31, .06);--cr-fallback-color-state-on-subtle-rgb_:253,252,251;--cr-fallback-color-state-hover-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .10);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .16);--cr-fallback-color-state-ripple-primary-rgb_:76,141,246;--cr-fallback-color-base-container:rgba(40, 40, 40, 1)}}@media (forced-colors:active){html[chrome-refresh-2023]{--cr-fallback-color-disabled-background:Canvas;--cr-fallback-color-disabled-foreground:GrayText}}
-  </style>
-</custom-style>
+</style>
 `;
 document.head.appendChild(template.content);
 
@@ -11463,19 +10932,26 @@ const docsToManager = new Map();
  *
  */
 class FocusOutlineManager {
+    // Whether focus change is triggered by a keyboard event.
+    focusByKeyboard_ = true;
+    classList_;
     /**
      * @param doc The document to attach the focus outline manager to.
      */
     constructor(doc) {
-        // Whether focus change is triggered by a keyboard event.
-        this.focusByKeyboard_ = true;
         this.classList_ = doc.documentElement.classList;
-        doc.addEventListener('keydown', () => this.onEvent_(true), true);
-        doc.addEventListener('mousedown', () => this.onEvent_(false), true);
+        doc.addEventListener('keydown', (e) => this.onEvent_(true, e), true);
+        doc.addEventListener('mousedown', (e) => this.onEvent_(false, e), true);
         this.updateVisibility();
     }
-    onEvent_(focusByKeyboard) {
+    onEvent_(focusByKeyboard, e) {
         if (this.focusByKeyboard_ === focusByKeyboard) {
+            return;
+        }
+        if (e instanceof KeyboardEvent && e.repeat) {
+            // A repeated keydown should not trigger the focus state. For example,
+            // there is a repeated ALT keydown if ALT+CLICK is used to open the
+            // context menu and ALT is not released.
             return;
         }
         this.focusByKeyboard_ = focusByKeyboard;
@@ -12568,7 +12044,7 @@ const PaperRippleBehavior = {
   }
 };
 
-function getTemplate$8() {
+function getTemplate$c() {
     return html$1 `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -12604,7 +12080,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$c();
     }
     static get properties() {
         return {
@@ -12792,7 +12268,7 @@ let XfIcon = XfIcon_1 = class XfIcon extends XfBase {
         this.size = XfIcon_1.sizes.SMALL;
         /**
          * The icon type, different type will render different SVG file
-         * (from `constants.ICON_TYPES`).
+         * (from `ICON_TYPES`).
          */
         this.type = '';
         /**
@@ -12811,21 +12287,21 @@ let XfIcon = XfIcon_1 = class XfIcon extends XfBase {
     }
     static get multiColor() {
         return {
-            [constants.ICON_TYPES.CANT_PIN]: svg `<use xlink:href="foreground/images/files/ui/cant_pin.svg#cant_pin"></use>`,
-            [constants.ICON_TYPES.CLOUD_DONE]: svg `<use xlink:href="foreground/images/files/ui/cloud_done.svg#cloud_done"></use>`,
-            [constants.ICON_TYPES.CLOUD_ERROR]: svg `<use xlink:href="foreground/images/files/ui/cloud_error.svg#cloud_error"></use>`,
-            [constants.ICON_TYPES.CLOUD_OFFLINE]: svg `<use xlink:href="foreground/images/files/ui/cloud_offline.svg#cloud_offline"></use>`,
-            [constants.ICON_TYPES.CLOUD_PAUSED]: svg `<use xlink:href="foreground/images/files/ui/cloud_paused.svg#cloud_paused"></use>`,
-            [constants.ICON_TYPES.CLOUD_SYNC]: svg `<use xlink:href="foreground/images/files/ui/cloud_sync.svg#cloud_sync"></use>`,
-            [constants.ICON_TYPES.ERROR]: svg `<use xlink:href="foreground/images/files/ui/error.svg#error"></use>`,
-            [constants.ICON_TYPES.OFFLINE]: svg `<use xlink:href="foreground/images/files/ui/offline.svg#offline"></use>`,
+            [ICON_TYPES.CANT_PIN]: svg `<use xlink:href="foreground/images/files/ui/cant_pin.svg#cant_pin"></use>`,
+            [ICON_TYPES.CLOUD_DONE]: svg `<use xlink:href="foreground/images/files/ui/cloud_done.svg#cloud_done"></use>`,
+            [ICON_TYPES.CLOUD_ERROR]: svg `<use xlink:href="foreground/images/files/ui/cloud_error.svg#cloud_error"></use>`,
+            [ICON_TYPES.CLOUD_OFFLINE]: svg `<use xlink:href="foreground/images/files/ui/cloud_offline.svg#cloud_offline"></use>`,
+            [ICON_TYPES.CLOUD_PAUSED]: svg `<use xlink:href="foreground/images/files/ui/cloud_paused.svg#cloud_paused"></use>`,
+            [ICON_TYPES.CLOUD_SYNC]: svg `<use xlink:href="foreground/images/files/ui/cloud_sync.svg#cloud_sync"></use>`,
+            [ICON_TYPES.ERROR]: svg `<use xlink:href="foreground/images/files/ui/error.svg#error"></use>`,
+            [ICON_TYPES.OFFLINE]: svg `<use xlink:href="foreground/images/files/ui/offline.svg#offline"></use>`,
         };
     }
     static get styles() {
         return getCSS$1();
     }
     render() {
-        if (this.type === constants.ICON_TYPES.BLANK) {
+        if (this.type === ICON_TYPES.BLANK) {
             return html ``;
         }
         if (Object.keys(XfIcon_1.multiColor).includes(this.type)) {
@@ -12838,7 +12314,7 @@ let XfIcon = XfIcon_1 = class XfIcon extends XfBase {
         }
         if (this.iconSet) {
             const backgroundImageStyle = {
-                'background-image': util.iconSetToCSSBackgroundImageValue(this.iconSet),
+                'background-image': iconSetToCSSBackgroundImageValue(this.iconSet),
             };
             return html `<span class="keep-color" style=${styleMap(backgroundImageStyle)}></span>`;
         }
@@ -12860,9 +12336,9 @@ let XfIcon = XfIcon_1 = class XfIcon extends XfBase {
             console.warn('Empty type will result in an square being rendered.');
             return;
         }
-        const validTypes = Object.values(constants.ICON_TYPES);
+        const validTypes = Object.values(ICON_TYPES);
         if (!validTypes.find((t) => t === type)) {
-            console.warn(`Type ${type} is not a valid icon type, please check constants.ICON_TYPES.`);
+            console.warn(`Type ${type} is not a valid icon type, please check ICON_TYPES.`);
         }
     }
 };
@@ -13273,7 +12749,7 @@ function getStaticString(literal) {
     const isStaticString = isValidArray(literal) && !!literal.raw &&
         isValidArray(literal.raw) && literal.length === literal.raw.length &&
         literal.length === 1;
-    assert(isStaticString, 'static_types.js only allows static strings');
+    assert$1(isStaticString, 'static_types.js only allows static strings');
     return literal.join('');
 }
 function createTypes(_ignore, literal) {
@@ -13304,6 +12780,478 @@ function getTrustedHTML(literal) {
     return staticPolicy.createHTML('', literal);
 }
 
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/
+
+class IronMeta {
+  /**
+   * @param {{
+   *   type: (string|null|undefined),
+   *   key: (string|null|undefined),
+   *   value: *,
+   * }=} options
+   */
+  constructor(options) {
+    IronMeta[' '](options);
+
+    /** @type {string} */
+    this.type = (options && options.type) || 'default';
+    /** @type {string|null|undefined} */
+    this.key = options && options.key;
+    if (options && 'value' in options) {
+      /** @type {*} */
+      this.value = options.value;
+    }
+  }
+
+  /** @return {*} */
+  get value() {
+    var type = this.type;
+    var key = this.key;
+
+    if (type && key) {
+      return IronMeta.types[type] && IronMeta.types[type][key];
+    }
+  }
+
+  /** @param {*} value */
+  set value(value) {
+    var type = this.type;
+    var key = this.key;
+
+    if (type && key) {
+      type = IronMeta.types[type] = IronMeta.types[type] || {};
+      if (value == null) {
+        delete type[key];
+      } else {
+        type[key] = value;
+      }
+    }
+  }
+
+  /** @return {!Array<*>} */
+  get list() {
+    var type = this.type;
+
+    if (type) {
+      var items = IronMeta.types[this.type];
+      if (!items) {
+        return [];
+      }
+
+      return Object.keys(items).map(function(key) {
+        return metaDatas[this.type][key];
+      }, this);
+    }
+  }
+
+  /**
+   * @param {string} key
+   * @return {*}
+   */
+  byKey(key) {
+    this.key = key;
+    return this.value;
+  }
+}
+// This function is used to convince Closure not to remove constructor calls
+// for instances that are not held anywhere. For example, when
+// `new IronMeta({...})` is used only for the side effect of adding a value.
+IronMeta[' '] = function() {};
+
+IronMeta.types = {};
+
+var metaDatas = IronMeta.types;
+
+/**
+`iron-meta` is a generic element you can use for sharing information across the
+DOM tree. It uses [monostate pattern](http://c2.com/cgi/wiki?MonostatePattern)
+such that any instance of iron-meta has access to the shared information. You
+can use `iron-meta` to share whatever you want (or create an extension [like
+x-meta] for enhancements).
+
+The `iron-meta` instances containing your actual data can be loaded in an
+import, or constructed in any way you see fit. The only requirement is that you
+create them before you try to access them.
+
+Examples:
+
+If I create an instance like this:
+
+    <iron-meta key="info" value="foo/bar"></iron-meta>
+
+Note that value="foo/bar" is the metadata I've defined. I could define more
+attributes or use child nodes to define additional metadata.
+
+Now I can access that element (and it's metadata) from any iron-meta instance
+via the byKey method, e.g.
+
+    meta.byKey('info');
+
+Pure imperative form would be like:
+
+    document.createElement('iron-meta').byKey('info');
+
+Or, in a Polymer element, you can include a meta in your template:
+
+    <iron-meta id="meta"></iron-meta>
+    ...
+    this.$.meta.byKey('info');
+
+@group Iron Elements
+@demo demo/index.html
+@element iron-meta
+*/
+Polymer({
+
+  is: 'iron-meta',
+
+  properties: {
+
+    /**
+     * The type of meta-data.  All meta-data of the same type is stored
+     * together.
+     * @type {string}
+     */
+    type: {
+      type: String,
+      value: 'default',
+    },
+
+    /**
+     * The key used to store `value` under the `type` namespace.
+     * @type {?string}
+     */
+    key: {
+      type: String,
+    },
+
+    /**
+     * The meta-data to store or retrieve.
+     * @type {*}
+     */
+    value: {
+      type: String,
+      notify: true,
+    },
+
+    /**
+     * If true, `value` is set to the iron-meta instance itself.
+     */
+    self: {type: Boolean, observer: '_selfChanged'},
+
+    __meta: {type: Boolean, computed: '__computeMeta(type, key, value)'}
+  },
+
+  hostAttributes: {hidden: true},
+
+  __computeMeta: function(type, key, value) {
+    var meta = new IronMeta({type: type, key: key});
+
+    if (value !== undefined && value !== meta.value) {
+      meta.value = value;
+    } else if (this.value !== meta.value) {
+      this.value = meta.value;
+    }
+
+    return meta;
+  },
+
+  get list() {
+    return this.__meta && this.__meta.list;
+  },
+
+  _selfChanged: function(self) {
+    if (self) {
+      this.value = this;
+    }
+  },
+
+  /**
+   * Retrieves meta data value by key.
+   *
+   * @method byKey
+   * @param {string} key The key of the meta-data to be returned.
+   * @return {*}
+   */
+  byKey: function(key) {
+    return new IronMeta({type: this.type, key: key}).value;
+  }
+});
+
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/
+/**
+ * The `iron-iconset-svg` element allows users to define their own icon sets
+ * that contain svg icons. The svg icon elements should be children of the
+ * `iron-iconset-svg` element. Multiple icons should be given distinct id's.
+ *
+ * Using svg elements to create icons has a few advantages over traditional
+ * bitmap graphics like jpg or png. Icons that use svg are vector based so
+ * they are resolution independent and should look good on any device. They
+ * are stylable via css. Icons can be themed, colorized, and even animated.
+ *
+ * Example:
+ *
+ *     <iron-iconset-svg name="my-svg-icons" size="24">
+ *       <svg>
+ *         <defs>
+ *           <g id="shape">
+ *             <rect x="12" y="0" width="12" height="24" />
+ *             <circle cx="12" cy="12" r="12" />
+ *           </g>
+ *         </defs>
+ *       </svg>
+ *     </iron-iconset-svg>
+ *
+ * This will automatically register the icon set "my-svg-icons" to the iconset
+ * database.  To use these icons from within another element, make a
+ * `iron-iconset` element and call the `byId` method
+ * to retrieve a given iconset. To apply a particular icon inside an
+ * element use the `applyIcon` method. For example:
+ *
+ *     iconset.applyIcon(iconNode, 'car');
+ *
+ * @element iron-iconset-svg
+ * @demo demo/index.html
+ * @implements {Polymer.Iconset}
+ */
+Polymer({
+  is: 'iron-iconset-svg',
+
+  properties: {
+
+    /**
+     * The name of the iconset.
+     */
+    name: {type: String, observer: '_nameChanged'},
+
+    /**
+     * The size of an individual icon. Note that icons must be square.
+     */
+    size: {type: Number, value: 24},
+
+    /**
+     * Set to true to enable mirroring of icons where specified when they are
+     * stamped. Icons that should be mirrored should be decorated with a
+     * `mirror-in-rtl` attribute.
+     *
+     * NOTE: For performance reasons, direction will be resolved once per
+     * document per iconset, so moving icons in and out of RTL subtrees will
+     * not cause their mirrored state to change.
+     */
+    rtlMirroring: {type: Boolean, value: false},
+
+    /**
+     * Set to true to measure RTL based on the dir attribute on the body or
+     * html elements (measured on document.body or document.documentElement as
+     * available).
+     */
+    useGlobalRtlAttribute: {type: Boolean, value: false}
+  },
+
+  created: function() {
+    this._meta = new IronMeta({type: 'iconset', key: null, value: null});
+  },
+
+  attached: function() {
+    this.style.display = 'none';
+  },
+
+  /**
+   * Construct an array of all icon names in this iconset.
+   *
+   * @return {!Array} Array of icon names.
+   */
+  getIconNames: function() {
+    this._icons = this._createIconMap();
+    return Object.keys(this._icons).map(function(n) {
+      return this.name + ':' + n;
+    }, this);
+  },
+
+  /**
+   * Applies an icon to the given element.
+   *
+   * An svg icon is prepended to the element's shadowRoot if it exists,
+   * otherwise to the element itself.
+   *
+   * If RTL mirroring is enabled, and the icon is marked to be mirrored in
+   * RTL, the element will be tested (once and only once ever for each
+   * iconset) to determine the direction of the subtree the element is in.
+   * This direction will apply to all future icon applications, although only
+   * icons marked to be mirrored will be affected.
+   *
+   * @method applyIcon
+   * @param {Element} element Element to which the icon is applied.
+   * @param {string} iconName Name of the icon to apply.
+   * @return {?Element} The svg element which renders the icon.
+   */
+  applyIcon: function(element, iconName) {
+    // Remove old svg element
+    this.removeIcon(element);
+    // install new svg element
+    var svg = this._cloneIcon(
+        iconName, this.rtlMirroring && this._targetIsRTL(element));
+    if (svg) {
+      // insert svg element into shadow root, if it exists
+      var pde = dom(element.root || element);
+      pde.insertBefore(svg, pde.childNodes[0]);
+      return element._svgIcon = svg;
+    }
+    return null;
+  },
+
+  /**
+   * Produce installable clone of the SVG element matching `id` in this
+   * iconset, or `undefined` if there is no matching element.
+   * @param {string} iconName Name of the icon to apply.
+   * @param {boolean} targetIsRTL Whether the target element is RTL.
+   * @return {Element} Returns an installable clone of the SVG element
+   *     matching `id`.
+   */
+  createIcon: function(iconName, targetIsRTL) {
+    return this._cloneIcon(iconName, this.rtlMirroring && targetIsRTL);
+  },
+
+  /**
+   * Remove an icon from the given element by undoing the changes effected
+   * by `applyIcon`.
+   *
+   * @param {Element} element The element from which the icon is removed.
+   */
+  removeIcon: function(element) {
+    // Remove old svg element
+    if (element._svgIcon) {
+      dom(element.root || element).removeChild(element._svgIcon);
+      element._svgIcon = null;
+    }
+  },
+
+  /**
+   * Measures and memoizes the direction of the element. Note that this
+   * measurement is only done once and the result is memoized for future
+   * invocations.
+   */
+  _targetIsRTL: function(target) {
+    if (this.__targetIsRTL == null) {
+      if (this.useGlobalRtlAttribute) {
+        var globalElement =
+            (document.body && document.body.hasAttribute('dir')) ?
+            document.body :
+            document.documentElement;
+
+        this.__targetIsRTL = globalElement.getAttribute('dir') === 'rtl';
+      } else {
+        if (target && target.nodeType !== Node.ELEMENT_NODE) {
+          target = target.host;
+        }
+
+        this.__targetIsRTL =
+            target && window.getComputedStyle(target)['direction'] === 'rtl';
+      }
+    }
+
+    return this.__targetIsRTL;
+  },
+
+  /**
+   *
+   * When name is changed, register iconset metadata
+   *
+   */
+  _nameChanged: function() {
+    this._meta.value = null;
+    this._meta.key = this.name;
+    this._meta.value = this;
+
+    this.async(function() {
+      this.fire('iron-iconset-added', this, {node: window});
+    });
+  },
+
+  /**
+   * Create a map of child SVG elements by id.
+   *
+   * @return {!Object} Map of id's to SVG elements.
+   */
+  _createIconMap: function() {
+    // Objects chained to Object.prototype (`{}`) have members. Specifically,
+    // on FF there is a `watch` method that confuses the icon map, so we
+    // need to use a null-based object here.
+    var icons = Object.create(null);
+    dom(this).querySelectorAll('[id]').forEach(function(icon) {
+      icons[icon.id] = icon;
+    });
+    return icons;
+  },
+
+  /**
+   * Produce installable clone of the SVG element matching `id` in this
+   * iconset, or `undefined` if there is no matching element.
+   *
+   * @return {Element} Returns an installable clone of the SVG element
+   * matching `id`.
+   */
+  _cloneIcon: function(id, mirrorAllowed) {
+    // create the icon map on-demand, since the iconset itself has no discrete
+    // signal to know when it's children are fully parsed
+    this._icons = this._icons || this._createIconMap();
+    return this._prepareSvgClone(this._icons[id], this.size, mirrorAllowed);
+  },
+
+  /**
+   * @param {Element} sourceSvg
+   * @param {number} size
+   * @param {Boolean} mirrorAllowed
+   * @return {Element}
+   */
+  _prepareSvgClone: function(sourceSvg, size, mirrorAllowed) {
+    if (sourceSvg) {
+      var content = sourceSvg.cloneNode(true),
+          svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+          viewBox =
+              content.getAttribute('viewBox') || '0 0 ' + size + ' ' + size,
+          cssText =
+              'pointer-events: none; display: block; width: 100%; height: 100%;';
+
+      if (mirrorAllowed && content.hasAttribute('mirror-in-rtl')) {
+        cssText +=
+            '-webkit-transform:scale(-1,1);transform:scale(-1,1);transform-origin:center;';
+      }
+
+      svg.setAttribute('viewBox', viewBox);
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      svg.setAttribute('focusable', 'false');
+      // TODO(dfreedm): `pointer-events: none` works around
+      // https://crbug.com/370136
+      // TODO(sjmiles): inline style may not be ideal, but avoids requiring a
+      // shadow-root
+      svg.style.cssText = cssText;
+      svg.appendChild(content).removeAttribute('id');
+      return svg;
+    }
+    return null;
+  }
+
+});
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -13332,7 +13280,7 @@ let XfCloudPanel = XfCloudPanel_1 = class XfCloudPanel extends XfBase {
         /**
          * Provide a number formatter that matches the users locale.
          */
-        this.numberFormatter_ = new Intl.NumberFormat(util.getCurrentLocaleOrDefault());
+        this.numberFormatter_ = new Intl.NumberFormat(getCurrentLocaleOrDefault());
     }
     static get events() {
         return {
@@ -13411,37 +13359,36 @@ let XfCloudPanel = XfCloudPanel_1 = class XfCloudPanel extends XfBase {
           </progress>
           <div class="progress-description">
           ${this.seconds && this.seconds > 0 ?
-            util.secondsToRemainingTimeString(this.seconds) :
+            secondsToRemainingTimeString(this.seconds) :
             str('DRIVE_BULK_PINNING_CALCULATING')}
           </div>
         </div>
         <div class="static" id="progress-finished">
-          <xf-icon type="${constants.ICON_TYPES.CLOUD}" size="large"></xf-icon>
+          <xf-icon type="${ICON_TYPES.CLOUD}" size="large"></xf-icon>
           <div class="status-description">
             ${str('BULK_PINNING_FILE_SYNC_ON')}
           </div>
         </div>
         <div class="static" id="progress-offline">
-        <xf-icon type="${constants.ICON_TYPES.BULK_PINNING_OFFLINE}" size="large"></xf-icon>
+        <xf-icon type="${ICON_TYPES.BULK_PINNING_OFFLINE}" size="large"></xf-icon>
           <div class="status-description">
             ${str('DRIVE_BULK_PINNING_OFFLINE')}
           </div>
         </div>
         <div class="static" id="progress-battery-saver">
-        <xf-icon type="${constants.ICON_TYPES
-            .BULK_PINNING_BATTERY_SAVER}" size="large"></xf-icon>
+        <xf-icon type="${ICON_TYPES.BULK_PINNING_BATTERY_SAVER}" size="large"></xf-icon>
           <div class="status-description">
             ${str('DRIVE_BULK_PINNING_BATTERY_SAVER')}
           </div>
         </div>
         <div class="static" id="progress-not-enough-space">
-        <xf-icon type="${constants.ICON_TYPES.ERROR_BANNER}" size="large"></xf-icon>
+        <xf-icon type="${ICON_TYPES.ERROR_BANNER}" size="large"></xf-icon>
           <div class="status-description">
             ${str('DRIVE_BULK_PINNING_NOT_ENOUGH_SPACE')}
           </div>
         </div>
         <div class="static" id="progress-metered-network">
-          <xf-icon type="${constants.ICON_TYPES.CLOUD}" size="large"></xf-icon>
+          <xf-icon type="${ICON_TYPES.CLOUD}" size="large"></xf-icon>
           <div class="status-description">
             ${str('DRIVE_BULK_PINNING_METERED_NETWORK')}
           </div>
@@ -13673,7 +13620,7 @@ const styleMod$2 = document.createElement('dom-module');
 styleMod$2.appendChild(html$1 `
   <template>
     <style>
-.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
+.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
     </style>
   </template>
 `.content);
@@ -13697,8 +13644,9 @@ styleMod.appendChild(html$1 `
             var(--cr-fallback-color-surface-variant));--cr-input-border-bottom:1px solid var(--color-textfield-filled-underline,
                 var(--cr-fallback-color-outline));--cr-input-border-radius:8px 8px 0 0;--cr-input-error-color:var(--color-textfield-filled-error,
             var(--cr-fallback-color-error));--cr-input-focus-color:var(--color-textfield-filled-underline-focused,
-            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
-                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--color-textfield-foreground-label,var(--cr-fallback-color-on-surface-subtle));font-size:11px;line-height:16px}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
+            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-label-color:var(--color-textfield-foreground-label,
+            var(--cr-fallback-color-on-surface-subtle));--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
+                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--cr-input-label-color);font-size:11px;line-height:16px}:host-context([chrome-refresh-2023]):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-label-color,var(--cr-input-label-color))}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}:host-context([chrome-refresh-2023]):host([focused_]) #input-container{outline:var(--cr-input-focus-outline,none)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle));--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;--cr-icon-button-margin-start:0;--cr-icon-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle))}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-prefix]){--cr-icon-button-margin-start:-8px}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-suffix]){--cr-icon-button-margin-end:-4px}:host-context([chrome-refresh-2023]):host([invalid]) #inner-input-content ::slotted(*){--cr-icon-color:var(--cr-input-error-color);--cr-icon-button-fill-color:var(--cr-input-error-color)}#hover-layer{display:none}:host-context([chrome-refresh-2023]) #hover-layer{background-color:var(--cr-input-hover-background-color);inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:not([readonly]):not([disabled])) #input-container:hover #hover-layer{display:block}#input{-webkit-appearance:none;background-color:transparent;border:none;box-sizing:border-box;caret-color:var(--cr-input-focus-color);color:var(--cr-input-color);font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;min-height:var(--cr-input-min-height,auto);outline:0;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px);text-align:inherit;text-overflow:ellipsis;width:100%}:host-context([chrome-refresh-2023]) #input{font-size:12px;line-height:16px;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#underline{border-bottom:2px solid var(--cr-input-focus-color);border-radius:var(--cr-input-underline-border-radius,0);bottom:0;box-sizing:border-box;display:var(--cr-input-underline-display);height:var(--cr-input-underline-height,0);left:0;margin:auto;opacity:0;position:absolute;right:0;transition:opacity 120ms ease-out,width 0s linear 180ms;width:0}:host([focused_]) #underline,:host([force-underline]) #underline,:host([invalid]) #underline{opacity:1;transition:opacity 120ms ease-in,width 180ms ease-out;width:100%}#underline-base{display:none}:host-context([chrome-refresh-2023]):host([readonly]) #underline{display:none}:host-context([chrome-refresh-2023]):host(:not([readonly])) #underline-base{border-bottom:var(--cr-input-border-bottom);bottom:0;display:block;left:0;position:absolute;right:0}:host-context([chrome-refresh-2023]):host([disabled]){color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));--cr-input-border-bottom:1px solid currentColor;--cr-input-placeholder-color:currentColor;--cr-input-color:currentColor;--cr-input-background-color:var(--color-textfield-background-disabled,
             var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}
@@ -13707,7 +13655,7 @@ styleMod.appendChild(html$1 `
 `.content);
 styleMod.register('cr-input-style');
 
-function getTemplate$7() {
+function getTemplate$b() {
     return html$1 `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -13750,7 +13698,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$b();
     }
     static get properties() {
         return {
@@ -13856,17 +13804,17 @@ class CrInputElement extends PolymerElement {
     ready() {
         super.ready();
         // Use inputTabindex instead.
-        assert(!this.hasAttribute('tabindex'));
+        assert$1(!this.hasAttribute('tabindex'));
     }
     onInputTabindexChanged_() {
         // CrInput only supports 0 or -1 values for the input's tabindex to allow
         // having the input in tab order or not. Values greater than 0 will not work
         // as the shadow root encapsulates tabindices.
-        assert(this.inputTabindex === 0 || this.inputTabindex === -1);
+        assert$1(this.inputTabindex === 0 || this.inputTabindex === -1);
     }
     onTypeChanged_() {
         // Check that the 'type' is one of the supported types.
-        assert(SUPPORTED_INPUT_TYPES.has(this.type));
+        assert$1(SUPPORTED_INPUT_TYPES.has(this.type));
     }
     get inputElement() {
         return this.$.input;
@@ -13890,7 +13838,7 @@ class CrInputElement extends PolymerElement {
         // is an error, triggers VoiceOver to consistently announce.
         const ERROR_ID = 'error';
         const errorElement = this.shadowRoot.querySelector(`#${ERROR_ID}`);
-        assert(errorElement);
+        assert$1(errorElement);
         if (this.invalid) {
             errorElement.setAttribute('role', 'alert');
             this.inputElement.setAttribute('aria-errormessage', ERROR_ID);
@@ -13965,7 +13913,7 @@ class CrInputElement extends PolymerElement {
         }
         else {
             // Can't just pass one param.
-            assert(start === undefined && end === undefined);
+            assert$1(start === undefined && end === undefined);
             this.inputElement.select();
         }
     }
@@ -13976,7 +13924,7 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$6() {
+function getTemplate$a() {
     return html$1 `<!--_html_template_start_-->    <style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
             var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
             var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
@@ -13986,7 +13934,7 @@ function getTemplate$6() {
             var(--cr-fallback-color-disabled-background));--cr-checkbox-unchecked-box-color:var(
             --color-checkbox-outline-disabled,
             var(--cr-fallback-color-disabled-background));--cr-checkbox-mark-color:var(--color-checkbox-check-disabled,
-            var(--cr-fallback-color-disabled-foreground))}#checkbox{background:0 0;border:var(--cr-checkbox-border-size) solid var(--cr-checkbox-unchecked-box-color);border-radius:2px;box-sizing:border-box;cursor:pointer;display:block;flex-shrink:0;height:var(--cr-checkbox-size);isolation:isolate;margin:0;outline:0;padding:0;position:relative;transform:none;width:var(--cr-checkbox-size)}:host-context([chrome-refresh-2023]):host([disabled][checked]) #checkbox{border-color:transparent}:host-context([chrome-refresh-2023]) #hover-layer{display:none}:host-context([chrome-refresh-2023]) #checkbox:hover #hover-layer{background-color:var(--cr-hover-background-color);border-radius:50%;display:block;height:32px;left:50%;overflow:hidden;pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);width:32px}@media (forced-colors:active){:host(:focus) #checkbox{outline:var(--cr-focus-outline-hcm)}}:host-context([chrome-refresh-2023]) #checkbox:focus-visible{outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}#checkmark{display:block;forced-color-adjust:auto;position:relative;transform:scale(0);z-index:1}#checkmark path{fill:var(--cr-checkbox-mark-color)}:host([checked]) #checkmark{transform:scale(1);transition:transform 140ms ease-out}:host([checked]) #checkbox{background:var(--cr-checkbox-checked-box-background-color,var(--cr-checkbox-checked-box-color));border-color:var(--cr-checkbox-checked-box-color)}paper-ripple{--paper-ripple-opacity:var(--cr-checkbox-ripple-opacity,
+            var(--cr-fallback-color-disabled-foreground))}#checkbox{background:0 0;border:var(--cr-checkbox-border-size) solid var(--cr-checkbox-unchecked-box-color);border-radius:2px;box-sizing:border-box;cursor:pointer;display:block;flex-shrink:0;height:var(--cr-checkbox-size);isolation:isolate;margin:0;outline:0;padding:0;position:relative;transform:none;width:var(--cr-checkbox-size)}:host-context([chrome-refresh-2023]):host([disabled][checked]) #checkbox{border-color:transparent}:host-context([chrome-refresh-2023]) #hover-layer{display:none}:host-context([chrome-refresh-2023]) #checkbox:hover #hover-layer{background-color:var(--cr-hover-background-color);border-radius:50%;display:block;height:32px;left:50%;overflow:hidden;pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);width:32px}@media (forced-colors:active){:host(:focus) #checkbox{outline:var(--cr-focus-outline-hcm)}}:host-context([chrome-refresh-2023]) #checkbox:focus-visible{outline:var(--cr-checkbox-focus-outline,2px solid var(--cr-focus-outline-color));outline-offset:2px}#checkmark{display:block;forced-color-adjust:auto;position:relative;transform:scale(0);z-index:1}#checkmark path{fill:var(--cr-checkbox-mark-color)}:host([checked]) #checkmark{transform:scale(1);transition:transform 140ms ease-out}:host([checked]) #checkbox{background:var(--cr-checkbox-checked-box-background-color,var(--cr-checkbox-checked-box-color));border-color:var(--cr-checkbox-checked-box-color)}paper-ripple{--paper-ripple-opacity:var(--cr-checkbox-ripple-opacity,
             var(--cr-checkbox-unchecked-ripple-opacity));color:var(--cr-checkbox-ripple-unchecked-color);height:var(--cr-checkbox-ripple-size);left:var(--cr-checkbox-ripple-offset);outline:var(--cr-checkbox-ripple-ring,none);pointer-events:none;top:var(--cr-checkbox-ripple-offset);transition:color linear 80ms;width:var(--cr-checkbox-ripple-size)}:host([checked]) paper-ripple{--paper-ripple-opacity:var(--cr-checkbox-ripple-opacity,
             var(--cr-checkbox-checked-ripple-opacity));color:var(--cr-checkbox-ripple-checked-color)}:host-context([dir=rtl]) paper-ripple{left:auto;right:var(--cr-checkbox-ripple-offset)}:host-context([chrome-refresh-2023]) paper-ripple{transform:translate(-50%,-50%)}:host-context([dir=rtl][chrome-refresh-2023]) paper-ripple{transform:translate(50%,-50%)}#label-container{color:var(--cr-checkbox-label-color,var(--cr-primary-text-color));padding-inline-start:var(--cr-checkbox-label-padding-start,20px);white-space:normal}:host(.label-first) #label-container{order:-1;padding-inline-end:var(--cr-checkbox-label-padding-end,20px);padding-inline-start:0}:host(.no-label) #label-container{display:none}#ariaDescription{height:0;overflow:hidden;width:0}</style>
     <div id="checkbox" tabindex$="[[tabIndex]]" role="checkbox" on-keydown="onKeyDown_" on-keyup="onKeyUp_" aria-disabled="false" aria-checked="false" aria-labelledby="label-container" aria-describedby="ariaDescription">
@@ -13996,7 +13944,7 @@ function getTemplate$6() {
       </path></svg>
       <div id="hover-layer"></div>
     </div>
-    <div id="label-container" aria-hidden="true" part="label-container">
+    <div id="label-container" aria-hidden="true" aria-label$="[[ariaLabelOverride]]" part="label-container">
       <slot></slot>
     </div>
     <div id="ariaDescription" aria-hidden="true">[[ariaDescription]]</div>
@@ -14035,7 +13983,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         return 'cr-checkbox';
     }
     static get template() {
-        return getTemplate$6();
+        return getTemplate$a();
     }
     static get properties() {
         return {
@@ -14053,6 +14001,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
                 observer: 'disabledChanged_',
             },
             ariaDescription: String,
+            ariaLabelOverride: String,
             tabIndex: {
                 type: Number,
                 value: 0,
@@ -14062,6 +14011,15 @@ class CrCheckboxElement extends CrCheckboxElementBase {
     }
     ready() {
         super.ready();
+        // 
+        // TODO(b/309689294) Remove this once CrOS UIs migrate to Jellybean
+        // components and no longer use cr-elements.
+        // Force stamp the ripple element to enable CrOS focus styles. Ripple
+        // visibility is controlled by the event listeners below.
+        if (document.documentElement.hasAttribute('chrome-refresh-2023')) {
+            this.getRipple();
+        }
+        // 
         this.removeAttribute('unresolved');
         this.addEventListener('click', this.onClick_.bind(this));
         this.addEventListener('pointerup', this.hideRipple_.bind(this));
@@ -14148,213 +14106,6 @@ class CrCheckboxElement extends CrCheckboxElementBase {
     }
 }
 customElements.define(CrCheckboxElement.is, CrCheckboxElement);
-
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
-
-class IronMeta {
-  /**
-   * @param {{
-   *   type: (string|null|undefined),
-   *   key: (string|null|undefined),
-   *   value: *,
-   * }=} options
-   */
-  constructor(options) {
-    IronMeta[' '](options);
-
-    /** @type {string} */
-    this.type = (options && options.type) || 'default';
-    /** @type {string|null|undefined} */
-    this.key = options && options.key;
-    if (options && 'value' in options) {
-      /** @type {*} */
-      this.value = options.value;
-    }
-  }
-
-  /** @return {*} */
-  get value() {
-    var type = this.type;
-    var key = this.key;
-
-    if (type && key) {
-      return IronMeta.types[type] && IronMeta.types[type][key];
-    }
-  }
-
-  /** @param {*} value */
-  set value(value) {
-    var type = this.type;
-    var key = this.key;
-
-    if (type && key) {
-      type = IronMeta.types[type] = IronMeta.types[type] || {};
-      if (value == null) {
-        delete type[key];
-      } else {
-        type[key] = value;
-      }
-    }
-  }
-
-  /** @return {!Array<*>} */
-  get list() {
-    var type = this.type;
-
-    if (type) {
-      var items = IronMeta.types[this.type];
-      if (!items) {
-        return [];
-      }
-
-      return Object.keys(items).map(function(key) {
-        return metaDatas[this.type][key];
-      }, this);
-    }
-  }
-
-  /**
-   * @param {string} key
-   * @return {*}
-   */
-  byKey(key) {
-    this.key = key;
-    return this.value;
-  }
-}
-// This function is used to convince Closure not to remove constructor calls
-// for instances that are not held anywhere. For example, when
-// `new IronMeta({...})` is used only for the side effect of adding a value.
-IronMeta[' '] = function() {};
-
-IronMeta.types = {};
-
-var metaDatas = IronMeta.types;
-
-/**
-`iron-meta` is a generic element you can use for sharing information across the
-DOM tree. It uses [monostate pattern](http://c2.com/cgi/wiki?MonostatePattern)
-such that any instance of iron-meta has access to the shared information. You
-can use `iron-meta` to share whatever you want (or create an extension [like
-x-meta] for enhancements).
-
-The `iron-meta` instances containing your actual data can be loaded in an
-import, or constructed in any way you see fit. The only requirement is that you
-create them before you try to access them.
-
-Examples:
-
-If I create an instance like this:
-
-    <iron-meta key="info" value="foo/bar"></iron-meta>
-
-Note that value="foo/bar" is the metadata I've defined. I could define more
-attributes or use child nodes to define additional metadata.
-
-Now I can access that element (and it's metadata) from any iron-meta instance
-via the byKey method, e.g.
-
-    meta.byKey('info');
-
-Pure imperative form would be like:
-
-    document.createElement('iron-meta').byKey('info');
-
-Or, in a Polymer element, you can include a meta in your template:
-
-    <iron-meta id="meta"></iron-meta>
-    ...
-    this.$.meta.byKey('info');
-
-@group Iron Elements
-@demo demo/index.html
-@element iron-meta
-*/
-Polymer({
-
-  is: 'iron-meta',
-
-  properties: {
-
-    /**
-     * The type of meta-data.  All meta-data of the same type is stored
-     * together.
-     * @type {string}
-     */
-    type: {
-      type: String,
-      value: 'default',
-    },
-
-    /**
-     * The key used to store `value` under the `type` namespace.
-     * @type {?string}
-     */
-    key: {
-      type: String,
-    },
-
-    /**
-     * The meta-data to store or retrieve.
-     * @type {*}
-     */
-    value: {
-      type: String,
-      notify: true,
-    },
-
-    /**
-     * If true, `value` is set to the iron-meta instance itself.
-     */
-    self: {type: Boolean, observer: '_selfChanged'},
-
-    __meta: {type: Boolean, computed: '__computeMeta(type, key, value)'}
-  },
-
-  hostAttributes: {hidden: true},
-
-  __computeMeta: function(type, key, value) {
-    var meta = new IronMeta({type: type, key: key});
-
-    if (value !== undefined && value !== meta.value) {
-      meta.value = value;
-    } else if (this.value !== meta.value) {
-      this.value = meta.value;
-    }
-
-    return meta;
-  },
-
-  get list() {
-    return this.__meta && this.__meta.list;
-  },
-
-  _selfChanged: function(self) {
-    if (self) {
-      this.value = this;
-    }
-  },
-
-  /**
-   * Retrieves meta data value by key.
-   *
-   * @method byKey
-   * @param {string} key The key of the meta-data to be returned.
-   * @return {*}
-   */
-  byKey: function(key) {
-    return new IronMeta({type: this.type, key: key}).value;
-  }
-});
 
 /**
 @license
@@ -14550,7 +14301,7 @@ Polymer({
   }
 });
 
-function getTemplate$5() {
+function getTemplate$9() {
     return html$1 `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -14608,7 +14359,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$5();
+        return getTemplate$9();
     }
     static get properties() {
         return {
@@ -14869,8 +14620,8 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
          * show the shadows again.
          */
         showDropShadows() {
-            assert(!this.intersectionObserver_);
-            assert(this.sides_);
+            assert$1(!this.intersectionObserver_);
+            assert$1(this.sides_);
             for (const side of this.sides_) {
                 this.dropShadows_.get(side).classList.toggle('has-shadow', true);
             }
@@ -14879,9 +14630,9 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
     return CrContainerShadowMixin;
 });
 
-function getTemplate$4() {
+function getTemplate$8() {
     return html$1 `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
-    <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-describedby="container">
+    <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
     
       <div id="content-wrapper" part="wrapper">
         <div class="top-container">
@@ -14934,7 +14685,7 @@ class CrDialogElement extends CrDialogElementBase {
         return 'cr-dialog';
     }
     static get template() {
-        return getTemplate$4();
+        return getTemplate$8();
     }
     static get properties() {
         return {
@@ -14988,6 +14739,10 @@ class CrDialogElement extends CrDialogElementBase {
                 type: Boolean,
                 value: false,
             },
+            /**
+             * Text for the aria description.
+             */
+            ariaDescriptionText: String,
         };
     }
     ready() {
@@ -15056,19 +14811,19 @@ class CrDialogElement extends CrDialogElementBase {
     }
     showModal() {
         this.$.dialog.showModal();
-        assert(this.$.dialog.open);
+        assert$1(this.$.dialog.open);
         this.open = true;
         this.dispatchEvent(new CustomEvent('cr-dialog-open', { bubbles: true, composed: true }));
     }
     cancel() {
         this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
         this.$.dialog.close();
-        assert(!this.$.dialog.open);
+        assert$1(!this.$.dialog.open);
         this.open = false;
     }
     close() {
         this.$.dialog.close('success');
-        assert(!this.$.dialog.open);
+        assert$1(!this.$.dialog.open);
         this.open = false;
     }
     /**
@@ -15139,7 +14894,7 @@ class CrDialogElement extends CrDialogElementBase {
         }
     }
     onKeydown_(e) {
-        assert(this.consumeKeydownEvent);
+        assert$1(this.consumeKeydownEvent);
         if (!this.getNative().open) {
             return;
         }
@@ -15172,13 +14927,13 @@ class CrDialogElement extends CrDialogElementBase {
     }
     focus() {
         const titleContainer = this.shadowRoot.querySelector('.title-container');
-        assert(titleContainer);
+        assert$1(titleContainer);
         titleContainer.focus();
     }
 }
 customElements.define(CrDialogElement.is, CrDialogElement);
 
-function getTemplate$3() {
+function getTemplate$7() {
     return getTrustedHTML `<!--_html_template_start_--><!--
 Copyright 2022 The Chromium Authors
 Use of this source code is governed by a BSD-style license that can be
@@ -15324,7 +15079,7 @@ class XfConflictDialog extends HTMLElement {
         this.action_ = '';
         // Create element content.
         const template = document.createElement('template');
-        template.innerHTML = getTemplate$3();
+        template.innerHTML = getTemplate$7();
         const fragment = template.content.cloneNode(true);
         this.attachShadow({ mode: 'open' }).appendChild(fragment);
         this.dialog_ = this.getDialogElement();
@@ -15460,7 +15215,7 @@ class XfConflictDialog extends HTMLElement {
      * Dialog 'keepboth' button was clicked.
      */
     keepboth_() {
-        this.action_ = "keepboth" /* ConflictResolveType.KEEPBOTH */;
+        this.action_ = ConflictResolveType.KEEPBOTH;
         this.dialog_.close();
     }
     /*
@@ -15473,7 +15228,7 @@ class XfConflictDialog extends HTMLElement {
      * Dialog 'replace' button was clicked.
      */
     replace_() {
-        this.action_ = "replace" /* ConflictResolveType.REPLACE */;
+        this.action_ = ConflictResolveType.REPLACE;
         this.dialog_.close();
     }
     /*
@@ -15487,14 +15242,19 @@ class XfConflictDialog extends HTMLElement {
         }
         const applyToAll = this.getCheckboxElement().checked;
         this.resolve_({
-            resolve: this.action_,
+            resolve: this.action_, // Either 'keepboth' or 'replace'.
             checked: applyToAll, // True or False.
         });
     }
 }
+var ConflictResolveType;
+(function (ConflictResolveType) {
+    ConflictResolveType["KEEPBOTH"] = "keepboth";
+    ConflictResolveType["REPLACE"] = "replace";
+})(ConflictResolveType || (ConflictResolveType = {}));
 customElements.define('xf-conflict-dialog', XfConflictDialog);
 
-function getTemplate$2() {
+function getTemplate$6() {
     return getTrustedHTML `<!--_html_template_start_--><style>
   [slot='title'] {
     --cr-dialog-title-slot-padding-bottom: 16px;
@@ -15627,11 +15387,6 @@ function getTemplate$2() {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
-/**
  * The custom element tag name.
  */
 const TAG_NAME = 'xf-password-dialog';
@@ -15664,7 +15419,7 @@ class XfPasswordDialog extends HTMLElement {
          */
         this.reject_ = null;
         const template = document.createElement('template');
-        template.innerHTML = getTemplate$2();
+        template.innerHTML = getTemplate$6();
         const fragment = template.content.cloneNode(true);
         this.attachShadow({ mode: 'open' }).appendChild(fragment);
         this.dialog_ = this.shadowRoot.querySelector('#password-dialog');
@@ -15757,6 +15512,24 @@ customElements.define(TAG_NAME, XfPasswordDialog);
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Different flavors of the XfBulkPinningDialog.
+var DialogState;
+(function (DialogState) {
+    // The dialog is not displayed.
+    DialogState[DialogState["CLOSED"] = 0] = "CLOSED";
+    // Currently offline. Cannot compute space requirement for the time being.
+    DialogState[DialogState["OFFLINE"] = 1] = "OFFLINE";
+    // Currently not running due to battery saver mode active.
+    DialogState[DialogState["BATTERY_SAVER"] = 2] = "BATTERY_SAVER";
+    // Listing files and computing space requirements.
+    DialogState[DialogState["LISTING"] = 3] = "LISTING";
+    // An error occurred while computing the space requirements.
+    DialogState[DialogState["ERROR"] = 4] = "ERROR";
+    // There isn't enough space to activate the bulk-pinning feature.
+    DialogState[DialogState["NOT_ENOUGH_SPACE"] = 5] = "NOT_ENOUGH_SPACE";
+    // Computed space requirements and ready to activate the bulk-pinning feature.
+    DialogState[DialogState["READY"] = 6] = "READY";
+})(DialogState || (DialogState = {}));
 const BulkPinStage = chrome.fileManagerPrivate.BulkPinStage;
 /**
  * Dialog that shows the benefits of enabling bulk pinning along with storage
@@ -15781,7 +15554,7 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
                 str('BULK_PINNING_LISTING_WITH_SINGLE_ITEM');
         }
         else {
-            this.$listingFilesText_.innerText = strf('BULK_PINNING_LISTING_WITH_MULTIPLE_ITEMS', this.listedFiles_.toLocaleString(util.getCurrentLocaleOrDefault()));
+            this.$listingFilesText_.innerText = strf('BULK_PINNING_LISTING_WITH_MULTIPLE_ITEMS', this.listedFiles_.toLocaleString(getCurrentLocaleOrDefault()));
         }
     }
     // Called when the app has changed state.
@@ -15801,7 +15574,7 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
             this.requiredBytes_ !== bpp.requiredSpaceBytes) {
             this.freeBytes_ = bpp.freeSpaceBytes;
             this.requiredBytes_ = bpp.requiredSpaceBytes;
-            this.$readyFooter_.innerText = strf('BULK_PINNING_SPACE', util.bytesToString(this.requiredBytes_), util.bytesToString(this.freeBytes_));
+            this.$readyFooter_.innerText = strf('BULK_PINNING_SPACE', bytesToString(this.requiredBytes_), bytesToString(this.freeBytes_));
         }
         if (bpp.stage === BulkPinStage.LISTING_FILES && bpp.listedFiles > 0 &&
             bpp.listedFiles !== this.listedFiles_) {
@@ -15814,27 +15587,27 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
         this.stage_ = bpp.stage;
         switch (bpp.stage) {
             case BulkPinStage.PAUSED_OFFLINE:
-                this.state = 1 /* DialogState.OFFLINE */;
+                this.state = DialogState.OFFLINE;
                 break;
             case BulkPinStage.PAUSED_BATTERY_SAVER:
-                this.state = 2 /* DialogState.BATTERY_SAVER */;
+                this.state = DialogState.BATTERY_SAVER;
                 break;
             case BulkPinStage.GETTING_FREE_SPACE:
             case BulkPinStage.LISTING_FILES:
-                this.state = 3 /* DialogState.LISTING */;
+                this.state = DialogState.LISTING;
                 break;
             case BulkPinStage.SUCCESS:
-                this.state = 6 /* DialogState.READY */;
+                this.state = DialogState.READY;
                 break;
             case BulkPinStage.SYNCING:
                 this.$dialog_.close();
                 break;
             case BulkPinStage.NOT_ENOUGH_SPACE:
-                this.state = 5 /* DialogState.NOT_ENOUGH_SPACE */;
+                this.state = DialogState.NOT_ENOUGH_SPACE;
                 break;
             default:
                 console.warn(`Cannot calculate bulk-pinning space requirements: ${this.stage_}`);
-                this.state = 4 /* DialogState.ERROR */;
+                this.state = DialogState.ERROR;
                 break;
         }
     }
@@ -15842,18 +15615,18 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
     // Enables or disables the 'Continue' button according to the given state.
     set state(s) {
         this.$offlineFooter_.style.display =
-            s === 1 /* DialogState.OFFLINE */ ? 'initial' : 'none';
+            s === DialogState.OFFLINE ? 'initial' : 'none';
         this.$batterySaverFooter_.style.display =
-            s === 2 /* DialogState.BATTERY_SAVER */ ? 'initial' : 'none';
+            s === DialogState.BATTERY_SAVER ? 'initial' : 'none';
         this.$listingFooter_.style.display =
-            s === 3 /* DialogState.LISTING */ ? 'flex' : 'none';
+            s === DialogState.LISTING ? 'flex' : 'none';
         this.$errorFooter_.style.display =
-            s === 4 /* DialogState.ERROR */ ? 'initial' : 'none';
+            s === DialogState.ERROR ? 'initial' : 'none';
         this.$notEnoughSpaceFooter_.style.display =
-            s === 5 /* DialogState.NOT_ENOUGH_SPACE */ ? 'initial' : 'none';
+            s === DialogState.NOT_ENOUGH_SPACE ? 'initial' : 'none';
         this.$readyFooter_.style.display =
-            s === 6 /* DialogState.READY */ ? 'initial' : 'none';
-        this.$button_.disabled = s !== 6 /* DialogState.READY */;
+            s === DialogState.READY ? 'initial' : 'none';
+        this.$button_.disabled = s !== DialogState.READY;
     }
     // Indicates if this dialog is currently open.
     get is_open() {
@@ -15863,7 +15636,7 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
     // bulk-pinning.
     async show() {
         this.stage_ = BulkPinStage.LISTING_FILES;
-        this.state = 3 /* DialogState.LISTING */;
+        this.state = DialogState.LISTING;
         this.$dialog_.showModal();
         this.store_.subscribe(this);
         try {
@@ -15871,11 +15644,11 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
         }
         catch (e) {
             console.error('Cannot calculate required space for bulk-pinning:', e);
-            this.state = 4 /* DialogState.ERROR */;
+            this.state = DialogState.ERROR;
         }
     }
     onClose(_) {
-        this.state = 0 /* DialogState.CLOSED */;
+        this.state = DialogState.CLOSED;
         this.listedFiles_ = 0;
         this.updateListedFilesDebounced_.runImmediately();
         this.store_.unsubscribe(this);
@@ -15892,7 +15665,7 @@ let XfBulkPinningDialog = class XfBulkPinningDialog extends XfBase {
     // Called when the "Learn more" link is clicked.
     onLearnMore(e) {
         e.preventDefault();
-        util.visitURL('https://support.google.com/chromebook?p=my_drive_cbx');
+        visitURL('https://support.google.com/chromebook?p=my_drive_cbx');
     }
     // Called when the "View storage" link is clicked.
     onViewStorage(e) {
@@ -16201,30 +15974,6 @@ MdElevation = __decorate$1([
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
- * A unique symbol used for protected access to an instance's
- * `ElementInternals`.
- *
- * @example
- * ```ts
- * class MyElement extends LitElement {
- *   static formAssociated = true;
- *
- *   [internals] = this.attachInternals();
- * }
- *
- * function getForm(element: MyElement) {
- *   return element[internals].form;
- * }
- * ```
- */
-const internals = Symbol('internals');
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
  * Sets up an element's constructor to enable form submission. The element
  * instance should be form associated and have a `type` property.
  *
@@ -16233,7 +15982,7 @@ const internals = Symbol('internals');
  *
  * @example
  * ```ts
- * class MyElement extends LitElement {
+ * class MyElement extends mixinElementInternals(LitElement) {
  *   static {
  *     setupFormSubmitter(MyElement);
  *   }
@@ -16241,8 +15990,6 @@ const internals = Symbol('internals');
  *   static formAssociated = true;
  *
  *   type: FormSubmitterType = 'submit';
- *
- *   [internals] = this.attachInternals();
  * }
  * ```
  *
@@ -16252,7 +15999,7 @@ function setupFormSubmitter(ctor) {
     if (isServer) {
         return;
     }
-    ctor.addInitializer(instance => {
+    ctor.addInitializer((instance) => {
         const submitter = instance;
         submitter.addEventListener('click', async (event) => {
             const { type, [internals]: elementInternals } = submitter;
@@ -16260,9 +16007,9 @@ function setupFormSubmitter(ctor) {
             if (!form || type === 'button') {
                 return;
             }
-            // Wait a microtask for event bubbling to complete.
-            await new Promise(resolve => {
-                resolve();
+            // Wait a full task for event bubbling to complete.
+            await new Promise((resolve) => {
+                setTimeout(resolve);
             });
             if (event.defaultPrevented) {
                 return;
@@ -16275,7 +16022,7 @@ function setupFormSubmitter(ctor) {
             // elements. This patches the dispatched submit event to add the correct
             // `submitter`.
             // See https://github.com/WICG/webcomponents/issues/814
-            form.addEventListener('submit', submitEvent => {
+            form.addEventListener('submit', (submitEvent) => {
                 Object.defineProperty(submitEvent, 'submitter', {
                     configurable: true,
                     enumerable: true,
@@ -16293,11 +16040,12 @@ function setupFormSubmitter(ctor) {
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-var _a;
+// Separate variable needed for closure.
+const buttonBaseClass = mixinElementInternals(LitElement);
 /**
  * A button component.
  */
-let Button$1 = class Button extends LitElement {
+let Button$1 = class Button extends buttonBaseClass {
     get name() {
         return this.getAttribute('name') ?? '';
     }
@@ -16338,10 +16086,8 @@ let Button$1 = class Button extends LitElement {
         this.hasIcon = false;
         this.type = 'submit';
         this.value = '';
-        /** @private */
-        this[_a] = this /* needed for closure */.attachInternals();
         this.handleActivationClick = (event) => {
-            if (!isActivationClick((event)) || !this.buttonElement) {
+            if (!isActivationClick(event) || !this.buttonElement) {
                 return;
             }
             this.focus();
@@ -16360,38 +16106,53 @@ let Button$1 = class Button extends LitElement {
     render() {
         // Link buttons may not be disabled
         const isDisabled = this.disabled && !this.href;
-        const button = this.href ? literal `a` : literal `button`;
+        const buttonOrLink = this.href ? this.renderLink() : this.renderButton();
+        // TODO(b/310046938): due to a limitation in focus ring/ripple, we can't use
+        // the same ID for different elements, so we change the ID instead.
+        const buttonId = this.href ? 'link' : 'button';
+        return html `
+      ${this.renderElevationOrOutline?.()}
+      <div class="background"></div>
+      <md-focus-ring part="focus-ring" for=${buttonId}></md-focus-ring>
+      <md-ripple for=${buttonId} ?disabled="${isDisabled}"></md-ripple>
+      ${buttonOrLink}
+    `;
+    }
+    renderButton() {
         // Needed for closure conformance
         const { ariaLabel, ariaHasPopup, ariaExpanded } = this;
-        return staticHtml `
-      <${button}
-        class="button ${classMap(this.getRenderClasses())}"
-        ?disabled=${isDisabled}
-        aria-label="${ariaLabel || nothing}"
-        aria-haspopup="${ariaHasPopup || nothing}"
-        aria-expanded="${ariaExpanded || nothing}"
-        href=${this.href || nothing}
-        target=${this.target || nothing}
-      >${this.renderContent()}</${button}>`;
+        return html `<button
+      id="button"
+      class="button"
+      ?disabled=${this.disabled}
+      aria-label="${ariaLabel || nothing}"
+      aria-haspopup="${ariaHasPopup || nothing}"
+      aria-expanded="${ariaExpanded || nothing}">
+      ${this.renderContent()}
+    </button>`;
     }
-    getRenderClasses() {
-        return {
-            'button--icon-leading': !this.trailingIcon && this.hasIcon,
-            'button--icon-trailing': this.trailingIcon && this.hasIcon,
-        };
+    renderLink() {
+        // Needed for closure conformance
+        const { ariaLabel, ariaHasPopup, ariaExpanded } = this;
+        return html `<a
+      id="link"
+      class="button"
+      aria-label="${ariaLabel || nothing}"
+      aria-haspopup="${ariaHasPopup || nothing}"
+      aria-expanded="${ariaExpanded || nothing}"
+      href=${this.href}
+      target=${this.target || nothing}
+      >${this.renderContent()}
+    </a>`;
     }
     renderContent() {
-        // Link buttons may not be disabled
-        const isDisabled = this.disabled && !this.href;
-        const icon = html `<slot name="icon" @slotchange="${this.handleSlotChange}"></slot>`;
+        const icon = html `<slot
+      name="icon"
+      @slotchange="${this.handleSlotChange}"></slot>`;
         return html `
-      ${this.renderElevation?.()}
-      ${this.renderOutline?.()}
-      <md-focus-ring part="focus-ring"></md-focus-ring>
-      <md-ripple class="button__ripple" ?disabled="${isDisabled}"></md-ripple>
       <span class="touch"></span>
       ${this.trailingIcon ? nothing : icon}
-      <span class="button__label"><slot></slot></span>
+      <span class="label"><slot></slot></span>
       ${this.trailingIcon ? icon : nothing}
     `;
     }
@@ -16399,7 +16160,6 @@ let Button$1 = class Button extends LitElement {
         this.hasIcon = this.assignedIcons.length > 0;
     }
 };
-_a = internals;
 (() => {
     requestUpdateOnAriaChange(Button$1);
     setupFormSubmitter(Button$1);
@@ -16407,7 +16167,10 @@ _a = internals;
 /** @nocollapse */
 Button$1.formAssociated = true;
 /** @nocollapse */
-Button$1.shadowRootOptions = { mode: 'open', delegatesFocus: true };
+Button$1.shadowRootOptions = {
+    mode: 'open',
+    delegatesFocus: true,
+};
 __decorate$1([
     property({ type: Boolean, reflect: true })
 ], Button$1.prototype, "disabled", void 0);
@@ -16418,10 +16181,10 @@ __decorate$1([
     property()
 ], Button$1.prototype, "target", void 0);
 __decorate$1([
-    property({ type: Boolean, attribute: 'trailing-icon' })
+    property({ type: Boolean, attribute: 'trailing-icon', reflect: true })
 ], Button$1.prototype, "trailingIcon", void 0);
 __decorate$1([
-    property({ type: Boolean, attribute: 'has-icon' })
+    property({ type: Boolean, attribute: 'has-icon', reflect: true })
 ], Button$1.prototype, "hasIcon", void 0);
 __decorate$1([
     property()
@@ -16445,7 +16208,7 @@ __decorate$1([
  * A filled button component.
  */
 class FilledButton extends Button$1 {
-    renderElevation() {
+    renderElevationOrOutline() {
         return html `<md-elevation></md-elevation>`;
     }
 }
@@ -16463,7 +16226,7 @@ const styles$3 = css `:host{--_container-color: var(--md-filled-button-container
   * Copyright 2022 Google LLC
   * SPDX-License-Identifier: Apache-2.0
   */
-const styles$2 = css `md-elevation{transition-duration:280ms}.button:disabled md-elevation{transition:none}.button{--md-elevation-level: var(--_container-elevation);--md-elevation-shadow-color: var(--_container-shadow-color)}.button:focus{--md-elevation-level: var(--_focus-container-elevation)}.button:hover{--md-elevation-level: var(--_hover-container-elevation)}.button:active{--md-elevation-level: var(--_pressed-container-elevation)}.button:disabled{--md-elevation-level: var(--_disabled-container-elevation)}/*# sourceMappingURL=shared-elevation-styles.css.map */
+const styles$2 = css `md-elevation{transition-duration:280ms}:host([disabled]) md-elevation{transition:none}md-elevation{--md-elevation-level: var(--_container-elevation);--md-elevation-shadow-color: var(--_container-shadow-color)}:host(:focus-within) md-elevation{--md-elevation-level: var(--_focus-container-elevation)}:host(:hover) md-elevation{--md-elevation-level: var(--_hover-container-elevation)}:host(:active) md-elevation{--md-elevation-level: var(--_pressed-container-elevation)}:host([disabled]) md-elevation{--md-elevation-level: var(--_disabled-container-elevation)}/*# sourceMappingURL=shared-elevation-styles.css.map */
 `;
 
 /**
@@ -16471,7 +16234,7 @@ const styles$2 = css `md-elevation{transition-duration:280ms}.button:disabled md
   * Copyright 2022 Google LLC
   * SPDX-License-Identifier: Apache-2.0
   */
-const styles$1 = css `:host{display:inline-flex;height:var(--_container-height);outline:none;font-family:var(--_label-text-font);font-size:var(--_label-text-size);line-height:var(--_label-text-line-height);font-weight:var(--_label-text-weight);-webkit-tap-highlight-color:rgba(0,0,0,0);vertical-align:top;--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) 0}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host([disabled]){cursor:default;pointer-events:none}.button{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-inline-size:64px;border:none;outline:none;user-select:none;-webkit-appearance:none;vertical-align:middle;background:rgba(0,0,0,0);text-decoration:none;inline-size:100%;position:relative;z-index:0;height:100%;font:inherit;color:var(--_label-text-color);padding-inline-start:var(--_leading-space);padding-inline-end:var(--_trailing-space);gap:8px}.button::before{background-color:var(--_container-color);border-radius:inherit;content:"";inset:0;position:absolute}.button::-moz-focus-inner{padding:0;border:0}.button:hover{color:var(--_hover-label-text-color);cursor:pointer}.button:focus{color:var(--_focus-label-text-color)}.button:active{color:var(--_pressed-label-text-color);outline:none}.button:disabled .button__label{color:var(--_disabled-label-text-color);opacity:var(--_disabled-label-text-opacity)}.button:disabled::before{background-color:var(--_disabled-container-color);opacity:var(--_disabled-container-opacity)}@media(forced-colors: active){.button::before{content:"";box-sizing:border-box;border:1px solid CanvasText;border-radius:inherit;inset:0;pointer-events:none;position:absolute}.button:disabled{--_disabled-icon-opacity: 1;--_disabled-container-opacity: 1;--_disabled-label-text-opacity: 1}}.button,.button__ripple{border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.button::after,.button::before,md-elevation,.button__ripple{z-index:-1}.button--icon-leading{padding-inline-start:var(--_with-leading-icon-leading-space);padding-inline-end:var(--_with-leading-icon-trailing-space)}.button--icon-trailing{padding-inline-start:var(--_with-trailing-icon-leading-space);padding-inline-end:var(--_with-trailing-icon-trailing-space)}.link-button-wrapper{inline-size:100%}.button ::slotted([slot=icon]){display:inline-flex;position:relative;writing-mode:horizontal-tb;fill:currentColor;color:var(--_icon-color);font-size:var(--_icon-size);inline-size:var(--_icon-size);block-size:var(--_icon-size)}.button:hover ::slotted([slot=icon]){color:var(--_hover-icon-color)}.button:focus ::slotted([slot=icon]){color:var(--_focus-icon-color)}.button:active ::slotted([slot=icon]){color:var(--_pressed-icon-color)}.button:disabled ::slotted([slot=icon]){color:var(--_disabled-icon-color);opacity:var(--_disabled-icon-opacity)}.touch{position:absolute;top:50%;height:48px;left:0;right:0;transform:translateY(-50%)}:host([touch-target=none]) .touch{display:none}/*# sourceMappingURL=shared-styles.css.map */
+const styles$1 = css `:host{border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end);box-sizing:border-box;cursor:pointer;display:inline-flex;gap:8px;min-height:var(--_container-height);outline:none;padding-block:calc((var(--_container-height) - max(var(--_label-text-line-height),var(--_icon-size)))/2);padding-inline-start:var(--_leading-space);padding-inline-end:var(--_trailing-space);place-content:center;place-items:center;position:relative;font-family:var(--_label-text-font);font-size:var(--_label-text-size);line-height:var(--_label-text-line-height);font-weight:var(--_label-text-weight);text-overflow:ellipsis;text-wrap:nowrap;user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);vertical-align:top;--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host([disabled]){cursor:default;pointer-events:none}.button{border-radius:inherit;cursor:inherit;display:inline-flex;align-items:center;justify-content:center;border:none;outline:none;-webkit-appearance:none;vertical-align:middle;background:rgba(0,0,0,0);text-decoration:none;min-width:calc(64px - var(--_leading-space) - var(--_trailing-space));width:100%;z-index:0;height:100%;font:inherit;color:var(--_label-text-color);padding:0;gap:inherit}.button::-moz-focus-inner{padding:0;border:0}:host(:hover) .button{color:var(--_hover-label-text-color)}:host(:focus-within) .button{color:var(--_focus-label-text-color)}:host(:active) .button{color:var(--_pressed-label-text-color)}.background{background-color:var(--_container-color);border-radius:inherit;inset:0;position:absolute}.label{overflow:hidden}:is(.button,.label,.label slot),.label ::slotted(*){text-overflow:inherit}:host([disabled]) .label{color:var(--_disabled-label-text-color);opacity:var(--_disabled-label-text-opacity)}:host([disabled]) .background{background-color:var(--_disabled-container-color);opacity:var(--_disabled-container-opacity)}@media(forced-colors: active){.background{border:1px solid CanvasText}:host([disabled]){--_disabled-icon-color: GrayText;--_disabled-icon-opacity: 1;--_disabled-container-opacity: 1;--_disabled-label-text-color: GrayText;--_disabled-label-text-opacity: 1}}:host([has-icon]:not([trailing-icon])){padding-inline-start:var(--_with-leading-icon-leading-space);padding-inline-end:var(--_with-leading-icon-trailing-space)}:host([has-icon][trailing-icon]){padding-inline-start:var(--_with-trailing-icon-leading-space);padding-inline-end:var(--_with-trailing-icon-trailing-space)}::slotted([slot=icon]){display:inline-flex;position:relative;writing-mode:horizontal-tb;fill:currentColor;flex-shrink:0;color:var(--_icon-color);font-size:var(--_icon-size);inline-size:var(--_icon-size);block-size:var(--_icon-size)}:host(:hover) ::slotted([slot=icon]){color:var(--_hover-icon-color)}:host(:focus-within) ::slotted([slot=icon]){color:var(--_focus-icon-color)}:host(:active) ::slotted([slot=icon]){color:var(--_pressed-icon-color)}:host([disabled]) ::slotted([slot=icon]){color:var(--_disabled-icon-color);opacity:var(--_disabled-icon-opacity)}.touch{position:absolute;top:50%;height:48px;left:0;right:0;transform:translateY(-50%)}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) 0}:host([touch-target=none]) .touch{display:none}/*# sourceMappingURL=shared-styles.css.map */
 `;
 
 /**
@@ -16585,8 +16348,27 @@ class Button extends LitElement {
     static { this.styles = css `
     :host {
       display: inline-block;
-      --cros-button-max-width_ : var(--cros-button-max-width,200px);
+      text-overflow: ellipsis;
+      text-wrap: nowrap;
       width: fit-content;
+    }
+
+    .button {
+      max-width: var(--cros-button-max-width,200px);
+      min-width: ${MIN_WIDTH};
+      text-overflow: inherit;
+      text-wrap: inherit;
+      width: 100%;
+      height: 100%;
+    }
+
+    .label {
+      overflow: hidden;
+      text-overflow: inherit;
+    }
+
+    :host([overflow="stack"]) {
+      text-wrap: wrap;
     }
 
     ::slotted(*) {
@@ -16618,8 +16400,6 @@ class Button extends LitElement {
     }
 
     md-filled-button {
-      max-width: var(--cros-button-max-width_);
-      min-width: ${MIN_WIDTH};
       --md-filled-button-container-height: ${CONTAINER_HEIGHT};
       --md-filled-button-disabled-container-color: var(--cros-sys-disabled_container);
       --md-filled-button-disabled-container-opacity: 100%;
@@ -16638,7 +16418,25 @@ class Button extends LitElement {
       --md-focus-ring-duration: 0s;
       --md-focus-ring-width: 2px;
       --md-sys-color-secondary: var(--cros-sys-focus_ring);
-      width: 100%;
+    }
+
+    :host(:not([button-style="secondary"]):is([inverted][disabled])) {
+      opacity: var(--cros-disabled-opacity);
+    }
+
+    :host([inverted][button-style="primary"]) md-filled-button {
+      /** Base styles */
+      --md-sys-color-primary: var(--cros-sys-inverse_primary);
+      --md-sys-color-secondary: var(--cros-sys-inverse_focus_ring);
+      --md-sys-color-on-primary: var(--cros-sys-inverse_on_primary);
+      --md-filled-button-label-text-color: var(--cros-sys-inverse_on_primary);
+      /** Disabled */
+      --md-filled-button-disabled-container-color: var(--cros-sys-inverse_primary);
+      --md-filled-button-disabled-label-text-color: var(--cros-sys-inverse_on_primary);
+      /** Hover */
+      --md-filled-button-hover-state-layer-color: var(--cros-sys-inverse_hover_on_prominent);
+      /** Pressed */
+      --md-filled-button-pressed-state-layer-color: var(--cros-sys-inverse_ripple_primary);
     }
 
     :host([button-style="primary"]) md-filled-button {
@@ -16656,8 +16454,6 @@ class Button extends LitElement {
     }
 
     md-text-button {
-      max-width: var(--cros-button-max-width_);
-      min-width: ${MIN_WIDTH};
       --md-sys-color-primary: var(--cros-sys-primary);
       --md-sys-color-secondary: var(--cros-sys-focus_ring);
       --md-focus-ring-duration: 0s;
@@ -16668,6 +16464,7 @@ class Button extends LitElement {
       --md-text-button-focus-state-layer-opacity: 100%;
       --md-text-button-hover-state-layer-color: var(--cros-sys-hover_on_subtle);
       --md-text-button-hover-state-layer-opacity: 100%;
+      --md-text-button-label-text-color: var(--cros-sys-primary);
       --md-text-button-label-text-font: var(--cros-button-2-font-family);
       --md-text-button-label-text-size: var(--cros-button-2-font-size);
       --md-text-button-label-text-line-height: var(--cros-button-2-line-height);
@@ -16676,7 +16473,17 @@ class Button extends LitElement {
       --md-text-button-pressed-state-layer-color: var(--cros-sys-ripple_neutral_on_subtle);
       --md-text-button-pressed-state-layer-opacity: 100%;
       --md-text-button-trailing-space: ${LABEL_PADDING_START_END};
-      width: 100%;
+    }
+
+    :host([inverted]) md-text-button {
+      /** Base styles */
+      --md-sys-color-primary: var(--cros-sys-inverse_primary);
+      --md-sys-color-secondary: var(--cros-sys-inverse_focus_ring);
+      --md-text-button-label-text-color: var(--cros-sys-inverse_primary);
+      /** Disabled */
+      --md-text-button-disabled-label-text-color: var(--cros-sys-inverse_primary);
+      --md-text-button-pressed-state-layer-color: var(--cros-sys-inverse_ripple_neutral_on_subtle);
+      --md-text-button-hover-state-layer-color: var(--cros-sys-inverse_hover_on_subtle);
     }
 
     ::slotted(ea-icon) {
@@ -16689,6 +16496,9 @@ class Button extends LitElement {
         label: { type: String, reflect: true },
         disabled: { type: Boolean, reflect: true },
         buttonStyle: { type: String, reflect: true, attribute: 'button-style' },
+        inverted: { type: Boolean, reflect: true },
+        ariaHasPopup: { type: String, reflect: true, attribute: 'aria-haspopup' },
+        overflow: { type: String, reflect: true },
     }; }
     constructor() {
         super();
@@ -16697,16 +16507,40 @@ class Button extends LitElement {
          * @export
          */
         this.buttonStyle = 'primary';
+        /**
+         * If the button should be in the inverted color scheme, eg for use in
+         * cros-snackbar. Inverted color schemes are only supported for `primary` and
+         * floating button styles.
+         * @export
+         */
+        this.inverted = false;
+        /**
+         * If button should truncate with ellipsis or stack contents if label
+         * overflows button container.
+         * @export
+         */
+        this.overflow = 'truncate';
         this.ariaLabel = '';
         this.ariaHasPopup = 'false';
         this.label = '';
         this.disabled = false;
+    }
+    firstUpdated() {
+        this.addEventListener('click', this.clickListener);
+    }
+    clickListener(e) {
+        if (this.disabled) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            return;
+        }
     }
     render() {
         const ariaHasPopup = (this.ariaHasPopup ?? 'false');
         if (this.buttonStyle === 'floating') {
             return html `
         <md-text-button
+            class="button"
             aria-label=${this.ariaLabel || ''}
             aria-haspopup=${ariaHasPopup}
             ?disabled=${this.disabled}>
@@ -16716,6 +16550,7 @@ class Button extends LitElement {
         }
         return html `
         <md-filled-button
+            class="button"
             aria-label=${this.ariaLabel || ''}
             aria-haspopup=${ariaHasPopup}
             ?disabled=${this.disabled}>
@@ -16727,7 +16562,7 @@ class Button extends LitElement {
         return html `
       <div class="content-container">
         <slot name="leading-icon" @slotchange=${this.onSlotChange}></slot>
-        ${this.label}
+        <span class="label">${this.label}</span>
         <slot name="trailing-icon" @slotchange=${this.onSlotChange}></slot>
       </div>
     `;
@@ -16749,11 +16584,8 @@ class Button extends LitElement {
 }
 customElements.define('cros-button', Button);
 
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const htmlTemplate$3 = html$1 `<!--_html_template_start_-->
-
+function getTemplate$5() {
+    return getTrustedHTML `<!--_html_template_start_-->
 <style>
   cr-icon-button,
   cr-button {
@@ -16854,6 +16686,11 @@ const htmlTemplate$3 = html$1 `<!--_html_template_start_-->
 </xf-jellybean>
 <cr-icon-button id='icon'></cr-icon-button>
 <!--_html_template_end_-->`;
+}
+
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 /**
  * A button used inside PanelItem with varying display characteristics.
  */
@@ -16864,11 +16701,15 @@ class PanelButton extends HTMLElement {
     }
     /**
      * Creates a PanelButton.
-     * @private
      */
     createElement_() {
-        const fragment = htmlTemplate$3.content.cloneNode(true);
+        const template = document.createElement('template');
+        template.innerHTML = getTemplate$5();
+        const fragment = template.content.cloneNode(true);
         this.attachShadow({ mode: 'open' }).appendChild(fragment);
+    }
+    static get is() {
+        return 'xf-button';
     }
     /**
      * Registers this instance to listen to these attribute changes.
@@ -16880,15 +16721,14 @@ class PanelButton extends HTMLElement {
     }
     /**
      * Callback triggered by the browser when our attribute values change.
-     * @param {string} name Attribute that's changed.
-     * @param {?string} oldValue Old value of the attribute.
-     * @param {?string} newValue New value of the attribute.
+     * @param name Attribute that's changed.
+     * @param oldValue Old value of the attribute.
+     * @param newValue New value of the attribute.
      */
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue) {
             return;
         }
-        /** @type {?Element} */
         const iconButton = this.shadowRoot?.querySelector('cr-icon-button') ?? null;
         if (name === 'data-category') {
             switch (newValue) {
@@ -16901,33 +16741,126 @@ class PanelButton extends HTMLElement {
     }
     /**
      * When using the extra button, the text can be programmatically set
-     * @param {string} text The text to use on the extra button.
+     * @param text The text to use on the extra button.
      */
     setExtraButtonText(text) {
         if (!this.shadowRoot) {
             return;
         }
         if (isCrosComponentsEnabled()) {
-            const extraButton = 
-            /** @type {!Button} */ (queryRequiredElement('#extra-button-jelly', this.shadowRoot));
+            const extraButton = queryRequiredElement('#extra-button-jelly', this.shadowRoot);
             extraButton.label = text;
         }
         else {
-            const extraButton = 
-            /** @type {!CrButtonElement} */ (queryRequiredElement('#extra-button', this.shadowRoot));
+            const extraButton = queryRequiredElement('#extra-button', this.shadowRoot);
             extraButton.innerText = text;
         }
     }
 }
-window.customElements.define('xf-button', PanelButton);
-// # sourceURL=//ui/file_manager/file_manager/foreground/elements/xf_button.js
+window.customElements.define(PanelButton.is, PanelButton);
 
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/** @type {!HTMLTemplateElement} */
-const htmlTemplate$2 = html$1 `<!--_html_template_start_-->
-<style>
+function getTemplate$4() {
+    return getTrustedHTML `<!--_html_template_start_--><style>
+  :host {
+    max-width: 504px;
+    outline: none;
+  }
+  #container {
+    align-items: stretch;
+    background-color: var(--cros-sys-base_elevated);
+    border-radius: 8px;
+    box-shadow: var(--cros-elevation-2-shadow);
+    display: flex;
+    flex-direction: column;
+    max-width: min-content;
+    z-index: 100;
+  }
+  #separator {
+    background-color: var(--cros-sys-separator);
+    height: 1px;
+  }
+  /* Limit to 3 visible progress panels before scroll. */
+  #panels {
+    max-height: calc(192px + 28px);
+    overflow-y: auto;
+  }
+  xf-panel-item:not(:only-child) {
+    --progress-height: 64px;
+  }
+  xf-panel-item:not(:only-child):first-child {
+    --progress-padding-top: 14px;
+  }
+  xf-panel-item:not(:only-child):last-child {
+    --progress-padding-bottom: 14px;
+  }
+  xf-panel-item:only-child {
+    --progress-height: 68px;
+  }
+  @keyframes setcollapse {
+    0% {
+      max-height: 0;
+      max-width: 0;
+      opacity: 0;
+    }
+    75% {
+      max-height: calc(192px + 28px);
+      opacity: 0;
+      width: 504px;
+    }
+    100% {
+      max-height: calc(192px + 28px);
+      opacity: 1;
+      width: 504px;
+    }
+  }
+
+  @keyframes setexpand {
+    0% {
+      max-height: calc(192px + 28px);
+      max-width: 504px;
+      opacity: 1;
+    }
+    25% {
+      max-height: calc(192px + 28px);
+      max-width: 504px;
+      opacity: 0;
+    }
+    100% {
+      max-height: 0;
+      max-width: 0;
+      opacity: 0;
+    }
+  }
+  .expanded {
+    animation: setcollapse 200ms forwards;
+    width: 504px;
+  }
+  .collapsed {
+    animation: setexpand 200ms forwards;
+  }
+  .expanding {
+    overflow: hidden;
+  }
+  .expandfinished {
+    max-height: calc(192px + 28px);
+    opacity: 1;
+    overflow-y: auto;
+    width: 504px;
+  }
+  xf-panel-item:not(:only-child) {
+    --multi-progress-height: 92px;
+  }
+</style>
+<div id="container">
+  <div id="summary"></div>
+  <div id="separator" hidden></div>
+  <div id="panels"></div>
+</div>
+<!--_html_template_end_-->`;
+}
+
+function getTemplate$3() {
+    return getTrustedHTML `<!--_html_template_start_--><style>
   .progress {
     height: 36px;
     width: 36px;
@@ -16977,6 +16910,12 @@ const htmlTemplate$2 = html$1 `<!--_html_template_start_-->
   </svg>
 </div>
 <!--_html_template_end_-->`;
+}
+
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const MAX_PROGRESS = 100.0;
 /**
  * Definition of a circular progress indicator custom element.
  * The element supports two attributes for control - 'radius' and 'progress'.
@@ -16989,36 +16928,18 @@ const htmlTemplate$2 = html$1 `<!--_html_template_start_-->
 class CircularProgress extends HTMLElement {
     constructor() {
         super();
-        const fragment = htmlTemplate$2.content.cloneNode(true);
-        this.attachShadow({ mode: 'open' }).appendChild(fragment);
-        /** @private @type {number} */
-        this.progress_ = 0.0;
-        if (!this.shadowRoot) {
-            return;
-        }
-        /**
-         * The visual indicator for the progress is accomplished by changing the
-         * stroke-dasharray SVG attribute on the top circle. The stroke-dasharray
-         * is calculated by using the circumference of the circle as the 100%
-         * length and then setting the dash length to match the percentage of
-         * the set 'progress_' value.
-         * @private @type {SVGElement}
-         */
-        this.indicator_ =
-            /** @type {SVGElement}*/ (this.shadowRoot.querySelector('.top'));
-        /** @private @type {SVGElement} */
-        this.errormark_ =
-            /** @type {SVGElement}*/ (this.shadowRoot.querySelector('.errormark'));
-        /** @private @type {SVGElement} */
-        this.label_ =
-            /** @type {SVGElement}*/ (this.shadowRoot.querySelector('.label'));
-        /** @private @type {number} */
-        this.maxProgress_ = 100.0;
-        /**
-         * The circumference for the circle (default 63 for radius r='10').
-         * @private @type {number}
-         */
         this.fullCircle_ = 63;
+        this.progress_ = 0.0;
+        const template = document.createElement('template');
+        template.innerHTML = getTemplate$3();
+        const fragment = template.content.cloneNode(true);
+        this.attachShadow({ mode: 'open' }).appendChild(fragment);
+        this.indicator_ = this.shadowRoot.querySelector('.top');
+        this.errormark_ = this.shadowRoot.querySelector('.errormark');
+        this.label_ = this.shadowRoot.querySelector('.label');
+    }
+    static get is() {
+        return 'xf-circular-progress';
     }
     /**
      * Registers this instance to listen to these attribute changes.
@@ -17033,14 +16954,12 @@ class CircularProgress extends HTMLElement {
     }
     /**
      * Sets the indicators progress position.
-     * @param {number} progress A value between 0 and maxProgress_ to indicate.
-     * @return {number}
-     * @public
+     * @param progress A value between 0 and MAX_PROGRESS to indicate.
      */
     setProgress(progress) {
-        // Clamp progress to 0 .. maxProgress_.
-        progress = Math.min(Math.max(progress, 0), this.maxProgress_);
-        const value = (progress / this.maxProgress_) * this.fullCircle_;
+        // Clamp progress to 0 .. MAX_PROGRESS.
+        progress = Math.min(Math.max(progress, 0), MAX_PROGRESS);
+        const value = (progress / MAX_PROGRESS) * this.fullCircle_;
         this.indicator_?.setAttribute('stroke-dasharray', value + ' ' + this.fullCircle_);
         return progress;
     }
@@ -17048,9 +16967,8 @@ class CircularProgress extends HTMLElement {
      * Sets the position of the error indicator.
      * The error indicator is used by the summary panel. Its position is aligned
      * with the top-right square that contains the progress circle itself.
-     * @param {number} radius The radius of the progress circle.
-     * @param {number} strokeWidth The width of the progress circle stroke.
-     * @private
+     * @param radius The radius of the progress circle.
+     * @param strokeWidth The width of the progress circle stroke.
      */
     setErrorPosition_(radius, strokeWidth) {
         const center = 18;
@@ -17062,9 +16980,9 @@ class CircularProgress extends HTMLElement {
     /**
      * Callback triggered by the browser when our attribute values change.
      * TODO(crbug.com/947388) Add unit tests to exercise attribute edge cases.
-     * @param {string} name Attribute that's changed.
-     * @param {?string} oldValue Old value of the attribute.
-     * @param {?string} newValue New value of the attribute.
+     * @param name Attribute that's changed.
+     * @param oldValue Old value of the attribute.
+     * @param newValue New value of the attribute.
      */
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue) {
@@ -17109,16 +17027,13 @@ class CircularProgress extends HTMLElement {
     }
     /**
      * Getter for the visibility of the error marker.
-     * @public
-     * @return {string}
      */
     get errorMarkerVisibility() {
         return this.errormark_.getAttribute('visibility') || '';
     }
     /**
      * Set the visibility of the error marker.
-     * @param {string} visibility Visibility value being set.
-     * @public
+     * @param visibility Visibility value being set.
      */
     set errorMarkerVisibility(visibility) {
         // Reflect the progress property into the attribute.
@@ -17126,16 +17041,13 @@ class CircularProgress extends HTMLElement {
     }
     /**
      * Getter for the current state of the progress indication.
-     * @public
-     * @return {string}
      */
     get progress() {
         return this.progress_.toString();
     }
     /**
      * Sets the progress position between 0 and 100.0.
-     * @param {string} progress Progress value being set.
-     * @public
+     * @param progress Progress value being set.
      */
     set progress(progress) {
         // Reflect the progress property into the attribute.
@@ -17144,22 +17056,16 @@ class CircularProgress extends HTMLElement {
     /**
      * Set the text label in the centre of the progress indicator.
      * This is used to indicate multiple operations in progress.
-     * @param {string} label Text to place inside the circle.
-     * @public
+     * @param label Text to place inside the circle.
      */
     set label(label) {
         this.setAttribute('label', label);
     }
 }
-window.customElements.define('xf-circular-progress', CircularProgress);
-//# sourceURL=//ui/file_manager/file_manager/foreground/elements/xf_circular_progress.js
+window.customElements.define(CircularProgress.is, CircularProgress);
 
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/** @type {!HTMLTemplateElement} */
-const htmlTemplate$1 = html$1 `<!--_html_template_start_-->
-<style>
+function getTemplate$2() {
+    return getTrustedHTML `<!--_html_template_start_--><style>
   .xf-panel-item {
       align-items: center;
       background-color: var(--cros-sys-base_elevated);
@@ -17355,57 +17261,57 @@ const htmlTemplate$1 = html$1 `<!--_html_template_start_-->
     <div class='xf-padder-16'></div>
 </div>
 <!--_html_template_end_-->`;
+}
+
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var PanelType;
+(function (PanelType) {
+    PanelType[PanelType["DEFAULT"] = -1] = "DEFAULT";
+    PanelType[PanelType["PROGRESS"] = 0] = "PROGRESS";
+    PanelType[PanelType["SUMMARY"] = 1] = "SUMMARY";
+    PanelType[PanelType["DONE"] = 2] = "DONE";
+    PanelType[PanelType["ERROR"] = 3] = "ERROR";
+    PanelType[PanelType["INFO"] = 4] = "INFO";
+    PanelType[PanelType["FORMAT_PROGRESS"] = 5] = "FORMAT_PROGRESS";
+    PanelType[PanelType["SYNC_PROGRESS"] = 6] = "SYNC_PROGRESS";
+})(PanelType || (PanelType = {}));
 /**
  * A panel to display the status or progress of a file operation.
- * @extends HTMLElement
  */
 class PanelItem extends HTMLElement {
     constructor() {
         super();
-        const fragment = htmlTemplate$1.content.cloneNode(true);
-        this.attachShadow({ mode: 'open' }).appendChild(fragment);
-        /** @private @type {Element} */
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.indicator_ = this.shadowRoot.querySelector('#indicator');
-        /**
-         * TODO(crbug.com/947388) make this a closure enum.
-         * @const
-         */
-        this.panelTypeDefault = -1;
-        this.panelTypeProgress = 0;
-        this.panelTypeSummary = 1;
-        this.panelTypeDone = 2;
-        this.panelTypeError = 3;
-        this.panelTypeInfo = 4;
-        this.panelTypeFormatProgress = 5;
-        this.panelTypeSyncProgress = 6;
-        /** @private @type {number} */
-        this.panelType_ = this.panelTypeDefault;
-        /** @private @type {?function(Event):void} */
-        this.onclick = this.onClicked_.bind(this);
-        /** @public @type {?DisplayPanel} */
-        this.parent = null;
+        this.indicator_ = null;
+        this.panelType_ = PanelType.DEFAULT;
         /**
          * Callback that signals events happening in the panel (e.g. click).
-         * @private @type {!function(*):void}
          */
         this.signal_ = console.log;
+        this.updateSummaryPanel_ = null;
+        this.updateProgress_ = null;
+        this.onClickedBound_ = this.onClicked_.bind(this);
         /**
          * User specific data, used as a reference to persist any custom
          * data that the panel user may want to use in the signal callback.
          * e.g. holding the file name(s) used in a copy operation.
-         * @type {?Object}
          */
         this.userData = null;
+        const template = document.createElement('template');
+        template.innerHTML = getTemplate$2();
+        const fragment = template.content.cloneNode(true);
+        this.attachShadow({ mode: 'open' }).appendChild(fragment);
+        this.indicator_ =
+            this.shadowRoot.querySelector('#indicator');
+    }
+    static get is() {
+        return 'xf-panel-item';
     }
     /**
      * Remove an element from the panel using it's id.
-     * @return {?HTMLElement}
-     * @private
      */
-    // @ts-ignore: error TS7006: Parameter 'id' implicitly has an 'any' type.
     removePanelElementById_(id) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         const element = this.shadowRoot.querySelector(id);
         if (element) {
             element.remove();
@@ -17415,8 +17321,7 @@ class PanelItem extends HTMLElement {
     /**
      * Sets up the different panel types. Panels have per-type configuration
      * templates, but can be further customized using individual attributes.
-     * @param {number} type The enumerated panel type to set up.
-     * @private
+     * @param type The enumerated panel type to set up.
      */
     setPanelType(type) {
         this.setAttribute('detailed-panel', 'detailed-panel');
@@ -17427,126 +17332,103 @@ class PanelItem extends HTMLElement {
         this.removePanelElementById_('#indicator');
         let element = this.removePanelElementById_('#primary-action');
         if (element) {
-            element.onclick = null;
+            element.removeEventListener('click', this.onClickedBound_);
         }
         element = this.removePanelElementById_('#secondary-action');
         if (element) {
-            element.onclick = null;
+            element.removeEventListener('click', this.onClickedBound_);
         }
         // Mark the indicator as empty so it recreates on setAttribute.
         this.setAttribute('indicator', 'empty');
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         const buttonSpacer = this.shadowRoot.querySelector('#button-gap');
         // Default the text host to use an alert role.
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        const textHost = assert$1(this.shadowRoot.querySelector('.xf-panel-text'));
-        // @ts-ignore: error TS18047: 'textHost' is possibly 'null'.
+        const textHost = this.shadowRoot.querySelector('.xf-panel-text');
         textHost.setAttribute('role', 'alert');
         const hasExtraButton = !!this.dataset['extraButtonText'];
         // Setup the panel configuration for the panel type.
         // TOOD(crbug.com/947388) Simplify this switch breaking out common cases.
-        // @ts-ignore: error TS2304: Cannot find name 'XfButton'.
-        /** @type {?XfButton} */
         let primaryButton = null;
-        /** @type {?HTMLElement} */
         let secondaryButton = null;
         switch (type) {
-            case this.panelTypeProgress:
+            case PanelType.PROGRESS:
                 this.setAttribute('indicator', 'progress');
                 secondaryButton = document.createElement('xf-button');
                 secondaryButton.id = 'secondary-action';
-                secondaryButton.onclick = assert$1(this.onclick);
-                // @ts-ignore: error TS4111: Property 'category' comes from an index
-                // signature, so it must be accessed with ['category'].
-                secondaryButton.dataset.category = 'cancel';
+                secondaryButton.addEventListener('click', this.onClickedBound_);
+                secondaryButton.dataset['category'] = 'cancel';
                 secondaryButton.setAttribute('aria-label', str('CANCEL_LABEL'));
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
                 buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
                 break;
-            case this.panelTypeSummary:
+            case PanelType.SUMMARY:
                 this.setAttribute('indicator', 'largeprogress');
                 primaryButton = document.createElement('xf-button');
                 primaryButton.id = 'primary-action';
-                primaryButton.dataset.category = 'expand';
+                primaryButton.dataset['category'] = 'expand';
                 primaryButton.setAttribute('aria-label', str('FEEDBACK_EXPAND_LABEL'));
                 // Remove the 'alert' role to stop screen readers repeatedly
                 // reading each progress update.
-                // @ts-ignore: error TS18047: 'textHost' is possibly 'null'.
                 textHost.setAttribute('role', '');
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
                 buttonSpacer.insertAdjacentElement('afterend', primaryButton);
                 break;
-            case this.panelTypeDone:
+            case PanelType.DONE:
                 this.setAttribute('indicator', 'status');
                 this.setAttribute('status', 'success');
                 secondaryButton = document.createElement('xf-button');
                 secondaryButton.id =
                     (hasExtraButton) ? 'secondary-action' : 'primary-action';
-                secondaryButton.onclick = assert$1(this.onclick);
-                // @ts-ignore: error TS4111: Property 'category' comes from an index
-                // signature, so it must be accessed with ['category'].
-                secondaryButton.dataset.category = 'dismiss';
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
+                secondaryButton.addEventListener('click', this.onClickedBound_);
+                secondaryButton.dataset['category'] = 'dismiss';
                 buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
                 if (hasExtraButton) {
                     primaryButton = document.createElement('xf-button');
                     primaryButton.id = 'primary-action';
                     primaryButton.dataset['category'] = 'extra-button';
-                    primaryButton.onclick = assert$1(this.onclick);
-                    primaryButton.setExtraButtonText(this.dataset['extraButtonText']);
-                    // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
+                    primaryButton.addEventListener('click', this.onClickedBound_);
+                    primaryButton.setExtraButtonText(this.dataset['extraButtonText'] ?? '');
                     buttonSpacer.insertAdjacentElement('afterend', primaryButton);
                 }
                 break;
-            case this.panelTypeError:
+            case PanelType.ERROR:
                 this.setAttribute('indicator', 'status');
                 this.setAttribute('status', 'failure');
                 secondaryButton = document.createElement('xf-button');
                 secondaryButton.id =
                     (hasExtraButton) ? 'secondary-action' : 'primary-action';
-                secondaryButton.onclick = assert$1(this.onclick);
-                // @ts-ignore: error TS4111: Property 'category' comes from an index
-                // signature, so it must be accessed with ['category'].
-                secondaryButton.dataset.category = 'dismiss';
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
-                buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
-                if (hasExtraButton) {
-                    primaryButton = document.createElement('xf-button');
-                    primaryButton.id = 'primary-action';
-                    primaryButton.dataset.category = 'extra-button';
-                    primaryButton.onclick = assert$1(this.onclick);
-                    primaryButton.setExtraButtonText(this.dataset['extraButtonText']);
-                    // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
-                    buttonSpacer.insertAdjacentElement('afterend', primaryButton);
-                }
-                break;
-            case this.panelTypeInfo:
-                this.setAttribute('indicator', 'status');
-                this.setAttribute('status', 'warning');
-                secondaryButton = document.createElement('xf-button');
-                secondaryButton.id =
-                    (hasExtraButton) ? 'secondary-action' : 'primary-action';
-                secondaryButton.onclick = assert$1(this.onclick);
-                // @ts-ignore: error TS4111: Property 'category' comes from an index
-                // signature, so it must be accessed with ['category'].
-                secondaryButton.dataset.category = 'cancel';
-                // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
+                secondaryButton.addEventListener('click', this.onClickedBound_);
+                secondaryButton.dataset['category'] = 'dismiss';
                 buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
                 if (hasExtraButton) {
                     primaryButton = document.createElement('xf-button');
                     primaryButton.id = 'primary-action';
                     primaryButton.dataset['category'] = 'extra-button';
-                    primaryButton.onclick = assert$1(this.onclick);
-                    primaryButton.setExtraButtonText(this.dataset['extraButtonText']);
-                    // @ts-ignore: error TS18047: 'buttonSpacer' is possibly 'null'.
+                    primaryButton.addEventListener('click', this.onClickedBound_);
+                    primaryButton.setExtraButtonText(this.dataset['extraButtonText'] ?? '');
                     buttonSpacer.insertAdjacentElement('afterend', primaryButton);
                 }
                 break;
-            case this.panelTypeFormatProgress:
+            case PanelType.INFO:
+                this.setAttribute('indicator', 'status');
+                this.setAttribute('status', 'warning');
+                secondaryButton = document.createElement('xf-button');
+                secondaryButton.id =
+                    (hasExtraButton) ? 'secondary-action' : 'primary-action';
+                secondaryButton.addEventListener('click', this.onClickedBound_);
+                secondaryButton.dataset['category'] = 'cancel';
+                buttonSpacer.insertAdjacentElement('afterend', secondaryButton);
+                if (hasExtraButton) {
+                    primaryButton = document.createElement('xf-button');
+                    primaryButton.id = 'primary-action';
+                    primaryButton.dataset['category'] = 'extra-button';
+                    primaryButton.addEventListener('click', this.onClickedBound_);
+                    primaryButton.setExtraButtonText(this.dataset['extraButtonText'] ?? '');
+                    buttonSpacer.insertAdjacentElement('afterend', primaryButton);
+                }
+                break;
+            case PanelType.FORMAT_PROGRESS:
                 this.setAttribute('indicator', 'status');
                 this.setAttribute('status', 'hard-drive');
                 break;
-            case this.panelTypeSyncProgress:
+            case PanelType.SYNC_PROGRESS:
                 this.setAttribute('indicator', 'progress');
                 break;
         }
@@ -17554,10 +17436,7 @@ class PanelItem extends HTMLElement {
     }
     /**
      * Registers this instance to listen to these attribute changes.
-     * @private
      */
-    // @ts-ignore: error TS6133: 'observedAttributes' is declared but its value is
-    // never read.
     static get observedAttributes() {
         return [
             'count',
@@ -17572,33 +17451,24 @@ class PanelItem extends HTMLElement {
     }
     /**
      * Callback triggered by the browser when our attribute values change.
-     * @param {string} name Attribute that's changed.
-     * @param {?string} oldValue Old value of the attribute.
-     * @param {?string} newValue New value of the attribute.
-     * @private
      */
-    // @ts-ignore: error TS6133: 'oldValue' is declared but its value is never
-    // read.
-    attributeChangedCallback(name, oldValue, newValue) {
-        /** @type {?HTMLElement} */
+    attributeChangedCallback(name, _, newValue) {
         let indicator = null;
-        /** @type {HTMLElement} */
         let textNode;
         // TODO(adanilo) Chop out each attribute handler into a function.
         switch (name) {
             case 'count':
                 if (this.indicator_) {
-                    this.indicator_.setAttribute('label', newValue || '');
+                    this.indicator_.setAttribute('label', newValue ?? '');
                 }
                 break;
             case 'errormark':
                 if (this.indicator_) {
-                    this.indicator_.setAttribute('errormark', newValue || '');
+                    this.indicator_.setAttribute('errormark', newValue ?? '');
                 }
                 break;
             case 'indicator':
                 // Get rid of any existing indicator
-                // @ts-ignore: error TS2531: Object is possibly 'null'.
                 const oldIndicator = this.shadowRoot.querySelector('#indicator');
                 if (oldIndicator) {
                     oldIndicator.remove();
@@ -17615,37 +17485,35 @@ class PanelItem extends HTMLElement {
                         }
                         break;
                     case 'status':
-                        indicator = document.createElement('iron-icon');
+                        indicator =
+                            document.createElement('iron-icon');
                         const status = this.getAttribute('status');
                         if (status) {
                             indicator.setAttribute('icon', `files36:${status}`);
                         }
                         break;
                 }
-                // @ts-ignore: error TS2322: Type 'HTMLElement | null' is not assignable
-                // to type 'Element'.
                 this.indicator_ = indicator;
                 if (indicator) {
-                    // @ts-ignore: error TS2531: Object is possibly 'null'.
                     const itemRoot = this.shadowRoot.querySelector('.xf-panel-item');
                     indicator.setAttribute('id', 'indicator');
-                    // @ts-ignore: error TS18047: 'itemRoot' is possibly 'null'.
                     itemRoot.prepend(indicator);
                 }
                 break;
             case 'panel-type':
-                this.setPanelType(Number(newValue));
-                if (this.parent && this.parent.updateSummaryPanel) {
-                    this.parent.updateSummaryPanel();
+                const panelType = Number(newValue);
+                if (panelType in PanelType) {
+                    this.setPanelType(panelType);
+                }
+                if (this.updateSummaryPanel_) {
+                    this.updateSummaryPanel_();
                 }
                 break;
             case 'progress':
                 if (this.indicator_) {
-                    // @ts-ignore: error TS2339: Property 'progress' does not exist on
-                    // type 'Element'.
-                    this.indicator_.progress = Number(newValue);
-                    if (this.parent && this.parent.updateProgress) {
-                        this.parent.updateProgress();
+                    this.indicator_.progress = newValue ?? '';
+                    if (this.updateProgress_) {
+                        this.updateProgress_();
                     }
                 }
                 break;
@@ -17655,19 +17523,16 @@ class PanelItem extends HTMLElement {
                 }
                 break;
             case 'primary-text':
-                // @ts-ignore: error TS2531: Object is possibly 'null'.
                 textNode = this.shadowRoot.querySelector('.xf-panel-label-text');
                 if (textNode) {
                     textNode.textContent = newValue;
                     // Set the aria labels for the activity and cancel button.
-                    this.setAttribute('aria-label', /** @type {string} */ (newValue));
+                    this.setAttribute('aria-label', newValue ?? '');
                 }
                 break;
             case 'secondary-text':
-                // @ts-ignore: error TS2531: Object is possibly 'null'.
                 textNode = this.shadowRoot.querySelector('.xf-panel-secondary-text');
                 if (!textNode) {
-                    // @ts-ignore: error TS2531: Object is possibly 'null'.
                     const parent = this.shadowRoot.querySelector('.xf-panel-text');
                     if (!parent) {
                         return;
@@ -17688,85 +17553,46 @@ class PanelItem extends HTMLElement {
     }
     /**
      * DOM connected.
-     * @private
      */
-    // @ts-ignore: error TS6133: 'connectedCallback' is declared but its value is
-    // never read.
     connectedCallback() {
-        this.onclick = this.onClicked_.bind(this);
+        this.addEventListener('click', this.onClickedBound_);
         // Set click event handler references.
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        let button = this.shadowRoot.querySelector('#primary-action');
-        if (button) {
-            // @ts-ignore: error TS2339: Property 'onclick' does not exist on type
-            // 'Element'.
-            button.onclick = this.onclick;
-        }
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        button = this.shadowRoot.querySelector('#secondary-action');
-        if (button) {
-            // @ts-ignore: error TS2339: Property 'onclick' does not exist on type
-            // 'Element'.
-            button.onclick = this.onclick;
-        }
+        this.shadowRoot.querySelector('#primary-action')
+            ?.addEventListener('click', this.onClickedBound_);
+        this.shadowRoot.querySelector('#secondary-action')
+            ?.addEventListener('click', this.onClickedBound_);
     }
     /**
      * DOM disconnected.
-     * @private
      */
-    // @ts-ignore: error TS6133: 'disconnectedCallback' is declared but its value
-    // is never read.
     disconnectedCallback() {
         // Replace references to any signal callback.
         this.signal_ = console.log;
-        // Clear click event handler references.
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        let button = this.shadowRoot.querySelector('#primary-action');
-        if (button) {
-            // @ts-ignore: error TS2339: Property 'onclick' does not exist on type
-            // 'Element'.
-            button.onclick = null;
-        }
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        button = this.shadowRoot.querySelector('#secondary-action');
-        if (button) {
-            // @ts-ignore: error TS2339: Property 'onclick' does not exist on type
-            // 'Element'.
-            button.onclick = null;
-        }
-        this.onclick = null;
     }
     /**
      * Handles 'click' events from our sub-elements and sends
      * signals to the |signal_| callback if needed.
-     * @param {?Event} event
-     * @private
      */
     onClicked_(event) {
-        // @ts-ignore: error TS18047: 'event' is possibly 'null'.
         event.stopImmediatePropagation();
-        // @ts-ignore: error TS18047: 'event' is possibly 'null'.
         event.preventDefault();
         // Ignore clicks on the panel item itself.
-        // @ts-ignore: error TS18047: 'event' is possibly 'null'.
-        if (event.target === this) {
+        if (event.target === this || !event.target) {
             return;
         }
-        // @ts-ignore: error TS2339: Property 'dataset' does not exist on type
-        // 'EventTarget'.
-        const id = assert$1(event.target.dataset.category);
+        const button = event.target;
+        const id = button.dataset['category'] ?? '';
         this.signal_(id);
     }
     /**
      * Sets the callback that triggers signals from events on the panel.
-     * @param {?function(*):void} signal
      */
     set signalCallback(signal) {
         this.signal_ = signal || console.log;
     }
     /**
      * Set the visibility of the error marker.
-     * @param {string} visibility Visibility value being set.
+     * @param visibility Visibility value being set.
      */
     set errorMarkerVisibility(visibility) {
         this.setAttribute('errormark', visibility);
@@ -17777,20 +17603,16 @@ class PanelItem extends HTMLElement {
     get errorMarkerVisibility() {
         // If we have an indicator on the panel, then grab the
         // visibility value from that.
-        if (this.indicator_) {
-            // @ts-ignore: error TS2339: Property 'errorMarkerVisibility' does not
-            // exist on type 'Element'.
+        if (this.indicator_ && 'errorMarkerVisibility' in this.indicator_) {
             return this.indicator_.errorMarkerVisibility;
         }
         // If there's no indicator on the panel just return the
         // value of any attribute as a fallback.
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('errormark');
+        return this.getAttribute('errormark') ?? '';
     }
     /**
      * Setter to set the indicator type.
-     * @param {string} indicator Progress (optionally large) or status.
+     * @param indicator Progress (optionally large) or status.
      */
     set indicator(indicator) {
         this.setAttribute('indicator', indicator);
@@ -17799,13 +17621,11 @@ class PanelItem extends HTMLElement {
      *  Getter for the progress indicator.
      */
     get indicator() {
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('indicator');
+        return this.getAttribute('indicator') ?? '';
     }
     /**
      * Setter to set the success/failure indication.
-     * @param {string} status Status value being set.
+     * @param status Status value being set.
      */
     set status(status) {
         this.setAttribute('status', status);
@@ -17814,14 +17634,10 @@ class PanelItem extends HTMLElement {
      *  Getter for the success/failure indication.
      */
     get status() {
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('status');
+        return this.getAttribute('status') ?? '';
     }
     /**
      * Setter to set the progress property, sent to any child indicator.
-     * @param {string} progress Progress value being set.
-     * @public
      */
     set progress(progress) {
         this.setAttribute('progress', progress);
@@ -17830,51 +17646,46 @@ class PanelItem extends HTMLElement {
      *  Getter for the progress indicator percentage.
      */
     get progress() {
-        // @ts-ignore: error TS2339: Property 'progress' does not exist on type
-        // 'Element'.
-        return this.indicator_.progress || 0;
+        if (!this.indicator_ || !('progress' in this.indicator_)) {
+            return 0;
+        }
+        return parseInt(this.indicator_?.progress, 10) || 0;
     }
     /**
      * Setter to set the primary text on the panel.
-     * @param {string} text Text to be shown.
+     * @param text Text to be shown.
      */
     set primaryText(text) {
         this.setAttribute('primary-text', text);
     }
     /**
      * Getter for the primary text on the panel.
-     * @return {string}
      */
     get primaryText() {
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('primary-text');
+        return this.getAttribute('primary-text') ?? '';
     }
     /**
      * Setter to set the secondary text on the panel.
-     * @param {string} text Text to be shown.
+     * @param text Text to be shown.
      */
     set secondaryText(text) {
         this.setAttribute('secondary-text', text);
     }
     /**
      * Getter for the secondary text on the panel.
-     * @return {string}
      */
     get secondaryText() {
-        // @ts-ignore: error TS2322: Type 'string | null' is not assignable to type
-        // 'string'.
-        return this.getAttribute('secondary-text');
+        return this.getAttribute('secondary-text') ?? '';
     }
     /**
-     * @param {boolean} shouldFade Whether the secondary text should be displayed
+     * @param shouldFade Whether the secondary text should be displayed
      *     with a faded color to avoid drawing too much attention to it.
      */
     set fadeSecondaryText(shouldFade) {
         this.toggleAttribute('fade-secondary-text', shouldFade);
     }
     /**
-     * @return {boolean} Whether the secondary text should be displayed with a
+     * @return Whether the secondary text should be displayed with a
      *     faded color to avoid drawing too much attention to it.
      */
     get fadeSecondaryText() {
@@ -17882,16 +17693,13 @@ class PanelItem extends HTMLElement {
     }
     /**
      * Setter to set the panel type.
-     * @param {number} type Enum value for the panel type.
+     * @param type Enum value for the panel type.
      */
     set panelType(type) {
-        // @ts-ignore: error TS2345: Argument of type 'number' is not assignable to
-        // parameter of type 'string'.
-        this.setAttribute('panel-type', type);
+        this.setAttribute('panel-type', String(type));
     }
     /**
      * Getter for the panel type.
-     * TODO(crbug.com/947388) Add closure annotations to getters.
      */
     get panelType() {
         return this.panelType_;
@@ -17900,282 +17708,134 @@ class PanelItem extends HTMLElement {
      * Getter for the primary action button.
      */
     get primaryButton() {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         return this.shadowRoot.querySelector('#primary-action');
     }
     /**
      * Getter for the secondary action button.
      */
     get secondaryButton() {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         return this.shadowRoot.querySelector('#secondary-action');
     }
     /**
      * Getter for the panel text div.
      */
     get textDiv() {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         return this.shadowRoot.querySelector('.xf-panel-text');
     }
     /**
      * Setter to replace the default aria-label on any close button.
-     * @param {string} text Text to set for the 'aria-label'.
+     * @param text Text to set for the 'aria-label'.
      */
     set closeButtonAriaLabel(text) {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         const action = this.shadowRoot.querySelector('#secondary-action');
-        // @ts-ignore: error TS2339: Property 'dataset' does not exist on type
-        // 'Element'.
-        if (action && action.dataset.category === 'cancel') {
+        if (action && action.dataset['category'] === 'cancel') {
             action.setAttribute('aria-label', text);
         }
     }
+    set updateProgress(callback) {
+        this.updateProgress_ = callback;
+    }
+    set updateSummaryPanel(callback) {
+        this.updateSummaryPanel_ = callback;
+    }
 }
-window.customElements.define('xf-panel-item', PanelItem);
-//# sourceURL=//ui/file_manager/file_manager/foreground/elements/xf_panel_item.js
+customElements.define(PanelItem.is, PanelItem);
 
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/** @type {!HTMLTemplateElement} */
-const htmlTemplate = html$1 `<!--_html_template_start_-->
-<style>
-  :host {
-    max-width: 504px;
-    outline: none;
-  }
-  #container {
-    align-items: stretch;
-    background-color: var(--cros-sys-base_elevated);
-    border-radius: 8px;
-    box-shadow: var(--cros-elevation-2-shadow);
-    display: flex;
-    flex-direction: column;
-    max-width: min-content;
-    z-index: 100;
-  }
-  #separator {
-    background-color: var(--cros-sys-separator);
-    height: 1px;
-  }
-  /* Limit to 3 visible progress panels before scroll. */
-  #panels {
-    max-height: calc(192px + 28px);
-    overflow-y: auto;
-  }
-  xf-panel-item:not(:only-child) {
-    --progress-height: 64px;
-  }
-  xf-panel-item:not(:only-child):first-child {
-    --progress-padding-top: 14px;
-  }
-  xf-panel-item:not(:only-child):last-child {
-    --progress-padding-bottom: 14px;
-  }
-  xf-panel-item:only-child {
-    --progress-height: 68px;
-  }
-  @keyframes setcollapse {
-    0% {
-      max-height: 0;
-      max-width: 0;
-      opacity: 0;
-    }
-    75% {
-      max-height: calc(192px + 28px);
-      opacity: 0;
-      width: 504px;
-    }
-    100% {
-      max-height: calc(192px + 28px);
-      opacity: 1;
-      width: 504px;
-    }
-  }
-
-  @keyframes setexpand {
-    0% {
-      max-height: calc(192px + 28px);
-      max-width: 504px;
-      opacity: 1;
-    }
-    25% {
-      max-height: calc(192px + 28px);
-      max-width: 504px;
-      opacity: 0;
-    }
-    100% {
-      max-height: 0;
-      max-width: 0;
-      opacity: 0;
-    }
-  }
-  .expanded {
-    animation: setcollapse 200ms forwards;
-    width: 504px;
-  }
-  .collapsed {
-    animation: setexpand 200ms forwards;
-  }
-  .expanding {
-    overflow: hidden;
-  }
-  .expandfinished {
-    max-height: calc(192px + 28px);
-    opacity: 1;
-    overflow-y: auto;
-    width: 504px;
-  }
-  xf-panel-item:not(:only-child) {
-    --multi-progress-height: 92px;
-  }
-</style>
-<div id="container">
-  <div id="summary"></div>
-  <div id="separator" hidden></div>
-  <div id="panels"></div>
-</div>
-<!--_html_template_end_-->`;
 /**
  * A panel to display a collection of PanelItem.
- * @extends HTMLElement
  */
 class DisplayPanel extends HTMLElement {
+    static get is() {
+        return 'xf-display-panel';
+    }
     constructor() {
         super();
-        this.createElement_();
-        /** @private @type {?Element} */
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.summary_ = this.shadowRoot.querySelector('#summary');
-        /** @private @type {?Element} */
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.separator_ = this.shadowRoot.querySelector('#separator');
-        /** @private @type {?Element} */
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.panels_ = this.shadowRoot.querySelector('#panels');
-        // @ts-ignore: error TS7014: Function type, which lacks return-type
-        // annotation, implicitly has an 'any' return type.
-        /** @private @type {!function(!Event):void} */
-        // @ts-ignore: error TS2339: Property 'listener_' does not exist on type
-        // 'DisplayPanel'.
-        this.listener_;
         /**
          * True if the panel is collapsed to summary view.
-         * @type {boolean}
-         * @private
          */
         this.collapsed_ = true;
         /**
          * Collection of PanelItems hosted in this DisplayPanel.
-         * @type {!Array<PanelItem>}
-         * @private
          */
         this.items_ = [];
+        this.toggleSummaryBound_ = this.toggleSummary_.bind(this);
+        this.createElement_();
+        this.summary_ = this.shadowRoot.querySelector('#summary');
+        this.separator_ =
+            this.shadowRoot.querySelector('#separator');
+        this.panels_ = this.shadowRoot.querySelector('#panels');
     }
     /**
      * Creates an instance of DisplayPanel, attaching the template clone.
-     * @private
      */
     createElement_() {
-        const fragment = htmlTemplate.content.cloneNode(true);
+        const template = document.createElement('template');
+        template.innerHTML = getTemplate$4();
+        const fragment = template.content.cloneNode(true);
         this.attachShadow({ mode: 'open' }).appendChild(fragment);
     }
     /**
      * We cannot set attributes in the constructor for custom elements when using
      * `createElement()`. Set attributes in the connected callback instead.
-     * @private
      */
-    // @ts-ignore: error TS6133: 'connectedCallback' is declared but its value is
-    // never read.
     connectedCallback() {
         this.setAriaHidden_();
     }
     /**
-     * Get the custom element template string.
-     * @private
-     * @return {string}
-     */
-    // @ts-ignore: error TS6133: 'html_' is declared but its value is never read.
-    static html_() {
-        return `<!--_html_template_start_-->
-    <!--_html_template_end_-->`;
-    }
-    /**
      * Re-enable scrollbar visibility after expand/contract animation.
-     * @param {!Event} event
      */
-    // @ts-ignore: error TS6133: 'event' is declared but its value is never read.
-    panelExpandFinished(event) {
-        this.classList.remove('expanding');
-        this.classList.add('expandfinished');
-        // @ts-ignore: error TS2339: Property 'listener_' does not exist on type
-        // 'DisplayPanel'.
-        this.removeEventListener('animationend', this.listener_);
+    panelExpandFinished_(_) {
+        this.panels_.classList.remove('expanding');
+        this.panels_.classList.add('expandfinished');
     }
     /**
      * Hides the active panel items at end of collapse animation.
-     * @param {!Event} event
      */
-    // @ts-ignore: error TS6133: 'event' is declared but its value is never read.
-    panelCollapseFinished(event) {
-        this.hidden = true;
-        this.setAttribute('aria-hidden', 'true');
-        this.classList.remove('expanding');
-        this.classList.add('expandfinished');
-        // @ts-ignore: error TS2339: Property 'listener_' does not exist on type
-        // 'DisplayPanel'.
-        this.removeEventListener('animationend', this.listener_);
+    panelCollapseFinished_(_) {
+        this.panels_.hidden = true;
+        this.panels_.setAttribute('aria-hidden', 'true');
+        this.panels_.classList.remove('expanding');
+        this.panels_.classList.add('expandfinished');
     }
     /**
      * Set attributes and style for expanded summary panel.
-     * @private
      */
-    // @ts-ignore: error TS7006: Parameter 'expandButton' implicitly has an 'any'
-    // type.
     setSummaryExpandedState(expandButton) {
         expandButton.setAttribute('data-category', 'collapse');
         expandButton.setAttribute('aria-label', str('FEEDBACK_COLLAPSE_LABEL'));
         expandButton.setAttribute('aria-expanded', 'true');
-        // @ts-ignore: error TS2339: Property 'hidden' does not exist on type
-        // 'Element'.
         this.panels_.hidden = false;
-        // @ts-ignore: error TS2339: Property 'hidden' does not exist on type
-        // 'Element'.
         this.separator_.hidden = false;
     }
     /**
      * Event handler to toggle the visible state of panel items.
-     * @private
      */
-    // @ts-ignore: error TS7006: Parameter 'event' implicitly has an 'any' type.
-    toggleSummary(event) {
-        const panel = event.currentTarget.parent;
-        const summaryPanel = panel.summary_.querySelector('xf-panel-item');
+    toggleSummary_(_) {
+        const summaryPanel = this.summary_.querySelector('xf-panel-item');
         const expandButton = summaryPanel.shadowRoot.querySelector('#primary-action');
-        if (panel.collapsed_) {
-            panel.collapsed_ = false;
-            panel.setSummaryExpandedState(expandButton);
-            panel.panels_.listener_ = panel.panelExpandFinished;
-            panel.panels_.addEventListener('animationend', panel.panelExpandFinished);
-            panel.panels_.setAttribute('class', 'expanded expanding');
+        if (this.collapsed_) {
+            this.collapsed_ = false;
+            this.setSummaryExpandedState(expandButton);
+            this.panels_.addEventListener('animationend', this.panelExpandFinished_.bind(this), { once: true });
+            this.panels_.setAttribute('class', 'expanded expanding');
             summaryPanel.setAttribute('data-category', 'expanded');
         }
         else {
-            panel.collapsed_ = true;
+            this.collapsed_ = true;
             expandButton.setAttribute('data-category', 'expand');
             expandButton.setAttribute('aria-label', str('FEEDBACK_EXPAND_LABEL'));
             expandButton.setAttribute('aria-expanded', 'false');
-            panel.separator_.hidden = true;
-            panel.panels_.listener_ = panel.panelCollapseFinished;
-            panel.panels_.addEventListener('animationend', panel.panelCollapseFinished);
-            panel.panels_.setAttribute('class', 'collapsed expanding');
+            this.separator_.hidden = true;
+            this.panels_.addEventListener('animationend', this.panelCollapseFinished_.bind(this), { once: true });
+            this.panels_.setAttribute('class', 'collapsed expanding');
             summaryPanel.setAttribute('data-category', 'collapsed');
         }
     }
     /**
      * Get an array of panel items that are connected to the DOM.
-     * @return {!Array<PanelItem>}
-     * @private
      */
     connectedPanelItems_() {
         return this.items_.filter(item => item.isConnected);
@@ -18195,23 +17855,22 @@ class DisplayPanel extends HTMLElement {
         const connectedPanels = this.connectedPanelItems_();
         for (const panel of connectedPanels) {
             // Only sum progress for attached progress panels.
-            if (panel.panelType === panel.panelTypeProgress ||
-                panel.panelType === panel.panelTypeFormatProgress ||
-                panel.panelType === panel.panelTypeSyncProgress) {
+            if (panel.panelType === PanelType.PROGRESS ||
+                panel.panelType === PanelType.FORMAT_PROGRESS ||
+                panel.panelType === PanelType.SYNC_PROGRESS) {
                 total += Number(panel.progress);
                 progressCount++;
             }
-            else if (panel.panelType === panel.panelTypeError) {
+            else if (panel.panelType === PanelType.ERROR) {
                 errors++;
             }
-            else if (panel.panelType === panel.panelTypeInfo) {
+            else if (panel.panelType === PanelType.INFO) {
                 warnings++;
             }
         }
         if (progressCount > 0) {
             total /= progressCount;
         }
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         const summaryPanel = this.summary_.querySelector('xf-panel-item');
         if (!summaryPanel) {
             return;
@@ -18220,61 +17879,32 @@ class DisplayPanel extends HTMLElement {
         // error) if no operations are ongoing.
         if (progressCount > 0) {
             // Make sure we have a progress indicator on the summary panel.
-            // @ts-ignore: error TS2339: Property 'indicator' does not exist on type
-            // 'Element'.
             if (summaryPanel.indicator != 'largeprogress') {
-                // @ts-ignore: error TS2339: Property 'indicator' does not exist on type
-                // 'Element'.
                 summaryPanel.indicator = 'largeprogress';
             }
-            // @ts-ignore: error TS2339: Property 'primaryText' does not exist on type
-            // 'Element'.
-            summaryPanel.primaryText =
-                util.strf('PERCENT_COMPLETE', total.toFixed(0));
-            // @ts-ignore: error TS2339: Property 'progress' does not exist on type
-            // 'Element'.
-            summaryPanel.progress = total;
-            // @ts-ignore: error TS2345: Argument of type 'number' is not assignable
-            // to parameter of type 'string'.
-            summaryPanel.setAttribute('count', progressCount);
-            // @ts-ignore: error TS2339: Property 'errorMarkerVisibility' does not
-            // exist on type 'Element'.
+            summaryPanel.primaryText = strf('PERCENT_COMPLETE', total.toFixed(0));
+            summaryPanel.progress = String(total);
+            summaryPanel.setAttribute('count', String(progressCount));
             summaryPanel.errorMarkerVisibility = (errors > 0) ? 'visible' : 'hidden';
             return;
         }
-        // @ts-ignore: error TS2339: Property 'indicator' does not exist on type
-        // 'Element'.
         if (summaryPanel.indicator != 'status') {
             // Make sure we have a status indicator on the summary panel.
-            // @ts-ignore: error TS2339: Property 'indicator' does not exist on type
-            // 'Element'.
             summaryPanel.indicator = 'status';
         }
         if (errors > 0 && warnings > 0) {
             // Both errors and warnings: show the error indicator, along with counts
             // of both.
-            // @ts-ignore: error TS2339: Property 'status' does not exist on type
-            // 'Element'.
             summaryPanel.status = 'failure';
-            // @ts-ignore: error TS2339: Property 'primaryText' does not exist on type
-            // 'Element'.
-            summaryPanel.primaryText =
-                util.strf('ERROR_PROGRESS_SUMMARY_PLURAL', errors) + ' ' +
-                    this.generateWarningMessage_(warnings);
+            summaryPanel.primaryText = this.generateErrorMessage_(errors) + ' ' +
+                this.generateWarningMessage_(warnings);
             return;
         }
         if (errors > 0) {
             // Only errors, but no warnings.
-            // @ts-ignore: error TS2339: Property 'status' does not exist on type
-            // 'Element'.
             summaryPanel.status = 'failure';
-            // @ts-ignore: error TS2339: Property 'primaryText' does not exist on type
-            // 'Element'.
-            summaryPanel.primaryText =
-                util.strf('ERROR_PROGRESS_SUMMARY_PLURAL', errors);
+            summaryPanel.primaryText = this.generateErrorMessage_(errors);
             if (warnings > 0) {
-                // @ts-ignore: error TS2339: Property 'primaryText' does not exist on
-                // type 'Element'.
                 summaryPanel.primaryText +=
                     ' ' + this.generateWarningMessage_(warnings);
             }
@@ -18282,30 +17912,20 @@ class DisplayPanel extends HTMLElement {
         }
         if (warnings > 0) {
             // Only warnings, but no errors.
-            // @ts-ignore: error TS2339: Property 'status' does not exist on type
-            // 'Element'.
             summaryPanel.status = 'warning';
-            // @ts-ignore: error TS2339: Property 'primaryText' does not exist on type
-            // 'Element'.
             summaryPanel.primaryText = this.generateWarningMessage_(warnings);
             return;
         }
         // No errors or warnings.
-        // @ts-ignore: error TS2339: Property 'status' does not exist on type
-        // 'Element'.
         summaryPanel.status = 'success';
-        // @ts-ignore: error TS2339: Property 'primaryText' does not exist on type
-        // 'Element'.
-        summaryPanel.primaryText = util.strf('PERCENT_COMPLETE', 100);
+        summaryPanel.primaryText = strf('PERCENT_COMPLETE', 100);
     }
     /**
      * Update the summary panel.
      * @public
      */
     updateSummaryPanel() {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         const summaryHost = this.shadowRoot.querySelector('#summary');
-        // @ts-ignore: error TS18047: 'summaryHost' is possibly 'null'.
         let summaryPanel = summaryHost.querySelector('#summary-panel');
         // Make the display panel available by tab if there are panels to
         // show and there's an aria-label for use by a screen reader.
@@ -18316,64 +17936,43 @@ class DisplayPanel extends HTMLElement {
         const count = this.connectedPanelItems_().length;
         // If there's only one panel item active, no need for summary.
         if (count <= 1 && summaryPanel) {
-            // @ts-ignore: error TS2339: Property 'primaryButton' does not exist on
-            // type 'Element'.
             const button = summaryPanel.primaryButton;
             if (button) {
-                button.removeEventListener('click', this.toggleSummary);
+                button.removeEventListener('click', this.toggleSummaryBound_);
             }
             // For transfer summary details.
-            // @ts-ignore: error TS2339: Property 'textDiv' does not exist on type
-            // 'Element'.
             const textDiv = summaryPanel.textDiv;
             if (textDiv) {
-                textDiv.removeEventListener('click', this.toggleSummary);
+                textDiv.removeEventListener('click', this.toggleSummaryBound_);
             }
             summaryPanel.remove();
-            // @ts-ignore: error TS2339: Property 'hidden' does not exist on type
-            // 'Element'.
             this.panels_.hidden = false;
-            // @ts-ignore: error TS2339: Property 'hidden' does not exist on type
-            // 'Element'.
             this.separator_.hidden = true;
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
             this.panels_.classList.remove('collapsed');
             return;
         }
         // Show summary panel if there are more than 1 panel items.
         if (count > 1 && !summaryPanel) {
             summaryPanel = document.createElement('xf-panel-item');
-            // @ts-ignore: error TS2345: Argument of type 'number' is not assignable
-            // to parameter of type 'string'.
-            summaryPanel.setAttribute('panel-type', 1);
+            summaryPanel.panelType = PanelType.SUMMARY;
             summaryPanel.id = 'summary-panel';
             summaryPanel.setAttribute('detailed-summary', '');
-            // @ts-ignore: error TS2339: Property 'primaryButton' does not exist on
-            // type 'Element'.
             const button = summaryPanel.primaryButton;
             if (button) {
-                button.parent = this;
-                button.addEventListener('click', this.toggleSummary);
+                button.addEventListener('click', this.toggleSummaryBound_);
             }
-            // @ts-ignore: error TS2339: Property 'textDiv' does not exist on type
-            // 'Element'.
             const textDiv = summaryPanel.textDiv;
             if (textDiv) {
-                textDiv.parent = this;
-                textDiv.addEventListener('click', this.toggleSummary);
+                textDiv.addEventListener('click', this.toggleSummaryBound_);
             }
-            // @ts-ignore: error TS18047: 'summaryHost' is possibly 'null'.
             summaryHost.appendChild(summaryPanel);
             // Setup the panels based on expand/collapse state of the summary panel.
             if (this.collapsed_) {
-                // @ts-ignore: error TS2339: Property 'hidden' does not exist on type
-                // 'Element'.
                 this.panels_.hidden = true;
                 summaryPanel.setAttribute('data-category', 'collapsed');
             }
             else {
                 this.setSummaryExpandedState(button);
-                // @ts-ignore: error TS2531: Object is possibly 'null'.
                 this.panels_.classList.add('expandfinished');
                 summaryPanel.setAttribute('data-category', 'expanded');
             }
@@ -18384,34 +17983,26 @@ class DisplayPanel extends HTMLElement {
     }
     /**
      * Create a panel item suitable for attaching to our display panel.
-     * @param {string} id The identifier attached to this panel.
-     * @return {PanelItem}
-     * @public
+     * @param id The identifier attached to this panel.
      */
     createPanelItem(id) {
         const panel = document.createElement('xf-panel-item');
         panel.id = id;
-        // Set the containing parent so the child panel can
-        // trigger updates in the parent (e.g. progress summary %).
-        // @ts-ignore: error TS2551: Property 'parent' does not exist on type
-        // 'HTMLElement'. Did you mean 'part'?
-        panel.parent = this;
+        panel.updateProgress = this.updateProgress.bind(this);
+        panel.updateSummaryPanel = this.updateSummaryPanel.bind(this);
         panel.setAttribute('indicator', 'progress');
-        this.items_.push(/** @type {!PanelItem} */ (panel));
+        this.items_.push(panel);
         this.setAriaHidden_();
         this.setAttribute('detailed-panel', 'detailed-panel');
-        return /** @type {!PanelItem} */ (panel);
+        return panel;
     }
     /**
      * Attach a panel item element inside our display panel.
-     * @param {PanelItem} panel The panel item to attach.
-     * @public
+     * @param panel The panel item to attach.
      */
     attachPanelItem(panel) {
-        const displayPanel = panel.parent;
         // Only attach the panel if it hasn't been removed.
-        // @ts-ignore: error TS18047: 'displayPanel' is possibly 'null'.
-        const index = displayPanel.items_.indexOf(panel);
+        const index = this.items_.indexOf(panel);
         if (index === -1) {
             return;
         }
@@ -18419,26 +18010,22 @@ class DisplayPanel extends HTMLElement {
         if (panel.isConnected) {
             return;
         }
-        // @ts-ignore: error TS18047: 'displayPanel.panels_' is possibly 'null'.
-        displayPanel.panels_.appendChild(panel);
-        // @ts-ignore: error TS18047: 'displayPanel' is possibly 'null'.
-        displayPanel.updateSummaryPanel();
+        this.panels_.appendChild(panel);
+        this.updateSummaryPanel();
         this.setAriaHidden_();
     }
     /**
      * Add a panel entry element inside our display panel.
-     * @param {string} id The identifier attached to this panel.
-     * @return {PanelItem}
-     * @public
+     * @param id The identifier attached to this panel.
      */
     addPanelItem(id) {
         const panel = this.createPanelItem(id);
         this.attachPanelItem(panel);
-        return /** @type {!PanelItem} */ (panel);
+        return panel;
     }
     /**
      * Remove a panel from this display panel.
-     * @param {PanelItem} item The PanelItem to remove.
+     * @param item The PanelItem to remove.
      * @public
      */
     removePanelItem(item) {
@@ -18453,19 +18040,14 @@ class DisplayPanel extends HTMLElement {
     }
     /**
      * Set aria-hidden to false if there is no panel.
-     * @private
      */
     setAriaHidden_() {
         const hasItems = this.connectedPanelItems_().length > 0;
-        // @ts-ignore: error TS2345: Argument of type 'boolean' is not assignable to
-        // parameter of type 'string'.
-        this.setAttribute('aria-hidden', !hasItems);
+        this.setAttribute('aria-hidden', String(!hasItems));
     }
     /**
      * Find a panel with given 'id'.
-     * @public
      */
-    // @ts-ignore: error TS7006: Parameter 'id' implicitly has an 'any' type.
     findPanelItemById(id) {
         for (const item of this.items_) {
             if (item.getAttribute('id') === id) {
@@ -18476,7 +18058,6 @@ class DisplayPanel extends HTMLElement {
     }
     /**
      * Remove all panel items.
-     * @public
      */
     removeAllPanelItems() {
         for (const item of this.items_) {
@@ -18487,10 +18068,22 @@ class DisplayPanel extends HTMLElement {
         this.updateSummaryPanel();
     }
     /**
+     * Generates the summary panel title message based on the number of errors.
+     * @param errors Number of error subpanels.
+     * @return Title text.
+     */
+    generateErrorMessage_(errors) {
+        if (errors <= 0) {
+            console.warn(`generateWarningMessage_ expected errors > 0, but got ${errors}.`);
+            return '';
+        }
+        return errors == 1 ? str('ERROR_PROGRESS_SUMMARY_SINGLE') :
+            strf('ERROR_PROGRESS_SUMMARY_PLURAL', errors);
+    }
+    /**
      * Generates the summary panel title message based on the number of warnings.
-     * @param {number} warnings Number of warning subpanels.
-     * @returns {string} Title text.
-     * @private
+     * @param warnings Number of warning subpanels.
+     * @return Title text.
      */
     generateWarningMessage_(warnings) {
         if (warnings <= 0) {
@@ -18501,8 +18094,7 @@ class DisplayPanel extends HTMLElement {
             strf('WARNING_PROGRESS_SUMMARY_PLURAL', warnings);
     }
 }
-window.customElements.define('xf-display-panel', DisplayPanel);
-//# sourceURL=//ui/file_manager/file_manager/foreground/elements/xf_display_panel.js
+window.customElements.define(DisplayPanel.is, DisplayPanel);
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -18515,21 +18107,19 @@ window.customElements.define('xf-display-panel', DisplayPanel);
  * Verifies name for file, folder, or removable root to be created or renamed.
  * Names are restricted according to the target filesystem.
  *
- * @param {!Entry} entry The entry to be named.
- * @param {string} name New file, folder, or removable root name.
- * @param {boolean} areHiddenFilesVisible Whether to report hidden file
- *     name errors or not.
- * @param {?import("../../externs/volume_info.js").VolumeInfo} volumeInfo Volume
- *     information about the target entry.
- * @param {boolean} isRemovableRoot Whether the target is a removable root.
- * @return {!Promise<void>} Fulfills on success, throws error message otherwise.
+ * @param entry The entry to be named.
+ * @param name New file, folder, or removable root name.
+ * @param areHiddenFilesVisible Whether to report hidden file name errors or
+ *     not.
+ * @param volumeInfo Volume information about the target entry.
+ * @param isRemovableRoot Whether the target is a removable root.
+ * @return Fulfills on success, throws error message otherwise.
  */
 async function validateEntryName(entry, name, areHiddenFilesVisible, volumeInfo, isRemovableRoot) {
     if (isRemovableRoot) {
         const diskFileSystemType = volumeInfo && volumeInfo.diskFileSystemType;
-        // @ts-ignore: error TS2345: Argument of type 'string | null' is not
-        // assignable to parameter of type 'string'.
-        validateExternalDriveName(name, assert$1(diskFileSystemType));
+        assert$1(diskFileSystemType);
+        validateExternalDriveName(name, diskFileSystemType);
     }
     else {
         const parentEntry = await getParentEntry(entry);
@@ -18545,35 +18135,25 @@ async function validateEntryName(entry, name, areHiddenFilesVisible, volumeInfo,
  *
  * This function throws if the new label is invalid, else it completes.
  *
- * @param {string} name New external drive name.
- * @param {!VolumeManagerCommon.FileSystemType} fileSystem
+ * @param name New external drive name.
  */
 function validateExternalDriveName(name, fileSystem) {
     // Verify if entered name for external drive respects restrictions
     // provided by the target filesystem.
     const nameLength = name.length;
-    const lengthLimit = VolumeManagerCommon.FileSystemTypeVolumeNameLengthLimit;
+    const lengthLimit = FileSystemTypeVolumeNameLengthLimit;
     // Verify length for the target file system type.
     if (lengthLimit.hasOwnProperty(fileSystem) &&
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{ vfat:
-        // number; exfat: number; ntfs: number; }'.
         nameLength > lengthLimit[fileSystem]) {
-        throw Error(
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-        // because expression of type 'string' can't be used to index type '{
-        // vfat: number; exfat: number; ntfs: number; }'.
-        strf('ERROR_EXTERNAL_DRIVE_LONG_NAME', lengthLimit[fileSystem]));
+        throw Error(strf('ERROR_EXTERNAL_DRIVE_LONG_NAME', lengthLimit[fileSystem]));
     }
     // Checks if the name contains only alphanumeric characters or allowed
     // special characters. This needs to stay in sync with
     // cros-disks/filesystem_label.cc on the ChromeOS side.
     const validCharRegex = /[a-zA-Z0-9 \!\#\$\%\&\(\)\-\@\^\_\`\{\}\~]/;
-    for (let i = 0; i < nameLength; i++) {
-        // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
-        // assignable to parameter of type 'string'.
-        if (!validCharRegex.test(name[i])) {
-            throw Error(strf('ERROR_EXTERNAL_DRIVE_INVALID_CHARACTER', name[i]));
+    for (const n of name) {
+        if (!validCharRegex.test(n)) {
+            throw Error(strf('ERROR_EXTERNAL_DRIVE_INVALID_CHARACTER', n));
         }
     }
 }
@@ -18587,11 +18167,11 @@ function validateExternalDriveName(name, fileSystem) {
  *
  * It also verifies if the name length is in the limit of the filesystem.
  *
- * @param {!DirectoryEntry} parentEntry The entry of the parent directory.
- * @param {string} name New file or folder name.
- * @param {boolean} areHiddenFilesVisible Whether to report the hidden file
- *     name error or not.
- * @return {!Promise<void>} Fulfills on success, throws error message otherwise.
+ * @param parentEntry The entry of the parent directory.
+ * @param name New file or folder name.
+ * @param areHiddenFilesVisible Whether to report the hidden file name error or
+ *     not.
+ * @return Fulfills on success, throws error message otherwise.
  */
 async function validateFileName(parentEntry, name, areHiddenFilesVisible) {
     const testResult = /[\/\\\<\>\:\?\*\"\|]/.exec(name);
@@ -18617,17 +18197,14 @@ async function validateFileName(parentEntry, name, areHiddenFilesVisible) {
 }
 /**
  * Renames file, folder, or removable root with newName.
- * @param {!Entry} entry The entry to be renamed.
- * @param {string} newName The new name.
- * @param {?import("../../externs/volume_info.js").VolumeInfo} volumeInfo Volume
- *     information about the target entry.
- * @param {boolean} isRemovableRoot Whether the target is a removable root.
- * @return {!Promise<!Entry>} Resolves the renamed entry if successful, else
- * throws error message.
+ * @param entry The entry to be renamed.
+ * @param newName The new name.
+ * @param volumeInfo Volume information about the target entry.
+ * @param isRemovableRoot Whether the target is a removable root.
+ * @return Resolves the renamed entry if successful, else throws error message.
  */
 async function renameEntry(entry, newName, volumeInfo, isRemovableRoot) {
     if (isRemovableRoot) {
-        // @ts-ignore: error TS18047: 'volumeInfo' is possibly 'null'.
         chrome.fileManagerPrivate.renameVolume(volumeInfo.volumeId, newName);
         return entry;
     }
@@ -18635,10 +18212,9 @@ async function renameEntry(entry, newName, volumeInfo, isRemovableRoot) {
 }
 /**
  * Renames the entry to newName.
- * @param {!Entry} entry The entry to be renamed.
- * @param {string} newName The new name.
- * @return {!Promise<!Entry>} Resolves the renamed entry if successful, else
- * throws error message.
+ * @param entry The entry to be renamed.
+ * @param newName The new name.
+ * @return Resolves the renamed entry if successful, else throws error message.
  */
 async function renameFile(entry, newName) {
     try {
@@ -18653,33 +18229,26 @@ async function renameFile(entry, newName) {
             await getEntry(parent, newName, entry.isFile, { create: false });
         }
         catch (error) {
-            // @ts-ignore: error TS18046: 'error' is of type 'unknown'.
-            if (error.name == util.FileError.NOT_FOUND_ERR) {
+            if (error.name == FileErrorToDomError.NOT_FOUND_ERR) {
                 return moveEntryTo(entry, parent, newName);
             }
             // Unexpected error found.
             throw error;
         }
         // The entry with the name already exists.
-        throw createDOMError(util.FileError.PATH_EXISTS_ERR);
+        throw createDOMError(FileErrorToDomError.PATH_EXISTS_ERR);
     }
     catch (error) {
-        // @ts-ignore: error TS2345: Argument of type 'unknown' is not assignable to
-        // parameter of type 'DOMError'.
         throw getRenameErrorMessage(error, entry, newName);
     }
 }
 /**
  * Converts DOMError response from renameEntry() to error message.
- * @param {DOMError} error
- * @param {!Entry} entry
- * @param {string} newName
- * @return {!Error}
  */
 function getRenameErrorMessage(error, entry, newName) {
     if (error &&
-        (error.name == util.FileError.PATH_EXISTS_ERR ||
-            error.name == util.FileError.TYPE_MISMATCH_ERR)) {
+        (error.name == FileErrorToDomError.PATH_EXISTS_ERR ||
+            error.name == FileErrorToDomError.TYPE_MISMATCH_ERR)) {
         // Check the existing entry is file or not.
         // 1) If the entry is a file:
         //   a) If we get PATH_EXISTS_ERR, a file exists.
@@ -18687,13 +18256,13 @@ function getRenameErrorMessage(error, entry, newName) {
         // 2) If the entry is a directory:
         //   a) If we get PATH_EXISTS_ERR, a directory exists.
         //   b) If we get TYPE_MISMATCH_ERR, a file exists.
-        return Error(strf((entry.isFile && error.name == util.FileError.PATH_EXISTS_ERR) ||
+        return Error(strf((entry.isFile && error.name == FileErrorToDomError.PATH_EXISTS_ERR) ||
             (!entry.isFile &&
-                error.name == util.FileError.TYPE_MISMATCH_ERR) ?
+                error.name == FileErrorToDomError.TYPE_MISMATCH_ERR) ?
             'FILE_ALREADY_EXISTS' :
             'DIRECTORY_ALREADY_EXISTS', newName));
     }
-    return Error(strf('ERROR_RENAMING', entry.name, util.getFileErrorString(error.name)));
+    return Error(strf('ERROR_RENAMING', entry.name, getFileErrorString(error.name)));
 }
 
 function getTemplate$1() {
@@ -18893,272 +18462,6 @@ class FilesToast extends PolymerElement {
     }
 }
 customElements.define(FilesToast.is, FilesToast);
-// # sourceURL=//ui/file_manager/file_manager/foreground/elements/files_toast.ts
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
-/**
- * The `iron-iconset-svg` element allows users to define their own icon sets
- * that contain svg icons. The svg icon elements should be children of the
- * `iron-iconset-svg` element. Multiple icons should be given distinct id's.
- *
- * Using svg elements to create icons has a few advantages over traditional
- * bitmap graphics like jpg or png. Icons that use svg are vector based so
- * they are resolution independent and should look good on any device. They
- * are stylable via css. Icons can be themed, colorized, and even animated.
- *
- * Example:
- *
- *     <iron-iconset-svg name="my-svg-icons" size="24">
- *       <svg>
- *         <defs>
- *           <g id="shape">
- *             <rect x="12" y="0" width="12" height="24" />
- *             <circle cx="12" cy="12" r="12" />
- *           </g>
- *         </defs>
- *       </svg>
- *     </iron-iconset-svg>
- *
- * This will automatically register the icon set "my-svg-icons" to the iconset
- * database.  To use these icons from within another element, make a
- * `iron-iconset` element and call the `byId` method
- * to retrieve a given iconset. To apply a particular icon inside an
- * element use the `applyIcon` method. For example:
- *
- *     iconset.applyIcon(iconNode, 'car');
- *
- * @element iron-iconset-svg
- * @demo demo/index.html
- * @implements {Polymer.Iconset}
- */
-Polymer({
-  is: 'iron-iconset-svg',
-
-  properties: {
-
-    /**
-     * The name of the iconset.
-     */
-    name: {type: String, observer: '_nameChanged'},
-
-    /**
-     * The size of an individual icon. Note that icons must be square.
-     */
-    size: {type: Number, value: 24},
-
-    /**
-     * Set to true to enable mirroring of icons where specified when they are
-     * stamped. Icons that should be mirrored should be decorated with a
-     * `mirror-in-rtl` attribute.
-     *
-     * NOTE: For performance reasons, direction will be resolved once per
-     * document per iconset, so moving icons in and out of RTL subtrees will
-     * not cause their mirrored state to change.
-     */
-    rtlMirroring: {type: Boolean, value: false},
-
-    /**
-     * Set to true to measure RTL based on the dir attribute on the body or
-     * html elements (measured on document.body or document.documentElement as
-     * available).
-     */
-    useGlobalRtlAttribute: {type: Boolean, value: false}
-  },
-
-  created: function() {
-    this._meta = new IronMeta({type: 'iconset', key: null, value: null});
-  },
-
-  attached: function() {
-    this.style.display = 'none';
-  },
-
-  /**
-   * Construct an array of all icon names in this iconset.
-   *
-   * @return {!Array} Array of icon names.
-   */
-  getIconNames: function() {
-    this._icons = this._createIconMap();
-    return Object.keys(this._icons).map(function(n) {
-      return this.name + ':' + n;
-    }, this);
-  },
-
-  /**
-   * Applies an icon to the given element.
-   *
-   * An svg icon is prepended to the element's shadowRoot if it exists,
-   * otherwise to the element itself.
-   *
-   * If RTL mirroring is enabled, and the icon is marked to be mirrored in
-   * RTL, the element will be tested (once and only once ever for each
-   * iconset) to determine the direction of the subtree the element is in.
-   * This direction will apply to all future icon applications, although only
-   * icons marked to be mirrored will be affected.
-   *
-   * @method applyIcon
-   * @param {Element} element Element to which the icon is applied.
-   * @param {string} iconName Name of the icon to apply.
-   * @return {?Element} The svg element which renders the icon.
-   */
-  applyIcon: function(element, iconName) {
-    // Remove old svg element
-    this.removeIcon(element);
-    // install new svg element
-    var svg = this._cloneIcon(
-        iconName, this.rtlMirroring && this._targetIsRTL(element));
-    if (svg) {
-      // insert svg element into shadow root, if it exists
-      var pde = dom(element.root || element);
-      pde.insertBefore(svg, pde.childNodes[0]);
-      return element._svgIcon = svg;
-    }
-    return null;
-  },
-
-  /**
-   * Produce installable clone of the SVG element matching `id` in this
-   * iconset, or `undefined` if there is no matching element.
-   * @param {string} iconName Name of the icon to apply.
-   * @param {boolean} targetIsRTL Whether the target element is RTL.
-   * @return {Element} Returns an installable clone of the SVG element
-   *     matching `id`.
-   */
-  createIcon: function(iconName, targetIsRTL) {
-    return this._cloneIcon(iconName, this.rtlMirroring && targetIsRTL);
-  },
-
-  /**
-   * Remove an icon from the given element by undoing the changes effected
-   * by `applyIcon`.
-   *
-   * @param {Element} element The element from which the icon is removed.
-   */
-  removeIcon: function(element) {
-    // Remove old svg element
-    if (element._svgIcon) {
-      dom(element.root || element).removeChild(element._svgIcon);
-      element._svgIcon = null;
-    }
-  },
-
-  /**
-   * Measures and memoizes the direction of the element. Note that this
-   * measurement is only done once and the result is memoized for future
-   * invocations.
-   */
-  _targetIsRTL: function(target) {
-    if (this.__targetIsRTL == null) {
-      if (this.useGlobalRtlAttribute) {
-        var globalElement =
-            (document.body && document.body.hasAttribute('dir')) ?
-            document.body :
-            document.documentElement;
-
-        this.__targetIsRTL = globalElement.getAttribute('dir') === 'rtl';
-      } else {
-        if (target && target.nodeType !== Node.ELEMENT_NODE) {
-          target = target.host;
-        }
-
-        this.__targetIsRTL =
-            target && window.getComputedStyle(target)['direction'] === 'rtl';
-      }
-    }
-
-    return this.__targetIsRTL;
-  },
-
-  /**
-   *
-   * When name is changed, register iconset metadata
-   *
-   */
-  _nameChanged: function() {
-    this._meta.value = null;
-    this._meta.key = this.name;
-    this._meta.value = this;
-
-    this.async(function() {
-      this.fire('iron-iconset-added', this, {node: window});
-    });
-  },
-
-  /**
-   * Create a map of child SVG elements by id.
-   *
-   * @return {!Object} Map of id's to SVG elements.
-   */
-  _createIconMap: function() {
-    // Objects chained to Object.prototype (`{}`) have members. Specifically,
-    // on FF there is a `watch` method that confuses the icon map, so we
-    // need to use a null-based object here.
-    var icons = Object.create(null);
-    dom(this).querySelectorAll('[id]').forEach(function(icon) {
-      icons[icon.id] = icon;
-    });
-    return icons;
-  },
-
-  /**
-   * Produce installable clone of the SVG element matching `id` in this
-   * iconset, or `undefined` if there is no matching element.
-   *
-   * @return {Element} Returns an installable clone of the SVG element
-   * matching `id`.
-   */
-  _cloneIcon: function(id, mirrorAllowed) {
-    // create the icon map on-demand, since the iconset itself has no discrete
-    // signal to know when it's children are fully parsed
-    this._icons = this._icons || this._createIconMap();
-    return this._prepareSvgClone(this._icons[id], this.size, mirrorAllowed);
-  },
-
-  /**
-   * @param {Element} sourceSvg
-   * @param {number} size
-   * @param {Boolean} mirrorAllowed
-   * @return {Element}
-   */
-  _prepareSvgClone: function(sourceSvg, size, mirrorAllowed) {
-    if (sourceSvg) {
-      var content = sourceSvg.cloneNode(true),
-          svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
-          viewBox =
-              content.getAttribute('viewBox') || '0 0 ' + size + ' ' + size,
-          cssText =
-              'pointer-events: none; display: block; width: 100%; height: 100%;';
-
-      if (mirrorAllowed && content.hasAttribute('mirror-in-rtl')) {
-        cssText +=
-            '-webkit-transform:scale(-1,1);transform:scale(-1,1);transform-origin:center;';
-      }
-
-      svg.setAttribute('viewBox', viewBox);
-      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-      svg.setAttribute('focusable', 'false');
-      // TODO(dfreedm): `pointer-events: none` works around
-      // https://crbug.com/370136
-      // TODO(sjmiles): inline style may not be ideal, but avoids requiring a
-      // shadow-root
-      svg.style.cssText = cssText;
-      svg.appendChild(content).removeAttribute('id');
-      return svg;
-    }
-    return null;
-  }
-
-});
-
-export { entriesToURLs as $, AsyncQueue as A, promisify as B, removeVolume as C, isSameFileSystem as D, isFakeEntry as E, FakeEntryImpl as F, isTeamDriveRoot as G, isComputersRoot as H, recordInterval as I, isFuseBoxDebugEnabled as J, AllowedPaths as K, isNative as L, parseTrashInfoFiles as M, NativeEventTarget as N, recordMediumCount as O, isFileEntry as P, isDirectoryEntry as Q, RateLimiter as R, assertInstanceof$1 as S, SearchRecency as T, FileType as U, VolumeManagerCommon as V, assertNotReached$1 as W, XfBase as X, isDlpEnabled as Y, getDlpMetadata as Z, __decorate$1 as _, requestUpdateOnAriaChange as a, recordBoolean as a$, isTrashEntry as a0, compareName as a1, compareLabel as a2, createDOMError as a3, getDefaultSearchOptions as a4, readEntriesRecursively as a5, isEntryInsideDrive as a6, SearchLocation as a7, constants as a8, mountGuest as a9, isMyFilesEntry as aA, updateNavigationEntry as aB, getVolumeType as aC, readSubDirectories as aD, isEntryInsideMyDrive as aE, isEntryInsideComputers as aF, isGrandRootEntryInDrives as aG, maybeShowTooltip as aH, convertEntryToFileData as aI, getEntry$1 as aJ, driveRootEntryListKey as aK, VolumeEntry as aL, recordUserAction as aM, getTrustedHTML as aN, storage as aO, refreshFolderShortcut as aP, recordSmallCount as aQ, getPreferences as aR, comparePath as aS, addFolderShortcut as aT, removeFolderShortcut as aU, Group as aV, isJellyEnabled as aW, isDriveShortcutsEnabled as aX, queryRequiredElement as aY, DialogType as aZ, isSameVolume as a_, ConcurrentQueue as aa, dispatchPropertyChange as ab, Aggregator as ac, PropStatus as ad, convertURLsToEntries as ae, isNativeEntry as af, isOneDriveId as ag, getFileData as ah, getVolume as ai, getMyFiles as aj, changeDirectory as ak, clearSearch as al, isGuestOs as am, updateSearch as an, getPropertyDescriptor as ao, define as ap, decorate as aq, swallowDoubleClick as ar, PropertyKind as as, isTreeItem as at, isTree as au, handleTreeSlotChange as av, refreshNavigationRoots as aw, NavigationType as ax, isVolumeEntry as ay, vmTypeToIconName as az, isActivationClick as b, waitForState as b$, updateSelection as b0, assertInstanceof as b1, FocusOutlineManager as b2, mouseEnterMaybeShowTooltip as b3, getCrActionMenuTop as b4, SEARCH_RESULTS_KEY as b5, XfCloudPanel as b6, CloudPanelType as b7, isSearchEmpty as b8, PathComponent as b9, getDisallowedTransfers as bA, htmlEscape as bB, getRootType as bC, isDirectoryTree as bD, isSiblingEntry as bE, isNonModifiable as bF, grantAccess as bG, validateFileName as bH, getFile as bI, UserCanceledError as bJ, getFileTasks as bK, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR as bL, annotateTasks as bM, getDefaultTask as bN, recordTime as bO, parseActionId as bP, isFilesAppId as bQ, LEGACY_FILES_EXTENSION_ID as bR, executeTask as bS, USER_CANCELLED as bT, getDirectory as bU, updateMetadata as bV, TaskHistory as bW, getFilesData as bX, fetchFileTasks as bY, getMimeType as bZ, recordDirectoryListLoadWithTolerance as b_, recordValue as ba, isGoogleOneOfferFilesBannerEligibleAndEnabled as bb, getTeamDriveName as bc, getDriveQuotaMetadata as bd, getSizeStats as be, queryDecoratedElement as bf, getFileTypeForName as bg, getKeyModifiers as bh, addAndroidApps as bi, EntryList as bj, isGuestOsEnabled as bk, isArcVmEnabled as bl, isOneDrive as bm, isSinglePartitionFormatEnabled as bn, limitInputWidth as bo, isSharedDriveEntry as bp, isComputersEntry as bq, isDescendantEntry as br, compareLabelAndGroupBottomEntries as bs, isNewDirectoryTreeEnabled as bt, getFocusedTreeItem as bu, validateEntryName as bv, renameEntry as bw, readSubDirectoriesForRenamedEntry as bx, isRecentRoot as by, isTrashRoot as bz, redispatchEvent as c, isDirectoryTreeItem as c0, isTeamDrivesGrandRoot as c1, isModal as c2, getHoldingSpaceState as c3, getDlpRestrictionDetails as c4, isMirrorSyncEnabled as c5, isInteractiveVolume as c6, isTrashRootType as c7, addUiEntry as c8, removeUiEntry as c9, crostiniPlaceHolderKey as ca, isFolderDialogType as cb, getODFSMetadataQueryEntry as cc, updateIsInteractiveVolume as cd, createChild as ce, listMountableGuests as cf, GuestOsPlaceholder as cg, toSandboxedURL as ch, updateDirectoryContent as ci, queryRequiredExactlyOne as cj, getBulkPinProgress as ck, updateBulkPinProgress as cl, getEmptyState as cm, getDialogCaller as cn, getDlpBlockedComponents as co, updatePreferences as cp, getDriveConnectionState as cq, updateDriveConnectionStatus as cr, updateDeviceConnectionState as cs, trashRootKey as ct, PaperRippleBehavior as cu, validateExternalDriveName as cv, dispatchActivationClick as d, assert as e, assertNotReached as f, assert$1 as g, isInlineSyncStatusEnabled as h, isCrosComponentsEnabled as i, getStore as j, unwrapEntry as k, strf as l, urlToEntry as m, str as n, startIOTask as o, isSameEntry as p, openWindow as q, recordEnum as r, startInterval as s, toFilesAppURL as t, util as u, getFilesAppIconURL as v, isRecentRootType as w, isDriveFsBulkPinningEnabled as x, addVolume as y, dispatchSimpleEvent as z };
+export { assertNotReached$1 as $, AsyncQueue as A, isSameFileSystem as B, COMPUTERS_DIRECTORY_NAME as C, isSameEntry as D, isFakeEntry as E, FakeEntryImpl as F, getRootType as G, SHARED_DRIVES_DIRECTORY_PATH as H, isTeamDriveRoot as I, COMPUTERS_DIRECTORY_PATH as J, isComputersRoot as K, getRootTypeFromVolumeType as L, getMediaViewRootTypeFromVolumeId as M, NativeEventTarget as N, MediaViewRootType as O, timeoutPromise as P, addVolume as Q, RootType as R, SHARED_DRIVES_DIRECTORY_NAME as S, recordInterval as T, VOLUME_ALREADY_MOUNTED as U, VolumeType as V, isInGuestMode as W, getDirectory as X, ARCHIVE_OPENED_EVENT_TYPE as Y, Source as Z, __decorate$1 as _, requestUpdateOnAriaChange as a, convertToKebabCase as a$, descriptorEqual as a0, XfBase as a1, isCrosComponentsEnabled as a2, DialogType as a3, isFuseBoxDebugEnabled as a4, AllowedPaths as a5, isNative as a6, parseTrashInfoFiles as a7, recordMediumCount as a8, isFileEntry as a9, CROSTINI_CONNECT_ERR as aA, mountGuest as aB, LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES as aC, ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES as aD, FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES as aE, DLP_METADATA_PREFETCH_PROPERTY_NAMES as aF, ConcurrentQueue as aG, isType as aH, dispatchPropertyChange as aI, Aggregator as aJ, PropStatus as aK, recordUserAction as aL, FileSystemType as aM, getVolumeTypeFromRootType as aN, convertURLsToEntries as aO, isNativeEntry as aP, isOneDriveId as aQ, getFileData as aR, getVolume as aS, getMyFiles as aT, changeDirectory as aU, getEntryLabel as aV, clearSearch as aW, isGuestOs as aX, updateSearch as aY, crInjectTypeAndInit as aZ, boolAttrSetter as a_, isDirectoryEntry as aa, getLocaleBasedWeekStart as ab, SearchRecency as ac, getMediaType as ad, isImage as ae, isVideo as af, isRaw as ag, isPDF as ah, getType as ai, getContentMetadata as aj, testSendMessage as ak, getContentMimeType as al, isDlpEnabled as am, getDlpMetadata as an, entriesToURLs as ao, isTrashEntry as ap, compareName as aq, compareLabel as ar, collator as as, dispatchSimpleEvent as at, createDOMError as au, FileErrorToDomError as av, getDefaultSearchOptions as aw, readEntriesRecursively as ax, isDriveRootType as ay, SearchLocation as az, isActivationClick as b, mouseEnterMaybeShowTooltip as b$, domAttrSetter as b0, assertInstanceof$1 as b1, CrButtonElement as b2, isTreeItem as b3, isXfTree as b4, handleTreeSlotChange as b5, refreshNavigationRoots as b6, NavigationType as b7, isVolumeEntry as b8, isOneDrive as b9, recordBoolean as bA, updateSelection as bB, isEncrypted as bC, refreshFolderShortcut as bD, recordSmallCount as bE, getPreferences as bF, comparePath as bG, addFolderShortcut as bH, removeFolderShortcut as bI, Group as bJ, addAndroidApps as bK, assertNotReached as bL, EntryList as bM, isGuestOsEnabled as bN, isArcVmEnabled as bO, isSinglePartitionFormatEnabled as bP, getPropertyDescriptor as bQ, PropertyKind as bR, assertInstanceof as bS, isSharedDriveEntry as bT, isComputersEntry as bU, isDescendantEntry as bV, getIconOverrides as bW, compareLabelAndGroupBottomEntries as bX, iconSetToCSSBackgroundImageValue as bY, shouldProvideIcons as bZ, FocusOutlineManager as b_, isDriveRootEntryList as ba, ICON_TYPES as bb, shouldSupportDriveSpecificIcons as bc, vmTypeToIconName as bd, isMyFilesEntry as be, readSubDirectoriesToCheckDirectoryChildren as bf, updateFileData as bg, readSubDirectories as bh, shouldDelayLoadingChildren as bi, isEntryScannable as bj, RootTypesForUMA as bk, maybeShowTooltip as bl, convertEntryToFileData as bm, isEntryInsideDrive as bn, isGrandRootEntryInDrives as bo, getEntry$1 as bp, driveRootEntryListKey as bq, VolumeEntry as br, traverseAndExpandPathEntries as bs, getTrustedHTML as bt, isNewDirectoryTreeEnabled as bu, storage as bv, isSameVolume as bw, FSP_ACTION_HIDDEN_ONEDRIVE_URL as bx, FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL as by, FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED as bz, assert as c, TaskHistory as c$, getCrActionMenuTop as c0, SEARCH_RESULTS_KEY as c1, getVolumeType as c2, XfCloudPanel as c3, canBulkPinningCloudPanelShow as c4, CloudPanelType as c5, queryRequiredElement as c6, isSearchEmpty as c7, PathComponent as c8, bytesToString as c9, getDisallowedTransfers as cA, htmlEscape as cB, isDirectoryTreeItem as cC, isDirectoryTree as cD, isSiblingEntry as cE, isNonModifiable as cF, grantAccess as cG, getParentEntry as cH, getFile as cI, validateFileName as cJ, UserCanceledError as cK, getFileTasks as cL, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR as cM, annotateTasks as cN, getDefaultTask as cO, getExtension as cP, recordTime as cQ, parseActionId as cR, isFilesAppId as cS, splitExtension as cT, LEGACY_FILES_EXTENSION_ID as cU, executeTask as cV, isTeleported as cW, makeTaskID as cX, extractFilePath as cY, USER_CANCELLED as cZ, updateMetadata as c_, recordValue as ca, PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID as cb, DEFAULT_CROSTINI_VM as cc, PLUGIN_VM as cd, isGoogleOneOfferFilesBannerEligibleAndEnabled as ce, getTeamDriveName as cf, getDriveQuotaMetadata as cg, getSizeStats as ch, isNullOrUndefined as ci, queryDecoratedElement as cj, getFilesAppModalDialogInstance as ck, jsSetter as cl, getFileTypeForName as cm, getKeyModifiers as cn, getCurrentLocaleOrDefault as co, isAudio as cp, getIcon as cq, secondsToRemainingTimeString as cr, PanelType as cs, getFocusedTreeItem as ct, getTreeItemEntry as cu, isRecentRoot as cv, validateEntryName as cw, renameEntry as cx, readSubDirectoriesForRenamedEntry as cy, isTrashRoot as cz, dispatchActivationClick as d, EventType as d0, getFilesData as d1, fetchFileTasks as d2, getMimeType as d3, recordDirectoryListLoadWithTolerance as d4, waitForState as d5, isInteractiveVolume as d6, isTeamDrivesGrandRoot as d7, isTrashRootType as d8, isRecentArcEntry as d9, updateDeviceConnectionState as dA, trashRootKey as dB, PaperRippleBehavior as dC, validateExternalDriveName as dD, getHoldingSpaceState as da, getDlpRestrictionDetails as db, isMirrorSyncEnabled as dc, DEFAULT_BRUSCHETTA_VM as dd, addUiEntry as de, removeUiEntry as df, crostiniPlaceHolderKey as dg, getODFSMetadataQueryEntry as dh, updateIsInteractiveVolume as di, createChild as dj, listMountableGuests as dk, GuestOsPlaceholder as dl, toSandboxedURL as dm, updateDirectoryContent as dn, getLastVisitedURL as dp, getBulkPinProgress as dq, updateBulkPinProgress as dr, getEmptyState as ds, setLaunchParameters as dt, runningInBrowser as du, getDialogCaller as dv, getDlpBlockedComponents as dw, updatePreferences as dx, getDriveConnectionState as dy, updateDriveConnectionStatus as dz, RateLimiter as e, urlToEntry as f, getStore as g, strf as h, internals as i, str as j, startIOTask as k, checkAPIError as l, mixinElementInternals as m, getFileErrorString as n, openWindow as o, isRecentRootType as p, isDriveFsBulkPinningEnabled as q, recordEnum as r, startInterval as s, toFilesAppURL as t, unwrapEntry as u, visitURL as v, assert$1 as w, promisify as x, VolumeError as y, removeVolume as z };
 //# sourceMappingURL=shared.rollup.js.map

@@ -45,7 +45,7 @@ class  ServiceWorkerResourceReaderAsyncWaiter {
 
   ~ServiceWorkerResourceReaderAsyncWaiter();
   void ReadResponseHead(
-      int32_t* out_status, ::network::mojom::URLResponseHeadPtr* out_response_head, absl::optional<::mojo_base::BigBuffer>* out_metadata);
+      int32_t* out_status, ::network::mojom::URLResponseHeadPtr* out_response_head, std::optional<::mojo_base::BigBuffer>* out_metadata);
   
   void PrepareReadData(
       int64_t size, ::mojo::ScopedDataPipeConsumerHandle* out_pipe);
@@ -113,7 +113,7 @@ class  ServiceWorkerStorageControlInterceptorForTesting : public ServiceWorkerSt
   void GetRegisteredStorageKeys(GetRegisteredStorageKeysCallback callback) override;
   void FindRegistrationForClientUrl(const ::GURL& client_url, const ::blink::StorageKey& key, FindRegistrationForClientUrlCallback callback) override;
   void FindRegistrationForScope(const ::GURL& scope, const ::blink::StorageKey& key, FindRegistrationForScopeCallback callback) override;
-  void FindRegistrationForId(int64_t registration_id, const absl::optional<::blink::StorageKey>& key, FindRegistrationForIdCallback callback) override;
+  void FindRegistrationForId(int64_t registration_id, const std::optional<::blink::StorageKey>& key, FindRegistrationForIdCallback callback) override;
   void GetRegistrationsForStorageKey(const ::blink::StorageKey& key, GetRegistrationsForStorageKeyCallback callback) override;
   void GetUsageForStorageKey(const ::blink::StorageKey& key, GetUsageForStorageKeyCallback callback) override;
   void GetAllRegistrationsDeprecated(GetAllRegistrationsDeprecatedCallback callback) override;
@@ -171,13 +171,13 @@ class  ServiceWorkerStorageControlAsyncWaiter {
       std::vector<::blink::StorageKey>* out_keys);
   std::vector<::blink::StorageKey> GetRegisteredStorageKeys();
   void FindRegistrationForClientUrl(
-      const ::GURL& client_url, const ::blink::StorageKey& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, ServiceWorkerFindRegistrationResultPtr* out_result, absl::optional<std::vector<::GURL>>* out_scopes);
+      const ::GURL& client_url, const ::blink::StorageKey& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, ServiceWorkerFindRegistrationResultPtr* out_result, std::optional<std::vector<::GURL>>* out_scopes);
   
   void FindRegistrationForScope(
       const ::GURL& scope, const ::blink::StorageKey& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, ServiceWorkerFindRegistrationResultPtr* out_result);
   
   void FindRegistrationForId(
-      int64_t registration_id, const absl::optional<::blink::StorageKey>& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, ServiceWorkerFindRegistrationResultPtr* out_result);
+      int64_t registration_id, const std::optional<::blink::StorageKey>& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, ServiceWorkerFindRegistrationResultPtr* out_result);
   
   void GetRegistrationsForStorageKey(
       const ::blink::StorageKey& key, ::storage::mojom::ServiceWorkerDatabaseStatus* out_status, std::vector<ServiceWorkerFindRegistrationResultPtr>* out_registrations);

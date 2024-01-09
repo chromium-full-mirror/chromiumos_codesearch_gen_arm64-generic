@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/bluetooth.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -196,8 +197,8 @@ available(false),
 discovering(false) {}
 
 AdapterState::~AdapterState() = default;
-AdapterState::AdapterState(AdapterState&& rhs) = default;
-AdapterState& AdapterState::operator=(AdapterState&& rhs) = default;
+AdapterState::AdapterState(AdapterState&& rhs) noexcept = default;
+AdapterState& AdapterState::operator=(AdapterState&& rhs) noexcept = default;
 AdapterState AdapterState::Clone() const {
   AdapterState out;
   out.address = address;
@@ -284,34 +285,21 @@ bool AdapterState::Populate(
 }
 
 // static
-std::unique_ptr<AdapterState> AdapterState::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AdapterState>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AdapterState> AdapterState::FromValue(const base::Value::Dict& value) {
+  AdapterState out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AdapterState> AdapterState::FromValue(const base::Value::Dict& value) {
+std::optional<AdapterState> AdapterState::FromValue(const base::Value& value) {
   AdapterState out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AdapterState> AdapterState::FromValue(const base::Value& value) {
-  AdapterState out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -340,8 +328,8 @@ type(),
 transport() {}
 
 Device::~Device() = default;
-Device::Device(Device&& rhs) = default;
-Device& Device::operator=(Device&& rhs) = default;
+Device::Device(Device&& rhs) noexcept = default;
+Device& Device::operator=(Device&& rhs) noexcept = default;
 Device Device::Clone() const {
   Device out;
   out.address = address;
@@ -387,7 +375,7 @@ bool Device::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -399,7 +387,7 @@ bool Device::Populate(
     {
       auto temp = (*device_class_value).GetIfInt();
       if (!temp.has_value()) {
-        out.device_class = absl::nullopt;
+        out.device_class = std::nullopt;
         return false;
       }
       out.device_class = *temp;
@@ -427,7 +415,7 @@ bool Device::Populate(
     {
       auto temp = (*vendor_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.vendor_id = absl::nullopt;
+        out.vendor_id = std::nullopt;
         return false;
       }
       out.vendor_id = *temp;
@@ -439,7 +427,7 @@ bool Device::Populate(
     {
       auto temp = (*product_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.product_id = absl::nullopt;
+        out.product_id = std::nullopt;
         return false;
       }
       out.product_id = *temp;
@@ -451,7 +439,7 @@ bool Device::Populate(
     {
       auto temp = (*device_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.device_id = absl::nullopt;
+        out.device_id = std::nullopt;
         return false;
       }
       out.device_id = *temp;
@@ -479,7 +467,7 @@ bool Device::Populate(
     {
       auto temp = (*paired_value).GetIfBool();
       if (!temp.has_value()) {
-        out.paired = absl::nullopt;
+        out.paired = std::nullopt;
         return false;
       }
       out.paired = *temp;
@@ -491,7 +479,7 @@ bool Device::Populate(
     {
       auto temp = (*connected_value).GetIfBool();
       if (!temp.has_value()) {
-        out.connected = absl::nullopt;
+        out.connected = std::nullopt;
         return false;
       }
       out.connected = *temp;
@@ -503,7 +491,7 @@ bool Device::Populate(
     {
       auto temp = (*connecting_value).GetIfBool();
       if (!temp.has_value()) {
-        out.connecting = absl::nullopt;
+        out.connecting = std::nullopt;
         return false;
       }
       out.connecting = *temp;
@@ -515,7 +503,7 @@ bool Device::Populate(
     {
       auto temp = (*connectable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.connectable = absl::nullopt;
+        out.connectable = std::nullopt;
         return false;
       }
       out.connectable = *temp;
@@ -541,7 +529,7 @@ bool Device::Populate(
     {
       auto temp = (*inquiry_rssi_value).GetIfInt();
       if (!temp.has_value()) {
-        out.inquiry_rssi = absl::nullopt;
+        out.inquiry_rssi = std::nullopt;
         return false;
       }
       out.inquiry_rssi = *temp;
@@ -553,7 +541,7 @@ bool Device::Populate(
     {
       auto temp = (*inquiry_tx_power_value).GetIfInt();
       if (!temp.has_value()) {
-        out.inquiry_tx_power = absl::nullopt;
+        out.inquiry_tx_power = std::nullopt;
         return false;
       }
       out.inquiry_tx_power = *temp;
@@ -581,7 +569,7 @@ bool Device::Populate(
     {
       auto temp = (*battery_percentage_value).GetIfInt();
       if (!temp.has_value()) {
-        out.battery_percentage = absl::nullopt;
+        out.battery_percentage = std::nullopt;
         return false;
       }
       out.battery_percentage = *temp;
@@ -601,34 +589,21 @@ bool Device::Populate(
 }
 
 // static
-std::unique_ptr<Device> Device::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Device>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Device> Device::FromValue(const base::Value::Dict& value) {
+  Device out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Device> Device::FromValue(const base::Value::Dict& value) {
+std::optional<Device> Device::FromValue(const base::Value& value) {
   Device out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Device> Device::FromValue(const base::Value& value) {
-  Device out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -711,8 +686,8 @@ BluetoothFilter::BluetoothFilter()
 : filter_type() {}
 
 BluetoothFilter::~BluetoothFilter() = default;
-BluetoothFilter::BluetoothFilter(BluetoothFilter&& rhs) = default;
-BluetoothFilter& BluetoothFilter::operator=(BluetoothFilter&& rhs) = default;
+BluetoothFilter::BluetoothFilter(BluetoothFilter&& rhs) noexcept = default;
+BluetoothFilter& BluetoothFilter::operator=(BluetoothFilter&& rhs) noexcept = default;
 BluetoothFilter BluetoothFilter::Clone() const {
   BluetoothFilter out;
   out.filter_type = filter_type;
@@ -745,7 +720,7 @@ bool BluetoothFilter::Populate(
     {
       auto temp = (*limit_value).GetIfInt();
       if (!temp.has_value()) {
-        out.limit = absl::nullopt;
+        out.limit = std::nullopt;
         return false;
       }
       out.limit = *temp;
@@ -765,34 +740,21 @@ bool BluetoothFilter::Populate(
 }
 
 // static
-std::unique_ptr<BluetoothFilter> BluetoothFilter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<BluetoothFilter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<BluetoothFilter> BluetoothFilter::FromValue(const base::Value::Dict& value) {
+  BluetoothFilter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<BluetoothFilter> BluetoothFilter::FromValue(const base::Value::Dict& value) {
+std::optional<BluetoothFilter> BluetoothFilter::FromValue(const base::Value& value) {
   BluetoothFilter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<BluetoothFilter> BluetoothFilter::FromValue(const base::Value& value) {
-  BluetoothFilter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -833,13 +795,13 @@ namespace GetDevice {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -849,13 +811,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = device_address_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.device_address = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -875,13 +837,13 @@ namespace GetDevices {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -890,12 +852,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         BluetoothFilter temp;
         if (!BluetoothFilter::Populate(filter_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.filter = std::move(temp);
       }
     }

@@ -377,6 +377,57 @@ class  DrmDevice_SetHDCPState_ResponseParams_Data {
 };
 static_assert(sizeof(DrmDevice_SetHDCPState_ResponseParams_Data) == 24,
               "Bad sizeof(DrmDevice_SetHDCPState_ResponseParams_Data)");
+class  DrmDevice_SetColorTemperatureAdjustment_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int64_t display_id;
+  mojo::internal::Pointer<::display::mojom::internal::ColorTemperatureAdjustment_Data> cta;
+
+ private:
+  friend class mojo::internal::MessageFragment<DrmDevice_SetColorTemperatureAdjustment_Params_Data>;
+
+  DrmDevice_SetColorTemperatureAdjustment_Params_Data();
+  ~DrmDevice_SetColorTemperatureAdjustment_Params_Data() = delete;
+};
+static_assert(sizeof(DrmDevice_SetColorTemperatureAdjustment_Params_Data) == 24,
+              "Bad sizeof(DrmDevice_SetColorTemperatureAdjustment_Params_Data)");
+class  DrmDevice_SetColorCalibration_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int64_t display_id;
+  mojo::internal::Pointer<::display::mojom::internal::ColorCalibration_Data> calibration;
+
+ private:
+  friend class mojo::internal::MessageFragment<DrmDevice_SetColorCalibration_Params_Data>;
+
+  DrmDevice_SetColorCalibration_Params_Data();
+  ~DrmDevice_SetColorCalibration_Params_Data() = delete;
+};
+static_assert(sizeof(DrmDevice_SetColorCalibration_Params_Data) == 24,
+              "Bad sizeof(DrmDevice_SetColorCalibration_Params_Data)");
+class  DrmDevice_SetGammaAdjustment_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int64_t display_id;
+  mojo::internal::Pointer<::display::mojom::internal::GammaAdjustment_Data> adjustment;
+
+ private:
+  friend class mojo::internal::MessageFragment<DrmDevice_SetGammaAdjustment_Params_Data>;
+
+  DrmDevice_SetGammaAdjustment_Params_Data();
+  ~DrmDevice_SetGammaAdjustment_Params_Data() = delete;
+};
+static_assert(sizeof(DrmDevice_SetGammaAdjustment_Params_Data) == 24,
+              "Bad sizeof(DrmDevice_SetGammaAdjustment_Params_Data)");
 class  DrmDevice_SetColorMatrix_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -401,8 +452,8 @@ class  DrmDevice_SetGammaCorrection_Params_Data {
 
   mojo::internal::StructHeader header_;
   int64_t display_id;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::display::mojom::internal::GammaRampRGBEntry_Data>>> degamma_lut;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::display::mojom::internal::GammaRampRGBEntry_Data>>> gamma_lut;
+  mojo::internal::Pointer<::display::mojom::internal::GammaCurve_Data> degamma;
+  mojo::internal::Pointer<::display::mojom::internal::GammaCurve_Data> gamma;
 
  private:
   friend class mojo::internal::MessageFragment<DrmDevice_SetGammaCorrection_Params_Data>;
@@ -992,6 +1043,93 @@ class DrmDevice_SetHDCPState_ResponseParamsDataView {
 };
 
 
+class DrmDevice_SetColorTemperatureAdjustment_ParamsDataView {
+ public:
+  DrmDevice_SetColorTemperatureAdjustment_ParamsDataView() = default;
+
+  DrmDevice_SetColorTemperatureAdjustment_ParamsDataView(
+      internal::DrmDevice_SetColorTemperatureAdjustment_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  int64_t display_id() const {
+    return data_->display_id;
+  }
+  inline void GetCtaDataView(
+      ::display::mojom::ColorTemperatureAdjustmentDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCta(UserType* output) {
+    
+    auto* pointer = data_->cta.Get();
+    return mojo::internal::Deserialize<::display::mojom::ColorTemperatureAdjustmentDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DrmDevice_SetColorTemperatureAdjustment_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DrmDevice_SetColorCalibration_ParamsDataView {
+ public:
+  DrmDevice_SetColorCalibration_ParamsDataView() = default;
+
+  DrmDevice_SetColorCalibration_ParamsDataView(
+      internal::DrmDevice_SetColorCalibration_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  int64_t display_id() const {
+    return data_->display_id;
+  }
+  inline void GetCalibrationDataView(
+      ::display::mojom::ColorCalibrationDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCalibration(UserType* output) {
+    
+    auto* pointer = data_->calibration.Get();
+    return mojo::internal::Deserialize<::display::mojom::ColorCalibrationDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DrmDevice_SetColorCalibration_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DrmDevice_SetGammaAdjustment_ParamsDataView {
+ public:
+  DrmDevice_SetGammaAdjustment_ParamsDataView() = default;
+
+  DrmDevice_SetGammaAdjustment_ParamsDataView(
+      internal::DrmDevice_SetGammaAdjustment_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  int64_t display_id() const {
+    return data_->display_id;
+  }
+  inline void GetAdjustmentDataView(
+      ::display::mojom::GammaAdjustmentDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAdjustment(UserType* output) {
+    
+    auto* pointer = data_->adjustment.Get();
+    return mojo::internal::Deserialize<::display::mojom::GammaAdjustmentDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DrmDevice_SetGammaAdjustment_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class DrmDevice_SetColorMatrix_ParamsDataView {
  public:
   DrmDevice_SetColorMatrix_ParamsDataView() = default;
@@ -1034,24 +1172,24 @@ class DrmDevice_SetGammaCorrection_ParamsDataView {
   int64_t display_id() const {
     return data_->display_id;
   }
-  inline void GetDegammaLutDataView(
-      mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>* output);
+  inline void GetDegammaDataView(
+      ::display::mojom::GammaCurveDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadDegammaLut(UserType* output) {
+  [[nodiscard]] bool ReadDegamma(UserType* output) {
     
-    auto* pointer = data_->degamma_lut.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>>(
+    auto* pointer = data_->degamma.Get();
+    return mojo::internal::Deserialize<::display::mojom::GammaCurveDataView>(
         pointer, output, message_);
   }
-  inline void GetGammaLutDataView(
-      mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>* output);
+  inline void GetGammaDataView(
+      ::display::mojom::GammaCurveDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadGammaLut(UserType* output) {
+  [[nodiscard]] bool ReadGamma(UserType* output) {
     
-    auto* pointer = data_->gamma_lut.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>>(
+    auto* pointer = data_->gamma.Get();
+    return mojo::internal::Deserialize<::display::mojom::GammaCurveDataView>(
         pointer, output, message_);
   }
  private:
@@ -1220,6 +1358,27 @@ inline void DrmDevice_SetHdcpKeyProp_ParamsDataView::GetKeyDataView(
 
 
 
+inline void DrmDevice_SetColorTemperatureAdjustment_ParamsDataView::GetCtaDataView(
+    ::display::mojom::ColorTemperatureAdjustmentDataView* output) {
+  auto pointer = data_->cta.Get();
+  *output = ::display::mojom::ColorTemperatureAdjustmentDataView(pointer, message_);
+}
+
+
+inline void DrmDevice_SetColorCalibration_ParamsDataView::GetCalibrationDataView(
+    ::display::mojom::ColorCalibrationDataView* output) {
+  auto pointer = data_->calibration.Get();
+  *output = ::display::mojom::ColorCalibrationDataView(pointer, message_);
+}
+
+
+inline void DrmDevice_SetGammaAdjustment_ParamsDataView::GetAdjustmentDataView(
+    ::display::mojom::GammaAdjustmentDataView* output) {
+  auto pointer = data_->adjustment.Get();
+  *output = ::display::mojom::GammaAdjustmentDataView(pointer, message_);
+}
+
+
 inline void DrmDevice_SetColorMatrix_ParamsDataView::GetColorMatrixDataView(
     mojo::ArrayDataView<float>* output) {
   auto pointer = data_->color_matrix.Get();
@@ -1227,15 +1386,15 @@ inline void DrmDevice_SetColorMatrix_ParamsDataView::GetColorMatrixDataView(
 }
 
 
-inline void DrmDevice_SetGammaCorrection_ParamsDataView::GetDegammaLutDataView(
-    mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>* output) {
-  auto pointer = data_->degamma_lut.Get();
-  *output = mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>(pointer, message_);
+inline void DrmDevice_SetGammaCorrection_ParamsDataView::GetDegammaDataView(
+    ::display::mojom::GammaCurveDataView* output) {
+  auto pointer = data_->degamma.Get();
+  *output = ::display::mojom::GammaCurveDataView(pointer, message_);
 }
-inline void DrmDevice_SetGammaCorrection_ParamsDataView::GetGammaLutDataView(
-    mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>* output) {
-  auto pointer = data_->gamma_lut.Get();
-  *output = mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>(pointer, message_);
+inline void DrmDevice_SetGammaCorrection_ParamsDataView::GetGammaDataView(
+    ::display::mojom::GammaCurveDataView* output) {
+  auto pointer = data_->gamma.Get();
+  *output = ::display::mojom::GammaCurveDataView(pointer, message_);
 }
 
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/components/smbfs/mojom/smbfs.mojom-features.h"
 #include "chromeos/ash/components/smbfs/mojom/smbfs.mojom-shared.h"
 #include "chromeos/ash/components/smbfs/mojom/smbfs.mojom-forward.h"
 #include "chromeos/ash/components/smbfs/mojom/file_path.mojom.h"
@@ -859,7 +860,7 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) MountOptions {
 
   MountOptions(
       const std::string& share_path,
-      const absl::optional<::net::IPAddress>& resolved_host,
+      const std::optional<::net::IPAddress>& resolved_host,
       const std::string& username,
       const std::string& workgroup,
       PasswordPtr password,
@@ -869,7 +870,7 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) MountOptions {
 
   MountOptions(
       const std::string& share_path,
-      const absl::optional<::net::IPAddress>& resolved_host,
+      const std::optional<::net::IPAddress>& resolved_host,
       const std::string& username,
       const std::string& workgroup,
       PasswordPtr password,
@@ -953,7 +954,7 @@ MountOptions& operator=(const MountOptions&) = delete;
   
   std::string share_path;
   
-  absl::optional<::net::IPAddress> resolved_host;
+  std::optional<::net::IPAddress> resolved_host;
   
   std::string username;
   

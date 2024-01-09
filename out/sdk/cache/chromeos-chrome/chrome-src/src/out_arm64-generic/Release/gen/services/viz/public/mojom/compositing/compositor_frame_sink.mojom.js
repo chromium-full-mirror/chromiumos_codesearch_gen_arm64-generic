@@ -1168,6 +1168,62 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function CompositorFrameSinkClient_OnSurfaceEvicted_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CompositorFrameSinkClient_OnSurfaceEvicted_Params.prototype.initDefaults_ = function() {
+    this.localSurfaceId = null;
+  };
+  CompositorFrameSinkClient_OnSurfaceEvicted_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CompositorFrameSinkClient_OnSurfaceEvicted_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CompositorFrameSinkClient_OnSurfaceEvicted_Params.localSurfaceId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, local_surface_id$.LocalSurfaceId, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CompositorFrameSinkClient_OnSurfaceEvicted_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CompositorFrameSinkClient_OnSurfaceEvicted_Params.decode = function(decoder) {
+    var packed;
+    var val = new CompositorFrameSinkClient_OnSurfaceEvicted_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.localSurfaceId =
+        decoder.decodeStructPointer(local_surface_id$.LocalSurfaceId);
+    return val;
+  };
+
+  CompositorFrameSinkClient_OnSurfaceEvicted_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CompositorFrameSinkClient_OnSurfaceEvicted_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(local_surface_id$.LocalSurfaceId, val.localSurfaceId);
+  };
   var kCompositorFrameSink_SetNeedsBeginFrame_Name = 0;
   var kCompositorFrameSink_SetWantsAnimateOnlyBeginFrames_Name = 1;
   var kCompositorFrameSink_SetWantsBeginFrameAcks_Name = 2;
@@ -1572,6 +1628,7 @@
   var kCompositorFrameSinkClient_OnBeginFramePausedChanged_Name = 2;
   var kCompositorFrameSinkClient_ReclaimResources_Name = 3;
   var kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name = 4;
+  var kCompositorFrameSinkClient_OnSurfaceEvicted_Name = 5;
 
   function CompositorFrameSinkClientPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(CompositorFrameSinkClient,
@@ -1669,6 +1726,21 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  CompositorFrameSinkClientPtr.prototype.onSurfaceEvicted = function() {
+    return CompositorFrameSinkClientProxy.prototype.onSurfaceEvicted
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CompositorFrameSinkClientProxy.prototype.onSurfaceEvicted = function(localSurfaceId) {
+    var params_ = new CompositorFrameSinkClient_OnSurfaceEvicted_Params();
+    params_.localSurfaceId = localSurfaceId;
+    var builder = new codec.MessageV0Builder(
+        kCompositorFrameSinkClient_OnSurfaceEvicted_Name,
+        codec.align(CompositorFrameSinkClient_OnSurfaceEvicted_Params.encodedSize));
+    builder.encodeStruct(CompositorFrameSinkClient_OnSurfaceEvicted_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function CompositorFrameSinkClientStub(delegate) {
     this.delegate_ = delegate;
@@ -1687,6 +1759,9 @@
   }
   CompositorFrameSinkClientStub.prototype.onCompositorFrameTransitionDirectiveProcessed = function(sequenceId) {
     return this.delegate_ && this.delegate_.onCompositorFrameTransitionDirectiveProcessed && this.delegate_.onCompositorFrameTransitionDirectiveProcessed(sequenceId);
+  }
+  CompositorFrameSinkClientStub.prototype.onSurfaceEvicted = function(localSurfaceId) {
+    return this.delegate_ && this.delegate_.onSurfaceEvicted && this.delegate_.onSurfaceEvicted(localSurfaceId);
   }
 
   CompositorFrameSinkClientStub.prototype.accept = function(message) {
@@ -1711,6 +1786,10 @@
     case kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name:
       var params = reader.decodeStruct(CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Params);
       this.onCompositorFrameTransitionDirectiveProcessed(params.sequenceId);
+      return true;
+    case kCompositorFrameSinkClient_OnSurfaceEvicted_Name:
+      var params = reader.decodeStruct(CompositorFrameSinkClient_OnSurfaceEvicted_Params);
+      this.onSurfaceEvicted(params.localSurfaceId);
       return true;
     default:
       return false;
@@ -1749,6 +1828,10 @@
       case kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Params;
+      break;
+      case kCompositorFrameSinkClient_OnSurfaceEvicted_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = CompositorFrameSinkClient_OnSurfaceEvicted_Params;
       break;
     }
     if (paramsClass === null)

@@ -28,13 +28,14 @@ const webui::ResourcePath kFeedbackResources[] = {
   {"html/assistant_logs_info.html", IDR_FEEDBACK_HTML_ASSISTANT_LOGS_INFO_HTML},
   {"html/bluetooth_logs_info.html", IDR_FEEDBACK_HTML_BLUETOOTH_LOGS_INFO_HTML},
   {"js/autofill_metadata.js", IDR_FEEDBACK_JS_AUTOFILL_METADATA_JS},
-  {"js/jelly_colors.js", IDR_FEEDBACK_JS_JELLY_COLORS_JS},
+  {"js/feedback_browser_proxy.js", IDR_FEEDBACK_JS_FEEDBACK_BROWSER_PROXY_JS},
   {"js/feedback.js", IDR_FEEDBACK_JS_FEEDBACK_JS},
   {"js/feedback_util.js", IDR_FEEDBACK_JS_FEEDBACK_UTIL_JS},
   {"js/logs_map_page.js", IDR_FEEDBACK_JS_LOGS_MAP_PAGE_JS},
   {"js/questionnaire.js", IDR_FEEDBACK_JS_QUESTIONNAIRE_JS},
   {"js/sys_info.js", IDR_FEEDBACK_JS_SYS_INFO_JS},
   {"js/take_screenshot.js", IDR_FEEDBACK_JS_TAKE_SCREENSHOT_JS},
+  {"js/jelly_colors.js", IDR_FEEDBACK_JS_JELLY_COLORS_JS},
 };
 
 const size_t kFeedbackResourcesSize = std::size(kFeedbackResources);

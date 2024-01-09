@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CustomStateSet>::value,
     "CustomStateSet inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CustomStateSet::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CustomStateSet is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -100,7 +95,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(v8_receiver);
+CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_key = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -119,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("CustomStateSet.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(v8_receiver);
+CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -137,12 +133,12 @@ BLINK_BINDINGS_TRACE_EVENT("CustomStateSet.clear");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(v8_receiver);
+CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CustomStateSet";
 const char* const property_name = "clear";
@@ -175,7 +171,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(v8_receiver);
+CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -201,12 +197,12 @@ BLINK_BINDINGS_TRACE_EVENT("CustomStateSet.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(v8_receiver);
+CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CustomStateSet";
 const char* const property_name = "entries";
@@ -239,7 +235,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(v8_receiver);
+CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -284,7 +280,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(v8_receiver);
+CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -310,12 +306,12 @@ BLINK_BINDINGS_TRACE_EVENT("CustomStateSet.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(v8_receiver);
+CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CustomStateSet";
 const char* const property_name = "keys";
@@ -338,12 +334,12 @@ BLINK_BINDINGS_TRACE_EVENT("CustomStateSet.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(v8_receiver);
+CustomStateSet* blink_receiver = V8CustomStateSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CustomStateSet";
 const char* const property_name = "values";

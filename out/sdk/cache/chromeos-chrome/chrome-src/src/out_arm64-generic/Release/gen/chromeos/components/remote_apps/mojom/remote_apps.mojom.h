@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/components/remote_apps/mojom/remote_apps.mojom-features.h"
 #include "chromeos/components/remote_apps/mojom/remote_apps.mojom-shared.h"
 #include "chromeos/components/remote_apps/mojom/remote_apps.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -109,17 +110,17 @@ class RemoteApps
   virtual void AddApp(const std::string& source_id, const std::string& name, const std::string& folder_id, const ::GURL& icon_url, bool add_to_front, AddAppCallback callback) = 0;
 
 
-  using DeleteAppCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using DeleteAppCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void DeleteApp(const std::string& app_id, DeleteAppCallback callback) = 0;
 
 
-  using SortLauncherWithRemoteAppsFirstCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using SortLauncherWithRemoteAppsFirstCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void SortLauncherWithRemoteAppsFirst(SortLauncherWithRemoteAppsFirstCallback callback) = 0;
 
 
-  using SetPinnedAppsCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using SetPinnedAppsCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void SetPinnedApps(const std::vector<std::string>& app_ids, SetPinnedAppsCallback callback) = 0;
 };
@@ -536,17 +537,17 @@ class  AddFolderResult {
   // Construct an instance holding |folder_id|.
   static AddFolderResultPtr
   NewFolderId(
-      const std::string& folder_id) {
+      const std::string& value) {
     auto result = AddFolderResultPtr(absl::in_place);
-    result->set_folder_id(std::move(folder_id));
+    result->set_folder_id(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static AddFolderResultPtr
   NewError(
-      const std::string& error) {
+      const std::string& value) {
     auto result = AddFolderResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -667,17 +668,17 @@ class  AddAppResult {
   // Construct an instance holding |app_id|.
   static AddAppResultPtr
   NewAppId(
-      const std::string& app_id) {
+      const std::string& value) {
     auto result = AddAppResultPtr(absl::in_place);
-    result->set_app_id(std::move(app_id));
+    result->set_app_id(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static AddAppResultPtr
   NewError(
-      const std::string& error) {
+      const std::string& value) {
     auto result = AddAppResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 

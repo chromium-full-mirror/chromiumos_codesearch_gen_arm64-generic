@@ -7,43 +7,43 @@ import * as Formatter from '../../../../../front_end/models/formatter/formatter.
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Platform from '../../../../../front_end/core/platform/platform.js';
 describe('ScopeTreeCache', () => {
-    let scopeTreeCache;
-    let scopeTreeStub;
-    let script;
-    beforeEach(() => {
-        scopeTreeCache = new SourceMapScopes.ScopeTreeCache.ScopeTreeCache();
-        scopeTreeStub = sinon.stub(Formatter.FormatterWorkerPool.formatterWorkerPool(), 'javaScriptScopeTree');
-        script =
-            sinon.createStubInstance(SDK.Script.Script, { requestContent: Promise.resolve({ content: '', isEncoded: false }) });
-    });
-    it('only requests the scope tree once for a script', async () => {
-        const scopeTree = { start: 0, end: 20, variables: [], children: [] };
-        scopeTreeStub.returns(Promise.resolve(scopeTree));
-        const actualScopeTree1 = await scopeTreeCache.scopeTreeForScript(script);
-        const actualScopeTree2 = await scopeTreeCache.scopeTreeForScript(script);
-        assert.isTrue(scopeTreeStub.calledOnce);
-        assert.strictEqual(actualScopeTree1, scopeTree);
-        assert.strictEqual(actualScopeTree2, scopeTree);
-    });
-    it('only requests the scope tree once for scripts that fail to parse', async () => {
-        scopeTreeStub.returns(null);
-        const actualScopeTree1 = await scopeTreeCache.scopeTreeForScript(script);
-        const actualScopeTree2 = await scopeTreeCache.scopeTreeForScript(script);
-        assert.isTrue(scopeTreeStub.calledOnce);
-        assert.isNull(actualScopeTree1);
-        assert.isNull(actualScopeTree2);
-    });
-    it('only requests the scope tree once for a script, even if the first request is not done yet', async () => {
-        const scopeTree = { start: 0, end: 20, variables: [], children: [] };
-        const { promise: scopeTreePromise, resolve: scopeTreeResolve } = Platform.PromiseUtilities.promiseWithResolvers();
-        scopeTreeStub.returns(scopeTreePromise);
-        const scopeTreePromise1 = scopeTreeCache.scopeTreeForScript(script);
-        const scopeTreePromise2 = scopeTreeCache.scopeTreeForScript(script);
-        scopeTreeResolve(scopeTree);
-        const [actualScopeTree1, actualScopeTree2] = await Promise.all([scopeTreePromise1, scopeTreePromise2]);
-        assert.isTrue(scopeTreeStub.calledOnce);
-        assert.strictEqual(actualScopeTree1, scopeTree);
-        assert.strictEqual(actualScopeTree2, scopeTree);
+    describe('scopeTreeForScript', () => {
+        const { scopeTreeForScript } = SourceMapScopes.ScopeTreeCache;
+        let javaScriptScopeTreeStub;
+        let script;
+        beforeEach(() => {
+            javaScriptScopeTreeStub = sinon.stub(Formatter.FormatterWorkerPool.formatterWorkerPool(), 'javaScriptScopeTree');
+            script = sinon.createStubInstance(SDK.Script.Script, { requestContent: Promise.resolve({ content: '', isEncoded: false }) });
+        });
+        it('requests the scope tree once for a script', async () => {
+            const scopeTree = { start: 0, end: 20, variables: [], children: [] };
+            javaScriptScopeTreeStub.returns(Promise.resolve(scopeTree));
+            const actualScopeTree1 = await scopeTreeForScript(script);
+            const actualScopeTree2 = await scopeTreeForScript(script);
+            assert.isTrue(javaScriptScopeTreeStub.calledOnce);
+            assert.strictEqual(actualScopeTree1, scopeTree);
+            assert.strictEqual(actualScopeTree2, scopeTree);
+        });
+        it('requests the scope tree once for a script that fails to parse', async () => {
+            javaScriptScopeTreeStub.returns(null);
+            const actualScopeTree1 = await scopeTreeForScript(script);
+            const actualScopeTree2 = await scopeTreeForScript(script);
+            assert.isTrue(javaScriptScopeTreeStub.calledOnce);
+            assert.isNull(actualScopeTree1);
+            assert.isNull(actualScopeTree2);
+        });
+        it('requests the scope tree once for a script, even if the first request is not done yet', async () => {
+            const scopeTree = { start: 0, end: 20, variables: [], children: [] };
+            const { promise: scopeTreePromise, resolve: scopeTreeResolve } = Platform.PromiseUtilities.promiseWithResolvers();
+            javaScriptScopeTreeStub.returns(scopeTreePromise);
+            const scopeTreePromise1 = scopeTreeForScript(script);
+            const scopeTreePromise2 = scopeTreeForScript(script);
+            scopeTreeResolve(scopeTree);
+            const [actualScopeTree1, actualScopeTree2] = await Promise.all([scopeTreePromise1, scopeTreePromise2]);
+            assert.isTrue(javaScriptScopeTreeStub.calledOnce);
+            assert.strictEqual(actualScopeTree1, scopeTree);
+            assert.strictEqual(actualScopeTree2, scopeTree);
+        });
     });
 });
 //# sourceMappingURL=ScopeTreeCache_test.js.map

@@ -50,10 +50,7 @@ build power_manager-proto: phony ./libpower_manager-proto.a
 build power_manager-proto_gen: phony obj/debugd/power_manager-proto_gen.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build scheduler_configuration_utils: phony ./libscheduler_configuration_utils.a
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build debugd$:_audit_log_filter-install_config: phony obj/debugd/_audit_log_filter-install_config.stamp
 build debugd$:_bt_usb_disconnect_helper-install_config: phony obj/debugd/_bt_usb_disconnect_helper-install_config.stamp
 build debugd$:_capture_packets-install_config: phony obj/debugd/_capture_packets-install_config.stamp
@@ -84,7 +81,6 @@ build debugd$:debugd: phony ./debugd
 build debugd$:debugd-adaptors: phony obj/debugd/debugd-adaptors.stamp
 build debugd$:debugd_dbus_utils: phony ./libdebugd_dbus_utils.a
 build debugd$:debugd_share_config: phony obj/debugd/debugd_share_config.stamp
-build debugd$:debugd_testrunner: phony ./debugd_testrunner
 build debugd$:dev_features_chrome_remote_debugging: phony ./dev_features_chrome_remote_debugging
 build debugd$:dev_features_password: phony ./dev_features_password
 build debugd$:dev_features_rootfs_verification: phony ./dev_features_rootfs_verification
@@ -109,7 +105,6 @@ build debugd$:usb4_devinfo_helper: phony ./usb4_devinfo_helper
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/debugd/_audit_log_filter-install_config.stamp $
     obj/debugd/_bt_usb_disconnect_helper-install_config.stamp $
     obj/debugd/_capture_packets-install_config.stamp $
@@ -140,7 +135,6 @@ build all: phony $
     obj/debugd/debugd-adaptors.stamp $
     ./libdebugd_dbus_utils.a $
     obj/debugd/debugd_share_config.stamp $
-    ./debugd_testrunner $
     ./dev_features_chrome_remote_debugging $
     ./dev_features_password $
     ./dev_features_rootfs_verification $

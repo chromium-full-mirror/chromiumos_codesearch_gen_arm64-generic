@@ -35,7 +35,7 @@ class BLINK_COMMON_EXPORT CredentialManagerAsyncWaiter {
       );
   
   void Get(
-      ::password_manager::CredentialMediationRequirement mediation, bool include_passwords, const std::vector<::GURL>& federations, ::password_manager::CredentialManagerError* out_error, absl::optional<::password_manager::CredentialInfo>* out_credential);
+      ::password_manager::CredentialMediationRequirement mediation, bool include_passwords, const std::vector<::GURL>& federations, ::password_manager::CredentialManagerError* out_error, std::optional<::password_manager::CredentialInfo>* out_credential);
   
 
  private:

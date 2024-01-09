@@ -236,8 +236,8 @@ message StartVmRequest {
   // Kernel cmdline parameters that will be passed to crosvm.
   repeated string kernel_params = 17;
 
-  // Enable Vulkan in the started Vm.
-  bool enable_vulkan = 18;
+  // DEPRECATED: Vulkan is enabled when it's supported, and GPU is enabled.
+  bool enable_vulkan = 18 [deprecated = true];
 
   // Enable Big GL rendering for the started Vm (default is GLES).
   bool enable_big_gl = 19;
@@ -415,9 +415,6 @@ message StartArcVmRequest {
   // ArcVM metrics memory PSI period, -1 if disabled
   int32 vm_memory_psi_period = 28;
 
-  // Size of Guest Zram in bytes. Deprecated, use guest_zram_mib instead.
-  int32 guest_zram_size = 32 [deprecated = true];
-
   // Likelihood of sending cold memory to swap.
   // Default value of zero means "unset" - will use the system default.
   // Positive values will be used to set the guest's vm.swappiness parameter.
@@ -493,6 +490,9 @@ message StartArcVmRequest {
 
   // Whether to enable O_DIRECT for the root disk (/dev/block/vda).
   bool rootfs_o_direct = 45;
+
+  // Whether to enable s2idle in the guest.
+  bool enable_s2idle = 46;
 }
 
 enum VmStatus {

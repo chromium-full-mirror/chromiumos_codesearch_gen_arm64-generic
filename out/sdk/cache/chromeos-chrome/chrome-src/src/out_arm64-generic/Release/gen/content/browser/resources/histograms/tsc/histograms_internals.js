@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/js/assert.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 // Timer for automatic update in monitoring mode.
 let fetchDiffScheduler = null;
 // Contains names for expanded histograms.

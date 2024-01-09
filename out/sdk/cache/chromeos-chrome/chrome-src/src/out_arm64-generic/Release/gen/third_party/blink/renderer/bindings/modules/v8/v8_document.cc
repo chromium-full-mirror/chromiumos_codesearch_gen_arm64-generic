@@ -60,12 +60,14 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_union_string_trustedhtml.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_view_transition.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_view_transition_callback.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_view_transition_options.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_visibility_state.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_window.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_xpath_expression.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_xpath_ns_resolver.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_xpath_result.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_browsing_topics_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_storage_access_types.h"
 #include "third_party/blink/renderer/core/animation/animation.h"
 #include "third_party/blink/renderer/core/animation/document_animation.h"
 #include "third_party/blink/renderer/core/animation/document_timeline.h"
@@ -115,6 +117,7 @@
 #include "third_party/blink/renderer/core/xml/xpath_result.h"
 #include "third_party/blink/renderer/modules/browsing_topics/browsing_topics_document_supplement.h"
 #include "third_party/blink/renderer/modules/picture_in_picture/document_video_picture_in_picture.h"
+#include "third_party/blink/renderer/modules/storage_access/document_storage_access.h"
 #include "third_party/blink/renderer/modules/xr/global_event_handlers_xr.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/idl_member_installer.h"
@@ -146,8 +149,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.implementation.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->implementation();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -160,10 +164,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.URL.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->urlForBinding();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->urlForBinding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -175,10 +179,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.documentURI.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->urlForBinding();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->urlForBinding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -190,10 +194,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.compatMode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->compatMode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->compatMode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -205,10 +209,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.characterSet.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->characterSet();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->characterSet();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -220,10 +224,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.charset.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->characterSet();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->characterSet();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -235,10 +239,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.inputEncoding.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->characterSet();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->characterSet();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -250,10 +254,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.contentType.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->contentType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->contentType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -265,8 +269,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.doctype.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->doctype();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -279,8 +284,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.documentElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->documentElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -299,7 +305,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentXMLEncoding);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->xmlEncoding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
@@ -318,7 +324,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentXMLVersion);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->xmlVersion();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
@@ -344,7 +350,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLString>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -370,7 +376,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentXMLStandalone)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->xmlStandalone();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -388,7 +394,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentXMLStandalone)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Document";
@@ -412,8 +418,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.location.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->location();
 bindings::V8SetReturnValue(info, return_value, blink_receiver, bindings::V8ReturnValue::kMaybeCrossOrigin);
 }
@@ -461,10 +468,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.domain.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->domain();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->domain();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -475,9 +482,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.domain.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Document";
@@ -501,10 +508,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.referrer.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->referrer();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->referrer();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -516,9 +523,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.cookie.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "Document";
 const char* const property_name = "cookie";
@@ -537,9 +544,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.cookie.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Document";
@@ -563,10 +570,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.lastModified.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->lastModified();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->lastModified();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -578,10 +585,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.readyState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->readyState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->readyState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -593,10 +600,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.title.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->title();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->title();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -616,7 +623,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -633,10 +640,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.dir.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->dir();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->dir();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -656,7 +663,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -673,8 +680,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.body.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->body();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -699,7 +707,7 @@ return;
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<HTMLElement>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -719,8 +727,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.body.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->body();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -745,7 +754,7 @@ return;
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<HTMLElement>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -765,8 +774,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.head.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->head();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -785,7 +795,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Images_Attr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->images();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -804,7 +814,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Embeds_Attr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->embeds();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -823,7 +833,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Plugins_Att
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->embeds();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -842,7 +852,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Links_Attri
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->links();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -861,7 +871,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Forms_Attri
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->forms();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -880,7 +890,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Scripts_Att
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->scripts();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -898,7 +908,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentScriptForBinding();
 if (!ToV8Traits<IDLNullable<V8UnionHTMLScriptElementOrSVGScriptElement>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -914,8 +925,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.defaultView.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->defaultView();
 bindings::V8SetReturnValue(info, return_value, blink_receiver, bindings::V8ReturnValue::kMaybeCrossOrigin);
 }
@@ -934,7 +946,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentDesignMode);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->designMode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -959,7 +971,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -982,7 +994,7 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onreadystatechange.get");
 
 
 
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onreadystatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -1002,7 +1014,7 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnreadystatechange(event_handler);
 }
 
@@ -1019,7 +1031,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Anchors_Att
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->anchors();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1038,7 +1050,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Applets_Att
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->applets();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1051,10 +1063,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.fgColor.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fgColor();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->fgColor();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1074,7 +1086,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLStringLegacyNullToEmptyString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1091,10 +1103,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.linkColor.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->linkColor();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->linkColor();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1114,7 +1126,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLStringLegacyNullToEmptyString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1131,10 +1143,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.vlinkColor.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->vlinkColor();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->vlinkColor();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1154,7 +1166,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLStringLegacyNullToEmptyString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1171,10 +1183,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.alinkColor.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->alinkColor();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->alinkColor();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1194,7 +1206,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLStringLegacyNullToEmptyString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1211,10 +1223,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.bgColor.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->bgColor();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->bgColor();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1234,7 +1246,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLStringLegacyNullToEmptyString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1257,7 +1269,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentAll);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->all();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1270,8 +1282,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.scrollingElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->scrollingElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1284,10 +1297,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointerlockchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerlockchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerlockchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1300,8 +1313,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerlockchange(event_handler);
 }
 
@@ -1312,10 +1326,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointerlockerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerlockerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerlockerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1328,8 +1342,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerlockerror(event_handler);
 }
 
@@ -1340,8 +1355,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.hidden.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hidden();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1354,10 +1370,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.visibilityState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->visibilityState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->visibilityState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -1369,8 +1385,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.wasDiscarded.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->wasDiscarded();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1389,7 +1406,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Prerenderin
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->prerendering();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1402,8 +1419,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.softNavigations.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->softNavigations();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -1422,7 +1440,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_FragmentDir
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fragmentDirective();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1435,8 +1453,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.featurePolicy.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->featurePolicy();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1455,7 +1474,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedPageVisibility
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->visibilityState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -1474,7 +1493,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedPageVisibility
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hidden();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1487,10 +1506,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onbeforecopy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforecopy();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforecopy();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1503,8 +1522,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforecopy(event_handler);
 }
 
@@ -1515,10 +1535,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onbeforecut.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforecut();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforecut();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1531,8 +1551,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforecut(event_handler);
 }
 
@@ -1543,10 +1564,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onbeforepaste.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforepaste();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforepaste();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1559,8 +1580,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforepaste(event_handler);
 }
 
@@ -1571,10 +1593,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onfreeze.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onfreeze();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onfreeze();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1587,8 +1609,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnfreeze(event_handler);
 }
 
@@ -1605,7 +1628,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_Onprerender
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onprerenderingchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -1625,7 +1648,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnprerenderingchange(event_handler);
 }
 
@@ -1636,10 +1659,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onresume.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresume();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresume();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1652,8 +1675,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnresume(event_handler);
 }
 
@@ -1664,10 +1688,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onsearch.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsearch();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsearch();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1680,8 +1704,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsearch(event_handler);
 }
 
@@ -1692,10 +1717,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onvisibilitychange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onvisibilitychange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onvisibilitychange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1708,8 +1733,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnvisibilitychange(event_handler);
 }
 
@@ -1720,8 +1746,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.timeline.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentAnimation::timeline(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1734,8 +1761,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.fullscreenEnabled.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentFullscreen::fullscreenEnabled(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1751,8 +1779,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.fullscreen.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentFullscreen::fullscreenElement(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1768,10 +1797,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onfullscreenchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = DocumentFullscreen::onfullscreenchange(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = DocumentFullscreen::onfullscreenchange(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1784,8 +1813,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 DocumentFullscreen::setOnfullscreenchange(*blink_receiver, event_handler);
 }
 
@@ -1796,10 +1826,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onfullscreenerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = DocumentFullscreen::onfullscreenerror(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = DocumentFullscreen::onfullscreenerror(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1812,8 +1842,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 DocumentFullscreen::setOnfullscreenerror(*blink_receiver, event_handler);
 }
 
@@ -1830,7 +1861,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedDocumentIsFull
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentFullscreen::fullscreenElement(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1849,7 +1880,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedDocumentCurren
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentFullscreen::fullscreenElement(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1868,7 +1899,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedDocumentFullsc
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentFullscreen::fullscreenEnabled(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1887,7 +1918,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedDocumentFullsc
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentFullscreen::fullscreenElement(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1900,10 +1931,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onwebkitfullscreenchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = DocumentFullscreen::onwebkitfullscreenchange(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = DocumentFullscreen::onwebkitfullscreenchange(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1916,8 +1947,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 DocumentFullscreen::setOnwebkitfullscreenchange(*blink_receiver, event_handler);
 }
 
@@ -1928,10 +1960,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onwebkitfullscreenerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = DocumentFullscreen::onwebkitfullscreenerror(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = DocumentFullscreen::onwebkitfullscreenerror(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1944,8 +1976,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 DocumentFullscreen::setOnwebkitfullscreenerror(*blink_receiver, event_handler);
 }
 
@@ -1962,7 +1995,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGDocumentRootElement
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = SVGDocumentExtensions::rootElement(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -1981,7 +2014,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_PictureInPi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentVideoPictureInPicture::pictureInPictureEnabled(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -1994,10 +2027,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onbeforexrselect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = GlobalEventHandlersXR::onbeforexrselect(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = GlobalEventHandlersXR::onbeforexrselect(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2010,8 +2043,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 GlobalEventHandlersXR::setOnbeforexrselect(*blink_receiver, event_handler);
 }
 
@@ -2022,10 +2056,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onabort.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onabort();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onabort();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2038,8 +2072,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnabort(event_handler);
 }
 
@@ -2050,10 +2085,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onbeforeinput.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforeinput();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforeinput();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2066,8 +2101,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforeinput(event_handler);
 }
 
@@ -2078,10 +2114,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onbeforematch.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforematch();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforematch();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2094,8 +2130,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforematch(event_handler);
 }
 
@@ -2106,10 +2143,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onbeforetoggle.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforetoggle();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforetoggle();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2122,8 +2159,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforetoggle(event_handler);
 }
 
@@ -2134,10 +2172,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onblur.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onblur();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onblur();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2150,8 +2188,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnblur(event_handler);
 }
 
@@ -2162,10 +2201,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncancel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncancel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2178,8 +2217,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncancel(event_handler);
 }
 
@@ -2190,10 +2230,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncanplay.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncanplay();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncanplay();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2206,8 +2246,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncanplay(event_handler);
 }
 
@@ -2218,10 +2259,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncanplaythrough.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncanplaythrough();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncanplaythrough();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2234,8 +2275,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncanplaythrough(event_handler);
 }
 
@@ -2246,10 +2288,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2262,8 +2304,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchange(event_handler);
 }
 
@@ -2274,10 +2317,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onclick.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclick();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclick();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2290,8 +2333,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclick(event_handler);
 }
 
@@ -2302,10 +2346,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onclose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclose();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2318,8 +2362,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclose(event_handler);
 }
 
@@ -2330,10 +2375,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncontentvisibilityautostatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontentvisibilityautostatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontentvisibilityautostatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2346,8 +2391,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontentvisibilityautostatechange(event_handler);
 }
 
@@ -2358,10 +2404,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncontextlost.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontextlost();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontextlost();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2374,8 +2420,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontextlost(event_handler);
 }
 
@@ -2386,10 +2433,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncontextmenu.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontextmenu();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontextmenu();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2402,8 +2449,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontextmenu(event_handler);
 }
 
@@ -2414,10 +2462,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncontextrestored.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontextrestored();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontextrestored();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2430,8 +2478,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontextrestored(event_handler);
 }
 
@@ -2442,10 +2491,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncuechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncuechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncuechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2458,8 +2507,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncuechange(event_handler);
 }
 
@@ -2470,10 +2520,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ondblclick.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondblclick();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondblclick();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2486,8 +2536,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndblclick(event_handler);
 }
 
@@ -2498,10 +2549,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ondrag.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondrag();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondrag();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2514,8 +2565,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndrag(event_handler);
 }
 
@@ -2526,10 +2578,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ondragend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2542,8 +2594,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragend(event_handler);
 }
 
@@ -2554,10 +2607,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ondragenter.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragenter();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragenter();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2570,8 +2623,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragenter(event_handler);
 }
 
@@ -2582,10 +2636,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ondragleave.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragleave();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragleave();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2598,8 +2652,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragleave(event_handler);
 }
 
@@ -2610,10 +2665,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ondragover.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragover();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragover();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2626,8 +2681,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragover(event_handler);
 }
 
@@ -2638,10 +2694,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ondragstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2654,8 +2710,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragstart(event_handler);
 }
 
@@ -2666,10 +2723,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ondrop.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondrop();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondrop();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2682,8 +2739,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndrop(event_handler);
 }
 
@@ -2694,10 +2752,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ondurationchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondurationchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondurationchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2710,8 +2768,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndurationchange(event_handler);
 }
 
@@ -2722,10 +2781,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onemptied.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onemptied();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onemptied();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2738,8 +2797,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnemptied(event_handler);
 }
 
@@ -2750,10 +2810,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onended.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onended();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onended();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2766,8 +2826,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnended(event_handler);
 }
 
@@ -2778,10 +2839,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2794,8 +2855,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kOnErrorEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -2806,10 +2868,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onfocus.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onfocus();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onfocus();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2822,8 +2884,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnfocus(event_handler);
 }
 
@@ -2834,10 +2897,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onformdata.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onformdata();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onformdata();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2850,8 +2913,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnformdata(event_handler);
 }
 
@@ -2862,10 +2926,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oninput.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oninput();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oninput();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2878,8 +2942,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOninput(event_handler);
 }
 
@@ -2890,10 +2955,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oninvalid.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oninvalid();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oninvalid();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2906,8 +2971,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOninvalid(event_handler);
 }
 
@@ -2918,10 +2984,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onkeydown.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onkeydown();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onkeydown();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2934,8 +3000,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnkeydown(event_handler);
 }
 
@@ -2946,10 +3013,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onkeypress.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onkeypress();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onkeypress();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2962,8 +3029,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnkeypress(event_handler);
 }
 
@@ -2974,10 +3042,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onkeyup.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onkeyup();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onkeyup();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2990,8 +3058,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnkeyup(event_handler);
 }
 
@@ -3002,10 +3071,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onload.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onload();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onload();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3018,8 +3087,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnload(event_handler);
 }
 
@@ -3030,10 +3100,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onloadeddata.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadeddata();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadeddata();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3046,8 +3116,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadeddata(event_handler);
 }
 
@@ -3058,10 +3129,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onloadedmetadata.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadedmetadata();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadedmetadata();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3074,8 +3145,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadedmetadata(event_handler);
 }
 
@@ -3086,10 +3158,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onloadstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3102,8 +3174,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadstart(event_handler);
 }
 
@@ -3114,10 +3187,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onmousedown.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmousedown();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmousedown();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3130,8 +3203,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmousedown(event_handler);
 }
 
@@ -3148,7 +3222,7 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onmouseenter.get");
 
 
 
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onmouseenter();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -3168,7 +3242,7 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseenter(event_handler);
 }
 
@@ -3185,7 +3259,7 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onmouseleave.get");
 
 
 
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onmouseleave();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -3205,7 +3279,7 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseleave(event_handler);
 }
 
@@ -3216,10 +3290,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onmousemove.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmousemove();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmousemove();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3232,8 +3306,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmousemove(event_handler);
 }
 
@@ -3244,10 +3319,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onmouseout.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmouseout();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmouseout();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3260,8 +3335,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseout(event_handler);
 }
 
@@ -3272,10 +3348,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onmouseover.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmouseover();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmouseover();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3288,8 +3364,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseover(event_handler);
 }
 
@@ -3300,10 +3377,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onmouseup.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmouseup();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmouseup();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3316,8 +3393,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseup(event_handler);
 }
 
@@ -3328,10 +3406,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onmousewheel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmousewheel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmousewheel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3344,8 +3422,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmousewheel(event_handler);
 }
 
@@ -3356,10 +3435,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onoverscroll.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onoverscroll();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onoverscroll();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3372,8 +3451,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnoverscroll(event_handler);
 }
 
@@ -3384,10 +3464,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpause.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpause();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpause();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3400,8 +3480,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpause(event_handler);
 }
 
@@ -3412,10 +3493,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onplay.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onplay();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onplay();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3428,8 +3509,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnplay(event_handler);
 }
 
@@ -3440,10 +3522,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onplaying.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onplaying();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onplaying();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3456,8 +3538,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnplaying(event_handler);
 }
 
@@ -3468,10 +3551,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onprogress.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onprogress();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onprogress();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3484,8 +3567,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnprogress(event_handler);
 }
 
@@ -3496,10 +3580,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onratechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onratechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onratechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3512,8 +3596,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnratechange(event_handler);
 }
 
@@ -3524,10 +3609,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onreset.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onreset();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onreset();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3540,8 +3625,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnreset(event_handler);
 }
 
@@ -3552,10 +3638,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onresize.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresize();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresize();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3568,8 +3654,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnresize(event_handler);
 }
 
@@ -3580,10 +3667,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onscroll.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onscroll();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onscroll();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3596,8 +3683,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnscroll(event_handler);
 }
 
@@ -3608,10 +3696,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onscrollend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onscrollend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onscrollend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3624,8 +3712,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnscrollend(event_handler);
 }
 
@@ -3636,10 +3725,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onsecuritypolicyviolation.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsecuritypolicyviolation();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsecuritypolicyviolation();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3652,8 +3741,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsecuritypolicyviolation(event_handler);
 }
 
@@ -3664,10 +3754,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onseeked.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onseeked();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onseeked();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3680,8 +3770,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnseeked(event_handler);
 }
 
@@ -3692,10 +3783,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onseeking.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onseeking();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onseeking();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3708,8 +3799,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnseeking(event_handler);
 }
 
@@ -3720,10 +3812,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onselect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3736,8 +3828,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselect(event_handler);
 }
 
@@ -3748,10 +3841,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onslotchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onslotchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onslotchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3764,8 +3857,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnslotchange(event_handler);
 }
 
@@ -3776,10 +3870,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onsnapchanged.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsnapchanged();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsnapchanged();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3792,9 +3886,39 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsnapchanged(event_handler);
+}
+
+void OnsnapchangingAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Document_onsnapchanging_Getter");
+BLINK_BINDINGS_TRACE_EVENT("Document.onsnapchanging.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsnapchanging();
+bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
+}
+
+void OnsnapchangingAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Document_onsnapchanging_Setter");
+BLINK_BINDINGS_TRACE_EVENT("Document.onsnapchanging.set");
+
+v8::Local<v8::Value> v8_property_value = info[0];
+EventListener* event_handler = JSEventHandler::CreateOrNull(
+    v8_property_value,
+    JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+blink_receiver->setOnsnapchanging(event_handler);
 }
 
 void OnstalledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -3804,10 +3928,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onstalled.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstalled();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstalled();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3820,8 +3944,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstalled(event_handler);
 }
 
@@ -3832,10 +3957,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onsubmit.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsubmit();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsubmit();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3848,8 +3973,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsubmit(event_handler);
 }
 
@@ -3860,10 +3986,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onsuspend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsuspend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsuspend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3876,8 +4002,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsuspend(event_handler);
 }
 
@@ -3888,10 +4015,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontimeupdate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontimeupdate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontimeupdate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3904,8 +4031,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntimeupdate(event_handler);
 }
 
@@ -3916,10 +4044,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontoggle.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontoggle();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontoggle();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3932,8 +4060,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntoggle(event_handler);
 }
 
@@ -3944,10 +4073,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onvolumechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onvolumechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onvolumechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3960,8 +4089,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnvolumechange(event_handler);
 }
 
@@ -3972,10 +4102,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onwaiting.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwaiting();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwaiting();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3988,8 +4118,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwaiting(event_handler);
 }
 
@@ -4000,10 +4131,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onwebkitanimationend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwebkitanimationend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwebkitanimationend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4016,8 +4147,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwebkitanimationend(event_handler);
 }
 
@@ -4028,10 +4160,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onwebkitanimationiteration.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwebkitanimationiteration();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwebkitanimationiteration();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4044,8 +4176,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwebkitanimationiteration(event_handler);
 }
 
@@ -4056,10 +4189,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onwebkitanimationstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwebkitanimationstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwebkitanimationstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4072,8 +4205,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwebkitanimationstart(event_handler);
 }
 
@@ -4084,10 +4218,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onwebkittransitionend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwebkittransitionend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwebkittransitionend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4100,8 +4234,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwebkittransitionend(event_handler);
 }
 
@@ -4112,10 +4247,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onwheel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwheel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwheel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4128,8 +4263,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwheel(event_handler);
 }
 
@@ -4140,10 +4276,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onauxclick.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onauxclick();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onauxclick();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4156,8 +4292,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnauxclick(event_handler);
 }
 
@@ -4168,10 +4305,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ongotpointercapture.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ongotpointercapture();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ongotpointercapture();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4184,8 +4321,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOngotpointercapture(event_handler);
 }
 
@@ -4196,10 +4334,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onlostpointercapture.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onlostpointercapture();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onlostpointercapture();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4212,8 +4350,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnlostpointercapture(event_handler);
 }
 
@@ -4224,10 +4363,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointerdown.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerdown();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerdown();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4240,8 +4379,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerdown(event_handler);
 }
 
@@ -4252,10 +4392,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointermove.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointermove();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointermove();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4268,8 +4408,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointermove(event_handler);
 }
 
@@ -4280,10 +4421,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointerrawupdate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerrawupdate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerrawupdate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4296,8 +4437,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerrawupdate(event_handler);
 }
 
@@ -4308,10 +4450,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointerup.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerup();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerup();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4324,8 +4466,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerup(event_handler);
 }
 
@@ -4336,10 +4479,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointercancel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointercancel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointercancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4352,8 +4495,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointercancel(event_handler);
 }
 
@@ -4364,10 +4508,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointerover.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerover();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerover();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4380,8 +4524,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerover(event_handler);
 }
 
@@ -4392,10 +4537,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointerout.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerout();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerout();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4408,8 +4553,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerout(event_handler);
 }
 
@@ -4420,10 +4566,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointerenter.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerenter();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerenter();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4436,8 +4582,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerenter(event_handler);
 }
 
@@ -4448,10 +4595,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpointerleave.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerleave();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerleave();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4464,8 +4611,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerleave(event_handler);
 }
 
@@ -4476,10 +4624,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontouchcancel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontouchcancel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontouchcancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4492,8 +4640,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntouchcancel(event_handler);
 }
 
@@ -4504,10 +4653,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontouchend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontouchend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontouchend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4520,8 +4669,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntouchend(event_handler);
 }
 
@@ -4532,10 +4682,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontouchmove.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontouchmove();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontouchmove();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4548,8 +4698,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntouchmove(event_handler);
 }
 
@@ -4560,10 +4711,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontouchstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontouchstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontouchstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4576,8 +4727,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntouchstart(event_handler);
 }
 
@@ -4588,10 +4740,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onselectstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselectstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselectstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4604,8 +4756,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselectstart(event_handler);
 }
 
@@ -4616,10 +4769,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onselectionchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselectionchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselectionchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4632,8 +4785,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselectionchange(event_handler);
 }
 
@@ -4644,10 +4798,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onanimationend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onanimationend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onanimationend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4660,8 +4814,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnanimationend(event_handler);
 }
 
@@ -4672,10 +4827,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onanimationiteration.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onanimationiteration();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onanimationiteration();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4688,8 +4843,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnanimationiteration(event_handler);
 }
 
@@ -4700,10 +4856,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onanimationstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onanimationstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onanimationstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4716,8 +4872,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnanimationstart(event_handler);
 }
 
@@ -4728,10 +4885,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontransitionrun.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontransitionrun();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontransitionrun();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4744,8 +4901,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntransitionrun(event_handler);
 }
 
@@ -4756,10 +4914,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontransitionstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontransitionstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontransitionstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4772,8 +4930,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntransitionstart(event_handler);
 }
 
@@ -4784,10 +4943,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontransitionend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontransitionend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontransitionend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4800,8 +4959,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntransitionend(event_handler);
 }
 
@@ -4812,10 +4972,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.ontransitioncancel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontransitioncancel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontransitioncancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4828,8 +4988,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntransitioncancel(event_handler);
 }
 
@@ -4840,10 +5001,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncopy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncopy();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncopy();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4856,8 +5017,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncopy(event_handler);
 }
 
@@ -4868,10 +5030,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.oncut.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncut();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncut();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4884,8 +5046,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncut(event_handler);
 }
 
@@ -4896,10 +5059,10 @@ BLINK_BINDINGS_TRACE_EVENT("Document.onpaste.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpaste();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpaste();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -4912,8 +5075,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpaste(event_handler);
 }
 
@@ -4924,8 +5088,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.children.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->children();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -4938,8 +5103,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.children.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->children();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4952,8 +5118,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.firstElementChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firstElementChild();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -4966,8 +5133,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.firstElementChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firstElementChild();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -4980,8 +5148,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.lastElementChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastElementChild();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -4994,8 +5163,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.lastElementChild.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastElementChild();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5008,8 +5178,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.childElementCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->childElementCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -5022,8 +5193,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.activeElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->activeElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5036,8 +5208,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.styleSheets.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->styleSheets();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5050,8 +5223,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.pointerLockElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pointerLockElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5064,8 +5238,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.fullscreenElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fullscreenElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5087,7 +5262,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAdoptedStyleSheets);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->adoptedStyleSheets();
 bindings::V8SetReturnValue(info, return_value->GetExoticObject(), blink_receiver);
 }
@@ -5105,7 +5280,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAdoptedStyleSheets);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& observable_array = blink_receiver->adoptedStyleSheets();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
@@ -5131,7 +5306,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_PictureInPi
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pictureInPictureElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5150,7 +5325,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentFonts);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fonts();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5208,7 +5383,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5240,7 +5415,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_nodes = bindings::VariadicArgumentsToNativeValues<V8UnionNodeOrStringOrTrustedScript>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5273,7 +5448,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_announcement = NativeValueTraits<IDLStringStringContextTrustedHTML>::ArgumentValue(isolate, 0, info[0], exception_state, execution_context_of_document_tree);
 if (UNLIKELY(exception_state.HadException())) {
@@ -5325,7 +5500,7 @@ do {  // Dummy loop for use of 'break'.
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = BrowsingTopicsDocumentSupplement::browsingTopics(script_state, *blink_receiver, exception_state);
 break;
@@ -5359,7 +5534,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentCaptureEvents)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->captureEvents();
 
 }
@@ -5381,7 +5556,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentCaretRangeFrom
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLLong>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_x{0};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
@@ -5421,7 +5596,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentClear);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->clear();
 
 }
@@ -5446,7 +5621,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5479,7 +5654,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5516,7 +5691,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5553,7 +5728,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5573,9 +5748,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.createComment");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "createComment";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -5586,13 +5761,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_data;
 if (LIKELY(info[0]->IsString())) {
-  arg1_data.Init(info[0].As<v8::String>());
+  arg1_data.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "createComment";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -5616,8 +5790,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.createDocumentFragment");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createDocumentFragment();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -5640,7 +5815,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5670,7 +5845,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5731,7 +5906,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5761,7 +5936,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_local_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5822,7 +5997,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5856,7 +6031,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -5924,7 +6099,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -5964,7 +6139,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_expression = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6008,7 +6183,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node_resolver = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6038,7 +6213,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_root = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6082,7 +6257,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_target = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6109,8 +6284,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.createRange");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->createRange();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -6123,9 +6299,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.createTextNode");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "createTextNode";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6136,13 +6312,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_data;
 if (LIKELY(info[0]->IsString())) {
-  arg1_data.Init(info[0].As<v8::String>());
+  arg1_data.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "createTextNode";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6176,7 +6351,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_root = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6224,7 +6399,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6266,7 +6441,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6307,7 +6482,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_expression = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6370,7 +6545,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_command_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6424,7 +6599,7 @@ return;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentFullscreen::exitFullscreen(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6462,7 +6637,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Document_ExitPicture
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = DocumentVideoPictureInPicture::exitPictureInPicture(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6487,7 +6662,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentExitPointerLoc
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->exitPointerLock();
 
 }
@@ -6513,7 +6688,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getAnimations();
 if (!ToV8Traits<IDLSequence<Animation>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -6529,9 +6704,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.getElementById");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6542,13 +6717,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_element_id;
 if (LIKELY(info[0]->IsString())) {
-  arg1_element_id.Init(info[0].As<v8::String>());
+  arg1_element_id.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6569,9 +6743,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.getElementById");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6582,13 +6756,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_element_id;
 if (LIKELY(info[0]->IsString())) {
-  arg1_element_id.Init(info[0].As<v8::String>());
+  arg1_element_id.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementById";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6609,9 +6782,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.getElementsByClassName");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementsByClassName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6622,13 +6795,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_class_names;
 if (LIKELY(info[0]->IsString())) {
-  arg1_class_names.Init(info[0].As<v8::String>());
+  arg1_class_names.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementsByClassName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6649,9 +6821,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.getElementsByName");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementsByName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6662,13 +6834,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_element_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_element_name.Init(info[0].As<v8::String>());
+  arg1_element_name.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementsByName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6689,9 +6860,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.getElementsByName");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementsByName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6702,13 +6873,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_element_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_element_name.Init(info[0].As<v8::String>());
+  arg1_element_name.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementsByName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6729,9 +6899,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.getElementsByTagName");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementsByTagName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6742,13 +6912,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_local_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_local_name.Init(info[0].As<v8::String>());
+  arg1_local_name.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "getElementsByTagName";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -6782,7 +6951,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_namespace_uri = NativeValueTraits<IDLNullable<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -6806,8 +6975,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.getPartRoot");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getPartRoot();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -6823,8 +6993,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.getSelection");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getSelection();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -6840,8 +7011,9 @@ BLINK_BINDINGS_TRACE_EVENT("Document.hasFocus");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->hasFocus();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -6877,7 +7049,7 @@ return;
 
 
 
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -6923,7 +7095,7 @@ return;
 
 
 
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -6965,7 +7137,7 @@ UseCounter::Count(current_execution_context, WebFeature::kStorageAccessAPI_HasSt
 
 
 
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -6997,7 +7169,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7037,7 +7209,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
 if (info[0]->IsUndefined()) {
   arg1_type = "text/html";
@@ -7085,7 +7257,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7144,7 +7316,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_nodes = bindings::VariadicArgumentsToNativeValues<V8UnionNodeOrStringOrTrustedScript>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7177,7 +7349,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_command_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7210,7 +7382,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_command_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7243,7 +7415,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_command_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7276,7 +7448,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_command_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7309,7 +7481,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_command_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7342,7 +7514,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_selectors = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7375,7 +7547,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_selectors = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7404,7 +7576,7 @@ UseCounter::Count(current_execution_context, WebFeature::kDocumentReleaseEvents)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->releaseEvents();
 
 }
@@ -7429,7 +7601,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_nodes = bindings::VariadicArgumentsToNativeValues<V8UnionNodeOrStringOrTrustedScript>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7441,11 +7613,8 @@ if (UNLIKELY(exception_state.HadException())) {
 
 }
 
-void RequestStorageAccessOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Document_requestStorageAccess");
-BLINK_BINDINGS_TRACE_EVENT("Document.requestStorageAccess");
-
-// Promise returning function: Convert a TypeError to a reject promise.
+void RequestStorageAccessOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  // Promise returning function: Convert a TypeError to a reject promise.
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 if (!V8Document::HasInstance(isolate, v8_receiver)) {
@@ -7468,12 +7637,71 @@ UseCounter::Count(current_execution_context, WebFeature::kStorageAccessAPI_reque
 
 
 
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->requestStorageAccess(script_state);
 bindings::V8SetReturnValue(info, return_value);
+}
+
+void RequestStorageAccessOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  // Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Document";
+const char* const property_name = "requestStorageAccess";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8Document::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies);
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_types = NativeValueTraits<StorageAccessTypes>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = DocumentStorageAccess::requestStorageAccess(script_state, *blink_receiver, arg1_types);
+bindings::V8SetReturnValue(info, return_value);
+}
+
+void RequestStorageAccessOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Document_requestStorageAccess");
+BLINK_BINDINGS_TRACE_EVENT("Document.requestStorageAccess");
+
+scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
+
+const int arg_count = std::min(info.Length(), 1);
+v8::Local<v8::Object> v8_receiver = info.This();
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ExecutionContext* execution_context = receiver_execution_context;
+if (RuntimeEnabledFeatures::StorageAccessAPIBeyondCookiesEnabled(execution_context)) {
+  if (arg_count == 1) {
+  return RequestStorageAccessOperationOverload2(info);
+}
+}
+return RequestStorageAccessOperationOverload1(info);
 }
 
 void RequestStorageAccessForOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -7507,7 +7735,7 @@ return;
 
 
 
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -7540,7 +7768,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7549,11 +7777,8 @@ blink_receiver->SetSequentialFocusNavigationStartingPoint(arg1_element);
 
 }
 
-void StartViewTransitionOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Document_startViewTransition");
-BLINK_BINDINGS_TRACE_EVENT("Document.startViewTransition");
-
-
+void StartViewTransitionOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
@@ -7565,32 +7790,130 @@ UseCounter::Count(current_execution_context, WebFeature::kViewTransition);
 
 
 
-DOMViewTransition* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
 const char* const property_name = "startViewTransition";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-do {  // Dummy loop for use of 'break'.
-  const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
-if (non_undefined_argument_length <= 0) {
-  return_value = ViewTransitionSupplement::startViewTransition(script_state, *blink_receiver, exception_state);
-break;
-}
-auto&& arg1_callback = NativeValueTraits<V8ViewTransitionCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-return_value = ViewTransitionSupplement::startViewTransition(script_state, *blink_receiver, arg1_callback, exception_state);
-} while (false);
+auto&& return_value = ViewTransitionSupplement::startViewTransition(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void StartViewTransitionOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kViewTransition);
+
+
+
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Document";
+const char* const property_name = "startViewTransition";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_update = NativeValueTraits<V8ViewTransitionCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = ViewTransitionSupplement::startViewTransition(script_state, *blink_receiver, arg1_update, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void StartViewTransitionOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kViewTransition);
+
+
+
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Document";
+const char* const property_name = "startViewTransition";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_opts = NativeValueTraits<ViewTransitionOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = ViewTransitionSupplement::startViewTransition(script_state, *blink_receiver, arg1_opts, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void StartViewTransitionOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Document_startViewTransition");
+BLINK_BINDINGS_TRACE_EVENT("Document.startViewTransition");
+
+scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
+
+const int arg_count = std::min(info.Length(), 1);
+do {  // Dummy loop for use of 'break'.
+  if (arg_count == 1) {
+  if (RuntimeEnabledFeatures::ViewTransitionTypesEnabled()) {
+  if (info[0]->IsNullOrUndefined()) {
+  return StartViewTransitionOperationOverload3(info);
+}
+}
+if (info[0]->IsFunction()) {
+  return StartViewTransitionOperationOverload2(info);
+}
+if (RuntimeEnabledFeatures::ViewTransitionTypesEnabled()) {
+  if (info[0]->IsObject()) {
+  return StartViewTransitionOperationOverload3(info);
+}
+}
+break;
+}
+return StartViewTransitionOperationOverload1(info);
+} while (false);
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Document";
+const char* const property_name = "startViewTransition";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+exception_state.ThrowTypeError("Overload resolution failed.");
+return;
 }
 
 void WebkitCancelFullScreenOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -7610,7 +7933,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedDocumentCancel
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 DocumentFullscreen::webkitExitFullscreen(*blink_receiver);
 
 }
@@ -7632,7 +7955,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPrefixedDocumentExitFu
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 DocumentFullscreen::webkitExitFullscreen(*blink_receiver);
 
 }
@@ -7654,7 +7977,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = bindings::VariadicArgumentsToNativeValues<IDLString>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7687,7 +8010,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = NativeValueTraits<TrustedHTML>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7736,7 +8059,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = bindings::VariadicArgumentsToNativeValues<IDLString>(isolate, info, 0, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7769,7 +8092,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Document* blink_receiver = V8Document::ToWrappableUnsafe(v8_receiver);
+Document* blink_receiver = V8Document::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_text = NativeValueTraits<TrustedHTML>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -7828,7 +8151,7 @@ return;
 ExecutionContext* execution_context = current_execution_context;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_html;
 if (LIKELY(info[0]->IsString())) {
-  arg1_html.Init(info[0].As<v8::String>());
+  arg1_html.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Document";
@@ -7940,6 +8263,7 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"onresume", OnresumeAttributeGetCallback, OnresumeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onsearch", OnsearchAttributeGetCallback, OnsearchAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onvisibilitychange", OnvisibilitychangeAttributeGetCallback, OnvisibilitychangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"timeline", TimelineAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"fullscreenEnabled", FullscreenEnabledAttributeGetCallback, FullscreenEnabledAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"fullscreen", FullscreenAttributeGetCallback, FullscreenAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onfullscreenchange", OnfullscreenchangeAttributeGetCallback, OnfullscreenchangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -7955,6 +8279,7 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"onbeforexrselect", OnbeforexrselectAttributeGetCallback, OnbeforexrselectAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onabort", OnabortAttributeGetCallback, OnabortAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onbeforeinput", OnbeforeinputAttributeGetCallback, OnbeforeinputAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"onbeforematch", OnbeforematchAttributeGetCallback, OnbeforematchAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onbeforetoggle", OnbeforetoggleAttributeGetCallback, OnbeforetoggleAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onblur", OnblurAttributeGetCallback, OnblurAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncancel", OncancelAttributeGetCallback, OncancelAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -7963,6 +8288,7 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"onchange", OnchangeAttributeGetCallback, OnchangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onclick", OnclickAttributeGetCallback, OnclickAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onclose", OncloseAttributeGetCallback, OncloseAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"oncontentvisibilityautostatechange", OncontentvisibilityautostatechangeAttributeGetCallback, OncontentvisibilityautostatechangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncontextlost", OncontextlostAttributeGetCallback, OncontextlostAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncontextmenu", OncontextmenuAttributeGetCallback, OncontextmenuAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncontextrestored", OncontextrestoredAttributeGetCallback, OncontextrestoredAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -8100,6 +8426,7 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 {"exitFullscreen", ExitFullscreenOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"exitPictureInPicture", ExitPictureInPictureOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"exitPointerLock", ExitPointerLockOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"getAnimations", GetAnimationsOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"getElementById", GetElementByIdOperationCallbackForMainWorld, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kMainWorld), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"getElementById", GetElementByIdOperationCallbackForNonMainWorlds, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kNonMainWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"getElementsByClassName", GetElementsByClassNameOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
@@ -8109,6 +8436,7 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 {"getElementsByTagNameNS", GetElementsByTagNameNSOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
 {"getSelection", GetSelectionOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
 {"hasFocus", HasFocusOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
+{"hasStorageAccess", HasStorageAccessOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"importNode", ImportNodeOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"open", OpenOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"prepend", PrependOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
@@ -8121,6 +8449,8 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 {"querySelectorAll", QuerySelectorAllOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
 {"releaseEvents", ReleaseEventsOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"replaceChildren", ReplaceChildrenOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"requestStorageAccess", RequestStorageAccessOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"requestStorageAccessFor", RequestStorageAccessForOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"startViewTransition", StartViewTransitionOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"webkitCancelFullScreen", WebkitCancelFullScreenOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"webkitExitFullscreen", WebkitExitFullscreenOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
@@ -8137,22 +8467,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 void V8Document::Impl::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"timeline", TimelineAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
-if (RuntimeEnabledFeatures::ContentVisibilityAutoStateChangeEventEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"oncontentvisibilityautostatechange", OncontentvisibilityautostatechangeAttributeGetCallback, OncontentvisibilityautostatechangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
 if (RuntimeEnabledFeatures::OverscrollCustomizationEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onoverscroll", OnoverscrollAttributeGetCallback, OnoverscrollAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -8169,9 +8483,17 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
-if (RuntimeEnabledFeatures::CSSScrollSnapEventsEnabled()) {
+if (RuntimeEnabledFeatures::CSSSnapChangedEventEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onsnapchanged", OnsnapchangedAttributeGetCallback, OnsnapchangedAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::CSSSnapChangingEventEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"onsnapchanging", OnsnapchangingAttributeGetCallback, OnsnapchangingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -8189,34 +8511,9 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"getAnimations", GetAnimationsOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
-}
 if (RuntimeEnabledFeatures::DOMPartsAPIEnabled()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"getPartRoot", GetPartRootOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
-}
-if (RuntimeEnabledFeatures::StorageAccessAPIEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"hasStorageAccess", HasStorageAccessOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"requestStorageAccess", RequestStorageAccessOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
-}
-if (RuntimeEnabledFeatures::StorageAccessAPIForOriginExtensionEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"requestStorageAccessFor", RequestStorageAccessForOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -8277,15 +8574,6 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::TextFragmentIdentifiersEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kTextFragmentIdentifiers)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"fragmentDirective", FragmentDirectiveAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
-if ((feature_selector.IsAll() && RuntimeEnabledFeatures::BeforeMatchEventEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kBeforeMatchEvent)) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"onbeforematch", OnbeforematchAttributeGetCallback, OnbeforematchAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -8425,6 +8713,7 @@ reinterpret_cast<intptr_t>(OnsearchAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnsearchAttributeSetCallback),
 reinterpret_cast<intptr_t>(OnvisibilitychangeAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnvisibilitychangeAttributeSetCallback),
+reinterpret_cast<intptr_t>(TimelineAttributeGetCallback),
 reinterpret_cast<intptr_t>(FullscreenEnabledAttributeGetCallback),
 reinterpret_cast<intptr_t>(FullscreenEnabledAttributeSetCallback),
 reinterpret_cast<intptr_t>(FullscreenAttributeGetCallback),
@@ -8449,6 +8738,8 @@ reinterpret_cast<intptr_t>(OnabortAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnabortAttributeSetCallback),
 reinterpret_cast<intptr_t>(OnbeforeinputAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnbeforeinputAttributeSetCallback),
+reinterpret_cast<intptr_t>(OnbeforematchAttributeGetCallback),
+reinterpret_cast<intptr_t>(OnbeforematchAttributeSetCallback),
 reinterpret_cast<intptr_t>(OnbeforetoggleAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnbeforetoggleAttributeSetCallback),
 reinterpret_cast<intptr_t>(OnblurAttributeGetCallback),
@@ -8465,6 +8756,8 @@ reinterpret_cast<intptr_t>(OnclickAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnclickAttributeSetCallback),
 reinterpret_cast<intptr_t>(OncloseAttributeGetCallback),
 reinterpret_cast<intptr_t>(OncloseAttributeSetCallback),
+reinterpret_cast<intptr_t>(OncontentvisibilityautostatechangeAttributeGetCallback),
+reinterpret_cast<intptr_t>(OncontentvisibilityautostatechangeAttributeSetCallback),
 reinterpret_cast<intptr_t>(OncontextlostAttributeGetCallback),
 reinterpret_cast<intptr_t>(OncontextlostAttributeSetCallback),
 reinterpret_cast<intptr_t>(OncontextmenuAttributeGetCallback),
@@ -8679,6 +8972,7 @@ reinterpret_cast<intptr_t>(ExecCommandOperationCallback),
 reinterpret_cast<intptr_t>(ExitFullscreenOperationCallback),
 reinterpret_cast<intptr_t>(ExitPictureInPictureOperationCallback),
 reinterpret_cast<intptr_t>(ExitPointerLockOperationCallback),
+reinterpret_cast<intptr_t>(GetAnimationsOperationCallback),
 reinterpret_cast<intptr_t>(GetElementByIdOperationCallbackForMainWorld),
 reinterpret_cast<intptr_t>(GetElementByIdOperationCallbackForNonMainWorlds),
 reinterpret_cast<intptr_t>(GetElementsByClassNameOperationCallback),
@@ -8688,6 +8982,7 @@ reinterpret_cast<intptr_t>(GetElementsByTagNameOperationCallback),
 reinterpret_cast<intptr_t>(GetElementsByTagNameNSOperationCallback),
 reinterpret_cast<intptr_t>(GetSelectionOperationCallback),
 reinterpret_cast<intptr_t>(HasFocusOperationCallback),
+reinterpret_cast<intptr_t>(HasStorageAccessOperationCallback),
 reinterpret_cast<intptr_t>(ImportNodeOperationCallback),
 reinterpret_cast<intptr_t>(OpenOperationCallback),
 reinterpret_cast<intptr_t>(PrependOperationCallback),
@@ -8700,6 +8995,8 @@ reinterpret_cast<intptr_t>(QuerySelectorOperationCallback),
 reinterpret_cast<intptr_t>(QuerySelectorAllOperationCallback),
 reinterpret_cast<intptr_t>(ReleaseEventsOperationCallback),
 reinterpret_cast<intptr_t>(ReplaceChildrenOperationCallback),
+reinterpret_cast<intptr_t>(RequestStorageAccessOperationCallback),
+reinterpret_cast<intptr_t>(RequestStorageAccessForOperationCallback),
 reinterpret_cast<intptr_t>(StartViewTransitionOperationCallback),
 reinterpret_cast<intptr_t>(WebkitCancelFullScreenOperationCallback),
 reinterpret_cast<intptr_t>(WebkitExitFullscreenOperationCallback),
@@ -8712,24 +9009,6 @@ return kReferenceTable;
 void InstallPropsOfV8Document(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"timeline", TimelineAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
-if (RuntimeEnabledFeatures::ContentVisibilityAutoStateChangeEventEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"oncontentvisibilityautostatechange", OncontentvisibilityautostatechangeAttributeGetCallback, OncontentvisibilityautostatechangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
 if (RuntimeEnabledFeatures::OverscrollCustomizationEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onoverscroll", OnoverscrollAttributeGetCallback, OnoverscrollAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -8748,9 +9027,18 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
 }
-if (RuntimeEnabledFeatures::CSSScrollSnapEventsEnabled()) {
+if (RuntimeEnabledFeatures::CSSSnapChangedEventEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onsnapchanged", OnsnapchangedAttributeGetCallback, OnsnapchangedAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::CSSSnapChangingEventEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"onsnapchanging", OnsnapchangingAttributeGetCallback, OnsnapchangingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -8770,37 +9058,9 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
 }
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"getAnimations", GetAnimationsOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
-}
 if (RuntimeEnabledFeatures::DOMPartsAPIEnabled()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"getPartRoot", GetPartRootOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
-}
-if (RuntimeEnabledFeatures::StorageAccessAPIEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"hasStorageAccess", HasStorageAccessOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"requestStorageAccess", RequestStorageAccessOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
-}
-if (RuntimeEnabledFeatures::StorageAccessAPIForOriginExtensionEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"requestStorageAccessFor", RequestStorageAccessForOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

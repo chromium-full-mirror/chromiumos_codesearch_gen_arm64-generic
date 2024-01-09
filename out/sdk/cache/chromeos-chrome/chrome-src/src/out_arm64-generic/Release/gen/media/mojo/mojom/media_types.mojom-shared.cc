@@ -88,6 +88,18 @@ NOINLINE static const char* SVCScalabilityModeToStringHelper(SVCScalabilityMode 
       return "kL1T2";
     case SVCScalabilityMode::kL1T3:
       return "kL1T3";
+    case SVCScalabilityMode::kL2T1:
+      return "kL2T1";
+    case SVCScalabilityMode::kL2T2:
+      return "kL2T2";
+    case SVCScalabilityMode::kL2T3:
+      return "kL2T3";
+    case SVCScalabilityMode::kL3T1:
+      return "kL3T1";
+    case SVCScalabilityMode::kL3T2:
+      return "kL3T2";
+    case SVCScalabilityMode::kL3T3:
+      return "kL3T3";
     case SVCScalabilityMode::kL2T1Key:
       return "kL2T1Key";
     case SVCScalabilityMode::kL2T2Key:
@@ -100,6 +112,18 @@ NOINLINE static const char* SVCScalabilityModeToStringHelper(SVCScalabilityMode 
       return "kL3T2Key";
     case SVCScalabilityMode::kL3T3Key:
       return "kL3T3Key";
+    case SVCScalabilityMode::kS2T1:
+      return "kS2T1";
+    case SVCScalabilityMode::kS2T2:
+      return "kS2T2";
+    case SVCScalabilityMode::kS2T3:
+      return "kS2T3";
+    case SVCScalabilityMode::kS3T1:
+      return "kS3T1";
+    case SVCScalabilityMode::kS3T2:
+      return "kS3T2";
+    case SVCScalabilityMode::kS3T3:
+      return "kS3T3";
     default:
       return nullptr;
   }
@@ -850,7 +874,7 @@ bool VideoFrameMetadata_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 192, validation_context)) {
+          data, 200, validation_context)) {
     return false;
   }
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/input_method_manager.mojom-features.h"
 #include "ash/components/arc/mojom/input_method_manager.mojom-shared.h"
 #include "ash/components/arc/mojom/input_method_manager.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -126,7 +127,7 @@ class InputConnection
   virtual void RequestTextInputState(RequestTextInputStateCallback callback) = 0;
 
   
-  virtual void SetComposingText(const ::std::u16string& text, int32_t new_cursor_pos, const absl::optional<::gfx::Range>& new_selection_range) = 0;
+  virtual void SetComposingText(const ::std::u16string& text, int32_t new_cursor_pos, const std::optional<::gfx::Range>& new_selection_range) = 0;
 
   
   virtual void SetSelection(const ::gfx::Range& new_selection_range) = 0;
@@ -308,7 +309,7 @@ class  InputConnectionProxy
   
   void RequestTextInputState(RequestTextInputStateCallback callback) final;
   
-  void SetComposingText(const ::std::u16string& text, int32_t new_cursor_pos, const absl::optional<::gfx::Range>& new_selection_range) final;
+  void SetComposingText(const ::std::u16string& text, int32_t new_cursor_pos, const std::optional<::gfx::Range>& new_selection_range) final;
   
   void SetSelection(const ::gfx::Range& new_selection_range) final;
   
@@ -721,7 +722,7 @@ class  TextInputState {
       bool should_do_learning,
       uint32_t flags,
       bool first_update_after_operation,
-      const absl::optional<::gfx::Range>& composition_text_range);
+      const std::optional<::gfx::Range>& composition_text_range);
 
 
   ~TextInputState();
@@ -815,7 +816,7 @@ class  TextInputState {
   
   bool first_update_after_operation;
   
-  absl::optional<::gfx::Range> composition_text_range;
+  std::optional<::gfx::Range> composition_text_range;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

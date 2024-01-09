@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -53,7 +54,7 @@ PeerConnectionInfo::PeerConnectionInfo(
     int32_t lid_in,
     const std::string& rtc_configuration_in,
     const std::string& constraints_in,
-    const absl::optional<std::string>& url_in)
+    const std::optional<std::string>& url_in)
     : lid(std::move(lid_in)),
       rtc_configuration(std::move(rtc_configuration_in)),
       constraints(std::move(constraints_in)),
@@ -95,7 +96,7 @@ void PeerConnectionInfo::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -130,9 +131,6 @@ PeerConnectionManager::IPCStableHashFunction PeerConnectionManager::MessageToMet
     case internal::kPeerConnectionManager_GetStandardStats_Name: {
       return &PeerConnectionManager::GetStandardStats_Sym::IPCStableHash;
     }
-    case internal::kPeerConnectionManager_GetLegacyStats_Name: {
-      return &PeerConnectionManager::GetLegacyStats_Sym::IPCStableHash;
-    }
     case internal::kPeerConnectionManager_GetCurrentState_Name: {
       return &PeerConnectionManager::GetCurrentState_Sym::IPCStableHash;
     }
@@ -159,8 +157,6 @@ const char* PeerConnectionManager::MessageToMethodName_(mojo::Message& message) 
             return "Receive blink::mojom::PeerConnectionManager::StopEventLog";
       case internal::kPeerConnectionManager_GetStandardStats_Name:
             return "Receive blink::mojom::PeerConnectionManager::GetStandardStats";
-      case internal::kPeerConnectionManager_GetLegacyStats_Name:
-            return "Receive blink::mojom::PeerConnectionManager::GetLegacyStats";
       case internal::kPeerConnectionManager_GetCurrentState_Name:
             return "Receive blink::mojom::PeerConnectionManager::GetCurrentState";
     }
@@ -178,8 +174,6 @@ const char* PeerConnectionManager::MessageToMethodName_(mojo::Message& message) 
             return "Receive reply blink::mojom::PeerConnectionManager::StopEventLog";
       case internal::kPeerConnectionManager_GetStandardStats_Name:
             return "Receive reply blink::mojom::PeerConnectionManager::GetStandardStats";
-      case internal::kPeerConnectionManager_GetLegacyStats_Name:
-            return "Receive reply blink::mojom::PeerConnectionManager::GetLegacyStats";
       case internal::kPeerConnectionManager_GetCurrentState_Name:
             return "Receive reply blink::mojom::PeerConnectionManager::GetCurrentState";
     }
@@ -274,19 +268,6 @@ uint32_t PeerConnectionManager::GetStandardStats_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t PeerConnectionManager::GetLegacyStats_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::PeerConnectionManager::GetLegacyStats");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t PeerConnectionManager::GetCurrentState_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -311,14 +292,17 @@ void PeerConnectionManagerProxy::OnSuspend(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::PeerConnectionManager::OnSuspend");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionManager_OnSuspend_Name, kFlags, 0, 0, nullptr);
@@ -348,14 +332,17 @@ void PeerConnectionManagerProxy::OnThermalStateChange(
                         "<value of type DeviceThermalState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionManager_OnThermalStateChange_Name, kFlags, 0, 0, nullptr);
@@ -387,14 +374,17 @@ void PeerConnectionManagerProxy::OnSpeedLimitChange(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionManager_OnSpeedLimitChange_Name, kFlags, 0, 0, nullptr);
@@ -428,14 +418,17 @@ void PeerConnectionManagerProxy::StartEventLog(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionManager_StartEventLog_Name, kFlags, 0, 0, nullptr);
@@ -467,14 +460,17 @@ void PeerConnectionManagerProxy::StopEventLog(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionManager_StopEventLog_Name, kFlags, 0, 0, nullptr);
@@ -498,14 +494,17 @@ void PeerConnectionManagerProxy::GetStandardStats(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::PeerConnectionManager::GetStandardStats");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionManager_GetStandardStats_Name, kFlags, 0, 0, nullptr);
@@ -523,49 +522,22 @@ void PeerConnectionManagerProxy::GetStandardStats(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void PeerConnectionManagerProxy::GetLegacyStats(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send blink::mojom::PeerConnectionManager::GetLegacyStats");
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kPeerConnectionManager_GetLegacyStats_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::PeerConnectionManager_GetLegacyStats_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(PeerConnectionManager::Name_);
-  message.set_method_name("GetLegacyStats");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void PeerConnectionManagerProxy::GetCurrentState(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::PeerConnectionManager::GetCurrentState");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionManager_GetCurrentState_Name, kFlags, 0, 0, nullptr);
@@ -740,28 +712,6 @@ std::move(p_peer_connection_local_id));
       impl->GetStandardStats();
       return true;
     }
-    case internal::kPeerConnectionManager_GetLegacyStats_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::PeerConnectionManager_GetLegacyStats_Params_Data* params =
-          reinterpret_cast<internal::PeerConnectionManager_GetLegacyStats_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      PeerConnectionManager_GetLegacyStats_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PeerConnectionManager::Name_, 6, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetLegacyStats();
-      return true;
-    }
     case internal::kPeerConnectionManager_GetCurrentState_Name: {
 
       DCHECK(message->is_serialized());
@@ -776,7 +726,7 @@ std::move(p_peer_connection_local_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PeerConnectionManager::Name_, 7, false);
+            PeerConnectionManager::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -815,33 +765,28 @@ bool PeerConnectionManagerStubDispatch::AcceptWithResponder(
     case internal::kPeerConnectionManager_GetStandardStats_Name: {
       break;
     }
-    case internal::kPeerConnectionManager_GetLegacyStats_Name: {
-      break;
-    }
     case internal::kPeerConnectionManager_GetCurrentState_Name: {
       break;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPeerConnectionManagerValidationInfo[] = {
-    {&internal::PeerConnectionManager_OnSuspend_Params_Data::Validate,
+    { &internal::PeerConnectionManager_OnSuspend_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionManager_OnThermalStateChange_Params_Data::Validate,
+    { &internal::PeerConnectionManager_OnThermalStateChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionManager_OnSpeedLimitChange_Params_Data::Validate,
+    { &internal::PeerConnectionManager_OnSpeedLimitChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionManager_StartEventLog_Params_Data::Validate,
+    { &internal::PeerConnectionManager_StartEventLog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionManager_StopEventLog_Params_Data::Validate,
+    { &internal::PeerConnectionManager_StopEventLog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionManager_GetStandardStats_Params_Data::Validate,
+    { &internal::PeerConnectionManager_GetStandardStats_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionManager_GetLegacyStats_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::PeerConnectionManager_GetCurrentState_Params_Data::Validate,
+    { &internal::PeerConnectionManager_GetCurrentState_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1161,14 +1106,17 @@ void PeerConnectionTrackerHostProxy::AddPeerConnection(
                         "<value of type PeerConnectionInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_AddPeerConnection_Name, kFlags, 0, 0, nullptr);
@@ -1209,14 +1157,17 @@ void PeerConnectionTrackerHostProxy::RemovePeerConnection(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_RemovePeerConnection_Name, kFlags, 0, 0, nullptr);
@@ -1253,14 +1204,17 @@ void PeerConnectionTrackerHostProxy::UpdatePeerConnection(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_UpdatePeerConnection_Name, kFlags, 0, 0, nullptr);
@@ -1316,14 +1270,17 @@ void PeerConnectionTrackerHostProxy::OnPeerConnectionSessionIdSet(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_OnPeerConnectionSessionIdSet_Name, kFlags, 0, 0, nullptr);
@@ -1377,14 +1334,17 @@ void PeerConnectionTrackerHostProxy::GetUserMedia(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_GetUserMedia_Name, kFlags, 0, 0, nullptr);
@@ -1448,14 +1408,17 @@ void PeerConnectionTrackerHostProxy::GetUserMediaSuccess(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_GetUserMediaSuccess_Name, kFlags, 0, 0, nullptr);
@@ -1525,14 +1488,17 @@ void PeerConnectionTrackerHostProxy::GetUserMediaFailure(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_GetUserMediaFailure_Name, kFlags, 0, 0, nullptr);
@@ -1597,14 +1563,17 @@ void PeerConnectionTrackerHostProxy::GetDisplayMedia(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_GetDisplayMedia_Name, kFlags, 0, 0, nullptr);
@@ -1668,14 +1637,17 @@ void PeerConnectionTrackerHostProxy::GetDisplayMediaSuccess(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_GetDisplayMediaSuccess_Name, kFlags, 0, 0, nullptr);
@@ -1745,14 +1717,17 @@ void PeerConnectionTrackerHostProxy::GetDisplayMediaFailure(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_GetDisplayMediaFailure_Name, kFlags, 0, 0, nullptr);
@@ -1808,14 +1783,17 @@ void PeerConnectionTrackerHostProxy::WebRtcEventLogWrite(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_WebRtcEventLogWrite_Name, kFlags, 0, 0, nullptr);
@@ -1862,14 +1840,17 @@ void PeerConnectionTrackerHostProxy::AddStandardStats(
                         "<value of type ::base::Value::List>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_AddStandardStats_Name, kFlags, 0, 0, nullptr);
@@ -1914,14 +1895,17 @@ void PeerConnectionTrackerHostProxy::AddLegacyStats(
                         "<value of type ::base::Value::List>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPeerConnectionTrackerHost_AddLegacyStats_Name, kFlags, 0, 0, nullptr);
@@ -2445,34 +2429,34 @@ bool PeerConnectionTrackerHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPeerConnectionTrackerHostValidationInfo[] = {
-    {&internal::PeerConnectionTrackerHost_AddPeerConnection_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_AddPeerConnection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_RemovePeerConnection_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_RemovePeerConnection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_UpdatePeerConnection_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_UpdatePeerConnection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_OnPeerConnectionSessionIdSet_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_OnPeerConnectionSessionIdSet_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_GetUserMedia_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_GetUserMedia_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_GetUserMediaSuccess_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_GetUserMediaSuccess_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_GetUserMediaFailure_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_GetUserMediaFailure_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_GetDisplayMedia_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_GetDisplayMedia_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_GetDisplayMediaSuccess_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_GetDisplayMediaSuccess_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_GetDisplayMediaFailure_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_GetDisplayMediaFailure_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_WebRtcEventLogWrite_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_WebRtcEventLogWrite_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_AddStandardStats_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_AddStandardStats_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PeerConnectionTrackerHost_AddLegacyStats_Params_Data::Validate,
+    { &internal::PeerConnectionTrackerHost_AddLegacyStats_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2535,9 +2519,6 @@ void PeerConnectionManagerInterceptorForTesting::StopEventLog(int32_t peer_conne
 }
 void PeerConnectionManagerInterceptorForTesting::GetStandardStats() {
   GetForwardingInterface()->GetStandardStats();
-}
-void PeerConnectionManagerInterceptorForTesting::GetLegacyStats() {
-  GetForwardingInterface()->GetLegacyStats();
 }
 void PeerConnectionManagerInterceptorForTesting::GetCurrentState() {
   GetForwardingInterface()->GetCurrentState();

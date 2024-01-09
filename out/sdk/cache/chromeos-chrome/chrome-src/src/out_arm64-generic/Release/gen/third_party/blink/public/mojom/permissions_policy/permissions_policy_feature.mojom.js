@@ -100,8 +100,13 @@
   PermissionsPolicyFeature.kPrivateStateTokenIssuance = 110;
   PermissionsPolicyFeature.kClientHintUAFormFactor = 111;
   PermissionsPolicyFeature.kClientHintPrefersReducedTransparency = 112;
+  PermissionsPolicyFeature.kWebPrinting = 113;
+  PermissionsPolicyFeature.kUsbUnrestricted = 114;
+  PermissionsPolicyFeature.kCapturedSurfaceControl = 115;
+  PermissionsPolicyFeature.kSubApps = 116;
+  PermissionsPolicyFeature.kPublicKeyCredentialsCreate = 117;
   PermissionsPolicyFeature.MIN_VALUE = 0;
-  PermissionsPolicyFeature.MAX_VALUE = 112;
+  PermissionsPolicyFeature.MAX_VALUE = 117;
 
   PermissionsPolicyFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -183,6 +188,11 @@
     case 110:
     case 111:
     case 112:
+    case 113:
+    case 114:
+    case 115:
+    case 116:
+    case 117:
       return true;
     }
     return false;

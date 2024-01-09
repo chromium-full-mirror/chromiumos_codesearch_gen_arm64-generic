@@ -75,11 +75,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, DOMWebSocket>::value,
     "DOMWebSocket does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&DOMWebSocket::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMWebSocket is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,10 +87,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -107,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.readyState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->readyState();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -121,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.bufferedAmount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bufferedAmount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -135,10 +132,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.onopen.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onopen();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onopen();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -151,8 +148,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnopen(event_handler);
 }
 
@@ -163,10 +161,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -179,8 +177,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -191,10 +190,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.onclose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclose();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -207,8 +206,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclose(event_handler);
 }
 
@@ -219,10 +219,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.extensions.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->extensions();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->extensions();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -234,10 +234,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.protocol.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->protocol();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->protocol();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -249,10 +249,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -265,8 +265,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -277,10 +278,10 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.binaryType.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->binaryType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->binaryType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -291,9 +292,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocket.binaryType.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "WebSocket";
@@ -394,7 +395,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->close(exception_state);
 break;
@@ -437,7 +438,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -467,7 +468,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -497,7 +498,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<DOMArrayBuffer>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -527,7 +528,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(v8_receiver);
+DOMWebSocket* blink_receiver = V8WebSocket::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<NotShared<DOMArrayBufferView>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

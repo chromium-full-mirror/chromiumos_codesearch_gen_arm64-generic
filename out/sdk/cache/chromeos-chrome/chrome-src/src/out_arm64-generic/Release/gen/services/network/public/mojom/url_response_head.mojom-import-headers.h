@@ -32,6 +32,8 @@
 #include "services/network/public/mojom/network_types.mojom-import-headers.h"
 #include "services/network/public/mojom/parsed_headers.mojom.h"
 #include "services/network/public/mojom/parsed_headers.mojom-import-headers.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-import-headers.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"

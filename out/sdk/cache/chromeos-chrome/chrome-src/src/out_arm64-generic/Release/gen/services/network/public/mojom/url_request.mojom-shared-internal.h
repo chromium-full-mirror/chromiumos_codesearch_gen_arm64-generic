@@ -280,7 +280,7 @@ class  URLRequest_Data {
   uint8_t keepalive : 1;
   uint8_t browsing_topics : 1;
   uint8_t ad_auction_headers : 1;
-  uint8_t shared_storage_writable : 1;
+  uint8_t shared_storage_writable_eligible : 1;
   uint8_t has_user_gesture : 1;
   uint8_t enable_load_timing : 1;
   uint8_t enable_upload_progress : 1;
@@ -292,8 +292,9 @@ class  URLRequest_Data {
   uint8_t is_fetch_later_api : 1;
   uint8_t is_favicon : 1;
   uint8_t has_storage_access : 1;
+  uint8_t is_ad_tagged : 1;
   uint8_t shared_dictionary_writer_enabled : 1;
-  uint8_t pad23_[1];
+  uint8_t pad24_[1];
   int32_t referrer_policy;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> request_initiator;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> navigation_redirect_chain;
@@ -329,7 +330,7 @@ class  URLRequest_Data {
   int32_t required_ip_address_space;
   int32_t attribution_reporting_support;
   int32_t attribution_reporting_eligibility;
-  uint8_t pad58_[4];
+  uint8_t pad59_[4];
   mojo::internal::Pointer<::network::mojom::internal::AttributionReportingRuntimeFeatures_Data> attribution_reporting_runtime_features;
   mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> attribution_reporting_src_token;
 

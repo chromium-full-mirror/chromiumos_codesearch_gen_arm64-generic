@@ -98,11 +98,13 @@ enum WebApk_UpdateReason : int {
   WebApk_UpdateReason_SHORTCUTS_DIFFER = 16,
   WebApk_UpdateReason_SPLASH_ICON_HASH_DIFFERS = 17,
   WebApk_UpdateReason_DARK_BACKGROUND_COLOR_DIFFERS = 18,
-  WebApk_UpdateReason_DARK_THEME_COLOR_DIFFERS = 19
+  WebApk_UpdateReason_DARK_THEME_COLOR_DIFFERS = 19,
+  WebApk_UpdateReason_PRIMARY_ICON_CHANGE_BELOW_THRESHOLD = 20,
+  WebApk_UpdateReason_PRIMARY_ICON_CHANGE_SHELL_UPDATE = 21
 };
 bool WebApk_UpdateReason_IsValid(int value);
 constexpr WebApk_UpdateReason WebApk_UpdateReason_UpdateReason_MIN = WebApk_UpdateReason_NONE;
-constexpr WebApk_UpdateReason WebApk_UpdateReason_UpdateReason_MAX = WebApk_UpdateReason_DARK_THEME_COLOR_DIFFERS;
+constexpr WebApk_UpdateReason WebApk_UpdateReason_UpdateReason_MAX = WebApk_UpdateReason_PRIMARY_ICON_CHANGE_SHELL_UPDATE;
 constexpr int WebApk_UpdateReason_UpdateReason_ARRAYSIZE = WebApk_UpdateReason_UpdateReason_MAX + 1;
 
 const std::string& WebApk_UpdateReason_Name(WebApk_UpdateReason value);
@@ -500,6 +502,10 @@ class WebApk final :
     WebApk_UpdateReason_DARK_BACKGROUND_COLOR_DIFFERS;
   static constexpr UpdateReason DARK_THEME_COLOR_DIFFERS =
     WebApk_UpdateReason_DARK_THEME_COLOR_DIFFERS;
+  static constexpr UpdateReason PRIMARY_ICON_CHANGE_BELOW_THRESHOLD =
+    WebApk_UpdateReason_PRIMARY_ICON_CHANGE_BELOW_THRESHOLD;
+  static constexpr UpdateReason PRIMARY_ICON_CHANGE_SHELL_UPDATE =
+    WebApk_UpdateReason_PRIMARY_ICON_CHANGE_SHELL_UPDATE;
   static inline bool UpdateReason_IsValid(int value) {
     return WebApk_UpdateReason_IsValid(value);
   }

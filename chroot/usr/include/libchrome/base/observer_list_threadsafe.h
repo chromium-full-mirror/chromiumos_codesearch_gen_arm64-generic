@@ -159,7 +159,7 @@ class ObserverListThreadSafe : public internal::ObserverListThreadSafeBase {
     // to avoid execution of pending posted-tasks over removed or released
     // observers.
     const size_t observer_id = ++observer_id_counter_;
-#if EXPENSIVE_DCHECKS_ARE_ON()
+#if DCHECK_IS_ON()
     ObserverTaskRunnerInfo task_info = {task_runner, base::debug::StackTrace(),
                                         observer_id};
 #else
@@ -216,7 +216,7 @@ class ObserverListThreadSafe : public internal::ObserverListThreadSafeBase {
 
   // Verifies that the list is currently empty (i.e. there are no observers).
   void AssertEmpty() const {
-#if EXPENSIVE_DCHECKS_ARE_ON()
+#if DCHECK_IS_ON()
     AutoLock auto_lock(lock_);
     bool observers_is_empty = observers_.empty();
     DUMP_WILL_BE_CHECK(observers_is_empty)
@@ -300,7 +300,7 @@ class ObserverListThreadSafe : public internal::ObserverListThreadSafeBase {
   std::string GetObserversCreationStackStringLocked() const
       EXCLUSIVE_LOCKS_REQUIRED(lock_) {
     std::string result;
-#if EXPENSIVE_DCHECKS_ARE_ON()
+#if DCHECK_IS_ON()
     for (const auto& observer : observers_) {
       StrAppend(&result,
                 {observer.second.add_observer_stack_.ToString(), "\n"});
@@ -317,7 +317,7 @@ class ObserverListThreadSafe : public internal::ObserverListThreadSafeBase {
 
   struct ObserverTaskRunnerInfo {
     scoped_refptr<SequencedTaskRunner> task_runner;
-#if EXPENSIVE_DCHECKS_ARE_ON()
+#if DCHECK_IS_ON()
     base::debug::StackTrace add_observer_stack_;
 #endif
     size_t observer_id = 0;

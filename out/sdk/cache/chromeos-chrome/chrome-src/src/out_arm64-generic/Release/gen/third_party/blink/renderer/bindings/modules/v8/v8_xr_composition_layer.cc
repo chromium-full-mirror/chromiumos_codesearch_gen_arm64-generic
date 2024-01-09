@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRCompositionLayer>::value,
     "XRCompositionLayer inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRCompositionLayer::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRCompositionLayer is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.layout.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->layout();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->layout();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.blendTextureSourceAlpha.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blendTextureSourceAlpha();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -115,9 +111,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.blendTextureSourceAlpha.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "XRCompositionLayer";
@@ -138,8 +134,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.chromaticAberrationCorrection.get
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->chromaticAberrationCorrection();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -161,7 +158,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLBoolean>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -178,8 +175,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.forceMonoPresentation.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->forceMonoPresentation();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -191,9 +189,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.forceMonoPresentation.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "XRCompositionLayer";
@@ -214,8 +212,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.opacity.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->opacity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -227,9 +226,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.opacity.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "XRCompositionLayer";
@@ -250,8 +249,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.mipLevels.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->mipLevels();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -264,8 +264,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.needsRedraw.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->needsRedraw();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -282,8 +283,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRCompositionLayer.destroy");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(v8_receiver);
+XRCompositionLayer* blink_receiver = V8XRCompositionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->destroy();
 
 }

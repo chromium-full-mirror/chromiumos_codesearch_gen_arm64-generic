@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PagePopupController>::value,
     "PagePopupController inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PagePopupController::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PagePopupController is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("PagePopupController.closePopup");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(v8_receiver);
+PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->closePopup();
 
 }
@@ -115,7 +111,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(v8_receiver);
+PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_year = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -149,7 +145,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(v8_receiver);
+PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_year = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -183,7 +179,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(v8_receiver);
+PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_year = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -221,10 +217,10 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(v8_receiver);
+PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_number_string;
 if (LIKELY(info[0]->IsString())) {
-  arg1_number_string.Init(info[0].As<v8::String>());
+  arg1_number_string.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "PagePopupController";
@@ -260,7 +256,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(v8_receiver);
+PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_options_bounds = NativeValueTraits<IDLSequence<DOMRect>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -277,9 +273,9 @@ BLINK_BINDINGS_TRACE_EVENT("PagePopupController.setValue");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "PagePopupController";
 const char* const property_name = "setValue";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -290,13 +286,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(v8_receiver);
+PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_value;
 if (LIKELY(info[0]->IsString())) {
-  arg1_value.Init(info[0].As<v8::String>());
+  arg1_value.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "PagePopupController";
 const char* const property_name = "setValue";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -330,7 +325,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(v8_receiver);
+PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_number_value = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -364,7 +359,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(v8_receiver);
+PagePopupController* blink_receiver = V8PagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

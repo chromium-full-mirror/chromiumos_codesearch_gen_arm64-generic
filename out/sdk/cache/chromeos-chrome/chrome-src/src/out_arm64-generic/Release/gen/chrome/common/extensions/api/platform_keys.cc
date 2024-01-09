@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/platform_keys.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ Match::KeyAlgorithm::KeyAlgorithm()
  {}
 
 Match::KeyAlgorithm::~KeyAlgorithm() = default;
-Match::KeyAlgorithm::KeyAlgorithm(KeyAlgorithm&& rhs) = default;
-Match::KeyAlgorithm& Match::KeyAlgorithm::operator=(KeyAlgorithm&& rhs) = default;
+Match::KeyAlgorithm::KeyAlgorithm(KeyAlgorithm&& rhs) noexcept = default;
+Match::KeyAlgorithm& Match::KeyAlgorithm::operator=(KeyAlgorithm&& rhs) noexcept = default;
 Match::KeyAlgorithm Match::KeyAlgorithm::Clone() const {
   KeyAlgorithm out;
   return out;
@@ -62,21 +63,21 @@ bool Match::KeyAlgorithm::Populate(
 }
 
 // static
-absl::optional<Match::KeyAlgorithm> Match::KeyAlgorithm::FromValue(const base::Value::Dict& value) {
+std::optional<Match::KeyAlgorithm> Match::KeyAlgorithm::FromValue(const base::Value::Dict& value) {
   KeyAlgorithm out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Match::KeyAlgorithm> Match::KeyAlgorithm::FromValue(const base::Value& value) {
+std::optional<Match::KeyAlgorithm> Match::KeyAlgorithm::FromValue(const base::Value& value) {
   KeyAlgorithm out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -95,8 +96,8 @@ Match::Match()
  {}
 
 Match::~Match() = default;
-Match::Match(Match&& rhs) = default;
-Match& Match::operator=(Match&& rhs) = default;
+Match::Match(Match&& rhs) noexcept = default;
+Match& Match::operator=(Match&& rhs) noexcept = default;
 Match Match::Clone() const {
   Match out;
   out.certificate = certificate;
@@ -146,34 +147,21 @@ bool Match::Populate(
 }
 
 // static
-std::unique_ptr<Match> Match::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Match>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Match> Match::FromValue(const base::Value::Dict& value) {
+  Match out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Match> Match::FromValue(const base::Value::Dict& value) {
+std::optional<Match> Match::FromValue(const base::Value& value) {
   Match out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Match> Match::FromValue(const base::Value& value) {
-  Match out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -192,11 +180,11 @@ base::Value::Dict Match::ToValue() const {
 
 const char* ToString(ClientCertificateType enum_param) {
   switch (enum_param) {
-    case CLIENT_CERTIFICATE_TYPE_RSASIGN:
+    case ClientCertificateType::kRsaSign:
       return "rsaSign";
-    case CLIENT_CERTIFICATE_TYPE_ECDSASIGN:
+    case ClientCertificateType::kEcdsaSign:
       return "ecdsaSign";
-    case CLIENT_CERTIFICATE_TYPE_NONE:
+    case ClientCertificateType::kNone:
       return "";
   }
   NOTREACHED();
@@ -205,10 +193,10 @@ const char* ToString(ClientCertificateType enum_param) {
 
 ClientCertificateType ParseClientCertificateType(base::StringPiece enum_string) {
   if (enum_string == "rsaSign")
-    return CLIENT_CERTIFICATE_TYPE_RSASIGN;
+    return ClientCertificateType::kRsaSign;
   if (enum_string == "ecdsaSign")
-    return CLIENT_CERTIFICATE_TYPE_ECDSASIGN;
-  return CLIENT_CERTIFICATE_TYPE_NONE;
+    return ClientCertificateType::kEcdsaSign;
+  return ClientCertificateType::kNone;
 }
 
 std::u16string GetClientCertificateTypeParseError(base::StringPiece enum_string) {
@@ -220,8 +208,8 @@ ClientCertificateRequest::ClientCertificateRequest()
  {}
 
 ClientCertificateRequest::~ClientCertificateRequest() = default;
-ClientCertificateRequest::ClientCertificateRequest(ClientCertificateRequest&& rhs) = default;
-ClientCertificateRequest& ClientCertificateRequest::operator=(ClientCertificateRequest&& rhs) = default;
+ClientCertificateRequest::ClientCertificateRequest(ClientCertificateRequest&& rhs) noexcept = default;
+ClientCertificateRequest& ClientCertificateRequest::operator=(ClientCertificateRequest&& rhs) noexcept = default;
 ClientCertificateRequest ClientCertificateRequest::Clone() const {
   ClientCertificateRequest out;
   out.certificate_types = certificate_types;
@@ -284,34 +272,21 @@ bool ClientCertificateRequest::Populate(
 }
 
 // static
-std::unique_ptr<ClientCertificateRequest> ClientCertificateRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ClientCertificateRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ClientCertificateRequest> ClientCertificateRequest::FromValue(const base::Value::Dict& value) {
+  ClientCertificateRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ClientCertificateRequest> ClientCertificateRequest::FromValue(const base::Value::Dict& value) {
+std::optional<ClientCertificateRequest> ClientCertificateRequest::FromValue(const base::Value& value) {
   ClientCertificateRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ClientCertificateRequest> ClientCertificateRequest::FromValue(const base::Value& value) {
-  ClientCertificateRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -338,8 +313,8 @@ SelectDetails::SelectDetails()
 : interactive(false) {}
 
 SelectDetails::~SelectDetails() = default;
-SelectDetails::SelectDetails(SelectDetails&& rhs) = default;
-SelectDetails& SelectDetails::operator=(SelectDetails&& rhs) = default;
+SelectDetails::SelectDetails(SelectDetails&& rhs) noexcept = default;
+SelectDetails& SelectDetails::operator=(SelectDetails&& rhs) noexcept = default;
 SelectDetails SelectDetails::Clone() const {
   SelectDetails out;
   out.request = request.Clone();
@@ -403,34 +378,21 @@ bool SelectDetails::Populate(
 }
 
 // static
-std::unique_ptr<SelectDetails> SelectDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SelectDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SelectDetails> SelectDetails::FromValue(const base::Value::Dict& value) {
+  SelectDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SelectDetails> SelectDetails::FromValue(const base::Value::Dict& value) {
+std::optional<SelectDetails> SelectDetails::FromValue(const base::Value& value) {
   SelectDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SelectDetails> SelectDetails::FromValue(const base::Value& value) {
-  SelectDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -455,8 +417,8 @@ VerificationDetails::VerificationDetails()
  {}
 
 VerificationDetails::~VerificationDetails() = default;
-VerificationDetails::VerificationDetails(VerificationDetails&& rhs) = default;
-VerificationDetails& VerificationDetails::operator=(VerificationDetails&& rhs) = default;
+VerificationDetails::VerificationDetails(VerificationDetails&& rhs) noexcept = default;
+VerificationDetails& VerificationDetails::operator=(VerificationDetails&& rhs) noexcept = default;
 VerificationDetails VerificationDetails::Clone() const {
   VerificationDetails out;
   out.server_certificate_chain = server_certificate_chain;
@@ -507,34 +469,21 @@ bool VerificationDetails::Populate(
 }
 
 // static
-std::unique_ptr<VerificationDetails> VerificationDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VerificationDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VerificationDetails> VerificationDetails::FromValue(const base::Value::Dict& value) {
+  VerificationDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VerificationDetails> VerificationDetails::FromValue(const base::Value::Dict& value) {
+std::optional<VerificationDetails> VerificationDetails::FromValue(const base::Value& value) {
   VerificationDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VerificationDetails> VerificationDetails::FromValue(const base::Value& value) {
-  VerificationDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -555,8 +504,8 @@ VerificationResult::VerificationResult()
 : trusted(false) {}
 
 VerificationResult::~VerificationResult() = default;
-VerificationResult::VerificationResult(VerificationResult&& rhs) = default;
-VerificationResult& VerificationResult::operator=(VerificationResult&& rhs) = default;
+VerificationResult::VerificationResult(VerificationResult&& rhs) noexcept = default;
+VerificationResult& VerificationResult::operator=(VerificationResult&& rhs) noexcept = default;
 VerificationResult VerificationResult::Clone() const {
   VerificationResult out;
   out.trusted = trusted;
@@ -607,34 +556,21 @@ bool VerificationResult::Populate(
 }
 
 // static
-std::unique_ptr<VerificationResult> VerificationResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VerificationResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VerificationResult> VerificationResult::FromValue(const base::Value::Dict& value) {
+  VerificationResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VerificationResult> VerificationResult::FromValue(const base::Value::Dict& value) {
+std::optional<VerificationResult> VerificationResult::FromValue(const base::Value& value) {
   VerificationResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VerificationResult> VerificationResult::FromValue(const base::Value& value) {
-  VerificationResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -660,13 +596,13 @@ namespace VerifyTLSServerCertificate {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -675,15 +611,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!VerificationDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

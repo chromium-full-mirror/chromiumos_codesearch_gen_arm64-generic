@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -184,14 +185,17 @@ void ProxyResolvingSocketProxy::UpgradeToTLS(
                         "<value of type ::mojo::PendingRemote<::network::mojom::SocketObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolvingSocket_UpgradeToTLS_Name, kFlags, 0, 0, nullptr);
@@ -345,7 +349,8 @@ void ProxyResolvingSocket_UpgradeToTLS_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolvingSocket_UpgradeToTLS_Name, kFlags, 0, 0, nullptr);
@@ -445,10 +450,10 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyResolvingSocketValidationInfo[] = {
-    {&internal::ProxyResolvingSocket_UpgradeToTLS_Params_Data::Validate,
+    { &internal::ProxyResolvingSocket_UpgradeToTLS_Params_Data::Validate,
      &internal::ProxyResolvingSocket_UpgradeToTLS_ResponseParams_Data::Validate},
 };
 
@@ -563,14 +568,17 @@ void ProxyResolvingSocketFactoryProxy::CreateProxyResolvingSocket(
                         "<value of type ::mojo::PendingRemote<::network::mojom::SocketObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolvingSocketFactory_CreateProxyResolvingSocket_Name, kFlags, 0, 0, nullptr);
@@ -680,7 +688,7 @@ class ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ProxyToResponder : 
 #endif
 
   void Run(
-      int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream);
+      int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream);
 };
 
 bool ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ForwardToCallback::Accept(
@@ -694,8 +702,8 @@ bool ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ForwardToCallback::A
   
   bool success = true;
   int32_t p_result{};
-  absl::optional<::net::IPEndPoint> p_local_addr{};
-  absl::optional<::net::IPEndPoint> p_peer_addr{};
+  std::optional<::net::IPEndPoint> p_local_addr{};
+  std::optional<::net::IPEndPoint> p_peer_addr{};
   ::mojo::ScopedDataPipeConsumerHandle p_receive_stream{};
   ::mojo::ScopedDataPipeProducerHandle p_send_stream{};
   ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ResponseParamsDataView input_data_view(params, message);
@@ -728,7 +736,7 @@ std::move(p_send_stream));
 }
 
 void ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ProxyToResponder::Run(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply network::mojom::ProxyResolvingSocketFactory::CreateProxyResolvingSocket", "async_response_parameters",
@@ -739,10 +747,10 @@ void ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ProxyToResponder::Ru
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr"), in_local_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("peer_addr"), in_peer_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receive_stream"), in_receive_stream,
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
@@ -754,7 +762,8 @@ void ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProxyResolvingSocketFactory_CreateProxyResolvingSocket_Name, kFlags, 0, 0, nullptr);
@@ -876,10 +885,10 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProxyResolvingSocketFactoryValidationInfo[] = {
-    {&internal::ProxyResolvingSocketFactory_CreateProxyResolvingSocket_Params_Data::Validate,
+    { &internal::ProxyResolvingSocketFactory_CreateProxyResolvingSocket_Params_Data::Validate,
      &internal::ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ResponseParams_Data::Validate},
 };
 
@@ -971,24 +980,24 @@ ProxyResolvingSocketFactoryAsyncWaiter::ProxyResolvingSocketFactoryAsyncWaiter(
 ProxyResolvingSocketFactoryAsyncWaiter::~ProxyResolvingSocketFactoryAsyncWaiter() = default;
 
 void ProxyResolvingSocketFactoryAsyncWaiter::CreateProxyResolvingSocket(
-    const ::GURL& url, const ::net::NetworkAnonymizationKey& network_anonymization_key, ProxyResolvingSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<ProxyResolvingSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream) {
+    const ::GURL& url, const ::net::NetworkAnonymizationKey& network_anonymization_key, ProxyResolvingSocketOptionsPtr options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<ProxyResolvingSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream) {
   base::RunLoop loop;
   proxy_->CreateProxyResolvingSocket(std::move(url),std::move(network_anonymization_key),std::move(options),std::move(traffic_annotation),std::move(socket),std::move(observer),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_result
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr
+             std::optional<::net::IPEndPoint>* out_local_addr
 ,
-             absl::optional<::net::IPEndPoint>* out_peer_addr
+             std::optional<::net::IPEndPoint>* out_peer_addr
 ,
              ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream
 ,
              ::mojo::ScopedDataPipeProducerHandle* out_send_stream
 ,
              int32_t result,
-             const absl::optional<::net::IPEndPoint>& local_addr,
-             const absl::optional<::net::IPEndPoint>& peer_addr,
+             const std::optional<::net::IPEndPoint>& local_addr,
+             const std::optional<::net::IPEndPoint>& peer_addr,
              ::mojo::ScopedDataPipeConsumerHandle receive_stream,
              ::mojo::ScopedDataPipeProducerHandle send_stream) {*out_result = std::move(result);*out_local_addr = std::move(local_addr);*out_peer_addr = std::move(peer_addr);*out_receive_stream = std::move(receive_stream);*out_send_stream = std::move(send_stream);
             loop->Quit();

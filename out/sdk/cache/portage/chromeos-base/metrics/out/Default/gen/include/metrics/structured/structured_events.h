@@ -15,7 +15,7 @@ namespace metrics {
 namespace structured {
 namespace events {
 
-constexpr uint64_t kProjectNameHashes[] = {UINT64_C(827233605053062635), UINT64_C(524369188505453537), UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(4905803635010729907), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(17319042894491683836), UINT64_C(6962789877417678651), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
+constexpr uint64_t kProjectNameHashes[] = {UINT64_C(827233605053062635), UINT64_C(524369188505453537), UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(4785189117830128085), UINT64_C(11294265225635075664), UINT64_C(4905803635010729907), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(15648706341345157436), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(17319042894491683836), UINT64_C(6962789877417678651), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
 
 namespace bluetooth {
 
@@ -336,6 +336,75 @@ class BRILLO_EXPORT BluetoothA2dpAudioOverrun final : public ::metrics::structur
   static constexpr uint64_t kDroppedBytesNameHash = UINT64_C(12141048787197260247);
   BluetoothA2dpAudioOverrun& SetDroppedBytes(const int64_t value);
   int64_t GetDroppedBytesForTest() const;
+
+};
+
+class BRILLO_EXPORT BluetoothA2dpSession final : public ::metrics::structured::EventBase {
+ public:
+  BluetoothA2dpSession();
+  ~BluetoothA2dpSession() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(10731733034092645847);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(9074739597929991885);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  BluetoothA2dpSession& SetBootId(const std::string& value);
+  std::string GetBootIdForTest() const;
+
+  static constexpr uint64_t kSystemTimeNameHash = UINT64_C(5430963162341175395);
+  BluetoothA2dpSession& SetSystemTime(const int64_t value);
+  int64_t GetSystemTimeForTest() const;
+
+  static constexpr uint64_t kDeviceIdNameHash = UINT64_C(14998742047592455339);
+  BluetoothA2dpSession& SetDeviceId(const std::string& value);
+  std::string GetDeviceIdForTest() const;
+
+  static constexpr uint64_t kAudioDurationNameHash = UINT64_C(5537392993791184098);
+  BluetoothA2dpSession& SetAudioDuration(const int64_t value);
+  int64_t GetAudioDurationForTest() const;
+
+  static constexpr uint64_t kMediaTimerMinNameHash = UINT64_C(11752983344032274565);
+  BluetoothA2dpSession& SetMediaTimerMin(const int64_t value);
+  int64_t GetMediaTimerMinForTest() const;
+
+  static constexpr uint64_t kMediaTimerMaxNameHash = UINT64_C(15847078598224306949);
+  BluetoothA2dpSession& SetMediaTimerMax(const int64_t value);
+  int64_t GetMediaTimerMaxForTest() const;
+
+  static constexpr uint64_t kMediaTimerAvgNameHash = UINT64_C(12517595134631543660);
+  BluetoothA2dpSession& SetMediaTimerAvg(const int64_t value);
+  int64_t GetMediaTimerAvgForTest() const;
+
+  static constexpr uint64_t kTotalSchedulingCountNameHash = UINT64_C(13586293127900928185);
+  BluetoothA2dpSession& SetTotalSchedulingCount(const int64_t value);
+  int64_t GetTotalSchedulingCountForTest() const;
+
+  static constexpr uint64_t kBufferOverrunsMaxCountNameHash = UINT64_C(2493439037424785083);
+  BluetoothA2dpSession& SetBufferOverrunsMaxCount(const int64_t value);
+  int64_t GetBufferOverrunsMaxCountForTest() const;
+
+  static constexpr uint64_t kBufferOverrunsTotalNameHash = UINT64_C(8829861457863442021);
+  BluetoothA2dpSession& SetBufferOverrunsTotal(const int64_t value);
+  int64_t GetBufferOverrunsTotalForTest() const;
+
+  static constexpr uint64_t kBufferUnderrunsAvgNameHash = UINT64_C(662831704934943030);
+  BluetoothA2dpSession& SetBufferUnderrunsAvg(const double value);
+  double GetBufferUnderrunsAvgForTest() const;
+
+  static constexpr uint64_t kBufferUnderrunsCountNameHash = UINT64_C(5830299863618837111);
+  BluetoothA2dpSession& SetBufferUnderrunsCount(const int64_t value);
+  int64_t GetBufferUnderrunsCountForTest() const;
+
+  static constexpr uint64_t kCodecIndexNameHash = UINT64_C(17535243131811380216);
+  BluetoothA2dpSession& SetCodecIndex(const int64_t value);
+  int64_t GetCodecIndexForTest() const;
+
+  static constexpr uint64_t kIsA2dpOffloadNameHash = UINT64_C(6689623948212604622);
+  BluetoothA2dpSession& SetIsA2dpOffload(const int64_t value);
+  int64_t GetIsA2dpOffloadForTest() const;
 
 };
 
@@ -680,6 +749,14 @@ class BRILLO_EXPORT CellularConnectionAttempt final : public ::metrics::structur
   CellularConnectionAttempt& Setconnection_apn_types(const int64_t value);
   int64_t Getconnection_apn_typesForTest() const;
 
+  static constexpr uint64_t klast_connectedNameHash = UINT64_C(14647160781846833810);
+  CellularConnectionAttempt& Setlast_connected(const int64_t value);
+  int64_t Getlast_connectedForTest() const;
+
+  static constexpr uint64_t klast_onlineNameHash = UINT64_C(16514721302376424195);
+  CellularConnectionAttempt& Setlast_online(const int64_t value);
+  int64_t Getlast_onlineForTest() const;
+
 };
 
 class BRILLO_EXPORT ModemFwdFwInstallResult final : public ::metrics::structured::EventBase {
@@ -753,7 +830,110 @@ class BRILLO_EXPORT PowerOptimization final : public ::metrics::structured::Even
 
 };
 
+class BRILLO_EXPORT CellularNetworkValidationAttempt final : public ::metrics::structured::EventBase {
+ public:
+  CellularNetworkValidationAttempt();
+  ~CellularNetworkValidationAttempt() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(7185729827936045113);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(8206859287963243715);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kapn_idNameHash = UINT64_C(16969126494759758697);
+  CellularNetworkValidationAttempt& Setapn_id(const int64_t value);
+  int64_t Getapn_idForTest() const;
+
+  static constexpr uint64_t kportal_detection_resultNameHash = UINT64_C(7615333968278933716);
+  CellularNetworkValidationAttempt& Setportal_detection_result(const int64_t value);
+  int64_t Getportal_detection_resultForTest() const;
+
+  static constexpr uint64_t kinitial_resultNameHash = UINT64_C(13863778016965404927);
+  CellularNetworkValidationAttempt& Setinitial_result(const int64_t value);
+  int64_t Getinitial_resultForTest() const;
+
+  static constexpr uint64_t kipv4_config_methodNameHash = UINT64_C(9076171686243363883);
+  CellularNetworkValidationAttempt& Setipv4_config_method(const int64_t value);
+  int64_t Getipv4_config_methodForTest() const;
+
+  static constexpr uint64_t kipv6_config_methodNameHash = UINT64_C(1716075125711039121);
+  CellularNetworkValidationAttempt& Setipv6_config_method(const int64_t value);
+  int64_t Getipv6_config_methodForTest() const;
+
+  static constexpr uint64_t khome_mccmncNameHash = UINT64_C(37695558241520739);
+  CellularNetworkValidationAttempt& Sethome_mccmnc(const int64_t value);
+  int64_t Gethome_mccmncForTest() const;
+
+  static constexpr uint64_t kserving_mccmncNameHash = UINT64_C(12771439443288387275);
+  CellularNetworkValidationAttempt& Setserving_mccmnc(const int64_t value);
+  int64_t Getserving_mccmncForTest() const;
+
+  static constexpr uint64_t kroaming_stateNameHash = UINT64_C(532797944946872246);
+  CellularNetworkValidationAttempt& Setroaming_state(const int64_t value);
+  int64_t Getroaming_stateForTest() const;
+
+  static constexpr uint64_t ktech_usedNameHash = UINT64_C(16667945462103010669);
+  CellularNetworkValidationAttempt& Settech_used(const int64_t value);
+  int64_t Gettech_usedForTest() const;
+
+  static constexpr uint64_t ksim_typeNameHash = UINT64_C(5174493250357414186);
+  CellularNetworkValidationAttempt& Setsim_type(const int64_t value);
+  int64_t Getsim_typeForTest() const;
+
+};
+
 }  // namespace cellular
+
+namespace guest_usb_device {
+
+class BRILLO_EXPORT UsbDeviceInfo final : public ::metrics::structured::EventBase {
+ public:
+  UsbDeviceInfo();
+  ~UsbDeviceInfo() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(8570581941471498008);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(4785189117830128085);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_RAW_STRING;
+
+  static constexpr uint64_t kVendorIdNameHash = UINT64_C(7982341394845147735);
+  UsbDeviceInfo& SetVendorId(const int64_t value);
+  int64_t GetVendorIdForTest() const;
+
+  static constexpr uint64_t kVendorNameNameHash = UINT64_C(14838106656619457772);
+  UsbDeviceInfo& SetVendorName(const std::string& value);
+  std::string GetVendorNameForTest() const;
+
+  static constexpr uint64_t kProductIdNameHash = UINT64_C(3765840483194334735);
+  UsbDeviceInfo& SetProductId(const int64_t value);
+  int64_t GetProductIdForTest() const;
+
+  static constexpr uint64_t kProductNameNameHash = UINT64_C(400454577602154052);
+  UsbDeviceInfo& SetProductName(const std::string& value);
+  std::string GetProductNameForTest() const;
+
+  static constexpr uint64_t kDeviceClassNameHash = UINT64_C(4411699667986879574);
+  UsbDeviceInfo& SetDeviceClass(const int64_t value);
+  int64_t GetDeviceClassForTest() const;
+
+  static constexpr uint64_t kInterfaceClassNameHash = UINT64_C(12001184715823272983);
+  UsbDeviceInfo& SetInterfaceClass(const std::vector<int64_t>& value);
+  std::vector<int64_t> GetInterfaceClassForTest() const;
+
+  static constexpr uint64_t kCrostiniConnectionSuccessNameHash = UINT64_C(7019494999256646298);
+  UsbDeviceInfo& SetCrostiniConnectionSuccess(const int64_t value);
+  int64_t GetCrostiniConnectionSuccessForTest() const;
+
+  static constexpr uint64_t kGuestTypeNameHash = UINT64_C(16734147171052348704);
+  UsbDeviceInfo& SetGuestType(const int64_t value);
+  int64_t GetGuestTypeForTest() const;
+
+  static constexpr size_t GetInterfaceClassMaxLength() { return 20; }
+};
+
+}  // namespace guest_usb_device
 
 namespace rollback_enterprise {
 
@@ -925,6 +1105,55 @@ class BRILLO_EXPORT RollbackUpdateFailure final : public ::metrics::structured::
 
 };
 
+class BRILLO_EXPORT RollbackCompleted final : public ::metrics::structured::EventBase {
+ public:
+  RollbackCompleted();
+  ~RollbackCompleted() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(10286843132766971567);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(4905803635010729907);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t korigin_chromeos_version_majorNameHash = UINT64_C(8725517454933705664);
+  RollbackCompleted& Setorigin_chromeos_version_major(const int64_t value);
+  int64_t Getorigin_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t korigin_chromeos_version_minorNameHash = UINT64_C(6458944440867685468);
+  RollbackCompleted& Setorigin_chromeos_version_minor(const int64_t value);
+  int64_t Getorigin_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t korigin_chromeos_version_patchNameHash = UINT64_C(4691738969632876794);
+  RollbackCompleted& Setorigin_chromeos_version_patch(const int64_t value);
+  int64_t Getorigin_chromeos_version_patchForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_majorNameHash = UINT64_C(6936705716371376757);
+  RollbackCompleted& Settarget_chromeos_version_major(const int64_t value);
+  int64_t Gettarget_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_minorNameHash = UINT64_C(11570177950450598480);
+  RollbackCompleted& Settarget_chromeos_version_minor(const int64_t value);
+  int64_t Gettarget_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_patchNameHash = UINT64_C(2543903025759147760);
+  RollbackCompleted& Settarget_chromeos_version_patch(const int64_t value);
+  int64_t Gettarget_chromeos_version_patchForTest() const;
+
+  static constexpr uint64_t kresult_chromeos_version_majorNameHash = UINT64_C(13899413611848299643);
+  RollbackCompleted& Setresult_chromeos_version_major(const int64_t value);
+  int64_t Getresult_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t kresult_chromeos_version_minorNameHash = UINT64_C(9824305360017682044);
+  RollbackCompleted& Setresult_chromeos_version_minor(const int64_t value);
+  int64_t Getresult_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t kresult_chromeos_version_patchNameHash = UINT64_C(4943146235405627847);
+  RollbackCompleted& Setresult_chromeos_version_patch(const int64_t value);
+  int64_t Getresult_chromeos_version_patchForTest() const;
+
+};
+
 }  // namespace rollback_enterprise
 
 namespace rmad {
@@ -1059,6 +1288,43 @@ class BRILLO_EXPORT ShimlessRmaStateReport final : public ::metrics::structured:
 };
 
 }  // namespace rmad
+
+namespace usb_camera_module {
+
+class BRILLO_EXPORT UsbCameraModuleInfo final : public ::metrics::structured::EventBase {
+ public:
+  UsbCameraModuleInfo();
+  ~UsbCameraModuleInfo() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(1627906994828476433);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(15648706341345157436);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_RAW_STRING;
+
+  static constexpr uint64_t kVendorIdNameHash = UINT64_C(7982341394845147735);
+  UsbCameraModuleInfo& SetVendorId(const int64_t value);
+  int64_t GetVendorIdForTest() const;
+
+  static constexpr uint64_t kVendorNameNameHash = UINT64_C(14838106656619457772);
+  UsbCameraModuleInfo& SetVendorName(const std::string& value);
+  std::string GetVendorNameForTest() const;
+
+  static constexpr uint64_t kProductIdNameHash = UINT64_C(3765840483194334735);
+  UsbCameraModuleInfo& SetProductId(const int64_t value);
+  int64_t GetProductIdForTest() const;
+
+  static constexpr uint64_t kProductNameNameHash = UINT64_C(400454577602154052);
+  UsbCameraModuleInfo& SetProductName(const std::string& value);
+  std::string GetProductNameForTest() const;
+
+  static constexpr uint64_t kBcdDeviceNameHash = UINT64_C(5208385074867555607);
+  UsbCameraModuleInfo& SetBcdDevice(const int64_t value);
+  int64_t GetBcdDeviceForTest() const;
+
+};
+
+}  // namespace usb_camera_module
 
 namespace usb_device {
 

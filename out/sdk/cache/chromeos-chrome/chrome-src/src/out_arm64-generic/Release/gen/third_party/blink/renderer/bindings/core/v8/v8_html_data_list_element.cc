@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLDataListElement>::value,
     "HTMLDataListElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLDataListElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLDataListElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLDataListElement.options.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLDataListElement* blink_receiver = V8HTMLDataListElement::ToWrappableUnsafe(v8_receiver);
+HTMLDataListElement* blink_receiver = V8HTMLDataListElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->options();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

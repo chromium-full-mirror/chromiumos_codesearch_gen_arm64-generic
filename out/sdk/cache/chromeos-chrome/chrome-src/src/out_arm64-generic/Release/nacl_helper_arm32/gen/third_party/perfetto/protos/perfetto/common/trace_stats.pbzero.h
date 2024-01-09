@@ -425,7 +425,7 @@ class TraceStats : public ::protozero::Message {
   }
 };
 
-class TraceStats_FilterStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TraceStats_FilterStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/20, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TraceStats_FilterStats_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceStats_FilterStats_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -440,6 +440,8 @@ class TraceStats_FilterStats_Decoder : public ::protozero::TypedProtoDecoder</*M
   uint64_t errors() const { return at<4>().as_uint64(); }
   bool has_time_taken_ns() const { return at<5>().valid(); }
   uint64_t time_taken_ns() const { return at<5>().as_uint64(); }
+  bool has_bytes_discarded_per_buffer() const { return at<20>().valid(); }
+  ::protozero::RepeatedFieldIterator<uint64_t> bytes_discarded_per_buffer() const { return GetRepeated<uint64_t>(20); }
 };
 
 class TraceStats_FilterStats : public ::protozero::Message {
@@ -451,6 +453,7 @@ class TraceStats_FilterStats : public ::protozero::Message {
     kOutputBytesFieldNumber = 3,
     kErrorsFieldNumber = 4,
     kTimeTakenNsFieldNumber = 5,
+    kBytesDiscardedPerBufferFieldNumber = 20,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TraceStats.FilterStats"; }
 
@@ -544,15 +547,35 @@ class TraceStats_FilterStats : public ::protozero::Message {
       ::protozero::proto_utils::ProtoSchemaType::kUint64>
         ::Append(*this, field_id, value);
   }
+
+  using FieldMetadata_BytesDiscardedPerBuffer =
+    ::protozero::proto_utils::FieldMetadata<
+      20,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      TraceStats_FilterStats>;
+
+  static constexpr FieldMetadata_BytesDiscardedPerBuffer kBytesDiscardedPerBuffer{};
+  void add_bytes_discarded_per_buffer(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_BytesDiscardedPerBuffer::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
 };
 
-class TraceStats_WriterStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TraceStats_WriterStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TraceStats_WriterStats_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceStats_WriterStats_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit TraceStats_WriterStats_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_sequence_id() const { return at<1>().valid(); }
   uint64_t sequence_id() const { return at<1>().as_uint64(); }
+  bool has_buffer() const { return at<4>().valid(); }
+  uint32_t buffer() const { return at<4>().as_uint32(); }
   bool has_chunk_payload_histogram_counts() const { return at<2>().valid(); }
   ::protozero::PackedRepeatedFieldIterator<::protozero::proto_utils::ProtoWireType::kVarInt, uint64_t> chunk_payload_histogram_counts(bool* parse_error_ptr) const { return GetPackedRepeated<::protozero::proto_utils::ProtoWireType::kVarInt, uint64_t>(2, parse_error_ptr); }
   bool has_chunk_payload_histogram_sum() const { return at<3>().valid(); }
@@ -564,6 +587,7 @@ class TraceStats_WriterStats : public ::protozero::Message {
   using Decoder = TraceStats_WriterStats_Decoder;
   enum : int32_t {
     kSequenceIdFieldNumber = 1,
+    kBufferFieldNumber = 4,
     kChunkPayloadHistogramCountsFieldNumber = 2,
     kChunkPayloadHistogramSumFieldNumber = 3,
   };
@@ -585,6 +609,24 @@ class TraceStats_WriterStats : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Buffer =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      TraceStats_WriterStats>;
+
+  static constexpr FieldMetadata_Buffer kBuffer{};
+  void set_buffer(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Buffer::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
         ::Append(*this, field_id, value);
   }
 

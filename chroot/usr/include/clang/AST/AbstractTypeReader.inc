@@ -433,6 +433,7 @@ public:
     llvm::ArrayRef<QualType> parameters = R.find("parameters").template readArray<QualType>(parameters_buffer_0);
     llvm::SmallVector<FunctionProtoType::ExtParameterInfo, 8> extParameterInfo_buffer_0;
     llvm::ArrayRef<FunctionProtoType::ExtParameterInfo> extParameterInfo = R.find("extParameterInfo").template readArray<FunctionProtoType::ExtParameterInfo>(extParameterInfo_buffer_0);
+    uint32_t AArch64SMEAttributes = R.find("AArch64SMEAttributes").readUInt32();
     QualType returnType = R.find("returnType").readQualType();
     bool noReturn = R.find("noReturn").readBool();
     bool hasRegParm = R.find("hasRegParm").readBool();
@@ -456,6 +457,7 @@ public:
     epi.ExceptionSpec = exceptionSpecifier;
     epi.ExtParameterInfos =
       extParameterInfo.empty() ? nullptr : extParameterInfo.data();
+    epi.AArch64SMEAttributes = AArch64SMEAttributes;
     return ctx.getFunctionType(returnType, parameters, epi);
   
   }

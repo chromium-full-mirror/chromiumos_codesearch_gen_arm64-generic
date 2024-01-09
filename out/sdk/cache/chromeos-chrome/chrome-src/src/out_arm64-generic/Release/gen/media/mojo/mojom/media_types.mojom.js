@@ -481,14 +481,26 @@
   SVCScalabilityMode.kL1T1 = 1;
   SVCScalabilityMode.kL1T2 = 2;
   SVCScalabilityMode.kL1T3 = 3;
-  SVCScalabilityMode.kL2T1Key = 4;
-  SVCScalabilityMode.kL2T2Key = 5;
-  SVCScalabilityMode.kL2T3Key = 6;
-  SVCScalabilityMode.kL3T1Key = 7;
-  SVCScalabilityMode.kL3T2Key = 8;
-  SVCScalabilityMode.kL3T3Key = 9;
+  SVCScalabilityMode.kL2T1 = 4;
+  SVCScalabilityMode.kL2T2 = 5;
+  SVCScalabilityMode.kL2T3 = 6;
+  SVCScalabilityMode.kL3T1 = 7;
+  SVCScalabilityMode.kL3T2 = 8;
+  SVCScalabilityMode.kL3T3 = 9;
+  SVCScalabilityMode.kL2T1Key = 10;
+  SVCScalabilityMode.kL2T2Key = 11;
+  SVCScalabilityMode.kL2T3Key = 12;
+  SVCScalabilityMode.kL3T1Key = 13;
+  SVCScalabilityMode.kL3T2Key = 14;
+  SVCScalabilityMode.kL3T3Key = 15;
+  SVCScalabilityMode.kS2T1 = 16;
+  SVCScalabilityMode.kS2T2 = 17;
+  SVCScalabilityMode.kS2T3 = 18;
+  SVCScalabilityMode.kS3T1 = 19;
+  SVCScalabilityMode.kS3T2 = 20;
+  SVCScalabilityMode.kS3T3 = 21;
   SVCScalabilityMode.MIN_VALUE = 0;
-  SVCScalabilityMode.MAX_VALUE = 9;
+  SVCScalabilityMode.MAX_VALUE = 21;
 
   SVCScalabilityMode.isKnownEnumValue = function(value) {
     switch (value) {
@@ -502,6 +514,18 @@
     case 7:
     case 8:
     case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
       return true;
     }
     return false;
@@ -1815,6 +1839,7 @@
     this.hasRootScrollOffsetY = false;
     this.hasTopControlsVisibleHeight = false;
     this.hasRtpTimestamp = false;
+    this.frame_sequence_$flag = false;
     this.captureCounter = 0;
     this.captureBeginTime = null;
     this.captureEndTime = null;
@@ -1838,6 +1863,7 @@
     this.rtpTimestamp = 0;
     this.receiveTime = null;
     this.wallclockFrameDuration = null;
+    this.frame_sequence_$value = 0;
   };
   VideoFrameMetadata.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1853,7 +1879,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 192}
+      {version: 0, numBytes: 200}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1972,10 +1998,12 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+
     return validator.validationError.NONE;
   };
 
-  VideoFrameMetadata.encodedSize = codec.kStructHeaderSize + 184;
+  VideoFrameMetadata.encodedSize = codec.kStructHeaderSize + 192;
 
   VideoFrameMetadata.decode = function(decoder) {
     var packed;
@@ -2005,6 +2033,7 @@
     val.hasRootScrollOffsetY = (packed >> 1) & 1 ? true : false;
     val.hasTopControlsVisibleHeight = (packed >> 2) & 1 ? true : false;
     val.hasRtpTimestamp = (packed >> 3) & 1 ? true : false;
+    val.frame_sequence_$flag = (packed >> 4) & 1 ? true : false;
     decoder.skip(1);
     val.captureCounter =
         decoder.decodeStruct(codec.Int32);
@@ -2056,6 +2085,8 @@
         decoder.decodeStructPointer(time$.TimeTicks);
     val.wallclockFrameDuration =
         decoder.decodeStructPointer(time$.TimeDelta);
+    val.frame_sequence_$value =
+        decoder.decodeStruct(codec.Uint64);
     return val;
   };
 
@@ -2088,6 +2119,7 @@
     packed |= (val.hasRootScrollOffsetY & 1) << 1
     packed |= (val.hasTopControlsVisibleHeight & 1) << 2
     packed |= (val.hasRtpTimestamp & 1) << 3
+    packed |= (val.frame_sequence_$flag & 1) << 4
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.captureCounter);
@@ -2117,6 +2149,7 @@
     encoder.encodeStruct(codec.Double, val.rtpTimestamp);
     encoder.encodeStructPointer(time$.TimeTicks, val.receiveTime);
     encoder.encodeStructPointer(time$.TimeDelta, val.wallclockFrameDuration);
+    encoder.encodeStruct(codec.Uint64, val.frame_sequence_$value);
   };
   function VideoFrame(values) {
     this.initDefaults_();

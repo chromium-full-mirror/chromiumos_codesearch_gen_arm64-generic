@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/privileged/mojom/gl/gpu_host.mojom-features.h"
 #include "services/viz/privileged/mojom/gl/gpu_host.mojom-shared.h"
 #include "services/viz/privileged/mojom/gl/gpu_host.mojom-forward.h"
 #include "gpu/ipc/common/gpu_disk_cache_type.mojom.h"
@@ -138,7 +139,7 @@ class GpuHost
   virtual ~GpuHost() = default;
 
   
-  virtual void DidInitialize(const ::gpu::GPUInfo& gpu_info, const ::gpu::GpuFeatureInfo& gpu_feature_info, const absl::optional<::gpu::GPUInfo>& gpu_info_for_hardware_gpu, const absl::optional<::gpu::GpuFeatureInfo>& gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& gpu_extra_info) = 0;
+  virtual void DidInitialize(const ::gpu::GPUInfo& gpu_info, const ::gpu::GpuFeatureInfo& gpu_feature_info, const std::optional<::gpu::GPUInfo>& gpu_info_for_hardware_gpu, const std::optional<::gpu::GpuFeatureInfo>& gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& gpu_extra_info) = 0;
 
   
   virtual void DidFailInitialize() = 0;
@@ -159,7 +160,7 @@ class GpuHost
   virtual void DidDestroyAllChannels() = 0;
 
   
-  virtual void DidLoseContext(bool offscreen, ::gpu::error::ContextLostReason reason, const ::GURL& active_url) = 0;
+  virtual void DidLoseContext(::gpu::error::ContextLostReason reason, const ::GURL& active_url) = 0;
 
   
   virtual void DidUpdateGPUInfo(const ::gpu::GPUInfo& gpu_info) = 0;
@@ -188,7 +189,7 @@ class  GpuHostProxy
 
   explicit GpuHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void DidInitialize(const ::gpu::GPUInfo& gpu_info, const ::gpu::GpuFeatureInfo& gpu_feature_info, const absl::optional<::gpu::GPUInfo>& gpu_info_for_hardware_gpu, const absl::optional<::gpu::GpuFeatureInfo>& gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& gpu_extra_info) final;
+  void DidInitialize(const ::gpu::GPUInfo& gpu_info, const ::gpu::GpuFeatureInfo& gpu_feature_info, const std::optional<::gpu::GPUInfo>& gpu_info_for_hardware_gpu, const std::optional<::gpu::GpuFeatureInfo>& gpu_feature_info_for_hardware_gpu, const ::gfx::GpuExtraInfo& gpu_extra_info) final;
   
   void DidFailInitialize() final;
   
@@ -202,7 +203,7 @@ class  GpuHostProxy
   
   void DidDestroyAllChannels() final;
   
-  void DidLoseContext(bool offscreen, ::gpu::error::ContextLostReason reason, const ::GURL& active_url) final;
+  void DidLoseContext(::gpu::error::ContextLostReason reason, const ::GURL& active_url) final;
   
   void DidUpdateGPUInfo(const ::gpu::GPUInfo& gpu_info) final;
   

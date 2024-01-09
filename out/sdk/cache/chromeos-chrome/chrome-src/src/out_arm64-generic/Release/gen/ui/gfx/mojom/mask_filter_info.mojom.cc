@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ MaskFilterInfo::MaskFilterInfo()
 
 MaskFilterInfo::MaskFilterInfo(
     const ::gfx::RRectF& rounded_corner_bounds_in,
-    const absl::optional<::gfx::LinearGradient>& gradient_mask_in)
+    const std::optional<::gfx::LinearGradient>& gradient_mask_in)
     : rounded_corner_bounds(std::move(rounded_corner_bounds_in)),
       gradient_mask(std::move(gradient_mask_in)) {}
 
@@ -71,7 +72,7 @@ void MaskFilterInfo::WriteIntoTrace(
     dict.AddItem(
       "gradient_mask"), this->gradient_mask,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::LinearGradient>&>"
+      "<value of type const std::optional<::gfx::LinearGradient>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

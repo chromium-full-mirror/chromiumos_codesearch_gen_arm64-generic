@@ -66,11 +66,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ColorPagePopupController>::value,
     "ColorPagePopupController inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ColorPagePopupController::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ColorPagePopupController is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("ColorPagePopupController.openEyeDropper");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ColorPagePopupController* blink_receiver = V8ColorPagePopupController::ToWrappableUnsafe(v8_receiver);
+ColorPagePopupController* blink_receiver = V8ColorPagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->openEyeDropper();
 
 }
@@ -104,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("ColorPagePopupController.openSystemColorChooser");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ColorPagePopupController* blink_receiver = V8ColorPagePopupController::ToWrappableUnsafe(v8_receiver);
+ColorPagePopupController* blink_receiver = V8ColorPagePopupController::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->openSystemColorChooser();
 
 }

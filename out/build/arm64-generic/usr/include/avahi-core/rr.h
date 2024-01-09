@@ -114,15 +114,15 @@ AvahiKey *avahi_key_new(const char *name, uint16_t clazz, uint16_t type);
 AvahiKey *avahi_key_ref(AvahiKey *k);
 
 /** Decrease the reference counter of an AvahiKey object by one */
-void avahi_key_unref(AvahiKey *k);
+void avahi_key_unref(void *k);
 
 /** Check whether two AvahiKey object contain the same
  * data. AVAHI_DNS_CLASS_ANY/AVAHI_DNS_TYPE_ANY are treated like any
  * other class/type. */
-int avahi_key_equal(const AvahiKey *a, const AvahiKey *b);
+int avahi_key_equal(const void *a, const void *b);
 
 /** Return a numeric hash value for a key for usage in hash tables. */
-unsigned avahi_key_hash(const AvahiKey *k);
+unsigned avahi_key_hash(const void *k);
 
 /** Create a new record object. Record data should be filled in right after creation. The reference counter is set to 1. */
 AvahiRecord *avahi_record_new(AvahiKey *k, uint32_t ttl);

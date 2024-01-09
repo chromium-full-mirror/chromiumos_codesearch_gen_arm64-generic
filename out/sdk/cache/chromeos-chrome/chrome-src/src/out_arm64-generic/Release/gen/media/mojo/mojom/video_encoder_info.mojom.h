@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/video_encoder_info.mojom-features.h"
 #include "media/mojo/mojom/video_encoder_info.mojom-shared.h"
 #include "media/mojo/mojom/video_encoder_info.mojom-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
@@ -235,6 +236,7 @@ class  VideoEncoderInfo {
       bool reports_average_qp,
       uint32_t requested_resolution_alignment,
       bool apply_alignment_to_all_simulcast_layers,
+      bool supports_frame_size_change,
       std::vector<std::vector<uint8_t>> fps_allocation,
       std::vector<::media::ResolutionBitrateLimit> resolution_bitrate_limits);
 
@@ -338,6 +340,8 @@ class  VideoEncoderInfo {
   
   bool apply_alignment_to_all_simulcast_layers;
   
+  bool supports_frame_size_change;
+  
   std::vector<std::vector<uint8_t>> fps_allocation;
   
   std::vector<::media::ResolutionBitrateLimit> resolution_bitrate_limits;
@@ -429,6 +433,7 @@ VideoEncoderInfoPtr VideoEncoderInfo::Clone() const {
       mojo::Clone(reports_average_qp),
       mojo::Clone(requested_resolution_alignment),
       mojo::Clone(apply_alignment_to_all_simulcast_layers),
+      mojo::Clone(supports_frame_size_change),
       mojo::Clone(fps_allocation),
       mojo::Clone(resolution_bitrate_limits)
   );
@@ -459,6 +464,8 @@ bool VideoEncoderInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->requested_resolution_alignment, other_struct.requested_resolution_alignment))
     return false;
   if (!mojo::Equals(this->apply_alignment_to_all_simulcast_layers, other_struct.apply_alignment_to_all_simulcast_layers))
+    return false;
+  if (!mojo::Equals(this->supports_frame_size_change, other_struct.supports_frame_size_change))
     return false;
   if (!mojo::Equals(this->fps_allocation, other_struct.fps_allocation))
     return false;
@@ -516,6 +523,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.apply_alignment_to_all_simulcast_layers < rhs.apply_alignment_to_all_simulcast_layers)
     return true;
   if (rhs.apply_alignment_to_all_simulcast_layers < lhs.apply_alignment_to_all_simulcast_layers)
+    return false;
+  if (lhs.supports_frame_size_change < rhs.supports_frame_size_change)
+    return true;
+  if (rhs.supports_frame_size_change < lhs.supports_frame_size_change)
     return false;
   if (lhs.fps_allocation < rhs.fps_allocation)
     return true;
@@ -628,6 +639,11 @@ struct  StructTraits<::media::mojom::VideoEncoderInfo::DataView,
   static decltype(::media::mojom::VideoEncoderInfo::apply_alignment_to_all_simulcast_layers) apply_alignment_to_all_simulcast_layers(
       const ::media::mojom::VideoEncoderInfoPtr& input) {
     return input->apply_alignment_to_all_simulcast_layers;
+  }
+
+  static decltype(::media::mojom::VideoEncoderInfo::supports_frame_size_change) supports_frame_size_change(
+      const ::media::mojom::VideoEncoderInfoPtr& input) {
+    return input->supports_frame_size_change;
   }
 
   static const decltype(::media::mojom::VideoEncoderInfo::fps_allocation)& fps_allocation(

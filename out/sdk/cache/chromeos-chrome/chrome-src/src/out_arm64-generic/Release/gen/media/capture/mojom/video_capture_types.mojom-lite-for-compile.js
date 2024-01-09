@@ -134,6 +134,26 @@ media.mojom.VideoFacingMode = {
   MAX_VALUE: 2,
 };
 
+goog.provide('media.mojom.CameraAvailability');
+goog.provide('media.mojom.CameraAvailabilitySpec');
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+media.mojom.CameraAvailabilitySpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+media.mojom.CameraAvailability = {
+  
+  kAvailable: 0,
+  kUnavailableExclusivelyUsedByOtherApplication: 1,
+  MIN_VALUE: 0,
+  MAX_VALUE: 1,
+};
+
 goog.provide('media.mojom.VideoCaptureApi');
 goog.provide('media.mojom.VideoCaptureApiSpec');
 /**
@@ -419,6 +439,26 @@ media.mojom.VideoCaptureFrameDropReason = {
   kSubCaptureTargetVersionNotCurrent: 28,
   MIN_VALUE: 0,
   MAX_VALUE: 28,
+};
+
+goog.provide('media.mojom.SubCaptureTargetType');
+goog.provide('media.mojom.SubCaptureTargetTypeSpec');
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+media.mojom.SubCaptureTargetTypeSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+media.mojom.SubCaptureTargetType = {
+  
+  kCropTarget: 0,
+  kRestrictionTarget: 1,
+  MIN_VALUE: 0,
+  MAX_VALUE: 1,
 };
 
 goog.provide('media.mojom.ApplySubCaptureTargetResult');
@@ -882,8 +922,33 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'availability_$flag', 44,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "availability_$value",
+          originalFieldName: "availability",
+        }
+      ),
+      mojo.internal.StructField(
+        'availability_$value', 48,
+        0,
+        media.mojom.CameraAvailabilitySpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "availability",
+        }
+      ),
     ],
-    [[0, 56],]);
+    [[0, 56],[1, 64],]);
 
 
 
@@ -906,6 +971,8 @@ media.mojom.VideoCaptureDeviceDescriptor = class {
     this.controlSupport;
     /** @export { !media.mojom.VideoCaptureTransportType } */
     this.transportType;
+    /** @export { (media.mojom.CameraAvailability|undefined) } */
+    this.availability;
   }
 };
 

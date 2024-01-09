@@ -87,11 +87,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPUCommandEncoder>::value,
     "GPUCommandEncoder inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPUCommandEncoder::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPUCommandEncoder is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -104,10 +99,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCommandEncoder.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -118,9 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCommandEncoder.label.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "GPUCommandEncoder";
@@ -145,10 +140,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCommandEncoder.beginComputePass");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<GPUComputePassDescriptor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_descriptor;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<GPUComputePassDescriptor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_descriptor;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "beginComputePass";
@@ -189,7 +184,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_descriptor = NativeValueTraits<GPURenderPassDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -262,7 +257,7 @@ void ClearBufferOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackI
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "clearBuffer";
@@ -308,16 +303,16 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCommandEncoder.clearBuffer");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "clearBuffer";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -329,8 +324,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 ClearBufferOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -344,7 +338,6 @@ if (!v8_fast_api_callback_options.fallback) {
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "clearBuffer";
@@ -401,7 +394,7 @@ blink_receiver->copyBufferToBuffer(arg1_src, arg2_src_offset, arg3_dst, arg4_dst
 void CopyBufferToBufferOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "copyBufferToBuffer";
@@ -443,14 +436,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCommandEncoder.copyBufferToBuffer");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "copyBufferToBuffer";
@@ -521,7 +514,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_source = NativeValueTraits<GPUImageCopyBuffer>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -562,7 +555,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_source = NativeValueTraits<GPUImageCopyTexture>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -603,7 +596,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_source = NativeValueTraits<GPUImageCopyTexture>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -634,14 +627,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCommandEncoder.finish");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<GPUCommandBufferDescriptor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_descriptor;
 if (info[0]->IsUndefined()) {
   arg1_descriptor = GPUCommandBufferDescriptor::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "finish";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -675,7 +668,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_marker_label = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -696,7 +689,7 @@ blink_receiver->popDebugGroup();
 void PopDebugGroupOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -714,8 +707,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCommandEncoder.popDebugGroup");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -726,8 +720,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 PopDebugGroupOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -764,7 +757,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_group_label = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -801,7 +794,7 @@ blink_receiver->resolveQuerySet(arg1_query_set, arg2_first_query, arg3_query_cou
 void ResolveQuerySetOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "resolveQuerySet";
@@ -843,14 +836,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCommandEncoder.resolveQuerySet");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "resolveQuerySet";
@@ -925,7 +918,7 @@ if (UNLIKELY(exception_state.HadException())) {
 void WriteTimestampOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "writeTimestamp";
@@ -958,14 +951,14 @@ BLINK_BINDINGS_TRACE_EVENT("GPUCommandEncoder.writeTimestamp");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(v8_receiver);
+GPUCommandEncoder* blink_receiver = V8GPUCommandEncoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "GPUCommandEncoder";
 const char* const property_name = "writeTimestamp";
@@ -1029,6 +1022,7 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
+InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8GPUCommandEncoder::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -1070,16 +1064,14 @@ static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"copyBufferToBuffer", CopyBufferToBufferOperationCallback, 5, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"popDebugGroup", PopDebugGroupOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"resolveQuerySet", ResolveQuerySetOperationCallback, 5, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"writeTimestamp", WriteTimestampOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 // Disable compiler warnings for unused functions.
-(void)ClearBufferOperationNoAllocDirectCallArg3;
-(void)ClearBufferOperationNoAllocDirectCallArg2;
-(void)ClearBufferOperationNoAllocDirectCallArg1;
-(void)CopyBufferToBufferOperationNoAllocDirectCallArg5;
-(void)PopDebugGroupOperationNoAllocDirectCallArg0;
-(void)ResolveQuerySetOperationNoAllocDirectCallArg5;
-(void)WriteTimestampOperationNoAllocDirectCallArg2;
+std::ignore = ClearBufferOperationNoAllocDirectCallArg3;
+std::ignore = ClearBufferOperationNoAllocDirectCallArg2;
+std::ignore = ClearBufferOperationNoAllocDirectCallArg1;
+std::ignore = CopyBufferToBufferOperationNoAllocDirectCallArg5;
+std::ignore = PopDebugGroupOperationNoAllocDirectCallArg0;
+std::ignore = ResolveQuerySetOperationNoAllocDirectCallArg5;
 #else   // defined(ARCH_CPU_X86)
 static const v8::CFunction kNoAllocDirectCallOverloadsOfClearBuffer[] = {
 v8::CFunctionBuilder().Fn(ClearBufferOperationNoAllocDirectCallArg3).Arg<2, v8::CTypeInfo::Flags::kEnforceRangeBit>().Arg<3, v8::CTypeInfo::Flags::kEnforceRangeBit>().Build(),
@@ -1095,16 +1087,12 @@ v8::CFunctionBuilder().Fn(PopDebugGroupOperationNoAllocDirectCallArg0).Build(),
 static const v8::CFunction kNoAllocDirectCallOverloadsOfResolveQuerySet[] = {
 v8::CFunctionBuilder().Fn(ResolveQuerySetOperationNoAllocDirectCallArg5).Arg<2, v8::CTypeInfo::Flags::kEnforceRangeBit>().Arg<3, v8::CTypeInfo::Flags::kEnforceRangeBit>().Arg<5, v8::CTypeInfo::Flags::kEnforceRangeBit>().Build(),
 };
-static const v8::CFunction kNoAllocDirectCallOverloadsOfWriteTimestamp[] = {
-v8::CFunctionBuilder().Fn(WriteTimestampOperationNoAllocDirectCallArg2).Arg<2, v8::CTypeInfo::Flags::kEnforceRangeBit>().Build(),
-};
 
 static const IDLMemberInstaller::NoAllocDirectCallOperationConfig kOperationTable[] = {
 {{"clearBuffer", ClearBufferOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, kNoAllocDirectCallOverloadsOfClearBuffer, std::size(kNoAllocDirectCallOverloadsOfClearBuffer)}, 
 {{"copyBufferToBuffer", CopyBufferToBufferOperationCallback, 5, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, kNoAllocDirectCallOverloadsOfCopyBufferToBuffer, std::size(kNoAllocDirectCallOverloadsOfCopyBufferToBuffer)}, 
 {{"popDebugGroup", PopDebugGroupOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, kNoAllocDirectCallOverloadsOfPopDebugGroup, std::size(kNoAllocDirectCallOverloadsOfPopDebugGroup)}, 
 {{"resolveQuerySet", ResolveQuerySetOperationCallback, 5, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, kNoAllocDirectCallOverloadsOfResolveQuerySet, std::size(kNoAllocDirectCallOverloadsOfResolveQuerySet)}, 
-{{"writeTimestamp", WriteTimestampOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, kNoAllocDirectCallOverloadsOfWriteTimestamp, std::size(kNoAllocDirectCallOverloadsOfWriteTimestamp)}, 
 };
 #endif  // defined(ARCH_CPU_X86)
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
@@ -1113,6 +1101,37 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
+void V8GPUCommandEncoder::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+  using bindings::IDLMemberInstaller;
+
+
+
+
+
+
+if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+  // Disable [NoAllocDirectCall] on x86 due to https://crbug.com/1433212
+#if defined(ARCH_CPU_X86)
+static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"writeTimestamp", WriteTimestampOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+// Disable compiler warnings for unused functions.
+std::ignore = WriteTimestampOperationNoAllocDirectCallArg2;
+#else   // defined(ARCH_CPU_X86)
+static const v8::CFunction kNoAllocDirectCallOverloadsOfWriteTimestamp[] = {
+v8::CFunctionBuilder().Fn(WriteTimestampOperationNoAllocDirectCallArg2).Arg<2, v8::CTypeInfo::Flags::kEnforceRangeBit>().Build(),
+};
+
+static const IDLMemberInstaller::NoAllocDirectCallOperationConfig kOperationTable[] = {
+{{"writeTimestamp", WriteTimestampOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, kNoAllocDirectCallOverloadsOfWriteTimestamp, std::size(kNoAllocDirectCallOverloadsOfWriteTimestamp)}, 
+};
+#endif  // defined(ARCH_CPU_X86)
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
+
+}
 
 
 

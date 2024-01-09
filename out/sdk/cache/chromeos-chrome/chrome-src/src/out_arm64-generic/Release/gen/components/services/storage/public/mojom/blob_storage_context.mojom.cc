@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -248,14 +249,17 @@ void BlobDataItemReaderProxy::Read(
                         "<value of type ::mojo::ScopedDataPipeProducerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobDataItemReader_Read_Name, kFlags, 0, 0, nullptr);
@@ -287,14 +291,17 @@ void BlobDataItemReaderProxy::ReadSideData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::BlobDataItemReader::ReadSideData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobDataItemReader_ReadSideData_Name, kFlags, 0, 0, nullptr);
@@ -404,7 +411,8 @@ void BlobDataItemReader_Read_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobDataItemReader_Read_Name, kFlags, 0, 0, nullptr);
@@ -529,7 +537,8 @@ void BlobDataItemReader_ReadSideData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobDataItemReader_ReadSideData_Name, kFlags, 0, 0, nullptr);
@@ -654,12 +663,12 @@ std::move(p_pipe), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBlobDataItemReaderValidationInfo[] = {
-    {&internal::BlobDataItemReader_Read_Params_Data::Validate,
+    { &internal::BlobDataItemReader_Read_Params_Data::Validate,
      &internal::BlobDataItemReader_Read_ResponseParams_Data::Validate},
-    {&internal::BlobDataItemReader_ReadSideData_Params_Data::Validate,
+    { &internal::BlobDataItemReader_ReadSideData_Params_Data::Validate,
      &internal::BlobDataItemReader_ReadSideData_ResponseParams_Data::Validate},
 };
 
@@ -825,14 +834,17 @@ void BlobStorageContextProxy::RegisterFromDataItem(
                         "<value of type BlobDataItemPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobStorageContext_RegisterFromDataItem_Name, kFlags, 0, 0, nullptr);
@@ -896,14 +908,17 @@ void BlobStorageContextProxy::RegisterFromMemory(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobStorageContext_RegisterFromMemory_Name, kFlags, 0, 0, nullptr);
@@ -948,7 +963,7 @@ void BlobStorageContextProxy::RegisterFromMemory(
 }
 
 void BlobStorageContextProxy::WriteBlobToFile(
-    ::mojo::PendingRemote<::blink::mojom::Blob> in_blob, const ::base::FilePath& in_path, bool in_flush_on_write, absl::optional<::base::Time> in_last_modified, WriteBlobToFileCallback callback) {
+    ::mojo::PendingRemote<::blink::mojom::Blob> in_blob, const ::base::FilePath& in_path, bool in_flush_on_write, std::optional<::base::Time> in_last_modified, WriteBlobToFileCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send storage::mojom::BlobStorageContext::WriteBlobToFile", "input_parameters",
@@ -965,17 +980,20 @@ void BlobStorageContextProxy::WriteBlobToFile(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("last_modified"), in_last_modified,
-                        "<value of type absl::optional<::base::Time>>");
+                        "<value of type std::optional<::base::Time>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobStorageContext_WriteBlobToFile_Name, kFlags, 0, 0, nullptr);
@@ -1031,14 +1049,17 @@ void BlobStorageContextProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<BlobStorageContext>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobStorageContext_Clone_Name, kFlags, 0, 0, nullptr);
@@ -1153,7 +1174,8 @@ void BlobStorageContext_WriteBlobToFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBlobStorageContext_WriteBlobToFile_Name, kFlags, 0, 0, nullptr);
@@ -1319,7 +1341,7 @@ bool BlobStorageContextStubDispatch::AcceptWithResponder(
       ::mojo::PendingRemote<::blink::mojom::Blob> p_blob{};
       ::base::FilePath p_path{};
       bool p_flush_on_write{};
-      absl::optional<::base::Time> p_last_modified{};
+      std::optional<::base::Time> p_last_modified{};
       BlobStorageContext_WriteBlobToFile_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1357,16 +1379,16 @@ std::move(p_last_modified), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBlobStorageContextValidationInfo[] = {
-    {&internal::BlobStorageContext_RegisterFromDataItem_Params_Data::Validate,
+    { &internal::BlobStorageContext_RegisterFromDataItem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BlobStorageContext_RegisterFromMemory_Params_Data::Validate,
+    { &internal::BlobStorageContext_RegisterFromMemory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BlobStorageContext_WriteBlobToFile_Params_Data::Validate,
+    { &internal::BlobStorageContext_WriteBlobToFile_Params_Data::Validate,
      &internal::BlobStorageContext_WriteBlobToFile_ResponseParams_Data::Validate},
-    {&internal::BlobStorageContext_Clone_Params_Data::Validate,
+    { &internal::BlobStorageContext_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1485,7 +1507,7 @@ void BlobStorageContextInterceptorForTesting::RegisterFromDataItem(::mojo::Pendi
 void BlobStorageContextInterceptorForTesting::RegisterFromMemory(::mojo::PendingReceiver<::blink::mojom::Blob> blob, const std::string& uuid, ::mojo_base::BigBuffer data) {
   GetForwardingInterface()->RegisterFromMemory(std::move(blob), std::move(uuid), std::move(data));
 }
-void BlobStorageContextInterceptorForTesting::WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, absl::optional<::base::Time> last_modified, WriteBlobToFileCallback callback) {
+void BlobStorageContextInterceptorForTesting::WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, std::optional<::base::Time> last_modified, WriteBlobToFileCallback callback) {
   GetForwardingInterface()->WriteBlobToFile(std::move(blob), std::move(path), std::move(flush_on_write), std::move(last_modified), std::move(callback));
 }
 void BlobStorageContextInterceptorForTesting::Clone(::mojo::PendingReceiver<BlobStorageContext> receiver) {
@@ -1497,7 +1519,7 @@ BlobStorageContextAsyncWaiter::BlobStorageContextAsyncWaiter(
 BlobStorageContextAsyncWaiter::~BlobStorageContextAsyncWaiter() = default;
 
 void BlobStorageContextAsyncWaiter::WriteBlobToFile(
-    ::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, absl::optional<::base::Time> last_modified, WriteBlobToFileResult* out_result) {
+    ::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, std::optional<::base::Time> last_modified, WriteBlobToFileResult* out_result) {
   base::RunLoop loop;
   proxy_->WriteBlobToFile(std::move(blob),std::move(path),std::move(flush_on_write),std::move(last_modified),
       base::BindOnce(
@@ -1513,7 +1535,7 @@ void BlobStorageContextAsyncWaiter::WriteBlobToFile(
 }
 
 WriteBlobToFileResult BlobStorageContextAsyncWaiter::WriteBlobToFile(
-    ::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, absl::optional<::base::Time> last_modified) {
+    ::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, std::optional<::base::Time> last_modified) {
   WriteBlobToFileResult async_wait_result;
   WriteBlobToFile(std::move(blob),std::move(path),std::move(flush_on_write),std::move(last_modified),&async_wait_result);
   return async_wait_result;

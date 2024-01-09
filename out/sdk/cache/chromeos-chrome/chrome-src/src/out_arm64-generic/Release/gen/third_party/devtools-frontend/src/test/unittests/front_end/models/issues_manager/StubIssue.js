@@ -9,6 +9,7 @@ export class StubIssue extends Issue {
     issueKind;
     locations = [];
     mockIssueId;
+    mockIssueCategory;
     constructor(code, requestIds, cookieNames, issueKind = IssueKind.Improvement) {
         super(code);
         this.requestIds = requestIds;
@@ -28,7 +29,7 @@ export class StubIssue extends Issue {
         });
     }
     getCategory() {
-        return IssueCategory.Other;
+        return this.mockIssueCategory ? this.mockIssueCategory : IssueCategory.Other;
     }
     sources() {
         return this.locations;
@@ -61,6 +62,11 @@ export class StubIssue extends Issue {
     static createFromIssueId(issueId) {
         const issue = new StubIssue('StubIssue', [], []);
         issue.mockIssueId = issueId;
+        return issue;
+    }
+    static createCookieIssue(code) {
+        const issue = new StubIssue(code, [], []);
+        issue.mockIssueCategory = IssueCategory.Cookie;
         return issue;
     }
 }

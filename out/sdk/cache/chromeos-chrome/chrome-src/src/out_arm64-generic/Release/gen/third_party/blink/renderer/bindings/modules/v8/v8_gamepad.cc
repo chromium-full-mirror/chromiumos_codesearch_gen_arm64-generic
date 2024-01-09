@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Gamepad>::value,
     "Gamepad inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Gamepad::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Gamepad is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGamepadId);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(v8_receiver);
+Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 // [HighEntropy=Direct]
@@ -117,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("Gamepad.index.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(v8_receiver);
+Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->index();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -131,8 +127,9 @@ BLINK_BINDINGS_TRACE_EVENT("Gamepad.connected.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(v8_receiver);
+Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->connected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -145,8 +142,9 @@ BLINK_BINDINGS_TRACE_EVENT("Gamepad.timestamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(v8_receiver);
+Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timestamp();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -159,10 +157,10 @@ BLINK_BINDINGS_TRACE_EVENT("Gamepad.mapping.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->mapping();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->mapping();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -179,7 +177,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGamepadAxes);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(v8_receiver);
+Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -222,7 +220,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGamepadButtons);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(v8_receiver);
+Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -266,7 +264,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGamepadVibrationActuat
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(v8_receiver);
+Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->vibrationActuator();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -284,7 +282,7 @@ UseCounter::Count(current_execution_context, WebFeature::kGamepadTouchEvents);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(v8_receiver);
+Gamepad* blink_receiver = V8Gamepad::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =

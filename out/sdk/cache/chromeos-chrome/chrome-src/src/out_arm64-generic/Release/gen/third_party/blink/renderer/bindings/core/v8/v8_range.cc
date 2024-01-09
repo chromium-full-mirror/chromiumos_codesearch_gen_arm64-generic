@@ -81,11 +81,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Range>::value,
     "Range inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Range::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Range is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -98,8 +93,9 @@ BLINK_BINDINGS_TRACE_EVENT("Range.commonAncestorContainer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->commonAncestorContainer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -157,7 +153,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cloneContents(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -176,8 +172,9 @@ BLINK_BINDINGS_TRACE_EVENT("Range.cloneRange");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cloneRange();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -193,12 +190,12 @@ BLINK_BINDINGS_TRACE_EVENT("Range.collapse");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLBoolean>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_to_start{false};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Range";
 const char* const property_name = "collapse";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -232,7 +229,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_how = NativeValueTraits<IDLUnsignedShort>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -269,7 +266,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -309,7 +306,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_fragment = NativeValueTraits<IDLStringStringContextTrustedHTML>::ArgumentValue(isolate, 0, info[0], exception_state, execution_context_of_document_tree);
 if (UNLIKELY(exception_state.HadException())) {
@@ -342,7 +339,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->deleteContents(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -367,7 +364,7 @@ UseCounter::Count(current_execution_context, WebFeature::kRangeDetach);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->detach();
 
 }
@@ -389,7 +386,7 @@ Deprecation::CountDeprecation(current_execution_context, WebFeature::kRangeExpan
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_unit;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Range";
@@ -430,7 +427,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->extractContents(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -455,7 +452,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Range_GetBoundingCli
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getBoundingClientRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -477,7 +474,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Range_GetClientRects
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getClientRects();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -506,7 +503,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -539,7 +536,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -572,7 +569,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -609,7 +606,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -642,7 +639,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -675,7 +672,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -712,7 +709,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -745,7 +742,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -778,7 +775,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -815,7 +812,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -848,7 +845,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_node = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -884,7 +881,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_new_parent = NativeValueTraits<Node>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -907,10 +904,10 @@ BLINK_BINDINGS_TRACE_EVENT("Range.toString");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Range* blink_receiver = V8Range::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->toString();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Range* blink_receiver = V8Range::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->toString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

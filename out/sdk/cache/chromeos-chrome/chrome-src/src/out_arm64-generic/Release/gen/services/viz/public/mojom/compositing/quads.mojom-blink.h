@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/quads.mojom-features.h"
 #include "services/viz/public/mojom/compositing/quads.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/quads.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
@@ -48,30 +49,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::viz::mojom::ProtectedVideoState>
-    : EnumHashTraits<::viz::mojom::ProtectedVideoState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::viz::mojom::OverlayPriority>
-    : EnumHashTraits<::viz::mojom::OverlayPriority, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace viz::mojom::blink {
@@ -110,73 +87,73 @@ class BLINK_PLATFORM_EXPORT DrawQuadState {
   // Construct an instance holding |debug_border_quad_state|.
   static DrawQuadStatePtr
   NewDebugBorderQuadState(
-      DebugBorderQuadStatePtr debug_border_quad_state) {
+      DebugBorderQuadStatePtr value) {
     auto result = DrawQuadStatePtr(absl::in_place);
-    result->set_debug_border_quad_state(std::move(debug_border_quad_state));
+    result->set_debug_border_quad_state(std::move(value));
     return result;
   }
   // Construct an instance holding |render_pass_quad_state|.
   static DrawQuadStatePtr
   NewRenderPassQuadState(
-      CompositorRenderPassQuadStatePtr render_pass_quad_state) {
+      CompositorRenderPassQuadStatePtr value) {
     auto result = DrawQuadStatePtr(absl::in_place);
-    result->set_render_pass_quad_state(std::move(render_pass_quad_state));
+    result->set_render_pass_quad_state(std::move(value));
     return result;
   }
   // Construct an instance holding |solid_color_quad_state|.
   static DrawQuadStatePtr
   NewSolidColorQuadState(
-      SolidColorQuadStatePtr solid_color_quad_state) {
+      SolidColorQuadStatePtr value) {
     auto result = DrawQuadStatePtr(absl::in_place);
-    result->set_solid_color_quad_state(std::move(solid_color_quad_state));
+    result->set_solid_color_quad_state(std::move(value));
     return result;
   }
   // Construct an instance holding |surface_quad_state|.
   static DrawQuadStatePtr
   NewSurfaceQuadState(
-      SurfaceQuadStatePtr surface_quad_state) {
+      SurfaceQuadStatePtr value) {
     auto result = DrawQuadStatePtr(absl::in_place);
-    result->set_surface_quad_state(std::move(surface_quad_state));
+    result->set_surface_quad_state(std::move(value));
     return result;
   }
   // Construct an instance holding |texture_quad_state|.
   static DrawQuadStatePtr
   NewTextureQuadState(
-      TextureQuadStatePtr texture_quad_state) {
+      TextureQuadStatePtr value) {
     auto result = DrawQuadStatePtr(absl::in_place);
-    result->set_texture_quad_state(std::move(texture_quad_state));
+    result->set_texture_quad_state(std::move(value));
     return result;
   }
   // Construct an instance holding |tile_quad_state|.
   static DrawQuadStatePtr
   NewTileQuadState(
-      TileQuadStatePtr tile_quad_state) {
+      TileQuadStatePtr value) {
     auto result = DrawQuadStatePtr(absl::in_place);
-    result->set_tile_quad_state(std::move(tile_quad_state));
+    result->set_tile_quad_state(std::move(value));
     return result;
   }
   // Construct an instance holding |yuv_video_quad_state|.
   static DrawQuadStatePtr
   NewYuvVideoQuadState(
-      YUVVideoQuadStatePtr yuv_video_quad_state) {
+      YUVVideoQuadStatePtr value) {
     auto result = DrawQuadStatePtr(absl::in_place);
-    result->set_yuv_video_quad_state(std::move(yuv_video_quad_state));
+    result->set_yuv_video_quad_state(std::move(value));
     return result;
   }
   // Construct an instance holding |video_hole_quad_state|.
   static DrawQuadStatePtr
   NewVideoHoleQuadState(
-      VideoHoleQuadStatePtr video_hole_quad_state) {
+      VideoHoleQuadStatePtr value) {
     auto result = DrawQuadStatePtr(absl::in_place);
-    result->set_video_hole_quad_state(std::move(video_hole_quad_state));
+    result->set_video_hole_quad_state(std::move(value));
     return result;
   }
   // Construct an instance holding |shared_element_quad_state|.
   static DrawQuadStatePtr
   NewSharedElementQuadState(
-      SharedElementQuadStatePtr shared_element_quad_state) {
+      SharedElementQuadStatePtr value) {
     auto result = DrawQuadStatePtr(absl::in_place);
-    result->set_shared_element_quad_state(std::move(shared_element_quad_state));
+    result->set_shared_element_quad_state(std::move(value));
     return result;
   }
 
@@ -1161,9 +1138,10 @@ class BLINK_PLATFORM_EXPORT TextureQuadState {
       bool secure_output_only,
       bool is_stream_video,
       bool is_video_frame,
+      bool force_rgbx,
       ProtectedVideoState protected_video_type,
       ::gfx::mojom::blink::HDRMetadataPtr hdr_metadata,
-      const absl::optional<::gfx::Rect>& damage_rect,
+      const std::optional<::gfx::Rect>& damage_rect,
       OverlayPriority overlay_priority_hint,
       RoundedDisplayMasksInfoPtr rounded_display_masks_info);
 
@@ -1269,11 +1247,13 @@ TextureQuadState& operator=(const TextureQuadState&) = delete;
   
   bool is_video_frame;
   
+  bool force_rgbx;
+  
   ProtectedVideoState protected_video_type;
   
   ::gfx::mojom::blink::HDRMetadataPtr hdr_metadata;
   
-  absl::optional<::gfx::Rect> damage_rect;
+  std::optional<::gfx::Rect> damage_rect;
   
   OverlayPriority overlay_priority_hint;
   
@@ -1510,7 +1490,7 @@ class BLINK_PLATFORM_EXPORT YUVVideoQuadState {
       const ::gfx::ColorSpace& video_color_space,
       ProtectedVideoState protected_video_type,
       ::gfx::mojom::blink::HDRMetadataPtr hdr_metadata,
-      const absl::optional<::gfx::Rect>& damage_rect);
+      const std::optional<::gfx::Rect>& damage_rect);
 
 YUVVideoQuadState(const YUVVideoQuadState&) = delete;
 YUVVideoQuadState& operator=(const YUVVideoQuadState&) = delete;
@@ -1618,7 +1598,7 @@ YUVVideoQuadState& operator=(const YUVVideoQuadState&) = delete;
   
   ::gfx::mojom::blink::HDRMetadataPtr hdr_metadata;
   
-  absl::optional<::gfx::Rect> damage_rect;
+  std::optional<::gfx::Rect> damage_rect;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2387,6 +2367,7 @@ TextureQuadStatePtr TextureQuadState::Clone() const {
       mojo::Clone(secure_output_only),
       mojo::Clone(is_stream_video),
       mojo::Clone(is_video_frame),
+      mojo::Clone(force_rgbx),
       mojo::Clone(protected_video_type),
       mojo::Clone(hdr_metadata),
       mojo::Clone(damage_rect),
@@ -2420,6 +2401,8 @@ bool TextureQuadState::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->is_stream_video, other_struct.is_stream_video))
     return false;
   if (!mojo::Equals(this->is_video_frame, other_struct.is_video_frame))
+    return false;
+  if (!mojo::Equals(this->force_rgbx, other_struct.force_rgbx))
     return false;
   if (!mojo::Equals(this->protected_video_type, other_struct.protected_video_type))
     return false;
@@ -2483,6 +2466,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_video_frame < rhs.is_video_frame)
     return true;
   if (rhs.is_video_frame < lhs.is_video_frame)
+    return false;
+  if (lhs.force_rgbx < rhs.force_rgbx)
+    return true;
+  if (rhs.force_rgbx < lhs.force_rgbx)
     return false;
   if (lhs.protected_video_type < rhs.protected_video_type)
     return true;
@@ -3003,6 +2990,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::viz::mojom::blink::TextureQuadState:
   static decltype(::viz::mojom::blink::TextureQuadState::is_video_frame) is_video_frame(
       const ::viz::mojom::blink::TextureQuadStatePtr& input) {
     return input->is_video_frame;
+  }
+
+  static decltype(::viz::mojom::blink::TextureQuadState::force_rgbx) force_rgbx(
+      const ::viz::mojom::blink::TextureQuadStatePtr& input) {
+    return input->force_rgbx;
   }
 
   static decltype(::viz::mojom::blink::TextureQuadState::protected_video_type) protected_video_type(

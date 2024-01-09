@@ -81,6 +81,60 @@ std::ostream& operator<<(std::ostream& os, TelemetryDiagnosticMemtesterTestItemE
   return os << TelemetryDiagnosticMemtesterTestItemEnumToString(value);
 }
 
+NOINLINE static const char* TelemetryDiagnosticHardwarePresenceStatusToStringHelper(TelemetryDiagnosticHardwarePresenceStatus value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case TelemetryDiagnosticHardwarePresenceStatus::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case TelemetryDiagnosticHardwarePresenceStatus::kMatched:
+      return "kMatched";
+    case TelemetryDiagnosticHardwarePresenceStatus::kNotMatched:
+      return "kNotMatched";
+    case TelemetryDiagnosticHardwarePresenceStatus::kNotConfigured:
+      return "kNotConfigured";
+    default:
+      return nullptr;
+  }
+}
+
+std::string TelemetryDiagnosticHardwarePresenceStatusToString(TelemetryDiagnosticHardwarePresenceStatus value) {
+  const char *str = TelemetryDiagnosticHardwarePresenceStatusToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown TelemetryDiagnosticHardwarePresenceStatus value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, TelemetryDiagnosticHardwarePresenceStatus value) {
+  return os << TelemetryDiagnosticHardwarePresenceStatusToString(value);
+}
+
+NOINLINE static const char* TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonTypeToStringHelper(TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType::kVolumeUp:
+      return "kVolumeUp";
+    case TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType::kVolumeDown:
+      return "kVolumeDown";
+    default:
+      return nullptr;
+  }
+}
+
+std::string TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonTypeToString(TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType value) {
+  const char *str = TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType value) {
+  return os << TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonTypeToString(value);
+}
+
 NOINLINE static const char* TelemetryDiagnosticRoutineStateWaiting_ReasonToStringHelper(TelemetryDiagnosticRoutineStateWaiting_Reason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -149,6 +203,26 @@ bool TelemetryDiagnosticRoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case TelemetryDiagnosticRoutineArgument_Tag::kVolumeButton: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_volume_button, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
+        return false;
+      return true;
+    }
+    case TelemetryDiagnosticRoutineArgument_Tag::kFan: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_fan, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -196,13 +270,29 @@ bool TelemetryDiagnosticRoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case TelemetryDiagnosticRoutineDetail_Tag::kVolumeButton: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_volume_button, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
+        return false;
+      return true;
+    }
+    case TelemetryDiagnosticRoutineDetail_Tag::kFan: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_fan, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
-      ReportValidationError(
-          validation_context,
-          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in TelemetryDiagnosticRoutineDetail");
-      return false;
+      return true;
     }
   }
 }
@@ -309,6 +399,64 @@ bool TelemetryDiagnosticMemoryRoutineArgument_Data::Validate(
 }
 
 TelemetryDiagnosticMemoryRoutineArgument_Data::TelemetryDiagnosticMemoryRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TelemetryDiagnosticVolumeButtonRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TelemetryDiagnosticVolumeButtonRoutineArgument_Data* object =
+      static_cast<const TelemetryDiagnosticVolumeButtonRoutineArgument_Data*>(data);
+
+
+  if (!::crosapi::mojom::internal::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->timeout, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->timeout, validation_context))
+    return false;
+
+  return true;
+}
+
+TelemetryDiagnosticVolumeButtonRoutineArgument_Data::TelemetryDiagnosticVolumeButtonRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TelemetryDiagnosticFanRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TelemetryDiagnosticFanRoutineArgument_Data* object =
+      static_cast<const TelemetryDiagnosticFanRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+TelemetryDiagnosticFanRoutineArgument_Data::TelemetryDiagnosticFanRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -469,6 +617,79 @@ bool TelemetryDiagnosticMemoryRoutineDetail_Data::Validate(
 }
 
 TelemetryDiagnosticMemoryRoutineDetail_Data::TelemetryDiagnosticMemoryRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TelemetryDiagnosticVolumeButtonRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TelemetryDiagnosticVolumeButtonRoutineDetail_Data* object =
+      static_cast<const TelemetryDiagnosticVolumeButtonRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+TelemetryDiagnosticVolumeButtonRoutineDetail_Data::TelemetryDiagnosticVolumeButtonRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TelemetryDiagnosticFanRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TelemetryDiagnosticFanRoutineDetail_Data* object =
+      static_cast<const TelemetryDiagnosticFanRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->passed_fan_ids, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& passed_fan_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->passed_fan_ids, validation_context,
+                                         &passed_fan_ids_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->failed_fan_ids, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& failed_fan_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->failed_fan_ids, validation_context,
+                                         &failed_fan_ids_validate_params)) {
+    return false;
+  }
+
+
+  if (!::crosapi::mojom::internal::TelemetryDiagnosticHardwarePresenceStatus_Data
+        ::Validate(object->fan_count_status, validation_context))
+    return false;
+
+  return true;
+}
+
+TelemetryDiagnosticFanRoutineDetail_Data::TelemetryDiagnosticFanRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -747,6 +968,26 @@ namespace perfetto {
 void TraceFormatTraits<::crosapi::mojom::TelemetryDiagnosticMemtesterTestItemEnum>::WriteIntoTrace(
    perfetto::TracedValue context, ::crosapi::mojom::TelemetryDiagnosticMemtesterTestItemEnum value) {
   return std::move(context).WriteString(::crosapi::mojom::TelemetryDiagnosticMemtesterTestItemEnumToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus>::WriteIntoTrace(
+   perfetto::TracedValue context, ::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatus value) {
+  return std::move(context).WriteString(::crosapi::mojom::TelemetryDiagnosticHardwarePresenceStatusToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonType value) {
+  return std::move(context).WriteString(::crosapi::mojom::TelemetryDiagnosticVolumeButtonRoutineArgument_ButtonTypeToString(value));
 }
 
 } // namespace perfetto

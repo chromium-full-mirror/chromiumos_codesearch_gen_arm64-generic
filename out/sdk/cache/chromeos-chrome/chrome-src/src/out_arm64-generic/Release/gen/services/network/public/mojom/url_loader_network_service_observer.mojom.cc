@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -140,8 +141,8 @@ SharedStorageOperation::SharedStorageOperation()
 
 SharedStorageOperation::SharedStorageOperation(
     SharedStorageOperationType type_in,
-    const absl::optional<std::string>& key_in,
-    const absl::optional<std::string>& value_in,
+    const std::optional<std::string>& key_in,
+    const std::optional<std::string>& value_in,
     ::network::mojom::OptionalBool ignore_if_present_in)
     : type(std::move(type_in)),
       key(std::move(key_in)),
@@ -166,7 +167,7 @@ void SharedStorageOperation::WriteIntoTrace(
     dict.AddItem(
       "key"), this->key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -175,7 +176,7 @@ void SharedStorageOperation::WriteIntoTrace(
     dict.AddItem(
       "value"), this->value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -316,14 +317,17 @@ void ClientCertificateResponderProxy::ContinueWithCertificate(
                         "<value of type ::mojo::PendingRemote<SSLPrivateKey>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientCertificateResponder_ContinueWithCertificate_Name, kFlags, 0, 0, nullptr);
@@ -387,14 +391,17 @@ void ClientCertificateResponderProxy::ContinueWithoutCertificate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::ClientCertificateResponder::ContinueWithoutCertificate");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientCertificateResponder_ContinueWithoutCertificate_Name, kFlags, 0, 0, nullptr);
@@ -417,14 +424,17 @@ void ClientCertificateResponderProxy::CancelRequest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::ClientCertificateResponder::CancelRequest");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientCertificateResponder_CancelRequest_Name, kFlags, 0, 0, nullptr);
@@ -556,14 +566,14 @@ bool ClientCertificateResponderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kClientCertificateResponderValidationInfo[] = {
-    {&internal::ClientCertificateResponder_ContinueWithCertificate_Params_Data::Validate,
+    { &internal::ClientCertificateResponder_ContinueWithCertificate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClientCertificateResponder_ContinueWithoutCertificate_Params_Data::Validate,
+    { &internal::ClientCertificateResponder_ContinueWithoutCertificate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClientCertificateResponder_CancelRequest_Params_Data::Validate,
+    { &internal::ClientCertificateResponder_CancelRequest_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -662,14 +672,17 @@ void SSLPrivateKeyProxy::Sign(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSSLPrivateKey_Sign_Name, kFlags, 0, 0, nullptr);
@@ -800,7 +813,8 @@ void SSLPrivateKey_Sign_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSSLPrivateKey_Sign_Name, kFlags, 0, 0, nullptr);
@@ -897,10 +911,10 @@ std::move(p_input), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSSLPrivateKeyValidationInfo[] = {
-    {&internal::SSLPrivateKey_Sign_Params_Data::Validate,
+    { &internal::SSLPrivateKey_Sign_Params_Data::Validate,
      &internal::SSLPrivateKey_Sign_ResponseParams_Data::Validate},
 };
 
@@ -973,7 +987,7 @@ AuthChallengeResponderProxy::AuthChallengeResponderProxy(mojo::MessageReceiverWi
 }
 
 void AuthChallengeResponderProxy::OnAuthCredentials(
-    const absl::optional<::net::AuthCredentials>& in_credentials) {
+    const std::optional<::net::AuthCredentials>& in_credentials) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::AuthChallengeResponder::OnAuthCredentials", "input_parameters",
@@ -981,17 +995,20 @@ void AuthChallengeResponderProxy::OnAuthCredentials(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("credentials"), in_credentials,
-                        "<value of type const absl::optional<::net::AuthCredentials>&>");
+                        "<value of type const std::optional<::net::AuthCredentials>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthChallengeResponder_OnAuthCredentials_Name, kFlags, 0, 0, nullptr);
@@ -1029,7 +1046,7 @@ bool AuthChallengeResponderStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::net::AuthCredentials> p_credentials{};
+      std::optional<::net::AuthCredentials> p_credentials{};
       AuthChallengeResponder_OnAuthCredentials_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCredentials(&p_credentials))
@@ -1066,10 +1083,10 @@ bool AuthChallengeResponderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAuthChallengeResponderValidationInfo[] = {
-    {&internal::AuthChallengeResponder_OnAuthCredentials_Params_Data::Validate,
+    { &internal::AuthChallengeResponder_OnAuthCredentials_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1398,14 +1415,17 @@ void URLLoaderNetworkServiceObserverProxy::OnSSLCertificateError(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnSSLCertificateError_Name, kFlags, 0, 0, nullptr);
@@ -1449,7 +1469,7 @@ void URLLoaderNetworkServiceObserverProxy::OnSSLCertificateError(
 }
 
 void URLLoaderNetworkServiceObserverProxy::OnCertificateRequested(
-    const absl::optional<::base::UnguessableToken>& in_window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& in_cert_info, ::mojo::PendingRemote<ClientCertificateResponder> in_cert_responder) {
+    const std::optional<::base::UnguessableToken>& in_window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& in_cert_info, ::mojo::PendingRemote<ClientCertificateResponder> in_cert_responder) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::URLLoaderNetworkServiceObserver::OnCertificateRequested", "input_parameters",
@@ -1457,7 +1477,7 @@ void URLLoaderNetworkServiceObserverProxy::OnCertificateRequested(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("window_id"), in_window_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("cert_info"), in_cert_info,
                         "<value of type const ::scoped_refptr<::net::SSLCertRequestInfo>&>");
@@ -1466,14 +1486,17 @@ void URLLoaderNetworkServiceObserverProxy::OnCertificateRequested(
                         "<value of type ::mojo::PendingRemote<ClientCertificateResponder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnCertificateRequested_Name, kFlags, 0, 0, nullptr);
@@ -1516,7 +1539,7 @@ void URLLoaderNetworkServiceObserverProxy::OnCertificateRequested(
 }
 
 void URLLoaderNetworkServiceObserverProxy::OnAuthRequired(
-    const absl::optional<::base::UnguessableToken>& in_window_id, uint32_t in_request_id, const ::GURL& in_url, bool in_first_auth_attempt, const ::net::AuthChallengeInfo& in_auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& in_head_headers, ::mojo::PendingRemote<AuthChallengeResponder> in_auth_challenge_responder) {
+    const std::optional<::base::UnguessableToken>& in_window_id, uint32_t in_request_id, const ::GURL& in_url, bool in_first_auth_attempt, const ::net::AuthChallengeInfo& in_auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& in_head_headers, ::mojo::PendingRemote<AuthChallengeResponder> in_auth_challenge_responder) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::URLLoaderNetworkServiceObserver::OnAuthRequired", "input_parameters",
@@ -1524,7 +1547,7 @@ void URLLoaderNetworkServiceObserverProxy::OnAuthRequired(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("window_id"), in_window_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_id"), in_request_id,
                         "<value of type uint32_t>");
@@ -1545,14 +1568,17 @@ void URLLoaderNetworkServiceObserverProxy::OnAuthRequired(
                         "<value of type ::mojo::PendingRemote<AuthChallengeResponder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnAuthRequired_Name, kFlags, 0, 0, nullptr);
@@ -1615,7 +1641,7 @@ void URLLoaderNetworkServiceObserverProxy::OnAuthRequired(
 }
 
 void URLLoaderNetworkServiceObserverProxy::OnPrivateNetworkAccessPermissionRequired(
-    const ::GURL& in_url, const ::net::IPAddress& in_ip_address, const absl::optional<std::string>& in_private_network_device_id, const absl::optional<std::string>& in_private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) {
+    const ::GURL& in_url, const ::net::IPAddress& in_ip_address, const std::optional<std::string>& in_private_network_device_id, const std::optional<std::string>& in_private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::URLLoaderNetworkServiceObserver::OnPrivateNetworkAccessPermissionRequired", "input_parameters",
@@ -1629,20 +1655,23 @@ void URLLoaderNetworkServiceObserverProxy::OnPrivateNetworkAccessPermissionRequi
                         "<value of type const ::net::IPAddress&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("private_network_device_id"), in_private_network_device_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("private_network_device_name"), in_private_network_device_name,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Name, kFlags, 0, 0, nullptr);
@@ -1698,7 +1727,7 @@ void URLLoaderNetworkServiceObserverProxy::OnPrivateNetworkAccessPermissionRequi
 }
 
 void URLLoaderNetworkServiceObserverProxy::OnClearSiteData(
-    const ::GURL& in_url, const std::string& in_header_value, int32_t in_load_flags, const absl::optional<::net::CookiePartitionKey>& in_cookie_partition_key, bool in_partitioned_state_allowed_only, OnClearSiteDataCallback callback) {
+    const ::GURL& in_url, const std::string& in_header_value, int32_t in_load_flags, const std::optional<::net::CookiePartitionKey>& in_cookie_partition_key, bool in_partitioned_state_allowed_only, OnClearSiteDataCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::URLLoaderNetworkServiceObserver::OnClearSiteData", "input_parameters",
@@ -1715,20 +1744,23 @@ void URLLoaderNetworkServiceObserverProxy::OnClearSiteData(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("cookie_partition_key"), in_cookie_partition_key,
-                        "<value of type const absl::optional<::net::CookiePartitionKey>&>");
+                        "<value of type const std::optional<::net::CookiePartitionKey>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("partitioned_state_allowed_only"), in_partitioned_state_allowed_only,
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnClearSiteData_Name, kFlags, 0, 0, nullptr);
@@ -1790,14 +1822,17 @@ void URLLoaderNetworkServiceObserverProxy::OnLoadingStateUpdate(
                         "<value of type LoadInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1845,14 +1880,17 @@ void URLLoaderNetworkServiceObserverProxy::OnDataUseUpdate(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnDataUseUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1888,14 +1926,17 @@ void URLLoaderNetworkServiceObserverProxy::OnSharedStorageHeaderReceived(
                         "<value of type std::vector<SharedStorageOperationPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Name, kFlags, 0, 0, nullptr);
@@ -1950,14 +1991,17 @@ void URLLoaderNetworkServiceObserverProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<URLLoaderNetworkServiceObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_Clone_Name, kFlags, 0, 0, nullptr);
@@ -2072,7 +2116,8 @@ void URLLoaderNetworkServiceObserver_OnSSLCertificateError_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnSSLCertificateError_Name, kFlags, 0, 0, nullptr);
@@ -2190,7 +2235,8 @@ void URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Pr
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Name, kFlags, 0, 0, nullptr);
@@ -2297,7 +2343,8 @@ void URLLoaderNetworkServiceObserver_OnClearSiteData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnClearSiteData_Name, kFlags, 0, 0, nullptr);
@@ -2403,7 +2450,8 @@ void URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Name, kFlags, 0, 0, nullptr);
@@ -2509,7 +2557,8 @@ void URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_ProxyToRespon
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Name, kFlags, 0, 0, nullptr);
@@ -2551,7 +2600,7 @@ bool URLLoaderNetworkServiceObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::UnguessableToken> p_window_id{};
+      std::optional<::base::UnguessableToken> p_window_id{};
       ::scoped_refptr<::net::SSLCertRequestInfo> p_cert_info{};
       ::mojo::PendingRemote<ClientCertificateResponder> p_cert_responder{};
       URLLoaderNetworkServiceObserver_OnCertificateRequested_ParamsDataView input_data_view(params, message);
@@ -2587,7 +2636,7 @@ std::move(p_cert_responder));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::UnguessableToken> p_window_id{};
+      std::optional<::base::UnguessableToken> p_window_id{};
       uint32_t p_request_id{};
       ::GURL p_url{};
       bool p_first_auth_attempt{};
@@ -2775,8 +2824,8 @@ std::move(p_fatal), std::move(callback));
       bool success = true;
       ::GURL p_url{};
       ::net::IPAddress p_ip_address{};
-      absl::optional<std::string> p_private_network_device_id{};
-      absl::optional<std::string> p_private_network_device_name{};
+      std::optional<std::string> p_private_network_device_id{};
+      std::optional<std::string> p_private_network_device_name{};
       URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadUrl(&p_url))
@@ -2817,7 +2866,7 @@ std::move(p_private_network_device_name), std::move(callback));
       ::GURL p_url{};
       std::string p_header_value{};
       int32_t p_load_flags{};
-      absl::optional<::net::CookiePartitionKey> p_cookie_partition_key{};
+      std::optional<::net::CookiePartitionKey> p_cookie_partition_key{};
       bool p_partitioned_state_allowed_only{};
       URLLoaderNetworkServiceObserver_OnClearSiteData_ParamsDataView input_data_view(params, message);
       
@@ -2922,26 +2971,26 @@ std::move(p_operations), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kURLLoaderNetworkServiceObserverValidationInfo[] = {
-    {&internal::URLLoaderNetworkServiceObserver_OnSSLCertificateError_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnSSLCertificateError_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnSSLCertificateError_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_OnCertificateRequested_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnCertificateRequested_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderNetworkServiceObserver_OnAuthRequired_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnAuthRequired_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_OnClearSiteData_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnClearSiteData_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnClearSiteData_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_OnDataUseUpdate_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnDataUseUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_Clone_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3065,7 +3114,7 @@ void SSLPrivateKeyAsyncWaiter::Sign(
 
 
 
-void AuthChallengeResponderInterceptorForTesting::OnAuthCredentials(const absl::optional<::net::AuthCredentials>& credentials) {
+void AuthChallengeResponderInterceptorForTesting::OnAuthCredentials(const std::optional<::net::AuthCredentials>& credentials) {
   GetForwardingInterface()->OnAuthCredentials(std::move(credentials));
 }
 AuthChallengeResponderAsyncWaiter::AuthChallengeResponderAsyncWaiter(
@@ -3079,16 +3128,16 @@ AuthChallengeResponderAsyncWaiter::~AuthChallengeResponderAsyncWaiter() = defaul
 void URLLoaderNetworkServiceObserverInterceptorForTesting::OnSSLCertificateError(const ::GURL& url, int32_t net_error, const ::net::SSLInfo& ssl_info, bool fatal, OnSSLCertificateErrorCallback callback) {
   GetForwardingInterface()->OnSSLCertificateError(std::move(url), std::move(net_error), std::move(ssl_info), std::move(fatal), std::move(callback));
 }
-void URLLoaderNetworkServiceObserverInterceptorForTesting::OnCertificateRequested(const absl::optional<::base::UnguessableToken>& window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) {
+void URLLoaderNetworkServiceObserverInterceptorForTesting::OnCertificateRequested(const std::optional<::base::UnguessableToken>& window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) {
   GetForwardingInterface()->OnCertificateRequested(std::move(window_id), std::move(cert_info), std::move(cert_responder));
 }
-void URLLoaderNetworkServiceObserverInterceptorForTesting::OnAuthRequired(const absl::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::GURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) {
+void URLLoaderNetworkServiceObserverInterceptorForTesting::OnAuthRequired(const std::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::GURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) {
   GetForwardingInterface()->OnAuthRequired(std::move(window_id), std::move(request_id), std::move(url), std::move(first_auth_attempt), std::move(auth_info), std::move(head_headers), std::move(auth_challenge_responder));
 }
-void URLLoaderNetworkServiceObserverInterceptorForTesting::OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const absl::optional<std::string>& private_network_device_id, const absl::optional<std::string>& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) {
+void URLLoaderNetworkServiceObserverInterceptorForTesting::OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const std::optional<std::string>& private_network_device_id, const std::optional<std::string>& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) {
   GetForwardingInterface()->OnPrivateNetworkAccessPermissionRequired(std::move(url), std::move(ip_address), std::move(private_network_device_id), std::move(private_network_device_name), std::move(callback));
 }
-void URLLoaderNetworkServiceObserverInterceptorForTesting::OnClearSiteData(const ::GURL& url, const std::string& header_value, int32_t load_flags, const absl::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only, OnClearSiteDataCallback callback) {
+void URLLoaderNetworkServiceObserverInterceptorForTesting::OnClearSiteData(const ::GURL& url, const std::string& header_value, int32_t load_flags, const std::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only, OnClearSiteDataCallback callback) {
   GetForwardingInterface()->OnClearSiteData(std::move(url), std::move(header_value), std::move(load_flags), std::move(cookie_partition_key), std::move(partitioned_state_allowed_only), std::move(callback));
 }
 void URLLoaderNetworkServiceObserverInterceptorForTesting::OnLoadingStateUpdate(LoadInfoPtr info, OnLoadingStateUpdateCallback callback) {
@@ -3132,7 +3181,7 @@ int32_t URLLoaderNetworkServiceObserverAsyncWaiter::OnSSLCertificateError(
 }
 
 void URLLoaderNetworkServiceObserverAsyncWaiter::OnPrivateNetworkAccessPermissionRequired(
-    const ::GURL& url, const ::net::IPAddress& ip_address, const absl::optional<std::string>& private_network_device_id, const absl::optional<std::string>& private_network_device_name, bool* out_permission_granted) {
+    const ::GURL& url, const ::net::IPAddress& ip_address, const std::optional<std::string>& private_network_device_id, const std::optional<std::string>& private_network_device_name, bool* out_permission_granted) {
   base::RunLoop loop;
   proxy_->OnPrivateNetworkAccessPermissionRequired(std::move(url),std::move(ip_address),std::move(private_network_device_id),std::move(private_network_device_name),
       base::BindOnce(
@@ -3148,14 +3197,14 @@ void URLLoaderNetworkServiceObserverAsyncWaiter::OnPrivateNetworkAccessPermissio
 }
 
 bool URLLoaderNetworkServiceObserverAsyncWaiter::OnPrivateNetworkAccessPermissionRequired(
-    const ::GURL& url, const ::net::IPAddress& ip_address, const absl::optional<std::string>& private_network_device_id, const absl::optional<std::string>& private_network_device_name) {
+    const ::GURL& url, const ::net::IPAddress& ip_address, const std::optional<std::string>& private_network_device_id, const std::optional<std::string>& private_network_device_name) {
   bool async_wait_result;
   OnPrivateNetworkAccessPermissionRequired(std::move(url),std::move(ip_address),std::move(private_network_device_id),std::move(private_network_device_name),&async_wait_result);
   return async_wait_result;
 }
 
 void URLLoaderNetworkServiceObserverAsyncWaiter::OnClearSiteData(
-    const ::GURL& url, const std::string& header_value, int32_t load_flags, const absl::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only) {
+    const ::GURL& url, const std::string& header_value, int32_t load_flags, const std::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only) {
   base::RunLoop loop;
   proxy_->OnClearSiteData(std::move(url),std::move(header_value),std::move(load_flags),std::move(cookie_partition_key),std::move(partitioned_state_allowed_only),
       base::BindOnce(

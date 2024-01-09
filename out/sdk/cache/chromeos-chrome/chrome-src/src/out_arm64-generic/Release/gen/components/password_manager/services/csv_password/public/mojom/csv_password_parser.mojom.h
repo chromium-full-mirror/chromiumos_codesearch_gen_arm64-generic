@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/password_manager/services/csv_password/public/mojom/csv_password_parser.mojom-features.h"
 #include "components/password_manager/services/csv_password/public/mojom/csv_password_parser.mojom-shared.h"
 #include "components/password_manager/services/csv_password/public/mojom/csv_password_parser.mojom-forward.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
@@ -335,7 +336,7 @@ class  CSVPassword {
       const std::string& password,
       const std::string& note,
       const ::GURL& url,
-      const absl::optional<std::string>& invalid_url);
+      const std::optional<std::string>& invalid_url);
 
 
   ~CSVPassword();
@@ -423,7 +424,7 @@ class  CSVPassword {
   
   ::GURL url;
   
-  absl::optional<std::string> invalid_url;
+  std::optional<std::string> invalid_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

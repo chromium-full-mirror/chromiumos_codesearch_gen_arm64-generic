@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/file_manager_private_internal.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -39,8 +40,8 @@ EntryDescription::EntryDescription()
 : file_is_directory(false) {}
 
 EntryDescription::~EntryDescription() = default;
-EntryDescription::EntryDescription(EntryDescription&& rhs) = default;
-EntryDescription& EntryDescription::operator=(EntryDescription&& rhs) = default;
+EntryDescription::EntryDescription(EntryDescription&& rhs) noexcept = default;
+EntryDescription& EntryDescription::operator=(EntryDescription&& rhs) noexcept = default;
 EntryDescription EntryDescription::Clone() const {
   EntryDescription out;
   out.file_system_name = file_system_name;
@@ -114,34 +115,21 @@ bool EntryDescription::Populate(
 }
 
 // static
-std::unique_ptr<EntryDescription> EntryDescription::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EntryDescription>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EntryDescription> EntryDescription::FromValue(const base::Value::Dict& value) {
+  EntryDescription out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EntryDescription> EntryDescription::FromValue(const base::Value::Dict& value) {
+std::optional<EntryDescription> EntryDescription::FromValue(const base::Value& value) {
   EntryDescription out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EntryDescription> EntryDescription::FromValue(const base::Value& value) {
-  EntryDescription out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -166,8 +154,8 @@ IOTaskParams::IOTaskParams()
  {}
 
 IOTaskParams::~IOTaskParams() = default;
-IOTaskParams::IOTaskParams(IOTaskParams&& rhs) = default;
-IOTaskParams& IOTaskParams::operator=(IOTaskParams&& rhs) = default;
+IOTaskParams::IOTaskParams(IOTaskParams&& rhs) noexcept = default;
+IOTaskParams& IOTaskParams::operator=(IOTaskParams&& rhs) noexcept = default;
 IOTaskParams IOTaskParams::Clone() const {
   IOTaskParams out;
   out.destination_folder_url = destination_folder_url;
@@ -184,7 +172,7 @@ bool IOTaskParams::Populate(
     {
       auto* temp = (*destination_folder_url_value).GetIfString();
       if (!temp) {
-        out.destination_folder_url = absl::nullopt;
+        out.destination_folder_url = std::nullopt;
         return false;
       }
       out.destination_folder_url = *temp;
@@ -196,7 +184,7 @@ bool IOTaskParams::Populate(
     {
       auto* temp = (*password_value).GetIfString();
       if (!temp) {
-        out.password = absl::nullopt;
+        out.password = std::nullopt;
         return false;
       }
       out.password = *temp;
@@ -208,7 +196,7 @@ bool IOTaskParams::Populate(
     {
       auto temp = (*show_notification_value).GetIfBool();
       if (!temp.has_value()) {
-        out.show_notification = absl::nullopt;
+        out.show_notification = std::nullopt;
         return false;
       }
       out.show_notification = *temp;
@@ -228,34 +216,21 @@ bool IOTaskParams::Populate(
 }
 
 // static
-std::unique_ptr<IOTaskParams> IOTaskParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IOTaskParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value::Dict& value) {
+  IOTaskParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value::Dict& value) {
+std::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value& value) {
   IOTaskParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value& value) {
-  IOTaskParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -284,8 +259,8 @@ ParsedTrashInfoFile::ParsedTrashInfoFile()
 : deletion_date(0.0) {}
 
 ParsedTrashInfoFile::~ParsedTrashInfoFile() = default;
-ParsedTrashInfoFile::ParsedTrashInfoFile(ParsedTrashInfoFile&& rhs) = default;
-ParsedTrashInfoFile& ParsedTrashInfoFile::operator=(ParsedTrashInfoFile&& rhs) = default;
+ParsedTrashInfoFile::ParsedTrashInfoFile(ParsedTrashInfoFile&& rhs) noexcept = default;
+ParsedTrashInfoFile& ParsedTrashInfoFile::operator=(ParsedTrashInfoFile&& rhs) noexcept = default;
 ParsedTrashInfoFile ParsedTrashInfoFile::Clone() const {
   ParsedTrashInfoFile out;
   out.restore_entry = restore_entry.Clone();
@@ -347,34 +322,21 @@ bool ParsedTrashInfoFile::Populate(
 }
 
 // static
-std::unique_ptr<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ParsedTrashInfoFile>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValue(const base::Value::Dict& value) {
+  ParsedTrashInfoFile out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValue(const base::Value::Dict& value) {
+std::optional<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValue(const base::Value& value) {
   ParsedTrashInfoFile out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValue(const base::Value& value) {
-  ParsedTrashInfoFile out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -400,8 +362,8 @@ modified_timestamp(0.0),
 category() {}
 
 SearchFilesParams::~SearchFilesParams() = default;
-SearchFilesParams::SearchFilesParams(SearchFilesParams&& rhs) = default;
-SearchFilesParams& SearchFilesParams::operator=(SearchFilesParams&& rhs) = default;
+SearchFilesParams::SearchFilesParams(SearchFilesParams&& rhs) noexcept = default;
+SearchFilesParams& SearchFilesParams::operator=(SearchFilesParams&& rhs) noexcept = default;
 SearchFilesParams SearchFilesParams::Clone() const {
   SearchFilesParams out;
   out.root_url = root_url;
@@ -421,7 +383,7 @@ bool SearchFilesParams::Populate(
     {
       auto* temp = (*root_url_value).GetIfString();
       if (!temp) {
-        out.root_url = absl::nullopt;
+        out.root_url = std::nullopt;
         return false;
       }
       out.root_url = *temp;
@@ -507,34 +469,21 @@ bool SearchFilesParams::Populate(
 }
 
 // static
-std::unique_ptr<SearchFilesParams> SearchFilesParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SearchFilesParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SearchFilesParams> SearchFilesParams::FromValue(const base::Value::Dict& value) {
+  SearchFilesParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SearchFilesParams> SearchFilesParams::FromValue(const base::Value::Dict& value) {
+std::optional<SearchFilesParams> SearchFilesParams::FromValue(const base::Value& value) {
   SearchFilesParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SearchFilesParams> SearchFilesParams::FromValue(const base::Value& value) {
-  SearchFilesParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -561,6 +510,96 @@ base::Value::Dict SearchFilesParams::ToValue() const {
 }
 
 
+CrostiniSharedPathResponse::CrostiniSharedPathResponse()
+: first_for_session(false) {}
+
+CrostiniSharedPathResponse::~CrostiniSharedPathResponse() = default;
+CrostiniSharedPathResponse::CrostiniSharedPathResponse(CrostiniSharedPathResponse&& rhs) noexcept = default;
+CrostiniSharedPathResponse& CrostiniSharedPathResponse::operator=(CrostiniSharedPathResponse&& rhs) noexcept = default;
+CrostiniSharedPathResponse CrostiniSharedPathResponse::Clone() const {
+  CrostiniSharedPathResponse out;
+  out.entries.reserve(entries.size());
+  for (const auto& element : entries) {
+    json_schema_compiler::util::AppendToContainer(out.entries, element.Clone());
+  }
+  out.first_for_session = first_for_session;
+  return out;
+}
+
+// static
+bool CrostiniSharedPathResponse::Populate(
+    const base::Value::Dict& dict, CrostiniSharedPathResponse& out) {
+  const base::Value* entries_value = dict.Find("entries");
+  if (!entries_value) {
+    return false;
+  }
+  {
+    if (!(*entries_value).is_list()) {
+      return false;
+    }
+    else {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*entries_value).GetList(), out.entries)) {
+        return false;
+      }
+    }
+  }
+
+  const base::Value* first_for_session_value = dict.Find("firstForSession");
+  if (!first_for_session_value) {
+    return false;
+  }
+  {
+    auto temp = (*first_for_session_value).GetIfBool();
+    if (!temp.has_value()) {
+      return false;
+    }
+    out.first_for_session = *temp;
+  }
+
+  return true;
+}
+
+// static
+bool CrostiniSharedPathResponse::Populate(
+    const base::Value& value, CrostiniSharedPathResponse& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<CrostiniSharedPathResponse> CrostiniSharedPathResponse::FromValue(const base::Value::Dict& value) {
+  CrostiniSharedPathResponse out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<CrostiniSharedPathResponse> CrostiniSharedPathResponse::FromValue(const base::Value& value) {
+  CrostiniSharedPathResponse out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict CrostiniSharedPathResponse::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Set("entries", json_schema_compiler::util::CreateValueFromArray(this->entries));
+
+  to_value_result.Set("firstForSession", this->first_for_session);
+
+
+  return to_value_result;
+}
+
+
 
 //
 // Functions
@@ -570,13 +609,13 @@ namespace ResolveIsolatedEntries {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -585,17 +624,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -615,13 +654,13 @@ namespace GetEntryProperties {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -630,17 +669,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -648,18 +687,18 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& names_value = args[1];
     {
       if (!names_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         for (const auto& it : (names_value).GetList()) {
           extensions::api::file_manager_private::EntryPropertyName tmp;
           const std::string* entry_property_name_as_string = (it).GetIfString();
           if (!entry_property_name_as_string) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           tmp = file_manager_private::ParseEntryPropertyName(*entry_property_name_as_string);
           if (tmp == file_manager_private::EntryPropertyName()) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           params.names.push_back(tmp);
         }
@@ -667,7 +706,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -687,13 +726,13 @@ namespace AddFileWatch {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -703,13 +742,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -729,13 +768,13 @@ namespace RemoveFileWatch {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -745,13 +784,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -771,13 +810,13 @@ namespace GetCustomActions {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -786,17 +825,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -816,13 +855,13 @@ namespace ExecuteCustomAction {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -831,17 +870,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -850,13 +889,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = action_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.action_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -874,13 +913,13 @@ namespace ComputeChecksum {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -890,13 +929,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -916,13 +955,13 @@ namespace GetMimeType {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -932,13 +971,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -958,13 +997,13 @@ namespace GetContentMimeType {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -974,13 +1013,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = blob_uuid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.blob_uuid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1000,13 +1039,13 @@ namespace GetContentMetadata {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1016,13 +1055,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = blob_uuid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.blob_uuid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1031,13 +1070,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = mime_type_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.mime_type = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1046,13 +1085,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = include_images_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.include_images = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1072,13 +1111,13 @@ namespace PinDriveFile {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1088,13 +1127,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1103,13 +1142,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = pin_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.pin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1127,13 +1166,13 @@ namespace ExecuteTask {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1142,15 +1181,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& descriptor_value = args[0];
     {
       if (!descriptor_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!extensions::api::file_manager_private::FileTaskDescriptor::Populate(descriptor_value.GetDict(), params.descriptor)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1158,17 +1197,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[1];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1188,13 +1227,13 @@ namespace SearchFiles {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1203,15 +1242,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& search_params_value = args[0];
     {
       if (!search_params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SearchFilesParams::Populate(search_params_value.GetDict(), params.search_params)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1231,13 +1270,13 @@ namespace SetDefaultTask {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1246,15 +1285,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& descriptor_value = args[0];
     {
       if (!descriptor_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!extensions::api::file_manager_private::FileTaskDescriptor::Populate(descriptor_value.GetDict(), params.descriptor)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1262,17 +1301,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[1];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1280,17 +1319,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& mime_types_value = args[2];
     {
       if (!mime_types_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(mime_types_value.GetList(), params.mime_types)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1308,13 +1347,13 @@ namespace GetFileTasks {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1323,17 +1362,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1341,17 +1380,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& dlp_source_urls_value = args[1];
     {
       if (!dlp_source_urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(dlp_source_urls_value.GetList(), params.dlp_source_urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1371,13 +1410,13 @@ namespace GetDisallowedTransfers {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1386,17 +1425,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entries_value = args[0];
     {
       if (!entries_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(entries_value.GetList(), params.entries)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1405,13 +1444,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = destination_entry_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.destination_entry = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1420,13 +1459,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = is_move_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.is_move = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1446,13 +1485,13 @@ namespace GetDlpMetadata {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1461,17 +1500,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entries_value = args[0];
     {
       if (!entries_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(entries_value.GetList(), params.entries)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1491,13 +1530,13 @@ namespace GetDriveQuotaMetadata {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1507,13 +1546,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1533,13 +1572,13 @@ namespace ValidatePathNameLength {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1549,13 +1588,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = parent_url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.parent_url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1564,13 +1603,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1590,13 +1629,13 @@ namespace GetDirectorySize {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1606,13 +1645,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1632,13 +1671,13 @@ namespace GetVolumeRoot {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1647,15 +1686,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!extensions::api::file_manager_private::GetVolumeRootOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1675,13 +1714,13 @@ namespace GetRecentFiles {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
-  if (args.size() != 3) {
-    return absl::nullopt;
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 5) {
+    return std::nullopt;
   }
   Params params;
 
@@ -1691,49 +1730,79 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* source_restriction_as_string = restriction_value.GetIfString();
       if (!source_restriction_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.restriction = file_manager_private::ParseSourceRestriction(*source_restriction_as_string);
       if (params.restriction == file_manager_private::SourceRestriction()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
       !args[1].is_none()) {
-    const base::Value& file_category_value = args[1];
+    const base::Value& query_value = args[1];
     {
-      const std::string* file_category_as_string = file_category_value.GetIfString();
-      if (!file_category_as_string) {
-        return absl::nullopt;
+      auto* temp = query_value.GetIfString();
+      if (!temp) {
+        return std::nullopt;
       }
-      params.file_category = file_manager_private::ParseFileCategory(*file_category_as_string);
-      if (params.file_category == file_manager_private::FileCategory()) {
-        return absl::nullopt;
-      }
+      params.query = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
       !args[2].is_none()) {
-    const base::Value& invalidate_cache_value = args[2];
+    const base::Value& cutoff_days_value = args[2];
+    {
+      auto temp = cutoff_days_value.GetIfInt();
+      if (!temp.has_value()) {
+        return std::nullopt;
+      }
+      params.cutoff_days = *temp;
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  if (3 < args.size() &&
+      !args[3].is_none()) {
+    const base::Value& file_category_value = args[3];
+    {
+      const std::string* file_category_as_string = file_category_value.GetIfString();
+      if (!file_category_as_string) {
+        return std::nullopt;
+      }
+      params.file_category = file_manager_private::ParseFileCategory(*file_category_as_string);
+      if (params.file_category == file_manager_private::FileCategory()) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  if (4 < args.size() &&
+      !args[4].is_none()) {
+    const base::Value& invalidate_cache_value = args[4];
     {
       auto temp = invalidate_cache_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.invalidate_cache = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1753,13 +1822,13 @@ namespace SharePathsWithCrostini {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1769,13 +1838,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = vm_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.vm_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1783,17 +1852,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[1];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1802,13 +1871,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = persist_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.persist = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1826,13 +1895,13 @@ namespace UnsharePathWithCrostini {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1842,13 +1911,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = vm_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.vm_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1857,13 +1926,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1881,13 +1950,13 @@ namespace GetCrostiniSharedPaths {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1897,13 +1966,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = observe_first_for_session_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.observe_first_for_session = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1912,25 +1981,23 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = vm_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.vm_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
 }
 
 
-base::Value::List Results::Create(const std::vector<EntryDescription>& entries, bool first_for_session) {
+base::Value::List Results::Create(const CrostiniSharedPathResponse& response) {
   base::Value::List create_results;
-  create_results.reserve(2);
-  create_results.Append(json_schema_compiler::util::CreateValueFromArray(entries));
-
-  create_results.Append(first_for_session);
+  create_results.reserve(1);
+  create_results.Append((response).ToValue());
 
   return create_results;
 }
@@ -1940,13 +2007,13 @@ namespace GetLinuxPackageInfo {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1956,13 +2023,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1982,13 +2049,13 @@ namespace InstallLinuxPackage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1998,23 +2065,23 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
 }
 
 
-base::Value::List Results::Create(const extensions::api::file_manager_private::InstallLinuxPackageResponse& response) {
+base::Value::List Results::Create(const extensions::api::file_manager_private::InstallLinuxPackageStatus& status) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(file_manager_private::ToString(response));
+  create_results.Append(file_manager_private::ToString(status));
 
   return create_results;
 }
@@ -2024,13 +2091,13 @@ namespace ImportCrostiniImage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2040,13 +2107,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2059,13 +2126,13 @@ namespace SharesheetHasTargets {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2074,17 +2141,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2104,13 +2171,13 @@ namespace InvokeSharesheet {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2119,17 +2186,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2138,16 +2205,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* sharesheet_launch_source_as_string = launch_source_value.GetIfString();
       if (!sharesheet_launch_source_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.launch_source = file_manager_private::ParseSharesheetLaunchSource(*sharesheet_launch_source_as_string);
       if (params.launch_source == file_manager_private::SharesheetLaunchSource()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -2155,17 +2222,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& dlp_source_urls_value = args[2];
     {
       if (!dlp_source_urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(dlp_source_urls_value.GetList(), params.dlp_source_urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2183,13 +2250,13 @@ namespace ToggleAddedToHoldingSpace {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2198,17 +2265,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2217,13 +2284,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = add_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.add = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2241,13 +2308,13 @@ namespace StartIOTask {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2257,16 +2324,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* io_task_type_as_string = type_value.GetIfString();
       if (!io_task_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.type = file_manager_private::ParseIOTaskType(*io_task_type_as_string);
       if (params.type == file_manager_private::IOTaskType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2274,17 +2341,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[1];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -2292,15 +2359,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& params_value = args[2];
     {
       if (!params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!IOTaskParams::Populate(params_value.GetDict(), params.params)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2320,13 +2387,13 @@ namespace ParseTrashInfoFiles {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2335,17 +2402,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& urls_value = args[0];
     {
       if (!urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(urls_value.GetList(), params.urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

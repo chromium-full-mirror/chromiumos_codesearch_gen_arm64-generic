@@ -21,6 +21,7 @@ export var Command;
     Command[Command["kStartPasswordManagerTutorial"] = 10] = "kStartPasswordManagerTutorial";
 })(Command || (Command = {}));
 export class CommandHandlerFactoryPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -29,6 +30,9 @@ export class CommandHandlerFactoryPendingReceiver {
     }
 }
 export class CommandHandlerFactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CommandHandlerFactoryPendingReceiver, handle);
@@ -48,6 +52,9 @@ export class CommandHandlerFactoryRemote {
  * interface.
  */
 export class CommandHandlerFactoryReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommandHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -77,6 +84,11 @@ export class CommandHandlerFactory {
  * receiver can have any number of listeners added to it.
  */
 export class CommandHandlerFactoryCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    createBrowserCommandHandler;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommandHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -95,6 +107,7 @@ export class CommandHandlerFactoryCallbackRouter {
     }
 }
 export class CommandHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -103,6 +116,9 @@ export class CommandHandlerPendingReceiver {
     }
 }
 export class CommandHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CommandHandlerPendingReceiver, handle);
@@ -128,6 +144,9 @@ export class CommandHandlerRemote {
  * interface.
  */
 export class CommandHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommandHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -158,6 +177,12 @@ export class CommandHandler {
  * receiver can have any number of listeners added to it.
  */
 export class CommandHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    canExecuteCommand;
+    executeCommand;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommandHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

@@ -105,7 +105,6 @@ class  URLLoaderCompletionStatus_Data {
   uint8_t pad12_[4];
   mojo::internal::Pointer<::network::mojom::internal::SSLInfo_Data> ssl_info;
   mojo::internal::Pointer<internal::BlockedByResponseReasonWrapper_Data> blocked_by_response_reason;
-  mojo::internal::Pointer<::network::mojom::internal::ProxyServer_Data> proxy_server;
   mojo::internal::Pointer<::network::mojom::internal::ResolveErrorInfo_Data> resolve_error_info;
 
  private:
@@ -114,7 +113,7 @@ class  URLLoaderCompletionStatus_Data {
   URLLoaderCompletionStatus_Data();
   ~URLLoaderCompletionStatus_Data() = delete;
 };
-static_assert(sizeof(URLLoaderCompletionStatus_Data) == 104,
+static_assert(sizeof(URLLoaderCompletionStatus_Data) == 96,
               "Bad sizeof(URLLoaderCompletionStatus_Data)");
 // Used by URLLoaderCompletionStatus::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

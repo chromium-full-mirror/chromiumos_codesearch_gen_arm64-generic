@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ PaymentHandlerMethodData::PaymentHandlerMethodData()
 
 PaymentHandlerMethodData::PaymentHandlerMethodData(
     const std::string& method_name_in,
-    const absl::optional<std::string>& stringified_data_in)
+    const std::optional<std::string>& stringified_data_in)
     : method_name(std::move(method_name_in)),
       stringified_data(std::move(stringified_data_in)) {}
 
@@ -71,7 +72,7 @@ void PaymentHandlerMethodData::WriteIntoTrace(
     dict.AddItem(
       "stringified_data"), this->stringified_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -133,10 +134,10 @@ PaymentRequestDetailsUpdate::PaymentRequestDetailsUpdate()
 
 PaymentRequestDetailsUpdate::PaymentRequestDetailsUpdate(
     ::payments::mojom::PaymentCurrencyAmountPtr total_in,
-    absl::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options_in,
-    absl::optional<std::vector<PaymentHandlerModifierPtr>> modifiers_in,
+    std::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>> shipping_options_in,
+    std::optional<std::vector<PaymentHandlerModifierPtr>> modifiers_in,
     const std::string& error_in,
-    const absl::optional<std::string>& stringified_payment_method_errors_in,
+    const std::optional<std::string>& stringified_payment_method_errors_in,
     ::payments::mojom::AddressErrorsPtr shipping_address_errors_in)
     : total(std::move(total_in)),
       shipping_options(std::move(shipping_options_in)),
@@ -163,7 +164,7 @@ void PaymentRequestDetailsUpdate::WriteIntoTrace(
     dict.AddItem(
       "shipping_options"), this->shipping_options,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>>>"
+      "<value of type std::optional<std::vector<::payments::mojom::PaymentShippingOptionPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -172,7 +173,7 @@ void PaymentRequestDetailsUpdate::WriteIntoTrace(
     dict.AddItem(
       "modifiers"), this->modifiers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<PaymentHandlerModifierPtr>>>"
+      "<value of type std::optional<std::vector<PaymentHandlerModifierPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -190,7 +191,7 @@ void PaymentRequestDetailsUpdate::WriteIntoTrace(
     dict.AddItem(
       "stringified_payment_method_errors"), this->stringified_payment_method_errors,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -370,14 +371,17 @@ void PaymentHandlerHostProxy::ChangePaymentMethod(
                         "<value of type PaymentHandlerMethodDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentHandlerHost_ChangePaymentMethod_Name, kFlags, 0, 0, nullptr);
@@ -419,14 +423,17 @@ void PaymentHandlerHostProxy::ChangeShippingOption(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentHandlerHost_ChangeShippingOption_Name, kFlags, 0, 0, nullptr);
@@ -468,14 +475,17 @@ void PaymentHandlerHostProxy::ChangeShippingAddress(
                         "<value of type ::payments::mojom::PaymentAddressPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentHandlerHost_ChangeShippingAddress_Name, kFlags, 0, 0, nullptr);
@@ -596,7 +606,8 @@ void PaymentHandlerHost_ChangePaymentMethod_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentHandlerHost_ChangePaymentMethod_Name, kFlags, 0, 0, nullptr);
@@ -724,7 +735,8 @@ void PaymentHandlerHost_ChangeShippingOption_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentHandlerHost_ChangeShippingOption_Name, kFlags, 0, 0, nullptr);
@@ -852,7 +864,8 @@ void PaymentHandlerHost_ChangeShippingAddress_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPaymentHandlerHost_ChangeShippingAddress_Name, kFlags, 0, 0, nullptr);
@@ -1006,14 +1019,14 @@ std::move(p_shipping_address), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPaymentHandlerHostValidationInfo[] = {
-    {&internal::PaymentHandlerHost_ChangePaymentMethod_Params_Data::Validate,
+    { &internal::PaymentHandlerHost_ChangePaymentMethod_Params_Data::Validate,
      &internal::PaymentHandlerHost_ChangePaymentMethod_ResponseParams_Data::Validate},
-    {&internal::PaymentHandlerHost_ChangeShippingOption_Params_Data::Validate,
+    { &internal::PaymentHandlerHost_ChangeShippingOption_Params_Data::Validate,
      &internal::PaymentHandlerHost_ChangeShippingOption_ResponseParams_Data::Validate},
-    {&internal::PaymentHandlerHost_ChangeShippingAddress_Params_Data::Validate,
+    { &internal::PaymentHandlerHost_ChangeShippingAddress_Params_Data::Validate,
      &internal::PaymentHandlerHost_ChangeShippingAddress_ResponseParams_Data::Validate},
 };
 

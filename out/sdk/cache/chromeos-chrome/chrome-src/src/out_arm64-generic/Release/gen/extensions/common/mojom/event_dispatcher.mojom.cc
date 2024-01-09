@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -53,11 +54,11 @@ EventFilteringInfo::EventFilteringInfo()
       window_exposed_by_default() {}
 
 EventFilteringInfo::EventFilteringInfo(
-    const absl::optional<::GURL>& url_in,
-    const absl::optional<std::string>& service_type_in,
+    const std::optional<::GURL>& url_in,
+    const std::optional<std::string>& service_type_in,
     bool has_instance_id_in,
     int32_t instance_id_in,
-    const absl::optional<std::string>& window_type_in,
+    const std::optional<std::string>& window_type_in,
     bool has_window_exposed_by_default_in,
     bool window_exposed_by_default_in)
     : url(std::move(url_in)),
@@ -77,7 +78,7 @@ void EventFilteringInfo::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -86,7 +87,7 @@ void EventFilteringInfo::WriteIntoTrace(
     dict.AddItem(
       "service_type"), this->service_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -113,7 +114,7 @@ void EventFilteringInfo::WriteIntoTrace(
     dict.AddItem(
       "window_type"), this->window_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -286,12 +287,28 @@ uint32_t EventDispatcher::DispatchEvent_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
+class EventDispatcher_DispatchEvent_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  EventDispatcher_DispatchEvent_ForwardToCallback(
+      EventDispatcher::DispatchEventCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  EventDispatcher_DispatchEvent_ForwardToCallback(const EventDispatcher_DispatchEvent_ForwardToCallback&) = delete;
+  EventDispatcher_DispatchEvent_ForwardToCallback& operator=(const EventDispatcher_DispatchEvent_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  EventDispatcher::DispatchEventCallback callback_;
+};
+
 EventDispatcherProxy::EventDispatcherProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
 void EventDispatcherProxy::DispatchEvent(
-    DispatchEventParamsPtr in_params, ::base::Value::List in_event_args) {
+    DispatchEventParamsPtr in_params, ::base::Value::List in_event_args, DispatchEventCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send extensions::mojom::EventDispatcher::DispatchEvent", "input_parameters",
@@ -305,14 +322,17 @@ void EventDispatcherProxy::DispatchEvent(
                         "<value of type ::base::Value::List>");
    });
 #endif
-  const bool kExpectsResponse = false;
+
+  const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventDispatcher_DispatchEvent_Name, kFlags, 0, 0, nullptr);
@@ -347,9 +367,129 @@ void EventDispatcherProxy::DispatchEvent(
   message.set_interface_name(EventDispatcher::Name_);
   message.set_method_name("DispatchEvent");
 #endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new EventDispatcher_DispatchEvent_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class EventDispatcher_DispatchEvent_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static EventDispatcher::DispatchEventCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<EventDispatcher_DispatchEvent_ProxyToResponder> proxy(
+        new EventDispatcher_DispatchEvent_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&EventDispatcher_DispatchEvent_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~EventDispatcher_DispatchEvent_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  EventDispatcher_DispatchEvent_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "EventDispatcher::DispatchEventCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_event_will_run_in_lazy_background_page_script);
+};
+
+bool EventDispatcher_DispatchEvent_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::EventDispatcher_DispatchEvent_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::EventDispatcher_DispatchEvent_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_event_will_run_in_lazy_background_page_script{};
+  EventDispatcher_DispatchEvent_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_event_will_run_in_lazy_background_page_script = input_data_view.event_will_run_in_lazy_background_page_script();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        EventDispatcher::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_event_will_run_in_lazy_background_page_script));
+  return true;
+}
+
+void EventDispatcher_DispatchEvent_ProxyToResponder::Run(
+    bool in_event_will_run_in_lazy_background_page_script) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply extensions::mojom::EventDispatcher::DispatchEvent", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("event_will_run_in_lazy_background_page_script"), in_event_will_run_in_lazy_background_page_script,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kEventDispatcher_DispatchEvent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::EventDispatcher_DispatchEvent_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->event_will_run_in_lazy_background_page_script = in_event_will_run_in_lazy_background_page_script;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(EventDispatcher::Name_);
+  message.set_method_name("DispatchEvent");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
 }
 
 // static
@@ -358,11 +498,27 @@ bool EventDispatcherStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kEventDispatcher_DispatchEvent_Name: {
+      break;
+    }
+  }
+  return false;
+}
 
-      DCHECK(message->is_serialized());
+// static
+bool EventDispatcherStubDispatch::AcceptWithResponder(
+    EventDispatcher* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kEventDispatcher_DispatchEvent_Name: {
+
       internal::EventDispatcher_DispatchEvent_Params_Data* params =
-          reinterpret_cast<internal::EventDispatcher_DispatchEvent_Params_Data*>(
-              message->mutable_payload());
+          reinterpret_cast<
+              internal::EventDispatcher_DispatchEvent_Params_Data*>(
+                  message->mutable_payload());
       
       bool success = true;
       DispatchEventParamsPtr p_params{};
@@ -380,37 +536,24 @@ bool EventDispatcherStubDispatch::Accept(
             EventDispatcher::Name_, 0, false);
         return false;
       }
+      EventDispatcher::DispatchEventCallback callback =
+          EventDispatcher_DispatchEvent_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->DispatchEvent(
 std::move(p_params), 
-std::move(p_event_args));
+std::move(p_event_args), std::move(callback));
       return true;
     }
   }
   return false;
 }
-
-// static
-bool EventDispatcherStubDispatch::AcceptWithResponder(
-    EventDispatcher* impl,
-    mojo::Message* message,
-    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-  [[maybe_unused]] const bool message_is_sync =
-      message->has_flag(mojo::Message::kFlagIsSync);
-  [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kEventDispatcher_DispatchEvent_Name: {
-      break;
-    }
-  }
-  return false;
-}
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEventDispatcherValidationInfo[] = {
-    {&internal::EventDispatcher_DispatchEvent_Params_Data::Validate,
-     nullptr /* no response */},
+    { &internal::EventDispatcher_DispatchEvent_Params_Data::Validate,
+     &internal::EventDispatcher_DispatchEvent_ResponseParams_Data::Validate},
 };
 
 bool EventDispatcherRequestValidator::Accept(mojo::Message* message) {
@@ -418,6 +561,10 @@ bool EventDispatcherRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kEventDispatcherValidationInfo);
 }
 
+bool EventDispatcherResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::extensions::mojom::EventDispatcher::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kEventDispatcherValidationInfo);
+}
 
 
 }  // extensions::mojom
@@ -485,13 +632,36 @@ bool StructTraits<::extensions::mojom::DispatchEventParams::DataView, ::extensio
 namespace extensions::mojom {
 
 
-void EventDispatcherInterceptorForTesting::DispatchEvent(DispatchEventParamsPtr params, ::base::Value::List event_args) {
-  GetForwardingInterface()->DispatchEvent(std::move(params), std::move(event_args));
+void EventDispatcherInterceptorForTesting::DispatchEvent(DispatchEventParamsPtr params, ::base::Value::List event_args, DispatchEventCallback callback) {
+  GetForwardingInterface()->DispatchEvent(std::move(params), std::move(event_args), std::move(callback));
 }
 EventDispatcherAsyncWaiter::EventDispatcherAsyncWaiter(
     EventDispatcher* proxy) : proxy_(proxy) {}
 
 EventDispatcherAsyncWaiter::~EventDispatcherAsyncWaiter() = default;
+
+void EventDispatcherAsyncWaiter::DispatchEvent(
+    DispatchEventParamsPtr params, ::base::Value::List event_args, bool* out_event_will_run_in_lazy_background_page_script) {
+  base::RunLoop loop;
+  proxy_->DispatchEvent(std::move(params),std::move(event_args),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_event_will_run_in_lazy_background_page_script
+,
+             bool event_will_run_in_lazy_background_page_script) {*out_event_will_run_in_lazy_background_page_script = std::move(event_will_run_in_lazy_background_page_script);
+            loop->Quit();
+          },
+          &loop,
+          out_event_will_run_in_lazy_background_page_script));
+  loop.Run();
+}
+
+bool EventDispatcherAsyncWaiter::DispatchEvent(
+    DispatchEventParamsPtr params, ::base::Value::List event_args) {
+  bool async_wait_result;
+  DispatchEvent(std::move(params),std::move(event_args),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

@@ -349,19 +349,43 @@ enum class SVCScalabilityMode : int32_t {
   
   kL1T3 = 3,
   
-  kL2T1Key = 4,
+  kL2T1 = 4,
   
-  kL2T2Key = 5,
+  kL2T2 = 5,
   
-  kL2T3Key = 6,
+  kL2T3 = 6,
   
-  kL3T1Key = 7,
+  kL3T1 = 7,
   
-  kL3T2Key = 8,
+  kL3T2 = 8,
   
-  kL3T3Key = 9,
+  kL3T3 = 9,
+  
+  kL2T1Key = 10,
+  
+  kL2T2Key = 11,
+  
+  kL2T3Key = 12,
+  
+  kL3T1Key = 13,
+  
+  kL3T2Key = 14,
+  
+  kL3T3Key = 15,
+  
+  kS2T1 = 16,
+  
+  kS2T2 = 17,
+  
+  kS2T3 = 18,
+  
+  kS3T1 = 19,
+  
+  kS3T2 = 20,
+  
+  kS3T3 = 21,
   kMinValue = 0,
-  kMaxValue = 9,
+  kMaxValue = 21,
 };
 
  std::ostream& operator<<(std::ostream& os, SVCScalabilityMode value);
@@ -1515,6 +1539,12 @@ static_assert(
     auto* pointer = data_->wallclock_frame_duration.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
         pointer, output, message_);
+  }
+  std::optional<uint64_t> frame_sequence() const {
+
+    return data_->frame_sequence_$flag
+        ? absl::make_optional(data_->frame_sequence_$value)
+        : absl::nullopt;
   }
  private:
   internal::VideoFrameMetadata_Data* data_ = nullptr;
@@ -3189,6 +3219,10 @@ struct Serializer<::media::mojom::VideoFrameMetadataDataView, MaybeConstUserType
         in_wallclock_frame_duration, wallclock_frame_duration_fragment);
     fragment->wallclock_frame_duration.Set(
         wallclock_frame_duration_fragment.is_null() ? nullptr : wallclock_frame_duration_fragment.data());
+    fragment->frame_sequence_$flag = Traits::frame_sequence(input).has_value();
+    if (Traits::frame_sequence(input).has_value()) {
+      fragment->frame_sequence_$value = Traits::frame_sequence(input).value();
+    }
   }
 
   static bool Deserialize(::media::mojom::internal::VideoFrameMetadata_Data* input,

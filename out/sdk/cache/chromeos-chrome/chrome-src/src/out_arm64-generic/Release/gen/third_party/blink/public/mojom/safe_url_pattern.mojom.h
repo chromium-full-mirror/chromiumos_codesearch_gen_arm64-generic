@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/safe_url_pattern.mojom-features.h"
 #include "third_party/blink/public/mojom/safe_url_pattern.mojom-shared.h"
 #include "third_party/blink/public/mojom/safe_url_pattern.mojom-forward.h"
 #include <string>
@@ -494,25 +495,25 @@ class BLINK_COMMON_EXPORT PatternTemplate {
   // Construct an instance holding |fixed|.
   static PatternTemplatePtr
   NewFixed(
-      const ::liburlpattern::Part& fixed) {
+      const ::liburlpattern::Part& value) {
     auto result = PatternTemplatePtr(absl::in_place);
-    result->set_fixed(std::move(fixed));
+    result->set_fixed(std::move(value));
     return result;
   }
   // Construct an instance holding |full_wildcard|.
   static PatternTemplatePtr
   NewFullWildcard(
-      const ::liburlpattern::Part& full_wildcard) {
+      const ::liburlpattern::Part& value) {
     auto result = PatternTemplatePtr(absl::in_place);
-    result->set_full_wildcard(std::move(full_wildcard));
+    result->set_full_wildcard(std::move(value));
     return result;
   }
   // Construct an instance holding |segment_wildcard|.
   static PatternTemplatePtr
   NewSegmentWildcard(
-      const ::liburlpattern::Part& segment_wildcard) {
+      const ::liburlpattern::Part& value) {
     auto result = PatternTemplatePtr(absl::in_place);
-    result->set_segment_wildcard(std::move(segment_wildcard));
+    result->set_segment_wildcard(std::move(value));
     return result;
   }
 

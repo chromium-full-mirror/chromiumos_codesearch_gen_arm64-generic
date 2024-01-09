@@ -15,8 +15,8 @@ namespace arc::mojom {
 
 class  CrashCollectorHostInterceptorForTesting : public CrashCollectorHost {
   virtual CrashCollectorHost* GetForwardingInterface() = 0;
-  void DumpCrash(const std::string& type, ::mojo::ScopedHandle pipe, absl::optional<::base::TimeDelta> uptime) override;
-  void SetBuildProperties(const std::string& device, const std::string& board, const std::string& cpu_abi, const absl::optional<std::string>& fingerprint) override;
+  void DumpCrash(const std::string& type, ::mojo::ScopedHandle pipe, std::optional<::base::TimeDelta> uptime) override;
+  void SetBuildProperties(const std::string& device, const std::string& board, const std::string& cpu_abi, const std::optional<std::string>& fingerprint) override;
   void DumpNativeCrash(const std::string& exec_name, int32_t pid, int64_t timestamp, ::mojo::ScopedHandle minidump_fd) override;
   void DumpKernelCrash(::mojo::ScopedHandle ramoops_handle) override;
 };

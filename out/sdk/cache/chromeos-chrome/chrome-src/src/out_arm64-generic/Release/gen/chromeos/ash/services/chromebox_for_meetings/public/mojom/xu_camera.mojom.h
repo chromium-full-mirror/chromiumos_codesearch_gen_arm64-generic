@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/chromebox_for_meetings/public/mojom/xu_camera.mojom-features.h"
 #include "chromeos/ash/services/chromebox_for_meetings/public/mojom/xu_camera.mojom-shared.h"
 #include "chromeos/ash/services/chromebox_for_meetings/public/mojom/xu_camera.mojom-forward.h"
 #include <string>
@@ -353,17 +354,17 @@ class  WebcamId {
   // Construct an instance holding |device_id|.
   static WebcamIdPtr
   NewDeviceId(
-      const std::string& device_id) {
+      const std::string& value) {
     auto result = WebcamIdPtr(absl::in_place);
-    result->set_device_id(std::move(device_id));
+    result->set_device_id(std::move(value));
     return result;
   }
   // Construct an instance holding |dev_path|.
   static WebcamIdPtr
   NewDevPath(
-      const std::string& dev_path) {
+      const std::string& value) {
     auto result = WebcamIdPtr(absl::in_place);
-    result->set_dev_path(std::move(dev_path));
+    result->set_dev_path(std::move(value));
     return result;
   }
 
@@ -484,17 +485,17 @@ class  CtrlType {
   // Construct an instance holding |mapping_ctrl|.
   static CtrlTypePtr
   NewMappingCtrl(
-      ControlMappingPtr mapping_ctrl) {
+      ControlMappingPtr value) {
     auto result = CtrlTypePtr(absl::in_place);
-    result->set_mapping_ctrl(std::move(mapping_ctrl));
+    result->set_mapping_ctrl(std::move(value));
     return result;
   }
   // Construct an instance holding |query_ctrl|.
   static CtrlTypePtr
   NewQueryCtrl(
-      ControlQueryPtr query_ctrl) {
+      ControlQueryPtr value) {
     auto result = CtrlTypePtr(absl::in_place);
-    result->set_query_ctrl(std::move(query_ctrl));
+    result->set_query_ctrl(std::move(value));
     return result;
   }
 

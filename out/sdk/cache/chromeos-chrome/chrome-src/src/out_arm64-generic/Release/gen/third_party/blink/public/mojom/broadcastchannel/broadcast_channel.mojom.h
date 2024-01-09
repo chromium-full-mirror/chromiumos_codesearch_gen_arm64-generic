@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/broadcastchannel/broadcast_channel.mojom-features.h"
 #include "third_party/blink/public/mojom/broadcastchannel/broadcast_channel.mojom-shared.h"
 #include "third_party/blink/public/mojom/broadcastchannel/broadcast_channel.mojom-forward.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom.h"
@@ -33,7 +34,7 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
-#include "content/common/content_export.h"
+#include "third_party/blink/public/common/common_export.h"
 
 
 
@@ -48,7 +49,7 @@ class BroadcastChannelClientStub;
 class BroadcastChannelClientRequestValidator;
 
 
-class CONTENT_EXPORT BroadcastChannelClient
+class BLINK_COMMON_EXPORT BroadcastChannelClient
     : public BroadcastChannelClientInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -93,7 +94,7 @@ class BroadcastChannelProviderStub;
 class BroadcastChannelProviderRequestValidator;
 
 
-class CONTENT_EXPORT BroadcastChannelProvider
+class BLINK_COMMON_EXPORT BroadcastChannelProvider
     : public BroadcastChannelProviderInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -132,7 +133,7 @@ class CONTENT_EXPORT BroadcastChannelProvider
 
 
 
-class CONTENT_EXPORT BroadcastChannelClientProxy
+class BLINK_COMMON_EXPORT BroadcastChannelClientProxy
     : public BroadcastChannelClient {
  public:
   using InterfaceType = BroadcastChannelClient;
@@ -147,7 +148,7 @@ class CONTENT_EXPORT BroadcastChannelClientProxy
 
 
 
-class CONTENT_EXPORT BroadcastChannelProviderProxy
+class BLINK_COMMON_EXPORT BroadcastChannelProviderProxy
     : public BroadcastChannelProvider {
  public:
   using InterfaceType = BroadcastChannelProvider;
@@ -159,7 +160,7 @@ class CONTENT_EXPORT BroadcastChannelProviderProxy
  private:
   mojo::MessageReceiverWithResponder* receiver_;
 };
-class CONTENT_EXPORT BroadcastChannelClientStubDispatch {
+class BLINK_COMMON_EXPORT BroadcastChannelClientStubDispatch {
  public:
   static bool Accept(BroadcastChannelClient* impl, mojo::Message* message);
   static bool AcceptWithResponder(
@@ -200,7 +201,7 @@ class BroadcastChannelClientStub
  private:
   ImplPointerType sink_;
 };
-class CONTENT_EXPORT BroadcastChannelProviderStubDispatch {
+class BLINK_COMMON_EXPORT BroadcastChannelProviderStubDispatch {
  public:
   static bool Accept(BroadcastChannelProvider* impl, mojo::Message* message);
   static bool AcceptWithResponder(
@@ -241,11 +242,11 @@ class BroadcastChannelProviderStub
  private:
   ImplPointerType sink_;
 };
-class CONTENT_EXPORT BroadcastChannelClientRequestValidator : public mojo::MessageReceiver {
+class BLINK_COMMON_EXPORT BroadcastChannelClientRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class CONTENT_EXPORT BroadcastChannelProviderRequestValidator : public mojo::MessageReceiver {
+class BLINK_COMMON_EXPORT BroadcastChannelProviderRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

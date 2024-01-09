@@ -11,6 +11,7 @@ import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classe
 import '../settings_shared.css.js';
 import { getESimProfile } from 'chrome://resources/ash/common/cellular_setup/esim_manager_utils.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { stringToMojoString16 } from 'chrome://resources/js/mojo_type_util.js';
 import { ESimOperationResult } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
 import { NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -98,9 +99,7 @@ export class EsimRenameDialogElement extends EsimRenameDialogElementBase {
         // The C++ layer uses std::u16string, which use 16 bit characters. JS
         // strings support either 8 or 16 bit characters, and must be converted
         // to an array of 16 bit character codes that match std::u16string.
-        const name = {
-            data: Array.from(this.esimProfileName_, c => c.charCodeAt(0)),
-        };
+        const name = stringToMojoString16(this.esimProfileName_);
         const response = await this.esimProfileRemote_.setProfileNickname(name);
         this.handleSetProfileNicknameResponse_(response.result);
     }

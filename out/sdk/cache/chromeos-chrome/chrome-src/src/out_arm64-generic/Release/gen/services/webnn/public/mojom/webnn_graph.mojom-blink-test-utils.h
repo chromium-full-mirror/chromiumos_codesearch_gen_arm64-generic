@@ -26,7 +26,7 @@ class  WebNNGraphAsyncWaiter {
 
   ~WebNNGraphAsyncWaiter();
   void Compute(
-      WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs);
+      WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs);
   
 
  private:

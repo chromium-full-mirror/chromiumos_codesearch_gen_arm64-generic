@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -143,14 +144,17 @@ void WebOTPServiceProxy::Receive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WebOTPService::Receive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebOTPService_Receive_Name, kFlags, 0, 0, nullptr);
@@ -174,14 +178,17 @@ void WebOTPServiceProxy::Abort(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::WebOTPService::Abort");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebOTPService_Abort_Name, kFlags, 0, 0, nullptr);
@@ -244,7 +251,7 @@ class WebOTPService_Receive_ProxyToResponder : public ::mojo::internal::ProxyToR
 #endif
 
   void Run(
-      SmsStatus in_status, const absl::optional<std::string>& in_otp);
+      SmsStatus in_status, const std::optional<std::string>& in_otp);
 };
 
 bool WebOTPService_Receive_ForwardToCallback::Accept(
@@ -258,7 +265,7 @@ bool WebOTPService_Receive_ForwardToCallback::Accept(
   
   bool success = true;
   SmsStatus p_status{};
-  absl::optional<std::string> p_otp{};
+  std::optional<std::string> p_otp{};
   WebOTPService_Receive_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -280,7 +287,7 @@ std::move(p_otp));
 }
 
 void WebOTPService_Receive_ProxyToResponder::Run(
-    SmsStatus in_status, const absl::optional<std::string>& in_otp) {
+    SmsStatus in_status, const std::optional<std::string>& in_otp) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::WebOTPService::Receive", "async_response_parameters",
@@ -291,13 +298,14 @@ void WebOTPService_Receive_ProxyToResponder::Run(
                         "<value of type SmsStatus>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("otp"), in_otp,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebOTPService_Receive_Name, kFlags, 0, 0, nullptr);
@@ -406,12 +414,12 @@ bool WebOTPServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebOTPServiceValidationInfo[] = {
-    {&internal::WebOTPService_Receive_Params_Data::Validate,
+    { &internal::WebOTPService_Receive_Params_Data::Validate,
      &internal::WebOTPService_Receive_ResponseParams_Data::Validate},
-    {&internal::WebOTPService_Abort_Params_Data::Validate,
+    { &internal::WebOTPService_Abort_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -453,17 +461,17 @@ WebOTPServiceAsyncWaiter::WebOTPServiceAsyncWaiter(
 WebOTPServiceAsyncWaiter::~WebOTPServiceAsyncWaiter() = default;
 
 void WebOTPServiceAsyncWaiter::Receive(
-    SmsStatus* out_status, absl::optional<std::string>* out_otp) {
+    SmsStatus* out_status, std::optional<std::string>* out_otp) {
   base::RunLoop loop;
   proxy_->Receive(
       base::BindOnce(
           [](base::RunLoop* loop,
              SmsStatus* out_status
 ,
-             absl::optional<std::string>* out_otp
+             std::optional<std::string>* out_otp
 ,
              SmsStatus status,
-             const absl::optional<std::string>& otp) {*out_status = std::move(status);*out_otp = std::move(otp);
+             const std::optional<std::string>& otp) {*out_status = std::move(status);*out_otp = std::move(otp);
             loop->Quit();
           },
           &loop,

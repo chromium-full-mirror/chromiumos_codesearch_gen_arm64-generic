@@ -1,0 +1,1 @@
+--flags IS_OZONE_WAYLAND=false IS_OZONE_X11=false

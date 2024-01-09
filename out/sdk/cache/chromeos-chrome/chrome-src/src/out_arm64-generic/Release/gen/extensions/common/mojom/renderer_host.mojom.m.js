@@ -74,6 +74,24 @@ export class RendererHostInterface {
    */
 
   addDOMActionToActivityLog(extensionId, callName, args, url, urlTitle, callType) {}
+  
+  /**
+   * @param { !string } extensionId
+   * @return {!Promise<{
+        success: !boolean,
+   *  }>}
+   */
+
+  wakeEventPage(extensionId) {}
+  
+  /**
+   * @param { !string } extensionId
+   * @return {!Promise<{
+        messageMap: !Object<!string, !string>,
+   *  }>}
+   */
+
+  getMessageBundle(extensionId) {}
 }
 
 /**
@@ -179,6 +197,44 @@ export class RendererHostRemote {
           callType
         ]);
   }
+
+  
+  /**
+   * @param { !string } extensionId
+   * @return {!Promise<{
+        success: !boolean,
+   *  }>}
+   */
+
+  wakeEventPage(
+      extensionId) {
+    return this.proxy.sendMessage(
+        3,
+        RendererHost_WakeEventPage_ParamsSpec.$,
+        RendererHost_WakeEventPage_ResponseParamsSpec.$,
+        [
+          extensionId
+        ]);
+  }
+
+  
+  /**
+   * @param { !string } extensionId
+   * @return {!Promise<{
+        messageMap: !Object<!string, !string>,
+   *  }>}
+   */
+
+  getMessageBundle(
+      extensionId) {
+    return this.proxy.sendMessage(
+        4,
+        RendererHost_GetMessageBundle_ParamsSpec.$,
+        RendererHost_GetMessageBundle_ResponseParamsSpec.$,
+        [
+          extensionId
+        ]);
+  }
 }
 
 /**
@@ -216,6 +272,16 @@ export class RendererHostReceiver {
         RendererHost_AddDOMActionToActivityLog_ParamsSpec.$,
         null,
         impl.addDOMActionToActivityLog.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
+        RendererHost_WakeEventPage_ParamsSpec.$,
+        RendererHost_WakeEventPage_ResponseParamsSpec.$,
+        impl.wakeEventPage.bind(impl));
+    this.helper_internal_.registerHandler(
+        4,
+        RendererHost_GetMessageBundle_ParamsSpec.$,
+        RendererHost_GetMessageBundle_ResponseParamsSpec.$,
+        impl.getMessageBundle.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -298,6 +364,30 @@ export class RendererHostCallbackRouter {
         RendererHost_AddDOMActionToActivityLog_ParamsSpec.$,
         null,
         this.addDOMActionToActivityLog.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.wakeEventPage =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
+        RendererHost_WakeEventPage_ParamsSpec.$,
+        RendererHost_WakeEventPage_ResponseParamsSpec.$,
+        this.wakeEventPage.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.getMessageBundle =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        4,
+        RendererHost_GetMessageBundle_ParamsSpec.$,
+        RendererHost_GetMessageBundle_ResponseParamsSpec.$,
+        this.getMessageBundle.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -327,6 +417,30 @@ export const RendererHost_AddEventToActivityLog_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const RendererHost_AddDOMActionToActivityLog_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const RendererHost_WakeEventPage_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const RendererHost_WakeEventPage_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const RendererHost_GetMessageBundle_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const RendererHost_GetMessageBundle_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -524,6 +638,122 @@ export class RendererHost_AddDOMActionToActivityLog_Params {
     this.urlTitle;
     /** @type { !number } */
     this.callType;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    RendererHost_WakeEventPage_ParamsSpec.$,
+    'RendererHost_WakeEventPage_Params',
+    [
+      mojo.internal.StructField(
+        'extensionId', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class RendererHost_WakeEventPage_Params {
+  constructor() {
+    /** @type { !string } */
+    this.extensionId;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    RendererHost_WakeEventPage_ResponseParamsSpec.$,
+    'RendererHost_WakeEventPage_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'success', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class RendererHost_WakeEventPage_ResponseParams {
+  constructor() {
+    /** @type { !boolean } */
+    this.success;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    RendererHost_GetMessageBundle_ParamsSpec.$,
+    'RendererHost_GetMessageBundle_Params',
+    [
+      mojo.internal.StructField(
+        'extensionId', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class RendererHost_GetMessageBundle_Params {
+  constructor() {
+    /** @type { !string } */
+    this.extensionId;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    RendererHost_GetMessageBundle_ResponseParamsSpec.$,
+    'RendererHost_GetMessageBundle_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'messageMap', 0,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class RendererHost_GetMessageBundle_ResponseParams {
+  constructor() {
+    /** @type { !Object<!string, !string> } */
+    this.messageMap;
   }
 }
 

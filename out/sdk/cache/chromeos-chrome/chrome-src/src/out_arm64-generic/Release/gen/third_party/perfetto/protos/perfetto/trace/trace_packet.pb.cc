@@ -30,6 +30,7 @@ PROTOBUF_CONSTEXPR TracePacket::TracePacket(
   , first_packet_on_sequence_(false)
   , timestamp_clock_id_(0u)
   , trusted_pid_(0)
+  , machine_id_(0u)
   , _oneof_case_{}{}
 struct TracePacketDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TracePacketDefaultTypeInternal()
@@ -180,6 +181,8 @@ class TracePacket::_Internal {
   static const ::perfetto::protos::TrackEventRangeOfInterest& track_event_range_of_interest(const TracePacket* msg);
   static const ::perfetto::protos::LayersSnapshotProto& surfaceflinger_layers_snapshot(const TracePacket* msg);
   static const ::perfetto::protos::TransactionTraceEntry& surfaceflinger_transactions(const TracePacket* msg);
+  static const ::perfetto::protos::ShellTransition& shell_transition(const TracePacket* msg);
+  static const ::perfetto::protos::ShellHandlerMappings& shell_handler_mappings(const TracePacket* msg);
   static const ::perfetto::protos::EtwTraceEventBundle& etw_events(const TracePacket* msg);
   static const ::perfetto::protos::TestEvent& for_testing(const TracePacket* msg);
   static void set_has_trusted_pid(HasBits* has_bits) {
@@ -204,6 +207,9 @@ class TracePacket::_Internal {
   }
   static void set_has_first_packet_on_sequence(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
+  }
+  static void set_has_machine_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
   }
 };
 
@@ -450,6 +456,14 @@ TracePacket::_Internal::surfaceflinger_layers_snapshot(const TracePacket* msg) {
 const ::perfetto::protos::TransactionTraceEntry&
 TracePacket::_Internal::surfaceflinger_transactions(const TracePacket* msg) {
   return *msg->data_.surfaceflinger_transactions_;
+}
+const ::perfetto::protos::ShellTransition&
+TracePacket::_Internal::shell_transition(const TracePacket* msg) {
+  return *msg->data_.shell_transition_;
+}
+const ::perfetto::protos::ShellHandlerMappings&
+TracePacket::_Internal::shell_handler_mappings(const TracePacket* msg) {
+  return *msg->data_.shell_handler_mappings_;
 }
 const ::perfetto::protos::EtwTraceEventBundle&
 TracePacket::_Internal::etw_events(const TracePacket* msg) {
@@ -1931,6 +1945,54 @@ void TracePacket::clear_surfaceflinger_transactions() {
     clear_has_data();
   }
 }
+void TracePacket::set_allocated_shell_transition(::perfetto::protos::ShellTransition* shell_transition) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_data();
+  if (shell_transition) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(shell_transition));
+    if (message_arena != submessage_arena) {
+      shell_transition = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, shell_transition, submessage_arena);
+    }
+    set_has_shell_transition();
+    data_.shell_transition_ = shell_transition;
+  }
+  // @@protoc_insertion_point(field_set_allocated:perfetto.protos.TracePacket.shell_transition)
+}
+void TracePacket::clear_shell_transition() {
+  if (_internal_has_shell_transition()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete data_.shell_transition_;
+    }
+    clear_has_data();
+  }
+}
+void TracePacket::set_allocated_shell_handler_mappings(::perfetto::protos::ShellHandlerMappings* shell_handler_mappings) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_data();
+  if (shell_handler_mappings) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(shell_handler_mappings));
+    if (message_arena != submessage_arena) {
+      shell_handler_mappings = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, shell_handler_mappings, submessage_arena);
+    }
+    set_has_shell_handler_mappings();
+    data_.shell_handler_mappings_ = shell_handler_mappings;
+  }
+  // @@protoc_insertion_point(field_set_allocated:perfetto.protos.TracePacket.shell_handler_mappings)
+}
+void TracePacket::clear_shell_handler_mappings() {
+  if (_internal_has_shell_handler_mappings()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete data_.shell_handler_mappings_;
+    }
+    clear_has_data();
+  }
+}
 void TracePacket::set_allocated_etw_events(::perfetto::protos::EtwTraceEventBundle* etw_events) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_data();
@@ -2008,8 +2070,8 @@ TracePacket::TracePacket(const TracePacket& from)
     trace_packet_defaults_ = nullptr;
   }
   ::memcpy(&timestamp_, &from.timestamp_,
-    static_cast<size_t>(reinterpret_cast<char*>(&trusted_pid_) -
-    reinterpret_cast<char*>(&timestamp_)) + sizeof(trusted_pid_));
+    static_cast<size_t>(reinterpret_cast<char*>(&machine_id_) -
+    reinterpret_cast<char*>(&timestamp_)) + sizeof(machine_id_));
   clear_has_data();
   switch (from.data_case()) {
     case kProcessTree: {
@@ -2264,6 +2326,14 @@ TracePacket::TracePacket(const TracePacket& from)
       _internal_mutable_surfaceflinger_transactions()->::perfetto::protos::TransactionTraceEntry::MergeFrom(from._internal_surfaceflinger_transactions());
       break;
     }
+    case kShellTransition: {
+      _internal_mutable_shell_transition()->::perfetto::protos::ShellTransition::MergeFrom(from._internal_shell_transition());
+      break;
+    }
+    case kShellHandlerMappings: {
+      _internal_mutable_shell_handler_mappings()->::perfetto::protos::ShellHandlerMappings::MergeFrom(from._internal_shell_handler_mappings());
+      break;
+    }
     case kEtwEvents: {
       _internal_mutable_etw_events()->::perfetto::protos::EtwTraceEventBundle::MergeFrom(from._internal_etw_events());
       break;
@@ -2302,8 +2372,8 @@ TracePacket::TracePacket(const TracePacket& from)
 inline void TracePacket::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&interned_data_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&trusted_pid_) -
-    reinterpret_cast<char*>(&interned_data_)) + sizeof(trusted_pid_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&machine_id_) -
+    reinterpret_cast<char*>(&interned_data_)) + sizeof(machine_id_));
 clear_has_data();
 clear_has_optional_trusted_uid();
 clear_has_optional_trusted_packet_sequence_id();
@@ -2714,6 +2784,18 @@ void TracePacket::clear_data() {
       }
       break;
     }
+    case kShellTransition: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete data_.shell_transition_;
+      }
+      break;
+    }
+    case kShellHandlerMappings: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete data_.shell_handler_mappings_;
+      }
+      break;
+    }
     case kEtwEvents: {
       if (GetArenaForAllocation() == nullptr) {
         delete data_.etw_events_;
@@ -2784,7 +2866,11 @@ void TracePacket::Clear() {
         reinterpret_cast<char*>(&timestamp_clock_id_) -
         reinterpret_cast<char*>(&timestamp_)) + sizeof(timestamp_clock_id_));
   }
-  trusted_pid_ = 0;
+  if (cached_has_bits & 0x00000300u) {
+    ::memset(&trusted_pid_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&machine_id_) -
+        reinterpret_cast<char*>(&trusted_pid_)) + sizeof(machine_id_));
+  }
   clear_data();
   clear_optional_trusted_uid();
   clear_optional_trusted_packet_sequence_id();
@@ -3408,6 +3494,31 @@ const char* TracePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
+      // .perfetto.protos.ShellTransition shell_transition = 96;
+      case 96:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 2)) {
+          ptr = ctx->ParseMessage(_internal_mutable_shell_transition(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .perfetto.protos.ShellHandlerMappings shell_handler_mappings = 97;
+      case 97:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_shell_handler_mappings(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint32 machine_id = 98;
+      case 98:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_machine_id(&has_bits);
+          machine_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       // .perfetto.protos.TestEvent for_testing = 900;
       case 900:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
@@ -3918,14 +4029,33 @@ uint8_t* TracePacket::_InternalSerialize(
           _Internal::etw_events(this).GetCachedSize(), target, stream);
       break;
     }
-    case kForTesting: {
+    case kShellTransition: {
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(900, _Internal::for_testing(this),
-          _Internal::for_testing(this).GetCachedSize(), target, stream);
+        InternalWriteMessage(96, _Internal::shell_transition(this),
+          _Internal::shell_transition(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kShellHandlerMappings: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(97, _Internal::shell_handler_mappings(this),
+          _Internal::shell_handler_mappings(this).GetCachedSize(), target, stream);
       break;
     }
     default: ;
   }
+  // optional uint32 machine_id = 98;
+  if (cached_has_bits & 0x00000200u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(98, this->_internal_machine_id(), target);
+  }
+
+  // .perfetto.protos.TestEvent for_testing = 900;
+  if (_internal_has_for_testing()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(900, _Internal::for_testing(this),
+        _Internal::for_testing(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3991,13 +4121,22 @@ size_t TracePacket::ByteSizeLong() const {
     }
 
   }
-  // optional int32 trusted_pid = 79;
-  if (cached_has_bits & 0x00000100u) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::Int32Size(
-        this->_internal_trusted_pid());
-  }
+  if (cached_has_bits & 0x00000300u) {
+    // optional int32 trusted_pid = 79;
+    if (cached_has_bits & 0x00000100u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int32Size(
+          this->_internal_trusted_pid());
+    }
 
+    // optional uint32 machine_id = 98;
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::UInt32Size(
+          this->_internal_machine_id());
+    }
+
+  }
   switch (data_case()) {
     // .perfetto.protos.ProcessTree process_tree = 2;
     case kProcessTree: {
@@ -4440,6 +4579,20 @@ size_t TracePacket::ByteSizeLong() const {
           *data_.surfaceflinger_transactions_);
       break;
     }
+    // .perfetto.protos.ShellTransition shell_transition = 96;
+    case kShellTransition: {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *data_.shell_transition_);
+      break;
+    }
+    // .perfetto.protos.ShellHandlerMappings shell_handler_mappings = 97;
+    case kShellHandlerMappings: {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *data_.shell_handler_mappings_);
+      break;
+    }
     // .perfetto.protos.EtwTraceEventBundle etw_events = 95;
     case kEtwEvents: {
       total_size += 2 +
@@ -4526,8 +4679,14 @@ void TracePacket::MergeFrom(const TracePacket& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00000100u) {
-    _internal_set_trusted_pid(from._internal_trusted_pid());
+  if (cached_has_bits & 0x00000300u) {
+    if (cached_has_bits & 0x00000100u) {
+      trusted_pid_ = from.trusted_pid_;
+    }
+    if (cached_has_bits & 0x00000200u) {
+      machine_id_ = from.machine_id_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   switch (from.data_case()) {
     case kProcessTree: {
@@ -4782,6 +4941,14 @@ void TracePacket::MergeFrom(const TracePacket& from) {
       _internal_mutable_surfaceflinger_transactions()->::perfetto::protos::TransactionTraceEntry::MergeFrom(from._internal_surfaceflinger_transactions());
       break;
     }
+    case kShellTransition: {
+      _internal_mutable_shell_transition()->::perfetto::protos::ShellTransition::MergeFrom(from._internal_shell_transition());
+      break;
+    }
+    case kShellHandlerMappings: {
+      _internal_mutable_shell_handler_mappings()->::perfetto::protos::ShellHandlerMappings::MergeFrom(from._internal_shell_handler_mappings());
+      break;
+    }
     case kEtwEvents: {
       _internal_mutable_etw_events()->::perfetto::protos::EtwTraceEventBundle::MergeFrom(from._internal_etw_events());
       break;
@@ -5022,6 +5189,12 @@ bool TracePacket::IsInitialized() const {
     case kSurfaceflingerTransactions: {
       break;
     }
+    case kShellTransition: {
+      break;
+    }
+    case kShellHandlerMappings: {
+      break;
+    }
     case kEtwEvents: {
       break;
     }
@@ -5040,8 +5213,8 @@ void TracePacket::InternalSwap(TracePacket* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TracePacket, trusted_pid_)
-      + sizeof(TracePacket::trusted_pid_)
+      PROTOBUF_FIELD_OFFSET(TracePacket, machine_id_)
+      + sizeof(TracePacket::machine_id_)
       - PROTOBUF_FIELD_OFFSET(TracePacket, interned_data_)>(
           reinterpret_cast<char*>(&interned_data_),
           reinterpret_cast<char*>(&other->interned_data_));

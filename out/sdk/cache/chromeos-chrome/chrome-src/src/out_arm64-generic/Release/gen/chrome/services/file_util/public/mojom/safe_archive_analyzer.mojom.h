@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/services/file_util/public/mojom/safe_archive_analyzer.mojom-features.h"
 #include "chrome/services/file_util/public/mojom/safe_archive_analyzer.mojom-shared.h"
 #include "chrome/services/file_util/public/mojom/safe_archive_analyzer.mojom-forward.h"
 #include "mojo/public/mojom/base/file.mojom.h"
@@ -100,7 +101,7 @@ class SafeArchiveAnalyzer
 
   using AnalyzeZipFileCallback = base::OnceCallback<void(const ::safe_browsing::ArchiveAnalyzerResults&)>;
   
-  virtual void AnalyzeZipFile(::base::File zip_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeZipFileCallback callback) = 0;
+  virtual void AnalyzeZipFile(::base::File zip_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeZipFileCallback callback) = 0;
 
 
   using AnalyzeDmgFileCallback = base::OnceCallback<void(const ::safe_browsing::ArchiveAnalyzerResults&)>;
@@ -110,7 +111,7 @@ class SafeArchiveAnalyzer
 
   using AnalyzeRarFileCallback = base::OnceCallback<void(const ::safe_browsing::ArchiveAnalyzerResults&)>;
   
-  virtual void AnalyzeRarFile(::base::File rar_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeRarFileCallback callback) = 0;
+  virtual void AnalyzeRarFile(::base::File rar_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeRarFileCallback callback) = 0;
 
 
   using AnalyzeSevenZipFileCallback = base::OnceCallback<void(const ::safe_browsing::ArchiveAnalyzerResults&)>;
@@ -175,11 +176,11 @@ class  SafeArchiveAnalyzerProxy
 
   explicit SafeArchiveAnalyzerProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void AnalyzeZipFile(::base::File zip_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeZipFileCallback callback) final;
+  void AnalyzeZipFile(::base::File zip_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeZipFileCallback callback) final;
   
   void AnalyzeDmgFile(::base::File dmg_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeDmgFileCallback callback) final;
   
-  void AnalyzeRarFile(::base::File rar_file, const absl::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeRarFileCallback callback) final;
+  void AnalyzeRarFile(::base::File rar_file, const std::optional<std::string>& password, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeRarFileCallback callback) final;
   
   void AnalyzeSevenZipFile(::base::File seven_zip_file, ::mojo::PendingRemote<TemporaryFileGetter> temp_file_getter, AnalyzeSevenZipFileCallback callback) final;
 

@@ -18,7 +18,6 @@ build build.ninja: phony build.ninja.stamp
 
 subninja toolchain.ninja
 
-build cloud_policy_proto_generator: phony obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp
 build dbus-proxies: phony obj/common-mk/external_dependencies/dbus-proxies.stamp
 build enterprise_management_goprotos: phony obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp
 build install_attributes-proto: phony ./libinstall_attributes-proto.a
@@ -37,10 +36,8 @@ build private_membership_rlwe_goprotos: phony obj/common-mk/external_dependencie
 build rlwe_goprotos: phony obj/common-mk/external_dependencies/rlwe_goprotos.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build session_manager-adaptors: phony obj/login_manager/session_manager-adaptors.stamp
-build testrunner: phony ./libtestrunner.a
 build user_policy-protos: phony ./libuser_policy-protos.a
 build user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
-build common-mk/external_dependencies$:cloud_policy_proto_generator: phony obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp
 build common-mk/external_dependencies$:dbus-proxies: phony obj/common-mk/external_dependencies/dbus-proxies.stamp
 build common-mk/external_dependencies$:enterprise_management_goprotos: phony obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp
 build common-mk/external_dependencies$:install_attributes-proto: phony ./libinstall_attributes-proto.a
@@ -57,8 +54,6 @@ build common-mk/external_dependencies$:rlwe_goprotos: phony obj/common-mk/extern
 build common-mk/external_dependencies$:user_policy-protos: phony ./libuser_policy-protos.a
 build common-mk/external_dependencies$:user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build login_manager$:all: phony obj/login_manager/all.stamp
 build login_manager$:keygen: phony ./keygen
 build login_manager$:libsession_manager: phony ./libsession_manager.a
@@ -66,10 +61,8 @@ build login_manager$:login_manager-login_screen_storage-protos: phony ./liblogin
 build login_manager$:login_manager-login_screen_storage-protos_gen: phony obj/login_manager/login_manager-login_screen_storage-protos_gen.stamp
 build login_manager$:session_manager: phony ./session_manager
 build login_manager$:session_manager-adaptors: phony obj/login_manager/session_manager-adaptors.stamp
-build login_manager$:session_manager_test: phony ./session_manager_test
 
 build all: phony $
-    obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp $
     obj/common-mk/external_dependencies/dbus-proxies.stamp $
     obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp $
     ./libinstall_attributes-proto.a $
@@ -86,14 +79,12 @@ build all: phony $
     ./libuser_policy-protos.a $
     obj/common-mk/external_dependencies/user_policy-protos_gen.stamp $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/login_manager/all.stamp $
     ./keygen $
     ./libsession_manager.a $
     ./liblogin_manager-login_screen_storage-protos.a $
     obj/login_manager/login_manager-login_screen_storage-protos_gen.stamp $
     ./session_manager $
-    obj/login_manager/session_manager-adaptors.stamp $
-    ./session_manager_test
+    obj/login_manager/session_manager-adaptors.stamp
 
 default all

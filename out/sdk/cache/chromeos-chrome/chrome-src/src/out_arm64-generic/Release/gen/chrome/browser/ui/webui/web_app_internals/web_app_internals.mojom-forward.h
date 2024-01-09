@@ -24,13 +24,18 @@
 namespace mojom {
 class InstallIsolatedWebAppResultDataView;
 
-class IwaDevProxyAppInfoDataView;
+class IwaDevModeAppInfoDataView;
 
+class IwaDevModeLocationDataView;
 class InstallIsolatedWebAppResult;
 using InstallIsolatedWebAppResultPtr = mojo::InlinedStructPtr<InstallIsolatedWebAppResult>;
 
-class IwaDevProxyAppInfo;
-using IwaDevProxyAppInfoPtr = mojo::StructPtr<IwaDevProxyAppInfo>;
+class IwaDevModeAppInfo;
+using IwaDevModeAppInfoPtr = mojo::StructPtr<IwaDevModeAppInfo>;
+
+class IwaDevModeLocation;
+
+using IwaDevModeLocationPtr = mojo::StructPtr<IwaDevModeLocation>;
 
 class WebAppInternalsHandler;
 

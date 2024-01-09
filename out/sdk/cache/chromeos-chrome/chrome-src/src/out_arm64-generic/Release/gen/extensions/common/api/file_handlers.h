@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,8 @@ struct Icon {
   ~Icon();
   Icon(const Icon&) = delete;
   Icon& operator=(const Icon&) = delete;
-  Icon(Icon&& rhs);
-  Icon& operator=(Icon&& rhs);
+  Icon(Icon&& rhs) noexcept;
+  Icon& operator=(Icon&& rhs) noexcept;
 
   // Populates a Icon object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -48,9 +49,6 @@ struct Icon {
 
   // Creates a deep copy of Icon.
   Icon Clone() const;
-
-  // Creates a Icon object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Icon> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a Icon object from a base::Value::Dict, or unexpected on failure.
   static base::expected<Icon, std::u16string> FromValue(const base::Value::Dict& value);
@@ -68,10 +66,10 @@ struct Icon {
   // Multiple space-separated size values to also accommodate image formats that
   // can act as containers for multiple images of varying dimensions: e.g.
   // "16x16", "16x16 32x32".
-  absl::optional<std::string> sizes;
+  std::optional<std::string> sizes;
 
   // MIME type is purely advisory with no default value.
-  absl::optional<std::string> type;
+  std::optional<std::string> type;
 
 };
 
@@ -80,8 +78,8 @@ struct FileHandler {
   ~FileHandler();
   FileHandler(const FileHandler&) = delete;
   FileHandler& operator=(const FileHandler&) = delete;
-  FileHandler(FileHandler&& rhs);
-  FileHandler& operator=(FileHandler&& rhs);
+  FileHandler(FileHandler&& rhs) noexcept;
+  FileHandler& operator=(FileHandler&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kAccept[] = "accept";
@@ -100,9 +98,6 @@ struct FileHandler {
 
   // Creates a deep copy of FileHandler.
   FileHandler Clone() const;
-
-  // Creates a FileHandler object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FileHandler> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a FileHandler object from a base::Value::Dict, or unexpected on
   // failure.
@@ -128,8 +123,8 @@ struct FileHandler {
     ~Accept();
     Accept(const Accept&) = delete;
     Accept& operator=(const Accept&) = delete;
-    Accept(Accept&& rhs);
-    Accept& operator=(Accept&& rhs);
+    Accept(Accept&& rhs) noexcept;
+    Accept& operator=(Accept&& rhs) noexcept;
 
     // Manifest key constants.
 
@@ -178,12 +173,12 @@ struct FileHandler {
   // Array of ImageResources. Only icons declared at the manifest level are
   // currently supported. The icon for the extension will appear in the "Open"
   // menu.
-  absl::optional<std::vector<Icon>> icons;
+  std::optional<std::vector<Icon>> icons;
 
   // Whether multiple files should be opened in a single client or multiple.
   // Defaults to `single-client`, which makes all files available in only one tab.
   // `multiple-client` opens a new tab for each file.
-  absl::optional<std::string> launch_type;
+  std::optional<std::string> launch_type;
 
 };
 
@@ -197,8 +192,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kFileHandlers[] = "file_handlers";

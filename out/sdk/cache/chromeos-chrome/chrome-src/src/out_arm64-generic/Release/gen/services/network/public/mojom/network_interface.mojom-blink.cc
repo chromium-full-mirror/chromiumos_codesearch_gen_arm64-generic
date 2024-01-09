@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -62,7 +63,7 @@ NetworkInterface::NetworkInterface(
     const ::net::IPAddress& address_in,
     uint32_t prefix_length_in,
     int32_t ip_address_attributes_in,
-    absl::optional<WTF::Vector<uint8_t>> mac_address_in)
+    std::optional<WTF::Vector<uint8_t>> mac_address_in)
     : name(std::move(name_in)),
       friendly_name(std::move(friendly_name_in)),
       interface_index(std::move(interface_index_in)),
@@ -144,7 +145,7 @@ void NetworkInterface::WriteIntoTrace(
     dict.AddItem(
       "mac_address"), this->mac_address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<uint8_t>>&>"
+      "<value of type const std::optional<WTF::Vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

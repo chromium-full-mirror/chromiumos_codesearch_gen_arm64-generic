@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -278,6 +279,37 @@ uint32_t WebNNContext::CreateGraph_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
+// static
+bool WebNNContext::RuntimeFeature_IsEnabled_(bool expected) {
+  bool enabled = base::FeatureList::IsEnabled(::webnn::mojom::features::kWebMachineLearningNeuralNetwork);
+#if DCHECK_IS_ON()
+  if (expected) {
+    DCHECK(enabled) << "RuntimeFeature ::webnn::mojom::features::kWebMachineLearningNeuralNetwork for WebNNContext is not enabled";
+  }
+#endif
+  return enabled;
+}
+bool WebNNContext::CreateGraph(::webnn::mojom::blink::GraphInfoPtr graph_info, CreateGraphResultPtr* out_result) {
+  NOTREACHED();
+  return false;
+}
+class WebNNContext_CreateGraph_HandleSyncResponse
+    : public mojo::MessageReceiver {
+ public:
+  WebNNContext_CreateGraph_HandleSyncResponse(
+      bool* result, CreateGraphResultPtr* out_result)
+      : result_(result), out_result_(out_result) {
+    DCHECK(!*result_);
+  }
+
+  WebNNContext_CreateGraph_HandleSyncResponse(const WebNNContext_CreateGraph_HandleSyncResponse&) = delete;
+  WebNNContext_CreateGraph_HandleSyncResponse& operator=(const WebNNContext_CreateGraph_HandleSyncResponse&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  bool* result_;
+  CreateGraphResultPtr* out_result_;};
+
 class WebNNContext_CreateGraph_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -297,6 +329,73 @@ class WebNNContext_CreateGraph_ForwardToCallback
 WebNNContextProxy::WebNNContextProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
+bool WebNNContextProxy::CreateGraph(
+    ::webnn::mojom::blink::GraphInfoPtr param_graph_info, CreateGraphResultPtr* out_param_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_BEGIN1(
+    "mojom", "Call webnn::mojom::WebNNContext::CreateGraph (sync)", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("graph_info"), param_graph_info,
+                        "<value of type ::webnn::mojom::blink::GraphInfoPtr>");
+   });
+#else
+  TRACE_EVENT0("mojom", "WebNNContext::CreateGraph");
+#endif
+  
+  const bool kExpectsResponse = true;
+  const bool kIsSync = true;
+  const bool kAllowInterrupt =
+      true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWebNNContext_CreateGraph_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::webnn::mojom::internal::WebNNContext_CreateGraph_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->graph_info)::BaseType> graph_info_fragment(
+          params.message());
+  mojo::internal::Serialize<::webnn::mojom::GraphInfoDataView>(
+      param_graph_info, graph_info_fragment);
+  params->graph_info.Set(
+      graph_info_fragment.is_null() ? nullptr : graph_info_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->graph_info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null graph_info in WebNNContext.CreateGraph request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WebNNContext::Name_);
+  message.set_method_name("CreateGraph");
+#endif
+
+  bool result = false;
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new WebNNContext_CreateGraph_HandleSyncResponse(
+          &result, out_param_result));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_END1(
+    "mojom", "WebNNContext::CreateGraph", "sync_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), out_param_result,
+                        "<value of type CreateGraphResultPtr>");
+   });
+#endif
+  return result;
+}
 
 void WebNNContextProxy::CreateGraph(
     ::webnn::mojom::blink::GraphInfoPtr in_graph_info, CreateGraphCallback callback) {
@@ -310,14 +409,17 @@ void WebNNContextProxy::CreateGraph(
                         "<value of type ::webnn::mojom::blink::GraphInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebNNContext_CreateGraph_Name, kFlags, 0, 0, nullptr);
@@ -438,7 +540,8 @@ void WebNNContext_CreateGraph_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebNNContext_CreateGraph_Name, kFlags, 0, 0, nullptr);
@@ -471,6 +574,31 @@ void WebNNContext_CreateGraph_ProxyToResponder::Run(
   // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
+}
+bool WebNNContext_CreateGraph_HandleSyncResponse::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::WebNNContext_CreateGraph_ResponseParams_Data* params =
+      reinterpret_cast<internal::WebNNContext_CreateGraph_ResponseParams_Data*>(
+          message->mutable_payload());
+  
+  bool success = true;
+  CreateGraphResultPtr p_result{};
+  WebNNContext_CreateGraph_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        WebNNContext::Name_, 0, true);
+    return false;
+  }
+  *out_result_ = std::move(p_result);
+  *result_ = true;
+  return true;
 }
 
 // static
@@ -526,10 +654,10 @@ std::move(p_graph_info), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebNNContextValidationInfo[] = {
-    {&internal::WebNNContext_CreateGraph_Params_Data::Validate,
+    { &internal::WebNNContext_CreateGraph_Params_Data::Validate,
      &internal::WebNNContext_CreateGraph_ResponseParams_Data::Validate},
 };
 
@@ -597,6 +725,37 @@ uint32_t WebNNContextProvider::CreateWebNNContext_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
+// static
+bool WebNNContextProvider::RuntimeFeature_IsEnabled_(bool expected) {
+  bool enabled = base::FeatureList::IsEnabled(::webnn::mojom::features::kWebMachineLearningNeuralNetwork);
+#if DCHECK_IS_ON()
+  if (expected) {
+    DCHECK(enabled) << "RuntimeFeature ::webnn::mojom::features::kWebMachineLearningNeuralNetwork for WebNNContextProvider is not enabled";
+  }
+#endif
+  return enabled;
+}
+bool WebNNContextProvider::CreateWebNNContext(CreateContextOptionsPtr options, CreateContextResultPtr* out_result) {
+  NOTREACHED();
+  return false;
+}
+class WebNNContextProvider_CreateWebNNContext_HandleSyncResponse
+    : public mojo::MessageReceiver {
+ public:
+  WebNNContextProvider_CreateWebNNContext_HandleSyncResponse(
+      bool* result, CreateContextResultPtr* out_result)
+      : result_(result), out_result_(out_result) {
+    DCHECK(!*result_);
+  }
+
+  WebNNContextProvider_CreateWebNNContext_HandleSyncResponse(const WebNNContextProvider_CreateWebNNContext_HandleSyncResponse&) = delete;
+  WebNNContextProvider_CreateWebNNContext_HandleSyncResponse& operator=(const WebNNContextProvider_CreateWebNNContext_HandleSyncResponse&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  bool* result_;
+  CreateContextResultPtr* out_result_;};
+
 class WebNNContextProvider_CreateWebNNContext_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -616,6 +775,73 @@ class WebNNContextProvider_CreateWebNNContext_ForwardToCallback
 WebNNContextProviderProxy::WebNNContextProviderProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
+bool WebNNContextProviderProxy::CreateWebNNContext(
+    CreateContextOptionsPtr param_options, CreateContextResultPtr* out_param_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_BEGIN1(
+    "mojom", "Call webnn::mojom::WebNNContextProvider::CreateWebNNContext (sync)", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("options"), param_options,
+                        "<value of type CreateContextOptionsPtr>");
+   });
+#else
+  TRACE_EVENT0("mojom", "WebNNContextProvider::CreateWebNNContext");
+#endif
+  
+  const bool kExpectsResponse = true;
+  const bool kIsSync = true;
+  const bool kAllowInterrupt =
+      true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWebNNContextProvider_CreateWebNNContext_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::webnn::mojom::internal::WebNNContextProvider_CreateWebNNContext_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->options)::BaseType> options_fragment(
+          params.message());
+  mojo::internal::Serialize<::webnn::mojom::CreateContextOptionsDataView>(
+      param_options, options_fragment);
+  params->options.Set(
+      options_fragment.is_null() ? nullptr : options_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->options.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null options in WebNNContextProvider.CreateWebNNContext request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WebNNContextProvider::Name_);
+  message.set_method_name("CreateWebNNContext");
+#endif
+
+  bool result = false;
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new WebNNContextProvider_CreateWebNNContext_HandleSyncResponse(
+          &result, out_param_result));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_END1(
+    "mojom", "WebNNContextProvider::CreateWebNNContext", "sync_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), out_param_result,
+                        "<value of type CreateContextResultPtr>");
+   });
+#endif
+  return result;
+}
 
 void WebNNContextProviderProxy::CreateWebNNContext(
     CreateContextOptionsPtr in_options, CreateWebNNContextCallback callback) {
@@ -629,14 +855,17 @@ void WebNNContextProviderProxy::CreateWebNNContext(
                         "<value of type CreateContextOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebNNContextProvider_CreateWebNNContext_Name, kFlags, 0, 0, nullptr);
@@ -757,7 +986,8 @@ void WebNNContextProvider_CreateWebNNContext_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebNNContextProvider_CreateWebNNContext_Name, kFlags, 0, 0, nullptr);
@@ -790,6 +1020,31 @@ void WebNNContextProvider_CreateWebNNContext_ProxyToResponder::Run(
   // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
+}
+bool WebNNContextProvider_CreateWebNNContext_HandleSyncResponse::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::WebNNContextProvider_CreateWebNNContext_ResponseParams_Data* params =
+      reinterpret_cast<internal::WebNNContextProvider_CreateWebNNContext_ResponseParams_Data*>(
+          message->mutable_payload());
+  
+  bool success = true;
+  CreateContextResultPtr p_result{};
+  WebNNContextProvider_CreateWebNNContext_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        WebNNContextProvider::Name_, 0, true);
+    return false;
+  }
+  *out_result_ = std::move(p_result);
+  *result_ = true;
+  return true;
 }
 
 // static
@@ -845,10 +1100,10 @@ std::move(p_options), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebNNContextProviderValidationInfo[] = {
-    {&internal::WebNNContextProvider_CreateWebNNContext_Params_Data::Validate,
+    { &internal::WebNNContextProvider_CreateWebNNContext_Params_Data::Validate,
      &internal::WebNNContextProvider_CreateWebNNContext_ResponseParams_Data::Validate},
 };
 

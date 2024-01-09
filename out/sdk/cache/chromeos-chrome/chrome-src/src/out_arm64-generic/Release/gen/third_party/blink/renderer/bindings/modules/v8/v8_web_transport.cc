@@ -77,11 +77,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, WebTransport>::value,
     "WebTransport does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&WebTransport::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebTransport is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,8 +89,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransport.incomingUnidirectionalStreams.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(v8_receiver);
+WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->incomingUnidirectionalStreams();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -108,8 +104,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransport.incomingBidirectionalStreams.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(v8_receiver);
+WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->incomingBidirectionalStreams();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -122,8 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransport.datagrams.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(v8_receiver);
+WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->datagrams();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -148,7 +146,7 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransport.ready.get");
 
 
 
-WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(v8_receiver);
+WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ready();
 bindings::V8SetReturnValue(info, return_value);
 }
@@ -173,7 +171,7 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransport.closed.get");
 
 
 
-WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(v8_receiver);
+WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->closed();
 bindings::V8SetReturnValue(info, return_value);
 }
@@ -241,14 +239,14 @@ BLINK_BINDINGS_TRACE_EVENT("WebTransport.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(v8_receiver);
+WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<WebTransportCloseInfo>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_close_info;
 if (info[0]->IsUndefined()) {
   arg1_close_info = WebTransportCloseInfo::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WebTransport";
 const char* const property_name = "close";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -284,7 +282,7 @@ return;
 
 
 
-WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(v8_receiver);
+WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -318,7 +316,7 @@ return;
 
 
 
-WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(v8_receiver);
+WebTransport* blink_receiver = V8WebTransport::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

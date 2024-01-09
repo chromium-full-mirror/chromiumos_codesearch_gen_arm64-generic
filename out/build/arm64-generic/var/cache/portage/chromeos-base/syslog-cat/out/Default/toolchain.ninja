@@ -34,9 +34,7 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/syslog-cat/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/syslog-cat/_syslog-cat-install_config.stamp: stamp
-build obj/syslog-cat/all.stamp: stamp ./syslog-cat ./syslogcat_testrunner
+build obj/syslog-cat/all.stamp: stamp ./syslog-cat
 subninja obj/syslog-cat/syslog-cat.ninja
 subninja obj/syslog-cat/syslogcat_lib.ninja
-subninja obj/syslog-cat/syslogcat_testrunner.ninja

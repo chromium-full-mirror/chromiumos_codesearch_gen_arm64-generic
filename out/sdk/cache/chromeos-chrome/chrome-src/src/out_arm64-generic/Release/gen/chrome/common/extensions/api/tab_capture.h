@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,13 +30,13 @@ namespace tab_capture {
 // Types
 //
 
-enum  TabCaptureState {
-  TAB_CAPTURE_STATE_NONE = 0,
-  TAB_CAPTURE_STATE_PENDING,
-  TAB_CAPTURE_STATE_ACTIVE,
-  TAB_CAPTURE_STATE_STOPPED,
-  TAB_CAPTURE_STATE_ERROR,
-  TAB_CAPTURE_STATE_LAST = TAB_CAPTURE_STATE_ERROR,
+enum class TabCaptureState {
+  kNone = 0,
+  kPending,
+  kActive,
+  kStopped,
+  kError,
+  kMaxValue = kError,
 };
 
 
@@ -48,8 +49,8 @@ struct CaptureInfo {
   ~CaptureInfo();
   CaptureInfo(const CaptureInfo&) = delete;
   CaptureInfo& operator=(const CaptureInfo&) = delete;
-  CaptureInfo(CaptureInfo&& rhs);
-  CaptureInfo& operator=(CaptureInfo&& rhs);
+  CaptureInfo(CaptureInfo&& rhs) noexcept;
+  CaptureInfo& operator=(CaptureInfo&& rhs) noexcept;
 
   // Populates a CaptureInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -62,15 +63,12 @@ struct CaptureInfo {
   // Creates a deep copy of CaptureInfo.
   CaptureInfo Clone() const;
 
-  // Creates a CaptureInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CaptureInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a CaptureInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CaptureInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<CaptureInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a CaptureInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<CaptureInfo> FromValue(const base::Value& value);
+  static std::optional<CaptureInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCaptureInfo object.
@@ -92,8 +90,8 @@ struct MediaStreamConstraint {
   ~MediaStreamConstraint();
   MediaStreamConstraint(const MediaStreamConstraint&) = delete;
   MediaStreamConstraint& operator=(const MediaStreamConstraint&) = delete;
-  MediaStreamConstraint(MediaStreamConstraint&& rhs);
-  MediaStreamConstraint& operator=(MediaStreamConstraint&& rhs);
+  MediaStreamConstraint(MediaStreamConstraint&& rhs) noexcept;
+  MediaStreamConstraint& operator=(MediaStreamConstraint&& rhs) noexcept;
 
   // Populates a MediaStreamConstraint object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -106,17 +104,13 @@ struct MediaStreamConstraint {
   // Creates a deep copy of MediaStreamConstraint.
   MediaStreamConstraint Clone() const;
 
-  // Creates a MediaStreamConstraint object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MediaStreamConstraint> FromValueDeprecated(const base::Value& value);
-
   // Creates a MediaStreamConstraint object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<MediaStreamConstraint> FromValue(const base::Value::Dict& value);
+  static std::optional<MediaStreamConstraint> FromValue(const base::Value::Dict& value);
 
   // Creates a MediaStreamConstraint object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MediaStreamConstraint> FromValue(const base::Value& value);
+  static std::optional<MediaStreamConstraint> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMediaStreamConstraint object.
@@ -127,8 +121,8 @@ struct MediaStreamConstraint {
     ~Mandatory();
     Mandatory(const Mandatory&) = delete;
     Mandatory& operator=(const Mandatory&) = delete;
-    Mandatory(Mandatory&& rhs);
-    Mandatory& operator=(Mandatory&& rhs);
+    Mandatory(Mandatory&& rhs) noexcept;
+    Mandatory& operator=(Mandatory&& rhs) noexcept;
 
     // Populates a Mandatory object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -142,10 +136,10 @@ struct MediaStreamConstraint {
     Mandatory Clone() const;
 
     // Creates a Mandatory object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Mandatory> FromValue(const base::Value::Dict& value);
+    static std::optional<Mandatory> FromValue(const base::Value::Dict& value);
 
     // Creates a Mandatory object from a base::Value, or nullopt on failure.
-    static absl::optional<Mandatory> FromValue(const base::Value& value);
+    static std::optional<Mandatory> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisMandatory object.
@@ -159,8 +153,8 @@ struct MediaStreamConstraint {
     ~Optional();
     Optional(const Optional&) = delete;
     Optional& operator=(const Optional&) = delete;
-    Optional(Optional&& rhs);
-    Optional& operator=(Optional&& rhs);
+    Optional(Optional&& rhs) noexcept;
+    Optional& operator=(Optional&& rhs) noexcept;
 
     // Populates a Optional object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -174,10 +168,10 @@ struct MediaStreamConstraint {
     Optional Clone() const;
 
     // Creates a Optional object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Optional> FromValue(const base::Value::Dict& value);
+    static std::optional<Optional> FromValue(const base::Value::Dict& value);
 
     // Creates a Optional object from a base::Value, or nullopt on failure.
-    static absl::optional<Optional> FromValue(const base::Value& value);
+    static std::optional<Optional> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisOptional object.
@@ -189,7 +183,7 @@ struct MediaStreamConstraint {
 
   Mandatory mandatory;
 
-  absl::optional<Optional> optional;
+  std::optional<Optional> optional;
 
 };
 
@@ -198,8 +192,8 @@ struct CaptureOptions {
   ~CaptureOptions();
   CaptureOptions(const CaptureOptions&) = delete;
   CaptureOptions& operator=(const CaptureOptions&) = delete;
-  CaptureOptions(CaptureOptions&& rhs);
-  CaptureOptions& operator=(CaptureOptions&& rhs);
+  CaptureOptions(CaptureOptions&& rhs) noexcept;
+  CaptureOptions& operator=(CaptureOptions&& rhs) noexcept;
 
   // Populates a CaptureOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -212,29 +206,26 @@ struct CaptureOptions {
   // Creates a deep copy of CaptureOptions.
   CaptureOptions Clone() const;
 
-  // Creates a CaptureOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CaptureOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a CaptureOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CaptureOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<CaptureOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a CaptureOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<CaptureOptions> FromValue(const base::Value& value);
+  static std::optional<CaptureOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCaptureOptions object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> audio;
+  std::optional<bool> audio;
 
-  absl::optional<bool> video;
+  std::optional<bool> video;
 
-  absl::optional<MediaStreamConstraint> audio_constraints;
+  std::optional<MediaStreamConstraint> audio_constraints;
 
-  absl::optional<MediaStreamConstraint> video_constraints;
+  std::optional<MediaStreamConstraint> video_constraints;
 
-  absl::optional<std::string> presentation_id;
+  std::optional<std::string> presentation_id;
 
 };
 
@@ -243,8 +234,8 @@ struct GetMediaStreamOptions {
   ~GetMediaStreamOptions();
   GetMediaStreamOptions(const GetMediaStreamOptions&) = delete;
   GetMediaStreamOptions& operator=(const GetMediaStreamOptions&) = delete;
-  GetMediaStreamOptions(GetMediaStreamOptions&& rhs);
-  GetMediaStreamOptions& operator=(GetMediaStreamOptions&& rhs);
+  GetMediaStreamOptions(GetMediaStreamOptions&& rhs) noexcept;
+  GetMediaStreamOptions& operator=(GetMediaStreamOptions&& rhs) noexcept;
 
   // Populates a GetMediaStreamOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -257,17 +248,13 @@ struct GetMediaStreamOptions {
   // Creates a deep copy of GetMediaStreamOptions.
   GetMediaStreamOptions Clone() const;
 
-  // Creates a GetMediaStreamOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetMediaStreamOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetMediaStreamOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<GetMediaStreamOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetMediaStreamOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetMediaStreamOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetMediaStreamOptions> FromValue(const base::Value& value);
+  static std::optional<GetMediaStreamOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetMediaStreamOptions object.
@@ -278,13 +265,13 @@ struct GetMediaStreamOptions {
   // resulting stream can be used only by the calling extension. The stream can
   // only be used by frames in the given tab whose security origin matches the
   // consumber tab's origin. The tab's origin must be a secure origin, e.g. HTTPS.
-  absl::optional<int> consumer_tab_id;
+  std::optional<int> consumer_tab_id;
 
   // Optional tab id of the tab which will be captured. If not specified then the
   // current active tab will be selected. Only tabs for which the extension has
   // been granted the <code>activeTab</code> permission can be used as the target
   // tab.
-  absl::optional<int> target_tab_id;
+  std::optional<int> target_tab_id;
 
 };
 
@@ -296,11 +283,11 @@ struct GetMediaStreamOptions {
 namespace Capture {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Configures the returned media stream.
@@ -318,8 +305,8 @@ struct Stream {
   ~Stream();
   Stream(const Stream&) = delete;
   Stream& operator=(const Stream&) = delete;
-  Stream(Stream&& rhs);
-  Stream& operator=(Stream&& rhs);
+  Stream(Stream&& rhs) noexcept;
+  Stream& operator=(Stream&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStream object.
@@ -346,14 +333,14 @@ base::Value::List Create(const std::vector<CaptureInfo>& result);
 namespace GetMediaStreamId {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<GetMediaStreamOptions> options;
+  std::optional<GetMediaStreamOptions> options;
 
 
  private:

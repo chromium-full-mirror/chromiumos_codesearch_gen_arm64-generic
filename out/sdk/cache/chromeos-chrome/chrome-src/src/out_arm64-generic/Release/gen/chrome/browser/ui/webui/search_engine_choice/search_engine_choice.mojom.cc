@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -197,10 +201,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -220,6 +224,9 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_HandleSearchEngineChoiceSelected_Name: {
       return &PageHandler::HandleSearchEngineChoiceSelected_Sym::IPCStableHash;
     }
+    case internal::kPageHandler_HandleLearnMoreLinkClicked_Name: {
+      return &PageHandler::HandleLearnMoreLinkClicked_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -235,6 +242,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive search_engine_choice::mojom::PageHandler::DisplayDialog";
       case internal::kPageHandler_HandleSearchEngineChoiceSelected_Name:
             return "Receive search_engine_choice::mojom::PageHandler::HandleSearchEngineChoiceSelected";
+      case internal::kPageHandler_HandleLearnMoreLinkClicked_Name:
+            return "Receive search_engine_choice::mojom::PageHandler::HandleLearnMoreLinkClicked";
     }
   } else {
     switch (message.name()) {
@@ -242,6 +251,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply search_engine_choice::mojom::PageHandler::DisplayDialog";
       case internal::kPageHandler_HandleSearchEngineChoiceSelected_Name:
             return "Receive reply search_engine_choice::mojom::PageHandler::HandleSearchEngineChoiceSelected";
+      case internal::kPageHandler_HandleLearnMoreLinkClicked_Name:
+            return "Receive reply search_engine_choice::mojom::PageHandler::HandleLearnMoreLinkClicked";
     }
   }
   return "Receive unknown mojo message";
@@ -282,6 +293,19 @@ uint32_t PageHandler::HandleSearchEngineChoiceSelected_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::HandleLearnMoreLinkClicked_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)search_engine_choice::mojom::PageHandler::HandleLearnMoreLinkClicked");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 PageHandlerProxy::PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -293,14 +317,17 @@ void PageHandlerProxy::DisplayDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send search_engine_choice::mojom::PageHandler::DisplayDialog");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_DisplayDialog_Name, kFlags, 0, 0, nullptr);
@@ -330,14 +357,17 @@ void PageHandlerProxy::HandleSearchEngineChoiceSelected(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_HandleSearchEngineChoiceSelected_Name, kFlags, 0, 0, nullptr);
@@ -350,6 +380,39 @@ void PageHandlerProxy::HandleSearchEngineChoiceSelected(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
   message.set_method_name("HandleSearchEngineChoiceSelected");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::HandleLearnMoreLinkClicked(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send search_engine_choice::mojom::PageHandler::HandleLearnMoreLinkClicked");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_HandleLearnMoreLinkClicked_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::search_engine_choice::mojom::internal::PageHandler_HandleLearnMoreLinkClicked_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("HandleLearnMoreLinkClicked");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -409,6 +472,28 @@ bool PageHandlerStubDispatch::Accept(
 std::move(p_prepopulate_id));
       return true;
     }
+    case internal::kPageHandler_HandleLearnMoreLinkClicked_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_HandleLearnMoreLinkClicked_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_HandleLearnMoreLinkClicked_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_HandleLearnMoreLinkClicked_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->HandleLearnMoreLinkClicked();
+      return true;
+    }
   }
   return false;
 }
@@ -428,15 +513,20 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
     case internal::kPageHandler_HandleSearchEngineChoiceSelected_Name: {
       break;
     }
+    case internal::kPageHandler_HandleLearnMoreLinkClicked_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_DisplayDialog_Params_Data::Validate,
+    { &internal::PageHandler_DisplayDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_HandleSearchEngineChoiceSelected_Params_Data::Validate,
+    { &internal::PageHandler_HandleSearchEngineChoiceSelected_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_HandleLearnMoreLinkClicked_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -478,6 +568,9 @@ void PageHandlerInterceptorForTesting::DisplayDialog() {
 }
 void PageHandlerInterceptorForTesting::HandleSearchEngineChoiceSelected(int32_t prepopulate_id) {
   GetForwardingInterface()->HandleSearchEngineChoiceSelected(std::move(prepopulate_id));
+}
+void PageHandlerInterceptorForTesting::HandleLearnMoreLinkClicked() {
+  GetForwardingInterface()->HandleLearnMoreLinkClicked();
 }
 PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
     PageHandler* proxy) : proxy_(proxy) {}

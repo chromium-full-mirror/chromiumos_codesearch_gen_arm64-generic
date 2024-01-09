@@ -58,16 +58,16 @@ struct MojomTypeTraits<::chrome::mojom::DynamicParamsDataView> {
 
 namespace chrome::mojom {
 // Interface base classes. They are used for type safety check.
-class BoundSessionRequestThrottledListenerInterfaceBase {};
+class BoundSessionRequestThrottledHandlerInterfaceBase {};
 
-using BoundSessionRequestThrottledListenerPtrDataView =
-    mojo::InterfacePtrDataView<BoundSessionRequestThrottledListenerInterfaceBase>;
-using BoundSessionRequestThrottledListenerRequestDataView =
-    mojo::InterfaceRequestDataView<BoundSessionRequestThrottledListenerInterfaceBase>;
-using BoundSessionRequestThrottledListenerAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<BoundSessionRequestThrottledListenerInterfaceBase>;
-using BoundSessionRequestThrottledListenerAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<BoundSessionRequestThrottledListenerInterfaceBase>;
+using BoundSessionRequestThrottledHandlerPtrDataView =
+    mojo::InterfacePtrDataView<BoundSessionRequestThrottledHandlerInterfaceBase>;
+using BoundSessionRequestThrottledHandlerRequestDataView =
+    mojo::InterfaceRequestDataView<BoundSessionRequestThrottledHandlerInterfaceBase>;
+using BoundSessionRequestThrottledHandlerAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<BoundSessionRequestThrottledHandlerInterfaceBase>;
+using BoundSessionRequestThrottledHandlerAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<BoundSessionRequestThrottledHandlerInterfaceBase>;
 class ChromeOSListenerInterfaceBase {};
 
 using ChromeOSListenerPtrDataView =

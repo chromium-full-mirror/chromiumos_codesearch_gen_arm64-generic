@@ -19,6 +19,9 @@ constexpr uint32_t kServiceWorkerHost_DidStartServiceWorkerContext_Name = 1;
 constexpr uint32_t kServiceWorkerHost_DidStopServiceWorkerContext_Name = 2;
 constexpr uint32_t kServiceWorkerHost_RequestWorker_Name = 3;
 constexpr uint32_t kServiceWorkerHost_WorkerResponseAck_Name = 4;
+constexpr uint32_t kServiceWorkerHost_OpenChannelToExtension_Name = 5;
+constexpr uint32_t kServiceWorkerHost_OpenChannelToNativeApp_Name = 6;
+constexpr uint32_t kServiceWorkerHost_OpenChannelToTab_Name = 7;
 
 }  // namespace internal
 

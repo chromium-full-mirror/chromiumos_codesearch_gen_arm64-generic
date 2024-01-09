@@ -25,7 +25,7 @@ class  DisplayPrivateInterceptorForTesting : public DisplayPrivate {
   void AddVSyncParameterObserver(::mojo::PendingRemote<::viz::mojom::VSyncParameterObserver> observer) override;
   void SetDelegatedInkPointRenderer(::mojo::PendingReceiver<::gfx::mojom::DelegatedInkPointRenderer> receiver) override;
   void SetStandaloneBeginFrameObserver(::mojo::PendingRemote<::viz::mojom::BeginFrameObserver> observer) override;
-  void SetMaxVrrInterval(absl::optional<::base::TimeDelta> max_vrr_interval) override;
+  void SetMaxVrrInterval(std::optional<::base::TimeDelta> max_vrr_interval) override;
 };
 class  DisplayPrivateAsyncWaiter {
  public:

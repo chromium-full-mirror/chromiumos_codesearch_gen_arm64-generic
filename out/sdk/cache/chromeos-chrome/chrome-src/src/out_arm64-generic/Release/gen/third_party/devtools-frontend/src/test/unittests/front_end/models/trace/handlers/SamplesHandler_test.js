@@ -4,7 +4,7 @@
 const { assert } = chai;
 import * as TraceModel from '../../../../../../front_end/models/trace/trace.js';
 import { describeWithEnvironment } from '../../../helpers/EnvironmentHelpers.js';
-import { getMainThread } from '../../../helpers/TraceHelpers.js';
+import { getMainThread, getAllNodes } from '../../../helpers/TraceHelpers.js';
 import { TraceLoader } from '../../../helpers/TraceLoader.js';
 async function handleEventsFromTraceFile(context, name) {
     const traceEvents = await TraceLoader.rawEvents(context, name);
@@ -59,7 +59,7 @@ describeWithEnvironment('SamplesHandler', function () {
                             samples: samples.map(TraceModel.Types.TraceEvents.CallFrameID),
                             nodes: nodes.map(node => ({
                                 ...node,
-                                callFrame: { functionName: '', scriptId: 0 },
+                                callFrame: { functionName: '', scriptId: 0, columnNumber: 0, lineNumber: 0, url: '' },
                                 id: TraceModel.Types.TraceEvents.CallFrameID(node.id),
                             })),
                         },
@@ -126,8 +126,15 @@ describeWithEnvironment('SamplesHandler', function () {
                 { id: D, ts: 36, dur: 69, selfTime: 69, children: [] },
                 { id: E, ts: 154, dur: 117, selfTime: 117, children: [] },
             ];
+            assert.exists(tree?.roots);
+            if (!tree?.roots) {
+                // This shouldn't happen, but add this if check to pass ts check.
+                return;
+            }
+            const allNodes = getAllNodes(tree?.roots);
             const callsTestData = calls?.map(c => {
-                const children = tree?.nodes.get(c.nodeId)?.children || new Set();
+                const node = allNodes.find(node => node.id === c.nodeId);
+                const children = node?.children || [];
                 return ({
                     id: c.nodeId,
                     dur: Math.round(c.dur || 0),
@@ -152,8 +159,15 @@ describeWithEnvironment('SamplesHandler', function () {
                 { 'id': 5, 'dur': 522, 'ts': 643496963233, 'selfTime': 178, 'children': [6, 7] },
                 { 'id': 6, 'dur': 175, 'ts': 643496963411, 'selfTime': 175, 'children': [] },
             ];
+            assert.exists(tree?.roots);
+            if (!tree?.roots) {
+                // This shouldn't happen, but add this if check to pass ts check.
+                return;
+            }
+            const allNodes = getAllNodes(tree?.roots);
             const callsTestData = calls?.map(c => {
-                const children = tree?.nodes.get(c.nodeId)?.children || new Set();
+                const node = allNodes.find(node => node.id === c.nodeId);
+                const children = node?.children || [];
                 return {
                     id: c.nodeId,
                     dur: Math.round(c.dur || 0),

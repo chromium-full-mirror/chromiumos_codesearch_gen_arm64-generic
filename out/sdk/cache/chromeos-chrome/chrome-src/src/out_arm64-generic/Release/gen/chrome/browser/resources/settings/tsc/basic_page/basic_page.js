@@ -9,6 +9,7 @@ import 'chrome://resources/cr_elements/cr_hidden_style.css.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
+import '../ai_page/ai_page.js';
 import '../appearance_page/appearance_page.js';
 import '../privacy_page/preloading_page.js';
 import '../privacy_page/privacy_guide/privacy_guide_promo.js';
@@ -33,6 +34,9 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { beforeNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+// clang-format off
+// 
+import { OpenWindowProxyImpl } from 'chrome://resources/js/open_window_proxy.js';
 import { loadTimeData } from '../i18n_setup.js';
 import { PerformanceBrowserProxyImpl } from '../performance_page/performance_browser_proxy.js';
 import { PrivacyGuideAvailabilityMixin } from '../privacy_page/privacy_guide/privacy_guide_availability_mixin.js';
@@ -48,6 +52,7 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
         super(...arguments);
         this.privacyGuideBrowserProxy_ = PrivacyGuideBrowserProxyImpl.getInstance();
         this.performanceBrowserProxy_ = PerformanceBrowserProxyImpl.getInstance();
+        // 
     }
     static get is() {
         return 'settings-basic-page';
@@ -80,20 +85,6 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
                 type: Boolean,
                 value: false,
                 reflectToAttribute: true,
-            },
-            advancedToggleExpanded: {
-                type: Boolean,
-                value: false,
-                notify: true,
-                observer: 'advancedToggleExpandedChanged_',
-            },
-            /**
-             * True if a section is fully expanded to hide other sections beneath it.
-             * False otherwise (even while animating a section open/closed).
-             */
-            hasExpandedSection_: {
-                type: Boolean,
-                value: false,
             },
             /**
              * True if the basic page should currently display the reset profile
@@ -139,6 +130,10 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
                     return loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageV2Enabled');
                 },
             },
+            showAdvancedFeaturesMainControl_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('showAdvancedFeaturesMainControl'),
+            },
         };
     }
     static get observers() {
@@ -149,7 +144,6 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
     ready() {
         super.ready();
         this.setAttribute('role', 'main');
-        this.addEventListener('subpage-expand', this.onSubpageExpanded_);
     }
     connectedCallback() {
         super.connectedCallback();
@@ -160,17 +154,12 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
     currentRouteChanged(newRoute, oldRoute) {
         this.currentRoute_ = newRoute;
         if (routes.ADVANCED && routes.ADVANCED.contains(newRoute)) {
-            this.advancedToggleExpanded = true;
-        }
-        if (oldRoute && oldRoute.isSubpage()) {
-            // If the new route isn't the same expanded section, reset
-            // hasExpandedSection_ for the next transition.
-            if (!newRoute.isSubpage() || newRoute.section !== oldRoute.section) {
-                this.hasExpandedSection_ = false;
-            }
-        }
-        else {
-            assert(!this.hasExpandedSection_);
+            // Render the advanced page now (don't wait for idle).
+            // In Polymer3, async() does not wait long enough for layout to complete.
+            // beforeNextRender() must be used instead.
+            beforeNextRender(this, () => {
+                this.getIdleLoad_();
+            });
         }
         super.currentRouteChanged(newRoute, oldRoute);
         if (newRoute === routes.PRIVACY) {
@@ -215,8 +204,10 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
      * @return A signal indicating that searching finished.
      */
     searchContents(query) {
+        const basicPage = this.shadowRoot.querySelector('#basicPage');
+        assert(basicPage);
         const whenSearchDone = [
-            getSearchManager().search(query, this.shadowRoot.querySelector('#basicPage')),
+            getSearchManager().search(query, basicPage),
         ];
         if (this.pageVisibility.advancedSettings !== false) {
             whenSearchDone.push(this.getIdleLoad_().then(function (advancedPage) {
@@ -240,64 +231,37 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
     }
     // 
     onOpenChromeOsLanguagesSettingsClick_() {
-        const chromeOSLanguagesSettingsPath = loadTimeData.getString('chromeOSLanguagesSettingsPath');
-        window.location.href =
-            `chrome://os-settings/${chromeOSLanguagesSettingsPath}`;
+        OpenWindowProxyImpl.getInstance().openUrl(loadTimeData.getString('osSettingsLanguagesPageUrl'));
     }
     // 
     onResetProfileBannerClosed_() {
         this.showResetProfileBanner_ = false;
     }
-    /**
-     * Hides everything but the newly expanded subpage.
-     */
-    onSubpageExpanded_() {
-        this.hasExpandedSection_ = true;
-    }
-    /**
-     * Render the advanced page now (don't wait for idle).
-     */
-    advancedToggleExpandedChanged_() {
-        if (!this.advancedToggleExpanded) {
-            return;
-        }
-        // In Polymer2, async() does not wait long enough for layout to complete.
-        // beforeNextRender() must be used instead.
-        beforeNextRender(this, () => {
-            this.getIdleLoad_();
-        });
-    }
     fire_(eventName, detail) {
         this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     /**
-     * @return Whether to show the basic page, taking into account both routing
-     *     and search state.
+     * @return Whether to show #basicPage. This is an optimization to lazy render
+     *     #basicPage only when a section/subpage within it is being shown, or
+     *     when in search mode.
      */
-    showBasicPage_(currentRoute, _inSearchMode, hasExpandedSection) {
-        return !hasExpandedSection || routes.BASIC.contains(currentRoute);
-    }
-    /**
-     * @return Whether to show the advanced page, taking into account both routing
-     *     and search state.
-     */
-    showAdvancedPage_(currentRoute, inSearchMode, hasExpandedSection, advancedToggleExpanded) {
-        return hasExpandedSection ?
-            (routes.ADVANCED && routes.ADVANCED.contains(currentRoute)) :
-            advancedToggleExpanded || inSearchMode;
+    showBasicPage_() {
+        if (this.currentRoute_ === undefined) {
+            return false;
+        }
+        return this.inSearchMode || routes.BASIC.contains(this.currentRoute_);
     }
     showAdvancedSettings_(visibility) {
-        return visibility !== false;
+        return this.showPage_(visibility);
     }
     showPerformancePage_(visibility) {
-        return visibility !== false;
+        return this.showPage_(visibility);
     }
     showBatteryPage_(visibility) {
-        return visibility !== false;
+        return this.showPage_(visibility);
     }
     showSpeedPage_(visibility) {
-        return loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageEnabled') &&
-            this.showPage_(visibility);
+        return this.showPage_(visibility);
     }
     showSafetyCheckPage_(visibility) {
         return !loadTimeData.getBoolean('enableSafetyHub') &&
@@ -307,11 +271,9 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
         return loadTimeData.getBoolean('enableSafetyHub') &&
             this.showPage_(visibility);
     }
-    // 
-    getPerformancePageTitle_() {
-        return loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageEnabled') ?
-            this.i18n('memoryPageTitle') :
-            this.i18n('performancePageTitle');
+    showExperimentalAdvancedPage_(visibility) {
+        return loadTimeData.getBoolean('showAdvancedFeaturesMainControl') &&
+            this.showPage_(visibility);
     }
 }
 customElements.define(SettingsBasicPageElement.is, SettingsBasicPageElement);

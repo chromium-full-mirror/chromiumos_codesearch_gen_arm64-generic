@@ -23,14 +23,12 @@ build root: phony obj/common-mk/gn_root/root.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
 build fusebox$:all: phony obj/fusebox/all.stamp
 build fusebox$:fusebox: phony ./fusebox
-build fusebox$:fusebox_test: phony ./fusebox_test
 build fusebox$:libfusebox: phony ./libfusebox.a
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
     obj/fusebox/all.stamp $
     ./fusebox $
-    ./fusebox_test $
     ./libfusebox.a
 
 default all

@@ -34,7 +34,7 @@ class CVise:
 
         VERSION = '2.8.0'
         GIT_VERSION = '7aaa2515'
-        LLVM_VERSION = '17.0.0git'
+        LLVM_VERSION = '18.0.0git'
 
     pass_name_mapping = {
         'balanced': BalancedPass,

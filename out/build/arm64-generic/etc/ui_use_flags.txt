@@ -3,6 +3,7 @@
 compupdates
 diagnostics
 drm_atomic
+federated_service
 floss
 legacy_keyboard
 legacy_power_button

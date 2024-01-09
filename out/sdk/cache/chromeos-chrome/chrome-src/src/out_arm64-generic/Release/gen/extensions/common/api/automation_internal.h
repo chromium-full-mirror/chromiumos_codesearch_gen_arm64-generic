@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct AXEventParams {
   ~AXEventParams();
   AXEventParams(const AXEventParams&) = delete;
   AXEventParams& operator=(const AXEventParams&) = delete;
-  AXEventParams(AXEventParams&& rhs);
-  AXEventParams& operator=(AXEventParams&& rhs);
+  AXEventParams(AXEventParams&& rhs) noexcept;
+  AXEventParams& operator=(AXEventParams&& rhs) noexcept;
 
   // Populates a AXEventParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,15 +47,12 @@ struct AXEventParams {
   // Creates a deep copy of AXEventParams.
   AXEventParams Clone() const;
 
-  // Creates a AXEventParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AXEventParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a AXEventParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AXEventParams> FromValue(const base::Value::Dict& value);
+  static std::optional<AXEventParams> FromValue(const base::Value::Dict& value);
 
   // Creates a AXEventParams object from a base::Value, or nullopt on failure.
-  static absl::optional<AXEventParams> FromValue(const base::Value& value);
+  static std::optional<AXEventParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAXEventParams object.
@@ -67,8 +65,8 @@ struct AXTextLocationParams {
   ~AXTextLocationParams();
   AXTextLocationParams(const AXTextLocationParams&) = delete;
   AXTextLocationParams& operator=(const AXTextLocationParams&) = delete;
-  AXTextLocationParams(AXTextLocationParams&& rhs);
-  AXTextLocationParams& operator=(AXTextLocationParams&& rhs);
+  AXTextLocationParams(AXTextLocationParams&& rhs) noexcept;
+  AXTextLocationParams& operator=(AXTextLocationParams&& rhs) noexcept;
 
   // Populates a AXTextLocationParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -81,17 +79,13 @@ struct AXTextLocationParams {
   // Creates a deep copy of AXTextLocationParams.
   AXTextLocationParams Clone() const;
 
-  // Creates a AXTextLocationParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<AXTextLocationParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a AXTextLocationParams object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<AXTextLocationParams> FromValue(const base::Value::Dict& value);
+  static std::optional<AXTextLocationParams> FromValue(const base::Value::Dict& value);
 
   // Creates a AXTextLocationParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AXTextLocationParams> FromValue(const base::Value& value);
+  static std::optional<AXTextLocationParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAXTextLocationParams object.
@@ -120,8 +114,8 @@ struct PerformActionRequiredParams {
   ~PerformActionRequiredParams();
   PerformActionRequiredParams(const PerformActionRequiredParams&) = delete;
   PerformActionRequiredParams& operator=(const PerformActionRequiredParams&) = delete;
-  PerformActionRequiredParams(PerformActionRequiredParams&& rhs);
-  PerformActionRequiredParams& operator=(PerformActionRequiredParams&& rhs);
+  PerformActionRequiredParams(PerformActionRequiredParams&& rhs) noexcept;
+  PerformActionRequiredParams& operator=(PerformActionRequiredParams&& rhs) noexcept;
 
   // Populates a PerformActionRequiredParams object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -134,17 +128,13 @@ struct PerformActionRequiredParams {
   // Creates a deep copy of PerformActionRequiredParams.
   PerformActionRequiredParams Clone() const;
 
-  // Creates a PerformActionRequiredParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<PerformActionRequiredParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a PerformActionRequiredParams object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<PerformActionRequiredParams> FromValue(const base::Value::Dict& value);
+  static std::optional<PerformActionRequiredParams> FromValue(const base::Value::Dict& value);
 
   // Creates a PerformActionRequiredParams object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<PerformActionRequiredParams> FromValue(const base::Value& value);
+  static std::optional<PerformActionRequiredParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPerformActionRequiredParams object.
@@ -158,7 +148,7 @@ struct PerformActionRequiredParams {
   // automation_internal::ActionTypePrivate.
   std::string action_type;
 
-  absl::optional<int> request_id;
+  std::optional<int> request_id;
 
 };
 
@@ -167,8 +157,8 @@ struct PerformCustomActionParams {
   ~PerformCustomActionParams();
   PerformCustomActionParams(const PerformCustomActionParams&) = delete;
   PerformCustomActionParams& operator=(const PerformCustomActionParams&) = delete;
-  PerformCustomActionParams(PerformCustomActionParams&& rhs);
-  PerformCustomActionParams& operator=(PerformCustomActionParams&& rhs);
+  PerformCustomActionParams(PerformCustomActionParams&& rhs) noexcept;
+  PerformCustomActionParams& operator=(PerformCustomActionParams&& rhs) noexcept;
 
   // Populates a PerformCustomActionParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -181,17 +171,13 @@ struct PerformCustomActionParams {
   // Creates a deep copy of PerformCustomActionParams.
   PerformCustomActionParams Clone() const;
 
-  // Creates a PerformCustomActionParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<PerformCustomActionParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a PerformCustomActionParams object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<PerformCustomActionParams> FromValue(const base::Value::Dict& value);
+  static std::optional<PerformCustomActionParams> FromValue(const base::Value::Dict& value);
 
   // Creates a PerformCustomActionParams object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<PerformCustomActionParams> FromValue(const base::Value& value);
+  static std::optional<PerformCustomActionParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPerformCustomActionParams object.
@@ -206,8 +192,8 @@ struct SetSelectionParams {
   ~SetSelectionParams();
   SetSelectionParams(const SetSelectionParams&) = delete;
   SetSelectionParams& operator=(const SetSelectionParams&) = delete;
-  SetSelectionParams(SetSelectionParams&& rhs);
-  SetSelectionParams& operator=(SetSelectionParams&& rhs);
+  SetSelectionParams(SetSelectionParams&& rhs) noexcept;
+  SetSelectionParams& operator=(SetSelectionParams&& rhs) noexcept;
 
   // Populates a SetSelectionParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -220,16 +206,13 @@ struct SetSelectionParams {
   // Creates a deep copy of SetSelectionParams.
   SetSelectionParams Clone() const;
 
-  // Creates a SetSelectionParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SetSelectionParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a SetSelectionParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SetSelectionParams> FromValue(const base::Value::Dict& value);
+  static std::optional<SetSelectionParams> FromValue(const base::Value::Dict& value);
 
   // Creates a SetSelectionParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SetSelectionParams> FromValue(const base::Value& value);
+  static std::optional<SetSelectionParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSetSelectionParams object.
@@ -250,8 +233,8 @@ struct ReplaceSelectedTextParams {
   ~ReplaceSelectedTextParams();
   ReplaceSelectedTextParams(const ReplaceSelectedTextParams&) = delete;
   ReplaceSelectedTextParams& operator=(const ReplaceSelectedTextParams&) = delete;
-  ReplaceSelectedTextParams(ReplaceSelectedTextParams&& rhs);
-  ReplaceSelectedTextParams& operator=(ReplaceSelectedTextParams&& rhs);
+  ReplaceSelectedTextParams(ReplaceSelectedTextParams&& rhs) noexcept;
+  ReplaceSelectedTextParams& operator=(ReplaceSelectedTextParams&& rhs) noexcept;
 
   // Populates a ReplaceSelectedTextParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -264,17 +247,13 @@ struct ReplaceSelectedTextParams {
   // Creates a deep copy of ReplaceSelectedTextParams.
   ReplaceSelectedTextParams Clone() const;
 
-  // Creates a ReplaceSelectedTextParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ReplaceSelectedTextParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReplaceSelectedTextParams object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ReplaceSelectedTextParams> FromValue(const base::Value::Dict& value);
+  static std::optional<ReplaceSelectedTextParams> FromValue(const base::Value::Dict& value);
 
   // Creates a ReplaceSelectedTextParams object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ReplaceSelectedTextParams> FromValue(const base::Value& value);
+  static std::optional<ReplaceSelectedTextParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReplaceSelectedTextParams object.
@@ -289,8 +268,8 @@ struct SetValueParams {
   ~SetValueParams();
   SetValueParams(const SetValueParams&) = delete;
   SetValueParams& operator=(const SetValueParams&) = delete;
-  SetValueParams(SetValueParams&& rhs);
-  SetValueParams& operator=(SetValueParams&& rhs);
+  SetValueParams(SetValueParams&& rhs) noexcept;
+  SetValueParams& operator=(SetValueParams&& rhs) noexcept;
 
   // Populates a SetValueParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -303,15 +282,12 @@ struct SetValueParams {
   // Creates a deep copy of SetValueParams.
   SetValueParams Clone() const;
 
-  // Creates a SetValueParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SetValueParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a SetValueParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SetValueParams> FromValue(const base::Value::Dict& value);
+  static std::optional<SetValueParams> FromValue(const base::Value::Dict& value);
 
   // Creates a SetValueParams object from a base::Value, or nullopt on failure.
-  static absl::optional<SetValueParams> FromValue(const base::Value& value);
+  static std::optional<SetValueParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSetValueParams object.
@@ -326,8 +302,8 @@ struct ScrollToPointParams {
   ~ScrollToPointParams();
   ScrollToPointParams(const ScrollToPointParams&) = delete;
   ScrollToPointParams& operator=(const ScrollToPointParams&) = delete;
-  ScrollToPointParams(ScrollToPointParams&& rhs);
-  ScrollToPointParams& operator=(ScrollToPointParams&& rhs);
+  ScrollToPointParams(ScrollToPointParams&& rhs) noexcept;
+  ScrollToPointParams& operator=(ScrollToPointParams&& rhs) noexcept;
 
   // Populates a ScrollToPointParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -340,17 +316,13 @@ struct ScrollToPointParams {
   // Creates a deep copy of ScrollToPointParams.
   ScrollToPointParams Clone() const;
 
-  // Creates a ScrollToPointParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ScrollToPointParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a ScrollToPointParams object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ScrollToPointParams> FromValue(const base::Value::Dict& value);
+  static std::optional<ScrollToPointParams> FromValue(const base::Value::Dict& value);
 
   // Creates a ScrollToPointParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ScrollToPointParams> FromValue(const base::Value& value);
+  static std::optional<ScrollToPointParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisScrollToPointParams object.
@@ -367,8 +339,8 @@ struct ScrollToPositionAtRowColumnParams {
   ~ScrollToPositionAtRowColumnParams();
   ScrollToPositionAtRowColumnParams(const ScrollToPositionAtRowColumnParams&) = delete;
   ScrollToPositionAtRowColumnParams& operator=(const ScrollToPositionAtRowColumnParams&) = delete;
-  ScrollToPositionAtRowColumnParams(ScrollToPositionAtRowColumnParams&& rhs);
-  ScrollToPositionAtRowColumnParams& operator=(ScrollToPositionAtRowColumnParams&& rhs);
+  ScrollToPositionAtRowColumnParams(ScrollToPositionAtRowColumnParams&& rhs) noexcept;
+  ScrollToPositionAtRowColumnParams& operator=(ScrollToPositionAtRowColumnParams&& rhs) noexcept;
 
   // Populates a ScrollToPositionAtRowColumnParams object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -381,17 +353,13 @@ struct ScrollToPositionAtRowColumnParams {
   // Creates a deep copy of ScrollToPositionAtRowColumnParams.
   ScrollToPositionAtRowColumnParams Clone() const;
 
-  // Creates a ScrollToPositionAtRowColumnParams object from a base::Value, or
-  // NULL on failure.
-  static std::unique_ptr<ScrollToPositionAtRowColumnParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a ScrollToPositionAtRowColumnParams object from a
   // base::Value::Dict, or nullopt on failure.
-  static absl::optional<ScrollToPositionAtRowColumnParams> FromValue(const base::Value::Dict& value);
+  static std::optional<ScrollToPositionAtRowColumnParams> FromValue(const base::Value::Dict& value);
 
   // Creates a ScrollToPositionAtRowColumnParams object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<ScrollToPositionAtRowColumnParams> FromValue(const base::Value& value);
+  static std::optional<ScrollToPositionAtRowColumnParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisScrollToPositionAtRowColumnParams object.
@@ -408,8 +376,8 @@ struct SetScrollOffsetParams {
   ~SetScrollOffsetParams();
   SetScrollOffsetParams(const SetScrollOffsetParams&) = delete;
   SetScrollOffsetParams& operator=(const SetScrollOffsetParams&) = delete;
-  SetScrollOffsetParams(SetScrollOffsetParams&& rhs);
-  SetScrollOffsetParams& operator=(SetScrollOffsetParams&& rhs);
+  SetScrollOffsetParams(SetScrollOffsetParams&& rhs) noexcept;
+  SetScrollOffsetParams& operator=(SetScrollOffsetParams&& rhs) noexcept;
 
   // Populates a SetScrollOffsetParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -422,17 +390,13 @@ struct SetScrollOffsetParams {
   // Creates a deep copy of SetScrollOffsetParams.
   SetScrollOffsetParams Clone() const;
 
-  // Creates a SetScrollOffsetParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SetScrollOffsetParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a SetScrollOffsetParams object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<SetScrollOffsetParams> FromValue(const base::Value::Dict& value);
+  static std::optional<SetScrollOffsetParams> FromValue(const base::Value::Dict& value);
 
   // Creates a SetScrollOffsetParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SetScrollOffsetParams> FromValue(const base::Value& value);
+  static std::optional<SetScrollOffsetParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSetScrollOffsetParams object.
@@ -449,8 +413,8 @@ struct GetImageDataParams {
   ~GetImageDataParams();
   GetImageDataParams(const GetImageDataParams&) = delete;
   GetImageDataParams& operator=(const GetImageDataParams&) = delete;
-  GetImageDataParams(GetImageDataParams&& rhs);
-  GetImageDataParams& operator=(GetImageDataParams&& rhs);
+  GetImageDataParams(GetImageDataParams&& rhs) noexcept;
+  GetImageDataParams& operator=(GetImageDataParams&& rhs) noexcept;
 
   // Populates a GetImageDataParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -463,16 +427,13 @@ struct GetImageDataParams {
   // Creates a deep copy of GetImageDataParams.
   GetImageDataParams Clone() const;
 
-  // Creates a GetImageDataParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetImageDataParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetImageDataParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetImageDataParams> FromValue(const base::Value::Dict& value);
+  static std::optional<GetImageDataParams> FromValue(const base::Value::Dict& value);
 
   // Creates a GetImageDataParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetImageDataParams> FromValue(const base::Value& value);
+  static std::optional<GetImageDataParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetImageDataParams object.
@@ -489,8 +450,8 @@ struct HitTestParams {
   ~HitTestParams();
   HitTestParams(const HitTestParams&) = delete;
   HitTestParams& operator=(const HitTestParams&) = delete;
-  HitTestParams(HitTestParams&& rhs);
-  HitTestParams& operator=(HitTestParams&& rhs);
+  HitTestParams(HitTestParams&& rhs) noexcept;
+  HitTestParams& operator=(HitTestParams&& rhs) noexcept;
 
   // Populates a HitTestParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -503,15 +464,12 @@ struct HitTestParams {
   // Creates a deep copy of HitTestParams.
   HitTestParams Clone() const;
 
-  // Creates a HitTestParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HitTestParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a HitTestParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HitTestParams> FromValue(const base::Value::Dict& value);
+  static std::optional<HitTestParams> FromValue(const base::Value::Dict& value);
 
   // Creates a HitTestParams object from a base::Value, or nullopt on failure.
-  static absl::optional<HitTestParams> FromValue(const base::Value& value);
+  static std::optional<HitTestParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHitTestParams object.
@@ -530,8 +488,8 @@ struct GetTextLocationDataParams {
   ~GetTextLocationDataParams();
   GetTextLocationDataParams(const GetTextLocationDataParams&) = delete;
   GetTextLocationDataParams& operator=(const GetTextLocationDataParams&) = delete;
-  GetTextLocationDataParams(GetTextLocationDataParams&& rhs);
-  GetTextLocationDataParams& operator=(GetTextLocationDataParams&& rhs);
+  GetTextLocationDataParams(GetTextLocationDataParams&& rhs) noexcept;
+  GetTextLocationDataParams& operator=(GetTextLocationDataParams&& rhs) noexcept;
 
   // Populates a GetTextLocationDataParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -544,17 +502,13 @@ struct GetTextLocationDataParams {
   // Creates a deep copy of GetTextLocationDataParams.
   GetTextLocationDataParams Clone() const;
 
-  // Creates a GetTextLocationDataParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetTextLocationDataParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetTextLocationDataParams object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetTextLocationDataParams> FromValue(const base::Value::Dict& value);
+  static std::optional<GetTextLocationDataParams> FromValue(const base::Value::Dict& value);
 
   // Creates a GetTextLocationDataParams object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<GetTextLocationDataParams> FromValue(const base::Value& value);
+  static std::optional<GetTextLocationDataParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetTextLocationDataParams object.
@@ -574,11 +528,11 @@ struct GetTextLocationDataParams {
 namespace EnableTree {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string tree_id;
@@ -611,11 +565,11 @@ base::Value::List Create();
 namespace PerformAction {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct OptArgs {
@@ -623,8 +577,8 @@ struct Params {
     ~OptArgs();
     OptArgs(const OptArgs&) = delete;
     OptArgs& operator=(const OptArgs&) = delete;
-    OptArgs(OptArgs&& rhs);
-    OptArgs& operator=(OptArgs&& rhs);
+    OptArgs(OptArgs&& rhs) noexcept;
+    OptArgs& operator=(OptArgs&& rhs) noexcept;
 
     // Populates a OptArgs object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -638,10 +592,10 @@ struct Params {
     OptArgs Clone() const;
 
     // Creates a OptArgs object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<OptArgs> FromValue(const base::Value::Dict& value);
+    static std::optional<OptArgs> FromValue(const base::Value::Dict& value);
 
     // Creates a OptArgs object from a base::Value, or nullopt on failure.
-    static absl::optional<OptArgs> FromValue(const base::Value& value);
+    static std::optional<OptArgs> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };

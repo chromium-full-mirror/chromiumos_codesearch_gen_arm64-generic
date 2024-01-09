@@ -23,7 +23,7 @@ constexpr uint32_t kPowerHost_OnPreAnr_Name = 6;
 constexpr uint32_t kPowerHost_OnAnrRecoveryFailed_Name = 7;
 constexpr uint32_t kPowerHost_GetBatterySaverModeState_Name = 8;
 constexpr uint32_t kPowerInstance_Init_Name = 5;
-constexpr uint32_t kPowerInstance_SetInteractive_Name = 1;
+constexpr uint32_t kPowerInstance_SetInteractiveDeprecated_Name = 1;
 constexpr uint32_t kPowerInstance_Suspend_Name = 2;
 constexpr uint32_t kPowerInstance_Resume_Name = 3;
 constexpr uint32_t kPowerInstance_UpdateScreenBrightnessSettings_Name = 4;
@@ -31,6 +31,7 @@ constexpr uint32_t kPowerInstance_PowerSupplyInfoChanged_Name = 6;
 constexpr uint32_t kPowerInstance_GetWakefulnessMode_Name = 7;
 constexpr uint32_t kPowerInstance_OnCpuRestrictionChanged_Name = 8;
 constexpr uint32_t kPowerInstance_OnBatterySaverModeStateChanged_Name = 9;
+constexpr uint32_t kPowerInstance_SetIdleState_Name = 10;
 
 }  // namespace internal
 

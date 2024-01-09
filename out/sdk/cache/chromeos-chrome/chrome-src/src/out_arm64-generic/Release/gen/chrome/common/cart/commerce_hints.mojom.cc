@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -405,7 +406,7 @@ CommerceHintObserverProxy::CommerceHintObserverProxy(mojo::MessageReceiverWithRe
 }
 
 void CommerceHintObserverProxy::OnAddToCart(
-    const absl::optional<::GURL>& in_cart_url, const std::string& in_product_id) {
+    const std::optional<::GURL>& in_cart_url, const std::string& in_product_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cart::mojom::CommerceHintObserver::OnAddToCart", "input_parameters",
@@ -413,20 +414,23 @@ void CommerceHintObserverProxy::OnAddToCart(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("cart_url"), in_cart_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("product_id"), in_product_id,
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnAddToCart_Name, kFlags, 0, 0, nullptr);
@@ -467,14 +471,17 @@ void CommerceHintObserverProxy::OnVisitCart(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cart::mojom::CommerceHintObserver::OnVisitCart");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnVisitCart_Name, kFlags, 0, 0, nullptr);
@@ -504,14 +511,17 @@ void CommerceHintObserverProxy::OnCartProductUpdated(
                         "<value of type std::vector<ProductPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnCartProductUpdated_Name, kFlags, 0, 0, nullptr);
@@ -547,14 +557,17 @@ void CommerceHintObserverProxy::OnVisitCheckout(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cart::mojom::CommerceHintObserver::OnVisitCheckout");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnVisitCheckout_Name, kFlags, 0, 0, nullptr);
@@ -577,14 +590,17 @@ void CommerceHintObserverProxy::OnPurchase(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cart::mojom::CommerceHintObserver::OnPurchase");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnPurchase_Name, kFlags, 0, 0, nullptr);
@@ -614,14 +630,17 @@ void CommerceHintObserverProxy::OnFormSubmit(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnFormSubmit_Name, kFlags, 0, 0, nullptr);
@@ -652,14 +671,17 @@ void CommerceHintObserverProxy::OnWillSendRequest(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnWillSendRequest_Name, kFlags, 0, 0, nullptr);
@@ -693,14 +715,17 @@ void CommerceHintObserverProxy::OnNavigation(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnNavigation_Name, kFlags, 0, 0, nullptr);
@@ -746,14 +771,17 @@ void CommerceHintObserverProxy::OnCartExtraction(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send cart::mojom::CommerceHintObserver::OnCartExtraction");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnCartExtraction_Name, kFlags, 0, 0, nullptr);
@@ -870,7 +898,8 @@ void CommerceHintObserver_OnNavigation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnNavigation_Name, kFlags, 0, 0, nullptr);
@@ -1006,7 +1035,8 @@ void CommerceHintObserver_OnCartExtraction_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCommerceHintObserver_OnCartExtraction_Name, kFlags, 0, 0, nullptr);
@@ -1067,7 +1097,7 @@ bool CommerceHintObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::GURL> p_cart_url{};
+      std::optional<::GURL> p_cart_url{};
       std::string p_product_id{};
       CommerceHintObserver_OnAddToCart_ParamsDataView input_data_view(params, message);
       
@@ -1334,26 +1364,26 @@ std::move(p_version_number), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCommerceHintObserverValidationInfo[] = {
-    {&internal::CommerceHintObserver_OnAddToCart_Params_Data::Validate,
+    { &internal::CommerceHintObserver_OnAddToCart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CommerceHintObserver_OnVisitCart_Params_Data::Validate,
+    { &internal::CommerceHintObserver_OnVisitCart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CommerceHintObserver_OnCartProductUpdated_Params_Data::Validate,
+    { &internal::CommerceHintObserver_OnCartProductUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CommerceHintObserver_OnVisitCheckout_Params_Data::Validate,
+    { &internal::CommerceHintObserver_OnVisitCheckout_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CommerceHintObserver_OnPurchase_Params_Data::Validate,
+    { &internal::CommerceHintObserver_OnPurchase_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CommerceHintObserver_OnFormSubmit_Params_Data::Validate,
+    { &internal::CommerceHintObserver_OnFormSubmit_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CommerceHintObserver_OnWillSendRequest_Params_Data::Validate,
+    { &internal::CommerceHintObserver_OnWillSendRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CommerceHintObserver_OnNavigation_Params_Data::Validate,
+    { &internal::CommerceHintObserver_OnNavigation_Params_Data::Validate,
      &internal::CommerceHintObserver_OnNavigation_ResponseParams_Data::Validate},
-    {&internal::CommerceHintObserver_OnCartExtraction_Params_Data::Validate,
+    { &internal::CommerceHintObserver_OnCartExtraction_Params_Data::Validate,
      &internal::CommerceHintObserver_OnCartExtraction_ResponseParams_Data::Validate},
 };
 
@@ -1419,7 +1449,7 @@ bool StructTraits<::cart::mojom::Heuristics::DataView, ::cart::mojom::Heuristics
 namespace cart::mojom {
 
 
-void CommerceHintObserverInterceptorForTesting::OnAddToCart(const absl::optional<::GURL>& cart_url, const std::string& product_id) {
+void CommerceHintObserverInterceptorForTesting::OnAddToCart(const std::optional<::GURL>& cart_url, const std::string& product_id) {
   GetForwardingInterface()->OnAddToCart(std::move(cart_url), std::move(product_id));
 }
 void CommerceHintObserverInterceptorForTesting::OnVisitCart() {

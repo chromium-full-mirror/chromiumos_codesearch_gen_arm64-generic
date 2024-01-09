@@ -545,6 +545,41 @@ class  AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data
 };
 static_assert(sizeof(AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data) == 16,
               "Bad sizeof(AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data)");
+class  AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t completed_actions;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data>;
+
+  AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data();
+  ~AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data() = delete;
+};
+static_assert(sizeof(AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data) == 16,
+              "Bad sizeof(AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data)");
+class  AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t is_add : 1;
+  uint8_t pad0_[3];
+  int32_t subactions;
+
+ private:
+  friend class mojo::internal::MessageFragment<AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data>;
+
+  AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data();
+  ~AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data() = delete;
+};
+static_assert(sizeof(AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data) == 16,
+              "Bad sizeof(AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data)");
 
 }  // namespace internal
 
@@ -1322,6 +1357,59 @@ class AcceleratorConfigurationProvider_RecordMainCategoryNavigation_ParamsDataVi
   internal::AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data* data_ = nullptr;
 };
 
+
+class AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsDataView {
+ public:
+  AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsDataView() = default;
+
+  AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsDataView(
+      internal::AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCompletedActions(UserType* output) const {
+    auto data_value = data_->completed_actions;
+    return mojo::internal::Deserialize<::ash::shortcut_customization::mojom::EditDialogCompletedActions>(
+        data_value, output);
+  }
+  EditDialogCompletedActions completed_actions() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::shortcut_customization::mojom::EditDialogCompletedActions>(data_->completed_actions));
+  }
+ private:
+  internal::AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data* data_ = nullptr;
+};
+
+
+class AcceleratorConfigurationProvider_RecordAddOrEditSubactions_ParamsDataView {
+ public:
+  AcceleratorConfigurationProvider_RecordAddOrEditSubactions_ParamsDataView() = default;
+
+  AcceleratorConfigurationProvider_RecordAddOrEditSubactions_ParamsDataView(
+      internal::AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool is_add() const {
+    return data_->is_add;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubactions(UserType* output) const {
+    auto data_value = data_->subactions;
+    return mojo::internal::Deserialize<::ash::shortcut_customization::mojom::Subactions>(
+        data_value, output);
+  }
+  Subactions subactions() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::shortcut_customization::mojom::Subactions>(data_->subactions));
+  }
+ private:
+  internal::AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data* data_ = nullptr;
+};
+
 inline void AcceleratorsUpdatedObserver_OnAcceleratorsUpdated_ParamsDataView::GetConfigDataView(
     mojo::MapDataView<::ash::mojom::AcceleratorSource, mojo::MapDataView<uint32_t, mojo::ArrayDataView<::ash::mojom::AcceleratorInfoDataView>>>* output) {
   auto pointer = data_->config.Get();
@@ -1455,6 +1543,10 @@ inline void AcceleratorConfigurationProvider_RestoreAllDefaults_ResponseParamsDa
   auto pointer = data_->result.Get();
   *output = AcceleratorResultDataDataView(pointer, message_);
 }
+
+
+
+
 
 
 

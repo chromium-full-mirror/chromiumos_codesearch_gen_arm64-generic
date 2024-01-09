@@ -509,6 +509,18 @@ class TpmManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool ClearTpm(
+      const tpm_manager::ClearTpmRequest& in_request,
+      tpm_manager::ClearTpmReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void ClearTpmAsync(
+      const tpm_manager::ClearTpmRequest& in_request,
+      base::OnceCallback<void(const tpm_manager::ClearTpmReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterSignalOwnershipTakenSignalHandler(
       const base::RepeatingCallback<void(const tpm_manager::OwnershipTakenSignal&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -866,6 +878,37 @@ class TpmManagerProxy final : public TpmManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.TpmManager",
         "ClearStoredOwnerPassword",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool ClearTpm(
+      const tpm_manager::ClearTpmRequest& in_request,
+      tpm_manager::ClearTpmReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.TpmManager",
+        "ClearTpm",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void ClearTpmAsync(
+      const tpm_manager::ClearTpmRequest& in_request,
+      base::OnceCallback<void(const tpm_manager::ClearTpmReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.TpmManager",
+        "ClearTpm",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

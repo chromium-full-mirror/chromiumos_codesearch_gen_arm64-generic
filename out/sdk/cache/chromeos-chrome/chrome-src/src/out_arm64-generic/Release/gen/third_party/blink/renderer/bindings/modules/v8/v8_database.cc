@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Database>::value,
     "Database inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Database::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Database is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("Database.version.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Database* blink_receiver = V8Database::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->version();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Database* blink_receiver = V8Database::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->version();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -121,7 +116,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Database* blink_receiver = V8Database::ToWrappableUnsafe(v8_receiver);
+Database* blink_receiver = V8Database::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_old_version = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -180,7 +175,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Database* blink_receiver = V8Database::ToWrappableUnsafe(v8_receiver);
+Database* blink_receiver = V8Database::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_callback = NativeValueTraits<V8SQLTransactionCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -228,7 +223,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Database* blink_receiver = V8Database::ToWrappableUnsafe(v8_receiver);
+Database* blink_receiver = V8Database::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_callback = NativeValueTraits<V8SQLTransactionCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

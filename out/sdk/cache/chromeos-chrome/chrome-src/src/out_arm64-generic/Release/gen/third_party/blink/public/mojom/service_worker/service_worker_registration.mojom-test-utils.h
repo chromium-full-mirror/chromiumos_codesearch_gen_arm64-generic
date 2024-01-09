@@ -31,19 +31,19 @@ class BLINK_COMMON_EXPORT ServiceWorkerRegistrationObjectHostAsyncWaiter {
 
   ~ServiceWorkerRegistrationObjectHostAsyncWaiter();
   void Update(
-      ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object, ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg);
+      ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object, ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg);
   
   void Unregister(
-      ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg);
+      ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg);
   
   void EnableNavigationPreload(
-      bool enable, ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg);
+      bool enable, ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg);
   
   void GetNavigationPreloadState(
-      ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg, ::blink::mojom::NavigationPreloadStatePtr* out_state);
+      ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg, ::blink::mojom::NavigationPreloadStatePtr* out_state);
   
   void SetNavigationPreloadHeader(
-      const std::string& value, ::blink::mojom::ServiceWorkerErrorType* out_error, absl::optional<std::string>* out_error_msg);
+      const std::string& value, ::blink::mojom::ServiceWorkerErrorType* out_error, std::optional<std::string>* out_error_msg);
   
 
  private:

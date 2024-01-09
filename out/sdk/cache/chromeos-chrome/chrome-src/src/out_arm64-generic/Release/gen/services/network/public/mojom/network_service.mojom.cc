@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -91,7 +92,7 @@ HttpAuthDynamicParams::HttpAuthDynamicParams()
       basic_over_http_enabled(true) {}
 
 HttpAuthDynamicParams::HttpAuthDynamicParams(
-    absl::optional<std::vector<std::string>> allowed_schemes_in,
+    std::optional<std::vector<std::string>> allowed_schemes_in,
     std::vector<std::string> patterns_allowed_to_use_all_schemes_in,
     const std::string& server_allowlist_in,
     const std::string& delegate_allowlist_in,
@@ -123,7 +124,7 @@ void HttpAuthDynamicParams::WriteIntoTrace(
     dict.AddItem(
       "allowed_schemes"), this->allowed_schemes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -276,7 +277,8 @@ NetworkServiceParams::NetworkServiceParams()
       environment(),
       default_observer(),
       first_party_sets_enabled(),
-      system_dns_resolver() {}
+      system_dns_resolver(),
+      ip_protection_proxy_bypass_policy() {}
 
 NetworkServiceParams::NetworkServiceParams(
     ::network::mojom::ConnectionType initial_connection_type_in,
@@ -284,13 +286,15 @@ NetworkServiceParams::NetworkServiceParams(
     std::vector<EnvironmentVariablePtr> environment_in,
     ::mojo::PendingRemote<::network::mojom::URLLoaderNetworkServiceObserver> default_observer_in,
     bool first_party_sets_enabled_in,
-    ::mojo::PendingRemote<::network::mojom::SystemDnsResolver> system_dns_resolver_in)
+    ::mojo::PendingRemote<::network::mojom::SystemDnsResolver> system_dns_resolver_in,
+    ::network::mojom::IpProtectionProxyBypassPolicy ip_protection_proxy_bypass_policy_in)
     : initial_connection_type(std::move(initial_connection_type_in)),
       initial_connection_subtype(std::move(initial_connection_subtype_in)),
       environment(std::move(environment_in)),
       default_observer(std::move(default_observer_in)),
       first_party_sets_enabled(std::move(first_party_sets_enabled_in)),
-      system_dns_resolver(std::move(system_dns_resolver_in)) {}
+      system_dns_resolver(std::move(system_dns_resolver_in)),
+      ip_protection_proxy_bypass_policy(std::move(ip_protection_proxy_bypass_policy_in)) {}
 
 NetworkServiceParams::~NetworkServiceParams() = default;
 
@@ -347,6 +351,15 @@ void NetworkServiceParams::WriteIntoTrace(
       "system_dns_resolver"), this->system_dns_resolver,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::mojo::PendingRemote<::network::mojom::SystemDnsResolver>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "ip_protection_proxy_bypass_policy"), this->ip_protection_proxy_bypass_policy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::network::mojom::IpProtectionProxyBypassPolicy>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -523,9 +536,6 @@ NetworkService::IPCStableHashFunction NetworkService::MessageToMethodInfo_(mojo:
     case internal::kNetworkService_OnPeerToPeerConnectionsCountChange_Name: {
       return &NetworkService::OnPeerToPeerConnectionsCountChange_Sym::IPCStableHash;
     }
-    case internal::kNetworkService_SetEnvironment_Name: {
-      return &NetworkService::SetEnvironment_Sym::IPCStableHash;
-    }
     case internal::kNetworkService_SetTrustTokenKeyCommitments_Name: {
       return &NetworkService::SetTrustTokenKeyCommitments_Sym::IPCStableHash;
     }
@@ -567,6 +577,9 @@ NetworkService::IPCStableHashFunction NetworkService::MessageToMethodInfo_(mojo:
     }
     case internal::kNetworkService_SetIPv6ReachabilityOverride_Name: {
       return &NetworkService::SetIPv6ReachabilityOverride_Sym::IPCStableHash;
+    }
+    case internal::kNetworkService_SetCookieEncryptionProvider_Name: {
+      return &NetworkService::SetCookieEncryptionProvider_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -619,8 +632,6 @@ const char* NetworkService::MessageToMethodName_(mojo::Message& message) {
             return "Receive network::mojom::NetworkService::OnMemoryPressure";
       case internal::kNetworkService_OnPeerToPeerConnectionsCountChange_Name:
             return "Receive network::mojom::NetworkService::OnPeerToPeerConnectionsCountChange";
-      case internal::kNetworkService_SetEnvironment_Name:
-            return "Receive network::mojom::NetworkService::SetEnvironment";
       case internal::kNetworkService_SetTrustTokenKeyCommitments_Name:
             return "Receive network::mojom::NetworkService::SetTrustTokenKeyCommitments";
       case internal::kNetworkService_ClearSCTAuditingCache_Name:
@@ -649,6 +660,8 @@ const char* NetworkService::MessageToMethodName_(mojo::Message& message) {
             return "Receive network::mojom::NetworkService::EnableDataUseUpdates";
       case internal::kNetworkService_SetIPv6ReachabilityOverride_Name:
             return "Receive network::mojom::NetworkService::SetIPv6ReachabilityOverride";
+      case internal::kNetworkService_SetCookieEncryptionProvider_Name:
+            return "Receive network::mojom::NetworkService::SetCookieEncryptionProvider";
     }
   } else {
     switch (message.name()) {
@@ -692,8 +705,6 @@ const char* NetworkService::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply network::mojom::NetworkService::OnMemoryPressure";
       case internal::kNetworkService_OnPeerToPeerConnectionsCountChange_Name:
             return "Receive reply network::mojom::NetworkService::OnPeerToPeerConnectionsCountChange";
-      case internal::kNetworkService_SetEnvironment_Name:
-            return "Receive reply network::mojom::NetworkService::SetEnvironment";
       case internal::kNetworkService_SetTrustTokenKeyCommitments_Name:
             return "Receive reply network::mojom::NetworkService::SetTrustTokenKeyCommitments";
       case internal::kNetworkService_ClearSCTAuditingCache_Name:
@@ -722,6 +733,8 @@ const char* NetworkService::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply network::mojom::NetworkService::EnableDataUseUpdates";
       case internal::kNetworkService_SetIPv6ReachabilityOverride_Name:
             return "Receive reply network::mojom::NetworkService::SetIPv6ReachabilityOverride";
+      case internal::kNetworkService_SetCookieEncryptionProvider_Name:
+            return "Receive reply network::mojom::NetworkService::SetCookieEncryptionProvider";
     }
   }
   return "Receive unknown mojo message";
@@ -996,19 +1009,6 @@ uint32_t NetworkService::OnPeerToPeerConnectionsCountChange_Sym::IPCStableHash()
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t NetworkService::SetEnvironment_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)network::mojom::NetworkService::SetEnvironment");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t NetworkService::SetTrustTokenKeyCommitments_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -1191,6 +1191,19 @@ uint32_t NetworkService::SetIPv6ReachabilityOverride_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t NetworkService::SetCookieEncryptionProvider_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)network::mojom::NetworkService::SetCookieEncryptionProvider");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class NetworkService_GetNetworkList_ForwardToCallback
@@ -1305,14 +1318,17 @@ void NetworkServiceProxy::SetParams(
                         "<value of type NetworkServiceParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetParams_Name, kFlags, 0, 0, nullptr);
@@ -1362,14 +1378,17 @@ void NetworkServiceProxy::StartNetLog(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_StartNetLog_Name, kFlags, 0, 0, nullptr);
@@ -1427,14 +1446,17 @@ void NetworkServiceProxy::AttachNetLogProxy(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::NetLogProxySink>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_AttachNetLogProxy_Name, kFlags, 0, 0, nullptr);
@@ -1476,14 +1498,17 @@ void NetworkServiceProxy::SetSSLKeyLogFile(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetSSLKeyLogFile_Name, kFlags, 0, 0, nullptr);
@@ -1527,14 +1552,17 @@ void NetworkServiceProxy::CreateNetworkContext(
                         "<value of type ::network::mojom::NetworkContextParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_CreateNetworkContext_Name, kFlags, 0, 0, nullptr);
@@ -1590,14 +1618,17 @@ void NetworkServiceProxy::ConfigureStubHostResolver(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_ConfigureStubHostResolver_Name, kFlags, 0, 0, nullptr);
@@ -1635,14 +1666,17 @@ void NetworkServiceProxy::DisableQuic(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkService::DisableQuic");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_DisableQuic_Name, kFlags, 0, 0, nullptr);
@@ -1672,14 +1706,17 @@ void NetworkServiceProxy::SetUpHttpAuth(
                         "<value of type HttpAuthStaticParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetUpHttpAuth_Name, kFlags, 0, 0, nullptr);
@@ -1720,14 +1757,17 @@ void NetworkServiceProxy::ConfigureHttpAuthPrefs(
                         "<value of type HttpAuthDynamicParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_ConfigureHttpAuthPrefs_Name, kFlags, 0, 0, nullptr);
@@ -1771,14 +1811,17 @@ void NetworkServiceProxy::SetRawHeadersAccess(
                         "<value of type const std::vector<::url::Origin>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetRawHeadersAccess_Name, kFlags, 0, 0, nullptr);
@@ -1822,14 +1865,17 @@ void NetworkServiceProxy::SetMaxConnectionsPerProxy(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetMaxConnectionsPerProxy_Name, kFlags, 0, 0, nullptr);
@@ -1860,14 +1906,17 @@ void NetworkServiceProxy::GetNetworkChangeManager(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::NetworkChangeManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_GetNetworkChangeManager_Name, kFlags, 0, 0, nullptr);
@@ -1903,14 +1952,17 @@ void NetworkServiceProxy::GetNetworkQualityEstimatorManager(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::NetworkQualityEstimatorManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_GetNetworkQualityEstimatorManager_Name, kFlags, 0, 0, nullptr);
@@ -1946,14 +1998,17 @@ void NetworkServiceProxy::GetDnsConfigChangeManager(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::DnsConfigChangeManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_GetDnsConfigChangeManager_Name, kFlags, 0, 0, nullptr);
@@ -1989,14 +2044,17 @@ void NetworkServiceProxy::GetNetworkList(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_GetNetworkList_Name, kFlags, 0, 0, nullptr);
@@ -2021,14 +2079,17 @@ void NetworkServiceProxy::OnTrustStoreChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkService::OnTrustStoreChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_OnTrustStoreChanged_Name, kFlags, 0, 0, nullptr);
@@ -2051,14 +2112,17 @@ void NetworkServiceProxy::OnClientCertStoreChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkService::OnClientCertStoreChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_OnClientCertStoreChanged_Name, kFlags, 0, 0, nullptr);
@@ -2088,14 +2152,17 @@ void NetworkServiceProxy::SetEncryptionKey(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetEncryptionKey_Name, kFlags, 0, 0, nullptr);
@@ -2136,14 +2203,17 @@ void NetworkServiceProxy::OnMemoryPressure(
                         "<value of type ::base::MemoryPressureListener::MemoryPressureLevel>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_OnMemoryPressure_Name, kFlags, 0, 0, nullptr);
@@ -2175,14 +2245,17 @@ void NetworkServiceProxy::OnPeerToPeerConnectionsCountChange(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_OnPeerToPeerConnectionsCountChange_Name, kFlags, 0, 0, nullptr);
@@ -2201,56 +2274,6 @@ void NetworkServiceProxy::OnPeerToPeerConnectionsCountChange(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void NetworkServiceProxy::SetEnvironment(
-    std::vector<EnvironmentVariablePtr> in_environment) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send network::mojom::NetworkService::SetEnvironment", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("environment"), in_environment,
-                        "<value of type std::vector<EnvironmentVariablePtr>>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kNetworkService_SetEnvironment_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::network::mojom::internal::NetworkService_SetEnvironment_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->environment)::BaseType>
-      environment_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& environment_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::EnvironmentVariableDataView>>(
-      in_environment, environment_fragment, &environment_validate_params);
-  params->environment.Set(
-      environment_fragment.is_null() ? nullptr : environment_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->environment.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null environment in NetworkService.SetEnvironment request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(NetworkService::Name_);
-  message.set_method_name("SetEnvironment");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void NetworkServiceProxy::SetTrustTokenKeyCommitments(
     const std::string& in_raw_commitments, SetTrustTokenKeyCommitmentsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2263,14 +2286,17 @@ void NetworkServiceProxy::SetTrustTokenKeyCommitments(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetTrustTokenKeyCommitments_Name, kFlags, 0, 0, nullptr);
@@ -2305,14 +2331,17 @@ void NetworkServiceProxy::ClearSCTAuditingCache(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkService::ClearSCTAuditingCache");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_ClearSCTAuditingCache_Name, kFlags, 0, 0, nullptr);
@@ -2342,14 +2371,17 @@ void NetworkServiceProxy::ConfigureSCTAuditing(
                         "<value of type SCTAuditingConfigurationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_ConfigureSCTAuditing_Name, kFlags, 0, 0, nullptr);
@@ -2379,7 +2411,7 @@ void NetworkServiceProxy::ConfigureSCTAuditing(
 }
 
 void NetworkServiceProxy::UpdateCtLogList(
-    std::vector<::network::mojom::CTLogInfoPtr> in_log_list, ::base::Time in_update_time, UpdateCtLogListCallback callback) {
+    std::vector<::network::mojom::CTLogInfoPtr> in_log_list, UpdateCtLogListCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::NetworkService::UpdateCtLogList", "input_parameters",
@@ -2388,19 +2420,19 @@ void NetworkServiceProxy::UpdateCtLogList(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("log_list"), in_log_list,
                         "<value of type std::vector<::network::mojom::CTLogInfoPtr>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("update_time"), in_update_time,
-                        "<value of type ::base::Time>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_UpdateCtLogList_Name, kFlags, 0, 0, nullptr);
@@ -2421,17 +2453,6 @@ void NetworkServiceProxy::UpdateCtLogList(
       params->log_list.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null log_list in NetworkService.UpdateCtLogList request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->update_time)::BaseType> update_time_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
-      in_update_time, update_time_fragment);
-  params->update_time.Set(
-      update_time_fragment.is_null() ? nullptr : update_time_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->update_time.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null update_time in NetworkService.UpdateCtLogList request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkService::Name_);
@@ -2455,14 +2476,17 @@ void NetworkServiceProxy::UpdateCtKnownPopularSCTs(
                         "<value of type const std::vector<std::vector<uint8_t>>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_UpdateCtKnownPopularSCTs_Name, kFlags, 0, 0, nullptr);
@@ -2506,14 +2530,17 @@ void NetworkServiceProxy::SetCtEnforcementEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetCtEnforcementEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2548,14 +2575,17 @@ void NetworkServiceProxy::UpdateKeyPinsList(
                         "<value of type ::base::Time>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_UpdateKeyPinsList_Name, kFlags, 0, 0, nullptr);
@@ -2607,14 +2637,17 @@ void NetworkServiceProxy::BindTestInterfaceForTesting(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::NetworkServiceTest>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_BindTestInterfaceForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2650,14 +2683,17 @@ void NetworkServiceProxy::SetFirstPartySets(
                         "<value of type ::net::GlobalFirstPartySets>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetFirstPartySets_Name, kFlags, 0, 0, nullptr);
@@ -2698,14 +2734,17 @@ void NetworkServiceProxy::SetExplicitlyAllowedPorts(
                         "<value of type const std::vector<uint16_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetExplicitlyAllowedPorts_Name, kFlags, 0, 0, nullptr);
@@ -2748,14 +2787,17 @@ void NetworkServiceProxy::UpdateMaskedDomainList(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_UpdateMaskedDomainList_Name, kFlags, 0, 0, nullptr);
@@ -2799,14 +2841,17 @@ void NetworkServiceProxy::ParseHeaders(
                         "<value of type const ::scoped_refptr<::net::HttpResponseHeaders>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_ParseHeaders_Name, kFlags, 0, 0, nullptr);
@@ -2859,14 +2904,17 @@ void NetworkServiceProxy::EnableDataUseUpdates(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_EnableDataUseUpdates_Name, kFlags, 0, 0, nullptr);
@@ -2897,14 +2945,17 @@ void NetworkServiceProxy::SetIPv6ReachabilityOverride(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetIPv6ReachabilityOverride_Name, kFlags, 0, 0, nullptr);
@@ -2917,6 +2968,52 @@ void NetworkServiceProxy::SetIPv6ReachabilityOverride(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkService::Name_);
   message.set_method_name("SetIPv6ReachabilityOverride");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void NetworkServiceProxy::SetCookieEncryptionProvider(
+    ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> in_provider) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send network::mojom::NetworkService::SetCookieEncryptionProvider", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("provider"), in_provider,
+                        "<value of type ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNetworkService_SetCookieEncryptionProvider_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::network::mojom::internal::NetworkService_SetCookieEncryptionProvider_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::network::mojom::CookieEncryptionProviderInterfaceBase>>(
+      in_provider, &params->provider, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->provider),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid provider in NetworkService.SetCookieEncryptionProvider request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NetworkService::Name_);
+  message.set_method_name("SetCookieEncryptionProvider");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2968,7 +3065,7 @@ class NetworkService_GetNetworkList_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      const absl::optional<std::vector<::net::NetworkInterface>>& in_networks);
+      const std::optional<std::vector<::net::NetworkInterface>>& in_networks);
 };
 
 bool NetworkService_GetNetworkList_ForwardToCallback::Accept(
@@ -2981,7 +3078,7 @@ bool NetworkService_GetNetworkList_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<::net::NetworkInterface>> p_networks{};
+  std::optional<std::vector<::net::NetworkInterface>> p_networks{};
   NetworkService_GetNetworkList_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadNetworks(&p_networks))
@@ -3000,7 +3097,7 @@ std::move(p_networks));
 }
 
 void NetworkService_GetNetworkList_ProxyToResponder::Run(
-    const absl::optional<std::vector<::net::NetworkInterface>>& in_networks) {
+    const std::optional<std::vector<::net::NetworkInterface>>& in_networks) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply network::mojom::NetworkService::GetNetworkList", "async_response_parameters",
@@ -3008,13 +3105,14 @@ void NetworkService_GetNetworkList_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("networks"), in_networks,
-                        "<value of type const absl::optional<std::vector<::net::NetworkInterface>>&>");
+                        "<value of type const std::optional<std::vector<::net::NetworkInterface>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_GetNetworkList_Name, kFlags, 0, 0, nullptr);
@@ -3113,7 +3211,7 @@ bool NetworkService_SetTrustTokenKeyCommitments_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkService::Name_, 21, true);
+        NetworkService::Name_, 20, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3129,7 +3227,8 @@ void NetworkService_SetTrustTokenKeyCommitments_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetTrustTokenKeyCommitments_Name, kFlags, 0, 0, nullptr);
@@ -3219,7 +3318,7 @@ bool NetworkService_UpdateCtLogList_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkService::Name_, 24, true);
+        NetworkService::Name_, 23, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3235,7 +3334,8 @@ void NetworkService_UpdateCtLogList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_UpdateCtLogList_Name, kFlags, 0, 0, nullptr);
@@ -3325,7 +3425,7 @@ bool NetworkService_UpdateCtKnownPopularSCTs_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkService::Name_, 25, true);
+        NetworkService::Name_, 24, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3341,7 +3441,8 @@ void NetworkService_UpdateCtKnownPopularSCTs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_UpdateCtKnownPopularSCTs_Name, kFlags, 0, 0, nullptr);
@@ -3431,7 +3532,7 @@ bool NetworkService_SetCtEnforcementEnabled_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkService::Name_, 26, true);
+        NetworkService::Name_, 25, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3447,7 +3548,8 @@ void NetworkService_SetCtEnforcementEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_SetCtEnforcementEnabled_Name, kFlags, 0, 0, nullptr);
@@ -3540,7 +3642,7 @@ bool NetworkService_ParseHeaders_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkService::Name_, 32, true);
+        NetworkService::Name_, 31, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3564,7 +3666,8 @@ void NetworkService_ParseHeaders_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkService_ParseHeaders_Name, kFlags, 0, 0, nullptr);
@@ -4139,32 +4242,6 @@ std::move(p_memory_pressure_level));
 std::move(p_count));
       return true;
     }
-    case internal::kNetworkService_SetEnvironment_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::NetworkService_SetEnvironment_Params_Data* params =
-          reinterpret_cast<internal::NetworkService_SetEnvironment_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      std::vector<EnvironmentVariablePtr> p_environment{};
-      NetworkService_SetEnvironment_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadEnvironment(&p_environment))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 20, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetEnvironment(
-std::move(p_environment));
-      return true;
-    }
     case internal::kNetworkService_SetTrustTokenKeyCommitments_Name: {
       break;
     }
@@ -4182,7 +4259,7 @@ std::move(p_environment));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 22, false);
+            NetworkService::Name_, 21, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -4207,7 +4284,7 @@ std::move(p_environment));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 23, false);
+            NetworkService::Name_, 22, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -4245,7 +4322,7 @@ std::move(p_configuration));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 27, false);
+            NetworkService::Name_, 26, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -4274,7 +4351,7 @@ std::move(p_update_time));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 28, false);
+            NetworkService::Name_, 27, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -4300,7 +4377,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 29, false);
+            NetworkService::Name_, 28, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -4326,7 +4403,7 @@ std::move(p_sets));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 30, false);
+            NetworkService::Name_, 29, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -4352,7 +4429,7 @@ std::move(p_ports));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 31, false);
+            NetworkService::Name_, 30, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -4381,7 +4458,7 @@ std::move(p_raw_mdl));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 33, false);
+            NetworkService::Name_, 32, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -4407,13 +4484,41 @@ std::move(p_enable));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 34, false);
+            NetworkService::Name_, 33, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->SetIPv6ReachabilityOverride(
 std::move(p_reachability_override));
+      return true;
+    }
+    case internal::kNetworkService_SetCookieEncryptionProvider_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::NetworkService_SetCookieEncryptionProvider_Params_Data* params =
+          reinterpret_cast<internal::NetworkService_SetCookieEncryptionProvider_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> p_provider{};
+      NetworkService_SetCookieEncryptionProvider_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_provider =
+            input_data_view.TakeProvider<decltype(p_provider)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NetworkService::Name_, 34, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetCookieEncryptionProvider(
+std::move(p_provider));
       return true;
     }
   }
@@ -4515,9 +4620,6 @@ std::move(p_policy), std::move(callback));
     case internal::kNetworkService_OnPeerToPeerConnectionsCountChange_Name: {
       break;
     }
-    case internal::kNetworkService_SetEnvironment_Name: {
-      break;
-    }
     case internal::kNetworkService_SetTrustTokenKeyCommitments_Name: {
 
       internal::NetworkService_SetTrustTokenKeyCommitments_Params_Data* params =
@@ -4535,7 +4637,7 @@ std::move(p_policy), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 21, false);
+            NetworkService::Name_, 20, false);
         return false;
       }
       NetworkService::SetTrustTokenKeyCommitmentsCallback callback =
@@ -4562,18 +4664,15 @@ std::move(p_raw_commitments), std::move(callback));
       
       bool success = true;
       std::vector<::network::mojom::CTLogInfoPtr> p_log_list{};
-      ::base::Time p_update_time{};
       NetworkService_UpdateCtLogList_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLogList(&p_log_list))
-        success = false;
-      if (success && !input_data_view.ReadUpdateTime(&p_update_time))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 24, false);
+            NetworkService::Name_, 23, false);
         return false;
       }
       NetworkService::UpdateCtLogListCallback callback =
@@ -4582,8 +4681,7 @@ std::move(p_raw_commitments), std::move(callback));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->UpdateCtLogList(
-std::move(p_log_list), 
-std::move(p_update_time), std::move(callback));
+std::move(p_log_list), std::move(callback));
       return true;
     }
     case internal::kNetworkService_UpdateCtKnownPopularSCTs_Name: {
@@ -4603,7 +4701,7 @@ std::move(p_update_time), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 25, false);
+            NetworkService::Name_, 24, false);
         return false;
       }
       NetworkService::UpdateCtKnownPopularSCTsCallback callback =
@@ -4632,7 +4730,7 @@ std::move(p_sct_hashes), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 26, false);
+            NetworkService::Name_, 25, false);
         return false;
       }
       NetworkService::SetCtEnforcementEnabledCallback callback =
@@ -4679,7 +4777,7 @@ std::move(p_enabled), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkService::Name_, 32, false);
+            NetworkService::Name_, 31, false);
         return false;
       }
       NetworkService::ParseHeadersCallback callback =
@@ -4698,81 +4796,84 @@ std::move(p_headers), std::move(callback));
     case internal::kNetworkService_SetIPv6ReachabilityOverride_Name: {
       break;
     }
+    case internal::kNetworkService_SetCookieEncryptionProvider_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkServiceValidationInfo[] = {
-    {&internal::NetworkService_SetParams_Params_Data::Validate,
+    { &internal::NetworkService_SetParams_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_StartNetLog_Params_Data::Validate,
+    { &internal::NetworkService_StartNetLog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_AttachNetLogProxy_Params_Data::Validate,
+    { &internal::NetworkService_AttachNetLogProxy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_SetSSLKeyLogFile_Params_Data::Validate,
+    { &internal::NetworkService_SetSSLKeyLogFile_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_CreateNetworkContext_Params_Data::Validate,
+    { &internal::NetworkService_CreateNetworkContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_ConfigureStubHostResolver_Params_Data::Validate,
+    { &internal::NetworkService_ConfigureStubHostResolver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_DisableQuic_Params_Data::Validate,
+    { &internal::NetworkService_DisableQuic_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_SetUpHttpAuth_Params_Data::Validate,
+    { &internal::NetworkService_SetUpHttpAuth_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_ConfigureHttpAuthPrefs_Params_Data::Validate,
+    { &internal::NetworkService_ConfigureHttpAuthPrefs_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_SetRawHeadersAccess_Params_Data::Validate,
+    { &internal::NetworkService_SetRawHeadersAccess_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_SetMaxConnectionsPerProxy_Params_Data::Validate,
+    { &internal::NetworkService_SetMaxConnectionsPerProxy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_GetNetworkChangeManager_Params_Data::Validate,
+    { &internal::NetworkService_GetNetworkChangeManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_GetNetworkQualityEstimatorManager_Params_Data::Validate,
+    { &internal::NetworkService_GetNetworkQualityEstimatorManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_GetDnsConfigChangeManager_Params_Data::Validate,
+    { &internal::NetworkService_GetDnsConfigChangeManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_GetNetworkList_Params_Data::Validate,
+    { &internal::NetworkService_GetNetworkList_Params_Data::Validate,
      &internal::NetworkService_GetNetworkList_ResponseParams_Data::Validate},
-    {&internal::NetworkService_OnTrustStoreChanged_Params_Data::Validate,
+    { &internal::NetworkService_OnTrustStoreChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_OnClientCertStoreChanged_Params_Data::Validate,
+    { &internal::NetworkService_OnClientCertStoreChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_SetEncryptionKey_Params_Data::Validate,
+    { &internal::NetworkService_SetEncryptionKey_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_OnMemoryPressure_Params_Data::Validate,
+    { &internal::NetworkService_OnMemoryPressure_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_OnPeerToPeerConnectionsCountChange_Params_Data::Validate,
+    { &internal::NetworkService_OnPeerToPeerConnectionsCountChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_SetEnvironment_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::NetworkService_SetTrustTokenKeyCommitments_Params_Data::Validate,
+    { &internal::NetworkService_SetTrustTokenKeyCommitments_Params_Data::Validate,
      &internal::NetworkService_SetTrustTokenKeyCommitments_ResponseParams_Data::Validate},
-    {&internal::NetworkService_ClearSCTAuditingCache_Params_Data::Validate,
+    { &internal::NetworkService_ClearSCTAuditingCache_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_ConfigureSCTAuditing_Params_Data::Validate,
+    { &internal::NetworkService_ConfigureSCTAuditing_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_UpdateCtLogList_Params_Data::Validate,
+    { &internal::NetworkService_UpdateCtLogList_Params_Data::Validate,
      &internal::NetworkService_UpdateCtLogList_ResponseParams_Data::Validate},
-    {&internal::NetworkService_UpdateCtKnownPopularSCTs_Params_Data::Validate,
+    { &internal::NetworkService_UpdateCtKnownPopularSCTs_Params_Data::Validate,
      &internal::NetworkService_UpdateCtKnownPopularSCTs_ResponseParams_Data::Validate},
-    {&internal::NetworkService_SetCtEnforcementEnabled_Params_Data::Validate,
+    { &internal::NetworkService_SetCtEnforcementEnabled_Params_Data::Validate,
      &internal::NetworkService_SetCtEnforcementEnabled_ResponseParams_Data::Validate},
-    {&internal::NetworkService_UpdateKeyPinsList_Params_Data::Validate,
+    { &internal::NetworkService_UpdateKeyPinsList_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_BindTestInterfaceForTesting_Params_Data::Validate,
+    { &internal::NetworkService_BindTestInterfaceForTesting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_SetFirstPartySets_Params_Data::Validate,
+    { &internal::NetworkService_SetFirstPartySets_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_SetExplicitlyAllowedPorts_Params_Data::Validate,
+    { &internal::NetworkService_SetExplicitlyAllowedPorts_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_UpdateMaskedDomainList_Params_Data::Validate,
+    { &internal::NetworkService_UpdateMaskedDomainList_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_ParseHeaders_Params_Data::Validate,
+    { &internal::NetworkService_ParseHeaders_Params_Data::Validate,
      &internal::NetworkService_ParseHeaders_ResponseParams_Data::Validate},
-    {&internal::NetworkService_EnableDataUseUpdates_Params_Data::Validate,
+    { &internal::NetworkService_EnableDataUseUpdates_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkService_SetIPv6ReachabilityOverride_Params_Data::Validate,
+    { &internal::NetworkService_SetIPv6ReachabilityOverride_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::NetworkService_SetCookieEncryptionProvider_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4880,6 +4981,8 @@ bool StructTraits<::network::mojom::NetworkServiceParams::DataView, ::network::m
         result->system_dns_resolver =
             input.TakeSystemDnsResolver<decltype(result->system_dns_resolver)>();
       }
+      if (success && !input.ReadIpProtectionProxyBypassPolicy(&result->ip_protection_proxy_bypass_policy))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -4980,9 +5083,6 @@ void NetworkServiceInterceptorForTesting::OnMemoryPressure(::base::MemoryPressur
 void NetworkServiceInterceptorForTesting::OnPeerToPeerConnectionsCountChange(uint32_t count) {
   GetForwardingInterface()->OnPeerToPeerConnectionsCountChange(std::move(count));
 }
-void NetworkServiceInterceptorForTesting::SetEnvironment(std::vector<EnvironmentVariablePtr> environment) {
-  GetForwardingInterface()->SetEnvironment(std::move(environment));
-}
 void NetworkServiceInterceptorForTesting::SetTrustTokenKeyCommitments(const std::string& raw_commitments, SetTrustTokenKeyCommitmentsCallback callback) {
   GetForwardingInterface()->SetTrustTokenKeyCommitments(std::move(raw_commitments), std::move(callback));
 }
@@ -4992,8 +5092,8 @@ void NetworkServiceInterceptorForTesting::ClearSCTAuditingCache() {
 void NetworkServiceInterceptorForTesting::ConfigureSCTAuditing(SCTAuditingConfigurationPtr configuration) {
   GetForwardingInterface()->ConfigureSCTAuditing(std::move(configuration));
 }
-void NetworkServiceInterceptorForTesting::UpdateCtLogList(std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time, UpdateCtLogListCallback callback) {
-  GetForwardingInterface()->UpdateCtLogList(std::move(log_list), std::move(update_time), std::move(callback));
+void NetworkServiceInterceptorForTesting::UpdateCtLogList(std::vector<::network::mojom::CTLogInfoPtr> log_list, UpdateCtLogListCallback callback) {
+  GetForwardingInterface()->UpdateCtLogList(std::move(log_list), std::move(callback));
 }
 void NetworkServiceInterceptorForTesting::UpdateCtKnownPopularSCTs(const std::vector<std::vector<uint8_t>>& sct_hashes, UpdateCtKnownPopularSCTsCallback callback) {
   GetForwardingInterface()->UpdateCtKnownPopularSCTs(std::move(sct_hashes), std::move(callback));
@@ -5025,20 +5125,23 @@ void NetworkServiceInterceptorForTesting::EnableDataUseUpdates(bool enable) {
 void NetworkServiceInterceptorForTesting::SetIPv6ReachabilityOverride(bool reachability_override) {
   GetForwardingInterface()->SetIPv6ReachabilityOverride(std::move(reachability_override));
 }
+void NetworkServiceInterceptorForTesting::SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> provider) {
+  GetForwardingInterface()->SetCookieEncryptionProvider(std::move(provider));
+}
 NetworkServiceAsyncWaiter::NetworkServiceAsyncWaiter(
     NetworkService* proxy) : proxy_(proxy) {}
 
 NetworkServiceAsyncWaiter::~NetworkServiceAsyncWaiter() = default;
 
 void NetworkServiceAsyncWaiter::GetNetworkList(
-    uint32_t policy, absl::optional<std::vector<::net::NetworkInterface>>* out_networks) {
+    uint32_t policy, std::optional<std::vector<::net::NetworkInterface>>* out_networks) {
   base::RunLoop loop;
   proxy_->GetNetworkList(std::move(policy),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<::net::NetworkInterface>>* out_networks
+             std::optional<std::vector<::net::NetworkInterface>>* out_networks
 ,
-             const absl::optional<std::vector<::net::NetworkInterface>>& networks) {*out_networks = std::move(networks);
+             const std::optional<std::vector<::net::NetworkInterface>>& networks) {*out_networks = std::move(networks);
             loop->Quit();
           },
           &loop,
@@ -5046,9 +5149,9 @@ void NetworkServiceAsyncWaiter::GetNetworkList(
   loop.Run();
 }
 
-absl::optional<std::vector<::net::NetworkInterface>> NetworkServiceAsyncWaiter::GetNetworkList(
+std::optional<std::vector<::net::NetworkInterface>> NetworkServiceAsyncWaiter::GetNetworkList(
     uint32_t policy) {
-  absl::optional<std::vector<::net::NetworkInterface>> async_wait_result;
+  std::optional<std::vector<::net::NetworkInterface>> async_wait_result;
   GetNetworkList(std::move(policy),&async_wait_result);
   return async_wait_result;
 }
@@ -5068,9 +5171,9 @@ void NetworkServiceAsyncWaiter::SetTrustTokenKeyCommitments(
 
 
 void NetworkServiceAsyncWaiter::UpdateCtLogList(
-    std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time) {
+    std::vector<::network::mojom::CTLogInfoPtr> log_list) {
   base::RunLoop loop;
-  proxy_->UpdateCtLogList(std::move(log_list),std::move(update_time),
+  proxy_->UpdateCtLogList(std::move(log_list),
       base::BindOnce(
           [](base::RunLoop* loop) {
             loop->Quit();

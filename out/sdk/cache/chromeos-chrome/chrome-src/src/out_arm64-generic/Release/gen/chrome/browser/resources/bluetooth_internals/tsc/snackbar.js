@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/js/assert.js';
 import { CustomElement } from 'chrome://resources/js/custom_element.js';
-import { listenOnce } from 'chrome://resources/js/util_ts.js';
+import { listenOnce } from 'chrome://resources/js/util.js';
 import { getTemplate } from './snackbar.html.js';
 /**
  * Javascript for Snackbar controls, served from chrome://bluetooth-internals/.

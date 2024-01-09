@@ -251,18 +251,37 @@ bool OptimizationType_IsValid(int value) {
     case 33:
     case 34:
     case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 41:
+    case 42:
+    case 43:
+    case 44:
+    case 45:
+    case 46:
+    case 47:
+    case 48:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OptimizationType_strings[32] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OptimizationType_strings[45] = {};
 
 static const char OptimizationType_names[] =
   "ABOUT_THIS_SITE"
+  "AMERICAN_EXPRESS_CREDIT_CARD_FLIGHT_BENEFITS"
+  "AMERICAN_EXPRESS_CREDIT_CARD_SUBSCRIPTION_BENEFITS"
   "AUTOFILL_SAMPLING_RATE"
   "BLOOM_FILTER_VALIDATION"
+  "CAPITAL_ONE_CREDIT_CARD_DINING_BENEFITS"
+  "CAPITAL_ONE_CREDIT_CARD_ENTERTAINMENT_BENEFITS"
+  "CAPITAL_ONE_CREDIT_CARD_GROCERY_BENEFITS"
+  "CAPITAL_ONE_CREDIT_CARD_STREAMING_BENEFITS"
   "COMPOSE"
   "COMPRESS_PUBLIC_IMAGES"
   "DEFER_ALL_SCRIPT"
@@ -281,10 +300,17 @@ static const char OptimizationType_names[] =
   "PAGE_ENTITIES"
   "PAGE_INSIGHTS"
   "PERFORMANCE_HINTS"
+  "PIX_PAYMENT_MERCHANT_ALLOWLIST"
   "PRICE_INSIGHTS"
   "PRICE_TRACKING"
   "RESOURCE_LOADING"
   "SALIENT_IMAGE"
+  "SHARED_CREDIT_CARD_DINING_BENEFITS"
+  "SHARED_CREDIT_CARD_ENTERTAINMENT_BENEFITS"
+  "SHARED_CREDIT_CARD_FLIGHT_BENEFITS"
+  "SHARED_CREDIT_CARD_GROCERY_BENEFITS"
+  "SHARED_CREDIT_CARD_STREAMING_BENEFITS"
+  "SHARED_CREDIT_CARD_SUBSCRIPTION_BENEFITS"
   "SHOPPING_DISCOUNTS"
   "SHOPPING_PAGE_PREDICTOR"
   "SHOPPING_PAGE_TYPES"
@@ -295,72 +321,98 @@ static const char OptimizationType_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OptimizationType_entries[] = {
   { {OptimizationType_names + 0, 15}, 20 },
-  { {OptimizationType_names + 15, 22}, 27 },
-  { {OptimizationType_names + 37, 23}, 19 },
-  { {OptimizationType_names + 60, 7}, 35 },
-  { {OptimizationType_names + 67, 22}, 8 },
-  { {OptimizationType_names + 89, 16}, 5 },
-  { {OptimizationType_names + 105, 15}, 10 },
-  { {OptimizationType_names + 120, 16}, 23 },
-  { {OptimizationType_names + 136, 21}, 25 },
-  { {OptimizationType_names + 157, 16}, 14 },
-  { {OptimizationType_names + 173, 9}, 7 },
-  { {OptimizationType_names + 182, 18}, 3 },
-  { {OptimizationType_names + 200, 10}, 13 },
-  { {OptimizationType_names + 210, 17}, 9 },
-  { {OptimizationType_names + 227, 22}, 17 },
-  { {OptimizationType_names + 249, 25}, 21 },
-  { {OptimizationType_names + 274, 25}, 4 },
-  { {OptimizationType_names + 299, 8}, 1 },
-  { {OptimizationType_names + 307, 13}, 22 },
-  { {OptimizationType_names + 320, 13}, 32 },
-  { {OptimizationType_names + 333, 17}, 6 },
-  { {OptimizationType_names + 350, 14}, 30 },
-  { {OptimizationType_names + 364, 14}, 18 },
-  { {OptimizationType_names + 378, 16}, 2 },
-  { {OptimizationType_names + 394, 13}, 26 },
-  { {OptimizationType_names + 407, 18}, 34 },
-  { {OptimizationType_names + 425, 23}, 15 },
-  { {OptimizationType_names + 448, 19}, 33 },
-  { {OptimizationType_names + 467, 22}, 24 },
-  { {OptimizationType_names + 489, 16}, 0 },
-  { {OptimizationType_names + 505, 16}, 31 },
-  { {OptimizationType_names + 521, 25}, 28 },
+  { {OptimizationType_names + 15, 44}, 47 },
+  { {OptimizationType_names + 59, 50}, 48 },
+  { {OptimizationType_names + 109, 22}, 27 },
+  { {OptimizationType_names + 131, 23}, 19 },
+  { {OptimizationType_names + 154, 39}, 43 },
+  { {OptimizationType_names + 193, 46}, 45 },
+  { {OptimizationType_names + 239, 40}, 44 },
+  { {OptimizationType_names + 279, 42}, 46 },
+  { {OptimizationType_names + 321, 7}, 35 },
+  { {OptimizationType_names + 328, 22}, 8 },
+  { {OptimizationType_names + 350, 16}, 5 },
+  { {OptimizationType_names + 366, 15}, 10 },
+  { {OptimizationType_names + 381, 16}, 23 },
+  { {OptimizationType_names + 397, 21}, 25 },
+  { {OptimizationType_names + 418, 16}, 14 },
+  { {OptimizationType_names + 434, 9}, 7 },
+  { {OptimizationType_names + 443, 18}, 3 },
+  { {OptimizationType_names + 461, 10}, 13 },
+  { {OptimizationType_names + 471, 17}, 9 },
+  { {OptimizationType_names + 488, 22}, 17 },
+  { {OptimizationType_names + 510, 25}, 21 },
+  { {OptimizationType_names + 535, 25}, 4 },
+  { {OptimizationType_names + 560, 8}, 1 },
+  { {OptimizationType_names + 568, 13}, 22 },
+  { {OptimizationType_names + 581, 13}, 32 },
+  { {OptimizationType_names + 594, 17}, 6 },
+  { {OptimizationType_names + 611, 30}, 36 },
+  { {OptimizationType_names + 641, 14}, 30 },
+  { {OptimizationType_names + 655, 14}, 18 },
+  { {OptimizationType_names + 669, 16}, 2 },
+  { {OptimizationType_names + 685, 13}, 26 },
+  { {OptimizationType_names + 698, 34}, 38 },
+  { {OptimizationType_names + 732, 41}, 40 },
+  { {OptimizationType_names + 773, 34}, 37 },
+  { {OptimizationType_names + 807, 35}, 39 },
+  { {OptimizationType_names + 842, 37}, 41 },
+  { {OptimizationType_names + 879, 40}, 42 },
+  { {OptimizationType_names + 919, 18}, 34 },
+  { {OptimizationType_names + 937, 23}, 15 },
+  { {OptimizationType_names + 960, 19}, 33 },
+  { {OptimizationType_names + 979, 22}, 24 },
+  { {OptimizationType_names + 1001, 16}, 0 },
+  { {OptimizationType_names + 1017, 16}, 31 },
+  { {OptimizationType_names + 1033, 25}, 28 },
 };
 
 static const int OptimizationType_entries_by_number[] = {
-  29, // 0 -> TYPE_UNSPECIFIED
-  17, // 1 -> NOSCRIPT
-  23, // 2 -> RESOURCE_LOADING
-  11, // 3 -> LITE_PAGE_REDIRECT
-  16, // 4 -> METADATA_FETCH_VALIDATION
-  5, // 5 -> DEFER_ALL_SCRIPT
-  20, // 6 -> PERFORMANCE_HINTS
-  10, // 7 -> LITE_PAGE
-  4, // 8 -> COMPRESS_PUBLIC_IMAGES
-  13, // 9 -> LOADING_PREDICTOR
-  6, // 10 -> FAST_HOST_HINTS
-  12, // 13 -> LITE_VIDEO
-  9, // 14 -> LINK_PERFORMANCE
-  26, // 15 -> SHOPPING_PAGE_PREDICTOR
-  14, // 17 -> MERCHANT_TRUST_SIGNALS
-  22, // 18 -> PRICE_TRACKING
-  2, // 19 -> BLOOM_FILTER_VALIDATION
+  42, // 0 -> TYPE_UNSPECIFIED
+  23, // 1 -> NOSCRIPT
+  30, // 2 -> RESOURCE_LOADING
+  17, // 3 -> LITE_PAGE_REDIRECT
+  22, // 4 -> METADATA_FETCH_VALIDATION
+  11, // 5 -> DEFER_ALL_SCRIPT
+  26, // 6 -> PERFORMANCE_HINTS
+  16, // 7 -> LITE_PAGE
+  10, // 8 -> COMPRESS_PUBLIC_IMAGES
+  19, // 9 -> LOADING_PREDICTOR
+  12, // 10 -> FAST_HOST_HINTS
+  18, // 13 -> LITE_VIDEO
+  15, // 14 -> LINK_PERFORMANCE
+  39, // 15 -> SHOPPING_PAGE_PREDICTOR
+  20, // 17 -> MERCHANT_TRUST_SIGNALS
+  29, // 18 -> PRICE_TRACKING
+  4, // 19 -> BLOOM_FILTER_VALIDATION
   0, // 20 -> ABOUT_THIS_SITE
-  15, // 21 -> MERCHANT_TRUST_SIGNALS_V2
-  18, // 22 -> PAGE_ENTITIES
-  7, // 23 -> HISTORY_CLUSTERS
-  28, // 24 -> THANK_CREATOR_ELIGIBLE
-  8, // 25 -> IBAN_AUTOFILL_BLOCKED
-  24, // 26 -> SALIENT_IMAGE
-  1, // 27 -> AUTOFILL_SAMPLING_RATE
-  31, // 28 -> VCN_MERCHANT_OPT_OUT_VISA
-  21, // 30 -> PRICE_INSIGHTS
-  30, // 31 -> V8_COMPILE_HINTS
-  19, // 32 -> PAGE_INSIGHTS
-  27, // 33 -> SHOPPING_PAGE_TYPES
-  25, // 34 -> SHOPPING_DISCOUNTS
-  3, // 35 -> COMPOSE
+  21, // 21 -> MERCHANT_TRUST_SIGNALS_V2
+  24, // 22 -> PAGE_ENTITIES
+  13, // 23 -> HISTORY_CLUSTERS
+  41, // 24 -> THANK_CREATOR_ELIGIBLE
+  14, // 25 -> IBAN_AUTOFILL_BLOCKED
+  31, // 26 -> SALIENT_IMAGE
+  3, // 27 -> AUTOFILL_SAMPLING_RATE
+  44, // 28 -> VCN_MERCHANT_OPT_OUT_VISA
+  28, // 30 -> PRICE_INSIGHTS
+  43, // 31 -> V8_COMPILE_HINTS
+  25, // 32 -> PAGE_INSIGHTS
+  40, // 33 -> SHOPPING_PAGE_TYPES
+  38, // 34 -> SHOPPING_DISCOUNTS
+  9, // 35 -> COMPOSE
+  27, // 36 -> PIX_PAYMENT_MERCHANT_ALLOWLIST
+  34, // 37 -> SHARED_CREDIT_CARD_FLIGHT_BENEFITS
+  32, // 38 -> SHARED_CREDIT_CARD_DINING_BENEFITS
+  35, // 39 -> SHARED_CREDIT_CARD_GROCERY_BENEFITS
+  33, // 40 -> SHARED_CREDIT_CARD_ENTERTAINMENT_BENEFITS
+  36, // 41 -> SHARED_CREDIT_CARD_STREAMING_BENEFITS
+  37, // 42 -> SHARED_CREDIT_CARD_SUBSCRIPTION_BENEFITS
+  5, // 43 -> CAPITAL_ONE_CREDIT_CARD_DINING_BENEFITS
+  7, // 44 -> CAPITAL_ONE_CREDIT_CARD_GROCERY_BENEFITS
+  6, // 45 -> CAPITAL_ONE_CREDIT_CARD_ENTERTAINMENT_BENEFITS
+  8, // 46 -> CAPITAL_ONE_CREDIT_CARD_STREAMING_BENEFITS
+  1, // 47 -> AMERICAN_EXPRESS_CREDIT_CARD_FLIGHT_BENEFITS
+  2, // 48 -> AMERICAN_EXPRESS_CREDIT_CARD_SUBSCRIPTION_BENEFITS
 };
 
 const std::string& OptimizationType_Name(
@@ -369,12 +421,12 @@ const std::string& OptimizationType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           OptimizationType_entries,
           OptimizationType_entries_by_number,
-          32, OptimizationType_strings);
+          45, OptimizationType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       OptimizationType_entries,
       OptimizationType_entries_by_number,
-      32, value);
+      45, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      OptimizationType_strings[idx].get();
 }
@@ -382,7 +434,7 @@ bool OptimizationType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OptimizationType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      OptimizationType_entries, 32, name, &int_value);
+      OptimizationType_entries, 45, name, &int_value);
   if (success) {
     *value = static_cast<OptimizationType>(int_value);
   }

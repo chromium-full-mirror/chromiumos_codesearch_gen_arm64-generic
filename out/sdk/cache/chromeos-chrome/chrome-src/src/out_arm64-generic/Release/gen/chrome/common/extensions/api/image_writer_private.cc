@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/image_writer_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,21 +37,21 @@ namespace image_writer_private {
 
 const char* ToString(Stage enum_param) {
   switch (enum_param) {
-    case STAGE_CONFIRMATION:
+    case Stage::kConfirmation:
       return "confirmation";
-    case STAGE_DOWNLOAD:
+    case Stage::kDownload:
       return "download";
-    case STAGE_VERIFYDOWNLOAD:
+    case Stage::kVerifyDownload:
       return "verifyDownload";
-    case STAGE_UNZIP:
+    case Stage::kUnzip:
       return "unzip";
-    case STAGE_WRITE:
+    case Stage::kWrite:
       return "write";
-    case STAGE_VERIFYWRITE:
+    case Stage::kVerifyWrite:
       return "verifyWrite";
-    case STAGE_UNKNOWN:
+    case Stage::kUnknown:
       return "unknown";
-    case STAGE_NONE:
+    case Stage::kNone:
       return "";
   }
   NOTREACHED();
@@ -59,20 +60,20 @@ const char* ToString(Stage enum_param) {
 
 Stage ParseStage(base::StringPiece enum_string) {
   if (enum_string == "confirmation")
-    return STAGE_CONFIRMATION;
+    return Stage::kConfirmation;
   if (enum_string == "download")
-    return STAGE_DOWNLOAD;
+    return Stage::kDownload;
   if (enum_string == "verifyDownload")
-    return STAGE_VERIFYDOWNLOAD;
+    return Stage::kVerifyDownload;
   if (enum_string == "unzip")
-    return STAGE_UNZIP;
+    return Stage::kUnzip;
   if (enum_string == "write")
-    return STAGE_WRITE;
+    return Stage::kWrite;
   if (enum_string == "verifyWrite")
-    return STAGE_VERIFYWRITE;
+    return Stage::kVerifyWrite;
   if (enum_string == "unknown")
-    return STAGE_UNKNOWN;
-  return STAGE_NONE;
+    return Stage::kUnknown;
+  return Stage::kNone;
 }
 
 std::u16string GetStageParseError(base::StringPiece enum_string) {
@@ -84,8 +85,8 @@ UrlWriteOptions::UrlWriteOptions()
  {}
 
 UrlWriteOptions::~UrlWriteOptions() = default;
-UrlWriteOptions::UrlWriteOptions(UrlWriteOptions&& rhs) = default;
-UrlWriteOptions& UrlWriteOptions::operator=(UrlWriteOptions&& rhs) = default;
+UrlWriteOptions::UrlWriteOptions(UrlWriteOptions&& rhs) noexcept = default;
+UrlWriteOptions& UrlWriteOptions::operator=(UrlWriteOptions&& rhs) noexcept = default;
 UrlWriteOptions UrlWriteOptions::Clone() const {
   UrlWriteOptions out;
   out.image_hash = image_hash;
@@ -101,7 +102,7 @@ bool UrlWriteOptions::Populate(
     {
       auto* temp = (*image_hash_value).GetIfString();
       if (!temp) {
-        out.image_hash = absl::nullopt;
+        out.image_hash = std::nullopt;
         return false;
       }
       out.image_hash = *temp;
@@ -113,7 +114,7 @@ bool UrlWriteOptions::Populate(
     {
       auto temp = (*save_as_download_value).GetIfBool();
       if (!temp.has_value()) {
-        out.save_as_download = absl::nullopt;
+        out.save_as_download = std::nullopt;
         return false;
       }
       out.save_as_download = *temp;
@@ -133,34 +134,21 @@ bool UrlWriteOptions::Populate(
 }
 
 // static
-std::unique_ptr<UrlWriteOptions> UrlWriteOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UrlWriteOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UrlWriteOptions> UrlWriteOptions::FromValue(const base::Value::Dict& value) {
+  UrlWriteOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UrlWriteOptions> UrlWriteOptions::FromValue(const base::Value::Dict& value) {
+std::optional<UrlWriteOptions> UrlWriteOptions::FromValue(const base::Value& value) {
   UrlWriteOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UrlWriteOptions> UrlWriteOptions::FromValue(const base::Value& value) {
-  UrlWriteOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -186,8 +174,8 @@ ProgressInfo::ProgressInfo()
 percent_complete(0) {}
 
 ProgressInfo::~ProgressInfo() = default;
-ProgressInfo::ProgressInfo(ProgressInfo&& rhs) = default;
-ProgressInfo& ProgressInfo::operator=(ProgressInfo&& rhs) = default;
+ProgressInfo::ProgressInfo(ProgressInfo&& rhs) noexcept = default;
+ProgressInfo& ProgressInfo::operator=(ProgressInfo&& rhs) noexcept = default;
 ProgressInfo ProgressInfo::Clone() const {
   ProgressInfo out;
   out.stage = stage;
@@ -238,34 +226,21 @@ bool ProgressInfo::Populate(
 }
 
 // static
-std::unique_ptr<ProgressInfo> ProgressInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProgressInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProgressInfo> ProgressInfo::FromValue(const base::Value::Dict& value) {
+  ProgressInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProgressInfo> ProgressInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ProgressInfo> ProgressInfo::FromValue(const base::Value& value) {
   ProgressInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProgressInfo> ProgressInfo::FromValue(const base::Value& value) {
-  ProgressInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -287,8 +262,8 @@ RemovableStorageDevice::RemovableStorageDevice()
 removable(false) {}
 
 RemovableStorageDevice::~RemovableStorageDevice() = default;
-RemovableStorageDevice::RemovableStorageDevice(RemovableStorageDevice&& rhs) = default;
-RemovableStorageDevice& RemovableStorageDevice::operator=(RemovableStorageDevice&& rhs) = default;
+RemovableStorageDevice::RemovableStorageDevice(RemovableStorageDevice&& rhs) noexcept = default;
+RemovableStorageDevice& RemovableStorageDevice::operator=(RemovableStorageDevice&& rhs) noexcept = default;
 RemovableStorageDevice RemovableStorageDevice::Clone() const {
   RemovableStorageDevice out;
   out.storage_unit_id = storage_unit_id;
@@ -375,34 +350,21 @@ bool RemovableStorageDevice::Populate(
 }
 
 // static
-std::unique_ptr<RemovableStorageDevice> RemovableStorageDevice::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RemovableStorageDevice>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RemovableStorageDevice> RemovableStorageDevice::FromValue(const base::Value::Dict& value) {
+  RemovableStorageDevice out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RemovableStorageDevice> RemovableStorageDevice::FromValue(const base::Value::Dict& value) {
+std::optional<RemovableStorageDevice> RemovableStorageDevice::FromValue(const base::Value& value) {
   RemovableStorageDevice out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RemovableStorageDevice> RemovableStorageDevice::FromValue(const base::Value& value) {
-  RemovableStorageDevice out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -434,13 +396,13 @@ namespace WriteFromUrl {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -450,13 +412,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = storage_unit_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.storage_unit_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -465,13 +427,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = image_url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.image_url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -479,12 +441,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[2];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         UrlWriteOptions temp;
         if (!UrlWriteOptions::Populate(options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.options = std::move(temp);
       }
     }
@@ -507,8 +469,8 @@ Params::FileEntry::FileEntry()
  {}
 
 Params::FileEntry::~FileEntry() = default;
-Params::FileEntry::FileEntry(FileEntry&& rhs) = default;
-Params::FileEntry& Params::FileEntry::operator=(FileEntry&& rhs) = default;
+Params::FileEntry::FileEntry(FileEntry&& rhs) noexcept = default;
+Params::FileEntry& Params::FileEntry::operator=(FileEntry&& rhs) noexcept = default;
 Params::FileEntry Params::FileEntry::Clone() const {
   FileEntry out;
   return out;
@@ -531,21 +493,21 @@ bool Params::FileEntry::Populate(
 }
 
 // static
-absl::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value::Dict& value) {
+std::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value::Dict& value) {
   FileEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value& value) {
+std::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value& value) {
   FileEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -553,13 +515,13 @@ absl::optional<Params::FileEntry> Params::FileEntry::FromValue(const base::Value
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -569,13 +531,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = storage_unit_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.storage_unit_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -583,15 +545,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& file_entry_value = args[1];
     {
       if (!file_entry_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!FileEntry::Populate(file_entry_value.GetDict(), params.file_entry)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -618,13 +580,13 @@ namespace DestroyPartitions {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -634,13 +596,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = storage_unit_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.storage_unit_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -117,14 +118,17 @@ void MediaPerceptionServiceProxy::GetController(
                         "<value of type ::mojo::PendingRemote<MediaPerceptionControllerClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaPerceptionService_GetController_Name, kFlags, 0, 0, nullptr);
@@ -212,10 +216,10 @@ bool MediaPerceptionServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaPerceptionServiceValidationInfo[] = {
-    {&internal::MediaPerceptionService_GetController_Params_Data::Validate,
+    { &internal::MediaPerceptionService_GetController_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -295,14 +299,17 @@ void MediaPerceptionControllerProxy::ActivateMediaPerception(
                         "<value of type ::mojo::PendingReceiver<::chromeos::media_perception::mojom::MediaPerception>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaPerceptionController_ActivateMediaPerception_Name, kFlags, 0, 0, nullptr);
@@ -378,10 +385,10 @@ bool MediaPerceptionControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaPerceptionControllerValidationInfo[] = {
-    {&internal::MediaPerceptionController_ActivateMediaPerception_Params_Data::Validate,
+    { &internal::MediaPerceptionController_ActivateMediaPerception_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -461,14 +468,17 @@ void MediaPerceptionControllerClientProxy::ConnectToVideoCaptureService(
                         "<value of type ::mojo::PendingReceiver<::video_capture::mojom::VideoSourceProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaPerceptionControllerClient_ConnectToVideoCaptureService_Name, kFlags, 0, 0, nullptr);
@@ -544,10 +554,10 @@ bool MediaPerceptionControllerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaPerceptionControllerClientValidationInfo[] = {
-    {&internal::MediaPerceptionControllerClient_ConnectToVideoCaptureService_Params_Data::Validate,
+    { &internal::MediaPerceptionControllerClient_ConnectToVideoCaptureService_Params_Data::Validate,
      nullptr /* no response */},
 };
 

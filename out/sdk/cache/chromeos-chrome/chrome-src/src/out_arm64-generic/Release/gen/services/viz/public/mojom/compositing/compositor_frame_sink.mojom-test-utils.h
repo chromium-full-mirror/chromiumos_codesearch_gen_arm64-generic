@@ -19,8 +19,8 @@ class  CompositorFrameSinkInterceptorForTesting : public CompositorFrameSink {
   void SetWantsAnimateOnlyBeginFrames() override;
   void SetWantsBeginFrameAcks() override;
   void SetAutoNeedsBeginFrame() override;
-  void SubmitCompositorFrame(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) override;
-  void SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, SubmitCompositorFrameSyncCallback callback) override;
+  void SubmitCompositorFrame(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time) override;
+  void SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, SubmitCompositorFrameSyncCallback callback) override;
   void DidNotProduceFrame(const ::viz::BeginFrameAck& ack) override;
   void DidAllocateSharedBitmap(::base::ReadOnlySharedMemoryRegion region, const ::gpu::Mailbox& id) override;
   void DidDeleteSharedBitmap(const ::gpu::Mailbox& id) override;
@@ -36,8 +36,8 @@ class  CompositorFrameSinkAsyncWaiter {
 
   ~CompositorFrameSinkAsyncWaiter();
   void SubmitCompositorFrameSync(
-      const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources);
-  std::vector<::viz::ReturnedResource> SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, absl::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time);
+      const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time, std::vector<::viz::ReturnedResource>* out_resources);
+  std::vector<::viz::ReturnedResource> SubmitCompositorFrameSync(const ::viz::LocalSurfaceId& local_surface_id, ::viz::CompositorFrame frame, std::optional<::viz::HitTestRegionList> hit_test_region_list, uint64_t submit_time);
 
  private:
   CompositorFrameSink* const proxy_;
@@ -51,6 +51,7 @@ class  CompositorFrameSinkClientInterceptorForTesting : public CompositorFrameSi
   void OnBeginFramePausedChanged(bool paused) override;
   void ReclaimResources(std::vector<::viz::ReturnedResource> resources) override;
   void OnCompositorFrameTransitionDirectiveProcessed(uint32_t sequence_id) override;
+  void OnSurfaceEvicted(const ::viz::LocalSurfaceId& local_surface_id) override;
 };
 class  CompositorFrameSinkClientAsyncWaiter {
  public:

@@ -4,18 +4,16 @@
 #include "constants.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace biod {
 }  // namespace biod
 namespace biod {
@@ -34,58 +32,58 @@ bool FingerprintError_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    FingerprintError_strings[8] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FingerprintError_strings[8] = {};
+static const char FingerprintError_names[] = {
+    "ERROR_CANCELED"
+    "ERROR_HW_UNAVAILABLE"
+    "ERROR_LOCKOUT"
+    "ERROR_NO_SPACE"
+    "ERROR_NO_TEMPLATES"
+    "ERROR_TIMEOUT"
+    "ERROR_UNABLE_TO_PROCESS"
+    "ERROR_UNABLE_TO_REMOVE"
+};
 
-static const char FingerprintError_names[] =
-  "ERROR_CANCELED"
-  "ERROR_HW_UNAVAILABLE"
-  "ERROR_LOCKOUT"
-  "ERROR_NO_SPACE"
-  "ERROR_NO_TEMPLATES"
-  "ERROR_TIMEOUT"
-  "ERROR_UNABLE_TO_PROCESS"
-  "ERROR_UNABLE_TO_REMOVE";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FingerprintError_entries[] = {
-  { {FingerprintError_names + 0, 14}, 5 },
-  { {FingerprintError_names + 14, 20}, 1 },
-  { {FingerprintError_names + 34, 13}, 7 },
-  { {FingerprintError_names + 47, 14}, 4 },
-  { {FingerprintError_names + 61, 18}, 10000 },
-  { {FingerprintError_names + 79, 13}, 3 },
-  { {FingerprintError_names + 92, 23}, 2 },
-  { {FingerprintError_names + 115, 22}, 6 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FingerprintError_entries[] =
+    {
+        {{&FingerprintError_names[0], 14}, 5},
+        {{&FingerprintError_names[14], 20}, 1},
+        {{&FingerprintError_names[34], 13}, 7},
+        {{&FingerprintError_names[47], 14}, 4},
+        {{&FingerprintError_names[61], 18}, 10000},
+        {{&FingerprintError_names[79], 13}, 3},
+        {{&FingerprintError_names[92], 23}, 2},
+        {{&FingerprintError_names[115], 22}, 6},
 };
 
 static const int FingerprintError_entries_by_number[] = {
-  1, // 1 -> ERROR_HW_UNAVAILABLE
-  6, // 2 -> ERROR_UNABLE_TO_PROCESS
-  5, // 3 -> ERROR_TIMEOUT
-  3, // 4 -> ERROR_NO_SPACE
-  0, // 5 -> ERROR_CANCELED
-  7, // 6 -> ERROR_UNABLE_TO_REMOVE
-  2, // 7 -> ERROR_LOCKOUT
-  4, // 10000 -> ERROR_NO_TEMPLATES
+    1,  // 1 -> ERROR_HW_UNAVAILABLE
+    6,  // 2 -> ERROR_UNABLE_TO_PROCESS
+    5,  // 3 -> ERROR_TIMEOUT
+    3,  // 4 -> ERROR_NO_SPACE
+    0,  // 5 -> ERROR_CANCELED
+    7,  // 6 -> ERROR_UNABLE_TO_REMOVE
+    2,  // 7 -> ERROR_LOCKOUT
+    4,  // 10000 -> ERROR_NO_TEMPLATES
 };
 
-const std::string& FingerprintError_Name(
-    FingerprintError value) {
-  static const bool dummy =
+const std::string& FingerprintError_Name(FingerprintError value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          FingerprintError_entries,
-          FingerprintError_entries_by_number,
+          FingerprintError_entries, FingerprintError_entries_by_number,
           8, FingerprintError_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      FingerprintError_entries,
-      FingerprintError_entries_by_number,
-      8, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     FingerprintError_strings[idx].get();
+      FingerprintError_entries, FingerprintError_entries_by_number, 8,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : FingerprintError_strings[idx].get();
 }
-bool FingerprintError_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FingerprintError* value) {
+
+bool FingerprintError_Parse(absl::string_view name, FingerprintError* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       FingerprintError_entries, 8, name, &int_value);
@@ -110,61 +108,61 @@ bool ScanResult_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    ScanResult_strings[9] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ScanResult_strings[9] = {};
+static const char ScanResult_names[] = {
+    "SCAN_RESULT_IMMOBILE"
+    "SCAN_RESULT_INSUFFICIENT"
+    "SCAN_RESULT_MAX"
+    "SCAN_RESULT_NO_MATCH"
+    "SCAN_RESULT_PARTIAL"
+    "SCAN_RESULT_SENSOR_DIRTY"
+    "SCAN_RESULT_SUCCESS"
+    "SCAN_RESULT_TOO_FAST"
+    "SCAN_RESULT_TOO_SLOW"
+};
 
-static const char ScanResult_names[] =
-  "SCAN_RESULT_IMMOBILE"
-  "SCAN_RESULT_INSUFFICIENT"
-  "SCAN_RESULT_MAX"
-  "SCAN_RESULT_NO_MATCH"
-  "SCAN_RESULT_PARTIAL"
-  "SCAN_RESULT_SENSOR_DIRTY"
-  "SCAN_RESULT_SUCCESS"
-  "SCAN_RESULT_TOO_FAST"
-  "SCAN_RESULT_TOO_SLOW";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ScanResult_entries[] = {
-  { {ScanResult_names + 0, 20}, 6 },
-  { {ScanResult_names + 20, 24}, 2 },
-  { {ScanResult_names + 44, 15}, 10001 },
-  { {ScanResult_names + 59, 20}, 10000 },
-  { {ScanResult_names + 79, 19}, 1 },
-  { {ScanResult_names + 98, 24}, 3 },
-  { {ScanResult_names + 122, 19}, 0 },
-  { {ScanResult_names + 141, 20}, 5 },
-  { {ScanResult_names + 161, 20}, 4 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ScanResult_entries[] =
+    {
+        {{&ScanResult_names[0], 20}, 6},
+        {{&ScanResult_names[20], 24}, 2},
+        {{&ScanResult_names[44], 15}, 10001},
+        {{&ScanResult_names[59], 20}, 10000},
+        {{&ScanResult_names[79], 19}, 1},
+        {{&ScanResult_names[98], 24}, 3},
+        {{&ScanResult_names[122], 19}, 0},
+        {{&ScanResult_names[141], 20}, 5},
+        {{&ScanResult_names[161], 20}, 4},
 };
 
 static const int ScanResult_entries_by_number[] = {
-  6, // 0 -> SCAN_RESULT_SUCCESS
-  4, // 1 -> SCAN_RESULT_PARTIAL
-  1, // 2 -> SCAN_RESULT_INSUFFICIENT
-  5, // 3 -> SCAN_RESULT_SENSOR_DIRTY
-  8, // 4 -> SCAN_RESULT_TOO_SLOW
-  7, // 5 -> SCAN_RESULT_TOO_FAST
-  0, // 6 -> SCAN_RESULT_IMMOBILE
-  3, // 10000 -> SCAN_RESULT_NO_MATCH
-  2, // 10001 -> SCAN_RESULT_MAX
+    6,  // 0 -> SCAN_RESULT_SUCCESS
+    4,  // 1 -> SCAN_RESULT_PARTIAL
+    1,  // 2 -> SCAN_RESULT_INSUFFICIENT
+    5,  // 3 -> SCAN_RESULT_SENSOR_DIRTY
+    8,  // 4 -> SCAN_RESULT_TOO_SLOW
+    7,  // 5 -> SCAN_RESULT_TOO_FAST
+    0,  // 6 -> SCAN_RESULT_IMMOBILE
+    3,  // 10000 -> SCAN_RESULT_NO_MATCH
+    2,  // 10001 -> SCAN_RESULT_MAX
 };
 
-const std::string& ScanResult_Name(
-    ScanResult value) {
-  static const bool dummy =
+const std::string& ScanResult_Name(ScanResult value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          ScanResult_entries,
-          ScanResult_entries_by_number,
+          ScanResult_entries, ScanResult_entries_by_number,
           9, ScanResult_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      ScanResult_entries,
-      ScanResult_entries_by_number,
-      9, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     ScanResult_strings[idx].get();
+      ScanResult_entries, ScanResult_entries_by_number, 9,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : ScanResult_strings[idx].get();
 }
-bool ScanResult_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ScanResult* value) {
+
+bool ScanResult_Parse(absl::string_view name, ScanResult* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       ScanResult_entries, 9, name, &int_value);
@@ -181,37 +179,37 @@ bool BiometricsManagerStatus_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    BiometricsManagerStatus_strings[1] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> BiometricsManagerStatus_strings[1] = {};
+static const char BiometricsManagerStatus_names[] = {
+    "INITIALIZED"
+};
 
-static const char BiometricsManagerStatus_names[] =
-  "INITIALIZED";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry BiometricsManagerStatus_entries[] = {
-  { {BiometricsManagerStatus_names + 0, 11}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry BiometricsManagerStatus_entries[] =
+    {
+        {{&BiometricsManagerStatus_names[0], 11}, 1},
 };
 
 static const int BiometricsManagerStatus_entries_by_number[] = {
-  0, // 1 -> INITIALIZED
+    0,  // 1 -> INITIALIZED
 };
 
-const std::string& BiometricsManagerStatus_Name(
-    BiometricsManagerStatus value) {
-  static const bool dummy =
+const std::string& BiometricsManagerStatus_Name(BiometricsManagerStatus value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          BiometricsManagerStatus_entries,
-          BiometricsManagerStatus_entries_by_number,
+          BiometricsManagerStatus_entries, BiometricsManagerStatus_entries_by_number,
           1, BiometricsManagerStatus_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      BiometricsManagerStatus_entries,
-      BiometricsManagerStatus_entries_by_number,
-      1, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     BiometricsManagerStatus_strings[idx].get();
+      BiometricsManagerStatus_entries, BiometricsManagerStatus_entries_by_number, 1,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : BiometricsManagerStatus_strings[idx].get();
 }
-bool BiometricsManagerStatus_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BiometricsManagerStatus* value) {
+
+bool BiometricsManagerStatus_Parse(absl::string_view name, BiometricsManagerStatus* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       BiometricsManagerStatus_entries, 1, name, &int_value);
@@ -220,11 +218,9 @@ bool BiometricsManagerStatus_Parse(
   }
   return success;
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace biod
 PROTOBUF_NAMESPACE_OPEN
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

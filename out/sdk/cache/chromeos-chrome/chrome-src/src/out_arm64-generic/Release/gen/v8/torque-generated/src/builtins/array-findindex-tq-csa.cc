@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-findindex-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -175,7 +176,7 @@ TF_BUILTIN(ArrayFindIndexLoopEagerDeoptContinuation, CodeStubAssembler) {
   TNode<Number> tmp8;
   if (block15.is_used()) {
     ca_.Bind(&block15);
-    tmp8 = ca_.CallStub<Number>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayFindIndexLoopContinuation), parameter0, tmp0, tmp2, parameter3, tmp0, tmp4, tmp6);
+    tmp8 = ca_.CallBuiltin<Number>(Builtin::kArrayFindIndexLoopContinuation, parameter0, tmp0, tmp2, parameter3, tmp0, tmp4, tmp6);
     CodeStubAssembler(state_).Return(tmp8);
   }
 }
@@ -319,7 +320,7 @@ TF_BUILTIN(ArrayFindIndexLoopAfterCallbackLazyDeoptContinuation, CodeStubAssembl
   TNode<Number> tmp9;
   if (block18.is_used()) {
     ca_.Bind(&block18);
-    tmp9 = ca_.CallStub<Number>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayFindIndexLoopContinuation), parameter0, tmp0, tmp2, parameter3, tmp0, tmp4, tmp6);
+    tmp9 = ca_.CallBuiltin<Number>(Builtin::kArrayFindIndexLoopContinuation, parameter0, tmp0, tmp2, parameter3, tmp0, tmp4, tmp6);
     CodeStubAssembler(state_).Return(tmp9);
   }
 }
@@ -795,7 +796,7 @@ TF_BUILTIN(ArrayPrototypeFindIndex, CodeStubAssembler) {
   TNode<Number> tmp14;
   if (block10.is_used()) {
     ca_.Bind(&block10);
-    tmp14 = ca_.CallStub<Number>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayFindIndexLoopContinuation), parameter0, tmp1, tmp7, tmp10, tmp1, tmp13.value(), tmp2);
+    tmp14 = ca_.CallBuiltin<Number>(Builtin::kArrayFindIndexLoopContinuation, parameter0, tmp1, tmp7, tmp10, tmp1, tmp13.value(), tmp2);
     arguments.PopAndReturn(tmp14);
   }
 

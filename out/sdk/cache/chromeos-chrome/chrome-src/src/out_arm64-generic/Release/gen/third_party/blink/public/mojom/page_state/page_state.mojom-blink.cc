@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -300,7 +301,7 @@ ViewState::ViewState(
     const ::gfx::Point& scroll_offset_in,
     double page_scale_factor_in,
     const ::WTF::String& scroll_anchor_selector_in,
-    const absl::optional<::gfx::PointF>& scroll_anchor_offset_in,
+    const std::optional<::gfx::PointF>& scroll_anchor_offset_in,
     uint64_t scroll_anchor_simhash_in)
     : visual_viewport_scroll_offset(std::move(visual_viewport_scroll_offset_in)),
       scroll_offset(std::move(scroll_offset_in)),
@@ -354,7 +355,7 @@ void ViewState::WriteIntoTrace(
     dict.AddItem(
       "scroll_anchor_offset"), this->scroll_anchor_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::PointF>&>"
+      "<value of type const std::optional<::gfx::PointF>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

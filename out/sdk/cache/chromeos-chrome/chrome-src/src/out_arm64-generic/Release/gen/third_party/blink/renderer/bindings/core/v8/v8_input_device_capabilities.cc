@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, InputDeviceCapabilities>::value,
     "InputDeviceCapabilities inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&InputDeviceCapabilities::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "InputDeviceCapabilities is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8InputDeviceCapabilit
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-InputDeviceCapabilities* blink_receiver = V8InputDeviceCapabilities::ToWrappableUnsafe(v8_receiver);
+InputDeviceCapabilities* blink_receiver = V8InputDeviceCapabilities::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->firesTouchEvents();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 // [HighEntropy=Direct]

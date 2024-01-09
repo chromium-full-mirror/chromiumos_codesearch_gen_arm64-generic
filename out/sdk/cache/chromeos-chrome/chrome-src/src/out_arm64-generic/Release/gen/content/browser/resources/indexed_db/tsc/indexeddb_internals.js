@@ -3,7 +3,8 @@
 // found in the LICENSE file.
 import 'chrome://resources/js/jstemplate_compiled.js';
 import { assert } from 'chrome://resources/js/assert.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { IdbTransactionMode, IdbTransactionState } from './indexed_db_bucket_types.mojom-webui.js';
 import { IdbInternalsHandler } from './indexed_db_internals.mojom-webui.js';
 // Methods to convert mojo values to strings or to objects with readable
@@ -26,7 +27,7 @@ const stringifyMojo = {
         return new Date(timeInMs - epochDeltaInMs);
     },
     string16(mojoString16) {
-        return String.fromCharCode(...mojoString16.data);
+        return mojoString16ToString(mojoString16);
     },
     scope(mojoScope) {
         return `[${mojoScope.map(s => stringifyMojo.string16(s)).join(', ')}]`;
@@ -82,17 +83,9 @@ function promisifyMojoResult(remotePromise, valueProp) {
     });
 }
 class IdbInternalsRemote {
-    constructor() {
-        this.handler = IdbInternalsHandler.getRemote();
-    }
+    handler = IdbInternalsHandler.getRemote();
     getAllBucketsAcrossAllStorageKeys() {
         return promisifyMojoResult(this.handler.getAllBucketsAcrossAllStorageKeys(), 'partitions');
-    }
-    downloadBucketData(bucketId) {
-        return promisifyMojoResult(this.handler.downloadBucketData(bucketId), 'connectionCount');
-    }
-    forceClose(bucketId) {
-        return promisifyMojoResult(this.handler.forceClose(bucketId), 'connectionCount');
     }
 }
 const internalsRemote = new IdbInternalsRemote();
@@ -102,10 +95,28 @@ function initialize() {
         .catch(errorMsg => console.error(errorMsg));
 }
 class BucketElement extends HTMLElement {
+    // this field is filled by the jstemplate annotations in the HTML code
+    idbBucketId;
+    progressNode;
+    connectionCountNode;
     constructor() {
         super();
-        this.addControlListener('.download', internalsRemote.downloadBucketData);
-        this.addControlListener('.force-close', internalsRemote.forceClose);
+        this.getNode(`.control.download`).addEventListener('click', () => {
+            // Show loading
+            this.progressNode.style.display = 'inline';
+            IdbInternalsHandler.getRemote()
+                .downloadBucketData(this.idbBucketId)
+                .then(this.onLoadComplete.bind(this))
+                .catch(errorMsg => console.error(errorMsg));
+        });
+        this.getNode(`.control.force-close`).addEventListener('click', () => {
+            // Show loading
+            this.progressNode.style.display = 'inline';
+            IdbInternalsHandler.getRemote()
+                .forceClose(this.idbBucketId)
+                .then(this.onLoadComplete.bind(this))
+                .catch(errorMsg => console.error(errorMsg));
+        });
         this.progressNode = this.getNode('.download-status');
         this.connectionCountNode = this.getNode('.connection-count');
     }
@@ -114,20 +125,9 @@ class BucketElement extends HTMLElement {
         assert(controlNode);
         return controlNode;
     }
-    addControlListener(selector, idbMojoFunc) {
-        const eventHandler = () => {
-            // Show loading
-            this.progressNode.style.display = 'inline';
-            idbMojoFunc.bind(internalsRemote)(this.idbBucketId)
-                .then(this.onLoadComplete.bind(this))
-                .catch(errorMsg => console.error(errorMsg));
-        };
-        const control = this.getNode(`.control${selector}`);
-        control.addEventListener('click', eventHandler);
-    }
-    onLoadComplete(connectionCount) {
+    onLoadComplete() {
         this.progressNode.style.display = 'none';
-        this.connectionCountNode.innerText = connectionCount.toString();
+        this.connectionCountNode.innerText = '0';
     }
 }
 function onStorageKeysReady(partitions) {

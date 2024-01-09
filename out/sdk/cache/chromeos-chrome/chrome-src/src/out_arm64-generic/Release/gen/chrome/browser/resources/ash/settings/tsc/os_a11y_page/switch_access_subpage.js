@@ -19,9 +19,9 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { AUTO_SCAN_SPEED_RANGE_MS, SwitchAccessCommand, SwitchAccessDeviceType } from './switch_access_constants.js';
 import { getTemplate } from './switch_access_subpage.html.js';

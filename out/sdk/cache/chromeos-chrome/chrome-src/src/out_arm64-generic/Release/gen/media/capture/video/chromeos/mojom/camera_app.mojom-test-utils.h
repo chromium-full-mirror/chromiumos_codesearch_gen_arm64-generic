@@ -92,6 +92,8 @@ class  CameraAppDeviceInterceptorForTesting : public CameraAppDevice {
   void RegisterDocumentCornersObserver(::mojo::PendingRemote<DocumentCornersObserver> observer, RegisterDocumentCornersObserverCallback callback) override;
   void SetMultipleStreamsEnabled(bool enabled, SetMultipleStreamsEnabledCallback callback) override;
   void RegisterCameraInfoObserver(::mojo::PendingRemote<CameraInfoObserver> observer, RegisterCameraInfoObserverCallback callback) override;
+  void SetCropRegion(const ::gfx::Rect& crop_region, SetCropRegionCallback callback) override;
+  void ResetCropRegion(ResetCropRegionCallback callback) override;
 };
 class  CameraAppDeviceAsyncWaiter {
  public:
@@ -133,6 +135,12 @@ class  CameraAppDeviceAsyncWaiter {
   
   void RegisterCameraInfoObserver(
       ::mojo::PendingRemote<CameraInfoObserver> observer);
+  
+  void SetCropRegion(
+      const ::gfx::Rect& crop_region);
+  
+  void ResetCropRegion(
+      );
   
 
  private:

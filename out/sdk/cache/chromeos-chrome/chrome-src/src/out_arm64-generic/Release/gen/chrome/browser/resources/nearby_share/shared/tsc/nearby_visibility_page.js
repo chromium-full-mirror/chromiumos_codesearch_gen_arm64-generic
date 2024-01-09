@@ -15,7 +15,7 @@ import './nearby_contact_visibility.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { NearbyShareOnboardingFinalState, processOnboardingCancelledMetrics, processOnboardingCompleteMetrics, processOnePageOnboardingCancelledMetrics, processOnePageOnboardingCompleteMetrics, processOnePageOnboardingManageContactsMetrics, processOnePageOnboardingVisibilityPageShownMetrics } from './nearby_metrics_logger.js';
+import { getOnboardingEntryPoint, NearbyShareOnboardingEntryPoint, NearbyShareOnboardingFinalState, processOnboardingCancelledMetrics, processOnboardingCompleteMetrics, processOnePageOnboardingCancelledMetrics, processOnePageOnboardingCompleteMetrics, processOnePageOnboardingManageContactsMetrics, processOnePageOnboardingVisibilityPageShownMetrics } from './nearby_metrics_logger.js';
 import { getTemplate } from './nearby_visibility_page.html.js';
 const NearbyVisibilityPageElementBase = I18nMixin(PolymerElement);
 export class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase {
@@ -34,6 +34,13 @@ export class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase
             isVisibilitySelected_: {
                 type: Boolean,
                 notify: true,
+            },
+            /**
+             * Onboarding page entry point
+             */
+            entryPoint_: {
+                type: NearbyShareOnboardingEntryPoint,
+                value: NearbyShareOnboardingEntryPoint.MAX,
             },
         };
     }
@@ -55,10 +62,10 @@ export class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase
         this.set('settings.isOnboardingComplete', true);
         this.set('settings.enabled', true);
         if (this.isOnePageOnboardingEnabled_()) {
-            processOnePageOnboardingCompleteMetrics(NearbyShareOnboardingFinalState.VISIBILITY_PAGE, this.$.contactVisibility.getSelectedVisibility());
+            processOnePageOnboardingCompleteMetrics(this.entryPoint_, NearbyShareOnboardingFinalState.VISIBILITY_PAGE, this.$.contactVisibility.getSelectedVisibility());
         }
         else {
-            processOnboardingCompleteMetrics();
+            processOnboardingCompleteMetrics(this.entryPoint_);
         }
         const onboardingCompleteEvent = new CustomEvent('onboarding-complete', {
             bubbles: true,
@@ -68,10 +75,10 @@ export class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase
     }
     onClose_() {
         if (this.isOnePageOnboardingEnabled_()) {
-            processOnePageOnboardingCancelledMetrics(NearbyShareOnboardingFinalState.VISIBILITY_PAGE);
+            processOnePageOnboardingCancelledMetrics(this.entryPoint_, NearbyShareOnboardingFinalState.VISIBILITY_PAGE);
         }
         else {
-            processOnboardingCancelledMetrics(NearbyShareOnboardingFinalState.VISIBILITY_PAGE);
+            processOnboardingCancelledMetrics(this.entryPoint_, NearbyShareOnboardingFinalState.VISIBILITY_PAGE);
         }
         const onboardingCancelledEvent = new CustomEvent('onboarding-cancelled', {
             bubbles: true,
@@ -83,6 +90,8 @@ export class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase
         if (this.isOnePageOnboardingEnabled_()) {
             processOnePageOnboardingVisibilityPageShownMetrics();
         }
+        const url = new URL(document.URL);
+        this.entryPoint_ = getOnboardingEntryPoint(url);
     }
     onManageContacts_() {
         if (this.isOnePageOnboardingEnabled_()) {

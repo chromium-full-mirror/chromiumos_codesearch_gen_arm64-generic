@@ -17,6 +17,8 @@ namespace internal {
 constexpr uint32_t kRendererHost_AddAPIActionToActivityLog_Name = 0;
 constexpr uint32_t kRendererHost_AddEventToActivityLog_Name = 1;
 constexpr uint32_t kRendererHost_AddDOMActionToActivityLog_Name = 2;
+constexpr uint32_t kRendererHost_WakeEventPage_Name = 3;
+constexpr uint32_t kRendererHost_GetMessageBundle_Name = 4;
 
 }  // namespace internal
 

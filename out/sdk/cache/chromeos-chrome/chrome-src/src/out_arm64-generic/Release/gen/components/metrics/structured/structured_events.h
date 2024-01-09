@@ -15,6 +15,19 @@ namespace structured {
 namespace events {
 namespace v2 {
 
+namespace popular_displays {
+
+class MonitorInfo final : public ::metrics::structured::Event {
+ public:
+  MonitorInfo();
+  ~MonitorInfo() override;
+
+    MonitorInfo& SetDisplayName(const std::string& value);
+  MonitorInfo& SetProductCode(const std::string& value);
+};
+
+}  // namespace popular_displays
+
 namespace fast_pair {
 
 class DiscoveryNotificationShown final : public ::metrics::structured::Event {
@@ -159,6 +172,85 @@ class LauncherUsage final : public ::metrics::structured::Event {
 
 }  // namespace launcher_usage
 
+namespace nearby_share {
+
+class Discovery final : public ::metrics::structured::Event {
+ public:
+  Discovery();
+  ~Discovery() override;
+
+    Discovery& SetPlatform(const int64_t value);
+  Discovery& SetDeviceRelationship(const int64_t value);
+  Discovery& SetTimeToDiscovery(const int64_t value);
+};
+
+class Throughput final : public ::metrics::structured::Event {
+ public:
+  Throughput();
+  ~Throughput() override;
+
+    Throughput& SetIsReceiving(const int64_t value);
+  Throughput& SetPlatform(const int64_t value);
+  Throughput& SetDeviceRelationship(const int64_t value);
+  Throughput& SetMedium(const int64_t value);
+  Throughput& SetUpdateBytes(const int64_t value);
+  Throughput& SetUpdateMillis(const int64_t value);
+  Throughput& SetTransferredBytes(const int64_t value);
+  Throughput& SetTotalTransferBytes(const int64_t value);
+};
+
+class FileAttachment final : public ::metrics::structured::Event {
+ public:
+  FileAttachment();
+  ~FileAttachment() override;
+
+    FileAttachment& SetIsReceiving(const int64_t value);
+  FileAttachment& SetPlatform(const int64_t value);
+  FileAttachment& SetDeviceRelationship(const int64_t value);
+  FileAttachment& SetFileType(const int64_t value);
+  FileAttachment& SetSize(const int64_t value);
+  FileAttachment& SetResult(const int64_t value);
+};
+
+class TextAttachment final : public ::metrics::structured::Event {
+ public:
+  TextAttachment();
+  ~TextAttachment() override;
+
+    TextAttachment& SetIsReceiving(const int64_t value);
+  TextAttachment& SetPlatform(const int64_t value);
+  TextAttachment& SetDeviceRelationship(const int64_t value);
+  TextAttachment& SetTextType(const int64_t value);
+  TextAttachment& SetSize(const int64_t value);
+  TextAttachment& SetResult(const int64_t value);
+};
+
+class ShareSession final : public ::metrics::structured::Event {
+ public:
+  ShareSession();
+  ~ShareSession() override;
+
+    ShareSession& SetIsReceiving(const int64_t value);
+  ShareSession& SetPlatform(const int64_t value);
+  ShareSession& SetDeviceRelationship(const int64_t value);
+  ShareSession& SetTimeToDiscovery(const int64_t value);
+  ShareSession& SetTimeToSelect(const int64_t value);
+  ShareSession& SetTimeToConnect(const int64_t value);
+  ShareSession& SetTimeToAccept(const int64_t value);
+  ShareSession& SetTimeToTransferComplete(const int64_t value);
+  ShareSession& SetInitialMedium(const int64_t value);
+  ShareSession& SetTimeToUpgrade(const int64_t value);
+  ShareSession& SetFinalMedium(const int64_t value);
+  ShareSession& SetNumberOfFiles(const int64_t value);
+  ShareSession& SetNumberOfTexts(const int64_t value);
+  ShareSession& SetNumberOfWiFiCredentials(const int64_t value);
+  ShareSession& SetTotalTransferBytes(const int64_t value);
+  ShareSession& SetBytesTransferred(const int64_t value);
+  ShareSession& SetResult(const int64_t value);
+};
+
+}  // namespace nearby_share
+
 namespace structured_metrics {
 
 class Initialization final : public ::metrics::structured::Event {
@@ -272,6 +364,191 @@ class AppDiscovery_Browser_CreateShortcut final : public ::metrics::structured::
     AppDiscovery_Browser_CreateShortcut& SetAppId(const std::string& value);
 };
 
+class OOBE_GaiaSigninRequested final : public ::metrics::structured::Event {
+ public:
+  OOBE_GaiaSigninRequested();
+  ~OOBE_GaiaSigninRequested() override;
+
+    OOBE_GaiaSigninRequested& SetIsReauthentication(const int64_t value);
+  OOBE_GaiaSigninRequested& SetIsFlexFlow(const int64_t value);
+  OOBE_GaiaSigninRequested& SetIsDemoModeFlow(const int64_t value);
+  OOBE_GaiaSigninRequested& SetIsOwnerUser(const int64_t value);
+  OOBE_GaiaSigninRequested& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_GaiaSigninRequested& SetIsFirstOnboarding(const int64_t value);
+  OOBE_GaiaSigninRequested& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_GaiaSigninCompleted final : public ::metrics::structured::Event {
+ public:
+  OOBE_GaiaSigninCompleted();
+  ~OOBE_GaiaSigninCompleted() override;
+
+    OOBE_GaiaSigninCompleted& SetIsReauthentication(const int64_t value);
+  OOBE_GaiaSigninCompleted& SetIsFlexFlow(const int64_t value);
+  OOBE_GaiaSigninCompleted& SetIsDemoModeFlow(const int64_t value);
+  OOBE_GaiaSigninCompleted& SetIsOwnerUser(const int64_t value);
+  OOBE_GaiaSigninCompleted& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_GaiaSigninCompleted& SetIsFirstOnboarding(const int64_t value);
+  OOBE_GaiaSigninCompleted& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_OobeStarted final : public ::metrics::structured::Event {
+ public:
+  OOBE_OobeStarted();
+  ~OOBE_OobeStarted() override;
+
+    OOBE_OobeStarted& SetIsFlexFlow(const int64_t value);
+  OOBE_OobeStarted& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_PreLoginOobeCompleted final : public ::metrics::structured::Event {
+ public:
+  OOBE_PreLoginOobeCompleted();
+  ~OOBE_PreLoginOobeCompleted() override;
+
+    OOBE_PreLoginOobeCompleted& SetCompletedFlowType(const int64_t value);
+  OOBE_PreLoginOobeCompleted& SetIsFlexFlow(const int64_t value);
+  OOBE_PreLoginOobeCompleted& SetIsDemoModeFlow(const int64_t value);
+  OOBE_PreLoginOobeCompleted& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_DeviceRegistered final : public ::metrics::structured::Event {
+ public:
+  OOBE_DeviceRegistered();
+  ~OOBE_DeviceRegistered() override;
+
+    OOBE_DeviceRegistered& SetIsFirstOnboarding(const int64_t value);
+  OOBE_DeviceRegistered& SetIsFlexFlow(const int64_t value);
+  OOBE_DeviceRegistered& SetIsDemoModeFlow(const int64_t value);
+  OOBE_DeviceRegistered& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_OobeCompleted final : public ::metrics::structured::Event {
+ public:
+  OOBE_OobeCompleted();
+  ~OOBE_OobeCompleted() override;
+
+    OOBE_OobeCompleted& SetIsFlexFlow(const int64_t value);
+  OOBE_OobeCompleted& SetIsDemoModeFlow(const int64_t value);
+  OOBE_OobeCompleted& SetIsOwnerUser(const int64_t value);
+  OOBE_OobeCompleted& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_OobeCompleted& SetIsFirstOnboarding(const int64_t value);
+  OOBE_OobeCompleted& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_OnboardingStarted final : public ::metrics::structured::Event {
+ public:
+  OOBE_OnboardingStarted();
+  ~OOBE_OnboardingStarted() override;
+
+    OOBE_OnboardingStarted& SetIsFlexFlow(const int64_t value);
+  OOBE_OnboardingStarted& SetIsDemoModeFlow(const int64_t value);
+  OOBE_OnboardingStarted& SetIsOwnerUser(const int64_t value);
+  OOBE_OnboardingStarted& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_OnboardingStarted& SetIsFirstOnboarding(const int64_t value);
+  OOBE_OnboardingStarted& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_OnboardingCompleted final : public ::metrics::structured::Event {
+ public:
+  OOBE_OnboardingCompleted();
+  ~OOBE_OnboardingCompleted() override;
+
+    OOBE_OnboardingCompleted& SetIsFlexFlow(const int64_t value);
+  OOBE_OnboardingCompleted& SetIsDemoModeFlow(const int64_t value);
+  OOBE_OnboardingCompleted& SetIsOwnerUser(const int64_t value);
+  OOBE_OnboardingCompleted& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_OnboardingCompleted& SetIsFirstOnboarding(const int64_t value);
+  OOBE_OnboardingCompleted& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_PageEntered final : public ::metrics::structured::Event {
+ public:
+  OOBE_PageEntered();
+  ~OOBE_PageEntered() override;
+
+    OOBE_PageEntered& SetPageId(const std::string& value);
+  OOBE_PageEntered& SetIsFlexFlow(const int64_t value);
+  OOBE_PageEntered& SetIsDemoModeFlow(const int64_t value);
+  OOBE_PageEntered& SetIsOwnerUser(const int64_t value);
+  OOBE_PageEntered& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_PageEntered& SetIsFirstOnboarding(const int64_t value);
+  OOBE_PageEntered& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_PageSkippedBySystem final : public ::metrics::structured::Event {
+ public:
+  OOBE_PageSkippedBySystem();
+  ~OOBE_PageSkippedBySystem() override;
+
+    OOBE_PageSkippedBySystem& SetPageId(const std::string& value);
+  OOBE_PageSkippedBySystem& SetIsFlexFlow(const int64_t value);
+  OOBE_PageSkippedBySystem& SetIsDemoModeFlow(const int64_t value);
+  OOBE_PageSkippedBySystem& SetIsOwnerUser(const int64_t value);
+  OOBE_PageSkippedBySystem& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_PageSkippedBySystem& SetIsFirstOnboarding(const int64_t value);
+  OOBE_PageSkippedBySystem& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_PageLeft final : public ::metrics::structured::Event {
+ public:
+  OOBE_PageLeft();
+  ~OOBE_PageLeft() override;
+
+    OOBE_PageLeft& SetPageId(const std::string& value);
+  OOBE_PageLeft& SetExitReason(const std::string& value);
+  OOBE_PageLeft& SetIsFlexFlow(const int64_t value);
+  OOBE_PageLeft& SetIsDemoModeFlow(const int64_t value);
+  OOBE_PageLeft& SetIsOwnerUser(const int64_t value);
+  OOBE_PageLeft& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_PageLeft& SetIsFirstOnboarding(const int64_t value);
+  OOBE_PageLeft& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_PreLoginOobeResumed final : public ::metrics::structured::Event {
+ public:
+  OOBE_PreLoginOobeResumed();
+  ~OOBE_PreLoginOobeResumed() override;
+
+    OOBE_PreLoginOobeResumed& SetPendingPageId(const std::string& value);
+  OOBE_PreLoginOobeResumed& SetExitReason(const std::string& value);
+  OOBE_PreLoginOobeResumed& SetIsFlexFlow(const int64_t value);
+  OOBE_PreLoginOobeResumed& SetIsDemoModeFlow(const int64_t value);
+  OOBE_PreLoginOobeResumed& SetIsOwnerUser(const int64_t value);
+  OOBE_PreLoginOobeResumed& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_PreLoginOobeResumed& SetIsFirstOnboarding(const int64_t value);
+  OOBE_PreLoginOobeResumed& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_OnboardingResumed final : public ::metrics::structured::Event {
+ public:
+  OOBE_OnboardingResumed();
+  ~OOBE_OnboardingResumed() override;
+
+    OOBE_OnboardingResumed& SetPendingPageId(const std::string& value);
+  OOBE_OnboardingResumed& SetExitReason(const std::string& value);
+  OOBE_OnboardingResumed& SetIsFlexFlow(const int64_t value);
+  OOBE_OnboardingResumed& SetIsDemoModeFlow(const int64_t value);
+  OOBE_OnboardingResumed& SetIsOwnerUser(const int64_t value);
+  OOBE_OnboardingResumed& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_OnboardingResumed& SetIsFirstOnboarding(const int64_t value);
+  OOBE_OnboardingResumed& SetChromeMilestone(const int64_t value);
+};
+
+class OOBE_ChoobeResumed final : public ::metrics::structured::Event {
+ public:
+  OOBE_ChoobeResumed();
+  ~OOBE_ChoobeResumed() override;
+
+    OOBE_ChoobeResumed& SetExitReason(const std::string& value);
+  OOBE_ChoobeResumed& SetIsFlexFlow(const int64_t value);
+  OOBE_ChoobeResumed& SetIsDemoModeFlow(const int64_t value);
+  OOBE_ChoobeResumed& SetIsOwnerUser(const int64_t value);
+  OOBE_ChoobeResumed& SetIsEphemeralOrMGS(const int64_t value);
+  OOBE_ChoobeResumed& SetIsFirstOnboarding(const int64_t value);
+  OOBE_ChoobeResumed& SetChromeMilestone(const int64_t value);
+};
+
 class UserLogin final : public ::metrics::structured::Event {
  public:
   UserLogin();
@@ -310,6 +587,101 @@ class NoMetricsEvent final : public ::metrics::structured::Event {
   };
 
 }  // namespace cr_os_events
+
+namespace dev_tools {
+
+class SessionStart final : public ::metrics::structured::Event {
+ public:
+  SessionStart();
+  ~SessionStart() override;
+
+    SessionStart& SetTrigger(const int64_t value);
+  SessionStart& SetDockSide(const int64_t value);
+  SessionStart& SetSessionId(const int64_t value);
+};
+
+class SessionEnd final : public ::metrics::structured::Event {
+ public:
+  SessionEnd();
+  ~SessionEnd() override;
+
+    SessionEnd& SetTrigger(const int64_t value);
+  SessionEnd& SetTimeSinceLastAction(const int64_t value);
+  SessionEnd& SetSessionId(const int64_t value);
+};
+
+class Impression final : public ::metrics::structured::Event {
+ public:
+  Impression();
+  ~Impression() override;
+
+    Impression& SetVeId(const int64_t value);
+  Impression& SetVeType(const int64_t value);
+  Impression& SetVeParent(const int64_t value);
+  Impression& SetVeContext(const int64_t value);
+  Impression& SetTimeSinceLastAction(const int64_t value);
+  Impression& SetSessionId(const int64_t value);
+};
+
+class Click final : public ::metrics::structured::Event {
+ public:
+  Click();
+  ~Click() override;
+
+    Click& SetVeId(const int64_t value);
+  Click& SetMouseButton(const int64_t value);
+  Click& SetContext(const int64_t value);
+  Click& SetTimeSinceLastAction(const int64_t value);
+  Click& SetSessionId(const int64_t value);
+};
+
+class Hover final : public ::metrics::structured::Event {
+ public:
+  Hover();
+  ~Hover() override;
+
+    Hover& SetVeId(const int64_t value);
+  Hover& SetTime(const int64_t value);
+  Hover& SetContext(const int64_t value);
+  Hover& SetTimeSinceLastAction(const int64_t value);
+  Hover& SetSessionId(const int64_t value);
+};
+
+class Drag final : public ::metrics::structured::Event {
+ public:
+  Drag();
+  ~Drag() override;
+
+    Drag& SetVeId(const int64_t value);
+  Drag& SetDistance(const int64_t value);
+  Drag& SetContext(const int64_t value);
+  Drag& SetTimeSinceLastAction(const int64_t value);
+  Drag& SetSessionId(const int64_t value);
+};
+
+class Change final : public ::metrics::structured::Event {
+ public:
+  Change();
+  ~Change() override;
+
+    Change& SetVeId(const int64_t value);
+  Change& SetContext(const int64_t value);
+  Change& SetTimeSinceLastAction(const int64_t value);
+  Change& SetSessionId(const int64_t value);
+};
+
+class KeyDown final : public ::metrics::structured::Event {
+ public:
+  KeyDown();
+  ~KeyDown() override;
+
+    KeyDown& SetVeId(const int64_t value);
+  KeyDown& SetContext(const int64_t value);
+  KeyDown& SetTimeSinceLastAction(const int64_t value);
+  KeyDown& SetSessionId(const int64_t value);
+};
+
+}  // namespace dev_tools
 
 namespace test_project_one {
 
@@ -391,6 +763,18 @@ class TestEventSeven final : public ::metrics::structured::Event {
 };
 
 }  // namespace test_project_six
+
+namespace test_project_seven {
+
+class TestEventEight final : public ::metrics::structured::Event {
+ public:
+  TestEventEight();
+  ~TestEventEight() override;
+
+    TestEventEight& SetTestMetricEight(const double value);
+};
+
+}  // namespace test_project_seven
 
 
 

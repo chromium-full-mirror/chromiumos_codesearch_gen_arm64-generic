@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -117,7 +118,7 @@ uint32_t GuestView::CanExecuteContentScript_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool GuestView::CanExecuteContentScript(int32_t routing_id, const std::string& script_id, bool* out_allowed) {
+bool GuestView::CanExecuteContentScript(const std::string& script_id, bool* out_allowed) {
   NOTREACHED();
   return false;
 }
@@ -159,28 +160,28 @@ GuestViewProxy::GuestViewProxy(mojo::MessageReceiverWithResponder* receiver)
 }
 
 void GuestViewProxy::ReadyToCreateMimeHandlerView(
-    int32_t in_routing_id, bool in_success) {
+    bool in_success) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send extensions::mojom::GuestView::ReadyToCreateMimeHandlerView", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("routing_id"), in_routing_id,
-                        "<value of type int32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("success"), in_success,
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGuestView_ReadyToCreateMimeHandlerView_Name, kFlags, 0, 0, nullptr);
@@ -188,7 +189,6 @@ void GuestViewProxy::ReadyToCreateMimeHandlerView(
       ::extensions::mojom::internal::GuestView_ReadyToCreateMimeHandlerView_Params_Data> params(
           message);
   params.Allocate();
-  params->routing_id = in_routing_id;
   params->success = in_success;
 
 #if defined(ENABLE_IPC_FUZZER)
@@ -200,15 +200,12 @@ void GuestViewProxy::ReadyToCreateMimeHandlerView(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 bool GuestViewProxy::CanExecuteContentScript(
-    int32_t param_routing_id, const std::string& param_script_id, bool* out_param_allowed) {
+    const std::string& param_script_id, bool* out_param_allowed) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call extensions::mojom::GuestView::CanExecuteContentScript (sync)", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("routing_id"), param_routing_id,
-                        "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("script_id"), param_script_id,
                         "<value of type const std::string&>");
@@ -216,15 +213,18 @@ bool GuestViewProxy::CanExecuteContentScript(
 #else
   TRACE_EVENT0("mojom", "GuestView::CanExecuteContentScript");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGuestView_CanExecuteContentScript_Name, kFlags, 0, 0, nullptr);
@@ -232,7 +232,6 @@ bool GuestViewProxy::CanExecuteContentScript(
       ::extensions::mojom::internal::GuestView_CanExecuteContentScript_Params_Data> params(
           message);
   params.Allocate();
-  params->routing_id = param_routing_id;
   mojo::internal::MessageFragment<
       typename decltype(params->script_id)::BaseType> script_id_fragment(
           params.message());
@@ -269,28 +268,28 @@ bool GuestViewProxy::CanExecuteContentScript(
 }
 
 void GuestViewProxy::CanExecuteContentScript(
-    int32_t in_routing_id, const std::string& in_script_id, CanExecuteContentScriptCallback callback) {
+    const std::string& in_script_id, CanExecuteContentScriptCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send extensions::mojom::GuestView::CanExecuteContentScript", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("routing_id"), in_routing_id,
-                        "<value of type int32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("script_id"), in_script_id,
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGuestView_CanExecuteContentScript_Name, kFlags, 0, 0, nullptr);
@@ -298,7 +297,6 @@ void GuestViewProxy::CanExecuteContentScript(
       ::extensions::mojom::internal::GuestView_CanExecuteContentScript_Params_Data> params(
           message);
   params.Allocate();
-  params->routing_id = in_routing_id;
   mojo::internal::MessageFragment<
       typename decltype(params->script_id)::BaseType> script_id_fragment(
           params.message());
@@ -412,7 +410,8 @@ void GuestView_CanExecuteContentScript_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGuestView_CanExecuteContentScript_Name, kFlags, 0, 0, nullptr);
@@ -477,12 +476,9 @@ bool GuestViewStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_routing_id{};
       bool p_success{};
       GuestView_ReadyToCreateMimeHandlerView_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_routing_id = input_data_view.routing_id();
       if (success)
         p_success = input_data_view.success();
       if (!success) {
@@ -495,7 +491,6 @@ bool GuestViewStubDispatch::Accept(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->ReadyToCreateMimeHandlerView(
-std::move(p_routing_id), 
 std::move(p_success));
       return true;
     }
@@ -526,12 +521,9 @@ bool GuestViewStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_routing_id{};
       std::string p_script_id{};
       GuestView_CanExecuteContentScript_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_routing_id = input_data_view.routing_id();
       if (success && !input_data_view.ReadScriptId(&p_script_id))
         success = false;
       if (!success) {
@@ -547,19 +539,18 @@ bool GuestViewStubDispatch::AcceptWithResponder(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->CanExecuteContentScript(
-std::move(p_routing_id), 
 std::move(p_script_id), std::move(callback));
       return true;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGuestViewValidationInfo[] = {
-    {&internal::GuestView_ReadyToCreateMimeHandlerView_Params_Data::Validate,
+    { &internal::GuestView_ReadyToCreateMimeHandlerView_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GuestView_CanExecuteContentScript_Params_Data::Validate,
+    { &internal::GuestView_CanExecuteContentScript_Params_Data::Validate,
      &internal::GuestView_CanExecuteContentScript_ResponseParams_Data::Validate},
 };
 
@@ -719,14 +710,17 @@ void MimeHandlerViewContainerManagerProxy::SetInternalId(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMimeHandlerViewContainerManager_SetInternalId_Name, kFlags, 0, 0, nullptr);
@@ -760,14 +754,17 @@ void MimeHandlerViewContainerManagerProxy::CreateBeforeUnloadControl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send extensions::mojom::MimeHandlerViewContainerManager::CreateBeforeUnloadControl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMimeHandlerViewContainerManager_CreateBeforeUnloadControl_Name, kFlags, 0, 0, nullptr);
@@ -798,14 +795,17 @@ void MimeHandlerViewContainerManagerProxy::DestroyFrameContainer(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMimeHandlerViewContainerManager_DestroyFrameContainer_Name, kFlags, 0, 0, nullptr);
@@ -839,14 +839,17 @@ void MimeHandlerViewContainerManagerProxy::DidLoad(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMimeHandlerViewContainerManager_DidLoad_Name, kFlags, 0, 0, nullptr);
@@ -969,7 +972,8 @@ void MimeHandlerViewContainerManager_CreateBeforeUnloadControl_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMimeHandlerViewContainerManager_CreateBeforeUnloadControl_Name, kFlags, 0, 0, nullptr);
@@ -1141,16 +1145,16 @@ bool MimeHandlerViewContainerManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMimeHandlerViewContainerManagerValidationInfo[] = {
-    {&internal::MimeHandlerViewContainerManager_SetInternalId_Params_Data::Validate,
+    { &internal::MimeHandlerViewContainerManager_SetInternalId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MimeHandlerViewContainerManager_CreateBeforeUnloadControl_Params_Data::Validate,
+    { &internal::MimeHandlerViewContainerManager_CreateBeforeUnloadControl_Params_Data::Validate,
      &internal::MimeHandlerViewContainerManager_CreateBeforeUnloadControl_ResponseParams_Data::Validate},
-    {&internal::MimeHandlerViewContainerManager_DestroyFrameContainer_Params_Data::Validate,
+    { &internal::MimeHandlerViewContainerManager_DestroyFrameContainer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MimeHandlerViewContainerManager_DidLoad_Params_Data::Validate,
+    { &internal::MimeHandlerViewContainerManager_DidLoad_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1180,11 +1184,11 @@ namespace mojo {
 namespace extensions::mojom {
 
 
-void GuestViewInterceptorForTesting::ReadyToCreateMimeHandlerView(int32_t routing_id, bool success) {
-  GetForwardingInterface()->ReadyToCreateMimeHandlerView(std::move(routing_id), std::move(success));
+void GuestViewInterceptorForTesting::ReadyToCreateMimeHandlerView(bool success) {
+  GetForwardingInterface()->ReadyToCreateMimeHandlerView(std::move(success));
 }
-void GuestViewInterceptorForTesting::CanExecuteContentScript(int32_t routing_id, const std::string& script_id, CanExecuteContentScriptCallback callback) {
-  GetForwardingInterface()->CanExecuteContentScript(std::move(routing_id), std::move(script_id), std::move(callback));
+void GuestViewInterceptorForTesting::CanExecuteContentScript(const std::string& script_id, CanExecuteContentScriptCallback callback) {
+  GetForwardingInterface()->CanExecuteContentScript(std::move(script_id), std::move(callback));
 }
 GuestViewAsyncWaiter::GuestViewAsyncWaiter(
     GuestView* proxy) : proxy_(proxy) {}
@@ -1192,9 +1196,9 @@ GuestViewAsyncWaiter::GuestViewAsyncWaiter(
 GuestViewAsyncWaiter::~GuestViewAsyncWaiter() = default;
 
 void GuestViewAsyncWaiter::CanExecuteContentScript(
-    int32_t routing_id, const std::string& script_id, bool* out_allowed) {
+    const std::string& script_id, bool* out_allowed) {
   base::RunLoop loop;
-  proxy_->CanExecuteContentScript(std::move(routing_id),std::move(script_id),
+  proxy_->CanExecuteContentScript(std::move(script_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_allowed
@@ -1208,9 +1212,9 @@ void GuestViewAsyncWaiter::CanExecuteContentScript(
 }
 
 bool GuestViewAsyncWaiter::CanExecuteContentScript(
-    int32_t routing_id, const std::string& script_id) {
+    const std::string& script_id) {
   bool async_wait_result;
-  CanExecuteContentScript(std::move(routing_id),std::move(script_id),&async_wait_result);
+  CanExecuteContentScript(std::move(script_id),&async_wait_result);
   return async_wait_result;
 }
 

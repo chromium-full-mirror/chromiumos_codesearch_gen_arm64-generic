@@ -34,21 +34,21 @@ constexpr uint32_t kNetworkService_OnClientCertStoreChanged_Name = 16;
 constexpr uint32_t kNetworkService_SetEncryptionKey_Name = 17;
 constexpr uint32_t kNetworkService_OnMemoryPressure_Name = 18;
 constexpr uint32_t kNetworkService_OnPeerToPeerConnectionsCountChange_Name = 19;
-constexpr uint32_t kNetworkService_SetEnvironment_Name = 20;
-constexpr uint32_t kNetworkService_SetTrustTokenKeyCommitments_Name = 21;
-constexpr uint32_t kNetworkService_ClearSCTAuditingCache_Name = 22;
-constexpr uint32_t kNetworkService_ConfigureSCTAuditing_Name = 23;
-constexpr uint32_t kNetworkService_UpdateCtLogList_Name = 24;
-constexpr uint32_t kNetworkService_UpdateCtKnownPopularSCTs_Name = 25;
-constexpr uint32_t kNetworkService_SetCtEnforcementEnabled_Name = 26;
-constexpr uint32_t kNetworkService_UpdateKeyPinsList_Name = 27;
-constexpr uint32_t kNetworkService_BindTestInterfaceForTesting_Name = 28;
-constexpr uint32_t kNetworkService_SetFirstPartySets_Name = 29;
-constexpr uint32_t kNetworkService_SetExplicitlyAllowedPorts_Name = 30;
-constexpr uint32_t kNetworkService_UpdateMaskedDomainList_Name = 31;
-constexpr uint32_t kNetworkService_ParseHeaders_Name = 32;
-constexpr uint32_t kNetworkService_EnableDataUseUpdates_Name = 33;
-constexpr uint32_t kNetworkService_SetIPv6ReachabilityOverride_Name = 34;
+constexpr uint32_t kNetworkService_SetTrustTokenKeyCommitments_Name = 20;
+constexpr uint32_t kNetworkService_ClearSCTAuditingCache_Name = 21;
+constexpr uint32_t kNetworkService_ConfigureSCTAuditing_Name = 22;
+constexpr uint32_t kNetworkService_UpdateCtLogList_Name = 23;
+constexpr uint32_t kNetworkService_UpdateCtKnownPopularSCTs_Name = 24;
+constexpr uint32_t kNetworkService_SetCtEnforcementEnabled_Name = 25;
+constexpr uint32_t kNetworkService_UpdateKeyPinsList_Name = 26;
+constexpr uint32_t kNetworkService_BindTestInterfaceForTesting_Name = 27;
+constexpr uint32_t kNetworkService_SetFirstPartySets_Name = 28;
+constexpr uint32_t kNetworkService_SetExplicitlyAllowedPorts_Name = 29;
+constexpr uint32_t kNetworkService_UpdateMaskedDomainList_Name = 30;
+constexpr uint32_t kNetworkService_ParseHeaders_Name = 31;
+constexpr uint32_t kNetworkService_EnableDataUseUpdates_Name = 32;
+constexpr uint32_t kNetworkService_SetIPv6ReachabilityOverride_Name = 33;
+constexpr uint32_t kNetworkService_SetCookieEncryptionProvider_Name = 34;
 
 }  // namespace internal
 

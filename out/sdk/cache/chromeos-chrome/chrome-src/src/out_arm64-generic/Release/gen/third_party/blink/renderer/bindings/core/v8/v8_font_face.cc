@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, FontFace>::value,
     "FontFace does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&FontFace::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FontFace is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.family.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->family();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->family();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,12 +100,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.family.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -134,10 +129,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.style.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->style();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->style();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -148,12 +143,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.style.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -177,10 +172,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.weight.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->weight();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->weight();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -191,12 +186,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.weight.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -220,10 +215,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.stretch.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->stretch();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->stretch();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -234,12 +229,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.stretch.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -263,10 +258,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.unicodeRange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->unicodeRange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->unicodeRange();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -277,12 +272,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.unicodeRange.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -306,10 +301,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.variant.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->variant();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->variant();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -320,12 +315,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.variant.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -349,10 +344,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.featureSettings.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->featureSettings();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->featureSettings();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -363,12 +358,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.featureSettings.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -392,10 +387,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.display.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->display();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->display();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -406,12 +401,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.display.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -435,10 +430,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.ascentOverride.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ascentOverride();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ascentOverride();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -449,12 +444,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.ascentOverride.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -478,10 +473,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.descentOverride.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->descentOverride();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->descentOverride();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -492,12 +487,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.descentOverride.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -521,10 +516,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.lineGapOverride.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->lineGapOverride();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->lineGapOverride();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -535,12 +530,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.lineGapOverride.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -564,10 +559,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.sizeAdjust.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sizeAdjust();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sizeAdjust();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -578,12 +573,12 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.sizeAdjust.set");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "FontFace";
@@ -607,10 +602,10 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.status.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->status();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->status();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -634,7 +629,7 @@ BLINK_BINDINGS_TRACE_EVENT("FontFace.loaded.get");
 
 
 
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -717,7 +712,7 @@ return;
 
 
 
-FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(v8_receiver);
+FontFace* blink_receiver = V8FontFace::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

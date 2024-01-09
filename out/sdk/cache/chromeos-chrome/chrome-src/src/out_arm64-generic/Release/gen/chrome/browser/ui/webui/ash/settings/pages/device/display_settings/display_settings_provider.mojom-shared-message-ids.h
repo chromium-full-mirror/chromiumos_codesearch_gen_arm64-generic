@@ -15,7 +15,10 @@ namespace internal {
 
 
 constexpr uint32_t kTabletModeObserver_OnTabletModeChanged_Name = 0;
+constexpr uint32_t kDisplayConfigurationObserver_OnDisplayConfigurationChanged_Name = 0;
 constexpr uint32_t kDisplaySettingsProvider_ObserveTabletMode_Name = 0;
+constexpr uint32_t kDisplaySettingsProvider_ObserveDisplayConfiguration_Name = 1;
+constexpr uint32_t kDisplaySettingsProvider_RecordChangingDisplaySettings_Name = 2;
 
 }  // namespace internal
 

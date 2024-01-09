@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/audio_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/audio_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/audio_service.mojom-forward.h"
 #include <string>
@@ -165,7 +166,7 @@ class AudioService
   virtual ~AudioService() = default;
 
 
-  using GetDevicesCallback = base::OnceCallback<void(absl::optional<std::vector<AudioDeviceInfoPtr>>)>;
+  using GetDevicesCallback = base::OnceCallback<void(std::optional<std::vector<AudioDeviceInfoPtr>>)>;
   
   virtual void GetDevices(DeviceFilterPtr filter, GetDevicesCallback callback) = 0;
 
@@ -514,7 +515,7 @@ class  AudioDeviceInfo {
       const std::string& id,
       bool isActive,
       int32_t level,
-      const absl::optional<std::string>& stableDeviceId,
+      const std::optional<std::string>& stableDeviceId,
       StreamType streamType);
 
 
@@ -605,7 +606,7 @@ class  AudioDeviceInfo {
   
   int32_t level;
   
-  absl::optional<std::string> stableDeviceId;
+  std::optional<std::string> stableDeviceId;
   
   StreamType streamType;
 
@@ -671,7 +672,7 @@ class  DeviceFilter {
 
   DeviceFilter(
       DeviceFilter::ActiveState includedActiveState,
-      absl::optional<std::vector<StreamType>> includedStreamTypes);
+      std::optional<std::vector<StreamType>> includedStreamTypes);
 
 
   ~DeviceFilter();
@@ -751,7 +752,7 @@ class  DeviceFilter {
   
   DeviceFilter::ActiveState includedActiveState;
   
-  absl::optional<std::vector<StreamType>> includedStreamTypes;
+  std::optional<std::vector<StreamType>> includedStreamTypes;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

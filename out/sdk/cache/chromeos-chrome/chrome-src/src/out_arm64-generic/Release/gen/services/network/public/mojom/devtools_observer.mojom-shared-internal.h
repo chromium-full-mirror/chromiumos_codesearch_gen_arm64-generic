@@ -24,6 +24,7 @@
 #include "services/network/public/mojom/ip_address_space.mojom-shared-internal.h"
 #include "services/network/public/mojom/referrer_policy.mojom-shared-internal.h"
 #include "services/network/public/mojom/request_priority.mojom-shared-internal.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-shared-internal.h"
 #include "services/network/public/mojom/trust_tokens.mojom-shared-internal.h"
 #include "services/network/public/mojom/ip_endpoint.mojom-shared-internal.h"
 #include "services/network/public/mojom/url_loader_completion_status.mojom-shared-internal.h"
@@ -126,6 +127,7 @@ class  URLResponseHeadDevToolsInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> alpn_negotiated_protocol;
   int32_t alternate_protocol_usage;
   int32_t service_worker_response_source;
+  mojo::internal::Pointer<::network::mojom::internal::ServiceWorkerRouterInfo_Data> service_worker_router_info;
   mojo::internal::Pointer<::network::mojom::internal::SSLInfo_Data> ssl_info;
   mojo::internal::Pointer<::network::mojom::internal::IPEndPoint_Data> remote_endpoint;
 
@@ -135,7 +137,7 @@ class  URLResponseHeadDevToolsInfo_Data {
   URLResponseHeadDevToolsInfo_Data();
   ~URLResponseHeadDevToolsInfo_Data() = delete;
 };
-static_assert(sizeof(URLResponseHeadDevToolsInfo_Data) == 96,
+static_assert(sizeof(URLResponseHeadDevToolsInfo_Data) == 104,
               "Bad sizeof(URLResponseHeadDevToolsInfo_Data)");
 // Used by URLResponseHeadDevToolsInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

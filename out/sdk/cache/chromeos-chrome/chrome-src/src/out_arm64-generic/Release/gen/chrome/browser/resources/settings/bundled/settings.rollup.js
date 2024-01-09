@@ -1,5 +1,5 @@
-import { a as assertNotReached, l as listenOnce, C as CrSearchFieldMixin, I as I18nMixin, W as WebUiListenerMixin, b as assert, R as RelaunchMixin, c as RestartType, i as isMac, d as IronResizableBehavior, e as RouteObserverMixin, E as EventTracker, f as Router, g as focusWithoutInk, h as CrPolicyPrefMixin, P as PrefControlMixin, j as PrefsMixin, B as BaseMixin, r as routes, M as MetricsBrowserProxyImpl, k as PrivacyGuideInteractions, m as PrivacyGuideAvailabilityMixin, n as PrivacyPageBrowserProxyImpl, S as SiteSettingsPrefsBrowserProxyImpl, o as SafetyHubBrowserProxyImpl, p as SettingsState, q as ContentSettingsTypes, s as ContentSetting, t as ChooserType, u as SafetyHubEvent, v as PluralStringProxyImpl, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, w as CookieControlsMode, x as sanitizeInnerHtml, y as SafetyCheckInteractions, O as OpenWindowProxyImpl, z as PasswordManagerImpl, A as PasswordCheckReferrer, D as PasswordManagerPage, F as getInstance, G as FocusRowMixin, J as SyncBrowserProxyImpl, K as isChromeOS, L as getImage, N as ListPropertyUpdateMixin, Q as TooltipMixin, U as NetworkPredictionOptions, V as CrSettingsPrefs, X as ResetBrowserProxyImpl, Y as SearchEnginesBrowserProxyImpl, Z as ChoiceMadeLocation, _ as PromiseResolver, $ as IronSelectableBehavior, a0 as FocusOutlineManager, a1 as CrContainerShadowMixin, a2 as pageVisibility, a3 as setGlobalScrollTarget, a4 as resetGlobalScrollTargetForTesting } from './shared.rollup.js';
-export { a5 as ControlledRadioButtonElement, am as CrActionMenuElement, an as CrButtonElement, ao as CrDialogElement, ap as CrLinkRowElement, aq as CrRadioButtonElement, ar as CrRadioGroupElement, as as CrToggleElement, a7 as DEFAULT_CHECKED_VALUE, a8 as DEFAULT_UNCHECKED_VALUE, at as DeleteBrowsingDataAction, ab as ExtensionControlBrowserProxyImpl, a6 as ExtensionControlledIndicatorElement, ac as LifetimeBrowserProxyImpl, aB as MAX_SIGNIN_PROMO_IMPRESSION, ad as PageStatus, au as PrivacyElementInteractions, av as PrivacyGuideSettingsStates, aw as PrivacyGuideStepsEligibleAndReached, aD as PrivacySandboxBrowserProxyImpl, aF as Route, ax as SafeBrowsingInteractions, ay as SafetyCheckNotificationsModuleInteractions, az as SafetyCheckUnusedSitePermissionsModuleInteractions, aG as SearchEnginesInteractions, ah as SecureDnsMode, ai as SecureDnsUiManagementMode, a9 as SettingsDropdownMenuElement, al as SettingsPrefsElement, aC as SettingsSyncAccountControlElement, aa as SettingsToggleButtonElement, aH as SiteFaviconElement, ae as StatusAction, ag as TrustedVaultBannerState, aE as buildRouter, aj as prefToString, aA as setPageVisibilityForTesting, ak as stringToPrefValue, af as syncPrefsIndividualDataTypes } from './shared.rollup.js';
+import { a as assertNotReached, l as listenOnce, C as CrSearchFieldMixin, I as I18nMixin, W as WebUiListenerMixin, b as assert, R as RelaunchMixin, c as RestartType, P as PrefsMixin, i as isMac, d as IronResizableBehavior, e as RouteObserverMixin, E as EventTracker, f as Router, g as focusWithoutInk, h as CrPolicyPrefMixin, j as PrefControlMixin, B as BaseMixin, r as routes, M as MetricsBrowserProxyImpl, k as PrivacyGuideInteractions, m as PrivacyGuideAvailabilityMixin, n as PrivacyPageBrowserProxyImpl, S as SiteSettingsPrefsBrowserProxyImpl, o as SafetyHubBrowserProxyImpl, p as SettingsState, q as ContentSettingsTypes, s as ContentSetting, t as ChooserType, u as SafetyHubEvent, v as SafetyHubEntryPoint, w as PluralStringProxyImpl, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, x as CookieControlsMode, y as sanitizeInnerHtml, z as SafetyCheckInteractions, O as OpenWindowProxyImpl, A as PasswordManagerImpl, D as PasswordCheckReferrer, F as PasswordManagerPage, G as getInstance, J as getTrustedScriptURL, K as FocusRowMixin, L as SyncBrowserProxyImpl, N as isChromeOS, Q as getImage, U as ListPropertyUpdateMixin, V as TooltipMixin, X as NetworkPredictionOptions, Y as CrSettingsPrefs, Z as ResetBrowserProxyImpl, _ as SearchEnginesBrowserProxyImpl, $ as ChoiceMadeLocation, a0 as PromiseResolver, a1 as IronSelectableBehavior, a2 as FocusOutlineManager, a3 as CrContainerShadowMixin, a4 as pageVisibility, a5 as setGlobalScrollTarget, a6 as resetGlobalScrollTargetForTesting } from './shared.rollup.js';
+export { a7 as ControlledRadioButtonElement, ao as CrActionMenuElement, ap as CrButtonElement, aq as CrDialogElement, ar as CrLinkRowElement, as as CrRadioButtonElement, at as CrRadioGroupElement, au as CrToggleElement, ay as CvcDeletionUserAction, a9 as DEFAULT_CHECKED_VALUE, aa as DEFAULT_UNCHECKED_VALUE, az as DeleteBrowsingDataAction, ad as ExtensionControlBrowserProxyImpl, a8 as ExtensionControlledIndicatorElement, ae as LifetimeBrowserProxyImpl, aK as MAX_SIGNIN_PROMO_IMPRESSION, af as PageStatus, aA as PrivacyElementInteractions, aB as PrivacyGuideSettingsStates, aC as PrivacyGuideStepsEligibleAndReached, aM as PrivacySandboxBrowserProxyImpl, aO as Route, aD as SafeBrowsingInteractions, aw as SafeBrowsingSetting, aE as SafetyCheckNotificationsModuleInteractions, aF as SafetyCheckUnusedSitePermissionsModuleInteractions, aG as SafetyHubCardState, aH as SafetyHubModuleType, aI as SafetyHubSurfaces, aP as SearchEnginesInteractions, aj as SecureDnsMode, ak as SecureDnsUiManagementMode, ax as SecurityPageInteraction, ab as SettingsDropdownMenuElement, an as SettingsPrefsElement, aL as SettingsSyncAccountControlElement, ac as SettingsToggleButtonElement, aQ as SiteFaviconElement, ag as StatusAction, ai as TrustedVaultBannerState, aN as buildRouter, av as getTrustedHTML, al as prefToString, aJ as setPageVisibilityForTesting, am as stringToPrefValue, ah as syncPrefsIndividualDataTypes } from './shared.rollup.js';
 import { html, PolymerElement, dedupingMixin, mixinBehaviors, afterNextRender, flush, templatize, beforeNextRender, microTask, DomIf } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 export { loadTimeData } from 'chrome://resources/js/load_time_data.js';
@@ -7,8 +7,8 @@ import './strings.m.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 
-function getTemplate$J() {
-    return html `<!--_html_template_start_-->    <style>:host dialog{--drawer-width:256px;--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;bottom:0;left:calc(-1 * var(--drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
+function getTemplate$K() {
+    return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
     <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
       <div id="container" on-click="onContainerClick_">
         <div class="drawer-header">
@@ -34,7 +34,7 @@ class CrDrawerElement extends PolymerElement {
         return 'cr-drawer';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -132,8 +132,9 @@ class CrDrawerElement extends PolymerElement {
 }
 customElements.define(CrDrawerElement.is, CrDrawerElement);
 
-function getTemplate$I() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
+function getTemplate$J() {
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
+                var(--cr-hover-background-color)) isolation: isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
               --cr-toolbar-search-field-input-icon-color,
@@ -143,7 +144,7 @@ function getTemplate$I() {
               --cr-toolbar-search-field-input-icon-color,
               var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
                 var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){background:0 0;border-radius:100px;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--color-toolbar-search-field-background-hover,var(--cr-hover-background-color));z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
     <div id="background"></div>
     <div id="stateBackground"></div>
     <div id="content">
@@ -173,7 +174,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
         return 'cr-toolbar-search-field';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -284,7 +285,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
 
-function getTemplate$H() {
+function getTemplate$I() {
     return html `<!--_html_template_start_-->    <style include="cr-icons cr-hidden-style">:host{align-items:center;background-color:var(--cr-toolbar-background-color);color:var(--google-grey-900);display:flex;height:var(--cr-toolbar-height)}@media (prefers-color-scheme:dark){:host{border-bottom:var(--cr-separator-line);box-sizing:border-box;color:var(--cr-secondary-text-color)}:host-context([chrome-refresh-2023]):host{background-color:transparent;border-bottom:none}}h1{flex:1;font-size:170%;font-weight:var(--cr-toolbar-header-font-weight,500);letter-spacing:.25px;line-height:normal;margin-inline-start:6px;padding-inline-end:12px;white-space:var(--cr-toolbar-header-white-space,normal)}@media (prefers-color-scheme:dark){h1{color:var(--cr-primary-text-color)}}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:calc(12px + 6px);width:var(--cr-toolbar-left-spacer-width,auto)}cr-icon-button{--cr-icon-button-size:32px;min-width:32px}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-focus-outline-color:var(--cr-focus-outline-color)}}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:12px}:host([narrow]) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #leftContent{opacity:0;position:absolute}:host(:not([narrow])) #leftContent{flex:1 1 var(--cr-toolbar-field-margin,0)}:host(:not([narrow])) #centeredContent{flex-basis:var(--cr-toolbar-center-basis,0)}:host(:not([narrow])[disable-right-content-grow]) #centeredContent{justify-content:start;padding-inline-start:12px}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}:host(:not([narrow])[disable-right-content-grow]) #rightContent{flex:0 1 0}picture{display:none}#menuButton{margin-inline-end:9px}#menuButton~h1{margin-inline-start:0}:host(:not([narrow])) picture,:host([always-show-logo]) picture{display:initial;margin-inline-end:16px}:host(:not([narrow])) #leftSpacer,:host([always-show-logo]) #leftSpacer{padding-inline-start:calc(12px + 9px)}:host(:not([narrow])) :is(picture,#product-logo),:host([always-show-logo]) :is(picture,#product-logo){height:24px;width:24px}</style>
     <div id="leftContent">
       <div id="leftSpacer">
@@ -325,7 +326,7 @@ class CrToolbarElement extends PolymerElement {
         return 'cr-toolbar';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -409,7 +410,7 @@ styleMod$2.appendChild(html `
 `.content);
 styleMod$2.register('cr-page-host-style');
 
-function getTemplate$G() {
+function getTemplate$H() {
     return html `<!--_html_template_start_-->    <style>:host{align-items:center;border-top:1px solid var(--cr-separator-color);color:var(--cr-secondary-text-color);display:none;font-size:.8125rem;justify-content:center;padding:0 24px}:host([is-managed_]){display:flex}a[href]{color:var(--cr-link-color)}iron-icon{align-self:flex-start;flex-shrink:0;height:20px;padding-inline-end:var(--managed-footnote-icon-padding,8px);width:20px}</style>
 
     <template is="dom-if" if="[[isManaged_]]">
@@ -437,7 +438,7 @@ class ManagedFootnoteElement extends ManagedFootnoteElementBase {
         return 'managed-footnote';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -639,7 +640,7 @@ function stripDiacritics(text) {
     return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
-function getTemplate$F() {
+function getTemplate$G() {
     return html `<!--_html_template_start_-->    <style>:host{display:flex;flex-direction:column;outline:0;position:relative}#header{display:flex;justify-content:space-between;padding-inline-end:var(--cr-section-padding)}#header .title{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}#feedback{margin-top:var(--cr-section-vertical-margin)}:host(:not(.expanded)) #card{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow);flex:1;overflow:hidden}@media (forced-colors:active){:host(:not(.expanded)) #card{border:var(--cr-border-hcm)}}:host(.expanded) #header,:host([hidden-by-search]){display:none}</style>
     <div id="header">
       <h2 id="title" class="title" tabindex="-1" aria-hidden$="[[getTitleHiddenStatus_(pageTitle)]]">[[pageTitle]]</h2>
@@ -675,7 +676,7 @@ class SettingsSectionElement extends PolymerElement {
         return 'settings-section';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -741,7 +742,7 @@ styleMod$1.appendChild(html `
 `.content);
 styleMod$1.register('settings-page-styles');
 
-function getTemplate$E() {
+function getTemplate$F() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared settings-page-styles iron-flex">:host{--about-page-image-space:10px}.info-sections{padding:var(--cr-section-vertical-padding) var(--cr-section-padding)}.info-section{margin-bottom:12px}.product-title{font-size:153.85%;font-weight:400;margin-bottom:auto;margin-top:auto}img{margin-inline-end:var(--about-page-image-space)}.icon-container{margin-inline-end:var(--about-page-image-space);min-width:32px;text-align:center}iron-icon[icon='settings:check-circle']{fill:var(--cr-checked-color)}iron-icon[icon='cr:error']{fill:var(--settings-error-color)}cr-button{white-space:nowrap}</style>
     <settings-section page-title="$i18n{aboutPageTitle}" section="about">
       <div class="cr-row two-line first">
@@ -852,7 +853,7 @@ class SettingsAboutPageElement extends SettingsAboutPageElementBase {
         return 'settings-about-page';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -930,6 +931,111 @@ class SettingsAboutPageElement extends SettingsAboutPageElementBase {
 }
 customElements.define(SettingsAboutPageElement.is, SettingsAboutPageElement);
 
+function getTemplate$E() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.list-frame{padding-inline-end:0}.list-frame settings-toggle-button{padding-inline-start:0}</style>
+
+<settings-toggle-button pref="{{prefs.optimization_guide.model_execution_main_toggle_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeatureMainLabel}" sub-label="$i18n{experimentalAdvancedFeatureMainSublabel}" on-settings-boolean-control-change="onToggleChange_">
+</settings-toggle-button>
+
+<iron-collapse opened="[[isExpanded_(
+    prefs.optimization_guide.model_execution_main_toggle_setting_state.value)]]">
+  <div class="list-frame">
+    <settings-toggle-button hidden="[[!showComposeControl_]]" pref="{{prefs.optimization_guide.compose_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature1Label}" sub-label="$i18n{experimentalAdvancedFeature1Sublabel}" on-settings-boolean-control-change="onToggleChange_">
+    </settings-toggle-button>
+    <settings-toggle-button class$="[[getTabOrganizationHrCssClass_(showComposeControl_)]]" hidden="[[!showTabOrganizationControl_]]" pref="{{prefs.optimization_guide.tab_organization_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature2Label}" sub-label="$i18n{experimentalAdvancedFeature2Sublabel}" on-settings-boolean-control-change="onToggleChange_">
+    </settings-toggle-button>
+    <settings-toggle-button class$="[[getWallpaperSearchHrCssClass_(
+            showComposeControl_, showTabOrganizationControl_)]]" hidden="[[!showWallpaperSearchControl_]]" pref="{{prefs.optimization_guide.wallpaper_search_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature3Label}" sub-label="$i18n{experimentalAdvancedFeature3Sublabel}" on-settings-boolean-control-change="onToggleChange_">
+    </settings-toggle-button>
+  </div>
+</iron-collapse>
+
+<cr-toast id="toast">
+  <div>$i18n{restartToApplyChanges}</div>
+  <cr-button on-click="onRestartClick_">$i18n{restart}</cr-button>
+</cr-toast>
+
+
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// These values must stay in sync with
+// optimization_guide::prefs::FeatureOptInState in
+// components/optimization_guide/core/optimization_guide_prefs.h.
+var FeatureOptInState;
+(function (FeatureOptInState) {
+    FeatureOptInState[FeatureOptInState["NOT_INITIALIZED"] = 0] = "NOT_INITIALIZED";
+    FeatureOptInState[FeatureOptInState["ENABLED"] = 1] = "ENABLED";
+    FeatureOptInState[FeatureOptInState["DISABLED"] = 2] = "DISABLED";
+})(FeatureOptInState || (FeatureOptInState = {}));
+// Exporting pref names so that they can be referenced by tests.
+var SettingsAiPageFeaturePrefName;
+(function (SettingsAiPageFeaturePrefName) {
+    SettingsAiPageFeaturePrefName["MAIN"] = "optimization_guide.model_execution_main_toggle_setting_state";
+    SettingsAiPageFeaturePrefName["COMPOSE"] = "optimization_guide.compose_setting_state";
+    SettingsAiPageFeaturePrefName["TAB_ORGANIZATION"] = "optimization_guide.tab_organization_setting_state";
+    SettingsAiPageFeaturePrefName["WALLPAPER_SEARCH"] = "optimization_guide.wallpaper_search_setting_state";
+})(SettingsAiPageFeaturePrefName || (SettingsAiPageFeaturePrefName = {}));
+const SettingsAiPageElementBase = RelaunchMixin(PrefsMixin(PolymerElement));
+class SettingsAiPageElement extends SettingsAiPageElementBase {
+    static get is() {
+        return 'settings-ai-page';
+    }
+    static get template() {
+        return getTemplate$E();
+    }
+    static get properties() {
+        return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
+            showComposeControl_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('showComposeControl'),
+            },
+            showTabOrganizationControl_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('showTabOrganizationControl'),
+            },
+            showWallpaperSearchControl_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('showWallpaperSearchControl'),
+            },
+            featureOptInStateEnum_: {
+                type: Object,
+                value: FeatureOptInState,
+            },
+            numericUncheckedValues_: {
+                type: Array,
+                value: () => [FeatureOptInState.DISABLED, FeatureOptInState.NOT_INITIALIZED],
+            },
+        };
+    }
+    onToggleChange_() {
+        this.$.toast.show();
+    }
+    onRestartClick_(e) {
+        e.stopPropagation();
+        this.performRestart(RestartType.RESTART);
+    }
+    isExpanded_() {
+        return this.getPref(SettingsAiPageFeaturePrefName.MAIN).value ===
+            FeatureOptInState.ENABLED;
+    }
+    getTabOrganizationHrCssClass_() {
+        return this.showComposeControl_ ? 'hr' : '';
+    }
+    getWallpaperSearchHrCssClass_() {
+        return this.showComposeControl_ || this.showTabOrganizationControl_ ? 'hr' :
+            '';
+    }
+}
+customElements.define(SettingsAiPageElement.is, SettingsAiPageElement);
+
 function getTemplate$D() {
     return html `<!--_html_template_start_--><style>iron-icon{--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);padding-inline-end:10px}cr-dialog::part(body-container){padding-inline-start:35px}</style>
 
@@ -983,15 +1089,15 @@ customElements.define(ManagedDialogElement.is, ManagedDialogElement);
 // found in the LICENSE file.
 /** This is used to identify keyboard shortcuts. */
 class KeyboardShortcut {
+    useKeyCode_ = false;
+    mods_ = {};
+    key_ = null;
+    keyCode_ = null;
     /**
      * @param shortcut The text used to describe the keys for this
      *     keyboard shortcut.
      */
     constructor(shortcut) {
-        this.useKeyCode_ = false;
-        this.mods_ = {};
-        this.key_ = null;
-        this.keyCode_ = null;
         shortcut.split('|').forEach((part) => {
             const partLc = part.toLowerCase();
             switch (partLc) {
@@ -1035,6 +1141,7 @@ class KeyboardShortcut {
 }
 /** A list of keyboard shortcuts which all perform one command. */
 class KeyboardShortcutList {
+    shortcuts_;
     /**
      * @param shortcuts Text-based representation of one or more
      *     keyboard shortcuts, separated by spaces.
@@ -1176,7 +1283,7 @@ function getTemplate$C() {
       <h1 class="cr-title-text">[[pageTitle]]</h1>
       <slot name="subpage-title-extra"></slot>
       <template is="dom-if" if="[[learnMoreUrl]]">
-        <cr-icon-button iron-icon="cr:help-outline" dir="ltr" aria-label="[[getLearnMoreAriaLabel_(pageTitle)]]" on-click="onHelpClick_">
+        <cr-icon-button iron-icon="cr:help-outline" dir="ltr" aria-label="[[getLearnMoreAriaLabel_(pageTitle)]]" aria-description="$i18n{opensInNewTab}" on-click="onHelpClick_">
         </cr-icon-button>
       </template>
       <template is="dom-if" if="[[searchLabel]]">
@@ -2228,35 +2335,21 @@ function getTemplate$y() {
           <cr-link-row id="trackingProtectionLinkRow" start-icon="settings:visibility-off" class="hr" label="$i18n{trackingProtectionLinkRowLabel}" sub-label="$i18n{trackingProtectionLinkRowSubLabel}" on-click="onTrackingProtectionClick_" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
         </template>
-        <template is="dom-if" if="[[isPrivacySandboxSettings4CookiesPageEnabled_(
-            isPrivacySandboxSettings4_, is3pcdRedesignEnabled_)]]">
+        <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
           <cr-link-row id="thirdPartyCookiesLinkRow" start-icon="settings:cookie" class="hr" label="$i18n{thirdPartyCookiesLinkRowLabel}" sub-label="[[computeThirdPartyCookiesSublabel_(
                   prefs.profile.cookie_controls_mode.*)]]" on-click="onCookiesClick_" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
         </template>
-        <template is="dom-if" if="[[isPrivacySandboxSettings3CookiesPageEnabled_(
-            isPrivacySandboxSettings4_, is3pcdRedesignEnabled_)]]">
-          <cr-link-row id="cookiesLinkRow" start-icon="settings:cookie" class="hr" label="$i18n{cookiePageTitle}" sub-label="[[cookieSettingDescription_]]" on-click="onCookiesClick_" role-description="$i18n{subpageArrowRoleDescription}">
-          </cr-link-row>
-        </template>
-        <template is="dom-if" if="[[isPrivacySandboxSettings4Enabled_(
+        <template is="dom-if" if="[[shouldShowAdPrivacy_(
                 isPrivacySandboxRestricted_,
-                isPrivacySandboxRestrictedNoticeEnabled_,
-                isPrivacySandboxSettings4_)]]">
+                isPrivacySandboxRestrictedNoticeEnabled_)]]">
           <cr-link-row id="privacySandboxLinkRow" start-icon="settings20:ads-click" class="hr" label="$i18n{adPrivacyLinkRowLabel}" sub-label="[[computeAdPrivacySublabel_(
                   isPrivacySandboxRestricted_,
-                  isPrivacySandboxRestrictedNoticeEnabled_,
-                  isPrivacySandboxSettings4_)]]" on-click="onPrivacySandboxClick_" role-description="$i18n{subpageArrowRoleDescription}">
+                  isPrivacySandboxRestrictedNoticeEnabled_)]]" on-click="onPrivacySandboxClick_" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
         </template>
         <cr-link-row id="securityLinkRow" start-icon="cr:security" class="hr" label="$i18n{securityPageTitle}" sub-label="$i18n{securityPageDescription}" on-click="onSecurityPageClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
         <cr-link-row id="permissionsLinkRow" start-icon="settings:permissions" class="hr" label="$i18n{siteSettings}" sub-label="$i18n{permissionsPageDescription}" on-click="onPermissionsPageClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
-        <template is="dom-if" if="[[isPrivacySandboxSettings3Enabled_(isPrivacySandboxRestricted_, isPrivacySandboxSettings4_)]]">
-          <cr-link-row id="privacySandboxLinkRow" start-icon="settings20:experiment" class="hr" label="$i18n{privacySandboxTitle}" sub-label="[[computePrivacySandboxSublabel_(
-                  prefs.privacy_sandbox.*)]]" on-click="onPrivacySandboxClick_" external role-description="$i18n{subpageArrowRoleDescription}">
-          </cr-link-row>
-          <a id="privacySandboxLink" href="privacySandbox" target="_blank" tabindex="-1" aria-disabled="true" role="none"></a>
-        </template>
       </div>
 
 
@@ -2305,28 +2398,30 @@ function getTemplate$y() {
         </settings-subpage>
       </template>
 
-      <template is="dom-if" route-path="/adPrivacy">
+      <template is="dom-if" route-path="/adPrivacy" no-search="[[!shouldShowAdPrivacy_(isPrivacySandboxRestricted_,
+                isPrivacySandboxRestrictedNoticeEnabled_)]]">
         <settings-subpage id="privacy-sandbox" page-title="$i18n{adPrivacyPageTitle}" associated-control="[[$$('#privacySandboxLinkRow')]]" learn-more-url="$i18n{adPrivacyLearnMoreURL}">
           <settings-privacy-sandbox-page prefs="{{prefs}}" focus-config="[[focusConfig_]]">
           </settings-privacy-sandbox-page>
         </settings-subpage>
       </template>
 
-      <template is="dom-if" route-path="/adPrivacy/interests">
+      <template is="dom-if" route-path="/adPrivacy/interests" no-search="[[isPrivacySandboxRestricted_]]">
         <settings-subpage id="privacy-sandbox-topics" page-title="$i18n{topicsPageTitle}" associated-control="[[$$('#privacySandboxLinkRow')]]" learn-more-url="$i18n{adPrivacyLearnMoreURL}">
           <settings-privacy-sandbox-topics-subpage prefs="{{prefs}}">
           </settings-privacy-sandbox-topics-subpage>
         </settings-subpage>
       </template>
 
-      <template is="dom-if" route-path="/adPrivacy/sites">
+      <template is="dom-if" route-path="/adPrivacy/sites" no-search="[[isPrivacySandboxRestricted_]]">
         <settings-subpage id="privacy-sandbox-fledge" page-title="$i18n{fledgePageTitle}" associated-control="[[$$('#privacySandboxLinkRow')]]" learn-more-url="$i18n{adPrivacyLearnMoreURL}">
           <settings-privacy-sandbox-fledge-subpage prefs="{{prefs}}">
           </settings-privacy-sandbox-fledge-subpage>
         </settings-subpage>
       </template>
 
-      <template is="dom-if" route-path="/adPrivacy/measurement">
+      <template is="dom-if" route-path="/adPrivacy/measurement" no-search="[[!shouldShowAdPrivacy_(isPrivacySandboxRestricted_,
+              isPrivacySandboxRestrictedNoticeEnabled_)]]">
         <settings-subpage id="privacy-sandbox-ad-measurement" page-title="$i18n{adMeasurementPageTitle}" associated-control="[[$$('#privacySandboxLinkRow')]]" learn-more-url="$i18n{adPrivacyLearnMoreURL}">
           <settings-privacy-sandbox-ad-measurement-subpage prefs="{{prefs}}">
           </settings-privacy-sandbox-ad-measurement-subpage>
@@ -2381,29 +2476,11 @@ function getTemplate$y() {
           </settings-subpage>
         </template>
       </template>
-      <template is="dom-if" if="[[isPrivacySandboxSettings4CookiesPageEnabled_(
-          isPrivacySandboxSettings4_, is3pcdRedesignEnabled_)]]">
+      <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
         <template is="dom-if" route-path="/cookies">
           <settings-subpage id="cookies" page-title="$i18n{thirdPartyCookiesPageTitle}" learn-more-url="$i18n{cookiesSettingsHelpCenterURL}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}" associated-control="[[$$('#thirdPartyCookiesLinkRow')]]">
             <settings-cookies-page prefs="{{prefs}}" focus-config="[[focusConfig_]]" search-term="[[searchFilter_]]">
             </settings-cookies-page>
-          </settings-subpage>
-        </template>
-      </template>
-      <template is="dom-if" if="[[isPrivacySandboxSettings3CookiesPageEnabled_(
-          isPrivacySandboxSettings4_, is3pcdRedesignEnabled_)]]">
-        <template is="dom-if" route-path="/cookies">
-          <settings-subpage id="cookies" page-title="$i18n{cookiePageTitle}" learn-more-url="$i18n{cookiesSettingsHelpCenterURL}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}" associated-control="[[$$('#cookiesLinkRow')]]">
-            <settings-cookies-page prefs="{{prefs}}" focus-config="[[focusConfig_]]" search-term="[[searchFilter_]]">
-            </settings-cookies-page>
-          </settings-subpage>
-        </template>
-      </template>
-      <template is="dom-if" if="[[showPreloadingSubpage_]]">
-        <template is="dom-if" route-path="/preloading" no-search>
-          <settings-subpage id="preloading" page-title="$i18n{preloadingPageTitle}">
-            <settings-preloading-page prefs="{{prefs}}">
-            </settings-preloading-page>
           </settings-subpage>
         </template>
       </template>
@@ -2443,13 +2520,11 @@ function getTemplate$y() {
           </settings-subpage>
         </template>
       </template>
-      <template is="dom-if" if="[[isPrivacySandboxSettings4_]]">
-        <template is="dom-if" route-path="/content/siteData" no-search>
-          <settings-subpage page-title="$i18n{siteDataPageTitle}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
-            <settings-site-data prefs="{{prefs}}" search-term="[[searchFilter_]]">
-            </settings-site-data>
-          </settings-subpage>
-        </template>
+      <template is="dom-if" route-path="/content/siteData" no-search>
+        <settings-subpage page-title="$i18n{siteDataPageTitle}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
+          <settings-site-data prefs="{{prefs}}" search-term="[[searchFilter_]]">
+          </settings-site-data>
+        </settings-subpage>
       </template>
       <template is="dom-if" route-path="/content/location" no-search>
         <settings-subpage page-title="$i18n{siteSettingsCategoryLocation}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
@@ -2468,27 +2543,28 @@ function getTemplate$y() {
                 $i18n{siteSettingsDefaultBehaviorDescription}
               </div>
 
-              <cr-radio-button no-collapse id="location-ask-radio-button" on-click="onLocationAskClicked_" checked$="[[isLocationAllowed_]]">
-                <iron-icon icon="settings:location-on"></iron-icon>
-                $i18n{siteSettingsLocationAllowed}
-              </cr-radio-button>
-
-              
-              <settings-radio-group pref="{{prefs.generated.geolocation}}" selectable-elements="cr-radio-button">
-                <cr-radio-button class="padded-radio-section" id="location-ask-quiet" name="[[settingsStateEnum_.QUIET]]" pref="[[prefs.generated.geolocation]]" hidden$="[[!isLocationAllowed_]]" label="$i18n{siteSettingsLocationAskQuiet}">
+              <cr-radio-group on-selected-changed="onLocationTopLevelRadioChanged_">
+                <cr-radio-button no-collapse name="location-ask-radio-button" checked$="[[isLocationAllowed_]]">
+                  <iron-icon icon="settings:location-on"></iron-icon>
+                  $i18n{siteSettingsLocationAllowed}
                 </cr-radio-button>
 
-                <cr-radio-button class="padded-radio-section" id="location-ask-cpss" name="[[settingsStateEnum_.CPSS]]" pref="[[prefs.generated.geolocation]]" hidden$="[[!isLocationAllowed_]]" label="$i18n{siteSettingsLocationAskCPSS}">
-                </cr-radio-button>
+                <settings-radio-group pref="{{prefs.generated.geolocation}}" selectable-elements="cr-radio-button" hidden$="[[!isLocationAllowed_]]">
+                  <cr-radio-button class="padded-radio-section" name="[[settingsStateEnum_.QUIET]]" pref="[[prefs.generated.geolocation]]" label="$i18n{siteSettingsLocationAskQuiet}">
+                  </cr-radio-button>
 
-                <cr-radio-button class="padded-radio-section" id="location-ask-loud" name="[[settingsStateEnum_.LOUD]]" pref="[[prefs.generated.geolocation]]" hidden$="[[!isLocationAllowed_]]" label="$i18n{siteSettingsLocationAskLoud}">
-                </cr-radio-button>
+                  <cr-radio-button class="padded-radio-section" name="[[settingsStateEnum_.CPSS]]" pref="[[prefs.generated.geolocation]]" label="$i18n{siteSettingsLocationAskCPSS}">
+                  </cr-radio-button>
 
-                <cr-radio-button class="two-line" name="[[settingsStateEnum_.BLOCK]]" pref="[[prefs.generated.geolocation]]" sub-label="$i18n{siteSettingsLocationBlockedSubLabel}" on-click="onLocationBlockClicked_">
+                  <cr-radio-button class="padded-radio-section" name="[[settingsStateEnum_.LOUD]]" pref="[[prefs.generated.geolocation]]" label="$i18n{siteSettingsLocationAskLoud}">
+                  </cr-radio-button>
+                </settings-radio-group>
+
+                <cr-radio-button class="two-line" name="location-block-radio-button" sub-label="$i18n{siteSettingsLocationBlockedSubLabel}" checked$="[[!isLocationAllowed_]]">
                   <iron-icon icon="settings:location-off"></iron-icon>
                   $i18n{siteSettingsLocationBlocked}
                 </cr-radio-button>
-              </settings-radio-group>
+              </cr-radio-group>
             </template>
           </div>
 
@@ -2592,8 +2668,9 @@ function getTemplate$y() {
             </template>
             <template is="dom-if" if="[[showNotificationPermissionsReview_]]">
               <template is="dom-if" if="[[enableSafetyHub_]]">
-                <settings-safety-hub-module id="safetyHubEntryPoint" header="[[notificationPermissionsReviewHeader_]]" subheader="[[notificationPermissionsReviewSubheader_]]" header-icon="settings:shield-with-heart">
-                  <cr-button id="safetyHubButton" slot="button-container" on-click="onSafetyHubButtonClick_">
+                <h2>$i18n{safetyHub}</h2>
+                <settings-safety-hub-module id="safetyHubEntryPoint" header="[[notificationPermissionsReviewHeader_]]" subheader="[[notificationPermissionsReviewSubheader_]]" header-icon="cr:security" header-icon-color="blue">
+                  <cr-button id="safetyHubButton" slot="button-container" class="action-button" on-click="onSafetyHubButtonClick_">
                     $i18n{safetyHubEntryPointButton}
                   </cr-button>
                 </settings-safety-hub-module>
@@ -2622,27 +2699,28 @@ function getTemplate$y() {
             </template>
 
             <template is="dom-if" if="[[showDedicatedCpssSetting_]]">
-              <cr-radio-button id="notification-ask-radio-button" on-click="onNotificationAskClicked_" checked$="[[isNotificationAllowed_]]">
-                <iron-icon icon="settings:notifications"></iron-icon>
-                $i18n{siteSettingsNotificationsAskState}
-              </cr-radio-button>
-
-              
-              <settings-radio-group pref="{{prefs.generated.notification}}" selectable-elements="cr-radio-button">
-                <cr-radio-button class="padded-radio-section" id="notification-ask-quiet" name="[[settingsStateEnum_.QUIET]]" pref="[[prefs.generated.notification]]" hidden$="[[!isNotificationAllowed_]]" label="$i18n{siteSettingsNotificationsAskQuiet}">
+              <cr-radio-group on-selected-changed="onNotificationTopLevelRadioChanged_">
+                <cr-radio-button id="notification-ask-radio-button" name="notification-ask-radio-button" checked$="[[isNotificationAllowed_]]">
+                  <iron-icon icon="settings:notifications"></iron-icon>
+                  $i18n{siteSettingsNotificationsAskState}
                 </cr-radio-button>
 
-                <cr-radio-button class="padded-radio-section" id="notification-ask-cpss" name="[[settingsStateEnum_.CPSS]]" hidden$="[[!isNotificationAllowed_]]" pref="[[prefs.generated.notification]]" label="$i18n{siteSettingsNotificationsAskCPSS}">
-                </cr-radio-button>
+                <settings-radio-group pref="{{prefs.generated.notification}}" selectable-elements="cr-radio-button" hidden$="[[!isNotificationAllowed_]]">
+                  <cr-radio-button class="padded-radio-section" id="notification-ask-quiet" name="[[settingsStateEnum_.QUIET]]" pref="[[prefs.generated.notification]]" label="$i18n{siteSettingsNotificationsAskQuiet}">
+                  </cr-radio-button>
 
-                <cr-radio-button class="padded-radio-section" id="notification-ask-loud" name="[[settingsStateEnum_.LOUD]]" pref="[[prefs.generated.notification]]" hidden$="[[!isNotificationAllowed_]]" label="$i18n{siteSettingsNotificationsAskLoud}">
-                </cr-radio-button>
+                  <cr-radio-button class="padded-radio-section" id="notification-ask-cpss" name="[[settingsStateEnum_.CPSS]]" pref="[[prefs.generated.notification]]" label="$i18n{siteSettingsNotificationsAskCPSS}">
+                  </cr-radio-button>
 
-                <cr-radio-button class="two-line" id="notification-block" name="[[settingsStateEnum_.BLOCK]]" pref="[[prefs.generated.notification]]" sub-label="$i18n{siteSettingsNotificationsBlockedSubLabel}" on-click="onNotificationBlockClicked_">
+                  <cr-radio-button class="padded-radio-section" id="notification-ask-loud" name="[[settingsStateEnum_.LOUD]]" pref="[[prefs.generated.notification]]" label="$i18n{siteSettingsNotificationsAskLoud}">
+                  </cr-radio-button>
+                </settings-radio-group>
+
+                <cr-radio-button class="two-line" id="notification-block" name="notification-block-radio-button" sub-label="$i18n{siteSettingsNotificationsBlockedSubLabel}" checked$="[[!isNotificationAllowed_]]">
                   <iron-icon icon="settings:notifications-off"></iron-icon>
                   $i18n{siteSettingsNotificationsBlocked}
                 </cr-radio-button>
-              </settings-radio-group>
+              </cr-radio-group>
             </template>
           </div>
           <category-setting-exceptions category="[[contentSettingsTypesEnum_.NOTIFICATIONS]]" allow-header="$i18n{siteSettingsNotificationsAllowedExceptions}" block-header="$i18n{siteSettingsNotificationsBlockedExceptions}" search-filter="[[searchFilter_]]">
@@ -2972,7 +3050,6 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
                     return loadTimeData.getBoolean('enableSafeBrowsingSubresourceFilter');
                 },
             },
-            cookieSettingDescription_: String,
             enableBlockAutoplayContentSetting_: {
                 type: Boolean,
                 value() {
@@ -3026,10 +3103,6 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('isPrivacySandboxRestrictedNoticeEnabled'),
             },
-            isPrivacySandboxSettings4_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('isPrivacySandboxSettings4'),
-            },
             is3pcdRedesignEnabled_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('is3pcdCookieSettingsRedesignEnabled'),
@@ -3069,11 +3142,8 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
                         map.set(routes.SECURITY.path, '#securityLinkRow');
                     }
                     if (routes.COOKIES) {
-                        const selector = loadTimeData.getBoolean('isPrivacySandboxSettings4') ?
-                            '#thirdPartyCookiesLinkRow' :
-                            '#cookiesLinkRow';
-                        map.set(`${routes.COOKIES.path}_${routes.PRIVACY.path}`, selector);
-                        map.set(`${routes.COOKIES.path}_${routes.BASIC.path}`, selector);
+                        map.set(`${routes.COOKIES.path}_${routes.PRIVACY.path}`, '#thirdPartyCookiesLinkRow');
+                        map.set(`${routes.COOKIES.path}_${routes.BASIC.path}`, '#thirdPartyCookiesLinkRow');
                     }
                     if (routes.TRACKING_PROTECTION) {
                         map.set(routes.TRACKING_PROTECTION.path, '#trackingProtectionLinkRow');
@@ -3136,10 +3206,6 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
                         !loadTimeData.getBoolean('isGuest');
                 },
             },
-            showPreloadingSubpage_: {
-                type: Boolean,
-                value: () => !loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageEnabled'),
-            },
             showDedicatedCpssSetting_: {
                 type: Boolean,
                 value() {
@@ -3163,8 +3229,6 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
             enabled: false,
         });
         this.addWebUiListener('onBlockAutoplayStatusChanged', (status) => this.onBlockAutoplayStatusChanged_(status));
-        this.siteSettingsPrefsBrowserProxy_.getCookieSettingDescription().then((description) => this.cookieSettingDescription_ = description);
-        this.addWebUiListener('cookieSettingDescriptionChanged', (description) => this.cookieSettingDescription_ = description);
         if (this.safetyCheckNotificationPermissionsEnabled_ && !this.isGuest_) {
             this.addWebUiListener(SafetyHubEvent.NOTIFICATION_PERMISSIONS_MAYBE_CHANGED, (sites) => this.onReviewNotificationPermissionListChanged_(sites));
             this.safetyHubBrowserProxy_.getNotificationPermissionReview().then((sites) => this.onReviewNotificationPermissionListChanged_(sites));
@@ -3177,6 +3241,13 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
         this.showPrivacyGuideDialog_ =
             Router.getInstance().getCurrentRoute() === routes.PRIVACY_GUIDE &&
                 this.isPrivacyGuideAvailable;
+        // Only record the metrics when the user navigates to the notification
+        // settings page that shows the entry point.
+        if (Router.getInstance().getCurrentRoute() ===
+            routes.SITE_SETTINGS_NOTIFICATIONS &&
+            this.showNotificationPermissionsReview_) {
+            this.metricsBrowserProxy_.recordSafetyHubEntryPointShown(SafetyHubEntryPoint.NOTIFICATIONS);
+        }
     }
     /**
      * Called when the block autoplay status changes.
@@ -3201,6 +3272,7 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
     }
     onTrackingProtectionClick_() {
         this.interactedWithPage_();
+        this.metricsBrowserProxy_.recordAction('Settings.TrackingProtection.OpenedFromPrivacyPage');
         Router.getInstance().navigateTo(routes.TRACKING_PROTECTION);
     }
     onCbdDialogClosed_() {
@@ -3231,16 +3303,7 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
     onPrivacySandboxClick_() {
         this.interactedWithPage_();
         this.metricsBrowserProxy_.recordAction('Settings.PrivacySandbox.OpenedFromSettingsParent');
-        if (this.isPrivacySandboxSettings4_) {
-            Router.getInstance().navigateTo(routes.PRIVACY_SANDBOX);
-            return;
-        }
-        // Create a MouseEvent directly to avoid Polymer failing to synthesise a
-        // click event if this function was called in response to a touch event.
-        // See crbug.com/1253883 for details.
-        // TODO(crbug/1159942): Replace this with an ordinary OpenWindowProxy call.
-        this.shadowRoot.querySelector('#privacySandboxLink')
-            .dispatchEvent(new MouseEvent('click'));
+        Router.getInstance().navigateTo(routes.PRIVACY_SANDBOX);
     }
     async updateLocationAndNotificationState_() {
         const [notificationDefaultValue, locationDefaultValue] = await Promise.all([
@@ -3252,19 +3315,31 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
         this.isLocationAllowed_ =
             (locationDefaultValue.setting === ContentSetting.ASK);
     }
-    onLocationAskClicked_() {
-        this.isLocationAllowed_ = true;
-        this.setPrefValue('generated.geolocation', SettingsState.CPSS);
+    onLocationTopLevelRadioChanged_(event) {
+        const radioButtonName = event.detail.value;
+        switch (radioButtonName) {
+            case 'location-block-radio-button':
+                this.setPrefValue('generated.geolocation', SettingsState.BLOCK);
+                this.isLocationAllowed_ = false;
+                break;
+            case 'location-ask-radio-button':
+                this.setPrefValue('generated.geolocation', SettingsState.CPSS);
+                this.isLocationAllowed_ = true;
+                break;
+        }
     }
-    onNotificationAskClicked_() {
-        this.isNotificationAllowed_ = true;
-        this.setPrefValue('generated.notification', SettingsState.CPSS);
-    }
-    onLocationBlockClicked_() {
-        this.isLocationAllowed_ = false;
-    }
-    onNotificationBlockClicked_() {
-        this.isNotificationAllowed_ = false;
+    onNotificationTopLevelRadioChanged_(event) {
+        const radioButtonName = event.detail.value;
+        switch (radioButtonName) {
+            case 'notification-block-radio-button':
+                this.setPrefValue('generated.notification', SettingsState.BLOCK);
+                this.isNotificationAllowed_ = false;
+                break;
+            case 'notification-ask-radio-button':
+                this.setPrefValue('generated.notification', SettingsState.CPSS);
+                this.isNotificationAllowed_ = true;
+                break;
+        }
     }
     onPrivacyGuideClick_() {
         this.metricsBrowserProxy_.recordPrivacyGuideEntryExitHistogram(PrivacyGuideInteractions.SETTINGS_LINK_ROW_ENTRY);
@@ -3284,9 +3359,9 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
             this.safetyCheckNotificationPermissionsEnabled_ &&
             permissions.length > 0;
         this.notificationPermissionsReviewHeader_ =
-            await PluralStringProxyImpl.getInstance().getPluralString('safetyCheckNotificationPermissionReviewPrimaryLabel', permissions.length);
+            await PluralStringProxyImpl.getInstance().getPluralString('safetyHubNotificationPermissionsPrimaryLabel', permissions.length);
         this.notificationPermissionsReviewSubheader_ =
-            await PluralStringProxyImpl.getInstance().getPluralString('safetyCheckNotificationPermissionReviewSecondaryLabel', permissions.length);
+            await PluralStringProxyImpl.getInstance().getPluralString('safetyHubNotificationPermissionsSecondaryLabel', permissions.length);
     }
     interactedWithPage_() {
         HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.USED_PRIVACY_CARD);
@@ -3322,22 +3397,12 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
                 assertNotReached();
         }
     }
-    isPrivacySandboxSettings3Enabled_() {
-        return !this.isPrivacySandboxRestricted_ &&
-            !this.isPrivacySandboxSettings4_;
-    }
-    isPrivacySandboxSettings4Enabled_() {
-        return (!this.isPrivacySandboxRestricted_ ||
-            this.isPrivacySandboxRestrictedNoticeEnabled_) &&
-            this.isPrivacySandboxSettings4_;
-    }
-    isPrivacySandboxSettings4CookiesPageEnabled_() {
-        return this.isPrivacySandboxSettings4_ && !this.is3pcdRedesignEnabled_;
-    }
-    isPrivacySandboxSettings3CookiesPageEnabled_() {
-        return !this.isPrivacySandboxSettings4_ && !this.is3pcdRedesignEnabled_;
+    shouldShowAdPrivacy_() {
+        return !this.isPrivacySandboxRestricted_ ||
+            this.isPrivacySandboxRestrictedNoticeEnabled_;
     }
     onSafetyHubButtonClick_() {
+        this.metricsBrowserProxy_.recordSafetyHubEntryPointClicked(SafetyHubEntryPoint.NOTIFICATIONS);
         Router.getInstance().navigateTo(routes.SAFETY_HUB);
     }
 }
@@ -4463,64 +4528,6 @@ class SettingsAutofillPageElement extends SettingsAutofillPageElementBase {
     }
 }
 customElements.define(SettingsAutofillPageElement.is, SettingsAutofillPageElement);
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @return Whether the passed tagged template literal is a valid array.
- */
-function isValidArray(arr) {
-    if (arr instanceof Array && Object.isFrozen(arr)) {
-        return true;
-    }
-    return false;
-}
-/**
- * Checks if the passed tagged template literal only contains static string.
- * And return the string in the literal if so.
- * Throws an Error if the passed argument is not supported literals.
- */
-function getStaticString(literal) {
-    const isStaticString = isValidArray(literal) && !!literal.raw &&
-        isValidArray(literal.raw) && literal.length === literal.raw.length &&
-        literal.length === 1;
-    assert(isStaticString, 'static_types.js only allows static strings');
-    return literal.join('');
-}
-function createTypes(_ignore, literal) {
-    return getStaticString(literal);
-}
-/**
- * Rules used to enforce static literal checks.
- */
-const rules = {
-    createHTML: createTypes,
-    createScript: createTypes,
-    createScriptURL: createTypes,
-};
-/**
- * This policy returns Trusted Types if the passed literal is static.
- */
-let staticPolicy;
-if (window.trustedTypes) {
-    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
-}
-else {
-    staticPolicy = rules;
-}
-/**
- * Returns TrustedHTML if the passed literal is static.
- */
-function getTrustedHTML(literal) {
-    return staticPolicy.createHTML('', literal);
-}
-/**
- * Returns TrustedScriptURL if the passed literal is static.
- */
-function getTrustedScriptURL(literal) {
-    return staticPolicy.createScriptURL('', literal);
-}
 
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -6080,8 +6087,7 @@ class SettingsPeoplePageElement extends SettingsPeoplePageElementBase {
         // 
         if (loadTimeData.getBoolean('isAccountManagerEnabled')) {
             // Post-SplitSettings. The browser C++ code loads OS settings in a window.
-            // Don't use window.open() because that creates an extra empty tab.
-            window.location.href = 'chrome://os-settings/accountManager';
+            OpenWindowProxyImpl.getInstance().openUrl(loadTimeData.getString('osSettingsAccountsPageUrl'));
         }
         // 
         // 
@@ -6126,7 +6132,7 @@ function getTemplate$l() {
   </cr-link-row>
 </template>
 <template is="dom-if" if="[[!isBatterySaverModeManagedByOS_]]">
-  <settings-toggle-button id="toggleButton" on-change="onChange_" pref="{{prefs.performance_tuning.battery_saver_mode.state}}" label="$i18n{batterySaverModeLabel}" sub-label="$i18n{batterySaverModeDescription}" learn-more-url="$i18n{batterySaverLearnMoreUrl}" numeric-unchecked-value="[[batterySaverModeStateEnum_.DISABLED]]" numeric-checked-value="[[batterySaverModeStateEnum_.ENABLED_BELOW_THRESHOLD]]">
+  <settings-toggle-button id="toggleButton" on-change="onChange_" pref="{{prefs.performance_tuning.battery_saver_mode.state}}" label="$i18n{batterySaverModeLabel}" sub-label="$i18n{batterySaverModeDescription}" learn-more-url="$i18n{batterySaverLearnMoreUrl}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[batterySaverModeStateEnum_.ENABLED_BELOW_THRESHOLD]]">
   </settings-toggle-button>
   <iron-collapse id="radioGroupCollapse" opened="[[isBatterySaverModeEnabled_(prefs.performance_tuning.battery_saver_mode.state.value)]]">
     <div class="cr-row continuation battery-saver-radio-group">
@@ -6160,36 +6166,36 @@ var BatterySaverModeState;
 })(BatterySaverModeState || (BatterySaverModeState = {}));
 // These values are persisted to logs. Entries should not be renumbered and
 // numeric values should never be reused.
-var HighEfficiencyModeExceptionListAction;
-(function (HighEfficiencyModeExceptionListAction) {
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["ADD_MANUAL"] = 0] = "ADD_MANUAL";
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["EDIT"] = 1] = "EDIT";
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["REMOVE"] = 2] = "REMOVE";
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["ADD_FROM_CURRENT"] = 3] = "ADD_FROM_CURRENT";
+var MemorySaverModeExceptionListAction;
+(function (MemorySaverModeExceptionListAction) {
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["ADD_MANUAL"] = 0] = "ADD_MANUAL";
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["EDIT"] = 1] = "EDIT";
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["REMOVE"] = 2] = "REMOVE";
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["ADD_FROM_CURRENT"] = 3] = "ADD_FROM_CURRENT";
     // Must be last.
-    HighEfficiencyModeExceptionListAction[HighEfficiencyModeExceptionListAction["COUNT"] = 4] = "COUNT";
-})(HighEfficiencyModeExceptionListAction || (HighEfficiencyModeExceptionListAction = {}));
+    MemorySaverModeExceptionListAction[MemorySaverModeExceptionListAction["COUNT"] = 4] = "COUNT";
+})(MemorySaverModeExceptionListAction || (MemorySaverModeExceptionListAction = {}));
 // These values are persisted to logs. Entries should not be renumbered and
 // numeric values should never be reused.
-// This must be kept in sync with HighEfficiencyModeState in
+// This must be kept in sync with MemorySaverModeState in
 // components/performance_manager/public/user_tuning/prefs.h
-var HighEfficiencyModeState;
-(function (HighEfficiencyModeState) {
-    HighEfficiencyModeState[HighEfficiencyModeState["DISABLED"] = 0] = "DISABLED";
-    HighEfficiencyModeState[HighEfficiencyModeState["ENABLED"] = 1] = "ENABLED";
-    HighEfficiencyModeState[HighEfficiencyModeState["ENABLED_ON_TIMER"] = 2] = "ENABLED_ON_TIMER";
+var MemorySaverModeState;
+(function (MemorySaverModeState) {
+    MemorySaverModeState[MemorySaverModeState["DISABLED"] = 0] = "DISABLED";
+    MemorySaverModeState[MemorySaverModeState["ENABLED"] = 1] = "ENABLED";
+    MemorySaverModeState[MemorySaverModeState["ENABLED_ON_TIMER"] = 2] = "ENABLED_ON_TIMER";
     // Must be last.
-    HighEfficiencyModeState[HighEfficiencyModeState["COUNT"] = 3] = "COUNT";
-})(HighEfficiencyModeState || (HighEfficiencyModeState = {}));
+    MemorySaverModeState[MemorySaverModeState["COUNT"] = 3] = "COUNT";
+})(MemorySaverModeState || (MemorySaverModeState = {}));
 class PerformanceMetricsProxyImpl {
     recordBatterySaverModeChanged(state) {
         chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.BatterySaver.SettingsChangeMode', state, BatterySaverModeState.COUNT);
     }
-    recordHighEfficiencyModeChanged(state) {
-        chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.HighEfficiency.SettingsChangeMode2', state, HighEfficiencyModeState.COUNT);
+    recordMemorySaverModeChanged(state) {
+        chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.MemorySaver.SettingsChangeMode', state, MemorySaverModeState.COUNT);
     }
     recordExceptionListAction(action) {
-        chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.HighEfficiency.SettingsChangeExceptionList', action, HighEfficiencyModeExceptionListAction.COUNT);
+        chrome.metricsPrivate.recordEnumerationValue('PerformanceControls.MemorySaver.SettingsChangeExceptionList', action, MemorySaverModeExceptionListAction.COUNT);
     }
     static getInstance() {
         return instance$3 || (instance$3 = new PerformanceMetricsProxyImpl());
@@ -6230,6 +6236,10 @@ class SettingsBatteryPageElement extends SettingsBatteryPageElementBase {
                     return loadTimeData.getBoolean('isBatterySaverModeManagedByOS');
                 },
             },
+            numericUncheckedValues_: {
+                type: Array,
+                value: () => [BatterySaverModeState.DISABLED],
+            },
         };
     }
     isBatterySaverModeEnabled_(value) {
@@ -6264,8 +6274,8 @@ class PerformanceBrowserProxyImpl {
     openBatterySaverFeedbackDialog() {
         chrome.send('openBatterySaverFeedbackDialog');
     }
-    openHighEfficiencyFeedbackDialog() {
-        chrome.send('openHighEfficiencyFeedbackDialog');
+    openMemorySaverFeedbackDialog() {
+        chrome.send('openMemorySaverFeedbackDialog');
     }
     openSpeedFeedbackDialog() {
         chrome.send('openSpeedFeedbackDialog');
@@ -6288,9 +6298,9 @@ let instance$2 = null;
 const MAX_TAB_DISCARD_EXCEPTION_RULE_LENGTH = 10 * 1024;
 const TAB_DISCARD_EXCEPTIONS_PREF = 'performance_tuning.tab_discarding.exceptions';
 const TAB_DISCARD_EXCEPTIONS_MANAGED_PREF = 'performance_tuning.tab_discarding.exceptions_managed';
-const TabDiscardExceptionValidationMixin = dedupingMixin((superClass) => {
+const ExceptionValidationMixin = dedupingMixin((superClass) => {
     const superClassBase = I18nMixin(superClass);
-    class TabDiscardExceptionValidationMixin extends superClassBase {
+    class ExceptionValidationMixin extends superClassBase {
         constructor() {
             super(...arguments);
             this.browserProxy_ = PerformanceBrowserProxyImpl.getInstance();
@@ -6325,14 +6335,14 @@ const TabDiscardExceptionValidationMixin = dedupingMixin((superClass) => {
             });
         }
     }
-    return TabDiscardExceptionValidationMixin;
+    return ExceptionValidationMixin;
 });
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const TabDiscardExceptionAddInputElementBase = TabDiscardExceptionValidationMixin(ListPropertyUpdateMixin(PrefsMixin(PolymerElement)));
-class TabDiscardExceptionAddInputElement extends TabDiscardExceptionAddInputElementBase {
+const ExceptionAddInputElementBase = ExceptionValidationMixin(ListPropertyUpdateMixin(PrefsMixin(PolymerElement)));
+class ExceptionAddInputElement extends ExceptionAddInputElementBase {
     constructor() {
         super(...arguments);
         this.metricsProxy_ = PerformanceMetricsProxyImpl.getInstance();
@@ -6347,10 +6357,10 @@ class TabDiscardExceptionAddInputElement extends TabDiscardExceptionAddInputElem
         assert(!this.submitDisabled);
         const rule = this.rule.trim();
         this.appendPrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, rule);
-        this.metricsProxy_.recordExceptionListAction(HighEfficiencyModeExceptionListAction.ADD_MANUAL);
+        this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.ADD_MANUAL);
     }
 }
-customElements.define(TabDiscardExceptionAddInputElement.is, TabDiscardExceptionAddInputElement);
+customElements.define(ExceptionAddInputElement.is, ExceptionAddInputElement);
 
 function getTemplate$j() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -6374,8 +6384,8 @@ function getTemplate$j() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const TabDiscardExceptionAddDialogElementBase = PrefsMixin(PolymerElement);
-class TabDiscardExceptionAddDialogElement extends TabDiscardExceptionAddDialogElementBase {
+const ExceptionAddDialogElementBase = PrefsMixin(PolymerElement);
+class ExceptionAddDialogElement extends ExceptionAddDialogElementBase {
     static get is() {
         return 'tab-discard-exception-add-dialog';
     }
@@ -6390,7 +6400,7 @@ class TabDiscardExceptionAddDialogElement extends TabDiscardExceptionAddDialogEl
         this.$.input.submit();
     }
 }
-customElements.define(TabDiscardExceptionAddDialogElement.is, TabDiscardExceptionAddDialogElement);
+customElements.define(ExceptionAddDialogElement.is, ExceptionAddDialogElement);
 
 function getTemplate$i() {
     return html `<!--_html_template_start_--><cr-input id="input" label="$i18n{addSite}" aria-label$="$i18n{editSiteTitle}" placeholder="example.com" value="{{rule}}" on-input="validate" error-message="[[errorMessage]]" invalid="[[inputInvalid]]" spellcheck="false" autofocus>
@@ -6401,8 +6411,8 @@ function getTemplate$i() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const TabDiscardExceptionEditInputElementBase = TabDiscardExceptionValidationMixin(ListPropertyUpdateMixin(PrefsMixin(PolymerElement)));
-class TabDiscardExceptionEditInputElement extends TabDiscardExceptionEditInputElementBase {
+const ExceptionEditInputElementBase = ExceptionValidationMixin(ListPropertyUpdateMixin(PrefsMixin(PolymerElement)));
+class ExceptionEditInputElement extends ExceptionEditInputElementBase {
     constructor() {
         super(...arguments);
         this.metricsProxy_ = PerformanceMetricsProxyImpl.getInstance();
@@ -6439,13 +6449,13 @@ class TabDiscardExceptionEditInputElement extends TabDiscardExceptionEditInputEl
                 this.updatePrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, this.ruleToEdit, rule);
             }
         }
-        this.metricsProxy_.recordExceptionListAction(HighEfficiencyModeExceptionListAction.EDIT);
+        this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.EDIT);
     }
     setRuleToEditForTesting() {
         this.rule = this.ruleToEdit;
     }
 }
-customElements.define(TabDiscardExceptionEditInputElement.is, TabDiscardExceptionEditInputElement);
+customElements.define(ExceptionEditInputElement.is, ExceptionEditInputElement);
 
 function getTemplate$h() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -6469,8 +6479,8 @@ function getTemplate$h() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const TabDiscardExceptionEditDialogElementBase = PrefsMixin(PolymerElement);
-class TabDiscardExceptionEditDialogElement extends TabDiscardExceptionEditDialogElementBase {
+const ExceptionEditDialogElementBase = PrefsMixin(PolymerElement);
+class ExceptionEditDialogElement extends ExceptionEditDialogElementBase {
     static get is() {
         return 'tab-discard-exception-edit-dialog';
     }
@@ -6494,7 +6504,7 @@ class TabDiscardExceptionEditDialogElement extends TabDiscardExceptionEditDialog
         this.$.input.setRuleToEditForTesting();
     }
 }
-customElements.define(TabDiscardExceptionEditDialogElement.is, TabDiscardExceptionEditDialogElement);
+customElements.define(ExceptionEditDialogElement.is, ExceptionEditDialogElement);
 
 function getTemplate$g() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-pref-indicator::part(tooltip){clip:rect(0 0 0 0);height:1px;overflow:hidden;width:1px}cr-policy-pref-indicator{padding-inline-end:8px}</style>
@@ -6514,8 +6524,8 @@ function getTemplate$g() {
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const TabDiscardExceptionEntryElementBase = BaseMixin(PolymerElement);
-class TabDiscardExceptionEntryElement extends TabDiscardExceptionEntryElementBase {
+const ExceptionEntryElementBase = BaseMixin(PolymerElement);
+class ExceptionEntryElement extends ExceptionEntryElementBase {
     static get is() {
         return 'tab-discard-exception-entry';
     }
@@ -6537,7 +6547,7 @@ class TabDiscardExceptionEntryElement extends TabDiscardExceptionEntryElementBas
         this.fire('show-tooltip', { target: indicator, text: indicator.indicatorTooltip });
     }
 }
-customElements.define(TabDiscardExceptionEntryElement.is, TabDiscardExceptionEntryElement);
+customElements.define(ExceptionEntryElement.is, ExceptionEntryElement);
 
 function getTemplate$f() {
     return html `<!--_html_template_start_--><style include="settings-shared">.ripple-padding{padding-inline-start:20px;padding-inline-end:20px}cr-checkbox::part(label-container){min-width:0}</style>
@@ -6672,8 +6682,8 @@ function getTemplate$e() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const TabDiscardExceptionCurrentSitesListElementBase = ListPropertyUpdateMixin(CrScrollableMixin(PrefsMixin(PolymerElement)));
-class TabDiscardExceptionCurrentSitesListElement extends TabDiscardExceptionCurrentSitesListElementBase {
+const ExceptionCurrentSitesListElementBase = ListPropertyUpdateMixin(CrScrollableMixin(PrefsMixin(PolymerElement)));
+class ExceptionCurrentSitesListElement extends ExceptionCurrentSitesListElementBase {
     constructor() {
         super(...arguments);
         this.browserProxy_ = PerformanceBrowserProxyImpl.getInstance();
@@ -6793,10 +6803,10 @@ class TabDiscardExceptionCurrentSitesListElement extends TabDiscardExceptionCurr
         this.selectedSites_.forEach(rule => {
             this.appendPrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, rule);
         });
-        this.metricsProxy_.recordExceptionListAction(HighEfficiencyModeExceptionListAction.ADD_FROM_CURRENT);
+        this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.ADD_FROM_CURRENT);
     }
 }
-customElements.define(TabDiscardExceptionCurrentSitesListElement.is, TabDiscardExceptionCurrentSitesListElement);
+customElements.define(ExceptionCurrentSitesListElement.is, ExceptionCurrentSitesListElement);
 
 function getTemplate$d() {
     return html `<!--_html_template_start_--><style>cr-tabs{--cr-tabs-font-size:100%;--cr-tabs-height:40px}#dialog{--border-top-color:var(--google-grey-300);--cr-dialog-body-border-top:1px solid var(--border-top-color)}@media (prefers-color-scheme:dark){#dialog{--border-top-color:var(--cr-separator-color)}}#dialog::part(wrapper){overflow:hidden}#dialog [slot=title]{padding-bottom:8px}#dialog::part(body-container){height:calc(5 * var(--cr-section-min-height) + 2px)}#body{padding-inline-end:0;padding-inline-start:0}#helpText{padding-bottom:20px}#inputPage{padding-inline-end:20px;padding-inline-start:20px;padding-top:20px}</style>
@@ -6835,13 +6845,13 @@ function getTemplate$d() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-var TabDiscardExceptionAddDialogTabs;
-(function (TabDiscardExceptionAddDialogTabs) {
-    TabDiscardExceptionAddDialogTabs[TabDiscardExceptionAddDialogTabs["CURRENT_SITES"] = 0] = "CURRENT_SITES";
-    TabDiscardExceptionAddDialogTabs[TabDiscardExceptionAddDialogTabs["MANUAL"] = 1] = "MANUAL";
-})(TabDiscardExceptionAddDialogTabs || (TabDiscardExceptionAddDialogTabs = {}));
-const TabDiscardExceptionTabbedAddDialogElementBase = PrefsMixin(PolymerElement);
-class TabDiscardExceptionTabbedAddDialogElement extends TabDiscardExceptionTabbedAddDialogElementBase {
+var ExceptionAddDialogTabs;
+(function (ExceptionAddDialogTabs) {
+    ExceptionAddDialogTabs[ExceptionAddDialogTabs["CURRENT_SITES"] = 0] = "CURRENT_SITES";
+    ExceptionAddDialogTabs[ExceptionAddDialogTabs["MANUAL"] = 1] = "MANUAL";
+})(ExceptionAddDialogTabs || (ExceptionAddDialogTabs = {}));
+const ExceptionTabbedAddDialogElementBase = PrefsMixin(PolymerElement);
+class ExceptionTabbedAddDialogElement extends ExceptionTabbedAddDialogElementBase {
     static get is() {
         return 'tab-discard-exception-tabbed-add-dialog';
     }
@@ -6852,7 +6862,7 @@ class TabDiscardExceptionTabbedAddDialogElement extends TabDiscardExceptionTabbe
         return {
             selectedTab_: {
                 type: Number,
-                value: TabDiscardExceptionAddDialogTabs.MANUAL,
+                value: ExceptionAddDialogTabs.MANUAL,
             },
             tabNames_: {
                 type: Array,
@@ -6867,12 +6877,12 @@ class TabDiscardExceptionTabbedAddDialogElement extends TabDiscardExceptionTabbe
     }
     onSitesPopulated_(e) {
         if (e.detail.length > 0) {
-            this.selectedTab_ = TabDiscardExceptionAddDialogTabs.CURRENT_SITES;
+            this.selectedTab_ = ExceptionAddDialogTabs.CURRENT_SITES;
         }
         this.$.dialog.showModal();
     }
     isAddCurrentSitesTabSelected_() {
-        return this.selectedTab_ === TabDiscardExceptionAddDialogTabs.CURRENT_SITES;
+        return this.selectedTab_ === ExceptionAddDialogTabs.CURRENT_SITES;
     }
     onCancelClick_() {
         this.$.dialog.cancel();
@@ -6893,7 +6903,7 @@ class TabDiscardExceptionTabbedAddDialogElement extends TabDiscardExceptionTabbe
         return this.submitDisabledManual_;
     }
 }
-customElements.define(TabDiscardExceptionTabbedAddDialogElement.is, TabDiscardExceptionTabbedAddDialogElement);
+customElements.define(ExceptionTabbedAddDialogElement.is, ExceptionTabbedAddDialogElement);
 
 function getTemplate$c() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">.cr-padded-text{flex:1}.list-frame{padding-inline-start:var(--cr-section-indent-width)}#outer>tab-discard-exception-entry:not(:first-of-type){border-top:var(--cr-separator-line)}#expandButton{padding-inline-end:0;padding-inline-start:0;--cr-icon-button-margin-end:0}</style>
@@ -6960,8 +6970,8 @@ function getTemplate$c() {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 const TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE = 5;
-const TabDiscardExceptionListElementBase = TooltipMixin(ListPropertyUpdateMixin(PrefsMixin(PolymerElement)));
-class TabDiscardExceptionListElement extends TabDiscardExceptionListElementBase {
+const ExceptionListElementBase = TooltipMixin(ListPropertyUpdateMixin(PrefsMixin(PolymerElement)));
+class ExceptionListElement extends ExceptionListElementBase {
     constructor() {
         super(...arguments);
         this.metricsProxy_ = PerformanceMetricsProxyImpl.getInstance();
@@ -7053,7 +7063,7 @@ class TabDiscardExceptionListElement extends TabDiscardExceptionListElementBase 
     }
     onDeleteClick_() {
         this.deletePrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, this.selectedRule_);
-        this.metricsProxy_.recordExceptionListAction(HighEfficiencyModeExceptionListAction.REMOVE);
+        this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.REMOVE);
         this.$.menu.get().close();
     }
     onAddDialogClose_() {
@@ -7090,7 +7100,7 @@ class TabDiscardExceptionListElement extends TabDiscardExceptionListElementBase 
         this.showTooltipAtTarget(this.$.tooltip, e.detail.target);
     }
 }
-customElements.define(TabDiscardExceptionListElement.is, TabDiscardExceptionListElement);
+customElements.define(ExceptionListElement.is, ExceptionListElement);
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -7138,21 +7148,21 @@ function getDiscardTimerOptions() {
 
 function getTemplate$b() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.high-efficiency-radio-group{display:flex;flex-direction:column;padding:0 var(--cr-section-padding)}.badge{align-items:center;background:var(--google-grey-600);border-radius:4px;color:#fff;display:inline-flex;font-size:10px;height:15px;margin-inline-start:15px;padding:0 4px}@media (prefers-color-scheme:dark){.badge{background:var(--google-grey-500);color:var(--google-grey-900)}}#enabledOnTimerButton::part(labelWrapper){align-items:center;display:flex;justify-content:space-between}</style>
-<settings-toggle-button id="toggleButton" on-change="onChange_" pref="{{prefs.performance_tuning.high_efficiency_mode.state}}" label="$i18n{highEfficiencyModeLabel}" sub-label="$i18n{highEfficiencyModeDescription}" learn-more-url="$i18n{highEfficiencyLearnMoreUrl}" numeric-unchecked-value="[[highEfficiencyModeStateEnum_.DISABLED]]" numeric-checked-value="[[toggleButtonCheckedValue_(
-        isHighEfficiencyMultistateModeEnabled_)]]">
+<settings-toggle-button id="toggleButton" on-change="onChange_" pref="{{prefs.performance_tuning.high_efficiency_mode.state}}" label="$i18n{memorySaverModeLabel}" sub-label="$i18n{memorySaverModeDescription}" learn-more-url="$i18n{memorySaverLearnMoreUrl}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[toggleButtonCheckedValue_(
+        isMemorySaverMultistateModeEnabled_)]]">
 </settings-toggle-button>
-<template is="dom-if" if="[[isHighEfficiencyMultistateModeEnabled_]]">
-  <iron-collapse id="radioGroupCollapse" opened="[[isHighEfficiencyModeEnabled_(
+<template is="dom-if" if="[[isMemorySaverMultistateModeEnabled_]]">
+  <iron-collapse id="radioGroupCollapse" opened="[[isMemorySaverModeEnabled_(
           prefs.performance_tuning.high_efficiency_mode.state.value)]]">
     <div class="high-efficiency-radio-group">
-      <settings-radio-group id="radioGroup" on-change="onChange_" pref="{{prefs.performance_tuning.high_efficiency_mode.state}}" group-aria-label="$i18n{highEfficiencyModeRadioGroupAriaLabel}">
-        <controlled-radio-button label="$i18n{highEfficiencyModeHeuristicsLabel}" name="[[highEfficiencyModeStateEnum_.ENABLED]]" pref="[[prefs.performance_tuning.high_efficiency_mode.state]]">
-          <div class="badge" hidden$="[[!showHighEfficiencyHeuristicModeRecommendedBadge_]]">
-            $i18n{highEfficiencyModeRecommendedBadge}
+      <settings-radio-group id="radioGroup" on-change="onChange_" pref="{{prefs.performance_tuning.high_efficiency_mode.state}}" group-aria-label="$i18n{memorySaverModeRadioGroupAriaLabel}">
+        <controlled-radio-button label="$i18n{memorySaverModeHeuristicsLabel}" name="[[memorySaverModeStateEnum_.ENABLED]]" pref="[[prefs.performance_tuning.high_efficiency_mode.state]]">
+          <div class="badge" hidden$="[[!showMemorySaverHeuristicModeRecommendedBadge_]]">
+            $i18n{memorySaverModeRecommendedBadge}
           </div>
         </controlled-radio-button>
-        <controlled-radio-button id="enabledOnTimerButton" label="$i18n{highEfficiencyModeOnTimerLabel}" name="[[highEfficiencyModeStateEnum_.ENABLED_ON_TIMER]]" pref="[[prefs.performance_tuning.high_efficiency_mode.state]]" exportparts="labelWrapper">
-          <settings-dropdown-menu id="discardTimeDropdown" label="$i18n{highEfficiencyChooseDiscardTimeAriaLabel}" disabled="[[!isHighEfficiencyModeEnabledOnTimer_(
+        <controlled-radio-button id="enabledOnTimerButton" label="$i18n{memorySaverModeOnTimerLabel}" name="[[memorySaverModeStateEnum_.ENABLED_ON_TIMER]]" pref="[[prefs.performance_tuning.high_efficiency_mode.state]]" exportparts="labelWrapper">
+          <settings-dropdown-menu id="discardTimeDropdown" label="$i18n{memorySaverChooseDiscardTimeAriaLabel}" disabled="[[!isMemorySaverModeEnabledOnTimer_(
                   prefs.performance_tuning.high_efficiency_mode.state.value)]]" pref="{{prefs.performance_tuning.high_efficiency_mode.time_before_discard_in_minutes}}" menu-options="[[discardTimerOptions_]]" on-click="onDropdownClick_">
           </settings-dropdown-menu>
         </controlled-radio-button>
@@ -7160,14 +7170,15 @@ function getTemplate$b() {
     </div>
   </iron-collapse>
 </template>
-<tab-discard-exception-list id="tabDiscardExceptionsList" prefs="{{prefs}}">
-</tab-discard-exception-list><!--_html_template_end_-->`;
+<tab-discard-exception-list id="exceptionList" prefs="{{prefs}}">
+</tab-discard-exception-list>
+<!--_html_template_end_-->`;
 }
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const HIGH_EFFICIENCY_MODE_PREF = 'performance_tuning.high_efficiency_mode.state';
+const MEMORY_SAVER_MODE_PREF = 'performance_tuning.high_efficiency_mode.state';
 const SettingsPerformancePageElementBase = PrefsMixin(PolymerElement);
 class SettingsPerformancePageElement extends SettingsPerformancePageElementBase {
     constructor() {
@@ -7190,40 +7201,44 @@ class SettingsPerformancePageElement extends SettingsPerformancePageElementBase 
                 type: Array,
                 value: getDiscardTimerOptions,
             },
-            isHighEfficiencyMultistateModeEnabled_: {
+            isMemorySaverMultistateModeEnabled_: {
                 readOnly: true,
                 type: Boolean,
                 value() {
-                    return loadTimeData.getBoolean('isHighEfficiencyMultistateModeEnabled');
+                    return loadTimeData.getBoolean('isMemorySaverMultistateModeEnabled');
                 },
             },
-            showHighEfficiencyHeuristicModeRecommendedBadge_: {
+            showMemorySaverHeuristicModeRecommendedBadge_: {
                 readOnly: true,
                 type: Boolean,
                 value() {
-                    return loadTimeData.getBoolean('highEfficiencyShowRecommendedBadge');
+                    return loadTimeData.getBoolean('memorySaverShowRecommendedBadge');
                 },
             },
-            highEfficiencyModeStateEnum_: {
+            memorySaverModeStateEnum_: {
                 readOnly: true,
                 type: Object,
-                value: HighEfficiencyModeState,
+                value: MemorySaverModeState,
+            },
+            numericUncheckedValues_: {
+                type: Array,
+                value: () => [MemorySaverModeState.DISABLED],
             },
         };
     }
     onChange_() {
-        this.metricsProxy_.recordHighEfficiencyModeChanged(this.getPref(HIGH_EFFICIENCY_MODE_PREF).value);
+        this.metricsProxy_.recordMemorySaverModeChanged(this.getPref(MEMORY_SAVER_MODE_PREF).value);
     }
     toggleButtonCheckedValue_() {
-        return this.isHighEfficiencyMultistateModeEnabled_ ?
-            HighEfficiencyModeState.ENABLED :
-            HighEfficiencyModeState.ENABLED_ON_TIMER;
+        return this.isMemorySaverMultistateModeEnabled_ ?
+            MemorySaverModeState.ENABLED :
+            MemorySaverModeState.ENABLED_ON_TIMER;
     }
-    isHighEfficiencyModeEnabled_(value) {
-        return value !== HighEfficiencyModeState.DISABLED;
+    isMemorySaverModeEnabled_(value) {
+        return value !== MemorySaverModeState.DISABLED;
     }
-    isHighEfficiencyModeEnabledOnTimer_(value) {
-        return value === HighEfficiencyModeState.ENABLED_ON_TIMER;
+    isMemorySaverModeEnabledOnTimer_(value) {
+        return value === MemorySaverModeState.ENABLED_ON_TIMER;
     }
     onDropdownClick_(e) {
         e.stopPropagation();
@@ -7233,7 +7248,7 @@ customElements.define(SettingsPerformancePageElement.is, SettingsPerformancePage
 
 function getTemplate$a() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared settings-columned-section">.settings-section-bottom-padding{padding-block-end:var(--cr-section-vertical-padding)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
-<settings-toggle-button id="preloadingToggle" pref="{{prefs.net.network_prediction_options}}" label="$i18n{preloadingPageTitle}" sub-label="$i18n{preloadingToggleSummary}" learn-more-url="$i18n{preloadingLearnMoreUrl}" numeric-unchecked-value="[[networkPredictionOptionsEnum_.DISABLED]]" numeric-checked-value="[[networkPredictionOptionsEnum_.STANDARD]]" on-change="onPreloadingStateChange_">
+<settings-toggle-button id="preloadingToggle" pref="{{prefs.net.network_prediction_options}}" label="$i18n{preloadingPageTitle}" sub-label="$i18n{preloadingToggleSummary}" learn-more-url="$i18n{preloadingLearnMoreUrl}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[networkPredictionOptionsEnum_.STANDARD]]" on-change="onPreloadingStateChange_">
 </settings-toggle-button>
 <iron-collapse opened="[[isPreloadingEnabled_(
         prefs.net.network_prediction_options.value)]]">
@@ -7242,9 +7257,9 @@ function getTemplate$a() {
       <settings-collapse-radio-button id="preloadingExtended" name="[[networkPredictionOptionsEnum_.EXTENDED]]" pref="[[prefs.net.network_prediction_options]]" label="$i18n{preloadingPageExtendedPreloadingTitle}" sub-label="$i18n{preloadingPageExtendedPreloadingSummary}" no-automatic-collapse>
         <div slot="collapse" class="settings-columned-section">
           <div class="column">
-            <div class="description-header">
+            <h2 class="description-header">
               $i18n{privacyGuideFeatureDescriptionHeader}
-            </div>
+            </h2>
             <ul>
               <li class="secondary">
                 $i18n{preloadingPageExtendedPreloadingWhenOnBulletOne}
@@ -7255,9 +7270,9 @@ function getTemplate$a() {
             </ul>
           </div>
           <div class="column">
-            <div class="description-header">
+            <h2 class="description-header">
               $i18n{privacyGuideThingsToConsider}
-            </div>
+            </h2>
             <ul>
               <li class="secondary">
                 $i18n{preloadingPageThingsToConsiderBulletOne}
@@ -7272,9 +7287,9 @@ function getTemplate$a() {
       <settings-collapse-radio-button id="preloadingStandard" name="[[networkPredictionOptionsEnum_.STANDARD]]" pref="[[prefs.net.network_prediction_options]]" label="$i18n{preloadingPageStandardPreloadingTitle}" sub-label="$i18n{preloadingPageStandardPreloadingSummary}" info-opened="{{infoOpened_}}" no-automatic-collapse>
         <div slot="collapse" class="settings-columned-section">
           <div class="column">
-            <div class="description-header">
+            <h2 class="description-header">
               $i18n{privacyGuideFeatureDescriptionHeader}
-            </div>
+            </h2>
             <ul>
               <li class="secondary">
                 $i18n{preloadingPageStandardPreloadingWhenOnBulletOne}
@@ -7285,9 +7300,9 @@ function getTemplate$a() {
             </ul>
           </div>
           <div class="column">
-            <div class="description-header">
+            <h2 class="description-header">
               $i18n{privacyGuideThingsToConsider}
-            </div>
+            </h2>
             <ul>
               <li class="secondary">
                 $i18n{preloadingPageThingsToConsiderBulletOne}
@@ -7298,7 +7313,8 @@ function getTemplate$a() {
       </settings-collapse-radio-button>
     </settings-radio-group>
   </div>
-</iron-collapse><!--_html_template_end_-->`;
+</iron-collapse>
+<!--_html_template_end_-->`;
 }
 
 // Copyright 2023 The Chromium Authors
@@ -7318,6 +7334,10 @@ class SpeedPageElement extends SpeedPageElementBase {
             networkPredictionOptionsEnum_: {
                 type: Object,
                 value: NetworkPredictionOptions,
+            },
+            numericUncheckedValues_: {
+                type: Array,
+                value: () => [NetworkPredictionOptions.DISABLED],
             },
         };
     }
@@ -7401,7 +7421,7 @@ class SettingsResetProfileBannerElement extends PolymerElement {
 customElements.define(SettingsResetProfileBannerElement.is, SettingsResetProfileBannerElement);
 
 function getTemplate$8() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.cr-row.search-engine{padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto}.search-engine{align-items:center;display:flex;flex-direction:row;gap:12px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">:host{--favicon-size:0}#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.default-search-engine .cr-row{--cr-section-min-height:55px;gap:12px;padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto}site-favicon{--site-favicon-border-radius:4px;--site-favicon-height:var(--favicon-size);--site-favicon-width:var(--favicon-size)}settings-search-engine-list-dialog{--search-engine-icon-size:var(--favicon-size)}</style>
 <settings-animated-pages id="pages" section="search" focus-config="[[focusConfig_]]">
   <div route-path="default">
     
@@ -7421,8 +7441,8 @@ function getTemplate$8() {
                 prefs.default_search_provider_data.template_url_data]]">
             </cr-policy-pref-indicator>
           </template>
-          <div class="cr-row first search-engine">
-            <site-favicon favicon-url="[[defaultSearchEngine_.iconURL]]" url="[[defaultSearchEngine_.url]]">
+          <div class="cr-row first">
+            <site-favicon favicon-url="[[defaultSearchEngine_.iconURL]]" url="[[defaultSearchEngine_.url]]" icon-path="[[defaultSearchEngine_.iconPath]]">
             </site-favicon>
             <div class="search-engine-name">[[defaultSearchEngine_.name]]</div>
             <cr-button id="openDialogButton" on-click="onOpenDialogButtonClick_" disabled$="[[isDefaultSearchEngineEnforced_(
@@ -7504,23 +7524,24 @@ class SettingsSearchPageElement extends SettingsSearchPageElementBase {
             /**
              * List of search engines available.
              */
-            searchEngines_: {
-                type: Array,
-                value() {
-                    return [];
-                },
-            },
-            // Whether the `kSearchEngineChoiceSettingsUi` feature is enabled or not.
+            searchEngines_: Array,
+            // Whether the `SearchEngineChoice` or `SearchEngineChoiceFre` features
+            // are enabled or not.
             searchEngineChoiceSettingsUi_: {
                 type: Boolean,
                 value() {
                     return loadTimeData.getBoolean('searchEngineChoiceSettingsUi');
                 },
             },
+            // Whether we need to set the icon size to large because they are loaded
+            // in the binary or smaller because we get them from the favicon service.
+            useLargeSearchEngineIcons_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('useLargeSearchEngineIcons');
+                },
+            },
             // The selected default search engine.
-            // This depends on `searchEngines_` because we want to update the
-            // `defaultSearchEngine_` variable every time the search engine list is
-            // updated.
             defaultSearchEngine_: {
                 type: Object,
                 computed: 'computeDefaultSearchEngine_(searchEngines_)',
@@ -7544,6 +7565,10 @@ class SettingsSearchPageElement extends SettingsSearchPageElementBase {
         if (routes.SEARCH_ENGINES) {
             this.focusConfig_.set(routes.SEARCH_ENGINES.path, '#enginesSubpageTrigger');
         }
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.setFaviconSize_();
     }
     onChange_() {
         assert(!this.searchEngineChoiceSettingsUi_);
@@ -7573,17 +7598,19 @@ class SettingsSearchPageElement extends SettingsSearchPageElementBase {
         if (!this.searchEngines_.length || !this.searchEngineChoiceSettingsUi_) {
             return null;
         }
-        const defaultSearchEngine = this.searchEngines_.find(searchEngine => searchEngine.default);
-        assert(defaultSearchEngine);
-        return defaultSearchEngine;
+        return this.searchEngines_.find(engine => engine.default);
     }
     onOpenDialogButtonClick_() {
         assert(this.searchEngineChoiceSettingsUi_);
         this.showSearchEngineListDialog_ = true;
+        chrome.metricsPrivate.recordUserAction('ChooseDefaultSearchEngine');
     }
     onSearchEngineListDialogClose_() {
         assert(this.searchEngineChoiceSettingsUi_);
         this.showSearchEngineListDialog_ = false;
+    }
+    setFaviconSize_() {
+        this.style.setProperty('--favicon-size', this.useLargeSearchEngineIcons_ ? '24px' : '16px');
     }
 }
 customElements.define(SettingsSearchPageElement.is, SettingsSearchPageElement);
@@ -8409,8 +8436,7 @@ const MainPageMixin = dedupingMixin((superClass) => {
 
 function getTemplate$7() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-page-styles cr-hidden-style iron-flex">:host([is-subpage-animating]){overflow:hidden}:host(:not([in-search-mode])) settings-section:not([active]){display:none}</style>
-    <template is="dom-if" if="[[showBasicPage_(
-        currentRoute_, inSearchMode, hasExpandedSection_)]]">
+    <template is="dom-if" if="[[showBasicPage_(currentRoute_, inSearchMode)]]" restamp>
       <div id="basicPage">
         <template is="dom-if" if="[[showResetProfileBanner_]]" restamp>
           <settings-reset-profile-banner on-close="onResetProfileBannerClosed_">
@@ -8420,6 +8446,11 @@ function getTemplate$7() {
           <settings-section page-title="$i18n{peoplePageTitle}" section="people">
             <settings-people-page prefs="{{prefs}}" page-visibility="[[pageVisibility]]">
             </settings-people-page>
+          </settings-section>
+        </template>
+        <template is="dom-if" if="[[showExperimentalAdvancedPage_(pageVisibility.ai)]]" restamp>
+          <settings-section page-title="$i18n{experimentalAdvancedPageTitle}" section="ai">
+            <settings-ai-page prefs="{{prefs}}"></settings-ai-page>
           </settings-section>
         </template>
         <template is="dom-if" if="[[showPage_(pageVisibility.autofill)]]" restamp>
@@ -8438,7 +8469,8 @@ function getTemplate$7() {
             </settings-safety-check-page>
           </settings-section>
         </template>
-        <template is="dom-if" if="[[showSafetyHubEntryPointPage_(pageVisibility.privacy)]]" restamp>
+        
+        <template is="dom-if" if="[[showSafetyHubEntryPointPage_(pageVisibility.safetyHub)]]" restamp>
           <settings-section page-title="$i18n{safetyHub}" section="safetyHubEntryPoint" nest-under-section="privacy" id="safetyHubEntryPointSection">
             <settings-safety-hub-entry-point></settings-safety-hub-entry-point>
           </settings-section>
@@ -8450,7 +8482,7 @@ function getTemplate$7() {
           </settings-section>
         </template>
         <template is="dom-if" if="[[showPerformancePage_(pageVisibility.performance)]]" restamp>
-          <settings-section page-title="[[getPerformancePageTitle_()]]" section="performance" id="performanceSettingsSection">
+          <settings-section page-title="$i18n{memoryPageTitle}" section="performance" id="performanceSettingsSection">
             <settings-performance-page prefs="{{prefs}}">
             </settings-performance-page>
           </settings-section>
@@ -8494,9 +8526,7 @@ function getTemplate$7() {
     <template is="dom-if" if="[[showAdvancedSettings_(pageVisibility.advancedSettings)]]">
       <settings-idle-load id="advancedPageTemplate">
         <template>
-          <div id="advancedPage" hidden$="[[!showAdvancedPage_(
-              currentRoute_, inSearchMode, hasExpandedSection_,
-              advancedToggleExpanded)]]">
+          <div id="advancedPage">
             <template is="dom-if" if="[[showPage_(pageVisibility.languages)]]" restamp>
 
               <settings-section page-title="$i18n{languagesPageTitle}" section="languages">
@@ -8547,6 +8577,7 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
         super(...arguments);
         this.privacyGuideBrowserProxy_ = PrivacyGuideBrowserProxyImpl.getInstance();
         this.performanceBrowserProxy_ = PerformanceBrowserProxyImpl.getInstance();
+        // 
     }
     static get is() {
         return 'settings-basic-page';
@@ -8579,20 +8610,6 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
                 type: Boolean,
                 value: false,
                 reflectToAttribute: true,
-            },
-            advancedToggleExpanded: {
-                type: Boolean,
-                value: false,
-                notify: true,
-                observer: 'advancedToggleExpandedChanged_',
-            },
-            /**
-             * True if a section is fully expanded to hide other sections beneath it.
-             * False otherwise (even while animating a section open/closed).
-             */
-            hasExpandedSection_: {
-                type: Boolean,
-                value: false,
             },
             /**
              * True if the basic page should currently display the reset profile
@@ -8638,6 +8655,10 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
                     return loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageV2Enabled');
                 },
             },
+            showAdvancedFeaturesMainControl_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('showAdvancedFeaturesMainControl'),
+            },
         };
     }
     static get observers() {
@@ -8648,7 +8669,6 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
     ready() {
         super.ready();
         this.setAttribute('role', 'main');
-        this.addEventListener('subpage-expand', this.onSubpageExpanded_);
     }
     connectedCallback() {
         super.connectedCallback();
@@ -8659,17 +8679,12 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
     currentRouteChanged(newRoute, oldRoute) {
         this.currentRoute_ = newRoute;
         if (routes.ADVANCED && routes.ADVANCED.contains(newRoute)) {
-            this.advancedToggleExpanded = true;
-        }
-        if (oldRoute && oldRoute.isSubpage()) {
-            // If the new route isn't the same expanded section, reset
-            // hasExpandedSection_ for the next transition.
-            if (!newRoute.isSubpage() || newRoute.section !== oldRoute.section) {
-                this.hasExpandedSection_ = false;
-            }
-        }
-        else {
-            assert(!this.hasExpandedSection_);
+            // Render the advanced page now (don't wait for idle).
+            // In Polymer3, async() does not wait long enough for layout to complete.
+            // beforeNextRender() must be used instead.
+            beforeNextRender(this, () => {
+                this.getIdleLoad_();
+            });
         }
         super.currentRouteChanged(newRoute, oldRoute);
         if (newRoute === routes.PRIVACY) {
@@ -8714,8 +8729,10 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
      * @return A signal indicating that searching finished.
      */
     searchContents(query) {
+        const basicPage = this.shadowRoot.querySelector('#basicPage');
+        assert(basicPage);
         const whenSearchDone = [
-            getSearchManager().search(query, this.shadowRoot.querySelector('#basicPage')),
+            getSearchManager().search(query, basicPage),
         ];
         if (this.pageVisibility.advancedSettings !== false) {
             whenSearchDone.push(this.getIdleLoad_().then(function (advancedPage) {
@@ -8739,64 +8756,37 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
     }
     // 
     onOpenChromeOsLanguagesSettingsClick_() {
-        const chromeOSLanguagesSettingsPath = loadTimeData.getString('chromeOSLanguagesSettingsPath');
-        window.location.href =
-            `chrome://os-settings/${chromeOSLanguagesSettingsPath}`;
+        OpenWindowProxyImpl.getInstance().openUrl(loadTimeData.getString('osSettingsLanguagesPageUrl'));
     }
     // 
     onResetProfileBannerClosed_() {
         this.showResetProfileBanner_ = false;
     }
-    /**
-     * Hides everything but the newly expanded subpage.
-     */
-    onSubpageExpanded_() {
-        this.hasExpandedSection_ = true;
-    }
-    /**
-     * Render the advanced page now (don't wait for idle).
-     */
-    advancedToggleExpandedChanged_() {
-        if (!this.advancedToggleExpanded) {
-            return;
-        }
-        // In Polymer2, async() does not wait long enough for layout to complete.
-        // beforeNextRender() must be used instead.
-        beforeNextRender(this, () => {
-            this.getIdleLoad_();
-        });
-    }
     fire_(eventName, detail) {
         this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     /**
-     * @return Whether to show the basic page, taking into account both routing
-     *     and search state.
+     * @return Whether to show #basicPage. This is an optimization to lazy render
+     *     #basicPage only when a section/subpage within it is being shown, or
+     *     when in search mode.
      */
-    showBasicPage_(currentRoute, _inSearchMode, hasExpandedSection) {
-        return !hasExpandedSection || routes.BASIC.contains(currentRoute);
-    }
-    /**
-     * @return Whether to show the advanced page, taking into account both routing
-     *     and search state.
-     */
-    showAdvancedPage_(currentRoute, inSearchMode, hasExpandedSection, advancedToggleExpanded) {
-        return hasExpandedSection ?
-            (routes.ADVANCED && routes.ADVANCED.contains(currentRoute)) :
-            advancedToggleExpanded || inSearchMode;
+    showBasicPage_() {
+        if (this.currentRoute_ === undefined) {
+            return false;
+        }
+        return this.inSearchMode || routes.BASIC.contains(this.currentRoute_);
     }
     showAdvancedSettings_(visibility) {
-        return visibility !== false;
+        return this.showPage_(visibility);
     }
     showPerformancePage_(visibility) {
-        return visibility !== false;
+        return this.showPage_(visibility);
     }
     showBatteryPage_(visibility) {
-        return visibility !== false;
+        return this.showPage_(visibility);
     }
     showSpeedPage_(visibility) {
-        return loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageEnabled') &&
-            this.showPage_(visibility);
+        return this.showPage_(visibility);
     }
     showSafetyCheckPage_(visibility) {
         return !loadTimeData.getBoolean('enableSafetyHub') &&
@@ -8806,11 +8796,9 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
         return loadTimeData.getBoolean('enableSafetyHub') &&
             this.showPage_(visibility);
     }
-    // 
-    getPerformancePageTitle_() {
-        return loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageEnabled') ?
-            this.i18n('memoryPageTitle') :
-            this.i18n('performancePageTitle');
+    showExperimentalAdvancedPage_(visibility) {
+        return loadTimeData.getBoolean('showAdvancedFeaturesMainControl') &&
+            this.showPage_(visibility);
     }
 }
 customElements.define(SettingsBasicPageElement.is, SettingsBasicPageElement);
@@ -8826,7 +8814,7 @@ function getTemplate$6() {
       <managed-footnote></managed-footnote>
     </template>
     <template is="dom-if" if="[[showPages_.settings]]">
-      <settings-basic-page class="cr-centered-card-container" prefs="{{prefs}}" page-visibility="[[pageVisibility]]" on-subpage-expand="onShowingSubpage_" on-showing-main-page="onShowingMainPage_" in-search-mode="[[inSearchMode_]]" advanced-toggle-expanded="{{advancedToggleExpanded}}">
+      <settings-basic-page class="cr-centered-card-container" prefs="{{prefs}}" page-visibility="[[pageVisibility]]" on-subpage-expand="onShowingSubpage_" on-showing-main-page="onShowingMainPage_" in-search-mode="[[inSearchMode_]]">
       </settings-basic-page>
     </template>
     <template is="dom-if" if="[[showPages_.about]]">
@@ -8858,10 +8846,6 @@ class SettingsMainElement extends SettingsMainElementBase {
              */
             prefs: {
                 type: Object,
-                notify: true,
-            },
-            advancedToggleExpanded: {
-                type: Boolean,
                 notify: true,
             },
             /**
@@ -9073,6 +9057,12 @@ function getTemplate$5() {
           $i18n{performancePageTitle}
           <paper-ripple></paper-ripple>
         </a>
+        <a role="menuitem" href="/ai" hidden="[[!showExperimentalMenuItem_(
+                showAdvancedFeaturesMainControl_, pageVisibility.ai)]]" class="cr-nav-menu-item">
+          <iron-icon icon="settings20:ai"></iron-icon>
+          $i18n{experimentalAdvancedPageTitle}
+          <paper-ripple></paper-ripple>
+        </a>
         <a role="menuitem" id="appearance" href="/appearance" hidden="[[!pageVisibility.appearance]]" class="cr-nav-menu-item">
           <iron-icon icon="settings:palette"></iron-icon>
           $i18n{appearancePageTitle}
@@ -9149,11 +9139,19 @@ class SettingsMenuElement extends SettingsMenuElementBase {
              * Dictionary defining page visibility.
              */
             pageVisibility: Object,
+            showAdvancedFeaturesMainControl_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('showAdvancedFeaturesMainControl'),
+            },
         };
     }
     ready() {
         super.ready();
         this.routes_ = Router.getInstance().getRoutes();
+    }
+    showExperimentalMenuItem_() {
+        return this.showAdvancedFeaturesMainControl_ &&
+            (!this.pageVisibility || this.pageVisibility.ai !== false);
     }
     currentRouteChanged(newRoute) {
         // 
@@ -9308,9 +9306,6 @@ class SettingsUiElement extends SettingsUiElementBase {
     connectedCallback() {
         super.connectedCallback();
         document.documentElement.classList.remove('loading');
-        setTimeout(function () {
-            chrome.send('metricsHandler:recordTime', ['Settings.TimeUntilInteractive', window.performance.now()]);
-        });
         // Preload bold Roboto so it doesn't load and flicker the first time used.
         // https://github.com/microsoft/TypeScript/issues/13569
         document.fonts.load('bold 12px Roboto');
@@ -9613,7 +9608,7 @@ class SettingsSafetyCheckUnusedSitePermissionsElement extends SettingsSafetyChec
 customElements.define(SettingsSafetyCheckUnusedSitePermissionsElement.is, SettingsSafetyCheckUnusedSitePermissionsElement);
 
 function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.subtitle{font-size:.75rem;line-height:22px}.title{margin:0 0 16px}.dialog-body{color:var(--cr-primary-text-color)}.search-engine{align-items:center;display:flex;flex-direction:row;gap:12px}#setAsDefaultButton{margin-inline-start:12px}cr-dialog{--cr-dialog-body-padding-horizontal:16px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:24px;--cr-dialog-button-container-padding-top:24px;--cr-dialog-title-slot-padding-bottom:16px;--cr-dialog-title-slot-padding-end:16px;--cr-dialog-title-slot-padding-start:16px;--cr-dialog-title-slot-padding-top:16px}cr-dialog::part(body-container){max-height:360px}cr-radio-button{--cr-radio-button-size:20px;margin:0 16px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{--icon-size:var(--search-engine-icon-size, 24px)}.subtitle{font-size:.75rem;line-height:22px}.title{margin:0 0 16px}.dialog-body{color:var(--cr-primary-text-color)}.search-engine{align-items:center;display:flex;flex-direction:row;gap:16px}site-favicon{--site-favicon-border-radius:4px;--site-favicon-height:var(--icon-size);--site-favicon-width:var(--icon-size)}#setAsDefaultButton{margin-inline-start:12px}cr-dialog{--cr-dialog-body-padding-horizontal:16px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:24px;--cr-dialog-button-container-padding-top:24px;--cr-dialog-title-slot-padding-bottom:16px;--cr-dialog-title-slot-padding-end:16px;--cr-dialog-title-slot-padding-start:16px;--cr-dialog-title-slot-padding-top:16px}cr-dialog::part(body-container){max-height:360px}cr-radio-button{--cr-radio-button-size:20px;margin:0 16px}</style>
 
 <cr-dialog id="dialog" on-cancel="onCancelClick_" show-on-attach>
   <div slot="title">
@@ -9627,7 +9622,7 @@ function getTemplate() {
       <template is="dom-repeat" items="[[searchEngines]]">
         <cr-radio-button class="label-first" name="[[item.id]]">
           <div class="search-engine">
-            <site-favicon favicon-url="[[item.iconURL]]" url="[[item.url]]">
+            <site-favicon favicon-url="[[item.iconURL]]" url="[[item.url]]" icon-path="[[item.iconPath]]">
             </site-favicon>
             [[item.name]]
           </div>
@@ -9706,5 +9701,5 @@ class SettingsSearchEngineListDialogElement extends SettingsSearchEngineListDial
 }
 customElements.define(SettingsSearchEngineListDialogElement.is, SettingsSearchEngineListDialogElement);
 
-export { AboutPageBrowserProxyImpl, AccountManagerBrowserProxyImpl, AppearanceBrowserProxyImpl, BATTERY_SAVER_MODE_PREF, BaseMixin, BatterySaverModeState, ChoiceMadeLocation, ColorSchemeMode, CrDrawerElement, CrSettingsPrefs, CrToolbarElement, CrToolbarSearchFieldElement, CustomizeColorSchemeModeBrowserProxy, CustomizeColorSchemeModeClientCallbackRouter, CustomizeColorSchemeModeClientRemote, CustomizeColorSchemeModeHandlerRemote, EDIT_STARTUP_URL_EVENT, HIGH_EFFICIENCY_MODE_PREF, HatsBrowserProxyImpl, HighEfficiencyModeExceptionListAction, HighEfficiencyModeState, HomeUrlInputElement, MAX_TAB_DISCARD_EXCEPTION_RULE_LENGTH, MetricsBrowserProxyImpl, OnStartupBrowserProxyImpl, OpenWindowProxyImpl, PasswordCheckReferrer, PasswordManagerImpl, PasswordManagerPage, PerformanceBrowserProxyImpl, PerformanceMetricsProxyImpl, PrefsMixin, PrivacyGuideBrowserProxyImpl, PrivacyGuideInteractions, PrivacyPageBrowserProxyImpl, ProfileInfoBrowserProxyImpl, RelaunchMixin, ResetBrowserProxyImpl, RestartType, Router, SafetyCheckBrowserProxyImpl, SafetyCheckCallbackConstants, SafetyCheckExtensionsBrowserProxyImpl, SafetyCheckExtensionsElement, SafetyCheckExtensionsStatus, SafetyCheckIconStatus, SafetyCheckInteractions, SafetyCheckParentStatus, SafetyCheckPasswordsStatus, SafetyCheckSafeBrowsingStatus, SafetyCheckUpdatesStatus, SearchEnginesBrowserProxyImpl, SearchRequest, SettingsAboutPageElement, SettingsAppearancePageElement, SettingsAutofillPageElement, SettingsBasicPageElement, SettingsBatteryPageElement, SettingsCheckboxListEntryElement, SettingsIdleLoadElement, SettingsMainElement, SettingsMenuElement, SettingsOnStartupPageElement, SettingsPeoplePageElement, SettingsPerformancePageElement, PluralStringProxyImpl as SettingsPluralStringProxyImpl, SettingsPrivacyPageElement, SettingsResetProfileBannerElement, SettingsSafetyCheckChildElement, SettingsSafetyCheckExtensionsChildElement, SettingsSafetyCheckNotificationPermissionsElement, SettingsSafetyCheckPageElement, SettingsSafetyCheckPasswordsChildElement, SettingsSafetyCheckSafeBrowsingChildElement, SettingsSafetyCheckUnusedSitePermissionsElement, SettingsSafetyCheckUpdatesChildElement, SettingsSearchEngineListDialogElement, SettingsSearchPageElement, SettingsSectionElement, SettingsStartupUrlDialogElement, SettingsStartupUrlEntryElement, SettingsStartupUrlsPageElement, SettingsUiElement, SpeedPageElement, StartupUrlsPageBrowserProxyImpl, SyncBrowserProxyImpl, SystemTheme, TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE, TAB_DISCARD_EXCEPTIONS_PREF, TabDiscardExceptionAddDialogElement, TabDiscardExceptionAddDialogTabs, TabDiscardExceptionEditDialogElement, TabDiscardExceptionEntryElement, TabDiscardExceptionListElement, TabDiscardExceptionTabbedAddDialogElement, TooltipMixin, TrustSafetyInteraction, UpdateStatus, getSearchManager, getTrustedHTML, pageVisibility, routes, setSearchManagerForTesting };
+export { AboutPageBrowserProxyImpl, AccountManagerBrowserProxyImpl, AppearanceBrowserProxyImpl, BATTERY_SAVER_MODE_PREF, BaseMixin, BatterySaverModeState, ChoiceMadeLocation, ColorSchemeMode, CrDrawerElement, CrSettingsPrefs, CrToolbarElement, CrToolbarSearchFieldElement, CustomizeColorSchemeModeBrowserProxy, CustomizeColorSchemeModeClientCallbackRouter, CustomizeColorSchemeModeClientRemote, CustomizeColorSchemeModeHandlerRemote, EDIT_STARTUP_URL_EVENT, ExceptionAddDialogElement, ExceptionAddDialogTabs, ExceptionEditDialogElement, ExceptionEntryElement, ExceptionListElement, ExceptionTabbedAddDialogElement, FeatureOptInState, HatsBrowserProxyImpl, HomeUrlInputElement, MAX_TAB_DISCARD_EXCEPTION_RULE_LENGTH, MEMORY_SAVER_MODE_PREF, MemorySaverModeExceptionListAction, MemorySaverModeState, MetricsBrowserProxyImpl, OnStartupBrowserProxyImpl, OpenWindowProxyImpl, PasswordCheckReferrer, PasswordManagerImpl, PasswordManagerPage, PerformanceBrowserProxyImpl, PerformanceMetricsProxyImpl, PrefsMixin, PrivacyGuideBrowserProxyImpl, PrivacyGuideInteractions, PrivacyPageBrowserProxyImpl, ProfileInfoBrowserProxyImpl, RelaunchMixin, ResetBrowserProxyImpl, RestartType, Router, SafetyCheckBrowserProxyImpl, SafetyCheckCallbackConstants, SafetyCheckExtensionsBrowserProxyImpl, SafetyCheckExtensionsElement, SafetyCheckExtensionsStatus, SafetyCheckIconStatus, SafetyCheckInteractions, SafetyCheckParentStatus, SafetyCheckPasswordsStatus, SafetyCheckSafeBrowsingStatus, SafetyCheckUpdatesStatus, SafetyHubEntryPoint, SearchEnginesBrowserProxyImpl, SearchRequest, SettingsAboutPageElement, SettingsAiPageElement, SettingsAiPageFeaturePrefName, SettingsAppearancePageElement, SettingsAutofillPageElement, SettingsBasicPageElement, SettingsBatteryPageElement, SettingsCheckboxListEntryElement, SettingsIdleLoadElement, SettingsMainElement, SettingsMenuElement, SettingsOnStartupPageElement, SettingsPeoplePageElement, SettingsPerformancePageElement, PluralStringProxyImpl as SettingsPluralStringProxyImpl, SettingsPrivacyPageElement, SettingsResetProfileBannerElement, SettingsSafetyCheckChildElement, SettingsSafetyCheckExtensionsChildElement, SettingsSafetyCheckNotificationPermissionsElement, SettingsSafetyCheckPageElement, SettingsSafetyCheckPasswordsChildElement, SettingsSafetyCheckSafeBrowsingChildElement, SettingsSafetyCheckUnusedSitePermissionsElement, SettingsSafetyCheckUpdatesChildElement, SettingsSearchEngineListDialogElement, SettingsSearchPageElement, SettingsSectionElement, SettingsStartupUrlDialogElement, SettingsStartupUrlEntryElement, SettingsStartupUrlsPageElement, SettingsUiElement, SpeedPageElement, StartupUrlsPageBrowserProxyImpl, SyncBrowserProxyImpl, SystemTheme, TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE, TAB_DISCARD_EXCEPTIONS_PREF, TooltipMixin, TrustSafetyInteraction, UpdateStatus, getSearchManager, pageVisibility, routes, setSearchManagerForTesting };
 //# sourceMappingURL=settings.rollup.js.map

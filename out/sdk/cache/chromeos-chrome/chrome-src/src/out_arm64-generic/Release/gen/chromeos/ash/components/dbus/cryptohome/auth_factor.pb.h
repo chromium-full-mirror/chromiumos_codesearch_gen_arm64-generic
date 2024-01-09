@@ -29,6 +29,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_util.h>
+#include "recoverable_key_store.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_auth_5ffactor_2eproto
@@ -73,6 +74,9 @@ extern KioskAuthInputDefaultTypeInternal _KioskAuthInput_default_instance_;
 class KioskMetadata;
 struct KioskMetadataDefaultTypeInternal;
 extern KioskMetadataDefaultTypeInternal _KioskMetadata_default_instance_;
+class KnowledgeFactorHashInfo;
+struct KnowledgeFactorHashInfoDefaultTypeInternal;
+extern KnowledgeFactorHashInfoDefaultTypeInternal _KnowledgeFactorHashInfo_default_instance_;
 class LegacyFingerprintAuthInput;
 struct LegacyFingerprintAuthInputDefaultTypeInternal;
 extern LegacyFingerprintAuthInputDefaultTypeInternal _LegacyFingerprintAuthInput_default_instance_;
@@ -109,6 +113,7 @@ template<> ::user_data_auth::FingerprintAuthInput* Arena::CreateMaybeMessage<::u
 template<> ::user_data_auth::FingerprintMetadata* Arena::CreateMaybeMessage<::user_data_auth::FingerprintMetadata>(Arena*);
 template<> ::user_data_auth::KioskAuthInput* Arena::CreateMaybeMessage<::user_data_auth::KioskAuthInput>(Arena*);
 template<> ::user_data_auth::KioskMetadata* Arena::CreateMaybeMessage<::user_data_auth::KioskMetadata>(Arena*);
+template<> ::user_data_auth::KnowledgeFactorHashInfo* Arena::CreateMaybeMessage<::user_data_auth::KnowledgeFactorHashInfo>(Arena*);
 template<> ::user_data_auth::LegacyFingerprintAuthInput* Arena::CreateMaybeMessage<::user_data_auth::LegacyFingerprintAuthInput>(Arena*);
 template<> ::user_data_auth::LegacyFingerprintMetadata* Arena::CreateMaybeMessage<::user_data_auth::LegacyFingerprintMetadata>(Arena*);
 template<> ::user_data_auth::PasswordAuthInput* Arena::CreateMaybeMessage<::user_data_auth::PasswordAuthInput>(Arena*);
@@ -775,6 +780,7 @@ class CryptohomeRecoveryAuthInput final :
     kEpochResponseFieldNumber = 4,
     kRecoveryResponseFieldNumber = 5,
     kLedgerInfoFieldNumber = 6,
+    kEnsureFreshRecoveryIdFieldNumber = 7,
   };
   // bytes mediator_pub_key = 1;
   void clear_mediator_pub_key();
@@ -864,6 +870,19 @@ class CryptohomeRecoveryAuthInput final :
       ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* ledger_info);
   ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* unsafe_arena_release_ledger_info();
 
+  // optional bool ensure_fresh_recovery_id = 7;
+  bool has_ensure_fresh_recovery_id() const;
+  private:
+  bool _internal_has_ensure_fresh_recovery_id() const;
+  public:
+  void clear_ensure_fresh_recovery_id();
+  bool ensure_fresh_recovery_id() const;
+  void set_ensure_fresh_recovery_id(bool value);
+  private:
+  bool _internal_ensure_fresh_recovery_id() const;
+  void _internal_set_ensure_fresh_recovery_id(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.CryptohomeRecoveryAuthInput)
  private:
   class _Internal;
@@ -871,13 +890,15 @@ class CryptohomeRecoveryAuthInput final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mediator_pub_key_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_gaia_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_user_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr epoch_response_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr recovery_response_;
   ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* ledger_info_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  bool ensure_fresh_recovery_id_;
   friend struct ::TableStruct_auth_5ffactor_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1763,6 +1784,27 @@ class PasswordMetadata final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kHashInfoFieldNumber = 1,
+  };
+  // .user_data_auth.KnowledgeFactorHashInfo hash_info = 1;
+  bool has_hash_info() const;
+  private:
+  bool _internal_has_hash_info() const;
+  public:
+  void clear_hash_info();
+  const ::user_data_auth::KnowledgeFactorHashInfo& hash_info() const;
+  PROTOBUF_NODISCARD ::user_data_auth::KnowledgeFactorHashInfo* release_hash_info();
+  ::user_data_auth::KnowledgeFactorHashInfo* mutable_hash_info();
+  void set_allocated_hash_info(::user_data_auth::KnowledgeFactorHashInfo* hash_info);
+  private:
+  const ::user_data_auth::KnowledgeFactorHashInfo& _internal_hash_info() const;
+  ::user_data_auth::KnowledgeFactorHashInfo* _internal_mutable_hash_info();
+  public:
+  void unsafe_arena_set_allocated_hash_info(
+      ::user_data_auth::KnowledgeFactorHashInfo* hash_info);
+  ::user_data_auth::KnowledgeFactorHashInfo* unsafe_arena_release_hash_info();
+
   // @@protoc_insertion_point(class_scope:user_data_auth.PasswordMetadata)
  private:
   class _Internal;
@@ -1770,6 +1812,7 @@ class PasswordMetadata final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::user_data_auth::KnowledgeFactorHashInfo* hash_info_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_5ffactor_2eproto;
 };
@@ -1878,8 +1921,27 @@ class PinMetadata final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kHashInfoFieldNumber = 2,
     kAuthLockedFieldNumber = 1,
   };
+  // .user_data_auth.KnowledgeFactorHashInfo hash_info = 2;
+  bool has_hash_info() const;
+  private:
+  bool _internal_has_hash_info() const;
+  public:
+  void clear_hash_info();
+  const ::user_data_auth::KnowledgeFactorHashInfo& hash_info() const;
+  PROTOBUF_NODISCARD ::user_data_auth::KnowledgeFactorHashInfo* release_hash_info();
+  ::user_data_auth::KnowledgeFactorHashInfo* mutable_hash_info();
+  void set_allocated_hash_info(::user_data_auth::KnowledgeFactorHashInfo* hash_info);
+  private:
+  const ::user_data_auth::KnowledgeFactorHashInfo& _internal_hash_info() const;
+  ::user_data_auth::KnowledgeFactorHashInfo* _internal_mutable_hash_info();
+  public:
+  void unsafe_arena_set_allocated_hash_info(
+      ::user_data_auth::KnowledgeFactorHashInfo* hash_info);
+  ::user_data_auth::KnowledgeFactorHashInfo* unsafe_arena_release_hash_info();
+
   // bool auth_locked = 1;
   void clear_auth_locked();
   bool auth_locked() const;
@@ -1896,6 +1958,7 @@ class PinMetadata final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::user_data_auth::KnowledgeFactorHashInfo* hash_info_;
   bool auth_locked_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_5ffactor_2eproto;
@@ -2280,6 +2343,149 @@ class SmartCardMetadata final :
 };
 // -------------------------------------------------------------------
 
+class KnowledgeFactorHashInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.KnowledgeFactorHashInfo) */ {
+ public:
+  inline KnowledgeFactorHashInfo() : KnowledgeFactorHashInfo(nullptr) {}
+  ~KnowledgeFactorHashInfo() override;
+  explicit PROTOBUF_CONSTEXPR KnowledgeFactorHashInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  KnowledgeFactorHashInfo(const KnowledgeFactorHashInfo& from);
+  KnowledgeFactorHashInfo(KnowledgeFactorHashInfo&& from) noexcept
+    : KnowledgeFactorHashInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline KnowledgeFactorHashInfo& operator=(const KnowledgeFactorHashInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline KnowledgeFactorHashInfo& operator=(KnowledgeFactorHashInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const KnowledgeFactorHashInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const KnowledgeFactorHashInfo* internal_default_instance() {
+    return reinterpret_cast<const KnowledgeFactorHashInfo*>(
+               &_KnowledgeFactorHashInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(KnowledgeFactorHashInfo& a, KnowledgeFactorHashInfo& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(KnowledgeFactorHashInfo* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(KnowledgeFactorHashInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  KnowledgeFactorHashInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<KnowledgeFactorHashInfo>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const KnowledgeFactorHashInfo& from);
+  void MergeFrom(const KnowledgeFactorHashInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(KnowledgeFactorHashInfo* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.KnowledgeFactorHashInfo";
+  }
+  protected:
+  explicit KnowledgeFactorHashInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSaltFieldNumber = 2,
+    kAlgorithmFieldNumber = 1,
+  };
+  // bytes salt = 2;
+  void clear_salt();
+  const std::string& salt() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_salt(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_salt();
+  PROTOBUF_NODISCARD std::string* release_salt();
+  void set_allocated_salt(std::string* salt);
+  private:
+  const std::string& _internal_salt() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_salt(const std::string& value);
+  std::string* _internal_mutable_salt();
+  public:
+
+  // .cryptohome.KnowledgeFactorHashAlgorithm algorithm = 1;
+  void clear_algorithm();
+  ::cryptohome::KnowledgeFactorHashAlgorithm algorithm() const;
+  void set_algorithm(::cryptohome::KnowledgeFactorHashAlgorithm value);
+  private:
+  ::cryptohome::KnowledgeFactorHashAlgorithm _internal_algorithm() const;
+  void _internal_set_algorithm(::cryptohome::KnowledgeFactorHashAlgorithm value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.KnowledgeFactorHashInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr salt_;
+  int algorithm_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_5ffactor_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CommonMetadata final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.CommonMetadata) */ {
  public:
@@ -2319,7 +2525,7 @@ class CommonMetadata final :
                &_CommonMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(CommonMetadata& a, CommonMetadata& b) {
     a.Swap(&b);
@@ -2494,7 +2700,7 @@ class LegacyFingerprintMetadata final :
                &_LegacyFingerprintMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(LegacyFingerprintMetadata& a, LegacyFingerprintMetadata& b) {
     a.Swap(&b);
@@ -2608,7 +2814,7 @@ class FingerprintMetadata final :
                &_FingerprintMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(FingerprintMetadata& a, FingerprintMetadata& b) {
     a.Swap(&b);
@@ -2733,7 +2939,7 @@ class AuthFactor final :
                &_AuthFactor_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(AuthFactor& a, AuthFactor& b) {
     a.Swap(&b);
@@ -3404,6 +3610,34 @@ inline void CryptohomeRecoveryAuthInput::set_allocated_device_user_id(std::strin
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.device_user_id)
+}
+
+// optional bool ensure_fresh_recovery_id = 7;
+inline bool CryptohomeRecoveryAuthInput::_internal_has_ensure_fresh_recovery_id() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool CryptohomeRecoveryAuthInput::has_ensure_fresh_recovery_id() const {
+  return _internal_has_ensure_fresh_recovery_id();
+}
+inline void CryptohomeRecoveryAuthInput::clear_ensure_fresh_recovery_id() {
+  ensure_fresh_recovery_id_ = false;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline bool CryptohomeRecoveryAuthInput::_internal_ensure_fresh_recovery_id() const {
+  return ensure_fresh_recovery_id_;
+}
+inline bool CryptohomeRecoveryAuthInput::ensure_fresh_recovery_id() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CryptohomeRecoveryAuthInput.ensure_fresh_recovery_id)
+  return _internal_ensure_fresh_recovery_id();
+}
+inline void CryptohomeRecoveryAuthInput::_internal_set_ensure_fresh_recovery_id(bool value) {
+  _has_bits_[0] |= 0x00000001u;
+  ensure_fresh_recovery_id_ = value;
+}
+inline void CryptohomeRecoveryAuthInput::set_ensure_fresh_recovery_id(bool value) {
+  _internal_set_ensure_fresh_recovery_id(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.CryptohomeRecoveryAuthInput.ensure_fresh_recovery_id)
 }
 
 // bytes epoch_response = 4;
@@ -4240,6 +4474,96 @@ inline AuthInput::InputCase AuthInput::input_case() const {
 
 // PasswordMetadata
 
+// .user_data_auth.KnowledgeFactorHashInfo hash_info = 1;
+inline bool PasswordMetadata::_internal_has_hash_info() const {
+  return this != internal_default_instance() && hash_info_ != nullptr;
+}
+inline bool PasswordMetadata::has_hash_info() const {
+  return _internal_has_hash_info();
+}
+inline void PasswordMetadata::clear_hash_info() {
+  if (GetArenaForAllocation() == nullptr && hash_info_ != nullptr) {
+    delete hash_info_;
+  }
+  hash_info_ = nullptr;
+}
+inline const ::user_data_auth::KnowledgeFactorHashInfo& PasswordMetadata::_internal_hash_info() const {
+  const ::user_data_auth::KnowledgeFactorHashInfo* p = hash_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::KnowledgeFactorHashInfo&>(
+      ::user_data_auth::_KnowledgeFactorHashInfo_default_instance_);
+}
+inline const ::user_data_auth::KnowledgeFactorHashInfo& PasswordMetadata::hash_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PasswordMetadata.hash_info)
+  return _internal_hash_info();
+}
+inline void PasswordMetadata::unsafe_arena_set_allocated_hash_info(
+    ::user_data_auth::KnowledgeFactorHashInfo* hash_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(hash_info_);
+  }
+  hash_info_ = hash_info;
+  if (hash_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.PasswordMetadata.hash_info)
+}
+inline ::user_data_auth::KnowledgeFactorHashInfo* PasswordMetadata::release_hash_info() {
+  
+  ::user_data_auth::KnowledgeFactorHashInfo* temp = hash_info_;
+  hash_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::KnowledgeFactorHashInfo* PasswordMetadata::unsafe_arena_release_hash_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PasswordMetadata.hash_info)
+  
+  ::user_data_auth::KnowledgeFactorHashInfo* temp = hash_info_;
+  hash_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::KnowledgeFactorHashInfo* PasswordMetadata::_internal_mutable_hash_info() {
+  
+  if (hash_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::KnowledgeFactorHashInfo>(GetArenaForAllocation());
+    hash_info_ = p;
+  }
+  return hash_info_;
+}
+inline ::user_data_auth::KnowledgeFactorHashInfo* PasswordMetadata::mutable_hash_info() {
+  ::user_data_auth::KnowledgeFactorHashInfo* _msg = _internal_mutable_hash_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PasswordMetadata.hash_info)
+  return _msg;
+}
+inline void PasswordMetadata::set_allocated_hash_info(::user_data_auth::KnowledgeFactorHashInfo* hash_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete hash_info_;
+  }
+  if (hash_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(hash_info);
+    if (message_arena != submessage_arena) {
+      hash_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, hash_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  hash_info_ = hash_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PasswordMetadata.hash_info)
+}
+
 // -------------------------------------------------------------------
 
 // PinMetadata
@@ -4262,6 +4586,96 @@ inline void PinMetadata::_internal_set_auth_locked(bool value) {
 inline void PinMetadata::set_auth_locked(bool value) {
   _internal_set_auth_locked(value);
   // @@protoc_insertion_point(field_set:user_data_auth.PinMetadata.auth_locked)
+}
+
+// .user_data_auth.KnowledgeFactorHashInfo hash_info = 2;
+inline bool PinMetadata::_internal_has_hash_info() const {
+  return this != internal_default_instance() && hash_info_ != nullptr;
+}
+inline bool PinMetadata::has_hash_info() const {
+  return _internal_has_hash_info();
+}
+inline void PinMetadata::clear_hash_info() {
+  if (GetArenaForAllocation() == nullptr && hash_info_ != nullptr) {
+    delete hash_info_;
+  }
+  hash_info_ = nullptr;
+}
+inline const ::user_data_auth::KnowledgeFactorHashInfo& PinMetadata::_internal_hash_info() const {
+  const ::user_data_auth::KnowledgeFactorHashInfo* p = hash_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::KnowledgeFactorHashInfo&>(
+      ::user_data_auth::_KnowledgeFactorHashInfo_default_instance_);
+}
+inline const ::user_data_auth::KnowledgeFactorHashInfo& PinMetadata::hash_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PinMetadata.hash_info)
+  return _internal_hash_info();
+}
+inline void PinMetadata::unsafe_arena_set_allocated_hash_info(
+    ::user_data_auth::KnowledgeFactorHashInfo* hash_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(hash_info_);
+  }
+  hash_info_ = hash_info;
+  if (hash_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.PinMetadata.hash_info)
+}
+inline ::user_data_auth::KnowledgeFactorHashInfo* PinMetadata::release_hash_info() {
+  
+  ::user_data_auth::KnowledgeFactorHashInfo* temp = hash_info_;
+  hash_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::KnowledgeFactorHashInfo* PinMetadata::unsafe_arena_release_hash_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PinMetadata.hash_info)
+  
+  ::user_data_auth::KnowledgeFactorHashInfo* temp = hash_info_;
+  hash_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::KnowledgeFactorHashInfo* PinMetadata::_internal_mutable_hash_info() {
+  
+  if (hash_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::KnowledgeFactorHashInfo>(GetArenaForAllocation());
+    hash_info_ = p;
+  }
+  return hash_info_;
+}
+inline ::user_data_auth::KnowledgeFactorHashInfo* PinMetadata::mutable_hash_info() {
+  ::user_data_auth::KnowledgeFactorHashInfo* _msg = _internal_mutable_hash_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PinMetadata.hash_info)
+  return _msg;
+}
+inline void PinMetadata::set_allocated_hash_info(::user_data_auth::KnowledgeFactorHashInfo* hash_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete hash_info_;
+  }
+  if (hash_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(hash_info);
+    if (message_arena != submessage_arena) {
+      hash_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, hash_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  hash_info_ = hash_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PinMetadata.hash_info)
 }
 
 // -------------------------------------------------------------------
@@ -4374,6 +4788,80 @@ inline void SmartCardMetadata::set_allocated_public_key_spki_der(std::string* pu
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.SmartCardMetadata.public_key_spki_der)
+}
+
+// -------------------------------------------------------------------
+
+// KnowledgeFactorHashInfo
+
+// .cryptohome.KnowledgeFactorHashAlgorithm algorithm = 1;
+inline void KnowledgeFactorHashInfo::clear_algorithm() {
+  algorithm_ = 0;
+}
+inline ::cryptohome::KnowledgeFactorHashAlgorithm KnowledgeFactorHashInfo::_internal_algorithm() const {
+  return static_cast< ::cryptohome::KnowledgeFactorHashAlgorithm >(algorithm_);
+}
+inline ::cryptohome::KnowledgeFactorHashAlgorithm KnowledgeFactorHashInfo::algorithm() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.KnowledgeFactorHashInfo.algorithm)
+  return _internal_algorithm();
+}
+inline void KnowledgeFactorHashInfo::_internal_set_algorithm(::cryptohome::KnowledgeFactorHashAlgorithm value) {
+  
+  algorithm_ = value;
+}
+inline void KnowledgeFactorHashInfo::set_algorithm(::cryptohome::KnowledgeFactorHashAlgorithm value) {
+  _internal_set_algorithm(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.KnowledgeFactorHashInfo.algorithm)
+}
+
+// bytes salt = 2;
+inline void KnowledgeFactorHashInfo::clear_salt() {
+  salt_.ClearToEmpty();
+}
+inline const std::string& KnowledgeFactorHashInfo::salt() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.KnowledgeFactorHashInfo.salt)
+  return _internal_salt();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void KnowledgeFactorHashInfo::set_salt(ArgT0&& arg0, ArgT... args) {
+ 
+ salt_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.KnowledgeFactorHashInfo.salt)
+}
+inline std::string* KnowledgeFactorHashInfo::mutable_salt() {
+  std::string* _s = _internal_mutable_salt();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.KnowledgeFactorHashInfo.salt)
+  return _s;
+}
+inline const std::string& KnowledgeFactorHashInfo::_internal_salt() const {
+  return salt_.Get();
+}
+inline void KnowledgeFactorHashInfo::_internal_set_salt(const std::string& value) {
+  
+  salt_.Set(value, GetArenaForAllocation());
+}
+inline std::string* KnowledgeFactorHashInfo::_internal_mutable_salt() {
+  
+  return salt_.Mutable(GetArenaForAllocation());
+}
+inline std::string* KnowledgeFactorHashInfo::release_salt() {
+  // @@protoc_insertion_point(field_release:user_data_auth.KnowledgeFactorHashInfo.salt)
+  return salt_.Release();
+}
+inline void KnowledgeFactorHashInfo::set_allocated_salt(std::string* salt) {
+  if (salt != nullptr) {
+    
+  } else {
+    
+  }
+  salt_.SetAllocated(salt, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (salt_.IsDefault()) {
+    salt_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.KnowledgeFactorHashInfo.salt)
 }
 
 // -------------------------------------------------------------------
@@ -5252,6 +5740,8 @@ inline AuthFactor::MetadataCase AuthFactor::metadata_case() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

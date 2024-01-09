@@ -2,13 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import { FakeEntry, FilesAppDirEntry } from '../../externs/files_app_entry_interfaces.js';
+import { RootType } from '../../common/js/volume_manager_types.js';
 import { FileFilter } from './directory_contents.js';
 import { DirectoryModel } from './directory_model.js';
 import { FileListModel } from './file_list_model.js';
 /**
- * @returns {!FileFilter} fake for unittests.
+ * @return fake for unittests.
  */
 function createFakeFileFilter() {
     /**
@@ -16,20 +15,17 @@ function createFakeFileFilter() {
      */
     class FakeFileFilter extends EventTarget {
         /**
-         * @param {Entry} entry File entry.
-         * @return {boolean} True if the file should be shown.
+         * @param entry File entry.
+         * @return True if the file should be shown.
          */
-        // @ts-ignore: error TS6133: 'entry' is declared but its value is never
-        // read.
-        filter(entry) {
+        filter(_entry) {
             return true;
         }
     }
-    const filter = /** @type {!Object} */ (new FakeFileFilter());
-    return /** @type {!FileFilter} */ (filter);
+    return new FakeFileFilter();
 }
 /**
- * @returns {!DirectoryModel} fake for unittests.
+ * @return fake for unittests.
  */
 export function createFakeDirectoryModel() {
     /**
@@ -38,68 +34,46 @@ export function createFakeDirectoryModel() {
     class FakeDirectoryModel extends EventTarget {
         constructor() {
             super();
-            /** @private @type {!FileFilter} */
             this.fileFilter_ = createFakeFileFilter();
-            /** @private @type {FilesAppDirEntry} */
-            // @ts-ignore: error TS2322: Type 'null' is not assignable to type
-            // 'FilesAppDirEntry'.
-            this.myFiles_ = null;
         }
         /**
-         * @param {FilesAppDirEntry} myFilesEntry
-         */
-        setMyFiles(myFilesEntry) {
-            this.myFiles_ = myFilesEntry;
-        }
-        /**
-         * @return {!FileFilter} file filter.
+         * @return file filter.
          */
         getFileFilter() {
             return this.fileFilter_;
         }
         /**
-         * @return {DirectoryEntry|FakeEntry|FilesAppDirEntry} Current directory.
+         * @return Current directory.
          */
         getCurrentDirEntry() {
-            // @ts-ignore: error TS2322: Type 'null' is not assignable to type
-            // 'FileSystemDirectoryEntry | FilesAppDirEntry | FakeEntry'.
-            return null;
+            return undefined;
         }
-        /**
-         * @returns {?import("../../externs/volume_info.js").VolumeInfo}
-         */
         getCurrentVolumeInfo() {
             return null;
         }
-        /**
-         * @returns {?VolumeManagerCommon.RootType}
-         */
         getCurrentRootType() {
             return null;
         }
-        /**
-         * @returns {?FileListModel}
-         */
         getFileList() {
             return null;
         }
         /**
-         * @param {!DirectoryEntry|!FilesAppDirEntry} dirEntry The entry of the new
+         * @param dirEntry The entry of the new
          *     directory to be changed to.
-         * @param {function()=} opt_callback Executed if the directory loads
+         * @param opt_callback Executed if the directory loads
          *     successfully.
          */
-        // @ts-ignore: error TS6133: 'dirEntry' is declared but its value is never
-        // read.
-        changeDirectoryEntry(dirEntry, opt_callback) {
-            if (opt_callback) {
-                opt_callback();
+        changeDirectoryEntry(_dirEntry, callback) {
+            if (callback) {
+                callback();
             }
         }
         isReadOnly() {
             return false;
         }
+        getFileListSelection() {
+            return new EventTarget();
+        }
     }
-    const model = /** @type {!Object} */ (new FakeDirectoryModel());
-    return /** @type {!DirectoryModel} */ (model);
+    return new FakeDirectoryModel();
 }

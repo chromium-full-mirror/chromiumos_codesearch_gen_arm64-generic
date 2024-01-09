@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct SizeChangedOptions {
   ~SizeChangedOptions();
   SizeChangedOptions(const SizeChangedOptions&) = delete;
   SizeChangedOptions& operator=(const SizeChangedOptions&) = delete;
-  SizeChangedOptions(SizeChangedOptions&& rhs);
-  SizeChangedOptions& operator=(SizeChangedOptions&& rhs);
+  SizeChangedOptions(SizeChangedOptions&& rhs) noexcept;
+  SizeChangedOptions& operator=(SizeChangedOptions&& rhs) noexcept;
 
   // Populates a SizeChangedOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,16 +47,13 @@ struct SizeChangedOptions {
   // Creates a deep copy of SizeChangedOptions.
   SizeChangedOptions Clone() const;
 
-  // Creates a SizeChangedOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SizeChangedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a SizeChangedOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SizeChangedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<SizeChangedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a SizeChangedOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SizeChangedOptions> FromValue(const base::Value& value);
+  static std::optional<SizeChangedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSizeChangedOptions object.
@@ -76,8 +74,8 @@ struct PreferredSizeChangedOptions {
   ~PreferredSizeChangedOptions();
   PreferredSizeChangedOptions(const PreferredSizeChangedOptions&) = delete;
   PreferredSizeChangedOptions& operator=(const PreferredSizeChangedOptions&) = delete;
-  PreferredSizeChangedOptions(PreferredSizeChangedOptions&& rhs);
-  PreferredSizeChangedOptions& operator=(PreferredSizeChangedOptions&& rhs);
+  PreferredSizeChangedOptions(PreferredSizeChangedOptions&& rhs) noexcept;
+  PreferredSizeChangedOptions& operator=(PreferredSizeChangedOptions&& rhs) noexcept;
 
   // Populates a PreferredSizeChangedOptions object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -90,17 +88,13 @@ struct PreferredSizeChangedOptions {
   // Creates a deep copy of PreferredSizeChangedOptions.
   PreferredSizeChangedOptions Clone() const;
 
-  // Creates a PreferredSizeChangedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<PreferredSizeChangedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a PreferredSizeChangedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<PreferredSizeChangedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<PreferredSizeChangedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a PreferredSizeChangedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<PreferredSizeChangedOptions> FromValue(const base::Value& value);
+  static std::optional<PreferredSizeChangedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPreferredSizeChangedOptions object.

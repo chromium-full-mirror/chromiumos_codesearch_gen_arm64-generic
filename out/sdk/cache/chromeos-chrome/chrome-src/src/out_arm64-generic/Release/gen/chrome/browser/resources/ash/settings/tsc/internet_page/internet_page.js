@@ -44,11 +44,11 @@ import { StartConnectResult } from 'chrome://resources/mojo/chromeos/services/ne
 import { DeviceStateType, NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { afterNextRender, mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { recordSettingChange } from '../metrics_recorder.js';
 import { Section } from '../mojom-webui/routes.mojom-webui.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './internet_page.html.js';
 import { InternetPageBrowserProxyImpl } from './internet_page_browser_proxy.js';
@@ -159,6 +159,13 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
                         loadTimeData.getBoolean('isApnRevampEnabled');
                 },
             },
+            isCellularCarrierLockEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isCellularCarrierLockEnabled') &&
+                        loadTimeData.getBoolean('isCellularCarrierLockEnabled');
+                },
+            },
             /**
              * Page name, if defined, indicating that the next deviceStates update
              * should call attemptShowCellularSetupDialog_().
@@ -223,6 +230,7 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
                 value: () => new Set([
                     Setting.kWifiOnOff,
                     Setting.kMobileOnOff,
+                    Setting.kCellularAddApn,
                 ]),
             },
             errorToastMessage_: {
@@ -344,6 +352,9 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
         else if (settingId === Setting.kMobileOnOff) {
             networkType = NetworkType.kCellular;
         }
+        else {
+            return true;
+        }
         afterNextRender(this, () => {
             const networkRow = this.shadowRoot.querySelector('network-summary').getNetworkRow(networkType);
             if (networkRow) {
@@ -363,7 +374,7 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
      */
     currentRouteChanged(newRoute, oldRoute) {
         super.currentRouteChanged(newRoute, oldRoute);
-        if (newRoute === this.route) {
+        if (newRoute === this.route || newRoute === routes.APN) {
             // Show deep links for the internet page.
             this.attemptDeepLink();
         }
@@ -557,6 +568,20 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
             return this.i18n('OncTypeMobile');
         }
         return this.i18n('OncType' + OncMojo.getNetworkTypeString(this.subpageType_));
+    }
+    isProviderLocked_() {
+        if (!this.isCellularCarrierLockEnabled_) {
+            return false;
+        }
+        if (this.subpageType_ !== NetworkType.kCellular) {
+            return false;
+        }
+        // Check carrier lock status reported by carrier lock manager.
+        const cellularDeviceState = this.getDeviceState_(NetworkType.kCellular, this.deviceStates);
+        if (!cellularDeviceState || !cellularDeviceState.isCarrierLocked) {
+            return false;
+        }
+        return true;
     }
     getDeviceState_(subpageType, deviceStates) {
         if (subpageType === undefined) {

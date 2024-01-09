@@ -1524,6 +1524,7 @@ class LcppStat final :
     kLcpElementLocatorStatFieldNumber = 1,
     kLcpScriptUrlStatFieldNumber = 2,
     kFetchedFontUrlStatFieldNumber = 3,
+    kFetchedSubresourceUrlStatFieldNumber = 4,
   };
   // optional .predictors.LcpElementLocatorStat lcp_element_locator_stat = 1;
   bool has_lcp_element_locator_stat() const;
@@ -1579,6 +1580,24 @@ class LcppStat final :
       ::predictors::LcppStringFrequencyStatData* fetched_font_url_stat);
   ::predictors::LcppStringFrequencyStatData* unsafe_arena_release_fetched_font_url_stat();
 
+  // optional .predictors.LcppStringFrequencyStatData fetched_subresource_url_stat = 4;
+  bool has_fetched_subresource_url_stat() const;
+  private:
+  bool _internal_has_fetched_subresource_url_stat() const;
+  public:
+  void clear_fetched_subresource_url_stat();
+  const ::predictors::LcppStringFrequencyStatData& fetched_subresource_url_stat() const;
+  PROTOBUF_NODISCARD ::predictors::LcppStringFrequencyStatData* release_fetched_subresource_url_stat();
+  ::predictors::LcppStringFrequencyStatData* mutable_fetched_subresource_url_stat();
+  void set_allocated_fetched_subresource_url_stat(::predictors::LcppStringFrequencyStatData* fetched_subresource_url_stat);
+  private:
+  const ::predictors::LcppStringFrequencyStatData& _internal_fetched_subresource_url_stat() const;
+  ::predictors::LcppStringFrequencyStatData* _internal_mutable_fetched_subresource_url_stat();
+  public:
+  void unsafe_arena_set_allocated_fetched_subresource_url_stat(
+      ::predictors::LcppStringFrequencyStatData* fetched_subresource_url_stat);
+  ::predictors::LcppStringFrequencyStatData* unsafe_arena_release_fetched_subresource_url_stat();
+
   // @@protoc_insertion_point(class_scope:predictors.LcppStat)
  private:
   class _Internal;
@@ -1591,6 +1610,7 @@ class LcppStat final :
   ::predictors::LcpElementLocatorStat* lcp_element_locator_stat_;
   ::predictors::LcppStringFrequencyStatData* lcp_script_url_stat_;
   ::predictors::LcppStringFrequencyStatData* fetched_font_url_stat_;
+  ::predictors::LcppStringFrequencyStatData* fetched_subresource_url_stat_;
   friend struct ::TableStruct_resource_5fprefetch_5fpredictor_2eproto;
 };
 // -------------------------------------------------------------------
@@ -3058,6 +3078,96 @@ inline void LcppStat::set_allocated_fetched_font_url_stat(::predictors::LcppStri
   }
   fetched_font_url_stat_ = fetched_font_url_stat;
   // @@protoc_insertion_point(field_set_allocated:predictors.LcppStat.fetched_font_url_stat)
+}
+
+// optional .predictors.LcppStringFrequencyStatData fetched_subresource_url_stat = 4;
+inline bool LcppStat::_internal_has_fetched_subresource_url_stat() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  PROTOBUF_ASSUME(!value || fetched_subresource_url_stat_ != nullptr);
+  return value;
+}
+inline bool LcppStat::has_fetched_subresource_url_stat() const {
+  return _internal_has_fetched_subresource_url_stat();
+}
+inline void LcppStat::clear_fetched_subresource_url_stat() {
+  if (fetched_subresource_url_stat_ != nullptr) fetched_subresource_url_stat_->Clear();
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline const ::predictors::LcppStringFrequencyStatData& LcppStat::_internal_fetched_subresource_url_stat() const {
+  const ::predictors::LcppStringFrequencyStatData* p = fetched_subresource_url_stat_;
+  return p != nullptr ? *p : reinterpret_cast<const ::predictors::LcppStringFrequencyStatData&>(
+      ::predictors::_LcppStringFrequencyStatData_default_instance_);
+}
+inline const ::predictors::LcppStringFrequencyStatData& LcppStat::fetched_subresource_url_stat() const {
+  // @@protoc_insertion_point(field_get:predictors.LcppStat.fetched_subresource_url_stat)
+  return _internal_fetched_subresource_url_stat();
+}
+inline void LcppStat::unsafe_arena_set_allocated_fetched_subresource_url_stat(
+    ::predictors::LcppStringFrequencyStatData* fetched_subresource_url_stat) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(fetched_subresource_url_stat_);
+  }
+  fetched_subresource_url_stat_ = fetched_subresource_url_stat;
+  if (fetched_subresource_url_stat) {
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:predictors.LcppStat.fetched_subresource_url_stat)
+}
+inline ::predictors::LcppStringFrequencyStatData* LcppStat::release_fetched_subresource_url_stat() {
+  _has_bits_[0] &= ~0x00000008u;
+  ::predictors::LcppStringFrequencyStatData* temp = fetched_subresource_url_stat_;
+  fetched_subresource_url_stat_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::predictors::LcppStringFrequencyStatData* LcppStat::unsafe_arena_release_fetched_subresource_url_stat() {
+  // @@protoc_insertion_point(field_release:predictors.LcppStat.fetched_subresource_url_stat)
+  _has_bits_[0] &= ~0x00000008u;
+  ::predictors::LcppStringFrequencyStatData* temp = fetched_subresource_url_stat_;
+  fetched_subresource_url_stat_ = nullptr;
+  return temp;
+}
+inline ::predictors::LcppStringFrequencyStatData* LcppStat::_internal_mutable_fetched_subresource_url_stat() {
+  _has_bits_[0] |= 0x00000008u;
+  if (fetched_subresource_url_stat_ == nullptr) {
+    auto* p = CreateMaybeMessage<::predictors::LcppStringFrequencyStatData>(GetArenaForAllocation());
+    fetched_subresource_url_stat_ = p;
+  }
+  return fetched_subresource_url_stat_;
+}
+inline ::predictors::LcppStringFrequencyStatData* LcppStat::mutable_fetched_subresource_url_stat() {
+  ::predictors::LcppStringFrequencyStatData* _msg = _internal_mutable_fetched_subresource_url_stat();
+  // @@protoc_insertion_point(field_mutable:predictors.LcppStat.fetched_subresource_url_stat)
+  return _msg;
+}
+inline void LcppStat::set_allocated_fetched_subresource_url_stat(::predictors::LcppStringFrequencyStatData* fetched_subresource_url_stat) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete fetched_subresource_url_stat_;
+  }
+  if (fetched_subresource_url_stat) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(fetched_subresource_url_stat);
+    if (message_arena != submessage_arena) {
+      fetched_subresource_url_stat = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, fetched_subresource_url_stat, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  fetched_subresource_url_stat_ = fetched_subresource_url_stat;
+  // @@protoc_insertion_point(field_set_allocated:predictors.LcppStat.fetched_subresource_url_stat)
 }
 
 // -------------------------------------------------------------------

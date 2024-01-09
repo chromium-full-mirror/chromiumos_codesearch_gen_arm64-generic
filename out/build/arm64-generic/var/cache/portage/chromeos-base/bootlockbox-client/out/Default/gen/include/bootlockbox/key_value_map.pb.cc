@@ -4,49 +4,51 @@
 #include "key_value_map.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace bootlockbox {
+template <typename>
 PROTOBUF_CONSTEXPR SerializedKeyValueMap_KeyvalsEntry_DoNotUse::SerializedKeyValueMap_KeyvalsEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct SerializedKeyValueMap_KeyvalsEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SerializedKeyValueMap_KeyvalsEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedKeyValueMap_KeyvalsEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedKeyValueMap_KeyvalsEntry_DoNotUseDefaultTypeInternal() {}
   union {
     SerializedKeyValueMap_KeyvalsEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedKeyValueMap_KeyvalsEntry_DoNotUseDefaultTypeInternal _SerializedKeyValueMap_KeyvalsEntry_DoNotUse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedKeyValueMap_KeyvalsEntry_DoNotUseDefaultTypeInternal _SerializedKeyValueMap_KeyvalsEntry_DoNotUse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SerializedKeyValueMap::SerializedKeyValueMap(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.keyvals_)*/{}
-  , /*decltype(_impl_.version_)*/1u} {}
+  , /*decltype(_impl_.version_)*/ 1u
+} {}
 struct SerializedKeyValueMapDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SerializedKeyValueMapDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedKeyValueMapDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedKeyValueMapDefaultTypeInternal() {}
   union {
     SerializedKeyValueMap _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedKeyValueMapDefaultTypeInternal _SerializedKeyValueMap_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedKeyValueMapDefaultTypeInternal _SerializedKeyValueMap_default_instance_;
 }  // namespace bootlockbox
 namespace bootlockbox {
-
 // ===================================================================
 
 SerializedKeyValueMap_KeyvalsEntry_DoNotUse::SerializedKeyValueMap_KeyvalsEntry_DoNotUse() {}
@@ -55,21 +57,21 @@ SerializedKeyValueMap_KeyvalsEntry_DoNotUse::SerializedKeyValueMap_KeyvalsEntry_
 void SerializedKeyValueMap_KeyvalsEntry_DoNotUse::MergeFrom(const SerializedKeyValueMap_KeyvalsEntry_DoNotUse& other) {
   MergeFromInternal(other);
 }
-
 // ===================================================================
 
 class SerializedKeyValueMap::_Internal {
  public:
   using HasBits = decltype(std::declval<SerializedKeyValueMap>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SerializedKeyValueMap, _impl_._has_bits_);
   static void set_has_version(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-SerializedKeyValueMap::SerializedKeyValueMap(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SerializedKeyValueMap::SerializedKeyValueMap(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:bootlockbox.SerializedKeyValueMap)
 }
 SerializedKeyValueMap::SerializedKeyValueMap(const SerializedKeyValueMap& from)
@@ -79,7 +81,8 @@ SerializedKeyValueMap::SerializedKeyValueMap(const SerializedKeyValueMap& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_.keyvals_)*/{}
-    , decltype(_impl_.version_){}};
+    , decltype(_impl_.version_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.keyvals_.MergeFrom(from._impl_.keyvals_);
@@ -87,15 +90,14 @@ SerializedKeyValueMap::SerializedKeyValueMap(const SerializedKeyValueMap& from)
   // @@protoc_insertion_point(copy_constructor:bootlockbox.SerializedKeyValueMap)
 }
 
-inline void SerializedKeyValueMap::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SerializedKeyValueMap::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_.keyvals_)*/{::_pbi::ArenaInitialized(), arena}
-    , decltype(_impl_.version_){1u}
+    , decltype(_impl_.version_) { 1u }
+
   };
 }
 
@@ -109,8 +111,7 @@ SerializedKeyValueMap::~SerializedKeyValueMap() {
 }
 
 inline void SerializedKeyValueMap::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.keyvals_.Destruct();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.keyvals_.~MapFieldLite();
 }
 
@@ -120,7 +121,7 @@ void SerializedKeyValueMap::SetCachedSize(int size) const {
 
 void SerializedKeyValueMap::Clear() {
 // @@protoc_insertion_point(message_clear_start:bootlockbox.SerializedKeyValueMap)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -134,21 +135,22 @@ const char* SerializedKeyValueMap::_InternalParse(const char* ptr, ::_pbi::Parse
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 version = 1 [default = 1];
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_version(&has_bits);
           _impl_.version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // map<string, string> keyvals = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -156,8 +158,9 @@ const char* SerializedKeyValueMap::_InternalParse(const char* ptr, ::_pbi::Parse
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -183,17 +186,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SerializedKeyValueMap::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SerializedKeyValueMap::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:bootlockbox.SerializedKeyValueMap)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 version = 1 [default = 1];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_version(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_version(), target);
   }
 
   // map<string, string> keyvals = 2;
@@ -226,11 +230,11 @@ uint8_t* SerializedKeyValueMap::_InternalSerialize(
   return target;
 }
 
-size_t SerializedKeyValueMap::ByteSizeLong() const {
+::size_t SerializedKeyValueMap::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:bootlockbox.SerializedKeyValueMap)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -246,7 +250,8 @@ size_t SerializedKeyValueMap::ByteSizeLong() const {
   // optional uint32 version = 1 [default = 1];
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_version());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_version());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -266,12 +271,12 @@ void SerializedKeyValueMap::CheckTypeAndMergeFrom(
 void SerializedKeyValueMap::MergeFrom(const SerializedKeyValueMap& from) {
   SerializedKeyValueMap* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:bootlockbox.SerializedKeyValueMap)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_impl_.keyvals_.MergeFrom(from._impl_.keyvals_);
-  if (from._internal_has_version()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_version(from._internal_version());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -293,13 +298,13 @@ void SerializedKeyValueMap::InternalSwap(SerializedKeyValueMap* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.keyvals_.InternalSwap(&other->_impl_.keyvals_);
+
   swap(_impl_.version_, other->_impl_.version_);
 }
 
 std::string SerializedKeyValueMap::GetTypeName() const {
   return "bootlockbox.SerializedKeyValueMap";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace bootlockbox
@@ -313,6 +318,5 @@ Arena::CreateMaybeMessage< ::bootlockbox::SerializedKeyValueMap >(Arena* arena) 
   return Arena::CreateMessageInternal< ::bootlockbox::SerializedKeyValueMap >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

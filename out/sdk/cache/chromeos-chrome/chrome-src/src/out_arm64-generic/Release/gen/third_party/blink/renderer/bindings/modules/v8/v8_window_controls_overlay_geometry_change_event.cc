@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WindowControlsOverlayGeometryChangeEvent>::value,
     "WindowControlsOverlayGeometryChangeEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WindowControlsOverlayGeometryChangeEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WindowControlsOverlayGeometryChangeEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("WindowControlsOverlayGeometryChangeEvent.titlebarAre
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WindowControlsOverlayGeometryChangeEvent* blink_receiver = V8WindowControlsOverlayGeometryChangeEvent::ToWrappableUnsafe(v8_receiver);
+WindowControlsOverlayGeometryChangeEvent* blink_receiver = V8WindowControlsOverlayGeometryChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->titlebarAreaRect();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("WindowControlsOverlayGeometryChangeEvent.visible.get
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WindowControlsOverlayGeometryChangeEvent* blink_receiver = V8WindowControlsOverlayGeometryChangeEvent::ToWrappableUnsafe(v8_receiver);
+WindowControlsOverlayGeometryChangeEvent* blink_receiver = V8WindowControlsOverlayGeometryChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->visible();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("WindowControlsOverlayGeometryChangeEvent.isTrusted.g
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WindowControlsOverlayGeometryChangeEvent* blink_receiver = V8WindowControlsOverlayGeometryChangeEvent::ToWrappableUnsafe(v8_receiver);
+WindowControlsOverlayGeometryChangeEvent* blink_receiver = V8WindowControlsOverlayGeometryChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

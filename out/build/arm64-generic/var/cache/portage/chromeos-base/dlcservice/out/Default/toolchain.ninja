@@ -34,9 +34,12 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/dlcservice/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/dlcservice/_dlc_metadata_util-install_config.stamp: stamp
+build obj/dlcservice/_dlcservice-install_config.stamp: stamp
+build obj/dlcservice/_dlcservice_util-install_config.stamp: stamp
+build obj/dlcservice/_dlcverify-install_config.stamp: stamp
 build obj/dlcservice/_libdlcservice-utils-install_config.stamp: stamp
-build obj/dlcservice/all.stamp: stamp ./dlc_metadata_util ./dlcservice obj/dlcservice/dlcservice_adaptors.stamp ./dlcservice_util ./dlcverify obj/dlcservice/install_minijail_conf.stamp obj/dlcservice/install_utils_header.stamp obj/dlcservice/install_utils_pkgconfig.stamp ./libdlcservice.a ./libdlcservice_utils.a ./dlcservice_tests
+build obj/dlcservice/all.stamp: stamp ./dlc_metadata_util ./dlcservice obj/dlcservice/dlcservice_adaptors.stamp ./dlcservice_util ./dlcverify obj/dlcservice/install_dbus_config.stamp obj/dlcservice/install_dlctool.stamp obj/dlcservice/install_minijail_conf.stamp obj/dlcservice/install_seccomp_policy.stamp obj/dlcservice/install_upstart_conf.stamp obj/dlcservice/install_utils_header.stamp obj/dlcservice/install_utils_pkgconfig.stamp ./libdlcservice.a ./libdlcservice_utils.a
 subninja obj/dlcservice/dlc_metadata_util.ninja
 subninja obj/dlcservice/dlcservice.ninja
 rule __dlcservice_dlcservice_adaptors___common-mk_toolchain_toolchain__rule
@@ -48,10 +51,13 @@ build gen/include/dlcservice/dbus_adaptors/org.chromium.DlcServiceInterface.h: _
   source_name_part = org.chromium.DlcServiceInterface
 
 build obj/dlcservice/dlcservice_adaptors.stamp: stamp gen/include/dlcservice/dbus_adaptors/org.chromium.DlcServiceInterface.h
-subninja obj/dlcservice/dlcservice_tests.ninja
 subninja obj/dlcservice/dlcservice_util.ninja
 subninja obj/dlcservice/dlcverify.ninja
+build obj/dlcservice/install_dbus_config.stamp: stamp
+build obj/dlcservice/install_dlctool.stamp: stamp
 build obj/dlcservice/install_minijail_conf.stamp: stamp
+build obj/dlcservice/install_seccomp_policy.stamp: stamp
+build obj/dlcservice/install_upstart_conf.stamp: stamp
 build obj/dlcservice/install_utils_header.stamp: stamp
 build obj/dlcservice/install_utils_pkgconfig.stamp: stamp
 subninja obj/dlcservice/libdlcservice.ninja

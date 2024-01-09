@@ -286,18 +286,20 @@ bool MarketSegment_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> MarketSegment_strings[6] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> MarketSegment_strings[7] = {};
 
 static const char MarketSegment_names[] =
   "MARKET_SEGMENT_CONSUMER"
   "MARKET_SEGMENT_EDUCATION"
   "MARKET_SEGMENT_ENTERPRISE"
+  "MARKET_SEGMENT_ENTERPRISE_DEMO"
   "MARKET_SEGMENT_ENTERPRISE_ENROLLED_BUT_UNKNOWN"
   "MARKET_SEGMENT_UNKNOWN"
   "MARKET_SEGMENT_UNSPECIFIED";
@@ -306,18 +308,20 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry MarketSegment_entries[
   { {MarketSegment_names + 0, 23}, 2 },
   { {MarketSegment_names + 23, 24}, 5 },
   { {MarketSegment_names + 47, 25}, 4 },
-  { {MarketSegment_names + 72, 46}, 3 },
-  { {MarketSegment_names + 118, 22}, 1 },
-  { {MarketSegment_names + 140, 26}, 0 },
+  { {MarketSegment_names + 72, 30}, 6 },
+  { {MarketSegment_names + 102, 46}, 3 },
+  { {MarketSegment_names + 148, 22}, 1 },
+  { {MarketSegment_names + 170, 26}, 0 },
 };
 
 static const int MarketSegment_entries_by_number[] = {
-  5, // 0 -> MARKET_SEGMENT_UNSPECIFIED
-  4, // 1 -> MARKET_SEGMENT_UNKNOWN
+  6, // 0 -> MARKET_SEGMENT_UNSPECIFIED
+  5, // 1 -> MARKET_SEGMENT_UNKNOWN
   0, // 2 -> MARKET_SEGMENT_CONSUMER
-  3, // 3 -> MARKET_SEGMENT_ENTERPRISE_ENROLLED_BUT_UNKNOWN
+  4, // 3 -> MARKET_SEGMENT_ENTERPRISE_ENROLLED_BUT_UNKNOWN
   2, // 4 -> MARKET_SEGMENT_ENTERPRISE
   1, // 5 -> MARKET_SEGMENT_EDUCATION
+  3, // 6 -> MARKET_SEGMENT_ENTERPRISE_DEMO
 };
 
 const std::string& MarketSegment_Name(
@@ -326,12 +330,12 @@ const std::string& MarketSegment_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           MarketSegment_entries,
           MarketSegment_entries_by_number,
-          6, MarketSegment_strings);
+          7, MarketSegment_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       MarketSegment_entries,
       MarketSegment_entries_by_number,
-      6, value);
+      7, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      MarketSegment_strings[idx].get();
 }
@@ -339,7 +343,7 @@ bool MarketSegment_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MarketSegment* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      MarketSegment_entries, 6, name, &int_value);
+      MarketSegment_entries, 7, name, &int_value);
   if (success) {
     *value = static_cast<MarketSegment>(int_value);
   }

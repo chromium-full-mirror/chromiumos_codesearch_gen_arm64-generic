@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blayer.proto\x12\nvariations\"\xba\x02\n\x05Layer\x12\n\n\x02id\x18\x01 \x01(\r\x12\x11\n\tnum_slots\x18\x02 \x01(\r\x12.\n\x07members\x18\x03 \x03(\x0b\x32\x1d.variations.Layer.LayerMember\x12\x0c\n\x04salt\x18\x04 \x01(\r\x12\x33\n\x0c\x65ntropy_mode\x18\x05 \x01(\x0e\x32\x1d.variations.Layer.EntropyMode\x1az\n\x0bLayerMember\x12\n\n\x02id\x18\x01 \x01(\r\x12\x36\n\x05slots\x18\x02 \x03(\x0b\x32\'.variations.Layer.LayerMember.SlotRange\x1a\'\n\tSlotRange\x12\r\n\x05start\x18\x01 \x01(\r\x12\x0b\n\x03\x65nd\x18\x02 \x01(\r\"#\n\x0b\x45ntropyMode\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\x07\n\x03LOW\x10\x01\"A\n\x14LayerMemberReference\x12\x10\n\x08layer_id\x18\x01 \x01(\r\x12\x17\n\x0flayer_member_id\x18\x02 \x01(\rB&\n\"org.chromium.components.variationsH\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0blayer.proto\x12\nvariations\"\xc7\x02\n\x05Layer\x12\n\n\x02id\x18\x01 \x01(\r\x12\x11\n\tnum_slots\x18\x02 \x01(\r\x12.\n\x07members\x18\x03 \x03(\x0b\x32\x1d.variations.Layer.LayerMember\x12\x0c\n\x04salt\x18\x04 \x01(\r\x12\x33\n\x0c\x65ntropy_mode\x18\x05 \x01(\x0e\x32\x1d.variations.Layer.EntropyMode\x1az\n\x0bLayerMember\x12\n\n\x02id\x18\x01 \x01(\r\x12\x36\n\x05slots\x18\x02 \x03(\x0b\x32\'.variations.Layer.LayerMember.SlotRange\x1a\'\n\tSlotRange\x12\r\n\x05start\x18\x01 \x01(\r\x12\x0b\n\x03\x65nd\x18\x02 \x01(\r\"0\n\x0b\x45ntropyMode\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\x07\n\x03LOW\x10\x01\x12\x0b\n\x07LIMITED\x10\x02\"A\n\x14LayerMemberReference\x12\x10\n\x08layer_id\x18\x01 \x01(\r\x12\x17\n\x0flayer_member_id\x18\x02 \x01(\rB&\n\"org.chromium.components.variationsH\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'layer_pb2', globals())
@@ -22,13 +22,13 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n\"org.chromium.components.variationsH\003'
   _LAYER._serialized_start=28
-  _LAYER._serialized_end=342
+  _LAYER._serialized_end=355
   _LAYER_LAYERMEMBER._serialized_start=183
   _LAYER_LAYERMEMBER._serialized_end=305
   _LAYER_LAYERMEMBER_SLOTRANGE._serialized_start=266
   _LAYER_LAYERMEMBER_SLOTRANGE._serialized_end=305
   _LAYER_ENTROPYMODE._serialized_start=307
-  _LAYER_ENTROPYMODE._serialized_end=342
-  _LAYERMEMBERREFERENCE._serialized_start=344
-  _LAYERMEMBERREFERENCE._serialized_end=409
+  _LAYER_ENTROPYMODE._serialized_end=355
+  _LAYERMEMBERREFERENCE._serialized_start=357
+  _LAYERMEMBERREFERENCE._serialized_end=422
 # @@protoc_insertion_point(module_scope)

@@ -18,7 +18,7 @@ export function jsSetter(self, name, value) {
     }
 }
 /** Converts camelCase to DOM style casing: myName => my-name. */
-function convertToKebabCase(jsName) {
+export function convertToKebabCase(jsName) {
     return jsName.replace(/([A-Z])/g, '-$1').toLowerCase();
 }
 /**
@@ -69,11 +69,15 @@ export function domAttrSetter(self, name, value) {
  * It then calls the cr.ui element's `decorate()` which is the initializer for
  * its state, since it cannot run the constructor().
  */
-export function decorate(el, implementationClass) {
-    Object.setPrototypeOf(el, implementationClass.prototype);
-    if ('decorate' in el) {
-        // Calling instance decorate().
-        el.decorate();
+export function crInjectTypeAndInit(el, implementationClass) {
+    if (implementationClass.prototype.isPrototypeOf(el)) {
+        return el;
     }
+    // Inject the methods of the DecoratableElement in the HTMLElement.
+    Object.setPrototypeOf(el, implementationClass.prototype);
+    // Initialize since it doesn't run the constructor.
+    el.initialize();
     return el;
+}
+export class DecoratableElement {
 }

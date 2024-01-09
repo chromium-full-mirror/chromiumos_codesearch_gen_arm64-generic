@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/permissions/permission.mojom-features.h"
 #include "third_party/blink/public/mojom/permissions/permission.mojom-shared.h"
 #include "third_party/blink/public/mojom/permissions/permission.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/permissions/permission_status.mojom-blink-forward.h"
@@ -41,30 +42,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::PermissionName>
-    : EnumHashTraits<::blink::mojom::PermissionName, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::EmbeddedPermissionControlResult>
-    : EnumHashTraits<::blink::mojom::EmbeddedPermissionControlResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -145,6 +122,7 @@ class PLATFORM_EXPORT PermissionService
   using ResponseValidator_ = PermissionServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kHasPermissionMinVersion = 0,
+    kRegisterPageEmbeddedPermissionControlMinVersion = 0,
     kRequestPageEmbeddedPermissionMinVersion = 0,
     kRequestPermissionMinVersion = 0,
     kRequestPermissionsMinVersion = 0,
@@ -157,6 +135,9 @@ class PLATFORM_EXPORT PermissionService
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct HasPermission_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RegisterPageEmbeddedPermissionControl_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RequestPageEmbeddedPermission_Sym {
@@ -184,6 +165,11 @@ class PLATFORM_EXPORT PermissionService
   using HasPermissionCallback = base::OnceCallback<void(::blink::mojom::blink::PermissionStatus)>;
   
   virtual void HasPermission(PermissionDescriptorPtr permission, HasPermissionCallback callback) = 0;
+
+
+  using RegisterPageEmbeddedPermissionControlCallback = base::OnceCallback<void(bool, const std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>>&)>;
+  
+  virtual void RegisterPageEmbeddedPermissionControl(WTF::Vector<PermissionDescriptorPtr> permissions, RegisterPageEmbeddedPermissionControlCallback callback) = 0;
 
 
   using RequestPageEmbeddedPermissionCallback = base::OnceCallback<void(EmbeddedPermissionControlResult)>;
@@ -237,6 +223,8 @@ class PLATFORM_EXPORT PermissionServiceProxy
   explicit PermissionServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void HasPermission(PermissionDescriptorPtr permission, HasPermissionCallback callback) final;
+  
+  void RegisterPageEmbeddedPermissionControl(WTF::Vector<PermissionDescriptorPtr> permissions, RegisterPageEmbeddedPermissionControlCallback callback) final;
   
   void RequestPageEmbeddedPermission(EmbeddedPermissionRequestDescriptorPtr descriptor, RequestPageEmbeddedPermissionCallback callback) final;
   
@@ -800,33 +788,33 @@ class PLATFORM_EXPORT PermissionDescriptorExtension {
   // Construct an instance holding |midi|.
   static PermissionDescriptorExtensionPtr
   NewMidi(
-      MidiPermissionDescriptorPtr midi) {
+      MidiPermissionDescriptorPtr value) {
     auto result = PermissionDescriptorExtensionPtr(absl::in_place);
-    result->set_midi(std::move(midi));
+    result->set_midi(std::move(value));
     return result;
   }
   // Construct an instance holding |clipboard|.
   static PermissionDescriptorExtensionPtr
   NewClipboard(
-      ClipboardPermissionDescriptorPtr clipboard) {
+      ClipboardPermissionDescriptorPtr value) {
     auto result = PermissionDescriptorExtensionPtr(absl::in_place);
-    result->set_clipboard(std::move(clipboard));
+    result->set_clipboard(std::move(value));
     return result;
   }
   // Construct an instance holding |camera_device|.
   static PermissionDescriptorExtensionPtr
   NewCameraDevice(
-      CameraDevicePermissionDescriptorPtr camera_device) {
+      CameraDevicePermissionDescriptorPtr value) {
     auto result = PermissionDescriptorExtensionPtr(absl::in_place);
-    result->set_camera_device(std::move(camera_device));
+    result->set_camera_device(std::move(value));
     return result;
   }
   // Construct an instance holding |top_level_storage_access|.
   static PermissionDescriptorExtensionPtr
   NewTopLevelStorageAccess(
-      TopLevelStorageAccessPermissionDescriptorPtr top_level_storage_access) {
+      TopLevelStorageAccessPermissionDescriptorPtr value) {
     auto result = PermissionDescriptorExtensionPtr(absl::in_place);
-    result->set_top_level_storage_access(std::move(top_level_storage_access));
+    result->set_top_level_storage_access(std::move(value));
     return result;
   }
 

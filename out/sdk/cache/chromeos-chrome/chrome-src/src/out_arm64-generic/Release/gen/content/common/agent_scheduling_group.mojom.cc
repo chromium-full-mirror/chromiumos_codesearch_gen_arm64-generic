@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -116,14 +117,17 @@ void AgentSchedulingGroupHostProxy::DidUnloadRenderFrame(
                         "<value of type const ::blink::LocalFrameToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAgentSchedulingGroupHost_DidUnloadRenderFrame_Name, kFlags, 0, 0, nullptr);
@@ -202,10 +206,10 @@ bool AgentSchedulingGroupHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAgentSchedulingGroupHostValidationInfo[] = {
-    {&internal::AgentSchedulingGroupHost_DidUnloadRenderFrame_Params_Data::Validate,
+    { &internal::AgentSchedulingGroupHost_DidUnloadRenderFrame_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -348,14 +352,17 @@ void AgentSchedulingGroupProxy::BindAssociatedInterfaces(
                         "<value of type ::mojo::PendingAssociatedReceiver<::content::mojom::RouteProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAgentSchedulingGroup_BindAssociatedInterfaces_Name, kFlags, 0, 0, nullptr);
@@ -397,14 +404,17 @@ void AgentSchedulingGroupProxy::CreateView(
                         "<value of type ::content::mojom::CreateViewParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAgentSchedulingGroup_CreateView_Name, kFlags, 0, 0, nullptr);
@@ -445,14 +455,17 @@ void AgentSchedulingGroupProxy::CreateFrame(
                         "<value of type ::content::mojom::CreateFrameParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAgentSchedulingGroup_CreateFrame_Name, kFlags, 0, 0, nullptr);
@@ -496,14 +509,17 @@ void AgentSchedulingGroupProxy::CreateSharedStorageWorkletService(
                         "<value of type ::blink::mojom::WorkletGlobalScopeCreationParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAgentSchedulingGroup_CreateSharedStorageWorkletService_Name, kFlags, 0, 0, nullptr);
@@ -689,16 +705,16 @@ bool AgentSchedulingGroupStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAgentSchedulingGroupValidationInfo[] = {
-    {&internal::AgentSchedulingGroup_BindAssociatedInterfaces_Params_Data::Validate,
+    { &internal::AgentSchedulingGroup_BindAssociatedInterfaces_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AgentSchedulingGroup_CreateView_Params_Data::Validate,
+    { &internal::AgentSchedulingGroup_CreateView_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AgentSchedulingGroup_CreateFrame_Params_Data::Validate,
+    { &internal::AgentSchedulingGroup_CreateFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AgentSchedulingGroup_CreateSharedStorageWorkletService_Params_Data::Validate,
+    { &internal::AgentSchedulingGroup_CreateSharedStorageWorkletService_Params_Data::Validate,
      nullptr /* no response */},
 };
 

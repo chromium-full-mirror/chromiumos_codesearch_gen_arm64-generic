@@ -23,9 +23,7 @@ function urlPort(url) {
     }
 }
 export class QuotaInternalsBrowserProxy {
-    constructor() {
-        this.handler = QuotaInternalsHandler.getRemote();
-    }
+    handler = QuotaInternalsHandler.getRemote();
     getDiskAvailabilityAndTempPoolSize() {
         return this.handler.getDiskAvailabilityAndTempPoolSize();
     }

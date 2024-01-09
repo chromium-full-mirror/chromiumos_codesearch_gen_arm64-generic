@@ -5,7 +5,7 @@ var XfTreeItem_1;
 import 'chrome://resources/polymer/v3_0/paper-ripple/paper-ripple.js';
 import './xf_icon.js';
 import { css, customElement, html, ifDefined, property, query, state, styleMap, XfBase } from './xf_base.js';
-import { handleTreeSlotChange, isTree, isTreeItem } from './xf_tree_util.js';
+import { handleTreeSlotChange, isTreeItem, isXfTree } from './xf_tree_util.js';
 /**
  * The number of pixels to indent per level.
  */
@@ -44,7 +44,7 @@ let XfTreeItem = XfTreeItem_1 = class XfTreeItem extends XfBase {
         this.mayHaveChildren = false;
         /**
          * The icon of the tree item, will be displayed before the label text.
-         * The icon value should come from `constants.ICON_TYPES`, it will be passed
+         * The icon value should come from `ICON_TYPES`, it will be passed
          * as `type` to a <xf-icon> widget to render an icon element.
          */
         this.icon = '';
@@ -64,14 +64,6 @@ let XfTreeItem = XfTreeItem_1 = class XfTreeItem extends XfBase {
         this.level_ = 1;
         /** The child tree items. */
         this.items_ = [];
-    }
-    // "delegatesFocus = true" will make sure when the tree item is focused, <li>
-    // element inside the shadow DOM will get the focus.
-    static get shadowRootOptions() {
-        return {
-            ...XfBase.shadowRootOptions,
-            delegatesFocus: true,
-        };
     }
     static get events() {
         return {
@@ -97,7 +89,9 @@ let XfTreeItem = XfTreeItem_1 = class XfTreeItem extends XfBase {
         return this.mayHaveChildren || this.items_.length > 0;
     }
     /**
-     * Toggle the focusable for the item.
+     * Toggle the focusable for the item. We put the tabindex on the <li> element
+     * instead of the whole <xf-tree-item> because <xf-tree-item> also includes
+     * all children slots.
      *
      * We are delegate the focus to the <li> element in the shadow DOM, to make
      * sure the update is synchronous, we are operating on the DOM directly here
@@ -118,6 +112,19 @@ let XfTreeItem = XfTreeItem_1 = class XfTreeItem extends XfBase {
         }
     }
     /**
+     * Override focus() so we can manually focus the tree row element inside
+     * shadow DOM.
+     */
+    focus() {
+        console.assert(!this.disabled, 'Called focus() on a disabled XfTreeItem() isn\'t allowed');
+        // Make sure this is the only focusable item in the tree before calling
+        // focus().
+        if (this.tree) {
+            this.tree.focusedItem = this;
+        }
+        this.$treeItem_.focus();
+    }
+    /**
      * Return the parent XfTreeItem if there is one, for top level XfTreeItem
      * which doesn't have parent XfTreeItem, return null.
      */
@@ -127,7 +134,7 @@ let XfTreeItem = XfTreeItem_1 = class XfTreeItem extends XfBase {
             if (isTreeItem(p)) {
                 return p;
             }
-            if (isTree(p)) {
+            if (isXfTree(p)) {
                 return null;
             }
             p = p.parentElement;
@@ -136,7 +143,7 @@ let XfTreeItem = XfTreeItem_1 = class XfTreeItem extends XfBase {
     }
     get tree() {
         let t = this.parentElement;
-        while (t && !isTree(t)) {
+        while (t && !isXfTree(t)) {
             t = t.parentElement;
         }
         return t;
@@ -150,6 +157,12 @@ let XfTreeItem = XfTreeItem_1 = class XfTreeItem extends XfBase {
             pi.expanded = true;
             pi = pi.parentItem;
         }
+    }
+    /**
+     * This will be called when tree item is being set as a drop target.
+     */
+    doDropTargetAction() {
+        this.expanded = true;
     }
     static get styles() {
         return getCSS();
@@ -558,17 +571,10 @@ function getCSS() {
 
     slot[name="trailingIcon"]::slotted(.root-eject) {
       --text-color: currentColor;
-      --hover-bg-color: var(--cros-sys-hover_on_subtle);
+      --hover-bg-color: none;
+      --ripple-opacity: 1;
       min-width: 32px;
       padding: 0;
-    }
-
-    :host([selected]) slot[name="trailingIcon"]::slotted(.root-eject) {
-      --hover-bg-color: var(--cros-sys-hover_on_prominent);
-    }
-
-    :host-context(html.col-resize) slot[name="trailingIcon"]::slotted(.root-eject:hover) {
-      --hover-bg-color: none;
     }
 
     slot[name="trailingIcon"]::slotted(.root-eject:focus) {

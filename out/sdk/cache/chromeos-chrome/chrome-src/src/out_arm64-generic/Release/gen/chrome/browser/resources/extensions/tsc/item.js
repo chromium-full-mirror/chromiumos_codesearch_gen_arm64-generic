@@ -22,6 +22,7 @@ import { getToastManager } from 'chrome://resources/cr_elements/cr_toast/cr_toas
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { flush, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { ExtensionsHatsBrowserProxyImpl } from './extension_hats_browser_proxy.js';
 import { getTemplate } from './item.html.js';
 import { ItemMixin } from './item_mixin.js';
 import { computeInspectableViewLabel, EnableControl, getEnableControl, getEnableToggleAriaLabel, getEnableToggleTooltipText, getItemSource, getItemSourceString, isEnabled, sortViews, SourceType, userCanChangeEnablement } from './item_util.js';
@@ -116,6 +117,8 @@ export class ExtensionsItemElement extends ExtensionsItemElementBase {
             const actionToRecord = this.data.safetyCheckText ?
                 'SafetyCheck.ReviewPanelRemoveClicked' :
                 'SafetyCheck.NonTriggeringExtensionRemoved';
+            ExtensionsHatsBrowserProxyImpl.getInstance()
+                .nonTriggerExtensionRemovedAction();
             chrome.metricsPrivate.recordUserAction(actionToRecord);
         }
         this.delegate.deleteItem(this.data.id);

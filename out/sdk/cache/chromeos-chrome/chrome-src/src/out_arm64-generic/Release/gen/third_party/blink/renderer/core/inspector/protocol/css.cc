@@ -422,10 +422,12 @@ CRDTP_BEGIN_DESERIALIZER(PlatformFontUsage)
     CRDTP_DESERIALIZE_FIELD("familyName", m_familyName),
     CRDTP_DESERIALIZE_FIELD("glyphCount", m_glyphCount),
     CRDTP_DESERIALIZE_FIELD("isCustomFont", m_isCustomFont),
+    CRDTP_DESERIALIZE_FIELD("postScriptName", m_postScriptName),
 CRDTP_END_DESERIALIZER()
 
 CRDTP_BEGIN_SERIALIZER(PlatformFontUsage)
     CRDTP_SERIALIZE_FIELD("familyName", m_familyName);
+    CRDTP_SERIALIZE_FIELD("postScriptName", m_postScriptName);
     CRDTP_SERIALIZE_FIELD("isCustomFont", m_isCustomFont);
     CRDTP_SERIALIZE_FIELD("glyphCount", m_glyphCount);
 CRDTP_END_SERIALIZER();
@@ -522,6 +524,21 @@ CRDTP_BEGIN_SERIALIZER(CSSPropertyRegistration)
     CRDTP_SERIALIZE_FIELD("initialValue", m_initialValue);
     CRDTP_SERIALIZE_FIELD("inherits", m_inherits);
     CRDTP_SERIALIZE_FIELD("syntax", m_syntax);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(CSSFontPaletteValuesRule)
+    CRDTP_DESERIALIZE_FIELD("fontPaletteName", m_fontPaletteName),
+    CRDTP_DESERIALIZE_FIELD("origin", m_origin),
+    CRDTP_DESERIALIZE_FIELD("style", m_style),
+    CRDTP_DESERIALIZE_FIELD_OPT("styleSheetId", m_styleSheetId),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(CSSFontPaletteValuesRule)
+    CRDTP_SERIALIZE_FIELD("styleSheetId", m_styleSheetId);
+    CRDTP_SERIALIZE_FIELD("origin", m_origin);
+    CRDTP_SERIALIZE_FIELD("fontPaletteName", m_fontPaletteName);
+    CRDTP_SERIALIZE_FIELD("style", m_style);
 CRDTP_END_SERIALIZER();
 
 
@@ -824,11 +841,13 @@ struct addRuleParams : public crdtp::DeserializableProtocolObject<addRuleParams>
     String styleSheetId;
     String ruleText;
     std::unique_ptr<protocol::CSS::SourceRange> location;
+    Maybe<int> nodeForPropertySyntaxValidation;
     DECLARE_DESERIALIZATION_SUPPORT();
 };
 
 CRDTP_BEGIN_DESERIALIZER(addRuleParams)
     CRDTP_DESERIALIZE_FIELD("location", location),
+    CRDTP_DESERIALIZE_FIELD_OPT("nodeForPropertySyntaxValidation", nodeForPropertySyntaxValidation),
     CRDTP_DESERIALIZE_FIELD("ruleText", ruleText),
     CRDTP_DESERIALIZE_FIELD("styleSheetId", styleSheetId),
 CRDTP_END_DESERIALIZER()
@@ -848,7 +867,7 @@ void DomainDispatcherImpl::addRule(const crdtp::Dispatchable& dispatchable)
     std::unique_ptr<protocol::CSS::CSSRule> out_rule;
 
     std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
-    DispatchResponse response = m_backend->addRule(params.styleSheetId, params.ruleText, std::move(params.location), &out_rule);
+    DispatchResponse response = m_backend->addRule(params.styleSheetId, params.ruleText, std::move(params.location), std::move(params.nodeForPropertySyntaxValidation), &out_rule);
     if (response.IsFallThrough()) {
         channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("CSS.addRule"), dispatchable.Serialized());
         return;
@@ -1223,10 +1242,11 @@ void DomainDispatcherImpl::getMatchedStylesForNode(const crdtp::Dispatchable& di
     Maybe<protocol::Array<protocol::CSS::CSSPositionFallbackRule>> out_cssPositionFallbackRules;
     Maybe<protocol::Array<protocol::CSS::CSSPropertyRule>> out_cssPropertyRules;
     Maybe<protocol::Array<protocol::CSS::CSSPropertyRegistration>> out_cssPropertyRegistrations;
+    Maybe<protocol::CSS::CSSFontPaletteValuesRule> out_cssFontPaletteValuesRule;
     Maybe<int> out_parentLayoutNodeId;
 
     std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
-    DispatchResponse response = m_backend->getMatchedStylesForNode(params.nodeId, &out_inlineStyle, &out_attributesStyle, &out_matchedCSSRules, &out_pseudoElements, &out_inherited, &out_inheritedPseudoElements, &out_cssKeyframesRules, &out_cssPositionFallbackRules, &out_cssPropertyRules, &out_cssPropertyRegistrations, &out_parentLayoutNodeId);
+    DispatchResponse response = m_backend->getMatchedStylesForNode(params.nodeId, &out_inlineStyle, &out_attributesStyle, &out_matchedCSSRules, &out_pseudoElements, &out_inherited, &out_inheritedPseudoElements, &out_cssKeyframesRules, &out_cssPositionFallbackRules, &out_cssPropertyRules, &out_cssPropertyRegistrations, &out_cssFontPaletteValuesRule, &out_parentLayoutNodeId);
     if (response.IsFallThrough()) {
         channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("CSS.getMatchedStylesForNode"), dispatchable.Serialized());
         return;
@@ -1245,6 +1265,7 @@ void DomainDispatcherImpl::getMatchedStylesForNode(const crdtp::Dispatchable& di
           serializer.AddField(crdtp::MakeSpan("cssPositionFallbackRules"), out_cssPositionFallbackRules);
           serializer.AddField(crdtp::MakeSpan("cssPropertyRules"), out_cssPropertyRules);
           serializer.AddField(crdtp::MakeSpan("cssPropertyRegistrations"), out_cssPropertyRegistrations);
+          serializer.AddField(crdtp::MakeSpan("cssFontPaletteValuesRule"), out_cssFontPaletteValuesRule);
           serializer.AddField(crdtp::MakeSpan("parentLayoutNodeId"), out_parentLayoutNodeId);
           result = serializer.Finish();
         } else {
@@ -1924,11 +1945,13 @@ namespace {
 
 struct setStyleTextsParams : public crdtp::DeserializableProtocolObject<setStyleTextsParams> {
     std::unique_ptr<protocol::Array<protocol::CSS::StyleDeclarationEdit>> edits;
+    Maybe<int> nodeForPropertySyntaxValidation;
     DECLARE_DESERIALIZATION_SUPPORT();
 };
 
 CRDTP_BEGIN_DESERIALIZER(setStyleTextsParams)
     CRDTP_DESERIALIZE_FIELD("edits", edits),
+    CRDTP_DESERIALIZE_FIELD_OPT("nodeForPropertySyntaxValidation", nodeForPropertySyntaxValidation),
 CRDTP_END_DESERIALIZER()
 
 }  // namespace
@@ -1946,7 +1969,7 @@ void DomainDispatcherImpl::setStyleTexts(const crdtp::Dispatchable& dispatchable
     std::unique_ptr<protocol::Array<protocol::CSS::CSSStyle>> out_styles;
 
     std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
-    DispatchResponse response = m_backend->setStyleTexts(std::move(params.edits), &out_styles);
+    DispatchResponse response = m_backend->setStyleTexts(std::move(params.edits), std::move(params.nodeForPropertySyntaxValidation), &out_styles);
     if (response.IsFallThrough()) {
         channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("CSS.setStyleTexts"), dispatchable.Serialized());
         return;

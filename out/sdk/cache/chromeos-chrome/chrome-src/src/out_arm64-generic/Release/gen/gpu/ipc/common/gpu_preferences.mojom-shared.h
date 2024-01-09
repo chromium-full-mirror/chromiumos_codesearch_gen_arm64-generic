@@ -381,9 +381,6 @@ class GpuPreferencesDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
-  bool enable_gpu_blocked_time_metric() const {
-    return data_->enable_gpu_blocked_time_metric;
-  }
   bool enable_perf_data_collection() const {
     return data_->enable_perf_data_collection;
   }
@@ -650,7 +647,6 @@ struct Serializer<::gpu::mojom::GpuPreferencesDataView, MaybeConstUserType> {
         fragment->disabled_dawn_features_list.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null disabled_dawn_features_list in GpuPreferences struct");
-    fragment->enable_gpu_blocked_time_metric = Traits::enable_gpu_blocked_time_metric(input);
     fragment->enable_perf_data_collection = Traits::enable_perf_data_collection(input);
     mojo::internal::Serialize<::mojo_base::mojom::MessagePumpType>(
         Traits::message_pump_type(input), &fragment->message_pump_type);

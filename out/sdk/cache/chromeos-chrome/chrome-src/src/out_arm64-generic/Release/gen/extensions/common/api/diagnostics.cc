@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/diagnostics.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ SendPacketOptions::SendPacketOptions()
  {}
 
 SendPacketOptions::~SendPacketOptions() = default;
-SendPacketOptions::SendPacketOptions(SendPacketOptions&& rhs) = default;
-SendPacketOptions& SendPacketOptions::operator=(SendPacketOptions&& rhs) = default;
+SendPacketOptions::SendPacketOptions(SendPacketOptions&& rhs) noexcept = default;
+SendPacketOptions& SendPacketOptions::operator=(SendPacketOptions&& rhs) noexcept = default;
 SendPacketOptions SendPacketOptions::Clone() const {
   SendPacketOptions out;
   out.ip = ip;
@@ -67,7 +68,7 @@ bool SendPacketOptions::Populate(
     {
       auto temp = (*ttl_value).GetIfInt();
       if (!temp.has_value()) {
-        out.ttl = absl::nullopt;
+        out.ttl = std::nullopt;
         return false;
       }
       out.ttl = *temp;
@@ -79,7 +80,7 @@ bool SendPacketOptions::Populate(
     {
       auto temp = (*timeout_value).GetIfInt();
       if (!temp.has_value()) {
-        out.timeout = absl::nullopt;
+        out.timeout = std::nullopt;
         return false;
       }
       out.timeout = *temp;
@@ -91,7 +92,7 @@ bool SendPacketOptions::Populate(
     {
       auto temp = (*size_value).GetIfInt();
       if (!temp.has_value()) {
-        out.size = absl::nullopt;
+        out.size = std::nullopt;
         return false;
       }
       out.size = *temp;
@@ -111,34 +112,21 @@ bool SendPacketOptions::Populate(
 }
 
 // static
-std::unique_ptr<SendPacketOptions> SendPacketOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SendPacketOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SendPacketOptions> SendPacketOptions::FromValue(const base::Value::Dict& value) {
+  SendPacketOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SendPacketOptions> SendPacketOptions::FromValue(const base::Value::Dict& value) {
+std::optional<SendPacketOptions> SendPacketOptions::FromValue(const base::Value& value) {
   SendPacketOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SendPacketOptions> SendPacketOptions::FromValue(const base::Value& value) {
-  SendPacketOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -169,8 +157,8 @@ SendPacketResult::SendPacketResult()
 : latency(0.0) {}
 
 SendPacketResult::~SendPacketResult() = default;
-SendPacketResult::SendPacketResult(SendPacketResult&& rhs) = default;
-SendPacketResult& SendPacketResult::operator=(SendPacketResult&& rhs) = default;
+SendPacketResult::SendPacketResult(SendPacketResult&& rhs) noexcept = default;
+SendPacketResult& SendPacketResult::operator=(SendPacketResult&& rhs) noexcept = default;
 SendPacketResult SendPacketResult::Clone() const {
   SendPacketResult out;
   out.ip = ip;
@@ -218,34 +206,21 @@ bool SendPacketResult::Populate(
 }
 
 // static
-std::unique_ptr<SendPacketResult> SendPacketResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SendPacketResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SendPacketResult> SendPacketResult::FromValue(const base::Value::Dict& value) {
+  SendPacketResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SendPacketResult> SendPacketResult::FromValue(const base::Value::Dict& value) {
+std::optional<SendPacketResult> SendPacketResult::FromValue(const base::Value& value) {
   SendPacketResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SendPacketResult> SendPacketResult::FromValue(const base::Value& value) {
-  SendPacketResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -271,13 +246,13 @@ namespace SendPacket {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -286,15 +261,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SendPacketOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

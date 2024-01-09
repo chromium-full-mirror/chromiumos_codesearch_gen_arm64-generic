@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSRGB>::value,
     "CSSRGB inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSRGB::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSRGB is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,7 +89,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->r();
 if (!ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -109,9 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSRGB.r.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSRGB";
@@ -140,7 +136,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->g();
 if (!ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -155,9 +152,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSRGB.g.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSRGB";
@@ -186,7 +183,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->b();
 if (!ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -201,9 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSRGB.b.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSRGB";
@@ -232,7 +230,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->alpha();
 if (!ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -247,9 +246,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSRGB.alpha.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSRGB* blink_receiver = V8CSSRGB::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSRGB";

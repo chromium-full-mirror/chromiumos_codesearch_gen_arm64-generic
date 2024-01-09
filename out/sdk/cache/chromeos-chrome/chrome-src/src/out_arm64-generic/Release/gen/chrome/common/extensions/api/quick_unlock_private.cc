@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/quick_unlock_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ TokenInfo::TokenInfo()
 : lifetime_seconds(0) {}
 
 TokenInfo::~TokenInfo() = default;
-TokenInfo::TokenInfo(TokenInfo&& rhs) = default;
-TokenInfo& TokenInfo::operator=(TokenInfo&& rhs) = default;
+TokenInfo::TokenInfo(TokenInfo&& rhs) noexcept = default;
+TokenInfo& TokenInfo::operator=(TokenInfo&& rhs) noexcept = default;
 TokenInfo TokenInfo::Clone() const {
   TokenInfo out;
   out.token = token;
@@ -87,34 +88,21 @@ bool TokenInfo::Populate(
 }
 
 // static
-std::unique_ptr<TokenInfo> TokenInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TokenInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TokenInfo> TokenInfo::FromValue(const base::Value::Dict& value) {
+  TokenInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TokenInfo> TokenInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TokenInfo> TokenInfo::FromValue(const base::Value& value) {
   TokenInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TokenInfo> TokenInfo::FromValue(const base::Value& value) {
-  TokenInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -133,9 +121,9 @@ base::Value::Dict TokenInfo::ToValue() const {
 
 const char* ToString(QuickUnlockMode enum_param) {
   switch (enum_param) {
-    case QUICK_UNLOCK_MODE_PIN:
+    case QuickUnlockMode::kPin:
       return "PIN";
-    case QUICK_UNLOCK_MODE_NONE:
+    case QuickUnlockMode::kNone:
       return "";
   }
   NOTREACHED();
@@ -144,8 +132,8 @@ const char* ToString(QuickUnlockMode enum_param) {
 
 QuickUnlockMode ParseQuickUnlockMode(base::StringPiece enum_string) {
   if (enum_string == "PIN")
-    return QUICK_UNLOCK_MODE_PIN;
-  return QUICK_UNLOCK_MODE_NONE;
+    return QuickUnlockMode::kPin;
+  return QuickUnlockMode::kNone;
 }
 
 std::u16string GetQuickUnlockModeParseError(base::StringPiece enum_string) {
@@ -155,15 +143,15 @@ std::u16string GetQuickUnlockModeParseError(base::StringPiece enum_string) {
 
 const char* ToString(CredentialProblem enum_param) {
   switch (enum_param) {
-    case CREDENTIAL_PROBLEM_TOO_SHORT:
+    case CredentialProblem::kTooShort:
       return "TOO_SHORT";
-    case CREDENTIAL_PROBLEM_TOO_LONG:
+    case CredentialProblem::kTooLong:
       return "TOO_LONG";
-    case CREDENTIAL_PROBLEM_TOO_WEAK:
+    case CredentialProblem::kTooWeak:
       return "TOO_WEAK";
-    case CREDENTIAL_PROBLEM_CONTAINS_NONDIGIT:
+    case CredentialProblem::kContainsNondigit:
       return "CONTAINS_NONDIGIT";
-    case CREDENTIAL_PROBLEM_NONE:
+    case CredentialProblem::kNone:
       return "";
   }
   NOTREACHED();
@@ -172,14 +160,14 @@ const char* ToString(CredentialProblem enum_param) {
 
 CredentialProblem ParseCredentialProblem(base::StringPiece enum_string) {
   if (enum_string == "TOO_SHORT")
-    return CREDENTIAL_PROBLEM_TOO_SHORT;
+    return CredentialProblem::kTooShort;
   if (enum_string == "TOO_LONG")
-    return CREDENTIAL_PROBLEM_TOO_LONG;
+    return CredentialProblem::kTooLong;
   if (enum_string == "TOO_WEAK")
-    return CREDENTIAL_PROBLEM_TOO_WEAK;
+    return CredentialProblem::kTooWeak;
   if (enum_string == "CONTAINS_NONDIGIT")
-    return CREDENTIAL_PROBLEM_CONTAINS_NONDIGIT;
-  return CREDENTIAL_PROBLEM_NONE;
+    return CredentialProblem::kContainsNondigit;
+  return CredentialProblem::kNone;
 }
 
 std::u16string GetCredentialProblemParseError(base::StringPiece enum_string) {
@@ -191,8 +179,8 @@ CredentialCheck::CredentialCheck()
  {}
 
 CredentialCheck::~CredentialCheck() = default;
-CredentialCheck::CredentialCheck(CredentialCheck&& rhs) = default;
-CredentialCheck& CredentialCheck::operator=(CredentialCheck&& rhs) = default;
+CredentialCheck::CredentialCheck(CredentialCheck&& rhs) noexcept = default;
+CredentialCheck& CredentialCheck::operator=(CredentialCheck&& rhs) noexcept = default;
 CredentialCheck CredentialCheck::Clone() const {
   CredentialCheck out;
   out.errors = errors;
@@ -264,34 +252,21 @@ bool CredentialCheck::Populate(
 }
 
 // static
-std::unique_ptr<CredentialCheck> CredentialCheck::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CredentialCheck>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CredentialCheck> CredentialCheck::FromValue(const base::Value::Dict& value) {
+  CredentialCheck out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CredentialCheck> CredentialCheck::FromValue(const base::Value::Dict& value) {
+std::optional<CredentialCheck> CredentialCheck::FromValue(const base::Value& value) {
   CredentialCheck out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CredentialCheck> CredentialCheck::FromValue(const base::Value& value) {
-  CredentialCheck out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -325,8 +300,8 @@ CredentialRequirements::CredentialRequirements()
 max_length(0) {}
 
 CredentialRequirements::~CredentialRequirements() = default;
-CredentialRequirements::CredentialRequirements(CredentialRequirements&& rhs) = default;
-CredentialRequirements& CredentialRequirements::operator=(CredentialRequirements&& rhs) = default;
+CredentialRequirements::CredentialRequirements(CredentialRequirements&& rhs) noexcept = default;
+CredentialRequirements& CredentialRequirements::operator=(CredentialRequirements&& rhs) noexcept = default;
 CredentialRequirements CredentialRequirements::Clone() const {
   CredentialRequirements out;
   out.min_length = min_length;
@@ -374,34 +349,21 @@ bool CredentialRequirements::Populate(
 }
 
 // static
-std::unique_ptr<CredentialRequirements> CredentialRequirements::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CredentialRequirements>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CredentialRequirements> CredentialRequirements::FromValue(const base::Value::Dict& value) {
+  CredentialRequirements out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CredentialRequirements> CredentialRequirements::FromValue(const base::Value::Dict& value) {
+std::optional<CredentialRequirements> CredentialRequirements::FromValue(const base::Value& value) {
   CredentialRequirements out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CredentialRequirements> CredentialRequirements::FromValue(const base::Value& value) {
-  CredentialRequirements out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -427,13 +389,13 @@ namespace GetAuthToken {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -443,13 +405,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = account_password_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.account_password = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -469,13 +431,13 @@ namespace SetLockScreenEnabled {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -485,13 +447,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = token_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.token = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -500,13 +462,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -524,13 +486,13 @@ namespace SetPinAutosubmitEnabled {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -540,13 +502,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = token_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.token = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -555,13 +517,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = pin_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.pin = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -570,13 +532,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -641,13 +603,13 @@ namespace CheckCredential {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -657,16 +619,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* quick_unlock_mode_as_string = mode_value.GetIfString();
       if (!quick_unlock_mode_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.mode = ParseQuickUnlockMode(*quick_unlock_mode_as_string);
       if (params.mode == QuickUnlockMode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -675,13 +637,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = credential_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.credential = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -701,13 +663,13 @@ namespace GetCredentialRequirements {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -717,16 +679,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* quick_unlock_mode_as_string = mode_value.GetIfString();
       if (!quick_unlock_mode_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.mode = ParseQuickUnlockMode(*quick_unlock_mode_as_string);
       if (params.mode == QuickUnlockMode()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -746,13 +708,13 @@ namespace SetModes {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -762,13 +724,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = token_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.token = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -776,18 +738,18 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& modes_value = args[1];
     {
       if (!modes_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         for (const auto& it : (modes_value).GetList()) {
           QuickUnlockMode tmp;
           const std::string* quick_unlock_mode_as_string = (it).GetIfString();
           if (!quick_unlock_mode_as_string) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           tmp = ParseQuickUnlockMode(*quick_unlock_mode_as_string);
           if (tmp == QuickUnlockMode()) {
-            return absl::nullopt;
+            return std::nullopt;
           }
           params.modes.push_back(tmp);
         }
@@ -795,7 +757,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -803,17 +765,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& credentials_value = args[2];
     {
       if (!credentials_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(credentials_value.GetList(), params.credentials)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

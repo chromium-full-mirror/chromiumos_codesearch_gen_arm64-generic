@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DataTransfer>::value,
     "DataTransfer inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DataTransfer::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DataTransfer is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransfer.dropEffect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->dropEffect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->dropEffect();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,9 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransfer.dropEffect.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DataTransfer";
@@ -128,10 +123,10 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransfer.effectAllowed.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->effectAllowed();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->effectAllowed();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -142,9 +137,9 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransfer.effectAllowed.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DataTransfer";
@@ -165,8 +160,9 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransfer.items.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->items();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -180,7 +176,7 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransfer.types.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -218,8 +214,9 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransfer.files.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->files();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -263,18 +260,18 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransfer.clearData");
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->clearData();
 break;
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_format;
 if (LIKELY(info[0]->IsString())) {
-  arg1_format.Init(info[0].As<v8::String>());
+  arg1_format.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DataTransfer";
 const char* const property_name = "clearData";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -309,10 +306,10 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_format;
 if (LIKELY(info[0]->IsString())) {
-  arg1_format.Init(info[0].As<v8::String>());
+  arg1_format.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DataTransfer";
@@ -335,9 +332,9 @@ BLINK_BINDINGS_TRACE_EVENT("DataTransfer.setData");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 2)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DataTransfer";
 const char* const property_name = "setData";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -348,13 +345,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_format;
 if (LIKELY(info[0]->IsString())) {
-  arg1_format.Init(info[0].As<v8::String>());
+  arg1_format.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DataTransfer";
 const char* const property_name = "setData";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -365,10 +361,9 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_data;
 if (LIKELY(info[1]->IsString())) {
-  arg2_data.Init(info[1].As<v8::String>());
+  arg2_data.Init(isolate, info[1].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DataTransfer";
 const char* const property_name = "setData";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -402,7 +397,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(v8_receiver);
+DataTransfer* blink_receiver = V8DataTransfer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

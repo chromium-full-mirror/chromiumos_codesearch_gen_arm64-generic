@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -68,7 +69,7 @@ LocalDestinationInfo::LocalDestinationInfo(
     const std::string& name_in,
     const std::string& description_in,
     bool configured_via_policy_in,
-    const absl::optional<std::string>& uri_in)
+    const std::optional<std::string>& uri_in)
     : id(std::move(id_in)),
       name(std::move(name_in)),
       description(std::move(description_in)),
@@ -81,7 +82,7 @@ LocalDestinationInfo::LocalDestinationInfo(
     const std::string& name_in,
     const std::string& description_in,
     bool configured_via_policy_in,
-    const absl::optional<std::string>& uri_in,
+    const std::optional<std::string>& uri_in,
     PrinterStatusPtr printer_status_in)
     : id(std::move(id_in)),
       name(std::move(name_in)),
@@ -135,7 +136,7 @@ void LocalDestinationInfo::WriteIntoTrace(
     dict.AddItem(
       "uri"), this->uri,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -508,7 +509,7 @@ CapabilitiesResponse::CapabilitiesResponse()
 CapabilitiesResponse::CapabilitiesResponse(
     LocalDestinationInfoPtr basic_info_in,
     bool has_secure_protocol_in,
-    const absl::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities_in,
+    const std::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities_in,
     uint32_t allowed_color_modes_deprecated_in,
     uint32_t allowed_duplex_modes_deprecated_in,
     uint32_t allowed_pin_modes_deprecated_version_0_in,
@@ -529,7 +530,7 @@ CapabilitiesResponse::CapabilitiesResponse(
 CapabilitiesResponse::CapabilitiesResponse(
     LocalDestinationInfoPtr basic_info_in,
     bool has_secure_protocol_in,
-    const absl::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities_in,
+    const std::optional<::printing::PrinterSemanticCapsAndDefaults>& capabilities_in,
     uint32_t allowed_color_modes_deprecated_in,
     uint32_t allowed_duplex_modes_deprecated_in,
     uint32_t allowed_pin_modes_deprecated_version_0_in,
@@ -575,7 +576,7 @@ void CapabilitiesResponse::WriteIntoTrace(
     dict.AddItem(
       "capabilities"), this->capabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::printing::PrinterSemanticCapsAndDefaults>&>"
+      "<value of type const std::optional<::printing::PrinterSemanticCapsAndDefaults>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -671,7 +672,7 @@ Policies::Policies(
     Policies::OptionalBool print_header_footer_default_in,
     Policies::BackgroundGraphicsModeRestriction allowed_background_graphics_modes_in,
     Policies::BackgroundGraphicsModeRestriction background_graphics_default_in,
-    const absl::optional<::gfx::Size>& paper_size_default_in,
+    const std::optional<::gfx::Size>& paper_size_default_in,
     uint32_t max_sheets_allowed_in,
     bool max_sheets_allowed_has_value_in)
     : print_header_footer_allowed(std::move(print_header_footer_allowed_in)),
@@ -694,7 +695,7 @@ Policies::Policies(
     Policies::OptionalBool print_header_footer_default_in,
     Policies::BackgroundGraphicsModeRestriction allowed_background_graphics_modes_in,
     Policies::BackgroundGraphicsModeRestriction background_graphics_default_in,
-    const absl::optional<::gfx::Size>& paper_size_default_in,
+    const std::optional<::gfx::Size>& paper_size_default_in,
     uint32_t max_sheets_allowed_in,
     bool max_sheets_allowed_has_value_in,
     uint32_t allowed_color_modes_in,
@@ -723,7 +724,7 @@ Policies::Policies(
     Policies::OptionalBool print_header_footer_default_in,
     Policies::BackgroundGraphicsModeRestriction allowed_background_graphics_modes_in,
     Policies::BackgroundGraphicsModeRestriction background_graphics_default_in,
-    const absl::optional<::gfx::Size>& paper_size_default_in,
+    const std::optional<::gfx::Size>& paper_size_default_in,
     uint32_t max_sheets_allowed_in,
     bool max_sheets_allowed_has_value_in,
     uint32_t allowed_color_modes_in,
@@ -793,7 +794,7 @@ void Policies::WriteIntoTrace(
     dict.AddItem(
       "paper_size_default"), this->paper_size_default,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Size>&>"
+      "<value of type const std::optional<::gfx::Size>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1125,14 +1126,17 @@ void PrintServerObserverProxy::OnPrintServersChanged(
                         "<value of type PrintServersConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintServerObserver_OnPrintServersChanged_Name, kFlags, 0, 0, nullptr);
@@ -1166,14 +1170,17 @@ void PrintServerObserverProxy::OnServerPrintersChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::PrintServerObserver::OnServerPrintersChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintServerObserver_OnServerPrintersChanged_Name, kFlags, 0, 0, nullptr);
@@ -1266,12 +1273,12 @@ bool PrintServerObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrintServerObserverValidationInfo[] = {
-    {&internal::PrintServerObserver_OnPrintServersChanged_Params_Data::Validate,
+    { &internal::PrintServerObserver_OnPrintServersChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PrintServerObserver_OnServerPrintersChanged_Params_Data::Validate,
+    { &internal::PrintServerObserver_OnServerPrintersChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1358,14 +1365,17 @@ void PrintJobObserverProxy::OnPrintJobUpdate(
                         "<value of type PrintJobStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPrintJobObserver_OnPrintJobUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1455,10 +1465,10 @@ bool PrintJobObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPrintJobObserverValidationInfo[] = {
-    {&internal::PrintJobObserver_OnPrintJobUpdate_Params_Data::Validate,
+    { &internal::PrintJobObserver_OnPrintJobUpdate_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1538,14 +1548,17 @@ void LocalPrintersObserverProxy::OnLocalPrintersUpdated(
                         "<value of type std::vector<LocalDestinationInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrintersObserver_OnLocalPrintersUpdated_Name, kFlags, 0, 0, nullptr);
@@ -1626,10 +1639,10 @@ bool LocalPrintersObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalPrintersObserverValidationInfo[] = {
-    {&internal::LocalPrintersObserver_OnLocalPrintersUpdated_Params_Data::Validate,
+    { &internal::LocalPrintersObserver_OnLocalPrintersUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2295,14 +2308,17 @@ void LocalPrinterProxy::GetPrinters(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::LocalPrinter::GetPrinters");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetPrinters_Name, kFlags, 0, 0, nullptr);
@@ -2333,14 +2349,17 @@ void LocalPrinterProxy::GetCapability(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetCapability_Name, kFlags, 0, 0, nullptr);
@@ -2382,14 +2401,17 @@ void LocalPrinterProxy::GetEulaUrl(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetEulaUrl_Name, kFlags, 0, 0, nullptr);
@@ -2431,14 +2453,17 @@ void LocalPrinterProxy::GetStatus(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetStatus_Name, kFlags, 0, 0, nullptr);
@@ -2473,14 +2498,17 @@ void LocalPrinterProxy::ShowSystemPrintSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::LocalPrinter::ShowSystemPrintSettings");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_ShowSystemPrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -2511,14 +2539,17 @@ void LocalPrinterProxy::CreatePrintJob(
                         "<value of type PrintJobPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_CreatePrintJob_Name, kFlags, 0, 0, nullptr);
@@ -2563,14 +2594,17 @@ void LocalPrinterProxy::CancelPrintJob(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_CancelPrintJob_Name, kFlags, 0, 0, nullptr);
@@ -2606,14 +2640,17 @@ void LocalPrinterProxy::GetPrintServersConfig(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::LocalPrinter::GetPrintServersConfig");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetPrintServersConfig_Name, kFlags, 0, 0, nullptr);
@@ -2644,14 +2681,17 @@ void LocalPrinterProxy::ChoosePrintServers(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_ChoosePrintServers_Name, kFlags, 0, 0, nullptr);
@@ -2695,14 +2735,17 @@ void LocalPrinterProxy::AddPrintServerObserver(
                         "<value of type ::mojo::PendingRemote<PrintServerObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_AddPrintServerObserver_Name, kFlags, 0, 0, nullptr);
@@ -2732,14 +2775,17 @@ void LocalPrinterProxy::GetPolicies(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::LocalPrinter::GetPolicies");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetPolicies_Name, kFlags, 0, 0, nullptr);
@@ -2763,14 +2809,17 @@ void LocalPrinterProxy::GetUsernamePerPolicy(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::LocalPrinter::GetUsernamePerPolicy");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetUsernamePerPolicy_Name, kFlags, 0, 0, nullptr);
@@ -2794,14 +2843,17 @@ void LocalPrinterProxy::GetPrinterTypeDenyList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::LocalPrinter::GetPrinterTypeDenyList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetPrinterTypeDenyList_Name, kFlags, 0, 0, nullptr);
@@ -2835,14 +2887,17 @@ void LocalPrinterProxy::AddPrintJobObserver(
                         "<value of type PrintJobSource>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_AddPrintJobObserver_Name, kFlags, 0, 0, nullptr);
@@ -2881,14 +2936,17 @@ void LocalPrinterProxy::GetOAuthAccessToken(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetOAuthAccessToken_Name, kFlags, 0, 0, nullptr);
@@ -2930,14 +2988,17 @@ void LocalPrinterProxy::GetIppClientInfo(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetIppClientInfo_Name, kFlags, 0, 0, nullptr);
@@ -2979,14 +3040,17 @@ void LocalPrinterProxy::AddLocalPrintersObserver(
                         "<value of type ::mojo::PendingRemote<LocalPrintersObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_AddLocalPrintersObserver_Name, kFlags, 0, 0, nullptr);
@@ -3102,7 +3166,8 @@ void LocalPrinter_GetPrinters_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetPrinters_Name, kFlags, 0, 0, nullptr);
@@ -3232,7 +3297,8 @@ void LocalPrinter_GetCapability_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetCapability_Name, kFlags, 0, 0, nullptr);
@@ -3356,7 +3422,8 @@ void LocalPrinter_GetEulaUrl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetEulaUrl_Name, kFlags, 0, 0, nullptr);
@@ -3484,7 +3551,8 @@ void LocalPrinter_GetStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetStatus_Name, kFlags, 0, 0, nullptr);
@@ -3601,7 +3669,8 @@ void LocalPrinter_ShowSystemPrintSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_ShowSystemPrintSettings_Name, kFlags, 0, 0, nullptr);
@@ -3707,7 +3776,8 @@ void LocalPrinter_CreatePrintJob_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_CreatePrintJob_Name, kFlags, 0, 0, nullptr);
@@ -3824,7 +3894,8 @@ void LocalPrinter_CancelPrintJob_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_CancelPrintJob_Name, kFlags, 0, 0, nullptr);
@@ -3942,7 +4013,8 @@ void LocalPrinter_GetPrintServersConfig_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetPrintServersConfig_Name, kFlags, 0, 0, nullptr);
@@ -4059,7 +4131,8 @@ void LocalPrinter_ChoosePrintServers_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_ChoosePrintServers_Name, kFlags, 0, 0, nullptr);
@@ -4165,7 +4238,8 @@ void LocalPrinter_AddPrintServerObserver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_AddPrintServerObserver_Name, kFlags, 0, 0, nullptr);
@@ -4282,7 +4356,8 @@ void LocalPrinter_GetPolicies_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetPolicies_Name, kFlags, 0, 0, nullptr);
@@ -4364,7 +4439,7 @@ class LocalPrinter_GetUsernamePerPolicy_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_username);
+      const std::optional<std::string>& in_username);
 };
 
 bool LocalPrinter_GetUsernamePerPolicy_ForwardToCallback::Accept(
@@ -4377,7 +4452,7 @@ bool LocalPrinter_GetUsernamePerPolicy_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_username{};
+  std::optional<std::string> p_username{};
   LocalPrinter_GetUsernamePerPolicy_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadUsername(&p_username))
@@ -4396,7 +4471,7 @@ std::move(p_username));
 }
 
 void LocalPrinter_GetUsernamePerPolicy_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_username) {
+    const std::optional<std::string>& in_username) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::LocalPrinter::GetUsernamePerPolicy", "async_response_parameters",
@@ -4404,13 +4479,14 @@ void LocalPrinter_GetUsernamePerPolicy_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("username"), in_username,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetUsernamePerPolicy_Name, kFlags, 0, 0, nullptr);
@@ -4534,7 +4610,8 @@ void LocalPrinter_GetPrinterTypeDenyList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetPrinterTypeDenyList_Name, kFlags, 0, 0, nullptr);
@@ -4653,7 +4730,8 @@ void LocalPrinter_AddPrintJobObserver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_AddPrintJobObserver_Name, kFlags, 0, 0, nullptr);
@@ -4770,7 +4848,8 @@ void LocalPrinter_GetOAuthAccessToken_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetOAuthAccessToken_Name, kFlags, 0, 0, nullptr);
@@ -4896,7 +4975,8 @@ void LocalPrinter_GetIppClientInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_GetIppClientInfo_Name, kFlags, 0, 0, nullptr);
@@ -5026,7 +5106,8 @@ void LocalPrinter_AddLocalPrintersObserver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalPrinter_AddLocalPrintersObserver_Name, kFlags, 0, 0, nullptr);
@@ -5620,42 +5701,42 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalPrinterValidationInfo[] = {
-    {&internal::LocalPrinter_GetPrinters_Params_Data::Validate,
+    { &internal::LocalPrinter_GetPrinters_Params_Data::Validate,
      &internal::LocalPrinter_GetPrinters_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_GetCapability_Params_Data::Validate,
+    { &internal::LocalPrinter_GetCapability_Params_Data::Validate,
      &internal::LocalPrinter_GetCapability_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_GetEulaUrl_Params_Data::Validate,
+    { &internal::LocalPrinter_GetEulaUrl_Params_Data::Validate,
      &internal::LocalPrinter_GetEulaUrl_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_GetStatus_Params_Data::Validate,
+    { &internal::LocalPrinter_GetStatus_Params_Data::Validate,
      &internal::LocalPrinter_GetStatus_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_ShowSystemPrintSettings_Params_Data::Validate,
+    { &internal::LocalPrinter_ShowSystemPrintSettings_Params_Data::Validate,
      &internal::LocalPrinter_ShowSystemPrintSettings_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_CreatePrintJob_Params_Data::Validate,
+    { &internal::LocalPrinter_CreatePrintJob_Params_Data::Validate,
      &internal::LocalPrinter_CreatePrintJob_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_GetPrintServersConfig_Params_Data::Validate,
+    { &internal::LocalPrinter_GetPrintServersConfig_Params_Data::Validate,
      &internal::LocalPrinter_GetPrintServersConfig_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_ChoosePrintServers_Params_Data::Validate,
+    { &internal::LocalPrinter_ChoosePrintServers_Params_Data::Validate,
      &internal::LocalPrinter_ChoosePrintServers_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_AddPrintServerObserver_Params_Data::Validate,
+    { &internal::LocalPrinter_AddPrintServerObserver_Params_Data::Validate,
      &internal::LocalPrinter_AddPrintServerObserver_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_GetPolicies_Params_Data::Validate,
+    { &internal::LocalPrinter_GetPolicies_Params_Data::Validate,
      &internal::LocalPrinter_GetPolicies_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_GetUsernamePerPolicy_Params_Data::Validate,
+    { &internal::LocalPrinter_GetUsernamePerPolicy_Params_Data::Validate,
      &internal::LocalPrinter_GetUsernamePerPolicy_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_GetPrinterTypeDenyList_Params_Data::Validate,
+    { &internal::LocalPrinter_GetPrinterTypeDenyList_Params_Data::Validate,
      &internal::LocalPrinter_GetPrinterTypeDenyList_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_CancelPrintJob_Params_Data::Validate,
+    { &internal::LocalPrinter_CancelPrintJob_Params_Data::Validate,
      &internal::LocalPrinter_CancelPrintJob_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_AddPrintJobObserver_Params_Data::Validate,
+    { &internal::LocalPrinter_AddPrintJobObserver_Params_Data::Validate,
      &internal::LocalPrinter_AddPrintJobObserver_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_GetOAuthAccessToken_Params_Data::Validate,
+    { &internal::LocalPrinter_GetOAuthAccessToken_Params_Data::Validate,
      &internal::LocalPrinter_GetOAuthAccessToken_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_GetIppClientInfo_Params_Data::Validate,
+    { &internal::LocalPrinter_GetIppClientInfo_Params_Data::Validate,
      &internal::LocalPrinter_GetIppClientInfo_ResponseParams_Data::Validate},
-    {&internal::LocalPrinter_AddLocalPrintersObserver_Params_Data::Validate,
+    { &internal::LocalPrinter_AddLocalPrintersObserver_Params_Data::Validate,
      &internal::LocalPrinter_AddLocalPrintersObserver_ResponseParams_Data::Validate},
 };
 
@@ -6273,14 +6354,14 @@ PoliciesPtr LocalPrinterAsyncWaiter::GetPolicies(
 }
 
 void LocalPrinterAsyncWaiter::GetUsernamePerPolicy(
-    absl::optional<std::string>* out_username) {
+    std::optional<std::string>* out_username) {
   base::RunLoop loop;
   proxy_->GetUsernamePerPolicy(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_username
+             std::optional<std::string>* out_username
 ,
-             const absl::optional<std::string>& username) {*out_username = std::move(username);
+             const std::optional<std::string>& username) {*out_username = std::move(username);
             loop->Quit();
           },
           &loop,
@@ -6288,9 +6369,9 @@ void LocalPrinterAsyncWaiter::GetUsernamePerPolicy(
   loop.Run();
 }
 
-absl::optional<std::string> LocalPrinterAsyncWaiter::GetUsernamePerPolicy(
+std::optional<std::string> LocalPrinterAsyncWaiter::GetUsernamePerPolicy(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetUsernamePerPolicy(&async_wait_result);
   return async_wait_result;
 }

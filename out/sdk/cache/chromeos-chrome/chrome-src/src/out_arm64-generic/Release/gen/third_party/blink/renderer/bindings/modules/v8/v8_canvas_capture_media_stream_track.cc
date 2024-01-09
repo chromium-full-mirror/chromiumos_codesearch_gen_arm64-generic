@@ -70,11 +70,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, CanvasCaptureMediaStreamTrack>::value,
     "CanvasCaptureMediaStreamTrack does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&CanvasCaptureMediaStreamTrack::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CanvasCaptureMediaStreamTrack is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("CanvasCaptureMediaStreamTrack.canvas.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CanvasCaptureMediaStreamTrack* blink_receiver = V8CanvasCaptureMediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+CanvasCaptureMediaStreamTrack* blink_receiver = V8CanvasCaptureMediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->canvas();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -105,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("CanvasCaptureMediaStreamTrack.requestFrame");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CanvasCaptureMediaStreamTrack* blink_receiver = V8CanvasCaptureMediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+CanvasCaptureMediaStreamTrack* blink_receiver = V8CanvasCaptureMediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->requestFrame();
 
 }

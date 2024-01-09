@@ -26,7 +26,7 @@ class  XmlParserAsyncWaiter {
 
   ~XmlParserAsyncWaiter();
   void Parse(
-      const std::string& xml, XmlParser::WhitespaceBehavior whitespace_behavior, absl::optional<::base::Value>* out_result, absl::optional<std::string>* out_error);
+      const std::string& xml, XmlParser::WhitespaceBehavior whitespace_behavior, std::optional<::base::Value>* out_result, std::optional<std::string>* out_error);
   
 
  private:

@@ -6,6 +6,8 @@
 
 #ifndef SERVICES_WEBNN_PUBLIC_MOJOM_WEBNN_CONTEXT_PROVIDER_MOJOM_IMPORT_HEADERS_H_
 #define SERVICES_WEBNN_PUBLIC_MOJOM_WEBNN_CONTEXT_PROVIDER_MOJOM_IMPORT_HEADERS_H_
+#include "components/ml/webnn/features.mojom.h"
+#include "components/ml/webnn/features.mojom-import-headers.h"
 #include "services/webnn/public/mojom/webnn_graph.mojom.h"
 #include "services/webnn/public/mojom/webnn_graph.mojom-import-headers.h"
 

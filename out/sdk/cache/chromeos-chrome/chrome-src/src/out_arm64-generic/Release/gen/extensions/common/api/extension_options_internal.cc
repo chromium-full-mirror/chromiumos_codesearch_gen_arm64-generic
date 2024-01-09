@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/extension_options_internal.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -39,8 +40,8 @@ new_width(0),
 new_height(0) {}
 
 SizeChangedOptions::~SizeChangedOptions() = default;
-SizeChangedOptions::SizeChangedOptions(SizeChangedOptions&& rhs) = default;
-SizeChangedOptions& SizeChangedOptions::operator=(SizeChangedOptions&& rhs) = default;
+SizeChangedOptions::SizeChangedOptions(SizeChangedOptions&& rhs) noexcept = default;
+SizeChangedOptions& SizeChangedOptions::operator=(SizeChangedOptions&& rhs) noexcept = default;
 SizeChangedOptions SizeChangedOptions::Clone() const {
   SizeChangedOptions out;
   out.old_width = old_width;
@@ -114,34 +115,21 @@ bool SizeChangedOptions::Populate(
 }
 
 // static
-std::unique_ptr<SizeChangedOptions> SizeChangedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SizeChangedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SizeChangedOptions> SizeChangedOptions::FromValue(const base::Value::Dict& value) {
+  SizeChangedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SizeChangedOptions> SizeChangedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<SizeChangedOptions> SizeChangedOptions::FromValue(const base::Value& value) {
   SizeChangedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SizeChangedOptions> SizeChangedOptions::FromValue(const base::Value& value) {
-  SizeChangedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -167,8 +155,8 @@ PreferredSizeChangedOptions::PreferredSizeChangedOptions()
 height(0.0) {}
 
 PreferredSizeChangedOptions::~PreferredSizeChangedOptions() = default;
-PreferredSizeChangedOptions::PreferredSizeChangedOptions(PreferredSizeChangedOptions&& rhs) = default;
-PreferredSizeChangedOptions& PreferredSizeChangedOptions::operator=(PreferredSizeChangedOptions&& rhs) = default;
+PreferredSizeChangedOptions::PreferredSizeChangedOptions(PreferredSizeChangedOptions&& rhs) noexcept = default;
+PreferredSizeChangedOptions& PreferredSizeChangedOptions::operator=(PreferredSizeChangedOptions&& rhs) noexcept = default;
 PreferredSizeChangedOptions PreferredSizeChangedOptions::Clone() const {
   PreferredSizeChangedOptions out;
   out.width = width;
@@ -216,34 +204,21 @@ bool PreferredSizeChangedOptions::Populate(
 }
 
 // static
-std::unique_ptr<PreferredSizeChangedOptions> PreferredSizeChangedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PreferredSizeChangedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PreferredSizeChangedOptions> PreferredSizeChangedOptions::FromValue(const base::Value::Dict& value) {
+  PreferredSizeChangedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PreferredSizeChangedOptions> PreferredSizeChangedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<PreferredSizeChangedOptions> PreferredSizeChangedOptions::FromValue(const base::Value& value) {
   PreferredSizeChangedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PreferredSizeChangedOptions> PreferredSizeChangedOptions::FromValue(const base::Value& value) {
-  PreferredSizeChangedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

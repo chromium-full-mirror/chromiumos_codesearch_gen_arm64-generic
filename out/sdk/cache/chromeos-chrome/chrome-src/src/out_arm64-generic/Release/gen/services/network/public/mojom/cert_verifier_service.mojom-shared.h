@@ -43,6 +43,8 @@ class RequestParamsDataView;
 
 class CertVerifierConfigDataView;
 
+class AdditionalCertificatesDataView;
+
 
 
 }  // cert_verifier::mojom
@@ -60,6 +62,13 @@ struct MojomTypeTraits<::cert_verifier::mojom::RequestParamsDataView> {
 template <>
 struct MojomTypeTraits<::cert_verifier::mojom::CertVerifierConfigDataView> {
   using Data = ::cert_verifier::mojom::internal::CertVerifierConfig_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::cert_verifier::mojom::AdditionalCertificatesDataView> {
+  using Data = ::cert_verifier::mojom::internal::AdditionalCertificates_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -90,6 +99,16 @@ using CertVerifierServiceAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CertVerifierServiceInterfaceBase>;
 using CertVerifierServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CertVerifierServiceInterfaceBase>;
+class CertVerifierServiceUpdaterInterfaceBase {};
+
+using CertVerifierServiceUpdaterPtrDataView =
+    mojo::InterfacePtrDataView<CertVerifierServiceUpdaterInterfaceBase>;
+using CertVerifierServiceUpdaterRequestDataView =
+    mojo::InterfaceRequestDataView<CertVerifierServiceUpdaterInterfaceBase>;
+using CertVerifierServiceUpdaterAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<CertVerifierServiceUpdaterInterfaceBase>;
+using CertVerifierServiceUpdaterAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<CertVerifierServiceUpdaterInterfaceBase>;
 class CertVerifierServiceClientInterfaceBase {};
 
 using CertVerifierServiceClientPtrDataView =
@@ -178,7 +197,7 @@ class CertVerifierConfigDataView {
   CertVerifierConfigDataView(
       internal::CertVerifierConfig_Data* data,
       mojo::Message* message)
-      : data_(data), message_(message) {}
+      : data_(data) {}
 
   bool is_null() const { return !data_; }
   bool enable_rev_checking() const {
@@ -193,28 +212,53 @@ class CertVerifierConfigDataView {
   bool disable_symantec_enforcement() const {
     return data_->disable_symantec_enforcement;
   }
-  inline void GetAdditionalTrustAnchorsDataView(
+ private:
+  internal::CertVerifierConfig_Data* data_ = nullptr;
+};
+
+
+class AdditionalCertificatesDataView {
+ public:
+  AdditionalCertificatesDataView() = default;
+
+  AdditionalCertificatesDataView(
+      internal::AdditionalCertificates_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAllCertificatesDataView(
       mojo::ArrayDataView<::network::mojom::X509CertificateDataView>* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadAdditionalTrustAnchors(UserType* output) {
+  [[nodiscard]] bool ReadAllCertificates(UserType* output) {
     
-    auto* pointer = data_->additional_trust_anchors.Get();
+    auto* pointer = data_->all_certificates.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
         pointer, output, message_);
   }
-  inline void GetAdditionalUntrustedAuthoritiesDataView(
+  inline void GetTrustAnchorsDataView(
       mojo::ArrayDataView<::network::mojom::X509CertificateDataView>* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadAdditionalUntrustedAuthorities(UserType* output) {
+  [[nodiscard]] bool ReadTrustAnchors(UserType* output) {
     
-    auto* pointer = data_->additional_untrusted_authorities.Get();
+    auto* pointer = data_->trust_anchors.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetDistrustedSpkisDataView(
+      mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDistrustedSpkis(UserType* output) {
+    
+    auto* pointer = data_->distrusted_spkis.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>>(
         pointer, output, message_);
   }
  private:
-  internal::CertVerifierConfig_Data* data_ = nullptr;
+  internal::AdditionalCertificates_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -323,34 +367,6 @@ struct Serializer<::cert_verifier::mojom::CertVerifierConfigDataView, MaybeConst
     fragment->require_rev_checking_local_anchors = Traits::require_rev_checking_local_anchors(input);
     fragment->enable_sha1_local_anchors = Traits::enable_sha1_local_anchors(input);
     fragment->disable_symantec_enforcement = Traits::disable_symantec_enforcement(input);
-    decltype(Traits::additional_trust_anchors(input)) in_additional_trust_anchors = Traits::additional_trust_anchors(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->additional_trust_anchors)::BaseType>
-        additional_trust_anchors_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& additional_trust_anchors_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
-        in_additional_trust_anchors, additional_trust_anchors_fragment, &additional_trust_anchors_validate_params);
-    fragment->additional_trust_anchors.Set(
-        additional_trust_anchors_fragment.is_null() ? nullptr : additional_trust_anchors_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->additional_trust_anchors.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null additional_trust_anchors in CertVerifierConfig struct");
-    decltype(Traits::additional_untrusted_authorities(input)) in_additional_untrusted_authorities = Traits::additional_untrusted_authorities(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->additional_untrusted_authorities)::BaseType>
-        additional_untrusted_authorities_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& additional_untrusted_authorities_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
-        in_additional_untrusted_authorities, additional_untrusted_authorities_fragment, &additional_untrusted_authorities_validate_params);
-    fragment->additional_untrusted_authorities.Set(
-        additional_untrusted_authorities_fragment.is_null() ? nullptr : additional_untrusted_authorities_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->additional_untrusted_authorities.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null additional_untrusted_authorities in CertVerifierConfig struct");
   }
 
   static bool Deserialize(::cert_verifier::mojom::internal::CertVerifierConfig_Data* input,
@@ -360,6 +376,77 @@ struct Serializer<::cert_verifier::mojom::CertVerifierConfigDataView, MaybeConst
       return CallSetToNullIfExists<Traits>(output);
 
     ::cert_verifier::mojom::CertVerifierConfigDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cert_verifier::mojom::AdditionalCertificatesDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::cert_verifier::mojom::AdditionalCertificatesDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::cert_verifier::mojom::internal::AdditionalCertificates_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::all_certificates(input)) in_all_certificates = Traits::all_certificates(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->all_certificates)::BaseType>
+        all_certificates_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& all_certificates_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
+        in_all_certificates, all_certificates_fragment, &all_certificates_validate_params);
+    fragment->all_certificates.Set(
+        all_certificates_fragment.is_null() ? nullptr : all_certificates_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->all_certificates.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null all_certificates in AdditionalCertificates struct");
+    decltype(Traits::trust_anchors(input)) in_trust_anchors = Traits::trust_anchors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->trust_anchors)::BaseType>
+        trust_anchors_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& trust_anchors_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::X509CertificateDataView>>(
+        in_trust_anchors, trust_anchors_fragment, &trust_anchors_validate_params);
+    fragment->trust_anchors.Set(
+        trust_anchors_fragment.is_null() ? nullptr : trust_anchors_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->trust_anchors.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null trust_anchors in AdditionalCertificates struct");
+    decltype(Traits::distrusted_spkis(input)) in_distrusted_spkis = Traits::distrusted_spkis(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->distrusted_spkis)::BaseType>
+        distrusted_spkis_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& distrusted_spkis_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>>(
+        in_distrusted_spkis, distrusted_spkis_fragment, &distrusted_spkis_validate_params);
+    fragment->distrusted_spkis.Set(
+        distrusted_spkis_fragment.is_null() ? nullptr : distrusted_spkis_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->distrusted_spkis.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null distrusted_spkis in AdditionalCertificates struct");
+  }
+
+  static bool Deserialize(::cert_verifier::mojom::internal::AdditionalCertificates_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::cert_verifier::mojom::AdditionalCertificatesDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -393,15 +480,22 @@ inline void RequestParamsDataView::GetSctListDataView(
 }
 
 
-inline void CertVerifierConfigDataView::GetAdditionalTrustAnchorsDataView(
+
+
+inline void AdditionalCertificatesDataView::GetAllCertificatesDataView(
     mojo::ArrayDataView<::network::mojom::X509CertificateDataView>* output) {
-  auto pointer = data_->additional_trust_anchors.Get();
+  auto pointer = data_->all_certificates.Get();
   *output = mojo::ArrayDataView<::network::mojom::X509CertificateDataView>(pointer, message_);
 }
-inline void CertVerifierConfigDataView::GetAdditionalUntrustedAuthoritiesDataView(
+inline void AdditionalCertificatesDataView::GetTrustAnchorsDataView(
     mojo::ArrayDataView<::network::mojom::X509CertificateDataView>* output) {
-  auto pointer = data_->additional_untrusted_authorities.Get();
+  auto pointer = data_->trust_anchors.Get();
   *output = mojo::ArrayDataView<::network::mojom::X509CertificateDataView>(pointer, message_);
+}
+inline void AdditionalCertificatesDataView::GetDistrustedSpkisDataView(
+    mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>* output) {
+  auto pointer = data_->distrusted_spkis.Get();
+  *output = mojo::ArrayDataView<mojo::ArrayDataView<uint8_t>>(pointer, message_);
 }
 
 

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-libs", "name": "tevent", "version": "0.15.0", "revision": 0, "fullname": "sys-libs/tevent", "fullnamerev": "sys-libs/tevent-0.15.0", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://tevent.samba.org/"], "skip": false, "tainted": false, "ebuild_path": null}

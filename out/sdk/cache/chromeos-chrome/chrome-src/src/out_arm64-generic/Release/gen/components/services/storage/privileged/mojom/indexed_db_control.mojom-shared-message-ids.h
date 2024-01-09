@@ -17,16 +17,14 @@ namespace internal {
 constexpr uint32_t kIndexedDBObserver_OnIndexedDBListChanged_Name = 0;
 constexpr uint32_t kIndexedDBObserver_OnIndexedDBContentChanged_Name = 1;
 constexpr uint32_t kIndexedDBControl_BindIndexedDB_Name = 0;
-constexpr uint32_t kIndexedDBControl_GetUsage_Name = 1;
-constexpr uint32_t kIndexedDBControl_DeleteForStorageKey_Name = 2;
-constexpr uint32_t kIndexedDBControl_ForceClose_Name = 3;
-constexpr uint32_t kIndexedDBControl_GetConnectionCount_Name = 4;
-constexpr uint32_t kIndexedDBControl_DownloadBucketData_Name = 5;
-constexpr uint32_t kIndexedDBControl_GetAllBucketsDetails_Name = 6;
-constexpr uint32_t kIndexedDBControl_SetForceKeepSessionState_Name = 7;
-constexpr uint32_t kIndexedDBControl_AddObserver_Name = 8;
-constexpr uint32_t kIndexedDBControl_ApplyPolicyUpdates_Name = 9;
-constexpr uint32_t kIndexedDBControl_BindTestInterface_Name = 10;
+constexpr uint32_t kIndexedDBControl_DeleteForStorageKey_Name = 1;
+constexpr uint32_t kIndexedDBControl_ForceClose_Name = 2;
+constexpr uint32_t kIndexedDBControl_DownloadBucketData_Name = 3;
+constexpr uint32_t kIndexedDBControl_GetAllBucketsDetails_Name = 4;
+constexpr uint32_t kIndexedDBControl_SetForceKeepSessionState_Name = 5;
+constexpr uint32_t kIndexedDBControl_AddObserver_Name = 6;
+constexpr uint32_t kIndexedDBControl_ApplyPolicyUpdates_Name = 7;
+constexpr uint32_t kIndexedDBControl_BindTestInterface_Name = 8;
 
 }  // namespace internal
 

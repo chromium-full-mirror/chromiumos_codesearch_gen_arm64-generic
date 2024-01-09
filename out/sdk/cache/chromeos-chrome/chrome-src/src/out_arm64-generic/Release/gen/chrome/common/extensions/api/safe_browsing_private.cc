@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/safe_browsing_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,19 +37,19 @@ namespace safe_browsing_private {
 
 const char* ToString(URLType enum_param) {
   switch (enum_param) {
-    case URL_TYPE_EVENT_URL:
+    case URLType::kEventUrl:
       return "EVENT_URL";
-    case URL_TYPE_LANDING_PAGE:
+    case URLType::kLandingPage:
       return "LANDING_PAGE";
-    case URL_TYPE_LANDING_REFERRER:
+    case URLType::kLandingReferrer:
       return "LANDING_REFERRER";
-    case URL_TYPE_CLIENT_REDIRECT:
+    case URLType::kClientRedirect:
       return "CLIENT_REDIRECT";
-    case URL_TYPE_RECENT_NAVIGATION:
+    case URLType::kRecentNavigation:
       return "RECENT_NAVIGATION";
-    case URL_TYPE_REFERRER:
+    case URLType::kReferrer:
       return "REFERRER";
-    case URL_TYPE_NONE:
+    case URLType::kNone:
       return "";
   }
   NOTREACHED();
@@ -57,18 +58,18 @@ const char* ToString(URLType enum_param) {
 
 URLType ParseURLType(base::StringPiece enum_string) {
   if (enum_string == "EVENT_URL")
-    return URL_TYPE_EVENT_URL;
+    return URLType::kEventUrl;
   if (enum_string == "LANDING_PAGE")
-    return URL_TYPE_LANDING_PAGE;
+    return URLType::kLandingPage;
   if (enum_string == "LANDING_REFERRER")
-    return URL_TYPE_LANDING_REFERRER;
+    return URLType::kLandingReferrer;
   if (enum_string == "CLIENT_REDIRECT")
-    return URL_TYPE_CLIENT_REDIRECT;
+    return URLType::kClientRedirect;
   if (enum_string == "RECENT_NAVIGATION")
-    return URL_TYPE_RECENT_NAVIGATION;
+    return URLType::kRecentNavigation;
   if (enum_string == "REFERRER")
-    return URL_TYPE_REFERRER;
-  return URL_TYPE_NONE;
+    return URLType::kReferrer;
+  return URLType::kNone;
 }
 
 std::u16string GetURLTypeParseError(base::StringPiece enum_string) {
@@ -78,17 +79,17 @@ std::u16string GetURLTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(NavigationInitiation enum_param) {
   switch (enum_param) {
-    case NAVIGATION_INITIATION_BROWSER_INITIATED:
+    case NavigationInitiation::kBrowserInitiated:
       return "BROWSER_INITIATED";
-    case NAVIGATION_INITIATION_RENDERER_INITIATED_WITHOUT_USER_GESTURE:
+    case NavigationInitiation::kRendererInitiatedWithoutUserGesture:
       return "RENDERER_INITIATED_WITHOUT_USER_GESTURE";
-    case NAVIGATION_INITIATION_RENDERER_INITIATED_WITH_USER_GESTURE:
+    case NavigationInitiation::kRendererInitiatedWithUserGesture:
       return "RENDERER_INITIATED_WITH_USER_GESTURE";
-    case NAVIGATION_INITIATION_COPY_PASTE_USER_INITIATED:
+    case NavigationInitiation::kCopyPasteUserInitiated:
       return "COPY_PASTE_USER_INITIATED";
-    case NAVIGATION_INITIATION_NOTIFICATION_INITIATED:
+    case NavigationInitiation::kNotificationInitiated:
       return "NOTIFICATION_INITIATED";
-    case NAVIGATION_INITIATION_NONE:
+    case NavigationInitiation::kNone:
       return "";
   }
   NOTREACHED();
@@ -97,16 +98,16 @@ const char* ToString(NavigationInitiation enum_param) {
 
 NavigationInitiation ParseNavigationInitiation(base::StringPiece enum_string) {
   if (enum_string == "BROWSER_INITIATED")
-    return NAVIGATION_INITIATION_BROWSER_INITIATED;
+    return NavigationInitiation::kBrowserInitiated;
   if (enum_string == "RENDERER_INITIATED_WITHOUT_USER_GESTURE")
-    return NAVIGATION_INITIATION_RENDERER_INITIATED_WITHOUT_USER_GESTURE;
+    return NavigationInitiation::kRendererInitiatedWithoutUserGesture;
   if (enum_string == "RENDERER_INITIATED_WITH_USER_GESTURE")
-    return NAVIGATION_INITIATION_RENDERER_INITIATED_WITH_USER_GESTURE;
+    return NavigationInitiation::kRendererInitiatedWithUserGesture;
   if (enum_string == "COPY_PASTE_USER_INITIATED")
-    return NAVIGATION_INITIATION_COPY_PASTE_USER_INITIATED;
+    return NavigationInitiation::kCopyPasteUserInitiated;
   if (enum_string == "NOTIFICATION_INITIATED")
-    return NAVIGATION_INITIATION_NOTIFICATION_INITIATED;
-  return NAVIGATION_INITIATION_NONE;
+    return NavigationInitiation::kNotificationInitiated;
+  return NavigationInitiation::kNone;
 }
 
 std::u16string GetNavigationInitiationParseError(base::StringPiece enum_string) {
@@ -118,8 +119,8 @@ PolicySpecifiedPasswordReuse::PolicySpecifiedPasswordReuse()
 : is_phishing_url(false) {}
 
 PolicySpecifiedPasswordReuse::~PolicySpecifiedPasswordReuse() = default;
-PolicySpecifiedPasswordReuse::PolicySpecifiedPasswordReuse(PolicySpecifiedPasswordReuse&& rhs) = default;
-PolicySpecifiedPasswordReuse& PolicySpecifiedPasswordReuse::operator=(PolicySpecifiedPasswordReuse&& rhs) = default;
+PolicySpecifiedPasswordReuse::PolicySpecifiedPasswordReuse(PolicySpecifiedPasswordReuse&& rhs) noexcept = default;
+PolicySpecifiedPasswordReuse& PolicySpecifiedPasswordReuse::operator=(PolicySpecifiedPasswordReuse&& rhs) noexcept = default;
 PolicySpecifiedPasswordReuse PolicySpecifiedPasswordReuse::Clone() const {
   PolicySpecifiedPasswordReuse out;
   out.url = url;
@@ -180,34 +181,21 @@ bool PolicySpecifiedPasswordReuse::Populate(
 }
 
 // static
-std::unique_ptr<PolicySpecifiedPasswordReuse> PolicySpecifiedPasswordReuse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PolicySpecifiedPasswordReuse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PolicySpecifiedPasswordReuse> PolicySpecifiedPasswordReuse::FromValue(const base::Value::Dict& value) {
+  PolicySpecifiedPasswordReuse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PolicySpecifiedPasswordReuse> PolicySpecifiedPasswordReuse::FromValue(const base::Value::Dict& value) {
+std::optional<PolicySpecifiedPasswordReuse> PolicySpecifiedPasswordReuse::FromValue(const base::Value& value) {
   PolicySpecifiedPasswordReuse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PolicySpecifiedPasswordReuse> PolicySpecifiedPasswordReuse::FromValue(const base::Value& value) {
-  PolicySpecifiedPasswordReuse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -230,8 +218,8 @@ DangerousDownloadInfo::DangerousDownloadInfo()
  {}
 
 DangerousDownloadInfo::~DangerousDownloadInfo() = default;
-DangerousDownloadInfo::DangerousDownloadInfo(DangerousDownloadInfo&& rhs) = default;
-DangerousDownloadInfo& DangerousDownloadInfo::operator=(DangerousDownloadInfo&& rhs) = default;
+DangerousDownloadInfo::DangerousDownloadInfo(DangerousDownloadInfo&& rhs) noexcept = default;
+DangerousDownloadInfo& DangerousDownloadInfo::operator=(DangerousDownloadInfo&& rhs) noexcept = default;
 DangerousDownloadInfo DangerousDownloadInfo::Clone() const {
   DangerousDownloadInfo out;
   out.url = url;
@@ -305,34 +293,21 @@ bool DangerousDownloadInfo::Populate(
 }
 
 // static
-std::unique_ptr<DangerousDownloadInfo> DangerousDownloadInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DangerousDownloadInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DangerousDownloadInfo> DangerousDownloadInfo::FromValue(const base::Value::Dict& value) {
+  DangerousDownloadInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DangerousDownloadInfo> DangerousDownloadInfo::FromValue(const base::Value::Dict& value) {
+std::optional<DangerousDownloadInfo> DangerousDownloadInfo::FromValue(const base::Value& value) {
   DangerousDownloadInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DangerousDownloadInfo> DangerousDownloadInfo::FromValue(const base::Value& value) {
-  DangerousDownloadInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -357,8 +332,8 @@ InterstitialInfo::InterstitialInfo()
  {}
 
 InterstitialInfo::~InterstitialInfo() = default;
-InterstitialInfo::InterstitialInfo(InterstitialInfo&& rhs) = default;
-InterstitialInfo& InterstitialInfo::operator=(InterstitialInfo&& rhs) = default;
+InterstitialInfo::InterstitialInfo(InterstitialInfo&& rhs) noexcept = default;
+InterstitialInfo& InterstitialInfo::operator=(InterstitialInfo&& rhs) noexcept = default;
 InterstitialInfo InterstitialInfo::Clone() const {
   InterstitialInfo out;
   out.url = url;
@@ -400,7 +375,7 @@ bool InterstitialInfo::Populate(
     {
       auto* temp = (*net_error_code_value).GetIfString();
       if (!temp) {
-        out.net_error_code = absl::nullopt;
+        out.net_error_code = std::nullopt;
         return false;
       }
       out.net_error_code = *temp;
@@ -432,34 +407,21 @@ bool InterstitialInfo::Populate(
 }
 
 // static
-std::unique_ptr<InterstitialInfo> InterstitialInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<InterstitialInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<InterstitialInfo> InterstitialInfo::FromValue(const base::Value::Dict& value) {
+  InterstitialInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<InterstitialInfo> InterstitialInfo::FromValue(const base::Value::Dict& value) {
+std::optional<InterstitialInfo> InterstitialInfo::FromValue(const base::Value& value) {
   InterstitialInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<InterstitialInfo> InterstitialInfo::FromValue(const base::Value& value) {
-  InterstitialInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -486,8 +448,8 @@ ServerRedirect::ServerRedirect()
  {}
 
 ServerRedirect::~ServerRedirect() = default;
-ServerRedirect::ServerRedirect(ServerRedirect&& rhs) = default;
-ServerRedirect& ServerRedirect::operator=(ServerRedirect&& rhs) = default;
+ServerRedirect::ServerRedirect(ServerRedirect&& rhs) noexcept = default;
+ServerRedirect& ServerRedirect::operator=(ServerRedirect&& rhs) noexcept = default;
 ServerRedirect ServerRedirect::Clone() const {
   ServerRedirect out;
   out.url = url;
@@ -502,7 +464,7 @@ bool ServerRedirect::Populate(
     {
       auto* temp = (*url_value).GetIfString();
       if (!temp) {
-        out.url = absl::nullopt;
+        out.url = std::nullopt;
         return false;
       }
       out.url = *temp;
@@ -522,34 +484,21 @@ bool ServerRedirect::Populate(
 }
 
 // static
-std::unique_ptr<ServerRedirect> ServerRedirect::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ServerRedirect>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ServerRedirect> ServerRedirect::FromValue(const base::Value::Dict& value) {
+  ServerRedirect out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ServerRedirect> ServerRedirect::FromValue(const base::Value::Dict& value) {
+std::optional<ServerRedirect> ServerRedirect::FromValue(const base::Value& value) {
   ServerRedirect out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ServerRedirect> ServerRedirect::FromValue(const base::Value& value) {
-  ServerRedirect out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -572,8 +521,8 @@ navigation_initiation(),
 is_url_removed_by_policy(false) {}
 
 ReferrerChainEntry::~ReferrerChainEntry() = default;
-ReferrerChainEntry::ReferrerChainEntry(ReferrerChainEntry&& rhs) = default;
-ReferrerChainEntry& ReferrerChainEntry::operator=(ReferrerChainEntry&& rhs) = default;
+ReferrerChainEntry::ReferrerChainEntry(ReferrerChainEntry&& rhs) noexcept = default;
+ReferrerChainEntry& ReferrerChainEntry::operator=(ReferrerChainEntry&& rhs) noexcept = default;
 ReferrerChainEntry ReferrerChainEntry::Clone() const {
   ReferrerChainEntry out;
   out.url = url;
@@ -620,7 +569,7 @@ bool ReferrerChainEntry::Populate(
     {
       auto* temp = (*main_frame_url_value).GetIfString();
       if (!temp) {
-        out.main_frame_url = absl::nullopt;
+        out.main_frame_url = std::nullopt;
         return false;
       }
       out.main_frame_url = *temp;
@@ -661,7 +610,7 @@ bool ReferrerChainEntry::Populate(
     {
       auto* temp = (*referrer_url_value).GetIfString();
       if (!temp) {
-        out.referrer_url = absl::nullopt;
+        out.referrer_url = std::nullopt;
         return false;
       }
       out.referrer_url = *temp;
@@ -673,7 +622,7 @@ bool ReferrerChainEntry::Populate(
     {
       auto* temp = (*referrer_main_frame_url_value).GetIfString();
       if (!temp) {
-        out.referrer_main_frame_url = absl::nullopt;
+        out.referrer_main_frame_url = std::nullopt;
         return false;
       }
       out.referrer_main_frame_url = *temp;
@@ -685,7 +634,7 @@ bool ReferrerChainEntry::Populate(
     {
       auto temp = (*is_retargeting_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_retargeting = absl::nullopt;
+        out.is_retargeting = std::nullopt;
         return false;
       }
       out.is_retargeting = *temp;
@@ -697,7 +646,7 @@ bool ReferrerChainEntry::Populate(
     {
       auto temp = (*navigation_time_ms_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.navigation_time_ms = absl::nullopt;
+        out.navigation_time_ms = std::nullopt;
         return false;
       }
       out.navigation_time_ms = *temp;
@@ -739,7 +688,7 @@ bool ReferrerChainEntry::Populate(
     {
       auto temp = (*maybe_launched_by_external_app_value).GetIfBool();
       if (!temp.has_value()) {
-        out.maybe_launched_by_external_app = absl::nullopt;
+        out.maybe_launched_by_external_app = std::nullopt;
         return false;
       }
       out.maybe_launched_by_external_app = *temp;
@@ -751,7 +700,7 @@ bool ReferrerChainEntry::Populate(
     {
       auto temp = (*is_subframe_url_removed_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_subframe_url_removed = absl::nullopt;
+        out.is_subframe_url_removed = std::nullopt;
         return false;
       }
       out.is_subframe_url_removed = *temp;
@@ -763,7 +712,7 @@ bool ReferrerChainEntry::Populate(
     {
       auto temp = (*is_subframe_referrer_url_removed_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_subframe_referrer_url_removed = absl::nullopt;
+        out.is_subframe_referrer_url_removed = std::nullopt;
         return false;
       }
       out.is_subframe_referrer_url_removed = *temp;
@@ -795,34 +744,21 @@ bool ReferrerChainEntry::Populate(
 }
 
 // static
-std::unique_ptr<ReferrerChainEntry> ReferrerChainEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReferrerChainEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReferrerChainEntry> ReferrerChainEntry::FromValue(const base::Value::Dict& value) {
+  ReferrerChainEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReferrerChainEntry> ReferrerChainEntry::FromValue(const base::Value::Dict& value) {
+std::optional<ReferrerChainEntry> ReferrerChainEntry::FromValue(const base::Value& value) {
   ReferrerChainEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReferrerChainEntry> ReferrerChainEntry::FromValue(const base::Value& value) {
-  ReferrerChainEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -894,13 +830,13 @@ namespace GetReferrerChain {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -910,13 +846,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = tab_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.tab_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

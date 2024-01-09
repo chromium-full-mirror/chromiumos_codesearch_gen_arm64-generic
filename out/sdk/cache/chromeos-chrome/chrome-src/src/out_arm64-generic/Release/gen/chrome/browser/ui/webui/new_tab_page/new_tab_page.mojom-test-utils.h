@@ -53,6 +53,7 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   void SetModuleDisabled(const std::string& module_id, bool disabled) override;
   void UpdateDisabledModules() override;
   void OnModulesLoadedWithData(const std::vector<std::string>& module_ids) override;
+  void OnModuleUsed(const std::string& module_id) override;
   void GetModulesIdNames(GetModulesIdNamesCallback callback) override;
   void SetModulesOrder(const std::vector<std::string>& module_ids) override;
   void GetModulesOrder(GetModulesOrderCallback callback) override;
@@ -62,13 +63,13 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   void LogModulesFreOptInStatus(OptInStatus opt_in_status) override;
   void SetCustomizeChromeSidePanelVisible(bool visible, CustomizeChromeSection section) override;
   void IncrementCustomizeChromeButtonOpenCount() override;
-  void MaybeShowCustomizeChromeFeaturePromo() override;
+  void MaybeShowFeaturePromo(IphFeature iph_feature) override;
   void OnOneGoogleBarRendered(double time) override;
-  void OnPromoRendered(double time, const absl::optional<::GURL>& log_url) override;
+  void OnPromoRendered(double time, const std::optional<::GURL>& log_url) override;
   void OnCustomizeDialogAction(CustomizeDialogAction action) override;
-  void OnDoodleImageClicked(DoodleImageType type, const absl::optional<::GURL>& log_url) override;
+  void OnDoodleImageClicked(DoodleImageType type, const std::optional<::GURL>& log_url) override;
   void OnDoodleImageRendered(DoodleImageType type, double time, const ::GURL& log_url, OnDoodleImageRenderedCallback callback) override;
-  void OnDoodleShared(DoodleShareChannel channel, const std::string& doodle_id, const absl::optional<std::string>& share_id) override;
+  void OnDoodleShared(DoodleShareChannel channel, const std::string& doodle_id, const std::optional<std::string>& share_id) override;
   void OnPromoLinkClicked() override;
   void OnAppRendered(double time) override;
 };
@@ -102,7 +103,7 @@ class  PageHandlerAsyncWaiter {
       std::vector<std::string>* out_module_ids);
   std::vector<std::string> GetModulesOrder();
   void OnDoodleImageRendered(
-      DoodleImageType type, double time, const ::GURL& log_url, absl::optional<std::string>* out_image_click_params, absl::optional<::GURL>* out_interaction_log_url, absl::optional<std::string>* out_share_id);
+      DoodleImageType type, double time, const ::GURL& log_url, std::optional<std::string>* out_image_click_params, std::optional<::GURL>* out_interaction_log_url, std::optional<std::string>* out_share_id);
   
 
  private:

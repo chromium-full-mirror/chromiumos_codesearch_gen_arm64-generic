@@ -8,7 +8,7 @@ export function getTemplate() {
       if="[[shouldShowPsimFlow_(currentPageName)]]" restamp>
     <psim-flow-ui
         button-state="{{buttonState_}}"
-        name-of-carrier-pending-setup="{{flowTitle}}"
+        name-of-carrier-pending-setup="{{flowPsimBanner}}"
         delegate="[[delegate]]"
         id="psim-flow-ui"
         forward-button-label="{{forwardButtonLabel_}}">

@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/internal/singleplanar_format.mojom-features.h"
 #include "services/viz/public/mojom/compositing/internal/singleplanar_format.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/internal/singleplanar_format.mojom-forward.h"
 #include <string>

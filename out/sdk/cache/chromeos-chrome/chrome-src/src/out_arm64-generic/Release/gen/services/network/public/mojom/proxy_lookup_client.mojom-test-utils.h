@@ -15,7 +15,7 @@ namespace network::mojom {
 
 class  ProxyLookupClientInterceptorForTesting : public ProxyLookupClient {
   virtual ProxyLookupClient* GetForwardingInterface() = 0;
-  void OnProxyLookupComplete(int32_t net_error, const absl::optional<::net::ProxyInfo>& proxy_info) override;
+  void OnProxyLookupComplete(int32_t net_error, const std::optional<::net::ProxyInfo>& proxy_info) override;
 };
 class  ProxyLookupClientAsyncWaiter {
  public:

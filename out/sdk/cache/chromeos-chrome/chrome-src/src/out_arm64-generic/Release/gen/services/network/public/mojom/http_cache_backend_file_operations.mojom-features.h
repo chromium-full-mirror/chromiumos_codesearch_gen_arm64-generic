@@ -8,6 +8,7 @@
 #define SERVICES_NETWORK_PUBLIC_MOJOM_HTTP_CACHE_BACKEND_FILE_OPERATIONS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

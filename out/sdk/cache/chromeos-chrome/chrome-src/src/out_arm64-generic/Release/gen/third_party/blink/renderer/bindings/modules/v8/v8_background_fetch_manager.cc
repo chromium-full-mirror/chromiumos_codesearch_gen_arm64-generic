@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, BackgroundFetchManager>::value,
     "BackgroundFetchManager inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&BackgroundFetchManager::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BackgroundFetchManager is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -115,7 +110,7 @@ return;
 
 
 
-BackgroundFetchManager* blink_receiver = V8BackgroundFetchManager::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchManager* blink_receiver = V8BackgroundFetchManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -174,7 +169,7 @@ return;
 
 
 
-BackgroundFetchManager* blink_receiver = V8BackgroundFetchManager::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchManager* blink_receiver = V8BackgroundFetchManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -216,7 +211,7 @@ UseCounter::Count(current_execution_context, WebFeature::kBackgroundFetchManager
 
 
 
-BackgroundFetchManager* blink_receiver = V8BackgroundFetchManager::ToWrappableUnsafe(v8_receiver);
+BackgroundFetchManager* blink_receiver = V8BackgroundFetchManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

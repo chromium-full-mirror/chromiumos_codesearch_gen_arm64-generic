@@ -238,6 +238,32 @@ std::ostream& operator<<(std::ostream& os, LogSeverity value) {
   return os << LogSeverityToString(value);
 }
 
+NOINLINE static const char* AuthenticationStatusToStringHelper(AuthenticationStatus value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AuthenticationStatus::kUnknown:
+      return "kUnknown";
+    case AuthenticationStatus::kSuccess:
+      return "kSuccess";
+    case AuthenticationStatus::kFailure:
+      return "kFailure";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AuthenticationStatusToString(AuthenticationStatus value) {
+  const char *str = AuthenticationStatusToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AuthenticationStatus value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AuthenticationStatus value) {
+  return os << AuthenticationStatusToString(value);
+}
+
 namespace internal {
 // static
 bool PayloadContent_Data::Validate(
@@ -666,6 +692,89 @@ bool PayloadTransferUpdate_Data::Validate(
 PayloadTransferUpdate_Data::PayloadTransferUpdate_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool InitialConnectionInfoV3_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const InitialConnectionInfoV3_Data* object =
+      static_cast<const InitialConnectionInfoV3_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->authentication_digits, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& authentication_digits_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->authentication_digits, validation_context,
+                                         &authentication_digits_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->raw_authentication_token, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& raw_authentication_token_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->raw_authentication_token, validation_context,
+                                         &raw_authentication_token_validate_params)) {
+    return false;
+  }
+
+
+  if (!::nearby::connections::mojom::internal::AuthenticationStatus_Data
+        ::Validate(object->authentication_status, validation_context))
+    return false;
+
+  return true;
+}
+
+InitialConnectionInfoV3_Data::InitialConnectionInfoV3_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BandwidthInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BandwidthInfo_Data* object =
+      static_cast<const BandwidthInfo_Data*>(data);
+
+
+  if (!::nearby::connections::mojom::internal::BandwidthQuality_Data
+        ::Validate(object->quality, validation_context))
+    return false;
+
+
+  if (!::nearby::connections::mojom::internal::Medium_Data
+        ::Validate(object->medium, validation_context))
+    return false;
+
+  return true;
+}
+
+BandwidthInfo_Data::BandwidthInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace connections
@@ -727,6 +836,16 @@ namespace perfetto {
 void TraceFormatTraits<::nearby::connections::mojom::LogSeverity>::WriteIntoTrace(
    perfetto::TracedValue context, ::nearby::connections::mojom::LogSeverity value) {
   return std::move(context).WriteString(::nearby::connections::mojom::LogSeverityToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::nearby::connections::mojom::AuthenticationStatus>::WriteIntoTrace(
+   perfetto::TracedValue context, ::nearby::connections::mojom::AuthenticationStatus value) {
+  return std::move(context).WriteString(::nearby::connections::mojom::AuthenticationStatusToString(value));
 }
 
 } // namespace perfetto

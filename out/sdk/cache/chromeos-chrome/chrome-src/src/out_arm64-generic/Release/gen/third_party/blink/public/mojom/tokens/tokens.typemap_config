@@ -73,10 +73,6 @@
         "mojom": "blink.mojom.ExecutionContextToken"
       },
       {
-        "cpp": "::blink::PortalToken",
-        "mojom": "blink.mojom.PortalToken"
-      },
-      {
         "cpp": "::blink::V8ContextToken",
         "mojom": "blink.mojom.V8ContextToken"
       },

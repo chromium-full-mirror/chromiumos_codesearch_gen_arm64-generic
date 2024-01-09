@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CloseWatcher>::value,
     "CloseWatcher inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CloseWatcher::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CloseWatcher is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("CloseWatcher.oncancel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncancel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -104,8 +99,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(v8_receiver);
+CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncancel(event_handler);
 }
 
@@ -116,10 +112,10 @@ BLINK_BINDINGS_TRACE_EVENT("CloseWatcher.onclose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclose();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -132,8 +128,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(v8_receiver);
+CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclose(event_handler);
 }
 
@@ -188,8 +185,9 @@ BLINK_BINDINGS_TRACE_EVENT("CloseWatcher.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(v8_receiver);
+CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -205,8 +203,9 @@ BLINK_BINDINGS_TRACE_EVENT("CloseWatcher.destroy");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(v8_receiver);
+CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->destroy();
 
 }
@@ -222,8 +221,9 @@ BLINK_BINDINGS_TRACE_EVENT("CloseWatcher.requestClose");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(v8_receiver);
+CloseWatcher* blink_receiver = V8CloseWatcher::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->requestClose();
 
 }

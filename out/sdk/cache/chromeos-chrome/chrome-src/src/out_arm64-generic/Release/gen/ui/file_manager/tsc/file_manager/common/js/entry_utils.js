@@ -1,16 +1,16 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { EntryType } from '../../externs/ts/state.js';
-import '../../externs/volume_manager.js';
-import { constants } from '../../foreground/js/constants.js';
-import { driveRootEntryListKey, myFilesEntryListKey } from '../../state/ducks/volumes.js';
-import { getStore } from '../../state/store.js';
+import { CurrentDirectory, EntryType, FileData } from '../../externs/ts/state.js';
+import { ODFS_EXTENSION_ID } from '../../foreground/js/constants.js';
+import { driveRootEntryListKey, myFilesEntryListKey, recentRootKey, trashRootKey } from '../../state/ducks/volumes.js';
+import { getEntry, getStore } from '../../state/store.js';
 import { createDOMError } from './dom_utils.js';
-import { EntryList, FakeEntryImpl } from './files_app_entry_types.js';
-import { isArcVmEnabled, isPluginVmEnabled } from './flags.js';
-import { util } from './util.js';
-import { VolumeManagerCommon } from './volume_manager_types.js';
+import { EntryList, FakeEntryImpl, VolumeEntry } from './files_app_entry_types.js';
+import { isArcVmEnabled, isNewDirectoryTreeEnabled, isPluginVmEnabled } from './flags.js';
+import { collator, getEntryLabel } from './translations.js';
+import { FileErrorToDomError } from './util.js';
+import { COMPUTERS_DIRECTORY_NAME, COMPUTERS_DIRECTORY_PATH, RootType, SHARED_DRIVES_DIRECTORY_NAME, SHARED_DRIVES_DIRECTORY_PATH, VolumeType } from './volume_manager_types.js';
 /**
  * Type guard used to identify if a generic Entry is actually a DirectoryEntry.
  */
@@ -55,8 +55,7 @@ export function isMyFilesEntry(entry) {
     if (entry instanceof EntryList && entry.toURL() === myFilesEntryListKey) {
         return true;
     }
-    if (isVolumeEntry(entry) &&
-        entry.volumeType === VolumeManagerCommon.VolumeType.DOWNLOADS) {
+    if (isVolumeEntry(entry) && entry.volumeType === VolumeType.DOWNLOADS) {
         return true;
     }
     return false;
@@ -80,8 +79,8 @@ export function isDriveRootEntryList(entry) {
  */
 export function isGrandRootEntryInDrives(entry) {
     const { fullPath } = entry;
-    return fullPath === VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH ||
-        fullPath === VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH;
+    return fullPath === SHARED_DRIVES_DIRECTORY_PATH ||
+        fullPath === COMPUTERS_DIRECTORY_PATH;
 }
 /**
  * Given an entry, check if it's a fake entry ("Shared with me" and "Offline")
@@ -92,15 +91,15 @@ export function isFakeEntryInDrives(entry) {
         return false;
     }
     const { rootType } = entry;
-    return rootType === VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME ||
-        rootType === VolumeManagerCommon.RootType.DRIVE_OFFLINE;
+    return rootType === RootType.DRIVE_SHARED_WITH_ME ||
+        rootType === RootType.DRIVE_OFFLINE;
 }
 /**
  * Returns true if fileData's entry is inside any part of Drive 'My Drive'.
  */
 export function isEntryInsideMyDrive(fileData) {
     const { rootType } = fileData;
-    return !!rootType && rootType === VolumeManagerCommon.RootType.DRIVE;
+    return !!rootType && rootType === RootType.DRIVE;
 }
 /**
  * Returns true if fileData's entry is inside any part of Drive 'Computers'.
@@ -108,23 +107,28 @@ export function isEntryInsideMyDrive(fileData) {
 export function isEntryInsideComputers(fileData) {
     const { rootType } = fileData;
     return !!rootType &&
-        (rootType === VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT ||
-            rootType === VolumeManagerCommon.RootType.COMPUTER);
+        (rootType === RootType.COMPUTERS_GRAND_ROOT ||
+            rootType === RootType.COMPUTER);
 }
 /**
  * Returns true if fileData's entry is inside any part of Drive.
  */
 export function isEntryInsideDrive(fileData) {
     const { rootType } = fileData;
+    return isDriveRootType(rootType);
+}
+/**
+ * Returns whether or not the root type is one of Google Drive root types.
+ */
+export function isDriveRootType(rootType) {
     return !!rootType &&
-        (rootType === VolumeManagerCommon.RootType.DRIVE ||
-            rootType === VolumeManagerCommon.RootType.SHARED_DRIVES_GRAND_ROOT ||
-            rootType === VolumeManagerCommon.RootType.SHARED_DRIVE ||
-            rootType === VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT ||
-            rootType === VolumeManagerCommon.RootType.COMPUTER ||
-            rootType === VolumeManagerCommon.RootType.DRIVE_OFFLINE ||
-            rootType === VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME ||
-            rootType === VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT);
+        (rootType === RootType.DRIVE ||
+            rootType === RootType.SHARED_DRIVES_GRAND_ROOT ||
+            rootType === RootType.SHARED_DRIVE ||
+            rootType === RootType.COMPUTERS_GRAND_ROOT ||
+            rootType === RootType.COMPUTER || rootType === RootType.DRIVE_OFFLINE ||
+            rootType === RootType.DRIVE_SHARED_WITH_ME ||
+            rootType === RootType.DRIVE_FAKE_ROOT);
 }
 /** Sort the entries based on the filter and the names. */
 export function sortEntries(parentEntry, entries) {
@@ -144,7 +148,7 @@ export function sortEntries(parentEntry, entries) {
         if (locationInfo) {
             const compareFunction = compareLabelAndGroupBottomEntries(locationInfo, 
             // Only Linux/Play/GuestOS files are in the UI children.
-            parentEntry.getUIChildren());
+            parentEntry.getUiChildren());
             return entries.filter(entry => fileFilter.filter(entry))
                 .sort(compareFunction);
         }
@@ -197,12 +201,11 @@ export function isSharedDriveEntry(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree[0] == '' &&
-        tree[1] == VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME;
+    return tree[0] == '' && tree[1] == SHARED_DRIVES_DIRECTORY_NAME;
 }
 /**
  * Extracts Shared Drive name from entry path.
- * @return {string} The name of Shared Drive. Empty string if |entry| is not
+ * @return The name of Shared Drive. Empty string if |entry| is not
  *     under Shared Drives.
  */
 export function getTeamDriveName(entry) {
@@ -219,7 +222,7 @@ export function getTeamDriveName(entry) {
  * Returns true if the given root type is for a container of recent files.
  */
 export function isRecentRootType(rootType) {
-    return rootType == VolumeManagerCommon.RootType.RECENT;
+    return rootType == RootType.RECENT;
 }
 /**
  * Returns true if the given entry is the root folder of recent files.
@@ -248,14 +251,13 @@ export function isComputersEntry(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree[0] == '' &&
-        tree[1] == VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME;
+    return tree[0] == '' && tree[1] == COMPUTERS_DIRECTORY_NAME;
 }
 /**
  * Returns true if the given root type is Trash.
  */
 export function isTrashRootType(rootType) {
-    return rootType == VolumeManagerCommon.RootType.TRASH;
+    return rootType == RootType.TRASH;
 }
 /**
  * Returns true if the given entry is the root folder of Trash.
@@ -271,7 +273,7 @@ export function isTrashEntry(entry) {
 }
 /**
  * Compares two entries.
- * @return {boolean} True if the both entry represents a same file or
+ * @return True if the both entry represents a same file or
  *     directory. Returns true if both entries are null.
  */
 export function isSameEntry(entry1, entry2) {
@@ -285,7 +287,7 @@ export function isSameEntry(entry1, entry2) {
 }
 /**
  * Compares two entry arrays.
- * @return {boolean} True if the both arrays contain same files or directories
+ * @return True if the both arrays contain same files or directories
  *     in the same order. Returns true if both arrays are null.
  */
 export function isSameEntries(entries1, entries2) {
@@ -307,7 +309,7 @@ export function isSameEntries(entries1, entries2) {
 }
 /**
  * Compares two file systems.
- * @return {boolean} True if the both file systems are equal. Also, returns true
+ * @return True if the both file systems are equal. Also, returns true
  *     if both file systems are null.
  */
 export function isSameFileSystem(fileSystem1, fileSystem2) {
@@ -321,7 +323,7 @@ export function isSameFileSystem(fileSystem1, fileSystem2) {
 }
 /**
  * Checks if given two entries are in the same directory.
- * @return {boolean} True if given entries are in the same directory.
+ * @return True if given entries are in the same directory.
  */
 export function isSiblingEntry(entry1, entry2) {
     const path1 = entry1.fullPath.split('/');
@@ -340,28 +342,27 @@ export function isSiblingEntry(entry1, entry2) {
  * Checks if the child entry is a descendant of another entry. If the entries
  * point to the same file or directory, then returns false.
  *
- * @param {!DirectoryEntry|!FilesAppEntry} ancestorEntry The ancestor
+ * @param ancestorEntry The ancestor
  *     directory entry. Can be a fake.
- * @param {!Entry|!FilesAppEntry} childEntry The child entry. Can be a fake.
- * @return {boolean} True if the child entry is contained in the ancestor path.
+ * @param childEntry The child entry. Can be a fake.
+ * @return True if the child entry is contained in the ancestor path.
  */
 export function isDescendantEntry(ancestorEntry, childEntry) {
     if (!ancestorEntry.isDirectory) {
         return false;
     }
     // For EntryList and VolumeEntry they can contain entries from different
-    // files systems, so we should check its getUIChildren.
-    if ('getUIChildren' in ancestorEntry) {
-        const volumeOrEntryList = ancestorEntry;
+    // files systems, so we should check its getUiChildren.
+    if (isEntrySupportUiChildren(ancestorEntry)) {
         // VolumeEntry has to check to root entry descendant entry.
-        if ('getNativeEntry' in volumeOrEntryList) {
-            const nativeEntry = volumeOrEntryList.getNativeEntry();
+        if ('getNativeEntry' in ancestorEntry) {
+            const nativeEntry = ancestorEntry.getNativeEntry();
             if (nativeEntry &&
                 isSameFileSystem(nativeEntry.filesystem, childEntry.filesystem)) {
                 return isDescendantEntry(nativeEntry, childEntry);
             }
         }
-        return volumeOrEntryList.getUIChildren().some((ancestorChild) => {
+        return ancestorEntry.getUiChildren().some((ancestorChild) => {
             if (isSameEntry(ancestorChild, childEntry)) {
                 return true;
             }
@@ -400,19 +401,19 @@ export function isDescendantEntry(ancestorEntry, childEntry) {
  * Compare by name. The 2 entries must be in same directory.
  */
 export function compareName(entry1, entry2) {
-    return util.collator.compare(entry1.name, entry2.name);
+    return collator.compare(entry1.name, entry2.name);
 }
 /**
  * Compare by label (i18n name). The 2 entries must be in same directory.
  */
 export function compareLabel(locationInfo, entry1, entry2) {
-    return util.collator.compare(util.getEntryLabel(locationInfo, entry1), util.getEntryLabel(locationInfo, entry2));
+    return collator.compare(getEntryLabel(locationInfo, entry1), getEntryLabel(locationInfo, entry2));
 }
 /**
  * Compare by path.
  */
 export function comparePath(entry1, entry2) {
-    return util.collator.compare(entry1.fullPath, entry2.fullPath);
+    return collator.compare(entry1.fullPath, entry2.fullPath);
 }
 /**
  * @param bottomEntries entries that should be grouped in the bottom, used for
@@ -432,13 +433,13 @@ export function compareLabelAndGroupBottomEntries(locationInfo, bottomEntries) {
     function compare(entry1, entry2) {
         // Bottom entry here means Linux or Play files, which should appear after
         // all native entries.
-        const isBottomlEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
-        const isBottomlEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
+        const isBottomEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
+        const isBottomEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
         // When there are the same type, just compare by label.
-        if (isBottomlEntry1 === isBottomlEntry2) {
+        if (isBottomEntry1 === isBottomEntry2) {
             return compareLabel(locationInfo, entry1, entry2);
         }
-        return isBottomlEntry1 - isBottomlEntry2;
+        return isBottomEntry1 - isBottomEntry2;
     }
     return compare;
 }
@@ -534,7 +535,7 @@ export function isNonModifiable(volumeManager, entry) {
         return false;
     }
     const volumeType = volumeInfo.volumeType;
-    if (volumeType === VolumeManagerCommon.RootType.DOWNLOADS) {
+    if (volumeType === VolumeType.DOWNLOADS) {
         if (!entry.isDirectory) {
             return false;
         }
@@ -550,7 +551,7 @@ export function isNonModifiable(volumeManager, entry) {
         }
         return false;
     }
-    if (volumeType === VolumeManagerCommon.RootType.ANDROID_FILES) {
+    if (volumeType === VolumeType.ANDROID_FILES) {
         if (!entry.isDirectory) {
             return false;
         }
@@ -567,10 +568,10 @@ export function isNonModifiable(volumeManager, entry) {
         }
         return false;
     }
-    if (volumeType === VolumeManagerCommon.RootType.CROSTINI) {
+    if (volumeType === VolumeType.CROSTINI) {
         return entry.fullPath === '/';
     }
-    if (volumeType === VolumeManagerCommon.RootType.GUEST_OS) {
+    if (volumeType === VolumeType.GUEST_OS) {
         return entry.fullPath === '/';
     }
     return false;
@@ -595,7 +596,7 @@ export function readEntriesRecursively(rootEntry, entriesCallback, successCallba
     const maybeRunCallback = () => {
         if (numRunningTasks === 0) {
             if (shouldStop()) {
-                errorCallback(createDOMError(util.FileError.ABORT_ERR));
+                errorCallback(createDOMError(FileErrorToDomError.ABORT_ERR));
             }
             else if (error) {
                 errorCallback(error);
@@ -641,23 +642,14 @@ export function readEntriesRecursively(rootEntry, entriesCallback, successCallba
  * returns false if it's FakeEntry or any one of the FilesAppEntry types.
  */
 export function isNativeEntry(entry) {
-    return !('type_name' in entry);
+    return !('typeName' in entry);
 }
 export function unwrapEntry(entry) {
     if (!entry) {
         return entry;
     }
     const nativeEntry = 'getNativeEntry' in entry && entry.getNativeEntry();
-    if (nativeEntry) {
-        if (isDirectoryEntry(nativeEntry)) {
-            return nativeEntry;
-        }
-        return nativeEntry;
-    }
-    if (isDirectoryEntry(entry)) {
-        return entry;
-    }
-    return entry;
+    return nativeEntry || entry;
 }
 /**
  * Used for logs and debugging. It tries to tell what type is the entry, its
@@ -724,19 +716,14 @@ export function getODFSMetadataQueryEntry(odfsVolumeInfo) {
  */
 export function isInteractiveVolume(volumeInfo) {
     const state = getStore().getState();
-    const volumes = state.volumes;
-    if (!volumes) {
-        console.error('Expected volumes to exist in the store.');
-        return true;
-    }
-    const volume = volumes[volumeInfo.volumeId];
+    const volume = state.volumes[volumeInfo.volumeId];
     if (!volume) {
-        console.error('Expected volume to be in the store.');
+        console.warn('Expected volume to be in the store.');
         return true;
     }
     return volume.isInteractive;
 }
-export const isOneDriveId = (providerId) => providerId === constants.ODFS_EXTENSION_ID;
+export const isOneDriveId = (providerId) => providerId === ODFS_EXTENSION_ID;
 export function isOneDrive(volumeInfo) {
     return isOneDriveId(volumeInfo?.providerId);
 }
@@ -745,7 +732,93 @@ export function isOneDrive(volumeInfo) {
  * ANDROID_FILES type volume can also be a GuestOs volume if ARCVM is enabled.
  */
 export function isGuestOs(type) {
-    return type === VolumeManagerCommon.VolumeType.GUEST_OS ||
-        (type === VolumeManagerCommon.VolumeType.ANDROID_FILES &&
-            isArcVmEnabled());
+    return type === VolumeType.GUEST_OS ||
+        (type === VolumeType.ANDROID_FILES && isArcVmEnabled());
+}
+/**
+ * Returns true if fileData's entry supports the "shared" feature, as in,
+ * displays a shared icon. It's only supported inside "My Drive" or
+ * "Computers", even Shared Drive does not support it, the "My Drive" and
+ * "Computers" itself don't support it either, only their children.
+ *
+ * Note: if the return value is true, fileData's entry is guaranteed to be
+ * native Entry type.
+ */
+export function shouldSupportDriveSpecificIcons(fileData) {
+    return (isEntryInsideMyDrive(fileData) && !isVolumeEntry(fileData.entry)) ||
+        (isEntryInsideComputers(fileData) &&
+            !isGrandRootEntryInDrives(fileData.entry));
+}
+/**
+ * Extracts the `entry` from the supplied `treeItem` depending on if the new
+ * directory tree is enabled or not.
+ */
+export function getTreeItemEntry(treeItem) {
+    if (!treeItem) {
+        return null;
+    }
+    if (isNewDirectoryTreeEnabled()) {
+        const item = treeItem;
+        const state = getStore().getState();
+        return getEntry(state, item.dataset['navigationKey']);
+    }
+    const item = treeItem;
+    return item.entry;
+}
+/**
+ * Check if the entry support `getUiChildren()` method.
+ */
+export function isEntrySupportUiChildren(entry) {
+    return 'getUiChildren' in entry;
+}
+/**
+ * A generator version of `entry.readEntries`.
+ *
+ * Example usage:
+ * ```
+ * const childEntries = []
+ * for await (const partialEntries of readEntries(...)) {
+     childEntries.push(...partialEntries);
+  }
+ * ```
+ */
+export async function* readEntries(entry) {
+    const ls = (reader) => {
+        return new Promise((resolve, reject) => {
+            reader.readEntries(results => resolve(results), error => reject(error));
+        });
+    };
+    const reader = entry.createReader();
+    while (true) {
+        const entries = await ls(reader);
+        if (entries.length === 0) {
+            break;
+        }
+        yield entries;
+    }
+    // The final return here is void.
+}
+/**
+ * Check if the given entry is scannable or not, e.g. can we call `readEntries`
+ * on it. If the return value is true, its type is guaranteed to be a Directory
+ * like entry.
+ */
+export function isEntryScannable(entry) {
+    if (!entry) {
+        return false;
+    }
+    if (!entry.isDirectory) {
+        return false;
+    }
+    if ('disabled' in entry && entry.disabled) {
+        return false;
+    }
+    const entryKeysWithoutChildren = new Set([
+        recentRootKey,
+        trashRootKey,
+    ]);
+    if (entryKeysWithoutChildren.has(entry.toURL())) {
+        return false;
+    }
+    return true;
 }

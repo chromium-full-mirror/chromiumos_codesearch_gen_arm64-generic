@@ -116,7 +116,7 @@ class TorqueGeneratedJSFunction : public P {
 
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-function.tq?l=34&c=26
   static constexpr int kCodeOffset = P::kHeaderSize;
-  static constexpr int kCodeOffsetEnd = kCodeOffset + kIndirectPointerSlotSize - 1;
+  static constexpr int kCodeOffsetEnd = kCodeOffset + kIndirectPointerSize - 1;
   static constexpr int kStartOfStrongFieldsOffset = kCodeOffsetEnd + 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-function.tq?l=36&c=3
   static constexpr int kSharedFunctionInfoOffset = kCodeOffsetEnd + 1;

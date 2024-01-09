@@ -2,18 +2,25 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { BrowserProxy } from './browser_proxy.js';
-function initialize() {
+let browserProxy = null;
+// Wait for the external script to be loaded, before establishing a mojo
+// connection with the browser process. The browser process will be the one
+// driving the events after that.
+initializeExternalScript().then(() => {
+    if (!browserProxy) {
+        browserProxy = new BrowserProxy(requestSurvey);
+    }
+});
+function initializeExternalScript() {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src =
         'https://www.gstatic.com/feedback/js/help/prod/service/lazy.min.js';
-    script.onload = async function () {
-        const { apiKey } = await BrowserProxy.getInstance().handler.getApiKey();
-        requestSurvey(apiKey);
-    };
+    const loaded = new Promise(r => script.onload = r);
     document.head.appendChild(script);
+    return loaded;
 }
-function requestSurvey(apiKey) {
+async function requestSurvey(apiKey, triggerId, enableTesting, languageList, productSpecificDataJson) {
     // Provide a dummy window size, such that the survey renders at its desired
     // size. The actual dialog will be resized to the survey provided size
     // transparently.
@@ -24,14 +31,14 @@ function requestSurvey(apiKey) {
     const surveyListener = {
         // Provide survey state to the WebContentsObserver via URL fragments.
         surveyClosed: function () {
-            history.pushState('', '', '#close');
+            browserProxy.handler.onSurveyClosed();
         },
         surveyPositioning: function (_, size, animationSpec) {
             // Delay sending a loaded signal to the browser until the initial
             // animation has completed.
             if (!loadedSent) {
                 setTimeout(function () {
-                    history.pushState('', '', '#loaded');
+                    browserProxy.handler.onSurveyLoaded();
                 }, animationSpec.duration * 1000);
                 loadedSent = true;
             }
@@ -47,14 +54,13 @@ function requestSurvey(apiKey) {
             };
         },
     };
-    const params = new URLSearchParams(window.location.search);
     helpApi.requestSurvey({
-        triggerId: params.get('trigger_id'),
-        enableTestingMode: !!params.get('enable_testing'),
-        preferredSurveyLanguageList: JSON.parse(decodeURIComponent(params.get('languages'))),
+        triggerId: triggerId,
+        enableTestingMode: enableTesting,
+        preferredSurveyLanguageList: languageList,
         callback: (requestSurveyCallbackParam) => {
             if (!requestSurveyCallbackParam.surveyData) {
-                history.pushState('', '', '#close');
+                browserProxy.handler.onSurveyClosed();
                 return;
             }
             helpApi.presentSurvey({
@@ -67,10 +73,9 @@ function requestSurvey(apiKey) {
                     '/branding/product/2x/chrome_48dp.png',
                 listener: surveyListener,
                 productData: {
-                    customData: JSON.parse(decodeURIComponent(params.get('product_specific_data'))),
+                    customData: productSpecificDataJson,
                 },
             });
         },
     });
 }
-window.initializeHats = initialize;

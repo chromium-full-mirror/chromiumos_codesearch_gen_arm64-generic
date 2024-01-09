@@ -25,12 +25,6 @@ export function isGuestOsEnabled() {
     return isFlagEnabled('GUEST_OS');
 }
 /**
- * Returns true if Jelly flag is enabled.
- */
-export function isJellyEnabled() {
-    return isFlagEnabled('JELLY');
-}
-/**
  * Returns true if the cros-components flag is enabled.
  */
 export function isCrosComponentsEnabled() {
@@ -50,18 +44,6 @@ export function isGoogleOneOfferFilesBannerEligibleAndEnabled() {
  */
 export function isSinglePartitionFormatEnabled() {
     return isFlagEnabled('FILES_SINGLE_PARTITION_FORMAT_ENABLED');
-}
-/**
- * Returns true if InlineSyncStatus feature flag is enabled.
- */
-export function isInlineSyncStatusEnabled() {
-    return isFlagEnabled('INLINE_SYNC_STATUS');
-}
-/**
- * Returns true if FilesDriveShortcuts flag is enabled.
- */
-export function isDriveShortcutsEnabled() {
-    return isFlagEnabled('DRIVE_SHORTCUTS');
 }
 /**
  * Returns whether the DriveFsBulkPinning feature flag is enabled.

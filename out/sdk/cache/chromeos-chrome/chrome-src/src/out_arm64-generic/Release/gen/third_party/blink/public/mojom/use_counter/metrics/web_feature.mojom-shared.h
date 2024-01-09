@@ -2724,7 +2724,7 @@ enum class WebFeature : int32_t {
   
   kGamepadButtons = 1965,
   
-  kDispatchMouseEventOnDisabledFormControl = 1967,
+  kOBSOLETE_DispatchMouseEventOnDisabledFormControl = 1967,
   
   kElementNameDOMInvalidHTMLParserValid = 1968,
   
@@ -3302,7 +3302,7 @@ enum class WebFeature : int32_t {
   
   kFilterAsContainingBlockMayChangeOutput = 2320,
   
-  kDispatchMouseUpDownEventOnDisabledFormControl = 2321,
+  kOBSOLETE_DispatchMouseUpDownEventOnDisabledFormControl = 2321,
   
   kCSSSelectorPseudoIs = 2322,
   
@@ -4156,7 +4156,7 @@ enum class WebFeature : int32_t {
   
   kCSSValueAppearanceTextFieldForTemporalRendered = 2823,
   
-  kAdClickNavigation = 2826,
+  kOBSOLETE_AdClickNavigation = 2826,
   
   kRTCStatsRelativePacketArrivalDelay = 2827,
   
@@ -6348,9 +6348,9 @@ enum class WebFeature : int32_t {
   
   kOBSOLETE_ExecCommandWithTrustedTypes = 3970,
   
-  kCSSSelectorPseudoHasInSnapshotProfile = 3971,
+  kOBSOLETE_CSSSelectorPseudoHasInSnapshotProfile = 3971,
   
-  kCSSSelectorPseudoHasInLiveProfile = 3972,
+  kOBSOLETE_CSSSelectorPseudoHasInLiveProfile = 3972,
   
   kNavigatorPdfViewerEnabled = 3973,
   
@@ -6848,11 +6848,11 @@ enum class WebFeature : int32_t {
   
   kArrayBufferTooBigForWebAPI = 4223,
   
-  kFedCmRevoke = 4224,
+  kFedCmDisconnect = 4224,
   
-  kFedCmLogout = 4225,
+  kOBSOLETE_FedCmLogout = 4225,
   
-  kFedCmLogoutRps = 4226,
+  kOBSOLETE_FedCmLogoutRps = 4226,
   
   kV8Navigator_DeprecatedReplaceInURN_Method = 4227,
   
@@ -7004,7 +7004,7 @@ enum class WebFeature : int32_t {
   
   kClientHintsMetaEquivDelegateCH = 4301,
   
-  kExpectCTHeader = 4302,
+  kOBSOLETE_ExpectCTHeader = 4302,
   
   kOBSOLETE_kNavigateEventTransitionWhile = 4303,
   
@@ -7122,7 +7122,7 @@ enum class WebFeature : int32_t {
   
   kDestructiveDocumentWriteAfterModuleScript = 4360,
   
-  kCSSAtSupportsDropInvalidWhileForgivingParsing = 4361,
+  kOBSOLETE_CSSAtSupportsDropInvalidWhileForgivingParsing = 4361,
   
   kPermissionsPolicyUnload = 4362,
   
@@ -7130,7 +7130,7 @@ enum class WebFeature : int32_t {
   
   kClientHintsPrefersReducedMotion = 4364,
   
-  kWakeLockAcquireScreenLockWithoutActivation = 4365,
+  kOBSOLETE_WakeLockAcquireScreenLockWithoutActivation = 4365,
   
   kInteractiveWidgetOverlaysContent = 4366,
   
@@ -7280,9 +7280,9 @@ enum class WebFeature : int32_t {
   
   kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning = 4439,
   
-  kCSSPseudoHasContainsMixOfValidAndInvalid = 4440,
+  kOBSOLETE_kCSSPseudoHasContainsMixOfValidAndInvalid = 4440,
   
-  kCSSPseudoIsWhereContainsMixOfValidAndInvalid = 4441,
+  kOBSOLETE_kCSSPseudoIsWhereContainsMixOfValidAndInvalid = 4441,
   
   kPrivateNetworkAccessFetchedSubFrame = 4442,
   
@@ -7312,7 +7312,7 @@ enum class WebFeature : int32_t {
   
   kParseFromStringIncludeShadows = 4455,
   
-  kWebAppEnableScopeExtensions = 4456,
+  kWebAppManifestScopeExtensions = 4456,
   
   kServiceWorkerBypassFetchHandlerForMainResourceByOriginTrial = 4457,
   
@@ -7322,7 +7322,7 @@ enum class WebFeature : int32_t {
   
   kTopicsAPIFetch = 4460,
   
-  kTopicsAPIXhr = 4461,
+  kOBSOLETE_TopicsAPIXhr = 4461,
   
   kParseFromString = 4462,
   
@@ -7600,8 +7600,6 @@ enum class WebFeature : int32_t {
   
   kCSPEESameOriginBlanketEnforcement = 4599,
   
-  kV8Navigator_GetEnvironmentIntegrity_Method = 4600,
-  
   kSharedDictionaryUsed = 4601,
   
   kSharedDictionaryUsedForNavigation = 4602,
@@ -7636,15 +7634,15 @@ enum class WebFeature : int32_t {
   
   kV8WasmGC = 4617,
   
-  kORBBlockWithoutAnyEventHandler = 4618,
+  kOBSOLETE_ORBBlockWithoutAnyEventHandler = 4618,
   
-  kORBBlockWithOnErrorButWithoutOnLoadEventHandler = 4619,
+  kOBSOLETE_ORBBlockWithOnErrorButWithoutOnLoadEventHandler = 4619,
   
-  kORBBlockWithOnLoadButWithoutOnErrorEventHandler = 4620,
+  kOBSOLETE_ORBBlockWithOnLoadButWithoutOnErrorEventHandler = 4620,
   
-  kORBBlockWithOnLoadAndOnErrorEventHandler = 4621,
+  kOBSOLETE_ORBBlockWithOnLoadAndOnErrorEventHandler = 4621,
   
-  kORBBlockWithAnyEventHandler = 4622,
+  kOBSOLETE_ORBBlockWithAnyEventHandler = 4622,
   
   kV8RTCEncodedVideoFrame_SetMetadata_Method = 4623,
   
@@ -7652,7 +7650,7 @@ enum class WebFeature : int32_t {
   
   kV8RTCEncodedAudioFrame_SetTimestamp_Method = 4625,
   
-  kCSSAtRuleViewTransitions = 4626,
+  kCSSAtRuleViewTransition = 4626,
   
   kSharedDictionaryUsedWithSharedBrotli = 4627,
   
@@ -7716,7 +7714,7 @@ enum class WebFeature : int32_t {
   
   kLineBreakPhrase = 4657,
   
-  kAttributionReportingUnderscorePrefixedFilterKey = 4658,
+  kOBSOLETE_AttributionReportingUnderscorePrefixedFilterKey = 4658,
   
   kPercentOrCalcStickyUsedOffset = 4659,
   
@@ -7788,9 +7786,143 @@ enum class WebFeature : int32_t {
   
   kThirdPartyCookieAccessBlockByExperiment = 4693,
   
-  kNumberOfFeatures = 4694,
+  kCspWouldBlockIfWildcardDoesNotMatchWs = 4694,
+  
+  kCspWouldBlockIfWildcardDoesNotMatchFtp = 4695,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies = 4696,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_all = 4697,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_sessionStorage = 4698,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_sessionStorage_Use = 4699,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_localStorage = 4700,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_localStorage_Use = 4701,
+  
+  kElementCheckVisibilityOptionCheckVisibilityCSS = 4702,
+  
+  kElementCheckVisibilityOptionCheckOpacity = 4703,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_indexedDB = 4704,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_indexedDB_Use = 4705,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_locks = 4706,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_locks_Use = 4707,
+  
+  kRubyElementWithDisplayBlockAndRt = 4708,
+  
+  kCSSDeclarationAfterNestedRule = 4709,
+  
+  kThirdPartyCookieAdAccessBlockByExperiment = 4710,
+  
+  kServiceWorkerStaticRouter_AddRoutes = 4711,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_caches = 4712,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_caches_Use = 4713,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_getDirectory = 4714,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_getDirectory_Use = 4715,
+  
+  kElementCheckVisibilityOptionContentVisibilityAuto = 4716,
+  
+  kElementCheckVisibilityOptionOpacityProperty = 4717,
+  
+  kElementCheckVisibilityOptionVisibilityProperty = 4718,
+  
+  kAdClickMainFrameNavigation = 4719,
+  
+  kLinkRelPrivacyPolicy = 4720,
+  
+  kLinkRelTermsOfService = 4721,
+  
+  kWebAppManifestIdField = 4722,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_estimate = 4723,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_estimate_Use = 4724,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_createObjectURL = 4725,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_createObjectURL_Use = 4726,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_revokeObjectURL = 4727,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_revokeObjectURL_Use = 4728,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_BroadcastChannel = 4729,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_BroadcastChannel_Use = 4730,
+  
+  kThirdPartyCookieDeprecation_AllowByExplicitSetting = 4731,
+  
+  kThirdPartyCookieDeprecation_AllowByGlobalSetting = 4732,
+  
+  kThirdPartyCookieDeprecation_AllowBy3PCDMetadata = 4733,
+  
+  kThirdPartyCookieDeprecation_AllowBy3PCD = 4734,
+  
+  kThirdPartyCookieDeprecation_AllowBy3PCDHeuristics = 4735,
+  
+  kThirdPartyCookieDeprecation_AllowByStorageAccess = 4736,
+  
+  kThirdPartyCookieDeprecation_AllowByTopLevelStorageAccess = 4737,
+  
+  kIframeAdAuctionHeadersAttribute = 4738,
+  
+  kAutoSpeculationRulesOptedOut = 4739,
+  
+  kOverrideFlashEmbedwithHTML = 4740,
+  
+  kLinkRelOpener = 4741,
+  
+  kLinkRelOpenerTargetingSameFrame = 4742,
+  
+  kCSSSelectorPseudoHas = 4743,
+  
+  kWakeLockAcquireScreenLockWithoutStickyActivation = 4744,
+  
+  kSubtleCryptoDeriveBitsZeroLength = 4745,
+  
+  kSubtleCryptoDeriveBitsTruncation = 4746,
+  
+  kTextDirectiveInShadowDOM = 4747,
+  
+  kPseudoFirstLetterOnRt = 4748,
+  
+  kPseudoFirstLineOnRt = 4749,
+  
+  kAutoSizesLazy = 4750,
+  
+  kAutoSizesNonLazy = 4751,
+  
+  kTrustedTypesIntrospection = 4752,
+  
+  kTrustedTypesIsCheck = 4753,
+  
+  kMouseDragOnCancelledMouseMove = 4754,
+  
+  kFedCmDomainHint = 4755,
+  
+  kLCPImageWasLazy = 4756,
+  
+  kEventTargetOnObservable = 4757,
+  
+  kCredentialManagerCrossOriginPublicKeyCreateRequest = 4758,
+  
+  kViewTransitionNameAuto = 4759,
+  
+  kV8WasmJavaScriptPromiseIntegration = 4760,
+  
+  kNumberOfFeatures = 4761,
   kMinValue = 0,
-  kMaxValue = 4694,
+  kMaxValue = 4761,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, WebFeature value);

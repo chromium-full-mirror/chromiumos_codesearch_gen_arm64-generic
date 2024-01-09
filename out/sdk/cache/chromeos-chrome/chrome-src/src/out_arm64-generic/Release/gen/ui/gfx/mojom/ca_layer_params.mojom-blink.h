@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/gfx/mojom/ca_layer_params.mojom-features.h"
 #include "ui/gfx/mojom/ca_layer_params.mojom-shared.h"
 #include "ui/gfx/mojom/ca_layer_params.mojom-blink-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink.h"
@@ -66,17 +67,17 @@ class  CALayerContent {
   // Construct an instance holding |ca_context_id|.
   static CALayerContentPtr
   NewCaContextId(
-      uint32_t ca_context_id) {
+      uint32_t value) {
     auto result = CALayerContentPtr(absl::in_place);
-    result->set_ca_context_id(std::move(ca_context_id));
+    result->set_ca_context_id(std::move(value));
     return result;
   }
   // Construct an instance holding |io_surface_mach_port|.
   static CALayerContentPtr
   NewIoSurfaceMachPort(
-      ::mojo::PlatformHandle io_surface_mach_port) {
+      ::mojo::PlatformHandle value) {
     auto result = CALayerContentPtr(absl::in_place);
-    result->set_io_surface_mach_port(std::move(io_surface_mach_port));
+    result->set_io_surface_mach_port(std::move(value));
     return result;
   }
 

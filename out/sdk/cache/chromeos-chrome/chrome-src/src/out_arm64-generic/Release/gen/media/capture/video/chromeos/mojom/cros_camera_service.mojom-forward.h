@@ -29,9 +29,9 @@ enum class CameraPrivacySwitchState : int32_t;
 enum class CameraAutoFramingState : int32_t;
 class CameraHalDispatcher;
 
-class CameraHalServer;
+class CrosCameraServiceObserver;
 
-class CameraHalServerCallbacks;
+class CrosCameraService;
 
 
 

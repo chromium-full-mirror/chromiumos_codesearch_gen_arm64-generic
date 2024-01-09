@@ -72,6 +72,8 @@ NOINLINE static const char* PermissionNameToStringHelper(PermissionName value) {
       return "DISPLAY_CAPTURE";
     case PermissionName::TOP_LEVEL_STORAGE_ACCESS:
       return "TOP_LEVEL_STORAGE_ACCESS";
+    case PermissionName::CAPTURED_SURFACE_CONTROL:
+      return "CAPTURED_SURFACE_CONTROL";
     default:
       return nullptr;
   }
@@ -453,6 +455,70 @@ bool PermissionService_HasPermission_ResponseParams_Data::Validate(
 }
 
 PermissionService_HasPermission_ResponseParams_Data::PermissionService_HasPermission_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data* object =
+      static_cast<const PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->permissions, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& permissions_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->permissions, validation_context,
+                                         &permissions_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data::PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data* object =
+      static_cast<const PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& statuses_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::PermissionStatus_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->statuses, validation_context,
+                                         &statuses_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data::PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

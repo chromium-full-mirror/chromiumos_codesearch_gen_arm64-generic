@@ -89,9 +89,11 @@ export class CookieIssue extends Issue {
      * can uniquely identify a specific cookie issue.
      * warningReasons is only needed for some CookieExclusionReason in order to determine if an issue should be raised.
      * It is not required if reason is a CookieWarningReason.
+     *
+     * The issue code will be mapped to a CookieIssueSubCategory enum for metric purpose.
      */
     static codeForCookieIssueDetails(reason, warningReasons, operation, cookieUrl) {
-        const isURLSecure = cookieUrl && (cookieUrl.startsWith('https://') || cookieUrl.startsWith('wss://'));
+        const isURLSecure = cookieUrl && (Common.ParsedURL.schemeIs(cookieUrl, 'https:') || Common.ParsedURL.schemeIs(cookieUrl, 'wss:'));
         const secure = isURLSecure ? 'Secure' : 'Insecure';
         if (reason === "ExcludeSameSiteStrict" /* Protocol.Audits.CookieExclusionReason.ExcludeSameSiteStrict */ ||
             reason === "ExcludeSameSiteLax" /* Protocol.Audits.CookieExclusionReason.ExcludeSameSiteLax */ ||
@@ -188,6 +190,15 @@ export class CookieIssue extends Issue {
             return [];
         }
         return CookieIssue.createIssuesFromCookieIssueDetails(cookieIssueDetails, issuesModel);
+    }
+    static getSubCategory(code) {
+        if (code.includes('SameSite') || code.includes('Downgrade')) {
+            return "SameSiteCookie" /* CookieIssueSubCategory.SameSiteCookie */;
+        }
+        if (code.includes('ThirdPartyPhaseout')) {
+            return "ThirdPartyPhaseoutCookie" /* CookieIssueSubCategory.ThirdPartyPhaseoutCookie */;
+        }
+        return "GenericCookie" /* CookieIssueSubCategory.GenericCookie */;
     }
 }
 /**
@@ -367,35 +378,35 @@ const excludeDomainNonAscii = {
     file: 'cookieExcludeDomainNonAscii.md',
     links: [],
 };
-const excludeBlockedWithinFirstPartySet = {
-    file: 'cookieExcludeBlockedWithinFirstPartySet.md',
+const excludeBlockedWithinRelatedWebsiteSet = {
+    file: 'cookieExcludeBlockedWithinRelatedWebsiteSet.md',
     links: [],
 };
 const cookieWarnThirdPartyPhaseoutSet = {
     file: 'cookieWarnThirdPartyPhaseoutSet.md',
     links: [{
-            link: 'https://developer.chrome.com/docs/privacy-sandbox/third-party-cookie-phase-out/',
+            link: 'https://goo.gle/3pcd-dev-issue',
             linkTitle: i18nLazyString(UIStrings.thirdPartyPhaseoutExplained),
         }],
 };
 const cookieWarnThirdPartyPhaseoutRead = {
     file: 'cookieWarnThirdPartyPhaseoutRead.md',
     links: [{
-            link: 'https://developer.chrome.com/docs/privacy-sandbox/third-party-cookie-phase-out/',
+            link: 'https://goo.gle/3pcd-dev-issue',
             linkTitle: i18nLazyString(UIStrings.thirdPartyPhaseoutExplained),
         }],
 };
 const cookieExcludeThirdPartyPhaseoutSet = {
     file: 'cookieExcludeThirdPartyPhaseoutSet.md',
     links: [{
-            link: 'https://developer.chrome.com/docs/privacy-sandbox/third-party-cookie-phase-out/',
+            link: 'https://goo.gle/3pcd-dev-issue',
             linkTitle: i18nLazyString(UIStrings.thirdPartyPhaseoutExplained),
         }],
 };
 const cookieExcludeThirdPartyPhaseoutRead = {
     file: 'cookieExcludeThirdPartyPhaseoutRead.md',
     links: [{
-            link: 'https://developer.chrome.com/docs/privacy-sandbox/third-party-cookie-phase-out/',
+            link: 'https://goo.gle/3pcd-dev-issue',
             linkTitle: i18nLazyString(UIStrings.thirdPartyPhaseoutExplained),
         }],
 };
@@ -440,12 +451,12 @@ const issueDescriptions = new Map([
     ['CookieIssue::ExcludeDomainNonASCII::ReadCookie', excludeDomainNonAscii],
     ['CookieIssue::ExcludeDomainNonASCII::SetCookie', excludeDomainNonAscii],
     [
-        'CookieIssue::ExcludeThirdPartyCookieBlockedInFirstPartySet::ReadCookie',
-        excludeBlockedWithinFirstPartySet,
+        'CookieIssue::ExcludeThirdPartyCookieBlockedInRelatedWebsiteSet::ReadCookie',
+        excludeBlockedWithinRelatedWebsiteSet,
     ],
     [
-        'CookieIssue::ExcludeThirdPartyCookieBlockedInFirstPartySet::SetCookie',
-        excludeBlockedWithinFirstPartySet,
+        'CookieIssue::ExcludeThirdPartyCookieBlockedInRelatedWebsiteSet::SetCookie',
+        excludeBlockedWithinRelatedWebsiteSet,
     ],
     ['CookieIssue::WarnThirdPartyPhaseout::ReadCookie', cookieWarnThirdPartyPhaseoutRead],
     ['CookieIssue::WarnThirdPartyPhaseout::SetCookie', cookieWarnThirdPartyPhaseoutSet],

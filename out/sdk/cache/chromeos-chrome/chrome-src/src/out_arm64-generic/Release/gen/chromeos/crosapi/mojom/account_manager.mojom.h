@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/account_manager.mojom-features.h"
 #include "chromeos/crosapi/mojom/account_manager.mojom-shared.h"
 #include "chromeos/crosapi/mojom/account_manager.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -801,17 +802,17 @@ class  AccessTokenResult {
   // Construct an instance holding |access_token_info|.
   static AccessTokenResultPtr
   NewAccessTokenInfo(
-      AccessTokenInfoPtr access_token_info) {
+      AccessTokenInfoPtr value) {
     auto result = AccessTokenResultPtr(absl::in_place);
-    result->set_access_token_info(std::move(access_token_info));
+    result->set_access_token_info(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static AccessTokenResultPtr
   NewError(
-      GoogleServiceAuthErrorPtr error) {
+      GoogleServiceAuthErrorPtr value) {
     auto result = AccessTokenResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1100,7 +1101,7 @@ class  GoogleServiceAuthError {
       int64_t network_error,
       const std::string& error_message,
       GoogleServiceAuthError::InvalidGaiaCredentialsReason invalid_gaia_credentials_reason,
-      const absl::optional<std::string>& token_binding_challenge);
+      const std::optional<std::string>& token_binding_challenge);
 
 
   ~GoogleServiceAuthError();
@@ -1186,7 +1187,7 @@ class  GoogleServiceAuthError {
   
   GoogleServiceAuthError::InvalidGaiaCredentialsReason invalid_gaia_credentials_reason;
   
-  absl::optional<std::string> token_binding_challenge;
+  std::optional<std::string> token_binding_challenge;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

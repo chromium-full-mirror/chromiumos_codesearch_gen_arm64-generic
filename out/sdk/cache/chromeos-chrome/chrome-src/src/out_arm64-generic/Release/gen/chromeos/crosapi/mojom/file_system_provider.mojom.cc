@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -583,14 +584,17 @@ void FileSystemProviderProxy::DeprecatedDeprecatedForwardOperation(
                         "<value of type std::vector<::base::Value>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProvider_DeprecatedDeprecatedForwardOperation_Name, kFlags, 0, 0, nullptr);
@@ -665,14 +669,17 @@ void FileSystemProviderProxy::DeprecatedForwardOperation(
                         "<value of type std::vector<::base::Value>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProvider_DeprecatedForwardOperation_Name, kFlags, 0, 0, nullptr);
@@ -748,14 +755,17 @@ void FileSystemProviderProxy::ForwardOperation(
                         "<value of type ::base::Value::List>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProvider_ForwardOperation_Name, kFlags, 0, 0, nullptr);
@@ -809,7 +819,7 @@ void FileSystemProviderProxy::ForwardOperation(
 }
 
 void FileSystemProviderProxy::ForwardRequest(
-    const std::string& in_provider, const absl::optional<std::string>& in_file_system_id, int64_t in_request_id, int32_t in_histogram_value, const std::string& in_event_name, ::base::Value::List in_args, ForwardRequestCallback callback) {
+    const std::string& in_provider, const std::optional<std::string>& in_file_system_id, int64_t in_request_id, int32_t in_histogram_value, const std::string& in_event_name, ::base::Value::List in_args, ForwardRequestCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::FileSystemProvider::ForwardRequest", "input_parameters",
@@ -820,7 +830,7 @@ void FileSystemProviderProxy::ForwardRequest(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("file_system_id"), in_file_system_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_id"), in_request_id,
                         "<value of type int64_t>");
@@ -835,14 +845,17 @@ void FileSystemProviderProxy::ForwardRequest(
                         "<value of type ::base::Value::List>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProvider_ForwardRequest_Name, kFlags, 0, 0, nullptr);
@@ -904,7 +917,7 @@ void FileSystemProviderProxy::ForwardRequest(
 }
 
 void FileSystemProviderProxy::CancelRequest(
-    const std::string& in_provider, const absl::optional<std::string>& in_file_system_id, int64_t in_request_id) {
+    const std::string& in_provider, const std::optional<std::string>& in_file_system_id, int64_t in_request_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::FileSystemProvider::CancelRequest", "input_parameters",
@@ -915,20 +928,23 @@ void FileSystemProviderProxy::CancelRequest(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("file_system_id"), in_file_system_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_id"), in_request_id,
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProvider_CancelRequest_Name, kFlags, 0, 0, nullptr);
@@ -1056,7 +1072,8 @@ void FileSystemProvider_DeprecatedForwardOperation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProvider_DeprecatedForwardOperation_Name, kFlags, 0, 0, nullptr);
@@ -1174,7 +1191,8 @@ void FileSystemProvider_ForwardOperation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProvider_ForwardOperation_Name, kFlags, 0, 0, nullptr);
@@ -1292,7 +1310,8 @@ void FileSystemProvider_ForwardRequest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProvider_ForwardRequest_Name, kFlags, 0, 0, nullptr);
@@ -1381,7 +1400,7 @@ std::move(p_args));
       
       bool success = true;
       std::string p_provider{};
-      absl::optional<std::string> p_file_system_id{};
+      std::optional<std::string> p_file_system_id{};
       int64_t p_request_id{};
       FileSystemProvider_CancelRequest_ParamsDataView input_data_view(params, message);
       
@@ -1513,7 +1532,7 @@ std::move(p_args), std::move(callback));
       
       bool success = true;
       std::string p_provider{};
-      absl::optional<std::string> p_file_system_id{};
+      std::optional<std::string> p_file_system_id{};
       int64_t p_request_id{};
       int32_t p_histogram_value{};
       std::string p_event_name{};
@@ -1559,18 +1578,18 @@ std::move(p_args), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileSystemProviderValidationInfo[] = {
-    {&internal::FileSystemProvider_DeprecatedDeprecatedForwardOperation_Params_Data::Validate,
+    { &internal::FileSystemProvider_DeprecatedDeprecatedForwardOperation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemProvider_DeprecatedForwardOperation_Params_Data::Validate,
+    { &internal::FileSystemProvider_DeprecatedForwardOperation_Params_Data::Validate,
      &internal::FileSystemProvider_DeprecatedForwardOperation_ResponseParams_Data::Validate},
-    {&internal::FileSystemProvider_ForwardOperation_Params_Data::Validate,
+    { &internal::FileSystemProvider_ForwardOperation_Params_Data::Validate,
      &internal::FileSystemProvider_ForwardOperation_ResponseParams_Data::Validate},
-    {&internal::FileSystemProvider_ForwardRequest_Params_Data::Validate,
+    { &internal::FileSystemProvider_ForwardRequest_Params_Data::Validate,
      &internal::FileSystemProvider_ForwardRequest_ResponseParams_Data::Validate},
-    {&internal::FileSystemProvider_CancelRequest_Params_Data::Validate,
+    { &internal::FileSystemProvider_CancelRequest_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2003,14 +2022,17 @@ void FileSystemProviderServiceProxy::RegisterFileSystemProvider(
                         "<value of type ::mojo::PendingRemote<FileSystemProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_RegisterFileSystemProvider_Name, kFlags, 0, 0, nullptr);
@@ -2049,14 +2071,17 @@ void FileSystemProviderServiceProxy::Mount(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_Mount_Name, kFlags, 0, 0, nullptr);
@@ -2099,14 +2124,17 @@ void FileSystemProviderServiceProxy::Unmount(
                         "<value of type FileSystemIdPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_Unmount_Name, kFlags, 0, 0, nullptr);
@@ -2148,14 +2176,17 @@ void FileSystemProviderServiceProxy::GetAll(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_GetAll_Name, kFlags, 0, 0, nullptr);
@@ -2197,14 +2228,17 @@ void FileSystemProviderServiceProxy::Get(
                         "<value of type FileSystemIdPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_Get_Name, kFlags, 0, 0, nullptr);
@@ -2255,14 +2289,17 @@ void FileSystemProviderServiceProxy::Notify(
                         "<value of type std::vector<FSPChangePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_Notify_Name, kFlags, 0, 0, nullptr);
@@ -2339,14 +2376,17 @@ void FileSystemProviderServiceProxy::DeprecatedOperationFinished(
                         "<value of type std::vector<::base::Value>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_DeprecatedOperationFinished_Name, kFlags, 0, 0, nullptr);
@@ -2413,14 +2453,17 @@ void FileSystemProviderServiceProxy::OperationFinished(
                         "<value of type ::base::Value::List>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_OperationFinished_Name, kFlags, 0, 0, nullptr);
@@ -2482,14 +2525,17 @@ void FileSystemProviderServiceProxy::MountFinished(
                         "<value of type ::base::Value::List>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_MountFinished_Name, kFlags, 0, 0, nullptr);
@@ -2558,14 +2604,17 @@ void FileSystemProviderServiceProxy::ExtensionLoadedDeprecated(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_ExtensionLoadedDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -2643,14 +2692,17 @@ void FileSystemProviderServiceProxy::ExtensionLoaded(
                         "<value of type const ::gfx::ImageSkia&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_ExtensionLoaded_Name, kFlags, 0, 0, nullptr);
@@ -2724,14 +2776,17 @@ void FileSystemProviderServiceProxy::ExtensionUnloaded(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_ExtensionUnloaded_Name, kFlags, 0, 0, nullptr);
@@ -2852,7 +2907,8 @@ void FileSystemProviderService_Mount_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_Mount_Name, kFlags, 0, 0, nullptr);
@@ -2980,7 +3036,8 @@ void FileSystemProviderService_Unmount_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_Unmount_Name, kFlags, 0, 0, nullptr);
@@ -3108,7 +3165,8 @@ void FileSystemProviderService_GetAll_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_GetAll_Name, kFlags, 0, 0, nullptr);
@@ -3238,7 +3296,8 @@ void FileSystemProviderService_Get_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_Get_Name, kFlags, 0, 0, nullptr);
@@ -3362,7 +3421,8 @@ void FileSystemProviderService_Notify_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_Notify_Name, kFlags, 0, 0, nullptr);
@@ -3490,7 +3550,8 @@ void FileSystemProviderService_DeprecatedOperationFinished_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_DeprecatedOperationFinished_Name, kFlags, 0, 0, nullptr);
@@ -3618,7 +3679,8 @@ void FileSystemProviderService_OperationFinished_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_OperationFinished_Name, kFlags, 0, 0, nullptr);
@@ -3746,7 +3808,8 @@ void FileSystemProviderService_MountFinished_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemProviderService_MountFinished_Name, kFlags, 0, 0, nullptr);
@@ -4278,32 +4341,32 @@ std::move(p_args), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileSystemProviderServiceValidationInfo[] = {
-    {&internal::FileSystemProviderService_RegisterFileSystemProvider_Params_Data::Validate,
+    { &internal::FileSystemProviderService_RegisterFileSystemProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemProviderService_Mount_Params_Data::Validate,
+    { &internal::FileSystemProviderService_Mount_Params_Data::Validate,
      &internal::FileSystemProviderService_Mount_ResponseParams_Data::Validate},
-    {&internal::FileSystemProviderService_Unmount_Params_Data::Validate,
+    { &internal::FileSystemProviderService_Unmount_Params_Data::Validate,
      &internal::FileSystemProviderService_Unmount_ResponseParams_Data::Validate},
-    {&internal::FileSystemProviderService_GetAll_Params_Data::Validate,
+    { &internal::FileSystemProviderService_GetAll_Params_Data::Validate,
      &internal::FileSystemProviderService_GetAll_ResponseParams_Data::Validate},
-    {&internal::FileSystemProviderService_Get_Params_Data::Validate,
+    { &internal::FileSystemProviderService_Get_Params_Data::Validate,
      &internal::FileSystemProviderService_Get_ResponseParams_Data::Validate},
-    {&internal::FileSystemProviderService_Notify_Params_Data::Validate,
+    { &internal::FileSystemProviderService_Notify_Params_Data::Validate,
      &internal::FileSystemProviderService_Notify_ResponseParams_Data::Validate},
-    {&internal::FileSystemProviderService_DeprecatedOperationFinished_Params_Data::Validate,
+    { &internal::FileSystemProviderService_DeprecatedOperationFinished_Params_Data::Validate,
      &internal::FileSystemProviderService_DeprecatedOperationFinished_ResponseParams_Data::Validate},
-    {&internal::FileSystemProviderService_ExtensionLoadedDeprecated_Params_Data::Validate,
+    { &internal::FileSystemProviderService_ExtensionLoadedDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemProviderService_ExtensionUnloaded_Params_Data::Validate,
+    { &internal::FileSystemProviderService_ExtensionUnloaded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemProviderService_OperationFinished_Params_Data::Validate,
+    { &internal::FileSystemProviderService_OperationFinished_Params_Data::Validate,
      &internal::FileSystemProviderService_OperationFinished_ResponseParams_Data::Validate},
-    {&internal::FileSystemProviderService_MountFinished_Params_Data::Validate,
+    { &internal::FileSystemProviderService_MountFinished_Params_Data::Validate,
      &internal::FileSystemProviderService_MountFinished_ResponseParams_Data::Validate},
-    {&internal::FileSystemProviderService_ExtensionLoaded_Params_Data::Validate,
+    { &internal::FileSystemProviderService_ExtensionLoaded_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4450,10 +4513,10 @@ void FileSystemProviderInterceptorForTesting::DeprecatedForwardOperation(const s
 void FileSystemProviderInterceptorForTesting::ForwardOperation(const std::string& provider, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardOperationCallback callback) {
   GetForwardingInterface()->ForwardOperation(std::move(provider), std::move(histogram_value), std::move(event_name), std::move(args), std::move(callback));
 }
-void FileSystemProviderInterceptorForTesting::ForwardRequest(const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardRequestCallback callback) {
+void FileSystemProviderInterceptorForTesting::ForwardRequest(const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, ForwardRequestCallback callback) {
   GetForwardingInterface()->ForwardRequest(std::move(provider), std::move(file_system_id), std::move(request_id), std::move(histogram_value), std::move(event_name), std::move(args), std::move(callback));
 }
-void FileSystemProviderInterceptorForTesting::CancelRequest(const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id) {
+void FileSystemProviderInterceptorForTesting::CancelRequest(const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id) {
   GetForwardingInterface()->CancelRequest(std::move(provider), std::move(file_system_id), std::move(request_id));
 }
 FileSystemProviderAsyncWaiter::FileSystemProviderAsyncWaiter(
@@ -4508,7 +4571,7 @@ bool FileSystemProviderAsyncWaiter::ForwardOperation(
 }
 
 void FileSystemProviderAsyncWaiter::ForwardRequest(
-    const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, FSPForwardResult* out_result) {
+    const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args, FSPForwardResult* out_result) {
   base::RunLoop loop;
   proxy_->ForwardRequest(std::move(provider),std::move(file_system_id),std::move(request_id),std::move(histogram_value),std::move(event_name),std::move(args),
       base::BindOnce(
@@ -4524,7 +4587,7 @@ void FileSystemProviderAsyncWaiter::ForwardRequest(
 }
 
 FSPForwardResult FileSystemProviderAsyncWaiter::ForwardRequest(
-    const std::string& provider, const absl::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args) {
+    const std::string& provider, const std::optional<std::string>& file_system_id, int64_t request_id, int32_t histogram_value, const std::string& event_name, ::base::Value::List args) {
   FSPForwardResult async_wait_result;
   ForwardRequest(std::move(provider),std::move(file_system_id),std::move(request_id),std::move(histogram_value),std::move(event_name),std::move(args),&async_wait_result);
   return async_wait_result;

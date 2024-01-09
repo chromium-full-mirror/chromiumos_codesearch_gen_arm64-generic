@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -174,14 +175,17 @@ void DisplayControllerProxy::SetArcPlayStoreEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayController_SetArcPlayStoreEnabled_Name, kFlags, 0, 0, nullptr);
@@ -212,14 +216,17 @@ void DisplayControllerProxy::SetDeviceAppsEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayController_SetDeviceAppsEnabled_Name, kFlags, 0, 0, nullptr);
@@ -250,14 +257,17 @@ void DisplayControllerProxy::SetRelatedInfoEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayController_SetRelatedInfoEnabled_Name, kFlags, 0, 0, nullptr);
@@ -288,14 +298,17 @@ void DisplayControllerProxy::SetAndroidAppList(
                         "<value of type const std::vector<::ash::assistant::AndroidAppInfo>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayController_SetAndroidAppList_Name, kFlags, 0, 0, nullptr);
@@ -463,16 +476,16 @@ bool DisplayControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDisplayControllerValidationInfo[] = {
-    {&internal::DisplayController_SetArcPlayStoreEnabled_Params_Data::Validate,
+    { &internal::DisplayController_SetArcPlayStoreEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayController_SetDeviceAppsEnabled_Params_Data::Validate,
+    { &internal::DisplayController_SetDeviceAppsEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayController_SetRelatedInfoEnabled_Params_Data::Validate,
+    { &internal::DisplayController_SetRelatedInfoEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayController_SetAndroidAppList_Params_Data::Validate,
+    { &internal::DisplayController_SetAndroidAppList_Params_Data::Validate,
      nullptr /* no response */},
 };
 

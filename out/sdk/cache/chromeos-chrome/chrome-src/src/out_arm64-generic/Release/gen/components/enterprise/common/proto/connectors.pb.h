@@ -74,6 +74,12 @@ extern ContentAnalysisResponse_Result_CustomMessageDefaultTypeInternal _ContentA
 class ContentAnalysisResponse_Result_TriggeredRule;
 struct ContentAnalysisResponse_Result_TriggeredRuleDefaultTypeInternal;
 extern ContentAnalysisResponse_Result_TriggeredRuleDefaultTypeInternal _ContentAnalysisResponse_Result_TriggeredRule_default_instance_;
+class ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage;
+struct ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageDefaultTypeInternal;
+extern ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageDefaultTypeInternal _ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage_default_instance_;
+class ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment;
+struct ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegmentDefaultTypeInternal;
+extern ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegmentDefaultTypeInternal _ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment_default_instance_;
 class ContentMetaData;
 struct ContentMetaDataDefaultTypeInternal;
 extern ContentMetaDataDefaultTypeInternal _ContentMetaData_default_instance_;
@@ -92,6 +98,8 @@ template<> ::enterprise_connectors::ContentAnalysisResponse* Arena::CreateMaybeM
 template<> ::enterprise_connectors::ContentAnalysisResponse_Result* Arena::CreateMaybeMessage<::enterprise_connectors::ContentAnalysisResponse_Result>(Arena*);
 template<> ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* Arena::CreateMaybeMessage<::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage>(Arena*);
 template<> ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule* Arena::CreateMaybeMessage<::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule>(Arena*);
+template<> ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* Arena::CreateMaybeMessage<::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage>(Arena*);
+template<> ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* Arena::CreateMaybeMessage<::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment>(Arena*);
 template<> ::enterprise_connectors::ContentMetaData* Arena::CreateMaybeMessage<::enterprise_connectors::ContentMetaData>(Arena*);
 template<> ::enterprise_connectors::ContentMetaData_PrintMetadata* Arena::CreateMaybeMessage<::enterprise_connectors::ContentMetaData_PrintMetadata>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -183,6 +191,25 @@ inline const std::string& ContentAnalysisResponse_Result_Status_Name(T enum_t_va
 }
 bool ContentAnalysisResponse_Result_Status_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ContentAnalysisResponse_Result_Status* value);
+enum ContentAnalysisResponse_Result_StatusErrorMessage : int {
+  ContentAnalysisResponse_Result_StatusErrorMessage_STATUS_ERROR_MESSAGE_UNSPECIFIED = 0,
+  ContentAnalysisResponse_Result_StatusErrorMessage_DECRYPTION_FAILED = 1
+};
+bool ContentAnalysisResponse_Result_StatusErrorMessage_IsValid(int value);
+constexpr ContentAnalysisResponse_Result_StatusErrorMessage ContentAnalysisResponse_Result_StatusErrorMessage_StatusErrorMessage_MIN = ContentAnalysisResponse_Result_StatusErrorMessage_STATUS_ERROR_MESSAGE_UNSPECIFIED;
+constexpr ContentAnalysisResponse_Result_StatusErrorMessage ContentAnalysisResponse_Result_StatusErrorMessage_StatusErrorMessage_MAX = ContentAnalysisResponse_Result_StatusErrorMessage_DECRYPTION_FAILED;
+constexpr int ContentAnalysisResponse_Result_StatusErrorMessage_StatusErrorMessage_ARRAYSIZE = ContentAnalysisResponse_Result_StatusErrorMessage_StatusErrorMessage_MAX + 1;
+
+const std::string& ContentAnalysisResponse_Result_StatusErrorMessage_Name(ContentAnalysisResponse_Result_StatusErrorMessage value);
+template<typename T>
+inline const std::string& ContentAnalysisResponse_Result_StatusErrorMessage_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ContentAnalysisResponse_Result_StatusErrorMessage>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ContentAnalysisResponse_Result_StatusErrorMessage_Name.");
+  return ContentAnalysisResponse_Result_StatusErrorMessage_Name(static_cast<ContentAnalysisResponse_Result_StatusErrorMessage>(enum_t_value));
+}
+bool ContentAnalysisResponse_Result_StatusErrorMessage_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ContentAnalysisResponse_Result_StatusErrorMessage* value);
 enum ContentAnalysisAcknowledgement_Status : int {
   ContentAnalysisAcknowledgement_Status_SUCCESS = 1,
   ContentAnalysisAcknowledgement_Status_INVALID_RESPONSE = 2,
@@ -2249,6 +2276,313 @@ class ContentAnalysisResponse_Result_CustomMessage final :
 };
 // -------------------------------------------------------------------
 
+class ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment) */ {
+ public:
+  inline ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment() : ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment(nullptr) {}
+  ~ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment() override;
+  explicit PROTOBUF_CONSTEXPR ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& from);
+  ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment&& from) noexcept
+    : ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment() {
+    *this = ::std::move(from);
+  }
+
+  inline ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& operator=(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& operator=(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* internal_default_instance() {
+    return reinterpret_cast<const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment*>(
+               &_ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& a, ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& from);
+  void MergeFrom(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment";
+  }
+  protected:
+  explicit ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTextFieldNumber = 1,
+    kLinkFieldNumber = 2,
+  };
+  // optional string text = 1;
+  bool has_text() const;
+  private:
+  bool _internal_has_text() const;
+  public:
+  void clear_text();
+  const std::string& text() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_text(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_text();
+  PROTOBUF_NODISCARD std::string* release_text();
+  void set_allocated_text(std::string* text);
+  private:
+  const std::string& _internal_text() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_text(const std::string& value);
+  std::string* _internal_mutable_text();
+  public:
+
+  // optional string link = 2;
+  bool has_link() const;
+  private:
+  bool _internal_has_link() const;
+  public:
+  void clear_link();
+  const std::string& link() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_link(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_link();
+  PROTOBUF_NODISCARD std::string* release_link();
+  void set_allocated_link(std::string* link);
+  private:
+  const std::string& _internal_link() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_link(const std::string& value);
+  std::string* _internal_mutable_link();
+  public:
+
+  // @@protoc_insertion_point(class_scope:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr link_;
+  friend struct ::TableStruct_components_2fenterprise_2fcommon_2fproto_2fconnectors_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage) */ {
+ public:
+  inline ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage() : ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage(nullptr) {}
+  ~ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage() override;
+  explicit PROTOBUF_CONSTEXPR ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& from);
+  ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage&& from) noexcept
+    : ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage() {
+    *this = ::std::move(from);
+  }
+
+  inline ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& operator=(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& operator=(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* internal_default_instance() {
+    return reinterpret_cast<const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage*>(
+               &_ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& a, ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& from);
+  void MergeFrom(const ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage";
+  }
+  protected:
+  explicit ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageSegmentsFieldNumber = 1,
+  };
+  // repeated .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment message_segments = 1;
+  int message_segments_size() const;
+  private:
+  int _internal_message_segments_size() const;
+  public:
+  void clear_message_segments();
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* mutable_message_segments(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment >*
+      mutable_message_segments();
+  private:
+  const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& _internal_message_segments(int index) const;
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* _internal_add_message_segments();
+  public:
+  const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& message_segments(int index) const;
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* add_message_segments();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment >&
+      message_segments() const;
+
+  // @@protoc_insertion_point(class_scope:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment > message_segments_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_components_2fenterprise_2fcommon_2fproto_2fconnectors_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ContentAnalysisResponse_Result_TriggeredRule final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule) */ {
  public:
@@ -2295,7 +2629,7 @@ class ContentAnalysisResponse_Result_TriggeredRule final :
                &_ContentAnalysisResponse_Result_TriggeredRule_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(ContentAnalysisResponse_Result_TriggeredRule& a, ContentAnalysisResponse_Result_TriggeredRule& b) {
     a.Swap(&b);
@@ -2356,6 +2690,9 @@ class ContentAnalysisResponse_Result_TriggeredRule final :
 
   // nested types ----------------------------------------------------
 
+  typedef ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment CustomRuleMessageSegment;
+  typedef ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage CustomRuleMessage;
+
   typedef ContentAnalysisResponse_Result_TriggeredRule_Action Action;
   static constexpr Action ACTION_UNSPECIFIED =
     ContentAnalysisResponse_Result_TriggeredRule_Action_ACTION_UNSPECIFIED;
@@ -2393,6 +2730,7 @@ class ContentAnalysisResponse_Result_TriggeredRule final :
     kRuleIdFieldNumber = 3,
     kUrlCategoryFieldNumber = 5,
     kCustomMessageFieldNumber = 4,
+    kCustomRuleMessageFieldNumber = 6,
     kActionFieldNumber = 1,
   };
   // optional string rule_name = 2;
@@ -2449,23 +2787,41 @@ class ContentAnalysisResponse_Result_TriggeredRule final :
   std::string* _internal_mutable_url_category();
   public:
 
-  // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4;
-  bool has_custom_message() const;
+  // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_custom_message() const;
   private:
   bool _internal_has_custom_message() const;
   public:
-  void clear_custom_message();
-  const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& custom_message() const;
-  PROTOBUF_NODISCARD ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* release_custom_message();
-  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* mutable_custom_message();
-  void set_allocated_custom_message(::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message);
+  PROTOBUF_DEPRECATED void clear_custom_message();
+  PROTOBUF_DEPRECATED const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& custom_message() const;
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* release_custom_message();
+  PROTOBUF_DEPRECATED ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* mutable_custom_message();
+  PROTOBUF_DEPRECATED void set_allocated_custom_message(::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message);
   private:
   const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& _internal_custom_message() const;
   ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* _internal_mutable_custom_message();
   public:
-  void unsafe_arena_set_allocated_custom_message(
+  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_custom_message(
       ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message);
-  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* unsafe_arena_release_custom_message();
+  PROTOBUF_DEPRECATED ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* unsafe_arena_release_custom_message();
+
+  // optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage custom_rule_message = 6;
+  bool has_custom_rule_message() const;
+  private:
+  bool _internal_has_custom_rule_message() const;
+  public:
+  void clear_custom_rule_message();
+  const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& custom_rule_message() const;
+  PROTOBUF_NODISCARD ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* release_custom_rule_message();
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* mutable_custom_rule_message();
+  void set_allocated_custom_rule_message(::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* custom_rule_message);
+  private:
+  const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& _internal_custom_rule_message() const;
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* _internal_mutable_custom_rule_message();
+  public:
+  void unsafe_arena_set_allocated_custom_rule_message(
+      ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* custom_rule_message);
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* unsafe_arena_release_custom_rule_message();
 
   // optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.Action action = 1;
   bool has_action() const;
@@ -2493,6 +2849,7 @@ class ContentAnalysisResponse_Result_TriggeredRule final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rule_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr url_category_;
   ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message_;
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* custom_rule_message_;
   int action_;
   friend struct ::TableStruct_components_2fenterprise_2fcommon_2fproto_2fconnectors_2eproto;
 };
@@ -2544,7 +2901,7 @@ class ContentAnalysisResponse_Result final :
                &_ContentAnalysisResponse_Result_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(ContentAnalysisResponse_Result& a, ContentAnalysisResponse_Result& b) {
     a.Swap(&b);
@@ -2636,6 +2993,32 @@ class ContentAnalysisResponse_Result final :
     return ContentAnalysisResponse_Result_Status_Parse(name, value);
   }
 
+  typedef ContentAnalysisResponse_Result_StatusErrorMessage StatusErrorMessage;
+  static constexpr StatusErrorMessage STATUS_ERROR_MESSAGE_UNSPECIFIED =
+    ContentAnalysisResponse_Result_StatusErrorMessage_STATUS_ERROR_MESSAGE_UNSPECIFIED;
+  static constexpr StatusErrorMessage DECRYPTION_FAILED =
+    ContentAnalysisResponse_Result_StatusErrorMessage_DECRYPTION_FAILED;
+  static inline bool StatusErrorMessage_IsValid(int value) {
+    return ContentAnalysisResponse_Result_StatusErrorMessage_IsValid(value);
+  }
+  static constexpr StatusErrorMessage StatusErrorMessage_MIN =
+    ContentAnalysisResponse_Result_StatusErrorMessage_StatusErrorMessage_MIN;
+  static constexpr StatusErrorMessage StatusErrorMessage_MAX =
+    ContentAnalysisResponse_Result_StatusErrorMessage_StatusErrorMessage_MAX;
+  static constexpr int StatusErrorMessage_ARRAYSIZE =
+    ContentAnalysisResponse_Result_StatusErrorMessage_StatusErrorMessage_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& StatusErrorMessage_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, StatusErrorMessage>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function StatusErrorMessage_Name.");
+    return ContentAnalysisResponse_Result_StatusErrorMessage_Name(enum_t_value);
+  }
+  static inline bool StatusErrorMessage_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      StatusErrorMessage* value) {
+    return ContentAnalysisResponse_Result_StatusErrorMessage_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -2646,6 +3029,7 @@ class ContentAnalysisResponse_Result final :
     kEvidenceLockerFilepathFieldNumber = 6,
     kCustomMessageFieldNumber = 7,
     kStatusFieldNumber = 2,
+    kStatusErrorMessageFieldNumber = 8,
   };
   // repeated .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule triggered_rules = 3;
   int triggered_rules_size() const;
@@ -2737,23 +3121,23 @@ class ContentAnalysisResponse_Result final :
   std::string* _internal_mutable_evidence_locker_filepath();
   public:
 
-  // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7;
-  bool has_custom_message() const;
+  // optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_custom_message() const;
   private:
   bool _internal_has_custom_message() const;
   public:
-  void clear_custom_message();
-  const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& custom_message() const;
-  PROTOBUF_NODISCARD ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* release_custom_message();
-  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* mutable_custom_message();
-  void set_allocated_custom_message(::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message);
+  PROTOBUF_DEPRECATED void clear_custom_message();
+  PROTOBUF_DEPRECATED const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& custom_message() const;
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* release_custom_message();
+  PROTOBUF_DEPRECATED ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* mutable_custom_message();
+  PROTOBUF_DEPRECATED void set_allocated_custom_message(::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message);
   private:
   const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& _internal_custom_message() const;
   ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* _internal_mutable_custom_message();
   public:
-  void unsafe_arena_set_allocated_custom_message(
+  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_custom_message(
       ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message);
-  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* unsafe_arena_release_custom_message();
+  PROTOBUF_DEPRECATED ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* unsafe_arena_release_custom_message();
 
   // optional .enterprise_connectors.ContentAnalysisResponse.Result.Status status = 2;
   bool has_status() const;
@@ -2766,6 +3150,19 @@ class ContentAnalysisResponse_Result final :
   private:
   ::enterprise_connectors::ContentAnalysisResponse_Result_Status _internal_status() const;
   void _internal_set_status(::enterprise_connectors::ContentAnalysisResponse_Result_Status value);
+  public:
+
+  // optional .enterprise_connectors.ContentAnalysisResponse.Result.StatusErrorMessage status_error_message = 8;
+  bool has_status_error_message() const;
+  private:
+  bool _internal_has_status_error_message() const;
+  public:
+  void clear_status_error_message();
+  ::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage status_error_message() const;
+  void set_status_error_message(::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage value);
+  private:
+  ::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage _internal_status_error_message() const;
+  void _internal_set_status_error_message(::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage value);
   public:
 
   // @@protoc_insertion_point(class_scope:enterprise_connectors.ContentAnalysisResponse.Result)
@@ -2784,6 +3181,7 @@ class ContentAnalysisResponse_Result final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr evidence_locker_filepath_;
   ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message_;
   int status_;
+  int status_error_message_;
   friend struct ::TableStruct_components_2fenterprise_2fcommon_2fproto_2fconnectors_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2834,7 +3232,7 @@ class ContentAnalysisResponse final :
                &_ContentAnalysisResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(ContentAnalysisResponse& a, ContentAnalysisResponse& b) {
     a.Swap(&b);
@@ -3000,7 +3398,7 @@ class ContentAnalysisAcknowledgement final :
                &_ContentAnalysisAcknowledgement_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(ContentAnalysisAcknowledgement& a, ContentAnalysisAcknowledgement& b) {
     a.Swap(&b);
@@ -6371,11 +6769,195 @@ inline void ContentAnalysisResponse_Result_CustomMessage::set_allocated_message(
 
 // -------------------------------------------------------------------
 
+// ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment
+
+// optional string text = 1;
+inline bool ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_internal_has_text() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::has_text() const {
+  return _internal_has_text();
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::clear_text() {
+  text_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::text() const {
+  // @@protoc_insertion_point(field_get:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.text)
+  return _internal_text();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::set_text(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ text_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.text)
+}
+inline std::string* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::mutable_text() {
+  std::string* _s = _internal_mutable_text();
+  // @@protoc_insertion_point(field_mutable:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.text)
+  return _s;
+}
+inline const std::string& ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_internal_text() const {
+  return text_.Get();
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_internal_set_text(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  text_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_internal_mutable_text() {
+  _has_bits_[0] |= 0x00000001u;
+  return text_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::release_text() {
+  // @@protoc_insertion_point(field_release:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.text)
+  if (!_internal_has_text()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = text_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (text_.IsDefault()) {
+    text_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::set_allocated_text(std::string* text) {
+  if (text != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  text_.SetAllocated(text, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (text_.IsDefault()) {
+    text_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.text)
+}
+
+// optional string link = 2;
+inline bool ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_internal_has_link() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::has_link() const {
+  return _internal_has_link();
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::clear_link() {
+  link_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::link() const {
+  // @@protoc_insertion_point(field_get:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.link)
+  return _internal_link();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::set_link(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ link_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.link)
+}
+inline std::string* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::mutable_link() {
+  std::string* _s = _internal_mutable_link();
+  // @@protoc_insertion_point(field_mutable:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.link)
+  return _s;
+}
+inline const std::string& ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_internal_link() const {
+  return link_.Get();
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_internal_set_link(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  link_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::_internal_mutable_link() {
+  _has_bits_[0] |= 0x00000002u;
+  return link_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::release_link() {
+  // @@protoc_insertion_point(field_release:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.link)
+  if (!_internal_has_link()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = link_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (link_.IsDefault()) {
+    link_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment::set_allocated_link(std::string* link) {
+  if (link != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  link_.SetAllocated(link, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (link_.IsDefault()) {
+    link_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment.link)
+}
+
+// -------------------------------------------------------------------
+
+// ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage
+
+// repeated .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessageSegment message_segments = 1;
+inline int ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::_internal_message_segments_size() const {
+  return message_segments_.size();
+}
+inline int ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::message_segments_size() const {
+  return _internal_message_segments_size();
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::clear_message_segments() {
+  message_segments_.Clear();
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::mutable_message_segments(int index) {
+  // @@protoc_insertion_point(field_mutable:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage.message_segments)
+  return message_segments_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment >*
+ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::mutable_message_segments() {
+  // @@protoc_insertion_point(field_mutable_list:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage.message_segments)
+  return &message_segments_;
+}
+inline const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::_internal_message_segments(int index) const {
+  return message_segments_.Get(index);
+}
+inline const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment& ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::message_segments(int index) const {
+  // @@protoc_insertion_point(field_get:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage.message_segments)
+  return _internal_message_segments(index);
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::_internal_add_message_segments() {
+  return message_segments_.Add();
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::add_message_segments() {
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment* _add = _internal_add_message_segments();
+  // @@protoc_insertion_point(field_add:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage.message_segments)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessageSegment >&
+ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage::message_segments() const {
+  // @@protoc_insertion_point(field_list:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage.message_segments)
+  return message_segments_;
+}
+
+// -------------------------------------------------------------------
+
 // ContentAnalysisResponse_Result_TriggeredRule
 
 // optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.Action action = 1;
 inline bool ContentAnalysisResponse_Result_TriggeredRule::_internal_has_action() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool ContentAnalysisResponse_Result_TriggeredRule::has_action() const {
@@ -6383,7 +6965,7 @@ inline bool ContentAnalysisResponse_Result_TriggeredRule::has_action() const {
 }
 inline void ContentAnalysisResponse_Result_TriggeredRule::clear_action() {
   action_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_Action ContentAnalysisResponse_Result_TriggeredRule::_internal_action() const {
   return static_cast< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_Action >(action_);
@@ -6394,7 +6976,7 @@ inline ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_Act
 }
 inline void ContentAnalysisResponse_Result_TriggeredRule::_internal_set_action(::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_Action value) {
   assert(::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_Action_IsValid(value));
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
   action_ = value;
 }
 inline void ContentAnalysisResponse_Result_TriggeredRule::set_action(::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_Action value) {
@@ -6538,7 +7120,7 @@ inline void ContentAnalysisResponse_Result_TriggeredRule::set_allocated_rule_id(
   // @@protoc_insertion_point(field_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.rule_id)
 }
 
-// optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4;
+// optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 4 [deprecated = true];
 inline bool ContentAnalysisResponse_Result_TriggeredRule::_internal_has_custom_message() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || custom_message_ != nullptr);
@@ -6696,6 +7278,96 @@ inline void ContentAnalysisResponse_Result_TriggeredRule::set_allocated_url_cate
   // @@protoc_insertion_point(field_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.url_category)
 }
 
+// optional .enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.CustomRuleMessage custom_rule_message = 6;
+inline bool ContentAnalysisResponse_Result_TriggeredRule::_internal_has_custom_rule_message() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  PROTOBUF_ASSUME(!value || custom_rule_message_ != nullptr);
+  return value;
+}
+inline bool ContentAnalysisResponse_Result_TriggeredRule::has_custom_rule_message() const {
+  return _internal_has_custom_rule_message();
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule::clear_custom_rule_message() {
+  if (custom_rule_message_ != nullptr) custom_rule_message_->Clear();
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& ContentAnalysisResponse_Result_TriggeredRule::_internal_custom_rule_message() const {
+  const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* p = custom_rule_message_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage&>(
+      ::enterprise_connectors::_ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage_default_instance_);
+}
+inline const ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage& ContentAnalysisResponse_Result_TriggeredRule::custom_rule_message() const {
+  // @@protoc_insertion_point(field_get:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.custom_rule_message)
+  return _internal_custom_rule_message();
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule::unsafe_arena_set_allocated_custom_rule_message(
+    ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* custom_rule_message) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_rule_message_);
+  }
+  custom_rule_message_ = custom_rule_message;
+  if (custom_rule_message) {
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.custom_rule_message)
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* ContentAnalysisResponse_Result_TriggeredRule::release_custom_rule_message() {
+  _has_bits_[0] &= ~0x00000010u;
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* temp = custom_rule_message_;
+  custom_rule_message_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* ContentAnalysisResponse_Result_TriggeredRule::unsafe_arena_release_custom_rule_message() {
+  // @@protoc_insertion_point(field_release:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.custom_rule_message)
+  _has_bits_[0] &= ~0x00000010u;
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* temp = custom_rule_message_;
+  custom_rule_message_ = nullptr;
+  return temp;
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* ContentAnalysisResponse_Result_TriggeredRule::_internal_mutable_custom_rule_message() {
+  _has_bits_[0] |= 0x00000010u;
+  if (custom_rule_message_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage>(GetArenaForAllocation());
+    custom_rule_message_ = p;
+  }
+  return custom_rule_message_;
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* ContentAnalysisResponse_Result_TriggeredRule::mutable_custom_rule_message() {
+  ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* _msg = _internal_mutable_custom_rule_message();
+  // @@protoc_insertion_point(field_mutable:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.custom_rule_message)
+  return _msg;
+}
+inline void ContentAnalysisResponse_Result_TriggeredRule::set_allocated_custom_rule_message(::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_CustomRuleMessage* custom_rule_message) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete custom_rule_message_;
+  }
+  if (custom_rule_message) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(custom_rule_message);
+    if (message_arena != submessage_arena) {
+      custom_rule_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, custom_rule_message, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  custom_rule_message_ = custom_rule_message;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.TriggeredRule.custom_rule_message)
+}
+
 // -------------------------------------------------------------------
 
 // ContentAnalysisResponse_Result
@@ -6835,96 +7507,6 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_connectors:
 ContentAnalysisResponse_Result::triggered_rules() const {
   // @@protoc_insertion_point(field_list:enterprise_connectors.ContentAnalysisResponse.Result.triggered_rules)
   return triggered_rules_;
-}
-
-// optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7;
-inline bool ContentAnalysisResponse_Result::_internal_has_custom_message() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
-  PROTOBUF_ASSUME(!value || custom_message_ != nullptr);
-  return value;
-}
-inline bool ContentAnalysisResponse_Result::has_custom_message() const {
-  return _internal_has_custom_message();
-}
-inline void ContentAnalysisResponse_Result::clear_custom_message() {
-  if (custom_message_ != nullptr) custom_message_->Clear();
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& ContentAnalysisResponse_Result::_internal_custom_message() const {
-  const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* p = custom_message_;
-  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage&>(
-      ::enterprise_connectors::_ContentAnalysisResponse_Result_CustomMessage_default_instance_);
-}
-inline const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& ContentAnalysisResponse_Result::custom_message() const {
-  // @@protoc_insertion_point(field_get:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
-  return _internal_custom_message();
-}
-inline void ContentAnalysisResponse_Result::unsafe_arena_set_allocated_custom_message(
-    ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_message_);
-  }
-  custom_message_ = custom_message;
-  if (custom_message) {
-    _has_bits_[0] |= 0x00000010u;
-  } else {
-    _has_bits_[0] &= ~0x00000010u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
-}
-inline ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* ContentAnalysisResponse_Result::release_custom_message() {
-  _has_bits_[0] &= ~0x00000010u;
-  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* temp = custom_message_;
-  custom_message_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* ContentAnalysisResponse_Result::unsafe_arena_release_custom_message() {
-  // @@protoc_insertion_point(field_release:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
-  _has_bits_[0] &= ~0x00000010u;
-  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* temp = custom_message_;
-  custom_message_ = nullptr;
-  return temp;
-}
-inline ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* ContentAnalysisResponse_Result::_internal_mutable_custom_message() {
-  _has_bits_[0] |= 0x00000010u;
-  if (custom_message_ == nullptr) {
-    auto* p = CreateMaybeMessage<::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage>(GetArenaForAllocation());
-    custom_message_ = p;
-  }
-  return custom_message_;
-}
-inline ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* ContentAnalysisResponse_Result::mutable_custom_message() {
-  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* _msg = _internal_mutable_custom_message();
-  // @@protoc_insertion_point(field_mutable:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
-  return _msg;
-}
-inline void ContentAnalysisResponse_Result::set_allocated_custom_message(::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete custom_message_;
-  }
-  if (custom_message) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(custom_message);
-    if (message_arena != submessage_arena) {
-      custom_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, custom_message, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000010u;
-  } else {
-    _has_bits_[0] &= ~0x00000010u;
-  }
-  custom_message_ = custom_message;
-  // @@protoc_insertion_point(field_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
 }
 
 // optional string malware_family = 4;
@@ -7129,6 +7711,125 @@ inline void ContentAnalysisResponse_Result::set_allocated_evidence_locker_filepa
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.evidence_locker_filepath)
+}
+
+// optional .enterprise_connectors.ContentAnalysisResponse.Result.CustomMessage custom_message = 7 [deprecated = true];
+inline bool ContentAnalysisResponse_Result::_internal_has_custom_message() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  PROTOBUF_ASSUME(!value || custom_message_ != nullptr);
+  return value;
+}
+inline bool ContentAnalysisResponse_Result::has_custom_message() const {
+  return _internal_has_custom_message();
+}
+inline void ContentAnalysisResponse_Result::clear_custom_message() {
+  if (custom_message_ != nullptr) custom_message_->Clear();
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& ContentAnalysisResponse_Result::_internal_custom_message() const {
+  const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* p = custom_message_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage&>(
+      ::enterprise_connectors::_ContentAnalysisResponse_Result_CustomMessage_default_instance_);
+}
+inline const ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage& ContentAnalysisResponse_Result::custom_message() const {
+  // @@protoc_insertion_point(field_get:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
+  return _internal_custom_message();
+}
+inline void ContentAnalysisResponse_Result::unsafe_arena_set_allocated_custom_message(
+    ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_message_);
+  }
+  custom_message_ = custom_message;
+  if (custom_message) {
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* ContentAnalysisResponse_Result::release_custom_message() {
+  _has_bits_[0] &= ~0x00000010u;
+  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* temp = custom_message_;
+  custom_message_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* ContentAnalysisResponse_Result::unsafe_arena_release_custom_message() {
+  // @@protoc_insertion_point(field_release:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
+  _has_bits_[0] &= ~0x00000010u;
+  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* temp = custom_message_;
+  custom_message_ = nullptr;
+  return temp;
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* ContentAnalysisResponse_Result::_internal_mutable_custom_message() {
+  _has_bits_[0] |= 0x00000010u;
+  if (custom_message_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage>(GetArenaForAllocation());
+    custom_message_ = p;
+  }
+  return custom_message_;
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* ContentAnalysisResponse_Result::mutable_custom_message() {
+  ::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* _msg = _internal_mutable_custom_message();
+  // @@protoc_insertion_point(field_mutable:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
+  return _msg;
+}
+inline void ContentAnalysisResponse_Result::set_allocated_custom_message(::enterprise_connectors::ContentAnalysisResponse_Result_CustomMessage* custom_message) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete custom_message_;
+  }
+  if (custom_message) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(custom_message);
+    if (message_arena != submessage_arena) {
+      custom_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, custom_message, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  custom_message_ = custom_message;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_connectors.ContentAnalysisResponse.Result.custom_message)
+}
+
+// optional .enterprise_connectors.ContentAnalysisResponse.Result.StatusErrorMessage status_error_message = 8;
+inline bool ContentAnalysisResponse_Result::_internal_has_status_error_message() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool ContentAnalysisResponse_Result::has_status_error_message() const {
+  return _internal_has_status_error_message();
+}
+inline void ContentAnalysisResponse_Result::clear_status_error_message() {
+  status_error_message_ = 0;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage ContentAnalysisResponse_Result::_internal_status_error_message() const {
+  return static_cast< ::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage >(status_error_message_);
+}
+inline ::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage ContentAnalysisResponse_Result::status_error_message() const {
+  // @@protoc_insertion_point(field_get:enterprise_connectors.ContentAnalysisResponse.Result.status_error_message)
+  return _internal_status_error_message();
+}
+inline void ContentAnalysisResponse_Result::_internal_set_status_error_message(::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage value) {
+  assert(::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage_IsValid(value));
+  _has_bits_[0] |= 0x00000040u;
+  status_error_message_ = value;
+}
+inline void ContentAnalysisResponse_Result::set_status_error_message(::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage value) {
+  _internal_set_status_error_message(value);
+  // @@protoc_insertion_point(field_set:enterprise_connectors.ContentAnalysisResponse.Result.status_error_message)
 }
 
 // -------------------------------------------------------------------
@@ -7398,6 +8099,10 @@ inline void ContentAnalysisAcknowledgement::set_final_action(::enterprise_connec
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -7409,6 +8114,7 @@ template <> struct is_proto_enum< ::enterprise_connectors::ContentMetaData_Print
 template <> struct is_proto_enum< ::enterprise_connectors::ContentAnalysisRequest_Reason> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_connectors::ContentAnalysisResponse_Result_TriggeredRule_Action> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_connectors::ContentAnalysisResponse_Result_Status> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_connectors::ContentAnalysisResponse_Result_StatusErrorMessage> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_connectors::ContentAnalysisAcknowledgement_Status> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_connectors::ContentAnalysisAcknowledgement_FinalAction> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_connectors::AnalysisConnector> : ::std::true_type {};

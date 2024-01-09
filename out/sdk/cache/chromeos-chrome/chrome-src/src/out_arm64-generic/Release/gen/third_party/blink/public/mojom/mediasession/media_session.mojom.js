@@ -156,6 +156,7 @@
     this.artist = null;
     this.album = null;
     this.artwork = null;
+    this.chapterInfo = null;
   };
   SpecMediaMetadata.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -171,7 +172,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 40}
+      {version: 0, numBytes: 48}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -201,10 +202,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate SpecMediaMetadata.chapterInfo
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 32, 8, new codec.PointerTo(media_session$.ChapterInformation), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  SpecMediaMetadata.encodedSize = codec.kStructHeaderSize + 32;
+  SpecMediaMetadata.encodedSize = codec.kStructHeaderSize + 40;
 
   SpecMediaMetadata.decode = function(decoder) {
     var packed;
@@ -219,6 +226,8 @@
         decoder.decodeStructPointer(string16$.String16);
     val.artwork =
         decoder.decodeArrayPointer(new codec.PointerTo(media_session$.MediaImage));
+    val.chapterInfo =
+        decoder.decodeArrayPointer(new codec.PointerTo(media_session$.ChapterInformation));
     return val;
   };
 
@@ -230,6 +239,7 @@
     encoder.encodeStructPointer(string16$.String16, val.artist);
     encoder.encodeStructPointer(string16$.String16, val.album);
     encoder.encodeArrayPointer(new codec.PointerTo(media_session$.MediaImage), val.artwork);
+    encoder.encodeArrayPointer(new codec.PointerTo(media_session$.ChapterInformation), val.chapterInfo);
   };
   function MediaSessionClient_DidReceiveAction_Params(values) {
     this.initDefaults_();

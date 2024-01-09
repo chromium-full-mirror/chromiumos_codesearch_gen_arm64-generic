@@ -5,6 +5,7 @@ import { OmniboxElement } from './omnibox_element.js';
 // @ts-ignore:next-line
 import sheet from './omnibox_input.css' assert { type: 'css' };
 export class OmniboxInput extends OmniboxElement {
+    elements;
     constructor() {
         super('omnibox-input-template');
         this.shadowRoot.adoptedStyleSheets = [sheet];

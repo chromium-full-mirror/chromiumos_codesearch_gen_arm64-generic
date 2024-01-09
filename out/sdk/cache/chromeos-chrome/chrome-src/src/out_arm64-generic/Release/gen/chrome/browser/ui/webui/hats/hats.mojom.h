@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/hats/hats.mojom-features.h"
 #include "chrome/browser/ui/webui/hats/hats.mojom-shared.h"
 #include "chrome/browser/ui/webui/hats/hats.mojom-forward.h"
 #include <string>
@@ -89,7 +90,6 @@ template <typename ImplRefTraits>
 class PageHandlerStub;
 
 class PageHandlerRequestValidator;
-class PageHandlerResponseValidator;
 
 
 class PageHandler
@@ -111,24 +111,29 @@ class PageHandler
   using Stub_ = PageHandlerStub<ImplRefTraits>;
 
   using RequestValidator_ = PageHandlerRequestValidator;
-  using ResponseValidator_ = PageHandlerResponseValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
-    kGetApiKeyMinVersion = 0,
+    kOnSurveyLoadedMinVersion = 0,
+    kOnSurveyClosedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct GetApiKey_Sym {
+  struct OnSurveyLoaded_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnSurveyClosed_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~PageHandler() = default;
 
-
-  using GetApiKeyCallback = base::OnceCallback<void(const std::string&)>;
   
-  virtual void GetApiKey(GetApiKeyCallback callback) = 0;
+  virtual void OnSurveyLoaded() = 0;
+
+  
+  virtual void OnSurveyClosed() = 0;
 };
 
 class PageProxy;
@@ -160,13 +165,20 @@ class Page
   using RequestValidator_ = PageRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
+    kRequestSurveyMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct RequestSurvey_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~Page() = default;
+
+  
+  virtual void RequestSurvey(const std::string& api_key, const std::string& trigger_id, bool enable_testing, const std::vector<std::string>& language_list, const std::string& product_specific_data_json) = 0;
 };
 
 
@@ -193,7 +205,9 @@ class  PageHandlerProxy
 
   explicit PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void GetApiKey(GetApiKeyCallback callback) final;
+  void OnSurveyLoaded() final;
+  
+  void OnSurveyClosed() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -207,6 +221,8 @@ class  PageProxy
   using InterfaceType = Page;
 
   explicit PageProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void RequestSurvey(const std::string& api_key, const std::string& trigger_id, bool enable_testing, const std::vector<std::string>& language_list, const std::string& product_specific_data_json) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -343,10 +359,6 @@ class  PageHandlerRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  PageRequestValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
-class  PageHandlerResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

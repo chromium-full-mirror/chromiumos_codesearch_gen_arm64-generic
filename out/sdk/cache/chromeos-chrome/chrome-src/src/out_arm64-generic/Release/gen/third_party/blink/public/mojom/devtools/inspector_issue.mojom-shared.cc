@@ -406,6 +406,10 @@ NOINLINE static const char* FederatedAuthRequestResultToStringHelper(FederatedAu
       return "kErrorFetchingIdTokenNoResponse";
     case FederatedAuthRequestResult::kErrorFetchingIdTokenInvalidResponse:
       return "kErrorFetchingIdTokenInvalidResponse";
+    case FederatedAuthRequestResult::kErrorFetchingIdTokenIdpErrorResponse:
+      return "kErrorFetchingIdTokenIdpErrorResponse";
+    case FederatedAuthRequestResult::kErrorFetchingIdTokenCrossSiteIdpErrorResponse:
+      return "kErrorFetchingIdTokenCrossSiteIdpErrorResponse";
     case FederatedAuthRequestResult::kErrorFetchingIdTokenInvalidContentType:
       return "kErrorFetchingIdTokenInvalidContentType";
     case FederatedAuthRequestResult::kErrorCanceled:

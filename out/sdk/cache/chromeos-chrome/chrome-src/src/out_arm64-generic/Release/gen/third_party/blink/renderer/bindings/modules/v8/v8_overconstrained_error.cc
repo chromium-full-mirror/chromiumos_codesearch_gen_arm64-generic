@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, OverconstrainedError>::value,
     "OverconstrainedError inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&OverconstrainedError::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OverconstrainedError is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("OverconstrainedError.constraint.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OverconstrainedError* blink_receiver = V8OverconstrainedError::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->constraint();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OverconstrainedError* blink_receiver = V8OverconstrainedError::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->constraint();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

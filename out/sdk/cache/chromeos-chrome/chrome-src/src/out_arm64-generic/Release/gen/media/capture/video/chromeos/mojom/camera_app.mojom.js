@@ -2401,6 +2401,200 @@
     encoder.writeUint32(CameraAppDevice_RegisterCameraInfoObserver_ResponseParams.encodedSize);
     encoder.writeUint32(0);
   };
+  function CameraAppDevice_SetCropRegion_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CameraAppDevice_SetCropRegion_Params.prototype.initDefaults_ = function() {
+    this.cropRegion = null;
+  };
+  CameraAppDevice_SetCropRegion_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CameraAppDevice_SetCropRegion_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CameraAppDevice_SetCropRegion_Params.cropRegion
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, geometry$.Rect, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CameraAppDevice_SetCropRegion_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CameraAppDevice_SetCropRegion_Params.decode = function(decoder) {
+    var packed;
+    var val = new CameraAppDevice_SetCropRegion_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.cropRegion =
+        decoder.decodeStructPointer(geometry$.Rect);
+    return val;
+  };
+
+  CameraAppDevice_SetCropRegion_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CameraAppDevice_SetCropRegion_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(geometry$.Rect, val.cropRegion);
+  };
+  function CameraAppDevice_SetCropRegion_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CameraAppDevice_SetCropRegion_ResponseParams.prototype.initDefaults_ = function() {
+  };
+  CameraAppDevice_SetCropRegion_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CameraAppDevice_SetCropRegion_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CameraAppDevice_SetCropRegion_ResponseParams.encodedSize = codec.kStructHeaderSize + 0;
+
+  CameraAppDevice_SetCropRegion_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new CameraAppDevice_SetCropRegion_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  CameraAppDevice_SetCropRegion_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CameraAppDevice_SetCropRegion_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+  };
+  function CameraAppDevice_ResetCropRegion_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CameraAppDevice_ResetCropRegion_Params.prototype.initDefaults_ = function() {
+  };
+  CameraAppDevice_ResetCropRegion_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CameraAppDevice_ResetCropRegion_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CameraAppDevice_ResetCropRegion_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  CameraAppDevice_ResetCropRegion_Params.decode = function(decoder) {
+    var packed;
+    var val = new CameraAppDevice_ResetCropRegion_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  CameraAppDevice_ResetCropRegion_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CameraAppDevice_ResetCropRegion_Params.encodedSize);
+    encoder.writeUint32(0);
+  };
+  function CameraAppDevice_ResetCropRegion_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CameraAppDevice_ResetCropRegion_ResponseParams.prototype.initDefaults_ = function() {
+  };
+  CameraAppDevice_ResetCropRegion_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CameraAppDevice_ResetCropRegion_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CameraAppDevice_ResetCropRegion_ResponseParams.encodedSize = codec.kStructHeaderSize + 0;
+
+  CameraAppDevice_ResetCropRegion_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new CameraAppDevice_ResetCropRegion_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  CameraAppDevice_ResetCropRegion_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CameraAppDevice_ResetCropRegion_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+  };
   function ResultMetadataObserver_OnMetadataAvailable_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -3267,6 +3461,8 @@
   var kCameraAppDevice_RegisterDocumentCornersObserver_Name = 8;
   var kCameraAppDevice_SetMultipleStreamsEnabled_Name = 9;
   var kCameraAppDevice_RegisterCameraInfoObserver_Name = 10;
+  var kCameraAppDevice_SetCropRegion_Name = 11;
+  var kCameraAppDevice_ResetCropRegion_Name = 12;
 
   function CameraAppDevicePtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(CameraAppDevice,
@@ -3561,6 +3757,55 @@
       });
     }.bind(this));
   };
+  CameraAppDevicePtr.prototype.setCropRegion = function() {
+    return CameraAppDeviceProxy.prototype.setCropRegion
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CameraAppDeviceProxy.prototype.setCropRegion = function(cropRegion) {
+    var params_ = new CameraAppDevice_SetCropRegion_Params();
+    params_.cropRegion = cropRegion;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kCameraAppDevice_SetCropRegion_Name,
+          codec.align(CameraAppDevice_SetCropRegion_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(CameraAppDevice_SetCropRegion_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(CameraAppDevice_SetCropRegion_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
+  CameraAppDevicePtr.prototype.resetCropRegion = function() {
+    return CameraAppDeviceProxy.prototype.resetCropRegion
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CameraAppDeviceProxy.prototype.resetCropRegion = function() {
+    var params_ = new CameraAppDevice_ResetCropRegion_Params();
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kCameraAppDevice_ResetCropRegion_Name,
+          codec.align(CameraAppDevice_ResetCropRegion_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(CameraAppDevice_ResetCropRegion_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(CameraAppDevice_ResetCropRegion_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
 
   function CameraAppDeviceStub(delegate) {
     this.delegate_ = delegate;
@@ -3597,6 +3842,12 @@
   }
   CameraAppDeviceStub.prototype.registerCameraInfoObserver = function(observer) {
     return this.delegate_ && this.delegate_.registerCameraInfoObserver && this.delegate_.registerCameraInfoObserver(observer);
+  }
+  CameraAppDeviceStub.prototype.setCropRegion = function(cropRegion) {
+    return this.delegate_ && this.delegate_.setCropRegion && this.delegate_.setCropRegion(cropRegion);
+  }
+  CameraAppDeviceStub.prototype.resetCropRegion = function() {
+    return this.delegate_ && this.delegate_.resetCropRegion && this.delegate_.resetCropRegion();
   }
 
   CameraAppDeviceStub.prototype.accept = function(message) {
@@ -3779,6 +4030,36 @@
         responder.accept(message);
       });
       return true;
+    case kCameraAppDevice_SetCropRegion_Name:
+      var params = reader.decodeStruct(CameraAppDevice_SetCropRegion_Params);
+      this.setCropRegion(params.cropRegion).then(function(response) {
+        var responseParams =
+            new CameraAppDevice_SetCropRegion_ResponseParams();
+        var builder = new codec.MessageV1Builder(
+            kCameraAppDevice_SetCropRegion_Name,
+            codec.align(CameraAppDevice_SetCropRegion_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(CameraAppDevice_SetCropRegion_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
+    case kCameraAppDevice_ResetCropRegion_Name:
+      var params = reader.decodeStruct(CameraAppDevice_ResetCropRegion_Params);
+      this.resetCropRegion().then(function(response) {
+        var responseParams =
+            new CameraAppDevice_ResetCropRegion_ResponseParams();
+        var builder = new codec.MessageV1Builder(
+            kCameraAppDevice_ResetCropRegion_Name,
+            codec.align(CameraAppDevice_ResetCropRegion_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(CameraAppDevice_ResetCropRegion_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -3831,6 +4112,14 @@
       case kCameraAppDevice_RegisterCameraInfoObserver_Name:
         if (message.expectsResponse())
           paramsClass = CameraAppDevice_RegisterCameraInfoObserver_Params;
+      break;
+      case kCameraAppDevice_SetCropRegion_Name:
+        if (message.expectsResponse())
+          paramsClass = CameraAppDevice_SetCropRegion_Params;
+      break;
+      case kCameraAppDevice_ResetCropRegion_Name:
+        if (message.expectsResponse())
+          paramsClass = CameraAppDevice_ResetCropRegion_Params;
       break;
     }
     if (paramsClass === null)
@@ -3885,6 +4174,14 @@
       case kCameraAppDevice_RegisterCameraInfoObserver_Name:
         if (message.isResponse())
           paramsClass = CameraAppDevice_RegisterCameraInfoObserver_ResponseParams;
+        break;
+      case kCameraAppDevice_SetCropRegion_Name:
+        if (message.isResponse())
+          paramsClass = CameraAppDevice_SetCropRegion_ResponseParams;
+        break;
+      case kCameraAppDevice_ResetCropRegion_Name:
+        if (message.isResponse())
+          paramsClass = CameraAppDevice_ResetCropRegion_ResponseParams;
         break;
     }
     if (paramsClass === null)

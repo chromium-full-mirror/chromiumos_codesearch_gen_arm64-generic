@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import { VulkanInfo_Deserialize } from './vulkan_info.mojom-webui.js';
 export class VulkanInfo {
+    vulkanInfo_;
     constructor(base64Data) {
         const array = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
         const dataView = new DataView(array.buffer);

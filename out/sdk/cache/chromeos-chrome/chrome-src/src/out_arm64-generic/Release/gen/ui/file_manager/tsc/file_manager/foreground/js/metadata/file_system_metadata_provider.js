@@ -8,18 +8,14 @@ import { MetadataProvider } from './metadata_provider.js';
  * @final
  */
 export class FileSystemMetadataProvider extends MetadataProvider {
+    static { this.PROPERTY_NAMES = ['modificationTime', 'size', 'present', 'availableOffline']; }
     constructor() {
         super(FileSystemMetadataProvider.PROPERTY_NAMES);
     }
-    /** @override */
-    // @ts-ignore: error TS7006: Parameter 'requests' implicitly has an 'any'
-    // type.
     get(requests) {
         if (!requests.length) {
             return Promise.resolve([]);
         }
-        // @ts-ignore: error TS7006: Parameter 'request' implicitly has an 'any'
-        // type.
         return Promise.all(requests.map(request => {
             return new Promise((fulfill, reject) => {
                 request.entry.getMetadata(fulfill, reject);
@@ -41,6 +37,3 @@ export class FileSystemMetadataProvider extends MetadataProvider {
         }));
     }
 }
-/** @const @type {!Array<string>} */
-FileSystemMetadataProvider.PROPERTY_NAMES =
-    ['modificationTime', 'size', 'present', 'availableOffline'];

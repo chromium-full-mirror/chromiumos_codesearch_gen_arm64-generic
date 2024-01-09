@@ -50,7 +50,7 @@ return execution_context->IsWindow();
 const WrapperTypeInfo V8HTMLFrameSetElement::wrapper_type_info_{
     gin::kEmbedderBlink,
     V8HTMLFrameSetElement::InstallInterfaceTemplate,
-    V8HTMLFrameSetElement::InstallContextDependentProperties,
+    nullptr,
     "HTMLFrameSetElement",
     V8HTMLElement::GetWrapperTypeInfo(),
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLFrameSetElement>::value,
     "HTMLFrameSetElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLFrameSetElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLFrameSetElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.cols.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kColsAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kColsAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -113,10 +108,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.rows.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kRowsAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kRowsAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -137,10 +132,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onblur.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onblur();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onblur();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -153,8 +148,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnblur(event_handler);
 }
 
@@ -165,10 +161,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -181,8 +177,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kOnErrorEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -193,10 +190,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onfocus.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onfocus();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onfocus();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -209,8 +206,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnfocus(event_handler);
 }
 
@@ -221,10 +219,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onload.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onload();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onload();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -237,8 +235,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnload(event_handler);
 }
 
@@ -249,10 +248,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onresize.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresize();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresize();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -265,8 +264,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnresize(event_handler);
 }
 
@@ -277,10 +277,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onscroll.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onscroll();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onscroll();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -293,8 +293,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnscroll(event_handler);
 }
 
@@ -305,10 +306,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onorientationchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onorientationchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onorientationchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -321,8 +322,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnorientationchange(event_handler);
 }
 
@@ -333,10 +335,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onafterprint.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onafterprint();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onafterprint();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -349,8 +351,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnafterprint(event_handler);
 }
 
@@ -361,10 +364,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onbeforeprint.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforeprint();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforeprint();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -377,8 +380,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforeprint(event_handler);
 }
 
@@ -389,10 +393,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onbeforeunload.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforeunload();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforeunload();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -405,8 +409,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kOnBeforeUnloadEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforeunload(event_handler);
 }
 
@@ -417,10 +422,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onhashchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onhashchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onhashchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -433,8 +438,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnhashchange(event_handler);
 }
 
@@ -445,10 +451,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onlanguagechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onlanguagechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onlanguagechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -461,8 +467,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnlanguagechange(event_handler);
 }
 
@@ -473,10 +480,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -489,8 +496,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -501,10 +509,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onmessageerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessageerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessageerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -517,9 +525,39 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessageerror(event_handler);
+}
+
+void OnmoveAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFrameSetElement_onmove_Getter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onmove.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmove();
+bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
+}
+
+void OnmoveAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFrameSetElement_onmove_Setter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onmove.set");
+
+v8::Local<v8::Value> v8_property_value = info[0];
+EventListener* event_handler = JSEventHandler::CreateOrNull(
+    v8_property_value,
+    JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+blink_receiver->setOnmove(event_handler);
 }
 
 void OnofflineAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -529,10 +567,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onoffline.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onoffline();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onoffline();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -545,8 +583,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnoffline(event_handler);
 }
 
@@ -557,10 +596,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.ononline.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ononline();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ononline();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -573,8 +612,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnonline(event_handler);
 }
 
@@ -585,10 +625,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onpagehide.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpagehide();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpagehide();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -601,8 +641,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpagehide(event_handler);
 }
 
@@ -613,10 +654,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onpageshow.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpageshow();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpageshow();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -629,8 +670,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpageshow(event_handler);
 }
 
@@ -641,10 +683,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onpopstate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpopstate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpopstate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -657,37 +699,10 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-blink_receiver->setOnpopstate(event_handler);
-}
-
-void OnportalactivateAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFrameSetElement_onportalactivate_Getter");
-BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onportalactivate.get");
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onportalactivate();
 v8::Isolate* isolate = info.GetIsolate();
-bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
-}
-
-void OnportalactivateAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLFrameSetElement_onportalactivate_Setter");
-BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onportalactivate.set");
-
-v8::Local<v8::Value> v8_property_value = info[0];
-EventListener* event_handler = JSEventHandler::CreateOrNull(
-    v8_property_value,
-    JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-blink_receiver->setOnportalactivate(event_handler);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+blink_receiver->setOnpopstate(event_handler);
 }
 
 void OnrejectionhandledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -697,10 +712,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onrejectionhandled.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onrejectionhandled();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onrejectionhandled();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -713,8 +728,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnrejectionhandled(event_handler);
 }
 
@@ -725,10 +741,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onstorage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstorage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstorage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -741,8 +757,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstorage(event_handler);
 }
 
@@ -753,10 +770,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.ontimezonechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontimezonechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontimezonechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -769,8 +786,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntimezonechange(event_handler);
 }
 
@@ -781,10 +799,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onunhandledrejection.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onunhandledrejection();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onunhandledrejection();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -797,8 +815,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnunhandledrejection(event_handler);
 }
 
@@ -809,10 +828,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLFrameSetElement.onunload.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onunload();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onunload();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -825,8 +844,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(v8_receiver);
+HTMLFrameSetElement* blink_receiver = V8HTMLFrameSetElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnunload(event_handler);
 }
 
@@ -937,6 +957,14 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
+if (RuntimeEnabledFeatures::DesktopPWAsAdditionalWindowingControlsEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"onmove", OnmoveAttributeGetCallback, OnmoveAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
 if (RuntimeEnabledFeatures::TimeZoneChangeEventEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"ontimezonechange", OntimezonechangeAttributeGetCallback, OntimezonechangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -953,27 +981,6 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 
 }
 
-void V8HTMLFrameSetElement::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
-  using bindings::IDLMemberInstaller;
-
-ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
-if ((feature_selector.IsAll() && RuntimeEnabledFeatures::PortalsEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kPortals)) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"onportalactivate", OnportalactivateAttributeGetCallback, OnportalactivateAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
-
-
-
-
-
-
-}
 
 
 }  // namespace blink

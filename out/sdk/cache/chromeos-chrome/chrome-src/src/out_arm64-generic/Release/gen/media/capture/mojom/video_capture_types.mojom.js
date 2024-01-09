@@ -207,6 +207,35 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var CameraAvailability = {};
+  CameraAvailability.kAvailable = 0;
+  CameraAvailability.kUnavailableExclusivelyUsedByOtherApplication = 1;
+  CameraAvailability.MIN_VALUE = 0;
+  CameraAvailability.MAX_VALUE = 1;
+  CameraAvailability.DEFAULT_VALUE = 0;
+
+  CameraAvailability.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+      return true;
+    }
+    return false;
+  };
+
+  CameraAvailability.toKnownEnumValue = function(value) {
+    if (this.isKnownEnumValue(value))
+      return value;
+    return this.DEFAULT_VALUE;
+  };
+
+  CameraAvailability.validate = function(enumValue) {
+    const isExtensible = true;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
   var VideoCaptureApi = {};
   VideoCaptureApi.LINUX_V4L2_SINGLE_PLANE = 0;
   VideoCaptureApi.WIN_MEDIA_FOUNDATION = 1;
@@ -711,6 +740,32 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var SubCaptureTargetType = {};
+  SubCaptureTargetType.kCropTarget = 0;
+  SubCaptureTargetType.kRestrictionTarget = 1;
+  SubCaptureTargetType.MIN_VALUE = 0;
+  SubCaptureTargetType.MAX_VALUE = 1;
+
+  SubCaptureTargetType.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+      return true;
+    }
+    return false;
+  };
+
+  SubCaptureTargetType.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  SubCaptureTargetType.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
   var ApplySubCaptureTargetResult = {};
   ApplySubCaptureTargetResult.kSuccess = 0;
   ApplySubCaptureTargetResult.kErrorGeneric = 1;
@@ -1201,6 +1256,8 @@
     this.captureApi = 0;
     this.controlSupport = null;
     this.transportType = 0;
+    this.availability_$flag = false;
+    this.availability_$value = 0;
   };
   VideoCaptureDeviceDescriptor.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1216,7 +1273,8 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 56}
+      {version: 0, numBytes: 56},
+      {version: 1, numBytes: 64}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1264,10 +1322,21 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+
+
+    // version check VideoCaptureDeviceDescriptor.availability_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 1))
+      return validator.validationError.NONE;
+    // validate VideoCaptureDeviceDescriptor.availability_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 48, CameraAvailability);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  VideoCaptureDeviceDescriptor.encodedSize = codec.kStructHeaderSize + 48;
+  VideoCaptureDeviceDescriptor.encodedSize = codec.kStructHeaderSize + 56;
 
   VideoCaptureDeviceDescriptor.decode = function(decoder) {
     var packed;
@@ -1288,6 +1357,17 @@
         decoder.decodeStructPointer(VideoCaptureControlSupport);
     val.transportType =
         decoder.decodeStruct(new codec.Enum(VideoCaptureTransportType));
+    packed = decoder.readUint8();
+    val.availability_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 1) {
+      val.availability_$value =
+          decoder.decodeStruct(new codec.Enum(CameraAvailability));
+    } else {
+      val.availability_$value = null;
+    }
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -1298,7 +1378,7 @@
   VideoCaptureDeviceDescriptor.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(VideoCaptureDeviceDescriptor.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(1);
     encoder.encodeStruct(codec.String, val.displayName);
     encoder.encodeStruct(codec.String, val.deviceId);
     encoder.encodeStruct(codec.String, val.modelId);
@@ -1306,6 +1386,13 @@
     encoder.encodeStruct(codec.Int32, val.captureApi);
     encoder.encodeStructPointer(VideoCaptureControlSupport, val.controlSupport);
     encoder.encodeStruct(codec.Int32, val.transportType);
+    packed = 0;
+    packed |= (val.availability_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.availability_$value);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
@@ -1381,11 +1468,13 @@
   exports.ResolutionChangePolicy = ResolutionChangePolicy;
   exports.PowerLineFrequency = PowerLineFrequency;
   exports.VideoFacingMode = VideoFacingMode;
+  exports.CameraAvailability = CameraAvailability;
   exports.VideoCaptureApi = VideoCaptureApi;
   exports.VideoCaptureTransportType = VideoCaptureTransportType;
   exports.VideoCaptureBufferType = VideoCaptureBufferType;
   exports.VideoCaptureError = VideoCaptureError;
   exports.VideoCaptureFrameDropReason = VideoCaptureFrameDropReason;
+  exports.SubCaptureTargetType = SubCaptureTargetType;
   exports.ApplySubCaptureTargetResult = ApplySubCaptureTargetResult;
   exports.DeviceEnumerationResult = DeviceEnumerationResult;
   exports.VideoCaptureControlSupport = VideoCaptureControlSupport;

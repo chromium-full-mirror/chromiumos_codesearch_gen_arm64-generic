@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,10 +23,12 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/audio/public/mojom/system_info.mojom-features.h"
 #include "services/audio/public/mojom/system_info.mojom-shared.h"
 #include "services/audio/public/mojom/system_info.mojom-forward.h"
 #include "media/mojo/mojom/audio_parameters.mojom.h"
 #include "services/audio/public/mojom/audio_device_description.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -111,12 +113,12 @@ class SystemInfo
   virtual ~SystemInfo() = default;
 
 
-  using GetInputStreamParametersCallback = base::OnceCallback<void(const absl::optional<::media::AudioParameters>&)>;
+  using GetInputStreamParametersCallback = base::OnceCallback<void(const std::optional<::media::AudioParameters>&)>;
   
   virtual void GetInputStreamParameters(const std::string& device_id, GetInputStreamParametersCallback callback) = 0;
 
 
-  using GetOutputStreamParametersCallback = base::OnceCallback<void(const absl::optional<::media::AudioParameters>&)>;
+  using GetOutputStreamParametersCallback = base::OnceCallback<void(const std::optional<::media::AudioParameters>&)>;
   
   virtual void GetOutputStreamParameters(const std::string& device_id, GetOutputStreamParametersCallback callback) = 0;
 
@@ -141,12 +143,12 @@ class SystemInfo
   virtual void GetOutputDeviceDescriptions(GetOutputDeviceDescriptionsCallback callback) = 0;
 
 
-  using GetAssociatedOutputDeviceIDCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetAssociatedOutputDeviceIDCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetAssociatedOutputDeviceID(const std::string& input_device_id, GetAssociatedOutputDeviceIDCallback callback) = 0;
 
 
-  using GetInputDeviceInfoCallback = base::OnceCallback<void(const absl::optional<::media::AudioParameters>&, const absl::optional<std::string>&)>;
+  using GetInputDeviceInfoCallback = base::OnceCallback<void(const std::optional<::media::AudioParameters>&, const std::optional<std::string>&)>;
   
   virtual void GetInputDeviceInfo(const std::string& input_device_id, GetInputDeviceInfoCallback callback) = 0;
 };

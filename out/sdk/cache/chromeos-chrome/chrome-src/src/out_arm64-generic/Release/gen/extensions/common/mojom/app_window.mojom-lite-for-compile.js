@@ -56,6 +56,12 @@ extensions.mojom.AppWindowInterface = class {
    */
 
   setVisuallyDeemphasized(deemphasized) {}
+  
+  /**
+   * @param { !boolean } supportsAppRegion
+   */
+
+  setSupportsAppRegion(supportsAppRegion) {}
 };
 
 /**
@@ -97,6 +103,22 @@ extensions.mojom.AppWindowRemote = class {
           deemphasized
         ]);
   }
+
+  
+  /**
+   * @param { !boolean } supportsAppRegion
+   */
+
+  setSupportsAppRegion(
+      supportsAppRegion) {
+    this.proxy.sendMessage(
+        1,
+        extensions.mojom.AppWindow_SetSupportsAppRegion_ParamsSpec.$,
+        null,
+        [
+          supportsAppRegion
+        ]);
+  }
 };
 
 /**
@@ -126,6 +148,11 @@ extensions.mojom.AppWindowReceiver = class {
         extensions.mojom.AppWindow_SetVisuallyDeemphasized_ParamsSpec.$,
         null,
         impl.setVisuallyDeemphasized.bind(impl));
+    this.helper_internal_.registerHandler(
+        1,
+        extensions.mojom.AppWindow_SetSupportsAppRegion_ParamsSpec.$,
+        null,
+        impl.setSupportsAppRegion.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -190,6 +217,18 @@ extensions.mojom.AppWindowCallbackRouter = class {
         extensions.mojom.AppWindow_SetVisuallyDeemphasized_ParamsSpec.$,
         null,
         this.setVisuallyDeemphasized.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setSupportsAppRegion =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        1,
+        extensions.mojom.AppWindow_SetSupportsAppRegion_ParamsSpec.$,
+        null,
+        this.setSupportsAppRegion.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -211,6 +250,14 @@ goog.provide('extensions.mojom.AppWindow_SetVisuallyDeemphasized_ParamsSpec');
  * @export
  */
 extensions.mojom.AppWindow_SetVisuallyDeemphasized_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('extensions.mojom.AppWindow_SetSupportsAppRegion_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.AppWindow_SetSupportsAppRegion_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -240,6 +287,35 @@ extensions.mojom.AppWindow_SetVisuallyDeemphasized_Params = class {
   constructor() {
     /** @export { !boolean } */
     this.deemphasized;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.AppWindow_SetSupportsAppRegion_ParamsSpec.$,
+    'AppWindow_SetSupportsAppRegion_Params',
+    [
+      mojo.internal.StructField(
+        'supportsAppRegion', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('extensions.mojom.AppWindow_SetSupportsAppRegion_Params');
+
+/** @record */
+extensions.mojom.AppWindow_SetSupportsAppRegion_Params = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.supportsAppRegion;
   }
 };
 

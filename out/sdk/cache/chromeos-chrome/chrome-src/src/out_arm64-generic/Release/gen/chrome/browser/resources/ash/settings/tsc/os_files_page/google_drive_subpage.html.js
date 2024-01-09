@@ -1,18 +1,10 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">#driveAccountEmail{font:var(--cros-button-2-font)}</style>
 
 <div class="settings-box two-line first">
-  <template is="dom-if" if="[[driveDisabled_]]" restamp>
-    <div class="start">
-      $i18nRaw{googleDriveReconnectAs}
-    </div>
-  </template>
-  <template is="dom-if" if="[[!driveDisabled_]]" restamp>
-    <div class="start">
-      $i18nRaw{googleDriveSignedInAs}
-    </div>
-  </template>
+  <div class="start" inner-h-t-m-l="[[getDriveAccountStatusLabel_(driveDisabled_)]]">
+  </div>
   <controlled-button id="driveConnectDisconnect" on-click="onConnectDisconnectClick_" pref="{{prefs.gdata.disabled}}" label="[[getConnectDisconnectButtonLabel_(driveDisabled_)]]" deep-link-focus-id$="[[Setting.kGoogleDriveRemoveAccess]]">
   </controlled-button>
   <template is="dom-if" if="[[shouldShowConfirmationDialog_(dialogType_, 'disconnect')]]" restamp>
@@ -24,7 +16,7 @@ export function getTemplate() {
 <div class="hr"></div>
 
 <template is="dom-if" if="[[!driveDisabled_]]" restamp>
-  <template is="dom-if" if="[[isDriveFsBulkPinningEnabled_]]" restamp>
+  <template is="dom-if" if="[[and_(bulkPinningVisible_, isDriveFsBulkPinningEnabled_)]]" restamp>
     <settings-toggle-button id="driveBulkPinning" pref="{{prefs.drivefs.bulk_pinning_enabled}}" label="$i18n{googleDriveFileSyncTitle}" sub-label="[[getBulkPinningSubLabel_(bulkPinningStatus_)]]" learn-more-url="$i18n{googleDriveFileSyncLearnMoreLink}" on-settings-boolean-control-change="onToggleBulkPinning_" no-set-pref deep-link-focus-id$="[[Setting.kGoogleDriveFileSync]]">
     </settings-toggle-button>
 

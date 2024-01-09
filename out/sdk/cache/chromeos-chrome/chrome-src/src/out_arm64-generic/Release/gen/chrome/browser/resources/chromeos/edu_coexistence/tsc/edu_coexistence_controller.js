@@ -58,7 +58,7 @@ export class EduCoexistenceController extends PostMessageApiServer {
          * The value itself is opaque encoded binary data.
          */
         this.guestFlowState = null;
-        this.authExtHost = new Authenticator(this.webview);
+        this.authenticator = new Authenticator(this.webview);
         this.isDomLoaded = document.readyState !== 'loading';
         if (this.isDomLoaded) {
             this.initializeAfterDomLoaded();
@@ -92,12 +92,12 @@ export class EduCoexistenceController extends PostMessageApiServer {
         this.registerMethod('getEduAccountEmail', this.getEduAccountEmail.bind(this));
         this.registerMethod('getTimeDeltaSinceSigninSeconds', this.getTimeDeltaSinceSigninSeconds.bind(this));
         // Add listeners for Authenticator.
-        this.addAuthExtHostListeners();
+        this.addAuthenticatorListeners();
     }
     /**
      * Loads the flow into the controller.
      */
-    loadAuthExtension(data) {
+    loadAuthenticator(data) {
         // We use the Authenticator to set the web flow URL instead
         // of setting it ourselves, so that the content isn't loaded twice.
         // This is why this class doesn't directly set webview.src_ (except in
@@ -107,7 +107,7 @@ export class EduCoexistenceController extends PostMessageApiServer {
         // and forwarding to the accounts.google.com URL that Authenticator
         // interacts with.
         data.frameUrl = this.flowUrl;
-        this.authExtHost.load(data.authMode, data);
+        this.authenticator.load(data.authMode, data);
     }
     /**
      * Resets the internal state of the controller.
@@ -116,17 +116,23 @@ export class EduCoexistenceController extends PostMessageApiServer {
         this.userInfo = null;
         this.authCompletedReceived = false;
     }
-    addAuthExtHostListeners() {
-        this.authExtHost.addEventListener('ready', () => this.onAuthReady());
-        this.authExtHost.addEventListener('getAccounts', () => this.onGetAccounts());
-        this.authExtHost.addEventListener('authCompleted', e => this.onAuthCompleted(e));
+    addAuthenticatorListeners() {
+        this.authenticator.addEventListener('ready', () => this.onAuthReady());
+        this.authenticator.addEventListener('getAccounts', () => this.onGetAccounts());
+        this.authenticator.addEventListener('getDeviceId', () => this.onGetDeviceId());
+        this.authenticator.addEventListener('authCompleted', e => this.onAuthCompleted(e));
     }
     onAuthReady() {
-        this.browserProxy.authExtensionReady();
+        this.browserProxy.authenticatorReady();
     }
     onGetAccounts() {
         this.browserProxy.getAccounts().then(result => {
-            this.authExtHost.getAccountsResponse(result);
+            this.authenticator.getAccountsResponse(result);
+        });
+    }
+    onGetDeviceId() {
+        this.browserProxy.getDeviceId().then(deviceId => {
+            this.authenticator.getDeviceIdResponse(deviceId);
         });
     }
     onAuthCompleted(e) {

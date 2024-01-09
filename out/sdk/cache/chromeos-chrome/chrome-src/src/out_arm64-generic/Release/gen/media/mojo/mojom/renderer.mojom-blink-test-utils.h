@@ -16,12 +16,12 @@ namespace media::mojom::blink {
 
 class BLINK_PLATFORM_EXPORT RendererInterceptorForTesting : public Renderer {
   virtual Renderer* GetForwardingInterface() = 0;
-  void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) override;
+  void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) override;
   void Flush(FlushCallback callback) override;
   void StartPlayingFrom(::base::TimeDelta time) override;
   void SetPlaybackRate(double playback_rate) override;
   void SetVolume(float volume) override;
-  void SetCdm(const absl::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) override;
+  void SetCdm(const std::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) override;
 };
 class BLINK_PLATFORM_EXPORT RendererAsyncWaiter {
  public:
@@ -32,14 +32,14 @@ class BLINK_PLATFORM_EXPORT RendererAsyncWaiter {
 
   ~RendererAsyncWaiter();
   void Initialize(
-      ::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, bool* out_success);
-  bool Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params);
+      ::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, bool* out_success);
+  bool Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params);
   void Flush(
       );
   
   void SetCdm(
-      const absl::optional<::base::UnguessableToken>& cdm_id, bool* out_success);
-  bool SetCdm(const absl::optional<::base::UnguessableToken>& cdm_id);
+      const std::optional<::base::UnguessableToken>& cdm_id, bool* out_success);
+  bool SetCdm(const std::optional<::base::UnguessableToken>& cdm_id);
 
  private:
   Renderer* const proxy_;

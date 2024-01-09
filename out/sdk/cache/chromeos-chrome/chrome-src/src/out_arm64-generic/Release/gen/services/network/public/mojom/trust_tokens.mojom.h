@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/trust_tokens.mojom-features.h"
 #include "services/network/public/mojom/trust_tokens.mojom-shared.h"
 #include "services/network/public/mojom/trust_tokens.mojom-forward.h"
 #include "url/mojom/origin.mojom.h"
@@ -635,16 +636,15 @@ class  TrustTokenParams {
   TrustTokenParams();
 
   TrustTokenParams(
-      TrustTokenMajorVersion version,
       TrustTokenOperationType operation,
       TrustTokenRefreshPolicy refresh_policy,
-      const absl::optional<std::string>& custom_key_commitment,
-      const absl::optional<::url::Origin>& custom_issuer,
+      const std::optional<std::string>& custom_key_commitment,
+      const std::optional<::url::Origin>& custom_issuer,
       TrustTokenSignRequestData sign_request_data,
       bool include_timestamp_header,
       std::vector<::url::Origin> issuers,
       std::vector<std::string> additional_signed_headers,
-      const absl::optional<std::string>& possibly_unsafe_additional_signing_data);
+      const std::optional<std::string>& possibly_unsafe_additional_signing_data);
 
 
   ~TrustTokenParams();
@@ -722,15 +722,13 @@ class  TrustTokenParams {
   }
 
   
-  TrustTokenMajorVersion version;
-  
   TrustTokenOperationType operation;
   
   TrustTokenRefreshPolicy refresh_policy;
   
-  absl::optional<std::string> custom_key_commitment;
+  std::optional<std::string> custom_key_commitment;
   
-  absl::optional<::url::Origin> custom_issuer;
+  std::optional<::url::Origin> custom_issuer;
   
   TrustTokenSignRequestData sign_request_data;
   
@@ -740,7 +738,7 @@ class  TrustTokenParams {
   
   std::vector<std::string> additional_signed_headers;
   
-  absl::optional<std::string> possibly_unsafe_additional_signing_data;
+  std::optional<std::string> possibly_unsafe_additional_signing_data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -949,7 +947,6 @@ class  TrustTokenKeyCommitmentResult {
   TrustTokenKeyCommitmentResult();
 
   TrustTokenKeyCommitmentResult(
-      TrustTokenMajorVersion version,
       TrustTokenProtocolVersion protocol_version,
       int32_t id,
       int32_t batch_size,
@@ -1034,8 +1031,6 @@ TrustTokenKeyCommitmentResult& operator=(const TrustTokenKeyCommitmentResult&) =
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
-  
-  TrustTokenMajorVersion version;
   
   TrustTokenProtocolVersion protocol_version;
   
@@ -1255,8 +1250,8 @@ class  TrustTokenOperationResult {
   TrustTokenOperationResult(
       TrustTokenOperationType operation,
       TrustTokenOperationStatus status,
-      const absl::optional<::url::Origin>& issuer,
-      const absl::optional<::url::Origin>& top_level_origin,
+      const std::optional<::url::Origin>& issuer,
+      const std::optional<::url::Origin>& top_level_origin,
       int32_t issued_token_count);
 
 
@@ -1339,9 +1334,9 @@ class  TrustTokenOperationResult {
   
   TrustTokenOperationStatus status;
   
-  absl::optional<::url::Origin> issuer;
+  std::optional<::url::Origin> issuer;
   
-  absl::optional<::url::Origin> top_level_origin;
+  std::optional<::url::Origin> top_level_origin;
   
   int32_t issued_token_count;
 
@@ -1520,7 +1515,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 TrustTokenParamsPtr TrustTokenParams::Clone() const {
   return New(
-      mojo::Clone(version),
       mojo::Clone(operation),
       mojo::Clone(refresh_policy),
       mojo::Clone(custom_key_commitment),
@@ -1535,8 +1529,6 @@ TrustTokenParamsPtr TrustTokenParams::Clone() const {
 
 template <typename T, TrustTokenParams::EnableIfSame<T>*>
 bool TrustTokenParams::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->version, other_struct.version))
-    return false;
   if (!mojo::Equals(this->operation, other_struct.operation))
     return false;
   if (!mojo::Equals(this->refresh_policy, other_struct.refresh_policy))
@@ -1560,10 +1552,6 @@ bool TrustTokenParams::Equals(const T& other_struct) const {
 
 template <typename T, TrustTokenParams::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.version < rhs.version)
-    return true;
-  if (rhs.version < lhs.version)
-    return false;
   if (lhs.operation < rhs.operation)
     return true;
   if (rhs.operation < lhs.operation)
@@ -1692,7 +1680,6 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 TrustTokenKeyCommitmentResultPtr TrustTokenKeyCommitmentResult::Clone() const {
   return New(
-      mojo::Clone(version),
       mojo::Clone(protocol_version),
       mojo::Clone(id),
       mojo::Clone(batch_size),
@@ -1704,8 +1691,6 @@ TrustTokenKeyCommitmentResultPtr TrustTokenKeyCommitmentResult::Clone() const {
 
 template <typename T, TrustTokenKeyCommitmentResult::EnableIfSame<T>*>
 bool TrustTokenKeyCommitmentResult::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->version, other_struct.version))
-    return false;
   if (!mojo::Equals(this->protocol_version, other_struct.protocol_version))
     return false;
   if (!mojo::Equals(this->id, other_struct.id))
@@ -1723,10 +1708,6 @@ bool TrustTokenKeyCommitmentResult::Equals(const T& other_struct) const {
 
 template <typename T, TrustTokenKeyCommitmentResult::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.version < rhs.version)
-    return true;
-  if (rhs.version < lhs.version)
-    return false;
   if (lhs.protocol_version < rhs.protocol_version)
     return true;
   if (rhs.protocol_version < lhs.protocol_version)
@@ -1903,11 +1884,6 @@ struct  StructTraits<::network::mojom::TrustTokenParams::DataView,
   static bool IsNull(const ::network::mojom::TrustTokenParamsPtr& input) { return !input; }
   static void SetToNull(::network::mojom::TrustTokenParamsPtr* output) { output->reset(); }
 
-  static decltype(::network::mojom::TrustTokenParams::version) version(
-      const ::network::mojom::TrustTokenParamsPtr& input) {
-    return input->version;
-  }
-
   static decltype(::network::mojom::TrustTokenParams::operation) operation(
       const ::network::mojom::TrustTokenParamsPtr& input) {
     return input->operation;
@@ -2022,11 +1998,6 @@ struct  StructTraits<::network::mojom::TrustTokenKeyCommitmentResult::DataView,
                                          ::network::mojom::TrustTokenKeyCommitmentResultPtr> {
   static bool IsNull(const ::network::mojom::TrustTokenKeyCommitmentResultPtr& input) { return !input; }
   static void SetToNull(::network::mojom::TrustTokenKeyCommitmentResultPtr* output) { output->reset(); }
-
-  static decltype(::network::mojom::TrustTokenKeyCommitmentResult::version) version(
-      const ::network::mojom::TrustTokenKeyCommitmentResultPtr& input) {
-    return input->version;
-  }
 
   static decltype(::network::mojom::TrustTokenKeyCommitmentResult::protocol_version) protocol_version(
       const ::network::mojom::TrustTokenKeyCommitmentResultPtr& input) {

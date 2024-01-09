@@ -21,7 +21,6 @@ CORE_EXPORT extern const WTF::AtomicString& kAnimationEvent;
 CORE_EXPORT extern const WTF::AtomicString& kAnimationPlaybackEvent;
 CORE_EXPORT extern const WTF::AtomicString& kBeforeCreatePolicyEvent;
 CORE_EXPORT extern const WTF::AtomicString& kBeforeUnloadEvent;
-CORE_EXPORT extern const WTF::AtomicString& kCSSToggleEvent;
 CORE_EXPORT extern const WTF::AtomicString& kCharacterBoundsUpdateEvent;
 CORE_EXPORT extern const WTF::AtomicString& kClipboardEvent;
 CORE_EXPORT extern const WTF::AtomicString& kCompositionEvent;
@@ -50,7 +49,6 @@ CORE_EXPORT extern const WTF::AtomicString& kPageRevealEvent;
 CORE_EXPORT extern const WTF::AtomicString& kPageTransitionEvent;
 CORE_EXPORT extern const WTF::AtomicString& kPointerEvent;
 CORE_EXPORT extern const WTF::AtomicString& kPopStateEvent;
-CORE_EXPORT extern const WTF::AtomicString& kPortalActivateEvent;
 CORE_EXPORT extern const WTF::AtomicString& kProgressEvent;
 CORE_EXPORT extern const WTF::AtomicString& kPromiseRejectionEvent;
 CORE_EXPORT extern const WTF::AtomicString& kResourceProgressEvent;
@@ -67,7 +65,7 @@ CORE_EXPORT extern const WTF::AtomicString& kTransitionEvent;
 CORE_EXPORT extern const WTF::AtomicString& kUIEvent;
 CORE_EXPORT extern const WTF::AtomicString& kWheelEvent;
 
-constexpr unsigned kNamesCount = 49;
+constexpr unsigned kNamesCount = 47;
 
 CORE_EXPORT void Init();
 

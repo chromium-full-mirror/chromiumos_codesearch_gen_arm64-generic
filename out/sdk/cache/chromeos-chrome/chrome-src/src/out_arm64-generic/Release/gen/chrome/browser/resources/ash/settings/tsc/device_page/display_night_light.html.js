@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex
-  iron-flex-alignment">.indented{align-self:stretch;margin-inline-start:var(--cr-section-indent-padding);padding:0}#nightLightTemperatureDiv[disabled]{opacity:.38;pointer-events:none}.text-area{margin:10px 0}#nightLightSlider{flex-grow:1;margin-top:20px}iron-collapse{width:100%}</style>
+  iron-flex-alignment">.indented{align-self:stretch;margin-inline-start:var(--cr-section-indent-padding);padding:0}#nightLightTemperatureDiv[disabled]{opacity:.38;pointer-events:none}#NightLightLabelDiv{align-self:start}.text-area{margin:10px 0}#nightLightSlider{flex-grow:1;margin-top:20px}#nightLightDropDownDiv{width:200px;text-align:right;margin-top:8px}iron-collapse{width:100%}</style>
 
 <settings-toggle-button id="nightLightToggleButton" class="settings-box first" label="$i18n{displayNightLightLabel}" pref="{{prefs.ash.night_light.enabled}}" sub-label="$i18n{displayNightLightText}" deep-link-focus-id$="[[Setting.kNightLight]]">
 </settings-toggle-button>
@@ -17,7 +17,7 @@ export function getTemplate() {
   </div>
   
   <div class="settings-box indented">
-    <div class="start text-area" aria-hidden="true">
+    <div id="NightLightLabelDiv" class="start text-area" aria-hidden="true">
       <div id="nightLightScheduleLabel" class="label">
         $i18n{displayNightLightScheduleLabel}
       </div>
@@ -25,8 +25,14 @@ export function getTemplate() {
         [[nightLightScheduleSubLabel_]]
       </div>
     </div>
-    <settings-dropdown-menu id="nightLightScheduleTypeDropDown" class="cr-row-gap" label="$i18n{displayNightLightScheduleLabel}" aria-describedby="nightLightScheduleSubLabel" pref="{{prefs.ash.night_light.schedule_type}}" menu-options="[[scheduleTypesList_]]">
-    </settings-dropdown-menu>
+    <div id="nightLightDropDownDiv" class="cr-row-gap">
+      <settings-dropdown-menu id="nightLightScheduleTypeDropDown" label="$i18n{displayNightLightScheduleLabel}" aria-describedby="nightLightScheduleSubLabel" pref="{{prefs.ash.night_light.schedule_type}}" menu-options="[[scheduleTypesList_]]">
+      </settings-dropdown-menu>
+      <template is="dom-if" if="[[shouldShowGeolocationWarningText_]]" restamp>
+        <settings-privacy-hub-geolocation-warning-text id="warningText" warning-text-with-anchor="$i18n{displayNightLightGeolocationWarningText}" on-link-clicked="openGeolocationDialog_">
+        </settings-privacy-hub-geolocation-warning-text>
+      </template>
+    </div>
   </div>
   
   <iron-collapse id="nightLightCustomScheduleCollapse" opened="[[shouldOpenCustomScheduleCollapse_]]">
@@ -39,5 +45,12 @@ export function getTemplate() {
       </div>
     </div>
   </iron-collapse>
-</div><!--_html_template_end_-->`;
+</div>
+
+
+<template is="dom-if" if="[[shouldShowGeolocationDialog_]]" restamp>
+  <settings-privacy-hub-geolocation-dialog id="geolocationDialog" on-close="onGeolocationDialogClose_" prefs="{{prefs}}">
+  </settings-privacy-hub-geolocation-dialog>
+</template>
+<!--_html_template_end_-->`;
 }

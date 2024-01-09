@@ -4,10 +4,8 @@
 import { assert, assertExists, assertInstanceof } from '../assert.js';
 import { AsyncJobQueue } from '../async_job_queue.js';
 import * as dom from '../dom.js';
-import { SvgWrapper } from '../lit/svg-wrapper.js';
 import * as metrics from '../metrics.js';
 import * as state from '../state.js';
-import * as tooltip from '../tooltip.js';
 import { ViewName } from '../type.js';
 import { DelayInterval } from '../util.js';
 import { PTZPanelOptions, View } from './view.js';
@@ -123,14 +121,6 @@ export class PTZPanel extends View {
          * cameras whose PT control is disabled when all zooming out.
          */
         this.isDigitalZoom = false;
-        for (const btn of [this.panRight, this.panLeft, this.tiltUp, this.tiltDown]) {
-            btn.addEventListener(tooltip.TOOLTIP_POSITION_EVENT_NAME, (e) => {
-                const target = assertInstanceof(e.target, HTMLElement);
-                const icon = dom.getFrom(target, 'svg-wrapper', SvgWrapper);
-                tooltip.position(icon.getBoundingClientRect());
-                e.preventDefault();
-            });
-        }
         this.setMirrorObserver(() => {
             this.checkDisabled();
         });

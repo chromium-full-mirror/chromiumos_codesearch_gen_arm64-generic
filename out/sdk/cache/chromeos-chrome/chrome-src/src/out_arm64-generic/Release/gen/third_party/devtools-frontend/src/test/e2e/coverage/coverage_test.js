@@ -20,8 +20,8 @@ const coverage_helpers_js_1 = require("../helpers/coverage-helpers.js");
     });
     (0, mocha_extensions_js_1.it)('Shows coverage data on page loads if the instrumentation has started', async () => {
         await (0, coverage_helpers_js_1.waitForTheCoveragePanelToLoad)();
-        await (0, coverage_helpers_js_1.startInstrumentingCoverage)();
         await (0, coverage_helpers_js_1.navigateToCoverageTestSite)();
+        await (0, coverage_helpers_js_1.startInstrumentingCoverage)();
         const URL_PREFIX = `https://localhost:${(0, helper_js_1.getTestServerPort)()}/test/e2e/resources/coverage`;
         chai_1.assert.deepEqual(await (0, coverage_helpers_js_1.getCoverageData)(2), [
             {

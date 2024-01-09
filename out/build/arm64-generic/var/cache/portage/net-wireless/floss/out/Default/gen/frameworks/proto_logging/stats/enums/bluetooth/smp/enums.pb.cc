@@ -4,22 +4,20 @@
 #include "smp/enums.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace android {
 namespace bluetooth {
 namespace smp {
@@ -27,76 +25,98 @@ namespace smp {
 }  // namespace bluetooth
 }  // namespace android
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_smp_2fenums_2eproto[2];
-static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_smp_2fenums_2eproto = nullptr;
-const uint32_t TableStruct_smp_2fenums_2eproto::offsets[1] = {};
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_smp_2fenums_2eproto = nullptr;
+const ::uint32_t TableStruct_smp_2fenums_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
 static constexpr ::_pb::Message* const* file_default_instances = nullptr;
-
-const char descriptor_table_protodef_smp_2fenums_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\017smp/enums.proto\022\025android.bluetooth.smp"
-  "*\206\007\n\013CommandEnum\022\017\n\013CMD_UNKNOWN\020\000\022\027\n\023CMD"
-  "_PAIRING_REQUEST\020\001\022\030\n\024CMD_PAIRING_RESPON"
-  "SE\020\002\022\027\n\023CMD_PAIRING_CONFIRM\020\003\022\026\n\022CMD_PAI"
-  "RING_RANDOM\020\004\022\026\n\022CMD_PAIRING_FAILED\020\005\022\030\n"
-  "\024CMD_ENCRYPTION_INFON\020\006\022\035\n\031CMD_MASTER_ID"
-  "ENTIFICATION\020\007\022\025\n\021CMD_IDENTITY_INFO\020\010\022\032\n"
-  "\026CMD_IDENTITY_ADDR_INFO\020\t\022\024\n\020CMD_SIGNING"
-  "_INFO\020\n\022\030\n\024CMD_SECURITY_REQUEST\020\013\022\032\n\026CMD"
-  "_PAIRING_PUBLIC_KEY\020\014\022\033\n\027CMD_PAIRING_DHK"
-  "EY_CHECK\020\r\022\035\n\031CMD_PAIRING_KEYPRESS_INFO\020"
-  "\016\022\032\n\024CMD_PAIRING_COMPLETE\020\200\376\003\022\023\n\016CMD_BR_"
-  "UNKNOWN\020\200\002\022\033\n\026CMD_BR_PAIRING_REQUEST\020\201\002\022"
-  "\034\n\027CMD_BR_PAIRING_RESPONSE\020\202\002\022\033\n\026CMD_BR_"
-  "PAIRING_CONFIRM\020\203\002\022\032\n\025CMD_BR_PAIRING_RAN"
-  "DOM\020\204\002\022\032\n\025CMD_BR_PAIRING_FAILED\020\205\002\022\034\n\027CM"
-  "D_BR_ENCRYPTION_INFON\020\206\002\022!\n\034CMD_BR_MASTE"
-  "R_IDENTIFICATION\020\207\002\022\031\n\024CMD_BR_IDENTITY_I"
-  "NFO\020\210\002\022\036\n\031CMD_BR_IDENTITY_ADDR_INFO\020\211\002\022\030"
-  "\n\023CMD_BR_SIGNING_INFO\020\212\002\022\034\n\027CMD_BR_SECUR"
-  "ITY_REQUEST\020\213\002\022\036\n\031CMD_BR_PAIRING_PUBLIC_"
-  "KEY\020\214\002\022\037\n\032CMD_BR_PAIRING_DHKEY_CHECK\020\215\002\022"
-  "!\n\034CMD_BR_PAIRING_KEYPRESS_INFO\020\216\002\022\035\n\027CM"
-  "D_BR_PAIRING_COMPLETE\020\201\376\003*\235\007\n\025PairingFai"
-  "lReasonEnum\022 \n\034PAIRING_FAIL_REASON_RESER"
-  "VED\020\000\022%\n!PAIRING_FAIL_REASON_PASSKEY_ENT"
-  "RY\020\001\022\033\n\027PAIRING_FAIL_REASON_OOB\020\002\022 \n\034PAI"
-  "RING_FAIL_REASON_AUTH_REQ\020\003\022%\n!PAIRING_F"
-  "AIL_REASON_CONFIRM_VALUE\020\004\022(\n$PAIRING_FA"
-  "IL_REASON_PAIR_NOT_SUPPORT\020\005\022$\n PAIRING_"
-  "FAIL_REASON_ENC_KEY_SIZE\020\006\022#\n\037PAIRING_FA"
-  "IL_REASON_INVALID_CMD\020\007\022#\n\037PAIRING_FAIL_"
-  "REASON_UNSPECIFIED\020\010\022)\n%PAIRING_FAIL_REA"
-  "SON_REPEATED_ATTEMPTS\020\t\022*\n&PAIRING_FAIL_"
-  "REASON_INVALID_PARAMETERS\020\n\022!\n\035PAIRING_F"
-  "AIL_REASON_DHKEY_CHK\020\013\022*\n&PAIRING_FAIL_R"
-  "EASON_NUMERIC_COMPARISON\020\014\0220\n,PAIRING_FA"
-  "IL_REASON_CLASSIC_PAIRING_IN_PROGR\020\r\022/\n+"
-  "PAIRING_FAIL_REASON_XTRANS_DERIVE_NOT_AL"
-  "LOW\020\016\022\'\n\"PAIRING_FAIL_REASON_INTERNAL_ER"
-  "ROR\020\217\002\022\'\n\"PAIRING_FAIL_REASON_UNKNOWN_IO"
-  "_CAP\020\220\002\022\035\n\030PAIRING_FAIL_REASON_BUSY\020\223\002\022("
-  "\n#PAIRING_FAIL_REASON_ENCRYPTION_FAIL\020\224\002"
-  "\022 \n\033PAIRING_FAIL_REASON_STARTED\020\225\002\022)\n$PA"
-  "IRING_FAIL_REASON_RESPONSE_TIMEOUT\020\226\002\022\035\n"
-  "\030PAIRING_FAIL_REASON_FAIL\020\230\002\022+\n&PAIRING_"
-  "FAIL_REASON_CONNECTION_TIMEOUT\020\231\002B\032B\026Blu"
-  "etoothSmpProtoEnumsP\001"
-  ;
-static ::_pbi::once_flag descriptor_table_smp_2fenums_2eproto_once;
+const char descriptor_table_protodef_smp_2fenums_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\017smp/enums.proto\022\025android.bluetooth.smp"
+    "*\206\007\n\013CommandEnum\022\017\n\013CMD_UNKNOWN\020\000\022\027\n\023CMD"
+    "_PAIRING_REQUEST\020\001\022\030\n\024CMD_PAIRING_RESPON"
+    "SE\020\002\022\027\n\023CMD_PAIRING_CONFIRM\020\003\022\026\n\022CMD_PAI"
+    "RING_RANDOM\020\004\022\026\n\022CMD_PAIRING_FAILED\020\005\022\030\n"
+    "\024CMD_ENCRYPTION_INFON\020\006\022\035\n\031CMD_MASTER_ID"
+    "ENTIFICATION\020\007\022\025\n\021CMD_IDENTITY_INFO\020\010\022\032\n"
+    "\026CMD_IDENTITY_ADDR_INFO\020\t\022\024\n\020CMD_SIGNING"
+    "_INFO\020\n\022\030\n\024CMD_SECURITY_REQUEST\020\013\022\032\n\026CMD"
+    "_PAIRING_PUBLIC_KEY\020\014\022\033\n\027CMD_PAIRING_DHK"
+    "EY_CHECK\020\r\022\035\n\031CMD_PAIRING_KEYPRESS_INFO\020"
+    "\016\022\032\n\024CMD_PAIRING_COMPLETE\020\200\376\003\022\023\n\016CMD_BR_"
+    "UNKNOWN\020\200\002\022\033\n\026CMD_BR_PAIRING_REQUEST\020\201\002\022"
+    "\034\n\027CMD_BR_PAIRING_RESPONSE\020\202\002\022\033\n\026CMD_BR_"
+    "PAIRING_CONFIRM\020\203\002\022\032\n\025CMD_BR_PAIRING_RAN"
+    "DOM\020\204\002\022\032\n\025CMD_BR_PAIRING_FAILED\020\205\002\022\034\n\027CM"
+    "D_BR_ENCRYPTION_INFON\020\206\002\022!\n\034CMD_BR_MASTE"
+    "R_IDENTIFICATION\020\207\002\022\031\n\024CMD_BR_IDENTITY_I"
+    "NFO\020\210\002\022\036\n\031CMD_BR_IDENTITY_ADDR_INFO\020\211\002\022\030"
+    "\n\023CMD_BR_SIGNING_INFO\020\212\002\022\034\n\027CMD_BR_SECUR"
+    "ITY_REQUEST\020\213\002\022\036\n\031CMD_BR_PAIRING_PUBLIC_"
+    "KEY\020\214\002\022\037\n\032CMD_BR_PAIRING_DHKEY_CHECK\020\215\002\022"
+    "!\n\034CMD_BR_PAIRING_KEYPRESS_INFO\020\216\002\022\035\n\027CM"
+    "D_BR_PAIRING_COMPLETE\020\201\376\003*\300\007\n\025PairingFai"
+    "lReasonEnum\022 \n\034PAIRING_FAIL_REASON_RESER"
+    "VED\020\000\022%\n!PAIRING_FAIL_REASON_PASSKEY_ENT"
+    "RY\020\001\022\033\n\027PAIRING_FAIL_REASON_OOB\020\002\022 \n\034PAI"
+    "RING_FAIL_REASON_AUTH_REQ\020\003\022%\n!PAIRING_F"
+    "AIL_REASON_CONFIRM_VALUE\020\004\022(\n$PAIRING_FA"
+    "IL_REASON_PAIR_NOT_SUPPORT\020\005\022$\n PAIRING_"
+    "FAIL_REASON_ENC_KEY_SIZE\020\006\022#\n\037PAIRING_FA"
+    "IL_REASON_INVALID_CMD\020\007\022#\n\037PAIRING_FAIL_"
+    "REASON_UNSPECIFIED\020\010\022)\n%PAIRING_FAIL_REA"
+    "SON_REPEATED_ATTEMPTS\020\t\022*\n&PAIRING_FAIL_"
+    "REASON_INVALID_PARAMETERS\020\n\022!\n\035PAIRING_F"
+    "AIL_REASON_DHKEY_CHK\020\013\022*\n&PAIRING_FAIL_R"
+    "EASON_NUMERIC_COMPARISON\020\014\0220\n,PAIRING_FA"
+    "IL_REASON_CLASSIC_PAIRING_IN_PROGR\020\r\022/\n+"
+    "PAIRING_FAIL_REASON_XTRANS_DERIVE_NOT_AL"
+    "LOW\020\016\022!\n\035PAIRING_FAIL_REASON_CANCELLED\020\033"
+    "\022\'\n\"PAIRING_FAIL_REASON_INTERNAL_ERROR\020\217"
+    "\002\022\'\n\"PAIRING_FAIL_REASON_UNKNOWN_IO_CAP\020"
+    "\220\002\022\035\n\030PAIRING_FAIL_REASON_BUSY\020\223\002\022(\n#PAI"
+    "RING_FAIL_REASON_ENCRYPTION_FAIL\020\224\002\022 \n\033P"
+    "AIRING_FAIL_REASON_STARTED\020\225\002\022)\n$PAIRING"
+    "_FAIL_REASON_RESPONSE_TIMEOUT\020\226\002\022\035\n\030PAIR"
+    "ING_FAIL_REASON_FAIL\020\230\002\022+\n&PAIRING_FAIL_"
+    "REASON_CONNECTION_TIMEOUT\020\231\002B\032B\026Bluetoot"
+    "hSmpProtoEnumsP\001"
+};
+static ::absl::once_flag descriptor_table_smp_2fenums_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_smp_2fenums_2eproto = {
-    false, false, 1901, descriptor_table_protodef_smp_2fenums_2eproto,
+    false,
+    false,
+    1936,
+    descriptor_table_protodef_smp_2fenums_2eproto,
     "smp/enums.proto",
-    &descriptor_table_smp_2fenums_2eproto_once, nullptr, 0, 0,
-    schemas, file_default_instances, TableStruct_smp_2fenums_2eproto::offsets,
-    nullptr, file_level_enum_descriptors_smp_2fenums_2eproto,
+    &descriptor_table_smp_2fenums_2eproto_once,
+    nullptr,
+    0,
+    0,
+    schemas,
+    file_default_instances,
+    TableStruct_smp_2fenums_2eproto::offsets,
+    nullptr,
+    file_level_enum_descriptors_smp_2fenums_2eproto,
     file_level_service_descriptors_smp_2fenums_2eproto,
 };
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
 PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_smp_2fenums_2eproto_getter() {
   return &descriptor_table_smp_2fenums_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_smp_2fenums_2eproto(&descriptor_table_smp_2fenums_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_smp_2fenums_2eproto(&descriptor_table_smp_2fenums_2eproto);
 namespace android {
 namespace bluetooth {
 namespace smp {
@@ -143,7 +163,6 @@ bool CommandEnum_IsValid(int value) {
       return false;
   }
 }
-
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PairingFailReasonEnum_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_smp_2fenums_2eproto);
   return file_level_enum_descriptors_smp_2fenums_2eproto[1];
@@ -165,6 +184,7 @@ bool PairingFailReasonEnum_IsValid(int value) {
     case 12:
     case 13:
     case 14:
+    case 27:
     case 271:
     case 272:
     case 275:
@@ -178,14 +198,11 @@ bool PairingFailReasonEnum_IsValid(int value) {
       return false;
   }
 }
-
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace smp
 }  // namespace bluetooth
 }  // namespace android
 PROTOBUF_NAMESPACE_OPEN
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

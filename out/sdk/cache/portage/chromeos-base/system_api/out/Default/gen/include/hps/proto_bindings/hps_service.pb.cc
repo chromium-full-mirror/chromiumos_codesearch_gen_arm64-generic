@@ -4,95 +4,116 @@
 #include "hps_service.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace hps {
+template <typename>
 PROTOBUF_CONSTEXPR FeatureConfig_BasicFilterConfig::FeatureConfig_BasicFilterConfig(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._cached_size_)*/{}} {}
 struct FeatureConfig_BasicFilterConfigDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FeatureConfig_BasicFilterConfigDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FeatureConfig_BasicFilterConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~FeatureConfig_BasicFilterConfigDefaultTypeInternal() {}
   union {
     FeatureConfig_BasicFilterConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureConfig_BasicFilterConfigDefaultTypeInternal _FeatureConfig_BasicFilterConfig_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureConfig_BasicFilterConfigDefaultTypeInternal _FeatureConfig_BasicFilterConfig_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR FeatureConfig_ConsecutiveResultsFilterConfig::FeatureConfig_ConsecutiveResultsFilterConfig(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.positive_score_threshold_)*/0
-  , /*decltype(_impl_.negative_score_threshold_)*/0
-  , /*decltype(_impl_.positive_count_threshold_)*/0
-  , /*decltype(_impl_.negative_count_threshold_)*/0
-  , /*decltype(_impl_.uncertain_count_threshold_)*/0
+    /*decltype(_impl_.positive_score_threshold_)*/ 0
+
+  , /*decltype(_impl_.negative_score_threshold_)*/ 0
+
+  , /*decltype(_impl_.positive_count_threshold_)*/ 0
+
+  , /*decltype(_impl_.negative_count_threshold_)*/ 0
+
+  , /*decltype(_impl_.uncertain_count_threshold_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FeatureConfig_ConsecutiveResultsFilterConfigDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FeatureConfig_ConsecutiveResultsFilterConfigDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FeatureConfig_ConsecutiveResultsFilterConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~FeatureConfig_ConsecutiveResultsFilterConfigDefaultTypeInternal() {}
   union {
     FeatureConfig_ConsecutiveResultsFilterConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureConfig_ConsecutiveResultsFilterConfigDefaultTypeInternal _FeatureConfig_ConsecutiveResultsFilterConfig_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureConfig_ConsecutiveResultsFilterConfigDefaultTypeInternal _FeatureConfig_ConsecutiveResultsFilterConfig_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR FeatureConfig_AverageFilterConfig::FeatureConfig_AverageFilterConfig(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.average_window_size_)*/0
-  , /*decltype(_impl_.positive_score_threshold_)*/0
-  , /*decltype(_impl_.negative_score_threshold_)*/0
-  , /*decltype(_impl_.default_uncertain_score_)*/0
+    /*decltype(_impl_.average_window_size_)*/ 0
+
+  , /*decltype(_impl_.positive_score_threshold_)*/ 0
+
+  , /*decltype(_impl_.negative_score_threshold_)*/ 0
+
+  , /*decltype(_impl_.default_uncertain_score_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FeatureConfig_AverageFilterConfigDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FeatureConfig_AverageFilterConfigDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FeatureConfig_AverageFilterConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~FeatureConfig_AverageFilterConfigDefaultTypeInternal() {}
   union {
     FeatureConfig_AverageFilterConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureConfig_AverageFilterConfigDefaultTypeInternal _FeatureConfig_AverageFilterConfig_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureConfig_AverageFilterConfigDefaultTypeInternal _FeatureConfig_AverageFilterConfig_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR FeatureConfig::FeatureConfig(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.report_raw_results_)*/false
+    /*decltype(_impl_.report_raw_results_)*/ false
+
   , /*decltype(_impl_.filter_config_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct FeatureConfigDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FeatureConfigDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FeatureConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~FeatureConfigDefaultTypeInternal() {}
   union {
     FeatureConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureConfigDefaultTypeInternal _FeatureConfig_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureConfigDefaultTypeInternal _FeatureConfig_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR HpsResultProto::HpsResultProto(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.value_)*/0
-  , /*decltype(_impl_.inference_result_)*/0
-  , /*decltype(_impl_.inference_result_valid_)*/false
+    /*decltype(_impl_.value_)*/ 0
+
+  , /*decltype(_impl_.inference_result_)*/ 0
+
+  , /*decltype(_impl_.inference_result_valid_)*/ false
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HpsResultProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR HpsResultProtoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HpsResultProtoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~HpsResultProtoDefaultTypeInternal() {}
   union {
     HpsResultProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HpsResultProtoDefaultTypeInternal _HpsResultProto_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HpsResultProtoDefaultTypeInternal _HpsResultProto_default_instance_;
 }  // namespace hps
 namespace hps {
 bool HpsResult_IsValid(int value) {
@@ -105,43 +126,43 @@ bool HpsResult_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    HpsResult_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> HpsResult_strings[3] = {};
+static const char HpsResult_names[] = {
+    "NEGATIVE"
+    "POSITIVE"
+    "UNKNOWN"
+};
 
-static const char HpsResult_names[] =
-  "NEGATIVE"
-  "POSITIVE"
-  "UNKNOWN";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry HpsResult_entries[] = {
-  { {HpsResult_names + 0, 8}, 1 },
-  { {HpsResult_names + 8, 8}, 2 },
-  { {HpsResult_names + 16, 7}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry HpsResult_entries[] =
+    {
+        {{&HpsResult_names[0], 8}, 1},
+        {{&HpsResult_names[8], 8}, 2},
+        {{&HpsResult_names[16], 7}, 0},
 };
 
 static const int HpsResult_entries_by_number[] = {
-  2, // 0 -> UNKNOWN
-  0, // 1 -> NEGATIVE
-  1, // 2 -> POSITIVE
+    2,  // 0 -> UNKNOWN
+    0,  // 1 -> NEGATIVE
+    1,  // 2 -> POSITIVE
 };
 
-const std::string& HpsResult_Name(
-    HpsResult value) {
-  static const bool dummy =
+const std::string& HpsResult_Name(HpsResult value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          HpsResult_entries,
-          HpsResult_entries_by_number,
+          HpsResult_entries, HpsResult_entries_by_number,
           3, HpsResult_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      HpsResult_entries,
-      HpsResult_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     HpsResult_strings[idx].get();
+      HpsResult_entries, HpsResult_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : HpsResult_strings[idx].get();
 }
-bool HpsResult_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, HpsResult* value) {
+
+bool HpsResult_Parse(absl::string_view name, HpsResult* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       HpsResult_entries, 3, name, &int_value);
@@ -150,33 +171,26 @@ bool HpsResult_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class FeatureConfig_BasicFilterConfig::_Internal {
  public:
 };
 
-FeatureConfig_BasicFilterConfig::FeatureConfig_BasicFilterConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+FeatureConfig_BasicFilterConfig::FeatureConfig_BasicFilterConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:hps.FeatureConfig.BasicFilterConfig)
 }
 FeatureConfig_BasicFilterConfig::FeatureConfig_BasicFilterConfig(const FeatureConfig_BasicFilterConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  FeatureConfig_BasicFilterConfig* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:hps.FeatureConfig.BasicFilterConfig)
 }
 
-inline void FeatureConfig_BasicFilterConfig::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void FeatureConfig_BasicFilterConfig::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       /*decltype(_impl_._cached_size_)*/{}
   };
@@ -192,7 +206,7 @@ FeatureConfig_BasicFilterConfig::~FeatureConfig_BasicFilterConfig() {
 }
 
 inline void FeatureConfig_BasicFilterConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void FeatureConfig_BasicFilterConfig::SetCachedSize(int size) const {
@@ -201,7 +215,7 @@ void FeatureConfig_BasicFilterConfig::SetCachedSize(int size) const {
 
 void FeatureConfig_BasicFilterConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:hps.FeatureConfig.BasicFilterConfig)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -211,7 +225,7 @@ void FeatureConfig_BasicFilterConfig::Clear() {
 const char* FeatureConfig_BasicFilterConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
@@ -232,10 +246,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FeatureConfig_BasicFilterConfig::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* FeatureConfig_BasicFilterConfig::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:hps.FeatureConfig.BasicFilterConfig)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -246,11 +260,11 @@ uint8_t* FeatureConfig_BasicFilterConfig::_InternalSerialize(
   return target;
 }
 
-size_t FeatureConfig_BasicFilterConfig::ByteSizeLong() const {
+::size_t FeatureConfig_BasicFilterConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:hps.FeatureConfig.BasicFilterConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -271,8 +285,8 @@ void FeatureConfig_BasicFilterConfig::CheckTypeAndMergeFrom(
 void FeatureConfig_BasicFilterConfig::MergeFrom(const FeatureConfig_BasicFilterConfig& from) {
   FeatureConfig_BasicFilterConfig* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:hps.FeatureConfig.BasicFilterConfig)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -298,47 +312,37 @@ std::string FeatureConfig_BasicFilterConfig::GetTypeName() const {
   return "hps.FeatureConfig.BasicFilterConfig";
 }
 
-
 // ===================================================================
 
 class FeatureConfig_ConsecutiveResultsFilterConfig::_Internal {
  public:
 };
 
-FeatureConfig_ConsecutiveResultsFilterConfig::FeatureConfig_ConsecutiveResultsFilterConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+FeatureConfig_ConsecutiveResultsFilterConfig::FeatureConfig_ConsecutiveResultsFilterConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:hps.FeatureConfig.ConsecutiveResultsFilterConfig)
 }
 FeatureConfig_ConsecutiveResultsFilterConfig::FeatureConfig_ConsecutiveResultsFilterConfig(const FeatureConfig_ConsecutiveResultsFilterConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  FeatureConfig_ConsecutiveResultsFilterConfig* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.positive_score_threshold_){}
-    , decltype(_impl_.negative_score_threshold_){}
-    , decltype(_impl_.positive_count_threshold_){}
-    , decltype(_impl_.negative_count_threshold_){}
-    , decltype(_impl_.uncertain_count_threshold_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.positive_score_threshold_, &from._impl_.positive_score_threshold_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.uncertain_count_threshold_) -
-    reinterpret_cast<char*>(&_impl_.positive_score_threshold_)) + sizeof(_impl_.uncertain_count_threshold_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:hps.FeatureConfig.ConsecutiveResultsFilterConfig)
 }
 
-inline void FeatureConfig_ConsecutiveResultsFilterConfig::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void FeatureConfig_ConsecutiveResultsFilterConfig::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.positive_score_threshold_){0}
-    , decltype(_impl_.negative_score_threshold_){0}
-    , decltype(_impl_.positive_count_threshold_){0}
-    , decltype(_impl_.negative_count_threshold_){0}
-    , decltype(_impl_.uncertain_count_threshold_){0}
+      decltype(_impl_.positive_score_threshold_) { 0 }
+
+    , decltype(_impl_.negative_score_threshold_) { 0 }
+
+    , decltype(_impl_.positive_count_threshold_) { 0 }
+
+    , decltype(_impl_.negative_count_threshold_) { 0 }
+
+    , decltype(_impl_.uncertain_count_threshold_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -353,7 +357,7 @@ FeatureConfig_ConsecutiveResultsFilterConfig::~FeatureConfig_ConsecutiveResultsF
 }
 
 inline void FeatureConfig_ConsecutiveResultsFilterConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void FeatureConfig_ConsecutiveResultsFilterConfig::SetCachedSize(int size) const {
@@ -362,11 +366,11 @@ void FeatureConfig_ConsecutiveResultsFilterConfig::SetCachedSize(int size) const
 
 void FeatureConfig_ConsecutiveResultsFilterConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:hps.FeatureConfig.ConsecutiveResultsFilterConfig)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.positive_score_threshold_, 0, static_cast<size_t>(
+  ::memset(&_impl_.positive_score_threshold_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.uncertain_count_threshold_) -
       reinterpret_cast<char*>(&_impl_.positive_score_threshold_)) + sizeof(_impl_.uncertain_count_threshold_));
   _internal_metadata_.Clear<std::string>();
@@ -375,48 +379,53 @@ void FeatureConfig_ConsecutiveResultsFilterConfig::Clear() {
 const char* FeatureConfig_ConsecutiveResultsFilterConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 positive_score_threshold = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.positive_score_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 negative_score_threshold = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _impl_.negative_score_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 positive_count_threshold = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _impl_.positive_count_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 negative_count_threshold = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _impl_.negative_count_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 uncertain_count_threshold = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
           _impl_.uncertain_count_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -441,40 +450,45 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FeatureConfig_ConsecutiveResultsFilterConfig::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* FeatureConfig_ConsecutiveResultsFilterConfig::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:hps.FeatureConfig.ConsecutiveResultsFilterConfig)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 positive_score_threshold = 4;
   if (this->_internal_positive_score_threshold() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_positive_score_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_positive_score_threshold(), target);
   }
 
   // int32 negative_score_threshold = 5;
   if (this->_internal_negative_score_threshold() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_negative_score_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        5, this->_internal_negative_score_threshold(), target);
   }
 
   // int32 positive_count_threshold = 6;
   if (this->_internal_positive_count_threshold() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_positive_count_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        6, this->_internal_positive_count_threshold(), target);
   }
 
   // int32 negative_count_threshold = 7;
   if (this->_internal_negative_count_threshold() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_negative_count_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        7, this->_internal_negative_count_threshold(), target);
   }
 
   // int32 uncertain_count_threshold = 8;
   if (this->_internal_uncertain_count_threshold() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(8, this->_internal_uncertain_count_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        8, this->_internal_uncertain_count_threshold(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -485,37 +499,42 @@ uint8_t* FeatureConfig_ConsecutiveResultsFilterConfig::_InternalSerialize(
   return target;
 }
 
-size_t FeatureConfig_ConsecutiveResultsFilterConfig::ByteSizeLong() const {
+::size_t FeatureConfig_ConsecutiveResultsFilterConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:hps.FeatureConfig.ConsecutiveResultsFilterConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 positive_score_threshold = 4;
   if (this->_internal_positive_score_threshold() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_positive_score_threshold());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_positive_score_threshold());
   }
 
   // int32 negative_score_threshold = 5;
   if (this->_internal_negative_score_threshold() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_negative_score_threshold());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_negative_score_threshold());
   }
 
   // int32 positive_count_threshold = 6;
   if (this->_internal_positive_count_threshold() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_positive_count_threshold());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_positive_count_threshold());
   }
 
   // int32 negative_count_threshold = 7;
   if (this->_internal_negative_count_threshold() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_negative_count_threshold());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_negative_count_threshold());
   }
 
   // int32 uncertain_count_threshold = 8;
   if (this->_internal_uncertain_count_threshold() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_uncertain_count_threshold());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_uncertain_count_threshold());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -535,8 +554,8 @@ void FeatureConfig_ConsecutiveResultsFilterConfig::CheckTypeAndMergeFrom(
 void FeatureConfig_ConsecutiveResultsFilterConfig::MergeFrom(const FeatureConfig_ConsecutiveResultsFilterConfig& from) {
   FeatureConfig_ConsecutiveResultsFilterConfig* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:hps.FeatureConfig.ConsecutiveResultsFilterConfig)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_positive_score_threshold() != 0) {
@@ -583,45 +602,35 @@ std::string FeatureConfig_ConsecutiveResultsFilterConfig::GetTypeName() const {
   return "hps.FeatureConfig.ConsecutiveResultsFilterConfig";
 }
 
-
 // ===================================================================
 
 class FeatureConfig_AverageFilterConfig::_Internal {
  public:
 };
 
-FeatureConfig_AverageFilterConfig::FeatureConfig_AverageFilterConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+FeatureConfig_AverageFilterConfig::FeatureConfig_AverageFilterConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:hps.FeatureConfig.AverageFilterConfig)
 }
 FeatureConfig_AverageFilterConfig::FeatureConfig_AverageFilterConfig(const FeatureConfig_AverageFilterConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  FeatureConfig_AverageFilterConfig* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.average_window_size_){}
-    , decltype(_impl_.positive_score_threshold_){}
-    , decltype(_impl_.negative_score_threshold_){}
-    , decltype(_impl_.default_uncertain_score_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.average_window_size_, &from._impl_.average_window_size_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.default_uncertain_score_) -
-    reinterpret_cast<char*>(&_impl_.average_window_size_)) + sizeof(_impl_.default_uncertain_score_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:hps.FeatureConfig.AverageFilterConfig)
 }
 
-inline void FeatureConfig_AverageFilterConfig::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void FeatureConfig_AverageFilterConfig::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.average_window_size_){0}
-    , decltype(_impl_.positive_score_threshold_){0}
-    , decltype(_impl_.negative_score_threshold_){0}
-    , decltype(_impl_.default_uncertain_score_){0}
+      decltype(_impl_.average_window_size_) { 0 }
+
+    , decltype(_impl_.positive_score_threshold_) { 0 }
+
+    , decltype(_impl_.negative_score_threshold_) { 0 }
+
+    , decltype(_impl_.default_uncertain_score_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -636,7 +645,7 @@ FeatureConfig_AverageFilterConfig::~FeatureConfig_AverageFilterConfig() {
 }
 
 inline void FeatureConfig_AverageFilterConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void FeatureConfig_AverageFilterConfig::SetCachedSize(int size) const {
@@ -645,11 +654,11 @@ void FeatureConfig_AverageFilterConfig::SetCachedSize(int size) const {
 
 void FeatureConfig_AverageFilterConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:hps.FeatureConfig.AverageFilterConfig)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.average_window_size_, 0, static_cast<size_t>(
+  ::memset(&_impl_.average_window_size_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.default_uncertain_score_) -
       reinterpret_cast<char*>(&_impl_.average_window_size_)) + sizeof(_impl_.default_uncertain_score_));
   _internal_metadata_.Clear<std::string>();
@@ -658,40 +667,44 @@ void FeatureConfig_AverageFilterConfig::Clear() {
 const char* FeatureConfig_AverageFilterConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 average_window_size = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.average_window_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 positive_score_threshold = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.positive_score_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 negative_score_threshold = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.negative_score_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 default_uncertain_score = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.default_uncertain_score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -716,34 +729,38 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FeatureConfig_AverageFilterConfig::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* FeatureConfig_AverageFilterConfig::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:hps.FeatureConfig.AverageFilterConfig)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 average_window_size = 1;
   if (this->_internal_average_window_size() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_average_window_size(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_average_window_size(), target);
   }
 
   // int32 positive_score_threshold = 2;
   if (this->_internal_positive_score_threshold() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_positive_score_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_positive_score_threshold(), target);
   }
 
   // int32 negative_score_threshold = 3;
   if (this->_internal_negative_score_threshold() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_negative_score_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_negative_score_threshold(), target);
   }
 
   // int32 default_uncertain_score = 4;
   if (this->_internal_default_uncertain_score() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_default_uncertain_score(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_default_uncertain_score(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -754,32 +771,36 @@ uint8_t* FeatureConfig_AverageFilterConfig::_InternalSerialize(
   return target;
 }
 
-size_t FeatureConfig_AverageFilterConfig::ByteSizeLong() const {
+::size_t FeatureConfig_AverageFilterConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:hps.FeatureConfig.AverageFilterConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 average_window_size = 1;
   if (this->_internal_average_window_size() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_average_window_size());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_average_window_size());
   }
 
   // int32 positive_score_threshold = 2;
   if (this->_internal_positive_score_threshold() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_positive_score_threshold());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_positive_score_threshold());
   }
 
   // int32 negative_score_threshold = 3;
   if (this->_internal_negative_score_threshold() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_negative_score_threshold());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_negative_score_threshold());
   }
 
   // int32 default_uncertain_score = 4;
   if (this->_internal_default_uncertain_score() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_default_uncertain_score());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_default_uncertain_score());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -799,8 +820,8 @@ void FeatureConfig_AverageFilterConfig::CheckTypeAndMergeFrom(
 void FeatureConfig_AverageFilterConfig::MergeFrom(const FeatureConfig_AverageFilterConfig& from) {
   FeatureConfig_AverageFilterConfig* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:hps.FeatureConfig.AverageFilterConfig)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_average_window_size() != 0) {
@@ -844,11 +865,12 @@ std::string FeatureConfig_AverageFilterConfig::GetTypeName() const {
   return "hps.FeatureConfig.AverageFilterConfig";
 }
 
-
 // ===================================================================
 
 class FeatureConfig::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::hps::FeatureConfig, _impl_._oneof_case_);
   static const ::hps::FeatureConfig_BasicFilterConfig& basic_filter_config(const FeatureConfig* msg);
   static const ::hps::FeatureConfig_ConsecutiveResultsFilterConfig& consecutive_results_filter_config(const FeatureConfig* msg);
   static const ::hps::FeatureConfig_AverageFilterConfig& average_filter_config(const FeatureConfig* msg);
@@ -911,17 +933,17 @@ void FeatureConfig::set_allocated_average_filter_config(::hps::FeatureConfig_Ave
   }
   // @@protoc_insertion_point(field_set_allocated:hps.FeatureConfig.average_filter_config)
 }
-FeatureConfig::FeatureConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+FeatureConfig::FeatureConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:hps.FeatureConfig)
 }
 FeatureConfig::FeatureConfig(const FeatureConfig& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   FeatureConfig* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.report_raw_results_){}
+      decltype(_impl_.report_raw_results_) {}
+
     , decltype(_impl_.filter_config_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_._oneof_case_)*/{}};
@@ -952,12 +974,11 @@ FeatureConfig::FeatureConfig(const FeatureConfig& from)
   // @@protoc_insertion_point(copy_constructor:hps.FeatureConfig)
 }
 
-inline void FeatureConfig::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void FeatureConfig::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.report_raw_results_){false}
+      decltype(_impl_.report_raw_results_) { false }
+
     , decltype(_impl_.filter_config_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_._oneof_case_)*/{}
@@ -975,7 +996,7 @@ FeatureConfig::~FeatureConfig() {
 }
 
 inline void FeatureConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_filter_config()) {
     clear_filter_config();
   }
@@ -1016,7 +1037,7 @@ void FeatureConfig::clear_filter_config() {
 
 void FeatureConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:hps.FeatureConfig)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1028,40 +1049,44 @@ void FeatureConfig::Clear() {
 const char* FeatureConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .hps.FeatureConfig.BasicFilterConfig basic_filter_config = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_basic_filter_config(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .hps.FeatureConfig.ConsecutiveResultsFilterConfig consecutive_results_filter_config = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_consecutive_results_filter_config(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .hps.FeatureConfig.AverageFilterConfig average_filter_config = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_average_filter_config(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bool report_raw_results = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.report_raw_results_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1086,37 +1111,38 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FeatureConfig::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* FeatureConfig::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:hps.FeatureConfig)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .hps.FeatureConfig.BasicFilterConfig basic_filter_config = 1;
-  if (_internal_has_basic_filter_config()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::basic_filter_config(this),
-        _Internal::basic_filter_config(this).GetCachedSize(), target, stream);
+  switch (filter_config_case()) {
+    case kBasicFilterConfig: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, _Internal::basic_filter_config(this),
+          _Internal::basic_filter_config(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kConsecutiveResultsFilterConfig: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, _Internal::consecutive_results_filter_config(this),
+          _Internal::consecutive_results_filter_config(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kAverageFilterConfig: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(3, _Internal::average_filter_config(this),
+          _Internal::average_filter_config(this).GetCachedSize(), target, stream);
+      break;
+    }
+    default: ;
   }
-
-  // .hps.FeatureConfig.ConsecutiveResultsFilterConfig consecutive_results_filter_config = 2;
-  if (_internal_has_consecutive_results_filter_config()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::consecutive_results_filter_config(this),
-        _Internal::consecutive_results_filter_config(this).GetCachedSize(), target, stream);
-  }
-
-  // .hps.FeatureConfig.AverageFilterConfig average_filter_config = 3;
-  if (_internal_has_average_filter_config()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::average_filter_config(this),
-        _Internal::average_filter_config(this).GetCachedSize(), target, stream);
-  }
-
   // bool report_raw_results = 4;
   if (this->_internal_report_raw_results() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_report_raw_results(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_report_raw_results(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1127,17 +1153,17 @@ uint8_t* FeatureConfig::_InternalSerialize(
   return target;
 }
 
-size_t FeatureConfig::ByteSizeLong() const {
+::size_t FeatureConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:hps.FeatureConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bool report_raw_results = 4;
   if (this->_internal_report_raw_results() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   switch (filter_config_case()) {
@@ -1183,8 +1209,8 @@ void FeatureConfig::CheckTypeAndMergeFrom(
 void FeatureConfig::MergeFrom(const FeatureConfig& from) {
   FeatureConfig* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:hps.FeatureConfig)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_report_raw_results() != 0) {
@@ -1227,6 +1253,7 @@ bool FeatureConfig::IsInitialized() const {
 void FeatureConfig::InternalSwap(FeatureConfig* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+
   swap(_impl_.report_raw_results_, other->_impl_.report_raw_results_);
   swap(_impl_.filter_config_, other->_impl_.filter_config_);
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
@@ -1236,43 +1263,33 @@ std::string FeatureConfig::GetTypeName() const {
   return "hps.FeatureConfig";
 }
 
-
 // ===================================================================
 
 class HpsResultProto::_Internal {
  public:
 };
 
-HpsResultProto::HpsResultProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+HpsResultProto::HpsResultProto(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:hps.HpsResultProto)
 }
 HpsResultProto::HpsResultProto(const HpsResultProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  HpsResultProto* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.value_){}
-    , decltype(_impl_.inference_result_){}
-    , decltype(_impl_.inference_result_valid_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.value_, &from._impl_.value_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.inference_result_valid_) -
-    reinterpret_cast<char*>(&_impl_.value_)) + sizeof(_impl_.inference_result_valid_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:hps.HpsResultProto)
 }
 
-inline void HpsResultProto::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void HpsResultProto::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.value_){0}
-    , decltype(_impl_.inference_result_){0}
-    , decltype(_impl_.inference_result_valid_){false}
+      decltype(_impl_.value_) { 0 }
+
+    , decltype(_impl_.inference_result_) { 0 }
+
+    , decltype(_impl_.inference_result_valid_) { false }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1287,7 +1304,7 @@ HpsResultProto::~HpsResultProto() {
 }
 
 inline void HpsResultProto::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void HpsResultProto::SetCachedSize(int size) const {
@@ -1296,11 +1313,11 @@ void HpsResultProto::SetCachedSize(int size) const {
 
 void HpsResultProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:hps.HpsResultProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.value_, 0, static_cast<size_t>(
+  ::memset(&_impl_.value_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.inference_result_valid_) -
       reinterpret_cast<char*>(&_impl_.value_)) + sizeof(_impl_.inference_result_valid_));
   _internal_metadata_.Clear<std::string>();
@@ -1309,33 +1326,36 @@ void HpsResultProto::Clear() {
 const char* HpsResultProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .hps.HpsResult value = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_value(static_cast<::hps::HpsResult>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 inference_result = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.inference_result_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bool inference_result_valid = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.inference_result_valid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1360,29 +1380,31 @@ failure:
 #undef CHK_
 }
 
-uint8_t* HpsResultProto::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* HpsResultProto::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:hps.HpsResultProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .hps.HpsResult value = 1;
   if (this->_internal_value() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_value(), target);
+        1, this->_internal_value(), target);
   }
 
   // int32 inference_result = 2;
   if (this->_internal_inference_result() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_inference_result(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_inference_result(), target);
   }
 
   // bool inference_result_valid = 3;
   if (this->_internal_inference_result_valid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_inference_result_valid(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        3, this->_internal_inference_result_valid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1393,28 +1415,29 @@ uint8_t* HpsResultProto::_InternalSerialize(
   return target;
 }
 
-size_t HpsResultProto::ByteSizeLong() const {
+::size_t HpsResultProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:hps.HpsResultProto)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .hps.HpsResult value = 1;
   if (this->_internal_value() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_value());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_value());
   }
 
   // int32 inference_result = 2;
   if (this->_internal_inference_result() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_inference_result());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_inference_result());
   }
 
   // bool inference_result_valid = 3;
   if (this->_internal_inference_result_valid() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1434,8 +1457,8 @@ void HpsResultProto::CheckTypeAndMergeFrom(
 void HpsResultProto::MergeFrom(const HpsResultProto& from) {
   HpsResultProto* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:hps.HpsResultProto)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_value() != 0) {
@@ -1476,7 +1499,6 @@ std::string HpsResultProto::GetTypeName() const {
   return "hps.HpsResultProto";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace hps
 PROTOBUF_NAMESPACE_OPEN
@@ -1501,6 +1523,5 @@ Arena::CreateMaybeMessage< ::hps::HpsResultProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::hps::HpsResultProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGViewElement>::value,
     "SVGViewElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGViewElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGViewElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFitToViewBox);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGViewElement* blink_receiver = V8SVGViewElement::ToWrappableUnsafe(v8_receiver);
+SVGViewElement* blink_receiver = V8SVGViewElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->viewBox();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -116,7 +111,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMFitToViewBox);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGViewElement* blink_receiver = V8SVGViewElement::ToWrappableUnsafe(v8_receiver);
+SVGViewElement* blink_receiver = V8SVGViewElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->preserveAspectRatio();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -135,7 +130,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMZoomAndPan);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGViewElement* blink_receiver = V8SVGViewElement::ToWrappableUnsafe(v8_receiver);
+SVGViewElement* blink_receiver = V8SVGViewElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->zoomAndPan();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -153,7 +148,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMZoomAndPan);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGViewElement* blink_receiver = V8SVGViewElement::ToWrappableUnsafe(v8_receiver);
+SVGViewElement* blink_receiver = V8SVGViewElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGViewElement";

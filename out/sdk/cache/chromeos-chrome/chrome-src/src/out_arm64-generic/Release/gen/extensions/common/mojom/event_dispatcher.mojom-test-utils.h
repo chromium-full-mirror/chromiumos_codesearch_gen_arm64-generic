@@ -15,7 +15,7 @@ namespace extensions::mojom {
 
 class  EventDispatcherInterceptorForTesting : public EventDispatcher {
   virtual EventDispatcher* GetForwardingInterface() = 0;
-  void DispatchEvent(DispatchEventParamsPtr params, ::base::Value::List event_args) override;
+  void DispatchEvent(DispatchEventParamsPtr params, ::base::Value::List event_args, DispatchEventCallback callback) override;
 };
 class  EventDispatcherAsyncWaiter {
  public:
@@ -25,6 +25,9 @@ class  EventDispatcherAsyncWaiter {
   EventDispatcherAsyncWaiter& operator=(const EventDispatcherAsyncWaiter&) = delete;
 
   ~EventDispatcherAsyncWaiter();
+  void DispatchEvent(
+      DispatchEventParamsPtr params, ::base::Value::List event_args, bool* out_event_will_run_in_lazy_background_page_script);
+  bool DispatchEvent(DispatchEventParamsPtr params, ::base::Value::List event_args);
 
  private:
   EventDispatcher* const proxy_;

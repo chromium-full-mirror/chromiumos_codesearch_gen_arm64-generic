@@ -42,7 +42,7 @@ class  BlobStorageContextInterceptorForTesting : public BlobStorageContext {
   virtual BlobStorageContext* GetForwardingInterface() = 0;
   void RegisterFromDataItem(::mojo::PendingReceiver<::blink::mojom::Blob> blob, const std::string& uuid, BlobDataItemPtr item) override;
   void RegisterFromMemory(::mojo::PendingReceiver<::blink::mojom::Blob> blob, const std::string& uuid, ::mojo_base::BigBuffer data) override;
-  void WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, absl::optional<::base::Time> last_modified, WriteBlobToFileCallback callback) override;
+  void WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, std::optional<::base::Time> last_modified, WriteBlobToFileCallback callback) override;
   void Clone(::mojo::PendingReceiver<BlobStorageContext> receiver) override;
 };
 class  BlobStorageContextAsyncWaiter {
@@ -54,8 +54,8 @@ class  BlobStorageContextAsyncWaiter {
 
   ~BlobStorageContextAsyncWaiter();
   void WriteBlobToFile(
-      ::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, absl::optional<::base::Time> last_modified, WriteBlobToFileResult* out_result);
-  WriteBlobToFileResult WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, absl::optional<::base::Time> last_modified);
+      ::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, std::optional<::base::Time> last_modified, WriteBlobToFileResult* out_result);
+  WriteBlobToFileResult WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, std::optional<::base::Time> last_modified);
 
  private:
   BlobStorageContext* const proxy_;

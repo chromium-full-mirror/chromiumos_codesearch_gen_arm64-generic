@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSFontFeatureValuesRule>::value,
     "CSSFontFeatureValuesRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSFontFeatureValuesRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSFontFeatureValuesRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,10 +80,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesRule.fontFamily.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fontFamily();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->fontFamily();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,9 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesRule.fontFamily.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "CSSFontFeatureValuesRule";
@@ -122,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesRule.annotation.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->annotation();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -136,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesRule.ornaments.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ornaments();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -150,8 +147,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesRule.stylistic.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->stylistic();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -164,8 +162,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesRule.swash.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->swash();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -178,8 +177,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesRule.characterVariant.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->characterVariant();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -192,8 +192,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSFontFeatureValuesRule.styleset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(v8_receiver);
+CSSFontFeatureValuesRule* blink_receiver = V8CSSFontFeatureValuesRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->styleset();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

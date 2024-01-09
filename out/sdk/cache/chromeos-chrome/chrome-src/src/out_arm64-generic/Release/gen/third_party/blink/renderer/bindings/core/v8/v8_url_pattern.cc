@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, URLPattern>::value,
     "URLPattern inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&URLPattern::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "URLPattern is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,10 +87,10 @@ BLINK_BINDINGS_TRACE_EVENT("URLPattern.protocol.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->protocol();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->protocol();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -107,10 +102,10 @@ BLINK_BINDINGS_TRACE_EVENT("URLPattern.username.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->username();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->username();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -122,10 +117,10 @@ BLINK_BINDINGS_TRACE_EVENT("URLPattern.password.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->password();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->password();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -137,10 +132,10 @@ BLINK_BINDINGS_TRACE_EVENT("URLPattern.hostname.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->hostname();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->hostname();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -152,10 +147,10 @@ BLINK_BINDINGS_TRACE_EVENT("URLPattern.port.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->port();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->port();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -167,10 +162,10 @@ BLINK_BINDINGS_TRACE_EVENT("URLPattern.pathname.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->pathname();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->pathname();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -182,10 +177,10 @@ BLINK_BINDINGS_TRACE_EVENT("URLPattern.search.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->search();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->search();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -197,11 +192,26 @@ BLINK_BINDINGS_TRACE_EVENT("URLPattern.hash.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->hash();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->hash();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
+}
+
+
+void HasRegExpGroupsAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_URLPattern_hasRegExpGroups_Getter");
+BLINK_BINDINGS_TRACE_EVENT("URLPattern.hasRegExpGroups.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->hasRegExpGroups();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
 
 
@@ -237,7 +247,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 }
-auto&& return_value = URLPattern::Create(arg1_input, arg2_base_url, arg3_options, exception_state);
+auto&& return_value = URLPattern::Create(isolate, arg1_input, arg2_base_url, arg3_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -275,7 +285,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 }
-auto&& return_value = URLPattern::Create(arg1_input, arg2_options, exception_state);
+auto&& return_value = URLPattern::Create(isolate, arg1_input, arg2_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -352,7 +362,7 @@ const char* const property_name = "exec";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<V8UnionURLPatternInitOrUSVString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_input;
 if (info[0]->IsUndefined()) {
   arg1_input = MakeGarbageCollected<V8UnionURLPatternInitOrUSVString>(URLPatternInit::Create());
@@ -405,7 +415,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(v8_receiver);
+URLPattern* blink_receiver = V8URLPattern::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -541,6 +551,14 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 void V8URLPattern::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
+if (RuntimeEnabledFeatures::URLPatternHasRegExpGroupsEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"hasRegExpGroups", HasRegExpGroupsAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
 
 
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "device/vr/public/mojom/browser_test_interfaces.mojom-features.h"
 #include "device/vr/public/mojom/browser_test_interfaces.mojom-shared.h"
 #include "device/vr/public/mojom/browser_test_interfaces.mojom-forward.h"
+#include "device/vr/public/mojom/openxr_interaction_profile_type.mojom-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "ui/gfx/mojom/transform.mojom.h"
 #include <string>
@@ -928,7 +930,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) EventData {
 
   EventData(
       EventType type,
-      InteractionProfileType interaction_profile);
+      ::device::mojom::OpenXrInteractionProfileType interaction_profile);
 
 
   ~EventData();
@@ -1009,7 +1011,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) EventData {
   
   EventType type;
   
-  InteractionProfileType interaction_profile;
+  ::device::mojom::OpenXrInteractionProfileType interaction_profile;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1222,7 +1224,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) PoseFrameData {
   PoseFrameData();
 
   explicit PoseFrameData(
-      const absl::optional<::gfx::Transform>& device_to_origin);
+      const std::optional<::gfx::Transform>& device_to_origin);
 
 
   ~PoseFrameData();
@@ -1300,7 +1302,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) PoseFrameData {
   }
 
   
-  absl::optional<::gfx::Transform> device_to_origin;
+  std::optional<::gfx::Transform> device_to_origin;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Attr>::value,
     "Attr inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Attr::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Attr is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("Attr.namespaceURI.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Attr* blink_receiver = V8Attr::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->namespaceURI();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Attr* blink_receiver = V8Attr::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->namespaceURI();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -103,10 +98,10 @@ BLINK_BINDINGS_TRACE_EVENT("Attr.prefix.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Attr* blink_receiver = V8Attr::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->prefix();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Attr* blink_receiver = V8Attr::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->prefix();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -118,10 +113,10 @@ BLINK_BINDINGS_TRACE_EVENT("Attr.localName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Attr* blink_receiver = V8Attr::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->localName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Attr* blink_receiver = V8Attr::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->localName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -133,10 +128,10 @@ BLINK_BINDINGS_TRACE_EVENT("Attr.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Attr* blink_receiver = V8Attr::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Attr* blink_receiver = V8Attr::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -148,10 +143,10 @@ BLINK_BINDINGS_TRACE_EVENT("Attr.value.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Attr* blink_receiver = V8Attr::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->value();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Attr* blink_receiver = V8Attr::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->value();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -171,7 +166,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Attr* blink_receiver = V8Attr::ToWrappableUnsafe(v8_receiver);
+Attr* blink_receiver = V8Attr::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -191,8 +186,9 @@ BLINK_BINDINGS_TRACE_EVENT("Attr.ownerElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Attr* blink_receiver = V8Attr::ToWrappableUnsafe(v8_receiver);
+Attr* blink_receiver = V8Attr::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ownerElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -205,8 +201,9 @@ BLINK_BINDINGS_TRACE_EVENT("Attr.specified.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Attr* blink_receiver = V8Attr::ToWrappableUnsafe(v8_receiver);
+Attr* blink_receiver = V8Attr::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->specified();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

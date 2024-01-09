@@ -1,10 +1,11 @@
 // Copyright 2015 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import * as EventListeners from '../event_listeners/event_listeners.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as SDK from '../../core/sdk/sdk.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
+import * as EventListeners from '../event_listeners/event_listeners.js';
 const UIStrings = {
     /**
      *@description Label for a button in the sources panel that refreshes the list of global event listeners.
@@ -20,6 +21,7 @@ export class ObjectEventListenersSidebarPane extends UI.Widget.VBox {
     #lastRequestedContext;
     constructor() {
         super();
+        this.contentElement.setAttribute('jslog', `${VisualLogging.pane().context('debugger-global-listeners')}`);
         this.#refreshButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.refreshGlobalListeners), 'refresh');
         this.#refreshButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.refreshClick, this);
         this.#refreshButton.setEnabled(false);

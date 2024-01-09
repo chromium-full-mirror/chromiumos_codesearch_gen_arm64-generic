@@ -1702,7 +1702,7 @@ class Scheduler(PollScheduler):
 					if log_path:
 						msg += '\n>>> %s: Dumping log file %s:' % (task.pkg.cpv, log_path)
 
-						with open(log_path, 'r', encoding='utf-8') as fp:
+						with open(log_path, 'r', encoding='utf-8', errors='replace') as fp:
 							data = fp.read()
 
 						# Only dump the last 5MiB of logs.  This should fit the vast

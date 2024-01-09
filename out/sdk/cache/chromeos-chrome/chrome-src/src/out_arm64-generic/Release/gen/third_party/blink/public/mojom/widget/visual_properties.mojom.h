@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/widget/visual_properties.mojom-features.h"
 #include "third_party/blink/public/mojom/widget/visual_properties.mojom-shared.h"
 #include "third_party/blink/public/mojom/widget/visual_properties.mojom-forward.h"
 #include "cc/mojom/browser_controls_params.mojom.h"
@@ -91,7 +92,7 @@ class BLINK_COMMON_EXPORT VisualProperties {
       const ::gfx::Rect& compositor_viewport_pixel_rect,
       const ::cc::BrowserControlsParams& browser_controls_params,
       bool scroll_focused_node_into_view,
-      const absl::optional<::viz::LocalSurfaceId>& local_surface_id,
+      const std::optional<::viz::LocalSurfaceId>& local_surface_id,
       bool is_fullscreen_granted,
       ::blink::mojom::DisplayMode display_mode,
       ::ui::WindowShowState window_show_state,
@@ -201,7 +202,7 @@ class BLINK_COMMON_EXPORT VisualProperties {
   
   bool scroll_focused_node_into_view;
   
-  absl::optional<::viz::LocalSurfaceId> local_surface_id;
+  std::optional<::viz::LocalSurfaceId> local_surface_id;
   
   bool is_fullscreen_granted;
   

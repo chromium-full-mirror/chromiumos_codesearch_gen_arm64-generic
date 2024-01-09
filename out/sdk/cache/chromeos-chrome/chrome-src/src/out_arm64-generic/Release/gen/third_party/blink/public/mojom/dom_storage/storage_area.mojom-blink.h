@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/dom_storage/storage_area.mojom-features.h"
 #include "third_party/blink/public/mojom/dom_storage/storage_area.mojom-shared.h"
 #include "third_party/blink/public/mojom/dom_storage/storage_area.mojom-blink-forward.h"
 
@@ -100,13 +101,13 @@ class PLATFORM_EXPORT StorageAreaObserver
   virtual ~StorageAreaObserver() = default;
 
   
-  virtual void KeyChanged(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& new_value, const absl::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) = 0;
+  virtual void KeyChanged(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& new_value, const std::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) = 0;
 
   
   virtual void KeyChangeFailed(const WTF::Vector<uint8_t>& key, const WTF::String& source) = 0;
 
   
-  virtual void KeyDeleted(const WTF::Vector<uint8_t>& key, const absl::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) = 0;
+  virtual void KeyDeleted(const WTF::Vector<uint8_t>& key, const std::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) = 0;
 
   
   virtual void AllDeleted(bool was_nonempty, const WTF::String& source) = 0;
@@ -190,12 +191,12 @@ class PLATFORM_EXPORT StorageArea
 
   using PutCallback = base::OnceCallback<void(bool)>;
   
-  virtual void Put(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, PutCallback callback) = 0;
+  virtual void Put(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, PutCallback callback) = 0;
 
 
   using DeleteCallback = base::OnceCallback<void(bool)>;
   
-  virtual void Delete(const WTF::Vector<uint8_t>& key, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, DeleteCallback callback) = 0;
+  virtual void Delete(const WTF::Vector<uint8_t>& key, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, DeleteCallback callback) = 0;
 
 
   using DeleteAllCallback = base::OnceCallback<void(bool)>;
@@ -226,11 +227,11 @@ class PLATFORM_EXPORT StorageAreaObserverProxy
 
   explicit StorageAreaObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void KeyChanged(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& new_value, const absl::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) final;
+  void KeyChanged(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& new_value, const std::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) final;
   
   void KeyChangeFailed(const WTF::Vector<uint8_t>& key, const WTF::String& source) final;
   
-  void KeyDeleted(const WTF::Vector<uint8_t>& key, const absl::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) final;
+  void KeyDeleted(const WTF::Vector<uint8_t>& key, const std::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) final;
   
   void AllDeleted(bool was_nonempty, const WTF::String& source) final;
   
@@ -251,9 +252,9 @@ class PLATFORM_EXPORT StorageAreaProxy
   
   void AddObserver(::mojo::PendingRemote<StorageAreaObserver> observer) final;
   
-  void Put(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, PutCallback callback) final;
+  void Put(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, PutCallback callback) final;
   
-  void Delete(const WTF::Vector<uint8_t>& key, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, DeleteCallback callback) final;
+  void Delete(const WTF::Vector<uint8_t>& key, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, DeleteCallback callback) final;
   
   void DeleteAll(const WTF::String& source, ::mojo::PendingRemote<StorageAreaObserver> new_observer, DeleteAllCallback callback) final;
   

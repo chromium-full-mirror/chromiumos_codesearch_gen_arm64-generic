@@ -42,6 +42,7 @@ PROTOBUF_CONSTEXPR StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(
   , use_dev_caches_(false)
   , host_ureadahead_mode_(0)
 
+  , arc_signed_in_(false)
   , lcd_density_(-1)
   , force_max_acquired_buffers_experiment_(-1){}
 struct StartArcMiniInstanceRequestDefaultTypeInternal {
@@ -65,7 +66,6 @@ PROTOBUF_CONSTEXPR UpgradeArcContainerRequest::UpgradeArcContainerRequest(
 
   , is_account_managed_(false)
   , is_managed_adb_sideloading_allowed_(false)
-  , disable_ureadahead_(false)
   , skip_boot_completed_broadcast_(false)
   , skip_gms_core_cache_(false)
   , obsolete_is_child_(false)
@@ -418,7 +418,7 @@ class StartArcMiniInstanceRequest::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_lcd_density(HasBits* has_bits) {
-    (*has_bits)[0] |= 524288u;
+    (*has_bits)[0] |= 1048576u;
   }
   static void set_has_arc_file_picker_experiment(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -469,13 +469,16 @@ class StartArcMiniInstanceRequest::_Internal {
     (*has_bits)[0] |= 65536u;
   }
   static void set_has_force_max_acquired_buffers_experiment(HasBits* has_bits) {
-    (*has_bits)[0] |= 1048576u;
+    (*has_bits)[0] |= 2097152u;
   }
   static void set_has_use_dev_caches(HasBits* has_bits) {
     (*has_bits)[0] |= 131072u;
   }
   static void set_has_host_ureadahead_mode(HasBits* has_bits) {
     (*has_bits)[0] |= 262144u;
+  }
+  static void set_has_arc_signed_in(HasBits* has_bits) {
+    (*has_bits)[0] |= 524288u;
   }
 };
 
@@ -498,8 +501,8 @@ StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(const StartArcMiniInsta
 inline void StartArcMiniInstanceRequest::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&native_bridge_experiment_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&host_ureadahead_mode_) -
-    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(host_ureadahead_mode_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&arc_signed_in_) -
+    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(arc_signed_in_));
 lcd_density_ = -1;
 force_max_acquired_buffers_experiment_ = -1;
 }
@@ -538,10 +541,10 @@ void StartArcMiniInstanceRequest::Clear() {
         reinterpret_cast<char*>(&enable_privacy_hub_for_chrome_) -
         reinterpret_cast<char*>(&disable_download_provider_)) + sizeof(enable_privacy_hub_for_chrome_));
   }
-  if (cached_has_bits & 0x001f0000u) {
+  if (cached_has_bits & 0x003f0000u) {
     ::memset(&arc_switch_to_keymint_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&host_ureadahead_mode_) -
-        reinterpret_cast<char*>(&arc_switch_to_keymint_)) + sizeof(host_ureadahead_mode_));
+        reinterpret_cast<char*>(&arc_signed_in_) -
+        reinterpret_cast<char*>(&arc_switch_to_keymint_)) + sizeof(arc_signed_in_));
     lcd_density_ = -1;
     force_max_acquired_buffers_experiment_ = -1;
   }
@@ -757,6 +760,15 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::_pbi:
         } else
           goto handle_unusual;
         continue;
+      // optional bool arc_signed_in = 22 [default = false];
+      case 22:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
+          _Internal::set_has_arc_signed_in(&has_bits);
+          arc_signed_in_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -795,7 +807,7 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
   }
 
   // optional int32 lcd_density = 2 [default = -1];
-  if (cached_has_bits & 0x00080000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_lcd_density(), target);
   }
@@ -899,7 +911,7 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
   }
 
   // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
-  if (cached_has_bits & 0x00100000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(19, this->_internal_force_max_acquired_buffers_experiment(), target);
   }
@@ -915,6 +927,12 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       21, this->_internal_host_ureadahead_mode(), target);
+  }
+
+  // optional bool arc_signed_in = 22 [default = false];
+  if (cached_has_bits & 0x00080000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(22, this->_internal_arc_signed_in(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1020,7 +1038,7 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x001f0000u) {
+  if (cached_has_bits & 0x003f0000u) {
     // optional bool arc_switch_to_keymint = 18 [default = false];
     if (cached_has_bits & 0x00010000u) {
       total_size += 2 + 1;
@@ -1037,13 +1055,18 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
         ::_pbi::WireFormatLite::EnumSize(this->_internal_host_ureadahead_mode());
     }
 
-    // optional int32 lcd_density = 2 [default = -1];
+    // optional bool arc_signed_in = 22 [default = false];
     if (cached_has_bits & 0x00080000u) {
+      total_size += 2 + 1;
+    }
+
+    // optional int32 lcd_density = 2 [default = -1];
+    if (cached_has_bits & 0x00100000u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lcd_density());
     }
 
     // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00200000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_force_max_acquired_buffers_experiment());
@@ -1125,7 +1148,7 @@ void StartArcMiniInstanceRequest::MergeFrom(const StartArcMiniInstanceRequest& f
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x001f0000u) {
+  if (cached_has_bits & 0x003f0000u) {
     if (cached_has_bits & 0x00010000u) {
       arc_switch_to_keymint_ = from.arc_switch_to_keymint_;
     }
@@ -1136,9 +1159,12 @@ void StartArcMiniInstanceRequest::MergeFrom(const StartArcMiniInstanceRequest& f
       host_ureadahead_mode_ = from.host_ureadahead_mode_;
     }
     if (cached_has_bits & 0x00080000u) {
-      lcd_density_ = from.lcd_density_;
+      arc_signed_in_ = from.arc_signed_in_;
     }
     if (cached_has_bits & 0x00100000u) {
+      lcd_density_ = from.lcd_density_;
+    }
+    if (cached_has_bits & 0x00200000u) {
       force_max_acquired_buffers_experiment_ = from.force_max_acquired_buffers_experiment_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1162,8 +1188,8 @@ void StartArcMiniInstanceRequest::InternalSwap(StartArcMiniInstanceRequest* othe
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, host_ureadahead_mode_)
-      + sizeof(StartArcMiniInstanceRequest::host_ureadahead_mode_)
+      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, arc_signed_in_)
+      + sizeof(StartArcMiniInstanceRequest::arc_signed_in_)
       - PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, native_bridge_experiment_)>(
           reinterpret_cast<char*>(&native_bridge_experiment_),
           reinterpret_cast<char*>(&other->native_bridge_experiment_));
@@ -1190,23 +1216,20 @@ class UpgradeArcContainerRequest::_Internal {
   static void set_has_is_managed_adb_sideloading_allowed(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
-  static void set_has_disable_ureadahead(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
-  }
   static void set_has_skip_boot_completed_broadcast(HasBits* has_bits) {
-    (*has_bits)[0] |= 256u;
+    (*has_bits)[0] |= 128u;
   }
   static void set_has_packages_cache_mode(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
   static void set_has_skip_gms_core_cache(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
+    (*has_bits)[0] |= 256u;
   }
   static void set_has_obsolete_is_child(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
+    (*has_bits)[0] |= 512u;
   }
   static void set_has_is_demo_session(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
+    (*has_bits)[0] |= 1024u;
   }
   static void set_has_demo_session_apps_path(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -1218,10 +1241,10 @@ class UpgradeArcContainerRequest::_Internal {
     (*has_bits)[0] |= 16u;
   }
   static void set_has_enable_arc_nearby_share(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
+    (*has_bits)[0] |= 2048u;
   }
   static void set_has_skip_tts_cache(HasBits* has_bits) {
-    (*has_bits)[0] |= 8192u;
+    (*has_bits)[0] |= 4096u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
     return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
@@ -1330,13 +1353,13 @@ void UpgradeArcContainerRequest::Clear() {
   }
   if (cached_has_bits & 0x000000f8u) {
     ::memset(&packages_cache_mode_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&disable_ureadahead_) -
-        reinterpret_cast<char*>(&packages_cache_mode_)) + sizeof(disable_ureadahead_));
+        reinterpret_cast<char*>(&skip_boot_completed_broadcast_) -
+        reinterpret_cast<char*>(&packages_cache_mode_)) + sizeof(skip_boot_completed_broadcast_));
   }
-  if (cached_has_bits & 0x00003f00u) {
-    ::memset(&skip_boot_completed_broadcast_, 0, static_cast<size_t>(
+  if (cached_has_bits & 0x00001f00u) {
+    ::memset(&skip_gms_core_cache_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&skip_tts_cache_) -
-        reinterpret_cast<char*>(&skip_boot_completed_broadcast_)) + sizeof(skip_tts_cache_));
+        reinterpret_cast<char*>(&skip_gms_core_cache_)) + sizeof(skip_tts_cache_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -1461,15 +1484,6 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::_pbi::
         } else
           goto handle_unusual;
         continue;
-      // optional bool disable_ureadahead = 15 [default = false];
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
-          _Internal::set_has_disable_ureadahead(&has_bits);
-          disable_ureadahead_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // optional bool is_managed_adb_sideloading_allowed = 16;
       case 16:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
@@ -1535,7 +1549,7 @@ uint8_t* UpgradeArcContainerRequest::_InternalSerialize(
   }
 
   // optional bool skip_boot_completed_broadcast = 2 [default = false];
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_skip_boot_completed_broadcast(), target);
   }
@@ -1566,13 +1580,13 @@ uint8_t* UpgradeArcContainerRequest::_InternalSerialize(
   }
 
   // optional bool OBSOLETE_is_child = 9 [deprecated = true];
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_obsolete_is_child(), target);
   }
 
   // optional bool is_demo_session = 10;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_is_demo_session(), target);
   }
@@ -1585,7 +1599,7 @@ uint8_t* UpgradeArcContainerRequest::_InternalSerialize(
   }
 
   // optional bool skip_gms_core_cache = 13 [default = false];
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(13, this->_internal_skip_gms_core_cache(), target);
   }
@@ -1596,12 +1610,6 @@ uint8_t* UpgradeArcContainerRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(14, this->_internal_is_account_managed(), target);
   }
 
-  // optional bool disable_ureadahead = 15 [default = false];
-  if (cached_has_bits & 0x00000080u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(15, this->_internal_disable_ureadahead(), target);
-  }
-
   // optional bool is_managed_adb_sideloading_allowed = 16;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
@@ -1609,13 +1617,13 @@ uint8_t* UpgradeArcContainerRequest::_InternalSerialize(
   }
 
   // optional bool enable_arc_nearby_share = 17 [default = false];
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(17, this->_internal_enable_arc_nearby_share(), target);
   }
 
   // optional bool skip_tts_cache = 18 [default = false];
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(18, this->_internal_skip_tts_cache(), target);
   }
@@ -1688,40 +1696,35 @@ size_t UpgradeArcContainerRequest::ByteSizeLong() const {
       total_size += 2 + 1;
     }
 
-    // optional bool disable_ureadahead = 15 [default = false];
+    // optional bool skip_boot_completed_broadcast = 2 [default = false];
     if (cached_has_bits & 0x00000080u) {
       total_size += 1 + 1;
     }
 
   }
-  if (cached_has_bits & 0x00003f00u) {
-    // optional bool skip_boot_completed_broadcast = 2 [default = false];
+  if (cached_has_bits & 0x00001f00u) {
+    // optional bool skip_gms_core_cache = 13 [default = false];
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 + 1;
     }
 
-    // optional bool skip_gms_core_cache = 13 [default = false];
+    // optional bool OBSOLETE_is_child = 9 [deprecated = true];
     if (cached_has_bits & 0x00000200u) {
       total_size += 1 + 1;
     }
 
-    // optional bool OBSOLETE_is_child = 9 [deprecated = true];
+    // optional bool is_demo_session = 10;
     if (cached_has_bits & 0x00000400u) {
       total_size += 1 + 1;
     }
 
-    // optional bool is_demo_session = 10;
-    if (cached_has_bits & 0x00000800u) {
-      total_size += 1 + 1;
-    }
-
     // optional bool enable_arc_nearby_share = 17 [default = false];
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 2 + 1;
     }
 
     // optional bool skip_tts_cache = 18 [default = false];
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += 2 + 1;
     }
 
@@ -1771,27 +1774,24 @@ void UpgradeArcContainerRequest::MergeFrom(const UpgradeArcContainerRequest& fro
       is_managed_adb_sideloading_allowed_ = from.is_managed_adb_sideloading_allowed_;
     }
     if (cached_has_bits & 0x00000080u) {
-      disable_ureadahead_ = from.disable_ureadahead_;
+      skip_boot_completed_broadcast_ = from.skip_boot_completed_broadcast_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00003f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
-      skip_boot_completed_broadcast_ = from.skip_boot_completed_broadcast_;
-    }
-    if (cached_has_bits & 0x00000200u) {
       skip_gms_core_cache_ = from.skip_gms_core_cache_;
     }
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000200u) {
       obsolete_is_child_ = from.obsolete_is_child_;
     }
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000400u) {
       is_demo_session_ = from.is_demo_session_;
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000800u) {
       enable_arc_nearby_share_ = from.enable_arc_nearby_share_;
     }
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00001000u) {
       skip_tts_cache_ = from.skip_tts_cache_;
     }
     _has_bits_[0] |= cached_has_bits;

@@ -12,7 +12,7 @@ import './categories.js';
 import './chrome_colors.js';
 import './shortcuts.js';
 import './themes.js';
-import './wallpaper_search.js';
+import './wallpaper_search/wallpaper_search.js';
 import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
 import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/help_bubble_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
@@ -133,7 +133,9 @@ export class AppElement extends AppElementBase {
     }
     onWallpaperSearchSelect_() {
         this.page_ = CustomizeChromePage.WALLPAPER_SEARCH;
-        this.$.wallpaperSearchPage.focusOnBackButton();
+        const page = this.shadowRoot.querySelector('customize-chrome-wallpaper-search');
+        assert(page);
+        page.focusOnBackButton();
     }
 }
 customElements.define(AppElement.is, AppElement);

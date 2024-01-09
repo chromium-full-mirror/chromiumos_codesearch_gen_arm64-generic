@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/presentation/presentation.mojom-features.h"
 #include "third_party/blink/public/mojom/presentation/presentation.mojom-shared.h"
 #include "third_party/blink/public/mojom/presentation/presentation.mojom-blink-forward.h"
 #include "url/mojom/url.mojom-blink.h"
@@ -39,54 +40,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::ScreenAvailability>
-    : EnumHashTraits<::blink::mojom::ScreenAvailability, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::PresentationConnectionState>
-    : EnumHashTraits<::blink::mojom::PresentationConnectionState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::PresentationConnectionCloseReason>
-    : EnumHashTraits<::blink::mojom::PresentationConnectionCloseReason, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::PresentationErrorType>
-    : EnumHashTraits<::blink::mojom::PresentationErrorType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -806,17 +759,17 @@ class PLATFORM_EXPORT PresentationConnectionMessage {
   // Construct an instance holding |message|.
   static PresentationConnectionMessagePtr
   NewMessage(
-      const WTF::String& message) {
+      const WTF::String& value) {
     auto result = PresentationConnectionMessagePtr(absl::in_place);
-    result->set_message(std::move(message));
+    result->set_message(std::move(value));
     return result;
   }
   // Construct an instance holding |data|.
   static PresentationConnectionMessagePtr
   NewData(
-      WTF::Vector<uint8_t> data) {
+      WTF::Vector<uint8_t> value) {
     auto result = PresentationConnectionMessagePtr(absl::in_place);
-    result->set_data(std::move(data));
+    result->set_data(std::move(value));
     return result;
   }
 

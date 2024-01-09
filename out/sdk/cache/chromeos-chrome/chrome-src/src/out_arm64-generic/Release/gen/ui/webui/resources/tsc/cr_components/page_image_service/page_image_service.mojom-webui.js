@@ -16,6 +16,7 @@ export var ClientId;
     ClientId[ClientId["Bookmarks"] = 4] = "Bookmarks";
 })(ClientId || (ClientId = {}));
 export class PageImageServiceHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -24,6 +25,9 @@ export class PageImageServiceHandlerPendingReceiver {
     }
 }
 export class PageImageServiceHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageImageServiceHandlerPendingReceiver, handle);
@@ -45,6 +49,9 @@ export class PageImageServiceHandlerRemote {
  * interface.
  */
 export class PageImageServiceHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageImageServiceHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -74,6 +81,11 @@ export class PageImageServiceHandler {
  * receiver can have any number of listeners added to it.
  */
 export class PageImageServiceHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getPageImageUrl;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageImageServiceHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

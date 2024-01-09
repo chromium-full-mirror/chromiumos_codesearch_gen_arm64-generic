@@ -308,8 +308,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'httpStatusCode', 104,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 112],]);
+    [[0, 120],]);
 
 
 
@@ -350,6 +358,8 @@ blink.mojom.ResourceLoadInfo = class {
     this.totalReceivedBytes;
     /** @export { !Array<!blink.mojom.RedirectInfo> } */
     this.redirectInfoChain;
+    /** @export { !number } */
+    this.httpStatusCode;
   }
 };
 

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/debugger.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ Debuggee::Debuggee()
  {}
 
 Debuggee::~Debuggee() = default;
-Debuggee::Debuggee(Debuggee&& rhs) = default;
-Debuggee& Debuggee::operator=(Debuggee&& rhs) = default;
+Debuggee::Debuggee(Debuggee&& rhs) noexcept = default;
+Debuggee& Debuggee::operator=(Debuggee&& rhs) noexcept = default;
 Debuggee Debuggee::Clone() const {
   Debuggee out;
   out.tab_id = tab_id;
@@ -56,7 +57,7 @@ bool Debuggee::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -68,7 +69,7 @@ bool Debuggee::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out.extension_id = absl::nullopt;
+        out.extension_id = std::nullopt;
         return false;
       }
       out.extension_id = *temp;
@@ -80,7 +81,7 @@ bool Debuggee::Populate(
     {
       auto* temp = (*target_id_value).GetIfString();
       if (!temp) {
-        out.target_id = absl::nullopt;
+        out.target_id = std::nullopt;
         return false;
       }
       out.target_id = *temp;
@@ -100,34 +101,21 @@ bool Debuggee::Populate(
 }
 
 // static
-std::unique_ptr<Debuggee> Debuggee::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Debuggee>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Debuggee> Debuggee::FromValue(const base::Value::Dict& value) {
+  Debuggee out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Debuggee> Debuggee::FromValue(const base::Value::Dict& value) {
+std::optional<Debuggee> Debuggee::FromValue(const base::Value& value) {
   Debuggee out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Debuggee> Debuggee::FromValue(const base::Value& value) {
-  Debuggee out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -217,8 +205,8 @@ TargetInfo::TargetInfo()
 attached(false) {}
 
 TargetInfo::~TargetInfo() = default;
-TargetInfo::TargetInfo(TargetInfo&& rhs) = default;
-TargetInfo& TargetInfo::operator=(TargetInfo&& rhs) = default;
+TargetInfo::TargetInfo(TargetInfo&& rhs) noexcept = default;
+TargetInfo& TargetInfo::operator=(TargetInfo&& rhs) noexcept = default;
 TargetInfo TargetInfo::Clone() const {
   TargetInfo out;
   out.type = type;
@@ -267,7 +255,7 @@ bool TargetInfo::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -279,7 +267,7 @@ bool TargetInfo::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out.extension_id = absl::nullopt;
+        out.extension_id = std::nullopt;
         return false;
       }
       out.extension_id = *temp;
@@ -327,7 +315,7 @@ bool TargetInfo::Populate(
     {
       auto* temp = (*favicon_url_value).GetIfString();
       if (!temp) {
-        out.favicon_url = absl::nullopt;
+        out.favicon_url = std::nullopt;
         return false;
       }
       out.favicon_url = *temp;
@@ -347,34 +335,21 @@ bool TargetInfo::Populate(
 }
 
 // static
-std::unique_ptr<TargetInfo> TargetInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TargetInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TargetInfo> TargetInfo::FromValue(const base::Value::Dict& value) {
+  TargetInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TargetInfo> TargetInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TargetInfo> TargetInfo::FromValue(const base::Value& value) {
   TargetInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TargetInfo> TargetInfo::FromValue(const base::Value& value) {
-  TargetInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -418,13 +393,13 @@ namespace Attach {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -433,15 +408,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& target_value = args[0];
     {
       if (!target_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Debuggee::Populate(target_value.GetDict(), params.target)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -450,13 +425,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = required_version_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.required_version = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -474,13 +449,13 @@ namespace Detach {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -489,15 +464,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& target_value = args[0];
     {
       if (!target_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Debuggee::Populate(target_value.GetDict(), params.target)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -517,8 +492,8 @@ Params::CommandParams::CommandParams()
  {}
 
 Params::CommandParams::~CommandParams() = default;
-Params::CommandParams::CommandParams(CommandParams&& rhs) = default;
-Params::CommandParams& Params::CommandParams::operator=(CommandParams&& rhs) = default;
+Params::CommandParams::CommandParams(CommandParams&& rhs) noexcept = default;
+Params::CommandParams& Params::CommandParams::operator=(CommandParams&& rhs) noexcept = default;
 Params::CommandParams Params::CommandParams::Clone() const {
   CommandParams out;
   return out;
@@ -541,21 +516,21 @@ bool Params::CommandParams::Populate(
 }
 
 // static
-absl::optional<Params::CommandParams> Params::CommandParams::FromValue(const base::Value::Dict& value) {
+std::optional<Params::CommandParams> Params::CommandParams::FromValue(const base::Value::Dict& value) {
   CommandParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::CommandParams> Params::CommandParams::FromValue(const base::Value& value) {
+std::optional<Params::CommandParams> Params::CommandParams::FromValue(const base::Value& value) {
   CommandParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -563,13 +538,13 @@ absl::optional<Params::CommandParams> Params::CommandParams::FromValue(const bas
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -578,15 +553,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& target_value = args[0];
     {
       if (!target_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Debuggee::Populate(target_value.GetDict(), params.target)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -595,13 +570,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = method_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.method = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -609,12 +584,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& command_params_value = args[2];
     {
       if (!command_params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         CommandParams temp;
         if (!CommandParams::Populate(command_params_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.command_params = std::move(temp);
       }
     }
@@ -628,8 +603,8 @@ Results::Result::Result()
  {}
 
 Results::Result::~Result() = default;
-Results::Result::Result(Result&& rhs) = default;
-Results::Result& Results::Result::operator=(Result&& rhs) = default;
+Results::Result::Result(Result&& rhs) noexcept = default;
+Results::Result& Results::Result::operator=(Result&& rhs) noexcept = default;
 base::Value::Dict Results::Result::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -671,8 +646,8 @@ Params::Params()
  {}
 
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 base::Value::Dict Params::ToValue() const {
   base::Value::Dict to_value_result;
 

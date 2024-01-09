@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/chromeos-config-tools-9999/work/chromeos-config-tools-9999/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/chromeos-config-tools-0.0.5-r2684/work/chromeos-config-tools-0.0.5/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -22,16 +22,12 @@ build libcros_config: phony ./lib/libcros_config.so
 build root: phony obj/common-mk/gn_root/root.stamp
 build chromeos-config$:all: phony obj/chromeos-config/all.stamp
 build chromeos-config$:cros_config: phony ./cros_config
-build chromeos-config$:cros_config_functional_test: phony ./cros_config_functional_test
-build chromeos-config$:fake_cros_config_test: phony ./fake_cros_config_test
 build chromeos-config$:libcros_config: phony ./lib/libcros_config.so
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
 
 build all: phony $
     obj/chromeos-config/all.stamp $
     ./cros_config $
-    ./cros_config_functional_test $
-    ./fake_cros_config_test $
     ./lib/libcros_config.so $
     obj/common-mk/gn_root/root.stamp
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -629,14 +630,17 @@ void WebTransportProxy::SendDatagram(
                         "<value of type ::base::span<const ::uint8_t>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_SendDatagram_Name, kFlags, 0, 0, nullptr);
@@ -681,14 +685,17 @@ void WebTransportProxy::CreateStream(
                         "<value of type ::mojo::ScopedDataPipeProducerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_CreateStream_Name, kFlags, 0, 0, nullptr);
@@ -720,14 +727,17 @@ void WebTransportProxy::AcceptBidirectionalStream(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::WebTransport::AcceptBidirectionalStream");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_AcceptBidirectionalStream_Name, kFlags, 0, 0, nullptr);
@@ -751,14 +761,17 @@ void WebTransportProxy::AcceptUnidirectionalStream(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::WebTransport::AcceptUnidirectionalStream");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_AcceptUnidirectionalStream_Name, kFlags, 0, 0, nullptr);
@@ -789,14 +802,17 @@ void WebTransportProxy::SendFin(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_SendFin_Name, kFlags, 0, 0, nullptr);
@@ -830,14 +846,17 @@ void WebTransportProxy::AbortStream(
                         "<value of type uint8_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_AbortStream_Name, kFlags, 0, 0, nullptr);
@@ -872,14 +891,17 @@ void WebTransportProxy::StopSending(
                         "<value of type uint8_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_StopSending_Name, kFlags, 0, 0, nullptr);
@@ -911,14 +933,17 @@ void WebTransportProxy::SetOutgoingDatagramExpirationDuration(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_SetOutgoingDatagramExpirationDuration_Name, kFlags, 0, 0, nullptr);
@@ -952,14 +977,17 @@ void WebTransportProxy::GetStats(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::WebTransport::GetStats");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_GetStats_Name, kFlags, 0, 0, nullptr);
@@ -990,14 +1018,17 @@ void WebTransportProxy::Close(
                         "<value of type WebTransportCloseInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_Close_Name, kFlags, 0, 0, nullptr);
@@ -1113,7 +1144,8 @@ void WebTransport_SendDatagram_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_SendDatagram_Name, kFlags, 0, 0, nullptr);
@@ -1238,7 +1270,8 @@ void WebTransport_CreateStream_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_CreateStream_Name, kFlags, 0, 0, nullptr);
@@ -1371,7 +1404,8 @@ void WebTransport_AcceptBidirectionalStream_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_AcceptBidirectionalStream_Name, kFlags, 0, 0, nullptr);
@@ -1508,7 +1542,8 @@ void WebTransport_AcceptUnidirectionalStream_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_AcceptUnidirectionalStream_Name, kFlags, 0, 0, nullptr);
@@ -1632,7 +1667,8 @@ void WebTransport_GetStats_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransport_GetStats_Name, kFlags, 0, 0, nullptr);
@@ -1991,28 +2027,28 @@ std::move(p_writable), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebTransportValidationInfo[] = {
-    {&internal::WebTransport_SendDatagram_Params_Data::Validate,
+    { &internal::WebTransport_SendDatagram_Params_Data::Validate,
      &internal::WebTransport_SendDatagram_ResponseParams_Data::Validate},
-    {&internal::WebTransport_CreateStream_Params_Data::Validate,
+    { &internal::WebTransport_CreateStream_Params_Data::Validate,
      &internal::WebTransport_CreateStream_ResponseParams_Data::Validate},
-    {&internal::WebTransport_AcceptBidirectionalStream_Params_Data::Validate,
+    { &internal::WebTransport_AcceptBidirectionalStream_Params_Data::Validate,
      &internal::WebTransport_AcceptBidirectionalStream_ResponseParams_Data::Validate},
-    {&internal::WebTransport_AcceptUnidirectionalStream_Params_Data::Validate,
+    { &internal::WebTransport_AcceptUnidirectionalStream_Params_Data::Validate,
      &internal::WebTransport_AcceptUnidirectionalStream_ResponseParams_Data::Validate},
-    {&internal::WebTransport_SendFin_Params_Data::Validate,
+    { &internal::WebTransport_SendFin_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransport_AbortStream_Params_Data::Validate,
+    { &internal::WebTransport_AbortStream_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransport_StopSending_Params_Data::Validate,
+    { &internal::WebTransport_StopSending_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransport_SetOutgoingDatagramExpirationDuration_Params_Data::Validate,
+    { &internal::WebTransport_SetOutgoingDatagramExpirationDuration_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransport_GetStats_Params_Data::Validate,
+    { &internal::WebTransport_GetStats_Params_Data::Validate,
      &internal::WebTransport_GetStats_ResponseParams_Data::Validate},
-    {&internal::WebTransport_Close_Params_Data::Validate,
+    { &internal::WebTransport_Close_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2196,14 +2232,17 @@ void WebTransportClientProxy::OnDatagramReceived(
                         "<value of type ::base::span<const ::uint8_t>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransportClient_OnDatagramReceived_Name, kFlags, 0, 0, nullptr);
@@ -2247,14 +2286,17 @@ void WebTransportClientProxy::OnIncomingStreamClosed(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransportClient_OnIncomingStreamClosed_Name, kFlags, 0, 0, nullptr);
@@ -2286,14 +2328,17 @@ void WebTransportClientProxy::OnOutgoingStreamClosed(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransportClient_OnOutgoingStreamClosed_Name, kFlags, 0, 0, nullptr);
@@ -2327,14 +2372,17 @@ void WebTransportClientProxy::OnReceivedStopSending(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransportClient_OnReceivedStopSending_Name, kFlags, 0, 0, nullptr);
@@ -2369,14 +2417,17 @@ void WebTransportClientProxy::OnReceivedResetStream(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransportClient_OnReceivedResetStream_Name, kFlags, 0, 0, nullptr);
@@ -2408,14 +2459,17 @@ void WebTransportClientProxy::OnClosed(
                         "<value of type WebTransportCloseInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransportClient_OnClosed_Name, kFlags, 0, 0, nullptr);
@@ -2647,20 +2701,20 @@ bool WebTransportClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebTransportClientValidationInfo[] = {
-    {&internal::WebTransportClient_OnDatagramReceived_Params_Data::Validate,
+    { &internal::WebTransportClient_OnDatagramReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransportClient_OnIncomingStreamClosed_Params_Data::Validate,
+    { &internal::WebTransportClient_OnIncomingStreamClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransportClient_OnOutgoingStreamClosed_Params_Data::Validate,
+    { &internal::WebTransportClient_OnOutgoingStreamClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransportClient_OnReceivedStopSending_Params_Data::Validate,
+    { &internal::WebTransportClient_OnReceivedStopSending_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransportClient_OnReceivedResetStream_Params_Data::Validate,
+    { &internal::WebTransportClient_OnReceivedResetStream_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransportClient_OnClosed_Params_Data::Validate,
+    { &internal::WebTransportClient_OnClosed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2766,14 +2820,17 @@ void WebTransportHandshakeClientProxy::OnConnectionEstablished(
                         "<value of type const ::scoped_refptr<::net::HttpResponseHeaders>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransportHandshakeClient_OnConnectionEstablished_Name, kFlags, 0, 0, nullptr);
@@ -2815,7 +2872,7 @@ void WebTransportHandshakeClientProxy::OnConnectionEstablished(
 }
 
 void WebTransportHandshakeClientProxy::OnHandshakeFailed(
-    const absl::optional<::net::WebTransportError>& in_error) {
+    const std::optional<::net::WebTransportError>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::WebTransportHandshakeClient::OnHandshakeFailed", "input_parameters",
@@ -2823,17 +2880,20 @@ void WebTransportHandshakeClientProxy::OnHandshakeFailed(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<::net::WebTransportError>&>");
+                        "<value of type const std::optional<::net::WebTransportError>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebTransportHandshakeClient_OnHandshakeFailed_Name, kFlags, 0, 0, nullptr);
@@ -2909,7 +2969,7 @@ std::move(p_response_headers));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::net::WebTransportError> p_error{};
+      std::optional<::net::WebTransportError> p_error{};
       WebTransportHandshakeClient_OnHandshakeFailed_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadError(&p_error))
@@ -2949,12 +3009,12 @@ bool WebTransportHandshakeClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebTransportHandshakeClientValidationInfo[] = {
-    {&internal::WebTransportHandshakeClient_OnConnectionEstablished_Params_Data::Validate,
+    { &internal::WebTransportHandshakeClient_OnConnectionEstablished_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebTransportHandshakeClient_OnHandshakeFailed_Params_Data::Validate,
+    { &internal::WebTransportHandshakeClient_OnHandshakeFailed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3241,7 +3301,7 @@ WebTransportClientAsyncWaiter::~WebTransportClientAsyncWaiter() = default;
 void WebTransportHandshakeClientInterceptorForTesting::OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers) {
   GetForwardingInterface()->OnConnectionEstablished(std::move(transport), std::move(client), std::move(response_headers));
 }
-void WebTransportHandshakeClientInterceptorForTesting::OnHandshakeFailed(const absl::optional<::net::WebTransportError>& error) {
+void WebTransportHandshakeClientInterceptorForTesting::OnHandshakeFailed(const std::optional<::net::WebTransportError>& error) {
   GetForwardingInterface()->OnHandshakeFailed(std::move(error));
 }
 WebTransportHandshakeClientAsyncWaiter::WebTransportHandshakeClientAsyncWaiter(

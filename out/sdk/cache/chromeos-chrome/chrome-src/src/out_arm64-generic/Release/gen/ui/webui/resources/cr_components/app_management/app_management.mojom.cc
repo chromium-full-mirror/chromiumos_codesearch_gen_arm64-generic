@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -53,7 +54,7 @@ Permission::Permission(
     ::apps::PermissionType permission_type_in,
     PermissionValuePtr value_in,
     bool is_managed_in,
-    const absl::optional<std::string>& details_in)
+    const std::optional<std::string>& details_in)
     : permission_type(std::move(permission_type_in)),
       value(std::move(value_in)),
       is_managed(std::move(is_managed_in)),
@@ -95,7 +96,7 @@ void Permission::WriteIntoTrace(
     dict.AddItem(
       "details"), this->details,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -147,6 +148,64 @@ bool RunOnOsLogin::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+Locale::Locale()
+    : locale_tag(),
+      display_name(),
+      native_display_name() {}
+
+Locale::Locale(
+    const std::string& locale_tag_in,
+    const std::string& display_name_in,
+    const std::string& native_display_name_in)
+    : locale_tag(std::move(locale_tag_in)),
+      display_name(std::move(display_name_in)),
+      native_display_name(std::move(native_display_name_in)) {}
+
+Locale::~Locale() = default;
+size_t Locale::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->locale_tag);
+  seed = mojo::internal::Hash(seed, this->display_name);
+  seed = mojo::internal::Hash(seed, this->native_display_name);
+  return seed;
+}
+
+void Locale::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "locale_tag"), this->locale_tag,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "display_name"), this->display_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "native_display_name"), this->native_display_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Locale::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 App::App()
     : id(),
       type(),
@@ -173,17 +232,19 @@ App::App()
       data_size(),
       publisher_id(),
       formatted_origin(),
-      scope_extensions() {}
+      scope_extensions(),
+      supported_locales(),
+      selected_locale() {}
 
 App::App(
     const std::string& id_in,
     ::apps::AppType type_in,
-    const absl::optional<std::string>& title_in,
-    const absl::optional<std::string>& description_in,
-    OptionalBool is_pinned_in,
-    OptionalBool is_policy_pinned_in,
-    const absl::optional<std::string>& version_in,
-    const absl::optional<std::string>& size_in,
+    const std::optional<std::string>& title_in,
+    const std::optional<std::string>& description_in,
+    std::optional<bool> is_pinned_in,
+    std::optional<bool> is_policy_pinned_in,
+    const std::optional<std::string>& version_in,
+    const std::optional<std::string>& size_in,
     base::flat_map<::apps::PermissionType, ::apps::PermissionPtr> permissions_in,
     ::apps::InstallReason install_reason_in,
     ::apps::InstallSource install_source_in,
@@ -195,13 +256,15 @@ App::App(
     bool resize_locked_in,
     bool hide_resize_locked_in,
     std::vector<std::string> supported_links_in,
-    absl::optional<::apps::RunOnOsLoginPtr> run_on_os_login_in,
+    std::optional<::apps::RunOnOsLoginPtr> run_on_os_login_in,
     FileHandlingStatePtr file_handling_state_in,
-    const absl::optional<std::string>& app_size_in,
-    const absl::optional<std::string>& data_size_in,
+    const std::optional<std::string>& app_size_in,
+    const std::optional<std::string>& data_size_in,
     const std::string& publisher_id_in,
-    const absl::optional<std::string>& formatted_origin_in,
-    std::vector<std::string> scope_extensions_in)
+    const std::optional<std::string>& formatted_origin_in,
+    std::vector<std::string> scope_extensions_in,
+    std::vector<LocalePtr> supported_locales_in,
+    LocalePtr selected_locale_in)
     : id(std::move(id_in)),
       type(std::move(type_in)),
       title(std::move(title_in)),
@@ -227,7 +290,9 @@ App::App(
       data_size(std::move(data_size_in)),
       publisher_id(std::move(publisher_id_in)),
       formatted_origin(std::move(formatted_origin_in)),
-      scope_extensions(std::move(scope_extensions_in)) {}
+      scope_extensions(std::move(scope_extensions_in)),
+      supported_locales(std::move(supported_locales_in)),
+      selected_locale(std::move(selected_locale_in)) {}
 
 App::~App() = default;
 
@@ -256,7 +321,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "title"), this->title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -265,7 +330,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "description"), this->description,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -274,7 +339,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "is_pinned"), this->is_pinned,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type OptionalBool>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -283,7 +348,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "is_policy_pinned"), this->is_policy_pinned,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type OptionalBool>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -292,7 +357,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -301,7 +366,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "size"), this->size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -409,7 +474,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "run_on_os_login"), this->run_on_os_login,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::apps::RunOnOsLoginPtr>>"
+      "<value of type std::optional<::apps::RunOnOsLoginPtr>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -427,7 +492,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "app_size"), this->app_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -436,7 +501,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "data_size"), this->data_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -454,7 +519,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "formatted_origin"), this->formatted_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -464,6 +529,24 @@ void App::WriteIntoTrace(
       "scope_extensions"), this->scope_extensions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "supported_locales"), this->supported_locales,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<LocalePtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "selected_locale"), this->selected_locale,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type LocalePtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -527,7 +610,7 @@ FileHandlingState::FileHandlingState(
     bool is_managed_in,
     const std::string& user_visible_types_in,
     const std::string& user_visible_types_label_in,
-    const absl::optional<::GURL>& learn_more_url_in)
+    const std::optional<::GURL>& learn_more_url_in)
     : enabled(std::move(enabled_in)),
       is_managed(std::move(is_managed_in)),
       user_visible_types(std::move(user_visible_types_in)),
@@ -579,7 +662,7 @@ void FileHandlingState::WriteIntoTrace(
     dict.AddItem(
       "learn_more_url"), this->learn_more_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -721,14 +804,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -816,10 +902,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -884,6 +970,9 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_OpenStorePage_Name: {
       return &PageHandler::OpenStorePage_Sym::IPCStableHash;
     }
+    case internal::kPageHandler_SetAppLocale_Name: {
+      return &PageHandler::SetAppLocale_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -929,6 +1018,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive app_management::mojom::PageHandler::ShowDefaultAppAssociationsUi";
       case internal::kPageHandler_OpenStorePage_Name:
             return "Receive app_management::mojom::PageHandler::OpenStorePage";
+      case internal::kPageHandler_SetAppLocale_Name:
+            return "Receive app_management::mojom::PageHandler::SetAppLocale";
     }
   } else {
     switch (message.name()) {
@@ -966,6 +1057,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply app_management::mojom::PageHandler::ShowDefaultAppAssociationsUi";
       case internal::kPageHandler_OpenStorePage_Name:
             return "Receive reply app_management::mojom::PageHandler::OpenStorePage";
+      case internal::kPageHandler_SetAppLocale_Name:
+            return "Receive reply app_management::mojom::PageHandler::SetAppLocale";
     }
   }
   return "Receive unknown mojo message";
@@ -1201,6 +1294,19 @@ uint32_t PageHandler::OpenStorePage_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::SetAppLocale_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)app_management::mojom::PageHandler::SetAppLocale");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class PageHandler_GetApps_ForwardToCallback
@@ -1292,14 +1398,17 @@ void PageHandlerProxy::GetApps(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send app_management::mojom::PageHandler::GetApps");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetApps_Name, kFlags, 0, 0, nullptr);
@@ -1330,14 +1439,17 @@ void PageHandlerProxy::GetApp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetApp_Name, kFlags, 0, 0, nullptr);
@@ -1372,14 +1484,17 @@ void PageHandlerProxy::GetSubAppToParentMap(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send app_management::mojom::PageHandler::GetSubAppToParentMap");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetSubAppToParentMap_Name, kFlags, 0, 0, nullptr);
@@ -1410,14 +1525,17 @@ void PageHandlerProxy::GetExtensionAppPermissionMessages(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetExtensionAppPermissionMessages_Name, kFlags, 0, 0, nullptr);
@@ -1448,7 +1566,7 @@ void PageHandlerProxy::GetExtensionAppPermissionMessages(
 }
 
 void PageHandlerProxy::SetPinned(
-    const std::string& in_app_id, OptionalBool in_pinned) {
+    const std::string& in_app_id, bool in_pinned) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send app_management::mojom::PageHandler::SetPinned", "input_parameters",
@@ -1459,17 +1577,20 @@ void PageHandlerProxy::SetPinned(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("pinned"), in_pinned,
-                        "<value of type OptionalBool>");
+                        "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetPinned_Name, kFlags, 0, 0, nullptr);
@@ -1488,8 +1609,7 @@ void PageHandlerProxy::SetPinned(
       params->app_id.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null app_id in PageHandler.SetPinned request");
-  mojo::internal::Serialize<::app_management::mojom::OptionalBool>(
-      in_pinned, &params->pinned);
+  params->pinned = in_pinned;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
@@ -1515,14 +1635,17 @@ void PageHandlerProxy::SetPermission(
                         "<value of type ::apps::PermissionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetPermission_Name, kFlags, 0, 0, nullptr);
@@ -1577,14 +1700,17 @@ void PageHandlerProxy::SetResizeLocked(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetResizeLocked_Name, kFlags, 0, 0, nullptr);
@@ -1626,14 +1752,17 @@ void PageHandlerProxy::Uninstall(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_Uninstall_Name, kFlags, 0, 0, nullptr);
@@ -1674,14 +1803,17 @@ void PageHandlerProxy::OpenNativeSettings(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenNativeSettings_Name, kFlags, 0, 0, nullptr);
@@ -1725,14 +1857,17 @@ void PageHandlerProxy::SetPreferredApp(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetPreferredApp_Name, kFlags, 0, 0, nullptr);
@@ -1774,14 +1909,17 @@ void PageHandlerProxy::GetOverlappingPreferredApps(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetOverlappingPreferredApps_Name, kFlags, 0, 0, nullptr);
@@ -1823,14 +1961,17 @@ void PageHandlerProxy::UpdateAppSize(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_UpdateAppSize_Name, kFlags, 0, 0, nullptr);
@@ -1874,14 +2015,17 @@ void PageHandlerProxy::SetWindowMode(
                         "<value of type ::apps::WindowMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetWindowMode_Name, kFlags, 0, 0, nullptr);
@@ -1927,14 +2071,17 @@ void PageHandlerProxy::SetRunOnOsLoginMode(
                         "<value of type ::apps::RunOnOsLoginMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetRunOnOsLoginMode_Name, kFlags, 0, 0, nullptr);
@@ -1980,14 +2127,17 @@ void PageHandlerProxy::SetFileHandlingEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetFileHandlingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -2022,14 +2172,17 @@ void PageHandlerProxy::ShowDefaultAppAssociationsUi(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send app_management::mojom::PageHandler::ShowDefaultAppAssociationsUi");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowDefaultAppAssociationsUi_Name, kFlags, 0, 0, nullptr);
@@ -2059,14 +2212,17 @@ void PageHandlerProxy::OpenStorePage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenStorePage_Name, kFlags, 0, 0, nullptr);
@@ -2089,6 +2245,71 @@ void PageHandlerProxy::OpenStorePage(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
   message.set_method_name("OpenStorePage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::SetAppLocale(
+    const std::string& in_app_id, const std::string& in_locale_tag) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send app_management::mojom::PageHandler::SetAppLocale", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("app_id"), in_app_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("locale_tag"), in_locale_tag,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_SetAppLocale_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::app_management::mojom::internal::PageHandler_SetAppLocale_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->app_id)::BaseType> app_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_app_id, app_id_fragment);
+  params->app_id.Set(
+      app_id_fragment.is_null() ? nullptr : app_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->app_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null app_id in PageHandler.SetAppLocale request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->locale_tag)::BaseType> locale_tag_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_locale_tag, locale_tag_fragment);
+  params->locale_tag.Set(
+      locale_tag_fragment.is_null() ? nullptr : locale_tag_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->locale_tag.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null locale_tag in PageHandler.SetAppLocale request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("SetAppLocale");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2186,7 +2407,8 @@ void PageHandler_GetApps_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetApps_Name, kFlags, 0, 0, nullptr);
@@ -2316,7 +2538,8 @@ void PageHandler_GetApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetApp_Name, kFlags, 0, 0, nullptr);
@@ -2440,7 +2663,8 @@ void PageHandler_GetSubAppToParentMap_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetSubAppToParentMap_Name, kFlags, 0, 0, nullptr);
@@ -2570,7 +2794,8 @@ void PageHandler_GetExtensionAppPermissionMessages_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetExtensionAppPermissionMessages_Name, kFlags, 0, 0, nullptr);
@@ -2700,7 +2925,8 @@ void PageHandler_GetOverlappingPreferredApps_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetOverlappingPreferredApps_Name, kFlags, 0, 0, nullptr);
@@ -2765,13 +2991,13 @@ bool PageHandlerStubDispatch::Accept(
       
       bool success = true;
       std::string p_app_id{};
-      OptionalBool p_pinned{};
+      bool p_pinned{};
       PageHandler_SetPinned_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadAppId(&p_app_id))
         success = false;
-      if (success && !input_data_view.ReadPinned(&p_pinned))
-        success = false;
+      if (success)
+        p_pinned = input_data_view.pinned();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -3095,6 +3321,36 @@ std::move(p_enabled));
 std::move(p_app_id));
       return true;
     }
+    case internal::kPageHandler_SetAppLocale_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_SetAppLocale_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_SetAppLocale_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_app_id{};
+      std::string p_locale_tag{};
+      PageHandler_SetAppLocale_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadAppId(&p_app_id))
+        success = false;
+      if (success && !input_data_view.ReadLocaleTag(&p_locale_tag))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 17, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAppLocale(
+std::move(p_app_id), 
+std::move(p_locale_tag));
+      return true;
+    }
   }
   return false;
 }
@@ -3281,45 +3537,50 @@ std::move(p_app_id), std::move(callback));
     case internal::kPageHandler_OpenStorePage_Name: {
       break;
     }
+    case internal::kPageHandler_SetAppLocale_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetApps_Params_Data::Validate,
+    { &internal::PageHandler_GetApps_Params_Data::Validate,
      &internal::PageHandler_GetApps_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetApp_Params_Data::Validate,
+    { &internal::PageHandler_GetApp_Params_Data::Validate,
      &internal::PageHandler_GetApp_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetSubAppToParentMap_Params_Data::Validate,
+    { &internal::PageHandler_GetSubAppToParentMap_Params_Data::Validate,
      &internal::PageHandler_GetSubAppToParentMap_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetExtensionAppPermissionMessages_Params_Data::Validate,
+    { &internal::PageHandler_GetExtensionAppPermissionMessages_Params_Data::Validate,
      &internal::PageHandler_GetExtensionAppPermissionMessages_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SetPinned_Params_Data::Validate,
+    { &internal::PageHandler_SetPinned_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetPermission_Params_Data::Validate,
+    { &internal::PageHandler_SetPermission_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetResizeLocked_Params_Data::Validate,
+    { &internal::PageHandler_SetResizeLocked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_Uninstall_Params_Data::Validate,
+    { &internal::PageHandler_Uninstall_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OpenNativeSettings_Params_Data::Validate,
+    { &internal::PageHandler_OpenNativeSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetPreferredApp_Params_Data::Validate,
+    { &internal::PageHandler_SetPreferredApp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetOverlappingPreferredApps_Params_Data::Validate,
+    { &internal::PageHandler_GetOverlappingPreferredApps_Params_Data::Validate,
      &internal::PageHandler_GetOverlappingPreferredApps_ResponseParams_Data::Validate},
-    {&internal::PageHandler_UpdateAppSize_Params_Data::Validate,
+    { &internal::PageHandler_UpdateAppSize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetWindowMode_Params_Data::Validate,
+    { &internal::PageHandler_SetWindowMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetRunOnOsLoginMode_Params_Data::Validate,
+    { &internal::PageHandler_SetRunOnOsLoginMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetFileHandlingEnabled_Params_Data::Validate,
+    { &internal::PageHandler_SetFileHandlingEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ShowDefaultAppAssociationsUi_Params_Data::Validate,
+    { &internal::PageHandler_ShowDefaultAppAssociationsUi_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OpenStorePage_Params_Data::Validate,
+    { &internal::PageHandler_OpenStorePage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_SetAppLocale_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3443,14 +3704,17 @@ void PageProxy::OnAppAdded(
                         "<value of type AppPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnAppAdded_Name, kFlags, 0, 0, nullptr);
@@ -3491,14 +3755,17 @@ void PageProxy::OnAppChanged(
                         "<value of type AppPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnAppChanged_Name, kFlags, 0, 0, nullptr);
@@ -3539,14 +3806,17 @@ void PageProxy::OnAppRemoved(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_OnAppRemoved_Name, kFlags, 0, 0, nullptr);
@@ -3683,14 +3953,14 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_OnAppAdded_Params_Data::Validate,
+    { &internal::Page_OnAppAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnAppChanged_Params_Data::Validate,
+    { &internal::Page_OnAppChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_OnAppRemoved_Params_Data::Validate,
+    { &internal::Page_OnAppRemoved_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3744,6 +4014,24 @@ bool StructTraits<::app_management::mojom::RunOnOsLogin::DataView, ::app_managem
 
 
 // static
+bool StructTraits<::app_management::mojom::Locale::DataView, ::app_management::mojom::LocalePtr>::Read(
+    ::app_management::mojom::Locale::DataView input,
+    ::app_management::mojom::LocalePtr* output) {
+  bool success = true;
+  ::app_management::mojom::LocalePtr result(::app_management::mojom::Locale::New());
+  
+      if (success && !input.ReadLocaleTag(&result->locale_tag))
+        success = false;
+      if (success && !input.ReadDisplayName(&result->display_name))
+        success = false;
+      if (success && !input.ReadNativeDisplayName(&result->native_display_name))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::app_management::mojom::App::DataView, ::app_management::mojom::AppPtr>::Read(
     ::app_management::mojom::App::DataView input,
     ::app_management::mojom::AppPtr* output) {
@@ -3758,10 +4046,12 @@ bool StructTraits<::app_management::mojom::App::DataView, ::app_management::mojo
         success = false;
       if (success && !input.ReadDescription(&result->description))
         success = false;
-      if (success && !input.ReadIsPinned(&result->is_pinned))
-        success = false;
-      if (success && !input.ReadIsPolicyPinned(&result->is_policy_pinned))
-        success = false;
+      if (success) {
+        result->is_pinned = input.is_pinned();
+      }
+      if (success) {
+        result->is_policy_pinned = input.is_policy_pinned();
+      }
       if (success && !input.ReadVersion(&result->version))
         success = false;
       if (success && !input.ReadSize(&result->size))
@@ -3801,6 +4091,10 @@ bool StructTraits<::app_management::mojom::App::DataView, ::app_management::mojo
       if (success && !input.ReadFormattedOrigin(&result->formatted_origin))
         success = false;
       if (success && !input.ReadScopeExtensions(&result->scope_extensions))
+        success = false;
+      if (success && !input.ReadSupportedLocales(&result->supported_locales))
+        success = false;
+      if (success && !input.ReadSelectedLocale(&result->selected_locale))
         success = false;
   *output = std::move(result);
   return success;
@@ -3904,7 +4198,7 @@ void PageHandlerInterceptorForTesting::GetSubAppToParentMap(GetSubAppToParentMap
 void PageHandlerInterceptorForTesting::GetExtensionAppPermissionMessages(const std::string& app_id, GetExtensionAppPermissionMessagesCallback callback) {
   GetForwardingInterface()->GetExtensionAppPermissionMessages(std::move(app_id), std::move(callback));
 }
-void PageHandlerInterceptorForTesting::SetPinned(const std::string& app_id, OptionalBool pinned) {
+void PageHandlerInterceptorForTesting::SetPinned(const std::string& app_id, bool pinned) {
   GetForwardingInterface()->SetPinned(std::move(app_id), std::move(pinned));
 }
 void PageHandlerInterceptorForTesting::SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) {
@@ -3942,6 +4236,9 @@ void PageHandlerInterceptorForTesting::ShowDefaultAppAssociationsUi() {
 }
 void PageHandlerInterceptorForTesting::OpenStorePage(const std::string& app_id) {
   GetForwardingInterface()->OpenStorePage(std::move(app_id));
+}
+void PageHandlerInterceptorForTesting::SetAppLocale(const std::string& app_id, const std::string& locale_tag) {
+  GetForwardingInterface()->SetAppLocale(std::move(app_id), std::move(locale_tag));
 }
 PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
     PageHandler* proxy) : proxy_(proxy) {}

@@ -59,7 +59,7 @@ bool URLLoaderCompletionStatus_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 104, validation_context)) {
+          data, 96, validation_context)) {
     return false;
   }
 
@@ -95,14 +95,7 @@ bool URLLoaderCompletionStatus_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->proxy_server, 15, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->proxy_server, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->resolve_error_info, 16, validation_context)) {
+          object->resolve_error_info, 15, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->resolve_error_info, validation_context))

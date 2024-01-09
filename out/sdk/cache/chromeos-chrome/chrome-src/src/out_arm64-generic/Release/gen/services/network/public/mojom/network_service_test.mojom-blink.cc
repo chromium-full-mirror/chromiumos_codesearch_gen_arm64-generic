@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -412,14 +413,17 @@ void SimpleCacheEntryProxy::WriteData(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_WriteData_Name, kFlags, 0, 0, nullptr);
@@ -472,14 +476,17 @@ void SimpleCacheEntryProxy::ReadData(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_ReadData_Name, kFlags, 0, 0, nullptr);
@@ -516,14 +523,17 @@ void SimpleCacheEntryProxy::WriteSparseData(
                         "<value of type const WTF::Vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_WriteSparseData_Name, kFlags, 0, 0, nullptr);
@@ -571,14 +581,17 @@ void SimpleCacheEntryProxy::ReadSparseData(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_ReadSparseData_Name, kFlags, 0, 0, nullptr);
@@ -604,14 +617,17 @@ void SimpleCacheEntryProxy::Close(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::SimpleCacheEntry::Close");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_Close_Name, kFlags, 0, 0, nullptr);
@@ -721,7 +737,8 @@ void SimpleCacheEntry_WriteData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_WriteData_Name, kFlags, 0, 0, nullptr);
@@ -846,7 +863,8 @@ void SimpleCacheEntry_ReadData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_ReadData_Name, kFlags, 0, 0, nullptr);
@@ -977,7 +995,8 @@ void SimpleCacheEntry_WriteSparseData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_WriteSparseData_Name, kFlags, 0, 0, nullptr);
@@ -1102,7 +1121,8 @@ void SimpleCacheEntry_ReadSparseData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_ReadSparseData_Name, kFlags, 0, 0, nullptr);
@@ -1222,7 +1242,8 @@ void SimpleCacheEntry_Close_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntry_Close_Name, kFlags, 0, 0, nullptr);
@@ -1453,18 +1474,18 @@ std::move(p_length), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSimpleCacheEntryValidationInfo[] = {
-    {&internal::SimpleCacheEntry_WriteData_Params_Data::Validate,
+    { &internal::SimpleCacheEntry_WriteData_Params_Data::Validate,
      &internal::SimpleCacheEntry_WriteData_ResponseParams_Data::Validate},
-    {&internal::SimpleCacheEntry_ReadData_Params_Data::Validate,
+    { &internal::SimpleCacheEntry_ReadData_Params_Data::Validate,
      &internal::SimpleCacheEntry_ReadData_ResponseParams_Data::Validate},
-    {&internal::SimpleCacheEntry_WriteSparseData_Params_Data::Validate,
+    { &internal::SimpleCacheEntry_WriteSparseData_Params_Data::Validate,
      &internal::SimpleCacheEntry_WriteSparseData_ResponseParams_Data::Validate},
-    {&internal::SimpleCacheEntry_ReadSparseData_Params_Data::Validate,
+    { &internal::SimpleCacheEntry_ReadSparseData_Params_Data::Validate,
      &internal::SimpleCacheEntry_ReadSparseData_ResponseParams_Data::Validate},
-    {&internal::SimpleCacheEntry_Close_Params_Data::Validate,
+    { &internal::SimpleCacheEntry_Close_Params_Data::Validate,
      &internal::SimpleCacheEntry_Close_ResponseParams_Data::Validate},
 };
 
@@ -1557,14 +1578,17 @@ void SimpleCacheEntryEnumeratorProxy::GetNext(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::SimpleCacheEntryEnumerator::GetNext");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntryEnumerator_GetNext_Name, kFlags, 0, 0, nullptr);
@@ -1674,7 +1698,8 @@ void SimpleCacheEntryEnumerator_GetNext_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCacheEntryEnumerator_GetNext_Name, kFlags, 0, 0, nullptr);
@@ -1760,10 +1785,10 @@ bool SimpleCacheEntryEnumeratorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSimpleCacheEntryEnumeratorValidationInfo[] = {
-    {&internal::SimpleCacheEntryEnumerator_GetNext_Params_Data::Validate,
+    { &internal::SimpleCacheEntryEnumerator_GetNext_Params_Data::Validate,
      &internal::SimpleCacheEntryEnumerator_GetNext_ResponseParams_Data::Validate},
 };
 
@@ -2027,14 +2052,17 @@ void SimpleCacheProxy::CreateEntry(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_CreateEntry_Name, kFlags, 0, 0, nullptr);
@@ -2076,14 +2104,17 @@ void SimpleCacheProxy::OpenEntry(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_OpenEntry_Name, kFlags, 0, 0, nullptr);
@@ -2125,14 +2156,17 @@ void SimpleCacheProxy::DoomEntry(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_DoomEntry_Name, kFlags, 0, 0, nullptr);
@@ -2167,14 +2201,17 @@ void SimpleCacheProxy::DoomAllEntries(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::SimpleCache::DoomAllEntries");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_DoomAllEntries_Name, kFlags, 0, 0, nullptr);
@@ -2205,14 +2242,17 @@ void SimpleCacheProxy::EnumerateEntries(
                         "<value of type ::mojo::PendingReceiver<SimpleCacheEntryEnumerator>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_EnumerateEntries_Name, kFlags, 0, 0, nullptr);
@@ -2241,14 +2281,17 @@ void SimpleCacheProxy::Detach(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::SimpleCache::Detach");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_Detach_Name, kFlags, 0, 0, nullptr);
@@ -2367,7 +2410,8 @@ void SimpleCache_CreateEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_CreateEntry_Name, kFlags, 0, 0, nullptr);
@@ -2496,7 +2540,8 @@ void SimpleCache_OpenEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_OpenEntry_Name, kFlags, 0, 0, nullptr);
@@ -2616,7 +2661,8 @@ void SimpleCache_DoomEntry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_DoomEntry_Name, kFlags, 0, 0, nullptr);
@@ -2734,7 +2780,8 @@ void SimpleCache_DoomAllEntries_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_DoomAllEntries_Name, kFlags, 0, 0, nullptr);
@@ -2841,7 +2888,8 @@ void SimpleCache_Detach_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSimpleCache_Detach_Name, kFlags, 0, 0, nullptr);
@@ -3071,20 +3119,20 @@ std::move(p_key), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSimpleCacheValidationInfo[] = {
-    {&internal::SimpleCache_CreateEntry_Params_Data::Validate,
+    { &internal::SimpleCache_CreateEntry_Params_Data::Validate,
      &internal::SimpleCache_CreateEntry_ResponseParams_Data::Validate},
-    {&internal::SimpleCache_OpenEntry_Params_Data::Validate,
+    { &internal::SimpleCache_OpenEntry_Params_Data::Validate,
      &internal::SimpleCache_OpenEntry_ResponseParams_Data::Validate},
-    {&internal::SimpleCache_DoomEntry_Params_Data::Validate,
+    { &internal::SimpleCache_DoomEntry_Params_Data::Validate,
      &internal::SimpleCache_DoomEntry_ResponseParams_Data::Validate},
-    {&internal::SimpleCache_DoomAllEntries_Params_Data::Validate,
+    { &internal::SimpleCache_DoomAllEntries_Params_Data::Validate,
      &internal::SimpleCache_DoomAllEntries_ResponseParams_Data::Validate},
-    {&internal::SimpleCache_EnumerateEntries_Params_Data::Validate,
+    { &internal::SimpleCache_EnumerateEntries_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SimpleCache_Detach_Params_Data::Validate,
+    { &internal::SimpleCache_Detach_Params_Data::Validate,
      &internal::SimpleCache_Detach_ResponseParams_Data::Validate},
 };
 
@@ -3719,7 +3767,7 @@ bool NetworkServiceTest::Log(const WTF::String& message) {
   NOTREACHED();
   return false;
 }
-bool NetworkServiceTest::SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay) {
+bool NetworkServiceTest::SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay) {
   NOTREACHED();
   return false;
 }
@@ -4327,15 +4375,18 @@ bool NetworkServiceTestProxy::AddRules(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::AddRules");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_AddRules_Name, kFlags, 0, 0, nullptr);
@@ -4385,14 +4436,17 @@ void NetworkServiceTestProxy::AddRules(
                         "<value of type WTF::Vector<RulePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_AddRules_Name, kFlags, 0, 0, nullptr);
@@ -4436,14 +4490,17 @@ void NetworkServiceTestProxy::SimulateNetworkChange(
                         "<value of type ::network::mojom::blink::ConnectionType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SimulateNetworkChange_Name, kFlags, 0, 0, nullptr);
@@ -4476,14 +4533,17 @@ void NetworkServiceTestProxy::SimulateNetworkQualityChange(
                         "<value of type ::network::mojom::blink::EffectiveConnectionType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SimulateNetworkQualityChange_Name, kFlags, 0, 0, nullptr);
@@ -4509,14 +4569,17 @@ void NetworkServiceTestProxy::ForceNetworkQualityEstimatorReportWifiAsSlow2G(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkServiceTest::ForceNetworkQualityEstimatorReportWifiAsSlow2G");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_ForceNetworkQualityEstimatorReportWifiAsSlow2G_Name, kFlags, 0, 0, nullptr);
@@ -4540,14 +4603,17 @@ void NetworkServiceTestProxy::SimulateCrash(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkServiceTest::SimulateCrash");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SimulateCrash_Name, kFlags, 0, 0, nullptr);
@@ -4578,15 +4644,18 @@ bool NetworkServiceTestProxy::MockCertVerifierSetDefaultResult(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::MockCertVerifierSetDefaultResult");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_MockCertVerifierSetDefaultResult_Name, kFlags, 0, 0, nullptr);
@@ -4624,14 +4693,17 @@ void NetworkServiceTestProxy::MockCertVerifierSetDefaultResult(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_MockCertVerifierSetDefaultResult_Name, kFlags, 0, 0, nullptr);
@@ -4673,15 +4745,18 @@ bool NetworkServiceTestProxy::MockCertVerifierAddResultForCertAndHost(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::MockCertVerifierAddResultForCertAndHost");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_MockCertVerifierAddResultForCertAndHost_Name, kFlags, 0, 0, nullptr);
@@ -4761,14 +4836,17 @@ void NetworkServiceTestProxy::MockCertVerifierAddResultForCertAndHost(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_MockCertVerifierAddResultForCertAndHost_Name, kFlags, 0, 0, nullptr);
@@ -4834,15 +4912,18 @@ bool NetworkServiceTestProxy::SetRequireCT(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::SetRequireCT");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetRequireCT_Name, kFlags, 0, 0, nullptr);
@@ -4881,14 +4962,17 @@ void NetworkServiceTestProxy::SetRequireCT(
                         "<value of type NetworkServiceTest::RequireCT>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetRequireCT_Name, kFlags, 0, 0, nullptr);
@@ -4922,15 +5006,18 @@ bool NetworkServiceTestProxy::SetTransportSecurityStateSource(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::SetTransportSecurityStateSource");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetTransportSecurityStateSource_Name, kFlags, 0, 0, nullptr);
@@ -4968,14 +5055,17 @@ void NetworkServiceTestProxy::SetTransportSecurityStateSource(
                         "<value of type uint16_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetTransportSecurityStateSource_Name, kFlags, 0, 0, nullptr);
@@ -5001,15 +5091,18 @@ bool NetworkServiceTestProxy::SetAllowNetworkAccessToHostResolutions(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::SetAllowNetworkAccessToHostResolutions");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetAllowNetworkAccessToHostResolutions_Name, kFlags, 0, 0, nullptr);
@@ -5039,14 +5132,17 @@ void NetworkServiceTestProxy::SetAllowNetworkAccessToHostResolutions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkServiceTest::SetAllowNetworkAccessToHostResolutions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetAllowNetworkAccessToHostResolutions_Name, kFlags, 0, 0, nullptr);
@@ -5071,15 +5167,18 @@ bool NetworkServiceTestProxy::ReplaceSystemDnsConfig(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::ReplaceSystemDnsConfig");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_ReplaceSystemDnsConfig_Name, kFlags, 0, 0, nullptr);
@@ -5109,14 +5208,17 @@ void NetworkServiceTestProxy::ReplaceSystemDnsConfig(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkServiceTest::ReplaceSystemDnsConfig");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_ReplaceSystemDnsConfig_Name, kFlags, 0, 0, nullptr);
@@ -5151,15 +5253,18 @@ bool NetworkServiceTestProxy::SetTestDohConfig(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::SetTestDohConfig");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetTestDohConfig_Name, kFlags, 0, 0, nullptr);
@@ -5212,14 +5317,17 @@ void NetworkServiceTestProxy::SetTestDohConfig(
                         "<value of type ::network::mojom::blink::DnsOverHttpsConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetTestDohConfig_Name, kFlags, 0, 0, nullptr);
@@ -5263,14 +5371,17 @@ void NetworkServiceTestProxy::CrashOnResolveHost(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_CrashOnResolveHost_Name, kFlags, 0, 0, nullptr);
@@ -5304,14 +5415,17 @@ void NetworkServiceTestProxy::CrashOnGetCookieList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkServiceTest::CrashOnGetCookieList");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_CrashOnGetCookieList_Name, kFlags, 0, 0, nullptr);
@@ -5335,15 +5449,18 @@ bool NetworkServiceTestProxy::GetLatestMemoryPressureLevel(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::GetLatestMemoryPressureLevel");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_GetLatestMemoryPressureLevel_Name, kFlags, 0, 0, nullptr);
@@ -5380,14 +5497,17 @@ void NetworkServiceTestProxy::GetLatestMemoryPressureLevel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkServiceTest::GetLatestMemoryPressureLevel");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_GetLatestMemoryPressureLevel_Name, kFlags, 0, 0, nullptr);
@@ -5412,15 +5532,18 @@ bool NetworkServiceTestProxy::GetPeerToPeerConnectionsCountChange(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::GetPeerToPeerConnectionsCountChange");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_GetPeerToPeerConnectionsCountChange_Name, kFlags, 0, 0, nullptr);
@@ -5457,14 +5580,17 @@ void NetworkServiceTestProxy::GetPeerToPeerConnectionsCountChange(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkServiceTest::GetPeerToPeerConnectionsCountChange");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_GetPeerToPeerConnectionsCountChange_Name, kFlags, 0, 0, nullptr);
@@ -5496,15 +5622,18 @@ bool NetworkServiceTestProxy::GetEnvironmentVariableValue(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::GetEnvironmentVariableValue");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_GetEnvironmentVariableValue_Name, kFlags, 0, 0, nullptr);
@@ -5559,14 +5688,17 @@ void NetworkServiceTestProxy::GetEnvironmentVariableValue(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_GetEnvironmentVariableValue_Name, kFlags, 0, 0, nullptr);
@@ -5609,15 +5741,18 @@ bool NetworkServiceTestProxy::Log(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::Log");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_Log_Name, kFlags, 0, 0, nullptr);
@@ -5665,14 +5800,17 @@ void NetworkServiceTestProxy::Log(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_Log_Name, kFlags, 0, 0, nullptr);
@@ -5714,14 +5852,17 @@ void NetworkServiceTestProxy::ActivateFieldTrial(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_ActivateFieldTrial_Name, kFlags, 0, 0, nullptr);
@@ -5750,7 +5891,7 @@ void NetworkServiceTestProxy::ActivateFieldTrial(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 bool NetworkServiceTestProxy::SetSCTAuditingRetryDelay(
-    absl::optional<::base::TimeDelta> param_delay) {
+    std::optional<::base::TimeDelta> param_delay) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call network::mojom::NetworkServiceTest::SetSCTAuditingRetryDelay (sync)", "input_parameters",
@@ -5758,20 +5899,23 @@ bool NetworkServiceTestProxy::SetSCTAuditingRetryDelay(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("delay"), param_delay,
-                        "<value of type absl::optional<::base::TimeDelta>>");
+                        "<value of type std::optional<::base::TimeDelta>>");
    });
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::SetSCTAuditingRetryDelay");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetSCTAuditingRetryDelay_Name, kFlags, 0, 0, nullptr);
@@ -5804,7 +5948,7 @@ bool NetworkServiceTestProxy::SetSCTAuditingRetryDelay(
 }
 
 void NetworkServiceTestProxy::SetSCTAuditingRetryDelay(
-    absl::optional<::base::TimeDelta> in_delay, SetSCTAuditingRetryDelayCallback callback) {
+    std::optional<::base::TimeDelta> in_delay, SetSCTAuditingRetryDelayCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::NetworkServiceTest::SetSCTAuditingRetryDelay", "input_parameters",
@@ -5812,17 +5956,20 @@ void NetworkServiceTestProxy::SetSCTAuditingRetryDelay(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("delay"), in_delay,
-                        "<value of type absl::optional<::base::TimeDelta>>");
+                        "<value of type std::optional<::base::TimeDelta>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetSCTAuditingRetryDelay_Name, kFlags, 0, 0, nullptr);
@@ -5860,14 +6007,17 @@ void NetworkServiceTestProxy::OpenFile(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -5912,14 +6062,17 @@ void NetworkServiceTestProxy::EnumerateFiles(
                         "<value of type ::mojo::PendingRemote<::network::mojom::blink::HttpCacheBackendFileOperationsFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_EnumerateFiles_Name, kFlags, 0, 0, nullptr);
@@ -5973,14 +6126,17 @@ void NetworkServiceTestProxy::CreateSimpleCache(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_CreateSimpleCache_Name, kFlags, 0, 0, nullptr);
@@ -6032,14 +6188,17 @@ void NetworkServiceTestProxy::MakeRequestToServer(
                         "<value of type const ::net::IPEndPoint&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_MakeRequestToServer_Name, kFlags, 0, 0, nullptr);
@@ -6085,14 +6244,17 @@ void NetworkServiceTestProxy::ResolveOwnHostnameWithSystemDns(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkServiceTest::ResolveOwnHostnameWithSystemDns");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_ResolveOwnHostnameWithSystemDns_Name, kFlags, 0, 0, nullptr);
@@ -6123,14 +6285,17 @@ void NetworkServiceTestProxy::SetIPv6ProbeResult(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetIPv6ProbeResult_Name, kFlags, 0, 0, nullptr);
@@ -6156,15 +6321,18 @@ bool NetworkServiceTestProxy::AllowsGSSAPILibraryLoad(
 #else
   TRACE_EVENT0("mojom", "NetworkServiceTest::AllowsGSSAPILibraryLoad");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_AllowsGSSAPILibraryLoad_Name, kFlags, 0, 0, nullptr);
@@ -6201,14 +6369,17 @@ void NetworkServiceTestProxy::AllowsGSSAPILibraryLoad(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::NetworkServiceTest::AllowsGSSAPILibraryLoad");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_AllowsGSSAPILibraryLoad_Name, kFlags, 0, 0, nullptr);
@@ -6307,7 +6478,8 @@ void NetworkServiceTest_AddRules_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_AddRules_Name, kFlags, 0, 0, nullptr);
@@ -6434,7 +6606,8 @@ void NetworkServiceTest_SimulateNetworkChange_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SimulateNetworkChange_Name, kFlags, 0, 0, nullptr);
@@ -6540,7 +6713,8 @@ void NetworkServiceTest_SimulateNetworkQualityChange_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SimulateNetworkQualityChange_Name, kFlags, 0, 0, nullptr);
@@ -6646,7 +6820,8 @@ void NetworkServiceTest_ForceNetworkQualityEstimatorReportWifiAsSlow2G_ProxyToRe
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_ForceNetworkQualityEstimatorReportWifiAsSlow2G_Name, kFlags, 0, 0, nullptr);
@@ -6752,7 +6927,8 @@ void NetworkServiceTest_MockCertVerifierSetDefaultResult_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_MockCertVerifierSetDefaultResult_Name, kFlags, 0, 0, nullptr);
@@ -6879,7 +7055,8 @@ void NetworkServiceTest_MockCertVerifierAddResultForCertAndHost_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_MockCertVerifierAddResultForCertAndHost_Name, kFlags, 0, 0, nullptr);
@@ -7006,7 +7183,8 @@ void NetworkServiceTest_SetRequireCT_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetRequireCT_Name, kFlags, 0, 0, nullptr);
@@ -7133,7 +7311,8 @@ void NetworkServiceTest_SetTransportSecurityStateSource_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetTransportSecurityStateSource_Name, kFlags, 0, 0, nullptr);
@@ -7260,7 +7439,8 @@ void NetworkServiceTest_SetAllowNetworkAccessToHostResolutions_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetAllowNetworkAccessToHostResolutions_Name, kFlags, 0, 0, nullptr);
@@ -7387,7 +7567,8 @@ void NetworkServiceTest_ReplaceSystemDnsConfig_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_ReplaceSystemDnsConfig_Name, kFlags, 0, 0, nullptr);
@@ -7514,7 +7695,8 @@ void NetworkServiceTest_SetTestDohConfig_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetTestDohConfig_Name, kFlags, 0, 0, nullptr);
@@ -7652,7 +7834,8 @@ void NetworkServiceTest_GetLatestMemoryPressureLevel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_GetLatestMemoryPressureLevel_Name, kFlags, 0, 0, nullptr);
@@ -7796,7 +7979,8 @@ void NetworkServiceTest_GetPeerToPeerConnectionsCountChange_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_GetPeerToPeerConnectionsCountChange_Name, kFlags, 0, 0, nullptr);
@@ -7939,7 +8123,8 @@ void NetworkServiceTest_GetEnvironmentVariableValue_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_GetEnvironmentVariableValue_Name, kFlags, 0, 0, nullptr);
@@ -8081,7 +8266,8 @@ void NetworkServiceTest_Log_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_Log_Name, kFlags, 0, 0, nullptr);
@@ -8208,7 +8394,8 @@ void NetworkServiceTest_SetSCTAuditingRetryDelay_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetSCTAuditingRetryDelay_Name, kFlags, 0, 0, nullptr);
@@ -8346,7 +8533,8 @@ void NetworkServiceTest_OpenFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_OpenFile_Name, kFlags, 0, 0, nullptr);
@@ -8471,7 +8659,8 @@ void NetworkServiceTest_EnumerateFiles_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_EnumerateFiles_Name, kFlags, 0, 0, nullptr);
@@ -8604,7 +8793,8 @@ void NetworkServiceTest_CreateSimpleCache_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_CreateSimpleCache_Name, kFlags, 0, 0, nullptr);
@@ -8723,7 +8913,8 @@ void NetworkServiceTest_MakeRequestToServer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_MakeRequestToServer_Name, kFlags, 0, 0, nullptr);
@@ -8855,7 +9046,8 @@ void NetworkServiceTest_ResolveOwnHostnameWithSystemDns_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_ResolveOwnHostnameWithSystemDns_Name, kFlags, 0, 0, nullptr);
@@ -8974,7 +9166,8 @@ void NetworkServiceTest_SetIPv6ProbeResult_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_SetIPv6ProbeResult_Name, kFlags, 0, 0, nullptr);
@@ -9091,7 +9284,8 @@ void NetworkServiceTest_AllowsGSSAPILibraryLoad_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkServiceTest_AllowsGSSAPILibraryLoad_Name, kFlags, 0, 0, nullptr);
@@ -9777,7 +9971,7 @@ std::move(p_message), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::TimeDelta> p_delay{};
+      std::optional<::base::TimeDelta> p_delay{};
       NetworkServiceTest_SetSCTAuditingRetryDelay_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDelay(&p_delay))
@@ -10016,62 +10210,62 @@ std::move(p_success), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkServiceTestValidationInfo[] = {
-    {&internal::NetworkServiceTest_AddRules_Params_Data::Validate,
+    { &internal::NetworkServiceTest_AddRules_Params_Data::Validate,
      &internal::NetworkServiceTest_AddRules_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_SimulateNetworkChange_Params_Data::Validate,
+    { &internal::NetworkServiceTest_SimulateNetworkChange_Params_Data::Validate,
      &internal::NetworkServiceTest_SimulateNetworkChange_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_SimulateNetworkQualityChange_Params_Data::Validate,
+    { &internal::NetworkServiceTest_SimulateNetworkQualityChange_Params_Data::Validate,
      &internal::NetworkServiceTest_SimulateNetworkQualityChange_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_ForceNetworkQualityEstimatorReportWifiAsSlow2G_Params_Data::Validate,
+    { &internal::NetworkServiceTest_ForceNetworkQualityEstimatorReportWifiAsSlow2G_Params_Data::Validate,
      &internal::NetworkServiceTest_ForceNetworkQualityEstimatorReportWifiAsSlow2G_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_SimulateCrash_Params_Data::Validate,
+    { &internal::NetworkServiceTest_SimulateCrash_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkServiceTest_MockCertVerifierSetDefaultResult_Params_Data::Validate,
+    { &internal::NetworkServiceTest_MockCertVerifierSetDefaultResult_Params_Data::Validate,
      &internal::NetworkServiceTest_MockCertVerifierSetDefaultResult_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_MockCertVerifierAddResultForCertAndHost_Params_Data::Validate,
+    { &internal::NetworkServiceTest_MockCertVerifierAddResultForCertAndHost_Params_Data::Validate,
      &internal::NetworkServiceTest_MockCertVerifierAddResultForCertAndHost_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_SetRequireCT_Params_Data::Validate,
+    { &internal::NetworkServiceTest_SetRequireCT_Params_Data::Validate,
      &internal::NetworkServiceTest_SetRequireCT_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_SetTransportSecurityStateSource_Params_Data::Validate,
+    { &internal::NetworkServiceTest_SetTransportSecurityStateSource_Params_Data::Validate,
      &internal::NetworkServiceTest_SetTransportSecurityStateSource_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_SetAllowNetworkAccessToHostResolutions_Params_Data::Validate,
+    { &internal::NetworkServiceTest_SetAllowNetworkAccessToHostResolutions_Params_Data::Validate,
      &internal::NetworkServiceTest_SetAllowNetworkAccessToHostResolutions_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_ReplaceSystemDnsConfig_Params_Data::Validate,
+    { &internal::NetworkServiceTest_ReplaceSystemDnsConfig_Params_Data::Validate,
      &internal::NetworkServiceTest_ReplaceSystemDnsConfig_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_SetTestDohConfig_Params_Data::Validate,
+    { &internal::NetworkServiceTest_SetTestDohConfig_Params_Data::Validate,
      &internal::NetworkServiceTest_SetTestDohConfig_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_CrashOnResolveHost_Params_Data::Validate,
+    { &internal::NetworkServiceTest_CrashOnResolveHost_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkServiceTest_CrashOnGetCookieList_Params_Data::Validate,
+    { &internal::NetworkServiceTest_CrashOnGetCookieList_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkServiceTest_GetLatestMemoryPressureLevel_Params_Data::Validate,
+    { &internal::NetworkServiceTest_GetLatestMemoryPressureLevel_Params_Data::Validate,
      &internal::NetworkServiceTest_GetLatestMemoryPressureLevel_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_GetPeerToPeerConnectionsCountChange_Params_Data::Validate,
+    { &internal::NetworkServiceTest_GetPeerToPeerConnectionsCountChange_Params_Data::Validate,
      &internal::NetworkServiceTest_GetPeerToPeerConnectionsCountChange_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_GetEnvironmentVariableValue_Params_Data::Validate,
+    { &internal::NetworkServiceTest_GetEnvironmentVariableValue_Params_Data::Validate,
      &internal::NetworkServiceTest_GetEnvironmentVariableValue_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_Log_Params_Data::Validate,
+    { &internal::NetworkServiceTest_Log_Params_Data::Validate,
      &internal::NetworkServiceTest_Log_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_ActivateFieldTrial_Params_Data::Validate,
+    { &internal::NetworkServiceTest_ActivateFieldTrial_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkServiceTest_SetSCTAuditingRetryDelay_Params_Data::Validate,
+    { &internal::NetworkServiceTest_SetSCTAuditingRetryDelay_Params_Data::Validate,
      &internal::NetworkServiceTest_SetSCTAuditingRetryDelay_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_OpenFile_Params_Data::Validate,
+    { &internal::NetworkServiceTest_OpenFile_Params_Data::Validate,
      &internal::NetworkServiceTest_OpenFile_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_EnumerateFiles_Params_Data::Validate,
+    { &internal::NetworkServiceTest_EnumerateFiles_Params_Data::Validate,
      &internal::NetworkServiceTest_EnumerateFiles_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_CreateSimpleCache_Params_Data::Validate,
+    { &internal::NetworkServiceTest_CreateSimpleCache_Params_Data::Validate,
      &internal::NetworkServiceTest_CreateSimpleCache_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_MakeRequestToServer_Params_Data::Validate,
+    { &internal::NetworkServiceTest_MakeRequestToServer_Params_Data::Validate,
      &internal::NetworkServiceTest_MakeRequestToServer_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_ResolveOwnHostnameWithSystemDns_Params_Data::Validate,
+    { &internal::NetworkServiceTest_ResolveOwnHostnameWithSystemDns_Params_Data::Validate,
      &internal::NetworkServiceTest_ResolveOwnHostnameWithSystemDns_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_SetIPv6ProbeResult_Params_Data::Validate,
+    { &internal::NetworkServiceTest_SetIPv6ProbeResult_Params_Data::Validate,
      &internal::NetworkServiceTest_SetIPv6ProbeResult_ResponseParams_Data::Validate},
-    {&internal::NetworkServiceTest_AllowsGSSAPILibraryLoad_Params_Data::Validate,
+    { &internal::NetworkServiceTest_AllowsGSSAPILibraryLoad_Params_Data::Validate,
      &internal::NetworkServiceTest_AllowsGSSAPILibraryLoad_ResponseParams_Data::Validate},
 };
 
@@ -10491,7 +10685,7 @@ void NetworkServiceTestInterceptorForTesting::Log(const WTF::String& message, Lo
 void NetworkServiceTestInterceptorForTesting::ActivateFieldTrial(const WTF::String& field_trial_name) {
   GetForwardingInterface()->ActivateFieldTrial(std::move(field_trial_name));
 }
-void NetworkServiceTestInterceptorForTesting::SetSCTAuditingRetryDelay(absl::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) {
+void NetworkServiceTestInterceptorForTesting::SetSCTAuditingRetryDelay(std::optional<::base::TimeDelta> delay, SetSCTAuditingRetryDelayCallback callback) {
   GetForwardingInterface()->SetSCTAuditingRetryDelay(std::move(delay), std::move(callback));
 }
 void NetworkServiceTestInterceptorForTesting::OpenFile(const ::base::FilePath& path, OpenFileCallback callback) {
@@ -10758,7 +10952,7 @@ void NetworkServiceTestAsyncWaiter::Log(
 
 
 void NetworkServiceTestAsyncWaiter::SetSCTAuditingRetryDelay(
-    absl::optional<::base::TimeDelta> delay) {
+    std::optional<::base::TimeDelta> delay) {
   base::RunLoop loop;
   proxy_->SetSCTAuditingRetryDelay(std::move(delay),
       base::BindOnce(

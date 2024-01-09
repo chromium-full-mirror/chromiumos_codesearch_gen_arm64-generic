@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -43,108 +44,81 @@
 
 
 namespace on_device_model::mojom {
-ModelAssets::ModelAssets()
-    : sp_model(),
-      model(),
-      weights() {}
+InputOptions::InputOptions()
+    : text(),
+      max_tokens(),
+      token_offset(),
+      ignore_context(),
+      max_output_tokens() {}
 
-ModelAssets::ModelAssets(
-    ::base::File sp_model_in,
-    ::base::File model_in,
-    ::base::File weights_in)
-    : sp_model(std::move(sp_model_in)),
-      model(std::move(model_in)),
-      weights(std::move(weights_in)) {}
+InputOptions::InputOptions(
+    const std::string& text_in,
+    std::optional<uint32_t> max_tokens_in,
+    std::optional<uint32_t> token_offset_in,
+    bool ignore_context_in,
+    std::optional<uint32_t> max_output_tokens_in)
+    : text(std::move(text_in)),
+      max_tokens(std::move(max_tokens_in)),
+      token_offset(std::move(token_offset_in)),
+      ignore_context(std::move(ignore_context_in)),
+      max_output_tokens(std::move(max_output_tokens_in)) {}
 
-ModelAssets::~ModelAssets() = default;
+InputOptions::~InputOptions() = default;
 
-void ModelAssets::WriteIntoTrace(
+void InputOptions::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "sp_model"), this->sp_model,
+      "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::base::File>"
+      "<value of type const std::string&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "model"), this->model,
+      "max_tokens"), this->max_tokens,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::base::File>"
+      "<value of type std::optional<uint32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "weights"), this->weights,
+      "token_offset"), this->token_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::base::File>"
+      "<value of type std::optional<uint32_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "ignore_context"), this->ignore_context,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_output_tokens"), this->max_output_tokens,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
 }
 
-bool ModelAssets::Validate(
+bool InputOptions::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
-}
-LoadModelResult::LoadModelResult() : tag_(Tag::kModel) {
-  data_.model = new ::mojo::PendingRemote<OnDeviceModel>;
-}
-
-LoadModelResult::~LoadModelResult() {
-  DestroyActive();
-}
-
-
-void LoadModelResult::set_model(
-    ::mojo::PendingRemote<OnDeviceModel> model) {
-  if (tag_ == Tag::kModel) {
-    *(data_.model) = std::move(model);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kModel;
-    data_.model = new ::mojo::PendingRemote<OnDeviceModel>(
-        std::move(model));
-  }
-}
-void LoadModelResult::set_error(
-    const std::string& error) {
-  if (tag_ == Tag::kError) {
-    *(data_.error) = std::move(error);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kError;
-    data_.error = new std::string(
-        std::move(error));
-  }
-}
-
-void LoadModelResult::DestroyActive() {
-  switch (tag_) {
-
-    case Tag::kModel:
-
-      delete data_.model;
-      break;
-    case Tag::kError:
-
-      delete data_.error;
-      break;
-  }
-}
-
-bool LoadModelResult::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context, false);
 }
 const char StreamingResponder::Name_[] = "on_device_model.mojom.StreamingResponder";
 
@@ -237,14 +211,17 @@ void StreamingResponderProxy::OnResponse(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStreamingResponder_OnResponse_Name, kFlags, 0, 0, nullptr);
@@ -274,18 +251,28 @@ void StreamingResponderProxy::OnResponse(
 }
 
 void StreamingResponderProxy::OnComplete(
-    ) {
+    ResponseStatus in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send on_device_model::mojom::StreamingResponder::OnComplete");
+  TRACE_EVENT1(
+    "mojom", "Send on_device_model::mojom::StreamingResponder::OnComplete", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type ResponseStatus>");
+   });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kStreamingResponder_OnComplete_Name, kFlags, 0, 0, nullptr);
@@ -293,6 +280,8 @@ void StreamingResponderProxy::OnComplete(
       ::on_device_model::mojom::internal::StreamingResponder_OnComplete_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::Serialize<::on_device_model::mojom::ResponseStatus>(
+      in_status, &params->status);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(StreamingResponder::Name_);
@@ -342,8 +331,11 @@ std::move(p_text));
               message->mutable_payload());
       
       bool success = true;
+      ResponseStatus p_status{};
       StreamingResponder_OnComplete_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadStatus(&p_status))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -353,7 +345,8 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnComplete();
+      impl->OnComplete(
+std::move(p_status));
       return true;
     }
   }
@@ -378,12 +371,12 @@ bool StreamingResponderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kStreamingResponderValidationInfo[] = {
-    {&internal::StreamingResponder_OnResponse_Params_Data::Validate,
+    { &internal::StreamingResponder_OnResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::StreamingResponder_OnComplete_Params_Data::Validate,
+    { &internal::StreamingResponder_OnComplete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -392,13 +385,13 @@ bool StreamingResponderRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kStreamingResponderValidationInfo);
 }
 
-const char OnDeviceModel::Name_[] = "on_device_model.mojom.OnDeviceModel";
+const char ContextClient::Name_[] = "on_device_model.mojom.ContextClient";
 
-OnDeviceModel::IPCStableHashFunction OnDeviceModel::MessageToMethodInfo_(mojo::Message& message) {
+ContextClient::IPCStableHashFunction ContextClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kOnDeviceModel_Execute_Name: {
-      return &OnDeviceModel::Execute_Sym::IPCStableHash;
+    case internal::kContextClient_OnComplete_Name: {
+      return &ContextClient::OnComplete_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -406,18 +399,18 @@ OnDeviceModel::IPCStableHashFunction OnDeviceModel::MessageToMethodInfo_(mojo::M
 }
 
 
-const char* OnDeviceModel::MessageToMethodName_(mojo::Message& message) {
+const char* ContextClient::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kOnDeviceModel_Execute_Name:
-            return "Receive on_device_model::mojom::OnDeviceModel::Execute";
+      case internal::kContextClient_OnComplete_Name:
+            return "Receive on_device_model::mojom::ContextClient::OnComplete";
     }
   } else {
     switch (message.name()) {
-      case internal::kOnDeviceModel_Execute_Name:
-            return "Receive reply on_device_model::mojom::OnDeviceModel::Execute";
+      case internal::kContextClient_OnComplete_Name:
+            return "Receive reply on_device_model::mojom::ContextClient::OnComplete";
     }
   }
   return "Receive unknown mojo message";
@@ -432,7 +425,7 @@ const char* OnDeviceModel::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t OnDeviceModel::Execute_Sym::IPCStableHash() {
+uint32_t ContextClient::OnComplete_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -440,67 +433,308 @@ uint32_t OnDeviceModel::Execute_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)on_device_model::mojom::OnDeviceModel::Execute");
+          "(Impl)on_device_model::mojom::ContextClient::OnComplete");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-OnDeviceModelProxy::OnDeviceModelProxy(mojo::MessageReceiverWithResponder* receiver)
+ContextClientProxy::ContextClientProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
-void OnDeviceModelProxy::Execute(
-    const std::string& in_input, ::mojo::PendingRemote<StreamingResponder> in_response) {
+void ContextClientProxy::OnComplete(
+    uint32_t in_tokens_processed) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send on_device_model::mojom::OnDeviceModel::Execute", "input_parameters",
+    "mojom", "Send on_device_model::mojom::ContextClient::OnComplete", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("input"), in_input,
-                        "<value of type const std::string&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("response"), in_response,
-                        "<value of type ::mojo::PendingRemote<StreamingResponder>>");
+           dict.AddItem("tokens_processed"), in_tokens_processed,
+                        "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kOnDeviceModel_Execute_Name, kFlags, 0, 0, nullptr);
+      internal::kContextClient_OnComplete_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::on_device_model::mojom::internal::OnDeviceModel_Execute_Params_Data> params(
+      ::on_device_model::mojom::internal::ContextClient_OnComplete_Params_Data> params(
+          message);
+  params.Allocate();
+  params->tokens_processed = in_tokens_processed;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ContextClient::Name_);
+  message.set_method_name("OnComplete");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool ContextClientStubDispatch::Accept(
+    ContextClient* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kContextClient_OnComplete_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ContextClient_OnComplete_Params_Data* params =
+          reinterpret_cast<internal::ContextClient_OnComplete_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      uint32_t p_tokens_processed{};
+      ContextClient_OnComplete_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_tokens_processed = input_data_view.tokens_processed();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ContextClient::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnComplete(
+std::move(p_tokens_processed));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool ContextClientStubDispatch::AcceptWithResponder(
+    ContextClient* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kContextClient_OnComplete_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kContextClientValidationInfo[] = {
+    { &internal::ContextClient_OnComplete_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool ContextClientRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::on_device_model::mojom::ContextClient::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kContextClientValidationInfo);
+}
+
+const char Session::Name_[] = "on_device_model.mojom.Session";
+
+Session::IPCStableHashFunction Session::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kSession_AddContext_Name: {
+      return &Session::AddContext_Sym::IPCStableHash;
+    }
+    case internal::kSession_Execute_Name: {
+      return &Session::Execute_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* Session::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSession_AddContext_Name:
+            return "Receive on_device_model::mojom::Session::AddContext";
+      case internal::kSession_Execute_Name:
+            return "Receive on_device_model::mojom::Session::Execute";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSession_AddContext_Name:
+            return "Receive reply on_device_model::mojom::Session::AddContext";
+      case internal::kSession_Execute_Name:
+            return "Receive reply on_device_model::mojom::Session::Execute";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t Session::AddContext_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)on_device_model::mojom::Session::AddContext");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Session::Execute_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)on_device_model::mojom::Session::Execute");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+SessionProxy::SessionProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void SessionProxy::AddContext(
+    InputOptionsPtr in_input, ::mojo::PendingRemote<ContextClient> in_client) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send on_device_model::mojom::Session::AddContext", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("input"), in_input,
+                        "<value of type InputOptionsPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("client"), in_client,
+                        "<value of type ::mojo::PendingRemote<ContextClient>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSession_AddContext_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::on_device_model::mojom::internal::Session_AddContext_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->input)::BaseType> input_fragment(
           params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
+  mojo::internal::Serialize<::on_device_model::mojom::InputOptionsDataView>(
       in_input, input_fragment);
   params->input.Set(
       input_fragment.is_null() ? nullptr : input_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->input.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null input in OnDeviceModel.Execute request");
+      "null input in Session.AddContext request");
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::on_device_model::mojom::ContextClientInterfaceBase>>(
+      in_client, &params->client, &params.message());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Session::Name_);
+  message.set_method_name("AddContext");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void SessionProxy::Execute(
+    InputOptionsPtr in_input, ::mojo::PendingRemote<StreamingResponder> in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send on_device_model::mojom::Session::Execute", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("input"), in_input,
+                        "<value of type InputOptionsPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::mojo::PendingRemote<StreamingResponder>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSession_Execute_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::on_device_model::mojom::internal::Session_Execute_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->input)::BaseType> input_fragment(
+          params.message());
+  mojo::internal::Serialize<::on_device_model::mojom::InputOptionsDataView>(
+      in_input, input_fragment);
+  params->input.Set(
+      input_fragment.is_null() ? nullptr : input_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->input.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null input in Session.Execute request");
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::on_device_model::mojom::StreamingResponderInterfaceBase>>(
       in_response, &params->response, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->response),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid response in OnDeviceModel.Execute request");
+      "invalid response in Session.Execute request");
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(OnDeviceModel::Name_);
+  message.set_interface_name(Session::Name_);
   message.set_method_name("Execute");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -509,21 +743,53 @@ void OnDeviceModelProxy::Execute(
 }
 
 // static
-bool OnDeviceModelStubDispatch::Accept(
-    OnDeviceModel* impl,
+bool SessionStubDispatch::Accept(
+    Session* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kOnDeviceModel_Execute_Name: {
+    case internal::kSession_AddContext_Name: {
 
       DCHECK(message->is_serialized());
-      internal::OnDeviceModel_Execute_Params_Data* params =
-          reinterpret_cast<internal::OnDeviceModel_Execute_Params_Data*>(
+      internal::Session_AddContext_Params_Data* params =
+          reinterpret_cast<internal::Session_AddContext_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
-      std::string p_input{};
+      InputOptionsPtr p_input{};
+      ::mojo::PendingRemote<ContextClient> p_client{};
+      Session_AddContext_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadInput(&p_input))
+        success = false;
+      if (success) {
+        p_client =
+            input_data_view.TakeClient<decltype(p_client)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Session::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->AddContext(
+std::move(p_input), 
+std::move(p_client));
+      return true;
+    }
+    case internal::kSession_Execute_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Session_Execute_Params_Data* params =
+          reinterpret_cast<internal::Session_Execute_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      InputOptionsPtr p_input{};
       ::mojo::PendingRemote<StreamingResponder> p_response{};
-      OnDeviceModel_Execute_ParamsDataView input_data_view(params, message);
+      Session_Execute_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInput(&p_input))
         success = false;
@@ -535,7 +801,7 @@ bool OnDeviceModelStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            OnDeviceModel::Name_, 0, false);
+            Session::Name_, 1, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -543,6 +809,180 @@ bool OnDeviceModelStubDispatch::Accept(
       impl->Execute(
 std::move(p_input), 
 std::move(p_response));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool SessionStubDispatch::AcceptWithResponder(
+    Session* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kSession_AddContext_Name: {
+      break;
+    }
+    case internal::kSession_Execute_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kSessionValidationInfo[] = {
+    { &internal::Session_AddContext_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Session_Execute_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool SessionRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::on_device_model::mojom::Session::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kSessionValidationInfo);
+}
+
+const char OnDeviceModel::Name_[] = "on_device_model.mojom.OnDeviceModel";
+
+OnDeviceModel::IPCStableHashFunction OnDeviceModel::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kOnDeviceModel_StartSession_Name: {
+      return &OnDeviceModel::StartSession_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* OnDeviceModel::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kOnDeviceModel_StartSession_Name:
+            return "Receive on_device_model::mojom::OnDeviceModel::StartSession";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kOnDeviceModel_StartSession_Name:
+            return "Receive reply on_device_model::mojom::OnDeviceModel::StartSession";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t OnDeviceModel::StartSession_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)on_device_model::mojom::OnDeviceModel::StartSession");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+OnDeviceModelProxy::OnDeviceModelProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void OnDeviceModelProxy::StartSession(
+    ::mojo::PendingReceiver<Session> in_session) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send on_device_model::mojom::OnDeviceModel::StartSession", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("session"), in_session,
+                        "<value of type ::mojo::PendingReceiver<Session>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kOnDeviceModel_StartSession_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::on_device_model::mojom::internal::OnDeviceModel_StartSession_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::on_device_model::mojom::SessionInterfaceBase>>(
+      in_session, &params->session, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->session),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid session in OnDeviceModel.StartSession request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(OnDeviceModel::Name_);
+  message.set_method_name("StartSession");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool OnDeviceModelStubDispatch::Accept(
+    OnDeviceModel* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kOnDeviceModel_StartSession_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::OnDeviceModel_StartSession_Params_Data* params =
+          reinterpret_cast<internal::OnDeviceModel_StartSession_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<Session> p_session{};
+      OnDeviceModel_StartSession_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_session =
+            input_data_view.TakeSession<decltype(p_session)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            OnDeviceModel::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->StartSession(
+std::move(p_session));
       return true;
     }
   }
@@ -558,16 +998,16 @@ bool OnDeviceModelStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kOnDeviceModel_Execute_Name: {
+    case internal::kOnDeviceModel_StartSession_Name: {
       break;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOnDeviceModelValidationInfo[] = {
-    {&internal::OnDeviceModel_Execute_Params_Data::Validate,
+    { &internal::OnDeviceModel_StartSession_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -576,541 +1016,6 @@ bool OnDeviceModelRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kOnDeviceModelValidationInfo);
 }
 
-const char OnDeviceModelService::Name_[] = "on_device_model.mojom.OnDeviceModelService";
-
-OnDeviceModelService::IPCStableHashFunction OnDeviceModelService::MessageToMethodInfo_(mojo::Message& message) {
-#if !BUILDFLAG(IS_FUCHSIA)
-  switch (message.name()) {
-    case internal::kOnDeviceModelService_LoadModel_Name: {
-      return &OnDeviceModelService::LoadModel_Sym::IPCStableHash;
-    }
-    case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name: {
-      return &OnDeviceModelService::GetEstimatedPerformanceClass_Sym::IPCStableHash;
-    }
-  }
-#endif  // !BUILDFLAG(IS_FUCHSIA)
-  return nullptr;
-}
-
-
-const char* OnDeviceModelService::MessageToMethodName_(mojo::Message& message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
-  if (!is_response) {
-    switch (message.name()) {
-      case internal::kOnDeviceModelService_LoadModel_Name:
-            return "Receive on_device_model::mojom::OnDeviceModelService::LoadModel";
-      case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name:
-            return "Receive on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass";
-    }
-  } else {
-    switch (message.name()) {
-      case internal::kOnDeviceModelService_LoadModel_Name:
-            return "Receive reply on_device_model::mojom::OnDeviceModelService::LoadModel";
-      case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name:
-            return "Receive reply on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass";
-    }
-  }
-  return "Receive unknown mojo message";
-#else
-  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
-  if (is_response) {
-    return "Receive mojo reply";
-  } else {
-    return "Receive mojo message";
-  }
-#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
-}
-
-#if !BUILDFLAG(IS_FUCHSIA)
-uint32_t OnDeviceModelService::LoadModel_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)on_device_model::mojom::OnDeviceModelService::LoadModel");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t OnDeviceModelService::GetEstimatedPerformanceClass_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-# endif // !BUILDFLAG(IS_FUCHSIA)
-
-class OnDeviceModelService_LoadModel_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  OnDeviceModelService_LoadModel_ForwardToCallback(
-      OnDeviceModelService::LoadModelCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  OnDeviceModelService_LoadModel_ForwardToCallback(const OnDeviceModelService_LoadModel_ForwardToCallback&) = delete;
-  OnDeviceModelService_LoadModel_ForwardToCallback& operator=(const OnDeviceModelService_LoadModel_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  OnDeviceModelService::LoadModelCallback callback_;
-};
-
-class OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback(
-      OnDeviceModelService::GetEstimatedPerformanceClassCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback(const OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback&) = delete;
-  OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback& operator=(const OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  OnDeviceModelService::GetEstimatedPerformanceClassCallback callback_;
-};
-
-OnDeviceModelServiceProxy::OnDeviceModelServiceProxy(mojo::MessageReceiverWithResponder* receiver)
-    : receiver_(receiver) {
-}
-
-void OnDeviceModelServiceProxy::LoadModel(
-    on_device_model::ModelAssets in_assets, LoadModelCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send on_device_model::mojom::OnDeviceModelService::LoadModel", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("assets"), in_assets,
-                        "<value of type on_device_model::ModelAssets>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kOnDeviceModelService_LoadModel_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::on_device_model::mojom::internal::OnDeviceModelService_LoadModel_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->assets)::BaseType> assets_fragment(
-          params.message());
-  mojo::internal::Serialize<::on_device_model::mojom::ModelAssetsDataView>(
-      in_assets, assets_fragment);
-  params->assets.Set(
-      assets_fragment.is_null() ? nullptr : assets_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->assets.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null assets in OnDeviceModelService.LoadModel request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(OnDeviceModelService::Name_);
-  message.set_method_name("LoadModel");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new OnDeviceModelService_LoadModel_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void OnDeviceModelServiceProxy::GetEstimatedPerformanceClass(
-    GetEstimatedPerformanceClassCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::on_device_model::mojom::internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(OnDeviceModelService::Name_);
-  message.set_method_name("GetEstimatedPerformanceClass");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-class OnDeviceModelService_LoadModel_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static OnDeviceModelService::LoadModelCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<OnDeviceModelService_LoadModel_ProxyToResponder> proxy(
-        new OnDeviceModelService_LoadModel_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&OnDeviceModelService_LoadModel_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~OnDeviceModelService_LoadModel_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  OnDeviceModelService_LoadModel_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "OnDeviceModelService::LoadModelCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      LoadModelResultPtr in_result);
-};
-
-bool OnDeviceModelService_LoadModel_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::OnDeviceModelService_LoadModel_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::OnDeviceModelService_LoadModel_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  LoadModelResultPtr p_result{};
-  OnDeviceModelService_LoadModel_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        OnDeviceModelService::Name_, 0, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_result));
-  return true;
-}
-
-void OnDeviceModelService_LoadModel_ProxyToResponder::Run(
-    LoadModelResultPtr in_result) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply on_device_model::mojom::OnDeviceModelService::LoadModel", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type LoadModelResultPtr>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kOnDeviceModelService_LoadModel_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::on_device_model::mojom::internal::OnDeviceModelService_LoadModel_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<decltype(params->result)>
-      result_fragment(params.message());
-  result_fragment.Claim(&params->result);
-  mojo::internal::Serialize<::on_device_model::mojom::LoadModelResultDataView>(
-      in_result, result_fragment, true);
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->result.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null result in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(OnDeviceModelService::Name_);
-  message.set_method_name("LoadModel");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static OnDeviceModelService::GetEstimatedPerformanceClassCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder> proxy(
-        new OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "OnDeviceModelService::GetEstimatedPerformanceClassCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      PerformanceClass in_performance_class);
-};
-
-bool OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  PerformanceClass p_performance_class{};
-  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadPerformanceClass(&p_performance_class))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        OnDeviceModelService::Name_, 1, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_performance_class));
-  return true;
-}
-
-void OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder::Run(
-    PerformanceClass in_performance_class) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("performance_class"), in_performance_class,
-                        "<value of type PerformanceClass>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::on_device_model::mojom::internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::on_device_model::mojom::PerformanceClass>(
-      in_performance_class, &params->performance_class);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(OnDeviceModelService::Name_);
-  message.set_method_name("GetEstimatedPerformanceClass");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-
-// static
-bool OnDeviceModelServiceStubDispatch::Accept(
-    OnDeviceModelService* impl,
-    mojo::Message* message) {
-  switch (message->header()->name) {
-    case internal::kOnDeviceModelService_LoadModel_Name: {
-      break;
-    }
-    case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name: {
-      break;
-    }
-  }
-  return false;
-}
-
-// static
-bool OnDeviceModelServiceStubDispatch::AcceptWithResponder(
-    OnDeviceModelService* impl,
-    mojo::Message* message,
-    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-  [[maybe_unused]] const bool message_is_sync =
-      message->has_flag(mojo::Message::kFlagIsSync);
-  [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (message->header()->name) {
-    case internal::kOnDeviceModelService_LoadModel_Name: {
-
-      internal::OnDeviceModelService_LoadModel_Params_Data* params =
-          reinterpret_cast<
-              internal::OnDeviceModelService_LoadModel_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      on_device_model::ModelAssets p_assets{};
-      OnDeviceModelService_LoadModel_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadAssets(&p_assets))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            OnDeviceModelService::Name_, 0, false);
-        return false;
-      }
-      OnDeviceModelService::LoadModelCallback callback =
-          OnDeviceModelService_LoadModel_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->LoadModel(
-std::move(p_assets), std::move(callback));
-      return true;
-    }
-    case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name: {
-
-      internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data* params =
-          reinterpret_cast<
-              internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      OnDeviceModelService_GetEstimatedPerformanceClass_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            OnDeviceModelService::Name_, 1, false);
-        return false;
-      }
-      OnDeviceModelService::GetEstimatedPerformanceClassCallback callback =
-          OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetEstimatedPerformanceClass(std::move(callback));
-      return true;
-    }
-  }
-  return false;
-}
-
-
-static const mojo::internal::GenericValidationInfo kOnDeviceModelServiceValidationInfo[] = {
-    {&internal::OnDeviceModelService_LoadModel_Params_Data::Validate,
-     &internal::OnDeviceModelService_LoadModel_ResponseParams_Data::Validate},
-    {&internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data::Validate,
-     &internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data::Validate},
-};
-
-bool OnDeviceModelServiceRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::on_device_model::mojom::OnDeviceModelService::Name_;
-  return mojo::internal::ValidateRequestGenericPacked(message, name, kOnDeviceModelServiceValidationInfo);
-}
-
-bool OnDeviceModelServiceResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::on_device_model::mojom::OnDeviceModelService::Name_;
-  return mojo::internal::ValidateResponseGenericPacked(message, name, kOnDeviceModelServiceValidationInfo);
-}
 
 
 }  // on_device_model::mojom
@@ -1120,49 +1025,27 @@ namespace mojo {
 
 
 // static
-bool StructTraits<::on_device_model::mojom::ModelAssets::DataView, ::on_device_model::mojom::ModelAssetsPtr>::Read(
-    ::on_device_model::mojom::ModelAssets::DataView input,
-    ::on_device_model::mojom::ModelAssetsPtr* output) {
+bool StructTraits<::on_device_model::mojom::InputOptions::DataView, ::on_device_model::mojom::InputOptionsPtr>::Read(
+    ::on_device_model::mojom::InputOptions::DataView input,
+    ::on_device_model::mojom::InputOptionsPtr* output) {
   bool success = true;
-  ::on_device_model::mojom::ModelAssetsPtr result(::on_device_model::mojom::ModelAssets::New());
+  ::on_device_model::mojom::InputOptionsPtr result(::on_device_model::mojom::InputOptions::New());
   
-      if (success && !input.ReadSpModel(&result->sp_model))
+      if (success && !input.ReadText(&result->text))
         success = false;
-      if (success && !input.ReadModel(&result->model))
-        success = false;
-      if (success && !input.ReadWeights(&result->weights))
-        success = false;
+      if (success) {
+        result->max_tokens = input.max_tokens();
+      }
+      if (success) {
+        result->token_offset = input.token_offset();
+      }
+      if (success)
+        result->ignore_context = input.ignore_context();
+      if (success) {
+        result->max_output_tokens = input.max_output_tokens();
+      }
   *output = std::move(result);
   return success;
-}
-
-// static
-bool UnionTraits<::on_device_model::mojom::LoadModelResult::DataView, ::on_device_model::mojom::LoadModelResultPtr>::Read(
-    ::on_device_model::mojom::LoadModelResult::DataView input,
-    ::on_device_model::mojom::LoadModelResultPtr* output) {
-  using UnionType = ::on_device_model::mojom::LoadModelResult;
-  using Tag = UnionType::Tag;
-
-  switch (input.tag()) {
-    case Tag::kModel: {
-      *output = UnionType::NewModel(
-          input.TakeModel<::mojo::PendingRemote<::on_device_model::mojom::OnDeviceModel>>());
-      break;
-    }
-    case Tag::kError: {
-      std::string result_error;
-      if (!input.ReadError(&result_error))
-        return false;
-
-      *output = UnionType::NewError(
-          std::move(result_error));
-      break;
-    }
-    default:
-
-      return false;
-  }
-  return true;
 }
 
 }  // namespace mojo
@@ -1178,8 +1061,8 @@ namespace on_device_model::mojom {
 void StreamingResponderInterceptorForTesting::OnResponse(const std::string& text) {
   GetForwardingInterface()->OnResponse(std::move(text));
 }
-void StreamingResponderInterceptorForTesting::OnComplete() {
-  GetForwardingInterface()->OnComplete();
+void StreamingResponderInterceptorForTesting::OnComplete(ResponseStatus status) {
+  GetForwardingInterface()->OnComplete(std::move(status));
 }
 StreamingResponderAsyncWaiter::StreamingResponderAsyncWaiter(
     StreamingResponder* proxy) : proxy_(proxy) {}
@@ -1189,73 +1072,38 @@ StreamingResponderAsyncWaiter::~StreamingResponderAsyncWaiter() = default;
 
 
 
-void OnDeviceModelInterceptorForTesting::Execute(const std::string& input, ::mojo::PendingRemote<StreamingResponder> response) {
+void ContextClientInterceptorForTesting::OnComplete(uint32_t tokens_processed) {
+  GetForwardingInterface()->OnComplete(std::move(tokens_processed));
+}
+ContextClientAsyncWaiter::ContextClientAsyncWaiter(
+    ContextClient* proxy) : proxy_(proxy) {}
+
+ContextClientAsyncWaiter::~ContextClientAsyncWaiter() = default;
+
+
+
+
+void SessionInterceptorForTesting::AddContext(InputOptionsPtr input, ::mojo::PendingRemote<ContextClient> client) {
+  GetForwardingInterface()->AddContext(std::move(input), std::move(client));
+}
+void SessionInterceptorForTesting::Execute(InputOptionsPtr input, ::mojo::PendingRemote<StreamingResponder> response) {
   GetForwardingInterface()->Execute(std::move(input), std::move(response));
+}
+SessionAsyncWaiter::SessionAsyncWaiter(
+    Session* proxy) : proxy_(proxy) {}
+
+SessionAsyncWaiter::~SessionAsyncWaiter() = default;
+
+
+
+
+void OnDeviceModelInterceptorForTesting::StartSession(::mojo::PendingReceiver<Session> session) {
+  GetForwardingInterface()->StartSession(std::move(session));
 }
 OnDeviceModelAsyncWaiter::OnDeviceModelAsyncWaiter(
     OnDeviceModel* proxy) : proxy_(proxy) {}
 
 OnDeviceModelAsyncWaiter::~OnDeviceModelAsyncWaiter() = default;
-
-
-
-
-void OnDeviceModelServiceInterceptorForTesting::LoadModel(on_device_model::ModelAssets assets, LoadModelCallback callback) {
-  GetForwardingInterface()->LoadModel(std::move(assets), std::move(callback));
-}
-void OnDeviceModelServiceInterceptorForTesting::GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) {
-  GetForwardingInterface()->GetEstimatedPerformanceClass(std::move(callback));
-}
-OnDeviceModelServiceAsyncWaiter::OnDeviceModelServiceAsyncWaiter(
-    OnDeviceModelService* proxy) : proxy_(proxy) {}
-
-OnDeviceModelServiceAsyncWaiter::~OnDeviceModelServiceAsyncWaiter() = default;
-
-void OnDeviceModelServiceAsyncWaiter::LoadModel(
-    on_device_model::ModelAssets assets, LoadModelResultPtr* out_result) {
-  base::RunLoop loop;
-  proxy_->LoadModel(std::move(assets),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             LoadModelResultPtr* out_result
-,
-             LoadModelResultPtr result) {*out_result = std::move(result);
-            loop->Quit();
-          },
-          &loop,
-          out_result));
-  loop.Run();
-}
-
-LoadModelResultPtr OnDeviceModelServiceAsyncWaiter::LoadModel(
-    on_device_model::ModelAssets assets) {
-  LoadModelResultPtr async_wait_result;
-  LoadModel(std::move(assets),&async_wait_result);
-  return async_wait_result;
-}
-
-void OnDeviceModelServiceAsyncWaiter::GetEstimatedPerformanceClass(
-    PerformanceClass* out_performance_class) {
-  base::RunLoop loop;
-  proxy_->GetEstimatedPerformanceClass(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             PerformanceClass* out_performance_class
-,
-             PerformanceClass performance_class) {*out_performance_class = std::move(performance_class);
-            loop->Quit();
-          },
-          &loop,
-          out_performance_class));
-  loop.Run();
-}
-
-PerformanceClass OnDeviceModelServiceAsyncWaiter::GetEstimatedPerformanceClass(
-    ) {
-  PerformanceClass async_wait_result;
-  GetEstimatedPerformanceClass(&async_wait_result);
-  return async_wait_result;
-}
 
 
 

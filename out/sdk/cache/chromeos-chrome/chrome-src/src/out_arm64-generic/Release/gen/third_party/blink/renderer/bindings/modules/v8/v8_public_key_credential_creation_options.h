@@ -115,6 +115,15 @@ has_extensions_ = true;
 DCHECK(member_extensions_);
 }
 
+bool hasHints() const {
+  return true;
+}
+const Vector<String>& hints() const {
+  return member_hints_;
+}
+void setHints(const Vector<String>& value);
+void setHints(Vector<String>&& value);
+
 bool hasPubKeyCredParams() const {
   return true;
 }
@@ -189,6 +198,7 @@ Member<AuthenticatorSelectionCriteria> member_authenticator_selection_;
 Member<V8UnionArrayBufferOrArrayBufferView> member_challenge_;
 HeapVector<Member<PublicKeyCredentialDescriptor>> member_exclude_credentials_;
 Member<AuthenticationExtensionsClientInputs> member_extensions_;
+Vector<String> member_hints_;
 HeapVector<Member<PublicKeyCredentialParameters>> member_pub_key_cred_params_;
 Member<PublicKeyCredentialRpEntity> member_rp_;
 uint32_t member_timeout_;

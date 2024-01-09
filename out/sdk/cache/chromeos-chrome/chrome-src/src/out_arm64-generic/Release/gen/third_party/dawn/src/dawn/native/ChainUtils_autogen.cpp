@@ -25,78 +25,28 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "dawn/native/ChainUtils_autogen.h"
+#include "dawn/native/ChainUtils.h"
 
 #include <tuple>
-#include <unordered_set>
 #include <utility>
 
 namespace dawn::native {
 
-MaybeError ValidateSTypes(const ChainedStruct* chain,
-                          std::vector<std::vector<wgpu::SType>> oneOfConstraints) {
-    std::unordered_set<wgpu::SType> allSTypes;
-    for (; chain; chain = chain->nextInChain) {
-        DAWN_INVALID_IF(allSTypes.find(chain->sType) != allSTypes.end(),
-            "Extension chain has duplicate sType %s.", chain->sType);
-        allSTypes.insert(chain->sType);
-    }
-
-    for (const auto& oneOfConstraint : oneOfConstraints) {
-        bool satisfied = false;
-        for (wgpu::SType oneOfSType : oneOfConstraint) {
-            if (allSTypes.find(oneOfSType) != allSTypes.end()) {
-                DAWN_INVALID_IF(satisfied,
-                    "sType %s is part of a group of exclusive sTypes that is already present.",
-                    oneOfSType);
-                satisfied = true;
-                allSTypes.erase(oneOfSType);
-            }
-        }
-    }
-
-    DAWN_INVALID_IF(!allSTypes.empty(), "Unsupported sType %s.", *allSTypes.begin());
-    return {};
-}
-
-MaybeError ValidateSTypes(const ChainedStructOut* chain,
-                          std::vector<std::vector<wgpu::SType>> oneOfConstraints) {
-    std::unordered_set<wgpu::SType> allSTypes;
-    for (; chain; chain = chain->nextInChain) {
-        DAWN_INVALID_IF(allSTypes.find(chain->sType) != allSTypes.end(),
-            "Extension chain has duplicate sType %s.", chain->sType);
-        allSTypes.insert(chain->sType);
-    }
-
-    for (const auto& oneOfConstraint : oneOfConstraints) {
-        bool satisfied = false;
-        for (wgpu::SType oneOfSType : oneOfConstraint) {
-            if (allSTypes.find(oneOfSType) != allSTypes.end()) {
-                DAWN_INVALID_IF(satisfied,
-                    "sType %s is part of a group of exclusive sTypes that is already present.",
-                    oneOfSType);
-                satisfied = true;
-                allSTypes.erase(oneOfSType);
-            }
-        }
-    }
-
-    DAWN_INVALID_IF(!allSTypes.empty(), "Unsupported sType %s.", *allSTypes.begin());
-    return {};
-}
-
 // Returns true iff the chain's SType matches the extension, false otherwise. If the SType was
 // not already matched, sets the unpacked result accordingly. Otherwise, stores the duplicated
 // SType in 'duplicate'.
-template <typename Root, typename Unpacked, typename Ext>
-bool UnpackExtension(Unpacked& unpacked, const ChainedStruct* chain, bool& duplicate) {
+template <typename Root, typename UnpackedPtrT, typename Ext>
+bool UnpackExtension(typename UnpackedPtrT::TupleType& unpacked,
+                     typename UnpackedPtrT::BitsetType& bitset,
+                     typename UnpackedPtrT::ChainType chain, bool* duplicate) {
     DAWN_ASSERT(chain != nullptr);
     if (chain->sType == STypeFor<Ext>) {
         auto& member = std::get<Ext>(unpacked);
-        if (member != nullptr) {
-            duplicate = true;
+        if (member != nullptr && duplicate) {
+            *duplicate = true;
         } else {
             member = reinterpret_cast<Ext>(chain);
+            bitset.set(detail::UnpackedPtrIndexOf<UnpackedPtrT, Ext>);
         }
         return true;
     }
@@ -105,32 +55,177 @@ bool UnpackExtension(Unpacked& unpacked, const ChainedStruct* chain, bool& dupli
 
 // Tries to match all possible extensions, returning true iff one of the allowed extensions were
 // matched, false otherwise. If the SType was not already matched, sets the unpacked result
-// accordingly. Otherwise, stores the diplicated SType in 'duplicate'.
-template <typename Root, typename Unpacked, typename AdditionalExts>
+// accordingly. Otherwise, stores the duplicated SType in 'duplicate'.
+template <typename Root, typename UnpackedPtrT, typename AdditionalExts>
 struct AdditionalExtensionUnpacker;
-template <typename Root, typename Unpacked, typename... Exts>
-struct AdditionalExtensionUnpacker<Root, Unpacked, detail::AdditionalExtensionsList<Exts...>> {
-    static bool Unpack(Unpacked& unpacked, const ChainedStruct* chain, bool& duplicate) {
-        return ((UnpackExtension<Root, Unpacked, Exts>(unpacked, chain, duplicate)) || ...);
+template <typename Root, typename UnpackedPtrT, typename... Exts>
+struct AdditionalExtensionUnpacker<Root, UnpackedPtrT, detail::AdditionalExtensionsList<Exts...>> {
+    static bool Unpack(typename UnpackedPtrT::TupleType& unpacked,
+                       typename UnpackedPtrT::BitsetType& bitset,
+                       typename UnpackedPtrT::ChainType chain,
+                       bool* duplicate) {
+        return ((UnpackExtension<Root, UnpackedPtrT, Exts>(unpacked, bitset, chain, duplicate)) ||
+                ...);
     }
 };
 
 //
-// Unpacked chain helpers.
+// UnpackedPtr chain helpers.
 //
-ResultOrError<UnpackedBindGroupEntryChain> ValidateAndUnpackChain(const BindGroupEntry* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedBindGroupEntryChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<AdapterProperties> Unpack<AdapterProperties>(typename UnpackedPtr<AdapterProperties>::PtrType chain) {
+    UnpackedPtr<AdapterProperties> result(chain);
+    for (typename UnpackedPtr<AdapterProperties>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<DawnAdapterPropertiesPowerPreference>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<AdapterProperties>, DawnAdapterPropertiesPowerPreference>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<AdapterProperties>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<AdapterPropertiesMemoryHeaps>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<AdapterProperties>, AdapterPropertiesMemoryHeaps>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<AdapterProperties>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        AdapterProperties,
+                        UnpackedPtr<AdapterProperties>,
+                        detail::AdditionalExtensions<AdapterProperties>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<AdapterProperties>> ValidateAndUnpack<AdapterProperties>(
+    typename UnpackedPtr<AdapterProperties>::PtrType chain) {
+    UnpackedPtr<AdapterProperties> result(chain);
+    for (typename UnpackedPtr<AdapterProperties>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
-            case STypeFor<ExternalTextureBindingEntry>: {
-                auto& member = std::get<const ExternalTextureBindingEntry*>(result);
+            case STypeFor<DawnAdapterPropertiesPowerPreference>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<AdapterProperties>, DawnAdapterPropertiesPowerPreference>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const ExternalTextureBindingEntry*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<AdapterProperties>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            case STypeFor<AdapterPropertiesMemoryHeaps>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<AdapterProperties>, AdapterPropertiesMemoryHeaps>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<AdapterProperties>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        AdapterProperties,
+                        UnpackedPtr<AdapterProperties>,
+                        detail::AdditionalExtensions<AdapterProperties>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
+                    return DAWN_VALIDATION_ERROR(
+                        "Unexpected chained struct of type %s found on %s chain.",
+                        next->sType, "AdapterProperties"
+                    );
+                }
+                break;
+            }
+        }
+        if (duplicate) {
+            return DAWN_VALIDATION_ERROR(
+                "Duplicate chained struct of type %s found on %s chain.",
+                next->sType, "AdapterProperties"
+            );
+        }
+    }
+    return result;
+}
+template <>
+UnpackedPtr<BindGroupEntry> Unpack<BindGroupEntry>(typename UnpackedPtr<BindGroupEntry>::PtrType chain) {
+    UnpackedPtr<BindGroupEntry> result(chain);
+    for (typename UnpackedPtr<BindGroupEntry>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<ExternalTextureBindingEntry>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<BindGroupEntry>, ExternalTextureBindingEntry>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<BindGroupEntry>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        BindGroupEntry,
+                        UnpackedPtr<BindGroupEntry>,
+                        detail::AdditionalExtensions<BindGroupEntry>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<BindGroupEntry>> ValidateAndUnpack<BindGroupEntry>(
+    typename UnpackedPtr<BindGroupEntry>::PtrType chain) {
+    UnpackedPtr<BindGroupEntry> result(chain);
+    for (typename UnpackedPtr<BindGroupEntry>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            case STypeFor<ExternalTextureBindingEntry>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<BindGroupEntry>, ExternalTextureBindingEntry>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<BindGroupEntry>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -138,9 +233,12 @@ ResultOrError<UnpackedBindGroupEntryChain> ValidateAndUnpackChain(const BindGrou
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         BindGroupEntry,
-                        UnpackedBindGroupEntryChain,
+                        UnpackedPtr<BindGroupEntry>,
                         detail::AdditionalExtensions<BindGroupEntry>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "BindGroupEntry"
@@ -158,21 +256,45 @@ ResultOrError<UnpackedBindGroupEntryChain> ValidateAndUnpackChain(const BindGrou
     }
     return result;
 }
-
-ResultOrError<UnpackedBufferBindingLayoutChain> ValidateAndUnpackChain(const BufferBindingLayout* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedBufferBindingLayoutChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<BufferBindingLayout> Unpack<BufferBindingLayout>(typename UnpackedPtr<BufferBindingLayout>::PtrType chain) {
+    UnpackedPtr<BufferBindingLayout> result(chain);
+    for (typename UnpackedPtr<BufferBindingLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        BufferBindingLayout,
+                        UnpackedPtr<BufferBindingLayout>,
+                        detail::AdditionalExtensions<BufferBindingLayout>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<BufferBindingLayout>> ValidateAndUnpack<BufferBindingLayout>(
+    typename UnpackedPtr<BufferBindingLayout>::PtrType chain) {
+    UnpackedPtr<BufferBindingLayout> result(chain);
+    for (typename UnpackedPtr<BufferBindingLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         BufferBindingLayout,
-                        UnpackedBufferBindingLayoutChain,
+                        UnpackedPtr<BufferBindingLayout>,
                         detail::AdditionalExtensions<BufferBindingLayout>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "BufferBindingLayout"
@@ -190,29 +312,80 @@ ResultOrError<UnpackedBufferBindingLayoutChain> ValidateAndUnpackChain(const Buf
     }
     return result;
 }
-
-ResultOrError<UnpackedBufferDescriptorChain> ValidateAndUnpackChain(const BufferDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedBufferDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<BufferDescriptor> Unpack<BufferDescriptor>(typename UnpackedPtr<BufferDescriptor>::PtrType chain) {
+    UnpackedPtr<BufferDescriptor> result(chain);
+    for (typename UnpackedPtr<BufferDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<BufferHostMappedPointer>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<BufferDescriptor>, BufferHostMappedPointer>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<BufferDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<DawnBufferDescriptorErrorInfoFromWireClient>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<BufferDescriptor>, DawnBufferDescriptorErrorInfoFromWireClient>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<BufferDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        BufferDescriptor,
+                        UnpackedPtr<BufferDescriptor>,
+                        detail::AdditionalExtensions<BufferDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<BufferDescriptor>> ValidateAndUnpack<BufferDescriptor>(
+    typename UnpackedPtr<BufferDescriptor>::PtrType chain) {
+    UnpackedPtr<BufferDescriptor> result(chain);
+    for (typename UnpackedPtr<BufferDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<BufferHostMappedPointer>: {
-                auto& member = std::get<const BufferHostMappedPointer*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<BufferDescriptor>, BufferHostMappedPointer>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const BufferHostMappedPointer*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<BufferDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<DawnBufferDescriptorErrorInfoFromWireClient>: {
-                auto& member = std::get<const DawnBufferDescriptorErrorInfoFromWireClient*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<BufferDescriptor>, DawnBufferDescriptorErrorInfoFromWireClient>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnBufferDescriptorErrorInfoFromWireClient*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<BufferDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -220,9 +393,12 @@ ResultOrError<UnpackedBufferDescriptorChain> ValidateAndUnpackChain(const Buffer
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         BufferDescriptor,
-                        UnpackedBufferDescriptorChain,
+                        UnpackedPtr<BufferDescriptor>,
                         detail::AdditionalExtensions<BufferDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "BufferDescriptor"
@@ -240,21 +416,45 @@ ResultOrError<UnpackedBufferDescriptorChain> ValidateAndUnpackChain(const Buffer
     }
     return result;
 }
-
-ResultOrError<UnpackedBufferMapCallbackInfoChain> ValidateAndUnpackChain(const BufferMapCallbackInfo* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedBufferMapCallbackInfoChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<BufferMapCallbackInfo> Unpack<BufferMapCallbackInfo>(typename UnpackedPtr<BufferMapCallbackInfo>::PtrType chain) {
+    UnpackedPtr<BufferMapCallbackInfo> result(chain);
+    for (typename UnpackedPtr<BufferMapCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        BufferMapCallbackInfo,
+                        UnpackedPtr<BufferMapCallbackInfo>,
+                        detail::AdditionalExtensions<BufferMapCallbackInfo>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<BufferMapCallbackInfo>> ValidateAndUnpack<BufferMapCallbackInfo>(
+    typename UnpackedPtr<BufferMapCallbackInfo>::PtrType chain) {
+    UnpackedPtr<BufferMapCallbackInfo> result(chain);
+    for (typename UnpackedPtr<BufferMapCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         BufferMapCallbackInfo,
-                        UnpackedBufferMapCallbackInfoChain,
+                        UnpackedPtr<BufferMapCallbackInfo>,
                         detail::AdditionalExtensions<BufferMapCallbackInfo>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "BufferMapCallbackInfo"
@@ -272,21 +472,45 @@ ResultOrError<UnpackedBufferMapCallbackInfoChain> ValidateAndUnpackChain(const B
     }
     return result;
 }
-
-ResultOrError<UnpackedCommandBufferDescriptorChain> ValidateAndUnpackChain(const CommandBufferDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedCommandBufferDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<CommandBufferDescriptor> Unpack<CommandBufferDescriptor>(typename UnpackedPtr<CommandBufferDescriptor>::PtrType chain) {
+    UnpackedPtr<CommandBufferDescriptor> result(chain);
+    for (typename UnpackedPtr<CommandBufferDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        CommandBufferDescriptor,
+                        UnpackedPtr<CommandBufferDescriptor>,
+                        detail::AdditionalExtensions<CommandBufferDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<CommandBufferDescriptor>> ValidateAndUnpack<CommandBufferDescriptor>(
+    typename UnpackedPtr<CommandBufferDescriptor>::PtrType chain) {
+    UnpackedPtr<CommandBufferDescriptor> result(chain);
+    for (typename UnpackedPtr<CommandBufferDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         CommandBufferDescriptor,
-                        UnpackedCommandBufferDescriptorChain,
+                        UnpackedPtr<CommandBufferDescriptor>,
                         detail::AdditionalExtensions<CommandBufferDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "CommandBufferDescriptor"
@@ -304,20 +528,56 @@ ResultOrError<UnpackedCommandBufferDescriptorChain> ValidateAndUnpackChain(const
     }
     return result;
 }
-
-ResultOrError<UnpackedCommandEncoderDescriptorChain> ValidateAndUnpackChain(const CommandEncoderDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedCommandEncoderDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<CommandEncoderDescriptor> Unpack<CommandEncoderDescriptor>(typename UnpackedPtr<CommandEncoderDescriptor>::PtrType chain) {
+    UnpackedPtr<CommandEncoderDescriptor> result(chain);
+    for (typename UnpackedPtr<CommandEncoderDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<DawnEncoderInternalUsageDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<CommandEncoderDescriptor>, DawnEncoderInternalUsageDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<CommandEncoderDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        CommandEncoderDescriptor,
+                        UnpackedPtr<CommandEncoderDescriptor>,
+                        detail::AdditionalExtensions<CommandEncoderDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<CommandEncoderDescriptor>> ValidateAndUnpack<CommandEncoderDescriptor>(
+    typename UnpackedPtr<CommandEncoderDescriptor>::PtrType chain) {
+    UnpackedPtr<CommandEncoderDescriptor> result(chain);
+    for (typename UnpackedPtr<CommandEncoderDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<DawnEncoderInternalUsageDescriptor>: {
-                auto& member = std::get<const DawnEncoderInternalUsageDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<CommandEncoderDescriptor>, DawnEncoderInternalUsageDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnEncoderInternalUsageDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<CommandEncoderDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -325,9 +585,12 @@ ResultOrError<UnpackedCommandEncoderDescriptorChain> ValidateAndUnpackChain(cons
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         CommandEncoderDescriptor,
-                        UnpackedCommandEncoderDescriptorChain,
+                        UnpackedPtr<CommandEncoderDescriptor>,
                         detail::AdditionalExtensions<CommandEncoderDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "CommandEncoderDescriptor"
@@ -345,21 +608,45 @@ ResultOrError<UnpackedCommandEncoderDescriptorChain> ValidateAndUnpackChain(cons
     }
     return result;
 }
-
-ResultOrError<UnpackedCompilationMessageChain> ValidateAndUnpackChain(const CompilationMessage* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedCompilationMessageChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<CompilationMessage> Unpack<CompilationMessage>(typename UnpackedPtr<CompilationMessage>::PtrType chain) {
+    UnpackedPtr<CompilationMessage> result(chain);
+    for (typename UnpackedPtr<CompilationMessage>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        CompilationMessage,
+                        UnpackedPtr<CompilationMessage>,
+                        detail::AdditionalExtensions<CompilationMessage>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<CompilationMessage>> ValidateAndUnpack<CompilationMessage>(
+    typename UnpackedPtr<CompilationMessage>::PtrType chain) {
+    UnpackedPtr<CompilationMessage> result(chain);
+    for (typename UnpackedPtr<CompilationMessage>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         CompilationMessage,
-                        UnpackedCompilationMessageChain,
+                        UnpackedPtr<CompilationMessage>,
                         detail::AdditionalExtensions<CompilationMessage>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "CompilationMessage"
@@ -377,21 +664,45 @@ ResultOrError<UnpackedCompilationMessageChain> ValidateAndUnpackChain(const Comp
     }
     return result;
 }
-
-ResultOrError<UnpackedConstantEntryChain> ValidateAndUnpackChain(const ConstantEntry* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedConstantEntryChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<ConstantEntry> Unpack<ConstantEntry>(typename UnpackedPtr<ConstantEntry>::PtrType chain) {
+    UnpackedPtr<ConstantEntry> result(chain);
+    for (typename UnpackedPtr<ConstantEntry>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ConstantEntry,
+                        UnpackedPtr<ConstantEntry>,
+                        detail::AdditionalExtensions<ConstantEntry>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ConstantEntry>> ValidateAndUnpack<ConstantEntry>(
+    typename UnpackedPtr<ConstantEntry>::PtrType chain) {
+    UnpackedPtr<ConstantEntry> result(chain);
+    for (typename UnpackedPtr<ConstantEntry>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ConstantEntry,
-                        UnpackedConstantEntryChain,
+                        UnpackedPtr<ConstantEntry>,
                         detail::AdditionalExtensions<ConstantEntry>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ConstantEntry"
@@ -409,21 +720,45 @@ ResultOrError<UnpackedConstantEntryChain> ValidateAndUnpackChain(const ConstantE
     }
     return result;
 }
-
-ResultOrError<UnpackedCopyTextureForBrowserOptionsChain> ValidateAndUnpackChain(const CopyTextureForBrowserOptions* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedCopyTextureForBrowserOptionsChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<CopyTextureForBrowserOptions> Unpack<CopyTextureForBrowserOptions>(typename UnpackedPtr<CopyTextureForBrowserOptions>::PtrType chain) {
+    UnpackedPtr<CopyTextureForBrowserOptions> result(chain);
+    for (typename UnpackedPtr<CopyTextureForBrowserOptions>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        CopyTextureForBrowserOptions,
+                        UnpackedPtr<CopyTextureForBrowserOptions>,
+                        detail::AdditionalExtensions<CopyTextureForBrowserOptions>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<CopyTextureForBrowserOptions>> ValidateAndUnpack<CopyTextureForBrowserOptions>(
+    typename UnpackedPtr<CopyTextureForBrowserOptions>::PtrType chain) {
+    UnpackedPtr<CopyTextureForBrowserOptions> result(chain);
+    for (typename UnpackedPtr<CopyTextureForBrowserOptions>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         CopyTextureForBrowserOptions,
-                        UnpackedCopyTextureForBrowserOptionsChain,
+                        UnpackedPtr<CopyTextureForBrowserOptions>,
                         detail::AdditionalExtensions<CopyTextureForBrowserOptions>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "CopyTextureForBrowserOptions"
@@ -441,21 +776,45 @@ ResultOrError<UnpackedCopyTextureForBrowserOptionsChain> ValidateAndUnpackChain(
     }
     return result;
 }
-
-ResultOrError<UnpackedInstanceFeaturesChain> ValidateAndUnpackChain(const InstanceFeatures* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedInstanceFeaturesChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<InstanceFeatures> Unpack<InstanceFeatures>(typename UnpackedPtr<InstanceFeatures>::PtrType chain) {
+    UnpackedPtr<InstanceFeatures> result(chain);
+    for (typename UnpackedPtr<InstanceFeatures>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        InstanceFeatures,
+                        UnpackedPtr<InstanceFeatures>,
+                        detail::AdditionalExtensions<InstanceFeatures>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<InstanceFeatures>> ValidateAndUnpack<InstanceFeatures>(
+    typename UnpackedPtr<InstanceFeatures>::PtrType chain) {
+    UnpackedPtr<InstanceFeatures> result(chain);
+    for (typename UnpackedPtr<InstanceFeatures>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         InstanceFeatures,
-                        UnpackedInstanceFeaturesChain,
+                        UnpackedPtr<InstanceFeatures>,
                         detail::AdditionalExtensions<InstanceFeatures>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "InstanceFeatures"
@@ -473,20 +832,56 @@ ResultOrError<UnpackedInstanceFeaturesChain> ValidateAndUnpackChain(const Instan
     }
     return result;
 }
-
-ResultOrError<UnpackedMultisampleStateChain> ValidateAndUnpackChain(const MultisampleState* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedMultisampleStateChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<MultisampleState> Unpack<MultisampleState>(typename UnpackedPtr<MultisampleState>::PtrType chain) {
+    UnpackedPtr<MultisampleState> result(chain);
+    for (typename UnpackedPtr<MultisampleState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<DawnMultisampleStateRenderToSingleSampled>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<MultisampleState>, DawnMultisampleStateRenderToSingleSampled>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<MultisampleState>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        MultisampleState,
+                        UnpackedPtr<MultisampleState>,
+                        detail::AdditionalExtensions<MultisampleState>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<MultisampleState>> ValidateAndUnpack<MultisampleState>(
+    typename UnpackedPtr<MultisampleState>::PtrType chain) {
+    UnpackedPtr<MultisampleState> result(chain);
+    for (typename UnpackedPtr<MultisampleState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<DawnMultisampleStateRenderToSingleSampled>: {
-                auto& member = std::get<const DawnMultisampleStateRenderToSingleSampled*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<MultisampleState>, DawnMultisampleStateRenderToSingleSampled>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnMultisampleStateRenderToSingleSampled*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<MultisampleState>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -494,9 +889,12 @@ ResultOrError<UnpackedMultisampleStateChain> ValidateAndUnpackChain(const Multis
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         MultisampleState,
-                        UnpackedMultisampleStateChain,
+                        UnpackedPtr<MultisampleState>,
                         detail::AdditionalExtensions<MultisampleState>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "MultisampleState"
@@ -514,20 +912,56 @@ ResultOrError<UnpackedMultisampleStateChain> ValidateAndUnpackChain(const Multis
     }
     return result;
 }
-
-ResultOrError<UnpackedPipelineLayoutDescriptorChain> ValidateAndUnpackChain(const PipelineLayoutDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedPipelineLayoutDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<PipelineLayoutDescriptor> Unpack<PipelineLayoutDescriptor>(typename UnpackedPtr<PipelineLayoutDescriptor>::PtrType chain) {
+    UnpackedPtr<PipelineLayoutDescriptor> result(chain);
+    for (typename UnpackedPtr<PipelineLayoutDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<PipelineLayoutPixelLocalStorage>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<PipelineLayoutDescriptor>, PipelineLayoutPixelLocalStorage>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<PipelineLayoutDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        PipelineLayoutDescriptor,
+                        UnpackedPtr<PipelineLayoutDescriptor>,
+                        detail::AdditionalExtensions<PipelineLayoutDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<PipelineLayoutDescriptor>> ValidateAndUnpack<PipelineLayoutDescriptor>(
+    typename UnpackedPtr<PipelineLayoutDescriptor>::PtrType chain) {
+    UnpackedPtr<PipelineLayoutDescriptor> result(chain);
+    for (typename UnpackedPtr<PipelineLayoutDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<PipelineLayoutPixelLocalStorage>: {
-                auto& member = std::get<const PipelineLayoutPixelLocalStorage*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<PipelineLayoutDescriptor>, PipelineLayoutPixelLocalStorage>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const PipelineLayoutPixelLocalStorage*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<PipelineLayoutDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -535,9 +969,12 @@ ResultOrError<UnpackedPipelineLayoutDescriptorChain> ValidateAndUnpackChain(cons
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         PipelineLayoutDescriptor,
-                        UnpackedPipelineLayoutDescriptorChain,
+                        UnpackedPtr<PipelineLayoutDescriptor>,
                         detail::AdditionalExtensions<PipelineLayoutDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "PipelineLayoutDescriptor"
@@ -555,21 +992,45 @@ ResultOrError<UnpackedPipelineLayoutDescriptorChain> ValidateAndUnpackChain(cons
     }
     return result;
 }
-
-ResultOrError<UnpackedPipelineLayoutStorageAttachmentChain> ValidateAndUnpackChain(const PipelineLayoutStorageAttachment* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedPipelineLayoutStorageAttachmentChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<PipelineLayoutStorageAttachment> Unpack<PipelineLayoutStorageAttachment>(typename UnpackedPtr<PipelineLayoutStorageAttachment>::PtrType chain) {
+    UnpackedPtr<PipelineLayoutStorageAttachment> result(chain);
+    for (typename UnpackedPtr<PipelineLayoutStorageAttachment>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        PipelineLayoutStorageAttachment,
+                        UnpackedPtr<PipelineLayoutStorageAttachment>,
+                        detail::AdditionalExtensions<PipelineLayoutStorageAttachment>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<PipelineLayoutStorageAttachment>> ValidateAndUnpack<PipelineLayoutStorageAttachment>(
+    typename UnpackedPtr<PipelineLayoutStorageAttachment>::PtrType chain) {
+    UnpackedPtr<PipelineLayoutStorageAttachment> result(chain);
+    for (typename UnpackedPtr<PipelineLayoutStorageAttachment>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         PipelineLayoutStorageAttachment,
-                        UnpackedPipelineLayoutStorageAttachmentChain,
+                        UnpackedPtr<PipelineLayoutStorageAttachment>,
                         detail::AdditionalExtensions<PipelineLayoutStorageAttachment>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "PipelineLayoutStorageAttachment"
@@ -587,20 +1048,56 @@ ResultOrError<UnpackedPipelineLayoutStorageAttachmentChain> ValidateAndUnpackCha
     }
     return result;
 }
-
-ResultOrError<UnpackedPrimitiveStateChain> ValidateAndUnpackChain(const PrimitiveState* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedPrimitiveStateChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<PrimitiveState> Unpack<PrimitiveState>(typename UnpackedPtr<PrimitiveState>::PtrType chain) {
+    UnpackedPtr<PrimitiveState> result(chain);
+    for (typename UnpackedPtr<PrimitiveState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<PrimitiveDepthClipControl>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<PrimitiveState>, PrimitiveDepthClipControl>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<PrimitiveState>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        PrimitiveState,
+                        UnpackedPtr<PrimitiveState>,
+                        detail::AdditionalExtensions<PrimitiveState>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<PrimitiveState>> ValidateAndUnpack<PrimitiveState>(
+    typename UnpackedPtr<PrimitiveState>::PtrType chain) {
+    UnpackedPtr<PrimitiveState> result(chain);
+    for (typename UnpackedPtr<PrimitiveState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<PrimitiveDepthClipControl>: {
-                auto& member = std::get<const PrimitiveDepthClipControl*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<PrimitiveState>, PrimitiveDepthClipControl>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const PrimitiveDepthClipControl*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<PrimitiveState>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -608,9 +1105,12 @@ ResultOrError<UnpackedPrimitiveStateChain> ValidateAndUnpackChain(const Primitiv
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         PrimitiveState,
-                        UnpackedPrimitiveStateChain,
+                        UnpackedPtr<PrimitiveState>,
                         detail::AdditionalExtensions<PrimitiveState>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "PrimitiveState"
@@ -628,21 +1128,45 @@ ResultOrError<UnpackedPrimitiveStateChain> ValidateAndUnpackChain(const Primitiv
     }
     return result;
 }
-
-ResultOrError<UnpackedQuerySetDescriptorChain> ValidateAndUnpackChain(const QuerySetDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedQuerySetDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<QuerySetDescriptor> Unpack<QuerySetDescriptor>(typename UnpackedPtr<QuerySetDescriptor>::PtrType chain) {
+    UnpackedPtr<QuerySetDescriptor> result(chain);
+    for (typename UnpackedPtr<QuerySetDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        QuerySetDescriptor,
+                        UnpackedPtr<QuerySetDescriptor>,
+                        detail::AdditionalExtensions<QuerySetDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<QuerySetDescriptor>> ValidateAndUnpack<QuerySetDescriptor>(
+    typename UnpackedPtr<QuerySetDescriptor>::PtrType chain) {
+    UnpackedPtr<QuerySetDescriptor> result(chain);
+    for (typename UnpackedPtr<QuerySetDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         QuerySetDescriptor,
-                        UnpackedQuerySetDescriptorChain,
+                        UnpackedPtr<QuerySetDescriptor>,
                         detail::AdditionalExtensions<QuerySetDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "QuerySetDescriptor"
@@ -660,21 +1184,45 @@ ResultOrError<UnpackedQuerySetDescriptorChain> ValidateAndUnpackChain(const Quer
     }
     return result;
 }
-
-ResultOrError<UnpackedQueueDescriptorChain> ValidateAndUnpackChain(const QueueDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedQueueDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<QueueDescriptor> Unpack<QueueDescriptor>(typename UnpackedPtr<QueueDescriptor>::PtrType chain) {
+    UnpackedPtr<QueueDescriptor> result(chain);
+    for (typename UnpackedPtr<QueueDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        QueueDescriptor,
+                        UnpackedPtr<QueueDescriptor>,
+                        detail::AdditionalExtensions<QueueDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<QueueDescriptor>> ValidateAndUnpack<QueueDescriptor>(
+    typename UnpackedPtr<QueueDescriptor>::PtrType chain) {
+    UnpackedPtr<QueueDescriptor> result(chain);
+    for (typename UnpackedPtr<QueueDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         QueueDescriptor,
-                        UnpackedQueueDescriptorChain,
+                        UnpackedPtr<QueueDescriptor>,
                         detail::AdditionalExtensions<QueueDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "QueueDescriptor"
@@ -692,21 +1240,45 @@ ResultOrError<UnpackedQueueDescriptorChain> ValidateAndUnpackChain(const QueueDe
     }
     return result;
 }
-
-ResultOrError<UnpackedQueueWorkDoneCallbackInfoChain> ValidateAndUnpackChain(const QueueWorkDoneCallbackInfo* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedQueueWorkDoneCallbackInfoChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<QueueWorkDoneCallbackInfo> Unpack<QueueWorkDoneCallbackInfo>(typename UnpackedPtr<QueueWorkDoneCallbackInfo>::PtrType chain) {
+    UnpackedPtr<QueueWorkDoneCallbackInfo> result(chain);
+    for (typename UnpackedPtr<QueueWorkDoneCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        QueueWorkDoneCallbackInfo,
+                        UnpackedPtr<QueueWorkDoneCallbackInfo>,
+                        detail::AdditionalExtensions<QueueWorkDoneCallbackInfo>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<QueueWorkDoneCallbackInfo>> ValidateAndUnpack<QueueWorkDoneCallbackInfo>(
+    typename UnpackedPtr<QueueWorkDoneCallbackInfo>::PtrType chain) {
+    UnpackedPtr<QueueWorkDoneCallbackInfo> result(chain);
+    for (typename UnpackedPtr<QueueWorkDoneCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         QueueWorkDoneCallbackInfo,
-                        UnpackedQueueWorkDoneCallbackInfoChain,
+                        UnpackedPtr<QueueWorkDoneCallbackInfo>,
                         detail::AdditionalExtensions<QueueWorkDoneCallbackInfo>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "QueueWorkDoneCallbackInfo"
@@ -724,21 +1296,45 @@ ResultOrError<UnpackedQueueWorkDoneCallbackInfoChain> ValidateAndUnpackChain(con
     }
     return result;
 }
-
-ResultOrError<UnpackedRenderBundleDescriptorChain> ValidateAndUnpackChain(const RenderBundleDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedRenderBundleDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<RenderBundleDescriptor> Unpack<RenderBundleDescriptor>(typename UnpackedPtr<RenderBundleDescriptor>::PtrType chain) {
+    UnpackedPtr<RenderBundleDescriptor> result(chain);
+    for (typename UnpackedPtr<RenderBundleDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RenderBundleDescriptor,
+                        UnpackedPtr<RenderBundleDescriptor>,
+                        detail::AdditionalExtensions<RenderBundleDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RenderBundleDescriptor>> ValidateAndUnpack<RenderBundleDescriptor>(
+    typename UnpackedPtr<RenderBundleDescriptor>::PtrType chain) {
+    UnpackedPtr<RenderBundleDescriptor> result(chain);
+    for (typename UnpackedPtr<RenderBundleDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         RenderBundleDescriptor,
-                        UnpackedRenderBundleDescriptorChain,
+                        UnpackedPtr<RenderBundleDescriptor>,
                         detail::AdditionalExtensions<RenderBundleDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "RenderBundleDescriptor"
@@ -756,21 +1352,45 @@ ResultOrError<UnpackedRenderBundleDescriptorChain> ValidateAndUnpackChain(const 
     }
     return result;
 }
-
-ResultOrError<UnpackedRenderBundleEncoderDescriptorChain> ValidateAndUnpackChain(const RenderBundleEncoderDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedRenderBundleEncoderDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<RenderBundleEncoderDescriptor> Unpack<RenderBundleEncoderDescriptor>(typename UnpackedPtr<RenderBundleEncoderDescriptor>::PtrType chain) {
+    UnpackedPtr<RenderBundleEncoderDescriptor> result(chain);
+    for (typename UnpackedPtr<RenderBundleEncoderDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RenderBundleEncoderDescriptor,
+                        UnpackedPtr<RenderBundleEncoderDescriptor>,
+                        detail::AdditionalExtensions<RenderBundleEncoderDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RenderBundleEncoderDescriptor>> ValidateAndUnpack<RenderBundleEncoderDescriptor>(
+    typename UnpackedPtr<RenderBundleEncoderDescriptor>::PtrType chain) {
+    UnpackedPtr<RenderBundleEncoderDescriptor> result(chain);
+    for (typename UnpackedPtr<RenderBundleEncoderDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         RenderBundleEncoderDescriptor,
-                        UnpackedRenderBundleEncoderDescriptorChain,
+                        UnpackedPtr<RenderBundleEncoderDescriptor>,
                         detail::AdditionalExtensions<RenderBundleEncoderDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "RenderBundleEncoderDescriptor"
@@ -788,20 +1408,112 @@ ResultOrError<UnpackedRenderBundleEncoderDescriptorChain> ValidateAndUnpackChain
     }
     return result;
 }
-
-ResultOrError<UnpackedRequestAdapterOptionsChain> ValidateAndUnpackChain(const RequestAdapterOptions* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedRequestAdapterOptionsChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<RequestAdapterCallbackInfo> Unpack<RequestAdapterCallbackInfo>(typename UnpackedPtr<RequestAdapterCallbackInfo>::PtrType chain) {
+    UnpackedPtr<RequestAdapterCallbackInfo> result(chain);
+    for (typename UnpackedPtr<RequestAdapterCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RequestAdapterCallbackInfo,
+                        UnpackedPtr<RequestAdapterCallbackInfo>,
+                        detail::AdditionalExtensions<RequestAdapterCallbackInfo>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RequestAdapterCallbackInfo>> ValidateAndUnpack<RequestAdapterCallbackInfo>(
+    typename UnpackedPtr<RequestAdapterCallbackInfo>::PtrType chain) {
+    UnpackedPtr<RequestAdapterCallbackInfo> result(chain);
+    for (typename UnpackedPtr<RequestAdapterCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RequestAdapterCallbackInfo,
+                        UnpackedPtr<RequestAdapterCallbackInfo>,
+                        detail::AdditionalExtensions<RequestAdapterCallbackInfo>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
+                    return DAWN_VALIDATION_ERROR(
+                        "Unexpected chained struct of type %s found on %s chain.",
+                        next->sType, "RequestAdapterCallbackInfo"
+                    );
+                }
+                break;
+            }
+        }
+        if (duplicate) {
+            return DAWN_VALIDATION_ERROR(
+                "Duplicate chained struct of type %s found on %s chain.",
+                next->sType, "RequestAdapterCallbackInfo"
+            );
+        }
+    }
+    return result;
+}
+template <>
+UnpackedPtr<RequestAdapterOptions> Unpack<RequestAdapterOptions>(typename UnpackedPtr<RequestAdapterOptions>::PtrType chain) {
+    UnpackedPtr<RequestAdapterOptions> result(chain);
+    for (typename UnpackedPtr<RequestAdapterOptions>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<DawnTogglesDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<RequestAdapterOptions>, DawnTogglesDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<RequestAdapterOptions>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RequestAdapterOptions,
+                        UnpackedPtr<RequestAdapterOptions>,
+                        detail::AdditionalExtensions<RequestAdapterOptions>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RequestAdapterOptions>> ValidateAndUnpack<RequestAdapterOptions>(
+    typename UnpackedPtr<RequestAdapterOptions>::PtrType chain) {
+    UnpackedPtr<RequestAdapterOptions> result(chain);
+    for (typename UnpackedPtr<RequestAdapterOptions>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<DawnTogglesDescriptor>: {
-                auto& member = std::get<const DawnTogglesDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<RequestAdapterOptions>, DawnTogglesDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnTogglesDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<RequestAdapterOptions>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -809,9 +1521,12 @@ ResultOrError<UnpackedRequestAdapterOptionsChain> ValidateAndUnpackChain(const R
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         RequestAdapterOptions,
-                        UnpackedRequestAdapterOptionsChain,
+                        UnpackedPtr<RequestAdapterOptions>,
                         detail::AdditionalExtensions<RequestAdapterOptions>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "RequestAdapterOptions"
@@ -829,21 +1544,45 @@ ResultOrError<UnpackedRequestAdapterOptionsChain> ValidateAndUnpackChain(const R
     }
     return result;
 }
-
-ResultOrError<UnpackedSamplerBindingLayoutChain> ValidateAndUnpackChain(const SamplerBindingLayout* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedSamplerBindingLayoutChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<SamplerBindingLayout> Unpack<SamplerBindingLayout>(typename UnpackedPtr<SamplerBindingLayout>::PtrType chain) {
+    UnpackedPtr<SamplerBindingLayout> result(chain);
+    for (typename UnpackedPtr<SamplerBindingLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SamplerBindingLayout,
+                        UnpackedPtr<SamplerBindingLayout>,
+                        detail::AdditionalExtensions<SamplerBindingLayout>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SamplerBindingLayout>> ValidateAndUnpack<SamplerBindingLayout>(
+    typename UnpackedPtr<SamplerBindingLayout>::PtrType chain) {
+    UnpackedPtr<SamplerBindingLayout> result(chain);
+    for (typename UnpackedPtr<SamplerBindingLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         SamplerBindingLayout,
-                        UnpackedSamplerBindingLayoutChain,
+                        UnpackedPtr<SamplerBindingLayout>,
                         detail::AdditionalExtensions<SamplerBindingLayout>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "SamplerBindingLayout"
@@ -861,21 +1600,45 @@ ResultOrError<UnpackedSamplerBindingLayoutChain> ValidateAndUnpackChain(const Sa
     }
     return result;
 }
-
-ResultOrError<UnpackedSamplerDescriptorChain> ValidateAndUnpackChain(const SamplerDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedSamplerDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<SamplerDescriptor> Unpack<SamplerDescriptor>(typename UnpackedPtr<SamplerDescriptor>::PtrType chain) {
+    UnpackedPtr<SamplerDescriptor> result(chain);
+    for (typename UnpackedPtr<SamplerDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SamplerDescriptor,
+                        UnpackedPtr<SamplerDescriptor>,
+                        detail::AdditionalExtensions<SamplerDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SamplerDescriptor>> ValidateAndUnpack<SamplerDescriptor>(
+    typename UnpackedPtr<SamplerDescriptor>::PtrType chain) {
+    UnpackedPtr<SamplerDescriptor> result(chain);
+    for (typename UnpackedPtr<SamplerDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         SamplerDescriptor,
-                        UnpackedSamplerDescriptorChain,
+                        UnpackedPtr<SamplerDescriptor>,
                         detail::AdditionalExtensions<SamplerDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "SamplerDescriptor"
@@ -893,38 +1656,104 @@ ResultOrError<UnpackedSamplerDescriptorChain> ValidateAndUnpackChain(const Sampl
     }
     return result;
 }
-
-ResultOrError<UnpackedShaderModuleDescriptorChain> ValidateAndUnpackChain(const ShaderModuleDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedShaderModuleDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<ShaderModuleDescriptor> Unpack<ShaderModuleDescriptor>(typename UnpackedPtr<ShaderModuleDescriptor>::PtrType chain) {
+    UnpackedPtr<ShaderModuleDescriptor> result(chain);
+    for (typename UnpackedPtr<ShaderModuleDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<ShaderModuleSPIRVDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<ShaderModuleDescriptor>, ShaderModuleSPIRVDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<ShaderModuleDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<ShaderModuleWGSLDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<ShaderModuleDescriptor>, ShaderModuleWGSLDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<ShaderModuleDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<DawnShaderModuleSPIRVOptionsDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<ShaderModuleDescriptor>, DawnShaderModuleSPIRVOptionsDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<ShaderModuleDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ShaderModuleDescriptor,
+                        UnpackedPtr<ShaderModuleDescriptor>,
+                        detail::AdditionalExtensions<ShaderModuleDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ShaderModuleDescriptor>> ValidateAndUnpack<ShaderModuleDescriptor>(
+    typename UnpackedPtr<ShaderModuleDescriptor>::PtrType chain) {
+    UnpackedPtr<ShaderModuleDescriptor> result(chain);
+    for (typename UnpackedPtr<ShaderModuleDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<ShaderModuleSPIRVDescriptor>: {
-                auto& member = std::get<const ShaderModuleSPIRVDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<ShaderModuleDescriptor>, ShaderModuleSPIRVDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const ShaderModuleSPIRVDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<ShaderModuleDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<ShaderModuleWGSLDescriptor>: {
-                auto& member = std::get<const ShaderModuleWGSLDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<ShaderModuleDescriptor>, ShaderModuleWGSLDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const ShaderModuleWGSLDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<ShaderModuleDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<DawnShaderModuleSPIRVOptionsDescriptor>: {
-                auto& member = std::get<const DawnShaderModuleSPIRVOptionsDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<ShaderModuleDescriptor>, DawnShaderModuleSPIRVOptionsDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnShaderModuleSPIRVOptionsDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<ShaderModuleDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -932,9 +1761,12 @@ ResultOrError<UnpackedShaderModuleDescriptorChain> ValidateAndUnpackChain(const 
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ShaderModuleDescriptor,
-                        UnpackedShaderModuleDescriptorChain,
+                        UnpackedPtr<ShaderModuleDescriptor>,
                         detail::AdditionalExtensions<ShaderModuleDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ShaderModuleDescriptor"
@@ -952,56 +1784,152 @@ ResultOrError<UnpackedShaderModuleDescriptorChain> ValidateAndUnpackChain(const 
     }
     return result;
 }
-
-ResultOrError<UnpackedSharedFenceDescriptorChain> ValidateAndUnpackChain(const SharedFenceDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedSharedFenceDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<SharedFenceDescriptor> Unpack<SharedFenceDescriptor>(typename UnpackedPtr<SharedFenceDescriptor>::PtrType chain) {
+    UnpackedPtr<SharedFenceDescriptor> result(chain);
+    for (typename UnpackedPtr<SharedFenceDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<SharedFenceVkSemaphoreOpaqueFDDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceVkSemaphoreOpaqueFDDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedFenceVkSemaphoreSyncFDDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceVkSemaphoreSyncFDDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedFenceVkSemaphoreZirconHandleDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceVkSemaphoreZirconHandleDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedFenceDXGISharedHandleDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceDXGISharedHandleDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedFenceMTLSharedEventDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceMTLSharedEventDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SharedFenceDescriptor,
+                        UnpackedPtr<SharedFenceDescriptor>,
+                        detail::AdditionalExtensions<SharedFenceDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SharedFenceDescriptor>> ValidateAndUnpack<SharedFenceDescriptor>(
+    typename UnpackedPtr<SharedFenceDescriptor>::PtrType chain) {
+    UnpackedPtr<SharedFenceDescriptor> result(chain);
+    for (typename UnpackedPtr<SharedFenceDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<SharedFenceVkSemaphoreOpaqueFDDescriptor>: {
-                auto& member = std::get<const SharedFenceVkSemaphoreOpaqueFDDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceVkSemaphoreOpaqueFDDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedFenceVkSemaphoreOpaqueFDDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedFenceVkSemaphoreSyncFDDescriptor>: {
-                auto& member = std::get<const SharedFenceVkSemaphoreSyncFDDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceVkSemaphoreSyncFDDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedFenceVkSemaphoreSyncFDDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedFenceVkSemaphoreZirconHandleDescriptor>: {
-                auto& member = std::get<const SharedFenceVkSemaphoreZirconHandleDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceVkSemaphoreZirconHandleDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedFenceVkSemaphoreZirconHandleDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedFenceDXGISharedHandleDescriptor>: {
-                auto& member = std::get<const SharedFenceDXGISharedHandleDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceDXGISharedHandleDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedFenceDXGISharedHandleDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedFenceMTLSharedEventDescriptor>: {
-                auto& member = std::get<const SharedFenceMTLSharedEventDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceDescriptor>, SharedFenceMTLSharedEventDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedFenceMTLSharedEventDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -1009,9 +1937,12 @@ ResultOrError<UnpackedSharedFenceDescriptorChain> ValidateAndUnpackChain(const S
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         SharedFenceDescriptor,
-                        UnpackedSharedFenceDescriptorChain,
+                        UnpackedPtr<SharedFenceDescriptor>,
                         detail::AdditionalExtensions<SharedFenceDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "SharedFenceDescriptor"
@@ -1029,20 +1960,232 @@ ResultOrError<UnpackedSharedFenceDescriptorChain> ValidateAndUnpackChain(const S
     }
     return result;
 }
-
-ResultOrError<UnpackedSharedTextureMemoryBeginAccessDescriptorChain> ValidateAndUnpackChain(const SharedTextureMemoryBeginAccessDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedSharedTextureMemoryBeginAccessDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<SharedFenceExportInfo> Unpack<SharedFenceExportInfo>(typename UnpackedPtr<SharedFenceExportInfo>::PtrType chain) {
+    UnpackedPtr<SharedFenceExportInfo> result(chain);
+    for (typename UnpackedPtr<SharedFenceExportInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<SharedFenceVkSemaphoreOpaqueFDExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceVkSemaphoreOpaqueFDExportInfo>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedFenceVkSemaphoreSyncFDExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceVkSemaphoreSyncFDExportInfo>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedFenceVkSemaphoreZirconHandleExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceVkSemaphoreZirconHandleExportInfo>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedFenceDXGISharedHandleExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceDXGISharedHandleExportInfo>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedFenceMTLSharedEventExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceMTLSharedEventExportInfo>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SharedFenceExportInfo,
+                        UnpackedPtr<SharedFenceExportInfo>,
+                        detail::AdditionalExtensions<SharedFenceExportInfo>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SharedFenceExportInfo>> ValidateAndUnpack<SharedFenceExportInfo>(
+    typename UnpackedPtr<SharedFenceExportInfo>::PtrType chain) {
+    UnpackedPtr<SharedFenceExportInfo> result(chain);
+    for (typename UnpackedPtr<SharedFenceExportInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
-            case STypeFor<SharedTextureMemoryVkImageLayoutBeginState>: {
-                auto& member = std::get<const SharedTextureMemoryVkImageLayoutBeginState*>(result);
+            case STypeFor<SharedFenceVkSemaphoreOpaqueFDExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceVkSemaphoreOpaqueFDExportInfo>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryVkImageLayoutBeginState*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            case STypeFor<SharedFenceVkSemaphoreSyncFDExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceVkSemaphoreSyncFDExportInfo>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            case STypeFor<SharedFenceVkSemaphoreZirconHandleExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceVkSemaphoreZirconHandleExportInfo>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            case STypeFor<SharedFenceDXGISharedHandleExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceDXGISharedHandleExportInfo>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            case STypeFor<SharedFenceMTLSharedEventExportInfo>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedFenceExportInfo>, SharedFenceMTLSharedEventExportInfo>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedFenceExportInfo>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SharedFenceExportInfo,
+                        UnpackedPtr<SharedFenceExportInfo>,
+                        detail::AdditionalExtensions<SharedFenceExportInfo>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
+                    return DAWN_VALIDATION_ERROR(
+                        "Unexpected chained struct of type %s found on %s chain.",
+                        next->sType, "SharedFenceExportInfo"
+                    );
+                }
+                break;
+            }
+        }
+        if (duplicate) {
+            return DAWN_VALIDATION_ERROR(
+                "Duplicate chained struct of type %s found on %s chain.",
+                next->sType, "SharedFenceExportInfo"
+            );
+        }
+    }
+    return result;
+}
+template <>
+UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor> Unpack<SharedTextureMemoryBeginAccessDescriptor>(typename UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>::PtrType chain) {
+    UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor> result(chain);
+    for (typename UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<SharedTextureMemoryVkImageLayoutBeginState>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>, SharedTextureMemoryVkImageLayoutBeginState>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SharedTextureMemoryBeginAccessDescriptor,
+                        UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>,
+                        detail::AdditionalExtensions<SharedTextureMemoryBeginAccessDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>> ValidateAndUnpack<SharedTextureMemoryBeginAccessDescriptor>(
+    typename UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>::PtrType chain) {
+    UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor> result(chain);
+    for (typename UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            case STypeFor<SharedTextureMemoryVkImageLayoutBeginState>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>, SharedTextureMemoryVkImageLayoutBeginState>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -1050,9 +2193,12 @@ ResultOrError<UnpackedSharedTextureMemoryBeginAccessDescriptorChain> ValidateAnd
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         SharedTextureMemoryBeginAccessDescriptor,
-                        UnpackedSharedTextureMemoryBeginAccessDescriptorChain,
+                        UnpackedPtr<SharedTextureMemoryBeginAccessDescriptor>,
                         detail::AdditionalExtensions<SharedTextureMemoryBeginAccessDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "SharedTextureMemoryBeginAccessDescriptor"
@@ -1070,92 +2216,248 @@ ResultOrError<UnpackedSharedTextureMemoryBeginAccessDescriptorChain> ValidateAnd
     }
     return result;
 }
-
-ResultOrError<UnpackedSharedTextureMemoryDescriptorChain> ValidateAndUnpackChain(const SharedTextureMemoryDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedSharedTextureMemoryDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<SharedTextureMemoryDescriptor> Unpack<SharedTextureMemoryDescriptor>(typename UnpackedPtr<SharedTextureMemoryDescriptor>::PtrType chain) {
+    UnpackedPtr<SharedTextureMemoryDescriptor> result(chain);
+    for (typename UnpackedPtr<SharedTextureMemoryDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<SharedTextureMemoryVkImageDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryVkImageDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedTextureMemoryVkDedicatedAllocationDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryVkDedicatedAllocationDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedTextureMemoryAHardwareBufferDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryAHardwareBufferDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedTextureMemoryDmaBufDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryDmaBufDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedTextureMemoryOpaqueFDDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryOpaqueFDDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedTextureMemoryZirconHandleDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryZirconHandleDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedTextureMemoryDXGISharedHandleDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryDXGISharedHandleDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedTextureMemoryIOSurfaceDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryIOSurfaceDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SharedTextureMemoryEGLImageDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryEGLImageDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SharedTextureMemoryDescriptor,
+                        UnpackedPtr<SharedTextureMemoryDescriptor>,
+                        detail::AdditionalExtensions<SharedTextureMemoryDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SharedTextureMemoryDescriptor>> ValidateAndUnpack<SharedTextureMemoryDescriptor>(
+    typename UnpackedPtr<SharedTextureMemoryDescriptor>::PtrType chain) {
+    UnpackedPtr<SharedTextureMemoryDescriptor> result(chain);
+    for (typename UnpackedPtr<SharedTextureMemoryDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<SharedTextureMemoryVkImageDescriptor>: {
-                auto& member = std::get<const SharedTextureMemoryVkImageDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryVkImageDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryVkImageDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedTextureMemoryVkDedicatedAllocationDescriptor>: {
-                auto& member = std::get<const SharedTextureMemoryVkDedicatedAllocationDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryVkDedicatedAllocationDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryVkDedicatedAllocationDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedTextureMemoryAHardwareBufferDescriptor>: {
-                auto& member = std::get<const SharedTextureMemoryAHardwareBufferDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryAHardwareBufferDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryAHardwareBufferDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedTextureMemoryDmaBufDescriptor>: {
-                auto& member = std::get<const SharedTextureMemoryDmaBufDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryDmaBufDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryDmaBufDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedTextureMemoryOpaqueFDDescriptor>: {
-                auto& member = std::get<const SharedTextureMemoryOpaqueFDDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryOpaqueFDDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryOpaqueFDDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedTextureMemoryZirconHandleDescriptor>: {
-                auto& member = std::get<const SharedTextureMemoryZirconHandleDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryZirconHandleDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryZirconHandleDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedTextureMemoryDXGISharedHandleDescriptor>: {
-                auto& member = std::get<const SharedTextureMemoryDXGISharedHandleDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryDXGISharedHandleDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryDXGISharedHandleDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedTextureMemoryIOSurfaceDescriptor>: {
-                auto& member = std::get<const SharedTextureMemoryIOSurfaceDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryIOSurfaceDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryIOSurfaceDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SharedTextureMemoryEGLImageDescriptor>: {
-                auto& member = std::get<const SharedTextureMemoryEGLImageDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryDescriptor>, SharedTextureMemoryEGLImageDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SharedTextureMemoryEGLImageDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -1163,9 +2465,12 @@ ResultOrError<UnpackedSharedTextureMemoryDescriptorChain> ValidateAndUnpackChain
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         SharedTextureMemoryDescriptor,
-                        UnpackedSharedTextureMemoryDescriptorChain,
+                        UnpackedPtr<SharedTextureMemoryDescriptor>,
                         detail::AdditionalExtensions<SharedTextureMemoryDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "SharedTextureMemoryDescriptor"
@@ -1183,21 +2488,125 @@ ResultOrError<UnpackedSharedTextureMemoryDescriptorChain> ValidateAndUnpackChain
     }
     return result;
 }
-
-ResultOrError<UnpackedStorageTextureBindingLayoutChain> ValidateAndUnpackChain(const StorageTextureBindingLayout* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedStorageTextureBindingLayoutChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<SharedTextureMemoryEndAccessState> Unpack<SharedTextureMemoryEndAccessState>(typename UnpackedPtr<SharedTextureMemoryEndAccessState>::PtrType chain) {
+    UnpackedPtr<SharedTextureMemoryEndAccessState> result(chain);
+    for (typename UnpackedPtr<SharedTextureMemoryEndAccessState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<SharedTextureMemoryVkImageLayoutEndState>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryEndAccessState>, SharedTextureMemoryVkImageLayoutEndState>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryEndAccessState>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SharedTextureMemoryEndAccessState,
+                        UnpackedPtr<SharedTextureMemoryEndAccessState>,
+                        detail::AdditionalExtensions<SharedTextureMemoryEndAccessState>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SharedTextureMemoryEndAccessState>> ValidateAndUnpack<SharedTextureMemoryEndAccessState>(
+    typename UnpackedPtr<SharedTextureMemoryEndAccessState>::PtrType chain) {
+    UnpackedPtr<SharedTextureMemoryEndAccessState> result(chain);
+    for (typename UnpackedPtr<SharedTextureMemoryEndAccessState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            case STypeFor<SharedTextureMemoryVkImageLayoutEndState>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SharedTextureMemoryEndAccessState>, SharedTextureMemoryVkImageLayoutEndState>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SharedTextureMemoryEndAccessState>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SharedTextureMemoryEndAccessState,
+                        UnpackedPtr<SharedTextureMemoryEndAccessState>,
+                        detail::AdditionalExtensions<SharedTextureMemoryEndAccessState>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
+                    return DAWN_VALIDATION_ERROR(
+                        "Unexpected chained struct of type %s found on %s chain.",
+                        next->sType, "SharedTextureMemoryEndAccessState"
+                    );
+                }
+                break;
+            }
+        }
+        if (duplicate) {
+            return DAWN_VALIDATION_ERROR(
+                "Duplicate chained struct of type %s found on %s chain.",
+                next->sType, "SharedTextureMemoryEndAccessState"
+            );
+        }
+    }
+    return result;
+}
+template <>
+UnpackedPtr<StorageTextureBindingLayout> Unpack<StorageTextureBindingLayout>(typename UnpackedPtr<StorageTextureBindingLayout>::PtrType chain) {
+    UnpackedPtr<StorageTextureBindingLayout> result(chain);
+    for (typename UnpackedPtr<StorageTextureBindingLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        StorageTextureBindingLayout,
+                        UnpackedPtr<StorageTextureBindingLayout>,
+                        detail::AdditionalExtensions<StorageTextureBindingLayout>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<StorageTextureBindingLayout>> ValidateAndUnpack<StorageTextureBindingLayout>(
+    typename UnpackedPtr<StorageTextureBindingLayout>::PtrType chain) {
+    UnpackedPtr<StorageTextureBindingLayout> result(chain);
+    for (typename UnpackedPtr<StorageTextureBindingLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         StorageTextureBindingLayout,
-                        UnpackedStorageTextureBindingLayoutChain,
+                        UnpackedPtr<StorageTextureBindingLayout>,
                         detail::AdditionalExtensions<StorageTextureBindingLayout>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "StorageTextureBindingLayout"
@@ -1215,83 +2624,224 @@ ResultOrError<UnpackedStorageTextureBindingLayoutChain> ValidateAndUnpackChain(c
     }
     return result;
 }
-
-ResultOrError<UnpackedSurfaceDescriptorChain> ValidateAndUnpackChain(const SurfaceDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedSurfaceDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<SurfaceDescriptor> Unpack<SurfaceDescriptor>(typename UnpackedPtr<SurfaceDescriptor>::PtrType chain) {
+    UnpackedPtr<SurfaceDescriptor> result(chain);
+    for (typename UnpackedPtr<SurfaceDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<SurfaceDescriptorFromAndroidNativeWindow>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromAndroidNativeWindow>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SurfaceDescriptorFromCanvasHTMLSelector>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromCanvasHTMLSelector>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SurfaceDescriptorFromMetalLayer>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromMetalLayer>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SurfaceDescriptorFromWindowsHWND>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromWindowsHWND>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SurfaceDescriptorFromXlibWindow>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromXlibWindow>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SurfaceDescriptorFromWaylandSurface>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromWaylandSurface>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SurfaceDescriptorFromWindowsCoreWindow>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromWindowsCoreWindow>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<SurfaceDescriptorFromWindowsSwapChainPanel>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromWindowsSwapChainPanel>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SurfaceDescriptor,
+                        UnpackedPtr<SurfaceDescriptor>,
+                        detail::AdditionalExtensions<SurfaceDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SurfaceDescriptor>> ValidateAndUnpack<SurfaceDescriptor>(
+    typename UnpackedPtr<SurfaceDescriptor>::PtrType chain) {
+    UnpackedPtr<SurfaceDescriptor> result(chain);
+    for (typename UnpackedPtr<SurfaceDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<SurfaceDescriptorFromAndroidNativeWindow>: {
-                auto& member = std::get<const SurfaceDescriptorFromAndroidNativeWindow*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromAndroidNativeWindow>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SurfaceDescriptorFromAndroidNativeWindow*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SurfaceDescriptorFromCanvasHTMLSelector>: {
-                auto& member = std::get<const SurfaceDescriptorFromCanvasHTMLSelector*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromCanvasHTMLSelector>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SurfaceDescriptorFromCanvasHTMLSelector*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SurfaceDescriptorFromMetalLayer>: {
-                auto& member = std::get<const SurfaceDescriptorFromMetalLayer*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromMetalLayer>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SurfaceDescriptorFromMetalLayer*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SurfaceDescriptorFromWindowsHWND>: {
-                auto& member = std::get<const SurfaceDescriptorFromWindowsHWND*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromWindowsHWND>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SurfaceDescriptorFromWindowsHWND*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SurfaceDescriptorFromXlibWindow>: {
-                auto& member = std::get<const SurfaceDescriptorFromXlibWindow*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromXlibWindow>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SurfaceDescriptorFromXlibWindow*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SurfaceDescriptorFromWaylandSurface>: {
-                auto& member = std::get<const SurfaceDescriptorFromWaylandSurface*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromWaylandSurface>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SurfaceDescriptorFromWaylandSurface*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SurfaceDescriptorFromWindowsCoreWindow>: {
-                auto& member = std::get<const SurfaceDescriptorFromWindowsCoreWindow*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromWindowsCoreWindow>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SurfaceDescriptorFromWindowsCoreWindow*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<SurfaceDescriptorFromWindowsSwapChainPanel>: {
-                auto& member = std::get<const SurfaceDescriptorFromWindowsSwapChainPanel*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SurfaceDescriptor>, SurfaceDescriptorFromWindowsSwapChainPanel>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const SurfaceDescriptorFromWindowsSwapChainPanel*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SurfaceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -1299,9 +2849,12 @@ ResultOrError<UnpackedSurfaceDescriptorChain> ValidateAndUnpackChain(const Surfa
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         SurfaceDescriptor,
-                        UnpackedSurfaceDescriptorChain,
+                        UnpackedPtr<SurfaceDescriptor>,
                         detail::AdditionalExtensions<SurfaceDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "SurfaceDescriptor"
@@ -1319,21 +2872,45 @@ ResultOrError<UnpackedSurfaceDescriptorChain> ValidateAndUnpackChain(const Surfa
     }
     return result;
 }
-
-ResultOrError<UnpackedSwapChainDescriptorChain> ValidateAndUnpackChain(const SwapChainDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedSwapChainDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<SwapChainDescriptor> Unpack<SwapChainDescriptor>(typename UnpackedPtr<SwapChainDescriptor>::PtrType chain) {
+    UnpackedPtr<SwapChainDescriptor> result(chain);
+    for (typename UnpackedPtr<SwapChainDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SwapChainDescriptor,
+                        UnpackedPtr<SwapChainDescriptor>,
+                        detail::AdditionalExtensions<SwapChainDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SwapChainDescriptor>> ValidateAndUnpack<SwapChainDescriptor>(
+    typename UnpackedPtr<SwapChainDescriptor>::PtrType chain) {
+    UnpackedPtr<SwapChainDescriptor> result(chain);
+    for (typename UnpackedPtr<SwapChainDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         SwapChainDescriptor,
-                        UnpackedSwapChainDescriptorChain,
+                        UnpackedPtr<SwapChainDescriptor>,
                         detail::AdditionalExtensions<SwapChainDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "SwapChainDescriptor"
@@ -1351,21 +2928,45 @@ ResultOrError<UnpackedSwapChainDescriptorChain> ValidateAndUnpackChain(const Swa
     }
     return result;
 }
-
-ResultOrError<UnpackedTextureBindingLayoutChain> ValidateAndUnpackChain(const TextureBindingLayout* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedTextureBindingLayoutChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<TextureBindingLayout> Unpack<TextureBindingLayout>(typename UnpackedPtr<TextureBindingLayout>::PtrType chain) {
+    UnpackedPtr<TextureBindingLayout> result(chain);
+    for (typename UnpackedPtr<TextureBindingLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        TextureBindingLayout,
+                        UnpackedPtr<TextureBindingLayout>,
+                        detail::AdditionalExtensions<TextureBindingLayout>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<TextureBindingLayout>> ValidateAndUnpack<TextureBindingLayout>(
+    typename UnpackedPtr<TextureBindingLayout>::PtrType chain) {
+    UnpackedPtr<TextureBindingLayout> result(chain);
+    for (typename UnpackedPtr<TextureBindingLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         TextureBindingLayout,
-                        UnpackedTextureBindingLayoutChain,
+                        UnpackedPtr<TextureBindingLayout>,
                         detail::AdditionalExtensions<TextureBindingLayout>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "TextureBindingLayout"
@@ -1383,21 +2984,45 @@ ResultOrError<UnpackedTextureBindingLayoutChain> ValidateAndUnpackChain(const Te
     }
     return result;
 }
-
-ResultOrError<UnpackedTextureDataLayoutChain> ValidateAndUnpackChain(const TextureDataLayout* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedTextureDataLayoutChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<TextureDataLayout> Unpack<TextureDataLayout>(typename UnpackedPtr<TextureDataLayout>::PtrType chain) {
+    UnpackedPtr<TextureDataLayout> result(chain);
+    for (typename UnpackedPtr<TextureDataLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        TextureDataLayout,
+                        UnpackedPtr<TextureDataLayout>,
+                        detail::AdditionalExtensions<TextureDataLayout>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<TextureDataLayout>> ValidateAndUnpack<TextureDataLayout>(
+    typename UnpackedPtr<TextureDataLayout>::PtrType chain) {
+    UnpackedPtr<TextureDataLayout> result(chain);
+    for (typename UnpackedPtr<TextureDataLayout>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         TextureDataLayout,
-                        UnpackedTextureDataLayoutChain,
+                        UnpackedPtr<TextureDataLayout>,
                         detail::AdditionalExtensions<TextureDataLayout>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "TextureDataLayout"
@@ -1415,21 +3040,45 @@ ResultOrError<UnpackedTextureDataLayoutChain> ValidateAndUnpackChain(const Textu
     }
     return result;
 }
-
-ResultOrError<UnpackedTextureViewDescriptorChain> ValidateAndUnpackChain(const TextureViewDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedTextureViewDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<TextureViewDescriptor> Unpack<TextureViewDescriptor>(typename UnpackedPtr<TextureViewDescriptor>::PtrType chain) {
+    UnpackedPtr<TextureViewDescriptor> result(chain);
+    for (typename UnpackedPtr<TextureViewDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        TextureViewDescriptor,
+                        UnpackedPtr<TextureViewDescriptor>,
+                        detail::AdditionalExtensions<TextureViewDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<TextureViewDescriptor>> ValidateAndUnpack<TextureViewDescriptor>(
+    typename UnpackedPtr<TextureViewDescriptor>::PtrType chain) {
+    UnpackedPtr<TextureViewDescriptor> result(chain);
+    for (typename UnpackedPtr<TextureViewDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         TextureViewDescriptor,
-                        UnpackedTextureViewDescriptorChain,
+                        UnpackedPtr<TextureViewDescriptor>,
                         detail::AdditionalExtensions<TextureViewDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "TextureViewDescriptor"
@@ -1447,21 +3096,45 @@ ResultOrError<UnpackedTextureViewDescriptorChain> ValidateAndUnpackChain(const T
     }
     return result;
 }
-
-ResultOrError<UnpackedBindGroupDescriptorChain> ValidateAndUnpackChain(const BindGroupDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedBindGroupDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<BindGroupDescriptor> Unpack<BindGroupDescriptor>(typename UnpackedPtr<BindGroupDescriptor>::PtrType chain) {
+    UnpackedPtr<BindGroupDescriptor> result(chain);
+    for (typename UnpackedPtr<BindGroupDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        BindGroupDescriptor,
+                        UnpackedPtr<BindGroupDescriptor>,
+                        detail::AdditionalExtensions<BindGroupDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<BindGroupDescriptor>> ValidateAndUnpack<BindGroupDescriptor>(
+    typename UnpackedPtr<BindGroupDescriptor>::PtrType chain) {
+    UnpackedPtr<BindGroupDescriptor> result(chain);
+    for (typename UnpackedPtr<BindGroupDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         BindGroupDescriptor,
-                        UnpackedBindGroupDescriptorChain,
+                        UnpackedPtr<BindGroupDescriptor>,
                         detail::AdditionalExtensions<BindGroupDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "BindGroupDescriptor"
@@ -1479,20 +3152,56 @@ ResultOrError<UnpackedBindGroupDescriptorChain> ValidateAndUnpackChain(const Bin
     }
     return result;
 }
-
-ResultOrError<UnpackedBindGroupLayoutEntryChain> ValidateAndUnpackChain(const BindGroupLayoutEntry* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedBindGroupLayoutEntryChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<BindGroupLayoutEntry> Unpack<BindGroupLayoutEntry>(typename UnpackedPtr<BindGroupLayoutEntry>::PtrType chain) {
+    UnpackedPtr<BindGroupLayoutEntry> result(chain);
+    for (typename UnpackedPtr<BindGroupLayoutEntry>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<ExternalTextureBindingLayout>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<BindGroupLayoutEntry>, ExternalTextureBindingLayout>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<BindGroupLayoutEntry>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        BindGroupLayoutEntry,
+                        UnpackedPtr<BindGroupLayoutEntry>,
+                        detail::AdditionalExtensions<BindGroupLayoutEntry>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<BindGroupLayoutEntry>> ValidateAndUnpack<BindGroupLayoutEntry>(
+    typename UnpackedPtr<BindGroupLayoutEntry>::PtrType chain) {
+    UnpackedPtr<BindGroupLayoutEntry> result(chain);
+    for (typename UnpackedPtr<BindGroupLayoutEntry>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<ExternalTextureBindingLayout>: {
-                auto& member = std::get<const ExternalTextureBindingLayout*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<BindGroupLayoutEntry>, ExternalTextureBindingLayout>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const ExternalTextureBindingLayout*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<BindGroupLayoutEntry>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -1500,9 +3209,12 @@ ResultOrError<UnpackedBindGroupLayoutEntryChain> ValidateAndUnpackChain(const Bi
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         BindGroupLayoutEntry,
-                        UnpackedBindGroupLayoutEntryChain,
+                        UnpackedPtr<BindGroupLayoutEntry>,
                         detail::AdditionalExtensions<BindGroupLayoutEntry>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "BindGroupLayoutEntry"
@@ -1520,21 +3232,45 @@ ResultOrError<UnpackedBindGroupLayoutEntryChain> ValidateAndUnpackChain(const Bi
     }
     return result;
 }
-
-ResultOrError<UnpackedCompilationInfoChain> ValidateAndUnpackChain(const CompilationInfo* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedCompilationInfoChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<CompilationInfo> Unpack<CompilationInfo>(typename UnpackedPtr<CompilationInfo>::PtrType chain) {
+    UnpackedPtr<CompilationInfo> result(chain);
+    for (typename UnpackedPtr<CompilationInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        CompilationInfo,
+                        UnpackedPtr<CompilationInfo>,
+                        detail::AdditionalExtensions<CompilationInfo>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<CompilationInfo>> ValidateAndUnpack<CompilationInfo>(
+    typename UnpackedPtr<CompilationInfo>::PtrType chain) {
+    UnpackedPtr<CompilationInfo> result(chain);
+    for (typename UnpackedPtr<CompilationInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         CompilationInfo,
-                        UnpackedCompilationInfoChain,
+                        UnpackedPtr<CompilationInfo>,
                         detail::AdditionalExtensions<CompilationInfo>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "CompilationInfo"
@@ -1552,21 +3288,45 @@ ResultOrError<UnpackedCompilationInfoChain> ValidateAndUnpackChain(const Compila
     }
     return result;
 }
-
-ResultOrError<UnpackedComputePassDescriptorChain> ValidateAndUnpackChain(const ComputePassDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedComputePassDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<ComputePassDescriptor> Unpack<ComputePassDescriptor>(typename UnpackedPtr<ComputePassDescriptor>::PtrType chain) {
+    UnpackedPtr<ComputePassDescriptor> result(chain);
+    for (typename UnpackedPtr<ComputePassDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ComputePassDescriptor,
+                        UnpackedPtr<ComputePassDescriptor>,
+                        detail::AdditionalExtensions<ComputePassDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ComputePassDescriptor>> ValidateAndUnpack<ComputePassDescriptor>(
+    typename UnpackedPtr<ComputePassDescriptor>::PtrType chain) {
+    UnpackedPtr<ComputePassDescriptor> result(chain);
+    for (typename UnpackedPtr<ComputePassDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ComputePassDescriptor,
-                        UnpackedComputePassDescriptorChain,
+                        UnpackedPtr<ComputePassDescriptor>,
                         detail::AdditionalExtensions<ComputePassDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ComputePassDescriptor"
@@ -1584,20 +3344,56 @@ ResultOrError<UnpackedComputePassDescriptorChain> ValidateAndUnpackChain(const C
     }
     return result;
 }
-
-ResultOrError<UnpackedDepthStencilStateChain> ValidateAndUnpackChain(const DepthStencilState* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedDepthStencilStateChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<DepthStencilState> Unpack<DepthStencilState>(typename UnpackedPtr<DepthStencilState>::PtrType chain) {
+    UnpackedPtr<DepthStencilState> result(chain);
+    for (typename UnpackedPtr<DepthStencilState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<DepthStencilStateDepthWriteDefinedDawn>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<DepthStencilState>, DepthStencilStateDepthWriteDefinedDawn>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<DepthStencilState>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        DepthStencilState,
+                        UnpackedPtr<DepthStencilState>,
+                        detail::AdditionalExtensions<DepthStencilState>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<DepthStencilState>> ValidateAndUnpack<DepthStencilState>(
+    typename UnpackedPtr<DepthStencilState>::PtrType chain) {
+    UnpackedPtr<DepthStencilState> result(chain);
+    for (typename UnpackedPtr<DepthStencilState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<DepthStencilStateDepthWriteDefinedDawn>: {
-                auto& member = std::get<const DepthStencilStateDepthWriteDefinedDawn*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<DepthStencilState>, DepthStencilStateDepthWriteDefinedDawn>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DepthStencilStateDepthWriteDefinedDawn*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<DepthStencilState>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -1605,9 +3401,12 @@ ResultOrError<UnpackedDepthStencilStateChain> ValidateAndUnpackChain(const Depth
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         DepthStencilState,
-                        UnpackedDepthStencilStateChain,
+                        UnpackedPtr<DepthStencilState>,
                         detail::AdditionalExtensions<DepthStencilState>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "DepthStencilState"
@@ -1625,21 +3424,45 @@ ResultOrError<UnpackedDepthStencilStateChain> ValidateAndUnpackChain(const Depth
     }
     return result;
 }
-
-ResultOrError<UnpackedExternalTextureDescriptorChain> ValidateAndUnpackChain(const ExternalTextureDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedExternalTextureDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<ExternalTextureDescriptor> Unpack<ExternalTextureDescriptor>(typename UnpackedPtr<ExternalTextureDescriptor>::PtrType chain) {
+    UnpackedPtr<ExternalTextureDescriptor> result(chain);
+    for (typename UnpackedPtr<ExternalTextureDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ExternalTextureDescriptor,
+                        UnpackedPtr<ExternalTextureDescriptor>,
+                        detail::AdditionalExtensions<ExternalTextureDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ExternalTextureDescriptor>> ValidateAndUnpack<ExternalTextureDescriptor>(
+    typename UnpackedPtr<ExternalTextureDescriptor>::PtrType chain) {
+    UnpackedPtr<ExternalTextureDescriptor> result(chain);
+    for (typename UnpackedPtr<ExternalTextureDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ExternalTextureDescriptor,
-                        UnpackedExternalTextureDescriptorChain,
+                        UnpackedPtr<ExternalTextureDescriptor>,
                         detail::AdditionalExtensions<ExternalTextureDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ExternalTextureDescriptor"
@@ -1657,21 +3480,45 @@ ResultOrError<UnpackedExternalTextureDescriptorChain> ValidateAndUnpackChain(con
     }
     return result;
 }
-
-ResultOrError<UnpackedImageCopyBufferChain> ValidateAndUnpackChain(const ImageCopyBuffer* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedImageCopyBufferChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<ImageCopyBuffer> Unpack<ImageCopyBuffer>(typename UnpackedPtr<ImageCopyBuffer>::PtrType chain) {
+    UnpackedPtr<ImageCopyBuffer> result(chain);
+    for (typename UnpackedPtr<ImageCopyBuffer>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ImageCopyBuffer,
+                        UnpackedPtr<ImageCopyBuffer>,
+                        detail::AdditionalExtensions<ImageCopyBuffer>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ImageCopyBuffer>> ValidateAndUnpack<ImageCopyBuffer>(
+    typename UnpackedPtr<ImageCopyBuffer>::PtrType chain) {
+    UnpackedPtr<ImageCopyBuffer> result(chain);
+    for (typename UnpackedPtr<ImageCopyBuffer>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ImageCopyBuffer,
-                        UnpackedImageCopyBufferChain,
+                        UnpackedPtr<ImageCopyBuffer>,
                         detail::AdditionalExtensions<ImageCopyBuffer>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ImageCopyBuffer"
@@ -1689,21 +3536,45 @@ ResultOrError<UnpackedImageCopyBufferChain> ValidateAndUnpackChain(const ImageCo
     }
     return result;
 }
-
-ResultOrError<UnpackedImageCopyExternalTextureChain> ValidateAndUnpackChain(const ImageCopyExternalTexture* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedImageCopyExternalTextureChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<ImageCopyExternalTexture> Unpack<ImageCopyExternalTexture>(typename UnpackedPtr<ImageCopyExternalTexture>::PtrType chain) {
+    UnpackedPtr<ImageCopyExternalTexture> result(chain);
+    for (typename UnpackedPtr<ImageCopyExternalTexture>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ImageCopyExternalTexture,
+                        UnpackedPtr<ImageCopyExternalTexture>,
+                        detail::AdditionalExtensions<ImageCopyExternalTexture>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ImageCopyExternalTexture>> ValidateAndUnpack<ImageCopyExternalTexture>(
+    typename UnpackedPtr<ImageCopyExternalTexture>::PtrType chain) {
+    UnpackedPtr<ImageCopyExternalTexture> result(chain);
+    for (typename UnpackedPtr<ImageCopyExternalTexture>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ImageCopyExternalTexture,
-                        UnpackedImageCopyExternalTextureChain,
+                        UnpackedPtr<ImageCopyExternalTexture>,
                         detail::AdditionalExtensions<ImageCopyExternalTexture>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ImageCopyExternalTexture"
@@ -1721,21 +3592,45 @@ ResultOrError<UnpackedImageCopyExternalTextureChain> ValidateAndUnpackChain(cons
     }
     return result;
 }
-
-ResultOrError<UnpackedImageCopyTextureChain> ValidateAndUnpackChain(const ImageCopyTexture* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedImageCopyTextureChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<ImageCopyTexture> Unpack<ImageCopyTexture>(typename UnpackedPtr<ImageCopyTexture>::PtrType chain) {
+    UnpackedPtr<ImageCopyTexture> result(chain);
+    for (typename UnpackedPtr<ImageCopyTexture>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ImageCopyTexture,
+                        UnpackedPtr<ImageCopyTexture>,
+                        detail::AdditionalExtensions<ImageCopyTexture>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ImageCopyTexture>> ValidateAndUnpack<ImageCopyTexture>(
+    typename UnpackedPtr<ImageCopyTexture>::PtrType chain) {
+    UnpackedPtr<ImageCopyTexture> result(chain);
+    for (typename UnpackedPtr<ImageCopyTexture>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ImageCopyTexture,
-                        UnpackedImageCopyTextureChain,
+                        UnpackedPtr<ImageCopyTexture>,
                         detail::AdditionalExtensions<ImageCopyTexture>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ImageCopyTexture"
@@ -1753,20 +3648,104 @@ ResultOrError<UnpackedImageCopyTextureChain> ValidateAndUnpackChain(const ImageC
     }
     return result;
 }
-
-ResultOrError<UnpackedInstanceDescriptorChain> ValidateAndUnpackChain(const InstanceDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedInstanceDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<InstanceDescriptor> Unpack<InstanceDescriptor>(typename UnpackedPtr<InstanceDescriptor>::PtrType chain) {
+    UnpackedPtr<InstanceDescriptor> result(chain);
+    for (typename UnpackedPtr<InstanceDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<DawnTogglesDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<InstanceDescriptor>, DawnTogglesDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<InstanceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<DawnWGSLBlocklist>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<InstanceDescriptor>, DawnWGSLBlocklist>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<InstanceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<DawnWireWGSLControl>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<InstanceDescriptor>, DawnWireWGSLControl>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<InstanceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        InstanceDescriptor,
+                        UnpackedPtr<InstanceDescriptor>,
+                        detail::AdditionalExtensions<InstanceDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<InstanceDescriptor>> ValidateAndUnpack<InstanceDescriptor>(
+    typename UnpackedPtr<InstanceDescriptor>::PtrType chain) {
+    UnpackedPtr<InstanceDescriptor> result(chain);
+    for (typename UnpackedPtr<InstanceDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<DawnTogglesDescriptor>: {
-                auto& member = std::get<const DawnTogglesDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<InstanceDescriptor>, DawnTogglesDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnTogglesDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<InstanceDescriptor>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            case STypeFor<DawnWGSLBlocklist>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<InstanceDescriptor>, DawnWGSLBlocklist>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<InstanceDescriptor>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            case STypeFor<DawnWireWGSLControl>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<InstanceDescriptor>, DawnWireWGSLControl>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<InstanceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -1774,9 +3753,12 @@ ResultOrError<UnpackedInstanceDescriptorChain> ValidateAndUnpackChain(const Inst
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         InstanceDescriptor,
-                        UnpackedInstanceDescriptorChain,
+                        UnpackedPtr<InstanceDescriptor>,
                         detail::AdditionalExtensions<InstanceDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "InstanceDescriptor"
@@ -1794,21 +3776,45 @@ ResultOrError<UnpackedInstanceDescriptorChain> ValidateAndUnpackChain(const Inst
     }
     return result;
 }
-
-ResultOrError<UnpackedProgrammableStageDescriptorChain> ValidateAndUnpackChain(const ProgrammableStageDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedProgrammableStageDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<ProgrammableStageDescriptor> Unpack<ProgrammableStageDescriptor>(typename UnpackedPtr<ProgrammableStageDescriptor>::PtrType chain) {
+    UnpackedPtr<ProgrammableStageDescriptor> result(chain);
+    for (typename UnpackedPtr<ProgrammableStageDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ProgrammableStageDescriptor,
+                        UnpackedPtr<ProgrammableStageDescriptor>,
+                        detail::AdditionalExtensions<ProgrammableStageDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ProgrammableStageDescriptor>> ValidateAndUnpack<ProgrammableStageDescriptor>(
+    typename UnpackedPtr<ProgrammableStageDescriptor>::PtrType chain) {
+    UnpackedPtr<ProgrammableStageDescriptor> result(chain);
+    for (typename UnpackedPtr<ProgrammableStageDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ProgrammableStageDescriptor,
-                        UnpackedProgrammableStageDescriptorChain,
+                        UnpackedPtr<ProgrammableStageDescriptor>,
                         detail::AdditionalExtensions<ProgrammableStageDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ProgrammableStageDescriptor"
@@ -1826,20 +3832,56 @@ ResultOrError<UnpackedProgrammableStageDescriptorChain> ValidateAndUnpackChain(c
     }
     return result;
 }
-
-ResultOrError<UnpackedRenderPassColorAttachmentChain> ValidateAndUnpackChain(const RenderPassColorAttachment* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedRenderPassColorAttachmentChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<RenderPassColorAttachment> Unpack<RenderPassColorAttachment>(typename UnpackedPtr<RenderPassColorAttachment>::PtrType chain) {
+    UnpackedPtr<RenderPassColorAttachment> result(chain);
+    for (typename UnpackedPtr<RenderPassColorAttachment>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<DawnRenderPassColorAttachmentRenderToSingleSampled>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<RenderPassColorAttachment>, DawnRenderPassColorAttachmentRenderToSingleSampled>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<RenderPassColorAttachment>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RenderPassColorAttachment,
+                        UnpackedPtr<RenderPassColorAttachment>,
+                        detail::AdditionalExtensions<RenderPassColorAttachment>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RenderPassColorAttachment>> ValidateAndUnpack<RenderPassColorAttachment>(
+    typename UnpackedPtr<RenderPassColorAttachment>::PtrType chain) {
+    UnpackedPtr<RenderPassColorAttachment> result(chain);
+    for (typename UnpackedPtr<RenderPassColorAttachment>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<DawnRenderPassColorAttachmentRenderToSingleSampled>: {
-                auto& member = std::get<const DawnRenderPassColorAttachmentRenderToSingleSampled*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<RenderPassColorAttachment>, DawnRenderPassColorAttachmentRenderToSingleSampled>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnRenderPassColorAttachmentRenderToSingleSampled*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<RenderPassColorAttachment>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -1847,9 +3889,12 @@ ResultOrError<UnpackedRenderPassColorAttachmentChain> ValidateAndUnpackChain(con
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         RenderPassColorAttachment,
-                        UnpackedRenderPassColorAttachmentChain,
+                        UnpackedPtr<RenderPassColorAttachment>,
                         detail::AdditionalExtensions<RenderPassColorAttachment>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "RenderPassColorAttachment"
@@ -1867,21 +3912,45 @@ ResultOrError<UnpackedRenderPassColorAttachmentChain> ValidateAndUnpackChain(con
     }
     return result;
 }
-
-ResultOrError<UnpackedRenderPassStorageAttachmentChain> ValidateAndUnpackChain(const RenderPassStorageAttachment* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedRenderPassStorageAttachmentChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<RenderPassStorageAttachment> Unpack<RenderPassStorageAttachment>(typename UnpackedPtr<RenderPassStorageAttachment>::PtrType chain) {
+    UnpackedPtr<RenderPassStorageAttachment> result(chain);
+    for (typename UnpackedPtr<RenderPassStorageAttachment>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RenderPassStorageAttachment,
+                        UnpackedPtr<RenderPassStorageAttachment>,
+                        detail::AdditionalExtensions<RenderPassStorageAttachment>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RenderPassStorageAttachment>> ValidateAndUnpack<RenderPassStorageAttachment>(
+    typename UnpackedPtr<RenderPassStorageAttachment>::PtrType chain) {
+    UnpackedPtr<RenderPassStorageAttachment> result(chain);
+    for (typename UnpackedPtr<RenderPassStorageAttachment>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         RenderPassStorageAttachment,
-                        UnpackedRenderPassStorageAttachmentChain,
+                        UnpackedPtr<RenderPassStorageAttachment>,
                         detail::AdditionalExtensions<RenderPassStorageAttachment>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "RenderPassStorageAttachment"
@@ -1899,21 +3968,45 @@ ResultOrError<UnpackedRenderPassStorageAttachmentChain> ValidateAndUnpackChain(c
     }
     return result;
 }
-
-ResultOrError<UnpackedRequiredLimitsChain> ValidateAndUnpackChain(const RequiredLimits* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedRequiredLimitsChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<RequiredLimits> Unpack<RequiredLimits>(typename UnpackedPtr<RequiredLimits>::PtrType chain) {
+    UnpackedPtr<RequiredLimits> result(chain);
+    for (typename UnpackedPtr<RequiredLimits>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RequiredLimits,
+                        UnpackedPtr<RequiredLimits>,
+                        detail::AdditionalExtensions<RequiredLimits>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RequiredLimits>> ValidateAndUnpack<RequiredLimits>(
+    typename UnpackedPtr<RequiredLimits>::PtrType chain) {
+    UnpackedPtr<RequiredLimits> result(chain);
+    for (typename UnpackedPtr<RequiredLimits>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         RequiredLimits,
-                        UnpackedRequiredLimitsChain,
+                        UnpackedPtr<RequiredLimits>,
                         detail::AdditionalExtensions<RequiredLimits>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "RequiredLimits"
@@ -1931,20 +4024,216 @@ ResultOrError<UnpackedRequiredLimitsChain> ValidateAndUnpackChain(const Required
     }
     return result;
 }
-
-ResultOrError<UnpackedTextureDescriptorChain> ValidateAndUnpackChain(const TextureDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedTextureDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<SharedTextureMemoryProperties> Unpack<SharedTextureMemoryProperties>(typename UnpackedPtr<SharedTextureMemoryProperties>::PtrType chain) {
+    UnpackedPtr<SharedTextureMemoryProperties> result(chain);
+    for (typename UnpackedPtr<SharedTextureMemoryProperties>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SharedTextureMemoryProperties,
+                        UnpackedPtr<SharedTextureMemoryProperties>,
+                        detail::AdditionalExtensions<SharedTextureMemoryProperties>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SharedTextureMemoryProperties>> ValidateAndUnpack<SharedTextureMemoryProperties>(
+    typename UnpackedPtr<SharedTextureMemoryProperties>::PtrType chain) {
+    UnpackedPtr<SharedTextureMemoryProperties> result(chain);
+    for (typename UnpackedPtr<SharedTextureMemoryProperties>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
-            case STypeFor<DawnTextureInternalUsageDescriptor>: {
-                auto& member = std::get<const DawnTextureInternalUsageDescriptor*>(result);
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SharedTextureMemoryProperties,
+                        UnpackedPtr<SharedTextureMemoryProperties>,
+                        detail::AdditionalExtensions<SharedTextureMemoryProperties>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
+                    return DAWN_VALIDATION_ERROR(
+                        "Unexpected chained struct of type %s found on %s chain.",
+                        next->sType, "SharedTextureMemoryProperties"
+                    );
+                }
+                break;
+            }
+        }
+        if (duplicate) {
+            return DAWN_VALIDATION_ERROR(
+                "Duplicate chained struct of type %s found on %s chain.",
+                next->sType, "SharedTextureMemoryProperties"
+            );
+        }
+    }
+    return result;
+}
+template <>
+UnpackedPtr<SupportedLimits> Unpack<SupportedLimits>(typename UnpackedPtr<SupportedLimits>::PtrType chain) {
+    UnpackedPtr<SupportedLimits> result(chain);
+    for (typename UnpackedPtr<SupportedLimits>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<DawnExperimentalSubgroupLimits>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SupportedLimits>, DawnExperimentalSubgroupLimits>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<SupportedLimits>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SupportedLimits,
+                        UnpackedPtr<SupportedLimits>,
+                        detail::AdditionalExtensions<SupportedLimits>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<SupportedLimits>> ValidateAndUnpack<SupportedLimits>(
+    typename UnpackedPtr<SupportedLimits>::PtrType chain) {
+    UnpackedPtr<SupportedLimits> result(chain);
+    for (typename UnpackedPtr<SupportedLimits>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            case STypeFor<DawnExperimentalSubgroupLimits>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<SupportedLimits>, DawnExperimentalSubgroupLimits>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnTextureInternalUsageDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<SupportedLimits>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        SupportedLimits,
+                        UnpackedPtr<SupportedLimits>,
+                        detail::AdditionalExtensions<SupportedLimits>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
+                    return DAWN_VALIDATION_ERROR(
+                        "Unexpected chained struct of type %s found on %s chain.",
+                        next->sType, "SupportedLimits"
+                    );
+                }
+                break;
+            }
+        }
+        if (duplicate) {
+            return DAWN_VALIDATION_ERROR(
+                "Duplicate chained struct of type %s found on %s chain.",
+                next->sType, "SupportedLimits"
+            );
+        }
+    }
+    return result;
+}
+template <>
+UnpackedPtr<TextureDescriptor> Unpack<TextureDescriptor>(typename UnpackedPtr<TextureDescriptor>::PtrType chain) {
+    UnpackedPtr<TextureDescriptor> result(chain);
+    for (typename UnpackedPtr<TextureDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<TextureBindingViewDimensionDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<TextureDescriptor>, TextureBindingViewDimensionDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<TextureDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<DawnTextureInternalUsageDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<TextureDescriptor>, DawnTextureInternalUsageDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<TextureDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        TextureDescriptor,
+                        UnpackedPtr<TextureDescriptor>,
+                        detail::AdditionalExtensions<TextureDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<TextureDescriptor>> ValidateAndUnpack<TextureDescriptor>(
+    typename UnpackedPtr<TextureDescriptor>::PtrType chain) {
+    UnpackedPtr<TextureDescriptor> result(chain);
+    for (typename UnpackedPtr<TextureDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            case STypeFor<TextureBindingViewDimensionDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<TextureDescriptor>, TextureBindingViewDimensionDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<TextureDescriptor>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            case STypeFor<DawnTextureInternalUsageDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<TextureDescriptor>, DawnTextureInternalUsageDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<TextureDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -1952,9 +4241,12 @@ ResultOrError<UnpackedTextureDescriptorChain> ValidateAndUnpackChain(const Textu
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         TextureDescriptor,
-                        UnpackedTextureDescriptorChain,
+                        UnpackedPtr<TextureDescriptor>,
                         detail::AdditionalExtensions<TextureDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "TextureDescriptor"
@@ -1972,21 +4264,45 @@ ResultOrError<UnpackedTextureDescriptorChain> ValidateAndUnpackChain(const Textu
     }
     return result;
 }
-
-ResultOrError<UnpackedBindGroupLayoutDescriptorChain> ValidateAndUnpackChain(const BindGroupLayoutDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedBindGroupLayoutDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<BindGroupLayoutDescriptor> Unpack<BindGroupLayoutDescriptor>(typename UnpackedPtr<BindGroupLayoutDescriptor>::PtrType chain) {
+    UnpackedPtr<BindGroupLayoutDescriptor> result(chain);
+    for (typename UnpackedPtr<BindGroupLayoutDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        BindGroupLayoutDescriptor,
+                        UnpackedPtr<BindGroupLayoutDescriptor>,
+                        detail::AdditionalExtensions<BindGroupLayoutDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<BindGroupLayoutDescriptor>> ValidateAndUnpack<BindGroupLayoutDescriptor>(
+    typename UnpackedPtr<BindGroupLayoutDescriptor>::PtrType chain) {
+    UnpackedPtr<BindGroupLayoutDescriptor> result(chain);
+    for (typename UnpackedPtr<BindGroupLayoutDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         BindGroupLayoutDescriptor,
-                        UnpackedBindGroupLayoutDescriptorChain,
+                        UnpackedPtr<BindGroupLayoutDescriptor>,
                         detail::AdditionalExtensions<BindGroupLayoutDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "BindGroupLayoutDescriptor"
@@ -2004,21 +4320,45 @@ ResultOrError<UnpackedBindGroupLayoutDescriptorChain> ValidateAndUnpackChain(con
     }
     return result;
 }
-
-ResultOrError<UnpackedColorTargetStateChain> ValidateAndUnpackChain(const ColorTargetState* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedColorTargetStateChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<ColorTargetState> Unpack<ColorTargetState>(typename UnpackedPtr<ColorTargetState>::PtrType chain) {
+    UnpackedPtr<ColorTargetState> result(chain);
+    for (typename UnpackedPtr<ColorTargetState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ColorTargetState,
+                        UnpackedPtr<ColorTargetState>,
+                        detail::AdditionalExtensions<ColorTargetState>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ColorTargetState>> ValidateAndUnpack<ColorTargetState>(
+    typename UnpackedPtr<ColorTargetState>::PtrType chain) {
+    UnpackedPtr<ColorTargetState> result(chain);
+    for (typename UnpackedPtr<ColorTargetState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ColorTargetState,
-                        UnpackedColorTargetStateChain,
+                        UnpackedPtr<ColorTargetState>,
                         detail::AdditionalExtensions<ColorTargetState>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ColorTargetState"
@@ -2036,21 +4376,69 @@ ResultOrError<UnpackedColorTargetStateChain> ValidateAndUnpackChain(const ColorT
     }
     return result;
 }
-
-ResultOrError<UnpackedComputePipelineDescriptorChain> ValidateAndUnpackChain(const ComputePipelineDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedComputePipelineDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
-        bool duplicate = false;
+template <>
+UnpackedPtr<ComputePipelineDescriptor> Unpack<ComputePipelineDescriptor>(typename UnpackedPtr<ComputePipelineDescriptor>::PtrType chain) {
+    UnpackedPtr<ComputePipelineDescriptor> result(chain);
+    for (typename UnpackedPtr<ComputePipelineDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         switch (next->sType) {
+            case STypeFor<DawnComputePipelineFullSubgroups>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<ComputePipelineDescriptor>, DawnComputePipelineFullSubgroups>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<ComputePipelineDescriptor>, ExtPtrType>
+                );
+                break;
+            }
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         ComputePipelineDescriptor,
-                        UnpackedComputePipelineDescriptorChain,
+                        UnpackedPtr<ComputePipelineDescriptor>,
                         detail::AdditionalExtensions<ComputePipelineDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<ComputePipelineDescriptor>> ValidateAndUnpack<ComputePipelineDescriptor>(
+    typename UnpackedPtr<ComputePipelineDescriptor>::PtrType chain) {
+    UnpackedPtr<ComputePipelineDescriptor> result(chain);
+    for (typename UnpackedPtr<ComputePipelineDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            case STypeFor<DawnComputePipelineFullSubgroups>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<ComputePipelineDescriptor>, DawnComputePipelineFullSubgroups>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<ComputePipelineDescriptor>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        ComputePipelineDescriptor,
+                        UnpackedPtr<ComputePipelineDescriptor>,
+                        detail::AdditionalExtensions<ComputePipelineDescriptor>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "ComputePipelineDescriptor"
@@ -2068,29 +4456,80 @@ ResultOrError<UnpackedComputePipelineDescriptorChain> ValidateAndUnpackChain(con
     }
     return result;
 }
-
-ResultOrError<UnpackedDeviceDescriptorChain> ValidateAndUnpackChain(const DeviceDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedDeviceDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<DeviceDescriptor> Unpack<DeviceDescriptor>(typename UnpackedPtr<DeviceDescriptor>::PtrType chain) {
+    UnpackedPtr<DeviceDescriptor> result(chain);
+    for (typename UnpackedPtr<DeviceDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<DawnTogglesDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<DeviceDescriptor>, DawnTogglesDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<DeviceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<DawnCacheDeviceDescriptor>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<DeviceDescriptor>, DawnCacheDeviceDescriptor>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<DeviceDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        DeviceDescriptor,
+                        UnpackedPtr<DeviceDescriptor>,
+                        detail::AdditionalExtensions<DeviceDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<DeviceDescriptor>> ValidateAndUnpack<DeviceDescriptor>(
+    typename UnpackedPtr<DeviceDescriptor>::PtrType chain) {
+    UnpackedPtr<DeviceDescriptor> result(chain);
+    for (typename UnpackedPtr<DeviceDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<DawnTogglesDescriptor>: {
-                auto& member = std::get<const DawnTogglesDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<DeviceDescriptor>, DawnTogglesDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnTogglesDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<DeviceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<DawnCacheDeviceDescriptor>: {
-                auto& member = std::get<const DawnCacheDeviceDescriptor*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<DeviceDescriptor>, DawnCacheDeviceDescriptor>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const DawnCacheDeviceDescriptor*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<DeviceDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -2098,9 +4537,12 @@ ResultOrError<UnpackedDeviceDescriptorChain> ValidateAndUnpackChain(const Device
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         DeviceDescriptor,
-                        UnpackedDeviceDescriptorChain,
+                        UnpackedPtr<DeviceDescriptor>,
                         detail::AdditionalExtensions<DeviceDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "DeviceDescriptor"
@@ -2118,29 +4560,80 @@ ResultOrError<UnpackedDeviceDescriptorChain> ValidateAndUnpackChain(const Device
     }
     return result;
 }
-
-ResultOrError<UnpackedRenderPassDescriptorChain> ValidateAndUnpackChain(const RenderPassDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedRenderPassDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<RenderPassDescriptor> Unpack<RenderPassDescriptor>(typename UnpackedPtr<RenderPassDescriptor>::PtrType chain) {
+    UnpackedPtr<RenderPassDescriptor> result(chain);
+    for (typename UnpackedPtr<RenderPassDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            case STypeFor<RenderPassDescriptorMaxDrawCount>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<RenderPassDescriptor>, RenderPassDescriptorMaxDrawCount>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<RenderPassDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            case STypeFor<RenderPassPixelLocalStorage>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<RenderPassDescriptor>, RenderPassPixelLocalStorage>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<RenderPassDescriptor>, ExtPtrType>
+                );
+                break;
+            }
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RenderPassDescriptor,
+                        UnpackedPtr<RenderPassDescriptor>,
+                        detail::AdditionalExtensions<RenderPassDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RenderPassDescriptor>> ValidateAndUnpack<RenderPassDescriptor>(
+    typename UnpackedPtr<RenderPassDescriptor>::PtrType chain) {
+    UnpackedPtr<RenderPassDescriptor> result(chain);
+    for (typename UnpackedPtr<RenderPassDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             case STypeFor<RenderPassDescriptorMaxDrawCount>: {
-                auto& member = std::get<const RenderPassDescriptorMaxDrawCount*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<RenderPassDescriptor>, RenderPassDescriptorMaxDrawCount>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const RenderPassDescriptorMaxDrawCount*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<RenderPassDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
             case STypeFor<RenderPassPixelLocalStorage>: {
-                auto& member = std::get<const RenderPassPixelLocalStorage*>(result);
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<RenderPassDescriptor>, RenderPassPixelLocalStorage>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
                 } else {
-                    member = static_cast<const RenderPassPixelLocalStorage*>(next);
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<RenderPassDescriptor>, ExtPtrType>
+                    );
                 }
                 break;
             }
@@ -2148,9 +4641,12 @@ ResultOrError<UnpackedRenderPassDescriptorChain> ValidateAndUnpackChain(const Re
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         RenderPassDescriptor,
-                        UnpackedRenderPassDescriptorChain,
+                        UnpackedPtr<RenderPassDescriptor>,
                         detail::AdditionalExtensions<RenderPassDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "RenderPassDescriptor"
@@ -2168,21 +4664,45 @@ ResultOrError<UnpackedRenderPassDescriptorChain> ValidateAndUnpackChain(const Re
     }
     return result;
 }
-
-ResultOrError<UnpackedVertexStateChain> ValidateAndUnpackChain(const VertexState* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedVertexStateChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<VertexState> Unpack<VertexState>(typename UnpackedPtr<VertexState>::PtrType chain) {
+    UnpackedPtr<VertexState> result(chain);
+    for (typename UnpackedPtr<VertexState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        VertexState,
+                        UnpackedPtr<VertexState>,
+                        detail::AdditionalExtensions<VertexState>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<VertexState>> ValidateAndUnpack<VertexState>(
+    typename UnpackedPtr<VertexState>::PtrType chain) {
+    UnpackedPtr<VertexState> result(chain);
+    for (typename UnpackedPtr<VertexState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         VertexState,
-                        UnpackedVertexStateChain,
+                        UnpackedPtr<VertexState>,
                         detail::AdditionalExtensions<VertexState>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "VertexState"
@@ -2200,21 +4720,45 @@ ResultOrError<UnpackedVertexStateChain> ValidateAndUnpackChain(const VertexState
     }
     return result;
 }
-
-ResultOrError<UnpackedFragmentStateChain> ValidateAndUnpackChain(const FragmentState* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedFragmentStateChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<FragmentState> Unpack<FragmentState>(typename UnpackedPtr<FragmentState>::PtrType chain) {
+    UnpackedPtr<FragmentState> result(chain);
+    for (typename UnpackedPtr<FragmentState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        FragmentState,
+                        UnpackedPtr<FragmentState>,
+                        detail::AdditionalExtensions<FragmentState>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<FragmentState>> ValidateAndUnpack<FragmentState>(
+    typename UnpackedPtr<FragmentState>::PtrType chain) {
+    UnpackedPtr<FragmentState> result(chain);
+    for (typename UnpackedPtr<FragmentState>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         FragmentState,
-                        UnpackedFragmentStateChain,
+                        UnpackedPtr<FragmentState>,
                         detail::AdditionalExtensions<FragmentState>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "FragmentState"
@@ -2232,21 +4776,45 @@ ResultOrError<UnpackedFragmentStateChain> ValidateAndUnpackChain(const FragmentS
     }
     return result;
 }
-
-ResultOrError<UnpackedRenderPipelineDescriptorChain> ValidateAndUnpackChain(const RenderPipelineDescriptor* chain) {
-    const ChainedStruct* next = chain->nextInChain;
-    UnpackedRenderPipelineDescriptorChain result;
-
-    for (; next != nullptr; next = next->nextInChain) {
+template <>
+UnpackedPtr<RenderPipelineDescriptor> Unpack<RenderPipelineDescriptor>(typename UnpackedPtr<RenderPipelineDescriptor>::PtrType chain) {
+    UnpackedPtr<RenderPipelineDescriptor> result(chain);
+    for (typename UnpackedPtr<RenderPipelineDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RenderPipelineDescriptor,
+                        UnpackedPtr<RenderPipelineDescriptor>,
+                        detail::AdditionalExtensions<RenderPipelineDescriptor>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RenderPipelineDescriptor>> ValidateAndUnpack<RenderPipelineDescriptor>(
+    typename UnpackedPtr<RenderPipelineDescriptor>::PtrType chain) {
+    UnpackedPtr<RenderPipelineDescriptor> result(chain);
+    for (typename UnpackedPtr<RenderPipelineDescriptor>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
         bool duplicate = false;
         switch (next->sType) {
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
                         RenderPipelineDescriptor,
-                        UnpackedRenderPipelineDescriptorChain,
+                        UnpackedPtr<RenderPipelineDescriptor>,
                         detail::AdditionalExtensions<RenderPipelineDescriptor>::List>;
-                if (!Unpacker::Unpack(result, next, duplicate)) {
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
                     return DAWN_VALIDATION_ERROR(
                         "Unexpected chained struct of type %s found on %s chain.",
                         next->sType, "RenderPipelineDescriptor"
@@ -2264,6 +4832,5 @@ ResultOrError<UnpackedRenderPipelineDescriptorChain> ValidateAndUnpackChain(cons
     }
     return result;
 }
-
 
 }  // namespace dawn::native

@@ -21,6 +21,8 @@
 
 
 namespace guest_view::mojom {
+class ViewHandle;
+
 class GuestViewHost;
 
 

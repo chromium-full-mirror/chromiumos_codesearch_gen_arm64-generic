@@ -4,7 +4,7 @@
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { PermissionType, TriState } from './app_management.mojom-webui.js';
 import { BrowserProxy } from './browser_proxy.js';
-import { AppManagementUserAction, AppType, OptionalBool } from './constants.js';
+import { AppManagementUserAction, AppType } from './constants.js';
 import { isBoolValue, isPermissionEnabled, isTriStateValue } from './permission_util.js';
 export function createEmptyState() {
     return {
@@ -81,29 +81,6 @@ export function getParentApp(state) {
  */
 export function alphabeticalSort(a, b) {
     return a.localeCompare(b);
-}
-/**
- * Toggles an OptionalBool
- */
-export function toggleOptionalBool(bool) {
-    switch (bool) {
-        case OptionalBool.kFalse:
-            return OptionalBool.kTrue;
-        case OptionalBool.kTrue:
-            return OptionalBool.kFalse;
-        default:
-            assertNotReached();
-    }
-}
-export function convertOptionalBoolToBool(optionalBool) {
-    switch (optionalBool) {
-        case OptionalBool.kTrue:
-            return true;
-        case OptionalBool.kFalse:
-            return false;
-        default:
-            assertNotReached();
-    }
 }
 function getUserActionHistogramNameForAppType(appType) {
     switch (appType) {

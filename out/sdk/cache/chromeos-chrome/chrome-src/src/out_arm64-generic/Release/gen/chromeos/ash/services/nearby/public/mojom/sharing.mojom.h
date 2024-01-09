@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/sharing.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/sharing.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/sharing.mojom-forward.h"
 #include "chromeos/ash/services/nearby/public/mojom/firewall_hole.mojom-forward.h"
@@ -34,6 +35,7 @@
 #include "chromeos/ash/services/nearby/public/mojom/webrtc.mojom.h"
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-forward.h"
 #include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder.mojom-forward.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence_credential_storage.mojom-forward.h"
 #include "device/bluetooth/public/mojom/adapter.mojom-forward.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
 #include <string>
@@ -352,6 +354,7 @@ class  NearbyDependencies {
       ::mojo::PendingRemote<::bluetooth::mojom::Adapter> bluetooth_adapter,
       ::sharing::mojom::WebRtcDependenciesPtr webrtc_dependencies,
       WifiLanDependenciesPtr wifilan_dependencies,
+      ::mojo::PendingRemote<::ash::nearby::presence::mojom::NearbyPresenceCredentialStorage> nearby_presence_credential_storage,
       ::nearby::api::LogMessage::Severity min_log_severity);
 
 NearbyDependencies(const NearbyDependencies&) = delete;
@@ -433,6 +436,8 @@ NearbyDependencies& operator=(const NearbyDependencies&) = delete;
   
   WifiLanDependenciesPtr wifilan_dependencies;
   
+  ::mojo::PendingRemote<::ash::nearby::presence::mojom::NearbyPresenceCredentialStorage> nearby_presence_credential_storage;
+  
   ::nearby::api::LogMessage::Severity min_log_severity;
 
   // Serialise this struct into a trace.
@@ -506,6 +511,7 @@ NearbyDependenciesPtr NearbyDependencies::Clone() const {
       mojo::Clone(bluetooth_adapter),
       mojo::Clone(webrtc_dependencies),
       mojo::Clone(wifilan_dependencies),
+      mojo::Clone(nearby_presence_credential_storage),
       mojo::Clone(min_log_severity)
   );
 }
@@ -517,6 +523,8 @@ bool NearbyDependencies::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->webrtc_dependencies, other_struct.webrtc_dependencies))
     return false;
   if (!mojo::Equals(this->wifilan_dependencies, other_struct.wifilan_dependencies))
+    return false;
+  if (!mojo::Equals(this->nearby_presence_credential_storage, other_struct.nearby_presence_credential_storage))
     return false;
   if (!mojo::Equals(this->min_log_severity, other_struct.min_log_severity))
     return false;
@@ -536,6 +544,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.wifilan_dependencies < rhs.wifilan_dependencies)
     return true;
   if (rhs.wifilan_dependencies < lhs.wifilan_dependencies)
+    return false;
+  if (lhs.nearby_presence_credential_storage < rhs.nearby_presence_credential_storage)
+    return true;
+  if (rhs.nearby_presence_credential_storage < lhs.nearby_presence_credential_storage)
     return false;
   if (lhs.min_log_severity < rhs.min_log_severity)
     return true;
@@ -594,6 +606,11 @@ struct  StructTraits<::sharing::mojom::NearbyDependencies::DataView,
   static  decltype(::sharing::mojom::NearbyDependencies::wifilan_dependencies)& wifilan_dependencies(
        ::sharing::mojom::NearbyDependenciesPtr& input) {
     return input->wifilan_dependencies;
+  }
+
+  static  decltype(::sharing::mojom::NearbyDependencies::nearby_presence_credential_storage)& nearby_presence_credential_storage(
+       ::sharing::mojom::NearbyDependenciesPtr& input) {
+    return input->nearby_presence_credential_storage;
   }
 
   static decltype(::sharing::mojom::NearbyDependencies::min_log_severity) min_log_severity(

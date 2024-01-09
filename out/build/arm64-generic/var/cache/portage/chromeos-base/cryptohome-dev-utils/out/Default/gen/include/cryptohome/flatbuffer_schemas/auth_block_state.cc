@@ -1,4 +1,4 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -48,11 +48,9 @@ namespace {
 
 namespace cryptohome {
 
-__attribute__((visibility("default"))) std::optional<brillo::SecureBlob>
+__attribute__((visibility("default"))) std::optional<brillo::Blob>
 AuthBlockState::Serialize() const {
-  hwsec_foundation::FlatbufferSecureAllocatorBridge allocator;
-  flatbuffers::FlatBufferBuilder builder(kFlatbufferAllocatorInitialSize,
-                                         &allocator);
+  flatbuffers::FlatBufferBuilder builder;
   auto buffer = hwsec_foundation::ToFlatBuffer<::cryptohome::AuthBlockState>()(
       &builder, *this);
   if (buffer.IsNull()) {
@@ -62,7 +60,7 @@ AuthBlockState::Serialize() const {
   builder.Finish(buffer);
   uint8_t* buf = builder.GetBufferPointer();
   int size = builder.GetSize();
-  return brillo::SecureBlob(buf, buf + size);
+  return brillo::Blob(buf, buf + size);
 }
 
 }  // namespace cryptohome
@@ -72,7 +70,7 @@ namespace cryptohome {
 // static
 __attribute__((visibility("default")))
 std::optional<::cryptohome::AuthBlockState>
-AuthBlockState::Deserialize(const brillo::SecureBlob& blob) {
+AuthBlockState::Deserialize(const brillo::Blob& blob) {
   flatbuffers::Verifier verifier(blob.data(), blob.size());
   if (!::cryptohome::_serialized_::VerifyAuthBlockStateBuffer(verifier)) {
     LOG(ERROR) << "AuthBlockState cannot be deserialized.";

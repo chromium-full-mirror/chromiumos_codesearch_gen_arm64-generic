@@ -266,10 +266,29 @@ uint32_t TlclIFXFieldUpgradeInfo(TPM_IFX_FIELDUPGRADEINFO *info);
 
 /**
  * Read the public area of object. Put at most [length] bytes public area
- * into [data], and the format of [data] is TPM2B_PUBLIC. The TPM error code
+ * into [data], and the format of [data] is TPMT_PUBLIC. The TPM error code
  * is returned.
  */
 uint32_t TlclReadPublic(uint32_t handle, uint8_t *data, uint32_t *length);
+
+/**
+ * Allow certain Transient Objects to be made persistent or a persistent object
+ * to be evicted. If [object_handle] is a transient object handle, then
+ * [persistent_handle] is the persistent handle for the object. If
+ * [object_handle] is a persistent object handle, then it shall be the same
+ * value as [persistent_handle].
+ */
+uint32_t TlclEvictControl(uint32_t auth_handle, uint32_t object_handle,
+			  uint32_t persistent_handle);
+
+/**
+ * Create a primary object under one of the primary seeds or a temporary object
+ * under TPM_RH_NULL. The command uses a TPMT_PUBLIC as a template[tmpl]] for
+ * the object to be created, and fills the result handle in [object_handle]. The
+ * TPM error code is returned.
+ */
+uint32_t TlclCreatePrimary(uint32_t primary_handle, const void *tmpl,
+			   uint32_t tmpl_length, uint32_t *object_handle);
 
 #ifdef CHROMEOS_ENVIRONMENT
 

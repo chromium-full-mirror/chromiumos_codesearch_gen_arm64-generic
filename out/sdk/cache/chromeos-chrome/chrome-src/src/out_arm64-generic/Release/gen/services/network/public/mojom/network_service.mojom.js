@@ -127,6 +127,12 @@
     mojo.internal.loadMojomIfNecessary(
         'services/network/public/mojom/network_interface.mojom', 'network_interface.mojom.js');
   }
+  var proxy_config$ =
+      mojo.internal.exposeNamespace('network.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'services/network/public/mojom/proxy_config.mojom', 'proxy_config.mojom.js');
+  }
   var network_interface_change_listener$ =
       mojo.internal.exposeNamespace('network.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -192,6 +198,12 @@
   if (mojo.config.autoLoadMojomDeps) {
     mojo.internal.loadMojomIfNecessary(
         'services/network/public/mojom/client_security_state.mojom', 'client_security_state.mojom.js');
+  }
+  var cookie_encryption_provider$ =
+      mojo.internal.exposeNamespace('network.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'services/network/public/mojom/cookie_encryption_provider.mojom', 'cookie_encryption_provider.mojom.js');
   }
   var origin$ =
       mojo.internal.exposeNamespace('url.mojom');
@@ -486,6 +498,7 @@
     this.defaultObserver = new url_loader_network_service_observer$.URLLoaderNetworkServiceObserverPtr();
     this.firstPartySetsEnabled = false;
     this.systemDnsResolver = new system_dns_resolution$.SystemDnsResolverPtr();
+    this.ipProtectionProxyBypassPolicy = 0;
   };
   NetworkServiceParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -538,6 +551,12 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate NetworkServiceParams.ipProtectionProxyBypassPolicy
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 36, proxy_config$.IpProtectionProxyBypassPolicy);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
@@ -563,10 +582,8 @@
     decoder.skip(1);
     val.systemDnsResolver =
         decoder.decodeStruct(new codec.NullableInterface(system_dns_resolution$.SystemDnsResolverPtr));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    val.ipProtectionProxyBypassPolicy =
+        decoder.decodeStruct(new codec.Enum(proxy_config$.IpProtectionProxyBypassPolicy));
     return val;
   };
 
@@ -585,10 +602,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(new codec.NullableInterface(system_dns_resolution$.SystemDnsResolverPtr), val.systemDnsResolver);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.ipProtectionProxyBypassPolicy);
   };
   function SCTAuditingConfiguration(values) {
     this.initDefaults_();
@@ -1997,62 +2011,6 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function NetworkService_SetEnvironment_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  NetworkService_SetEnvironment_Params.prototype.initDefaults_ = function() {
-    this.environment = null;
-  };
-  NetworkService_SetEnvironment_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  NetworkService_SetEnvironment_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate NetworkService_SetEnvironment_Params.environment
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(EnvironmentVariable), false, [0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  NetworkService_SetEnvironment_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  NetworkService_SetEnvironment_Params.decode = function(decoder) {
-    var packed;
-    var val = new NetworkService_SetEnvironment_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.environment =
-        decoder.decodeArrayPointer(new codec.PointerTo(EnvironmentVariable));
-    return val;
-  };
-
-  NetworkService_SetEnvironment_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(NetworkService_SetEnvironment_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeArrayPointer(new codec.PointerTo(EnvironmentVariable), val.environment);
-  };
   function NetworkService_SetTrustTokenKeyCommitments_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -2265,7 +2223,6 @@
 
   NetworkService_UpdateCtLogList_Params.prototype.initDefaults_ = function() {
     this.logList = null;
-    this.updateTime = null;
   };
   NetworkService_UpdateCtLogList_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -2281,7 +2238,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -2293,16 +2250,10 @@
     if (err !== validator.validationError.NONE)
         return err;
 
-
-    // validate NetworkService_UpdateCtLogList_Params.updateTime
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, time$.Time, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
     return validator.validationError.NONE;
   };
 
-  NetworkService_UpdateCtLogList_Params.encodedSize = codec.kStructHeaderSize + 16;
+  NetworkService_UpdateCtLogList_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkService_UpdateCtLogList_Params.decode = function(decoder) {
     var packed;
@@ -2311,8 +2262,6 @@
     var version = decoder.readUint32();
     val.logList =
         decoder.decodeArrayPointer(new codec.PointerTo(ct_log_info$.CTLogInfo));
-    val.updateTime =
-        decoder.decodeStructPointer(time$.Time);
     return val;
   };
 
@@ -2321,7 +2270,6 @@
     encoder.writeUint32(NetworkService_UpdateCtLogList_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeArrayPointer(new codec.PointerTo(ct_log_info$.CTLogInfo), val.logList);
-    encoder.encodeStructPointer(time$.Time, val.updateTime);
   };
   function NetworkService_UpdateCtLogList_ResponseParams(values) {
     this.initDefaults_();
@@ -3138,6 +3086,62 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function NetworkService_SetCookieEncryptionProvider_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  NetworkService_SetCookieEncryptionProvider_Params.prototype.initDefaults_ = function() {
+    this.provider = new cookie_encryption_provider$.CookieEncryptionProviderPtr();
+  };
+  NetworkService_SetCookieEncryptionProvider_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  NetworkService_SetCookieEncryptionProvider_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate NetworkService_SetCookieEncryptionProvider_Params.provider
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 0, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  NetworkService_SetCookieEncryptionProvider_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  NetworkService_SetCookieEncryptionProvider_Params.decode = function(decoder) {
+    var packed;
+    var val = new NetworkService_SetCookieEncryptionProvider_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.provider =
+        decoder.decodeStruct(new codec.Interface(cookie_encryption_provider$.CookieEncryptionProviderPtr));
+    return val;
+  };
+
+  NetworkService_SetCookieEncryptionProvider_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(NetworkService_SetCookieEncryptionProvider_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(new codec.Interface(cookie_encryption_provider$.CookieEncryptionProviderPtr), val.provider);
+  };
   var kNetworkService_SetParams_Name = 0;
   var kNetworkService_StartNetLog_Name = 1;
   var kNetworkService_AttachNetLogProxy_Name = 2;
@@ -3158,21 +3162,21 @@
   var kNetworkService_SetEncryptionKey_Name = 17;
   var kNetworkService_OnMemoryPressure_Name = 18;
   var kNetworkService_OnPeerToPeerConnectionsCountChange_Name = 19;
-  var kNetworkService_SetEnvironment_Name = 20;
-  var kNetworkService_SetTrustTokenKeyCommitments_Name = 21;
-  var kNetworkService_ClearSCTAuditingCache_Name = 22;
-  var kNetworkService_ConfigureSCTAuditing_Name = 23;
-  var kNetworkService_UpdateCtLogList_Name = 24;
-  var kNetworkService_UpdateCtKnownPopularSCTs_Name = 25;
-  var kNetworkService_SetCtEnforcementEnabled_Name = 26;
-  var kNetworkService_UpdateKeyPinsList_Name = 27;
-  var kNetworkService_BindTestInterfaceForTesting_Name = 28;
-  var kNetworkService_SetFirstPartySets_Name = 29;
-  var kNetworkService_SetExplicitlyAllowedPorts_Name = 30;
-  var kNetworkService_UpdateMaskedDomainList_Name = 31;
-  var kNetworkService_ParseHeaders_Name = 32;
-  var kNetworkService_EnableDataUseUpdates_Name = 33;
-  var kNetworkService_SetIPv6ReachabilityOverride_Name = 34;
+  var kNetworkService_SetTrustTokenKeyCommitments_Name = 20;
+  var kNetworkService_ClearSCTAuditingCache_Name = 21;
+  var kNetworkService_ConfigureSCTAuditing_Name = 22;
+  var kNetworkService_UpdateCtLogList_Name = 23;
+  var kNetworkService_UpdateCtKnownPopularSCTs_Name = 24;
+  var kNetworkService_SetCtEnforcementEnabled_Name = 25;
+  var kNetworkService_UpdateKeyPinsList_Name = 26;
+  var kNetworkService_BindTestInterfaceForTesting_Name = 27;
+  var kNetworkService_SetFirstPartySets_Name = 28;
+  var kNetworkService_SetExplicitlyAllowedPorts_Name = 29;
+  var kNetworkService_UpdateMaskedDomainList_Name = 30;
+  var kNetworkService_ParseHeaders_Name = 31;
+  var kNetworkService_EnableDataUseUpdates_Name = 32;
+  var kNetworkService_SetIPv6ReachabilityOverride_Name = 33;
+  var kNetworkService_SetCookieEncryptionProvider_Name = 34;
 
   function NetworkServicePtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(NetworkService,
@@ -3508,21 +3512,6 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  NetworkServicePtr.prototype.setEnvironment = function() {
-    return NetworkServiceProxy.prototype.setEnvironment
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  NetworkServiceProxy.prototype.setEnvironment = function(environment) {
-    var params_ = new NetworkService_SetEnvironment_Params();
-    params_.environment = environment;
-    var builder = new codec.MessageV0Builder(
-        kNetworkService_SetEnvironment_Name,
-        codec.align(NetworkService_SetEnvironment_Params.encodedSize));
-    builder.encodeStruct(NetworkService_SetEnvironment_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
-  };
   NetworkServicePtr.prototype.setTrustTokenKeyCommitments = function() {
     return NetworkServiceProxy.prototype.setTrustTokenKeyCommitments
         .apply(this.ptr.getProxy(), arguments);
@@ -3582,10 +3571,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkServiceProxy.prototype.updateCtLogList = function(logList, updateTime) {
+  NetworkServiceProxy.prototype.updateCtLogList = function(logList) {
     var params_ = new NetworkService_UpdateCtLogList_Params();
     params_.logList = logList;
-    params_.updateTime = updateTime;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkService_UpdateCtLogList_Name,
@@ -3785,6 +3773,21 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  NetworkServicePtr.prototype.setCookieEncryptionProvider = function() {
+    return NetworkServiceProxy.prototype.setCookieEncryptionProvider
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  NetworkServiceProxy.prototype.setCookieEncryptionProvider = function(provider) {
+    var params_ = new NetworkService_SetCookieEncryptionProvider_Params();
+    params_.provider = provider;
+    var builder = new codec.MessageV0Builder(
+        kNetworkService_SetCookieEncryptionProvider_Name,
+        codec.align(NetworkService_SetCookieEncryptionProvider_Params.encodedSize));
+    builder.encodeStruct(NetworkService_SetCookieEncryptionProvider_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function NetworkServiceStub(delegate) {
     this.delegate_ = delegate;
@@ -3849,9 +3852,6 @@
   NetworkServiceStub.prototype.onPeerToPeerConnectionsCountChange = function(count) {
     return this.delegate_ && this.delegate_.onPeerToPeerConnectionsCountChange && this.delegate_.onPeerToPeerConnectionsCountChange(count);
   }
-  NetworkServiceStub.prototype.setEnvironment = function(environment) {
-    return this.delegate_ && this.delegate_.setEnvironment && this.delegate_.setEnvironment(environment);
-  }
   NetworkServiceStub.prototype.setTrustTokenKeyCommitments = function(rawCommitments) {
     return this.delegate_ && this.delegate_.setTrustTokenKeyCommitments && this.delegate_.setTrustTokenKeyCommitments(rawCommitments);
   }
@@ -3861,8 +3861,8 @@
   NetworkServiceStub.prototype.configureSCTAuditing = function(configuration) {
     return this.delegate_ && this.delegate_.configureSCTAuditing && this.delegate_.configureSCTAuditing(configuration);
   }
-  NetworkServiceStub.prototype.updateCtLogList = function(logList, updateTime) {
-    return this.delegate_ && this.delegate_.updateCtLogList && this.delegate_.updateCtLogList(logList, updateTime);
+  NetworkServiceStub.prototype.updateCtLogList = function(logList) {
+    return this.delegate_ && this.delegate_.updateCtLogList && this.delegate_.updateCtLogList(logList);
   }
   NetworkServiceStub.prototype.updateCtKnownPopularSCTs = function(sctHashes) {
     return this.delegate_ && this.delegate_.updateCtKnownPopularSCTs && this.delegate_.updateCtKnownPopularSCTs(sctHashes);
@@ -3893,6 +3893,9 @@
   }
   NetworkServiceStub.prototype.setIPv6ReachabilityOverride = function(reachabilityOverride) {
     return this.delegate_ && this.delegate_.setIPv6ReachabilityOverride && this.delegate_.setIPv6ReachabilityOverride(reachabilityOverride);
+  }
+  NetworkServiceStub.prototype.setCookieEncryptionProvider = function(provider) {
+    return this.delegate_ && this.delegate_.setCookieEncryptionProvider && this.delegate_.setCookieEncryptionProvider(provider);
   }
 
   NetworkServiceStub.prototype.accept = function(message) {
@@ -3974,10 +3977,6 @@
       var params = reader.decodeStruct(NetworkService_OnPeerToPeerConnectionsCountChange_Params);
       this.onPeerToPeerConnectionsCountChange(params.count);
       return true;
-    case kNetworkService_SetEnvironment_Name:
-      var params = reader.decodeStruct(NetworkService_SetEnvironment_Params);
-      this.setEnvironment(params.environment);
-      return true;
     case kNetworkService_ClearSCTAuditingCache_Name:
       var params = reader.decodeStruct(NetworkService_ClearSCTAuditingCache_Params);
       this.clearSCTAuditingCache();
@@ -4013,6 +4012,10 @@
     case kNetworkService_SetIPv6ReachabilityOverride_Name:
       var params = reader.decodeStruct(NetworkService_SetIPv6ReachabilityOverride_Params);
       this.setIPv6ReachabilityOverride(params.reachabilityOverride);
+      return true;
+    case kNetworkService_SetCookieEncryptionProvider_Name:
+      var params = reader.decodeStruct(NetworkService_SetCookieEncryptionProvider_Params);
+      this.setCookieEncryptionProvider(params.provider);
       return true;
     default:
       return false;
@@ -4056,7 +4059,7 @@
       return true;
     case kNetworkService_UpdateCtLogList_Name:
       var params = reader.decodeStruct(NetworkService_UpdateCtLogList_Params);
-      this.updateCtLogList(params.logList, params.updateTime).then(function(response) {
+      this.updateCtLogList(params.logList).then(function(response) {
         var responseParams =
             new NetworkService_UpdateCtLogList_ResponseParams();
         var builder = new codec.MessageV1Builder(
@@ -4204,10 +4207,6 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = NetworkService_OnPeerToPeerConnectionsCountChange_Params;
       break;
-      case kNetworkService_SetEnvironment_Name:
-        if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = NetworkService_SetEnvironment_Params;
-      break;
       case kNetworkService_SetTrustTokenKeyCommitments_Name:
         if (message.expectsResponse())
           paramsClass = NetworkService_SetTrustTokenKeyCommitments_Params;
@@ -4263,6 +4262,10 @@
       case kNetworkService_SetIPv6ReachabilityOverride_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = NetworkService_SetIPv6ReachabilityOverride_Params;
+      break;
+      case kNetworkService_SetCookieEncryptionProvider_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = NetworkService_SetCookieEncryptionProvider_Params;
       break;
     }
     if (paramsClass === null)

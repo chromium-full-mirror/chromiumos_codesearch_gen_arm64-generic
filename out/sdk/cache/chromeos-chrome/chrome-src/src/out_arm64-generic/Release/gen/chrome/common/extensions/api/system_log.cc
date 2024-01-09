@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/system_log.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ MessageOptions::MessageOptions()
  {}
 
 MessageOptions::~MessageOptions() = default;
-MessageOptions::MessageOptions(MessageOptions&& rhs) = default;
-MessageOptions& MessageOptions::operator=(MessageOptions&& rhs) = default;
+MessageOptions::MessageOptions(MessageOptions&& rhs) noexcept = default;
+MessageOptions& MessageOptions::operator=(MessageOptions&& rhs) noexcept = default;
 MessageOptions MessageOptions::Clone() const {
   MessageOptions out;
   out.message = message;
@@ -72,34 +73,21 @@ bool MessageOptions::Populate(
 }
 
 // static
-std::unique_ptr<MessageOptions> MessageOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MessageOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MessageOptions> MessageOptions::FromValue(const base::Value::Dict& value) {
+  MessageOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MessageOptions> MessageOptions::FromValue(const base::Value::Dict& value) {
+std::optional<MessageOptions> MessageOptions::FromValue(const base::Value& value) {
   MessageOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MessageOptions> MessageOptions::FromValue(const base::Value& value) {
-  MessageOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -123,13 +111,13 @@ namespace Add {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -138,15 +126,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!MessageOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

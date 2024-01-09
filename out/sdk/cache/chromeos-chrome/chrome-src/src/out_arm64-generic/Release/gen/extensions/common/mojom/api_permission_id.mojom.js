@@ -277,8 +277,11 @@
   APIPermissionID.kAccessibilityServicePrivate = 252;
   APIPermissionID.kUserScripts = 253;
   APIPermissionID.kChromeOSBluetoothPeripheralsInfo = 254;
+  APIPermissionID.kEnterpriseKioskInput = 255;
+  APIPermissionID.kOdfsConfigPrivate = 256;
+  APIPermissionID.kChromeOSManagementAudio = 257;
   APIPermissionID.MIN_VALUE = 0;
-  APIPermissionID.MAX_VALUE = 254;
+  APIPermissionID.MAX_VALUE = 257;
 
   APIPermissionID.isKnownEnumValue = function(value) {
     switch (value) {
@@ -537,6 +540,9 @@
     case 252:
     case 253:
     case 254:
+    case 255:
+    case 256:
+    case 257:
       return true;
     }
     return false;

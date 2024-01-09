@@ -10,7 +10,6 @@ import { Uint128Spec as mojoBase_mojom_Uint128Spec } from '//resources/mojo/mojo
 import { TimeDeltaSpec as mojoBase_mojom_TimeDeltaSpec } from '//resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 import { OriginSpec as url_mojom_OriginSpec } from '//resources/mojo/url/mojom/origin.mojom-webui.js';
 import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
-export const DebugKeySpec = { $: {} };
 export const SuitableOriginSpec = { $: {} };
 export const FilterDataSpec = { $: {} };
 export const FilterConfigSpec = { $: {} };
@@ -19,17 +18,14 @@ export const AggregationKeysSpec = { $: {} };
 export const AggregatableTriggerDataSpec = { $: {} };
 export const DestinationSetSpec = { $: {} };
 export const EventReportWindowsSpec = { $: {} };
-export const TriggerConfigSpec = { $: {} };
+export const TriggerSpecSpec = { $: {} };
+export const TriggerSpecsSpec = { $: {} };
 export const SourceRegistrationSpec = { $: {} };
-export const TriggerDedupKeySpec = { $: {} };
 export const EventTriggerDataSpec = { $: {} };
 export const AggregatableDedupKeySpec = { $: {} };
 export const TriggerRegistrationSpec = { $: {} };
 export const OsRegistrationItemSpec = { $: {} };
 export const OsRegistrationSpec = { $: {} };
-mojo.internal.Struct(DebugKeySpec.$, 'DebugKey', [
-    mojo.internal.StructField('value', 0, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
-], [[0, 16],]);
 mojo.internal.Struct(SuitableOriginSpec.$, 'SuitableOrigin', [
     mojo.internal.StructField('origin', 0, 0, url_mojom_OriginSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -59,9 +55,13 @@ mojo.internal.Struct(EventReportWindowsSpec.$, 'EventReportWindows', [
     mojo.internal.StructField('startTime', 0, 0, mojoBase_mojom_TimeDeltaSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('endTimes', 8, 0, mojo.internal.Array(mojoBase_mojom_TimeDeltaSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 24],]);
-mojo.internal.Struct(TriggerConfigSpec.$, 'TriggerConfig', [
-    mojo.internal.StructField('triggerDataMatching', 0, 0, attributionReporting_mojom_TriggerDataMatchingSpec.$, 0, false /* nullable */, 0),
+mojo.internal.Struct(TriggerSpecSpec.$, 'TriggerSpec', [
+    mojo.internal.StructField('eventReportWindows', 0, 0, EventReportWindowsSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(TriggerSpecsSpec.$, 'TriggerSpecs', [
+    mojo.internal.StructField('specs', 0, 0, mojo.internal.Array(TriggerSpecSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('triggerDataIndices', 8, 0, mojo.internal.Map(mojo.internal.Uint32, mojo.internal.Uint8, false), null, false /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(SourceRegistrationSpec.$, 'SourceRegistration', [
     mojo.internal.StructField('destinations', 0, 0, DestinationSetSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('sourceEventId', 8, 0, mojo.internal.Uint64, BigInt('0'), false /* nullable */, 0),
@@ -70,36 +70,67 @@ mojo.internal.Struct(SourceRegistrationSpec.$, 'SourceRegistration', [
     mojo.internal.StructField('aggregatableReportWindow', 32, 0, mojoBase_mojom_TimeDeltaSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('maxEventLevelReports', 40, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('priority', 48, 0, mojo.internal.Int64, BigInt('0'), false /* nullable */, 0),
-    mojo.internal.StructField('debugKey', 56, 0, DebugKeySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('debug_key_$flag', 44, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "debug_key_$value",
+        originalFieldName: "debugKey",
+    }),
+    mojo.internal.StructField('debug_key_$value', 56, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "debugKey",
+    }),
     mojo.internal.StructField('filterData', 64, 0, FilterDataSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('aggregationKeys', 72, 0, AggregationKeysSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('debugReporting', 44, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('triggerConfig', 80, 0, TriggerConfigSpec.$, null, false /* nullable */, 0),
-], [[0, 96],]);
-mojo.internal.Struct(TriggerDedupKeySpec.$, 'TriggerDedupKey', [
-    mojo.internal.StructField('value', 0, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
-], [[0, 16],]);
+    mojo.internal.StructField('debugReporting', 44, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('triggerDataMatching', 80, 0, attributionReporting_mojom_TriggerDataMatchingSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('eventLevelEpsilon', 88, 0, mojo.internal.Double, 0, false /* nullable */, 0),
+], [[0, 104],]);
 mojo.internal.Struct(EventTriggerDataSpec.$, 'EventTriggerData', [
     mojo.internal.StructField('data', 0, 0, mojo.internal.Uint64, BigInt('0'), false /* nullable */, 0),
     mojo.internal.StructField('priority', 8, 0, mojo.internal.Int64, BigInt('0'), false /* nullable */, 0),
-    mojo.internal.StructField('dedupKey', 16, 0, TriggerDedupKeySpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('filters', 24, 0, FilterPairSpec.$, null, false /* nullable */, 0),
-], [[0, 40],]);
+    mojo.internal.StructField('dedup_key_$flag', 16, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "dedup_key_$value",
+        originalFieldName: "dedupKey",
+    }),
+    mojo.internal.StructField('dedup_key_$value', 24, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "dedupKey",
+    }),
+    mojo.internal.StructField('filters', 32, 0, FilterPairSpec.$, null, false /* nullable */, 0),
+], [[0, 48],]);
 mojo.internal.Struct(AggregatableDedupKeySpec.$, 'AggregatableDedupKey', [
-    mojo.internal.StructField('dedupKey', 0, 0, TriggerDedupKeySpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('filters', 8, 0, FilterPairSpec.$, null, false /* nullable */, 0),
-], [[0, 24],]);
+    mojo.internal.StructField('dedup_key_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "dedup_key_$value",
+        originalFieldName: "dedupKey",
+    }),
+    mojo.internal.StructField('dedup_key_$value', 8, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "dedupKey",
+    }),
+    mojo.internal.StructField('filters', 16, 0, FilterPairSpec.$, null, false /* nullable */, 0),
+], [[0, 32],]);
 mojo.internal.Struct(TriggerRegistrationSpec.$, 'TriggerRegistration', [
     mojo.internal.StructField('eventTriggers', 0, 0, mojo.internal.Array(EventTriggerDataSpec.$, false), null, false /* nullable */, 0),
     mojo.internal.StructField('filters', 8, 0, FilterPairSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('aggregatableTriggerData', 16, 0, mojo.internal.Array(AggregatableTriggerDataSpec.$, false), null, false /* nullable */, 0),
     mojo.internal.StructField('aggregatableValues', 24, 0, mojo.internal.Map(mojo.internal.String, mojo.internal.Uint32, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('debugKey', 32, 0, DebugKeySpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('aggregatableDedupKeys', 40, 0, mojo.internal.Array(AggregatableDedupKeySpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('debugReporting', 48, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('debug_key_$flag', 32, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "debug_key_$value",
+        originalFieldName: "debugKey",
+    }),
+    mojo.internal.StructField('debug_key_$value', 40, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "debugKey",
+    }),
+    mojo.internal.StructField('aggregatableDedupKeys', 48, 0, mojo.internal.Array(AggregatableDedupKeySpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('debugReporting', 32, 1, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('aggregationCoordinatorOrigin', 56, 0, SuitableOriginSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('sourceRegistrationTimeConfig', 52, 0, attributionReporting_mojom_SourceRegistrationTimeConfigSpec.$, 0, false /* nullable */, 0),
-], [[0, 72],]);
+    mojo.internal.StructField('sourceRegistrationTimeConfig', 36, 0, attributionReporting_mojom_SourceRegistrationTimeConfigSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('triggerContextId', 64, 0, mojo.internal.String, null, true /* nullable */, 0),
+], [[0, 80],]);
 mojo.internal.Struct(OsRegistrationItemSpec.$, 'OsRegistrationItem', [
     mojo.internal.StructField('url', 0, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('debugReporting', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),

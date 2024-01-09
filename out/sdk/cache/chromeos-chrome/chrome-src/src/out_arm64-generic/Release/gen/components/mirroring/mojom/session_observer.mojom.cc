@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -234,14 +235,17 @@ void SessionObserverProxy::OnError(
                         "<value of type SessionError>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionObserver_OnError_Name, kFlags, 0, 0, nullptr);
@@ -266,14 +270,17 @@ void SessionObserverProxy::DidStart(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mirroring::mojom::SessionObserver::DidStart");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionObserver_DidStart_Name, kFlags, 0, 0, nullptr);
@@ -296,14 +303,17 @@ void SessionObserverProxy::DidStop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mirroring::mojom::SessionObserver::DidStop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionObserver_DidStop_Name, kFlags, 0, 0, nullptr);
@@ -333,14 +343,17 @@ void SessionObserverProxy::LogInfoMessage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionObserver_LogInfoMessage_Name, kFlags, 0, 0, nullptr);
@@ -381,14 +394,17 @@ void SessionObserverProxy::LogErrorMessage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionObserver_LogErrorMessage_Name, kFlags, 0, 0, nullptr);
@@ -422,14 +438,17 @@ void SessionObserverProxy::OnSourceChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mirroring::mojom::SessionObserver::OnSourceChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionObserver_OnSourceChanged_Name, kFlags, 0, 0, nullptr);
@@ -459,14 +478,17 @@ void SessionObserverProxy::OnRemotingStateChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSessionObserver_OnRemotingStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -697,22 +719,22 @@ bool SessionObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSessionObserverValidationInfo[] = {
-    {&internal::SessionObserver_OnError_Params_Data::Validate,
+    { &internal::SessionObserver_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SessionObserver_DidStart_Params_Data::Validate,
+    { &internal::SessionObserver_DidStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SessionObserver_DidStop_Params_Data::Validate,
+    { &internal::SessionObserver_DidStop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SessionObserver_LogInfoMessage_Params_Data::Validate,
+    { &internal::SessionObserver_LogInfoMessage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SessionObserver_LogErrorMessage_Params_Data::Validate,
+    { &internal::SessionObserver_LogErrorMessage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SessionObserver_OnSourceChanged_Params_Data::Validate,
+    { &internal::SessionObserver_OnSourceChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SessionObserver_OnRemotingStateChanged_Params_Data::Validate,
+    { &internal::SessionObserver_OnRemotingStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 

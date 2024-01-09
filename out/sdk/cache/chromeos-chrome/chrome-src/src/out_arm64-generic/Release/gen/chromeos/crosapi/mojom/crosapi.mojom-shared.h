@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chromeos/crosapi/mojom/crosapi.mojom-shared-internal.h"
+#include "chromeos/components/in_session_auth/mojom/in_session_auth.mojom-shared.h"
 #include "chromeos/components/payments/mojom/payment_app.mojom-shared.h"
 #include "chromeos/components/remote_apps/mojom/remote_apps.mojom-shared.h"
 #include "chromeos/components/sensors/mojom/cros_sensor_service.mojom-shared.h"
@@ -39,12 +40,14 @@
 #include "chromeos/crosapi/mojom/guest_os_sk_forwarder.mojom-shared.h"
 #include "chromeos/crosapi/mojom/cert_database.mojom-shared.h"
 #include "chromeos/crosapi/mojom/cert_provisioning.mojom-shared.h"
+#include "chromeos/crosapi/mojom/chaps_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/chrome_app_kiosk_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/clipboard.mojom-shared.h"
 #include "chromeos/crosapi/mojom/clipboard_history.mojom-shared.h"
 #include "chromeos/crosapi/mojom/content_protection.mojom-shared.h"
 #include "chromeos/crosapi/mojom/cros_display_config.mojom-shared.h"
 #include "chromeos/crosapi/mojom/desk.mojom-shared.h"
+#include "chromeos/crosapi/mojom/desk_profiles.mojom-shared.h"
 #include "chromeos/crosapi/mojom/desk_template.mojom-shared.h"
 #include "chromeos/crosapi/mojom/device_attributes.mojom-shared.h"
 #include "chromeos/crosapi/mojom/device_local_account_extension_service.mojom-shared.h"
@@ -76,9 +79,9 @@
 #include "chromeos/crosapi/mojom/identity_manager.mojom-shared.h"
 #include "chromeos/crosapi/mojom/idle_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/image_writer.mojom-shared.h"
-#include "chromeos/crosapi/mojom/in_session_auth.mojom-shared.h"
 #include "chromeos/crosapi/mojom/kerberos_in_browser.mojom-shared.h"
 #include "chromeos/crosapi/mojom/keystore_service.mojom-shared.h"
+#include "chromeos/crosapi/mojom/lacros_shelf_item_tracker.mojom-shared.h"
 #include "chromeos/crosapi/mojom/launcher_search.mojom-shared.h"
 #include "chromeos/crosapi/mojom/local_printer.mojom-shared.h"
 #include "chromeos/crosapi/mojom/login.mojom-shared.h"
@@ -97,6 +100,7 @@
 #include "chromeos/crosapi/mojom/power.mojom-shared.h"
 #include "chromeos/crosapi/mojom/network_settings_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/parent_access.mojom-shared.h"
+#include "chromeos/crosapi/mojom/passkeys.mojom-shared.h"
 #include "chromeos/crosapi/mojom/prefs.mojom-shared.h"
 #include "chromeos/crosapi/mojom/printing_metrics.mojom-shared.h"
 #include "chromeos/crosapi/mojom/probe_service.mojom-shared.h"
@@ -114,6 +118,7 @@
 #include "chromeos/crosapi/mojom/task_manager.mojom-shared.h"
 #include "chromeos/crosapi/mojom/telemetry_diagnostic_routine_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/telemetry_event_service.mojom-shared.h"
+#include "chromeos/crosapi/mojom/telemetry_management_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/test_controller.mojom-shared.h"
 #include "chromeos/crosapi/mojom/timezone.mojom-shared.h"
 #include "chromeos/crosapi/mojom/tts.mojom-shared.h"
@@ -158,6 +163,8 @@ class DefaultPathsDataView;
 
 class DevicePropertiesDataView;
 
+class EntropySourceDataView;
+
 class BrowserInitParamsDataView;
 
 class BrowserPostLoginParamsDataView;
@@ -188,6 +195,13 @@ struct MojomTypeTraits<::crosapi::mojom::DefaultPathsDataView> {
 template <>
 struct MojomTypeTraits<::crosapi::mojom::DevicePropertiesDataView> {
   using Data = ::crosapi::mojom::internal::DeviceProperties_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::EntropySourceDataView> {
+  using Data = ::crosapi::mojom::internal::EntropySource_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -1063,7 +1077,7 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  absl::optional<bool> has_stylus_enabled_touchscreen() const {
+  std::optional<bool> has_stylus_enabled_touchscreen() const {
     if (data_->header_.version < 4) {
       return absl::nullopt;
     }
@@ -1075,6 +1089,30 @@ static_assert(
  private:
   internal::DeviceProperties_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class EntropySourceDataView {
+ public:
+  EntropySourceDataView() = default;
+
+  EntropySourceDataView(
+      internal::EntropySource_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int32_t low_entropy() const {
+    return data_->low_entropy;
+  }
+  int32_t old_low_entropy() const {
+    return data_->old_low_entropy;
+  }
+  int32_t pseudo_low_entropy() const {
+    return data_->pseudo_low_entropy;
+  }
+ private:
+  internal::EntropySource_Data* data_ = nullptr;
 };
 
 
@@ -1325,20 +1363,20 @@ static_assert(
     return mojo::internal::Deserialize<::crosapi::mojom::AccountDataView>(
         pointer, output, message_);
   }
-  bool web_apps_enabled() const {
+  bool REMOVED_17() const {
     if (data_->header_.version < 17)
       return bool{};
-    return data_->web_apps_enabled;
+    return data_->REMOVED_17;
   }
   bool REMOVED_18() const {
     if (data_->header_.version < 18)
       return bool{};
     return data_->REMOVED_18;
   }
-  bool standalone_browser_is_primary() const {
+  bool REMOVED_19() const {
     if (data_->header_.version < 19)
       return bool{};
-    return data_->standalone_browser_is_primary;
+    return data_->REMOVED_19;
   }
   inline void GetNativeThemeInfoDataView(
       ::crosapi::mojom::NativeThemeInfoDataView* output);
@@ -1479,10 +1517,10 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  bool standalone_browser_is_only_browser() const {
+  bool REMOVED_27() const {
     if (data_->header_.version < 27)
       return bool{};
-    return data_->standalone_browser_is_only_browser;
+    return data_->REMOVED_27;
   }
   bool publish_chrome_apps() const {
     if (data_->header_.version < 28)
@@ -1711,10 +1749,10 @@ static_assert(
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::crosapi::mojom::BrowserInitParams_LacrosSelection>(data_->lacros_selection));
   }
-  bool enable_window_layout_menu() const {
+  bool REMOVED_51() const {
     if (data_->header_.version < 51)
       return bool{};
-    return data_->enable_window_layout_menu;
+    return data_->REMOVED_51;
   }
   bool is_cloud_gaming_device() const {
     if (data_->header_.version < 52)
@@ -1755,10 +1793,10 @@ static_assert(
     return mojo::internal::Deserialize<::crosapi::mojom::ExtensionKeepListDataView>(
         pointer, output, message_);
   }
-  bool enable_partial_split_deprecated() const {
+  bool REMOVED_55() const {
     if (data_->header_.version < 55)
       return bool{};
-    return data_->enable_partial_split_deprecated;
+    return data_->REMOVED_55;
   }
   bool vc_controls_ui_enabled() const {
     if (data_->header_.version < 56)
@@ -1860,6 +1898,37 @@ static_assert(
     if (data_->header_.version < 72)
       return bool{};
     return data_->is_cros_web_app_shortcut_ui_update_enabled;
+  }
+  inline void GetEntropySourceDataView(
+      EntropySourceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEntropySource(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::crosapi::mojom::EntropySourceDataView, UserType>(),
+    "Attempting to read the optional `entropy_source` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadEntropySource` instead "
+    "of `ReadEntropySource if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 73
+                    ? data_->entropy_source.Get() : nullptr;
+    return mojo::internal::Deserialize<::crosapi::mojom::EntropySourceDataView>(
+        pointer, output, message_);
+  }
+  bool is_cros_shortstand_enabled() const {
+    if (data_->header_.version < 74)
+      return bool{};
+    return data_->is_cros_shortstand_enabled;
+  }
+  bool should_disable_chrome_compose_on_chromeos() const {
+    if (data_->header_.version < 75)
+      return bool{};
+    return data_->should_disable_chrome_compose_on_chromeos;
   }
  private:
   internal::BrowserInitParams_Data* data_ = nullptr;
@@ -2000,11 +2069,11 @@ static_assert(
     return mojo::internal::Deserialize<::crosapi::mojom::AccountDataView>(
         pointer, output, message_);
   }
-  bool web_apps_enabled() const {
-    return data_->web_apps_enabled;
+  bool REMOVED_8() const {
+    return data_->REMOVED_8;
   }
-  bool standalone_browser_is_primary() const {
-    return data_->standalone_browser_is_primary;
+  bool REMOVED_9() const {
+    return data_->REMOVED_9;
   }
   template <typename UserType>
   [[nodiscard]] bool ReadStartupUrlsFrom(UserType* output) const {
@@ -2036,8 +2105,8 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
         pointer, output, message_);
   }
-  bool standalone_browser_is_only_browser() const {
-    return data_->standalone_browser_is_only_browser;
+  bool REMOVED_12() const {
+    return data_->REMOVED_12;
   }
   bool publish_chrome_apps() const {
     return data_->publish_chrome_apps;
@@ -2781,6 +2850,38 @@ struct Serializer<::crosapi::mojom::DevicePropertiesDataView, MaybeConstUserType
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::EntropySourceDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::EntropySourceDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::EntropySource_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->low_entropy = Traits::low_entropy(input);
+    fragment->old_low_entropy = Traits::old_low_entropy(input);
+    fragment->pseudo_low_entropy = Traits::pseudo_low_entropy(input);
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::EntropySource_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::EntropySourceDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::crosapi::mojom::BrowserInitParamsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::crosapi::mojom::BrowserInitParamsDataView, UserType>;
@@ -2866,9 +2967,9 @@ struct Serializer<::crosapi::mojom::BrowserInitParamsDataView, MaybeConstUserTyp
         in_device_account, device_account_fragment);
     fragment->device_account.Set(
         device_account_fragment.is_null() ? nullptr : device_account_fragment.data());
-    fragment->web_apps_enabled = Traits::web_apps_enabled(input);
+    fragment->REMOVED_17 = Traits::REMOVED_17(input);
     fragment->REMOVED_18 = Traits::REMOVED_18(input);
-    fragment->standalone_browser_is_primary = Traits::standalone_browser_is_primary(input);
+    fragment->REMOVED_19 = Traits::REMOVED_19(input);
     decltype(Traits::native_theme_info(input)) in_native_theme_info = Traits::native_theme_info(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->native_theme_info)::BaseType> native_theme_info_fragment(
@@ -2923,7 +3024,7 @@ struct Serializer<::crosapi::mojom::BrowserInitParamsDataView, MaybeConstUserTyp
         in_metrics_service_client_id, metrics_service_client_id_fragment);
     fragment->metrics_service_client_id.Set(
         metrics_service_client_id_fragment.is_null() ? nullptr : metrics_service_client_id_fragment.data());
-    fragment->standalone_browser_is_only_browser = Traits::standalone_browser_is_only_browser(input);
+    fragment->REMOVED_27 = Traits::REMOVED_27(input);
     fragment->publish_chrome_apps = Traits::publish_chrome_apps(input);
     mojo::internal::Serialize<::crosapi::mojom::BrowserInitParams_InitialKeepAlive>(
         Traits::initial_keep_alive(input), &fragment->initial_keep_alive);
@@ -2994,7 +3095,7 @@ struct Serializer<::crosapi::mojom::BrowserInitParamsDataView, MaybeConstUserTyp
     fragment->enable_lacros_tts_support = Traits::enable_lacros_tts_support(input);
     mojo::internal::Serialize<::crosapi::mojom::BrowserInitParams_LacrosSelection>(
         Traits::lacros_selection(input), &fragment->lacros_selection);
-    fragment->enable_window_layout_menu = Traits::enable_window_layout_menu(input);
+    fragment->REMOVED_51 = Traits::REMOVED_51(input);
     fragment->is_cloud_gaming_device = Traits::is_cloud_gaming_device(input);
     mojo::internal::Serialize<::crosapi::mojom::BrowserInitParams_GpuSandboxStartMode>(
         Traits::gpu_sandbox_start_mode(input), &fragment->gpu_sandbox_start_mode);
@@ -3006,7 +3107,7 @@ struct Serializer<::crosapi::mojom::BrowserInitParamsDataView, MaybeConstUserTyp
         in_extension_keep_list, extension_keep_list_fragment);
     fragment->extension_keep_list.Set(
         extension_keep_list_fragment.is_null() ? nullptr : extension_keep_list_fragment.data());
-    fragment->enable_partial_split_deprecated = Traits::enable_partial_split_deprecated(input);
+    fragment->REMOVED_55 = Traits::REMOVED_55(input);
     fragment->vc_controls_ui_enabled = Traits::vc_controls_ui_enabled(input);
     decltype(Traits::standalone_browser_app_service_blocklist(input)) in_standalone_browser_app_service_blocklist = Traits::standalone_browser_app_service_blocklist(input);
     mojo::internal::MessageFragment<
@@ -3031,6 +3132,16 @@ struct Serializer<::crosapi::mojom::BrowserInitParamsDataView, MaybeConstUserTyp
     fragment->is_app_install_service_uri_enabled = Traits::is_app_install_service_uri_enabled(input);
     fragment->is_desk_profiles_enabled = Traits::is_desk_profiles_enabled(input);
     fragment->is_cros_web_app_shortcut_ui_update_enabled = Traits::is_cros_web_app_shortcut_ui_update_enabled(input);
+    decltype(Traits::entropy_source(input)) in_entropy_source = Traits::entropy_source(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->entropy_source)::BaseType> entropy_source_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::crosapi::mojom::EntropySourceDataView>(
+        in_entropy_source, entropy_source_fragment);
+    fragment->entropy_source.Set(
+        entropy_source_fragment.is_null() ? nullptr : entropy_source_fragment.data());
+    fragment->is_cros_shortstand_enabled = Traits::is_cros_shortstand_enabled(input);
+    fragment->should_disable_chrome_compose_on_chromeos = Traits::should_disable_chrome_compose_on_chromeos(input);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::BrowserInitParams_Data* input,
@@ -3107,8 +3218,8 @@ struct Serializer<::crosapi::mojom::BrowserPostLoginParamsDataView, MaybeConstUs
         in_device_account, device_account_fragment);
     fragment->device_account.Set(
         device_account_fragment.is_null() ? nullptr : device_account_fragment.data());
-    fragment->web_apps_enabled = Traits::web_apps_enabled(input);
-    fragment->standalone_browser_is_primary = Traits::standalone_browser_is_primary(input);
+    fragment->REMOVED_8 = Traits::REMOVED_8(input);
+    fragment->REMOVED_9 = Traits::REMOVED_9(input);
     mojo::internal::Serialize<::crosapi::mojom::OpenUrlFrom>(
         Traits::startup_urls_from(input), &fragment->startup_urls_from);
     decltype(Traits::REMOVED_11(input)) in_REMOVED_11 = Traits::REMOVED_11(input);
@@ -3121,7 +3232,7 @@ struct Serializer<::crosapi::mojom::BrowserPostLoginParamsDataView, MaybeConstUs
         in_REMOVED_11, REMOVED_11_fragment, &REMOVED_11_validate_params);
     fragment->REMOVED_11.Set(
         REMOVED_11_fragment.is_null() ? nullptr : REMOVED_11_fragment.data());
-    fragment->standalone_browser_is_only_browser = Traits::standalone_browser_is_only_browser(input);
+    fragment->REMOVED_12 = Traits::REMOVED_12(input);
     fragment->publish_chrome_apps = Traits::publish_chrome_apps(input);
     fragment->publish_hosted_apps = Traits::publish_hosted_apps(input);
     decltype(Traits::device_account_component_policy(input)) in_device_account_component_policy = Traits::device_account_component_policy(input);
@@ -3315,6 +3426,8 @@ inline void DevicePropertiesDataView::GetHostnameDataView(
 }
 
 
+
+
 inline void BrowserInitParamsDataView::GetInterfaceVersionsDataView(
     mojo::MapDataView<::mojo_base::mojom::TokenDataView, uint32_t>* output) {
   auto pointer = data_->header_.version >= 5
@@ -3434,6 +3547,12 @@ inline void BrowserInitParamsDataView::GetStandaloneBrowserAppServiceBlocklistDa
   auto pointer = data_->header_.version >= 57
                  ? data_->standalone_browser_app_service_blocklist.Get() : nullptr;
   *output = ::crosapi::mojom::StandaloneBrowserAppServiceBlockListDataView(pointer, message_);
+}
+inline void BrowserInitParamsDataView::GetEntropySourceDataView(
+    EntropySourceDataView* output) {
+  auto pointer = data_->header_.version >= 73
+                 ? data_->entropy_source.Get() : nullptr;
+  *output = EntropySourceDataView(pointer, message_);
 }
 
 

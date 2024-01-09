@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FileWriterSync>::value,
     "FileWriterSync inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FileWriterSync::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FileWriterSync is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriterSync.position.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(v8_receiver);
+FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->position();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileWriterSync.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(v8_receiver);
+FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -126,7 +123,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(v8_receiver);
+FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_position = NativeValueTraits<IDLLongLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -159,7 +156,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(v8_receiver);
+FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_size = NativeValueTraits<IDLLongLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -192,7 +189,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(v8_receiver);
+FileWriterSync* blink_receiver = V8FileWriterSync::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -157,70 +158,6 @@ bool SensorInitParams::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-NullableDouble::NullableDouble()
-    : value() {}
-
-NullableDouble::NullableDouble(
-    double value_in)
-    : value(std::move(value_in)) {}
-
-NullableDouble::~NullableDouble() = default;
-size_t NullableDouble::Hash(size_t seed) const {
-  seed = mojo::internal::WTFHash(seed, this->value);
-  return seed;
-}
-
-void NullableDouble::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "value"), this->value,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type double>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool NullableDouble::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-NullableReportingMode::NullableReportingMode()
-    : value() {}
-
-NullableReportingMode::NullableReportingMode(
-    ::device::mojom::blink::ReportingMode value_in)
-    : value(std::move(value_in)) {}
-
-NullableReportingMode::~NullableReportingMode() = default;
-size_t NullableReportingMode::Hash(size_t seed) const {
-  seed = mojo::internal::WTFHash(seed, this->value);
-  return seed;
-}
-
-void NullableReportingMode::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "value"), this->value,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::device::mojom::blink::ReportingMode>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool NullableReportingMode::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 VirtualSensorMetadata::VirtualSensorMetadata()
     : available(true),
       maximum_frequency(),
@@ -229,9 +166,9 @@ VirtualSensorMetadata::VirtualSensorMetadata()
 
 VirtualSensorMetadata::VirtualSensorMetadata(
     bool available_in,
-    NullableDoublePtr maximum_frequency_in,
-    NullableDoublePtr minimum_frequency_in,
-    NullableReportingModePtr reporting_mode_in)
+    std::optional<double> maximum_frequency_in,
+    std::optional<double> minimum_frequency_in,
+    std::optional<::device::mojom::blink::ReportingMode> reporting_mode_in)
     : available(std::move(available_in)),
       maximum_frequency(std::move(maximum_frequency_in)),
       minimum_frequency(std::move(minimum_frequency_in)),
@@ -255,7 +192,7 @@ void VirtualSensorMetadata::WriteIntoTrace(
     dict.AddItem(
       "maximum_frequency"), this->maximum_frequency,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type NullableDoublePtr>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -264,7 +201,7 @@ void VirtualSensorMetadata::WriteIntoTrace(
     dict.AddItem(
       "minimum_frequency"), this->minimum_frequency,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type NullableDoublePtr>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -273,7 +210,7 @@ void VirtualSensorMetadata::WriteIntoTrace(
     dict.AddItem(
       "reporting_mode"), this->reporting_mode,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type NullableReportingModePtr>"
+      "<value of type std::optional<::device::mojom::blink::ReportingMode>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -608,14 +545,17 @@ void SensorProviderProxy::GetSensor(
                         "<value of type ::device::mojom::blink::SensorType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_GetSensor_Name, kFlags, 0, 0, nullptr);
@@ -651,14 +591,17 @@ void SensorProviderProxy::CreateVirtualSensor(
                         "<value of type VirtualSensorMetadataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_CreateVirtualSensor_Name, kFlags, 0, 0, nullptr);
@@ -705,14 +648,17 @@ void SensorProviderProxy::UpdateVirtualSensor(
                         "<value of type ::device::mojom::blink::SensorReadingRawPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_UpdateVirtualSensor_Name, kFlags, 0, 0, nullptr);
@@ -756,14 +702,17 @@ void SensorProviderProxy::RemoveVirtualSensor(
                         "<value of type ::device::mojom::blink::SensorType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_RemoveVirtualSensor_Name, kFlags, 0, 0, nullptr);
@@ -796,14 +745,17 @@ void SensorProviderProxy::GetVirtualSensorInformation(
                         "<value of type ::device::mojom::blink::SensorType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_GetVirtualSensorInformation_Name, kFlags, 0, 0, nullptr);
@@ -922,7 +874,8 @@ void SensorProvider_GetSensor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_GetSensor_Name, kFlags, 0, 0, nullptr);
@@ -1048,7 +1001,8 @@ void SensorProvider_CreateVirtualSensor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_CreateVirtualSensor_Name, kFlags, 0, 0, nullptr);
@@ -1167,7 +1121,8 @@ void SensorProvider_UpdateVirtualSensor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_UpdateVirtualSensor_Name, kFlags, 0, 0, nullptr);
@@ -1275,7 +1230,8 @@ void SensorProvider_RemoveVirtualSensor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_RemoveVirtualSensor_Name, kFlags, 0, 0, nullptr);
@@ -1392,7 +1348,8 @@ void SensorProvider_GetVirtualSensorInformation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSensorProvider_GetVirtualSensorInformation_Name, kFlags, 0, 0, nullptr);
@@ -1616,18 +1573,18 @@ std::move(p_type), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSensorProviderValidationInfo[] = {
-    {&internal::SensorProvider_GetSensor_Params_Data::Validate,
+    { &internal::SensorProvider_GetSensor_Params_Data::Validate,
      &internal::SensorProvider_GetSensor_ResponseParams_Data::Validate},
-    {&internal::SensorProvider_CreateVirtualSensor_Params_Data::Validate,
+    { &internal::SensorProvider_CreateVirtualSensor_Params_Data::Validate,
      &internal::SensorProvider_CreateVirtualSensor_ResponseParams_Data::Validate},
-    {&internal::SensorProvider_UpdateVirtualSensor_Params_Data::Validate,
+    { &internal::SensorProvider_UpdateVirtualSensor_Params_Data::Validate,
      &internal::SensorProvider_UpdateVirtualSensor_ResponseParams_Data::Validate},
-    {&internal::SensorProvider_RemoveVirtualSensor_Params_Data::Validate,
+    { &internal::SensorProvider_RemoveVirtualSensor_Params_Data::Validate,
      &internal::SensorProvider_RemoveVirtualSensor_ResponseParams_Data::Validate},
-    {&internal::SensorProvider_GetVirtualSensorInformation_Params_Data::Validate,
+    { &internal::SensorProvider_GetVirtualSensorInformation_Params_Data::Validate,
      &internal::SensorProvider_GetVirtualSensorInformation_ResponseParams_Data::Validate},
 };
 
@@ -1681,34 +1638,6 @@ bool StructTraits<::device::mojom::blink::SensorInitParams::DataView, ::device::
 
 
 // static
-bool StructTraits<::device::mojom::blink::NullableDouble::DataView, ::device::mojom::blink::NullableDoublePtr>::Read(
-    ::device::mojom::blink::NullableDouble::DataView input,
-    ::device::mojom::blink::NullableDoublePtr* output) {
-  bool success = true;
-  ::device::mojom::blink::NullableDoublePtr result(::device::mojom::blink::NullableDouble::New());
-  
-      if (success)
-        result->value = input.value();
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::device::mojom::blink::NullableReportingMode::DataView, ::device::mojom::blink::NullableReportingModePtr>::Read(
-    ::device::mojom::blink::NullableReportingMode::DataView input,
-    ::device::mojom::blink::NullableReportingModePtr* output) {
-  bool success = true;
-  ::device::mojom::blink::NullableReportingModePtr result(::device::mojom::blink::NullableReportingMode::New());
-  
-      if (success && !input.ReadValue(&result->value))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
 bool StructTraits<::device::mojom::blink::VirtualSensorMetadata::DataView, ::device::mojom::blink::VirtualSensorMetadataPtr>::Read(
     ::device::mojom::blink::VirtualSensorMetadata::DataView input,
     ::device::mojom::blink::VirtualSensorMetadataPtr* output) {
@@ -1717,12 +1646,15 @@ bool StructTraits<::device::mojom::blink::VirtualSensorMetadata::DataView, ::dev
   
       if (success)
         result->available = input.available();
-      if (success && !input.ReadMaximumFrequency(&result->maximum_frequency))
+      if (success) {
+        result->maximum_frequency = input.maximum_frequency();
+      }
+      if (success) {
+        result->minimum_frequency = input.minimum_frequency();
+      }
+      if (success && !input.ReadReportingMode(&result->reporting_mode)) {
         success = false;
-      if (success && !input.ReadMinimumFrequency(&result->minimum_frequency))
-        success = false;
-      if (success && !input.ReadReportingMode(&result->reporting_mode))
-        success = false;
+      }
   *output = std::move(result);
   return success;
 }

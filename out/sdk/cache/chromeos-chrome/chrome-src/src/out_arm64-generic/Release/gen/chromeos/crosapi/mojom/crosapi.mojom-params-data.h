@@ -192,6 +192,23 @@ class  Crosapi_BindBrowserServiceHost_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindBrowserServiceHost_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindBrowserServiceHost_Params_Data)");
+class  Crosapi_BindBrowserShortcutPublisher_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindBrowserShortcutPublisher_Params_Data>;
+
+  Crosapi_BindBrowserShortcutPublisher_Params_Data();
+  ~Crosapi_BindBrowserShortcutPublisher_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindBrowserShortcutPublisher_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindBrowserShortcutPublisher_Params_Data)");
 class  Crosapi_BindBrowserCdmFactory_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -242,6 +259,23 @@ class  Crosapi_BindCertProvisioning_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindCertProvisioning_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindCertProvisioning_Params_Data)");
+class  Crosapi_BindChapsService_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindChapsService_Params_Data>;
+
+  Crosapi_BindChapsService_Params_Data();
+  ~Crosapi_BindChapsService_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindChapsService_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindChapsService_Params_Data)");
 class  Crosapi_BindChromeAppPublisher_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -361,6 +395,23 @@ class  Crosapi_BindDesk_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindDesk_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindDesk_Params_Data)");
+class  Crosapi_BindDeskProfileObserver_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindDeskProfileObserver_Params_Data>;
+
+  Crosapi_BindDeskProfileObserver_Params_Data();
+  ~Crosapi_BindDeskProfileObserver_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindDeskProfileObserver_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindDeskProfileObserver_Params_Data)");
 class  Crosapi_BindDeskTemplate_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -922,6 +973,23 @@ class  Crosapi_BindKeystoreService_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindKeystoreService_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindKeystoreService_Params_Data)");
+class  Crosapi_BindLacrosShelfItemTracker_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindLacrosShelfItemTracker_Params_Data>;
+
+  Crosapi_BindLacrosShelfItemTracker_Params_Data();
+  ~Crosapi_BindLacrosShelfItemTracker_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindLacrosShelfItemTracker_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindLacrosShelfItemTracker_Params_Data)");
 class  Crosapi_BindLacrosAppPublisher_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1177,6 +1245,23 @@ class  Crosapi_BindParentAccess_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindParentAccess_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindParentAccess_Params_Data)");
+class  Crosapi_BindPasskeyAuthenticator_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindPasskeyAuthenticator_Params_Data>;
+
+  Crosapi_BindPasskeyAuthenticator_Params_Data();
+  ~Crosapi_BindPasskeyAuthenticator_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindPasskeyAuthenticator_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindPasskeyAuthenticator_Params_Data)");
 class  Crosapi_BindPaymentAppInstance_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1701,6 +1786,23 @@ class  Crosapi_BindTelemetryEventService_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindTelemetryEventService_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindTelemetryEventService_Params_Data)");
+class  Crosapi_BindTelemetryManagementService_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindTelemetryManagementService_Params_Data>;
+
+  Crosapi_BindTelemetryManagementService_Params_Data();
+  ~Crosapi_BindTelemetryManagementService_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindTelemetryManagementService_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindTelemetryManagementService_Params_Data)");
 class  Crosapi_BindTelemetryProbeService_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2113,8 +2215,10 @@ class  BrowserService_NewWindow_Params_Data {
   mojo::internal::StructHeader header_;
   uint8_t incognito : 1;
   uint8_t should_trigger_session_restore : 1;
-  uint8_t pad1_[7];
+  uint8_t profile_id_$flag : 1;
+  uint8_t pad2_[7];
   int64_t target_display_id;
+  uint64_t profile_id_$value;
 
  private:
   friend class mojo::internal::MessageFragment<BrowserService_NewWindow_Params_Data>;
@@ -2122,7 +2226,7 @@ class  BrowserService_NewWindow_Params_Data {
   BrowserService_NewWindow_Params_Data();
   ~BrowserService_NewWindow_Params_Data() = delete;
 };
-static_assert(sizeof(BrowserService_NewWindow_Params_Data) == 24,
+static_assert(sizeof(BrowserService_NewWindow_Params_Data) == 32,
               "Bad sizeof(BrowserService_NewWindow_Params_Data)");
 class  BrowserService_NewWindow_ResponseParams_Data {
  public:
@@ -2588,6 +2692,9 @@ class  BrowserService_Launch_Params_Data {
 
   mojo::internal::StructHeader header_;
   int64_t target_display_id;
+  uint8_t profile_id_$flag : 1;
+  uint8_t pad1_[7];
+  uint64_t profile_id_$value;
 
  private:
   friend class mojo::internal::MessageFragment<BrowserService_Launch_Params_Data>;
@@ -2595,7 +2702,7 @@ class  BrowserService_Launch_Params_Data {
   BrowserService_Launch_Params_Data();
   ~BrowserService_Launch_Params_Data() = delete;
 };
-static_assert(sizeof(BrowserService_Launch_Params_Data) == 16,
+static_assert(sizeof(BrowserService_Launch_Params_Data) == 32,
               "Bad sizeof(BrowserService_Launch_Params_Data)");
 class  BrowserService_Launch_ResponseParams_Data {
  public:
@@ -2614,6 +2721,21 @@ class  BrowserService_Launch_ResponseParams_Data {
 };
 static_assert(sizeof(BrowserService_Launch_ResponseParams_Data) == 16,
               "Bad sizeof(BrowserService_Launch_ResponseParams_Data)");
+class  BrowserService_OpenProfileManager_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<BrowserService_OpenProfileManager_Params_Data>;
+
+  BrowserService_OpenProfileManager_Params_Data();
+  ~BrowserService_OpenProfileManager_Params_Data() = delete;
+};
+static_assert(sizeof(BrowserService_OpenProfileManager_Params_Data) == 8,
+              "Bad sizeof(BrowserService_OpenProfileManager_Params_Data)");
 class  BrowserServiceHost_AddBrowserService_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2899,6 +3021,31 @@ class Crosapi_BindBrowserServiceHost_ParamsDataView {
 };
 
 
+class Crosapi_BindBrowserShortcutPublisher_ParamsDataView {
+ public:
+  Crosapi_BindBrowserShortcutPublisher_ParamsDataView() = default;
+
+  Crosapi_BindBrowserShortcutPublisher_ParamsDataView(
+      internal::Crosapi_BindBrowserShortcutPublisher_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::AppShortcutPublisherInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindBrowserShortcutPublisher_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class Crosapi_BindBrowserCdmFactory_ParamsDataView {
  public:
   Crosapi_BindBrowserCdmFactory_ParamsDataView() = default;
@@ -2971,6 +3118,31 @@ class Crosapi_BindCertProvisioning_ParamsDataView {
   }
  private:
   internal::Crosapi_BindCertProvisioning_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Crosapi_BindChapsService_ParamsDataView {
+ public:
+  Crosapi_BindChapsService_ParamsDataView() = default;
+
+  Crosapi_BindChapsService_ParamsDataView(
+      internal::Crosapi_BindChapsService_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::ChapsServiceInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindChapsService_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -3146,6 +3318,31 @@ class Crosapi_BindDesk_ParamsDataView {
   }
  private:
   internal::Crosapi_BindDesk_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Crosapi_BindDeskProfileObserver_ParamsDataView {
+ public:
+  Crosapi_BindDeskProfileObserver_ParamsDataView() = default;
+
+  Crosapi_BindDeskProfileObserver_ParamsDataView(
+      internal::Crosapi_BindDeskProfileObserver_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::DeskProfileObserverInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindDeskProfileObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -3889,7 +4086,7 @@ class Crosapi_BindInSessionAuth_ParamsDataView {
   UserType TakeReceiver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::InSessionAuthInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::chromeos::auth::mojom::InSessionAuthInterfaceBase>>(
             &data_->receiver, &result, message_);
     DCHECK(ret);
     return result;
@@ -3971,6 +4168,31 @@ class Crosapi_BindKeystoreService_ParamsDataView {
   }
  private:
   internal::Crosapi_BindKeystoreService_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Crosapi_BindLacrosShelfItemTracker_ParamsDataView {
+ public:
+  Crosapi_BindLacrosShelfItemTracker_ParamsDataView() = default;
+
+  Crosapi_BindLacrosShelfItemTracker_ParamsDataView(
+      internal::Crosapi_BindLacrosShelfItemTracker_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::LacrosShelfItemTrackerInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindLacrosShelfItemTracker_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -4346,6 +4568,31 @@ class Crosapi_BindParentAccess_ParamsDataView {
   }
  private:
   internal::Crosapi_BindParentAccess_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Crosapi_BindPasskeyAuthenticator_ParamsDataView {
+ public:
+  Crosapi_BindPasskeyAuthenticator_ParamsDataView() = default;
+
+  Crosapi_BindPasskeyAuthenticator_ParamsDataView(
+      internal::Crosapi_BindPasskeyAuthenticator_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::PasskeyAuthenticatorInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindPasskeyAuthenticator_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -5126,6 +5373,31 @@ class Crosapi_BindTelemetryEventService_ParamsDataView {
 };
 
 
+class Crosapi_BindTelemetryManagementService_ParamsDataView {
+ public:
+  Crosapi_BindTelemetryManagementService_ParamsDataView() = default;
+
+  Crosapi_BindTelemetryManagementService_ParamsDataView(
+      internal::Crosapi_BindTelemetryManagementService_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::TelemetryManagementServiceInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindTelemetryManagementService_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class Crosapi_BindTelemetryProbeService_ParamsDataView {
  public:
   Crosapi_BindTelemetryProbeService_ParamsDataView() = default;
@@ -5742,6 +6014,15 @@ class BrowserService_NewWindow_ParamsDataView {
     if (data_->header_.version < 72)
       return int64_t{};
     return data_->target_display_id;
+  }
+  std::optional<uint64_t> profile_id() const {
+    if (data_->header_.version < 75) {
+      return absl::nullopt;
+    }
+
+    return data_->profile_id_$flag
+        ? absl::make_optional(data_->profile_id_$value)
+        : absl::nullopt;
   }
  private:
   internal::BrowserService_NewWindow_Params_Data* data_ = nullptr;
@@ -6450,6 +6731,15 @@ class BrowserService_Launch_ParamsDataView {
       return int64_t{};
     return data_->target_display_id;
   }
+  std::optional<uint64_t> profile_id() const {
+    if (data_->header_.version < 75) {
+      return absl::nullopt;
+    }
+
+    return data_->profile_id_$flag
+        ? absl::make_optional(data_->profile_id_$value)
+        : absl::nullopt;
+  }
  private:
   internal::BrowserService_Launch_Params_Data* data_ = nullptr;
 };
@@ -6480,6 +6770,21 @@ class BrowserService_Launch_ResponseParamsDataView {
   }
  private:
   internal::BrowserService_Launch_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class BrowserService_OpenProfileManager_ParamsDataView {
+ public:
+  BrowserService_OpenProfileManager_ParamsDataView() = default;
+
+  BrowserService_OpenProfileManager_ParamsDataView(
+      internal::BrowserService_OpenProfileManager_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::BrowserService_OpenProfileManager_Params_Data* data_ = nullptr;
 };
 
 
@@ -6542,11 +6847,21 @@ class BrowserServiceHost_RequestRelaunch_ParamsDataView {
 
 
 
+
+
 inline void Crosapi_BindBrowserCdmFactory_ParamsDataView::GetReceiverDataView(
     ::mojo_base::mojom::GenericPendingReceiverDataView* output) {
   auto pointer = data_->receiver.Get();
   *output = ::mojo_base::mojom::GenericPendingReceiverDataView(pointer, message_);
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -6770,6 +7085,8 @@ inline void Crosapi_BindStableVideoDecoderFactory_ParamsDataView::GetReceiverDat
 
 
 
+
+
 inline void Crosapi_OnBrowserStartup_ParamsDataView::GetBrowserInfoDataView(
     BrowserInfoDataView* output) {
   auto pointer = data_->browser_info.Get();
@@ -6905,6 +7222,8 @@ inline void BrowserService_UpdateComponentPolicy_ParamsDataView::GetComponentPol
   auto pointer = data_->component_policy.Get();
   *output = mojo::MapDataView<::crosapi::mojom::PolicyNamespaceDataView, ::mojo_base::mojom::ValueDataView>(pointer, message_);
 }
+
+
 
 
 

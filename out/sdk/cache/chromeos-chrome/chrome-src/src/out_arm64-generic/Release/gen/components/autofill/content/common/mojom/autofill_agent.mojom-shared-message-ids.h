@@ -43,6 +43,7 @@ constexpr uint32_t kPasswordAutofillAgent_AnnotateFieldsWithParsingResult_Name =
 constexpr uint32_t kPasswordGenerationAgent_GeneratedPasswordAccepted_Name = 0;
 constexpr uint32_t kPasswordGenerationAgent_TriggeredGeneratePassword_Name = 1;
 constexpr uint32_t kPasswordGenerationAgent_FoundFormEligibleForGeneration_Name = 2;
+constexpr uint32_t kPasswordGenerationAgent_FocusNextFieldAfterPasswords_Name = 3;
 
 }  // namespace internal
 

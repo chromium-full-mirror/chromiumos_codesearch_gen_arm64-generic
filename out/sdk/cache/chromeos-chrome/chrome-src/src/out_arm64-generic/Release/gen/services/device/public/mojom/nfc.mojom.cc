@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -101,10 +102,10 @@ NDEFRecord::NDEFRecord()
 NDEFRecord::NDEFRecord(
     NDEFRecordTypeCategory category_in,
     const std::string& record_type_in,
-    const absl::optional<std::string>& media_type_in,
-    const absl::optional<std::string>& id_in,
-    const absl::optional<std::string>& encoding_in,
-    const absl::optional<std::string>& lang_in,
+    const std::optional<std::string>& media_type_in,
+    const std::optional<std::string>& id_in,
+    const std::optional<std::string>& encoding_in,
+    const std::optional<std::string>& lang_in,
     std::vector<uint8_t> data_in,
     NDEFMessagePtr payload_message_in)
     : category(std::move(category_in)),
@@ -143,7 +144,7 @@ void NDEFRecord::WriteIntoTrace(
     dict.AddItem(
       "media_type"), this->media_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -152,7 +153,7 @@ void NDEFRecord::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -161,7 +162,7 @@ void NDEFRecord::WriteIntoTrace(
     dict.AddItem(
       "encoding"), this->encoding,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -170,7 +171,7 @@ void NDEFRecord::WriteIntoTrace(
     dict.AddItem(
       "lang"), this->lang,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -499,14 +500,17 @@ void NFCProxy::SetClient(
                         "<value of type ::mojo::PendingRemote<NFCClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_SetClient_Name, kFlags, 0, 0, nullptr);
@@ -545,14 +549,17 @@ void NFCProxy::Push(
                         "<value of type NDEFWriteOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_Push_Name, kFlags, 0, 0, nullptr);
@@ -594,14 +601,17 @@ void NFCProxy::CancelPush(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::NFC::CancelPush");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_CancelPush_Name, kFlags, 0, 0, nullptr);
@@ -624,14 +634,17 @@ void NFCProxy::MakeReadOnly(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::NFC::MakeReadOnly");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_MakeReadOnly_Name, kFlags, 0, 0, nullptr);
@@ -655,14 +668,17 @@ void NFCProxy::CancelMakeReadOnly(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::NFC::CancelMakeReadOnly");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_CancelMakeReadOnly_Name, kFlags, 0, 0, nullptr);
@@ -692,14 +708,17 @@ void NFCProxy::Watch(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_Watch_Name, kFlags, 0, 0, nullptr);
@@ -731,14 +750,17 @@ void NFCProxy::CancelWatch(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_CancelWatch_Name, kFlags, 0, 0, nullptr);
@@ -848,7 +870,8 @@ void NFC_Push_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_Push_Name, kFlags, 0, 0, nullptr);
@@ -972,7 +995,8 @@ void NFC_MakeReadOnly_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_MakeReadOnly_Name, kFlags, 0, 0, nullptr);
@@ -1096,7 +1120,8 @@ void NFC_Watch_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFC_Watch_Name, kFlags, 0, 0, nullptr);
@@ -1356,22 +1381,22 @@ std::move(p_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNFCValidationInfo[] = {
-    {&internal::NFC_SetClient_Params_Data::Validate,
+    { &internal::NFC_SetClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NFC_Push_Params_Data::Validate,
+    { &internal::NFC_Push_Params_Data::Validate,
      &internal::NFC_Push_ResponseParams_Data::Validate},
-    {&internal::NFC_CancelPush_Params_Data::Validate,
+    { &internal::NFC_CancelPush_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NFC_MakeReadOnly_Params_Data::Validate,
+    { &internal::NFC_MakeReadOnly_Params_Data::Validate,
      &internal::NFC_MakeReadOnly_ResponseParams_Data::Validate},
-    {&internal::NFC_CancelMakeReadOnly_Params_Data::Validate,
+    { &internal::NFC_CancelMakeReadOnly_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NFC_Watch_Params_Data::Validate,
+    { &internal::NFC_Watch_Params_Data::Validate,
      &internal::NFC_Watch_ResponseParams_Data::Validate},
-    {&internal::NFC_CancelWatch_Params_Data::Validate,
+    { &internal::NFC_CancelWatch_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1464,7 +1489,7 @@ NFCClientProxy::NFCClientProxy(mojo::MessageReceiverWithResponder* receiver)
 }
 
 void NFCClientProxy::OnWatch(
-    const std::vector<uint32_t>& in_watch_ids, const absl::optional<std::string>& in_serial_number, NDEFMessagePtr in_message) {
+    const std::vector<uint32_t>& in_watch_ids, const std::optional<std::string>& in_serial_number, NDEFMessagePtr in_message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send device::mojom::NFCClient::OnWatch", "input_parameters",
@@ -1475,20 +1500,23 @@ void NFCClientProxy::OnWatch(
                         "<value of type const std::vector<uint32_t>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("serial_number"), in_serial_number,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message"), in_message,
                         "<value of type NDEFMessagePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFCClient_OnWatch_Name, kFlags, 0, 0, nullptr);
@@ -1549,14 +1577,17 @@ void NFCClientProxy::OnError(
                         "<value of type NDEFErrorPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNFCClient_OnError_Name, kFlags, 0, 0, nullptr);
@@ -1599,7 +1630,7 @@ bool NFCClientStubDispatch::Accept(
       
       bool success = true;
       std::vector<uint32_t> p_watch_ids{};
-      absl::optional<std::string> p_serial_number{};
+      std::optional<std::string> p_serial_number{};
       NDEFMessagePtr p_message{};
       NFCClient_OnWatch_ParamsDataView input_data_view(params, message);
       
@@ -1672,12 +1703,12 @@ bool NFCClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNFCClientValidationInfo[] = {
-    {&internal::NFCClient_OnWatch_Params_Data::Validate,
+    { &internal::NFCClient_OnWatch_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NFCClient_OnError_Params_Data::Validate,
+    { &internal::NFCClient_OnError_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1873,7 +1904,7 @@ NDEFErrorPtr NFCAsyncWaiter::Watch(
 
 
 
-void NFCClientInterceptorForTesting::OnWatch(const std::vector<uint32_t>& watch_ids, const absl::optional<std::string>& serial_number, NDEFMessagePtr message) {
+void NFCClientInterceptorForTesting::OnWatch(const std::vector<uint32_t>& watch_ids, const std::optional<std::string>& serial_number, NDEFMessagePtr message) {
   GetForwardingInterface()->OnWatch(std::move(watch_ids), std::move(serial_number), std::move(message));
 }
 void NFCClientInterceptorForTesting::OnError(NDEFErrorPtr error) {

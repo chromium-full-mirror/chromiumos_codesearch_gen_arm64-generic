@@ -85,6 +85,24 @@ struct MojomTypeTraits<::blink::mojom::ExtendableMessageEventDataView> {
 namespace blink::mojom {
 
 
+enum class RouterRegistrationMethod : int32_t {
+  
+  Uninitialized = 0,
+  
+  RegisterRouter = 1,
+  
+  AddRoutes = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, RouterRegistrationMethod value);
+inline bool IsKnownEnumValue(RouterRegistrationMethod value) {
+  return internal::RouterRegistrationMethod_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class FetchHandlerExistence : int32_t {
   
   UNKNOWN = 0,
@@ -205,12 +223,36 @@ static_assert(
 namespace std {
 
 template <>
+struct hash<::blink::mojom::RouterRegistrationMethod>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::RouterRegistrationMethod> {};
+
+template <>
 struct hash<::blink::mojom::FetchHandlerExistence>
     : public mojo::internal::EnumHashImpl<::blink::mojom::FetchHandlerExistence> {};
 
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::RouterRegistrationMethod, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::RouterRegistrationMethod, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::RouterRegistrationMethod>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -333,6 +375,15 @@ inline void ExtendableMessageEventDataView::GetSourceInfoForServiceWorkerDataVie
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::RouterRegistrationMethod> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::RouterRegistrationMethod value);
+};
+
+} // namespace perfetto
 
 namespace perfetto {
 

@@ -299,6 +299,29 @@ FrameSinkBundle_SetNeedsBeginFrame_Params_Data::FrameSinkBundle_SetNeedsBeginFra
 
 
 // static
+bool FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data* object =
+      static_cast<const FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data*>(data);
+
+  return true;
+}
+
+FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data::FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool FrameSinkBundle_Submit_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

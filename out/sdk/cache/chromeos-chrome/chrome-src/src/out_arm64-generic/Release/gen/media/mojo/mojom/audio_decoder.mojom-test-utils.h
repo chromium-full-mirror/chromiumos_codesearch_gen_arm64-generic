@@ -16,7 +16,7 @@ namespace media::mojom {
 class  AudioDecoderInterceptorForTesting : public AudioDecoder {
   virtual AudioDecoder* GetForwardingInterface() = 0;
   void Construct(::mojo::PendingAssociatedRemote<AudioDecoderClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log) override;
-  void Initialize(const ::media::AudioDecoderConfig& config, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) override;
+  void Initialize(const ::media::AudioDecoderConfig& config, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) override;
   void SetDataSource(::mojo::ScopedDataPipeConsumerHandle receive_pipe) override;
   void Decode(::media::mojom::DecoderBufferPtr buffer, DecodeCallback callback) override;
   void Reset(ResetCallback callback) override;
@@ -30,7 +30,7 @@ class  AudioDecoderAsyncWaiter {
 
   ~AudioDecoderAsyncWaiter();
   void Initialize(
-      const ::media::AudioDecoderConfig& config, const absl::optional<::base::UnguessableToken>& cdm_id, ::media::DecoderStatus* out_success, bool* out_needs_bitstream_conversion, ::media::AudioDecoderType* out_decoder_type);
+      const ::media::AudioDecoderConfig& config, const std::optional<::base::UnguessableToken>& cdm_id, ::media::DecoderStatus* out_success, bool* out_needs_bitstream_conversion, ::media::AudioDecoderType* out_decoder_type);
   
   void Decode(
       ::media::mojom::DecoderBufferPtr buffer, ::media::DecoderStatus* out_status);

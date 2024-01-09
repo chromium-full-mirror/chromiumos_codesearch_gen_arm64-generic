@@ -15,6 +15,7 @@
 #include "ui/accessibility/mojom/ax_tree_id.mojom-shared-internal.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/values.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

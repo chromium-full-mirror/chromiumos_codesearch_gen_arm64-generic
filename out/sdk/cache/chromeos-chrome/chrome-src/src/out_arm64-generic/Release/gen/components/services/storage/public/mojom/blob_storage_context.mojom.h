@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/storage/public/mojom/blob_storage_context.mojom-features.h"
 #include "components/services/storage/public/mojom/blob_storage_context.mojom-shared.h"
 #include "components/services/storage/public/mojom/blob_storage_context.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -162,7 +163,7 @@ class BlobStorageContext
 
   using WriteBlobToFileCallback = base::OnceCallback<void(WriteBlobToFileResult)>;
   
-  virtual void WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, absl::optional<::base::Time> last_modified, WriteBlobToFileCallback callback) = 0;
+  virtual void WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, std::optional<::base::Time> last_modified, WriteBlobToFileCallback callback) = 0;
 
   
   virtual void Clone(::mojo::PendingReceiver<BlobStorageContext> receiver) = 0;
@@ -198,7 +199,7 @@ class  BlobStorageContextProxy
   
   void RegisterFromMemory(::mojo::PendingReceiver<::blink::mojom::Blob> blob, const std::string& uuid, ::mojo_base::BigBuffer data) final;
   
-  void WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, absl::optional<::base::Time> last_modified, WriteBlobToFileCallback callback) final;
+  void WriteBlobToFile(::mojo::PendingRemote<::blink::mojom::Blob> blob, const ::base::FilePath& path, bool flush_on_write, std::optional<::base::Time> last_modified, WriteBlobToFileCallback callback) final;
   
   void Clone(::mojo::PendingReceiver<BlobStorageContext> receiver) final;
 

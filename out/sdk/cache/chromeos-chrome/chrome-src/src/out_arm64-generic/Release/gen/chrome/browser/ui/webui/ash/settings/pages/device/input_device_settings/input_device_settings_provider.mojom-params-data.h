@@ -447,6 +447,38 @@ class  InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomizatio
 };
 static_assert(sizeof(InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParams_Data) == 16,
               "Bad sizeof(InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParams_Data)");
+class  InputDeviceSettingsProvider_HasLauncherButton_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<InputDeviceSettingsProvider_HasLauncherButton_Params_Data>;
+
+  InputDeviceSettingsProvider_HasLauncherButton_Params_Data();
+  ~InputDeviceSettingsProvider_HasLauncherButton_Params_Data() = delete;
+};
+static_assert(sizeof(InputDeviceSettingsProvider_HasLauncherButton_Params_Data) == 8,
+              "Bad sizeof(InputDeviceSettingsProvider_HasLauncherButton_Params_Data)");
+class  InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t has_launcher_button : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data>;
+
+  InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data();
+  ~InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data) == 16,
+              "Bad sizeof(InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1086,6 +1118,39 @@ class InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization
   mojo::Message* message_ = nullptr;
 };
 
+
+class InputDeviceSettingsProvider_HasLauncherButton_ParamsDataView {
+ public:
+  InputDeviceSettingsProvider_HasLauncherButton_ParamsDataView() = default;
+
+  InputDeviceSettingsProvider_HasLauncherButton_ParamsDataView(
+      internal::InputDeviceSettingsProvider_HasLauncherButton_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::InputDeviceSettingsProvider_HasLauncherButton_Params_Data* data_ = nullptr;
+};
+
+
+class InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsDataView {
+ public:
+  InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsDataView() = default;
+
+  InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsDataView(
+      internal::InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool has_launcher_button() const {
+    return data_->has_launcher_button;
+  }
+ private:
+  internal::InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void KeyboardSettingsObserver_OnKeyboardListUpdated_ParamsDataView::GetKeyboardsDataView(
     mojo::ArrayDataView<::ash::mojom::KeyboardDataView>* output) {
   auto pointer = data_->keyboards.Get();
@@ -1211,6 +1276,10 @@ inline void InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomi
   auto pointer = data_->options.Get();
   *output = mojo::ArrayDataView<ActionChoiceDataView>(pointer, message_);
 }
+
+
+
+
 
 
 

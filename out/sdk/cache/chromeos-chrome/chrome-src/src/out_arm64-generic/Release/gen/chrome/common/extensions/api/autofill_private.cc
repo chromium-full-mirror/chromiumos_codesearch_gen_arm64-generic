@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/autofill_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -39,8 +40,8 @@ AccountInfo::AccountInfo()
 is_eligible_for_address_account_storage(false) {}
 
 AccountInfo::~AccountInfo() = default;
-AccountInfo::AccountInfo(AccountInfo&& rhs) = default;
-AccountInfo& AccountInfo::operator=(AccountInfo&& rhs) = default;
+AccountInfo::AccountInfo(AccountInfo&& rhs) noexcept = default;
+AccountInfo& AccountInfo::operator=(AccountInfo&& rhs) noexcept = default;
 AccountInfo AccountInfo::Clone() const {
   AccountInfo out;
   out.email = email;
@@ -101,34 +102,21 @@ bool AccountInfo::Populate(
 }
 
 // static
-std::unique_ptr<AccountInfo> AccountInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AccountInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AccountInfo> AccountInfo::FromValue(const base::Value::Dict& value) {
+  AccountInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AccountInfo> AccountInfo::FromValue(const base::Value::Dict& value) {
+std::optional<AccountInfo> AccountInfo::FromValue(const base::Value& value) {
   AccountInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AccountInfo> AccountInfo::FromValue(const base::Value& value) {
-  AccountInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -147,393 +135,405 @@ base::Value::Dict AccountInfo::ToValue() const {
 }
 
 
-const char* ToString(ServerFieldType enum_param) {
+const char* ToString(FieldType enum_param) {
   switch (enum_param) {
-    case ServerFieldType::kNoServerData:
+    case FieldType::kNoServerData:
       return "NO_SERVER_DATA";
-    case ServerFieldType::kUnknownType:
+    case FieldType::kUnknownType:
       return "UNKNOWN_TYPE";
-    case ServerFieldType::kEmptyType:
+    case FieldType::kEmptyType:
       return "EMPTY_TYPE";
-    case ServerFieldType::kNameFirst:
+    case FieldType::kNameFirst:
       return "NAME_FIRST";
-    case ServerFieldType::kNameMiddle:
+    case FieldType::kNameMiddle:
       return "NAME_MIDDLE";
-    case ServerFieldType::kNameLast:
+    case FieldType::kNameLast:
       return "NAME_LAST";
-    case ServerFieldType::kNameMiddleInitial:
+    case FieldType::kNameMiddleInitial:
       return "NAME_MIDDLE_INITIAL";
-    case ServerFieldType::kNameFull:
+    case FieldType::kNameFull:
       return "NAME_FULL";
-    case ServerFieldType::kNameSuffix:
+    case FieldType::kNameSuffix:
       return "NAME_SUFFIX";
-    case ServerFieldType::kEmailAddress:
+    case FieldType::kEmailAddress:
       return "EMAIL_ADDRESS";
-    case ServerFieldType::kPhoneHomeNumber:
+    case FieldType::kPhoneHomeNumber:
       return "PHONE_HOME_NUMBER";
-    case ServerFieldType::kPhoneHomeCityCode:
+    case FieldType::kPhoneHomeCityCode:
       return "PHONE_HOME_CITY_CODE";
-    case ServerFieldType::kPhoneHomeCountryCode:
+    case FieldType::kPhoneHomeCountryCode:
       return "PHONE_HOME_COUNTRY_CODE";
-    case ServerFieldType::kPhoneHomeCityAndNumber:
+    case FieldType::kPhoneHomeCityAndNumber:
       return "PHONE_HOME_CITY_AND_NUMBER";
-    case ServerFieldType::kPhoneHomeWholeNumber:
+    case FieldType::kPhoneHomeWholeNumber:
       return "PHONE_HOME_WHOLE_NUMBER";
-    case ServerFieldType::kAddressHomeLine1:
+    case FieldType::kAddressHomeLine1:
       return "ADDRESS_HOME_LINE1";
-    case ServerFieldType::kAddressHomeLine2:
+    case FieldType::kAddressHomeLine2:
       return "ADDRESS_HOME_LINE2";
-    case ServerFieldType::kAddressHomeAptNum:
+    case FieldType::kAddressHomeAptNum:
       return "ADDRESS_HOME_APT_NUM";
-    case ServerFieldType::kAddressHomeCity:
+    case FieldType::kAddressHomeCity:
       return "ADDRESS_HOME_CITY";
-    case ServerFieldType::kAddressHomeState:
+    case FieldType::kAddressHomeState:
       return "ADDRESS_HOME_STATE";
-    case ServerFieldType::kAddressHomeZip:
+    case FieldType::kAddressHomeZip:
       return "ADDRESS_HOME_ZIP";
-    case ServerFieldType::kAddressHomeCountry:
+    case FieldType::kAddressHomeCountry:
       return "ADDRESS_HOME_COUNTRY";
-    case ServerFieldType::kCreditCardNameFull:
+    case FieldType::kCreditCardNameFull:
       return "CREDIT_CARD_NAME_FULL";
-    case ServerFieldType::kCreditCardNumber:
+    case FieldType::kCreditCardNumber:
       return "CREDIT_CARD_NUMBER";
-    case ServerFieldType::kCreditCardExpMonth:
+    case FieldType::kCreditCardExpMonth:
       return "CREDIT_CARD_EXP_MONTH";
-    case ServerFieldType::kCreditCardExp2DigitYear:
+    case FieldType::kCreditCardExp2DigitYear:
       return "CREDIT_CARD_EXP_2_DIGIT_YEAR";
-    case ServerFieldType::kCreditCardExp4DigitYear:
+    case FieldType::kCreditCardExp4DigitYear:
       return "CREDIT_CARD_EXP_4_DIGIT_YEAR";
-    case ServerFieldType::kCreditCardExpDate2DigitYear:
+    case FieldType::kCreditCardExpDate2DigitYear:
       return "CREDIT_CARD_EXP_DATE_2_DIGIT_YEAR";
-    case ServerFieldType::kCreditCardExpDate4DigitYear:
+    case FieldType::kCreditCardExpDate4DigitYear:
       return "CREDIT_CARD_EXP_DATE_4_DIGIT_YEAR";
-    case ServerFieldType::kCreditCardType:
+    case FieldType::kCreditCardType:
       return "CREDIT_CARD_TYPE";
-    case ServerFieldType::kCreditCardVerificationCode:
+    case FieldType::kCreditCardVerificationCode:
       return "CREDIT_CARD_VERIFICATION_CODE";
-    case ServerFieldType::kCompanyName:
+    case FieldType::kCompanyName:
       return "COMPANY_NAME";
-    case ServerFieldType::kFieldWithDefaultValue:
+    case FieldType::kFieldWithDefaultValue:
       return "FIELD_WITH_DEFAULT_VALUE";
-    case ServerFieldType::kMerchantEmailSignup:
+    case FieldType::kMerchantEmailSignup:
       return "MERCHANT_EMAIL_SIGNUP";
-    case ServerFieldType::kMerchantPromoCode:
+    case FieldType::kMerchantPromoCode:
       return "MERCHANT_PROMO_CODE";
-    case ServerFieldType::kPassword:
+    case FieldType::kPassword:
       return "PASSWORD";
-    case ServerFieldType::kAccountCreationPassword:
+    case FieldType::kAccountCreationPassword:
       return "ACCOUNT_CREATION_PASSWORD";
-    case ServerFieldType::kAddressHomeStreetAddress:
+    case FieldType::kAddressHomeStreetAddress:
       return "ADDRESS_HOME_STREET_ADDRESS";
-    case ServerFieldType::kAddressHomeSortingCode:
+    case FieldType::kAddressHomeSortingCode:
       return "ADDRESS_HOME_SORTING_CODE";
-    case ServerFieldType::kAddressHomeDependentLocality:
+    case FieldType::kAddressHomeDependentLocality:
       return "ADDRESS_HOME_DEPENDENT_LOCALITY";
-    case ServerFieldType::kAddressHomeLine3:
+    case FieldType::kAddressHomeLine3:
       return "ADDRESS_HOME_LINE3";
-    case ServerFieldType::kNotAccountCreationPassword:
+    case FieldType::kNotAccountCreationPassword:
       return "NOT_ACCOUNT_CREATION_PASSWORD";
-    case ServerFieldType::kUsername:
+    case FieldType::kUsername:
       return "USERNAME";
-    case ServerFieldType::kUsernameAndEmailAddress:
+    case FieldType::kUsernameAndEmailAddress:
       return "USERNAME_AND_EMAIL_ADDRESS";
-    case ServerFieldType::kNewPassword:
+    case FieldType::kNewPassword:
       return "NEW_PASSWORD";
-    case ServerFieldType::kProbablyNewPassword:
+    case FieldType::kProbablyNewPassword:
       return "PROBABLY_NEW_PASSWORD";
-    case ServerFieldType::kNotNewPassword:
+    case FieldType::kNotNewPassword:
       return "NOT_NEW_PASSWORD";
-    case ServerFieldType::kCreditCardNameFirst:
+    case FieldType::kCreditCardNameFirst:
       return "CREDIT_CARD_NAME_FIRST";
-    case ServerFieldType::kCreditCardNameLast:
+    case FieldType::kCreditCardNameLast:
       return "CREDIT_CARD_NAME_LAST";
-    case ServerFieldType::kPhoneHomeExtension:
+    case FieldType::kPhoneHomeExtension:
       return "PHONE_HOME_EXTENSION";
-    case ServerFieldType::kConfirmationPassword:
+    case FieldType::kConfirmationPassword:
       return "CONFIRMATION_PASSWORD";
-    case ServerFieldType::kAmbiguousType:
+    case FieldType::kAmbiguousType:
       return "AMBIGUOUS_TYPE";
-    case ServerFieldType::kSearchTerm:
+    case FieldType::kSearchTerm:
       return "SEARCH_TERM";
-    case ServerFieldType::kPrice:
+    case FieldType::kPrice:
       return "PRICE";
-    case ServerFieldType::kNotPassword:
+    case FieldType::kNotPassword:
       return "NOT_PASSWORD";
-    case ServerFieldType::kSingleUsername:
+    case FieldType::kSingleUsername:
       return "SINGLE_USERNAME";
-    case ServerFieldType::kNotUsername:
+    case FieldType::kNotUsername:
       return "NOT_USERNAME";
-    case ServerFieldType::kUpiVpa:
+    case FieldType::kUpiVpa:
       return "UPI_VPA";
-    case ServerFieldType::kAddressHomeStreetName:
+    case FieldType::kAddressHomeStreetName:
       return "ADDRESS_HOME_STREET_NAME";
-    case ServerFieldType::kAddressHomeHouseNumber:
+    case FieldType::kAddressHomeHouseNumber:
       return "ADDRESS_HOME_HOUSE_NUMBER";
-    case ServerFieldType::kAddressHomeSubpremise:
+    case FieldType::kAddressHomeSubpremise:
       return "ADDRESS_HOME_SUBPREMISE";
-    case ServerFieldType::kAddressHomeOtherSubunit:
+    case FieldType::kAddressHomeOtherSubunit:
       return "ADDRESS_HOME_OTHER_SUBUNIT";
-    case ServerFieldType::kNameLastFirst:
+    case FieldType::kNameLastFirst:
       return "NAME_LAST_FIRST";
-    case ServerFieldType::kNameLastConjunction:
+    case FieldType::kNameLastConjunction:
       return "NAME_LAST_CONJUNCTION";
-    case ServerFieldType::kNameLastSecond:
+    case FieldType::kNameLastSecond:
       return "NAME_LAST_SECOND";
-    case ServerFieldType::kNameHonorificPrefix:
+    case FieldType::kNameHonorificPrefix:
       return "NAME_HONORIFIC_PREFIX";
-    case ServerFieldType::kAddressHomeAddress:
+    case FieldType::kAddressHomeAddress:
       return "ADDRESS_HOME_ADDRESS";
-    case ServerFieldType::kAddressHomeAddressWithName:
+    case FieldType::kAddressHomeAddressWithName:
       return "ADDRESS_HOME_ADDRESS_WITH_NAME";
-    case ServerFieldType::kAddressHomeFloor:
+    case FieldType::kAddressHomeFloor:
       return "ADDRESS_HOME_FLOOR";
-    case ServerFieldType::kNameFullWithHonorificPrefix:
+    case FieldType::kNameFullWithHonorificPrefix:
       return "NAME_FULL_WITH_HONORIFIC_PREFIX";
-    case ServerFieldType::kBirthdateDay:
+    case FieldType::kBirthdateDay:
       return "BIRTHDATE_DAY";
-    case ServerFieldType::kBirthdateMonth:
+    case FieldType::kBirthdateMonth:
       return "BIRTHDATE_MONTH";
-    case ServerFieldType::kBirthdate4DigitYear:
+    case FieldType::kBirthdate4DigitYear:
       return "BIRTHDATE_4_DIGIT_YEAR";
-    case ServerFieldType::kPhoneHomeCityCodeWithTrunkPrefix:
+    case FieldType::kPhoneHomeCityCodeWithTrunkPrefix:
       return "PHONE_HOME_CITY_CODE_WITH_TRUNK_PREFIX";
-    case ServerFieldType::kPhoneHomeCityAndNumberWithoutTrunkPrefix:
+    case FieldType::kPhoneHomeCityAndNumberWithoutTrunkPrefix:
       return "PHONE_HOME_CITY_AND_NUMBER_WITHOUT_TRUNK_PREFIX";
-    case ServerFieldType::kPhoneHomeNumberPrefix:
+    case FieldType::kPhoneHomeNumberPrefix:
       return "PHONE_HOME_NUMBER_PREFIX";
-    case ServerFieldType::kPhoneHomeNumberSuffix:
+    case FieldType::kPhoneHomeNumberSuffix:
       return "PHONE_HOME_NUMBER_SUFFIX";
-    case ServerFieldType::kIbanValue:
+    case FieldType::kIbanValue:
       return "IBAN_VALUE";
-    case ServerFieldType::kCreditCardStandaloneVerificationCode:
+    case FieldType::kCreditCardStandaloneVerificationCode:
       return "CREDIT_CARD_STANDALONE_VERIFICATION_CODE";
-    case ServerFieldType::kNumericQuantity:
+    case FieldType::kNumericQuantity:
       return "NUMERIC_QUANTITY";
-    case ServerFieldType::kOneTimeCode:
+    case FieldType::kOneTimeCode:
       return "ONE_TIME_CODE";
-    case ServerFieldType::kDeliveryInstructions:
+    case FieldType::kDeliveryInstructions:
       return "DELIVERY_INSTRUCTIONS";
-    case ServerFieldType::kAddressHomeOverflow:
+    case FieldType::kAddressHomeOverflow:
       return "ADDRESS_HOME_OVERFLOW";
-    case ServerFieldType::kAddressHomeLandmark:
+    case FieldType::kAddressHomeLandmark:
       return "ADDRESS_HOME_LANDMARK";
-    case ServerFieldType::kAddressHomeOverflowAndLandmark:
+    case FieldType::kAddressHomeOverflowAndLandmark:
       return "ADDRESS_HOME_OVERFLOW_AND_LANDMARK";
-    case ServerFieldType::kAddressHomeAdminLevel2:
+    case FieldType::kAddressHomeAdminLevel2:
       return "ADDRESS_HOME_ADMIN_LEVEL2";
-    case ServerFieldType::kAddressHomeStreetLocation:
+    case FieldType::kAddressHomeStreetLocation:
       return "ADDRESS_HOME_STREET_LOCATION";
-    case ServerFieldType::kAddressHomeBetweenStreets:
+    case FieldType::kAddressHomeBetweenStreets:
       return "ADDRESS_HOME_BETWEEN_STREETS";
-    case ServerFieldType::kAddressHomeBetweenStreetsOrLandmark:
+    case FieldType::kAddressHomeBetweenStreetsOrLandmark:
       return "ADDRESS_HOME_BETWEEN_STREETS_OR_LANDMARK";
-    case ServerFieldType::kAddressHomeBetweenStreets1:
+    case FieldType::kAddressHomeBetweenStreets1:
       return "ADDRESS_HOME_BETWEEN_STREETS_1";
-    case ServerFieldType::kAddressHomeBetweenStreets2:
+    case FieldType::kAddressHomeBetweenStreets2:
       return "ADDRESS_HOME_BETWEEN_STREETS_2";
-    case ServerFieldType::kSingleUsernameForgotPassword:
+    case FieldType::kSingleUsernameForgotPassword:
       return "SINGLE_USERNAME_FORGOT_PASSWORD";
-    case ServerFieldType::kMaxValidFieldType:
+    case FieldType::kAddressHomeApt:
+      return "ADDRESS_HOME_APT";
+    case FieldType::kAddressHomeAptType:
+      return "ADDRESS_HOME_APT_TYPE";
+    case FieldType::kSingleUsernameWithIntermediateValues:
+      return "SINGLE_USERNAME_WITH_INTERMEDIATE_VALUES";
+    case FieldType::kMaxValidFieldType:
       return "MAX_VALID_FIELD_TYPE";
-    case ServerFieldType::kNone:
+    case FieldType::kNone:
       return "";
   }
   NOTREACHED();
   return "";
 }
 
-ServerFieldType ParseServerFieldType(base::StringPiece enum_string) {
+FieldType ParseFieldType(base::StringPiece enum_string) {
   if (enum_string == "NO_SERVER_DATA")
-    return ServerFieldType::kNoServerData;
+    return FieldType::kNoServerData;
   if (enum_string == "UNKNOWN_TYPE")
-    return ServerFieldType::kUnknownType;
+    return FieldType::kUnknownType;
   if (enum_string == "EMPTY_TYPE")
-    return ServerFieldType::kEmptyType;
+    return FieldType::kEmptyType;
   if (enum_string == "NAME_FIRST")
-    return ServerFieldType::kNameFirst;
+    return FieldType::kNameFirst;
   if (enum_string == "NAME_MIDDLE")
-    return ServerFieldType::kNameMiddle;
+    return FieldType::kNameMiddle;
   if (enum_string == "NAME_LAST")
-    return ServerFieldType::kNameLast;
+    return FieldType::kNameLast;
   if (enum_string == "NAME_MIDDLE_INITIAL")
-    return ServerFieldType::kNameMiddleInitial;
+    return FieldType::kNameMiddleInitial;
   if (enum_string == "NAME_FULL")
-    return ServerFieldType::kNameFull;
+    return FieldType::kNameFull;
   if (enum_string == "NAME_SUFFIX")
-    return ServerFieldType::kNameSuffix;
+    return FieldType::kNameSuffix;
   if (enum_string == "EMAIL_ADDRESS")
-    return ServerFieldType::kEmailAddress;
+    return FieldType::kEmailAddress;
   if (enum_string == "PHONE_HOME_NUMBER")
-    return ServerFieldType::kPhoneHomeNumber;
+    return FieldType::kPhoneHomeNumber;
   if (enum_string == "PHONE_HOME_CITY_CODE")
-    return ServerFieldType::kPhoneHomeCityCode;
+    return FieldType::kPhoneHomeCityCode;
   if (enum_string == "PHONE_HOME_COUNTRY_CODE")
-    return ServerFieldType::kPhoneHomeCountryCode;
+    return FieldType::kPhoneHomeCountryCode;
   if (enum_string == "PHONE_HOME_CITY_AND_NUMBER")
-    return ServerFieldType::kPhoneHomeCityAndNumber;
+    return FieldType::kPhoneHomeCityAndNumber;
   if (enum_string == "PHONE_HOME_WHOLE_NUMBER")
-    return ServerFieldType::kPhoneHomeWholeNumber;
+    return FieldType::kPhoneHomeWholeNumber;
   if (enum_string == "ADDRESS_HOME_LINE1")
-    return ServerFieldType::kAddressHomeLine1;
+    return FieldType::kAddressHomeLine1;
   if (enum_string == "ADDRESS_HOME_LINE2")
-    return ServerFieldType::kAddressHomeLine2;
+    return FieldType::kAddressHomeLine2;
   if (enum_string == "ADDRESS_HOME_APT_NUM")
-    return ServerFieldType::kAddressHomeAptNum;
+    return FieldType::kAddressHomeAptNum;
   if (enum_string == "ADDRESS_HOME_CITY")
-    return ServerFieldType::kAddressHomeCity;
+    return FieldType::kAddressHomeCity;
   if (enum_string == "ADDRESS_HOME_STATE")
-    return ServerFieldType::kAddressHomeState;
+    return FieldType::kAddressHomeState;
   if (enum_string == "ADDRESS_HOME_ZIP")
-    return ServerFieldType::kAddressHomeZip;
+    return FieldType::kAddressHomeZip;
   if (enum_string == "ADDRESS_HOME_COUNTRY")
-    return ServerFieldType::kAddressHomeCountry;
+    return FieldType::kAddressHomeCountry;
   if (enum_string == "CREDIT_CARD_NAME_FULL")
-    return ServerFieldType::kCreditCardNameFull;
+    return FieldType::kCreditCardNameFull;
   if (enum_string == "CREDIT_CARD_NUMBER")
-    return ServerFieldType::kCreditCardNumber;
+    return FieldType::kCreditCardNumber;
   if (enum_string == "CREDIT_CARD_EXP_MONTH")
-    return ServerFieldType::kCreditCardExpMonth;
+    return FieldType::kCreditCardExpMonth;
   if (enum_string == "CREDIT_CARD_EXP_2_DIGIT_YEAR")
-    return ServerFieldType::kCreditCardExp2DigitYear;
+    return FieldType::kCreditCardExp2DigitYear;
   if (enum_string == "CREDIT_CARD_EXP_4_DIGIT_YEAR")
-    return ServerFieldType::kCreditCardExp4DigitYear;
+    return FieldType::kCreditCardExp4DigitYear;
   if (enum_string == "CREDIT_CARD_EXP_DATE_2_DIGIT_YEAR")
-    return ServerFieldType::kCreditCardExpDate2DigitYear;
+    return FieldType::kCreditCardExpDate2DigitYear;
   if (enum_string == "CREDIT_CARD_EXP_DATE_4_DIGIT_YEAR")
-    return ServerFieldType::kCreditCardExpDate4DigitYear;
+    return FieldType::kCreditCardExpDate4DigitYear;
   if (enum_string == "CREDIT_CARD_TYPE")
-    return ServerFieldType::kCreditCardType;
+    return FieldType::kCreditCardType;
   if (enum_string == "CREDIT_CARD_VERIFICATION_CODE")
-    return ServerFieldType::kCreditCardVerificationCode;
+    return FieldType::kCreditCardVerificationCode;
   if (enum_string == "COMPANY_NAME")
-    return ServerFieldType::kCompanyName;
+    return FieldType::kCompanyName;
   if (enum_string == "FIELD_WITH_DEFAULT_VALUE")
-    return ServerFieldType::kFieldWithDefaultValue;
+    return FieldType::kFieldWithDefaultValue;
   if (enum_string == "MERCHANT_EMAIL_SIGNUP")
-    return ServerFieldType::kMerchantEmailSignup;
+    return FieldType::kMerchantEmailSignup;
   if (enum_string == "MERCHANT_PROMO_CODE")
-    return ServerFieldType::kMerchantPromoCode;
+    return FieldType::kMerchantPromoCode;
   if (enum_string == "PASSWORD")
-    return ServerFieldType::kPassword;
+    return FieldType::kPassword;
   if (enum_string == "ACCOUNT_CREATION_PASSWORD")
-    return ServerFieldType::kAccountCreationPassword;
+    return FieldType::kAccountCreationPassword;
   if (enum_string == "ADDRESS_HOME_STREET_ADDRESS")
-    return ServerFieldType::kAddressHomeStreetAddress;
+    return FieldType::kAddressHomeStreetAddress;
   if (enum_string == "ADDRESS_HOME_SORTING_CODE")
-    return ServerFieldType::kAddressHomeSortingCode;
+    return FieldType::kAddressHomeSortingCode;
   if (enum_string == "ADDRESS_HOME_DEPENDENT_LOCALITY")
-    return ServerFieldType::kAddressHomeDependentLocality;
+    return FieldType::kAddressHomeDependentLocality;
   if (enum_string == "ADDRESS_HOME_LINE3")
-    return ServerFieldType::kAddressHomeLine3;
+    return FieldType::kAddressHomeLine3;
   if (enum_string == "NOT_ACCOUNT_CREATION_PASSWORD")
-    return ServerFieldType::kNotAccountCreationPassword;
+    return FieldType::kNotAccountCreationPassword;
   if (enum_string == "USERNAME")
-    return ServerFieldType::kUsername;
+    return FieldType::kUsername;
   if (enum_string == "USERNAME_AND_EMAIL_ADDRESS")
-    return ServerFieldType::kUsernameAndEmailAddress;
+    return FieldType::kUsernameAndEmailAddress;
   if (enum_string == "NEW_PASSWORD")
-    return ServerFieldType::kNewPassword;
+    return FieldType::kNewPassword;
   if (enum_string == "PROBABLY_NEW_PASSWORD")
-    return ServerFieldType::kProbablyNewPassword;
+    return FieldType::kProbablyNewPassword;
   if (enum_string == "NOT_NEW_PASSWORD")
-    return ServerFieldType::kNotNewPassword;
+    return FieldType::kNotNewPassword;
   if (enum_string == "CREDIT_CARD_NAME_FIRST")
-    return ServerFieldType::kCreditCardNameFirst;
+    return FieldType::kCreditCardNameFirst;
   if (enum_string == "CREDIT_CARD_NAME_LAST")
-    return ServerFieldType::kCreditCardNameLast;
+    return FieldType::kCreditCardNameLast;
   if (enum_string == "PHONE_HOME_EXTENSION")
-    return ServerFieldType::kPhoneHomeExtension;
+    return FieldType::kPhoneHomeExtension;
   if (enum_string == "CONFIRMATION_PASSWORD")
-    return ServerFieldType::kConfirmationPassword;
+    return FieldType::kConfirmationPassword;
   if (enum_string == "AMBIGUOUS_TYPE")
-    return ServerFieldType::kAmbiguousType;
+    return FieldType::kAmbiguousType;
   if (enum_string == "SEARCH_TERM")
-    return ServerFieldType::kSearchTerm;
+    return FieldType::kSearchTerm;
   if (enum_string == "PRICE")
-    return ServerFieldType::kPrice;
+    return FieldType::kPrice;
   if (enum_string == "NOT_PASSWORD")
-    return ServerFieldType::kNotPassword;
+    return FieldType::kNotPassword;
   if (enum_string == "SINGLE_USERNAME")
-    return ServerFieldType::kSingleUsername;
+    return FieldType::kSingleUsername;
   if (enum_string == "NOT_USERNAME")
-    return ServerFieldType::kNotUsername;
+    return FieldType::kNotUsername;
   if (enum_string == "UPI_VPA")
-    return ServerFieldType::kUpiVpa;
+    return FieldType::kUpiVpa;
   if (enum_string == "ADDRESS_HOME_STREET_NAME")
-    return ServerFieldType::kAddressHomeStreetName;
+    return FieldType::kAddressHomeStreetName;
   if (enum_string == "ADDRESS_HOME_HOUSE_NUMBER")
-    return ServerFieldType::kAddressHomeHouseNumber;
+    return FieldType::kAddressHomeHouseNumber;
   if (enum_string == "ADDRESS_HOME_SUBPREMISE")
-    return ServerFieldType::kAddressHomeSubpremise;
+    return FieldType::kAddressHomeSubpremise;
   if (enum_string == "ADDRESS_HOME_OTHER_SUBUNIT")
-    return ServerFieldType::kAddressHomeOtherSubunit;
+    return FieldType::kAddressHomeOtherSubunit;
   if (enum_string == "NAME_LAST_FIRST")
-    return ServerFieldType::kNameLastFirst;
+    return FieldType::kNameLastFirst;
   if (enum_string == "NAME_LAST_CONJUNCTION")
-    return ServerFieldType::kNameLastConjunction;
+    return FieldType::kNameLastConjunction;
   if (enum_string == "NAME_LAST_SECOND")
-    return ServerFieldType::kNameLastSecond;
+    return FieldType::kNameLastSecond;
   if (enum_string == "NAME_HONORIFIC_PREFIX")
-    return ServerFieldType::kNameHonorificPrefix;
+    return FieldType::kNameHonorificPrefix;
   if (enum_string == "ADDRESS_HOME_ADDRESS")
-    return ServerFieldType::kAddressHomeAddress;
+    return FieldType::kAddressHomeAddress;
   if (enum_string == "ADDRESS_HOME_ADDRESS_WITH_NAME")
-    return ServerFieldType::kAddressHomeAddressWithName;
+    return FieldType::kAddressHomeAddressWithName;
   if (enum_string == "ADDRESS_HOME_FLOOR")
-    return ServerFieldType::kAddressHomeFloor;
+    return FieldType::kAddressHomeFloor;
   if (enum_string == "NAME_FULL_WITH_HONORIFIC_PREFIX")
-    return ServerFieldType::kNameFullWithHonorificPrefix;
+    return FieldType::kNameFullWithHonorificPrefix;
   if (enum_string == "BIRTHDATE_DAY")
-    return ServerFieldType::kBirthdateDay;
+    return FieldType::kBirthdateDay;
   if (enum_string == "BIRTHDATE_MONTH")
-    return ServerFieldType::kBirthdateMonth;
+    return FieldType::kBirthdateMonth;
   if (enum_string == "BIRTHDATE_4_DIGIT_YEAR")
-    return ServerFieldType::kBirthdate4DigitYear;
+    return FieldType::kBirthdate4DigitYear;
   if (enum_string == "PHONE_HOME_CITY_CODE_WITH_TRUNK_PREFIX")
-    return ServerFieldType::kPhoneHomeCityCodeWithTrunkPrefix;
+    return FieldType::kPhoneHomeCityCodeWithTrunkPrefix;
   if (enum_string == "PHONE_HOME_CITY_AND_NUMBER_WITHOUT_TRUNK_PREFIX")
-    return ServerFieldType::kPhoneHomeCityAndNumberWithoutTrunkPrefix;
+    return FieldType::kPhoneHomeCityAndNumberWithoutTrunkPrefix;
   if (enum_string == "PHONE_HOME_NUMBER_PREFIX")
-    return ServerFieldType::kPhoneHomeNumberPrefix;
+    return FieldType::kPhoneHomeNumberPrefix;
   if (enum_string == "PHONE_HOME_NUMBER_SUFFIX")
-    return ServerFieldType::kPhoneHomeNumberSuffix;
+    return FieldType::kPhoneHomeNumberSuffix;
   if (enum_string == "IBAN_VALUE")
-    return ServerFieldType::kIbanValue;
+    return FieldType::kIbanValue;
   if (enum_string == "CREDIT_CARD_STANDALONE_VERIFICATION_CODE")
-    return ServerFieldType::kCreditCardStandaloneVerificationCode;
+    return FieldType::kCreditCardStandaloneVerificationCode;
   if (enum_string == "NUMERIC_QUANTITY")
-    return ServerFieldType::kNumericQuantity;
+    return FieldType::kNumericQuantity;
   if (enum_string == "ONE_TIME_CODE")
-    return ServerFieldType::kOneTimeCode;
+    return FieldType::kOneTimeCode;
   if (enum_string == "DELIVERY_INSTRUCTIONS")
-    return ServerFieldType::kDeliveryInstructions;
+    return FieldType::kDeliveryInstructions;
   if (enum_string == "ADDRESS_HOME_OVERFLOW")
-    return ServerFieldType::kAddressHomeOverflow;
+    return FieldType::kAddressHomeOverflow;
   if (enum_string == "ADDRESS_HOME_LANDMARK")
-    return ServerFieldType::kAddressHomeLandmark;
+    return FieldType::kAddressHomeLandmark;
   if (enum_string == "ADDRESS_HOME_OVERFLOW_AND_LANDMARK")
-    return ServerFieldType::kAddressHomeOverflowAndLandmark;
+    return FieldType::kAddressHomeOverflowAndLandmark;
   if (enum_string == "ADDRESS_HOME_ADMIN_LEVEL2")
-    return ServerFieldType::kAddressHomeAdminLevel2;
+    return FieldType::kAddressHomeAdminLevel2;
   if (enum_string == "ADDRESS_HOME_STREET_LOCATION")
-    return ServerFieldType::kAddressHomeStreetLocation;
+    return FieldType::kAddressHomeStreetLocation;
   if (enum_string == "ADDRESS_HOME_BETWEEN_STREETS")
-    return ServerFieldType::kAddressHomeBetweenStreets;
+    return FieldType::kAddressHomeBetweenStreets;
   if (enum_string == "ADDRESS_HOME_BETWEEN_STREETS_OR_LANDMARK")
-    return ServerFieldType::kAddressHomeBetweenStreetsOrLandmark;
+    return FieldType::kAddressHomeBetweenStreetsOrLandmark;
   if (enum_string == "ADDRESS_HOME_BETWEEN_STREETS_1")
-    return ServerFieldType::kAddressHomeBetweenStreets1;
+    return FieldType::kAddressHomeBetweenStreets1;
   if (enum_string == "ADDRESS_HOME_BETWEEN_STREETS_2")
-    return ServerFieldType::kAddressHomeBetweenStreets2;
+    return FieldType::kAddressHomeBetweenStreets2;
   if (enum_string == "SINGLE_USERNAME_FORGOT_PASSWORD")
-    return ServerFieldType::kSingleUsernameForgotPassword;
+    return FieldType::kSingleUsernameForgotPassword;
+  if (enum_string == "ADDRESS_HOME_APT")
+    return FieldType::kAddressHomeApt;
+  if (enum_string == "ADDRESS_HOME_APT_TYPE")
+    return FieldType::kAddressHomeAptType;
+  if (enum_string == "SINGLE_USERNAME_WITH_INTERMEDIATE_VALUES")
+    return FieldType::kSingleUsernameWithIntermediateValues;
   if (enum_string == "MAX_VALID_FIELD_TYPE")
-    return ServerFieldType::kMaxValidFieldType;
-  return ServerFieldType::kNone;
+    return FieldType::kMaxValidFieldType;
+  return FieldType::kNone;
 }
 
-std::u16string GetServerFieldTypeParseError(base::StringPiece enum_string) {
-  return u"expected \"NO_SERVER_DATA\" or \"UNKNOWN_TYPE\" or \"EMPTY_TYPE\" or \"NAME_FIRST\" or \"NAME_MIDDLE\" or \"NAME_LAST\" or \"NAME_MIDDLE_INITIAL\" or \"NAME_FULL\" or \"NAME_SUFFIX\" or \"EMAIL_ADDRESS\" or \"PHONE_HOME_NUMBER\" or \"PHONE_HOME_CITY_CODE\" or \"PHONE_HOME_COUNTRY_CODE\" or \"PHONE_HOME_CITY_AND_NUMBER\" or \"PHONE_HOME_WHOLE_NUMBER\" or \"ADDRESS_HOME_LINE1\" or \"ADDRESS_HOME_LINE2\" or \"ADDRESS_HOME_APT_NUM\" or \"ADDRESS_HOME_CITY\" or \"ADDRESS_HOME_STATE\" or \"ADDRESS_HOME_ZIP\" or \"ADDRESS_HOME_COUNTRY\" or \"CREDIT_CARD_NAME_FULL\" or \"CREDIT_CARD_NUMBER\" or \"CREDIT_CARD_EXP_MONTH\" or \"CREDIT_CARD_EXP_2_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_4_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_DATE_2_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_DATE_4_DIGIT_YEAR\" or \"CREDIT_CARD_TYPE\" or \"CREDIT_CARD_VERIFICATION_CODE\" or \"COMPANY_NAME\" or \"FIELD_WITH_DEFAULT_VALUE\" or \"MERCHANT_EMAIL_SIGNUP\" or \"MERCHANT_PROMO_CODE\" or \"PASSWORD\" or \"ACCOUNT_CREATION_PASSWORD\" or \"ADDRESS_HOME_STREET_ADDRESS\" or \"ADDRESS_HOME_SORTING_CODE\" or \"ADDRESS_HOME_DEPENDENT_LOCALITY\" or \"ADDRESS_HOME_LINE3\" or \"NOT_ACCOUNT_CREATION_PASSWORD\" or \"USERNAME\" or \"USERNAME_AND_EMAIL_ADDRESS\" or \"NEW_PASSWORD\" or \"PROBABLY_NEW_PASSWORD\" or \"NOT_NEW_PASSWORD\" or \"CREDIT_CARD_NAME_FIRST\" or \"CREDIT_CARD_NAME_LAST\" or \"PHONE_HOME_EXTENSION\" or \"CONFIRMATION_PASSWORD\" or \"AMBIGUOUS_TYPE\" or \"SEARCH_TERM\" or \"PRICE\" or \"NOT_PASSWORD\" or \"SINGLE_USERNAME\" or \"NOT_USERNAME\" or \"UPI_VPA\" or \"ADDRESS_HOME_STREET_NAME\" or \"ADDRESS_HOME_HOUSE_NUMBER\" or \"ADDRESS_HOME_SUBPREMISE\" or \"ADDRESS_HOME_OTHER_SUBUNIT\" or \"NAME_LAST_FIRST\" or \"NAME_LAST_CONJUNCTION\" or \"NAME_LAST_SECOND\" or \"NAME_HONORIFIC_PREFIX\" or \"ADDRESS_HOME_ADDRESS\" or \"ADDRESS_HOME_ADDRESS_WITH_NAME\" or \"ADDRESS_HOME_FLOOR\" or \"NAME_FULL_WITH_HONORIFIC_PREFIX\" or \"BIRTHDATE_DAY\" or \"BIRTHDATE_MONTH\" or \"BIRTHDATE_4_DIGIT_YEAR\" or \"PHONE_HOME_CITY_CODE_WITH_TRUNK_PREFIX\" or \"PHONE_HOME_CITY_AND_NUMBER_WITHOUT_TRUNK_PREFIX\" or \"PHONE_HOME_NUMBER_PREFIX\" or \"PHONE_HOME_NUMBER_SUFFIX\" or \"IBAN_VALUE\" or \"CREDIT_CARD_STANDALONE_VERIFICATION_CODE\" or \"NUMERIC_QUANTITY\" or \"ONE_TIME_CODE\" or \"DELIVERY_INSTRUCTIONS\" or \"ADDRESS_HOME_OVERFLOW\" or \"ADDRESS_HOME_LANDMARK\" or \"ADDRESS_HOME_OVERFLOW_AND_LANDMARK\" or \"ADDRESS_HOME_ADMIN_LEVEL2\" or \"ADDRESS_HOME_STREET_LOCATION\" or \"ADDRESS_HOME_BETWEEN_STREETS\" or \"ADDRESS_HOME_BETWEEN_STREETS_OR_LANDMARK\" or \"ADDRESS_HOME_BETWEEN_STREETS_1\" or \"ADDRESS_HOME_BETWEEN_STREETS_2\" or \"SINGLE_USERNAME_FORGOT_PASSWORD\" or \"MAX_VALID_FIELD_TYPE\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+std::u16string GetFieldTypeParseError(base::StringPiece enum_string) {
+  return u"expected \"NO_SERVER_DATA\" or \"UNKNOWN_TYPE\" or \"EMPTY_TYPE\" or \"NAME_FIRST\" or \"NAME_MIDDLE\" or \"NAME_LAST\" or \"NAME_MIDDLE_INITIAL\" or \"NAME_FULL\" or \"NAME_SUFFIX\" or \"EMAIL_ADDRESS\" or \"PHONE_HOME_NUMBER\" or \"PHONE_HOME_CITY_CODE\" or \"PHONE_HOME_COUNTRY_CODE\" or \"PHONE_HOME_CITY_AND_NUMBER\" or \"PHONE_HOME_WHOLE_NUMBER\" or \"ADDRESS_HOME_LINE1\" or \"ADDRESS_HOME_LINE2\" or \"ADDRESS_HOME_APT_NUM\" or \"ADDRESS_HOME_CITY\" or \"ADDRESS_HOME_STATE\" or \"ADDRESS_HOME_ZIP\" or \"ADDRESS_HOME_COUNTRY\" or \"CREDIT_CARD_NAME_FULL\" or \"CREDIT_CARD_NUMBER\" or \"CREDIT_CARD_EXP_MONTH\" or \"CREDIT_CARD_EXP_2_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_4_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_DATE_2_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_DATE_4_DIGIT_YEAR\" or \"CREDIT_CARD_TYPE\" or \"CREDIT_CARD_VERIFICATION_CODE\" or \"COMPANY_NAME\" or \"FIELD_WITH_DEFAULT_VALUE\" or \"MERCHANT_EMAIL_SIGNUP\" or \"MERCHANT_PROMO_CODE\" or \"PASSWORD\" or \"ACCOUNT_CREATION_PASSWORD\" or \"ADDRESS_HOME_STREET_ADDRESS\" or \"ADDRESS_HOME_SORTING_CODE\" or \"ADDRESS_HOME_DEPENDENT_LOCALITY\" or \"ADDRESS_HOME_LINE3\" or \"NOT_ACCOUNT_CREATION_PASSWORD\" or \"USERNAME\" or \"USERNAME_AND_EMAIL_ADDRESS\" or \"NEW_PASSWORD\" or \"PROBABLY_NEW_PASSWORD\" or \"NOT_NEW_PASSWORD\" or \"CREDIT_CARD_NAME_FIRST\" or \"CREDIT_CARD_NAME_LAST\" or \"PHONE_HOME_EXTENSION\" or \"CONFIRMATION_PASSWORD\" or \"AMBIGUOUS_TYPE\" or \"SEARCH_TERM\" or \"PRICE\" or \"NOT_PASSWORD\" or \"SINGLE_USERNAME\" or \"NOT_USERNAME\" or \"UPI_VPA\" or \"ADDRESS_HOME_STREET_NAME\" or \"ADDRESS_HOME_HOUSE_NUMBER\" or \"ADDRESS_HOME_SUBPREMISE\" or \"ADDRESS_HOME_OTHER_SUBUNIT\" or \"NAME_LAST_FIRST\" or \"NAME_LAST_CONJUNCTION\" or \"NAME_LAST_SECOND\" or \"NAME_HONORIFIC_PREFIX\" or \"ADDRESS_HOME_ADDRESS\" or \"ADDRESS_HOME_ADDRESS_WITH_NAME\" or \"ADDRESS_HOME_FLOOR\" or \"NAME_FULL_WITH_HONORIFIC_PREFIX\" or \"BIRTHDATE_DAY\" or \"BIRTHDATE_MONTH\" or \"BIRTHDATE_4_DIGIT_YEAR\" or \"PHONE_HOME_CITY_CODE_WITH_TRUNK_PREFIX\" or \"PHONE_HOME_CITY_AND_NUMBER_WITHOUT_TRUNK_PREFIX\" or \"PHONE_HOME_NUMBER_PREFIX\" or \"PHONE_HOME_NUMBER_SUFFIX\" or \"IBAN_VALUE\" or \"CREDIT_CARD_STANDALONE_VERIFICATION_CODE\" or \"NUMERIC_QUANTITY\" or \"ONE_TIME_CODE\" or \"DELIVERY_INSTRUCTIONS\" or \"ADDRESS_HOME_OVERFLOW\" or \"ADDRESS_HOME_LANDMARK\" or \"ADDRESS_HOME_OVERFLOW_AND_LANDMARK\" or \"ADDRESS_HOME_ADMIN_LEVEL2\" or \"ADDRESS_HOME_STREET_LOCATION\" or \"ADDRESS_HOME_BETWEEN_STREETS\" or \"ADDRESS_HOME_BETWEEN_STREETS_OR_LANDMARK\" or \"ADDRESS_HOME_BETWEEN_STREETS_1\" or \"ADDRESS_HOME_BETWEEN_STREETS_2\" or \"SINGLE_USERNAME_FORGOT_PASSWORD\" or \"ADDRESS_HOME_APT\" or \"ADDRESS_HOME_APT_TYPE\" or \"SINGLE_USERNAME_WITH_INTERMEDIATE_VALUES\" or \"MAX_VALID_FIELD_TYPE\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
@@ -567,8 +567,8 @@ AutofillMetadata::AutofillMetadata()
 : source() {}
 
 AutofillMetadata::~AutofillMetadata() = default;
-AutofillMetadata::AutofillMetadata(AutofillMetadata&& rhs) = default;
-AutofillMetadata& AutofillMetadata::operator=(AutofillMetadata&& rhs) = default;
+AutofillMetadata::AutofillMetadata(AutofillMetadata&& rhs) noexcept = default;
+AutofillMetadata& AutofillMetadata::operator=(AutofillMetadata&& rhs) noexcept = default;
 AutofillMetadata AutofillMetadata::Clone() const {
   AutofillMetadata out;
   out.summary_label = summary_label;
@@ -603,7 +603,7 @@ bool AutofillMetadata::Populate(
     {
       auto* temp = (*summary_sublabel_value).GetIfString();
       if (!temp) {
-        out.summary_sublabel = absl::nullopt;
+        out.summary_sublabel = std::nullopt;
         return false;
       }
       out.summary_sublabel = *temp;
@@ -631,7 +631,7 @@ bool AutofillMetadata::Populate(
     {
       auto temp = (*is_local_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_local = absl::nullopt;
+        out.is_local = std::nullopt;
         return false;
       }
       out.is_local = *temp;
@@ -643,7 +643,7 @@ bool AutofillMetadata::Populate(
     {
       auto temp = (*is_cached_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_cached = absl::nullopt;
+        out.is_cached = std::nullopt;
         return false;
       }
       out.is_cached = *temp;
@@ -655,7 +655,7 @@ bool AutofillMetadata::Populate(
     {
       auto temp = (*is_migratable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_migratable = absl::nullopt;
+        out.is_migratable = std::nullopt;
         return false;
       }
       out.is_migratable = *temp;
@@ -667,7 +667,7 @@ bool AutofillMetadata::Populate(
     {
       auto temp = (*is_virtual_card_enrollment_eligible_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_virtual_card_enrollment_eligible = absl::nullopt;
+        out.is_virtual_card_enrollment_eligible = std::nullopt;
         return false;
       }
       out.is_virtual_card_enrollment_eligible = *temp;
@@ -679,7 +679,7 @@ bool AutofillMetadata::Populate(
     {
       auto temp = (*is_virtual_card_enrolled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_virtual_card_enrolled = absl::nullopt;
+        out.is_virtual_card_enrolled = std::nullopt;
         return false;
       }
       out.is_virtual_card_enrolled = *temp;
@@ -699,34 +699,21 @@ bool AutofillMetadata::Populate(
 }
 
 // static
-std::unique_ptr<AutofillMetadata> AutofillMetadata::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AutofillMetadata>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AutofillMetadata> AutofillMetadata::FromValue(const base::Value::Dict& value) {
+  AutofillMetadata out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AutofillMetadata> AutofillMetadata::FromValue(const base::Value::Dict& value) {
+std::optional<AutofillMetadata> AutofillMetadata::FromValue(const base::Value& value) {
   AutofillMetadata out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AutofillMetadata> AutofillMetadata::FromValue(const base::Value& value) {
-  AutofillMetadata out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -773,8 +760,8 @@ AddressField::AddressField()
 : type() {}
 
 AddressField::~AddressField() = default;
-AddressField::AddressField(AddressField&& rhs) = default;
-AddressField& AddressField::operator=(AddressField&& rhs) = default;
+AddressField::AddressField(AddressField&& rhs) noexcept = default;
+AddressField& AddressField::operator=(AddressField&& rhs) noexcept = default;
 AddressField AddressField::Clone() const {
   AddressField out;
   out.type = type;
@@ -790,12 +777,12 @@ bool AddressField::Populate(
     return false;
   }
   {
-    const std::string* server_field_type_as_string = (*type_value).GetIfString();
-    if (!server_field_type_as_string) {
+    const std::string* field_type_as_string = (*type_value).GetIfString();
+    if (!field_type_as_string) {
       return false;
     }
-    out.type = ParseServerFieldType(*server_field_type_as_string);
-    if (out.type == ServerFieldType()) {
+    out.type = ParseFieldType(*field_type_as_string);
+    if (out.type == FieldType()) {
       return false;
     }
   }
@@ -825,34 +812,21 @@ bool AddressField::Populate(
 }
 
 // static
-std::unique_ptr<AddressField> AddressField::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddressField>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddressField> AddressField::FromValue(const base::Value::Dict& value) {
+  AddressField out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddressField> AddressField::FromValue(const base::Value::Dict& value) {
+std::optional<AddressField> AddressField::FromValue(const base::Value& value) {
   AddressField out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddressField> AddressField::FromValue(const base::Value& value) {
-  AddressField out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -873,8 +847,8 @@ AddressEntry::AddressEntry()
  {}
 
 AddressEntry::~AddressEntry() = default;
-AddressEntry::AddressEntry(AddressEntry&& rhs) = default;
-AddressEntry& AddressEntry::operator=(AddressEntry&& rhs) = default;
+AddressEntry::AddressEntry(AddressEntry&& rhs) noexcept = default;
+AddressEntry& AddressEntry::operator=(AddressEntry&& rhs) noexcept = default;
 AddressEntry AddressEntry::Clone() const {
   AddressEntry out;
   out.guid = guid;
@@ -897,7 +871,7 @@ bool AddressEntry::Populate(
     {
       auto* temp = (*guid_value).GetIfString();
       if (!temp) {
-        out.guid = absl::nullopt;
+        out.guid = std::nullopt;
         return false;
       }
       out.guid = *temp;
@@ -924,7 +898,7 @@ bool AddressEntry::Populate(
     {
       auto* temp = (*language_code_value).GetIfString();
       if (!temp) {
-        out.language_code = absl::nullopt;
+        out.language_code = std::nullopt;
         return false;
       }
       out.language_code = *temp;
@@ -959,34 +933,21 @@ bool AddressEntry::Populate(
 }
 
 // static
-std::unique_ptr<AddressEntry> AddressEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddressEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddressEntry> AddressEntry::FromValue(const base::Value::Dict& value) {
+  AddressEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddressEntry> AddressEntry::FromValue(const base::Value::Dict& value) {
+std::optional<AddressEntry> AddressEntry::FromValue(const base::Value& value) {
   AddressEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddressEntry> AddressEntry::FromValue(const base::Value& value) {
-  AddressEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1017,8 +978,8 @@ CountryEntry::CountryEntry()
  {}
 
 CountryEntry::~CountryEntry() = default;
-CountryEntry::CountryEntry(CountryEntry&& rhs) = default;
-CountryEntry& CountryEntry::operator=(CountryEntry&& rhs) = default;
+CountryEntry::CountryEntry(CountryEntry&& rhs) noexcept = default;
+CountryEntry& CountryEntry::operator=(CountryEntry&& rhs) noexcept = default;
 CountryEntry CountryEntry::Clone() const {
   CountryEntry out;
   out.name = name;
@@ -1034,7 +995,7 @@ bool CountryEntry::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -1046,7 +1007,7 @@ bool CountryEntry::Populate(
     {
       auto* temp = (*country_code_value).GetIfString();
       if (!temp) {
-        out.country_code = absl::nullopt;
+        out.country_code = std::nullopt;
         return false;
       }
       out.country_code = *temp;
@@ -1066,34 +1027,21 @@ bool CountryEntry::Populate(
 }
 
 // static
-std::unique_ptr<CountryEntry> CountryEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CountryEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CountryEntry> CountryEntry::FromValue(const base::Value::Dict& value) {
+  CountryEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CountryEntry> CountryEntry::FromValue(const base::Value::Dict& value) {
+std::optional<CountryEntry> CountryEntry::FromValue(const base::Value& value) {
   CountryEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CountryEntry> CountryEntry::FromValue(const base::Value& value) {
-  CountryEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1120,8 +1068,8 @@ is_long_field(false),
 is_required(false) {}
 
 AddressComponent::~AddressComponent() = default;
-AddressComponent::AddressComponent(AddressComponent&& rhs) = default;
-AddressComponent& AddressComponent::operator=(AddressComponent&& rhs) = default;
+AddressComponent::AddressComponent(AddressComponent&& rhs) noexcept = default;
+AddressComponent& AddressComponent::operator=(AddressComponent&& rhs) noexcept = default;
 AddressComponent AddressComponent::Clone() const {
   AddressComponent out;
   out.field = field;
@@ -1140,12 +1088,12 @@ bool AddressComponent::Populate(
     return false;
   }
   {
-    const std::string* server_field_type_as_string = (*field_value).GetIfString();
-    if (!server_field_type_as_string) {
+    const std::string* field_type_as_string = (*field_value).GetIfString();
+    if (!field_type_as_string) {
       return false;
     }
-    out.field = ParseServerFieldType(*server_field_type_as_string);
-    if (out.field == ServerFieldType()) {
+    out.field = ParseFieldType(*field_type_as_string);
+    if (out.field == FieldType()) {
       return false;
     }
   }
@@ -1191,7 +1139,7 @@ bool AddressComponent::Populate(
     {
       auto* temp = (*placeholder_value).GetIfString();
       if (!temp) {
-        out.placeholder = absl::nullopt;
+        out.placeholder = std::nullopt;
         return false;
       }
       out.placeholder = *temp;
@@ -1211,34 +1159,21 @@ bool AddressComponent::Populate(
 }
 
 // static
-std::unique_ptr<AddressComponent> AddressComponent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddressComponent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddressComponent> AddressComponent::FromValue(const base::Value::Dict& value) {
+  AddressComponent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddressComponent> AddressComponent::FromValue(const base::Value::Dict& value) {
+std::optional<AddressComponent> AddressComponent::FromValue(const base::Value& value) {
   AddressComponent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddressComponent> AddressComponent::FromValue(const base::Value& value) {
-  AddressComponent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1267,8 +1202,8 @@ AddressComponentRow::AddressComponentRow()
  {}
 
 AddressComponentRow::~AddressComponentRow() = default;
-AddressComponentRow::AddressComponentRow(AddressComponentRow&& rhs) = default;
-AddressComponentRow& AddressComponentRow::operator=(AddressComponentRow&& rhs) = default;
+AddressComponentRow::AddressComponentRow(AddressComponentRow&& rhs) noexcept = default;
+AddressComponentRow& AddressComponentRow::operator=(AddressComponentRow&& rhs) noexcept = default;
 AddressComponentRow AddressComponentRow::Clone() const {
   AddressComponentRow out;
   out.row.reserve(row.size());
@@ -1309,34 +1244,21 @@ bool AddressComponentRow::Populate(
 }
 
 // static
-std::unique_ptr<AddressComponentRow> AddressComponentRow::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddressComponentRow>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddressComponentRow> AddressComponentRow::FromValue(const base::Value::Dict& value) {
+  AddressComponentRow out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddressComponentRow> AddressComponentRow::FromValue(const base::Value::Dict& value) {
+std::optional<AddressComponentRow> AddressComponentRow::FromValue(const base::Value& value) {
   AddressComponentRow out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddressComponentRow> AddressComponentRow::FromValue(const base::Value& value) {
-  AddressComponentRow out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1355,8 +1277,8 @@ AddressComponents::AddressComponents()
  {}
 
 AddressComponents::~AddressComponents() = default;
-AddressComponents::AddressComponents(AddressComponents&& rhs) = default;
-AddressComponents& AddressComponents::operator=(AddressComponents&& rhs) = default;
+AddressComponents::AddressComponents(AddressComponents&& rhs) noexcept = default;
+AddressComponents& AddressComponents::operator=(AddressComponents&& rhs) noexcept = default;
 AddressComponents AddressComponents::Clone() const {
   AddressComponents out;
   out.components.reserve(components.size());
@@ -1410,34 +1332,21 @@ bool AddressComponents::Populate(
 }
 
 // static
-std::unique_ptr<AddressComponents> AddressComponents::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddressComponents>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddressComponents> AddressComponents::FromValue(const base::Value::Dict& value) {
+  AddressComponents out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddressComponents> AddressComponents::FromValue(const base::Value::Dict& value) {
+std::optional<AddressComponents> AddressComponents::FromValue(const base::Value& value) {
   AddressComponents out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddressComponents> AddressComponents::FromValue(const base::Value& value) {
-  AddressComponents out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1458,8 +1367,8 @@ CreditCardEntry::CreditCardEntry()
  {}
 
 CreditCardEntry::~CreditCardEntry() = default;
-CreditCardEntry::CreditCardEntry(CreditCardEntry&& rhs) = default;
-CreditCardEntry& CreditCardEntry::operator=(CreditCardEntry&& rhs) = default;
+CreditCardEntry::CreditCardEntry(CreditCardEntry&& rhs) noexcept = default;
+CreditCardEntry& CreditCardEntry::operator=(CreditCardEntry&& rhs) noexcept = default;
 CreditCardEntry CreditCardEntry::Clone() const {
   CreditCardEntry out;
   out.guid = guid;
@@ -1486,7 +1395,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*guid_value).GetIfString();
       if (!temp) {
-        out.guid = absl::nullopt;
+        out.guid = std::nullopt;
         return false;
       }
       out.guid = *temp;
@@ -1498,7 +1407,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*instrument_id_value).GetIfString();
       if (!temp) {
-        out.instrument_id = absl::nullopt;
+        out.instrument_id = std::nullopt;
         return false;
       }
       out.instrument_id = *temp;
@@ -1510,7 +1419,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -1522,7 +1431,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*card_number_value).GetIfString();
       if (!temp) {
-        out.card_number = absl::nullopt;
+        out.card_number = std::nullopt;
         return false;
       }
       out.card_number = *temp;
@@ -1534,7 +1443,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*expiration_month_value).GetIfString();
       if (!temp) {
-        out.expiration_month = absl::nullopt;
+        out.expiration_month = std::nullopt;
         return false;
       }
       out.expiration_month = *temp;
@@ -1546,7 +1455,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*expiration_year_value).GetIfString();
       if (!temp) {
-        out.expiration_year = absl::nullopt;
+        out.expiration_year = std::nullopt;
         return false;
       }
       out.expiration_year = *temp;
@@ -1558,7 +1467,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*nickname_value).GetIfString();
       if (!temp) {
-        out.nickname = absl::nullopt;
+        out.nickname = std::nullopt;
         return false;
       }
       out.nickname = *temp;
@@ -1570,7 +1479,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*network_value).GetIfString();
       if (!temp) {
-        out.network = absl::nullopt;
+        out.network = std::nullopt;
         return false;
       }
       out.network = *temp;
@@ -1582,7 +1491,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*image_src_value).GetIfString();
       if (!temp) {
-        out.image_src = absl::nullopt;
+        out.image_src = std::nullopt;
         return false;
       }
       out.image_src = *temp;
@@ -1594,7 +1503,7 @@ bool CreditCardEntry::Populate(
     {
       auto* temp = (*cvc_value).GetIfString();
       if (!temp) {
-        out.cvc = absl::nullopt;
+        out.cvc = std::nullopt;
         return false;
       }
       out.cvc = *temp;
@@ -1629,34 +1538,21 @@ bool CreditCardEntry::Populate(
 }
 
 // static
-std::unique_ptr<CreditCardEntry> CreditCardEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CreditCardEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CreditCardEntry> CreditCardEntry::FromValue(const base::Value::Dict& value) {
+  CreditCardEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CreditCardEntry> CreditCardEntry::FromValue(const base::Value::Dict& value) {
+std::optional<CreditCardEntry> CreditCardEntry::FromValue(const base::Value& value) {
   CreditCardEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CreditCardEntry> CreditCardEntry::FromValue(const base::Value& value) {
-  CreditCardEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1717,8 +1613,8 @@ IbanEntry::IbanEntry()
  {}
 
 IbanEntry::~IbanEntry() = default;
-IbanEntry::IbanEntry(IbanEntry&& rhs) = default;
-IbanEntry& IbanEntry::operator=(IbanEntry&& rhs) = default;
+IbanEntry::IbanEntry(IbanEntry&& rhs) noexcept = default;
+IbanEntry& IbanEntry::operator=(IbanEntry&& rhs) noexcept = default;
 IbanEntry IbanEntry::Clone() const {
   IbanEntry out;
   out.guid = guid;
@@ -1738,7 +1634,7 @@ bool IbanEntry::Populate(
     {
       auto* temp = (*guid_value).GetIfString();
       if (!temp) {
-        out.guid = absl::nullopt;
+        out.guid = std::nullopt;
         return false;
       }
       out.guid = *temp;
@@ -1750,7 +1646,7 @@ bool IbanEntry::Populate(
     {
       auto* temp = (*value_value).GetIfString();
       if (!temp) {
-        out.value = absl::nullopt;
+        out.value = std::nullopt;
         return false;
       }
       out.value = *temp;
@@ -1762,7 +1658,7 @@ bool IbanEntry::Populate(
     {
       auto* temp = (*nickname_value).GetIfString();
       if (!temp) {
-        out.nickname = absl::nullopt;
+        out.nickname = std::nullopt;
         return false;
       }
       out.nickname = *temp;
@@ -1797,34 +1693,21 @@ bool IbanEntry::Populate(
 }
 
 // static
-std::unique_ptr<IbanEntry> IbanEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IbanEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IbanEntry> IbanEntry::FromValue(const base::Value::Dict& value) {
+  IbanEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IbanEntry> IbanEntry::FromValue(const base::Value::Dict& value) {
+std::optional<IbanEntry> IbanEntry::FromValue(const base::Value& value) {
   IbanEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IbanEntry> IbanEntry::FromValue(const base::Value& value) {
-  IbanEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1873,13 +1756,13 @@ namespace SaveAddress {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1888,15 +1771,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& address_value = args[0];
     {
       if (!address_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!AddressEntry::Populate(address_value.GetDict(), params.address)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1920,13 +1803,13 @@ namespace GetAddressComponents {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1936,13 +1819,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = country_code_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.country_code = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1973,13 +1856,13 @@ namespace SaveCreditCard {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1988,15 +1871,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& card_value = args[0];
     {
       if (!card_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!CreditCardEntry::Populate(card_value.GetDict(), params.card)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2009,13 +1892,13 @@ namespace SaveIban {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2024,15 +1907,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& iban_value = args[0];
     {
       if (!iban_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!IbanEntry::Populate(iban_value.GetDict(), params.iban)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2045,13 +1928,13 @@ namespace RemoveEntry {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2061,13 +1944,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2102,13 +1985,13 @@ namespace IsValidIban {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2118,13 +2001,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = iban_value_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.iban_value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2144,13 +2027,13 @@ namespace MaskCreditCard {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2160,13 +2043,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2187,13 +2070,13 @@ namespace SetCreditCardFIDOAuthEnabledState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2203,13 +2086,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enabled_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enabled = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2222,13 +2105,13 @@ namespace AddVirtualCard {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2238,13 +2121,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = card_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.card_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2257,13 +2140,13 @@ namespace RemoveVirtualCard {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2273,13 +2156,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = card_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.card_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2296,13 +2179,13 @@ namespace GetLocalCard {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2312,13 +2195,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = guid_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.guid = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2344,6 +2227,10 @@ base::Value::List Results::Create(bool is_device_auth_available) {
   return create_results;
 }
 }  // namespace CheckIfDeviceAuthAvailable
+
+namespace BulkDeleteAllCvcs {
+
+}  // namespace BulkDeleteAllCvcs
 
 //
 // Events

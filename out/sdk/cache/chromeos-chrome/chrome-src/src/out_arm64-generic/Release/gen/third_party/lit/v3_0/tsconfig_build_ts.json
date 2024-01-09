@@ -1,0 +1,86 @@
+{
+  "extends": "../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/lit/v3_0",
+    "outDir": ".",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "lit/index.js": [
+        "./../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/index.d.ts"
+      ],
+      "lit-html": [
+        "./../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/lit-html.d.ts"
+      ],
+      "@lit/reactive-element": [
+        "./../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/@lit/reactive-element/reactive-element.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/lit/v3_0/lit.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/lit/v3_0/cr_lit_element.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/repeat.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/when.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/ref.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/cache.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/choose.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/async-append.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/until.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/template-content.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/keyed.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/style-map.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/if-defined.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/join.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/unsafe-svg.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/live.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/guard.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/async-replace.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/unsafe-html.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/map.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/private-async-helpers.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/range.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directives/class-map.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/static.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/lit-html.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/is-server.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/async-directive.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directive.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-html/directive-helpers.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-element/lit-element.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit-element/index.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/repeat.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/when.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/ref.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/cache.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/choose.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/async-append.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/until.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/template-content.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/keyed.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/style-map.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/if-defined.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/join.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/unsafe-svg.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/live.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/guard.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/async-replace.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/unsafe-html.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/map.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/range.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directives/class-map.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/static-html.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/async-directive.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/html.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directive.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/directive-helpers.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/lit/index.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/@lit/reactive-element/reactive-controller.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/@lit/reactive-element/css-tag.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/@lit/reactive-element/reactive-element.d.ts"
+  ]
+}

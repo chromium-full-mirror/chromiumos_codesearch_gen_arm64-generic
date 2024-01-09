@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, OriginTrialsTest>::value,
     "OriginTrialsTest inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&OriginTrialsTest::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OriginTrialsTest is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,8 +80,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.normalAttribute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->normalAttribute();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -111,12 +107,12 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.throwingAttribute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "OriginTrialsTest";
 const char* const property_name = "throwingAttribute";
@@ -136,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.unconditionalAttribute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->unconditionalAttribute();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -162,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.secureUnconditionalAttribute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->secureUnconditionalAttribute();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -188,8 +186,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.secureAttribute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->secureAttribute();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -214,8 +213,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.deprecationAttribute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deprecationAttribute();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -228,8 +228,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.impliedAttribute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->impliedAttribute();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -242,8 +243,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.invalidOSAttribute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->invalidOSAttribute();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -256,8 +258,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.thirdPartyAttribute.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->thirdPartyAttribute();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -270,8 +273,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.normalAttributePartial.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = OriginTrialsTestPartial::normalAttributePartial(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -296,8 +300,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.secureAttributePartial.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = OriginTrialsTestPartial::secureAttributePartial(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -336,7 +341,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_dict = NativeValueTraits<OriginTrialsTestDictionary>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -361,7 +366,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getDictionaryMethod();
 if (!ToV8Traits<OriginTrialsTestDictionary>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -380,8 +386,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.navigationMethod");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->navigationMethod();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -397,8 +404,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.normalMethod");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->normalMethod();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -414,8 +422,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.normalMethodPartial");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = OriginTrialsTestPartial::normalMethodPartial(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -431,8 +440,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.secureMethod");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->secureMethod();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -448,8 +458,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.secureMethodPartial");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = OriginTrialsTestPartial::secureMethodPartial(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -465,8 +476,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.secureUnconditionalMethod");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->secureUnconditionalMethod();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -492,7 +504,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_dict = NativeValueTraits<OriginTrialsTestDictionary>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -512,8 +524,9 @@ BLINK_BINDINGS_TRACE_EVENT("OriginTrialsTest.unconditionalMethod");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(v8_receiver);
+OriginTrialsTest* blink_receiver = V8OriginTrialsTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->unconditionalMethod();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

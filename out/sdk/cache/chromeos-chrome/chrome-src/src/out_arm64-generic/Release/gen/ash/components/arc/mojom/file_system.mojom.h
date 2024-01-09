@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/file_system.mojom-features.h"
 #include "ash/components/arc/mojom/file_system.mojom-shared.h"
 #include "ash/components/arc/mojom/file_system.mojom-forward.h"
 #include "ash/components/arc/mojom/app.mojom-forward.h"
@@ -138,7 +139,7 @@ class FileSystemHost
   virtual ~FileSystemHost() = default;
 
 
-  using GetFileNameCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetFileNameCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetFileName(const std::string& url, GetFileNameCallback callback) = 0;
 
@@ -148,12 +149,12 @@ class FileSystemHost
   virtual void GetFileSize(const std::string& url, GetFileSizeCallback callback) = 0;
 
 
-  using GetLastModifiedCallback = base::OnceCallback<void(absl::optional<::base::Time>)>;
+  using GetLastModifiedCallback = base::OnceCallback<void(std::optional<::base::Time>)>;
   
   virtual void GetLastModified(const ::GURL& url, GetLastModifiedCallback callback) = 0;
 
 
-  using GetFileTypeCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetFileTypeCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetFileType(const std::string& url, GetFileTypeCallback callback) = 0;
 
@@ -164,7 +165,7 @@ class FileSystemHost
   virtual void OnRootsChanged() = 0;
 
 
-  using GetVirtualFileIdCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetVirtualFileIdCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetVirtualFileId(const std::string& url, GetVirtualFileIdCallback callback) = 0;
 
@@ -337,7 +338,7 @@ class FileSystemInstance
   virtual void AddWatcher(const std::string& authority, const std::string& document_id, AddWatcherCallback callback) = 0;
 
 
-  using GetChildDocumentsCallback = base::OnceCallback<void(absl::optional<std::vector<DocumentPtr>>)>;
+  using GetChildDocumentsCallback = base::OnceCallback<void(std::optional<std::vector<DocumentPtr>>)>;
   
   virtual void GetChildDocuments(const std::string& authority, const std::string& parent_document_id, GetChildDocumentsCallback callback) = 0;
 
@@ -352,17 +353,17 @@ class FileSystemInstance
   virtual void GetFileSize(const std::string& url, GetFileSizeCallback callback) = 0;
 
 
-  using GetMimeTypeCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using GetMimeTypeCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void GetMimeType(const std::string& url, GetMimeTypeCallback callback) = 0;
 
 
-  using GetRecentDocumentsCallback = base::OnceCallback<void(absl::optional<std::vector<DocumentPtr>>)>;
+  using GetRecentDocumentsCallback = base::OnceCallback<void(std::optional<std::vector<DocumentPtr>>)>;
   
   virtual void GetRecentDocuments(const std::string& authority, const std::string& root_id, GetRecentDocumentsCallback callback) = 0;
 
 
-  using GetRootsCallback = base::OnceCallback<void(absl::optional<std::vector<RootPtr>>)>;
+  using GetRootsCallback = base::OnceCallback<void(std::optional<std::vector<RootPtr>>)>;
   
   virtual void GetRoots(GetRootsCallback callback) = 0;
 
@@ -1102,17 +1103,17 @@ class  MediaStoreMetadata {
   // Construct an instance holding |unknown|.
   static MediaStoreMetadataPtr
   NewUnknown(
-      uint8_t unknown) {
+      uint8_t value) {
     auto result = MediaStoreMetadataPtr(absl::in_place);
-    result->set_unknown(std::move(unknown));
+    result->set_unknown(std::move(value));
     return result;
   }
   // Construct an instance holding |download|.
   static MediaStoreMetadataPtr
   NewDownload(
-      MediaStoreDownloadMetadataPtr download) {
+      MediaStoreDownloadMetadataPtr value) {
     auto result = MediaStoreMetadataPtr(absl::in_place);
-    result->set_download(std::move(download));
+    result->set_download(std::move(value));
     return result;
   }
 
@@ -1254,7 +1255,7 @@ class  Document {
       const std::string& mime_type,
       int64_t size,
       uint64_t last_modified,
-      const absl::optional<std::string>& android_file_system_path);
+      const std::optional<std::string>& android_file_system_path);
 
   Document(
       const std::string& document_id,
@@ -1262,7 +1263,7 @@ class  Document {
       const std::string& mime_type,
       int64_t size,
       uint64_t last_modified,
-      const absl::optional<std::string>& android_file_system_path,
+      const std::optional<std::string>& android_file_system_path,
       bool supports_delete,
       bool supports_rename,
       bool supports_write,
@@ -1276,7 +1277,7 @@ class  Document {
       const std::string& mime_type,
       int64_t size,
       uint64_t last_modified,
-      const absl::optional<std::string>& android_file_system_path,
+      const std::optional<std::string>& android_file_system_path,
       bool supports_delete,
       bool supports_rename,
       bool supports_write,
@@ -1371,7 +1372,7 @@ class  Document {
   
   uint64_t last_modified;
   
-  absl::optional<std::string> android_file_system_path;
+  std::optional<std::string> android_file_system_path;
   
   bool supports_delete;
   
@@ -1451,18 +1452,18 @@ class  Root {
       const std::string& root_id,
       const std::string& document_id,
       const std::string& title,
-      const absl::optional<std::string>& summary,
-      const absl::optional<::SkBitmap>& icon);
+      const std::optional<std::string>& summary,
+      const std::optional<::SkBitmap>& icon);
 
   Root(
       const std::string& authority,
       const std::string& root_id,
       const std::string& document_id,
       const std::string& title,
-      const absl::optional<std::string>& summary,
-      const absl::optional<::SkBitmap>& icon,
+      const std::optional<std::string>& summary,
+      const std::optional<::SkBitmap>& icon,
       bool supports_create,
-      absl::optional<std::vector<std::string>> mime_types);
+      std::optional<std::vector<std::string>> mime_types);
 
 
   ~Root();
@@ -1548,13 +1549,13 @@ class  Root {
   
   std::string title;
   
-  absl::optional<std::string> summary;
+  std::optional<std::string> summary;
   
-  absl::optional<::SkBitmap> icon;
+  std::optional<::SkBitmap> icon;
   
   bool supports_create;
   
-  absl::optional<std::vector<std::string>> mime_types;
+  std::optional<std::vector<std::string>> mime_types;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1767,7 +1768,7 @@ class  OpenUrlsRequest {
       ::arc::mojom::ActionType action_type,
       ::arc::mojom::ActivityNamePtr activity_name,
       std::vector<ContentUrlWithMimeTypePtr> urls,
-      const absl::optional<base::flat_map<std::string, std::string>>& extras);
+      const std::optional<base::flat_map<std::string, std::string>>& extras);
 
 OpenUrlsRequest(const OpenUrlsRequest&) = delete;
 OpenUrlsRequest& operator=(const OpenUrlsRequest&) = delete;
@@ -1853,7 +1854,7 @@ OpenUrlsRequest& operator=(const OpenUrlsRequest&) = delete;
   
   std::vector<ContentUrlWithMimeTypePtr> urls;
   
-  absl::optional<base::flat_map<std::string, std::string>> extras;
+  std::optional<base::flat_map<std::string, std::string>> extras;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1923,7 +1924,7 @@ class  SelectFilesRequest {
       const std::string& initial_content_uri,
       DocumentPathPtr initial_document_path,
       int32_t task_id,
-      const absl::optional<std::string>& search_query);
+      const std::optional<std::string>& search_query);
 
 SelectFilesRequest(const SelectFilesRequest&) = delete;
 SelectFilesRequest& operator=(const SelectFilesRequest&) = delete;
@@ -2019,7 +2020,7 @@ SelectFilesRequest& operator=(const SelectFilesRequest&) = delete;
   
   int32_t task_id;
   
-  absl::optional<std::string> search_query;
+  std::optional<std::string> search_query;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2225,7 +2226,7 @@ class  SelectFilesResult {
 
   SelectFilesResult(
       std::vector<::GURL> urls,
-      const absl::optional<std::string>& picker_activity);
+      const std::optional<std::string>& picker_activity);
 
 
   ~SelectFilesResult();
@@ -2305,7 +2306,7 @@ class  SelectFilesResult {
   
   std::vector<::GURL> urls;
   
-  absl::optional<std::string> picker_activity;
+  std::optional<std::string> picker_activity;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2520,7 +2521,7 @@ class  FileSelectorElements {
   FileSelectorElements(
       std::vector<FileSelectorElementPtr> directory_elements,
       std::vector<FileSelectorElementPtr> file_elements,
-      const absl::optional<std::string>& search_query);
+      const std::optional<std::string>& search_query);
 
 FileSelectorElements(const FileSelectorElements&) = delete;
 FileSelectorElements& operator=(const FileSelectorElements&) = delete;
@@ -2604,7 +2605,7 @@ FileSelectorElements& operator=(const FileSelectorElements&) = delete;
   
   std::vector<FileSelectorElementPtr> file_elements;
   
-  absl::optional<std::string> search_query;
+  std::optional<std::string> search_query;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

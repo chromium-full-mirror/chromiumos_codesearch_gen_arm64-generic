@@ -83,12 +83,19 @@ enum class BillingResponseCode : int32_t {
   kClientAppError = 6,
   kMinValue = 0,
   kMaxValue = 6,
+  kDefaultValue = 1
 };
 
  std::ostream& operator<<(std::ostream& os, BillingResponseCode value);
 inline bool IsKnownEnumValue(BillingResponseCode value) {
   return internal::BillingResponseCode_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline BillingResponseCode ToKnownEnumValue(BillingResponseCode value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return BillingResponseCode::kDefaultValue;
 }
 
 
@@ -101,12 +108,19 @@ enum class ItemType : int32_t {
   kSubscription = 2,
   kMinValue = 0,
   kMaxValue = 2,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, ItemType value);
 inline bool IsKnownEnumValue(ItemType value) {
   return internal::ItemType_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline ItemType ToKnownEnumValue(ItemType value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ItemType::kDefaultValue;
 }
 
 
@@ -121,12 +135,19 @@ enum class CreateDigitalGoodsResponseCode : int32_t {
   kUnsupportedContext = 3,
   kMinValue = 0,
   kMaxValue = 3,
+  kDefaultValue = 1
 };
 
  std::ostream& operator<<(std::ostream& os, CreateDigitalGoodsResponseCode value);
 inline bool IsKnownEnumValue(CreateDigitalGoodsResponseCode value) {
   return internal::CreateDigitalGoodsResponseCode_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline CreateDigitalGoodsResponseCode ToKnownEnumValue(CreateDigitalGoodsResponseCode value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return CreateDigitalGoodsResponseCode::kDefaultValue;
 }
 
 

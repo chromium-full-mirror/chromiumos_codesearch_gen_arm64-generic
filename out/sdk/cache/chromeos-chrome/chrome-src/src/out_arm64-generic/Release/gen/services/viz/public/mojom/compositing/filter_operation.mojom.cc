@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -60,10 +61,10 @@ FilterOperation::FilterOperation(
     const ::gfx::Point& offset_in,
     const ::SkColor4f& drop_shadow_color_in,
     const ::sk_sp<::cc::PaintFilter>& image_filter_in,
-    absl::optional<std::vector<float>> matrix_in,
+    std::optional<std::vector<float>> matrix_in,
     int32_t zoom_inset_in,
     ::SkTileMode blur_tile_mode_in,
-    absl::optional<std::vector<::gfx::Rect>> shape_in)
+    std::optional<std::vector<::gfx::Rect>> shape_in)
     : type(std::move(type_in)),
       amount(std::move(amount_in)),
       offset(std::move(offset_in)),
@@ -128,7 +129,7 @@ void FilterOperation::WriteIntoTrace(
     dict.AddItem(
       "matrix"), this->matrix,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<float>>&>"
+      "<value of type const std::optional<std::vector<float>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -155,7 +156,7 @@ void FilterOperation::WriteIntoTrace(
     dict.AddItem(
       "shape"), this->shape,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::gfx::Rect>>&>"
+      "<value of type const std::optional<std::vector<::gfx::Rect>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/services/storage/public/mojom/storage_service.mojom-features.h"
 #include "components/services/storage/public/mojom/storage_service.mojom-shared.h"
 #include "components/services/storage/public/mojom/storage_service.mojom-forward.h"
 #include "components/services/storage/public/mojom/partition.mojom-forward.h"
@@ -105,7 +106,7 @@ class StorageService
   virtual void SetDataDirectory(const ::base::FilePath& path, ::mojo::PendingRemote<::storage::mojom::Directory> directory) = 0;
 
   
-  virtual void BindPartition(const absl::optional<::base::FilePath>& path, ::mojo::PendingReceiver<::storage::mojom::Partition> receiver) = 0;
+  virtual void BindPartition(const std::optional<::base::FilePath>& path, ::mojo::PendingReceiver<::storage::mojom::Partition> receiver) = 0;
 
   
   virtual void BindTestApi(::mojo::ScopedMessagePipeHandle test_api_receiver) = 0;
@@ -124,7 +125,7 @@ class  StorageServiceProxy
   
   void SetDataDirectory(const ::base::FilePath& path, ::mojo::PendingRemote<::storage::mojom::Directory> directory) final;
   
-  void BindPartition(const absl::optional<::base::FilePath>& path, ::mojo::PendingReceiver<::storage::mojom::Partition> receiver) final;
+  void BindPartition(const std::optional<::base::FilePath>& path, ::mojo::PendingReceiver<::storage::mojom::Partition> receiver) final;
   
   void BindTestApi(::mojo::ScopedMessagePipeHandle test_api_receiver) final;
 

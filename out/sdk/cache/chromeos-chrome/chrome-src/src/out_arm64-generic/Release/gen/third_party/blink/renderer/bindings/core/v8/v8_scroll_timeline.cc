@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ScrollTimeline>::value,
     "ScrollTimeline inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ScrollTimeline::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ScrollTimeline is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScrollTimeline.source.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScrollTimeline* blink_receiver = V8ScrollTimeline::ToWrappableUnsafe(v8_receiver);
+ScrollTimeline* blink_receiver = V8ScrollTimeline::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->source();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -106,10 +102,10 @@ BLINK_BINDINGS_TRACE_EVENT("ScrollTimeline.axis.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ScrollTimeline* blink_receiver = V8ScrollTimeline::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->axis();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ScrollTimeline* blink_receiver = V8ScrollTimeline::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->axis();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

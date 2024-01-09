@@ -7,7 +7,7 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { CustomElement } from 'chrome://resources/js/custom_element.js';
 import { getFavicon } from 'chrome://resources/js/icon.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { isRTL } from 'chrome://resources/js/util_ts.js';
+import { isRTL } from 'chrome://resources/js/util.js';
 import { getTemplate } from './tab.html.js';
 import { TabNetworkState } from './tab_strip.mojom-webui.js';
 import { TabSwiper } from './tab_swiper.js';
@@ -32,9 +32,20 @@ export class TabElement extends CustomElement {
     static get template() {
         return getTemplate();
     }
+    alertIndicatorsEl_;
+    closeButtonEl_;
+    dragImageEl_;
+    tabEl_;
+    faviconEl_;
+    thumbnail_;
+    tab_ = null;
+    tabsApi_;
+    titleTextEl_;
+    isValidDragOverTarget_;
+    tabSwiper_;
+    onTabActivating_;
     constructor() {
         super();
-        this.tab_ = null;
         this.alertIndicatorsEl_ =
             this.$('tabstrip-alert-indicators');
         // Normally, custom elements will get upgraded automatically once added

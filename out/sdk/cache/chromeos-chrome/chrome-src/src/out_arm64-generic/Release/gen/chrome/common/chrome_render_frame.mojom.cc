@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -69,6 +70,9 @@ ChromeRenderFrame::IPCStableHashFunction ChromeRenderFrame::MessageToMethodInfo_
     case internal::kChromeRenderFrame_LoadBlockedPlugins_Name: {
       return &ChromeRenderFrame::LoadBlockedPlugins_Sym::IPCStableHash;
     }
+    case internal::kChromeRenderFrame_SetSupportsAppRegion_Name: {
+      return &ChromeRenderFrame::SetSupportsAppRegion_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -94,6 +98,8 @@ const char* ChromeRenderFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive chrome::mojom::ChromeRenderFrame::GetMediaFeedURL";
       case internal::kChromeRenderFrame_LoadBlockedPlugins_Name:
             return "Receive chrome::mojom::ChromeRenderFrame::LoadBlockedPlugins";
+      case internal::kChromeRenderFrame_SetSupportsAppRegion_Name:
+            return "Receive chrome::mojom::ChromeRenderFrame::SetSupportsAppRegion";
     }
   } else {
     switch (message.name()) {
@@ -111,6 +117,8 @@ const char* ChromeRenderFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply chrome::mojom::ChromeRenderFrame::GetMediaFeedURL";
       case internal::kChromeRenderFrame_LoadBlockedPlugins_Name:
             return "Receive reply chrome::mojom::ChromeRenderFrame::LoadBlockedPlugins";
+      case internal::kChromeRenderFrame_SetSupportsAppRegion_Name:
+            return "Receive reply chrome::mojom::ChromeRenderFrame::SetSupportsAppRegion";
     }
   }
   return "Receive unknown mojo message";
@@ -216,6 +224,19 @@ uint32_t ChromeRenderFrame::LoadBlockedPlugins_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t ChromeRenderFrame::SetSupportsAppRegion_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chrome::mojom::ChromeRenderFrame::SetSupportsAppRegion");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class ChromeRenderFrame_RequestBitmapForContextNode_ForwardToCallback
@@ -282,14 +303,17 @@ void ChromeRenderFrameProxy::SetWindowFeatures(
                         "<value of type ::blink::mojom::WindowFeaturesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_SetWindowFeatures_Name, kFlags, 0, 0, nullptr);
@@ -323,14 +347,17 @@ void ChromeRenderFrameProxy::RequestReloadImageForContextNode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome::mojom::ChromeRenderFrame::RequestReloadImageForContextNode");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_RequestReloadImageForContextNode_Name, kFlags, 0, 0, nullptr);
@@ -353,14 +380,17 @@ void ChromeRenderFrameProxy::RequestBitmapForContextNode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome::mojom::ChromeRenderFrame::RequestBitmapForContextNode");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_RequestBitmapForContextNode_Name, kFlags, 0, 0, nullptr);
@@ -400,14 +430,17 @@ void ChromeRenderFrameProxy::RequestImageForContextNode(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_RequestImageForContextNode_Name, kFlags, 0, 0, nullptr);
@@ -453,14 +486,17 @@ void ChromeRenderFrameProxy::ExecuteWebUIJavaScript(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_ExecuteWebUIJavaScript_Name, kFlags, 0, 0, nullptr);
@@ -494,14 +530,17 @@ void ChromeRenderFrameProxy::GetMediaFeedURL(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome::mojom::ChromeRenderFrame::GetMediaFeedURL");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_GetMediaFeedURL_Name, kFlags, 0, 0, nullptr);
@@ -532,14 +571,17 @@ void ChromeRenderFrameProxy::LoadBlockedPlugins(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_LoadBlockedPlugins_Name, kFlags, 0, 0, nullptr);
@@ -562,6 +604,47 @@ void ChromeRenderFrameProxy::LoadBlockedPlugins(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(ChromeRenderFrame::Name_);
   message.set_method_name("LoadBlockedPlugins");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void ChromeRenderFrameProxy::SetSupportsAppRegion(
+    bool in_supports_app_region) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send chrome::mojom::ChromeRenderFrame::SetSupportsAppRegion", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("supports_app_region"), in_supports_app_region,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kChromeRenderFrame_SetSupportsAppRegion_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chrome::mojom::internal::ChromeRenderFrame_SetSupportsAppRegion_Params_Data> params(
+          message);
+  params.Allocate();
+  params->supports_app_region = in_supports_app_region;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ChromeRenderFrame::Name_);
+  message.set_method_name("SetSupportsAppRegion");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -659,7 +742,8 @@ void ChromeRenderFrame_RequestBitmapForContextNode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_RequestBitmapForContextNode_Name, kFlags, 0, 0, nullptr);
@@ -811,7 +895,8 @@ void ChromeRenderFrame_RequestImageForContextNode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_RequestImageForContextNode_Name, kFlags, 0, 0, nullptr);
@@ -941,7 +1026,7 @@ class ChromeRenderFrame_GetMediaFeedURL_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      const absl::optional<::GURL>& in_url);
+      const std::optional<::GURL>& in_url);
 };
 
 bool ChromeRenderFrame_GetMediaFeedURL_ForwardToCallback::Accept(
@@ -954,7 +1039,7 @@ bool ChromeRenderFrame_GetMediaFeedURL_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::GURL> p_url{};
+  std::optional<::GURL> p_url{};
   ChromeRenderFrame_GetMediaFeedURL_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadUrl(&p_url))
@@ -973,7 +1058,7 @@ std::move(p_url));
 }
 
 void ChromeRenderFrame_GetMediaFeedURL_ProxyToResponder::Run(
-    const absl::optional<::GURL>& in_url) {
+    const std::optional<::GURL>& in_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chrome::mojom::ChromeRenderFrame::GetMediaFeedURL", "async_response_parameters",
@@ -981,13 +1066,14 @@ void ChromeRenderFrame_GetMediaFeedURL_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("url"), in_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromeRenderFrame_GetMediaFeedURL_Name, kFlags, 0, 0, nullptr);
@@ -1134,6 +1220,32 @@ std::move(p_javascript));
 std::move(p_identifier));
       return true;
     }
+    case internal::kChromeRenderFrame_SetSupportsAppRegion_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ChromeRenderFrame_SetSupportsAppRegion_Params_Data* params =
+          reinterpret_cast<internal::ChromeRenderFrame_SetSupportsAppRegion_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_supports_app_region{};
+      ChromeRenderFrame_SetSupportsAppRegion_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_supports_app_region = input_data_view.supports_app_region();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ChromeRenderFrame::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetSupportsAppRegion(
+std::move(p_supports_app_region));
+      return true;
+    }
   }
   return false;
 }
@@ -1250,25 +1362,30 @@ std::move(p_quality), std::move(callback));
     case internal::kChromeRenderFrame_LoadBlockedPlugins_Name: {
       break;
     }
+    case internal::kChromeRenderFrame_SetSupportsAppRegion_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChromeRenderFrameValidationInfo[] = {
-    {&internal::ChromeRenderFrame_SetWindowFeatures_Params_Data::Validate,
+    { &internal::ChromeRenderFrame_SetWindowFeatures_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChromeRenderFrame_RequestReloadImageForContextNode_Params_Data::Validate,
+    { &internal::ChromeRenderFrame_RequestReloadImageForContextNode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChromeRenderFrame_RequestBitmapForContextNode_Params_Data::Validate,
+    { &internal::ChromeRenderFrame_RequestBitmapForContextNode_Params_Data::Validate,
      &internal::ChromeRenderFrame_RequestBitmapForContextNode_ResponseParams_Data::Validate},
-    {&internal::ChromeRenderFrame_RequestImageForContextNode_Params_Data::Validate,
+    { &internal::ChromeRenderFrame_RequestImageForContextNode_Params_Data::Validate,
      &internal::ChromeRenderFrame_RequestImageForContextNode_ResponseParams_Data::Validate},
-    {&internal::ChromeRenderFrame_ExecuteWebUIJavaScript_Params_Data::Validate,
+    { &internal::ChromeRenderFrame_ExecuteWebUIJavaScript_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ChromeRenderFrame_GetMediaFeedURL_Params_Data::Validate,
+    { &internal::ChromeRenderFrame_GetMediaFeedURL_Params_Data::Validate,
      &internal::ChromeRenderFrame_GetMediaFeedURL_ResponseParams_Data::Validate},
-    {&internal::ChromeRenderFrame_LoadBlockedPlugins_Params_Data::Validate,
+    { &internal::ChromeRenderFrame_LoadBlockedPlugins_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::ChromeRenderFrame_SetSupportsAppRegion_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1318,6 +1435,9 @@ void ChromeRenderFrameInterceptorForTesting::GetMediaFeedURL(GetMediaFeedURLCall
 }
 void ChromeRenderFrameInterceptorForTesting::LoadBlockedPlugins(const std::string& identifier) {
   GetForwardingInterface()->LoadBlockedPlugins(std::move(identifier));
+}
+void ChromeRenderFrameInterceptorForTesting::SetSupportsAppRegion(bool supports_app_region) {
+  GetForwardingInterface()->SetSupportsAppRegion(std::move(supports_app_region));
 }
 ChromeRenderFrameAsyncWaiter::ChromeRenderFrameAsyncWaiter(
     ChromeRenderFrame* proxy) : proxy_(proxy) {}
@@ -1382,14 +1502,14 @@ void ChromeRenderFrameAsyncWaiter::RequestImageForContextNode(
 
 
 void ChromeRenderFrameAsyncWaiter::GetMediaFeedURL(
-    absl::optional<::GURL>* out_url) {
+    std::optional<::GURL>* out_url) {
   base::RunLoop loop;
   proxy_->GetMediaFeedURL(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::GURL>* out_url
+             std::optional<::GURL>* out_url
 ,
-             const absl::optional<::GURL>& url) {*out_url = std::move(url);
+             const std::optional<::GURL>& url) {*out_url = std::move(url);
             loop->Quit();
           },
           &loop,
@@ -1397,9 +1517,9 @@ void ChromeRenderFrameAsyncWaiter::GetMediaFeedURL(
   loop.Run();
 }
 
-absl::optional<::GURL> ChromeRenderFrameAsyncWaiter::GetMediaFeedURL(
+std::optional<::GURL> ChromeRenderFrameAsyncWaiter::GetMediaFeedURL(
     ) {
-  absl::optional<::GURL> async_wait_result;
+  std::optional<::GURL> async_wait_result;
   GetMediaFeedURL(&async_wait_result);
   return async_wait_result;
 }

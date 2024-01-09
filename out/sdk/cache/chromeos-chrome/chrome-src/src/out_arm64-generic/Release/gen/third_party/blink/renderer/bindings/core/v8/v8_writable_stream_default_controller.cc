@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WritableStreamDefaultController>::value,
     "WritableStreamDefaultController inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WritableStreamDefaultController::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WritableStreamDefaultController is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("WritableStreamDefaultController.signal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WritableStreamDefaultController* blink_receiver = V8WritableStreamDefaultController::ToWrappableUnsafe(v8_receiver);
+WritableStreamDefaultController* blink_receiver = V8WritableStreamDefaultController::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->signal();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -106,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("WritableStreamDefaultController.error");
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WritableStreamDefaultController* blink_receiver = V8WritableStreamDefaultController::ToWrappableUnsafe(v8_receiver);
+WritableStreamDefaultController* blink_receiver = V8WritableStreamDefaultController::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -115,7 +112,6 @@ if (non_undefined_argument_length <= 0) {
   blink_receiver->error(script_state);
 break;
 }
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WritableStreamDefaultController";
 const char* const property_name = "error";

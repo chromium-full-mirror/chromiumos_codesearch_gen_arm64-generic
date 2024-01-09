@@ -58,7 +58,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Screen_AvailWidth_At
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->availWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -81,7 +81,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Screen_AvailHeight_A
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->availHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -104,7 +104,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Screen_Width_Attribu
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -127,7 +127,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Screen_Height_Attrib
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -150,7 +150,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Screen_ColorDepth_At
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->colorDepth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 // [HighEntropy=Direct]
@@ -173,7 +173,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Screen_PixelDepth_At
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->pixelDepth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -194,7 +194,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Screen_AvailLeft_Att
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->availLeft();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -217,7 +217,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Screen_AvailTop_Attr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->availTop();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 // [HighEntropy=Direct]
@@ -240,7 +240,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWindowScreenChange);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -262,7 +262,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchange(event_handler);
 }
 
@@ -281,7 +281,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWindowScreenIsExtended
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isExtended();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 // [HighEntropy=Direct]
@@ -296,8 +296,9 @@ BLINK_BINDINGS_TRACE_EVENT("Screen.orientation.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Screen* blink_receiver = V8Screen::ToWrappableUnsafe(v8_receiver);
+Screen* blink_receiver = V8Screen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = ScreenScreenOrientation::orientation(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

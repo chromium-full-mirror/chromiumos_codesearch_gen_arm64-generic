@@ -90,11 +90,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Performance>::value,
     "Performance inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Performance::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Performance is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -107,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("Performance.timeOrigin.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timeOrigin();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -121,10 +117,10 @@ BLINK_BINDINGS_TRACE_EVENT("Performance.onresourcetimingbufferfull.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresourcetimingbufferfull();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresourcetimingbufferfull();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -137,8 +133,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnresourcetimingbufferfull(event_handler);
 }
 
@@ -155,7 +152,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Performance_Timing_A
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timing();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -174,7 +171,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Performance_Navigati
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->navigation();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -193,7 +190,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Performance_Memory_A
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -226,7 +223,7 @@ auto&& v8_private_save_same_object =
   }
 }
 
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->eventCounts();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 // [SaveSameObject]
@@ -241,8 +238,9 @@ BLINK_BINDINGS_TRACE_EVENT("Performance.interactionCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->interactionCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -255,8 +253,9 @@ BLINK_BINDINGS_TRACE_EVENT("Performance.softNavPaintMetricsSupported.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->softNavPaintMetricsSupported();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -281,14 +280,14 @@ UseCounter::Count(current_execution_context, WebFeature::kUserTiming);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->clearMarks();
 break;
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_mark_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_mark_name.Init(info[0].As<v8::String>());
+  arg1_mark_name.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Performance";
@@ -323,14 +322,14 @@ UseCounter::Count(current_execution_context, WebFeature::kUserTiming);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   blink_receiver->clearMeasures();
 break;
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_measure_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_measure_name.Init(info[0].As<v8::String>());
+  arg1_measure_name.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Performance";
@@ -357,8 +356,9 @@ BLINK_BINDINGS_TRACE_EVENT("Performance.clearResourceTimings");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->clearResourceTimings();
 
 }
@@ -381,7 +381,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getEntries();
 if (!ToV8Traits<IDLSequence<PerformanceEntry>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -415,7 +415,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_options = NativeValueTraits<PerformanceEntryFilterOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -474,10 +474,10 @@ ScriptState* script_state = receiver_script_state;
 HeapVector<Member<PerformanceEntry>> return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_name;
 if (LIKELY(info[0]->IsString())) {
-  arg1_name.Init(info[0].As<v8::String>());
+  arg1_name.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Performance";
@@ -494,7 +494,7 @@ break;
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_entry_type;
 if (LIKELY(info[1]->IsString())) {
-  arg2_entry_type.Init(info[1].As<v8::String>());
+  arg2_entry_type.Init(isolate, info[1].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Performance";
@@ -542,10 +542,10 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_entry_type;
 if (LIKELY(info[0]->IsString())) {
-  arg1_entry_type.Init(info[0].As<v8::String>());
+  arg1_entry_type.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Performance";
@@ -588,7 +588,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -638,7 +638,7 @@ return;
 
 PerformanceMeasure* return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
@@ -700,7 +700,7 @@ UseCounter::Count(current_execution_context, WebFeature::kMeasureMemory);
 
 
 
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -722,8 +722,9 @@ BLINK_BINDINGS_TRACE_EVENT("Performance.now");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->now();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -749,7 +750,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_max_size = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -769,8 +770,9 @@ BLINK_BINDINGS_TRACE_EVENT("Performance.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Performance* blink_receiver = V8Performance::ToWrappableUnsafe(v8_receiver);
+Performance* blink_receiver = V8Performance::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

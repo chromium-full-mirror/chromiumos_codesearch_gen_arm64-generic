@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IDBCursorWithValue>::value,
     "IDBCursorWithValue inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IDBCursorWithValue::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IDBCursorWithValue is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,7 +81,7 @@ BLINK_BINDINGS_TRACE_EVENT("IDBCursorWithValue.value.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBCursorWithValue* blink_receiver = V8IDBCursorWithValue::ToWrappableUnsafe(v8_receiver);
+IDBCursorWithValue* blink_receiver = V8IDBCursorWithValue::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/keymaster.mojom-features.h"
 #include "ash/components/arc/mojom/keymaster.mojom-shared.h"
 #include "ash/components/arc/mojom/keymaster.mojom-forward.h"
 #include <string>
@@ -557,41 +558,41 @@ class  IntegerKeyParam {
   // Construct an instance holding |boolean_value|.
   static IntegerKeyParamPtr
   NewBooleanValue(
-      bool boolean_value) {
+      bool value) {
     auto result = IntegerKeyParamPtr(absl::in_place);
-    result->set_boolean_value(std::move(boolean_value));
+    result->set_boolean_value(std::move(value));
     return result;
   }
   // Construct an instance holding |integer|.
   static IntegerKeyParamPtr
   NewInteger(
-      uint32_t integer) {
+      uint32_t value) {
     auto result = IntegerKeyParamPtr(absl::in_place);
-    result->set_integer(std::move(integer));
+    result->set_integer(std::move(value));
     return result;
   }
   // Construct an instance holding |long_integer|.
   static IntegerKeyParamPtr
   NewLongInteger(
-      uint64_t long_integer) {
+      uint64_t value) {
     auto result = IntegerKeyParamPtr(absl::in_place);
-    result->set_long_integer(std::move(long_integer));
+    result->set_long_integer(std::move(value));
     return result;
   }
   // Construct an instance holding |date_time|.
   static IntegerKeyParamPtr
   NewDateTime(
-      uint64_t date_time) {
+      uint64_t value) {
     auto result = IntegerKeyParamPtr(absl::in_place);
-    result->set_date_time(std::move(date_time));
+    result->set_date_time(std::move(value));
     return result;
   }
   // Construct an instance holding |blob|.
   static IntegerKeyParamPtr
   NewBlob(
-      std::vector<uint8_t> blob) {
+      std::vector<uint8_t> value) {
     auto result = IntegerKeyParamPtr(absl::in_place);
-    result->set_blob(std::move(blob));
+    result->set_blob(std::move(value));
     return result;
   }
 

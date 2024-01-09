@@ -160,10 +160,16 @@ void cras_channel_conv_matrix_destroy(float** mtx, size_t out_ch);
 
 /* Creates channel conversion matrix for given input and output format.
  * Returns NULL if the conversion is not supported between the channel
- * layouts specified in input/ouput formats.
+ * layouts specified in input/output formats.
  */
 float** cras_channel_conv_matrix_create(const struct cras_audio_format* in,
                                         const struct cras_audio_format* out);
+
+/* Get the least number of channels that is valid for the given format, which
+ * is the maximum value in the channel layout + 1.
+ */
+size_t cras_audio_format_get_least_num_channels(
+    const struct cras_audio_format* fmt);
 
 #ifdef __cplusplus
 }

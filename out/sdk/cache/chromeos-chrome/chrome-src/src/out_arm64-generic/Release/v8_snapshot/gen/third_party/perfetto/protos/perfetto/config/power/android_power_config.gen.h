@@ -34,6 +34,7 @@ enum AndroidPowerConfig_BatteryCounters : int {
   AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CAPACITY_PERCENT = 2,
   AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT = 3,
   AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG = 4,
+  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_VOLTAGE = 5,
 };
 
 class PERFETTO_EXPORT_COMPONENT AndroidPowerConfig : public ::protozero::CppMessageObj {
@@ -44,8 +45,9 @@ class PERFETTO_EXPORT_COMPONENT AndroidPowerConfig : public ::protozero::CppMess
   static constexpr auto BATTERY_COUNTER_CAPACITY_PERCENT = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CAPACITY_PERCENT;
   static constexpr auto BATTERY_COUNTER_CURRENT = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT;
   static constexpr auto BATTERY_COUNTER_CURRENT_AVG = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG;
+  static constexpr auto BATTERY_COUNTER_VOLTAGE = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_VOLTAGE;
   static constexpr auto BatteryCounters_MIN = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_UNSPECIFIED;
-  static constexpr auto BatteryCounters_MAX = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG;
+  static constexpr auto BatteryCounters_MAX = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_VOLTAGE;
   enum FieldNumbers {
     kBatteryPollMsFieldNumber = 1,
     kBatteryCountersFieldNumber = 2,

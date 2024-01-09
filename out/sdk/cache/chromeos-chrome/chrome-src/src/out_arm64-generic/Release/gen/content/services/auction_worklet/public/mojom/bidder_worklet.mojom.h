@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/services/auction_worklet/public/mojom/bidder_worklet.mojom-features.h"
 #include "content/services/auction_worklet/public/mojom/bidder_worklet.mojom-shared.h"
 #include "content/services/auction_worklet/public/mojom/bidder_worklet.mojom-forward.h"
 #include "content/services/auction_worklet/public/mojom/private_aggregation_request.mojom-forward.h"
@@ -100,7 +101,7 @@ class CONTENT_EXPORT GenerateBidClient
   virtual void OnBiddingSignalsReceived(const base::flat_map<std::string, double>& priority_vector, ::base::TimeDelta trusted_signals_fetch_latency, OnBiddingSignalsReceivedCallback callback) = 0;
 
   
-  virtual void OnGenerateBidComplete(BidderWorkletBidPtr bid, BidderWorkletKAnonEnforcedBidPtr kanon_bid, uint32_t bidding_signals_data_version, bool has_bidding_signals_data_version, const absl::optional<::GURL>& debug_loss_report_url, const absl::optional<::GURL>& debug_win_report_url, double set_priority, bool has_set_priority, base::flat_map<std::string, PrioritySignalsDoublePtr> update_priority_signals_overrides, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> non_kanon_pa_requests, ::base::TimeDelta bidding_latency, GenerateBidDependencyLatenciesPtr generate_bid_dependency_latencies, ::auction_worklet::mojom::RejectReason reject_reason, const std::vector<std::string>& errors) = 0;
+  virtual void OnGenerateBidComplete(BidderWorkletBidPtr bid, BidderWorkletKAnonEnforcedBidPtr kanon_bid, uint32_t bidding_signals_data_version, bool has_bidding_signals_data_version, const std::optional<::GURL>& debug_loss_report_url, const std::optional<::GURL>& debug_win_report_url, double set_priority, bool has_set_priority, base::flat_map<std::string, PrioritySignalsDoublePtr> update_priority_signals_overrides, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> non_kanon_pa_requests, ::base::TimeDelta bidding_latency, GenerateBidDependencyLatenciesPtr generate_bid_dependency_latencies, ::auction_worklet::mojom::RejectReason reject_reason, const std::vector<std::string>& errors) = 0;
 };
 
 class GenerateBidFinalizerProxy;
@@ -145,7 +146,7 @@ class CONTENT_EXPORT GenerateBidFinalizer
   virtual ~GenerateBidFinalizer() = default;
 
   
-  virtual void FinishGenerateBid(const absl::optional<std::string>& auction_signals_json, const absl::optional<std::string>& per_buyer_signals_json, absl::optional<::base::TimeDelta> per_buyer_timeout, const absl::optional<::blink::AdCurrency>& expected_buyer_currency, const absl::optional<::GURL>& direct_from_seller_per_buyer_signals, const absl::optional<std::string>& direct_from_seller_per_buyer_signals_header_ad_slot, const absl::optional<::GURL>& direct_from_seller_auction_signals, const absl::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot) = 0;
+  virtual void FinishGenerateBid(const std::optional<std::string>& auction_signals_json, const std::optional<std::string>& per_buyer_signals_json, std::optional<::base::TimeDelta> per_buyer_timeout, const std::optional<::blink::AdCurrency>& expected_buyer_currency, const std::optional<::GURL>& direct_from_seller_per_buyer_signals, const std::optional<std::string>& direct_from_seller_per_buyer_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot) = 0;
 };
 
 class BidderWorkletProxy;
@@ -203,15 +204,15 @@ class CONTENT_EXPORT BidderWorklet
   virtual ~BidderWorklet() = default;
 
   
-  virtual void BeginGenerateBid(BidderWorkletNonSharedParamsPtr bidder_worklet_non_shared_params, KAnonymityBidMode kanon_mode, const ::url::Origin& interest_group_join_origin, const absl::optional<::GURL>& direct_from_seller_per_buyer_signals, const absl::optional<::GURL>& direct_from_seller_auction_signals, const ::url::Origin& browser_signal_seller_origin, const absl::optional<::url::Origin>& browser_signal_top_level_seller_origin, ::base::TimeDelta browser_signal_recency, BiddingBrowserSignalsPtr bidding_browser_signals, ::base::Time auction_start_time, const absl::optional<::blink::AdSize>& requested_ad_size, uint64_t trace_id, ::mojo::PendingAssociatedRemote<GenerateBidClient> generate_bid_client, ::mojo::PendingAssociatedReceiver<GenerateBidFinalizer> bid_finalizer) = 0;
+  virtual void BeginGenerateBid(BidderWorkletNonSharedParamsPtr bidder_worklet_non_shared_params, KAnonymityBidMode kanon_mode, const ::url::Origin& interest_group_join_origin, const std::optional<::GURL>& direct_from_seller_per_buyer_signals, const std::optional<::GURL>& direct_from_seller_auction_signals, const ::url::Origin& browser_signal_seller_origin, const std::optional<::url::Origin>& browser_signal_top_level_seller_origin, ::base::TimeDelta browser_signal_recency, BiddingBrowserSignalsPtr bidding_browser_signals, ::base::Time auction_start_time, const std::optional<::blink::AdSize>& requested_ad_size, uint64_t trace_id, ::mojo::PendingAssociatedRemote<GenerateBidClient> generate_bid_client, ::mojo::PendingAssociatedReceiver<GenerateBidFinalizer> bid_finalizer) = 0;
 
   
   virtual void SendPendingSignalsRequests() = 0;
 
 
-  using ReportWinCallback = base::OnceCallback<void(const absl::optional<::GURL>&, const base::flat_map<std::string, ::GURL>&, const base::flat_map<std::string, std::string>&, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr>, ::base::TimeDelta, const std::vector<std::string>&)>;
+  using ReportWinCallback = base::OnceCallback<void(const std::optional<::GURL>&, const base::flat_map<std::string, ::GURL>&, const base::flat_map<std::string, std::string>&, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr>, ::base::TimeDelta, const std::vector<std::string>&)>;
   
-  virtual void ReportWin(bool is_for_additional_bid, ReportingIdField reporting_id_field, const std::string& reporting_id, const absl::optional<std::string>& auction_signals_json, const absl::optional<std::string>& per_buyer_signals_json, const absl::optional<::GURL>& direct_from_seller_per_buyer_signals, const absl::optional<std::string>& direct_from_seller_per_buyer_signals_header_ad_slot, const absl::optional<::GURL>& direct_from_seller_auction_signals, const absl::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, const std::string& seller_signals_json, KAnonymityBidMode kanon_mode, bool bid_is_kanon, const ::GURL& browser_signal_render_url, double browser_signal_bid, const absl::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_highest_scoring_other_bid, const absl::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, bool browser_signal_made_highest_scoring_other_bid, absl::optional<double> browser_signal_ad_cost, absl::optional<uint16_t> browser_signal_modeling_signals, uint8_t browser_signal_join_count, uint8_t browser_signal_recency, const ::url::Origin& browser_signal_seller_origin, const absl::optional<::url::Origin>& browser_signal_top_level_seller_origin, absl::optional<uint32_t> bidding_signals_data_version, uint64_t trace_id, ReportWinCallback callback) = 0;
+  virtual void ReportWin(bool is_for_additional_bid, ReportingIdField reporting_id_field, const std::string& reporting_id, const std::optional<std::string>& auction_signals_json, const std::optional<std::string>& per_buyer_signals_json, const std::optional<::GURL>& direct_from_seller_per_buyer_signals, const std::optional<std::string>& direct_from_seller_per_buyer_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, const std::string& seller_signals_json, KAnonymityBidMode kanon_mode, bool bid_is_kanon, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, bool browser_signal_made_highest_scoring_other_bid, std::optional<double> browser_signal_ad_cost, std::optional<uint16_t> browser_signal_modeling_signals, uint8_t browser_signal_join_count, uint8_t browser_signal_recency, const ::url::Origin& browser_signal_seller_origin, const std::optional<::url::Origin>& browser_signal_top_level_seller_origin, std::optional<uint32_t> bidding_signals_data_version, uint64_t trace_id, ReportWinCallback callback) = 0;
 
   
   virtual void ConnectDevToolsAgent(::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> agent) = 0;
@@ -228,7 +229,7 @@ class CONTENT_EXPORT GenerateBidClientProxy
   
   void OnBiddingSignalsReceived(const base::flat_map<std::string, double>& priority_vector, ::base::TimeDelta trusted_signals_fetch_latency, OnBiddingSignalsReceivedCallback callback) final;
   
-  void OnGenerateBidComplete(BidderWorkletBidPtr bid, BidderWorkletKAnonEnforcedBidPtr kanon_bid, uint32_t bidding_signals_data_version, bool has_bidding_signals_data_version, const absl::optional<::GURL>& debug_loss_report_url, const absl::optional<::GURL>& debug_win_report_url, double set_priority, bool has_set_priority, base::flat_map<std::string, PrioritySignalsDoublePtr> update_priority_signals_overrides, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> non_kanon_pa_requests, ::base::TimeDelta bidding_latency, GenerateBidDependencyLatenciesPtr generate_bid_dependency_latencies, ::auction_worklet::mojom::RejectReason reject_reason, const std::vector<std::string>& errors) final;
+  void OnGenerateBidComplete(BidderWorkletBidPtr bid, BidderWorkletKAnonEnforcedBidPtr kanon_bid, uint32_t bidding_signals_data_version, bool has_bidding_signals_data_version, const std::optional<::GURL>& debug_loss_report_url, const std::optional<::GURL>& debug_win_report_url, double set_priority, bool has_set_priority, base::flat_map<std::string, PrioritySignalsDoublePtr> update_priority_signals_overrides, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> non_kanon_pa_requests, ::base::TimeDelta bidding_latency, GenerateBidDependencyLatenciesPtr generate_bid_dependency_latencies, ::auction_worklet::mojom::RejectReason reject_reason, const std::vector<std::string>& errors) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -243,7 +244,7 @@ class CONTENT_EXPORT GenerateBidFinalizerProxy
 
   explicit GenerateBidFinalizerProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void FinishGenerateBid(const absl::optional<std::string>& auction_signals_json, const absl::optional<std::string>& per_buyer_signals_json, absl::optional<::base::TimeDelta> per_buyer_timeout, const absl::optional<::blink::AdCurrency>& expected_buyer_currency, const absl::optional<::GURL>& direct_from_seller_per_buyer_signals, const absl::optional<std::string>& direct_from_seller_per_buyer_signals_header_ad_slot, const absl::optional<::GURL>& direct_from_seller_auction_signals, const absl::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot) final;
+  void FinishGenerateBid(const std::optional<std::string>& auction_signals_json, const std::optional<std::string>& per_buyer_signals_json, std::optional<::base::TimeDelta> per_buyer_timeout, const std::optional<::blink::AdCurrency>& expected_buyer_currency, const std::optional<::GURL>& direct_from_seller_per_buyer_signals, const std::optional<std::string>& direct_from_seller_per_buyer_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -258,11 +259,11 @@ class CONTENT_EXPORT BidderWorkletProxy
 
   explicit BidderWorkletProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void BeginGenerateBid(BidderWorkletNonSharedParamsPtr bidder_worklet_non_shared_params, KAnonymityBidMode kanon_mode, const ::url::Origin& interest_group_join_origin, const absl::optional<::GURL>& direct_from_seller_per_buyer_signals, const absl::optional<::GURL>& direct_from_seller_auction_signals, const ::url::Origin& browser_signal_seller_origin, const absl::optional<::url::Origin>& browser_signal_top_level_seller_origin, ::base::TimeDelta browser_signal_recency, BiddingBrowserSignalsPtr bidding_browser_signals, ::base::Time auction_start_time, const absl::optional<::blink::AdSize>& requested_ad_size, uint64_t trace_id, ::mojo::PendingAssociatedRemote<GenerateBidClient> generate_bid_client, ::mojo::PendingAssociatedReceiver<GenerateBidFinalizer> bid_finalizer) final;
+  void BeginGenerateBid(BidderWorkletNonSharedParamsPtr bidder_worklet_non_shared_params, KAnonymityBidMode kanon_mode, const ::url::Origin& interest_group_join_origin, const std::optional<::GURL>& direct_from_seller_per_buyer_signals, const std::optional<::GURL>& direct_from_seller_auction_signals, const ::url::Origin& browser_signal_seller_origin, const std::optional<::url::Origin>& browser_signal_top_level_seller_origin, ::base::TimeDelta browser_signal_recency, BiddingBrowserSignalsPtr bidding_browser_signals, ::base::Time auction_start_time, const std::optional<::blink::AdSize>& requested_ad_size, uint64_t trace_id, ::mojo::PendingAssociatedRemote<GenerateBidClient> generate_bid_client, ::mojo::PendingAssociatedReceiver<GenerateBidFinalizer> bid_finalizer) final;
   
   void SendPendingSignalsRequests() final;
   
-  void ReportWin(bool is_for_additional_bid, ReportingIdField reporting_id_field, const std::string& reporting_id, const absl::optional<std::string>& auction_signals_json, const absl::optional<std::string>& per_buyer_signals_json, const absl::optional<::GURL>& direct_from_seller_per_buyer_signals, const absl::optional<std::string>& direct_from_seller_per_buyer_signals_header_ad_slot, const absl::optional<::GURL>& direct_from_seller_auction_signals, const absl::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, const std::string& seller_signals_json, KAnonymityBidMode kanon_mode, bool bid_is_kanon, const ::GURL& browser_signal_render_url, double browser_signal_bid, const absl::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_highest_scoring_other_bid, const absl::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, bool browser_signal_made_highest_scoring_other_bid, absl::optional<double> browser_signal_ad_cost, absl::optional<uint16_t> browser_signal_modeling_signals, uint8_t browser_signal_join_count, uint8_t browser_signal_recency, const ::url::Origin& browser_signal_seller_origin, const absl::optional<::url::Origin>& browser_signal_top_level_seller_origin, absl::optional<uint32_t> bidding_signals_data_version, uint64_t trace_id, ReportWinCallback callback) final;
+  void ReportWin(bool is_for_additional_bid, ReportingIdField reporting_id_field, const std::string& reporting_id, const std::optional<std::string>& auction_signals_json, const std::optional<std::string>& per_buyer_signals_json, const std::optional<::GURL>& direct_from_seller_per_buyer_signals, const std::optional<std::string>& direct_from_seller_per_buyer_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, const std::string& seller_signals_json, KAnonymityBidMode kanon_mode, bool bid_is_kanon, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, bool browser_signal_made_highest_scoring_other_bid, std::optional<double> browser_signal_ad_cost, std::optional<uint16_t> browser_signal_modeling_signals, uint8_t browser_signal_join_count, uint8_t browser_signal_recency, const ::url::Origin& browser_signal_seller_origin, const std::optional<::url::Origin>& browser_signal_top_level_seller_origin, std::optional<uint32_t> bidding_signals_data_version, uint64_t trace_id, ReportWinCallback callback) final;
   
   void ConnectDevToolsAgent(::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> agent) final;
 
@@ -859,17 +860,17 @@ class CONTENT_EXPORT BidderWorkletKAnonEnforcedBid {
   // Construct an instance holding |same_as_non_enforced|.
   static BidderWorkletKAnonEnforcedBidPtr
   NewSameAsNonEnforced(
-      BidderWorklerKAnonBidSameAsNonEnforcedPtr same_as_non_enforced) {
+      BidderWorklerKAnonBidSameAsNonEnforcedPtr value) {
     auto result = BidderWorkletKAnonEnforcedBidPtr(absl::in_place);
-    result->set_same_as_non_enforced(std::move(same_as_non_enforced));
+    result->set_same_as_non_enforced(std::move(value));
     return result;
   }
   // Construct an instance holding |bid|.
   static BidderWorkletKAnonEnforcedBidPtr
   NewBid(
-      BidderWorkletBidPtr bid) {
+      BidderWorkletBidPtr value) {
     auto result = BidderWorkletKAnonEnforcedBidPtr(absl::in_place);
-    result->set_bid(std::move(bid));
+    result->set_bid(std::move(value));
     return result;
   }
 
@@ -1144,14 +1145,15 @@ class CONTENT_EXPORT BidderWorkletNonSharedParams {
 
   BidderWorkletNonSharedParams(
       const std::string& name,
+      ::blink::mojom::InterestGroup::TrustedBiddingSignalsSlotSizeMode trusted_bidding_signals_slot_size_mode,
       bool enable_bidding_signals_prioritization,
-      const absl::optional<base::flat_map<std::string, double>>& priority_vector,
+      const std::optional<base::flat_map<std::string, double>>& priority_vector,
       ::blink::mojom::InterestGroup::ExecutionMode execution_mode,
-      const absl::optional<::GURL>& update_url,
-      absl::optional<std::vector<std::string>> trusted_bidding_signals_keys,
-      const absl::optional<std::string>& user_bidding_signals,
-      absl::optional<std::vector<::blink::InterestGroup::Ad>> ads,
-      absl::optional<std::vector<::blink::InterestGroup::Ad>> ad_components,
+      const std::optional<::GURL>& update_url,
+      std::optional<std::vector<std::string>> trusted_bidding_signals_keys,
+      const std::optional<std::string>& user_bidding_signals,
+      std::optional<std::vector<::blink::InterestGroup::Ad>> ads,
+      std::optional<std::vector<::blink::InterestGroup::Ad>> ad_components,
       base::flat_map<KAnonKeyPtr, bool> kanon_keys);
 
 BidderWorkletNonSharedParams(const BidderWorkletNonSharedParams&) = delete;
@@ -1234,21 +1236,23 @@ BidderWorkletNonSharedParams& operator=(const BidderWorkletNonSharedParams&) = d
   
   std::string name;
   
+  ::blink::mojom::InterestGroup::TrustedBiddingSignalsSlotSizeMode trusted_bidding_signals_slot_size_mode;
+  
   bool enable_bidding_signals_prioritization;
   
-  absl::optional<base::flat_map<std::string, double>> priority_vector;
+  std::optional<base::flat_map<std::string, double>> priority_vector;
   
   ::blink::mojom::InterestGroup::ExecutionMode execution_mode;
   
-  absl::optional<::GURL> update_url;
+  std::optional<::GURL> update_url;
   
-  absl::optional<std::vector<std::string>> trusted_bidding_signals_keys;
+  std::optional<std::vector<std::string>> trusted_bidding_signals_keys;
   
-  absl::optional<std::string> user_bidding_signals;
+  std::optional<std::string> user_bidding_signals;
   
-  absl::optional<std::vector<::blink::InterestGroup::Ad>> ads;
+  std::optional<std::vector<::blink::InterestGroup::Ad>> ads;
   
-  absl::optional<std::vector<::blink::InterestGroup::Ad>> ad_components;
+  std::optional<std::vector<::blink::InterestGroup::Ad>> ad_components;
   
   base::flat_map<KAnonKeyPtr, bool> kanon_keys;
 
@@ -1314,7 +1318,8 @@ class CONTENT_EXPORT BiddingBrowserSignals {
   BiddingBrowserSignals(
       int32_t join_count,
       int32_t bid_count,
-      std::vector<PreviousWinPtr> prev_wins);
+      std::vector<PreviousWinPtr> prev_wins,
+      bool for_debugging_only_in_cooldown_or_lockout);
 
 BiddingBrowserSignals(const BiddingBrowserSignals&) = delete;
 BiddingBrowserSignals& operator=(const BiddingBrowserSignals&) = delete;
@@ -1399,6 +1404,8 @@ BiddingBrowserSignals& operator=(const BiddingBrowserSignals&) = delete;
   int32_t bid_count;
   
   std::vector<PreviousWinPtr> prev_wins;
+  
+  bool for_debugging_only_in_cooldown_or_lockout;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1462,11 +1469,11 @@ class CONTENT_EXPORT BidderWorkletBid {
   BidderWorkletBid(
       const std::string& ad,
       double bid,
-      const absl::optional<::blink::AdCurrency>& bid_currency,
-      absl::optional<double> ad_cost,
+      const std::optional<::blink::AdCurrency>& bid_currency,
+      std::optional<double> ad_cost,
       const ::blink::AdDescriptor& ad_descriptor,
-      absl::optional<std::vector<::blink::AdDescriptor>> ad_component_descriptors,
-      absl::optional<uint16_t> modeling_signals,
+      std::optional<std::vector<::blink::AdDescriptor>> ad_component_descriptors,
+      std::optional<uint16_t> modeling_signals,
       ::base::TimeDelta bid_duration);
 
 
@@ -1549,15 +1556,15 @@ class CONTENT_EXPORT BidderWorkletBid {
   
   double bid;
   
-  absl::optional<::blink::AdCurrency> bid_currency;
+  std::optional<::blink::AdCurrency> bid_currency;
   
-  absl::optional<double> ad_cost;
+  std::optional<double> ad_cost;
   
   ::blink::AdDescriptor ad_descriptor;
   
-  absl::optional<std::vector<::blink::AdDescriptor>> ad_component_descriptors;
+  std::optional<std::vector<::blink::AdDescriptor>> ad_component_descriptors;
   
-  absl::optional<uint16_t> modeling_signals;
+  std::optional<uint16_t> modeling_signals;
   
   ::base::TimeDelta bid_duration;
 
@@ -1623,10 +1630,10 @@ class CONTENT_EXPORT GenerateBidDependencyLatencies {
   GenerateBidDependencyLatencies();
 
   GenerateBidDependencyLatencies(
-      absl::optional<::base::TimeDelta> code_ready_latency,
-      absl::optional<::base::TimeDelta> config_promises_latency,
-      absl::optional<::base::TimeDelta> direct_from_seller_signals_latency,
-      absl::optional<::base::TimeDelta> trusted_bidding_signals_latency);
+      std::optional<::base::TimeDelta> code_ready_latency,
+      std::optional<::base::TimeDelta> config_promises_latency,
+      std::optional<::base::TimeDelta> direct_from_seller_signals_latency,
+      std::optional<::base::TimeDelta> trusted_bidding_signals_latency);
 
 
   ~GenerateBidDependencyLatencies();
@@ -1704,13 +1711,13 @@ class CONTENT_EXPORT GenerateBidDependencyLatencies {
   }
 
   
-  absl::optional<::base::TimeDelta> code_ready_latency;
+  std::optional<::base::TimeDelta> code_ready_latency;
   
-  absl::optional<::base::TimeDelta> config_promises_latency;
+  std::optional<::base::TimeDelta> config_promises_latency;
   
-  absl::optional<::base::TimeDelta> direct_from_seller_signals_latency;
+  std::optional<::base::TimeDelta> direct_from_seller_signals_latency;
   
-  absl::optional<::base::TimeDelta> trusted_bidding_signals_latency;
+  std::optional<::base::TimeDelta> trusted_bidding_signals_latency;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1825,6 +1832,7 @@ template <typename StructPtrType>
 BidderWorkletNonSharedParamsPtr BidderWorkletNonSharedParams::Clone() const {
   return New(
       mojo::Clone(name),
+      mojo::Clone(trusted_bidding_signals_slot_size_mode),
       mojo::Clone(enable_bidding_signals_prioritization),
       mojo::Clone(priority_vector),
       mojo::Clone(execution_mode),
@@ -1840,6 +1848,8 @@ BidderWorkletNonSharedParamsPtr BidderWorkletNonSharedParams::Clone() const {
 template <typename T, BidderWorkletNonSharedParams::EnableIfSame<T>*>
 bool BidderWorkletNonSharedParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->trusted_bidding_signals_slot_size_mode, other_struct.trusted_bidding_signals_slot_size_mode))
     return false;
   if (!mojo::Equals(this->enable_bidding_signals_prioritization, other_struct.enable_bidding_signals_prioritization))
     return false;
@@ -1867,6 +1877,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.name < rhs.name)
     return true;
   if (rhs.name < lhs.name)
+    return false;
+  if (lhs.trusted_bidding_signals_slot_size_mode < rhs.trusted_bidding_signals_slot_size_mode)
+    return true;
+  if (rhs.trusted_bidding_signals_slot_size_mode < lhs.trusted_bidding_signals_slot_size_mode)
     return false;
   if (lhs.enable_bidding_signals_prioritization < rhs.enable_bidding_signals_prioritization)
     return true;
@@ -1911,7 +1925,8 @@ BiddingBrowserSignalsPtr BiddingBrowserSignals::Clone() const {
   return New(
       mojo::Clone(join_count),
       mojo::Clone(bid_count),
-      mojo::Clone(prev_wins)
+      mojo::Clone(prev_wins),
+      mojo::Clone(for_debugging_only_in_cooldown_or_lockout)
   );
 }
 
@@ -1922,6 +1937,8 @@ bool BiddingBrowserSignals::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->bid_count, other_struct.bid_count))
     return false;
   if (!mojo::Equals(this->prev_wins, other_struct.prev_wins))
+    return false;
+  if (!mojo::Equals(this->for_debugging_only_in_cooldown_or_lockout, other_struct.for_debugging_only_in_cooldown_or_lockout))
     return false;
   return true;
 }
@@ -1939,6 +1956,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.prev_wins < rhs.prev_wins)
     return true;
   if (rhs.prev_wins < lhs.prev_wins)
+    return false;
+  if (lhs.for_debugging_only_in_cooldown_or_lockout < rhs.for_debugging_only_in_cooldown_or_lockout)
+    return true;
+  if (rhs.for_debugging_only_in_cooldown_or_lockout < lhs.for_debugging_only_in_cooldown_or_lockout)
     return false;
   return false;
 }
@@ -2146,6 +2167,11 @@ struct CONTENT_EXPORT StructTraits<::auction_worklet::mojom::BidderWorkletNonSha
     return input->name;
   }
 
+  static decltype(::auction_worklet::mojom::BidderWorkletNonSharedParams::trusted_bidding_signals_slot_size_mode) trusted_bidding_signals_slot_size_mode(
+      const ::auction_worklet::mojom::BidderWorkletNonSharedParamsPtr& input) {
+    return input->trusted_bidding_signals_slot_size_mode;
+  }
+
   static decltype(::auction_worklet::mojom::BidderWorkletNonSharedParams::enable_bidding_signals_prioritization) enable_bidding_signals_prioritization(
       const ::auction_worklet::mojom::BidderWorkletNonSharedParamsPtr& input) {
     return input->enable_bidding_signals_prioritization;
@@ -2214,6 +2240,11 @@ struct CONTENT_EXPORT StructTraits<::auction_worklet::mojom::BiddingBrowserSigna
   static const decltype(::auction_worklet::mojom::BiddingBrowserSignals::prev_wins)& prev_wins(
       const ::auction_worklet::mojom::BiddingBrowserSignalsPtr& input) {
     return input->prev_wins;
+  }
+
+  static decltype(::auction_worklet::mojom::BiddingBrowserSignals::for_debugging_only_in_cooldown_or_lockout) for_debugging_only_in_cooldown_or_lockout(
+      const ::auction_worklet::mojom::BiddingBrowserSignalsPtr& input) {
+    return input->for_debugging_only_in_cooldown_or_lockout;
   }
 
   static bool Read(::auction_worklet::mojom::BiddingBrowserSignals::DataView input, ::auction_worklet::mojom::BiddingBrowserSignalsPtr* output);

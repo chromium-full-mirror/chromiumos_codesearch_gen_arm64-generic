@@ -37,9 +37,11 @@ class  FeaturePromoDemoPageInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> display_description;
   mojo::internal::Pointer<mojo::internal::String_Data> internal_name;
   mojo::internal::Pointer<mojo::internal::String_Data> type;
-  int64_t added_timestamp_ms;
+  int32_t added_milestone;
+  uint8_t pad4_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> supported_platforms;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> instructions;
+  mojo::internal::Pointer<mojo::internal::String_Data> followed_by_internal_name;
 
  private:
   friend class mojo::internal::MessageFragment<FeaturePromoDemoPageInfo_Data>;
@@ -47,7 +49,7 @@ class  FeaturePromoDemoPageInfo_Data {
   FeaturePromoDemoPageInfo_Data();
   ~FeaturePromoDemoPageInfo_Data() = delete;
 };
-static_assert(sizeof(FeaturePromoDemoPageInfo_Data) == 64,
+static_assert(sizeof(FeaturePromoDemoPageInfo_Data) == 72,
               "Bad sizeof(FeaturePromoDemoPageInfo_Data)");
 // Used by FeaturePromoDemoPageInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

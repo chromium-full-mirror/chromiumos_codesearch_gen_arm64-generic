@@ -12,7 +12,7 @@ describeWithMockConnection('WebAuthn pane', () => {
         Webauthn = await import('../../../../../front_end/panels/webauthn/webauthn.js');
     });
     it('disables the large blob checkbox if resident key is disabled', () => {
-        const panel = Webauthn.WebauthnPane.WebauthnPaneImpl.instance({ forceNew: true });
+        const panel = new Webauthn.WebauthnPane.WebauthnPaneImpl();
         const largeBlob = panel.largeBlobCheckbox;
         const residentKeys = panel.residentKeyCheckbox;
         if (!largeBlob || !residentKeys) {
@@ -50,7 +50,7 @@ describeWithMockConnection('WebAuthn pane', () => {
             SDK.TargetManager.TargetManager.instance().setScopeTarget(inScope ? target : null);
             model = target.model(SDK.WebAuthnModel.WebAuthnModel);
             assertNotNullOrUndefined(model);
-            panel = Webauthn.WebauthnPane.WebauthnPaneImpl.instance({ forceNew: true });
+            panel = new Webauthn.WebauthnPane.WebauthnPaneImpl();
         });
         it('adds an authenticator with large blob option', async () => {
             const largeBlob = panel.largeBlobCheckbox;

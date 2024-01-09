@@ -30,14 +30,14 @@
 import * as Host from '../../core/host/host.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as IconButton from '../../ui/components/icon_button/icon_button.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import * as ARIAUtils from './ARIAUtils.js';
 import { GlassPane } from './GlassPane.js';
-import { Icon } from './Icon.js';
-import * as ThemeSupport from './theme_support/theme_support.js';
-import { createTextChild, ElementFocusRestorer } from './UIUtils.js';
-import softContextMenuStyles from './softContextMenu.css.legacy.js';
 import { InspectorView } from './InspectorView.js';
+import softContextMenuStyles from './softContextMenu.css.legacy.js';
+import * as ThemeSupport from './theme_support/theme_support.js';
 import { Tooltip } from './Tooltip.js';
+import { createTextChild, ElementFocusRestorer } from './UIUtils.js';
 const UIStrings = {
     /**
      *@description Text exposed to screen readers on checked items.
@@ -198,15 +198,10 @@ export class SoftContextMenu {
         if (item.checked) {
             menuItemElement.setAttribute('checked', '');
         }
-        const checkMarkElement = new IconButton.Icon.Icon();
-        checkMarkElement.data = { iconName: 'checkmark', color: 'var(--icon-default)', width: '14px', height: '14px' };
-        checkMarkElement.classList.add('checkmark');
+        const checkMarkElement = IconButton.Icon.create('checkmark', 'checkmark');
         if (item.id !== undefined) {
             menuItemElement.setAttribute('data-action-id', item.id.toString());
         }
-        checkMarkElement.style.minWidth =
-            '14px'; // <devtools-icon> collapses to 0 width otherwise, throwing off alignment.
-        checkMarkElement.style.minHeight = '14px';
         menuItemElement.appendChild(checkMarkElement);
         if (item.tooltip) {
             Tooltip.install(menuItemElement, item.tooltip);
@@ -218,6 +213,14 @@ export class SoftContextMenu {
             subItems: undefined,
             subMenuTimer: undefined,
         };
+        if (item.jslogContext) {
+            if (item.type === 'checkbox') {
+                menuItemElement.setAttribute('jslog', `${VisualLogging.toggle().track({ click: true }).context(item.jslogContext)}`);
+            }
+            else {
+                menuItemElement.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context(item.jslogContext)}`);
+            }
+        }
         if (item.element && !item.label) {
             const wrapper = menuItemElement.createChild('div', 'soft-context-menu-custom-item');
             wrapper.appendChild(item.element);
@@ -274,12 +277,8 @@ export class SoftContextMenu {
             subMenuTimer: undefined,
         });
         // Occupy the same space on the left in all items.
-        const checkMarkElement = new IconButton.Icon.Icon();
-        checkMarkElement.data = { iconName: 'checkmark', color: 'var(--icon-default)', width: '14px', height: '14px' };
-        checkMarkElement.classList.add('checkmark', 'soft-context-menu-item-checkmark');
+        const checkMarkElement = IconButton.Icon.create('checkmark', 'checkmark soft-context-menu-item-checkmark');
         menuItemElement.appendChild(checkMarkElement);
-        checkMarkElement.style.minWidth =
-            '14px'; // <devtools-icon> collapses to 0 width otherwise, throwing off alignment.
         createTextChild(menuItemElement, item.label || '');
         ARIAUtils.setExpanded(menuItemElement, false);
         // TODO: Consider removing this branch and use the same icon on all platforms.
@@ -289,7 +288,7 @@ export class SoftContextMenu {
             subMenuArrowElement.textContent = '\u25B6'; // BLACK RIGHT-POINTING TRIANGLE
         }
         else {
-            const subMenuArrowElement = Icon.create('triangle-right', 'soft-context-menu-item-submenu-arrow');
+            const subMenuArrowElement = IconButton.Icon.create('triangle-right', 'soft-context-menu-item-submenu-arrow');
             menuItemElement.appendChild(subMenuArrowElement);
         }
         menuItemElement.addEventListener('mousedown', this.menuItemMouseDown.bind(this), false);
@@ -297,6 +296,9 @@ export class SoftContextMenu {
         // Manually manage hover highlight since :hover does not work in case of click-and-hold menu invocation.
         menuItemElement.addEventListener('mouseover', this.menuItemMouseOver.bind(this), false);
         menuItemElement.addEventListener('mouseleave', this.menuItemMouseLeave.bind(this), false);
+        if (item.jslogContext) {
+            menuItemElement.setAttribute('jslog', `${VisualLogging.item().context(item.jslogContext)}`);
+        }
         return menuItemElement;
     }
     createSeparator() {

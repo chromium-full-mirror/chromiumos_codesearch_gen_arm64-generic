@@ -27,6 +27,10 @@ class ConnectionLifecycleListener;
 
 class PayloadListener;
 
+class ConnectionListenerV3;
+
+class PayloadListenerV3;
+
 class NearbyConnections;
 
 

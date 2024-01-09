@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, EXTPolygonOffsetClamp>::value,
     "EXTPolygonOffsetClamp inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&EXTPolygonOffsetClamp::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "EXTPolygonOffsetClamp is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EXTPolygonOffsetClamp* blink_receiver = V8EXTPolygonOffsetClamp::ToWrappableUnsafe(v8_receiver);
+EXTPolygonOffsetClamp* blink_receiver = V8EXTPolygonOffsetClamp::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_factor = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

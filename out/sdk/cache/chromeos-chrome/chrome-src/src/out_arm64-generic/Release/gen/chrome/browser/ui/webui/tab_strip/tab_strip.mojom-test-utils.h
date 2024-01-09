@@ -83,7 +83,7 @@ class  PageInterceptorForTesting : public Page {
   void TabGroupVisualsChanged(const std::string& group_id, TabGroupVisualDataPtr tab_group) override;
   void TabGroupMoved(const std::string& group_id, int32_t index) override;
   void TabGroupClosed(const std::string& group_id) override;
-  void TabGroupStateChanged(int32_t tab_id, int32_t index, const absl::optional<std::string>& group_id) override;
+  void TabGroupStateChanged(int32_t tab_id, int32_t index, const std::optional<std::string>& group_id) override;
   void TabCloseCancelled(int32_t tab_id) override;
   void TabCreated(TabPtr tab) override;
   void TabRemoved(int32_t tab_id) override;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/http_cache_backend_file_operations.mojom-features.h"
 #include "services/network/public/mojom/http_cache_backend_file_operations.mojom-shared.h"
 #include "services/network/public/mojom/http_cache_backend_file_operations.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/file.mojom-blink.h"
@@ -43,30 +44,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::HttpCacheBackendOpenFileFlags>
-    : EnumHashTraits<::network::mojom::HttpCacheBackendOpenFileFlags, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::network::mojom::HttpCacheBackendDeleteFileMode>
-    : EnumHashTraits<::network::mojom::HttpCacheBackendDeleteFileMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace network::mojom::blink {
@@ -266,9 +243,9 @@ class BLINK_PLATFORM_EXPORT HttpCacheBackendFileOperations
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool GetFileInfo(const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info);
+  virtual bool GetFileInfo(const ::base::FilePath& path, std::optional<::base::File::Info>* out_info);
 
-  using GetFileInfoCallback = base::OnceCallback<void(const absl::optional<::base::File::Info>&)>;
+  using GetFileInfoCallback = base::OnceCallback<void(const std::optional<::base::File::Info>&)>;
   
   virtual void GetFileInfo(const ::base::FilePath& path, GetFileInfoCallback callback) = 0;
 
@@ -376,7 +353,7 @@ class BLINK_PLATFORM_EXPORT HttpCacheBackendFileOperationsProxy
   
   void RenameFile(const ::base::FilePath& from_path, const ::base::FilePath& to_path, RenameFileCallback callback) final;
   
-  bool GetFileInfo(const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info) final;
+  bool GetFileInfo(const ::base::FilePath& path, std::optional<::base::File::Info>* out_info) final;
   
   void GetFileInfo(const ::base::FilePath& path, GetFileInfoCallback callback) final;
   

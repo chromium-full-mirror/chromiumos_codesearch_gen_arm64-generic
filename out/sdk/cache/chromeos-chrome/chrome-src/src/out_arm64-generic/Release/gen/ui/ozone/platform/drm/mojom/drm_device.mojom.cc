@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -87,6 +88,15 @@ DrmDevice::IPCStableHashFunction DrmDevice::MessageToMethodInfo_(mojo::Message& 
     case internal::kDrmDevice_SetHDCPState_Name: {
       return &DrmDevice::SetHDCPState_Sym::IPCStableHash;
     }
+    case internal::kDrmDevice_SetColorTemperatureAdjustment_Name: {
+      return &DrmDevice::SetColorTemperatureAdjustment_Sym::IPCStableHash;
+    }
+    case internal::kDrmDevice_SetColorCalibration_Name: {
+      return &DrmDevice::SetColorCalibration_Sym::IPCStableHash;
+    }
+    case internal::kDrmDevice_SetGammaAdjustment_Name: {
+      return &DrmDevice::SetGammaAdjustment_Sym::IPCStableHash;
+    }
     case internal::kDrmDevice_SetColorMatrix_Name: {
       return &DrmDevice::SetColorMatrix_Sym::IPCStableHash;
     }
@@ -136,6 +146,12 @@ const char* DrmDevice::MessageToMethodName_(mojo::Message& message) {
             return "Receive ui::ozone::mojom::DrmDevice::GetHDCPState";
       case internal::kDrmDevice_SetHDCPState_Name:
             return "Receive ui::ozone::mojom::DrmDevice::SetHDCPState";
+      case internal::kDrmDevice_SetColorTemperatureAdjustment_Name:
+            return "Receive ui::ozone::mojom::DrmDevice::SetColorTemperatureAdjustment";
+      case internal::kDrmDevice_SetColorCalibration_Name:
+            return "Receive ui::ozone::mojom::DrmDevice::SetColorCalibration";
+      case internal::kDrmDevice_SetGammaAdjustment_Name:
+            return "Receive ui::ozone::mojom::DrmDevice::SetGammaAdjustment";
       case internal::kDrmDevice_SetColorMatrix_Name:
             return "Receive ui::ozone::mojom::DrmDevice::SetColorMatrix";
       case internal::kDrmDevice_SetGammaCorrection_Name:
@@ -173,6 +189,12 @@ const char* DrmDevice::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ui::ozone::mojom::DrmDevice::GetHDCPState";
       case internal::kDrmDevice_SetHDCPState_Name:
             return "Receive reply ui::ozone::mojom::DrmDevice::SetHDCPState";
+      case internal::kDrmDevice_SetColorTemperatureAdjustment_Name:
+            return "Receive reply ui::ozone::mojom::DrmDevice::SetColorTemperatureAdjustment";
+      case internal::kDrmDevice_SetColorCalibration_Name:
+            return "Receive reply ui::ozone::mojom::DrmDevice::SetColorCalibration";
+      case internal::kDrmDevice_SetGammaAdjustment_Name:
+            return "Receive reply ui::ozone::mojom::DrmDevice::SetGammaAdjustment";
       case internal::kDrmDevice_SetColorMatrix_Name:
             return "Receive reply ui::ozone::mojom::DrmDevice::SetColorMatrix";
       case internal::kDrmDevice_SetGammaCorrection_Name:
@@ -360,6 +382,45 @@ uint32_t DrmDevice::SetHDCPState_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ui::ozone::mojom::DrmDevice::SetHDCPState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DrmDevice::SetColorTemperatureAdjustment_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ui::ozone::mojom::DrmDevice::SetColorTemperatureAdjustment");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DrmDevice::SetColorCalibration_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ui::ozone::mojom::DrmDevice::SetColorCalibration");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t DrmDevice::SetGammaAdjustment_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ui::ozone::mojom::DrmDevice::SetGammaAdjustment");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -581,14 +642,17 @@ void DrmDeviceProxy::CreateWindow(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_CreateWindow_Name, kFlags, 0, 0, nullptr);
@@ -640,14 +704,17 @@ void DrmDeviceProxy::DestroyWindow(
                         "<value of type ::gfx::AcceleratedWidget>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_DestroyWindow_Name, kFlags, 0, 0, nullptr);
@@ -691,14 +758,17 @@ void DrmDeviceProxy::SetWindowBounds(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_SetWindowBounds_Name, kFlags, 0, 0, nullptr);
@@ -743,14 +813,17 @@ void DrmDeviceProxy::TakeDisplayControl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ui::ozone::mojom::DrmDevice::TakeDisplayControl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_TakeDisplayControl_Name, kFlags, 0, 0, nullptr);
@@ -774,14 +847,17 @@ void DrmDeviceProxy::RelinquishDisplayControl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ui::ozone::mojom::DrmDevice::RelinquishDisplayControl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_RelinquishDisplayControl_Name, kFlags, 0, 0, nullptr);
@@ -805,14 +881,17 @@ void DrmDeviceProxy::RefreshNativeDisplays(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ui::ozone::mojom::DrmDevice::RefreshNativeDisplays");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_RefreshNativeDisplays_Name, kFlags, 0, 0, nullptr);
@@ -846,14 +925,17 @@ void DrmDeviceProxy::AddGraphicsDevice(
                         "<value of type ::mojo::PlatformHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_AddGraphicsDevice_Name, kFlags, 0, 0, nullptr);
@@ -900,14 +982,17 @@ void DrmDeviceProxy::RemoveGraphicsDevice(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_RemoveGraphicsDevice_Name, kFlags, 0, 0, nullptr);
@@ -948,14 +1033,17 @@ void DrmDeviceProxy::ShouldDisplayEventTriggerConfiguration(
                         "<value of type const base::flat_map<std::string, std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_ShouldDisplayEventTriggerConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1002,14 +1090,17 @@ void DrmDeviceProxy::ConfigureNativeDisplays(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_ConfigureNativeDisplays_Name, kFlags, 0, 0, nullptr);
@@ -1057,14 +1148,17 @@ void DrmDeviceProxy::SetHdcpKeyProp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_SetHdcpKeyProp_Name, kFlags, 0, 0, nullptr);
@@ -1107,14 +1201,17 @@ void DrmDeviceProxy::GetHDCPState(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_GetHDCPState_Name, kFlags, 0, 0, nullptr);
@@ -1152,14 +1249,17 @@ void DrmDeviceProxy::SetHDCPState(
                         "<value of type ::display::ContentProtectionMethod>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_SetHDCPState_Name, kFlags, 0, 0, nullptr);
@@ -1183,6 +1283,171 @@ void DrmDeviceProxy::SetHDCPState(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
+void DrmDeviceProxy::SetColorTemperatureAdjustment(
+    int64_t in_display_id, const ::display::ColorTemperatureAdjustment& in_cta) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ui::ozone::mojom::DrmDevice::SetColorTemperatureAdjustment", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("display_id"), in_display_id,
+                        "<value of type int64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("cta"), in_cta,
+                        "<value of type const ::display::ColorTemperatureAdjustment&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDrmDevice_SetColorTemperatureAdjustment_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ui::ozone::mojom::internal::DrmDevice_SetColorTemperatureAdjustment_Params_Data> params(
+          message);
+  params.Allocate();
+  params->display_id = in_display_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->cta)::BaseType> cta_fragment(
+          params.message());
+  mojo::internal::Serialize<::display::mojom::ColorTemperatureAdjustmentDataView>(
+      in_cta, cta_fragment);
+  params->cta.Set(
+      cta_fragment.is_null() ? nullptr : cta_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->cta.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null cta in DrmDevice.SetColorTemperatureAdjustment request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DrmDevice::Name_);
+  message.set_method_name("SetColorTemperatureAdjustment");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DrmDeviceProxy::SetColorCalibration(
+    int64_t in_display_id, const ::display::ColorCalibration& in_calibration) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ui::ozone::mojom::DrmDevice::SetColorCalibration", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("display_id"), in_display_id,
+                        "<value of type int64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("calibration"), in_calibration,
+                        "<value of type const ::display::ColorCalibration&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDrmDevice_SetColorCalibration_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ui::ozone::mojom::internal::DrmDevice_SetColorCalibration_Params_Data> params(
+          message);
+  params.Allocate();
+  params->display_id = in_display_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->calibration)::BaseType> calibration_fragment(
+          params.message());
+  mojo::internal::Serialize<::display::mojom::ColorCalibrationDataView>(
+      in_calibration, calibration_fragment);
+  params->calibration.Set(
+      calibration_fragment.is_null() ? nullptr : calibration_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->calibration.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null calibration in DrmDevice.SetColorCalibration request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DrmDevice::Name_);
+  message.set_method_name("SetColorCalibration");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DrmDeviceProxy::SetGammaAdjustment(
+    int64_t in_display_id, const ::display::GammaAdjustment& in_adjustment) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ui::ozone::mojom::DrmDevice::SetGammaAdjustment", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("display_id"), in_display_id,
+                        "<value of type int64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("adjustment"), in_adjustment,
+                        "<value of type const ::display::GammaAdjustment&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDrmDevice_SetGammaAdjustment_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ui::ozone::mojom::internal::DrmDevice_SetGammaAdjustment_Params_Data> params(
+          message);
+  params.Allocate();
+  params->display_id = in_display_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->adjustment)::BaseType> adjustment_fragment(
+          params.message());
+  mojo::internal::Serialize<::display::mojom::GammaAdjustmentDataView>(
+      in_adjustment, adjustment_fragment);
+  params->adjustment.Set(
+      adjustment_fragment.is_null() ? nullptr : adjustment_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->adjustment.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null adjustment in DrmDevice.SetGammaAdjustment request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DrmDevice::Name_);
+  message.set_method_name("SetGammaAdjustment");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void DrmDeviceProxy::SetColorMatrix(
     int64_t in_display_id, const std::vector<float>& in_color_matrix) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1198,14 +1463,17 @@ void DrmDeviceProxy::SetColorMatrix(
                         "<value of type const std::vector<float>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_SetColorMatrix_Name, kFlags, 0, 0, nullptr);
@@ -1238,7 +1506,7 @@ void DrmDeviceProxy::SetColorMatrix(
 }
 
 void DrmDeviceProxy::SetGammaCorrection(
-    int64_t in_display_id, const std::vector<::display::GammaRampRGBEntry>& in_degamma_lut, const std::vector<::display::GammaRampRGBEntry>& in_gamma_lut) {
+    int64_t in_display_id, const ::display::GammaCurve& in_degamma, const ::display::GammaCurve& in_gamma) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ui::ozone::mojom::DrmDevice::SetGammaCorrection", "input_parameters",
@@ -1248,21 +1516,24 @@ void DrmDeviceProxy::SetGammaCorrection(
            dict.AddItem("display_id"), in_display_id,
                         "<value of type int64_t>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("degamma_lut"), in_degamma_lut,
-                        "<value of type const std::vector<::display::GammaRampRGBEntry>&>");
+           dict.AddItem("degamma"), in_degamma,
+                        "<value of type const ::display::GammaCurve&>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("gamma_lut"), in_gamma_lut,
-                        "<value of type const std::vector<::display::GammaRampRGBEntry>&>");
+           dict.AddItem("gamma"), in_gamma,
+                        "<value of type const ::display::GammaCurve&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_SetGammaCorrection_Name, kFlags, 0, 0, nullptr);
@@ -1272,31 +1543,27 @@ void DrmDeviceProxy::SetGammaCorrection(
   params.Allocate();
   params->display_id = in_display_id;
   mojo::internal::MessageFragment<
-      typename decltype(params->degamma_lut)::BaseType>
-      degamma_lut_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& degamma_lut_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>>(
-      in_degamma_lut, degamma_lut_fragment, &degamma_lut_validate_params);
-  params->degamma_lut.Set(
-      degamma_lut_fragment.is_null() ? nullptr : degamma_lut_fragment.data());
+      typename decltype(params->degamma)::BaseType> degamma_fragment(
+          params.message());
+  mojo::internal::Serialize<::display::mojom::GammaCurveDataView>(
+      in_degamma, degamma_fragment);
+  params->degamma.Set(
+      degamma_fragment.is_null() ? nullptr : degamma_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->degamma_lut.is_null(),
+      params->degamma.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null degamma_lut in DrmDevice.SetGammaCorrection request");
+      "null degamma in DrmDevice.SetGammaCorrection request");
   mojo::internal::MessageFragment<
-      typename decltype(params->gamma_lut)::BaseType>
-      gamma_lut_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& gamma_lut_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::display::mojom::GammaRampRGBEntryDataView>>(
-      in_gamma_lut, gamma_lut_fragment, &gamma_lut_validate_params);
-  params->gamma_lut.Set(
-      gamma_lut_fragment.is_null() ? nullptr : gamma_lut_fragment.data());
+      typename decltype(params->gamma)::BaseType> gamma_fragment(
+          params.message());
+  mojo::internal::Serialize<::display::mojom::GammaCurveDataView>(
+      in_gamma, gamma_fragment);
+  params->gamma.Set(
+      gamma_fragment.is_null() ? nullptr : gamma_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->gamma_lut.is_null(),
+      params->gamma.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null gamma_lut in DrmDevice.SetGammaCorrection request");
+      "null gamma in DrmDevice.SetGammaCorrection request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(DrmDevice::Name_);
@@ -1322,14 +1589,17 @@ void DrmDeviceProxy::SetPrivacyScreen(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_SetPrivacyScreen_Name, kFlags, 0, 0, nullptr);
@@ -1362,14 +1632,17 @@ void DrmDeviceProxy::GetDeviceCursor(
                         "<value of type ::mojo::PendingAssociatedReceiver<::ui::ozone::mojom::DeviceCursor>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_GetDeviceCursor_Name, kFlags, 0, 0, nullptr);
@@ -1484,7 +1757,8 @@ void DrmDevice_TakeDisplayControl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_TakeDisplayControl_Name, kFlags, 0, 0, nullptr);
@@ -1602,7 +1876,8 @@ void DrmDevice_RelinquishDisplayControl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_RelinquishDisplayControl_Name, kFlags, 0, 0, nullptr);
@@ -1720,7 +1995,8 @@ void DrmDevice_RefreshNativeDisplays_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_RefreshNativeDisplays_Name, kFlags, 0, 0, nullptr);
@@ -1850,7 +2126,8 @@ void DrmDevice_ShouldDisplayEventTriggerConfiguration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_ShouldDisplayEventTriggerConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1968,7 +2245,8 @@ void DrmDevice_ConfigureNativeDisplays_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_ConfigureNativeDisplays_Name, kFlags, 0, 0, nullptr);
@@ -2093,7 +2371,8 @@ void DrmDevice_SetHdcpKeyProp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_SetHdcpKeyProp_Name, kFlags, 0, 0, nullptr);
@@ -2233,7 +2512,8 @@ void DrmDevice_GetHDCPState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_GetHDCPState_Name, kFlags, 0, 0, nullptr);
@@ -2363,7 +2643,8 @@ void DrmDevice_SetHDCPState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_SetHDCPState_Name, kFlags, 0, 0, nullptr);
@@ -2458,7 +2739,7 @@ bool DrmDevice_SetPrivacyScreen_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        DrmDevice::Name_, 15, true);
+        DrmDevice::Name_, 18, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2482,7 +2763,8 @@ void DrmDevice_SetPrivacyScreen_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDrmDevice_SetPrivacyScreen_Name, kFlags, 0, 0, nullptr);
@@ -2680,6 +2962,96 @@ std::move(p_path));
     case internal::kDrmDevice_SetHDCPState_Name: {
       break;
     }
+    case internal::kDrmDevice_SetColorTemperatureAdjustment_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DrmDevice_SetColorTemperatureAdjustment_Params_Data* params =
+          reinterpret_cast<internal::DrmDevice_SetColorTemperatureAdjustment_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      int64_t p_display_id{};
+      ::display::ColorTemperatureAdjustment p_cta{};
+      DrmDevice_SetColorTemperatureAdjustment_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_display_id = input_data_view.display_id();
+      if (success && !input_data_view.ReadCta(&p_cta))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DrmDevice::Name_, 13, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetColorTemperatureAdjustment(
+std::move(p_display_id), 
+std::move(p_cta));
+      return true;
+    }
+    case internal::kDrmDevice_SetColorCalibration_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DrmDevice_SetColorCalibration_Params_Data* params =
+          reinterpret_cast<internal::DrmDevice_SetColorCalibration_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      int64_t p_display_id{};
+      ::display::ColorCalibration p_calibration{};
+      DrmDevice_SetColorCalibration_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_display_id = input_data_view.display_id();
+      if (success && !input_data_view.ReadCalibration(&p_calibration))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DrmDevice::Name_, 14, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetColorCalibration(
+std::move(p_display_id), 
+std::move(p_calibration));
+      return true;
+    }
+    case internal::kDrmDevice_SetGammaAdjustment_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DrmDevice_SetGammaAdjustment_Params_Data* params =
+          reinterpret_cast<internal::DrmDevice_SetGammaAdjustment_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      int64_t p_display_id{};
+      ::display::GammaAdjustment p_adjustment{};
+      DrmDevice_SetGammaAdjustment_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_display_id = input_data_view.display_id();
+      if (success && !input_data_view.ReadAdjustment(&p_adjustment))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DrmDevice::Name_, 15, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetGammaAdjustment(
+std::move(p_display_id), 
+std::move(p_adjustment));
+      return true;
+    }
     case internal::kDrmDevice_SetColorMatrix_Name: {
 
       DCHECK(message->is_serialized());
@@ -2700,7 +3072,7 @@ std::move(p_path));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 13, false);
+            DrmDevice::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2719,29 +3091,29 @@ std::move(p_color_matrix));
       
       bool success = true;
       int64_t p_display_id{};
-      std::vector<::display::GammaRampRGBEntry> p_degamma_lut{};
-      std::vector<::display::GammaRampRGBEntry> p_gamma_lut{};
+      ::display::GammaCurve p_degamma{};
+      ::display::GammaCurve p_gamma{};
       DrmDevice_SetGammaCorrection_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_display_id = input_data_view.display_id();
-      if (success && !input_data_view.ReadDegammaLut(&p_degamma_lut))
+      if (success && !input_data_view.ReadDegamma(&p_degamma))
         success = false;
-      if (success && !input_data_view.ReadGammaLut(&p_gamma_lut))
+      if (success && !input_data_view.ReadGamma(&p_gamma))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 14, false);
+            DrmDevice::Name_, 17, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->SetGammaCorrection(
 std::move(p_display_id), 
-std::move(p_degamma_lut), 
-std::move(p_gamma_lut));
+std::move(p_degamma), 
+std::move(p_gamma));
       return true;
     }
     case internal::kDrmDevice_SetPrivacyScreen_Name: {
@@ -2766,7 +3138,7 @@ std::move(p_gamma_lut));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 16, false);
+            DrmDevice::Name_, 19, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3039,6 +3411,15 @@ std::move(p_state),
 std::move(p_protection_method), std::move(callback));
       return true;
     }
+    case internal::kDrmDevice_SetColorTemperatureAdjustment_Name: {
+      break;
+    }
+    case internal::kDrmDevice_SetColorCalibration_Name: {
+      break;
+    }
+    case internal::kDrmDevice_SetGammaAdjustment_Name: {
+      break;
+    }
     case internal::kDrmDevice_SetColorMatrix_Name: {
       break;
     }
@@ -3065,7 +3446,7 @@ std::move(p_protection_method), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DrmDevice::Name_, 15, false);
+            DrmDevice::Name_, 18, false);
         return false;
       }
       DrmDevice::SetPrivacyScreenCallback callback =
@@ -3084,42 +3465,48 @@ std::move(p_enabled), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDrmDeviceValidationInfo[] = {
-    {&internal::DrmDevice_CreateWindow_Params_Data::Validate,
+    { &internal::DrmDevice_CreateWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DrmDevice_DestroyWindow_Params_Data::Validate,
+    { &internal::DrmDevice_DestroyWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DrmDevice_SetWindowBounds_Params_Data::Validate,
+    { &internal::DrmDevice_SetWindowBounds_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DrmDevice_TakeDisplayControl_Params_Data::Validate,
+    { &internal::DrmDevice_TakeDisplayControl_Params_Data::Validate,
      &internal::DrmDevice_TakeDisplayControl_ResponseParams_Data::Validate},
-    {&internal::DrmDevice_RelinquishDisplayControl_Params_Data::Validate,
+    { &internal::DrmDevice_RelinquishDisplayControl_Params_Data::Validate,
      &internal::DrmDevice_RelinquishDisplayControl_ResponseParams_Data::Validate},
-    {&internal::DrmDevice_RefreshNativeDisplays_Params_Data::Validate,
+    { &internal::DrmDevice_RefreshNativeDisplays_Params_Data::Validate,
      &internal::DrmDevice_RefreshNativeDisplays_ResponseParams_Data::Validate},
-    {&internal::DrmDevice_AddGraphicsDevice_Params_Data::Validate,
+    { &internal::DrmDevice_AddGraphicsDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DrmDevice_RemoveGraphicsDevice_Params_Data::Validate,
+    { &internal::DrmDevice_RemoveGraphicsDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DrmDevice_ShouldDisplayEventTriggerConfiguration_Params_Data::Validate,
+    { &internal::DrmDevice_ShouldDisplayEventTriggerConfiguration_Params_Data::Validate,
      &internal::DrmDevice_ShouldDisplayEventTriggerConfiguration_ResponseParams_Data::Validate},
-    {&internal::DrmDevice_ConfigureNativeDisplays_Params_Data::Validate,
+    { &internal::DrmDevice_ConfigureNativeDisplays_Params_Data::Validate,
      &internal::DrmDevice_ConfigureNativeDisplays_ResponseParams_Data::Validate},
-    {&internal::DrmDevice_SetHdcpKeyProp_Params_Data::Validate,
+    { &internal::DrmDevice_SetHdcpKeyProp_Params_Data::Validate,
      &internal::DrmDevice_SetHdcpKeyProp_ResponseParams_Data::Validate},
-    {&internal::DrmDevice_GetHDCPState_Params_Data::Validate,
+    { &internal::DrmDevice_GetHDCPState_Params_Data::Validate,
      &internal::DrmDevice_GetHDCPState_ResponseParams_Data::Validate},
-    {&internal::DrmDevice_SetHDCPState_Params_Data::Validate,
+    { &internal::DrmDevice_SetHDCPState_Params_Data::Validate,
      &internal::DrmDevice_SetHDCPState_ResponseParams_Data::Validate},
-    {&internal::DrmDevice_SetColorMatrix_Params_Data::Validate,
+    { &internal::DrmDevice_SetColorTemperatureAdjustment_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DrmDevice_SetGammaCorrection_Params_Data::Validate,
+    { &internal::DrmDevice_SetColorCalibration_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DrmDevice_SetPrivacyScreen_Params_Data::Validate,
+    { &internal::DrmDevice_SetGammaAdjustment_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::DrmDevice_SetColorMatrix_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::DrmDevice_SetGammaCorrection_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::DrmDevice_SetPrivacyScreen_Params_Data::Validate,
      &internal::DrmDevice_SetPrivacyScreen_ResponseParams_Data::Validate},
-    {&internal::DrmDevice_GetDeviceCursor_Params_Data::Validate,
+    { &internal::DrmDevice_GetDeviceCursor_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3188,11 +3575,20 @@ void DrmDeviceInterceptorForTesting::GetHDCPState(int64_t display_id, GetHDCPSta
 void DrmDeviceInterceptorForTesting::SetHDCPState(int64_t display_id, ::display::HDCPState state, ::display::ContentProtectionMethod protection_method, SetHDCPStateCallback callback) {
   GetForwardingInterface()->SetHDCPState(std::move(display_id), std::move(state), std::move(protection_method), std::move(callback));
 }
+void DrmDeviceInterceptorForTesting::SetColorTemperatureAdjustment(int64_t display_id, const ::display::ColorTemperatureAdjustment& cta) {
+  GetForwardingInterface()->SetColorTemperatureAdjustment(std::move(display_id), std::move(cta));
+}
+void DrmDeviceInterceptorForTesting::SetColorCalibration(int64_t display_id, const ::display::ColorCalibration& calibration) {
+  GetForwardingInterface()->SetColorCalibration(std::move(display_id), std::move(calibration));
+}
+void DrmDeviceInterceptorForTesting::SetGammaAdjustment(int64_t display_id, const ::display::GammaAdjustment& adjustment) {
+  GetForwardingInterface()->SetGammaAdjustment(std::move(display_id), std::move(adjustment));
+}
 void DrmDeviceInterceptorForTesting::SetColorMatrix(int64_t display_id, const std::vector<float>& color_matrix) {
   GetForwardingInterface()->SetColorMatrix(std::move(display_id), std::move(color_matrix));
 }
-void DrmDeviceInterceptorForTesting::SetGammaCorrection(int64_t display_id, const std::vector<::display::GammaRampRGBEntry>& degamma_lut, const std::vector<::display::GammaRampRGBEntry>& gamma_lut) {
-  GetForwardingInterface()->SetGammaCorrection(std::move(display_id), std::move(degamma_lut), std::move(gamma_lut));
+void DrmDeviceInterceptorForTesting::SetGammaCorrection(int64_t display_id, const ::display::GammaCurve& degamma, const ::display::GammaCurve& gamma) {
+  GetForwardingInterface()->SetGammaCorrection(std::move(display_id), std::move(degamma), std::move(gamma));
 }
 void DrmDeviceInterceptorForTesting::SetPrivacyScreen(int64_t display_id, bool enabled, SetPrivacyScreenCallback callback) {
   GetForwardingInterface()->SetPrivacyScreen(std::move(display_id), std::move(enabled), std::move(callback));

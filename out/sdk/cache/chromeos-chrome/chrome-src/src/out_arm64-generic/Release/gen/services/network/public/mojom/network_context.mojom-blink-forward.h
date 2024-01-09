@@ -72,9 +72,6 @@ using CustomProxyConfigPtr = mojo::StructPtr<CustomProxyConfig>;
 class CertVerifierServiceRemoteParams;
 using CertVerifierServiceRemoteParamsPtr = mojo::StructPtr<CertVerifierServiceRemoteParams>;
 
-class AdditionalCertificates;
-using AdditionalCertificatesPtr = mojo::StructPtr<AdditionalCertificates>;
-
 class HttpAuthStaticNetworkContextParams;
 using HttpAuthStaticNetworkContextParamsPtr = mojo::InlinedStructPtr<HttpAuthStaticNetworkContextParams>;
 

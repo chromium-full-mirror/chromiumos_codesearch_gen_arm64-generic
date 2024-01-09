@@ -11,12 +11,12 @@ import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/stri
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { UserAction } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
+import { Subactions, UserAction } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
 import { getTemplate } from './accelerator_edit_view.html.js';
 import { AcceleratorLookupManager } from './accelerator_lookup_manager.js';
 import { AcceleratorViewElement, ViewState } from './accelerator_view.js';
 import { getShortcutProvider } from './mojo_interface_provider.js';
-import { AcceleratorConfigResult, AcceleratorKeyState, AcceleratorState, AcceleratorType } from './shortcut_types.js';
+import { AcceleratorConfigResult, AcceleratorKeyState, AcceleratorState, AcceleratorType, EditAction } from './shortcut_types.js';
 import { getAccelerator } from './shortcut_utils.js';
 const accelerator = {
     modifiers: 0,
@@ -74,6 +74,19 @@ export class AcceleratorEditViewElement extends AcceleratorEditViewElementBase {
                 value: false,
                 reflectToAttribute: true,
             },
+            // If search is not included in a key-combination, hasWarning is set to
+            // true. The visual style will be distinct from other error cases.
+            hasWarning: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            // Keeps track if there was ever an error when interacting with this
+            // accelerator.
+            recordedError: {
+                type: Boolean,
+                value: false,
+            },
             action: {
                 type: Number,
                 value: 0,
@@ -113,6 +126,8 @@ export class AcceleratorEditViewElement extends AcceleratorEditViewElementBase {
                 this.statusMessage = this.i18n('editViewStatusMessage');
             }
         }
+        this.hasWarning =
+            this.statusMessage === this.i18n('warningSearchNotIncluded');
     }
     onEditButtonClicked() {
         // Reset the error messages upon clicking the edit button.
@@ -150,10 +165,17 @@ export class AcceleratorEditViewElement extends AcceleratorEditViewElementBase {
                 composed: true,
                 detail: { source: this.source, action: this.action },
             }));
+            this.dispatchEvent(new CustomEvent('edit-action-completed', {
+                bubbles: true,
+                composed: true,
+                detail: { editAction: EditAction.REMOVE },
+            }));
             getShortcutProvider().recordUserAction(UserAction.kRemoveAccelerator);
         }
     }
     onCancelButtonClicked() {
+        this.shortcutProvider.recordAddOrEditSubactions(this.viewState === ViewState.ADD, this.recordedError ? Subactions.kErrorCancel :
+            Subactions.kNoErrorCancel);
         this.cancelButtonClicked = true;
         this.endCapture();
     }

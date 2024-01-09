@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -171,14 +172,17 @@ void AnnotationAgentProxy::ScrollIntoView(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::AnnotationAgent::ScrollIntoView");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnnotationAgent_ScrollIntoView_Name, kFlags, 0, 0, nullptr);
@@ -242,10 +246,10 @@ bool AnnotationAgentStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAnnotationAgentValidationInfo[] = {
-    {&internal::AnnotationAgent_ScrollIntoView_Params_Data::Validate,
+    { &internal::AnnotationAgent_ScrollIntoView_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -325,14 +329,17 @@ void AnnotationAgentHostProxy::DidFinishAttachment(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnnotationAgentHost_DidFinishAttachment_Name, kFlags, 0, 0, nullptr);
@@ -411,10 +418,10 @@ bool AnnotationAgentHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAnnotationAgentHostValidationInfo[] = {
-    {&internal::AnnotationAgentHost_DidFinishAttachment_Params_Data::Validate,
+    { &internal::AnnotationAgentHost_DidFinishAttachment_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -539,14 +546,17 @@ void AnnotationAgentContainerProxy::CreateAgent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnnotationAgentContainer_CreateAgent_Name, kFlags, 0, 0, nullptr);
@@ -601,14 +611,17 @@ void AnnotationAgentContainerProxy::CreateAgentFromSelection(
                         "<value of type AnnotationType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnnotationAgentContainer_CreateAgentFromSelection_Name, kFlags, 0, 0, nullptr);
@@ -734,7 +747,8 @@ void AnnotationAgentContainer_CreateAgentFromSelection_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAnnotationAgentContainer_CreateAgentFromSelection_Name, kFlags, 0, 0, nullptr);
@@ -869,12 +883,12 @@ std::move(p_type), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAnnotationAgentContainerValidationInfo[] = {
-    {&internal::AnnotationAgentContainer_CreateAgent_Params_Data::Validate,
+    { &internal::AnnotationAgentContainer_CreateAgent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AnnotationAgentContainer_CreateAgentFromSelection_Params_Data::Validate,
+    { &internal::AnnotationAgentContainer_CreateAgentFromSelection_Params_Data::Validate,
      &internal::AnnotationAgentContainer_CreateAgentFromSelection_ResponseParams_Data::Validate},
 };
 

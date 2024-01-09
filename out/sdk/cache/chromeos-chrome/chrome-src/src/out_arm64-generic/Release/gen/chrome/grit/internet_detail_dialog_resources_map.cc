@@ -10,7 +10,9 @@
 
 const webui::ResourcePath kInternetDetailDialogResources[] = {
   {"internet_detail_dialog_container.html", IDR_INTERNET_DETAIL_DIALOG_INTERNET_DETAIL_DIALOG_CONTAINER_HTML},
-  {"internet_detail_dialog_container.js", IDR_INTERNET_DETAIL_DIALOG_INTERNET_DETAIL_DIALOG_CONTAINER_ROLLUP_JS},
+  {"internet_detail_dialog.js", IDR_INTERNET_DETAIL_DIALOG_INTERNET_DETAIL_DIALOG_JS},
+  {"internet_detail_dialog_browser_proxy.js", IDR_INTERNET_DETAIL_DIALOG_INTERNET_DETAIL_DIALOG_BROWSER_PROXY_JS},
+  {"internet_detail_dialog.html.js", IDR_INTERNET_DETAIL_DIALOG_INTERNET_DETAIL_DIALOG_HTML_JS},
 };
 
 const size_t kInternetDetailDialogResourcesSize = std::size(kInternetDetailDialogResources);

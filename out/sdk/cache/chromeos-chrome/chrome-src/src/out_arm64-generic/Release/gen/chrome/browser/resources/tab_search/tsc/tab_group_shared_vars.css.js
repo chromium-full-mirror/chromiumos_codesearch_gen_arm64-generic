@@ -1,9 +1,7 @@
 import { html } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 const template = html `
-<custom-style>
-  <style>
+<style>
 html{--google-blue-300-rgb:123,170,247;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-cyan-300-rgb:120,217,236;--google-cyan-300:rgb(var(--google-cyan-300-rgb));--google-cyan-900-rgb:0,123,131;--google-cyan-900:rgb(var(--google-cyan-900-rgb));--google-green-300-rgb:87,187,138;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-pink-300-rgb:255,139,203;--google-pink-300:rgb(var(--google-pink-300-rgb));--google-pink-700-rgb:208,24,132;--google-pink-700:rgb(var(--google-pink-700-rgb));--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-600-rgb:147,52,230;--google-purple-600:rgb(var(--google-purple-600-rgb));--google-red-300-rgb:230,124,115;--google-red-300:rgb(var(--google-red-300-rgb));--google-yellow-300-rgb:247,203,77;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-900-rgb:227,116,0;--google-yellow-900:rgb(var(--google-yellow-900-rgb));--google-orange-300-rgb:252,173,112;--google-orange-300:rgb(var(--google-orange-300-rgb));--google-orange-400-rgb:250,144,62;--google-orange-400:rgb(var(--google-orange-400-rgb));--tab-group-color-grey:var(--google-grey-700);--tab-group-color-blue:var(--google-blue-600);--tab-group-color-red:var(--google-red-600);--tab-group-color-yellow:var(--google-yellow-900);--tab-group-color-green:var(--google-green-600);--tab-group-color-pink:var(--google-pink-700);--tab-group-color-purple:var(--google-purple-600);--tab-group-color-cyan:var(--google-cyan-900);--tab-group-color-orange:var(--google-orange-400)}@media (prefers-color-scheme:dark){html{--tab-group-color-grey:var(--google-grey-400);--tab-group-color-blue:var(--google-blue-300);--tab-group-color-red:var(--google-red-300);--tab-group-color-yellow:var(--google-yellow-300);--tab-group-color-green:var(--google-green-300);--tab-group-color-pink:var(--google-pink-300);--tab-group-color-purple:var(--google-purple-200);--tab-group-color-cyan:var(--google-cyan-300);--tab-group-color-orange:var(--google-orange-300)}}
-  </style>
-</custom-style>
+</style>
 `;
 document.head.appendChild(template.content);

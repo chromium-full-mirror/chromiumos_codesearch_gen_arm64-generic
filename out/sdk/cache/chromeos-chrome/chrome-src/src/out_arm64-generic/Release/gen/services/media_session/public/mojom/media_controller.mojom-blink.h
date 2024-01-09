@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/media_session/public/mojom/media_controller.mojom-features.h"
 #include "services/media_session/public/mojom/media_controller.mojom-shared.h"
 #include "services/media_session/public/mojom/media_controller.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -123,7 +124,7 @@ class BLINK_PLATFORM_EXPORT MediaController
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 5;
+  static constexpr uint32_t Version_ = 6;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -157,6 +158,7 @@ class BLINK_PLATFORM_EXPORT MediaController
     kSetMuteMinVersion = 3,
     kRequestMediaRemotingMinVersion = 4,
     kEnterAutoPictureInPictureMinVersion = 5,
+    kSkipAdMinVersion = 6,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -225,6 +227,9 @@ class BLINK_PLATFORM_EXPORT MediaController
   struct EnterAutoPictureInPicture_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SkipAd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~MediaController() = default;
 
@@ -290,6 +295,9 @@ class BLINK_PLATFORM_EXPORT MediaController
 
   
   virtual void EnterAutoPictureInPicture() = 0;
+
+  
+  virtual void SkipAd() = 0;
 };
 
 class MediaControllerObserverProxy;
@@ -359,7 +367,7 @@ class BLINK_PLATFORM_EXPORT MediaControllerObserver
   virtual void MediaSessionActionsChanged(const WTF::Vector<::media_session::mojom::blink::MediaSessionAction>& action) = 0;
 
   
-  virtual void MediaSessionChanged(const absl::optional<::base::UnguessableToken>& request_id) = 0;
+  virtual void MediaSessionChanged(const std::optional<::base::UnguessableToken>& request_id) = 0;
 
   
   virtual void MediaSessionPositionChanged(::media_session::mojom::blink::MediaPositionPtr position) = 0;
@@ -479,6 +487,8 @@ class BLINK_PLATFORM_EXPORT MediaControllerProxy
   void RequestMediaRemoting() final;
   
   void EnterAutoPictureInPicture() final;
+  
+  void SkipAd() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -499,7 +509,7 @@ class BLINK_PLATFORM_EXPORT MediaControllerObserverProxy
   
   void MediaSessionActionsChanged(const WTF::Vector<::media_session::mojom::blink::MediaSessionAction>& action) final;
   
-  void MediaSessionChanged(const absl::optional<::base::UnguessableToken>& request_id) final;
+  void MediaSessionChanged(const std::optional<::base::UnguessableToken>& request_id) final;
   
   void MediaSessionPositionChanged(::media_session::mojom::blink::MediaPositionPtr position) final;
 

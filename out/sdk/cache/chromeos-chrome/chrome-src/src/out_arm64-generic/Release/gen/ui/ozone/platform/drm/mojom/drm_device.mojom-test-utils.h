@@ -28,8 +28,11 @@ class  DrmDeviceInterceptorForTesting : public DrmDevice {
   void SetHdcpKeyProp(int64_t display_id, const std::string& key, SetHdcpKeyPropCallback callback) override;
   void GetHDCPState(int64_t display_id, GetHDCPStateCallback callback) override;
   void SetHDCPState(int64_t display_id, ::display::HDCPState state, ::display::ContentProtectionMethod protection_method, SetHDCPStateCallback callback) override;
+  void SetColorTemperatureAdjustment(int64_t display_id, const ::display::ColorTemperatureAdjustment& cta) override;
+  void SetColorCalibration(int64_t display_id, const ::display::ColorCalibration& calibration) override;
+  void SetGammaAdjustment(int64_t display_id, const ::display::GammaAdjustment& adjustment) override;
   void SetColorMatrix(int64_t display_id, const std::vector<float>& color_matrix) override;
-  void SetGammaCorrection(int64_t display_id, const std::vector<::display::GammaRampRGBEntry>& degamma_lut, const std::vector<::display::GammaRampRGBEntry>& gamma_lut) override;
+  void SetGammaCorrection(int64_t display_id, const ::display::GammaCurve& degamma, const ::display::GammaCurve& gamma) override;
   void SetPrivacyScreen(int64_t display_id, bool enabled, SetPrivacyScreenCallback callback) override;
   void GetDeviceCursor(::mojo::PendingAssociatedReceiver<::ui::ozone::mojom::DeviceCursor> cursor) override;
 };

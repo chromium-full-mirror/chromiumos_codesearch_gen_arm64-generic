@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -489,14 +490,17 @@ void BrowserAppInstanceRegistryProxy::OnBrowserWindowAdded(
                         "<value of type ::apps::BrowserWindowInstanceUpdate>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserAppInstanceRegistry_OnBrowserWindowAdded_Name, kFlags, 0, 0, nullptr);
@@ -537,14 +541,17 @@ void BrowserAppInstanceRegistryProxy::OnBrowserWindowUpdated(
                         "<value of type ::apps::BrowserWindowInstanceUpdate>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserAppInstanceRegistry_OnBrowserWindowUpdated_Name, kFlags, 0, 0, nullptr);
@@ -585,14 +592,17 @@ void BrowserAppInstanceRegistryProxy::OnBrowserWindowRemoved(
                         "<value of type ::apps::BrowserWindowInstanceUpdate>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserAppInstanceRegistry_OnBrowserWindowRemoved_Name, kFlags, 0, 0, nullptr);
@@ -633,14 +643,17 @@ void BrowserAppInstanceRegistryProxy::OnBrowserAppAdded(
                         "<value of type ::apps::BrowserAppInstanceUpdate>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserAppInstanceRegistry_OnBrowserAppAdded_Name, kFlags, 0, 0, nullptr);
@@ -681,14 +694,17 @@ void BrowserAppInstanceRegistryProxy::OnBrowserAppUpdated(
                         "<value of type ::apps::BrowserAppInstanceUpdate>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserAppInstanceRegistry_OnBrowserAppUpdated_Name, kFlags, 0, 0, nullptr);
@@ -729,14 +745,17 @@ void BrowserAppInstanceRegistryProxy::OnBrowserAppRemoved(
                         "<value of type ::apps::BrowserAppInstanceUpdate>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserAppInstanceRegistry_OnBrowserAppRemoved_Name, kFlags, 0, 0, nullptr);
@@ -777,14 +796,17 @@ void BrowserAppInstanceRegistryProxy::RegisterController(
                         "<value of type ::mojo::PendingRemote<BrowserAppInstanceController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserAppInstanceRegistry_RegisterController_Name, kFlags, 0, 0, nullptr);
@@ -1034,22 +1056,22 @@ bool BrowserAppInstanceRegistryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBrowserAppInstanceRegistryValidationInfo[] = {
-    {&internal::BrowserAppInstanceRegistry_OnBrowserWindowAdded_Params_Data::Validate,
+    { &internal::BrowserAppInstanceRegistry_OnBrowserWindowAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserAppInstanceRegistry_OnBrowserWindowUpdated_Params_Data::Validate,
+    { &internal::BrowserAppInstanceRegistry_OnBrowserWindowUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserAppInstanceRegistry_OnBrowserWindowRemoved_Params_Data::Validate,
+    { &internal::BrowserAppInstanceRegistry_OnBrowserWindowRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserAppInstanceRegistry_OnBrowserAppAdded_Params_Data::Validate,
+    { &internal::BrowserAppInstanceRegistry_OnBrowserAppAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserAppInstanceRegistry_OnBrowserAppUpdated_Params_Data::Validate,
+    { &internal::BrowserAppInstanceRegistry_OnBrowserAppUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserAppInstanceRegistry_OnBrowserAppRemoved_Params_Data::Validate,
+    { &internal::BrowserAppInstanceRegistry_OnBrowserAppRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::BrowserAppInstanceRegistry_RegisterController_Params_Data::Validate,
+    { &internal::BrowserAppInstanceRegistry_RegisterController_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1130,14 +1152,17 @@ void BrowserAppInstanceControllerProxy::ActivateTabInstance(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBrowserAppInstanceController_ActivateTabInstance_Name, kFlags, 0, 0, nullptr);
@@ -1216,10 +1241,10 @@ bool BrowserAppInstanceControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBrowserAppInstanceControllerValidationInfo[] = {
-    {&internal::BrowserAppInstanceController_ActivateTabInstance_Params_Data::Validate,
+    { &internal::BrowserAppInstanceController_ActivateTabInstance_Params_Data::Validate,
      nullptr /* no response */},
 };
 

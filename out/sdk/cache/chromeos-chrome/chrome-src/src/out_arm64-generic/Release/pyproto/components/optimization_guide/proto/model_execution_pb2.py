@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from components.optimization_guide.proto import common_types_pb2 as components_dot_optimization__guide_dot_proto_dot_common__types__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n9components/optimization_guide/proto/model_execution.proto\x12\x18optimization_guide.proto\x1a\x36\x63omponents/optimization_guide/proto/common_types.proto\"\x8b\x01\n\x0e\x45xecuteRequest\x12@\n\x07\x66\x65\x61ture\x18\x01 \x01(\x0e\x32/.optimization_guide.proto.ModelExecutionFeature\x12\x37\n\x10request_metadata\x18\x02 \x01(\x0b\x32\x1d.optimization_guide.proto.Any\"\x89\x01\n\x0f\x45xecuteResponse\x12\x15\n\rmodel_version\x18\x01 \x01(\x03\x12:\n\x11response_metadata\x18\x02 \x01(\x0b\x32\x1d.optimization_guide.proto.AnyH\x00\x12\x17\n\rerror_message\x18\x03 \x01(\tH\x00\x42\n\n\x08response*\xc1\x01\n\x15ModelExecutionFeature\x12\'\n#MODEL_EXECUTION_FEATURE_UNSPECIFIED\x10\x00\x12#\n\x1fMODEL_EXECUTION_FEATURE_COMPOSE\x10\x01\x12,\n(MODEL_EXECUTION_FEATURE_TAB_ORGANIZATION\x10\x02\x12,\n(MODEL_EXECUTION_FEATURE_WALLPAPER_SEARCH\x10\x03\x42I\n0org.chromium.components.optimization_guide.protoB\x13ModelExecutionProtoH\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n9components/optimization_guide/proto/model_execution.proto\x12\x18optimization_guide.proto\x1a\x36\x63omponents/optimization_guide/proto/common_types.proto\"\x8b\x01\n\x0e\x45xecuteRequest\x12@\n\x07\x66\x65\x61ture\x18\x01 \x01(\x0e\x32/.optimization_guide.proto.ModelExecutionFeature\x12\x37\n\x10request_metadata\x18\x02 \x01(\x0b\x32\x1d.optimization_guide.proto.Any\"\xd6\x01\n\x0f\x45xecuteResponse\x12\x15\n\rmodel_version\x18\x01 \x01(\x03\x12:\n\x11response_metadata\x18\x02 \x01(\x0b\x32\x1d.optimization_guide.proto.AnyH\x00\x12\x41\n\x0e\x65rror_response\x18\x05 \x01(\x0b\x32\'.optimization_guide.proto.ErrorResponseH\x00\x12\x1b\n\x13server_execution_id\x18\x04 \x01(\tB\n\n\x08responseJ\x04\x08\x03\x10\x04\"J\n\rErrorResponse\x12\x39\n\x0b\x65rror_state\x18\x01 \x01(\x0e\x32$.optimization_guide.proto.ErrorState\"v\n\x1cOnDeviceModelExecutionConfig\x12V\n\x0f\x66\x65\x61ture_configs\x18\x01 \x03(\x0b\x32=.optimization_guide.proto.OnDeviceModelExecutionFeatureConfig\"s\n\nRedactRule\x12:\n\x08\x62\x65havior\x18\x01 \x01(\x0e\x32(.optimization_guide.proto.RedactBehavior\x12\r\n\x05regex\x18\x02 \x01(\t\x12\x1a\n\x12replacement_string\x18\x03 \x01(\t\"\x81\x01\n\x0bRedactRules\x12=\n\x0f\x66ields_to_check\x18\x01 \x03(\x0b\x32$.optimization_guide.proto.ProtoField\x12\x33\n\x05rules\x18\x02 \x03(\x0b\x32$.optimization_guide.proto.RedactRule\"\x8f\x02\n#OnDeviceModelExecutionFeatureConfig\x12@\n\x07\x66\x65\x61ture\x18\x01 \x01(\x0e\x32/.optimization_guide.proto.ModelExecutionFeature\x12Q\n\x0cinput_config\x18\x02 \x01(\x0b\x32;.optimization_guide.proto.OnDeviceModelExecutionInputConfig\x12S\n\routput_config\x18\x03 \x01(\x0b\x32<.optimization_guide.proto.OnDeviceModelExecutionOutputConfig\"\xdc\x01\n!OnDeviceModelExecutionInputConfig\x12\x19\n\x11request_base_name\x18\x01 \x01(\t\x12P\n\x1binput_context_substitutions\x18\x03 \x03(\x0b\x32+.optimization_guide.proto.SubstitutedString\x12J\n\x15\x65xecute_substitutions\x18\x02 \x03(\x0b\x32+.optimization_guide.proto.SubstitutedString\"\xdf\x01\n\x11SubstitutedString\x12\x17\n\x0fstring_template\x18\x01 \x01(\t\x12\x43\n\rsubstitutions\x18\x06 \x03(\x0b\x32,.optimization_guide.proto.StringSubstitution\x12;\n\nconditions\x18\x04 \x01(\x0b\x32\'.optimization_guide.proto.ConditionList\x12#\n\x1bshould_ignore_input_context\x18\x05 \x01(\x08J\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"M\n\x12StringSubstitution\x12\x37\n\ncandidates\x18\x01 \x03(\x0b\x32#.optimization_guide.proto.StringArg\"\xa2\x01\n\tStringArg\x12\x14\n\nraw_string\x18\x01 \x01(\tH\x00\x12;\n\x0bproto_field\x18\x02 \x01(\x0b\x32$.optimization_guide.proto.ProtoFieldH\x00\x12;\n\nconditions\x18\x03 \x01(\x0b\x32\'.optimization_guide.proto.ConditionListB\x05\n\x03\x61rg\"%\n\x0fProtoDescriptor\x12\x12\n\ntag_number\x18\x01 \x01(\x05\"R\n\nProtoField\x12\x44\n\x11proto_descriptors\x18\x01 \x03(\x0b\x32).optimization_guide.proto.ProtoDescriptor\"\x85\x01\n\x05Value\x12\x15\n\x0bint64_value\x18\x01 \x01(\x03H\x00\x12\x15\n\x0bint32_value\x18\x02 \x01(\x05H\x00\x12\x15\n\x0b\x66loat_value\x18\x03 \x01(\x01H\x00\x12\x16\n\x0cstring_value\x18\x04 \x01(\tH\x00\x12\x17\n\rboolean_value\x18\x05 \x01(\x08H\x00\x42\x06\n\x04type\"\x9e\x01\n\rConditionList\x12T\n\x19\x63ondition_evaluation_type\x18\x01 \x01(\x0e\x32\x31.optimization_guide.proto.ConditionEvaluationType\x12\x37\n\nconditions\x18\x02 \x03(\x0b\x32#.optimization_guide.proto.Condition\"\xb5\x01\n\tCondition\x12\x39\n\x0bproto_field\x18\x01 \x01(\x0b\x32$.optimization_guide.proto.ProtoField\x12=\n\roperator_type\x18\x02 \x01(\x0e\x32&.optimization_guide.proto.OperatorType\x12.\n\x05value\x18\x03 \x01(\x0b\x32\x1f.optimization_guide.proto.Value\"\xb0\x01\n\"OnDeviceModelExecutionOutputConfig\x12\x12\n\nproto_type\x18\x01 \x01(\t\x12\x39\n\x0bproto_field\x18\x02 \x01(\x0b\x32$.optimization_guide.proto.ProtoField\x12;\n\x0credact_rules\x18\x03 \x01(\x0b\x32%.optimization_guide.proto.RedactRules*\x83\x02\n\nErrorState\x12\x1b\n\x17\x45RROR_STATE_UNSPECIFIED\x10\x00\x12+\n\'ERROR_STATE_INTERNAL_SERVER_ERROR_RETRY\x10\x01\x12.\n*ERROR_STATE_INTERNAL_SERVER_ERROR_NO_RETRY\x10\x02\x12$\n ERROR_STATE_UNSUPPORTED_LANGUAGE\x10\x03\x12\x18\n\x14\x45RROR_STATE_FILTERED\x10\x04\x12!\n\x1d\x45RROR_STATE_REQUEST_THROTTLED\x10\x05\x12\x18\n\x14\x45RROR_STATE_DISABLED\x10\x06*\xe3\x01\n\x15ModelExecutionFeature\x12\'\n#MODEL_EXECUTION_FEATURE_UNSPECIFIED\x10\x00\x12#\n\x1fMODEL_EXECUTION_FEATURE_COMPOSE\x10\x01\x12,\n(MODEL_EXECUTION_FEATURE_TAB_ORGANIZATION\x10\x02\x12,\n(MODEL_EXECUTION_FEATURE_WALLPAPER_SEARCH\x10\x03\x12 \n\x1cMODEL_EXECUTION_FEATURE_TEST\x10\x04*n\n\x0eRedactBehavior\x12\x1f\n\x1bREDACT_BEHAVIOR_UNSPECIFIED\x10\x00\x12\n\n\x06REJECT\x10\x01\x12\x1c\n\x18REDACT_IF_ONLY_IN_OUTPUT\x10\x02\x12\x11\n\rREDACT_ALWAYS\x10\x03*i\n\x0cOperatorType\x12\x1d\n\x19OPERATOR_TYPE_UNSPECIFIED\x10\x00\x12\x1a\n\x16OPERATOR_TYPE_EQUAL_TO\x10\x01\x12\x1e\n\x1aOPERATOR_TYPE_NOT_EQUAL_TO\x10\x02*\x89\x01\n\x17\x43onditionEvaluationType\x12)\n%CONDITION_EVALUATION_TYPE_UNSPECIFIED\x10\x00\x12!\n\x1d\x43ONDITION_EVALUATION_TYPE_AND\x10\x01\x12 \n\x1c\x43ONDITION_EVALUATION_TYPE_OR\x10\x02\x42I\n0org.chromium.components.optimization_guide.protoB\x13ModelExecutionProtoH\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'components.optimization_guide.proto.model_execution_pb2', globals())
@@ -22,10 +22,48 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n0org.chromium.components.optimization_guide.protoB\023ModelExecutionProtoH\003'
-  _MODELEXECUTIONFEATURE._serialized_start=426
-  _MODELEXECUTIONFEATURE._serialized_end=619
+  _ERRORSTATE._serialized_start=2698
+  _ERRORSTATE._serialized_end=2957
+  _MODELEXECUTIONFEATURE._serialized_start=2960
+  _MODELEXECUTIONFEATURE._serialized_end=3187
+  _REDACTBEHAVIOR._serialized_start=3189
+  _REDACTBEHAVIOR._serialized_end=3299
+  _OPERATORTYPE._serialized_start=3301
+  _OPERATORTYPE._serialized_end=3406
+  _CONDITIONEVALUATIONTYPE._serialized_start=3409
+  _CONDITIONEVALUATIONTYPE._serialized_end=3546
   _EXECUTEREQUEST._serialized_start=144
   _EXECUTEREQUEST._serialized_end=283
   _EXECUTERESPONSE._serialized_start=286
-  _EXECUTERESPONSE._serialized_end=423
+  _EXECUTERESPONSE._serialized_end=500
+  _ERRORRESPONSE._serialized_start=502
+  _ERRORRESPONSE._serialized_end=576
+  _ONDEVICEMODELEXECUTIONCONFIG._serialized_start=578
+  _ONDEVICEMODELEXECUTIONCONFIG._serialized_end=696
+  _REDACTRULE._serialized_start=698
+  _REDACTRULE._serialized_end=813
+  _REDACTRULES._serialized_start=816
+  _REDACTRULES._serialized_end=945
+  _ONDEVICEMODELEXECUTIONFEATURECONFIG._serialized_start=948
+  _ONDEVICEMODELEXECUTIONFEATURECONFIG._serialized_end=1219
+  _ONDEVICEMODELEXECUTIONINPUTCONFIG._serialized_start=1222
+  _ONDEVICEMODELEXECUTIONINPUTCONFIG._serialized_end=1442
+  _SUBSTITUTEDSTRING._serialized_start=1445
+  _SUBSTITUTEDSTRING._serialized_end=1668
+  _STRINGSUBSTITUTION._serialized_start=1670
+  _STRINGSUBSTITUTION._serialized_end=1747
+  _STRINGARG._serialized_start=1750
+  _STRINGARG._serialized_end=1912
+  _PROTODESCRIPTOR._serialized_start=1914
+  _PROTODESCRIPTOR._serialized_end=1951
+  _PROTOFIELD._serialized_start=1953
+  _PROTOFIELD._serialized_end=2035
+  _VALUE._serialized_start=2038
+  _VALUE._serialized_end=2171
+  _CONDITIONLIST._serialized_start=2174
+  _CONDITIONLIST._serialized_end=2332
+  _CONDITION._serialized_start=2335
+  _CONDITION._serialized_end=2516
+  _ONDEVICEMODELEXECUTIONOUTPUTCONFIG._serialized_start=2519
+  _ONDEVICEMODELEXECUTIONOUTPUTCONFIG._serialized_end=2695
 # @@protoc_insertion_point(module_scope)

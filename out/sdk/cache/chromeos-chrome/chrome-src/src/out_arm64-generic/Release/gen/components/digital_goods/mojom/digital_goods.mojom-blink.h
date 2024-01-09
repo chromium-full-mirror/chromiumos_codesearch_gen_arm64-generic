@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/digital_goods/mojom/digital_goods.mojom-features.h"
 #include "components/digital_goods/mojom/digital_goods.mojom-shared.h"
 #include "components/digital_goods/mojom/digital_goods.mojom-blink-forward.h"
 #include "url/mojom/url.mojom-blink.h"
@@ -39,42 +40,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::BillingResponseCode>
-    : EnumHashTraits<::payments::mojom::BillingResponseCode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::ItemType>
-    : EnumHashTraits<::payments::mojom::ItemType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::payments::mojom::CreateDigitalGoodsResponseCode>
-    : EnumHashTraits<::payments::mojom::CreateDigitalGoodsResponseCode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace payments::mojom::blink {
@@ -277,7 +242,7 @@ class BLINK_PLATFORM_EXPORT ItemDetails {
       const WTF::String& introductory_price_period,
       uint32_t introductory_price_cycles,
       ItemType type,
-      absl::optional<WTF::Vector<::blink::KURL>> icon_urls);
+      std::optional<WTF::Vector<::blink::KURL>> icon_urls);
 
 ItemDetails(const ItemDetails&) = delete;
 ItemDetails& operator=(const ItemDetails&) = delete;
@@ -377,7 +342,7 @@ ItemDetails& operator=(const ItemDetails&) = delete;
   
   ItemType type;
   
-  absl::optional<WTF::Vector<::blink::KURL>> icon_urls;
+  std::optional<WTF::Vector<::blink::KURL>> icon_urls;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -329,6 +329,13 @@ std::unique_ptr<FilledField> FilledField::Parse(const base::Value& value, ErrorR
   } else {
     errors->AddError("required property missing: fillingStrategy");
   }
+  const base::Value* field_id_value = dict.Find("fieldId");
+  if (field_id_value) {
+    errors->SetName("fieldId");
+    result->field_id_ = internal::FromValue<int>::Parse(*field_id_value, errors);
+  } else {
+    errors->AddError("required property missing: fieldId");
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -344,6 +351,7 @@ base::Value FilledField::Serialize() const {
   result.Set("value", internal::ToValue(value_));
   result.Set("autofillType", internal::ToValue(autofill_type_));
   result.Set("fillingStrategy", internal::ToValue(filling_strategy_));
+  result.Set("fieldId", internal::ToValue(field_id_));
   return base::Value(std::move(result));
 }
 

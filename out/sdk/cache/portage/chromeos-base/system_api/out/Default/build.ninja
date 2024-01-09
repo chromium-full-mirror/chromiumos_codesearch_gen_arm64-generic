@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5507/work/system_api-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5596/work/system_api-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -27,8 +27,6 @@ build _system_api-arcvm_data_migrator-protos-headers-install_config: phony obj/s
 build _system_api-arcvm_data_migrator-protos-lib-install_config: phony obj/system_api/_system_api-arcvm_data_migrator-protos-lib-install_config.stamp
 build _system_api-attestation-protos-headers-install_config: phony obj/system_api/_system_api-attestation-protos-headers-install_config.stamp
 build _system_api-attestation-protos-lib-install_config: phony obj/system_api/_system_api-attestation-protos-lib-install_config.stamp
-build _system_api-authpolicy-protos-headers-install_config: phony obj/system_api/_system_api-authpolicy-protos-headers-install_config.stamp
-build _system_api-authpolicy-protos-lib-install_config: phony obj/system_api/_system_api-authpolicy-protos-lib-install_config.stamp
 build _system_api-biod-protos-headers-install_config: phony obj/system_api/_system_api-biod-protos-headers-install_config.stamp
 build _system_api-biod-protos-lib-install_config: phony obj/system_api/_system_api-biod-protos-lib-install_config.stamp
 build _system_api-bootlockbox-protos-headers-install_config: phony obj/system_api/_system_api-bootlockbox-protos-headers-install_config.stamp
@@ -47,6 +45,8 @@ build _system_api-dlcservice-protos-headers-install_config: phony obj/system_api
 build _system_api-dlcservice-protos-lib-install_config: phony obj/system_api/_system_api-dlcservice-protos-lib-install_config.stamp
 build _system_api-dlp-protos-headers-install_config: phony obj/system_api/_system_api-dlp-protos-headers-install_config.stamp
 build _system_api-dlp-protos-lib-install_config: phony obj/system_api/_system_api-dlp-protos-lib-install_config.stamp
+build _system_api-fbpreprocessor-protos-headers-install_config: phony obj/system_api/_system_api-fbpreprocessor-protos-headers-install_config.stamp
+build _system_api-fbpreprocessor-protos-lib-install_config: phony obj/system_api/_system_api-fbpreprocessor-protos-lib-install_config.stamp
 build _system_api-featured-protos-headers-install_config: phony obj/system_api/_system_api-featured-protos-headers-install_config.stamp
 build _system_api-featured-protos-lib-install_config: phony obj/system_api/_system_api-featured-protos-lib-install_config.stamp
 build _system_api-fusebox-protos-headers-install_config: phony obj/system_api/_system_api-fusebox-protos-headers-install_config.stamp
@@ -143,8 +143,6 @@ build system_api-arcvm_data_migrator-protos_gen: phony obj/system_api/system_api
 build system_api-attestation-goprotos: phony obj/system_api/system_api-attestation-goprotos.stamp
 build system_api-attestation-protos: phony ./libsystem_api-attestation-protos.a
 build system_api-attestation-protos_gen: phony obj/system_api/system_api-attestation-protos_gen.stamp
-build system_api-authpolicy-protos: phony ./libsystem_api-authpolicy-protos.a
-build system_api-authpolicy-protos_gen: phony obj/system_api/system_api-authpolicy-protos_gen.stamp
 build system_api-biod-goprotos: phony obj/system_api/system_api-biod-goprotos.stamp
 build system_api-biod-protos: phony ./libsystem_api-biod-protos.a
 build system_api-biod-protos_gen: phony obj/system_api/system_api-biod-protos_gen.stamp
@@ -167,6 +165,8 @@ build system_api-dlcservice-protos: phony ./libsystem_api-dlcservice-protos.a
 build system_api-dlcservice-protos_gen: phony obj/system_api/system_api-dlcservice-protos_gen.stamp
 build system_api-dlp-protos: phony ./libsystem_api-dlp-protos.a
 build system_api-dlp-protos_gen: phony obj/system_api/system_api-dlp-protos_gen.stamp
+build system_api-fbpreprocessor-protos: phony ./libsystem_api-fbpreprocessor-protos.a
+build system_api-fbpreprocessor-protos_gen: phony obj/system_api/system_api-fbpreprocessor-protos_gen.stamp
 build system_api-featured-goprotos: phony obj/system_api/system_api-featured-goprotos.stamp
 build system_api-featured-protos: phony ./libsystem_api-featured-protos.a
 build system_api-featured-protos_gen: phony obj/system_api/system_api-featured-protos_gen.stamp
@@ -284,8 +284,6 @@ build system_api$:_system_api-arcvm_data_migrator-protos-headers-install_config:
 build system_api$:_system_api-arcvm_data_migrator-protos-lib-install_config: phony obj/system_api/_system_api-arcvm_data_migrator-protos-lib-install_config.stamp
 build system_api$:_system_api-attestation-protos-headers-install_config: phony obj/system_api/_system_api-attestation-protos-headers-install_config.stamp
 build system_api$:_system_api-attestation-protos-lib-install_config: phony obj/system_api/_system_api-attestation-protos-lib-install_config.stamp
-build system_api$:_system_api-authpolicy-protos-headers-install_config: phony obj/system_api/_system_api-authpolicy-protos-headers-install_config.stamp
-build system_api$:_system_api-authpolicy-protos-lib-install_config: phony obj/system_api/_system_api-authpolicy-protos-lib-install_config.stamp
 build system_api$:_system_api-biod-protos-headers-install_config: phony obj/system_api/_system_api-biod-protos-headers-install_config.stamp
 build system_api$:_system_api-biod-protos-lib-install_config: phony obj/system_api/_system_api-biod-protos-lib-install_config.stamp
 build system_api$:_system_api-bootlockbox-protos-headers-install_config: phony obj/system_api/_system_api-bootlockbox-protos-headers-install_config.stamp
@@ -304,6 +302,8 @@ build system_api$:_system_api-dlcservice-protos-headers-install_config: phony ob
 build system_api$:_system_api-dlcservice-protos-lib-install_config: phony obj/system_api/_system_api-dlcservice-protos-lib-install_config.stamp
 build system_api$:_system_api-dlp-protos-headers-install_config: phony obj/system_api/_system_api-dlp-protos-headers-install_config.stamp
 build system_api$:_system_api-dlp-protos-lib-install_config: phony obj/system_api/_system_api-dlp-protos-lib-install_config.stamp
+build system_api$:_system_api-fbpreprocessor-protos-headers-install_config: phony obj/system_api/_system_api-fbpreprocessor-protos-headers-install_config.stamp
+build system_api$:_system_api-fbpreprocessor-protos-lib-install_config: phony obj/system_api/_system_api-fbpreprocessor-protos-lib-install_config.stamp
 build system_api$:_system_api-featured-protos-headers-install_config: phony obj/system_api/_system_api-featured-protos-headers-install_config.stamp
 build system_api$:_system_api-featured-protos-lib-install_config: phony obj/system_api/_system_api-featured-protos-lib-install_config.stamp
 build system_api$:_system_api-fusebox-protos-headers-install_config: phony obj/system_api/_system_api-fusebox-protos-headers-install_config.stamp
@@ -400,8 +400,6 @@ build system_api$:system_api-arcvm_data_migrator-protos_gen: phony obj/system_ap
 build system_api$:system_api-attestation-goprotos: phony obj/system_api/system_api-attestation-goprotos.stamp
 build system_api$:system_api-attestation-protos: phony ./libsystem_api-attestation-protos.a
 build system_api$:system_api-attestation-protos_gen: phony obj/system_api/system_api-attestation-protos_gen.stamp
-build system_api$:system_api-authpolicy-protos: phony ./libsystem_api-authpolicy-protos.a
-build system_api$:system_api-authpolicy-protos_gen: phony obj/system_api/system_api-authpolicy-protos_gen.stamp
 build system_api$:system_api-biod-goprotos: phony obj/system_api/system_api-biod-goprotos.stamp
 build system_api$:system_api-biod-protos: phony ./libsystem_api-biod-protos.a
 build system_api$:system_api-biod-protos_gen: phony obj/system_api/system_api-biod-protos_gen.stamp
@@ -424,6 +422,8 @@ build system_api$:system_api-dlcservice-protos: phony ./libsystem_api-dlcservice
 build system_api$:system_api-dlcservice-protos_gen: phony obj/system_api/system_api-dlcservice-protos_gen.stamp
 build system_api$:system_api-dlp-protos: phony ./libsystem_api-dlp-protos.a
 build system_api$:system_api-dlp-protos_gen: phony obj/system_api/system_api-dlp-protos_gen.stamp
+build system_api$:system_api-fbpreprocessor-protos: phony ./libsystem_api-fbpreprocessor-protos.a
+build system_api$:system_api-fbpreprocessor-protos_gen: phony obj/system_api/system_api-fbpreprocessor-protos_gen.stamp
 build system_api$:system_api-featured-goprotos: phony obj/system_api/system_api-featured-goprotos.stamp
 build system_api$:system_api-featured-protos: phony ./libsystem_api-featured-protos.a
 build system_api$:system_api-featured-protos_gen: phony obj/system_api/system_api-featured-protos_gen.stamp
@@ -543,8 +543,6 @@ build all: phony $
     obj/system_api/_system_api-arcvm_data_migrator-protos-lib-install_config.stamp $
     obj/system_api/_system_api-attestation-protos-headers-install_config.stamp $
     obj/system_api/_system_api-attestation-protos-lib-install_config.stamp $
-    obj/system_api/_system_api-authpolicy-protos-headers-install_config.stamp $
-    obj/system_api/_system_api-authpolicy-protos-lib-install_config.stamp $
     obj/system_api/_system_api-biod-protos-headers-install_config.stamp $
     obj/system_api/_system_api-biod-protos-lib-install_config.stamp $
     obj/system_api/_system_api-bootlockbox-protos-headers-install_config.stamp $
@@ -563,6 +561,8 @@ build all: phony $
     obj/system_api/_system_api-dlcservice-protos-lib-install_config.stamp $
     obj/system_api/_system_api-dlp-protos-headers-install_config.stamp $
     obj/system_api/_system_api-dlp-protos-lib-install_config.stamp $
+    obj/system_api/_system_api-fbpreprocessor-protos-headers-install_config.stamp $
+    obj/system_api/_system_api-fbpreprocessor-protos-lib-install_config.stamp $
     obj/system_api/_system_api-featured-protos-headers-install_config.stamp $
     obj/system_api/_system_api-featured-protos-lib-install_config.stamp $
     obj/system_api/_system_api-fusebox-protos-headers-install_config.stamp $
@@ -659,8 +659,6 @@ build all: phony $
     obj/system_api/system_api-attestation-goprotos.stamp $
     ./libsystem_api-attestation-protos.a $
     obj/system_api/system_api-attestation-protos_gen.stamp $
-    ./libsystem_api-authpolicy-protos.a $
-    obj/system_api/system_api-authpolicy-protos_gen.stamp $
     obj/system_api/system_api-biod-goprotos.stamp $
     ./libsystem_api-biod-protos.a $
     obj/system_api/system_api-biod-protos_gen.stamp $
@@ -683,6 +681,8 @@ build all: phony $
     obj/system_api/system_api-dlcservice-protos_gen.stamp $
     ./libsystem_api-dlp-protos.a $
     obj/system_api/system_api-dlp-protos_gen.stamp $
+    ./libsystem_api-fbpreprocessor-protos.a $
+    obj/system_api/system_api-fbpreprocessor-protos_gen.stamp $
     obj/system_api/system_api-featured-goprotos.stamp $
     ./libsystem_api-featured-protos.a $
     obj/system_api/system_api-featured-protos_gen.stamp $

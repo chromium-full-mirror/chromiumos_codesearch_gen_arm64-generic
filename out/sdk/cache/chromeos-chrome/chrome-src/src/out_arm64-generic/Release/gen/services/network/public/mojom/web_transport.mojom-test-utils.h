@@ -81,7 +81,7 @@ class  WebTransportClientAsyncWaiter {
 class  WebTransportHandshakeClientInterceptorForTesting : public WebTransportHandshakeClient {
   virtual WebTransportHandshakeClient* GetForwardingInterface() = 0;
   void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers) override;
-  void OnHandshakeFailed(const absl::optional<::net::WebTransportError>& error) override;
+  void OnHandshakeFailed(const std::optional<::net::WebTransportError>& error) override;
 };
 class  WebTransportHandshakeClientAsyncWaiter {
  public:

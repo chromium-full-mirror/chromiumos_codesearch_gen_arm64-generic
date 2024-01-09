@@ -10,9 +10,7 @@
  * calling Function.bind.
  */
 export class EventTracker {
-    constructor() {
-        this.listeners_ = [];
-    }
+    listeners_ = [];
     /**
      * Add an event listener - replacement for EventTarget.addEventListener.
      * @param target The DOM target to add a listener to.

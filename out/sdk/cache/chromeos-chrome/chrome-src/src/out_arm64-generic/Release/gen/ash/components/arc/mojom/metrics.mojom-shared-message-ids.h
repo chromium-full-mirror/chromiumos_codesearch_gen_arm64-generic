@@ -47,6 +47,7 @@ constexpr uint32_t kMetricsHost_ReportWebViewProcessStarted_Name = 31;
 constexpr uint32_t kMetricsHost_ReportVpnServiceBuilderCompatApiUsage_Name = 32;
 constexpr uint32_t kMetricsHost_ReportNewQosSocketCount_Name = 33;
 constexpr uint32_t kMetricsHost_ReportQosSocketPercentage_Name = 34;
+constexpr uint32_t kMetricsHost_ReportArcKeyMintError_Name = 35;
 constexpr uint32_t kMetricsInstance_Init_Name = 1;
 constexpr uint32_t kMetricsInstance_GetGfxMetrics_Name = 2;
 

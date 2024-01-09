@@ -9,7 +9,7 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { CustomElement } from 'chrome://resources/js/custom_element.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { FocusOutlineManager } from 'chrome://resources/js/focus_outline_manager.js';
-import { isRTL } from 'chrome://resources/js/util_ts.js';
+import { isRTL } from 'chrome://resources/js/util.js';
 import { DragManager } from './drag_manager.js';
 import { isTabElement, TabElement } from './tab.js';
 import { isDragHandle, isTabGroupElement } from './tab_group.js';
@@ -102,12 +102,27 @@ function slideElement(element, prevIndex, newIndex) {
     animation.onfinish = onComplete;
 }
 export class TabListElement extends CustomElement {
+    animationPromises;
+    currentScrollUpdateFrame_;
+    draggedItem_;
+    dropPlaceholder_;
+    focusOutlineManager_;
+    thumbnailTracker_;
+    intersectionObserver_;
+    activatingTabId_;
+    activatingTabIdTimestamp_; // In ms.
+    eventTracker_;
+    lastTargetedItem_ = null;
+    lastTouchPoint_;
+    pinnedTabsElement_;
+    tabsApi_;
+    unpinnedTabsElement_;
+    scrollingTimeoutId_;
     static get template() {
         return getTemplate();
     }
     constructor() {
         super();
-        this.lastTargetedItem_ = null;
         /**
          * A chain of promises that the tab list needs to keep track of. The chain
          * is useful in cases when the list needs to wait for all animations to

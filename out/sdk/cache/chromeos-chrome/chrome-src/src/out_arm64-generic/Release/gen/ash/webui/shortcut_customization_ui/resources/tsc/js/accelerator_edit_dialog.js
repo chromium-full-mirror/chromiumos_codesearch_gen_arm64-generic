@@ -10,11 +10,11 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { flush, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { UserAction } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
+import { EditDialogCompletedActions, UserAction } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
 import { getTemplate } from './accelerator_edit_dialog.html.js';
 import { ViewState } from './accelerator_view.js';
 import { getShortcutProvider } from './mojo_interface_provider.js';
-import { AcceleratorConfigResult, AcceleratorState } from './shortcut_types.js';
+import { AcceleratorConfigResult, AcceleratorState, EditAction } from './shortcut_types.js';
 import { compareAcceleratorInfos, getAccelerator, isStandardAcceleratorInfo } from './shortcut_utils.js';
 // A maximum of 5 accelerators are allowed.
 const MAX_NUM_ACCELERATORS = 5;
@@ -30,6 +30,8 @@ export class AcceleratorEditDialogElement extends AcceleratorEditDialogElementBa
         super(...arguments);
         this.defaultAcceleratorsWithConflict = new Set();
         this.eventTracker = new EventTracker();
+        // Represents bitwise actions done in the dialog.
+        this.completedActions = EditDialogCompletedActions.kNoAction;
     }
     static get is() {
         return 'accelerator-edit-dialog';
@@ -94,6 +96,7 @@ export class AcceleratorEditDialogElement extends AcceleratorEditDialogElementBa
     }
     disconnectedCallback() {
         super.disconnectedCallback();
+        this.completedActions = 0;
         this.eventTracker.removeAll();
         this.set('acceleratorInfos', []);
         this.shouldSnapshotConflictDefaults = false;
@@ -126,6 +129,7 @@ export class AcceleratorEditDialogElement extends AcceleratorEditDialogElementBa
         this.$.editDialog.close();
     }
     onDialogClose() {
+        getShortcutProvider().recordEditDialogCompletedActions(this.completedActions);
         this.dispatchEvent(new CustomEvent('edit-dialog-closed', { bubbles: true, composed: true }));
     }
     onAcceleratorCapturingStarted() {
@@ -137,6 +141,12 @@ export class AcceleratorEditDialogElement extends AcceleratorEditDialogElementBa
     onDefaultConflictResolved(e) {
         assert(this.defaultAcceleratorsWithConflict.delete(e.detail.stringifiedAccelerator));
         this.updateObservableAcceleratorsWithConflict();
+    }
+    onEditActionCompleted(e) {
+        this.updateCompletedActions(e.detail.editAction);
+    }
+    updateCompletedActions(editAction) {
+        this.completedActions |= editAction;
     }
     focusAcceleratorItemContainer() {
         const editView = this.$.editDialog.querySelector('#pendingAccelerator');
@@ -166,6 +176,10 @@ export class AcceleratorEditDialogElement extends AcceleratorEditDialogElementBa
             this.acceleratorLimitNotReached() &&
             this.defaultAcceleratorsWithConflict.size === 0;
     }
+    isEmptyState() {
+        return this.pendingNewAcceleratorState === ViewState.VIEW &&
+            this.getSortedFilteredAccelerators(this.acceleratorInfos).length === 0;
+    }
     acceleratorLimitNotReached() {
         let originalAcceleratorsCount = 0;
         for (const acceleratorInfo of this.acceleratorInfos) {
@@ -190,6 +204,7 @@ export class AcceleratorEditDialogElement extends AcceleratorEditDialogElementBa
             getShortcutProvider().recordUserAction(UserAction.kResetAction);
             if (result.result === AcceleratorConfigResult.kSuccess) {
                 this.requestUpdateAccelerator(this.source, this.action);
+                this.updateCompletedActions(EditAction.RESET);
             }
             else if (result.result ===
                 AcceleratorConfigResult.kRestoreSuccessWithConflicts) {

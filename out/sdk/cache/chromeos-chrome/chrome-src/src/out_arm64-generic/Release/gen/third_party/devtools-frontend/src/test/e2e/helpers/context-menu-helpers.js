@@ -1,9 +1,9 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.assertSubMenuItemsText = exports.findSubMenuEntryItem = exports.assertTopLevelContextMenuItemsText = exports.waitForSoftContextMenu = exports.platformSpecificTextForSubMenuEntryItem = void 0;
 // Copyright 2021 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.openSoftContextMenuAndClickOnItem = exports.assertSubMenuItemsText = exports.findSubMenuEntryItem = exports.assertTopLevelContextMenuItemsText = exports.waitForSoftContextMenu = exports.platformSpecificTextForSubMenuEntryItem = void 0;
 const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 function platformSpecificTextForSubMenuEntryItem(text) {
@@ -15,8 +15,8 @@ function platformSpecificTextForSubMenuEntryItem(text) {
     return helper_js_1.platform === 'mac' ? `${text}▶` : text;
 }
 exports.platformSpecificTextForSubMenuEntryItem = platformSpecificTextForSubMenuEntryItem;
-function waitForSoftContextMenu() {
-    return (0, helper_js_1.waitFor)('.soft-context-menu');
+async function waitForSoftContextMenu() {
+    return await (0, helper_js_1.waitFor)('.soft-context-menu');
 }
 exports.waitForSoftContextMenu = waitForSoftContextMenu;
 async function assertTopLevelContextMenuItemsText(expectedOptions) {
@@ -65,4 +65,12 @@ async function assertSubMenuItemsText(subMenuText, expectedOptions) {
     chai_1.assert.deepEqual(subMenuItemsText, expectedOptions);
 }
 exports.assertSubMenuItemsText = assertSubMenuItemsText;
+async function openSoftContextMenuAndClickOnItem(selector, label) {
+    // Find the selected node, right click.
+    await (0, helper_js_1.click)(selector, { clickOptions: { button: 'right' } });
+    // Wait for the context menu option, and click it.
+    const root = await waitForSoftContextMenu();
+    await (0, helper_js_1.click)(`[aria-label="${label}"]`, { root });
+}
+exports.openSoftContextMenuAndClickOnItem = openSoftContextMenuAndClickOnItem;
 //# sourceMappingURL=context-menu-helpers.js.map

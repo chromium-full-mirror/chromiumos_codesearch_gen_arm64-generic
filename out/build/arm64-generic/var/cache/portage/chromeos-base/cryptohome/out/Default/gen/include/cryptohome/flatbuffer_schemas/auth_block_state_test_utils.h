@@ -1,4 +1,4 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -178,6 +178,19 @@ inline bool operator!=(const FingerprintAuthBlockState& lhs,
 
 namespace cryptohome {
 
+inline bool operator==(const RecoverableKeyStoreState& lhs,
+                       const RecoverableKeyStoreState& rhs) {
+  return true && lhs.key_store_proto == rhs.key_store_proto;
+}
+inline bool operator!=(const RecoverableKeyStoreState& lhs,
+                       const RecoverableKeyStoreState& rhs) {
+  return !(lhs == rhs);
+}
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
 inline bool operator==(const RevocationState& lhs, const RevocationState& rhs) {
   return true && lhs.le_label == rhs.le_label;
 }
@@ -191,7 +204,8 @@ namespace cryptohome {
 
 inline bool operator==(const AuthBlockState& lhs, const AuthBlockState& rhs) {
   return true && lhs.state == rhs.state &&
-         lhs.revocation_state == rhs.revocation_state;
+         lhs.revocation_state == rhs.revocation_state &&
+         lhs.recoverable_key_store_state == rhs.recoverable_key_store_state;
 }
 inline bool operator!=(const AuthBlockState& lhs, const AuthBlockState& rhs) {
   return !(lhs == rhs);

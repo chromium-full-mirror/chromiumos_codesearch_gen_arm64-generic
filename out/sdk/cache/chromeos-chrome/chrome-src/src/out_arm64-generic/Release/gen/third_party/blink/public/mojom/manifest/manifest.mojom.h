@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/manifest/manifest.mojom-features.h"
 #include "third_party/blink/public/mojom/manifest/manifest.mojom-shared.h"
 #include "third_party/blink/public/mojom/manifest/manifest.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -393,17 +394,17 @@ class BLINK_COMMON_EXPORT HomeTabUnion {
   // Construct an instance holding |visibility|.
   static HomeTabUnionPtr
   NewVisibility(
-      TabStripMemberVisibility visibility) {
+      TabStripMemberVisibility value) {
     auto result = HomeTabUnionPtr(absl::in_place);
-    result->set_visibility(std::move(visibility));
+    result->set_visibility(std::move(value));
     return result;
   }
   // Construct an instance holding |params|.
   static HomeTabUnionPtr
   NewParams(
-      HomeTabParamsPtr params) {
+      HomeTabParamsPtr value) {
     auto result = HomeTabUnionPtr(absl::in_place);
-    result->set_params(std::move(params));
+    result->set_params(std::move(value));
     return result;
   }
 
@@ -533,10 +534,11 @@ class BLINK_COMMON_EXPORT Manifest {
   Manifest();
 
   Manifest(
-      const absl::optional<::std::u16string>& name,
-      const absl::optional<::std::u16string>& short_name,
-      const absl::optional<::std::u16string>& description,
+      const std::optional<::std::u16string>& name,
+      const std::optional<::std::u16string>& short_name,
+      const std::optional<::std::u16string>& description,
       const ::GURL& id,
+      bool has_custom_id,
       const ::GURL& start_url,
       ::blink::mojom::DisplayMode display,
       std::vector<::blink::mojom::DisplayMode> display_override,
@@ -544,7 +546,7 @@ class BLINK_COMMON_EXPORT Manifest {
       std::vector<::blink::Manifest::ImageResource> icons,
       std::vector<ManifestScreenshotPtr> screenshots,
       std::vector<::blink::Manifest::ShortcutItem> shortcuts,
-      const absl::optional<::blink::Manifest::ShareTarget>& share_target,
+      const std::optional<::blink::Manifest::ShareTarget>& share_target,
       std::vector<ManifestFileHandlerPtr> file_handlers,
       std::vector<ManifestProtocolHandlerPtr> protocol_handlers,
       std::vector<ManifestUrlHandlerPtr> url_handlers,
@@ -557,19 +559,19 @@ class BLINK_COMMON_EXPORT Manifest {
       uint32_t theme_color,
       bool has_background_color,
       uint32_t background_color,
-      const absl::optional<::std::u16string>& gcm_sender_id,
+      const std::optional<::std::u16string>& gcm_sender_id,
       const ::GURL& scope,
       ::blink::mojom::CaptureLinks capture_links,
       std::vector<::blink::ParsedPermissionsPolicyDeclaration> permissions_policy,
-      const absl::optional<::blink::Manifest::LaunchHandler>& launch_handler,
+      const std::optional<::blink::Manifest::LaunchHandler>& launch_handler,
       const base::flat_map<::std::u16string, ::blink::Manifest::TranslationItem>& translations,
       ManifestUserPreferencesPtr user_preferences,
       bool has_dark_theme_color,
       uint32_t dark_theme_color,
       bool has_dark_background_color,
       uint32_t dark_background_color,
-      const absl::optional<::blink::Manifest::TabStrip>& tab_strip,
-      const absl::optional<::std::u16string>& version);
+      const std::optional<::blink::Manifest::TabStrip>& tab_strip,
+      const std::optional<::std::u16string>& version);
 
 Manifest(const Manifest&) = delete;
 Manifest& operator=(const Manifest&) = delete;
@@ -649,13 +651,15 @@ Manifest& operator=(const Manifest&) = delete;
   }
 
   
-  absl::optional<::std::u16string> name;
+  std::optional<::std::u16string> name;
   
-  absl::optional<::std::u16string> short_name;
+  std::optional<::std::u16string> short_name;
   
-  absl::optional<::std::u16string> description;
+  std::optional<::std::u16string> description;
   
   ::GURL id;
+  
+  bool has_custom_id;
   
   ::GURL start_url;
   
@@ -671,7 +675,7 @@ Manifest& operator=(const Manifest&) = delete;
   
   std::vector<::blink::Manifest::ShortcutItem> shortcuts;
   
-  absl::optional<::blink::Manifest::ShareTarget> share_target;
+  std::optional<::blink::Manifest::ShareTarget> share_target;
   
   std::vector<ManifestFileHandlerPtr> file_handlers;
   
@@ -697,7 +701,7 @@ Manifest& operator=(const Manifest&) = delete;
   
   uint32_t background_color;
   
-  absl::optional<::std::u16string> gcm_sender_id;
+  std::optional<::std::u16string> gcm_sender_id;
   
   ::GURL scope;
   
@@ -705,7 +709,7 @@ Manifest& operator=(const Manifest&) = delete;
   
   std::vector<::blink::ParsedPermissionsPolicyDeclaration> permissions_policy;
   
-  absl::optional<::blink::Manifest::LaunchHandler> launch_handler;
+  std::optional<::blink::Manifest::LaunchHandler> launch_handler;
   
   base::flat_map<::std::u16string, ::blink::Manifest::TranslationItem> translations;
   
@@ -719,9 +723,9 @@ Manifest& operator=(const Manifest&) = delete;
   
   uint32_t dark_background_color;
   
-  absl::optional<::blink::Manifest::TabStrip> tab_strip;
+  std::optional<::blink::Manifest::TabStrip> tab_strip;
   
-  absl::optional<::std::u16string> version;
+  std::optional<::std::u16string> version;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -784,8 +788,8 @@ class BLINK_COMMON_EXPORT ManifestShortcutItem {
 
   ManifestShortcutItem(
       const ::std::u16string& name,
-      const absl::optional<::std::u16string>& short_name,
-      const absl::optional<::std::u16string>& description,
+      const std::optional<::std::u16string>& short_name,
+      const std::optional<::std::u16string>& description,
       const ::GURL& url,
       std::vector<::blink::Manifest::ImageResource> icons);
 
@@ -867,9 +871,9 @@ class BLINK_COMMON_EXPORT ManifestShortcutItem {
   
   ::std::u16string name;
   
-  absl::optional<::std::u16string> short_name;
+  std::optional<::std::u16string> short_name;
   
-  absl::optional<::std::u16string> description;
+  std::optional<::std::u16string> description;
   
   ::GURL url;
   
@@ -937,7 +941,7 @@ class BLINK_COMMON_EXPORT ManifestImageResource {
 
   ManifestImageResource(
       const ::GURL& src,
-      const absl::optional<::std::u16string>& type,
+      const std::optional<::std::u16string>& type,
       std::vector<::gfx::Size> sizes,
       std::vector<ManifestImageResource::Purpose> purpose);
 
@@ -1019,7 +1023,7 @@ class BLINK_COMMON_EXPORT ManifestImageResource {
   
   ::GURL src;
   
-  absl::optional<::std::u16string> type;
+  std::optional<::std::u16string> type;
   
   std::vector<::gfx::Size> sizes;
   
@@ -1088,7 +1092,7 @@ class BLINK_COMMON_EXPORT ManifestScreenshot {
   ManifestScreenshot(
       const ::blink::Manifest::ImageResource& image,
       ManifestScreenshot::FormFactor form_factor,
-      const absl::optional<::std::u16string>& label);
+      const std::optional<::std::u16string>& label);
 
 
   ~ManifestScreenshot();
@@ -1170,7 +1174,7 @@ class BLINK_COMMON_EXPORT ManifestScreenshot {
   
   ManifestScreenshot::FormFactor form_factor;
   
-  absl::optional<::std::u16string> label;
+  std::optional<::std::u16string> label;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1232,7 +1236,7 @@ class BLINK_COMMON_EXPORT ManifestFileFilter {
   ManifestFileFilter();
 
   ManifestFileFilter(
-      const absl::optional<::std::u16string>& name,
+      const std::optional<::std::u16string>& name,
       std::vector<::std::u16string> accept);
 
 
@@ -1311,7 +1315,7 @@ class BLINK_COMMON_EXPORT ManifestFileFilter {
   }
 
   
-  absl::optional<::std::u16string> name;
+  std::optional<::std::u16string> name;
   
   std::vector<::std::u16string> accept;
 
@@ -2084,9 +2088,9 @@ class BLINK_COMMON_EXPORT ManifestRelatedApplication {
   ManifestRelatedApplication();
 
   ManifestRelatedApplication(
-      const absl::optional<::std::u16string>& platform,
-      const absl::optional<::GURL>& url,
-      const absl::optional<::std::u16string>& id);
+      const std::optional<::std::u16string>& platform,
+      const std::optional<::GURL>& url,
+      const std::optional<::std::u16string>& id);
 
 
   ~ManifestRelatedApplication();
@@ -2164,11 +2168,11 @@ class BLINK_COMMON_EXPORT ManifestRelatedApplication {
   }
 
   
-  absl::optional<::std::u16string> platform;
+  std::optional<::std::u16string> platform;
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
   
-  absl::optional<::std::u16string> id;
+  std::optional<::std::u16string> id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2230,10 +2234,10 @@ class BLINK_COMMON_EXPORT ManifestShareTargetParams {
   ManifestShareTargetParams();
 
   ManifestShareTargetParams(
-      const absl::optional<::std::u16string>& title,
-      const absl::optional<::std::u16string>& text,
-      const absl::optional<::std::u16string>& url,
-      absl::optional<std::vector<ManifestFileFilterPtr>> files);
+      const std::optional<::std::u16string>& title,
+      const std::optional<::std::u16string>& text,
+      const std::optional<::std::u16string>& url,
+      std::optional<std::vector<ManifestFileFilterPtr>> files);
 
 ManifestShareTargetParams(const ManifestShareTargetParams&) = delete;
 ManifestShareTargetParams& operator=(const ManifestShareTargetParams&) = delete;
@@ -2313,13 +2317,13 @@ ManifestShareTargetParams& operator=(const ManifestShareTargetParams&) = delete;
   }
 
   
-  absl::optional<::std::u16string> title;
+  std::optional<::std::u16string> title;
   
-  absl::optional<::std::u16string> text;
+  std::optional<::std::u16string> text;
   
-  absl::optional<::std::u16string> url;
+  std::optional<::std::u16string> url;
   
-  absl::optional<std::vector<ManifestFileFilterPtr>> files;
+  std::optional<std::vector<ManifestFileFilterPtr>> files;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2687,9 +2691,9 @@ class BLINK_COMMON_EXPORT ManifestTranslationItem {
   ManifestTranslationItem();
 
   ManifestTranslationItem(
-      const absl::optional<::std::u16string>& name,
-      const absl::optional<::std::u16string>& short_name,
-      const absl::optional<::std::u16string>& description);
+      const std::optional<::std::u16string>& name,
+      const std::optional<::std::u16string>& short_name,
+      const std::optional<::std::u16string>& description);
 
 
   ~ManifestTranslationItem();
@@ -2767,11 +2771,11 @@ class BLINK_COMMON_EXPORT ManifestTranslationItem {
   }
 
   
-  absl::optional<::std::u16string> name;
+  std::optional<::std::u16string> name;
   
-  absl::optional<::std::u16string> short_name;
+  std::optional<::std::u16string> short_name;
   
-  absl::optional<::std::u16string> description;
+  std::optional<::std::u16string> description;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3264,7 +3268,7 @@ class BLINK_COMMON_EXPORT NewTabButtonParams {
   NewTabButtonParams();
 
   explicit NewTabButtonParams(
-      const absl::optional<::GURL>& url);
+      const std::optional<::GURL>& url);
 
 
   ~NewTabButtonParams();
@@ -3342,7 +3346,7 @@ class BLINK_COMMON_EXPORT NewTabButtonParams {
   }
 
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3555,6 +3559,7 @@ ManifestPtr Manifest::Clone() const {
       mojo::Clone(short_name),
       mojo::Clone(description),
       mojo::Clone(id),
+      mojo::Clone(has_custom_id),
       mojo::Clone(start_url),
       mojo::Clone(display),
       mojo::Clone(display_override),
@@ -3600,6 +3605,8 @@ bool Manifest::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->description, other_struct.description))
     return false;
   if (!mojo::Equals(this->id, other_struct.id))
+    return false;
+  if (!mojo::Equals(this->has_custom_id, other_struct.has_custom_id))
     return false;
   if (!mojo::Equals(this->start_url, other_struct.start_url))
     return false;
@@ -3687,6 +3694,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.id < rhs.id)
     return true;
   if (rhs.id < lhs.id)
+    return false;
+  if (lhs.has_custom_id < rhs.has_custom_id)
+    return true;
+  if (rhs.has_custom_id < lhs.has_custom_id)
     return false;
   if (lhs.start_url < rhs.start_url)
     return true;
@@ -4567,6 +4578,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::Manifest::DataView,
   static const decltype(::blink::mojom::Manifest::id)& id(
       const ::blink::mojom::ManifestPtr& input) {
     return input->id;
+  }
+
+  static decltype(::blink::mojom::Manifest::has_custom_id) has_custom_id(
+      const ::blink::mojom::ManifestPtr& input) {
+    return input->has_custom_id;
   }
 
   static const decltype(::blink::mojom::Manifest::start_url)& start_url(

@@ -15,8 +15,8 @@ namespace extensions::mojom {
 
 class  GuestViewInterceptorForTesting : public GuestView {
   virtual GuestView* GetForwardingInterface() = 0;
-  void ReadyToCreateMimeHandlerView(int32_t routing_id, bool success) override;
-  void CanExecuteContentScript(int32_t routing_id, const std::string& script_id, CanExecuteContentScriptCallback callback) override;
+  void ReadyToCreateMimeHandlerView(bool success) override;
+  void CanExecuteContentScript(const std::string& script_id, CanExecuteContentScriptCallback callback) override;
 };
 class  GuestViewAsyncWaiter {
  public:
@@ -27,8 +27,8 @@ class  GuestViewAsyncWaiter {
 
   ~GuestViewAsyncWaiter();
   void CanExecuteContentScript(
-      int32_t routing_id, const std::string& script_id, bool* out_allowed);
-  bool CanExecuteContentScript(int32_t routing_id, const std::string& script_id);
+      const std::string& script_id, bool* out_allowed);
+  bool CanExecuteContentScript(const std::string& script_id);
 
  private:
   GuestView* const proxy_;

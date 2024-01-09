@@ -7,7 +7,7 @@
 #ifndef THIRD_PARTY_BLINK_PUBLIC_MOJOM_WEBID_FEDERATED_AUTH_REQUEST_AUTOMATION_MOJOM_FORWARD_H_
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_WEBID_FEDERATED_AUTH_REQUEST_AUTOMATION_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 
 
@@ -21,6 +21,8 @@
 
 
 namespace blink::test::mojom {
+
+enum class DialogButton : int32_t;
 class FederatedAuthRequestAutomation;
 
 

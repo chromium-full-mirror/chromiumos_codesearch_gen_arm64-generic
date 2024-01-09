@@ -66,6 +66,7 @@ struct PermissionName_Data {
       case 21:
       case 22:
       case 23:
+      case 24:
         return true;
     }
     return false;

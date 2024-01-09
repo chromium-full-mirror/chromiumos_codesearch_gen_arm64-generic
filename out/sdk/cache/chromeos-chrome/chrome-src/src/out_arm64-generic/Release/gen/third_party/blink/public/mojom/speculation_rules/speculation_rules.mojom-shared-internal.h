@@ -105,7 +105,7 @@ struct SpeculationEagerness_Data {
   }
 };
 
-struct SpeculationInjectionWorld_Data {
+struct SpeculationInjectionType_Data {
  public:
   static bool constexpr kIsExtensible = false;
 
@@ -114,6 +114,7 @@ struct SpeculationInjectionWorld_Data {
       case 0:
       case 1:
       case 2:
+      case 3:
         return true;
     }
     return false;
@@ -145,7 +146,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SpeculationCandidate_Da
   int32_t target_browsing_context_name_hint;
   int32_t eagerness;
   mojo::internal::Pointer<::network::mojom::internal::NoVarySearch_Data> no_vary_search_hint;
-  int32_t injection_world;
+  int32_t injection_type;
   uint8_t padfinal_[4];
 
  private:

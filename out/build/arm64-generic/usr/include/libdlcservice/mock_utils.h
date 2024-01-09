@@ -49,6 +49,18 @@ class MockUtils : public UtilsInterface {
               GetDlcManifest,
               (const std::string& id, const base::FilePath& dlc_manifest_path),
               (override));
+  MOCK_METHOD(DlcIdList,
+              GetSupportedDlcIds,
+              (const base::FilePath& metadata_path),
+              (override));
+  MOCK_METHOD(base::FilePath,
+              MakeAbsoluteFilePath,
+              (const base::FilePath& path),
+              (override));
+  MOCK_METHOD(bool,
+              WaitForGid,
+              (const base::FilePath& target_path, int target_gid),
+              (override));
 };
 
 }  // namespace dlcservice

@@ -735,6 +735,8 @@ NOINLINE static const char* AutocorrectSuggestionProviderToStringHelper(Autocorr
       return "kUsEnglishDownloaded";
     case AutocorrectSuggestionProvider::kUsEnglish840:
       return "kUsEnglish840";
+    case AutocorrectSuggestionProvider::kUsEnglish840V2:
+      return "kUsEnglish840V2";
     default:
       return nullptr;
   }

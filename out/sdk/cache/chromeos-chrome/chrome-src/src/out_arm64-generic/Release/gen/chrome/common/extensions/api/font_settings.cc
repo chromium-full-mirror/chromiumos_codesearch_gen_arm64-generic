@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/font_settings.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ FontName::FontName()
  {}
 
 FontName::~FontName() = default;
-FontName::FontName(FontName&& rhs) = default;
-FontName& FontName::operator=(FontName&& rhs) = default;
+FontName::FontName(FontName&& rhs) noexcept = default;
+FontName& FontName::operator=(FontName&& rhs) noexcept = default;
 FontName FontName::Clone() const {
   FontName out;
   out.font_id = font_id;
@@ -87,34 +88,21 @@ bool FontName::Populate(
 }
 
 // static
-std::unique_ptr<FontName> FontName::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FontName>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FontName> FontName::FromValue(const base::Value::Dict& value) {
+  FontName out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FontName> FontName::FromValue(const base::Value::Dict& value) {
+std::optional<FontName> FontName::FromValue(const base::Value& value) {
   FontName out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FontName> FontName::FromValue(const base::Value& value) {
-  FontName out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -133,311 +121,311 @@ base::Value::Dict FontName::ToValue() const {
 
 const char* ToString(ScriptCode enum_param) {
   switch (enum_param) {
-    case SCRIPT_CODE_AFAK:
+    case ScriptCode::kAfak:
       return "Afak";
-    case SCRIPT_CODE_ARAB:
+    case ScriptCode::kArab:
       return "Arab";
-    case SCRIPT_CODE_ARMI:
+    case ScriptCode::kArmi:
       return "Armi";
-    case SCRIPT_CODE_ARMN:
+    case ScriptCode::kArmn:
       return "Armn";
-    case SCRIPT_CODE_AVST:
+    case ScriptCode::kAvst:
       return "Avst";
-    case SCRIPT_CODE_BALI:
+    case ScriptCode::kBali:
       return "Bali";
-    case SCRIPT_CODE_BAMU:
+    case ScriptCode::kBamu:
       return "Bamu";
-    case SCRIPT_CODE_BASS:
+    case ScriptCode::kBass:
       return "Bass";
-    case SCRIPT_CODE_BATK:
+    case ScriptCode::kBatk:
       return "Batk";
-    case SCRIPT_CODE_BENG:
+    case ScriptCode::kBeng:
       return "Beng";
-    case SCRIPT_CODE_BLIS:
+    case ScriptCode::kBlis:
       return "Blis";
-    case SCRIPT_CODE_BOPO:
+    case ScriptCode::kBopo:
       return "Bopo";
-    case SCRIPT_CODE_BRAH:
+    case ScriptCode::kBrah:
       return "Brah";
-    case SCRIPT_CODE_BRAI:
+    case ScriptCode::kBrai:
       return "Brai";
-    case SCRIPT_CODE_BUGI:
+    case ScriptCode::kBugi:
       return "Bugi";
-    case SCRIPT_CODE_BUHD:
+    case ScriptCode::kBuhd:
       return "Buhd";
-    case SCRIPT_CODE_CAKM:
+    case ScriptCode::kCakm:
       return "Cakm";
-    case SCRIPT_CODE_CANS:
+    case ScriptCode::kCans:
       return "Cans";
-    case SCRIPT_CODE_CARI:
+    case ScriptCode::kCari:
       return "Cari";
-    case SCRIPT_CODE_CHAM:
+    case ScriptCode::kCham:
       return "Cham";
-    case SCRIPT_CODE_CHER:
+    case ScriptCode::kCher:
       return "Cher";
-    case SCRIPT_CODE_CIRT:
+    case ScriptCode::kCirt:
       return "Cirt";
-    case SCRIPT_CODE_COPT:
+    case ScriptCode::kCopt:
       return "Copt";
-    case SCRIPT_CODE_CPRT:
+    case ScriptCode::kCprt:
       return "Cprt";
-    case SCRIPT_CODE_CYRL:
+    case ScriptCode::kCyrl:
       return "Cyrl";
-    case SCRIPT_CODE_CYRS:
+    case ScriptCode::kCyrs:
       return "Cyrs";
-    case SCRIPT_CODE_DEVA:
+    case ScriptCode::kDeva:
       return "Deva";
-    case SCRIPT_CODE_DSRT:
+    case ScriptCode::kDsrt:
       return "Dsrt";
-    case SCRIPT_CODE_DUPL:
+    case ScriptCode::kDupl:
       return "Dupl";
-    case SCRIPT_CODE_EGYD:
+    case ScriptCode::kEgyd:
       return "Egyd";
-    case SCRIPT_CODE_EGYH:
+    case ScriptCode::kEgyh:
       return "Egyh";
-    case SCRIPT_CODE_EGYP:
+    case ScriptCode::kEgyp:
       return "Egyp";
-    case SCRIPT_CODE_ELBA:
+    case ScriptCode::kElba:
       return "Elba";
-    case SCRIPT_CODE_ETHI:
+    case ScriptCode::kEthi:
       return "Ethi";
-    case SCRIPT_CODE_GEOR:
+    case ScriptCode::kGeor:
       return "Geor";
-    case SCRIPT_CODE_GEOK:
+    case ScriptCode::kGeok:
       return "Geok";
-    case SCRIPT_CODE_GLAG:
+    case ScriptCode::kGlag:
       return "Glag";
-    case SCRIPT_CODE_GOTH:
+    case ScriptCode::kGoth:
       return "Goth";
-    case SCRIPT_CODE_GRAN:
+    case ScriptCode::kGran:
       return "Gran";
-    case SCRIPT_CODE_GREK:
+    case ScriptCode::kGrek:
       return "Grek";
-    case SCRIPT_CODE_GUJR:
+    case ScriptCode::kGujr:
       return "Gujr";
-    case SCRIPT_CODE_GURU:
+    case ScriptCode::kGuru:
       return "Guru";
-    case SCRIPT_CODE_HANG:
+    case ScriptCode::kHang:
       return "Hang";
-    case SCRIPT_CODE_HANI:
+    case ScriptCode::kHani:
       return "Hani";
-    case SCRIPT_CODE_HANO:
+    case ScriptCode::kHano:
       return "Hano";
-    case SCRIPT_CODE_HANS:
+    case ScriptCode::kHans:
       return "Hans";
-    case SCRIPT_CODE_HANT:
+    case ScriptCode::kHant:
       return "Hant";
-    case SCRIPT_CODE_HEBR:
+    case ScriptCode::kHebr:
       return "Hebr";
-    case SCRIPT_CODE_HLUW:
+    case ScriptCode::kHluw:
       return "Hluw";
-    case SCRIPT_CODE_HMNG:
+    case ScriptCode::kHmng:
       return "Hmng";
-    case SCRIPT_CODE_HUNG:
+    case ScriptCode::kHung:
       return "Hung";
-    case SCRIPT_CODE_INDS:
+    case ScriptCode::kInds:
       return "Inds";
-    case SCRIPT_CODE_ITAL:
+    case ScriptCode::kItal:
       return "Ital";
-    case SCRIPT_CODE_JAVA:
+    case ScriptCode::kJava:
       return "Java";
-    case SCRIPT_CODE_JPAN:
+    case ScriptCode::kJpan:
       return "Jpan";
-    case SCRIPT_CODE_JURC:
+    case ScriptCode::kJurc:
       return "Jurc";
-    case SCRIPT_CODE_KALI:
+    case ScriptCode::kKali:
       return "Kali";
-    case SCRIPT_CODE_KHAR:
+    case ScriptCode::kKhar:
       return "Khar";
-    case SCRIPT_CODE_KHMR:
+    case ScriptCode::kKhmr:
       return "Khmr";
-    case SCRIPT_CODE_KHOJ:
+    case ScriptCode::kKhoj:
       return "Khoj";
-    case SCRIPT_CODE_KNDA:
+    case ScriptCode::kKnda:
       return "Knda";
-    case SCRIPT_CODE_KPEL:
+    case ScriptCode::kKpel:
       return "Kpel";
-    case SCRIPT_CODE_KTHI:
+    case ScriptCode::kKthi:
       return "Kthi";
-    case SCRIPT_CODE_LANA:
+    case ScriptCode::kLana:
       return "Lana";
-    case SCRIPT_CODE_LAOO:
+    case ScriptCode::kLaoo:
       return "Laoo";
-    case SCRIPT_CODE_LATF:
+    case ScriptCode::kLatf:
       return "Latf";
-    case SCRIPT_CODE_LATG:
+    case ScriptCode::kLatg:
       return "Latg";
-    case SCRIPT_CODE_LATN:
+    case ScriptCode::kLatn:
       return "Latn";
-    case SCRIPT_CODE_LEPC:
+    case ScriptCode::kLepc:
       return "Lepc";
-    case SCRIPT_CODE_LIMB:
+    case ScriptCode::kLimb:
       return "Limb";
-    case SCRIPT_CODE_LINA:
+    case ScriptCode::kLina:
       return "Lina";
-    case SCRIPT_CODE_LINB:
+    case ScriptCode::kLinb:
       return "Linb";
-    case SCRIPT_CODE_LISU:
+    case ScriptCode::kLisu:
       return "Lisu";
-    case SCRIPT_CODE_LOMA:
+    case ScriptCode::kLoma:
       return "Loma";
-    case SCRIPT_CODE_LYCI:
+    case ScriptCode::kLyci:
       return "Lyci";
-    case SCRIPT_CODE_LYDI:
+    case ScriptCode::kLydi:
       return "Lydi";
-    case SCRIPT_CODE_MAND:
+    case ScriptCode::kMand:
       return "Mand";
-    case SCRIPT_CODE_MANI:
+    case ScriptCode::kMani:
       return "Mani";
-    case SCRIPT_CODE_MAYA:
+    case ScriptCode::kMaya:
       return "Maya";
-    case SCRIPT_CODE_MEND:
+    case ScriptCode::kMend:
       return "Mend";
-    case SCRIPT_CODE_MERC:
+    case ScriptCode::kMerc:
       return "Merc";
-    case SCRIPT_CODE_MERO:
+    case ScriptCode::kMero:
       return "Mero";
-    case SCRIPT_CODE_MLYM:
+    case ScriptCode::kMlym:
       return "Mlym";
-    case SCRIPT_CODE_MOON:
+    case ScriptCode::kMoon:
       return "Moon";
-    case SCRIPT_CODE_MONG:
+    case ScriptCode::kMong:
       return "Mong";
-    case SCRIPT_CODE_MROO:
+    case ScriptCode::kMroo:
       return "Mroo";
-    case SCRIPT_CODE_MTEI:
+    case ScriptCode::kMtei:
       return "Mtei";
-    case SCRIPT_CODE_MYMR:
+    case ScriptCode::kMymr:
       return "Mymr";
-    case SCRIPT_CODE_NARB:
+    case ScriptCode::kNarb:
       return "Narb";
-    case SCRIPT_CODE_NBAT:
+    case ScriptCode::kNbat:
       return "Nbat";
-    case SCRIPT_CODE_NKGB:
+    case ScriptCode::kNkgb:
       return "Nkgb";
-    case SCRIPT_CODE_NKOO:
+    case ScriptCode::kNkoo:
       return "Nkoo";
-    case SCRIPT_CODE_NSHU:
+    case ScriptCode::kNshu:
       return "Nshu";
-    case SCRIPT_CODE_OGAM:
+    case ScriptCode::kOgam:
       return "Ogam";
-    case SCRIPT_CODE_OLCK:
+    case ScriptCode::kOlck:
       return "Olck";
-    case SCRIPT_CODE_ORKH:
+    case ScriptCode::kOrkh:
       return "Orkh";
-    case SCRIPT_CODE_ORYA:
+    case ScriptCode::kOrya:
       return "Orya";
-    case SCRIPT_CODE_OSMA:
+    case ScriptCode::kOsma:
       return "Osma";
-    case SCRIPT_CODE_PALM:
+    case ScriptCode::kPalm:
       return "Palm";
-    case SCRIPT_CODE_PERM:
+    case ScriptCode::kPerm:
       return "Perm";
-    case SCRIPT_CODE_PHAG:
+    case ScriptCode::kPhag:
       return "Phag";
-    case SCRIPT_CODE_PHLI:
+    case ScriptCode::kPhli:
       return "Phli";
-    case SCRIPT_CODE_PHLP:
+    case ScriptCode::kPhlp:
       return "Phlp";
-    case SCRIPT_CODE_PHLV:
+    case ScriptCode::kPhlv:
       return "Phlv";
-    case SCRIPT_CODE_PHNX:
+    case ScriptCode::kPhnx:
       return "Phnx";
-    case SCRIPT_CODE_PLRD:
+    case ScriptCode::kPlrd:
       return "Plrd";
-    case SCRIPT_CODE_PRTI:
+    case ScriptCode::kPrti:
       return "Prti";
-    case SCRIPT_CODE_RJNG:
+    case ScriptCode::kRjng:
       return "Rjng";
-    case SCRIPT_CODE_RORO:
+    case ScriptCode::kRoro:
       return "Roro";
-    case SCRIPT_CODE_RUNR:
+    case ScriptCode::kRunr:
       return "Runr";
-    case SCRIPT_CODE_SAMR:
+    case ScriptCode::kSamr:
       return "Samr";
-    case SCRIPT_CODE_SARA:
+    case ScriptCode::kSara:
       return "Sara";
-    case SCRIPT_CODE_SARB:
+    case ScriptCode::kSarb:
       return "Sarb";
-    case SCRIPT_CODE_SAUR:
+    case ScriptCode::kSaur:
       return "Saur";
-    case SCRIPT_CODE_SGNW:
+    case ScriptCode::kSgnw:
       return "Sgnw";
-    case SCRIPT_CODE_SHAW:
+    case ScriptCode::kShaw:
       return "Shaw";
-    case SCRIPT_CODE_SHRD:
+    case ScriptCode::kShrd:
       return "Shrd";
-    case SCRIPT_CODE_SIND:
+    case ScriptCode::kSind:
       return "Sind";
-    case SCRIPT_CODE_SINH:
+    case ScriptCode::kSinh:
       return "Sinh";
-    case SCRIPT_CODE_SORA:
+    case ScriptCode::kSora:
       return "Sora";
-    case SCRIPT_CODE_SUND:
+    case ScriptCode::kSund:
       return "Sund";
-    case SCRIPT_CODE_SYLO:
+    case ScriptCode::kSylo:
       return "Sylo";
-    case SCRIPT_CODE_SYRC:
+    case ScriptCode::kSyrc:
       return "Syrc";
-    case SCRIPT_CODE_SYRE:
+    case ScriptCode::kSyre:
       return "Syre";
-    case SCRIPT_CODE_SYRJ:
+    case ScriptCode::kSyrj:
       return "Syrj";
-    case SCRIPT_CODE_SYRN:
+    case ScriptCode::kSyrn:
       return "Syrn";
-    case SCRIPT_CODE_TAGB:
+    case ScriptCode::kTagb:
       return "Tagb";
-    case SCRIPT_CODE_TAKR:
+    case ScriptCode::kTakr:
       return "Takr";
-    case SCRIPT_CODE_TALE:
+    case ScriptCode::kTale:
       return "Tale";
-    case SCRIPT_CODE_TALU:
+    case ScriptCode::kTalu:
       return "Talu";
-    case SCRIPT_CODE_TAML:
+    case ScriptCode::kTaml:
       return "Taml";
-    case SCRIPT_CODE_TANG:
+    case ScriptCode::kTang:
       return "Tang";
-    case SCRIPT_CODE_TAVT:
+    case ScriptCode::kTavt:
       return "Tavt";
-    case SCRIPT_CODE_TELU:
+    case ScriptCode::kTelu:
       return "Telu";
-    case SCRIPT_CODE_TENG:
+    case ScriptCode::kTeng:
       return "Teng";
-    case SCRIPT_CODE_TFNG:
+    case ScriptCode::kTfng:
       return "Tfng";
-    case SCRIPT_CODE_TGLG:
+    case ScriptCode::kTglg:
       return "Tglg";
-    case SCRIPT_CODE_THAA:
+    case ScriptCode::kThaa:
       return "Thaa";
-    case SCRIPT_CODE_THAI:
+    case ScriptCode::kThai:
       return "Thai";
-    case SCRIPT_CODE_TIBT:
+    case ScriptCode::kTibt:
       return "Tibt";
-    case SCRIPT_CODE_TIRH:
+    case ScriptCode::kTirh:
       return "Tirh";
-    case SCRIPT_CODE_UGAR:
+    case ScriptCode::kUgar:
       return "Ugar";
-    case SCRIPT_CODE_VAII:
+    case ScriptCode::kVaii:
       return "Vaii";
-    case SCRIPT_CODE_VISP:
+    case ScriptCode::kVisp:
       return "Visp";
-    case SCRIPT_CODE_WARA:
+    case ScriptCode::kWara:
       return "Wara";
-    case SCRIPT_CODE_WOLE:
+    case ScriptCode::kWole:
       return "Wole";
-    case SCRIPT_CODE_XPEO:
+    case ScriptCode::kXpeo:
       return "Xpeo";
-    case SCRIPT_CODE_XSUX:
+    case ScriptCode::kXsux:
       return "Xsux";
-    case SCRIPT_CODE_YIII:
+    case ScriptCode::kYiii:
       return "Yiii";
-    case SCRIPT_CODE_ZMTH:
+    case ScriptCode::kZmth:
       return "Zmth";
-    case SCRIPT_CODE_ZSYM:
+    case ScriptCode::kZsym:
       return "Zsym";
-    case SCRIPT_CODE_ZYYY:
+    case ScriptCode::kZyyy:
       return "Zyyy";
-    case SCRIPT_CODE_NONE:
+    case ScriptCode::kNone:
       return "";
   }
   NOTREACHED();
@@ -446,310 +434,310 @@ const char* ToString(ScriptCode enum_param) {
 
 ScriptCode ParseScriptCode(base::StringPiece enum_string) {
   if (enum_string == "Afak")
-    return SCRIPT_CODE_AFAK;
+    return ScriptCode::kAfak;
   if (enum_string == "Arab")
-    return SCRIPT_CODE_ARAB;
+    return ScriptCode::kArab;
   if (enum_string == "Armi")
-    return SCRIPT_CODE_ARMI;
+    return ScriptCode::kArmi;
   if (enum_string == "Armn")
-    return SCRIPT_CODE_ARMN;
+    return ScriptCode::kArmn;
   if (enum_string == "Avst")
-    return SCRIPT_CODE_AVST;
+    return ScriptCode::kAvst;
   if (enum_string == "Bali")
-    return SCRIPT_CODE_BALI;
+    return ScriptCode::kBali;
   if (enum_string == "Bamu")
-    return SCRIPT_CODE_BAMU;
+    return ScriptCode::kBamu;
   if (enum_string == "Bass")
-    return SCRIPT_CODE_BASS;
+    return ScriptCode::kBass;
   if (enum_string == "Batk")
-    return SCRIPT_CODE_BATK;
+    return ScriptCode::kBatk;
   if (enum_string == "Beng")
-    return SCRIPT_CODE_BENG;
+    return ScriptCode::kBeng;
   if (enum_string == "Blis")
-    return SCRIPT_CODE_BLIS;
+    return ScriptCode::kBlis;
   if (enum_string == "Bopo")
-    return SCRIPT_CODE_BOPO;
+    return ScriptCode::kBopo;
   if (enum_string == "Brah")
-    return SCRIPT_CODE_BRAH;
+    return ScriptCode::kBrah;
   if (enum_string == "Brai")
-    return SCRIPT_CODE_BRAI;
+    return ScriptCode::kBrai;
   if (enum_string == "Bugi")
-    return SCRIPT_CODE_BUGI;
+    return ScriptCode::kBugi;
   if (enum_string == "Buhd")
-    return SCRIPT_CODE_BUHD;
+    return ScriptCode::kBuhd;
   if (enum_string == "Cakm")
-    return SCRIPT_CODE_CAKM;
+    return ScriptCode::kCakm;
   if (enum_string == "Cans")
-    return SCRIPT_CODE_CANS;
+    return ScriptCode::kCans;
   if (enum_string == "Cari")
-    return SCRIPT_CODE_CARI;
+    return ScriptCode::kCari;
   if (enum_string == "Cham")
-    return SCRIPT_CODE_CHAM;
+    return ScriptCode::kCham;
   if (enum_string == "Cher")
-    return SCRIPT_CODE_CHER;
+    return ScriptCode::kCher;
   if (enum_string == "Cirt")
-    return SCRIPT_CODE_CIRT;
+    return ScriptCode::kCirt;
   if (enum_string == "Copt")
-    return SCRIPT_CODE_COPT;
+    return ScriptCode::kCopt;
   if (enum_string == "Cprt")
-    return SCRIPT_CODE_CPRT;
+    return ScriptCode::kCprt;
   if (enum_string == "Cyrl")
-    return SCRIPT_CODE_CYRL;
+    return ScriptCode::kCyrl;
   if (enum_string == "Cyrs")
-    return SCRIPT_CODE_CYRS;
+    return ScriptCode::kCyrs;
   if (enum_string == "Deva")
-    return SCRIPT_CODE_DEVA;
+    return ScriptCode::kDeva;
   if (enum_string == "Dsrt")
-    return SCRIPT_CODE_DSRT;
+    return ScriptCode::kDsrt;
   if (enum_string == "Dupl")
-    return SCRIPT_CODE_DUPL;
+    return ScriptCode::kDupl;
   if (enum_string == "Egyd")
-    return SCRIPT_CODE_EGYD;
+    return ScriptCode::kEgyd;
   if (enum_string == "Egyh")
-    return SCRIPT_CODE_EGYH;
+    return ScriptCode::kEgyh;
   if (enum_string == "Egyp")
-    return SCRIPT_CODE_EGYP;
+    return ScriptCode::kEgyp;
   if (enum_string == "Elba")
-    return SCRIPT_CODE_ELBA;
+    return ScriptCode::kElba;
   if (enum_string == "Ethi")
-    return SCRIPT_CODE_ETHI;
+    return ScriptCode::kEthi;
   if (enum_string == "Geor")
-    return SCRIPT_CODE_GEOR;
+    return ScriptCode::kGeor;
   if (enum_string == "Geok")
-    return SCRIPT_CODE_GEOK;
+    return ScriptCode::kGeok;
   if (enum_string == "Glag")
-    return SCRIPT_CODE_GLAG;
+    return ScriptCode::kGlag;
   if (enum_string == "Goth")
-    return SCRIPT_CODE_GOTH;
+    return ScriptCode::kGoth;
   if (enum_string == "Gran")
-    return SCRIPT_CODE_GRAN;
+    return ScriptCode::kGran;
   if (enum_string == "Grek")
-    return SCRIPT_CODE_GREK;
+    return ScriptCode::kGrek;
   if (enum_string == "Gujr")
-    return SCRIPT_CODE_GUJR;
+    return ScriptCode::kGujr;
   if (enum_string == "Guru")
-    return SCRIPT_CODE_GURU;
+    return ScriptCode::kGuru;
   if (enum_string == "Hang")
-    return SCRIPT_CODE_HANG;
+    return ScriptCode::kHang;
   if (enum_string == "Hani")
-    return SCRIPT_CODE_HANI;
+    return ScriptCode::kHani;
   if (enum_string == "Hano")
-    return SCRIPT_CODE_HANO;
+    return ScriptCode::kHano;
   if (enum_string == "Hans")
-    return SCRIPT_CODE_HANS;
+    return ScriptCode::kHans;
   if (enum_string == "Hant")
-    return SCRIPT_CODE_HANT;
+    return ScriptCode::kHant;
   if (enum_string == "Hebr")
-    return SCRIPT_CODE_HEBR;
+    return ScriptCode::kHebr;
   if (enum_string == "Hluw")
-    return SCRIPT_CODE_HLUW;
+    return ScriptCode::kHluw;
   if (enum_string == "Hmng")
-    return SCRIPT_CODE_HMNG;
+    return ScriptCode::kHmng;
   if (enum_string == "Hung")
-    return SCRIPT_CODE_HUNG;
+    return ScriptCode::kHung;
   if (enum_string == "Inds")
-    return SCRIPT_CODE_INDS;
+    return ScriptCode::kInds;
   if (enum_string == "Ital")
-    return SCRIPT_CODE_ITAL;
+    return ScriptCode::kItal;
   if (enum_string == "Java")
-    return SCRIPT_CODE_JAVA;
+    return ScriptCode::kJava;
   if (enum_string == "Jpan")
-    return SCRIPT_CODE_JPAN;
+    return ScriptCode::kJpan;
   if (enum_string == "Jurc")
-    return SCRIPT_CODE_JURC;
+    return ScriptCode::kJurc;
   if (enum_string == "Kali")
-    return SCRIPT_CODE_KALI;
+    return ScriptCode::kKali;
   if (enum_string == "Khar")
-    return SCRIPT_CODE_KHAR;
+    return ScriptCode::kKhar;
   if (enum_string == "Khmr")
-    return SCRIPT_CODE_KHMR;
+    return ScriptCode::kKhmr;
   if (enum_string == "Khoj")
-    return SCRIPT_CODE_KHOJ;
+    return ScriptCode::kKhoj;
   if (enum_string == "Knda")
-    return SCRIPT_CODE_KNDA;
+    return ScriptCode::kKnda;
   if (enum_string == "Kpel")
-    return SCRIPT_CODE_KPEL;
+    return ScriptCode::kKpel;
   if (enum_string == "Kthi")
-    return SCRIPT_CODE_KTHI;
+    return ScriptCode::kKthi;
   if (enum_string == "Lana")
-    return SCRIPT_CODE_LANA;
+    return ScriptCode::kLana;
   if (enum_string == "Laoo")
-    return SCRIPT_CODE_LAOO;
+    return ScriptCode::kLaoo;
   if (enum_string == "Latf")
-    return SCRIPT_CODE_LATF;
+    return ScriptCode::kLatf;
   if (enum_string == "Latg")
-    return SCRIPT_CODE_LATG;
+    return ScriptCode::kLatg;
   if (enum_string == "Latn")
-    return SCRIPT_CODE_LATN;
+    return ScriptCode::kLatn;
   if (enum_string == "Lepc")
-    return SCRIPT_CODE_LEPC;
+    return ScriptCode::kLepc;
   if (enum_string == "Limb")
-    return SCRIPT_CODE_LIMB;
+    return ScriptCode::kLimb;
   if (enum_string == "Lina")
-    return SCRIPT_CODE_LINA;
+    return ScriptCode::kLina;
   if (enum_string == "Linb")
-    return SCRIPT_CODE_LINB;
+    return ScriptCode::kLinb;
   if (enum_string == "Lisu")
-    return SCRIPT_CODE_LISU;
+    return ScriptCode::kLisu;
   if (enum_string == "Loma")
-    return SCRIPT_CODE_LOMA;
+    return ScriptCode::kLoma;
   if (enum_string == "Lyci")
-    return SCRIPT_CODE_LYCI;
+    return ScriptCode::kLyci;
   if (enum_string == "Lydi")
-    return SCRIPT_CODE_LYDI;
+    return ScriptCode::kLydi;
   if (enum_string == "Mand")
-    return SCRIPT_CODE_MAND;
+    return ScriptCode::kMand;
   if (enum_string == "Mani")
-    return SCRIPT_CODE_MANI;
+    return ScriptCode::kMani;
   if (enum_string == "Maya")
-    return SCRIPT_CODE_MAYA;
+    return ScriptCode::kMaya;
   if (enum_string == "Mend")
-    return SCRIPT_CODE_MEND;
+    return ScriptCode::kMend;
   if (enum_string == "Merc")
-    return SCRIPT_CODE_MERC;
+    return ScriptCode::kMerc;
   if (enum_string == "Mero")
-    return SCRIPT_CODE_MERO;
+    return ScriptCode::kMero;
   if (enum_string == "Mlym")
-    return SCRIPT_CODE_MLYM;
+    return ScriptCode::kMlym;
   if (enum_string == "Moon")
-    return SCRIPT_CODE_MOON;
+    return ScriptCode::kMoon;
   if (enum_string == "Mong")
-    return SCRIPT_CODE_MONG;
+    return ScriptCode::kMong;
   if (enum_string == "Mroo")
-    return SCRIPT_CODE_MROO;
+    return ScriptCode::kMroo;
   if (enum_string == "Mtei")
-    return SCRIPT_CODE_MTEI;
+    return ScriptCode::kMtei;
   if (enum_string == "Mymr")
-    return SCRIPT_CODE_MYMR;
+    return ScriptCode::kMymr;
   if (enum_string == "Narb")
-    return SCRIPT_CODE_NARB;
+    return ScriptCode::kNarb;
   if (enum_string == "Nbat")
-    return SCRIPT_CODE_NBAT;
+    return ScriptCode::kNbat;
   if (enum_string == "Nkgb")
-    return SCRIPT_CODE_NKGB;
+    return ScriptCode::kNkgb;
   if (enum_string == "Nkoo")
-    return SCRIPT_CODE_NKOO;
+    return ScriptCode::kNkoo;
   if (enum_string == "Nshu")
-    return SCRIPT_CODE_NSHU;
+    return ScriptCode::kNshu;
   if (enum_string == "Ogam")
-    return SCRIPT_CODE_OGAM;
+    return ScriptCode::kOgam;
   if (enum_string == "Olck")
-    return SCRIPT_CODE_OLCK;
+    return ScriptCode::kOlck;
   if (enum_string == "Orkh")
-    return SCRIPT_CODE_ORKH;
+    return ScriptCode::kOrkh;
   if (enum_string == "Orya")
-    return SCRIPT_CODE_ORYA;
+    return ScriptCode::kOrya;
   if (enum_string == "Osma")
-    return SCRIPT_CODE_OSMA;
+    return ScriptCode::kOsma;
   if (enum_string == "Palm")
-    return SCRIPT_CODE_PALM;
+    return ScriptCode::kPalm;
   if (enum_string == "Perm")
-    return SCRIPT_CODE_PERM;
+    return ScriptCode::kPerm;
   if (enum_string == "Phag")
-    return SCRIPT_CODE_PHAG;
+    return ScriptCode::kPhag;
   if (enum_string == "Phli")
-    return SCRIPT_CODE_PHLI;
+    return ScriptCode::kPhli;
   if (enum_string == "Phlp")
-    return SCRIPT_CODE_PHLP;
+    return ScriptCode::kPhlp;
   if (enum_string == "Phlv")
-    return SCRIPT_CODE_PHLV;
+    return ScriptCode::kPhlv;
   if (enum_string == "Phnx")
-    return SCRIPT_CODE_PHNX;
+    return ScriptCode::kPhnx;
   if (enum_string == "Plrd")
-    return SCRIPT_CODE_PLRD;
+    return ScriptCode::kPlrd;
   if (enum_string == "Prti")
-    return SCRIPT_CODE_PRTI;
+    return ScriptCode::kPrti;
   if (enum_string == "Rjng")
-    return SCRIPT_CODE_RJNG;
+    return ScriptCode::kRjng;
   if (enum_string == "Roro")
-    return SCRIPT_CODE_RORO;
+    return ScriptCode::kRoro;
   if (enum_string == "Runr")
-    return SCRIPT_CODE_RUNR;
+    return ScriptCode::kRunr;
   if (enum_string == "Samr")
-    return SCRIPT_CODE_SAMR;
+    return ScriptCode::kSamr;
   if (enum_string == "Sara")
-    return SCRIPT_CODE_SARA;
+    return ScriptCode::kSara;
   if (enum_string == "Sarb")
-    return SCRIPT_CODE_SARB;
+    return ScriptCode::kSarb;
   if (enum_string == "Saur")
-    return SCRIPT_CODE_SAUR;
+    return ScriptCode::kSaur;
   if (enum_string == "Sgnw")
-    return SCRIPT_CODE_SGNW;
+    return ScriptCode::kSgnw;
   if (enum_string == "Shaw")
-    return SCRIPT_CODE_SHAW;
+    return ScriptCode::kShaw;
   if (enum_string == "Shrd")
-    return SCRIPT_CODE_SHRD;
+    return ScriptCode::kShrd;
   if (enum_string == "Sind")
-    return SCRIPT_CODE_SIND;
+    return ScriptCode::kSind;
   if (enum_string == "Sinh")
-    return SCRIPT_CODE_SINH;
+    return ScriptCode::kSinh;
   if (enum_string == "Sora")
-    return SCRIPT_CODE_SORA;
+    return ScriptCode::kSora;
   if (enum_string == "Sund")
-    return SCRIPT_CODE_SUND;
+    return ScriptCode::kSund;
   if (enum_string == "Sylo")
-    return SCRIPT_CODE_SYLO;
+    return ScriptCode::kSylo;
   if (enum_string == "Syrc")
-    return SCRIPT_CODE_SYRC;
+    return ScriptCode::kSyrc;
   if (enum_string == "Syre")
-    return SCRIPT_CODE_SYRE;
+    return ScriptCode::kSyre;
   if (enum_string == "Syrj")
-    return SCRIPT_CODE_SYRJ;
+    return ScriptCode::kSyrj;
   if (enum_string == "Syrn")
-    return SCRIPT_CODE_SYRN;
+    return ScriptCode::kSyrn;
   if (enum_string == "Tagb")
-    return SCRIPT_CODE_TAGB;
+    return ScriptCode::kTagb;
   if (enum_string == "Takr")
-    return SCRIPT_CODE_TAKR;
+    return ScriptCode::kTakr;
   if (enum_string == "Tale")
-    return SCRIPT_CODE_TALE;
+    return ScriptCode::kTale;
   if (enum_string == "Talu")
-    return SCRIPT_CODE_TALU;
+    return ScriptCode::kTalu;
   if (enum_string == "Taml")
-    return SCRIPT_CODE_TAML;
+    return ScriptCode::kTaml;
   if (enum_string == "Tang")
-    return SCRIPT_CODE_TANG;
+    return ScriptCode::kTang;
   if (enum_string == "Tavt")
-    return SCRIPT_CODE_TAVT;
+    return ScriptCode::kTavt;
   if (enum_string == "Telu")
-    return SCRIPT_CODE_TELU;
+    return ScriptCode::kTelu;
   if (enum_string == "Teng")
-    return SCRIPT_CODE_TENG;
+    return ScriptCode::kTeng;
   if (enum_string == "Tfng")
-    return SCRIPT_CODE_TFNG;
+    return ScriptCode::kTfng;
   if (enum_string == "Tglg")
-    return SCRIPT_CODE_TGLG;
+    return ScriptCode::kTglg;
   if (enum_string == "Thaa")
-    return SCRIPT_CODE_THAA;
+    return ScriptCode::kThaa;
   if (enum_string == "Thai")
-    return SCRIPT_CODE_THAI;
+    return ScriptCode::kThai;
   if (enum_string == "Tibt")
-    return SCRIPT_CODE_TIBT;
+    return ScriptCode::kTibt;
   if (enum_string == "Tirh")
-    return SCRIPT_CODE_TIRH;
+    return ScriptCode::kTirh;
   if (enum_string == "Ugar")
-    return SCRIPT_CODE_UGAR;
+    return ScriptCode::kUgar;
   if (enum_string == "Vaii")
-    return SCRIPT_CODE_VAII;
+    return ScriptCode::kVaii;
   if (enum_string == "Visp")
-    return SCRIPT_CODE_VISP;
+    return ScriptCode::kVisp;
   if (enum_string == "Wara")
-    return SCRIPT_CODE_WARA;
+    return ScriptCode::kWara;
   if (enum_string == "Wole")
-    return SCRIPT_CODE_WOLE;
+    return ScriptCode::kWole;
   if (enum_string == "Xpeo")
-    return SCRIPT_CODE_XPEO;
+    return ScriptCode::kXpeo;
   if (enum_string == "Xsux")
-    return SCRIPT_CODE_XSUX;
+    return ScriptCode::kXsux;
   if (enum_string == "Yiii")
-    return SCRIPT_CODE_YIII;
+    return ScriptCode::kYiii;
   if (enum_string == "Zmth")
-    return SCRIPT_CODE_ZMTH;
+    return ScriptCode::kZmth;
   if (enum_string == "Zsym")
-    return SCRIPT_CODE_ZSYM;
+    return ScriptCode::kZsym;
   if (enum_string == "Zyyy")
-    return SCRIPT_CODE_ZYYY;
-  return SCRIPT_CODE_NONE;
+    return ScriptCode::kZyyy;
+  return ScriptCode::kNone;
 }
 
 std::u16string GetScriptCodeParseError(base::StringPiece enum_string) {
@@ -759,21 +747,21 @@ std::u16string GetScriptCodeParseError(base::StringPiece enum_string) {
 
 const char* ToString(GenericFamily enum_param) {
   switch (enum_param) {
-    case GENERIC_FAMILY_STANDARD:
+    case GenericFamily::kStandard:
       return "standard";
-    case GENERIC_FAMILY_SANSSERIF:
+    case GenericFamily::kSansserif:
       return "sansserif";
-    case GENERIC_FAMILY_SERIF:
+    case GenericFamily::kSerif:
       return "serif";
-    case GENERIC_FAMILY_FIXED:
+    case GenericFamily::kFixed:
       return "fixed";
-    case GENERIC_FAMILY_CURSIVE:
+    case GenericFamily::kCursive:
       return "cursive";
-    case GENERIC_FAMILY_FANTASY:
+    case GenericFamily::kFantasy:
       return "fantasy";
-    case GENERIC_FAMILY_MATH:
+    case GenericFamily::kMath:
       return "math";
-    case GENERIC_FAMILY_NONE:
+    case GenericFamily::kNone:
       return "";
   }
   NOTREACHED();
@@ -782,20 +770,20 @@ const char* ToString(GenericFamily enum_param) {
 
 GenericFamily ParseGenericFamily(base::StringPiece enum_string) {
   if (enum_string == "standard")
-    return GENERIC_FAMILY_STANDARD;
+    return GenericFamily::kStandard;
   if (enum_string == "sansserif")
-    return GENERIC_FAMILY_SANSSERIF;
+    return GenericFamily::kSansserif;
   if (enum_string == "serif")
-    return GENERIC_FAMILY_SERIF;
+    return GenericFamily::kSerif;
   if (enum_string == "fixed")
-    return GENERIC_FAMILY_FIXED;
+    return GenericFamily::kFixed;
   if (enum_string == "cursive")
-    return GENERIC_FAMILY_CURSIVE;
+    return GenericFamily::kCursive;
   if (enum_string == "fantasy")
-    return GENERIC_FAMILY_FANTASY;
+    return GenericFamily::kFantasy;
   if (enum_string == "math")
-    return GENERIC_FAMILY_MATH;
-  return GENERIC_FAMILY_NONE;
+    return GenericFamily::kMath;
+  return GenericFamily::kNone;
 }
 
 std::u16string GetGenericFamilyParseError(base::StringPiece enum_string) {
@@ -805,15 +793,15 @@ std::u16string GetGenericFamilyParseError(base::StringPiece enum_string) {
 
 const char* ToString(LevelOfControl enum_param) {
   switch (enum_param) {
-    case LEVEL_OF_CONTROL_NOT_CONTROLLABLE:
+    case LevelOfControl::kNotControllable:
       return "not_controllable";
-    case LEVEL_OF_CONTROL_CONTROLLED_BY_OTHER_EXTENSIONS:
+    case LevelOfControl::kControlledByOtherExtensions:
       return "controlled_by_other_extensions";
-    case LEVEL_OF_CONTROL_CONTROLLABLE_BY_THIS_EXTENSION:
+    case LevelOfControl::kControllableByThisExtension:
       return "controllable_by_this_extension";
-    case LEVEL_OF_CONTROL_CONTROLLED_BY_THIS_EXTENSION:
+    case LevelOfControl::kControlledByThisExtension:
       return "controlled_by_this_extension";
-    case LEVEL_OF_CONTROL_NONE:
+    case LevelOfControl::kNone:
       return "";
   }
   NOTREACHED();
@@ -822,14 +810,14 @@ const char* ToString(LevelOfControl enum_param) {
 
 LevelOfControl ParseLevelOfControl(base::StringPiece enum_string) {
   if (enum_string == "not_controllable")
-    return LEVEL_OF_CONTROL_NOT_CONTROLLABLE;
+    return LevelOfControl::kNotControllable;
   if (enum_string == "controlled_by_other_extensions")
-    return LEVEL_OF_CONTROL_CONTROLLED_BY_OTHER_EXTENSIONS;
+    return LevelOfControl::kControlledByOtherExtensions;
   if (enum_string == "controllable_by_this_extension")
-    return LEVEL_OF_CONTROL_CONTROLLABLE_BY_THIS_EXTENSION;
+    return LevelOfControl::kControllableByThisExtension;
   if (enum_string == "controlled_by_this_extension")
-    return LEVEL_OF_CONTROL_CONTROLLED_BY_THIS_EXTENSION;
-  return LEVEL_OF_CONTROL_NONE;
+    return LevelOfControl::kControlledByThisExtension;
+  return LevelOfControl::kNone;
 }
 
 std::u16string GetLevelOfControlParseError(base::StringPiece enum_string) {
@@ -849,8 +837,8 @@ Params::Details::Details()
 generic_family() {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.script = script;
@@ -906,21 +894,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -928,13 +916,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -943,15 +931,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -972,8 +960,8 @@ Params::Details::Details()
 generic_family() {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.script = script;
@@ -1029,21 +1017,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1051,13 +1039,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1066,15 +1054,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1085,8 +1073,8 @@ Results::Details::Details()
 : level_of_control() {}
 
 Results::Details::~Details() = default;
-Results::Details::Details(Details&& rhs) = default;
-Results::Details& Results::Details::operator=(Details&& rhs) = default;
+Results::Details::Details(Details&& rhs) noexcept = default;
+Results::Details& Results::Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Results::Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1115,8 +1103,8 @@ Params::Details::Details()
 generic_family() {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.script = script;
@@ -1185,21 +1173,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1207,13 +1195,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1222,15 +1210,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1261,8 +1249,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   return out;
@@ -1284,21 +1272,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1306,13 +1294,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1321,12 +1309,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Details temp;
         if (!Details::Populate(details_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.details = std::move(temp);
       }
     }
@@ -1349,8 +1337,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   return out;
@@ -1372,21 +1360,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1394,13 +1382,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1409,12 +1397,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Details temp;
         if (!Details::Populate(details_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.details = std::move(temp);
       }
     }
@@ -1429,8 +1417,8 @@ Results::Details::Details()
 level_of_control() {}
 
 Results::Details::~Details() = default;
-Results::Details::Details(Details&& rhs) = default;
-Results::Details& Results::Details::operator=(Details&& rhs) = default;
+Results::Details::Details(Details&& rhs) noexcept = default;
+Results::Details& Results::Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Results::Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1458,8 +1446,8 @@ Params::Details::Details()
 : pixel_size(0) {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.pixel_size = pixel_size;
@@ -1494,21 +1482,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1516,13 +1504,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1531,15 +1519,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1559,8 +1547,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   return out;
@@ -1582,21 +1570,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1604,13 +1592,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1619,12 +1607,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Details temp;
         if (!Details::Populate(details_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.details = std::move(temp);
       }
     }
@@ -1647,8 +1635,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   return out;
@@ -1670,21 +1658,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1692,13 +1680,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1707,12 +1695,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Details temp;
         if (!Details::Populate(details_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.details = std::move(temp);
       }
     }
@@ -1727,8 +1715,8 @@ Results::Details::Details()
 level_of_control() {}
 
 Results::Details::~Details() = default;
-Results::Details::Details(Details&& rhs) = default;
-Results::Details& Results::Details::operator=(Details&& rhs) = default;
+Results::Details::Details(Details&& rhs) noexcept = default;
+Results::Details& Results::Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Results::Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1756,8 +1744,8 @@ Params::Details::Details()
 : pixel_size(0) {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.pixel_size = pixel_size;
@@ -1792,21 +1780,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1814,13 +1802,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1829,15 +1817,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1857,8 +1845,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   return out;
@@ -1880,21 +1868,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1902,13 +1890,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1917,12 +1905,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Details temp;
         if (!Details::Populate(details_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.details = std::move(temp);
       }
     }
@@ -1945,8 +1933,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   return out;
@@ -1968,21 +1956,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1990,13 +1978,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2005,12 +1993,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         Details temp;
         if (!Details::Populate(details_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.details = std::move(temp);
       }
     }
@@ -2025,8 +2013,8 @@ Results::Details::Details()
 level_of_control() {}
 
 Results::Details::~Details() = default;
-Results::Details::Details(Details&& rhs) = default;
-Results::Details& Results::Details::operator=(Details&& rhs) = default;
+Results::Details::Details(Details&& rhs) noexcept = default;
+Results::Details& Results::Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Results::Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -2054,8 +2042,8 @@ Params::Details::Details()
 : pixel_size(0) {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.pixel_size = pixel_size;
@@ -2090,21 +2078,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2112,13 +2100,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2127,15 +2115,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2163,8 +2151,8 @@ generic_family(),
 level_of_control() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -2202,8 +2190,8 @@ Details::Details()
 level_of_control() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -2235,8 +2223,8 @@ Details::Details()
 level_of_control() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -2268,8 +2256,8 @@ Details::Details()
 level_of_control() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 

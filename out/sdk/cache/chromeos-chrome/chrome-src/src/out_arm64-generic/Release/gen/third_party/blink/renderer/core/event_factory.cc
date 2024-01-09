@@ -39,7 +39,7 @@
 
 namespace blink {
 
-Event* EventFactory::Create(ExecutionContext* executionContext, const String& type) {
+Event* EventFactory::Create(ScriptState* script_state, ExecutionContext* executionContext, const String& type) {
   if (EqualIgnoringASCIICase(type, "AnimationEvent")) {
     UseCounter::Count(executionContext, WebFeature::kDocumentCreateEventAnimationEvent);
     return AnimationEvent::Create();
@@ -61,7 +61,7 @@ Event* EventFactory::Create(ExecutionContext* executionContext, const String& ty
   }
   if (EqualIgnoringASCIICase(type, "ErrorEvent")) {
     UseCounter::Count(executionContext, WebFeature::kDocumentCreateEventErrorEvent);
-    return ErrorEvent::Create();
+    return ErrorEvent::Create(script_state);
   }
   if (EqualIgnoringASCIICase(type, "Event")) {
     return Event::Create();

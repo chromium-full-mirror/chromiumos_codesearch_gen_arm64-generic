@@ -26,6 +26,7 @@
 #include "components/content_settings/common/content_settings_manager.mojom-shared-internal.h"
 #include "components/content_settings/core/common/content_settings.mojom-shared.h"
 #include "services/network/public/mojom/site_for_cookies.mojom-shared.h"
+#include "third_party/blink/public/mojom/tokens/tokens.mojom-shared.h"
 #include "url/mojom/origin.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"

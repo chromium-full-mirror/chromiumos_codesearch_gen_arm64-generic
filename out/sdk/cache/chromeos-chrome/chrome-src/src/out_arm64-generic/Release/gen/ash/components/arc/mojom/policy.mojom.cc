@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -199,14 +200,17 @@ void PolicyHostProxy::GetPolicies(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::PolicyHost::GetPolicies");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyHost_GetPolicies_Name, kFlags, 0, 0, nullptr);
@@ -237,14 +241,17 @@ void PolicyHostProxy::ReportCompliance(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyHost_ReportCompliance_Name, kFlags, 0, 0, nullptr);
@@ -286,14 +293,17 @@ void PolicyHostProxy::ReportDPCVersion(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyHost_ReportDPCVersion_Name, kFlags, 0, 0, nullptr);
@@ -337,14 +347,17 @@ void PolicyHostProxy::ReportPlayStoreLocalPolicySet(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyHost_ReportPlayStoreLocalPolicySet_Name, kFlags, 0, 0, nullptr);
@@ -477,7 +490,8 @@ void PolicyHost_GetPolicies_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyHost_GetPolicies_Name, kFlags, 0, 0, nullptr);
@@ -605,7 +619,8 @@ void PolicyHost_ReportCompliance_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyHost_ReportCompliance_Name, kFlags, 0, 0, nullptr);
@@ -785,20 +800,20 @@ std::move(p_request), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const std::pair<uint32_t, mojo::internal::GenericValidationInfo> kPolicyHostValidationInfo[] = {
     {internal::kPolicyHost_GetPolicies_Name,
-     {&internal::PolicyHost_GetPolicies_Params_Data::Validate,
+     { &internal::PolicyHost_GetPolicies_Params_Data::Validate,
       &internal::PolicyHost_GetPolicies_ResponseParams_Data::Validate}},
     {internal::kPolicyHost_ReportCompliance_Name,
-     {&internal::PolicyHost_ReportCompliance_Params_Data::Validate,
+     { &internal::PolicyHost_ReportCompliance_Params_Data::Validate,
       &internal::PolicyHost_ReportCompliance_ResponseParams_Data::Validate}},
     {internal::kPolicyHost_ReportDPCVersion_Name,
-     {&internal::PolicyHost_ReportDPCVersion_Params_Data::Validate,
+     { &internal::PolicyHost_ReportDPCVersion_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kPolicyHost_ReportPlayStoreLocalPolicySet_Name,
-     {&internal::PolicyHost_ReportPlayStoreLocalPolicySet_Params_Data::Validate,
+     { &internal::PolicyHost_ReportPlayStoreLocalPolicySet_Params_Data::Validate,
       nullptr /* no response */}},
 };
 
@@ -955,14 +970,17 @@ void PolicyInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<PolicyHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -992,14 +1010,17 @@ void PolicyInstanceProxy::OnPolicyUpdated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::PolicyInstance::OnPolicyUpdated");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyInstance_OnPolicyUpdated_Name, kFlags, 0, 0, nullptr);
@@ -1029,14 +1050,17 @@ void PolicyInstanceProxy::OnCommandReceived(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyInstance_OnCommandReceived_Name, kFlags, 0, 0, nullptr);
@@ -1146,7 +1170,8 @@ void PolicyInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1263,7 +1288,8 @@ void PolicyInstance_OnCommandReceived_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPolicyInstance_OnCommandReceived_Name, kFlags, 0, 0, nullptr);
@@ -1403,15 +1429,15 @@ std::move(p_command), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPolicyInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::PolicyInstance_OnPolicyUpdated_Params_Data::Validate,
+    { &internal::PolicyInstance_OnPolicyUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PolicyInstance_Init_Params_Data::Validate,
+    { &internal::PolicyInstance_Init_Params_Data::Validate,
      &internal::PolicyInstance_Init_ResponseParams_Data::Validate},
-    {&internal::PolicyInstance_OnCommandReceived_Params_Data::Validate,
+    { &internal::PolicyInstance_OnCommandReceived_Params_Data::Validate,
      &internal::PolicyInstance_OnCommandReceived_ResponseParams_Data::Validate},
 };
 

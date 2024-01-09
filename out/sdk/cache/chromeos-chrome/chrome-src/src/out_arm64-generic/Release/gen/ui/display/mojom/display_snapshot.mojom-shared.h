@@ -148,9 +148,6 @@ class DisplaySnapshotDataView {
   bool has_color_correction_matrix() const {
     return data_->has_color_correction_matrix;
   }
-  bool color_correction_in_linear_space() const {
-    return data_->color_correction_in_linear_space;
-  }
   inline void GetColorSpaceDataView(
       ::gfx::mojom::ColorSpaceDataView* output);
 
@@ -364,7 +361,6 @@ struct Serializer<::display::mojom::DisplaySnapshotDataView, MaybeConstUserType>
         Traits::privacy_screen_state(input), &fragment->privacy_screen_state);
     fragment->has_content_protection_key = Traits::has_content_protection_key(input);
     fragment->has_color_correction_matrix = Traits::has_color_correction_matrix(input);
-    fragment->color_correction_in_linear_space = Traits::color_correction_in_linear_space(input);
     decltype(Traits::color_space(input)) in_color_space = Traits::color_space(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->color_space)::BaseType> color_space_fragment(

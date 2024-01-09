@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -214,14 +215,17 @@ void AudioInputControllerProxy::SetMicOpen(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInputController_SetMicOpen_Name, kFlags, 0, 0, nullptr);
@@ -252,14 +256,17 @@ void AudioInputControllerProxy::SetHotwordEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInputController_SetHotwordEnabled_Name, kFlags, 0, 0, nullptr);
@@ -279,7 +286,7 @@ void AudioInputControllerProxy::SetHotwordEnabled(
 }
 
 void AudioInputControllerProxy::SetDeviceId(
-    const absl::optional<std::string>& in_device_id) {
+    const std::optional<std::string>& in_device_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::libassistant::mojom::AudioInputController::SetDeviceId", "input_parameters",
@@ -287,17 +294,20 @@ void AudioInputControllerProxy::SetDeviceId(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("device_id"), in_device_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInputController_SetDeviceId_Name, kFlags, 0, 0, nullptr);
@@ -323,7 +333,7 @@ void AudioInputControllerProxy::SetDeviceId(
 }
 
 void AudioInputControllerProxy::SetHotwordDeviceId(
-    const absl::optional<std::string>& in_device_id) {
+    const std::optional<std::string>& in_device_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::libassistant::mojom::AudioInputController::SetHotwordDeviceId", "input_parameters",
@@ -331,17 +341,20 @@ void AudioInputControllerProxy::SetHotwordDeviceId(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("device_id"), in_device_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInputController_SetHotwordDeviceId_Name, kFlags, 0, 0, nullptr);
@@ -378,14 +391,17 @@ void AudioInputControllerProxy::SetLidState(
                         "<value of type LidState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInputController_SetLidState_Name, kFlags, 0, 0, nullptr);
@@ -410,14 +426,17 @@ void AudioInputControllerProxy::OnConversationTurnStarted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::libassistant::mojom::AudioInputController::OnConversationTurnStarted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAudioInputController_OnConversationTurnStarted_Name, kFlags, 0, 0, nullptr);
@@ -500,7 +519,7 @@ std::move(p_enable));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_device_id{};
+      std::optional<std::string> p_device_id{};
       AudioInputController_SetDeviceId_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDeviceId(&p_device_id))
@@ -526,7 +545,7 @@ std::move(p_device_id));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_device_id{};
+      std::optional<std::string> p_device_id{};
       AudioInputController_SetHotwordDeviceId_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDeviceId(&p_device_id))
@@ -626,20 +645,20 @@ bool AudioInputControllerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAudioInputControllerValidationInfo[] = {
-    {&internal::AudioInputController_SetMicOpen_Params_Data::Validate,
+    { &internal::AudioInputController_SetMicOpen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioInputController_SetHotwordEnabled_Params_Data::Validate,
+    { &internal::AudioInputController_SetHotwordEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioInputController_SetDeviceId_Params_Data::Validate,
+    { &internal::AudioInputController_SetDeviceId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioInputController_SetHotwordDeviceId_Params_Data::Validate,
+    { &internal::AudioInputController_SetHotwordDeviceId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioInputController_SetLidState_Params_Data::Validate,
+    { &internal::AudioInputController_SetLidState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AudioInputController_OnConversationTurnStarted_Params_Data::Validate,
+    { &internal::AudioInputController_OnConversationTurnStarted_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -671,10 +690,10 @@ void AudioInputControllerInterceptorForTesting::SetMicOpen(bool mic_open) {
 void AudioInputControllerInterceptorForTesting::SetHotwordEnabled(bool enable) {
   GetForwardingInterface()->SetHotwordEnabled(std::move(enable));
 }
-void AudioInputControllerInterceptorForTesting::SetDeviceId(const absl::optional<std::string>& device_id) {
+void AudioInputControllerInterceptorForTesting::SetDeviceId(const std::optional<std::string>& device_id) {
   GetForwardingInterface()->SetDeviceId(std::move(device_id));
 }
-void AudioInputControllerInterceptorForTesting::SetHotwordDeviceId(const absl::optional<std::string>& device_id) {
+void AudioInputControllerInterceptorForTesting::SetHotwordDeviceId(const std::optional<std::string>& device_id) {
   GetForwardingInterface()->SetHotwordDeviceId(std::move(device_id));
 }
 void AudioInputControllerInterceptorForTesting::SetLidState(LidState new_state) {

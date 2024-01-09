@@ -478,6 +478,32 @@ std::ostream& operator<<(std::ostream& os, ApnType value) {
   return os << ApnTypeToString(value);
 }
 
+NOINLINE static const char* SuppressionTypeToStringHelper(SuppressionType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SuppressionType::kUnset:
+      return "kUnset";
+    case SuppressionType::kAllow:
+      return "kAllow";
+    case SuppressionType::kSuppress:
+      return "kSuppress";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SuppressionTypeToString(SuppressionType value) {
+  const char *str = SuppressionTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SuppressionType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SuppressionType value) {
+  return os << SuppressionTypeToString(value);
+}
+
 NOINLINE static const char* TrafficCounterSourceToStringHelper(TrafficCounterSource value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -4181,6 +4207,11 @@ bool GlobalPolicy_Data::Validate(
     return false;
   }
 
+
+  if (!::chromeos::network_config::mojom::internal::SuppressionType_Data
+        ::Validate(object->allow_text_messages, validation_context))
+    return false;
+
   return true;
 }
 
@@ -5757,6 +5788,29 @@ CrosNetworkConfig_CreateCustomApn_Params_Data::CrosNetworkConfig_CreateCustomApn
 
 
 // static
+bool CrosNetworkConfig_CreateCustomApn_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosNetworkConfig_CreateCustomApn_ResponseParams_Data* object =
+      static_cast<const CrosNetworkConfig_CreateCustomApn_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+CrosNetworkConfig_CreateCustomApn_ResponseParams_Data::CrosNetworkConfig_CreateCustomApn_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosNetworkConfig_RemoveCustomApn_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -6192,6 +6246,16 @@ namespace perfetto {
 void TraceFormatTraits<::chromeos::network_config::mojom::ApnType>::WriteIntoTrace(
    perfetto::TracedValue context, ::chromeos::network_config::mojom::ApnType value) {
   return std::move(context).WriteString(::chromeos::network_config::mojom::ApnTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::chromeos::network_config::mojom::SuppressionType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::chromeos::network_config::mojom::SuppressionType value) {
+  return std::move(context).WriteString(::chromeos::network_config::mojom::SuppressionTypeToString(value));
 }
 
 } // namespace perfetto

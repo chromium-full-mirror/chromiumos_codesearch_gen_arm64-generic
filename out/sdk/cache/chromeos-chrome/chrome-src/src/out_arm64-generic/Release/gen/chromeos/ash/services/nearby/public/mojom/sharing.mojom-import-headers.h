@@ -24,6 +24,8 @@
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-import-headers.h"
 #include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder.mojom.h"
 #include "chromeos/ash/services/nearby/public/mojom/quick_start_decoder.mojom-import-headers.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence_credential_storage.mojom.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence_credential_storage.mojom-import-headers.h"
 #include "device/bluetooth/public/mojom/adapter.mojom.h"
 #include "device/bluetooth/public/mojom/adapter.mojom-import-headers.h"
 #include "sandbox/policy/mojom/sandbox.mojom.h"

@@ -55,7 +55,7 @@ bool URLResponseHead_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 256, validation_context)) {
+          data, 248, validation_context)) {
     return false;
   }
 
@@ -107,16 +107,11 @@ bool URLResponseHead_Data::Validate(
     return false;
   }
 
-
-  if (!::network::mojom::internal::CTPolicyCompliance_Data
-        ::Validate(object->ct_policy_compliance, validation_context))
-    return false;
-
   if (!mojo::internal::ValidateStruct(object->encoded_body_length, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->load_timing, 11, validation_context)) {
+          object->load_timing, 10, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->load_timing, validation_context))
@@ -128,7 +123,7 @@ bool URLResponseHead_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->alpn_negotiated_protocol, 17, validation_context)) {
+          object->alpn_negotiated_protocol, 16, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& alpn_negotiated_protocol_validate_params =
@@ -144,7 +139,7 @@ bool URLResponseHead_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->remote_endpoint, 19, validation_context)) {
+          object->remote_endpoint, 18, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->remote_endpoint, validation_context))
@@ -166,10 +161,10 @@ bool URLResponseHead_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->proxy_server, 25, validation_context)) {
+          object->proxy_chain, 24, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->proxy_server, validation_context))
+  if (!mojo::internal::ValidateStruct(object->proxy_chain, validation_context))
     return false;
 
 
@@ -178,7 +173,7 @@ bool URLResponseHead_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->url_list_via_service_worker, 28, validation_context)) {
+          object->url_list_via_service_worker, 27, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& url_list_via_service_worker_validate_params =
@@ -187,6 +182,9 @@ bool URLResponseHead_Data::Validate(
                                          &url_list_via_service_worker_validate_params)) {
     return false;
   }
+
+  if (!mojo::internal::ValidateStruct(object->service_worker_router_info, validation_context))
+    return false;
 
 
   if (!::network::mojom::internal::FetchResponseType_Data
@@ -222,14 +220,14 @@ bool URLResponseHead_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->request_start, 45, validation_context)) {
+          object->request_start, 46, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->request_start, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->response_start, 46, validation_context)) {
+          object->response_start, 47, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->response_start, validation_context))
@@ -242,7 +240,7 @@ bool URLResponseHead_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->dns_aliases, 49, validation_context)) {
+          object->dns_aliases, 50, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& dns_aliases_validate_params =
@@ -253,14 +251,7 @@ bool URLResponseHead_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->web_bundle_url, 50, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->web_bundle_url, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->trigger_verifications, 53, validation_context)) {
+          object->trigger_verifications, 54, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& trigger_verifications_validate_params =

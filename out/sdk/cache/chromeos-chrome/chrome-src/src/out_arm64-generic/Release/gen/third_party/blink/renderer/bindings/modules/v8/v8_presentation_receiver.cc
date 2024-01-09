@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PresentationReceiver>::value,
     "PresentationReceiver inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PresentationReceiver::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PresentationReceiver is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,7 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationReceiver.connectionList.get");
 
 
 
-PresentationReceiver* blink_receiver = V8PresentationReceiver::ToWrappableUnsafe(v8_receiver);
+PresentationReceiver* blink_receiver = V8PresentationReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

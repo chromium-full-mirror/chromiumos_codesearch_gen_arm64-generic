@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import * as i18n from '../../core/i18n/i18n.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import playerListViewStyles from './playerListView.css.js';
 const UIStrings = {
     /**
@@ -31,6 +32,7 @@ export class PlayerListView extends UI.Widget.VBox {
     currentlySelectedEntry;
     constructor(mainContainer) {
         super(true);
+        this.element.setAttribute('jslog', `${VisualLogging.pane().context('player-list')}`);
         this.playerEntryFragments = new Map();
         this.playerEntriesWithHostnameFrameTitle = new Set();
         // Container where new panels can be added based on clicks.
@@ -49,6 +51,7 @@ export class PlayerListView extends UI.Widget.VBox {
     </div>
     `;
         const element = entry.element();
+        element.setAttribute('jslog', `${VisualLogging.item().track({ click: true }).context('player')}`);
         element.addEventListener('click', this.selectPlayer.bind(this, playerID, element));
         element.addEventListener('contextmenu', this.rightClickPlayer.bind(this, playerID));
         entry.$('icon').appendChild(UI.Icon.Icon.create('pause', 'media-player'));

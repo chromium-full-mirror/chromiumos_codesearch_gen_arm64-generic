@@ -141,9 +141,6 @@ class CTLogInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  bool operated_by_google() const {
-    return data_->operated_by_google;
-  }
   inline void GetDisqualifiedAtDataView(
       ::mojo_base::mojom::TimeDataView* output);
 
@@ -311,7 +308,6 @@ struct Serializer<::network::mojom::CTLogInfoDataView, MaybeConstUserType> {
         fragment->name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null name in CTLogInfo struct");
-    fragment->operated_by_google = Traits::operated_by_google(input);
     decltype(Traits::disqualified_at(input)) in_disqualified_at = Traits::disqualified_at(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->disqualified_at)::BaseType> disqualified_at_fragment(

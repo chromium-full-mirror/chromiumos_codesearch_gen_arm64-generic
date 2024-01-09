@@ -1,7 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import { BaseSetupPageElement } from './base_setup_page.js';
 import { UserAction } from './cloud_upload.mojom-webui.js';
 import { CloudUploadBrowserProxy } from './cloud_upload_browser_proxy.js';
@@ -11,13 +11,13 @@ import { getTemplate } from './office_setup_complete_page.html.js';
  * completed state of the setup flow.
  */
 export class OfficeSetupCompletePageElement extends BaseSetupPageElement {
+    /**
+      True if Microsoft 365 should be set as default handler when this page gets
+      displayed.
+    */
+    setOfficeAsDefaultHandler = true;
     constructor() {
         super();
-        /**
-          True if Microsoft 365 should be set as default handler when this page gets
-          displayed.
-        */
-        this.setOfficeAsDefaultHandler = true;
     }
     /**
      * @param setOfficeAsDefaultHandler Whether Microsoft 365 should be set as

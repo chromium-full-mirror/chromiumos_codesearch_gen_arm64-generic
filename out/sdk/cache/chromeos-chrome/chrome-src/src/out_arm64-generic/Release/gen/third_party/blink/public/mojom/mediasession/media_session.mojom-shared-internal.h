@@ -167,6 +167,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SpecMediaMetadata_Data 
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> artist;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> album;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::media_session::mojom::internal::MediaImage_Data>>> artwork;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::media_session::mojom::internal::ChapterInformation_Data>>> chapterInfo;
 
  private:
   friend class mojo::internal::MessageFragment<SpecMediaMetadata_Data>;
@@ -174,7 +175,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SpecMediaMetadata_Data 
   SpecMediaMetadata_Data();
   ~SpecMediaMetadata_Data() = delete;
 };
-static_assert(sizeof(SpecMediaMetadata_Data) == 40,
+static_assert(sizeof(SpecMediaMetadata_Data) == 48,
               "Bad sizeof(SpecMediaMetadata_Data)");
 // Used by SpecMediaMetadata::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

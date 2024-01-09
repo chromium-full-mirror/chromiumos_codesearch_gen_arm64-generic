@@ -28,7 +28,7 @@ class BLINK_COMMON_EXPORT WebOTPServiceAsyncWaiter {
 
   ~WebOTPServiceAsyncWaiter();
   void Receive(
-      SmsStatus* out_status, absl::optional<std::string>* out_otp);
+      SmsStatus* out_status, std::optional<std::string>* out_otp);
   
 
  private:

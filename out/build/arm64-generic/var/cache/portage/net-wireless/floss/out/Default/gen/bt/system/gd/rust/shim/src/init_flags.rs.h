@@ -788,6 +788,8 @@ bool always_use_private_gatt_for_debugging_is_enabled() noexcept;
 
 bool bta_dm_clear_conn_id_on_client_close_is_enabled() noexcept;
 
+bool bluetooth_power_telemetry_is_enabled() noexcept;
+
 bool delay_hidh_cleanup_until_hidh_ready_start_is_enabled() noexcept;
 
 bool btm_dm_flush_discovery_queue_on_search_cancel_is_enabled() noexcept;
@@ -821,10 +823,6 @@ bool hfp_dynamic_version_is_enabled() noexcept;
 bool irk_rotation_is_enabled() noexcept;
 
 bool leaudio_targeted_announcement_reconnection_mode_is_enabled() noexcept;
-
-bool leaudio_enable_health_based_actions_is_enabled() noexcept;
-
-bool pass_phy_update_callback_is_enabled() noexcept;
 
 bool pbap_pse_dynamic_version_upgrade_is_enabled() noexcept;
 

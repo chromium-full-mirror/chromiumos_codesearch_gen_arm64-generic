@@ -1,0 +1,36 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><!--
+Copyright 2022 The Chromium Authors
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.
+-->
+
+
+<style include="oobe-dialog-host-styles">
+</style>
+<oobe-adaptive-dialog id="choobeDialog" role="presentation"
+      for-step="overview">
+    <iron-icon slot="icon" icon="oobe-32:choobe-icon"></iron-icon>
+    <h1 slot="title" id="choobe-title" aria-live="polite">
+      [[i18nDynamic(locale, 'choobeScreenTitle')]]
+    </h1>
+    <div slot="subtitle" id="choobe-subtitle">
+      [[i18nDynamic(locale, 'choobeScreenDescription')]]
+    </div>
+    <div slot="content" class="layout vertical landscape-vertical-centered">
+      <oobe-screens-list id="screensList" class="focus-on-show"
+        selected-screens-count="{{numberOfSelectedScreens_}}">
+      </oobe-screens-list>
+    </div>
+    <div slot="bottom-buttons">
+      <oobe-text-button id="skipButton"
+        text-key="choobeScreenSkip" on-click="onSkip_" border>
+      </oobe-text-button>
+      <oobe-next-button id="nextButton" on-click="onNextClicked_"
+        disabled="[[!canProceed_(numberOfSelectedScreens_)]]">
+      </oobe-next-button>
+    </div>
+</oobe-adaptive-dialog>
+<!--_html_template_end_-->`;
+}

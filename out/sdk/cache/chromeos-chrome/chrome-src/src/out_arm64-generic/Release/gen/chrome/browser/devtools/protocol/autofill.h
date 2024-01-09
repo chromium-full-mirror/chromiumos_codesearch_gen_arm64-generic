@@ -397,6 +397,9 @@ public:
     String GetFillingStrategy() { return m_fillingStrategy; }
     void SetFillingStrategy(const String& value) { m_fillingStrategy = value; }
 
+    int GetFieldId() { return m_fieldId; }
+    void SetFieldId(int value) { m_fieldId = value; }
+
     template<int STATE>
     class FilledFieldBuilder {
     public:
@@ -408,7 +411,8 @@ public:
             ValueSet = 1 << 4,
             AutofillTypeSet = 1 << 5,
             FillingStrategySet = 1 << 6,
-            AllFieldsSet = (HtmlTypeSet | IdSet | NameSet | ValueSet | AutofillTypeSet | FillingStrategySet | 0)};
+            FieldIdSet = 1 << 7,
+            AllFieldsSet = (HtmlTypeSet | IdSet | NameSet | ValueSet | AutofillTypeSet | FillingStrategySet | FieldIdSet | 0)};
 
 
         FilledFieldBuilder<STATE | HtmlTypeSet>& SetHtmlType(const String& value)
@@ -453,6 +457,13 @@ public:
             return castState<FillingStrategySet>();
         }
 
+        FilledFieldBuilder<STATE | FieldIdSet>& SetFieldId(int value)
+        {
+            static_assert(!(STATE & FieldIdSet), "property fieldId should not be set yet");
+            m_result->SetFieldId(value);
+            return castState<FieldIdSet>();
+        }
+
         std::unique_ptr<FilledField> Build()
         {
             static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
@@ -481,6 +492,7 @@ private:
 
     FilledField()
     {
+          m_fieldId = 0;
     }
 
     String m_htmlType;
@@ -489,6 +501,7 @@ private:
     String m_value;
     String m_autofillType;
     String m_fillingStrategy;
+    int m_fieldId;
 };
 
 

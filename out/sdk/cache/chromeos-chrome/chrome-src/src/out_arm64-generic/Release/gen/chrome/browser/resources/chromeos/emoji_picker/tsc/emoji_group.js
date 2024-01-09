@@ -41,6 +41,8 @@ export class EmojiGroupComponent extends PolymerElement {
         return {
             data: { type: Array, readonly: true },
             group: { type: String, value: null, readonly: true },
+            globalTone: { type: Number, value: null, readonly: true },
+            globalGender: { type: Number, value: null, readonly: true },
             preferred: { type: Object, value: () => ({}) },
             clearable: { type: Boolean, value: false },
             category: {
@@ -61,6 +63,8 @@ export class EmojiGroupComponent extends PolymerElement {
     }
     constructor() {
         super();
+        this.globalTone = null;
+        this.globalGender = null;
         // TODO(crbug/1227852): Remove after setting arial label to emoji.
         this.isLangEnglish =
             navigator.languages.some(lang => lang.startsWith('en'));
@@ -129,12 +133,14 @@ export class EmojiGroupComponent extends PolymerElement {
         if (emoji.base.string) {
             const text = this.getDisplayEmojiForEmoji(emoji.base.string);
             this.dispatchEvent(createCustomEvent(EMOJI_TEXT_BUTTON_CLICK, {
-                text: text,
-                isVariant: text !== emoji.base.string,
-                baseEmoji: emoji.base.string,
-                allVariants: emoji.alternates,
                 name: emoji.base.name,
                 category: this.category,
+                text,
+                baseEmoji: emoji.base.string,
+                isVariant: text !== emoji.base.string,
+                groupedTone: false,
+                groupedGender: false,
+                alternates: emoji.alternates ?? [],
             }));
         }
         else {
@@ -279,6 +285,9 @@ export class EmojiGroupComponent extends PolymerElement {
      */
     isVisual(category) {
         return category === CategoryEnum.GIF;
+    }
+    hasVariants(data) {
+        return data.some(t => !(t.alternates === undefined || t.alternates.length === 0));
     }
     /**
      * Filters visual content to be displayed in the given column based on '

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -215,14 +216,17 @@ void SpeechRecognizerProxy::Start(
                         "<value of type StartSpeechRecognitionRequestParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognizer_Start_Name, kFlags, 0, 0, nullptr);
@@ -301,10 +305,10 @@ bool SpeechRecognizerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeechRecognizerValidationInfo[] = {
-    {&internal::SpeechRecognizer_Start_Params_Data::Validate,
+    { &internal::SpeechRecognizer_Start_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -397,14 +401,17 @@ void SpeechRecognitionSessionProxy::Abort(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechRecognitionSession::Abort");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSession_Abort_Name, kFlags, 0, 0, nullptr);
@@ -427,14 +434,17 @@ void SpeechRecognitionSessionProxy::StopCapture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechRecognitionSession::StopCapture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSession_StopCapture_Name, kFlags, 0, 0, nullptr);
@@ -523,12 +533,12 @@ bool SpeechRecognitionSessionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeechRecognitionSessionValidationInfo[] = {
-    {&internal::SpeechRecognitionSession_Abort_Params_Data::Validate,
+    { &internal::SpeechRecognitionSession_Abort_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionSession_StopCapture_Params_Data::Validate,
+    { &internal::SpeechRecognitionSession_StopCapture_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -748,14 +758,17 @@ void SpeechRecognitionSessionClientProxy::ResultRetrieved(
                         "<value of type WTF::Vector<::blink::mojom::blink::SpeechRecognitionResultPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSessionClient_ResultRetrieved_Name, kFlags, 0, 0, nullptr);
@@ -798,14 +811,17 @@ void SpeechRecognitionSessionClientProxy::ErrorOccurred(
                         "<value of type ::blink::mojom::blink::SpeechRecognitionErrorPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSessionClient_ErrorOccurred_Name, kFlags, 0, 0, nullptr);
@@ -839,14 +855,17 @@ void SpeechRecognitionSessionClientProxy::Started(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechRecognitionSessionClient::Started");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSessionClient_Started_Name, kFlags, 0, 0, nullptr);
@@ -869,14 +888,17 @@ void SpeechRecognitionSessionClientProxy::AudioStarted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechRecognitionSessionClient::AudioStarted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSessionClient_AudioStarted_Name, kFlags, 0, 0, nullptr);
@@ -899,14 +921,17 @@ void SpeechRecognitionSessionClientProxy::SoundStarted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechRecognitionSessionClient::SoundStarted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSessionClient_SoundStarted_Name, kFlags, 0, 0, nullptr);
@@ -929,14 +954,17 @@ void SpeechRecognitionSessionClientProxy::SoundEnded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechRecognitionSessionClient::SoundEnded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSessionClient_SoundEnded_Name, kFlags, 0, 0, nullptr);
@@ -959,14 +987,17 @@ void SpeechRecognitionSessionClientProxy::AudioEnded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechRecognitionSessionClient::AudioEnded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSessionClient_AudioEnded_Name, kFlags, 0, 0, nullptr);
@@ -989,14 +1020,17 @@ void SpeechRecognitionSessionClientProxy::Ended(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechRecognitionSessionClient::Ended");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechRecognitionSessionClient_Ended_Name, kFlags, 0, 0, nullptr);
@@ -1243,24 +1277,24 @@ bool SpeechRecognitionSessionClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeechRecognitionSessionClientValidationInfo[] = {
-    {&internal::SpeechRecognitionSessionClient_ResultRetrieved_Params_Data::Validate,
+    { &internal::SpeechRecognitionSessionClient_ResultRetrieved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionSessionClient_ErrorOccurred_Params_Data::Validate,
+    { &internal::SpeechRecognitionSessionClient_ErrorOccurred_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionSessionClient_Started_Params_Data::Validate,
+    { &internal::SpeechRecognitionSessionClient_Started_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionSessionClient_AudioStarted_Params_Data::Validate,
+    { &internal::SpeechRecognitionSessionClient_AudioStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionSessionClient_SoundStarted_Params_Data::Validate,
+    { &internal::SpeechRecognitionSessionClient_SoundStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionSessionClient_SoundEnded_Params_Data::Validate,
+    { &internal::SpeechRecognitionSessionClient_SoundEnded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionSessionClient_AudioEnded_Params_Data::Validate,
+    { &internal::SpeechRecognitionSessionClient_AudioEnded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechRecognitionSessionClient_Ended_Params_Data::Validate,
+    { &internal::SpeechRecognitionSessionClient_Ended_Params_Data::Validate,
      nullptr /* no response */},
 };
 

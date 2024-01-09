@@ -7,6 +7,7 @@ import { BucketIdSpec as storage_mojom_BucketIdSpec } from './bucket_id.mojom-we
 import { IdbOriginMetadataSpec as storage_mojom_IdbOriginMetadataSpec } from './indexed_db_bucket_types.mojom-webui.js';
 import { FilePathSpec as mojoBase_mojom_FilePathSpec } from '//resources/mojo/mojo/public/mojom/base/file_path.mojom-webui.js';
 export class IdbInternalsHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -15,6 +16,9 @@ export class IdbInternalsHandlerPendingReceiver {
     }
 }
 export class IdbInternalsHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(IdbInternalsHandlerPendingReceiver, handle);
@@ -42,6 +46,9 @@ export class IdbInternalsHandlerRemote {
  * interface.
  */
 export class IdbInternalsHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(IdbInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -73,6 +80,13 @@ export class IdbInternalsHandler {
  * receiver can have any number of listeners added to it.
  */
 export class IdbInternalsHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getAllBucketsAcrossAllStorageKeys;
+    downloadBucketData;
+    forceClose;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(IdbInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -117,12 +131,10 @@ mojo.internal.Struct(IdbInternalsHandler_DownloadBucketData_ParamsSpec.$, 'IdbIn
 ], [[0, 16],]);
 mojo.internal.Struct(IdbInternalsHandler_DownloadBucketData_ResponseParamsSpec.$, 'IdbInternalsHandler_DownloadBucketData_ResponseParams', [
     mojo.internal.StructField('error', 0, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('connectionCount', 8, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
-], [[0, 24],]);
+], [[0, 16],]);
 mojo.internal.Struct(IdbInternalsHandler_ForceClose_ParamsSpec.$, 'IdbInternalsHandler_ForceClose_Params', [
     mojo.internal.StructField('bucketId', 0, 0, storage_mojom_BucketIdSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(IdbInternalsHandler_ForceClose_ResponseParamsSpec.$, 'IdbInternalsHandler_ForceClose_ResponseParams', [
     mojo.internal.StructField('error', 0, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('connectionCount', 8, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
-], [[0, 24],]);
+], [[0, 16],]);

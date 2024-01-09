@@ -1,0 +1,52 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+export class FeedbackBrowserProxyImpl {
+    getSystemInformation() {
+        return new Promise(resolve => chrome.feedbackPrivate.getSystemInformation(resolve));
+    }
+    getUserEmail() {
+        return new Promise(resolve => chrome.feedbackPrivate.getUserEmail(resolve));
+    }
+    getDialogArguments() {
+        return chrome.getVariableValue('dialogArguments');
+    }
+    getUserMedia(params) {
+        return new Promise(function (resolve, reject) {
+            navigator.webkitGetUserMedia(params, stream => resolve(stream), error => reject(error));
+        });
+    }
+    sendFeedback(feedback, loadSystemInfo, formOpenTime) {
+        return chrome.feedbackPrivate.sendFeedback(feedback, loadSystemInfo, formOpenTime);
+    }
+    showDialog() {
+        chrome.send('showDialog');
+    }
+    closeDialog() {
+        chrome.send('dialogClose');
+    }
+    // 
+    showAssistantLogsInfo() {
+        chrome.send('showAssistantLogsInfo');
+    }
+    showBluetoothLogsInfo() {
+        chrome.send('showBluetoothLogsInfo');
+    }
+    // 
+    showSystemInfo() {
+        chrome.send('showSystemInfo');
+    }
+    showMetrics() {
+        chrome.send('showMetrics');
+    }
+    showAutofillMetadataInfo(autofillMetadata) {
+        chrome.send('showAutofillMetadataInfo', [autofillMetadata]);
+    }
+    static getInstance() {
+        return instance || (instance = new FeedbackBrowserProxyImpl());
+    }
+    static setInstance(obj) {
+        instance = obj;
+    }
+}
+let instance = null;

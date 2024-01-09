@@ -77,6 +77,8 @@ export function getLockType(lockType) {
             return 'sim-puk';
         case LockType.kSimPin:
             return 'sim-pin';
+        case LockType.kNetworkPin:
+            return 'network-pin';
         case LockType.kNone:
             return '';
     }

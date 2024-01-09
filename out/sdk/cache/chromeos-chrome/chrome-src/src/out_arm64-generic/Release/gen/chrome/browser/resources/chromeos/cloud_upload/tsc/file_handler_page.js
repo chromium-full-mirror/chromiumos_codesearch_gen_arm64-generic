@@ -13,34 +13,49 @@ import { getTemplate } from './file_handler_page.html.js';
  * or a local task.
  */
 export class FileHandlerPageElement extends HTMLElement {
+    /**
+     * The local file tasks that the user could use to open the file. There are
+     * separate buttons for the Drive and Office PWA apps.
+     */
+    localTasks = [];
+    /**
+     * References to the HTMLElement used to display the tasks that the user can
+     * select.
+     */
+    cloudProviderCards = [];
+    localHandlerCards = [];
+    cards = [];
+    proxy = CloudUploadBrowserProxy.getInstance();
+    // Save reference to listener so it can be removed from the document in
+    // disconnectedCallback().
+    boundKeyDownListener_;
     constructor() {
         super();
-        /**
-         * The local file tasks that the user could use to open the file. There are
-         * separate buttons for the Drive and Office PWA apps.
-         */
-        this.localTasks = [];
-        /**
-         * References to the HTMLElement used to display the tasks that the user can
-         * select.
-         */
-        this.cloudProviderCards = [];
-        this.localHandlerCards = [];
-        this.cards = [];
-        this.proxy = CloudUploadBrowserProxy.getInstance();
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = getTemplate();
         const openButton = this.$('.action-button');
         const cancelButton = this.$('.cancel-button');
-        const header = this.$('#header');
         assert(openButton);
         assert(cancelButton);
-        assert(header);
         openButton.disabled = true;
         openButton.addEventListener('click', () => this.onOpenButtonClick());
         cancelButton.addEventListener('click', () => this.onCancelButtonClick());
-        header.addEventListener('keydown', this.handleKeyDown.bind(this));
+        this.boundKeyDownListener_ = this.handleKeyDown.bind(this);
         this.initDynamicContent();
+    }
+    // Initialises the scrollable content styles and add document event listeners.
+    connectedCallback() {
+        const contentElement = this.$('#content');
+        window.requestAnimationFrame(() => {
+            this.updateContentFade(contentElement);
+        });
+        contentElement.addEventListener('scroll', this.updateContentFade.bind(undefined, contentElement), { passive: true });
+        contentElement.addEventListener('keydown', this.boundKeyDownListener_);
+        document.addEventListener('keydown', this.boundKeyDownListener_);
+    }
+    // Remove document event listeners.
+    disconnectedCallback() {
+        document.removeEventListener('keydown', this.boundKeyDownListener_);
     }
     $(query) {
         return this.shadowRoot.querySelector(query);
@@ -50,27 +65,38 @@ export class FileHandlerPageElement extends HTMLElement {
         try {
             const dialogArgs = await this.proxy.handler.getDialogArgs();
             assert(dialogArgs.args);
-            assert(dialogArgs.args.localTasks);
+            assert(dialogArgs.args.dialogSpecificArgs);
+            assert(dialogArgs.args.dialogSpecificArgs.fileHandlerDialogArgs);
+            const fileHandlerDialogArgs = dialogArgs.args.dialogSpecificArgs.fileHandlerDialogArgs;
+            const localTasks = fileHandlerDialogArgs?.localTasks;
+            const showGoogleWorkspaceTask = fileHandlerDialogArgs?.showGoogleWorkspaceTask;
+            const showMicrosoftOfficeTask = fileHandlerDialogArgs?.showMicrosoftOfficeTask;
             // Adjust the dialog's size if there are no local tasks to display.
-            if (dialogArgs.args.localTasks.length == 0) {
+            if (localTasks.length == 0) {
                 this.$('#dialog').style.height = '315px';
+            }
+            else if (!showGoogleWorkspaceTask || !showMicrosoftOfficeTask) {
+                this.$('#dialog').style.height = '295px';
             }
             const { name, icon, type } = this.getDriveAppInfo(dialogArgs.args.fileNames);
             const titleElement = this.$('#title');
             assert(titleElement);
             titleElement.innerText =
                 loadTimeData.getStringF('fileHandlerTitle', type);
-            const driveCard = new CloudProviderCardElement();
-            driveCard.setParameters(CloudProviderType.DRIVE, name, loadTimeData.getString('googleDriveStorage'));
-            driveCard.setIconClass(icon);
-            driveCard.id = 'drive';
-            this.addCloudProviderCard(driveCard);
-            const officeCard = new CloudProviderCardElement();
-            officeCard.setParameters(CloudProviderType.ONE_DRIVE, loadTimeData.getString('microsoft365'), loadTimeData.getString('oneDriveStorage'));
-            officeCard.setIconClass('office');
-            officeCard.id = 'onedrive';
-            this.addCloudProviderCard(officeCard);
-            const localTasks = dialogArgs.args.localTasks;
+            if (showGoogleWorkspaceTask) {
+                const driveCard = new CloudProviderCardElement();
+                driveCard.setParameters(CloudProviderType.DRIVE, name, loadTimeData.getString('googleDriveStorage'));
+                driveCard.setIconClass(icon);
+                driveCard.id = 'drive';
+                this.addCloudProviderCard(driveCard);
+            }
+            if (showMicrosoftOfficeTask) {
+                const officeCard = new CloudProviderCardElement();
+                officeCard.setParameters(CloudProviderType.ONE_DRIVE, loadTimeData.getString('microsoft365'), loadTimeData.getString('oneDriveStorage'));
+                officeCard.setIconClass('office');
+                officeCard.id = 'onedrive';
+                this.addCloudProviderCard(officeCard);
+            }
             if (localTasks.length == 0) {
                 return;
             }
@@ -85,14 +111,14 @@ export class FileHandlerPageElement extends HTMLElement {
                 localHandlerCard.setParameters(task.position, task.title);
                 localHandlerCard.setIconUrl(task.iconUrl);
                 localHandlerCard.id = this.toStringId(task.position);
-                if (i == dialogArgs.args.localTasks.length - 1) {
+                if (i == localTasks.length - 1) {
                     // Round bottom for last card.
                     localHandlerCard.$('#container').classList.add('round-bottom');
                 }
                 this.addLocalHandlerCard(localHandlerCard);
             }
             // Set local tasks to indicate completion (used in tests).
-            this.localTasks = dialogArgs.args.localTasks;
+            this.localTasks = localTasks;
         }
         catch (e) {
             // TODO(b:243095484) Define expected behavior.
@@ -145,15 +171,6 @@ export class FileHandlerPageElement extends HTMLElement {
         this.$('#content').appendChild(localHandlerCard);
         localHandlerCard.addEventListener('click', () => this.selectCard(localHandlerCard));
     }
-    // Initialises the scrollable content styles.
-    connectedCallback() {
-        const contentElement = this.$('#content');
-        window.requestAnimationFrame(() => {
-            this.updateContentFade(contentElement);
-        });
-        contentElement.addEventListener('scroll', this.updateContentFade.bind(undefined, contentElement), { passive: true });
-        contentElement.addEventListener('keydown', this.handleKeyDown.bind(this));
-    }
     selectCard(card) {
         assert(card.style.display != 'none', 'Attempting to select a hidden card');
         for (const providerCard of this.cloudProviderCards) {
@@ -201,6 +218,13 @@ export class FileHandlerPageElement extends HTMLElement {
         }
     }
     handleKeyDown(e) {
+        if (e.key === 'Escape') {
+            // Handle Escape as a "cancel".
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            this.onCancelButtonClick();
+            return;
+        }
         // Prevent scroll on spacebar.
         if (e.key === ' ') {
             e.preventDefault();

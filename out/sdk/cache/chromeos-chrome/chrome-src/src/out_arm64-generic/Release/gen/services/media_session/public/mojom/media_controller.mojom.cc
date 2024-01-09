@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -158,14 +159,17 @@ void MediaControllerManagerProxy::CreateMediaControllerForSession(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaControllerManager_CreateMediaControllerForSession_Name, kFlags, 0, 0, nullptr);
@@ -212,14 +216,17 @@ void MediaControllerManagerProxy::CreateActiveMediaController(
                         "<value of type ::mojo::PendingReceiver<MediaController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaControllerManager_CreateActiveMediaController_Name, kFlags, 0, 0, nullptr);
@@ -248,14 +255,17 @@ void MediaControllerManagerProxy::SuspendAllSessions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaControllerManager::SuspendAllSessions");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaControllerManager_SuspendAllSessions_Name, kFlags, 0, 0, nullptr);
@@ -385,14 +395,14 @@ bool MediaControllerManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaControllerManagerValidationInfo[] = {
-    {&internal::MediaControllerManager_CreateMediaControllerForSession_Params_Data::Validate,
+    { &internal::MediaControllerManager_CreateMediaControllerForSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaControllerManager_CreateActiveMediaController_Params_Data::Validate,
+    { &internal::MediaControllerManager_CreateActiveMediaController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaControllerManager_SuspendAllSessions_Params_Data::Validate,
+    { &internal::MediaControllerManager_SuspendAllSessions_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -469,6 +479,9 @@ MediaController::IPCStableHashFunction MediaController::MessageToMethodInfo_(moj
     case internal::kMediaController_EnterAutoPictureInPicture_Name: {
       return &MediaController::EnterAutoPictureInPicture_Sym::IPCStableHash;
     }
+    case internal::kMediaController_SkipAd_Name: {
+      return &MediaController::SkipAd_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -522,6 +535,8 @@ const char* MediaController::MessageToMethodName_(mojo::Message& message) {
             return "Receive media_session::mojom::MediaController::RequestMediaRemoting";
       case internal::kMediaController_EnterAutoPictureInPicture_Name:
             return "Receive media_session::mojom::MediaController::EnterAutoPictureInPicture";
+      case internal::kMediaController_SkipAd_Name:
+            return "Receive media_session::mojom::MediaController::SkipAd";
     }
   } else {
     switch (message.name()) {
@@ -567,6 +582,8 @@ const char* MediaController::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply media_session::mojom::MediaController::RequestMediaRemoting";
       case internal::kMediaController_EnterAutoPictureInPicture_Name:
             return "Receive reply media_session::mojom::MediaController::EnterAutoPictureInPicture";
+      case internal::kMediaController_SkipAd_Name:
+            return "Receive reply media_session::mojom::MediaController::SkipAd";
     }
   }
   return "Receive unknown mojo message";
@@ -854,6 +871,19 @@ uint32_t MediaController::EnterAutoPictureInPicture_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t MediaController::SkipAd_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)media_session::mojom::MediaController::SkipAd");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 MediaControllerProxy::MediaControllerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -865,14 +895,17 @@ void MediaControllerProxy::Suspend(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::Suspend");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_Suspend_Name, kFlags, 0, 0, nullptr);
@@ -895,14 +928,17 @@ void MediaControllerProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_Resume_Name, kFlags, 0, 0, nullptr);
@@ -925,14 +961,17 @@ void MediaControllerProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_Stop_Name, kFlags, 0, 0, nullptr);
@@ -955,14 +994,17 @@ void MediaControllerProxy::ToggleSuspendResume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::ToggleSuspendResume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_ToggleSuspendResume_Name, kFlags, 0, 0, nullptr);
@@ -992,14 +1034,17 @@ void MediaControllerProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<MediaControllerObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1028,14 +1073,17 @@ void MediaControllerProxy::PreviousTrack(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::PreviousTrack");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_PreviousTrack_Name, kFlags, 0, 0, nullptr);
@@ -1058,14 +1106,17 @@ void MediaControllerProxy::NextTrack(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::NextTrack");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_NextTrack_Name, kFlags, 0, 0, nullptr);
@@ -1095,14 +1146,17 @@ void MediaControllerProxy::Seek(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_Seek_Name, kFlags, 0, 0, nullptr);
@@ -1152,14 +1206,17 @@ void MediaControllerProxy::ObserveImages(
                         "<value of type ::mojo::PendingRemote<MediaControllerImageObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_ObserveImages_Name, kFlags, 0, 0, nullptr);
@@ -1199,14 +1256,17 @@ void MediaControllerProxy::SeekTo(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_SeekTo_Name, kFlags, 0, 0, nullptr);
@@ -1247,14 +1307,17 @@ void MediaControllerProxy::ScrubTo(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_ScrubTo_Name, kFlags, 0, 0, nullptr);
@@ -1288,14 +1351,17 @@ void MediaControllerProxy::EnterPictureInPicture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::EnterPictureInPicture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_EnterPictureInPicture_Name, kFlags, 0, 0, nullptr);
@@ -1318,14 +1384,17 @@ void MediaControllerProxy::ExitPictureInPicture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::ExitPictureInPicture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_ExitPictureInPicture_Name, kFlags, 0, 0, nullptr);
@@ -1344,7 +1413,7 @@ void MediaControllerProxy::ExitPictureInPicture(
 }
 
 void MediaControllerProxy::SetAudioSinkId(
-    const absl::optional<std::string>& in_id) {
+    const std::optional<std::string>& in_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media_session::mojom::MediaController::SetAudioSinkId", "input_parameters",
@@ -1352,17 +1421,20 @@ void MediaControllerProxy::SetAudioSinkId(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("id"), in_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_SetAudioSinkId_Name, kFlags, 0, 0, nullptr);
@@ -1392,14 +1464,17 @@ void MediaControllerProxy::ToggleMicrophone(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::ToggleMicrophone");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_ToggleMicrophone_Name, kFlags, 0, 0, nullptr);
@@ -1422,14 +1497,17 @@ void MediaControllerProxy::ToggleCamera(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::ToggleCamera");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_ToggleCamera_Name, kFlags, 0, 0, nullptr);
@@ -1452,14 +1530,17 @@ void MediaControllerProxy::HangUp(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::HangUp");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_HangUp_Name, kFlags, 0, 0, nullptr);
@@ -1482,14 +1563,17 @@ void MediaControllerProxy::Raise(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::Raise");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_Raise_Name, kFlags, 0, 0, nullptr);
@@ -1519,14 +1603,17 @@ void MediaControllerProxy::SetMute(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_SetMute_Name, kFlags, 0, 0, nullptr);
@@ -1550,14 +1637,17 @@ void MediaControllerProxy::RequestMediaRemoting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::RequestMediaRemoting");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_RequestMediaRemoting_Name, kFlags, 0, 0, nullptr);
@@ -1580,14 +1670,17 @@ void MediaControllerProxy::EnterAutoPictureInPicture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::EnterAutoPictureInPicture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaController_EnterAutoPictureInPicture_Name, kFlags, 0, 0, nullptr);
@@ -1599,6 +1692,39 @@ void MediaControllerProxy::EnterAutoPictureInPicture(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MediaController::Name_);
   message.set_method_name("EnterAutoPictureInPicture");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void MediaControllerProxy::SkipAd(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send media_session::mojom::MediaController::SkipAd");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaController_SkipAd_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::media_session::mojom::internal::MediaController_SkipAd_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaController::Name_);
+  message.set_method_name("SkipAd");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1940,7 +2066,7 @@ std::move(p_seek_time));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_id{};
+      std::optional<std::string> p_id{};
       MediaController_SetAudioSinkId_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadId(&p_id))
@@ -2116,6 +2242,28 @@ std::move(p_mute));
       impl->EnterAutoPictureInPicture();
       return true;
     }
+    case internal::kMediaController_SkipAd_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MediaController_SkipAd_Params_Data* params =
+          reinterpret_cast<internal::MediaController_SkipAd_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      MediaController_SkipAd_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MediaController::Name_, 21, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SkipAd();
+      return true;
+    }
   }
   return false;
 }
@@ -2192,53 +2340,58 @@ bool MediaControllerStubDispatch::AcceptWithResponder(
     case internal::kMediaController_EnterAutoPictureInPicture_Name: {
       break;
     }
+    case internal::kMediaController_SkipAd_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaControllerValidationInfo[] = {
-    {&internal::MediaController_Suspend_Params_Data::Validate,
+    { &internal::MediaController_Suspend_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_Resume_Params_Data::Validate,
+    { &internal::MediaController_Resume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_Stop_Params_Data::Validate,
+    { &internal::MediaController_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_ToggleSuspendResume_Params_Data::Validate,
+    { &internal::MediaController_ToggleSuspendResume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_AddObserver_Params_Data::Validate,
+    { &internal::MediaController_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_PreviousTrack_Params_Data::Validate,
+    { &internal::MediaController_PreviousTrack_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_NextTrack_Params_Data::Validate,
+    { &internal::MediaController_NextTrack_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_Seek_Params_Data::Validate,
+    { &internal::MediaController_Seek_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_ObserveImages_Params_Data::Validate,
+    { &internal::MediaController_ObserveImages_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_SeekTo_Params_Data::Validate,
+    { &internal::MediaController_SeekTo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_ScrubTo_Params_Data::Validate,
+    { &internal::MediaController_ScrubTo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_EnterPictureInPicture_Params_Data::Validate,
+    { &internal::MediaController_EnterPictureInPicture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_ExitPictureInPicture_Params_Data::Validate,
+    { &internal::MediaController_ExitPictureInPicture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_SetAudioSinkId_Params_Data::Validate,
+    { &internal::MediaController_SetAudioSinkId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_ToggleMicrophone_Params_Data::Validate,
+    { &internal::MediaController_ToggleMicrophone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_ToggleCamera_Params_Data::Validate,
+    { &internal::MediaController_ToggleCamera_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_HangUp_Params_Data::Validate,
+    { &internal::MediaController_HangUp_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_Raise_Params_Data::Validate,
+    { &internal::MediaController_Raise_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_SetMute_Params_Data::Validate,
+    { &internal::MediaController_SetMute_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_RequestMediaRemoting_Params_Data::Validate,
+    { &internal::MediaController_RequestMediaRemoting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaController_EnterAutoPictureInPicture_Params_Data::Validate,
+    { &internal::MediaController_EnterAutoPictureInPicture_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MediaController_SkipAd_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2398,14 +2551,17 @@ void MediaControllerObserverProxy::MediaSessionInfoChanged(
                         "<value of type ::media_session::mojom::MediaSessionInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaControllerObserver_MediaSessionInfoChanged_Name, kFlags, 0, 0, nullptr);
@@ -2431,7 +2587,7 @@ void MediaControllerObserverProxy::MediaSessionInfoChanged(
 }
 
 void MediaControllerObserverProxy::MediaSessionMetadataChanged(
-    const absl::optional<::media_session::MediaMetadata>& in_metadata) {
+    const std::optional<::media_session::MediaMetadata>& in_metadata) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media_session::mojom::MediaControllerObserver::MediaSessionMetadataChanged", "input_parameters",
@@ -2439,17 +2595,20 @@ void MediaControllerObserverProxy::MediaSessionMetadataChanged(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("metadata"), in_metadata,
-                        "<value of type const absl::optional<::media_session::MediaMetadata>&>");
+                        "<value of type const std::optional<::media_session::MediaMetadata>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaControllerObserver_MediaSessionMetadataChanged_Name, kFlags, 0, 0, nullptr);
@@ -2486,14 +2645,17 @@ void MediaControllerObserverProxy::MediaSessionActionsChanged(
                         "<value of type const std::vector<::media_session::mojom::MediaSessionAction>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaControllerObserver_MediaSessionActionsChanged_Name, kFlags, 0, 0, nullptr);
@@ -2525,7 +2687,7 @@ void MediaControllerObserverProxy::MediaSessionActionsChanged(
 }
 
 void MediaControllerObserverProxy::MediaSessionChanged(
-    const absl::optional<::base::UnguessableToken>& in_request_id) {
+    const std::optional<::base::UnguessableToken>& in_request_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media_session::mojom::MediaControllerObserver::MediaSessionChanged", "input_parameters",
@@ -2533,17 +2695,20 @@ void MediaControllerObserverProxy::MediaSessionChanged(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_id"), in_request_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaControllerObserver_MediaSessionChanged_Name, kFlags, 0, 0, nullptr);
@@ -2569,7 +2734,7 @@ void MediaControllerObserverProxy::MediaSessionChanged(
 }
 
 void MediaControllerObserverProxy::MediaSessionPositionChanged(
-    const absl::optional<::media_session::MediaPosition>& in_position) {
+    const std::optional<::media_session::MediaPosition>& in_position) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media_session::mojom::MediaControllerObserver::MediaSessionPositionChanged", "input_parameters",
@@ -2577,17 +2742,20 @@ void MediaControllerObserverProxy::MediaSessionPositionChanged(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("position"), in_position,
-                        "<value of type const absl::optional<::media_session::MediaPosition>&>");
+                        "<value of type const std::optional<::media_session::MediaPosition>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaControllerObserver_MediaSessionPositionChanged_Name, kFlags, 0, 0, nullptr);
@@ -2651,7 +2819,7 @@ std::move(p_info));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::media_session::MediaMetadata> p_metadata{};
+      std::optional<::media_session::MediaMetadata> p_metadata{};
       MediaControllerObserver_MediaSessionMetadataChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadMetadata(&p_metadata))
@@ -2703,7 +2871,7 @@ std::move(p_action));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::UnguessableToken> p_request_id{};
+      std::optional<::base::UnguessableToken> p_request_id{};
       MediaControllerObserver_MediaSessionChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRequestId(&p_request_id))
@@ -2729,7 +2897,7 @@ std::move(p_request_id));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::media_session::MediaPosition> p_position{};
+      std::optional<::media_session::MediaPosition> p_position{};
       MediaControllerObserver_MediaSessionPositionChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPosition(&p_position))
@@ -2778,18 +2946,18 @@ bool MediaControllerObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaControllerObserverValidationInfo[] = {
-    {&internal::MediaControllerObserver_MediaSessionInfoChanged_Params_Data::Validate,
+    { &internal::MediaControllerObserver_MediaSessionInfoChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaControllerObserver_MediaSessionMetadataChanged_Params_Data::Validate,
+    { &internal::MediaControllerObserver_MediaSessionMetadataChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaControllerObserver_MediaSessionActionsChanged_Params_Data::Validate,
+    { &internal::MediaControllerObserver_MediaSessionActionsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaControllerObserver_MediaSessionChanged_Params_Data::Validate,
+    { &internal::MediaControllerObserver_MediaSessionChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaControllerObserver_MediaSessionPositionChanged_Params_Data::Validate,
+    { &internal::MediaControllerObserver_MediaSessionPositionChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2872,14 +3040,17 @@ void MediaControllerImageObserverProxy::MediaControllerImageChanged(
                         "<value of type const ::SkBitmap&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaControllerImageObserver_MediaControllerImageChanged_Name, kFlags, 0, 0, nullptr);
@@ -2960,10 +3131,10 @@ bool MediaControllerImageObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaControllerImageObserverValidationInfo[] = {
-    {&internal::MediaControllerImageObserver_MediaControllerImageChanged_Params_Data::Validate,
+    { &internal::MediaControllerImageObserver_MediaControllerImageChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3045,7 +3216,7 @@ void MediaControllerInterceptorForTesting::EnterPictureInPicture() {
 void MediaControllerInterceptorForTesting::ExitPictureInPicture() {
   GetForwardingInterface()->ExitPictureInPicture();
 }
-void MediaControllerInterceptorForTesting::SetAudioSinkId(const absl::optional<std::string>& id) {
+void MediaControllerInterceptorForTesting::SetAudioSinkId(const std::optional<std::string>& id) {
   GetForwardingInterface()->SetAudioSinkId(std::move(id));
 }
 void MediaControllerInterceptorForTesting::ToggleMicrophone() {
@@ -3069,6 +3240,9 @@ void MediaControllerInterceptorForTesting::RequestMediaRemoting() {
 void MediaControllerInterceptorForTesting::EnterAutoPictureInPicture() {
   GetForwardingInterface()->EnterAutoPictureInPicture();
 }
+void MediaControllerInterceptorForTesting::SkipAd() {
+  GetForwardingInterface()->SkipAd();
+}
 MediaControllerAsyncWaiter::MediaControllerAsyncWaiter(
     MediaController* proxy) : proxy_(proxy) {}
 
@@ -3080,16 +3254,16 @@ MediaControllerAsyncWaiter::~MediaControllerAsyncWaiter() = default;
 void MediaControllerObserverInterceptorForTesting::MediaSessionInfoChanged(::media_session::mojom::MediaSessionInfoPtr info) {
   GetForwardingInterface()->MediaSessionInfoChanged(std::move(info));
 }
-void MediaControllerObserverInterceptorForTesting::MediaSessionMetadataChanged(const absl::optional<::media_session::MediaMetadata>& metadata) {
+void MediaControllerObserverInterceptorForTesting::MediaSessionMetadataChanged(const std::optional<::media_session::MediaMetadata>& metadata) {
   GetForwardingInterface()->MediaSessionMetadataChanged(std::move(metadata));
 }
 void MediaControllerObserverInterceptorForTesting::MediaSessionActionsChanged(const std::vector<::media_session::mojom::MediaSessionAction>& action) {
   GetForwardingInterface()->MediaSessionActionsChanged(std::move(action));
 }
-void MediaControllerObserverInterceptorForTesting::MediaSessionChanged(const absl::optional<::base::UnguessableToken>& request_id) {
+void MediaControllerObserverInterceptorForTesting::MediaSessionChanged(const std::optional<::base::UnguessableToken>& request_id) {
   GetForwardingInterface()->MediaSessionChanged(std::move(request_id));
 }
-void MediaControllerObserverInterceptorForTesting::MediaSessionPositionChanged(const absl::optional<::media_session::MediaPosition>& position) {
+void MediaControllerObserverInterceptorForTesting::MediaSessionPositionChanged(const std::optional<::media_session::MediaPosition>& position) {
   GetForwardingInterface()->MediaSessionPositionChanged(std::move(position));
 }
 MediaControllerObserverAsyncWaiter::MediaControllerObserverAsyncWaiter(

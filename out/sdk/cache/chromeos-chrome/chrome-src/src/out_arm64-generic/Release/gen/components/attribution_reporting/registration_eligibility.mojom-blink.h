@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/attribution_reporting/registration_eligibility.mojom-features.h"
 #include "components/attribution_reporting/registration_eligibility.mojom-shared.h"
 #include "components/attribution_reporting/registration_eligibility.mojom-blink-forward.h"
 
@@ -31,18 +32,6 @@
 
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::attribution_reporting::mojom::RegistrationEligibility>
-    : EnumHashTraits<::attribution_reporting::mojom::RegistrationEligibility, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace attribution_reporting::mojom::blink {

@@ -30,4 +30,4 @@ MODULE_INFO(retpoline, "Y");
 MODULE_INFO(depends, "libchacha20poly1305,udp_tunnel,ip6_udp_tunnel,libcurve25519-generic");
 
 
-MODULE_INFO(srcversion, "262394A048E821954E76208");
+MODULE_INFO(srcversion, "17403A1CBF0D856A602FB70");

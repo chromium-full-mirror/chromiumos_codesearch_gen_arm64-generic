@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 export class CommerceInternalsHandlerFactoryPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -12,6 +13,9 @@ export class CommerceInternalsHandlerFactoryPendingReceiver {
     }
 }
 export class CommerceInternalsHandlerFactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CommerceInternalsHandlerFactoryPendingReceiver, handle);
@@ -32,6 +36,9 @@ export class CommerceInternalsHandlerFactoryRemote {
  * interface.
  */
 export class CommerceInternalsHandlerFactoryReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommerceInternalsHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -61,6 +68,11 @@ export class CommerceInternalsHandlerFactory {
  * receiver can have any number of listeners added to it.
  */
 export class CommerceInternalsHandlerFactoryCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    createCommerceInternalsHandler;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommerceInternalsHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -79,6 +91,7 @@ export class CommerceInternalsHandlerFactoryCallbackRouter {
     }
 }
 export class CommerceInternalsHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -87,6 +100,9 @@ export class CommerceInternalsHandlerPendingReceiver {
     }
 }
 export class CommerceInternalsHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CommerceInternalsHandlerPendingReceiver, handle);
@@ -110,6 +126,9 @@ export class CommerceInternalsHandlerRemote {
  * interface.
  */
 export class CommerceInternalsHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommerceInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -141,6 +160,13 @@ export class CommerceInternalsHandler {
  * receiver can have any number of listeners added to it.
  */
 export class CommerceInternalsHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    getIsShoppingListEligible;
+    getShoppingListEligibleDetails;
+    resetPriceTrackingEmailPref;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommerceInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -165,6 +191,7 @@ export class CommerceInternalsHandlerCallbackRouter {
     }
 }
 export class CommerceInternalsPagePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -173,6 +200,9 @@ export class CommerceInternalsPagePendingReceiver {
     }
 }
 export class CommerceInternalsPageRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CommerceInternalsPagePendingReceiver, handle);
@@ -192,6 +222,9 @@ export class CommerceInternalsPageRemote {
  * interface.
  */
 export class CommerceInternalsPageReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommerceInternalsPageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -221,6 +254,11 @@ export class CommerceInternalsPage {
  * receiver can have any number of listeners added to it.
  */
 export class CommerceInternalsPageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onShoppingListEligibilityChanged;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommerceInternalsPageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -258,9 +296,8 @@ mojo.internal.Struct(ShoppingListEligibleDetailSpec.$, 'ShoppingListEligibleDeta
     mojo.internal.StructField('isSignedIn', 24, 0, EligibleEntrySpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('isSyncingBookmarks', 32, 0, EligibleEntrySpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('isAnonymizedUrlDataCollectionEnabled', 40, 0, EligibleEntrySpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('isWebAndAppActivityEnabled', 48, 0, EligibleEntrySpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('isSubjectToParentalControls', 56, 0, EligibleEntrySpec.$, null, false /* nullable */, 0),
-], [[0, 72],]);
+    mojo.internal.StructField('isSubjectToParentalControls', 48, 0, EligibleEntrySpec.$, null, false /* nullable */, 0),
+], [[0, 64],]);
 mojo.internal.Struct(CommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_ParamsSpec.$, 'CommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_Params', [
     mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(CommerceInternalsPageRemote), null, false /* nullable */, 0),
     mojo.internal.StructField('handler', 8, 0, mojo.internal.InterfaceRequest(CommerceInternalsHandlerPendingReceiver), null, false /* nullable */, 0),

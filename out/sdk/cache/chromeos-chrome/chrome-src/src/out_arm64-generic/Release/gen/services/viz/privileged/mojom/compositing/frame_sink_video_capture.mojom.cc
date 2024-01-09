@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -218,14 +219,17 @@ void FrameSinkVideoConsumerFrameCallbacksProxy::Done(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::FrameSinkVideoConsumerFrameCallbacks::Done");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoConsumerFrameCallbacks_Done_Name, kFlags, 0, 0, nullptr);
@@ -255,14 +259,17 @@ void FrameSinkVideoConsumerFrameCallbacksProxy::ProvideFeedback(
                         "<value of type const ::media::VideoCaptureFeedback&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoConsumerFrameCallbacks_ProvideFeedback_Name, kFlags, 0, 0, nullptr);
@@ -366,12 +373,12 @@ bool FrameSinkVideoConsumerFrameCallbacksStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameSinkVideoConsumerFrameCallbacksValidationInfo[] = {
-    {&internal::FrameSinkVideoConsumerFrameCallbacks_Done_Params_Data::Validate,
+    { &internal::FrameSinkVideoConsumerFrameCallbacks_Done_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoConsumerFrameCallbacks_ProvideFeedback_Params_Data::Validate,
+    { &internal::FrameSinkVideoConsumerFrameCallbacks_ProvideFeedback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -540,14 +547,17 @@ void FrameSinkVideoConsumerProxy::OnFrameCaptured(
                         "<value of type ::mojo::PendingRemote<FrameSinkVideoConsumerFrameCallbacks>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoConsumer_OnFrameCaptured_Name, kFlags, 0, 0, nullptr);
@@ -614,14 +624,17 @@ void FrameSinkVideoConsumerProxy::OnNewSubCaptureTargetVersion(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Name, kFlags, 0, 0, nullptr);
@@ -645,14 +658,17 @@ void FrameSinkVideoConsumerProxy::OnFrameWithEmptyRegionCapture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::FrameSinkVideoConsumer::OnFrameWithEmptyRegionCapture");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Name, kFlags, 0, 0, nullptr);
@@ -675,14 +691,17 @@ void FrameSinkVideoConsumerProxy::OnStopped(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::FrameSinkVideoConsumer::OnStopped");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoConsumer_OnStopped_Name, kFlags, 0, 0, nullptr);
@@ -712,14 +731,17 @@ void FrameSinkVideoConsumerProxy::OnLog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoConsumer_OnLog_Name, kFlags, 0, 0, nullptr);
@@ -920,18 +942,18 @@ bool FrameSinkVideoConsumerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameSinkVideoConsumerValidationInfo[] = {
-    {&internal::FrameSinkVideoConsumer_OnFrameCaptured_Params_Data::Validate,
+    { &internal::FrameSinkVideoConsumer_OnFrameCaptured_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data::Validate,
+    { &internal::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Params_Data::Validate,
+    { &internal::FrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoConsumer_OnStopped_Params_Data::Validate,
+    { &internal::FrameSinkVideoConsumer_OnStopped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoConsumer_OnLog_Params_Data::Validate,
+    { &internal::FrameSinkVideoConsumer_OnLog_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1191,14 +1213,17 @@ void FrameSinkVideoCapturerProxy::SetFormat(
                         "<value of type ::media::VideoPixelFormat>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_SetFormat_Name, kFlags, 0, 0, nullptr);
@@ -1230,14 +1255,17 @@ void FrameSinkVideoCapturerProxy::SetMinCapturePeriod(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_SetMinCapturePeriod_Name, kFlags, 0, 0, nullptr);
@@ -1278,14 +1306,17 @@ void FrameSinkVideoCapturerProxy::SetMinSizeChangePeriod(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_SetMinSizeChangePeriod_Name, kFlags, 0, 0, nullptr);
@@ -1332,14 +1363,17 @@ void FrameSinkVideoCapturerProxy::SetResolutionConstraints(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_SetResolutionConstraints_Name, kFlags, 0, 0, nullptr);
@@ -1392,14 +1426,17 @@ void FrameSinkVideoCapturerProxy::SetAutoThrottlingEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_SetAutoThrottlingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1419,7 +1456,7 @@ void FrameSinkVideoCapturerProxy::SetAutoThrottlingEnabled(
 }
 
 void FrameSinkVideoCapturerProxy::ChangeTarget(
-    const absl::optional<::viz::VideoCaptureTarget>& in_target, uint32_t in_sub_capture_target_version) {
+    const std::optional<::viz::VideoCaptureTarget>& in_target, uint32_t in_sub_capture_target_version) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send viz::mojom::FrameSinkVideoCapturer::ChangeTarget", "input_parameters",
@@ -1427,20 +1464,23 @@ void FrameSinkVideoCapturerProxy::ChangeTarget(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("target"), in_target,
-                        "<value of type const absl::optional<::viz::VideoCaptureTarget>&>");
+                        "<value of type const std::optional<::viz::VideoCaptureTarget>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("sub_capture_target_version"), in_sub_capture_target_version,
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_ChangeTarget_Name, kFlags, 0, 0, nullptr);
@@ -1481,14 +1521,17 @@ void FrameSinkVideoCapturerProxy::Start(
                         "<value of type BufferFormatPreference>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_Start_Name, kFlags, 0, 0, nullptr);
@@ -1519,14 +1562,17 @@ void FrameSinkVideoCapturerProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::FrameSinkVideoCapturer::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_Stop_Name, kFlags, 0, 0, nullptr);
@@ -1549,14 +1595,17 @@ void FrameSinkVideoCapturerProxy::RequestRefreshFrame(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::FrameSinkVideoCapturer::RequestRefreshFrame");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_RequestRefreshFrame_Name, kFlags, 0, 0, nullptr);
@@ -1589,14 +1638,17 @@ void FrameSinkVideoCapturerProxy::CreateOverlay(
                         "<value of type ::mojo::PendingReceiver<FrameSinkVideoCaptureOverlay>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCapturer_CreateOverlay_Name, kFlags, 0, 0, nullptr);
@@ -1772,7 +1824,7 @@ std::move(p_enabled));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::viz::VideoCaptureTarget> p_target{};
+      std::optional<::viz::VideoCaptureTarget> p_target{};
       uint32_t p_sub_capture_target_version{};
       FrameSinkVideoCapturer_ChangeTarget_ParamsDataView input_data_view(params, message);
       
@@ -1948,28 +2000,28 @@ bool FrameSinkVideoCapturerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameSinkVideoCapturerValidationInfo[] = {
-    {&internal::FrameSinkVideoCapturer_SetFormat_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_SetFormat_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCapturer_SetMinCapturePeriod_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_SetMinCapturePeriod_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCapturer_SetMinSizeChangePeriod_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_SetMinSizeChangePeriod_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCapturer_SetResolutionConstraints_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_SetResolutionConstraints_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCapturer_SetAutoThrottlingEnabled_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_SetAutoThrottlingEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCapturer_ChangeTarget_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_ChangeTarget_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCapturer_Start_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_Start_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCapturer_Stop_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCapturer_RequestRefreshFrame_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_RequestRefreshFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCapturer_CreateOverlay_Params_Data::Validate,
+    { &internal::FrameSinkVideoCapturer_CreateOverlay_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1989,6 +2041,9 @@ FrameSinkVideoCaptureOverlay::IPCStableHashFunction FrameSinkVideoCaptureOverlay
     case internal::kFrameSinkVideoCaptureOverlay_SetBounds_Name: {
       return &FrameSinkVideoCaptureOverlay::SetBounds_Sym::IPCStableHash;
     }
+    case internal::kFrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Name: {
+      return &FrameSinkVideoCaptureOverlay::OnCapturedMouseEvent_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2004,6 +2059,8 @@ const char* FrameSinkVideoCaptureOverlay::MessageToMethodName_(mojo::Message& me
             return "Receive viz::mojom::FrameSinkVideoCaptureOverlay::SetImageAndBounds";
       case internal::kFrameSinkVideoCaptureOverlay_SetBounds_Name:
             return "Receive viz::mojom::FrameSinkVideoCaptureOverlay::SetBounds";
+      case internal::kFrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Name:
+            return "Receive viz::mojom::FrameSinkVideoCaptureOverlay::OnCapturedMouseEvent";
     }
   } else {
     switch (message.name()) {
@@ -2011,6 +2068,8 @@ const char* FrameSinkVideoCaptureOverlay::MessageToMethodName_(mojo::Message& me
             return "Receive reply viz::mojom::FrameSinkVideoCaptureOverlay::SetImageAndBounds";
       case internal::kFrameSinkVideoCaptureOverlay_SetBounds_Name:
             return "Receive reply viz::mojom::FrameSinkVideoCaptureOverlay::SetBounds";
+      case internal::kFrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Name:
+            return "Receive reply viz::mojom::FrameSinkVideoCaptureOverlay::OnCapturedMouseEvent";
     }
   }
   return "Receive unknown mojo message";
@@ -2051,6 +2110,19 @@ uint32_t FrameSinkVideoCaptureOverlay::SetBounds_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t FrameSinkVideoCaptureOverlay::OnCapturedMouseEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)viz::mojom::FrameSinkVideoCaptureOverlay::OnCapturedMouseEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 FrameSinkVideoCaptureOverlayProxy::FrameSinkVideoCaptureOverlayProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -2072,14 +2144,17 @@ void FrameSinkVideoCaptureOverlayProxy::SetImageAndBounds(
                         "<value of type const ::gfx::RectF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCaptureOverlay_SetImageAndBounds_Name, kFlags, 0, 0, nullptr);
@@ -2131,14 +2206,17 @@ void FrameSinkVideoCaptureOverlayProxy::SetBounds(
                         "<value of type const ::gfx::RectF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkVideoCaptureOverlay_SetBounds_Name, kFlags, 0, 0, nullptr);
@@ -2161,6 +2239,57 @@ void FrameSinkVideoCaptureOverlayProxy::SetBounds(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(FrameSinkVideoCaptureOverlay::Name_);
   message.set_method_name("SetBounds");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void FrameSinkVideoCaptureOverlayProxy::OnCapturedMouseEvent(
+    const ::gfx::Point& in_coordinates) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send viz::mojom::FrameSinkVideoCaptureOverlay::OnCapturedMouseEvent", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("coordinates"), in_coordinates,
+                        "<value of type const ::gfx::Point&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kFrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::viz::mojom::internal::FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->coordinates)::BaseType> coordinates_fragment(
+          params.message());
+  mojo::internal::Serialize<::gfx::mojom::PointDataView>(
+      in_coordinates, coordinates_fragment);
+  params->coordinates.Set(
+      coordinates_fragment.is_null() ? nullptr : coordinates_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->coordinates.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null coordinates in FrameSinkVideoCaptureOverlay.OnCapturedMouseEvent request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(FrameSinkVideoCaptureOverlay::Name_);
+  message.set_method_name("OnCapturedMouseEvent");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2228,6 +2357,32 @@ std::move(p_bounds));
 std::move(p_bounds));
       return true;
     }
+    case internal::kFrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data* params =
+          reinterpret_cast<internal::FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::gfx::Point p_coordinates{};
+      FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadCoordinates(&p_coordinates))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            FrameSinkVideoCaptureOverlay::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnCapturedMouseEvent(
+std::move(p_coordinates));
+      return true;
+    }
   }
   return false;
 }
@@ -2247,15 +2402,20 @@ bool FrameSinkVideoCaptureOverlayStubDispatch::AcceptWithResponder(
     case internal::kFrameSinkVideoCaptureOverlay_SetBounds_Name: {
       break;
     }
+    case internal::kFrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameSinkVideoCaptureOverlayValidationInfo[] = {
-    {&internal::FrameSinkVideoCaptureOverlay_SetImageAndBounds_Params_Data::Validate,
+    { &internal::FrameSinkVideoCaptureOverlay_SetImageAndBounds_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoCaptureOverlay_SetBounds_Params_Data::Validate,
+    { &internal::FrameSinkVideoCaptureOverlay_SetBounds_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2382,7 +2542,7 @@ void FrameSinkVideoCapturerInterceptorForTesting::SetResolutionConstraints(const
 void FrameSinkVideoCapturerInterceptorForTesting::SetAutoThrottlingEnabled(bool enabled) {
   GetForwardingInterface()->SetAutoThrottlingEnabled(std::move(enabled));
 }
-void FrameSinkVideoCapturerInterceptorForTesting::ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) {
+void FrameSinkVideoCapturerInterceptorForTesting::ChangeTarget(const std::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) {
   GetForwardingInterface()->ChangeTarget(std::move(target), std::move(sub_capture_target_version));
 }
 void FrameSinkVideoCapturerInterceptorForTesting::Start(::mojo::PendingRemote<FrameSinkVideoConsumer> consumer, BufferFormatPreference buffer_format_preference) {
@@ -2410,6 +2570,9 @@ void FrameSinkVideoCaptureOverlayInterceptorForTesting::SetImageAndBounds(const 
 }
 void FrameSinkVideoCaptureOverlayInterceptorForTesting::SetBounds(const ::gfx::RectF& bounds) {
   GetForwardingInterface()->SetBounds(std::move(bounds));
+}
+void FrameSinkVideoCaptureOverlayInterceptorForTesting::OnCapturedMouseEvent(const ::gfx::Point& coordinates) {
+  GetForwardingInterface()->OnCapturedMouseEvent(std::move(coordinates));
 }
 FrameSinkVideoCaptureOverlayAsyncWaiter::FrameSinkVideoCaptureOverlayAsyncWaiter(
     FrameSinkVideoCaptureOverlay* proxy) : proxy_(proxy) {}

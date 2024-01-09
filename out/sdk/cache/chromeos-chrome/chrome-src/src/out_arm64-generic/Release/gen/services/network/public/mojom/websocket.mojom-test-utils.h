@@ -26,8 +26,8 @@ class  WebSocketAuthenticationHandlerAsyncWaiter {
 
   ~WebSocketAuthenticationHandlerAsyncWaiter();
   void OnAuthRequired(
-      const ::net::AuthChallengeInfo& info, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, const ::net::IPEndPoint& remote_endpoint, absl::optional<::net::AuthCredentials>* out_credentials);
-  absl::optional<::net::AuthCredentials> OnAuthRequired(const ::net::AuthChallengeInfo& info, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, const ::net::IPEndPoint& remote_endpoint);
+      const ::net::AuthChallengeInfo& info, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, const ::net::IPEndPoint& remote_endpoint, std::optional<::net::AuthCredentials>* out_credentials);
+  std::optional<::net::AuthCredentials> OnAuthRequired(const ::net::AuthChallengeInfo& info, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, const ::net::IPEndPoint& remote_endpoint);
 
  private:
   WebSocketAuthenticationHandler* const proxy_;

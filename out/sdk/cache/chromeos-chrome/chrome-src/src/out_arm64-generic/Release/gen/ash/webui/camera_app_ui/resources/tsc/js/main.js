@@ -1,7 +1,7 @@
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import './lit/svg-wrapper.js';
+import './lit/components/index.js';
 import { ColorChangeUpdater, } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
 import { getDefaultWindowSize, } from './app_window.js';
 import { assert, assertEnumVariant, assertExists, assertInstanceof, checkEnumVariant, } from './assert.js';
@@ -11,8 +11,6 @@ import { CameraManager } from './device/index.js';
 import * as dom from './dom.js';
 import { reportError } from './error.js';
 import * as expert from './expert.js';
-import { Flag } from './flag.js';
-import { GalleryButton } from './gallerybutton.js';
 import { Intent } from './intent.js';
 import * as Comlink from './lib/comlink.js';
 import { startMeasuringMemoryUsage } from './memory_usage.js';
@@ -20,6 +18,7 @@ import * as metrics from './metrics.js';
 import * as filesystem from './models/file_system.js';
 import * as loadTimeData from './models/load_time_data.js';
 import * as localStorage from './models/local_storage.js';
+import { DefaultResultSaver } from './models/result_saver.js';
 import { ChromeHelper } from './mojo/chrome_helper.js';
 import { DeviceOperator } from './mojo/device_operator.js';
 import { WindowStateType } from './mojo/type.js';
@@ -165,12 +164,6 @@ function setupEffect() {
         childList: true,
     });
 }
-function setupExperimentalFeatures() {
-    if (loadTimeData.getChromeFlag(Flag.TIME_LAPSE)) {
-        const modeButton = dom.get('#time-lapse-mode', HTMLDivElement);
-        modeButton.classList.remove('hidden');
-    }
-}
 /**
  * Handles pressed keys.
  */
@@ -214,6 +207,29 @@ function preloadImages() {
         imagesContainer.appendChild(img);
     }
     document.body.appendChild(imagesContainer);
+}
+/**
+ * Append dynamic color CSS files and setup watcher for color changes.
+ */
+async function setupDynamicColor() {
+    function loadCSS(url) {
+        return new Promise((resolve) => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = url;
+            link.addEventListener('load', () => resolve());
+            document.head.appendChild(link);
+        });
+    }
+    ColorChangeUpdater.forDocument().start();
+    // Note that this has to be loaded after
+    // ColorChangeUpdater.forDocument.start() is called, since we override the
+    // force dark theme on the color_change_listener BindInterface in
+    // camera_app_ui.cc
+    // TODO(pihsun): Check if there's way to override color scheme earlier before
+    // HTML load, so the CSS can be put into .html file instead of being injected
+    // by JS.
+    await loadCSS('chrome://theme/colors.css?sets=ref,sys');
 }
 async function setupMultiWindowHandling(cameraManager, cameraView, cameraResourceInitialized) {
     async function handleResume() {
@@ -348,7 +364,8 @@ async function main() {
         void metrics.setEnabled(false);
     }
     const perfLogger = createPerfLogger();
-    ColorChangeUpdater.forDocument().start();
+    // toast and splash style depends on dynamic color css being imported.
+    await setupDynamicColor();
     if (DEPLOYED_VERSION !== undefined) {
         // eslint-disable-next-line no-console
         console.log(`Local override enabled for CCA (${DEPLOYED_VERSION}). ` +
@@ -372,10 +389,10 @@ async function main() {
         mode: mode ?? Mode.PHOTO,
     };
     const cameraManager = new CameraManager(perfLogger, facing, modeConstraints);
-    const galleryButton = new GalleryButton();
+    const resultSaver = new DefaultResultSaver();
     const cameraView = shouldHandleIntentResult ?
         new CameraIntent(intent, cameraManager, perfLogger) :
-        new Camera(galleryButton, cameraManager, perfLogger);
+        new Camera(resultSaver, cameraManager, perfLogger);
     // Set up views navigation by their DOM z-order.
     nav.setup([
         cameraView,
@@ -399,7 +416,6 @@ async function main() {
     setupToggles();
     localStorage.cleanup();
     setupEffect();
-    setupExperimentalFeatures();
     preloadImages();
     preloadSounds();
     setupSvgs();
@@ -410,7 +426,7 @@ async function main() {
         await filesystem.initialize();
         const cameraDir = filesystem.getCameraDirectory();
         if (!shouldHandleIntentResult) {
-            await galleryButton.initialize(cameraDir);
+            await resultSaver.initialize(cameraDir);
         }
     }
     catch (error) {

@@ -28,7 +28,7 @@ export function getTemplate() {
     padding: 0 20px 0 0;
   }
 
-  #errorMessage {
+  #errorMessageContainer {
     display: flex;
     margin: 30px;
     margin-inline-end: 80px;
@@ -58,8 +58,7 @@ export function getTemplate() {
 <div id="apnDescription" class="property-box" aria-live="assertive">
   <template is="dom-if" if="[[!shouldOmitLinks]]" restamp>
     <localized-link
-        localized-string="[[i18nAdvanced('apnSettingsDescriptionWithLink')]]"
-        on-link-clicked="onLearnMoreClicked_">
+        localized-string="[[i18nAdvanced('apnSettingsDescriptionWithLink')]]">
     </localized-link>
   </template>
   <template is="dom-if" if="[[shouldOmitLinks]]" restamp>
@@ -70,12 +69,11 @@ export function getTemplate() {
   <template is="dom-if"
       if="[[shouldShowErrorMessage_(managedCellularProperties,
           errorState)]]" restamp>
-    <div id="errorMessage">
+    <div id="errorMessageContainer">
       <span><iron-icon icon="cr20:warning"></iron-icon></span>
-      <localized-link
-          localized-string="[[getErrorMessage_(managedCellularProperties,
-              errorState)]]">
-      </localized-link>
+      <span id="errorMessage">
+        [[getErrorMessage_(managedCellularProperties, errorState)]]
+      </span>
     </div>
   </template>
 </div>
@@ -99,7 +97,8 @@ export function getTemplate() {
         should-disallow-enabling="[[shouldDisallowEnabling_(item)]]"
         guid="[[guid]]"
         item-index="[[index]]"
-        list-size="[[apns_.length]]">
+        list-size="[[apns_.length]]"
+        portal-state="[[portalState]]">
     </apn-list-item>
   </template>
 </iron-list>

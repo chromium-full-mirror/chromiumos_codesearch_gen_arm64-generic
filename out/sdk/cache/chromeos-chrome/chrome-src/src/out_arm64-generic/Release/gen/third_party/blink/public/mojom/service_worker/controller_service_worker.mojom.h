@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/service_worker/controller_service_worker.mojom-features.h"
 #include "third_party/blink/public/mojom/service_worker/controller_service_worker.mojom-shared.h"
 #include "third_party/blink/public/mojom/service_worker/controller_service_worker.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -464,11 +465,11 @@ class BLINK_COMMON_EXPORT ControllerServiceWorkerInfo {
       ::blink::mojom::ServiceWorkerFetchHandlerType fetch_handler_type,
       ::blink::mojom::ServiceWorkerFetchHandlerType effective_fetch_handler_type,
       ::blink::mojom::ServiceWorkerFetchHandlerBypassOption fetch_handler_bypass_option,
-      const absl::optional<std::string>& sha256_script_checksum,
+      const std::optional<std::string>& sha256_script_checksum,
       ServiceWorkerRouterDataPtr router_data,
       ::mojo::PendingRemote<ControllerServiceWorker> remote_controller,
       const std::string& client_id,
-      const absl::optional<::base::UnguessableToken>& fetch_request_window_id,
+      const std::optional<::base::UnguessableToken>& fetch_request_window_id,
       ::blink::mojom::ServiceWorkerObjectInfoPtr object_info,
       std::vector<::blink::mojom::WebFeature> used_features);
 
@@ -553,7 +554,7 @@ ControllerServiceWorkerInfo& operator=(const ControllerServiceWorkerInfo&) = del
   
   ::blink::mojom::ServiceWorkerFetchHandlerBypassOption fetch_handler_bypass_option;
   
-  absl::optional<std::string> sha256_script_checksum;
+  std::optional<std::string> sha256_script_checksum;
   
   ServiceWorkerRouterDataPtr router_data;
   
@@ -561,7 +562,7 @@ ControllerServiceWorkerInfo& operator=(const ControllerServiceWorkerInfo&) = del
   
   std::string client_id;
   
-  absl::optional<::base::UnguessableToken> fetch_request_window_id;
+  std::optional<::base::UnguessableToken> fetch_request_window_id;
   
   ::blink::mojom::ServiceWorkerObjectInfoPtr object_info;
   

@@ -47,6 +47,16 @@ namespace internal {
 
 namespace guest_view::mojom {
 // Interface base classes. They are used for type safety check.
+class ViewHandleInterfaceBase {};
+
+using ViewHandlePtrDataView =
+    mojo::InterfacePtrDataView<ViewHandleInterfaceBase>;
+using ViewHandleRequestDataView =
+    mojo::InterfaceRequestDataView<ViewHandleInterfaceBase>;
+using ViewHandleAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<ViewHandleInterfaceBase>;
+using ViewHandleAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<ViewHandleInterfaceBase>;
 class GuestViewHostInterfaceBase {};
 
 using GuestViewHostPtrDataView =

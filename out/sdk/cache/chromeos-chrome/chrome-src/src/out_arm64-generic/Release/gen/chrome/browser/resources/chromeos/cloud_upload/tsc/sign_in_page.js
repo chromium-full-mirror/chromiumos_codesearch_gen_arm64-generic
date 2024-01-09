@@ -1,7 +1,7 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import { BaseSetupPageElement, CANCEL_SETUP_EVENT, NEXT_PAGE_EVENT } from './base_setup_page.js';
 import { CloudUploadBrowserProxy } from './cloud_upload_browser_proxy.js';
 import { getTemplate } from './sign_in_page.html.js';

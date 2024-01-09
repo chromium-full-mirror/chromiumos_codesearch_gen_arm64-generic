@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGMatrixTearOff>::value,
     "SVGMatrixTearOff inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGMatrixTearOff::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGMatrixTearOff is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.a.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->a();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -97,9 +93,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.a.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGMatrix";
@@ -123,8 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.b.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->b();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -136,9 +133,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.b.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGMatrix";
@@ -162,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.c.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->c();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -175,9 +173,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.c.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGMatrix";
@@ -201,8 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.d.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->d();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -214,9 +213,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.d.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGMatrix";
@@ -240,8 +239,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.e.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->e();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -253,9 +253,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.e.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGMatrix";
@@ -279,8 +279,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.f.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->f();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -292,9 +293,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.f.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGMatrix";
@@ -322,8 +323,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.flipX");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->flipX();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -339,8 +341,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.flipY");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->flipY();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -356,9 +359,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGMatrix.inverse");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "SVGMatrix";
 const char* const property_name = "inverse";
@@ -391,7 +394,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_second_matrix = NativeValueTraits<SVGMatrixTearOff>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -421,7 +424,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_angle = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -451,7 +454,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -488,7 +491,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scale_factor = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -518,7 +521,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scale_factor_x = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -552,7 +555,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_angle = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -582,7 +585,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_angle = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -612,7 +615,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(v8_receiver);
+SVGMatrixTearOff* blink_receiver = V8SVGMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLUnrestrictedFloat>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

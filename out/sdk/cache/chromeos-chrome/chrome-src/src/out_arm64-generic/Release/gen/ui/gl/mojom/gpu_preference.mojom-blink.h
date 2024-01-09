@@ -13,11 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/type_converter.h"
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/gl/mojom/gpu_preference.mojom-features.h"
 #include "ui/gl/mojom/gpu_preference.mojom-shared.h"
 #include "ui/gl/mojom/gpu_preference.mojom-blink-forward.h"
 
@@ -32,18 +33,6 @@
 #include "base/component_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::gl::mojom::GpuPreference>
-    : EnumHashTraits<::gl::mojom::GpuPreference, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace gl::mojom::blink {

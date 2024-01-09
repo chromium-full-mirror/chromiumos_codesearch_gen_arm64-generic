@@ -8,7 +8,7 @@ const FS = require("fs");
 const Mocha = require("mocha");
 const Path = require("path");
 const puppeteer_state_js_1 = require("../conductor/puppeteer-state.js");
-const screenshots_js_1 = require("../shared/screenshots.js");
+const screenshot_error_js_1 = require("../shared/screenshot-error.js");
 const async_scope_js_1 = require("./async-scope.js");
 const config_js_1 = require("./config.js");
 const helper_js_1 = require("./helper.js");
@@ -149,9 +149,9 @@ async function timeoutHook(done, err) {
             err.cause = new Error(msg);
         }
     }
-    if (err && !(0, config_js_1.getEnvVar)('DEBUG_TEST') && !(err instanceof screenshots_js_1.ScreenshotError)) {
+    if (err && !(0, config_js_1.getEnvVar)('DEBUG_TEST') && !(err instanceof screenshot_error_js_1.ScreenshotError)) {
         const { target, frontend } = await takeScreenshots(this.fullTitle());
-        err = screenshots_js_1.ScreenshotError.fromBase64Images(err, target, frontend);
+        err = screenshot_error_js_1.ScreenshotError.fromBase64Images(err, target, frontend);
     }
     if (done) {
         // This workaround is needed to allow timeoutHook to be async.
@@ -226,9 +226,9 @@ function wrapMochaCall(call, name, callback) {
         hookTestTimeout(test);
         if (callback.length === 0) {
             async function onError(err) {
-                if (err && !(0, config_js_1.getEnvVar)('DEBUG_TEST') && !(err instanceof screenshots_js_1.ScreenshotError)) {
+                if (err && !(0, config_js_1.getEnvVar)('DEBUG_TEST') && !(err instanceof screenshot_error_js_1.ScreenshotError)) {
                     const { target, frontend } = await takeScreenshots(name);
-                    err = screenshots_js_1.ScreenshotError.fromBase64Images(err, target, frontend);
+                    err = screenshot_error_js_1.ScreenshotError.fromBase64Images(err, target, frontend);
                 }
                 done.call(this, err);
             }

@@ -16,9 +16,10 @@ namespace blink::mojom::blink {
 
 class PLATFORM_EXPORT LCPCriticalPathPredictorHostInterceptorForTesting : public LCPCriticalPathPredictorHost {
   virtual LCPCriticalPathPredictorHost* GetForwardingInterface() = 0;
-  void SetLcpElementLocator(const std::string& lcp_element_locator) override;
+  void SetLcpElementLocator(const std::string& lcp_element_locator, std::optional<uint32_t> predicted_lcp_index) override;
   void SetLcpInfluencerScriptUrls(const WTF::Vector<::blink::KURL>& lcp_influencer_scripts) override;
   void NotifyFetchedFont(const ::blink::KURL& font_url) override;
+  void NotifyFetchedSubresource(const ::blink::KURL& subresource_url, ::base::TimeDelta subresource_load_start) override;
 };
 class PLATFORM_EXPORT LCPCriticalPathPredictorHostAsyncWaiter {
  public:

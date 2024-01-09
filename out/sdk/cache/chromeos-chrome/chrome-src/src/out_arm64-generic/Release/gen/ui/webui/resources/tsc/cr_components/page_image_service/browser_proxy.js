@@ -6,6 +6,7 @@
  */
 import { PageImageServiceHandler } from './page_image_service.mojom-webui.js';
 export class PageImageServiceBrowserProxy {
+    handler;
     constructor(handler) {
         this.handler = handler;
     }

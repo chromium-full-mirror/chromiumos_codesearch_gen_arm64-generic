@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRDepthInformation>::value,
     "XRDepthInformation inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRDepthInformation::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRDepthInformation is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRDepthInformation.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRDepthInformation* blink_receiver = V8XRDepthInformation::ToWrappableUnsafe(v8_receiver);
+XRDepthInformation* blink_receiver = V8XRDepthInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRDepthInformation.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRDepthInformation* blink_receiver = V8XRDepthInformation::ToWrappableUnsafe(v8_receiver);
+XRDepthInformation* blink_receiver = V8XRDepthInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -132,7 +129,7 @@ auto&& v8_private_save_same_object =
   }
 }
 
-XRDepthInformation* blink_receiver = V8XRDepthInformation::ToWrappableUnsafe(v8_receiver);
+XRDepthInformation* blink_receiver = V8XRDepthInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->normDepthBufferFromNormView();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 // [SaveSameObject]
@@ -147,8 +144,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRDepthInformation.rawValueToMeters.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRDepthInformation* blink_receiver = V8XRDepthInformation::ToWrappableUnsafe(v8_receiver);
+XRDepthInformation* blink_receiver = V8XRDepthInformation::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rawValueToMeters();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }

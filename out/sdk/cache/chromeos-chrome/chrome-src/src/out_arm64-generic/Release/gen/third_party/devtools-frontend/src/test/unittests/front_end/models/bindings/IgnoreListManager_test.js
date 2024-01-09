@@ -19,6 +19,7 @@ const UIStrings = {
 };
 const sourceMapThirdPartyFolderUrl = 'http://a.b.c/lib';
 const sourceMapThirdPartyUrl = 'http://a.b.c/lib/source1.ts';
+const sourceMapNodeModulesUrl = 'http://a.b.c/node_modules/library/source3.ts';
 const sourceMapFolderUrl = 'http://a.b.c/myapp';
 const sourceMapFile1Url = 'http://a.b.c/myapp/file1.ts';
 const sourceMapFile2Url = 'http://a.b.c/myapp/file2.ts';
@@ -26,7 +27,7 @@ const sourceMap = {
     version: 3,
     file: './foo.js',
     mappings: '',
-    sources: [sourceMapThirdPartyUrl, sourceMapFile1Url, sourceMapFile2Url],
+    sources: [sourceMapThirdPartyUrl, sourceMapFile1Url, sourceMapFile2Url, sourceMapNodeModulesUrl],
     sourcesContent: ['// File 1\n'],
     names: [],
     sourceRoot: '',
@@ -46,6 +47,7 @@ describeWithMockConnection('IgnoreListManager', () => {
     let uiSourceCode;
     let webpackUiSourceCode;
     let thirdPartyUiSourceCode;
+    let nodeModulesUiSourceCode;
     let sourceMapFile1UiSourceCode;
     let sourceMapFile2UiSourceCode;
     let contentScriptUiSourceCode;
@@ -69,7 +71,7 @@ describeWithMockConnection('IgnoreListManager', () => {
     //  </html>
     //
     const url = 'http://example.com/index.html';
-    const webpackUrl = 'webpack:///src/foo.js';
+    const webpackUrl = 'webpack:///src/subfolder/foo.js';
     const webpackFolderUrl = 'webpack:///src';
     const webpackSubfolderUrl = 'webpack:///src/subfolder';
     const contentScriptFolderUrl = 'chrome-extension://abc';
@@ -106,6 +108,7 @@ describeWithMockConnection('IgnoreListManager', () => {
             hasSourceURLComment: true,
         },
     ];
+    const ALL_URLS = [...sourceMap.sources, ...SCRIPTS.map(({ sourceURL }) => sourceURL)];
     beforeEach(async () => {
         const forceNew = true;
         const target = createTarget();
@@ -137,6 +140,7 @@ describeWithMockConnection('IgnoreListManager', () => {
         thirdPartyUiSourceCode = await debuggerWorkspaceBinding.waitForUISourceCodeAdded(sourceMapThirdPartyUrl, target);
         sourceMapFile1UiSourceCode = notNull(workspace.uiSourceCodeForURL(sourceMapFile1Url));
         sourceMapFile2UiSourceCode = notNull(workspace.uiSourceCodeForURL(sourceMapFile2Url));
+        nodeModulesUiSourceCode = notNull(workspace.uiSourceCodeForURL(sourceMapNodeModulesUrl));
     });
     // Wrapper around getIgnoreListURLContextMenuItems to make its result more convenient for testing
     function getContextMenu(uiSourceCode) {
@@ -149,9 +153,16 @@ describeWithMockConnection('IgnoreListManager', () => {
         return { items, callbacks };
     }
     // Wrapper around getIgnoreListFolderContextMenuItems to make its result more convenient for testing
-    function getFolderContextMenu(url, options) {
+    function getFolderContextMenu(url) {
         const items = [];
         const callbacks = new Map();
+        const workspace = Workspace.Workspace.WorkspaceImpl.instance();
+        const options = {
+            isContentScript: url === contentScriptFolderUrl,
+            isKnownThirdParty: url === sourceMapThirdPartyFolderUrl,
+            isCurrentlyIgnoreListed: ALL_URLS.every(scriptUrl => !scriptUrl.startsWith(url) ||
+                ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(notNull(workspace.uiSourceCodeForURL(scriptUrl)))),
+        };
         for (const { text, callback } of ignoreListManager.getIgnoreListFolderContextMenuItems(url, options)) {
             items.push(text);
             callbacks.set(text, callback);
@@ -197,12 +208,12 @@ describeWithMockConnection('IgnoreListManager', () => {
     it('folder context menu enables and disables ignore listing for content scripts', () => {
         assert.isFalse(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(uiSourceCode));
         assert.isTrue(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(contentScriptUiSourceCode));
-        let { items, callbacks } = getFolderContextMenu(contentScriptFolderUrl, { isContentScript: true });
+        let { items, callbacks } = getFolderContextMenu(contentScriptFolderUrl);
         assert.sameMembers(items, [UIStrings.removeFromIgnoreList]);
         notNull(callbacks.get(UIStrings.removeFromIgnoreList))();
         assert.isFalse(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(uiSourceCode));
         assert.isFalse(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(contentScriptUiSourceCode));
-        ({ items, callbacks } = getFolderContextMenu(contentScriptFolderUrl, { isContentScript: true }));
+        ({ items, callbacks } = getFolderContextMenu(contentScriptFolderUrl));
         assert.sameMembers(items, [UIStrings.addDirectoryToIgnoreList, UIStrings.addAllContentScriptsToIgnoreList]);
         notNull(callbacks.get(UIStrings.addAllContentScriptsToIgnoreList))();
         assert.isFalse(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(uiSourceCode));
@@ -221,16 +232,23 @@ describeWithMockConnection('IgnoreListManager', () => {
         assert.isTrue(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(thirdPartyUiSourceCode));
     });
     it('folder context menu enables and disables ignore listing for third party scripts', () => {
-        let { items, callbacks } = getFolderContextMenu(sourceMapThirdPartyFolderUrl, { isKnownThirdParty: true });
+        let { items, callbacks } = getFolderContextMenu(sourceMapThirdPartyFolderUrl);
         assert.sameMembers(items, [UIStrings.removeFromIgnoreList]);
         notNull(callbacks.get(UIStrings.removeFromIgnoreList))();
         assert.isFalse(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(uiSourceCode));
         assert.isFalse(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(thirdPartyUiSourceCode));
-        ({ items, callbacks } = getFolderContextMenu(sourceMapThirdPartyFolderUrl, { isKnownThirdParty: true }));
+        ({ items, callbacks } = getFolderContextMenu(sourceMapThirdPartyFolderUrl));
         assert.sameMembers(items, [UIStrings.addDirectoryToIgnoreList, UIStrings.addAllThirdPartyScriptsToIgnoreList]);
         notNull(callbacks.get(UIStrings.addAllThirdPartyScriptsToIgnoreList))();
         assert.isFalse(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(uiSourceCode));
         assert.isTrue(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(thirdPartyUiSourceCode));
+    });
+    it('folder context menu disables default node_modules ignore listing rule', () => {
+        assert.isTrue(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(nodeModulesUiSourceCode));
+        const { items, callbacks } = getFolderContextMenu(sourceMapNodeModulesUrl);
+        assert.sameMembers(items, [UIStrings.removeFromIgnoreList]);
+        notNull(callbacks.get(UIStrings.removeFromIgnoreList))();
+        assert.isFalse(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(nodeModulesUiSourceCode));
     });
     it('folder context menu enables and disables ignore listing', () => {
         let { items, callbacks } = getFolderContextMenu(webpackFolderUrl);
@@ -364,6 +382,17 @@ describeWithMockConnection('IgnoreListManager', () => {
         notNull(callbacks.get(UIStrings.addAllThirdPartyScriptsToIgnoreList))();
         assert.isTrue(ignoreListManager.enableIgnoreListing);
         assert.isTrue(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(thirdPartyUiSourceCode));
+    });
+    it('provides no context menu items when all contents in folder are individually ignored', () => {
+        let { items, callbacks } = getContextMenu(webpackUiSourceCode);
+        assert.sameMembers(items, [UIStrings.addScriptToIgnoreList]);
+        // Disable webpack script
+        notNull(callbacks.get(UIStrings.addScriptToIgnoreList))();
+        assert.isTrue(ignoreListManager.isUserOrSourceMapIgnoreListedUISourceCode(webpackUiSourceCode));
+        // Get context menu for folder only containing the script we disabled
+        ({ items, callbacks } = getFolderContextMenu(webpackFolderUrl));
+        // Verify that no context menu items are provided
+        assert.sameMembers(items, []);
     });
     describe('isUserOrSourceMapIgnoreListedUISourceCode', () => {
         it('ignores UISourceCodes that are marked', () => {

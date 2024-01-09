@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CrosScreen>::value,
     "CrosScreen inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CrosScreen::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CrosScreen is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -82,8 +77,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosScreen.availWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(v8_receiver);
+CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->availWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -96,8 +92,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosScreen.availHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(v8_receiver);
+CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->availHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -110,8 +107,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosScreen.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(v8_receiver);
+CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -124,8 +122,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosScreen.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(v8_receiver);
+CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -138,8 +137,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosScreen.left.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(v8_receiver);
+CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->left();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -152,8 +152,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosScreen.top.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(v8_receiver);
+CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->top();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -166,8 +167,9 @@ BLINK_BINDINGS_TRACE_EVENT("CrosScreen.isPrimary.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(v8_receiver);
+CrosScreen* blink_receiver = V8CrosScreen::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isPrimary();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

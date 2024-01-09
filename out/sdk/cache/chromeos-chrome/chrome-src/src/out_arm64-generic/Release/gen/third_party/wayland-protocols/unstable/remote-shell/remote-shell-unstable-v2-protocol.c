@@ -106,7 +106,7 @@ static const struct wl_message zcr_remote_shell_v2_events[] = {
 };
 
 WL_PRIVATE const struct wl_interface zcr_remote_shell_v2_interface = {
-	"zcr_remote_shell_v2", 5,
+	"zcr_remote_shell_v2", 6,
 	6, zcr_remote_shell_v2_requests,
 	3, zcr_remote_shell_v2_events,
 };
@@ -154,6 +154,7 @@ static const struct wl_message zcr_remote_surface_v2_requests[] = {
 	{ "set_float", "3", remote_shell_unstable_v2_types + 0 },
 	{ "set_scale_factor", "4u", remote_shell_unstable_v2_types + 0 },
 	{ "set_window_corner_radii", "5uuuu", remote_shell_unstable_v2_types + 0 },
+	{ "set_shadow_corner_radii", "6uuuu", remote_shell_unstable_v2_types + 0 },
 };
 
 static const struct wl_message zcr_remote_surface_v2_events[] = {
@@ -169,7 +170,7 @@ static const struct wl_message zcr_remote_surface_v2_events[] = {
 
 WL_PRIVATE const struct wl_interface zcr_remote_surface_v2_interface = {
 	"zcr_remote_surface_v2", 6,
-	42, zcr_remote_surface_v2_requests,
+	43, zcr_remote_surface_v2_requests,
 	8, zcr_remote_surface_v2_events,
 };
 

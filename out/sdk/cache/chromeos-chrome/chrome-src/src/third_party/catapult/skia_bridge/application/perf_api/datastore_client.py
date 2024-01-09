@@ -33,6 +33,18 @@ class EntityType(Enum):
 class DataStoreClient:
   _client = datastore.Client()
 
+  def QueryAnomaliesAroundRevision(self, revision:int):
+    ds_query = self._client.query(kind='Anomaly', order=['end_revision'])
+    ds_query.add_filter('end_revision', '>=', revision)
+
+    results = list(ds_query.fetch(limit=1000))
+    filtered_results = [
+      a for a in results
+      if a.get('start_revision') <= revision and a.get('source') != 'skia'
+    ]
+
+    return filtered_results
+
   def QueryAnomalies(self, tests, min_revision, max_revision):
     ds_query = self._client.query(kind='Anomaly')
     test_keys = [TestKey(test_path, self._client) for test_path in tests]
@@ -44,8 +56,8 @@ class DataStoreClient:
     # we need to apply the filters after the results are retrieved from
     # datastore.
     post_query_filters = [
-        lambda a: a.get('start_revision') >= int(min_revision),
-        lambda a: a.get('start_revision') <= int(max_revision),
+        lambda a: a.get('end_revision') >= int(min_revision),
+        lambda a: a.get('end_revision') <= int(max_revision),
         # TODO: Remove the check below once we fully enable anomalies from skia
         lambda a: a.get('source', None) == None,
     ]
@@ -97,3 +109,8 @@ class DataStoreClient:
         self._client.put_multi(entities)
     else:
       self._client.put_multi(entities)
+
+  def RunTransaction(self, func):
+    with self._client.transaction():
+      ret_value = func()
+      return ret_value

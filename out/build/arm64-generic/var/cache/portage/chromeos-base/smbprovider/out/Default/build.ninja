@@ -26,10 +26,7 @@ build install_policy: phony obj/smbprovider/install_policy.stamp
 build libsmbprovider: phony ./libsmbprovider.a
 build root: phony obj/common-mk/gn_root/root.stamp
 build smbproviderd_adaptors: phony obj/smbprovider/smbproviderd_adaptors.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build smbprovider$:_smbproviderd-install_config: phony obj/smbprovider/_smbproviderd-install_config.stamp
 build smbprovider$:all: phony obj/smbprovider/all.stamp
 build smbprovider$:install_dbus_config: phony obj/smbprovider/install_dbus_config.stamp
@@ -37,13 +34,11 @@ build smbprovider$:install_dbus_service: phony obj/smbprovider/install_dbus_serv
 build smbprovider$:install_init: phony obj/smbprovider/install_init.stamp
 build smbprovider$:install_policy: phony obj/smbprovider/install_policy.stamp
 build smbprovider$:libsmbprovider: phony ./libsmbprovider.a
-build smbprovider$:smbprovider_test: phony ./smbprovider_test
 build smbprovider$:smbproviderd: phony ./smbproviderd
 build smbprovider$:smbproviderd_adaptors: phony obj/smbprovider/smbproviderd_adaptors.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/smbprovider/_smbproviderd-install_config.stamp $
     obj/smbprovider/all.stamp $
     obj/smbprovider/install_dbus_config.stamp $
@@ -51,7 +46,6 @@ build all: phony $
     obj/smbprovider/install_init.stamp $
     obj/smbprovider/install_policy.stamp $
     ./libsmbprovider.a $
-    ./smbprovider_test $
     ./smbproviderd $
     obj/smbprovider/smbproviderd_adaptors.stamp
 

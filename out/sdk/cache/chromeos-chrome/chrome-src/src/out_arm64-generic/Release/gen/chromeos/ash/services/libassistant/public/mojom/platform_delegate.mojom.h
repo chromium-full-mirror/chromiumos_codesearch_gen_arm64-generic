@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,12 +23,14 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/libassistant/public/mojom/platform_delegate.mojom-features.h"
 #include "chromeos/ash/services/libassistant/public/mojom/platform_delegate.mojom-shared.h"
 #include "chromeos/ash/services/libassistant/public/mojom/platform_delegate.mojom-forward.h"
 #include "ash/public/mojom/assistant_volume_control.mojom-forward.h"
 #include "chromeos/ash/services/assistant/public/mojom/assistant_audio_decoder.mojom-forward.h"
 #include "chromeos/services/network_config/public/mojom/cros_network_config.mojom-forward.h"
 #include "media/mojo/mojom/audio_stream_factory.mojom-forward.h"
+#include "sandbox/policy/mojom/context.mojom-forward.h"
 #include "services/device/public/mojom/battery_monitor.mojom-forward.h"
 #include "services/device/public/mojom/wake_lock_provider.mojom-forward.h"
 #include <string>

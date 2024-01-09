@@ -8,6 +8,7 @@
 #define CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_IP_ADDRESS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

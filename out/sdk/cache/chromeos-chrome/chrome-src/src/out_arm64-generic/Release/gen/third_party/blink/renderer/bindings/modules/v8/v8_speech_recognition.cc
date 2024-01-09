@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, SpeechRecognition>::value,
     "SpeechRecognition does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&SpeechRecognition::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SpeechRecognition is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SpeechRecognition_Gr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->grammars();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SpeechRecognition_Gr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SpeechRecognition";
@@ -135,10 +130,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.lang.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->lang();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->lang();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -149,9 +144,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.lang.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SpeechRecognition";
@@ -172,8 +167,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.continuous.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->continuous();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -185,9 +181,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.continuous.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SpeechRecognition";
@@ -208,8 +204,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.interimResults.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->interimResults();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -221,9 +218,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.interimResults.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SpeechRecognition";
@@ -244,8 +241,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.maxAlternatives.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxAlternatives();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -257,9 +255,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.maxAlternatives.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SpeechRecognition";
@@ -280,10 +278,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onaudiostart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onaudiostart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onaudiostart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -296,8 +294,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnaudiostart(event_handler);
 }
 
@@ -308,10 +307,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onsoundstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsoundstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsoundstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -324,8 +323,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsoundstart(event_handler);
 }
 
@@ -336,10 +336,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onspeechstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onspeechstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onspeechstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -352,8 +352,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnspeechstart(event_handler);
 }
 
@@ -364,10 +365,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onspeechend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onspeechend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onspeechend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -380,8 +381,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnspeechend(event_handler);
 }
 
@@ -392,10 +394,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onsoundend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsoundend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsoundend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -408,8 +410,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsoundend(event_handler);
 }
 
@@ -420,10 +423,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onaudioend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onaudioend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onaudioend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -436,8 +439,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnaudioend(event_handler);
 }
 
@@ -448,10 +452,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onresult.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresult();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresult();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -464,8 +468,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnresult(event_handler);
 }
 
@@ -476,10 +481,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onnomatch.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onnomatch();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onnomatch();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -492,8 +497,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnnomatch(event_handler);
 }
 
@@ -504,10 +510,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -520,8 +526,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -532,10 +539,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -548,8 +555,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstart(event_handler);
 }
 
@@ -560,10 +568,10 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.onend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -576,8 +584,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnend(event_handler);
 }
 
@@ -622,8 +631,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.abort");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->abort();
 
 }
@@ -645,7 +655,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SpeechRecognition_St
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "SpeechRecognition";
 const char* const property_name = "start";
@@ -668,8 +678,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognition.stop");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(v8_receiver);
+SpeechRecognition* blink_receiver = V8SpeechRecognition::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->stopFunction();
 
 }

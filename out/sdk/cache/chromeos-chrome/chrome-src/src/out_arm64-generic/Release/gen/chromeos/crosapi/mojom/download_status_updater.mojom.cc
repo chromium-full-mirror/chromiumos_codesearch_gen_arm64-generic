@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -52,7 +53,8 @@ DownloadStatus::DownloadStatus()
       full_path(),
       cancellable(),
       pausable(),
-      resumable() {}
+      resumable(),
+      status_text() {}
 
 DownloadStatus::DownloadStatus(
     const std::string& guid_in,
@@ -65,17 +67,18 @@ DownloadStatus::DownloadStatus(
       full_path(),
       cancellable(),
       pausable(),
-      resumable() {}
+      resumable(),
+      status_text() {}
 
 DownloadStatus::DownloadStatus(
     const std::string& guid_in,
     ::crosapi::mojom::DownloadState state_in,
-    absl::optional<int64_t> received_bytes_in,
-    absl::optional<int64_t> total_bytes_in,
-    const absl::optional<::base::FilePath>& target_file_path_in,
-    absl::optional<bool> cancellable_in,
-    absl::optional<bool> pausable_in,
-    absl::optional<bool> resumable_in)
+    std::optional<int64_t> received_bytes_in,
+    std::optional<int64_t> total_bytes_in,
+    const std::optional<::base::FilePath>& target_file_path_in,
+    std::optional<bool> cancellable_in,
+    std::optional<bool> pausable_in,
+    std::optional<bool> resumable_in)
     : guid(std::move(guid_in)),
       state(std::move(state_in)),
       received_bytes(std::move(received_bytes_in)),
@@ -84,18 +87,19 @@ DownloadStatus::DownloadStatus(
       full_path(),
       cancellable(std::move(cancellable_in)),
       pausable(std::move(pausable_in)),
-      resumable(std::move(resumable_in)) {}
+      resumable(std::move(resumable_in)),
+      status_text() {}
 
 DownloadStatus::DownloadStatus(
     const std::string& guid_in,
     ::crosapi::mojom::DownloadState state_in,
-    absl::optional<int64_t> received_bytes_in,
-    absl::optional<int64_t> total_bytes_in,
-    const absl::optional<::base::FilePath>& target_file_path_in,
-    const absl::optional<::base::FilePath>& full_path_in,
-    absl::optional<bool> cancellable_in,
-    absl::optional<bool> pausable_in,
-    absl::optional<bool> resumable_in)
+    std::optional<int64_t> received_bytes_in,
+    std::optional<int64_t> total_bytes_in,
+    const std::optional<::base::FilePath>& target_file_path_in,
+    const std::optional<::base::FilePath>& full_path_in,
+    std::optional<bool> cancellable_in,
+    std::optional<bool> pausable_in,
+    std::optional<bool> resumable_in)
     : guid(std::move(guid_in)),
       state(std::move(state_in)),
       received_bytes(std::move(received_bytes_in)),
@@ -104,7 +108,30 @@ DownloadStatus::DownloadStatus(
       full_path(std::move(full_path_in)),
       cancellable(std::move(cancellable_in)),
       pausable(std::move(pausable_in)),
-      resumable(std::move(resumable_in)) {}
+      resumable(std::move(resumable_in)),
+      status_text() {}
+
+DownloadStatus::DownloadStatus(
+    const std::string& guid_in,
+    ::crosapi::mojom::DownloadState state_in,
+    std::optional<int64_t> received_bytes_in,
+    std::optional<int64_t> total_bytes_in,
+    const std::optional<::base::FilePath>& target_file_path_in,
+    const std::optional<::base::FilePath>& full_path_in,
+    std::optional<bool> cancellable_in,
+    std::optional<bool> pausable_in,
+    std::optional<bool> resumable_in,
+    const std::optional<::std::u16string>& status_text_in)
+    : guid(std::move(guid_in)),
+      state(std::move(state_in)),
+      received_bytes(std::move(received_bytes_in)),
+      total_bytes(std::move(total_bytes_in)),
+      target_file_path(std::move(target_file_path_in)),
+      full_path(std::move(full_path_in)),
+      cancellable(std::move(cancellable_in)),
+      pausable(std::move(pausable_in)),
+      resumable(std::move(resumable_in)),
+      status_text(std::move(status_text_in)) {}
 
 DownloadStatus::~DownloadStatus() = default;
 
@@ -133,7 +160,7 @@ void DownloadStatus::WriteIntoTrace(
     dict.AddItem(
       "received_bytes"), this->received_bytes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int64_t>>"
+      "<value of type std::optional<int64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -142,7 +169,7 @@ void DownloadStatus::WriteIntoTrace(
     dict.AddItem(
       "total_bytes"), this->total_bytes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<int64_t>>"
+      "<value of type std::optional<int64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -151,7 +178,7 @@ void DownloadStatus::WriteIntoTrace(
     dict.AddItem(
       "target_file_path"), this->target_file_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -160,7 +187,7 @@ void DownloadStatus::WriteIntoTrace(
     dict.AddItem(
       "full_path"), this->full_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -169,7 +196,7 @@ void DownloadStatus::WriteIntoTrace(
     dict.AddItem(
       "cancellable"), this->cancellable,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -178,7 +205,7 @@ void DownloadStatus::WriteIntoTrace(
     dict.AddItem(
       "pausable"), this->pausable,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -187,7 +214,16 @@ void DownloadStatus::WriteIntoTrace(
     dict.AddItem(
       "resumable"), this->resumable,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "status_text"), this->status_text,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -395,14 +431,17 @@ void DownloadStatusUpdaterClientProxy::Cancel(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdaterClient_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -444,14 +483,17 @@ void DownloadStatusUpdaterClientProxy::Pause(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdaterClient_Pause_Name, kFlags, 0, 0, nullptr);
@@ -493,14 +535,17 @@ void DownloadStatusUpdaterClientProxy::Resume(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdaterClient_Resume_Name, kFlags, 0, 0, nullptr);
@@ -542,14 +587,17 @@ void DownloadStatusUpdaterClientProxy::ShowInBrowser(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdaterClient_ShowInBrowser_Name, kFlags, 0, 0, nullptr);
@@ -670,7 +718,8 @@ void DownloadStatusUpdaterClient_Cancel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdaterClient_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -788,7 +837,8 @@ void DownloadStatusUpdaterClient_Pause_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdaterClient_Pause_Name, kFlags, 0, 0, nullptr);
@@ -906,7 +956,8 @@ void DownloadStatusUpdaterClient_Resume_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdaterClient_Resume_Name, kFlags, 0, 0, nullptr);
@@ -1024,7 +1075,8 @@ void DownloadStatusUpdaterClient_ShowInBrowser_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdaterClient_ShowInBrowser_Name, kFlags, 0, 0, nullptr);
@@ -1200,16 +1252,16 @@ std::move(p_guid), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDownloadStatusUpdaterClientValidationInfo[] = {
-    {&internal::DownloadStatusUpdaterClient_Cancel_Params_Data::Validate,
+    { &internal::DownloadStatusUpdaterClient_Cancel_Params_Data::Validate,
      &internal::DownloadStatusUpdaterClient_Cancel_ResponseParams_Data::Validate},
-    {&internal::DownloadStatusUpdaterClient_Pause_Params_Data::Validate,
+    { &internal::DownloadStatusUpdaterClient_Pause_Params_Data::Validate,
      &internal::DownloadStatusUpdaterClient_Pause_ResponseParams_Data::Validate},
-    {&internal::DownloadStatusUpdaterClient_Resume_Params_Data::Validate,
+    { &internal::DownloadStatusUpdaterClient_Resume_Params_Data::Validate,
      &internal::DownloadStatusUpdaterClient_Resume_ResponseParams_Data::Validate},
-    {&internal::DownloadStatusUpdaterClient_ShowInBrowser_Params_Data::Validate,
+    { &internal::DownloadStatusUpdaterClient_ShowInBrowser_Params_Data::Validate,
      &internal::DownloadStatusUpdaterClient_ShowInBrowser_ResponseParams_Data::Validate},
 };
 
@@ -1314,14 +1366,17 @@ void DownloadStatusUpdaterProxy::BindClient(
                         "<value of type ::mojo::PendingRemote<DownloadStatusUpdaterClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdater_BindClient_Name, kFlags, 0, 0, nullptr);
@@ -1357,14 +1412,17 @@ void DownloadStatusUpdaterProxy::Update(
                         "<value of type DownloadStatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDownloadStatusUpdater_Update_Name, kFlags, 0, 0, nullptr);
@@ -1474,12 +1532,12 @@ bool DownloadStatusUpdaterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDownloadStatusUpdaterValidationInfo[] = {
-    {&internal::DownloadStatusUpdater_Update_Params_Data::Validate,
+    { &internal::DownloadStatusUpdater_Update_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DownloadStatusUpdater_BindClient_Params_Data::Validate,
+    { &internal::DownloadStatusUpdater_BindClient_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1525,6 +1583,8 @@ bool StructTraits<::crosapi::mojom::DownloadStatus::DataView, ::crosapi::mojom::
         result->resumable = input.resumable();
       }
       if (success && !input.ReadFullPath(&result->full_path))
+        success = false;
+      if (success && !input.ReadStatusText(&result->status_text))
         success = false;
   *output = std::move(result);
   return success;

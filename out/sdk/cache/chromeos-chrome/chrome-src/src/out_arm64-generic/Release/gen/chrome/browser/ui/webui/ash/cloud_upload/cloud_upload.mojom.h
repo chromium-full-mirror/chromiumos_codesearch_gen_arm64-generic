@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/cloud_upload/cloud_upload.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/cloud_upload/cloud_upload.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/cloud_upload/cloud_upload.mojom-forward.h"
 #include <string>
@@ -551,6 +552,911 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  OneDriveSetupDialogArgs {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<OneDriveSetupDialogArgs, T>::value>;
+  using DataView = OneDriveSetupDialogArgsDataView;
+  using Data_ = internal::OneDriveSetupDialogArgs_Data;
+
+  template <typename... Args>
+  static OneDriveSetupDialogArgsPtr New(Args&&... args) {
+    return OneDriveSetupDialogArgsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static OneDriveSetupDialogArgsPtr From(const U& u) {
+    return mojo::TypeConverter<OneDriveSetupDialogArgsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, OneDriveSetupDialogArgs>::Convert(*this);
+  }
+
+
+  OneDriveSetupDialogArgs();
+
+  explicit OneDriveSetupDialogArgs(
+      bool set_office_as_default_handler);
+
+
+  ~OneDriveSetupDialogArgs();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = OneDriveSetupDialogArgsPtr>
+  OneDriveSetupDialogArgsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, OneDriveSetupDialogArgs::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, OneDriveSetupDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, OneDriveSetupDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        OneDriveSetupDialogArgs::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        OneDriveSetupDialogArgs::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::OneDriveSetupDialogArgs_UnserializedMessageContext<
+            UserType, OneDriveSetupDialogArgs::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<OneDriveSetupDialogArgs::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return OneDriveSetupDialogArgs::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::OneDriveSetupDialogArgs_UnserializedMessageContext<
+            UserType, OneDriveSetupDialogArgs::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<OneDriveSetupDialogArgs::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool set_office_as_default_handler;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, OneDriveSetupDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, OneDriveSetupDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, OneDriveSetupDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, OneDriveSetupDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  MoveConfirmationOneDriveDialogArgs {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<MoveConfirmationOneDriveDialogArgs, T>::value>;
+  using DataView = MoveConfirmationOneDriveDialogArgsDataView;
+  using Data_ = internal::MoveConfirmationOneDriveDialogArgs_Data;
+
+  template <typename... Args>
+  static MoveConfirmationOneDriveDialogArgsPtr New(Args&&... args) {
+    return MoveConfirmationOneDriveDialogArgsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static MoveConfirmationOneDriveDialogArgsPtr From(const U& u) {
+    return mojo::TypeConverter<MoveConfirmationOneDriveDialogArgsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, MoveConfirmationOneDriveDialogArgs>::Convert(*this);
+  }
+
+
+  MoveConfirmationOneDriveDialogArgs();
+
+  explicit MoveConfirmationOneDriveDialogArgs(
+      OperationType operation_type);
+
+
+  ~MoveConfirmationOneDriveDialogArgs();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = MoveConfirmationOneDriveDialogArgsPtr>
+  MoveConfirmationOneDriveDialogArgsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, MoveConfirmationOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, MoveConfirmationOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, MoveConfirmationOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        MoveConfirmationOneDriveDialogArgs::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        MoveConfirmationOneDriveDialogArgs::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::MoveConfirmationOneDriveDialogArgs_UnserializedMessageContext<
+            UserType, MoveConfirmationOneDriveDialogArgs::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<MoveConfirmationOneDriveDialogArgs::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return MoveConfirmationOneDriveDialogArgs::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::MoveConfirmationOneDriveDialogArgs_UnserializedMessageContext<
+            UserType, MoveConfirmationOneDriveDialogArgs::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<MoveConfirmationOneDriveDialogArgs::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  OperationType operation_type;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, MoveConfirmationOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, MoveConfirmationOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, MoveConfirmationOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, MoveConfirmationOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  MoveConfirmationGoogleDriveDialogArgs {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<MoveConfirmationGoogleDriveDialogArgs, T>::value>;
+  using DataView = MoveConfirmationGoogleDriveDialogArgsDataView;
+  using Data_ = internal::MoveConfirmationGoogleDriveDialogArgs_Data;
+
+  template <typename... Args>
+  static MoveConfirmationGoogleDriveDialogArgsPtr New(Args&&... args) {
+    return MoveConfirmationGoogleDriveDialogArgsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static MoveConfirmationGoogleDriveDialogArgsPtr From(const U& u) {
+    return mojo::TypeConverter<MoveConfirmationGoogleDriveDialogArgsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, MoveConfirmationGoogleDriveDialogArgs>::Convert(*this);
+  }
+
+
+  MoveConfirmationGoogleDriveDialogArgs();
+
+  explicit MoveConfirmationGoogleDriveDialogArgs(
+      OperationType operation_type);
+
+
+  ~MoveConfirmationGoogleDriveDialogArgs();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = MoveConfirmationGoogleDriveDialogArgsPtr>
+  MoveConfirmationGoogleDriveDialogArgsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, MoveConfirmationGoogleDriveDialogArgs::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, MoveConfirmationGoogleDriveDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, MoveConfirmationGoogleDriveDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        MoveConfirmationGoogleDriveDialogArgs::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        MoveConfirmationGoogleDriveDialogArgs::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::MoveConfirmationGoogleDriveDialogArgs_UnserializedMessageContext<
+            UserType, MoveConfirmationGoogleDriveDialogArgs::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<MoveConfirmationGoogleDriveDialogArgs::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return MoveConfirmationGoogleDriveDialogArgs::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::MoveConfirmationGoogleDriveDialogArgs_UnserializedMessageContext<
+            UserType, MoveConfirmationGoogleDriveDialogArgs::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<MoveConfirmationGoogleDriveDialogArgs::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  OperationType operation_type;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, MoveConfirmationGoogleDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, MoveConfirmationGoogleDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, MoveConfirmationGoogleDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, MoveConfirmationGoogleDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  ConnectToOneDriveDialogArgs {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ConnectToOneDriveDialogArgs, T>::value>;
+  using DataView = ConnectToOneDriveDialogArgsDataView;
+  using Data_ = internal::ConnectToOneDriveDialogArgs_Data;
+
+  template <typename... Args>
+  static ConnectToOneDriveDialogArgsPtr New(Args&&... args) {
+    return ConnectToOneDriveDialogArgsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ConnectToOneDriveDialogArgsPtr From(const U& u) {
+    return mojo::TypeConverter<ConnectToOneDriveDialogArgsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ConnectToOneDriveDialogArgs>::Convert(*this);
+  }
+
+
+  ConnectToOneDriveDialogArgs();
+
+
+  ~ConnectToOneDriveDialogArgs();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ConnectToOneDriveDialogArgsPtr>
+  ConnectToOneDriveDialogArgsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ConnectToOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ConnectToOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ConnectToOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ConnectToOneDriveDialogArgs::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ConnectToOneDriveDialogArgs::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ConnectToOneDriveDialogArgs_UnserializedMessageContext<
+            UserType, ConnectToOneDriveDialogArgs::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ConnectToOneDriveDialogArgs::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ConnectToOneDriveDialogArgs::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ConnectToOneDriveDialogArgs_UnserializedMessageContext<
+            UserType, ConnectToOneDriveDialogArgs::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ConnectToOneDriveDialogArgs::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ConnectToOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ConnectToOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ConnectToOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ConnectToOneDriveDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+class  DialogSpecificArgs {
+ public:
+  using DataView = DialogSpecificArgsDataView;
+  using Data_ = internal::DialogSpecificArgs_Data;
+  using Tag = Data_::DialogSpecificArgs_Tag;
+
+  template <typename... Args>
+  static DialogSpecificArgsPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |file_handler_dialog_args|.
+  static DialogSpecificArgsPtr
+  NewFileHandlerDialogArgs(
+      FileHandlerDialogArgsPtr value) {
+    auto result = DialogSpecificArgsPtr(absl::in_place);
+    result->set_file_handler_dialog_args(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |one_drive_setup_dialog_args|.
+  static DialogSpecificArgsPtr
+  NewOneDriveSetupDialogArgs(
+      OneDriveSetupDialogArgsPtr value) {
+    auto result = DialogSpecificArgsPtr(absl::in_place);
+    result->set_one_drive_setup_dialog_args(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |move_confirmation_one_drive_dialog_args|.
+  static DialogSpecificArgsPtr
+  NewMoveConfirmationOneDriveDialogArgs(
+      MoveConfirmationOneDriveDialogArgsPtr value) {
+    auto result = DialogSpecificArgsPtr(absl::in_place);
+    result->set_move_confirmation_one_drive_dialog_args(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |move_confirmation_google_drive_dialog_args|.
+  static DialogSpecificArgsPtr
+  NewMoveConfirmationGoogleDriveDialogArgs(
+      MoveConfirmationGoogleDriveDialogArgsPtr value) {
+    auto result = DialogSpecificArgsPtr(absl::in_place);
+    result->set_move_confirmation_google_drive_dialog_args(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |connect_to_one_drive_dialog_args|.
+  static DialogSpecificArgsPtr
+  NewConnectToOneDriveDialogArgs(
+      ConnectToOneDriveDialogArgsPtr value) {
+    auto result = DialogSpecificArgsPtr(absl::in_place);
+    result->set_connect_to_one_drive_dialog_args(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static DialogSpecificArgsPtr From(const U& u) {
+    return mojo::TypeConverter<DialogSpecificArgsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DialogSpecificArgs>::Convert(*this);
+  }
+
+  DialogSpecificArgs();
+  ~DialogSpecificArgs();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  DialogSpecificArgs(const DialogSpecificArgs& other) = delete;
+  DialogSpecificArgs& operator=(const DialogSpecificArgs& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = DialogSpecificArgsPtr>
+  DialogSpecificArgsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, DialogSpecificArgs>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, DialogSpecificArgs>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_file_handler_dialog_args() const { return tag_ == Tag::kFileHandlerDialogArgs; }
+
+  
+  FileHandlerDialogArgsPtr& get_file_handler_dialog_args() const {
+    CHECK(tag_ == Tag::kFileHandlerDialogArgs);
+    return *(data_.file_handler_dialog_args);
+  }
+
+  
+  void set_file_handler_dialog_args(
+      FileHandlerDialogArgsPtr file_handler_dialog_args);
+  
+  bool is_one_drive_setup_dialog_args() const { return tag_ == Tag::kOneDriveSetupDialogArgs; }
+
+  
+  OneDriveSetupDialogArgsPtr& get_one_drive_setup_dialog_args() const {
+    CHECK(tag_ == Tag::kOneDriveSetupDialogArgs);
+    return *(data_.one_drive_setup_dialog_args);
+  }
+
+  
+  void set_one_drive_setup_dialog_args(
+      OneDriveSetupDialogArgsPtr one_drive_setup_dialog_args);
+  
+  bool is_move_confirmation_one_drive_dialog_args() const { return tag_ == Tag::kMoveConfirmationOneDriveDialogArgs; }
+
+  
+  MoveConfirmationOneDriveDialogArgsPtr& get_move_confirmation_one_drive_dialog_args() const {
+    CHECK(tag_ == Tag::kMoveConfirmationOneDriveDialogArgs);
+    return *(data_.move_confirmation_one_drive_dialog_args);
+  }
+
+  
+  void set_move_confirmation_one_drive_dialog_args(
+      MoveConfirmationOneDriveDialogArgsPtr move_confirmation_one_drive_dialog_args);
+  
+  bool is_move_confirmation_google_drive_dialog_args() const { return tag_ == Tag::kMoveConfirmationGoogleDriveDialogArgs; }
+
+  
+  MoveConfirmationGoogleDriveDialogArgsPtr& get_move_confirmation_google_drive_dialog_args() const {
+    CHECK(tag_ == Tag::kMoveConfirmationGoogleDriveDialogArgs);
+    return *(data_.move_confirmation_google_drive_dialog_args);
+  }
+
+  
+  void set_move_confirmation_google_drive_dialog_args(
+      MoveConfirmationGoogleDriveDialogArgsPtr move_confirmation_google_drive_dialog_args);
+  
+  bool is_connect_to_one_drive_dialog_args() const { return tag_ == Tag::kConnectToOneDriveDialogArgs; }
+
+  
+  ConnectToOneDriveDialogArgsPtr& get_connect_to_one_drive_dialog_args() const {
+    CHECK(tag_ == Tag::kConnectToOneDriveDialogArgs);
+    return *(data_.connect_to_one_drive_dialog_args);
+  }
+
+  
+  void set_connect_to_one_drive_dialog_args(
+      ConnectToOneDriveDialogArgsPtr connect_to_one_drive_dialog_args);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DialogSpecificArgs::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<DialogSpecificArgs::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    FileHandlerDialogArgsPtr* file_handler_dialog_args;
+    OneDriveSetupDialogArgsPtr* one_drive_setup_dialog_args;
+    MoveConfirmationOneDriveDialogArgsPtr* move_confirmation_one_drive_dialog_args;
+    MoveConfirmationGoogleDriveDialogArgsPtr* move_confirmation_google_drive_dialog_args;
+    ConnectToOneDriveDialogArgsPtr* connect_to_one_drive_dialog_args;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+
+
+
+
+
+
+
+class  FileHandlerDialogArgs {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FileHandlerDialogArgs, T>::value>;
+  using DataView = FileHandlerDialogArgsDataView;
+  using Data_ = internal::FileHandlerDialogArgs_Data;
+
+  template <typename... Args>
+  static FileHandlerDialogArgsPtr New(Args&&... args) {
+    return FileHandlerDialogArgsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FileHandlerDialogArgsPtr From(const U& u) {
+    return mojo::TypeConverter<FileHandlerDialogArgsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FileHandlerDialogArgs>::Convert(*this);
+  }
+
+
+  FileHandlerDialogArgs();
+
+  FileHandlerDialogArgs(
+      std::vector<DialogTaskPtr> local_tasks,
+      bool show_google_workspace_task,
+      bool show_microsoft_office_task);
+
+FileHandlerDialogArgs(const FileHandlerDialogArgs&) = delete;
+FileHandlerDialogArgs& operator=(const FileHandlerDialogArgs&) = delete;
+
+  ~FileHandlerDialogArgs();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FileHandlerDialogArgsPtr>
+  FileHandlerDialogArgsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FileHandlerDialogArgs::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FileHandlerDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FileHandlerDialogArgs::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FileHandlerDialogArgs::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FileHandlerDialogArgs::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FileHandlerDialogArgs_UnserializedMessageContext<
+            UserType, FileHandlerDialogArgs::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FileHandlerDialogArgs::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FileHandlerDialogArgs::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FileHandlerDialogArgs_UnserializedMessageContext<
+            UserType, FileHandlerDialogArgs::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FileHandlerDialogArgs::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<DialogTaskPtr> local_tasks;
+  
+  bool show_google_workspace_task;
+  
+  bool show_microsoft_office_task;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FileHandlerDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FileHandlerDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FileHandlerDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FileHandlerDialogArgs::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 
 
 
@@ -583,10 +1489,7 @@ class  DialogArgs {
 
   DialogArgs(
       std::vector<std::string> file_names,
-      DialogPage dialog_page,
-      std::vector<DialogTaskPtr> local_tasks,
-      bool set_office_as_default_handler,
-      OperationType operation_type);
+      DialogSpecificArgsPtr dialog_specific_args);
 
 DialogArgs(const DialogArgs&) = delete;
 DialogArgs& operator=(const DialogArgs&) = delete;
@@ -668,13 +1571,7 @@ DialogArgs& operator=(const DialogArgs&) = delete;
   
   std::vector<std::string> file_names;
   
-  DialogPage dialog_page;
-  
-  std::vector<DialogTaskPtr> local_tasks;
-  
-  bool set_office_as_default_handler;
-  
-  OperationType operation_type;
+  DialogSpecificArgsPtr dialog_specific_args;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -705,6 +1602,50 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+template <typename UnionPtrType>
+DialogSpecificArgsPtr DialogSpecificArgs::Clone() const {
+  switch (tag_) {
+    case Tag::kFileHandlerDialogArgs:
+      return NewFileHandlerDialogArgs(
+          mojo::Clone(*data_.file_handler_dialog_args));
+    case Tag::kOneDriveSetupDialogArgs:
+      return NewOneDriveSetupDialogArgs(
+          mojo::Clone(*data_.one_drive_setup_dialog_args));
+    case Tag::kMoveConfirmationOneDriveDialogArgs:
+      return NewMoveConfirmationOneDriveDialogArgs(
+          mojo::Clone(*data_.move_confirmation_one_drive_dialog_args));
+    case Tag::kMoveConfirmationGoogleDriveDialogArgs:
+      return NewMoveConfirmationGoogleDriveDialogArgs(
+          mojo::Clone(*data_.move_confirmation_google_drive_dialog_args));
+    case Tag::kConnectToOneDriveDialogArgs:
+      return NewConnectToOneDriveDialogArgs(
+          mojo::Clone(*data_.connect_to_one_drive_dialog_args));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, DialogSpecificArgs>::value>::type*>
+bool DialogSpecificArgs::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kFileHandlerDialogArgs:
+      return mojo::Equals(*(data_.file_handler_dialog_args), *(other.data_.file_handler_dialog_args));
+    case Tag::kOneDriveSetupDialogArgs:
+      return mojo::Equals(*(data_.one_drive_setup_dialog_args), *(other.data_.one_drive_setup_dialog_args));
+    case Tag::kMoveConfirmationOneDriveDialogArgs:
+      return mojo::Equals(*(data_.move_confirmation_one_drive_dialog_args), *(other.data_.move_confirmation_one_drive_dialog_args));
+    case Tag::kMoveConfirmationGoogleDriveDialogArgs:
+      return mojo::Equals(*(data_.move_confirmation_google_drive_dialog_args), *(other.data_.move_confirmation_google_drive_dialog_args));
+    case Tag::kConnectToOneDriveDialogArgs:
+      return mojo::Equals(*(data_.connect_to_one_drive_dialog_args), *(other.data_.connect_to_one_drive_dialog_args));
+  }
+
+  return false;
+}
 template <typename StructPtrType>
 DialogTaskPtr DialogTask::Clone() const {
   return New(
@@ -749,13 +1690,127 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+OneDriveSetupDialogArgsPtr OneDriveSetupDialogArgs::Clone() const {
+  return New(
+      mojo::Clone(set_office_as_default_handler)
+  );
+}
+
+template <typename T, OneDriveSetupDialogArgs::EnableIfSame<T>*>
+bool OneDriveSetupDialogArgs::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->set_office_as_default_handler, other_struct.set_office_as_default_handler))
+    return false;
+  return true;
+}
+
+template <typename T, OneDriveSetupDialogArgs::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.set_office_as_default_handler < rhs.set_office_as_default_handler)
+    return true;
+  if (rhs.set_office_as_default_handler < lhs.set_office_as_default_handler)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+MoveConfirmationOneDriveDialogArgsPtr MoveConfirmationOneDriveDialogArgs::Clone() const {
+  return New(
+      mojo::Clone(operation_type)
+  );
+}
+
+template <typename T, MoveConfirmationOneDriveDialogArgs::EnableIfSame<T>*>
+bool MoveConfirmationOneDriveDialogArgs::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->operation_type, other_struct.operation_type))
+    return false;
+  return true;
+}
+
+template <typename T, MoveConfirmationOneDriveDialogArgs::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.operation_type < rhs.operation_type)
+    return true;
+  if (rhs.operation_type < lhs.operation_type)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+MoveConfirmationGoogleDriveDialogArgsPtr MoveConfirmationGoogleDriveDialogArgs::Clone() const {
+  return New(
+      mojo::Clone(operation_type)
+  );
+}
+
+template <typename T, MoveConfirmationGoogleDriveDialogArgs::EnableIfSame<T>*>
+bool MoveConfirmationGoogleDriveDialogArgs::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->operation_type, other_struct.operation_type))
+    return false;
+  return true;
+}
+
+template <typename T, MoveConfirmationGoogleDriveDialogArgs::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.operation_type < rhs.operation_type)
+    return true;
+  if (rhs.operation_type < lhs.operation_type)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ConnectToOneDriveDialogArgsPtr ConnectToOneDriveDialogArgs::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, ConnectToOneDriveDialogArgs::EnableIfSame<T>*>
+bool ConnectToOneDriveDialogArgs::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, ConnectToOneDriveDialogArgs::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
+FileHandlerDialogArgsPtr FileHandlerDialogArgs::Clone() const {
+  return New(
+      mojo::Clone(local_tasks),
+      mojo::Clone(show_google_workspace_task),
+      mojo::Clone(show_microsoft_office_task)
+  );
+}
+
+template <typename T, FileHandlerDialogArgs::EnableIfSame<T>*>
+bool FileHandlerDialogArgs::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->local_tasks, other_struct.local_tasks))
+    return false;
+  if (!mojo::Equals(this->show_google_workspace_task, other_struct.show_google_workspace_task))
+    return false;
+  if (!mojo::Equals(this->show_microsoft_office_task, other_struct.show_microsoft_office_task))
+    return false;
+  return true;
+}
+
+template <typename T, FileHandlerDialogArgs::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.local_tasks < rhs.local_tasks)
+    return true;
+  if (rhs.local_tasks < lhs.local_tasks)
+    return false;
+  if (lhs.show_google_workspace_task < rhs.show_google_workspace_task)
+    return true;
+  if (rhs.show_google_workspace_task < lhs.show_google_workspace_task)
+    return false;
+  if (lhs.show_microsoft_office_task < rhs.show_microsoft_office_task)
+    return true;
+  if (rhs.show_microsoft_office_task < lhs.show_microsoft_office_task)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 DialogArgsPtr DialogArgs::Clone() const {
   return New(
       mojo::Clone(file_names),
-      mojo::Clone(dialog_page),
-      mojo::Clone(local_tasks),
-      mojo::Clone(set_office_as_default_handler),
-      mojo::Clone(operation_type)
+      mojo::Clone(dialog_specific_args)
   );
 }
 
@@ -763,13 +1818,7 @@ template <typename T, DialogArgs::EnableIfSame<T>*>
 bool DialogArgs::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->file_names, other_struct.file_names))
     return false;
-  if (!mojo::Equals(this->dialog_page, other_struct.dialog_page))
-    return false;
-  if (!mojo::Equals(this->local_tasks, other_struct.local_tasks))
-    return false;
-  if (!mojo::Equals(this->set_office_as_default_handler, other_struct.set_office_as_default_handler))
-    return false;
-  if (!mojo::Equals(this->operation_type, other_struct.operation_type))
+  if (!mojo::Equals(this->dialog_specific_args, other_struct.dialog_specific_args))
     return false;
   return true;
 }
@@ -780,21 +1829,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.file_names < lhs.file_names)
     return false;
-  if (lhs.dialog_page < rhs.dialog_page)
+  if (lhs.dialog_specific_args < rhs.dialog_specific_args)
     return true;
-  if (rhs.dialog_page < lhs.dialog_page)
-    return false;
-  if (lhs.local_tasks < rhs.local_tasks)
-    return true;
-  if (rhs.local_tasks < lhs.local_tasks)
-    return false;
-  if (lhs.set_office_as_default_handler < rhs.set_office_as_default_handler)
-    return true;
-  if (rhs.set_office_as_default_handler < lhs.set_office_as_default_handler)
-    return false;
-  if (lhs.operation_type < rhs.operation_type)
-    return true;
-  if (rhs.operation_type < lhs.operation_type)
+  if (rhs.dialog_specific_args < lhs.dialog_specific_args)
     return false;
   return false;
 }
@@ -836,6 +1873,86 @@ struct  StructTraits<::ash::cloud_upload::mojom::DialogTask::DataView,
 
 
 template <>
+struct  StructTraits<::ash::cloud_upload::mojom::OneDriveSetupDialogArgs::DataView,
+                                         ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr> {
+  static bool IsNull(const ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr& input) { return !input; }
+  static void SetToNull(::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr* output) { output->reset(); }
+
+  static decltype(::ash::cloud_upload::mojom::OneDriveSetupDialogArgs::set_office_as_default_handler) set_office_as_default_handler(
+      const ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr& input) {
+    return input->set_office_as_default_handler;
+  }
+
+  static bool Read(::ash::cloud_upload::mojom::OneDriveSetupDialogArgs::DataView input, ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgs::DataView,
+                                         ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr> {
+  static bool IsNull(const ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr& input) { return !input; }
+  static void SetToNull(::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr* output) { output->reset(); }
+
+  static decltype(::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgs::operation_type) operation_type(
+      const ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr& input) {
+    return input->operation_type;
+  }
+
+  static bool Read(::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgs::DataView input, ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgs::DataView,
+                                         ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr> {
+  static bool IsNull(const ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr& input) { return !input; }
+  static void SetToNull(::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr* output) { output->reset(); }
+
+  static decltype(::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgs::operation_type) operation_type(
+      const ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr& input) {
+    return input->operation_type;
+  }
+
+  static bool Read(::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgs::DataView input, ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgs::DataView,
+                                         ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsPtr> {
+  static bool IsNull(const ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsPtr& input) { return !input; }
+  static void SetToNull(::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgs::DataView input, ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cloud_upload::mojom::FileHandlerDialogArgs::DataView,
+                                         ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr> {
+  static bool IsNull(const ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr& input) { return !input; }
+  static void SetToNull(::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cloud_upload::mojom::FileHandlerDialogArgs::local_tasks)& local_tasks(
+      const ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr& input) {
+    return input->local_tasks;
+  }
+
+  static decltype(::ash::cloud_upload::mojom::FileHandlerDialogArgs::show_google_workspace_task) show_google_workspace_task(
+      const ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr& input) {
+    return input->show_google_workspace_task;
+  }
+
+  static decltype(::ash::cloud_upload::mojom::FileHandlerDialogArgs::show_microsoft_office_task) show_microsoft_office_task(
+      const ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr& input) {
+    return input->show_microsoft_office_task;
+  }
+
+  static bool Read(::ash::cloud_upload::mojom::FileHandlerDialogArgs::DataView input, ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cloud_upload::mojom::DialogArgs::DataView,
                                          ::ash::cloud_upload::mojom::DialogArgsPtr> {
   static bool IsNull(const ::ash::cloud_upload::mojom::DialogArgsPtr& input) { return !input; }
@@ -846,27 +1963,46 @@ struct  StructTraits<::ash::cloud_upload::mojom::DialogArgs::DataView,
     return input->file_names;
   }
 
-  static decltype(::ash::cloud_upload::mojom::DialogArgs::dialog_page) dialog_page(
+  static const decltype(::ash::cloud_upload::mojom::DialogArgs::dialog_specific_args)& dialog_specific_args(
       const ::ash::cloud_upload::mojom::DialogArgsPtr& input) {
-    return input->dialog_page;
-  }
-
-  static const decltype(::ash::cloud_upload::mojom::DialogArgs::local_tasks)& local_tasks(
-      const ::ash::cloud_upload::mojom::DialogArgsPtr& input) {
-    return input->local_tasks;
-  }
-
-  static decltype(::ash::cloud_upload::mojom::DialogArgs::set_office_as_default_handler) set_office_as_default_handler(
-      const ::ash::cloud_upload::mojom::DialogArgsPtr& input) {
-    return input->set_office_as_default_handler;
-  }
-
-  static decltype(::ash::cloud_upload::mojom::DialogArgs::operation_type) operation_type(
-      const ::ash::cloud_upload::mojom::DialogArgsPtr& input) {
-    return input->operation_type;
+    return input->dialog_specific_args;
   }
 
   static bool Read(::ash::cloud_upload::mojom::DialogArgs::DataView input, ::ash::cloud_upload::mojom::DialogArgsPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cloud_upload::mojom::DialogSpecificArgs::DataView,
+                                        ::ash::cloud_upload::mojom::DialogSpecificArgsPtr> {
+  static bool IsNull(const ::ash::cloud_upload::mojom::DialogSpecificArgsPtr& input) { return !input; }
+  static void SetToNull(::ash::cloud_upload::mojom::DialogSpecificArgsPtr* output) { output->reset(); }
+
+  static ::ash::cloud_upload::mojom::DialogSpecificArgs::Tag GetTag(const ::ash::cloud_upload::mojom::DialogSpecificArgsPtr& input) {
+    return input->which();
+  }
+
+  static const ::ash::cloud_upload::mojom::FileHandlerDialogArgsPtr& file_handler_dialog_args(const ::ash::cloud_upload::mojom::DialogSpecificArgsPtr& input) {
+    return input->get_file_handler_dialog_args();
+  }
+
+  static const ::ash::cloud_upload::mojom::OneDriveSetupDialogArgsPtr& one_drive_setup_dialog_args(const ::ash::cloud_upload::mojom::DialogSpecificArgsPtr& input) {
+    return input->get_one_drive_setup_dialog_args();
+  }
+
+  static const ::ash::cloud_upload::mojom::MoveConfirmationOneDriveDialogArgsPtr& move_confirmation_one_drive_dialog_args(const ::ash::cloud_upload::mojom::DialogSpecificArgsPtr& input) {
+    return input->get_move_confirmation_one_drive_dialog_args();
+  }
+
+  static const ::ash::cloud_upload::mojom::MoveConfirmationGoogleDriveDialogArgsPtr& move_confirmation_google_drive_dialog_args(const ::ash::cloud_upload::mojom::DialogSpecificArgsPtr& input) {
+    return input->get_move_confirmation_google_drive_dialog_args();
+  }
+
+  static const ::ash::cloud_upload::mojom::ConnectToOneDriveDialogArgsPtr& connect_to_one_drive_dialog_args(const ::ash::cloud_upload::mojom::DialogSpecificArgsPtr& input) {
+    return input->get_connect_to_one_drive_dialog_args();
+  }
+
+  static bool Read(::ash::cloud_upload::mojom::DialogSpecificArgs::DataView input, ::ash::cloud_upload::mojom::DialogSpecificArgsPtr* output);
 };
 
 }  // namespace mojo

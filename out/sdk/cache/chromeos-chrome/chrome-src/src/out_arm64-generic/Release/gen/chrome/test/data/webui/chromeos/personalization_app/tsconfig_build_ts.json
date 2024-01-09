@@ -1,0 +1,129 @@
+{
+  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/ash/common/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://personalization/*": [
+        "./../../../../../../ash/webui/personalization_app/resources/tsc/*"
+      ],
+      "chrome://webui-test/chromeos/*": [
+        "./../tsc/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/ambient_preview_large_element_test.ts",
+    "preprocessed/ambient_preview_small_element_test.ts",
+    "preprocessed/ambient_subpage_element_test.ts",
+    "preprocessed/avatar_camera_element_test.ts",
+    "preprocessed/avatar_list_element_test.ts",
+    "preprocessed/dynamic_color_element_test.ts",
+    "preprocessed/google_photos_albums_element_test.ts",
+    "preprocessed/google_photos_collection_element_test.ts",
+    "preprocessed/google_photos_photos_by_album_id_element_test.ts",
+    "preprocessed/google_photos_photos_element_test.ts",
+    "preprocessed/google_photos_shared_album_dialog_element_test.ts",
+    "preprocessed/google_photos_zero_state_element_test.ts",
+    "preprocessed/keyboard_backlight_element_test.ts",
+    "preprocessed/local_images_element_test.ts",
+    "preprocessed/personalization_app_controller_test.ts",
+    "preprocessed/personalization_app_test.ts",
+    "preprocessed/personalization_app_test_utils.ts",
+    "preprocessed/personalization_breadcrumb_element_test.ts",
+    "preprocessed/personalization_main_element_test.ts",
+    "preprocessed/personalization_router_element_test.ts",
+    "preprocessed/personalization_theme_element_test.ts",
+    "preprocessed/personalization_toast_element_test.ts",
+    "preprocessed/sea_pen_controller_test.ts",
+    "preprocessed/sea_pen_images_element_test.ts",
+    "preprocessed/sea_pen_input_query_element_test.ts",
+    "preprocessed/sea_pen_recent_wallpapers_element_test.ts",
+    "preprocessed/sea_pen_router_element_test.ts",
+    "preprocessed/sea_pen_template_query_element_test.ts",
+    "preprocessed/test_ambient_interface_provider.ts",
+    "preprocessed/test_keyboard_backlight_interface_provider.ts",
+    "preprocessed/test_personalization_store.ts",
+    "preprocessed/test_sea_pen_interface_provider.ts",
+    "preprocessed/test_theme_interface_provider.ts",
+    "preprocessed/test_user_interface_provider.ts",
+    "preprocessed/test_wallpaper_interface_provider.ts",
+    "preprocessed/user_preview_element_test.ts",
+    "preprocessed/user_subpage_element_test.ts",
+    "preprocessed/wallpaper_collections_element_test.ts",
+    "preprocessed/wallpaper_fullscreen_element_test.ts",
+    "preprocessed/wallpaper_grid_item_element_test.ts",
+    "preprocessed/wallpaper_images_element_test.ts",
+    "preprocessed/wallpaper_observer_test.ts",
+    "preprocessed/ambient_observer_test.ts",
+    "preprocessed/wallpaper_preview_element_test.ts",
+    "preprocessed/wallpaper_selected_element_test.ts",
+    "preprocessed/wallpaper_subpage_element_test.ts",
+    "preprocessed/zone_customization_element_test.ts"
+  ],
+  "references": [
+    {
+      "path": "../../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ash/webui/personalization_app/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

@@ -223,14 +223,6 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'webrtcAllowLegacyTlsProtocols', 1,
-        3,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
         'userAgentOverride', 64,
         0,
         blink.mojom.UserAgentOverrideSpec.$,
@@ -248,7 +240,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'sendSubresourceNotification', 1,
-        4,
+        3,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -256,7 +248,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'pluginFullscreenAllowed', 1,
-        5,
+        4,
         mojo.internal.Bool,
         true,
         false, /* nullable */
@@ -264,7 +256,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'caretBrowsingEnabled', 1,
-        6,
+        5,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -280,7 +272,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'selectionClipboardBufferAvailable', 1,
-        7,
+        6,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -350,8 +342,6 @@ blink.mojom.RendererPreferences = class {
     this.webrtcUdpMaxPort;
     /** @export { !Array<!string> } */
     this.webrtcLocalIpsAllowedUrls;
-    /** @export { !boolean } */
-    this.webrtcAllowLegacyTlsProtocols;
     /** @export { !blink.mojom.UserAgentOverride } */
     this.userAgentOverride;
     /** @export { !string } */

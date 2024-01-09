@@ -139,12 +139,13 @@ enum PrintJobInfo_PrintJobSource : int {
   PrintJobInfo_PrintJobSource_ARC = 1,
   PrintJobInfo_PrintJobSource_EXTENSION = 2,
   PrintJobInfo_PrintJobSource_PRINT_PREVIEW_INCOGNITO = 3,
+  PrintJobInfo_PrintJobSource_ISOLATED_WEB_APP = 4,
   PrintJobInfo_PrintJobSource_PrintJobInfo_PrintJobSource_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   PrintJobInfo_PrintJobSource_PrintJobInfo_PrintJobSource_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool PrintJobInfo_PrintJobSource_IsValid(int value);
 constexpr PrintJobInfo_PrintJobSource PrintJobInfo_PrintJobSource_PrintJobSource_MIN = PrintJobInfo_PrintJobSource_PRINT_PREVIEW;
-constexpr PrintJobInfo_PrintJobSource PrintJobInfo_PrintJobSource_PrintJobSource_MAX = PrintJobInfo_PrintJobSource_PRINT_PREVIEW_INCOGNITO;
+constexpr PrintJobInfo_PrintJobSource PrintJobInfo_PrintJobSource_PrintJobSource_MAX = PrintJobInfo_PrintJobSource_ISOLATED_WEB_APP;
 constexpr int PrintJobInfo_PrintJobSource_PrintJobSource_ARRAYSIZE = PrintJobInfo_PrintJobSource_PrintJobSource_MAX + 1;
 
 const std::string& PrintJobInfo_PrintJobSource_Name(PrintJobInfo_PrintJobSource value);
@@ -900,6 +901,8 @@ class PrintJobInfo final :
     PrintJobInfo_PrintJobSource_EXTENSION;
   static constexpr PrintJobSource PRINT_PREVIEW_INCOGNITO =
     PrintJobInfo_PrintJobSource_PRINT_PREVIEW_INCOGNITO;
+  static constexpr PrintJobSource ISOLATED_WEB_APP =
+    PrintJobInfo_PrintJobSource_ISOLATED_WEB_APP;
   static inline bool PrintJobSource_IsValid(int value) {
     return PrintJobInfo_PrintJobSource_IsValid(value);
   }

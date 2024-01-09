@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLPolygonMode>::value,
     "WebGLPolygonMode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLPolygonMode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLPolygonMode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -100,7 +95,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLPolygonMode* blink_receiver = V8WebGLPolygonMode::ToWrappableUnsafe(v8_receiver);
+WebGLPolygonMode* blink_receiver = V8WebGLPolygonMode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_face = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

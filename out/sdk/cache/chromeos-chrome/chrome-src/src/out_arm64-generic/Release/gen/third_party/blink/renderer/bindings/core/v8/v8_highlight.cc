@@ -42,7 +42,7 @@ namespace blink {
 
 bool V8Highlight::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::HighlightAPIEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -80,11 +80,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Highlight>::value,
     "Highlight inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Highlight::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Highlight is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,8 +92,9 @@ BLINK_BINDINGS_TRACE_EVENT("Highlight.priority.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->priority();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -110,9 +106,9 @@ BLINK_BINDINGS_TRACE_EVENT("Highlight.priority.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Highlight";
@@ -133,10 +129,10 @@ BLINK_BINDINGS_TRACE_EVENT("Highlight.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -147,9 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("Highlight.type.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "Highlight";
@@ -227,9 +223,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Highlight";
 const char* const property_name = "addEventListener";
@@ -276,7 +272,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_event = NativeValueTraits<Event>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -310,9 +306,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Highlight";
 const char* const property_name = "removeEventListener";
@@ -345,8 +341,9 @@ BLINK_BINDINGS_TRACE_EVENT("Highlight.size.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->size();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -373,7 +370,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -399,12 +396,12 @@ BLINK_BINDINGS_TRACE_EVENT("Highlight.clear");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Highlight";
 const char* const property_name = "clear";
@@ -437,7 +434,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -463,12 +460,12 @@ BLINK_BINDINGS_TRACE_EVENT("Highlight.entries");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Highlight";
 const char* const property_name = "entries";
@@ -501,7 +498,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -546,7 +543,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -572,12 +569,12 @@ BLINK_BINDINGS_TRACE_EVENT("Highlight.keys");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Highlight";
 const char* const property_name = "keys";
@@ -600,12 +597,12 @@ BLINK_BINDINGS_TRACE_EVENT("Highlight.values");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(v8_receiver);
+Highlight* blink_receiver = V8Highlight::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Highlight";
 const char* const property_name = "values";

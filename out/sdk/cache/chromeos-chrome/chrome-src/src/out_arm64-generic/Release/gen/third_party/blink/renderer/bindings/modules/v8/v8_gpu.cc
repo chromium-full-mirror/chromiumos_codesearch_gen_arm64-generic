@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GPU>::value,
     "GPU inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GPU::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GPU is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("GPU.wgslLanguageFeatures.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GPU* blink_receiver = V8GPU::ToWrappableUnsafe(v8_receiver);
+GPU* blink_receiver = V8GPU::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->wgslLanguageFeatures();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -107,10 +103,10 @@ BLINK_BINDINGS_TRACE_EVENT("GPU.getPreferredCanvasFormat");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-GPU* blink_receiver = V8GPU::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->getPreferredCanvasFormat();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+GPU* blink_receiver = V8GPU::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->getPreferredCanvasFormat();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -137,7 +133,7 @@ return;
 
 
 
-GPU* blink_receiver = V8GPU::ToWrappableUnsafe(v8_receiver);
+GPU* blink_receiver = V8GPU::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

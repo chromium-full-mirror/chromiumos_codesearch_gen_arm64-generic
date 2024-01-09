@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,6 +49,7 @@ SharedImageCapabilities::SharedImageCapabilities()
       supports_luminance_shared_images(),
       supports_r16_shared_images(),
       disable_r8_shared_images(),
+      disable_webgpu_shared_images(),
       shared_image_d3d(),
       shared_image_swap_chain() {}
 
@@ -56,12 +58,14 @@ SharedImageCapabilities::SharedImageCapabilities(
     bool supports_luminance_shared_images_in,
     bool supports_r16_shared_images_in,
     bool disable_r8_shared_images_in,
+    bool disable_webgpu_shared_images_in,
     bool shared_image_d3d_in,
     bool shared_image_swap_chain_in)
     : supports_scanout_shared_images(std::move(supports_scanout_shared_images_in)),
       supports_luminance_shared_images(std::move(supports_luminance_shared_images_in)),
       supports_r16_shared_images(std::move(supports_r16_shared_images_in)),
       disable_r8_shared_images(std::move(disable_r8_shared_images_in)),
+      disable_webgpu_shared_images(std::move(disable_webgpu_shared_images_in)),
       shared_image_d3d(std::move(shared_image_d3d_in)),
       shared_image_swap_chain(std::move(shared_image_swap_chain_in)) {}
 
@@ -100,6 +104,15 @@ void SharedImageCapabilities::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "disable_r8_shared_images"), this->disable_r8_shared_images,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "disable_webgpu_shared_images"), this->disable_webgpu_shared_images,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -154,6 +167,8 @@ bool StructTraits<::gpu::mojom::SharedImageCapabilities::DataView, ::gpu::mojom:
         result->supports_r16_shared_images = input.supports_r16_shared_images();
       if (success)
         result->disable_r8_shared_images = input.disable_r8_shared_images();
+      if (success)
+        result->disable_webgpu_shared_images = input.disable_webgpu_shared_images();
       if (success)
         result->shared_image_d3d = input.shared_image_d3d();
       if (success)

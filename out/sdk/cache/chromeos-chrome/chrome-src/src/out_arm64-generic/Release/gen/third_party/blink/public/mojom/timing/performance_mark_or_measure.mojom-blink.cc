@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -56,7 +57,7 @@ PerformanceMarkOrMeasure::PerformanceMarkOrMeasure(
     PerformanceMarkOrMeasure::EntryType entry_type_in,
     double start_time_in,
     double duration_in,
-    absl::optional<::mojo_base::BigBuffer> detail_in)
+    std::optional<::mojo_base::BigBuffer> detail_in)
     : name(std::move(name_in)),
       entry_type(std::move(entry_type_in)),
       start_time(std::move(start_time_in)),
@@ -108,7 +109,7 @@ void PerformanceMarkOrMeasure::WriteIntoTrace(
     dict.AddItem(
       "detail"), this->detail,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::mojo_base::BigBuffer>>"
+      "<value of type std::optional<::mojo_base::BigBuffer>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

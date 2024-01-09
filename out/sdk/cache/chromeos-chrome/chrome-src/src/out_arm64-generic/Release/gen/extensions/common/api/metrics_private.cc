@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/metrics_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -67,8 +68,8 @@ max(0),
 buckets(0) {}
 
 MetricType::~MetricType() = default;
-MetricType::MetricType(MetricType&& rhs) = default;
-MetricType& MetricType::operator=(MetricType&& rhs) = default;
+MetricType::MetricType(MetricType&& rhs) noexcept = default;
+MetricType& MetricType::operator=(MetricType&& rhs) noexcept = default;
 MetricType MetricType::Clone() const {
   MetricType out;
   out.metric_name = metric_name;
@@ -158,34 +159,21 @@ bool MetricType::Populate(
 }
 
 // static
-std::unique_ptr<MetricType> MetricType::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MetricType>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MetricType> MetricType::FromValue(const base::Value::Dict& value) {
+  MetricType out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MetricType> MetricType::FromValue(const base::Value::Dict& value) {
+std::optional<MetricType> MetricType::FromValue(const base::Value& value) {
   MetricType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MetricType> MetricType::FromValue(const base::Value& value) {
-  MetricType out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -214,8 +202,8 @@ max(0),
 count(0) {}
 
 HistogramBucket::~HistogramBucket() = default;
-HistogramBucket::HistogramBucket(HistogramBucket&& rhs) = default;
-HistogramBucket& HistogramBucket::operator=(HistogramBucket&& rhs) = default;
+HistogramBucket::HistogramBucket(HistogramBucket&& rhs) noexcept = default;
+HistogramBucket& HistogramBucket::operator=(HistogramBucket&& rhs) noexcept = default;
 HistogramBucket HistogramBucket::Clone() const {
   HistogramBucket out;
   out.min = min;
@@ -276,34 +264,21 @@ bool HistogramBucket::Populate(
 }
 
 // static
-std::unique_ptr<HistogramBucket> HistogramBucket::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HistogramBucket>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HistogramBucket> HistogramBucket::FromValue(const base::Value::Dict& value) {
+  HistogramBucket out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HistogramBucket> HistogramBucket::FromValue(const base::Value::Dict& value) {
+std::optional<HistogramBucket> HistogramBucket::FromValue(const base::Value& value) {
   HistogramBucket out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HistogramBucket> HistogramBucket::FromValue(const base::Value& value) {
-  HistogramBucket out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -326,8 +301,8 @@ Histogram::Histogram()
 : sum(0.0) {}
 
 Histogram::~Histogram() = default;
-Histogram::Histogram(Histogram&& rhs) = default;
-Histogram& Histogram::operator=(Histogram&& rhs) = default;
+Histogram::Histogram(Histogram&& rhs) noexcept = default;
+Histogram& Histogram::operator=(Histogram&& rhs) noexcept = default;
 Histogram Histogram::Clone() const {
   Histogram out;
   out.sum = sum;
@@ -381,34 +356,21 @@ bool Histogram::Populate(
 }
 
 // static
-std::unique_ptr<Histogram> Histogram::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Histogram>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Histogram> Histogram::FromValue(const base::Value::Dict& value) {
+  Histogram out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Histogram> Histogram::FromValue(const base::Value::Dict& value) {
+std::optional<Histogram> Histogram::FromValue(const base::Value& value) {
   Histogram out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Histogram> Histogram::FromValue(const base::Value& value) {
-  Histogram out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -434,13 +396,13 @@ namespace GetHistogram {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -450,13 +412,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -487,13 +449,13 @@ namespace GetFieldTrial {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -503,13 +465,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -529,13 +491,13 @@ namespace GetVariationParams {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -545,13 +507,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -562,8 +524,8 @@ Results::Params::Params()
  {}
 
 Results::Params::~Params() = default;
-Results::Params::Params(Params&& rhs) = default;
-Results::Params& Results::Params::operator=(Params&& rhs) = default;
+Results::Params::Params(Params&& rhs) noexcept = default;
+Results::Params& Results::Params::operator=(Params&& rhs) noexcept = default;
 base::Value::Dict Results::Params::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -589,13 +551,13 @@ namespace RecordUserAction {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -605,13 +567,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -624,13 +586,13 @@ namespace RecordPercentage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -640,13 +602,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -655,13 +617,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -674,13 +636,13 @@ namespace RecordCount {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -690,13 +652,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -705,13 +667,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -724,13 +686,13 @@ namespace RecordSmallCount {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -740,13 +702,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -755,13 +717,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -774,13 +736,13 @@ namespace RecordMediumCount {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -790,13 +752,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -805,13 +767,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -824,13 +786,13 @@ namespace RecordTime {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -840,13 +802,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -855,13 +817,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -874,13 +836,13 @@ namespace RecordMediumTime {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -890,13 +852,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -905,13 +867,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -924,13 +886,13 @@ namespace RecordLongTime {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -940,13 +902,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -955,13 +917,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -974,13 +936,13 @@ namespace RecordSparseValueWithHashMetricName {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -990,13 +952,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1005,13 +967,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = value_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1024,13 +986,13 @@ namespace RecordSparseValueWithPersistentHash {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1040,13 +1002,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1055,13 +1017,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = value_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1074,13 +1036,13 @@ namespace RecordSparseValue {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1090,13 +1052,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1105,13 +1067,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1124,13 +1086,13 @@ namespace RecordValue {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1139,15 +1101,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& metric_value = args[0];
     {
       if (!metric_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!MetricType::Populate(metric_value.GetDict(), params.metric)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1156,13 +1118,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1175,13 +1137,13 @@ namespace RecordBoolean {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1191,13 +1153,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1206,13 +1168,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1225,13 +1187,13 @@ namespace RecordEnumerationValue {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1241,13 +1203,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = metric_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.metric_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1256,13 +1218,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = value_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.value = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -1271,13 +1233,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = enum_size_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.enum_size = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

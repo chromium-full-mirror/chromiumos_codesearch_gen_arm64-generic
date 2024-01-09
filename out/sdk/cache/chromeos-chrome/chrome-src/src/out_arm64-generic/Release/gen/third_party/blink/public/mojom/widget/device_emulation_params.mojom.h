@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-features.h"
 #include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-shared.h"
 #include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-forward.h"
+#include "services/device/public/mojom/device_posture_provider.mojom-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "ui/display/mojom/screen_orientation.mojom-forward.h"
 #include <string>
@@ -77,7 +79,7 @@ class BLINK_COMMON_EXPORT DeviceEmulationParams {
   DeviceEmulationParams(
       EmulatedScreenType screen_type,
       const ::gfx::Size& screen_size,
-      const absl::optional<::gfx::Point>& view_position,
+      const std::optional<::gfx::Point>& view_position,
       const ::gfx::Size& view_size,
       float device_scale_factor,
       float scale,
@@ -85,7 +87,8 @@ class BLINK_COMMON_EXPORT DeviceEmulationParams {
       float viewport_scale,
       ::display::mojom::ScreenOrientation screen_orientation_type,
       uint32_t screen_orientation_angle,
-      std::vector<::gfx::Rect> window_segments);
+      std::vector<::gfx::Rect> window_segments,
+      ::device::mojom::DevicePostureType device_posture);
 
 
   ~DeviceEmulationParams();
@@ -167,7 +170,7 @@ class BLINK_COMMON_EXPORT DeviceEmulationParams {
   
   ::gfx::Size screen_size;
   
-  absl::optional<::gfx::Point> view_position;
+  std::optional<::gfx::Point> view_position;
   
   ::gfx::Size view_size;
   
@@ -184,6 +187,8 @@ class BLINK_COMMON_EXPORT DeviceEmulationParams {
   uint32_t screen_orientation_angle;
   
   std::vector<::gfx::Rect> window_segments;
+  
+  ::device::mojom::DevicePostureType device_posture;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -227,7 +232,8 @@ DeviceEmulationParamsPtr DeviceEmulationParams::Clone() const {
       mojo::Clone(viewport_scale),
       mojo::Clone(screen_orientation_type),
       mojo::Clone(screen_orientation_angle),
-      mojo::Clone(window_segments)
+      mojo::Clone(window_segments),
+      mojo::Clone(device_posture)
   );
 }
 
@@ -254,6 +260,8 @@ bool DeviceEmulationParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->screen_orientation_angle, other_struct.screen_orientation_angle))
     return false;
   if (!mojo::Equals(this->window_segments, other_struct.window_segments))
+    return false;
+  if (!mojo::Equals(this->device_posture, other_struct.device_posture))
     return false;
   return true;
 }
@@ -303,6 +311,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.window_segments < rhs.window_segments)
     return true;
   if (rhs.window_segments < lhs.window_segments)
+    return false;
+  if (lhs.device_posture < rhs.device_posture)
+    return true;
+  if (rhs.device_posture < lhs.device_posture)
     return false;
   return false;
 }
@@ -372,6 +384,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::DeviceEmulationParams::D
   static const decltype(::blink::mojom::DeviceEmulationParams::window_segments)& window_segments(
       const ::blink::mojom::DeviceEmulationParamsPtr& input) {
     return input->window_segments;
+  }
+
+  static decltype(::blink::mojom::DeviceEmulationParams::device_posture) device_posture(
+      const ::blink::mojom::DeviceEmulationParamsPtr& input) {
+    return input->device_posture;
   }
 
   static bool Read(::blink::mojom::DeviceEmulationParams::DataView input, ::blink::mojom::DeviceEmulationParamsPtr* output);

@@ -13,8 +13,8 @@
 #include <utility>
 #include <vector>
 
-#include "base/files/scoped_file.h"
-#include "base/functional/callback.h"
+#include <base/files/scoped_file.h>
+#include <base/functional/callback.h>
 #include <brillo/brillo_export.h>
 // Ignore Wconversion warnings in dbus headers.
 #pragma GCC diagnostic push
@@ -24,6 +24,8 @@
 #pragma GCC diagnostic pop
 #include <net-base/ipv4_address.h>
 #include <net-base/ipv6_address.h>
+#include <net-base/network_config.h>
+#include <net-base/network_priority.h>
 
 namespace org::chromium {
 class PatchPanelProxyInterface;
@@ -51,31 +53,54 @@ class BRILLO_EXPORT Client {
     kUnknown,
     kChrome,
     kUser,
-    kArc,
-    kCrosVm,
-    kParallelsVm,
     kUpdateEngine,
-    kVpn,
     kSystem,
+    kVpn,
+    kArc,
+    kBorealisVM,
+    kBruschettaVM,
+    kCrostiniVM,
+    kParallelsVM,
+    kTethering,
+    kWiFiDirect,
+    kWiFiLOHS,
   };
 
   static constexpr std::initializer_list<TrafficSource> kAllTrafficSources = {
       TrafficSource::kUnknown,      TrafficSource::kChrome,
-      TrafficSource::kUser,         TrafficSource::kArc,
-      TrafficSource::kCrosVm,       TrafficSource::kParallelsVm,
-      TrafficSource::kUpdateEngine, TrafficSource::kVpn,
-      TrafficSource::kSystem,
-  };
+      TrafficSource::kUser,         TrafficSource::kUpdateEngine,
+      TrafficSource::kSystem,       TrafficSource::kVpn,
+      TrafficSource::kArc,          TrafficSource::kBorealisVM,
+      TrafficSource::kBruschettaVM, TrafficSource::kCrostiniVM,
+      TrafficSource::kParallelsVM,  TrafficSource::kTethering,
+      TrafficSource::kWiFiDirect,   TrafficSource::kWiFiLOHS};
 
-  // See TrafficCounter in patchpanel_service.proto.
-  struct TrafficCounter {
+  struct TrafficVector {
     uint64_t rx_bytes;
     uint64_t tx_bytes;
     uint64_t rx_packets;
     uint64_t tx_packets;
+
+    bool operator==(const TrafficVector&) const;
+    TrafficVector& operator+=(const TrafficVector&);
+    TrafficVector& operator-=(const TrafficVector&);
+    TrafficVector operator+(const TrafficVector&) const;
+    TrafficVector operator-(const TrafficVector&) const;
+    TrafficVector operator-() const;
+  };
+
+  static constexpr TrafficVector kZeroTraffic = {
+      .rx_bytes = 0,
+      .tx_bytes = 0,
+      .rx_packets = 0,
+      .tx_packets = 0,
+  };
+
+  struct TrafficCounter {
     TrafficSource source;
     std::string ifname;
     IPFamily ip_family;
+    TrafficVector traffic;
   };
 
   // See NetworkDevice.GuestType in patchpanel_service.proto.
@@ -84,6 +109,13 @@ class BRILLO_EXPORT Client {
     kArcVm,
     kTerminaVm,
     kParallelsVm,
+  };
+
+  // See NetworkDevice.TechnologyType in patchpanel_service.proto.
+  enum class TechnologyType {
+    kCellular,
+    kEthernet,
+    kWiFi,
   };
 
   // See NetworkDeviceChangedSignal in patchpanel_service.proto.
@@ -103,6 +135,7 @@ class BRILLO_EXPORT Client {
     GuestType guest_type;
     std::optional<net_base::IPv4Address> dns_proxy_ipv4_addr;
     std::optional<net_base::IPv6Address> dns_proxy_ipv6_addr;
+    std::optional<TechnologyType> technology_type;
   };
 
   // See ConnectNamespaceResponse in patchpanel_service.proto.
@@ -250,11 +283,33 @@ class BRILLO_EXPORT Client {
     net_base::IPv4Address gateway_ipv4_address;
   };
 
+  // Contains the network IPv4 subnet assigned to a Borealis VM and the name
+  // of the tap device created by patchpanel for the VM. See
+  // BorealisVmStartupResponse in patchpanel_service.proto.
+  struct BorealisAllocation {
+    // Tap device interface name created for the VM.
+    std::string tap_device_ifname;
+    // The /30 IPv4 subnet assigned to the VM.
+    net_base::IPv4CIDR borealis_ipv4_subnet;
+    // The IPv4 address assigned to the VM, contained inside |ipv4_subnet|.
+    net_base::IPv4Address borealis_ipv4_address;
+    // The next hop IPv4 address for the VM, contained inside |ipv4_subnet|.
+    net_base::IPv4Address gateway_ipv4_address;
+  };
+
   // Contains the list of tap devices initially created by patchpanel as well as
   // the IPv4 address of the "arc0" legacy management interface.
   struct ArcVMAllocation {
     net_base::IPv4Address arc0_ipv4_address;
     std::vector<std::string> tap_device_ifnames;
+  };
+
+  // See NetworkTechnology in patchpanel_service.proto.
+  enum class NetworkTechnology {
+    kCellular,
+    kEthernet,
+    kVPN,
+    kWiFi,
   };
 
   using GetTrafficCountersCallback =
@@ -271,6 +326,7 @@ class BRILLO_EXPORT Client {
       base::OnceCallback<void(bool success,
                               const DownstreamNetwork& downstream_network,
                               const std::vector<NetworkClientInfo>& clients)>;
+  using ConfigureNetworkCallback = base::OnceCallback<void(bool success)>;
 
   // Creates the instance with the system dbus object which is created
   // internally. The dbus object will shutdown at destruction.
@@ -293,7 +349,7 @@ class BRILLO_EXPORT Client {
   virtual ~Client() = default;
 
   virtual void RegisterOnAvailableCallback(
-      base::RepeatingCallback<void(bool)> callback) = 0;
+      base::OnceCallback<void(bool)> callback) = 0;
 
   // |callback| will be invoked if patchpanel exits and/or the DBus service
   // owner changes. The parameter will be false if the process is gone (no
@@ -318,6 +374,10 @@ class BRILLO_EXPORT Client {
   virtual std::optional<BruschettaAllocation> NotifyBruschettaVmStartup(
       uint64_t vm_id) = 0;
   virtual bool NotifyBruschettaVmShutdown(uint64_t vm_id) = 0;
+
+  virtual std::optional<BorealisAllocation> NotifyBorealisVmStartup(
+      uint32_t vm_id) = 0;
+  virtual bool NotifyBorealisVmShutdown(uint32_t vm_id) = 0;
 
   // Reset the VPN routing intent mark on a socket to the default policy for
   // the current uid. This is in general incorrect to call this method for
@@ -445,12 +505,32 @@ class BRILLO_EXPORT Client {
   // Returns true if the request was successfully sent, false otherwise.
   virtual bool SendSetFeatureFlagRequest(FeatureFlag flag, bool enable) = 0;
 
+  // Sends a request to configure an IP network or modify the configuration of
+  // an existing IP network on a certain physical or VPN network interface.
+  virtual bool ConfigureNetwork(int interface_index,
+                                std::string_view interface_name,
+                                uint32_t area,
+                                const net_base::NetworkConfig& network_config,
+                                net_base::NetworkPriority priority,
+                                NetworkTechnology technology,
+                                ConfigureNetworkCallback callback) = 0;
+
  protected:
   Client() = default;
 };
 
 BRILLO_EXPORT std::ostream& operator<<(
     std::ostream& stream, const Client::NeighborReachabilityEvent& event);
+
+BRILLO_EXPORT std::ostream& operator<<(
+    std::ostream& stream, const Client::NetworkTechnology& technology);
+
+// Forward declaring the protobuf-defined class patchpanel::NetworkConfig to
+// avoid including protobuf binding in a public header.
+class NetworkConfig;
+
+BRILLO_EXPORT void SerializeNetworkConfig(const net_base::NetworkConfig& in,
+                                          patchpanel::NetworkConfig* out);
 
 }  // namespace patchpanel
 

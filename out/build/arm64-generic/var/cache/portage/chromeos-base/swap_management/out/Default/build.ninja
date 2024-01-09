@@ -27,10 +27,7 @@ build install_udev_rule: phony obj/swap_management/install_udev_rule.stamp
 build libswapmanagement: phony ./libswapmanagement.a
 build root: phony obj/common-mk/gn_root/root.stamp
 build swap-management-adaptors: phony obj/swap_management/swap-management-adaptors.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build swap_management$:_swap_management-install_config: phony obj/swap_management/_swap_management-install_config.stamp
 build swap_management$:all: phony obj/swap_management/all.stamp
 build swap_management$:install_dbus_config: phony obj/swap_management/install_dbus_config.stamp
@@ -41,11 +38,9 @@ build swap_management$:install_udev_rule: phony obj/swap_management/install_udev
 build swap_management$:libswapmanagement: phony ./libswapmanagement.a
 build swap_management$:swap-management-adaptors: phony obj/swap_management/swap-management-adaptors.stamp
 build swap_management$:swap_management: phony ./swap_management
-build swap_management$:swap_tool_test: phony ./swap_tool_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/swap_management/_swap_management-install_config.stamp $
     obj/swap_management/all.stamp $
     obj/swap_management/install_dbus_config.stamp $
@@ -55,7 +50,6 @@ build all: phony $
     obj/swap_management/install_udev_rule.stamp $
     ./libswapmanagement.a $
     obj/swap_management/swap-management-adaptors.stamp $
-    ./swap_management $
-    ./swap_tool_test
+    ./swap_management
 
 default all

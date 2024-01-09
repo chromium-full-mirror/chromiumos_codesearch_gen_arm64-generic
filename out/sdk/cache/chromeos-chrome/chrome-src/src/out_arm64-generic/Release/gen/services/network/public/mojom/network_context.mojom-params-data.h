@@ -28,7 +28,7 @@ class  CustomProxyConnectionObserver_OnFallback_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::network::mojom::internal::ProxyServer_Data> bad_proxy;
+  mojo::internal::Pointer<::network::mojom::internal::ProxyChain_Data> bad_chain;
   int32_t net_error;
   uint8_t padfinal_[4];
 
@@ -46,7 +46,8 @@ class  CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::network::mojom::internal::ProxyServer_Data> proxy_server;
+  mojo::internal::Pointer<::network::mojom::internal::ProxyChain_Data> proxy_chain;
+  uint64_t chain_index;
   mojo::internal::Pointer<::network::mojom::internal::HttpResponseHeaders_Data> response_headers;
 
  private:
@@ -55,7 +56,7 @@ class  CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params_Data {
   CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params_Data();
   ~CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params_Data() = delete;
 };
-static_assert(sizeof(CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params_Data) == 24,
+static_assert(sizeof(CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params_Data) == 32,
               "Bad sizeof(CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params_Data)");
 class  CustomProxyConfigClient_OnCustomProxyConfigUpdated_Params_Data {
  public:
@@ -460,7 +461,7 @@ class  IpProtectionConfigGetter_GetProxyList_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> proxy_list;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>>>> proxy_list;
 
  private:
   friend class mojo::internal::MessageFragment<IpProtectionConfigGetter_GetProxyList_ResponseParams_Data>;
@@ -1326,22 +1327,6 @@ class  NetworkContext_SetEnableReferrers_Params_Data {
 };
 static_assert(sizeof(NetworkContext_SetEnableReferrers_Params_Data) == 16,
               "Bad sizeof(NetworkContext_SetEnableReferrers_Params_Data)");
-class  NetworkContext_UpdateAdditionalCertificates_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::AdditionalCertificates_Data> additional_certificates;
-
- private:
-  friend class mojo::internal::MessageFragment<NetworkContext_UpdateAdditionalCertificates_Params_Data>;
-
-  NetworkContext_UpdateAdditionalCertificates_Params_Data();
-  ~NetworkContext_UpdateAdditionalCertificates_Params_Data() = delete;
-};
-static_assert(sizeof(NetworkContext_UpdateAdditionalCertificates_Params_Data) == 16,
-              "Bad sizeof(NetworkContext_UpdateAdditionalCertificates_Params_Data)");
 class  NetworkContext_SetCTPolicy_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1637,11 +1622,14 @@ class  NetworkContext_CreateWebSocket_Params_Data {
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> requested_protocols;
   mojo::internal::Pointer<::network::mojom::internal::SiteForCookies_Data> site_for_cookies;
+  uint8_t has_storage_access : 1;
+  uint8_t pad3_[3];
+  int32_t process_id;
   mojo::internal::Pointer<::network::mojom::internal::IsolationInfo_Data> isolation_info;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::HttpHeader_Data>>> additional_headers;
-  int32_t process_id;
-  uint32_t options;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> origin;
+  uint32_t options;
+  uint8_t pad8_[4];
   mojo::internal::Pointer<::network::mojom::internal::MutableNetworkTrafficAnnotationTag_Data> traffic_annotation;
   mojo::internal::Interface_Data handshake_client;
   mojo::internal::Interface_Data url_loader_network_observer;
@@ -1655,7 +1643,7 @@ class  NetworkContext_CreateWebSocket_Params_Data {
   NetworkContext_CreateWebSocket_Params_Data();
   ~NetworkContext_CreateWebSocket_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkContext_CreateWebSocket_Params_Data) == 112,
+static_assert(sizeof(NetworkContext_CreateWebSocket_Params_Data) == 120,
               "Bad sizeof(NetworkContext_CreateWebSocket_Params_Data)");
 class  NetworkContext_CreateWebTransport_Params_Data {
  public:
@@ -1795,7 +1783,6 @@ class  NetworkContext_VerifyCertForSignedExchange_Params_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::network::mojom::internal::X509Certificate_Data> certificate;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
-  ::network::mojom::internal::NetworkAnonymizationKey_Data network_anonymization_key;
   mojo::internal::Pointer<mojo::internal::String_Data> ocsp_response;
   mojo::internal::Pointer<mojo::internal::String_Data> sct_list;
 
@@ -1805,7 +1792,7 @@ class  NetworkContext_VerifyCertForSignedExchange_Params_Data {
   NetworkContext_VerifyCertForSignedExchange_Params_Data();
   ~NetworkContext_VerifyCertForSignedExchange_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkContext_VerifyCertForSignedExchange_Params_Data) == 56,
+static_assert(sizeof(NetworkContext_VerifyCertForSignedExchange_Params_Data) == 40,
               "Bad sizeof(NetworkContext_VerifyCertForSignedExchange_Params_Data)");
 class  NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data {
  public:
@@ -1817,7 +1804,6 @@ class  NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data {
   uint8_t pkp_bypassed : 1;
   uint8_t pad1_[3];
   mojo::internal::Pointer<::network::mojom::internal::CertVerifyResult_Data> cv_result;
-  mojo::internal::Pointer<mojo::internal::String_Data> pinning_failure_log;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data>;
@@ -1825,7 +1811,7 @@ class  NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data {
   NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data();
   ~NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data) == 32,
+static_assert(sizeof(NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data) == 24,
               "Bad sizeof(NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data)");
 class  NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data {
  public:
@@ -2363,21 +2349,6 @@ class  NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParams_Dat
 };
 static_assert(sizeof(NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParams_Data) == 8,
               "Bad sizeof(NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParams_Data)");
-class  NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params_Data>;
-
-  NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params_Data();
-  ~NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params_Data() = delete;
-};
-static_assert(sizeof(NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params_Data) == 8,
-              "Bad sizeof(NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params_Data)");
 class  NetworkContext_SetSCTAuditingMode_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2588,14 +2559,14 @@ class CustomProxyConnectionObserver_OnFallback_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetBadProxyDataView(
-      ::network::mojom::ProxyServerDataView* output);
+  inline void GetBadChainDataView(
+      ::network::mojom::ProxyChainDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadBadProxy(UserType* output) {
+  [[nodiscard]] bool ReadBadChain(UserType* output) {
     
-    auto* pointer = data_->bad_proxy.Get();
-    return mojo::internal::Deserialize<::network::mojom::ProxyServerDataView>(
+    auto* pointer = data_->bad_chain.Get();
+    return mojo::internal::Deserialize<::network::mojom::ProxyChainDataView>(
         pointer, output, message_);
   }
   int32_t net_error() const {
@@ -2617,15 +2588,18 @@ class CustomProxyConnectionObserver_OnTunnelHeadersReceived_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetProxyServerDataView(
-      ::network::mojom::ProxyServerDataView* output);
+  inline void GetProxyChainDataView(
+      ::network::mojom::ProxyChainDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadProxyServer(UserType* output) {
+  [[nodiscard]] bool ReadProxyChain(UserType* output) {
     
-    auto* pointer = data_->proxy_server.Get();
-    return mojo::internal::Deserialize<::network::mojom::ProxyServerDataView>(
+    auto* pointer = data_->proxy_chain.Get();
+    return mojo::internal::Deserialize<::network::mojom::ProxyChainDataView>(
         pointer, output, message_);
+  }
+  uint64_t chain_index() const {
+    return data_->chain_index;
   }
   inline void GetResponseHeadersDataView(
       ::network::mojom::HttpResponseHeadersDataView* output);
@@ -3313,14 +3287,14 @@ class IpProtectionConfigGetter_GetProxyList_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetProxyListDataView(
-      mojo::ArrayDataView<mojo::StringDataView>* output);
+      mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadProxyList(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
+        mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>, UserType>(),
     "Attempting to read the optional `proxy_list` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -3329,7 +3303,7 @@ static_assert(
     "of `ReadProxyList if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->proxy_list.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>>(
         pointer, output, message_);
   }
  private:
@@ -4880,42 +4854,6 @@ class NetworkContext_SetEnableReferrers_ParamsDataView {
 };
 
 
-class NetworkContext_UpdateAdditionalCertificates_ParamsDataView {
- public:
-  NetworkContext_UpdateAdditionalCertificates_ParamsDataView() = default;
-
-  NetworkContext_UpdateAdditionalCertificates_ParamsDataView(
-      internal::NetworkContext_UpdateAdditionalCertificates_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetAdditionalCertificatesDataView(
-      AdditionalCertificatesDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadAdditionalCertificates(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::network::mojom::AdditionalCertificatesDataView, UserType>(),
-    "Attempting to read the optional `additional_certificates` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadAdditionalCertificates` instead "
-    "of `ReadAdditionalCertificates if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->additional_certificates.Get();
-    return mojo::internal::Deserialize<::network::mojom::AdditionalCertificatesDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::NetworkContext_UpdateAdditionalCertificates_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class NetworkContext_SetCTPolicy_ParamsDataView {
  public:
   NetworkContext_SetCTPolicy_ParamsDataView() = default;
@@ -5616,6 +5554,9 @@ class NetworkContext_CreateWebSocket_ParamsDataView {
     return mojo::internal::Deserialize<::network::mojom::SiteForCookiesDataView>(
         pointer, output, message_);
   }
+  bool has_storage_access() const {
+    return data_->has_storage_access;
+  }
   inline void GetIsolationInfoDataView(
       ::network::mojom::IsolationInfoDataView* output);
 
@@ -6074,16 +6015,6 @@ class NetworkContext_VerifyCertForSignedExchange_ParamsDataView {
     return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
         pointer, output, message_);
   }
-  inline void GetNetworkAnonymizationKeyDataView(
-      ::network::mojom::NetworkAnonymizationKeyDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadNetworkAnonymizationKey(UserType* output) {
-    
-    auto* pointer = !data_->network_anonymization_key.is_null() ? &data_->network_anonymization_key : nullptr;
-    return mojo::internal::Deserialize<::network::mojom::NetworkAnonymizationKeyDataView>(
-        pointer, output, message_);
-  }
   inline void GetOcspResponseDataView(
       mojo::StringDataView* output);
 
@@ -6135,16 +6066,6 @@ class NetworkContext_VerifyCertForSignedExchange_ResponseParamsDataView {
   }
   bool pkp_bypassed() const {
     return data_->pkp_bypassed;
-  }
-  inline void GetPinningFailureLogDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadPinningFailureLog(UserType* output) {
-    
-    auto* pointer = data_->pinning_failure_log.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
   }
  private:
   internal::NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data* data_ = nullptr;
@@ -6991,21 +6912,6 @@ class NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParamsDataV
 };
 
 
-class NetworkContext_SetCTLogListAlwaysTimelyForTesting_ParamsDataView {
- public:
-  NetworkContext_SetCTLogListAlwaysTimelyForTesting_ParamsDataView() = default;
-
-  NetworkContext_SetCTLogListAlwaysTimelyForTesting_ParamsDataView(
-      internal::NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::NetworkContext_SetCTLogListAlwaysTimelyForTesting_Params_Data* data_ = nullptr;
-};
-
-
 class NetworkContext_SetSCTAuditingMode_ParamsDataView {
  public:
   NetworkContext_SetSCTAuditingMode_ParamsDataView() = default;
@@ -7329,17 +7235,17 @@ static_assert(
   mojo::Message* message_ = nullptr;
 };
 
-inline void CustomProxyConnectionObserver_OnFallback_ParamsDataView::GetBadProxyDataView(
-    ::network::mojom::ProxyServerDataView* output) {
-  auto pointer = data_->bad_proxy.Get();
-  *output = ::network::mojom::ProxyServerDataView(pointer, message_);
+inline void CustomProxyConnectionObserver_OnFallback_ParamsDataView::GetBadChainDataView(
+    ::network::mojom::ProxyChainDataView* output) {
+  auto pointer = data_->bad_chain.Get();
+  *output = ::network::mojom::ProxyChainDataView(pointer, message_);
 }
 
 
-inline void CustomProxyConnectionObserver_OnTunnelHeadersReceived_ParamsDataView::GetProxyServerDataView(
-    ::network::mojom::ProxyServerDataView* output) {
-  auto pointer = data_->proxy_server.Get();
-  *output = ::network::mojom::ProxyServerDataView(pointer, message_);
+inline void CustomProxyConnectionObserver_OnTunnelHeadersReceived_ParamsDataView::GetProxyChainDataView(
+    ::network::mojom::ProxyChainDataView* output) {
+  auto pointer = data_->proxy_chain.Get();
+  *output = ::network::mojom::ProxyChainDataView(pointer, message_);
 }
 inline void CustomProxyConnectionObserver_OnTunnelHeadersReceived_ParamsDataView::GetResponseHeadersDataView(
     ::network::mojom::HttpResponseHeadersDataView* output) {
@@ -7487,9 +7393,9 @@ inline void IpProtectionConfigGetter_TryGetAuthTokens_ResponseParamsDataView::Ge
 
 
 inline void IpProtectionConfigGetter_GetProxyList_ResponseParamsDataView::GetProxyListDataView(
-    mojo::ArrayDataView<mojo::StringDataView>* output) {
+    mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>* output) {
   auto pointer = data_->proxy_list.Get();
-  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+  *output = mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>(pointer, message_);
 }
 
 
@@ -7842,13 +7748,6 @@ inline void NetworkContext_SetAcceptLanguage_ParamsDataView::GetNewAcceptLanguag
 
 
 
-inline void NetworkContext_UpdateAdditionalCertificates_ParamsDataView::GetAdditionalCertificatesDataView(
-    AdditionalCertificatesDataView* output) {
-  auto pointer = data_->additional_certificates.Get();
-  *output = AdditionalCertificatesDataView(pointer, message_);
-}
-
-
 inline void NetworkContext_SetCTPolicy_ParamsDataView::GetCtPolicyDataView(
     CTPolicyDataView* output) {
   auto pointer = data_->ct_policy.Get();
@@ -8102,11 +8001,6 @@ inline void NetworkContext_VerifyCertForSignedExchange_ParamsDataView::GetUrlDat
   auto pointer = data_->url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
 }
-inline void NetworkContext_VerifyCertForSignedExchange_ParamsDataView::GetNetworkAnonymizationKeyDataView(
-    ::network::mojom::NetworkAnonymizationKeyDataView* output) {
-  auto pointer = &data_->network_anonymization_key;
-  *output = ::network::mojom::NetworkAnonymizationKeyDataView(pointer, message_);
-}
 inline void NetworkContext_VerifyCertForSignedExchange_ParamsDataView::GetOcspResponseDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->ocsp_response.Get();
@@ -8123,11 +8017,6 @@ inline void NetworkContext_VerifyCertForSignedExchange_ResponseParamsDataView::G
     ::network::mojom::CertVerifyResultDataView* output) {
   auto pointer = data_->cv_result.Get();
   *output = ::network::mojom::CertVerifyResultDataView(pointer, message_);
-}
-inline void NetworkContext_VerifyCertForSignedExchange_ResponseParamsDataView::GetPinningFailureLogDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->pinning_failure_log.Get();
-  *output = mojo::StringDataView(pointer, message_);
 }
 
 
@@ -8334,8 +8223,6 @@ inline void NetworkContext_AddDomainReliabilityContextForTesting_ParamsDataView:
   auto pointer = data_->upload_url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
 }
-
-
 
 
 

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,26 +33,26 @@ namespace file_system_provider {
 // Error codes used by providing extensions in response to requests as well as
 // in case of errors when calling methods of the API. For success,
 // <code>"OK"</code> must be used.
-enum  ProviderError {
-  PROVIDER_ERROR_NONE = 0,
-  PROVIDER_ERROR_OK,
-  PROVIDER_ERROR_FAILED,
-  PROVIDER_ERROR_IN_USE,
-  PROVIDER_ERROR_EXISTS,
-  PROVIDER_ERROR_NOT_FOUND,
-  PROVIDER_ERROR_ACCESS_DENIED,
-  PROVIDER_ERROR_TOO_MANY_OPENED,
-  PROVIDER_ERROR_NO_MEMORY,
-  PROVIDER_ERROR_NO_SPACE,
-  PROVIDER_ERROR_NOT_A_DIRECTORY,
-  PROVIDER_ERROR_INVALID_OPERATION,
-  PROVIDER_ERROR_SECURITY,
-  PROVIDER_ERROR_ABORT,
-  PROVIDER_ERROR_NOT_A_FILE,
-  PROVIDER_ERROR_NOT_EMPTY,
-  PROVIDER_ERROR_INVALID_URL,
-  PROVIDER_ERROR_IO,
-  PROVIDER_ERROR_LAST = PROVIDER_ERROR_IO,
+enum class ProviderError {
+  kNone = 0,
+  kOk,
+  kFailed,
+  kInUse,
+  kExists,
+  kNotFound,
+  kAccessDenied,
+  kTooManyOpened,
+  kNoMemory,
+  kNoSpace,
+  kNotADirectory,
+  kInvalidOperation,
+  kSecurity,
+  kAbort,
+  kNotAFile,
+  kNotEmpty,
+  kInvalidUrl,
+  kIo,
+  kMaxValue = kIo,
 };
 
 
@@ -60,11 +61,11 @@ ProviderError ParseProviderError(base::StringPiece as_string);
 std::u16string GetProviderErrorParseError(base::StringPiece as_string);
 
 // Mode of opening a file. Used by $(ref:onOpenFileRequested).
-enum  OpenFileMode {
-  OPEN_FILE_MODE_NONE = 0,
-  OPEN_FILE_MODE_READ,
-  OPEN_FILE_MODE_WRITE,
-  OPEN_FILE_MODE_LAST = OPEN_FILE_MODE_WRITE,
+enum class OpenFileMode {
+  kNone = 0,
+  kRead,
+  kWrite,
+  kMaxValue = kWrite,
 };
 
 
@@ -73,11 +74,11 @@ OpenFileMode ParseOpenFileMode(base::StringPiece as_string);
 std::u16string GetOpenFileModeParseError(base::StringPiece as_string);
 
 // Type of a change detected on the observed directory.
-enum  ChangeType {
-  CHANGE_TYPE_NONE = 0,
-  CHANGE_TYPE_CHANGED,
-  CHANGE_TYPE_DELETED,
-  CHANGE_TYPE_LAST = CHANGE_TYPE_DELETED,
+enum class ChangeType {
+  kNone = 0,
+  kChanged,
+  kDeleted,
+  kMaxValue = kDeleted,
 };
 
 
@@ -90,12 +91,12 @@ std::u16string GetChangeTypeParseError(base::StringPiece as_string);
 // access). <code>"OFFLINE_NOT_NECESSARY"</code> for notifying that the file
 // doesn't need to be stored for offline access anymore. Used by
 // $(ref:onGetActionsRequested) and $(ref:onExecuteActionRequested).
-enum  CommonActionId {
-  COMMON_ACTION_ID_NONE = 0,
-  COMMON_ACTION_ID_SAVE_FOR_OFFLINE,
-  COMMON_ACTION_ID_OFFLINE_NOT_NECESSARY,
-  COMMON_ACTION_ID_SHARE,
-  COMMON_ACTION_ID_LAST = COMMON_ACTION_ID_SHARE,
+enum class CommonActionId {
+  kNone = 0,
+  kSaveForOffline,
+  kOfflineNotNecessary,
+  kShare,
+  kMaxValue = kShare,
 };
 
 
@@ -108,8 +109,8 @@ struct CloudIdentifier {
   ~CloudIdentifier();
   CloudIdentifier(const CloudIdentifier&) = delete;
   CloudIdentifier& operator=(const CloudIdentifier&) = delete;
-  CloudIdentifier(CloudIdentifier&& rhs);
-  CloudIdentifier& operator=(CloudIdentifier&& rhs);
+  CloudIdentifier(CloudIdentifier&& rhs) noexcept;
+  CloudIdentifier& operator=(CloudIdentifier&& rhs) noexcept;
 
   // Populates a CloudIdentifier object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -122,15 +123,12 @@ struct CloudIdentifier {
   // Creates a deep copy of CloudIdentifier.
   CloudIdentifier Clone() const;
 
-  // Creates a CloudIdentifier object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CloudIdentifier> FromValueDeprecated(const base::Value& value);
-
   // Creates a CloudIdentifier object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CloudIdentifier> FromValue(const base::Value::Dict& value);
+  static std::optional<CloudIdentifier> FromValue(const base::Value::Dict& value);
 
   // Creates a CloudIdentifier object from a base::Value, or nullopt on failure.
-  static absl::optional<CloudIdentifier> FromValue(const base::Value& value);
+  static std::optional<CloudIdentifier> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCloudIdentifier object.
@@ -149,8 +147,8 @@ struct EntryMetadata {
   ~EntryMetadata();
   EntryMetadata(const EntryMetadata&) = delete;
   EntryMetadata& operator=(const EntryMetadata&) = delete;
-  EntryMetadata(EntryMetadata&& rhs);
-  EntryMetadata& operator=(EntryMetadata&& rhs);
+  EntryMetadata(EntryMetadata&& rhs) noexcept;
+  EntryMetadata& operator=(EntryMetadata&& rhs) noexcept;
 
   // Populates a EntryMetadata object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -163,15 +161,12 @@ struct EntryMetadata {
   // Creates a deep copy of EntryMetadata.
   EntryMetadata Clone() const;
 
-  // Creates a EntryMetadata object from a base::Value, or NULL on failure.
-  static std::unique_ptr<EntryMetadata> FromValueDeprecated(const base::Value& value);
-
   // Creates a EntryMetadata object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<EntryMetadata> FromValue(const base::Value::Dict& value);
+  static std::optional<EntryMetadata> FromValue(const base::Value::Dict& value);
 
   // Creates a EntryMetadata object from a base::Value, or nullopt on failure.
-  static absl::optional<EntryMetadata> FromValue(const base::Value& value);
+  static std::optional<EntryMetadata> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEntryMetadata object.
@@ -184,8 +179,8 @@ struct EntryMetadata {
     ~ModificationTime();
     ModificationTime(const ModificationTime&) = delete;
     ModificationTime& operator=(const ModificationTime&) = delete;
-    ModificationTime(ModificationTime&& rhs);
-    ModificationTime& operator=(ModificationTime&& rhs);
+    ModificationTime(ModificationTime&& rhs) noexcept;
+    ModificationTime& operator=(ModificationTime&& rhs) noexcept;
 
     // Populates a ModificationTime object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -200,11 +195,11 @@ struct EntryMetadata {
 
     // Creates a ModificationTime object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<ModificationTime> FromValue(const base::Value::Dict& value);
+    static std::optional<ModificationTime> FromValue(const base::Value::Dict& value);
 
     // Creates a ModificationTime object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<ModificationTime> FromValue(const base::Value& value);
+    static std::optional<ModificationTime> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisModificationTime object.
@@ -216,32 +211,32 @@ struct EntryMetadata {
 
   // True if it is a directory. Must be provided if requested in
   // <code>options</code>.
-  absl::optional<bool> is_directory;
+  std::optional<bool> is_directory;
 
   // Name of this entry (not full path name). Must not contain '/'. For root it
   // must be empty. Must be provided if requested in <code>options</code>.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // File size in bytes. Must be provided if requested in <code>options</code>.
-  absl::optional<double> size;
+  std::optional<double> size;
 
   // The last modified time of this entry. Must be provided if requested in
   // <code>options</code>.
-  absl::optional<ModificationTime> modification_time;
+  std::optional<ModificationTime> modification_time;
 
   // Mime type for the entry. Always optional, but should be provided if requested
   // in <code>options</code>.
-  absl::optional<std::string> mime_type;
+  std::optional<std::string> mime_type;
 
   // Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32
   // KB in size. Optional, but can be provided only when explicitly requested by
   // the $(ref:onGetMetadataRequested) event.
-  absl::optional<std::string> thumbnail;
+  std::optional<std::string> thumbnail;
 
   // Cloud storage representation of this entry. Must be provided if requested in
   // <code>options</code> and the file is backed by cloud storage. For local files
   // not backed by cloud storage, it should be undefined when requested.
-  absl::optional<CloudIdentifier> cloud_identifier;
+  std::optional<CloudIdentifier> cloud_identifier;
 
 };
 
@@ -250,8 +245,8 @@ struct Watcher {
   ~Watcher();
   Watcher(const Watcher&) = delete;
   Watcher& operator=(const Watcher&) = delete;
-  Watcher(Watcher&& rhs);
-  Watcher& operator=(Watcher&& rhs);
+  Watcher(Watcher&& rhs) noexcept;
+  Watcher& operator=(Watcher&& rhs) noexcept;
 
   // Populates a Watcher object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -264,14 +259,11 @@ struct Watcher {
   // Creates a deep copy of Watcher.
   Watcher Clone() const;
 
-  // Creates a Watcher object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Watcher> FromValueDeprecated(const base::Value& value);
-
   // Creates a Watcher object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Watcher> FromValue(const base::Value::Dict& value);
+  static std::optional<Watcher> FromValue(const base::Value::Dict& value);
 
   // Creates a Watcher object from a base::Value, or nullopt on failure.
-  static absl::optional<Watcher> FromValue(const base::Value& value);
+  static std::optional<Watcher> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWatcher object.
@@ -285,7 +277,7 @@ struct Watcher {
   bool recursive;
 
   // Tag used by the last notification for the watcher.
-  absl::optional<std::string> last_tag;
+  std::optional<std::string> last_tag;
 
 };
 
@@ -294,8 +286,8 @@ struct OpenedFile {
   ~OpenedFile();
   OpenedFile(const OpenedFile&) = delete;
   OpenedFile& operator=(const OpenedFile&) = delete;
-  OpenedFile(OpenedFile&& rhs);
-  OpenedFile& operator=(OpenedFile&& rhs);
+  OpenedFile(OpenedFile&& rhs) noexcept;
+  OpenedFile& operator=(OpenedFile&& rhs) noexcept;
 
   // Populates a OpenedFile object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -308,15 +300,12 @@ struct OpenedFile {
   // Creates a deep copy of OpenedFile.
   OpenedFile Clone() const;
 
-  // Creates a OpenedFile object from a base::Value, or NULL on failure.
-  static std::unique_ptr<OpenedFile> FromValueDeprecated(const base::Value& value);
-
   // Creates a OpenedFile object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<OpenedFile> FromValue(const base::Value::Dict& value);
+  static std::optional<OpenedFile> FromValue(const base::Value::Dict& value);
 
   // Creates a OpenedFile object from a base::Value, or nullopt on failure.
-  static absl::optional<OpenedFile> FromValue(const base::Value& value);
+  static std::optional<OpenedFile> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOpenedFile object.
@@ -338,8 +327,8 @@ struct FileSystemInfo {
   ~FileSystemInfo();
   FileSystemInfo(const FileSystemInfo&) = delete;
   FileSystemInfo& operator=(const FileSystemInfo&) = delete;
-  FileSystemInfo(FileSystemInfo&& rhs);
-  FileSystemInfo& operator=(FileSystemInfo&& rhs);
+  FileSystemInfo(FileSystemInfo&& rhs) noexcept;
+  FileSystemInfo& operator=(FileSystemInfo&& rhs) noexcept;
 
   // Populates a FileSystemInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -352,15 +341,12 @@ struct FileSystemInfo {
   // Creates a deep copy of FileSystemInfo.
   FileSystemInfo Clone() const;
 
-  // Creates a FileSystemInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FileSystemInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a FileSystemInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FileSystemInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<FileSystemInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a FileSystemInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<FileSystemInfo> FromValue(const base::Value& value);
+  static std::optional<FileSystemInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileSystemInfo object.
@@ -385,7 +371,7 @@ struct FileSystemInfo {
 
   // Whether the file system supports the <code>tag</code> field for observing
   // directories.
-  absl::optional<bool> supports_notify_tag;
+  std::optional<bool> supports_notify_tag;
 
   // List of watchers.
   std::vector<Watcher> watchers;
@@ -397,8 +383,8 @@ struct MountOptions {
   ~MountOptions();
   MountOptions(const MountOptions&) = delete;
   MountOptions& operator=(const MountOptions&) = delete;
-  MountOptions(MountOptions&& rhs);
-  MountOptions& operator=(MountOptions&& rhs);
+  MountOptions(MountOptions&& rhs) noexcept;
+  MountOptions& operator=(MountOptions&& rhs) noexcept;
 
   // Populates a MountOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -411,15 +397,12 @@ struct MountOptions {
   // Creates a deep copy of MountOptions.
   MountOptions Clone() const;
 
-  // Creates a MountOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MountOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a MountOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MountOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<MountOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a MountOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<MountOptions> FromValue(const base::Value& value);
+  static std::optional<MountOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMountOptions object.
@@ -433,19 +416,19 @@ struct MountOptions {
 
   // Whether the file system supports operations which may change contents of the
   // file system (such as creating, deleting or writing to files).
-  absl::optional<bool> writable;
+  std::optional<bool> writable;
 
   // The maximum number of files that can be opened at once. If not specified, or
   // 0, then not limited.
-  absl::optional<int> opened_files_limit;
+  std::optional<int> opened_files_limit;
 
   // Whether the file system supports the <code>tag</code> field for observed
   // directories.
-  absl::optional<bool> supports_notify_tag;
+  std::optional<bool> supports_notify_tag;
 
   // Whether the framework should resume the file system at the next sign-in
   // session. True by default.
-  absl::optional<bool> persistent;
+  std::optional<bool> persistent;
 
 };
 
@@ -454,8 +437,8 @@ struct UnmountOptions {
   ~UnmountOptions();
   UnmountOptions(const UnmountOptions&) = delete;
   UnmountOptions& operator=(const UnmountOptions&) = delete;
-  UnmountOptions(UnmountOptions&& rhs);
-  UnmountOptions& operator=(UnmountOptions&& rhs);
+  UnmountOptions(UnmountOptions&& rhs) noexcept;
+  UnmountOptions& operator=(UnmountOptions&& rhs) noexcept;
 
   // Populates a UnmountOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -468,15 +451,12 @@ struct UnmountOptions {
   // Creates a deep copy of UnmountOptions.
   UnmountOptions Clone() const;
 
-  // Creates a UnmountOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<UnmountOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a UnmountOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<UnmountOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<UnmountOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a UnmountOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<UnmountOptions> FromValue(const base::Value& value);
+  static std::optional<UnmountOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUnmountOptions object.
@@ -492,8 +472,8 @@ struct UnmountRequestedOptions {
   ~UnmountRequestedOptions();
   UnmountRequestedOptions(const UnmountRequestedOptions&) = delete;
   UnmountRequestedOptions& operator=(const UnmountRequestedOptions&) = delete;
-  UnmountRequestedOptions(UnmountRequestedOptions&& rhs);
-  UnmountRequestedOptions& operator=(UnmountRequestedOptions&& rhs);
+  UnmountRequestedOptions(UnmountRequestedOptions&& rhs) noexcept;
+  UnmountRequestedOptions& operator=(UnmountRequestedOptions&& rhs) noexcept;
 
   // Populates a UnmountRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -506,17 +486,13 @@ struct UnmountRequestedOptions {
   // Creates a deep copy of UnmountRequestedOptions.
   UnmountRequestedOptions Clone() const;
 
-  // Creates a UnmountRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<UnmountRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a UnmountRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<UnmountRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<UnmountRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a UnmountRequestedOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<UnmountRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<UnmountRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUnmountRequestedOptions object.
@@ -535,8 +511,8 @@ struct GetMetadataRequestedOptions {
   ~GetMetadataRequestedOptions();
   GetMetadataRequestedOptions(const GetMetadataRequestedOptions&) = delete;
   GetMetadataRequestedOptions& operator=(const GetMetadataRequestedOptions&) = delete;
-  GetMetadataRequestedOptions(GetMetadataRequestedOptions&& rhs);
-  GetMetadataRequestedOptions& operator=(GetMetadataRequestedOptions&& rhs);
+  GetMetadataRequestedOptions(GetMetadataRequestedOptions&& rhs) noexcept;
+  GetMetadataRequestedOptions& operator=(GetMetadataRequestedOptions&& rhs) noexcept;
 
   // Populates a GetMetadataRequestedOptions object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -549,17 +525,13 @@ struct GetMetadataRequestedOptions {
   // Creates a deep copy of GetMetadataRequestedOptions.
   GetMetadataRequestedOptions Clone() const;
 
-  // Creates a GetMetadataRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetMetadataRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetMetadataRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetMetadataRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetMetadataRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetMetadataRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<GetMetadataRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<GetMetadataRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetMetadataRequestedOptions object.
@@ -602,8 +574,8 @@ struct GetActionsRequestedOptions {
   ~GetActionsRequestedOptions();
   GetActionsRequestedOptions(const GetActionsRequestedOptions&) = delete;
   GetActionsRequestedOptions& operator=(const GetActionsRequestedOptions&) = delete;
-  GetActionsRequestedOptions(GetActionsRequestedOptions&& rhs);
-  GetActionsRequestedOptions& operator=(GetActionsRequestedOptions&& rhs);
+  GetActionsRequestedOptions(GetActionsRequestedOptions&& rhs) noexcept;
+  GetActionsRequestedOptions& operator=(GetActionsRequestedOptions&& rhs) noexcept;
 
   // Populates a GetActionsRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -616,17 +588,13 @@ struct GetActionsRequestedOptions {
   // Creates a deep copy of GetActionsRequestedOptions.
   GetActionsRequestedOptions Clone() const;
 
-  // Creates a GetActionsRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetActionsRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetActionsRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<GetActionsRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetActionsRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetActionsRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<GetActionsRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<GetActionsRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetActionsRequestedOptions object.
@@ -648,8 +616,8 @@ struct ReadDirectoryRequestedOptions {
   ~ReadDirectoryRequestedOptions();
   ReadDirectoryRequestedOptions(const ReadDirectoryRequestedOptions&) = delete;
   ReadDirectoryRequestedOptions& operator=(const ReadDirectoryRequestedOptions&) = delete;
-  ReadDirectoryRequestedOptions(ReadDirectoryRequestedOptions&& rhs);
-  ReadDirectoryRequestedOptions& operator=(ReadDirectoryRequestedOptions&& rhs);
+  ReadDirectoryRequestedOptions(ReadDirectoryRequestedOptions&& rhs) noexcept;
+  ReadDirectoryRequestedOptions& operator=(ReadDirectoryRequestedOptions&& rhs) noexcept;
 
   // Populates a ReadDirectoryRequestedOptions object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -662,17 +630,13 @@ struct ReadDirectoryRequestedOptions {
   // Creates a deep copy of ReadDirectoryRequestedOptions.
   ReadDirectoryRequestedOptions Clone() const;
 
-  // Creates a ReadDirectoryRequestedOptions object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<ReadDirectoryRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReadDirectoryRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ReadDirectoryRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ReadDirectoryRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ReadDirectoryRequestedOptions object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<ReadDirectoryRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<ReadDirectoryRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReadDirectoryRequestedOptions object.
@@ -712,8 +676,8 @@ struct OpenFileRequestedOptions {
   ~OpenFileRequestedOptions();
   OpenFileRequestedOptions(const OpenFileRequestedOptions&) = delete;
   OpenFileRequestedOptions& operator=(const OpenFileRequestedOptions&) = delete;
-  OpenFileRequestedOptions(OpenFileRequestedOptions&& rhs);
-  OpenFileRequestedOptions& operator=(OpenFileRequestedOptions&& rhs);
+  OpenFileRequestedOptions(OpenFileRequestedOptions&& rhs) noexcept;
+  OpenFileRequestedOptions& operator=(OpenFileRequestedOptions&& rhs) noexcept;
 
   // Populates a OpenFileRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -726,17 +690,13 @@ struct OpenFileRequestedOptions {
   // Creates a deep copy of OpenFileRequestedOptions.
   OpenFileRequestedOptions Clone() const;
 
-  // Creates a OpenFileRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<OpenFileRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a OpenFileRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<OpenFileRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<OpenFileRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a OpenFileRequestedOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<OpenFileRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<OpenFileRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOpenFileRequestedOptions object.
@@ -761,8 +721,8 @@ struct CloseFileRequestedOptions {
   ~CloseFileRequestedOptions();
   CloseFileRequestedOptions(const CloseFileRequestedOptions&) = delete;
   CloseFileRequestedOptions& operator=(const CloseFileRequestedOptions&) = delete;
-  CloseFileRequestedOptions(CloseFileRequestedOptions&& rhs);
-  CloseFileRequestedOptions& operator=(CloseFileRequestedOptions&& rhs);
+  CloseFileRequestedOptions(CloseFileRequestedOptions&& rhs) noexcept;
+  CloseFileRequestedOptions& operator=(CloseFileRequestedOptions&& rhs) noexcept;
 
   // Populates a CloseFileRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -775,17 +735,13 @@ struct CloseFileRequestedOptions {
   // Creates a deep copy of CloseFileRequestedOptions.
   CloseFileRequestedOptions Clone() const;
 
-  // Creates a CloseFileRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CloseFileRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a CloseFileRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<CloseFileRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<CloseFileRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a CloseFileRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<CloseFileRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<CloseFileRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCloseFileRequestedOptions object.
@@ -807,8 +763,8 @@ struct ReadFileRequestedOptions {
   ~ReadFileRequestedOptions();
   ReadFileRequestedOptions(const ReadFileRequestedOptions&) = delete;
   ReadFileRequestedOptions& operator=(const ReadFileRequestedOptions&) = delete;
-  ReadFileRequestedOptions(ReadFileRequestedOptions&& rhs);
-  ReadFileRequestedOptions& operator=(ReadFileRequestedOptions&& rhs);
+  ReadFileRequestedOptions(ReadFileRequestedOptions&& rhs) noexcept;
+  ReadFileRequestedOptions& operator=(ReadFileRequestedOptions&& rhs) noexcept;
 
   // Populates a ReadFileRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -821,17 +777,13 @@ struct ReadFileRequestedOptions {
   // Creates a deep copy of ReadFileRequestedOptions.
   ReadFileRequestedOptions Clone() const;
 
-  // Creates a ReadFileRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ReadFileRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ReadFileRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ReadFileRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ReadFileRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ReadFileRequestedOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ReadFileRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<ReadFileRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReadFileRequestedOptions object.
@@ -859,8 +811,8 @@ struct CreateDirectoryRequestedOptions {
   ~CreateDirectoryRequestedOptions();
   CreateDirectoryRequestedOptions(const CreateDirectoryRequestedOptions&) = delete;
   CreateDirectoryRequestedOptions& operator=(const CreateDirectoryRequestedOptions&) = delete;
-  CreateDirectoryRequestedOptions(CreateDirectoryRequestedOptions&& rhs);
-  CreateDirectoryRequestedOptions& operator=(CreateDirectoryRequestedOptions&& rhs);
+  CreateDirectoryRequestedOptions(CreateDirectoryRequestedOptions&& rhs) noexcept;
+  CreateDirectoryRequestedOptions& operator=(CreateDirectoryRequestedOptions&& rhs) noexcept;
 
   // Populates a CreateDirectoryRequestedOptions object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -873,17 +825,13 @@ struct CreateDirectoryRequestedOptions {
   // Creates a deep copy of CreateDirectoryRequestedOptions.
   CreateDirectoryRequestedOptions Clone() const;
 
-  // Creates a CreateDirectoryRequestedOptions object from a base::Value, or
-  // NULL on failure.
-  static std::unique_ptr<CreateDirectoryRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a CreateDirectoryRequestedOptions object from a base::Value::Dict,
   // or nullopt on failure.
-  static absl::optional<CreateDirectoryRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<CreateDirectoryRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a CreateDirectoryRequestedOptions object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<CreateDirectoryRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<CreateDirectoryRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateDirectoryRequestedOptions object.
@@ -908,8 +856,8 @@ struct DeleteEntryRequestedOptions {
   ~DeleteEntryRequestedOptions();
   DeleteEntryRequestedOptions(const DeleteEntryRequestedOptions&) = delete;
   DeleteEntryRequestedOptions& operator=(const DeleteEntryRequestedOptions&) = delete;
-  DeleteEntryRequestedOptions(DeleteEntryRequestedOptions&& rhs);
-  DeleteEntryRequestedOptions& operator=(DeleteEntryRequestedOptions&& rhs);
+  DeleteEntryRequestedOptions(DeleteEntryRequestedOptions&& rhs) noexcept;
+  DeleteEntryRequestedOptions& operator=(DeleteEntryRequestedOptions&& rhs) noexcept;
 
   // Populates a DeleteEntryRequestedOptions object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -922,17 +870,13 @@ struct DeleteEntryRequestedOptions {
   // Creates a deep copy of DeleteEntryRequestedOptions.
   DeleteEntryRequestedOptions Clone() const;
 
-  // Creates a DeleteEntryRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DeleteEntryRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeleteEntryRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<DeleteEntryRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<DeleteEntryRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a DeleteEntryRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<DeleteEntryRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<DeleteEntryRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeleteEntryRequestedOptions object.
@@ -957,8 +901,8 @@ struct CreateFileRequestedOptions {
   ~CreateFileRequestedOptions();
   CreateFileRequestedOptions(const CreateFileRequestedOptions&) = delete;
   CreateFileRequestedOptions& operator=(const CreateFileRequestedOptions&) = delete;
-  CreateFileRequestedOptions(CreateFileRequestedOptions&& rhs);
-  CreateFileRequestedOptions& operator=(CreateFileRequestedOptions&& rhs);
+  CreateFileRequestedOptions(CreateFileRequestedOptions&& rhs) noexcept;
+  CreateFileRequestedOptions& operator=(CreateFileRequestedOptions&& rhs) noexcept;
 
   // Populates a CreateFileRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -971,17 +915,13 @@ struct CreateFileRequestedOptions {
   // Creates a deep copy of CreateFileRequestedOptions.
   CreateFileRequestedOptions Clone() const;
 
-  // Creates a CreateFileRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CreateFileRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a CreateFileRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<CreateFileRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<CreateFileRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a CreateFileRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<CreateFileRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<CreateFileRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateFileRequestedOptions object.
@@ -1003,8 +943,8 @@ struct CopyEntryRequestedOptions {
   ~CopyEntryRequestedOptions();
   CopyEntryRequestedOptions(const CopyEntryRequestedOptions&) = delete;
   CopyEntryRequestedOptions& operator=(const CopyEntryRequestedOptions&) = delete;
-  CopyEntryRequestedOptions(CopyEntryRequestedOptions&& rhs);
-  CopyEntryRequestedOptions& operator=(CopyEntryRequestedOptions&& rhs);
+  CopyEntryRequestedOptions(CopyEntryRequestedOptions&& rhs) noexcept;
+  CopyEntryRequestedOptions& operator=(CopyEntryRequestedOptions&& rhs) noexcept;
 
   // Populates a CopyEntryRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1017,17 +957,13 @@ struct CopyEntryRequestedOptions {
   // Creates a deep copy of CopyEntryRequestedOptions.
   CopyEntryRequestedOptions Clone() const;
 
-  // Creates a CopyEntryRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CopyEntryRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a CopyEntryRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<CopyEntryRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<CopyEntryRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a CopyEntryRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<CopyEntryRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<CopyEntryRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCopyEntryRequestedOptions object.
@@ -1052,8 +988,8 @@ struct MoveEntryRequestedOptions {
   ~MoveEntryRequestedOptions();
   MoveEntryRequestedOptions(const MoveEntryRequestedOptions&) = delete;
   MoveEntryRequestedOptions& operator=(const MoveEntryRequestedOptions&) = delete;
-  MoveEntryRequestedOptions(MoveEntryRequestedOptions&& rhs);
-  MoveEntryRequestedOptions& operator=(MoveEntryRequestedOptions&& rhs);
+  MoveEntryRequestedOptions(MoveEntryRequestedOptions&& rhs) noexcept;
+  MoveEntryRequestedOptions& operator=(MoveEntryRequestedOptions&& rhs) noexcept;
 
   // Populates a MoveEntryRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1066,17 +1002,13 @@ struct MoveEntryRequestedOptions {
   // Creates a deep copy of MoveEntryRequestedOptions.
   MoveEntryRequestedOptions Clone() const;
 
-  // Creates a MoveEntryRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MoveEntryRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a MoveEntryRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<MoveEntryRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<MoveEntryRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a MoveEntryRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<MoveEntryRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<MoveEntryRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMoveEntryRequestedOptions object.
@@ -1101,8 +1033,8 @@ struct TruncateRequestedOptions {
   ~TruncateRequestedOptions();
   TruncateRequestedOptions(const TruncateRequestedOptions&) = delete;
   TruncateRequestedOptions& operator=(const TruncateRequestedOptions&) = delete;
-  TruncateRequestedOptions(TruncateRequestedOptions&& rhs);
-  TruncateRequestedOptions& operator=(TruncateRequestedOptions&& rhs);
+  TruncateRequestedOptions(TruncateRequestedOptions&& rhs) noexcept;
+  TruncateRequestedOptions& operator=(TruncateRequestedOptions&& rhs) noexcept;
 
   // Populates a TruncateRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1115,17 +1047,13 @@ struct TruncateRequestedOptions {
   // Creates a deep copy of TruncateRequestedOptions.
   TruncateRequestedOptions Clone() const;
 
-  // Creates a TruncateRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TruncateRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a TruncateRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<TruncateRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<TruncateRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a TruncateRequestedOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<TruncateRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<TruncateRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTruncateRequestedOptions object.
@@ -1150,8 +1078,8 @@ struct WriteFileRequestedOptions {
   ~WriteFileRequestedOptions();
   WriteFileRequestedOptions(const WriteFileRequestedOptions&) = delete;
   WriteFileRequestedOptions& operator=(const WriteFileRequestedOptions&) = delete;
-  WriteFileRequestedOptions(WriteFileRequestedOptions&& rhs);
-  WriteFileRequestedOptions& operator=(WriteFileRequestedOptions&& rhs);
+  WriteFileRequestedOptions(WriteFileRequestedOptions&& rhs) noexcept;
+  WriteFileRequestedOptions& operator=(WriteFileRequestedOptions&& rhs) noexcept;
 
   // Populates a WriteFileRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1164,17 +1092,13 @@ struct WriteFileRequestedOptions {
   // Creates a deep copy of WriteFileRequestedOptions.
   WriteFileRequestedOptions Clone() const;
 
-  // Creates a WriteFileRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<WriteFileRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a WriteFileRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<WriteFileRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<WriteFileRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a WriteFileRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<WriteFileRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<WriteFileRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWriteFileRequestedOptions object.
@@ -1202,8 +1126,8 @@ struct AbortRequestedOptions {
   ~AbortRequestedOptions();
   AbortRequestedOptions(const AbortRequestedOptions&) = delete;
   AbortRequestedOptions& operator=(const AbortRequestedOptions&) = delete;
-  AbortRequestedOptions(AbortRequestedOptions&& rhs);
-  AbortRequestedOptions& operator=(AbortRequestedOptions&& rhs);
+  AbortRequestedOptions(AbortRequestedOptions&& rhs) noexcept;
+  AbortRequestedOptions& operator=(AbortRequestedOptions&& rhs) noexcept;
 
   // Populates a AbortRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1216,17 +1140,13 @@ struct AbortRequestedOptions {
   // Creates a deep copy of AbortRequestedOptions.
   AbortRequestedOptions Clone() const;
 
-  // Creates a AbortRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<AbortRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a AbortRequestedOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<AbortRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<AbortRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a AbortRequestedOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AbortRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<AbortRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAbortRequestedOptions object.
@@ -1248,8 +1168,8 @@ struct AddWatcherRequestedOptions {
   ~AddWatcherRequestedOptions();
   AddWatcherRequestedOptions(const AddWatcherRequestedOptions&) = delete;
   AddWatcherRequestedOptions& operator=(const AddWatcherRequestedOptions&) = delete;
-  AddWatcherRequestedOptions(AddWatcherRequestedOptions&& rhs);
-  AddWatcherRequestedOptions& operator=(AddWatcherRequestedOptions&& rhs);
+  AddWatcherRequestedOptions(AddWatcherRequestedOptions&& rhs) noexcept;
+  AddWatcherRequestedOptions& operator=(AddWatcherRequestedOptions&& rhs) noexcept;
 
   // Populates a AddWatcherRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1262,17 +1182,13 @@ struct AddWatcherRequestedOptions {
   // Creates a deep copy of AddWatcherRequestedOptions.
   AddWatcherRequestedOptions Clone() const;
 
-  // Creates a AddWatcherRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<AddWatcherRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddWatcherRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<AddWatcherRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<AddWatcherRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a AddWatcherRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<AddWatcherRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<AddWatcherRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddWatcherRequestedOptions object.
@@ -1298,8 +1214,8 @@ struct RemoveWatcherRequestedOptions {
   ~RemoveWatcherRequestedOptions();
   RemoveWatcherRequestedOptions(const RemoveWatcherRequestedOptions&) = delete;
   RemoveWatcherRequestedOptions& operator=(const RemoveWatcherRequestedOptions&) = delete;
-  RemoveWatcherRequestedOptions(RemoveWatcherRequestedOptions&& rhs);
-  RemoveWatcherRequestedOptions& operator=(RemoveWatcherRequestedOptions&& rhs);
+  RemoveWatcherRequestedOptions(RemoveWatcherRequestedOptions&& rhs) noexcept;
+  RemoveWatcherRequestedOptions& operator=(RemoveWatcherRequestedOptions&& rhs) noexcept;
 
   // Populates a RemoveWatcherRequestedOptions object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -1312,17 +1228,13 @@ struct RemoveWatcherRequestedOptions {
   // Creates a deep copy of RemoveWatcherRequestedOptions.
   RemoveWatcherRequestedOptions Clone() const;
 
-  // Creates a RemoveWatcherRequestedOptions object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<RemoveWatcherRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a RemoveWatcherRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<RemoveWatcherRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<RemoveWatcherRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a RemoveWatcherRequestedOptions object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<RemoveWatcherRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<RemoveWatcherRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRemoveWatcherRequestedOptions object.
@@ -1347,8 +1259,8 @@ struct Action {
   ~Action();
   Action(const Action&) = delete;
   Action& operator=(const Action&) = delete;
-  Action(Action&& rhs);
-  Action& operator=(Action&& rhs);
+  Action(Action&& rhs) noexcept;
+  Action& operator=(Action&& rhs) noexcept;
 
   // Populates a Action object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1361,14 +1273,11 @@ struct Action {
   // Creates a deep copy of Action.
   Action Clone() const;
 
-  // Creates a Action object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Action> FromValueDeprecated(const base::Value& value);
-
   // Creates a Action object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Action> FromValue(const base::Value::Dict& value);
+  static std::optional<Action> FromValue(const base::Value::Dict& value);
 
   // Creates a Action object from a base::Value, or nullopt on failure.
-  static absl::optional<Action> FromValue(const base::Value& value);
+  static std::optional<Action> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAction object.
@@ -1379,7 +1288,7 @@ struct Action {
   std::string id;
 
   // The title of the action. It may be ignored for common actions.
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
 };
 
@@ -1388,8 +1297,8 @@ struct ExecuteActionRequestedOptions {
   ~ExecuteActionRequestedOptions();
   ExecuteActionRequestedOptions(const ExecuteActionRequestedOptions&) = delete;
   ExecuteActionRequestedOptions& operator=(const ExecuteActionRequestedOptions&) = delete;
-  ExecuteActionRequestedOptions(ExecuteActionRequestedOptions&& rhs);
-  ExecuteActionRequestedOptions& operator=(ExecuteActionRequestedOptions&& rhs);
+  ExecuteActionRequestedOptions(ExecuteActionRequestedOptions&& rhs) noexcept;
+  ExecuteActionRequestedOptions& operator=(ExecuteActionRequestedOptions&& rhs) noexcept;
 
   // Populates a ExecuteActionRequestedOptions object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -1402,17 +1311,13 @@ struct ExecuteActionRequestedOptions {
   // Creates a deep copy of ExecuteActionRequestedOptions.
   ExecuteActionRequestedOptions Clone() const;
 
-  // Creates a ExecuteActionRequestedOptions object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<ExecuteActionRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExecuteActionRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ExecuteActionRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ExecuteActionRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ExecuteActionRequestedOptions object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<ExecuteActionRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<ExecuteActionRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExecuteActionRequestedOptions object.
@@ -1437,8 +1342,8 @@ struct Change {
   ~Change();
   Change(const Change&) = delete;
   Change& operator=(const Change&) = delete;
-  Change(Change&& rhs);
-  Change& operator=(Change&& rhs);
+  Change(Change&& rhs) noexcept;
+  Change& operator=(Change&& rhs) noexcept;
 
   // Populates a Change object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1451,14 +1356,11 @@ struct Change {
   // Creates a deep copy of Change.
   Change Clone() const;
 
-  // Creates a Change object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Change> FromValueDeprecated(const base::Value& value);
-
   // Creates a Change object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Change> FromValue(const base::Value::Dict& value);
+  static std::optional<Change> FromValue(const base::Value::Dict& value);
 
   // Creates a Change object from a base::Value, or nullopt on failure.
-  static absl::optional<Change> FromValue(const base::Value& value);
+  static std::optional<Change> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChange object.
@@ -1477,8 +1379,8 @@ struct NotifyOptions {
   ~NotifyOptions();
   NotifyOptions(const NotifyOptions&) = delete;
   NotifyOptions& operator=(const NotifyOptions&) = delete;
-  NotifyOptions(NotifyOptions&& rhs);
-  NotifyOptions& operator=(NotifyOptions&& rhs);
+  NotifyOptions(NotifyOptions&& rhs) noexcept;
+  NotifyOptions& operator=(NotifyOptions&& rhs) noexcept;
 
   // Populates a NotifyOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1491,15 +1393,12 @@ struct NotifyOptions {
   // Creates a deep copy of NotifyOptions.
   NotifyOptions Clone() const;
 
-  // Creates a NotifyOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<NotifyOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a NotifyOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<NotifyOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<NotifyOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a NotifyOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<NotifyOptions> FromValue(const base::Value& value);
+  static std::optional<NotifyOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNotifyOptions object.
@@ -1521,13 +1420,13 @@ struct NotifyOptions {
 
   // List of changes to entries within the observed directory (including the entry
   // itself)
-  absl::optional<std::vector<Change>> changes;
+  std::optional<std::vector<Change>> changes;
 
   // Tag for the notification. Required if the file system was mounted with the
   // <code>supportsNotifyTag</code> option. Note, that this flag is necessary to
   // provide notifications about changes which changed even when the system was
   // shutdown.
-  absl::optional<std::string> tag;
+  std::optional<std::string> tag;
 
 };
 
@@ -1536,8 +1435,8 @@ struct ConfigureRequestedOptions {
   ~ConfigureRequestedOptions();
   ConfigureRequestedOptions(const ConfigureRequestedOptions&) = delete;
   ConfigureRequestedOptions& operator=(const ConfigureRequestedOptions&) = delete;
-  ConfigureRequestedOptions(ConfigureRequestedOptions&& rhs);
-  ConfigureRequestedOptions& operator=(ConfigureRequestedOptions&& rhs);
+  ConfigureRequestedOptions(ConfigureRequestedOptions&& rhs) noexcept;
+  ConfigureRequestedOptions& operator=(ConfigureRequestedOptions&& rhs) noexcept;
 
   // Populates a ConfigureRequestedOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1550,17 +1449,13 @@ struct ConfigureRequestedOptions {
   // Creates a deep copy of ConfigureRequestedOptions.
   ConfigureRequestedOptions Clone() const;
 
-  // Creates a ConfigureRequestedOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ConfigureRequestedOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a ConfigureRequestedOptions object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ConfigureRequestedOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<ConfigureRequestedOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a ConfigureRequestedOptions object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ConfigureRequestedOptions> FromValue(const base::Value& value);
+  static std::optional<ConfigureRequestedOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisConfigureRequestedOptions object.
@@ -1582,11 +1477,11 @@ struct ConfigureRequestedOptions {
 namespace Mount {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   MountOptions options;
@@ -1606,11 +1501,11 @@ base::Value::List Create();
 namespace Unmount {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   UnmountOptions options;
@@ -1639,11 +1534,11 @@ base::Value::List Create(const std::vector<FileSystemInfo>& file_systems);
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string file_system_id;
@@ -1663,11 +1558,11 @@ base::Value::List Create(const FileSystemInfo& file_system);
 namespace Notify {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   NotifyOptions options;

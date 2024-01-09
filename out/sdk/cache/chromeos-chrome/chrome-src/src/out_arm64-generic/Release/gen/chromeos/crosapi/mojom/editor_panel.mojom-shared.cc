@@ -396,6 +396,34 @@ bool EditorPanelManager_OnEditorMenuVisibilityChanged_Params_Data::Validate(
 EditorPanelManager_OnEditorMenuVisibilityChanged_Params_Data::EditorPanelManager_OnEditorMenuVisibilityChanged_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool EditorPanelManager_LogEditorMode_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const EditorPanelManager_LogEditorMode_Params_Data* object =
+      static_cast<const EditorPanelManager_LogEditorMode_Params_Data*>(data);
+
+
+  if (!::crosapi::mojom::internal::EditorPanelMode_Data
+        ::Validate(object->mode, validation_context))
+    return false;
+
+  return true;
+}
+
+EditorPanelManager_LogEditorMode_Params_Data::EditorPanelManager_LogEditorMode_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace crosapi

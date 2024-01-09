@@ -16,6 +16,7 @@ namespace extensions::mojom {
 class  AppWindowInterceptorForTesting : public AppWindow {
   virtual AppWindow* GetForwardingInterface() = 0;
   void SetVisuallyDeemphasized(bool deemphasized) override;
+  void SetSupportsAppRegion(bool supports_app_region) override;
 };
 class  AppWindowAsyncWaiter {
  public:

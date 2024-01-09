@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/feedback_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ AttachedFile::Data::Data()
  {}
 
 AttachedFile::Data::~Data() = default;
-AttachedFile::Data::Data(Data&& rhs) = default;
-AttachedFile::Data& AttachedFile::Data::operator=(Data&& rhs) = default;
+AttachedFile::Data::Data(Data&& rhs) noexcept = default;
+AttachedFile::Data& AttachedFile::Data::operator=(Data&& rhs) noexcept = default;
 AttachedFile::Data AttachedFile::Data::Clone() const {
   Data out;
   return out;
@@ -62,21 +63,21 @@ bool AttachedFile::Data::Populate(
 }
 
 // static
-absl::optional<AttachedFile::Data> AttachedFile::Data::FromValue(const base::Value::Dict& value) {
+std::optional<AttachedFile::Data> AttachedFile::Data::FromValue(const base::Value::Dict& value) {
   Data out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AttachedFile::Data> AttachedFile::Data::FromValue(const base::Value& value) {
+std::optional<AttachedFile::Data> AttachedFile::Data::FromValue(const base::Value& value) {
   Data out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -95,8 +96,8 @@ AttachedFile::AttachedFile()
  {}
 
 AttachedFile::~AttachedFile() = default;
-AttachedFile::AttachedFile(AttachedFile&& rhs) = default;
-AttachedFile& AttachedFile::operator=(AttachedFile&& rhs) = default;
+AttachedFile::AttachedFile(AttachedFile&& rhs) noexcept = default;
+AttachedFile& AttachedFile::operator=(AttachedFile&& rhs) noexcept = default;
 AttachedFile AttachedFile::Clone() const {
   AttachedFile out;
   out.name = name;
@@ -149,34 +150,21 @@ bool AttachedFile::Populate(
 }
 
 // static
-std::unique_ptr<AttachedFile> AttachedFile::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AttachedFile>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AttachedFile> AttachedFile::FromValue(const base::Value::Dict& value) {
+  AttachedFile out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AttachedFile> AttachedFile::FromValue(const base::Value::Dict& value) {
+std::optional<AttachedFile> AttachedFile::FromValue(const base::Value& value) {
   AttachedFile out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AttachedFile> AttachedFile::FromValue(const base::Value& value) {
-  AttachedFile out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -199,8 +187,8 @@ LogsMapEntry::LogsMapEntry()
  {}
 
 LogsMapEntry::~LogsMapEntry() = default;
-LogsMapEntry::LogsMapEntry(LogsMapEntry&& rhs) = default;
-LogsMapEntry& LogsMapEntry::operator=(LogsMapEntry&& rhs) = default;
+LogsMapEntry::LogsMapEntry(LogsMapEntry&& rhs) noexcept = default;
+LogsMapEntry& LogsMapEntry::operator=(LogsMapEntry&& rhs) noexcept = default;
 LogsMapEntry LogsMapEntry::Clone() const {
   LogsMapEntry out;
   out.key = key;
@@ -248,34 +236,21 @@ bool LogsMapEntry::Populate(
 }
 
 // static
-std::unique_ptr<LogsMapEntry> LogsMapEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LogsMapEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LogsMapEntry> LogsMapEntry::FromValue(const base::Value::Dict& value) {
+  LogsMapEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LogsMapEntry> LogsMapEntry::FromValue(const base::Value::Dict& value) {
+std::optional<LogsMapEntry> LogsMapEntry::FromValue(const base::Value& value) {
   LogsMapEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LogsMapEntry> LogsMapEntry::FromValue(const base::Value& value) {
-  LogsMapEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -302,6 +277,8 @@ const char* ToString(FeedbackFlow enum_param) {
       return "sadTabCrash";
     case FeedbackFlow::kGoogleInternal:
       return "googleInternal";
+    case FeedbackFlow::kAi:
+      return "ai";
     case FeedbackFlow::kNone:
       return "";
   }
@@ -318,11 +295,13 @@ FeedbackFlow ParseFeedbackFlow(base::StringPiece enum_string) {
     return FeedbackFlow::kSadTabCrash;
   if (enum_string == "googleInternal")
     return FeedbackFlow::kGoogleInternal;
+  if (enum_string == "ai")
+    return FeedbackFlow::kAi;
   return FeedbackFlow::kNone;
 }
 
 std::u16string GetFeedbackFlowParseError(base::StringPiece enum_string) {
-  return u"expected \"regular\" or \"login\" or \"sadTabCrash\" or \"googleInternal\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+  return u"expected \"regular\" or \"login\" or \"sadTabCrash\" or \"googleInternal\" or \"ai\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
@@ -330,8 +309,8 @@ FeedbackInfo::Screenshot::Screenshot()
  {}
 
 FeedbackInfo::Screenshot::~Screenshot() = default;
-FeedbackInfo::Screenshot::Screenshot(Screenshot&& rhs) = default;
-FeedbackInfo::Screenshot& FeedbackInfo::Screenshot::operator=(Screenshot&& rhs) = default;
+FeedbackInfo::Screenshot::Screenshot(Screenshot&& rhs) noexcept = default;
+FeedbackInfo::Screenshot& FeedbackInfo::Screenshot::operator=(Screenshot&& rhs) noexcept = default;
 FeedbackInfo::Screenshot FeedbackInfo::Screenshot::Clone() const {
   Screenshot out;
   return out;
@@ -354,21 +333,21 @@ bool FeedbackInfo::Screenshot::Populate(
 }
 
 // static
-absl::optional<FeedbackInfo::Screenshot> FeedbackInfo::Screenshot::FromValue(const base::Value::Dict& value) {
+std::optional<FeedbackInfo::Screenshot> FeedbackInfo::Screenshot::FromValue(const base::Value::Dict& value) {
   Screenshot out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FeedbackInfo::Screenshot> FeedbackInfo::Screenshot::FromValue(const base::Value& value) {
+std::optional<FeedbackInfo::Screenshot> FeedbackInfo::Screenshot::FromValue(const base::Value& value) {
   Screenshot out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -387,8 +366,8 @@ FeedbackInfo::FeedbackInfo()
 : flow() {}
 
 FeedbackInfo::~FeedbackInfo() = default;
-FeedbackInfo::FeedbackInfo(FeedbackInfo&& rhs) = default;
-FeedbackInfo& FeedbackInfo::operator=(FeedbackInfo&& rhs) = default;
+FeedbackInfo::FeedbackInfo(FeedbackInfo&& rhs) noexcept = default;
+FeedbackInfo& FeedbackInfo::operator=(FeedbackInfo&& rhs) noexcept = default;
 FeedbackInfo FeedbackInfo::Clone() const {
   FeedbackInfo out;
   if (attached_file) {
@@ -425,6 +404,8 @@ FeedbackInfo FeedbackInfo::Clone() const {
   out.from_autofill = from_autofill;
   out.autofill_metadata = autofill_metadata;
   out.send_autofill_metadata = send_autofill_metadata;
+  out.is_offensive_or_unsafe = is_offensive_or_unsafe;
+  out.ai_metadata = ai_metadata;
   return out;
 }
 
@@ -452,7 +433,7 @@ bool FeedbackInfo::Populate(
     {
       auto* temp = (*category_tag_value).GetIfString();
       if (!temp) {
-        out.category_tag = absl::nullopt;
+        out.category_tag = std::nullopt;
         return false;
       }
       out.category_tag = *temp;
@@ -476,7 +457,7 @@ bool FeedbackInfo::Populate(
     {
       auto* temp = (*description_placeholder_value).GetIfString();
       if (!temp) {
-        out.description_placeholder = absl::nullopt;
+        out.description_placeholder = std::nullopt;
         return false;
       }
       out.description_placeholder = *temp;
@@ -488,7 +469,7 @@ bool FeedbackInfo::Populate(
     {
       auto* temp = (*email_value).GetIfString();
       if (!temp) {
-        out.email = absl::nullopt;
+        out.email = std::nullopt;
         return false;
       }
       out.email = *temp;
@@ -500,7 +481,7 @@ bool FeedbackInfo::Populate(
     {
       auto* temp = (*page_url_value).GetIfString();
       if (!temp) {
-        out.page_url = absl::nullopt;
+        out.page_url = std::nullopt;
         return false;
       }
       out.page_url = *temp;
@@ -512,7 +493,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*product_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.product_id = absl::nullopt;
+        out.product_id = std::nullopt;
         return false;
       }
       out.product_id = *temp;
@@ -539,7 +520,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*trace_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.trace_id = absl::nullopt;
+        out.trace_id = std::nullopt;
         return false;
       }
       out.trace_id = *temp;
@@ -565,7 +546,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*send_histograms_value).GetIfBool();
       if (!temp.has_value()) {
-        out.send_histograms = absl::nullopt;
+        out.send_histograms = std::nullopt;
         return false;
       }
       out.send_histograms = *temp;
@@ -593,7 +574,7 @@ bool FeedbackInfo::Populate(
     {
       auto* temp = (*attached_file_blob_uuid_value).GetIfString();
       if (!temp) {
-        out.attached_file_blob_uuid = absl::nullopt;
+        out.attached_file_blob_uuid = std::nullopt;
         return false;
       }
       out.attached_file_blob_uuid = *temp;
@@ -605,7 +586,7 @@ bool FeedbackInfo::Populate(
     {
       auto* temp = (*screenshot_blob_uuid_value).GetIfString();
       if (!temp) {
-        out.screenshot_blob_uuid = absl::nullopt;
+        out.screenshot_blob_uuid = std::nullopt;
         return false;
       }
       out.screenshot_blob_uuid = *temp;
@@ -617,7 +598,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*use_system_window_frame_value).GetIfBool();
       if (!temp.has_value()) {
-        out.use_system_window_frame = absl::nullopt;
+        out.use_system_window_frame = std::nullopt;
         return false;
       }
       out.use_system_window_frame = *temp;
@@ -629,7 +610,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*send_bluetooth_logs_value).GetIfBool();
       if (!temp.has_value()) {
-        out.send_bluetooth_logs = absl::nullopt;
+        out.send_bluetooth_logs = std::nullopt;
         return false;
       }
       out.send_bluetooth_logs = *temp;
@@ -641,7 +622,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*send_tab_titles_value).GetIfBool();
       if (!temp.has_value()) {
-        out.send_tab_titles = absl::nullopt;
+        out.send_tab_titles = std::nullopt;
         return false;
       }
       out.send_tab_titles = *temp;
@@ -653,7 +634,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*assistant_debug_info_allowed_value).GetIfBool();
       if (!temp.has_value()) {
-        out.assistant_debug_info_allowed = absl::nullopt;
+        out.assistant_debug_info_allowed = std::nullopt;
         return false;
       }
       out.assistant_debug_info_allowed = *temp;
@@ -665,7 +646,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*from_assistant_value).GetIfBool();
       if (!temp.has_value()) {
-        out.from_assistant = absl::nullopt;
+        out.from_assistant = std::nullopt;
         return false;
       }
       out.from_assistant = *temp;
@@ -677,7 +658,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*include_bluetooth_logs_value).GetIfBool();
       if (!temp.has_value()) {
-        out.include_bluetooth_logs = absl::nullopt;
+        out.include_bluetooth_logs = std::nullopt;
         return false;
       }
       out.include_bluetooth_logs = *temp;
@@ -689,7 +670,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*show_questionnaire_value).GetIfBool();
       if (!temp.has_value()) {
-        out.show_questionnaire = absl::nullopt;
+        out.show_questionnaire = std::nullopt;
         return false;
       }
       out.show_questionnaire = *temp;
@@ -701,7 +682,7 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*from_autofill_value).GetIfBool();
       if (!temp.has_value()) {
-        out.from_autofill = absl::nullopt;
+        out.from_autofill = std::nullopt;
         return false;
       }
       out.from_autofill = *temp;
@@ -713,7 +694,7 @@ bool FeedbackInfo::Populate(
     {
       auto* temp = (*autofill_metadata_value).GetIfString();
       if (!temp) {
-        out.autofill_metadata = absl::nullopt;
+        out.autofill_metadata = std::nullopt;
         return false;
       }
       out.autofill_metadata = *temp;
@@ -725,10 +706,34 @@ bool FeedbackInfo::Populate(
     {
       auto temp = (*send_autofill_metadata_value).GetIfBool();
       if (!temp.has_value()) {
-        out.send_autofill_metadata = absl::nullopt;
+        out.send_autofill_metadata = std::nullopt;
         return false;
       }
       out.send_autofill_metadata = *temp;
+    }
+  }
+
+  const base::Value* is_offensive_or_unsafe_value = dict.Find("isOffensiveOrUnsafe");
+  if (is_offensive_or_unsafe_value) {
+    {
+      auto temp = (*is_offensive_or_unsafe_value).GetIfBool();
+      if (!temp.has_value()) {
+        out.is_offensive_or_unsafe = std::nullopt;
+        return false;
+      }
+      out.is_offensive_or_unsafe = *temp;
+    }
+  }
+
+  const base::Value* ai_metadata_value = dict.Find("aiMetadata");
+  if (ai_metadata_value) {
+    {
+      auto* temp = (*ai_metadata_value).GetIfString();
+      if (!temp) {
+        out.ai_metadata = std::nullopt;
+        return false;
+      }
+      out.ai_metadata = *temp;
     }
   }
 
@@ -745,34 +750,21 @@ bool FeedbackInfo::Populate(
 }
 
 // static
-std::unique_ptr<FeedbackInfo> FeedbackInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FeedbackInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FeedbackInfo> FeedbackInfo::FromValue(const base::Value::Dict& value) {
+  FeedbackInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FeedbackInfo> FeedbackInfo::FromValue(const base::Value::Dict& value) {
+std::optional<FeedbackInfo> FeedbackInfo::FromValue(const base::Value& value) {
   FeedbackInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FeedbackInfo> FeedbackInfo::FromValue(const base::Value& value) {
-  FeedbackInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -874,6 +866,14 @@ base::Value::Dict FeedbackInfo::ToValue() const {
     to_value_result.Set("sendAutofillMetadata", *this->send_autofill_metadata);
 
   }
+  if (this->is_offensive_or_unsafe) {
+    to_value_result.Set("isOffensiveOrUnsafe", *this->is_offensive_or_unsafe);
+
+  }
+  if (this->ai_metadata) {
+    to_value_result.Set("aiMetadata", *this->ai_metadata);
+
+  }
 
   return to_value_result;
 }
@@ -940,8 +940,8 @@ SendFeedbackResult::SendFeedbackResult()
 landing_page_type() {}
 
 SendFeedbackResult::~SendFeedbackResult() = default;
-SendFeedbackResult::SendFeedbackResult(SendFeedbackResult&& rhs) = default;
-SendFeedbackResult& SendFeedbackResult::operator=(SendFeedbackResult&& rhs) = default;
+SendFeedbackResult::SendFeedbackResult(SendFeedbackResult&& rhs) noexcept = default;
+SendFeedbackResult& SendFeedbackResult::operator=(SendFeedbackResult&& rhs) noexcept = default;
 SendFeedbackResult SendFeedbackResult::Clone() const {
   SendFeedbackResult out;
   out.status = status;
@@ -995,34 +995,21 @@ bool SendFeedbackResult::Populate(
 }
 
 // static
-std::unique_ptr<SendFeedbackResult> SendFeedbackResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SendFeedbackResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SendFeedbackResult> SendFeedbackResult::FromValue(const base::Value::Dict& value) {
+  SendFeedbackResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SendFeedbackResult> SendFeedbackResult::FromValue(const base::Value::Dict& value) {
+std::optional<SendFeedbackResult> SendFeedbackResult::FromValue(const base::Value& value) {
   SendFeedbackResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SendFeedbackResult> SendFeedbackResult::FromValue(const base::Value& value) {
-  SendFeedbackResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1136,8 +1123,8 @@ ReadLogSourceParams::ReadLogSourceParams()
 incremental(false) {}
 
 ReadLogSourceParams::~ReadLogSourceParams() = default;
-ReadLogSourceParams::ReadLogSourceParams(ReadLogSourceParams&& rhs) = default;
-ReadLogSourceParams& ReadLogSourceParams::operator=(ReadLogSourceParams&& rhs) = default;
+ReadLogSourceParams::ReadLogSourceParams(ReadLogSourceParams&& rhs) noexcept = default;
+ReadLogSourceParams& ReadLogSourceParams::operator=(ReadLogSourceParams&& rhs) noexcept = default;
 ReadLogSourceParams ReadLogSourceParams::Clone() const {
   ReadLogSourceParams out;
   out.source = source;
@@ -1181,7 +1168,7 @@ bool ReadLogSourceParams::Populate(
     {
       auto temp = (*reader_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.reader_id = absl::nullopt;
+        out.reader_id = std::nullopt;
         return false;
       }
       out.reader_id = *temp;
@@ -1201,34 +1188,21 @@ bool ReadLogSourceParams::Populate(
 }
 
 // static
-std::unique_ptr<ReadLogSourceParams> ReadLogSourceParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReadLogSourceParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReadLogSourceParams> ReadLogSourceParams::FromValue(const base::Value::Dict& value) {
+  ReadLogSourceParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReadLogSourceParams> ReadLogSourceParams::FromValue(const base::Value::Dict& value) {
+std::optional<ReadLogSourceParams> ReadLogSourceParams::FromValue(const base::Value& value) {
   ReadLogSourceParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReadLogSourceParams> ReadLogSourceParams::FromValue(const base::Value& value) {
-  ReadLogSourceParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1253,8 +1227,8 @@ ReadLogSourceResult::ReadLogSourceResult()
 : reader_id(0) {}
 
 ReadLogSourceResult::~ReadLogSourceResult() = default;
-ReadLogSourceResult::ReadLogSourceResult(ReadLogSourceResult&& rhs) = default;
-ReadLogSourceResult& ReadLogSourceResult::operator=(ReadLogSourceResult&& rhs) = default;
+ReadLogSourceResult::ReadLogSourceResult(ReadLogSourceResult&& rhs) noexcept = default;
+ReadLogSourceResult& ReadLogSourceResult::operator=(ReadLogSourceResult&& rhs) noexcept = default;
 ReadLogSourceResult ReadLogSourceResult::Clone() const {
   ReadLogSourceResult out;
   out.reader_id = reader_id;
@@ -1305,34 +1279,21 @@ bool ReadLogSourceResult::Populate(
 }
 
 // static
-std::unique_ptr<ReadLogSourceResult> ReadLogSourceResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReadLogSourceResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReadLogSourceResult> ReadLogSourceResult::FromValue(const base::Value::Dict& value) {
+  ReadLogSourceResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReadLogSourceResult> ReadLogSourceResult::FromValue(const base::Value::Dict& value) {
+std::optional<ReadLogSourceResult> ReadLogSourceResult::FromValue(const base::Value& value) {
   ReadLogSourceResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReadLogSourceResult> ReadLogSourceResult::FromValue(const base::Value& value) {
-  ReadLogSourceResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1380,13 +1341,13 @@ namespace OpenFeedback {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1396,16 +1357,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* feedback_source_as_string = source_value.GetIfString();
       if (!feedback_source_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.source = ParseFeedbackSource(*feedback_source_as_string);
       if (params.source == FeedbackSource()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1418,13 +1379,13 @@ namespace SendFeedback {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1433,15 +1394,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& feedback_value = args[0];
     {
       if (!feedback_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!FeedbackInfo::Populate(feedback_value.GetDict(), params.feedback)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1450,8 +1411,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = load_system_info_value.GetIfBool();
       if (!temp.has_value()) {
-        params.load_system_info = absl::nullopt;
-        return absl::nullopt;
+        params.load_system_info = std::nullopt;
+        return std::nullopt;
       }
       params.load_system_info = *temp;
     }
@@ -1463,8 +1424,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = form_open_time_value.GetIfDouble();
       if (!temp.has_value()) {
-        params.form_open_time = absl::nullopt;
-        return absl::nullopt;
+        params.form_open_time = std::nullopt;
+        return std::nullopt;
       }
       params.form_open_time = *temp;
     }
@@ -1487,13 +1448,13 @@ namespace ReadLogSource {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1502,15 +1463,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& params_value = args[0];
     {
       if (!params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ReadLogSourceParams::Populate(params_value.GetDict(), params.params)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

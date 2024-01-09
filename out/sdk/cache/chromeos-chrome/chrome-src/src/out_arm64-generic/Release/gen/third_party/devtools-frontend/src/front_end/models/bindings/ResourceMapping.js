@@ -281,7 +281,7 @@ class ModelInfo {
         }
         if ((resourceType === Common.ResourceType.resourceTypes.Image ||
             resourceType === Common.ResourceType.resourceTypes.Font) &&
-            resource.contentURL().startsWith('data:')) {
+            Common.ParsedURL.schemeIs(resource.contentURL(), 'data:')) {
             return false;
         }
         return true;

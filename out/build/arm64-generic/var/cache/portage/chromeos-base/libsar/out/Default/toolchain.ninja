@@ -34,29 +34,27 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/libsar/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/libsar/_libsar-install_config.stamp: stamp
 build obj/libsar/_libsar_pkg_config-install_config.stamp: stamp
 build obj/libsar/_libsar_test_support-install_config.stamp: stamp
 build obj/libsar/_libsar_test_support_pkg_config-install_config.stamp: stamp
-build obj/libsar/all.stamp: stamp obj/libsar/install_headers.stamp ./lib/libsar.so obj/libsar/libsar_pkg_config.stamp ./lib/libsar_test_support.so obj/libsar/libsar_test_support_pkg_config.stamp ./libsar_testrunner
+build obj/libsar/all.stamp: stamp obj/libsar/install_headers.stamp ./lib/libsar.so obj/libsar/libsar_pkg_config.stamp ./lib/libsar_test_support.so
 build obj/libsar/install_headers.stamp: stamp
 subninja obj/libsar/libsar.ninja
 rule __libsar_libsar_pkg_config___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libsar/out/Default/obj/libsar/libsar.pc --name=libsar --description=Library\$ to\$ support\$ SAR\$ sensor\$ like\$ Semtech\$ SX93xx\$ components\$ for\$ ChromiumOS --version=0.1 --libs=-lsar
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libsar-0.0.1-r134/work/libsar-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libsar/out/Default/obj/libsar/libsar.pc --name=libsar --description=Library\$ to\$ support\$ SAR\$ sensor\$ like\$ Semtech\$ SX93xx\$ components\$ for\$ ChromiumOS --version=0.1 --libs=-lsar
   description = ACTION //libsar:libsar_pkg_config(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/libsar/libsar.pc: __libsar_libsar_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libsar/_libsar_pkg_config-install_config.stamp
+build obj/libsar/libsar.pc: __libsar_libsar_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libsar-0.0.1-r134/work/libsar-0.0.1/common-mk/generate-pc.py obj/libsar/_libsar_pkg_config-install_config.stamp
 
 build obj/libsar/libsar_pkg_config.stamp: stamp obj/libsar/libsar.pc
 subninja obj/libsar/libsar_test_support.ninja
 rule __libsar_libsar_test_support_pkg_config___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libsar/out/Default/obj/libsar/libsar_test_support.pc --name=libsar_test_support --description=Test\$ helper\$ library\$ to\$ support\$ SAR\$ sensor\$ for\$ ChromiumOS --version=0.1 --libs=-lsar_test_support
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libsar-0.0.1-r134/work/libsar-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libsar/out/Default/obj/libsar/libsar_test_support.pc --name=libsar_test_support --description=Test\$ helper\$ library\$ to\$ support\$ SAR\$ sensor\$ for\$ ChromiumOS --version=0.1 --libs=-lsar_test_support
   description = ACTION //libsar:libsar_test_support_pkg_config(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/libsar/libsar_test_support.pc: __libsar_libsar_test_support_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libsar/_libsar_test_support_pkg_config-install_config.stamp
+build obj/libsar/libsar_test_support.pc: __libsar_libsar_test_support_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libsar-0.0.1-r134/work/libsar-0.0.1/common-mk/generate-pc.py obj/libsar/_libsar_test_support_pkg_config-install_config.stamp
 
 build obj/libsar/libsar_test_support_pkg_config.stamp: stamp obj/libsar/libsar_test_support.pc
-subninja obj/libsar/libsar_testrunner.ninja

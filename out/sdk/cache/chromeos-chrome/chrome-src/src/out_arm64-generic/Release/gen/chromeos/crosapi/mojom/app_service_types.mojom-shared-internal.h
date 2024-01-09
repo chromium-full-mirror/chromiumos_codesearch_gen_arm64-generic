@@ -45,7 +45,11 @@ class LaunchParams_Data;
 class Permission_Data;
 class PreferredAppChanges_Data;
 class PreferredApp_Data;
-class Shortcut_Data;
+class AppShortcut_Data;
+class REMOVED_01_Data;
+class InstallAppParams_Data;
+class AppInstallResult_Data;
+class IconUpdateVersion_Data;
 class PermissionValue_Data;
 
 struct AppType_Data {
@@ -364,6 +368,7 @@ struct LaunchSource_Data {
       case 28:
       case 29:
       case 30:
+      case 31:
         return true;
     }
     return false;
@@ -488,7 +493,107 @@ struct TriState_Data {
   }
 };
 
+struct ControllerRegistrationResult_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct InstallAppParams_Surface_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
+
+
+class  IconUpdateVersion_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  IconUpdateVersion_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~IconUpdateVersion_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<IconUpdateVersion_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class IconUpdateVersion_Tag : uint32_t {
+
+    
+    kRawIconUpdated,
+    
+    kTimeline,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_raw_icon_updated : 1;
+    int32_t f_timeline;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  IconUpdateVersion_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(IconUpdateVersion_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(IconUpdateVersion_Data)");
 
 
 class  PermissionValue_Data {
@@ -574,10 +679,16 @@ class  App_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Permission_Data>>> permissions;
   int32_t allow_uninstall;
   int32_t handles_intents;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Shortcut_Data>>> deprecated_shortcuts;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::REMOVED_01_Data>>> deprecated_shortcuts;
   int32_t is_platform_app;
-  uint8_t pad28_[4];
+  uint8_t app_size_in_bytes_$flag : 1;
+  uint8_t data_size_in_bytes_$flag : 1;
+  uint8_t pad30_[3];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> policy_ids;
+  uint64_t app_size_in_bytes_$value;
+  uint64_t data_size_in_bytes_$value;
+  int32_t allow_close;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<App_Data>;
@@ -585,7 +696,7 @@ class  App_Data {
   App_Data();
   ~App_Data() = delete;
 };
-static_assert(sizeof(App_Data) == 192,
+static_assert(sizeof(App_Data) == 216,
               "Bad sizeof(App_Data)");
 // Used by App::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -625,10 +736,11 @@ class  IconKey_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint64_t timeline;
+  uint64_t deprecated_timeline;
   uint32_t icon_effects;
-  uint8_t raw_icon_updated : 1;
-  uint8_t padfinal_[3];
+  uint8_t deprecated_raw_icon_updated : 1;
+  uint8_t pad2_[3];
+  internal::IconUpdateVersion_Data update_version;
 
  private:
   friend class mojo::internal::MessageFragment<IconKey_Data>;
@@ -636,7 +748,7 @@ class  IconKey_Data {
   IconKey_Data();
   ~IconKey_Data() = delete;
 };
-static_assert(sizeof(IconKey_Data) == 24,
+static_assert(sizeof(IconKey_Data) == 40,
               "Bad sizeof(IconKey_Data)");
 // Used by IconKey::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -1383,7 +1495,61 @@ struct PreferredApp_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     PreferredApp_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  Shortcut_Data {
+class  AppShortcut_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> host_app_id;
+  mojo::internal::Pointer<mojo::internal::String_Data> local_id;
+  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  mojo::internal::Pointer<internal::IconKey_Data> icon_key;
+  uint8_t allow_removal_$flag : 1;
+  uint8_t allow_removal_$value : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<AppShortcut_Data>;
+
+  AppShortcut_Data();
+  ~AppShortcut_Data() = delete;
+};
+static_assert(sizeof(AppShortcut_Data) == 48,
+              "Bad sizeof(AppShortcut_Data)");
+// Used by AppShortcut::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AppShortcut_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AppShortcut_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AppShortcut_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AppShortcut_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AppShortcut_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  REMOVED_01_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1395,27 +1561,27 @@ class  Shortcut_Data {
   uint8_t padfinal_[7];
 
  private:
-  friend class mojo::internal::MessageFragment<Shortcut_Data>;
+  friend class mojo::internal::MessageFragment<REMOVED_01_Data>;
 
-  Shortcut_Data();
-  ~Shortcut_Data() = delete;
+  REMOVED_01_Data();
+  ~REMOVED_01_Data() = delete;
 };
-static_assert(sizeof(Shortcut_Data) == 32,
-              "Bad sizeof(Shortcut_Data)");
-// Used by Shortcut::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(REMOVED_01_Data) == 32,
+              "Bad sizeof(REMOVED_01_Data)");
+// Used by REMOVED_01::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct Shortcut_UnserializedMessageContext
+struct REMOVED_01_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  Shortcut_UnserializedMessageContext(
+  REMOVED_01_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~Shortcut_UnserializedMessageContext() override = default;
+  ~REMOVED_01_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -1424,7 +1590,7 @@ struct Shortcut_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<Shortcut_Data> fragment(message);
+    mojo::internal::MessageFragment<REMOVED_01_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -1433,7 +1599,104 @@ struct Shortcut_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    Shortcut_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    REMOVED_01_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  InstallAppParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t surface;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<mojo::internal::String_Data> package_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<InstallAppParams_Data>;
+
+  InstallAppParams_Data();
+  ~InstallAppParams_Data() = delete;
+};
+static_assert(sizeof(InstallAppParams_Data) == 24,
+              "Bad sizeof(InstallAppParams_Data)");
+// Used by InstallAppParams::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct InstallAppParams_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  InstallAppParams_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~InstallAppParams_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<InstallAppParams_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    InstallAppParams_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  AppInstallResult_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AppInstallResult_Data>;
+
+  AppInstallResult_Data();
+  ~AppInstallResult_Data() = delete;
+};
+static_assert(sizeof(AppInstallResult_Data) == 8,
+              "Bad sizeof(AppInstallResult_Data)");
+// Used by AppInstallResult::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AppInstallResult_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AppInstallResult_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AppInstallResult_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AppInstallResult_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AppInstallResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

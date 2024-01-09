@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RecordTest>::value,
     "RecordTest inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RecordTest::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RecordTest is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getNullableStringLongRecord();
 if (!ToV8Traits<IDLNullable<IDLRecord<IDLString, IDLLong>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -119,7 +115,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getStringElementRecord();
 if (!ToV8Traits<IDLRecord<IDLString, Element>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -143,7 +140,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getStringLongRecord();
 if (!ToV8Traits<IDLRecord<IDLString, IDLLong>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -167,7 +165,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getUSVStringUSVStringBooleanRecordRecord();
 if (!ToV8Traits<IDLRecord<IDLUSVString, IDLRecord<IDLUSVString, IDLBoolean>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -191,7 +190,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->returnStringByteStringSequenceRecord();
 if (!ToV8Traits<IDLRecord<IDLString, IDLSequence<IDLByteString>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -220,7 +220,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLRecord<IDLByteString, IDLByteString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -250,7 +250,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<V8UnionFloatOrStringElementRecord>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -280,7 +280,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLNullable<IDLRecord<IDLString, IDLLong>>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -310,7 +310,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLRecord<IDLString, Element>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -340,7 +340,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLRecord<IDLString, IDLLong>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -370,7 +370,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<IDLRecord<IDLUSVString, IDLRecord<IDLUSVString, IDLBoolean>>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -400,7 +400,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(v8_receiver);
+RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_arg = NativeValueTraits<V8UnionBooleanOrByteStringByteStringRecord>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

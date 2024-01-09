@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { recordDirectoryListLoadWithTolerance, startInterval } from '../../common/js/metrics.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
+import { RootType, VolumeType } from '../../common/js/volume_manager_types.js';
 import { updateDirectoryContent } from '../../state/ducks/current_directory.js';
 import { getStore } from '../../state/store.js';
 import { DirectoryModel } from './directory_model.js';
@@ -13,38 +13,21 @@ import { ListContainer } from './ui/list_container.js';
  * Handler for scan related events of DirectoryModel.
  */
 export class ScanController {
-    /**
-     * @param {!DirectoryModel} directoryModel
-     * @param {!ListContainer} listContainer
-     * @param {!SpinnerController} spinnerController
-     * @param {!FileSelectionHandler} selectionHandler
-     */
-    constructor(directoryModel, listContainer, spinnerController, selectionHandler) {
-        /** @private @const @type {!DirectoryModel} */
-        this.directoryModel_ = directoryModel;
-        /** @private @const @type {!ListContainer} */
-        this.listContainer_ = listContainer;
-        /** @private @const @type {!SpinnerController} */
-        this.spinnerController_ = spinnerController;
-        /** @private @const @type {!FileSelectionHandler} */
-        this.selectionHandler_ = selectionHandler;
-        // @ts-ignore: error TS2304: Cannot find name 'Store'.
-        /** @private @const @type {!Store} */
-        this.store_ = getStore();
+    constructor(directoryModel_, listContainer_, spinnerController_, selectionHandler_) {
+        this.directoryModel_ = directoryModel_;
+        this.listContainer_ = listContainer_;
+        this.spinnerController_ = spinnerController_;
+        this.selectionHandler_ = selectionHandler_;
         /**
          * Whether a scan is in progress.
-         * @private @type {boolean}
          */
         this.scanInProgress_ = false;
         /**
          * Timer ID to delay UI refresh after a scan is updated.
-         * @private @type {number}
          */
         this.scanUpdatedTimer_ = 0;
-        /**
-         * @private @type {?function():void}
-         */
         this.spinnerHideCallback_ = null;
+        this.store_ = getStore();
         this.directoryModel_.addEventListener('scan-started', this.onScanStarted_.bind(this));
         this.directoryModel_.addEventListener('scan-completed', this.onScanCompleted_.bind(this));
         this.directoryModel_.addEventListener('scan-failed', this.onScanCancelled_.bind(this));
@@ -52,9 +35,6 @@ export class ScanController {
         this.directoryModel_.addEventListener('scan-updated', this.onScanUpdated_.bind(this));
         this.directoryModel_.addEventListener('rescan-completed', this.onRescanCompleted_.bind(this));
     }
-    /**
-     * @private
-     */
     onScanStarted_() {
         if (this.scanInProgress_) {
             this.listContainer_.endBatchUpdates();
@@ -65,9 +45,9 @@ export class ScanController {
         }
         const volumeInfo = this.directoryModel_.getCurrentVolumeInfo();
         if (volumeInfo &&
-            (volumeInfo.volumeType === VolumeManagerCommon.VolumeType.DOWNLOADS ||
-                volumeInfo.volumeType === VolumeManagerCommon.VolumeType.MY_FILES)) {
-            startInterval(`DirectoryListLoad.${VolumeManagerCommon.RootType.MY_FILES}`);
+            (volumeInfo.volumeType === VolumeType.DOWNLOADS ||
+                volumeInfo.volumeType === VolumeType.MY_FILES)) {
+            startInterval(`DirectoryListLoad.${RootType.MY_FILES}`);
         }
         this.listContainer_.startBatchUpdates();
         this.scanInProgress_ = true;
@@ -78,9 +58,6 @@ export class ScanController {
         this.hideSpinner_();
         this.spinnerHideCallback_ = this.spinnerController_.showWithDelay(500, this.onSpinnerShown_.bind(this));
     }
-    /**
-     * @private
-     */
     onScanCompleted_() {
         if (!this.scanInProgress_) {
             console.warn('Scan-completed event received. But scan is not started.');
@@ -104,23 +81,21 @@ export class ScanController {
         if (this.directoryModel_.getCurrentDirEntry()) {
             const volumeInfo = this.directoryModel_.getCurrentVolumeInfo();
             if (volumeInfo &&
-                (volumeInfo.volumeType === VolumeManagerCommon.VolumeType.DOWNLOADS ||
-                    volumeInfo.volumeType === VolumeManagerCommon.VolumeType.MY_FILES)) {
-                const metricName = `DirectoryListLoad.${VolumeManagerCommon.RootType.MY_FILES}`;
+                (volumeInfo.volumeType === VolumeType.DOWNLOADS ||
+                    volumeInfo.volumeType === VolumeType.MY_FILES)) {
+                const metricName = `DirectoryListLoad.${RootType.MY_FILES}`;
                 recordDirectoryListLoadWithTolerance(metricName, this.directoryModel_.getFileList().length, [10, 100, 1000], /*tolerance=*/ 0.2);
             }
         }
     }
     /**
      * Sends the scanned directory content to the Store.
-     * @private
      */
     updateStore_() {
-        const entries = /** @type {!Array<!Entry>} */ (this.directoryModel_.getFileList().slice());
+        const entries = this.directoryModel_.getFileList().slice();
         this.store_.dispatch(updateDirectoryContent({ entries }));
     }
     /**
-     * @private
      */
     onScanUpdated_() {
         if (!this.scanInProgress_) {
@@ -148,7 +123,6 @@ export class ScanController {
         }, 200);
     }
     /**
-     * @private
      */
     onScanCancelled_() {
         if (!this.scanInProgress_) {
@@ -165,7 +139,6 @@ export class ScanController {
     }
     /**
      * Handle the 'rescan-completed' from the DirectoryModel.
-     * @private
      */
     onRescanCompleted_() {
         this.updateStore_();
@@ -174,7 +147,6 @@ export class ScanController {
     /**
      * When a spinner is shown, updates the UI to remove items in the previous
      * directory.
-     * @private
      */
     onSpinnerShown_() {
         if (this.scanInProgress_) {
@@ -184,7 +156,6 @@ export class ScanController {
     }
     /**
      * Hides the spinner if it's shown or scheduled to be shown.
-     * @private
      */
     hideSpinner_() {
         if (this.spinnerHideCallback_) {

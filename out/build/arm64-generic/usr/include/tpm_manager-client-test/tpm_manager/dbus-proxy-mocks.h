@@ -296,6 +296,21 @@ class TpmManagerProxyMock : public TpmManagerProxyInterface {
                int /*timeout_ms*/),
               (override));
 
+  MOCK_METHOD(bool,
+              ClearTpm,
+              (const tpm_manager::ClearTpmRequest& /*in_request*/,
+               tpm_manager::ClearTpmReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ClearTpmAsync,
+              (const tpm_manager::ClearTpmRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::ClearTpmReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
   void RegisterSignalOwnershipTakenSignalHandler(
     const base::RepeatingCallback<void(const tpm_manager::OwnershipTakenSignal&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {

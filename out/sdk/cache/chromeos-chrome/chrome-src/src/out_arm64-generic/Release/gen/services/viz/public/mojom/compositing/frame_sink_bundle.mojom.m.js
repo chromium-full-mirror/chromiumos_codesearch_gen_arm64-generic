@@ -93,6 +93,12 @@ export class FrameSinkBundleInterface {
   setNeedsBeginFrame(sinkId, needsBeginFrame) {}
   
   /**
+   * @param { !number } sinkId
+   */
+
+  setWantsBeginFrameAcks(sinkId) {}
+  
+  /**
    * @param { !Array<!BundledFrameSubmission> } submissions
    */
 
@@ -170,13 +176,29 @@ export class FrameSinkBundleRemote {
 
   
   /**
+   * @param { !number } sinkId
+   */
+
+  setWantsBeginFrameAcks(
+      sinkId) {
+    this.proxy.sendMessage(
+        2,
+        FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec.$,
+        null,
+        [
+          sinkId
+        ]);
+  }
+
+  
+  /**
    * @param { !Array<!BundledFrameSubmission> } submissions
    */
 
   submit(
       submissions) {
     this.proxy.sendMessage(
-        2,
+        3,
         FrameSinkBundle_Submit_ParamsSpec.$,
         null,
         [
@@ -196,7 +218,7 @@ export class FrameSinkBundleRemote {
       region,
       id) {
     this.proxy.sendMessage(
-        3,
+        4,
         FrameSinkBundle_DidAllocateSharedBitmap_ParamsSpec.$,
         null,
         [
@@ -239,11 +261,16 @@ export class FrameSinkBundleReceiver {
         impl.setNeedsBeginFrame.bind(impl));
     this.helper_internal_.registerHandler(
         2,
+        FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec.$,
+        null,
+        impl.setWantsBeginFrameAcks.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
         FrameSinkBundle_Submit_ParamsSpec.$,
         null,
         impl.submit.bind(impl));
     this.helper_internal_.registerHandler(
-        3,
+        4,
         FrameSinkBundle_DidAllocateSharedBitmap_ParamsSpec.$,
         null,
         impl.didAllocateSharedBitmap.bind(impl));
@@ -320,12 +347,24 @@ export class FrameSinkBundleCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.submit =
+    this.setWantsBeginFrameAcks =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         2,
+        FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec.$,
+        null,
+        this.setWantsBeginFrameAcks.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.submit =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
         FrameSinkBundle_Submit_ParamsSpec.$,
         null,
         this.submit.createReceiverHandler(false /* expectsResponse */));
@@ -337,7 +376,7 @@ export class FrameSinkBundleCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        3,
+        4,
         FrameSinkBundle_DidAllocateSharedBitmap_ParamsSpec.$,
         null,
         this.didAllocateSharedBitmap.createReceiverHandler(false /* expectsResponse */));
@@ -648,6 +687,12 @@ export const FrameSinkBundle_InitializeCompositorFrameSinkType_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const FrameSinkBundle_SetNeedsBeginFrame_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -968,6 +1013,35 @@ export class FrameSinkBundle_SetNeedsBeginFrame_Params {
     this.sinkId;
     /** @type { !boolean } */
     this.needsBeginFrame;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec.$,
+    'FrameSinkBundle_SetWantsBeginFrameAcks_Params',
+    [
+      mojo.internal.StructField(
+        'sinkId', 0,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class FrameSinkBundle_SetWantsBeginFrameAcks_Params {
+  constructor() {
+    /** @type { !number } */
+    this.sinkId;
   }
 }
 

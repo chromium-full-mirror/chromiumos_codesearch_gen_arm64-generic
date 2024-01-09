@@ -56,11 +56,12 @@ export class WebSocketConnectorInterface {
    * @param { !Array<!string> } requestedProtocols
    * @param { !network_mojom_SiteForCookies } siteForCookies
    * @param { ?string } userAgent
+   * @param { !boolean } hasStorageAccess
    * @param { !network_mojom_WebSocketHandshakeClientRemote } handshakeClient
    * @param { ?mojoBase_mojom_UnguessableToken } throttlingProfileId
    */
 
-  connect(url, requestedProtocols, siteForCookies, userAgent, handshakeClient, throttlingProfileId) {}
+  connect(url, requestedProtocols, siteForCookies, userAgent, hasStorageAccess, handshakeClient, throttlingProfileId) {}
 }
 
 /**
@@ -92,6 +93,7 @@ export class WebSocketConnectorRemote {
    * @param { !Array<!string> } requestedProtocols
    * @param { !network_mojom_SiteForCookies } siteForCookies
    * @param { ?string } userAgent
+   * @param { !boolean } hasStorageAccess
    * @param { !network_mojom_WebSocketHandshakeClientRemote } handshakeClient
    * @param { ?mojoBase_mojom_UnguessableToken } throttlingProfileId
    */
@@ -101,6 +103,7 @@ export class WebSocketConnectorRemote {
       requestedProtocols,
       siteForCookies,
       userAgent,
+      hasStorageAccess,
       handshakeClient,
       throttlingProfileId) {
     this.proxy.sendMessage(
@@ -112,6 +115,7 @@ export class WebSocketConnectorRemote {
           requestedProtocols,
           siteForCookies,
           userAgent,
+          hasStorageAccess,
           handshakeClient,
           throttlingProfileId
         ]);
@@ -260,7 +264,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'handshakeClient', 32,
+        'hasStorageAccess', 32,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'handshakeClient', 36,
         0,
         mojo.internal.InterfaceProxy(network_mojom_WebSocketHandshakeClientRemote),
         null,
@@ -268,7 +280,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'throttlingProfileId', 40,
+        'throttlingProfileId', 48,
         0,
         mojoBase_mojom_UnguessableTokenSpec.$,
         null,
@@ -276,7 +288,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 56],]);
+    [[0, 64],]);
 
 
 
@@ -293,6 +305,8 @@ export class WebSocketConnector_Connect_Params {
     this.siteForCookies;
     /** @type { (string|undefined) } */
     this.userAgent;
+    /** @type { !boolean } */
+    this.hasStorageAccess;
     /** @type { !network_mojom_WebSocketHandshakeClientRemote } */
     this.handshakeClient;
     /** @type { (mojoBase_mojom_UnguessableToken|undefined) } */

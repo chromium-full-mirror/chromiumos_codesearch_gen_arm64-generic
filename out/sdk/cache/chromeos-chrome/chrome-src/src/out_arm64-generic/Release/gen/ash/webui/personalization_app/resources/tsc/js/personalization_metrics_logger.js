@@ -19,7 +19,8 @@ var MetricsPath;
     MetricsPath[MetricsPath["ROOT"] = 6] = "ROOT";
     MetricsPath[MetricsPath["USER"] = 7] = "USER";
     MetricsPath[MetricsPath["WALLPAPER_SEA_PEN_COLLECTION"] = 8] = "WALLPAPER_SEA_PEN_COLLECTION";
-    MetricsPath[MetricsPath["MAX_VALUE"] = 8] = "MAX_VALUE";
+    MetricsPath[MetricsPath["WALLPAPER_SEA_PEN_RESULTS"] = 9] = "WALLPAPER_SEA_PEN_RESULTS";
+    MetricsPath[MetricsPath["MAX_VALUE"] = 9] = "MAX_VALUE";
 })(MetricsPath || (MetricsPath = {}));
 function toMetricsEnum(path) {
     switch (path) {
@@ -41,6 +42,8 @@ function toMetricsEnum(path) {
             return MetricsPath.USER;
         case Paths.SEA_PEN_COLLECTION:
             return MetricsPath.WALLPAPER_SEA_PEN_COLLECTION;
+        case Paths.SEA_PEN_RESULTS:
+            return MetricsPath.WALLPAPER_SEA_PEN_RESULTS;
     }
 }
 export function logPersonalizationPathUMA(path) {

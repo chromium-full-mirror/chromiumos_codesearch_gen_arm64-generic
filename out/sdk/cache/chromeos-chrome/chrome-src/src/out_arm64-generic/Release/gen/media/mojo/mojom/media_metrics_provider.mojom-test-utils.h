@@ -26,6 +26,7 @@ class  MediaMetricsProviderInterceptorForTesting : public MediaMetricsProvider {
   void SetTimeToPlayReady(::base::TimeDelta elapsed) override;
   void SetRendererType(::media::RendererType renderer_type) override;
   void SetKeySystem(const std::string& key_system) override;
+  void SetHasWaitingForKey() override;
   void SetIsHardwareSecure() override;
   void SetContainerName(::media::container_names::MediaContainerName container_name) override;
   void AcquireWatchTimeRecorder(::media::mojom::PlaybackPropertiesPtr properties, ::mojo::PendingReceiver<::media::mojom::WatchTimeRecorder> recorder) override;

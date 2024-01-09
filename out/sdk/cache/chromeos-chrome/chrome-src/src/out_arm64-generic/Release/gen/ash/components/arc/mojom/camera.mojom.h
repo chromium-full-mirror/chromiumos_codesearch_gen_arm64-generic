@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/camera.mojom-features.h"
 #include "ash/components/arc/mojom/camera.mojom-shared.h"
 #include "ash/components/arc/mojom/camera.mojom-forward.h"
 #include "media/capture/video/chromeos/mojom/cros_camera_client.mojom-forward.h"
@@ -520,7 +521,7 @@ class  CameraDeviceInfo {
       uint32_t frames_to_skip_after_streamon,
       float horizontal_view_angle_16_9,
       float horizontal_view_angle_4_3,
-      absl::optional<std::vector<float>> lens_info_available_focal_lengths,
+      std::optional<std::vector<float>> lens_info_available_focal_lengths,
       float lens_info_minimum_focus_distance,
       float lens_info_optimal_focus_distance,
       float vertical_view_angle_16_9,
@@ -618,7 +619,7 @@ class  CameraDeviceInfo {
   
   float horizontal_view_angle_4_3;
   
-  absl::optional<std::vector<float>> lens_info_available_focal_lengths;
+  std::optional<std::vector<float>> lens_info_available_focal_lengths;
   
   float lens_info_minimum_focus_distance;
   

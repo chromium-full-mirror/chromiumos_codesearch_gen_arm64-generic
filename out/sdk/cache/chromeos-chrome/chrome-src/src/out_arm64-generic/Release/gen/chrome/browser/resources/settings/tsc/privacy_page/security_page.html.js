@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">img{width:100%}#safeBrowsingSection{padding:0 var(--cr-section-padding)}#httpsOnlyModeToggle{padding:0 var(--cr-section-padding)}.bullet-line{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.bullet-line>div{padding-inline-start:var(--cr-radio-button-size)}#enhancedProtectionDescContainer{display:flex}#learnMoreLabelContainer{padding-top:10px}#thingsToConsiderContainer{padding-left:10px}#whenOnContainer{padding-right:5px}:is(#whenOnContainer,#thingsToConsiderContainer)>.bullet-line{padding-top:10px;align-items:flex-start;min-height:30px}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button .bullet-line:last-child{padding-bottom:12px}settings-toggle-button{padding-inline-end:0;padding-inline-start:0}settings-toggle-button:not([disabled]){pointer-events:all}#safeBrowsingEnhanced .bullet-line:last-of-type{padding-bottom:12px}#safeBrowsingEnhanced{--cr-radio-button-unchecked-ripple-color:var(--cr-radio-button-checked-ripple-color)}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">img{width:100%}#safeBrowsingSection{padding:0 var(--cr-section-padding)}#httpsOnlyModeToggle{padding:0 var(--cr-section-padding)}.bullet-line{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.bullet-line>div{padding-inline-start:var(--cr-radio-button-size)}#enhancedProtectionDescContainer{display:flex}#learnMoreLabelContainer{padding-top:10px}#thingsToConsiderContainer{padding-left:10px}#whenOnContainer{padding-right:5px}:is(#whenOnContainer,#thingsToConsiderContainer)>.bullet-line{padding-top:10px;align-items:flex-start;min-height:30px}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button .bullet-line:last-child{padding-bottom:12px}settings-toggle-button{padding-inline-end:0;padding-inline-start:0}settings-toggle-button:not([disabled]){pointer-events:all}#safeBrowsingEnhanced .bullet-line:last-of-type{padding-bottom:12px}#safeBrowsingEnhanced{--cr-radio-button-unchecked-ripple-color:var(--cr-radio-button-checked-ripple-color)}#httpsFirstModeSettingHeader .cr-padded-text{padding-block-end:0}#httpsFirstModeRadioGroup .list-item{padding-block-start:var(--cr-section-vertical-padding);padding-block-end:var(--cr-section-vertical-padding)}</style>
     <picture>
       <source srcset="chrome://settings/images/safe_browsing_banner_dark.svg" media="(prefers-color-scheme: dark)">
       <img id="banner" alt="" src="chrome://settings/images/safe_browsing_banner.svg">
@@ -146,9 +146,38 @@ export function getTemplate() {
     <div class="cr-row first">
       <h2>$i18n{advancedPageTitle}</h2>
     </div>
-    <settings-toggle-button id="httpsOnlyModeToggle" pref="{{prefs.generated.https_first_mode_enabled}}" label="$i18n{httpsOnlyModeTitle}" sub-label="[[getHttpsFirstModeSubLabel_(
-                       prefs.generated.https_first_mode_enabled.*)]]">
-    </settings-toggle-button>
+    <template is="dom-if" if="[[!enableHttpsFirstModeNewSettings_]]">
+      <settings-toggle-button id="httpsOnlyModeToggle" pref="{{prefs.generated.https_first_mode_enabled}}" label="$i18n{httpsOnlyModeTitle}" sub-label="[[getHttpsFirstModeSubLabel_(
+                         prefs.generated.https_first_mode_enabled.*)]]" numeric-checked-value="[[httpsFirstModeSettingEnum_.ENABLED_FULL]]">
+      </settings-toggle-button>
+    </template>
+    <template is="dom-if" if="[[enableHttpsFirstModeNewSettings_]]">
+      <div id="httpsFirstModeSettingHeader" class="cr-row first">
+        <div class="cr-padded-text">
+          <div>$i18n{httpsFirstModeSectionLabel}</div>
+          <div class="cr-secondary-text">
+            $i18n{httpsFirstModeSectionSubLabel}
+          </div>
+        </div>
+      </div>
+      <div class="list-frame">
+        <settings-radio-group id="httpsFirstModeRadioGroup" pref="{{prefs.generated.https_first_mode_enabled}}">
+          <controlled-radio-button id="httpsFirstModeEnabledFull" name="[[getName_(httpsFirstModeSettingEnum_.ENABLED_FULL)]]" pref="[[prefs.generated.https_first_mode_enabled]]" label="$i18n{httpsFirstModeEnabledFullLabel}" class="list-item">
+            <div class="cr-secondary-text">
+              $i18n{httpsFirstModeEnabledFullSubLabel}
+            </div>
+          </controlled-radio-button>
+          <controlled-radio-button id="httpsFirstModeEnabledIncognito" name="[[getName_(httpsFirstModeSettingEnum_.ENABLED_INCOGNITO)]]" pref="[[prefs.generated.https_first_mode_enabled]]" label="$i18n{httpsFirstModeEnabledIncognitoLabel}" class="list-item hr">
+            <div class="cr-secondary-text">
+              $i18n{httpsFirstModeEnabledIncognitoSubLabel}</div>
+          </controlled-radio-button>
+          <controlled-radio-button id="httpsFirstModeDisabled" name="[[getName_(httpsFirstModeSettingEnum_.DISABLED)]]" pref="[[prefs.generated.https_first_mode_enabled]]" label="$i18n{httpsFirstModeDisabledLabel}" class="list-item hr">
+            <div class="cr-secondary-text">$i18n{httpsFirstModeDisabledSubLabel}
+            </div>
+          </controlled-radio-button>
+        </settings-radio-group>
+      </div>
+    </template>
     <template is="dom-if" if="[[showSecureDnsSetting_]]">
       <settings-secure-dns prefs="{{prefs}}"></settings-secure-dns>
     </template>

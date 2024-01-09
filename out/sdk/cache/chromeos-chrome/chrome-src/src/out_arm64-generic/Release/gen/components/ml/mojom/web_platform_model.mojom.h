@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/ml/mojom/web_platform_model.mojom-features.h"
 #include "components/ml/mojom/web_platform_model.mojom-shared.h"
 #include "components/ml/mojom/web_platform_model.mojom-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
@@ -130,7 +131,7 @@ class Model
   virtual ~Model() = default;
 
 
-  using ComputeCallback = base::OnceCallback<void(ComputeResult, const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>&)>;
+  using ComputeCallback = base::OnceCallback<void(ComputeResult, const std::optional<base::flat_map<std::string, std::vector<uint8_t>>>&)>;
   
   virtual void Compute(const base::flat_map<std::string, std::vector<uint8_t>>& input_tensors, ComputeCallback callback) = 0;
 };

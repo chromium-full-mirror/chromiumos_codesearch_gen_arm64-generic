@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Lock>::value,
     "Lock inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Lock::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Lock is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("Lock.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Lock* blink_receiver = V8Lock::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Lock* blink_receiver = V8Lock::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -101,10 +96,10 @@ BLINK_BINDINGS_TRACE_EVENT("Lock.mode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-Lock* blink_receiver = V8Lock::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->mode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+Lock* blink_receiver = V8Lock::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->mode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

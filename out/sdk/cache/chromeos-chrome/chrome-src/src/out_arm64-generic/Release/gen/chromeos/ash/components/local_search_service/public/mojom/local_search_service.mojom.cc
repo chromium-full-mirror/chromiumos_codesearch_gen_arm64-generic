@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -130,14 +131,17 @@ void SearchMetricsReporterProxy::OnSearchPerformed(
                         "<value of type ::ash::local_search_service::IndexId>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSearchMetricsReporter_OnSearchPerformed_Name, kFlags, 0, 0, nullptr);
@@ -238,7 +242,8 @@ void SearchMetricsReporter_OnSearchPerformed_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSearchMetricsReporter_OnSearchPerformed_Name, kFlags, 0, 0, nullptr);
@@ -317,10 +322,10 @@ std::move(p_index_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSearchMetricsReporterValidationInfo[] = {
-    {&internal::SearchMetricsReporter_OnSearchPerformed_Params_Data::Validate,
+    { &internal::SearchMetricsReporter_OnSearchPerformed_Params_Data::Validate,
      &internal::SearchMetricsReporter_OnSearchPerformed_ResponseParams_Data::Validate},
 };
 
@@ -429,14 +434,17 @@ void LocalSearchServiceProxy::BindIndex(
                         "<value of type ::mojo::PendingRemote<SearchMetricsReporter>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalSearchService_BindIndex_Name, kFlags, 0, 0, nullptr);
@@ -512,7 +520,7 @@ class LocalSearchService_BindIndex_ProxyToResponder : public ::mojo::internal::P
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool LocalSearchService_BindIndex_ForwardToCallback::Accept(
@@ -525,7 +533,7 @@ bool LocalSearchService_BindIndex_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   LocalSearchService_BindIndex_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -544,7 +552,7 @@ std::move(p_error));
 }
 
 void LocalSearchService_BindIndex_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::local_search_service::mojom::LocalSearchService::BindIndex", "async_response_parameters",
@@ -552,13 +560,14 @@ void LocalSearchService_BindIndex_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalSearchService_BindIndex_Name, kFlags, 0, 0, nullptr);
@@ -660,10 +669,10 @@ std::move(p_reporter_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalSearchServiceValidationInfo[] = {
-    {&internal::LocalSearchService_BindIndex_Params_Data::Validate,
+    { &internal::LocalSearchService_BindIndex_Params_Data::Validate,
      &internal::LocalSearchService_BindIndex_ResponseParams_Data::Validate},
 };
 
@@ -727,14 +736,14 @@ LocalSearchServiceAsyncWaiter::LocalSearchServiceAsyncWaiter(
 LocalSearchServiceAsyncWaiter::~LocalSearchServiceAsyncWaiter() = default;
 
 void LocalSearchServiceAsyncWaiter::BindIndex(
-    ::ash::local_search_service::IndexId index_id, ::ash::local_search_service::Backend backend, ::mojo::PendingReceiver<::ash::local_search_service::mojom::Index> index_receiver, ::mojo::PendingRemote<SearchMetricsReporter> reporter_remote, absl::optional<std::string>* out_error) {
+    ::ash::local_search_service::IndexId index_id, ::ash::local_search_service::Backend backend, ::mojo::PendingReceiver<::ash::local_search_service::mojom::Index> index_receiver, ::mojo::PendingRemote<SearchMetricsReporter> reporter_remote, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->BindIndex(std::move(index_id),std::move(backend),std::move(index_receiver),std::move(reporter_remote),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -742,9 +751,9 @@ void LocalSearchServiceAsyncWaiter::BindIndex(
   loop.Run();
 }
 
-absl::optional<std::string> LocalSearchServiceAsyncWaiter::BindIndex(
+std::optional<std::string> LocalSearchServiceAsyncWaiter::BindIndex(
     ::ash::local_search_service::IndexId index_id, ::ash::local_search_service::Backend backend, ::mojo::PendingReceiver<::ash::local_search_service::mojom::Index> index_receiver, ::mojo::PendingRemote<SearchMetricsReporter> reporter_remote) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   BindIndex(std::move(index_id),std::move(backend),std::move(index_receiver),std::move(reporter_remote),&async_wait_result);
   return async_wait_result;
 }

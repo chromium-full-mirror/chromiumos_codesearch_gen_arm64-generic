@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/mediastream/media_devices.mojom-features.h"
 #include "third_party/blink/public/mojom/mediastream/media_devices.mojom-shared.h"
 #include "third_party/blink/public/mojom/mediastream/media_devices.mojom-blink-forward.h"
 #include "media/capture/mojom/video_capture_types.mojom-blink.h"
@@ -45,42 +46,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::MediaDeviceType>
-    : EnumHashTraits<::blink::mojom::MediaDeviceType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::SubCaptureTargetType>
-    : EnumHashTraits<::blink::mojom::SubCaptureTargetType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::FacingMode>
-    : EnumHashTraits<::blink::mojom::FacingMode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -196,7 +161,7 @@ class PLATFORM_EXPORT MediaDevicesDispatcherHost
 
   using ProduceSubCaptureTargetIdCallback = base::OnceCallback<void(const WTF::String&)>;
   
-  virtual void ProduceSubCaptureTargetId(SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) = 0;
+  virtual void ProduceSubCaptureTargetId(::media::mojom::blink::SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) = 0;
 };
 
 class MediaDevicesListenerProxy;
@@ -269,7 +234,7 @@ class PLATFORM_EXPORT MediaDevicesDispatcherHostProxy
   
   void CloseFocusWindowOfOpportunity(const WTF::String& label) final;
   
-  void ProduceSubCaptureTargetId(SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) final;
+  void ProduceSubCaptureTargetId(::media::mojom::blink::SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -388,6 +353,11 @@ class PLATFORM_EXPORT MediaDevicesDispatcherHostResponseValidator : public mojo:
 
 
 
+
+
+
+
+
 class PLATFORM_EXPORT MediaDeviceInfo {
  public:
   template <typename T>
@@ -417,7 +387,10 @@ class PLATFORM_EXPORT MediaDeviceInfo {
   MediaDeviceInfo(
       const WTF::String& device_id,
       const WTF::String& label,
-      const WTF::String& group_id);
+      const WTF::String& group_id,
+      const ::media::VideoCaptureControlSupport& control_support,
+      FacingMode facing_mode,
+      std::optional<::media::mojom::blink::CameraAvailability> availability);
 
 
   ~MediaDeviceInfo();
@@ -500,6 +473,12 @@ class PLATFORM_EXPORT MediaDeviceInfo {
   WTF::String label;
   
   WTF::String group_id;
+  
+  ::media::VideoCaptureControlSupport control_support;
+  
+  FacingMode facing_mode;
+  
+  std::optional<::media::mojom::blink::CameraAvailability> availability;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -529,11 +508,6 @@ template <typename T, MediaDeviceInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
-
-
-
-
-
 
 
 
@@ -570,7 +544,8 @@ class PLATFORM_EXPORT VideoInputDeviceCapabilities {
       const WTF::String& group_id,
       const ::media::VideoCaptureControlSupport& control_support,
       WTF::Vector<::media::VideoCaptureFormat> formats,
-      FacingMode facing_mode);
+      FacingMode facing_mode,
+      std::optional<::media::mojom::blink::CameraAvailability> availability);
 
 
   ~VideoInputDeviceCapabilities();
@@ -657,6 +632,8 @@ class PLATFORM_EXPORT VideoInputDeviceCapabilities {
   WTF::Vector<::media::VideoCaptureFormat> formats;
   
   FacingMode facing_mode;
+  
+  std::optional<::media::mojom::blink::CameraAvailability> availability;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -850,7 +827,10 @@ MediaDeviceInfoPtr MediaDeviceInfo::Clone() const {
   return New(
       mojo::Clone(device_id),
       mojo::Clone(label),
-      mojo::Clone(group_id)
+      mojo::Clone(group_id),
+      mojo::Clone(control_support),
+      mojo::Clone(facing_mode),
+      mojo::Clone(availability)
   );
 }
 
@@ -861,6 +841,12 @@ bool MediaDeviceInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->label, other_struct.label))
     return false;
   if (!mojo::Equals(this->group_id, other_struct.group_id))
+    return false;
+  if (!mojo::Equals(this->control_support, other_struct.control_support))
+    return false;
+  if (!mojo::Equals(this->facing_mode, other_struct.facing_mode))
+    return false;
+  if (!mojo::Equals(this->availability, other_struct.availability))
     return false;
   return true;
 }
@@ -879,6 +865,18 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.group_id < lhs.group_id)
     return false;
+  if (lhs.control_support < rhs.control_support)
+    return true;
+  if (rhs.control_support < lhs.control_support)
+    return false;
+  if (lhs.facing_mode < rhs.facing_mode)
+    return true;
+  if (rhs.facing_mode < lhs.facing_mode)
+    return false;
+  if (lhs.availability < rhs.availability)
+    return true;
+  if (rhs.availability < lhs.availability)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -888,7 +886,8 @@ VideoInputDeviceCapabilitiesPtr VideoInputDeviceCapabilities::Clone() const {
       mojo::Clone(group_id),
       mojo::Clone(control_support),
       mojo::Clone(formats),
-      mojo::Clone(facing_mode)
+      mojo::Clone(facing_mode),
+      mojo::Clone(availability)
   );
 }
 
@@ -903,6 +902,8 @@ bool VideoInputDeviceCapabilities::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->formats, other_struct.formats))
     return false;
   if (!mojo::Equals(this->facing_mode, other_struct.facing_mode))
+    return false;
+  if (!mojo::Equals(this->availability, other_struct.availability))
     return false;
   return true;
 }
@@ -928,6 +929,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.facing_mode < rhs.facing_mode)
     return true;
   if (rhs.facing_mode < lhs.facing_mode)
+    return false;
+  if (lhs.availability < rhs.availability)
+    return true;
+  if (rhs.availability < lhs.availability)
     return false;
   return false;
 }
@@ -1023,6 +1028,21 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::MediaDeviceInfo::Data
     return input->group_id;
   }
 
+  static const decltype(::blink::mojom::blink::MediaDeviceInfo::control_support)& control_support(
+      const ::blink::mojom::blink::MediaDeviceInfoPtr& input) {
+    return input->control_support;
+  }
+
+  static decltype(::blink::mojom::blink::MediaDeviceInfo::facing_mode) facing_mode(
+      const ::blink::mojom::blink::MediaDeviceInfoPtr& input) {
+    return input->facing_mode;
+  }
+
+  static decltype(::blink::mojom::blink::MediaDeviceInfo::availability) availability(
+      const ::blink::mojom::blink::MediaDeviceInfoPtr& input) {
+    return input->availability;
+  }
+
   static bool Read(::blink::mojom::blink::MediaDeviceInfo::DataView input, ::blink::mojom::blink::MediaDeviceInfoPtr* output);
 };
 
@@ -1056,6 +1076,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::VideoInputDeviceCapab
   static decltype(::blink::mojom::blink::VideoInputDeviceCapabilities::facing_mode) facing_mode(
       const ::blink::mojom::blink::VideoInputDeviceCapabilitiesPtr& input) {
     return input->facing_mode;
+  }
+
+  static decltype(::blink::mojom::blink::VideoInputDeviceCapabilities::availability) availability(
+      const ::blink::mojom::blink::VideoInputDeviceCapabilitiesPtr& input) {
+    return input->availability;
   }
 
   static bool Read(::blink::mojom::blink::VideoInputDeviceCapabilities::DataView input, ::blink::mojom::blink::VideoInputDeviceCapabilitiesPtr* output);

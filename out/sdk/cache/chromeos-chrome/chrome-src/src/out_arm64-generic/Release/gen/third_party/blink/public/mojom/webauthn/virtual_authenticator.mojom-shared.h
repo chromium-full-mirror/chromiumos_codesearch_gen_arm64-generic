@@ -191,6 +191,12 @@ class VirtualAuthenticatorOptionsDataView {
   bool has_prf() const {
     return data_->has_prf;
   }
+  bool default_backup_eligibility() const {
+    return data_->default_backup_eligibility;
+  }
+  bool default_backup_state() const {
+    return data_->default_backup_state;
+  }
  private:
   internal::VirtualAuthenticatorOptions_Data* data_ = nullptr;
 };
@@ -330,6 +336,8 @@ struct Serializer<::blink::test::mojom::VirtualAuthenticatorOptionsDataView, May
     fragment->has_cred_blob = Traits::has_cred_blob(input);
     fragment->has_min_pin_length = Traits::has_min_pin_length(input);
     fragment->has_prf = Traits::has_prf(input);
+    fragment->default_backup_eligibility = Traits::default_backup_eligibility(input);
+    fragment->default_backup_state = Traits::default_backup_state(input);
   }
 
   static bool Deserialize(::blink::test::mojom::internal::VirtualAuthenticatorOptions_Data* input,

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -47,7 +48,7 @@ MemoryRoutineArgument::MemoryRoutineArgument()
     : max_testing_mem_kib() {}
 
 MemoryRoutineArgument::MemoryRoutineArgument(
-    absl::optional<uint32_t> max_testing_mem_kib_in)
+    std::optional<uint32_t> max_testing_mem_kib_in)
     : max_testing_mem_kib(std::move(max_testing_mem_kib_in)) {}
 
 MemoryRoutineArgument::~MemoryRoutineArgument() = default;
@@ -59,7 +60,7 @@ void MemoryRoutineArgument::WriteIntoTrace(
     dict.AddItem(
       "max_testing_mem_kib"), this->max_testing_mem_kib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<uint32_t>>"
+      "<value of type std::optional<uint32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -67,6 +68,63 @@ void MemoryRoutineArgument::WriteIntoTrace(
 }
 
 bool MemoryRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+VolumeButtonRoutineArgument::VolumeButtonRoutineArgument()
+    : type(),
+      timeout() {}
+
+VolumeButtonRoutineArgument::VolumeButtonRoutineArgument(
+    VolumeButtonRoutineArgument::ButtonType type_in,
+    ::base::TimeDelta timeout_in)
+    : type(std::move(type_in)),
+      timeout(std::move(timeout_in)) {}
+
+VolumeButtonRoutineArgument::~VolumeButtonRoutineArgument() = default;
+
+void VolumeButtonRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type VolumeButtonRoutineArgument::ButtonType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "timeout"), this->timeout,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::TimeDelta>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool VolumeButtonRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FanRoutineArgument::FanRoutineArgument() {}
+
+FanRoutineArgument::~FanRoutineArgument() = default;
+size_t FanRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void FanRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool FanRoutineArgument::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -310,6 +368,75 @@ bool MemtesterResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+VolumeButtonRoutineDetail::VolumeButtonRoutineDetail() {}
+
+VolumeButtonRoutineDetail::~VolumeButtonRoutineDetail() = default;
+size_t VolumeButtonRoutineDetail::Hash(size_t seed) const {
+  return seed;
+}
+
+void VolumeButtonRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool VolumeButtonRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FanRoutineDetail::FanRoutineDetail()
+    : passed_fan_ids(),
+      failed_fan_ids(),
+      fan_count_status() {}
+
+FanRoutineDetail::FanRoutineDetail(
+    std::vector<uint8_t> passed_fan_ids_in,
+    std::vector<uint8_t> failed_fan_ids_in,
+    HardwarePresenceStatus fan_count_status_in)
+    : passed_fan_ids(std::move(passed_fan_ids_in)),
+      failed_fan_ids(std::move(failed_fan_ids_in)),
+      fan_count_status(std::move(fan_count_status_in)) {}
+
+FanRoutineDetail::~FanRoutineDetail() = default;
+
+void FanRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "passed_fan_ids"), this->passed_fan_ids,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<uint8_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "failed_fan_ids"), this->failed_fan_ids,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<uint8_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "fan_count_status"), this->fan_count_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type HardwarePresenceStatus>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FanRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -338,6 +465,28 @@ void RoutineArgument::set_memory(
         std::move(memory));
   }
 }
+void RoutineArgument::set_volume_button(
+    VolumeButtonRoutineArgumentPtr volume_button) {
+  if (tag_ == Tag::kVolumeButton) {
+    *(data_.volume_button) = std::move(volume_button);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kVolumeButton;
+    data_.volume_button = new VolumeButtonRoutineArgumentPtr(
+        std::move(volume_button));
+  }
+}
+void RoutineArgument::set_fan(
+    FanRoutineArgumentPtr fan) {
+  if (tag_ == Tag::kFan) {
+    *(data_.fan) = std::move(fan);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFan;
+    data_.fan = new FanRoutineArgumentPtr(
+        std::move(fan));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -348,6 +497,14 @@ void RoutineArgument::DestroyActive() {
     case Tag::kMemory:
 
       delete data_.memory;
+      break;
+    case Tag::kVolumeButton:
+
+      delete data_.volume_button;
+      break;
+    case Tag::kFan:
+
+      delete data_.fan;
       break;
   }
 }
@@ -477,6 +634,28 @@ void RoutineDetail::set_memory(
         std::move(memory));
   }
 }
+void RoutineDetail::set_volume_button(
+    VolumeButtonRoutineDetailPtr volume_button) {
+  if (tag_ == Tag::kVolumeButton) {
+    *(data_.volume_button) = std::move(volume_button);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kVolumeButton;
+    data_.volume_button = new VolumeButtonRoutineDetailPtr(
+        std::move(volume_button));
+  }
+}
+void RoutineDetail::set_fan(
+    FanRoutineDetailPtr fan) {
+  if (tag_ == Tag::kFan) {
+    *(data_.fan) = std::move(fan);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFan;
+    data_.fan = new FanRoutineDetailPtr(
+        std::move(fan));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -487,6 +666,14 @@ void RoutineDetail::DestroyActive() {
     case Tag::kMemory:
 
       delete data_.memory;
+      break;
+    case Tag::kVolumeButton:
+
+      delete data_.volume_button;
+      break;
+    case Tag::kFan:
+
+      delete data_.fan;
       break;
   }
 }
@@ -609,14 +796,17 @@ void CrosHealthdRoutinesServiceProxy::CreateRoutine(
                         "<value of type ::mojo::PendingRemote<RoutineObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdRoutinesService_CreateRoutine_Name, kFlags, 0, 0, nullptr);
@@ -663,14 +853,17 @@ void CrosHealthdRoutinesServiceProxy::IsRoutineArgumentSupported(
                         "<value of type RoutineArgumentPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
@@ -789,7 +982,8 @@ void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
@@ -918,12 +1112,12 @@ std::move(p_routine_argument), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdRoutinesServiceValidationInfo[] = {
-    {&internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data::Validate,
+    { &internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data::Validate,
      &internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data::Validate},
 };
 
@@ -1036,14 +1230,17 @@ void RoutineControlProxy::GetState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::RoutineControl::GetState");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
@@ -1067,14 +1264,17 @@ void RoutineControlProxy::Start(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::RoutineControl::Start");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRoutineControl_Start_Name, kFlags, 0, 0, nullptr);
@@ -1183,7 +1383,8 @@ void RoutineControl_GetState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
@@ -1294,12 +1495,12 @@ bool RoutineControlStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRoutineControlValidationInfo[] = {
-    {&internal::RoutineControl_GetState_Params_Data::Validate,
+    { &internal::RoutineControl_GetState_Params_Data::Validate,
      &internal::RoutineControl_GetState_ResponseParams_Data::Validate},
-    {&internal::RoutineControl_Start_Params_Data::Validate,
+    { &internal::RoutineControl_Start_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1383,14 +1584,17 @@ void RoutineObserverProxy::OnRoutineStateChange(
                         "<value of type RoutineStatePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRoutineObserver_OnRoutineStateChange_Name, kFlags, 0, 0, nullptr);
@@ -1469,10 +1673,10 @@ bool RoutineObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRoutineObserverValidationInfo[] = {
-    {&internal::RoutineObserver_OnRoutineStateChange_Params_Data::Validate,
+    { &internal::RoutineObserver_OnRoutineStateChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1499,6 +1703,34 @@ bool StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView, :
       if (success) {
         result->max_testing_mem_kib = input.max_testing_mem_kib();
       }
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::DataView, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr result(::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadTimeout(&result->timeout))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::FanRoutineArgument::DataView, ::ash::cros_healthd::mojom::FanRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::FanRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::FanRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::FanRoutineArgumentPtr result(::ash::cros_healthd::mojom::FanRoutineArgument::New());
+  
   *output = std::move(result);
   return success;
 }
@@ -1607,6 +1839,36 @@ bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView, ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result(::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView, ::ash::cros_healthd::mojom::FanRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::FanRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::FanRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::FanRoutineDetailPtr result(::ash::cros_healthd::mojom::FanRoutineDetail::New());
+  
+      if (success && !input.ReadPassedFanIds(&result->passed_fan_ids))
+        success = false;
+      if (success && !input.ReadFailedFanIds(&result->failed_fan_ids))
+        success = false;
+      if (success && !input.ReadFanCountStatus(&result->fan_count_status))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::RoutineArgument::DataView input,
@@ -1626,6 +1888,24 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewMemory(
           std::move(result_memory));
+      break;
+    }
+    case Tag::kVolumeButton: {
+      ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr result_volume_button;
+      if (!input.ReadVolumeButton(&result_volume_button))
+        return false;
+
+      *output = UnionType::NewVolumeButton(
+          std::move(result_volume_button));
+      break;
+    }
+    case Tag::kFan: {
+      ::ash::cros_healthd::mojom::FanRoutineArgumentPtr result_fan;
+      if (!input.ReadFan(&result_fan))
+        return false;
+
+      *output = UnionType::NewFan(
+          std::move(result_fan));
       break;
     }
     default:
@@ -1712,9 +1992,28 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
           std::move(result_memory));
       break;
     }
+    case Tag::kVolumeButton: {
+      ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result_volume_button;
+      if (!input.ReadVolumeButton(&result_volume_button))
+        return false;
+
+      *output = UnionType::NewVolumeButton(
+          std::move(result_volume_button));
+      break;
+    }
+    case Tag::kFan: {
+      ::ash::cros_healthd::mojom::FanRoutineDetailPtr result_fan;
+      if (!input.ReadFan(&result_fan))
+        return false;
+
+      *output = UnionType::NewFan(
+          std::move(result_fan));
+      break;
+    }
     default:
 
-      return false;
+      *output = UnionType::NewUnrecognizedArgument({});
+      return true;
   }
   return true;
 }

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -113,7 +114,7 @@ ShareTarget::ShareTarget(
     const ::base::UnguessableToken& id_in,
     const std::string& name_in,
     ::nearby_share::mojom::ShareTargetType type_in,
-    const absl::optional<::GURL>& image_url_in,
+    const std::optional<::GURL>& image_url_in,
     PayloadPreviewPtr payload_preview_in,
     bool for_self_share_in)
     : id(std::move(id_in)),
@@ -159,7 +160,7 @@ void ShareTarget::WriteIntoTrace(
     dict.AddItem(
       "image_url"), this->image_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -199,7 +200,7 @@ TransferMetadata::TransferMetadata()
 TransferMetadata::TransferMetadata(
     TransferStatus status_in,
     float progress_in,
-    const absl::optional<std::string>& token_in,
+    const std::optional<std::string>& token_in,
     bool is_original_in,
     bool is_final_status_in)
     : status(std::move(status_in)),
@@ -235,7 +236,7 @@ void TransferMetadata::WriteIntoTrace(
     dict.AddItem(
       "token"), this->token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -356,14 +357,17 @@ void ShareTargetListenerProxy::OnShareTargetDiscovered(
                         "<value of type const ::ShareTarget&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShareTargetListener_OnShareTargetDiscovered_Name, kFlags, 0, 0, nullptr);
@@ -404,14 +408,17 @@ void ShareTargetListenerProxy::OnShareTargetLost(
                         "<value of type const ::ShareTarget&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kShareTargetListener_OnShareTargetLost_Name, kFlags, 0, 0, nullptr);
@@ -519,12 +526,12 @@ bool ShareTargetListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kShareTargetListenerValidationInfo[] = {
-    {&internal::ShareTargetListener_OnShareTargetDiscovered_Params_Data::Validate,
+    { &internal::ShareTargetListener_OnShareTargetDiscovered_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ShareTargetListener_OnShareTargetLost_Params_Data::Validate,
+    { &internal::ShareTargetListener_OnShareTargetLost_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -593,7 +600,7 @@ TransferUpdateListenerProxy::TransferUpdateListenerProxy(mojo::MessageReceiverWi
 }
 
 void TransferUpdateListenerProxy::OnTransferUpdate(
-    TransferStatus in_status, const absl::optional<std::string>& in_token) {
+    TransferStatus in_status, const std::optional<std::string>& in_token) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send nearby_share::mojom::TransferUpdateListener::OnTransferUpdate", "input_parameters",
@@ -604,17 +611,20 @@ void TransferUpdateListenerProxy::OnTransferUpdate(
                         "<value of type TransferStatus>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("token"), in_token,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTransferUpdateListener_OnTransferUpdate_Name, kFlags, 0, 0, nullptr);
@@ -655,7 +665,7 @@ bool TransferUpdateListenerStubDispatch::Accept(
       
       bool success = true;
       TransferStatus p_status{};
-      absl::optional<std::string> p_token{};
+      std::optional<std::string> p_token{};
       TransferUpdateListener_OnTransferUpdate_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStatus(&p_status))
@@ -695,10 +705,10 @@ bool TransferUpdateListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTransferUpdateListenerValidationInfo[] = {
-    {&internal::TransferUpdateListener_OnTransferUpdate_Params_Data::Validate,
+    { &internal::TransferUpdateListener_OnTransferUpdate_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -791,14 +801,17 @@ void DiscoveryObserverProxy::OnNearbyProcessStopped(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::DiscoveryObserver::OnNearbyProcessStopped");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryObserver_OnNearbyProcessStopped_Name, kFlags, 0, 0, nullptr);
@@ -828,14 +841,17 @@ void DiscoveryObserverProxy::OnStartDiscoveryResult(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryObserver_OnStartDiscoveryResult_Name, kFlags, 0, 0, nullptr);
@@ -929,12 +945,12 @@ bool DiscoveryObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDiscoveryObserverValidationInfo[] = {
-    {&internal::DiscoveryObserver_OnNearbyProcessStopped_Params_Data::Validate,
+    { &internal::DiscoveryObserver_OnNearbyProcessStopped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DiscoveryObserver_OnStartDiscoveryResult_Params_Data::Validate,
+    { &internal::DiscoveryObserver_OnStartDiscoveryResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1158,14 +1174,17 @@ void DiscoveryManagerProxy::AddDiscoveryObserver(
                         "<value of type ::mojo::PendingRemote<DiscoveryObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryManager_AddDiscoveryObserver_Name, kFlags, 0, 0, nullptr);
@@ -1201,14 +1220,17 @@ void DiscoveryManagerProxy::StartDiscovery(
                         "<value of type ::mojo::PendingRemote<ShareTargetListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryManager_StartDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -1238,14 +1260,17 @@ void DiscoveryManagerProxy::StopDiscovery(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::DiscoveryManager::StopDiscovery");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryManager_StopDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -1276,14 +1301,17 @@ void DiscoveryManagerProxy::SelectShareTarget(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryManager_SelectShareTarget_Name, kFlags, 0, 0, nullptr);
@@ -1318,14 +1346,17 @@ void DiscoveryManagerProxy::GetPayloadPreview(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::DiscoveryManager::GetPayloadPreview");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryManager_GetPayloadPreview_Name, kFlags, 0, 0, nullptr);
@@ -1435,7 +1466,8 @@ void DiscoveryManager_StartDiscovery_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryManager_StartDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -1543,7 +1575,8 @@ void DiscoveryManager_StopDiscovery_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryManager_StopDiscovery_Name, kFlags, 0, 0, nullptr);
@@ -1678,7 +1711,8 @@ void DiscoveryManager_SelectShareTarget_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryManager_SelectShareTarget_Name, kFlags, 0, 0, nullptr);
@@ -1801,7 +1835,8 @@ void DiscoveryManager_GetPayloadPreview_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoveryManager_GetPayloadPreview_Name, kFlags, 0, 0, nullptr);
@@ -2012,18 +2047,18 @@ std::move(p_share_target_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDiscoveryManagerValidationInfo[] = {
-    {&internal::DiscoveryManager_AddDiscoveryObserver_Params_Data::Validate,
+    { &internal::DiscoveryManager_AddDiscoveryObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DiscoveryManager_StartDiscovery_Params_Data::Validate,
+    { &internal::DiscoveryManager_StartDiscovery_Params_Data::Validate,
      &internal::DiscoveryManager_StartDiscovery_ResponseParams_Data::Validate},
-    {&internal::DiscoveryManager_StopDiscovery_Params_Data::Validate,
+    { &internal::DiscoveryManager_StopDiscovery_Params_Data::Validate,
      &internal::DiscoveryManager_StopDiscovery_ResponseParams_Data::Validate},
-    {&internal::DiscoveryManager_SelectShareTarget_Params_Data::Validate,
+    { &internal::DiscoveryManager_SelectShareTarget_Params_Data::Validate,
      &internal::DiscoveryManager_SelectShareTarget_ResponseParams_Data::Validate},
-    {&internal::DiscoveryManager_GetPayloadPreview_Params_Data::Validate,
+    { &internal::DiscoveryManager_GetPayloadPreview_Params_Data::Validate,
      &internal::DiscoveryManager_GetPayloadPreview_ResponseParams_Data::Validate},
 };
 
@@ -2188,14 +2223,17 @@ void ConfirmationManagerProxy::Accept(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::ConfirmationManager::Accept");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConfirmationManager_Accept_Name, kFlags, 0, 0, nullptr);
@@ -2219,14 +2257,17 @@ void ConfirmationManagerProxy::Reject(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::ConfirmationManager::Reject");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConfirmationManager_Reject_Name, kFlags, 0, 0, nullptr);
@@ -2250,14 +2291,17 @@ void ConfirmationManagerProxy::Cancel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::ConfirmationManager::Cancel");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConfirmationManager_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -2367,7 +2411,8 @@ void ConfirmationManager_Accept_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConfirmationManager_Accept_Name, kFlags, 0, 0, nullptr);
@@ -2485,7 +2530,8 @@ void ConfirmationManager_Reject_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConfirmationManager_Reject_Name, kFlags, 0, 0, nullptr);
@@ -2603,7 +2649,8 @@ void ConfirmationManager_Cancel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConfirmationManager_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -2735,14 +2782,14 @@ bool ConfirmationManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kConfirmationManagerValidationInfo[] = {
-    {&internal::ConfirmationManager_Accept_Params_Data::Validate,
+    { &internal::ConfirmationManager_Accept_Params_Data::Validate,
      &internal::ConfirmationManager_Accept_ResponseParams_Data::Validate},
-    {&internal::ConfirmationManager_Reject_Params_Data::Validate,
+    { &internal::ConfirmationManager_Reject_Params_Data::Validate,
      &internal::ConfirmationManager_Reject_ResponseParams_Data::Validate},
-    {&internal::ConfirmationManager_Cancel_Params_Data::Validate,
+    { &internal::ConfirmationManager_Cancel_Params_Data::Validate,
      &internal::ConfirmationManager_Cancel_ResponseParams_Data::Validate},
 };
 
@@ -2886,14 +2933,17 @@ void ReceiveObserverProxy::OnHighVisibilityChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveObserver_OnHighVisibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -2927,14 +2977,17 @@ void ReceiveObserverProxy::OnTransferUpdate(
                         "<value of type TransferMetadataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveObserver_OnTransferUpdate_Name, kFlags, 0, 0, nullptr);
@@ -2979,14 +3032,17 @@ void ReceiveObserverProxy::OnNearbyProcessStopped(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::ReceiveObserver::OnNearbyProcessStopped");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveObserver_OnNearbyProcessStopped_Name, kFlags, 0, 0, nullptr);
@@ -3009,14 +3065,17 @@ void ReceiveObserverProxy::OnStartAdvertisingFailure(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::ReceiveObserver::OnStartAdvertisingFailure");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveObserver_OnStartAdvertisingFailure_Name, kFlags, 0, 0, nullptr);
@@ -3167,16 +3226,16 @@ bool ReceiveObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kReceiveObserverValidationInfo[] = {
-    {&internal::ReceiveObserver_OnHighVisibilityChanged_Params_Data::Validate,
+    { &internal::ReceiveObserver_OnHighVisibilityChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReceiveObserver_OnTransferUpdate_Params_Data::Validate,
+    { &internal::ReceiveObserver_OnTransferUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReceiveObserver_OnNearbyProcessStopped_Params_Data::Validate,
+    { &internal::ReceiveObserver_OnNearbyProcessStopped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReceiveObserver_OnStartAdvertisingFailure_Params_Data::Validate,
+    { &internal::ReceiveObserver_OnStartAdvertisingFailure_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3456,14 +3515,17 @@ void ReceiveManagerProxy::AddReceiveObserver(
                         "<value of type ::mojo::PendingRemote<ReceiveObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_AddReceiveObserver_Name, kFlags, 0, 0, nullptr);
@@ -3492,14 +3554,17 @@ void ReceiveManagerProxy::IsInHighVisibility(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::ReceiveManager::IsInHighVisibility");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_IsInHighVisibility_Name, kFlags, 0, 0, nullptr);
@@ -3523,14 +3588,17 @@ void ReceiveManagerProxy::RegisterForegroundReceiveSurface(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::ReceiveManager::RegisterForegroundReceiveSurface");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_RegisterForegroundReceiveSurface_Name, kFlags, 0, 0, nullptr);
@@ -3554,14 +3622,17 @@ void ReceiveManagerProxy::UnregisterForegroundReceiveSurface(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send nearby_share::mojom::ReceiveManager::UnregisterForegroundReceiveSurface");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_UnregisterForegroundReceiveSurface_Name, kFlags, 0, 0, nullptr);
@@ -3592,14 +3663,17 @@ void ReceiveManagerProxy::Accept(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_Accept_Name, kFlags, 0, 0, nullptr);
@@ -3641,14 +3715,17 @@ void ReceiveManagerProxy::Reject(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_Reject_Name, kFlags, 0, 0, nullptr);
@@ -3690,14 +3767,17 @@ void ReceiveManagerProxy::RecordFastInitiationNotificationUsage(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_RecordFastInitiationNotificationUsage_Name, kFlags, 0, 0, nullptr);
@@ -3807,7 +3887,8 @@ void ReceiveManager_IsInHighVisibility_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_IsInHighVisibility_Name, kFlags, 0, 0, nullptr);
@@ -3925,7 +4006,8 @@ void ReceiveManager_RegisterForegroundReceiveSurface_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_RegisterForegroundReceiveSurface_Name, kFlags, 0, 0, nullptr);
@@ -4044,7 +4126,8 @@ void ReceiveManager_UnregisterForegroundReceiveSurface_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_UnregisterForegroundReceiveSurface_Name, kFlags, 0, 0, nullptr);
@@ -4162,7 +4245,8 @@ void ReceiveManager_Accept_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_Accept_Name, kFlags, 0, 0, nullptr);
@@ -4280,7 +4364,8 @@ void ReceiveManager_Reject_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kReceiveManager_Reject_Name, kFlags, 0, 0, nullptr);
@@ -4536,22 +4621,22 @@ std::move(p_share_target_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kReceiveManagerValidationInfo[] = {
-    {&internal::ReceiveManager_AddReceiveObserver_Params_Data::Validate,
+    { &internal::ReceiveManager_AddReceiveObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ReceiveManager_IsInHighVisibility_Params_Data::Validate,
+    { &internal::ReceiveManager_IsInHighVisibility_Params_Data::Validate,
      &internal::ReceiveManager_IsInHighVisibility_ResponseParams_Data::Validate},
-    {&internal::ReceiveManager_RegisterForegroundReceiveSurface_Params_Data::Validate,
+    { &internal::ReceiveManager_RegisterForegroundReceiveSurface_Params_Data::Validate,
      &internal::ReceiveManager_RegisterForegroundReceiveSurface_ResponseParams_Data::Validate},
-    {&internal::ReceiveManager_UnregisterForegroundReceiveSurface_Params_Data::Validate,
+    { &internal::ReceiveManager_UnregisterForegroundReceiveSurface_Params_Data::Validate,
      &internal::ReceiveManager_UnregisterForegroundReceiveSurface_ResponseParams_Data::Validate},
-    {&internal::ReceiveManager_Accept_Params_Data::Validate,
+    { &internal::ReceiveManager_Accept_Params_Data::Validate,
      &internal::ReceiveManager_Accept_ResponseParams_Data::Validate},
-    {&internal::ReceiveManager_Reject_Params_Data::Validate,
+    { &internal::ReceiveManager_Reject_Params_Data::Validate,
      &internal::ReceiveManager_Reject_ResponseParams_Data::Validate},
-    {&internal::ReceiveManager_RecordFastInitiationNotificationUsage_Params_Data::Validate,
+    { &internal::ReceiveManager_RecordFastInitiationNotificationUsage_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4659,7 +4744,7 @@ ShareTargetListenerAsyncWaiter::~ShareTargetListenerAsyncWaiter() = default;
 
 
 
-void TransferUpdateListenerInterceptorForTesting::OnTransferUpdate(TransferStatus status, const absl::optional<std::string>& token) {
+void TransferUpdateListenerInterceptorForTesting::OnTransferUpdate(TransferStatus status, const std::optional<std::string>& token) {
   GetForwardingInterface()->OnTransferUpdate(std::move(status), std::move(token));
 }
 TransferUpdateListenerAsyncWaiter::TransferUpdateListenerAsyncWaiter(

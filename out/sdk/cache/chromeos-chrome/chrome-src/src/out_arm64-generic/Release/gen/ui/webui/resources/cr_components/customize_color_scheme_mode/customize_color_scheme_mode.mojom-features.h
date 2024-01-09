@@ -8,6 +8,7 @@
 #define UI_WEBUI_RESOURCES_CR_COMPONENTS_CUSTOMIZE_COLOR_SCHEME_MODE_CUSTOMIZE_COLOR_SCHEME_MODE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

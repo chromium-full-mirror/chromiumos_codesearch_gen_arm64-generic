@@ -1,50 +1,36 @@
 // Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { assert } from 'chrome://resources/ash/common/assert.js';
-import { appUtil } from '../../common/js/app_util.js';
-import { DialogType } from '../../common/js/dialog_type.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { saveAppState, updateAppState } from '../../common/js/app_util.js';
 import { isRecentRoot } from '../../common/js/entry_utils.js';
 import { storage } from '../../common/js/storage.js';
-import { DirectoryModel } from './directory_model.js';
+import { DialogType } from '../../externs/ts/state.js';
 import { GROUP_BY_FIELD_DIRECTORY, GROUP_BY_FIELD_MODIFICATION_TIME } from './file_list_model.js';
-import { FileManagerUI } from './ui/file_manager_ui.js';
-import { ListContainer } from './ui/list_container.js';
+import { ListType } from './ui/list_container.js';
 export class AppStateController {
-    /**
-     * @param {DialogType} dialogType
-     */
     constructor(dialogType) {
-        /** @private @const @type {string} */
-        this.viewOptionStorageKey_ = 'file-manager-' + dialogType;
-        /** @private @type {?DirectoryModel} */
         this.directoryModel_ = null;
-        /** @private @type {?FileManagerUI} */
         this.ui_ = null;
-        /** @private @type {*} */
         this.viewOptions_ = null;
         /**
          * Preferred sort field of file list. This will be ignored in the Recent
          * folder, since it always uses descendant order of date-mofidied.
-         * @private @type {string}
          */
-        this.fileListSortField_ = AppStateController.DEFAULT_SORT_FIELD;
+        this.fileListSortField_ = DEFAULT_SORT_FIELD;
         /**
          * Preferred sort direction of file list. This will be ignored in the Recent
          * folder, since it always uses descendant order of date-mofidied.
-         * @private @type {string}
          */
-        this.fileListSortDirection_ = AppStateController.DEFAULT_SORT_DIRECTION;
+        this.fileListSortDirection_ = DEFAULT_SORT_DIRECTION;
+        this.viewOptionStorageKey_ = 'file-manager-' + dialogType;
     }
-    /**
-     * @return {Promise<void>}
-     */
     async loadInitialViewOptions() {
         // Load initial view option.
         try {
             const values = await storage.local.getAsync(this.viewOptionStorageKey_);
             this.viewOptions_ = {};
-            const value = /** @type {string} */ (values[this.viewOptionStorageKey_]);
+            const value = values[this.viewOptionStorageKey_];
             if (!value) {
                 return;
             }
@@ -55,19 +41,9 @@ export class AppStateController {
             catch (ignore) {
             }
             // Override with window-specific options.
-            // @ts-ignore: error TS2339: Property 'appState' does not exist on type
-            // 'Window & typeof globalThis'.
-            if (window.appState && window.appState.viewOptions) {
-                // @ts-ignore: error TS2339: Property 'appState' does not exist on type
-                // 'Window & typeof globalThis'.
-                for (const key in window.appState.viewOptions) {
-                    // @ts-ignore: error TS2339: Property 'appState' does not exist on
-                    // type 'Window & typeof globalThis'.
-                    if (window.appState.viewOptions.hasOwnProperty(key)) {
-                        // @ts-ignore: error TS2339: Property 'appState' does not exist on
-                        // type 'Window & typeof globalThis'.
-                        this.viewOptions_[key] = window.appState.viewOptions[key];
-                    }
+            if (window?.appState?.viewOptions) {
+                for (const [key, value] of Object.entries(window.appState.viewOptions)) {
+                    this.viewOptions_[key] = value;
                 }
             }
         }
@@ -76,24 +52,18 @@ export class AppStateController {
             console.warn(error);
         }
     }
-    /**
-     * @param {!FileManagerUI} ui
-     * @param {!DirectoryModel} directoryModel
-     */
     initialize(ui, directoryModel) {
         assert(this.viewOptions_);
         this.ui_ = ui;
         this.directoryModel_ = directoryModel;
         const { table } = ui.listContainer;
         // Register event listeners.
-        // @ts-ignore: error TS2339: Property 'addEventListener' does not exist on
-        // type 'FileTable'.
         table.addEventListener('column-resize-end', this.saveViewOptions.bind(this));
         directoryModel.getFileList().addEventListener('sorted', this.onFileListSorted_.bind(this));
         directoryModel.getFileFilter().addEventListener('changed', this.onFileFilterChanged_.bind(this));
         directoryModel.addEventListener('directory-changed', this.onDirectoryChanged_.bind(this));
         // Restore preferences.
-        ui.setCurrentListType(this.viewOptions_.listType || ListContainer.ListType.DETAIL);
+        ui.setCurrentListType(this.viewOptions_.listType || ListType.DETAIL);
         if (this.viewOptions_.sortField) {
             this.fileListSortField_ = this.viewOptions_.sortField;
         }
@@ -105,13 +75,10 @@ export class AppStateController {
             this.directoryModel_.getFileFilter().setAllAndroidFoldersVisible(true);
         }
         if (this.viewOptions_.columnConfig) {
-            // @ts-ignore: error TS2339: Property 'restoreColumnConfig' does not exist
-            // on type 'TableColumnModel'.
-            table.columnModel.restoreColumnConfig(this.viewOptions_.columnConfig);
+            table.columnModel
+                .restoreColumnConfig(this.viewOptions_.columnConfig);
             // The stored config might not match the current table width, do a
             // normalization here after restoration.
-            // @ts-ignore: error TS2339: Property 'clientWidth' does not exist on type
-            // 'FileTable'.
             table.columnModel.normalizeWidths(table.clientWidth);
         }
     }
@@ -123,38 +90,24 @@ export class AppStateController {
             sortField: this.fileListSortField_,
             sortDirection: this.fileListSortDirection_,
             columnConfig: {},
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            listType: this.ui_.listContainer.currentListType,
-            isAllAndroidFoldersVisible: 
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            this.directoryModel_.getFileFilter().isAllAndroidFoldersVisible(),
+            listType: this.ui_?.listContainer.currentListType,
+            isAllAndroidFoldersVisible: this.directoryModel_?.getFileFilter().isAllAndroidFoldersVisible(),
         };
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
+        assert(this.ui_);
         const cm = this.ui_.listContainer.table.columnModel;
-        // @ts-ignore: error TS2339: Property 'exportColumnConfig' does not exist on
-        // type 'TableColumnModel'.
         prefs.columnConfig = cm.exportColumnConfig();
         // Save the global default.
         const items = {};
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
         items[this.viewOptionStorageKey_] = JSON.stringify(prefs);
         storage.local.setAsync(items);
         // Save the window-specific preference.
-        // @ts-ignore: error TS2339: Property 'appState' does not exist on type
-        // 'Window & typeof globalThis'.
         if (window.appState) {
-            // @ts-ignore: error TS2339: Property 'appState' does not exist on type
-            // 'Window & typeof globalThis'.
             window.appState.viewOptions = prefs;
-            appUtil.saveAppState();
+            saveAppState();
         }
     }
-    /**
-     * @private
-     */
     async onFileListSorted_() {
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
+        assert(this.directoryModel_);
         const currentDirectory = this.directoryModel_.getCurrentDirEntry();
         if (!currentDirectory) {
             return;
@@ -162,72 +115,48 @@ export class AppStateController {
         // Update preferred sort field and direction only when the current directory
         // is not Recent folder.
         if (!isRecentRoot(currentDirectory)) {
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
             const currentSortStatus = this.directoryModel_.getFileList().sortStatus;
-            // @ts-ignore: error TS2339: Property 'field' does not exist on type
-            // 'Object'.
             this.fileListSortField_ = currentSortStatus.field;
-            // @ts-ignore: error TS2339: Property 'direction' does not exist on type
-            // 'Object'.
             this.fileListSortDirection_ = currentSortStatus.direction;
         }
         this.saveViewOptions();
     }
-    /**
-     * @private
-     */
     async onFileFilterChanged_() {
-        const isAllAndroidFoldersVisible = 
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.directoryModel_.getFileFilter().isAllAndroidFoldersVisible();
+        assert(this.directoryModel_);
+        const isAllAndroidFoldersVisible = this.directoryModel_.getFileFilter().isAllAndroidFoldersVisible();
         if (this.viewOptions_.isAllAndroidFoldersVisible !==
             isAllAndroidFoldersVisible) {
             this.viewOptions_.isAllAndroidFoldersVisible = isAllAndroidFoldersVisible;
             this.saveViewOptions();
         }
     }
-    /**
-     * @param {Event} event
-     * @private
-     */
     onDirectoryChanged_(event) {
-        // @ts-ignore: error TS2339: Property 'newDirEntry' does not exist on type
-        // 'Event'.
-        if (!event.newDirEntry) {
+        if (!event.detail.newDirEntry) {
             return;
         }
+        assert(this.directoryModel_);
+        assert(this.ui_);
         // Sort the file list by:
         // 1) 'date-mofidied' and 'desc' order on Recent folder.
         // 2) preferred field and direction on other folders.
-        // @ts-ignore: error TS2339: Property 'newDirEntry' does not exist on type
-        // 'Event'.
-        const isOnRecent = isRecentRoot(event.newDirEntry);
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
+        const isOnRecent = isRecentRoot(event.detail.newDirEntry);
         const fileListModel = this.directoryModel_.getFileList();
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
         this.ui_.listContainer.isOnRecent = isOnRecent;
-        const isOnRecentBefore = 
-        // @ts-ignore: error TS2339: Property 'previousDirEntry' does not exist
-        // on type 'Event'.
-        event.previousDirEntry && isRecentRoot(event.previousDirEntry);
-        if (isOnRecent != isOnRecentBefore) {
+        const isOnRecentBefore = event.detail.previousDirEntry &&
+            isRecentRoot(event.detail.previousDirEntry);
+        if (isOnRecent !== isOnRecentBefore) {
             if (isOnRecent) {
                 fileListModel.groupByField = GROUP_BY_FIELD_MODIFICATION_TIME;
-                fileListModel.sort(AppStateController.DEFAULT_SORT_FIELD, AppStateController.DEFAULT_SORT_DIRECTION);
+                fileListModel.sort(DEFAULT_SORT_FIELD, DEFAULT_SORT_DIRECTION);
             }
             else {
-                // @ts-ignore: error TS2531: Object is possibly 'null'.
-                const isGridView = this.ui_.listContainer.currentListType ===
-                    ListContainer.ListType.THUMBNAIL;
+                const isGridView = this.ui_?.listContainer.currentListType === ListType.THUMBNAIL;
                 fileListModel.groupByField =
                     isGridView ? GROUP_BY_FIELD_DIRECTORY : null;
                 fileListModel.sort(this.fileListSortField_, this.fileListSortDirection_);
             }
         }
-        appUtil.updateAppState(
-        // @ts-ignore: error TS2531: Object is possibly 'null'.
-        this.directoryModel_.getCurrentDirEntry() ?
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
+        updateAppState(this.directoryModel_.getCurrentDirEntry() ?
             this.directoryModel_.getCurrentDirEntry().toURL() :
             '', 
         /*selectionURL=*/ '');
@@ -235,11 +164,9 @@ export class AppStateController {
 }
 /**
  * Default sort field of the file list.
- * @const @type {string}
  */
-AppStateController.DEFAULT_SORT_FIELD = 'modificationTime';
+const DEFAULT_SORT_FIELD = 'modificationTime';
 /**
  * Default sort direction of the file list.
- * @const @type {string}
  */
-AppStateController.DEFAULT_SORT_DIRECTION = 'desc';
+const DEFAULT_SORT_DIRECTION = 'desc';

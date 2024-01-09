@@ -59,23 +59,23 @@ const topRightKeyByCode = new Map([
 ]);
 /** Evdev codes for keys that always appear in the number pad area. */
 const numberPadCodes = new Set([
-    55,
-    71,
-    72,
-    73,
-    74,
-    75,
-    76,
-    77,
-    78,
-    79,
-    80,
-    81,
-    82,
-    83,
-    96,
-    98,
-    102,
+    55, // KEY_KPASTERISK
+    71, // KEY_KP7
+    72, // KEY_KP8
+    73, // KEY_KP9
+    74, // KEY_KPMINUS
+    75, // KEY_KP4
+    76, // KEY_KP5
+    77, // KEY_KP6
+    78, // KEY_KPPLUS
+    79, // KEY_KP1
+    80, // KEY_KP2
+    81, // KEY_KP3
+    82, // KEY_KP0
+    83, // KEY_KPDOT
+    96, // KEY_KPENTER
+    98, // KEY_KPSLASH
+    102, // KEY_HOME
     107, // KEY_END
 ]);
 /**
@@ -83,8 +83,8 @@ const numberPadCodes = new Set([
  * keyboards, but not on Dell Enterprise ones.
  */
 const standardNumberPadCodes = new Set([
-    104,
-    109,
+    104, // KEY_PAGEUP
+    109, // KEY_PAGEDOWN
     111, // KEY_DELETE
 ]);
 const DISPLAY_TOAST_INDEFINITELY_MS = 0;

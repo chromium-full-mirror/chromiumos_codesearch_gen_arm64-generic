@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/string-repeat-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -318,7 +319,7 @@ TF_BUILTIN(StringPrototypeRepeat, CodeStubAssembler) {
   TNode<String> tmp18;
   if (block19.is_used()) {
     ca_.Bind(&block19);
-    tmp18 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kStringRepeat), parameter0, tmp1, tmp3);
+    tmp18 = ca_.CallBuiltin<String>(Builtin::kStringRepeat, parameter0, tmp1, tmp3);
     CodeStubAssembler(state_).Return(tmp18);
   }
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -202,9 +203,9 @@ DisplayLayoutInfo::DisplayLayoutInfo()
 
 DisplayLayoutInfo::DisplayLayoutInfo(
     DisplayLayoutMode layout_mode_in,
-    const absl::optional<std::string>& mirror_source_id_in,
-    absl::optional<std::vector<std::string>> mirror_destination_ids_in,
-    absl::optional<std::vector<DisplayLayoutPtr>> layouts_in)
+    const std::optional<std::string>& mirror_source_id_in,
+    std::optional<std::vector<std::string>> mirror_destination_ids_in,
+    std::optional<std::vector<DisplayLayoutPtr>> layouts_in)
     : layout_mode(std::move(layout_mode_in)),
       mirror_source_id(std::move(mirror_source_id_in)),
       mirror_destination_ids(std::move(mirror_destination_ids_in)),
@@ -228,7 +229,7 @@ void DisplayLayoutInfo::WriteIntoTrace(
     dict.AddItem(
       "mirror_source_id"), this->mirror_source_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -237,7 +238,7 @@ void DisplayLayoutInfo::WriteIntoTrace(
     dict.AddItem(
       "mirror_destination_ids"), this->mirror_destination_ids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -246,7 +247,7 @@ void DisplayLayoutInfo::WriteIntoTrace(
     dict.AddItem(
       "layouts"), this->layouts,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<DisplayLayoutPtr>>>"
+      "<value of type std::optional<std::vector<DisplayLayoutPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -743,9 +744,9 @@ DisplayConfigProperties::DisplayConfigProperties()
 
 DisplayConfigProperties::DisplayConfigProperties(
     bool set_primary_in,
-    const absl::optional<::gfx::Insets>& overscan_in,
+    const std::optional<::gfx::Insets>& overscan_in,
     DisplayRotationPtr rotation_in,
-    const absl::optional<::gfx::Point>& bounds_origin_in,
+    const std::optional<::gfx::Point>& bounds_origin_in,
     double display_zoom_factor_in,
     DisplayModePtr display_mode_in)
     : set_primary(std::move(set_primary_in)),
@@ -773,7 +774,7 @@ void DisplayConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "overscan"), this->overscan,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Insets>&>"
+      "<value of type const std::optional<::gfx::Insets>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -791,7 +792,7 @@ void DisplayConfigProperties::WriteIntoTrace(
     dict.AddItem(
       "bounds_origin"), this->bounds_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Point>&>"
+      "<value of type const std::optional<::gfx::Point>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1169,14 +1170,17 @@ void CrosDisplayConfigControllerProxy::AddObserver(
                         "<value of type ::mojo::PendingAssociatedRemote<CrosDisplayConfigObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1205,14 +1209,17 @@ void CrosDisplayConfigControllerProxy::GetDisplayLayoutInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::CrosDisplayConfigController::GetDisplayLayoutInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_GetDisplayLayoutInfo_Name, kFlags, 0, 0, nullptr);
@@ -1243,14 +1250,17 @@ void CrosDisplayConfigControllerProxy::SetDisplayLayoutInfo(
                         "<value of type DisplayLayoutInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_SetDisplayLayoutInfo_Name, kFlags, 0, 0, nullptr);
@@ -1292,14 +1302,17 @@ void CrosDisplayConfigControllerProxy::GetDisplayUnitInfoList(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_GetDisplayUnitInfoList_Name, kFlags, 0, 0, nullptr);
@@ -1337,14 +1350,17 @@ void CrosDisplayConfigControllerProxy::SetDisplayProperties(
                         "<value of type DisplayConfigSource>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_SetDisplayProperties_Name, kFlags, 0, 0, nullptr);
@@ -1399,14 +1415,17 @@ void CrosDisplayConfigControllerProxy::SetUnifiedDesktopEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_SetUnifiedDesktopEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1426,7 +1445,7 @@ void CrosDisplayConfigControllerProxy::SetUnifiedDesktopEnabled(
 }
 
 void CrosDisplayConfigControllerProxy::OverscanCalibration(
-    const std::string& in_display_id, DisplayConfigOperation in_op, const absl::optional<::gfx::Insets>& in_delta, OverscanCalibrationCallback callback) {
+    const std::string& in_display_id, DisplayConfigOperation in_op, const std::optional<::gfx::Insets>& in_delta, OverscanCalibrationCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::CrosDisplayConfigController::OverscanCalibration", "input_parameters",
@@ -1440,17 +1459,20 @@ void CrosDisplayConfigControllerProxy::OverscanCalibration(
                         "<value of type DisplayConfigOperation>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("delta"), in_delta,
-                        "<value of type const absl::optional<::gfx::Insets>&>");
+                        "<value of type const std::optional<::gfx::Insets>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_OverscanCalibration_Name, kFlags, 0, 0, nullptr);
@@ -1507,14 +1529,17 @@ void CrosDisplayConfigControllerProxy::TouchCalibration(
                         "<value of type TouchCalibrationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_TouchCalibration_Name, kFlags, 0, 0, nullptr);
@@ -1565,14 +1590,17 @@ void CrosDisplayConfigControllerProxy::HighlightDisplay(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_HighlightDisplay_Name, kFlags, 0, 0, nullptr);
@@ -1609,14 +1637,17 @@ void CrosDisplayConfigControllerProxy::DragDisplayDelta(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_DragDisplayDelta_Name, kFlags, 0, 0, nullptr);
@@ -1728,7 +1759,8 @@ void CrosDisplayConfigController_GetDisplayLayoutInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_GetDisplayLayoutInfo_Name, kFlags, 0, 0, nullptr);
@@ -1856,7 +1888,8 @@ void CrosDisplayConfigController_SetDisplayLayoutInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_SetDisplayLayoutInfo_Name, kFlags, 0, 0, nullptr);
@@ -1975,7 +2008,8 @@ void CrosDisplayConfigController_GetDisplayUnitInfoList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_GetDisplayUnitInfoList_Name, kFlags, 0, 0, nullptr);
@@ -2105,7 +2139,8 @@ void CrosDisplayConfigController_SetDisplayProperties_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_SetDisplayProperties_Name, kFlags, 0, 0, nullptr);
@@ -2224,7 +2259,8 @@ void CrosDisplayConfigController_OverscanCalibration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_OverscanCalibration_Name, kFlags, 0, 0, nullptr);
@@ -2343,7 +2379,8 @@ void CrosDisplayConfigController_TouchCalibration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigController_TouchCalibration_Name, kFlags, 0, 0, nullptr);
@@ -2657,7 +2694,7 @@ std::move(p_source), std::move(callback));
       bool success = true;
       std::string p_display_id{};
       DisplayConfigOperation p_op{};
-      absl::optional<::gfx::Insets> p_delta{};
+      std::optional<::gfx::Insets> p_delta{};
       CrosDisplayConfigController_OverscanCalibration_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDisplayId(&p_display_id))
@@ -2730,28 +2767,28 @@ std::move(p_calibration), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosDisplayConfigControllerValidationInfo[] = {
-    {&internal::CrosDisplayConfigController_AddObserver_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosDisplayConfigController_GetDisplayLayoutInfo_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_GetDisplayLayoutInfo_Params_Data::Validate,
      &internal::CrosDisplayConfigController_GetDisplayLayoutInfo_ResponseParams_Data::Validate},
-    {&internal::CrosDisplayConfigController_SetDisplayLayoutInfo_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_SetDisplayLayoutInfo_Params_Data::Validate,
      &internal::CrosDisplayConfigController_SetDisplayLayoutInfo_ResponseParams_Data::Validate},
-    {&internal::CrosDisplayConfigController_GetDisplayUnitInfoList_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_GetDisplayUnitInfoList_Params_Data::Validate,
      &internal::CrosDisplayConfigController_GetDisplayUnitInfoList_ResponseParams_Data::Validate},
-    {&internal::CrosDisplayConfigController_SetDisplayProperties_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_SetDisplayProperties_Params_Data::Validate,
      &internal::CrosDisplayConfigController_SetDisplayProperties_ResponseParams_Data::Validate},
-    {&internal::CrosDisplayConfigController_SetUnifiedDesktopEnabled_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_SetUnifiedDesktopEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosDisplayConfigController_OverscanCalibration_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_OverscanCalibration_Params_Data::Validate,
      &internal::CrosDisplayConfigController_OverscanCalibration_ResponseParams_Data::Validate},
-    {&internal::CrosDisplayConfigController_TouchCalibration_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_TouchCalibration_Params_Data::Validate,
      &internal::CrosDisplayConfigController_TouchCalibration_ResponseParams_Data::Validate},
-    {&internal::CrosDisplayConfigController_HighlightDisplay_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_HighlightDisplay_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosDisplayConfigController_DragDisplayDelta_Params_Data::Validate,
+    { &internal::CrosDisplayConfigController_DragDisplayDelta_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2829,14 +2866,17 @@ void CrosDisplayConfigObserverProxy::OnDisplayConfigChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::CrosDisplayConfigObserver::OnDisplayConfigChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosDisplayConfigObserver_OnDisplayConfigChanged_Name, kFlags, 0, 0, nullptr);
@@ -2900,10 +2940,10 @@ bool CrosDisplayConfigObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosDisplayConfigObserverValidationInfo[] = {
-    {&internal::CrosDisplayConfigObserver_OnDisplayConfigChanged_Params_Data::Validate,
+    { &internal::CrosDisplayConfigObserver_OnDisplayConfigChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3151,7 +3191,7 @@ void CrosDisplayConfigControllerInterceptorForTesting::SetDisplayProperties(cons
 void CrosDisplayConfigControllerInterceptorForTesting::SetUnifiedDesktopEnabled(bool enabled) {
   GetForwardingInterface()->SetUnifiedDesktopEnabled(std::move(enabled));
 }
-void CrosDisplayConfigControllerInterceptorForTesting::OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const absl::optional<::gfx::Insets>& delta, OverscanCalibrationCallback callback) {
+void CrosDisplayConfigControllerInterceptorForTesting::OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const std::optional<::gfx::Insets>& delta, OverscanCalibrationCallback callback) {
   GetForwardingInterface()->OverscanCalibration(std::move(display_id), std::move(op), std::move(delta), std::move(callback));
 }
 void CrosDisplayConfigControllerInterceptorForTesting::TouchCalibration(const std::string& display_id, DisplayConfigOperation op, TouchCalibrationPtr calibration, TouchCalibrationCallback callback) {
@@ -3261,7 +3301,7 @@ DisplayConfigResult CrosDisplayConfigControllerAsyncWaiter::SetDisplayProperties
 }
 
 void CrosDisplayConfigControllerAsyncWaiter::OverscanCalibration(
-    const std::string& display_id, DisplayConfigOperation op, const absl::optional<::gfx::Insets>& delta, DisplayConfigResult* out_result) {
+    const std::string& display_id, DisplayConfigOperation op, const std::optional<::gfx::Insets>& delta, DisplayConfigResult* out_result) {
   base::RunLoop loop;
   proxy_->OverscanCalibration(std::move(display_id),std::move(op),std::move(delta),
       base::BindOnce(
@@ -3277,7 +3317,7 @@ void CrosDisplayConfigControllerAsyncWaiter::OverscanCalibration(
 }
 
 DisplayConfigResult CrosDisplayConfigControllerAsyncWaiter::OverscanCalibration(
-    const std::string& display_id, DisplayConfigOperation op, const absl::optional<::gfx::Insets>& delta) {
+    const std::string& display_id, DisplayConfigOperation op, const std::optional<::gfx::Insets>& delta) {
   DisplayConfigResult async_wait_result;
   OverscanCalibration(std::move(display_id),std::move(op),std::move(delta),&async_wait_result);
   return async_wait_result;

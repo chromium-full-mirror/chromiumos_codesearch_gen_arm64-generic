@@ -40,10 +40,6 @@ export class SettingsMainElement extends SettingsMainElementBase {
                 type: Object,
                 notify: true,
             },
-            advancedToggleExpanded: {
-                type: Boolean,
-                notify: true,
-            },
             /**
              * Controls which main pages are displayed via dom-ifs, based on the
              * current route.

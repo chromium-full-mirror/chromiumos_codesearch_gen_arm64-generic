@@ -4,43 +4,46 @@
 #include "idle.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace power_manager {
+template <typename>
 PROTOBUF_CONSTEXPR ScreenIdleState::ScreenIdleState(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.dimmed_)*/false
-  , /*decltype(_impl_.off_)*/false} {}
+  , /*decltype(_impl_.dimmed_)*/ false
+
+  , /*decltype(_impl_.off_)*/ false
+} {}
 struct ScreenIdleStateDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ScreenIdleStateDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ScreenIdleStateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ScreenIdleStateDefaultTypeInternal() {}
   union {
     ScreenIdleState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ScreenIdleStateDefaultTypeInternal _ScreenIdleState_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ScreenIdleStateDefaultTypeInternal _ScreenIdleState_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
-
 // ===================================================================
 
 class ScreenIdleState::_Internal {
  public:
   using HasBits = decltype(std::declval<ScreenIdleState>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ScreenIdleState, _impl_._has_bits_);
   static void set_has_dimmed(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -49,37 +52,27 @@ class ScreenIdleState::_Internal {
   }
 };
 
-ScreenIdleState::ScreenIdleState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ScreenIdleState::ScreenIdleState(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:power_manager.ScreenIdleState)
 }
 ScreenIdleState::ScreenIdleState(const ScreenIdleState& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  ScreenIdleState* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.dimmed_){}
-    , decltype(_impl_.off_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.dimmed_, &from._impl_.dimmed_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.off_) -
-    reinterpret_cast<char*>(&_impl_.dimmed_)) + sizeof(_impl_.off_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:power_manager.ScreenIdleState)
 }
 
-inline void ScreenIdleState::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ScreenIdleState::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.dimmed_){false}
-    , decltype(_impl_.off_){false}
+    , decltype(_impl_.dimmed_) { false }
+
+    , decltype(_impl_.off_) { false }
+
   };
 }
 
@@ -93,7 +86,7 @@ ScreenIdleState::~ScreenIdleState() {
 }
 
 inline void ScreenIdleState::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void ScreenIdleState::SetCachedSize(int size) const {
@@ -102,11 +95,11 @@ void ScreenIdleState::SetCachedSize(int size) const {
 
 void ScreenIdleState::Clear() {
 // @@protoc_insertion_point(message_clear_start:power_manager.ScreenIdleState)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.dimmed_, 0, static_cast<size_t>(
+  ::memset(&_impl_.dimmed_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.off_) -
       reinterpret_cast<char*>(&_impl_.dimmed_)) + sizeof(_impl_.off_));
   _impl_._has_bits_.Clear();
@@ -117,26 +110,28 @@ const char* ScreenIdleState::_InternalParse(const char* ptr, ::_pbi::ParseContex
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool dimmed = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_dimmed(&has_bits);
           _impl_.dimmed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool off = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_off(&has_bits);
           _impl_.off_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -162,23 +157,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ScreenIdleState::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ScreenIdleState::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:power_manager.ScreenIdleState)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bool dimmed = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_dimmed(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_dimmed(), target);
   }
 
   // optional bool off = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_off(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_off(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -189,11 +186,11 @@ uint8_t* ScreenIdleState::_InternalSerialize(
   return target;
 }
 
-size_t ScreenIdleState::ByteSizeLong() const {
+::size_t ScreenIdleState::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:power_manager.ScreenIdleState)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -201,12 +198,12 @@ size_t ScreenIdleState::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional bool dimmed = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool off = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -227,8 +224,8 @@ void ScreenIdleState::CheckTypeAndMergeFrom(
 void ScreenIdleState::MergeFrom(const ScreenIdleState& from) {
   ScreenIdleState* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.ScreenIdleState)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -271,7 +268,6 @@ std::string ScreenIdleState::GetTypeName() const {
   return "power_manager.ScreenIdleState";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
@@ -280,6 +276,5 @@ Arena::CreateMaybeMessage< ::power_manager::ScreenIdleState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::ScreenIdleState >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

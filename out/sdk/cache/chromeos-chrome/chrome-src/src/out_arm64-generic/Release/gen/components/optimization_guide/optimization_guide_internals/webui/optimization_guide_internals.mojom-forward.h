@@ -24,8 +24,13 @@
 namespace optimization_guide_internals::mojom {
 class DownloadedModelInfoDataView;
 
+class LoggedClientIdsDataView;
+
 class DownloadedModelInfo;
 using DownloadedModelInfoPtr = mojo::InlinedStructPtr<DownloadedModelInfo>;
+
+class LoggedClientIds;
+using LoggedClientIdsPtr = mojo::InlinedStructPtr<LoggedClientIds>;
 
 class PageHandlerFactory;
 

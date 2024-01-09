@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -52,7 +53,8 @@ SodaConfig::SodaConfig()
       enable_formatting(OptionalBool::kTrue),
       recognition_mode(SodaRecognitionMode::kCaption),
       mask_offensive_words(false),
-      speaker_change_detection(false) {}
+      speaker_change_detection(false),
+      include_logging_output(false) {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -68,7 +70,8 @@ SodaConfig::SodaConfig(
       enable_formatting(OptionalBool::kTrue),
       recognition_mode(SodaRecognitionMode::kCaption),
       mask_offensive_words(false),
-      speaker_change_detection(false) {}
+      speaker_change_detection(false),
+      include_logging_output(false) {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -85,7 +88,8 @@ SodaConfig::SodaConfig(
       enable_formatting(std::move(enable_formatting_in)),
       recognition_mode(SodaRecognitionMode::kCaption),
       mask_offensive_words(false),
-      speaker_change_detection(false) {}
+      speaker_change_detection(false),
+      include_logging_output(false) {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -103,7 +107,8 @@ SodaConfig::SodaConfig(
       enable_formatting(std::move(enable_formatting_in)),
       recognition_mode(std::move(recognition_mode_in)),
       mask_offensive_words(false),
-      speaker_change_detection(false) {}
+      speaker_change_detection(false),
+      include_logging_output(false) {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -122,7 +127,8 @@ SodaConfig::SodaConfig(
       enable_formatting(std::move(enable_formatting_in)),
       recognition_mode(std::move(recognition_mode_in)),
       mask_offensive_words(std::move(mask_offensive_words_in)),
-      speaker_change_detection(false) {}
+      speaker_change_detection(false),
+      include_logging_output(false) {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -142,7 +148,30 @@ SodaConfig::SodaConfig(
       enable_formatting(std::move(enable_formatting_in)),
       recognition_mode(std::move(recognition_mode_in)),
       mask_offensive_words(std::move(mask_offensive_words_in)),
-      speaker_change_detection(std::move(speaker_change_detection_in)) {}
+      speaker_change_detection(std::move(speaker_change_detection_in)),
+      include_logging_output(false) {}
+
+SodaConfig::SodaConfig(
+    uint32_t channel_count_in,
+    uint32_t sample_rate_in,
+    const std::string& api_key_in,
+    const std::string& library_dlc_path_in,
+    const std::string& language_dlc_path_in,
+    OptionalBool enable_formatting_in,
+    SodaRecognitionMode recognition_mode_in,
+    bool mask_offensive_words_in,
+    bool speaker_change_detection_in,
+    bool include_logging_output_in)
+    : channel_count(std::move(channel_count_in)),
+      sample_rate(std::move(sample_rate_in)),
+      api_key(std::move(api_key_in)),
+      library_dlc_path(std::move(library_dlc_path_in)),
+      language_dlc_path(std::move(language_dlc_path_in)),
+      enable_formatting(std::move(enable_formatting_in)),
+      recognition_mode(std::move(recognition_mode_in)),
+      mask_offensive_words(std::move(mask_offensive_words_in)),
+      speaker_change_detection(std::move(speaker_change_detection_in)),
+      include_logging_output(std::move(include_logging_output_in)) {}
 
 SodaConfig::~SodaConfig() = default;
 size_t SodaConfig::Hash(size_t seed) const {
@@ -155,6 +184,7 @@ size_t SodaConfig::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->recognition_mode);
   seed = mojo::internal::Hash(seed, this->mask_offensive_words);
   seed = mojo::internal::Hash(seed, this->speaker_change_detection);
+  seed = mojo::internal::Hash(seed, this->include_logging_output);
   return seed;
 }
 
@@ -236,6 +266,15 @@ void SodaConfig::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "speaker_change_detection"), this->speaker_change_detection,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "include_logging_output"), this->include_logging_output,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -488,7 +527,7 @@ FinalResult::FinalResult(
     std::vector<std::string> final_hypotheses_in,
     EndpointReason endpoint_reason_in,
     TimingInfoPtr timing_event_in,
-    absl::optional<std::vector<HypothesisPartInResultPtr>> hypothesis_part_in)
+    std::optional<std::vector<HypothesisPartInResultPtr>> hypothesis_part_in)
     : final_hypotheses(std::move(final_hypotheses_in)),
       endpoint_reason(std::move(endpoint_reason_in)),
       timing_event(std::move(timing_event_in)),
@@ -530,7 +569,7 @@ void FinalResult::WriteIntoTrace(
     dict.AddItem(
       "hypothesis_part"), this->hypothesis_part,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<HypothesisPartInResultPtr>>>"
+      "<value of type std::optional<std::vector<HypothesisPartInResultPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -772,14 +811,17 @@ void SodaClientProxy::OnStart(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::machine_learning::mojom::SodaClient::OnStart");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSodaClient_OnStart_Name, kFlags, 0, 0, nullptr);
@@ -802,14 +844,17 @@ void SodaClientProxy::OnStop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::machine_learning::mojom::SodaClient::OnStop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSodaClient_OnStop_Name, kFlags, 0, 0, nullptr);
@@ -839,14 +884,17 @@ void SodaClientProxy::OnSpeechRecognizerEvent(
                         "<value of type SpeechRecognizerEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSodaClient_OnSpeechRecognizerEvent_Name, kFlags, 0, 0, nullptr);
@@ -973,14 +1021,14 @@ bool SodaClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSodaClientValidationInfo[] = {
-    {&internal::SodaClient_OnStart_Params_Data::Validate,
+    { &internal::SodaClient_OnStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SodaClient_OnStop_Params_Data::Validate,
+    { &internal::SodaClient_OnStop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SodaClient_OnSpeechRecognizerEvent_Params_Data::Validate,
+    { &internal::SodaClient_OnSpeechRecognizerEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1120,14 +1168,17 @@ void SodaRecognizerProxy::AddAudio(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSodaRecognizer_AddAudio_Name, kFlags, 0, 0, nullptr);
@@ -1163,14 +1214,17 @@ void SodaRecognizerProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::machine_learning::mojom::SodaRecognizer::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSodaRecognizer_Stop_Name, kFlags, 0, 0, nullptr);
@@ -1193,14 +1247,17 @@ void SodaRecognizerProxy::Start(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::machine_learning::mojom::SodaRecognizer::Start");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSodaRecognizer_Start_Name, kFlags, 0, 0, nullptr);
@@ -1223,14 +1280,17 @@ void SodaRecognizerProxy::MarkDone(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::machine_learning::mojom::SodaRecognizer::MarkDone");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSodaRecognizer_MarkDone_Name, kFlags, 0, 0, nullptr);
@@ -1373,16 +1433,16 @@ bool SodaRecognizerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSodaRecognizerValidationInfo[] = {
-    {&internal::SodaRecognizer_AddAudio_Params_Data::Validate,
+    { &internal::SodaRecognizer_AddAudio_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SodaRecognizer_Stop_Params_Data::Validate,
+    { &internal::SodaRecognizer_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SodaRecognizer_Start_Params_Data::Validate,
+    { &internal::SodaRecognizer_Start_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SodaRecognizer_MarkDone_Params_Data::Validate,
+    { &internal::SodaRecognizer_MarkDone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1424,6 +1484,8 @@ bool StructTraits<::chromeos::machine_learning::mojom::SodaConfig::DataView, ::c
         result->mask_offensive_words = input.mask_offensive_words();
       if (success)
         result->speaker_change_detection = input.speaker_change_detection();
+      if (success)
+        result->include_logging_output = input.include_logging_output();
   *output = std::move(result);
   return success;
 }

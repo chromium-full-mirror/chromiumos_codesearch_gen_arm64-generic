@@ -210,6 +210,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) SodaConfig_Data {
   int32_t recognition_mode;
   uint8_t mask_offensive_words : 1;
   uint8_t speaker_change_detection : 1;
+  uint8_t include_logging_output : 1;
   uint8_t padfinal_[7];
 
  private:

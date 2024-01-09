@@ -110,178 +110,10 @@ has_config_url_ = true;
 
 
 
-String IdentityProviderConfig::getHostedDomainOr(const String& fallback_value) const {
-  if (!hasHostedDomain()) {
-  return fallback_value;
-}
-return member_hosted_domain_;
-}
-
-String IdentityProviderConfig::getHostedDomainOr(String&& fallback_value) const {
-  if (!hasHostedDomain()) {
-  return std::move(fallback_value);
-}
-return member_hosted_domain_;
-}
-
-void IdentityProviderConfig::setHostedDomain(const String& value) {
-  member_hosted_domain_ = value;
-has_hosted_domain_ = true;
-}
-
-void IdentityProviderConfig::setHostedDomain(String&& value) {
-  member_hosted_domain_ = std::move(value);
-has_hosted_domain_ = true;
-}
-
-
-
-
-String IdentityProviderConfig::getLoginHintOr(const String& fallback_value) const {
-  if (!hasLoginHint()) {
-  return fallback_value;
-}
-return member_login_hint_;
-}
-
-String IdentityProviderConfig::getLoginHintOr(String&& fallback_value) const {
-  if (!hasLoginHint()) {
-  return std::move(fallback_value);
-}
-return member_login_hint_;
-}
-
-void IdentityProviderConfig::setLoginHint(const String& value) {
-  member_login_hint_ = value;
-has_login_hint_ = true;
-}
-
-void IdentityProviderConfig::setLoginHint(String&& value) {
-  member_login_hint_ = std::move(value);
-has_login_hint_ = true;
-}
-
-
-
-
-String IdentityProviderConfig::getNonceOr(const String& fallback_value) const {
-  if (!hasNonce()) {
-  return fallback_value;
-}
-return member_nonce_;
-}
-
-String IdentityProviderConfig::getNonceOr(String&& fallback_value) const {
-  if (!hasNonce()) {
-  return std::move(fallback_value);
-}
-return member_nonce_;
-}
-
-void IdentityProviderConfig::setNonce(const String& value) {
-  member_nonce_ = value;
-has_nonce_ = true;
-}
-
-void IdentityProviderConfig::setNonce(String&& value) {
-  member_nonce_ = std::move(value);
-has_nonce_ = true;
-}
-
-
-
-
-Vector<std::pair<String, String>> IdentityProviderConfig::getParamsOr(const Vector<std::pair<String, String>>& fallback_value) const {
-  if (!hasParams()) {
-  return fallback_value;
-}
-return member_params_;
-}
-
-Vector<std::pair<String, String>> IdentityProviderConfig::getParamsOr(Vector<std::pair<String, String>>&& fallback_value) const {
-  if (!hasParams()) {
-  return std::move(fallback_value);
-}
-return member_params_;
-}
-
-void IdentityProviderConfig::setParams(const Vector<std::pair<String, String>>& value) {
-  member_params_ = value;
-has_params_ = true;
-}
-
-void IdentityProviderConfig::setParams(Vector<std::pair<String, String>>&& value) {
-  member_params_ = std::move(value);
-has_params_ = true;
-}
-
-
-
-
-Vector<String> IdentityProviderConfig::getResponseTypeOr(const Vector<String>& fallback_value) const {
-  if (!hasResponseType()) {
-  return fallback_value;
-}
-return member_response_type_;
-}
-
-Vector<String> IdentityProviderConfig::getResponseTypeOr(Vector<String>&& fallback_value) const {
-  if (!hasResponseType()) {
-  return std::move(fallback_value);
-}
-return member_response_type_;
-}
-
-void IdentityProviderConfig::setResponseType(const Vector<String>& value) {
-  member_response_type_ = value;
-has_response_type_ = true;
-}
-
-void IdentityProviderConfig::setResponseType(Vector<String>&& value) {
-  member_response_type_ = std::move(value);
-has_response_type_ = true;
-}
-
-
-
-
-Vector<String> IdentityProviderConfig::getScopeOr(const Vector<String>& fallback_value) const {
-  if (!hasScope()) {
-  return fallback_value;
-}
-return member_scope_;
-}
-
-Vector<String> IdentityProviderConfig::getScopeOr(Vector<String>&& fallback_value) const {
-  if (!hasScope()) {
-  return std::move(fallback_value);
-}
-return member_scope_;
-}
-
-void IdentityProviderConfig::setScope(const Vector<String>& value) {
-  member_scope_ = value;
-has_scope_ = true;
-}
-
-void IdentityProviderConfig::setScope(Vector<String>&& value) {
-  member_scope_ = std::move(value);
-has_scope_ = true;
-}
-
-
-
-
 void IdentityProviderConfig::Trace(Visitor* visitor) const {
   TraceIfNeeded<String>::Trace(visitor, member_client_id_);
 TraceIfNeeded<String>::Trace(visitor, member_config_url_);
 TraceIfNeeded<Member<DigitalCredentialProvider>>::Trace(visitor, member_holder_);
-TraceIfNeeded<String>::Trace(visitor, member_hosted_domain_);
-TraceIfNeeded<String>::Trace(visitor, member_login_hint_);
-TraceIfNeeded<String>::Trace(visitor, member_nonce_);
-TraceIfNeeded<Vector<std::pair<String, String>>>::Trace(visitor, member_params_);
-TraceIfNeeded<Vector<String>>::Trace(visitor, member_response_type_);
-TraceIfNeeded<Vector<String>>::Trace(visitor, member_scope_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
@@ -317,62 +149,6 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].G
 }
 }
 }
-if (RuntimeEnabledFeatures::FedCmHostedDomainEnabled()) {
-  if (hasHostedDomain()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_hosted_domain_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-}
-if (hasLoginHint()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_login_hint_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-if (hasNonce()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_nonce_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
-  if (hasParams()) {
-  if (!ToV8Traits<IDLRecord<IDLUSVString, IDLUSVString>>::ToV8(script_state, member_params_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-}
-if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
-  if (hasResponseType()) {
-  if (!ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_response_type_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-}
-if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
-  if (hasScope()) {
-  if (!ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_scope_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-}
 return true;
 }
 
@@ -397,38 +173,6 @@ if (!bindings::GetDictionaryMemberFromV8Object<DigitalCredentialProvider, is_opt
   return;
 }
 }
-if (RuntimeEnabledFeatures::FedCmHostedDomainEnabled()) {
-  exception_context_scope.ChangePropertyNameAsOptimizationHack("hostedDomain");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_hosted_domain_, member_hosted_domain_, try_block, exception_state)) {
-  return;
-}
-}
-exception_context_scope.ChangePropertyNameAsOptimizationHack("loginHint");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_login_hint_, member_login_hint_, try_block, exception_state)) {
-  return;
-}
-exception_context_scope.ChangePropertyNameAsOptimizationHack("nonce");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_nonce_, member_nonce_, try_block, exception_state)) {
-  return;
-}
-if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
-  exception_context_scope.ChangePropertyNameAsOptimizationHack("params");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLRecord<IDLUSVString, IDLUSVString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), has_params_, member_params_, try_block, exception_state)) {
-  return;
-}
-}
-if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
-  exception_context_scope.ChangePropertyNameAsOptimizationHack("responseType");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLUSVString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[7].Get(isolate), has_response_type_, member_response_type_, try_block, exception_state)) {
-  return;
-}
-}
-if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
-  exception_context_scope.ChangePropertyNameAsOptimizationHack("scope");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLUSVString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[8].Get(isolate), has_scope_, member_scope_, try_block, exception_state)) {
-  return;
-}
-}
 }
 
 const base::span<const v8::Eternal<v8::Name>> IdentityProviderConfig::GetV8OwnMemberNames(v8::Isolate* isolate) {
@@ -436,12 +180,6 @@ const base::span<const v8::Eternal<v8::Name>> IdentityProviderConfig::GetV8OwnMe
 "clientId",
 "configURL",
 "holder",
-"hostedDomain",
-"loginHint",
-"nonce",
-"params",
-"responseType",
-"scope",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
 }

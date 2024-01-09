@@ -4583,114 +4583,6 @@ class HEADLESS_EXPORT GetAdScriptIdResult {
 };
 
 
-// Parameters for the GetCookies command.
-class HEADLESS_EXPORT GetCookiesParams {
- public:
-  static std::unique_ptr<GetCookiesParams> Parse(const base::Value& value, ErrorReporter* errors);
-
-  GetCookiesParams(const GetCookiesParams&) = delete;
-  GetCookiesParams& operator=(const GetCookiesParams&) = delete;
-
-  ~GetCookiesParams() { }
-
-
-  base::Value Serialize() const;
-  std::unique_ptr<GetCookiesParams> Clone() const;
-
-  template<int STATE>
-  class GetCookiesParamsBuilder {
-  public:
-    enum {
-      kNoFieldsSet = 0,
-      kAllRequiredFieldsSet = (0)
-    };
-
-    std::unique_ptr<GetCookiesParams> Build() {
-      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
-      return std::move(result_);
-    }
-
-   private:
-    friend class GetCookiesParams;
-    GetCookiesParamsBuilder() : result_(new GetCookiesParams()) { }
-
-    template<int STEP> GetCookiesParamsBuilder<STATE | STEP>& CastState() {
-      return *reinterpret_cast<GetCookiesParamsBuilder<STATE | STEP>*>(this);
-    }
-
-    std::unique_ptr<GetCookiesParams> result_;
-  };
-
-  static GetCookiesParamsBuilder<0> Builder() {
-    return GetCookiesParamsBuilder<0>();
-  }
-
- private:
-  GetCookiesParams() { }
-
-};
-
-
-// Result for the GetCookies command.
-class HEADLESS_EXPORT GetCookiesResult {
- public:
-  static std::unique_ptr<GetCookiesResult> Parse(const base::Value& value, ErrorReporter* errors);
-
-  GetCookiesResult(const GetCookiesResult&) = delete;
-  GetCookiesResult& operator=(const GetCookiesResult&) = delete;
-
-  ~GetCookiesResult() { }
-
-
-  // Array of cookie objects.
-  const std::vector<std::unique_ptr<::headless::network::Cookie>>* GetCookies() const { return &cookies_; }
-  void SetCookies(std::vector<std::unique_ptr<::headless::network::Cookie>> value) { cookies_ = std::move(value); }
-
-  base::Value Serialize() const;
-  std::unique_ptr<GetCookiesResult> Clone() const;
-
-  template<int STATE>
-  class GetCookiesResultBuilder {
-  public:
-    enum {
-      kNoFieldsSet = 0,
-    kCookiesSet = 1 << 1,
-      kAllRequiredFieldsSet = (kCookiesSet | 0)
-    };
-
-    GetCookiesResultBuilder<STATE | kCookiesSet>& SetCookies(std::vector<std::unique_ptr<::headless::network::Cookie>> value) {
-      static_assert(!(STATE & kCookiesSet), "property cookies should not have already been set");
-      result_->SetCookies(std::move(value));
-      return CastState<kCookiesSet>();
-    }
-
-    std::unique_ptr<GetCookiesResult> Build() {
-      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
-      return std::move(result_);
-    }
-
-   private:
-    friend class GetCookiesResult;
-    GetCookiesResultBuilder() : result_(new GetCookiesResult()) { }
-
-    template<int STEP> GetCookiesResultBuilder<STATE | STEP>& CastState() {
-      return *reinterpret_cast<GetCookiesResultBuilder<STATE | STEP>*>(this);
-    }
-
-    std::unique_ptr<GetCookiesResult> result_;
-  };
-
-  static GetCookiesResultBuilder<0> Builder() {
-    return GetCookiesResultBuilder<0>();
-  }
-
- private:
-  GetCookiesResult() { }
-
-  std::vector<std::unique_ptr<::headless::network::Cookie>> cookies_;
-};
-
-
 // Parameters for the GetFrameTree command.
 class HEADLESS_EXPORT GetFrameTreeParams {
  public:
@@ -5957,6 +5849,11 @@ class HEADLESS_EXPORT PrintToPDFParams {
   bool GetGenerateTaggedPDF() const { DCHECK(HasGenerateTaggedPDF()); return generate_taggedpdf_.value(); }
   void SetGenerateTaggedPDF(bool value) { generate_taggedpdf_ = value; }
 
+  // Whether or not to embed the document outline into the PDF.
+  bool HasGenerateDocumentOutline() const { return !!generate_document_outline_; }
+  bool GetGenerateDocumentOutline() const { DCHECK(HasGenerateDocumentOutline()); return generate_document_outline_.value(); }
+  void SetGenerateDocumentOutline(bool value) { generate_document_outline_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<PrintToPDFParams> Clone() const;
 
@@ -6048,6 +5945,11 @@ class HEADLESS_EXPORT PrintToPDFParams {
       return *this;
     }
 
+    PrintToPDFParamsBuilder<STATE>& SetGenerateDocumentOutline(bool value) {
+      result_->SetGenerateDocumentOutline(value);
+      return *this;
+    }
+
     std::unique_ptr<PrintToPDFParams> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -6087,6 +5989,7 @@ class HEADLESS_EXPORT PrintToPDFParams {
   absl::optional<bool> prefercss_page_size_;
   absl::optional<::headless::page::PrintToPDFTransferMode> transfer_mode_;
   absl::optional<bool> generate_taggedpdf_;
+  absl::optional<bool> generate_document_outline_;
 };
 
 

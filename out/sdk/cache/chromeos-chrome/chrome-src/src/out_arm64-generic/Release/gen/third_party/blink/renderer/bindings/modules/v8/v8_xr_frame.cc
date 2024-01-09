@@ -108,11 +108,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRFrame>::value,
     "XRFrame inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRFrame::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRFrame is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -125,8 +120,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRFrame.session.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->session();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -139,8 +135,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRFrame.trackedAnchors.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->trackedAnchors();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -159,7 +156,7 @@ UseCounter::Count(current_execution_context, WebFeature::kXRFrameDetectedPlanes)
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "XRFrame";
 const char* const property_name = "detectedPlanes";
@@ -203,7 +200,7 @@ return;
 
 
 
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -247,7 +244,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_joint_spaces = NativeValueTraits<IDLSequence<XRJointSpace>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -288,7 +285,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_spaces = NativeValueTraits<IDLSequence<XRSpace>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -333,7 +330,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_view = NativeValueTraits<XRView>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -370,7 +367,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_hit_test_source = NativeValueTraits<XRHitTestSource>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -410,7 +407,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_hit_test_source = NativeValueTraits<XRTransientInputHitTestSource>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -446,7 +443,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRFrame";
 const char* const property_name = "getImageTrackingResults";
@@ -486,7 +483,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_joint = NativeValueTraits<XRJointSpace>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -527,7 +524,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_light_probe = NativeValueTraits<XRLightProbe>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -560,7 +557,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_space = NativeValueTraits<XRSpace>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -597,7 +594,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(v8_receiver);
+XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_reference_space = NativeValueTraits<XRReferenceSpace>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

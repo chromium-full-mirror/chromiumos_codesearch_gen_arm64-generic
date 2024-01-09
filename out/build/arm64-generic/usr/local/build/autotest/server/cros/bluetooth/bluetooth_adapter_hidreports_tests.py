@@ -25,6 +25,26 @@ class BluetoothAdapterHIDReportTests(
     """
 
     HID_TEST_SLEEP_SECS = 5
+    # Regex to find ACL data event time for Bluetooth LE in btmon log, e.g.
+    # ACL Data RX: Handle 3585 flags 0x02 dlen 11         #708 [hci0] 45.644842
+    #       ATT: Handle Value Notification (0x1b) len 6
+    #         Handle: 0x000c
+    #           Data: 02000000
+    LE_HID_NOTIFICATION_REGEX = (
+            r"ACL Data (?:RX|TX): Handle {}.* #\d+ \["
+            r"hci\d+\] ("
+            r"\d+\.\d+)\s.*ATT: Handle Value Notification")
+
+    # Regex to find ACL data event time for Bluetooth BR in btmon log, e.g.
+    # ACL Data RX: Handle 256 flags 0x02 dlen 10         #1069 [hci0] 60.837835
+    #       Channel: 68 len 6 [PSM 19 mode Basic (0x00)] {chan 2}
+    #         a1 02 00 00 00 00
+    # PSM with value 19 was taken from this refrence:
+    # https://btprodspecificationrefs.blob.core.windows.net/assigned-numbers/
+    # Assigned%20Number%20Types/Assigned_Numbers.pdf
+    CL_HID_NOTIFICATION_REGEX = (r"ACL Data (?:RX|TX): Handle {}.* #\d+ \["
+                                 r"hci\d+\] ("
+                                 r"\d+\.\d+)\s.*PSM 19 .*\s.*a1")
 
     def run_mouse_tests(self, device):
         """Run all bluetooth mouse reports tests.
@@ -60,6 +80,43 @@ class BluetoothAdapterHIDReportTests(
         """
 
         self.test_battery_reporting(device)
+
+    def __get_hid_notification_regex(self, device):
+        """Gets HID notification regex.
+
+        @param device: The Bluetooth device.
+
+        @return: HID connection regex.
+        """
+        return self.LE_HID_NOTIFICATION_REGEX if 'ble_' in device._name else (
+                self.CL_HID_NOTIFICATION_REGEX)
+
+    # This function currently only works with public addresses.
+    # TODO(b/308882697): Make HID performance tests compatible with random
+    #  address.
+    def get_peer_hid_notif_timestamps(self, device):
+        """Gets peer HID notifications timestamp.
+
+        @param device: The Bluetooth device.
+
+        @return: List of peer notifications timestamp.
+        """
+        return self.get_peer_protocol_notif_timestamps(
+                self.__get_hid_notification_regex(device), device)
+
+    # This function currently only works with public addresses.
+    # TODO(b/308882697): Make HID performance tests compatible with random
+    #  address.
+    def get_dut_hid_notif_timestamps(self, device):
+        """Gets DUT HID notifications timestamp.
+
+        @param device: The Bluetooth device.
+
+        @return: List of DUT notifications timestamp.
+        """
+
+        return self.get_dut_protocol_notif_timestamps(
+                self.__get_hid_notification_regex(device), device)
 
     def run_hid_reports_test(self,
                              device,

@@ -57,6 +57,40 @@ class  Executor_RestartUpstartJob_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_RestartUpstartJob_ResponseParams_Data) == 24,
               "Bad sizeof(Executor_RestartUpstartJob_ResponseParams_Data)");
+class  Executor_GetPpdFile_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> fileName;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetPpdFile_Params_Data>;
+
+  Executor_GetPpdFile_Params_Data();
+  ~Executor_GetPpdFile_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_GetPpdFile_Params_Data) == 16,
+              "Bad sizeof(Executor_GetPpdFile_Params_Data)");
+class  Executor_GetPpdFile_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> fileContents;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetPpdFile_ResponseParams_Data>;
+
+  Executor_GetPpdFile_ResponseParams_Data();
+  ~Executor_GetPpdFile_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_GetPpdFile_ResponseParams_Data) == 24,
+              "Bad sizeof(Executor_GetPpdFile_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -115,10 +149,79 @@ class Executor_RestartUpstartJob_ResponseParamsDataView {
 };
 
 
+class Executor_GetPpdFile_ParamsDataView {
+ public:
+  Executor_GetPpdFile_ParamsDataView() = default;
+
+  Executor_GetPpdFile_ParamsDataView(
+      internal::Executor_GetPpdFile_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetFileNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFileName(UserType* output) {
+    
+    auto* pointer = data_->fileName.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_GetPpdFile_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_GetPpdFile_ResponseParamsDataView {
+ public:
+  Executor_GetPpdFile_ResponseParamsDataView() = default;
+
+  Executor_GetPpdFile_ResponseParamsDataView(
+      internal::Executor_GetPpdFile_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetFileContentsDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFileContents(UserType* output) {
+    
+    auto* pointer = data_->fileContents.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::Executor_GetPpdFile_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void Executor_RestartUpstartJob_ResponseParamsDataView::GetErrorMsgDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->errorMsg.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void Executor_GetPpdFile_ParamsDataView::GetFileNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->fileName.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void Executor_GetPpdFile_ResponseParamsDataView::GetFileContentsDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->fileContents.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

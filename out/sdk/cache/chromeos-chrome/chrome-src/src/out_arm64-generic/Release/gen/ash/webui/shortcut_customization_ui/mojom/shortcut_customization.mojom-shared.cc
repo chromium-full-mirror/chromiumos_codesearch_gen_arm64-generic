@@ -56,6 +56,86 @@ std::ostream& operator<<(std::ostream& os, UserAction value) {
   return os << UserActionToString(value);
 }
 
+NOINLINE static const char* EditDialogCompletedActionsToStringHelper(EditDialogCompletedActions value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case EditDialogCompletedActions::kNoAction:
+      return "kNoAction";
+    case EditDialogCompletedActions::kAdd:
+      return "kAdd";
+    case EditDialogCompletedActions::kEdit:
+      return "kEdit";
+    case EditDialogCompletedActions::kEditAdd:
+      return "kEditAdd";
+    case EditDialogCompletedActions::kRemove:
+      return "kRemove";
+    case EditDialogCompletedActions::kRemoveAdd:
+      return "kRemoveAdd";
+    case EditDialogCompletedActions::kRemoveEdit:
+      return "kRemoveEdit";
+    case EditDialogCompletedActions::kRemoveEditAdd:
+      return "kRemoveEditAdd";
+    case EditDialogCompletedActions::kReset:
+      return "kReset";
+    case EditDialogCompletedActions::kResetAdd:
+      return "kResetAdd";
+    case EditDialogCompletedActions::kResetEdit:
+      return "kResetEdit";
+    case EditDialogCompletedActions::kResetEditAdd:
+      return "kResetEditAdd";
+    case EditDialogCompletedActions::kResetRemove:
+      return "kResetRemove";
+    case EditDialogCompletedActions::kResetRemoveAdd:
+      return "kResetRemoveAdd";
+    case EditDialogCompletedActions::kResetRemoveEdit:
+      return "kResetRemoveEdit";
+    case EditDialogCompletedActions::kResetRemoveEditAdd:
+      return "kResetRemoveEditAdd";
+    default:
+      return nullptr;
+  }
+}
+
+std::string EditDialogCompletedActionsToString(EditDialogCompletedActions value) {
+  const char *str = EditDialogCompletedActionsToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown EditDialogCompletedActions value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, EditDialogCompletedActions value) {
+  return os << EditDialogCompletedActionsToString(value);
+}
+
+NOINLINE static const char* SubactionsToStringHelper(Subactions value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Subactions::kNoErrorCancel:
+      return "kNoErrorCancel";
+    case Subactions::kNoErrorSuccess:
+      return "kNoErrorSuccess";
+    case Subactions::kErrorCancel:
+      return "kErrorCancel";
+    case Subactions::kErrorSuccess:
+      return "kErrorSuccess";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SubactionsToString(Subactions value) {
+  const char *str = SubactionsToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Subactions value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Subactions value) {
+  return os << SubactionsToString(value);
+}
+
 namespace internal {
 
 
@@ -1037,6 +1117,62 @@ bool AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data::
 AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data::AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data* object =
+      static_cast<const AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data*>(data);
+
+
+  if (!::ash::shortcut_customization::mojom::internal::EditDialogCompletedActions_Data
+        ::Validate(object->completed_actions, validation_context))
+    return false;
+
+  return true;
+}
+
+AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data::AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data* object =
+      static_cast<const AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data*>(data);
+
+
+  if (!::ash::shortcut_customization::mojom::internal::Subactions_Data
+        ::Validate(object->subactions, validation_context))
+    return false;
+
+  return true;
+}
+
+AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data::AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace shortcut_customization
@@ -1048,6 +1184,26 @@ namespace perfetto {
 void TraceFormatTraits<::ash::shortcut_customization::mojom::UserAction>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::shortcut_customization::mojom::UserAction value) {
   return std::move(context).WriteString(::ash::shortcut_customization::mojom::UserActionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::shortcut_customization::mojom::EditDialogCompletedActions>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::shortcut_customization::mojom::EditDialogCompletedActions value) {
+  return std::move(context).WriteString(::ash::shortcut_customization::mojom::EditDialogCompletedActionsToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::shortcut_customization::mojom::Subactions>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::shortcut_customization::mojom::Subactions value) {
+  return std::move(context).WriteString(::ash::shortcut_customization::mojom::SubactionsToString(value));
 }
 
 } // namespace perfetto

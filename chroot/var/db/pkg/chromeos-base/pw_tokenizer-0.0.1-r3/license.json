@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "pw_tokenizer", "version": "0.0.1", "revision": 3, "fullname": "chromeos-base/pw_tokenizer", "fullnamerev": "chromeos-base/pw_tokenizer-0.0.1-r3", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://pigweed.dev/"], "skip": false, "tainted": false, "ebuild_path": null}
